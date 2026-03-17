@@ -4,9 +4,9 @@
 
 [![Version](https://img.shields.io/badge/version-v0.9.0-teal)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
-[![Platform](https://img.shields.io/badge/platform-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/k1-edb-knowledge/k1-dashboard.html)
+[![Platform](https://img.shields.io/badge/platform-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html)
 
-**🔗 Live Demo:** [https://leonard-wong-git.github.io/k1-edb-knowledge/k1-dashboard.html](https://leonard-wong-git.github.io/k1-edb-knowledge/k1-dashboard.html)
+**🔗 Live Demo:** [https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html](https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html)
 
 ---
 
@@ -39,7 +39,7 @@
 ## 文件結構
 
 ```
-k1-edb-knowledge/
+edb-knowledge/
 ├── k1-dashboard.html          # 主應用程式（單一 HTML 文件）
 ├── index.html                 # 入口重定向
 ├── README.md                  # 本文件
