@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Session governance (internal AI agent files)
+dev/SESSION_HANDOFF.md
+dev/SESSION_LOG.md
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+INIT.md
+
+# Uploads / temp
+dev/uploads/
+*.tmp
+*.bak
+
+# Editor
+.vscode/
+.idea/
