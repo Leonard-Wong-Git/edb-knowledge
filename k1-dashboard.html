@@ -934,6 +934,170 @@ function QAPanel({ data }) {
   );
 }
 
+// ── Circular Analysis Panel ──
+function CircularAnalysisPanel() {
+  const BACKEND_URL = 'http://localhost:8787/analyze-circular';
+
+  const [circularText, setCircularText] = useState('');
+  const [role, setRole] = useState('principal');
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
+
+  const TOPIC_LABELS = {
+    finance: '財務/採購', hr: '人力資源', curriculum: '課程',
+    activity: '活動', student: '學生事務', it: '資訊科技', general: '通用/行政'
+  };
+
+  const ROLE_OPTIONS = [
+    { value: 'principal',       label: '校長' },
+    { value: 'vice_principal',  label: '副校長' },
+    { value: 'department_head', label: '科主任' },
+    { value: 'teacher',         label: '教師' },
+    { value: 'eo_admin',        label: '行政主任' },
+    { value: 'supplier',        label: '供應商' },
+    { value: 'all_roles',       label: '全部角色' },
+  ];
+
+  const handleAnalyze = async () => {
+    if (!circularText.trim()) return;
+    setLoading(true);
+    setError(null);
+    setResult(null);
+    try {
+      const res = await fetch(BACKEND_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ circular_text: circularText, role }),
+      });
+      const body = await res.json();
+      if (!res.ok) throw new Error(body.error || `HTTP ${res.status}`);
+      setResult(body);
+    } catch (err) {
+      setError(err.message || '無法連接後端，請確認本地伺服器已啟動。');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleClear = () => { setResult(null); setError(null); };
+
+  return (
+    <div className="flex-1 min-w-0">
+      {/* Input card */}
+      <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
+        <h2 className="text-lg font-bold text-gray-800 mb-1">通告分析</h2>
+        <p className="text-xs text-gray-400 mb-1">
+          貼上通告全文，選擇角色，由 AI 自動偵測相關主題並提供顧問式分析。
+        </p>
+        <p className="text-xs text-gray-300 mb-4">
+          後端需在本地運行：<code className="bg-gray-100 text-gray-500 px-1 rounded">cd backend &amp;&amp; OPENAI_API_KEY=sk-... npm run dev</code>
+        </p>
+        <textarea
+          value={circularText}
+          onChange={e => setCircularText(e.target.value)}
+          placeholder="貼上通告全文…"
+          rows={7}
+          className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-violet-500 focus:border-transparent resize-y mb-3 font-mono" />
+        <div className="flex items-center gap-3 flex-wrap">
+          <select
+            value={role}
+            onChange={e => setRole(e.target.value)}
+            className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-violet-500 focus:border-transparent">
+            {ROLE_OPTIONS.map(opt => (
+              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            ))}
+          </select>
+          <button
+            onClick={handleAnalyze}
+            disabled={loading || !circularText.trim()}
+            className="px-4 py-1.5 bg-violet-600 text-white text-sm rounded-lg hover:bg-violet-700 font-medium disabled:opacity-40 disabled:cursor-not-allowed">
+            {loading ? '分析中…' : '開始分析'}
+          </button>
+          {(result || error) && (
+            <button onClick={handleClear}
+                    className="px-3 py-1.5 text-xs text-gray-400 hover:text-gray-600 border border-gray-200 rounded-lg">
+              清除結果
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Loading */}
+      {loading && (
+        <div className="bg-white rounded-xl border border-gray-200 p-10 text-center text-gray-400">
+          <p className="text-3xl mb-3" style={{animation:'pulse 1.5s ease-in-out infinite'}}>⚙️</p>
+          <p className="text-sm">向量嵌入 + LLM 分析中，請稍候…</p>
+        </div>
+      )}
+
+      {/* Error */}
+      {!loading && error && (
+        <div className="bg-red-50 rounded-xl border border-red-200 p-5">
+          <p className="text-sm font-medium text-red-700 mb-1">連接錯誤</p>
+          <p className="text-sm text-red-600">{error}</p>
+          <p className="mt-2 text-xs text-red-400">
+            請確認後端已啟動：<code>cd backend &amp;&amp; OPENAI_API_KEY=sk-... npm run dev</code>
+          </p>
+        </div>
+      )}
+
+      {/* Results */}
+      {!loading && result && (
+        <div className="space-y-4">
+          {/* Detected topics */}
+          <div className="bg-white rounded-xl border border-gray-200 p-4">
+            <h3 className="text-sm font-semibold text-gray-700 mb-2">🎯 偵測主題</h3>
+            <div className="flex flex-wrap gap-2">
+              {result.detected_topics.length === 0 ? (
+                <span className="text-xs text-gray-400">未偵測到特定主題</span>
+              ) : result.detected_topics.map(t => (
+                <span key={t} className="text-xs px-2.5 py-1 rounded-full bg-violet-100 text-violet-700 font-medium">
+                  {TOPIC_LABELS[t] || t}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Used facts */}
+          <div className="bg-white rounded-xl border border-gray-200 p-4">
+            <h3 className="text-sm font-semibold text-gray-700 mb-2">
+              📋 注入知識 <span className="font-normal text-gray-400">({result.used_facts.length} 條)</span>
+            </h3>
+            {result.used_facts.length === 0 ? (
+              <p className="text-xs text-gray-400">無相關已確認知識可注入</p>
+            ) : (
+              <ul className="space-y-1.5">
+                {result.used_facts.map((fact, i) => (
+                  <li key={i} className="text-xs text-gray-600 flex items-start gap-1.5">
+                    <span className="text-violet-400 mt-0.5 flex-shrink-0">•</span>
+                    {fact}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          {/* Analysis */}
+          <div className="bg-white rounded-xl border border-gray-200 p-4">
+            <h3 className="text-sm font-semibold text-gray-700 mb-2">💡 AI 顧問分析</h3>
+            <div className="text-sm text-gray-800 whitespace-pre-wrap leading-relaxed">{result.analysis}</div>
+          </div>
+        </div>
+      )}
+
+      {/* Empty state */}
+      {!loading && !result && !error && (
+        <div className="bg-white rounded-xl border border-gray-200 p-10 text-center">
+          <p className="text-4xl mb-3">📋</p>
+          <p className="text-sm text-gray-400">貼上 EDB 通告，由 AI 自動分析並提供相關 EDB 規定建議</p>
+          <p className="text-xs text-gray-300 mt-1">使用語意向量嵌入 (text-embedding-3-small) 偵測主題</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Main App ──
 function App() {
   const [data, setData] = useState(INITIAL_DATA);
@@ -1187,6 +1351,10 @@ function App() {
                       className={`filter-tab px-3 py-1.5 text-xs font-medium ${viewMode === 'qa' ? 'bg-indigo-600 text-white' : 'text-gray-600'}`}>
                 🔍 智能搜尋
               </button>
+              <button onClick={() => setViewMode('circular')}
+                      className={`filter-tab px-3 py-1.5 text-xs font-medium ${viewMode === 'circular' ? 'bg-violet-600 text-white' : 'text-gray-600'}`}>
+                📋 通告分析
+              </button>
             </div>
             {viewMode === 'knowledge' && stats.draftCount > 0 && (
               <div className="flex items-center gap-1 text-xs px-3 py-1.5 rounded-full bg-yellow-100 text-yellow-700">
@@ -1207,6 +1375,11 @@ function App() {
             {viewMode === 'qa' && (
               <div className="flex items-center gap-1 text-xs px-3 py-1.5 rounded-full bg-indigo-100 text-indigo-700">
                 {stats.totalFacts} 條事實可搜尋
+              </div>
+            )}
+            {viewMode === 'circular' && (
+              <div className="flex items-center gap-1 text-xs px-3 py-1.5 rounded-full bg-violet-100 text-violet-700">
+                語意 RAG · 本地後端
               </div>
             )}
           </div>
@@ -1303,6 +1476,8 @@ function App() {
           <GuidelinesPanel />
         ) : viewMode === 'qa' ? (
           <QAPanel data={data} />
+        ) : viewMode === 'circular' ? (
+          <CircularAnalysisPanel />
         ) : (
         <main className="flex-1 min-w-0">
           {/* Topic header */}
