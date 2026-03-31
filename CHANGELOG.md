@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the K1 EDB Knowledge Dashboard are documented here.
+All notable changes to the 學校管理知識中心 are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
@@ -89,7 +89,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [v0.4.0] — 2026-03-16
 
 ### Added
-- **初始版本**：K1 EDB Knowledge Dashboard
+- **初始版本**：學校管理知識中心
 - React 18 + Babel + Tailwind CDN 單一 HTML 架構
 - 7 個主題 × 7 個角色共 57 個事實（初始版本）
 - 審核工作流：Draft → Approved，批量批核，JSON 匯出

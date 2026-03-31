@@ -1,4 +1,4 @@
-# K1 EDB Knowledge Dashboard
+# 學校管理知識中心
 
 > 香港教育局（EDB）政策知識庫 — 專為幼稚園 K1 學校管理人員而設
 
