@@ -743,8 +743,6 @@ function ExportModal({ isOpen, onClose, data, reviewState }) {
     if (isOpen) setExportKind('approved');
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   // Build export data with only approved facts
   const approvedExport = useMemo(() => {
     const out = { _meta: { ...data._meta } };
@@ -772,6 +770,8 @@ function ExportModal({ isOpen, onClose, data, reviewState }) {
   const adminSnapshot = useMemo(() => {
     return buildAdminSnapshot(data, reviewState);
   }, [data, reviewState]);
+
+  if (!isOpen) return null;
 
   const previewJson = exportKind === 'approved'
     ? JSON.stringify(approvedExport.json, null, 2)
@@ -1710,7 +1710,7 @@ function App() {
                 {validation.length === 0 ? '驗證通過' : `${validation.length} 個問題`}
               </div>
             )}
-            {viewMode === 'knowledge' && (
+            {viewMode === 'knowledge' && adminMode && (
               <button onClick={() => setExportModal(true)}
                       className="export-btn px-4 py-2 text-sm rounded-lg font-medium shadow-sm">
                 匯出 / 備份
@@ -1829,10 +1829,12 @@ function App() {
             <div className="flex items-center justify-between gap-3 mb-3">
               <h2 className="text-lg font-bold text-gray-800">{currentTopic._label || activeTopic}</h2>
               <div className="flex items-center gap-2 flex-wrap justify-end">
-                <button onClick={() => setExportModal(true)}
-                        className="export-btn px-3 py-1.5 text-sm rounded-lg font-medium shadow-sm">
-                  匯出 / 備份
-                </button>
+                {adminMode && (
+                  <button onClick={() => setExportModal(true)}
+                          className="export-btn px-3 py-1.5 text-sm rounded-lg font-medium shadow-sm">
+                    匯出 / 備份
+                  </button>
+                )}
                 {adminMode && (
                   <button onClick={handleAdd}
                           className="px-3 py-1.5 bg-teal-50 text-teal-700 text-sm rounded-lg hover:bg-teal-100 border border-teal-200 font-medium">
