@@ -375,7 +375,7 @@ function FactCard({ fact, index, roleId, topicId, status, sourceRef, onEdit, onD
 }
 
 function SourceList({ sources }) {
-  if (!sources || sources.length === 0) return null;
+  if (!sources || !Array.isArray(sources) || sources.length === 0) return null;
   return (
     <div className="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-100">
       <h4 className="text-xs font-bold text-gray-500 mb-2">資料來源</h4>
