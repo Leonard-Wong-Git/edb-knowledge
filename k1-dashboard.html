@@ -57,16 +57,17 @@ const { useState, useEffect, useCallback, useMemo, useRef } = React;
 
 // ── Role display config ──
 const ROLE_CONFIG = {
-  all_roles:       { label: '所有角色', color: 'bg-gray-600', textColor: 'text-white' },
-  principal:       { label: '校長',     color: 'bg-red-600',  textColor: 'text-white' },
-  vice_principal:  { label: '副校長',   color: 'bg-orange-500', textColor: 'text-white' },
-  department_head: { label: '科主任',   color: 'bg-blue-600', textColor: 'text-white' },
-  teacher:         { label: '教師',     color: 'bg-green-600', textColor: 'text-white' },
-  eo_admin:        { label: '行政主任', color: 'bg-purple-600', textColor: 'text-white' },
-  supplier:        { label: '供應商',   color: 'bg-yellow-600', textColor: 'text-white' },
+  all_roles:       { label: '全校適用',   color: 'bg-gray-600',    textColor: 'text-white' },
+  principal:       { label: '校長',       color: 'bg-red-600',     textColor: 'text-white' },
+  vice_principal:  { label: '副校長',     color: 'bg-orange-500',  textColor: 'text-white' },
+  panel_chair:     { label: '學位主任',   color: 'bg-indigo-600',  textColor: 'text-white' },
+  subject_head:    { label: '科主任',     color: 'bg-blue-600',    textColor: 'text-white' },
+  teacher:         { label: '教師',       color: 'bg-green-600',   textColor: 'text-white' },
+  eo_admin:        { label: '行政主任',   color: 'bg-purple-600',  textColor: 'text-white' },
+  supplier:        { label: '供應商',     color: 'bg-yellow-600',  textColor: 'text-white' },
 };
 
-const ROLE_ORDER = ['all_roles', 'principal', 'vice_principal', 'department_head', 'teacher', 'eo_admin', 'supplier'];
+const ROLE_ORDER = ['all_roles', 'principal', 'vice_principal', 'panel_chair', 'subject_head', 'teacher', 'eo_admin', 'supplier'];
 const LOCAL_SNAPSHOT_KEY = 'edb-knowledge-admin-snapshot-v1';
 
 // ── Admin authentication (SHA-256 of admin password, client-side only) ──
@@ -96,17 +97,24 @@ const INITIAL_REVIEW_STATE = {
   "finance.eo_admin.1": "draft",
   "finance.eo_admin.2": "draft",
   "finance.eo_admin.3": "draft",
-  "finance.department_head.0": "draft",
-  "finance.department_head.1": "draft",
-  "finance.department_head.2": "draft",
+  "finance.subject_head.0": "draft",
+  "finance.subject_head.1": "draft",
+  "finance.subject_head.2": "draft",
   "finance.teacher.0": "draft",
   "finance.teacher.1": "draft",
   "finance.supplier.0": "draft",
   "finance.supplier.1": "draft",
+  "finance.panel_chair.0": "draft",
+  "finance.panel_chair.1": "draft",
+  "finance.panel_chair.2": "draft",
   "hr.all_roles.0": "draft",
   "hr.principal.0": "draft",
   "hr.teacher.0": "draft",
   "hr.teacher.1": "draft",
+  "hr.panel_chair.0": "draft",
+  "hr.panel_chair.1": "draft",
+  "hr.panel_chair.2": "draft",
+  "hr.panel_chair.3": "draft",
   "curriculum.all_roles.0": "draft",
   "curriculum.all_roles.1": "draft",
   "curriculum.all_roles.2": "draft",
@@ -119,14 +127,18 @@ const INITIAL_REVIEW_STATE = {
   "curriculum.vice_principal.0": "draft",
   "curriculum.vice_principal.1": "draft",
   "curriculum.vice_principal.2": "draft",
-  "curriculum.department_head.0": "draft",
-  "curriculum.department_head.1": "draft",
-  "curriculum.department_head.2": "draft",
-  "curriculum.department_head.3": "draft",
+  "curriculum.subject_head.0": "draft",
+  "curriculum.subject_head.1": "draft",
+  "curriculum.subject_head.2": "draft",
+  "curriculum.subject_head.3": "draft",
   "curriculum.teacher.0": "draft",
   "curriculum.teacher.1": "draft",
   "curriculum.teacher.2": "draft",
   "curriculum.teacher.3": "draft",
+  "curriculum.panel_chair.0": "draft",
+  "curriculum.panel_chair.1": "draft",
+  "curriculum.panel_chair.2": "draft",
+  "curriculum.panel_chair.3": "draft",
   "activity.all_roles.0": "draft",
   "activity.all_roles.1": "draft",
   "activity.all_roles.2": "draft",
@@ -136,6 +148,10 @@ const INITIAL_REVIEW_STATE = {
   "activity.teacher.0": "draft",
   "activity.teacher.1": "draft",
   "activity.eo_admin.0": "draft",
+  "activity.panel_chair.0": "draft",
+  "activity.panel_chair.1": "draft",
+  "activity.panel_chair.2": "draft",
+  "activity.panel_chair.3": "draft",
   "student.all_roles.0": "draft",
   "student.all_roles.1": "draft",
   "student.all_roles.2": "draft",
@@ -146,6 +162,10 @@ const INITIAL_REVIEW_STATE = {
   "student.teacher.1": "draft",
   "student.teacher.2": "draft",
   "student.eo_admin.0": "draft",
+  "student.panel_chair.0": "draft",
+  "student.panel_chair.1": "draft",
+  "student.panel_chair.2": "draft",
+  "student.panel_chair.3": "draft",
   "it.all_roles.0": "draft",
   "it.all_roles.1": "draft",
   "it.all_roles.2": "draft",
@@ -155,13 +175,19 @@ const INITIAL_REVIEW_STATE = {
   "it.eo_admin.1": "draft",
   "it.teacher.0": "draft",
   "it.teacher.1": "draft",
-  "it.department_head.0": "draft",
+  "it.subject_head.0": "draft",
+  "it.panel_chair.0": "draft",
+  "it.panel_chair.1": "draft",
+  "it.panel_chair.2": "draft",
   "general.all_roles.0": "draft",
   "general.all_roles.1": "draft",
   "general.principal.0": "draft",
   "general.principal.1": "draft",
   "general.vice_principal.0": "draft",
-  "general.eo_admin.0": "draft"
+  "general.eo_admin.0": "draft",
+  "general.panel_chair.0": "draft",
+  "general.panel_chair.1": "draft",
+  "general.panel_chair.2": "draft"
 };
 
 // Review state embedded from admin snapshot (exported 2026-04-03)
@@ -211,7 +237,7 @@ function downloadJson(filename, payload) {
 // ── Initial data ──
 const INITIAL_DATA = {
   "_meta": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "created": "2026-03-16",
     "updated": "2026-04-03",
     "description": "K1 EDB 知識庫 — 含指引文件庫 + 智能搜尋 + 審核流程 + 出處追溯。全 81 事實已審核，所有出處指向具體 EDB 文件或指引。"
@@ -282,9 +308,9 @@ const INITIAL_DATA = {
       "eo_admin.1": 0,
       "eo_admin.2": 1,
       "eo_admin.3": 5,
-      "department_head.0": 0,
-      "department_head.1": 1,
-      "department_head.2": 2,
+      "subject_head.0": 0,
+      "subject_head.1": 1,
+      "subject_head.2": 2,
       "teacher.0": 0,
       "teacher.1": 0,
       "supplier.0": 0,
@@ -313,7 +339,7 @@ const INITIAL_DATA = {
       "行政主任負責編製年度財務報告，包括各項津貼的收支明細和餘額",
       "行政主任須按規定處理擴大營辦津貼及綜合家具設備津貼的申請和帳目"
     ],
-    "department_head": [
+    "subject_head": [
       "科主任提交採購申請時須註明用途、預算來源和所屬津貼類別",
       "科主任須在學年初編製科組預算，經行政主任核實後提交校長批核",
       "科主任申請動用津貼時須提交計劃書，列明服務內容、預算及預期成效"
@@ -325,6 +351,11 @@ const INITIAL_DATA = {
     "supplier": [
       "學校採購需競爭性報價，供應商不可向教職員提供任何回扣或利益",
       "供應商須遵守學校廉潔要求，書面報價╱招標時可能須簽署廉潔聲明，違反防賄規定者被取消資格"
+    ],
+    "panel_chair": [
+      "[課程統籌主任] 須統籌各科課程發展資源申請，確保津貼用途符合課程政策方向",
+      "[總務主任] 負責協調校舍設施採購需求，按採購門檻提交申請予行政主任跟進",
+      "[訓導及輔導主任] 須統籌訓輔相關服務採購，如輔導服務及心理評估費用報銷"
     ]
   },
   "hr": {
@@ -376,6 +407,12 @@ const INITIAL_DATA = {
     "teacher": [
       "CPD 記錄須由教師自行保存，學校要求時須呈交",
       "整合代課教師津貼（法團校董會學校）：學校每年獲整筆現金津貼聘請代課教師；缺假30-89日申請日薪代課費，90日或以上申請月薪臨時代課費"
+    ],
+    "panel_chair": [
+      "[課程統籌主任] 負責統籌全校教師 CPD 計劃，確保涵蓋不同科目及支援範疇",
+      "[特殊教育統籌主任] 須協調 SEN 支援人員調配，並向副校長匯報人手需求",
+      "[訓導及輔導主任] 負責統籌駐校社工及輔導人員的工作分配及個案跟進機制",
+      "[活動主任] 須統籌帶隊教師的行程安排及緊急聯絡機制，確保活動人手充足"
     ]
   },
   "curriculum": {
@@ -449,10 +486,10 @@ const INITIAL_DATA = {
       "vice_principal.0": 0,
       "vice_principal.1": 0,
       "vice_principal.2": 0,
-      "department_head.0": 0,
-      "department_head.1": 0,
-      "department_head.2": 0,
-      "department_head.3": 2,
+      "subject_head.0": 0,
+      "subject_head.1": 0,
+      "subject_head.2": 0,
+      "subject_head.3": 2,
       "teacher.0": 0,
       "teacher.1": 2,
       "teacher.2": 0,
@@ -476,7 +513,7 @@ const INITIAL_DATA = {
       "副校長負責監察全校課程實施進度，定期向校長匯報並提出改善建議",
       "副校長須推動全校善用學時策略，確保課時分配符合課程指引建議比例"
     ],
-    "department_head": [
+    "subject_head": [
       "科主任負責規劃本科課程，須配合學校整體課程方向及教育局最新課程指引",
       "科主任須帶領科組進行共同備課、觀課及課後檢討，推動教學專業交流",
       "科主任須制訂本科評估政策，確保進展性和總結性評估均衡運用",
@@ -487,6 +524,12 @@ const INITIAL_DATA = {
       "教師須在教學中融入價值觀教育，培養學生十二種首要價值觀和態度",
       "教師須運用多元化評估策略，包括進展性評估，以回饋學與教效能",
       "教師須培養學生九種共通能力，涵蓋溝通、批判思考、創造力及自我管理等"
+    ],
+    "panel_chair": [
+      "[課程統籌主任] 負責統籌全校課程發展計劃，協調各科組推行課程改革及評估政策",
+      "[教務主任] 統籌全校評估政策制訂，確保進展性與總結性評估均衡且符合指引",
+      "[資訊科技統籌主任] 負責統籌電子學習策略，推動 IT 工具融入各 KLA 課堂教學",
+      "[課程統籌主任] 須向副校長提交課程發展進度報告，反映各科組實施情況及建議"
     ]
   },
   "activity": {
@@ -551,6 +594,12 @@ const INITIAL_DATA = {
     ],
     "eo_admin": [
       "行政主任負責校外活動的行政支援，包括保險購買、交通安排和家長通知書"
+    ],
+    "panel_chair": [
+      "[活動主任] 負責統籌全年校本課外活動計劃，確保涵蓋五種基要學習經歷",
+      "[學生事務主任] 須確保校外活動期間學生安全安排符合教育局指引要求",
+      "[課程統籌主任] 負責審核校外活動申請，確保活動目標與課程及學習目標相符",
+      "[訓導及輔導主任] 須就校外活動制定行為守則及應對突發事件的輔導方案"
     ]
   },
   "student": {
@@ -628,6 +677,12 @@ const INITIAL_DATA = {
     ],
     "eo_admin": [
       "行政主任負責維護學生出席記錄系統，定期匯報缺課數據予校長和教育局"
+    ],
+    "panel_chair": [
+      "[特殊教育統籌主任] 負責統籌全校 SEN 識別、評估及支援計劃，並向副校長匯報",
+      "[訓導及輔導主任] 統籌全校訓育及輔導工作，建立跨部門個案轉介及跟進機制",
+      "[學生事務主任] 負責統籌學生健康及福祉項目，包括健康促進及危機支援服務",
+      "[特殊教育統籌主任] 須與家長及外間機構協調，安排學生接受校外評估及支援"
     ]
   },
   "it": {
@@ -669,7 +724,7 @@ const INITIAL_DATA = {
       "eo_admin.1": 0,
       "teacher.0": 0,
       "teacher.1": 1,
-      "department_head.0": 1
+      "subject_head.0": 1
     },
     "all_roles": [
       "學校須制訂資訊科技保安政策，涵蓋數據保護、網絡安全和個人資料處理",
@@ -688,8 +743,13 @@ const INITIAL_DATA = {
       "教師使用電子教學平台時須遵守學校資訊科技使用守則，保護學生個人資料",
       "教師須善用電子學習工具促進互動教學，培養學生運用資訊科技的能力"
     ],
-    "department_head": [
+    "subject_head": [
       "科主任須善用電子教學資源，推動本科運用資訊科技提升學與教效能"
+    ],
+    "panel_chair": [
+      "[資訊科技統籌主任] 負責統籌全校 IT 基礎設施規劃，制定設備更新及保安政策",
+      "[資訊科技統籌主任] 須統籌師生資訊科技培訓，確保全校遵守 IT 可接受使用守則",
+      "[課程統籌主任] 與資訊科技統籌主任協作，把電子學習工具系統化融入課程規劃"
     ]
   },
   "general": {
@@ -733,6 +793,11 @@ const INITIAL_DATA = {
     ],
     "eo_admin": [
       "行政主任負責學校日常行政運作，包括文書處理、檔案管理和校舍維修協調"
+    ],
+    "panel_chair": [
+      "[教務主任] 負責統籌學校自評（SSE）相關範疇，向副校長匯報評估進度及改善建議",
+      "[學生事務主任] 須統籌家校合作事宜，包括家長教育及學生支援的跨界別協作",
+      "[訓導及輔導主任] 負責統籌校本支援服務的使用數據，定期向校方提交分析報告"
     ]
   }
 };
@@ -1571,7 +1636,8 @@ function CircularAnalysisPanel() {
   const ROLE_OPTIONS = [
     { value: 'principal',       label: '校長' },
     { value: 'vice_principal',  label: '副校長' },
-    { value: 'department_head', label: '科主任' },
+    { value: 'panel_chair',  label: '學位主任' },
+    { value: 'subject_head', label: '科主任' },
     { value: 'teacher',         label: '教師' },
     { value: 'eo_admin',        label: '行政主任' },
     { value: 'supplier',        label: '供應商' },
@@ -1956,7 +2022,7 @@ function App() {
   const validation = useMemo(() => {
     const errors = [];
     const VALID_TOPICS = new Set(['finance','hr','curriculum','activity','student','it','general']);
-    const VALID_ROLES = new Set(['all_roles','principal','vice_principal','department_head','teacher','eo_admin','supplier']);
+    const VALID_ROLES = new Set(['all_roles','principal','vice_principal','panel_chair','subject_head','teacher','eo_admin','supplier']);
     Object.entries(data).forEach(([tid, td]) => {
       if (tid === '_meta') return;
       if (!VALID_TOPICS.has(tid)) errors.push(`Unknown topic: ${tid}`);
