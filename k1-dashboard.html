@@ -38,6 +38,16 @@
   .qa-result-card { transition: all 0.2s; border-left: 3px solid #6366f1; }
   .qa-result-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
   .qa-highlight { background: #fef9c3; border-radius: 2px; padding: 0 1px; }
+  .export-btn {
+    background: #0d9488;
+    color: #ffffff;
+    border: 1px solid #0f766e;
+    transition: all 0.15s;
+  }
+  .export-btn:hover {
+    background: #0f766e;
+    border-color: #115e59;
+  }
 </style>
 </head>
 <body>
@@ -1702,7 +1712,7 @@ function App() {
             )}
             {viewMode === 'knowledge' && (
               <button onClick={() => setExportModal(true)}
-                      className="px-4 py-2 bg-teal-600 text-white text-sm rounded-lg hover:bg-teal-700 font-medium">
+                      className="export-btn px-4 py-2 text-sm rounded-lg font-medium shadow-sm">
                 匯出 / 備份
               </button>
             )}
@@ -1820,7 +1830,7 @@ function App() {
               <h2 className="text-lg font-bold text-gray-800">{currentTopic._label || activeTopic}</h2>
               <div className="flex items-center gap-2 flex-wrap justify-end">
                 <button onClick={() => setExportModal(true)}
-                        className="px-3 py-1.5 bg-teal-600 text-white text-sm rounded-lg hover:bg-teal-700 font-medium shadow-sm">
+                        className="export-btn px-3 py-1.5 text-sm rounded-lg font-medium shadow-sm">
                   匯出 / 備份
                 </button>
                 {adminMode && (
