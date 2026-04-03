@@ -127,6 +127,14 @@ function downloadJson(filename, payload) {
   URL.revokeObjectURL(url);
 }
 
+function formatBuildStamp(lastModified) {
+  if (!lastModified) return null;
+  const dt = new Date(lastModified);
+  if (Number.isNaN(dt.getTime())) return null;
+  const pad = (n) => String(n).padStart(2, '0');
+  return `${dt.getFullYear()}${pad(dt.getMonth() + 1)}${pad(dt.getDate())}-${pad(dt.getHours())}${pad(dt.getMinutes())}`;
+}
+
 // ── Initial data ──
 const INITIAL_DATA = {
   "_meta": {
@@ -1409,6 +1417,12 @@ function App() {
   const [adminMode, setAdminMode] = useState(false);
   const [showAdminModal, setShowAdminModal] = useState(false);
 
+  const buildStamp = useMemo(() => formatBuildStamp(document.lastModified), []);
+  const displayVersion = useMemo(() => {
+    const base = data._meta?.version || '0.0.0';
+    return buildStamp ? `v${base}+${buildStamp}` : `v${base}`;
+  }, [data, buildStamp]);
+
   useEffect(() => {
     try {
       localStorage.setItem(
@@ -1644,7 +1658,7 @@ function App() {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold text-gray-800">EDB 學校管理知識中心</h1>
-            <p className="text-xs text-gray-500 mt-0.5">學校管理知識中心 — v{data._meta?.version || '0.0.0'}</p>
+            <p className="text-xs text-gray-500 mt-0.5">學校管理知識中心 — {displayVersion}</p>
           </div>
           <div className="flex items-center gap-3">
             {/* Admin toggle */}
@@ -1887,7 +1901,7 @@ function App() {
       {/* Footer */}
       <footer className="border-t border-gray-200 bg-white px-6 py-3 mt-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between text-xs text-gray-400">
-          <span>EDB 學校管理知識中心 v{data._meta?.version} | 最後更新: {data._meta?.updated || data._meta?.created}</span>
+          <span>EDB 學校管理知識中心 {displayVersion} | 最後更新: {data._meta?.updated || data._meta?.created}</span>
           <span>Facts: {stats.totalFacts} ({stats.approvedCount} approved, {stats.draftCount} draft) | Topics: {stats.topicCount}</span>
         </div>
       </footer>
