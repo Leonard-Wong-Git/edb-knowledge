@@ -2,7 +2,7 @@
 
 > 香港教育局（EDB）政策知識庫 — 專為幼稚園 K1 學校管理人員而設
 
-[![Version](https://img.shields.io/badge/version-v0.9.0-teal)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-v1.0.0-teal)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![Platform](https://img.shields.io/badge/platform-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html)
 
@@ -66,4 +66,4 @@ edb-knowledge/
 
 ---
 
-*最後更新：2026-03-17 | 維護：leonard-wong-git*
+*最後更新：2026-04-03 | 維護：leonard-wong-git*

@@ -6,6 +6,23 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## v1.0.0 — 2026-04-03
+
+### Changed
+- 平台版本正式由 `v0.9.0` 升級至 `v1.0.0`
+- 前端資料來源 `_meta.version` / `_meta.updated` 已同步到 `k1-dashboard.html` 與 `dev/knowledge/role_facts.json`
+- README 版本徽章更新為 `v1.0.0`
+- Semantic topic detector threshold 已收緊至 `0.45`，減少財務通告混入不相關主題事實
+
+### Added
+- **管理員登入保護**：新增 `🔒/🔓` header 按鈕、密碼 modal、SHA-256 驗證，以及所有寫入操作的 admin gate
+
+### Notes
+- `v1.0.0` 代表平台已具備管理員保護與版本升級後的基線功能
+- Git tag / GitHub release 是否已建立，需按實際 push / tag 流程另行確認
+
+---
+
 ## [v0.9.0] — 2026-03-17
 
 ### Changed — Source Audit (全面出處升級)
