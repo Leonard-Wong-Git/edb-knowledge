@@ -137,18 +137,12 @@ function downloadJson(filename, payload) {
   URL.revokeObjectURL(url);
 }
 
-function formatBuildStamp(lastModified) {
-  if (!lastModified) return null;
-  const dt = new Date(lastModified);
-  if (Number.isNaN(dt.getTime())) return null;
-  const pad = (n) => String(n).padStart(2, '0');
-  return `${dt.getFullYear()}${pad(dt.getMonth() + 1)}${pad(dt.getDate())}-${pad(dt.getHours())}${pad(dt.getMinutes())}`;
-}
+
 
 // ── Initial data ──
 const INITIAL_DATA = {
   "_meta": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "created": "2026-03-16",
     "updated": "2026-04-03",
     "description": "K1 EDB 知識庫 — 含指引文件庫 + 智能搜尋 + 審核流程 + 出處追溯。全 81 事實已審核，所有出處指向具體 EDB 文件或指引。"
@@ -1427,11 +1421,9 @@ function App() {
   const [adminMode, setAdminMode] = useState(false);
   const [showAdminModal, setShowAdminModal] = useState(false);
 
-  const buildStamp = useMemo(() => formatBuildStamp(document.lastModified), []);
   const displayVersion = useMemo(() => {
-    const base = data._meta?.version || '0.0.0';
-    return buildStamp ? `v${base}+${buildStamp}` : `v${base}`;
-  }, [data, buildStamp]);
+    return `v${data._meta?.version || '0.0.0'}`;
+  }, [data]);
 
   useEffect(() => {
     try {

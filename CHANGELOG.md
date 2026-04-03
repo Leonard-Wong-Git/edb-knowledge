@@ -6,7 +6,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## v1.0.0 — 2026-04-03
+## [v1.0.1] — 2026-04-03
+
+### Changed
+- 移除 `displayVersion` 的動態 build stamp（不再隨每次時間改變），直接依賴手動版本號更新，使版本顯示更穩定清晰。
+- 修復了 `ExportModal` 中的 React Error 310 (Hooks 渲染順序違規) 問題，解決點擊 `匯出 / 備份` 導致畫面崩潰的錯誤。
+- 將原先公開顯示的 `匯出 / 備份` 按鈕加上 `adminMode` 權限鎖，確保只在管理員登入後才可見及點擊。
+
+---
+
+## [v1.0.0] — 2026-04-03
 
 ### Changed
 - 平台版本正式由 `v0.9.0` 升級至 `v1.0.0`

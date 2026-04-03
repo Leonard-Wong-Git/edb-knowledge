@@ -2,7 +2,7 @@
 
 > 香港教育局（EDB）政策知識庫 — 專為學校管理人員而設
 
-[![Version](https://img.shields.io/badge/version-v1.0.0-teal)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-v1.0.1-teal)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![Platform](https://img.shields.io/badge/platform-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html)
 
