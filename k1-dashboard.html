@@ -1660,7 +1660,7 @@ function App() {
             <h1 className="text-xl font-bold text-gray-800">EDB 學校管理知識中心</h1>
             <p className="text-xs text-gray-500 mt-0.5">學校管理知識中心 — {displayVersion}</p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap justify-end">
             {/* Admin toggle */}
             <button
               onClick={() => adminMode ? setAdminMode(false) : setShowAdminModal(true)}
@@ -1816,14 +1816,20 @@ function App() {
         <main className="flex-1 min-w-0">
           {/* Topic header */}
           <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between gap-3 mb-3">
               <h2 className="text-lg font-bold text-gray-800">{currentTopic._label || activeTopic}</h2>
-              {adminMode && (
-                <button onClick={handleAdd}
-                        className="px-3 py-1.5 bg-teal-50 text-teal-700 text-sm rounded-lg hover:bg-teal-100 border border-teal-200 font-medium">
-                  + 新增事實
+              <div className="flex items-center gap-2 flex-wrap justify-end">
+                <button onClick={() => setExportModal(true)}
+                        className="px-3 py-1.5 bg-teal-600 text-white text-sm rounded-lg hover:bg-teal-700 font-medium shadow-sm">
+                  匯出 / 備份
                 </button>
-              )}
+                {adminMode && (
+                  <button onClick={handleAdd}
+                          className="px-3 py-1.5 bg-teal-50 text-teal-700 text-sm rounded-lg hover:bg-teal-100 border border-teal-200 font-medium">
+                    + 新增事實
+                  </button>
+                )}
+              </div>
             </div>
             {currentTopic._keywords_zh && currentTopic._keywords_zh.length > 0 && (
               <div className="flex flex-wrap gap-1 mb-3">
