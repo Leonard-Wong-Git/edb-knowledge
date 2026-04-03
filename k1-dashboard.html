@@ -68,7 +68,7 @@ const ROLE_CONFIG = {
 };
 
 const ROLE_ORDER = ['all_roles', 'principal', 'vice_principal', 'panel_chair', 'subject_head', 'teacher', 'eo_admin', 'supplier'];
-const LOCAL_SNAPSHOT_KEY = 'edb-knowledge-admin-snapshot-v1';
+const LOCAL_SNAPSHOT_KEY = 'edb-knowledge-admin-snapshot-v2';
 
 // ── Admin authentication (SHA-256 of admin password, client-side only) ──
 const ADMIN_HASH = '9d35e73750e8de343a4db8a157f461b8f2bbe9b15c39c1b14a4b1aa2f16b318a';
@@ -206,13 +206,35 @@ function buildAdminSnapshot(data, reviewState) {
   };
 }
 
+function migrateSnapshot(parsed) {
+  // v1→v2: rename department_head → subject_head in data and review_state
+  function renameKey(obj, oldK, newK) {
+    if (!obj || typeof obj !== 'object') return obj;
+    const out = {};
+    for (const [k, v] of Object.entries(obj)) {
+      out[k === oldK ? newK : k] = (typeof v === 'object' && v !== null) ? renameKey(v, oldK, newK) : v;
+    }
+    return out;
+  }
+  if (parsed.data) parsed.data = renameKey(parsed.data, 'department_head', 'subject_head');
+  if (parsed.review_state) {
+    const rs = {};
+    for (const [k, v] of Object.entries(parsed.review_state)) {
+      rs[k.replace('department_head', 'subject_head')] = v;
+    }
+    parsed.review_state = rs;
+  }
+  return parsed;
+}
+
 function loadLocalSnapshot() {
   try {
     const raw = localStorage.getItem(LOCAL_SNAPSHOT_KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw);
+    let parsed = JSON.parse(raw);
     if (!parsed || typeof parsed !== 'object') return null;
     if (!parsed.data || !parsed.review_state) return null;
+    parsed = migrateSnapshot(parsed);
     return {
       data: parsed.data,
       reviewState: parsed.review_state,
