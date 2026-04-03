@@ -1405,7 +1405,11 @@ function CircularAnalysisPanel() {
 function App() {
   const [data, setData] = useState(() => {
     const snapshot = loadLocalSnapshot();
-    return snapshot?.data || deepClone(INITIAL_DATA);
+    if (snapshot?.data) {
+      snapshot.data._meta = deepClone(INITIAL_DATA._meta);
+      return snapshot.data;
+    }
+    return deepClone(INITIAL_DATA);
   });
   const [reviewState, setReviewState] = useState(() => {
     const snapshot = loadLocalSnapshot();
