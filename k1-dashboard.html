@@ -80,23 +80,92 @@ async function sha256(str) {
 const makeKey = (topicId, roleId, index) => `${topicId}.${roleId}.${index}`;
 
 // Draft indices: facts pending user review. All 32 approved by user on 2026-03-17.
-const DRAFT_INDICES = {};
+const INITIAL_REVIEW_STATE = {
+  "finance.all_roles.0": "approved",
+  "finance.all_roles.1": "approved",
+  "finance.all_roles.2": "approved",
+  "finance.all_roles.3": "approved",
+  "finance.all_roles.4": "approved",
+  "finance.principal.0": "approved",
+  "finance.principal.1": "approved",
+  "finance.principal.2": "approved",
+  "finance.principal.3": "approved",
+  "finance.vice_principal.0": "approved",
+  "finance.vice_principal.1": "approved",
+  "finance.eo_admin.0": "draft",
+  "finance.eo_admin.1": "draft",
+  "finance.eo_admin.2": "draft",
+  "finance.eo_admin.3": "draft",
+  "finance.department_head.0": "draft",
+  "finance.department_head.1": "draft",
+  "finance.department_head.2": "draft",
+  "finance.teacher.0": "draft",
+  "finance.teacher.1": "draft",
+  "finance.supplier.0": "draft",
+  "finance.supplier.1": "draft",
+  "hr.all_roles.0": "draft",
+  "hr.principal.0": "draft",
+  "hr.teacher.0": "draft",
+  "hr.teacher.1": "draft",
+  "curriculum.all_roles.0": "draft",
+  "curriculum.all_roles.1": "draft",
+  "curriculum.all_roles.2": "draft",
+  "curriculum.all_roles.3": "draft",
+  "curriculum.all_roles.4": "draft",
+  "curriculum.principal.0": "draft",
+  "curriculum.principal.1": "draft",
+  "curriculum.principal.2": "draft",
+  "curriculum.principal.3": "draft",
+  "curriculum.vice_principal.0": "draft",
+  "curriculum.vice_principal.1": "draft",
+  "curriculum.vice_principal.2": "draft",
+  "curriculum.department_head.0": "draft",
+  "curriculum.department_head.1": "draft",
+  "curriculum.department_head.2": "draft",
+  "curriculum.department_head.3": "draft",
+  "curriculum.teacher.0": "draft",
+  "curriculum.teacher.1": "draft",
+  "curriculum.teacher.2": "draft",
+  "curriculum.teacher.3": "draft",
+  "activity.all_roles.0": "draft",
+  "activity.all_roles.1": "draft",
+  "activity.all_roles.2": "draft",
+  "activity.principal.0": "draft",
+  "activity.principal.1": "draft",
+  "activity.vice_principal.0": "draft",
+  "activity.teacher.0": "draft",
+  "activity.teacher.1": "draft",
+  "activity.eo_admin.0": "draft",
+  "student.all_roles.0": "draft",
+  "student.all_roles.1": "draft",
+  "student.all_roles.2": "draft",
+  "student.principal.0": "draft",
+  "student.principal.1": "draft",
+  "student.vice_principal.0": "draft",
+  "student.teacher.0": "draft",
+  "student.teacher.1": "draft",
+  "student.teacher.2": "draft",
+  "student.eo_admin.0": "draft",
+  "it.all_roles.0": "draft",
+  "it.all_roles.1": "draft",
+  "it.all_roles.2": "draft",
+  "it.principal.0": "draft",
+  "it.principal.1": "draft",
+  "it.eo_admin.0": "draft",
+  "it.eo_admin.1": "draft",
+  "it.teacher.0": "draft",
+  "it.teacher.1": "draft",
+  "it.department_head.0": "draft",
+  "general.all_roles.0": "draft",
+  "general.all_roles.1": "draft",
+  "general.principal.0": "draft",
+  "general.principal.1": "draft",
+  "general.vice_principal.0": "draft",
+  "general.eo_admin.0": "draft"
+};
 
-function buildInitialReview(data, defaultStatus) {
-  const review = {};
-  Object.entries(data).forEach(([tid, td]) => {
-    if (tid === '_meta') return;
-    Object.entries(td).forEach(([rk, fs]) => {
-      if (rk.startsWith('_')) return;
-      if (!Array.isArray(fs)) return;
-      fs.forEach((_, i) => {
-        const key = makeKey(tid, rk, i);
-        review[key] = DRAFT_INDICES[key] ? 'draft' : defaultStatus;
-      });
-    });
-  });
-  return review;
-}
+// Review state embedded from admin snapshot (exported 2026-04-03)
+// Replaces legacy DRAFT_INDICES + buildInitialReview pattern.
 
 function deepClone(obj) {
   return JSON.parse(JSON.stringify(obj));
@@ -142,37 +211,90 @@ function downloadJson(filename, payload) {
 // ── Initial data ──
 const INITIAL_DATA = {
   "_meta": {
-    "version": "1.0.1",
+    "version": "1.0.0",
     "created": "2026-03-16",
     "updated": "2026-04-03",
     "description": "K1 EDB 知識庫 — 含指引文件庫 + 智能搜尋 + 審核流程 + 出處追溯。全 81 事實已審核，所有出處指向具體 EDB 文件或指引。"
   },
   "finance": {
     "_label": "財務 / 採購 / 津貼",
-    "_keywords_zh": ["採購","財務","津貼","撥款","資助","金額","報價","招標","經費"],
+    "_keywords_zh": [
+      "採購",
+      "財務",
+      "津貼",
+      "撥款",
+      "資助",
+      "金額",
+      "報價",
+      "招標",
+      "經費"
+    ],
     "_sources": [
-      {"title": "資助學校採購程序指引 PDF（2025年10月更新）", "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures%20in%20Aided%20Schools%20Trad%20Chi_2024.pdf", "retrieved": "2026-03-17"},
-      {"title": "設有法團校董會的資助學校財務管理指引（PDF）", "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf", "retrieved": "2026-03-16"},
-      {"title": "學校發展津貼的參考資料", "url": "https://www.edb.gov.hk/tc/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/index.html", "retrieved": "2026-03-16"},
-      {"title": "資助學校採購程序指引 PDF（2025年10月更新）—用於校長審批流程核對", "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures%20in%20Aided%20Schools%20Trad%20Chi_2024.pdf", "retrieved": "2026-03-17"},
-      {"title": "津貼資料總覽（擴大營辦津貼、代課教師津貼等）", "url": "https://www.edb.gov.hk/tc/sch-admin/fin-management/subsidy-info/index.html", "retrieved": "2026-03-16"},
-      {"title": "擴大╱營辦津貼及綜合家具設備津貼參考資料", "url": "https://www.edb.gov.hk/tc/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/index.html", "retrieved": "2026-03-17"},
-      {"title": "資助學校處理政府津貼參考資料", "url": "https://www.edb.gov.hk/tc/sch-admin/fin-management/subsidy-info/tips-handling-gov-subventions/index.html", "retrieved": "2026-03-17"}
+      {
+        "title": "資助學校採購程序指引 PDF（2025年10月更新）",
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures%20in%20Aided%20Schools%20Trad%20Chi_2024.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "設有法團校董會的資助學校財務管理指引（PDF）",
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "學校發展津貼的參考資料",
+        "url": "https://www.edb.gov.hk/tc/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "資助學校採購程序指引 PDF（2025年10月更新）—用於校長審批流程核對",
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures%20in%20Aided%20Schools%20Trad%20Chi_2024.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "津貼資料總覽（擴大營辦津貼、代課教師津貼等）",
+        "url": "https://www.edb.gov.hk/tc/sch-admin/fin-management/subsidy-info/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "擴大╱營辦津貼及綜合家具設備津貼參考資料",
+        "url": "https://www.edb.gov.hk/tc/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/index.html",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "資助學校處理政府津貼參考資料",
+        "url": "https://www.edb.gov.hk/tc/sch-admin/fin-management/subsidy-info/tips-handling-gov-subventions/index.html",
+        "retrieved": "2026-03-17"
+      }
     ],
     "_sourceMap": {
-      "all_roles.0": 0, "all_roles.1": 0, "all_roles.2": 0, "all_roles.3": 6, "all_roles.4": 2,
-      "principal.0": 3, "principal.1": 1, "principal.2": 1, "principal.3": 2,
-      "vice_principal.0": 3, "vice_principal.1": 2,
-      "eo_admin.0": 0, "eo_admin.1": 0, "eo_admin.2": 1, "eo_admin.3": 5,
-      "department_head.0": 0, "department_head.1": 1, "department_head.2": 2,
-      "teacher.0": 0, "teacher.1": 0,
-      "supplier.0": 0, "supplier.1": 0
+      "all_roles.0": 0,
+      "all_roles.1": 0,
+      "all_roles.2": 0,
+      "all_roles.3": 6,
+      "all_roles.4": 2,
+      "principal.0": 3,
+      "principal.1": 1,
+      "principal.2": 1,
+      "principal.3": 2,
+      "vice_principal.0": 3,
+      "vice_principal.1": 2,
+      "eo_admin.0": 0,
+      "eo_admin.1": 0,
+      "eo_admin.2": 1,
+      "eo_admin.3": 5,
+      "department_head.0": 0,
+      "department_head.1": 1,
+      "department_head.2": 2,
+      "teacher.0": 0,
+      "teacher.1": 0,
+      "supplier.0": 0,
+      "supplier.1": 0
     },
     "all_roles": [
-      "採購門檻：≤$5,000直購；$5,001-$50,000 最少2口頭報價；$50,001-$200,000 最少5書面報價；>$200,000招標",
-      "採購人員須遵守《防止賄賂條例》，不得接受供應商利益；書面報價╱招標可在文件中加入廉潔條款",
+      "≤$5,000直購；$5,001-$50,000 最少2口頭報價；$50,001-$200,000 最少5書面報價；>$200,000招標，並需要按校本指引",
+      "採購人員須遵守《防止賄賂條例》，不得接受供應商利益及進行利益衝突申報 ；書面報價╱招標可在文件中加入廉潔條款",
       "學校須保存完整採購記錄（包括報價單、批核文件）3 個曆年，以備審計核查",
-      "政府津貼必須按核准用途使用，不同津貼之間不可挪用，餘款處理須按教育局指引辦理",
+      "政府津貼必須專款專用，只可按教育局核准用途開支；不同政府津貼之間不得互相挪用或「拆東牆補西牆」；如有餘款，必須依照教育局相關財務及津貼指引，包括通告及示例報表等",
       "學校發展津貼已改為經常撥款，按核准班級數目計算，每學年由教育局在 8 月發放"
     ],
     "principal": [
@@ -207,15 +329,43 @@ const INITIAL_DATA = {
   },
   "hr": {
     "_label": "人力資源 / 教師 / 職員",
-    "_keywords_zh": ["教師","CPD","培訓","聘任","薪酬","專業發展","代課","人事"],
+    "_keywords_zh": [
+      "教師",
+      "CPD",
+      "培訓",
+      "聘任",
+      "薪酬",
+      "專業發展",
+      "代課",
+      "人事"
+    ],
     "_sources": [
-      {"title": "教育局通告第6/2020號 — 落實教師專業發展專責小組的建議（含附件二至四：教師專業階梯及CPD）", "url": "https://www.edb.gov.hk/attachment/tc/teacher/qualification-training-development/development/cpd-teachers/EDBC20006C.pdf", "retrieved": "2026-03-17"},
-      {"title": "為設有法團校董會學校而提供的整合代課教師津貼指引（2023年9月）", "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/trg/TRG_guidelines_C.pdf", "retrieved": "2026-03-17"},
-      {"title": "教育局通告第1/2006號 — 資助學校批假事宜（教職員批假指引）", "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/guideline-granting-leave/embc06001tc.pdf", "retrieved": "2026-03-17"},
-      {"title": "教師專業操守指引", "url": "https://www.edb.gov.hk/tc/teacher/guidelines_tpc/", "retrieved": "2026-03-16"}
+      {
+        "title": "教育局通告第6/2020號 — 落實教師專業發展專責小組的建議（含附件二至四：教師專業階梯及CPD）",
+        "url": "https://www.edb.gov.hk/attachment/tc/teacher/qualification-training-development/development/cpd-teachers/EDBC20006C.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "為設有法團校董會學校而提供的整合代課教師津貼指引（2023年9月）",
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/trg/TRG_guidelines_C.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "教育局通告第1/2006號 — 資助學校批假事宜（教職員批假指引）",
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/guideline-granting-leave/embc06001tc.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "教師專業操守指引",
+        "url": "https://www.edb.gov.hk/tc/teacher/guidelines_tpc/",
+        "retrieved": "2026-03-16"
+      }
     ],
     "_sourceMap": {
-      "all_roles.0": 0, "principal.0": 0, "teacher.0": 0, "teacher.1": 1
+      "all_roles.0": 0,
+      "principal.0": 0,
+      "teacher.0": 0,
+      "teacher.1": 1
     },
     "all_roles": [
       "教師持續專業發展（CPD）：建議每三年週期內完成不少於 150 小時，包含結構性及非結構性活動"
@@ -230,23 +380,83 @@ const INITIAL_DATA = {
   },
   "curriculum": {
     "_label": "課程 / 學習 / 評估",
-    "_keywords_zh": ["課程","科目","評估","學習","教學","課時","學習宗旨","課程指引","KLA","學習領域","STEAM","價值觀"],
+    "_keywords_zh": [
+      "課程",
+      "科目",
+      "評估",
+      "學習",
+      "教學",
+      "課時",
+      "學習宗旨",
+      "課程指引",
+      "KLA",
+      "學習領域",
+      "STEAM",
+      "價值觀"
+    ],
     "_sources": [
-      {"title": "《小學教育課程指引》完整版（2024）", "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide/PECG%202024_full.pdf", "retrieved": "2026-03-17"},
-      {"title": "小學教育的七個學習宗旨", "url": "https://www.edb.gov.hk/tc/curriculum-development/7-learning-goals/primary/index.html", "retrieved": "2026-03-16"},
-      {"title": "學校課程持續更新 — 學校課程架構", "url": "https://www.edb.gov.hk/tc/curriculum-development/renewal/framework.html", "retrieved": "2026-03-16"},
-      {"title": "各學習領域課程指引", "url": "https://www.edb.gov.hk/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/index.html", "retrieved": "2026-03-16"},
-      {"title": "擬定校曆表指引", "url": "https://www.edb.gov.hk/tc/curriculum-development/resource-support/guidelines-sch-calendar/index.html", "retrieved": "2026-03-16"},
-      {"title": "基礎教育課程指引(2014)", "url": "https://www.edb.gov.hk/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/guide-basic-edu-curriculum/index.html", "retrieved": "2026-03-16"},
-      {"title": "STEAM 教育", "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/steam/index.html", "retrieved": "2026-03-17"},
-      {"title": "個人、社會及人文教育（人文科）", "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/index.html", "retrieved": "2026-03-17"}
+      {
+        "title": "《小學教育課程指引》完整版（2024）",
+        "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide/PECG%202024_full.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "小學教育的七個學習宗旨",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/7-learning-goals/primary/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "學校課程持續更新 — 學校課程架構",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/renewal/framework.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "各學習領域課程指引",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "擬定校曆表指引",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/resource-support/guidelines-sch-calendar/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "基礎教育課程指引(2014)",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/guide-basic-edu-curriculum/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "STEAM 教育",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/steam/index.html",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "個人、社會及人文教育（人文科）",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/index.html",
+        "retrieved": "2026-03-17"
+      }
     ],
     "_sourceMap": {
-      "all_roles.0": 2, "all_roles.1": 1, "all_roles.2": 2, "all_roles.3": 2, "all_roles.4": 2,
-      "principal.0": 0, "principal.1": 0, "principal.2": 6, "principal.3": 7,
-      "vice_principal.0": 0, "vice_principal.1": 0, "vice_principal.2": 0,
-      "department_head.0": 0, "department_head.1": 0, "department_head.2": 0, "department_head.3": 2,
-      "teacher.0": 0, "teacher.1": 2, "teacher.2": 0, "teacher.3": 2
+      "all_roles.0": 2,
+      "all_roles.1": 1,
+      "all_roles.2": 2,
+      "all_roles.3": 2,
+      "all_roles.4": 2,
+      "principal.0": 0,
+      "principal.1": 0,
+      "principal.2": 6,
+      "principal.3": 7,
+      "vice_principal.0": 0,
+      "vice_principal.1": 0,
+      "vice_principal.2": 0,
+      "department_head.0": 0,
+      "department_head.1": 0,
+      "department_head.2": 0,
+      "department_head.3": 2,
+      "teacher.0": 0,
+      "teacher.1": 2,
+      "teacher.2": 0,
+      "teacher.3": 2
     },
     "all_roles": [
       "八個學習領域(KLA)：中文、英文、數學、科學、科技、個人社會及人文、藝術、體育",
@@ -281,18 +491,46 @@ const INITIAL_DATA = {
   },
   "activity": {
     "_label": "校外活動 / 比賽 / 考察",
-    "_keywords_zh": ["活動","考察","旅行","比賽","境外","課外活動","全方位學習"],
+    "_keywords_zh": [
+      "活動",
+      "考察",
+      "旅行",
+      "比賽",
+      "境外",
+      "課外活動",
+      "全方位學習"
+    ],
     "_sources": [
-      {"title": "學校行政手冊（2025年11月版）— 第八章 校外活動", "url": "https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html", "retrieved": "2026-03-16"},
-      {"title": "全方位學習津貼運用指引", "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/life-wide-learning/resource-and-support/doc-and-guidelines.html", "retrieved": "2026-03-16"},
-      {"title": "境外遊學活動指引", "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Study%20Tours%20Guide_TC.pdf", "retrieved": "2026-03-17"},
-      {"title": "戶外活動指引", "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf", "retrieved": "2026-03-17"}
+      {
+        "title": "學校行政手冊（2025年11月版）— 第八章 校外活動",
+        "url": "https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "全方位學習津貼運用指引",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/life-wide-learning/resource-and-support/doc-and-guidelines.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "境外遊學活動指引",
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Study%20Tours%20Guide_TC.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "戶外活動指引",
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf",
+        "retrieved": "2026-03-17"
+      }
     ],
     "_sourceMap": {
-      "all_roles.0": 2, "all_roles.1": 3, "all_roles.2": 1,
-      "principal.0": 3, "principal.1": 2,
+      "all_roles.0": 2,
+      "all_roles.1": 3,
+      "all_roles.2": 1,
+      "principal.0": 3,
+      "principal.1": 2,
       "vice_principal.0": 3,
-      "teacher.0": 3, "teacher.1": 3,
+      "teacher.0": 3,
+      "teacher.1": 3,
       "eo_admin.0": 3
     },
     "all_roles": [
@@ -317,20 +555,58 @@ const INITIAL_DATA = {
   },
   "student": {
     "_label": "學生事務 / 安全 / 健康",
-    "_keywords_zh": ["學生","意外","安全","健康","SEN","欺凌","訓輔","出席"],
+    "_keywords_zh": [
+      "學生",
+      "意外",
+      "安全",
+      "健康",
+      "SEN",
+      "欺凌",
+      "訓輔",
+      "出席"
+    ],
     "_sources": [
-      {"title": "學校行政手冊（2025年11月版）— 第三章 學生事務", "url": "https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html", "retrieved": "2026-03-16"},
-      {"title": "融合教育運作指南", "url": "https://www.edb.gov.hk/tc/edu-system/special/support/wsa/index.html", "retrieved": "2026-03-16"},
-      {"title": "學生訓育工作指引（第一章：理念及原則）", "url": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/principles-guidelines/guidelines-on-student-discipline/ch1.pdf", "retrieved": "2026-03-17"},
-      {"title": "學童乘搭校車的安全指引", "url": "https://www.edb.gov.hk/tc/student-parents/safety/sch-bus-services/index.html", "retrieved": "2026-03-16"},
-      {"title": "全校參與訓育及輔導工作（含反欺凌指引）", "url": "https://www.edb.gov.hk/tc/teacher/student-guidance-discipline-services/principles-guidelines/whole-school-approach-to-guidance-discipline/index.html", "retrieved": "2026-03-17"},
-      {"title": "學生安全", "url": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch/sch-safety.html", "retrieved": "2026-03-17"}
+      {
+        "title": "學校行政手冊（2025年11月版）— 第三章 學生事務",
+        "url": "https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "融合教育運作指南",
+        "url": "https://www.edb.gov.hk/tc/edu-system/special/support/wsa/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "學生訓育工作指引（第一章：理念及原則）",
+        "url": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/principles-guidelines/guidelines-on-student-discipline/ch1.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "學童乘搭校車的安全指引",
+        "url": "https://www.edb.gov.hk/tc/student-parents/safety/sch-bus-services/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "全校參與訓育及輔導工作（含反欺凌指引）",
+        "url": "https://www.edb.gov.hk/tc/teacher/student-guidance-discipline-services/principles-guidelines/whole-school-approach-to-guidance-discipline/index.html",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "學生安全",
+        "url": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch/sch-safety.html",
+        "retrieved": "2026-03-17"
+      }
     ],
     "_sourceMap": {
-      "all_roles.0": 0, "all_roles.1": 4, "all_roles.2": 1,
-      "principal.0": 0, "principal.1": 2,
+      "all_roles.0": 0,
+      "all_roles.1": 4,
+      "all_roles.2": 1,
+      "principal.0": 0,
+      "principal.1": 2,
       "vice_principal.0": 2,
-      "teacher.0": 1, "teacher.1": 0, "teacher.2": 5,
+      "teacher.0": 1,
+      "teacher.1": 0,
+      "teacher.2": 5,
       "eo_admin.0": 0
     },
     "all_roles": [
@@ -356,17 +632,43 @@ const INITIAL_DATA = {
   },
   "it": {
     "_label": "資訊科技 / 設備 / 網絡",
-    "_keywords_zh": ["資訊科技","電腦","設備","IT","AI","數字教育","網絡","BYOD"],
+    "_keywords_zh": [
+      "資訊科技",
+      "電腦",
+      "設備",
+      "IT",
+      "AI",
+      "數字教育",
+      "網絡",
+      "BYOD"
+    ],
     "_sources": [
-      {"title": "學校資訊保安建議措施（第二章：保安管理）（2019年9月修訂版）", "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/Information-Security-in-Schools/isrp-ch02-tc.pdf", "retrieved": "2026-03-17"},
-      {"title": "運用資訊科技進行互動學習（BYOD、電子學習）", "url": "https://www.edb.gov.hk/tc/curriculum-development/4-key-tasks/it-for-interactive-learning/index.html", "retrieved": "2026-03-17"},
-      {"title": "學校資訊保安建議措施（第六章：數據保安）（2019年9月修訂版）", "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/Information-Security-in-Schools/isrp-ch06-tc.pdf", "retrieved": "2026-03-17"}
+      {
+        "title": "學校資訊保安建議措施（第二章：保安管理）（2019年9月修訂版）",
+        "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/Information-Security-in-Schools/isrp-ch02-tc.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "運用資訊科技進行互動學習（BYOD、電子學習）",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/4-key-tasks/it-for-interactive-learning/index.html",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "學校資訊保安建議措施（第六章：數據保安）（2019年9月修訂版）",
+        "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/Information-Security-in-Schools/isrp-ch06-tc.pdf",
+        "retrieved": "2026-03-17"
+      }
     ],
     "_sourceMap": {
-      "all_roles.0": 0, "all_roles.1": 1, "all_roles.2": 2,
-      "principal.0": 1, "principal.1": 0,
-      "eo_admin.0": 0, "eo_admin.1": 0,
-      "teacher.0": 0, "teacher.1": 1,
+      "all_roles.0": 0,
+      "all_roles.1": 1,
+      "all_roles.2": 2,
+      "principal.0": 1,
+      "principal.1": 0,
+      "eo_admin.0": 0,
+      "eo_admin.1": 0,
+      "teacher.0": 0,
+      "teacher.1": 1,
       "department_head.0": 1
     },
     "all_roles": [
@@ -394,13 +696,27 @@ const INITIAL_DATA = {
     "_label": "通用（無特定主題匹配時）",
     "_keywords_zh": [],
     "_sources": [
-      {"title": "公開資料守則", "url": "https://www.edb.gov.hk/tc/access-to-info/index.html", "retrieved": "2026-03-16"},
-      {"title": "學校行政手冊（2025年11月版）", "url": "https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html", "retrieved": "2026-03-16"},
-      {"title": "校本管理資訊網站（法團校董會治理、校長職責、年度計劃）", "url": "https://sbm.edb.gov.hk", "retrieved": "2026-03-17"}
+      {
+        "title": "公開資料守則",
+        "url": "https://www.edb.gov.hk/tc/access-to-info/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "學校行政手冊（2025年11月版）",
+        "url": "https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "校本管理資訊網站（法團校董會治理、校長職責、年度計劃）",
+        "url": "https://sbm.edb.gov.hk",
+        "retrieved": "2026-03-17"
+      }
     ],
     "_sourceMap": {
-      "all_roles.0": 0, "all_roles.1": 2,
-      "principal.0": 2, "principal.1": 2,
+      "all_roles.0": 0,
+      "all_roles.1": 2,
+      "principal.0": 2,
+      "principal.1": 2,
       "vice_principal.0": 1,
       "eo_admin.0": 1
     },
@@ -1413,7 +1729,7 @@ function App() {
   });
   const [reviewState, setReviewState] = useState(() => {
     const snapshot = loadLocalSnapshot();
-    return snapshot?.reviewState || buildInitialReview(INITIAL_DATA, 'draft');
+    return snapshot?.reviewState || deepClone(INITIAL_REVIEW_STATE);
   });
   const [activeTopic, setActiveTopic] = useState('finance');
   const [filterRole, setFilterRole] = useState('all');
