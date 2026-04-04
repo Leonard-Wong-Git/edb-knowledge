@@ -551,3 +551,105 @@ Known risks / cautions:
 
 Post-startup first action: Confirm user has pushed, then verify both URLs in browser. If accessible, proceed to mount EDB-AI-Circular-System repo for integration.
 ```
+
+---
+
+## 2026-04-04 Session 32 — bump_version.py + K1_API_SPEC.md
+
+1. Agent & Session ID: Claude_20260404_1406b
+2. Task summary: 建立 bump_version.py（版本自動更新腳本）；統一所有文件版本至 1.2.2；建立 K1_API_SPEC.md（供 EDB Circular System 接入參考）。
+3. Layer classification: Product / System Layer
+4. Source triage: 版本不一致（HTML/README 1.1.0 vs JSON 1.2.2）+ 接口文件缺失
+5. Files read:
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `README.md`
+   - `bump_version.py`（新建後讀取驗證）
+6. Files changed:
+   - `bump_version.py`（新建）— patch/minor/major/set 四種模式；同步更新 6 個文件；README 版本 badge + 最後更新日期；CHANGELOG 自動插入 entry
+   - `K1_API_SPEC.md`（新建）— Circular System 接入規格：端點 URL、knowledge.json 格式、guidelines.json 格式、topic 對照、角色對照、整合流程
+   - `k1-dashboard.html` — 版本統一至 1.2.2（原 1.1.0）
+   - `README.md` — 版本 badge 統一至 1.2.2；最後更新日期更新；文件結構更新（加入 knowledge.json、guidelines.json、bump_version.py）
+   - `CHANGELOG.md` — 插入 v1.2.2 entry
+   - `knowledge.json` / `guidelines.json` / `dev/knowledge/role_facts.json` — 版本統一至 1.2.2
+   - `dev/SESSION_HANDOFF.md` — 更新
+   - `dev/SESSION_LOG.md` — 新增本次記錄
+7. Completed:
+   - ✅ bump_version.py：dry-run 測試通過；set 1.2.2 執行後所有文件版本一致確認
+   - ✅ README 更新：文件結構加入新文件；自動日期更新已驗證
+   - ✅ K1_API_SPEC.md：涵蓋接入所需的全部規格（端點、schema、篩選邏輯、角色對照、整合流程）
+8. Validation / QC:
+   - `python3 bump_version.py` 執行後：6 個文件均顯示 1.2.2，無版本不一致 ✅
+   - `python3 bump_version.py patch --dry-run`：預覽正確（1.2.2 → 1.2.3，日期更新，CHANGELOG entry）✅
+   - git log：5 個新 commit 已建立 ✅
+9. Pending:
+   - 用戶從 Mac terminal push 所有 commits
+   - 驗證端點 URL（push 後）
+   - EDB Circular System 接入（參考 K1_API_SPEC.md）
+10. Next priorities:
+   - (1) Push + 驗證 3 個 URL
+   - (2) Circular System 接入
+   - (3) Backend regression test
+11. Risks / blockers:
+   - VM push blocked（HTTP 403）
+   - EDB Circular System repo 未 mount
+   - K1_API_SPEC.md 的 URL 示例為縮略版（實際 URL 在 guidelines.json）
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| 新工具 bump_version.py | SESSION_HANDOFF.md baseline + SESSION_LOG.md | ✓ Done |
+| 版本統一 1.2.2 | 所有 6 個文件已更新；CHANGELOG 已插入 | ✓ Done |
+| 新接口文件 K1_API_SPEC.md | SESSION_HANDOFF.md open priorities 更新 | ✓ Done |
+| README 文件結構更新 | README.md 已更新 | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Project: K1 EDB Knowledge Platform / Dashboard repo
+Current state: v1.2.2, all files version-unified. Multiple commits awaiting push.
+
+Key assets ready (pending push to go live):
+- knowledge.json — 102 facts, 7 topics, department_head spec, public API endpoint
+- guidelines.json — 39 EDB document reference links, 7 topics, public API endpoint
+- bump_version.py — auto version bumper (patch/minor/major/set), updates 6 files + CHANGELOG + README date
+- K1_API_SPEC.md — interface spec for EDB Circular System integration (endpoints, schema, filter logic, role mapping, integration flow)
+
+TWO-PLATFORM ARCHITECTURE (confirmed):
+- K1 = knowledge curation: fact accuracy + EDB guideline reference links
+- EDB Circular System = circular analysis (separate repo)
+- K1_API_SPEC.md documents how Circular System should call K1's endpoints
+
+IMMEDIATE ACTION — push from user's Mac terminal:
+  cd ~/Downloads/Claude-edb-knowledge && git pull --rebase && git push origin main
+
+After push, verify these 3 URLs in browser:
+  https://leonard-wong-git.github.io/edb-knowledge/knowledge.json
+  https://leonard-wong-git.github.io/edb-knowledge/guidelines.json
+  https://leonard-wong-git.github.io/edb-knowledge/K1_API_SPEC.md
+
+Pending tasks (priority order):
+1. Push + verify 3 URLs
+2. Mount EDB-AI-Circular-System repo and integrate per K1_API_SPEC.md:
+   - fetch knowledge.json + guidelines.json by circular topics
+   - filter: topics × department_head × approved
+   - inject facts + doc links into analysis prompt
+3. Backend semantic quality regression: 2-3 real circulars through POST /analyze-circular
+
+Key files changed last 2 sessions:
+- bump_version.py (new — version bumper)
+- K1_API_SPEC.md (new — Circular System interface spec)
+- guidelines.json (new — 39 doc reference links)
+- README.md (updated — file structure + auto date)
+- CHANGELOG.md (v1.2.2 entry added)
+- k1-dashboard.html / knowledge.json / role_facts.json (version unified to 1.2.2)
+
+Known risks / cautions:
+- VM push blocked (HTTP 403) — push from local Mac terminal only
+- EDB Circular System repo not yet mounted — integration not started
+- All new endpoints unverified until after push
+
+Post-startup first action: Confirm user has pushed, then open the 3 URLs above in browser to verify they are publicly accessible. If yes, proceed to mount EDB-AI-Circular-System repo for K1_API_SPEC.md-guided integration.
+```

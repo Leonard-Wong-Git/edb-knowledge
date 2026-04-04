@@ -4,7 +4,7 @@
 1. Version: **v1.2.2** (K1 EDB Knowledge Platform) — Live on GitHub Pages ✅
 2. Core commands / features: K1 EDB Knowledge Dashboard (single HTML `k1-dashboard.html`, React 18 + Babel + Tailwind CDN). INITIAL_DATA 直接嵌入為 JS object literal（無 fetch，無 AppLoader）。107 facts, 7 topics, 全部 approved。4 view modes: 知識庫 / 指引文件庫 / 🔍 智能搜尋 / 📋 通告分析。Admin SHA-256 auth。雙匯出模式。同瀏覽器 localStorage 自動保存。Guidelines Library（39 EDB 文件）。**EDB Circular System 接口**：`knowledge.json` + `guidelines.json`（repo root）已生成並已 commit，供 EDB-AI-Circular-System 調用。
 3. Regression baseline: **107 facts** across 7 topics, all approved. `panel_chair` + `subject_head` in dashboard UI. `knowledge.json` / `role_facts.json` 使用 EDB Circular System 規格（`department_head`，102 facts）。All facts ≤ 80 chars, ≤5 per role key. 39 guideline documents. `guidelines.json`：39 EDB 文件 reference links（含 id/title/titleShort/url/year/format），按 topic 分組。
-4. Release / merge status: **v1.2.2 + guidelines.json committed locally（commit b241d1e），待 push 至 GitHub**（`cd ~/Downloads/Claude-edb-knowledge && git pull --rebase && git push origin main`）。Repo: `Leonard-Wong-Git/edb-knowledge`. Live URL: https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html.
+4. Release / merge status: **v1.2.2，多個 commits 待 push 至 GitHub**（`cd ~/Downloads/Claude-edb-knowledge && git pull --rebase && git push origin main`）。包含：guidelines.json、bump_version.py、K1_API_SPEC.md、README 更新、版本統一。Repo: `Leonard-Wong-Git/edb-knowledge`. Live URL: https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html.
 5. Active branch / environment: Single-file HTML (`k1-dashboard.html`, ~2275 lines). INITIAL_DATA 嵌入。TypeScript backend in `backend/`（本地 :8787，未部署，端對端 smoke test 已通過）。
 6. External platforms / dependencies in scope: EDB website. CDN: React 18.2, Babel 7.23, Tailwind 2.2. Backend deps: openai@4.104.0, tsx, TypeScript. **EDB-AI-Circular-System**（獨立 repo，https://leonard-wong-git.github.io/EDB-AI-Circular-System/edb-dashboard.html）。
 
@@ -32,10 +32,11 @@
 
 ## Open Priorities
 1. **[即時]** Push local commits to GitHub: `cd ~/Downloads/Claude-edb-knowledge && git pull --rebase && git push origin main`
-2. **[推送後]** 瀏覽器驗證兩個公開端點：
+2. **[推送後]** 瀏覽器驗證三個公開端點：
    - `https://leonard-wong-git.github.io/edb-knowledge/knowledge.json`
    - `https://leonard-wong-git.github.io/edb-knowledge/guidelines.json`
-3. **[次要]** EDB Circular System（另 repo）接入 knowledge.json + guidelines.json — 按通告 topics 篩選後返回事實及文件連結；需 mount EDB-AI-Circular-System repo
+   - `https://leonard-wong-git.github.io/edb-knowledge/K1_API_SPEC.md`（供 Circular System 參考）
+3. **[Circular System 接入]** Mount EDB-AI-Circular-System repo，按 K1_API_SPEC.md 接入：fetch knowledge.json + guidelines.json，按 topics × department_head × approved 篩選，注入分析 prompt
 4. **[品質]** 用 2–3 份真實 EDB 通告做 backend regression / quality test，檢查 semantic topic detection 與 `used_facts` 是否合理
 
 ## Known Risks / Blockers
@@ -76,9 +77,10 @@ This file and `dev/SESSION_LOG.md` must be updated at the end of every session.
 2. Session ID: Claude_20260404_1406
 3. Completed:
    - ✅ 確認 K1 架構：K1 = 知識策展（事實 + 指引文件連結）；EDB Circular System = 通告分析；K1 提供知識豐富化，不做通告分析
-   - ✅ 生成 `guidelines.json`（repo root）：39 EDB 指引文件 reference links，按 topic 分組（finance/hr/curriculum/activity/student/it/general），每項含 id/title/titleShort/url/year/format
-   - ✅ Commit b241d1e：guidelines.json + CODEBASE_CONTEXT.md + DOC_SYNC_CHECKLIST.md + archive + SESSION 治理文件
-   - ✅ 確認兩個公開 API 端點已準備好（待 push 後生效）：knowledge.json + guidelines.json
-4. Pending: 用戶從 Mac terminal push；push 後驗證兩個 URL；EDB Circular System repo 接入
-5. Next priorities (max 3): (1) Push 並確認兩個 URL 可公開存取 (2) EDB Circular System 接入 knowledge.json + guidelines.json (3) 用真實通告做 backend semantic quality test
-6. Risks / blockers: VM push blocked (HTTP 403)；EDB Circular System repo 未 mount；guidelines.json URL 尚未驗證（待 push）
+   - ✅ 生成 `guidelines.json`（repo root）：39 EDB 指引文件 reference links，按 topic 分組，每項含 id/title/titleShort/url/year/format
+   - ✅ 建立 `bump_version.py`：自動 bump patch/minor/major/set，同步更新 HTML、JSON×3、README badge + 日期、CHANGELOG
+   - ✅ 統一所有文件版本至 1.2.2（README/HTML 原為 1.1.0，guidelines.json 原為 1.0.0）
+   - ✅ 建立 `K1_API_SPEC.md`：Circular System 接入規格（端點 URL、schema、篩選邏輯、整合流程）
+4. Pending: 用戶從 Mac terminal push 所有 commits；push 後驗證端點；mount EDB-AI-Circular-System repo 進行接入
+5. Next priorities (max 3): (1) Push 並確認 3 個 URL 可存取 (2) Circular System 接入（參考 K1_API_SPEC.md）(3) Backend semantic quality regression
+6. Risks / blockers: VM push blocked (HTTP 403)；EDB Circular System repo 未 mount；所有端點待 push 後驗證
