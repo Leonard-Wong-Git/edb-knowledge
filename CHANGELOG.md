@@ -6,6 +6,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v1.2.2] — 2026-04-04
+
+### Changed
+- 統一版本號至 v1.2.2：guidelines.json 接口就緒，knowledge.json + guidelines.json 公開 API 端點已 commit
+
+---
+
 ## [v1.1.0] — 2026-04-03
 
 ### Changed
