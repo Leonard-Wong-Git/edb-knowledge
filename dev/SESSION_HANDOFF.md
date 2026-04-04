@@ -11,7 +11,7 @@
 ## Layer Map
 1. Product / System Layer: Dashboard UI, fact data model, review workflow, JSON export, EDB data ingestion, Guidelines Library, Knowledge Platform backend.
 2. Development Governance Layer: AGENTS.md session governance, handoff/log protocol.
-3. Current task belongs to which layer: Product / System Layer (semantic topic-detection threshold tuned; resuming content review next).
+3. Current task belongs to which layer: Product / System Layer (Knowledge Platform standalone completion and verification).
 4. Known layer-boundary risks: None currently.
 
 ## Mandatory Start Checklist
@@ -31,9 +31,9 @@
 - Dashboard 4th view mode "📋 通告分析" serves as the RAG test interface
 
 ## Open Priorities
-1. **[即時]** Push 2 commits to GitHub: `cd ~/Downloads/Claude-edb-knowledge && git pull --rebase && git push origin main`
-2. **[次要]** EDB Circular System 接入 knowledge.json — mount EDB-AI-Circular-System repo，寫接入代碼（GitHub Actions 或前端 fetch）
-3. **[驗證]** Circular smoke test：用真實 EDB 通告確認 knowledge.json 事實正確注入 AI prompt
+1. **[即時]** Push local commits to GitHub: `cd ~/Downloads/Claude-edb-knowledge && git pull --rebase && git push origin main`
+2. **[驗證]** 用 2–3 份真實 EDB 通告做 backend regression / quality test，檢查 semantic topic detection 與 `used_facts` 是否合理
+3. **[次要]** EDB Circular System 接入 knowledge.json — 另 repo 處理；不是本平台完成條件
 
 ## Known Risks / Blockers
 1. EDB website pages sometimes 404 or restructured — guideline URLs may need updating
@@ -70,15 +70,13 @@ This file and `dev/SESSION_LOG.md` must be updated at the end of every session.
 
 ## Last Session Record
 1. UTC date: 2026-04-04
-2. Session ID: Claude_20260404_0700
+2. Session ID: Codex_20260404_0834
 3. Completed:
-   - ✅ 修復 GitHub Pages 白屏（v1.2.2）— INITIAL_DATA 直接嵌入 JS object，移除 AppLoader/fetch
-   - ✅ 用戶確認 dashboard 「back to normal」
-   - ✅ 分析 EDB 通告智能分析系統（v3.0.4，115 通告，circulars.json 結構）
-   - ✅ 確認兩平台 topics 命名對齊，識別 department_head 角色差異
-   - ✅ 生成 role_facts.json（EDB 規格，102 facts，驗收 ✅ PASSED）
-   - ✅ 生成 knowledge.json 至 repo root（穩定公開接口端點）
-   - ✅ §4a 歸檔：SESSION_LOG 869→149 行，Sessions 16–26 → dev/archive/SESSION_LOG_2026_Q2.md
-4. Pending: 用戶 push 至 GitHub；EDB Circular System 接入代碼
-5. Next priorities (max 3): (1) Push 並確認 knowledge.json 可存取 (2) EDB Circular System 接入 (3) Circular smoke test
-6. Risks / blockers: VM push blocked（HTTP 403）；EDB-AI-Circular-System repo 未 mount
+   - ✅ 確認 backend standalone schema mismatch：後端型別原先仍用 `subject_head/panel_chair`，但實際 `role_facts.json` / `knowledge.json` 已是 `department_head`
+   - ✅ 對齊 backend role schema 至 `department_head`
+   - ✅ 新增 `backend/README.md`，補齊獨立 runbook / env / API example
+   - ✅ 新增 `GET /health` 端點與可配置 `KNOWLEDGE_PATH`
+   - ✅ Machine verification：`backend/` 的 `npm run check` 與 `npm run build` 均通過
+4. Pending: Push 最新 backend / docs 變更；用更多真實通告做 quality regression；之後才考慮外部系統接入
+5. Next priorities (max 3): (1) Push 並確認最新檔案上 GitHub (2) 用 2–3 份真實 EDB 通告做 regression test (3) 之後再處理外部系統接入
+6. Risks / blockers: Backend 已通過 smoke test，但 semantic topic detection 對 activity 類內容仍值得用更多真實通告驗證。VM push blocked（HTTP 403）；外部 Circular System repo 未 mount

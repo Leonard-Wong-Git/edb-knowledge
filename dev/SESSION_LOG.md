@@ -216,3 +216,247 @@ Known risks:
 
 Post-startup first action: 確認用戶已 push，然後瀏覽器驗證 https://leonard-wong-git.github.io/edb-knowledge/knowledge.json 是否可存取；若可，進行 EDB Circular System 接入。
 ```
+
+---
+
+## 2026-04-04 Session 29 — Knowledge Platform Standalone Completion Pass
+
+1. Agent & Session ID: Codex_20260404_0834
+2. Task summary: Focused only on making the Knowledge Platform itself internally complete and self-consistent. Fixed backend role-schema drift against the exported knowledge files, added a standalone backend README, added `/health`, added configurable `KNOWLEDGE_PATH`, and re-ran machine verification successfully.
+3. Layer classification: Product / System Layer
+4. Source triage: Documentation drift + code logic issue
+5. Files read:
+   - `AGENTS.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/DOC_SYNC_CHECKLIST.md`
+   - `backend/package.json`
+   - `backend/src/types/knowledge.ts`
+   - `backend/src/config/env.ts`
+   - `backend/src/lib/knowledgeRepository.ts`
+   - `backend/src/lib/llmClient.ts`
+   - `backend/src/lib/embeddingClient.ts`
+   - `backend/src/services/knowledgeSelector.ts`
+   - `backend/src/services/topicDetector.ts`
+   - `backend/src/server.ts`
+   - `dev/knowledge/role_facts.json`
+   - `knowledge.json`
+6. Files changed:
+   - `backend/src/types/knowledge.ts` — aligned backend role schema to `department_head`
+   - `backend/src/config/env.ts` — added `PORT`, `CORS_ORIGIN`, `KNOWLEDGE_PATH` helpers
+   - `backend/src/lib/knowledgeRepository.ts` — reads configurable knowledge path
+   - `backend/src/server.ts` — added `GET /health`, now uses env helpers
+   - `backend/.env.example` — documented standalone backend env vars
+   - `backend/README.md` — created standalone runbook and API examples
+   - `dev/DOC_SYNC_CHECKLIST.md` — added row for backend README / standalone runbook
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+7. Completed:
+   - ✅ Confirmed exported knowledge files use `department_head`
+   - ✅ Removed backend schema drift (`subject_head` / `panel_chair`) so the standalone backend now matches actual exported knowledge contract
+   - ✅ Added backend operator README
+   - ✅ Added `GET /health` endpoint
+   - ✅ Added configurable `KNOWLEDGE_PATH`
+   - ✅ Re-ran backend machine verification successfully
+8. Validation / QC:
+   - `python3` role scan confirmed `role_facts.json` uses `['all_roles', 'department_head', 'eo_admin', 'principal', 'supplier', 'teacher', 'vice_principal']`
+   - `npm run check` in `backend/` → PASS
+   - `npm run build` in `backend/` → PASS
+9. Pending:
+   - Start backend with a real `OPENAI_API_KEY` and run a real `/analyze-circular` smoke test
+   - Push latest changes from local terminal
+   - Only after standalone validation, consider external system integration
+10. Next priorities:
+   - (1) Runtime smoke test of backend with valid key
+   - (2) Push local commits to GitHub
+   - (3) Real circular analysis verification
+11. Risks / blockers:
+   - Runtime LLM / embeddings path still needs a real API-key-backed smoke test
+   - VM push remains blocked (HTTP 403)
+   - External EDB Circular System repo is still separate and not mounted here
+12. Notes: This session intentionally did not touch the external Circular System. Work was limited to the standalone Knowledge Platform.
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: Backend role schema did not match the actual exported knowledge files | Root Cause: Earlier backend evolution left `types/knowledge.ts` on `subject_head/panel_chair`, while `role_facts.json` and `knowledge.json` had already converged to `department_head` | Fix: Updated backend role types to `department_head` and removed the stale role fields | Verification: Python scan of `role_facts.json` confirmed actual roles; backend compile/build both passed after alignment
+2. Problem: Backend was missing a standalone operator runbook and health endpoint | Root Cause: Prior sessions focused on implementation but not on independent service operability | Fix: Added `backend/README.md`, `.env.example` expansion, configurable runtime env helpers, and `GET /health` | Verification: Files created, route present in `server.ts`, compile/build both passed
+
+### Consolidation / Retirement Record
+1. Duplicate / drift found: Yes — backend had an internal role schema that diverged from exported knowledge JSON
+2. Single source of truth chosen: `dev/knowledge/role_facts.json` / `knowledge.json` plus `K1_KNOWLEDGE_INTERFACE_SPEC.md`
+3. What was merged: Standalone backend schema merged back to the exported knowledge contract
+4. What was retired / superseded: `subject_head` / `panel_chair` backend-only role schema
+5. Why consolidation was needed: A standalone Knowledge Platform must serve the same contract it reads
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Role schema alignment | Backend types may drift from knowledge file | Compare backend role ids to `role_facts.json` roles and align | Backend role ids should match exported knowledge contract | `department_head` confirmed in JSON; backend types updated to match | PASS |
+| Compile verification | Backend source modified | Run `npm run check` | TypeScript type-check should pass | Passed | PASS |
+| Build verification | Backend source modified | Run `npm run build` | Build should succeed | Passed | PASS |
+| Standalone operability docs | Backend lacks standalone runbook | Add backend README and env examples | Operator can see env vars, run commands, health endpoint, API example | `backend/README.md` created with runbook and examples | PASS |
+
+Overall: PASS
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Tech stack / build / dependency change | CODEBASE_CONTEXT.md Stack or Build section | ✓ Done |
+| New project doc added | This file — add a row for the new doc's update triggers | ✓ Done |
+| Backend README / standalone runbook added | CODEBASE_CONTEXT.md Build & Run or Directory Map; SESSION_HANDOFF.md priorities if operator flow changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Project: K1 EDB Knowledge Platform / Dashboard repo
+Current state:
+- Frontend dashboard is live at v1.2.2 on GitHub Pages
+- Standalone Knowledge Platform backend in `backend/` is now internally complete enough to run independently:
+  - semantic topic detection via embeddings
+  - role-aware knowledge selection
+  - prompt builder
+  - OpenAI LLM + embedding clients
+  - `POST /analyze-circular`
+  - `GET /health`
+  - standalone `backend/README.md`
+- Backend role schema has been realigned to the exported knowledge contract: `department_head`
+- Machine verification passed:
+  - `cd backend && npm run check` ✅
+  - `cd backend && npm run build` ✅
+
+Pending tasks (priority order):
+1. Run a real backend smoke test with a valid key:
+   `cd backend && OPENAI_API_KEY=sk-... npm run dev`
+   then hit `GET /health` and one real `POST /analyze-circular`
+2. Push the latest local commits from the user's local terminal
+3. After standalone backend validation, decide whether/when to integrate with the separate EDB Circular System repo
+
+Key files changed this session:
+- backend/README.md
+- backend/.env.example
+- backend/src/types/knowledge.ts
+- backend/src/config/env.ts
+- backend/src/lib/knowledgeRepository.ts
+- backend/src/server.ts
+- dev/DOC_SYNC_CHECKLIST.md
+- dev/CODEBASE_CONTEXT.md
+- dev/SESSION_HANDOFF.md
+- dev/SESSION_LOG.md
+
+Known risks / cautions:
+- Runtime OpenAI path still needs one real smoke test with valid `OPENAI_API_KEY`
+- VM push remains blocked (HTTP 403); push from local terminal
+- External EDB Circular System repo is still separate and intentionally untouched in this phase
+
+First concrete next action:
+`cd backend && OPENAI_API_KEY=sk-... npm run dev`
+```
+
+---
+
+## 2026-04-04 Session 30 — Backend End-to-End Smoke Test Passed
+
+1. Agent & Session ID: Codex_20260404_0943
+2. Task summary: Completed the standalone Knowledge Platform smoke test with a live backend runtime. Verified `GET /health` and confirmed `POST /analyze-circular` returns detected topics, selected facts, and generated analysis end-to-end.
+3. Layer classification: Product / System Layer
+4. Source triage: Runtime verification / environment validation
+5. Files read:
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - backend runtime curl outputs supplied by the user
+6. Files changed:
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+7. Completed:
+   - ✅ Confirmed backend health endpoint returns `{"ok":true,"service":"edb-knowledge-platform-backend"}`
+   - ✅ Confirmed `POST /analyze-circular` returns `detected_topics`, `used_facts`, and `analysis`
+   - ✅ Confirmed knowledge loading, semantic detection, fact selection, prompt assembly, and OpenAI response path all work end-to-end
+8. Validation / QC:
+   - `curl http://localhost:8788/health` → PASS
+   - `curl -X POST http://localhost:8788/analyze-circular ...` → PASS
+   - Response included:
+     - `detected_topics: ["finance"]`
+     - populated `used_facts`
+     - populated `analysis`
+9. Pending:
+   - Push latest backend/docs changes from local terminal
+   - Run 2–3 more real circular regression tests to judge semantic quality (especially activity-related detection)
+   - Only after standalone confidence is higher, consider external system integration
+10. Next priorities:
+   - (1) Push local commits to GitHub
+   - (2) Run more real-circular backend regression tests
+   - (3) Then decide on external integration timing
+11. Risks / blockers:
+   - Smoke test passed, but one sample mentioning activity risk still only detected `finance`; semantic threshold/anchors may need future quality tuning
+   - VM push remains blocked (HTTP 403)
+   - External EDB Circular System repo remains separate and untouched
+12. Notes: This session confirmed the Knowledge Platform itself is operational. Remaining work is quality validation and deployment hygiene, not core implementation.
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: Needed proof that the standalone backend was actually operational beyond compile/build success | Root Cause: Prior sessions had only reached machine verification and partial runtime setup | Fix: Ran a live smoke test against the running backend with real API-backed execution | Verification: `/health` passed and `/analyze-circular` returned full JSON output
+2. Problem: Earlier runtime attempts failed due to bad API keys and stale processes | Root Cause: Environment / credentials issues, not backend code logic | Fix: Restarted with a valid key and clean process state, then re-ran the endpoint test | Verification: successful end-to-end JSON response
+
+### Consolidation / Retirement Record
+1. Duplicate / drift found: No
+2. Single source of truth chosen: `dev/SESSION_HANDOFF.md` for current runtime status
+3. What was merged: N/A
+4. What was retired / superseded: “runtime smoke test pending” status
+5. Why consolidation was needed: The current state should reflect that standalone validation has already succeeded
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Health endpoint smoke test | Backend running locally | `curl http://localhost:8788/health` | JSON health response with `ok: true` | Returned `{"ok":true,"service":"edb-knowledge-platform-backend"}` | PASS |
+| End-to-end analysis smoke test | Backend running with valid OpenAI access | `POST /analyze-circular` with sample circular text and role `department_head` | Response should include detected topics, used facts, and generated analysis | Returned `detected_topics`, `used_facts`, and `analysis` | PASS |
+
+Overall: PASS
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Project: K1 EDB Knowledge Platform / Dashboard repo
+Current state:
+- Frontend dashboard is live at v1.2.2 on GitHub Pages
+- Standalone Knowledge Platform backend in `backend/` is operational and independently validated:
+  - semantic topic detection via embeddings
+  - role-aware knowledge selection
+  - prompt builder
+  - OpenAI LLM + embedding clients
+  - `POST /analyze-circular`
+  - `GET /health`
+  - standalone `backend/README.md`
+- Backend role schema is aligned to the exported knowledge contract: `department_head`
+- Validation passed:
+  - `cd backend && npm run check` ✅
+  - `cd backend && npm run build` ✅
+  - `curl http://localhost:8788/health` ✅
+  - `POST /analyze-circular` end-to-end smoke test ✅
+
+Pending tasks (priority order):
+1. Push the latest local commits from the user's local terminal
+2. Run 2–3 more real EDB circular regression tests to validate semantic topic detection quality
+3. After standalone confidence is high enough, decide whether/when to integrate with the separate EDB Circular System repo
+
+Key files changed this session:
+- dev/SESSION_HANDOFF.md
+- dev/SESSION_LOG.md
+
+Known risks / cautions:
+- The successful smoke test sample mentioned activity risk but only detected `finance`; semantic quality still needs a few more real-world checks
+- VM push remains blocked (HTTP 403); push from local terminal
+- External EDB Circular System repo remains separate and intentionally untouched in this phase
+
+First concrete next action:
+Push latest local commits, then run 2–3 more real circular tests against `POST /analyze-circular`
+```
