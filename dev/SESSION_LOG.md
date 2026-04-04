@@ -460,3 +460,94 @@ Known risks / cautions:
 First concrete next action:
 Push latest local commits, then run 2–3 more real circular tests against `POST /analyze-circular`
 ```
+
+---
+
+## 2026-04-04 Session 31 — guidelines.json 生成與 EDB Circular System 接口確認
+
+1. Agent & Session ID: Claude_20260404_1406
+2. Task summary: 確認 K1 知識庫架構（知識策展 vs 通告分析分離）；生成 guidelines.json（39 份 EDB 指引文件 reference links，按 topic 分組）；commit 至 repo 並準備推送。
+3. Layer classification: Product / System Layer
+4. Source triage: 架構確認 + 新 API 端點生成
+5. Files read:
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+6. Files changed:
+   - `guidelines.json`（新增，repo root）— 39 EDB 文件 reference links，按 topic 分組
+   - `dev/CODEBASE_CONTEXT.md`（新增，已 commit）
+   - `dev/DOC_SYNC_CHECKLIST.md`（新增，已 commit）
+   - `dev/archive/SESSION_LOG_2026_Q1.md`（新增，已 commit）
+   - `dev/SESSION_HANDOFF.md` — 更新 baseline + open priorities + last session record
+   - `dev/SESSION_LOG.md` — 新增本次記錄
+7. Completed:
+   - ✅ 確認 K1 架構：不做通告分析；為 EDB Circular System 提供兩類知識：(1) 相關事實（改善用詞準確性），(2) 相關指引文件連結（提供加值指引）
+   - ✅ 確認 guidelines.json 只含 reference links（不含文件內容），符合「供 Circular System 參考 link」需求
+   - ✅ 生成 guidelines.json：39 docs，7 topics，結構：id/title/titleShort/url/year/format
+   - ✅ Commit b241d1e：guidelines.json + 治理文件
+   - ✅ 兩個公開 API 端點就緒（待 push 後生效）
+8. Validation / QC:
+   - Python script output：✅ guidelines.json written — 39 documents total（finance:2, hr:2, curriculum:25, activity:2, student:4, it:1, general:3）
+   - git log 確認 commit b241d1e 已建立 ✅
+9. Pending:
+   - 用戶從 Mac terminal push
+   - 驗證兩個公開 URL 可 fetch：knowledge.json + guidelines.json
+   - EDB Circular System repo 接入（需 mount 另一個 repo）
+10. Next priorities:
+   - (1) Push 並驗證兩個 URL
+   - (2) EDB Circular System 接入 knowledge.json + guidelines.json
+   - (3) Backend semantic quality regression（更多真實通告）
+11. Risks / blockers:
+   - VM push blocked（HTTP 403）— 必須從 Mac terminal 執行
+   - guidelines.json URL 待 push 後才能驗證
+   - EDB Circular System repo 未 mount
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| 新 API 端點 guidelines.json | SESSION_HANDOFF.md baseline + open priorities; SESSION_LOG.md | ✓ Done |
+| 架構確認（K1 vs Circular System 角色分離） | SESSION_HANDOFF.md baseline 文字更新 | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Project: K1 EDB Knowledge Platform / Dashboard repo
+Current state:
+- Frontend dashboard is live at v1.2.2 on GitHub Pages
+- Standalone backend in backend/ is operationally validated (smoke test PASSED)
+- knowledge.json (102 facts, 7 topics, department_head) — repo root, ready as public API endpoint
+- guidelines.json (39 EDB document reference links, 7 topics) — repo root, ready as public API endpoint
+- Both files committed as b241d1e; awaiting push to GitHub Pages
+
+TWO-PLATFORM ARCHITECTURE (confirmed):
+- K1 = knowledge curation only: fact accuracy + EDB guideline reference links
+- EDB Circular System = circular analysis (separate repo)
+- When Circular System receives a circular, it fetches K1's knowledge.json + guidelines.json by topic to enrich its analysis
+
+Public endpoints (live after push):
+  https://leonard-wong-git.github.io/edb-knowledge/knowledge.json
+  https://leonard-wong-git.github.io/edb-knowledge/guidelines.json
+
+Pending tasks (priority order):
+1. User pushes from Mac terminal:
+   cd ~/Downloads/Claude-edb-knowledge && git pull --rebase && git push origin main
+2. Verify both URLs are publicly accessible in browser
+3. Mount EDB-AI-Circular-System repo and integrate: fetch knowledge.json + guidelines.json by topic when analyzing a circular
+4. Backend semantic quality regression: run 2-3 real EDB circulars through POST /analyze-circular
+
+Key files changed last session:
+- guidelines.json (new, repo root — 39 EDB document reference links)
+- dev/CODEBASE_CONTEXT.md (new)
+- dev/DOC_SYNC_CHECKLIST.md (new)
+- dev/archive/SESSION_LOG_2026_Q1.md (new)
+- dev/SESSION_HANDOFF.md (updated)
+- dev/SESSION_LOG.md (updated)
+
+Known risks / cautions:
+- VM push blocked (HTTP 403) — push must be done from user's local Mac terminal
+- guidelines.json URL not yet verified (needs push first)
+- EDB Circular System repo not mounted — integration code not yet written
+
+Post-startup first action: Confirm user has pushed, then verify both URLs in browser. If accessible, proceed to mount EDB-AI-Circular-System repo for integration.
+```

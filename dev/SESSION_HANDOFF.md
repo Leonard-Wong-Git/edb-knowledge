@@ -2,10 +2,10 @@
 
 ## Current Baseline
 1. Version: **v1.2.2** (K1 EDB Knowledge Platform) — Live on GitHub Pages ✅
-2. Core commands / features: K1 EDB Knowledge Dashboard (single HTML `k1-dashboard.html`, React 18 + Babel + Tailwind CDN). INITIAL_DATA 直接嵌入為 JS object literal（無 fetch，無 AppLoader）。107 facts, 7 topics, 全部 approved。4 view modes: 知識庫 / 指引文件庫 / 🔍 智能搜尋 / 📋 通告分析。Admin SHA-256 auth。雙匯出模式。同瀏覽器 localStorage 自動保存。Guidelines Library（39 EDB 文件）。**EDB Circular System 接口**：`knowledge.json`（repo root）已生成，供 EDB-AI-Circular-System 調用。
-3. Regression baseline: **107 facts** across 7 topics, all approved. `panel_chair` + `subject_head` in dashboard UI. `knowledge.json` / `role_facts.json` 使用 EDB Circular System 規格（`department_head`，102 facts）。All facts ≤ 80 chars, ≤5 per role key. 39 guideline documents.
-4. Release / merge status: **v1.2.2 committed locally，2 commits 待 push**（`git pull --rebase && git push origin main` from Mac terminal）。Repo: `Leonard-Wong-Git/edb-knowledge`. Live URL: https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html.
-5. Active branch / environment: Single-file HTML (`k1-dashboard.html`, ~2275 lines). INITIAL_DATA 嵌入。TypeScript backend in `backend/`（本地 :8787，未部署）。
+2. Core commands / features: K1 EDB Knowledge Dashboard (single HTML `k1-dashboard.html`, React 18 + Babel + Tailwind CDN). INITIAL_DATA 直接嵌入為 JS object literal（無 fetch，無 AppLoader）。107 facts, 7 topics, 全部 approved。4 view modes: 知識庫 / 指引文件庫 / 🔍 智能搜尋 / 📋 通告分析。Admin SHA-256 auth。雙匯出模式。同瀏覽器 localStorage 自動保存。Guidelines Library（39 EDB 文件）。**EDB Circular System 接口**：`knowledge.json` + `guidelines.json`（repo root）已生成並已 commit，供 EDB-AI-Circular-System 調用。
+3. Regression baseline: **107 facts** across 7 topics, all approved. `panel_chair` + `subject_head` in dashboard UI. `knowledge.json` / `role_facts.json` 使用 EDB Circular System 規格（`department_head`，102 facts）。All facts ≤ 80 chars, ≤5 per role key. 39 guideline documents. `guidelines.json`：39 EDB 文件 reference links（含 id/title/titleShort/url/year/format），按 topic 分組。
+4. Release / merge status: **v1.2.2 + guidelines.json committed locally（commit b241d1e），待 push 至 GitHub**（`cd ~/Downloads/Claude-edb-knowledge && git pull --rebase && git push origin main`）。Repo: `Leonard-Wong-Git/edb-knowledge`. Live URL: https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html.
+5. Active branch / environment: Single-file HTML (`k1-dashboard.html`, ~2275 lines). INITIAL_DATA 嵌入。TypeScript backend in `backend/`（本地 :8787，未部署，端對端 smoke test 已通過）。
 6. External platforms / dependencies in scope: EDB website. CDN: React 18.2, Babel 7.23, Tailwind 2.2. Backend deps: openai@4.104.0, tsx, TypeScript. **EDB-AI-Circular-System**（獨立 repo，https://leonard-wong-git.github.io/EDB-AI-Circular-System/edb-dashboard.html）。
 
 ## Layer Map
@@ -32,8 +32,11 @@
 
 ## Open Priorities
 1. **[即時]** Push local commits to GitHub: `cd ~/Downloads/Claude-edb-knowledge && git pull --rebase && git push origin main`
-2. **[驗證]** 用 2–3 份真實 EDB 通告做 backend regression / quality test，檢查 semantic topic detection 與 `used_facts` 是否合理
-3. **[次要]** EDB Circular System 接入 knowledge.json — 另 repo 處理；不是本平台完成條件
+2. **[推送後]** 瀏覽器驗證兩個公開端點：
+   - `https://leonard-wong-git.github.io/edb-knowledge/knowledge.json`
+   - `https://leonard-wong-git.github.io/edb-knowledge/guidelines.json`
+3. **[次要]** EDB Circular System（另 repo）接入 knowledge.json + guidelines.json — 按通告 topics 篩選後返回事實及文件連結；需 mount EDB-AI-Circular-System repo
+4. **[品質]** 用 2–3 份真實 EDB 通告做 backend regression / quality test，檢查 semantic topic detection 與 `used_facts` 是否合理
 
 ## Known Risks / Blockers
 1. EDB website pages sometimes 404 or restructured — guideline URLs may need updating
@@ -70,13 +73,12 @@ This file and `dev/SESSION_LOG.md` must be updated at the end of every session.
 
 ## Last Session Record
 1. UTC date: 2026-04-04
-2. Session ID: Codex_20260404_0834
+2. Session ID: Claude_20260404_1406
 3. Completed:
-   - ✅ 確認 backend standalone schema mismatch：後端型別原先仍用 `subject_head/panel_chair`，但實際 `role_facts.json` / `knowledge.json` 已是 `department_head`
-   - ✅ 對齊 backend role schema 至 `department_head`
-   - ✅ 新增 `backend/README.md`，補齊獨立 runbook / env / API example
-   - ✅ 新增 `GET /health` 端點與可配置 `KNOWLEDGE_PATH`
-   - ✅ Machine verification：`backend/` 的 `npm run check` 與 `npm run build` 均通過
-4. Pending: Push 最新 backend / docs 變更；用更多真實通告做 quality regression；之後才考慮外部系統接入
-5. Next priorities (max 3): (1) Push 並確認最新檔案上 GitHub (2) 用 2–3 份真實 EDB 通告做 regression test (3) 之後再處理外部系統接入
-6. Risks / blockers: Backend 已通過 smoke test，但 semantic topic detection 對 activity 類內容仍值得用更多真實通告驗證。VM push blocked（HTTP 403）；外部 Circular System repo 未 mount
+   - ✅ 確認 K1 架構：K1 = 知識策展（事實 + 指引文件連結）；EDB Circular System = 通告分析；K1 提供知識豐富化，不做通告分析
+   - ✅ 生成 `guidelines.json`（repo root）：39 EDB 指引文件 reference links，按 topic 分組（finance/hr/curriculum/activity/student/it/general），每項含 id/title/titleShort/url/year/format
+   - ✅ Commit b241d1e：guidelines.json + CODEBASE_CONTEXT.md + DOC_SYNC_CHECKLIST.md + archive + SESSION 治理文件
+   - ✅ 確認兩個公開 API 端點已準備好（待 push 後生效）：knowledge.json + guidelines.json
+4. Pending: 用戶從 Mac terminal push；push 後驗證兩個 URL；EDB Circular System repo 接入
+5. Next priorities (max 3): (1) Push 並確認兩個 URL 可公開存取 (2) EDB Circular System 接入 knowledge.json + guidelines.json (3) 用真實通告做 backend semantic quality test
+6. Risks / blockers: VM push blocked (HTTP 403)；EDB Circular System repo 未 mount；guidelines.json URL 尚未驗證（待 push）
