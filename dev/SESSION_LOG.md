@@ -653,3 +653,68 @@ Known risks / cautions:
 
 Post-startup first action: Confirm user has pushed, then open the 3 URLs above in browser to verify they are publicly accessible. If yes, proceed to mount EDB-AI-Circular-System repo for K1_API_SPEC.md-guided integration.
 ```
+
+---
+
+## 2026-04-04 Session 33 — .nojekyll 修復 + Session Close
+
+1. Agent & Session ID: Claude_20260404_1500
+2. Task summary: 修復 GitHub Pages K1_API_SPEC.md 404；加入 .nojekyll；用戶已完成 push。
+3. Layer classification: Product / System Layer
+4. Source triage: GitHub Pages Jekyll 處理 .md 文件導致原始路徑 404
+5. Files changed:
+   - `.nojekyll`（新建）— 停用 Jekyll，所有靜態文件以原始路徑 serve
+   - `dev/SESSION_HANDOFF.md` — 更新
+   - `dev/SESSION_LOG.md` — 新增本次記錄
+6. Completed:
+   - ✅ 根因分析：Jekyll 將 .md 轉為 HTML，原 .md URL 失效
+   - ✅ 修復：加入空白 .nojekyll 文件（commit 8adafc3）
+   - ✅ 用戶已 push 至 GitHub
+7. Validation / QC: 用戶 push 後截圖確認已送出；Pages 重新部署約 30 秒後端點應可存取
+8. Pending: 瀏覽器確認三個 URL；EDB Circular System 接入
+9. Risks / blockers: EDB Circular System repo 未 mount
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| GitHub Pages 部署修復（.nojekyll） | SESSION_HANDOFF.md known risks + SESSION_LOG.md | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Project: K1 EDB Knowledge Platform / Dashboard repo
+Current state: v1.2.2, pushed to GitHub. .nojekyll added — all static files served directly.
+
+Public endpoints (verify in browser first):
+  https://leonard-wong-git.github.io/edb-knowledge/knowledge.json
+  https://leonard-wong-git.github.io/edb-knowledge/guidelines.json
+  https://leonard-wong-git.github.io/edb-knowledge/K1_API_SPEC.md
+
+TWO-PLATFORM ARCHITECTURE:
+- K1 = knowledge curation (facts + guideline reference links)
+- EDB Circular System = circular analysis (separate repo: Leonard-Wong-Git/EDB-AI-Circular-System)
+- K1_API_SPEC.md documents the full integration contract
+
+Pending tasks (priority order):
+1. Verify 3 URLs are accessible in browser
+2. Mount EDB-AI-Circular-System repo and integrate per K1_API_SPEC.md:
+   - fetch knowledge.json + guidelines.json by circular topics
+   - filter: topics × department_head × approved
+   - inject facts + doc links into analysis prompt
+3. Backend semantic quality regression: 2-3 real circulars through POST /analyze-circular
+
+Key files (all committed and pushed):
+- knowledge.json — 102 facts, 7 topics
+- guidelines.json — 39 EDB doc reference links
+- K1_API_SPEC.md — Circular System interface spec
+- bump_version.py — version bumper (patch/minor/major/set)
+- .nojekyll — fixes GitHub Pages static file serving
+
+Known risks:
+- EDB Circular System repo not yet mounted — integration not started
+- EDB guideline URLs may drift over time (EDB website restructuring)
+
+Post-startup first action: Open the 3 URLs above in browser to confirm they are accessible. If K1_API_SPEC.md loads correctly, proceed to mount EDB-AI-Circular-System repo for integration.
+```
