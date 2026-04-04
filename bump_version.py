@@ -67,11 +67,20 @@ def _readme_find(content):
     return m.group(1) if m else None
 
 def _readme_replace(content, new_ver):
-    return re.sub(
+    today = datetime.date.today().strftime("%Y-%m-%d")
+    # 1. Update version badge
+    content = re.sub(
         r'(version-v)(\d+\.\d+\.\d+)(-)',
         lambda m: f'{m.group(1)}{new_ver}{m.group(3)}',
         content
     )
+    # 2. Update 最後更新 date at bottom
+    content = re.sub(
+        r'(\*最後更新：)[\d-]+(\s*\|)',
+        lambda m: f'{m.group(1)}{today}{m.group(2)}',
+        content
+    )
+    return content
 
 def _changelog_find(content):
     m = re.search(r'## \[v?(\d+\.\d+\.\d+)\]', content)

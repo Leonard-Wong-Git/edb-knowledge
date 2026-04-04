@@ -42,11 +42,14 @@
 edb-knowledge/
 ├── k1-dashboard.html          # 主應用程式（單一 HTML 文件）
 ├── index.html                 # 入口重定向
+├── knowledge.json             # 公開 API 端點 — 事實庫（供 EDB 通告智能分析系統調用）
+├── guidelines.json            # 公開 API 端點 — 指引文件連結庫（供 EDB 通告智能分析系統調用）
+├── bump_version.py            # 版本號自動更新腳本
 ├── README.md                  # 本文件
 ├── CHANGELOG.md               # 版本歷史
 └── dev/
     └── knowledge/
-        └── role_facts.json    # 知識庫數據備份（JSON 格式）
+        └── role_facts.json    # 知識庫數據備份（JSON 格式，與 knowledge.json 同步）
 ```
 
 ## 版本歷史
