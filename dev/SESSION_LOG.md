@@ -121,6 +121,57 @@
 |---|---|---|
 | Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
 
+---
+
+## 2026-04-06 Session 35 — Role Naming Split Clarification
+
+1. Agent & Session ID: Codex_20260406_0935
+2. Task summary: 按使用者最新定義把 dashboard 角色命名再精準拆分：`subject_head` = `科主任`、`panel_chair` = `主任`、`eo_admin` = `EO`。同時把 dashboard embedded data 與 `data.json` 內屬於 `subject_head` 的 facts wording 回調為 `科主任`，但保留 external `department_head` 為通用合併角色。
+3. Layer classification: Product / System Layer
+4. Source triage: Terminology clarification / product wording issue
+5. Files read:
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `k1-dashboard.html`
+   - `data.json`
+   - `dev/knowledge/role_facts.json`
+   - `knowledge.json`
+6. Files changed:
+   - `k1-dashboard.html` — `panel_chair` label updated to `主任`; `subject_head` label updated back to `科主任`; `subject_head` facts wording updated back to `科主任`
+   - `data.json` — synced `subject_head` facts wording back to `科主任`
+   - `dev/SESSION_HANDOFF.md` — updated baseline and risks to explain dashboard vs external merged-role wording
+   - `dev/SESSION_LOG.md` — appended this session entry
+7. Completed:
+   - ✅ Confirmed `subject_head` should map to subject-level ownership (`科主任`)
+   - ✅ Confirmed `panel_chair` should act as an umbrella label for multiple non-subject coordinator/head roles (`主任`)
+   - ✅ Updated dashboard labels accordingly
+   - ✅ Reverted dashboard/data `subject_head` wording from generic `主任` back to `科主任`
+   - ✅ Left external `department_head` wording unchanged for now because it is a merged export role
+8. Validation / QC:
+   - `rg -n "學位主任|科主任|主任|EO|panel_chair|subject_head" k1-dashboard.html data.json dev/knowledge/role_facts.json knowledge.json | head -n 220` → confirmed dashboard now shows `panel_chair` = `主任`, `subject_head` = `科主任`, `eo_admin` = `EO`
+   - Manual spot-checks on `k1-dashboard.html` and `data.json` verified `subject_head` facts now read as `科主任`
+
+### Test Scenarios
+
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Dashboard role badges | Dashboard uses `ROLE_CONFIG` labels | View facts tagged `panel_chair`, `subject_head`, `eo_admin` | Labels show `主任`, `科主任`, `EO` | `ROLE_CONFIG` now maps exactly that way | PASS |
+| Circular analysis selector | 通告分析 panel uses `ROLE_OPTIONS` | Open role dropdown | Dropdown shows `主任`, `科主任`, `EO` | `ROLE_OPTIONS` updated accordingly | PASS |
+| Subject-head fact wording | `subject_head` facts should read as subject-head ownership | Inspect subject-head finance/curriculum/IT facts | Facts use `科主任` wording | `k1-dashboard.html` and `data.json` updated back to `科主任` | PASS |
+| External merged-role stability | Exported `department_head` remains shared contract | Inspect `knowledge.json` / `role_facts.json` wording | External merged role remains generic, no schema change | External files left unchanged this pass | PASS with notes |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: The previous wording convergence over-generalized `subject_head` into `主任`, which no longer matched the user's intended role split
+2. Root Cause: We had applied a broad terminology unification before the user clarified that `subject_head` and `panel_chair` represent different kinds of heads/coordinators
+3. Fix: Re-split dashboard terminology so `subject_head` = `科主任`, `panel_chair` = `主任`, `eo_admin` = `EO`; reverted `subject_head` facts in dashboard/data back to `科主任`
+4. Verification: grep plus targeted spot-checks confirmed the dashboard/data wording now matches the clarified role model
+5. Regression / rule update: None
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
 ### Next Session Handoff Prompt (Verbatim)
 ```text
 Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:

@@ -3,7 +3,7 @@
 ## Current Baseline
 1. Version: **v1.2.2** (K1 EDB Knowledge Platform) — Live on GitHub Pages ✅
 2. Core commands / features: K1 EDB Knowledge Dashboard (single HTML `k1-dashboard.html`, React 18 + Babel + Tailwind CDN). INITIAL_DATA 直接嵌入為 JS object literal（無 fetch，無 AppLoader）。107 facts, 7 topics, 全部 approved。4 view modes: 知識庫 / 指引文件庫 / 🔍 智能搜尋 / 📋 通告分析。Admin SHA-256 auth。雙匯出模式。同瀏覽器 localStorage 自動保存。Guidelines Library（39 EDB 文件）。**EDB Circular System 接口**：`knowledge.json` + `guidelines.json`（repo root）已生成並已 commit，供 EDB-AI-Circular-System 調用。
-3. Regression baseline: **107 facts** across 7 topics, all approved. Dashboard UI role IDs remain `panel_chair` + `subject_head`, but display labels are now `學位主任` + `主任`; `eo_admin` display label is `EO`. Dashboard embedded data, `data.json`, `knowledge.json`, and `role_facts.json` facts have also been wording-aligned from `科主任 / 行政主任` to `主任 / EO`. `knowledge.json` / `role_facts.json` 使用 EDB Circular System 規格（`department_head`，102 facts）。All facts ≤ 80 chars, ≤5 per role key. 39 guideline documents. `guidelines.json`：39 EDB 文件 reference links（含 id/title/titleShort/url/year/format），按 topic 分組。
+3. Regression baseline: **107 facts** across 7 topics, all approved. Dashboard UI role IDs remain `panel_chair` + `subject_head`, with display labels now `主任` + `科主任`; `eo_admin` display label is `EO`. Dashboard embedded data and `data.json` use `科主任 / 主任 / EO` wording. External `knowledge.json` / `role_facts.json` keep the merged `department_head` contract and currently use通用 `主任 / EO` wording for the combined role. All facts ≤ 80 chars, ≤5 per role key. 39 guideline documents. `guidelines.json`：39 EDB 文件 reference links（含 id/title/titleShort/url/year/format），按 topic 分組。
 4. Release / merge status: **v1.2.2，已 push 至 GitHub**。包含：guidelines.json、bump_version.py、K1_API_SPEC.md、.nojekyll、README 更新、版本統一。Repo: `Leonard-Wong-Git/edb-knowledge`. Live URL: https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html.
 5. Active branch / environment: Single-file HTML (`k1-dashboard.html`, ~2275 lines). INITIAL_DATA 嵌入。TypeScript backend in `backend/`（本地 :8787，未部署，端對端 smoke test 已通過）。
 6. External platforms / dependencies in scope: EDB website. CDN: React 18.2, Babel 7.23, Tailwind 2.2. Backend deps: openai@4.104.0, tsx, TypeScript. **EDB-AI-Circular-System**（獨立 repo，https://leonard-wong-git.github.io/EDB-AI-Circular-System/edb-dashboard.html）。
@@ -75,10 +75,11 @@ This file and `dev/SESSION_LOG.md` must be updated at the end of every session.
 1. UTC date: 2026-04-06
 2. Session ID: Codex_20260406_0900
 3. Completed:
-   - ✅ 將 dashboard UI 內 `subject_head` 顯示名稱由 `科主任` 收斂為 `主任`
-   - ✅ 將 dashboard UI 內 `eo_admin` 顯示名稱由 `行政主任` 收斂為 `EO`
-   - ✅ 將 dashboard、`data.json`、`knowledge.json`、`role_facts.json` 內相關 facts 用語同步收斂為 `主任 / EO`
+   - ✅ 將 dashboard UI 內 `subject_head` 顯示名稱定為 `科主任`
+   - ✅ 將 dashboard UI 內 `panel_chair` 顯示名稱定為通用 `主任`
+   - ✅ 將 dashboard UI 內 `eo_admin` 顯示名稱定為 `EO`
+   - ✅ 將 dashboard embedded data 與 `data.json` 內 `subject_head` 相關 facts wording 回調為 `科主任`
    - ✅ 保持 role IDs 與 backend / export contract 不變，避免影響 `knowledge.json`、`role_facts.json` 與 backend schema
-4. Pending: 瀏覽器確認新 label 與 facts wording 顯示正確；EDB Circular System 接入
-5. Next priorities (max 3): (1) 瀏覽器驗證角色新 label (2) Circular System 接入（K1_API_SPEC.md 已備） (3) Backend regression test
-6. Risks / blockers: EDB Circular System repo 未 mount；歷史文件如 CHANGELOG 仍保留舊稱呼作為版本記錄，本次不追溯改寫歷史描述
+4. Pending: 瀏覽器確認 dashboard 角色 label 與 facts wording 顯示正確；評估是否要把 external `department_head` wording 也細分；EDB Circular System 接入
+5. Next priorities (max 3): (1) 瀏覽器驗證角色新 label / wording (2) 決定 external `department_head` 是否維持通用 `主任` (3) Circular System 接入（K1_API_SPEC.md 已備）
+6. Risks / blockers: EDB Circular System repo 未 mount；external `department_head` 是合併角色，若強行細分 wording 可能重新引入語意混淆；歷史文件如 CHANGELOG 仍保留舊稱呼作為版本記錄
