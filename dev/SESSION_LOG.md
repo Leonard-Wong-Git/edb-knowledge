@@ -718,3 +718,61 @@ Known risks:
 
 Post-startup first action: Open the 3 URLs above in browser to confirm they are accessible. If K1_API_SPEC.md loads correctly, proceed to mount EDB-AI-Circular-System repo for integration.
 ```
+
+---
+
+## 2026-04-06 Session 34 — Dashboard Role Label Convergence
+
+1. Agent & Session ID: Codex_20260406_0900
+2. Task summary: 收斂 dashboard UI 與知識 facts 的角色用語，將 `subject_head` 對外顯示與相關事實文字收斂為 `主任`，將 `eo_admin` 對外顯示與相關事實文字收斂為 `EO`，但保留所有 role IDs、匯出 JSON 與 backend contract 不變。
+3. Layer classification: Product / System Layer
+4. Source triage: Usage / terminology consistency issue
+5. Files read:
+   - `AGENTS.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/DOC_SYNC_CHECKLIST.md`
+   - `k1-dashboard.html`
+   - `README.md`
+   - `dev/knowledge/role_facts.json`
+   - `knowledge.json`
+   - `backend/src/types/knowledge.ts`
+6. Files changed:
+   - `k1-dashboard.html` — updated display labels and embedded facts wording: `科主任 / 行政主任` → `主任 / EO`
+   - `data.json` — synced wording update: `科主任 / 行政主任` → `主任 / EO`
+   - `dev/knowledge/role_facts.json` — synced wording update: `科主任 / 行政主任` → `主任 / EO`
+   - `knowledge.json` — synced wording update: `科主任 / 行政主任` → `主任 / EO`
+   - `dev/SESSION_HANDOFF.md` — updated regression baseline and latest session record to reflect the naming convergence
+   - `dev/SESSION_LOG.md` — appended this session entry
+7. Completed:
+   - ✅ Confirmed the issue belongs to display naming, not backend/schema drift
+   - ✅ Updated dashboard role labels in the main badge config
+   - ✅ Updated dashboard role labels in the 通告分析 role dropdown
+   - ✅ Updated embedded/exported fact wording across dashboard + JSON artifacts
+   - ✅ Left `subject_head`, `eo_admin`, `panel_chair` IDs untouched to preserve compatibility with existing review state and data
+8. Validation / QC:
+   - `rg -n "科主任|行政主任" k1-dashboard.html data.json dev/knowledge/role_facts.json knowledge.json` → no matches
+   - `rg -n "主任|EO" k1-dashboard.html data.json dev/knowledge/role_facts.json knowledge.json | head -n 60` → confirmed new wording exists across dashboard + synced JSON files
+   - `git diff -- k1-dashboard.html data.json dev/knowledge/role_facts.json knowledge.json` → verified changes are terminology-only in the targeted files
+
+### Test Scenarios
+
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Knowledge view role badge labels | Existing dashboard uses role labels from `ROLE_CONFIG` | Render facts tagged with `subject_head` and `eo_admin` | UI shows `主任` and `EO`, role IDs unchanged | `ROLE_CONFIG` now maps `subject_head` → `主任`, `eo_admin` → `EO` | PASS |
+| Circular analysis role selector | 通告分析 panel uses `ROLE_OPTIONS` for dropdown labels | Open role dropdown in `CircularAnalysisPanel` | Dropdown shows `主任` and `EO` | `ROLE_OPTIONS` updated to `主任` / `EO` | PASS |
+| Facts wording sync | Dashboard and exported JSON should stay terminology-consistent | Search synced data files for old terms | No `科主任` / `行政主任` remain in targeted data files | grep returns no matches in 4 targeted files | PASS |
+| Contract regression | Existing data, review state, and backend expect stable role IDs | Search for `subject_head` / `eo_admin` IDs after change | IDs remain present and unchanged | grep confirms IDs still exist in data/review-state paths | PASS |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: Dashboard terminology and fact wording did not match the user's preferred naming for `subject_head` and `eo_admin`
+2. Root Cause: UI label maps and synced knowledge artifacts still used `科主任` and `行政主任`
+3. Fix: Changed both display labels and targeted synced fact wording to `主任` and `EO`
+4. Verification: grep confirmed the old terms were removed from the targeted files; diff confirmed role IDs and structures were not changed
+5. Regression / rule update: None
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
