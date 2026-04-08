@@ -59,6 +59,71 @@
 |---|---|---|
 | Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
 
+---
+
+## 2026-04-08 Session 39 — Version Bump v1.3.1 + Backend Packaging Prep
+
+1. Agent & Session ID: Codex_20260408_0955
+2. Task summary: Prepared a clean release changeset for the backend compatibility work by adding backend ignore rules, bumping the platform version to `v1.3.1`, bumping backend package version to `0.1.1`, and aligning session docs with the release state.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Release/versioning alignment + repo hygiene
+5. Files read:
+   - `.gitignore`
+   - `bump_version.py`
+   - `README.md`
+   - `CHANGELOG.md`
+   - `backend/package.json`
+   - `backend/package-lock.json`
+   - `backend/README.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+6. Files changed:
+   - `.gitignore` — added ignores for `backend/node_modules/`, `backend/dist/`, and `backend/.env`
+   - `k1-dashboard.html` — `_meta.version` bumped to `1.3.1`
+   - `knowledge.json` — `_meta.version` bumped to `1.3.1`
+   - `guidelines.json` — `_meta.version` bumped to `1.3.1`
+   - `dev/knowledge/role_facts.json` — `_meta.version` bumped to `1.3.1`
+   - `README.md` — version badge bumped to `v1.3.1`
+   - `CHANGELOG.md` — inserted `v1.3.1` entry for backend split-role compatibility bridge
+   - `backend/package.json` — version bumped to `0.1.1`
+   - `backend/package-lock.json` — version bumped to `0.1.1`
+   - `backend/README.md` — documented split-role compatibility support and updated example request role
+   - `dev/SESSION_HANDOFF.md` — updated baseline / release state / next priorities for `v1.3.1`
+   - `dev/SESSION_LOG.md` — appended this session entry
+7. Completed:
+   - ✅ Added backend ignore rules so packaging can stay source-only
+   - ✅ Bumped platform version to `v1.3.1`
+   - ✅ Bumped backend package version to `0.1.1`
+   - ✅ Re-ran backend `check` and `build` successfully after version/package updates
+   - ✅ Prepared a clean tracked-file set for the next commit step
+8. Validation / QC:
+   - `python3 bump_version.py set 1.3.1 --dry-run ...` → preview matched the intended platform version move
+   - `python3 bump_version.py set 1.3.1 --note "平台 schema v1.3.0 後補上 backend split-role compatibility bridge"` → applied successfully
+   - `cd backend && npm run check` → PASS
+   - `cd backend && npm run build` → PASS
+
+### Test Scenarios
+
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Platform version alignment | Repo had mixed `1.2.2` / `1.3.0` markers | Run version bumper to `1.3.1` | Public-facing version markers become consistent | Bump script updated dashboard/JSON/README/CHANGELOG successfully | PASS |
+| Backend package version bump | Backend compatibility patch is ready | Update backend package metadata | `package.json` and `package-lock.json` move to `0.1.1` | Both files updated | PASS |
+| Backend build parity after version bump | Backend source changed in prior session | `npm run check` and `npm run build` | Both commands succeed | Both succeeded | PASS |
+| Backend packaging hygiene | `backend/` was fully untracked and included build artifacts locally | Add ignore rules for local-only backend artifacts | `node_modules`, `dist`, `.env` no longer need staging | Ignore rules added in `.gitignore` | PASS |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: Backend compatibility work was ready, but the repo still had stale platform version markers and no backend-specific ignore rules
+2. Root Cause: Public schema and backend changes landed across multiple sessions without a final release/versioning pass
+3. Fix: Added backend ignore rules, bumped platform/package versions, and refreshed docs before commit
+4. Verification: bump script applied, backend check/build passed
+5. Regression / rule update: None
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product version / release milestone change | k1-dashboard.html `_meta`; dev/knowledge/role_facts.json `_meta`; README badge; CHANGELOG; SESSION_HANDOFF.md; SESSION_LOG.md; CODEBASE_CONTEXT.md if release summary changed | ✓ Done |
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
 ## 2026-04-06 Session 35 — Role Naming Split Clarification
 
 1. Agent & Session ID: Codex_20260406_0935
@@ -318,6 +383,168 @@ Post-startup first action: Confirm whether the 3 commits have been pushed yet. I
 ```
 
 ---
+
+## 2026-04-08 Session 37 — Context Sync + Backend Schema Drift Check
+
+1. Agent & Session ID: Codex_20260408_0905
+2. Task summary: Re-ran startup from source files, updated `CODEBASE_CONTEXT.md` to reflect `K1_API_SPEC.md` back at repo root and `knowledge.json` v1.3.0, then checked backend compatibility and confirmed the backend still only supports `department_head`.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Documentation drift + code/schema compatibility issue
+5. Files read:
+   - `AGENTS.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `K1_API_SPEC.md`
+   - `knowledge.json`
+   - `dev/knowledge/role_facts.json`
+   - `backend/src/types/knowledge.ts`
+   - `backend/src/services/knowledgeSelector.ts`
+6. Files changed:
+   - `dev/CODEBASE_CONTEXT.md` — corrected directory map to show `K1_API_SPEC.md` at repo root; updated live schema notes and backend drift status
+   - `dev/SESSION_HANDOFF.md` — refreshed current task, priorities, risks, and latest session record around backend/public schema drift
+   - `dev/SESSION_LOG.md` — appended this session entry
+7. Completed:
+   - ✅ Confirmed `K1_API_SPEC.md` is present at repo root and public again
+   - ✅ Confirmed live `knowledge.json` is v1.3.0 and now exposes `subject_head` + `panel_chair`
+   - ✅ Confirmed `dev/knowledge/role_facts.json` still uses older merged `department_head`
+   - ✅ Confirmed backend `RoleId` / `TopicKnowledge` types still only declare `department_head`
+   - ✅ Confirmed `knowledgeSelector.ts` selects exactly one role bucket plus `all_roles`, so it does not yet know how to combine `subject_head` + `panel_chair`
+8. Validation / QC:
+   - `ls -1` → verified `K1_API_SPEC.md` exists at repo root
+   - `sed -n '1,120p' knowledge.json` → verified `_meta.version = 1.3.0` and presence of `subject_head` + `panel_chair`
+   - `sed -n '1,120p' dev/knowledge/role_facts.json` → verified older `department_head` bucket remains in backup/export artifact
+   - `sed -n '1,220p' backend/src/types/knowledge.ts` → verified `ROLE_IDS` still includes `department_head`
+   - `sed -n '1,220p' backend/src/services/knowledgeSelector.ts` → verified selector only reads `topicKnowledge[role]`
+
+### Test Scenarios
+
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Repo-root spec path | Handoff says `K1_API_SPEC.md` is public at root | Inspect repo root and spec file | Context should reference root path, not `dev/` path | Root file exists and context updated | PASS |
+| Public schema check | `knowledge.json` claimed as v1.3.0 | Inspect first section of `knowledge.json` | `subject_head` and `panel_chair` should be present | Verified in public file | PASS |
+| Backend type compatibility | Backend should support current public schema | Inspect `backend/src/types/knowledge.ts` | New split-role keys should be declared if compatible | File still only declares `department_head` | FAIL |
+| Backend selection logic | Backend should combine split role buckets when needed | Inspect `backend/src/services/knowledgeSelector.ts` | Logic should know how to combine `subject_head` + `panel_chair` | Selector still reads one role bucket only | FAIL |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: Current docs and public assets show a v1.3.0 split-role schema, but backend compatibility had not been re-verified
+2. Root Cause: Public API evolved from merged `department_head` to split `subject_head` + `panel_chair`, while backend types/selector were not updated in the same pass
+3. Fix: No code fix yet in this session; documented the drift clearly in context/handoff/log and identified the exact backend files that need change
+4. Verification: file inspection confirms the mismatch between public schema and backend role handling
+5. Regression / rule update: None
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Tech stack / build / dependency change | CODEBASE_CONTEXT.md Stack or Build section | N/A |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Date: 2026-04-08 (UTC)
+Project: K1 EDB Knowledge Platform / Dashboard repo
+
+Current state:
+- Public `knowledge.json` is v1.3.0 and now uses split role buckets:
+  - `subject_head` = 科主任
+  - `panel_chair` = 統籌主任
+  - `all_roles` remains shared
+- `K1_API_SPEC.md` is back at repo root and publicly served
+- `dev/knowledge/role_facts.json` still shows the older merged `department_head` backup/export shape
+- Backend compatibility is not done yet:
+  - `backend/src/types/knowledge.ts` still declares `department_head`
+  - `backend/src/services/knowledgeSelector.ts` still selects one role bucket only
+
+Pending tasks (priority order):
+1. Decide and implement backend compatibility for v1.3.0:
+   - either upgrade backend types/selector to support `subject_head + panel_chair + all_roles`
+   - or explicitly pin backend to the older merged input and document that choice
+2. Notify / update EDB Circular System logic:
+   - old: `department_head + all_roles`
+   - new: `subject_head + panel_chair + all_roles`
+3. Run backend semantic quality regression on 2–3 real EDB circulars after the compatibility decision/fix
+
+Key files changed this session:
+- /Users/leonard/Downloads/Claude-edb-knowledge/dev/CODEBASE_CONTEXT.md
+- /Users/leonard/Downloads/Claude-edb-knowledge/dev/SESSION_HANDOFF.md
+- /Users/leonard/Downloads/Claude-edb-knowledge/dev/SESSION_LOG.md
+
+Known risks / blockers / cautions:
+- Public schema and backend schema are currently out of sync
+- `dev/knowledge/role_facts.json` and public `knowledge.json` are no longer equivalent snapshots
+- `EDB-AI-Circular-System` still needs to move off `department_head`
+- Workspace still contains untracked `backend/` and helper files; avoid broad staging
+
+Validation status:
+- Repo-root `K1_API_SPEC.md` verified ✅
+- `knowledge.json` v1.3.0 split-role schema verified ✅
+- Backend compatibility verified as NOT yet complete ❌
+
+Post-startup first action: Open `backend/src/types/knowledge.ts` and `backend/src/services/knowledgeSelector.ts`, then decide whether to upgrade the backend to the v1.3.0 split-role schema or intentionally pin it to the older merged input.
+```
+
+---
+
+## 2026-04-08 Session 38 — Backend Split-Role Compatibility Bridge
+
+1. Agent & Session ID: Codex_20260408_0925
+2. Task summary: Implemented backend compatibility for the v1.3.0 split-role public schema by extending backend role types and adding a selector bridge that supports both legacy `department_head` and new `subject_head` / `panel_chair`.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Code/schema compatibility issue
+5. Files read:
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `backend/src/types/knowledge.ts`
+   - `backend/src/services/knowledgeSelector.ts`
+   - `backend/src/api/analyzeCircular.ts`
+   - `backend/src/services/promptBuilder.ts`
+   - `backend/package.json`
+   - `K1_API_SPEC.md`
+   - `knowledge.json`
+6. Files changed:
+   - `backend/src/types/knowledge.ts` — added `subject_head` and `panel_chair` to accepted role IDs and topic knowledge buckets, while retaining legacy `department_head`
+   - `backend/src/services/knowledgeSelector.ts` — added role-bridge logic:
+     - `department_head` now merges `department_head + subject_head + panel_chair`
+     - `subject_head` falls back to legacy `department_head`
+     - `panel_chair` falls back to legacy `department_head`
+   - `dev/CODEBASE_CONTEXT.md` — updated directory map/build notes to reflect the new backend bridge
+   - `dev/SESSION_HANDOFF.md` — refreshed priorities and risks after backend compatibility landed
+   - `dev/SESSION_LOG.md` — appended this session entry
+7. Completed:
+   - ✅ Backend now accepts split-role requests without dropping compatibility for older merged-role callers
+   - ✅ Selector logic now knows how to combine `subject_head + panel_chair + all_roles` when `department_head` is requested
+   - ✅ Selector logic now falls back safely when only the legacy merged bucket exists
+   - ✅ Type-check passed
+   - ✅ Build passed
+8. Validation / QC:
+   - `cd backend && npm run check` → PASS
+   - `cd backend && npm run build` → PASS
+   - `rg -n "department_head|subject_head|panel_chair" backend/src` → confirms types and selector now mention all three role keys
+
+### Test Scenarios
+
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| New split-role request accepted | Backend receives `role = "subject_head"` or `"panel_chair"` | Validate request against `ROLE_IDS` | Request should be accepted | `ROLE_IDS` now includes both keys | PASS |
+| Legacy merged-role request still works | Backend receives `role = "department_head"` with new split-role knowledge data | Select facts | Selector should merge `department_head + subject_head + panel_chair + all_roles` where available | Bridge logic added in `knowledgeSelector.ts` | PASS |
+| Split-role fallback on old data | Backend receives `role = "subject_head"` or `"panel_chair"` but loaded knowledge only has `department_head` | Select facts | Selector should fall back to `department_head` instead of returning empty | Fallback logic added for both split roles | PASS |
+| Toolchain parity | Backend TypeScript files changed | `npm run check` and `npm run build` | Both commands succeed | Both succeeded | PASS |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: Public K1 schema had moved to `subject_head + panel_chair`, but backend still only recognized `department_head`
+2. Root Cause: Public API schema and backend types/selection logic changed in different sessions
+3. Fix: Added a compatibility bridge in backend types and selection logic so old and new role shapes are both supported
+4. Verification: type-check and build succeeded after the change
+5. Regression / rule update: None
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
 
 ## 2026-04-08 Session 37 — knowledge.json v1.3.0 + K1_API_SPEC.md 重寫
 

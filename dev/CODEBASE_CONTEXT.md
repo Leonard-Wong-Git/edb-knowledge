@@ -12,14 +12,14 @@
 - `README.md` — project overview, feature summary, live demo link
 - `CHANGELOG.md` — release history through `v1.0.0`
 - `K1_KNOWLEDGE_INTERFACE_SPEC.md` — external data contract and validation expectations for the knowledge JSON structure
-- `knowledge.json` — public API endpoint: 102 approved facts, 7 topics, `department_head` role schema (GitHub Pages)
+- `K1_API_SPEC.md` — public integration spec for EDB Circular System; v1.3 schema with `subject_head` + `panel_chair`
+- `knowledge.json` — public API endpoint: v1.3.0 approved facts, 7 topics, `subject_head` + `panel_chair` role schema (GitHub Pages)
 - `guidelines.json` — public API endpoint: 39 EDB guideline document reference links, 7 topics (GitHub Pages)
 - `bump_version.py` — version bumper: patch/minor/major/set modes; syncs 6 files + CHANGELOG + README date
-- `dev/K1_API_SPEC.md` — internal integration spec for EDB Circular System (endpoints, schema, filter logic, role mapping); not served publicly
 - `backend/` — TypeScript Knowledge Platform backend scaffold
-- `backend/src/types/knowledge.ts` — fixed topic/role/schema types for the backend
+- `backend/src/types/knowledge.ts` — backend topic/role/schema types; now accepts both legacy `department_head` and split `subject_head` + `panel_chair`
 - `backend/src/services/topicDetector.ts` — keyword topic routing logic
-- `backend/src/services/knowledgeSelector.ts` — role-aware approved-knowledge selection with 600-char budget
+- `backend/src/services/knowledgeSelector.ts` — role-aware approved-knowledge selection with 600-char budget; bridges legacy `department_head` and split-role schema
 - `backend/src/services/promptBuilder.ts` — builds the consultative prompt with approved knowledge injection
 - `backend/src/lib/embeddingClient.ts` — OpenAI `text-embedding-3-small` wrapper; exports `EmbedFn` type
 - `backend/src/lib/knowledgeRepository.ts` — loads `dev/knowledge/role_facts.json` for backend use
@@ -27,7 +27,7 @@
 - `backend/src/api/analyzeCircular.ts` — orchestrates detect → select → prompt → LLM flow
 - `backend/src/server.ts` — minimal Node HTTP entrypoint exposing `POST /analyze-circular`
 - `backend/README.md` — standalone backend runbook, env vars, API examples, and health check usage
-- `dev/knowledge/role_facts.json` — JSON backup of the dashboard knowledge dataset
+- `dev/knowledge/role_facts.json` — JSON backup / export artifact for the dashboard knowledge dataset; currently still uses older merged `department_head` wording/schema
 - `dev/SESSION_HANDOFF.md` — current operating state and next priorities
 - `dev/SESSION_LOG.md` — session-by-session history and verification evidence
 
@@ -46,7 +46,7 @@
   - same-browser edits / approvals are auto-saved in `localStorage`
   - permanent cross-device persistence requires downloading the admin snapshot export and writing it back to repo
 - Backend scaffold:
-  - standalone role schema is aligned to exported knowledge files: `department_head`
+  - backend now accepts both legacy merged `department_head` and split `subject_head` + `panel_chair`
   - `cd backend`
   - `npm install`
   - `npm run check`
@@ -57,6 +57,8 @@
   - validate fact schema and counts in `dev/knowledge/role_facts.json`
   - verify JSX/bracket balance in `k1-dashboard.html`
   - keep `role_facts.json` synchronized with dashboard data after product changes
+  - when public `knowledge.json` schema changes, re-check backend `types/knowledge.ts` and `knowledgeSelector.ts` for compatibility before claiming backend-ready
+  - current compatibility check status: `npm run check` ✅, `npm run build` ✅ after adding split-role support
 
 ## External Services
 ### Hong Kong Education Bureau (EDB)
@@ -74,6 +76,10 @@
 - Repo: `Leonard-Wong-Git/edb-knowledge`
 - Live site: `https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html`
 - Deployment model: push to `main`, serve static assets via GitHub Pages
+- Public artifacts:
+  - `knowledge.json`
+  - `guidelines.json`
+  - `K1_API_SPEC.md`
 
 ### OpenAI API
 - Purpose: (1) embedding-based semantic topic detection; (2) circular analysis generation
@@ -91,7 +97,9 @@
 - Keep review workflow in the UI so fact approval can happen without backend infrastructure
 - Treat governance files as internal session state and exclude them from git
 - Build the Knowledge Platform as a separate backend project under `backend/` so the GitHub Pages frontend remains untouched
-- Keep the standalone backend role schema aligned with exported `role_facts.json` / `knowledge.json`, even if dashboard UI uses different display roles
+- Public `knowledge.json` is now the external schema SSOT; backend compatibility must be checked whenever its role buckets change
+- Backend compatibility is implemented as a bridge layer: old clients can still request `department_head`, while new split-role callers may request `subject_head` or `panel_chair`
+- Dashboard UI may use split role labels and role buckets that differ from older backup/export artifacts; do not assume `dev/knowledge/role_facts.json` matches the live public schema without verification
 
 ## AI Maintenance Log
 - `2026-03-17 (Codex_20260317_1941)` Generated initial `CODEBASE_CONTEXT.md` from: `README.md`, `CHANGELOG.md`, `K1_KNOWLEDGE_INTERFACE_SPEC.md`, `k1-dashboard.html`, `index.html`, `.gitignore`, `dev/knowledge/role_facts.json`, `dev/SESSION_HANDOFF.md`, `dev/SESSION_LOG.md`
@@ -100,3 +108,5 @@
 - `2026-03-23 (Claude_20260323_1032)` Added `embeddingClient.ts`; upgraded `topicDetector.ts` to async embedding-based semantic search; added CORS to `server.ts`; added Dashboard `CircularAnalysisPanel` (4th view mode). Updated OpenAI API entry and directory map.
 - `2026-04-03 (Codex_20260403_1011)` Updated context after platform version bump to `v1.0.0`; release-history summary now reflects the new milestone.
 - `2026-04-04 (Codex_20260404_0834)` Updated context after aligning backend role schema to `department_head`, adding `backend/README.md`, adding `/health`, and re-running successful backend `check` + `build`
+- `2026-04-08 (Codex_20260408_0905)` Updated directory map after `K1_API_SPEC.md` returned to repo root and `knowledge.json` moved to v1.3.0 split-role schema; noted that backend still expects `department_head` and needs compatibility verification.
+- `2026-04-08 (Codex_20260408_0925)` Updated backend notes after adding a compatibility bridge for `department_head` plus split `subject_head` / `panel_chair`, with successful `npm run check` and `npm run build`.

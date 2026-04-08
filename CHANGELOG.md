@@ -6,6 +6,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v1.3.1] — 2026-04-08
+
+### Changed
+- 平台 schema v1.3.0 後補上 backend split-role compatibility bridge
+
+---
+
 ## [v1.2.2] — 2026-04-04
 
 ### Changed

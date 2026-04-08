@@ -1,0 +1,24 @@
+{
+  "name": "edb-knowledge-platform-backend",
+  "version": "0.1.1",
+  "private": true,
+  "type": "module",
+  "description": "Knowledge RAG Platform backend for injecting approved EDB knowledge into circular analysis prompts.",
+  "scripts": {
+    "dev": "tsx src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2",
+    "openai": "^4.104.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.8.2"
+  }
+}
