@@ -4,7 +4,7 @@
 1. Version: **v1.2.2** (K1 EDB Knowledge Platform) — Live on GitHub Pages ✅
 2. Core commands / features: K1 EDB Knowledge Dashboard (single HTML `k1-dashboard.html`, React 18 + Babel + Tailwind CDN). INITIAL_DATA 直接嵌入為 JS object literal（無 fetch，無 AppLoader）。107 facts, 7 topics, 全部 approved。4 view modes: 知識庫 / 指引文件庫 / 🔍 智能搜尋 / 📋 通告分析。Admin SHA-256 auth。雙匯出模式。同瀏覽器 localStorage 自動保存。Guidelines Library（39 EDB 文件）。**EDB Circular System 接口**：`knowledge.json` + `guidelines.json`（repo root）已生成並已 commit，供 EDB-AI-Circular-System 調用。
 3. Regression baseline: **107 facts** across 7 topics, all approved. Dashboard UI role IDs remain `panel_chair` + `subject_head`, with display labels now `主任` + `科主任`; `eo_admin` display label is `EO`. Dashboard embedded data and `data.json` use `科主任 / 主任 / EO` wording. External `knowledge.json` / `role_facts.json` keep the merged `department_head` contract and currently use通用 `主任 / EO` wording for the combined role. All facts ≤ 80 chars, ≤5 per role key. 39 guideline documents. `guidelines.json`：39 EDB 文件 reference links（含 id/title/titleShort/url/year/format），按 topic 分組。
-4. Release / merge status: **v1.2.2，已 push 至 GitHub**。包含：guidelines.json、bump_version.py、K1_API_SPEC.md、.nojekyll、README 更新、版本統一。Repo: `Leonard-Wong-Git/edb-knowledge`. Live URL: https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html.
+4. Release / merge status: **v1.2.2，已 push 至 GitHub**。最新角色命名調整 commits `cd96a22`（主任 / EO wording）與 `2bea03e`（dashboard role split refinement）已推送到 `main`。Repo: `Leonard-Wong-Git/edb-knowledge`. Live URL: https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html.
 5. Active branch / environment: Single-file HTML (`k1-dashboard.html`, ~2275 lines). INITIAL_DATA 嵌入。TypeScript backend in `backend/`（本地 :8787，未部署，端對端 smoke test 已通過）。
 6. External platforms / dependencies in scope: EDB website. CDN: React 18.2, Babel 7.23, Tailwind 2.2. Backend deps: openai@4.104.0, tsx, TypeScript. **EDB-AI-Circular-System**（獨立 repo，https://leonard-wong-git.github.io/EDB-AI-Circular-System/edb-dashboard.html）。
 
@@ -31,12 +31,13 @@
 - Dashboard 4th view mode "📋 通告分析" serves as the RAG test interface
 
 ## Open Priorities
-1. **[驗證]** 瀏覽器確認三個公開端點正常：
-   - `https://leonard-wong-git.github.io/edb-knowledge/knowledge.json`
-   - `https://leonard-wong-git.github.io/edb-knowledge/guidelines.json`
-   - `https://leonard-wong-git.github.io/edb-knowledge/K1_API_SPEC.md`（已加 .nojekyll，應可正常讀取）
-2. **[Circular System 接入]** Mount EDB-AI-Circular-System repo，按 K1_API_SPEC.md 接入：fetch knowledge.json + guidelines.json，按 topics × department_head × approved 篩選，注入分析 prompt
-3. **[品質]** 用 2–3 份真實 EDB 通告做 backend regression / quality test，檢查 semantic topic detection 與 `used_facts` 是否合理
+1. **[PUSH 待辦]** 從 Mac terminal push 3 個未推送 commits：
+   - `40fe28c` — K1_API_SPEC.md 移至 dev/（不再 public）
+   - `cd96a22` — role wording 收斂（主任 / EO）
+   - `2bea03e` — dashboard role naming split refinement
+   - 指令：`cd ~/Downloads/Claude-edb-knowledge && git pull --rebase && git push origin main`
+2. **[命名決策]** 決定 external merged role `department_head` 在 `knowledge.json` / `role_facts.json` 是否維持通用 wording，或訂更精確的合併角色用語
+3. **[品質]** Backend semantic quality regression：用 2–3 份真實 EDB 通告做 `POST /analyze-circular` 測試，驗證 topic detection 與 `used_facts` 合理性
 
 ## Known Risks / Blockers
 1. EDB website pages sometimes 404 or restructured — guideline URLs may need updating
@@ -50,6 +51,8 @@
 9. **Threshold raise to 0.45 is machine-verified but not live-smoke-verified yet** — precision should improve, but a real circular test is still needed.
 10. **GitHub Pages deployment propagation may lag behind push by a short interval** — verify the live site after refresh if version text or button styling does not change immediately.
 11. **GitHub Pages edits are only browser-persistent until a snapshot is written back** — localStorage keeps the same-browser state, but cross-device / long-term permanence still requires downloading a 管理快照 and committing it to the repo.
+12. **Dashboard and external export wording are intentionally not identical** — dashboard uses split roles (`主任` / `科主任` / `EO`), while exported `department_head` remains a merged external role with generic wording pending explicit decision.
+13. **K1_API_SPEC.md 已移至 `dev/`** — 公開 URL `…/K1_API_SPEC.md` push 後將 404；spec 只在 GitHub repo 內查閱。Circular System 按公開端點 (knowledge.json / guidelines.json) 自行接入，K1 側工作已完成。
 
 ## Regression / Verification Notes
 1. Required checks: All facts ≤ 80 chars, ≤ 5 per role key, valid topic/role IDs, JSON schema compliance
@@ -72,14 +75,15 @@ All 7 topics audited — Finance, HR, Activity, Student, Curriculum, IT, General
 This file and `dev/SESSION_LOG.md` must be updated at the end of every session.
 
 ## Last Session Record
-1. UTC date: 2026-04-06
-2. Session ID: Codex_20260406_0900
+1. UTC date: 2026-04-08
+2. Session ID: Claude_20260408_0001
 3. Completed:
-   - ✅ 將 dashboard UI 內 `subject_head` 顯示名稱定為 `科主任`
-   - ✅ 將 dashboard UI 內 `panel_chair` 顯示名稱定為通用 `主任`
-   - ✅ 將 dashboard UI 內 `eo_admin` 顯示名稱定為 `EO`
-   - ✅ 將 dashboard embedded data 與 `data.json` 內 `subject_head` 相關 facts wording 回調為 `科主任`
-   - ✅ 保持 role IDs 與 backend / export contract 不變，避免影響 `knowledge.json`、`role_facts.json` 與 backend schema
-4. Pending: 瀏覽器確認 dashboard 角色 label 與 facts wording 顯示正確；評估是否要把 external `department_head` wording 也細分；EDB Circular System 接入
-5. Next priorities (max 3): (1) 瀏覽器驗證角色新 label / wording (2) 決定 external `department_head` 是否維持通用 `主任` (3) Circular System 接入（K1_API_SPEC.md 已備）
+   - ✅ 瀏覽器確認 knowledge.json ✅、guidelines.json ✅ 兩個公開端點 live（v1.2.2）
+   - ✅ 瀏覽器確認 K1_API_SPEC.md public URL live（v1.2.2）
+   - ✅ 決定 K1_API_SPEC.md 移至 `dev/`（不再 public）— commit 40fe28c（待 push）
+   - ✅ 決定 Circular System 架構：K1 側已完成，Circular System 自行按公開端點 fetch，AI 不操作 Circular System repo
+   - ✅ 更新 `dev/CODEBASE_CONTEXT.md` directory map（加入 knowledge.json、guidelines.json、bump_version.py、dev/K1_API_SPEC.md）
+   - ✅ 更新 SESSION_HANDOFF.md open priorities、known risks
+4. Pending: push 3 local commits（40fe28c、cd96a22、2bea03e）；決定 external `department_head` wording；backend regression test
+5. Next priorities (max 3): (1) push local commits from Mac terminal (2) 決定 external `department_head` wording (3) backend semantic quality regression
 6. Risks / blockers: EDB Circular System repo 未 mount；external `department_head` 是合併角色，若強行細分 wording 可能重新引入語意混淆；歷史文件如 CHANGELOG 仍保留舊稱呼作為版本記錄

@@ -12,6 +12,10 @@
 - `README.md` — project overview, feature summary, live demo link
 - `CHANGELOG.md` — release history through `v1.0.0`
 - `K1_KNOWLEDGE_INTERFACE_SPEC.md` — external data contract and validation expectations for the knowledge JSON structure
+- `knowledge.json` — public API endpoint: 102 approved facts, 7 topics, `department_head` role schema (GitHub Pages)
+- `guidelines.json` — public API endpoint: 39 EDB guideline document reference links, 7 topics (GitHub Pages)
+- `bump_version.py` — version bumper: patch/minor/major/set modes; syncs 6 files + CHANGELOG + README date
+- `dev/K1_API_SPEC.md` — internal integration spec for EDB Circular System (endpoints, schema, filter logic, role mapping); not served publicly
 - `backend/` — TypeScript Knowledge Platform backend scaffold
 - `backend/src/types/knowledge.ts` — fixed topic/role/schema types for the backend
 - `backend/src/services/topicDetector.ts` — keyword topic routing logic
