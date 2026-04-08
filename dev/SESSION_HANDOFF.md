@@ -31,13 +31,11 @@
 - Dashboard 4th view mode "📋 通告分析" serves as the RAG test interface
 
 ## Open Priorities
-1. **[PUSH 待辦]** 從 Mac terminal push 3 個未推送 commits：
-   - `40fe28c` — K1_API_SPEC.md 移至 dev/（不再 public）
-   - `cd96a22` — role wording 收斂（主任 / EO）
-   - `2bea03e` — dashboard role naming split refinement
-   - 指令：`cd ~/Downloads/Claude-edb-knowledge && git pull --rebase && git push origin main`
-2. **[命名決策]** 決定 external merged role `department_head` 在 `knowledge.json` / `role_facts.json` 是否維持通用 wording，或訂更精確的合併角色用語
-3. **[品質]** Backend semantic quality regression：用 2–3 份真實 EDB 通告做 `POST /analyze-circular` 測試，驗證 topic detection 與 `used_facts` 合理性
+1. **[EDB 側更新]** 通知 EDB Circular System agent 更新 knowledge.json 取值邏輯：
+   - 舊：`knowledge[topic].get("department_head", []) + knowledge[topic].get("all_roles", [])`
+   - 新：`knowledge[topic].get("subject_head", []) + knowledge[topic].get("panel_chair", []) + knowledge[topic].get("all_roles", [])`
+2. **[品質]** Backend semantic quality regression：用 2–3 份真實 EDB 通告做 `POST /analyze-circular` 測試，驗證 topic detection 與 `used_facts` 合理性
+3. **[K1 後端同步]** `knowledgeRepository.ts` 目前讀取 `role_facts.json`（dashboard 格式，panel_chair/subject_head）；確認後端 knowledgeSelector.ts 能正確處理新 schema
 
 ## Known Risks / Blockers
 1. EDB website pages sometimes 404 or restructured — guideline URLs may need updating
@@ -52,7 +50,8 @@
 10. **GitHub Pages deployment propagation may lag behind push by a short interval** — verify the live site after refresh if version text or button styling does not change immediately.
 11. **GitHub Pages edits are only browser-persistent until a snapshot is written back** — localStorage keeps the same-browser state, but cross-device / long-term permanence still requires downloading a 管理快照 and committing it to the repo.
 12. **Dashboard and external export wording are intentionally not identical** — dashboard uses split roles (`主任` / `科主任` / `EO`), while exported `department_head` remains a merged external role with generic wording pending explicit decision.
-13. **K1_API_SPEC.md 已移至 `dev/`** — 公開 URL `…/K1_API_SPEC.md` push 後將 404；spec 只在 GitHub repo 內查閱。Circular System 按公開端點 (knowledge.json / guidelines.json) 自行接入，K1 側工作已完成。
+13. **knowledge.json schema 重大變更 v1.3.0** — `department_head` bucket 已移除，拆分為 `subject_head`（科主任）+ `panel_chair`（統籌主任）。EDB Circular System 須更新取值邏輯（見 Open Priorities #1）。
+14. **K1_API_SPEC.md 已重寫並恢復公開** — 舊 spec 描述的 entry-list 格式從未實作；新 spec 記錄實際 role-bucketed 字串陣列格式，以及 subject_head vs panel_chair 定義。公開 URL：`https://leonard-wong-git.github.io/edb-knowledge/K1_API_SPEC.md`
 
 ## Regression / Verification Notes
 1. Required checks: All facts ≤ 80 chars, ≤ 5 per role key, valid topic/role IDs, JSON schema compliance
@@ -76,14 +75,15 @@ This file and `dev/SESSION_LOG.md` must be updated at the end of every session.
 
 ## Last Session Record
 1. UTC date: 2026-04-08
-2. Session ID: Claude_20260408_0001
+2. Session ID: Claude_20260408_0002
 3. Completed:
-   - ✅ 瀏覽器確認 knowledge.json ✅、guidelines.json ✅ 兩個公開端點 live（v1.2.2）
-   - ✅ 瀏覽器確認 K1_API_SPEC.md public URL live（v1.2.2）
-   - ✅ 決定 K1_API_SPEC.md 移至 `dev/`（不再 public）— commit 40fe28c（待 push）
-   - ✅ 決定 Circular System 架構：K1 側已完成，Circular System 自行按公開端點 fetch，AI 不操作 Circular System repo
-   - ✅ 更新 `dev/CODEBASE_CONTEXT.md` directory map（加入 knowledge.json、guidelines.json、bump_version.py、dev/K1_API_SPEC.md）
-   - ✅ 更新 SESSION_HANDOFF.md open priorities、known risks
-4. Pending: push 3 local commits（40fe28c、cd96a22、2bea03e）；決定 external `department_head` wording；backend regression test
-5. Next priorities (max 3): (1) push local commits from Mac terminal (2) 決定 external `department_head` wording (3) backend semantic quality regression
-6. Risks / blockers: EDB Circular System repo 未 mount；external `department_head` 是合併角色，若強行細分 wording 可能重新引入語意混淆；歷史文件如 CHANGELOG 仍保留舊稱呼作為版本記錄
+   - ✅ 回應 EDB Circular System agent 的 4 個整合問題
+   - ✅ 確認 knowledge.json stable schema：topic → role-bucket → string arrays
+   - ✅ 確認 `department_head` 拆分決策：→ `subject_head`（科主任）+ `panel_chair`（統籌主任）
+   - ✅ 重寫 knowledge.json v1.3.0：移除 `department_head`，加入 `subject_head` + `panel_chair`（8 事實用 dashboard 原文，panel_chair 保留 [角色] 標注）
+   - ✅ 重寫 K1_API_SPEC.md：正確記錄實際 schema；加入 subject_head vs panel_chair 定義；版本歷史
+   - ✅ K1_API_SPEC.md 恢復 repo root（公開 URL 恢復）；dev/K1_API_SPEC.md 已刪除
+   - ✅ 用戶從 Mac terminal push 成功
+4. Pending: EDB 側更新取值邏輯；backend knowledgeSelector.ts 確認兼容新 schema；backend regression test
+5. Next priorities (max 3): (1) 通知 EDB 側更新 subject_head+panel_chair 取值邏輯 (2) backend knowledgeSelector.ts schema 兼容確認 (3) backend semantic quality regression
+6. Risks / blockers: EDB Circular System 仍使用舊 department_head 取值直至更新；knowledgeRepository.ts 讀 role_facts.json（已有 panel_chair/subject_head），但 knowledgeSelector.ts 的角色篩選邏輯未驗證新 key

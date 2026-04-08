@@ -316,3 +316,99 @@ Known risks / cautions:
 
 Post-startup first action: Confirm whether the 3 commits have been pushed yet. If not, provide push command. If yes, proceed to external department_head wording decision.
 ```
+
+---
+
+## 2026-04-08 Session 37 — knowledge.json v1.3.0 + K1_API_SPEC.md 重寫
+
+1. Agent & Session ID: Claude_20260408_0002
+2. Task summary: 回應 EDB Circular System agent 的 4 個整合問題；確認並執行 department_head → subject_head + panel_chair 拆分；重寫並恢復公開 K1_API_SPEC.md。
+3. Layer classification: Product / System Layer
+4. Source triage: Schema 決策 + API spec 修正
+5. Files read:
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `knowledge.json`
+   - `dev/K1_API_SPEC.md`
+   - `k1-dashboard.html`（INITIAL_DATA panel_chair/subject_head 事實文字）
+6. Files changed:
+   - `knowledge.json` — v1.2.2 → v1.3.0；`department_head` 移除；加入 `subject_head`（科主任）+ `panel_chair`（統籌主任）；使用 dashboard INITIAL_DATA 原文；panel_chair 保留 [角色] 標注
+   - `K1_API_SPEC.md` — 移回 repo root（恢復公開）；完全重寫：記錄實際 role-bucketed string array schema；加入 subject_head vs panel_chair 定義；加入版本歷史
+   - `dev/K1_API_SPEC.md` — 刪除（已被 root K1_API_SPEC.md 取代）
+   - `dev/SESSION_HANDOFF.md` — open priorities、known risks、last session record 更新
+   - `dev/SESSION_LOG.md` — 新增本次記錄
+7. Completed:
+   - ✅ Q1：確認 stable schema = topic → role-bucket → string arrays（非 entry-list）
+   - ✅ Q2：`department_head` 正式拆分，不再使用
+   - ✅ Q3：K1_API_SPEC.md 重寫 + 恢復公開
+   - ✅ Q4：knowledge.json v1.3.0 拆分完成，pushed to origin
+8. Validation / QC:
+   - Python schema check：7 topics，所有 department_head_key=False，subject_head + panel_chair 正確存在 ✅
+   - git push origin main 成功（用戶 Mac terminal）✅
+   - K1_API_SPEC.md 在 repo root ✅，dev/K1_API_SPEC.md 已移除 ✅
+9. Pending:
+   - EDB Circular System 更新取值邏輯（subject_head + panel_chair + all_roles）
+   - backend knowledgeSelector.ts 確認兼容新 schema
+   - backend semantic quality regression test
+10. Next priorities:
+    - (1) 通知 EDB 側更新取值邏輯
+    - (2) 確認 backend knowledgeSelector.ts 兼容
+    - (3) backend regression test（2-3 份真實通告）
+11. Risks / blockers:
+    - EDB Circular System 仍使用舊 department_head 邏輯直至更新（相容橋接期）
+    - knowledgeSelector.ts 未驗證新 key 名稱
+
+### Test Scenarios
+
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| knowledge.json schema 無 department_head | v1.3.0 寫入後 | Python check: `department_head_key` | False for all 7 topics | False for all 7 topics | PASS |
+| subject_head + panel_chair 存在 | v1.3.0 | Python check counts | subject_head > 0 in finance/curriculum/it; panel_chair > 0 in all topics | finance(3+3), hr(0+4), curriculum(4+4), activity(0+4), student(0+4), it(1+5), general(0+2) | PASS |
+| K1_API_SPEC.md 恢復 root | git status | ls K1_API_SPEC.md | 存在 | 存在，已 push | PASS |
+| dev/K1_API_SPEC.md 已刪除 | git rm | ls dev/K1_API_SPEC.md | 不存在 | 不存在 | PASS |
+
+Overall: PASS
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Public API schema 重大變更（v1.3.0） | K1_API_SPEC.md 重寫；SESSION_HANDOFF known risks + open priorities | ✓ Done |
+| Role bucket 重命名（department_head → split） | knowledge.json；K1_API_SPEC.md；SESSION_HANDOFF baseline | ✓ Done |
+| API spec 路徑變更（dev/ → root） | CODEBASE_CONTEXT.md directory map 待更新 | ⚠ Skipped — defer to next session |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Project: K1 EDB Knowledge Platform / Dashboard repo
+Current state: v1.3.0 pushed to GitHub. Major schema change complete.
+
+KEY CHANGES THIS SESSION:
+- knowledge.json upgraded to v1.3.0: department_head REMOVED, replaced by:
+  - subject_head: 科主任 (subject/curriculum-level duties)
+  - panel_chair: 統籌主任 (school-wide coordination roles, with [role] annotations)
+- K1_API_SPEC.md: rewritten with correct schema, restored to repo root (public URL live)
+- dev/K1_API_SPEC.md: deleted
+
+Public endpoints (live):
+  https://leonard-wong-git.github.io/edb-knowledge/knowledge.json  (v1.3.0)
+  https://leonard-wong-git.github.io/edb-knowledge/guidelines.json (v1.2.2, unchanged)
+  https://leonard-wong-git.github.io/edb-knowledge/K1_API_SPEC.md (rewritten, v1.3 spec)
+
+EDB Circular System must update fetch logic:
+  OLD: knowledge[topic].get("department_head", []) + knowledge[topic].get("all_roles", [])
+  NEW: knowledge[topic].get("subject_head", []) + knowledge[topic].get("panel_chair", []) + knowledge[topic].get("all_roles", [])
+
+Pending tasks (priority order):
+1. Update CODEBASE_CONTEXT.md directory map (K1_API_SPEC.md back at root, not dev/)
+2. Confirm backend knowledgeSelector.ts handles panel_chair + subject_head keys correctly
+3. Backend semantic quality regression: run 2-3 real EDB circulars through POST /analyze-circular
+
+Known risks / cautions:
+- EDB Circular System still uses old department_head logic until they update
+- knowledgeSelector.ts role filtering not yet verified against new key names
+- VM push blocked (HTTP 403) — push from Mac terminal only
+
+Post-startup first action: Update CODEBASE_CONTEXT.md directory map to reflect K1_API_SPEC.md at repo root (not dev/), then check backend knowledgeSelector.ts for panel_chair/subject_head compatibility.
+```
