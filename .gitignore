@@ -13,8 +13,13 @@ INIT.md
 
 # Uploads / temp
 dev/uploads/
+dev/edb-knowledge-admin-snapshot.json
+dev/init_backup/
+dev/K1_API_SPEC.md
 *.tmp
 *.bak
+tmp_fix.py
+update_*.py
 
 # Backend build / local env
 backend/node_modules/
