@@ -31,16 +31,14 @@
 - Dashboard 4th view mode "📋 通告分析" serves as the RAG test interface
 
 ## Open Priorities
-1. **[驗證]** Browser 驗證 GitHub Pages 已反映 `v1.3.1`，並確認以下公開 URL 載入正確：
+1. **[EDB 側]** 用戶將 `role_facts.json` v2.0.0 cp 至 `~/Downloads/Claude-edb-Project-V3/dev/knowledge/`，commit 並 push；EDB agent 更新 fetch 邏輯為 `subject_head + panel_chair + all_roles`（已提供指令）
+2. **[驗證]** Browser hard-refresh 4 public URLs，確認 GitHub Pages 反映 `v1.3.1`：
    - `https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html`
    - `https://leonard-wong-git.github.io/edb-knowledge/knowledge.json`
    - `https://leonard-wong-git.github.io/edb-knowledge/guidelines.json`
    - `https://leonard-wong-git.github.io/edb-knowledge/K1_API_SPEC.md`
-2. **[EDB 側更新]** 通知 EDB Circular System agent 更新 knowledge.json 取值邏輯：
-   - 舊：`knowledge[topic].get("department_head", []) + knowledge[topic].get("all_roles", [])`
-   - 新：`knowledge[topic].get("subject_head", []) + knowledge[topic].get("panel_chair", []) + knowledge[topic].get("all_roles", [])`
-3. **[品質]** Backend semantic quality regression：用 2–3 份真實 EDB 通告做 `POST /analyze-circular` 測試，驗證 topic detection 與 `used_facts` 合理性
-4. **[資料策略]** 決定 `dev/knowledge/role_facts.json` 是否也升級到 split-role schema，避免 public `knowledge.json` 與本地 backup/export artifact 長期漂移
+3. **[品質]** Backend semantic quality regression：用 2–3 份真實 EDB 通告做 `POST /analyze-circular` 測試
+4. **[契約]** 更新 `K1_KNOWLEDGE_INTERFACE_SPEC.md` 從 v1.0.0 → v2.0.0：正式記錄 `subject_head` + `panel_chair` 拆分，退役 `department_head` role ID 條目及驗收腳本
 
 ## Known Risks / Blockers
 1. EDB website pages sometimes 404 or restructured — guideline URLs may need updating
@@ -84,10 +82,10 @@ This file and `dev/SESSION_LOG.md` must be updated at the end of every session.
 2. Session ID: Claude_20260409_0646
 3. Completed:
    - ✅ §1 startup sequence after context compaction
-   - ✅ Local repo verified: `knowledge.json` v1.3.1, split-role schema correct (no `department_head`), all 7 topics ✅
-   - ✅ `guidelines.json` v1.3.1, 39 docs ✅; `K1_API_SPEC.md` at root ✅
-   - ✅ `CODEBASE_CONTEXT.md` directory map confirmed correct (no update needed)
-   - ⚠️ Browser/live URL check BLOCKED (Chrome not running + egress proxy) — user must verify manually
-4. Pending: Browser 驗證 4 public URLs（user action）；EDB 側更新 subject_head+panel_chair 取值邏輯；backend regression；role_facts.json schema decision
-5. Next priorities (max 3): (1) Browser hard-refresh 4 public URLs to confirm v1.3.1 live (2) 通知/提供 EDB Circular System agent 更新 fetch logic (3) backend semantic quality regression
-6. Risks / blockers: Live URL unconfirmed (browser check pending); EDB Circular System 仍使用舊 department_head 取值；backend semantic regression 尚未做
+   - ✅ Local repo verified: `knowledge.json` v1.3.1, split-role schema (no `department_head`) ✅
+   - ✅ `role_facts.json` v2.0.0 生成並驗證（107 facts，7 topics，no department_head）；交付用戶 cp 至 EDB repo
+   - ✅ `SESSION_LOG.md` 歸檔（828 → 188 行，Q2 archive 更新）
+   - ⚠️ Browser/live URL check BLOCKED — 用戶需手動 hard-refresh 驗證
+4. Pending: role_facts.json cp 至 EDB repo；browser 4 URL 驗證；backend regression；K1_KNOWLEDGE_INTERFACE_SPEC.md 升版至 v2.0.0
+5. Next priorities (max 3): (1) 用戶 cp role_facts.json 至 EDB repo 並 push；EDB agent 更新 fetch 邏輯 (2) Browser hard-refresh 4 public URLs (3) K1_KNOWLEDGE_INTERFACE_SPEC.md → v2.0.0
+6. Risks / blockers: K1_KNOWLEDGE_INTERFACE_SPEC.md 仍在 v1.0.0（department_head 時代）有規格漂移；Live URL 未 browser 確認；EDB Circular System 仍用舊 department_head 取值
