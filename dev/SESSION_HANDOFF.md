@@ -11,7 +11,7 @@
 ## Layer Map
 1. Product / System Layer: Dashboard UI, fact data model, review workflow, JSON export, EDB data ingestion, Guidelines Library, Knowledge Platform backend.
 2. Development Governance Layer: AGENTS.md session governance, handoff/log protocol.
-3. Current task belongs to which layer: Product / System Layer (backend schema compatibility for v1.3.0) + Development Governance Layer (documentation sync).
+3. Current task belongs to which layer: Product / System Layer (LLM-wiki phased architecture, source registry + traceability design) + Development Governance Layer (documentation sync).
 4. Known layer-boundary risks: None currently.
 
 ## Mandatory Start Checklist
@@ -31,14 +31,14 @@
 - Dashboard 4th view mode "📋 通告分析" serves as the RAG test interface
 
 ## Open Priorities
-1. **[EDB 側]** 用戶將 `role_facts.json` v2.0.0 cp 至 `~/Downloads/Claude-edb-Project-V3/dev/knowledge/`，commit 並 push；EDB agent 更新 fetch 邏輯為 `subject_head + panel_chair + all_roles`（已提供指令）
-2. **[驗證]** Browser hard-refresh 4 public URLs，確認 GitHub Pages 反映 `v1.3.1`：
-   - `https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html`
-   - `https://leonard-wong-git.github.io/edb-knowledge/knowledge.json`
-   - `https://leonard-wong-git.github.io/edb-knowledge/guidelines.json`
-   - `https://leonard-wong-git.github.io/edb-knowledge/K1_API_SPEC.md`
+1. **[Phase 0 — 驗證]** Browser hard-refresh 4 public URLs，確認 GitHub Pages 反映 `v1.3.1`
+2. **[Phase 1]** 建立 source registry + fact-source mapping：
+   - 建立 `dev/source/source_registry.json`，seed SAG + Code of Aid + guidelines.json 中已有的 ~15 EDB 文件
+   - 在 `role_facts.json` 各 topic block 加入 `_source_refs` 欄位（`_` prefix，不影響公開契約）
+   - 完成後每條 fact 可追溯至少一個來源
 3. **[品質]** Backend semantic quality regression：用 2–3 份真實 EDB 通告做 `POST /analyze-circular` 測試
-4. **[契約]** 更新 `K1_KNOWLEDGE_INTERFACE_SPEC.md` 從 v1.0.0 → v2.0.0：正式記錄 `subject_head` + `panel_chair` 拆分，退役 `department_head` role ID 條目及驗收腳本
+4. **[Phase 2]** Source freshness monitoring script（Phase 1 穩定後）
+5. **[EDB 側]** EDB agent 更新 `fetch_knowledge.py` 的 `department_head` stale path；初始化 EDB-Project-V3 git repo
 
 ## Known Risks / Blockers
 1. EDB website pages sometimes 404 or restructured — guideline URLs may need updating
@@ -56,6 +56,10 @@
 13. **knowledge.json schema 重大變更 v1.3.1** — `department_head` bucket 已移除，拆分為 `subject_head`（科主任）+ `panel_chair`（統籌主任）。EDB Circular System 須更新取值邏輯（見 Open Priorities #2）。
 14. **K1_API_SPEC.md 已重寫並恢復公開** — 舊 spec 描述的 entry-list 格式從未實作；新 spec 記錄實際 role-bucketed 字串陣列格式，以及 subject_head vs panel_chair 定義。公開 URL：`https://leonard-wong-git.github.io/edb-knowledge/K1_API_SPEC.md`
 15. **backend compatibility 已補上 bridge layer** — backend 現在同時接受舊 `department_head` 與新 `subject_head` / `panel_chair`；但本地 `dev/knowledge/role_facts.json` 仍是舊 merged schema。
+16. **產品方向研究已暫停在 knowledge-base-first 結論** — 已確認 UI / product positioning 應以知識庫為核心，而非以「通告分析」作主舞台；但本 session 未進行任何 UI 結構變更，下一步仍應先集中在 circular 引用與回饋。
+17. **Backend 預設知識源已切到 repo root `role_facts.json`** — `DEFAULT_KNOWLEDGE_PATH_SETTING` 已從 `../../../dev/knowledge/role_facts.json` 改為 `../../../role_facts.json`；機器驗證已確認 `subject_head` 與 `panel_chair` 在 `finance` topic 取回不同 facts，角色分辨恢復正常。（Session Codex_20260409_0001）
+18. **AnalyzeCircularResponse 已補充診斷欄位** — response 現在包含 `similarity_scores` 與 `total_fact_chars`，方便後續 semantic regression 與 UI/consumer 調試。（Session Codex_20260409_0001）
+19. **已同意 LLM-wiki phased approach（v2 plan）** — 用 LLM-wiki 概念統一理解：現有 facts/guidelines 已是 wiki，Phase 0 修 backend、Phase 1 加 source registry + `_source_refs` traceability、Phase 2 加 freshness monitoring、Phase 3 按需加 extraction/vault/compile。`SAG` + `Code of Aid` 為 spine sources。現階段 `knowledge.json` / `guidelines.json` / `role_facts.json` 接口不變。見 `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` v2。
 
 ## Regression / Verification Notes
 1. Required checks: All facts ≤ 80 chars, ≤ 5 per role key, valid topic/role IDs, JSON schema compliance
@@ -64,7 +68,10 @@
 4. All 81 facts ≤ 80 chars ✅ (verified Sessions 16 + 19)
 5. role_facts.json synced to INITIAL_DATA ✅ (Session 19 — procurement thresholds updated, 3-year record retention)
 6. Admin mode: SHA-256 hash verified by Python + confirmed in 10-point grep check ✅ (Session 19)
-7. Current failing checks: None
+7. Backend default knowledge path now resolves to repo-root `role_facts.json` ✅ (`node --input-type=module ...`; Session Codex_20260409_0001)
+8. `subject_head` vs `panel_chair` split-role selection verified on `finance` topic ✅ (Session Codex_20260409_0001)
+9. `AnalyzeCircularResponse` now returns `similarity_scores` + `total_fact_chars` in compiled backend output ✅ (`npm run build` + `node --input-type=module ...`; Session Codex_20260409_0001)
+10. Current failing checks: None
 
 ## Source Audit Summary (v1.0.0 baseline)
 All 7 topics audited — Finance, HR, Activity, Student, Curriculum, IT, General. All source URLs updated to specific PDFs where available. See Session 13 log for details.
@@ -79,13 +86,13 @@ This file and `dev/SESSION_LOG.md` must be updated at the end of every session.
 
 ## Last Session Record
 1. UTC date: 2026-04-09
-2. Session ID: Claude_20260409_0646
+2. Session ID: Codex_20260409_0001
 3. Completed:
-   - ✅ §1 startup sequence after context compaction
-   - ✅ Local repo verified: `knowledge.json` v1.3.1, split-role schema (no `department_head`) ✅
-   - ✅ `role_facts.json` v2.0.0 生成並驗證（107 facts，7 topics，no department_head）；交付用戶 cp 至 EDB repo
-   - ✅ `SESSION_LOG.md` 歸檔（828 → 188 行，Q2 archive 更新）
-   - ⚠️ Browser/live URL check BLOCKED — 用戶需手動 hard-refresh 驗證
-4. Pending: role_facts.json cp 至 EDB repo；browser 4 URL 驗證；backend regression；K1_KNOWLEDGE_INTERFACE_SPEC.md 升版至 v2.0.0
-5. Next priorities (max 3): (1) 用戶 cp role_facts.json 至 EDB repo 並 push；EDB agent 更新 fetch 邏輯 (2) Browser hard-refresh 4 public URLs (3) K1_KNOWLEDGE_INTERFACE_SPEC.md → v2.0.0
-6. Risks / blockers: K1_KNOWLEDGE_INTERFACE_SPEC.md 仍在 v1.0.0（department_head 時代）有規格漂移；Live URL 未 browser 確認；EDB Circular System 仍用舊 department_head 取值
+   - ✅ 修正 backend 預設數據源：`DEFAULT_KNOWLEDGE_PATH_SETTING` 改為 repo root `role_facts.json`
+   - ✅ 在 `AnalyzeCircularResponse` 加入 `similarity_scores` 與 `total_fact_chars`
+   - ✅ `npm run check` / `npm run build` 通過
+   - ✅ 驗證 `subject_head` 與 `panel_chair` 在 `finance` topic 返回 distinct facts
+   - ✅ 同步更新 backend README 與 CODEBASE_CONTEXT
+4. Pending: Browser live URL verification；Phase 1 source registry + `_source_refs`；Phase 2 freshness script；backend semantic regression；EDB 側 stale path
+5. Next priorities (max 3): (1) Browser hard-refresh 4 public URLs (2) 建立 source_registry.json + seed entries (3) 用真實 EDB circular 做 backend semantic regression
+6. Risks / blockers: Live URL 未 browser 確認；backend 仍未做真實 circular semantic regression；guidelines.json 仍未載入 backend；EDB-Project-V3 仍無 git

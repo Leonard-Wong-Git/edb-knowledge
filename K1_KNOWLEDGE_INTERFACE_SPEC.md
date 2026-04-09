@@ -1,7 +1,8 @@
 # K1 知識庫接口規格（對外獨立版）
 
-**文件版本：** 1.0.0
+**文件版本：** 2.0.0
 **建立日期：** 2026-03-15
+**更新日期：** 2026-04-09
 **維護方：** EDB Circular AI Analysis System
 **用途：** 供 K1 知識庫項目開發者參考，定義雙方接口契約
 **獨立性聲明：** 本文件完全獨立，K1 項目無需閱讀或接觸 EDB 項目的任何其他文件、代碼或配置。
@@ -41,6 +42,12 @@ Token 預算：  注入 LLM 時每次分析取用 ≤ 600 字（中文字符）
     "all_roles": [
       "適用所有角色的事實（字串，每條 ≤ 80 字）"
     ],
+    "subject_head": [
+      "科主任適用的事實（字串，每條 ≤ 80 字）"
+    ],
+    "panel_chair": [
+      "統籌主任／主任類適用的事實（字串，每條 ≤ 80 字）"
+    ],
     "<role_id>": [
       "只適用此角色的事實（字串，每條 ≤ 80 字）"
     ]
@@ -59,8 +66,14 @@ Token 預算：  注入 LLM 時每次分析取用 ≤ 600 字（中文字符）
       "採購門檻（資助學校）：< HK$2,000 直購免報價；$2,000–$20,000 最少 3 份書面報價；$20,000–$50,000 最少 5 份；> $50,000 公開招標",
       "廉潔約章：所有 > HK$2,000 採購須要求供應商簽署廉潔約章（ICAC 要求）"
     ],
+    "subject_head": [
+      "科主任提交採購申請時須註明用途、周年計劃及預算來源"
+    ],
+    "panel_chair": [
+      "[總務主任] 須統籌校舍設施採購需求，按採購門檻提交申請"
+    ],
     "eo_admin": [
-      "行政主任負責採購程序合規，須保存完整報價記錄（最少 7 年）"
+      "EO負責採購程序合規，須保存完整報價記錄"
     ],
     "principal": [
       "整筆撥款（LSG）校長須確保各項撥款按核准用途使用，不可挪用"
@@ -108,12 +121,28 @@ Token 預算：  注入 LLM 時每次分析取用 ≤ 600 字（中文字符）
 | `all_roles` | 所有角色適用 | 特殊保留 key，必須使用 |
 | `principal` | 校長 | |
 | `vice_principal` | 副校長 | |
-| `department_head` | 科主任 | |
+| `subject_head` | 科主任 | 科／學習領域層面的主任職責 |
+| `panel_chair` | 統籌主任 | 全校統籌層面的主任職責；事實字串可帶 `[具體角色]` 標注 |
 | `teacher` | 教師 | |
-| `eo_admin` | 行政主任 | |
+| `eo_admin` | EO | Executive Officer / 行政主任職能 |
 | `supplier` | 供應商 | |
 
 > ⚠️ **約束：** Role ID 必須完全吻合上表英文字串，包括下劃線格式。
+
+### 3.3 `subject_head` vs `panel_chair`
+
+`subject_head`
+- 用於學科／學習領域層面的主任職責
+- 例如：中文科主任、英文科主任、數學科主任、常識／人文科主任
+
+`panel_chair`
+- 用於全校統籌層面的主任／統籌主任職責
+- 例如：課程統籌主任、訓導主任、輔導主任、活動主任、特殊教育統籌主任、資訊科技統籌主任、總務主任、教務主任、學務主任
+
+整合方如希望取得「主任類整體知識」，應同時取用：
+- `subject_head`
+- `panel_chair`
+- `all_roles`
 
 ---
 
@@ -160,7 +189,7 @@ Token 預算：  注入 LLM 時每次分析取用 ≤ 600 字（中文字符）
 ```json
 {
   "_meta": {
-    "version": "必填，語義版本號如 1.0.0",
+    "version": "必填，語義版本號如 2.0.0",
     "created": "必填，YYYY-MM-DD",
     "updated": "選填，YYYY-MM-DD",
     "description": "選填，本文件說明"
@@ -191,8 +220,8 @@ K1 項目交付前，建議用以下 Python 腳本自我驗證：
 import json
 
 VALID_TOPICS = {"finance","hr","curriculum","activity","student","it","general"}
-VALID_ROLES  = {"all_roles","principal","vice_principal","department_head",
-                "teacher","eo_admin","supplier"}
+VALID_ROLES  = {"all_roles","principal","vice_principal","subject_head",
+                "panel_chair","teacher","eo_admin","supplier"}
 MAX_FACT_LEN = 80
 MAX_FACTS_PER_KEY = 5
 
@@ -240,9 +269,9 @@ K1 項目                              EDB 項目
 ─────────────────────────────────    ────────────────────────────
 1. 按本文件規格生成 role_facts.json
 2. 執行第 6 節驗收腳本 → ✅ PASSED
-3. 交付 role_facts.json              4. 替換 dev/knowledge/role_facts.json
-                                     5. 下一次 GitHub Actions workflow
-                                        自動使用新知識（無需改代碼）
+3. 交付 role_facts.json              4. 替換接收方使用的 role_facts.json
+                                     5. 接收方按新 schema 取用
+                                        `subject_head + panel_chair + all_roles`
 ```
 
 **EDB 項目接收方確認清單：**
@@ -256,10 +285,21 @@ K1 項目                              EDB 項目
 
 | 變更類型 | Schema 版本號 | 是否需要通知 EDB |
 |----------|--------------|-----------------|
-| 新增 / 修改事實條目內容 | Patch（1.0.x） | 不需要，直接交付 |
-| 新增現有 topic 下的新 role key | Minor（1.x.0） | 建議通知 |
-| 新增全新 topic ID | **Minor（1.x.0）** | **必須通知，先更新本文件** |
+| 新增 / 修改事實條目內容 | Patch（2.0.x） | 不需要，直接交付 |
+| 新增現有 topic 下的新 role key | Minor（2.x.0） | 建議通知 |
+| 新增全新 topic ID | **Minor（2.x.0）** | **必須通知，先更新本文件** |
 | 修改 topic ID 或 role ID 名稱 | **Major（x.0.0）** | **必須協商，雙方同步更新** |
+
+### 8.1 本次 Major 變更（2.0.0）
+
+- `department_head` 正式退役
+- 角色拆分為：
+  - `subject_head`
+  - `panel_chair`
+- 接收方如原本只讀 `department_head`，必須改為同時讀：
+  - `subject_head`
+  - `panel_chair`
+  - `all_roles`
 
 > Major 版本變更必須雙方同意後才能實施，避免 EDB 項目 silent break。
 

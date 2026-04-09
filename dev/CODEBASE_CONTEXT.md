@@ -11,8 +11,9 @@
 - `index.html` — redirect entry point to `k1-dashboard.html`
 - `README.md` — project overview, feature summary, live demo link
 - `CHANGELOG.md` — release history through `v1.3.1`
-- `K1_KNOWLEDGE_INTERFACE_SPEC.md` — external data contract and validation expectations for the knowledge JSON structure
+- `K1_KNOWLEDGE_INTERFACE_SPEC.md` — external data contract and validation expectations for `role_facts.json`; now v2.0.0 with `subject_head` + `panel_chair`
 - `K1_API_SPEC.md` — public integration spec for EDB Circular System; v1.3 schema with `subject_head` + `panel_chair`
+- `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` — agreed architecture plan (v2): LLM-wiki approach with phased delivery — source registry, fact-source traceability, freshness monitoring; vault/wiki-unit/compile layers deferred to Phase 3 if scale demands
 - `knowledge.json` — public API endpoint: v1.3.1 approved facts, 7 topics, `subject_head` + `panel_chair` role schema (GitHub Pages)
 - `guidelines.json` — public API endpoint: 39 EDB guideline document reference links, 7 topics (GitHub Pages)
 - `bump_version.py` — version bumper: patch/minor/major/set modes; syncs 6 files + CHANGELOG + README date
@@ -22,7 +23,7 @@
 - `backend/src/services/knowledgeSelector.ts` — role-aware approved-knowledge selection with 600-char budget; bridges legacy `department_head` and split-role schema
 - `backend/src/services/promptBuilder.ts` — builds the consultative prompt with approved knowledge injection
 - `backend/src/lib/embeddingClient.ts` — OpenAI `text-embedding-3-small` wrapper; exports `EmbedFn` type
-- `backend/src/lib/knowledgeRepository.ts` — loads `dev/knowledge/role_facts.json` for backend use
+- `backend/src/lib/knowledgeRepository.ts` — loads repo-root `role_facts.json` for backend use; `dev/knowledge/role_facts.json` remains a legacy backup/export artifact
 - `backend/src/lib/llmClient.ts` — OpenAI Responses API wrapper with low-cost default model
 - `backend/src/api/analyzeCircular.ts` — orchestrates detect → select → prompt → LLM flow
 - `backend/src/server.ts` — minimal Node HTTP entrypoint exposing `POST /analyze-circular`
@@ -53,6 +54,7 @@
   - `npm run build`
   - `OPENAI_API_KEY=... npm run dev`
   - `curl http://localhost:8787/health`
+  - default backend knowledge source is repo-root `role_facts.json`; override with `KNOWLEDGE_PATH` only when intentionally testing another dataset
 - Baseline verification used by the project:
   - validate fact schema and counts in `dev/knowledge/role_facts.json`
   - verify JSX/bracket balance in `k1-dashboard.html`
@@ -100,6 +102,7 @@
 - Public `knowledge.json` is now the external schema SSOT; backend compatibility must be checked whenever its role buckets change
 - Backend compatibility is implemented as a bridge layer: old clients can still request `department_head`, while new split-role callers may request `subject_head` or `panel_chair`
 - Dashboard UI may use split role labels and role buckets that differ from older backup/export artifacts; do not assume `dev/knowledge/role_facts.json` matches the live public schema without verification
+- The agreed architecture direction is LLM-wiki with phased delivery: the current facts/guidelines already form the wiki; Phase 0 fixes the backend bug, Phase 1 adds source registry + fact-source traceability, Phase 2 adds freshness monitoring, Phase 3 (scale-triggered) adds extraction assistance and optional vault/wiki-unit/compile layers. See `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` v2 for full details
 
 ## AI Maintenance Log
 - `2026-03-17 (Codex_20260317_1941)` Generated initial `CODEBASE_CONTEXT.md` from: `README.md`, `CHANGELOG.md`, `K1_KNOWLEDGE_INTERFACE_SPEC.md`, `k1-dashboard.html`, `index.html`, `.gitignore`, `dev/knowledge/role_facts.json`, `dev/SESSION_HANDOFF.md`, `dev/SESSION_LOG.md`
@@ -111,3 +114,7 @@
 - `2026-04-08 (Codex_20260408_0905)` Updated directory map after `K1_API_SPEC.md` returned to repo root and `knowledge.json` moved to v1.3.0 split-role schema; noted that backend still expects `department_head` and needs compatibility verification.
 - `2026-04-08 (Codex_20260408_0925)` Updated backend notes after adding a compatibility bridge for `department_head` plus split `subject_head` / `panel_chair`, with successful `npm run check` and `npm run build`.
 - `2026-04-08 (Codex_20260408_1115)` Refreshed release-state context after `v1.3.1` push; clarified that public `knowledge.json` is split-role while local `dev/knowledge/role_facts.json` remains a merged backup/export artifact.
+- `2026-04-09 (Codex_20260409_0905)` Updated context after promoting `K1_KNOWLEDGE_INTERFACE_SPEC.md` to v2.0.0 and aligning it with the split-role contract (`subject_head` + `panel_chair`).
+- `2026-04-09 (Codex_20260409_1135)` Added `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` to capture the agreed source-driven architecture direction: preserve current public interfaces, add source registry/vault, monitor `SAG` + `Code of Aid`, and support scheduled/manual ingestion.
+- `2026-04-09 (Claude_20260409_0000)` Rewrote `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` to v2: replaced 4-layer architecture with phased LLM-wiki approach (Phase 0 fix backend → Phase 1 source registry + traceability → Phase 2 freshness monitoring → Phase 3 extraction if scale demands). Updated Key Decisions to reflect agreed direction.
+- `2026-04-09 (Codex_20260409_0001)` Updated backend context after Phase 0 fix: default knowledge path now points to repo-root `role_facts.json` (split-role v2.0.0), and analyze responses now expose `similarity_scores` plus `total_fact_chars`.

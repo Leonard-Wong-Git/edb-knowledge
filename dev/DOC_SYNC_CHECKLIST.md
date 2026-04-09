@@ -22,6 +22,7 @@
 | Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | manual review |
 | Product version / release milestone change | k1-dashboard.html `_meta`; dev/knowledge/role_facts.json `_meta`; README badge; CHANGELOG; SESSION_HANDOFF.md; SESSION_LOG.md; CODEBASE_CONTEXT.md if release summary changed | manual review |
 | Backend README / standalone runbook added | CODEBASE_CONTEXT.md Build & Run or Directory Map; SESSION_HANDOFF.md priorities if operator flow changes; SESSION_LOG.md task entry + QC evidence | manual review |
+| Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | manual review |
 | _[Add project-specific rows below this line]_ | | |
 
 ## Anti-pattern: No Matching Row
