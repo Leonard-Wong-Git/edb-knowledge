@@ -639,3 +639,190 @@ Known risks / cautions:
 
 Post-startup first action: Update CODEBASE_CONTEXT.md directory map to reflect K1_API_SPEC.md at repo root (not dev/), then check backend knowledgeSelector.ts for panel_chair/subject_head compatibility.
 ```
+
+---
+
+## 2026-04-08 Session 40 — Closeout + Circular System Handoff
+
+1. Agent & Session ID: Codex_20260408_1115
+2. Task summary: Closed out the K1 repo after the `v1.3.1` push, refreshed release-state governance docs, and produced a copy-paste-ready handoff for the separate EDB Circular System AI agent.
+3. Layer classification: Development Governance Layer + Product / System Layer
+4. Source triage: Closeout / documentation alignment issue
+5. Files read:
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/DOC_SYNC_CHECKLIST.md`
+   - `git status --short`
+   - `wc -l dev/SESSION_LOG.md`
+6. Files changed:
+   - `dev/SESSION_HANDOFF.md` — regenerated baseline, release state, open priorities, risks, and last-session record to reflect `v1.3.1` already pushed
+   - `dev/CODEBASE_CONTEXT.md` — updated directory-map release wording (`knowledge.json` v1.3.1, CHANGELOG through v1.3.1) and appended maintenance-log entry
+   - `dev/SESSION_LOG.md` — appended this closeout entry and stored the new handoff block verbatim
+7. Completed:
+   - ✅ Confirmed active `SESSION_LOG.md` is below the archive threshold (`641` lines), so no §4a archive pass was needed
+   - ✅ Removed stale "prepared locally / not yet pushed" wording from handoff state
+   - ✅ Re-ranked open priorities around live Pages verification, Circular System fetch-logic update, and backend regression
+   - ✅ Prepared a direct handoff prompt for the separate Circular System AI agent to consume
+8. Validation / QC:
+   - `git status --short` before edits → clean working tree
+   - `wc -l dev/SESSION_LOG.md` before edits → `641 dev/SESSION_LOG.md`
+   - Manual review after edits:
+     - `SESSION_HANDOFF.md` now states `v1.3.1` is pushed to `main`
+     - `CODEBASE_CONTEXT.md` now states `knowledge.json` is `v1.3.1`
+     - Current risks/priorities now match the pushed split-role schema state
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: Closeout docs still described `v1.3.1` as only "prepared locally" even though the release had already been committed and pushed, and there was no clean handoff block tailored for the separate Circular System AI agent
+2. Root Cause: Release packaging, push, and follow-up wording cleanup happened across multiple rapid sessions
+3. Fix: Regenerated handoff/context/log to reflect the true pushed state and authored a fresh verbatim handoff prompt focused on the Circular System integration delta
+4. Verification: handoff/context now consistently describe the pushed `v1.3.1` split-role state; the new handoff block is recorded below verbatim
+5. Regression / rule update: None
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product version / release milestone change | k1-dashboard.html `_meta`; dev/knowledge/role_facts.json `_meta`; README badge; CHANGELOG; SESSION_HANDOFF.md; SESSION_LOG.md; CODEBASE_CONTEXT.md if release summary changed | ✓ Done |
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Date: 2026-04-08 (UTC)
+Project: K1 EDB Knowledge Platform / Dashboard repo
+
+Current state:
+- `v1.3.1` is already pushed to `main`
+- Public `knowledge.json` now uses the split external role buckets:
+  - `subject_head` = 科主任
+  - `panel_chair` = 統籌主任 / 主任類
+  - `all_roles` remains shared
+- Public `K1_API_SPEC.md` is at repo root and live on GitHub Pages
+- Backend compatibility bridge is done:
+  - `backend/src/types/knowledge.ts` accepts legacy `department_head` plus split `subject_head` / `panel_chair`
+  - `backend/src/services/knowledgeSelector.ts` bridges old merged and new split-role callers
+- Local `dev/knowledge/role_facts.json` still remains a merged backup/export artifact with `department_head`; do not confuse it with the public API contract
+
+What the separate EDB Circular System AI agent needs to know:
+- Old fetch logic is now stale:
+  - `knowledge[topic].get("department_head", []) + knowledge[topic].get("all_roles", [])`
+- New fetch logic should use:
+  - `knowledge[topic].get("subject_head", []) + knowledge[topic].get("panel_chair", []) + knowledge[topic].get("all_roles", [])`
+- Public URLs:
+  - https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html
+  - https://leonard-wong-git.github.io/edb-knowledge/knowledge.json
+  - https://leonard-wong-git.github.io/edb-knowledge/guidelines.json
+  - https://leonard-wong-git.github.io/edb-knowledge/K1_API_SPEC.md
+
+Pending tasks (priority order):
+1. Browser-verify that GitHub Pages now shows `v1.3.1` and that the 4 public URLs above load correctly after propagation/cache refresh
+2. Update the separate EDB Circular System repo to read `subject_head + panel_chair + all_roles` from public `knowledge.json`
+3. Run backend semantic regression on 2–3 real EDB circulars against `POST /analyze-circular`
+4. Decide whether local `dev/knowledge/role_facts.json` should also migrate to split-role schema or intentionally remain a merged backup/export artifact
+
+Key files changed in the closing session:
+- /Users/leonard/Downloads/Claude-edb-knowledge/dev/SESSION_HANDOFF.md
+- /Users/leonard/Downloads/Claude-edb-knowledge/dev/CODEBASE_CONTEXT.md
+- /Users/leonard/Downloads/Claude-edb-knowledge/dev/SESSION_LOG.md
+
+Known risks / blockers / cautions:
+- GitHub Pages may briefly lag or be browser-cached even after push
+- The separate EDB Circular System repo still needs to move off `department_head`
+- Public `knowledge.json` and local `dev/knowledge/role_facts.json` intentionally have different shapes right now
+- Backend is compatible with both schemas, but semantic quality still needs a few real circular regression tests
+
+Validation status:
+- `v1.3.1` release state recorded in governance docs ✅
+- Backend split-role compatibility already implemented and machine-verified (`npm run check`, `npm run build`) ✅
+- Live GitHub Pages/browser verification still pending ⚠️
+
+Post-startup first action: Open the 4 public URLs in a browser to confirm the live `v1.3.1` deployment, then update the separate Circular System repo's fetch logic from `department_head` to `subject_head + panel_chair + all_roles`.
+```
+
+---
+
+## 2026-04-09 Session 38 — Startup Verification (URL Check + Governance Sync)
+
+1. Agent & Session ID: Claude_20260409_0646
+2. Task summary: §1 startup sequence after context compaction. Verified v1.3.1 local repo state. Attempted browser verification of 4 public URLs — blocked by Chrome not running + egress proxy restriction. Confirmed CODEBASE_CONTEXT.md directory map already correct (K1_API_SPEC.md at root). Governance files committed by Codex_20260408_1115 had 3 uncommitted local changes; included in this closeout commit.
+3. Layer classification: Development Governance Layer
+
+### PLAN
+- Objective: Confirm v1.3.1 is correctly deployed across all 4 public URLs and governance files are in sync
+- Scope: Read-only verification + governance closeout
+- Risks: Browser egress blocked; Chrome not running
+- Acceptance: Local repo confirms v1.3.1 schema; user performs manual browser verification
+
+### READ
+- knowledge.json: version 1.3.1 ✅; split-role schema confirmed (subject_head + panel_chair + all_roles; no department_head) across all 7 topics ✅
+- guidelines.json: version 1.3.1, 39 docs ✅
+- K1_API_SPEC.md: at repo root, v1.3 spec, updated 2026-04-08 ✅
+- CODEBASE_CONTEXT.md: directory map already shows K1_API_SPEC.md at root (Codex_20260408_0905 fixed it) — no update needed ✅
+- SESSION_HANDOFF.md: read; Open Priorities confirmed; Last Session Record from Codex_20260408_1115
+
+### CHANGE
+- SESSION_HANDOFF.md: Last Session Record updated to Claude_20260409_0646; Open Priorities regenerated
+- SESSION_LOG.md: new session entry appended
+
+### QC
+- knowledge.json version: 1.3.1 ✅
+- knowledge.json department_head absent: True across all 7 topics ✅
+- knowledge.json subject_head + panel_chair present in all relevant topics ✅
+- guidelines.json version 1.3.1, 39 docs, 7 topics ✅
+- K1_API_SPEC.md at root ✅
+- Git log: v1.3.1 commit (30b2356) confirmed on main ✅
+- Browser/live URL verification: BLOCKED — user to verify manually with hard-refresh (⌘⇧R)
+
+### DOC_SYNC Matrix Scan
+No file content changes this task (verification + governance closeout only).
+### DOC_SYNC Matrix Scan — SKIP (no product file changes this task)
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Date: 2026-04-09 (UTC)
+Project: K1 EDB Knowledge Platform / Dashboard repo
+
+Current state:
+- v1.3.1 is on main; local repo verified: knowledge.json split-role schema correct (subject_head + panel_chair + all_roles; no department_head across all 7 topics)
+- guidelines.json: v1.3.1, 39 docs, 7 topics
+- K1_API_SPEC.md: at repo root (public), v1.3 schema
+- CODEBASE_CONTEXT.md directory map: correct (K1_API_SPEC.md at root)
+- Backend compatibility bridge: done (types/knowledge.ts + knowledgeSelector.ts accept both legacy department_head and split-role schema)
+- 3 governance files (CODEBASE_CONTEXT.md, SESSION_HANDOFF.md, SESSION_LOG.md) have local changes from Codex_20260408_1115 + this session; include in next git commit
+
+Browser verification status:
+- Live URL check was BLOCKED this session (Chrome not running + egress proxy)
+- User must manually verify all 4 URLs with hard refresh (⌘⇧R):
+  1. https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html
+  2. https://leonard-wong-git.github.io/edb-knowledge/knowledge.json
+  3. https://leonard-wong-git.github.io/edb-knowledge/guidelines.json
+  4. https://leonard-wong-git.github.io/edb-knowledge/K1_API_SPEC.md
+
+Pending tasks (priority order):
+1. [驗證] Browser hard-refresh all 4 public URLs to confirm v1.3.1 is live
+2. [EDB 側] Provide EDB Circular System agent the updated fetch logic: subject_head + panel_chair + all_roles (see Open Priorities in SESSION_HANDOFF.md)
+3. [品質] Backend semantic regression: run 2–3 real EDB circulars through POST /analyze-circular
+4. [資料策略] Decide whether dev/knowledge/role_facts.json should also migrate to split-role schema
+
+Key files changed in the closing session:
+- dev/SESSION_HANDOFF.md (Last Session Record + Open Priorities updated)
+- dev/SESSION_LOG.md (this session entry appended)
+
+Known risks / blockers / cautions:
+- EDB Circular System still uses old department_head fetch logic — integration will be incomplete until updated
+- dev/knowledge/role_facts.json intentionally remains merged (older schema) — do not confuse with public knowledge.json
+- GitHub Pages live state not browser-confirmed this session; may have propagation/cache lag
+- Backend semantic quality regression still pending (no real circular tests yet)
+
+Validation status:
+- v1.3.1 local repo: ✅ fully verified
+- Live GitHub Pages browser check: ⚠️ pending (user action required)
+- Backend split-role compatibility: ✅ machine-verified (npm run check + npm run build)
+
+Post-startup first action: Commit the 3 pending governance files (git add dev/ && git commit && git push), then verify live URLs in browser with hard refresh.
+```

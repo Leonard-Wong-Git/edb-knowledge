@@ -10,10 +10,10 @@
 - `k1-dashboard.html` — primary application UI and embedded knowledge data
 - `index.html` — redirect entry point to `k1-dashboard.html`
 - `README.md` — project overview, feature summary, live demo link
-- `CHANGELOG.md` — release history through `v1.0.0`
+- `CHANGELOG.md` — release history through `v1.3.1`
 - `K1_KNOWLEDGE_INTERFACE_SPEC.md` — external data contract and validation expectations for the knowledge JSON structure
 - `K1_API_SPEC.md` — public integration spec for EDB Circular System; v1.3 schema with `subject_head` + `panel_chair`
-- `knowledge.json` — public API endpoint: v1.3.0 approved facts, 7 topics, `subject_head` + `panel_chair` role schema (GitHub Pages)
+- `knowledge.json` — public API endpoint: v1.3.1 approved facts, 7 topics, `subject_head` + `panel_chair` role schema (GitHub Pages)
 - `guidelines.json` — public API endpoint: 39 EDB guideline document reference links, 7 topics (GitHub Pages)
 - `bump_version.py` — version bumper: patch/minor/major/set modes; syncs 6 files + CHANGELOG + README date
 - `backend/` — TypeScript Knowledge Platform backend scaffold
@@ -110,3 +110,4 @@
 - `2026-04-04 (Codex_20260404_0834)` Updated context after aligning backend role schema to `department_head`, adding `backend/README.md`, adding `/health`, and re-running successful backend `check` + `build`
 - `2026-04-08 (Codex_20260408_0905)` Updated directory map after `K1_API_SPEC.md` returned to repo root and `knowledge.json` moved to v1.3.0 split-role schema; noted that backend still expects `department_head` and needs compatibility verification.
 - `2026-04-08 (Codex_20260408_0925)` Updated backend notes after adding a compatibility bridge for `department_head` plus split `subject_head` / `panel_chair`, with successful `npm run check` and `npm run build`.
+- `2026-04-08 (Codex_20260408_1115)` Refreshed release-state context after `v1.3.1` push; clarified that public `knowledge.json` is split-role while local `dev/knowledge/role_facts.json` remains a merged backup/export artifact.
