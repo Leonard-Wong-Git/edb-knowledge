@@ -66,6 +66,8 @@ export interface AnalyzeCircularRequest {
 export interface AnalyzeCircularResponse {
   detected_topics: TopicId[];
   used_facts: FactText[];
+  similarity_scores: Partial<Record<TopicId, number>>;
+  total_fact_chars: number;
   analysis: string;
 }
 

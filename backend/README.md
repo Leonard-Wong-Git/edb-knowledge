@@ -11,7 +11,7 @@
 
 ## Current Responsibilities
 
-- 載入 `dev/knowledge/role_facts.json`
+- 預設載入 repo root `role_facts.json`
 - 偵測通告相關 topic
 - 根據 role 選擇知識 facts
 - 控制知識注入長度
@@ -29,7 +29,7 @@ OPENAI_API_KEY=your_openai_api_key
 OPENAI_MODEL=gpt-5-nano
 PORT=8787
 CORS_ORIGIN=https://leonard-wong-git.github.io
-KNOWLEDGE_PATH=../../../dev/knowledge/role_facts.json
+KNOWLEDGE_PATH=../../../role_facts.json
 ```
 
 ## Run
@@ -66,9 +66,14 @@ Response:
 ```json
 {
   "detected_topics": ["finance", "activity"],
+  "similarity_scores": {
+    "finance": 0.73,
+    "activity": 0.58
+  },
   "used_facts": [
     "..."
   ],
+  "total_fact_chars": 123,
   "analysis": "..."
 }
 ```

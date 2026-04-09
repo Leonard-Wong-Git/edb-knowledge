@@ -49,6 +49,8 @@ export async function analyzeCircular(
   return {
     detected_topics: selection.detectedTopics,
     used_facts: selection.usedFacts,
+    similarity_scores: detection.similarityScores ?? {},
+    total_fact_chars: selection.totalCharCount,
     analysis,
   };
 }

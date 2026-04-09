@@ -1,7 +1,7 @@
 const DEFAULT_OPENAI_MODEL = "gpt-5-nano";
 const DEFAULT_PORT = 8787;
 const DEFAULT_CORS_ORIGIN = "https://leonard-wong-git.github.io";
-const DEFAULT_KNOWLEDGE_PATH_SETTING = "../../../dev/knowledge/role_facts.json";
+const DEFAULT_KNOWLEDGE_PATH_SETTING = "../../../role_facts.json";
 
 function requireEnv(name: string): string {
   const value = process.env[name];
