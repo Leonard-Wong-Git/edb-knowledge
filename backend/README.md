@@ -38,6 +38,7 @@ KNOWLEDGE_PATH=../../../role_facts.json
 cd backend
 npm install
 npm run check
+npm run regression:semantic
 npm run build
 OPENAI_API_KEY=sk-... npm run dev
 ```
@@ -84,3 +85,4 @@ Response:
 - topic detection 目前使用 embedding-based semantic routing
 - 若知識檔 schema 有變動，先對齊 `K1_KNOWLEDGE_INTERFACE_SPEC.md`
 - 目前後端 bridge layer 同時支援舊 `department_head` 與新 `subject_head` / `panel_chair`
+- `npm run regression:semantic` 會先跑離線 semantic regression harness，檢查 topic / role-bucket / schema consistency / retrieval regression；若未設定 `OPENAI_API_KEY`，會明確標示 online regression pending

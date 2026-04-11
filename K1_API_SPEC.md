@@ -1,7 +1,7 @@
-# K1 知識庫 — EDB Circular System 接口規格 v1.3
+# K1 知識庫 — EDB Circular System 接口規格 v1.3.1
 
 > 本文件供 EDB 通告智能分析系統（EDB-AI-Circular-System）接入 K1 知識庫時參考。
-> 上次更新：2026-04-08
+> 上次更新：2026-04-11
 
 ---
 
@@ -29,14 +29,14 @@ K1 **不分析通告**。Circular System **不儲存事實**。兩者以 JSON AP
 
 ---
 
-## 3. knowledge.json 實際格式（v1.3.0）
+## 3. knowledge.json 實際格式（v1.3.1）
 
 ```json
 {
   "_meta": {
-    "version": "1.3.0",
+    "version": "1.3.1",
     "created": "2026-04-04",
-    "updated": "2026-04-08",
+    "updated": "2026-04-10",
     "description": "..."
   },
   "finance": {
@@ -128,8 +128,8 @@ facts = knowledge[topic].get("panel_chair", []) + knowledge[topic].get("all_role
 ```json
 {
   "_meta": {
-    "version": "1.2.2",
-    "updated": "2026-04-04",
+    "version": "1.3.1",
+    "updated": "2026-04-08",
     "count": 39
   },
   "finance": [
@@ -195,9 +195,10 @@ Fetch guidelines.json
 
 | 版本 | 日期 | 變更 |
 |------|------|------|
+| v1.3.1 | 2026-04-11 | 對齊 `knowledge.json` / `guidelines.json` 當前公開版本與日期，確認 split-role 公開 schema 仍為 `subject_head` + `panel_chair` |
 | v1.3.0 | 2026-04-08 | `department_head` 拆分為 `subject_head`（科主任）+ `panel_chair`（統籌主任）；更新 spec 以反映實際 schema |
 | v1.2.2 | 2026-04-04 | 初始公開版本；`department_head` 為合併角色 |
 
 ---
 
-*K1 知識庫 — 最後更新：2026-04-08*
+*K1 知識庫 — 最後更新：2026-04-11*
