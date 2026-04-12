@@ -17,8 +17,7 @@ on:
           - "false"
 
 permissions:
-  contents: write      # needed to commit registry updates
-  issues: write        # needed to open failure issues
+  contents: write      # needed to commit registry updates (manual sync mode)
 
 jobs:
   freshness-check:
@@ -39,11 +38,8 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Run freshness check (dry-run on schedule)
-        id: freshness
+      - name: Run freshness check
         run: |
-          # On schedule: always dry-run (human reviews before committing)
-          # On manual dispatch: respect the input
           if [ "${{ github.event_name }}" = "schedule" ]; then
             DRY_RUN="--dry-run"
           elif [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
@@ -54,7 +50,8 @@ jobs:
 
           echo "Running: python3 dev/source/check_freshness.py $DRY_RUN"
           python3 dev/source/check_freshness.py $DRY_RUN 2>&1 | tee freshness_output.txt
-          echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+          exit ${PIPESTATUS[0]}
+        # ↑ Non-zero exit = GitHub marks run as FAILED → sends email notification automatically
 
       - name: Upload freshness report
         if: always()
@@ -63,60 +60,6 @@ jobs:
           name: freshness-report-${{ github.run_number }}
           path: freshness_output.txt
           retention-days: 30
-
-      - name: Open issue on failure
-        if: failure()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const output = fs.existsSync('freshness_output.txt')
-              ? fs.readFileSync('freshness_output.txt', 'utf8')
-              : '(output unavailable)';
-
-            const today = new Date().toISOString().split('T')[0];
-            const title = `[Freshness Alert] EDB URL failures detected — ${today}`;
-            const body = [
-              '## 🔴 EDB Source Registry — Freshness Check Failed',
-              '',
-              `**Run:** [#${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})`,
-              `**Date:** ${today}`,
-              `**Trigger:** ${{ github.event_name }}`,
-              '',
-              '### Output',
-              '```',
-              output.slice(0, 6000),
-              '```',
-              '',
-              '### Next Steps',
-              '1. Review the failed URLs above.',
-              '2. Browse the EDB site to find the new attachment paths.',
-              '3. Update `dev/source/source_registry.json` with correct URLs.',
-              '4. Run `python3 dev/source/check_freshness.py` (sync mode) to confirm fixes.',
-              '5. Commit and push.',
-            ].join('\n');
-
-            // Avoid duplicate issues: check if one is already open for today
-            const { data: issues } = await github.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-              labels: 'freshness-alert',
-            });
-
-            const alreadyOpen = issues.some(i => i.title.includes(today));
-            if (!alreadyOpen) {
-              await github.rest.issues.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                title,
-                body,
-                labels: ['freshness-alert'],
-              });
-              console.log('Issue created.');
-            } else {
-              console.log('Issue for today already exists — skipping duplicate.');
-            }
 
       - name: Commit registry update (manual sync mode only)
         if: >
@@ -133,3 +76,4 @@ jobs:
             git commit -m "chore: freshness sync — automated registry update (run #${{ github.run_number }})"
             git push
           fi
+
