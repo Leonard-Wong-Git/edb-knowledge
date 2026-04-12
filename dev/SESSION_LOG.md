@@ -993,7 +993,73 @@ Style B
  🚀  post-recovery checks complete...
 ```
 
-## 2026-04-12 Session 63 — Online Semantic Regression: PASS=12/FAIL=0
+## 2026-04-12 Session 64 — v1.4.0 Release & Phase 3 Architecture Decision
+
+1. Agent & Session ID: Antigravity_20260412_1900
+2. Task summary: Bumped platform to v1.4.0 (Phase 1+2 milestone release). Added GitHub Actions weekly freshness CI. Confirmed online semantic regression PASS=12/FAIL=0. Agreed Phase 3 LLM-Wiki → facts pipeline architecture (evidence-first, human-gated).
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Version audit → bump → CI creation → architecture discussion.
+5. Files read:
+   - `bump_version.py`
+   - `dev/source/check_freshness.py`
+   - `backend/scripts/semanticRegression.ts`
+   - `dev/SESSION_HANDOFF.md`
+6. Files changed:
+   - `k1-dashboard.html` — version 1.3.1 → 1.4.0
+   - `knowledge.json` — version 1.3.1 → 1.4.0
+   - `guidelines.json` — version 1.3.1 → 1.4.0
+   - `README.md` — version badge updated
+   - `CHANGELOG.md` — v1.4.0 entry added
+   - `role_facts.json` / `dev/knowledge/role_facts.json` — schema version restored to 2.0.0 (bump_version.py gotcha)
+   - `.github/workflows/freshness_check.yml` — simplified (no issues:write permission needed)
+   - `dev/source/check_freshness.py` — exit code 1 on errors (CI-friendly)
+   - `backend/scripts/semanticRegression.ts` — enriched 4 synthetic queries (online PASS=12/FAIL=0)
+   - `dev/SESSION_HANDOFF.md` — v1.4.0 baseline, Phase 3 architecture
+   - `dev/SESSION_LOG.md` — appended this entry
+7. Completed:
+   - ✅ **v1.4.0** released and pushed (commit `318f1f9`)
+   - ✅ **GitHub Actions CI** weekly freshness check (every Monday 09:00 UTC)
+   - ✅ **Online regression** PASS=12/FAIL=0 verified
+   - ✅ **Phase 3 architecture** confirmed: LLM-Wiki → candidate fact → human approve → role_facts.json
+8. Validation / QC:
+   - `python3 bump_version.py minor --dry-run` → confirmed v1.3.1 → v1.4.0 ✅
+   - `role_facts.json` schema restored to v2.0.0 ✅
+   - `git push origin main` → `318f1f9` ✅
+   - Known gotcha documented: `bump_version.py` overwrites role_facts.json schema version ⚠️
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Version bump v1.4.0 | CHANGELOG.md, README.md, knowledge.json, guidelines.json, k1-dashboard.html | ✓ Done |
+| GitHub Actions CI | SESSION_HANDOFF.md Regression Notes, Open Priorities | ✓ Done |
+| Phase 3 architecture decision | SESSION_HANDOFF.md Architecture Decisions | ✓ Done |
+| bump_version.py gotcha | SESSION_HANDOFF.md Consolidation Watchlist, Known Risks | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Date: 2026-04-12 (UTC)
+Project: K1 EDB Knowledge Platform / Dashboard repo
+
+Current state:
+- **v1.4.0** is on `main` (commit `318f1f9`). Platform version bump marks Phase 1+2 milestone.
+- **[Registry: FULLY HEALTHY]** `check_freshness.py`: Errors: 0 / Checked: 145.
+- **[Online Regression: FULLY PASS]** `npm run regression:semantic`: PASS=12 / FAIL=0.
+- **[GitHub Actions CI]** Weekly freshness check active: every Monday 09:00 UTC.
+- **[Architecture confirmed]** Phase 3 LLM-Wiki → facts pipeline: evidence-first, human-gated.
+- ⚠️ Known gotcha: `bump_version.py` overwrites `role_facts.json` schema version (2.0.0) — always restore after bumping.
+
+Pending tasks (priority order):
+1. [Phase 3 設計] Design candidate fact proposal pipeline: vault extract → LLM proposes → Dashboard review → role_facts.json.
+2. [選擇性] Expand vault extracts (SAG, Code of Aid, key curriculum guides) to enrich LLM-Wiki evidence base.
+3. [維護] Respond to any GitHub Actions freshness failure emails (weekly Monday check).
+
+Post-startup first action:
+Run `python3 dev/source/check_freshness.py --dry-run` to confirm registry health, then begin Phase 3 pipeline design discussion.
+```
+
 
 1. Agent & Session ID: Antigravity_20260412_1805
 2. Task summary: Ran online `npm run regression:semantic` with real `OPENAI_API_KEY`. Initial run: PASS=8, FAIL=4. Diagnosed root cause: 4 synthetic test queries too short (1 sentence) → cosine similarity < 0.45 threshold → fallback to `general`. Fixed by enriching queries to multi-sentence (matching semantic density of real circulars). Re-run: **PASS=12 / FAIL=0**.
