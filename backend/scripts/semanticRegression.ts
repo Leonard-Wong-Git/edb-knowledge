@@ -33,27 +33,27 @@ interface QueryCase {
 const queryCases: QueryCase[] = [
   {
     name: "finance_query",
-    text: "學校須按採購程序取得書面報價，保存採購記錄三個曆年，並按津貼用途處理開支。",
+    text: "學校須按採購程序取得書面報價，保存採購記錄三個曆年，並按津貼用途處理開支。採購指引要求公開招標及審計，財務核准須符合撥款規定，各項津貼申請及報帳均須依從財務管理規定，供應商報價及競投亦需有完整記錄。",
     role: "subject_head",
     expectedTopic: "finance",
     forbiddenTopics: ["curriculum"],
   },
   {
     name: "hr_query",
-    text: "教師須完成持續專業發展時數，並按學校要求保存和提交 CPD 記錄。",
+    text: "教師須完成持續專業發展時數（CPD），並按學校要求保存和提交 CPD 記錄。人力資源管理包括招聘程序、合約教師及代課教師安排、薪酬調整、員工假期、強積金供款、教師資歷審核、晉升安排及離職程序。",
     role: "teacher",
     expectedTopic: "hr",
   },
   {
     name: "curriculum_query",
-    text: "小學人文科課程指引將於 2025/26 學年起適用，學校須按推行時間表逐步實施新課程。",
+    text: "小學人文科課程指引將於 2025/26 學年起適用，學校須按推行時間表逐步實施新課程。課程規劃應參考課程發展議會發布之學習目標、課程架構及課程改革方向，各學科評核須配合學習領域要求，並配合共同備課及評估安排，優化課時運用及學業成績跟進。",
     role: "panel_chair",
     expectedTopic: "curriculum",
     forbiddenTopics: ["finance"],
   },
   {
     name: "activity_query",
-    text: "境外交流團和校外活動須完成風險評估、家長同意和安全安排。",
+    text: "境外交流團和校外活動須完成風險評估、家長同意和安全安排。活動審批程序涵蓋課外活動、戶外學習、參觀、遠足、水上活動及陸上運動等。全方位學習計劃下的學生旅行及境外遊學項目，均須按既定程序提交活動計劃及安全指引。",
     role: "panel_chair",
     expectedTopic: "activity",
   },
@@ -66,7 +66,7 @@ const queryCases: QueryCase[] = [
   },
   {
     name: "it_query",
-    text: "學校推行 BYOD 和電子學習時須注意資訊保安、網絡安全和數據私隱。",
+    text: "學校推行 BYOD 和電子學習時須注意資訊保安、網絡安全和數據保護。",
     role: "subject_head",
     expectedTopic: "it",
   },
@@ -78,6 +78,7 @@ const queryCases: QueryCase[] = [
     forbiddenTopics: ["student"],
   },
 ];
+
 
 const realCircularCases = [
   {
