@@ -1081,7 +1081,7 @@
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Mon, 15 Dec 2025 07:26:48 GMT",
-        "content_length": "1178",
+        "content_length": "1458",
         "etag": "\"06c4b2c946ddc1:0\""
       }
     },
@@ -1453,7 +1453,7 @@
       "notes": "數學教育 KLA 課程文件總索引。g11 為數學課程指引直連；本條為索引入口。待提取。",
       "freshness_metadata": {
         "last_modified": "Thu, 18 Sep 2025 01:53:38 GMT",
-        "content_length": "1988",
+        "content_length": "2550",
         "etag": "\"07df9c3f28dc1:0\""
       }
     },
@@ -3231,7 +3231,12 @@
       "last_checked_at": "2026-04-12",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
-      "notes": "初中中國歷史課程指引。PDF 直連已回填。"
+      "notes": "初中中國歷史課程指引。PDF 直連已回填。",
+      "freshness_metadata": {
+        "last_modified": "Fri, 22 Mar 2024 07:41:08 GMT",
+        "content_length": "5958592",
+        "etag": "\"042694d2c7cda1:0\""
+      }
     },
     {
       "source_id": "chi_hist_jss_ncs_2019",
@@ -3252,7 +3257,12 @@
       "last_checked_at": "2026-04-12",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
-      "notes": "初中中國歷史非華語學生適用版本。PDF 直連已回填。"
+      "notes": "初中中國歷史非華語學生適用版本。PDF 直連已回填。",
+      "freshness_metadata": {
+        "last_modified": "Wed, 31 Jul 2019 03:36:51 GMT",
+        "content_length": "1275114",
+        "etag": "\"808b90305147d51:0\""
+      }
     },
     {
       "source_id": "chi_hist_jss_bilingual_2019",
@@ -3273,7 +3283,12 @@
       "last_checked_at": "2026-04-12",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
-      "notes": "初中中國歷史中英雙語版。PDF 直連已回填。"
+      "notes": "初中中國歷史中英雙語版。PDF 直連已回填。",
+      "freshness_metadata": {
+        "last_modified": "Wed, 31 Jul 2019 03:36:51 GMT",
+        "content_length": "658468",
+        "etag": "\"808b90305147d51:0\""
+      }
     },
     {
       "source_id": "chi_hist_sss_2007_2015",
@@ -3294,7 +3309,12 @@
       "last_checked_at": "2026-04-12",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
-      "notes": "高中中國歷史課程及評估指引。PDF 直連已回填。"
+      "notes": "高中中國歷史課程及評估指引。PDF 直連已回填。",
+      "freshness_metadata": {
+        "last_modified": "Wed, 28 Aug 2024 05:36:46 GMT",
+        "content_length": "2868286",
+        "etag": "\"0ab6445cf9da1:0\""
+      }
     },
     {
       "source_id": "ces_jss_2024",
@@ -3420,7 +3440,12 @@
       "last_checked_at": "2026-04-12",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
-      "notes": "高中經濟補充文件 2015 版本。PDF 直連已回填。"
+      "notes": "高中經濟補充文件 2015 版本。PDF 直連已回填。",
+      "freshness_metadata": {
+        "last_modified": "Mon, 30 Nov 2015 08:57:31 GMT",
+        "content_length": "728344",
+        "etag": "\"804f60254d2bd11:0\""
+      }
     },
     {
       "source_id": "ethics_relig_sss_2024",
@@ -3467,7 +3492,12 @@
       "last_checked_at": "2026-04-12",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
-      "notes": "舊版倫理與宗教課程及評估指引。PDF 直連已回填。"
+      "notes": "舊版倫理與宗教課程及評估指引。PDF 直連已回填。",
+      "freshness_metadata": {
+        "last_modified": "Tue, 28 May 2024 08:55:44 GMT",
+        "content_length": "1591386",
+        "etag": "\"0e8fdd2dcb0da1:0\""
+      }
     },
     {
       "source_id": "religious_edu_jss_2024",
@@ -3540,7 +3570,12 @@
       "last_checked_at": "2026-04-12",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
-      "notes": "地理科 2022 補充資料。PDF 直連已回填。"
+      "notes": "地理科 2022 補充資料。PDF 直連已回填。",
+      "freshness_metadata": {
+        "last_modified": "Thu, 19 Jun 2025 01:18:35 GMT",
+        "content_length": "735901",
+        "etag": "\"80e7e513b8e0db1:0\""
+      }
     },
     {
       "source_id": "geog_sss_2007_2022",
@@ -3639,7 +3674,12 @@
       "last_checked_at": "2026-04-12",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
-      "notes": "初中地理課程指引。PDF 直連已回填。"
+      "notes": "初中地理課程指引。PDF 直連已回填。",
+      "freshness_metadata": {
+        "last_modified": "Mon, 26 Nov 2012 02:48:27 GMT",
+        "content_length": "4049312",
+        "etag": "\"80cf8a8280cbcd1:0\""
+      }
     },
     {
       "source_id": "history_jss_2019",
@@ -3843,7 +3883,12 @@
       "last_checked_at": "2026-04-12",
       "supersedes": null,
       "parent_source_id": "arts_curr_docs",
-      "notes": "舊版高中音樂課程及評估指引。PDF 直連已回填。"
+      "notes": "舊版高中音樂課程及評估指引。PDF 直連已回填。",
+      "freshness_metadata": {
+        "last_modified": "Fri, 04 Dec 2015 09:30:32 GMT",
+        "content_length": "1490414",
+        "etag": "\"0eccb6b762ed11:0\""
+      }
     },
     {
       "source_id": "music_national_anthem_2024",
