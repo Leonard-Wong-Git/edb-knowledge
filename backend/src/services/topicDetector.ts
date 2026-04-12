@@ -26,6 +26,15 @@ const TOPIC_ANCHORS: Partial<Record<TopicId, string>> = {
 // Tunable: lower → more recall, higher → more precision.
 const SIMILARITY_THRESHOLD = 0.45;
 
+// Anti-contamination controls — applied after threshold filtering:
+//   MAX_TOPICS  : hard cap on the number of returned topics.
+//   SCORE_GAP   : secondary topics must score within this margin of the top
+//                 topic.  Topics whose score drops further are treated as noise.
+// Together these prevent low-signal secondary topics from filling the 600-char
+// fact budget when a circular is clearly dominated by a single topic.
+const MAX_TOPICS = 2;
+const SCORE_GAP  = 0.05;
+
 // ---------------------------------------------------------------------------
 // Module-level cache — populated lazily on the first detectTopics call and
 // reused for the entire server process lifetime (no re-embedding needed).
@@ -94,9 +103,22 @@ export async function detectTopics(
   // Highest similarity first
   scored.sort((a, b) => b.score - a.score);
 
-  const topics: TopicId[] =
-    scored.length > 0 ? scored.map((s) => s.topic) : ["general"];
+  // Apply anti-contamination filters:
+  //   1. Score-gap filter  — keep only topics within SCORE_GAP of the top score.
+  //   2. MAX_TOPICS cap    — never return more than MAX_TOPICS topics.
+  // similarityScores exposes ALL above-threshold scores for diagnostics; only
+  // the filtered set is passed downstream for fact selection.
+  const filteredScored =
+    scored.length > 0
+      ? scored
+          .filter((s) => s.score >= scored[0].score - SCORE_GAP)
+          .slice(0, MAX_TOPICS)
+      : [];
 
+  const topics: TopicId[] =
+    filteredScored.length > 0 ? filteredScored.map((s) => s.topic) : ["general"];
+
+  // Expose all above-threshold scores for debugging (not just filtered set).
   const similarityScores: Partial<Record<TopicId, number>> = {};
   for (const s of scored) {
     similarityScores[s.topic] = s.score;

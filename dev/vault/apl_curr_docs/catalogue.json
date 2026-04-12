@@ -1,0 +1,39 @@
+{
+  "_meta": {
+    "source_id": "apl_curr_docs",
+    "parent_url": "https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/applied-learning/curriculum-documents/index.html",
+    "extracted": "2026-04-10",
+    "method": "user_paste",
+    "total_documents": 2,
+    "note": "URLs for individual PDFs / detail pages not yet captured — to be filled when direct links are available or Phase 2 fetch is enabled. Documents marked registry_id have already been registered in source_registry.json."
+  },
+  "sections": [
+    {
+      "section": "應用學習",
+      "documents": [
+        {
+          "doc_id": "apl_cag_2009_2017",
+          "title": "應用學習課程及評估指引（高中課程）二零零九年（2017年11月更新）",
+          "year": 2009,
+          "year_updated": "2017-11",
+          "url": null,
+          "registry_id": "apl_cag_2009_2017",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "應用學習課程及評估指引。"
+        },
+        {
+          "doc_id": "voc_special_future_2006",
+          "title": "策動未來 - 職業導向教育及特殊學校的新高中學制 二零零六年八月",
+          "year": 2006,
+          "year_updated": "2006-08",
+          "url": null,
+          "registry_id": "voc_special_future_2006",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "職業導向教育及特殊學校新高中學制相關文件。"
+        }
+      ]
+    }
+  ]
+}

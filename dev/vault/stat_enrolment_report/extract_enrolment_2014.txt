@@ -1,0 +1,758 @@
+# source_id: stat_enrolment_2014
+# school_year: 2014/15
+# extracted: 20260410
+# total_pages: 111
+# extracted_pages: 1-20 (intro + all-schools summary tables)
+# url: https://www.edb.gov.hk/attachment/en/about-edb/publications-stat/figures/Enrol_2014.pdf
+
+=== Page 1 ===
+教育局
+Education Bureau
+2014／15 學年學生人數統計
+（幼稚園、小學及中學程度）
+Student Enrolment Statistics, 2014/15
+(Kindergarten, Primary and Secondary Levels)
+School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Educatio
+Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statis
+Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Sectio
+Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Educati
+Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bure
+Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau Sch
+School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Educatio
+Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statis
+Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Sectio
+Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Educati
+Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bure
+Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau Sch
+School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Educatio
+Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statis
+Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Sectio
+Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Educati
+Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bure
+Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau Sch
+School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Educatio
+Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statis
+Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Sectio
+學校教育統計組
+2015年5月
+May 2015 School Education Statistics Section
+
+=== Page 2 ===
+2014／15 學年學生人數統計
+（幼稚園、小學及中學程度）
+Student Enrolment Statistics, 2014/15
+(Kindergarten, Primary and Secondary Levels)
+有關本刊物的查詢，請聯絡：
+Enquiries about this publication can be directed to:
+程度 主題 查詢電話 電郵地址
+Level Topic Enquiry Telephone No. Email Address
+幼稚園 學生統計 3509 8442 edstat@edb.gov.hk
+Kindergartens Enrolment Statistics
+幼稚園數目 2186 8993 eokga2@edb.gov.hk
+Number of Kindergartens
+小學 學生統計 3509 8442 edstat@edb.gov.hk
+Primary Schools Enrolment Statistics
+學校數目 3509 8465 sd_centralteam1@edb.gov.hk
+Number of Schools
+中學 學生統計 3509 8442 edstat@edb.gov.hk
+Secondary Schools Enrolment Statistics
+學校數目 3509 8465 sd_centralteam1@edb.gov.hk
+Number of Schools
+
+=== Page 3 ===
+目錄 CONTENTS
+頁數 Page
+簡介 INTRODUCTION 1 - 3
+統計表 TABLES
+I. 所有學校 All Schools 11 - 17
+II. 幼稚園 Kindergartens 21 - 40
+III. 小學 Primary Schools 43 - 67
+IV. 中學 Secondary Schools 71 - 95
+V. 特殊教育學校 Special Education Schools 99 - 103
+統計圖 CHARTS 7 - 78
+名詞釋義 GLOSSARY OF TERMS 107 - 111
+i
+
+=== Page 4 ===
+目錄 CONTENTS
+頁數 Page
+統計表 TABLES
+I. 所有學校 All Schools
+1.1 2014年學校數目 ─ 按程度、學校類別及日夜校統計 11
+All Schools by Level by Sector by Whether Day or Evening School, 2014
+1.2 2014年學生總人數 ─ 按程度、學校類別及日夜校統計 12
+Total Student Enrolment by Level by Sector by Whether Day or Evening School, 2014
+1.3 2004年至2014年日校數目 ─ 按程度及學校類別統計 13
+Day Schools by Level by Sector, 2004-2014
+1.4 2004年至2014年本地私立夜間中學數目 14
+Number of Local Private Secondary Evening Schools, 2004-2014
+1.5 2004年至2014年日校學生人數 ─ 按程度及學校類別統計 15
+Student Enrolment in Day Schools by Level by Sector, 2004-2014
+1.6 2006年至2014年本地其他日間中學課程學生人數 17
+Student Enrolment in Local Other Secondary Day Course, 2006-2014
+1.7 2004年至2014年本地私立夜間中學學生人數 17
+Student Enrolment in Local Private Secondary Evening Schools, 2004-2014
+II. 幼稚園 Kindergartens
+2.1 2004年至2014年幼稚園學額及學生人數 ─ 按級別統計
+Accommodation and Student Enrolment in Kindergartens by Grade, 2004-2014
+(A) 本地及非本地學校 21
+Local and Non-local Schools
+(B) 本地學校 22
+Local Schools
+(C) 非本地學校 23
+Non-local Schools
+2.2 2014年幼稚園學額及學生人數 ─ 按學校宗教背景統計 25
+Accommodation and Student Enrolment in Kindergartens by Religious
+Background of School, 2014
+2.3 2014年幼稚園學額及學生人數 ─ 按本地／非本地學校、幼稚園類別及級別統計 26
+Accommodation and Student Enrolment in Kindergartens by Local / Non-local School
+by Type of Kindergarten by Grade, 2014
+2.4 2014年幼稚園學額及學生人數 ─ 按本地／非本地學校、幼稚園類別及上課時間統計 27
+Accommodation and Student Enrolment in Kindergartens by Local / Non-local School
+by Type of Kindergarten by Session, 2014
+2.5 2014年幼稚園學額及學生人數 ─ 按幼稚園類別、級別及上課時間統計
+Accommodation and Student Enrolment in Kindergartens by Type of Kindergarten
+by Grade by Session, 2014
+(A) 本地及非本地學校 28
+Local and Non-local Schools
+(B) 本地學校 29
+Local Schools
+ii
+
+=== Page 5 ===
+目錄 CONTENTS
+頁數 Page
+統計表(續) TABLES (Cont'd)
+2.6 2014年幼稚園學額及學生人數 ─ 按分區及級別統計
+Accommodation and Student Enrolment in Kindergartens by District by Grade, 2014
+(A) 本地及非本地學校 30
+Local and Non-local Schools
+(B) 本地學校 31
+Local Schools
+2.7 2014年幼稚園學額及學生人數 ─ 按分區及上課時間統計
+Accommodation and Student Enrolment in Kindergartens by District by Session, 2014
+(A) 本地及非本地學校 32
+Local and Non-local Schools
+(B) 本地學校 33
+Local Schools
+2.8 2014年幼稚園學額及學生人數 ─ 按分區及幼稚園類別統計
+Accommodation and Student Enrolment in Kindergartens by District by Type of
+Kindergarten, 2014
+(A) 本地及非本地學校 34
+Local and Non-local Schools
+(B) 本地學校 35
+Local Schools
+2.9 2014年幼稚園學生人數 ─ 按級別、性別及年齡統計
+Student Enrolment in Kindergartens by Grade by Sex by Age, 2014
+(A) 本地及非本地學校 36
+Local and Non-local Schools
+(B) 本地學校 37
+Local Schools
+2.10 2014年參加學前教育學券計劃的幼稚園學額及學生人數 ─ 按級別及 38
+上課時間統計
+Accommodation and Student Enrolment in Kindergartens Joining Pre-primary
+Education Voucher Scheme by Grade by Session, 2014
+2.11 2014年參加學前教育學券計劃的幼稚園學額及學生人數 ─ 按分區及級別統計 39
+Accommodation and Student Enrolment in Kindergartens Joining Pre-primary
+Education Voucher Scheme by District by Grade, 2014
+2.12 2014年參加學前教育學券計劃的幼稚園學額及學生人數 ─ 按分區及 40
+上課時間統計
+Accommodation and Student Enrolment in Kindergartens Joining Pre-primary
+Education Voucher Scheme by District by Session, 2014
+iii
+
+=== Page 6 ===
+目錄 CONTENTS
+頁數 Page
+統計表(續) TABLES (Cont'd)
+III. 小學 Primary Schools
+3.1 2004年至2014年小學開辦班數、學額、學生人數及重讀生人數
+─ 按級別統計
+Operating Classes, Accommodation, Student Enrolment and Repeaters in
+Primary Schools by Grade, 2004-2014
+(A) 本地及國際學校 43
+Local and International Schools
+(B) 本地學校 44
+Local Schools
+(C) 國際學校 45
+International Schools
+3.2 2004年至2014年小學開辦班數、學額、學生人數及重讀生人數 46
+─ 按學校類別統計
+Operating Classes, Accommodation, Student Enrolment and Repeaters in
+Primary Schools by Sector, 2004-2014
+3.3 2014年小學開辦班數、學額、學生人數及重讀生人數 48
+─ 按學校類別及級別統計
+Operating Classes, Accommodation, Student Enrolment and Repeaters in
+Primary Schools by Sector by Grade, 2014
+3.4 2014年小學開辦班數、學額及學生人數 ─ 按學校類別及上課時間統計 49
+Operating Classes, Accommodation and Student Enrolment in Primary Schools
+by Sector by Session, 2014
+3.5 2014年小學開辦班數、學額及學生人數 ─ 按學校宗教背景統計 50
+Operating Classes, Accommodation and Student Enrolment in Primary Schools
+by Religious Background of School, 2014
+3.6 2014年小學開辦班數 ─ 按分區及級別統計
+Operating Classes in Primary Schools by District by Grade, 2014
+(A) 本地及國際學校 51
+Local and International Schools
+(B) 本地學校 52
+Local Schools
+3.7 2014年小學開辦班數 ─ 按分區及學校類別統計 53
+Operating Classes in Primary Schools by District by Sector, 2014
+3.8 2014年小學開辦班數 ─ 按分區及上課時間統計
+Operating Classes in Primary Schools by District by Session, 2014
+(A) 本地及國際學校 54
+Local and International Schools
+(B) 本地學校 55
+Local Schools
+iv
+
+=== Page 7 ===
+目錄 CONTENTS
+頁數 Page
+統計表(續) TABLES (Cont'd)
+3.9 2014年小學學額 ─ 按分區及級別統計
+Accommodation in Primary Schools by District by Grade, 2014
+(A) 本地及國際學校 56
+Local and International Schools
+(B) 本地學校 57
+Local Schools
+3.10 2014年小學學額 ─ 按分區及學校類別統計 58
+Accommodation in Primary Schools by District by Sector, 2014
+3.11 2014年小學學額 ─ 按分區及上課時間統計
+Accommodation in Primary Schools by District by Session, 2014
+(A) 本地及國際學校 59
+Local and International Schools
+(B) 本地學校 60
+Local Schools
+3.12 2014年小學學生人數 ─ 按分區及級別統計
+Student Enrolment in Primary Schools by District by Grade, 2014
+(A) 本地及國際學校 61
+Local and International Schools
+(B) 本地學校 62
+Local Schools
+3.13 2014年小學學生人數 ─ 按分區及學校類別統計 63
+Student Enrolment in Primary Schools by District by Sector, 2014
+3.14 2014年小學學生人數 ─ 按分區及上課時間統計
+Student Enrolment in Primary Schools by District by Session, 2014
+(A) 本地及國際學校 64
+Local and International Schools
+(B) 本地學校 65
+Local Schools
+3.15 2014年小學學生人數 ─ 按級別、性別及年齡統計
+Student Enrolment in Primary Schools by Grade by Sex by Age, 2014
+(A) 本地及國際學校 66
+Local and International Schools
+(B) 本地學校 67
+Local Schools
+v
+
+=== Page 8 ===
+目錄 CONTENTS
+頁數 Page
+統計表(續) TABLES (Cont'd)
+IV. 中學 Secondary Schools
+4.1 2004年至2014年中學日校開辦班數、學額、學生人數及重讀生人數
+─ 按級別統計
+Operating Classes, Accommodation, Student Enrolment and Repeaters in Secondary
+Day Schools by Grade, 2004-2014
+(A) 本地及國際學校 71
+Local and International Schools
+(B) 本地學校 73
+Local Schools
+(C) 國際學校 75
+International Schools
+4.2 2004年至2014年中學日校開辦班數、學額、學生人數及重讀生人數 77
+─ 按學校類別統計
+Operating Classes, Accommodation, Student Enrolment and Repeaters in Secondary
+Day Schools by Sector, 2004-2014
+4.3 2014年中學日校開辦班數、學額、學生人數及重讀生人數 ─ 按學校類別及 79
+級別統計
+Operating Classes, Accommodation, Student Enrolment and Repeaters in Secondary
+Day Schools by Sector by Grade, 2014
+4.4 2014年中學日校開辦班數、學額及學生人數 ─ 按學校宗教背景統計 80
+Operating Classes, Accommodation and Student Enrolment in Secondary Day Schools
+by Religious Background of School, 2014
+4.5 2014年中學日校開辦班數 ─ 按分區及級別統計
+Operating Classes in Secondary Day Schools by District by Grade, 2014
+(A) 本地及國際學校 81
+Local and International Schools
+(B) 本地學校 82
+Local Schools
+4.6 2014年中學日校開辦班數 ─ 按分區及學校類別統計 83
+Operating Classes in Secondary Day Schools by District by Sector, 2014
+4.7 2014年中學日校學額 ─ 按分區及級別統計
+Accommodation in Secondary Day Schools by District by Grade, 2014
+(A) 本地及國際學校 84
+Local and International Schools
+(B) 本地學校 85
+Local Schools
+4.8 2014年中學日校學額 ─ 按分區及學校類別統計 86
+Accommodation in Secondary Day Schools by District by Sector, 2014
+4.9 2014年中學日校學生人數 ─ 按分區及級別統計
+Student Enrolment in Secondary Day Schools by District by Grade, 2014
+(A) 本地及國際學校 87
+Local and International Schools
+(B) 本地學校 88
+Local Schools
+4.10 2014年中學日校學生人數 ─ 按分區及學校類別統計 89
+Student Enrolment in Secondary Day Schools by District by Sector, 2014
+vi
+
+=== Page 9 ===
+目錄 CONTENTS
+頁數 Page
+統計表(續) TABLES (Cont'd)
+4.11 2014年中學日校學生人數 ─ 按級別、性別及年齡統計
+Student Enrolment in Secondary Day Schools by Grade by Sex by Age, 2014
+(A) 本地及國際學校 90
+Local and International Schools
+(B) 本地學校 91
+Local Schools
+4.12 2006年至2014年本地其他日間中學課程學生人數 ─ 按級別統計 92
+Student Enrolment in Local Other Secondary Day Courses by Grade, 2006-2014
+4.13 2006年至2014年本地其他日間中學課程學生人數 ─ 按分區統計 93
+Student Enrolment of Local Other Secondary Day Courses by District, 2006-2014
+4.14 2004年至2014年本地私立夜間中學學生人數 ─ 按級別統計 94
+Student Enrolment in Local Private Secondary Evening Schools by Grade, 2004-2014
+4.15 2004年至2014年本地私立夜間中學學生人數 ─ 按分區統計 95
+Student Enrolment in Local Private Secondary Evening Schools by District, 2004-2014
+V. 特殊教育學校 Special Education Schools
+5.1 2004年至2014年特殊教育學校及設有特殊班的普通學校數目 99
+Number of Schools of Special Education and Ordinary Schools with
+Special Classes, 2004-2014
+5.2 2004年至2014年接受特殊教育（包括普通學校的特殊班）學生人數 100
+─ 按程度統計
+Student Enrolment in Special Education (Including Special Classes in
+Ordinary Schools) by Level, 2004-2014
+5.3 2004年至2014年接受特殊教育（包括普通學校的特殊班）學生人數 101
+─ 按類別統計
+Student Enrolment in Special Education (Including Special Classes in
+Ordinary Schools) by Category, 2004-2014
+5.4 2014年特殊學校及設有特殊班的普通學校數目 ─ 按程度統計 102
+Number of Special Schools and Ordinary Schools with Special Classes
+by Level, 2014
+5.5 2014年接受特殊教育（包括普通學校的特殊班）學生人數 103
+─ 按類別及程度統計
+Student Enrolment in Special Education (Including Special Classes in
+Ordinary Schools) by Category by Level, 2014
+vii
+
+=== Page 10 ===
+目錄 CONTENTS
+頁數 Page
+統計圖 CHARTS
+1 2014年日校數目及學生人數 ─ 按學校分類／程度統計 7
+Number of Day Schools and Student Enrolment by School Type/ Level, 2014
+2 2014年幼稚園數目及學生人數 ─ 按幼稚園類別統計 8
+Number of Kindergartens and Student Enrolment by Type of Kindergarten, 2014
+3 2014年普通小學數目及學生人數 － 按學校類別統計 9
+Number of Ordinary Primary Schools and Student Enrolment by Sector, 2014
+4 2014年普通中學日校數目及學生人數 － 按學校類別統計 10
+Number of Ordinary Secondary Day Schools and Student Enrolment by Sector, 2014
+5 2004年至2014年幼稚園學生人數 ─ 按幼稚園類別統計 16
+Student Enrolment in Kindergartens by Type of Kindergarten, 2004-2014
+6 2004年至2014年小學學生人數 ─ 按學校類別統計 16
+Student Enrolment in Primary Schools by Sector, 2004-2014
+7 2004年至2014年中學日校學生人數 ─ 按學校類別統計 16
+Student Enrolment in Secondary Day Schools by Sector, 2004-2014
+8 2004年至2014年幼稚園學生人數及學額 24
+Student Enrolment and Accommodation in Kindergartens, 2004-2014
+9 2004年至2014年小學學生人數及學額 47
+Student Enrolment and Accommodation in Primary Schools, 2004-2014
+10 2004年至2014年小學每班平均人數 － 按學校類別統計 47
+Average Class Size in Primary Schools by Sector, 2004-2014
+11 2004年至2014年中學日校學生人數及學額 78
+Student Enrolment and Accommodation in Secondary Day Schools, 2004-2014
+12 2004年至2014年中一每班平均人數 － 按學校類別統計 78
+Average Class Size in Secondary One by Sector, 2004-2014
+viii
+
+=== Page 11 ===
+簡介 Introduction
+1. 本報告列載普通幼稚園、小學及中學 1. This report presents detailed statistics on student
+的學生人數詳細統計數字，亦包括為 enrolment in ordinary schools at kindergarten,
+有特殊教育需要學生而設學校的學 primary and secondary levels. Basic statistics
+生人數基本統計數字。 on enrolment in schools for pupils with special
+educational needs are also included.
+2. 本報告所載的學生人數統計數字，是 2. Student enrolment statistics contained in this
+根據教育局各資訊系統所備存的行 report are compiled based on administrative
+政記錄，以及學校教育統計組按年進 records kept in the Bureau’s information systems
+行「學生人數統計調查」所搜集的數 as well as data collected via the annual Student
+據編製而成。就 2014/15 學年的統計 Enrolment Survey conducted by the School
+數字而言，大部分數據（主要包括所 Education Statistics Section. For the statistics of
+有公營中、小學和參加學前教育學券 the 2014/15 school year, the main bulk of the
+計劃的幼稚園的數據）是來自上述資 data, covering primarily all public sector primary
+訊系統；而餘下有關國際和私立中、 and secondary schools as well as kindergartens
+小學的數據，以及上述資訊系統未能 participating in the Pre-primary Education
+提供的一些有關幼稚園的特定數據 Voucher Scheme, were available from the
+項目，則是透過「學生人數統計調查」 information systems. The remaining data, being
+搜集得來。是項統計調查的回應率為 those of international and private primary and
+100%。 secondary schools as well as selected data items
+of kindergartens that were not available from the
+information systems, were collected via the
+survey. The survey achieved a response rate of
+100%.
+3. 所有幼稚園、小學及中學的統計數字 3. All statistics for kindergarten, primary and
+均反映該學年9月中的情況。為簡化 secondary levels refer to the position as at
+代號，本報告會以學年開始的年份來 mid-September of the school year. To simplify
+表示某一學年，即 2014 年的數字是 the notations, the year that a school year
+指2014/15學年的數字。 commences is used to represent the school year
+hereafter. In other words, statistics for 2014
+refer to those for the 2014/15 school year.
+4. 本報告內所載的學額數字，指有關學 4. Statistics on accommodation given in this report
+校按照其預設班額所開辦的班級(不 refer to the number of students that can be
+包括空置課室)而可容納的學生人數。 accommodated in operating classes (excluding
+vacant classrooms) in accordance with the
+planned class sizes as adopted by schools
+concerned.
+1
+
+=== Page 12 ===
+簡介 (續) Introduction (Cont’d)
+5. 由 2005 年 9 月 1 日開始，當局實施 5. Upon harmonisation of pre-primary services on
+協調學前服務的措施，凡提供3歲或 1 September 2005, all pre-primary institutions
+以上學前服務的機構（包括過往受社 providing services for children aged 3 or above
+會福利署監管且提供0至6歲或2至 (including child care centres providing services
+6歲服務的幼兒中心），均須根據《教 for children aged 0-6 or 2-6 supervised by the
+育條例》（第279章）註冊為幼稚園， Social Welfare Department before then) are
+並以幼稚園或幼稚園暨幼兒中心的 registered as kindergartens under the Education
+模式營辦。下文所述的「幼稚園」， Ordinance (Cap. 279) and are operated as
+已包括「幼稚園暨幼兒中心」。由2005 kindergartens or kindergarten-cum-child care
+年（即 2005/06 學年）開始有關幼稚 centres. Kindergartens hereafter mentioned
+園的數字包括幼稚園暨幼兒中心開 include these kindergarten-cum-child care
+辦的幼兒班、低班及高班的數字，因 centres. Figures for kindergartens from 2005
+此不能與較早年份的數字作比較。 (i.e. the 2005/06 school year) onwards include
+nursery, lower and upper classes in kindergarten
+-cum-child care centres. Accordingly, they are
+not comparable to figures for earlier years.
+6. 本報告內中五級別的統計數字亦包 6. Enrolment statistics for Secondary 5 in this report
+括於 2004/05至 2009/10學年期間推 also cover the Yi Jin/Secondary Schools
+行的「毅進／中學協作計劃」及於 Collaboration Project (launched during the
+2005/06 至 2010/11 學年間由直接資 2004/05 to 2009/10 school years) and 1-year
+助計劃高中學校開辦的「中五以上 Post-Secondary 5 Courses run by senior
+程度一年制課程」。 secondary schools under the Direct Subsidy
+Scheme (launched during the 2005/06 to 2010/11
+school years).
+7. 當局於 2008/09 學年起，透過公營學 7. Starting from the 2008/09 school year, senior
+校提供免費高中教育，並由2009年9 secondary education is provided free through
+月開始，在中四推出三年的新高中學 public sector school. The 3-year senior secondary
+制。因此，由 2011 年開始有關中六 education under the New Senior Secondary
+學生的數字是反映就讀新高中學制 Academic Structure was implemented in
+的學生，並不能與較早年份的數字比 Secondary 4 in September 2009. Therefore,
+較。此外，新高中學制亦於 2012/13 figures for Secondary 6 students from 2011
+學年全面推行，本地課程自該學年起 onwards referred to students enrolled under New
+沒有中七津貼學額。 Senior Secondary Academic Structure.
+Accordingly, they are not comparable to figures
+for earlier year. Moreover, upon the full
+implementation of New Senior Secondary
+Academic Structure in 2012/13 school year, there
+are no subsidised secondary 7 places under local
+curriculum starting from that school year.
+2
+
+=== Page 13 ===
+簡介 (續) Introduction (Cont’d)
+8. 為方便編製按級別的統計數字，本局 8. To facilitate the compilation of statistics by
+已要求提供非本地正規課程的學校 grade, schools offering non-local formal
+（主要為國際學校），按相等於本地 curriculum (mainly refer to international schools)
+正規課程的級別程度劃分提供按級 have been requested to provide the student data
+別的學生數據。小學的統計數字亦包 by grade according to the grades equivalent to
+括國際小學開辦的預備班的數字。 those of the local formal curriculum. Figures
+for primary level reported by international
+primary schools also cover preparatory classes.
+9. 為方便讀者了解學生人數統計的各 9. To facilitate better understanding of the statistics,
+項數字，本報告的最後部分附有「名 a glossary listing the definitions of major terms is
+詞釋義」，列出學生人數統計中各主 given at the end of this report. The definitions
+要名詞的定義。這些名詞的定義或會 listed may differ from those used by other
+與教育局其他分部／組所用的定義 divisions/sections of the Education Bureau and
+不盡相同，故不能視為其他用途的正 should NOT therefore be taken as OFFICIAL
+式定義。 ones to be adopted for other purposes.
+3
+
+=== Page 14 ===
+I
+所有學校
+All Schools
+
+=== Page 15 ===
+圖 1： 2014年日校數目(1)及學生人數 － 按學校分類／程度統計
+Chart 1: Number of Day Schools(1) and Student Enrolment by School Type/ Level, 2014
+幼稚園
+Kindergarten
+(978)(2)
+176397(3)
+小學
+Primary School
+普通日校
+(571)
+Ordinary Day School
+329300
+中學(4)
+Secondary School(4)
+(509)
+373131
+特殊學校
+Special School
+(61)
+7712
+特殊教育
+Special Education
+普通學校
+Ordinary School
+(3)(5)
+48
+註： 學生人數反映2014年9月15日時的情況。
+(1) 只包括在教育局註冊的學校。
+(2) 數字包括幼稚園暨幼兒中心。
+(3) 數字包括幼稚園暨幼兒中心的幼兒班、低班及高班學生。
+(4) 數字不包括營辦補習班、職業訓練及成人教育的私立學校。這些學校亦可能開辦日間中學課程。
+(5) 指有開辦特殊班的普通學校。其數字亦計算在相應的小學和中學學校數目內。
+( ) 括號內之數字代表學校數目。
+資料來源： 教育局，學校教育統計組
+教育局，中央學校發展組
+教育局，幼稚園行政組
+Notes: Enrolments refer to the position as at 15 September 2014.
+(1) Including only schools registered under the Education Bureau.
+(2) Figures include kindergarten-cum-child care centres.
+(3) Figures include pupils attending nursery, lower and upper classes in kindergarten-cum-child care centres.
+(4) Figures exclude private schools offering tutorial, vocational and adult education courses, which may also
+operate secondary day courses.
+(5) Refer to ordinary schools offering special classes. They are also counted in the respective primary and
+secondary schools.
+( ) Figures in brackets represent the number of schools.
+Source: School Education Statistics Section, Education Bureau
+Central Team/School Development Division, Education Bureau
+Kindergarten Administration Section, Education Bureau
+7
+
+=== Page 16 ===
+圖 2： 2014年幼稚園數目(1)及學生人數(2) － 按幼稚園類別統計
+Chart 2: Number of Kindergartens(1) and Student Enrolment(2) by Type of Kindergarten, 2014
+所有幼稚園
+All Kindergartens
+(978)
+176397[100%]
+本地 非本地
+Local Non-local
+(874) (104)
+166755[95%] 9642[5%]
+非牟利 私立獨立 非牟利 私立獨立
+Non-profit-making Private Independent Non-profit-making Private Independent
+(760) (114) (37) (67)
+144734[82%] 22021[12%] 4056[2%] 5586[3%]
+註： 學生人數反映2014年9月15日時的情況。
+(1) 只包括在教育局註冊的幼稚園及幼稚園暨幼兒中心。所有幼稚園及幼稚園暨幼兒中心
+均屬私營。
+(2) 數字包括幼稚園暨幼兒中心的幼兒班、低班及高班學生。
+( ) 圓括號內的數字代表幼稚園及幼稚園暨幼兒中心的數目。
+[ ] 方括號內的數字代表所示學生人數佔總學生人數的百分比。由於四捨五入，個別百分比
+相加可能與相應的總數不同。
+資料來源：教育局，學校教育統計組
+教育局，幼稚園行政組
+Notes: Enrolments refer to the position as at 15 September 2014.
+(1) Including only kindergartens and kindergarten-cum-child care centres registered under the Education
+Bureau. All kindergartens and kindergarten-cum-child care centres are privately run.
+(2) Figures include pupils attending nursery, lower and upper classes in kindergarten-cum-child
+care centres.
+( ) Figures in round brackets represent the number of kindergartens and kindergarten-cum-child
+care centres.
+[ ] Figures in square brackets represent the respective percentage shares of student enrolment in
+total enrolment. Figures may not add up to the corresponding totals due to rounding.
+Source: School Education Statistics Section, Education Bureau
+Kindergarten Administration Section, Education Bureau
+8
+
+=== Page 17 ===
+圖 3： 2014年普通小學數目及學生人數 － 按學校類別統計
+Chart 3: Number of Ordinary Primary Schools and Student Enrolment by Sector, 2014
+所有普通小學(1)
+All Ordinary Primary Schools (1)
+(571)
+329300[100%]
+本地 國際(2)
+Local International (2)
+(526) (45)
+309107[94%] 20193[6%]
+直接 其他私立國際
+官立 資助 私立(3) 英基學校
+資助計劃 Other Private
+Government Aided Private (3) ESF
+DSS International
+(34) (418) (21) (53) (9) (36)
+21131[6%] 245022[74%] 14 839[5%] 28115[9%] 6 083[2%] 14110[4%]
+註： 學生人數反映2014年9月15日時的情況。
+(1) 只包括在教育局註冊的學校。數字不包括特殊學校。
+(2) 國際學校可能同時開辦幼稚園、小學及中學。因此，將不同程度的國際學校數目相加並不
+等於所有國際學校的總數。
+(3) 本地私立學校的數字亦包括私立獨立學校。私立獨立學校大部分開辦非本地正規課程。
+( ) 圓括號內之數字代表學校數目。
+[ ] 方括號內的數字代表所示學生人數佔總學生人數的百分比。由於四捨五入，個別百分比
+相加可能與相應的總數不同。
+資料來源： 教育局，學校教育統計組
+教育局，中央學校發展組
+Notes: Enrolments refer to the position as at 15 September 2014.
+(1) Including only schools registered under the Education Bureau. Figures do not include special schools.
+(2) International schools operating at the primary level may also operate kindergartens or secondary
+schools at the same time. Therefore, adding the respective numbers at the three levels will not
+give the total number of international schools.
+(3) Figures for local private schools also include Private Independent Schools (PIS). Most of the PIS operate
+non-local formal curriculum courses.
+( ) Figures in round brackets represent the number of schools.
+[ ] Figures in square brackets represent the respective percentage shares of student enrolment in
+total enrolment. Figures may not add up to the corresponding totals due to rounding.
+ESF: English Schools Foundation; DSS: Direct Subsidy Scheme
+Source: School Education Statistics Section, Education Bureau
+Central Team/School Development Division, Education Bureau
+9
+
+=== Page 18 ===
+圖 4： 2014年普通中學日校數目及學生人數 － 按學校類別統計
+Chart 4: Number of Ordinary Secondary Day Schools and Student Enrolment by Sector, 2014
+所有普通中學日校(1)
+All Ordinary Secondary Day Schools (1)
+(509)
+373131[100%]
+本地 國際(2)
+Local International (2)
+(479) (30)
+356689[96%] 16442[4%]
+直接(3) 其他私立國際
+官立 資助 按位津貼 私立(4) (5) 英基學校
+資助計劃 Other Private
+Government Aided Caput Private (4) (5) ESF
+DSS (3) International
+(31) (362) (2) (61) (23) (5) (25)
+23540[6%] 277105[74%] 1465[0%] 48268[13%] 6311[2%] 6 836[2%] 9606[3%]
+註： 學生人數反映2014年9月15日時的情況。
+(1) 只包括在教育局註冊的學校。數字不包括特殊學校。
+(2) 國際學校可能同時開辦幼稚園、小學及中學。因此，將不同程度的國際學校數目相加並不
+等於所有國際學校的總數。
+(3) 部分直接資助計劃中學日校亦開辦非本地正規課程。
+(4) 本地私立學校的數字亦包括私立獨立學校。私立獨立學校大部分開辦非本地正規課程。
+(5) 數字不包括營辦補習班、職業訓練及成人教育的私立學校。這些學校亦可能開辦日間中學課程。
+( ) 圓括號內之數字代表學校數目。
+[ ] 方括號內的數字代表所示學生人數佔總學生人數的百分比。由於四捨五入，個別百分比
+相加可能與相應的總數不同。
+資料來源：教育局，學校教育統計組
+教育局，中央學校發展組
+Notes: Enrolments refer to the position as at 15 September 2014.
+(1) Including only schools registered under the Education Bureau. Figures do not include special schools.
+(2) International schools operating at the secondary level may also operate kindergartens or primary
+schools at the same time. Therefore, adding the respective numbers at the three levels will not
+give the total number of international schools.
+(3) Some DSS secondary day schools also operate non-local formal curriculum courses.
+(4) Figures for local private schools also include Private Independent Schools (PIS). Most of the PIS operate non-local
+formal curriculum courses.
+(5) Figures exclude private schools offering tutorial, vocational and adult education courses, which may also
+operate secondary day courses.
+( ) Figures in round brackets represent the number of schools.
+[ ] Figures in square brackets represent the respective percentage shares of student enrolment in
+total enrolment. Figures may not add up to the corresponding totals due to rounding.
+ESF: English Schools Foundation; DSS: Direct Subsidy Scheme
+Source: School Education Statistics Section, Education Bureau
+Central Team /School Development Division, Education Bureau
+10
+
+=== Page 19 ===
+1.1 2014年學校數目 ─ 按程度、學校類別及日夜校統計
+All Schools by Level by Sector by Whether Day or Evening School, 2014
+夜校及部分
+日校 時間制學校 合計
+程度 Level 學校類別 Sector Day Evening & All
+Part-time
+幼稚園(1)(2) Kindergarten(1)(2) 本地 Local 874 - 874
+非本地 Non-local 104 - 104
+合計 All 978 - 978
+小學 Primary School 本地 Local 526 - 526
+官立 Government 34 - 34
+資助 Aided 418 - 418
+直接資助計劃 Direct Subsidy Scheme 21 - 21
+私立(3) Private(3) 53 - 53
+國際(4)(5) International(4)(5) 45 - 45
+合計 All 571 - 571
+中學 Secondary School 本地 Local 479 26 505
+官立 Government 31 - 31
+資助 Aided 362 - 362
+按位津貼 Caput 2 - 2
+直接資助計劃(6) Direct Subsidy Scheme(6) 61 - 61
+私立(3)(7) Private(3)(7) 23 26 49
+國際(4)(5) International(4)(5) 30 - 30
+合計 All 509 26 535
+特殊學校(2) Special School(2) 本地／資助 Local/Aided 60 - 60
+國際／英基學校(8)International/ESF(8) 1 - 1
+合計 All 61 - 61
+註： (1) 幼稚園程度的數字包括幼稚園暨幼兒中心。
+(2) 不包括在社會福利署轄下註冊的特殊幼兒中心。
+(3) 本地私立學校的數字亦包括私立獨立學校。私立獨立學校大部分開辦非本地正規課程。
+(4) 包括英基學校協會屬下的學校及其他私立國際學校。
+(5) 國際學校可能同時開辦幼稚園、小學及中學。因此，將不同程度的國際學校數目相加並不等於所有國際學校的
+總數。
+(6) 部分直接資助計劃中學日校亦開辦非本地正規課程。
+(7) 不包括營辦補習班、職業訓練及成人教育的私立學校。這些學校亦可能開辦日間或夜間中學課程。
+(8) 指英基學校協會屬下一所特殊學校。
+Notes: (1) Figures for kindergarten level include kindergarten-cum-child care centres.
+(2) Excluding special child care centres registered under the Social Welfare Department.
+(3) Figuresfor local private schools also include Private Independent Schools (PIS). Most of the PIS operate non-local
+formal curriculum courses.
+(4) Including schools under the English Schools Foundation and other private international schools.
+(5) Internationalschoolsoperatingatthesecondarylevelmayalsooperatekindergartensorprimaryschoolsatthesametime.
+Therefore, adding the respective numbers at the three levels will not give the total number of international schools.
+(6) Some DSS secondary day schools also operate non-local formal curriculum courses
+(7) Excludingprivateschoolsofferingtutorial,vocationalandadulteducationcourses,whichmayalsooperatesecondaryday
+or evening courses.
+(8) Referring to one special school under the English Schools Foundation.
+11
+
+=== Page 20 ===
+1.2 2014年學生總人數 ─ 按程度、學校類別及日夜校統計
+Total Student Enrolment by Level by Sector by Whether Day or Evening School, 2014
+夜校及部分
+日校 時間制學校 合計
+程度 Level 學校類別 Sector Day Evening & All
+Part-time
+幼稚園(1) Kindergarten(1) 本地／私立 Local/Private 166 755 - 166 755
+非本地 Non-local 9 642 - 9 642
+合計 All 176 397 - 176 397
+小學 Primary School 本地 Local 309 107 - 309 107
+官立 Government 21 131 - 21 131
+資助 Aided 245 022 - 245 022
+直接資助計劃 Direct Subsidy Scheme 14 839 - 14 839
+私立(2) Private(2) 28 115 - 28 115
+國際(3) International(3) 20 193 - 20 193
+合計 All 329 300 - 329 300
+中學 Secondary School 本地 Local 356 689 1 666 358 355
+官立 Government 23 540 - 23 540
+資助 Aided 277 105 - 277 105
+按位津貼 Caput 1 465 - 1 465
+直接資助計劃(4) Direct Subsidy Scheme(4) 48 268 - 48 268
+私立(2) Private(2) 6 311(5) 1 666(6) 7 977
+國際(3) International(3) 16 442 - 16 442
+合計 All 373 131 1 666 374 797
+特殊教育(7) 本地／資助 Local/Aided 7 643 - 7 643
+Special Education(7) 國際(8) International(8) 117 - 117
+合計 All 7 760 - 7 760
+註： 數字反映2014年9月15日時的情況。
+(1) 幼稚園程度的數字包括幼稚園暨幼兒中心的幼兒班、低班及高班學生。
+(2) 本地私立學校的數字亦包括私立獨立學校。私立獨立學校大部分開辦非本地正規課程。
+(3) 包括英基學校協會屬下的學校及其他私立國際學校。
+(4) 部分直接資助計劃中學日校亦開辦非本地正規課程。
+(5) 不包括由營辦補習班、職業訓練及成人教育的私立學校所開辦的日間中學課程。
+(6) 包括由私立中學夜校(當中包括於指定中心授課的認可辦學機構)和營辦補習班、職業訓練及成人教育的私立學校
+所開辦的夜間中學課程。
+(7) 包括特殊學校和少數設於普通學校 (主要是公營學校以外的學校) 的特殊班，但不包括在社會福利署轄下註冊的特
+殊幼兒中心。
+(8) 包括英基學校協會屬下一所特殊學校及設於普通國際學校的特殊班。
+Notes: Figures refer to the position as at 15 September 2014.
+(1) Figures for kindergarten level include pupils attending nursery, lower and upper classes in kindergarten-cum-child care
+centres.
+(2) FiguresforlocalprivateschoolsalsoincludePrivateIndependentSchools(PIS). MostofthePISoperatenon-localformal
+curriculum courses.
+(3) Including schools under the English Schools Foundation and other private international schools.
+(4) Some DSS secondary day schools also operate non-local formal curriculum courses.
+(5) Excluding secondary day courses operated by private schools offering tutorial, vocational and adult education courses.
+(6) Including secondary evening courses operated by private secondary schools (also covering those operated by approved
+course providers in designated centres) and private schools offering tutorial, vocational and adult education courses.
+(7) Includingspecialschoolsandasmallnumberofspecialclassesinordinaryschools(primarilyoutsidethepublicsector),but
+excluding special child care centres registered under the Social Welfare Department.
+(8) Including one special school under the English Schools Foundation and special classes of ordinary international schools.
+12

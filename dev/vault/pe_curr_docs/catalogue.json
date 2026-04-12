@@ -1,0 +1,93 @@
+{
+  "_meta": {
+    "source_id": "pe_curr_docs",
+    "parent_url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pe/curriculum-doc/index.html",
+    "extracted": "2026-04-10",
+    "method": "user_paste",
+    "total_documents": 6,
+    "note": "URLs for individual PDFs / detail pages not yet captured — to be filled when direct links are available or Phase 2 fetch is enabled. Documents marked registry_id have already been registered in source_registry.json."
+  },
+  "sections": [
+    {
+      "section": "現行課程文件",
+      "documents": [
+        {
+          "doc_id": "pe_sss_2023",
+          "title": "體育-課程及評估指引(中四至中六) (2023)",
+          "year": 2023,
+          "url": null,
+          "registry_id": "pe_sss_2023",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "現行高中體育課程及評估指引。"
+        },
+        {
+          "doc_id": "pe_kla_2017",
+          "title": "體育學習領域課程指引(小一至中六) (2017)",
+          "year": 2017,
+          "url": null,
+          "registry_id": "pe_kla_2017",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "體育 KLA 總綱。"
+        },
+        {
+          "doc_id": "pe_pri_learning_scope",
+          "title": "小學體育建議學習範圍",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "配套材料，先保留於 catalogue。"
+        },
+        {
+          "doc_id": "pe_sec_learning_scope",
+          "title": "中學體育建議學習範圍",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "配套材料，先保留於 catalogue。"
+        },
+        {
+          "doc_id": "pe_six_strands_overview",
+          "title": "體育學習領域六大學習範疇課題概覽",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "配套概覽文件，先保留於 catalogue。"
+        }
+      ]
+    },
+    {
+      "section": "昔日課程文件",
+      "documents": [
+        {
+          "doc_id": "g15_legacy_2002",
+          "title": "體育學習課程領域指引(2002)",
+          "year": 2002,
+          "url": null,
+          "registry_id": "g15",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "既有 2002 舊版，保留於 registry。"
+        },
+        {
+          "doc_id": "pe_sss_2007_2015",
+          "title": "體育-課程及評估指引(中四至中六) (2007) (2015年11月更新）",
+          "year": 2007,
+          "year_updated": "2015-11",
+          "url": null,
+          "registry_id": "pe_sss_2007_2015",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "舊版高中體育課程及評估指引。"
+        }
+      ]
+    }
+  ]
+}

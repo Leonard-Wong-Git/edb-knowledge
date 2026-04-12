@@ -1,0 +1,87 @@
+{
+  "_meta": {
+    "source_id": "ph_pri_curr",
+    "parent_url": "https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/ph-primary/index.html",
+    "extracted": "2026-04-10",
+    "method": "user_paste",
+    "total_documents": 6,
+    "note": "小學人文科與常識科保留為兩個獨立 source family；本 catalogue 只記錄人文科頁面上的通告、通函、課程文件與一項活動入口。未提供的個別 PDF 直連可日後補回。"
+  },
+  "sections": [
+    {
+      "section": "活動與專題",
+      "documents": [
+        {
+          "doc_id": "ph_pri_anti_japanese_80th",
+          "title": "抗日戰爭勝利80周年專題展覽及研習計劃",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "活動 / 專題入口，先保留於 catalogue。"
+        }
+      ]
+    },
+    {
+      "section": "教育局通告及通函",
+      "documents": [
+        {
+          "doc_id": "edbc12_2025_ph_pri",
+          "title": "教育局通告第12/2025號 《小學人文科課程指引》及支援措施",
+          "year": 2025,
+          "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/ph-primary/EDBC_122025_C.pdf",
+          "registry_id": "edbc12_2025_ph_pri",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "已記錄 EDB PDF 直連；本地副本已提供。"
+        },
+        {
+          "doc_id": "edbc197_2024_ph_pri",
+          "title": "教育局通函197/2024號 小學人文科：學校問卷調查及相關支援措施",
+          "year": 2024,
+          "url": null,
+          "registry_id": "edbc197_2024_ph_pri",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "直連 PDF 未提供，先記錄入口頁。"
+        },
+        {
+          "doc_id": "edbc9_2024_ph_pri",
+          "title": "教育局通告9/2024號 《小學人文科課程框架》（定稿）及支援措施",
+          "year": 2024,
+          "url": null,
+          "registry_id": "edbc9_2024_ph_pri",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "直連 PDF 未提供，先記錄入口頁。"
+        },
+        {
+          "doc_id": "edbc20_2023_ph_pri",
+          "title": "教育局通告20/2023號 開設小學人文科",
+          "year": 2023,
+          "url": null,
+          "registry_id": "edbc20_2023_ph_pri",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "直連 PDF 未提供，先記錄入口頁。"
+        }
+      ]
+    },
+    {
+      "section": "課程文件",
+      "documents": [
+        {
+          "doc_id": "ph_pri_guide_2025",
+          "title": "小學人文科課程指引",
+          "year": 2025,
+          "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/ph-primary/Primary_Humanities_Curriculum_Guide.pdf",
+          "registry_id": "ph_pri_guide_2025",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "正式課程指引；EDB PDF 直連及本地副本已提供。"
+        }
+      ]
+    }
+  ]
+}

@@ -2071,3 +2071,1123 @@ Post-startup first action: Update CODEBASE_CONTEXT.md directory map to reflect K
 
 ---
 
+## 2026-04-09 Session 42 — Knowledge Operating System Planning Draft
+
+1. Agent & Session ID: Codex_20260409_1135
+2. Task summary: Converted the newly agreed direction into a formal architecture planning draft for a source-driven K1 knowledge operating system that preserves current public interfaces while adding source registry, source vault, scheduled/manual ingestion, and spine-source monitoring around `SAG` and `Code of Aid`.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Architecture / planning task
+5. Files read:
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/DOC_SYNC_CHECKLIST.md`
+   - `backend/README.md`
+   - `K1_API_SPEC.md`
+   - `K1_KNOWLEDGE_INTERFACE_SPEC.md`
+   - official `SAG` landing page / PDF
+   - official `Code of Aid` index / related PDF references
+6. Files changed:
+   - `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` — new planning draft covering source registry, source vault, knowledge wiki layer, compiled output layer, scheduled/manual updates, login-gated sources, mobile/tablet standalone use, and `SAG` + `Code of Aid` spine-source strategy
+   - `dev/DOC_SYNC_CHECKLIST.md` — added a registry row for knowledge operating architecture / planning docs
+   - `dev/CODEBASE_CONTEXT.md` — added the new planning doc to the directory map, captured the long-term source-driven architecture decision, and appended a maintenance-log entry
+   - `dev/SESSION_HANDOFF.md` — re-ranked priorities so the first implementation slice is now source registry / source vault design, and recorded the new source-driven direction and `SAG` + `Code of Aid` emphasis
+   - `dev/SESSION_LOG.md` — appended this planning entry and stored the new handoff block verbatim
+7. Completed:
+   - ✅ Confirmed the user wants to keep the current interface while evolving the system behind it
+   - ✅ Produced a formal planning draft for a source-driven knowledge operating system
+   - ✅ Elevated `SAG` and `Code of Aid` to system-level spine sources in the architecture plan
+   - ✅ Included support for scheduled ingestion, manual ingestion, login-gated source handling, and mobile/tablet standalone use
+   - ✅ Kept `通告分析` out of the primary product direction while preserving interface compatibility
+8. Validation / QC:
+   - `rg -n "School Administration Guide|SAG|Code of Aid|Responses API|gpt-5-nano|source registry|source vault" dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md dev/CODEBASE_CONTEXT.md dev/SESSION_HANDOFF.md dev/DOC_SYNC_CHECKLIST.md` → PASS
+   - Manual review:
+     - planning doc preserves current public contracts
+     - planning doc explicitly places retrieval / advanced tooling in update-time flows rather than runtime serving
+     - handoff priorities now point to the first implementation slice instead of more open-ended research
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: The repo had a clear long-term direction in conversation, but no formal planning artifact translating that into implementable source, update, and compile layers
+2. Root Cause: Existing project docs were focused on current contracts and short-term session state, not on the next architecture phase
+3. Fix: Added `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` and synchronized the planning implications into context, checklist, handoff, and session history
+4. Verification: the new planning doc now defines the source-driven architecture, and the latest handoff points the next session toward the first implementation slice
+5. Regression / rule update: Added a DOC_SYNC registry row for architecture/planning docs so future changes of this kind are explicitly tracked
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+---
+
+## 2026-04-10 Session 57 — ICT Direct PDF Backfill + GS/PH Primary Curriculum Sources
+
+1. Agent & Session ID: Codex_20260410_0015
+2. Task summary: Backfilled the direct EdCity PDF URL and local-file evidence for `ict_sss_2021`, then added General Studies (Primary) and Primary Humanities source families into the existing registry/vault method with separate parent structures, child sources, and dedicated catalogues.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Source-registry / evidence-workspace expansion with documentation sync; no public contract change
+5. Files read:
+   - `dev/source/source_registry.json`
+   - `dev/vault/technology_edu_curr_docs/catalogue.json`
+   - `dev/vault/pe_curr_docs/catalogue.json`
+   - `dev/vault/arts_edu_curr_docs/catalogue.json`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `/Users/leonard/Desktop/CS_CAG_S4-6_Chi_2021.pdf`
+   - `/Users/leonard/Desktop/GSCG_2017_Chi.pdf`
+   - `/Users/leonard/Desktop/EDBC_122025_C.pdf`
+   - `/Users/leonard/Desktop/Primary_Humanities_Curriculum_Guide.pdf`
+6. Files changed:
+   - `dev/source/source_registry.json` — backfilled `ict_sss_2021` direct PDF evidence; added `gs_pri_guide_2017`, `edbc20_2023_ph_pri`, `edbc9_2024_ph_pri`, `edbc197_2024_ph_pri`, `edbc12_2025_ph_pri`, and `ph_pri_guide_2025`; updated parent notes/relations for `gs_pri_curr` and `ph_pri_curr`
+   - `dev/vault/technology_edu_curr_docs/catalogue.json` — recorded the direct EdCity PDF URL for `ict_sss_2021`
+   - `dev/vault/gs_primary_curr_docs/catalogue.json` — new user-paste catalogue for General Studies (Primary)
+   - `dev/vault/ph_primary_curr_docs/catalogue.json` — new user-paste catalogue for Primary Humanities
+   - `dev/CODEBASE_CONTEXT.md` — appended maintenance-log entry for the ICT backfill + GS/PH registry expansion
+   - `dev/SESSION_HANDOFF.md` — updated baseline, known-current-state bullets, and last-session record
+   - `dev/SESSION_LOG.md` — appended this entry
+7. Completed:
+   - ✅ Recorded the direct EdCity PDF URL and local-file evidence for `ict_sss_2021`
+   - ✅ Added `gs_pri_guide_2017` under `gs_pri_curr` with direct PDF URL and local evidence
+   - ✅ Added Primary Humanities circular / guide child sources under `ph_pri_curr`
+   - ✅ Created dedicated vault catalogues for `gs_pri_curr` and `ph_pri_curr`
+   - ✅ Kept General Studies and Primary Humanities as separate source families with related linkage only
+8. Validation / QC:
+   - `python3` JSON validation of `dev/source/source_registry.json`, `dev/vault/technology_edu_curr_docs/catalogue.json`, `dev/vault/gs_primary_curr_docs/catalogue.json`, and `dev/vault/ph_primary_curr_docs/catalogue.json` → PASS
+   - `python3` source-link check (`ict_sss_2021`, `gs_pri_guide_2017`, `edbc12_2025_ph_pri`, `ph_pri_guide_2025`) → PASS
+   - `ls -l /Users/leonard/Desktop/CS_CAG_S4-6_Chi_2021.pdf /Users/leonard/Desktop/GSCG_2017_Chi.pdf /Users/leonard/Desktop/EDBC_122025_C.pdf /Users/leonard/Desktop/Primary_Humanities_Curriculum_Guide.pdf` → PASS
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| ICT direct-link backfill | `ict_sss_2021` exists in registry/catalogue but lacked direct PDF URL | add provided EdCity PDF URL and local file evidence | registry and technology catalogue both point to the same direct PDF | both locations now record `https://cs.edb.edcity.hk/file/C_and_A_guide/202106/CS_CAG_S4-6_Chi_2021.pdf` and local file exists | PASS |
+| GS parent-family extension | `gs_pri_curr` exists but has no child guide entry | add 2017 GS guide as child source and dedicated catalogue | GS family gains one high-importance child source with direct PDF | `gs_pri_guide_2017` added and `dev/vault/gs_primary_curr_docs/catalogue.json` created | PASS |
+| PH parent-family extension | `ph_pri_curr` exists but lacks decomposed circular/guide entries | add user-provided circulars and guide under same parent | PH family gains circular / guide child sources and dedicated catalogue | 5 child sources added and `dev/vault/ph_primary_curr_docs/catalogue.json` created | PASS |
+| Regression on public contract | current Circular System reads public `knowledge.json` / `guidelines.json` | expand only registry / vault evidence workspace | no public schema or fact payload changes | no edits made to `knowledge.json`, `guidelines.json`, or public role schema | PASS |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: Technology, General Studies, and Primary Humanities source families still had missing direct-link evidence or undecomposed child records, reducing traceability
+2. Root Cause: The registry had the parent pages, but several concrete PDFs and circular-level entries had not yet been captured into the Phase 1 source-first structure
+3. Fix: Backfilled the ICT 2021 direct PDF and added separate GS / PH child-source families plus dedicated catalogues, while keeping GS and PH as distinct but related source families
+4. Verification: JSON validation passed for the updated registry and all touched catalogues; the expected direct URLs are now present; all provided local files exist
+5. Regression / rule update: None — this extends the existing registry/vault pattern without changing any current public API or role-fact contract
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+---
+
+## 2026-04-10 Session 61 — Moral & Civic Education Family Expansion
+
+1. Agent & Session ID: Codex_20260410_0018
+2. Task summary: Expanded the existing `moral_civic_curr` family by decomposing the page into five core values-education / moral-and-civic-education child entries and creating a dedicated vault catalogue.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Source-registry / evidence-workspace refinement; no public contract change
+5. Files read:
+   - `dev/source/source_registry.json`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+6. Files changed:
+   - `dev/source/source_registry.json` — expanded `moral_civic_curr` notes/relations and added 5 child entries
+   - `dev/vault/moral_civic_curr/catalogue.json` — new catalogue for moral and civic education documents
+   - `dev/CODEBASE_CONTEXT.md` — appended maintenance-log entry
+   - `dev/SESSION_HANDOFF.md` — updated current-state bullet and last-session record
+   - `dev/SESSION_LOG.md` — appended this entry
+7. Completed:
+   - ✅ Added `values_edu_framework_2021_trial`
+   - ✅ Added `edbcm183_2023_values_edu`
+   - ✅ Added `sec_curr_guide_2017_booklet_6a`
+   - ✅ Added `pri_curr_guide_2024`
+   - ✅ Added `mce_framework_2008`
+   - ✅ Created `dev/vault/moral_civic_curr/catalogue.json`
+8. Validation / QC:
+   - `python3` JSON validation of `dev/source/source_registry.json` and `dev/vault/moral_civic_curr/catalogue.json` → PASS
+   - `python3` source-link check (`moral_civic_curr`, `values_edu_framework_2021_trial`, `edbcm183_2023_values_edu`, `mce_framework_2008`) → PASS
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Moral-civic page decomposition | `moral_civic_curr` exists only as parent page | add user-provided 5 core documents | child entries exist and are linked from parent | 5 child entries added and linked | PASS |
+| Vault catalogue creation | no moral-civic catalogue exists | create dedicated catalogue file | new catalogue records all 5 entries | `dev/vault/moral_civic_curr/catalogue.json` created | PASS |
+| Regression on public contract | current Circular System reads public `knowledge.json` / `guidelines.json` | expand only registry / vault evidence workspace | no public schema or fact payload changes | no edits made to `knowledge.json`, `guidelines.json`, or public role schema | PASS |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: The moral and civic education source family existed only as a parent index, so traceability for values-education materials was too shallow
+2. Root Cause: Phase 1 seeding had registered the parent page but had not yet decomposed the named curriculum / circular documents
+3. Fix: Added five core child-source records and a dedicated catalogue under the existing family
+4. Verification: JSON validation passed and source-link checks confirmed the parent-child structure
+5. Regression / rule update: None — this remains a backward-compatible evidence expansion only
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+---
+
+## 2026-04-10 Session 49 — `_source_refs` Traceability in `role_facts.json`
+
+1. Agent & Session ID: Codex_20260410_0005
+2. Task summary: Added backward-compatible `_source_refs` metadata to every topic block in repo-root `role_facts.json`, linking each topic to the new source registry without changing existing facts or role keys. Also aligned the external interface spec so the contract extension is documented explicitly.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Contract-compatible data-model extension; not a breaking interface change
+5. Files read:
+   - `role_facts.json`
+   - `guidelines.json`
+   - `dev/source/source_registry.json`
+   - `K1_KNOWLEDGE_INTERFACE_SPEC.md`
+   - `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/DOC_SYNC_CHECKLIST.md`
+6. Files changed:
+   - `role_facts.json` — added `_source_refs` arrays to all 7 topic blocks; updated `_meta.updated` and description
+   - `K1_KNOWLEDGE_INTERFACE_SPEC.md` — replaced old optional `_sources` wording with `_source_refs` metadata wording and example
+   - `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` — marked `_source_refs` as completed in Phase 1 progress
+   - `dev/CODEBASE_CONTEXT.md` — appended maintenance-log note for the new traceability metadata
+   - `dev/SESSION_HANDOFF.md` — removed `_source_refs` from open priorities and updated baseline / risks / last-session record
+   - `dev/SESSION_LOG.md` — appended this entry
+7. Completed:
+   - ✅ Added `_source_refs` to `finance`, `hr`, `curriculum`, `activity`, `student`, `it`, and `general`
+   - ✅ Preserved all existing facts and role keys so current Circular System readers remain compatible
+   - ✅ Documented `_source_refs` as optional metadata that downstream consumers may ignore
+   - ✅ Advanced Phase 1 from registry creation to registry refinement + semantic regression
+8. Validation / QC:
+   - `python3` JSON validation of `role_facts.json` → PASS
+   - Verified all 7 topic blocks include `_source_refs` → PASS
+   - Verified role keys remain unchanged after metadata insertion → PASS
+   - Verified `K1_KNOWLEDGE_INTERFACE_SPEC.md` now mentions `_source_refs` and no longer references `_sources` → PASS
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Backward-compatible topic metadata | repo-root `role_facts.json` is split-role v2.0.0 | parse JSON and inspect all topic blocks | every topic has `_source_refs`; old role keys remain intact | all 7 topics contain `_source_refs`; role keys preserved exactly | PASS |
+| Topic-to-source mapping coverage | source registry exists with guideline IDs + spine IDs | compare topic coverage against current guideline/source structure | each topic links to at least one relevant source_id | all 7 topics mapped; lengths = finance 4, hr 3, curriculum 25, activity 3, student 5, it 2, general 3 | PASS |
+| Spec parity | external interface spec documents metadata extension | grep `_source_refs` / `_sources` in spec | `_source_refs` present and `_sources` retired | `_source_refs` mentioned 4 times, `_sources` mentioned 0 times | PASS |
+| Regression of consumer-facing facts | existing fact strings and role buckets must remain untouched | inspect non-underscore keys after patch | same role-key layout as before | role-key layout unchanged for all topics | PASS |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: Phase 1 already had a source registry, but `role_facts.json` facts still lacked an explicit source-to-topic audit trail
+2. Root Cause: The traceability design had been agreed and documented, but the live repo-root dataset had not yet been annotated with source references
+3. Fix: Added `_source_refs` as underscore-prefixed metadata per topic block and updated the interface spec to treat it as optional, ignorable metadata rather than a breaking schema field
+4. Verification: JSON validation passed, all 7 topic blocks now have `_source_refs`, role keys remained unchanged, and the interface spec no longer references the obsolete `_sources` shape
+5. Regression / rule update: Reinforced the rule that traceability metadata should use `_`-prefixed fields so current consumers can ignore it safely
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+---
+
+## 2026-04-10 Session 56 — Add Physical Education Curriculum Links and Catalogue
+
+1. Agent & Session ID: Codex_20260410_0013
+2. Task summary: Added the user-provided Physical Education curriculum-document page contents into the existing registry/vault method by extending `pe_curr_docs` with core child sources and creating a dedicated PE curriculum catalogue under `dev/vault/`.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Source-registry / evidence-workspace extension only; no public API contract change
+5. Files read:
+   - `dev/source/source_registry.json`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/DOC_SYNC_CHECKLIST.md`
+6. Files changed:
+   - `dev/source/source_registry.json` — updated `pe_curr_docs` notes/relations and added PE child sources
+   - `dev/vault/pe_curr_docs/catalogue.json` — new user-paste catalogue for PE curriculum documents
+   - `dev/CODEBASE_CONTEXT.md` — appended maintenance-log entry
+   - `dev/SESSION_HANDOFF.md` — refreshed baseline and last-session record for the new PE entries
+   - `dev/SESSION_LOG.md` — appended this entry
+7. Completed:
+   - ✅ Added PE child sources covering:
+     - `pe_kla_2017`
+     - `pe_sss_2023`
+     - `pe_sss_2007_2015`
+   - ✅ Created `dev/vault/pe_curr_docs/catalogue.json`
+   - ✅ Kept supportive learning-scope / overview materials in `catalogue_only`
+   - ✅ Preserved current Circular System compatibility by keeping all changes inside registry / vault / governance docs
+8. Validation / QC:
+   - `python3` JSON validation of `dev/source/source_registry.json` and `dev/vault/pe_curr_docs/catalogue.json` → PASS
+   - Verified `source_count = 129` after insertion → PASS
+   - Verified all `registry_id` links in the PE catalogue resolve to actual registry entries → PASS
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| PE child-source insertion | `pe_curr_docs` already exists in registry | add user-provided PE document set | core guide/CAG sources are added under the same parent structure | PE family expanded with `pe_kla_2017`, `pe_sss_2023`, `pe_sss_2007_2015` | PASS |
+| PE catalogue consistency | a new PE vault catalogue is created | validate JSON and compare `registry_id` references | catalogue parses and every `registry_id` exists in registry | JSON parsed; `missing_registry_links = []` | PASS |
+| Scope control for supporting materials | learning-scope / overview docs are less core than the main guides | classify into registry vs catalogue | core guides go to registry, ancillary materials stay catalogue-only | learning-scope / six-strands overview kept as `catalogue_only` | PASS |
+| Backward compatibility | current Circular System reads public JSON outputs only | inspect scope of changes | no required change to `knowledge.json`, `guidelines.json`, or existing `role_facts.json` keys | changes limited to registry / vault / governance docs | PASS |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: The Physical Education curriculum-document family existed only at the parent-page level, while the concrete current and historical guide/CAG files had not yet been structured in the registry/vault system
+2. Root Cause: The repo already had `pe_curr_docs`, but the child documents had not been decomposed into reusable source records and a catalogue file
+3. Fix: Added the PE document family using the same parent-source + vault-catalogue pattern already used for Science, Technology, PSHE, and Arts, while deliberately keeping ancillary materials out of the formal registry for now
+4. Verification: both JSON files parsed successfully, the PE catalogue’s `registry_id` references all resolve, and the public Circular System interfaces remain untouched
+5. Regression / rule update: For curriculum pages that mix core guide/CAG files with supporting scope/overview resources, prioritize only the core policy/guide files for registry promotion and keep supporting files as catalogue-only until a stronger use case appears
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+---
+
+## 2026-04-10 Session 55 — Backfill Direct Arts PDF URLs
+
+1. Agent & Session ID: Codex_20260410_0012
+2. Task summary: Backfilled three direct EDB PDF URLs and the corresponding local-file evidence into the existing Arts Education registry/catalogue entries: `music_p1_s6_2024`, `va_p1_s6_2024`, and `va_sss_2015`.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Source-registry evidence refinement only; no public API contract change
+5. Files read:
+   - `dev/source/source_registry.json`
+   - `dev/vault/arts_edu_curr_docs/catalogue.json`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/DOC_SYNC_CHECKLIST.md`
+   - `/Users/leonard/Desktop/mus_cg_c_2024.pdf`
+   - `/Users/leonard/Desktop/va_cg_c_2024.pdf`
+   - `/Users/leonard/Desktop/VA_CA_Guide_c-100418.pdf`
+6. Files changed:
+   - `dev/source/source_registry.json` — filled `url_primary` and local-file notes for `music_p1_s6_2024`, `va_p1_s6_2024`, and `va_sss_2015`
+   - `dev/vault/arts_edu_curr_docs/catalogue.json` — filled the same direct PDF URLs in the arts catalogue
+   - `dev/CODEBASE_CONTEXT.md` — appended maintenance-log entry
+   - `dev/SESSION_HANDOFF.md` — refreshed arts status note and last-session record
+   - `dev/SESSION_LOG.md` — appended this entry
+7. Completed:
+   - ✅ Backfilled direct PDF URL for `music_p1_s6_2024`
+   - ✅ Backfilled direct PDF URL for `va_p1_s6_2024`
+   - ✅ Backfilled direct PDF URL for `va_sss_2015`
+   - ✅ Recorded local-file evidence for all three PDFs
+8. Validation / QC:
+   - `python3` check confirmed all three source entries now contain the expected `url_primary` values → PASS
+   - `python3` check confirmed the arts catalogue mirrors the same three URLs → PASS
+   - `ls -l` confirmed all three local PDF files exist → PASS
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Registry URL backfill | arts family entries exist with null `url_primary` | apply direct PDF URLs to three arts entries | each target source now stores the matching EDB PDF URL | all three target entries now have the expected `url_primary` | PASS |
+| Catalogue parity | arts catalogue exists with null `url` for the same documents | backfill the same URLs in catalogue | catalogue mirrors the registry URLs for the same doc_ids | all three catalogue doc URLs match the registry entries | PASS |
+| Local evidence availability | user supplied local PDF paths | check files on disk | local copies exist for traceability / validation | all three local files exist on Desktop | PASS |
+| Backward compatibility | current Circular System reads public JSON outputs only | inspect scope of changes | no required change to `knowledge.json`, `guidelines.json`, or existing `role_facts.json` keys | changes limited to registry / vault / governance docs | PASS |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: Three Arts Education entries had already been structured in the registry/catalogue, but they still lacked their direct PDF URLs even though the user later supplied them explicitly
+2. Root Cause: The earlier arts pass created the source structure first, while direct URLs for those particular PDFs were provided in a later message
+3. Fix: Backfilled the direct EDB PDF links into both the registry and arts catalogue, and recorded the supplied local files as supporting evidence
+4. Verification: the target source entries and catalogue rows now contain the expected URLs, and all three local PDF files exist
+5. Regression / rule update: When a user later supplies missing direct URLs for already-registered sources, update both the registry entry and the vault catalogue row in the same pass
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+---
+
+## 2026-04-10 Session 54 — Add Arts Curriculum Links and Catalogue
+
+1. Agent & Session ID: Codex_20260410_0011
+2. Task summary: Added the user-provided Arts Education curriculum-document page contents into the existing registry/vault method by extending `arts_curr_docs` with child sources and creating a dedicated arts curriculum catalogue under `dev/vault/`. Also recorded the direct EDB PDF for the 2017 Arts Education KLA guide and noted the supplied local file path.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Source-registry / evidence-workspace extension only; no public API contract change
+5. Files read:
+   - `dev/source/source_registry.json`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/DOC_SYNC_CHECKLIST.md`
+   - `/Users/leonard/Desktop/AE_KLACG__Chi___2017.pdf`
+6. Files changed:
+   - `dev/source/source_registry.json` — updated `arts_curr_docs` notes/relations and added arts child sources
+   - `dev/vault/arts_edu_curr_docs/catalogue.json` — new user-paste catalogue for Arts Education curriculum documents
+   - `dev/CODEBASE_CONTEXT.md` — appended maintenance-log entry
+   - `dev/SESSION_HANDOFF.md` — refreshed baseline and last-session record for the new arts entries
+   - `dev/SESSION_LOG.md` — appended this entry
+7. Completed:
+   - ✅ Added arts child sources covering:
+     - Arts Education KLA Guide 2017
+     - Music Curriculum Guide 2024
+     - Music Curriculum and Assessment Guide 2024 / 2015
+     - National Anthem supplementary music document 2024
+     - Visual Arts Curriculum Guide 2024
+     - Visual Arts Curriculum and Assessment Guide 2015
+   - ✅ Created `dev/vault/arts_edu_curr_docs/catalogue.json`
+   - ✅ Recorded the direct EDB PDF URL for `arts_kla_guide_2017`
+   - ✅ Preserved current Circular System compatibility by keeping all changes inside registry / vault / governance docs
+8. Validation / QC:
+   - `python3` JSON validation of `dev/source/source_registry.json` and `dev/vault/arts_edu_curr_docs/catalogue.json` → PASS
+   - Verified `source_count = 126` after insertion → PASS
+   - Verified all `registry_id` links in the arts catalogue resolve to actual registry entries → PASS
+   - Verified `arts_kla_guide_2017` uses the EDB PDF direct URL → PASS
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Arts child-source insertion | `arts_curr_docs` already exists in registry | add user-provided arts document set | child sources are added under the same parent structure | arts family expanded with arts/music/visual-arts child sources | PASS |
+| Arts catalogue consistency | a new arts vault catalogue is created | validate JSON and compare `registry_id` references | catalogue parses and every `registry_id` exists in registry | JSON parsed; `missing_registry_links = []` | PASS |
+| Direct PDF preservation | user provided direct PDF URL and local file path for 2017 KLA guide | inspect `arts_kla_guide_2017` | registry should keep the direct EDB PDF URL and note local availability | `url_primary` is set to the EDB PDF URL; notes mention local file path | PASS |
+| Backward compatibility | current Circular System reads public JSON outputs only | inspect scope of changes | no required change to `knowledge.json`, `guidelines.json`, or existing `role_facts.json` keys | changes limited to registry / vault / governance docs | PASS |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: The Arts Education curriculum-document family existed only at the parent-page level, while the concrete arts/music/visual-arts files had not yet been structured in the registry/vault system
+2. Root Cause: The repo already had `arts_curr_docs`, but the child documents had not been decomposed into reusable source records and a catalogue file
+3. Fix: Added the arts document family using the same parent-source + vault-catalogue pattern already used for Science, Technology, and PSHE, and preserved the direct PDF URL for the 2017 KLA guide
+4. Verification: both JSON files parsed successfully, the arts catalogue’s `registry_id` references all resolve, the 2017 KLA guide uses the direct EDB PDF URL, and the public Circular System interfaces remain untouched
+5. Regression / rule update: When the user supplies a direct PDF URL or local file path for a source, preserve that evidence directly in the registry notes instead of leaving the source as catalogue-only
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+---
+
+## 2026-04-10 Session 53 — Add PSHE Curriculum Links and Catalogue
+
+1. Agent & Session ID: Codex_20260410_0010
+2. Task summary: Added the user-provided PSHE curriculum-document page contents into the existing registry/vault method by extending `pshe_curr_docs` with child sources and creating a dedicated PSHE curriculum catalogue under `dev/vault/`.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Source-registry / evidence-workspace extension only; no public API contract change
+5. Files read:
+   - `dev/source/source_registry.json`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/DOC_SYNC_CHECKLIST.md`
+6. Files changed:
+   - `dev/source/source_registry.json` — updated `pshe_curr_docs` notes/relations and added PSHE child sources
+   - `dev/vault/pshe_curr_docs/catalogue.json` — new user-paste catalogue for PSHE curriculum documents
+   - `dev/CODEBASE_CONTEXT.md` — appended maintenance-log entry
+   - `dev/SESSION_HANDOFF.md` — refreshed baseline and last-session record for the new PSHE entries
+   - `dev/SESSION_LOG.md` — appended this entry
+7. Completed:
+   - ✅ Added PSHE child sources covering:
+     - Chinese History
+     - CES
+     - Economics
+     - Ethics and Religious Studies
+     - Religious Education
+     - Geography
+     - History
+     - Tourism and Hospitality Studies
+     - Life and Society
+   - ✅ Created `dev/vault/pshe_curr_docs/catalogue.json`
+   - ✅ Preserved current Circular System compatibility by keeping all changes inside registry / vault / governance docs
+8. Validation / QC:
+   - `python3` JSON validation of `dev/source/source_registry.json` and `dev/vault/pshe_curr_docs/catalogue.json` → PASS
+   - Verified `source_count = 119` after insertion → PASS
+   - Verified all `registry_id` links in the PSHE catalogue resolve to actual registry entries → PASS
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| PSHE child-source insertion | `pshe_curr_docs` already exists in registry | add user-provided PSHE document set | child sources are added under the same parent structure | PSHE family expanded with curriculum child sources across major sub-subjects | PASS |
+| PSHE catalogue consistency | a new PSHE vault catalogue is created | validate JSON and compare `registry_id` references | catalogue parses and every `registry_id` exists in registry | JSON parsed; `missing_registry_links = []` | PASS |
+| Backward compatibility | current Circular System reads public JSON outputs only | inspect scope of changes | no required change to `knowledge.json`, `guidelines.json`, or existing `role_facts.json` keys | changes limited to registry / vault / governance docs | PASS |
+| Registry growth remains valid | source registry already contains other curriculum families | parse expanded registry | registry stays valid and new PSHE IDs are queryable | parse passed; PSHE IDs present; source count now 119 | PASS |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: The PSHE curriculum-document family existed only at the parent-page level, while the concrete subject/course-guide entries on the page had not yet been structured in the registry/vault system
+2. Root Cause: The repo already had `pshe_curr_docs`, but the child documents had not been decomposed into reusable source records and a catalogue file
+3. Fix: Added the PSHE document family using the same parent-source + vault-catalogue pattern already used for Chinese, English, Science, and Technology curriculum pages
+4. Verification: both JSON files parsed successfully, the PSHE catalogue’s `registry_id` references all resolve, and the public Circular System interfaces remain untouched
+5. Regression / rule update: Continue using user-paste catalogues when page content is known but PDF direct links or detail-page URLs are not yet captured; upgrade to direct URLs later without changing `source_id`
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+---
+
+## 2026-04-10 Session 52 — Add Technology Curriculum Links and Catalogue
+
+1. Agent & Session ID: Codex_20260410_0009
+2. Task summary: Added the user-provided Technology Education curriculum-document page contents into the existing registry/vault method by extending `tech_curr_docs` with child sources and creating a dedicated technology curriculum catalogue under `dev/vault/`.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Source-registry / evidence-workspace extension only; no public API contract change
+5. Files read:
+   - `dev/source/source_registry.json`
+   - `dev/vault/eng_edu_curr_docs/catalogue.json`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/DOC_SYNC_CHECKLIST.md`
+6. Files changed:
+   - `dev/source/source_registry.json` — updated `tech_curr_docs` notes/relations and added 9 technology child sources
+   - `dev/vault/technology_edu_curr_docs/catalogue.json` — new user-paste catalogue for Technology Education curriculum documents
+   - `dev/CODEBASE_CONTEXT.md` — appended maintenance-log entry
+   - `dev/SESSION_HANDOFF.md` — refreshed baseline and last-session record for the new technology entries
+   - `dev/SESSION_LOG.md` — appended this entry
+7. Completed:
+   - ✅ Added technology child sources for:
+     - `tech_kla_guide_2017`
+     - `ct_programming_pri_2020`
+     - `bafs_sss_2007_2015`
+     - `bafs_sss_2007_2020`
+     - `hmsc_sss_2007_2015`
+     - `tl_sss_2007_2015`
+     - `dat_sss_2007_2015`
+     - `dat_sss_supp_2020`
+     - `ict_sss_2007_2015`
+     - `ict_sss_2021`
+   - ✅ Created `dev/vault/technology_edu_curr_docs/catalogue.json`
+   - ✅ Preserved current Circular System compatibility by keeping all changes inside registry / vault / governance docs
+8. Validation / QC:
+   - `python3` JSON validation of `dev/source/source_registry.json` and `dev/vault/technology_edu_curr_docs/catalogue.json` → PASS
+   - Verified `source_count = 97` after insertion → PASS
+   - Verified all `registry_id` links in the technology catalogue resolve to actual registry entries → PASS
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Technology child-source insertion | `tech_curr_docs` already exists in registry | add user-provided technology document set | child sources are added under the same parent structure | 10 technology source IDs available under the technology family | PASS |
+| Technology catalogue consistency | a new technology vault catalogue is created | validate JSON and compare `registry_id` references | catalogue parses and every `registry_id` exists in registry | JSON parsed; `missing_registry_links = []` | PASS |
+| Backward compatibility | current Circular System reads public JSON outputs only | inspect scope of changes | no required change to `knowledge.json`, `guidelines.json`, or existing `role_facts.json` keys | changes limited to registry / vault / governance docs | PASS |
+| Registry growth remains valid | source registry already contains other curriculum families | parse expanded registry | registry stays valid and new technology IDs are queryable | parse passed; technology IDs present; source count now 97 | PASS |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: The Technology Education curriculum-document family existed only at the parent-page level, while the concrete course-guide entries on the page had not yet been structured in the registry/vault system
+2. Root Cause: The repo already had `tech_curr_docs`, but the child documents had not been decomposed into reusable source records and a catalogue file
+3. Fix: Added the technology document family using the same parent-source + vault-catalogue pattern already used for Chinese, English, Science, and Math curriculum pages
+4. Verification: both JSON files parsed successfully, the technology catalogue’s `registry_id` references all resolve, and the public Circular System interfaces remain untouched
+5. Regression / rule update: Continue using user-paste catalogues when page content is known but PDF direct links are not yet captured; upgrade to direct URLs later without changing `source_id`
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+---
+
+## 2026-04-10 Session 51 — Add Science Curriculum Links and Catalogue
+
+1. Agent & Session ID: Codex_20260410_0008
+2. Task summary: Added the user-provided Science Education curriculum-document page contents into the existing registry/vault method by extending `sci_curr_docs` with child sources and creating a dedicated science curriculum catalogue under `dev/vault/`.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Source-registry / evidence-workspace extension only; no public API contract change
+5. Files read:
+   - `dev/source/source_registry.json`
+   - `dev/vault/chi_edu_curr_docs/catalogue.json`
+   - `dev/vault/eng_edu_curr_docs/catalogue.json`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/DOC_SYNC_CHECKLIST.md`
+6. Files changed:
+   - `dev/source/source_registry.json` — updated `sci_curr_docs` notes/relations and added 7 science child sources
+   - `dev/vault/science_edu_curr_docs/catalogue.json` — new user-paste catalogue for Science Education curriculum documents
+   - `dev/CODEBASE_CONTEXT.md` — appended maintenance-log entry
+   - `dev/SESSION_HANDOFF.md` — refreshed baseline and last-session record for the new science entries
+   - `dev/SESSION_LOG.md` — appended this entry
+7. Completed:
+   - ✅ Added science child sources for:
+     - `sci_kla_guide_2017`
+     - `pri_science_guide_2025`
+     - `sci_jss_supp_2017`
+     - `sci_jss_framework_2025`
+     - `bio_sss_2007_2015`
+     - `chem_sss_2007_2018`
+     - `phys_sss_2007_2015`
+   - ✅ Created `dev/vault/science_edu_curr_docs/catalogue.json`
+   - ✅ Preserved current Circular System compatibility by keeping all changes inside registry / vault / governance docs
+8. Validation / QC:
+   - `python3` JSON validation of `dev/source/source_registry.json` and `dev/vault/science_edu_curr_docs/catalogue.json` → PASS
+   - Verified `source_count = 87` after insertion → PASS
+   - Verified all `registry_id` links in the science catalogue resolve to actual registry entries → PASS
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Science child-source insertion | `sci_curr_docs` already exists in registry | add user-provided science document set | child sources are added under the same parent structure | 7 new science child sources added under `sci_curr_docs` | PASS |
+| Science catalogue consistency | a new science vault catalogue is created | validate JSON and compare `registry_id` references | catalogue parses and every `registry_id` exists in registry | JSON parsed; `missing_registry_links = []` | PASS |
+| Backward compatibility | current Circular System reads public JSON outputs only | inspect scope of changes | no required change to `knowledge.json`, `guidelines.json`, or existing `role_facts.json` keys | changes limited to registry / vault / governance docs | PASS |
+| Registry growth remains valid | source registry already contains other curriculum families | parse expanded registry | registry stays valid and new science IDs are queryable | parse passed; science IDs present; source count now 87 | PASS |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: The Science Education curriculum-document family had been identified at the parent-page level, but the concrete child documents from the page were not yet structured in the registry/vault system
+2. Root Cause: The repo already had `sci_curr_docs`, but the underlying course-guide entries had not been decomposed into reusable source records
+3. Fix: Added the science document family using the same parent-source + vault-catalogue pattern already used for Chinese / English curriculum pages
+4. Verification: both JSON files parsed successfully, the science catalogue’s `registry_id` references all resolve, and the public Circular System interfaces remain untouched
+5. Regression / rule update: Continue using user-paste catalogues when page content is known but PDF direct links are not yet captured; upgrade to direct URLs later without changing `source_id`
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+---
+
+## 2026-04-10 Session 50 — Sync User-Added Sources, Vault Pilot, and Governance Docs
+
+1. Agent & Session ID: Codex_20260410_0007
+2. Task summary: Reviewed the user-added source links and extracted-file workspace, then synchronized the governance docs so the expanded source registry, pilot `dev/vault/` evidence workspace, and statistical/policy dual-track trust model are recorded without implying any breaking change to the current Circular System interface.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Documentation / operating-state sync for existing user changes; no runtime contract break introduced
+5. Files read:
+   - `dev/source/source_registry.json`
+   - `dev/vault/circ_edbc24017/README.md`
+   - `dev/vault/stat_enrolment_report/README.md`
+   - `dev/vault/stat_integrated_edu/README.md`
+   - `dev/vault/stat_kg/README.md`
+   - `dev/vault/stat_pri/README.md`
+   - `dev/vault/stat_sec/README.md`
+   - `dev/vault/stat_special/README.md`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/DOC_SYNC_CHECKLIST.md`
+6. Files changed:
+   - `dev/CODEBASE_CONTEXT.md` — added `dev/vault/` to the directory map and clarified that the vault is a bounded evidence workspace rather than a full compile system
+   - `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` — reconciled the plan language with the existence of pilot extracts / bounded vault workspaces while keeping full vault/wiki/compile as deferred
+   - `dev/SESSION_HANDOFF.md` — refreshed baseline, risks, and priorities to reflect the expanded registry, vault pilot, and dual-track fact model
+   - `dev/SESSION_LOG.md` — appended this entry
+7. Completed:
+   - ✅ Confirmed `dev/source/source_registry.json` now contains expanded statistical, curriculum-index, and circular source entries
+   - ✅ Confirmed `dev/vault/` pilot files exist for catalogues, a curriculum circular extract, and statistical extracts
+   - ✅ Synced governance docs so future sessions understand these additions as evidence-workspace pilots, not public contract changes
+   - ✅ Preserved the rule that Circular System interfaces remain `knowledge.json`, `guidelines.json`, and backward-compatible `role_facts.json`
+8. Validation / QC:
+   - `python3` JSON parse of `dev/source/source_registry.json` → PASS
+   - Verified `source_count = 80` and presence of `stat_edb_figures` / `circ_edbc24017` → PASS
+   - Verified representative vault files exist (`stat_enrolment_report`, `circ_edbc24017`, `chi_edu_curr_docs`, `eng_edu_curr_docs`, `ma_curr_index`) → PASS
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Expanded registry remains valid | user-added sources already in `dev/source/source_registry.json` | parse JSON and inspect representative source IDs | registry is valid JSON and contains new source families | parsed successfully; `source_count = 80`; `stat_edb_figures` and `circ_edbc24017` present | PASS |
+| Vault pilot references are not dangling | registry / docs mention pilot vault files | check representative README / catalogue paths exist | referenced pilot evidence files are present | all sampled files exist under `dev/vault/` | PASS |
+| Governance docs reflect pilot status correctly | docs still described full vault as deferred | sync context / plan / handoff wording | docs describe bounded pilot extracts without claiming public contract change | plan/context/handoff now all describe pilot evidence workspace and preserved public interfaces | PASS |
+| Circular System compatibility remains intact | public JSON interfaces unchanged | compare scope of this sync task | no change to `knowledge.json`, `guidelines.json`, existing role keys, or required consumer flow | no public JSON endpoint file changed in this sync pass | PASS |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: The repo had already gained new source links, curriculum/catalogue sources, and pilot vault extracts, but the governance docs still largely reflected the earlier “registry + `_source_refs` only” state
+2. Root Cause: The new links / files were added directly in the workspace, so the operating-state docs had not yet been refreshed to explain their purpose and boundaries
+3. Fix: Updated context, plan, and handoff to record the expanded registry, bounded `dev/vault/` evidence workspace, and statistical/policy dual-track trust framing while explicitly preserving current Circular System interfaces
+4. Verification: registry JSON remained valid, representative vault files existed, and the synced docs consistently describe the new additions without claiming any public contract break
+5. Regression / rule update: Reaffirmed that pilot evidence workspaces can exist before a full Phase 3 compile system, but they must not be misrepresented as a committed public-output pipeline
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+---
+
+## 2026-04-10 Session 47 — Session Closeout After Trust-Gate Clarification
+
+1. Agent & Session ID: Codex_20260410_0003
+2. Task summary: Closed the session after (a) verifying the 4 public GitHub Pages URLs live, and (b) formalizing the LLM-wiki trust-gate interpretation into the planning SSOT. Regenerated handoff priorities around Phase 1 source registry + trust-gate policy work.
+3. Layer classification: Development Governance Layer + Product / System Layer
+4. Source triage: Closeout / planning alignment task
+5. Files read:
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md`
+   - live public URLs for `k1-dashboard.html`, `knowledge.json`, `guidelines.json`, `K1_API_SPEC.md`
+6. Files changed:
+   - `dev/SESSION_HANDOFF.md` — regenerated open priorities, recorded live URL verification, refreshed last-session record
+   - `dev/SESSION_LOG.md` — appended this closeout entry and stored the new handoff block verbatim
+7. Completed:
+   - ✅ Verified all 4 public URLs are reachable live
+   - ✅ Confirmed dashboard / knowledge / guidelines reflect `v1.3.1`
+   - ✅ Recorded that `K1_API_SPEC.md` is publicly reachable but its live content still reflects the earlier pushed doc state
+   - ✅ Regenerated the next-session handoff around Phase 1 registry + trust-gate policy work
+8. Validation / QC:
+   - `curl -L https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html` → PASS
+   - `curl -L https://leonard-wong-git.github.io/edb-knowledge/knowledge.json` → PASS
+   - `curl -L https://leonard-wong-git.github.io/edb-knowledge/guidelines.json` → PASS
+   - `curl -L https://leonard-wong-git.github.io/edb-knowledge/K1_API_SPEC.md` → PASS
+   - Manual review:
+     - dashboard shows `v1.3.1`
+     - `knowledge.json` shows split-role schema and `version=1.3.1`
+     - `guidelines.json` shows `version=1.3.1`
+     - `K1_API_SPEC.md` remains publicly accessible but not yet updated to the newest local docs commit
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: The session had completed planning clarification and live URL checks, but governance closeout had not yet been regenerated from the actual current state
+2. Root Cause: The repo requires a distinct closeout step so the next agent inherits current priorities, verification state, and remaining blockers cleanly
+3. Fix: Updated the handoff to retire the completed live-verification task, refreshed the risk notes, and wrote a new verbatim handoff block below
+4. Verification: the new handoff now starts with Phase 1 registry + trust-gate policy work, and the live URL state is explicitly recorded
+5. Regression / rule update: None
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+---
+
+## 2026-04-10 Session 48 — Phase 1 Source Registry Seed
+
+1. Agent & Session ID: Codex_20260410_0004
+2. Task summary: Started Phase 1 implementation by creating `dev/source/source_registry.json`, seeding it with the two spine sources plus all existing `guidelines.json` sources, and placing the first lightweight trust-gate policy directly in the registry.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Architecture / data-model implementation task
+5. Files read:
+   - `guidelines.json`
+   - `role_facts.json`
+   - `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+6. Files changed:
+   - `dev/source/source_registry.json` — new Phase 1 registry with `41` seeded source entries and first lightweight trust-gate policy
+   - `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` — updated current-state wording and Phase 1 status after registry creation
+   - `dev/CODEBASE_CONTEXT.md` — added the new registry file to the directory map and appended maintenance-log entry
+   - `dev/SESSION_HANDOFF.md` — moved Phase 1 focus from registry creation to `_source_refs` + registry refinement
+   - `dev/SESSION_LOG.md` — appended this entry
+7. Completed:
+   - ✅ Created `dev/source/source_registry.json`
+   - ✅ Seeded `2` spine sources: `sag_2025_11`, `coa_imc_1_19`
+   - ✅ Seeded all `39` existing `guidelines.json` sources into the registry
+   - ✅ Wrote the first lightweight trust-gate policy into the registry itself
+8. Validation / QC:
+   - `python3` JSON validation on `dev/source/source_registry.json` → PASS
+   - Validation output:
+     - `meta_version=0.1.0`
+     - `source_count=41`
+     - `spines=['sag_2025_11', 'coa_imc_1_19']`
+   - Manual review:
+     - registry fields align with the plan's Phase 1 schema
+     - source IDs preserve existing guideline IDs (`g01`…`g39`) for easier future `_source_refs` mapping
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Registry seed structure | `guidelines.json` and spine sources available | create `dev/source/source_registry.json` | file contains valid seeded entries with consistent fields | JSON parsed successfully; 41 sources present | PASS |
+| Trust-gate policy presence | Phase 1 design in progress | add lightweight trust-gate policy to registry | first trust-gate policy is explicitly described | `trust_gate_policy` object written with gates A-E | PASS |
+| Docs consistency | planning + context + handoff updated | cross-check wording | priorities and key decisions stay aligned with LLM-wiki direction | plan/context/handoff all point to `_source_refs` + registry refinement next | PASS |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: Phase 1 existed only as a planned direction; there was no actual source registry artifact yet
+2. Root Cause: The project had source ideas and guideline links, but no single structured registry to hold source metadata, trust status, and the first gate policy
+3. Fix: Added `dev/source/source_registry.json`, seeded it from the current guideline corpus plus the two agreed spine sources, and embedded the first lightweight trust-gate policy directly into the registry
+4. Verification: JSON validation passed, the registry contains 41 entries, and the docs now consistently reflect that registry creation is complete while `_source_refs` remains the next step
+5. Regression / rule update: None
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Date: 2026-04-10 (UTC)
+Project: K1 EDB Knowledge Platform / Dashboard repo
+
+Current state:
+- `v1.3.1` is on `main`
+- backend Phase 0 fix is complete locally and committed:
+  - default knowledge path now points to repo-root `role_facts.json`
+  - `AnalyzeCircularResponse` now includes `similarity_scores` and `total_fact_chars`
+- LLM-wiki v2 plan is still the agreed direction
+- trust-gate interpretation has now been formalized inside `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md`
+- 4 public URLs were live-verified on 2026-04-10:
+  - dashboard reachable and shows `v1.3.1`
+  - `knowledge.json` reachable and shows split-role `v1.3.1`
+  - `guidelines.json` reachable and shows `v1.3.1`
+  - `K1_API_SPEC.md` reachable, but still reflects the earlier pushed doc state until the latest docs commits are pushed
+
+Architecture direction:
+- keep the LLM-wiki phased approach
+- do not build a new parallel architecture
+- trust is enforced by explicit gates:
+  - source admission
+  - source freshness
+  - fact proposal
+  - fact approval
+  - public compilation
+- future automation should reduce low-risk judgement only after evidence chains are in place
+
+Pending tasks (priority order):
+1. [Phase 1] Create `dev/source/source_registry.json`
+   - seed SAG + Code of Aid + existing guideline sources
+   - define the first lightweight trust-gate policy
+   - specify which sources can become `verified`
+   - specify which changes remain candidate-only pending approval
+2. [Phase 1] Add `_source_refs` to each topic block in `role_facts.json`
+3. [品質] Run backend semantic regression using 2–3 real EDB circulars
+4. [Phase 2] Implement freshness monitoring script after Phase 1 stabilizes
+5. [EDB 側] Update `fetch_knowledge.py` stale `department_head` logic and initialize git in EDB-Project-V3
+
+Key files changed in this session:
+- /Users/leonard/Downloads/Claude-edb-knowledge/dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md
+- /Users/leonard/Downloads/Claude-edb-knowledge/dev/CODEBASE_CONTEXT.md
+- /Users/leonard/Downloads/Claude-edb-knowledge/dev/SESSION_HANDOFF.md
+- /Users/leonard/Downloads/Claude-edb-knowledge/dev/SESSION_LOG.md
+
+Known risks / blockers / cautions:
+- `guidelines.json` is still not loaded by the backend, so document-link citation is not yet part of backend output
+- backend semantic regression with real circulars is still pending
+- high-risk approval policy is now conceptually defined, but the first concrete trust-gate policy has not yet been written
+- `K1_API_SPEC.md` live version is older than the newest local docs commit until push occurs
+- EDB-Project-V3 still has no `.git`
+
+Validation status:
+- backend path fix machine-verified ✅
+- split-role selection machine-verified ✅
+- response diagnostics fields machine-verified ✅
+- LLM-wiki trust-gate model documented ✅
+- 4 public URLs live-verified ✅
+- backend semantic regression with real circulars ⚠️ pending
+
+Post-startup first action: design and create `dev/source/source_registry.json`, seed the first spine sources and existing guideline sources, and write the first lightweight trust-gate policy alongside that registry.
+```
+| New project doc added | This file — add a row for the new doc's update triggers | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Date: 2026-04-09 (UTC)
+Project: K1 EDB Knowledge Platform / Dashboard repo
+
+Current state:
+- `v1.3.1` is on `main`
+- public `knowledge.json` is split-role and verified locally:
+  - `subject_head`
+  - `panel_chair`
+  - `all_roles`
+  - no `department_head`
+- `K1_API_SPEC.md` is at repo root and public
+- `K1_KNOWLEDGE_INTERFACE_SPEC.md` is at `v2.0.0` and aligned to the split-role contract
+- backend compatibility bridge is complete, but backend still has a CRITICAL data-source mismatch
+- a new planning draft now exists at `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md`
+- user wants to preserve the current public interface shape for now
+
+Architecture direction now agreed:
+- evolve K1 into a source-driven knowledge operating system behind the current public interfaces
+- preserve `knowledge.json`, `guidelines.json`, and `role_facts.json` contracts for now
+- use source registry + source vault + internal knowledge/wiki/compile layers internally
+- treat `SAG` and `Code of Aid` as spine sources
+- support both scheduled ingestion and manual/login-gated source intake
+- keep runtime serving lightweight and small-model friendly
+- `通告分析` is not the main product surface; the knowledge base remains the core product
+
+Pending tasks (priority order):
+1. Define the first implementation slice from the new plan:
+   - source registry schema
+   - source vault directory structure
+   - initial `SAG` and `Code of Aid` seed entries
+   - compile boundary from internal source units to `knowledge.json` / `guidelines.json` / `role_facts.json`
+2. Fix the backend data source path:
+   - `knowledgeRepository.ts` currently reads `dev/knowledge/role_facts.json` (old merged schema)
+   - update `DEFAULT_KNOWLEDGE_PATH_SETTING` in `backend/src/config/env.ts` to `../../../role_facts.json` or otherwise ensure backend consumes the v2.0.0 split-role file
+   - run `npm run check`
+   - verify `subject_head` and `panel_chair` now return distinct facts
+3. Add `similarity_scores` + `total_fact_chars` to the backend response as a quick win
+4. Browser hard-refresh the 4 public K1 URLs and confirm `v1.3.1` is live
+
+Key files changed in this session:
+- /Users/leonard/Downloads/Claude-edb-knowledge/dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md
+- /Users/leonard/Downloads/Claude-edb-knowledge/dev/DOC_SYNC_CHECKLIST.md
+- /Users/leonard/Downloads/Claude-edb-knowledge/dev/CODEBASE_CONTEXT.md
+- /Users/leonard/Downloads/Claude-edb-knowledge/dev/SESSION_HANDOFF.md
+- /Users/leonard/Downloads/Claude-edb-knowledge/dev/SESSION_LOG.md
+
+Known risks / blockers / cautions:
+- CRITICAL: backend currently reads the wrong `role_facts.json`, so `subject_head` / `panel_chair` role separation is functionally broken
+- Live GitHub Pages still needs browser confirmation
+- `EDB-Project-V3` still has no `.git`
+- backend semantic regression is still pending
+- the new source-driven architecture is planned but not yet implemented
+
+Validation status:
+- local `knowledge.json` split-role schema ✅
+- `role_facts.json` v2.0.0 validated and delivered ✅
+- `K1_KNOWLEDGE_INTERFACE_SPEC.md v2.0.0` aligned ✅
+- source-driven architecture planning draft completed ✅
+- backend critical issue identified but not yet fixed ⚠️
+- live browser verification ⚠️ pending
+
+Post-startup first action: design the concrete source registry schema and source vault folder layout, then seed the first two spine sources (`SAG` and `Code of Aid`) without changing the current public interface files yet.
+```
+
+---
+
+## 2026-04-09 Session 43 — Closeout After Knowledge Operating System Planning
+
+1. Agent & Session ID: Codex_20260409_1215
+2. Task summary: Closed the session after formalizing the source-driven knowledge operating system direction, synchronized the planning implications into governance/context files, and regenerated the next-session handoff around the first implementation slice plus the known backend critical issue.
+3. Layer classification: Development Governance Layer + Product / System Layer
+4. Source triage: Closeout / planning alignment task
+5. Files read:
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md`
+   - `wc -l dev/SESSION_LOG.md`
+6. Files changed:
+   - `dev/SESSION_HANDOFF.md` — refreshed latest session record after the planning draft and closeout
+   - `dev/SESSION_LOG.md` — appended this closeout entry and stored the new handoff block verbatim as the newest block
+7. Completed:
+   - ✅ Confirmed the architecture planning work is now captured in repo docs
+   - ✅ Regenerated the latest handoff so the next agent sees source registry / source vault design as the first implementation slice
+   - ✅ Kept the backend data-source mismatch visible as an unresolved critical blocker
+8. Validation / QC:
+   - `wc -l dev/SESSION_LOG.md` before closeout append → `758`
+   - Manual review after edits:
+     - `dev/SESSION_HANDOFF.md` latest session record now reflects the planning work as completed
+     - the newest handoff block below is now the last `### Next Session Handoff Prompt (Verbatim)` block in `dev/SESSION_LOG.md`
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: After the architecture planning work was documented, the session still needed a formal closeout so the next agent would inherit the updated direction and priorities instead of a partially synchronized state
+2. Root Cause: Planning work and governance closeout are separate required steps in this repo
+3. Fix: Updated `SESSION_HANDOFF.md`, appended a closeout entry, and wrote a fresh verbatim handoff block that keeps both the new source-driven architecture direction and the existing backend critical issue in view
+4. Verification: the latest handoff/log entries now point to source registry / source vault implementation first while still carrying the backend data-source fix as priority #2
+5. Regression / rule update: None
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+(Superseded by Session 44 handoff below)
+```
+
+---
+
+## 2026-04-09 Session 44 — Architecture Review + LLM-Wiki v2 Plan
+
+1. Agent & Session ID: Claude_20260409_0000
+2. Task summary: Critically reviewed the original 4-layer Knowledge Operating System plan, identified over-engineering risk at the current project scale (107 facts, 39 guidelines), and agreed with user on a simplified LLM-wiki phased approach. Rewrote the planning doc to v2 with concrete Phase 0/1/2/3 definitions.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Architecture / planning alignment task
+5. Files read:
+   - `AGENTS.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` (v1)
+   - `dev/DOC_SYNC_CHECKLIST.md`
+   - `role_facts.json` (v2.0.0, repo root)
+   - `knowledge.json` (partial)
+   - `guidelines.json` (partial)
+6. Files changed:
+   - `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` — full rewrite to v2: replaced 4-layer architecture with phased LLM-wiki approach
+   - `dev/CODEBASE_CONTEXT.md` — updated Key Decisions, Directory Map description, AI Maintenance Log
+   - `dev/SESSION_HANDOFF.md` — regenerated Open Priorities around Phase 0/1/2, updated layer map, updated known risks #18, updated last session record
+   - `dev/SESSION_LOG.md` — archived 6 older entries to `dev/archive/SESSION_LOG_2026_Q2.md` (§4a triggered at 865 lines → trimmed to ~230), appended this entry
+7. Completed:
+   - ✅ Full critical review of original 4-layer plan — identified scale mismatch, premature vault/wiki/compile infrastructure
+   - ✅ Confirmed LLM-wiki as the unifying mental model — current facts already are the wiki
+   - ✅ Agreed with user: all functionality retained, implementation phased by actual need
+   - ✅ Rewrote `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` to v2 with Phase 0 (fix backend) → Phase 1 (source registry + traceability) → Phase 2 (freshness monitoring) → Phase 3 (extraction assistance, scale-triggered)
+   - ✅ Synchronized CODEBASE_CONTEXT, SESSION_HANDOFF, SESSION_LOG
+   - ✅ §4a archiving: 6 entries moved to `dev/archive/SESSION_LOG_2026_Q2.md`
+8. Validation / QC:
+   - Plan v2 preserves all original design principles (source-first, compile-time intelligence, interface stability, manual override)
+   - Plan v2 preserves all functionality from v1 — mapped in side-by-side table during review
+   - Public interface constraint verified: no changes to knowledge.json, guidelines.json, role_facts.json contracts
+   - `_source_refs` uses `_` prefix convention — invisible to downstream consumers
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: Original 4-layer architecture (source registry → vault → wiki → compile) was over-engineered for the current project scale of 107 facts
+2. Root Cause: The plan was designed as a reference architecture without accounting for the single-operator, small-dataset reality of this project
+3. Fix: Rewrote the plan to v2 using phased delivery — build what's useful now (source traceability), defer infrastructure until scale demands it. LLM-wiki concept retained as the unifying mental model
+4. Verification: side-by-side comparison confirmed all functionality is preserved; only the delivery order and triggering conditions changed
+5. Regression / rule update: None required — this is a planning-only change
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Date: 2026-04-09 (UTC)
+Project: K1 EDB Knowledge Platform / Dashboard repo
+
+Current state:
+- `v1.3.1` is on `main`
+- public `knowledge.json` is split-role (subject_head + panel_chair + all_roles; no department_head) ✅
+- `K1_KNOWLEDGE_INTERFACE_SPEC.md` is at `v2.0.0` ✅
+- `K1_API_SPEC.md` is at repo root and public ✅
+- backend compatibility bridge exists but backend still has CRITICAL data-source mismatch
+- `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` has been rewritten to v2 (LLM-wiki phased approach)
+
+Architecture decision (this session):
+- reviewed original 4-layer plan; agreed it over-engineers for 107 facts
+- adopted LLM-wiki mental model: current facts/guidelines already are the wiki
+- all original functionality preserved, delivery phased by actual need
+- Phase 0: fix backend bug + similarity_scores + verify live URLs
+- Phase 1: source registry (dev/source/source_registry.json) + _source_refs in role_facts.json
+- Phase 2: freshness monitoring script
+- Phase 3: LLM extraction assistance + optional vault/wiki-unit/compile (scale-triggered)
+
+Pending tasks (priority order):
+1. [Phase 0 — CRITICAL] Fix backend data source path:
+   - update DEFAULT_KNOWLEDGE_PATH_SETTING in backend/src/config/env.ts
+   - change "../../../dev/knowledge/role_facts.json" → "../../../role_facts.json"
+   - run npm run check
+   - verify subject_head and panel_chair return distinct facts
+2. [Phase 0 — Quick win] Add similarity_scores + total_fact_chars to AnalyzeCircularResponse
+3. [Phase 0 — Verify] Browser hard-refresh 4 public K1 URLs to confirm v1.3.1 live
+4. [Phase 1] Create dev/source/source_registry.json — seed SAG + Code of Aid + ~15 guideline sources
+5. [Phase 1] Add _source_refs to each topic block in role_facts.json
+6. [品質] Backend semantic regression with 2–3 real EDB circulars
+7. [EDB 側] EDB agent cleanup of stale department_head path in fetch_knowledge.py
+
+Key files changed this session:
+- dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md (full rewrite to v2)
+- dev/CODEBASE_CONTEXT.md (Key Decisions + Directory Map + AI Maintenance Log)
+- dev/SESSION_HANDOFF.md (Open Priorities + layer map + known risks + last session)
+- dev/SESSION_LOG.md (§4a archive + new entry)
+
+Known risks / blockers / cautions:
+- CRITICAL: backend reads wrong role_facts.json — subject_head/panel_chair role differentiation broken
+- Live GitHub Pages not browser-confirmed
+- EDB-Project-V3 still no .git
+- Backend semantic regression still pending
+- guidelines.json never loaded by backend — LLM has no document citation capability
+
+Validation status:
+- LLM-wiki v2 plan agreed and written ✅
+- All functionality preserved from v1 plan ✅
+- Public interface stability verified ✅
+- local knowledge.json split-role schema ✅
+- role_facts.json v2.0.0 validated ✅
+- backend critical issue identified but not yet fixed ⚠️
+- live browser verification ⚠️ pending
+
+Post-startup first action: execute Phase 0 — fix the backend data source path in backend/src/config/env.ts, run npm run check, then add similarity_scores + total_fact_chars to AnalyzeCircularResponse.
+```
+
+---
+
+## 2026-04-09 Session 45 — Backend Knowledge Path Fix + Response Diagnostics
+
+1. Agent & Session ID: Codex_20260409_0001
+2. Task summary: Completed Phase 0 backend follow-through by pointing the backend default knowledge path at repo-root `role_facts.json` (split-role v2.0.0), exposing `similarity_scores` and `total_fact_chars` in `AnalyzeCircularResponse`, and synchronizing the backend runbook/context docs.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Configuration issue (`DEFAULT_KNOWLEDGE_PATH_SETTING`) + small backend behavior change (response metadata passthrough)
+5. Files read:
+   - `AGENTS.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `backend/src/config/env.ts`
+   - `backend/src/lib/knowledgeRepository.ts`
+   - `backend/src/api/analyzeCircular.ts`
+   - `backend/src/types/knowledge.ts`
+   - `backend/src/services/topicDetector.ts`
+   - `backend/src/services/knowledgeSelector.ts`
+   - `backend/src/server.ts`
+   - `backend/README.md`
+   - `dev/DOC_SYNC_CHECKLIST.md`
+   - `role_facts.json`
+6. Files changed:
+   - `backend/src/config/env.ts` — default knowledge path now points to repo-root `role_facts.json`
+   - `backend/src/types/knowledge.ts` — `AnalyzeCircularResponse` now includes `similarity_scores` and `total_fact_chars`
+   - `backend/src/api/analyzeCircular.ts` — passes through similarity scores and total injected fact characters
+   - `backend/README.md` — updated default dataset path and response example
+   - `dev/CODEBASE_CONTEXT.md` — updated backend path/runbook context and appended maintenance-log entry
+   - `dev/SESSION_HANDOFF.md` — removed the resolved critical backend-path task from open priorities, retired the critical risk, and refreshed verification notes / last session record
+   - `dev/SESSION_LOG.md` — appended this entry
+7. Completed:
+   - ✅ Fixed the backend default knowledge source path from `../../../dev/knowledge/role_facts.json` to `../../../role_facts.json`
+   - ✅ Restored functional split-role differentiation for `subject_head` and `panel_chair`
+   - ✅ Added `similarity_scores` and `total_fact_chars` to `AnalyzeCircularResponse`
+   - ✅ Synchronized backend README and codebase context so operators see the new default
+8. Validation / QC:
+   - `cd backend && npm run check` → PASS
+   - `cd backend && npm run build` → PASS
+   - `cd backend && node --input-type=module -e "...read ../../../role_facts.json and compare finance facts..."` → PASS; default path resolves to `/Users/leonard/Downloads/Claude-edb-knowledge/role_facts.json`
+   - `cd backend && node --input-type=module -e "...import ./dist/api/analyzeCircular.js with stub deps..."` → PASS; compiled response includes `similarity_scores` and `total_fact_chars`
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Correct file selection | backend config uses default path | load knowledge repository with no override | repo-root `role_facts.json` is used | resolved path = `/Users/leonard/Downloads/Claude-edb-knowledge/role_facts.json` | PASS |
+| Split-role distinction | backend points at split-role dataset | compare `finance` selection for `subject_head` vs `panel_chair` | returned facts differ by role | shared facts overlap, plus 3 distinct `subject_head` facts and 3 distinct `panel_chair` facts | PASS |
+| Response metadata passthrough | compiled backend analyze flow succeeds | call `analyzeCircular` with stub embed/llm deps | response includes `similarity_scores` and `total_fact_chars` | compiled output returned both fields | PASS |
+| Regression / type safety | backend source updated | `npm run check` | no TypeScript errors | command exited 0 | PASS |
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: Backend role differentiation was functionally broken because the default dataset still pointed at the legacy merged-schema backup file
+2. Root Cause: `DEFAULT_KNOWLEDGE_PATH_SETTING` still targeted `dev/knowledge/role_facts.json`, while the live split-role contract had moved to repo-root `role_facts.json`
+3. Fix: Updated the default path, exposed the already-computed diagnostic response fields, and synchronized the backend runbook/context docs
+4. Verification: `npm run check` and `npm run build` both passed; direct dataset verification confirmed repo-root path usage and distinct split-role facts; compiled analyze flow returned the new response fields
+5. Regression / rule update: None beyond documenting the resolved path SSOT in the runbook/context
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Backend README / standalone runbook added | CODEBASE_CONTEXT.md Build & Run or Directory Map; SESSION_HANDOFF.md priorities if operator flow changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Tech stack / build / dependency change | CODEBASE_CONTEXT.md Stack or Build section | N/A |
+
+---
+
+## 2026-04-10 Session 46 — LLM-Wiki Trust Gates Clarification
+
+1. Agent & Session ID: Codex_20260410_0002
+2. Task summary: Kept the agreed LLM-wiki v2 direction unchanged, but clarified how the repo should gradually reduce manual judgement without losing trust. Formalized the trust-gate model and automation ladder directly inside the existing plan instead of creating a parallel architecture.
+3. Layer classification: Product / System Layer + Development Governance Layer
+4. Source triage: Architecture / planning clarification task
+5. Files read:
+   - `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md`
+   - `dev/CODEBASE_CONTEXT.md`
+   - `dev/SESSION_HANDOFF.md`
+   - `dev/SESSION_LOG.md`
+   - `dev/DOC_SYNC_CHECKLIST.md`
+6. Files changed:
+   - `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` — added trust model, trust gates, automation ladder, and explicit guidance that automation should reduce low-risk judgement first
+   - `dev/CODEBASE_CONTEXT.md` — updated architecture summary / key decision wording and appended maintenance-log entry
+   - `dev/SESSION_HANDOFF.md` — updated Phase 1 priority wording, known-risk note, and last-session record
+   - `dev/SESSION_LOG.md` — appended this session entry
+7. Completed:
+   - ✅ Preserved the existing LLM-wiki phased plan instead of introducing a new competing approach
+   - ✅ Clarified that the future target is not autonomous LLM publishing, but evidence-based trust reduction
+   - ✅ Defined five trust gates: source admission, source freshness, fact proposal, fact approval, and public compilation
+   - ✅ Added an automation ladder so future implementation knows what should be automated first and what must remain human-gated
+8. Validation / QC:
+   - Manual consistency review:
+     - plan still preserves Phase 0 → Phase 1 → Phase 2 → Phase 3 ordering
+     - no public contract changes introduced
+     - trust-gate additions strengthen, rather than replace, the existing LLM-wiki approach
+
+### Problem -> Root Cause -> Fix -> Verification
+1. Problem: The plan already described source traceability and freshness, but it did not yet make the trust boundary explicit enough to guide future removal of manual judgement safely
+2. Root Cause: Earlier versions focused on structural phasing, while the implicit approval / trust model remained mostly in conversation rather than in the planning SSOT
+3. Fix: Extended the existing LLM-wiki plan with an explicit trust model, risk-based gates, and an automation ladder that prioritizes evidence gathering first and approval reduction last
+4. Verification: the updated planning doc now clearly states that future automation must respect source/freshness/approval gates, and the handoff/context files point Phase 1 toward implementing the first trust-gate policy
+5. Regression / rule update: None — this is a planning clarification that strengthens existing direction
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+
+---
+

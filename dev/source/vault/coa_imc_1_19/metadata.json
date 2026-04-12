@@ -1,0 +1,40 @@
+{
+  "source_id": "coa_imc_1_19",
+  "vault_version": 1,
+  "ingestion_status": "empty",
+  "artifacts": {
+    "pdf": {
+      "stored": false,
+      "filename": null,
+      "added_by": null,
+      "date": null,
+      "note": "Download from url_primary in registry. Save as coa_imc_1_19.pdf"
+    },
+    "extract_finance": {
+      "stored": false,
+      "filename": null,
+      "added_by": null,
+      "date": null,
+      "sections": null,
+      "note": "Paste Code of Aid finance/funding chapter text. Save as extract_finance.txt"
+    },
+    "extract_hr": {
+      "stored": false,
+      "filename": null,
+      "added_by": null,
+      "date": null,
+      "sections": null,
+      "note": "Paste Code of Aid HR/staffing chapter text. Save as extract_hr.txt"
+    },
+    "extract_general": {
+      "stored": false,
+      "filename": null,
+      "added_by": null,
+      "date": null,
+      "sections": null,
+      "note": "Paste Code of Aid governance/general chapter text. Save as extract_general.txt"
+    }
+  },
+  "extracted_unit_count": 0,
+  "last_ingested_at": null
+}

@@ -1,0 +1,111 @@
+{
+  "_meta": {
+    "source_id": "arts_curr_docs",
+    "parent_url": "https://www.edb.gov.hk/tc/curriculum-development/kla/arts-edu/curriculum-docs/index.html",
+    "extracted": "2026-04-10",
+    "method": "user_paste",
+    "total_documents": 8,
+    "note": "URLs for individual PDFs are only captured where explicitly provided. Other direct links can be filled later when available or when Phase 2 fetch is enabled."
+  },
+  "sections": [
+    {
+      "section": "藝術教育學習領域",
+      "documents": [
+        {
+          "doc_id": "arts_kla_guide_2017",
+          "title": "藝術教育學習領域課程指引（小一至中六）(2017)",
+          "year": 2017,
+          "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/AE_KLACG__Chi___2017.pdf",
+          "registry_id": "arts_kla_guide_2017",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "KLA 總綱，已升級入 registry；本地副本已提供。"
+        }
+      ]
+    },
+    {
+      "section": "音樂",
+      "documents": [
+        {
+          "doc_id": "music_p1_s6_2024",
+          "title": "《音樂科課程指引（小一至中六）》（2024）",
+          "year": 2024,
+          "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/mus_cg_c_2024.pdf",
+          "registry_id": "music_p1_s6_2024",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "音樂科課程指引（小一至中六）；本地副本已提供。"
+        },
+        {
+          "doc_id": "music_sss_2024",
+          "title": "《音樂課程及評估指引（中四至中六）》（2024年9月更新）",
+          "year": 2024,
+          "year_updated": "2024-09",
+          "url": null,
+          "registry_id": "music_sss_2024",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "現行高中音樂課程及評估指引。"
+        },
+        {
+          "doc_id": "music_sss_2015",
+          "title": "《音樂課程及評估指引（中四至中六）》（2015年11月更新）",
+          "year": 2015,
+          "year_updated": "2015-11",
+          "url": null,
+          "registry_id": "music_sss_2015",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "舊版高中音樂課程及評估指引。"
+        },
+        {
+          "doc_id": "music_national_anthem_2024",
+          "title": "《國歌的學與教：音樂科課程補充文件（小一至中六）》（2024年9月更新）",
+          "year": 2024,
+          "year_updated": "2024-09",
+          "url": null,
+          "registry_id": "music_national_anthem_2024",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "音樂科國歌學與教補充文件。"
+        },
+        {
+          "doc_id": "music_sss_resources",
+          "title": "高中音樂選修配套資源",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "配套資源入口，先保留於 catalogue。"
+        }
+      ]
+    },
+    {
+      "section": "視覺藝術",
+      "documents": [
+        {
+          "doc_id": "va_p1_s6_2024",
+          "title": "《視覺藝術科課程指引（小一至中六）》（2024）",
+          "year": 2024,
+          "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/va_cg_c_2024.pdf",
+          "registry_id": "va_p1_s6_2024",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "視覺藝術科課程指引（小一至中六）；本地副本已提供。"
+        },
+        {
+          "doc_id": "va_sss_2015",
+          "title": "《視覺藝術課程及評估指引（中四至中六）》（2015年11月更新）",
+          "year": 2015,
+          "year_updated": "2015-11",
+          "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/VA_CA_Guide_c-100418.pdf",
+          "registry_id": "va_sss_2015",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "高中視覺藝術課程及評估指引；本地副本已提供。"
+        }
+      ]
+    }
+  ]
+}

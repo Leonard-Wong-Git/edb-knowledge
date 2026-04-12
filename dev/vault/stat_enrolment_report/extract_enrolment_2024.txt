@@ -1,0 +1,464 @@
+# source_id: stat_enrolment_2024
+# school_year: 2024/25
+# extracted: 20260410
+# total_pages: 104
+# extracted_pages: 1-20 (intro + all-schools summary tables)
+# url: https://www.edb.gov.hk/attachment/en/about-edb/publications-stat/figures/Enrol_2024.pdf
+
+=== Page 1 ===
+教育局
+Education Bureau
+2024／25 學年學生人數統計
+（幼稚園、小學及中學）
+Student Enrolment Statistics, 2024/25
+(Kindergartens, Primary and Secondary Schools)
+School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Educatio
+Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statis
+Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Sectio
+Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Educati
+Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bure
+Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau Sch
+School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Educatio
+Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statis
+Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Sectio
+Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Educati
+Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bure
+Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau Sch
+School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Educatio
+Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statis
+Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Sectio
+Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Educati
+Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bure
+Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau Sch
+School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Educatio
+Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statis
+Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Sectio
+學校教育統計組
+2025年7月
+July 2025 School Education Statistics Section
+
+=== Page 3 ===
+2024／25 學年學生人數統計
+（幼稚園、小學及中學）
+Student Enrolment Statistics, 2024/25
+(Kindergartens, Primary and Secondary Schools)
+有關本刊物的查詢，請聯絡：
+Enquiries about this publication can be directed to:
+主題 查詢電話 電郵地址
+Topic Enquiry Telephone No. Email Address
+幼稚園 學生統計 3509 8443 edstat@edb.gov.hk
+Kindergartens Enrolment Statistics
+幼稚園數目 2892 5032 eokga2@edb.gov.hk
+Number of Kindergartens
+小學 學生統計 3509 8442 edstat@edb.gov.hk
+Primary Schools Enrolment Statistics
+學校數目 3509 8465 sd_centralteam1@edb.gov.hk
+Number of Schools
+中學 學生統計 3509 8442 edstat@edb.gov.hk
+Secondary Schools Enrolment Statistics
+學校數目 3509 8465 sd_centralteam1@edb.gov.hk
+Number of Schools
+
+=== Page 5 ===
+目錄 CONTENTS
+頁數 Page
+簡介 INTRODUCTION 1 - 3
+統計表 TABLES
+I. 所有學校 All Schools 7 - 17
+II. 幼稚園 Kindergartens 21 - 38
+III. 小學 Primary Schools 41 - 56
+IV. 中學 Secondary Schools 59 - 75
+V. 特殊教育 Special Education 79 - 81
+統計圖 CHARTS 7 - 62
+名詞釋義 GLOSSARY OF TERMS 85 - 90
+i
+
+=== Page 6 ===
+目錄 CONTENTS
+頁數 Page
+統計表 TABLES
+I. 所有學校 All Schools
+1.1 2014年至2024年日校數目 － 按學校類別統計 11
+Day Schools by Type/Sector, 2014-2024
+1.2 2014年至2024年私立中學夜校數目 12
+Number of Private Secondary Evening Schools, 2014-2024
+1.3 2014年至2024年日校學生人數 ─ 按學校類別統計 13
+Student Enrolment in Day Schools by Type/Sector, 2014-2024
+1.4 2014年至2024年夜間中學課程學生人數 17
+Student Enrolment in Secondary Evening Courses, 2014-2024
+II. 幼稚園 Kindergartens
+2.1 2014年至2024年幼稚園學額及學生人數 － 按級別統計
+Accommodation and Student Enrolment in Kindergartens by Grade, 2014-2024
+(A) 本地及非本地幼稚園 21
+Local and Non-local Kindergartens
+(B) 本地幼稚園 22
+Local Kindergartens
+(C) 非本地幼稚園 23
+Non-local Kindergartens
+(D) 參加學前教育學券計劃/幼稚園教育計劃的幼稚園 24
+Kindergartens Joining the Pre-primary Education Voucher Scheme/
+Kindergarten Education Scheme
+2.2 2024年幼稚園學額及學生人數 － 按學校宗教背景統計 26
+Accommodation and Student Enrolment in Kindergartens by Religious Background of
+School, 2024
+2.3 2024年幼稚園學額及學生人數 － 按幼稚園類別及級別統計 27
+Accommodation and Student Enrolment in Kindergartens by Type of Kindergarten and
+Grade, 2024
+2.4 2024年幼稚園學額及學生人數 － 按幼稚園類別及上課時間統計 28
+Accommodation and Student Enrolment in Kindergartens by Type of Kindergarten and
+Session, 2024
+ii
+
+=== Page 7 ===
+目錄 CONTENTS
+頁數 Page
+統計表(續) TABLES (Cont'd)
+2.5 2024年幼稚園學額及學生人數 － 按幼稚園類別、級別及上課時間統計 29
+Accommodationand Student Enrolment in Kindergartens by Type of Kindergarten, Gradeand
+Session, 2024
+2.6 2024年幼稚園學額及學生人數 － 按分區及幼稚園類別統計 30
+Accommodation and Student Enrolment in Kindergartens by District and Type of Kindergarten, 2024
+2.7 2024年幼稚園學額及學生人數 － 按分區及級別統計
+Accommodation and Student Enrolment in Kindergartens by District and Grade, 2024
+(A) 本地及非本地幼稚園 31
+Local and Non-local Kindergartens
+(B) 本地幼稚園 32
+Local Kindergartens
+(C) 參加幼稚園教育計劃的幼稚園 33
+Kindergartens Joining the Kindergarten Education Scheme
+2.8 2024年幼稚園學額及學生人數 －按分區及上課時間統計
+Accommodation and Student Enrolment in Kindergartens by District and Session, 2024
+(A) 本地及非本地幼稚園 34
+Local and Non-local Kindergartens
+(B) 本地幼稚園 35
+Local Kindergartens
+(C) 參加幼稚園教育計劃的幼稚園 36
+Kindergartens Joining the Kindergarten Education Scheme
+2.9 2024年幼稚園學生人數 － 按級別、性別及年齡統計
+Student Enrolment in Kindergartens by Grade, Sex and Age, 2024
+(A) 本地及非本地幼稚園 37
+Local and Non-local Kindergartens
+(B) 本地幼稚園 38
+Local Kindergartens
+III. 小學 Primary Schools
+3.1 2014年至2024年小學開辦班數、學額、學生人數及重讀生人數 － 按級別統計 41
+Operating Classes, Accommodation, Student Enrolment and Repeaters in Primary Schools by
+Grade, 2014-2024
+3.2 2014年至2024年小學開辦班數、學額、學生人數及重讀生人數 － 按學校類別統計 42
+Operating Classes, Accommodation, Student Enrolment and Repeaters in Primary Schools by
+Sector, 2014-2024
+iii
+
+=== Page 8 ===
+目錄 CONTENTS
+頁數 Page
+統計表(續) TABLES (Cont'd)
+3.3 2024年小學開辦班數、學額、學生人數及重讀生人數 － 按學校類別及級別統計 45
+Operating Classes, Accommodation, Student Enrolment and Repeaters in Primary Schools
+by Sector and Grade, 2024
+3.4 2024年小學開辦班數、學額及學生人數 － 按學校宗教背景統計 46
+OperatingClasses,AccommodationandStudentEnrolmentinPrimarySchoolsbyReligious
+Background of School, 2024
+3.5 2024年小學開辦班數 － 按分區及級別統計
+Operating Classes in Primary Schools by District and Grade, 2024
+(A) 所有學校 47
+All Schools
+(B) 公營及直接資助計劃學校 48
+Public Sector and DSS Schools
+(C) 國際及其他私立學校 49
+International and Other Private Schools
+3.6 2024年小學學額 － 按分區及級別統計
+Accommodation in Primary Schools by District and Grade, 2024
+(A) 所有學校 50
+All Schools
+(B) 公營及直接資助計劃學校 51
+Public Sector and DSS Schools
+(C) 國際及其他私立學校 52
+International and Other Private Schools
+3.7 2024年小學學生人數 － 按分區及級別統計
+Student Enrolment in Primary Schools by District and Grade, 2024
+(A) 所有學校 53
+All Schools
+(B) 公營及直接資助計劃學校 54
+Public Sector and DSS Schools
+(C) 國際及其他私立學校 55
+International and Other Private Schools
+3.8 2024年小學學生人數 － 按級別、性別及年齡統計 56
+Student Enrolment in Primary Schools by Grade, Sex and Age, 2024
+IV. 中學 Secondary Schools
+4.1 2014年至2024年中學日校開辦班數、學額、學生人數及重讀生人數 － 按級別統計 59
+Operating Classes, Accommodation, Student Enrolment and Repeaters in Secondary Day
+Schools by Grade, 2014-2024
+4.2 2014年至2024年中學日校開辦班數、學額、學生人數及重讀生人數 － 按學校類別統計 60
+Operating Classes, Accommodation, Student Enrolment and Repeaters in Secondary Day
+Schools by Sector, 2014-2024
+iv
+
+=== Page 9 ===
+目錄 CONTENTS
+頁數 Page
+統計表(續) TABLES (Cont'd)
+4.3 2024年中學日校開辦班數、學額、學生人數及重讀生人數 － 按學校類別及級別統計 63
+Operating Classes, Accommodation, Student Enrolment and Repeaters in Secondary Day
+Schools by Sector and Grade, 2024
+4.4 2024年中學日校開辦班數、學額及學生人數 － 按學校宗教背景統計 64
+Operating Classes, Accommodation and Student Enrolment in Secondary Day Schools by
+Religious Background of School, 2024
+4.5 2024年中學日校開辦班數 － 按分區及級別統計
+Operating Classes in Secondary Day Schools by District and Grade, 2024
+(A) 所有學校 65
+All Schools
+(B) 公營及直接資助計劃學校 66
+Public Sector and DSS Schools
+(C) 國際及其他私立學校 67
+International and Other Private Schools
+4.6 2024年中學日校學額 － 按分區及級別統計
+Accommodation in Secondary Day Schools by District and Grade, 2024
+(A) 所有學校 68
+All Schools
+(B) 公營及直接資助計劃學校 69
+Public Sector and DSS Schools
+(C) 國際及其他私立學校 70
+International and Other Private Schools
+4.7 2024年中學日校學生人數 － 按分區及級別統計
+Student Enrolment in Secondary Day Schools by District and Grade, 2024
+(A) 所有學校 71
+All Schools
+(B) 公營及直接資助計劃學校 72
+Public Sector and DSS Schools
+(C) 國際及其他私立學校 73
+International and Other Private Schools
+4.8 2024年中學日校學生人數 － 按級別、性別及年齡統計 74
+Student Enrolment in Secondary Day Schools by Grade, Sex and Age, 2024
+4.9 2014年至2024年夜間中學課程學生人數 ─ 按級別統計 75
+Student Enrolment in Secondary Evening Courses by Grade, 2014-2024
+v
+
+=== Page 10 ===
+目錄 CONTENTS
+頁數 Page
+統計表(續) TABLES (Cont'd)
+V. 特殊教育 Special Education
+5.1 2014年至2024年特殊學校及設有特殊班的普通學校數目 79
+Number of Special Schools and Ordinary Schools with Special Classes, 2014-2024
+5.2 2014年至2024年接受特殊教育（包括普通學校的特殊班）學生人數 － 按程度統計 80
+StudentEnrolmentinSpecialEducation(IncludingSpecialClassesinOrdinarySchools)
+by Level, 2014-2024
+5.3 2014年至2024年本地特殊學校學生人數 ─ 按程度及類別統計 81
+Student Enrolment in Local Special Schools by Level and Category, 2014-2024
+vi
+
+=== Page 11 ===
+目錄 CONTENTS
+頁數 Page
+統計圖 CHARTS
+1 2024年日校數目及學生人數 － 按學校分類統計 7
+Number of Day Schools and Student Enrolment by School Type, 2024
+2 2024年幼稚園數目及學生人數 － 按幼稚園類別統計 8
+Number of Kindergartens and Student Enrolment by Type of Kindergarten, 2024
+3 2024年普通小學數目及學生人數 － 按學校類別統計 9
+Number of Ordinary Primary Schools and Student Enrolment by Sector, 2024
+4 2024年普通中學日校數目及學生人數 － 按學校類別統計 10
+Number of Ordinary Secondary Day Schools and Student Enrolment by Sector, 2024
+5 2014年至2024年幼稚園學生人數 － 按幼稚園類別統計 14
+Student Enrolment in Kindergartens by Type of Kindergarten, 2014-2024
+6 2014年至2024年小學學生人數 － 按學校類別統計 15
+Student Enrolment in Primary Schools by Sector, 2014-2024
+7 2014年至2024年中學日校學生人數 － 按學校類別統計 16
+Student Enrolment in Secondary Day Schools by Sector, 2014-2024
+8 2014年至2024年幼稚園學額及學生人數 25
+Accommodation and Student Enrolment in Kindergartens, 2014-2024
+9 2014年至2024年小學學額及學生人數 43
+Accommodation and Student Enrolment in Primary Schools, 2014-2024
+10 2014年至2024年小學每班平均人數 44
+Average Class Size in Primary Schools, 2014-2024
+11 2014年至2024年中學日校學額及學生人數 61
+Accommodation and Student Enrolment in Secondary Day Schools, 2014-2024
+12 2014年至2024年中一每班平均人數 62
+Average Class Size in Secondary One, 2014-2024
+vii
+
+=== Page 13 ===
+簡介 Introduction
+1. 本報告列載普通幼稚園、小學及中學 1. This report presents detailed statistics on student
+的學生人數詳細統計數字，亦包括為 enrolment in ordinary kindergartens, primary and
+有特殊教育需要學生而設學校的學 secondary schools. Basic statistics on enrolment
+生人數基本統計數字。 in schools for students with special educational
+needs are also included.
+2. 本報告所載的學生人數統計數字，是 2. Student enrolment statistics contained in this
+根據教育局各資訊系統所備存的行 report are compiled based on administrative
+政記錄，以及學校教育統計組按年進 records kept in the Bureau’s information systems
+行「學生人數統計調查」所搜集的數 as well as data collected via the annual Student
+據編製而成。就 2024/25 學年的統計 Enrolment Survey conducted by the School
+數字而言，大部分數據（主要包括所 Education Statistics Section. For statistics of the
+有公營中、小學和參加幼稚園教育計 2024/25 school year, the main bulk of data,
+劃的幼稚園的數據）是來自上述資訊 covering primarily all public sector primary and
+系統；而餘下有關國際和其他私立 secondary schools as well as kindergartens
+中、小學的數據，以及上述資訊系統 participating in the Kindergarten Education
+未能提供的一些有關幼稚園和直接 Scheme, were available from the information
+資助計劃中、小學的特定數據項目， systems. The remaining data, being those of
+則是透過「學生人數統計調查」搜集 international and other private primary and
+得來。是項統計調查的回應率為 secondary schools as well as selected data items
+100%。 of kindergartens and Direct Subsidy Scheme
+(DSS) primary and secondary schools, that were
+not available from the information systems, were
+collected via the survey. The survey achieved a
+response rate of 100%.
+3. 除註明外，所有幼稚園、小學及中學 3. Unless otherwise stated, all enrolment statistics
+的學生統計數字均反映該學年9月中 for kindergartens, primary and secondary schools
+的情況。為簡化代號，本報告會以學 refer to the position as at mid-September of the
+年開始的年份來表示某一學年，即 respective school years. To simplify the
+2024年的數字是指2024/25學年的數 notations, the year that a school year commences
+字。 is used to represent the school year hereafter. In
+other words, statistics for 2024 refer to those for
+the 2024/25 school year.
+1
+
+=== Page 14 ===
+簡介 (續) Introduction (Cont’d)
+4. 由 2005 年 9 月 1 日開始，當局實施 4. Upon harmonisation of pre-primary services on
+協調學前服務的措施，凡提供3歲或 1 September 2005, all pre-primary institutions
+以上學前服務的機構（包括過往受社 providing services for children aged 3 or above
+會福利署監管且提供0至6歲或2至 (including child care centres providing services
+6歲服務的幼兒中心），均須根據《教 for children aged 0-6 or 2-6 supervised by the
+育條例》（第279章）註冊為幼稚園， Social Welfare Department before then) are
+並以幼稚園或幼稚園暨幼兒中心的 registered as kindergartens under the Education
+模式營辦。下文所述的「幼稚園」， Ordinance (Cap. 279) and are operated as
+已包括「幼稚園暨幼兒中心」。有關 kindergartens or kindergarten-cum-child care
+幼稚園的數字包括幼稚園暨幼兒中 centres. Kindergartens hereafter mentioned
+心開辦的幼兒班、低班及高班的數 include these kindergarten-cum-child care
+字。 centres. Figures for kindergartens include
+nursery, lower and upper classes in
+kindergarten-cum-child care centres.
+5. 當局於 2008/09 學年起，透過公營學 5. Starting from the 2008/09 school year, senior
+校提供免費高中教育，並由2009年9 secondary education is provided free through
+月開始，在中四推出三年的新高中學 public sector schools. The 3-year senior
+制。因此，由 2011 年開始有關中六 secondary education under the New Senior
+學生的數字是反映就讀新高中學制 Secondary Academic Structure was implemented
+的學生，並不能與較早年份的數字比 in Secondary 4 in September 2009. Therefore,
+較。此外，新高中學制亦於 2012/13 figures for Secondary 6 students from 2011
+學年全面推行，本地課程自該學年起 onwards referred to students enrolled under the
+沒有中七津貼學額。 New Senior Secondary Academic Structure.
+Accordingly, they are not comparable to figures
+for earlier years. Moreover, upon the full
+implementation of the New Senior Secondary
+Academic Structure in the 2012/13 school year,
+there are no subsidised Secondary 7 places under
+the local curriculum starting from that school
+year.
+2
+
+=== Page 15 ===
+簡介 (續) Introduction (Cont’d)
+6. 為方便編製按級別的統計數字，本局 6. To facilitate the compilation of statistics by
+已要求提供非本地正規課程的學校 grade, schools offering non-local formal
+（主要為國際及其他私立學校），按 curriculum (mainly refer to international and
+相等於本地正規課程的級別程度劃 other private schools) have been requested to
+分提供按級別的學生數據。小學的統 provide the student data by grade according to the
+計數字亦包括國際及其他私立小學 grades equivalent to those of the local formal
+開辦的預備班的數字。 curriculum. Figures for primary schools also
+cover those of preparatory classes operated by
+international and other private primary schools.
+7. 為方便讀者了解學生人數統計的各 7. To facilitate better understanding of the statistics,
+項數字，本報告的最後部分附有「名 a glossary listing the definitions of major terms is
+詞釋義」，列出學生人數統計中各主 given at the end of this report. The definitions
+要名詞的定義。這些名詞的定義或會 listed may differ from those used by other
+與教育局其他分部／組所用的定義 divisions/sections of the Education Bureau and
+不盡相同，故不能視為其他用途的正 should NOT therefore be taken as OFFICIAL
+式定義。 ones to be adopted for other purposes.
+3
+
+=== Page 17 ===
+I
+所有學校
+All Schools
+
+=== Page 19 ===
+圖 1 2024年日校數目(1)及學生人數 － 按學校分類統計
+Chart 1 Number of Day Schools(1) and Student Enrolment by School Type, 2024
+幼稚園
+Kindergarten
+(980)(2)
+125426(3)
+小學
+Primary School
+普通日校
+Ordinary Day School
+(590)
+319 447
+中學(4)
+Secondary School(4)
+(512)
+340 607
+特殊學校
+Special School
+(63)
+9 018
+特殊教育
+Special Education
+設有特殊班的普通學校
+Ordinary School
+with Special Class
+(10)(5)
+100
+註： 學生人數反映2024年9月中的情況。
+(1) 只包括在教育局註冊的學校。
+(2) 數字包括幼稚園暨幼兒中心。
+(3) 數字包括幼稚園暨幼兒中心的幼兒班、低班及高班。
+(4) 數字不包括營辦補習班、職業訓練及成人教育的私立學校。這些學校亦可能開辦日間中學課程。
+(5) 只有很少數的非公營普通學校開辦特殊班，其數字亦計算在相應的普通小學和中學學校數目內。
+( ) 括號內之數字代表所示的學校數目。
+資料來源： 教育局學校教育統計組
+教育局學校發展分部中央1組
+教育局幼稚園行政組
+教育局特殊教育分部
+Notes: Figures on enrolment refer to the position as at mid-September 2024.
+(1) Including only schools registered under the Education Bureau.
+(2) Figures include kindergarten-cum-child care centres.
+(3) Figures include nursery, lower and upper classes in kindergarten-cum-child care centres.
+(4) Figures exclude privateschools offeringtutorial, vocationaland adulteducation courses, which mayalso
+operate secondary day courses.
+(5) Onlyaverysmallnumberofnon-publicsectorordinaryschoolsareoperatingspecialclasses,andtheyare
+also counted in the respective numbers of ordinary primary and secondary schools.
+( ) Figures in brackets represent the respective numbers of schools.
+Sources: School Education Statistics Section, Education Bureau
+Central Team 1/School Development Division, Education Bureau
+Kindergarten Administration Section, Education Bureau
+Special Education Division, Education Bureau
+7
+
+=== Page 20 ===
+圖 2 2024年幼稚園數目(1)及學生人數(2) － 按幼稚園類別統計
+Chart 2 Number of Kindergartens(1) and Student Enrolment(2) by Type of Kindergarten, 2024
+所有幼稚園
+All Kindergartens
+(980)
+125 426[100%]
+本地 非本地
+Local Non-local
+(850) (130)
+114 465[91%] 10961[9%]
+計劃(3) 非計劃
+Scheme(3) Non-Scheme
+(734) (116)
+94 298[75%] 20167[16%]
+註： 學生人數反映2024年9月中的情況。
+(1) 只包括在教育局註冊的幼稚園及幼稚園暨幼兒中心。所有幼稚園及幼稚園暨幼兒中心均屬私營。
+(2) 數字包括幼稚園暨幼兒中心的幼兒班、低班及高班。
+(3) 「計劃」代表幼稚園教育計劃。
+( ) 圓括號內的數字代表所示幼稚園及幼稚園暨幼兒中心的數目。
+[ ] 方括號內的數字代表所示學生人數佔總學生人數的百分比。由於四捨五入關係，個別百分比相加
+可能與相應的總數不同。
+資料來源：教育局學校教育統計組
+教育局幼稚園行政組
+Notes: Figures on enrolment refer to the position as at mid-September 2024.
+(1) Includingonlykindergartensandkindergarten-cum-childcarecentresregisteredundertheEducationBureau.
+All kindergartens and kindergarten-cum-child care centres are privately run.
+(2) Figures include nursery, lower and upper classes in kindergarten-cum-child care centres.
+(3) "Scheme" stands for Kindergarten Education Scheme.
+( ) Figures in round brackets represent the respective numbers of kindergartens and kindergarten-cum-child care centres.
+[ ] Figures in square brackets represent the respective proportions of student enrolment in total enrolment.
+Figures may not add up to the corresponding totals due to rounding.
+Sources: School Education Statistics Section, Education Bureau
+Kindergarten Administration Section, Education Bureau
+8

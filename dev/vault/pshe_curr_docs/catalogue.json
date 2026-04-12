@@ -1,0 +1,315 @@
+{
+  "_meta": {
+    "source_id": "pshe_curr_docs",
+    "parent_url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/curriculum-documents.html",
+    "extracted": "2026-04-10",
+    "method": "user_paste",
+    "total_documents": 21,
+    "note": "URLs for individual PDFs / detail pages not yet captured — to be filled when direct links are available or Phase 2 fetch is enabled. Documents marked registry_id have already been registered in source_registry.json."
+  },
+  "sections": [
+    {
+      "section": "個人、社會及人文教育",
+      "documents": [
+        {
+          "doc_id": "pshe_kla_guide_2017_existing",
+          "title": "個人、社會及人文教育學習領域課程指引 (2017)",
+          "year": 2017,
+          "url": null,
+          "registry_id": "g35",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "PSHE KLA 總綱，現由 g35 覆蓋。"
+        },
+        {
+          "doc_id": "pshe_school_examples_2017",
+          "title": "《學校參考示例：具啟發性的香港學校實踐經驗》 (2017)",
+          "year": 2017,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "參考示例性質，先保留於 catalogue。"
+        }
+      ]
+    },
+    {
+      "section": "中國歷史科",
+      "documents": [
+        {
+          "doc_id": "chi_hist_jss_2019",
+          "title": "中國歷史科課程指引 (中一至中三) (2019)",
+          "year": 2019,
+          "url": null,
+          "registry_id": "chi_hist_jss_2019",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "初中中國歷史課程指引。"
+        },
+        {
+          "doc_id": "chi_hist_jss_ncs_2019",
+          "title": "調適中國歷史科課程大綱 (中一至中三) (2019) (非華語學生適用)",
+          "year": 2019,
+          "url": null,
+          "registry_id": "chi_hist_jss_ncs_2019",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "非華語學生適用版本。"
+        },
+        {
+          "doc_id": "chi_hist_jss_bilingual_2019",
+          "title": "中國歷史科課程大綱 (中一至中三) (2019) (中英雙語版)",
+          "year": 2019,
+          "url": null,
+          "registry_id": "chi_hist_jss_bilingual_2019",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "中英雙語版。"
+        },
+        {
+          "doc_id": "chi_hist_sss_2007_2015",
+          "title": "中國歷史課程及評估指引（中四至中六）2007 （2015年11月更新）",
+          "year": 2007,
+          "year_updated": "2015-11",
+          "url": null,
+          "registry_id": "chi_hist_sss_2007_2015",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "高中中國歷史課程及評估指引。"
+        }
+      ]
+    },
+    {
+      "section": "公民、經濟與社會科",
+      "documents": [
+        {
+          "doc_id": "ces_jss_2024",
+          "title": "公民、經濟與社會課程指引（中一至中三）（2024）",
+          "year": 2024,
+          "url": null,
+          "registry_id": "ces_jss_2024",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "初中公民、經濟與社會課程指引。"
+        }
+      ]
+    },
+    {
+      "section": "經濟科",
+      "documents": [
+        {
+          "doc_id": "econ_sss_2025",
+          "title": "經濟課程及評估指引 (中四至中六) (2025年更新) (適用於2028年起的香港中學文憑經濟科考試)",
+          "year": 2025,
+          "url": null,
+          "registry_id": "econ_sss_2025",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "現行經濟科更新版。"
+        },
+        {
+          "doc_id": "econ_sss_supp_2025",
+          "title": "經濟課程及評估指引 (中四至中六)-補充文件 (2025年更新) (適用於2028年起的香港中學文憑經濟科考試)",
+          "year": 2025,
+          "url": null,
+          "registry_id": "econ_sss_supp_2025",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "經濟科 2025 補充文件。"
+        },
+        {
+          "doc_id": "econ_sss_2007_2015",
+          "title": "經濟課程及評估指引 (中四至中六) 2007 (2015年11月更新) (適用於2026年及2027年的香港中學文憑經濟科考試)",
+          "year": 2007,
+          "year_updated": "2015-11",
+          "url": null,
+          "registry_id": "econ_sss_2007_2015",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "舊版經濟科課程及評估指引。"
+        },
+        {
+          "doc_id": "econ_sss_supp_2015",
+          "title": "經濟課程及評估指引 (中四至中六)-補充文件 (2015年11月版) (適用於2026年及2027年的香港中學文憑經濟科考試)",
+          "year": 2015,
+          "url": null,
+          "registry_id": "econ_sss_supp_2015",
+          "status": "in_registry",
+          "importance": "low",
+          "notes": "舊版經濟科補充文件。"
+        }
+      ]
+    },
+    {
+      "section": "倫理與宗教科、宗教教育科",
+      "documents": [
+        {
+          "doc_id": "ethics_relig_sss_2024",
+          "title": "倫理與宗教課程及評估指引 (中四至中六) 2024",
+          "year": 2024,
+          "url": null,
+          "registry_id": "ethics_relig_sss_2024",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "現行倫理與宗教課程及評估指引。"
+        },
+        {
+          "doc_id": "ethics_relig_sss_2007_2019",
+          "title": "倫理與宗教課程及評估指引 (中四至中六) 2007 (2019年11月更新)",
+          "year": 2007,
+          "year_updated": "2019-11",
+          "url": null,
+          "registry_id": "ethics_relig_sss_2007_2019",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "舊版倫理與宗教課程及評估指引。"
+        },
+        {
+          "doc_id": "religious_edu_jss_2024",
+          "title": "宗教教育課程指引（中一至中三）（2024）",
+          "year": 2024,
+          "url": null,
+          "registry_id": "religious_edu_jss_2024",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "初中宗教教育課程指引。"
+        },
+        {
+          "doc_id": "religious_edu_jss",
+          "title": "宗教教育科（中一至中三）",
+          "year": null,
+          "url": null,
+          "registry_id": "religious_edu_jss",
+          "status": "in_registry",
+          "importance": "low",
+          "notes": "宗教教育科相關初中資料。"
+        }
+      ]
+    },
+    {
+      "section": "地理科",
+      "documents": [
+        {
+          "doc_id": "geog_sss_supp_2022",
+          "title": "《地理課程及評估指引（中四至中六）》(2022年7月更新版)「補充資料」",
+          "year": 2022,
+          "year_updated": "2022-07",
+          "url": null,
+          "registry_id": "geog_sss_supp_2022",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "地理科 2022 補充資料。"
+        },
+        {
+          "doc_id": "geog_sss_2007_2022",
+          "title": "地理課程及評估指引 (中四至中六) 2007 (2022年7月更新)",
+          "year": 2007,
+          "year_updated": "2022-07",
+          "url": null,
+          "registry_id": "geog_sss_2007_2022",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "地理科 2022 更新版。"
+        },
+        {
+          "doc_id": "geog_sss_summary_2022",
+          "title": "2022年7月更新的《地理科課程及評估指引(中四至中六)》撮要",
+          "year": 2022,
+          "year_updated": "2022-07",
+          "url": null,
+          "registry_id": "geog_sss_summary_2022",
+          "status": "in_registry",
+          "importance": "low",
+          "notes": "撮要文件。"
+        },
+        {
+          "doc_id": "geog_sss_update_brief",
+          "title": "高中地理課程更新簡介",
+          "year": null,
+          "url": null,
+          "registry_id": "geog_sss_update_brief",
+          "status": "in_registry",
+          "importance": "low",
+          "notes": "更新簡介。"
+        },
+        {
+          "doc_id": "geog_sss_update_survey",
+          "title": "高中地理課程更新意見蒐集問卷",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "問卷性質，先保留於 catalogue。"
+        },
+        {
+          "doc_id": "geog_jss",
+          "title": "地理課程指引（中一至三）",
+          "year": null,
+          "url": null,
+          "registry_id": "geog_jss",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "初中地理課程指引。"
+        }
+      ]
+    },
+    {
+      "section": "歷史科",
+      "documents": [
+        {
+          "doc_id": "history_jss_2019",
+          "title": "歷史科課程指引（中一至中三）2019",
+          "year": 2019,
+          "url": null,
+          "registry_id": "history_jss_2019",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "初中歷史課程指引。"
+        },
+        {
+          "doc_id": "history_sss_2007_2015",
+          "title": "歷史課程及評估指引 (中四至中六) 2007 (2015年11月更新)",
+          "year": 2007,
+          "year_updated": "2015-11",
+          "url": null,
+          "registry_id": "history_sss_2007_2015",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "高中歷史課程及評估指引。"
+        }
+      ]
+    },
+    {
+      "section": "旅遊與款待科",
+      "documents": [
+        {
+          "doc_id": "tour_hosp_sss_2007_2015",
+          "title": "旅遊與款待課程及評估指引 (中四至中六) 2007 (2015年11月更新)",
+          "year": 2007,
+          "year_updated": "2015-11",
+          "url": null,
+          "registry_id": "tour_hosp_sss_2007_2015",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "旅遊與款待課程及評估指引。"
+        }
+      ]
+    },
+    {
+      "section": "生活與社會科",
+      "documents": [
+        {
+          "doc_id": "ls_jss_2010",
+          "title": "生活與社會課程指引（中一至中三）（2010年）",
+          "year": 2010,
+          "url": null,
+          "registry_id": "ls_jss_2010",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "生活與社會課程指引；現正逐步由 CES 課程取代。"
+        }
+      ]
+    }
+  ]
+}

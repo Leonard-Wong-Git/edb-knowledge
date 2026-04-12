@@ -1,0 +1,190 @@
+{
+  "_meta": {
+    "source_id": "g33",
+    "parent_url": "https://www.edb.gov.hk/tc/curriculum-development/kla/eng-edu/curriculum-documents.html",
+    "source_en_url": "https://www.edb.gov.hk/en/curriculum-development/kla/eng-edu/curriculum-documents.html",
+    "extracted": "2026-04-10",
+    "method": "user_paste",
+    "total_documents": 17,
+    "note": "Content pasted from English version of page. URLs for individual documents not yet captured — to be filled when Phase 2 fetch is enabled or user provides links."
+  },
+  "sections": [
+    {
+      "section": "Primary/Secondary Level (KLA-wide)",
+      "documents": [
+        {
+          "doc_id": "eng_nat_sec_2025",
+          "title": "English Language Education Key Learning Area Curriculum Framework of National Security Education",
+          "year": 2025,
+          "url": null,
+          "registry_id": "eng_nat_sec_2025",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "2025年英文科國家安全教育課程框架，已升級入 registry"
+        },
+        {
+          "doc_id": "eng_kla_guide_2017",
+          "title": "CDC English Language Education Key Learning Area Curriculum Guide (Primary 1 - Secondary 6) 2017",
+          "year": 2017,
+          "url": null,
+          "registry_id": "g33",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "KLA 總指引，g33 涵蓋此頁面"
+        },
+        {
+          "doc_id": "eng_kla_examples_2017",
+          "title": "Examples in support of the English Language Education Key Learning Area Curriculum Guide (P1-S6) 2017",
+          "year": 2017,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "配合 KLA 指引的教學示例，catalogue_only"
+        }
+      ]
+    },
+    {
+      "section": "Primary Level",
+      "documents": [
+        {
+          "doc_id": "eng_pri_guide_2025",
+          "title": "CDC English Language Education Key Learning Area English Language Curriculum Guide (Primary 1 - 6) 2025",
+          "year": 2025,
+          "url": null,
+          "registry_id": "eng_pri_guide_2025",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "最新2025年小學英文課程指引，已升級入 registry"
+        },
+        {
+          "doc_id": "eng_pri_leaflet_2025",
+          "title": "A Leaflet (English Language Curriculum Guide Primary 1-6 2025)",
+          "year": 2025,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "配合小學英文指引的單頁概覽，catalogue_only"
+        },
+        {
+          "doc_id": "eng_pri_posters_2025",
+          "title": "Posters (English Language Curriculum Guide Primary 1-6 2025)",
+          "year": 2025,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "海報資源，catalogue_only"
+        }
+      ]
+    },
+    {
+      "section": "Secondary Level",
+      "documents": [
+        {
+          "doc_id": "eng_jss_supp_2018",
+          "title": "CDC Supplement to the English Language Education Key Learning Area Curriculum Guide (Secondary 1 - 3) 2018",
+          "year": 2018,
+          "url": null,
+          "registry_id": "eng_jss_supp_2018",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "初中英文課程指引補充（2018），已升級入 registry"
+        },
+        {
+          "doc_id": "eng_sss_guide_2021",
+          "title": "CDC-HKEAA English Language Curriculum and Assessment Guide (Secondary 4 - 6) 2021",
+          "year": 2021,
+          "url": null,
+          "registry_id": "eng_sss_guide_2021",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "現行高中英文課程及評估指引（2021/22起實施），已升級入 registry"
+        },
+        {
+          "doc_id": "eng_sss_guide_2007",
+          "title": "CDC-HKEAA English Language Curriculum and Assessment Guide (Secondary 4 - 6) 2007 [with updates November 2015]",
+          "year": 2007,
+          "year_updated": "2015-11",
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "舊版高中英文指引（2007/2015更新），已被2021版取代，catalogue_only"
+        },
+        {
+          "doc_id": "eng_supp_jss_sss_interface",
+          "title": "Building a Strong Interface between the Junior and Senior Secondary Curricula: Focusing on the Development of Literacy Skills",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "補充說明文件，catalogue_only"
+        },
+        {
+          "doc_id": "eng_supp_learner_diversity",
+          "title": "Catering for Learner Diversity in the Senior Secondary English Classroom",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "補充說明文件，catalogue_only"
+        },
+        {
+          "doc_id": "eng_supp_assessment_writing",
+          "title": "Promoting Assessment for and as Learning at the Senior Secondary Level: Focusing on the Development of Writing Skills",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "補充說明文件，catalogue_only"
+        },
+        {
+          "doc_id": "eng_supp_elearning",
+          "title": "Promoting e-Learning in the Senior Secondary English Classroom",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "補充說明文件，catalogue_only"
+        },
+        {
+          "doc_id": "eng_supp_grammar",
+          "title": "Learning and Teaching of Grammar",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "補充說明文件，catalogue_only"
+        },
+        {
+          "doc_id": "eng_lit_guide_2023",
+          "title": "CDC-HKEAA Literature in English Curriculum and Assessment Guide (Secondary 4 - 6) 2023",
+          "year": 2023,
+          "url": null,
+          "registry_id": "eng_lit_guide_2023",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "現行英文文學課程及評估指引（2023/24起實施），已升級入 registry"
+        },
+        {
+          "doc_id": "eng_lit_guide_2007",
+          "title": "CDC-HKEAA Literature in English Curriculum and Assessment Guide (Secondary 4 - 6) 2007 [with updates November 2015]",
+          "year": 2007,
+          "year_updated": "2015-11",
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "舊版英文文學指引（2007/2015更新），已被2023版取代，catalogue_only"
+        }
+      ]
+    }
+  ]
+}

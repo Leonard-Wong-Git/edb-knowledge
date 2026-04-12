@@ -1,0 +1,27 @@
+{
+  "_meta": {
+    "source_id": "gs_pri_curr",
+    "parent_url": "https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/gs-primary/curriculum-documents.html",
+    "extracted": "2026-04-10",
+    "method": "user_paste",
+    "total_documents": 1,
+    "note": "常識科與小學人文科保留為兩個獨立 source family；此 catalogue 只覆蓋常識科頁面與其 2017 課程指引。"
+  },
+  "sections": [
+    {
+      "section": "常識科（小學）",
+      "documents": [
+        {
+          "doc_id": "gs_pri_guide_2017",
+          "title": "常識科課程指引（小學）(2017)",
+          "year": 2017,
+          "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Chi.pdf",
+          "registry_id": "gs_pri_guide_2017",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "常識科（小學）核心課程指引；EDB PDF 直連及本地副本已提供。"
+        }
+      ]
+    }
+  ]
+}

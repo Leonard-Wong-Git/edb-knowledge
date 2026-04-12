@@ -1,0 +1,468 @@
+# source_id: stat_enrolment_2017
+# school_year: 2017/18
+# extracted: 20260410
+# total_pages: 128
+# extracted_pages: 1-20 (intro + all-schools summary tables)
+# url: https://www.edb.gov.hk/attachment/en/about-edb/publications-stat/figures/Enrol_2017.pdf
+
+=== Page 1 ===
+教育局
+Education Bureau
+2017／18 學年學生人數統計
+（幼稚園、小學及中學程度）
+Student Enrolment Statistics, 2017/18
+(Kindergarten, Primary and Secondary Levels)
+School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Educatio
+Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statis
+Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Sectio
+Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Educati
+Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bure
+Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau Sch
+School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Educatio
+Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statis
+Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Sectio
+Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Educati
+Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bure
+Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau Sch
+School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Educatio
+Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statis
+Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Sectio
+Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Educati
+Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bure
+Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau Sch
+School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Educatio
+Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statis
+Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Section, Education Bureau School Education Statistics Sectio
+學校教育統計組
+2018年6月
+June 2018 School Education Statistics Section
+
+=== Page 3 ===
+2017／18 學年學生人數統計
+（幼稚園、小學及中學程度）
+Student Enrolment Statistics, 2017/18
+(Kindergarten, Primary and Secondary Levels)
+有關本刊物的查詢，請聯絡：
+Enquiries about this publication can be directed to:
+程度 主題 查詢電話 電郵地址
+Level Topic Enquiry Telephone No. Email Address
+幼稚園 學生統計 3509 8442 edstat@edb.gov.hk
+Kindergartens Enrolment Statistics
+幼稚園數目 2186 8993 eokga2@edb.gov.hk
+Number of Kindergartens
+小學 學生統計 3509 8442 edstat@edb.gov.hk
+Primary Schools Enrolment Statistics
+學校數目 3509 8465 sd_centralteam1@edb.gov.hk
+Number of Schools
+中學 學生統計 3509 8442 edstat@edb.gov.hk
+Secondary Schools Enrolment Statistics
+學校數目 3509 8465 sd_centralteam1@edb.gov.hk
+Number of Schools
+
+=== Page 5 ===
+目錄 CONTENTS
+頁數 Page
+簡介 INTRODUCTION 1 - 3
+統計表 TABLES
+I. 所有學校 All Schools 11 - 18
+II. 幼稚園 Kindergartens 21 - 40
+III. 小學 Primary Schools 43 - 67
+IV. 中學 Secondary Schools 71 - 95
+V. 特殊教育學校 Special Education Schools 99 - 103
+統計圖 CHARTS 7 - 78
+名詞釋義 GLOSSARY OF TERMS 107 - 111
+i
+
+=== Page 6 ===
+目錄 CONTENTS
+頁數 Page
+統計表 TABLES
+I. 所有學校 All Schools
+1.1 2017年學校數目 － 按程度、學校類別及日夜校統計 11
+All Schools by Level, Sector and Whether Day or Evening School, 2017
+1.2 2017年學生總人數 － 按程度、學校類別及日夜校統計 12
+Total Student Enrolment by Level, Sector and Whether Day or Evening School, 2017
+1.3 2007年至2017年日校數目 － 按程度及學校類別統計 13
+Day Schools by Level and Sector, 2007-2017
+1.4 2007年至2017年本地私立夜間中學數目 14
+Number of Local Private Secondary Evening Schools, 2007-2017
+1.5 2007年至2017年日校學生人數 － 按程度及學校類別統計 15
+Student Enrolment in Day Schools by Level and Sector, 2007-2017
+1.6 2007年至2017年本地其他日間中學課程學生人數 18
+Student Enrolment in Local Other Secondary Day Courses, 2007-2017
+1.7 2007年至2017年本地私立夜間中學學生人數 18
+Student Enrolment in Local Private Secondary Evening Schools, 2007-2017
+II. 幼稚園 Kindergartens
+2.1 2007年至2017年幼稚園學額及學生人數 － 按級別統計
+Accommodation and Student Enrolment in Kindergartens by Grade, 2007-2017
+(A) 本地及非本地學校 21
+Local and Non-local Schools
+(B) 本地學校 22
+Local Schools
+(C) 非本地學校 23
+Non-local Schools
+2.2 2017年幼稚園學額及學生人數 － 按學校宗教背景統計 25
+Accommodation and Student Enrolment in Kindergartens by Religious Background of
+School, 2017
+2.3 2017年幼稚園學額及學生人數 － 按幼稚園類別及級別統計 26
+Accommodation and Student Enrolment in Kindergartens by Type of Kindergarten and
+Grade, 2017
+2.4 2017年幼稚園學額及學生人數 － 按幼稚園類別及上課時間統計 27
+Accommodation and Student Enrolment in Kindergartens by Type of Kindergarten and
+Session, 2017
+ii
+
+=== Page 7 ===
+目錄 CONTENTS
+頁數 Page
+統計表(續) TABLES (Cont'd)
+2.5 2017年幼稚園學額及學生人數 － 按幼稚園類別、級別及上課時間統計
+Accommodationand Student Enrolment in Kindergartens by Type of Kindergarten, Gradeand
+Session, 2017
+(A) 本地及非本地學校 28
+Local and Non-local Schools
+(B) 本地學校 29
+Local Schools
+2.6 2017年幼稚園學額及學生人數 － 按分區及級別統計
+Accommodation and Student Enrolment in Kindergartens by District and Grade, 2017
+(A) 本地及非本地學校 30
+Local and Non-local Schools
+(B) 本地學校 31
+Local Schools
+2.7 2017年幼稚園學額及學生人數 － 按分區及上課時間統計
+Accommodation and Student Enrolment in Kindergartens by District and Session, 2017
+(A) 本地及非本地學校 32
+Local and Non-local Schools
+(B) 本地學校 33
+Local Schools
+2.8 2017年幼稚園學額及學生人數 － 按分區及幼稚園類別統計
+Accommodation and Student Enrolment in Kindergartens by District and Type of
+Kindergarten, 2017
+(A) 本地及非本地學校 34
+Local and Non-local Schools
+(B) 本地學校 35
+Local Schools
+2.9 2017年幼稚園學生人數 － 按級別、性別及年齡統計
+Student Enrolment in Kindergartens by Grade, Sex and Age, 2017
+(A) 本地及非本地學校 36
+Local and Non-local Schools
+(B) 本地學校 37
+Local Schools
+2.10 2017年參加免費優質幼稚園教育計劃的幼稚園學額及學生人數 － 按級別及上課時間統計 38
+Accommodation and Student Enrolment in Kindergartens Joining Free Quality Kindergarten
+Education Scheme by Grade and Session, 2017
+2.11 2017年參加免費優質幼稚園教育計劃的幼稚園學額及學生人數 － 按分區及級別統計 39
+Accommodation and Student Enrolment in Kindergartens Joining Free Quality Kindergarten
+Education Scheme by District and Grade, 2017
+2.12 2017年參加免費優質幼稚園教育計劃的幼稚園學額及學生人數 － 按分區及上課時間統計 40
+Accommodation and Student Enrolment in Kindergartens Joining Free Quality Kindergarten
+Education Scheme by District and Session, 2017
+iii
+
+=== Page 8 ===
+目錄 CONTENTS
+頁數 Page
+統計表(續) TABLES (Cont'd)
+III. 小學 Primary Schools
+3.1 2007年至2017年小學開辦班數、學額、學生人數及重讀生人數 － 按級別統計
+Operating Classes, Accommodation, Student Enrolment and Repeaters in Primary Schools
+by Grade, 2007-2017
+(A) 本地及國際學校 43
+Local and International Schools
+(B) 本地學校 44
+Local Schools
+(C) 國際學校 45
+International Schools
+3.2 2007年至2017年小學開辦班數、學額、學生人數及重讀生人數 － 按學校類別統計 46
+Operating Classes, Accommodation, Student Enrolment and Repeaters in Primary Schools
+by Sector, 2007-2017
+3.3 2017年小學開辦班數、學額、學生人數及重讀生人數 － 按學校類別及級別統計 48
+Operating Classes, Accommodation, Student Enrolment and Repeaters in Primary Schools
+by Sector and Grade, 2017
+3.4 2017年小學開辦班數、學額及學生人數 － 按學校類別及上課時間統計 49
+Operating Classes, Accommodation and Student Enrolment in Primary Schools by Sector
+and Session, 2017
+3.5 2017年小學開辦班數、學額及學生人數 － 按學校宗教背景統計 50
+OperatingClasses,AccommodationandStudentEnrolmentinPrimarySchoolsbyReligious
+Background of School, 2017
+3.6 2017年小學開辦班數 － 按分區及級別統計
+Operating Classes in Primary Schools by District and Grade, 2017
+(A) 本地及國際學校 51
+Local and International Schools
+(B) 本地學校 52
+Local Schools
+3.7 2017年小學開辦班數 － 按分區及學校類別統計 53
+Operating Classes in Primary Schools by District and Sector, 2017
+3.8 2017年小學開辦班數 － 按分區及上課時間統計
+Operating Classes in Primary Schools by District and Session, 2017
+(A) 本地及國際學校 54
+Local and International Schools
+(B) 本地學校 55
+Local Schools
+iv
+
+=== Page 9 ===
+目錄 CONTENTS
+頁數 Page
+統計表(續) TABLES (Cont'd)
+3.9 2017年小學學額 － 按分區及級別統計
+Accommodation in Primary Schools by District and Grade, 2017
+(A) 本地及國際學校 56
+Local and International Schools
+(B) 本地學校 57
+Local Schools
+3.10 2017年小學學額 － 按分區及學校類別統計 58
+Accommodation in Primary Schools by District and Sector, 2017
+3.11 2017年小學學額 － 按分區及上課時間統計
+Accommodation in Primary Schools by District and Session, 2017
+(A) 本地及國際學校 59
+Local and International Schools
+(B) 本地學校 60
+Local Schools
+3.12 2017年小學學生人數 － 按分區及級別統計
+Student Enrolment in Primary Schools by District and Grade, 2017
+(A) 本地及國際學校 61
+Local and International Schools
+(B) 本地學校 62
+Local Schools
+3.13 2017年小學學生人數 － 按分區及學校類別統計 63
+Student Enrolment in Primary Schools by District and Sector, 2017
+3.14 2017年小學學生人數 － 按分區及上課時間統計
+Student Enrolment in Primary Schools by District and Session, 2017
+(A) 本地及國際學校 64
+Local and International Schools
+(B) 本地學校 65
+Local Schools
+3.15 2017年小學學生人數 － 按級別、性別及年齡統計
+Student Enrolment in Primary Schools by Grade, Sex and Age, 2017
+(A) 本地及國際學校 66
+Local and International Schools
+(B) 本地學校 67
+Local Schools
+v
+
+=== Page 10 ===
+目錄 CONTENTS
+頁數 Page
+統計表(續) TABLES (Cont'd)
+IV. 中學 Secondary Schools
+4.1 2007年至2017年中學日校開辦班數、學額、學生人數及重讀生人數 － 按級別統計
+Operating Classes, Accommodation, Student Enrolment and Repeaters in Secondary Day
+Schools by Grade, 2007-2017
+(A) 本地及國際學校 71
+Local and International Schools
+(B) 本地學校 73
+Local Schools
+(C) 國際學校 75
+International Schools
+4.2 2007年至2017年中學日校開辦班數、學額、學生人數及重讀生人數 － 按學校類別統計 77
+Operating Classes, Accommodation, Student Enrolment and Repeaters in Secondary Day
+Schools by Sector, 2007-2017
+4.3 2017年中學日校開辦班數、學額、學生人數及重讀生人數 － 按學校類別及級別統計 79
+Operating Classes, Accommodation, Student Enrolment and Repeaters in Secondary Day
+Schools by Sector and Grade, 2017
+4.4 2017年中學日校開辦班數、學額及學生人數 － 按學校宗教背景統計 80
+Operating Classes, Accommodation and Student Enrolment in Secondary Day Schools by
+Religious Background of School, 2017
+4.5 2017年中學日校開辦班數 － 按分區及級別統計
+Operating Classes in Secondary Day Schools by District and Grade, 2017
+(A) 本地及國際學校 81
+Local and International Schools
+(B) 本地學校 82
+Local Schools
+4.6 2017年中學日校開辦班數 － 按分區及學校類別統計 83
+Operating Classes in Secondary Day Schools by District and Sector, 2017
+4.7 2017年中學日校學額 － 按分區及級別統計
+Accommodation in Secondary Day Schools by District and Grade, 2017
+(A) 本地及國際學校 84
+Local and International Schools
+(B) 本地學校 85
+Local Schools
+4.8 2017年中學日校學額 － 按分區及學校類別統計 86
+Accommodation in Secondary Day Schools by District and Sector, 2017
+vi
+
+=== Page 11 ===
+目錄 CONTENTS
+頁數 Page
+統計表(續) TABLES (Cont'd)
+4.9 2017年中學日校學生人數 － 按分區及級別統計
+Student Enrolment in Secondary Day Schools by District and Grade, 2017
+(A) 本地及國際學校 87
+Local and International Schools
+(B) 本地學校 88
+Local Schools
+4.10 2017年中學日校學生人數 － 按分區及學校類別統計 89
+Student Enrolment in Secondary Day Schools by District and Sector, 2017
+4.11 2017年中學日校學生人數 － 按級別、性別及年齡統計
+Student Enrolment in Secondary Day Schools by Grade, Sex and Age, 2017
+(A) 本地及國際學校 90
+Local and International Schools
+(B) 本地學校 91
+Local Schools
+4.12 2007年至2017年本地其他日間中學課程學生人數 － 按級別統計 92
+Student Enrolment in Local Other Secondary Day Courses by Grade, 2007-2017
+4.13 2007年至2017年本地其他日間中學課程學生人數 － 按分區統計 93
+Student Enrolment in Local Other Secondary Day Courses by District, 2007-2017
+4.14 2007年至2017年本地私立夜間中學學生人數 － 按級別統計 94
+Student Enrolment in Local Private Secondary Evening Schools by Grade, 2007-2017
+4.15 2007年至2017年本地私立夜間中學學生人數 － 按分區統計 95
+Student Enrolment in Local Private Secondary Evening Schools by District, 2007-2017
+V. 特殊教育學校 Special Education Schools
+5.1 2007年至2017年特殊教育學校及設有特殊班的普通學校數目 99
+Number of Schools of Special Education and Ordinary Schools with Special Classes,
+2007-2017
+5.2 2007年至2017年接受特殊教育（包括普通學校的特殊班）學生人數 － 按程度統計 100
+StudentEnrolmentinSpecialEducation(IncludingSpecialClassesinOrdinarySchools)
+by Level, 2007-2017
+5.3 2007年至2017年接受特殊教育（包括普通學校的特殊班）學生人數－按類別統計 101
+StudentEnrolmentinSpecialEducation(IncludingSpecialClassesinOrdinarySchools)
+by Category, 2007-2017
+vii
+
+=== Page 12 ===
+目錄 CONTENTS
+頁數 Page
+統計表(續) TABLES (Cont'd)
+5.4 2017年特殊學校及設有特殊班的普通學校數目 － 按程度統計 102
+Number of Special Schools and Ordinary Schools with Special Classes by Level, 2017
+5.5 2017年接受特殊教育（包括普通學校的特殊班）學生人數 － 按類別及程度統計 103
+StudentEnrolmentinSpecialEducation(IncludingSpecialClassesinOrdinarySchools)by
+Category and Level, 2017
+viii
+
+=== Page 13 ===
+目錄 CONTENTS
+頁數 Page
+統計圖 CHARTS
+1 2017年日校數目及學生人數 － 按學校分類及程度統計 7
+Number of Day Schools and Student Enrolment by School Type and Level, 2017
+2 2017年幼稚園數目及學生人數 － 按幼稚園類別統計 8
+Number of Kindergartens and Student Enrolment by Type of Kindergarten, 2017
+3 2017年普通小學數目及學生人數 － 按學校類別統計 9
+Number of Ordinary Primary Schools and Student Enrolment by Sector, 2017
+4 2017年普通中學日校數目及學生人數 － 按學校類別統計 10
+Number of Ordinary Secondary Day Schools and Student Enrolment by Sector, 2017
+5 2007年至2017年幼稚園學生人數 － 按幼稚園類別統計 16
+Student Enrolment in Kindergartens by Type of Kindergarten, 2007-2017
+6 2007年至2017年小學學生人數 － 按學校類別統計 16
+Student Enrolment in Primary Schools by Sector, 2007-2017
+7 2007年至2017年中學日校學生人數 － 按學校類別統計 17
+Student Enrolment in Secondary Day Schools by Sector, 2007-2017
+8 2007年至2017年幼稚園學生人數及學額 24
+Student Enrolment and Accommodation in Kindergartens, 2007-2017
+9 2007年至2017年小學學生人數及學額 47
+Student Enrolment and Accommodation in Primary Schools, 2007-2017
+10 2007年至2017年小學每班平均人數 － 按學校類別統計 47
+Average Class Size in Primary Schools by Sector, 2007-2017
+11 2007年至2017年中學日校學生人數及學額 78
+Student Enrolment and Accommodation in Secondary Day Schools, 2007-2017
+12 2007年至2017年中一每班平均人數 － 按學校類別統計 78
+Average Class Size in Secondary One by Sector, 2007-2017
+ix
+
+=== Page 15 ===
+簡介 Introduction
+1. 本報告列載普通幼稚園、小學及中學 1. This report presents detailed statistics on student
+的學生人數詳細統計數字，亦包括為 enrolment in ordinary schools at kindergarten,
+有特殊教育需要學生而設學校的學 primary and secondary levels. Basic statistics
+生人數基本統計數字。 on enrolment in schools for pupils with special
+educational needs are also included.
+2. 本報告所載的學生人數統計數字，是 2. Student enrolment statistics contained in this
+根據教育局各資訊系統所備存的行 report are compiled based on administrative
+政記錄，以及學校教育統計組按年進 records kept in the Bureau’s information systems
+行「學生人數統計調查」所搜集的數 as well as data collected via the annual Student
+據編製而成。就 2017/18 學年的統計 Enrolment Survey conducted by the School
+數字而言，大部分數據（主要包括所 Education Statistics Section. For the statistics of
+有公營中、小學和參加免費優質幼稚 the 2017/18 school year, the main bulk of the
+園教育計劃的幼稚園的數據）是來自 data, covering primarily all public sector primary
+上述資訊系統；而餘下有關國際和私 and secondary schools as well as kindergartens
+立中、小學的數據，以及上述資訊系 participating in the Free Quality Kindergarten
+統未能提供的一些有關幼稚園的特 Education Scheme, were available from the
+定數據項目，則是透過「學生人數統 information systems. The remaining data, being
+計調查」搜集得來。是項統計調查的 those of international and private primary and
+回應率為100%。 secondary schools as well as selected data items
+of kindergartens that were not available from the
+information systems, were collected via the
+survey. The survey achieved a response rate of
+100%.
+3. 除註明外，所有幼稚園、小學及中學 3. Unless otherwise stated, all enrolment statistics
+的學生人數統計數字均反映該學年 9 for kindergarten, primary and secondary levels
+月中的情況。為簡化代號，本報告會 refer to the position as at mid-September of the
+以學年開始的年份來表示某一學 school year. To simplify the notations, the year
+年，即2017年的數字是指2017/18學 that a school year commences is used to represent
+年的數字。 the school year hereafter. In other words,
+statistics for 2017 refer to those for the 2017/18
+school year.
+4. 本報告內所載的學額數字，指有關學 4. Statistics on accommodation given in this report
+校按照其預設班額所開辦的班數(不 refer to the number of students that can be
+包括空置課室)而可容納的學生人數。 accommodated in operating classes (excluding
+vacant classrooms) in accordance with the
+planned class sizes as adopted by schools
+concerned.
+1
+
+=== Page 16 ===
+簡介 (續) Introduction (Cont’d)
+5. 由 2005 年 9 月 1 日開始，當局實施 5. Upon harmonisation of pre-primary services on
+協調學前服務的措施，凡提供3歲或 1 September 2005, all pre-primary institutions
+以上學前服務的機構（包括過往受社 providing services for children aged 3 or above
+會福利署監管且提供0至6歲或2至 (including child care centres providing services
+6歲服務的幼兒中心），均須根據《教 for children aged 0-6 or 2-6 supervised by the
+育條例》（第279章）註冊為幼稚園， Social Welfare Department before then) are
+並以幼稚園或幼稚園暨幼兒中心的 registered as kindergartens under the Education
+模式營辦。下文所述的「幼稚園」， Ordinance (Cap. 279) and are operated as
+已包括「幼稚園暨幼兒中心」。有關 kindergartens or kindergarten-cum-child care
+幼稚園的數字包括幼稚園暨幼兒中 centres. Kindergartens hereafter mentioned
+心開辦的幼兒班、低班及高班的數 include these kindergarten-cum-child care
+字。 centres. Figures for kindergartens include
+nursery, lower and upper classes in
+kindergarten-cum-child care centres.
+6. 本報告內中五級別的統計數字亦包 6. Enrolment statistics for Secondary 5 in this report
+括於 2004/05至 2009/10學年期間推 also cover the Yi Jin/Secondary Schools
+行的「毅進／中學協作計劃」及於 Collaboration Project (launched during the
+2005/06 至 2010/11 學年間由直接資 2004/05 to 2009/10 school years) and 1-year
+助計劃高中學校開辦的「中五以上 Post-Secondary 5 Courses run by senior
+程度一年制課程」。 secondary schools under the Direct Subsidy
+Scheme (launched during the 2005/06 to 2010/11
+school years).
+7. 當局於 2008/09 學年起，透過公營學 7. Starting from the 2008/09 school year, senior
+校提供免費高中教育，並由2009年9 secondary education is provided free through
+月開始，在中四推出三年的新高中學 public sector school. The 3-year senior secondary
+制。因此，由 2011 年開始有關中六 education under the New Senior Secondary
+學生的數字是反映就讀新高中學制 Academic Structure was implemented in
+的學生，並不能與較早年份的數字比 Secondary 4 in September 2009. Therefore,
+較。此外，新高中學制亦於 2012/13 figures for Secondary 6 students from 2011
+學年全面推行，本地課程自該學年起 onwards referred to students enrolled under New
+沒有中七津貼學額。 Senior Secondary Academic Structure.
+Accordingly, they are not comparable to figures
+for earlier year. Moreover, upon the full
+implementation of New Senior Secondary
+Academic Structure in 2012/13 school year, there
+are no subsidised secondary 7 places under local
+curriculum starting from that school year.
+2
+
+=== Page 17 ===
+簡介 (續) Introduction (Cont’d)
+8. 為方便編製按級別的統計數字，本局 8. To facilitate the compilation of statistics by
+已要求提供非本地正規課程的學校 grade, schools offering non-local formal
+（主要為國際學校），按相等於本地 curriculum (mainly refer to international schools)
+正規課程的級別程度劃分提供按級 have been requested to provide the student data
+別的學生數據。小學的統計數字亦包 by grade according to the grades equivalent to
+括國際小學開辦的預備班的數字。 those of the local formal curriculum. Figures
+for primary level reported by international
+primary schools also cover preparatory classes.
+9. 為方便讀者了解學生人數統計的各 9. To facilitate better understanding of the statistics,
+項數字，本報告的最後部分附有「名 a glossary listing the definitions of major terms is
+詞釋義」，列出學生人數統計中各主 given at the end of this report. The definitions
+要名詞的定義。這些名詞的定義或會 listed may differ from those used by other
+與教育局其他分部／組所用的定義 divisions/sections of the Education Bureau and
+不盡相同，故不能視為其他用途的正 should NOT therefore be taken as OFFICIAL
+式定義。 ones to be adopted for other purposes.
+3
+
+=== Page 19 ===
+I
+所有學校
+All Schools

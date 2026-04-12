@@ -1,0 +1,67 @@
+{
+  "_meta": {
+    "source_id": "moral_civic_curr",
+    "parent_url": "https://www.edb.gov.hk/tc/curriculum-development/4-key-tasks/moral-civic/curriculum-documents.html",
+    "extracted": "2026-04-10",
+    "method": "user_paste",
+    "total_documents": 5,
+    "note": "德育及公民教育課程文件頁已按 user-paste 方式拆成 5 個核心 child entries；個別 PDF 直連可日後再補。"
+  },
+  "sections": [
+    {
+      "section": "課程文件",
+      "documents": [
+        {
+          "doc_id": "values_edu_framework_2021_trial",
+          "title": "《價值觀教育課程架構（試行版）》（2021）",
+          "year": 2021,
+          "url": null,
+          "registry_id": "values_edu_framework_2021_trial",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "直連 PDF 未提供，先記錄入口頁。"
+        },
+        {
+          "doc_id": "edbcm183_2023_values_edu",
+          "title": "教育局通函第183/2023 號 —— 豐富《價值觀教育課程架構（試行版）》內容── 優化「首要培育學生的價值觀和態度」",
+          "year": 2023,
+          "url": null,
+          "registry_id": "edbcm183_2023_values_edu",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "直連 PDF 未提供，先記錄入口頁。"
+        },
+        {
+          "doc_id": "sec_curr_guide_2017_booklet_6a",
+          "title": "《中學教育課程指引》(2017) - 分冊6A︰德育及公民教育：加強價值觀教育",
+          "year": 2017,
+          "url": null,
+          "registry_id": "sec_curr_guide_2017_booklet_6a",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "直連 PDF 未提供，先記錄入口頁。"
+        },
+        {
+          "doc_id": "pri_curr_guide_2024",
+          "title": "《小學教育課程指引》(2024)",
+          "year": 2024,
+          "url": null,
+          "registry_id": "pri_curr_guide_2024",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "直連 PDF 未提供，先記錄入口頁。"
+        },
+        {
+          "doc_id": "mce_framework_2008",
+          "title": "《德育及公民教育課程架構》(2008)（包括詳細內容及相關課程發展工具）",
+          "year": 2008,
+          "url": null,
+          "registry_id": "mce_framework_2008",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "直連 PDF 未提供，先記錄入口頁。"
+        }
+      ]
+    }
+  ]
+}

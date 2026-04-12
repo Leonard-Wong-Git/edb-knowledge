@@ -15,6 +15,7 @@
 - `K1_API_SPEC.md` — public integration spec for EDB Circular System; v1.3.1 schema with `subject_head` + `panel_chair`
 - `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` — agreed architecture plan (v2): LLM-wiki approach with phased delivery — source registry, fact-source traceability, freshness monitoring, and trust-gate design; full vault/wiki-unit/compile layers deferred until scale or clear utility demands them
 - `dev/source/source_registry.json` — Phase 1 registry seeded with `SAG`, `Code of Aid`, existing `guidelines.json` sources, and additional statistical / curriculum source entries; also stores the current trust-gate policy
+- `dev/source/FRESHNESS_GUIDE.md` — Phase 2 freshness monitoring operating rhythm and rhythm for maintenance
 - `dev/vault/` — extracted-source working area for pilot LLM-wiki materials (catalogues, circular extracts, and statistical extracts); currently a bounded evidence workspace, not a full compile pipeline
 - `knowledge.json` — public API endpoint: v1.3.1 approved facts, 7 topics, `subject_head` + `panel_chair` role schema (GitHub Pages)
 - `guidelines.json` — public API endpoint: 39 EDB guideline document reference links, 7 topics (GitHub Pages)
@@ -30,7 +31,7 @@
 - `backend/src/api/analyzeCircular.ts` — orchestrates detect → select → prompt → LLM flow
 - `backend/src/server.ts` — minimal Node HTTP entrypoint exposing `POST /analyze-circular`
 - `backend/README.md` — standalone backend runbook, env vars, API examples, and health check usage
-- `dev/knowledge/role_facts.json` — JSON backup / export artifact for the dashboard knowledge dataset; currently still uses older merged `department_head` wording/schema
+- `dev/knowledge/role_facts.json` — JSON backup / export artifact for the dashboard knowledge dataset; synchronized with repo-root `role_facts.json` to support systems expecting the legacy path.
 - `dev/SESSION_HANDOFF.md` — current operating state and next priorities
 - `dev/SESSION_LOG.md` — session-by-session history and verification evidence
 
@@ -138,3 +139,5 @@
 - `2026-04-10 (Codex_20260410_0018)` Expanded `moral_civic_curr` with five core child entries for values education / moral and civic education documents and created `dev/vault/moral_civic_curr/catalogue.json`, preserving the same registry/vault pattern without changing any public JSON endpoint.
 - `2026-04-10 (Codex_20260410_0020)` Added `backend/scripts/semanticRegression.ts` plus `npm run regression:semantic` to provide a reusable backend semantic regression harness. Offline regression now checks topic routing, role buckets, schema consistency, and real circular retrieval; online regression remains blocked until `OPENAI_API_KEY` is available.
 - `2026-04-11 (Codex_20260411_0001)` Realigned `K1_API_SPEC.md` with the live public schema metadata (`knowledge.json` / `guidelines.json` both at `v1.3.1`) so schema-consistency regression no longer fails on stale local spec markers. Live GitHub Pages copy still requires a future push to catch up.
+- `2026-04-11 (Claude_20260411_0007)` Integrated Phase 2: Created `dev/source/FRESHNESS_GUIDE.md` to document the monitoring rhythm. Backfilled 7 direct PDF URLs for Primary Science circulars in the registry. Synced root `role_facts.json` to `dev/knowledge/role_facts.json` to ensure the EDB Circular System scraper (Project-V3) sees the latest v2.0.0 facts. Ran offline semantic regression: circular samples PASS, but query routing awaits online re-verification.
+- `2026-04-12 (Antigravity_20260412_1524)` Completed Phase 1 registry backfill: updated approx 23 core curriculum documents with verified direct PDF URLs for KLAs (Econ, Ethics, Geog, Art, PE, etc.). Registry is now 99% complete for core curriculum files.

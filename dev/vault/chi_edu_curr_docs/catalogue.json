@@ -1,0 +1,219 @@
+{
+  "_meta": {
+    "source_id": "chi_edu_curr_docs",
+    "parent_url": "https://www.edb.gov.hk/tc/curriculum-development/kla/chi-edu/curriculum-documents.html",
+    "extracted": "2026-04-10",
+    "method": "user_paste",
+    "total_documents": 22,
+    "note": "URLs for individual documents not yet captured — to be filled when Phase 2 fetch is enabled or user provides links. Documents marked registry_id have already been registered in source_registry.json."
+  },
+  "sections": [
+    {
+      "section": "中國語文教育 KLA（總）",
+      "documents": [
+        {
+          "doc_id": "chi_kla_guide_2017",
+          "title": "《中國語文教育學習領域課程指引（小一至中六）》",
+          "year": 2017,
+          "url": null,
+          "registry_id": "g08",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "KLA 總綱，2017年版"
+        },
+        {
+          "doc_id": "chi_sch_planning",
+          "title": "學校課程規劃及教學示例",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "medium",
+          "notes": "配合 KLA 指引的學校實施示例"
+        }
+      ]
+    },
+    {
+      "section": "中國語文（小學）",
+      "documents": [
+        {
+          "doc_id": "chi_pri_guide_2023",
+          "title": "《中國語文課程指引（小一至小六）》",
+          "year": 2023,
+          "url": null,
+          "registry_id": "chi_pri_guide_2023",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "2023年最新小學中文課程指引，已升級入 registry"
+        },
+        {
+          "doc_id": "chi_pri_key_learn_2023",
+          "title": "《小學中國語文建議學習重點》",
+          "year_label": "2023年修訂",
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "medium",
+          "notes": "建議學習重點，配合 2023 課程指引"
+        },
+        {
+          "doc_id": "chi_ncs_pri",
+          "title": "《中國語文課程補充指引（非華語學生）》（小學）",
+          "year": null,
+          "url": null,
+          "registry_id": "g09",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "g09 涵蓋，另有英文版、附錄及8種語言提要"
+        },
+        {
+          "doc_id": "chi_ncs_pri_eng",
+          "title": "《中國語文課程補充指引（非華語學生）》英文版（小學）",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "g09 英文版，catalogue_only"
+        },
+        {
+          "doc_id": "chi_ncs_pri_appendix",
+          "title": "《中國語文課程補充指引（非華語學生）》附錄（小學）",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "附錄，catalogue_only"
+        },
+        {
+          "doc_id": "chi_ncs_pri_summary",
+          "title": "《中國語文課程補充指引（非華語學生）》提要（小學）",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "languages": ["中文", "英文", "烏爾都文", "尼泊爾文", "他加祿文", "印地文", "泰文", "越南文"],
+          "notes": "8種語言提要，catalogue_only"
+        }
+      ]
+    },
+    {
+      "section": "中國語文（中學）",
+      "documents": [
+        {
+          "doc_id": "chi_jss_guide_2023",
+          "title": "《中國語文課程指引（中一至中三）》",
+          "year": 2023,
+          "url": null,
+          "registry_id": "chi_jss_guide_2023",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "2023年最新初中中文課程指引，已升級入 registry"
+        },
+        {
+          "doc_id": "chi_sss_guide_2021",
+          "title": "《中國語文課程及評估指引（中四至中六）》",
+          "year": 2021,
+          "url": null,
+          "registry_id": "chi_sss_guide_2021",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "高中中文課程及評估指引，已升級入 registry"
+        },
+        {
+          "doc_id": "chi_sec_key_learn_2021",
+          "title": "《中學中國語文建議學習重點》",
+          "year_label": "2021年修訂",
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "medium",
+          "notes": "中學建議學習重點，catalogue_only"
+        },
+        {
+          "doc_id": "chi_ncs_sec",
+          "title": "《中國語文課程補充指引（非華語學生）》（中學）",
+          "year": null,
+          "url": null,
+          "registry_id": "g09",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "g09 涵蓋中學部份，同樣有英文版、附錄及8種語言提要"
+        },
+        {
+          "doc_id": "chi_ncs_sec_eng",
+          "title": "《中國語文課程補充指引（非華語學生）》英文版（中學）",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "catalogue_only"
+        },
+        {
+          "doc_id": "chi_ncs_sec_appendix",
+          "title": "《中國語文課程補充指引（非華語學生）》附錄（中學）",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "catalogue_only"
+        },
+        {
+          "doc_id": "chi_ncs_sec_summary",
+          "title": "《中國語文課程補充指引（非華語學生）》提要（中學）",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "languages": ["中文", "英文", "烏爾都文", "尼泊爾文", "他加祿文", "印地文", "泰文", "越南文"],
+          "notes": "8種語言提要，catalogue_only"
+        }
+      ]
+    },
+    {
+      "section": "中國文學",
+      "documents": [
+        {
+          "doc_id": "chi_lit_guide_2025",
+          "title": "《中國文學課程及評估指引（中四至中六）》",
+          "year_label": "2025年更新",
+          "url": null,
+          "registry_id": "chi_lit_guide_2025",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "最新2025年更新版，已升級入 registry"
+        }
+      ]
+    },
+    {
+      "section": "普通話（小學及中學）",
+      "documents": [
+        {
+          "doc_id": "pth_guide_2017",
+          "title": "《普通話科課程指引》（小一至中三）",
+          "year": 2017,
+          "url": null,
+          "registry_id": "g12",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "g12 已涵蓋普通話課程指引"
+        },
+        {
+          "doc_id": "pth_guide_2017_supplement",
+          "title": "《普通話科課程指引》（小一至中三）補充說明及學校示例",
+          "year": 2017,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "補充說明，catalogue_only"
+        }
+      ]
+    }
+  ]
+}

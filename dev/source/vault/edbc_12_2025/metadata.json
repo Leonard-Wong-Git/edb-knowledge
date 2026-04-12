@@ -1,0 +1,22 @@
+{
+  "source_id": "edbc_12_2025",
+  "vault_version": 1,
+  "ingestion_status": "extracted",
+  "artifacts": {
+    "pdf": {
+      "stored": false,
+      "filename": null,
+      "note": "Original uploaded as EDBC_122025_C.pdf during Level 1 trial session"
+    },
+    "extract": {
+      "stored": true,
+      "filename": "extract.txt",
+      "added_by": "manual_upload",
+      "date": "2026-04-10",
+      "sections": "全文 9 頁，含附件一至四"
+    }
+  },
+  "extracted_unit_count": 0,
+  "last_ingested_at": "2026-04-10",
+  "notes": "教育局通告第 12/2025 號 — 《小學人文科課程指引》及支援措施。2025年6月24日發出。需同步更新 source_registry.json 加入此 source_id。"
+}

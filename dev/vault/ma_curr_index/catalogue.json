@@ -1,0 +1,193 @@
+{
+  "_meta": {
+    "source_id": "ma_curr_index",
+    "parent_url": "https://www.edb.gov.hk/tc/curriculum-development/kla/ma/curr/index2.html",
+    "extracted": "2026-04-10",
+    "method": "user_paste",
+    "total_documents": 18,
+    "note": "內容由用戶貼上中文版頁面文字。個別文件 URL 未完整捕取，待 Phase 2 補入。"
+  },
+  "sections": [
+    {
+      "section": "學習領域課程指引（KLA-wide）",
+      "documents": [
+        {
+          "doc_id": "ma_kla_guide_2017",
+          "title": "數學教育學習領域課程指引（小一至中六）",
+          "year": 2017,
+          "url": null,
+          "registry_id": "ma_kla_guide_2017",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "KLA 總綱，涵蓋小一至中六，已升級入 registry"
+        }
+      ]
+    },
+    {
+      "section": "小學數學課程",
+      "documents": [
+        {
+          "doc_id": "ma_pri_supp_2017",
+          "title": "數學課程補充指引（小一至小六）",
+          "year": 2017,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "medium",
+          "notes": "小學數學補充指引，catalogue_only"
+        },
+        {
+          "doc_id": "ma_pri_curric_s1_2018",
+          "title": "小學數學課程闡釋 第一學習階段（小一至小三）",
+          "year": 2018,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "medium",
+          "notes": "小學第一學習階段課程闡釋，catalogue_only"
+        },
+        {
+          "doc_id": "ma_pri_curric_s2_2020",
+          "title": "小學數學課程闡釋 第二學習階段（小四至小六）",
+          "year": 2020,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "medium",
+          "notes": "小學第二學習階段課程闡釋，catalogue_only"
+        }
+      ]
+    },
+    {
+      "section": "初中數學課程（中一至中三）",
+      "documents": [
+        {
+          "doc_id": "ma_jss_supp_2017",
+          "title": "數學課程補充指引（中一至中三）",
+          "year": 2017,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "medium",
+          "notes": "初中數學補充指引，catalogue_only"
+        },
+        {
+          "doc_id": "ma_jss_curric_2020",
+          "title": "初中數學課程闡釋（中一至中三）",
+          "year": 2020,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "medium",
+          "notes": "初中數學課程闡釋，catalogue_only"
+        }
+      ]
+    },
+    {
+      "section": "高中數學課程（中四至中六）",
+      "documents": [
+        {
+          "doc_id": "ma_sss_diversity_2021",
+          "title": "高中數學科照顧學生多樣性及創造空間指引",
+          "year": 2021,
+          "url": null,
+          "registry_id": "ma_sss_diversity_2021",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "照顧學習多樣性重要指引，2021年版，已升級入 registry"
+        },
+        {
+          "doc_id": "ma_sss_supp_2017",
+          "title": "數學課程補充指引（中四至中六）",
+          "year": 2017,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "medium",
+          "notes": "高中數學補充指引，catalogue_only"
+        },
+        {
+          "doc_id": "ma_sss_cag_2017",
+          "title": "數學課程及評估指引（中四至中六）",
+          "year_label": "2017年12月更新",
+          "year": 2017,
+          "url": null,
+          "registry_id": "ma_sss_cag_2017",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "現行高中數學課程及評估指引（2017年12月更新版），已升級入 registry"
+        },
+        {
+          "doc_id": "ma_sss_impl_schedule",
+          "title": "高中數學課程推行時間表",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "推行時間表，catalogue_only"
+        },
+        {
+          "doc_id": "ma_sss_curric_comp_2021",
+          "title": "高中數學課程闡釋（必修部份）",
+          "year_label": "2021年更新",
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "medium",
+          "notes": "必修部份課程闡釋，2021年更新，catalogue_only"
+        },
+        {
+          "doc_id": "ma_sss_curric_m1_2018",
+          "title": "高中數學課程闡釋（延伸部份：單元一）",
+          "year": 2018,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "延伸部份單元一（微積分與統計），catalogue_only"
+        },
+        {
+          "doc_id": "ma_sss_curric_m2_2018",
+          "title": "高中數學課程闡釋（延伸部份：單元二）",
+          "year": 2018,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "延伸部份單元二（代數與微積分），catalogue_only"
+        },
+        {
+          "doc_id": "ma_sss_cag_old_2015",
+          "title": "數學課程及評估指引（中四至中六）舊版",
+          "year_label": "2015年更新",
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "舊版 CAG（2015年更新），已被2017年12月版取代，catalogue_only"
+        },
+        {
+          "doc_id": "ma_sss_revised_impl_schedule",
+          "title": "高中數學修訂課程推行時間表",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "修訂版推行時間表，catalogue_only"
+        },
+        {
+          "doc_id": "ma_sss_comparison_doc",
+          "title": "高中數學課程比較文件",
+          "year": null,
+          "url": null,
+          "registry_id": null,
+          "status": "catalogue_only",
+          "importance": "low",
+          "notes": "新舊課程比較文件，catalogue_only"
+        }
+      ]
+    }
+  ]
+}

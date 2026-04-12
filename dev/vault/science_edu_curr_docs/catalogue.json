@@ -1,0 +1,210 @@
+{
+  "_meta": {
+    "source_id": "sci_curr_docs",
+    "parent_url": "https://www.edb.gov.hk/tc/curriculum-development/kla/science-edu/curriculum-documents.html",
+    "extracted": "2026-04-10",
+    "method": "user_paste",
+    "total_documents": 16,
+    "note": "小學科學科頁面已按 user-paste 方式拆成通告 / 通函 / 課程文件 / 教師專業發展子項。只有《科學（小一至小六）課程指引》（2025）已補上官方 PDF 直連，其餘個別直連可日後再補。"
+  },
+  "sections": [
+    {
+      "section": "科學教育學習領域",
+      "documents": [
+        {
+          "doc_id": "g36_legacy_2002",
+          "title": "科學教育學習領域課程指引(小一至中三) 二零零二年",
+          "year": 2002,
+          "url": null,
+          "registry_id": "g36",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "較早期 KLA 指引，仍保留於既有 guidelines / registry。"
+        },
+        {
+          "doc_id": "sci_kla_guide_2017",
+          "title": "科學教育學習領域課程指引(小一至中六) 二零一七年",
+          "year": 2017,
+          "url": null,
+          "registry_id": "sci_kla_guide_2017",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "新版科學教育 KLA 總綱，已升級入 registry。"
+        }
+      ]
+    },
+    {
+      "section": "科學 (小一至小六)",
+      "documents": [
+        {
+          "doc_id": "pri_science_page_2025",
+          "title": "小學科學科課程頁",
+          "year": 2025,
+          "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/science-edu/primary-science.html",
+          "registry_id": "pri_science",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "科學教育 KLA 下的小學科學科入口頁。"
+        },
+        {
+          "doc_id": "pri_science_guide_2025",
+          "title": "《科學（小一至小六）課程指引》（2025）",
+          "year": 2025,
+          "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/pri-sci/PSCG(2025).pdf",
+          "registry_id": "pri_science_guide_2025",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "小學科學科正式課程指引，已升級入 registry；EDB PDF 直連與本地副本已提供。"
+        },
+        {
+          "doc_id": "edbc18_2023_pri_science",
+          "title": "教育局通告第18/2023號 開設小學科學科及一系列相關支援措施",
+          "year": 2023,
+          "url": null,
+          "registry_id": "edbc18_2023_pri_science",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "直連 PDF 未提供，先記錄入口頁。"
+        },
+        {
+          "doc_id": "edbcm57_2024_pri_science",
+          "title": "教育局通函第57/2024號 支援開設小學科學科的一筆過津貼",
+          "year": 2024,
+          "url": null,
+          "registry_id": "edbcm57_2024_pri_science",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "直連 PDF 未提供，先記錄入口頁。"
+        },
+        {
+          "doc_id": "edbcm58_2024_pri_science",
+          "title": "教育局通函第58/2024號 《科學﹙小一至小六﹚課程框架》、「小學科學教師培訓基地」及相關教師培訓證書課程",
+          "year": 2024,
+          "url": null,
+          "registry_id": "edbcm58_2024_pri_science",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "直連 PDF 未提供，先記錄入口頁。"
+        },
+        {
+          "doc_id": "edbcm98_2024_pri_science",
+          "title": "教育局通函第98/2024號 小學科學科相關課程資源",
+          "year": 2024,
+          "url": null,
+          "registry_id": "edbcm98_2024_pri_science",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "直連 PDF 未提供，先記錄入口頁。"
+        },
+        {
+          "doc_id": "edbcm243_2024_pri_science",
+          "title": "教育局通函第243/2024號 小學科學科教師專業培訓（2024/25學年）",
+          "year": 2024,
+          "url": null,
+          "registry_id": "edbcm243_2024_pri_science",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "直連 PDF 未提供，先記錄入口頁。"
+        },
+        {
+          "doc_id": "edbc13_2025_pri_science",
+          "title": "教育局通告第13/2025號 《科學（小一至小六）課程指引》、2025/26學年「小學科學教師培訓基地」與教師培訓安排",
+          "year": 2025,
+          "url": null,
+          "registry_id": "edbc13_2025_pri_science",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "直連 PDF 未提供，先記錄入口頁。"
+        }
+      ]
+    },
+    {
+      "section": "教師專業發展課程",
+      "documents": [
+        {
+          "doc_id": "pri_science_cert_course_list",
+          "title": "「小學科學教師專業培訓證書（30小時）」指定課程清單",
+          "year": 2025,
+          "url": null,
+          "registry_id": "pri_science_cert_course_list",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "直連 PDF 未提供，先記錄入口頁。"
+        },
+        {
+          "doc_id": "pri_science_cert_application_form",
+          "title": "申請證書表格「小學科學教師專業培訓證書（30小時）」／「小學科學課程領導專業培訓證書（15小時）」",
+          "year": 2025,
+          "url": null,
+          "registry_id": "pri_science_cert_application_form",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "DOCX 類型；直連未提供，先記錄入口頁。"
+        }
+      ]
+    },
+    {
+      "section": "科學 (中一至中三)",
+      "documents": [
+        {
+          "doc_id": "sci_jss_supp_2017",
+          "title": "科學教育學習領域課程指引補充文件–科學 (中一至中三) 二零一七年",
+          "year": 2017,
+          "url": null,
+          "registry_id": "sci_jss_supp_2017",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "初中科學補充文件，已升級入 registry。"
+        },
+        {
+          "doc_id": "sci_jss_framework_2025",
+          "title": "科學教育學習領域課程指引補充文件–科學 (中一至中三)課程框架 二零二五年",
+          "year": 2025,
+          "url": null,
+          "registry_id": "sci_jss_framework_2025",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "初中科學 2025 課程框架，已升級入 registry。"
+        }
+      ]
+    },
+    {
+      "section": "高中課程及評估指引",
+      "documents": [
+        {
+          "doc_id": "bio_sss_2007_2015",
+          "title": "生物(中四至中六) 二零零七年 (二零一五年十一月更新)",
+          "year": 2007,
+          "year_updated": "2015-11",
+          "url": null,
+          "registry_id": "bio_sss_2007_2015",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "高中生物課程及評估指引，已升級入 registry。"
+        },
+        {
+          "doc_id": "chem_sss_2007_2018",
+          "title": "化學(中四至中六)二零零七年 (二零一八年六月更新)",
+          "year": 2007,
+          "year_updated": "2018-06",
+          "url": null,
+          "registry_id": "chem_sss_2007_2018",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "高中化學課程及評估指引，已升級入 registry。"
+        },
+        {
+          "doc_id": "phys_sss_2007_2015",
+          "title": "物理(中四至中六) 二零零七年 (二零一五年十一月更新)",
+          "year": 2007,
+          "year_updated": "2015-11",
+          "url": null,
+          "registry_id": "phys_sss_2007_2015",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "高中物理課程及評估指引，已升級入 registry。"
+        }
+      ]
+    }
+  ]
+}

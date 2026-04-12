@@ -1,0 +1,134 @@
+{
+  "_meta": {
+    "source_id": "tech_curr_docs",
+    "parent_url": "https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/curriculum-doc/index.html",
+    "extracted": "2026-04-10",
+    "method": "user_paste",
+    "total_documents": 10,
+    "note": "URLs for individual PDFs not yet captured — to be filled when direct links are available or Phase 2 fetch is enabled. Documents marked registry_id have already been registered in source_registry.json."
+  },
+  "sections": [
+    {
+      "section": "科技教育學習領域課程",
+      "documents": [
+        {
+          "doc_id": "tech_kla_guide_2017",
+          "title": "科技教育學習領域課程指引 (小一至中六) 二零一七年",
+          "year": 2017,
+          "url": null,
+          "registry_id": "tech_kla_guide_2017",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "科技教育 KLA 總綱，已升級入 registry。"
+        }
+      ]
+    },
+    {
+      "section": "計算思維－編程教育 (小學)",
+      "documents": [
+        {
+          "doc_id": "ct_programming_pri_2020",
+          "title": "《計算思維－編程教育：小學課程補充文件》 (小學) 二零二零年",
+          "year": 2020,
+          "url": null,
+          "registry_id": "ct_programming_pri_2020",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "小學計算思維與編程教育補充文件，已升級入 registry。"
+        }
+      ]
+    },
+    {
+      "section": "高中課程及評估指引",
+      "documents": [
+        {
+          "doc_id": "bafs_sss_2007_2015",
+          "title": "企業、會計與財務概論 (中四至中六) 二零零七年 (二零一五年十一月更新)",
+          "year": 2007,
+          "year_updated": "2015-11",
+          "url": null,
+          "registry_id": "bafs_sss_2007_2015",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "舊版 BAFS 課程及評估指引。"
+        },
+        {
+          "doc_id": "bafs_sss_2007_2020",
+          "title": "企業、會計與財務概論 (中四至中六) (於2022/23學年的中四實施並在2025年及以後的香港中學文憑考試生效) 二零零七年(二零二零年十月更新)",
+          "year": 2007,
+          "year_updated": "2020-10",
+          "url": null,
+          "registry_id": "bafs_sss_2007_2020",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "現行 BAFS 更新版，已升級入 registry。"
+        },
+        {
+          "doc_id": "hmsc_sss_2007_2015",
+          "title": "健康管理與社會關懷 (中四至中六)二零零七年 (二零一五年 十一月更新)",
+          "year": 2007,
+          "year_updated": "2015-11",
+          "url": null,
+          "registry_id": "hmsc_sss_2007_2015",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "高中健康管理與社會關懷課程及評估指引。"
+        },
+        {
+          "doc_id": "tl_sss_2007_2015",
+          "title": "科技與生活 (中四至中六) 二零零七年 (二零一五年十一月更新)",
+          "year": 2007,
+          "year_updated": "2015-11",
+          "url": null,
+          "registry_id": "tl_sss_2007_2015",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "高中科技與生活課程及評估指引。"
+        },
+        {
+          "doc_id": "dat_sss_2007_2015",
+          "title": "設計與應用科技 (中四至中六) 二零零七年 (二零一五年十一月更新)",
+          "year": 2007,
+          "year_updated": "2015-11",
+          "url": null,
+          "registry_id": "dat_sss_2007_2015",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "高中設計與應用科技課程及評估指引。"
+        },
+        {
+          "doc_id": "dat_sss_supp_2020",
+          "title": "設計與應用科技 (中四至中六) - 補充資料 (二零二零年十二月)",
+          "year": 2020,
+          "year_updated": "2020-12",
+          "url": null,
+          "registry_id": "dat_sss_supp_2020",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "設計與應用科技補充資料。"
+        },
+        {
+          "doc_id": "ict_sss_2007_2015",
+          "title": "資訊及通訊科技(中四至中六) 二零零七年 (二零一五年十一月更新)",
+          "year": 2007,
+          "year_updated": "2015-11",
+          "url": null,
+          "registry_id": "ict_sss_2007_2015",
+          "status": "in_registry",
+          "importance": "medium",
+          "notes": "舊版 ICT 課程及評估指引。"
+        },
+        {
+          "doc_id": "ict_sss_2021",
+          "title": "資訊及通訊科技 (中四至中六) 二零二一年 (於2022/23學年的中四實施並在2025年及以後的香港中學文憑考試生效)",
+          "year": 2021,
+          "url": "https://cs.edb.edcity.hk/file/C_and_A_guide/202106/CS_CAG_S4-6_Chi_2021.pdf",
+          "registry_id": "ict_sss_2021",
+          "status": "in_registry",
+          "importance": "high",
+          "notes": "現行 ICT 更新版，已升級入 registry；本地副本已提供。"
+        }
+      ]
+    }
+  ]
+}

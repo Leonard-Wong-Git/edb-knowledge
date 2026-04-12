@@ -2,7 +2,7 @@
 
 **文件版本：** 2.0.0
 **建立日期：** 2026-03-15
-**更新日期：** 2026-04-09
+**更新日期：** 2026-04-10
 **維護方：** EDB Circular AI Analysis System
 **用途：** 供 K1 知識庫項目開發者參考，定義雙方接口契約
 **獨立性聲明：** 本文件完全獨立，K1 項目無需閱讀或接觸 EDB 項目的任何其他文件、代碼或配置。
@@ -37,6 +37,7 @@ Token 預算：  注入 LLM 時每次分析取用 ≤ 600 字（中文字符）
 ```json
 {
   "<topic_id>": {
+    "_source_refs": ["可選，source registry 的 source_id 清單，供來源追溯；整合方可忽略"],
     "_label": "人類可讀的主題名稱",
     "_keywords_zh": ["觸發這個主題的中文關鍵詞列表"],
     "all_roles": [
@@ -60,6 +61,7 @@ Token 預算：  注入 LLM 時每次分析取用 ≤ 600 字（中文字符）
 ```json
 {
   "finance": {
+    "_source_refs": ["sag_2025_11", "coa_imc_1_19", "g01", "g02"],
     "_label": "財務 / 採購 / 津貼",
     "_keywords_zh": ["採購", "財務", "津貼", "撥款", "資助", "金額"],
     "all_roles": [
@@ -180,7 +182,7 @@ Token 預算：  注入 LLM 時每次分析取用 ≤ 600 字（中文字符）
 4. 香港法例及條例
 5. 其他政府部門官方資料
 
-> **必須標記來源：** `_sources` 字段（見第 5 節）可選但建議填寫，以便日後核實。
+> **建議保留來源追溯：** `_source_refs` 字段（見第 5 節）為可選 metadata，用於列出 source registry 的 `source_id`；整合方如不需要可忽略，不影響既有 facts 讀取。
 
 ---
 
@@ -195,15 +197,9 @@ Token 預算：  注入 LLM 時每次分析取用 ≤ 600 字（中文字符）
     "description": "選填，本文件說明"
   },
   "<topic_id>": {
+    "_source_refs": ["選填，source registry 的 source_id 陣列；metadata only，整合方可忽略"],
     "_label": "必填，人類可讀主題名",
     "_keywords_zh": ["必填，至少 3 個觸發關鍵詞"],
-    "_sources": [
-      {
-        "title": "文件標題",
-        "url": "https://...",
-        "retrieved": "YYYY-MM-DD"
-      }
-    ],
     "all_roles": ["必填，可為空陣列 []"],
     "<role_id>": ["選填，不需要時可省略此 key"]
   }
