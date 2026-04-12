@@ -138,5 +138,8 @@ def main():
     print(f"  Changes: {changes_detected}")
     print(f"  Errors:  {errors}")
 
+    if errors > 0:
+        sys.exit(1)
+
 if __name__ == "__main__":
     main()
