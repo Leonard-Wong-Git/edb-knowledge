@@ -1,8 +1,8 @@
 {
   "_meta": {
-    "version": "1.3.1",
+    "version": "1.4.0",
     "created": "2026-04-04",
-    "updated": "2026-04-10",
+    "updated": "2026-04-12",
     "description": "EDB 學校管理知識庫 — 供 EDB 通告智能分析系統注入 LLM prompt 使用。107 事實全部 approved。角色拆分為 panel_chair（各統籌主任）與 subject_head（科主任）；兩者均適用時雙寫。"
   },
   "finance": {
