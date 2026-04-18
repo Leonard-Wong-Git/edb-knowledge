@@ -421,6 +421,7 @@ body {
 <body>
 <div id="root"></div>
 <script src="dev/knowledge/candidate_queue.js"></script>
+<script src="dev/knowledge/policy_signals.js"></script>
 <script type="text/babel">
 const { useState, useEffect, useCallback, useMemo, useRef } = React;
 
@@ -2606,6 +2607,15 @@ function App() {
     }
   };
   const [candidateQueue, setCandidateQueue] = useState(getInitialQueue());
+
+  // Policy Signals — count pending_review signals for badge
+  const pendingSignalCount = (() => {
+    try {
+      const ps = window.POLICY_SIGNALS;
+      if (!ps || !Array.isArray(ps.signals)) return 0;
+      return ps.signals.filter(s => s.status === 'pending_review').length;
+    } catch { return 0; }
+  })();
   const handleApproveCandidate = useCallback((cand) => {
     const roles = cand.suggested_roles?.length > 0 ? cand.suggested_roles : ['all_roles'];
     const targetTopic = cand.suggested_topic || 'general';
@@ -2930,11 +2940,19 @@ function App() {
                   ✍️ 知識提煉
                   {candidateQueue.length > 0 && (
                     <span style={{
-                      position:'absolute', top:'-6px', right:'-4px',
+                      position:'absolute', top:'-6px', right: pendingSignalCount > 0 ? '16px' : '-4px',
                       background:'#C84040', color:'#F0EEE9',
                       fontSize:'0.6rem', padding:'1px 5px', borderRadius:'100px',
                       fontWeight:700
                     }}>{candidateQueue.length}</span>
+                  )}
+                  {pendingSignalCount > 0 && (
+                    <span title={`${pendingSignalCount} 個 Policy Signal 待處理`} style={{
+                      position:'absolute', top:'-6px', right:'-4px',
+                      background:'#C4A363', color:'#0A0C10',
+                      fontSize:'0.6rem', padding:'1px 5px', borderRadius:'100px',
+                      fontWeight:700
+                    }}>📡{pendingSignalCount}</span>
                   )}
                 </button>
               )}
