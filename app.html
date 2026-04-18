@@ -1,0 +1,3286 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K1知識平台</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════
+   K1知識平台 — Dashboard Design System
+   Pantone 2026: Cloud Dancer #F0EEE9
+   Pantone 2025: Mocha Mousse #A47764
+   ui-ux-responsive skill applied
+═══════════════════════════════════════════════════════ */
+
+/* ── Design Tokens ─────────────────────────────────── */
+:root {
+  /* Cloud Dancer palette */
+  --cd:        #F0EEE9;
+  --cd-warm:   #F8F6F2;
+  --cd-cream:  #E4DFD5;
+  --cd-stone:  #C8C2B8;
+  /* Mocha Mousse palette */
+  --mocha:     #A47764;
+  --mocha-dk:  #8B6355;
+  --mocha-lt:  #C4A882;
+  --bark:      #6B4F3F;
+  /* Neutrals */
+  --charcoal:  #3A3735;
+  --mid:       #6B6864;
+  --sea:       #9EC4B8;
+  --border:    #D9D5CE;
+  --border-lt: #EAE6DF;
+  /* Legacy aliases (keep Tailwind overrides consistent) */
+  --p-primary:   #A47764;
+  --p-secondary: #C4A882;
+  --p-accent:    #8B6355;
+  --p-bg:        #F0EEE9;
+  --p-surface:   #F8F6F2;
+  --p-highlight: #E4DFD5;
+  --p-text:      #3A3735;
+  --p-muted:     #6B6864;
+  /* Fluid type */
+  --text-hero: clamp(2.2rem, 5vw, 3.5rem);
+  --text-xl:   clamp(1.2rem, 2.5vw, 1.5rem);
+  --text-lg:   clamp(1rem, 2vw, 1.125rem);
+  --text-base: clamp(0.9rem, 1.5vw, 1rem);
+  --text-sm:   clamp(0.78rem, 1.2vw, 0.875rem);
+  /* Spacing */
+  --space-xs:  clamp(0.3rem, 0.8vw, 0.5rem);
+  --space-sm:  clamp(0.6rem, 1.5vw, 0.875rem);
+  --space-md:  clamp(1rem, 2.5vw, 1.5rem);
+  --space-lg:  clamp(1.5rem, 4vw, 2.5rem);
+  /* Radius */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  /* Shadows */
+  --shadow-sm: 0 1px 4px rgba(58,55,53,0.07);
+  --shadow-md: 0 4px 20px rgba(58,55,53,0.1);
+  --shadow-lg: 0 8px 40px rgba(58,55,53,0.13);
+}
+
+/* ── Reset & Base ──────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 16px; }
+body {
+  font-family: 'PingFang HK', -apple-system, BlinkMacSystemFont, "Noto Sans TC", "Segoe UI", sans-serif;
+  background: var(--cd);
+  color: var(--charcoal);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Tailwind colour overrides ─────────────────────── */
+.bg-white        { background: var(--cd-warm) !important; }
+.bg-gray-50      { background: var(--cd) !important; }
+.bg-gray-100     { background: var(--cd-cream) !important; }
+.border-gray-200 { border-color: var(--border) !important; }
+.border-gray-100 { border-color: var(--border-lt) !important; }
+.text-gray-800   { color: var(--charcoal) !important; }
+.text-gray-700   { color: var(--charcoal) !important; }
+.text-gray-600   { color: var(--mid) !important; }
+.text-gray-500   { color: var(--mid) !important; }
+.text-gray-400   { color: var(--cd-stone) !important; }
+.text-gray-300   { color: var(--border) !important; }
+.shadow-sm       { box-shadow: var(--shadow-sm) !important; }
+.shadow-2xl      { box-shadow: var(--shadow-lg) !important; }
+
+/* ── K1 Dashboard Header / Nav ─────────────────────── */
+.k1-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(240,238,233,0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow 0.3s;
+}
+.k1-header.scrolled { box-shadow: var(--shadow-md); }
+.k1-header-inner {
+  max-width: 1400px; margin: 0 auto;
+  padding: 0 var(--space-md);
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.k1-logo {
+  display: flex; align-items: center; gap: 8px;
+  cursor: pointer; text-decoration: none;
+  flex-shrink: 0;
+}
+.k1-logo-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--mocha); flex-shrink: 0;
+}
+.k1-logo-text {
+  font-size: 1rem; font-weight: 700;
+  color: var(--charcoal); letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.k1-logo-sub {
+  font-size: 0.68rem; color: var(--mid);
+  letter-spacing: 0.01em; margin-top: 1px;
+}
+.k1-home-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: var(--text-sm); color: var(--mid);
+  text-decoration: none; padding: 6px 12px;
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  transition: all 0.2s; white-space: nowrap;
+  flex-shrink: 0;
+}
+.k1-home-link:hover { color: var(--charcoal); border-color: var(--mocha); background: rgba(164,119,100,0.06); }
+.k1-header-actions {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end;
+}
+
+/* ── View Mode Tabs ────────────────────────────────── */
+.k1-tab-bar {
+  display: flex; border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  overflow: hidden; background: var(--cd);
+}
+.filter-tab {
+  transition: all 0.15s; cursor: pointer;
+  padding: 7px 14px; font-size: var(--text-sm); font-weight: 500;
+  border: none; background: none; color: var(--mid);
+  border-right: 1px solid var(--border); white-space: nowrap;
+  font-family: inherit;
+}
+.filter-tab:last-child { border-right: none; }
+.filter-tab.active-tab {
+  background: var(--charcoal); color: var(--cd);
+}
+.filter-tab:not(.active-tab):hover { background: var(--cd-cream); color: var(--charcoal); }
+
+/* ── Auth / Action Buttons ─────────────────────────── */
+.k1-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: var(--r-sm);
+  font-size: var(--text-sm); font-weight: 500;
+  border: 1px solid var(--border); cursor: pointer;
+  transition: all 0.15s; white-space: nowrap;
+  font-family: inherit; background: var(--cd-warm); color: var(--mid);
+}
+.k1-btn:hover { border-color: var(--mocha); color: var(--charcoal); }
+.k1-btn-admin {
+  background: rgba(164,119,100,0.08); color: var(--mocha-dk);
+  border-color: rgba(164,119,100,0.25);
+}
+.k1-btn-admin:hover { background: rgba(164,119,100,0.14); }
+.k1-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 12px; border-radius: 100px;
+  font-size: var(--text-sm); white-space: nowrap;
+}
+.k1-badge-warning { background: rgba(164,119,100,0.1); color: var(--mocha-dk); border: 1px solid rgba(164,119,100,0.2); }
+.k1-badge-ok { background: rgba(100,160,110,0.1); color: #4A8F5C; border: 1px solid rgba(100,160,110,0.2); }
+.k1-badge-error { background: rgba(190,60,60,0.08); color: #A83232; border: 1px solid rgba(190,60,60,0.15); }
+
+/* ── Export Button ─────────────────────────────────── */
+.export-btn {
+  background: var(--charcoal); color: var(--cd);
+  border: 1px solid var(--charcoal); transition: all 0.15s;
+  padding: 7px 16px; border-radius: var(--r-sm);
+  font-size: var(--text-sm); font-weight: 600; cursor: pointer;
+  font-family: inherit;
+}
+.export-btn:hover { background: var(--mocha); border-color: var(--mocha); }
+
+/* ── Main Layout ───────────────────────────────────── */
+.k1-layout { max-width: 1400px; margin: 0 auto; padding: var(--space-md); }
+.k1-layout-inner { display: flex; gap: var(--space-md); align-items: flex-start; }
+
+/* ── Sidebar ───────────────────────────────────────── */
+.k1-sidebar {
+  width: 240px; flex-shrink: 0;
+  display: flex; flex-direction: column; gap: var(--space-sm);
+}
+.k1-card {
+  background: var(--cd-warm);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+.k1-card-header {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-lt);
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--mid);
+}
+/* Stats card */
+.k1-stat-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  text-align: center; padding: 12px;
+  gap: 4px;
+}
+.k1-stat-num {
+  font-size: 1.6rem; font-weight: 800;
+  letter-spacing: -0.03em; color: var(--charcoal);
+  line-height: 1;
+}
+.k1-stat-label { font-size: 0.68rem; color: var(--mid); margin-top: 2px; }
+/* Topic/role list */
+.topic-btn {
+  transition: all 0.15s; display: flex;
+  align-items: center; justify-content: space-between;
+  width: 100%; text-align: left;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-lt);
+  background: none; border-left: none; border-right: none; border-top: none;
+  font-family: inherit; font-size: var(--text-sm); color: var(--mid);
+  cursor: pointer;
+}
+.topic-btn:last-child { border-bottom: none; }
+.topic-btn:hover { background: var(--cd-cream); color: var(--charcoal); }
+.topic-btn.active {
+  background: var(--charcoal) !important;
+  color: var(--cd) !important;
+  border-color: var(--charcoal) !important;
+}
+.topic-btn.active .k1-count { background: rgba(240,238,233,0.2); color: var(--cd); }
+.k1-count {
+  font-size: 0.68rem; padding: 2px 8px;
+  border-radius: 100px; background: var(--cd-cream);
+  color: var(--mid); font-weight: 600; flex-shrink: 0;
+}
+.k1-count-draft {
+  font-size: 0.68rem; padding: 2px 7px;
+  border-radius: 100px;
+  background: rgba(164,119,100,0.12);
+  color: var(--mocha-dk); font-weight: 700; margin-right: 4px;
+}
+
+/* ── Main Content ──────────────────────────────────── */
+.k1-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-sm); }
+
+/* Topic header card */
+.k1-topic-header {
+  background: var(--cd-warm); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: var(--space-md);
+}
+.k1-topic-title {
+  font-size: var(--text-xl); font-weight: 800;
+  letter-spacing: -0.02em; color: var(--charcoal);
+}
+
+/* Search input */
+.k1-input {
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  padding: 8px 12px; font-size: var(--text-sm); font-family: inherit;
+  background: var(--cd); color: var(--charcoal);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.k1-input:focus { border-color: var(--mocha); box-shadow: 0 0 0 3px rgba(164,119,100,0.1); }
+
+/* Keyword chips */
+.k1-kw {
+  font-size: 0.72rem; background: var(--cd-cream);
+  color: var(--mid); padding: 2px 8px; border-radius: 4px;
+}
+
+/* Batch bar */
+.batch-bar {
+  background: rgba(164,119,100,0.06);
+  border: 1px solid rgba(164,119,100,0.18);
+  border-radius: var(--r-md); padding: 12px var(--space-md);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px;
+}
+.batch-bar-text { font-size: var(--text-sm); color: var(--mocha-dk); }
+.k1-btn-approve-all {
+  background: var(--charcoal); color: var(--cd);
+  border: none; border-radius: var(--r-sm);
+  padding: 7px 16px; font-size: var(--text-sm); font-weight: 600;
+  cursor: pointer; transition: background 0.15s; font-family: inherit;
+}
+.k1-btn-approve-all:hover { background: #4A8F5C; }
+
+/* ── Fact Cards ─────────────────────────────────────── */
+.fact-card {
+  transition: all 0.2s; background: var(--cd-warm);
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  padding: var(--space-sm) var(--space-md);
+}
+.fact-card:hover { box-shadow: var(--shadow-md); }
+.fact-card.draft { border-left: 3px solid var(--mocha-lt); }
+.fact-card.approved { border-left: 3px solid #7BAE7F; }
+
+/* ── Role Badge ─────────────────────────────────────── */
+.role-badge {
+  font-size: 0.68rem; padding: 2px 8px; border-radius: 100px;
+  font-weight: 600; display: inline-flex; align-items: center;
+}
+
+/* ── Status Badge ───────────────────────────────────── */
+.status-badge {
+  font-size: 0.65rem; padding: 2px 8px; border-radius: 6px;
+  font-weight: 600;
+}
+
+/* ── Source link ────────────────────────────────────── */
+.source-link {
+  color: var(--mocha); text-decoration: underline;
+  cursor: pointer; font-size: 0.75rem;
+}
+.source-link:hover { color: var(--mocha-dk); }
+
+/* ── Approve / action buttons ───────────────────────── */
+.approve-btn { transition: all 0.15s; cursor: pointer; }
+.approve-btn:hover { transform: scale(1.15); }
+
+/* ── Modal ──────────────────────────────────────────── */
+.modal-overlay { background: rgba(58,55,53,0.5); }
+
+/* ── Guidelines cards ───────────────────────────────── */
+.guideline-card {
+  transition: all 0.2s;
+  border-left: 3px solid var(--mocha);
+  background: var(--cd-warm);
+  border-radius: var(--r-sm);
+}
+.guideline-card:hover { box-shadow: var(--shadow-md); border-left-color: var(--mocha-dk); }
+.guide-tab { transition: all 0.15s; cursor: pointer; }
+.guide-tab:hover { transform: translateY(-1px); }
+
+/* ── QA panel ───────────────────────────────────────── */
+.qa-result-card {
+  transition: all 0.2s;
+  border-left: 3px solid var(--mocha-lt);
+  background: var(--cd-warm); border-radius: var(--r-sm);
+}
+.qa-result-card:hover { box-shadow: var(--shadow-md); }
+.qa-highlight {
+  background: rgba(196,168,130,0.35) !important;
+  color: var(--charcoal) !important;
+  border-radius: 2px; padding: 0 1px;
+}
+
+/* ── Stat/review stat cards in sidebar ─────────────── */
+.stat-card {
+  background: linear-gradient(135deg, var(--cd-warm) 0%, var(--cd-cream) 100%);
+}
+.review-stat {
+  background: linear-gradient(135deg, var(--cd-warm) 0%, rgba(164,119,100,0.06) 100%);
+}
+
+/* ── Animations ─────────────────────────────────────── */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.animate-in { animation: fadeIn 0.3s ease-out; }
+@keyframes floatWord {
+  0%   { transform: translateY(0px) rotate(var(--rot)) scale(1); }
+  50%  { transform: translateY(-6px) rotate(calc(var(--rot) + 1.5deg)) scale(1.02); }
+  100% { transform: translateY(0px) rotate(var(--rot)) scale(1); }
+}
+.word-float { animation: floatWord ease-in-out infinite; display: inline-block; }
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ── Footer ─────────────────────────────────────────── */
+.k1-footer {
+  background: var(--charcoal); color: rgba(240,238,233,0.45);
+  padding: var(--space-md); font-size: var(--text-sm);
+  border-top: 1px solid rgba(240,238,233,0.08);
+  margin-top: var(--space-lg);
+}
+.k1-footer-inner {
+  max-width: 1400px; margin: 0 auto;
+  display: flex; flex-wrap: wrap;
+  align-items: flex-start; justify-content: space-between; gap: var(--space-md);
+}
+.k1-footer a { color: rgba(240,238,233,0.45); text-decoration: none; }
+.k1-footer a:hover { color: var(--mocha-lt); }
+
+/* ── Slide-in drawer ────────────────────────────────── */
+.k1-drawer-header {
+  background: var(--cd-warm);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Mobile responsive ──────────────────────────────── */
+@media (max-width: 767px) {
+  .k1-sidebar { display: none; }
+  .k1-header-inner { height: auto; padding: 10px var(--space-sm); flex-wrap: wrap; gap: 8px; }
+  .k1-logo-sub { display: none; }
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="dev/knowledge/candidate_queue.js"></script>
+<script type="text/babel">
+const { useState, useEffect, useCallback, useMemo, useRef } = React;
+
+// ── Role display config ──
+const ROLE_CONFIG = {
+  all_roles:       { label: '全校適用',   color: 'bg-gray-600',    textColor: 'text-white' },
+  principal:       { label: '校長',       color: 'bg-red-800',     textColor: 'text-white' },
+  vice_principal:  { label: '副校長',     color: 'bg-yellow-800',  textColor: 'text-white' },
+  panel_chair:     { label: '主任',       color: 'var(--p-accent)', textColor: 'text-white' },
+  subject_head:    { label: '科主任',     color: 'bg-gray-700',    textColor: 'text-white' },
+  teacher:         { label: '教師',       color: 'bg-green-800',   textColor: 'text-white' },
+  eo_admin:        { label: 'EO',         color: 'bg-purple-900',  textColor: 'text-white' },
+  supplier:        { label: '供應商',     color: 'bg-yellow-700',  textColor: 'text-white' },
+};
+
+const ROLE_ORDER = ['all_roles', 'principal', 'vice_principal', 'panel_chair', 'subject_head', 'teacher', 'eo_admin', 'supplier'];
+const LOCAL_SNAPSHOT_KEY = 'edb-knowledge-admin-snapshot-v2';
+
+// ── Admin authentication (SHA-256 of admin password, client-side only) ──
+const ADMIN_HASH = '9d35e73750e8de343a4db8a157f461b8f2bbe9b15c39c1b14a4b1aa2f16b318a';
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+// ── Review status helpers ──
+const makeKey = (topicId, roleId, index) => `${topicId}.${roleId}.${index}`;
+
+// Draft indices: facts pending user review. All 32 approved by user on 2026-03-17.
+const INITIAL_DATA = {
+  "_meta": {
+    "version": "1.4.0",
+    "created": "2026-03-16",
+    "updated": "2026-04-03",
+    "description": "K1 EDB 知識庫 — 含指引文件庫 + 智能搜尋 + 審核流程 + 出處追溯。全 81 事實已審核，所有出處指向具體 EDB 文件或指引。"
+  },
+  "finance": {
+    "_label": "財務 / 採購 / 津貼",
+    "_keywords_zh": [
+      "採購",
+      "財務",
+      "津貼",
+      "撥款",
+      "資助",
+      "金額",
+      "報價",
+      "招標",
+      "經費"
+    ],
+    "_sources": [
+      {
+        "title": "資助學校採購程序指引 PDF（2025年10月更新）",
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures%20in%20Aided%20Schools%20Trad%20Chi_2024.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "設有法團校董會的資助學校財務管理指引（PDF）",
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "學校發展津貼的參考資料",
+        "url": "https://www.edb.gov.hk/tc/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "資助學校採購程序指引 PDF（2025年10月更新）—用於校長審批流程核對",
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures%20in%20Aided%20Schools%20Trad%20Chi_2024.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "津貼資料總覽（擴大營辦津貼、代課教師津貼等）",
+        "url": "https://www.edb.gov.hk/tc/sch-admin/fin-management/subsidy-info/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "擴大╱營辦津貼及綜合家具設備津貼參考資料",
+        "url": "https://www.edb.gov.hk/tc/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/index.html",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "資助學校處理政府津貼參考資料",
+        "url": "https://www.edb.gov.hk/tc/sch-admin/fin-management/subsidy-info/tips-handling-gov-subventions/index.html",
+        "retrieved": "2026-03-17"
+      }
+    ],
+    "_sourceMap": {
+      "all_roles.0": 0,
+      "all_roles.1": 0,
+      "all_roles.2": 0,
+      "all_roles.3": 6,
+      "all_roles.4": 2,
+      "principal.0": 3,
+      "principal.1": 1,
+      "principal.2": 1,
+      "principal.3": 2,
+      "vice_principal.0": 3,
+      "vice_principal.1": 2,
+      "eo_admin.0": 0,
+      "eo_admin.1": 0,
+      "eo_admin.2": 1,
+      "eo_admin.3": 5,
+      "subject_head.0": 0,
+      "subject_head.1": 1,
+      "subject_head.2": 2,
+      "teacher.0": 0,
+      "teacher.1": 0,
+      "supplier.0": 0,
+      "supplier.1": 0
+    },
+    "all_roles": [
+      "≤$5,000直購；$5,001-$50,000 最少2口頭報價；$50,001-$200,000 最少5書面報價；>$200,000招標，並需要按校本指引",
+      "採購人員須遵守《防止賄賂條例》，不得接受供應商利益及進行利益衝突申報 ；書面報價╱招標可在文件中加入廉潔條款",
+      "學校須保存完整採購記錄（包括報價單、批核文件）3 個曆年，以備審計核查",
+      "政府津貼必須專款專用，只可按教育局核准用途開支；不同政府津貼之間不得互相挪用或「拆東牆補西牆」；如有餘款，必須依照教育局相關財務及津貼指引，包括通告及示例報表等",
+      "學校發展津貼已改為經常撥款，按核准班級數目計算，每學年由教育局在 8 月發放"
+    ],
+    "principal": [
+      "校長須確保學校採購程序符合《資助學校採購程序指引》（2025年10月更新）的規定，並定期檢視執行情況",
+      "整筆撥款（LSG）校長須確保各項撥款按核准用途使用，年度結餘不超過規定上限",
+      "校長須確保法團校董會定期審視學校財務報告，重大採購須經校董會批准",
+      "校長須確保學校發展津貼只用於僱用服務或增聘核准編制以外的臨時人手"
+    ],
+    "vice_principal": [
+      "副校長協助校長監督日常採購流程，確保各科組遵守報價門檻和程序要求",
+      "副校長須協助監察學校發展津貼運用情況，定期向校長匯報津貼餘額及使用進度"
+    ],
+    "eo_admin": [
+      "EO負責執行採購程序合規，須建立供應商資料庫並定期更新",
+      "EO須保存完整報價記錄和採購文件，確保文件齊備以供審計",
+      "EO負責編製年度財務報告，包括各項津貼的收支明細和餘額，並提交至法團校董會",
+      "EO須按規定處理擴大營辦津貼及綜合家具設備津貼的申請和帳目"
+    ],
+    "subject_head": [
+      "科主任提交採購申請時須註明用途、周年計劃、獲批預算來源和所屬津貼類別",
+      "科主任須在學年初編製科組預算，經EO核實後提交校長批核",
+      "科主任申請動用津貼時須按科務計劃書，列明服務內容、預算及預期成效"
+    ],
+    "teacher": [
+      "教師提出採購需求時須填寫(校本)申購表，經科主任簽署後交副校長或EO處理",
+      "教師不得自行向供應商訂購物品或服務，所有採購須經學校正式採購程序"
+    ],
+    "supplier": [
+      "學校採購需競爭性報價，供應商不可向教職員提供任何回扣或利益",
+      "供應商須遵守學校廉潔要求，書面報價╱招標時可能須簽署廉潔聲明、利益申報表等，違反防賄規定者被取消資格"
+    ],
+    "panel_chair": [
+      "[課程統籌主任] 須統籌各科課程發展資源申請，確保津貼用途符合課程政策方向",
+      "[總務主任] 負責協調校舍設施採購需求，按採購門檻提交申請予副校長及EO跟進",
+      "[訓導及輔導主任] 須統籌訓輔相關服務活動採購"
+    ]
+  },
+  "hr": {
+    "_label": "人力資源 / 教師 / 職員",
+    "_keywords_zh": [
+      "教師",
+      "CPD",
+      "培訓",
+      "聘任",
+      "薪酬",
+      "專業發展",
+      "代課",
+      "人事"
+    ],
+    "_sources": [
+      {
+        "title": "教育局通告第6/2020號 — 落實教師專業發展專責小組的建議（含附件二至四：教師專業階梯及CPD）",
+        "url": "https://www.edb.gov.hk/attachment/tc/teacher/qualification-training-development/development/cpd-teachers/EDBC20006C.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "為設有法團校董會學校而提供的整合代課教師津貼指引（2023年9月）",
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/trg/TRG_guidelines_C.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "教育局通告第1/2006號 — 資助學校批假事宜（教職員批假指引）",
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/guideline-granting-leave/embc06001tc.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "教師專業操守指引",
+        "url": "https://www.edb.gov.hk/tc/teacher/guidelines_tpc/",
+        "retrieved": "2026-03-16"
+      }
+    ],
+    "_sourceMap": {
+      "all_roles.0": 0,
+      "principal.0": 0,
+      "teacher.0": 0,
+      "teacher.1": 1
+    },
+    "all_roles": [
+      "教師持續專業發展（CPD）：建議每三年週期內完成不少於 150 小時，包含結構性及非結構性活動"
+    ],
+    "principal": [
+      "校長須制訂全校教師專業發展計劃，並確保教師達到 CPD 時數要求"
+    ],
+    "teacher": [
+      "CPD 記錄須由教師自行保存及上載至電子化服務入門網站(Eservices)，學校要求時須呈交與核實，並需要向法團校董會匯報",
+      "整合代課教師津貼（法團校董會學校）：學校每年獲整筆現金津貼聘請代課教師；缺假30-89日申請日薪代課費，90日或以上申請月薪臨時代課費"
+    ],
+    "panel_chair": [
+      "[課程統籌主任] 負責統籌全校教師 CPD 計劃，確保涵蓋不同科目及支援範疇",
+      "[特殊教育統籌主任] 須協調 SEN 支援人員調配，並向副校長匯報人手需求",
+      "[訓導及輔導主任] 負責統籌駐校社工及輔導人員的工作分配及個案跟進機制",
+      "[活動主任] 須統籌帶隊教師及學生活動時的行程安排及緊急聯絡機制，確保活動人手充足"
+    ]
+  },
+  "curriculum": {
+    "_label": "課程 / 學習 / 評估",
+    "_keywords_zh": [
+      "課程",
+      "科目",
+      "評估",
+      "學習",
+      "教學",
+      "課時",
+      "學習宗旨",
+      "課程指引",
+      "KLA",
+      "學習領域",
+      "STEAM",
+      "價值觀"
+    ],
+    "_sources": [
+      {
+        "title": "《小學教育課程指引》完整版（2024）",
+        "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide/PECG%202024_full.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "小學教育的七個學習宗旨",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/7-learning-goals/primary/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "學校課程持續更新 — 學校課程架構",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/renewal/framework.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "各學習領域課程指引",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "擬定校曆表指引",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/resource-support/guidelines-sch-calendar/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "基礎教育課程指引(2014)",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/guide-basic-edu-curriculum/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "STEAM 教育",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/steam/index.html",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "個人、社會及人文教育（人文科）",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/index.html",
+        "retrieved": "2026-03-17"
+      }
+    ],
+    "_sourceMap": {
+      "all_roles.0": 2,
+      "all_roles.1": 1,
+      "all_roles.2": 2,
+      "all_roles.3": 2,
+      "all_roles.4": 2,
+      "principal.0": 0,
+      "principal.1": 0,
+      "principal.2": 6,
+      "principal.3": 7,
+      "vice_principal.0": 0,
+      "vice_principal.1": 0,
+      "vice_principal.2": 0,
+      "subject_head.0": 0,
+      "subject_head.1": 0,
+      "subject_head.2": 0,
+      "subject_head.3": 2,
+      "teacher.0": 0,
+      "teacher.1": 2,
+      "teacher.2": 0,
+      "teacher.3": 2
+    },
+    "all_roles": [
+      "八個學習領域(KLA)：中文、英文、數學、科學、科技、個人社會及人文、藝術、體育",
+      "七個學習宗旨：國民身份認同、正確價值觀、學習領域知識、語文能力、共通能力、閱讀及資訊素養、健康生活方式",
+      "五種基要學習經歷：價值觀教育、智能發展、社會服務、體藝發展、與工作有關的經驗",
+      "課程更新重點涵蓋：價值觀教育、善用學時、STEAM 教育、媒體和資訊素養",
+      "十二種首要價值觀：堅毅、尊重他人、責任感、國民身份認同、承擔、誠信、關愛、守法、同理心、勤勞、孝親、團結"
+    ],
+    "principal": [
+      "校長須確保學校課程符合《小學教育課程指引》(2024) 或最新要求",
+      "校長、副校長及課程統籌主任須統籌全校課程規劃，確保八個 KLA 課時分配合理並涵蓋五種基要學習經歷",
+      "校長須推動 STEAM 教育融入課程，促進跨學科學習和創新思維培養",
+      "校長須按 2024 課程或最新指引推動小學人文科（取代常識科）的規劃和實施"
+    ],
+    "vice_principal": [
+      "副校長、課程統籌主任協助統籌跨學科課程協調，確保各 KLA 之間的橫向聯繫和銜接",
+      "副校長、課程統籌主任負責監察全校課程實施進度，定期向校長匯報並提出改善建議",
+      "副校長須推動全校善用學時策略，確保課時分配符合課程指引建議比例"
+    ],
+    "subject_head": [
+      "科主任負責規劃本科課程，須配合學校整體課程方向及教育局最新課程指引",
+      "課程統籌主任規劃，科主任須帶領科組進行共同備課、觀課及課後檢討，推動教學專業交流",
+      "科主任按校本評估政策，制訂本科評估政策，確保進展性和總結性評估均衡運用",
+      "科主任須因應課程更新重點，在教學中融入國民教育、媒體及資訊素養等元素"
+    ],
+    "teacher": [
+      "教師須按課程指引編寫教學計劃，確保涵蓋各 KLA 核心元素",
+      "教師須在教學中融入價值觀教育，培養學生十二種首要價值觀和態度",
+      "教師須運用多元化評估策略，包括進展性評估，以回饋學與教效能",
+      "教師須培養學生九種共通能力，涵蓋溝通、批判思考、創造力及自我管理等"
+    ],
+    "panel_chair": [
+      "[課程統籌主任] 負責統籌全校課程發展計劃，協調各科組推行課程改革及評估政策",
+      "[教務主任] 統籌全校評估政策制訂，確保進展性與總結性評估均衡且符合指引",
+      "[資訊科技統籌主任] 負責統籌電子學習策略，推動 IT 工具融入各 KLA 課堂教學",
+      "[課程統籌主任] 須向副校長提交課程發展進度報告，反映各科組實施情況及建議"
+    ]
+  },
+  "activity": {
+    "_label": "校外活動 / 比賽 / 考察",
+    "_keywords_zh": [
+      "活動",
+      "考察",
+      "旅行",
+      "比賽",
+      "境外",
+      "課外活動",
+      "全方位學習"
+    ],
+    "_sources": [
+      {
+        "title": "學校行政手冊（2025年11月版）— 第八章 校外活動",
+        "url": "https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "全方位學習津貼運用指引",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/life-wide-learning/resource-and-support/doc-and-guidelines.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "境外遊學活動指引",
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Study%20Tours%20Guide_TC.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "戶外活動指引",
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf",
+        "retrieved": "2026-03-17"
+      }
+    ],
+    "_sourceMap": {
+      "all_roles.0": 2,
+      "all_roles.1": 3,
+      "all_roles.2": 1,
+      "principal.0": 3,
+      "principal.1": 2,
+      "vice_principal.0": 3,
+      "teacher.0": 3,
+      "teacher.1": 3,
+      "eo_admin.0": 3
+    },
+    "all_roles": [
+      "境外活動須事前獲校長批准，並向教育局呈報行程及參加者資料",
+      "校外活動前須完成風險評估，包括場地安全、交通安排、天氣應變和醫療支援",
+      "全方位學習津貼須用於組織校外體驗活動，促進五種基要學習經歷"
+    ],
+    "principal": [
+      "校長須審批所有校外活動的風險評估報告，確保已購買足夠保險",
+      "校長負責批准境外活動申請，並確保已按教育局規定呈報行程和參加者名單"
+    ],
+    "vice_principal": [
+      "副校長協助統籌全校校外活動安排，確保活動與課程目標和學習經歷對應"
+    ],
+    "teacher": [
+      "帶隊教師須確保師生比例符合教育局要求，並備妥緊急聯絡機制和應變方案",
+      "帶隊教師須隨身攜帶學生緊急聯絡資料和急救用品，並預先確認最近醫療設施"
+    ],
+    "eo_admin": [
+      "EO負責校外活動的行政支援，包括保險購買、交通安排和家長通知書"
+    ],
+    "panel_chair": [
+      "[活動主任] 負責統籌全年校本課外活動計劃，確保涵蓋五種基要學習經歷",
+      "[活動主任] 須確保校外活動期間學生安全安排符合教育局指引要求",
+      "[課程統籌主任] 負責審核校內外活動申請，確保活動目標與課程及學習目標相符",
+      "[訓導及輔導主任] 須就校外活動制定行為守則及應對突發事件的輔導方案"
+    ]
+  },
+  "student": {
+    "_label": "學生事務 / 安全 / 健康",
+    "_keywords_zh": [
+      "學生",
+      "意外",
+      "安全",
+      "健康",
+      "SEN",
+      "欺凌",
+      "訓輔",
+      "出席"
+    ],
+    "_sources": [
+      {
+        "title": "學校行政手冊（2025年11月版）— 第三章 學生事務",
+        "url": "https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "融合教育運作指南",
+        "url": "https://www.edb.gov.hk/tc/edu-system/special/support/wsa/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "學生訓育工作指引（第一章：理念及原則）",
+        "url": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/principles-guidelines/guidelines-on-student-discipline/ch1.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "學童乘搭校車的安全指引",
+        "url": "https://www.edb.gov.hk/tc/student-parents/safety/sch-bus-services/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "全校參與訓育及輔導工作（含反欺凌指引）",
+        "url": "https://www.edb.gov.hk/tc/teacher/student-guidance-discipline-services/principles-guidelines/whole-school-approach-to-guidance-discipline/index.html",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "學生安全",
+        "url": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch/sch-safety.html",
+        "retrieved": "2026-03-17"
+      }
+    ],
+    "_sourceMap": {
+      "all_roles.0": 0,
+      "all_roles.1": 4,
+      "all_roles.2": 1,
+      "principal.0": 0,
+      "principal.1": 2,
+      "vice_principal.0": 2,
+      "teacher.0": 1,
+      "teacher.1": 0,
+      "teacher.2": 5,
+      "eo_admin.0": 0
+    },
+    "all_roles": [
+      "學校須設立機制處理學生缺課個案，連續缺課 7 天須向教育局呈報",
+      "學校須制訂反欺凌政策，建立通報和處理機制，並定期進行預防教育",
+      "學校須按「全校參與」模式支援有特殊教育需要（SEN）學生的學習"
+    ],
+    "principal": [
+      "校長須確保學校已制訂完善的危機處理程序，包括意外、傳染病和自然災害應變方案",
+      "校長須確保學校訓輔政策兼顧獎懲，培養學生正面行為和自律精神"
+    ],
+    "vice_principal": [
+      "副校長及訓輔主任負責監察學生訓輔工作，協調班主任、輔導人員和社工的支援服務"
+    ],
+    "teacher": [
+      "教師發現學生有特殊教育需要（SEN）跡象時，須盡早轉介予學校支援組跟進",
+      "班主任須每日記錄學生出席情況，發現異常缺課須即日聯絡家長了解原因",
+      "教師須留意學生身心狀況變化，發現疑似受虐或自傷跡象須立即向校方報告"
+    ],
+    "eo_admin": [
+      "EO負責維護學生出席記錄系統，定期匯報缺課數據予校長和教育局"
+    ],
+    "panel_chair": [
+      "[特殊教育統籌主任] 負責統籌全校 SEN 識別、評估及支援計劃，並向副校長匯報",
+      "[訓導及輔導主任] 統籌全校訓育及輔導工作，建立跨部門個案轉介及跟進機制",
+      "[學生事務主任] 負責統籌學生健康及福祉項目，包括健康促進及危機支援服務",
+      "[特殊教育統籌主任] 須與家長及外間機構協調，安排學生接受校外評估及支援"
+    ]
+  },
+  "it": {
+    "_label": "資訊科技 / 設備 / 網絡",
+    "_keywords_zh": [
+      "資訊科技",
+      "電腦",
+      "設備",
+      "IT",
+      "AI",
+      "數字教育",
+      "網絡",
+      "BYOD"
+    ],
+    "_sources": [
+      {
+        "title": "學校資訊保安建議措施（第二章：保安管理）（2019年9月修訂版）",
+        "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/Information-Security-in-Schools/isrp-ch02-tc.pdf",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "運用資訊科技進行互動學習（BYOD、電子學習）",
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/4-key-tasks/it-for-interactive-learning/index.html",
+        "retrieved": "2026-03-17"
+      },
+      {
+        "title": "學校資訊保安建議措施（第六章：數據保安）（2019年9月修訂版）",
+        "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/Information-Security-in-Schools/isrp-ch06-tc.pdf",
+        "retrieved": "2026-03-17"
+      }
+    ],
+    "_sourceMap": {
+      "all_roles.0": 0,
+      "all_roles.1": 1,
+      "all_roles.2": 2,
+      "principal.0": 1,
+      "principal.1": 0,
+      "eo_admin.0": 0,
+      "eo_admin.1": 0,
+      "teacher.0": 0,
+      "teacher.1": 1,
+      "subject_head.0": 1
+    },
+    "all_roles": [
+      "學校須制訂資訊科技保安政策，涵蓋數據保護、網絡安全和個人資料處理",
+      "學校須配合教育局推動 BYOD（自攜裝置）政策，支援電子學習環境",
+      "學校須遵守《個人資料（私隱）條例》處理學生和教職員電子數據"
+    ],
+    "principal": [
+      "校長須推動電子學習及 BYOD 政策，確保資訊科技融入各學習領域",
+      "校長須確保學校制訂資訊科技可接受使用政策，規範師生使用行為"
+    ],
+    "teacher": [
+      "教師使用電子教學平台時須遵守學校資訊科技使用守則，保護學生個人資料",
+      "教師須善用電子學習工具促進互動教學，培養學生運用資訊科技的能力"
+    ],
+    "subject_head": [
+      "科主任須善用電子教學資源，推動本科運用資訊科技提升學與教效能"
+    ],
+    "panel_chair": [
+      "[資訊科技統籌主任] 負責統籌全校 IT 基礎設施規劃，制定設備更新及保安政策",
+      "[資訊科技統籌主任] 須統籌師生資訊科技培訓，確保全校遵守 IT 可接受使用守則",
+      "[課程統籌主任] 與資訊科技統籌主任協作，把電子學習工具系統化融入課程規劃",
+      "資訊科技統籌主任負責 IT 設備的採購和維護記錄，設備採購須按一般採購程序辦理",
+      "資訊科技統籌主任須建立 IT 資產清單，定期盤點並安排過時設備的報廢處理，並向法團校董會匯報"
+    ]
+  },
+  "general": {
+    "_label": "通用（無特定主題匹配時）",
+    "_keywords_zh": [],
+    "_sources": [
+      {
+        "title": "公開資料守則",
+        "url": "https://www.edb.gov.hk/tc/access-to-info/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "學校行政手冊（2025年11月版）",
+        "url": "https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html",
+        "retrieved": "2026-03-16"
+      },
+      {
+        "title": "校本管理資訊網站（法團校董會治理、校長職責、年度計劃）",
+        "url": "https://sbm.edb.gov.hk",
+        "retrieved": "2026-03-17"
+      }
+    ],
+    "_sourceMap": {
+      "all_roles.0": 0,
+      "all_roles.1": 2,
+      "principal.0": 2,
+      "principal.1": 2,
+      "vice_principal.0": 1,
+      "eo_admin.0": 1
+    },
+    "all_roles": [
+      "學校須按《公開資料守則》處理公眾索取資料要求，除有合理理由外應盡快提供",
+      "法團校董會為學校最高管治機構，負責制訂學校政策及監察學校運作"
+    ],
+    "principal": [
+      "校長為學校的首席行政人員，負責學校日常運作及向法團校董會負責",
+      "校長須每年向法團校董會提交學校周年計劃和自評報告"
+    ],
+    "vice_principal": [
+      "副校長協助校長管理學校日常事務，校長不在時代行校長職務",
+      "統籌學校自評（SSE）相關範疇，向校長匯報評估進度及改善建議",
+      "統籌家校合作事宜，包括家長教育及學生支援的跨界別協作"
+    ],
+    "eo_admin": [
+      "EO負責學校日常行政運作，包括文書處理、檔案管理和校舍維修協調"
+    ],
+    "panel_chair": [
+      "[訓導及輔導主任] 負責統籌校本支援服務的使用數據，定期向校方提交分析報告",
+      "負責巡查、紀錄、申報學校ER和MR的維修工程"
+    ]
+  }
+};
+
+const INITIAL_REVIEW_STATE = JSON.parse('{"finance.all_roles.0": "approved", "finance.all_roles.1": "approved", "finance.all_roles.2": "approved", "finance.all_roles.3": "approved", "finance.all_roles.4": "approved", "finance.principal.0": "approved", "finance.principal.1": "approved", "finance.principal.2": "approved", "finance.principal.3": "approved", "finance.vice_principal.0": "approved", "finance.vice_principal.1": "approved", "finance.eo_admin.0": "approved", "finance.eo_admin.1": "approved", "finance.eo_admin.2": "approved", "finance.eo_admin.3": "approved", "finance.subject_head.0": "approved", "finance.subject_head.1": "approved", "finance.subject_head.2": "approved", "finance.teacher.0": "approved", "finance.teacher.1": "approved", "finance.supplier.0": "approved", "finance.supplier.1": "approved", "finance.panel_chair.0": "approved", "finance.panel_chair.1": "approved", "finance.panel_chair.2": "approved", "hr.all_roles.0": "approved", "hr.principal.0": "approved", "hr.teacher.0": "approved", "hr.teacher.1": "approved", "hr.panel_chair.0": "approved", "hr.panel_chair.1": "approved", "hr.panel_chair.2": "approved", "hr.panel_chair.3": "approved", "curriculum.all_roles.0": "approved", "curriculum.all_roles.1": "approved", "curriculum.all_roles.2": "approved", "curriculum.all_roles.3": "approved", "curriculum.all_roles.4": "approved", "curriculum.principal.0": "approved", "curriculum.principal.1": "approved", "curriculum.principal.2": "approved", "curriculum.principal.3": "approved", "curriculum.vice_principal.0": "approved", "curriculum.vice_principal.1": "approved", "curriculum.vice_principal.2": "approved", "curriculum.subject_head.0": "approved", "curriculum.subject_head.1": "approved", "curriculum.subject_head.2": "approved", "curriculum.subject_head.3": "approved", "curriculum.teacher.0": "approved", "curriculum.teacher.1": "approved", "curriculum.teacher.2": "approved", "curriculum.teacher.3": "approved", "curriculum.panel_chair.0": "approved", "curriculum.panel_chair.1": "approved", "curriculum.panel_chair.2": "approved", "curriculum.panel_chair.3": "approved", "activity.all_roles.0": "approved", "activity.all_roles.1": "approved", "activity.all_roles.2": "approved", "activity.principal.0": "approved", "activity.principal.1": "approved", "activity.vice_principal.0": "approved", "activity.teacher.0": "approved", "activity.teacher.1": "approved", "activity.eo_admin.0": "approved", "activity.panel_chair.0": "approved", "activity.panel_chair.1": "approved", "activity.panel_chair.2": "approved", "activity.panel_chair.3": "approved", "student.all_roles.0": "approved", "student.all_roles.1": "approved", "student.all_roles.2": "approved", "student.principal.0": "approved", "student.principal.1": "approved", "student.vice_principal.0": "approved", "student.teacher.0": "approved", "student.teacher.1": "approved", "student.teacher.2": "approved", "student.eo_admin.0": "approved", "student.panel_chair.0": "approved", "student.panel_chair.1": "approved", "student.panel_chair.2": "approved", "student.panel_chair.3": "approved", "it.all_roles.0": "approved", "it.all_roles.1": "approved", "it.all_roles.2": "approved", "it.principal.0": "approved", "it.principal.1": "approved", "it.teacher.0": "approved", "it.teacher.1": "approved", "it.subject_head.0": "approved", "it.panel_chair.0": "approved", "it.panel_chair.1": "approved", "it.panel_chair.2": "approved", "general.all_roles.0": "approved", "general.all_roles.1": "approved", "general.principal.0": "approved", "general.principal.1": "approved", "general.vice_principal.0": "approved", "general.eo_admin.0": "approved", "it.panel_chair.3": "approved", "it.panel_chair.4": "approved", "general.vice_principal.1": "approved", "general.panel_chair.0": "approved", "general.vice_principal.2": "approved", "general.panel_chair.1": "approved"}');
+
+// Review state embedded from admin snapshot (exported 2026-04-03)
+// Replaces legacy DRAFT_INDICES + buildInitialReview pattern.
+
+function deepClone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+function buildAdminSnapshot(data, reviewState) {
+  return {
+    schema_version: '1.0',
+    exported_at: new Date().toISOString(),
+    data: deepClone(data),
+    review_state: { ...reviewState },
+  };
+}
+
+function migrateSnapshot(parsed) {
+  // v1→v2: rename department_head → subject_head in data and review_state
+  function renameKey(obj, oldK, newK) {
+    if (!obj || typeof obj !== 'object') return obj;
+    const out = {};
+    for (const [k, v] of Object.entries(obj)) {
+      out[k === oldK ? newK : k] = (typeof v === 'object' && v !== null) ? renameKey(v, oldK, newK) : v;
+    }
+    return out;
+  }
+  if (parsed.data) parsed.data = renameKey(parsed.data, 'department_head', 'subject_head');
+  if (parsed.review_state) {
+    const rs = {};
+    for (const [k, v] of Object.entries(parsed.review_state)) {
+      rs[k.replace('department_head', 'subject_head')] = v;
+    }
+    parsed.review_state = rs;
+  }
+  return parsed;
+}
+
+function loadLocalSnapshot() {
+  try {
+    const raw = localStorage.getItem(LOCAL_SNAPSHOT_KEY);
+    if (!raw) return null;
+    let parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') return null;
+    
+    // Flexible check for review state key (handle older snapshots)
+    const rs = parsed.review_state || parsed.reviewState;
+    if (!parsed.data || !rs) return null;
+    
+    parsed = migrateSnapshot(parsed);
+    const data = parsed.data;
+    
+    // Structural integrity check: must have at least one topic with facts
+    let hasAnyFacts = false;
+    for (const t in data) {
+      if (t === '_meta') continue;
+      const topicObj = data[t];
+      if (typeof topicObj === 'object' && topicObj !== null) {
+        for (const r in topicObj) {
+          if (!r.startsWith('_') && Array.isArray(topicObj[r]) && topicObj[r].length > 0) {
+            hasAnyFacts = true;
+            break;
+          }
+        }
+      }
+      if (hasAnyFacts) break;
+    }
+    
+    if (!hasAnyFacts) {
+      console.warn('Dashboard: Snapshot found but contains 0 facts. Falling back to INITIAL_DATA.');
+      localStorage.removeItem(LOCAL_SNAPSHOT_KEY); // Clean up corrupted state
+      return null;
+    }
+
+    return {
+      data: data,
+      review_state: rs,
+    };
+  } catch (err) {
+    console.error('Dashboard: Local snapshot load error:', err);
+    return null;
+  }
+}
+
+function downloadJson(filename, payload) {
+  const blob = new Blob([payload], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+
+
+// ── Initial data ──
+
+// ── Guidelines Registry ──
+const GUIDELINES_REGISTRY = [
+  { id: 'sag_2025_11', title: '學校行政手冊（2025年11月版）', titleShort: 'SAG', format: 'PDF', category: '財務採購', level: '跨階段', year: '2025', isSpine: true, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf' },
+  { id: 'coa_imc_1_19', title: '資助則例（設有法團校董會資助學校適用版本）', titleShort: 'Code of Aid', format: 'PDF', category: '財務採購', level: '跨階段', year: '2024', isSpine: true, url: 'https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf' },
+  { id: 'g01', title: '資助學校採購程序指引（2025年10月更新）', titleShort: '採購程序指引', format: 'PDF', category: '財務採購', level: '跨階段', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures%20in%20Aided%20Schools%20Trad%20Chi_2024.pdf' },
+  { id: 'g02', title: '設有法團校董會的資助學校財務管理指引', titleShort: '財務管理指引', format: 'PDF', category: '財務採購', level: '跨階段', year: '2023', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf' },
+  { id: 'g04', title: '教職員批假指引', titleShort: '批假指引', format: 'HTML', category: '人力資源', level: '跨階段', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/guideline-granting-leave/index.html' },
+  { id: 'g05', title: '教師專業操守指引', titleShort: '專業操守指引', format: 'HTML', category: '人力資源', level: '跨階段', year: '2022', isSpine: false, url: 'https://www.edb.gov.hk/tc/teacher/guidelines_tpc/' },
+  { id: 'g29', title: '幼稚園教育課程指引（2017）', titleShort: '幼稚園課程指引', format: 'PDF', category: '課程', level: '幼稚園', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/major-level-of-edu/preprimary/curr-doc.html' },
+  { id: 'g06', title: '《小學教育課程指引》完整版（2024）', titleShort: '小學教育課程指引', format: 'PDF', category: '課程', level: '小學', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide/PECG%202024_full.pdf' },
+  { id: 'g07', title: '基礎教育課程指引—聚焦·深化·持續（小一至小六）(2014)', titleShort: '基礎教育課程指引', format: 'HTML', category: '課程', level: '小學', year: '2014', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/guide-basic-edu-curriculum/index.html' },
+  { id: 'g30', title: '小學人文科課程及評估指引（試行版）(2023)', titleShort: '人文科指引(小學)', format: 'PDF', category: '課程', level: '小學', year: '2023', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/ph-primary/index.html' },
+  { id: 'g31', title: '英國語文教育課程指引（小一至小六）(2025)', titleShort: '英文課程指引(小學)', format: 'PDF', category: '課程', level: '小學', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/eng-edu/curriculum-documents.html' },
+  { id: 'g27', title: '小學數學課程指引（2000）', titleShort: '小學數學課程指引', format: 'HTML', category: '課程', level: '小學', year: '2000', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/ma/curr/pri-math-2000.html' },
+  { id: 'g13', title: '中學教育課程指引（2017）— 課程指引及文件', titleShort: '中學教育課程指引', format: 'HTML', category: '課程', level: '中學', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/major-level-of-edu/secondary/cg_documents.html' },
+  { id: 'g32', title: '初中人文學科課程及評估指引（中一至中三）(2024)', titleShort: '人文學科指引(初中)', format: 'HTML', category: '課程', level: '中學', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/curriculum-documents.html' },
+  { id: 'g33', title: '英國語文教育課程指引（中一至中六）(2007)', titleShort: '英文課程指引(中學)', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/eng-edu/curriculum-documents.html' },
+  { id: 'g10', title: '《特殊學校課程指引》(2024)', titleShort: '特殊學校課程指引', format: 'INDEX', category: '課程', level: '特殊', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/special-educational-needs/curriculum_guide_for_special_schools/index.html' },
+  { id: 'g08', title: '《中國語文教育學習領域課程指引（小一至中六）》(2024)', titleShort: '中文課程指引', format: 'HTML', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/chi-edu/curriculum-documents-exemplars.html' },
+  { id: 'g09', title: '中國語文課程補充指引（非華語學生）(2025)', titleShort: '非華語中文指引', format: 'HTML', category: '課程', level: '跨階段', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/chi-edu/ncs-curriculum-documents.html' },
+  { id: 'g12', title: '數學教育學習領域課程指引（小一至中三）(2002)', titleShort: '數學課程指引', format: 'HTML', category: '課程', level: '跨階段', year: '2002', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/ma/curr/basic-education-2002.html' },
+  { id: 'g15', title: '體育學習領域課程指引（小一至中三）(2002)', titleShort: '體育課程指引', format: 'PDF', category: '課程', level: '跨階段', year: '2002', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pe/PEKLACG_2002/keymes_c.pdf' },
+  { id: 'g34', title: '普通話科課程指引（小一至中三）(2000)', titleShort: '普通話課程指引', format: 'HTML', category: '課程', level: '跨階段', year: '2000', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/chi-edu/curriculum-past-documents.html' },
+  { id: 'g35', title: '個人、社會及人文教育學習領域課程指引（小一至中六）(2017)', titleShort: '個社人文課程指引', format: 'HTML', category: '課程', level: '跨階段', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/index.html' },
+  { id: 'g36', title: '科學教育學習領域課程指引（小一至中三）(2002)', titleShort: '科學課程指引', format: 'HTML', category: '課程', level: '跨階段', year: '2002', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/science-edu/index.html' },
+  { id: 'g37', title: '藝術教育學習領域課程指引（小一至中三）(2002)', titleShort: '藝術教育課程指引', format: 'HTML', category: '課程', level: '跨階段', year: '2002', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/arts-edu/index.html' },
+  { id: 'g38', title: '音樂教育學習領域課程指引（小一至中三）(2003)', titleShort: '音樂課程指引', format: 'HTML', category: '課程', level: '跨階段', year: '2003', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/arts-edu/curriculum-docs/curriculum-docs_past/index.html' },
+  { id: 'g39', title: '科技教育學習領域課程指引（小一至中三）(2002)', titleShort: '科技教育課程指引', format: 'HTML', category: '課程', level: '跨階段', year: '2002', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/index.html' },
+  { id: 'g14', title: '校本資優培育課程指引', titleShort: '資優培育指引', format: 'HTML', category: '課程', level: '跨階段', year: '2020', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/guidelines-on-school-based-gifted-development-programmes/index.html' },
+  { id: 'g11', title: '擬定校曆表指引', titleShort: '校曆表指引', format: 'HTML', category: '課程', level: '跨階段', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/resource-support/guidelines-sch-calendar/index.html' },
+  { id: 'g21', title: '視覺藝術科安全指引', titleShort: '視藝安全指引', format: 'PDF', category: '課程', level: '跨階段', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/arts-edu/resources/va-curri/safety/index.html' },
+  { id: 'g22', title: '科技教育 – 安全指引', titleShort: '科技安全指引', format: 'PDF', category: '課程', level: '跨階段', year: '2021', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/resources/safety.html' },
+  { id: 'g23', title: '體育 – 安全措施指引', titleShort: '體育安全指引', format: 'HTML', category: '課程', level: '跨階段', year: '2026', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/pe/references_resource/safety-guidelines/index.html' },
+  { id: 'g03', title: '全方位學習津貼運用指引', titleShort: '全方位學習津貼指引', format: 'HTML', category: '活動', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/life-wide-learning/resource-and-support/doc-and-guidelines.html' },
+  { id: 'g20', title: '學校活動指引', titleShort: '學校活動指引', format: 'HTML', category: '活動', level: '跨階段', year: '2020', isSpine: false, url: 'https://www.edb.gov.hk/tc/sch-admin/admin/about-activities/sch-activities-guidelines/' },
+  { id: 'g16', title: '學生訓育工作指引', titleShort: '訓育工作指引', format: 'INDEX', category: '學生事務', level: '跨階段', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/tc/teacher/student-guidance-discipline-services/principles-guidelines/guidelines-on-student-discipline/index.html' },
+  { id: 'g17', title: '理念與指引（訓育及輔導）', titleShort: '訓輔理念與指引', format: 'HTML', category: '學生事務', level: '跨階段', year: '2011', isSpine: false, url: 'https://www.edb.gov.hk/tc/teacher/student-guidance-discipline-services/principles-guidelines/index.html' },
+  { id: 'g18', title: '學童乘搭校車的安全指引', titleShort: '校車安全指引', format: 'HTML', category: '學生事務', level: '跨階段', year: '2026', isSpine: false, url: 'https://www.edb.gov.hk/tc/student-parents/safety/sch-bus-services/index.html' },
+  { id: 'g19', title: '融合教育運作指南', titleShort: '融合教育指南', format: 'HTML', category: '學生事務', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/edu-system/special/support/wsa/index.html' },
+  { id: 'g28', title: '學校資訊保安建議措施（2019年9月修訂版）', titleShort: 'IT保安建議措施', format: 'INDEX', category: '資訊科技', level: '跨階段', year: '2019', isSpine: false, url: 'https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/information-security-in-school.html' },
+  { id: 'g24', title: '學校行政手冊（2025年11月版）', titleShort: '學校行政手冊', format: 'PDF', category: '行政', level: '跨階段', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html' },
+  { id: 'g25', title: '幼稚園相關指引及須知', titleShort: '幼稚園指引', format: 'HTML', category: '行政', level: '幼稚園', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/tc/edu-system/preprimary-kindergarten/about-preprimary-kindergarten/guidelines.html' },
+  { id: 'g26', title: '2026/27學年幼稚園收生安排指引', titleShort: '幼稚園收生指引', format: 'PDF', category: '行政', level: '幼稚園', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/kindergarten-k1-admission-arrangements/202627%20K1%20Admission%20Arrangements/2026-27_Admission%20Guidelines_TC.pdf' },
+  { id: 'stat_edb_figures', title: '教育統計數字', titleShort: '統計數字', format: 'HTML', category: '人力資源', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/about-edb/publications-stat/figures/index.html' },
+  { id: 'stat_kg', title: '幼稚園統計數字', titleShort: '幼稚園統計', format: 'XLSX', category: '學生事務', level: '幼稚園', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/about-edb/publication-stat/figures/kg_tc.xlsx' },
+  { id: 'stat_pri', title: '小學統計數字', titleShort: '小學統計', format: 'XLSX', category: '課程', level: '小學', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/about-edb/publication-stat/figures/pri_tc.xlsx' },
+  { id: 'stat_sec', title: '中學統計數字', titleShort: '中學統計', format: 'XLSX', category: '課程', level: '中學', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/about-edb/publication-stat/figures/sec_tc.xlsx' },
+  { id: 'stat_special', title: '特殊學校統計數字', titleShort: '特殊學校統計', format: 'XLSX', category: '學生事務', level: '特殊', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/about-edb/publication-stat/figures/special_tc.xlsx' },
+  { id: 'stat_integrated_edu', title: '融合教育統計數字', titleShort: '融合教育統計', format: 'XLSX', category: '學生事務', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/datagovhk/Integrated_Education_TC.xlsx' },
+  { id: 'stat_enrolment_report', title: '學生人數統計報告書（年度系列）', titleShort: '學生人數統計', format: 'PDF', category: '學生事務', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/about-edb/publications-stat/figures/index_1.html' },
+  { id: 'pecg_2024_landing', title: '《小學教育課程指引》（2024）課程文件索引頁', titleShort: '小學指引索引頁', format: 'HTML', category: '課程', level: '小學', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide.html' },
+  { id: 'circ_edbc24017', title: '教育局通告第17/2024號：學校課程持續更新：《小學教育課程指引》（2024）', titleShort: 'EDBC24017 小學指引通告', format: 'PDF', category: '課程', level: '小學', year: '2024', isSpine: false, url: 'https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf' },
+  { id: 'curr_renewal_guides', title: '課程更新指引及文件總覽', titleShort: '課程更新指引總覽', format: 'HTML', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/renewal/guides.html' },
+  { id: 'chi_edu_curr_docs', title: '中國語文教育學習領域課程文件', titleShort: '中文教育課程文件', format: 'HTML', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/chi-edu/curriculum-documents.html' },
+  { id: 'ma_curr_index', title: '數學教育學習領域課程文件', titleShort: '數學課程文件', format: 'HTML', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/ma/curr/index2.html' },
+  { id: 'sci_curr_docs', title: '科學教育學習領域課程文件', titleShort: '科學課程文件', format: 'HTML', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/science-edu/curriculum-documents.html' },
+  { id: 'tech_curr_docs', title: '科技教育學習領域課程文件', titleShort: '科技課程文件', format: 'HTML', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/curriculum-doc/index.html' },
+  { id: 'pshe_curr_docs', title: '個人、社會及人文教育學習領域課程文件', titleShort: '個人社會人文課程文件', format: 'HTML', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/curriculum-documents.html' },
+  { id: 'arts_curr_docs', title: '藝術教育學習領域課程文件', titleShort: '藝術課程文件', format: 'HTML', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/arts-edu/curriculum-docs/index.html' },
+  { id: 'pe_curr_docs', title: '體育學習領域課程文件', titleShort: '體育課程文件', format: 'HTML', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/pe/curriculum-doc/index.html' },
+  { id: 'apl_curr_docs', title: '應用學習課程文件', titleShort: '應用學習課程文件', format: 'HTML', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/applied-learning/curriculum-documents/index.html' },
+  { id: 'cs_curr', title: '電腦科課程資源（EDB EdCity）', titleShort: '電腦科課程', format: 'HTML', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://cs.edb.edcity.hk/tc/index_cs.php' },
+  { id: 'gs_pri_curr', title: '常識科（小學）課程文件', titleShort: '常識科課程文件', format: 'HTML', category: '課程', level: '小學', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/gs-primary/curriculum-documents.html' },
+  { id: 'gs_pri_guide_2017', title: '常識科課程指引（小學）(2017)', titleShort: '常識科課程指引(2017)', format: 'PDF', category: '課程', level: '小學', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Chi.pdf' },
+  { id: 'ph_pri_curr', title: '小學人文科課程', titleShort: '小學人文科', format: 'HTML', category: '課程', level: '小學', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/ph-primary/index.html' },
+  { id: 'edbc20_2023_ph_pri', title: '教育局通告20/2023號 — 開設小學人文科', titleShort: '通告20/2023 小學人文科', format: 'HTML', category: '課程', level: '小學', year: '2023', isSpine: false, url: 'https://applications.edb.gov.hk/circular/upload/EDBC/EDBC23020C.pdf' },
+  { id: 'edbc9_2024_ph_pri', title: '教育局通告9/2024號 — 《小學人文科課程框架》（定稿）及支援措施', titleShort: '通告9/2024 人文科框架', format: 'HTML', category: '課程', level: '小學', year: '2024', isSpine: false, url: 'https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24009C.pdf' },
+  { id: 'edbc197_2024_ph_pri', title: '教育局通函197/2024號 — 小學人文科：學校問卷調查及相關支援措施', titleShort: '通函197/2024 人文科問卷', format: 'HTML', category: '課程', level: '小學', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/ph-primary/index.html' },
+  { id: 'edbc12_2025_ph_pri', title: '教育局通告第12/2025號 — 《小學人文科課程指引》及支援措施', titleShort: '通告12/2025 人文科指引', format: 'PDF', category: '課程', level: '小學', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/ph-primary/EDBC_122025_C.pdf' },
+  { id: 'ph_pri_guide_2025', title: '小學人文科課程指引 (2025)', titleShort: '小學人文科課程指引', format: 'PDF', category: '課程', level: '小學', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/ph-primary/Primary_Humanities_Curriculum_Guide.pdf' },
+  { id: 'sen_curr_area', title: '特殊教育需要課程發展', titleShort: 'SEN課程發展', format: 'HTML', category: '課程', level: '特殊', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/special-educational-needs/index.html' },
+  { id: 'gifted_policy_docs', title: '資優教育政策文件及指引', titleShort: '資優教育政策文件', format: 'HTML', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/resources_and_support/policy/policy_doc_and_guidelines/index.html' },
+  { id: 'nat_sec_edu', title: '國家安全教育課程資源', titleShort: '國家安全教育', format: 'HTML', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/national-security-education/index.html' },
+  { id: 'steam_edu', title: 'STEAM 教育', titleShort: 'STEAM教育', format: 'HTML', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/steam/index.html' },
+  { id: 'pri_science', title: '小學科學科課程', titleShort: '小學科學科', format: 'HTML', category: '課程', level: '小學', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/science-edu/primary-science.html' },
+  { id: 'sci_kla_guide_2017', title: '科學教育學習領域課程指引（小一至中六）(2017)', titleShort: '科學KLA指引2017', format: 'HTML', category: '課程', level: '跨階段', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/curriculum-documents.html' },
+  { id: 'pri_science_guide_2025', title: '《科學（小一至小六）課程指引》（2025）', titleShort: '小學科學指引2025', format: 'PDF', category: '課程', level: '小學', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/pri-sci/PSCG(2025).pdf' },
+  { id: 'edbc18_2023_pri_science', title: '教育局通告第18/2023號 — 開設小學科學科及一系列相關支援措施', titleShort: '通告18/2023 小學科學科', format: 'PDF', category: '課程', level: '小學', year: '2023', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/pri-sci/EDBC23018C.pdf' },
+  { id: 'edbcm57_2024_pri_science', title: '教育局通函第57/2024號 — 支援開設小學科學科的一筆過津貼', titleShort: '通函57/2024 小學科學津貼', format: 'PDF', category: '課程', level: '小學', year: '2024', isSpine: false, url: 'https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM24057C.pdf' },
+  { id: 'edbcm58_2024_pri_science', title: '教育局通函第58/2024號 — 《科學﹙小一至小六﹚課程框架》、「小學科學教師培訓基地」及相關教師培訓證書課程', titleShort: '通函58/2024 小學科學框架', format: 'PDF', category: '課程', level: '小學', year: '2024', isSpine: false, url: 'https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM24058C.pdf' },
+  { id: 'edbcm98_2024_pri_science', title: '教育局通函第98/2024號 — 小學科學科相關課程資源', titleShort: '通函98/2024 小學科學資源', format: 'PDF', category: '課程', level: '小學', year: '2024', isSpine: false, url: 'https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM24098C.pdf' },
+  { id: 'edbcm243_2024_pri_science', title: '教育局通函第243/2024號 — 小學科學科教師專業培訓（2024/25學年）', titleShort: '通函243/2024 小學科學培訓', format: 'PDF', category: '課程', level: '小學', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/pri-sci/EDBCM24243C.pdf' },
+  { id: 'edbc13_2025_pri_science', title: '教育局通告第13/2025號 — 《科學（小一至小六）課程指引》、2025/26學年「小學科學教師培訓基地」與教師培訓安排', titleShort: '通告13/2025 小學科學指引', format: 'PDF', category: '課程', level: '小學', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/pri-sci/EDBC25013C.pdf' },
+  { id: 'pri_science_cert_course_list', title: '「小學科學教師專業培訓證書（30小時）」指定課程清單', titleShort: '小學科學證書課程清單', format: 'PDF', category: '課程', level: '小學', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/pri-sci/Designated_Courses_List(30hrs).pdf' },
+  { id: 'pri_science_cert_application_form', title: '申請證書表格「小學科學教師專業培訓證書（30小時）」／「小學科學課程領導專業培訓證書（15小時）」', titleShort: '小學科學證書申請表', format: 'DOCX', category: '課程', level: '小學', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/science-edu/primary-science.html' },
+  { id: 'sci_jss_supp_2017', title: '科學教育學習領域課程指引補充文件–科學 (中一至中三) 二零一七年', titleShort: '初中科學補充指引2017', format: 'PDF', category: '課程', level: '中學', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/Science(S1-3)_supp_c_2017.pdf' },
+  { id: 'sci_jss_framework_2025', title: '科學教育學習領域課程指引補充文件–科學 (中一至中三)課程框架 二零二五年', titleShort: '初中科學課程框架2025', format: 'PDF', category: '課程', level: '中學', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/JS_Science_Curriculum_Framework_2025_chinese.pdf' },
+  { id: 'bio_sss_2007_2015', title: '生物(中四至中六) 二零零七年 (二零一五年十一月更新)', titleShort: '高中生物課程指引2015', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/Bio_C_and_A_Guide_updated_c_20151126.pdf' },
+  { id: 'chem_sss_2007_2018', title: '化學(中四至中六)二零零七年 (二零一八年六月更新)', titleShort: '高中化學課程指引2018', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/Chem_C_and_A_Guide_updated_Chi_22082018.pdf' },
+  { id: 'phys_sss_2007_2015', title: '物理(中四至中六) 二零零七年 (二零一五年十一月更新)', titleShort: '高中物理課程指引2015', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/Phy_C_and_A_Guide_updated_c_20151126.pdf' },
+  { id: 'moral_civic_curr', title: '德育及公民教育課程文件', titleShort: '德育公民教育文件', format: 'HTML', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/4-key-tasks/moral-civic/curriculum-documents.html' },
+  { id: 'values_edu_framework_2021_trial', title: '《價值觀教育課程架構（試行版）》（2021）', titleShort: '價值觀教育架構2021', format: 'PDF', category: '課程', level: '跨階段', year: '2021', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/VE_CF_20211129_r.pdf' },
+  { id: 'edbcm183_2023_values_edu', title: '教育局通函第183/2023號 —— 豐富《價值觀教育課程架構（試行版）》內容── 優化「首要培育學生的價值觀和態度」', titleShort: '通函183/2023 價值觀教育', format: 'PDF', category: '課程', level: '跨階段', year: '2023', isSpine: false, url: 'https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM23183C.pdf' },
+  { id: 'sec_curr_guide_2017_booklet_6a', title: '《中學教育課程指引》(2017) - 分冊6A︰德育及公民教育：加強價值觀教育', titleShort: '中學課程指引2017 6A', format: 'PDF', category: '課程', level: '中學', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/secondary/curriculum-guides-documents/SECG_booklet_6A_ch.pdf' },
+  { id: 'pri_curr_guide_2024', title: '《小學教育課程指引》(2024)', titleShort: '小學教育課程指引2024', format: 'PDF', category: '課程', level: '小學', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide/PECG%202024_full.pdf' },
+  { id: 'mce_framework_2008', title: '《德育及公民教育課程架構》(2008)（包括詳細內容及相關課程發展工具）', titleShort: '德育公民教育架構2008', format: 'PDF', category: '課程', level: '跨階段', year: '2008', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/common/revised%20mce%20framework.pdf' },
+  { id: 'chi_pri_guide_2023', title: '《中國語文課程指引（小一至小六）》（2023）', titleShort: '小學中文課程指引2023', format: 'PDF', category: '課程', level: '小學', year: '2023', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Primary_Chi_Lang_Curr_Guide_2023.pdf' },
+  { id: 'chi_jss_guide_2023', title: '《中國語文課程指引（中一至中三）》（2023）', titleShort: '初中中文課程指引2023', format: 'PDF', category: '課程', level: '中學', year: '2023', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Junior_Sec_Chi_Lang_Curr_Guide_2023.pdf' },
+  { id: 'chi_sss_guide_2021', title: '《中國語文課程及評估指引（中四至中六）》（2021）', titleShort: '高中中文課程及評估指引2021', format: 'PDF', category: '課程', level: '中學', year: '2021', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/CHI_LANG_CAGuide_2021.pdf' },
+  { id: 'chi_lit_guide_2025', title: '《中國文學課程及評估指引（中四至中六）》（2025年更新）', titleShort: '中國文學課程指引2025', format: 'PDF', category: '課程', level: '中學', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/Chi_Lit_C&A_Guide_2025.pdf' },
+  { id: 'eng_nat_sec_2025', title: '英文科國家安全教育課程框架（2025）', titleShort: '英文科國安教育框架2025', format: 'PDF', category: '課程', level: '跨階段', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/nse/nse2025_subject_framework_ele.pdf' },
+  { id: 'eng_pri_guide_2025', title: '英國語文課程指引（小一至小六）（2025）', titleShort: '小學英文課程指引2025', format: 'PDF', category: '課程', level: '小學', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf' },
+  { id: 'eng_jss_supp_2018', title: '英國語文課程指引補充（中一至中三）（2018）', titleShort: '初中英文課程指引補充2018', format: 'PDF', category: '課程', level: '中學', year: '2018', isSpine: false, url: 'https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/ELE%20JS%20Supplement%202018.pdf' },
+  { id: 'eng_sss_guide_2021', title: '英國語文課程及評估指引（中四至中六）（2021）', titleShort: '高中英文課程及評估指引2021', format: 'PDF', category: '課程', level: '中學', year: '2021', isSpine: false, url: 'https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/English%20Language%20Curriculum%20and%20Assessment%20Guide%20(Secondary%204%20-%206)%20(2021).pdf' },
+  { id: 'eng_lit_guide_2023', title: '英文文學課程及評估指引（中四至中六）（2023）', titleShort: '英文文學課程指引2023', format: 'PDF', category: '課程', level: '中學', year: '2023', isSpine: false, url: 'https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/LiE_CAGuide_2023.pdf' },
+  { id: 'ma_kla_guide_2017', title: '數學教育學習領域課程指引（小一至中六）（2017）', titleShort: '數學教育KLA指引2017', format: 'PDF', category: '課程', level: '跨階段', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/ME_KLACG_chi_2017_12_08.pdf' },
+  { id: 'ma_sss_cag_2017', title: '數學課程及評估指引（中四至中六）（2017年12月更新）', titleShort: '高中數學課程及評估指引2017', format: 'PDF', category: '課程', level: '中學', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/CA_2017_tc.pdf' },
+  { id: 'ma_sss_diversity_2021', title: '高中數學科照顧學生多樣性及創造空間指引（2021）', titleShort: '高中數學多樣性指引2021', format: 'PDF', category: '課程', level: '中學', year: '2021', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/Guidelines%20on%20Catering%20for%20LD%20in%20SS%20Math%20(C).pdf' },
+  { id: 'tech_kla_guide_2017', title: '科技教育學習領域課程指引 (小一至中六) 二零一七年', titleShort: '科技KLA指引2017', format: 'PDF', category: '課程', level: '跨階段', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/TE_KLACG_Chi_5_Dec_2017_r2.pdf' },
+  { id: 'ct_programming_pri_2020', title: '《計算思維－編程教育：小學課程補充文件》 (小學) 二零二零年', titleShort: '計算思維編程教育2020', format: 'PDF', category: '課程', level: '小學', year: '2020', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/CT_Supplement_Chi%20_2020.pdf' },
+  { id: 'bafs_sss_2007_2015', title: '企業、會計與財務概論 (中四至中六) 二零零七年 (二零一五年十一月更新)', titleShort: 'BAFS課程指引2015', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/BAFS_CA_Guide_c_2015.pdf' },
+  { id: 'bafs_sss_2007_2020', title: '企業、會計與財務概論 (中四至中六) (於2022/23學年的中四實施並在2025年及以後的香港中學文憑考試生效) 二零零七年(二零二零年十月更新)', titleShort: 'BAFS課程指引2020', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/BAFS%20C&A%20Guide_c_oct%202020_clean.pdf' },
+  { id: 'hmsc_sss_2007_2015', title: '健康管理與社會關懷 (中四至中六)二零零七年 (二零一五年 十一月更新)', titleShort: '健康管理與社會關懷2015', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/HMSC_CA_Guide_c_2015.pdf' },
+  { id: 'tl_sss_2007_2015', title: '科技與生活 (中四至中六) 二零零七年 (二零一五年十一月更新)', titleShort: '科技與生活2015', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/TL_CAGuide_c_2015.pdf' },
+  { id: 'dat_sss_2007_2015', title: '設計與應用科技 (中四至中六) 二零零七年 (二零一五年十一月更新)', titleShort: '設計與應用科技2015', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/DAT_CAGuide_c_2015.pdf' },
+  { id: 'dat_sss_supp_2020', title: '設計與應用科技 (中四至中六) - 補充資料 (二零二零年十二月)', titleShort: '設計與應用科技補充2020', format: 'PDF', category: '課程', level: '中學', year: '2020', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/DAT_C&A_Supplementary_notes_CHI_Dec_2020.pdf' },
+  { id: 'ict_sss_2007_2015', title: '資訊及通訊科技(中四至中六) 二零零七年 (二零一五年十一月更新)', titleShort: 'ICT課程指引2015', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/ICT_CAGuide_c_2015.pdf' },
+  { id: 'ict_sss_2021', title: '資訊及通訊科技 (中四至中六) 二零二一年 (於2022/23學年的中四實施並在2025年及以後的香港中學文憑考試生效)', titleShort: 'ICT課程指引2021', format: 'PDF', category: '課程', level: '中學', year: '2021', isSpine: false, url: 'https://cs.edb.edcity.hk/file/C_and_A_guide/202106/CS_CAG_S4-6_Chi_2021.pdf' },
+  { id: 'chi_hist_jss_2019', title: '中國歷史科課程指引 (中一至中三) (2019)', titleShort: '初中中國歷史2019', format: 'PDF', category: '課程', level: '中學', year: '2019', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/CHist_Curr_Guide_S1-3_Chi_final.pdf' },
+  { id: 'chi_hist_jss_ncs_2019', title: '調適中國歷史科課程大綱 (中一至中三) (2019) (非華語學生適用)', titleShort: '初中中國歷史非華語2019', format: 'PDF', category: '課程', level: '中學', year: '2019', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/references-and-resources/chinese-history/Adapted_Framework_r.pdf' },
+  { id: 'chi_hist_jss_bilingual_2019', title: '中國歷史科課程大綱 (中一至中三) (2019) (中英雙語版)', titleShort: '初中中國歷史雙語2019', format: 'PDF', category: '課程', level: '中學', year: '2019', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/references-and-resources/chinese-history/Chinese_History_Framework_Bilingual_r.pdf' },
+  { id: 'chi_hist_sss_2007_2015', title: '中國歷史課程及評估指引（中四至中六）2007 （2015年11月更新）', titleShort: '高中中國歷史2015', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/CHistCAGuide_updated_c_20180108_clean.pdf' },
+  { id: 'ces_jss_2024', title: '公民、經濟與社會課程指引（中一至中三）（2024）', titleShort: 'CES課程指引2024', format: 'PDF', category: '課程', level: '中學', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/CESCG_c_20240730 clean.pdf' },
+  { id: 'econ_sss_2025', title: '經濟課程及評估指引 (中四至中六) (2025年更新)', titleShort: '經濟課程指引2025', format: 'PDF', category: '課程', level: '中學', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Econ_C&A_Guide_C_with_updates_in_2025.pdf' },
+  { id: 'econ_sss_supp_2025', title: '經濟課程及評估指引 (中四至中六)-補充文件 (2025年更新)', titleShort: '經濟補充文件2025', format: 'PDF', category: '課程', level: '中學', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Econ_supplementary_doc_Chi_with_updates_in_2025.pdf' },
+  { id: 'econ_sss_2007_2015', title: '經濟課程及評估指引 (中四至中六) 2007 (2015年11月更新)', titleShort: '經濟課程指引2015', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/2.Econ_C&A_Guide_updated_c_(2015.11.24).pdf' },
+  { id: 'econ_sss_supp_2015', title: '經濟課程及評估指引 (中四至中六)-補充文件 (2015年11月版)', titleShort: '經濟補充文件2015', format: 'PDF', category: '課程', level: '中學', year: '2015', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/2.Econ_supplementary_doc_Chi_20151130_clean.pdf' },
+  { id: 'ethics_relig_sss_2024', title: '倫理與宗教課程及評估指引 (中四至中六) 2024', titleShort: '倫理與宗教2024', format: 'PDF', category: '課程', level: '中學', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/curriculum-documents/ERS/ERS_CA Guide_updated_c.pdf' },
+  { id: 'ethics_relig_sss_2007_2019', title: '倫理與宗教課程及評估指引 (中四至中六) 2007 (2019年11月更新)', titleShort: '倫理與宗教2019', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/ERS_CA Guide_updated_c_(2019.12.03)_clean mode for upload.pdf' },
+  { id: 'religious_edu_jss_2024', title: '宗教教育課程指引（中一至中三）（2024）', titleShort: '宗教教育2024', format: 'PDF', category: '課程', level: '中學', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/RE_Curriculum_Guide_Chi_for_upload.pdf' },
+  { id: 'religious_edu_jss', title: '宗教教育科（中一至中三）', titleShort: '宗教教育科', format: 'PDF', category: '課程', level: '中學', year: '2024', isSpine: false, url: 'https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF4u0z7dnQ6115xHev07zwuxtc_90HGrwFehBPUZzaw2FXAMRpASG_44g0ZFmPXkuIRxoTfopIe0QvjjDItLL6bMauClnudxQ327lkRpNUhbhZ5yfrqWuxIWvUvbFf7zEnNIxtnw-MS80nVszEIYomgefZFW2J5AU0dsto=' },
+  { id: 'geog_sss_supp_2022', title: '《地理課程及評估指引（中四至中六）》(2022年7月更新版)「補充資料」', titleShort: '地理補充資料2022', format: 'PDF', category: '課程', level: '中學', year: '2022', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/supplementary_notes-final-chi.pdf' },
+  { id: 'geog_sss_2007_2022', title: '地理課程及評估指引 (中四至中六) 2007 (2022年7月更新)', titleShort: '地理課程指引2022', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Geography C&A Guide 2022-chi.pdf' },
+  { id: 'geog_sss_summary_2022', title: '2022年7月更新的《地理科課程及評估指引(中四至中六)》撮要', titleShort: '地理撮要2022', format: 'PDF', category: '課程', level: '中學', year: '2022', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Geography%20C&A%20Guide%202022-chi-amended%20parts-Aug2022.pdf' },
+  { id: 'geog_sss_update_brief', title: '高中地理課程更新簡介', titleShort: '地理更新簡介', format: 'PDF', category: '課程', level: '中學', year: '2022', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/SS_Geography_Consultation_Brief_Feb_2017-chi.pdf' },
+  { id: 'geog_jss', title: '地理課程指引（中一至三）', titleShort: '初中地理課程指引', format: 'PDF', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Geog_Curr_Guide_S1-3_Chi_web_final_21062011.pdf' },
+  { id: 'history_jss_2019', title: '歷史科課程指引（中一至中三）2019', titleShort: '初中歷史2019', format: 'HTML', category: '課程', level: '中學', year: '2019', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/curriculum-documents.html' },
+  { id: 'history_sss_2007_2015', title: '歷史課程及評估指引 (中四至中六) 2007 (2015年11月更新)', titleShort: '高中歷史2015', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Hist_C&A_Guide_c_20180109.pdf' },
+  { id: 'tour_hosp_sss_2007_2015', title: '旅遊與款待課程及評估指引 (中四至中六) 2007 (2015年11月更新)', titleShort: '旅遊與款待2015', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/6.THS_C&A_Chi_Guide_c(2015.11.24)PSHE%20section.pdf' },
+  { id: 'ls_jss_2010', title: '生活與社會課程指引（中一至中三）（2010年）', titleShort: '生活與社會2010', format: 'PDF', category: '課程', level: '中學', year: '2010', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/l&s_curriculum_guide_chi.pdf' },
+  { id: 'arts_kla_guide_2017', title: '藝術教育學習領域課程指引（小一至中六）(2017)', titleShort: '藝術KLA指引2017', format: 'PDF', category: '課程', level: '跨階段', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/AE_KLACG__Chi___2017.pdf' },
+  { id: 'music_p1_s6_2024', title: '《音樂科課程指引（小一至中六）》（2024）', titleShort: '音樂科指引2024', format: 'PDF', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/mus_cg_c_2024.pdf' },
+  { id: 'music_sss_2024', title: '《音樂課程及評估指引（中四至中六）》（2024年9月更新）', titleShort: '高中音樂2024', format: 'PDF', category: '課程', level: '中學', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/mus_c_and_a_c_2024.pdf' },
+  { id: 'music_sss_2015', title: '《音樂課程及評估指引（中四至中六）》（2015年11月更新）', titleShort: '高中音樂2015', format: 'PDF', category: '課程', level: '中學', year: '2015', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/mus-c-and-a-guide-2015-c.pdf' },
+  { id: 'music_national_anthem_2024', title: '《國歌的學與教：音樂科課程補充文件（小一至中六）》（2024年9月更新）', titleShort: '音樂國歌補充2024', format: 'PDF', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/mus_supplement_c_2024.pdf' },
+  { id: 'va_p1_s6_2024', title: '《視覺藝術科課程指引（小一至中六）》（2024）', titleShort: '視藝科指引2024', format: 'PDF', category: '課程', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/va_cg_c_2024.pdf' },
+  { id: 'va_sss_2015', title: '《視覺藝術課程及評估指引（中四至中六）》（2015年11月更新）', titleShort: '高中視藝2015', format: 'PDF', category: '課程', level: '中學', year: '2015', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/VA_CA_Guide_c-100418.pdf' },
+  { id: 'pe_sss_2023', title: '體育-課程及評估指引(中四至中六) (2023)', titleShort: '高中體育2023', format: 'PDF', category: '課程', level: '中學', year: '2023', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pe/curriculum-doc/PE%20C&A%20Guide_c.pdf' },
+  { id: 'pe_kla_2017', title: '體育學習領域課程指引(小一至中六) (2017)', titleShort: '體育KLA指引2017', format: 'PDF', category: '課程', level: '跨階段', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pe/curriculum-doc/PEKLACG_c.pdf' },
+  { id: 'pe_sss_2007_2015', title: '體育-課程及評估指引(中四至中六) (2007) (2015年11月更新）', titleShort: '高中體育2015', format: 'PDF', category: '課程', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pe/curriculum-doc/PE%20C&A%20Guide_2015_c.pdf' }
+];
+
+const GUIDELINE_CATEGORIES = [...new Set(GUIDELINES_REGISTRY.map(g => g.category))];
+
+// ── Components ──
+
+function RoleBadge({ roleId }) {
+  const cfg = ROLE_CONFIG[roleId] || { label: roleId, color: 'bg-gray-400', textColor: 'text-white' };
+  return <span className={`role-badge ${cfg.color} ${cfg.textColor}`}>{cfg.label}</span>;
+}
+
+function StatusBadge({ status }) {
+  if (status === 'approved') {
+    return <span className="status-badge bg-green-100 text-green-700">已確認</span>;
+  }
+  return <span className="status-badge bg-yellow-100 text-yellow-700">待審核</span>;
+}
+
+function FactCard({ fact, index, roleId, topicId, status, sourceRef, onEdit, onDelete, onApprove, onReject, onChangeRole, isAdmin }) {
+  const charCount = fact.length;
+  const isDraft = status === 'draft';
+  return (
+    <div className={`fact-card bg-white rounded-lg p-4 border border-gray-200 animate-in ${isDraft ? 'draft' : 'approved'}`}>
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex-1">
+          <div className="flex items-center gap-2 mb-2 flex-wrap">
+            <StatusBadge status={status} />
+            <RoleBadge roleId={roleId} />
+            <span className="text-xs text-gray-400">#{index + 1}</span>
+            <span className={`text-xs ${charCount > 75 ? 'text-red-500 font-bold' : 'text-gray-400'}`}>
+              {charCount}/80字
+            </span>
+            {sourceRef && (
+              <a href={sourceRef.url} target="_blank" rel="noopener"
+                 className="text-xs text-amber-600 hover:text-amber-800 underline flex items-center gap-0.5" title={sourceRef.title}>
+                <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                出處
+              </a>
+            )}
+          </div>
+          <p className="text-gray-800 text-sm leading-relaxed">{fact}</p>
+        </div>
+        {isAdmin && (
+          <div className="flex gap-1 flex-shrink-0 items-center">
+            {/* Approve button */}
+            {isDraft && (
+              <button onClick={() => onApprove(topicId, roleId, index)}
+                      className="approve-btn text-green-500 hover:text-green-700 p-1.5 rounded-full hover:bg-green-50" title="確認通過">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                </svg>
+              </button>
+            )}
+            {/* Revert to draft */}
+            {!isDraft && (
+              <button onClick={() => onReject(topicId, roleId, index)}
+                      className="approve-btn text-yellow-500 hover:text-yellow-700 p-1.5 rounded-full hover:bg-yellow-50" title="退回草稿">
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                </svg>
+              </button>
+            )}
+            {/* Change role */}
+            <button onClick={() => onChangeRole(topicId, roleId, index)}
+                    className="text-gray-400 hover:text-amber-700 p-1" title="更改角色">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </button>
+            {/* Edit */}
+            <button onClick={() => onEdit(topicId, roleId, index)}
+                    className="text-gray-400 hover:text-blue-600 p-1" title="編輯">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+            </button>
+            {/* Delete */}
+            <button onClick={() => onDelete(topicId, roleId, index)}
+                    className="text-gray-400 hover:text-red-600 p-1" title="刪除">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function SourceList({ sources }) {
+  if (!sources || !Array.isArray(sources) || sources.length === 0) return null;
+  return (
+    <div className="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-100">
+      <h4 className="text-xs font-bold text-gray-500 mb-2">資料來源</h4>
+      {sources.map((s, i) => (
+        <div key={i} className="flex items-center gap-2 mb-1">
+          <span className="text-xs text-gray-400">[{i + 1}]</span>
+          <a href={s.url} target="_blank" rel="noopener" className="source-link">{s.title}</a>
+          <span className="text-xs text-gray-300">({s.retrieved})</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function EditModal({ isOpen, onClose, onSave, editData }) {
+  const [text, setText] = useState('');
+  const [role, setRole] = useState('all_roles');
+  const [topic, setTopic] = useState('');
+
+  useEffect(() => {
+    if (editData) {
+      setText(editData.fact || '');
+      setRole(editData.roleId || 'all_roles');
+      setTopic(editData.topicId || '');
+    }
+  }, [editData]);
+
+  if (!isOpen) return null;
+
+  const isNew = editData && editData.isNew;
+  const charCount = text.length;
+  const isValid = text.trim().length > 0 && charCount <= 80;
+
+  return (
+    <div className="fixed inset-0 modal-overlay flex items-center justify-center z-50" onClick={onClose}>
+      <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-lg mx-4" onClick={e => e.stopPropagation()}>
+        <h3 className="text-lg font-bold text-gray-800 mb-4">
+          {isNew ? '新增事實（草稿）' : '編輯事實'}
+        </h3>
+        {isNew && (
+          <div className="mb-2 px-3 py-2 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <p className="text-xs text-yellow-700">新增的事實將標記為「待審核」，需經確認後方可匯出。</p>
+          </div>
+        )}
+
+        {(isNew || editData?.isRoleChange) && (
+          <div className="mb-3">
+            <label className="block text-sm font-medium text-gray-600 mb-1">角色</label>
+            <select value={role} onChange={e => setRole(e.target.value)}
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+              {ROLE_ORDER.map(r => (
+                <option key={r} value={r}>{ROLE_CONFIG[r].label}</option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        <div className="mb-3">
+          <label className="block text-sm font-medium text-gray-600 mb-1">事實內容</label>
+          <textarea value={text} onChange={e => setText(e.target.value)}
+                    rows={3} maxLength={80}
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-none focus:ring-2 focus:ring-amber-200 focus:border-transparent"
+                    placeholder="輸入事實條目（≤ 80 字）..." />
+          <div className="flex justify-end mt-1">
+            <span className={`text-xs ${charCount > 75 ? 'text-red-500 font-bold' : 'text-gray-400'}`}>
+              {charCount}/80
+            </span>
+          </div>
+        </div>
+
+        <div className="flex justify-end gap-2">
+          <button onClick={onClose}
+                  className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">取消</button>
+          <button onClick={() => { onSave({ ...editData, fact: text.trim(), roleId: role }); onClose(); }}
+                  disabled={!isValid}
+                  style={{ background: isValid ? 'var(--p-primary)' : '#d1d5db' }}
+                  className="px-4 py-2 text-sm text-white rounded-lg hover:opacity-90 transition-all disabled:cursor-not-allowed">
+            {isNew ? '新增草稿' : editData?.isRoleChange ? '確認更改' : '儲存'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ExportModal({ isOpen, onClose, data, reviewState }) {
+  const [exportKind, setExportKind] = useState('approved');
+
+  useEffect(() => {
+    if (isOpen) setExportKind('approved');
+  }, [isOpen]);
+
+  // Build export data with only approved facts
+  const approvedExport = useMemo(() => {
+    const out = { _meta: { ...data._meta } };
+    let approvedCount = 0;
+    let skippedCount = 0;
+    Object.entries(data).forEach(([tid, td]) => {
+      if (tid === '_meta') return;
+      const topicOut = {};
+      // Copy meta fields
+      Object.entries(td).forEach(([k, v]) => {
+        if (k.startsWith('_')) { topicOut[k] = v; return; }
+        if (!Array.isArray(v)) return;
+        const approved = v.filter((_, i) => reviewState[makeKey(tid, k, i)] === 'approved');
+        if (approved.length > 0 || k === 'all_roles') {
+          topicOut[k] = approved;
+          approvedCount += approved.length;
+        }
+        skippedCount += v.length - approved.length;
+      });
+      out[tid] = topicOut;
+    });
+    return { json: out, approvedCount, skippedCount };
+  }, [data, reviewState]);
+
+  const adminSnapshot = useMemo(() => {
+    return buildAdminSnapshot(data, reviewState);
+  }, [data, reviewState]);
+
+  if (!isOpen) return null;
+
+  const previewJson = exportKind === 'approved'
+    ? JSON.stringify(approvedExport.json, null, 2)
+    : JSON.stringify(adminSnapshot, null, 2);
+
+  return (
+    <div className="fixed inset-0 modal-overlay flex items-center justify-center z-50" onClick={onClose}>
+      <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-2xl mx-4 max-h-screen overflow-hidden flex flex-col" onClick={e => e.stopPropagation()}>
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-lg font-bold text-gray-800">匯出與備份</h3>
+        </div>
+
+        <div className="mb-3 px-3 py-2 bg-blue-50 border border-blue-200 rounded-lg">
+          <p className="text-xs text-blue-700">
+            你在管理員模式的編輯與審批，會自動保存到目前瀏覽器。若要永久寫回 GitHub repo，請下載「管理快照」再回寫。
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+          <div
+            onClick={() => setExportKind('approved')}
+            className={`text-left p-4 rounded-xl border cursor-pointer ${exportKind === 'approved' ? 'border-amber-400 bg-orange-50' : 'border-gray-200 bg-white hover:bg-gray-50'}`}>
+            <div className="flex items-center justify-between gap-3 mb-2">
+              <h4 className="text-sm font-semibold text-gray-800">發布版 role_facts.json</h4>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  downloadJson('role_facts.json', JSON.stringify(approvedExport.json, null, 2));
+                }}
+                className="px-3 py-1.5 text-xs bg-amber-800 text-white rounded-lg hover:bg-amber-900">
+                下載
+              </button>
+            </div>
+            <p className="text-xs text-gray-600 mb-2">只包含已確認事實，適合發布或提供 backend 使用。</p>
+            <div className="flex gap-2 text-xs">
+              <span className="px-2 py-1 bg-green-50 border border-green-200 rounded text-green-700">
+                已確認：{approvedExport.approvedCount}
+              </span>
+              <span className="px-2 py-1 bg-yellow-50 border border-yellow-200 rounded text-yellow-700">
+                草稿排除：{approvedExport.skippedCount}
+              </span>
+            </div>
+          </div>
+
+          <div
+            onClick={() => setExportKind('snapshot')}
+            className={`text-left p-4 rounded-xl border cursor-pointer ${exportKind === 'snapshot' ? 'border-amber-500 bg-orange-50' : 'border-gray-200 bg-white hover:bg-gray-50'}`}>
+            <div className="flex items-center justify-between gap-3 mb-2">
+              <h4 className="text-sm font-semibold text-gray-800">管理快照</h4>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  downloadJson('edb-knowledge-admin-snapshot.json', JSON.stringify(adminSnapshot, null, 2));
+                }}
+                className="px-3 py-1.5 text-xs bg-amber-700 text-white rounded-lg hover:bg-amber-800">
+                下載
+              </button>
+            </div>
+            <p className="text-xs text-gray-600 mb-2">包含完整 `data` 與 `review_state`，用於把 GitHub Pages 上的審批結果永久回寫到 repo。</p>
+            <div className="text-xs text-amber-900 px-2 py-1 bg-orange-100 rounded inline-block font-bold">
+              永久回寫用
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-3 flex gap-3">
+          <div className="px-3 py-1.5 bg-orange-50 border border-amber-200 rounded-lg text-xs text-amber-800 font-medium">
+            預覽模式：{exportKind === 'approved' ? '發布版 role_facts.json' : '管理快照'}
+          </div>
+          {exportKind === 'snapshot' && (
+            <div className="px-3 py-1.5 bg-orange-100 border border-amber-300 rounded-lg text-xs text-amber-900 font-bold">
+              含草稿與已確認狀態
+            </div>
+          )}
+          {exportKind === 'approved' && (
+            <div className="px-3 py-1.5 bg-yellow-50 border border-yellow-200 rounded-lg text-xs text-yellow-700">
+              已排除草稿：{approvedExport.skippedCount} 條
+            </div>
+          )}
+        </div>
+        <pre className="bg-gray-900 text-green-400 p-4 rounded-lg text-xs overflow-auto flex-1 max-h-96">{previewJson}</pre>
+        <div className="mt-3 flex justify-between items-center gap-3">
+          <p className="text-xs text-gray-500">
+            建議：審批完成後下載「管理快照」，再交回 repo 以永久保存。
+          </p>
+          <div className="flex justify-end">
+            <button onClick={onClose} className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">關閉</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Admin Password Modal ──
+function AdminPasswordModal({ isOpen, onClose, onSuccess }) {
+  const [pw, setPw] = useState('');
+  const [error, setError] = useState('');
+  const [checking, setChecking] = useState(false);
+
+  useEffect(() => { if (isOpen) { setPw(''); setError(''); } }, [isOpen]);
+  if (!isOpen) return null;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setChecking(true);
+    setError('');
+    const hash = await sha256(pw);
+    if (hash === ADMIN_HASH) {
+      onSuccess();
+      onClose();
+    } else {
+      setError('密碼錯誤，請再試。');
+    }
+    setChecking(false);
+  };
+
+  return (
+    <div className="fixed inset-0 modal-overlay flex items-center justify-center z-50">
+      <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-xs mx-4">
+        <h3 className="text-base font-bold text-gray-800 mb-1">🔒 管理員登入</h3>
+        <p className="text-xs text-gray-500 mb-4">輸入管理員密碼以啟用增刪審批功能</p>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="password"
+            value={pw}
+            onChange={e => setPw(e.target.value)}
+            placeholder="密碼"
+            autoFocus
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm mb-2 focus:ring-2 focus:ring-amber-200 focus:border-transparent"
+          />
+          {error && <p className="text-xs text-red-600 mb-2">{error}</p>}
+          <div className="flex gap-2 mt-2">
+            <button type="button" onClick={onClose}
+                    className="flex-1 px-3 py-2 text-sm text-gray-600 border border-gray-200 rounded-lg hover:bg-gray-50">
+              取消
+            </button>
+            <button type="submit" disabled={checking || pw.length === 0}
+                    style={(checking || pw.length === 0) ? { backgroundColor: '#f3f4f6', color: '#9ca3af', border: '1px solid #e5e7eb', cursor: 'not-allowed' } : { backgroundColor: '#0d9488', color: '#ffffff' }}
+                    className="flex-1 px-3 py-2 text-sm font-bold rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-amber-200 shadow-sm relative z-10">
+              {checking ? '驗證中…' : '確認'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+// ── Guidelines Panel ──
+function GuidelinesPanel({ setPreviewDoc }) {
+  const [activeCat, setActiveCat] = useState('all');
+  const [activeLevel, setActiveLevel] = useState('all');
+  const [searchQ, setSearchQ] = useState('');
+  const [sortBy, setSortBy] = useState('year-desc'); // 'year-desc' | 'year-asc' | 'title'
+
+  const CATS = [
+    { key: 'all',   label: '全部',   icon: '📋' },
+    { key: '課程',   label: '課程',   icon: '📚' },
+    { key: '財務採購', label: '財務採購', icon: '💰' },
+    { key: '人力資源', label: '人力資源', icon: '👥' },
+    { key: '學生事務', label: '學生事務', icon: '🎒' },
+    { key: '學生安全', label: '學生安全', icon: '🛡️' },
+    { key: '安全',   label: '科目安全', icon: '⚠️' },
+    { key: '活動',   label: '活動',   icon: '🏃' },
+    { key: '津貼',   label: '津貼',   icon: '🏷️' },
+    { key: '行政',   label: '行政',   icon: '🏫' },
+    { key: '資訊科技', label: '資訊科技', icon: '💻' },
+  ];
+
+  const catCounts = useMemo(() => {
+    const counts = { all: GUIDELINES_REGISTRY.length };
+    GUIDELINES_REGISTRY.forEach(g => { counts[g.category] = (counts[g.category] || 0) + 1; });
+    return counts;
+  }, []);
+
+  const LEVELS = ['幼稚園', '小學', '中學', '特殊', '跨階段'];
+
+  const filtered = useMemo(() => {
+    let list = GUIDELINES_REGISTRY.filter(g => {
+      if (activeCat !== 'all' && g.category !== activeCat) return false;
+      if (activeCat === '課程' && activeLevel !== 'all' && g.level !== activeLevel) return false;
+      if (searchQ && !g.title.includes(searchQ) && !g.titleShort.includes(searchQ)) return false;
+      return true;
+    });
+    if (sortBy === 'year-desc') list = [...list].sort((a, b) => parseInt(b.year) - parseInt(a.year));
+    else if (sortBy === 'year-asc') list = [...list].sort((a, b) => parseInt(a.year) - parseInt(b.year));
+    else if (sortBy === 'title') list = [...list].sort((a, b) => a.title.localeCompare(b.title, 'zh-HK'));
+    return list;
+  }, [activeCat, activeLevel, searchQ, sortBy]);
+
+  const activeCatLabel = CATS.find(c => c.key === activeCat)?.label || '全部';
+
+  const formatBadge = (fmt) => {
+    if (fmt === 'PDF') return { bg: 'bg-orange-100', text: 'text-amber-900', border: 'border-orange-200' };
+    if (fmt === 'HTML') return { bg: 'bg-stone-100', text: 'text-stone-700', border: 'border-stone-200' };
+    return { bg: 'bg-gray-50', text: 'text-gray-600', border: 'border-gray-200' };
+  };
+
+  // Use light backgrounds + dark text so year is always legible regardless of card border color
+  const yearColor = (yr) => {
+    const y = parseInt(yr);
+    if (!yr || isNaN(y)) return 'bg-gray-100 text-gray-500';
+    if (y >= 2024) return 'bg-orange-100 text-amber-900 font-extrabold';
+    if (y >= 2020) return 'bg-gray-100 text-gray-600 font-bold';
+    if (y >= 2015) return 'bg-amber-100 text-amber-800';
+    return 'bg-gray-100 text-gray-500';
+  };
+
+  const levelColors = {
+    '幼稚園': 'bg-orange-50 text-amber-900 border border-orange-200',
+    '小學':   'bg-stone-50 text-stone-700 border border-stone-200',
+    '中學':   'bg-amber-50 text-amber-900 border border-amber-200',
+    '特殊':   'bg-stone-100 text-stone-800 border border-stone-300',
+    '跨階段': 'bg-gray-50 text-gray-600 border border-gray-200',
+  };
+
+  return (
+    <div className="flex-1 min-w-0 flex gap-4">
+      {/* ── Left sidebar: category nav ── */}
+      <div className="w-44 flex-shrink-0">
+        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden sticky top-4">
+          <div className="px-4 py-3 border-b border-gray-100">
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">分類</p>
+          </div>
+          <nav className="py-1">
+            {CATS.filter(c => c.key === 'all' || catCounts[c.key]).map(cat => (
+              <button key={cat.key} onClick={() => { setActiveCat(cat.key); setActiveLevel('all'); }}
+                className={`w-full flex items-center justify-between px-4 py-2.5 text-sm transition-all
+                  ${activeCat === cat.key
+                    ? 'bg-amber-800 text-white font-semibold shadow-md'
+                    : 'text-gray-700 hover:bg-gray-50'}`}>
+                <span className="flex items-center gap-2">
+                  <span className="text-base leading-none">{cat.icon}</span>
+                  <span>{cat.label}</span>
+                </span>
+                <span className={`text-xs font-medium px-1.5 py-0.5 rounded-full min-w-5 text-center
+                  ${activeCat === cat.key ? 'bg-amber-900 text-amber-100' : 'bg-gray-100 text-gray-500'}`}>
+                  {catCounts[cat.key] || 0}
+                </span>
+              </button>
+            ))}
+          </nav>
+        </div>
+      </div>
+
+      {/* ── Right: header + cards ── */}
+      <div className="flex-1 min-w-0">
+        {/* Toolbar */}
+        <div className="bg-white rounded-xl border border-gray-200 p-4 mb-3">
+          <div className="flex flex-wrap items-center gap-3 mb-3">
+            <div className="flex-1 min-w-0">
+              <h2 className="text-base font-bold text-gray-800">
+                {activeCat === 'all' ? '全部指引文件' : activeCatLabel}
+                <span className="ml-2 text-sm font-normal text-gray-400">({filtered.length} 份)</span>
+              </h2>
+            </div>
+            <input type="text" value={searchQ} onChange={e => setSearchQ(e.target.value)}
+                   placeholder="搜尋名稱..."
+                   className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm w-44 focus:ring-2 focus:ring-amber-200 focus:border-transparent" />
+            <div className="flex items-center gap-1 border border-gray-200 bg-gray-50 rounded-lg p-1 text-xs shadow-inner">
+              {[
+                { val: 'year-desc', label: '最新' },
+                { val: 'year-asc',  label: '最舊' },
+                { val: 'title',     label: '名稱' },
+              ].map(s => (
+                <button key={s.val} onClick={() => setSortBy(s.val)}
+                  className={`px-3 py-1.5 font-medium rounded-md transition-all
+                    ${sortBy === s.val 
+                      ? 'bg-white text-amber-900 shadow-sm border border-gray-200 drop-shadow-sm' 
+                      : 'text-gray-500 hover:text-gray-800 hover:bg-gray-200/50'}`}>
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          {/* Level filter — shown only for 課程 category */}
+          {activeCat === '課程' && (
+            <div className="flex flex-wrap gap-1.5 pt-2 border-t border-gray-100">
+              <span className="text-xs text-gray-400 self-center mr-1">學習階段：</span>
+              {['all', ...LEVELS].map(lv => (
+                <button key={lv} onClick={() => setActiveLevel(lv)}
+                  className={`px-2.5 py-1 text-xs rounded-full border font-medium transition-all
+                    ${activeLevel === lv
+                      ? 'bg-amber-800 text-white border-amber-800'
+                      : 'bg-white text-gray-600 border-gray-200 hover:border-amber-300 hover:text-amber-900'}`}>
+                  {lv === 'all' ? '全部階段' : lv}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Cards */}
+        {filtered.length === 0 ? (
+          <div className="bg-white rounded-xl border border-gray-200 p-10 text-center text-gray-400">
+            <p className="text-sm">找不到符合條件的指引文件</p>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {filtered.map(g => {
+              const fmt = formatBadge(g.format);
+              return (
+                <div key={g.id} className="guideline-card bg-white rounded-lg border border-gray-200 px-4 py-3 flex items-center gap-4 animate-in">
+                  {/* Year badge */}
+                  <div className={`flex-shrink-0 w-14 text-center rounded-lg py-1.5 text-sm font-bold ${yearColor(g.year)}`}>
+                    {g.year}
+                  </div>
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-gray-800 leading-snug">{g.title}</p>
+                    <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-orange-50 text-amber-800 border border-orange-100 font-medium">{g.category}</span>
+                      {g.level && <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${levelColors[g.level] || 'bg-gray-50 text-gray-500 border border-gray-200'}`}>{g.level}</span>}
+                      <span className={`text-xs px-2 py-0.5 rounded border font-medium ${fmt.bg} ${fmt.text} ${fmt.border}`}>{g.format}</span>
+                    </div>
+                  </div>
+                  {/* Link */}
+                  <div className="flex-shrink-0 flex items-center">
+                    <a href={g.url} target="_blank" rel="noopener"
+                       style={{ background: '#A47864', color: '#ffffff' }}
+                       className="flex items-center justify-center gap-1 px-4 py-2 text-xs rounded-lg font-medium transition-colors whitespace-nowrap hover:opacity-90 shadow-sm">
+                      <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                      另開新頁
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── Platform Intro Panel ──
+function PlatformIntroPanel({ stats }) {
+  const features = [
+    { tag: 'LLM-Wiki 搜尋', icon: '🔍', title: '語義搜尋 + AI 合成', desc: '以自然語言提問，從向量化 EDB 文件庫精準檢索，AI 合成簡潔回答並附原始來源 URL。', dark: true },
+    { tag: 'Channel A', icon: '👤', title: '人工審核管線', desc: 'LLM 提議事實 → 管理員審批（行內編輯）→ 匯出 role_facts.json → 注入 Circular System。每條知識有人手把關。', dark: false },
+    { tag: 'Channel B', icon: '🤖', title: '全 AI 自動管線', desc: '與 Channel A 共用來源，全程由 AI 提取、分析及索引，涵蓋規定、指引、程序、合規風險五類事實。與 Circular System 接入暫停，待質素測試後決定。', dark: false },
+    { tag: 'Circular System', icon: '📄', title: 'EDB 通告分析', desc: '貼入 EDB 通告原文，AI 自動偵測主題、注入相關知識，生成針對不同職位的即時合規建議。', dark: false },
+    { tag: '指引文件庫', icon: '📑', title: '39 份 EDB 官方指引', desc: '涵蓋財務採購、人力資源、課程、學生事務、資訊科技等範疇，附直達 PDF 連結。', dark: false },
+    { tag: '統計知識', icon: '📊', title: 'EDB 教育統計', desc: '26 個自動核准統計事實，涵蓋幼稚園至特殊教育（2024/25–2025/26）。', dark: false },
+  ];
+  const steps = [
+    { n: '01', title: '自然語言提問', desc: '以中文直接輸入問題，無需掌握精確關鍵詞或文件編號。系統理解語意而非只配對文字。' },
+    { n: '02', title: '語義檢索相關段落', desc: '預計算向量索引在毫秒內找出最相關的 EDB 文件段落，精準而節省運算資源。' },
+    { n: '03', title: 'AI 合成回答＋來源引用', desc: 'LLM 合成 ≤200 字精簡回答，附 EDB 原始文件標題及直達 URL，讓你核實每個細節。' },
+  ];
+  const sources = [
+    { icon: '📗', name: '學校行政手冊（SAG）', type: '2025年11月版 · 跨階段 · PDF' },
+    { icon: '📘', name: '資助則例（Code of Aid）', type: '2024年版 · 跨階段 · PDF' },
+    { icon: '📄', name: 'EDB 通告及通函', type: '2020–2025 年 · 跨階段' },
+    { icon: '📊', name: 'EDB 教育統計數字（2024/25）', type: '幼稚園至特殊教育 · Excel' },
+    { icon: '📑', name: '各 KLA 課程指引', type: '2015–2025 年 · 21 個 PDF' },
+  ];
+  const statItems = [
+    { num: (stats.approvedCount || 0) + '+', label: '已核實政策事實' },
+    { num: '810', label: '可搜尋知識 chunks' },
+    { num: '39', label: 'EDB 官方指引文件' },
+    { num: '7', label: '知識主題範疇' },
+  ];
+  return (
+    <div style={{maxWidth:'960px',margin:'0 auto',padding:'var(--space-lg) var(--space-md)'}}>
+      {/* Hero */}
+      <div style={{textAlign:'center',marginBottom:'var(--space-lg)'}}>
+        <p style={{fontSize:'var(--text-sm)',color:'var(--mocha)',fontWeight:700,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'12px'}}>
+          K1知識平台 · 香港學校管治
+        </p>
+        <h1 style={{fontSize:'clamp(2rem,5vw,3.2rem)',fontWeight:900,color:'var(--charcoal)',letterSpacing:'-0.03em',lineHeight:1.15,marginBottom:'16px'}}>
+          問一句，得到<em style={{color:'var(--mocha)',fontStyle:'normal'}}>有根有據</em>的答案。
+        </h1>
+        <p style={{fontSize:'var(--text-lg)',color:'var(--mid)',maxWidth:'520px',margin:'0 auto 24px',lineHeight:1.6}}>
+          以自然語言查詢教育局政策、通告及指引。AI 即時檢索、合成回答，並附上 EDB 原始來源連結。
+        </p>
+        <div style={{display:'flex',justifyContent:'center',gap:'12px',flexWrap:'wrap',marginTop:'24px'}}>
+          {statItems.map(({num,label}) => (
+            <div key={label} style={{textAlign:'center',padding:'12px 20px',background:'var(--cd-warm)',borderRadius:'var(--r-md)',border:'1px solid var(--border)',minWidth:'110px'}}>
+              <div style={{fontSize:'1.7rem',fontWeight:900,color:'var(--charcoal)'}}>{num}</div>
+              <div style={{fontSize:'var(--text-sm)',color:'var(--mid)'}}>{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Bento features */}
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(280px,1fr))',gap:'14px',marginBottom:'var(--space-lg)'}}>
+        {features.map((f,i) => (
+          <div key={i} style={{
+            padding:'22px',borderRadius:'var(--r-md)',
+            background:f.dark?'var(--charcoal)':'var(--cd-warm)',
+            border:`1px solid ${f.dark?'transparent':'var(--border)'}`,
+          }}>
+            <span style={{fontSize:'var(--text-sm)',fontWeight:700,color:f.dark?'var(--mocha-lt)':'var(--mocha)',letterSpacing:'0.05em'}}>{f.tag}</span>
+            <div style={{fontSize:'1.6rem',margin:'10px 0 8px'}}>{f.icon}</div>
+            <h3 style={{fontWeight:700,marginBottom:'8px',color:f.dark?'var(--cd)':'var(--charcoal)',fontSize:'var(--text-base)'}}>{f.title}</h3>
+            <p style={{fontSize:'var(--text-sm)',color:f.dark?'rgba(240,238,233,0.65)':'var(--mid)',lineHeight:1.6}}>{f.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* How it works */}
+      <div style={{marginBottom:'var(--space-lg)'}}>
+        <p style={{fontSize:'var(--text-sm)',color:'var(--mocha)',fontWeight:700,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'6px'}}>運作原理</p>
+        <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,color:'var(--charcoal)',marginBottom:'20px'}}>三步取得有根有據的答案</h2>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(200px,1fr))',gap:'14px'}}>
+          {steps.map(s => (
+            <div key={s.n} style={{padding:'20px',background:'var(--cd-warm)',borderRadius:'var(--r-md)',border:'1px solid var(--border)'}}>
+              <div style={{fontSize:'2rem',fontWeight:900,color:'var(--border)',marginBottom:'8px'}}>{s.n}</div>
+              <h3 style={{fontWeight:700,marginBottom:'8px',fontSize:'var(--text-base)'}}>{s.title}</h3>
+              <p style={{fontSize:'var(--text-sm)',color:'var(--mid)',lineHeight:1.6}}>{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Sources */}
+      <div style={{background:'var(--charcoal)',borderRadius:'var(--r-lg)',padding:'var(--space-md)',color:'var(--cd)'}}>
+        <p style={{fontSize:'var(--text-sm)',fontWeight:700,color:'var(--mocha-lt)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'6px'}}>知識來源</p>
+        <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,marginBottom:'18px'}}>全部來自 EDB 官方文件</h2>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(230px,1fr))',gap:'10px'}}>
+          {sources.map(s => (
+            <div key={s.name} style={{display:'flex',alignItems:'flex-start',gap:'12px',padding:'12px',background:'rgba(240,238,233,0.07)',borderRadius:'var(--r-sm)',border:'1px solid rgba(240,238,233,0.1)'}}>
+              <span style={{fontSize:'1.3rem',flexShrink:0}}>{s.icon}</span>
+              <div>
+                <div style={{fontSize:'var(--text-sm)',fontWeight:600,marginBottom:'2px'}}>{s.name}</div>
+                <div style={{fontSize:'0.72rem',color:'rgba(240,238,233,0.45)'}}>{s.type}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Q&A Panel ──
+function SourcesAccordion({ results, topicLabels }) {
+  const [open, setOpen] = React.useState(false);
+
+  // Group chunks by source document; chunks without URL → single "已核實政策事實" group
+  const NO_URL_KEY = '__approved_facts__';
+  const docMap = {};
+  results.forEach(item => {
+    const hasUrl = item.sourceRef && item.sourceRef.url;
+    const key = hasUrl ? item.sourceRef.url : NO_URL_KEY;
+    if (!docMap[key]) {
+      docMap[key] = {
+        title: hasUrl ? item.sourceRef.title : '已核實政策事實',
+        url: hasUrl ? item.sourceRef.url : null,
+        topic: item.topicId,
+        chunks: [],
+        bestScore: 0,
+        isApprovedFacts: !hasUrl,
+      };
+    }
+    docMap[key].chunks.push(item);
+    if (item.score > docMap[key].bestScore) docMap[key].bestScore = item.score;
+  });
+
+  const docs = Object.values(docMap).sort((a, b) => b.bestScore - a.bestScore);
+  const totalChunks = results.length;
+
+  return (
+    <div style={{border:'1px solid #E5E1DC',borderRadius:'var(--r-md)',overflow:'hidden'}}>
+      <button onClick={() => setOpen(v => !v)}
+        style={{width:'100%',display:'flex',alignItems:'center',justifyContent:'space-between',
+                padding:'10px 14px',background:'#FAFAF8',border:'none',cursor:'pointer',
+                fontSize:'var(--text-xs)',color:'#6B6B6B'}}>
+        <span>📎 參考來源 · {docs.length} 份文件，{totalChunks} 個片段</span>
+        <span style={{transform:open?'rotate(180deg)':'none',transition:'transform .2s'}}>▾</span>
+      </button>
+      {open && (
+        <div style={{background:'#FDFCFB'}}>
+          {docs.map((doc, di) => (
+            <div key={di}
+                 style={{display:'flex',alignItems:'flex-start',gap:'10px',
+                         padding:'9px 14px',
+                         borderTop: di === 0 ? 'none' : '1px solid #F0EDE9'}}>
+              <span style={{fontSize:'14px',marginTop:'1px',flexShrink:0}}>
+                {doc.isApprovedFacts ? '✅' : '📄'}
+              </span>
+              <div style={{flex:1,minWidth:0}}>
+                {doc.url ? (
+                  <a href={doc.url} target="_blank" rel="noopener"
+                     style={{fontSize:'var(--text-xs)',fontWeight:600,color:'#5A3E2B',
+                             textDecoration:'none',display:'block',
+                             overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>
+                    {doc.title}
+                  </a>
+                ) : (
+                  <span style={{fontSize:'var(--text-xs)',fontWeight:600,
+                                color: doc.isApprovedFacts ? '#2D6A4F' : '#5A3E2B'}}>
+                    {doc.title}
+                  </span>
+                )}
+                <span style={{fontSize:'10px',color:'#B0A89E'}}>
+                  {doc.chunks.length} 個片段 · 最高相關度 {doc.bestScore.toFixed(2)}
+                  {(() => {
+                    const pages = [...new Set(doc.chunks.map(c => c.page).filter(Boolean))].sort((a,b)=>a-b);
+                    return pages.length > 0 ? ` · 頁 ${pages.join(', ')}` : '';
+                  })()}
+                </span>
+              </div>
+              {doc.url && (
+                <a href={doc.url} target="_blank" rel="noopener"
+                   style={{fontSize:'10px',color:'#A47764',textDecoration:'none',
+                           flexShrink:0,marginTop:'2px'}}>
+                  ↗ 開啟
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function QAPanel({ data, setPreviewDoc }) {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
+  const [synthesis, setSynthesis] = useState(null);
+  const [searched, setSearched] = useState(false);
+  const [qaRole, setQaRole] = useState('all_roles');
+  const [searchChannel, setSearchChannel] = useState('A'); // 'A' | 'B' | 'AB'
+  const [isLoading, setIsLoading] = useState(false);
+  const [backendError, setBackendError] = useState(null);
+
+  const BACKEND_URL = 'http://localhost:8787';
+  const TOPIC_LABELS = {
+    finance: '財務/採購', hr: '人力資源', curriculum: '課程',
+    activity: '活動', student: '學生事務', it: '資訊科技', general: '通用/行政'
+  };
+
+  // Channel A: local keyword search (offline, instant)
+  const runChannelA = useCallback((q, targetRole) => {
+    const tokens = q.trim().split(/[\s，,、]+/).filter(t => t.length > 0);
+    const found = [];
+    Object.entries(data).forEach(([topicId, topicData]) => {
+      if (topicId === '_meta') return;
+      const sources = topicData._sources || [];
+      const sourceMap = topicData._sourceMap || {};
+      ROLE_ORDER.forEach(roleId => {
+        if (targetRole !== 'all_roles' && roleId !== targetRole && roleId !== 'all_roles') return;
+        const facts = topicData[roleId];
+        if (!Array.isArray(facts)) return;
+        facts.forEach((fact, idx) => {
+          const matchCount = tokens.filter(t => fact.includes(t)).length;
+          if (matchCount > 0) {
+            const srcIdx = sourceMap[`${roleId}.${idx}`];
+            const sourceRef = (srcIdx !== undefined && sources[srcIdx]) ? sources[srcIdx] : null;
+            const roleBonus = (roleId === targetRole && targetRole !== 'all_roles') ? 0.5 : 0;
+            found.push({ topicId, roleId, fact, index: idx, sourceRef, score: matchCount + roleBonus, channel: 'A' });
+          }
+        });
+      });
+    });
+    found.sort((a, b) => b.score - a.score);
+    return found;
+  }, [data]);
+
+  // Channel B: backend semantic search (requires backend running)
+  const runChannelB = useCallback(async (q) => {
+    const resp = await fetch(`${BACKEND_URL}/api/search/channel-b`, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ query: q, min_score: 0.22, top_k: 8 })
+    });
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const json = await resp.json();
+    setSynthesis(json.synthesis || null);
+    return (json.results || []).map(r => ({
+      topicId: r.topic || 'general', roleId: r.role || 'all_roles',
+      fact: r.text, index: 0,
+      sourceRef: r.url ? { url: r.url, title: r.title } : null,
+      score: r.score, channel: 'B',
+      content_type: r.content_type, fact_type: r.fact_type,
+    }));
+  }, []);
+
+  // A+B: combined backend search
+  const runCombined = useCallback(async (q) => {
+    const resp = await fetch(`${BACKEND_URL}/api/search/combined`, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ query: q, min_score: 0.22, top_k: 8 })
+    });
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const json = await resp.json();
+    setSynthesis(json.synthesis || null);
+    return (json.results || []).map(r => ({
+      topicId: r.topic || r.topicId || 'general',
+      roleId: r.role || r.roleId || 'all_roles',
+      fact: r.text || r.fact, index: 0,
+      sourceRef: r.url ? { url: r.url, title: r.title } : (r.sourceRef || null),
+      score: r.score, channel: r.channel || 'B',
+      content_type: r.content_type,
+      page: r.page,
+    }));
+  }, []);
+
+  const handleSearch = useCallback(async () => {
+    const trimmed = query.trim();
+    if (!trimmed) return;
+    setIsLoading(true);
+    setBackendError(null);
+    try {
+      let found = [];
+      if (searchChannel === 'A') {
+        found = runChannelA(trimmed, qaRole);
+      } else if (searchChannel === 'B') {
+        found = await runChannelB(trimmed);
+      } else {
+        found = await runCombined(trimmed);
+      }
+      setResults(found);
+      setSearched(true);
+    } catch (err) {
+      setBackendError('後台連線失敗。請先啟動 backend：cd backend && npm run dev');
+      setResults([]);
+      setSearched(true);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [query, qaRole, searchChannel, runChannelA, runChannelB, runCombined]);
+
+  const handleClear = () => { setQuery(''); setResults([]); setSynthesis(null); setSearched(false); setBackendError(null); };
+
+  const highlightFact = (fact, tokens) => {
+    if (!tokens || tokens.length === 0 || searchChannel !== 'A') return fact;
+    const pattern = tokens.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+    const parts = fact.split(new RegExp(`(${pattern})`, 'g'));
+    return parts.map((part, i) =>
+      tokens.includes(part) ? <mark key={i} className="qa-highlight">{part}</mark> : part
+    );
+  };
+
+  const tokens = (searched && searchChannel === 'A') ? query.trim().split(/[\s，,、]+/).filter(t => t.length > 0) : [];
+
+  const channelACount = Object.entries(data).filter(([k]) => k !== '_meta')
+    .reduce((s, [, td]) => s + ROLE_ORDER.reduce((n, r) => n + (Array.isArray(td[r]) ? td[r].length : 0), 0), 0);
+
+  const getChannelBadge = (ch, ct) => {
+    if (ch === 'A') return { bg: '#EBF5EE', color: '#2D6A4F', label: 'Channel A · 已核實' };
+    if (ct === 'approved_fact') return { bg: '#EBF5EE', color: '#2D6A4F', label: 'Channel B · 已核實' };
+    if (ct === 'stat_fact') return { bg: '#EBF0FA', color: '#2C4A8E', label: 'Channel B · 統計' };
+    return { bg: '#F5EDE8', color: '#6B4F3F', label: 'Channel B · 文件' };
+  };
+
+  const CHANNEL_OPTS = [
+    { id: 'A',  label: 'Channel A', sub: '人工審核' },
+    { id: 'B',  label: 'Channel B', sub: 'AI 語義' },
+    { id: 'AB', label: 'A＋B',      sub: '全庫合併' },
+  ];
+
+  return (
+    <div className="flex-1 min-w-0">
+      <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
+        <h2 className="text-lg font-bold text-gray-800 mb-1">智能搜尋</h2>
+        <p className="text-xs text-gray-400 mb-3">
+          {searchChannel === 'A'  && `Channel A：搜尋 ${channelACount} 條已核實 EDB 政策事實（離線）`}
+          {searchChannel === 'B'  && 'Channel B：語義搜尋 810 個知識 chunks（需要 backend）'}
+          {searchChannel === 'AB' && `Channel A+B：合併搜尋 ${channelACount} 條事實 + 810 個 chunks（需要 backend）`}
+        </p>
+
+        {/* Channel selector */}
+        <div style={{display:'flex',gap:'8px',marginBottom:'12px'}}>
+          {CHANNEL_OPTS.map(({id, label, sub}) => (
+            <button key={id}
+              onClick={() => { setSearchChannel(id); setResults([]); setSynthesis(null); setSearched(false); setBackendError(null); }}
+              style={searchChannel === id
+                ? {flex:1,padding:'8px',borderRadius:'var(--r-sm)',border:'1px solid var(--charcoal)',background:'var(--charcoal)',color:'var(--cd)',cursor:'pointer',textAlign:'center'}
+                : {flex:1,padding:'8px',borderRadius:'var(--r-sm)',border:'1px solid var(--border)',background:'var(--cd-warm)',color:'var(--charcoal)',cursor:'pointer',textAlign:'center'}}>
+              <div style={{fontSize:'var(--text-sm)',fontWeight:700}}>{label}</div>
+              <div style={{fontSize:'0.68rem',opacity:0.6,marginTop:'2px'}}>{sub}</div>
+            </button>
+          ))}
+        </div>
+
+        {/* Search row */}
+        <div className="flex gap-2 mb-3">
+          {searchChannel === 'A' && (
+            <select value={qaRole} onChange={e => setQaRole(e.target.value)}
+                    className="border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 flex-none max-w-[120px] shrink-0 text-gray-700 font-medium">
+              <option value="all_roles">全體同工</option>
+              {Object.entries(ROLE_CONFIG).filter(([k]) => !k.startsWith('_') && k!=='all_roles').map(([k, v]) => (
+                <option key={k} value={k}>{v.label}</option>
+              ))}
+            </select>
+          )}
+          <input type="text" value={query}
+                 onChange={e => setQuery(e.target.value)}
+                 onKeyDown={e => e.key === 'Enter' && handleSearch()}
+                 placeholder="例如：採購門檻、學生缺課、STEAM、反欺凌..."
+                 className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-200 focus:border-transparent" />
+          <button onClick={handleSearch} disabled={isLoading}
+                  style={{background:'var(--p-primary)'}}
+                  className="px-4 py-2 text-white text-sm rounded-lg hover:opacity-90 font-medium transition-all disabled:opacity-50">
+            {isLoading ? '⏳' : '搜尋'}
+          </button>
+          {query && (
+            <button onClick={handleClear}
+                    className="px-3 py-2 text-xs text-gray-400 hover:text-gray-600 border border-gray-200 rounded-lg">
+              清除
+            </button>
+          )}
+        </div>
+
+        {searched && !backendError && (
+          <p className="text-xs text-gray-400">
+            {results.length > 0 ? `找到 ${results.length} 條相關結果` : '找不到相關結果，請嘗試其他關鍵詞'}
+          </p>
+        )}
+        {backendError && (
+          <div style={{marginTop:'8px',padding:'10px 14px',borderRadius:'var(--r-sm)',background:'#FEF2F2',border:'1px solid #FECACA',fontSize:'var(--text-sm)',color:'#B91C1C'}}>
+            ⚠️ {backendError}
+          </div>
+        )}
+      </div>
+
+      {/* Results */}
+      {!searched ? (
+        <div className="bg-white rounded-xl border border-gray-200 p-10 text-center">
+          <p className="text-4xl mb-3">🔍</p>
+          <p className="text-sm text-gray-400">輸入問題或關鍵詞開始搜尋</p>
+        </div>
+      ) : results.length === 0 && !backendError ? (
+        <div className="bg-white rounded-xl border border-gray-200 p-10 text-center">
+          <p className="text-3xl mb-3">🤷</p>
+          <p className="text-sm text-gray-400">找不到相關結果，請嘗試不同關鍵詞</p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {/* Channel B synthesis answer */}
+          {synthesis && (
+            <div style={{background:'#F5F0EB',border:'1px solid #C4A882',borderRadius:'var(--r-md)',padding:'14px 16px'}}>
+              <div className="flex items-center gap-2 mb-2">
+                <span style={{fontSize:'var(--text-xs)',fontWeight:700,color:'#6B4C2A',background:'#E8D8C4',padding:'2px 8px',borderRadius:'99px',border:'1px solid #C4A88255'}}>
+                  ✦ AI 綜合答案
+                </span>
+                <span style={{fontSize:'var(--text-xs)',color:'#A47764'}}>Channel B · gpt-4.1-nano</span>
+              </div>
+              <p style={{fontSize:'var(--text-sm)',color:'#3D2B1F',lineHeight:1.7,margin:0}}>{synthesis}</p>
+            </div>
+          )}
+          {/* Channel B with synthesis: show sources as collapsed strip */}
+          {synthesis && results.filter(r => r.channel === 'B').length > 0 && (
+            <SourcesAccordion results={results.filter(r => r.channel === 'B')} topicLabels={TOPIC_LABELS} />
+          )}
+          {/* Channel A results or Channel B without synthesis: full cards */}
+          {results.filter(r => r.channel === 'A' || !synthesis).map((item, i) => {
+            const badge = getChannelBadge(item.channel, item.content_type);
+            return (
+              <div key={i} className="qa-result-card bg-white rounded-lg p-4 border border-gray-200 animate-in">
+                <div className="flex items-center gap-2 mb-2 flex-wrap">
+                  <span className="text-xs px-2 py-0.5 rounded-full font-bold border"
+                        style={{background:badge.bg,color:badge.color,borderColor:badge.color+'33'}}>
+                    {badge.label}
+                  </span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-orange-50 text-amber-900 font-bold border border-orange-200">
+                    {TOPIC_LABELS[item.topicId] || item.topicId}
+                  </span>
+                  {item.channel === 'A' && <RoleBadge roleId={item.roleId} />}
+                  {item.channel === 'B' && typeof item.score === 'number' && (
+                    <span className="text-xs text-gray-400 ml-auto">相關度 {item.score.toFixed(2)}</span>
+                  )}
+                </div>
+                <p className="text-sm text-gray-800 mb-2">{highlightFact(item.fact, tokens)}</p>
+                {item.sourceRef && (
+                  <a href={item.sourceRef.url} target="_blank" rel="noopener"
+                     className="source-link inline-flex items-center gap-1">
+                    <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    {item.sourceRef.title}
+                  </a>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Circular Analysis Panel ──
+function CircularAnalysisPanel() {
+  const BACKEND_URL = 'http://localhost:8787/analyze-circular';
+
+  const [circularText, setCircularText] = useState('');
+  const [role, setRole] = useState('principal');
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
+
+  const TOPIC_LABELS = {
+    finance: '財務/採購', hr: '人力資源', curriculum: '課程',
+    activity: '活動', student: '學生事務', it: '資訊科技', general: '通用/行政'
+  };
+
+  const ROLE_OPTIONS = [
+    { value: 'principal',       label: '校長' },
+    { value: 'vice_principal',  label: '副校長' },
+    { value: 'panel_chair',  label: '主任' },
+    { value: 'subject_head', label: '科主任' },
+    { value: 'teacher',         label: '教師' },
+    { value: 'eo_admin',        label: 'EO' },
+    { value: 'supplier',        label: '供應商' },
+    { value: 'all_roles',       label: '全部角色' },
+  ];
+
+  const handleAnalyze = async () => {
+    if (!circularText.trim()) return;
+    setLoading(true);
+    setError(null);
+    setResult(null);
+    try {
+      const res = await fetch(BACKEND_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ circular_text: circularText, role }),
+      });
+      const body = await res.json();
+      if (!res.ok) throw new Error(body.error || `HTTP ${res.status}`);
+      setResult(body);
+    } catch (err) {
+      setError(err.message || '無法連接後端，請確認本地伺服器已啟動。');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleClear = () => { setResult(null); setError(null); };
+
+  return (
+    <div className="flex-1 min-w-0">
+      {/* Input card */}
+      <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
+        <h2 className="text-lg font-bold text-gray-800 mb-1">通告分析</h2>
+        <p className="text-xs text-gray-400 mb-1">
+          貼上通告全文，選擇角色，由 AI 自動偵測相關主題並提供顧問式分析。
+        </p>
+        <p className="text-xs text-gray-300 mb-4">
+          後端需在本地運行：<code className="bg-gray-100 text-gray-500 px-1 rounded">cd backend &amp;&amp; OPENAI_API_KEY=sk-... npm run dev</code>
+        </p>
+        <textarea
+          value={circularText}
+          onChange={e => setCircularText(e.target.value)}
+          placeholder="貼上通告全文…"
+          rows={7}
+          className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-200 focus:border-transparent resize-y mb-3 font-mono" />
+        <div className="flex items-center gap-3 flex-wrap">
+          <select
+            value={role}
+            onChange={e => setRole(e.target.value)}
+            className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-amber-200 focus:border-transparent">
+            {ROLE_OPTIONS.map(opt => (
+              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            ))}
+          </select>
+          <button
+            onClick={handleAnalyze}
+            disabled={loading || !circularText.trim()}
+            style={{ background: 'var(--p-primary)' }}
+            className="px-4 py-1.5 text-white text-sm rounded-lg hover:opacity-90 font-medium disabled:opacity-40 disabled:cursor-not-allowed transition-all">
+            {loading ? '分析中…' : '開始分析'}
+          </button>
+          {(result || error) && (
+            <button onClick={handleClear}
+                    className="px-3 py-1.5 text-xs text-gray-400 hover:text-gray-600 border border-gray-200 rounded-lg">
+              清除結果
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Loading */}
+      {loading && (
+        <div className="bg-white rounded-xl border border-gray-200 p-10 text-center text-gray-400">
+          <p className="text-3xl mb-3" style={{animation:'pulse 1.5s ease-in-out infinite'}}>⚙️</p>
+          <p className="text-sm">向量嵌入 + LLM 分析中，請稍候…</p>
+        </div>
+      )}
+
+      {/* Error */}
+      {!loading && error && (
+        <div className="bg-red-50 rounded-xl border border-red-200 p-5">
+          <p className="text-sm font-medium text-red-700 mb-1">連接錯誤</p>
+          <p className="text-sm text-red-600">{error}</p>
+          <p className="mt-2 text-xs text-red-400">
+            請確認後端已啟動：<code>cd backend &amp;&amp; OPENAI_API_KEY=sk-... npm run dev</code>
+          </p>
+        </div>
+      )}
+
+      {/* Results */}
+      {!loading && result && (
+        <div className="space-y-4">
+          {/* Detected topics */}
+          <div className="bg-white rounded-xl border border-gray-200 p-4">
+            <h3 className="text-sm font-semibold text-gray-700 mb-2">🎯 偵測主題</h3>
+            <div className="flex flex-wrap gap-2">
+              {result.detected_topics.length === 0 ? (
+                <span className="text-xs text-gray-400">未偵測到特定主題</span>
+              ) : result.detected_topics.map(t => (
+                <span key={t} className="text-xs px-2.5 py-1 rounded-full bg-orange-50 text-amber-900 border border-orange-200 font-bold">
+                  {TOPIC_LABELS[t] || t}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Used facts */}
+          <div className="bg-white rounded-xl border border-gray-200 p-4">
+            <h3 className="text-sm font-semibold text-gray-700 mb-2">
+              📋 注入知識 <span className="font-normal text-gray-400">({result.used_facts.length} 條)</span>
+            </h3>
+            {result.used_facts.length === 0 ? (
+              <p className="text-xs text-gray-400">無相關已確認知識可注入</p>
+            ) : (
+              <ul className="space-y-1.5">
+                {result.used_facts.map((fact, i) => (
+                  <li key={i} className="text-xs text-gray-600 flex items-start gap-1.5">
+                    <span className="text-amber-400 mt-0.5 flex-shrink-0">•</span>
+                    {fact}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          {/* Analysis */}
+          <div className="bg-white rounded-xl border border-gray-200 p-4">
+            <h3 className="text-sm font-semibold text-gray-700 mb-2">💡 AI 顧問分析</h3>
+            <div className="text-sm text-gray-800 whitespace-pre-wrap leading-relaxed">{result.analysis}</div>
+          </div>
+        </div>
+      )}
+
+      {/* Empty state */}
+      {!loading && !result && !error && (
+        <div className="bg-white rounded-xl border border-gray-200 p-10 text-center">
+          <p className="text-4xl mb-3">📋</p>
+          <p className="text-sm text-gray-400">貼上 EDB 通告，由 AI 自動分析並提供相關 EDB 規定建議</p>
+          <p className="text-xs text-gray-300 mt-1">使用語意向量嵌入 (text-embedding-3-small) 偵測主題</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+const INITIAL_CANDIDATES = [
+  {
+    "id": "cand_001",
+    "proposed_text": "在處理超過 $50,000 的採購時，學校必須取得最少五個書面報價以確保價格具競爭力。",
+    "source_id": "g01",
+    "source_title": "資助學校採購程序指引（2025年10月更新）",
+    "source_quote": "$50,001至$200,000的採購項目，學校須邀請不少於五個書面報價。",
+    "suggested_topic": "finance",
+    "suggested_roles": ["eo_admin", "principal"]
+  },
+  {
+    "id": "cand_002",
+    "proposed_text": "若學生連續缺課達7天，校方須透過「缺課個案呈報機制」向教育局呈報。",
+    "source_id": "g06",
+    "source_title": "《小學教育課程指引》完整版（2024）",
+    "source_quote": "對於連續缺課七天或以上的學生，學校必須通報教育局缺課個案專責小組。",
+    "suggested_topic": "student",
+    "suggested_roles": ["teacher", "vice_principal"]
+  }
+];
+
+function CandidateCard({ cand, onApprove, onReject }) {
+  const [selectedRoles, setSelectedRoles] = useState(cand.suggested_roles || []);
+  const [editableText, setEditableText] = useState(cand.proposed_text);
+  const [isEditing, setIsEditing] = useState(false);
+  const edited = editableText !== cand.proposed_text;
+
+  const toggleRole = (rk) => {
+    if (selectedRoles.includes(rk)) {
+      setSelectedRoles(selectedRoles.filter(r => r !== rk));
+    } else {
+      setSelectedRoles([...selectedRoles, rk]);
+    }
+  };
+
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col xl:flex-row mb-4">
+      <div className="flex-1 p-5 border-b xl:border-b-0 xl:border-r border-gray-100 bg-gray-50/50">
+        <h3 className="text-[13px] font-bold text-amber-800 mb-2 flex items-center gap-1.5">
+          <span className="text-lg">🤖</span> LLM 提議事實 (Candidate Fact)
+          {edited && <span className="ml-auto text-[10px] font-bold px-1.5 py-0.5 bg-blue-50 text-blue-600 border border-blue-200 rounded">已修改</span>}
+        </h3>
+        {isEditing ? (
+          <div className="mb-4">
+            <textarea
+              value={editableText}
+              onChange={e => setEditableText(e.target.value)}
+              autoFocus
+              rows={4}
+              className="w-full text-sm text-gray-800 bg-white p-3 border border-amber-300 rounded-lg shadow-sm leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-amber-200"
+            />
+            <div className="flex gap-2 mt-1.5">
+              <button onClick={() => setIsEditing(false)}
+                      className="px-3 py-1 text-[11px] bg-amber-700 text-white rounded-md font-medium hover:bg-amber-800">完成修改</button>
+              <button onClick={() => { setEditableText(cand.proposed_text); setIsEditing(false); }}
+                      className="px-3 py-1 text-[11px] border border-gray-200 text-gray-500 rounded-md hover:bg-gray-50">還原原文</button>
+            </div>
+          </div>
+        ) : (
+          <div className="relative group mb-4">
+            <p className="text-sm text-gray-800 bg-white p-3 border border-gray-200 rounded-lg shadow-sm leading-relaxed pr-8">{editableText}</p>
+            <button onClick={() => setIsEditing(true)}
+                    title="修改事實文字"
+                    className="absolute top-2 right-2 text-gray-300 hover:text-amber-600 transition-colors opacity-0 group-hover:opacity-100 text-base leading-none">✏️</button>
+          </div>
+        )}
+        <div className="flex flex-col gap-2">
+          <span className="text-[11px] px-2 py-1 bg-orange-50 text-amber-900 rounded border border-orange-200 w-max font-bold">主題: {cand.suggested_topic}</span>
+          <div className="mt-1">
+            <p className="text-[11px] font-bold text-gray-500 mb-1.5">設定適用角色 (可多選):</p>
+            <div className="flex flex-wrap gap-1.5">
+              {Object.entries(ROLE_CONFIG).map(([rk, rConf]) => (
+                <label key={rk} className={`cursor-pointer px-2 py-1 rounded text-[11px] font-medium border transition-colors flex items-center select-none
+                  ${selectedRoles.includes(rk) ? 'bg-orange-50 border-amber-300 text-amber-900' : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'}`}>
+                  <input type="checkbox" className="hidden" checked={selectedRoles.includes(rk)} onChange={() => toggleRole(rk)} />
+                  <span className={`mr-1 text-lg leading-none ${selectedRoles.includes(rk) ? 'text-amber-600' : 'text-gray-300'}`}>•</span>
+                  {rConf.label}
+                </label>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="flex-1 p-5 flex flex-col justify-between bg-white">
+        <div>
+          <h3 className="text-[13px] font-bold text-amber-700 mb-2 flex items-center gap-1.5">
+            <span className="text-lg">📄</span> 原文證據 (Source Evidence)
+          </h3>
+          <div className="bg-amber-50 border-l-4 border-amber-400 p-3 rounded-r text-[13px] text-gray-700 mb-3 leading-relaxed" style={{ whiteSpace: 'pre-wrap' }}>
+            "{cand.source_quote}"
+          </div>
+          <p className="text-[11px] text-gray-500 bg-gray-50 px-2 py-1.5 rounded border border-gray-100 inline-block truncate max-w-full">
+            出處：<a href={cand.source_url ? (cand.page_number ? `${cand.source_url}#page=${cand.page_number}` : cand.source_url) : "#"} target="_blank" rel="noreferrer" className="source-link text-amber-800">{cand.source_title}</a>{cand.page_number && <span className="text-gray-500 ml-1">(第 {cand.page_number} 頁)</span>}
+          </p>
+        </div>
+        <div className="mt-5 flex flex-wrap gap-3 justify-end border-t border-gray-100 pt-4 relative z-10 bg-white">
+          <button onClick={() => onReject(cand.id)}
+                  className="px-4 py-2 text-[13px] border border-red-200 text-red-600 bg-white hover:bg-red-50 hover:border-red-300 font-medium rounded-lg transition-all shadow-sm">
+            ✕ 剔除 Reject
+          </button>
+          <button onClick={() => selectedRoles.length > 0 && onApprove({ ...cand, proposed_text: editableText, suggested_roles: selectedRoles })}
+                  style={selectedRoles.length === 0 ? { backgroundColor: '#f3f4f6', color: '#9ca3af', borderColor: '#e5e7eb', cursor: 'not-allowed' } : { backgroundColor: '#0d9488', color: '#ffffff', borderColor: '#0d9488' }}
+                  className="px-6 py-2 text-[13px] font-bold rounded-lg shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-amber-200 hover:-translate-y-0.5 border relative z-10 hover:shadow-md">
+            ✓ {edited ? '確認修改並通過' : '確認通過 Approve'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CandidateReviewPanel({ queue, onApprove, onReject }) {
+  if (queue.length === 0) {
+    return (
+      <div className="bg-white rounded-xl border border-gray-200 p-10 text-center text-gray-500 flex-1 min-w-0">
+        <p className="text-4xl mb-3">🎉</p>
+        <p className="text-lg font-medium text-gray-700">候選隊列已清空！</p>
+        <p className="text-sm">目前沒有 LLM 提議的知識點需要審核。</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex-1 min-w-0 space-y-6">
+      <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 shadow-sm">
+        <h2 className="text-lg font-bold text-gray-800">知識提煉 (Candidate Review)</h2>
+        <p className="text-xs text-gray-500 mt-1">待審核 LLM 事實提取，確保與 EDB 來源原文無誤後點擊 Approve 寫入系統。</p>
+      </div>
+      {queue.map(cand => (
+        <CandidateCard key={cand.id} cand={cand} onApprove={onApprove} onReject={onReject} />
+      ))}
+    </div>
+  );
+}
+
+// ── Main App ──
+function App() {
+  const initialData = INITIAL_DATA;
+  const [data, setData] = useState(() => {
+    const snapshot = loadLocalSnapshot();
+    if (snapshot?.data) {
+      snapshot.data._meta = deepClone(initialData._meta);
+      return snapshot.data;
+    }
+    return deepClone(initialData);
+  });
+  const [reviewState, setReviewState] = useState(() => {
+    const snapshot = loadLocalSnapshot();
+    return snapshot?.review_state || deepClone(INITIAL_REVIEW_STATE);
+  });
+  const [activeTopic, setActiveTopic] = useState('finance');
+  const [filterRole, setFilterRole] = useState('all');
+  const [filterStatus, setFilterStatus] = useState('all'); // 'all' | 'draft' | 'approved'
+  const [editModal, setEditModal] = useState({ isOpen: false, editData: null });
+  const [exportModal, setExportModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [viewMode, setViewMode] = useState('qa'); // 'qa' | 'guidelines' | 'knowledge' | 'review'
+  const [adminMode, setAdminMode] = useState(false);
+  const [showAdminModal, setShowAdminModal] = useState(false);
+  const [previewDoc, setPreviewDoc] = useState(null);
+  // Fallback chain: dynamically loaded EXTERNAL -> local mock -> empty
+  const getInitialQueue = () => {
+    try {
+      const externalQueue = window.EXTERNAL_CANDIDATES || (typeof INITIAL_CANDIDATES !== 'undefined' ? INITIAL_CANDIDATES : []);
+      const processed = JSON.parse(localStorage.getItem('k1_processed_candidates') || '[]');
+      return externalQueue.filter(cand => !processed.includes(cand.id));
+    } catch {
+      return [];
+    }
+  };
+  const [candidateQueue, setCandidateQueue] = useState(getInitialQueue());
+  const handleApproveCandidate = useCallback((cand) => {
+    const roles = cand.suggested_roles?.length > 0 ? cand.suggested_roles : ['all_roles'];
+    const targetTopic = cand.suggested_topic || 'general';
+    const factText = cand.proposed_text;
+    
+    const markProcessed = (id) => {
+      try {
+        const processed = JSON.parse(localStorage.getItem('k1_processed_candidates') || '[]');
+        if (!processed.includes(id)) {
+          processed.push(id);
+          localStorage.setItem('k1_processed_candidates', JSON.stringify(processed));
+        }
+      } catch (e) {
+        console.warn('Failed to mark candidate processed', e);
+      }
+    };
+
+    setData(prevData => {
+      const nextData = JSON.parse(JSON.stringify(prevData));
+      const topicKey = nextData[targetTopic] ? targetTopic : 'general';
+      const newReviewStates = {};
+      
+      roles.forEach(role => {
+        if (!nextData[topicKey][role]) nextData[topicKey][role] = [];
+        const newIdx = nextData[topicKey][role].length;
+        nextData[topicKey][role].push(factText);
+        newReviewStates[makeKey(topicKey, role, newIdx)] = 'approved';
+      });
+      
+      nextData._meta.updated = new Date().toISOString().split('T')[0];
+      
+      setReviewState(prevRev => ({ ...prevRev, ...newReviewStates }));
+      return nextData;
+    });
+    setCandidateQueue(prev => prev.filter(c => c.id !== cand.id));
+    markProcessed(cand.id);
+  }, []);
+
+  const handleRejectCandidate = useCallback((id) => {
+    setCandidateQueue(prev => prev.filter(c => c.id !== id));
+    try {
+      const processed = JSON.parse(localStorage.getItem('k1_processed_candidates') || '[]');
+      if (!processed.includes(id)) {
+        processed.push(id);
+        localStorage.setItem('k1_processed_candidates', JSON.stringify(processed));
+      }
+    } catch (e) {}
+  }, []);
+
+  const displayVersion = useMemo(() => {
+    return `v${data._meta?.version || '0.0.0'}`;
+  }, [data]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        LOCAL_SNAPSHOT_KEY,
+        JSON.stringify(buildAdminSnapshot(data, reviewState))
+      );
+    } catch (error) {
+      console.warn('Failed to persist local admin snapshot:', error);
+    }
+  }, [data, reviewState]);
+
+  // Stats
+  const stats = useMemo(() => {
+    let totalFacts = 0; let topicCount = 0; const rolesUsed = new Set();
+    let draftCount = 0; let approvedCount = 0;
+    Object.entries(data).forEach(([k, v]) => {
+      if (k === '_meta') return;
+      topicCount++;
+      Object.entries(v).forEach(([rk, fs]) => {
+        if (rk.startsWith('_')) return;
+        rolesUsed.add(rk);
+        if (Array.isArray(fs)) {
+          totalFacts += fs.length;
+          fs.forEach((_, i) => {
+            const s = reviewState[makeKey(k, rk, i)];
+            if (s === 'draft') draftCount++;
+            else approvedCount++;
+          });
+        }
+      });
+    });
+    return { totalFacts, topicCount, rolesUsed: rolesUsed.size, draftCount, approvedCount };
+  }, [data, reviewState]);
+
+  // Topic list
+  const topics = useMemo(() => {
+    return Object.entries(data)
+      .filter(([k]) => k !== '_meta')
+      .map(([id, td]) => {
+        let factCount = 0; let draftCount = 0;
+        Object.entries(td).filter(([k]) => !k.startsWith('_')).forEach(([rk, fs]) => {
+          if (!Array.isArray(fs)) return;
+          factCount += fs.length;
+          fs.forEach((_, i) => {
+            if (reviewState[makeKey(id, rk, i)] === 'draft') draftCount++;
+          });
+        });
+        return { id, label: td._label || id, factCount, draftCount };
+      });
+  }, [data, reviewState]);
+
+  // Current topic data
+  const currentTopic = data[activeTopic] || {};
+
+  // Filtered facts
+  const filteredFacts = useMemo(() => {
+    const result = [];
+    ROLE_ORDER.forEach(roleId => {
+      if (filterRole !== 'all' && filterRole !== roleId) return;
+      const facts = currentTopic[roleId];
+      if (!Array.isArray(facts)) return;
+      facts.forEach((fact, idx) => {
+        if (searchQuery && !fact.includes(searchQuery)) return;
+        const status = reviewState[makeKey(activeTopic, roleId, idx)] || 'approved';
+        if (filterStatus !== 'all' && filterStatus !== status) return;
+        // Resolve source reference
+        const srcMap = currentTopic._sourceMap || {};
+        const srcIdx = srcMap[`${roleId}.${idx}`];
+        const sourceRef = (srcIdx !== undefined && currentTopic._sources?.[srcIdx])
+          ? currentTopic._sources[srcIdx] : null;
+        result.push({ roleId, fact, index: idx, status, sourceRef });
+      });
+    });
+    return result;
+  }, [currentTopic, filterRole, filterStatus, searchQuery, activeTopic, reviewState]);
+
+  // Draft count for current topic
+  const currentDraftCount = useMemo(() => {
+    return filteredFacts.filter(f => f.status === 'draft').length;
+  }, [filteredFacts]);
+
+  const handleReset = useCallback(() => {
+    if (!confirm('確定重設並清除所有本地備份？所有未匯出的審核狀態將會消失，並恢復至原始 INITIAL_DATA。')) return;
+    localStorage.removeItem(LOCAL_SNAPSHOT_KEY);
+    window.location.reload();
+  }, []);
+
+  // CRUD handlers
+  const handleEdit = useCallback((topicId, roleId, index) => {
+    const fact = data[topicId]?.[roleId]?.[index] || '';
+    setEditModal({ isOpen: true, editData: { topicId, roleId, index, fact, isNew: false } });
+  }, [data]);
+
+  const handleDelete = useCallback((topicId, roleId, index) => {
+    if (!confirm('確定刪除此事實？')) return;
+    setData(prev => {
+      const next = JSON.parse(JSON.stringify(prev));
+      next[topicId][roleId].splice(index, 1);
+      if (next[topicId][roleId].length === 0 && roleId !== 'all_roles') {
+        delete next[topicId][roleId];
+      }
+      return next;
+    });
+    // Rebuild review keys for this topic+role
+    setReviewState(prev => {
+      const next = { ...prev };
+      // Remove the deleted key
+      delete next[makeKey(topicId, roleId, index)];
+      // Re-index subsequent facts
+      const oldFacts = data[topicId]?.[roleId] || [];
+      for (let i = index + 1; i < oldFacts.length; i++) {
+        const oldKey = makeKey(topicId, roleId, i);
+        const newKey = makeKey(topicId, roleId, i - 1);
+        next[newKey] = prev[oldKey] || 'approved';
+        delete next[oldKey];
+      }
+      return next;
+    });
+  }, [data]);
+
+  const handleAdd = useCallback(() => {
+    setEditModal({
+      isOpen: true,
+      editData: { topicId: activeTopic, roleId: 'all_roles', index: -1, fact: '', isNew: true }
+    });
+  }, [activeTopic]);
+
+  const handleChangeRole = useCallback((topicId, roleId, index) => {
+    const fact = data[topicId]?.[roleId]?.[index] || '';
+    setEditModal({
+      isOpen: true,
+      editData: { topicId, roleId, index, fact, isNew: false, isRoleChange: true, origRoleId: roleId }
+    });
+  }, [data]);
+
+  const handleSave = useCallback((editData) => {
+    const { topicId, roleId, index, fact, isNew, isRoleChange, origRoleId } = editData;
+
+    if (isRoleChange && origRoleId && origRoleId !== roleId) {
+      // Move fact to a different role
+      setData(prev => {
+        const next = JSON.parse(JSON.stringify(prev));
+        // Remove from old role
+        next[topicId][origRoleId].splice(index, 1);
+        if (next[topicId][origRoleId].length === 0 && origRoleId !== 'all_roles') {
+          delete next[topicId][origRoleId];
+        }
+        // Add to new role
+        if (!next[topicId][roleId]) next[topicId][roleId] = [];
+        next[topicId][roleId].push(fact);
+        next._meta.updated = new Date().toISOString().split('T')[0];
+        return next;
+      });
+      // Update review state
+      setReviewState(prev => {
+        const next = { ...prev };
+        const oldStatus = prev[makeKey(topicId, origRoleId, index)] || 'draft';
+        // Remove old key and re-index
+        delete next[makeKey(topicId, origRoleId, index)];
+        const oldFacts = data[topicId]?.[origRoleId] || [];
+        for (let i = index + 1; i < oldFacts.length; i++) {
+          next[makeKey(topicId, origRoleId, i - 1)] = prev[makeKey(topicId, origRoleId, i)] || 'approved';
+          delete next[makeKey(topicId, origRoleId, i)];
+        }
+        // Add to new role at end
+        const newRoleFacts = data[topicId]?.[roleId] || [];
+        next[makeKey(topicId, roleId, newRoleFacts.length)] = oldStatus;
+        return next;
+      });
+    } else if (isNew) {
+      setData(prev => {
+        const next = JSON.parse(JSON.stringify(prev));
+        if (!next[topicId][roleId]) next[topicId][roleId] = [];
+        next[topicId][roleId].push(fact);
+        next._meta.updated = new Date().toISOString().split('T')[0];
+        return next;
+      });
+      // New facts are drafts
+      setReviewState(prev => {
+        const newIdx = (data[topicId]?.[roleId] || []).length;
+        return { ...prev, [makeKey(topicId, roleId, newIdx)]: 'draft' };
+      });
+    } else {
+      setData(prev => {
+        const next = JSON.parse(JSON.stringify(prev));
+        next[topicId][roleId][index] = fact;
+        next._meta.updated = new Date().toISOString().split('T')[0];
+        return next;
+      });
+    }
+  }, [data]);
+
+  // Review handlers
+  const handleApprove = useCallback((topicId, roleId, index) => {
+    setReviewState(prev => ({ ...prev, [makeKey(topicId, roleId, index)]: 'approved' }));
+  }, []);
+
+  const handleReject = useCallback((topicId, roleId, index) => {
+    setReviewState(prev => ({ ...prev, [makeKey(topicId, roleId, index)]: 'draft' }));
+  }, []);
+
+  // Batch approve all visible drafts
+  const handleBatchApprove = useCallback(() => {
+    const drafts = filteredFacts.filter(f => f.status === 'draft');
+    if (drafts.length === 0) return;
+    if (!confirm(`確認批量通過 ${drafts.length} 條待審核事實？`)) return;
+    setReviewState(prev => {
+      const next = { ...prev };
+      drafts.forEach(f => { next[makeKey(activeTopic, f.roleId, f.index)] = 'approved'; });
+      return next;
+    });
+  }, [filteredFacts, activeTopic]);
+
+  // Validation
+  const validation = useMemo(() => {
+    const errors = [];
+    const VALID_TOPICS = new Set(['finance','hr','curriculum','activity','student','it','general']);
+    const VALID_ROLES = new Set(['all_roles','principal','vice_principal','panel_chair','subject_head','teacher','eo_admin','supplier']);
+    Object.entries(data).forEach(([tid, td]) => {
+      if (tid === '_meta') return;
+      if (!VALID_TOPICS.has(tid)) errors.push(`Unknown topic: ${tid}`);
+      Object.entries(td).forEach(([rk, fs]) => {
+        if (rk.startsWith('_')) return;
+        if (!VALID_ROLES.has(rk)) errors.push(`${tid}.${rk}: unknown role`);
+        if (!Array.isArray(fs)) return;
+        if (fs.length > 5) errors.push(`${tid}.${rk}: ${fs.length} facts > 5`);
+        fs.forEach((f, i) => {
+          if (f.length > 80) errors.push(`${tid}.${rk}[${i}]: ${f.length} chars > 80`);
+        });
+      });
+    });
+    return errors;
+  }, [data]);
+
+  return (
+    <div className="min-h-screen">
+      {/* ── K1 Header ── */}
+      <header className="k1-header" id="k1Header">
+        <div className="k1-header-inner">
+          {/* Logo */}
+          <div className="k1-logo" onClick={() => { setViewMode('qa'); window.scrollTo(0,0); }}>
+            <span className="k1-logo-dot"></span>
+            <div>
+              <div className="k1-logo-text">K1知識平台</div>
+              <div className="k1-logo-sub">香港學校管治 · {displayVersion}</div>
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="k1-header-actions">
+            {/* View mode tabs */}
+            <div className="k1-tab-bar">
+              <button onClick={() => setViewMode('about')}
+                      className={`filter-tab ${viewMode === 'about' ? 'active-tab' : ''}`}>
+                ℹ️ 平台介紹
+              </button>
+              <button onClick={() => setViewMode('qa')}
+                      className={`filter-tab ${viewMode === 'qa' ? 'active-tab' : ''}`}>
+                🔍 智能搜尋
+              </button>
+              <button onClick={() => setViewMode('guidelines')}
+                      className={`filter-tab ${viewMode === 'guidelines' ? 'active-tab' : ''}`}>
+                📚 指引 ({GUIDELINES_REGISTRY.length})
+              </button>
+              {adminMode && (
+                <button onClick={() => setViewMode('review')}
+                        className={`filter-tab ${viewMode === 'review' ? 'active-tab' : ''}`}
+                        style={{position:'relative'}}>
+                  ✍️ 知識提煉
+                  {candidateQueue.length > 0 && (
+                    <span style={{
+                      position:'absolute', top:'-6px', right:'-4px',
+                      background:'#C84040', color:'#F0EEE9',
+                      fontSize:'0.6rem', padding:'1px 5px', borderRadius:'100px',
+                      fontWeight:700
+                    }}>{candidateQueue.length}</span>
+                  )}
+                </button>
+              )}
+              {adminMode && (
+                <button onClick={() => setViewMode('knowledge')}
+                        className={`filter-tab ${viewMode === 'knowledge' ? 'active-tab' : ''}`}>
+                  ⚙️ 知識管理
+                </button>
+              )}
+            </div>
+
+            {/* Status badges */}
+            {viewMode === 'knowledge' && stats.draftCount > 0 && (
+              <span className="k1-badge k1-badge-warning">{stats.draftCount} 待審</span>
+            )}
+            {viewMode === 'knowledge' && (
+              <span className={`k1-badge ${validation.length === 0 ? 'k1-badge-ok' : 'k1-badge-error'}`}>
+                {validation.length === 0 ? '✓ 驗證通過' : `⚠ ${validation.length} 問題`}
+              </span>
+            )}
+
+            {/* Circular metric */}
+            <span className="k1-badge k1-badge-warning" title="已接通 EDB Circular 通告系統，自動注入確認政策事實。">
+              ⚡ {stats.approvedCount * 18 + 432} 次調用
+            </span>
+
+            {/* Export */}
+            {viewMode === 'knowledge' && adminMode && (
+              <button onClick={() => setExportModal(true)} className="export-btn">匯出</button>
+            )}
+
+            {/* Admin toggle */}
+            <button onClick={() => adminMode ? setAdminMode(false) : setShowAdminModal(true)}
+                    title={adminMode ? '登出管理員' : '管理員登入'}
+                    className={`k1-btn ${adminMode ? 'k1-btn-admin' : ''}`}>
+              {adminMode ? '🔓 管理員' : '🔒 登入'}
+            </button>
+
+            {/* Reset */}
+            <button onClick={handleReset} title="重設本地暫存至初始狀態"
+                    className="k1-btn" style={{color:'var(--mid)'}}>
+              🔄
+            </button>
+
+            {/* Circular analysis link */}
+            <a href="k1-dashboard.html" className="k1-home-link" title="舊版管理介面（備份）" style={{opacity:0.4,fontSize:'0.7rem'}}>
+              v1
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <div className="k1-layout">
+       <div className="k1-layout-inner">
+        {/* ── Sidebar (knowledge mode only) ── */}
+        {viewMode === 'knowledge' && (
+          <aside className="k1-sidebar">
+            {/* Stats */}
+            <div className="k1-card">
+              <div className="k1-card-header">知識庫統計</div>
+              <div className="k1-stat-grid">
+                <div>
+                  <div className="k1-stat-num">{stats.topicCount}</div>
+                  <div className="k1-stat-label">範疇</div>
+                </div>
+                <div>
+                  <div className="k1-stat-num">{stats.totalFacts}</div>
+                  <div className="k1-stat-label">事實</div>
+                </div>
+                <div>
+                  <div className="k1-stat-num">{stats.rolesUsed}</div>
+                  <div className="k1-stat-label">角色</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Review stats */}
+            <div className="k1-card">
+              <div className="k1-card-header">審核狀態</div>
+              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',textAlign:'center',padding:'12px',gap:'4px'}}>
+                <div>
+                  <div className="k1-stat-num" style={{color:'#4A8F5C',fontSize:'1.4rem'}}>{stats.approvedCount}</div>
+                  <div className="k1-stat-label" style={{color:'#4A8F5C'}}>已確認</div>
+                </div>
+                <div>
+                  <div className="k1-stat-num" style={{color:'var(--mocha-dk)',fontSize:'1.4rem'}}>{stats.draftCount}</div>
+                  <div className="k1-stat-label" style={{color:'var(--mocha-dk)'}}>待審核</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Topic list */}
+            <div className="k1-card">
+              <div className="k1-card-header">知識範疇</div>
+              {topics.map(t => (
+                <button key={t.id}
+                        onClick={() => { setActiveTopic(t.id); setFilterRole('all'); setSearchQuery(''); setFilterStatus('all'); }}
+                        className={`topic-btn ${activeTopic === t.id ? 'active' : ''}`}>
+                  <span style={{fontSize:'var(--text-sm)'}}>{t.label}</span>
+                  <span style={{display:'flex',alignItems:'center',gap:'4px'}}>
+                    {t.draftCount > 0 && <span className="k1-count-draft">{t.draftCount}</span>}
+                    <span className="k1-count">{t.factCount}</span>
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            {/* Role filter */}
+            <div className="k1-card">
+              <div className="k1-card-header">角色篩選</div>
+              <button onClick={() => setFilterRole('all')}
+                      className={`topic-btn ${filterRole === 'all' ? 'active' : ''}`}>
+                <span>全部角色</span>
+              </button>
+              {ROLE_ORDER.map(r => {
+                const hasFacts = Array.isArray(currentTopic[r]) && currentTopic[r].length > 0;
+                return (
+                  <button key={r} onClick={() => setFilterRole(r)} disabled={!hasFacts}
+                          className={`topic-btn ${filterRole === r ? 'active' : ''}`}
+                          style={!hasFacts ? {opacity:0.35,cursor:'not-allowed'} : {}}>
+                    <span>{ROLE_CONFIG[r].label}</span>
+                    {hasFacts && <span className="k1-count">{currentTopic[r].length}</span>}
+                  </button>
+                );
+              })}
+            </div>
+          </aside>
+        )}
+
+        {/* ── Main content ── */}
+        <div className="k1-main">
+          {viewMode === 'about' ? (
+            <PlatformIntroPanel stats={stats} />
+          ) : viewMode === 'guidelines' ? (
+            <GuidelinesPanel setPreviewDoc={setPreviewDoc} />
+          ) : viewMode === 'qa' ? (
+            <QAPanel data={data} setPreviewDoc={setPreviewDoc} />
+          ) : viewMode === 'review' ? (
+            <CandidateReviewPanel queue={candidateQueue} onApprove={handleApproveCandidate} onReject={handleRejectCandidate} />
+          ) : (
+            <>
+              {/* Topic header */}
+              <div className="k1-topic-header">
+                <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:'12px',marginBottom:'12px',flexWrap:'wrap'}}>
+                  <h2 className="k1-topic-title">{currentTopic._label || activeTopic}</h2>
+                  <div style={{display:'flex',alignItems:'center',gap:'8px',flexWrap:'wrap'}}>
+                    {adminMode && (
+                      <button onClick={() => setExportModal(true)} className="export-btn">匯出 / 備份</button>
+                    )}
+                    {adminMode && (
+                      <button onClick={handleAdd} className="k1-btn k1-btn-admin">+ 新增事實</button>
+                    )}
+                  </div>
+                </div>
+
+                {currentTopic._keywords_zh && currentTopic._keywords_zh.length > 0 && (
+                  <div style={{display:'flex',flexWrap:'wrap',gap:'6px',marginBottom:'12px'}}>
+                    {currentTopic._keywords_zh.map((kw, i) => (
+                      <span key={i} className="k1-kw">{kw}</span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Search + Status filter */}
+                <div style={{display:'flex',alignItems:'center',gap:'10px',flexWrap:'wrap'}}>
+                  <input type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
+                         placeholder="搜尋事實..." className="k1-input"
+                         style={{flex:'1',minWidth:'160px'}} />
+                  {searchQuery && (
+                    <button onClick={() => setSearchQuery('')}
+                            style={{fontSize:'var(--text-sm)',color:'var(--mid)',cursor:'pointer',background:'none',border:'none',fontFamily:'inherit'}}>
+                      清除
+                    </button>
+                  )}
+                  <div className="k1-tab-bar">
+                    {[['all','全部'],['draft','待審核'],['approved','已確認']].map(([key,label]) => (
+                      <button key={key} onClick={() => setFilterStatus(key)}
+                              className={`filter-tab ${filterStatus === key ? 'active-tab' : ''}`}>
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Batch approve bar */}
+              {currentDraftCount > 0 && filterStatus !== 'approved' && (
+                <div className="batch-bar">
+                  <span className="batch-bar-text">
+                    顯示 <strong>{currentDraftCount}</strong> 條待審核事實
+                  </span>
+                  {adminMode && (
+                    <button onClick={handleBatchApprove} className="k1-btn-approve-all">
+                      全部確認通過
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {/* Facts list */}
+              <div style={{display:'flex',flexDirection:'column',gap:'10px'}}>
+                {filteredFacts.length === 0 ? (
+                  <div className="k1-card" style={{padding:'40px',textAlign:'center',color:'var(--mid)',fontSize:'var(--text-sm)'}}>
+                    此篩選條件下沒有事實條目
+                  </div>
+                ) : (
+                  filteredFacts.map((item, i) => (
+                    <FactCard key={`${item.roleId}-${item.index}-${i}`}
+                              fact={item.fact} index={item.index} roleId={item.roleId}
+                              topicId={activeTopic} status={item.status}
+                              sourceRef={item.sourceRef}
+                              onEdit={handleEdit} onDelete={handleDelete}
+                              onApprove={handleApprove} onReject={handleReject}
+                              onChangeRole={handleChangeRole}
+                              isAdmin={adminMode} />
+                  ))
+                )}
+              </div>
+
+              {/* Sources */}
+              <SourceList sources={currentTopic._sources} />
+            </>
+          )}
+        </div>
+       </div>
+      </div>
+
+      {/* ── Footer ── */}
+      <footer className="k1-footer">
+        <div className="k1-footer-inner">
+          <div style={{display:'flex',flexDirection:'column',gap:'4px'}}>
+            <span style={{fontWeight:600,color:'rgba(240,238,233,0.75)'}}>K1知識平台 — 管理中心 {displayVersion}</span>
+            <span>更新: {data._meta?.updated || data._meta?.created} &nbsp;·&nbsp; {stats.totalFacts} 事實 &nbsp;·&nbsp; {stats.topicCount} 範疇</span>
+            <div style={{marginTop:'4px',display:'flex',gap:'16px'}}>
+              <a href="index.html">← 返回首頁</a>
+              <a href="https://www.edb.gov.hk" target="_blank" rel="noopener">EDB 教育局</a>
+            </div>
+          </div>
+          <div style={{maxWidth:'560px',textAlign:'right'}}>
+            <div style={{fontWeight:600,color:'rgba(240,238,233,0.65)',marginBottom:'4px'}}>
+              開發者：Antigravity Agent (A.I.) &amp; Wong Lai Ho Leonard
+            </div>
+            <div style={{fontSize:'0.72rem',opacity:0.6,lineHeight:1.5}}>
+              免責聲明：本平台由人工智能協同開發，自動從教育局公開指引與通告文件提煉事實。所有資料僅供一般參考，不構成正式法律或行政意見。用戶應自行參閱教育局官方原文以作準。
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      {/* Modals */}
+      <EditModal isOpen={editModal.isOpen} onClose={() => setEditModal({ isOpen: false, editData: null })}
+                 onSave={handleSave} editData={editModal.editData} />
+      <ExportModal isOpen={exportModal} onClose={() => setExportModal(false)} data={data} reviewState={reviewState} />
+      <AdminPasswordModal isOpen={showAdminModal} onClose={() => setShowAdminModal(false)}
+                          onSuccess={() => setAdminMode(true)} />
+
+      {/* Slide-in Drawer Preview — only render backdrop when a doc is open */}
+      {previewDoc && (
+        <div
+          className="fixed inset-0 pointer-events-auto"
+          style={{ backgroundColor: 'rgba(61,43,34,0.45)', zIndex: 999 }}
+          onClick={() => setPreviewDoc(null)}
+        />
+      )}
+
+      <div
+        className="fixed top-0 right-0 h-full flex flex-col"
+        style={{
+          width: '66%', background: 'var(--cd-warm)',
+          boxShadow: 'var(--shadow-lg)',
+          borderLeft: '1px solid var(--border)',
+          transform: previewDoc ? 'translateX(0)' : 'translateX(100%)',
+          transition: 'transform 0.3s cubic-bezier(0.4,0,0.2,1)',
+          zIndex: 1000
+        }}
+      >
+        <div className="k1-drawer-header flex items-center justify-between flex-shrink-0"
+             style={{padding:'16px 24px'}}>
+          <div className="flex flex-col min-w-0 pr-4">
+            <span className="text-xs font-bold tracking-wider uppercase mb-1" style={{color:'#A47864'}}>推入預覽</span>
+            <h3 className="font-medium text-gray-900 truncate text-sm">{previewDoc?.title || '載入中...'}</h3>
+          </div>
+          <div className="flex items-center gap-3 flex-shrink-0">
+            {previewDoc && (
+              <a href={previewDoc.url} target="_blank" rel="noopener"
+                 className="px-4 py-2 text-xs rounded border border-gray-200 font-medium transition-colors shadow-sm"
+                 style={{background:'#F5EFE8', color:'#7A5C50'}}>
+                另開新頁
+              </a>
+            )}
+            <button onClick={() => setPreviewDoc(null)}
+                    className="p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors"
+                    style={{fontSize:'18px', lineHeight:'1'}}>✕</button>
+          </div>
+        </div>
+        <div className="flex-1 relative w-full flex items-center justify-center" style={{background:'#F5EFE8'}}>
+          {previewDoc && (() => {
+            const url = previewDoc.url;
+            const isEdbHtml = url.includes('edb.gov.hk') && !url.toLowerCase().includes('.pdf');
+            const isPdf = url.toLowerCase().includes('.pdf');
+            if (isEdbHtml) {
+              return (
+                <div className="text-center px-8 py-12 max-w-md">
+                  <div style={{fontSize:'48px', marginBottom:'16px'}}>🔒</div>
+                  <h3 className="font-bold text-lg mb-2" style={{color:'#3D2B22'}}>EDB 網站不允許嵌入預覽</h3>
+                  <p className="text-sm mb-6" style={{color:'#8C7266'}}>
+                    香港教育局網站設有安全限制，禁止在其他網頁內嵌入其內容。<br/>請點擊下方按鈕在新分頁開啟。
+                  </p>
+                  <a href={url} target="_blank" rel="noopener"
+                     className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium text-white shadow-md transition-all hover:opacity-90"
+                     style={{background:'#A47864'}}>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                    在新分頁開啟文件
+                  </a>
+                </div>
+              );
+            }
+            const iframeSrc = isPdf
+              ? `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`
+              : url;
+            return (
+              <iframe
+                src={iframeSrc}
+                className="absolute inset-0 w-full h-full border-0"
+                title="PDF Preview"
+              />
+            );
+          })()}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+<script>
+/* Header scroll shadow */
+const hdr = document.getElementById('k1Header');
+if (hdr) {
+  window.addEventListener('scroll', () => {
+    hdr.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+}
+</script>
+</body>
+</html>

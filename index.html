@@ -1,6 +1,995 @@
 <!DOCTYPE html>
-<meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=k1-dashboard.html">
-<title>學校管理知識中心</title>
-<script>window.location.replace('k1-dashboard.html')</script>
-<p>正在載入… <a href="k1-dashboard.html">點此進入儀表板</a></p>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K1 知識平台 — 學校行政智能知識引擎</title>
+  <meta name="description" content="香港學校行政智能知識平台：從 EDB 官方文件中提煉精確政策事實，助校長及管理人員即時作出精準決策。">
+  <style>
+    /* ─── Reset & Base ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #080C14;
+      --bg-card:     #0F1420;
+      --bg-card-2:   #141A28;
+      --border:      rgba(255,255,255,0.07);
+      --border-glow: rgba(196,163,99,0.3);
+
+      --gold:        #C4A363;
+      --gold-light:  #DFC08A;
+      --gold-dim:    rgba(196,163,99,0.15);
+      --teal:        #4BA8A0;
+      --teal-dim:    rgba(75,168,160,0.15);
+      --blue:        #5B8DB8;
+
+      --text-1:      #F0EEE9;
+      --text-2:      rgba(240,238,233,0.65);
+      --text-3:      rgba(240,238,233,0.38);
+
+      --font: -apple-system, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+
+      --text-sm:   clamp(0.8rem, 1.5vw, 0.875rem);
+      --text-base: clamp(0.9rem, 2vw, 1rem);
+      --text-lg:   clamp(1rem, 2.5vw, 1.2rem);
+      --text-xl:   clamp(1.2rem, 3.5vw, 1.6rem);
+      --text-2xl:  clamp(1.6rem, 5vw, 2.5rem);
+      --text-hero: clamp(2.8rem, 8vw, 6.5rem);
+
+      --space-sm:  clamp(0.5rem, 1.5vw, 0.75rem);
+      --space-md:  clamp(1rem, 3vw, 1.5rem);
+      --space-lg:  clamp(1.5rem, 5vw, 3rem);
+      --space-xl:  clamp(2.5rem, 7vw, 5rem);
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-1);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ─── Scroll reveal ─────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(.22,1,.36,1),
+                  transform 0.7s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── NAV ───────────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--space-lg);
+      height: 64px;
+      background: rgba(8,12,20,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo-badge {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--gold) 0%, #8B6B3D 100%);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.9rem;
+      color: #0A0C10;
+      letter-spacing: -0.5px;
+      box-shadow: 0 0 16px rgba(196,163,99,0.4);
+    }
+    .nav-logo-text {
+      font-size: 1rem; font-weight: 700;
+      color: var(--text-1); letter-spacing: 0.02em;
+    }
+    .nav-logo-sub {
+      font-size: 0.7rem; color: var(--text-3);
+      letter-spacing: 0.05em;
+      display: none;
+    }
+    @media (min-width: 480px) { .nav-logo-sub { display: block; } }
+
+    .nav-cta {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 20px;
+      background: var(--gold);
+      color: #080C14;
+      font-weight: 700; font-size: 0.875rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    @media (hover: hover) {
+      .nav-cta:hover {
+        background: var(--gold-light);
+        box-shadow: 0 0 20px rgba(196,163,99,0.5);
+        transform: translateY(-1px);
+      }
+    }
+    .nav-cta:active { transform: scale(0.97); }
+    .nav-cta-arrow { font-size: 0.8rem; }
+
+    /* ─── HERO ──────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 100px var(--space-lg) var(--space-xl);
+      overflow: hidden;
+    }
+
+    .hero-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+    }
+
+    .hero-glow {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(80px);
+    }
+    .hero-glow-gold {
+      width: min(600px, 100vw); height: min(600px, 100vw);
+      background: radial-gradient(circle, rgba(196,163,99,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%, -55%);
+    }
+    .hero-glow-teal {
+      width: min(400px, 80vw); height: min(400px, 80vw);
+      background: radial-gradient(circle, rgba(75,168,160,0.08) 0%, transparent 70%);
+      bottom: 10%; right: 5%;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(196,163,99,0.1);
+      border: 1px solid rgba(196,163,99,0.25);
+      color: var(--gold);
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: var(--space-md);
+      text-transform: uppercase;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .hero-headline {
+      font-size: var(--text-hero);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-md);
+      max-width: 14ch;
+    }
+    .hero-headline-line { display: block; }
+    .hero-headline-accent {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--teal) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: var(--text-lg);
+      color: var(--text-2);
+      max-width: 52ch;
+      line-height: 1.7;
+      margin-bottom: var(--space-lg);
+    }
+
+    .hero-actions {
+      display: flex; flex-wrap: wrap;
+      gap: var(--space-sm);
+      justify-content: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, var(--gold) 0%, #8B6B3D 100%);
+      color: #080C14;
+      font-weight: 700; font-size: 1rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: box-shadow 0.25s, transform 0.15s;
+      box-shadow: 0 4px 24px rgba(196,163,99,0.3);
+    }
+    @media (hover: hover) {
+      .btn-primary:hover {
+        box-shadow: 0 6px 32px rgba(196,163,99,0.5);
+        transform: translateY(-2px);
+      }
+    }
+    .btn-primary:active { transform: scale(0.97); }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-2);
+      font-weight: 500; font-size: 1rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+    @media (hover: hover) {
+      .btn-secondary:hover {
+        border-color: rgba(196,163,99,0.4);
+        color: var(--gold);
+        transform: translateY(-1px);
+      }
+    }
+
+    /* ─── STATS STRIP ───────────────────────────────────────── */
+    .stats-strip {
+      display: flex; flex-wrap: wrap;
+      gap: 1px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--border);
+      max-width: 680px; width: 100%;
+    }
+    .stat-item {
+      flex: 1; min-width: 120px;
+      background: var(--bg-card);
+      padding: var(--space-md);
+      text-align: center;
+    }
+    .stat-num {
+      display: block;
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .stat-label {
+      display: block;
+      font-size: var(--text-sm);
+      color: var(--text-3);
+      margin-top: 4px;
+    }
+
+    /* ─── SECTION WRAPPER ───────────────────────────────────── */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-lg);
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 12px;
+    }
+    .section-headline {
+      font-size: var(--text-2xl);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-md);
+    }
+    .section-sub {
+      font-size: var(--text-base);
+      color: var(--text-2);
+      max-width: 56ch;
+      line-height: 1.75;
+    }
+
+    /* ─── DIVIDER ────────────────────────────────────────────── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 var(--space-lg);
+    }
+
+    /* ─── BENTO FEATURES ────────────────────────────────────── */
+    .bento-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr;
+      margin-top: var(--space-lg);
+    }
+    @media (min-width: 640px) {
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+      .bento-wide { grid-column: span 2; }
+    }
+    @media (min-width: 900px) {
+      .bento-grid { grid-template-columns: repeat(3, 1fr); }
+      .bento-wide { grid-column: span 2; }
+    }
+
+    .bento-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .bento-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 60%, rgba(196,163,99,0.03) 100%);
+      pointer-events: none;
+    }
+    @media (hover: hover) {
+      .bento-card:hover {
+        border-color: rgba(196,163,99,0.25);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        transform: translateY(-3px);
+      }
+    }
+
+    .bento-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: var(--space-md);
+    }
+    .bento-icon-gold { background: var(--gold-dim); }
+    .bento-icon-teal { background: var(--teal-dim); }
+    .bento-icon-blue { background: rgba(91,141,184,0.12); }
+
+    .bento-title {
+      font-size: var(--text-lg);
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .bento-desc {
+      font-size: var(--text-sm);
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+    .bento-tag {
+      display: inline-flex; align-items: center;
+      margin-top: var(--space-md);
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--text-3);
+      gap: 6px;
+    }
+    .bento-tag-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+    }
+    .dot-gold { background: var(--gold); }
+    .dot-teal { background: var(--teal); }
+    .dot-blue { background: var(--blue); }
+
+    /* Wide card channel A+B visual */
+    .channel-split {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-top: var(--space-md);
+    }
+    .channel-pill {
+      background: var(--bg-card-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+    }
+    .channel-pill-label {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .channel-pill-desc {
+      font-size: 0.78rem;
+      color: var(--text-3);
+      line-height: 1.5;
+    }
+
+    /* ─── HOW IT WORKS ──────────────────────────────────────── */
+    .steps {
+      display: grid; gap: 12px;
+      grid-template-columns: 1fr;
+      margin-top: var(--space-lg);
+      position: relative;
+    }
+    @media (min-width: 768px) {
+      .steps { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+    }
+    .step-num {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 12px;
+      font-variant-numeric: tabular-nums;
+    }
+    .step-title {
+      font-size: var(--text-base);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: var(--text-sm);
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+    .step-sources {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-top: var(--space-md);
+    }
+    .step-source-tag {
+      background: var(--bg-card-2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 0.7rem;
+      color: var(--text-3);
+    }
+
+    /* ─── SOURCES STRIP ─────────────────────────────────────── */
+    .sources-section {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-lg) var(--space-lg);
+    }
+    .sources-label {
+      text-align: center;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: var(--space-md);
+    }
+    .sources-scroll {
+      display: flex; flex-wrap: wrap;
+      gap: 8px; justify-content: center;
+      max-width: 900px; margin: 0 auto;
+    }
+    .source-chip {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 0.72rem;
+      color: var(--text-3);
+      white-space: nowrap;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    @media (hover: hover) {
+      .source-chip:hover {
+        border-color: rgba(196,163,99,0.3);
+        color: var(--gold);
+      }
+    }
+
+    /* ─── CTA SECTION ───────────────────────────────────────── */
+    .cta-section {
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-inner {
+      max-width: 700px; margin: 0 auto;
+      text-align: center;
+      padding: var(--space-xl) var(--space-lg);
+    }
+    .cta-glow {
+      position: absolute;
+      width: min(500px, 100vw); height: min(500px, 100vw);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,163,99,0.08) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      pointer-events: none;
+      filter: blur(40px);
+    }
+    .cta-headline {
+      font-size: var(--text-2xl);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-md);
+      line-height: 1.2;
+    }
+    .cta-sub {
+      font-size: var(--text-base);
+      color: var(--text-2);
+      line-height: 1.75;
+      margin-bottom: var(--space-lg);
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .footer-left {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .footer-badge {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, var(--gold) 0%, #8B6B3D 100%);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.75rem;
+      color: #0A0C10;
+    }
+    .footer-name {
+      font-size: 0.875rem;
+      color: var(--text-2);
+    }
+    .footer-right {
+      font-size: 0.75rem;
+      color: var(--text-3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────────────────── -->
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo" aria-label="K1 知識平台首頁">
+      <div class="nav-logo-badge">K1</div>
+      <div>
+        <div class="nav-logo-text">K1 知識平台</div>
+        <div class="nav-logo-sub">EDB 學校行政智能引擎</div>
+      </div>
+    </a>
+    <a href="app.html" class="nav-cta">
+      進入平台 <span class="nav-cta-arrow">→</span>
+    </a>
+  </nav>
+
+  <!-- ─── HERO ─────────────────────────────────────────────── -->
+  <section class="hero" aria-labelledby="hero-headline">
+    <div class="hero-glow hero-glow-gold" aria-hidden="true"></div>
+    <div class="hero-glow hero-glow-teal" aria-hidden="true"></div>
+    <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+
+    <div class="hero-badge" role="status">
+      <span class="hero-badge-dot"></span>
+      系統運行中
+    </div>
+
+    <h1 class="hero-headline" id="hero-headline">
+      <span class="hero-headline-line">讓知識</span>
+      <span class="hero-headline-line hero-headline-accent">驅動決策</span>
+    </h1>
+
+    <p class="hero-sub">
+      K1 知識平台從教育局官方文件中提煉精確政策事實，
+      透過 Channel A 人工審核與 Channel B 語義搜尋，
+      讓校長及管理人員即時取得可執行的決策依據。
+    </p>
+
+    <div class="hero-actions">
+      <a href="app.html" class="btn-primary">
+        立即使用智能搜尋 →
+      </a>
+      <a href="app.html#guidelines" class="btn-secondary">
+        瀏覽指引文件庫
+      </a>
+    </div>
+
+    <div class="stats-strip" role="region" aria-label="平台統計">
+      <div class="stat-item">
+        <span class="stat-num" id="stat-facts">109</span>
+        <span class="stat-label">已審核事實</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">2,840</span>
+        <span class="stat-label">知識索引塊</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">39</span>
+        <span class="stat-label">指引文件</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">7</span>
+        <span class="stat-label">知識專題</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─── FEATURES ─────────────────────────────────────────── -->
+  <section class="section" aria-labelledby="features-headline">
+    <p class="section-tag reveal">核心功能</p>
+    <h2 class="section-headline reveal reveal-delay-1" id="features-headline">
+      專為學校行政而設
+    </h2>
+    <p class="section-sub reveal reveal-delay-2">
+      涵蓋財務採購、人事管理、課程政策、學生事務等七大專題，
+      一個平台解答校內所有政策疑問。
+    </p>
+
+    <div class="bento-grid">
+      <!-- Wide: Search -->
+      <div class="bento-card bento-wide reveal">
+        <div class="bento-icon bento-icon-gold">🔍</div>
+        <div class="bento-title">智能搜尋 — Channel A + B 雙軌引擎</div>
+        <div class="bento-desc">
+          輸入任何政策問題，即時從 EDB 官方文件中取得有來源依據的精準答案。
+          Channel A 提供人工審核的高可信事實；Channel B 進行全文語義搜尋，
+          覆蓋 2,840 個知識索引塊。
+        </div>
+        <div class="channel-split">
+          <div class="channel-pill">
+            <div class="channel-pill-label" style="color:var(--gold)">Channel A</div>
+            <div class="channel-pill-desc">人工審核精確事實，高可信度，即時問答</div>
+          </div>
+          <div class="channel-pill">
+            <div class="channel-pill-label" style="color:var(--teal)">Channel B</div>
+            <div class="channel-pill-desc">AI 全文語義搜尋，52 個來源，深度覆蓋</div>
+          </div>
+        </div>
+        <div class="bento-tag">
+          <span class="bento-tag-dot dot-gold"></span>
+          主要功能 · 每日使用
+        </div>
+      </div>
+
+      <!-- Guidelines -->
+      <div class="bento-card reveal reveal-delay-1">
+        <div class="bento-icon bento-icon-teal">📚</div>
+        <div class="bento-title">指引文件庫</div>
+        <div class="bento-desc">
+          39 份 EDB 官方指引按範疇分類排序，
+          附 Google Docs Viewer PDF 快速預覽，
+          無需離開平台即可閱讀原文。
+        </div>
+        <div class="bento-tag">
+          <span class="bento-tag-dot dot-teal"></span>
+          39 份文件 · 持續更新
+        </div>
+      </div>
+
+      <!-- Circular Analysis -->
+      <div class="bento-card reveal reveal-delay-2">
+        <div class="bento-icon bento-icon-blue">📄</div>
+        <div class="bento-title">通告分析</div>
+        <div class="bento-desc">
+          即時分析 EDB 最新通告內容，
+          提取關鍵政策要點，
+          讓管理人員快速掌握每份通告的行動要求。
+        </div>
+        <div class="bento-tag">
+          <span class="bento-tag-dot dot-blue"></span>
+          GPT-4.1-nano 驅動
+        </div>
+      </div>
+
+      <!-- Knowledge Extraction (Admin) -->
+      <div class="bento-card reveal reveal-delay-1">
+        <div class="bento-icon bento-icon-gold">✍️</div>
+        <div class="bento-title">知識提煉</div>
+        <div class="bento-desc">
+          管理員審批由 AI 從官方文件提取的候選事實，
+          行內即時修訂後加入知識庫，
+          現有 408 個候選等待審批。
+        </div>
+        <div class="bento-tag">
+          <span class="bento-tag-dot dot-gold"></span>
+          Admin · 人工把關
+        </div>
+      </div>
+
+      <!-- Knowledge Management (Admin) -->
+      <div class="bento-card reveal reveal-delay-2">
+        <div class="bento-icon bento-icon-teal">⚙️</div>
+        <div class="bento-title">知識管理</div>
+        <div class="bento-desc">
+          管理已審核知識庫：按專題及角色篩選、
+          編輯事實內容、追溯原文來源，
+          確保知識庫品質持續提升。
+        </div>
+        <div class="bento-tag">
+          <span class="bento-tag-dot dot-teal"></span>
+          Admin · 品質管控
+        </div>
+      </div>
+
+      <!-- Policy Signals -->
+      <div class="bento-card reveal reveal-delay-3">
+        <div class="bento-icon bento-icon-blue">📡</div>
+        <div class="bento-title">政策訊號監測</div>
+        <div class="bento-desc">
+          自動偵測 EDB 新通告中涉及課程架構、
+          學習宗旨等關鍵政策更新，
+          自動下載並提取候選事實。
+        </div>
+        <div class="bento-tag">
+          <span class="bento-tag-dot dot-blue"></span>
+          Circular System 整合 · 新功能
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SOURCES STRIP ─────────────────────────────────────── -->
+  <div class="sources-section">
+    <p class="sources-label">知識來源 — EDB 官方文件</p>
+    <div class="sources-scroll">
+      <span class="source-chip">學校行政手冊（SAG）</span>
+      <span class="source-chip">資助則例（CoA）</span>
+      <span class="source-chip">採購程序指引</span>
+      <span class="source-chip">財務管理指引（IMC）</span>
+      <span class="source-chip">全方位學習津貼指引</span>
+      <span class="source-chip">教師專業操守指引</span>
+      <span class="source-chip">小學教育課程指引（2024）</span>
+      <span class="source-chip">小學人文科課程指引</span>
+      <span class="source-chip">科學科課程指引</span>
+      <span class="source-chip">中國語文課程指引</span>
+      <span class="source-chip">英語文課程指引</span>
+      <span class="source-chip">價值觀教育課程架構（2026）</span>
+      <span class="source-chip">地理科課程框架（2026）</span>
+      <span class="source-chip">音樂科課程指引</span>
+      <span class="source-chip">體育學習領域課程指引</span>
+      <span class="source-chip">及更多 EDB 通告 ...</span>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ─── HOW IT WORKS ──────────────────────────────────────── -->
+  <section class="section" aria-labelledby="how-headline">
+    <p class="section-tag reveal">運作原理</p>
+    <h2 class="section-headline reveal reveal-delay-1" id="how-headline">
+      兩條知識管道，一個平台
+    </h2>
+    <p class="section-sub reveal reveal-delay-2">
+      Channel A 確保每條事實都有人工驗證；
+      Channel B 以向量語義搜尋覆蓋全部原文。
+      兩者互補，提供最完整的知識覆蓋。
+    </p>
+
+    <div class="steps">
+      <div class="step-card reveal">
+        <div class="step-num">01</div>
+        <div class="step-title">收集官方文件</div>
+        <div class="step-desc">
+          從 EDB 網站下載最新政策指引及通告，
+          涵蓋財務、人事、課程等七大專題，
+          全部來自官方可信來源。
+        </div>
+        <div class="step-sources">
+          <span class="step-source-tag">PDF 指引</span>
+          <span class="step-source-tag">EDB 通告</span>
+          <span class="step-source-tag">課程框架</span>
+        </div>
+      </div>
+
+      <div class="step-card reveal reveal-delay-1">
+        <div class="step-num">02</div>
+        <div class="step-title">AI 提取 + 人工審核</div>
+        <div class="step-desc">
+          GPT-4.1-nano 從原文提取具體事實候選，
+          管理員逐條核實並可行內修訂，
+          確保每條知識都有原文根據。
+        </div>
+        <div class="step-sources">
+          <span class="step-source-tag">LLM 提取</span>
+          <span class="step-source-tag">人工把關</span>
+          <span class="step-source-tag">來源引用</span>
+        </div>
+      </div>
+
+      <div class="step-card reveal reveal-delay-2">
+        <div class="step-num">03</div>
+        <div class="step-title">即時搜尋答案</div>
+        <div class="step-desc">
+          管理人員輸入任何政策問題，
+          系統透過語義相似度比對知識庫，
+          即時回傳附來源的精準答案。
+        </div>
+        <div class="step-sources">
+          <span class="step-source-tag">向量搜尋</span>
+          <span class="step-source-tag">GPT 合成</span>
+          <span class="step-source-tag">來源標示</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ──────────────────────────────────────────────── -->
+  <section class="cta-section" aria-labelledby="cta-headline">
+    <div class="cta-glow" aria-hidden="true"></div>
+    <div class="cta-inner">
+      <p class="section-tag reveal">開始使用</p>
+      <h2 class="cta-headline reveal reveal-delay-1" id="cta-headline">
+        即時查閱學校政策<br>不再翻查厚厚文件
+      </h2>
+      <p class="cta-sub reveal reveal-delay-2">
+        109 條已審核政策事實，2,840 個知識索引塊，
+        隨時為你解答採購門檻、人事規定、課程要求等問題。
+      </p>
+      <div class="reveal reveal-delay-3">
+        <a href="app.html" class="btn-primary" style="font-size:1.1rem; padding: 16px 40px;">
+          進入 K1 知識平台 →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-left">
+      <div class="footer-badge">K1</div>
+      <span class="footer-name">K1 知識平台 — 學校行政智能引擎</span>
+    </div>
+    <div class="footer-right">
+      知識來源：教育局（EDB）官方文件 · 僅供內部參考
+    </div>
+  </footer>
+
+  <!-- ─── JS: Canvas particles + scroll reveal ─────────────── -->
+  <script>
+    // ── Particle canvas ──────────────────────────────────────
+    const canvas  = document.getElementById('heroCanvas');
+    const ctx     = canvas.getContext('2d');
+    let W, H, particles, animId;
+    const GOLD = 'rgba(196,163,99,';
+    const TEAL = 'rgba(75,168,160,';
+
+    function resize() {
+      W = canvas.width  = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+      init();
+    }
+
+    function rand(min, max) { return Math.random() * (max - min) + min; }
+
+    function init() {
+      const count = Math.min(Math.floor((W * H) / 18000), 60);
+      particles = Array.from({ length: count }, () => ({
+        x: rand(0, W), y: rand(0, H),
+        vx: rand(-0.2, 0.2), vy: rand(-0.15, -0.05),
+        r: rand(1, 2.5),
+        a: rand(0.06, 0.22),
+        color: Math.random() > 0.6 ? TEAL : GOLD,
+      }));
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      for (const p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color + p.a + ')';
+        ctx.fill();
+        p.x += p.vx; p.y += p.vy;
+        if (p.y < -5)  p.y = H + 5;
+        if (p.x < -5)  p.x = W + 5;
+        if (p.x > W+5) p.x = -5;
+      }
+      // subtle connection lines between nearby particles
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            const alpha = (1 - dist / 120) * 0.06;
+            ctx.strokeStyle = GOLD + alpha + ')';
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+      animId = requestAnimationFrame(draw);
+    }
+
+    // Only run animation if no reduced-motion preference
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced) {
+      const ro = new ResizeObserver(resize);
+      ro.observe(canvas);
+      resize();
+      draw();
+    }
+
+    // ── Scroll reveal ────────────────────────────────────────
+    const revealObserver = new IntersectionObserver(
+      (entries) => entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.08 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ── Animated counter ─────────────────────────────────────
+    function animateCounter(el, target, duration = 1400) {
+      let start = null;
+      const step = (timestamp) => {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target).toLocaleString();
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = target.toLocaleString();
+      };
+      requestAnimationFrame(step);
+    }
+
+    const statsObs = new IntersectionObserver(
+      (entries) => entries.forEach(e => {
+        if (e.isIntersecting) {
+          const nums = e.target.querySelectorAll('.stat-num');
+          const targets = [109, 2840, 39, 7];
+          nums.forEach((el, i) => animateCounter(el, targets[i]));
+          statsObs.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.3 }
+    );
+    const strip = document.querySelector('.stats-strip');
+    if (strip) statsObs.observe(strip);
+
+    // ── Nav transparency on scroll ───────────────────────────
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.style.background = window.scrollY > 40
+        ? 'rgba(8,12,20,0.95)'
+        : 'rgba(8,12,20,0.85)';
+    }, { passive: true });
+  </script>
+</body>
+</html>
