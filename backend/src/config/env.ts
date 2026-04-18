@@ -1,4 +1,4 @@
-const DEFAULT_OPENAI_MODEL = "gpt-5-nano";
+const DEFAULT_OPENAI_MODEL = "gpt-4.1-nano";
 const DEFAULT_PORT = 8787;
 const DEFAULT_CORS_ORIGIN = "https://leonard-wong-git.github.io";
 const DEFAULT_KNOWLEDGE_PATH_SETTING = "../../../role_facts.json";

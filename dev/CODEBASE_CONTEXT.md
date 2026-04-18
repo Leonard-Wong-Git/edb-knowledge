@@ -7,8 +7,8 @@
 - Hosting: GitHub Pages via `main` branch
 
 ## Directory Map
-- `k1-dashboard.html` — primary application UI and embedded knowledge data
-- `index.html` — redirect entry point to `k1-dashboard.html`
+- `index.html` — **PRIMARY React SPA** (Phase 2 complete): K1知識平台 full app (3183 lines); tabs: 平台介紹, 智能搜尋 (Channel A/B/A+B), 指引文件庫, 通告分析, 知識提煉(Admin), 知識管理(Admin); PlatformIntroPanel; WordCloud removed
+- `k1-dashboard.html` — **DEPRECATED**: preserved as legacy backup; v1 link in index.html header (opacity 0.4)
 - `README.md` — project overview, feature summary, live demo link
 - `CHANGELOG.md` — release history through `v1.3.1`
 - `K1_KNOWLEDGE_INTERFACE_SPEC.md` — external data contract and validation expectations for `role_facts.json`; now v2.0.0 with `subject_head` + `panel_chair`
@@ -27,6 +27,10 @@
 - `backend/src/services/promptBuilder.ts` — builds the consultative prompt with approved knowledge injection
 - `backend/src/lib/embeddingClient.ts` — OpenAI `text-embedding-3-small` wrapper; exports `EmbedFn` type
 - `backend/src/lib/knowledgeRepository.ts` — loads repo-root `role_facts.json` for backend use; `dev/knowledge/role_facts.json` remains a legacy backup/export artifact
+- `backend/src/lib/wikiRepository.ts` — loads `dev/knowledge/wiki_index.json` (2,840 chunks, 124 MB); in-process cache; cosine similarity search (no external math libs); returns all results above minScore (no top-k cap)
+- `backend/src/api/searchChannelA.ts` — Channel A keyword + embedding search; embeds all ~109 facts per query; returns scored ChannelAResult[]
+- `backend/src/api/searchChannelB.ts` — Channel B cosine wiki search; LLM synthesis (gpt-4.1-nano, top 5, ≤120字); statistical filtering; CJK text cleaning; page# extraction; default min_score=0.22 top_k=8
+- `backend/src/api/searchCombined.ts` — runs A+B in parallel; deduplicates by 80-char text prefix; Channel A priority; merged LLM synthesis over top 5
 - `backend/src/lib/llmClient.ts` — OpenAI Responses API wrapper with low-cost default model
 - `backend/src/api/analyzeCircular.ts` — orchestrates detect → select → prompt → LLM flow
 - `backend/src/server.ts` — minimal Node HTTP entrypoint exposing `POST /analyze-circular`
@@ -34,18 +38,22 @@
 - `dev/knowledge/role_facts.json` — JSON backup / export artifact for the dashboard knowledge dataset; synchronized with repo-root `role_facts.json` to support systems expecting the legacy path.
 - `dev/SESSION_HANDOFF.md` — current operating state and next priorities
 - `dev/SESSION_LOG.md` — session-by-session history and verification evidence
+- `dev/knowledge/policy_signals.json` — **暗盤訊號檔**（NEW 2026-04-17）：由 Circular System edb_scraper.py `_apply_post_analysis_review()` 末段靜默寫入；strong signal 觸發條件：標題含【架構｜課程框架｜學習宗旨｜指引（YYYY）】**且** AI topics 含 curriculum；status 欄位：pending_review（待審）/ reviewed（已處理）；管理員人手決定是否跟新 K1 知識庫；**不顯示於用戶介面**
+- `dev/PDF_DOWNLOAD_LIST.md` — EDB PDF 來源下載清單（優先序、source_id 對照、直接連結）
 
 ## Key Entry Points
-- Browser entry: `index.html`
-- App root: `k1-dashboard.html`
+- Browser entry: `index.html` — **full React SPA** (Phase 2 complete; k1-dashboard.html deprecated)
+- App root: `index.html` (React 18, Babel, Tailwind CDN — single file)
 - DOM mount: `#root`
 - Main dataset constant: `INITIAL_DATA`
 - Review state bootstrap: `buildInitialReview(...)`
+- Tabs: 平台介紹 / 智能搜尋 / 指引文件庫 / 通告分析 / ✍️ 知識提煉(Admin) / ⚙️ 知識管理(Admin)
 
 ## Build & Run
-- No local build step or package manager is currently required
-- Local usage: open `k1-dashboard.html` directly in a browser
-- Deployed usage: GitHub Pages serves `index.html`, which redirects to `k1-dashboard.html`
+- No local build step for frontend — open `index.html` directly in a browser
+- Deployed usage: GitHub Pages serves `index.html` as the React SPA
+- **Channel A search** works offline (no backend needed)
+- **Channel B / A+B search** requires backend: `cd backend && npm run dev` (port 8787)
 - Admin review persistence:
   - same-browser edits / approvals are auto-saved in `localStorage`
   - permanent cross-device persistence requires downloading the admin snapshot export and writing it back to repo
@@ -91,7 +99,7 @@
 - Purpose: (1) embedding-based semantic topic detection; (2) circular analysis generation
 - Backend usage: `backend/src/lib/embeddingClient.ts` (embeddings), `backend/src/lib/llmClient.ts` (LLM)
 - Embedding model: `text-embedding-3-small` (fixed in embeddingClient.ts)
-- LLM default model: `gpt-5-nano` (configurable via `OPENAI_MODEL` env var)
+- LLM default model: `gpt-4.1-nano` (configurable via `OPENAI_MODEL` env var)
 - Notes:
   - LLM implementation targets the Responses API (`client.responses.create`)
   - Embedding implementation uses standard Embeddings API (`client.embeddings.create`)
@@ -141,3 +149,13 @@
 - `2026-04-11 (Codex_20260411_0001)` Realigned `K1_API_SPEC.md` with the live public schema metadata (`knowledge.json` / `guidelines.json` both at `v1.3.1`) so schema-consistency regression no longer fails on stale local spec markers. Live GitHub Pages copy still requires a future push to catch up.
 - `2026-04-11 (Claude_20260411_0007)` Integrated Phase 2: Created `dev/source/FRESHNESS_GUIDE.md` to document the monitoring rhythm. Backfilled 7 direct PDF URLs for Primary Science circulars in the registry. Synced root `role_facts.json` to `dev/knowledge/role_facts.json` to ensure the EDB Circular System scraper (Project-V3) sees the latest v2.0.0 facts. Ran offline semantic regression: circular samples PASS, but query routing awaits online re-verification.
 - `2026-04-12 (Antigravity_20260412_1524)` Completed Phase 1 registry backfill: updated approx 23 core curriculum documents with verified direct PDF URLs for KLAs (Econ, Ethics, Geog, Art, PE, etc.). Registry is now 99% complete for core curriculum files.
+- `2026-04-15 (Claude_20260415_0001)` Added stat_facts.json (26 auto-approved statistical facts from stat_kg/pri/sec/special/integrated_edu) and build_stat_facts.py to dev/vault/. Knowledge file layout now: role_facts.json (policy, human-approved) + candidate_queue.json (policy, pending) + stat_facts.json (statistical, auto-approved). Added circ_edbc24017 policy candidates to queue (72 total). Architecture: two-channel pipeline (Channel A human / Channel B full-AI) confirmed; Policy Document Export in backlog.
+- `2026-04-15 (Claude_20260415_0002)` Added dev/vault/dedup_check.py — fact deduplication tool using character n-gram + CJK word Jaccard similarity, no API key required. Supports --against for cross-file comparison. Snapshot analysis revealed EO→行政主任 improvements in dashboard; one fact has unwanted prefix pending fix before role_facts.json export.
+- `2026-04-15 (Claude_20260415_0003)` Built full Channel B pipeline: ai_extract.py (batch AI extraction, broader prompt), build_wiki_index.py (810 chunks from vault+role_facts+stat_facts, hash dedup, ~$0.002 embedding cost), wiki_search.py (cosine retrieval + LLM synthesis, top-4 chunks, 200-char answer). Channel B Circular System integration explicitly paused pending testing. wiki_index.json not yet built (needs build_wiki_index.py run).
+- `2026-04-16 (Claude_20260416_0003)` Phase 1 + Phase 2 complete. (1) Phase 1: added wikiRepository.ts (cosine search, no top-k, in-process cache), searchChannelA.ts, searchChannelB.ts, searchCombined.ts (dedup by 80-char prefix, A priority); server.ts +3 routes; npm run check ✅. (2) Phase 2: index.html → full React SPA replacing k1-dashboard.html; PlatformIntroPanel (hero stats, 6-card bento, how-it-works, sources strip); Channel A/B/A+B selector; 平台介紹 first tab; WordCloud removed. (3) wiki_index.json built (810 chunks, 35 MB); wiki_search.py fixed (gpt-4.1-nano, max_tokens, 繁中). (4) SAG sag_2025_11 Ch1/3/6/7 extracted (7309 lines) → 9 new Channel A candidates; queue 72→81.
+- `2026-04-17 (Claude_20260417_0001)` Session 75 documentation: Updated SESSION_HANDOFF.md (Phase 2 marked complete, queue 81, Session 76 priorities), SESSION_LOG.md (Session 75 entry added), CODEBASE_CONTEXT.md (directory map + this AI Maintenance Log).
+- `2026-04-18 (Claude_20260418_0001)` Fixed extract_candidates.py JSON parse bug: added _sanitize_llm_json() to handle LLM quirks — bare arithmetic page_number (18-19) and adjacent string literals. g05 re-extracted successfully (+16 candidates). Queue deduped 372→370, then +16 g05 = 386 total. Session 76 fully closed.
+- `2026-04-17 (Claude_20260417_0005)` wiki_index.json final rebuild confirmed by user: 2,840 chunks / 124 MB (45 vault sources; 2,705 vault_extract + 109 approved_fact + 26 stat_fact). Session 76 closed.
+- `2026-04-17 (Claude_20260417_0004)` Added g02 (財務管理指引, 17p, 726 lines) and g03 (全方位學習津貼, 5p, 286 lines) vault extracts via pdftotext. Total new extracts this session: 20 source_ids. SESSION_HANDOFF updated with full pending command list.
+- `2026-04-17 (Claude_20260417_0003)` Added policy_signals.json (empty template with schema metadata) to dev/knowledge/. Documented Policy Signals暗盤機制 in CODEBASE_CONTEXT and SESSION_HANDOFF [TODO-1]. Mechanism: edb_scraper.py v3.0.45+ silently writes strong-signal circulars (title_keyword ∩ topic:curriculum) to this file; admin reviews and marks status reviewed; not shown in UI. 3 pending signals (EDBC002/3/5 2026) awaiting workflow confirmation.
+- `2026-04-17 (Claude_20260417_0002)` Session 76: (1) Channel B full debug — CORS_ORIGIN=*, wikiRepository path fix, --env-file=.env. (2) searchChannelB.ts rewritten: LLM synthesis, statistical filtering, CJK text clean, page# extraction. (3) searchCombined.ts rewritten: A+B parallel, dedup, merged synthesis. (4) index.html: synthesis block (Mocha Mousse), SourcesAccordion (groups by URL, approved facts green). (5) SAG Ch2/4/5 + edbc12_2025 extracted; wiki_index rebuilt (810→1,235 chunks, 53 MB). (6) Batch extracted 18 new source PDFs via pdftotext: g05(30p), g11(calendar, 3 docs), edbc13/18/9/20(pri_science+ph_pri circulars), pri_curr_guide_2024(80/343p), ph_pri_guide_2025(80p), pri_science_guide_2025(80p), chi_pri_guide_2023(67p), eng_pri_guide_2025(80p), gs_pri_guide_2017(80p), ma_kla_guide_2017(80p), chi_hist_jss_2019(79p), chi_jss_guide_2023(66p), music_p1_s6_2024(65p), va_p1_s6_2024(53p), pe_kla_2017(80p). Channel A: 6/148 sources done; user approved queue. Pending: run extract_candidates.py for new sources + build_wiki_index.py locally.

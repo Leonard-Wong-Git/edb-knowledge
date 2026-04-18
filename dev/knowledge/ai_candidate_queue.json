@@ -1,0 +1,370 @@
+{
+  "_meta": {
+    "schema": "ai_candidate_queue_v1",
+    "channel": "B",
+    "generated_at": "2026-04-15T19:37:09.256481+00:00",
+    "model": "gpt-5-nano",
+    "note": "Channel B full-AI analysis. Not for direct role_facts.json injection.",
+    "sources_processed": [
+      "circ_edbc24017"
+    ],
+    "total_candidates": 16
+  },
+  "candidates": [
+    {
+      "id": "ai_0df4e83e",
+      "channel": "B",
+      "auto_generated": true,
+      "proposed_text": "公布《小學教育課程指引》（2024），校長與教師均須閱覽相關文件。",
+      "source_id": "circ_edbc24017",
+      "source_title": "教育局通告第17/2024號",
+      "source_url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "source_quote": "本通告旨在公布課程發展議會編訂的《小學教育課程指引》（《小學指引》）（2024）供學校採用。所有小學校長和教師均應閱覽上述指引及相 關文件。",
+      "page_number": "1",
+      "suggested_topic": "curriculum",
+      "suggested_roles": [
+        "all_roles"
+      ],
+      "extraction_type": "requirement",
+      "compliance_risk": "low",
+      "related_topics": [
+        "curriculum"
+      ],
+      "confidence": "high",
+      "generated_at": "2026-04-15T19:37:09.256029+00:00"
+    },
+    {
+      "id": "ai_8f5195a1",
+      "channel": "B",
+      "auto_generated": true,
+      "proposed_text": "2024/25學年正式推行《小學指引》（2024）。",
+      "source_id": "circ_edbc24017",
+      "source_title": "教育局通告第17/2024號",
+      "source_url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "source_quote": "今年 5 月，專責委員會通過《小學指引》（2024 ）定稿，並於同年 6 月獲課程發展議會接納，供所有小學於 2024/25 學年正式推行。",
+      "page_number": "2",
+      "suggested_topic": "curriculum",
+      "suggested_roles": [
+        "all_roles"
+      ],
+      "extraction_type": "deadline",
+      "compliance_risk": "medium",
+      "related_topics": [
+        "curriculum"
+      ],
+      "confidence": "high",
+      "generated_at": "2026-04-15T19:37:09.256029+00:00"
+    },
+    {
+      "id": "ai_6d16b4e2",
+      "channel": "B",
+      "auto_generated": true,
+      "proposed_text": "《小學指引》（2024）及相關資源資料已上載教育局網站，供參閱。",
+      "source_id": "circ_edbc24017",
+      "source_title": "教育局通告第17/2024號",
+      "source_url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "source_quote": "《小學指引》（2024）及相關資源和專業發展課程的資 料已上載教育局網頁(www.edb.gov.hk/pecg)，供學校與公眾人士參閱（暫時只提供繁體中文版，英文版將於日後上載）",
+      "page_number": "2",
+      "suggested_topic": "curriculum",
+      "suggested_roles": [
+        "all_roles"
+      ],
+      "extraction_type": "guidance",
+      "compliance_risk": "low",
+      "related_topics": [
+        "curriculum",
+        "it"
+      ],
+      "confidence": "high",
+      "generated_at": "2026-04-15T19:37:09.256029+00:00"
+    },
+    {
+      "id": "ai_bba6d268",
+      "channel": "B",
+      "auto_generated": true,
+      "proposed_text": "更新七個學習宗旨及三大方向需在課程規劃中落實。",
+      "source_id": "circ_edbc24017",
+      "source_title": "教育局通告第17/2024號",
+      "source_url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "source_quote": "小學教育更新的七個學習宗旨",
+      "page_number": "4",
+      "suggested_topic": "curriculum",
+      "suggested_roles": [
+        "all_roles"
+      ],
+      "extraction_type": "guidance",
+      "compliance_risk": "low",
+      "related_topics": [
+        "curriculum"
+      ],
+      "confidence": "high",
+      "generated_at": "2026-04-15T19:37:09.256029+00:00"
+    },
+    {
+      "id": "ai_2776eb29",
+      "channel": "B",
+      "auto_generated": true,
+      "proposed_text": "依三大方向與七大重點，優化學校課程規劃以達成七學習宗旨。",
+      "source_id": "circ_edbc24017",
+      "source_title": "教育局通告第17/2024號",
+      "source_url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "source_quote": "下一階段的小學課程持續更新可歸納為三大方向： 立德樹人、創造空間、學生學習為中心",
+      "page_number": "5",
+      "suggested_topic": "curriculum",
+      "suggested_roles": [
+        "all_roles"
+      ],
+      "extraction_type": "guidance",
+      "compliance_risk": "low",
+      "related_topics": [
+        "curriculum"
+      ],
+      "confidence": "high",
+      "generated_at": "2026-04-15T19:37:09.256029+00:00"
+    },
+    {
+      "id": "ai_edfe21b5",
+      "channel": "B",
+      "auto_generated": true,
+      "proposed_text": "至校教師工作坊於2023/24—2025/26學年持續，並提供資源。",
+      "source_id": "circ_edbc24017",
+      "source_title": "教育局通告第17/2024號",
+      "source_url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "source_quote": "2023/24至2025/26 學年 小學教育課程指引―到校教師工作坊（2023/24—2025/26）",
+      "page_number": "6",
+      "suggested_topic": "hr",
+      "suggested_roles": [
+        "all_roles"
+      ],
+      "extraction_type": "guidance",
+      "compliance_risk": "low",
+      "related_topics": [
+        "hr",
+        "curriculum"
+      ],
+      "confidence": "high",
+      "generated_at": "2026-04-15T19:37:09.256029+00:00"
+    },
+    {
+      "id": "ai_c285bc2d",
+      "channel": "B",
+      "auto_generated": true,
+      "proposed_text": "新任小學課程統籌主任培訓課程需完成約100小時。",
+      "source_id": "circ_edbc24017",
+      "source_title": "教育局通告第17/2024號",
+      "source_url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "source_quote": "新任小學課程統籌主任培訓課程 • 需要完成約100小時的培訓課程",
+      "page_number": "6",
+      "suggested_topic": "hr",
+      "suggested_roles": [
+        "all_roles"
+      ],
+      "extraction_type": "guidance",
+      "compliance_risk": "low",
+      "related_topics": [
+        "hr"
+      ],
+      "confidence": "high",
+      "generated_at": "2026-04-15T19:37:09.256029+00:00"
+    },
+    {
+      "id": "ai_61c726d6",
+      "channel": "B",
+      "auto_generated": true,
+      "proposed_text": "可參閱《小學教育課程指引》專題網頁及資源。",
+      "source_id": "circ_edbc24017",
+      "source_title": "教育局通告第17/2024號",
+      "source_url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "source_quote": "小學教育課程指引專題網頁：(www.edb.gov.hk/pecg)",
+      "page_number": "7",
+      "suggested_topic": "curriculum",
+      "suggested_roles": [
+        "all_roles"
+      ],
+      "extraction_type": "guidance",
+      "compliance_risk": "low",
+      "related_topics": [
+        "curriculum",
+        "it"
+      ],
+      "confidence": "high",
+      "generated_at": "2026-04-15T19:37:09.256029+00:00"
+    },
+    {
+      "id": "ai_4fc1cd69",
+      "channel": "B",
+      "auto_generated": true,
+      "proposed_text": "將校本評估與課業政策上載至校網，讓公眾知悉。",
+      "source_id": "circ_edbc24017",
+      "source_title": "教育局通告第17/2024號",
+      "source_url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "source_quote": "將校本評估與課業政策上載至學校網頁，讓公眾及持份者知悉，並定期（每學年至少一次）蒐集教師、學生和家長的意見，以持續檢視和優化校本評估與課業政策，並為有需要的學生和家長訂定相應的支援策略；",
+      "page_number": "8",
+      "suggested_topic": "curriculum",
+      "suggested_roles": [
+        "all_roles"
+      ],
+      "extraction_type": "requirement",
+      "compliance_risk": "low",
+      "related_topics": [
+        "curriculum",
+        "it"
+      ],
+      "confidence": "high",
+      "generated_at": "2026-04-15T19:37:09.256029+00:00"
+    },
+    {
+      "id": "ai_1c4b83bb",
+      "channel": "B",
+      "auto_generated": true,
+      "proposed_text": "每學年至少一次蒐集教師、學生和家長意見，以持續改進。",
+      "source_id": "circ_edbc24017",
+      "source_title": "教育局通告第17/2024號",
+      "source_url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "source_quote": "定期（每學年至少一次）蒐集教師、學生和家長的意見，以持續檢視和優化校本評估與課業政策，並為有需要的學生和家長訂定相應的支援策略；",
+      "page_number": "8",
+      "suggested_topic": "curriculum",
+      "suggested_roles": [
+        "all_roles"
+      ],
+      "extraction_type": "deadline",
+      "compliance_risk": "low",
+      "related_topics": [
+        "curriculum",
+        "it"
+      ],
+      "confidence": "high",
+      "generated_at": "2026-04-15T19:37:09.256029+00:00"
+    },
+    {
+      "id": "ai_6b159fba",
+      "channel": "B",
+      "auto_generated": true,
+      "proposed_text": "提供優化評估與課業政策的建議，如減少紙筆評估及避免長假後考試。",
+      "source_id": "circ_edbc24017",
+      "source_title": "教育局通告第17/2024號",
+      "source_url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "source_quote": "以下是摘錄《小學指引》（2024）分章五「評估求進」及分章六「有效益的課業」內 有關優化學校評估與課業政策的建議，學校須連同教育局通告第 18/2015 號 一併參閱，以全面審視校內現行安排，並持續完善各項優化評估與課業政策的建議措施，包 括：\n 適時檢視各級測考和默書的頻次、內容範圍或時間編排，探討以其他評估模式代替傳統的紙筆評估，減少默書和測考次數或取消個別年級的學期考試，尤其在小一上學期應以多元化評估代替測驗和考試；",
+      "page_number": "8",
+      "suggested_topic": "curriculum",
+      "suggested_roles": [
+        "all_roles"
+      ],
+      "extraction_type": "guidance",
+      "compliance_risk": "low",
+      "related_topics": [
+        "curriculum"
+      ],
+      "confidence": "high",
+      "generated_at": "2026-04-15T19:37:09.256029+00:00"
+    },
+    {
+      "id": "ai_16520768",
+      "channel": "B",
+      "auto_generated": true,
+      "proposed_text": "制定協調機制統籌科組在不同年級的評估時間、課業量及繳交日期。",
+      "source_id": "circ_edbc24017",
+      "source_title": "教育局通告第17/2024號",
+      "source_url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "source_quote": " 制定協調機制統籌科組在不同年級進行評估的時間、課業量或繳交課業的日期，以免學生在同一時段面對過多的評估及課業 ；",
+      "page_number": "8",
+      "suggested_topic": "curriculum",
+      "suggested_roles": [
+        "all_roles"
+      ],
+      "extraction_type": "guidance",
+      "compliance_risk": "low",
+      "related_topics": [
+        "curriculum"
+      ],
+      "confidence": "high",
+      "generated_at": "2026-04-15T19:37:09.256029+00:00"
+    },
+    {
+      "id": "ai_b6960745",
+      "channel": "B",
+      "auto_generated": true,
+      "proposed_text": "盡量避免在長假期後安排測考，讓學生有留白空間。",
+      "source_id": "circ_edbc24017",
+      "source_title": "教育局通告第17/2024號",
+      "source_url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "source_quote": " 盡量避免在緊接長假期後安排測考，讓學生在假期內可享有「留白」的空間；",
+      "page_number": "8",
+      "suggested_topic": "activity",
+      "suggested_roles": [
+        "all_roles"
+      ],
+      "extraction_type": "guidance",
+      "compliance_risk": "low",
+      "related_topics": [
+        "curriculum"
+      ],
+      "confidence": "high",
+      "generated_at": "2026-04-15T19:37:09.256029+00:00"
+    },
+    {
+      "id": "ai_4e6927f3",
+      "channel": "B",
+      "auto_generated": true,
+      "proposed_text": "校本政策須具高透明度與問責性，並與持份者共同促進自我完善。",
+      "source_id": "circ_edbc24017",
+      "source_title": "教育局通告第17/2024號",
+      "source_url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "source_quote": "在校本管理精神下，學校制訂的校本政策須具有高透明度和問責性，並與主 要持份者共同努促進學校自我完善。因此，學校應與家長就 評估與課業政策保持溝通，適時檢視 與優化相關安排，並善用學時，主動為學生創造空間，",
+      "page_number": "9",
+      "suggested_topic": "general",
+      "suggested_roles": [
+        "all_roles"
+      ],
+      "extraction_type": "guidance",
+      "compliance_risk": "low",
+      "related_topics": [],
+      "confidence": "high",
+      "generated_at": "2026-04-15T19:37:09.256029+00:00"
+    },
+    {
+      "id": "ai_63e9f536",
+      "channel": "B",
+      "auto_generated": true,
+      "proposed_text": "學校應與家長就評估與課業政策保持溝通，並定期檢視與優化安排。",
+      "source_id": "circ_edbc24017",
+      "source_title": "教育局通告第17/2024號",
+      "source_url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "source_quote": "學校應與家長就 評估與課業政策保持溝通，適時檢視 與優化相關安排，並善用學時，主動為學生創造空間，",
+      "page_number": "9",
+      "suggested_topic": "general",
+      "suggested_roles": [
+        "all_roles"
+      ],
+      "extraction_type": "guidance",
+      "compliance_risk": "low",
+      "related_topics": [
+        "curriculum"
+      ],
+      "confidence": "high",
+      "generated_at": "2026-04-15T19:37:09.256029+00:00"
+    },
+    {
+      "id": "ai_274fd9d2",
+      "channel": "B",
+      "auto_generated": true,
+      "proposed_text": "鼓勵每天累計MVPA60的身心活動，以促進健康發展。",
+      "source_id": "circ_edbc24017",
+      "source_title": "教育局通告第17/2024號",
+      "source_url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "source_quote": "並以 MVPA60 促進學生身心健康發展，達到世界衛生組織的建議。",
+      "page_number": "9",
+      "suggested_topic": "activity",
+      "suggested_roles": [
+        "all_roles"
+      ],
+      "extraction_type": "guidance",
+      "compliance_risk": "low",
+      "related_topics": [
+        "activity"
+      ],
+      "confidence": "high",
+      "generated_at": "2026-04-15T19:37:09.256029+00:00"
+    }
+  ]
+}

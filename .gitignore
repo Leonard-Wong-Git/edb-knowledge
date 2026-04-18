@@ -25,6 +25,19 @@ update_*.py
 backend/node_modules/
 backend/dist/
 backend/.env
+backend/tsx
+backend/edb-knowledge-platform-backend@*/
+
+# Large generated files (exceed GitHub 100MB limit)
+dev/knowledge/wiki_index.json
+
+# Python cache
+dev/vault/__pycache__/
+**/__pycache__/
+*.pyc
+
+# Superseded files
+landing.html
 
 # Editor
 .vscode/

@@ -3,19 +3,19 @@
 ## Current Baseline
 1. Version: **v1.5.0** (K1知識平台)
 2. Core files:
-   - `landing.html` — **K1 知識平台入口 Landing Page** ✅ (NEW Session 77)；dark theme, particle canvas, scroll reveal, stats counter, bento features, CTA → index.html
-   - `index.html` — **K1知識平台 FULL REACT SPA** ✅ (Phase 2 migration complete); tabs: 平台介紹 / 智能搜尋 (Channel A/B/A+B) / 指引文件庫 / 通告分析 / 知識提煉(Admin) / 知識管理(Admin)
-   - `k1-dashboard.html` — **DEPRECATED** (preserved as legacy backup only; link in index.html header at opacity 0.4)
+   - `index.html` — **K1 知識平台 Landing Page（入口）** ✅ (Session 77 重構)；dark theme, particle canvas, scroll reveal, stats counter, bento features, CTA → app.html
+   - `app.html` — **K1知識平台 FULL REACT SPA** ✅ (Phase 2 migration complete); tabs: 平台介紹 / 智能搜尋 (Channel A/B/A+B) / 指引文件庫 / 通告分析 / 知識提煉(Admin) / 知識管理(Admin)
+   - `k1-dashboard.html` — **已刪除**（git rm，Session 77）
    - `backend/src/` — Node.js TypeScript backend; Phase 1 search APIs complete:
      - `backend/src/lib/wikiRepository.ts` ✅
      - `backend/src/api/searchChannelA.ts` ✅
      - `backend/src/api/searchChannelB.ts` ✅ (no top-k limit)
      - `backend/src/api/searchCombined.ts` ✅
      - `backend/src/server.ts` — routes `/api/search/channel-a`, `/channel-b`, `/combined` ✅
-3. Knowledge state: ~109 Channel A facts (7 topics), **386 candidates in queue** (all 9 new sources extracted; g05 parse bug fixed), **wiki_index.json ✅ BUILT** (2,840 chunks, 124 MB, text-embedding-3-small — rebuilt 2026-04-17 with all 45 vault extracts; 2,705 vault_extract + 109 approved_fact + 26 stat_fact)
+3. Knowledge state: 109 Channel A facts (7 topics), **408 candidates in queue** (含 Policy Signal 新增 22 個), **wiki_index.json ✅** (2,840 chunks, 124 MB — Session 78 需 rebuild 加入 edbc002/003/005 2026)
 4. External dependencies: EDB website, OpenAI API (gpt-4.1-nano + text-embedding-3-small), Google Docs Viewer for PDF proxy
 5. Model fix: `gpt-5-nano` → `gpt-4.1-nano` corrected across all live code files
-6. Channel B: requires `cd backend && npm run dev` before testing B/A+B in index.html
+6. Channel B: requires `cd backend && npm run dev` before testing B/A+B in app.html
 
 ## User Environment (Always Reference Before Giving Shell Commands)
 - **Repo path**: `~/Downloads/Claude-edb-knowledge`
@@ -210,15 +210,18 @@ python3 dev/vault/build_wiki_index.py
    - ✅ **[候選提取]** +22 Channel A candidates (386 → 408)；3 個新 vault extracts；3 個新 source_registry 條目
    - ✅ **[policy_signals.json]** 實際標題更新，accuracy_verified: true
    - ✅ **[landing.html]** K1 知識平台入口頁（dark theme, particle canvas, bento grid, scroll reveal, stats counter）
-   - ✅ **[v1.5.0]** backend/package.json 版本更新；SESSION_HANDOFF 更新；npm run check ✅
+   - ✅ **[v1.5.0]** backend/package.json 版本更新；npm run check ✅
+   - ✅ **[index.html 重構]** landing page 成為 index.html（GitHub Pages 入口）；React SPA 改名 app.html；k1-dashboard.html 刪除
 4. Pending from last session (not yet done):
    - P0.3: role_facts.json prefix fix「課程統籌主任規劃，」→ still pending (deferred)
-   - Admin review: 408 candidates in queue（新增 22 個 Policy Signal 候選）
-   - Channel B: run `python3 dev/vault/build_wiki_index.py` 以收錄 3 個新 vault extracts
+   - Admin review: 408 candidates in queue（含 22 個 Policy Signal 候選）
+   - Channel B: run `python3 dev/vault/build_wiki_index.py` 收錄 edbc002/003/005 2026
+   - **Git 待執行**（本地）：`git rm -f k1-dashboard.html landing.html && git add index.html app.html && git commit && git push`
 5. Next priorities (Session 78):
-   - 📋 **[Channel B 更新]** `python3 dev/vault/build_wiki_index.py`（本地執行，加入 edbc002/003/005 2026）
-   - 📋 **[Channel A review]** Dashboard → 知識提煉 → 審批 408 個候選（含 22 個 Policy Signal 候選）
-   - 📋 **[Circular System 同步]** edb_scraper.py signal 寫入時加入 url + 實際 title 欄位
+   - 📋 **[Git push]** 完成 index/app.html 重構的 commit + push（見上）
+   - 📋 **[Channel B 更新]** `python3 dev/vault/build_wiki_index.py`
+   - 📋 **[Channel A review]** app.html → Admin → 知識提煉 → 審批 408 個候選
+   - 📋 **[Circular System 同步]** edb_scraper.py signal 寫入加 url + title 欄位
    - 📋 **[Dashboard Signal Badge]** 知識提煉 tab 加 pending signal 數量提示
    - 📋 Phase 3: 知識提煉 left-right split panel redesign (deferred)
    - 📋 Phase 4: Guidelines 3-level sort with sub_category (deferred)
@@ -227,3 +230,4 @@ python3 dev/vault/build_wiki_index.py
    - Channel A searchChannelA.ts embeds ALL facts per query — acceptable for ~109 facts, monitor if exceeds 500
    - Channel B Circular System 接入明確暫停
    - Channel B/A+B requires local backend (`npm run dev`) — not deployable to GitHub Pages
+   - app.html 內所有 `index.html` 內部 self-link 已是 app.html；確認無斷鏈

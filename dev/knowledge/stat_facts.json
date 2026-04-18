@@ -1,0 +1,277 @@
+{
+  "_meta": {
+    "schema": "stat_facts_v1",
+    "generated": "2026-04-15",
+    "total_facts": 26,
+    "sources": [
+      "stat_kg",
+      "stat_pri",
+      "stat_sec",
+      "stat_special",
+      "stat_integrated_edu"
+    ],
+    "note": "Auto-approved statistical facts. No human review required. Feed LLM-wiki search path only."
+  },
+  "facts": [
+    {
+      "source_id": "stat_kg",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "幼稚園",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年香港幼稚園數目為980所，其中734所參加幼稚園教育計劃。"
+    },
+    {
+      "source_id": "stat_kg",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "幼稚園",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年幼稚園學生總人數為125,426人（幼兒班37,079、低班43,057、高班45,290）。"
+    },
+    {
+      "source_id": "stat_kg",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "幼稚園",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年幼稚園教師人數為11,235人，曾受訓練教師佔98.5%。"
+    },
+    {
+      "source_id": "stat_kg",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "幼稚園",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年幼稚園學生與教師比率為8.1:1。"
+    },
+    {
+      "source_id": "stat_kg",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "幼稚園",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年幼稚園教師流失率為16.0%，較2023/24學年（19.1%）有所下降。"
+    },
+    {
+      "source_id": "stat_pri",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "小學",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年香港小學數目為590所，其中474所為公營及直接資助計劃學校。"
+    },
+    {
+      "source_id": "stat_pri",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "小學",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年小學學生總人數為319,447人，較2023/24學年（325,564人）繼續下降。"
+    },
+    {
+      "source_id": "stat_pri",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "小學",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年小學教師人數為26,701人，持學士學位或以上佔99.2%（26,481人）。"
+    },
+    {
+      "source_id": "stat_pri",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "小學",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年小學曾受訓練教師比率為93.6%，學生與教師比率為12.0:1。"
+    },
+    {
+      "source_id": "stat_pri",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "小學",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年小學教師流失率為7.4%，較2023/24學年（8.3%）下降。"
+    },
+    {
+      "source_id": "stat_pri",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "小學",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年首次入學的內地來港小學生人數為4,614人。"
+    },
+    {
+      "source_id": "stat_sec",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "中學",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年香港中學數目為512所，其中447所為公營及直接資助計劃學校。"
+    },
+    {
+      "source_id": "stat_sec",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "中學",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年中學學生總人數為340,607人（中一至中三：180,925；中四至中六：156,988；中七：2,694）。"
+    },
+    {
+      "source_id": "stat_sec",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "中學",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年中學教師人數為30,015人，持學士學位或以上佔99.6%（29,906人）。"
+    },
+    {
+      "source_id": "stat_sec",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "中學",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年中學曾受訓練教師比率為87.4%，學生與教師比率為11.4:1。"
+    },
+    {
+      "source_id": "stat_sec",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "中學",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年中學教師流失率為7.1%，較2023/24學年（8.3%）下降。"
+    },
+    {
+      "source_id": "stat_sec",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "中學",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年首次入學的內地來港中學生人數為2,471人。"
+    },
+    {
+      "source_id": "stat_special",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "特殊學校",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年香港特殊學校共63所，學生總人數9,018人（小學4,228、中學4,790）。"
+    },
+    {
+      "source_id": "stat_special",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "特殊學校",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年特殊學校教師人數為2,119人，曾受訓練教師佔97.5%，學生與教師比率為4.2:1。"
+    },
+    {
+      "source_id": "stat_special",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "特殊學校",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年特殊學校教師流失率為8.3%，較2023/24學年（9.8%）下降。"
+    },
+    {
+      "source_id": "stat_special",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "特殊學校",
+      "reference_year": "2024/25",
+      "source_url": "",
+      "fact": "2024/25學年有開辦特殊班的普通學校共10所，特殊班學生人數100人（小學31、中學69）。"
+    },
+    {
+      "source_id": "stat_integrated_edu",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "融合教育",
+      "reference_year": "2025/26",
+      "source_url": "",
+      "fact": "2025/26學年公營普通小學有特殊教育需要（SEN）學生總數為33,820人，較2024/25學年（32,250人）上升。"
+    },
+    {
+      "source_id": "stat_integrated_edu",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "融合教育",
+      "reference_year": "2025/26",
+      "source_url": "",
+      "fact": "2025/26學年公營普通中學SEN學生總數為37,920人，較2024/25學年（35,620人）持續上升。"
+    },
+    {
+      "source_id": "stat_integrated_edu",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "融合教育",
+      "reference_year": "2025/26",
+      "source_url": "",
+      "fact": "2025/26學年小學SEN學生中，特殊學習困難最多（14,100人），其次為自閉症（7,680人）及注意力不足/過度活躍症（6,030人）。"
+    },
+    {
+      "source_id": "stat_integrated_edu",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "融合教育",
+      "reference_year": "2025/26",
+      "source_url": "",
+      "fact": "2025/26學年中學SEN學生中，特殊學習困難最多（16,160人），其次為注意力不足/過度活躍症（10,320人）及自閉症（7,430人）。"
+    },
+    {
+      "source_id": "stat_integrated_edu",
+      "auto_approved": true,
+      "fact_type": "statistical",
+      "topic": "student",
+      "school_level": "融合教育",
+      "reference_year": "2025/26",
+      "source_url": "",
+      "fact": "2025/26學年中學精神病類別SEN學生達1,580人，過去五年持續上升（2020/21年僅660人）。"
+    }
+  ]
+}

@@ -348,7 +348,7 @@ Unchanged from current approach:
 - Topic detection: lightweight embedding-based (text-embedding-3-small)
 - Fact selection: deterministic role-aware selection with 600-char budget
 - Prompt assembly: compact consultative framing
-- LLM: small model (gpt-5-nano default)
+- LLM: small model (gpt-4.1-nano default)
 - Public interface: precompiled JSON, no request-time retrieval
 
 ## 8. Standalone Product Shape

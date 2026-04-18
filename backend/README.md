@@ -26,7 +26,7 @@
 
 ```bash
 OPENAI_API_KEY=your_openai_api_key
-OPENAI_MODEL=gpt-5-nano
+OPENAI_MODEL=gpt-4.1-nano
 PORT=8787
 CORS_ORIGIN=https://leonard-wong-git.github.io
 KNOWLEDGE_PATH=../../../role_facts.json
@@ -81,7 +81,7 @@ Response:
 
 ## Notes
 
-- 預設 LLM model 是 `gpt-5-nano`
+- 預設 LLM model 是 `gpt-4.1-nano`
 - topic detection 目前使用 embedding-based semantic routing
 - 若知識檔 schema 有變動，先對齊 `K1_KNOWLEDGE_INTERFACE_SPEC.md`
 - 目前後端 bridge layer 同時支援舊 `department_head` 與新 `subject_head` / `panel_chair`

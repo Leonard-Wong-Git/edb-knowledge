@@ -1,0 +1,2920 @@
+# 英國語文課程指引（小一至小六）（2025）
+# source_id: eng_pri_guide_2025
+# title: 英國語文課程指引（小一至小六）（2025）
+# fact_type: policy
+# topic_tags: curriculum/general
+# url: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf
+# extracted: 2026-04-17
+# ============================================================
+
+=== Page 1 ===
+English Language Education
+Key Learning Area
+
+
+English Language Curriculum Guide
+(Primary 1 – 6)
+
+
+
+
+Prepared by
+The Curriculum Development Council
+
+Published for use in schools by
+The Education Bureau
+HKSARG
+2025
+
+=== Page 2 ===
+(Blank Page)
+
+=== Page 3 ===
+                                             Preamble
+
+This English Language Curriculum Guide (Primary 1 – 6) (2025) (this Guide) is
+prepared by the Curriculum Development Council (CDC)1 for use in primary schools.
+It is based on the Updated Seven Learning Goals of Primary Education2, the directional
+recommendations set out in the Task Force on Review of School Curriculum Final
+Report (2020), the English Language Curriculum Guide (Primary 1 – 6) (2004) and
+other official curriculum documents, including the English Language Education Key
+Learning Area Curriculum Guide (Primary 1 – Secondary 6) (2017) and the Primary
+Education Curriculum Guide (PECG) (2024). Reference has also been made to the
+Secondary Education Curriculum Guide (2017), the Supplement to the English
+Language Education Key Learning Area Curriculum Guide (Secondary 1 – 3) (2018)
+and the English Language Curriculum and Assessment Guide (Secondary 4 – 6) (2021).
+It should be read in conjunction with all related documents.
+
+
+This Guide supersedes the 2004 version. In preparing this Guide, the CDC Committee
+on English Language Education has taken into consideration the concerns, needs and
+suggestions of various key stakeholders including schools, principals, teachers and
+students. Views on the major updates gathered from the school briefing cum feedback
+collection session, the focus group interviews and the territory-wide school survey
+conducted in 2025 are also incorporated.
+
+
+The CDC will keep the subject curriculum under review and evaluation in light of
+schools’ implementation experiences as well as the changing needs of students and
+society. All comments and suggestions on this Guide may be sent to:
+
+            English Language Education Section
+            Curriculum Development Institute
+            Education Bureau
+            Room 1206, 12/F, Wu Chung House
+            213 Queen’s Road East
+            Wan Chai, Hong Kong
+
+
+            Fax: 2834 7810
+            Email: english@edb.gov.hk
+
+1
+  The CDC is an advisory body giving recommendations to the Hong Kong Special Administrative
+  Region Government (HKSARG) on all matters relating to school curriculum development from
+  kindergarten to secondary levels. Its membership includes heads of schools, teachers, parents,
+  employers, academics from tertiary institutions, professionals from related fields or related bodies,
+  representatives from the Hong Kong Examinations and Assessment Authority (HKEAA), and officers
+  from the Education Bureau.
+2
+  For the Updated Seven Learning Goals of Primary Education, please refer to the Primary Education
+  Curriculum Guide (2024), Annex 1 of EDBC No.17/2024, as well as Appendix 1 of this Guide.
+
+=== Page 4 ===
+(Blank Page)
+
+=== Page 5 ===
+                                    Contents
+Preamble
+
+Chapter 1 Introduction                                                         3
+           1.1 Background                                                      3
+
+           1.2 Position of the English Language Education KLA in the School    4
+               Curriculum
+
+           1.3 Rationale and Direction for Development                         5
+                1.3.1 Building on Strengths                                    5
+                1.3.2 Major Renewed Emphases of Curriculum Development         6
+           1.4 Strategies for Development                                     12
+
+Chapter 2 Curriculum Framework                                                19
+           2.1 Aims and Subject Target                                        20
+                2.1.1 Aims                                                    20
+                2.1.2 Subject Target                                          20
+
+           2.2 Strands, Learning Targets and Learning Objectives              21
+                2.2.1 Strands and Learning Targets                            21
+                2.2.2 Learning Objectives                                     22
+                2.2.3 Generic Skills                                          26
+                2.2.4 Proper Values and Attitudes                             27
+
+           2.3 Curriculum Organisation                                        29
+                2.3.1 Learning Time                                           29
+                2.3.2 Modules of Learning                                     31
+
+Chapter 3 Curriculum Planning                                                 37
+           3.1 Guiding Principles                                             37
+
+           3.2 Central Curriculum and School Curriculum Development           38
+
+           3.3 Curriculum Planning Strategies                                 43
+                3.3.1 Literacy Development and Multimodal Literacy            43
+                3.3.2 Integrating Classroom Learning and Independent          45
+                      Learning
+                3.3.3 Extending Language Learning beyond the Classroom        45
+                3.3.4 Promoting e-Learning and Information Literacy           46
+
+=== Page 6 ===
+              3.3.5 Strengthening Values Education                          47
+              3.3.6 Cross-curricular Planning                               49
+              3.3.7 Promoting the Creative Use of English through           50
+                    Language Arts
+
+         3.4 Managing the Curriculum                                        51
+
+         3.5 Smooth Transition between Different Key Stages                 52
+
+         3.6 Collaboration within the English Language Education KLA and    55
+             Cross-KLA Links
+              3.6.1 Collaboration within the English Language               55
+                    Education KLA
+              3.6.2 Collaboration with Other KLAs                           56
+
+         3.7 Flexible Use of Learning Time                                  56
+
+Chapter 4 Learning and Teaching                                             61
+         4.1 Guiding Principles for Learning and Teaching of English        61
+             Language
+
+         4.2 Task-based Learning and Teaching                               62
+
+         4.3 Language Skills                                                66
+              4.3.1 Integrative Use of Skills                               66
+              4.3.2 Learning and Teaching of Language Skills and            68
+                    Multimodal Literacy
+         4.4 Reading across the Curriculum (RaC)                            86
+
+         4.5 Creative Use of English                                        87
+
+         4.6 Grammar                                                        90
+              4.6.1 Learning and Teaching Grammar in Context                90
+              4.6.2 Learning and Teaching of Text Grammar                   92
+
+         4.7 Vocabulary                                                     92
+
+         4.8 Phonics                                                        94
+
+         4.9 Dictation                                                      96
+
+         4.10 Adopting e-Learning within and beyond the English             98
+              Language Classroom
+         4.11 Life-wide Learning                                           100
+
+=== Page 7 ===
+          4.12 Creating a Language-rich Environment                         101
+
+          4.13 Learner Independence and Self-directed Learning              103
+
+          4.14 Meaningful Assignments                                       103
+
+          4.15 Catering for Learner Diversity in the English Language       107
+               Classroom
+               4.15.1 Curriculum Planning                                   108
+               4.15.2 Learning, Teaching and Assessment Strategies          108
+
+Chapter 5 Assessment                                                        115
+          5.1 Purposes of Assessment                                        115
+
+          5.2 Promoting Formative Assessment in the School English          117
+              Language Curriculum
+                5.2.1 Effective Planning of Learning, Teaching and          117
+                      Assessment
+               5.2.2 Different Modes of Formative Assessment                119
+               5.2.3 Learning and Teaching Processes for Effective          123
+                     Formative Assessment
+               5.2.4 Tools to Support Schools in Implementing Formative     125
+                     Assessment
+          5.3 Implementation and Design of Summative Assessment             127
+
+          5.4 Internal and External Assessments                             128
+                5.4.1 Internal Assessment                                   128
+               5.4.2 External Assessment                                    129
+
+          5.5 Reporting                                                     131
+
+Chapter 6 Effective Use of Learning and Teaching Resources                  135
+          6.1 Quality Textbooks and Other Learning and Teaching Resources   135
+               6.1.1 Textbooks                                              135
+               6.1.2 Choosing Textbooks                                     135
+               6.1.3 Using Textbooks                                        136
+               6.1.4 Other Learning and Teaching Resources                  137
+               6.1.5 Choosing Other Resources                               137
+               6.1.6 Using Other Resources                                  138
+
+=== Page 8 ===
+             6.2 Resources in Support of Curriculum Development   139
+                  6.2.1 Education Bureau (EDB) Resources          139
+                  6.2.2 Community Resources                       140
+             6.3 Resource Management in Schools                   141
+
+
+
+Appendices
+
+
+Glossary
+
+
+Membership of the CDC Committee on English Language Education
+
+=== Page 9 ===
+Appendices
+
+Appendix 1    The Updated Seven Learning Goals of Primary Education              A1
+Appendix 2    Learning Targets for Key Stages 1 and 2 (P1 – 6)                   A2
+Appendix 3    Examples of Text Types for Key Stages 1 and 2 (P1 – 6)             A4
+Appendix 4    Language Items and Communicative Functions for                     A5
+              Key Stages 1 and 2 (P1 – 6)
+Appendix 5    Language Skills and Language Development Strategies for           A22
+              Key Stages 1 and 2 (P1 – 6)
+Appendix 6    Attitudes Specific to English Language Learning for               A30
+              Key Stages 1 and 2 (P1 – 6)
+Appendix 7    Developing Generic Skills in the English Language Education KLA   A31
+Appendix 8    Development of Values and Attitudes for Key Stages 1 and 2        A57
+              (P1 – 6)
+Appendix 9  Time Allocation for Each KLA/Subject in Primary Schools             A58
+Appendix 10 Suggested Modules and Units for Key Stages 1 and 2                  A59
+Appendix 11 The Development of Reading Skills                                   A60
+Appendix 12 Template for Developing and Conducting an Intervention              A73
+            Programme to Support Less Able Students in English Language
+            Learning
+Appendix 13 English Language Education Key Learning Area                        A76
+            Curriculum Framework of National Security Education (2025)
+Appendix 14 Sample Tasks for Key Stage 1                                        A80
+Appendix 15 Sample Tasks for Key Stage 2                                        A85
+Appendix 16 Template for Project Learning                                       A88
+Appendix 17 English for Classroom Interaction                                   A91
+Appendix 18 A Framework of School Assessment Practices                          A96
+Appendix 19 Feedback Sheet Writing: Reviewing and Editing (Generic):            A97
+            Peer Assessment and Self-assessment Form
+Appendix 20 Guidelines for Setting and Assessing Portfolios                      A98
+Appendix 21 Feedback Sheet Speaking: Oral Presentation (Generic)                 A99
+Appendix 22 Feedback Sheet Speaking: Oral Presentation (Generic)                A100
+              Peer Assessment Form
+Appendix 23   Feedback Sheet Speaking: Group Discussion (Generic)               A101
+Appendix 24   Feedback Sheet Speaking: Group Discussion (Generic)               A102
+              Self-assessment Form
+Appendix 25   Feedback Sheet Group Project (Generic) Self-assessment Form       A103
+Appendix 26   Feedback Sheet Group Project (Generic) Teacher Assessment Form    A105
+
+=== Page 10 ===
+Appendix 27 Feedback Sheet Collaborative Work Peer Assessment Form        A107
+Appendix 28 Sample Assessment Tasks (KS2)                                 A108
+
+
+
+
+List of Figures
+
+Figure 1    Learning to Learn 2+ – The Hong Kong School Curriculum           2
+Figure 2    The Updated Seven Learning Goals of Primary Education            6
+Figure 3    The Three Major Directions and Seven Major Renewed Emphases      7
+            of the Ongoing Renewal of the Primary School Curriculum
+Figure 4    English Language Education Curriculum Framework                 19
+Figure 5    Suggested Allocation of Learning Time                           30
+Figure 6    Example Units and Tasks under the Module “Me, My Family and     32
+            Friends”
+Figure 7    Relationship among Tasks, Extended Tasks and Projects           33
+Figure 8    Components of a School English Language Curriculum              40
+Figure 9    Literacy Development and Multimodal Literacy                    43
+Figure 10   Notion of Learning Time                                         57
+Figure 11   Five Effective Teaching Strategies for Reading                  78
+Figure 12   The Learning, Teaching and Assessment Cycle                    115
+Figure 13   Examples of Assessment Activities                              119
+Figure 14 Relationship between the Curriculum Framework,                   126
+          Learning Progression Framework and Basic Competency
+
+=== Page 11 ===
+ Chapter 1
+
+
+Introduction
+
+=== Page 12 ===
+Note:
+The major renewed emphases of primary and secondary school curricula cover: values education, good use of
+learning time, STEAM education and media and information literacy (MIL), etc.
+
+
+
+                 Figure 1 Learning to Learn 2+ – The Hong Kong School Curriculum
+
+=== Page 13 ===
+Chapter 1 Introduction
+
+1.1 Background
+
+Under the ongoing renewal of the school curriculum, the Kindergarten Education
+Curriculum Guide and the Secondary Education Curriculum Guide were updated in
+2017, followed by the updating of various Key Learning Area (KLA) Curriculum
+Guides, including the English Language Education Key Learning Area Curriculum
+Guide (Primary 1 – Secondary 6) (2017) (ELE KLACG). In the same year, the Task
+Force on Review of School Curriculum (Task Force) was set up to holistically review
+the primary and secondary curricula. Six directional recommendations of the Task
+Force were set out in the Final Report titled “Optimise the curriculum for the future,
+Foster whole-person development and diverse talents” in 2020. Primary schools are
+recommended to accord higher priority to values education, create space for whole-
+person development and strengthen STEM education (stepped up as STEAM education
+from 2022 onwards). In 2024, the Primary Education Curriculum Guide (PECG),
+incorporating relevant recommendations made in the Final Report of the Task Force,
+the Updated Seven Learning Goals of Primary Education (see Appendix 1), as well as
+the Three Major Directions and Seven Major Renewed Emphases (MREs), was
+released for schools’ implementation with a view to meeting the needs of students and
+keeping abreast of the latest curriculum development and social development.
+
+
+Following the recommendations set out in the PECG (2024), the English Language
+Curriculum Guide (Primary 1 – 6) (2004) is updated for renewal and putting forth new
+emphases to reflect the changing contexts. The English Language Curriculum Guide
+(Primary 1 – 6) (2025) (this Guide) reinforces the curriculum emphases outlined in the
+ELE KLACG (2017) and provides the overall direction as well as the learning targets
+and objectives for the development of the English Language curriculum at the primary
+level.
+
+
+
+
+
+    The Task Force on Review of School Curriculum was set up following the announcement in the 2017
+    Policy Address by the Chief Executive of the HKSARG.
+                                                  3
+
+=== Page 14 ===
+Schools should make reference to the following curriculum documents for a better
+understanding of the interface between various key stages, as well as the curriculum
+planning and strategies for enhancing learning, teaching and assessment at different key
+stages in the subject of English Language:
+
+
+       Kindergarten Education Curriculum Guide (2017)
+       English Language Education Key Learning Area Curriculum Guide (Primary 1 –
+        Secondary 6) (2017)
+       Supplement to the English Language Education Key Learning Area Curriculum
+        Guide (Secondary 1 – 3) (2018)
+        English Language Curriculum and Assessment Guide (Secondary 4 – 6) (2021)
+
+The above curriculum documents can be downloaded from the following EDB website:
+https://www.edb.gov.hk/en/curriculum-development/renewal/guides.html.
+
+1.2 Position of the English Language Education KLA in the School Curriculum
+
+English Language Education is one of the eight KLAs2 in the school curriculum. As a
+KLA, English Language Education aims to provide primary school students with a wide
+range of contexts and learning experiences to:
+
+
+       develop their English language proficiency;
+       enhance their personal and intellectual development;
+       extend their understanding of other cultures through the English medium; and
+       nurture their generic skills as well as proper values and attitudes to prepare them
+        for effective integration into national development and the challenges of the rapidly
+        changing world.
+
+
+
+
+2
+    A Key Learning Area (KLA) is an important part of a curriculum. It is founded on fundamental and
+    connected concepts within major fields of knowledge which should be acquired by all students. A KLA
+    provides a context for the development and application of generic skills, subject-specific skills as well
+    as proper values and attitudes through appropriate use of learning and teaching activities and strategies.
+    Knowledge in KLAs, Generic Skills, and Values and Attitudes are the three interconnected components
+    of the curriculum framework.
+                                                       4
+
+=== Page 15 ===
+1.3 Rationale and Direction for Development
+
+English is the language of global communication. With the rapid development of the
+Internet and technology, English learning helps students gain access to knowledge from
+around the world, develop proper values and attitudes and expand their world views.
+Students’ mastery of English is vital as it opens up new possibilities for intellectual and
+social development, educational attainment, personal fulfilment, cultural understanding
+and, in future, career advancement.
+
+
+The English Language curriculum framework aims to build on the existing good
+practices in the learning and teaching of English Language in primary schools in Hong
+Kong. It provides suggestions on how schools can sustain and deepen the good efforts
+made, focus on new areas in view of the challenges and opportunities brought by
+significant developments in various aspects, and provide students with meaningful
+language learning experiences that help them foster whole-person development and
+lifelong learning, develop proper values and attitudes, and prepare them for adapting to
+the rapid changes and demands of society and the modern world.
+
+
+1.3.1 Building on Strengths
+
+Over the past years, a strong partnership has been developed between the Education
+Bureau (EDB) and the school sector, resulting in considerable achievements in the
+implementation of the English Language curriculum. In many primary English
+Language classrooms, emphasis has been placed not only on helping students master
+language forms and functions and develop language skills, but also on enhancing their
+learning experiences by creating an English-rich environment. There have also been
+deliberate attempts to develop a reading culture, introduce a variety of text types,
+address diverse learning needs, and promote “assessment for learning” (AfL) and
+“assessment as learning” (AaL). Such efforts are well appreciated, and teachers are
+encouraged to build on the existing effective practices to enrich students’ learning
+experiences through:
+
+
+    developing a coherent school English Language curriculum that helps connect
+     students’ learning experiences across KLAs as well as within and beyond the
+     classroom;
+    adopting a greater variety of strategies to address the diverse learning needs of
+     students, including students with special educational needs (SEN) and students
+     who are gifted;
+
+                                            5
+
+=== Page 16 ===
+   providing more opportunities for the learning and teaching of language forms,
+    functions and skills for purposeful communication as well as the development of
+    language awareness and appreciation skills through the use of creative and
+    information texts in both print and non-print forms;
+   strengthening values education (covering national education [including patriotic
+    education, national security education] and life education);
+   developing students’ capabilities for self-directed and lifelong learning; and
+   strengthening assessment literacy in the subject panel with due consideration given
+    to students’ learning enhancement, interests and abilities, extending formative
+    assessment from AfL to AaL, engaging students in the assessment process to
+    promote self-reflection and self-directed learning.
+
+
+
+1.3.2 Major Renewed Emphases of Curriculum Development
+
+
+
+
+      Figure 2 The Updated Seven Learning Goals of Primary Education
+
+
+
+
+                                          6
+
+=== Page 17 ===
+ Figure 3 The Three Major Directions and Seven Major Renewed Emphases of
+           the Ongoing Renewal of the Primary School Curriculum
+
+
+To enhance curriculum planning for attainment of the Updated Seven Learning Goals
+of Primary Education, schools should follow the three major directions of cultivating
+values, creating space and promoting student-centred learning in the next stage of
+ongoing renewal of their school curriculum at the KLA and subject levels. With a view
+to supporting students in achieving the Updated Seven Learning Goals, the seven MREs
+are introduced to provide schools with strategies and action plans to delineate the areas
+that schools need to sustain, deepen and focus on in developing their distinctive school
+curriculum with reference to the central curriculum framework.
+
+
+
+
+                                           7
+
+=== Page 18 ===
+The past decades have witnessed significant economic, scientific, technological and
+social developments in our country, society and around the world. It is important to
+prepare our students well for the challenges and opportunities arising from the changes
+(e.g. the Belt and Road Initiative, the development of the Guangdong-Hong Kong-
+Macao Greater Bay Area), which are envisaged to facilitate regional and international
+co-operation, development as well as intercultural exchange. Schools should consider
+their own contexts and develop a school curriculum that fosters whole-person
+development and lifelong learning, and equips students with the knowledge and skills
+essential for further studies and future careers. Besides sustaining and deepening the
+accomplishments in curriculum implementation, it is necessary to focus on the MREs
+in school curriculum planning and set the direction for their implementation at the
+subject level, and where appropriate, at the cross-KLA level.
+
+
+Reading across the Curriculum (RaC)
+
+Reading across the curriculum (RaC) aims to enhance students’ reading to learn
+capabilities and help them establish meaningful links among concepts and ideas
+acquired in different KLAs. RaC provides ample opportunities for students to broaden
+their knowledge base, enhance generic skills, in particular critical thinking, explore
+proper values and attitudes as well as apply and consolidate reading skills and strategies
+developed in language lessons. Schools are encouraged to integrate RaC into the
+Reading Workshops in the primary English Language curriculum. Teachers can
+identify suitable reading materials with topics related to non-language subjects to
+provide relevant contexts to connect students’ learning experiences, draw their attention
+to the subject-specific language features (e.g. text structures, rhetorical functions and
+language items) and enhance students’ reading skills and strategies through meaningful
+language practices.
+
+
+To foster a culture of “reading to learn”, time can be allocated for cross-curricular
+reading within and beyond the classroom. Collaboration among different stakeholders,
+such as English teachers, non-language subject teachers, teacher-librarians and parents,
+is crucial in developing students’ interests and habits in reading a variety of texts,
+including non-fiction texts and paired texts on different themes, as well as processing
+reading materials in a more in-depth way.
+
+
+
+
+                                            8
+
+=== Page 19 ===
+Values Education
+
+As an essential element of whole-person education, values education aims at fostering
+students’ proper values and attitudes through the learning and teaching of various
+KLAs/subjects and the provision of relevant experiences. Schools can identify the
+priority values and attitudes (i.e. perseverance, respect for others, responsibility,
+national identity, commitment, integrity, benevolence, law-abidingness, empathy,
+diligence, filial piety and unity), with due consideration of their school mission, school
+context, stakeholders’ views, students’ needs and major concerns, and integrate them
+into the school curriculum. Teachers can make effective use of a wide array of learning
+and teaching resources, which provide contexts for students to explore a variety of
+value-laden issues related to their everyday life experiences and stimuli for critical and
+imaginative responses.
+
+
+Assessment Literacy
+
+Assessment is a vital and integral part of the learning-teaching-assessment (LTA) cycle.
+Assessment literacy should be strengthened in the subject panel, with due consideration
+given to learning enhancement. Schools should formulate assessment and assignment
+policies that promote AfL and extend it to AaL. Teachers are encouraged to use
+different modes of assessment and assignments to collect evidence to inform learning
+and teaching, and engage students in the assessment process to promote self-reflection
+and self-directed learning. Students learn to set goals based on expected learning
+outcomes, develop metacognitive skills to reflect on their learning progress, and make
+improvement based on the quality feedback from their teachers and peers. Schools
+should also review and streamline the frequency and quantity of tests and examinations
+to create space for balanced physical and psychological development and foster
+students’ whole-person development.
+
+
+Information Technology in Education (ITE)
+
+Advances in technology have had a significant impact on education. New and emerging
+technologies challenge the traditional process of learning and teaching, and the way
+assessment is done. The wide application of digital technologies in daily life allows
+easy worldwide communication and instant access to a vast array of information.
+Schools are encouraged to leverage information technology to enhance learning,
+teaching and assessment through e-learning, and promote information literacy to better
+prepare students for the challenges in the rapidly changing digital world.
+
+                                            9
+
+=== Page 20 ===
+e-Learning refers to an open and flexible learning mode involving the use of electronic
+media such as digital resources and communication tools to achieve the learning
+objectives. Teachers can integrate e-learning into the design of learning, teaching and
+assessment activities to complement the traditional mode of learning (i.e. adopting
+blended learning), enhance learning and teaching effectiveness, and accommodate the
+diverse needs of students.
+
+
+Information literacy, which refers to the essential abilities and attitudes that lead to
+effective and ethical use of information, is crucial to lifelong learning and self-directed
+learning. The incorporation of information literacy into the school curriculum provides
+opportunities for students to develop the skills and attitudes to manage and make good
+use of the vast amount of information across different channels or media.
+
+
+Traditionally, “literacy” refers to the ability to read and write effectively to achieve
+desired goals or outcomes and develop one’s knowledge and potential. With the rapid
+development of IT and social media, “literacy” has taken on a new meaning as texts are
+no longer a linear form of presentation limited to words but are composed of various
+modes of communication (e.g. images, animations, sounds, graphics). Students,
+therefore, need to be equipped with new literacy skills to process and create multimodal
+texts in which messages are conveyed in different modes (e.g. linguistic, audio, visual,
+gestural, spatial), and the skills to search for and manage information.
+
+
+A wide array of strategies (e.g. “Flipped Classroom”, web-based virtual classroom) and
+e-learning resources (e.g. e-learning platforms/applications, learning management
+systems (LMS)) are effective in supporting learning, teaching and assessment,
+facilitating the use of technologies in enhancing learning and teaching effectiveness and
+assessment literacy. Teachers are encouraged to adopt a blended mode of learning by
+integrating online and offline learning activities flexibly to cater for students’ diverse
+learning needs, facilitate learning beyond the classroom and promote self-directed
+learning.
+
+
+
+
+                                            10
+
+=== Page 21 ===
+STEAM Education
+
+STEAM is an acronym that refers to the academic disciplines of Science, Technology,
+Engineering, the Arts and Mathematics. In the Hong Kong curriculum context, STEAM
+education is promoted through the Science, Technology, Arts and Mathematics
+Education KLAs.
+
+
+The objectives of promoting STEAM education in relation to student learning are to:
+
+
+     develop among students a solid knowledge base and to enhance their interest in
+     science, technology, arts and mathematics for further studies and future careers in
+     face of the changes and challenges in the contemporary world; and
+     strengthen students’ ability to apply knowledge and skills acquired in different
+     STEAM-related subjects in an integrated and creative manner to solve daily
+     problems, and to nurture students’ creativity, collaboration skills and problem
+     solving skills, as well as to foster the innovation as required in the 21st century.
+
+
+In support of STEAM education, schools are encouraged to step up cross-
+curricular/KLA collaboration such as RaC or project learning to broaden students’
+knowledge base, help them connect their learning experiences and provide
+opportunities for integrating and applying knowledge and skills developed in different
+KLAs/subjects, thus developing their lifelong learning capabilities.
+
+
+Making Good Use of Learning Time
+
+Learning time includes lesson time (teacher-student contact hours in settings not limited
+to the classroom), school time other than lesson time (such as recess, lunch breaks,
+after-school time, open days, examination days) as well as the time spent outside school
+including holidays. Curriculum planning is no longer limited to classroom learning and
+lesson time. Schools should further optimise curriculum planning to create space for
+students and foster whole-person development, encouraging them to use their “learning
+time” effectively for diversified and meaningful learning activities to explore personal
+interests.
+
+
+Please refer to Chapter 3 “Curriculum Planning” of this Guide for more details on
+how to incorporate the above MREs into the school English Language curriculum.
+
+
+
+
+                                           11
+
+=== Page 22 ===
+1.4 Strategies for Development
+
+The ongoing renewal of the school curriculum and that of the English Language
+Education KLA curriculum is to make the school curricula rigorous and forward-
+looking in enhancing students’ capacity to learn and nurturing in them the values,
+competencies and qualities which are essential for learners of the 21st century. It aims
+to achieve the Updated Seven Learning Goals of the primary and secondary education
+upon the completion of the two levels of education. Schools and teachers need to
+exercise their professionalism and enhance their school English Language curriculum
+in light of their school contexts and strengths, and their students’ learning needs,
+interests and abilities.
+
+
+Schools are encouraged to build on their strengths and achievements over the past years.
+Taking into account the school context, teachers’ readiness and learning needs of their
+students, they should adopt the three major directions of cultivating values, creating
+space and promoting student-centred learning set out in Section 1.3.2, select those
+MREs relevant to their needs, and set priorities for incorporation into their school
+English Language curriculum.
+
+
+In this light, some strategies for development are suggested below:
+
+
+    Promoting student-centred learning and better catering for learner diversity:
+      The Learning to Learn curriculum reform since 2001 has promoted a student-
+         centred approach and curriculum and pedagogical changes that foster
+         students’ active learning, engagement and ownership. These are conducive to
+         developing students’ learning to learn capabilities, whole-person
+         development and lifelong learning.
+      Emphasis continues to be placed on promoting a student-centred curriculum
+         that provides students with multifarious learning experiences. Student-
+         centred learning should be further enhanced to explore and cater for students’
+         diverse abilities, interests and aspirations. Students who have a strong sense
+         of ownership of their learning and an awareness of their learning process are
+          highly motivated learners with capabilities to learn effectively. It is also
+          important for students to develop metacognitive skills. They learn how to set
+          goals, monitor and reflect on their learning experiences.
+
+
+
+
+                                          12
+
+=== Page 23 ===
+        While students grow and learn at different paces and in different ways, they
+         all have ever-improving capabilities to learn and perform to the best of their
+         ability. Schools should effectively cater for their students’ learning needs and
+         develop their potential by adapting the curriculum and employing a variety
+         of learning and teaching strategies (e.g. adopting quality learning materials
+         and activities, enhancing interactive learning, varying the input and expected
+         output for different students, incorporating e-learning to address diverse
+         abilities and learning styles). Student-centredness emphasises giving due
+         attention to students’ needs, interests and abilities and embracing learner
+         diversity. Schools and English teachers generally take this into account in the
+         pedagogical design of English lessons. Teachers can further guide students at
+         Key Stages 1 and 2 to play a more active role in their learning. Student-
+         centred learning can be enhanced with the focus on developing the
+         capabilities for self-directed learning and taking greater responsibility for
+         their learning.
+
+
+   Enriching the school English Language curriculum and maximising the
+    integrative and creative use of English: The task-based approach is
+    recommended as it provides meaningful contexts where students can learn and use
+    English integratively, purposefully and creatively. The promotion of the
+    integrative and creative use of English helps enrich students’ language learning
+    experiences and it can be achieved through the effective use of language arts.
+    Imaginative texts (e.g. stories, poems) are by nature open to multiple
+    interpretations, encouraging students to be creative and adventurous as they
+    appreciate the richness and variety of the language. Teachers can make use of a
+    wide range of imaginative texts that provide relevant contexts for the integrative
+    use of language and generic skills (e.g. creativity, critical thinking skills,
+    communication skills) to engage students in responding and giving expression to
+    real and imaginative experiences, as well as exploring and experimenting with
+    creative language use.
+
+
+   Planning the curriculum holistically to create space and ensure a smooth
+    interface: Schools are expected to build on their progress and strengths
+    accomplished over the years, focus on the major directions and MREs and deepen
+    the outcomes of good practices and sustain the momentum of “Learning to Learn
+    2+”. They should plan their curriculum holistically, setting priorities in light of the
+    major directions and the MREs, and taking into consideration their schools’ vision
+    and mission, contexts, and students’ growth and learning needs. Given schools’
+
+                                           13
+
+=== Page 24 ===
+        experiences and successes in their implementation, the updated Four Key Tasks3
+        are to be infused into the school curriculum following the principles of “organic
+        integration”, “natural connection”, “diversified strategies”, “mutual coordination”,
+        “learning within and beyond the classroom” and “whole-school participation”.
+        The interface between key stages of learning should be strengthened to enable
+        students to make the transition to the next key stage of learning successfully.
+        Furthermore, space should be created for students to develop their interests, rest
+        and lead a healthy lifestyle. In this regard, lesson time should be optimised while
+        assessment and assignments should be streamlined and reduced where appropriate.
+
+
+       Enhancing teachers’ professional capacity: Learning and teaching effectiveness
+        and the provision of quality learning experiences to students hinge much on
+        teachers’ professional capacity. With respect to English language teaching, it is
+        essential that schools strategically plan and enhance their English teachers’
+        professional development and have their English teachers engage in different
+        modes of professional development activities for self-enhancement and
+        advancement.
+
+
+       Strengthening Reading across the Curriculum (RaC): Motivating students and
+        enhancing their learning to learn capabilities through reading have been
+        emphasised and promoted by schools and their English panels over the past years.
+        Building on existing strengths and experience, schools should continue to foster
+        students’ reading habit and reading skills development, with due emphasis placed
+        on RaC to help students establish meaningful links among concepts and ideas
+        acquired in different KLAs. Teachers can identify entry points such as suitable
+        themes/topics, reading resources (e.g. information texts in printed or electronic
+        form, multimodal texts) and implement RaC through cross-KLA collaboration and
+        effective use of the flexible lesson time. For further details, please refer to Chapter
+        4 of this Guide and Chapter 4 of the ELE KLACG (2017).
+
+
+
+
+3
+    The updated Four Key Tasks are:
+     Moral and Civic Education: Towards Strengthening Values Education
+     Reading to Learn: Towards Reading across the Curriculum
+     Project Learning: Towards Integrating and Applying Knowledge and Skills across Disciplines
+     Information Technology for Interactive Learning: Towards Self-directed Learning
+    For details, please refer to the ELE KLACG (2017).
+                                                   14
+
+=== Page 25 ===
+   Strengthening values education (covering national education [including
+    patriotic education, national security education] and life education): In
+    addition to developing students’ language skills, values education should be
+    promoted in the school English Language curriculum as it is essential for
+    fostering students’ whole-person development. In English Language, the General
+    English Programme, Reading Workshops and the Enrichment Programme can, on
+    their own or integratively in units of teaching, provide rich contexts for infusing
+    and fostering proper values in students. To help students become informed and
+    responsible citizens with a sense of national identity and an awareness of national
+    security, relevant themes, topics and everyday life events can be identified. A
+    variety of learning and teaching resources can be selected to provide contexts for
+    exploring value-laden issues and for critical and creative responses. Opportunities
+    can also be provided for students to practise the target proper values and attitudes
+    in their daily lives. The connection between English Language and various cross-
+    curricular domains can be strengthened through designing learning activities such
+    as projects, reading and analysing the biographies of successful persons, and
+    appreciating songs and lyrics. Holistic planning of the school curriculum can be
+    enhanced with values education infused at the school, KLA and cross-KLA levels.
+
+
+
+   Strengthening cross-curricular learning and enriching life-wide learning
+    experiences: Schools have accrued much experience in implementing cross-
+    curricular learning through project learning, one of the Four Key Tasks, over the
+    past years. They should continue to promote cross-curricular learning, progressing
+    from project learning towards the integration and application of knowledge and
+    skills across disciplines, so that students have increasing opportunities to integrate
+    and apply knowledge and skills across the relevant subjects, be empowered with
+    the capabilities necessary for lifelong learning, creativity and innovation, and
+    become independent and self-directed learners. Schools can incorporate life-wide
+    learning in their school English Language curriculum using the flexible lesson
+    time, which should not exceed 22% of the total lesson time as recommended in
+    the PECG (2024), to enrich students’ learning experiences, broaden their
+    knowledge base, and engage them in meaningful language practices and
+    purposeful use of the language.
+
+
+
+
+                                           15
+
+=== Page 26 ===
+   Adopting a variety of learning and teaching strategies: A variety of learning
+    and teaching strategies should be adopted and e-learning should be leveraged to
+    support and facilitate both classroom and self-directed learning. Students can be
+    guided to develop metacognitive skills, set goals, develop self-directed learning
+    capabilities, and assume greater responsibility for their learning. Students’
+    exposure to a wide range of text types, including both creative and information
+    texts, should continue to be maximised to enhance their literacy and appreciation
+    skills, and heighten their awareness of the structures and features of different text
+    types, so that they will be better able to process and produce multimodal texts.
+    Their awareness of text grammar will be enhanced as they learn to explore the
+    grammatical features associated with different text types. The school English
+    Language curriculum should also be enriched with greater emphasis on the
+    creative use of English to develop students’ potential, promote literary
+    appreciation and develop students’ sensitivity to language use.
+
+
+
+
+                                          16
+
+=== Page 27 ===
+     Chapter 2
+
+
+Curriculum Framework
+
+=== Page 28 ===
+(Blank Page)
+
+=== Page 29 ===
+Chapter 2 Curriculum Framework
+
+The curriculum framework for English Language Education is the overall structure for
+organising learning, teaching and assessment for the subjects of English Language at
+the primary and secondary levels and Literature in English, which is an elective subject
+offered at the senior secondary level. The framework comprises a set of interlocking
+components including:
+
+
+    subject knowledge and skills, which are expressed in the form of learning targets
+     under the Interpersonal, Knowledge and Experience Strands, as well as learning
+     objectives;
+    generic skills; and
+    proper values and attitudes.
+
+
+Below is a diagrammatic representation of the framework:
+
+
+
+
+         Figure 4 English Language Education Curriculum Framework
+
+
+
+
+                                          19
+
+=== Page 30 ===
+The framework sets out what students should know, value and be able to do at various
+stages of schooling. It gives schools and teachers flexibility and ownership to plan and
+develop their school English Language curriculum to meet the needs of their students.
+
+
+2.1 Aims and Subject Target
+
+
+2.1.1 Aims
+
+The overall aims of the English Language Education curriculum are to:
+
+
+    provide every student of English with further opportunities for extending their
+     knowledge and experience of the cultures of other people as well as opportunities
+     for personal and intellectual development, further studies, pleasure and work in
+     the English medium; and
+     enable every student to prepare for the changing socio-economic demands
+     resulting from advances in information technology; these demands include the
+     interpretation, use and production of materials for pleasure, study and work in the
+     English medium.
+
+
+2.1.2 Subject Target
+
+The subject target of English Language is for students to develop an ever-improving
+capability to use English:
+
+
+    to think and communicate;
+    to acquire, develop and apply knowledge; and
+    to respond and give expression to experience;
+
+
+and within these contexts, to develop and apply an ever-increasing understanding of
+how language is organised, used and learnt.
+
+
+
+
+                                          20
+
+=== Page 31 ===
+2.2 Strands, Learning Targets and Learning Objectives
+
+
+2.2.1 Strands and Learning Targets
+
+Strands are categories for organising the curriculum. Their major function is to organise
+content for the purpose of developing knowledge, skills and values and attitudes as a
+holistic process. The three interrelated strands in the English Language Education KLA
+are Interpersonal Strand, Knowledge Strand and Experience Strand. They define the
+broad purposes of learning English Language and give rise to meaningful tasks and
+contexts in which language skills, knowledge of the language, and values and attitudes
+can be developed to achieve the subject target. The learning targets of English Language
+set out what students are expected to learn throughout the different stages of schooling
+in the subject. The learning targets are complementary to the interrelated strands and
+can be grouped under each strand. The list of learning targets for Key Stages 1 and 2
+under the various strands are provided in Appendix 2.
+
+
+Strand Targets
+
+The subject target is supported by three interrelated strands:
+
+
+    Interpersonal Strand
+    Knowledge Strand
+    Experience Strand
+
+
+The targets within the three strands are:
+
+
+Interpersonal Strand (IS)
+
+To develop an ever-improving capability to use English
+
+
+    to establish and maintain relationships;
+    to exchange ideas and information; and
+    to get things done.
+
+
+
+
+                                            21
+
+=== Page 32 ===
+Knowledge Strand (KS)
+
+To develop an ever-improving capability to use English
+
+
+    to provide or find out, interpret and use information;
+    to explore, express and apply ideas; and
+    to solve problems.
+
+
+Experience Strand (ES)
+
+To develop an ever-improving capability to use English
+
+
+    to respond and give expression to real and imaginative experience.
+
+
+2.2.2 Learning Objectives
+
+The learning objectives describe explicitly the essential focuses of learning and what
+students are expected to learn and use at Key Stages 1 and 2 in order to work towards
+the learning targets for the key stages. They serve as a reference list for curriculum,
+lesson and activity planning.
+
+
+Apart from the learning objectives pertaining to the development of generic skills and
+proper values and attitudes, the subject-specific learning objectives for English
+Language are organised under the following general areas:
+
+
+    language forms and communicative functions;
+    language skills and language development strategies; and
+    attitudes specific to English language learning.
+
+
+Language Forms and Communicative Functions
+
+In order to develop an ever-improving capability to use English for the various purposes
+identified in the learning targets, students need to master different aspects of the
+language system such as text types, vocabulary and grammar, and be able to make use
+of this knowledge in completing tasks. It is not sufficient for students merely to know
+the rules and focus on the forms. They must also learn how to apply such knowledge to
+engage in purposeful communication in real-life or simulated situations. Meaningful
+use of language items should be given as much emphasis as mastery of their forms. The
+
+                                           22
+
+=== Page 33 ===
+following parts will discuss how different aspects of the English language system can
+be dealt with to facilitate learning and teaching.
+
+
+Text types
+
+
+Text types refer to different forms of speech and writing. They are organised in different
+ways and use different structures according to the purposes they serve. The intended
+purpose and audience of each text type determine its structural, stylistic and linguistic
+features. It is important to introduce a variety of text types to students at the primary
+level. In this digital era with the prevalence of new technologies and communication
+channels, information and ideas are often presented in the form of multimodal texts.
+Conscious learning and explicit teaching of different text types including multimodal
+texts enable students to become more effective readers and proficient language users,
+and equip them with essential skills for study and work in the 21st century.
+Progressively equipping our students with essential new literacy skills for researching
+and processing web-based materials for completing authentic tasks, creating
+multimodal texts and solving real-life problems enables them to thrive in their future.
+
+
+Students need to acquire familiarity with features of different text types, and should be
+able to use them in real-life communication. Different text types provide meaningful
+contexts for the learning and purposeful use of specific language items and vocabulary.
+For example, when students read a recount of a school function held a year ago, they
+see how the past tense is used to record past events. Similarly, when they read or write
+rules for a game, they practise the use of imperatives to give instructions. Mastery of
+an authentic text (e.g. the ability to read a set of instructions for assembling a toy) gives
+students a strong feeling of achievement and motivates them for further development.
+
+
+The selection of text types depends on students’ needs, experiences and interests, and it
+may also partly depend on the resource materials available for students. While primary
+students may only be required to produce a limited range of text types in writing and
+speaking, they can be exposed to other text types through reading and listening.
+Complexity increases within and across text types according to the level of learning. It
+is possible that the same text type may have more than one defined purpose. For
+example, posters can be persuasive texts as well as information texts, while the main
+purpose of posters is seen as more persuasive than informative in most authentic
+situations. Please refer to Appendix 3 for the list of text types that students are expected
+to have encountered at Key Stages 1 and 2. The list is not intended as a checklist. Rather,
+
+
+
+                                             23
+
+=== Page 34 ===
+it suggests the variety and range of texts that students may be exposed to and produce
+at each key stage.
+
+
+Vocabulary
+
+
+Vocabulary is best introduced in context using reading, listening or multimodal texts,
+and practised through tasks and language games. A judicious combination of tasks
+organised under modules and units helps students progress towards the learning targets,
+because it provides experience in relevant uses of English for particular purposes.
+
+
+Tasks address students’ needs and interests and provide authentic contexts for
+vocabulary use. The vocabulary items that students encounter, acquire and use at each
+key stage vary with the tasks and amount of language support that students experience
+in the learning process. Students need to be exposed to a wide range of vocabulary
+items, such as phrasal verbs, idioms and fixed expressions to help them communicate
+and carry out various learning tasks effectively. It is not advisable to prescribe a
+vocabulary list out of context or provide a list of unfamiliar words with explanations
+and their different parts of speech for rote learning.
+
+
+In selecting vocabulary, it is necessary for teachers to predict the vocabulary that
+students will need for the meaningful completion of tasks and then decide how the
+vocabulary items are to be introduced through interesting contexts and through fiction
+and non-fiction, language arts, and multimodal texts.
+
+
+The choice of vocabulary should take into consideration students’ needs and interests
+in using English. Teachers may begin with words that students need to:
+
+
+    follow classroom routines, commands, directions, requests and activities in the
+     classroom;
+    identify or describe people, things and events in the family, school and their daily
+     experiences; and
+    express personal experiences and imaginative ideas, which are essential for
+     fostering motivation and enjoyment in learning.
+
+
+
+
+                                           24
+
+=== Page 35 ===
+Then, teachers should move to words that students need to:
+
+
+    understand and express opinions on general topics;
+    appreciate and interpret texts of different types for enjoyment and personal
+     enrichment, and to pave the ways for further studies; and
+    express a wide range of ideas and experiences for communicative purposes and
+     for pleasure and self-fulfilment.
+
+
+In addition, it is essential to introduce students to a range of vocabulary building
+strategies such as:
+
+
+    using knowledge of word formation;
+    using knowledge of collocations;
+    using knowledge of lexical relations;
+    guessing meaning and inferencing with available clues;
+    using dictionaries and thesauri;
+    creating word webs to record words learnt; and
+    retaining words using mnemonics.
+
+
+Gradually, students become intrinsically motivated and intellectually inquisitive. They
+will build on their own existing vocabulary and further explore the meanings of words
+for enjoyment on their own initiative.
+
+
+Language items and communicative functions
+Language items include a range of grammatical forms and structures that students need
+to develop as they perform various communicative functions. The range and complexity
+in the use of language items and communicative functions increase at more advanced
+key stages of learning. Language items learnt should be consolidated and extended to a
+greater level of complexity when students move towards a higher level of learning. The
+lists of language items and communicative functions for Key Stages 1 and 2 are
+provided in Appendix 4.
+
+
+Language Skills and Language Development Strategies
+
+In order for students to be able to use English effectively for the various purposes
+described in the learning targets, it is essential that they develop competence in the
+skills of listening, speaking, reading and writing. Students also need to develop
+language development strategies in order to be responsible for their own learning and
+
+                                             25
+
+=== Page 36 ===
+become motivated, independent and self-directed learners. The lists of language skills
+and language development strategies for Key Stages 1 and 2 are provided in
+Appendix 5.
+
+
+Attitudes Specific to English Language Learning
+
+The development of positive attitudes, along with knowledge and skills, is an integral
+part of the English Language Education curriculum. Opportunities for exploring,
+developing and encouraging positive attitudes should be provided in all English
+learning tasks. Some positive attitudes (e.g. confidence in using English) should be
+further developed when students move towards a higher level of learning. Some other
+positive attitudes (e.g. awareness of English as an international language of
+communication) will only be consciously developed in specific tasks. The list of
+attitudes specific to English language learning for Key Stages 1 and 2 is provided in
+Appendix 6.
+
+
+2.2.3 Generic Skills
+
+The component of generic skills is fundamental in enabling students to learn how to
+learn. The following nine generic skills have been identified as essential for student
+learning for the 21st century in the school curriculum:
+
+
+        Basic Skills                Thinking Skills          Personal and Social Skills
+   Communication Skills         Critical Thinking Skills       Self-management Skills
+    Mathematical Skills                Creativity                Self-learning Skills
+          IT Skills             Problem Solving Skills           Collaboration Skills
+
+
+The nine generic skills are to be developed through learning and teaching in all KLAs.
+The English Language curriculum provides greater opportunities for the development
+of collaboration skills, communication skills, creativity, critical thinking skills, problem
+solving skills and self-learning skills.
+
+
+When completing a more complicated learning task, the generic skills are often applied
+in an integrative manner rather than in isolation. Some generic skills are more likely to
+be used together. For example, collaboration skills are often used with communication
+skills and problem solving skills; critical thinking skills tend to be used with problem
+solving skills and creativity. The former cluster of generic skills can be referred to as
+“collaborative problem solving skills” and the latter as “holistic thinking skills”.
+
+                                            26
+
+=== Page 37 ===
+Schools are encouraged to plan learning and teaching activities in a holistic manner by
+taking students’ learning needs and cognitive development into consideration and
+helping them develop clusters of skills effectively.
+
+
+Details of the nine generic skills, and examples and suggestions of how the English
+Language curriculum contributes to the development and integrative use of the generic
+skills are provided in Appendix 7.
+
+
+2.2.4 Proper Values and Attitudes
+
+Values underpin our conduct and decisions. Attitudes are personal dispositions, which
+may affect our behaviour positively or negatively. Students need to develop proper
+attitudes for healthy development. Among all values and attitudes, perseverance,
+respect for others, responsibility, national identity, commitment, integrity, benevolence,
+law-abidingness, empathy, diligence, filial piety and unity have been identified as the
+priority values and attitudes.
+
+
+In line with one of the MREs of the ongoing renewal of the primary school curriculum,
+i.e. strengthening values education (covering national education [including patriotic
+education, national security education] and life education), a higher priority should be
+accorded to values education in schools with a view to achieving the Updated Seven
+Learning Goals of Primary Education. National education, Constitution and Basic Law
+education and national security education are all essential for helping students develop
+into good nationals who have a sense of national identity, respect the rule of law and
+abide by the law, hence safeguarding national security. Therefore, schools should
+enhance students’ understanding of our country, nurture their respect for diverse
+opinions, foster their love for peace, and emphasise the importance of abiding by the
+rule of law. Students’ media literacy, i.e. the competence of critically evaluating the
+truthfulness of information and using IT ethically in circulating and interpreting
+information, should also be developed and reinforced.
+
+
+
+
+                                           27
+
+=== Page 38 ===
+In the English Language curriculum, as in other KLAs/subjects, values and attitudes
+should be developed through the approaches of “organic integration”, “natural
+connection”, “diversified strategies”, “mutual coordination”, “learning within and
+beyond the classroom” and “whole-school participation”. These values and attitudes
+should be fostered through learning and teaching, with ample opportunities for students
+to develop and reinforce them through learning activities and tasks.
+
+
+To help students become informed and responsible citizens, schools should promote
+proper values and attitudes in accordance with their school mission, school context,
+stakeholders’ views, students’ needs and major concerns, and infuse them into the
+school curriculum. A variety of learning experiences in KLAs, moral, civic and national
+education, life-wide learning, etc. can strengthen values education through:
+   deepening students’ understanding of proper values and attitudes;
+   nurturing their empathy and proper attitudes towards life; and
+    promoting learning-by-doing in authentic situations.
+
+
+Values and attitudes can be effectively developed through learning activities. Examples
+of how the English Language curriculum can facilitate the development of values and
+attitudes for Key Stages 1 and 2 are provided in Appendix 8.
+
+
+
+
+                                          28
+
+=== Page 39 ===
+2.3 Curriculum Organisation
+
+
+2.3.1 Learning Time
+
+Curriculum planning is no longer limited to classroom learning and lesson time.
+Schools should further optimise curriculum planning to encourage students to use their
+learning time effectively for diversified and meaningful learning activities. In the
+English Language Education KLA, learning is not confined to English lessons or school
+hours. Students’ learning time includes:
+
+
+    lesson time (i.e. English lessons, though the venue is not limited to the classroom);
+    school time other than lesson time (e.g. assemblies, recess, lunch breaks, activities
+     before/after school, open days, post-examination activity days); and
+    time outside of school (e.g. weekends, holidays, time after school).
+
+
+The PECG (2024) recommends that, as a core subject, English Language should
+account for not less than 16% of the total lesson time for the primary curriculum. (For
+the time allocation for each KLA/subject in primary schools, please refer to
+Appendix 9.)
+
+To cater for learner diversity, schools are encouraged to allocate additional learning
+time to conduct differentiation programmes (e.g. pull-out remedial/enrichment
+programmes) and cross-curricular activities (e.g. programmes such as Reading across
+the Curriculum (RaC)), and make flexible use of the time during and outside school
+hours to integrate English learning into students’ own learning time and life-wide
+learning.
+
+
+The percentage of flexible lesson time in the primary curriculum has been increased
+from 19% to 22% to increase the flexibility for whole-school curriculum planning and
+create space for cross-curricular learning. Schools have flexibility in planning
+curriculum-related activities and foster students’ whole-person development in
+consideration of the new modes of learning beyond the classroom. With due
+consideration to holistic planning at the whole-school and KLA levels, schools can
+flexibly make timetabling arrangements to enrich students’ English learning
+experiences in collaboration with other parties.
+
+
+
+
+                                           29
+
+=== Page 40 ===
+          The following timetable illustrates how to make flexible use of the learning time during
+          and outside school hours:
+
+
+                                             MON           TUE             WED               THU               FRI
+
+ Talks                   Before       Let’s Read Together              Story Time                Project Display
+ Verse-speaking          school      etc.
+ Show-and-tell                                                           Assembly
+etc.                                                      General
+                                                          English                           General
+                                        Reading                                             English
+                                       Workshops
+                                                                            Recess
+                                                                                                            Reading
+ Pleasurable                                                                                              Workshops
+ Reading Time
+ Enrichment
+  Programmes:
+  (e.g. Book Clubs,                                                         Recess
+  Learning English                                                         General
+  through Sports,                                                          English
+  Campus TV)
+ Drama
+  Competitions
+ Storytelling                                                              Lunch
+  Competitions
+                                                                           Tutorial
+ Visits
+ Projects                                              Integrated        Integrated      Integrated         Interest
+ Writing Labs                                            Lesson            Lesson          Lesson           Groups
+ English Fun Days                        Weekly
+etc.                                     assembly
+                          After        Intervention                  Chat with our NETs           Verse-speaking
+                          school        Programme                     Drama Workshops             etc.
+                                       Story Time
+
+                                                                                         HOLIDAYS
+                    Song Dedication           • English Corner / Library                 Visits
+                    Language Games              Activities                               Projects
+                    Pleasurable               • Video Hours                              Exchange tours
+                     Reading Time              • School Radio Station                     Home Reading Express
+                   etc.                        • Online Learning                          Games Days
+                                               • Ambassador Programmes                    Creative Writing Packages
+                                               etc.                                       Variety Shows
+                                                                                          Writing Letters and e-Mails
+                                                                                         etc.
+
+                               Figure 5 Suggested Allocation of Learning Time
+
+
+          Note: The suggested allocation of learning time and activities is for schools’ reference only. Schools are
+                 encouraged to use their professional autonomy to maximise the use of learning time. They can
+                 select or design their own activities appropriate to their students’ needs and their school context,
+                 in order to provide students with a wide range of learning experiences.
+
+
+                                                             30
+
+=== Page 41 ===
+Please refer to Section 3.7 of this Guide for more suggestions on how to make plans
+for the use of lesson time allocated to English Language.
+
+
+2.3.2 Modules of Learning
+
+The structure of modules, units and tasks is recommended for organising the learning
+and teaching of the primary English Language curriculum. A module is an organising
+focus which can be broken down into units and tasks that are thematically or
+conceptually related. Suggested modules and units for Key Stages 1 and 2 can be found
+in Appendix 10. These themes and concepts are explored through tasks and help
+students make connections between their learning experiences. Extended tasks and
+projects can be further developed from tasks to help students develop further knowledge
+and skills.
+
+
+Well-sequenced tasks can be designed to provide students with opportunities to use
+English to learn in purposeful and authentic situations and facilitate cross-curricular
+learning, as themes/topics can be the focus for connecting knowledge and learning
+experiences across different subjects.
+
+
+Teachers may develop modules of their own by selecting relevant textbook units, set
+texts and/or authentic resource materials to suit the needs, interests and abilities of their
+particular group of students. While learning modules can be enriched or developed by
+designing activities that extend and deepen learning experiences of the more able
+students, they can also be adapted or developed for the less able students to help them
+progress. Different learning activities and modes of assessment can be incorporated into
+the learning modules to develop students’ multiple intelligences and generic skills,
+stimulate their learning and sustain their interests. Exploring real-life topics and
+concepts through tasks also lends itself well to providing students with ample hands-on
+practice to consolidate learning. The proper values and attitudes can be nurtured by
+making use of everyday life events and involving students in discussing, sharing their
+experiences and making self-reflection.
+
+
+
+
+                                             31
+
+=== Page 42 ===
+Figure 6 below shows how units and tasks can be developed and organised within the
+module “Me, My Family and Friends”, which is one of the modules suggested for
+students at Key Stage 1.
+
+
+                                      Module
+                            Me, My Family and Friends
+
+
+
+
+        Unit                            Unit                           Unit
+ Me and My Family               My Favourite Things               Making Friends
+
+
+
+
+       Task 1                         Task 2                         Task 3
+    A Toy Riddle                 My Favourite Toy               The Broken Toy
+
+
+                                        Task 4
+                           The Toy Stall (Assessment Task)
+
+
+
+
+ Language Follow-up                                                   Extended Task*
+    Tell Me More!                                                    Operation Santa
+   (A Board Game)                                                    (Making Labels)
+
+
+                                       Project*
+                                    My Toy World
+
+
+Figure 6 Example Units and Tasks under the Module “Me, My Family and Friends”
+
+________________________
+* Extended tasks and projects can be developed from tasks in a unit or module to help
+  students develop knowledge, skills, values and attitudes conducive to lifelong learning.
+
+
+
+
+                                          32
+
+=== Page 43 ===
+        Figure 7 Relationship among Tasks, Extended Tasks and Projects
+
+
+For suggestions on task-based learning and teaching, please refer to Section 4.2.
+
+The modular approach can also make it easier to link classroom learning to real-life
+experience. For example, events that take place in the local and international
+communities can be drawn upon to develop modules that broaden students’ knowledge
+of the world as well as develop their language proficiency.
+
+
+Where appropriate, teachers can incorporate and integrate language arts elements (e.g.
+drama, poems, songs), non-language arts elements (e.g. information texts), and
+multimodal materials into the theme-based modules to cater for the needs, interests and
+abilities of their particular group of students, as well as to extend and enrich their
+learning experiences.
+
+
+
+
+                                          33
+
+=== Page 44 ===
+(Blank Page)
+
+=== Page 45 ===
+     Chapter 3
+
+
+Curriculum Planning
+
+=== Page 46 ===
+(Blank Page)
+
+=== Page 47 ===
+Chapter 3 Curriculum Planning
+
+This chapter provides guidelines to help schools and teachers develop a flexible and
+balanced curriculum that suits the needs, interests and abilities of their students and the
+contexts of their schools, in accordance with the central framework provided in
+Chapter 2 of this Guide.
+
+
+3.1 Guiding Principles
+
+The primary English Language curriculum allows for flexibility and innovation in
+curriculum planning. A balanced and coherent English Language curriculum
+emphasising the active role of students in the learning process and providing a variety
+of learning experiences should be developed. When planning and developing the school
+English Language curriculum, schools and teachers are encouraged to:
+
+
+    identify the direction for school curriculum development and set clear focuses (e.g.
+     strengthening Reading across the Curriculum (RaC), enriching the curriculum
+     with more emphasis on creative language use) for a specific year level and across
+     year levels to ensure horizontal coherence and vertical alignment in curriculum
+     planning, with due attention given to the smooth transition between different key
+     stages;
+    aim for a balanced and comprehensive coverage of the learning targets and
+     objectives, ensuring that the learning tasks or activities stress the integration of
+     skills and a balance of learning experiences in the Interpersonal, Knowledge and
+     Experience Strands;
+    work closely to plan and devise appropriate and purposeful language learning
+     materials, tasks, activities and projects to develop students’ language abilities,
+     learning to learn strategies, creativity, critical thinking skills, information literacy
+     and proper values and attitudes conducive to lifelong learning;
+    set and work on clear and manageable curriculum goals to develop a progressive
+     and appropriate curriculum that serves to bring about pleasurable, meaningful and
+     productive language learning experiences;
+    create a language-rich environment (e.g. English Days, drama performances,
+     puppetry activities) to engage students in the active use of English;
+    promote RaC through exposing students to English texts (both fiction and non-
+     fiction) with themes from different Key Learning Areas (KLAs) and organising
+     cross-curricular activities and project learning;
+
+
+
+                                             37
+
+=== Page 48 ===
+    adapt textbooks and other language learning resources and supplement them with
+     interesting authentic materials and e-resources to suit students’ needs and develop
+     a broader range of literacy skills;
+    make flexible use of learning time (e.g. rescheduling lesson time, implementing
+     long and short days, using time during and outside school hours for school-based
+     programmes and co-curricular activities such as watching videos or movies, taking
+     part in drama workshops) to promote language learning and address students’
+     learning needs;
+    enrich and extend students’ language learning experiences across a growing range
+     of contexts and authentic settings through English-related life-wide learning
+     activities (e.g. visits, drama performances);
+    promote learner independence and autonomy by engaging students in language
+     learning activities beyond lesson time (e.g. pre-lesson preparation for “Flipped
+     Classroom”); and
+    implement assessment and assignment policies that promote “assessment for
+     learning” (AfL) and “assessment as learning” (AaL), as well as diversified modes
+     of assignments and assessment to inform learning and teaching.
+
+
+3.2 Central Curriculum and School Curriculum Development
+
+This Guide provides a central curriculum which, in the form of an open and flexible
+framework, sets out the following key learning elements that schools are encouraged to
+include in their school curriculum to help students achieve lifelong language learning
+capabilities:
+
+
+    subject knowledge and skills, which are expressed in the form of learning targets
+     under three interrelated strands as well as learning objectives;
+    generic skills; and
+    proper values and attitudes.
+
+
+Because of its flexibility, this framework allows schools to pursue innovative practices
+in curriculum planning and implementation. Schools are strongly encouraged to
+capitalise on it and develop their school English Language curriculum based on the
+general direction provided in the central curriculum, taking into consideration factors
+such as students’ needs, interests and abilities, teacher readiness and the school context.
+For example, schools may focus on increasing motivation in learning through the
+promotion of RaC, extending students’ learning experiences through the promotion of
+the creative use of English, or fostering independent and lifelong learning through the
+
+                                            38
+
+=== Page 49 ===
+promotion of language development strategies, e-learning and self-directed learning.
+Please see Section 1.4 of this Guide for the suggested strategies for renewing the school
+English Language curriculum.
+
+
+Please refer to Chapter 2 of the Primary Education Curriculum Guide (PECG) (2024)
+for details on the planning of a whole-school curriculum.
+
+
+Components of a School English Language Curriculum
+
+There are various ways to organise and implement a school English Language
+curriculum. Schools may consider including, but should not limit themselves to, the
+following four key components:
+
+
+    General English Programme
+    Reading Workshops
+    Intervention Programme
+    Enrichment Programme
+
+
+The following figure serves to illustrate the relationships between these four key
+components in terms of:
+
+
+    the learning and teaching of knowledge and skills in the English Language as
+     expressed in the form of learning targets and objectives;
+    the use of learning and teaching resources; and
+    the use of learning time.
+
+
+
+
+                                           39
+
+=== Page 50 ===
+        Figure 8 Components of a School English Language Curriculum
+
+
+A coherent school English Language curriculum should be developed to help better
+connect students’ learning experiences across KLAs as well as within and beyond the
+classroom. Students’ self-directed learning using learning time beyond lesson time
+should also be fostered.
+
+
+General English Programme
+
+The General English (GE) Programme focuses on intensive learning and teaching of
+the English Language knowledge and skills set out in the English Language curriculum
+framework for all students. It is implemented during the English lessons in the school
+timetable and may take up more than half of them. For example, about 60% of the
+lesson time can be allocated to the GE Programme. A task-based approach and the
+concept of Modules, Units and Tasks are used to organise the learning and teaching of
+the English Language in the GE Programme. Please refer to Section 2.3.2 Modules of
+Learning for details and Appendix 10 for suggested modules and units for Key Stages
+1 and 2. English textbooks, if adopted for the GE Programme, should be used for
+integrative language development, as advocated in the task-based approach. Students
+participate in pedagogical and real-world tasks to develop the four language skills for
+
+                                          40
+
+=== Page 51 ===
+effective communication for the various purposes set out in the learning targets. Please
+refer to Chapter 4 for further details on the suggested learning and teaching strategies.
+
+
+Reading Workshops
+
+Reading Workshops are specially devoted to the development of reading skills. Through
+involving students in actively reading authentic texts, including real books, and using
+effective teaching strategies of reading (e.g. shared reading, supported reading), as well
+as interactive activities and meaningful tasks, Reading Workshops can help students
+develop literacy skills and acquire language knowledge such as grammar and
+vocabulary in appropriate contexts. The use of fiction and non-fiction or information
+books/texts taken or adapted from authentic contexts – of a variety of text types where
+appropriate – can enrich students’ language input, nurture their reading habit and
+encourage the creative use of English. The use of paired books or paired texts – adopting
+a fiction and a non-fiction text connected in some way (e.g. on the same topic) – can
+enrich their reading experiences and help them make connections to the world.
+
+
+Reading Workshops are conducted on a regular basis. They take up about 40% of the
+lesson time and may be conducted independent of the GE Programme. It is however
+desirable to connect Reading Workshops with the GE Programme and other English
+programmes or activities (e.g. cross-curricular activities) as this will help students find
+their English Language learning experiences coherent and related. The lessons, which
+use a variety of reading resources and promote the integrated use of language skills, can
+focus on connecting reading and writing to enhance students’ holistic learning
+experiences. The adoption of meaningful tasks provides good opportunities for students
+to apply language knowledge (e.g. text structures, text features, rhetorical functions
+such as comparing and contrasting) and concepts and ideas related to non-language
+subjects in relevant contexts, and generate writing ideas from reading texts and
+activities. The use of real books boosts students’ interests and helps them become
+lifelong readers of English. It also facilitates students’ cultivation of proper values and
+attitudes, and their application and consolidation of language skills.
+
+
+
+
+                                            41
+
+=== Page 52 ===
+Teachers use various reading activities and strategies to engage students in whole-class,
+group and individual work in Reading Workshops. Students are supported in their
+development of reading skills and strategies. Teacher support gradually diminishes as
+students progress from Key Stage 1 to Key Stage 2. At the same time, more learner
+input is expected as students become more mature in their cognitive development and
+experience of the world. Please refer to Section 4.3 and Appendix 11 for further details
+and discussion about the learning and teaching of reading skills and the suggested
+reading activities and strategies to be used in Reading Workshops.
+
+
+Intervention Programme
+
+The Intervention Programme is a short, focused programme, which provides timely
+support for students who have exhibited difficulties in learning English. The learning
+objectives of an Intervention Programme are based on those of the regular GE
+Programme.
+
+
+A task-based approach, which does not exclude the use of some short and form-focused
+pre-task grammar exercises, is recommended to teachers conducting the Intervention
+Programme. Features of an Intervention Programme are additional time, additional
+opportunities and focused learning. Schools may incorporate an Intervention
+Programme for remediation and support, or as an additional programme focusing on
+particular areas of learning. It may be conducted during class time in a withdrawal mode
+or outside class time. Making use of the available resources for remedial teaching of
+English is a possible way of running an Intervention Programme for students at different
+levels. Please refer to Appendix 12 for suggestions on the design of an Intervention
+Programme.
+
+
+Enrichment Programme
+
+The Enrichment Programme is designed to extend the abilities of the more able students
+through different activities conducted during or after class time, inside or outside the
+school premises. However, developing the potential of the more able or gifted students
+need not be confined to an additional enrichment programme. In the mainstream
+English Language classroom, teachers may design challenging tasks based on the prior
+knowledge and learning experiences already provided in the regular GE Programme to
+extend or intensify gifted students’ language learning experiences. They can adopt a
+range of teaching strategies to provide appropriate learning opportunities to match these
+students’ exceptional abilities and facilitate their effective mastery of more advanced
+
+                                           42
+
+=== Page 53 ===
+skills and knowledge in the learning of English Language. Given the open and flexible
+curriculum framework, teachers can reinforce the following:
+
+
+    optimising the flexibility to address differences in the rate, depth and pace of
+     learning;
+    promoting creativity and original thinking;
+    encouraging students to pursue independent projects or study based on their
+     interests and abilities; and
+    empowering students to assume ownership of their learning.
+
+
+Please refer to Section 4.3.4 of the English Language Education Key Learning Area
+Curriculum Guide (Primary 1 – Secondary 6) (ELE KLACG) (2017) for the pedagogies
+and measures to cater for the needs of gifted students. Teachers may also seek and
+provide opportunities to further develop gifted children’s capabilities in learning
+English through self-directed learning and life-wide learning.
+
+
+3.3 Curriculum Planning Strategies
+
+Consideration should be given to the following when planning the school English
+Language curriculum.
+
+
+3.3.1 Literacy Development and Multimodal Literacy
+
+
+
+
+            Figure 9 Literacy Development and Multimodal Literacy
+
+
+
+                                          43
+
+=== Page 54 ===
+Literacy refers to the ability to read and write effectively to achieve the desired goals
+or outcomes and develop one’s knowledge and potential. It involves the ability to
+understand, examine, interpret, evaluate and create written texts or materials in varying
+contexts. Helping students master the literacy skills (i.e. reading and writing skills) is
+central to language learning at school.
+
+
+With the rapid development of information technology, literacy has taken on a new
+meaning as new literacy. New literacies arising from emergent technologies in an
+information age and multimodal texts are often involved, in which messages are
+conveyed through different modes of representation (e.g. linguistic, audio, visual,
+gestural, spatial). Relevant multimodal literacy skills as well as generic skills – more
+notably, communication skills, critical thinking skills, creativity, collaboration skills
+and information technology skills, should be progressively developed in the school
+English Language curriculum to strengthen students’ capacity to process and create
+multimodal texts as they navigate the new world of information.
+
+
+Teachers can guide students to understand beyond the literal meaning of the texts,
+critically analyse and evaluate what the authors imply and give critical and/or creative
+responses. Students should be guided to become independent readers by progressively
+developing their learning to learn capabilities, such as using online dictionaries and
+applying phonics skills, vocabulary building skills and reference skills4. Non-fiction,
+information texts of a variety of content that suit students’ developmental levels and
+appeal to the interests of different students can be increasingly adopted, for instance, in
+the form of paired books on the same or similar themes but providing differing
+perspectives.
+
+
+Promoting Reading to Learn – motivating students and enhancing their learning to learn
+capabilities through reading – should continue to be set by schools as a sustainable task.
+Due emphasis should be placed on RaC to help students establish meaningful links
+among concepts and ideas acquired in different KLAs and provide them with extended
+learning experiences to further develop their literacy skills, proper values and attitudes
+and world knowledge. Printed or electronic materials of different text types that provide
+meaningful contexts to illustrate the purposeful use of specific language items and
+vocabulary can be brought into the classroom. With a range of digital media that are
+becoming more prevalent in our everyday lives, students should be encouraged to
+embrace reading beyond the classroom as a habit. In this light, students’ information
+
+
+4
+    For reference skills, please refer to Appendix 5 on Language Development Strategies.
+
+                                                   44
+
+=== Page 55 ===
+literacy – particularly for evaluating information, distinguishing between facts and
+opinions and using information ethically – need to be well fostered.
+
+
+3.3.2 Integrating Classroom Learning and Independent Learning
+
+Learning is most effective when students play an active role in the learning process and
+eventually take charge of their own learning. The promotion of learner autonomy and
+independence should start at an early age. Self-directed learning is regarded as an
+integral part of students’ ultimate achievements. Students should be guided to develop
+language development strategies and metacognitive skills (e.g. goal setting, choosing
+resources and strategies for learning) in order to be responsible for their own learning
+and become motivated, independent and self-directed learners. They should also be
+engaged in self-directed learning outside class time. At the primary level, teachers can
+help students:
+
+
+    learn how to learn;
+    use a range of language development strategies;
+    develop self-learning skills;
+    make choices as to what, when and how they want to learn;
+    carry out self-assessment and reflection;
+    learn to plan, monitor and evaluate the strategies adopted and their own learning
+     effectiveness; and
+    develop the knowledge, skills and strategies, attitudes and perseverance to foster
+     lifelong language learning.
+
+
+3.3.3 Extending Language Learning beyond the Classroom
+
+Language learning taking place beyond the confines of the classroom can provide
+relevant, pleasurable and meaningful learning experiences for students. Schools can:
+
+
+    encourage students to use English not only during but also outside class time;
+    utilise resources to enhance the language environment and provide students with
+     enjoyable learning experiences through various types of co-curricular activities
+     (e.g. language games, storytelling, puppet shows, drama, choral speaking, reading
+     clubs, short radio plays, movies) and engage students in self-learning in their
+     leisure time using quality resources (e.g. Education Bureau (EDB) resources); and
+
+
+
+
+                                          45
+
+=== Page 56 ===
+    enrich students’ learning experiences in real-life settings and widen their exposure
+     to authentic language use through English-related life-wide learning activities (e.g.
+     organising visits, talks, voluntary work and drama performances, joining
+     storytelling sessions offered by public libraries by children’s book writers and
+     NETs, going to plays or live theatre shows in English, inviting English-speaking
+     guests to exchange ideas and share experiences).
+
+
+3.3.4 Promoting e-Learning and Information Literacy
+
+Schools are encouraged to enhance students’ learning experiences through making
+effective use of information technology to enhance interaction within and beyond the
+classroom and promote self-directed learning. To facilitate the implementation of the
+English Language curriculum through e-learning, schools can:
+
+
+    create an IT-friendly environment (e.g. easy access to the Internet and e-resources)
+     for students to seek, share and use information and resources for learning as well
+     as to interact with teachers, other students and people around the world;
+    provide room for professional capacity building to enhance teachers’ repertoire of
+     strategies in implementing e-learning in the school English Language curriculum;
+    make use of a range of e-resources and e-learning tools to motivate students,
+     engage them in self-learning and interactive learning and enhance learning and
+     teaching effectiveness; and
+    use e-assessment that facilitates the understanding of students’ learning progress,
+     the provision of feedback and the implementation of AfL or AaL.
+
+
+In light of the vast amount of information in the digital age, teachers can:
+
+
+    work closely with the teacher-librarian and information technology co-ordinator
+     to create a favourable learning environment for teachers to select quality e-
+     resources and make judicious use of them in lessons and learning activities, and
+     for students to have access to quality information and reading materials;
+    provide students with opportunities to apply information technology skills to
+     process and create multimodal texts (e.g. producing audio/video recordings and e-
+     books), and share information and ideas through e-platforms such as the school
+     intranet;
+    heighten students’ awareness of the accuracy, reliability and judicious use of
+     information, as well as new technologies (e.g. Artificial Intelligence technologies);
+
+
+
+                                           46
+
+=== Page 57 ===
+       guide students to identify the bias and stereotypes conveyed in texts which
+        students commonly encounter;
+       design learning activities and projects that require students – depending on their
+        level of cognitive development – to evaluate, extract, organise and synthesise
+        information and ideas from a number of sources, and create new ideas of their own;
+        and
+       promote ethical use of information (e.g. acknowledging sources of information
+        properly, preventing cyberbullying) and respect for intellectual property rights.
+
+
+e-Learning facilitates learning both within and beyond the classroom. Children and
+adolescents tend to spend more time on the Internet and electronic devices for learning
+and recreation. Teachers and parents should note that excessive or improper use of these
+products pose potential health effects and risks to students, which include but are not
+limited to decreased physical fitness and vision problems. Students should limit screen
+time and choose screen activities wisely under the guidance of teachers and parents, be
+physically active and do more outdoor activities, and engage in interactive activities in
+real life.5
+
+
+3.3.5 Strengthening Values Education
+
+Cultivating values is one of the three major directions of the ongoing renewal of the
+primary school curriculum. Strengthening values education (including national
+education [covering the Constitution and Basic Law education, national security
+education, and patriotic education], moral and civic education, life education, health
+education, sex education, media and information literacy education, education for
+sustainable development, etc.) is one of the seven major renewed emphases (MREs) to
+be focused on with a view to helping students achieve the Updated Seven Learning
+Goals of Primary Education. Values education can be promoted in the learning and
+teaching of all subjects, life-wide learning activities, service-learning experiences,
+creation of positive campus atmosphere, etc. The English Language curriculum
+provides a flexible framework for promoting a wide range of proper values and attitudes,
+including the priority values and attitudes (i.e. perseverance, respect for others,
+responsibility, national identity, commitment, integrity, benevolence, law-abidingness,
+empathy, diligence, filial piety, unity). Through careful curriculum planning, students
+can be provided with opportunities to explore a wealth of value-laden issues (e.g.
+
+
+5
+    For details of the relevant health effects and other risks, as well as recommendations on the healthier
+    and safer use of the Internet and electronic screen products, please visit the website of the Department
+    of Health, HKSAR Government.
+                                                     47
+
+=== Page 58 ===
+respect for others, animal rights and protection, environmental protection and
+responsibilities, sustainability) in order to:
+
+
+    deepen their understanding of proper values and attitudes from multiple
+     perspectives and develop their capabilities to analyse issues in a rational and
+     objective manner; and
+    nurture their awareness and abilities to reflect on and apply their beliefs, including
+     identifying, clarifying and evaluating values and attitudes as appropriate in
+     different situations, and adopt proper values and attitudes as the guiding principles
+     in making judgements and decisions.
+
+
+Please refer to Appendix 13 for details of the implementation of national security
+education in the English Language Curriculum and examples of learning and teaching
+activities for Key Stages 1 and 2.
+
+
+Schools are encouraged to focus on the proper values and attitudes that align with their
+school mission and major concerns, and take into consideration stakeholders’ views and
+students’ needs when planning to promote values education in the English Language
+curriculum. Based on the understanding of the school context and students’ needs,
+interests and abilities, teachers can flexibly use, adapt and develop theme-based
+modules and units and related learning and teaching resources and everyday life events,
+which provide stimuli for critical and imaginative responses. Values education can be
+incorporated into the school English Language curriculum by connecting students’
+learning experiences in the GE Programme and Reading Workshops. Language arts
+materials (e.g. short stories, fables, poems, songs) which deal with issues such as human
+relationships, growing up, diligence and the natural environment, can be used as
+resources for simulating activities to enable students to develop proper values, think
+from different perspectives and make thoughtful and reasonable judgements. Non-
+fiction materials (e.g. documentaries, biographies, news/magazine articles) which
+present students with inspiring stories of people, controversial issues and thought-
+provoking happenings in the world can be used to generate topics for discussion to
+foster proper values and attitudes in students. Schools can optimise EDB resources for
+promoting values education alongside enhancing English learning and teaching. Cross-
+curricular activities can also be developed in collaboration with other KLAs or domains
+to inculcate and reinforce proper values and attitudes in students.
+
+
+The materials mentioned above should be complemented with well-designed learning
+activities not only to guide students to consider and accommodate diverse views,
+
+                                             48
+
+=== Page 59 ===
+remove bias, re-prioritise choices and show respect for multiculturalism, but also to
+provide them with opportunities to practise the language skills in meaningful contexts.
+Some examples of these activities include:
+
+
+    storytelling and reader’s theatre on books or texts about interpersonal relationships;
+    writing creative responses on the theme of a short story;
+    comparing the life stories of two successful people or the ways to face adversities;
+    designing pamphlets and posters which introduce the cultures and traditions of our
+     nation and other countries;
+    writing an alternative ending, a possible sequel, or an imaginary dialogue based
+     on a story; and
+    doing projects in which students investigate real-life problems from various
+     perspectives and present their findings and suggestions in modes of their choice.
+
+
+3.3.6 Cross-curricular Planning
+
+To enable students to explore knowledge and gain experience in a more comprehensive
+and coherent manner, teachers can adopt a cross-curricular approach when planning
+their whole-school curriculum. RaC can be promoted to create a favourable
+environment for English learning and connect students’ learning experiences with
+different subjects/KLAs or disciplines (e.g. STEAM education). In the context of the
+primary English Language curriculum, teachers of English help students master the
+accurate use of English (e.g. vocabulary, grammar), text types and text features, and
+both their language proficiency and understanding of the reading texts (e.g. information
+texts) are enhanced. Through authentic learning tasks set in English, students’ learning
+experiences across subjects/KLAs can be integrated and reinforced. Students’ generic
+skills, in particular critical thinking and collaborative problem solving skills, are
+fostered and their language skills for processing and producing information texts are
+enhanced.
+
+
+When students make connections among ideas and concepts, their motivation will be
+enhanced. The knowledge they acquire, the language and thinking skills and attitudes
+they develop in each KLA will also be deepened. To promote cross-curricular learning
+and RaC, teachers of English can:
+
+
+    collaborate with teachers of other KLAs (e.g. curriculum mapping, identifying
+     entry points for cross-curricular learning activities, setting realistic common goals);
+
+
+
+                                            49
+
+=== Page 60 ===
+    source a good range of thematic, level-appropriate English reading materials in
+     both print and non-print forms to connect students’ learning experiences across
+     KLAs;
+    develop students’ reading skills and strategies necessary for processing
+     information texts in English and provide opportunities for application and
+     consolidation in collaboration with other KLAs;
+    collaborate with the school librarian in sourcing for and procuring library
+     resources and resources in support of the promotion of reading to learn and RaC;
+    create a learning environment that motivates students to connect their learning
+     across subjects, for instance, by posting up quotes by famous people in related
+     fields on campus, organising cross-curricular activities and competitions involving
+     the use of English for presentations, conducting life-wide learning activities (e.g.
+     visiting museums);
+    make effective use of the flexible lesson time and conduct learning tasks and
+     activities to help students consolidate the knowledge and skills acquired across
+     KLAs; and
+    create opportunities for students to develop a broad range of generic skills that can
+     be applied in other KLAs (e.g. self-learning skills, critical thinking skills).
+
+
+3.3.7 Promoting the Creative Use of English through Language Arts
+
+Promoting the creative use of English helps enrich and extend students’ language
+learning experiences, through which students’ potential can be realised and their
+sensitivity to language use can be developed. When designing the school English
+Language curriculum, teachers can make use of a broad range of language arts materials
+(e.g. short stories, fables, fairy tales, poems, songs, advertisements) to promote literary
+appreciation and heighten students’ awareness of the language used and effects
+achieved.
+
+
+Relevant English learning activities (e.g. creative writing, reading and producing
+multimodal texts, choral speaking, puppetry and drama performance, film appreciation,
+talks or writing workshops conducted by authors) can be arranged as appropriate, to
+widen students’ language exposure and provide opportunities for them to interact with
+literary/imaginative texts and explore the creative use of language. Students’ creative
+thinking and use of English can also be nurtured by introducing them to creative
+thinking tools for generating new and creative ideas. For more information on
+promoting the creative use of English through language arts, please refer to Section 4.5.
+
+
+
+                                            50
+
+=== Page 61 ===
+3.4 Managing the Curriculum
+
+
+Strategic Planning for Curriculum Implementation
+
+To manage the English Language curriculum effectively, school heads, primary school
+curriculum leaders, English Language panel chairpersons, English Language teachers,
+Native-speaking English Teachers (NETs) and teacher-librarians need to collaborate.
+When doing so, they are encouraged to remember the importance of:
+
+
+   keeping abreast of the developments and innovations in the English Language
+    curriculum, and aligning language learning with the school vision and culture and
+    the central curriculum framework;
+   developing a school language policy which clearly defines the scope of learning
+    to cater for students’ needs and interests, for instance, creating an English-rich
+    environment in the school, cultivating students’ interest in learning English and
+    promoting RaC, making flexible timetabling arrangements, and maximising their
+    exposure to and opportunities to use English;
+   steering holistic curriculum planning and implementation in the English panel,
+    suitably infusing the MREs with clear focuses set and complemented by
+    professional development that well aligns with curriculum development;
+   encouraging team-building and collaboration among teachers of English and
+    between teachers of English and teachers of other KLAs;
+   creating time for professional development – including facilitating curriculum
+    leaders’ and teachers’ understanding and grasp of the MREs and fostering
+    collaboration, experience sharing and knowledge building among the teaching
+    staff;
+   promoting flexible deployment and use of resources; and
+   encouraging “AfL and AaL and using evidence to make informed changes to the
+    curriculum.
+
+
+Depending on the school context, the roles different key players assume may vary from
+school to school. For more information on the key roles they may play, please refer to
+Section 3.2.6 of the ELE KLACG (2017).
+
+
+
+
+                                         51
+
+=== Page 62 ===
+3.5 Smooth Transition between Different Key Stages
+
+Building a Strong Interface
+
+Educational transitions are crucial processes for students. Students need to adapt to the
+changes in the learning mode and the school environment during the transition from
+Kindergarten to Primary 1, and from one key stage to the next. The progressive
+development of knowledge, skills and attitudes at Key Stages 1 and 2 lays a solid
+foundation for students’ continued learning and development at the secondary level. A
+strong interface can be achieved by strengthening the vertical continuity of curriculum
+development across key stages, holistic curriculum planning, and professional
+exchanges with kindergartens and secondary schools for better mutual understanding
+of their curriculum and pedagogical practices.
+
+
+Given its importance to all students, parents and schools are encouraged to collaborate
+closely to ensure a smooth transition from one level of schooling to another to cater for
+student learning and adjustment needs. With students gaining confidence in using
+English at each key stage of learning, they will gradually develop their independent
+learning abilities and good learning habits.
+
+
+The framework of learning targets for the English Language Education curriculum in
+Appendix 2 is designed to facilitate continuity and a smooth transition across the levels.
+It reflects the purposes of learning and using English from Primary 1 to Primary 6 and
+suggests how the learning and teaching of English should be developed from one key
+stage to the next. Reference should also be made to the learning targets of Key Stages
+3 and 4 to ensure continuity and a smooth interface.
+
+
+To ease the transition process and sustain students’ interest in learning English at
+different stages of schooling, some suggestions are provided below. The suggestions
+are applicable across key stages and should be introduced based on students’ needs.
+
+
+Lower Primary (Key Stage 1)
+While continuing the suggestions for kindergartens6 as appropriate, schools can also:
+
+
+       organise learning and teaching using modules, units and tasks to help students
+        connect their English learning experiences;
+
+
+6
+    Please refer to the sub-section “Kindergartens” on p.45 of the ELE KLACG (2017).
+
+                                                   52
+
+=== Page 63 ===
+   use interesting and meaningful activities (e.g. games, songs, rhymes, stories, role
+    plays) to motivate students;
+   introduce a variety of reading materials, including both creative and information
+    texts, and teach basic reading skills explicitly to help students decode words, foster
+    their interest in reading, develop good reading habits and promote the creative use
+    of English;
+   introduce phonics skills through reading and task-based learning activities to help
+    students recognise the basic letter-sound relationships and apply such knowledge
+    for reading and spelling (i.e. decoding and encoding words);
+   teach grammar in context through reading materials and adopt task-based activities
+    to develop students’ language skills and generic skills (e.g. communication skills,
+    creativity);
+   diversify the modes of assignments and assessment in light of the
+    learning/assessment objectives and to better cater for students’ diverse learning
+    styles; and
+   avoid pen-and-paper dictation in the first few months of Primary 1 to provide a
+    stress-free learning environment for students to learn English.
+
+
+Upper Primary (Key Stage 2)
+While continuing the above suggestions as appropriate, schools can also:
+
+
+   introduce a greater variety of themes and text types, including literary or
+    imaginative texts and information texts, to further develop students’ reading skills,
+    engage them in meaningful interactions and the creative use of English with a wide
+    range of print and non-print resources in English;
+   provide opportunities for students to communicate and express their own ideas and
+    opinions in different forms (e.g. role plays, spoken response to suggestions,
+    presentation slides, journal entries) for a variety of purposes and audience;
+   provide opportunities for students to develop their reference and information skills
+    and practise the integrative use of language for authentic communication in a
+    multimedia environment;
+   engage students in extended English learning tasks and projects on an individual
+    or group basis and engage them in self or peer assessment to develop their
+    capabilities to become independent and self-directed learners;
+   enhance grammar learning by providing a wide range of materials at text level and
+    activities in which students have to apply what they have learnt in context, to
+    enable them to see how the choice of language items is affected by the context and
+
+
+
+                                           53
+
+=== Page 64 ===
+     text types, and how grammar contributes to the coherence and the structure of a
+     text;
+    reduce or avoid the use of mechanical grammar drills; and
+    introduce the features of different text types explicitly to facilitate the smooth
+     transition between Key Stages 2 and 3 for upper primary students, so that they can
+     progressively and successfully cope with the academic and English demands from
+     various subjects at the secondary level.
+
+
+As students progress from the primary level to the secondary level, the language and
+cognitive demands in learning increase. It is crucial to equip students with the language
+knowledge and learning skills to meet the challenges ahead.
+
+
+    The language demand grows in terms of formality (e.g. learning topics with
+     contexts ranging from students’ everyday life to formal situations) as well as
+     complexity (e.g. from simple texts to complex texts). While students continue to
+     develop their English language skills for general purposes, they may also need to
+     acquire language skills for academic purposes to support them in learning non-
+     language subjects through English. In this regard, teachers can help students
+     establish meaningful links among concepts and ideas acquired in different KLAs
+     and develop students’ literacy skills through promoting RaC and strengthening
+     cross-KLA collaboration.
+    Secondary students are expected to communicate more abstract and complex ideas
+     in a variety of contexts using more advanced language items and structures. It is
+     therefore essential to plan holistically at the primary level to progressively develop
+     students’ independent learning capabilities (e.g. study skills, self-directed learning
+     skills, higher-order thinking skills).
+
+
+While continuing the above suggestions, schools can also refer to suggestions for
+secondary schools as appropriate. For more information about transitions between
+kindergarten and primary levels, primary and secondary levels, and junior and senior
+secondary levels, see Chapter 9 of the PECG (2024), Section 3.3.1 of the ELE KLACG
+(2017) and Booklet 8 of the Secondary Education Curriculum Guide (Secondary 1 —
+6) (2017).
+
+
+
+
+                                            54
+
+=== Page 65 ===
+3.6 Collaboration within the English Language Education KLA and Cross-KLA
+       Links
+
+To achieve the focuses set out in this Guide, close collaboration among curriculum
+leaders is necessary. Students’ whole-person development and balanced physical and
+mental development are of great significance. Schools and teachers are encouraged to
+reflect on the curriculum intent when planning and implementing the curriculum, with
+space and opportunities duly created for students to develop capabilities for lifelong
+learning. It is important to strengthen the alignment between school curriculum
+planning and the realisation of the Updated Seven Learning Goals and MREs.
+Curriculum leaders need to have accurate and thorough understanding of these key
+emphases and the ongoing and future directions of the curriculum renewal. Schools
+need to facilitate teachers’ accurate interpretation, deepened understanding and
+enhanced professional capacity for successful curriculum implementation.
+
+
+Regular consultation with parents should be organised through parent-teacher meetings.
+Schools may also consider networking and collaborating with other schools, tertiary
+institutions and/or organisations on professional development concerning curriculum
+leadership and implementation of the English Language curriculum, in particular, ways
+of providing students with more opportunities for life-wide learning.
+
+
+3.6.1 Collaboration within the English Language Education KLA
+
+Close communication in the form of formal or informal meetings, experience sharing,
+collaborative lesson planning and observation, professional development days or
+communities of practice should be maintained and organised within the KLA/the
+subject panel. More sharing of learning resources and a culture of support and
+collaboration are encouraged among teachers of English. The school, being a learning
+organisation, accords attention to “knowledge management”7, so that knowledge,
+information, data and resources can be effectively stored, retrieved, updated and shared
+for improved efficiency, making informed decisions, expediting innovation, and
+building a rich store of professional and institutional knowledge. Space and
+opportunities should be created for professional exchanges and collaboration among
+panel members, and participation in in-house or external professional development
+programmes/events should be encouraged, with subsequent sharing, application and
+consolidation of the knowledge as appropriate.
+
+
+7
+    A brief definition of “Learning Organisation” and “Knowledge Management” respectively is given in
+    Section 3.5 of the PECG (2024).
+                                                  55
+
+=== Page 66 ===
+3.6.2 Collaboration with Other KLAs
+
+Schools are encouraged to establish cross-curricular linkage when developing their
+school English Language curriculum. When effectively used, this approach enables
+students to learn English more effectively through exposing them to a wide range of
+themes or topics as well as enhancing subject learning in other KLAs.
+
+
+To facilitate planning and implementation of cross-curricular learning, teachers of
+English and those of other KLAs have to work collaboratively to:
+
+
+   decide on the themes or topics to establish meaningful cross-curricular links;
+   draw up an overall plan of learning targets and objectives, relevant learning
+    activities and schedule of work;
+   develop students’ skills in “Reading to Learn” and RaC through progressively
+    providing exposure to a wide range of materials with different themes and text
+    types (e.g. paired texts on the same or similar topics and/or from different
+    perspectives) conducive to constructing and applying knowledge and language
+    learning;
+   design tasks and activities in meaningful contexts to help students connect the
+    concepts and ideas acquired in different KLAs; and
+   develop and evaluate the learning, teaching and assessment materials and activities.
+
+
+3.7 Flexible Use of Learning Time
+
+The PECG (2024) recommends that, as a core subject, English Language accounts for
+not less than 16% of the total lesson time at the primary level (Key Stage 1 and Key
+Stage 2). Schools are strongly encouraged to make flexible use of the learning time
+during and outside school hours to facilitate English learning and teaching. Confining
+the learning of English to the classroom may hinder students from developing and
+applying knowledge and skills coherently and integratively. Schools may capitalise on
+their professional autonomy to maximise the use of lesson time, leading to the
+achievement of a wider range of learning targets and objectives.
+
+
+
+
+                                          56
+
+=== Page 67 ===
+                        Figure 10 Notion of Learning Time
+
+
+It is important to note that curriculum planning is no longer limited to classroom
+learning and lesson time. Schools should further optimise curriculum planning to
+encourage students to use their “learning time” effectively for diversified and
+meaningful learning activities.
+
+
+Suggestions on how teachers can make plans for the use of lesson time allocated to the
+subject of English Language for each key stage from Primary 1 to Primary 6 (Key Stage
+1 and Key Stage 2) are provided below:
+
+
+Primary (Key Stage 1 and Key Stage 2)
+
+Two key components, namely the GE Programme and Reading Workshops, can be
+included in the primary English Language curriculum. The GE Programme, which
+accounts for about 60% of the total lesson time for English Language, focuses on the
+learning and teaching of English knowledge and skills and their integrative use.
+Activities such as dictation and listening, some of which are part of integrated tasks,
+can be conducted in the lesson time allocated to the GE Programme. In Reading
+Workshops, which take up about 40% of the total lesson time for English Language,
+teachers are encouraged to help students “learn to read” and “read to learn” through
+careful selection of reading materials that complement, or are related to, the GE
+Programme. The component of Reading Workshops is not confined to the development
+of reading skills and strategies. Activities that build on the reading materials can also
+be designed to develop students’ listening, speaking and writing skills as well as proper
+
+                                           57
+
+=== Page 68 ===
+values and attitudes. Further, the school English Language curriculum can be organised
+more coherently and space can be created simultaneously by:
+
+
+    developing a unit of teaching that connects the GE Programme with Reading
+     Workshops through common themes/topics/issues and learning objectives; and
+    encouraging cross-curricular collaboration and conducting RaC, cross-curricular
+     activities and/or projects.
+
+
+Schools are strongly encouraged to make flexible use of the learning time during and
+outside school hours to facilitate learning and teaching. Confining the learning of
+English to the classroom, compartmentalising lessons into the learning and teaching of
+the language skills, and designating lessons for dictations or drills for examinations in
+a rigid manner are not encouraged as they may not facilitate students’ construction and
+application of knowledge and skills in a coherent and integrative manner. Instead,
+schools can:
+
+
+    arrange for more double period (or triple period as appropriate) sessions per week
+     or cycle and include half-day or whole-day activity sessions shared among
+     different KLAs in the school timetable to allow continuous stretches of time for
+     extended tasks, projects, visits, student or professional performances;
+    set aside a short, regular period of time per day for reading, in addition to the
+     regular lesson time, to help students develop reading skills and strategies and a
+     good reading habit for lifelong learning;
+    plan their timetable and calendar flexibly (e.g. adjusting the number and
+     arrangement of lessons in each term to cater for the special requirements of the
+     learning programmes, exploring the use of Saturdays and long holidays to
+     encourage life-wide learning and independent learning);
+    make use of e-learning platforms and online forums appropriate for primary
+     students to facilitate interaction and instant feedback and support the building of a
+     learning community among teachers and upper primary students or more advanced
+     students as appropriate;
+    introduce to students the use of web-based resources in the form of online
+     interactive learning platforms and multimodal materials such as e-books and
+     videos for self-directed learning outside class according to their learning interests,
+     progress and needs; and
+    make good use of the flexible lesson time and holistically plan and arrange
+     students’ learning time, addressing and connecting curriculum to the MREs as
+     appropriate.
+
+                                            58
+
+=== Page 69 ===
+     Chapter 4
+
+
+Learning and Teaching
+
+=== Page 70 ===
+(Blank Page)
+
+=== Page 71 ===
+Chapter 4 Learning and Teaching
+
+This chapter provides guidelines for effective learning and teaching of the English
+Language curriculum. It is to be read in conjunction with Chapter 4 of the English
+Language Education Key Learning Area Curriculum Guide (Primary 1 – Secondary 6)
+(ELE KLACG) (2017).
+
+
+4.1 Guiding Principles for Learning and Teaching of English Language
+
+The major guiding principles for the learning and teaching of English Language at the
+primary level are set out below:
+
+
+   Student-centredness is a significant notion in the learning and teaching of English
+    Language. Learning effectiveness is enhanced when teachers take into account
+    students’ needs, interests and abilities, which may vary at different stages and in
+    different settings. Teachers should make use of the open and flexible curriculum
+    framework presented in Chapter 2 of this Guide to plan for a balanced and
+    coherent school curriculum. They should, with a view to embracing learner
+    diversity, adapt the curriculum appropriately, employ a variety of teaching
+    methods and strategies, and select suitable learning materials and activities.
+   Helping students achieve the learning targets calls for the effective and flexible
+    use of a wide range of teaching approaches and strategies. Depending on the
+    learning context, teachers should design, choose and use approaches and strategies
+    that motivate students, enhance their fluency and confidence in using English,
+    facilitate personal and intellectual development, foster cultural understanding, and
+    support the development of generic skills.
+   Context is important to the learning and teaching of English Language.
+    Meaningful contexts provide opportunities for the use of the language for
+    purposeful communication. Teachers should design contextualised learning tasks
+    under modules and units to engage students in meaningful practice and purposeful
+    use of the language.
+   Language learning and teaching should always be connected to real life. As
+    language use in everyday life is often integrative, opportunities for applying
+    different language knowledge and skills integratively to complete tasks should be
+    provided in the learning and teaching of English Language. A diversity of learning
+    contexts and activities should be adopted to enable students to explore, develop
+    and apply the language. The task-based approach, under which the language skills
+    and other learning elements are interwoven in communicative tasks, should
+
+                                          61
+
+=== Page 72 ===
+     therefore be adopted to enable students to interact naturally in, and appreciate the
+     richness and complexity of, the language.
+    Schools are encouraged to enhance English Language learning, arouse interest and
+     broaden learning experiences through flexible use of a variety of resources for
+     students to listen to, read, view, write and create, such as quality textbooks and
+     different types of print and non-print resources. In addition, relevant community
+     resources should be tapped to provide students with opportunities for life-wide
+     learning.
+
+
+4.2 Task-based Learning and Teaching
+
+In implementing the English Language curriculum framework, it is recommended that
+a task-based approach be used. Tasks are purposeful and contextualised activities in
+which students draw together a range of elements in their framework of knowledge and
+skills to convey meaning and achieve the desired outcomes. In the process, they are
+engaged in exploring issues and solutions and learning to use the language skills and
+functions, grammar items and structures, vocabulary, and text types and text features
+for meaningful communication. The use of tasks also provides opportunities for the
+development of language learning strategies, generic skills, learner independence, and
+proper values and attitudes conducive to lifelong learning.
+
+
+Tasks are characterised by an emphasis on active participation, flexible differentiation
+and purposeful communication among the students through a variety of modes and
+media. Every English learning task should have the following five features:
+
+
+    A task should have a purpose and involve students in using English to achieve the
+     various purposes set out in the learning targets and objectives (see Chapter 2 of
+     this Guide for details).
+    A task should have a context from which the purpose for using English emerges.
+    A task should involve students in a mode of thinking and doing.
+    A task should have a process which requires students to draw upon their
+     framework of knowledge and skills.
+    A task should engage students in carrying out a purposeful activity leading towards
+     a product.
+
+
+
+
+                                           62
+
+=== Page 73 ===
+Language learning tasks can be designed to help students develop the capabilities for
+learning. They provide opportunities for students to connect and apply the knowledge
+and skills acquired purposefully in authentic contexts so as to achieve deep learning.
+An effective English task which contributes to deep learning should embody the
+following characteristics:
+
+
+    It involves communicative language use in which students’ attention is focused on
+     meaning as well as linguistic structures.
+    It is authentic and close to the real world and daily life experiences of students.
+     Therefore, the texts (including oral, written and multimodal) which students
+     process and produce are often authentic and relevant. Through engaging with these
+     tasks, students progressively develop the skills and attributes necessary for the 21st
+     century (e.g. holistic thinking skills, information literacy, social awareness). They
+     are also guided to take the initiative to learn, negotiate meaning and make choices
+     in what, when and how to learn.
+    It provides language learning opportunities for students to manipulate and practise
+     specific language forms, develop language skills, practise the integrative use of
+     language, apply language development strategies and use language meaningfully
+     and creatively.
+    It is easily adapted to suit students of different abilities.
+    It involves the effective use of information technology to facilitate self-directed
+     learning and address the different needs of students.
+
+
+In light of primary students’ abilities, learning needs and styles, teachers in primary
+schools need to consider the following in using a task-based approach in the English
+classroom:
+
+
+    Teachers should be open-minded and flexible enough to accept students’ attempts
+     and efforts, in order to foster confidence and risk-taking.
+    To achieve communicative competence, ample opportunities should be provided
+     for students to talk in English with one another in school, and to explore or
+     negotiate meaning and ways to do things in the context of tasks. In the process,
+     intellectual growth is also promoted.
+    An activity can motivate students when it is comprehensible and purposeful, and
+     at the same time provides some degree of challenge and a sense of achievement.
+
+
+
+
+                                            63
+
+=== Page 74 ===
+    In an effective communicative task, students are allowed time for processing
+     information, formulating questions and responses, and making connections.
+     Through the process of observing, discovering, experimenting, practising,
+     discussing and sharing, students’ communication skills can be developed.
+    Learning tasks involving information and ideas from other subjects or Key
+     Learning Areas (KLAs) contribute to the development of the students’ framework
+     of knowledge and skills.
+
+
+The concept of modules, units and tasks is recommended for organising the learning
+and teaching of the English Language curriculum. For details, please see Section 2.3.2
+Modules of Learning in this Guide.
+
+
+Pedagogical and Real-world Tasks
+
+Most tasks adopted in the Hong Kong primary English classroom are pedagogical tasks.
+They replicate real-world tasks and are introduced to develop students’ confidence in
+using English in real-life situations. Depending on students’ needs and the contexts
+used, tasks can be of a small or large scale, carried out within and/or beyond the
+classroom, and conducted individually or collaboratively for students to experience
+using English as a means of communication and enjoyment.
+
+
+Exercises
+
+A judicious combination of tasks and supporting exercises can help students learn
+successfully. Exercises focus upon and practise specific grammar points or language
+items and structures such as vocabulary, sentence structures or phonics. Teachers should
+avoid giving mechanical drills as exercises since they can undermine young learners’
+interest in learning English. e-Learning resources, some of which may be language
+games, can be used to motivate students and facilitate independent and interactive
+learning. As post-task support and for remedial purposes, specially designed exercises
+are necessary to support students who have not mastered the use of specific grammar
+points and language structures. A cluster of well-planned tasks and exercises can
+enhance students’ confidence, interest and skills in learning English at an early stage.
+Please refer to Appendices 14 and 15 for details.
+
+
+
+
+                                          64
+
+=== Page 75 ===
+Extended Tasks and Projects
+
+Extended tasks and projects are optional activities in a framework of modules, units
+and tasks. They may be given as an extension and provide more challenging
+opportunities for students to further develop their knowledge and skills. They are
+suitable for use with students of different abilities and at all levels of learning. Students
+can be engaged in extensive reading and viewing, as well as self-directed learning.
+
+
+Extended tasks challenge students in the integrated use of previously acquired
+knowledge and skills in new contexts. Students of different abilities may all be given
+extended tasks, but teachers will need to have variable expectations. Through carrying
+out extended tasks, students apply different parts of their language resource in an
+integrated manner.
+
+
+Projects involve topic-based study conducted by students individually or
+collaboratively, and are designed to foster independence. Although projects share all
+the five features of tasks, they require students to take more responsibility for their own
+learning and work more independently. It is necessary that teachers provide guidance,
+check progress and give feedback at different stages of a project. Please refer to
+Appendix 16 for details. Projects provide authentic opportunities for students to
+develop generic skills and positive attitudes towards learning English. They also help
+students develop reasoning and problem solving skills. Students identify a topic of
+interest, plan their own work and work at their own pace. In the process, they search
+for and organise information, review and compile it, design a way of presenting the
+findings, present them, and then evaluate their own work. They also generate innovative
+solutions to problems or create new ideas or things to enhance their creative capacity
+(e.g. designing a product for solving certain problems faced by the needy in society).
+Projects need not be of a very large scale, nor do they always lead to the production of
+a piece of written work. The product of a project may be an oral presentation, a simple
+performance or a displayed item. Choices can be offered to students to cater for their
+learning needs and peer assessment is promoted for students to learn from peers.
+
+
+
+
+                                             65
+
+=== Page 76 ===
+4.3 Language Skills
+
+
+4.3.1 Integrative Use of Skills
+
+Most real-life activities involve the use of more than one language skill. Since real-
+world tasks involve the interaction of language skills in an integrative manner, it is
+essential that in the primary English classroom, students are given the opportunity and
+support to develop the four language skills in ways that reflect such integration. In order
+to develop the ability to communicate effectively for the various purposes described in
+the learning targets, students need to be given the opportunity to experience the
+integrative use of skills for authentic communication. They need to participate in
+pedagogical tasks or simulations, which replicate real-world tasks and enable them to
+focus on the integrative use of the skills in meaningful contexts. Where possible, these
+classroom learning experiences should develop the four language skills and rehearse
+them in a natural and combined manner, even though there will be certain components
+focusing on only one or two skills at a time. The starting point is to examine relevant
+contexts of language use in order to establish the natural occurrence and sequencing of
+language skills appropriate to different situations.
+
+
+Students in primary schools can be given tasks organised under modules and units.
+These tasks may form a sequence of activities in which the successful completion of
+prior activities contributes to succeeding ones. The purpose and context of each task
+decides the coverage and sequencing of the language skills to be used.
+
+
+Teachers may also capitalise on cross-curricular learning and the promotion of STEAM
+education, and collaborate with the KLAs involved. They may design tasks, activities
+and projects to encourage students to apply their language skills, work out innovative
+solutions to problems or create new ideas or things, which facilitate the purposeful use
+of English and enhance students’ creative capacity.
+
+
+Another way of providing students with the opportunity to use the four language skills
+in an integrated, communicative way is by using themes with cross-curricular links and
+engaging them in doing projects. Both provide a useful way for students to integrate
+their learning experiences and the use of the four language skills.
+
+
+Please refer to Section 4.2 for suggestions on using a task-based approach to the
+learning and teaching of English.
+
+
+
+                                            66
+
+=== Page 77 ===
+Development of the Integrative Use of Skills in the School Reading Workshops
+
+
+It is suggested in Section 3.2 that one of the components of the school English
+programme is a series of Reading Workshops, which aim at developing students’
+reading skills at an early stage of language development. Young learners enjoy listening
+to stories and reading books and this context is also suitable for the development of
+other language skills. The learning and teaching activities in these Reading Workshops
+do not focus on reading skills alone. Teachers can provide their students with
+opportunities to use skills in an integrative manner at different stages of a workshop in
+a natural and authentic way. For example:
+
+
+Students develop their listening, speaking and reading skills when they:
+
+
+    are introduced to the books through storytelling, reading aloud or shared reading;
+    answer questions related to the content of the books and discuss with the teacher
+     or their peers in the while-reading stage;
+    pay attention to the letter-sound relationships of words in the books and enter
+     words into their phonics books with teacher support;
+    learn songs, action rhymes and poems related to the themes and content of the
+     books; and
+    role-play the characters in the books, act out or dramatise parts of the books.
+
+
+Students develop their reading and writing skills when they:
+
+
+    rewrite part of the books collaboratively after discussion;
+    write about their feelings and comments on the story plot and/or characters;
+    develop a mind map for the story plot or ideas;
+    compile a class word bank by grouping words from the books under themes; and
+    write captions under pictures based on the content of the book.
+
+
+Students develop their listening, speaking, reading and writing skills when they
+participate in a variety of communicative games which can also help them internalise
+grammar items and structures learnt from the books.
+
+
+
+
+                                           67
+
+=== Page 78 ===
+4.3.2 Learning and Teaching of Language Skills and Multimodal Literacy
+
+To enable students to communicate effectively in English, they should be given the
+opportunity and support to develop the four language skills of listening, speaking,
+reading and writing in meaningful contexts and in an integrative manner. With the
+advancement of information technology, multimodal texts are prevalent and literacy is
+extended to cover also multimodal literacy (i.e. the ability to use more than one mode
+of communication, media or technological tools for effective communication and
+information management). New literacy skills are given increasing attention in the
+learning and teaching of English worldwide. To address such changes, there is a need
+to provide more opportunities for students to view and create multimodal texts in
+today’s English Language classroom. Students may create their e-books using e-
+learning tools, enlivening their work by adding digital images, videos, sounds and
+music, and other multimodal tools.
+
+
+Listening Skills
+
+Effective listening skills are essential for successful interpersonal communication,
+whether in socialising with English-speaking people or in getting things done. Good
+listening ability increases opportunities for leisure and entertainment. In the process of
+listening, the listener activates various types of knowledge (e.g. knowledge of a topic,
+the culture or the context) in order to construct a personal interpretation of what has
+been said. Successful listening requires the interpretation of contextual information
+such as physical setting, the number of listeners and speakers, their roles, and their
+relationship to each other. Listening can be demanding because students often have
+little control over the speed and complexity of the listening texts, and they cannot re-
+listen in real-life situations. Listening to what the teacher says in the primary English
+classroom and understanding it are of key importance in the development of listening
+skills. Teacher language in the classroom is authentic and purposeful. Successful
+listening to the teacher can enhance motivation, and the feedback on listening
+difficulties can be provided immediately.
+
+
+At the primary level, the listening skills to be developed include skills for
+
+
+    identifying and discriminating sounds, stress and intonation; and
+    listening for explicit and implicit meaning.
+
+
+
+
+                                            68
+
+=== Page 79 ===
+Development of Listening Skills through Task-based Activities
+
+Good listening skills enable students to understand what they hear in English even
+before they can communicate effectively in the language. Teachers need to engage
+students in various types of tasks and activities to help them develop and practise their
+listening skills. Good task-based listening activities provide students with a purpose for
+listening and enable them to acquire skills in a meaningful context. Listening activities
+are more effective if the purposes and contexts are as close to authentic situations as
+possible. There are two main types of task-based listening activities: activities that
+require students to listen and make non-linguistic responses (e.g. listen and colour); and
+activities that require learners to listen and make linguistic responses (e.g. listen and
+complete a written plan for the weekend’s activities).
+
+
+The following example serves to highlight how listening skills can be developed
+through a series of task-based activities.
+
+
+Task: The Chinese New Year Fair
+
+
+In the task, each group of students is required to make a handicraft for a Chinese New
+Year Fair in school.
+
+
+    Students learn or revise some relevant vocabulary items and grammar structures
+     in preparation for the task. For example, the teacher plays a game of bingo with
+     the students to help them identify words beginning with different letter sounds.
+     This practice helps them discriminate the initial sounds of the target vocabulary
+     items.
+    Students listen to an audio recording in which two children discuss what and how
+     to prepare for a Chinese New Year Fair in school. They also listen to short
+     descriptions of the materials used to make the handicraft. They complete a
+     matching activity. They circle the pictures of these materials on a task sheet. In
+     this activity, students recognise the stress in connected speech to identify the main
+     ideas. They also recognise the differences in the use of intonation to indicate the
+     speaker’s preferences and feelings in the discussion.
+    After this activity, the teacher invites the class to share their observations about
+     the use of intonation or recurrent sentence structures in the discourse. If necessary,
+     the teacher replays a selected part to highlight the learning point.
+    Students work in groups and discuss the handicraft they want to make with some
+     of the materials mentioned in the dialogue. They also write a short text to describe
+
+                                             69
+
+=== Page 80 ===
+    the handicraft they are going to make and how they are going to make it. During
+    the group discussion, they find out the group members’ preferences and the
+    materials to be used for making the handicraft. In this way, they listen for main
+    ideas and supporting details.
+   When all groups are ready, a game of “Twenty Questions” begins. Each group
+    describes the materials they will use to make the handicraft, and their classmates
+    ask questions and guess what is to be made. In this activity, students listen for
+    specific information.
+   The whole class can then choose the ideas they like best and make the handicraft
+    for an activity or a stall to be included in the Chinese New Year Fair.
+
+
+Other Considerations for the Development of Listening Skills
+
+   Teachers should use a variety of task-based activities that require students to listen
+    and do, listen for information, and listen to stories, to help them develop their
+    listening skills. These activities need not be conducted formally with worksheets
+    and audio recordings. If teachers can introduce them as games and as regular
+    classroom interactions, students will develop good listening skills even at an early
+    stage of learning.
+   To develop good listening habits, students need to be given opportunities to
+    practise listening to the whole recording once to get the gist or main ideas the first
+    time they listen. In subsequent listening, they should be guided to locate and
+    understand specific details as well as develop listening strategies, which include
+    but are not limited to being attentive, activating prior knowledge, listening to
+    important words instead of every word that is spoken, and anticipating the possible
+    development of the spoken discourse.
+   It is useful to expose students to authentic listening materials covering a wide
+    range of text types such as advertisements, announcements, and telephone
+    conversations in order to prepare them for listening to English in real-life
+    situations. If the materials seem to be too demanding or difficult for the students,
+    teachers may set simple tasks while maintaining the real life settings. The content
+    of the listening materials should increase in complexity as students progress from
+    Key Stage 1 to Key Stage 2.
+   Schools are encouraged to adopt different teaching strategies to promote reading
+    to learn, including storytelling, reading aloud and shared reading, which provide
+    the best opportunity for students to develop their listening skills. These are
+    contexts in which young learners are relaxed and enjoy their English lessons. With
+    the use of appropriate facial expressions, gestures, stress and intonation in
+
+                                           70
+

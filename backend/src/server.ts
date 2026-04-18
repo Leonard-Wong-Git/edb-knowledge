@@ -2,6 +2,9 @@ import { createServer } from "node:http";
 import type { ServerResponse } from "node:http";
 
 import { analyzeCircular } from "./api/analyzeCircular.js";
+import { searchChannelA, type SearchChannelARequest } from "./api/searchChannelA.js";
+import { searchChannelB, type SearchChannelBRequest } from "./api/searchChannelB.js";
+import { searchCombined, type SearchCombinedRequest } from "./api/searchCombined.js";
 import { getCorsOrigin, getPort } from "./config/env.js";
 import { createEmbeddingClient } from "./lib/embeddingClient.js";
 import { createLlmClient } from "./lib/llmClient.js";
@@ -63,6 +66,63 @@ const server = createServer(async (req, res) => {
     try {
       const input = await readJsonBody<AnalyzeCircularRequest>(req);
       const result = await analyzeCircular(input, { llmClient, embeddingClient });
+
+      setCorsHeaders(res);
+      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify(result));
+      return;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      setCorsHeaders(res);
+      res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ error: message }));
+      return;
+    }
+  }
+
+  // ── Channel A search (approved policy facts) ─────────────────────────────
+  if (req.method === "POST" && req.url === "/api/search/channel-a") {
+    try {
+      const input = await readJsonBody<SearchChannelARequest>(req);
+      const result = await searchChannelA(input, embeddingClient);
+
+      setCorsHeaders(res);
+      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify(result));
+      return;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      setCorsHeaders(res);
+      res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ error: message }));
+      return;
+    }
+  }
+
+  // ── Channel B search (LLM-wiki index, all results) ────────────────────────
+  if (req.method === "POST" && req.url === "/api/search/channel-b") {
+    try {
+      const input = await readJsonBody<SearchChannelBRequest>(req);
+      const result = await searchChannelB(input, embeddingClient, llmClient);
+
+      setCorsHeaders(res);
+      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify(result));
+      return;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      setCorsHeaders(res);
+      res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ error: message }));
+      return;
+    }
+  }
+
+  // ── Combined A+B search ───────────────────────────────────────────────────
+  if (req.method === "POST" && req.url === "/api/search/combined") {
+    try {
+      const input = await readJsonBody<SearchCombinedRequest>(req);
+      const result = await searchCombined(input, embeddingClient, llmClient);
 
       setCorsHeaders(res);
       res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
