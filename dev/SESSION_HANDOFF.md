@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Current Baseline
-1. Version: **v1.5.0** (K1知識平台)
+1. Version: **v1.6.0** (K1知識平台)
 2. Core files:
    - `index.html` — **K1 知識平台 Landing Page（入口）** ✅ (Session 77 重構)；dark theme, particle canvas, scroll reveal, stats counter, bento features, CTA → app.html
    - `app.html` — **K1知識平台 FULL REACT SPA** ✅ (Phase 2 migration complete); tabs: 平台介紹 / 智能搜尋 (Channel A/B/A+B) / 指引文件庫 / 通告分析 / 知識提煉(Admin) / 知識管理(Admin)
@@ -12,7 +12,7 @@
      - `backend/src/api/searchChannelB.ts` ✅ (no top-k limit)
      - `backend/src/api/searchCombined.ts` ✅
      - `backend/src/server.ts` — routes `/api/search/channel-a`, `/channel-b`, `/combined` ✅
-3. Knowledge state: 109 Channel A facts (7 topics), **408 candidates in queue** (含 Policy Signal 新增 22 個), **wiki_index.json ✅** (2,840 chunks, 124 MB — Session 78 需 rebuild 加入 edbc002/003/005 2026)
+3. Knowledge state: **1,001 Channel A facts** (7 topics, role_facts.json v2.1.0), **0 candidates in queue** (408 approved + merged Session 79), **wiki_index.json ✅** (2,874 chunks, 125 MB)
 4. External dependencies: EDB website, OpenAI API (gpt-4.1-nano + text-embedding-3-small), Google Docs Viewer for PDF proxy
 5. Model fix: `gpt-5-nano` → `gpt-4.1-nano` corrected across all live code files
 6. Channel B: requires `cd backend && npm run dev` before testing B/A+B in app.html
@@ -144,8 +144,8 @@ python3 dev/vault/process_signals.py
 |------|------|------|
 | ~~P0.1~~ | ~~執行 build_wiki_index.py~~ | ✅ 完成 — 2,840 chunks, 124 MB (rebuilt 2026-04-17, 45 vault sources) |
 | ~~P0.2~~ | ~~測試 wiki_search.py~~ | ✅ 完成 — 採購門檻查詢正確，繁中已修正 |
-| P0.3 | 匯出 role_facts.json | Admin → 刪「課程統籌主任規劃」前綴 → 匯出 → 替換 repo |
-| P0.4 | Admin Review 新候選 | 92 candidates in queue 待審批 |
+| ~~P0.3~~ | ~~匯出 role_facts.json~~ | ✅ Session 79 完成 — 408 candidates merged, 1,001 facts, v2.1.0 |
+| ~~P0.4~~ | ~~Admin Review 新候選~~ | ✅ Session 79 完成 — 408 candidates all approved |
 
 ### Session 76 新增 Extract 檔案（20 個 source_ids）✅ 全部完成
 
@@ -203,31 +203,21 @@ python3 dev/vault/build_wiki_index.py
 
 ## Last Session Record
 1. UTC date: 2026-04-18
-2. Session ID: Claude_20260418_0001 (Session 77)
+2. Session ID: Claude_20260418_0003 (Session 79)
 3. Completed:
-   - ✅ **[process_signals.py]** 全自動 Policy Signals pipeline（SSL fallback + pypdf fallback + --retry-failed）；3/3 signals 成功處理
-   - ✅ **[Policy Signals 驗證]** 3/3 signal accuracy = 100%：EDBC002 地理科課程框架、EDBC003 價值觀教育架構、EDBC005 學習宗旨更新
-   - ✅ **[候選提取]** +22 Channel A candidates (386 → 408)；3 個新 vault extracts；3 個新 source_registry 條目
-   - ✅ **[policy_signals.json]** 實際標題更新，accuracy_verified: true
-   - ✅ **[landing.html]** K1 知識平台入口頁（dark theme, particle canvas, bento grid, scroll reveal, stats counter）
-   - ✅ **[v1.5.0]** backend/package.json 版本更新；npm run check ✅
-   - ✅ **[index.html 重構]** landing page 成為 index.html（GitHub Pages 入口）；React SPA 改名 app.html；k1-dashboard.html 刪除
+   - ✅ **[Channel A merge]** 408 candidates all approved → merged into role_facts.json: 109 → **1,001 facts** (v2.1.0)
+   - ✅ **[Queue cleared]** candidate_queue.json + candidate_queue.js 清空；archive saved to `candidate_queue_archive_20260418.json`
+   - ✅ **[app.html updated]** INITIAL_DATA + INITIAL_REVIEW_STATE (1,001 entries) + chunk counts (810 → 2,874) all updated
+   - ✅ **[index.html updated]** Landing page stats: 109 → 1,001 facts, 2,840 → 2,874 chunks
+   - ✅ **[version bump]** v1.5.0 → v1.6.0
 4. Pending from last session (not yet done):
-   - P0.3: role_facts.json prefix fix「課程統籌主任規劃，」→ still pending (deferred)
-   - Admin review: 408 candidates in queue（含 22 個 Policy Signal 候選）
-   - Channel B: run `python3 dev/vault/build_wiki_index.py` 收錄 edbc002/003/005 2026
-   - **Git 待執行**（本地）：`git rm -f k1-dashboard.html landing.html && git add index.html app.html && git commit && git push`
-5. Next priorities (Session 78):
-   - 📋 **[Git push]** 完成 index/app.html 重構的 commit + push（見上）
-   - 📋 **[Channel B 更新]** `python3 dev/vault/build_wiki_index.py`
-   - 📋 **[Channel A review]** app.html → Admin → 知識提煉 → 審批 408 個候選
-   - 📋 **[Circular System 同步]** edb_scraper.py signal 寫入加 url + title 欄位
-   - 📋 **[Dashboard Signal Badge]** 知識提煉 tab 加 pending signal 數量提示
+   - **Circular System 落地**: edb_scraper.py `_write_policy_signal()` 實裝（設計已完成 Session 78）
+5. Next priorities (Session 80):
+   - 📋 **[Circular System 落地]** edb_scraper.py 加入 `_write_policy_signal()` — 確認 pdf_url / title 變數名後落地
    - 📋 Phase 3: 知識提煉 left-right split panel redesign (deferred)
    - 📋 Phase 4: Guidelines 3-level sort with sub_category (deferred)
    - 📋 Phase 5: Channel B admin prompt editor (deferred)
 6. Risks / blockers:
-   - Channel A searchChannelA.ts embeds ALL facts per query — acceptable for ~109 facts, monitor if exceeds 500
+   - Channel A searchChannelA.ts embeds ALL facts per query — **1,001 facts now** — monitor token usage (was fine at 109, now 10× larger)
    - Channel B Circular System 接入明確暫停
    - Channel B/A+B requires local backend (`npm run dev`) — not deployable to GitHub Pages
-   - app.html 內所有 `index.html` 內部 self-link 已是 app.html；確認無斷鏈

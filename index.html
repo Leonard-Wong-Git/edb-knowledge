@@ -624,11 +624,11 @@
 
     <div class="stats-strip" role="region" aria-label="平台統計">
       <div class="stat-item">
-        <span class="stat-num" id="stat-facts">109</span>
+        <span class="stat-num" id="stat-facts">1,001</span>
         <span class="stat-label">已審核事實</span>
       </div>
       <div class="stat-item">
-        <span class="stat-num">2,840</span>
+        <span class="stat-num">2,874</span>
         <span class="stat-label">知識索引塊</span>
       </div>
       <div class="stat-item">
@@ -663,7 +663,7 @@
         <div class="bento-desc">
           輸入任何政策問題，即時從 EDB 官方文件中取得有來源依據的精準答案。
           Channel A 提供人工審核的高可信事實；Channel B 進行全文語義搜尋，
-          覆蓋 2,840 個知識索引塊。
+          覆蓋 2,874 個知識索引塊。
         </div>
         <div class="channel-split">
           <div class="channel-pill">
@@ -852,7 +852,7 @@
         即時查閱學校政策<br>不再翻查厚厚文件
       </h2>
       <p class="cta-sub reveal reveal-delay-2">
-        109 條已審核政策事實，2,840 個知識索引塊，
+        1,001 條已審核政策事實，2,874 個知識索引塊，
         隨時為你解答採購門檻、人事規定、課程要求等問題。
       </p>
       <div class="reveal reveal-delay-3">
@@ -973,7 +973,7 @@
       (entries) => entries.forEach(e => {
         if (e.isIntersecting) {
           const nums = e.target.querySelectorAll('.stat-num');
-          const targets = [109, 2840, 39, 7];
+          const targets = [1001, 2874, 39, 7];
           nums.forEach((el, i) => animateCounter(el, targets[i]));
           statsObs.unobserve(e.target);
         }
