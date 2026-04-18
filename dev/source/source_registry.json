@@ -4045,6 +4045,69 @@
         "content_length": "3036507",
         "etag": "\"0337c2dd6b2d91:0\""
       }
+    },
+    {
+      "source_id": "edbc002_2026",
+      "title": "教育局通告第2/2026號",
+      "title_en": null,
+      "title_short": "通告 EDBC002/2026",
+      "url_landing": null,
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26002C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-04-18",
+      "supersedes": null,
+      "notes": "Auto-registered via process_signals.py from policy signal. Signal ID: sig_edbc002_2026",
+      "freshness_metadata": null
+    },
+    {
+      "source_id": "edbc003_2026",
+      "title": "教育局通告第3/2026號",
+      "title_en": null,
+      "title_short": "通告 EDBC003/2026",
+      "url_landing": null,
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26003C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-04-18",
+      "supersedes": null,
+      "notes": "Auto-registered via process_signals.py from policy signal. Signal ID: sig_edbc003_2026",
+      "freshness_metadata": null
+    },
+    {
+      "source_id": "edbc005_2026",
+      "title": "教育局通告第5/2026號",
+      "title_en": null,
+      "title_short": "通告 EDBC005/2026",
+      "url_landing": null,
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26005C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-04-18",
+      "supersedes": null,
+      "notes": "Auto-registered via process_signals.py from policy signal. Signal ID: sig_edbc005_2026",
+      "freshness_metadata": null
     }
   ]
 }
