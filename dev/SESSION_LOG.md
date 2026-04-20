@@ -19,13 +19,17 @@
    - ✅ Empty queue state preserved
    - ✅ Mobile responsive fallback added for the split workspace
 6. Pending:
-   - Push to GitHub Pages after final local checks / commit
    - Circular System: `edb_scraper.py _write_policy_signal()` (deferred)
    - Phase 4: 指引文件庫 dual sort (`sub_category`)
 7. Verification:
    - `sed -n '547,4173p' app.html | node -e "...esbuild.transformSync(...,{loader:'jsx'})"` → PASS (`esbuild jsx parse PASS`)
    - `rg -n "CandidateCard|review-workspace|review-inspector|candidate-row|知識提煉" app.html` → PASS (`CandidateCard` removed; split workspace markers present)
    - Independent review pass: self-review checked correctness, consistency with Phase 3 requirement, regression risk, doc sync, and GitHub Pages compatibility → PASS
+   - `git commit -m "feat: add split candidate review workspace"` → PASS (`1fcbd66`)
+   - `git push origin main` → PASS (`88f37a8..1fcbd66 main -> main`)
+   - `curl -L https://raw.githubusercontent.com/Leonard-Wong-Git/edb-knowledge/main/app.html | rg -n "review-workspace|review-inspector|candidate-row|逐條核對候選事實"` → PASS
+   - `curl -L "https://leonard-wong-git.github.io/edb-knowledge/app.html?v=1fcbd66" | rg -n "review-workspace|review-inspector|candidate-row|逐條核對候選事實"` → PASS
+   - Note: bare `app.html` was still serving a short GitHub Pages cache immediately after push; cache-busted URL verified the live updated artifact.
 
 ### Test Scenarios
 | Scenario | Precondition | Action / input | Expected | Actual | Result |
@@ -34,7 +38,7 @@
 | Candidate selection | Queue has items | Click candidate row | Inspector updates to selected candidate | `selectedId` drives active row, editor, role toggles, and source evidence | PASS |
 | Approve/reject | Queue has items | Use inspector buttons | Existing handlers called with selected candidate | Inspector calls `onApprove({...selected, proposed_text, suggested_roles})` and `onReject(selected.id)` | PASS |
 | Responsive | Narrow viewport | Open review view | Two columns stack without overlap | CSS switches `.review-workspace` to one column below 980px | PASS |
-| Release | Checks pass | Commit + push | GitHub Pages live app includes new review workspace | Pending final git commit/push in this session | PENDING |
+| Release | Checks pass | Commit + push | GitHub Pages live app includes new review workspace | Cache-busted GitHub Pages URL contains split workspace markers | PASS |
 
 ### DOC_SYNC Matrix Scan
 | Change Category | Required Doc Updates | Status |

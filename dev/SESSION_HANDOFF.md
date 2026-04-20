@@ -215,6 +215,7 @@ python3 dev/vault/build_wiki_index.py
 3. Completed:
    - ✅ **[Phase 3]** `app.html` 知識提煉 Admin now uses left candidate queue + right evidence/revision inspector
    - ✅ **[Phase 3]** inline candidate text revision and role toggles retained existing approve/reject data flow
+   - ✅ **[GitHub sync]** pushed Phase 3 to `origin/main`; GitHub Pages verified via cache-busted `app.html?v=1fcbd66`
    - ✅ **[S5 Draft Canvas]** `t-purchase.html` now opens an in-page draft workspace after S4 completion
    - ✅ **[S5 source panel]** Section selection updates citation cards and stale-source warning
    - ✅ **[S4 Generation Progress]** `t-purchase.html` "生成" button now opens in-page step progress instead of alert stub
