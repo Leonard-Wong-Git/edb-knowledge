@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Quick Q&A — EDB 智能知識庫</title>
+<title>快速問答 — EDB 智能知識庫</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -122,13 +122,13 @@
 </nav>
 
 <div class="wrap">
-  <div class="eyebrow">S6 · Quick Q&A</div>
+  <div class="eyebrow">S6 · 快速問答</div>
   <h1>問一個政策問題</h1>
-  <p class="sub">30 秒以內、已核實答案。由 knowledge.json 1,001 條事實 + EDB 通告出發。冇答案時唔 hallucinate,會交返畀知識團隊。</p>
+  <p class="sub">30 秒以內提供已核實答案。由 knowledge.json 1,001 條事實及 EDB 通告出發；沒有高信心答案時，系統不會臆測，會轉交知識團隊跟進。</p>
 
   <form class="qbox" id="form" onsubmit="event.preventDefault();ask()">
     <span class="icon">◈</span>
-    <input id="q" autocomplete="off" autofocus placeholder="例:SEN 學生申請補助要幾耐?">
+    <input id="q" autocomplete="off" autofocus placeholder="例：SEN 學生申請補助需時多久？">
     <button type="submit">問</button>
   </form>
 
@@ -136,37 +136,37 @@
   <div class="sect" id="idle">
     <div class="sect-head">建議問法</div>
     <div class="sg">
-      <div class="sg-item" onclick="suggest(this)"><span class="txt">SEN 學生申請補助要幾耐?</span><span class="intent">查政策</span></div>
-      <div class="sg-item" onclick="suggest(this)"><span class="txt">做份戶外考察風險評估</span><span class="intent gen">生成文件</span></div>
-      <div class="sg-item" onclick="suggest(this)"><span class="txt">EDBC 18/2024 點樣影響本校?</span><span class="intent">查政策</span></div>
+      <div class="sg-item" onclick="suggest(this)"><span class="txt">SEN 學生申請補助需時多久？</span><span class="intent">查政策</span></div>
+      <div class="sg-item" onclick="suggest(this)"><span class="txt">建立戶外考察風險評估</span><span class="intent gen">生成文件</span></div>
+      <div class="sg-item" onclick="suggest(this)"><span class="txt">EDBC 18/2024 如何影響本校？</span><span class="intent">查政策</span></div>
       <div class="sg-item" onclick="suggest(this)"><span class="txt">採購 50,000 以上流程</span><span class="intent">查政策</span></div>
-      <div class="sg-item" onclick="suggest(this)"><span class="txt">戶外考察 ≥ 100 人要申報咩?</span><span class="intent">查政策</span></div>
+      <div class="sg-item" onclick="suggest(this)"><span class="txt">戶外考察 ≥ 100 人需要申報甚麼？</span><span class="intent">查政策</span></div>
     </div>
   </div>
 
   <!-- answer -->
   <div class="answer" id="answer">
     <div class="q-title" id="qt"></div>
-    <div class="a-head">答(30 秒,已核實)</div>
+    <div class="a-head">答覆（30 秒，已核實）</div>
     <div class="a-body" id="ab">
-      須於出發前 6 星期向 EDB 提交 Form DE12<sup>1</sup>,如涉境外考察另需家長同意書<sup>2</sup>及保險證明<sup>3</sup>。
+      須於出發前 6 星期向 EDB 提交 Form DE12<sup>1</sup>，如涉及境外考察，另需家長同意書<sup>2</sup>及保險證明<sup>3</sup>。
     </div>
     <div class="src-list">
       <div class="head">引用 3 條</div>
-      <div class="s"><span class="n">[1]</span>EDBC 18/2024 §4<span class="ok">verified</span></div>
-      <div class="s"><span class="n">[2]</span>家長同意書範本 #89<span class="ok">verified</span></div>
-      <div class="s"><span class="n">[3]</span>已核實事實 #514<span class="ok">verified</span></div>
+      <div class="s"><span class="n">[1]</span>EDBC 18/2024 §4<span class="ok">已核實</span></div>
+      <div class="s"><span class="n">[2]</span>家長同意書範本 #89<span class="ok">已核實</span></div>
+      <div class="s"><span class="n">[3]</span>已核實事實 #514<span class="ok">已核實</span></div>
     </div>
     <div class="extend">
-      <div class="t">想生成完整「戶外考察風險評估」?</div>
-      <a class="btn primary" href="t-purchase.html">套用 template ▸</a>
+      <div class="t">想生成完整「戶外考察風險評估」？</div>
+      <a class="btn primary" href="t-purchase.html">套用模板 ▸</a>
     </div>
   </div>
 
   <!-- no-confident-answer -->
   <div class="no-conf" id="noconf">
-    <div class="h">暫時冇高信心答案 · 唔 hallucinate</div>
-    <div class="b">最接近嘅 3 條 EDB 原文:</div>
+    <div class="h">暫時沒有高信心答案 · 不會臆測</div>
+    <div class="b">最接近的 3 條 EDB 原文：</div>
     <div class="src-list" style="border:0;padding:0">
       <div class="s"><span class="n">•</span>EDBC 4/2019 §7</div>
       <div class="s"><span class="n">•</span>人事手冊 §12.1</div>

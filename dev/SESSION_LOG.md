@@ -2,6 +2,51 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-04-20 Session 84 — Traditional Chinese UI Copy + Design Reference Rationale
+
+1. Agent & Session ID: Codex_20260420_1438
+2. Task summary: Responded to user concern that the site should use Traditional Chinese UI wording and clarified why `Preview.html`, `Prototype.html`, and `Spec.html` remain in `dev/design/`.
+3. Layer classification: Product / UI Copy Layer + Documentation / Design Reference
+4. Files changed:
+   - `index.html` — MODIFIED: converted visible topic labels, footer counts, design CTA, and product prose to Traditional Chinese UI wording
+   - `t-purchase.html` — MODIFIED: converted S3/S4/S5 visible labels and source-mode copy to Traditional Chinese UI wording
+   - `q.html` — MODIFIED: converted Quick Q&A title, prompts, answer states, source badges, and no-confident-answer text to Traditional Chinese wording
+   - `app.html` — MODIFIED: converted visible Channel A/B, policy-signal, source/result, and admin/review labels to Traditional Chinese wording where user-facing
+   - `dev/design/Preview.html` — MODIFIED: converted visible design-preview copy to Traditional Chinese while keeping technical filenames as references
+   - `dev/SESSION_HANDOFF.md` — MODIFIED: recorded Traditional Chinese copy baseline and `dev/design/` rationale
+   - `dev/CODEBASE_CONTEXT.md` — MODIFIED: updated directory map, live-site URL, Channel A fact count, key decision, and AI Maintenance Log
+5. Completed:
+   - ✅ User-facing product copy now defaults to Traditional Chinese wording across the active static pages touched this session
+   - ✅ `dev/design/` rationale clarified: kept as internal design reference / handoff SSOT, not as the canonical product flow
+   - ✅ Stale footer fact count corrected to 1,001 approved facts / 7 topics
+   - ✅ `.claude/` left untracked and untouched
+6. Pending:
+   - Circular System: `edb_scraper.py _write_policy_signal()` (deferred)
+   - Phase 4: 指引文件庫 dual sort (`sub_category`)
+   - Phase 5: Channel B 後台管理
+7. Verification:
+   - `sed -n '/<script>/,/<\\/script>/p' t-purchase.html | sed '1d;$d' | node --check` → PASS
+   - `sed -n '547,4173p' app.html | node -e "...esbuild.transformSync(...,{loader:'jsx'})"` → PASS (`esbuild jsx parse PASS`)
+   - `sed -n '/<script>/,/<\\/script>/p' q.html | sed '1d;$d' | node --check` → PASS
+   - `rg -n ">[^<]*(min|Enter|Quick Q|chatbot|hallucinate|verified|Channel A|Channel B)[^<]*<" index.html t-purchase.html q.html app.html dev/design/Preview.html` → PASS with notes (remaining matches are filenames / technical labels / code-facing terms or AI/PDF/docx names)
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Normal flow | User opens S1/S3/S6 pages | Scan visible UI labels | Primary UI wording is Traditional Chinese | Main labels, CTAs, source badges, and status copy converted | PASS |
+| Design reference | User opens Preview page | Read design CTA and preview cards | Page explains Preview/Prototype/Spec as design artifacts in Traditional Chinese | Preview copy translated; filenames preserved for navigation | PASS |
+| Regression | S3/S4/S5 scripts unchanged except copy | Run inline JS syntax check | No JavaScript syntax regression | `node --check` passes for `t-purchase.html` script | PASS |
+| Regression | React SPA JSX changed only for copy | Run JSX parse check | JSX remains parseable | esbuild JSX transform passes | PASS |
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Product behavior / tuning change | CODEBASE_CONTEXT.md Directory Map / AI Maintenance Log if stable product behavior changed | ✓ Done |
+| Product version / release milestone change | k1-dashboard.html `_meta`; dev/knowledge/role_facts.json `_meta`; README badge; CHANGELOG; SESSION_HANDOFF.md; SESSION_LOG.md; CODEBASE_CONTEXT.md if release summary changed | N/A — no version number or public data schema changed |
+
+---
+
 ## 2026-04-20 Session 83 — Phase 3 Knowledge Review Split Workspace
 
 1. Agent & Session ID: Codex_20260420_1427

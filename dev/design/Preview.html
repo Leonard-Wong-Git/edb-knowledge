@@ -45,57 +45,57 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="eyebrow">Preview · 4 screens</div>
+    <div class="eyebrow">設計預覽 · 4 個畫面</div>
     <h1>EDB 智能知識庫 — 點擊原型預覽</h1>
-    <p class="sub">由 <code>Spec.html</code> 抽出嘅 4 個重點 screen，已寫咗 React。配色、token、component 同 spec 完全對齊：深綠 <code>#1F3A2E</code> + 米白 <code>#F7F4ED</code> + 校簿磚黃 accent，零 sparkle、零 purple gradient、零 streaming token。</p>
+    <p class="sub">由 <code>Spec.html</code> 抽出 4 個重點畫面，已寫成 React 原型。配色、設計參數、元件與設計規格對齊：深綠 <code>#1F3A2E</code> + 米白 <code>#F7F4ED</code> + 校簿磚黃重點色；不使用 AI 閃光裝飾、紫色漸層或逐字串流效果。</p>
     <div class="actions">
       <a class="btn primary" href="Prototype.html">開啟可點擊原型 ▸</a>
-      <a class="btn" href="Spec.html">睇返 Spec (ASCII wireframes)</a>
+      <a class="btn" href="Spec.html">查看設計規格（ASCII 線框）</a>
     </div>
     <div class="meta-row">
-      <span>Stack: React 18 + Vite-ready</span><span>Fonts: Noto Sans HK + IBM Plex Mono</span><span>Frozen adapter: 見 Spec 2.7</span>
+      <span>技術：React 18 + 可遷移至 Vite</span><span>字體：Noto Sans HK + IBM Plex Mono</span><span>固定接口邊界：見 Spec 2.7</span>
     </div>
   </header>
   <div class="grid">
     <div class="card">
-      <div class="shot"><span class="idx">01 · HOME</span><div class="placeholder">開原型即可見實圖<br/>· Template gallery<br/>· Omni input<br/>· Channel A/B/AB</div></div>
+      <div class="shot"><span class="idx">01 · 首頁</span><div class="placeholder">開原型即可見實圖<br/>· 模板列表<br/>· 萬用輸入<br/>· A/B/AB 通道</div></div>
       <div class="body">
-        <div class="route">/  ·  Home</div>
-        <h3>首頁：Template gallery + omni input</h3>
-        <p>Template-first 決定：8 款校本文件做第一眼。搜索框係 sticky，A/B/AB 搜索通道折疊做「進階」。右上 <code>⌘K</code> 隨時彈快速問答。</p>
-        <div class="tags"><span class="tag">JOB-A</span><span class="tag">JOB-B</span><span class="tag ac">Template card</span><span class="tag ac">Omni input</span></div>
+        <div class="route">/  ·  首頁</div>
+        <h3>首頁：模板列表 + 萬用輸入</h3>
+        <p>以模板為主：8 款校本文件作為第一眼入口。搜尋框固定在上方，A/B/AB 搜尋通道收納為「進階」。右上 <code>⌘K</code> 可隨時開啟快速問答。</p>
+        <div class="tags"><span class="tag">任務 A</span><span class="tag">任務 B</span><span class="tag ac">模板卡</span><span class="tag ac">萬用輸入</span></div>
       </div>
     </div>
     <div class="card">
-      <div class="shot"><span class="idx">02 · TEMPLATE DETAIL</span><div class="placeholder">開原型即可見實圖<br/>· RequirementField<br/>· Skeleton preview<br/>· Radio A/B/AB</div></div>
+      <div class="shot"><span class="idx">02 · 模板詳情</span><div class="placeholder">開原型即可見實圖<br/>· 需求欄位<br/>· 骨架預覽<br/>· A/B/AB 選項</div></div>
       <div class="body">
-        <div class="route">/t/:id  ·  Template detail + form</div>
-        <h3>揀咗 template：填校本 metadata</h3>
-        <p>左邊校本資料表格（必填打 <code>*</code>，無紅色 alarm），加來源控制。右邊實時顯示骨架同預計引用數。</p>
-        <div class="tags"><span class="tag">JOB-B</span><span class="tag ac">RequirementField</span><span class="tag ac">Skeleton preview</span></div>
+        <div class="route">/t/:id  ·  模板詳情 + 表格</div>
+        <h3>選定模板：填寫校本資料</h3>
+        <p>左邊是校本資料表格（必填以 <code>*</code> 標示，不用刺眼紅色警示），並加入來源控制。右邊即時顯示文件骨架與預計引用數。</p>
+        <div class="tags"><span class="tag">任務 B</span><span class="tag ac">需求欄位</span><span class="tag ac">骨架預覽</span></div>
       </div>
     </div>
     <div class="card">
-      <div class="shot"><span class="idx">03 · GENERATING</span><div class="placeholder">開原型即可見實圖<br/>· Step N / 5<br/>· Source readout<br/>· Skeleton fill</div></div>
+      <div class="shot"><span class="idx">03 · 生成中</span><div class="placeholder">開原型即可見實圖<br/>· 步驟 N / 5<br/>· 來源讀取<br/>· 骨架填入</div></div>
       <div class="body">
         <div class="route">/d/:id?state=gen</div>
         <h3>去 AI 化重點：文件施工中</h3>
-        <p>真 progress bar + <code>step N / 5</code> + 已讀取來源 + 骨架逐段 fade-in。冇 typing cursor、冇 streaming token。</p>
-        <div class="tags"><span class="tag">State: generating</span><span class="tag ac">ProgressTrack</span><span class="tag ac">SectionSkeleton</span></div>
+        <p>使用真實進度條、<code>步驟 N / 5</code>、已讀取來源與逐段顯示的文件骨架。不使用打字游標或逐字串流。</p>
+        <div class="tags"><span class="tag">狀態：生成中</span><span class="tag ac">進度軌</span><span class="tag ac">段落骨架</span></div>
       </div>
     </div>
     <div class="card">
-      <div class="shot"><span class="idx">04 · DRAFT CANVAS</span><div class="placeholder">開原型即可見實圖<br/>· Inline [n] citation<br/>· Source ledger<br/>· Stale warning<br/>· RevisionActionBar</div></div>
+      <div class="shot"><span class="idx">04 · 草稿畫布</span><div class="placeholder">開原型即可見實圖<br/>· 行內 [n] 引用<br/>· 來源列表<br/>· 過時來源警示<br/>· 修訂操作列</div></div>
       <div class="body">
-        <div class="route">/d/:id  ·  Draft canvas</div>
+        <div class="route">/d/:id  ·  草稿畫布</div>
         <h3>左文件，右來源，底部 action bar</h3>
-        <p>Inline 上標 <code>[n]</code> 配 highlight；右 panel source ledger 見 verified / stale 狀態。Export 係 primary action。</p>
-        <div class="tags"><span class="tag">State: generated</span><span class="tag">State: stale-source</span><span class="tag ac">SourceChip</span><span class="tag ac">ExportBar</span></div>
+        <p>行內上標 <code>[n]</code> 配合高亮；右側來源列表顯示已核實 / 過時狀態。「匯出」是主要操作。</p>
+        <div class="tags"><span class="tag">狀態：已生成</span><span class="tag">狀態：來源過時</span><span class="tag ac">來源標籤</span><span class="tag ac">匯出列</span></div>
       </div>
     </div>
   </div>
   <div class="cta-strip">
-    <div class="t"><b>三份檔案</b>：Preview.html (呢頁) · Prototype.html (可點擊) · Spec.html (ASCII wireframes)</div>
+    <div class="t"><b>三份設計底稿</b>：Preview.html（本頁）· Prototype.html（可點擊）· Spec.html（ASCII 線框）</div>
     <a class="btn primary" href="Prototype.html">打開原型 ▸</a>
   </div>
 </div>

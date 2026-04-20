@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>EDB 智能知識庫 — 校本文件工作室</title>
-<meta name="description" content="源頭為本嘅校本文件工作室：由 EDB 通告同 1,001 條已核實事實出發,生成符合校本 metadata 嘅文件。">
+<meta name="description" content="源頭為本的校本文件工作室：由 EDB 通告及 1,001 條已核實事實出發，生成符合校本資料的文件。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -179,27 +179,27 @@
     <div class="nav-right">
       <a href="#templates">文件庫</a>
       <a href="app.html">我的草稿</a>
-      <a href="dev/design/Spec.html">Spec</a>
-      <a href="q.html" title="Quick Q&A">Q&amp;A</a>
+      <a href="dev/design/Spec.html">設計規格</a>
+      <a href="q.html" title="快速問答">快速問答</a>
       <span class="kbd" id="kbd-hint">⌘K</span>
     </div>
   </div>
 </nav>
 
 <div class="wrap">
-  <div class="ribbon"><span class="t">Offline</span>離線模式 · 上次同步 04-19 · 可用快取 template 同 1,001 條已核實事實</div>
+  <div class="ribbon"><span class="t">離線</span>離線模式 · 上次同步 04-19 · 可用快取模板及 1,001 條已核實事實</div>
 
   <div class="eyebrow">源頭為本 · 校本文件工作室</div>
-  <h1>由 EDB 通告出發,生成符合校本 metadata 嘅文件</h1>
+  <h1>由 EDB 通告出發，生成符合校本資料的文件</h1>
   <p class="lede">
-    呢個唔係 AI chatbot。佢係一個工作室:揀 template → 填校本資料 → 系統抽取 EDB 原文同已核實事實 → 輸出可 export 嘅 .docx/PDF。
-    每段引用都有上標,右 panel 可追溯去 EDB 原通告。
+    這不是一般 AI 聊天機械人，而是一個校本文件工作室：選擇模板 → 填寫校本資料 → 系統抽取 EDB 原文及已核實事實 → 輸出可匯出的 .docx/PDF。
+    每段引用都有上標，右側面板可追溯至 EDB 原通告。
   </p>
 
   <form class="omni" onsubmit="event.preventDefault();location.href='q.html#q='+encodeURIComponent(this.q.value||'')">
     <span class="icon">◈</span>
-    <input name="q" id="omni-input" autocomplete="off" placeholder="搜政策 · 生成文件 · 按校本 metadata 套用…">
-    <span class="hot">Enter</span>
+    <input name="q" id="omni-input" autocomplete="off" placeholder="搜政策 · 生成文件 · 按校本資料套用…">
+    <span class="hot">輸入</span>
   </form>
   <div class="channels">
     <span class="sel">AB 兩者都用(建議)</span>
@@ -211,33 +211,33 @@
   <!-- templates -->
   <div class="sh" id="templates">
     <h2>常用校本文件</h2>
-    <span class="right">5 款 · 由 knowledge.json derive</span>
+    <span class="right">5 款 · 由 knowledge.json 生成</span>
   </div>
   <div class="tmpl-grid">
     <a class="card" style="--rule:var(--edb)" href="t-purchase.html">
-      <span class="topic">Finance</span>
+      <span class="topic">財務</span>
       <div class="title">校本採購指引</div>
-      <div class="meta"><b>~3 min</b><span>引 6–8 源</span><span>已用 47 次</span></div>
+      <div class="meta"><b>約 3 分鐘</b><span>引 6–8 源</span><span>已用 47 次</span></div>
     </a>
     <a class="card" style="--rule:var(--accent)" href="t-purchase.html">
-      <span class="topic">Activity</span>
+      <span class="topic">活動</span>
       <div class="title">戶外考察風險評估</div>
-      <div class="meta"><b>~5 min</b><span>引 4–6 源</span><span>已用 32 次</span></div>
+      <div class="meta"><b>約 5 分鐘</b><span>引 4–6 源</span><span>已用 32 次</span></div>
     </a>
     <a class="card" style="--rule:#6B7268" href="t-purchase.html">
-      <span class="topic">General</span>
+      <span class="topic">行政</span>
       <div class="title">家長通告解釋信</div>
-      <div class="meta"><b>~2 min</b><span>引 2–3 源</span><span>已用 61 次</span></div>
+      <div class="meta"><b>約 2 分鐘</b><span>引 2–3 源</span><span>已用 61 次</span></div>
     </a>
     <a class="card" style="--rule:var(--edb-2)" href="t-purchase.html">
-      <span class="topic">Student</span>
+      <span class="topic">學生事務</span>
       <div class="title">SEN 資源調配框架</div>
-      <div class="meta"><b>~6 min</b><span>引 5–7 源</span><span>已用 18 次</span></div>
+      <div class="meta"><b>約 6 分鐘</b><span>引 5–7 源</span><span>已用 18 次</span></div>
     </a>
     <a class="card" style="--rule:var(--stale)" href="t-purchase.html">
-      <span class="topic">Curriculum</span>
+      <span class="topic">課程</span>
       <div class="title">課程對齊年度計劃</div>
-      <div class="meta"><b>~8 min</b><span>引 8–10 源</span><span>已用 11 次</span></div>
+      <div class="meta"><b>約 8 分鐘</b><span>引 8–10 源</span><span>已用 11 次</span></div>
     </a>
   </div>
 
@@ -247,32 +247,32 @@
   <!-- two col: recent EDB + my drafts -->
   <div class="two-col" style="margin-top:36px">
     <div>
-      <div class="sh"><h2>最近 EDB 動向</h2><span class="right">pull from feed</span></div>
+      <div class="sh"><h2>最近 EDB 動向</h2><span class="right">由來源摘要更新</span></div>
       <div class="list-item"><span class="date">2026-04</span><span class="t"><b>EDBC 02/2026</b> — 採購上限調整為 HKD 500k</span></div>
       <div class="list-item"><span class="date">2026-03</span><span class="t"><b>PECG 2024 修訂</b> — SEN 每班支援節數 2→3</span></div>
       <div class="list-item"><span class="date">2026-02</span><span class="t"><b>EDBC 18/2024 §4</b> — 戶外考察申報表 DE12 修訂</span></div>
     </div>
     <div>
-      <div class="sh"><h2>我的草稿</h2><span class="right">local only</span></div>
+      <div class="sh"><h2>我的草稿</h2><span class="right">只限本機</span></div>
       <div class="list-item"><span class="date">昨日</span><span class="t"><b>家長通告 v3</b> · 草稿 · 引 2 源</span></div>
       <div class="list-item"><span class="date">04-14</span><span class="t"><b>校本採購指引</b> · 完成 · 引 7 源 · 匯出 .docx</span></div>
     </div>
   </div>
 
   <div class="cta">
-    <div class="t"><b>想睇新版完整設計?</b> Preview.html 列出 4 個 screen,Prototype.html 可點擊,Spec.html 有 ASCII wireframes。</div>
-    <a class="btn primary" href="dev/design/Preview.html">打開 Preview ▸</a>
-    <a class="btn" href="dev/design/Spec.html">Spec</a>
-    <a class="btn" href="app.html">舊版 App</a>
+    <div class="t"><b>查看新版完整設計？</b> Preview.html 列出 4 個畫面，Prototype.html 可點擊操作，Spec.html 保存 ASCII 線框與設計決策。</div>
+    <a class="btn primary" href="dev/design/Preview.html">打開預覽 ▸</a>
+    <a class="btn" href="dev/design/Spec.html">設計規格</a>
+    <a class="btn" href="app.html">完整工作台</a>
   </div>
 
   <footer>
     <span>v1.6.0</span>
-    <span>109 approved facts · 1,001 draft facts (Channel A)</span>
-    <a href="dev/design/Spec.html">Spec.html</a>
-    <a href="dev/design/Preview.html">Preview.html</a>
-    <a href="dev/design/Prototype.html">Prototype.html</a>
-    <a href="README.md">README</a>
+    <span>1,001 條已核實事實 · 7 個知識主題</span>
+    <a href="dev/design/Spec.html">設計規格</a>
+    <a href="dev/design/Preview.html">設計預覽</a>
+    <a href="dev/design/Prototype.html">互動原型</a>
+    <a href="README.md">說明文件</a>
   </footer>
 </div>
 

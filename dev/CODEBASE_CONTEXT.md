@@ -11,7 +11,7 @@
 - `t-purchase.html` — **S3 Template Detail + S4/S5 Draft Flow**: split grid; 4 required + 2 optional fields; live validation; skeleton preview §1–§5; source control radio (A/B/AB); in-page 5-step generation progress/result state; draft canvas with sources panel, stale-source warning, section selection, and revision action bar
 - `q.html` — **S6 Quick Q&A** (NEW Session 80): ⌘K modal fallback; autofocus input; idle/answer/no-confident-answer states; inline citations; Esc → index.html; ?q= hash prefill
 - `app.html` — **K1知識平台 FULL REACT SPA** (EDB token system Session 80 + Phase 3 review split): full EDB CSS token retrofit; legacy alias remap (--cd/--mocha/--charcoal → new tokens); 1,001 facts; tabs: 平台介紹, 智能搜尋 (Channel A/B/A+B), 指引文件庫, 通告分析, 知識提煉(Admin split workspace), 知識管理(Admin)
-- `dev/design/` — Design reference files: Spec.html, Preview.html, Prototype.html (archived from ~/Downloads, Session 80)
+- `dev/design/` — Internal design reference files: Spec.html, Preview.html, Prototype.html (archived from ~/Downloads, Session 80). These preserve visual specs, ASCII wireframes, and clickable design exploration; they are not the canonical user-facing product flow.
 - `AGENTS.md` — Governance SSOT (installed Session 80 from INIT.md); §0–§12 rules
 - `CLAUDE.md` — `@AGENTS.md` bridge for Claude Code
 - `GEMINI.md` — `@./AGENTS.md` bridge for Gemini CLI
@@ -35,7 +35,7 @@
 - `backend/src/lib/embeddingClient.ts` — OpenAI `text-embedding-3-small` wrapper; exports `EmbedFn` type
 - `backend/src/lib/knowledgeRepository.ts` — loads repo-root `role_facts.json` for backend use; `dev/knowledge/role_facts.json` remains a legacy backup/export artifact
 - `backend/src/lib/wikiRepository.ts` — loads `dev/knowledge/wiki_index.json` (2,840 chunks, 124 MB); in-process cache; cosine similarity search (no external math libs); returns all results above minScore (no top-k cap)
-- `backend/src/api/searchChannelA.ts` — Channel A keyword + embedding search; embeds all ~109 facts per query; returns scored ChannelAResult[]
+- `backend/src/api/searchChannelA.ts` — Channel A keyword + embedding search; embeds all 1,001 approved facts per query; returns scored ChannelAResult[]
 - `backend/src/api/searchChannelB.ts` — Channel B cosine wiki search; LLM synthesis (gpt-4.1-nano, top 5, ≤120字); statistical filtering; CJK text cleaning; page# extraction; default min_score=0.22 top_k=8
 - `backend/src/api/searchCombined.ts` — runs A+B in parallel; deduplicates by 80-char text prefix; Channel A priority; merged LLM synthesis over top 5
 - `backend/src/lib/llmClient.ts` — OpenAI Responses API wrapper with low-cost default model
@@ -95,7 +95,7 @@
 ### GitHub / GitHub Pages
 - Purpose: source control, release tags, and static site hosting
 - Repo: `Leonard-Wong-Git/edb-knowledge`
-- Live site: `https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html`
+- Live site: `https://leonard-wong-git.github.io/edb-knowledge/`
 - Deployment model: push to `main`, serve static assets via GitHub Pages
 - Public artifacts:
   - `knowledge.json`
@@ -124,6 +124,7 @@
 - The agreed architecture direction is LLM-wiki with phased delivery: the current facts/guidelines already form the wiki; Phase 0 fixes the backend bug, Phase 1 adds source registry + fact-source traceability, Phase 2 adds freshness monitoring, Phase 3 (scale-triggered) adds extraction assistance and optional vault/wiki-unit/compile layers. Trust is enforced by source/freshness/approval gates rather than by letting the LLM act autonomously. See `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` v2 for full details
 - Knowledge base scope is intentionally broadened beyond the Circular analysis system. Two distinct fact types are now recognised: (1) `statistical` facts (objective numbers from verified EDB sources — auto-approvable, stored in vault, served via RAG or search-to-source) and (2) `policy` facts (interpretive role-specific guidance — human approval required, injected into Circular system prompts). The vault serves both: statistical facts feed LLM-wiki search and point users to source URLs; policy facts continue to feed `role_facts.json`
 - LLM-wiki search use case: user queries → relevant vault content retrieved → user directed to original EDB source URL. No fact approval step needed for this path. `role_facts.json` injection is specific to the Circular analysis system only
+- User-facing frontend copy baseline: visible product UI should use Traditional Chinese wording by default. English remains acceptable for filenames, technical commands, model names, external product names, data identifiers, and code-facing route or adapter terms. `dev/design/` can retain technical design vocabulary because it is an internal reference, not a primary product screen.
 
 ## AI Maintenance Log
 - `2026-03-17 (Codex_20260317_1941)` Generated initial `CODEBASE_CONTEXT.md` from: `README.md`, `CHANGELOG.md`, `K1_KNOWLEDGE_INTERFACE_SPEC.md`, `k1-dashboard.html`, `index.html`, `.gitignore`, `dev/knowledge/role_facts.json`, `dev/SESSION_HANDOFF.md`, `dev/SESSION_LOG.md`
@@ -170,3 +171,4 @@
 - `2026-04-20 (Codex_20260420_1413)` Updated `t-purchase.html` after Session 80 to implement S4 Generation Progress: removed the alert stub and added in-page 5-step progress, ETA, source-mode-specific copy, document skeleton reveal, completion state, and return-to-edit flow.
 - `2026-04-20 (Codex_20260420_1425)` Extended `t-purchase.html` with S5 Draft Canvas: S4 completion now opens an in-page document workspace with draft metadata, section selection, right-side sources/citations, stale-source warning, and revision action controls.
 - `2026-04-20 (Codex_20260420_1427)` Updated `app.html` Phase 3 知識提煉 Admin: replaced the old single-column candidate review cards with a split workspace (left candidate queue, right evidence/inline revision/role inspector) while retaining the existing approve/reject data flow.
+- `2026-04-20 (Codex_20260420_1438)` Aligned visible frontend copy toward Traditional Chinese across `index.html`, `t-purchase.html`, `q.html`, `app.html`, and `dev/design/Preview.html`; recorded that `dev/design/` is an internal reference set rather than the canonical product flow.

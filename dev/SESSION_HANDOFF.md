@@ -7,6 +7,7 @@
    - `t-purchase.html` — **S3 Template Detail + S4/S5 Draft Flow** ✅；split grid; live validation; skeleton preview; step-based progress/result state; draft canvas with sources panel
    - `q.html` — **S6 Quick Q&A** ✅ (Session 80 新增)；⌘K modal fallback; idle/answer/no-confident-answer states
    - `app.html` — **K1知識平台 FULL REACT SPA** ✅ (EDB token system Session 80 + Phase 3 review split); tabs: 平台介紹 / 智能搜尋 (Channel A/B/A+B) / 指引文件庫 / 通告分析 / 知識提煉(Admin) / 知識管理(Admin)
+   - `dev/design/` — **internal design reference only** (Preview/Prototype/Spec); not the canonical user-facing product flow
    - `backend/src/` — Node.js TypeScript backend; Phase 1 search APIs complete:
      - `backend/src/lib/wikiRepository.ts` ✅
      - `backend/src/api/searchChannelA.ts` ✅
@@ -17,6 +18,7 @@
 4. External dependencies: EDB website, OpenAI API (gpt-4.1-nano + text-embedding-3-small), Google Docs Viewer for PDF proxy
 5. Model fix: `gpt-5-nano` → `gpt-4.1-nano` corrected across all live code files
 6. Channel B: requires `cd backend && npm run dev` before testing B/A+B in app.html
+7. Product copy baseline: user-facing frontend copy should use Traditional Chinese UI wording by default; English is acceptable only for filenames, technical commands, model names, external product names, or code-facing identifiers.
 
 ## User Environment (Always Reference Before Giving Shell Commands)
 - **Repo path**: `~/Downloads/Claude-edb-knowledge`
@@ -211,8 +213,11 @@ python3 dev/vault/build_wiki_index.py
 
 ## Last Session Record
 1. UTC date: 2026-04-20
-2. Session ID: Codex_20260420_1427 (Phase 3 review split)
+2. Session ID: Codex_20260420_1438 (Traditional Chinese UI copy alignment)
 3. Completed:
+   - ✅ **[Copy/design alignment]** index.html, t-purchase.html, q.html, app.html, and dev/design/Preview.html visible copy aligned toward Traditional Chinese UI wording
+   - ✅ **[Design reference rationale]** clarified dev/design/ as internal design reference (Preview/Prototype/Spec), not the primary product surface
+   - ✅ **[GitHub sync pending]** local copy alignment prepared for commit/push; `.claude/` remains untracked and untouched
    - ✅ **[Phase 3]** `app.html` 知識提煉 Admin now uses left candidate queue + right evidence/revision inspector
    - ✅ **[Phase 3]** inline candidate text revision and role toggles retained existing approve/reject data flow
    - ✅ **[GitHub sync]** pushed Phase 3 to `origin/main`; GitHub Pages verified via cache-busted `app.html?v=1fcbd66`
@@ -235,4 +240,5 @@ python3 dev/vault/build_wiki_index.py
    - Channel A searchChannelA.ts embeds ALL 1,001 facts per query — monitor token usage
    - Channel B Circular System 接入明確暫停
    - Channel B/A+B requires local backend (`npm run dev`) — not on GitHub Pages
+   - `dev/design/Spec.html` intentionally retains detailed technical/design terminology as an internal reference; user-facing product copy should remain Traditional Chinese
    - session_log_maintenance.py --apply has entry parser edge case (entry_count=0); manual archiving needed until fixed

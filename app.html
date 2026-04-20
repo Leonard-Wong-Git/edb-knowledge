@@ -2379,7 +2379,7 @@ function ExportModal({ isOpen, onClose, data, reviewState }) {
                 下載
               </button>
             </div>
-            <p className="text-xs text-gray-600 mb-2">只包含已確認事實，適合發布或提供 backend 使用。</p>
+            <p className="text-xs text-gray-600 mb-2">只包含已確認事實，適合發布或提供後台使用。</p>
             <div className="flex gap-2 text-xs">
               <span className="px-2 py-1 bg-green-50 border border-green-200 rounded text-green-700">
                 已確認：{approvedExport.approvedCount}
@@ -2688,9 +2688,9 @@ function GuidelinesPanel({ setPreviewDoc }) {
 function PlatformIntroPanel({ stats }) {
   const features = [
     { tag: 'LLM-Wiki 搜尋', icon: '🔍', title: '語義搜尋 + AI 合成', desc: '以自然語言提問，從向量化 EDB 文件庫精準檢索，AI 合成簡潔回答並附原始來源 URL。', dark: true },
-    { tag: 'Channel A', icon: '👤', title: '人工審核管線', desc: 'LLM 提議事實 → 管理員審批（行內編輯）→ 匯出 role_facts.json → 注入 Circular System。每條知識有人手把關。', dark: false },
-    { tag: 'Channel B', icon: '🤖', title: '全 AI 自動管線', desc: '與 Channel A 共用來源，全程由 AI 提取、分析及索引，涵蓋規定、指引、程序、合規風險五類事實。與 Circular System 接入暫停，待質素測試後決定。', dark: false },
-    { tag: 'Circular System', icon: '📄', title: 'EDB 通告分析', desc: '貼入 EDB 通告原文，AI 自動偵測主題、注入相關知識，生成針對不同職位的即時合規建議。', dark: false },
+    { tag: '通道 A', icon: '👤', title: '人工審核管線', desc: 'LLM 提議事實 → 管理員審批（行內編輯）→ 匯出 role_facts.json → 注入通告系統。每條知識有人手把關。', dark: false },
+    { tag: '通道 B', icon: '🤖', title: '全 AI 自動管線', desc: '與通道 A 共用來源，全程由 AI 提取、分析及索引，涵蓋規定、指引、程序、合規風險五類事實。與通告系統接入暫停，待質素測試後決定。', dark: false },
+    { tag: '通告系統', icon: '📄', title: 'EDB 通告分析', desc: '貼入 EDB 通告原文，AI 自動偵測主題、注入相關知識，生成針對不同職位的即時合規建議。', dark: false },
     { tag: '指引文件庫', icon: '📑', title: '39 份 EDB 官方指引', desc: '涵蓋財務採購、人力資源、課程、學生事務、資訊科技等範疇，附直達 PDF 連結。', dark: false },
     { tag: '統計知識', icon: '📊', title: 'EDB 教育統計', desc: '26 個自動核准統計事實，涵蓋幼稚園至特殊教育（2024/25–2025/26）。', dark: false },
   ];
@@ -2708,7 +2708,7 @@ function PlatformIntroPanel({ stats }) {
   ];
   const statItems = [
     { num: (stats.approvedCount || 0) + '+', label: '已核實政策事實' },
-    { num: '2,874', label: '可搜尋知識 chunks' },
+    { num: '2,874', label: '可搜尋知識片段' },
     { num: '39', label: 'EDB 官方指引文件' },
     { num: '7', label: '知識主題範疇' },
   ];
@@ -2967,7 +2967,7 @@ function QAPanel({ data, setPreviewDoc }) {
       setResults(found);
       setSearched(true);
     } catch (err) {
-      setBackendError('後台連線失敗。請先啟動 backend：cd backend && npm run dev');
+      setBackendError('後台連線失敗。請先啟動本地後台：cd backend && npm run dev');
       setResults([]);
       setSearched(true);
     } finally {
@@ -2992,15 +2992,15 @@ function QAPanel({ data, setPreviewDoc }) {
     .reduce((s, [, td]) => s + ROLE_ORDER.reduce((n, r) => n + (Array.isArray(td[r]) ? td[r].length : 0), 0), 0);
 
   const getChannelBadge = (ch, ct) => {
-    if (ch === 'A') return { bg: 'var(--edb-wash)', color: 'var(--edb)', label: 'Channel A · 已核實' };
-    if (ct === 'approved_fact') return { bg: 'var(--edb-wash)', color: 'var(--edb)', label: 'Channel B · 已核實' };
-    if (ct === 'stat_fact') return { bg: 'var(--edb-wash)', color: 'var(--ink-2)', label: 'Channel B · 統計' };
-    return { bg: 'var(--paper-2)', color: 'var(--edb)', label: 'Channel B · 文件' };
+    if (ch === 'A') return { bg: 'var(--edb-wash)', color: 'var(--edb)', label: '通道 A · 已核實' };
+    if (ct === 'approved_fact') return { bg: 'var(--edb-wash)', color: 'var(--edb)', label: '通道 B · 已核實' };
+    if (ct === 'stat_fact') return { bg: 'var(--edb-wash)', color: 'var(--ink-2)', label: '通道 B · 統計' };
+    return { bg: 'var(--paper-2)', color: 'var(--edb)', label: '通道 B · 文件' };
   };
 
   const CHANNEL_OPTS = [
-    { id: 'A',  label: 'Channel A', sub: '人工審核' },
-    { id: 'B',  label: 'Channel B', sub: 'AI 語義' },
+    { id: 'A',  label: '通道 A', sub: '人工審核' },
+    { id: 'B',  label: '通道 B', sub: 'AI 語義' },
     { id: 'AB', label: 'A＋B',      sub: '全庫合併' },
   ];
 
@@ -3009,9 +3009,9 @@ function QAPanel({ data, setPreviewDoc }) {
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
         <h2 className="text-lg font-bold text-gray-800 mb-1">智能搜尋</h2>
         <p className="text-xs text-gray-400 mb-3">
-          {searchChannel === 'A'  && `Channel A：搜尋 ${channelACount} 條已核實 EDB 政策事實（離線）`}
-          {searchChannel === 'B'  && 'Channel B：語義搜尋 2,874 個知識 chunks（需要 backend）'}
-          {searchChannel === 'AB' && `Channel A+B：合併搜尋 ${channelACount} 條事實 + 2,874 個 chunks（需要 backend）`}
+          {searchChannel === 'A'  && `通道 A：搜尋 ${channelACount} 條已核實 EDB 政策事實（離線）`}
+          {searchChannel === 'B'  && '通道 B：語義搜尋 2,874 個知識片段（需要後台）'}
+          {searchChannel === 'AB' && `通道 A+B：合併搜尋 ${channelACount} 條事實 + 2,874 個知識片段（需要後台）`}
         </p>
 
         {/* Channel selector */}
@@ -3089,7 +3089,7 @@ function QAPanel({ data, setPreviewDoc }) {
                 <span style={{fontSize:'var(--text-xs)',fontWeight:700,color:'var(--edb)',background:'var(--line-2)',padding:'2px 8px',borderRadius:'99px',border:'1px solid #C4A88255'}}>
                   ✦ AI 綜合答案
                 </span>
-                <span style={{fontSize:'var(--text-xs)',color:'var(--edb)'}}>Channel B · gpt-4.1-nano</span>
+                <span style={{fontSize:'var(--text-xs)',color:'var(--edb)'}}>通道 B · gpt-4.1-nano</span>
               </div>
               <p style={{fontSize:'var(--text-sm)',color:'var(--ink)',lineHeight:1.7,margin:0}}>{synthesis}</p>
             </div>
@@ -3368,7 +3368,7 @@ function CandidateReviewPanel({ queue, onApprove, onReject }) {
             <h2>知識提煉</h2>
             <p>逐條核對候選事實，右側即時修訂與確認。</p>
           </div>
-          <span className="review-metric">{queue.length} pending</span>
+          <span className="review-metric">{queue.length} 待審</span>
         </div>
         {queue.map((cand, idx) => (
           <button key={cand.id}
@@ -3376,8 +3376,8 @@ function CandidateReviewPanel({ queue, onApprove, onReject }) {
                   onClick={() => setSelectedId(cand.id)}
                   className={`candidate-row ${selected?.id === cand.id ? 'active' : ''}`}>
             <span className="candidate-row-top">
-              <span className="candidate-topic">{cand.suggested_topic || 'general'} · #{idx + 1}</span>
-              <span className="candidate-source">{cand.source_id || cand.source_title || 'source'}</span>
+              <span className="candidate-topic">{cand.suggested_topic || '通用'} · #{idx + 1}</span>
+              <span className="candidate-source">{cand.source_id || cand.source_title || '來源'}</span>
             </span>
             <span className="candidate-text">{cand.proposed_text}</span>
             <span className="candidate-roles">
@@ -3391,12 +3391,12 @@ function CandidateReviewPanel({ queue, onApprove, onReject }) {
 
       <aside className="review-inspector">
         <div>
-          <div className="inspector-label">Selected Candidate</div>
+          <div className="inspector-label">已選候選</div>
           <div className="inspector-title">{selected?.source_id || selected?.id}</div>
         </div>
 
         <div>
-          <div className="inspector-label mb-2">Proposed Fact</div>
+          <div className="inspector-label mb-2">候選事實</div>
           <textarea className="review-editor"
                     value={editableText}
                     onChange={e => setEditableText(e.target.value)}
@@ -3407,7 +3407,7 @@ function CandidateReviewPanel({ queue, onApprove, onReject }) {
         </div>
 
         <div>
-          <div className="inspector-label mb-2">Role Assignment</div>
+          <div className="inspector-label mb-2">適用角色</div>
           <div className="role-toggle-grid">
             {Object.entries(ROLE_CONFIG).map(([roleId, cfg]) => (
               <button key={roleId}
@@ -3421,7 +3421,7 @@ function CandidateReviewPanel({ queue, onApprove, onReject }) {
         </div>
 
         <div>
-          <div className="inspector-label mb-2">Source Evidence</div>
+          <div className="inspector-label mb-2">原文證據</div>
           <div className="inspector-box">
             <div style={{whiteSpace:'pre-wrap'}}>{selected?.source_quote || '未提供原文摘錄'}</div>
             <div className="mt-3 text-xs text-gray-500">
@@ -3430,7 +3430,7 @@ function CandidateReviewPanel({ queue, onApprove, onReject }) {
                    target="_blank" rel="noreferrer" className="source-link">
                   {selected.source_title || selected.source_id}
                 </a>
-              ) : (selected?.source_title || selected?.source_id || 'unknown')}
+              ) : (selected?.source_title || selected?.source_id || '未知')}
               {selected?.page_number && <span> · 第 {selected.page_number} 頁</span>}
             </div>
           </div>
@@ -3828,7 +3828,7 @@ function App() {
                     }}>{candidateQueue.length}</span>
                   )}
                   {pendingSignalCount > 0 && (
-                    <span title={`${pendingSignalCount} 個 Policy Signal 待處理`} style={{
+                    <span title={`${pendingSignalCount} 個政策訊號待處理`} style={{
                       position:'absolute', top:'-6px', right:'-4px',
                       background:'var(--accent)', color:'#0A0C10',
                       fontSize:'0.6rem', padding:'1px 5px', borderRadius:'100px',
@@ -4160,7 +4160,7 @@ function App() {
               <iframe
                 src={iframeSrc}
                 className="absolute inset-0 w-full h-full border-0"
-                title="PDF Preview"
+                title="PDF 預覽"
               />
             );
           })()}

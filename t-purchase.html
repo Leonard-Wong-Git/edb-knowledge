@@ -248,10 +248,10 @@
 <div class="wrap">
   <div class="page-head">
     <div>
-      <div class="eyebrow">Template · Finance</div>
+      <div class="eyebrow">模板 · 財務</div>
       <h1>校本採購指引</h1>
       <div class="meta-row">
-        <span>~3 min</span><span>引 6–8 源</span><span>已用 47 次</span><span>last updated 2026-04-14</span>
+        <span>約 3 分鐘</span><span>引 6–8 源</span><span>已用 47 次</span><span>最後更新 2026-04-14</span>
       </div>
     </div>
     <div class="head-actions">
@@ -261,9 +261,9 @@
   </div>
 
   <div class="intro">
-    <div><div class="k">Outputs</div><div class="v">5 個 section · 可 export .docx/PDF</div></div>
-    <div><div class="k">Citation</div><div class="v">自動引 4–6 份 EDB 通告 + 已核實事實</div></div>
-    <div><div class="k">Metadata</div><div class="v">填入校本資料 12 項(6 必填 / 6 可選)</div></div>
+    <div><div class="k">輸出</div><div class="v">5 個段落 · 可匯出 .docx/PDF</div></div>
+    <div><div class="k">引用</div><div class="v">自動引 4–6 份 EDB 通告 + 已核實事實</div></div>
+    <div><div class="k">校本資料</div><div class="v">填入校本資料 12 項(6 必填 / 6 可選)</div></div>
   </div>
 
   <div class="split">
@@ -309,11 +309,11 @@
       <div class="src-ctrl">
         <div class="lbl">來源控制</div>
         <label class="r"><input type="radio" name="channel" value="A">
-          <span class="t"><b>只用已核實事實</b><div class="d">快 · 嚴謹 · 冇 EDB 原文直接引用</div></span></label>
+          <span class="t"><b>只用已核實事實</b><div class="d">快 · 嚴謹 · 不直接引用 EDB 原文</div></span></label>
         <label class="r"><input type="radio" name="channel" value="B">
-          <span class="t"><b>加入 EDB 原文</b><div class="d">慢少少 · 會直接抽通告段落</div></span></label>
+          <span class="t"><b>加入 EDB 原文</b><div class="d">較慢 · 會直接抽取通告段落</div></span></label>
         <label class="r"><input type="radio" name="channel" value="AB" checked>
-          <span class="t"><b>兩者都用</b><div class="d">Default · 建議用</div></span>
+          <span class="t"><b>兩者都用</b><div class="d">預設 · 建議使用</div></span>
           <span class="reco">建議</span></label>
       </div>
 
@@ -343,7 +343,7 @@
   <section class="gen-stage" id="gen-stage" aria-live="polite">
     <div class="gen-shell">
       <div class="gen-main">
-        <div class="gen-kicker" id="gen-state">Generation · Step 1 / 5</div>
+        <div class="gen-kicker" id="gen-state">生成 · 步驟 1 / 5</div>
         <h2 class="gen-title" id="gen-title">生成中 · 請勿關閉此頁</h2>
         <p class="gen-sub" id="gen-sub">系統正按校本資料建立文件骨架，逐段鎖定來源和引用。完成後會停在草稿準備狀態。</p>
         <div class="gen-track" aria-label="生成進度">
@@ -351,13 +351,13 @@
         </div>
         <div class="gen-meta">
           <span id="gen-step-label">1 / 5</span>
-          <span id="gen-eta">ETA ~22s</span>
+          <span id="gen-eta">預計約 22 秒</span>
         </div>
 
         <div class="step-list" id="step-list">
           <div class="step active" data-step="0">
             <span class="dot">1</span>
-            <span><span class="st">整理校本 metadata</span><span class="sd">學校、學年、生效日期、負責人會寫入頁首與附件欄。</span></span>
+            <span><span class="st">整理校本資料</span><span class="sd">學校、學年、生效日期、負責人會寫入頁首與附件欄。</span></span>
             <span class="tm">now</span>
           </div>
           <div class="step" data-step="1">
@@ -384,19 +384,19 @@
 
         <div class="doc-skel" aria-label="文件生成骨架">
           <div class="doc-sec ready" data-doc-step="0">
-            <div class="h">§1 Purpose and scope</div>
+            <div class="h">§1 目的及範圍</div>
             <div class="doc-line mid"></div><div class="doc-line short"></div>
           </div>
           <div class="doc-sec" data-doc-step="1">
-            <div class="h">§2 Procurement principles</div>
+            <div class="h">§2 採購原則</div>
             <div class="doc-line"></div><div class="doc-line mid"></div>
           </div>
           <div class="doc-sec" data-doc-step="2">
-            <div class="h">§3 Approval tiers</div>
+            <div class="h">§3 審批層級</div>
             <div class="doc-line mid"></div><div class="doc-line short"></div>
           </div>
           <div class="doc-sec" data-doc-step="3">
-            <div class="h">§4 School additions</div>
+            <div class="h">§4 校本補充</div>
             <div class="doc-line"></div><div class="doc-line short"></div>
           </div>
           <div class="doc-sec" data-doc-step="4">
@@ -406,7 +406,7 @@
         </div>
 
         <div class="gen-complete" id="gen-complete">
-          草稿已準備。你可以開啟 S5 Draft Canvas 檢視段落、來源和引用狀態。
+          草稿已準備。你可以開啟 S5 草稿畫布檢視段落、來源和引用狀態。
         </div>
         <div class="done-actions" id="done-actions">
           <button class="btn primary" id="open-draft" type="button">開啟草稿 ▸</button>
@@ -416,23 +416,23 @@
 
       <aside class="gen-side">
         <div class="gen-box">
-          <div class="lab">Document</div>
+          <div class="lab">文件</div>
           <div class="val" id="side-doc">校本採購指引</div>
         </div>
         <div class="gen-box">
-          <div class="lab">School metadata</div>
+          <div class="lab">校本資料</div>
           <div class="val" id="side-meta">待開始</div>
         </div>
         <div class="gen-box">
-          <div class="lab">Source mode</div>
+          <div class="lab">來源模式</div>
           <div id="side-source">
             <span class="source-pill">A+B</span>
-            <span class="source-pill">verified facts</span>
-            <span class="source-pill">EDB source text</span>
+            <span class="source-pill">已核實事實</span>
+            <span class="source-pill">EDB 原文</span>
           </div>
         </div>
         <div class="gen-box">
-          <div class="lab">Checks</div>
+          <div class="lab">檢查</div>
           <div class="val" id="side-checks">等待生成開始</div>
         </div>
       </aside>
@@ -443,10 +443,10 @@
     <div class="draft-top">
       <div class="draft-id">
         <div class="t">校本採購指引 v1</div>
-        <div class="m" id="draft-meta">草稿 · 引用已檢查 · 7 sources</div>
+        <div class="m" id="draft-meta">草稿 · 引用已檢查 · 7 個來源</div>
       </div>
       <div class="draft-actions">
-        <span class="draft-status">DRAFT · EDITABLE</span>
+        <span class="draft-status">草稿 · 可編輯</span>
         <button class="btn" id="back-to-gen" type="button">返回進度</button>
         <button class="btn" type="button">複製</button>
         <button class="btn primary" type="button">匯出 ▾</button>
@@ -493,11 +493,11 @@
 
       <aside class="source-panel" aria-label="引用來源">
         <div class="source-head">
-          <span class="h">Sources</span><span class="count" id="source-count">本段引用 2 條</span>
+          <span class="h">來源</span><span class="count" id="source-count">本段引用 2 條</span>
         </div>
         <div id="source-list"></div>
         <div class="stale-callout" id="stale-callout">
-          §2 有一個來源標記為 stale，建議在正式匯出前重新生成該段引用。
+          §2 有一個來源標記為過時，建議在正式匯出前重新生成該段引用。
         </div>
       </aside>
     </div>
@@ -552,17 +552,17 @@ const sourceMap={
     {id:'[2] 已核實事實 #118',status:'✓',quote:'校本政策須列明適用範圍、負責人及檢視周期。'}
   ],
   2:[
-    {id:'[3] PECG 2024 §3.2',status:'⚠ stale',quote:'採購應符合物有所值、公開公平及問責原則。2026-03 有修訂。'},
+    {id:'[3] PECG 2024 §3.2',status:'⚠ 過時',quote:'採購應符合物有所值、公開公平及問責原則。2026-03 有修訂。'},
     {id:'[4] 已核實事實 #247',status:'✓',quote:'公開公平程序包括一致報價要求、利益申報及文件留痕。'}
   ],
   3:[
     {id:'[5] 已核實事實 #312',status:'✓',quote:'審批層級應按金額、風險和採購性質分級。'}
   ],
   4:[
-    {id:'校本條款',status:'local',quote:'本段由用戶輸入的採購上限及特別條款生成。'}
+    {id:'校本條款',status:'校本',quote:'本段由用戶輸入的採購上限及特別條款生成。'}
   ],
   5:[
-    {id:'附件清單',status:'local',quote:'附件及生效資訊由校本 metadata 產生。'}
+    {id:'附件清單',status:'校本',quote:'附件及生效資訊由校本資料產生。'}
   ]
 };
 
@@ -613,17 +613,17 @@ function selectedChannel(){
 }
 function sourceCopy(channel){
   if(channel==='A')return {
-    pills:['Channel A','verified facts'],
+    pills:['通道 A','已核實事實'],
     desc:'只讀取已核實事實，略過 EDB 原文抽取。',
     checks:'事實來源鎖定 · 不使用原文段落'
   };
   if(channel==='B')return {
-    pills:['Channel B','EDB source text'],
+    pills:['通道 B','EDB 原文'],
     desc:'讀取 EDB 原文段落，建立可追溯引用。',
     checks:'原文引用檢查 · 來源年份檢查'
   };
   return {
-    pills:['A+B','verified facts','EDB source text'],
+    pills:['A+B','已核實事實','EDB 原文'],
     desc:'同時讀取已核實事實與 EDB 原文來源。',
     checks:'事實交叉檢查 · 原文引用檢查'
   };
@@ -661,9 +661,9 @@ function startGeneration(){
 function setProgress(step){
   const pct=((step+1)/5)*100;
   genFill.style.width=`${pct}%`;
-  genState.textContent=`Generation · Step ${step+1} / 5`;
+  genState.textContent=`生成 · 步驟 ${step+1} / 5`;
   genStepLabel.textContent=`${step+1} / 5`;
-  genEta.textContent=step>=4?'Ready':'ETA ~'+Math.max(4,22-(step*5))+'s';
+  genEta.textContent=step>=4?'已完成':'預計約 '+Math.max(4,22-(step*5))+' 秒';
   document.querySelectorAll('.step').forEach((el,i)=>{
     el.classList.toggle('done',i<step);
     el.classList.toggle('active',i===step);
@@ -676,14 +676,14 @@ function setProgress(step){
 }
 function completeGeneration(){
   genTitle.textContent='草稿已準備';
-  genSub.textContent='引用檢查完成，文件骨架已按校本 metadata 組裝。下一步會進入 S5 Draft Canvas。';
+  genSub.textContent='引用檢查完成，文件骨架已按校本資料組裝。下一步會進入 S5 草稿畫布。';
   genComplete.classList.add('show');
   doneActions.classList.add('show');
   sideChecks.textContent+=' · 完成';
   btn.textContent='已生成';
 }
 function showDraft(){
-  draftMeta.textContent=`${lastDraftMeta} · 7 sources`;
+  draftMeta.textContent=`${lastDraftMeta} · 7 個來源`;
   docMeta.textContent=lastDraftMeta;
   draftStage.classList.add('active');
   selectSection(document.querySelector('.draft-sec.selected')||document.querySelector('.draft-sec'));
