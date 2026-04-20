@@ -4,7 +4,7 @@
 1. Version: **v1.6.0** (K1知識平台)
 2. Core files:
    - `index.html` — **EDB S1 Home** ✅ (Session 80 重構)；米白+深綠+磚黃 palette; ⌘K → q.html; stats rail; 5 template cards → t-purchase.html
-   - `t-purchase.html` — **S3 Template Detail + Requirements Form** ✅ (Session 80 新增)；split grid; live validation; skeleton preview
+   - `t-purchase.html` — **S3 Template Detail + S4/S5 Draft Flow** ✅；split grid; live validation; skeleton preview; step-based progress/result state; draft canvas with sources panel
    - `q.html` — **S6 Quick Q&A** ✅ (Session 80 新增)；⌘K modal fallback; idle/answer/no-confident-answer states
    - `app.html` — **K1知識平台 FULL REACT SPA** ✅ (EDB token system Session 80); tabs: 平台介紹 / 智能搜尋 (Channel A/B/A+B) / 指引文件庫 / 通告分析 / 知識提煉(Admin) / 知識管理(Admin)
    - `backend/src/` — Node.js TypeScript backend; Phase 1 search APIs complete:
@@ -177,6 +177,11 @@ python3 dev/vault/build_wiki_index.py
 - ✅ WordCloud 已刪除
 - ✅ Backend error 顯示（channel B unavailable graceful fallback）
 
+### Frontend Document Flow — S3/S4/S5 ✅
+- ✅ `t-purchase.html` S3 form remains live-validated with A/B/AB source mode
+- ✅ S4 Generation Progress implemented in-page: 5 steps, ETA/progress track, source-mode copy, document skeleton reveal, completion state
+- ✅ S5 Draft Canvas implemented in-page: document canvas, source/citation panel, stale-source warning, section selection, revision action bar
+
 ### Phase 3 — 知識提煉改版 + WordCloud 刪除
 - 左右分欄佈局，即時行內修訂
 - 刪除 floatWord 動畫
@@ -204,20 +209,21 @@ python3 dev/vault/build_wiki_index.py
 
 ## Last Session Record
 1. UTC date: 2026-04-20
-2. Session ID: Claude_20260420_1430 (Session 80)
+2. Session ID: Codex_20260420_1413 (S4 follow-up)
 3. Completed:
+   - ✅ **[S5 Draft Canvas]** `t-purchase.html` now opens an in-page draft workspace after S4 completion
+   - ✅ **[S5 source panel]** Section selection updates citation cards and stale-source warning
+   - ✅ **[S4 Generation Progress]** `t-purchase.html` "生成" button now opens in-page step progress instead of alert stub
+   - ✅ **[S4 state model]** 5-step progress, ETA, source-mode-specific copy, document skeleton reveal, completion state, return-to-edit flow
    - ✅ **[EDB design system]** index.html → S1 Home; t-purchase.html → S3 Form; q.html → S6 Q&A; app.html token retrofit + ~40 hex → CSS vars
    - ✅ **[Governance install]** AGENTS.md + CLAUDE.md + GEMINI.md + docs/qa/session_log_maintenance.py
    - ✅ **[Cleanup]** landing.html + k1-wiki.html deleted; dev/design/ reference files archived
    - ✅ **[Merged]** branch `claude/happy-ride-96c28f` → `main` directly
 4. Pending from last session (not yet done):
-   - **S4 Generation Progress**: t-purchase.html "生成" button stubs with alert()
-   - **S5 Draft Canvas**: not started
    - **Circular System 落地**: edb_scraper.py `_write_policy_signal()` (deferred from Session 79)
 5. Next priorities (Session 81):
-   - 📋 S4 Generation Progress screen (t-purchase.html 生成 → progress/result)
-   - 📋 S5 Draft Canvas
    - 📋 Circular System: edb_scraper.py `_write_policy_signal()` (deferred)
+   - 📋 Phase 3: 知識提煉 left-right split panel redesign in `app.html`
 6. Risks / blockers:
    - Channel A searchChannelA.ts embeds ALL 1,001 facts per query — monitor token usage
    - Channel B Circular System 接入明確暫停

@@ -124,6 +124,115 @@
   .val-warn.show{display:block}
   .val-warn .t{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
     text-transform:uppercase;color:var(--stale);margin-right:8px}
+
+  /* S4 generation progress */
+  .gen-stage{display:none;margin-top:28px;border-top:1px solid var(--line);padding-top:24px}
+  .gen-stage.active{display:block;animation:rise .28s ease-out both}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .gen-shell{background:#fff;border:1px solid var(--line);border-radius:2px;
+    display:grid;grid-template-columns:minmax(0,1fr) 340px;min-height:520px}
+  @media(max-width:980px){.gen-shell{grid-template-columns:1fr}.gen-side{border-left:0!important;border-top:1px solid var(--line)}}
+  .gen-main{padding:24px}
+  .gen-side{border-left:1px solid var(--line);background:var(--paper-2);padding:22px}
+  .gen-kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--edb);margin-bottom:8px}
+  .gen-title{font-size:24px;font-weight:700;line-height:1.25;margin:0 0 8px}
+  .gen-sub{color:var(--ink-2);font-size:14px;max-width:620px;margin:0}
+  .gen-track{margin:24px 0 10px;height:8px;background:var(--edb-wash);
+    border:1px solid var(--line);border-radius:99px;overflow:hidden}
+  .gen-fill{height:100%;width:0;background:var(--edb);transition:width .45s ease}
+  .gen-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.06em}
+  .step-list{margin-top:24px;border-top:1px solid var(--line-2)}
+  .step{display:grid;grid-template-columns:30px 1fr auto;gap:12px;padding:13px 0;
+    border-bottom:1px solid var(--line-2);align-items:start}
+  .step .dot{width:22px;height:22px;border:1px solid var(--line);border-radius:50%;
+    display:grid;place-items:center;font-family:var(--mono);font-size:10px;color:var(--ink-3);
+    background:var(--paper-2);transition:all .25s ease}
+  .step .st{font-size:14px;font-weight:600;color:var(--ink)}
+  .step .sd{font-size:12.5px;color:var(--ink-3);margin-top:2px}
+  .step .tm{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.04em}
+  .step.active .dot{background:var(--accent);border-color:var(--accent);color:#fff}
+  .step.done .dot{background:var(--edb);border-color:var(--edb);color:#fff}
+  .doc-skel{margin-top:24px;padding:22px;background:var(--paper-2);border:1px solid var(--line)}
+  .doc-skel .doc-line{height:10px;background:#DDD6C8;margin:10px 0;opacity:.55}
+  .doc-skel .doc-line.short{width:62%}
+  .doc-skel .doc-line.mid{width:78%}
+  .doc-sec{padding:12px 0;border-top:1px dashed var(--line);opacity:.36;transition:opacity .35s ease}
+  .doc-sec:first-child{border-top:0}
+  .doc-sec.ready{opacity:1}
+  .doc-sec .h{font-family:var(--mono);font-size:11px;color:var(--edb);letter-spacing:.08em}
+  .gen-box{border-top:1px solid var(--line);padding-top:16px;margin-top:18px}
+  .gen-box:first-child{border-top:0;padding-top:0;margin-top:0}
+  .gen-box .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--edb);margin-bottom:8px}
+  .gen-box .val{font-size:14px;color:var(--ink-2)}
+  .source-pill{display:inline-flex;align-items:center;border:1px solid var(--line);
+    background:#fff;padding:5px 8px;border-radius:2px;font-family:var(--mono);
+    font-size:10.5px;letter-spacing:.06em;color:var(--ink-2);margin:0 6px 6px 0}
+  .done-actions{display:none;gap:8px;margin-top:20px;flex-wrap:wrap}
+  .done-actions.show{display:flex}
+  .gen-complete{display:none;margin-top:18px;padding:13px 14px;border-left:3px solid var(--edb);
+    background:var(--edb-wash);font-size:13.5px;color:var(--ink-2)}
+  .gen-complete.show{display:block}
+
+  /* S5 draft canvas */
+  .draft-stage{display:none;margin-top:28px;border-top:1px solid var(--line);padding-top:24px}
+  .draft-stage.active{display:block;animation:rise .28s ease-out both}
+  .draft-top{background:#fff;border:1px solid var(--line);border-radius:2px;
+    padding:14px 18px;display:flex;align-items:center;justify-content:space-between;
+    gap:16px;flex-wrap:wrap;margin-bottom:16px}
+  .draft-id{min-width:240px}
+  .draft-id .t{font-weight:700;font-size:18px;line-height:1.25}
+  .draft-id .m{font-family:var(--mono);font-size:11px;color:var(--ink-3);
+    letter-spacing:.05em;margin-top:3px}
+  .draft-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .draft-status{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;
+    color:var(--edb);background:var(--edb-wash);padding:5px 8px;border-radius:2px}
+  .canvas{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:18px}
+  @media(max-width:980px){.canvas{grid-template-columns:1fr}.source-panel{position:relative!important;top:auto!important}}
+  .doc-canvas,.source-panel,.revision-bar{background:#fff;border:1px solid var(--line);border-radius:2px}
+  .doc-canvas{padding:30px clamp(18px,4vw,56px)}
+  .doc-title{font-size:28px;font-weight:700;margin:0 0 4px;line-height:1.25}
+  .doc-meta{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.05em;
+    padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:20px}
+  .draft-sec{padding:15px 0;border-bottom:1px solid var(--line-2);cursor:pointer;
+    transition:background .18s ease,outline-color .18s ease}
+  .draft-sec:hover{background:var(--paper-2)}
+  .draft-sec.selected{outline:2px solid var(--accent);outline-offset:4px;background:#fff}
+  .draft-sec h3{font-size:17px;margin:0 0 8px;line-height:1.35;color:var(--ink)}
+  .draft-sec p{margin:0 0 8px;color:var(--ink-2);font-size:15px}
+  .draft-sec ul{margin:0;padding-left:20px;color:var(--ink-2)}
+  .cite-ref{font-family:var(--mono);font-size:10.5px;color:var(--edb);
+    border-bottom:1px solid var(--edb);padding:0 1px}
+  .stale-mark{font-family:var(--mono);font-size:10px;color:var(--stale);margin-left:4px}
+  .add-section{margin-top:18px;border:1px dashed var(--line);background:var(--paper-2);
+    color:var(--ink-3);width:100%;padding:12px;font-family:var(--mono);font-size:11px;
+    letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+  .source-panel{position:sticky;top:74px;align-self:start;padding:18px}
+  .source-head{display:flex;justify-content:space-between;gap:12px;align-items:baseline;
+    border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:12px}
+  .source-head .h{font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--edb)}
+  .source-head .count{font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+  .src-card{border-top:1px dashed var(--line-2);padding:12px 0}
+  .src-card:first-of-type{border-top:0}
+  .src-card .r{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+  .src-card .sid{font-family:var(--mono);font-size:11px;color:var(--edb)}
+  .src-card .ok{font-family:var(--mono);font-size:10px;color:var(--edb)}
+  .src-card .warn{font-family:var(--mono);font-size:10px;color:var(--stale)}
+  .src-card .q{font-size:12.5px;color:var(--ink-2);margin-top:5px}
+  .src-card .open{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;margin-top:6px;display:inline-block}
+  .stale-callout{background:#FFF9E8;border-left:3px solid var(--stale);
+    padding:10px 12px;font-size:12.5px;color:var(--ink-2);margin-top:12px}
+  .revision-bar{margin-top:16px;padding:12px 14px;display:flex;align-items:center;
+    justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .revision-bar .sel{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.05em}
+  .mini-actions{display:flex;gap:6px;flex-wrap:wrap}
+  .mini-actions button{border:1px solid var(--line);background:#fff;color:var(--ink-2);
+    border-radius:2px;padding:7px 9px;font-family:var(--mono);font-size:10.5px;
+    letter-spacing:.05em;cursor:pointer}
+  .mini-actions button:hover{border-color:var(--edb);color:var(--edb)}
 </style>
 </head>
 <body>
@@ -230,6 +339,181 @@
       </div>
     </div>
   </div>
+
+  <section class="gen-stage" id="gen-stage" aria-live="polite">
+    <div class="gen-shell">
+      <div class="gen-main">
+        <div class="gen-kicker" id="gen-state">Generation · Step 1 / 5</div>
+        <h2 class="gen-title" id="gen-title">生成中 · 請勿關閉此頁</h2>
+        <p class="gen-sub" id="gen-sub">系統正按校本資料建立文件骨架，逐段鎖定來源和引用。完成後會停在草稿準備狀態。</p>
+        <div class="gen-track" aria-label="生成進度">
+          <div class="gen-fill" id="gen-fill"></div>
+        </div>
+        <div class="gen-meta">
+          <span id="gen-step-label">1 / 5</span>
+          <span id="gen-eta">ETA ~22s</span>
+        </div>
+
+        <div class="step-list" id="step-list">
+          <div class="step active" data-step="0">
+            <span class="dot">1</span>
+            <span><span class="st">整理校本 metadata</span><span class="sd">學校、學年、生效日期、負責人會寫入頁首與附件欄。</span></span>
+            <span class="tm">now</span>
+          </div>
+          <div class="step" data-step="1">
+            <span class="dot">2</span>
+            <span><span class="st">抽取 EDB 來源</span><span class="sd" id="source-desc">讀取已核實事實與 EDB 原文來源。</span></span>
+            <span class="tm">~5s</span>
+          </div>
+          <div class="step" data-step="2">
+            <span class="dot">3</span>
+            <span><span class="st">生成 §1–§3 政策主體</span><span class="sd">建立宗旨、採購原則、程序與審批層級。</span></span>
+            <span class="tm">~11s</span>
+          </div>
+          <div class="step" data-step="3">
+            <span class="dot">4</span>
+            <span><span class="st">套入校本補充條款</span><span class="sd">加入採購上限、特別條款和簽署資訊。</span></span>
+            <span class="tm">~17s</span>
+          </div>
+          <div class="step" data-step="4">
+            <span class="dot">5</span>
+            <span><span class="st">完成引用檢查</span><span class="sd">標記 7 個 EDB 源和 12 條事實，準備送往草稿畫布。</span></span>
+            <span class="tm">~22s</span>
+          </div>
+        </div>
+
+        <div class="doc-skel" aria-label="文件生成骨架">
+          <div class="doc-sec ready" data-doc-step="0">
+            <div class="h">§1 Purpose and scope</div>
+            <div class="doc-line mid"></div><div class="doc-line short"></div>
+          </div>
+          <div class="doc-sec" data-doc-step="1">
+            <div class="h">§2 Procurement principles</div>
+            <div class="doc-line"></div><div class="doc-line mid"></div>
+          </div>
+          <div class="doc-sec" data-doc-step="2">
+            <div class="h">§3 Approval tiers</div>
+            <div class="doc-line mid"></div><div class="doc-line short"></div>
+          </div>
+          <div class="doc-sec" data-doc-step="3">
+            <div class="h">§4 School additions</div>
+            <div class="doc-line"></div><div class="doc-line short"></div>
+          </div>
+          <div class="doc-sec" data-doc-step="4">
+            <div class="h">§5 Attachments</div>
+            <div class="doc-line mid"></div>
+          </div>
+        </div>
+
+        <div class="gen-complete" id="gen-complete">
+          草稿已準備。你可以開啟 S5 Draft Canvas 檢視段落、來源和引用狀態。
+        </div>
+        <div class="done-actions" id="done-actions">
+          <button class="btn primary" id="open-draft" type="button">開啟草稿 ▸</button>
+          <button class="btn" id="edit-again" type="button">返回修改</button>
+        </div>
+      </div>
+
+      <aside class="gen-side">
+        <div class="gen-box">
+          <div class="lab">Document</div>
+          <div class="val" id="side-doc">校本採購指引</div>
+        </div>
+        <div class="gen-box">
+          <div class="lab">School metadata</div>
+          <div class="val" id="side-meta">待開始</div>
+        </div>
+        <div class="gen-box">
+          <div class="lab">Source mode</div>
+          <div id="side-source">
+            <span class="source-pill">A+B</span>
+            <span class="source-pill">verified facts</span>
+            <span class="source-pill">EDB source text</span>
+          </div>
+        </div>
+        <div class="gen-box">
+          <div class="lab">Checks</div>
+          <div class="val" id="side-checks">等待生成開始</div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="draft-stage" id="draft-stage">
+    <div class="draft-top">
+      <div class="draft-id">
+        <div class="t">校本採購指引 v1</div>
+        <div class="m" id="draft-meta">草稿 · 引用已檢查 · 7 sources</div>
+      </div>
+      <div class="draft-actions">
+        <span class="draft-status">DRAFT · EDITABLE</span>
+        <button class="btn" id="back-to-gen" type="button">返回進度</button>
+        <button class="btn" type="button">複製</button>
+        <button class="btn primary" type="button">匯出 ▾</button>
+      </div>
+    </div>
+
+    <div class="canvas">
+      <main class="doc-canvas" aria-label="草稿文件">
+        <h2 class="doc-title">校本採購指引</h2>
+        <div class="doc-meta" id="doc-meta">聖保祿中學 · 2026-27 · 負責人待填</div>
+
+        <section class="draft-sec selected" data-section="1" data-title="§1 宗旨與適用範圍">
+          <h3>§1 宗旨與適用範圍</h3>
+          <p>本校依據教育局學校行政及財務管理要求，制訂本校採購指引，以規範日常採購、報價、審批及紀錄保存安排。<span class="cite-ref">[1]</span></p>
+          <p>本指引適用於所有以學校經費支付的貨品、服務及工程採購，並須配合校本辦學使命及內部監察制度。<span class="cite-ref">[2]</span></p>
+        </section>
+
+        <section class="draft-sec" data-section="2" data-title="§2 採購原則">
+          <h3>§2 採購原則</h3>
+          <ul>
+            <li>物有所值：採購決定須兼顧價格、質素、交付時間及服務支援。<span class="cite-ref">[3]</span><span class="stale-mark">⚠</span></li>
+            <li>公開公平：同類採購應採用一致程序，避免利益衝突。<span class="cite-ref">[4]</span></li>
+            <li>可問責性：所有審批、報價及豁免原因須妥善記錄。<span class="cite-ref">[1]</span></li>
+          </ul>
+        </section>
+
+        <section class="draft-sec" data-section="3" data-title="§3 程序與審批層級">
+          <h3>§3 程序與審批層級</h3>
+          <p>採購金額不超過 HKD 5,000 可由負責人按校內程序審批；較高金額須取得指定數目的書面報價，並交由校長或採購委員會審批。<span class="cite-ref">[5]</span></p>
+        </section>
+
+        <section class="draft-sec" data-section="4" data-title="§4 校本補充條款">
+          <h3>§4 校本補充條款</h3>
+          <p>如採購涉及圖書館、實驗室消耗品或緊急維修，負責人須在採購紀錄註明原因、批准人及後續補交文件安排。</p>
+        </section>
+
+        <section class="draft-sec" data-section="5" data-title="§5 附件與生效">
+          <h3>§5 附件與生效</h3>
+          <p>附件包括報價紀錄表、利益申報表、採購審批表及供應商表現紀錄。本指引由指定生效日期起執行，並由負責人每學年檢視一次。</p>
+        </section>
+
+        <button class="add-section" type="button">+ 新增章節</button>
+      </main>
+
+      <aside class="source-panel" aria-label="引用來源">
+        <div class="source-head">
+          <span class="h">Sources</span><span class="count" id="source-count">本段引用 2 條</span>
+        </div>
+        <div id="source-list"></div>
+        <div class="stale-callout" id="stale-callout">
+          §2 有一個來源標記為 stale，建議在正式匯出前重新生成該段引用。
+        </div>
+      </aside>
+    </div>
+
+    <div class="revision-bar">
+      <div class="sel" id="revision-selected">選中：§1 宗旨與適用範圍</div>
+      <div class="mini-actions">
+        <button type="button">改口吻</button>
+        <button type="button">變長</button>
+        <button type="button">變短</button>
+        <button type="button">加例子</button>
+        <button type="button">換來源</button>
+        <button type="button">還原</button>
+      </div>
+    </div>
+  </section>
 </div>
 
 <script>
@@ -237,6 +521,50 @@ const form=document.getElementById('form');
 const btn=document.getElementById('submit');
 const warn=document.getElementById('warn');
 const warnT=document.getElementById('warn-text');
+const genStage=document.getElementById('gen-stage');
+const genFill=document.getElementById('gen-fill');
+const genState=document.getElementById('gen-state');
+const genTitle=document.getElementById('gen-title');
+const genSub=document.getElementById('gen-sub');
+const genStepLabel=document.getElementById('gen-step-label');
+const genEta=document.getElementById('gen-eta');
+const genComplete=document.getElementById('gen-complete');
+const doneActions=document.getElementById('done-actions');
+const sideMeta=document.getElementById('side-meta');
+const sideSource=document.getElementById('side-source');
+const sideChecks=document.getElementById('side-checks');
+const sourceDesc=document.getElementById('source-desc');
+const editAgain=document.getElementById('edit-again');
+const openDraft=document.getElementById('open-draft');
+const draftStage=document.getElementById('draft-stage');
+const backToGen=document.getElementById('back-to-gen');
+const draftMeta=document.getElementById('draft-meta');
+const docMeta=document.getElementById('doc-meta');
+const revisionSelected=document.getElementById('revision-selected');
+const sourceCount=document.getElementById('source-count');
+const sourceList=document.getElementById('source-list');
+const staleCallout=document.getElementById('stale-callout');
+let progressTimer=null;
+let lastDraftMeta='聖保祿中學 · 2026-27 · 負責人待填';
+const sourceMap={
+  1:[
+    {id:'[1] EDBC 02/2023',status:'✓',quote:'學校須建立合適內部監察及採購紀錄，以確保公帑運用恰當。'},
+    {id:'[2] 已核實事實 #118',status:'✓',quote:'校本政策須列明適用範圍、負責人及檢視周期。'}
+  ],
+  2:[
+    {id:'[3] PECG 2024 §3.2',status:'⚠ stale',quote:'採購應符合物有所值、公開公平及問責原則。2026-03 有修訂。'},
+    {id:'[4] 已核實事實 #247',status:'✓',quote:'公開公平程序包括一致報價要求、利益申報及文件留痕。'}
+  ],
+  3:[
+    {id:'[5] 已核實事實 #312',status:'✓',quote:'審批層級應按金額、風險和採購性質分級。'}
+  ],
+  4:[
+    {id:'校本條款',status:'local',quote:'本段由用戶輸入的採購上限及特別條款生成。'}
+  ],
+  5:[
+    {id:'附件清單',status:'local',quote:'附件及生效資訊由校本 metadata 產生。'}
+  ]
+};
 
 function check(){
   const flds=form.querySelectorAll('[data-required]');
@@ -260,8 +588,123 @@ form.addEventListener('change',check);
 btn.addEventListener('click',e=>{
   e.preventDefault();
   if(btn.disabled)return;
-  alert('生成流程將跳轉去 /d/:id?state=gen (S4)\n此為 layout demo,未接 backend。');
+  startGeneration();
 });
+editAgain.addEventListener('click',()=>{
+  if(progressTimer)clearInterval(progressTimer);
+  genStage.classList.remove('active');
+  draftStage.classList.remove('active');
+  btn.disabled=false;
+  btn.textContent='生成 (~22 秒) ▸';
+  window.scrollTo({top:0,behavior:'smooth'});
+  check();
+});
+openDraft.addEventListener('click',showDraft);
+backToGen.addEventListener('click',()=>{
+  draftStage.classList.remove('active');
+  window.scrollTo({top:genStage.offsetTop-72,behavior:'smooth'});
+});
+document.querySelectorAll('.draft-sec').forEach(sec=>{
+  sec.addEventListener('click',()=>selectSection(sec));
+});
+
+function selectedChannel(){
+  return form.querySelector('input[name="channel"]:checked')?.value||'AB';
+}
+function sourceCopy(channel){
+  if(channel==='A')return {
+    pills:['Channel A','verified facts'],
+    desc:'只讀取已核實事實，略過 EDB 原文抽取。',
+    checks:'事實來源鎖定 · 不使用原文段落'
+  };
+  if(channel==='B')return {
+    pills:['Channel B','EDB source text'],
+    desc:'讀取 EDB 原文段落，建立可追溯引用。',
+    checks:'原文引用檢查 · 來源年份檢查'
+  };
+  return {
+    pills:['A+B','verified facts','EDB source text'],
+    desc:'同時讀取已核實事實與 EDB 原文來源。',
+    checks:'事實交叉檢查 · 原文引用檢查'
+  };
+}
+function startGeneration(){
+  const data=new FormData(form);
+  const channel=selectedChannel();
+  const copy=sourceCopy(channel);
+  lastDraftMeta=`${data.get('school')} · ${data.get('year')} · ${data.get('owner')}`;
+  sideMeta.textContent=`${data.get('school')} · ${data.get('year')} · ${data.get('owner')}`;
+  sideSource.innerHTML=copy.pills.map(p=>`<span class="source-pill">${p}</span>`).join('');
+  sourceDesc.textContent=copy.desc;
+  sideChecks.textContent=copy.checks;
+  genTitle.textContent='生成中 · 請勿關閉此頁';
+  genSub.textContent='系統正按校本資料建立文件骨架，逐段鎖定來源和引用。完成後會停在草稿準備狀態。';
+  genStage.classList.add('active');
+  genComplete.classList.remove('show');
+  doneActions.classList.remove('show');
+  draftStage.classList.remove('active');
+  btn.disabled=true;
+  btn.textContent='生成中...';
+  window.scrollTo({top:genStage.offsetTop-72,behavior:'smooth'});
+  setProgress(0);
+  let step=0;
+  if(progressTimer)clearInterval(progressTimer);
+  progressTimer=setInterval(()=>{
+    step++;
+    setProgress(step);
+    if(step>=4){
+      clearInterval(progressTimer);
+      completeGeneration();
+    }
+  },1100);
+}
+function setProgress(step){
+  const pct=((step+1)/5)*100;
+  genFill.style.width=`${pct}%`;
+  genState.textContent=`Generation · Step ${step+1} / 5`;
+  genStepLabel.textContent=`${step+1} / 5`;
+  genEta.textContent=step>=4?'Ready':'ETA ~'+Math.max(4,22-(step*5))+'s';
+  document.querySelectorAll('.step').forEach((el,i)=>{
+    el.classList.toggle('done',i<step);
+    el.classList.toggle('active',i===step);
+    const dot=el.querySelector('.dot');
+    dot.textContent=i<step?'✓':String(i+1);
+  });
+  document.querySelectorAll('.doc-sec').forEach((el,i)=>{
+    el.classList.toggle('ready',i<=step);
+  });
+}
+function completeGeneration(){
+  genTitle.textContent='草稿已準備';
+  genSub.textContent='引用檢查完成，文件骨架已按校本 metadata 組裝。下一步會進入 S5 Draft Canvas。';
+  genComplete.classList.add('show');
+  doneActions.classList.add('show');
+  sideChecks.textContent+=' · 完成';
+  btn.textContent='已生成';
+}
+function showDraft(){
+  draftMeta.textContent=`${lastDraftMeta} · 7 sources`;
+  docMeta.textContent=lastDraftMeta;
+  draftStage.classList.add('active');
+  selectSection(document.querySelector('.draft-sec.selected')||document.querySelector('.draft-sec'));
+  window.scrollTo({top:draftStage.offsetTop-72,behavior:'smooth'});
+}
+function selectSection(sec){
+  document.querySelectorAll('.draft-sec').forEach(s=>s.classList.toggle('selected',s===sec));
+  const section=sec.dataset.section;
+  const title=sec.dataset.title;
+  revisionSelected.textContent=`選中：${title}`;
+  const sources=sourceMap[section]||[];
+  sourceCount.textContent=`本段引用 ${sources.length} 條`;
+  sourceList.innerHTML=sources.map(src=>`
+    <div class="src-card">
+      <div class="r"><span class="sid">${src.id}</span><span class="${src.status.includes('⚠')?'warn':'ok'}">${src.status}</span></div>
+      <div class="q">「${src.quote}」</div>
+      <a class="open" href="q.html">查看原文 / 相關問答 ↗</a>
+    </div>
+  `).join('');
+  staleCallout.style.display=section==='2'?'block':'none';
+}
 check();
 </script>
 </body>

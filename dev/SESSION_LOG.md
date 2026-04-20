@@ -2,6 +2,88 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-04-20 Session 82 — S5 Draft Canvas + GitHub Sync
+
+1. Agent & Session ID: Codex_20260420_1425
+2. Task summary: Implemented S5 Draft Canvas in `t-purchase.html` and prepared the current static frontend changes for GitHub Pages sync.
+3. Layer classification: Product / UI Layer + Release / Deploy
+4. Files changed:
+   - `t-purchase.html` — MODIFIED: added S5 draft canvas, source/citation panel, stale-source warning, section selection, revision action bar, and S4-to-S5 open-draft flow
+   - `dev/SESSION_HANDOFF.md` — MODIFIED: marked S5 complete and moved next priorities to Circular System / Phase 3 admin redesign
+   - `dev/CODEBASE_CONTEXT.md` — MODIFIED: updated directory map and AI Maintenance Log for S5 behavior
+   - `dev/SESSION_LOG.md` — MODIFIED: added this session entry, test scenarios, doc sync, and deploy-gate evidence
+5. Completed:
+   - ✅ S5 Draft Canvas built inside `t-purchase.html` to avoid GitHub Pages routing issues
+   - ✅ S4 completion CTA now opens the draft workspace
+   - ✅ Draft sections can be selected; selected section updates the source panel and revision action bar
+   - ✅ §2 stale-source warning state implemented
+   - ✅ GitHub sync requested by user; local release gate prepared before commit/push
+6. Pending:
+   - Push to GitHub Pages after final local checks / commit
+   - Circular System: `edb_scraper.py _write_policy_signal()` (deferred)
+   - Phase 3: 知識提煉 left-right split panel redesign in `app.html`
+7. Verification:
+   - `sed -n '/<script>/,/<\\/script>/p' t-purchase.html | sed '1d;$d' | node --check` → PASS
+   - `rg -n "draft-stage|openDraft|sourceMap|selectSection|S5 Draft|alert\\(|開啟草稿|stale" t-purchase.html` → PASS (`alert()` absent; S5 markers present)
+   - Independent review pass: self-review checked correctness, consistency with `dev/design/Spec.html`, regression risk, documentation sync, and GitHub Pages compatibility → PASS
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Normal flow | S4 completion reached | Click open draft | Draft canvas appears with document + sources | `openDraft` calls `showDraft()`, activates `draft-stage`, and scrolls to canvas | PASS |
+| Section selection | Draft canvas visible | Select §2 | Selected section and matching source context update | `selectSection()` updates selected class, revision label, citation cards, and §2 stale warning | PASS |
+| Mobile source panel | Narrow viewport | Use sources area after canvas | Sources panel remains accessible without overlap | CSS switches `.canvas` to one column and removes sticky positioning below 980px | PASS |
+| Regression | S3/S4 flow | Fill form → generate | Validation and S4 progress still work | Previous `check()`, `startGeneration()`, and `completeGeneration()` paths retained; JS syntax check passes | PASS |
+| Release gate | Local checks pass | Commit + push main | GitHub Pages receives latest commit | Pending final git commit/push in this session | PENDING |
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Product behavior / tuning change | CODEBASE_CONTEXT.md Directory Map / AI Maintenance Log if stable product behavior changed | ✓ Done |
+| Product version / release milestone change | k1-dashboard.html `_meta`; dev/knowledge/role_facts.json `_meta`; README badge; CHANGELOG; SESSION_HANDOFF.md; SESSION_LOG.md; CODEBASE_CONTEXT.md if release summary changed | N/A — no version number or public data schema changed; GitHub Pages sync only |
+
+---
+
+## 2026-04-20 Session 81 — S4 Generation Progress
+
+1. Agent & Session ID: Codex_20260420_1413
+2. Task summary: Implemented S4 Generation Progress in `t-purchase.html`, replacing the previous "生成" alert stub with an in-page step-based progress/result experience.
+3. Layer classification: Product / UI Layer
+4. Files changed:
+   - `t-purchase.html` — MODIFIED: added S4 generation progress workspace, 5-step progress track, ETA, source-mode-specific status copy, document skeleton reveal, completion state, and return-to-edit flow
+   - `dev/SESSION_HANDOFF.md` — MODIFIED: marked S4 complete and moved next priority to S5 Draft Canvas
+   - `dev/CODEBASE_CONTEXT.md` — MODIFIED: updated directory map and AI Maintenance Log for S4 behavior
+   - `dev/SESSION_LOG.md` — MODIFIED: added this session entry and QC evidence
+5. Completed:
+   - ✅ Replaced `alert()` submit stub with `startGeneration()`
+   - ✅ Added S4 progress UI that follows the design spec: step count, progress bar, ETA, source extraction copy, and section skeleton reveal
+   - ✅ Added source-mode variations for Channel A / B / A+B
+   - ✅ Added completion state and a return-to-edit path; S5 Draft Canvas remains separate and not implemented here
+6. Pending:
+   - S5 Draft Canvas (`/d/:id` style document workspace)
+   - Circular System: `edb_scraper.py _write_policy_signal()` (deferred)
+7. Verification:
+   - `sed -n '/<script>/,/<\\/script>/p' t-purchase.html | sed '1d;$d' | node --check` → PASS
+   - `rg -n "alert\\(|草稿已準備|返回修改|Generation · Step|sourceCopy|ETA ~|aria-live" t-purchase.html` → PASS (`alert()` removed; S4 markers present)
+   - `git diff -- t-purchase.html` reviewed → PASS
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Normal flow | 4 required fields complete | Click 生成 | Progress view opens, steps advance, completion state appears | JS handler now calls `startGeneration()`; 5-step timer advances to `completeGeneration()` | PASS |
+| Boundary | Required fields missing | Load/click around form | Button remains disabled and missing count shows | Existing `check()` validation preserved; button disabled until missing count is 0 | PASS |
+| Source mode | Channel A/B/AB selected | Start generation | Progress copy reflects selected source mode | `sourceCopy()` maps A/B/AB to distinct pills, source description, and check copy | PASS |
+| Regression | Existing form preview | Edit fields | Skeleton preview and validation still behave | Existing form, skeleton preview, and validation code retained; only submit behavior changed | PASS |
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Product behavior / tuning change | CODEBASE_CONTEXT.md Directory Map / AI Maintenance Log if stable product behavior changed | ✓ Done |
+
+---
+
 ## 2026-04-20 Session 80 — EDB Design System + Governance Install + Frontend Pages
 
 1. Agent & Session ID: Claude_20260420_1430
@@ -148,4 +230,3 @@ Next work in priority order:
 
 Key files: index.html, backend/src/server.ts, dev/knowledge/candidate_queue.json, dev/vault/sag_2025_11/
 ```
-
