@@ -19,13 +19,16 @@
    - ✅ §2 stale-source warning state implemented
    - ✅ GitHub sync requested by user; local release gate prepared before commit/push
 6. Pending:
-   - Push to GitHub Pages after final local checks / commit
    - Circular System: `edb_scraper.py _write_policy_signal()` (deferred)
    - Phase 3: 知識提煉 left-right split panel redesign in `app.html`
 7. Verification:
    - `sed -n '/<script>/,/<\\/script>/p' t-purchase.html | sed '1d;$d' | node --check` → PASS
    - `rg -n "draft-stage|openDraft|sourceMap|selectSection|S5 Draft|alert\\(|開啟草稿|stale" t-purchase.html` → PASS (`alert()` absent; S5 markers present)
    - Independent review pass: self-review checked correctness, consistency with `dev/design/Spec.html`, regression risk, documentation sync, and GitHub Pages compatibility → PASS
+   - `git commit -m "feat: add document generation progress and draft canvas"` → PASS (`a32132c`)
+   - `git push origin main` → PASS (`dbe83c3..a32132c main -> main`)
+   - `curl -I -L https://leonard-wong-git.github.io/edb-knowledge/t-purchase.html` → PASS (HTTP 200, content-length 35736, last-modified 2026-04-20 14:18:10 UTC)
+   - `curl -L https://leonard-wong-git.github.io/edb-knowledge/t-purchase.html | rg -n "S5 Draft Canvas|draft-stage|開啟草稿|Generation · Step"` → PASS
 
 ### Test Scenarios
 | Scenario | Precondition | Action / input | Expected | Actual | Result |
@@ -34,7 +37,7 @@
 | Section selection | Draft canvas visible | Select §2 | Selected section and matching source context update | `selectSection()` updates selected class, revision label, citation cards, and §2 stale warning | PASS |
 | Mobile source panel | Narrow viewport | Use sources area after canvas | Sources panel remains accessible without overlap | CSS switches `.canvas` to one column and removes sticky positioning below 980px | PASS |
 | Regression | S3/S4 flow | Fill form → generate | Validation and S4 progress still work | Previous `check()`, `startGeneration()`, and `completeGeneration()` paths retained; JS syntax check passes | PASS |
-| Release gate | Local checks pass | Commit + push main | GitHub Pages receives latest commit | Pending final git commit/push in this session | PENDING |
+| Release gate | Local checks pass | Commit + push main | GitHub Pages receives latest commit | Live GitHub Pages returns 200 and contains S4/S5 markers | PASS |
 
 ### DOC_SYNC Matrix Scan
 | Change Category | Required Doc Updates | Status |

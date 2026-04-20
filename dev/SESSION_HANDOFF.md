@@ -215,6 +215,7 @@ python3 dev/vault/build_wiki_index.py
    - ✅ **[S5 source panel]** Section selection updates citation cards and stale-source warning
    - ✅ **[S4 Generation Progress]** `t-purchase.html` "生成" button now opens in-page step progress instead of alert stub
    - ✅ **[S4 state model]** 5-step progress, ETA, source-mode-specific copy, document skeleton reveal, completion state, return-to-edit flow
+   - ✅ **[GitHub sync]** pushed to `origin/main`; GitHub Pages `t-purchase.html` verified with live S4/S5 markers
    - ✅ **[EDB design system]** index.html → S1 Home; t-purchase.html → S3 Form; q.html → S6 Q&A; app.html token retrofit + ~40 hex → CSS vars
    - ✅ **[Governance install]** AGENTS.md + CLAUDE.md + GEMINI.md + docs/qa/session_log_maintenance.py
    - ✅ **[Cleanup]** landing.html + k1-wiki.html deleted; dev/design/ reference files archived
