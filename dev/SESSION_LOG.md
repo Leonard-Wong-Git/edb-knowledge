@@ -2,6 +2,49 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-04-20 Session 83 — Phase 3 Knowledge Review Split Workspace
+
+1. Agent & Session ID: Codex_20260420_1427
+2. Task summary: Refactored `app.html` 知識提煉 Admin from single-column candidate cards into a left/right review workspace with candidate queue, evidence inspector, inline text revision, role toggles, and existing approve/reject flow.
+3. Layer classification: Product / UI Layer + Release / Deploy
+4. Files changed:
+   - `app.html` — MODIFIED: added review split workspace CSS and replaced `CandidateReviewPanel`; removed unused old `CandidateCard` implementation
+   - `dev/SESSION_HANDOFF.md` — MODIFIED: marked Phase 3 review split complete and moved next priorities forward
+   - `dev/CODEBASE_CONTEXT.md` — MODIFIED: updated directory map and AI Maintenance Log for Phase 3 behavior
+   - `dev/SESSION_LOG.md` — MODIFIED: added this session entry, test scenarios, doc sync, and release gate evidence
+5. Completed:
+   - ✅ Candidate review now uses left queue + right sticky evidence/revision inspector
+   - ✅ Inline candidate text revision and role toggles are available before approval
+   - ✅ Existing `handleApproveCandidate` / `handleRejectCandidate` data flow retained
+   - ✅ Empty queue state preserved
+   - ✅ Mobile responsive fallback added for the split workspace
+6. Pending:
+   - Push to GitHub Pages after final local checks / commit
+   - Circular System: `edb_scraper.py _write_policy_signal()` (deferred)
+   - Phase 4: 指引文件庫 dual sort (`sub_category`)
+7. Verification:
+   - `sed -n '547,4173p' app.html | node -e "...esbuild.transformSync(...,{loader:'jsx'})"` → PASS (`esbuild jsx parse PASS`)
+   - `rg -n "CandidateCard|review-workspace|review-inspector|candidate-row|知識提煉" app.html` → PASS (`CandidateCard` removed; split workspace markers present)
+   - Independent review pass: self-review checked correctness, consistency with Phase 3 requirement, regression risk, doc sync, and GitHub Pages compatibility → PASS
+
+### Test Scenarios
+| Scenario | Precondition | Action / input | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Empty queue | `candidateQueue.length === 0` | Open 知識提煉 | Shows calm empty state with no crash | Empty branch preserved as `review-empty` | PASS |
+| Candidate selection | Queue has items | Click candidate row | Inspector updates to selected candidate | `selectedId` drives active row, editor, role toggles, and source evidence | PASS |
+| Approve/reject | Queue has items | Use inspector buttons | Existing handlers called with selected candidate | Inspector calls `onApprove({...selected, proposed_text, suggested_roles})` and `onReject(selected.id)` | PASS |
+| Responsive | Narrow viewport | Open review view | Two columns stack without overlap | CSS switches `.review-workspace` to one column below 980px | PASS |
+| Release | Checks pass | Commit + push | GitHub Pages live app includes new review workspace | Pending final git commit/push in this session | PENDING |
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
+| Product behavior / tuning change | CODEBASE_CONTEXT.md Directory Map / AI Maintenance Log if stable product behavior changed | ✓ Done |
+| Product version / release milestone change | k1-dashboard.html `_meta`; dev/knowledge/role_facts.json `_meta`; README badge; CHANGELOG; SESSION_HANDOFF.md; SESSION_LOG.md; CODEBASE_CONTEXT.md if release summary changed | N/A — no version number or public data schema changed; GitHub Pages sync only |
+
+---
+
 ## 2026-04-20 Session 82 — S5 Draft Canvas + GitHub Sync
 
 1. Agent & Session ID: Codex_20260420_1425

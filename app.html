@@ -348,6 +348,96 @@ body {
 .fact-card.draft { border-left: 3px solid var(--mocha-lt); }
 .fact-card.approved { border-left: 3px solid var(--edb-2); }
 
+/* ── Candidate review split workspace ───────────────── */
+.review-workspace {
+  display: grid; grid-template-columns: minmax(0, 1fr) 380px;
+  gap: var(--space-md); align-items: start;
+}
+.review-list, .review-inspector, .review-empty {
+  background: var(--cd-warm); border: 1px solid var(--border);
+  border-radius: var(--r-md);
+}
+.review-list { overflow: hidden; }
+.review-head {
+  padding: var(--space-md); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.review-head h2 { margin: 0; font-size: 1rem; color: var(--charcoal); }
+.review-head p { margin: 3px 0 0; font-size: var(--text-sm); color: var(--mid); }
+.review-metric {
+  font-family: var(--mono); font-size: 0.72rem; color: var(--edb);
+  background: var(--edb-wash); border: 1px solid rgba(31,58,46,0.12);
+  padding: 5px 8px; border-radius: var(--r-sm); white-space: nowrap;
+}
+.candidate-row {
+  width: 100%; border: 0; border-bottom: 1px solid var(--border);
+  background: transparent; text-align: left; padding: 14px var(--space-md);
+  cursor: pointer; font-family: inherit; display: grid; gap: 7px;
+  transition: background 0.16s, border-color 0.16s;
+}
+.candidate-row:hover, .candidate-row.active { background: var(--paper-2); }
+.candidate-row.active { box-shadow: inset 3px 0 0 var(--edb); }
+.candidate-row:last-child { border-bottom: 0; }
+.candidate-row-top {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+}
+.candidate-topic {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em;
+  color: var(--edb); text-transform: uppercase;
+}
+.candidate-source {
+  font-size: 0.72rem; color: var(--mid); overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; max-width: 180px;
+}
+.candidate-text { font-size: var(--text-sm); color: var(--charcoal); line-height: 1.55; }
+.candidate-roles { display: flex; flex-wrap: wrap; gap: 5px; }
+.candidate-role-pill {
+  font-size: 0.68rem; color: var(--mid); border: 1px solid var(--border);
+  background: #fff; padding: 2px 6px; border-radius: var(--r-sm);
+}
+.review-inspector {
+  position: sticky; top: 88px; padding: var(--space-md);
+  display: grid; gap: 14px;
+}
+.inspector-label {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--edb);
+}
+.inspector-title { font-size: 1.05rem; font-weight: 700; color: var(--charcoal); }
+.inspector-box {
+  border: 1px solid var(--border); background: var(--paper-2);
+  border-radius: var(--r-sm); padding: 11px; color: var(--ink-2);
+  font-size: var(--text-sm); line-height: 1.6;
+}
+.review-editor {
+  width: 100%; min-height: 112px; resize: vertical; font-family: inherit;
+  font-size: var(--text-sm); line-height: 1.6; color: var(--charcoal);
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r-sm);
+  padding: 11px; outline: 0;
+}
+.review-editor:focus { border-color: var(--edb); box-shadow: 0 0 0 2px rgba(31,58,46,0.08); }
+.role-toggle-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.role-toggle {
+  border: 1px solid var(--border); background: #fff; color: var(--mid);
+  border-radius: var(--r-sm); padding: 6px 8px; font-size: 0.72rem;
+  cursor: pointer; font-family: inherit;
+}
+.role-toggle.active { border-color: var(--edb); background: var(--edb-wash); color: var(--edb); font-weight: 700; }
+.inspector-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+.review-btn {
+  border: 1px solid var(--line); background: #fff; color: var(--ink-2);
+  border-radius: var(--r-sm); padding: 8px 12px; font-size: var(--text-sm);
+  cursor: pointer; font-family: inherit; font-weight: 600;
+}
+.review-btn.primary { background: var(--edb); border-color: var(--edb); color: #fff; }
+.review-btn.danger { border-color: rgba(122,59,31,0.25); color: var(--warn); }
+.review-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.review-empty { padding: 42px; text-align: center; color: var(--mid); }
+@media (max-width: 980px) {
+  .review-workspace { grid-template-columns: 1fr; }
+  .review-inspector { position: relative; top: auto; }
+}
+
 /* ── Role Badge ─────────────────────────────────────── */
 .role-badge {
   font-size: 0.68rem; padding: 2px 8px; border-radius: 100px;
@@ -3232,116 +3322,132 @@ const INITIAL_CANDIDATES = [
   }
 ];
 
-function CandidateCard({ cand, onApprove, onReject }) {
-  const [selectedRoles, setSelectedRoles] = useState(cand.suggested_roles || []);
-  const [editableText, setEditableText] = useState(cand.proposed_text);
-  const [isEditing, setIsEditing] = useState(false);
-  const edited = editableText !== cand.proposed_text;
-
-  const toggleRole = (rk) => {
-    if (selectedRoles.includes(rk)) {
-      setSelectedRoles(selectedRoles.filter(r => r !== rk));
-    } else {
-      setSelectedRoles([...selectedRoles, rk]);
-    }
-  };
-
-  return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col xl:flex-row mb-4">
-      <div className="flex-1 p-5 border-b xl:border-b-0 xl:border-r border-gray-100 bg-gray-50/50">
-        <h3 className="text-[13px] font-bold text-amber-800 mb-2 flex items-center gap-1.5">
-          <span className="text-lg">🤖</span> LLM 提議事實 (Candidate Fact)
-          {edited && <span className="ml-auto text-[10px] font-bold px-1.5 py-0.5 bg-blue-50 text-blue-600 border border-blue-200 rounded">已修改</span>}
-        </h3>
-        {isEditing ? (
-          <div className="mb-4">
-            <textarea
-              value={editableText}
-              onChange={e => setEditableText(e.target.value)}
-              autoFocus
-              rows={4}
-              className="w-full text-sm text-gray-800 bg-white p-3 border border-amber-300 rounded-lg shadow-sm leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-amber-200"
-            />
-            <div className="flex gap-2 mt-1.5">
-              <button onClick={() => setIsEditing(false)}
-                      className="px-3 py-1 text-[11px] bg-amber-700 text-white rounded-md font-medium hover:bg-amber-800">完成修改</button>
-              <button onClick={() => { setEditableText(cand.proposed_text); setIsEditing(false); }}
-                      className="px-3 py-1 text-[11px] border border-gray-200 text-gray-500 rounded-md hover:bg-gray-50">還原原文</button>
-            </div>
-          </div>
-        ) : (
-          <div className="relative group mb-4">
-            <p className="text-sm text-gray-800 bg-white p-3 border border-gray-200 rounded-lg shadow-sm leading-relaxed pr-8">{editableText}</p>
-            <button onClick={() => setIsEditing(true)}
-                    title="修改事實文字"
-                    className="absolute top-2 right-2 text-gray-300 hover:text-amber-600 transition-colors opacity-0 group-hover:opacity-100 text-base leading-none">✏️</button>
-          </div>
-        )}
-        <div className="flex flex-col gap-2">
-          <span className="text-[11px] px-2 py-1 bg-orange-50 text-amber-900 rounded border border-orange-200 w-max font-bold">主題: {cand.suggested_topic}</span>
-          <div className="mt-1">
-            <p className="text-[11px] font-bold text-gray-500 mb-1.5">設定適用角色 (可多選):</p>
-            <div className="flex flex-wrap gap-1.5">
-              {Object.entries(ROLE_CONFIG).map(([rk, rConf]) => (
-                <label key={rk} className={`cursor-pointer px-2 py-1 rounded text-[11px] font-medium border transition-colors flex items-center select-none
-                  ${selectedRoles.includes(rk) ? 'bg-orange-50 border-amber-300 text-amber-900' : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'}`}>
-                  <input type="checkbox" className="hidden" checked={selectedRoles.includes(rk)} onChange={() => toggleRole(rk)} />
-                  <span className={`mr-1 text-lg leading-none ${selectedRoles.includes(rk) ? 'text-amber-600' : 'text-gray-300'}`}>•</span>
-                  {rConf.label}
-                </label>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="flex-1 p-5 flex flex-col justify-between bg-white">
-        <div>
-          <h3 className="text-[13px] font-bold text-amber-700 mb-2 flex items-center gap-1.5">
-            <span className="text-lg">📄</span> 原文證據 (Source Evidence)
-          </h3>
-          <div className="bg-amber-50 border-l-4 border-amber-400 p-3 rounded-r text-[13px] text-gray-700 mb-3 leading-relaxed" style={{ whiteSpace: 'pre-wrap' }}>
-            "{cand.source_quote}"
-          </div>
-          <p className="text-[11px] text-gray-500 bg-gray-50 px-2 py-1.5 rounded border border-gray-100 inline-block truncate max-w-full">
-            出處：<a href={cand.source_url ? (cand.page_number ? `${cand.source_url}#page=${cand.page_number}` : cand.source_url) : "#"} target="_blank" rel="noreferrer" className="source-link text-amber-800">{cand.source_title}</a>{cand.page_number && <span className="text-gray-500 ml-1">(第 {cand.page_number} 頁)</span>}
-          </p>
-        </div>
-        <div className="mt-5 flex flex-wrap gap-3 justify-end border-t border-gray-100 pt-4 relative z-10 bg-white">
-          <button onClick={() => onReject(cand.id)}
-                  className="px-4 py-2 text-[13px] border border-red-200 text-red-600 bg-white hover:bg-red-50 hover:border-red-300 font-medium rounded-lg transition-all shadow-sm">
-            ✕ 剔除 Reject
-          </button>
-          <button onClick={() => selectedRoles.length > 0 && onApprove({ ...cand, proposed_text: editableText, suggested_roles: selectedRoles })}
-                  style={selectedRoles.length === 0 ? { backgroundColor: 'var(--paper-2)', color: 'var(--ink-3)', borderColor: 'var(--line)', cursor: 'not-allowed' } : { backgroundColor: 'var(--edb)', color: '#ffffff', borderColor: 'var(--edb)' }}
-                  className="px-6 py-2 text-[13px] font-bold rounded-lg shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-amber-200 hover:-translate-y-0.5 border relative z-10 hover:shadow-md">
-            ✓ {edited ? '確認修改並通過' : '確認通過 Approve'}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function CandidateReviewPanel({ queue, onApprove, onReject }) {
+  const [selectedId, setSelectedId] = useState(queue[0]?.id || null);
+  const selected = queue.find(c => c.id === selectedId) || queue[0] || null;
+  const [editableText, setEditableText] = useState(selected?.proposed_text || '');
+  const [selectedRoles, setSelectedRoles] = useState(selected?.suggested_roles || []);
+
+  useEffect(() => {
+    if (!selected && queue.length > 0) {
+      setSelectedId(queue[0].id);
+    }
+  }, [queue, selected]);
+
+  useEffect(() => {
+    if (!selected) return;
+    setEditableText(selected.proposed_text || '');
+    setSelectedRoles(selected.suggested_roles || []);
+  }, [selected?.id]);
+
   if (queue.length === 0) {
     return (
-      <div className="bg-white rounded-xl border border-gray-200 p-10 text-center text-gray-500 flex-1 min-w-0">
-        <p className="text-4xl mb-3">🎉</p>
-        <p className="text-lg font-medium text-gray-700">候選隊列已清空！</p>
-        <p className="text-sm">目前沒有 LLM 提議的知識點需要審核。</p>
+      <div className="review-empty flex-1 min-w-0">
+        <p className="text-lg font-semibold text-gray-700">候選隊列已清空</p>
+        <p className="text-sm mt-1">目前沒有 LLM 提議的知識點需要審核。</p>
       </div>
     );
   }
 
+  const toggleRole = (roleId) => {
+    setSelectedRoles(prev => (
+      prev.includes(roleId) ? prev.filter(r => r !== roleId) : [...prev, roleId]
+    ));
+  };
+  const edited = selected && editableText !== selected.proposed_text;
+  const approveSelected = () => {
+    if (!selected || selectedRoles.length === 0) return;
+    onApprove({ ...selected, proposed_text: editableText, suggested_roles: selectedRoles });
+  };
+
   return (
-    <div className="flex-1 min-w-0 space-y-6">
-      <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 shadow-sm">
-        <h2 className="text-lg font-bold text-gray-800">知識提煉 (Candidate Review)</h2>
-        <p className="text-xs text-gray-500 mt-1">待審核 LLM 事實提取，確保與 EDB 來源原文無誤後點擊 Approve 寫入系統。</p>
-      </div>
-      {queue.map(cand => (
-        <CandidateCard key={cand.id} cand={cand} onApprove={onApprove} onReject={onReject} />
-      ))}
+    <div className="review-workspace flex-1 min-w-0">
+      <section className="review-list">
+        <div className="review-head">
+          <div>
+            <h2>知識提煉</h2>
+            <p>逐條核對候選事實，右側即時修訂與確認。</p>
+          </div>
+          <span className="review-metric">{queue.length} pending</span>
+        </div>
+        {queue.map((cand, idx) => (
+          <button key={cand.id}
+                  type="button"
+                  onClick={() => setSelectedId(cand.id)}
+                  className={`candidate-row ${selected?.id === cand.id ? 'active' : ''}`}>
+            <span className="candidate-row-top">
+              <span className="candidate-topic">{cand.suggested_topic || 'general'} · #{idx + 1}</span>
+              <span className="candidate-source">{cand.source_id || cand.source_title || 'source'}</span>
+            </span>
+            <span className="candidate-text">{cand.proposed_text}</span>
+            <span className="candidate-roles">
+              {(cand.suggested_roles || ['all_roles']).map(roleId => (
+                <span key={roleId} className="candidate-role-pill">{ROLE_CONFIG[roleId]?.label || roleId}</span>
+              ))}
+            </span>
+          </button>
+        ))}
+      </section>
+
+      <aside className="review-inspector">
+        <div>
+          <div className="inspector-label">Selected Candidate</div>
+          <div className="inspector-title">{selected?.source_id || selected?.id}</div>
+        </div>
+
+        <div>
+          <div className="inspector-label mb-2">Proposed Fact</div>
+          <textarea className="review-editor"
+                    value={editableText}
+                    onChange={e => setEditableText(e.target.value)}
+                    aria-label="修訂候選事實" />
+          <div className="mt-1 text-xs text-gray-400">
+            {editableText.length}/80 字 {edited && <span className="text-amber-700 ml-2">已修訂</span>}
+          </div>
+        </div>
+
+        <div>
+          <div className="inspector-label mb-2">Role Assignment</div>
+          <div className="role-toggle-grid">
+            {Object.entries(ROLE_CONFIG).map(([roleId, cfg]) => (
+              <button key={roleId}
+                      type="button"
+                      onClick={() => toggleRole(roleId)}
+                      className={`role-toggle ${selectedRoles.includes(roleId) ? 'active' : ''}`}>
+                {cfg.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <div className="inspector-label mb-2">Source Evidence</div>
+          <div className="inspector-box">
+            <div style={{whiteSpace:'pre-wrap'}}>{selected?.source_quote || '未提供原文摘錄'}</div>
+            <div className="mt-3 text-xs text-gray-500">
+              出處：{selected?.source_url ? (
+                <a href={selected.page_number ? `${selected.source_url}#page=${selected.page_number}` : selected.source_url}
+                   target="_blank" rel="noreferrer" className="source-link">
+                  {selected.source_title || selected.source_id}
+                </a>
+              ) : (selected?.source_title || selected?.source_id || 'unknown')}
+              {selected?.page_number && <span> · 第 {selected.page_number} 頁</span>}
+            </div>
+          </div>
+        </div>
+
+        <div className="inspector-actions">
+          <button type="button" className="review-btn danger" onClick={() => selected && onReject(selected.id)}>
+            剔除
+          </button>
+          <button type="button" className="review-btn" onClick={() => selected && setEditableText(selected.proposed_text)}>
+            還原
+          </button>
+          <button type="button" className="review-btn primary" disabled={!selected || selectedRoles.length === 0} onClick={approveSelected}>
+            {edited ? '確認修改並通過' : '確認通過'}
+          </button>
+        </div>
+      </aside>
     </div>
   );
 }

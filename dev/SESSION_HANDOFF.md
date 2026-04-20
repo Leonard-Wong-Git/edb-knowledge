@@ -6,7 +6,7 @@
    - `index.html` — **EDB S1 Home** ✅ (Session 80 重構)；米白+深綠+磚黃 palette; ⌘K → q.html; stats rail; 5 template cards → t-purchase.html
    - `t-purchase.html` — **S3 Template Detail + S4/S5 Draft Flow** ✅；split grid; live validation; skeleton preview; step-based progress/result state; draft canvas with sources panel
    - `q.html` — **S6 Quick Q&A** ✅ (Session 80 新增)；⌘K modal fallback; idle/answer/no-confident-answer states
-   - `app.html` — **K1知識平台 FULL REACT SPA** ✅ (EDB token system Session 80); tabs: 平台介紹 / 智能搜尋 (Channel A/B/A+B) / 指引文件庫 / 通告分析 / 知識提煉(Admin) / 知識管理(Admin)
+   - `app.html` — **K1知識平台 FULL REACT SPA** ✅ (EDB token system Session 80 + Phase 3 review split); tabs: 平台介紹 / 智能搜尋 (Channel A/B/A+B) / 指引文件庫 / 通告分析 / 知識提煉(Admin) / 知識管理(Admin)
    - `backend/src/` — Node.js TypeScript backend; Phase 1 search APIs complete:
      - `backend/src/lib/wikiRepository.ts` ✅
      - `backend/src/api/searchChannelA.ts` ✅
@@ -182,9 +182,11 @@ python3 dev/vault/build_wiki_index.py
 - ✅ S4 Generation Progress implemented in-page: 5 steps, ETA/progress track, source-mode copy, document skeleton reveal, completion state
 - ✅ S5 Draft Canvas implemented in-page: document canvas, source/citation panel, stale-source warning, section selection, revision action bar
 
-### Phase 3 — 知識提煉改版 + WordCloud 刪除
-- 左右分欄佈局，即時行內修訂
-- 刪除 floatWord 動畫
+### Phase 3 — 知識提煉改版 ✅
+- ✅ 知識提煉 Admin 改為左右分欄：左候選清單，右 evidence / role / inline revision inspector
+- ✅ 即時行內修訂：右側 textarea 可直接改候選事實文字並用既有 approve handler 寫入
+- ✅ Mobile fallback：980px 以下自動上下排列，inspector 不 sticky
+- ✅ 舊 CandidateCard review 實作已整合移除，避免雙重審核 UI 長期並存
 
 ### Phase 4 — 指引文件庫雙重排序
 - 加入 `sub_category`，三層排序
@@ -209,8 +211,10 @@ python3 dev/vault/build_wiki_index.py
 
 ## Last Session Record
 1. UTC date: 2026-04-20
-2. Session ID: Codex_20260420_1413 (S4 follow-up)
+2. Session ID: Codex_20260420_1427 (Phase 3 review split)
 3. Completed:
+   - ✅ **[Phase 3]** `app.html` 知識提煉 Admin now uses left candidate queue + right evidence/revision inspector
+   - ✅ **[Phase 3]** inline candidate text revision and role toggles retained existing approve/reject data flow
    - ✅ **[S5 Draft Canvas]** `t-purchase.html` now opens an in-page draft workspace after S4 completion
    - ✅ **[S5 source panel]** Section selection updates citation cards and stale-source warning
    - ✅ **[S4 Generation Progress]** `t-purchase.html` "生成" button now opens in-page step progress instead of alert stub
@@ -224,7 +228,8 @@ python3 dev/vault/build_wiki_index.py
    - **Circular System 落地**: edb_scraper.py `_write_policy_signal()` (deferred from Session 79)
 5. Next priorities (Session 81):
    - 📋 Circular System: edb_scraper.py `_write_policy_signal()` (deferred)
-   - 📋 Phase 3: 知識提煉 left-right split panel redesign in `app.html`
+   - 📋 Phase 4: 指引文件庫 dual sort (`sub_category`)
+   - 📋 Phase 5: Channel B 後台管理
 6. Risks / blockers:
    - Channel A searchChannelA.ts embeds ALL 1,001 facts per query — monitor token usage
    - Channel B Circular System 接入明確暫停
