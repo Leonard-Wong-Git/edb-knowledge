@@ -3,9 +3,10 @@
 ## Current Baseline
 1. Version: **v1.6.0** (K1知識平台)
 2. Core files:
-   - `index.html` — **K1 知識平台 Landing Page（入口）** ✅ (Session 77 重構)；dark theme, particle canvas, scroll reveal, stats counter, bento features, CTA → app.html
-   - `app.html` — **K1知識平台 FULL REACT SPA** ✅ (Phase 2 migration complete); tabs: 平台介紹 / 智能搜尋 (Channel A/B/A+B) / 指引文件庫 / 通告分析 / 知識提煉(Admin) / 知識管理(Admin)
-   - `k1-dashboard.html` — **已刪除**（git rm，Session 77）
+   - `index.html` — **EDB S1 Home** ✅ (Session 80 重構)；米白+深綠+磚黃 palette; ⌘K → q.html; stats rail; 5 template cards → t-purchase.html
+   - `t-purchase.html` — **S3 Template Detail + Requirements Form** ✅ (Session 80 新增)；split grid; live validation; skeleton preview
+   - `q.html` — **S6 Quick Q&A** ✅ (Session 80 新增)；⌘K modal fallback; idle/answer/no-confident-answer states
+   - `app.html` — **K1知識平台 FULL REACT SPA** ✅ (EDB token system Session 80); tabs: 平台介紹 / 智能搜尋 (Channel A/B/A+B) / 指引文件庫 / 通告分析 / 知識提煉(Admin) / 知識管理(Admin)
    - `backend/src/` — Node.js TypeScript backend; Phase 1 search APIs complete:
      - `backend/src/lib/wikiRepository.ts` ✅
      - `backend/src/api/searchChannelA.ts` ✅
@@ -202,22 +203,23 @@ python3 dev/vault/build_wiki_index.py
 ---
 
 ## Last Session Record
-1. UTC date: 2026-04-18
-2. Session ID: Claude_20260418_0003 (Session 79)
+1. UTC date: 2026-04-20
+2. Session ID: Claude_20260420_1430 (Session 80)
 3. Completed:
-   - ✅ **[Channel A merge]** 408 candidates all approved → merged into role_facts.json: 109 → **1,001 facts** (v2.1.0)
-   - ✅ **[Queue cleared]** candidate_queue.json + candidate_queue.js 清空；archive saved to `candidate_queue_archive_20260418.json`
-   - ✅ **[app.html updated]** INITIAL_DATA + INITIAL_REVIEW_STATE (1,001 entries) + chunk counts (810 → 2,874) all updated
-   - ✅ **[index.html updated]** Landing page stats: 109 → 1,001 facts, 2,840 → 2,874 chunks
-   - ✅ **[version bump]** v1.5.0 → v1.6.0
+   - ✅ **[EDB design system]** index.html → S1 Home; t-purchase.html → S3 Form; q.html → S6 Q&A; app.html token retrofit + ~40 hex → CSS vars
+   - ✅ **[Governance install]** AGENTS.md + CLAUDE.md + GEMINI.md + docs/qa/session_log_maintenance.py
+   - ✅ **[Cleanup]** landing.html + k1-wiki.html deleted; dev/design/ reference files archived
+   - ✅ **[Merged]** branch `claude/happy-ride-96c28f` → `main` directly
 4. Pending from last session (not yet done):
-   - **Circular System 落地**: edb_scraper.py `_write_policy_signal()` 實裝（設計已完成 Session 78）
-5. Next priorities (Session 80):
-   - 📋 **[Circular System 落地]** edb_scraper.py 加入 `_write_policy_signal()` — 確認 pdf_url / title 變數名後落地
-   - 📋 Phase 3: 知識提煉 left-right split panel redesign (deferred)
-   - 📋 Phase 4: Guidelines 3-level sort with sub_category (deferred)
-   - 📋 Phase 5: Channel B admin prompt editor (deferred)
+   - **S4 Generation Progress**: t-purchase.html "生成" button stubs with alert()
+   - **S5 Draft Canvas**: not started
+   - **Circular System 落地**: edb_scraper.py `_write_policy_signal()` (deferred from Session 79)
+5. Next priorities (Session 81):
+   - 📋 S4 Generation Progress screen (t-purchase.html 生成 → progress/result)
+   - 📋 S5 Draft Canvas
+   - 📋 Circular System: edb_scraper.py `_write_policy_signal()` (deferred)
 6. Risks / blockers:
-   - Channel A searchChannelA.ts embeds ALL facts per query — **1,001 facts now** — monitor token usage (was fine at 109, now 10× larger)
+   - Channel A searchChannelA.ts embeds ALL 1,001 facts per query — monitor token usage
    - Channel B Circular System 接入明確暫停
-   - Channel B/A+B requires local backend (`npm run dev`) — not deployable to GitHub Pages
+   - Channel B/A+B requires local backend (`npm run dev`) — not on GitHub Pages
+   - session_log_maintenance.py --apply has entry parser edge case (entry_count=0); manual archiving needed until fixed

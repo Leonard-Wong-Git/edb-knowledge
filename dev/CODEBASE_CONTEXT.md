@@ -7,8 +7,15 @@
 - Hosting: GitHub Pages via `main` branch
 
 ## Directory Map
-- `index.html` — **PRIMARY React SPA** (Phase 2 complete): K1知識平台 full app (3183 lines); tabs: 平台介紹, 智能搜尋 (Channel A/B/A+B), 指引文件庫, 通告分析, 知識提煉(Admin), 知識管理(Admin); PlatformIntroPanel; WordCloud removed
-- `k1-dashboard.html` — **DEPRECATED**: preserved as legacy backup; v1 link in index.html header (opacity 0.4)
+- `index.html` — **EDB S1 Home** (Session 80 redesign): 米白+深綠+磚黃 EDB palette; ⌘K → q.html; omni search; stats rail (knowledge.json); 5 template cards → t-purchase.html; A/B/AB channel toggle; Noto Sans HK
+- `t-purchase.html` — **S3 Template Detail + Requirements Form** (NEW Session 80): split grid; 4 required + 2 optional fields; live validation; skeleton preview §1–§5; source control radio (A/B/AB)
+- `q.html` — **S6 Quick Q&A** (NEW Session 80): ⌘K modal fallback; autofocus input; idle/answer/no-confident-answer states; inline citations; Esc → index.html; ?q= hash prefill
+- `app.html` — **K1知識平台 FULL REACT SPA** (EDB token system Session 80): full EDB CSS token retrofit; legacy alias remap (--cd/--mocha/--charcoal → new tokens); 1,001 facts; tabs: 平台介紹, 智能搜尋 (Channel A/B/A+B), 指引文件庫, 通告分析, 知識提煉(Admin), 知識管理(Admin)
+- `dev/design/` — Design reference files: Spec.html, Preview.html, Prototype.html (archived from ~/Downloads, Session 80)
+- `AGENTS.md` — Governance SSOT (installed Session 80 from INIT.md); §0–§12 rules
+- `CLAUDE.md` — `@AGENTS.md` bridge for Claude Code
+- `GEMINI.md` — `@./AGENTS.md` bridge for Gemini CLI
+- `docs/qa/session_log_maintenance.py` — §4a archive utility: --check / --apply / --self-test
 - `README.md` — project overview, feature summary, live demo link
 - `CHANGELOG.md` — release history through `v1.3.1`
 - `K1_KNOWLEDGE_INTERFACE_SPEC.md` — external data contract and validation expectations for `role_facts.json`; now v2.0.0 with `subject_head` + `panel_chair`
@@ -159,3 +166,4 @@
 - `2026-04-17 (Claude_20260417_0004)` Added g02 (財務管理指引, 17p, 726 lines) and g03 (全方位學習津貼, 5p, 286 lines) vault extracts via pdftotext. Total new extracts this session: 20 source_ids. SESSION_HANDOFF updated with full pending command list.
 - `2026-04-17 (Claude_20260417_0003)` Added policy_signals.json (empty template with schema metadata) to dev/knowledge/. Documented Policy Signals暗盤機制 in CODEBASE_CONTEXT and SESSION_HANDOFF [TODO-1]. Mechanism: edb_scraper.py v3.0.45+ silently writes strong-signal circulars (title_keyword ∩ topic:curriculum) to this file; admin reviews and marks status reviewed; not shown in UI. 3 pending signals (EDBC002/3/5 2026) awaiting workflow confirmation.
 - `2026-04-17 (Claude_20260417_0002)` Session 76: (1) Channel B full debug — CORS_ORIGIN=*, wikiRepository path fix, --env-file=.env. (2) searchChannelB.ts rewritten: LLM synthesis, statistical filtering, CJK text clean, page# extraction. (3) searchCombined.ts rewritten: A+B parallel, dedup, merged synthesis. (4) index.html: synthesis block (Mocha Mousse), SourcesAccordion (groups by URL, approved facts green). (5) SAG Ch2/4/5 + edbc12_2025 extracted; wiki_index rebuilt (810→1,235 chunks, 53 MB). (6) Batch extracted 18 new source PDFs via pdftotext: g05(30p), g11(calendar, 3 docs), edbc13/18/9/20(pri_science+ph_pri circulars), pri_curr_guide_2024(80/343p), ph_pri_guide_2025(80p), pri_science_guide_2025(80p), chi_pri_guide_2023(67p), eng_pri_guide_2025(80p), gs_pri_guide_2017(80p), ma_kla_guide_2017(80p), chi_hist_jss_2019(79p), chi_jss_guide_2023(66p), music_p1_s6_2024(65p), va_p1_s6_2024(53p), pe_kla_2017(80p). Channel A: 6/148 sources done; user approved queue. Pending: run extract_candidates.py for new sources + build_wiki_index.py locally.
+- `2026-04-20 (Claude_20260420_1430)` Session 80: Applied EDB design system across all frontend pages. index.html → EDB S1 Home (米白+深綠+磚黃 palette, ⌘K, stats rail, template cards). NEW t-purchase.html (S3 Template Detail + Requirements Form). NEW q.html (S6 Quick Q&A, ⌘K modal fallback). app.html full :root token retrofit + legacy alias remap + ~40 hardcoded hex → CSS vars. Archived design reference files (Spec/Preview/Prototype.html) to dev/design/. Installed AGENTS.md governance framework (CLAUDE.md + GEMINI.md bridges, docs/qa/session_log_maintenance.py §4a utility). Deleted landing.html + k1-wiki.html. Merged to main. Directory map updated this entry.
