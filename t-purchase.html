@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="zh-Hant-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>校本採購指引 — EDB 智能知識庫</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B1F1A;--ink-2:#3A4238;--ink-3:#6B7268;
+    --paper:#F7F4ED;--paper-2:#FBF9F3;
+    --line:#D8D2C4;--line-2:#E8E3D6;
+    --edb:#1F3A2E;--edb-2:#2E5A46;--edb-wash:#E9EFE9;
+    --accent:#8B6B2E;--stale:#8A7A3B;--warn:#7A3B1F;
+    --sans:"Noto Sans HK","PingFang HK","Microsoft JhengHei",Arial,sans-serif;
+    --mono:"IBM Plex Mono","SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--sans);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--edb-2);text-decoration:none}
+  a:hover{color:var(--edb)}
+
+  .nav{position:sticky;top:0;z-index:20;background:rgba(247,244,237,.92);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;
+    justify-content:space-between;gap:16px;padding:14px 28px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand .mark{width:28px;height:28px;background:var(--edb);color:var(--paper);
+    font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;
+    display:grid;place-items:center;border-radius:2px}
+  .brand .name{font-weight:700;font-size:15px}
+  .back{font-family:var(--mono);font-size:11px;color:var(--ink-3);
+    letter-spacing:.08em;text-transform:uppercase}
+
+  .wrap{max-width:1280px;margin:0 auto;padding:28px 28px 80px}
+
+  /* page header */
+  .page-head{border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:24px;
+    display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--edb)}
+  h1{font-weight:700;font-size:26px;letter-spacing:-.01em;margin:8px 0 4px;line-height:1.25}
+  .meta-row{font-family:var(--mono);font-size:11px;letter-spacing:.06em;
+    color:var(--ink-3);text-transform:uppercase}
+  .meta-row span+span::before{content:" · ";color:var(--line)}
+  .head-actions{display:flex;gap:8px}
+  .btn{font-family:inherit;font-size:13px;padding:9px 14px;border-radius:2px;
+    border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;
+    text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+  .btn:hover{border-color:var(--edb);color:var(--edb)}
+  .btn.primary{background:var(--edb);color:var(--paper);border-color:var(--edb)}
+  .btn.primary:hover{background:var(--edb-2);border-color:var(--edb-2);color:var(--paper)}
+  .btn.primary:disabled{background:var(--ink-3);border-color:var(--ink-3);cursor:not-allowed;opacity:.6}
+
+  /* intro what-you-get */
+  .intro{background:#fff;border:1px solid var(--line);border-left:3px solid var(--edb);
+    padding:14px 18px;margin-bottom:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:720px){.intro{grid-template-columns:1fr}}
+  .intro .k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--edb)}
+  .intro .v{font-size:14px;color:var(--ink-2);margin-top:3px}
+
+  /* 2-col form + preview */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  @media(max-width:900px){.split{grid-template-columns:1fr}}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:2px;padding:18px 20px}
+  .panel-head{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--edb);
+    padding-bottom:10px;margin-bottom:14px;border-bottom:1px solid var(--line-2)}
+
+  /* form fields per spec RequirementField */
+  .fld{margin-bottom:16px}
+  .fld label{display:block;font-size:13px;color:var(--ink-2);margin-bottom:6px;font-weight:500}
+  .fld label .req{color:var(--edb);margin-left:2px;font-family:var(--mono)}
+  .fld label .opt{color:var(--ink-3);font-family:var(--mono);font-size:10.5px;
+    letter-spacing:.06em;text-transform:uppercase;margin-left:6px}
+  .fld input,.fld select,.fld textarea{
+    width:100%;font-family:inherit;font-size:14px;color:var(--ink);
+    background:var(--paper-2);border:1px solid var(--line);border-radius:2px;
+    padding:9px 11px;outline:0;transition:border-color .15s
+  }
+  .fld input:focus,.fld select:focus,.fld textarea:focus{
+    border-color:var(--edb);background:#fff}
+  .fld .hint{font-size:12px;color:var(--ink-3);margin-top:4px}
+  .fld.error input{border-bottom-color:var(--warn);border-bottom-width:2px}
+  .fld .err{font-size:12px;color:var(--warn);margin-top:4px;font-family:var(--mono);
+    letter-spacing:.04em}
+
+  /* source control radios */
+  .src-ctrl{margin-top:22px;padding-top:18px;border-top:1px solid var(--line-2)}
+  .src-ctrl .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--edb);margin-bottom:10px}
+  .src-ctrl label.r{display:flex;gap:10px;align-items:flex-start;padding:9px 0;
+    border-top:1px dashed var(--line-2);cursor:pointer;font-size:13.5px}
+  .src-ctrl label.r:first-of-type{border-top:0}
+  .src-ctrl label.r input{margin-top:3px;accent-color:var(--edb)}
+  .src-ctrl label.r .t{flex:1}
+  .src-ctrl label.r .t b{color:var(--ink);font-weight:600}
+  .src-ctrl label.r .t .d{color:var(--ink-3);font-size:12.5px;margin-top:2px}
+  .src-ctrl label.r .reco{font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--edb);background:var(--edb-wash);
+    padding:1px 6px;border-radius:2px;align-self:flex-start}
+
+  /* skeleton preview per spec §3 */
+  .sk-list .sk{display:grid;grid-template-columns:28px 1fr 100px;gap:10px;
+    padding:9px 0;border-top:1px dashed var(--line-2);align-items:baseline;font-size:13.5px}
+  .sk-list .sk:first-of-type{border-top:0}
+  .sk-list .sk .n{font-family:var(--mono);font-size:11px;color:var(--edb)}
+  .sk-list .sk .cite{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);
+    letter-spacing:.04em;text-align:right}
+  .sk-est{margin-top:14px;padding-top:12px;border-top:1px solid var(--line-2);
+    font-size:13px;color:var(--ink-2)}
+  .sk-est b{color:var(--ink);font-weight:600}
+
+  /* sticky submit bar (mobile only) */
+  .submit-bar{margin-top:20px;display:flex;justify-content:flex-end;gap:10px}
+
+  /* validation summary */
+  .val-warn{background:#fff;border:1px solid var(--line);border-left:3px solid var(--stale);
+    padding:10px 14px;margin-top:12px;font-size:13px;color:var(--ink-2);display:none}
+  .val-warn.show{display:block}
+  .val-warn .t{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--stale);margin-right:8px}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="mark">EDB</span><span class="name">智能知識庫</span>
+    </a>
+    <a class="back" href="index.html">← 返回首頁</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="page-head">
+    <div>
+      <div class="eyebrow">Template · Finance</div>
+      <h1>校本採購指引</h1>
+      <div class="meta-row">
+        <span>~3 min</span><span>引 6–8 源</span><span>已用 47 次</span><span>last updated 2026-04-14</span>
+      </div>
+    </div>
+    <div class="head-actions">
+      <a class="btn" href="index.html">取消</a>
+      <button class="btn primary" id="submit" disabled>生成 (~22 秒) ▸</button>
+    </div>
+  </div>
+
+  <div class="intro">
+    <div><div class="k">Outputs</div><div class="v">5 個 section · 可 export .docx/PDF</div></div>
+    <div><div class="k">Citation</div><div class="v">自動引 4–6 份 EDB 通告 + 已核實事實</div></div>
+    <div><div class="k">Metadata</div><div class="v">填入校本資料 12 項(6 必填 / 6 可選)</div></div>
+  </div>
+
+  <div class="split">
+    <!-- LEFT: form -->
+    <form class="panel" id="form" novalidate>
+      <div class="panel-head">校本資料</div>
+
+      <div class="fld" data-required>
+        <label>學校名稱<span class="req">*</span></label>
+        <input name="school" placeholder="例:聖保祿中學">
+      </div>
+
+      <div class="fld" data-required>
+        <label>學年<span class="req">*</span></label>
+        <select name="year">
+          <option value="">— 請選擇 —</option>
+          <option>2026-27</option><option>2027-28</option><option>2028-29</option>
+        </select>
+      </div>
+
+      <div class="fld" data-required>
+        <label>生效日期<span class="req">*</span></label>
+        <input type="date" name="effective">
+      </div>
+
+      <div class="fld" data-required>
+        <label>負責人 / 職銜<span class="req">*</span></label>
+        <input name="owner" placeholder="例:黃主任 · 總務">
+        <div class="hint">會出現喺文件 §5 附件簽署欄</div>
+      </div>
+
+      <div class="fld">
+        <label>採購上限 (HKD)<span class="opt">可選</span></label>
+        <input type="number" name="cap" placeholder="500000" min="0" step="1000">
+        <div class="hint">留空則沿用 EDB 預設層級</div>
+      </div>
+
+      <div class="fld">
+        <label>特別條款<span class="opt">可選</span></label>
+        <textarea name="terms" rows="3" placeholder="例:圖書館 / 實驗室消耗品豁免報價…"></textarea>
+      </div>
+
+      <div class="src-ctrl">
+        <div class="lbl">來源控制</div>
+        <label class="r"><input type="radio" name="channel" value="A">
+          <span class="t"><b>只用已核實事實</b><div class="d">快 · 嚴謹 · 冇 EDB 原文直接引用</div></span></label>
+        <label class="r"><input type="radio" name="channel" value="B">
+          <span class="t"><b>加入 EDB 原文</b><div class="d">慢少少 · 會直接抽通告段落</div></span></label>
+        <label class="r"><input type="radio" name="channel" value="AB" checked>
+          <span class="t"><b>兩者都用</b><div class="d">Default · 建議用</div></span>
+          <span class="reco">建議</span></label>
+      </div>
+
+      <div class="val-warn" id="warn"><span class="t">未填完整</span><span id="warn-text"></span></div>
+
+      <div class="submit-bar">
+        <a class="btn" href="index.html">儲草稿</a>
+      </div>
+    </form>
+
+    <!-- RIGHT: skeleton preview -->
+    <div class="panel">
+      <div class="panel-head">骨架預覽</div>
+      <div class="sk-list">
+        <div class="sk"><span class="n">§1</span><span>宗旨與適用範圍 — 引 EDBC 02/2023 + 校本辦學使命</span><span class="cite">2–3 cite</span></div>
+        <div class="sk"><span class="n">§2</span><span>採購原則(物有所值 / 公開公平 / 可問責)</span><span class="cite">2 cite</span></div>
+        <div class="sk"><span class="n">§3</span><span>程序與審批層級(按金額分四階)</span><span class="cite">1–2 cite</span></div>
+        <div class="sk"><span class="n">§4</span><span>校本補充條款(採購上限、豁免)</span><span class="cite">0 cite · 校本</span></div>
+        <div class="sk"><span class="n">§5</span><span>附件:表格清單 + 生效日 + 負責人</span><span class="cite">0 cite</span></div>
+      </div>
+      <div class="sk-est">
+        預計引用 <b>7 個 EDB 源 + 12 條事實</b> · 預計生成時間 <b>~22 秒</b>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const form=document.getElementById('form');
+const btn=document.getElementById('submit');
+const warn=document.getElementById('warn');
+const warnT=document.getElementById('warn-text');
+
+function check(){
+  const flds=form.querySelectorAll('[data-required]');
+  let missing=0;
+  flds.forEach(f=>{
+    const el=f.querySelector('input,select,textarea');
+    const empty=!el.value.trim();
+    f.classList.toggle('error',empty);
+    if(empty)missing++;
+  });
+  btn.disabled=missing>0;
+  if(missing>0){
+    warn.classList.add('show');
+    warnT.textContent=`共 ${missing} 個必填尚未完成`;
+  } else {
+    warn.classList.remove('show');
+  }
+}
+form.addEventListener('input',check);
+form.addEventListener('change',check);
+btn.addEventListener('click',e=>{
+  e.preventDefault();
+  if(btn.disabled)return;
+  alert('生成流程將跳轉去 /d/:id?state=gen (S4)\n此為 layout demo,未接 backend。');
+});
+check();
+</script>
+</body>
+</html>

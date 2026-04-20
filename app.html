@@ -3,76 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>K1知識平台</title>
+<title>EDB 智能知識庫 — 工作室</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════════
-   K1知識平台 — Dashboard Design System
-   Pantone 2026: Cloud Dancer #F0EEE9
-   Pantone 2025: Mocha Mousse #A47764
-   ui-ux-responsive skill applied
+   EDB 智能知識庫 — Facade Design System (Spec v0.1)
+   Palette: Paper #F7F4ED + EDB Green #1F3A2E + Accent #8B6B2E
+   Zero sparkle, zero purple gradient, zero streaming.
+   Legacy var names (--cd, --mocha, --charcoal…) remapped
+   to new palette so existing markup inherits automatically.
 ═══════════════════════════════════════════════════════ */
 
-/* ── Design Tokens ─────────────────────────────────── */
+/* ── Design Tokens (EDB facade) ────────────────────── */
 :root {
-  /* Cloud Dancer palette */
-  --cd:        #F0EEE9;
-  --cd-warm:   #F8F6F2;
-  --cd-cream:  #E4DFD5;
-  --cd-stone:  #C8C2B8;
-  /* Mocha Mousse palette */
-  --mocha:     #A47764;
-  --mocha-dk:  #8B6355;
-  --mocha-lt:  #C4A882;
-  --bark:      #6B4F3F;
-  /* Neutrals */
-  --charcoal:  #3A3735;
-  --mid:       #6B6864;
-  --sea:       #9EC4B8;
-  --border:    #D9D5CE;
-  --border-lt: #EAE6DF;
-  /* Legacy aliases (keep Tailwind overrides consistent) */
-  --p-primary:   #A47764;
-  --p-secondary: #C4A882;
-  --p-accent:    #8B6355;
-  --p-bg:        #F0EEE9;
-  --p-surface:   #F8F6F2;
-  --p-highlight: #E4DFD5;
-  --p-text:      #3A3735;
-  --p-muted:     #6B6864;
+  /* Canonical EDB tokens */
+  --ink:       #1B1F1A;
+  --ink-2:     #3A4238;
+  --ink-3:     #6B7268;
+  --paper:     #F7F4ED;
+  --paper-2:   #FBF9F3;
+  --line:      #D8D2C4;
+  --line-2:    #E8E3D6;
+  --edb:       #1F3A2E;
+  --edb-2:     #2E5A46;
+  --edb-wash:  #E9EFE9;
+  --accent:    #8B6B2E;   /* 校簿磚黃 */
+  --stale:     #8A7A3B;
+  --warn:      #7A3B1F;   /* 磚紅, 非 alarm red */
+
+  /* Legacy Cloud Dancer aliases → remapped to paper palette */
+  --cd:        var(--paper);
+  --cd-warm:   var(--paper-2);
+  --cd-cream:  var(--line-2);
+  --cd-stone:  var(--line);
+
+  /* Legacy Mocha aliases → remapped to EDB green + accent */
+  --mocha:     var(--edb);
+  --mocha-dk:  #0F2A1E;      /* deeper green for active/pressed */
+  --mocha-lt:  var(--accent);
+  --bark:      var(--edb);
+
+  /* Neutrals alias */
+  --charcoal:  var(--ink);
+  --mid:       var(--ink-3);
+  --sea:       var(--edb-wash);
+  --border:    var(--line);
+  --border-lt: var(--line-2);
+
+  /* Legacy --p-* aliases (Tailwind overrides) */
+  --p-primary:   var(--edb);
+  --p-secondary: var(--accent);
+  --p-accent:    var(--edb-2);
+  --p-bg:        var(--paper);
+  --p-surface:   var(--paper-2);
+  --p-highlight: var(--line-2);
+  --p-text:      var(--ink);
+  --p-muted:     var(--ink-3);
+
   /* Fluid type */
-  --text-hero: clamp(2.2rem, 5vw, 3.5rem);
-  --text-xl:   clamp(1.2rem, 2.5vw, 1.5rem);
+  --text-hero: clamp(2rem, 4.5vw, 3rem);
+  --text-xl:   clamp(1.1rem, 2.3vw, 1.35rem);
   --text-lg:   clamp(1rem, 2vw, 1.125rem);
   --text-base: clamp(0.9rem, 1.5vw, 1rem);
   --text-sm:   clamp(0.78rem, 1.2vw, 0.875rem);
+
   /* Spacing */
   --space-xs:  clamp(0.3rem, 0.8vw, 0.5rem);
   --space-sm:  clamp(0.6rem, 1.5vw, 0.875rem);
   --space-md:  clamp(1rem, 2.5vw, 1.5rem);
   --space-lg:  clamp(1.5rem, 4vw, 2.5rem);
-  /* Radius */
-  --r-sm: 8px;
-  --r-md: 12px;
-  --r-lg: 18px;
-  /* Shadows */
-  --shadow-sm: 0 1px 4px rgba(58,55,53,0.07);
-  --shadow-md: 0 4px 20px rgba(58,55,53,0.1);
-  --shadow-lg: 0 8px 40px rgba(58,55,53,0.13);
+
+  /* Radius — 紙本感, 非 pill (Spec §2.4) */
+  --r-sm: 2px;
+  --r-md: 2px;
+  --r-lg: 3px;
+
+  /* Shadows — hairline paper, 非 SaaS drop shadow */
+  --shadow-sm: 0 1px 0 var(--line-2);
+  --shadow-md: 0 2px 0 var(--line);
+  --shadow-lg: 0 2px 0 var(--line), 0 0 0 1px var(--line);
+
+  /* Typography stack */
+  --font-sans: "Noto Sans HK","IBM Plex Sans","PingFang HK","Microsoft JhengHei","Helvetica Neue",Arial,sans-serif;
+  --font-mono: "IBM Plex Mono","SF Mono",Menlo,Consolas,monospace;
 }
 
 /* ── Reset & Base ──────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 html { font-size: 16px; }
 body {
-  font-family: 'PingFang HK', -apple-system, BlinkMacSystemFont, "Noto Sans TC", "Segoe UI", sans-serif;
-  background: var(--cd);
-  color: var(--charcoal);
-  line-height: 1.6;
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.65;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -183,8 +214,8 @@ body {
   font-size: var(--text-sm); white-space: nowrap;
 }
 .k1-badge-warning { background: rgba(164,119,100,0.1); color: var(--mocha-dk); border: 1px solid rgba(164,119,100,0.2); }
-.k1-badge-ok { background: rgba(100,160,110,0.1); color: #4A8F5C; border: 1px solid rgba(100,160,110,0.2); }
-.k1-badge-error { background: rgba(190,60,60,0.08); color: #A83232; border: 1px solid rgba(190,60,60,0.15); }
+.k1-badge-ok { background: var(--edb-wash); color: var(--edb); border: 1px solid var(--edb-2); }
+.k1-badge-error { background: var(--paper-2); color: #A83232; border: 1px solid var(--warn); }
 
 /* ── Export Button ─────────────────────────────────── */
 .export-btn {
@@ -305,7 +336,7 @@ body {
   padding: 7px 16px; font-size: var(--text-sm); font-weight: 600;
   cursor: pointer; transition: background 0.15s; font-family: inherit;
 }
-.k1-btn-approve-all:hover { background: #4A8F5C; }
+.k1-btn-approve-all:hover { background: var(--edb); }
 
 /* ── Fact Cards ─────────────────────────────────────── */
 .fact-card {
@@ -315,7 +346,7 @@ body {
 }
 .fact-card:hover { box-shadow: var(--shadow-md); }
 .fact-card.draft { border-left: 3px solid var(--mocha-lt); }
-.fact-card.approved { border-left: 3px solid #7BAE7F; }
+.fact-card.approved { border-left: 3px solid var(--edb-2); }
 
 /* ── Role Badge ─────────────────────────────────────── */
 .role-badge {
@@ -2179,7 +2210,7 @@ function EditModal({ isOpen, onClose, onSave, editData }) {
                   className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">取消</button>
           <button onClick={() => { onSave({ ...editData, fact: text.trim(), roleId: role }); onClose(); }}
                   disabled={!isValid}
-                  style={{ background: isValid ? 'var(--p-primary)' : '#d1d5db' }}
+                  style={{ background: isValid ? 'var(--p-primary)' : 'var(--line)' }}
                   className="px-4 py-2 text-sm text-white rounded-lg hover:opacity-90 transition-all disabled:cursor-not-allowed">
             {isNew ? '新增草稿' : editData?.isRoleChange ? '確認更改' : '儲存'}
           </button>
@@ -2363,7 +2394,7 @@ function AdminPasswordModal({ isOpen, onClose, onSuccess }) {
               取消
             </button>
             <button type="submit" disabled={checking || pw.length === 0}
-                    style={(checking || pw.length === 0) ? { backgroundColor: '#f3f4f6', color: '#9ca3af', border: '1px solid #e5e7eb', cursor: 'not-allowed' } : { backgroundColor: '#0d9488', color: '#ffffff' }}
+                    style={(checking || pw.length === 0) ? { backgroundColor: 'var(--paper-2)', color: 'var(--ink-3)', border: '1px solid #e5e7eb', cursor: 'not-allowed' } : { backgroundColor: 'var(--edb)', color: '#ffffff' }}
                     className="flex-1 px-3 py-2 text-sm font-bold rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-amber-200 shadow-sm relative z-10">
               {checking ? '驗證中…' : '確認'}
             </button>
@@ -2545,7 +2576,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
                   {/* Link */}
                   <div className="flex-shrink-0 flex items-center">
                     <a href={g.url} target="_blank" rel="noopener"
-                       style={{ background: '#A47864', color: '#ffffff' }}
+                       style={{ background: 'var(--edb)', color: '#ffffff' }}
                        className="flex items-center justify-center gap-1 px-4 py-2 text-xs rounded-lg font-medium transition-colors whitespace-nowrap hover:opacity-90 shadow-sm">
                       <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -2693,16 +2724,16 @@ function SourcesAccordion({ results, topicLabels }) {
   const totalChunks = results.length;
 
   return (
-    <div style={{border:'1px solid #E5E1DC',borderRadius:'var(--r-md)',overflow:'hidden'}}>
+    <div style={{border:'1px solid var(--line)',borderRadius:'var(--r-md)',overflow:'hidden'}}>
       <button onClick={() => setOpen(v => !v)}
         style={{width:'100%',display:'flex',alignItems:'center',justifyContent:'space-between',
-                padding:'10px 14px',background:'#FAFAF8',border:'none',cursor:'pointer',
-                fontSize:'var(--text-xs)',color:'#6B6B6B'}}>
+                padding:'10px 14px',background:'var(--paper-2)',border:'none',cursor:'pointer',
+                fontSize:'var(--text-xs)',color:'var(--ink-3)'}}>
         <span>📎 參考來源 · {docs.length} 份文件，{totalChunks} 個片段</span>
         <span style={{transform:open?'rotate(180deg)':'none',transition:'transform .2s'}}>▾</span>
       </button>
       {open && (
-        <div style={{background:'#FDFCFB'}}>
+        <div style={{background:'var(--paper-2)'}}>
           {docs.map((doc, di) => (
             <div key={di}
                  style={{display:'flex',alignItems:'flex-start',gap:'10px',
@@ -2714,18 +2745,18 @@ function SourcesAccordion({ results, topicLabels }) {
               <div style={{flex:1,minWidth:0}}>
                 {doc.url ? (
                   <a href={doc.url} target="_blank" rel="noopener"
-                     style={{fontSize:'var(--text-xs)',fontWeight:600,color:'#5A3E2B',
+                     style={{fontSize:'var(--text-xs)',fontWeight:600,color:'var(--ink)',
                              textDecoration:'none',display:'block',
                              overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>
                     {doc.title}
                   </a>
                 ) : (
                   <span style={{fontSize:'var(--text-xs)',fontWeight:600,
-                                color: doc.isApprovedFacts ? '#2D6A4F' : '#5A3E2B'}}>
+                                color: doc.isApprovedFacts ? 'var(--edb)' : 'var(--ink)'}}>
                     {doc.title}
                   </span>
                 )}
-                <span style={{fontSize:'10px',color:'#B0A89E'}}>
+                <span style={{fontSize:'10px',color:'var(--ink-3)'}}>
                   {doc.chunks.length} 個片段 · 最高相關度 {doc.bestScore.toFixed(2)}
                   {(() => {
                     const pages = [...new Set(doc.chunks.map(c => c.page).filter(Boolean))].sort((a,b)=>a-b);
@@ -2735,7 +2766,7 @@ function SourcesAccordion({ results, topicLabels }) {
               </div>
               {doc.url && (
                 <a href={doc.url} target="_blank" rel="noopener"
-                   style={{fontSize:'10px',color:'#A47764',textDecoration:'none',
+                   style={{fontSize:'10px',color:'var(--edb)',textDecoration:'none',
                            flexShrink:0,marginTop:'2px'}}>
                   ↗ 開啟
                 </a>
@@ -2871,10 +2902,10 @@ function QAPanel({ data, setPreviewDoc }) {
     .reduce((s, [, td]) => s + ROLE_ORDER.reduce((n, r) => n + (Array.isArray(td[r]) ? td[r].length : 0), 0), 0);
 
   const getChannelBadge = (ch, ct) => {
-    if (ch === 'A') return { bg: '#EBF5EE', color: '#2D6A4F', label: 'Channel A · 已核實' };
-    if (ct === 'approved_fact') return { bg: '#EBF5EE', color: '#2D6A4F', label: 'Channel B · 已核實' };
-    if (ct === 'stat_fact') return { bg: '#EBF0FA', color: '#2C4A8E', label: 'Channel B · 統計' };
-    return { bg: '#F5EDE8', color: '#6B4F3F', label: 'Channel B · 文件' };
+    if (ch === 'A') return { bg: 'var(--edb-wash)', color: 'var(--edb)', label: 'Channel A · 已核實' };
+    if (ct === 'approved_fact') return { bg: 'var(--edb-wash)', color: 'var(--edb)', label: 'Channel B · 已核實' };
+    if (ct === 'stat_fact') return { bg: 'var(--edb-wash)', color: 'var(--ink-2)', label: 'Channel B · 統計' };
+    return { bg: 'var(--paper-2)', color: 'var(--edb)', label: 'Channel B · 文件' };
   };
 
   const CHANNEL_OPTS = [
@@ -2942,7 +2973,7 @@ function QAPanel({ data, setPreviewDoc }) {
           </p>
         )}
         {backendError && (
-          <div style={{marginTop:'8px',padding:'10px 14px',borderRadius:'var(--r-sm)',background:'#FEF2F2',border:'1px solid #FECACA',fontSize:'var(--text-sm)',color:'#B91C1C'}}>
+          <div style={{marginTop:'8px',padding:'10px 14px',borderRadius:'var(--r-sm)',background:'var(--paper-2)',border:'1px solid #FECACA',fontSize:'var(--text-sm)',color:'var(--warn)'}}>
             ⚠️ {backendError}
           </div>
         )}
@@ -2963,14 +2994,14 @@ function QAPanel({ data, setPreviewDoc }) {
         <div className="space-y-3">
           {/* Channel B synthesis answer */}
           {synthesis && (
-            <div style={{background:'#F5F0EB',border:'1px solid #C4A882',borderRadius:'var(--r-md)',padding:'14px 16px'}}>
+            <div style={{background:'var(--paper-2)',border:'1px solid #C4A882',borderRadius:'var(--r-md)',padding:'14px 16px'}}>
               <div className="flex items-center gap-2 mb-2">
-                <span style={{fontSize:'var(--text-xs)',fontWeight:700,color:'#6B4C2A',background:'#E8D8C4',padding:'2px 8px',borderRadius:'99px',border:'1px solid #C4A88255'}}>
+                <span style={{fontSize:'var(--text-xs)',fontWeight:700,color:'var(--edb)',background:'var(--line-2)',padding:'2px 8px',borderRadius:'99px',border:'1px solid #C4A88255'}}>
                   ✦ AI 綜合答案
                 </span>
-                <span style={{fontSize:'var(--text-xs)',color:'#A47764'}}>Channel B · gpt-4.1-nano</span>
+                <span style={{fontSize:'var(--text-xs)',color:'var(--edb)'}}>Channel B · gpt-4.1-nano</span>
               </div>
-              <p style={{fontSize:'var(--text-sm)',color:'#3D2B1F',lineHeight:1.7,margin:0}}>{synthesis}</p>
+              <p style={{fontSize:'var(--text-sm)',color:'var(--ink)',lineHeight:1.7,margin:0}}>{synthesis}</p>
             </div>
           )}
           {/* Channel B with synthesis: show sources as collapsed strip */}
@@ -3281,7 +3312,7 @@ function CandidateCard({ cand, onApprove, onReject }) {
             ✕ 剔除 Reject
           </button>
           <button onClick={() => selectedRoles.length > 0 && onApprove({ ...cand, proposed_text: editableText, suggested_roles: selectedRoles })}
-                  style={selectedRoles.length === 0 ? { backgroundColor: '#f3f4f6', color: '#9ca3af', borderColor: '#e5e7eb', cursor: 'not-allowed' } : { backgroundColor: '#0d9488', color: '#ffffff', borderColor: '#0d9488' }}
+                  style={selectedRoles.length === 0 ? { backgroundColor: 'var(--paper-2)', color: 'var(--ink-3)', borderColor: 'var(--line)', cursor: 'not-allowed' } : { backgroundColor: 'var(--edb)', color: '#ffffff', borderColor: 'var(--edb)' }}
                   className="px-6 py-2 text-[13px] font-bold rounded-lg shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-amber-200 hover:-translate-y-0.5 border relative z-10 hover:shadow-md">
             ✓ {edited ? '確認修改並通過' : '確認通過 Approve'}
           </button>
@@ -3685,7 +3716,7 @@ function App() {
                   {candidateQueue.length > 0 && (
                     <span style={{
                       position:'absolute', top:'-6px', right: pendingSignalCount > 0 ? '16px' : '-4px',
-                      background:'#C84040', color:'#F0EEE9',
+                      background:'var(--warn)', color:'var(--paper)',
                       fontSize:'0.6rem', padding:'1px 5px', borderRadius:'100px',
                       fontWeight:700
                     }}>{candidateQueue.length}</span>
@@ -3693,7 +3724,7 @@ function App() {
                   {pendingSignalCount > 0 && (
                     <span title={`${pendingSignalCount} 個 Policy Signal 待處理`} style={{
                       position:'absolute', top:'-6px', right:'-4px',
-                      background:'#C4A363', color:'#0A0C10',
+                      background:'var(--accent)', color:'#0A0C10',
                       fontSize:'0.6rem', padding:'1px 5px', borderRadius:'100px',
                       fontWeight:700
                     }}>📡{pendingSignalCount}</span>
@@ -3778,8 +3809,8 @@ function App() {
               <div className="k1-card-header">審核狀態</div>
               <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',textAlign:'center',padding:'12px',gap:'4px'}}>
                 <div>
-                  <div className="k1-stat-num" style={{color:'#4A8F5C',fontSize:'1.4rem'}}>{stats.approvedCount}</div>
-                  <div className="k1-stat-label" style={{color:'#4A8F5C'}}>已確認</div>
+                  <div className="k1-stat-num" style={{color:'var(--edb)',fontSize:'1.4rem'}}>{stats.approvedCount}</div>
+                  <div className="k1-stat-label" style={{color:'var(--edb)'}}>已確認</div>
                 </div>
                 <div>
                   <div className="k1-stat-num" style={{color:'var(--mocha-dk)',fontSize:'1.4rem'}}>{stats.draftCount}</div>
@@ -3976,14 +4007,14 @@ function App() {
         <div className="k1-drawer-header flex items-center justify-between flex-shrink-0"
              style={{padding:'16px 24px'}}>
           <div className="flex flex-col min-w-0 pr-4">
-            <span className="text-xs font-bold tracking-wider uppercase mb-1" style={{color:'#A47864'}}>推入預覽</span>
+            <span className="text-xs font-bold tracking-wider uppercase mb-1" style={{color:'var(--edb)'}}>推入預覽</span>
             <h3 className="font-medium text-gray-900 truncate text-sm">{previewDoc?.title || '載入中...'}</h3>
           </div>
           <div className="flex items-center gap-3 flex-shrink-0">
             {previewDoc && (
               <a href={previewDoc.url} target="_blank" rel="noopener"
                  className="px-4 py-2 text-xs rounded border border-gray-200 font-medium transition-colors shadow-sm"
-                 style={{background:'#F5EFE8', color:'#7A5C50'}}>
+                 style={{background:'var(--paper-2)', color:'var(--ink-2)'}}>
                 另開新頁
               </a>
             )}
@@ -3992,7 +4023,7 @@ function App() {
                     style={{fontSize:'18px', lineHeight:'1'}}>✕</button>
           </div>
         </div>
-        <div className="flex-1 relative w-full flex items-center justify-center" style={{background:'#F5EFE8'}}>
+        <div className="flex-1 relative w-full flex items-center justify-center" style={{background:'var(--paper-2)'}}>
           {previewDoc && (() => {
             const url = previewDoc.url;
             const isEdbHtml = url.includes('edb.gov.hk') && !url.toLowerCase().includes('.pdf');
@@ -4001,13 +4032,13 @@ function App() {
               return (
                 <div className="text-center px-8 py-12 max-w-md">
                   <div style={{fontSize:'48px', marginBottom:'16px'}}>🔒</div>
-                  <h3 className="font-bold text-lg mb-2" style={{color:'#3D2B22'}}>EDB 網站不允許嵌入預覽</h3>
-                  <p className="text-sm mb-6" style={{color:'#8C7266'}}>
+                  <h3 className="font-bold text-lg mb-2" style={{color:'var(--ink)'}}>EDB 網站不允許嵌入預覽</h3>
+                  <p className="text-sm mb-6" style={{color:'var(--ink-2)'}}>
                     香港教育局網站設有安全限制，禁止在其他網頁內嵌入其內容。<br/>請點擊下方按鈕在新分頁開啟。
                   </p>
                   <a href={url} target="_blank" rel="noopener"
                      className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium text-white shadow-md transition-all hover:opacity-90"
-                     style={{background:'#A47864'}}>
+                     style={{background:'var(--edb)'}}>
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                     </svg>

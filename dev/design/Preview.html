@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-Hant-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EDB 智能知識庫 — 預覽</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#1B1F1A;--ink-2:#3A4238;--ink-3:#6B7268;--paper:#F7F4ED;--paper-2:#FBF9F3;--line:#D8D2C4;--line-2:#E8E3D6;--edb:#1F3A2E;--edb-2:#2E5A46;--edb-wash:#E9EFE9;--accent:#8B6B2E;--mono:"IBM Plex Mono",monospace;--sans:"Noto Sans HK","PingFang HK",Arial,sans-serif}
+  *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans)}
+  .wrap{max-width:1280px;margin:0 auto;padding:40px 28px 80px}
+  header{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:32px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--edb)}
+  h1{font-weight:700;font-size:30px;margin:10px 0 8px;letter-spacing:-.01em}
+  .sub{color:var(--ink-2);font-size:15px;max-width:720px;line-height:1.6;margin:0 0 16px}
+  .actions{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{font-family:inherit;font-size:13px;padding:9px 14px;border-radius:2px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+  .btn:hover{border-color:var(--edb);color:var(--edb)}
+  .btn.primary{background:var(--edb);color:var(--paper);border-color:var(--edb)}
+  .btn.primary:hover{background:var(--edb-2);border-color:var(--edb-2);color:var(--paper)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:840px){.grid{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:2px;overflow:hidden;display:flex;flex-direction:column}
+  .card .shot{position:relative;background:var(--paper-2);border-bottom:1px solid var(--line-2);aspect-ratio:16/10;overflow:hidden;display:grid;place-items:center}
+  .card .shot img{width:100%;height:100%;object-fit:cover;object-position:top}
+  .card .shot .placeholder{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:20px}
+  .card .shot .idx{position:absolute;top:10px;left:10px;font-family:var(--mono);font-size:10.5px;background:#fff;border:1px solid var(--line);padding:2px 8px;border-radius:2px;color:var(--edb);letter-spacing:.08em}
+  .card .body{padding:16px 18px 18px}
+  .card h3{font-size:16px;font-weight:600;margin:0 0 4px}
+  .card .route{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase}
+  .card p{font-size:13.5px;color:var(--ink-2);line-height:1.6;margin:10px 0 12px}
+  .tags{display:flex;gap:6px;flex-wrap:wrap}
+  .tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--edb);background:var(--edb-wash);padding:2px 7px;border-radius:2px}
+  .tag.ac{color:var(--accent);background:#F1EAD6}
+  .cta-strip{margin-top:36px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--edb);padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+  .cta-strip .t{font-size:14px;color:var(--ink-2)}
+  .cta-strip .t b{color:var(--ink)}
+  .meta-row{display:flex;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;margin-top:14px}
+  .meta-row span:before{content:"· ";color:var(--line);margin-right:4px}
+  .meta-row span:first-child:before{content:""}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Preview · 4 screens</div>
+    <h1>EDB 智能知識庫 — 點擊原型預覽</h1>
+    <p class="sub">由 <code>Spec.html</code> 抽出嘅 4 個重點 screen，已寫咗 React。配色、token、component 同 spec 完全對齊：深綠 <code>#1F3A2E</code> + 米白 <code>#F7F4ED</code> + 校簿磚黃 accent，零 sparkle、零 purple gradient、零 streaming token。</p>
+    <div class="actions">
+      <a class="btn primary" href="Prototype.html">開啟可點擊原型 ▸</a>
+      <a class="btn" href="Spec.html">睇返 Spec (ASCII wireframes)</a>
+    </div>
+    <div class="meta-row">
+      <span>Stack: React 18 + Vite-ready</span><span>Fonts: Noto Sans HK + IBM Plex Mono</span><span>Frozen adapter: 見 Spec 2.7</span>
+    </div>
+  </header>
+  <div class="grid">
+    <div class="card">
+      <div class="shot"><span class="idx">01 · HOME</span><div class="placeholder">開原型即可見實圖<br/>· Template gallery<br/>· Omni input<br/>· Channel A/B/AB</div></div>
+      <div class="body">
+        <div class="route">/  ·  Home</div>
+        <h3>首頁：Template gallery + omni input</h3>
+        <p>Template-first 決定：8 款校本文件做第一眼。搜索框係 sticky，A/B/AB 搜索通道折疊做「進階」。右上 <code>⌘K</code> 隨時彈快速問答。</p>
+        <div class="tags"><span class="tag">JOB-A</span><span class="tag">JOB-B</span><span class="tag ac">Template card</span><span class="tag ac">Omni input</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="shot"><span class="idx">02 · TEMPLATE DETAIL</span><div class="placeholder">開原型即可見實圖<br/>· RequirementField<br/>· Skeleton preview<br/>· Radio A/B/AB</div></div>
+      <div class="body">
+        <div class="route">/t/:id  ·  Template detail + form</div>
+        <h3>揀咗 template：填校本 metadata</h3>
+        <p>左邊校本資料表格（必填打 <code>*</code>，無紅色 alarm），加來源控制。右邊實時顯示骨架同預計引用數。</p>
+        <div class="tags"><span class="tag">JOB-B</span><span class="tag ac">RequirementField</span><span class="tag ac">Skeleton preview</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="shot"><span class="idx">03 · GENERATING</span><div class="placeholder">開原型即可見實圖<br/>· Step N / 5<br/>· Source readout<br/>· Skeleton fill</div></div>
+      <div class="body">
+        <div class="route">/d/:id?state=gen</div>
+        <h3>去 AI 化重點：文件施工中</h3>
+        <p>真 progress bar + <code>step N / 5</code> + 已讀取來源 + 骨架逐段 fade-in。冇 typing cursor、冇 streaming token。</p>
+        <div class="tags"><span class="tag">State: generating</span><span class="tag ac">ProgressTrack</span><span class="tag ac">SectionSkeleton</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="shot"><span class="idx">04 · DRAFT CANVAS</span><div class="placeholder">開原型即可見實圖<br/>· Inline [n] citation<br/>· Source ledger<br/>· Stale warning<br/>· RevisionActionBar</div></div>
+      <div class="body">
+        <div class="route">/d/:id  ·  Draft canvas</div>
+        <h3>左文件，右來源，底部 action bar</h3>
+        <p>Inline 上標 <code>[n]</code> 配 highlight；右 panel source ledger 見 verified / stale 狀態。Export 係 primary action。</p>
+        <div class="tags"><span class="tag">State: generated</span><span class="tag">State: stale-source</span><span class="tag ac">SourceChip</span><span class="tag ac">ExportBar</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cta-strip">
+    <div class="t"><b>三份檔案</b>：Preview.html (呢頁) · Prototype.html (可點擊) · Spec.html (ASCII wireframes)</div>
+    <a class="btn primary" href="Prototype.html">打開原型 ▸</a>
+  </div>
+</div>
+</body>
+</html>

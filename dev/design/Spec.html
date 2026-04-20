@@ -1,0 +1,1192 @@
+<!doctype html>
+<html lang="zh-Hant-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EDB 智能知識庫 — 門面重設計 Spec</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+HK:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B1F1A;
+    --ink-2:#3A4238;
+    --ink-3:#6B7268;
+    --line:#D8D2C4;
+    --line-2:#E8E3D6;
+    --paper:#F7F4ED;
+    --paper-2:#FBF9F3;
+    --edb:#1F3A2E;
+    --edb-2:#2E5A46;
+    --accent:#8B6B2E;   /* 校本米黃 accent, not sparkle */
+    --warn:#7A3B1F;
+    --stale:#8A7A3B;
+    --radius:2px;
+  }
+  *{box-sizing:border-box}
+  html,body{background:var(--paper);color:var(--ink);margin:0}
+  body{
+    font-family:"Noto Sans HK","IBM Plex Sans","PingFang HK","Helvetica Neue",Arial,sans-serif;
+    font-size:15px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:48px 28px 160px}
+  header.doc{
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px;margin-bottom:36px;
+  }
+  header.doc .eyebrow{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--edb);
+  }
+  header.doc h1{
+    font-family:"Noto Sans HK",sans-serif;
+    font-weight:700;font-size:28px;line-height:1.25;
+    margin:10px 0 6px;letter-spacing:-.01em;
+  }
+  header.doc .meta{
+    color:var(--ink-3);font-size:12.5px;
+    font-family:"IBM Plex Mono",monospace;
+  }
+  header.doc .meta span+span::before{content:" · ";color:var(--line)}
+
+  h2{
+    font-family:"Noto Sans HK",sans-serif;font-weight:700;font-size:20px;
+    margin:56px 0 4px;letter-spacing:-.005em;
+    padding-top:24px;border-top:1px solid var(--line);
+  }
+  h2 .num{
+    font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:12px;
+    color:var(--edb);letter-spacing:.1em;display:block;margin-bottom:4px;
+  }
+  h3{
+    font-family:"Noto Sans HK",sans-serif;font-weight:600;font-size:16px;
+    margin:28px 0 8px;
+  }
+  h4{font-weight:600;font-size:14px;margin:18px 0 6px;color:var(--ink-2)}
+
+  p{margin:8px 0 12px}
+  ul,ol{padding-left:20px;margin:8px 0 14px}
+  li{margin:4px 0}
+  code,pre,.mono{font-family:"IBM Plex Mono","SF Mono",Menlo,monospace}
+  code{font-size:12.5px;background:var(--paper-2);padding:1px 5px;border:1px solid var(--line-2);border-radius:2px}
+  pre{
+    font-size:11.5px;line-height:1.45;
+    background:var(--paper-2);
+    border:1px solid var(--line);
+    border-left:3px solid var(--edb);
+    padding:14px 16px;
+    overflow-x:auto;white-space:pre;
+    color:var(--ink);
+  }
+  pre.wire{
+    background:#fff;
+    border:1px solid var(--line);
+    border-left:3px solid var(--accent);
+    font-size:10.5px;line-height:1.35;
+  }
+
+  .lede{
+    border-left:3px solid var(--edb);
+    padding:4px 0 4px 14px;
+    color:var(--ink-2);font-size:14px;margin:12px 0 20px;
+  }
+
+  /* Q&A */
+  .qa{border-top:1px solid var(--line-2);padding:14px 0}
+  .qa:first-of-type{border-top:0}
+  .qa .q{
+    font-weight:600;color:var(--ink);
+    display:flex;gap:10px;align-items:baseline;
+  }
+  .qa .q .n{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;
+    color:var(--edb);letter-spacing:.1em;flex:0 0 auto;width:22px;
+  }
+  .qa .a{color:var(--ink-2);margin:4px 0 0 32px;font-size:14px}
+
+  /* Table */
+  table{
+    width:100%;border-collapse:collapse;margin:10px 0 18px;
+    font-size:13px;
+  }
+  th,td{
+    text-align:left;vertical-align:top;
+    padding:8px 10px;border-bottom:1px solid var(--line-2);
+  }
+  th{
+    font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:11px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--edb);
+    border-bottom:1px solid var(--line);
+  }
+  td.mono{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-2)}
+  td .tag{
+    font-family:"IBM Plex Mono",monospace;font-size:10px;
+    padding:1px 6px;border:1px solid var(--line);border-radius:2px;
+    background:var(--paper-2);color:var(--ink-2);
+  }
+  td .tag.a{color:var(--edb);border-color:var(--edb-2)}
+  td .tag.b{color:var(--accent);border-color:var(--accent)}
+
+  /* wireframe block */
+  .wireset{margin:10px 0 30px}
+  .wireset .label{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--edb);
+    margin:18px 0 4px;
+  }
+  .wireset .cap{
+    font-size:12.5px;color:var(--ink-3);margin:0 0 6px;
+  }
+
+  /* Token swatches */
+  .tokens{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:10px;margin:10px 0 18px;
+  }
+  .token{
+    border:1px solid var(--line);background:#fff;
+    padding:10px 12px;border-radius:2px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .token .sw{
+    width:34px;height:34px;border-radius:2px;border:1px solid var(--line);
+    flex:0 0 auto;
+  }
+  .token .k{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--edb)}
+  .token .v{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3)}
+  .token .nm{font-size:13px;color:var(--ink);font-weight:500}
+
+  .type-sample{
+    border:1px solid var(--line);background:#fff;padding:14px 16px;margin:6px 0;
+  }
+  .type-sample .meta{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+
+  /* Component card */
+  .cmp{
+    border:1px solid var(--line);background:#fff;
+    padding:16px 18px;margin:12px 0;border-radius:2px;
+  }
+  .cmp h3{margin-top:0}
+  .cmp .row{
+    display:grid;grid-template-columns:120px 1fr;gap:12px;
+    font-size:13px;padding:4px 0;border-top:1px dashed var(--line-2);
+  }
+  .cmp .row:first-of-type{border-top:0}
+  .cmp .row .lab{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--edb);
+    padding-top:2px;
+  }
+  .cmp .row.dont .lab{color:var(--warn)}
+
+  /* Freeze callout */
+  .freeze{
+    background:#fff;border:1px solid var(--line);
+    border-left:3px solid var(--warn);
+    padding:12px 16px;margin:14px 0;font-size:13px;
+  }
+  .freeze .tag{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+    color:var(--warn);letter-spacing:.1em;text-transform:uppercase;
+    margin-right:8px;
+  }
+
+  /* State grid */
+  .states{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+    gap:10px;margin:10px 0 18px;
+  }
+  .state{
+    border:1px solid var(--line);background:#fff;padding:12px 14px;border-radius:2px;
+  }
+  .state h4{margin:0 0 6px;color:var(--edb)}
+  .state p{font-size:13px;margin:0;color:var(--ink-2)}
+  .state .ui{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3);display:block;margin-top:6px}
+
+  /* Template section */
+  .tmpl{
+    border:1px solid var(--line);background:#fff;padding:18px 20px;margin:14px 0;
+  }
+  .tmpl h3{margin-top:0;color:var(--edb)}
+  .tmpl .sect{
+    display:grid;grid-template-columns:28px 1fr 80px 80px;
+    gap:8px;font-size:13px;padding:6px 0;
+    border-top:1px dashed var(--line-2);align-items:baseline;
+  }
+  .tmpl .sect:first-of-type{border-top:0}
+  .tmpl .sect .idx{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--edb)}
+  .tmpl .sect .req{font-family:"IBM Plex Mono",monospace;font-size:10.5px}
+  .tmpl .sect .req.r{color:var(--warn)}
+  .tmpl .sect .req.o{color:var(--ink-3)}
+  .tmpl .sect .cite{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--ink-3)}
+  .tmpl .sample{
+    margin-top:14px;border-top:1px solid var(--line);padding-top:12px;
+    background:var(--paper-2);padding:12px 14px;font-size:13.5px;line-height:1.7;
+  }
+  .tmpl .sample sup{
+    font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--edb);
+    background:#fff;border:1px solid var(--edb-2);
+    padding:0 4px;border-radius:2px;margin-left:2px;vertical-align:super;
+    cursor:pointer;
+  }
+  .tmpl .sample .meta{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--ink-3);
+    letter-spacing:.08em;text-transform:uppercase;
+    margin-bottom:6px;display:block;
+  }
+
+  /* Anchor nav */
+  nav.toc{
+    border:1px solid var(--line);background:#fff;
+    padding:14px 16px;margin:0 0 28px;
+    font-size:13px;
+  }
+  nav.toc ol{list-style:none;padding:0;margin:6px 0 0;
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:4px 16px}
+  nav.toc a{color:var(--edb-2);text-decoration:none;border-bottom:1px dotted transparent}
+  nav.toc a:hover{border-bottom-color:var(--edb-2)}
+  nav.toc .lab{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--edb);
+  }
+
+  @media (max-width:640px){
+    .wrap{padding:28px 18px 100px}
+    header.doc h1{font-size:22px}
+    pre{font-size:10.5px}
+    pre.wire{font-size:9.5px}
+    .tmpl .sect{grid-template-columns:24px 1fr 60px 60px;font-size:12.5px}
+  }
+  @media print{
+    body{background:#fff}
+    .wrap{max-width:none;padding:0}
+    pre,pre.wire{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc">
+  <div class="eyebrow">Internal spec · Facade redesign</div>
+  <h1>EDB 智能知識庫 — 門面重設計</h1>
+  <div class="meta">
+    <span>v0.1 draft</span>
+    <span>2026-04-20</span>
+    <span>Backend contract: frozen</span>
+    <span>P1: 中小學行政人員</span>
+  </div>
+  <p class="lede">
+    呢份 spec 嘅定位：<b>唔係 AI chatbot，係源頭為本嘅校本文件工作室</b>。
+    Frontend 完全重做，backend（靜態 JSON + 三條 search endpoint + signals schema）一 byte 都冇動。
+    所有 chat bubble / streaming / sparkle / purple gradient 一律除掉，視覺靠近 EDB 官方文件 + Notion doc canvas 嘅 sober aesthetic。
+  </p>
+</header>
+
+<nav class="toc">
+  <div class="lab">Contents</div>
+  <ol>
+    <li><a href="#p1">Part 1 · 8 Answers</a></li>
+    <li><a href="#p21">2.1 Screen Inventory</a></li>
+    <li><a href="#p22">2.2 Wireframes (7)</a></li>
+    <li><a href="#p23">2.3 IA Diagram</a></li>
+    <li><a href="#p24">2.4 Design Tokens</a></li>
+    <li><a href="#p25">2.5 Components</a></li>
+    <li><a href="#p26">2.6 State Patterns</a></li>
+    <li><a href="#p27">2.7 Front-end Architecture</a></li>
+    <li><a href="#p3">Part 3 · Templates</a></li>
+  </ol>
+</nav>
+
+<!-- =========================================================== -->
+<h2 id="p1"><span class="num">PART 1</span>八問八答</h2>
+
+<div class="qa">
+  <div class="q"><span class="n">Q1</span>Home 第一眼 surface 乜？錯咗點知？</div>
+  <div class="a">
+    <b>Template gallery first, search 做 sticky header。</b>JOB-B（文件生成）係 80% 時間付出，JOB-A（查政策）可經同一個搜尋框 fan-out。
+    錯判訊號：<code>template_card_click_rate &lt; 15%</code>、<code>search_to_doc_conversion &lt; 8%</code>、用家返 home 後 3 秒內再打開 search（即 template 冇答到佢）。7 日 rolling 跌穿 threshold 就 swap 做 search-first。
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q"><span class="n">Q2</span>「問答」vs「文件生成」點放置？</div>
+  <div class="a">
+    <b>同一個 omni-input，後台按 intent 分流；Q&amp;A 視為「只有一段、唔存盤」嘅 document</b>。UI 層 template gallery 係主 surface，input 框有 placeholder 例示：「搜政策 · 生成文件 · 按校本 metadata 套用」。分流 classifier 用 query 長度 + 關鍵詞（生成 / 做份 / template）+ 可選下拉 override。結果：用家唔需要 mental switch，但文件 canvas 同 Q&amp;A 卡片視覺上分得開（前者全頁 doc，後者 inline answer sheet）。
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q"><span class="n">Q3</span>三通道（A/B/AB）UI 處理？</div>
+  <div class="a">
+    <b>選 (b) 折疊做「進階」，default 係 AB，後台 state 仍叫 <code>'AB'</code>。</b>
+    <ul>
+      <li>(a) 完全隱藏：最乾淨，但 EO / IT 想手動審核冇 escape hatch，policy_signals 工作流會受影響。</li>
+      <li>(b) 折疊「進階」：✓ default 無認知負擔；power user 可 pin。UI label 改叫「只用已核實事實 / 加入 EDB 原文 / 兩者都用」——code 內仍係 A/B/AB。</li>
+      <li>(c) 三選一：保留技術 framing，對 P1 40+ 歲科主任係 dead weight。</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q"><span class="n">Q4</span>Citation surface 方式？</div>
+  <div class="a">
+    <b>Inline 上標 + hover card + 右 side panel 三層合併</b>。段落內 <code>[3]</code> 風格上標（keyboard accessible）；hover / tap 彈 80–120 字節錄 + 連結；右 panel 係 session-wide source ledger（可 pin / 按 topic 排）。Mobile 冇 hover，tap 變 bottom sheet。原則：<b>citation 係文件一部分，唔係附錄</b>——export Word / PDF 會保留上標 + 尾注。
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q"><span class="n">Q5</span>Loading state 點避免 ChatGPT streaming 感？</div>
+  <div class="a">
+    <b>唔 stream token，改做「文件施工中」隱喻</b>：skeleton layout（section 標題、段落 block、表格 placeholder 全部 greyed-in）＋ 頂部一條 <code>step 2 of 5 · 抽取 EDB 第 112-118 號通告</code> 嘅 progress track。每完成一個 section 就一次過 fade-in，而非逐字出。冇 typing cursor、冇 animated dot、冇「思考中…」。ETA 顯示實際秒數（例：<code>~18s</code>）。
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q"><span class="n">Q6</span>Admin 同 public 分唔分 route？Auth？</div>
+  <div class="a">
+    <b>分 <code>/admin/*</code>，SSO-only（EDB Microsoft 365 / Azure AD），client 端 role gate，server 端 API middleware 複核</b>。
+    Public routes：<code>/</code>, <code>/t/:id</code>, <code>/d/:id</code>, <code>/q</code>。
+    Admin routes：<code>/admin/signals</code>, <code>/admin/sources</code>, <code>/admin/templates</code>。
+    唔用 magic link，避免校園 shared device lingering session；admin session idle 15 min 自動登出。
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q"><span class="n">Q7</span>前端架構？Trade-off？</div>
+  <div class="a">
+    <b>Vite + React + TanStack Router（file-based）+ TanStack Query + Zustand（UI state）</b>。
+    <ul>
+      <li>繼續 4,048 行 app.html：debt 繼續累，template gallery / admin / draft canvas 難 code-split，mobile bundle 大。</li>
+      <li>Multi-page（MPA）：SEO 好但 public site 唔需要 SEO；template 切換 / draft canvas 之間要共享 source panel state，reload 會 disrupt。</li>
+      <li>Vite file-based SPA：✓ route split、✓ 保留 single source panel、✓ 可漸進 migrate（見 2.7）。唯一代價：build pipeline 比 static HTML 複雜，但 GitHub Pages 仍 host 到 static output。</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q"><span class="n">Q8</span>Mobile / desktop 一份定兩份？</div>
+  <div class="a">
+    <b>一份 responsive，但 draft canvas 同 signal review 有 desktop-specific layout（breakpoint ≥ 1024px）</b>。理由：80% mobile 集中喺 home / template pick / Q&amp;A，呢啲 single-column 天然 OK；draft canvas 左右雙欄（文件 + sources）mobile 收埋做 tab switcher + bottom sheet。分兩份 codebase drift 風險太大，唔值得。
+  </div>
+</div>
+
+<!-- =========================================================== -->
+<h2 id="p21"><span class="num">PART 2.1</span>Screen Inventory</h2>
+
+<table>
+<thead>
+<tr><th>#</th><th>Screen</th><th>Primary job</th><th>入口</th><th>JOB</th></tr>
+</thead>
+<tbody>
+<tr><td class="mono">S1</td><td>Home</td><td>Landing、template gallery、omni search</td><td class="mono">/</td><td><span class="tag a">A</span> <span class="tag b">B</span></td></tr>
+<tr><td class="mono">S2</td><td>Template gallery（full）</td><td>12+ 文件類型揀，可 filter by topic / role</td><td class="mono">/t</td><td><span class="tag b">B</span></td></tr>
+<tr><td class="mono">S3</td><td>Template detail + form</td><td>填校本 metadata + requirements</td><td class="mono">/t/:id</td><td><span class="tag b">B</span></td></tr>
+<tr><td class="mono">S4</td><td>Generation progress</td><td>Source 抽取 + 段落生成步驟視覺化</td><td class="mono">/d/:id?state=gen</td><td><span class="tag b">B</span></td></tr>
+<tr><td class="mono">S5</td><td>Draft canvas</td><td>左文件右 sources，revision、export</td><td class="mono">/d/:id</td><td><span class="tag b">B</span></td></tr>
+<tr><td class="mono">S6</td><td>Quick Q&amp;A</td><td>Command-K 或直接 <code>/q</code>，answer sheet</td><td class="mono">/q · ⌘K</td><td><span class="tag a">A</span></td></tr>
+<tr><td class="mono">S7</td><td>My documents</td><td>Draft 歷史 / 校本版本</td><td class="mono">/me/docs</td><td><span class="tag b">B</span></td></tr>
+<tr><td class="mono">S8</td><td>Admin · Signals</td><td>policy_signals.json pending queue</td><td class="mono">/admin/signals</td><td>—</td></tr>
+<tr><td class="mono">S9</td><td>Admin · Sources</td><td>guidelines.json / knowledge.json review</td><td class="mono">/admin/sources</td><td>—</td></tr>
+<tr><td class="mono">S10</td><td>Admin · Templates</td><td>template skeleton + citation density 調教</td><td class="mono">/admin/templates</td><td>—</td></tr>
+</tbody>
+</table>
+
+<!-- =========================================================== -->
+<h2 id="p22"><span class="num">PART 2.2</span>Wireframes（7 screens × mobile 375 / desktop 1280 × 3 states）</h2>
+
+<p class="lede">
+  圖例：<code>[▭]</code> image / icon placeholder（絕不出 sparkle）；<code>━</code> divider；<code>(A) (B)</code> alt state；<code>▸</code> expandable；citation 用 <code>[n]</code>。
+</p>
+
+<!-- (i) HOME -->
+<h3>(i) Home — S1</h3>
+<p class="cap mono">states: default / search-active / offline-stale</p>
+
+<div class="wireset">
+<div class="label">Mobile 375 · default</div>
+<pre class="wire">┌─────────────────────────────┐
+│ EDB 智能知識庫           ☰  │
+│ ─────────────────────────── │
+│ ┌─────────────────────────┐ │
+│ │ 🔎  搜政策 · 生成文件…  │ │   ← omni input (tap = expand)
+│ └─────────────────────────┘ │
+│   A 已核實 · B 原文 · AB ▾  │   ← 進階折疊
+│                             │
+│ 常用校本文件              ▸ │
+│ ┌────────┐ ┌────────┐       │
+│ │ 採購   │ │ 風險   │       │   ← TemplateCard
+│ │ 指引   │ │ 評估   │       │
+│ │ 3 min  │ │ 5 min  │       │
+│ └────────┘ └────────┘       │
+│ ┌────────┐ ┌────────┐       │
+│ │ 家長   │ │ SEN    │       │
+│ │ 通告   │ │ 調配   │       │
+│ └────────┘ └────────┘       │
+│                             │
+│ 最近 EDB 動向             ▸ │
+│ ・EDB 2026/03 戶外活動修訂  │
+│ ・PECG 2024 課程對齊        │
+│                             │
+│ ─── 我的草稿 (2) ────────── │
+└─────────────────────────────┘</pre>
+
+<div class="label">Mobile 375 · search-active</div>
+<pre class="wire">┌─────────────────────────────┐
+│ ← 返回        搜索 / 生成   │
+│ ─────────────────────────── │
+│ ┌─────────────────────────┐ │
+│ │ SEN 資源調配如何解釋…   │ │
+│ └─────────────────────────┘ │
+│  意圖：◉ 生成文件  ○ 查政策 │   ← classifier 透明顯示
+│                             │
+│ 配對 template (2)           │
+│ ┌──────────────────────┐    │
+│ │ 家長通告 — 解釋信     │    │
+│ │ 5 min · 引用 4-6 源   │    │
+│ │                [選用] │    │
+│ └──────────────────────┘    │
+│ ┌──────────────────────┐    │
+│ │ 校本 SEN 調配框架     │    │
+│ └──────────────────────┘    │
+│                             │
+│ 或：直接答（Q&amp;A, 30秒）   │
+│ ┌──────────────────────┐    │
+│ │ 根據 EDBC 18/2024... │    │
+│ │ [1][2] ──── 全文 ▸   │    │
+│ └──────────────────────┘    │
+└─────────────────────────────┘</pre>
+
+<div class="label">Mobile 375 · offline / stale source</div>
+<pre class="wire">┌─────────────────────────────┐
+│ ⓘ 離線模式 · 上次同步 04-19 │   ← stale ribbon (bronze)
+│ ─────────────────────────── │
+│ 可用：已快取 12 個 template │
+│       1,001 條已核實事實    │
+│ 不可用：EDB 原文即時搜索(B) │
+│                             │
+│ [ 打開快取 template ▸ ]     │
+│ [ 重試同步 ]                │
+└─────────────────────────────┘</pre>
+
+<div class="label">Desktop 1280 · default</div>
+<pre class="wire">┌──────────────────────────────────────────────────────────────────────────────┐
+│  EDB 智能知識庫                          搜索 · 文件庫 · 我的草稿   ⌘K   ● EN │
+│ ──────────────────────────────────────────────────────────────────────────── │
+│                                                                              │
+│        ┌──────────────────────────────────────────────────────────┐          │
+│        │ 🔎  搜政策 · 生成文件 · 按校本 metadata 套用…            │          │
+│        └──────────────────────────────────────────────────────────┘          │
+│               A 已核實事實  ·  B EDB 原文  ·  AB 兩者都用（default）  ▾      │
+│                                                                              │
+│  常用校本文件                                                              ▸ │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐            │
+│  │ 採購指引 │ │ 風險評估 │ │ 家長通告 │ │ SEN 調配 │ │ 課程框架 │            │
+│  │ Finance  │ │ Activity │ │ General  │ │ Student  │ │ Curri.   │            │
+│  │ 3 min    │ │ 5 min    │ │ 2 min    │ │ 6 min    │ │ 8 min    │            │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘            │
+│                                                                              │
+│  ── 最近 EDB 動向 ─────────────  ── 我的草稿 (2) ──────────────               │
+│  ・EDBC 18/2024 戶外活動修訂     ・家長通告 v3（草稿，昨日）                 │
+│  ・PECG 2024 對齊指引            ・校本採購指引（完成，2026-04-14）          │
+└──────────────────────────────────────────────────────────────────────────────┘</pre>
+</div>
+
+<!-- (ii) Template Gallery -->
+<h3>(ii) Template Gallery — S2</h3>
+<p class="cap mono">states: default / filtered-empty / loading</p>
+
+<div class="wireset">
+<div class="label">Mobile 375 · default</div>
+<pre class="wire">┌─────────────────────────────┐
+│ ← 文件庫            filter ▾│
+│ ─────────────────────────── │
+│ 主題 [全部 財務 人事 課程   │
+│  活動 學生 IT 一般]         │
+│ 角色 [校長 副校 科主任 …]   │
+│                             │
+│ 12 款 template              │
+│ ┌──────────────────────────┐│
+│ │ 校本採購指引              ││
+│ │ Finance · 3 min          ││
+│ │ 引 6-8 源 · 已用 47 次   ││
+│ └──────────────────────────┘│
+│ ┌──────────────────────────┐│
+│ │ 戶外考察風險評估          ││
+│ │ Activity · 5 min         ││
+│ └──────────────────────────┘│
+│ …                           │
+└─────────────────────────────┘</pre>
+
+<div class="label">Mobile 375 · filtered-empty</div>
+<pre class="wire">┌─────────────────────────────┐
+│ 主題：IT                    │
+│ 角色：供應商                │
+│                             │
+│ 冇配對 template             │
+│ ──────────                  │
+│ 你可以：                    │
+│  • 清除 filter              │
+│  • 提交建議 template        │
+│  • 改用 Quick Q&amp;A 查 IT 政策│
+└─────────────────────────────┘</pre>
+
+<div class="label">Desktop 1280 · loading (skeleton, not spinner)</div>
+<pre class="wire">┌──────────────────────────────────────────────────────────────────────────────┐
+│ 文件庫 / Templates                                                           │
+│ ──────────────────────────────────────────────────────────────────────────── │
+│ [全部] [財務] [人事] [課程] [活動] [學生] [IT] [一般]                        │
+│                                                                              │
+│ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐                      │
+│ │ ▒▒▒▒▒▒▒▒▒ │ │ ▒▒▒▒▒▒▒▒▒ │ │ ▒▒▒▒▒▒▒▒▒ │ │ ▒▒▒▒▒▒▒▒▒ │                      │
+│ │ ▒▒▒▒      │ │ ▒▒▒▒      │ │ ▒▒▒▒      │ │ ▒▒▒▒      │                      │
+│ │ ▒▒▒▒▒▒    │ │ ▒▒▒▒▒▒    │ │ ▒▒▒▒▒▒    │ │ ▒▒▒▒▒▒    │   ← skeleton, no    │
+│ └───────────┘ └───────────┘ └───────────┘ └───────────┘      pulsing dots    │
+└──────────────────────────────────────────────────────────────────────────────┘</pre>
+</div>
+
+<!-- (iii) Template detail + form -->
+<h3>(iii) Template Detail + Requirements Form — S3</h3>
+<p class="cap mono">states: pristine / partial-validation / submit-ready</p>
+
+<div class="wireset">
+<div class="label">Mobile 375 · pristine</div>
+<pre class="wire">┌─────────────────────────────┐
+│ ← 返回                      │
+│                             │
+│ 校本採購指引                │
+│ Finance · 3 min · 引 6–8 源 │
+│ ─────────────────────────── │
+│ 呢份 template 會輸出：      │
+│  • 5 個 section             │
+│  • 自動 cite EDB 通告 4-6 份│
+│  • 填入校本資料 12 項       │
+│                             │
+│ ── 校本資料 ─────────────── │
+│ 學校名稱           *        │
+│ ┌─────────────────────────┐ │
+│ │                         │ │
+│ └─────────────────────────┘ │
+│ 學年               *        │
+│ ┌─────────────────────────┐ │
+│ │ 2026-27              ▾  │ │
+│ └─────────────────────────┘ │
+│ 生效日期           *        │
+│ 負責人 / 職銜      *        │
+│ 採購上限（HKD）    可選     │
+│ 特別條款           可選     │
+│                             │
+│ ── 來源控制 ─────────────── │
+│ 只用已核實事實  ○           │
+│ 加入 EDB 原文   ○           │
+│ 兩者都用        ◉  ← 建議   │
+│                             │
+│ ─────────────────────────── │
+│ [ 生成（~22 秒）]           │
+└─────────────────────────────┘</pre>
+
+<div class="label">Mobile 375 · partial-validation</div>
+<pre class="wire">┌─────────────────────────────┐
+│ 學校名稱 *                  │
+│ ┌─────────────────────────┐ │
+│ │ 聖…                     │ │
+│ └─────────────────────────┘ │
+│ ⚠ 未填完整（共 4 個必填）   │   ← 無紅色 alarm tone，bronze
+│                             │
+│ [ 生成（鎖定）]  [ 儲草稿 ] │
+└─────────────────────────────┘</pre>
+
+<div class="label">Desktop 1280 · submit-ready (split)</div>
+<pre class="wire">┌──────────────────────────────────────────────────────────────────────────────┐
+│  ← 返回      校本採購指引                               [預覽骨架] [生成 ▸]  │
+│ ──────────────────────────────────────────────────────────────────────────── │
+│ ┌─────────── 要求 ───────────────────┐ ┌─────────── 骨架預覽 ──────────────┐ │
+│ │ 學校名稱 *  [ 聖保祿中學          ]│ │ § 1  宗旨與適用範圍       [EDBC02]│ │
+│ │ 學年 *      [ 2026-27          ▾ ] │ │ § 2  採購原則（3 條）     [EDBC02]│ │
+│ │ 生效日期 *  [ 2026-09-01       📅] │ │ § 3  程序與審批層級       [EDBC18]│ │
+│ │ 負責人 *    [ 黃主任 · 總務     ]  │ │ § 4  校本補充條款         （校本）│ │
+│ │ 採購上限    [ 500,000         HKD] │ │ § 5  附件：表格清單               │ │
+│ │ 特別條款    [ …                 ]  │ │ ────────────                       │ │
+│ │                                    │ │ 預計引用 7 個 EDB 源 + 12 條事實  │ │
+│ │ 來源控制                           │ │                                    │ │
+│ │  ○ 只用已核實  ○ EDB 原文  ◉ 兩者 │ │                                    │ │
+│ └────────────────────────────────────┘ └────────────────────────────────────┘ │
+└──────────────────────────────────────────────────────────────────────────────┘</pre>
+</div>
+
+<!-- (iv) Generation in-progress -->
+<h3>(iv) Generation In-Progress — S4（去 AI 化重點）</h3>
+<p class="cap mono">states: extracting-sources / composing / stalled</p>
+
+<div class="wireset">
+<div class="label">Mobile 375 · extracting-sources (step 2/5)</div>
+<pre class="wire">┌─────────────────────────────┐
+│ 生成中 · 請勿關閉此頁       │   ← 無「思考中…」
+│                             │
+│ ━━━━━━░░░░░░░░░  2 / 5      │   ← 真 progress, 有 step count
+│                             │
+│ 步驟 2：抽取 EDB 原文       │
+│  ✓ 配對 template 結構       │
+│  ▸ 讀取通告 4 份            │
+│     ・EDBC 02/2023          │
+│     ・EDBC 18/2024          │
+│     ・PECG 2024 §3.2        │
+│     ・EDB Circ. 9/2022      │
+│  … 抽取重點段落              │
+│                             │
+│ 預計剩餘：~14 秒             │
+│                             │
+│ 文件骨架（即將填入）：       │
+│  § 1 ▒▒▒▒▒▒▒▒▒              │   ← skeleton section, 冇 typing
+│  § 2 ▒▒▒▒▒▒▒▒▒▒▒            │
+│  § 3 ▒▒▒▒▒▒▒                │
+│                             │
+│ [ 取消 ]                     │
+└─────────────────────────────┘</pre>
+
+<div class="label">Mobile 375 · composing (step 4/5, sections fade-in one shot)</div>
+<pre class="wire">┌─────────────────────────────┐
+│ ━━━━━━━━━━━━━░░  4 / 5      │
+│ 步驟 4：組合段落            │
+│                             │
+│  § 1 ✓ 宗旨與適用範圍        │   ← 完成段落 fade-in 全段
+│  § 2 ✓ 採購原則              │      (NOT streaming tokens)
+│  § 3 ▒▒▒▒▒▒▒▒▒▒              │
+│  § 4 ▒▒▒                     │
+│  § 5 ▒                       │
+└─────────────────────────────┘</pre>
+
+<div class="label">Desktop 1280 · stalled (network slow)</div>
+<pre class="wire">┌──────────────────────────────────────────────────────────────────────────────┐
+│ 生成中                                               ━━━━━░░░░░  3 / 5       │
+│ ──────────────────────────────────────────────────────────────────────────── │
+│ ⓘ 網絡比平時慢，仍在進行（已等候 28 秒）                                     │
+│   你可以：[ 繼續等候 ]  [ 切換到只用已核實事實（A，較快） ]  [ 取消 ]        │
+│                                                                              │
+│ 骨架 + 已填段落                          來源（即時填入）                    │
+│  § 1 ✓                                   [1] EDBC 02/2023                    │
+│  § 2 ✓                                   [2] EDBC 18/2024                    │
+│  § 3 ▒▒▒▒▒▒                              [3] PECG 2024                       │
+│  § 4 ▒▒                                                                      │
+└──────────────────────────────────────────────────────────────────────────────┘</pre>
+</div>
+
+<!-- (v) Draft canvas -->
+<h3>(v) Draft Canvas — S5</h3>
+<p class="cap mono">states: clean / section-selected / stale-source warning</p>
+
+<div class="wireset">
+<div class="label">Mobile 375 · clean（sources 收埋 bottom sheet）</div>
+<pre class="wire">┌─────────────────────────────┐
+│ 校本採購指引 v1   ••• 匯出  │
+│ 聖保祿中學 · 2026-27        │
+│ ─────────────────────────── │
+│ § 1  宗旨與適用範圍         │
+│ 本校依據 EDBC 02/2023 [1]   │
+│ 及本校辦學使命，制訂本指引  │
+│ 以規範日常採購事務…[2]      │
+│                             │
+│ § 2  採購原則               │
+│ (a) 物有所值 [3]            │
+│ (b) 公開公平 [3][4]         │
+│ (c) 可問責性 [1]            │
+│                             │
+│ § 3  程序與審批層級         │
+│ 採購金額 ≤ 5,000 由 …[5]    │
+│                             │
+│ ─────────────────────────── │
+│ [ 來源 (7) ▴ ] [ 修改 ] [⇅] │   ← bottom sheet handle
+└─────────────────────────────┘</pre>
+
+<div class="label">Mobile 375 · section-selected（source bottom sheet 展開）</div>
+<pre class="wire">┌─────────────────────────────┐
+│ § 2  採購原則  [選中]        │
+│ (a) 物有所值 [3] …           │
+│ ─────────────────────────── │
+│ ▾ 來源 (本段引用 2 條)       │
+│ ┌─────────────────────────┐ │
+│ │ [3] EDBC 02/2023 §4      │ │
+│ │  「學校採購應物有所值 …」│ │
+│ │  → 開啟 EDB 原文 ↗       │ │
+│ └─────────────────────────┘ │
+│ ┌─────────────────────────┐ │
+│ │ [4] 已核實事實 #247      │ │
+│ │  「公開公平三原則 …」    │ │
+│ │  審核者：EO-Chan 04-12   │ │
+│ └─────────────────────────┘ │
+│ [ 改寫此段 ]  [ 插入引用 ]   │
+└─────────────────────────────┘</pre>
+
+<div class="label">Desktop 1280 · stale-source warning（右 panel 常駐）</div>
+<pre class="wire">┌──────────────────────────────────────────────────────────────────────────────┐
+│ 校本採購指引 v1 · 聖保祿中學 · 2026-27            [存檔] [匯出 ▾] [分享]     │
+│ ──────────────────────────────────────────────────────────────────────────── │
+│ ┌────────── Document ──────────────┐ ┌────────── Sources (7) ─────────────┐ │
+│ │ § 1 宗旨與適用範圍                │ │ 📎 本文件引用                       │ │
+│ │    本校依據 EDBC 02/2023 [1] 及… │ │ [1] EDBC 02/2023            ✓      │ │
+│ │                                   │ │ [2] EDBC 18/2024            ✓      │ │
+│ │ § 2 採購原則                      │ │ [3] PECG 2024 §3.2          ⚠ stale│ │
+│ │    (a) 物有所值 [3] ⚠             │ │     2026-03 有修訂，建議重新生成   │ │
+│ │                                   │ │ [4] 已核實事實 #247         ✓      │ │
+│ │ § 3 程序與審批層級                │ │ [5] 已核實事實 #312         ✓      │ │
+│ │    採購金額 ≤ 5,000 由 …[5]       │ │                                    │ │
+│ │                                   │ │ [ 重新生成引用 stale 段 ]          │ │
+│ │ [ + 新增章節 ]                    │ │                                    │ │
+│ └───────────────────────────────────┘ └────────────────────────────────────┘ │
+│ ── RevisionActionBar ─────────────────────────────────────────────────────── │
+│ 選中：§2  |  [改口吻 ▾] [變長] [變短] [加例子] [換來源] [還原]               │
+└──────────────────────────────────────────────────────────────────────────────┘</pre>
+</div>
+
+<!-- (vi) Quick Q&A -->
+<h3>(vi) Quick Q&amp;A — S6（command-k 彈 modal，獨立頁 <code>/q</code> fallback）</h3>
+<p class="cap mono">states: idle-modal / answer / no-confident-answer</p>
+
+<div class="wireset">
+<div class="label">Mobile 375 · answer sheet</div>
+<pre class="wire">┌─────────────────────────────┐
+│ ← 搜索               儲存 ☆ │
+│                             │
+│ 戶外考察 ≥ 100 人要申報咩？ │
+│ ─────────────────────────── │
+│ 答（30 秒，已核實）         │
+│ 須於出發前 6 星期向 EDB     │
+│ 提交 Form DE12 [1]，如涉    │
+│ 境外考察另需家長同意書 [2]  │
+│ 及保險證明 [3]。            │
+│                             │
+│ 引用 3 條                   │
+│ [1] EDBC 18/2024            │
+│ [2] 家長同意書範本 #89      │
+│ [3] 已核實事實 #514         │
+│                             │
+│ ── 延伸 ──                  │
+│ 想生成完整「戶外考察風險    │
+│ 評估」？                    │
+│ [ 套用 template ▸ ]         │
+└─────────────────────────────┘</pre>
+
+<div class="label">Desktop 1280 · command-K modal</div>
+<pre class="wire">┌──────────────────────────────────────────────────────────────────────────────┐
+│    ┌────────────────────────────────────────────────────────────────────┐    │
+│    │ 🔎  問一個問題… ／ ⌘K 關閉                                         │    │
+│    ├────────────────────────────────────────────────────────────────────┤    │
+│    │ 建議問法                                                           │    │
+│    │  • SEN 學生申請補助要幾耐？              [查政策]                  │    │
+│    │  • 做份戶外考察風險評估                  [生成文件]                │    │
+│    │  • EDBC 18/2024 點樣影響本校？           [查政策]                  │    │
+│    │                                                                    │    │
+│    │ 歷史（本 session 只）                                              │    │
+│    │  • 採購 50,000 以上流程                                            │    │
+│    └────────────────────────────────────────────────────────────────────┘    │
+└──────────────────────────────────────────────────────────────────────────────┘</pre>
+
+<div class="label">Mobile 375 · no-confident-answer</div>
+<pre class="wire">┌─────────────────────────────┐
+│ 問題：校工合約年假計法       │
+│ ─────────────────────────── │
+│ 暫時冇高信心答案             │   ← 唔 hallucinate
+│ ──                          │
+│ 最接近嘅 3 條 EDB 原文：     │
+│  • EDBC 4/2019 §7           │
+│  • 人事手冊 §12.1           │
+│  • 已核實事實 #88（部分）   │
+│                             │
+│ [ 三條都讀 ]  [ 交知識團隊 ] │   ← 提交 policy_signals.json
+└─────────────────────────────┘</pre>
+</div>
+
+<!-- (vii) Admin signal review -->
+<h3>(vii) Admin · Signal Review — S8</h3>
+<p class="cap mono">states: queue / signal-detail / approved-empty</p>
+
+<div class="wireset">
+<div class="label">Desktop 1280 · queue</div>
+<pre class="wire">┌──────────────────────────────────────────────────────────────────────────────┐
+│ Admin / Policy Signals                          SSO: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f2979ddf919a939cb2979690dc959d84dc9a99">[email&#160;protected]</a>  ⏲15m│
+│ ──────────────────────────────────────────────────────────────────────────── │
+│ Pending (14)   Triaged (3)   Merged (128)   Rejected (22)                    │
+│                                                                              │
+│ │ id    │ source            │ topic     │ age │ severity │ suggested action │
+│ │ ────  │ ────────────────  │ ───────── │ ─── │ ──────── │ ──────────────── │
+│ │ ps-91 │ Q&amp;A dead-end #88  │ hr        │ 2h  │ med      │ add fact + cite  │
+│ │ ps-90 │ Circular Sys v1.4 │ finance   │ 5h  │ high     │ review template  │
+│ │ ps-89 │ EDB publish hook  │ curriculum│ 1d  │ high     │ re-index source  │
+│ │ ps-88 │ User submitted    │ activity  │ 1d  │ low      │ merge duplicate  │
+│ │ ps-87 │ Stale source flag │ student   │ 2d  │ med      │ supersede [3]    │
+│                                                                              │
+│ [ 全選 ]  [ 批次分派 ]  [ 匯出 CSV ]                                         │
+└──────────────────────────────────────────────────────────────────────────────┘</pre>
+
+<div class="label">Mobile 375 · signal-detail</div>
+<pre class="wire">┌─────────────────────────────┐
+│ ← ps-90        FINANCE · HIGH│
+│ ─────────────────────────── │
+│ 觸發：Circular System v1.4  │
+│ 接收時間：2026-04-19 22:14  │
+│                             │
+│ Payload（raw v1 schema）    │
+│ ┌─────────────────────────┐ │
+│ │ {                       │ │
+│ │  "signal":"policy_diff",│ │
+│ │  "source":"EDBC 02/2026"│ │
+│ │  "delta":"採購上限調整" │ │
+│ │  ...                    │ │
+│ │ }                       │ │
+│ └─────────────────────────┘ │
+│                             │
+│ 影響範圍：                   │
+│  • template: 校本採購指引   │
+│  • facts: #247 #312         │
+│                             │
+│ [ 接納 → 重 index ]         │
+│ [ 需要修訂 ]                │
+│ [ 拒絕（記原因） ]          │
+└─────────────────────────────┘</pre>
+
+<div class="label">Desktop 1280 · approved-empty</div>
+<pre class="wire">┌──────────────────────────────────────────────────────────────────────────────┐
+│ Pending · 清 (0)                                                             │
+│ ──────────────────────────────────────────────────────────────────────────── │
+│ 暫時冇 signal 待處理                                                         │
+│ 上次處理：2026-04-20 09:12 · 本週已處理 23 條                                │
+│                                                                              │
+│ 建議下一步：                                                                 │
+│  • 檢視 stale-source ledger (3)                                              │
+│  • Run 週度 source-freshness sweep                                           │
+└──────────────────────────────────────────────────────────────────────────────┘</pre>
+</div>
+
+<!-- =========================================================== -->
+<h2 id="p23"><span class="num">PART 2.3</span>Information Architecture</h2>
+
+<pre>                            ┌──────────────────────────────┐
+                            │         EDB 智能知識庫        │
+                            └──────────────┬───────────────┘
+                                           │
+              ┌────────────────────────────┼────────────────────────────┐
+              │                            │                            │
+           PUBLIC (SSO optional)        SHARED ADAPTER LAYER         ADMIN (/admin, SSO req.)
+              │                            │                            │
+  ┌───────────┴───────────┐       ┌────────┴─────────┐        ┌─────────┴─────────┐
+  │                       │       │ Frozen contract: │        │                    │
+  │  /   Home             │       │  knowledge.json  │        │ /admin/signals     │
+  │  /t  Template gallery │◀─────▶│  guidelines.json │◀──────▶│ /admin/sources     │
+  │  /t/:id  Detail+form  │       │  /api/search/A   │        │ /admin/templates   │
+  │  /d/:id  Draft canvas │       │  /api/search/B   │        │                    │
+  │  /q  Quick Q&A        │       │  /api/search/AB  │        │                    │
+  │  /me/docs             │       │  policy_signals  │        │                    │
+  │                       │       │   .json v1       │        │                    │
+  └─────────┬─────────────┘       └────────┬─────────┘        └─────────┬──────────┘
+            │                              │                            │
+     JOB-A (Q&A 30s)                 searchChannel                 policy_signals
+     JOB-B (校本文件)               'A' | 'B' | 'AB'                pending queue
+            │                         (state codename               
+            │                          frozen; UI label              
+            │                          可改)                          
+            │
+      ┌─────┴─────┐
+      │ Intent    │  omni-input → classifier → {JOB-A | JOB-B}
+      │ router    │  override 可經「進階」dropdown
+      └───────────┘</pre>
+
+<!-- =========================================================== -->
+<h2 id="p24"><span class="num">PART 2.4</span>Design Tokens（≤ 20）</h2>
+
+<p class="lede">
+  刻意去 AI 化：<b>冇 purple / blue gradient、冇 sparkle、冇 robot emoji</b>。
+  調色來自 EDB 官方印刷品嘅深綠 + 政府信紙米白，加一點校簿磚黃做 accent；感覺接近 sober 教育出版物，而唔似 SaaS landing page。
+</p>
+
+<h3>Color</h3>
+<div class="tokens">
+  <div class="token"><div class="sw" style="background:#F7F4ED"></div><div><div class="nm">paper</div><div class="k">--paper</div><div class="v">#F7F4ED</div></div></div>
+  <div class="token"><div class="sw" style="background:#FBF9F3"></div><div><div class="nm">paper-2 (card)</div><div class="k">--paper-2</div><div class="v">#FBF9F3</div></div></div>
+  <div class="token"><div class="sw" style="background:#1B1F1A"></div><div><div class="nm">ink</div><div class="k">--ink</div><div class="v">#1B1F1A</div></div></div>
+  <div class="token"><div class="sw" style="background:#3A4238"></div><div><div class="nm">ink-2</div><div class="k">--ink-2</div><div class="v">#3A4238</div></div></div>
+  <div class="token"><div class="sw" style="background:#6B7268"></div><div><div class="nm">ink-3 (muted)</div><div class="k">--ink-3</div><div class="v">#6B7268</div></div></div>
+  <div class="token"><div class="sw" style="background:#1F3A2E"></div><div><div class="nm">edb (primary)</div><div class="k">--edb</div><div class="v">#1F3A2E</div></div></div>
+  <div class="token"><div class="sw" style="background:#2E5A46"></div><div><div class="nm">edb-2 (hover)</div><div class="k">--edb-2</div><div class="v">#2E5A46</div></div></div>
+  <div class="token"><div class="sw" style="background:#8B6B2E"></div><div><div class="nm">accent (校簿磚黃)</div><div class="k">--accent</div><div class="v">#8B6B2E</div></div></div>
+  <div class="token"><div class="sw" style="background:#8A7A3B"></div><div><div class="nm">stale</div><div class="k">--stale</div><div class="v">#8A7A3B</div></div></div>
+  <div class="token"><div class="sw" style="background:#7A3B1F"></div><div><div class="nm">warn (磚紅，非 alarm red)</div><div class="k">--warn</div><div class="v">#7A3B1F</div></div></div>
+  <div class="token"><div class="sw" style="background:#D8D2C4"></div><div><div class="nm">line</div><div class="k">--line</div><div class="v">#D8D2C4</div></div></div>
+  <div class="token"><div class="sw" style="background:#E8E3D6"></div><div><div class="nm">line-2</div><div class="k">--line-2</div><div class="v">#E8E3D6</div></div></div>
+</div>
+
+<h3>Typography</h3>
+<div class="type-sample">
+  <div class="meta">font-sans · Noto Sans HK 700 · 28/1.25</div>
+  <div style="font-family:'Noto Sans HK';font-weight:700;font-size:28px;line-height:1.25">校本採購指引 2026-27</div>
+</div>
+<div class="type-sample">
+  <div class="meta">font-sans · Noto Sans HK 500 · 16/1.6</div>
+  <div style="font-family:'Noto Sans HK';font-weight:500;font-size:16px;line-height:1.6">§2 採購原則 — (a) 物有所值 (b) 公開公平 (c) 可問責性</div>
+</div>
+<div class="type-sample">
+  <div class="meta">font-mono · IBM Plex Mono 500 · 11/1.4 · tracking .1em uppercase</div>
+  <div style="font-family:'IBM Plex Mono';font-weight:500;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--edb)">Source ledger · 7 items</div>
+</div>
+
+<h4>字體 stack</h4>
+<pre>--font-sans: "Noto Sans HK","IBM Plex Sans","PingFang HK",
+             "Microsoft JhengHei","Helvetica Neue",Arial,sans-serif;
+--font-mono: "IBM Plex Mono","SF Mono",Menlo,"Consolas",monospace;
+--font-serif: "Source Han Serif HK","Noto Serif HK",
+              "PMingLiU",Georgia,serif;  /* 僅用於 export 文件正文，不上 screen */</pre>
+
+<h3>Space / radius / shadow</h3>
+<div class="tokens">
+  <div class="token"><div class="sw" style="background:var(--paper-2);border:1px solid var(--line)">2</div><div><div class="nm">radius (2px)</div><div class="k">--radius</div><div class="v">紙本感，非 pill</div></div></div>
+  <div class="token"><div class="sw" style="background:#fff;border:1px solid var(--line);box-shadow:0 1px 0 var(--line-2)">—</div><div><div class="nm">shadow-1 (hairline)</div><div class="k">--shadow-1</div><div class="v">0 1px 0 var(--line-2)</div></div></div>
+  <div class="token"><div class="sw" style="background:#fff;border:1px solid var(--line);box-shadow:0 2px 0 var(--line)">—</div><div><div class="nm">shadow-2</div><div class="k">--shadow-2</div><div class="v">0 2px 0 var(--line) — 文件浮起感</div></div></div>
+</div>
+
+<!-- =========================================================== -->
+<h2 id="p25"><span class="num">PART 2.5</span>Components（7）</h2>
+
+<div class="cmp">
+  <h3>1. TemplateCard</h3>
+  <div class="row"><div class="lab">視覺</div><div>米白卡片、hairline border、左上 topic 小標 mono uppercase（Finance / Activity…），中線粗體標題（Noto Sans HK 600/18），底線灰字 3 元素：<code>生成時間 · 引用數 · 已用次數</code>。無 hero image、無 gradient、無 icon；若需配色標示 topic，左邊 2px 彩邊（深綠 / 磚黃 / 藤灰 等，EDB 學科色系）。</div></div>
+  <div class="row"><div class="lab">Props</div><div><code>{ id, title, topic, roleAffinity, estMins, citeRange, usageCount, leftRuleColor?, onSelect }</code></div></div>
+  <div class="row dont"><div class="lab">唔應該</div><div>唔放 AI sparkle icon、唔加「✨ 智能生成」副標、唔用 hover 大陰影（最多 hairline darken）、唔以 card animation 吸 attention。</div></div>
+</div>
+
+<div class="cmp">
+  <h3>2. RequirementField</h3>
+  <div class="row"><div class="lab">視覺</div><div>Label 上、input 下，必填用 <code>*</code> 深綠，而唔係紅星。Helper text 12.5px ink-3。錯誤狀態：input 底線轉磚紅（<code>--warn</code>），唔用紅框 shake。支援 type：<code>text / select / date / number / textarea / toggle</code>。</div></div>
+  <div class="row"><div class="lab">Props</div><div><code>{ name, label, type, required, value, onChange, hint, error, prefix?, suffix? }</code></div></div>
+  <div class="row dont"><div class="lab">唔應該</div><div>唔用 placeholder 代替 label、唔 auto-suggest AI 答案入 field（呢度係 metadata，唔係 prompt）、唔加 sparkle「智能填寫」。</div></div>
+</div>
+
+<div class="cmp">
+  <h3>3. SourceChip</h3>
+  <div class="row"><div class="lab">視覺</div><div>Inline 上標 <code>[3]</code> mono，hover / tap 彈 120 字節錄 + 原文按鈕 + 狀態 badge（<span class="mono">verified</span> / <span class="mono">stale</span> / <span class="mono">draft-fact</span>）。側 panel version 多一行 reviewer + 日期。Keyboard accessible，可 tab 進。</div></div>
+  <div class="row"><div class="lab">Props</div><div><code>{ id, label, kind: 'edb-raw'|'verified-fact'|'guideline-pdf', snippet, url, status, reviewer?, reviewedAt? }</code></div></div>
+  <div class="row dont"><div class="lab">唔應該</div><div>唔用「AI 認為此答案來自…」口吻、唔把 confidence score 放第一眼（用家係教職員唔係 data scientist）、唔用 tooltip 延遲過 200ms。</div></div>
+</div>
+
+<div class="cmp">
+  <h3>4. DraftParagraph（帶 citation）</h3>
+  <div class="row"><div class="lab">視覺</div><div>正文用 Noto Sans HK 400/16，行高 1.75，段後距 12px，帶 hanging section indicator（§N）。Citation 上標 inline；段落 hover 顯示隱形 gutter actions（改短 / 換來源 / 釘 section）。選中狀態：左 3px 深綠粗線，背景 <code>--paper-2</code>。</div></div>
+  <div class="row"><div class="lab">Props</div><div><code>{ sectionId, sectionNo, html, citations:SourceChip[], locked?, onSelect, onRevise }</code></div></div>
+  <div class="row dont"><div class="lab">唔應該</div><div>唔做 typewriter reveal、唔加 AI avatar 頭像、唔 auto scroll 去最新生成段（用家可能正喺上面讀）。</div></div>
+</div>
+
+<div class="cmp">
+  <h3>5. RevisionActionBar</h3>
+  <div class="row"><div class="lab">視覺</div><div>Sticky 底部 bar（desktop）或 iOS action sheet（mobile），mono uppercase 按鈕 label。最多 7 個：<code>改口吻 ▾ · 變長 · 變短 · 加例子 · 換來源 · 插入校本段 · 還原</code>。<code>改口吻</code>展開選項：正式 / 通告式 / 家長友善 / 董事會 / 學生可讀。所有動作 scoped 去當前選中 section/paragraph。</div></div>
+  <div class="row"><div class="lab">Props</div><div><code>{ scope: 'section'|'paragraph', selectionId, onAction(kind, payload) }</code></div></div>
+  <div class="row dont"><div class="lab">唔應該</div><div>唔顯示 token count / temperature、唔標「AI rewrite」—— 用「改寫」、「改短」一類 verb；冇 scope（冇選中）時 bar 淡出，唔 disabled 咁 loud。</div></div>
+</div>
+
+<div class="cmp">
+  <h3>6. ExportBar</h3>
+  <div class="row"><div class="lab">視覺</div><div>主按鈕深綠實底：<code>匯出 ▾</code>，打開選項：<code>Word (.docx) · PDF · Markdown · 純文字</code>，每項右邊 mono 細字講特性（保留上標 / 保留 citation 尾注 / 含 校本 metadata header）。旁邊次按鈕：<code>分享唯讀連結</code>、<code>儲為校本 template</code>。</div></div>
+  <div class="row"><div class="lab">Props</div><div><code>{ documentId, formats:['docx','pdf','md','txt'], onExport, onShare, onSaveAsTemplate }</code></div></div>
+  <div class="row dont"><div class="lab">唔應該</div><div>唔把 export 藏入 ••• overflow（export 係 primary action）、唔放假嘅「Export to Notion / Slack」（教職員唔用）。</div></div>
+</div>
+
+<div class="cmp">
+  <h3>7. SignalBadge</h3>
+  <div class="row"><div class="lab">視覺</div><div>Admin-only，細方章：<code>severity</code>（low / med / high）+ <code>source</code>（Circular Sys / Q&amp;A dead-end / EDB hook / user），mono uppercase。High 用磚紅 <code>--warn</code> 底；med 用 <code>--stale</code>；low 用 ink-3 outline。字粒細到 10.5px 令 queue 表可以密。</div></div>
+  <div class="row"><div class="lab">Props</div><div><code>{ severity:'low'|'med'|'high', source:'circular'|'qa'|'hook'|'user', age, count? }</code></div></div>
+  <div class="row dont"><div class="lab">唔應該</div><div>唔用於 public 頁（會嚇親 P1）、唔用 traffic light 圓點（太 dashboard-y）。</div></div>
+</div>
+
+<!-- =========================================================== -->
+<h2 id="p26"><span class="num">PART 2.6</span>State Patterns</h2>
+
+<div class="states">
+  <div class="state">
+    <h4>empty</h4>
+    <p>Zero draft / zero match。文案講下一步，而非「問我任何嘢」。</p>
+    <span class="ui">copy：「未有草稿。由 template 開始，或直接查政策。」+ 2 按鈕</span>
+  </div>
+  <div class="state">
+    <h4>generating</h4>
+    <p>Step-based progress，section skeleton，實際秒數 ETA。冇 streaming、冇 dot loader。</p>
+    <span class="ui">組件：ProgressTrack（5 步）· SectionSkeleton · SourceReadoutList</span>
+  </div>
+  <div class="state">
+    <h4>generated</h4>
+    <p>全段 fade-in；頂部 toast <code>已完成 · 引用 7 個來源 · ~22 秒</code>；自動 scroll 去 §1 而非頁尾。</p>
+    <span class="ui">toast 4s 自動收</span>
+  </div>
+  <div class="state">
+    <h4>error</h4>
+    <p>磚紅而非 alarm red，明確講邊一步死：<code>步驟 2：抽取 EDB 原文失敗（network 408）</code>。提供 retry / fallback A-only / 交給知識團隊。</p>
+    <span class="ui">發送 policy_signals.json pending</span>
+  </div>
+  <div class="state">
+    <h4>stale-source</h4>
+    <p>段落級 + 來源 panel 雙重標記：<code>⚠ 2026-03 有修訂</code>。一鍵「重新生成引用 stale 段」。</p>
+    <span class="ui">顏色：--stale (#8A7A3B)，非紅</span>
+  </div>
+  <div class="state">
+    <h4>offline</h4>
+    <p>頂部 bronze ribbon：<code>離線模式 · 上次同步 04-19</code>。可用：快取 template + 核實事實；不可用：channel B（EDB 原文即時搜索）。</p>
+    <span class="ui">唔自動 retry fetch，避免浪費校園 bandwidth</span>
+  </div>
+</div>
+
+<!-- =========================================================== -->
+<h2 id="p27"><span class="num">PART 2.7</span>前端架構 Recommendation</h2>
+
+<h3>Stack</h3>
+<ul>
+  <li><b>Framework</b>：React 18 + TypeScript</li>
+  <li><b>Build</b>：Vite 5（output 仍係 static，可 host GitHub Pages / EDB 內網 static server）</li>
+  <li><b>Routing</b>：TanStack Router（file-based，type-safe search params，天然支援 <code>/admin/*</code> lazy chunk）</li>
+  <li><b>Data</b>：TanStack Query（stale-while-revalidate、offline-first cache、retry policy 可按 endpoint 調）</li>
+  <li><b>UI state</b>：Zustand（draft canvas 嘅 selection / right panel open / source ledger）；盡量唔用 Redux</li>
+  <li><b>Forms</b>：react-hook-form + zod（RequirementField 驗證）</li>
+  <li><b>Editor</b>：Tiptap（ProseMirror）for draft canvas — 支援 inline 上標 node、section node、citation mark</li>
+  <li><b>Styling</b>：Vanilla CSS + CSS variables（tokens 檔）；唔上 Tailwind（教育 IT 易於人肉 audit）</li>
+  <li><b>Auth (admin)</b>：MSAL.js（Azure AD）→ server middleware 複核 JWT</li>
+</ul>
+
+<h3>對 frozen backend 點接 —— Adapter layer</h3>
+
+<div class="freeze">
+<span class="tag">FROZEN</span>
+以下 module 係「接口必須一樣」嘅 adapter boundary。Frontend 任何層都唔可以繞過呢層直接 hit endpoint。
+</div>
+
+<pre>src/
+├─ app/                         # 純 UI, 無 fetch
+│  ├─ routes/
+│  │  ├─ index.tsx              # /
+│  │  ├─ t/index.tsx            # /t
+│  │  ├─ t/$id.tsx              # /t/:id
+│  │  ├─ d/$id.tsx              # /d/:id
+│  │  ├─ q.tsx                  # /q
+│  │  ├─ me/docs.tsx
+│  │  └─ admin/
+│  │     ├─ signals.tsx
+│  │     ├─ sources.tsx
+│  │     └─ templates.tsx
+│  └─ components/               # TemplateCard / SourceChip / …
+│
+├─ domain/                      # 純 type + business rule, 無 fetch
+│  ├─ template.ts
+│  ├─ document.ts
+│  └─ citation.ts
+│
+└─ infra/                       # ←── 唯一允許 hit frozen API 嘅地方
+   ├─ adapter/
+   │  ├─ knowledgeJson.ts       ▸ <b>FROZEN</b> GET knowledge.json
+   │  ├─ guidelinesJson.ts      ▸ <b>FROZEN</b> GET guidelines.json
+   │  ├─ searchChannelA.ts      ▸ <b>FROZEN</b> GET /api/search/channel-a?q=…
+   │  ├─ searchChannelB.ts      ▸ <b>FROZEN</b> POST /api/search/channel-b
+   │  ├─ searchCombined.ts      ▸ <b>FROZEN</b> POST /api/search/combined
+   │  └─ policySignals.ts       ▸ <b>FROZEN</b> policy_signals.json v1 reader/writer
+   └─ queries/                  # TanStack Query wrappers (可以自由變)
+      ├─ useTemplates.ts        # 由 knowledge.json derive，UI shape 隨便
+      ├─ useSearch.ts           # 按 searchChannel 路由 A/B/AB
+      └─ useSignals.ts</pre>
+
+<p>
+Rule：<b>adapter 層嘅 input/output type 一 byte 都唔改</b>；domain 層允許 derive / reshape，但永遠由 adapter 嘅原始 payload 出發。例如 <code>useTemplates()</code> 係將 <code>knowledge.json</code> 嘅 7 個 topic × 8 個 role bucket flatten 成 UI 好用嘅 <code>TemplateCardModel[]</code> —— 但 adapter 回傳嘅仍然係 spec 原 schema。Circular System 姊妹 repo 睇到嘅係冇變嘅 JSON / endpoint。
+</p>
+
+<h3>searchChannel codename</h3>
+<p>Zustand store 保留 <code>searchChannel: 'A' | 'B' | 'AB'</code>，UI label 獨立 map：</p>
+<pre>const channelLabel = {
+  A:  '只用已核實事實',
+  B:  '加入 EDB 原文',
+  AB: '兩者都用（建議）',
+} as const;  // UI only — state value 永遠係 A/B/AB</pre>
+
+<h3>Migration path（由 app.html 4,048 行漸進遷移）</h3>
+<ol>
+  <li><b>Week 1 — Vite shell + adapter lift</b>：新 repo <code>edb-kb-web/</code> 起 Vite + TanStack Router 骨架；將現時 app.html 嘅 fetch 邏輯原封不動搬入 <code>infra/adapter/*</code>，寫 contract tests（Playwright fixtures 比對 JSON shape 同 HTTP 行為）。現有 app.html 繼續生產跑，URL 不變。</li>
+  <li><b>Week 2 — Home + Template gallery</b>：<code>/</code> 同 <code>/t</code> 兩條 route 用新 stack 上線，deploy 到 <code>/v2/*</code> path，老路徑保留。Telemetry 比對 template_click、search_to_doc。</li>
+  <li><b>Week 3 — Draft canvas + Tiptap</b>：<code>/d/:id</code> 上線，舊 app.html chatbot view 改 redirect 到新 <code>/q</code>（Quick Q&amp;A modal route）。</li>
+  <li><b>Week 4 — Admin split</b>：<code>/admin/*</code> chunked、MSAL wired、policy_signals adapter 寫入路徑同姊妹 repo contract 對齊；舊 app.html 下線。</li>
+  <li><b>Week 5 — Cleanup</b>：刪 app.html；所有 URL 301 去新 route；<code>/v2/</code> 前綴移除。</li>
+</ol>
+<p><b>Rewrite vs 漸進</b>：我選漸進 —— 4,048 行裡面有 hard-won edge case（offline、Circular System signal 拍拖、搜索結果 merge 規則），rewrite 會 regress。但 UI 層 100% 新寫，舊 HTML 唔再維護。</p>
+
+<!-- =========================================================== -->
+<h2 id="p3"><span class="num">PART 3</span>Document Templates（3 份骨架）</h2>
+
+<!-- (a) 校本採購指引 -->
+<div class="tmpl">
+  <h3>(a) 校本採購指引 Template</h3>
+
+  <div class="sect"><div class="idx">§1</div><div>宗旨與適用範圍 — 引 EDBC 02/2023 + 校本辦學使命</div><div class="req r">必填</div><div class="cite">2-3 cite</div></div>
+  <div class="sect"><div class="idx">§2</div><div>採購原則（物有所值 / 公開公平 / 可問責）</div><div class="req r">必填</div><div class="cite">2 cite</div></div>
+  <div class="sect"><div class="idx">§3</div><div>程序與審批層級（按金額分四階）</div><div class="req r">必填</div><div class="cite">1-2 cite</div></div>
+  <div class="sect"><div class="idx">§4</div><div>校本補充條款（採購上限、特定類別豁免）</div><div class="req o">可選</div><div class="cite">0 cite（校本）</div></div>
+  <div class="sect"><div class="idx">§5</div><div>附件：表格清單 + 生效日 + 負責人</div><div class="req r">必填</div><div class="cite">0 cite</div></div>
+
+  <div class="sample">
+    <span class="meta">Filled-in 示例 · 聖保祿中學 · 2026-27</span>
+    <b>§1　宗旨與適用範圍</b><br>
+    本校依據《教育局通告第 02/2023 號 — 資助學校採購程序》<sup>1</sup>及《學校行政手冊 2024》<sup>2</sup>，並結合本校辦學使命，制訂《校本採購指引 2026-27》，以規範日常物資、服務及工程採購事務，適用於所有全額或部分由政府津貼支付之採購項目。<br><br>
+    <b>§2　採購原則</b><br>
+    (a) <b>物有所值</b>：每項採購須在同等質素下取得最低整體成本<sup>3</sup>。<br>
+    (b) <b>公開公平</b>：HKD 5,000 以上項目須不少於三份報價<sup>3</sup>，HKD 50,000 以上須公開招標<sup>1</sup>。<br>
+    (c) <b>可問責性</b>：所有決定須留紀錄並由總務主任簽署存檔<sup>2</sup>。<br><br>
+    <b>§3　程序與審批層級</b>　採購金額 ≤ HKD 5,000 由科主任批核；HKD 5,001–50,000 由副校長批核；HKD 50,001–500,000 由校長批核；HKD &gt; 500,000 須呈法團校董會<sup>1</sup>。<br><br>
+    <b>§4　校本補充條款</b>　本校年度採購上限為 HKD 500,000（2026-27 學年）。圖書館、實驗室消耗品豁免報價要求，惟須整批年度預算預先核准。<br><br>
+    <b>§5　附件</b>　表格 PR-01 報價表、PR-02 招標表、PR-03 審批表；生效日：2026-09-01；負責人：黃主任（總務）。<br><br>
+    <span class="meta">Sources · [1] EDBC 02/2023 · [2] 學校行政手冊 2024 §7 · [3] 已核實事實 #247</span>
+  </div>
+</div>
+
+<!-- (b) 戶外考察風險評估 -->
+<div class="tmpl">
+  <h3>(b) 戶外考察風險評估 Template</h3>
+
+  <div class="sect"><div class="idx">§1</div><div>活動基本資料（日期、地點、人數、年級）</div><div class="req r">必填</div><div class="cite">0 cite</div></div>
+  <div class="sect"><div class="idx">§2</div><div>法定申報事項（Form DE12 / 境外同意書 / 保險）</div><div class="req r">必填</div><div class="cite">3 cite</div></div>
+  <div class="sect"><div class="idx">§3</div><div>風險矩陣（天氣 / 交通 / 活動本身 / 醫療）</div><div class="req r">必填</div><div class="cite">2 cite</div></div>
+  <div class="sect"><div class="idx">§4</div><div>緩解措施 + 應急流程</div><div class="req r">必填</div><div class="cite">1-2 cite</div></div>
+  <div class="sect"><div class="idx">§5</div><div>領隊分工 + 家長通訊渠道</div><div class="req r">必填</div><div class="cite">0 cite</div></div>
+  <div class="sect"><div class="idx">§6</div><div>特殊學生安排（SEN / 慢性病）</div><div class="req o">可選</div><div class="cite">1 cite</div></div>
+
+  <div class="sample">
+    <span class="meta">Filled-in 示例 · 中四地理科香港地質公園考察 · 2026-11-08</span>
+    <b>§1</b>　日期 2026-11-08（星期六）/ 地點：西貢糧船灣破邊洲 / 人數：42 名學生 + 4 名教師 / 級別：中四地理<br><br>
+    <b>§2　法定申報</b>　已於 2026-09-27（出發前 6 週）向 EDB 提交 Form DE12<sup>1</sup>；本次為境內活動，免提交境外同意書<sup>2</sup>；已購買團體意外保險（承保額 HKD 1,000,000/人）<sup>3</sup>。<br><br>
+    <b>§3　風險矩陣</b>（L=低 / M=中 / H=高）<br>
+    ・天氣：海面風浪 <b>M</b> — 船程 35 分鐘<sup>4</sup><br>
+    ・交通：郊區路況 <b>L</b>；・活動：步行岩岸 <b>M</b>；・醫療：熱衰竭 <b>M</b><sup>5</sup><br><br>
+    <b>§4　緩解</b>　1 號風球或以上取消；每名學生派救生衣；每 10 人配 1 名教師；急救箱 × 2；救援船電話 +852-…<br><br>
+    <b>§5　分工</b>　領隊：陳主任；副領隊：李老師；後勤：張老師；家長 WhatsApp 群組由黃老師更新。<br><br>
+    <b>§6　特殊安排</b>　1 名哮喘學生由班主任同組，備藥；符合《融合教育政策》<sup>6</sup>支援原則。<br><br>
+    <span class="meta">Sources · [1] EDBC 18/2024 §4 · [2] EDBC 18/2024 §5 · [3] 已核實事實 #514 · [4] 香港天文台海面資料 · [5] 已核實事實 #520 · [6] PECG 2024 §5.1</span>
+  </div>
+</div>
+
+<!-- (c) 家長通告 -->
+<div class="tmpl">
+  <h3>(c) 家長通告解釋（短版）Template</h3>
+
+  <div class="sect"><div class="idx">§1</div><div>標題 + 發出日期 + 通告編號</div><div class="req r">必填</div><div class="cite">0 cite</div></div>
+  <div class="sect"><div class="idx">§2</div><div>背景（引 EDB 新政策 / 通告，1-2 句）</div><div class="req r">必填</div><div class="cite">1-2 cite</div></div>
+  <div class="sect"><div class="idx">§3</div><div>本校安排（3 條 bullet 內）</div><div class="req r">必填</div><div class="cite">0-1 cite</div></div>
+  <div class="sect"><div class="idx">§4</div><div>家長需要配合嘅事項（含截止日期）</div><div class="req r">必填</div><div class="cite">0 cite</div></div>
+  <div class="sect"><div class="idx">§5</div><div>回條 / 聯絡（姓名、電話、電郵）</div><div class="req r">必填</div><div class="cite">0 cite</div></div>
+
+  <div class="sample">
+    <span class="meta">Filled-in 示例 · 通告 2026-33 · SEN 資源調配解釋信</span>
+    <b>§1　致各位家長</b>（2026-04-22 · 通告 2026-33）<br><br>
+    <b>§2　背景</b>　因應教育局於 2026 年 3 月發出之《融合教育政策 2024（修訂）》<sup>1</sup>，本校須調整特殊教育需要（SEN）資源之分配機制，以對齊新指引<sup>2</sup>。<br><br>
+    <b>§3　本校安排</b><br>
+    ・2026-27 起，SEN 統籌由 1 名增至 2 名教師。<br>
+    ・每班 SEN 支援節數由 2 節增至 3 節<sup>2</sup>。<br>
+    ・新增每月家長諮詢日（每月第一個星期四）。<br><br>
+    <b>§4　請家長配合</b>　若 貴子女屬 SEN 學生並希望調整支援安排，請於 2026-05-15 前填妥回條；如無特別要求，請亦簽署回條確認已閱。<br><br>
+    <b>§5　回條</b>　家長姓名 ______　學生姓名 ______（班別 ____）　聯絡電話 ______　電郵 ______<br>
+    查詢：學生支援組 李老師　2XXX-XXXX　<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b382e250b383f3b2a3e27652e2f3e652320">[email&#160;protected]</a><br><br>
+    <span class="meta">Sources · [1] PECG 2024 修訂版 · [2] EDB 2026-03 融合教育通函</span>
+  </div>
+</div>
+
+</div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script></body>
+</html>

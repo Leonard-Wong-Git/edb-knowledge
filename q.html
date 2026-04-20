@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="zh-Hant-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quick Q&A — EDB 智能知識庫</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B1F1A;--ink-2:#3A4238;--ink-3:#6B7268;
+    --paper:#F7F4ED;--paper-2:#FBF9F3;
+    --line:#D8D2C4;--line-2:#E8E3D6;
+    --edb:#1F3A2E;--edb-2:#2E5A46;--edb-wash:#E9EFE9;
+    --accent:#8B6B2E;--stale:#8A7A3B;--warn:#7A3B1F;
+    --sans:"Noto Sans HK","PingFang HK","Microsoft JhengHei",Arial,sans-serif;
+    --mono:"IBM Plex Mono","SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--sans);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--edb-2);text-decoration:none}
+  a:hover{color:var(--edb)}
+
+  .nav{position:sticky;top:0;z-index:20;background:rgba(247,244,237,.92);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;
+    justify-content:space-between;gap:16px;padding:14px 28px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand .mark{width:28px;height:28px;background:var(--edb);color:var(--paper);
+    font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;
+    display:grid;place-items:center;border-radius:2px}
+  .brand .name{font-weight:700;font-size:15px}
+  .kbd{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);
+    border:1px solid var(--line);padding:2px 6px;border-radius:2px;background:#fff}
+
+  .wrap{max-width:860px;margin:0 auto;padding:40px 28px 80px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--edb)}
+  h1{font-weight:700;font-size:24px;letter-spacing:-.01em;margin:8px 0 16px}
+  .sub{color:var(--ink-2);font-size:14.5px;max-width:620px;margin:0 0 24px}
+
+  /* search box (modal-like on its own page) */
+  .qbox{background:#fff;border:1px solid var(--line);box-shadow:0 2px 0 var(--line);
+    padding:4px 4px 4px 14px;display:flex;align-items:center;gap:10px}
+  .qbox .icon{color:var(--ink-3);font-family:var(--mono);font-size:16px}
+  .qbox input{flex:1;border:0;outline:0;font-family:inherit;font-size:15.5px;
+    padding:12px 4px;color:var(--ink);background:transparent}
+  .qbox input::placeholder{color:var(--ink-3)}
+  .qbox button{font-family:inherit;font-size:13px;padding:10px 16px;border-radius:2px;
+    border:1px solid var(--edb);background:var(--edb);color:var(--paper);cursor:pointer}
+  .qbox button:hover{background:var(--edb-2);border-color:var(--edb-2)}
+
+  /* suggestions panel (modal-style) */
+  .sect{margin-top:32px}
+  .sect-head{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--edb);margin-bottom:10px}
+  .sg{background:#fff;border:1px solid var(--line);border-radius:2px}
+  .sg-item{display:flex;align-items:center;gap:12px;padding:12px 16px;
+    border-top:1px solid var(--line-2);cursor:pointer;font-size:14px;color:var(--ink-2)}
+  .sg-item:first-of-type{border-top:0}
+  .sg-item:hover{background:var(--paper-2)}
+  .sg-item .txt{flex:1}
+  .sg-item .intent{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--edb);background:var(--edb-wash);
+    padding:2px 7px;border-radius:2px}
+  .sg-item .intent.gen{color:var(--accent);background:#F1EAD6}
+
+  /* answer panel (spec S6 answer state) */
+  .answer{display:none;margin-top:28px}
+  .answer.show{display:block}
+  .q-title{font-size:17px;font-weight:600;color:var(--ink);padding-bottom:10px;
+    border-bottom:1px solid var(--line);margin-bottom:14px}
+  .a-head{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--edb);margin-bottom:6px}
+  .a-body{background:#fff;border:1px solid var(--line);padding:16px 18px;
+    font-size:14.5px;line-height:1.75;color:var(--ink)}
+  .a-body sup{font-family:var(--mono);font-size:10px;color:var(--edb);
+    background:#fff;border:1px solid var(--edb-2);padding:0 4px;border-radius:2px;
+    margin-left:2px;vertical-align:super;cursor:pointer}
+
+  .src-list{margin-top:16px;background:#fff;border:1px solid var(--line);padding:12px 16px}
+  .src-list .head{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--edb);margin-bottom:8px}
+  .src-list .s{padding:8px 0;border-top:1px dashed var(--line-2);
+    font-family:var(--mono);font-size:12.5px;color:var(--ink-2);
+    display:flex;gap:10px;align-items:baseline}
+  .src-list .s:first-of-type{border-top:0}
+  .src-list .s .n{color:var(--edb);flex:0 0 auto}
+  .src-list .s .ok{color:var(--edb);font-size:10px;letter-spacing:.08em;
+    text-transform:uppercase;margin-left:auto}
+
+  .extend{margin-top:22px;background:#fff;border:1px solid var(--line);
+    border-left:3px solid var(--accent);padding:14px 18px;
+    display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+  .extend .t{font-size:13.5px;color:var(--ink-2)}
+  .btn{font-family:inherit;font-size:13px;padding:8px 13px;border-radius:2px;
+    border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;
+    text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+  .btn:hover{border-color:var(--edb);color:var(--edb)}
+  .btn.primary{background:var(--edb);color:var(--paper);border-color:var(--edb)}
+  .btn.primary:hover{background:var(--edb-2);border-color:var(--edb-2);color:var(--paper)}
+
+  /* no-confident-answer state */
+  .no-conf{display:none;margin-top:24px;background:#fff;border:1px solid var(--line);
+    border-left:3px solid var(--stale);padding:16px 18px}
+  .no-conf.show{display:block}
+  .no-conf .h{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--stale);margin-bottom:8px}
+  .no-conf .b{font-size:14.5px;color:var(--ink-2);margin-bottom:12px}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="mark">EDB</span><span class="name">智能知識庫</span>
+    </a>
+    <span class="kbd">Esc 關閉</span>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="eyebrow">S6 · Quick Q&A</div>
+  <h1>問一個政策問題</h1>
+  <p class="sub">30 秒以內、已核實答案。由 knowledge.json 1,001 條事實 + EDB 通告出發。冇答案時唔 hallucinate,會交返畀知識團隊。</p>
+
+  <form class="qbox" id="form" onsubmit="event.preventDefault();ask()">
+    <span class="icon">◈</span>
+    <input id="q" autocomplete="off" autofocus placeholder="例:SEN 學生申請補助要幾耐?">
+    <button type="submit">問</button>
+  </form>
+
+  <!-- idle: suggestions -->
+  <div class="sect" id="idle">
+    <div class="sect-head">建議問法</div>
+    <div class="sg">
+      <div class="sg-item" onclick="suggest(this)"><span class="txt">SEN 學生申請補助要幾耐?</span><span class="intent">查政策</span></div>
+      <div class="sg-item" onclick="suggest(this)"><span class="txt">做份戶外考察風險評估</span><span class="intent gen">生成文件</span></div>
+      <div class="sg-item" onclick="suggest(this)"><span class="txt">EDBC 18/2024 點樣影響本校?</span><span class="intent">查政策</span></div>
+      <div class="sg-item" onclick="suggest(this)"><span class="txt">採購 50,000 以上流程</span><span class="intent">查政策</span></div>
+      <div class="sg-item" onclick="suggest(this)"><span class="txt">戶外考察 ≥ 100 人要申報咩?</span><span class="intent">查政策</span></div>
+    </div>
+  </div>
+
+  <!-- answer -->
+  <div class="answer" id="answer">
+    <div class="q-title" id="qt"></div>
+    <div class="a-head">答(30 秒,已核實)</div>
+    <div class="a-body" id="ab">
+      須於出發前 6 星期向 EDB 提交 Form DE12<sup>1</sup>,如涉境外考察另需家長同意書<sup>2</sup>及保險證明<sup>3</sup>。
+    </div>
+    <div class="src-list">
+      <div class="head">引用 3 條</div>
+      <div class="s"><span class="n">[1]</span>EDBC 18/2024 §4<span class="ok">verified</span></div>
+      <div class="s"><span class="n">[2]</span>家長同意書範本 #89<span class="ok">verified</span></div>
+      <div class="s"><span class="n">[3]</span>已核實事實 #514<span class="ok">verified</span></div>
+    </div>
+    <div class="extend">
+      <div class="t">想生成完整「戶外考察風險評估」?</div>
+      <a class="btn primary" href="t-purchase.html">套用 template ▸</a>
+    </div>
+  </div>
+
+  <!-- no-confident-answer -->
+  <div class="no-conf" id="noconf">
+    <div class="h">暫時冇高信心答案 · 唔 hallucinate</div>
+    <div class="b">最接近嘅 3 條 EDB 原文:</div>
+    <div class="src-list" style="border:0;padding:0">
+      <div class="s"><span class="n">•</span>EDBC 4/2019 §7</div>
+      <div class="s"><span class="n">•</span>人事手冊 §12.1</div>
+      <div class="s"><span class="n">•</span>已核實事實 #88(部分)</div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:14px">
+      <button class="btn">三條都讀</button>
+      <button class="btn primary">交知識團隊 ▸</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const q=document.getElementById('q');
+function suggest(el){ q.value=el.querySelector('.txt').textContent; ask(); }
+function ask(){
+  const v=q.value.trim(); if(!v)return;
+  document.getElementById('idle').style.display='none';
+  document.getElementById('qt').textContent=v;
+  // Fake routing: "校工合約" triggers no-confident state (per spec example)
+  if(/校工|合約|年假/.test(v)){
+    document.getElementById('answer').classList.remove('show');
+    document.getElementById('noconf').classList.add('show');
+  } else {
+    document.getElementById('noconf').classList.remove('show');
+    document.getElementById('answer').classList.add('show');
+  }
+}
+// Esc → home
+document.addEventListener('keydown',e=>{ if(e.key==='Escape')location.href='index.html'; });
+// Prefill from URL hash (?q=…)
+const m=location.hash.match(/q=([^&]+)/); if(m){ q.value=decodeURIComponent(m[1]); ask(); }
+</script>
+</body>
+</html>
