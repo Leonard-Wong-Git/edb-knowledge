@@ -6,6 +6,26 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v1.5.0] — 2026-04-19
+
+### Changed
+- **Channel A 事實庫 109 → 1,001 approved facts**（Session 79 候選合併）；公開 schema 不變，`_source_refs` 為內部 traceability，不會外洩至 `knowledge.json`。
+- `guidelines.json` 同步至 1.5.0（joint release convention；內容不變）。
+
+### Added
+- `dev/publish_knowledge_json.py` — 從 SSOT `role_facts.json` 衍生公開 `knowledge.json`；剝除 `_source_refs`，補齊全部 8 個 public role buckets。
+- `backend/src/lib/factEmbeddingStore.ts` + `backend/scripts/buildFactEmbeddings.ts` + `backend/scripts/verifyFactEmbeddings.ts` — 預算嵌入（OpenAI `text-embedding-3-small`，dim 1536）與 hash 漂移檢測，Channel A 搜尋由每次查詢 1,001 次 API 降為 1 次。
+- `bump_version.py` SSOT drift guard — 阻止 `role_facts.json`（repo-root）與 `dev/knowledge/role_facts.json`（mirror）之間的 fact 層級漂移。
+- **產品用語定型**：UI 由 dev codename「Channel A / B / A+B」改為正式產品名「人工審核 / 智慧搜索 / 綜合檢索」。新增 app.html「平台介紹」內「三種檢索方式」專屬段落（色彩區分、例子、適用情境）。API path 及內部 state 不變以保對外契約。
+- 全站響應式改造：app.html 新增 tablet (≤1023px) 與小手機 (≤480px) breakpoint tier；tab bar 水平滾動；drawer / modal 基於 viewport 寬度自適；觸控目標 ≥40px。
+- Footer 製作者署名更新為「Leonard Wong」。
+
+### Fixed
+- `knowledgeSelector` 角色崩潰：finance/hr/curriculum 的 `all_roles` pool 於 600-char budget 內已飽和，導致 subject_head/panel_chair 收到同一份事實。以 round-robin `interleave()` 保證 role-specific facts 必得至少一席。
+- `semanticRegression` schema-consistency 檢查由 hardcoded v1.3.1 改為 `knowledge.version === guidelines.version` 的關係式檢查。
+
+---
+
 ## [v1.4.0] — 2026-04-12
 
 ### Changed

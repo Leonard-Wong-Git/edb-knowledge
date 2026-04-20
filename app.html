@@ -148,6 +148,11 @@ body {
   display: flex; border-radius: var(--r-sm);
   border: 1px solid var(--border);
   overflow: hidden; background: var(--cd);
+  /* Mobile: allow horizontal scroll instead of squashing tabs */
+  max-width: 100%;
+  scrollbar-width: thin;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
 }
 .filter-tab {
   transition: all 0.15s; cursor: pointer;
@@ -155,6 +160,9 @@ body {
   border: none; background: none; color: var(--mid);
   border-right: 1px solid var(--border); white-space: nowrap;
   font-family: inherit;
+  min-height: 40px; /* touch target */
+  scroll-snap-align: start;
+  flex-shrink: 0; /* never squash tab text */
 }
 .filter-tab:last-child { border-right: none; }
 .filter-tab.active-tab {
@@ -405,16 +413,68 @@ body {
 .k1-footer a:hover { color: var(--mocha-lt); }
 
 /* ── Slide-in drawer ────────────────────────────────── */
+.k1-drawer {
+  position: fixed; top: 0; right: 0; height: 100%;
+  display: flex; flex-direction: column;
+  background: var(--cd-warm);
+  box-shadow: var(--shadow-lg);
+  border-left: 1px solid var(--border);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  /* Desktop default — overridden per breakpoint below */
+  width: 66%;
+}
 .k1-drawer-header {
   background: var(--cd-warm);
   border-bottom: 1px solid var(--border);
 }
 
-/* ── Mobile responsive ──────────────────────────────── */
+/* ── Modal container (responsive) ───────────────────── */
+.k1-modal {
+  width: 100%;
+  max-width: min(42rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Tablet (768–1023px) ────────────────────────────── */
+@media (max-width: 1023px) {
+  .k1-drawer { width: 80%; }
+  .k1-layout { padding: var(--space-sm); }
+}
+
+/* ── Mobile responsive (≤767px) ─────────────────────── */
 @media (max-width: 767px) {
   .k1-sidebar { display: none; }
-  .k1-header-inner { height: auto; padding: 10px var(--space-sm); flex-wrap: wrap; gap: 8px; }
+  .k1-header-inner {
+    height: auto; padding: 10px var(--space-sm);
+    flex-wrap: wrap; gap: 8px;
+  }
+  .k1-header-actions {
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .k1-header-actions::-webkit-scrollbar { display: none; }
   .k1-logo-sub { display: none; }
+  .k1-tab-bar { overflow-x: auto; }
+  .filter-tab { padding: 8px 12px; font-size: 13px; }
+  .k1-drawer { width: 100%; }
+  .k1-layout { padding: var(--space-sm); }
+  .k1-layout-inner { gap: var(--space-sm); }
+  .k1-btn, .export-btn { min-height: 40px; }
+}
+
+/* ── Small phone (≤480px) ───────────────────────────── */
+@media (max-width: 480px) {
+  .k1-header-inner { padding: 8px 12px; }
+  .filter-tab { padding: 8px 10px; font-size: 12px; }
+  .k1-logo-text { font-size: 15px; }
+  .k1-layout { padding: 10px; }
 }
 </style>
 </head>
@@ -2139,7 +2199,7 @@ function EditModal({ isOpen, onClose, onSave, editData }) {
 
   return (
     <div className="fixed inset-0 modal-overlay flex items-center justify-center z-50" onClick={onClose}>
-      <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-lg mx-4" onClick={e => e.stopPropagation()}>
+      <div className="k1-modal bg-white rounded-xl shadow-2xl p-6" style={{maxWidth:'min(32rem, calc(100vw - 2rem))'}} onClick={e => e.stopPropagation()}>
         <h3 className="text-lg font-bold text-gray-800 mb-4">
           {isNew ? '新增事實（草稿）' : '編輯事實'}
         </h3>
@@ -2232,7 +2292,7 @@ function ExportModal({ isOpen, onClose, data, reviewState }) {
 
   return (
     <div className="fixed inset-0 modal-overlay flex items-center justify-center z-50" onClick={onClose}>
-      <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-2xl mx-4 max-h-screen overflow-hidden flex flex-col" onClick={e => e.stopPropagation()}>
+      <div className="k1-modal bg-white rounded-xl shadow-2xl p-6 flex flex-col" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-lg font-bold text-gray-800">匯出與備份</h3>
         </div>
@@ -2344,7 +2404,7 @@ function AdminPasswordModal({ isOpen, onClose, onSuccess }) {
 
   return (
     <div className="fixed inset-0 modal-overlay flex items-center justify-center z-50">
-      <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-xs mx-4">
+      <div className="k1-modal bg-white rounded-xl shadow-xl p-6" style={{maxWidth:'min(22rem, calc(100vw - 2rem))'}}>
         <h3 className="text-base font-bold text-gray-800 mb-1">🔒 管理員登入</h3>
         <p className="text-xs text-gray-500 mb-4">輸入管理員密碼以啟用增刪審批功能</p>
         <form onSubmit={handleSubmit}>
@@ -2565,11 +2625,22 @@ function GuidelinesPanel({ setPreviewDoc }) {
 
 // ── Platform Intro Panel ──
 function PlatformIntroPanel({ stats }) {
+  const searchModes = [
+    { tag: '人工審核', icon: '👤', highlight: '1,001 條核實要點',
+      useCase: '需要精確答案的常見問題',
+      example: '例：「採購門檻幾多？」',
+      note: '離線可用，毋須後端', accent: '#2D6A4F', bg: '#EBF5EE' },
+    { tag: '智慧搜索', icon: '🔍', highlight: '2,874 段 EDB 原文',
+      useCase: '需要回到原文自行判斷',
+      example: '例：「EDBC 12/2025 第 3 段內容？」',
+      note: '需要後端，附原始 URL', accent: '#6B4F3F', bg: '#F5EDE8' },
+    { tag: '綜合檢索', icon: '✨', highlight: '要點 + 原文同時呈現',
+      useCase: '不確定哪個能答到',
+      example: '例：「新通告涉及幾個範疇」',
+      note: '新手建議由此開始', accent: '#2C4A8E', bg: '#EBF0FA' },
+  ];
   const features = [
-    { tag: 'LLM-Wiki 搜尋', icon: '🔍', title: '語義搜尋 + AI 合成', desc: '以自然語言提問，從向量化 EDB 文件庫精準檢索，AI 合成簡潔回答並附原始來源 URL。', dark: true },
-    { tag: 'Channel A', icon: '👤', title: '人工審核管線', desc: 'LLM 提議事實 → 管理員審批（行內編輯）→ 匯出 role_facts.json → 注入 Circular System。每條知識有人手把關。', dark: false },
-    { tag: 'Channel B', icon: '🤖', title: '全 AI 自動管線', desc: '與 Channel A 共用來源，全程由 AI 提取、分析及索引，涵蓋規定、指引、程序、合規風險五類事實。與 Circular System 接入暫停，待質素測試後決定。', dark: false },
-    { tag: 'Circular System', icon: '📄', title: 'EDB 通告分析', desc: '貼入 EDB 通告原文，AI 自動偵測主題、注入相關知識，生成針對不同職位的即時合規建議。', dark: false },
+    { tag: 'EDB 通告分析', icon: '📄', title: '即時合規建議', desc: '貼入 EDB 通告原文，AI 自動偵測主題、注入相關知識，生成針對不同職位（校長、副校、科主任等）的即時合規建議。', dark: true },
     { tag: '指引文件庫', icon: '📑', title: '39 份 EDB 官方指引', desc: '涵蓋財務採購、人力資源、課程、學生事務、資訊科技等範疇，附直達 PDF 連結。', dark: false },
     { tag: '統計知識', icon: '📊', title: 'EDB 教育統計', desc: '26 個自動核准統計事實，涵蓋幼稚園至特殊教育（2024/25–2025/26）。', dark: false },
   ];
@@ -2609,6 +2680,35 @@ function PlatformIntroPanel({ stats }) {
             <div key={label} style={{textAlign:'center',padding:'12px 20px',background:'var(--cd-warm)',borderRadius:'var(--r-md)',border:'1px solid var(--border)',minWidth:'110px'}}>
               <div style={{fontSize:'1.7rem',fontWeight:900,color:'var(--charcoal)'}}>{num}</div>
               <div style={{fontSize:'var(--text-sm)',color:'var(--mid)'}}>{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── 三種檢索方式 ── */}
+      <div style={{marginBottom:'var(--space-lg)'}}>
+        <p style={{fontSize:'var(--text-sm)',color:'var(--mocha)',fontWeight:700,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'6px'}}>三種檢索方式</p>
+        <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,color:'var(--charcoal)',marginBottom:'6px'}}>揀一個最適合你情境的方式</h2>
+        <p style={{fontSize:'var(--text-sm)',color:'var(--mid)',marginBottom:'20px',lineHeight:1.6}}>新手建議先用<strong style={{color:'var(--charcoal)'}}>綜合檢索</strong>，熟悉之後再視乎情境選專門通道。</p>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(260px,1fr))',gap:'14px'}}>
+          {searchModes.map(m => (
+            <div key={m.tag} style={{
+              padding:'20px',borderRadius:'var(--r-md)',
+              background:m.bg,border:`1px solid ${m.accent}22`,
+              display:'flex',flexDirection:'column',gap:'10px'
+            }}>
+              <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
+                <span style={{fontSize:'1.5rem'}}>{m.icon}</span>
+                <span style={{fontSize:'var(--text-sm)',fontWeight:800,color:m.accent,letterSpacing:'0.02em'}}>{m.tag}</span>
+              </div>
+              <div style={{fontSize:'var(--text-base)',fontWeight:700,color:'var(--charcoal)'}}>{m.highlight}</div>
+              <div style={{fontSize:'var(--text-sm)',color:'var(--mid)',lineHeight:1.55}}>
+                <div style={{marginBottom:'4px'}}>✓ 適用：{m.useCase}</div>
+                <div style={{fontStyle:'italic',color:m.accent,opacity:0.85}}>{m.example}</div>
+              </div>
+              <div style={{fontSize:'0.72rem',color:m.accent,marginTop:'auto',paddingTop:'8px',borderTop:`1px dashed ${m.accent}33`,fontWeight:600}}>
+                {m.note}
+              </div>
             </div>
           ))}
         </div>
@@ -2871,16 +2971,16 @@ function QAPanel({ data, setPreviewDoc }) {
     .reduce((s, [, td]) => s + ROLE_ORDER.reduce((n, r) => n + (Array.isArray(td[r]) ? td[r].length : 0), 0), 0);
 
   const getChannelBadge = (ch, ct) => {
-    if (ch === 'A') return { bg: '#EBF5EE', color: '#2D6A4F', label: 'Channel A · 已核實' };
-    if (ct === 'approved_fact') return { bg: '#EBF5EE', color: '#2D6A4F', label: 'Channel B · 已核實' };
-    if (ct === 'stat_fact') return { bg: '#EBF0FA', color: '#2C4A8E', label: 'Channel B · 統計' };
-    return { bg: '#F5EDE8', color: '#6B4F3F', label: 'Channel B · 文件' };
+    if (ch === 'A') return { bg: '#EBF5EE', color: '#2D6A4F', label: '人工審核 · 已核實' };
+    if (ct === 'approved_fact') return { bg: '#EBF5EE', color: '#2D6A4F', label: '智慧搜索 · 已核實' };
+    if (ct === 'stat_fact') return { bg: '#EBF0FA', color: '#2C4A8E', label: '智慧搜索 · 統計' };
+    return { bg: '#F5EDE8', color: '#6B4F3F', label: '智慧搜索 · 文件' };
   };
 
   const CHANNEL_OPTS = [
-    { id: 'A',  label: 'Channel A', sub: '人工審核' },
-    { id: 'B',  label: 'Channel B', sub: 'AI 語義' },
-    { id: 'AB', label: 'A＋B',      sub: '全庫合併' },
+    { id: 'A',  label: '人工審核', sub: '1,001 條核實要點' },
+    { id: 'B',  label: '智慧搜索', sub: '2,874 段 EDB 原文' },
+    { id: 'AB', label: '綜合檢索', sub: '兩邊同時呈現' },
   ];
 
   return (
@@ -2888,9 +2988,9 @@ function QAPanel({ data, setPreviewDoc }) {
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
         <h2 className="text-lg font-bold text-gray-800 mb-1">智能搜尋</h2>
         <p className="text-xs text-gray-400 mb-3">
-          {searchChannel === 'A'  && `Channel A：搜尋 ${channelACount} 條已核實 EDB 政策事實（離線）`}
-          {searchChannel === 'B'  && 'Channel B：語義搜尋 2,874 個知識 chunks（需要 backend）'}
-          {searchChannel === 'AB' && `Channel A+B：合併搜尋 ${channelACount} 條事實 + 2,874 個 chunks（需要 backend）`}
+          {searchChannel === 'A'  && `人工審核：查詢 ${channelACount} 條已核實 EDB 政策要點（離線可用）`}
+          {searchChannel === 'B'  && '智慧搜索：語義檢索 2,874 段 EDB 原文（需要後端）'}
+          {searchChannel === 'AB' && `綜合檢索：合併 ${channelACount} 條要點 + 2,874 段原文（需要後端）`}
         </p>
 
         {/* Channel selector */}
@@ -2924,8 +3024,8 @@ function QAPanel({ data, setPreviewDoc }) {
                  placeholder="例如：採購門檻、學生缺課、STEAM、反欺凌..."
                  className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-200 focus:border-transparent" />
           <button onClick={handleSearch} disabled={isLoading}
-                  style={{background:'var(--p-primary)'}}
-                  className="px-4 py-2 text-white text-sm rounded-lg hover:opacity-90 font-medium transition-all disabled:opacity-50">
+                  style={{background:'var(--p-primary)', whiteSpace:'nowrap'}}
+                  className="px-4 py-2 text-white text-sm rounded-lg hover:opacity-90 font-medium transition-all disabled:opacity-50 flex-shrink-0">
             {isLoading ? '⏳' : '搜尋'}
           </button>
           {query && (
@@ -2968,7 +3068,7 @@ function QAPanel({ data, setPreviewDoc }) {
                 <span style={{fontSize:'var(--text-xs)',fontWeight:700,color:'#6B4C2A',background:'#E8D8C4',padding:'2px 8px',borderRadius:'99px',border:'1px solid #C4A88255'}}>
                   ✦ AI 綜合答案
                 </span>
-                <span style={{fontSize:'var(--text-xs)',color:'#A47764'}}>Channel B · gpt-4.1-nano</span>
+                <span style={{fontSize:'var(--text-xs)',color:'#A47764'}}>智慧搜索 · gpt-4.1-nano</span>
               </div>
               <p style={{fontSize:'var(--text-sm)',color:'#3D2B1F',lineHeight:1.7,margin:0}}>{synthesis}</p>
             </div>
@@ -3937,7 +4037,7 @@ function App() {
           </div>
           <div style={{maxWidth:'560px',textAlign:'right'}}>
             <div style={{fontWeight:600,color:'rgba(240,238,233,0.65)',marginBottom:'4px'}}>
-              開發者：Antigravity Agent (A.I.) &amp; Wong Lai Ho Leonard
+              製作者：Leonard Wong
             </div>
             <div style={{fontSize:'0.72rem',opacity:0.6,lineHeight:1.5}}>
               免責聲明：本平台由人工智能協同開發，自動從教育局公開指引與通告文件提煉事實。所有資料僅供一般參考，不構成正式法律或行政意見。用戶應自行參閱教育局官方原文以作準。
@@ -3963,14 +4063,9 @@ function App() {
       )}
 
       <div
-        className="fixed top-0 right-0 h-full flex flex-col"
+        className="k1-drawer"
         style={{
-          width: '66%', background: 'var(--cd-warm)',
-          boxShadow: 'var(--shadow-lg)',
-          borderLeft: '1px solid var(--border)',
           transform: previewDoc ? 'translateX(0)' : 'translateX(100%)',
-          transition: 'transform 0.3s cubic-bezier(0.4,0,0.2,1)',
-          zIndex: 1000
         }}
       >
         <div className="k1-drawer-header flex items-center justify-between flex-shrink-0"

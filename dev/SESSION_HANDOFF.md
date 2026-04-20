@@ -1,21 +1,24 @@
 # Session Handoff
 
 ## Current Baseline
-1. Version: **v1.6.0** (K1知識平台)
+1. Version: **v1.6.0** (K1知識平台); role_facts schema v2.1.0
 2. Core files:
    - `index.html` — **K1 知識平台 Landing Page（入口）** ✅ (Session 77 重構)；dark theme, particle canvas, scroll reveal, stats counter, bento features, CTA → app.html
    - `app.html` — **K1知識平台 FULL REACT SPA** ✅ (Phase 2 migration complete); tabs: 平台介紹 / 智能搜尋 (Channel A/B/A+B) / 指引文件庫 / 通告分析 / 知識提煉(Admin) / 知識管理(Admin)
    - `k1-dashboard.html` — **已刪除**（git rm，Session 77）
    - `backend/src/` — Node.js TypeScript backend; Phase 1 search APIs complete:
      - `backend/src/lib/wikiRepository.ts` ✅
-     - `backend/src/api/searchChannelA.ts` ✅
+     - `backend/src/lib/factEmbeddingStore.ts` ✅ (Session 80)
+     - `backend/src/api/searchChannelA.ts` ✅ (Session 80: precomputed embeddings, 1 embed call per query)
      - `backend/src/api/searchChannelB.ts` ✅ (no top-k limit)
      - `backend/src/api/searchCombined.ts` ✅
      - `backend/src/server.ts` — routes `/api/search/channel-a`, `/channel-b`, `/combined` ✅
-3. Knowledge state: **1,001 Channel A facts** (7 topics, role_facts.json v2.1.0), **0 candidates in queue** (408 approved + merged Session 79), **wiki_index.json ✅** (2,874 chunks, 125 MB)
+   - `backend/scripts/buildFactEmbeddings.ts` + `verifyFactEmbeddings.ts` ✅ (Session 80)
+3. Knowledge state: **1,001 Channel A facts** — repo-root `role_facts.json` v2.1.0 = SSOT (Session 80 fix); `dev/knowledge/role_facts.json` = mirror; `app.html` INITIAL_DATA in sync. Public `knowledge.json` **v1.5.0 (1,001 facts, republished Session 80)** + `guidelines.json` v1.5.0 (joint release). **0 candidates in queue**; **wiki_index.json ✅** (2,874 chunks, 125 MB).
 4. External dependencies: EDB website, OpenAI API (gpt-4.1-nano + text-embedding-3-small), Google Docs Viewer for PDF proxy
 5. Model fix: `gpt-5-nano` → `gpt-4.1-nano` corrected across all live code files
 6. Channel B: requires `cd backend && npm run dev` before testing B/A+B in app.html
+7. Channel A: **requires `backend/data/fact_embeddings.json` to exist before first query** — run `npm run embeddings:build` whenever `role_facts.json` changes (≈US$0.003 full rebuild; incremental reuses unchanged hashes). Verify with `npm run embeddings:verify`.
 
 ## User Environment (Always Reference Before Giving Shell Commands)
 - **Repo path**: `~/Downloads/Claude-edb-knowledge`
@@ -197,27 +200,36 @@ python3 dev/vault/build_wiki_index.py
 ## Regression / Verification Notes
 1. All core 2024/2025 curriculum guides verified and reachable ✅
 2. `check_freshness.py` result: **Errors: 0 / Checked: 145** ✅
-3. **Online semantic regression: PASS=12 / FAIL=0** (2026-04-12) ✅
+3. **Online semantic regression: PASS=12 / FAIL=0** (2026-04-19, Session 80 — post republish + live embeddings) ✅
 
 ---
 
 ## Last Session Record
-1. UTC date: 2026-04-18
-2. Session ID: Claude_20260418_0003 (Session 79)
+1. UTC date: 2026-04-19
+2. Session ID: Claude_20260419_0001 (Session 80)
 3. Completed:
-   - ✅ **[Channel A merge]** 408 candidates all approved → merged into role_facts.json: 109 → **1,001 facts** (v2.1.0)
-   - ✅ **[Queue cleared]** candidate_queue.json + candidate_queue.js 清空；archive saved to `candidate_queue_archive_20260418.json`
-   - ✅ **[app.html updated]** INITIAL_DATA + INITIAL_REVIEW_STATE (1,001 entries) + chunk counts (810 → 2,874) all updated
-   - ✅ **[index.html updated]** Landing page stats: 109 → 1,001 facts, 2,840 → 2,874 chunks
-   - ✅ **[version bump]** v1.5.0 → v1.6.0
-4. Pending from last session (not yet done):
+   - ✅ **[SSOT fix]** Session 79 merge had left repo-root `role_facts.json` at 109 facts v2.0.0 while dev/knowledge/ + app.html held 1,001 v2.1.0 → backend was silently serving the old data. Copied dev/knowledge → repo-root; content hashes match.
+   - ✅ **[bump_version.py SSOT guard]** `check_ssot_drift()` blocks any real bump on drift; removed deleted `k1-dashboard.html` entry; repo-root `role_facts.json` now the version-detection primary.
+   - ✅ **[Channel A precomputed embeddings]** `backend/src/lib/factEmbeddingStore.ts` + `scripts/buildFactEmbeddings.ts` (incremental, sha256 text_hash, OpenAI batch 64) + `scripts/verifyFactEmbeddings.ts` (offline drift check). Output: `backend/data/fact_embeddings.json`.
+   - ✅ **[searchChannelA rewrite]** Per-query cost goes from **1,001 embed calls → 1** (only the query). Store loaded lazily, cached in-process; throws loud if missing. Public signature unchanged — searchCombined and server.ts untouched.
+   - ✅ **[npm scripts]** `embeddings:build`, `embeddings:build:dry`, `embeddings:verify`. `npm run check` ✅.
+   - ✅ **[knowledgeSelector interleave]** Replaced `[...all_roles, ...role_specific]` concat-then-trim with round-robin interleave. Fixes the 600-char budget starvation on finance/hr/curriculum (all_roles alone exceeded budget). Circular System prompts for heavy topics now actually carry role-specific facts.
+   - ✅ **[Regression schema test unfrozen]** `semanticRegression.ts` no longer pins `knowledge.json` to v1.3.1; now asserts `knowledge.json.version === guidelines.json.version` (they release together) and rejects only the specific v1.3.0 markers.
+   - ✅ **[Public knowledge.json republished]** `dev/publish_knowledge_json.py` derives public `knowledge.json` from SSOT `role_facts.json` — strips `_source_refs`, fills missing role buckets with `[]`. `knowledge.json` 109 facts v1.4.0 → **1,001 facts v1.5.0**. `guidelines.json` synced to v1.5.0 (joint release). K1_API_SPEC.md + CHANGELOG.md updated.
+   - ✅ **[Live embeddings built]** `npm run embeddings:build` produced `backend/data/fact_embeddings.json` with 1,001 × dim-1536 vectors (OpenAI `text-embedding-3-small`). `npm run embeddings:verify` → in-sync (0 missing / 0 hash mismatch / 0 bad-dim / 0 stale).
+   - ✅ **[Online regression PASS]** With `OPENAI_API_KEY` loaded: `npm run regression:semantic` → **PASS=12 / FAIL=0 overall PASS** (online-capable mode). Schema consistency reports `knowledge=1.5.0; guidelines=1.5.0; in_sync=true`.
+4. Pending from Session 79 (still not done):
    - **Circular System 落地**: edb_scraper.py `_write_policy_signal()` 實裝（設計已完成 Session 78）
-5. Next priorities (Session 80):
+5. Next priorities (Session 81):
+   - ~~🔴 **[Real embedding build]**~~ ✅ **done Session 80** — `backend/data/fact_embeddings.json` live, verified, online regression all-green.
+   - 🟡 **[Quality sampling of 1,001 facts]** User confirmed Session 79 approvals are quality-validated; optional 10% random sample deferred.
+   - ~~🟡 **[public knowledge.json drift]**~~ ✅ **resolved Session 80** — republished at 1,001 facts v1.5.0 via `dev/publish_knowledge_json.py`; guidelines.json bumped jointly.
    - 📋 **[Circular System 落地]** edb_scraper.py 加入 `_write_policy_signal()` — 確認 pdf_url / title 變數名後落地
    - 📋 Phase 3: 知識提煉 left-right split panel redesign (deferred)
    - 📋 Phase 4: Guidelines 3-level sort with sub_category (deferred)
    - 📋 Phase 5: Channel B admin prompt editor (deferred)
 6. Risks / blockers:
-   - Channel A searchChannelA.ts embeds ALL facts per query — **1,001 facts now** — monitor token usage (was fine at 109, now 10× larger)
+   - ~~Channel A searchChannelA.ts embeds ALL facts per query~~ ✅ **fixed Session 80** — precomputed store + cached cosine
+   - Channel A now has a **build step**: `role_facts.json` changes require `npm run embeddings:build`; CI should run `npm run embeddings:verify` to catch forgotten rebuilds
    - Channel B Circular System 接入明確暫停
    - Channel B/A+B requires local backend (`npm run dev`) — not deployable to GitHub Pages

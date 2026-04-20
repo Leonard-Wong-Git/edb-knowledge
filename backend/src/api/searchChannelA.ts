@@ -1,22 +1,26 @@
 /**
- * searchChannelA.ts — Channel A: Semantic search over approved policy facts
+ * searchChannelA.ts — Channel A: Semantic search over approved policy facts.
  *
- * Channel A facts are human-reviewed and approved. They are stored in
- * role_facts.json and loaded via knowledgeRepository.ts.
+ * Channel A facts are human-reviewed and approved. They live in
+ * role_facts.json (repo-root, SSOT) and their OpenAI embeddings are
+ * precomputed into backend/data/fact_embeddings.json via
+ * `npm run embeddings:build`.
  *
- * Search strategy:
- *   1. Embed the user query
- *   2. Score each fact text using cosine similarity against the query embedding
- *   3. Return ALL results above minScore, sorted by descending score
- *
- * Note: Channel A facts are short (< 600 chars each), so we embed them
- * on-the-fly per request. For high traffic, consider pre-embedding and caching.
+ * At query time we only embed the query once and cosine-match it against
+ * the cached vectors. This replaces the previous per-request strategy,
+ * which re-embedded every fact on every call and scaled poorly with the
+ * knowledge base size (109 → 1,001 facts).
  */
 
 import type { EmbedFn } from "../lib/embeddingClient.js";
+import {
+  FACT_EMBEDDINGS_PATH,
+  readEmbeddingFile,
+  type FactEmbeddingEntry,
+  type FactEmbeddingFile,
+} from "../lib/factEmbeddingStore.js";
 import { loadKnowledgeBase } from "../lib/knowledgeRepository.js";
 import type { TopicId } from "../types/knowledge.js";
-import { TOPIC_IDS } from "../types/knowledge.js";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -36,7 +40,7 @@ export interface SearchChannelARequest {
   query: string;
   /** Optional topic filter */
   topic?: TopicId;
-  /** Optional role filter */
+  /** Optional role filter — also matches facts tagged all_roles */
   role?: string;
   /** Min similarity score 0–1. Default: 0.1 */
   min_score?: number;
@@ -50,20 +54,74 @@ export interface SearchChannelAResponse {
 }
 
 // ---------------------------------------------------------------------------
-// Math helpers
+// Embedding store cache
 // ---------------------------------------------------------------------------
+
+interface CachedEntry extends FactEmbeddingEntry {
+  topic_label: string;
+  vector_norm: number;
+}
+
+let cachedStore: {
+  built_at: string;
+  entries: CachedEntry[];
+} | null = null;
+let cachedLoadPromise: Promise<void> | null = null;
+
+function norm(a: number[]): number {
+  let s = 0;
+  for (let i = 0; i < a.length; i++) s += a[i] * a[i];
+  return Math.sqrt(s);
+}
 
 function dot(a: number[], b: number[]): number {
   let s = 0;
-  for (let i = 0; i < a.length; i++) s += a[i] * b[i];
+  const n = Math.min(a.length, b.length);
+  for (let i = 0; i < n; i++) s += a[i] * b[i];
   return s;
 }
-function norm(a: number[]): number {
-  return Math.sqrt(dot(a, a));
+
+async function loadStoreOnce(): Promise<void> {
+  if (cachedStore) return;
+  if (cachedLoadPromise) return cachedLoadPromise;
+
+  cachedLoadPromise = (async () => {
+    const file: FactEmbeddingFile | null = await readEmbeddingFile();
+    if (!file) {
+      throw new Error(
+        `Channel A embedding store not found at ${FACT_EMBEDDINGS_PATH}. ` +
+          `Run: npm run embeddings:build`
+      );
+    }
+
+    const kb = await loadKnowledgeBase();
+    const topicLabels = new Map<string, string>();
+    for (const [topic, data] of Object.entries(kb)) {
+      if (topic.startsWith("_") || !data || typeof data !== "object") continue;
+      const label = (data as { _label?: string })._label ?? topic;
+      topicLabels.set(topic, label);
+    }
+
+    const entries: CachedEntry[] = file.entries.map((entry) => ({
+      ...entry,
+      topic_label: topicLabels.get(entry.topic) ?? entry.topic,
+      vector_norm: norm(entry.vector),
+    }));
+
+    cachedStore = { built_at: file.built_at, entries };
+  })();
+
+  try {
+    await cachedLoadPromise;
+  } finally {
+    cachedLoadPromise = null;
+  }
 }
-function cosine(a: number[], b: number[]): number {
-  const n = norm(a) * norm(b);
-  return n > 0 ? dot(a, b) / n : 0;
+
+/** For tests / manual refresh — forces the next search to reload the store. */
+export function resetChannelACache(): void {
+  cachedStore = null;
+  cachedLoadPromise = null;
 }
 
 // ---------------------------------------------------------------------------
@@ -80,61 +138,33 @@ export async function searchChannelA(
     throw new Error("query is required");
   }
 
-  const kb = await loadKnowledgeBase();
-  const queryVec = await embedFn(query);
-
-  // Collect all facts with their metadata
-  const candidates: Array<{
-    text: string;
-    topicId: TopicId;
-    topicLabel: string;
-    role: string;
-  }> = [];
-
-  for (const topicId of TOPIC_IDS) {
-    if (topic && topicId !== topic) continue;
-    const topicData = kb[topicId];
-    if (!topicData) continue;
-
-    const topicLabel = topicData._label ?? topicId;
-
-    for (const [roleKey, facts] of Object.entries(topicData)) {
-      if (roleKey.startsWith("_") || !Array.isArray(facts)) continue;
-      if (role && roleKey !== role && roleKey !== "all_roles") continue;
-
-      for (const fact of facts as string[]) {
-        if (typeof fact === "string" && fact.trim()) {
-          candidates.push({
-            text: fact.trim(),
-            topicId,
-            topicLabel,
-            role: roleKey,
-          });
-        }
-      }
-    }
+  await loadStoreOnce();
+  if (!cachedStore) {
+    throw new Error("Channel A store failed to load");
   }
 
-  if (candidates.length === 0) {
+  const queryVec = await embedFn(query);
+  const qNorm = norm(queryVec);
+  if (qNorm === 0) {
     return { query, channel: "A", total: 0, results: [] };
   }
 
-  // Embed all candidate facts in one batch
-  // For Channel A (< 200 facts), this is fast enough per-request
-  const factTexts = candidates.map((c) => c.text);
-  const factVecs = await Promise.all(factTexts.map((t) => embedFn(t)));
-
-  // Score and filter
   const scored: ChannelAResult[] = [];
-  for (let i = 0; i < candidates.length; i++) {
-    const score = cosine(queryVec, factVecs[i]);
+  for (const entry of cachedStore.entries) {
+    if (topic && entry.topic !== topic) continue;
+    if (role && entry.role !== role && entry.role !== "all_roles") continue;
+
+    const denom = qNorm * entry.vector_norm;
+    if (denom === 0) continue;
+    const score = dot(queryVec, entry.vector) / denom;
     if (score < min_score) continue;
+
     scored.push({
-      id: `A_${candidates[i].topicId}_${i}`,
-      text: candidates[i].text,
-      topic: candidates[i].topicId,
-      topic_label: candidates[i].topicLabel,
-      role: candidates[i].role,
+      id: entry.id,
+      text: entry.text,
+      topic: entry.topic,
+      topic_label: entry.topic_label,
+      role: entry.role,
       score: Math.round(score * 10000) / 10000,
       channel: "A",
     });

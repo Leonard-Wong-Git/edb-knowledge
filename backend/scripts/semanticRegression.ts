@@ -282,24 +282,28 @@ async function run(): Promise<void> {
   });
 
   // Schema consistency regression.
+  // We don't pin a specific version here — that would force the test to be
+  // bumped every release. What we *do* enforce: knowledge.json and
+  // guidelines.json share a version (they're released together), split
+  // roles are documented in the spec, and the old 1.3.0 markers are gone.
   const knowledgeMeta = (knowledgeJson._meta ?? {}) as Record<string, unknown>;
   const guidelinesMeta = (guidelinesJson._meta ?? {}) as Record<string, unknown>;
+  const knowledgeVer = typeof knowledgeMeta.version === "string" ? knowledgeMeta.version : "";
+  const guidelinesVer = typeof guidelinesMeta.version === "string" ? guidelinesMeta.version : "";
+  const versionsInSync = Boolean(knowledgeVer) && knowledgeVer === guidelinesVer;
   const specHasSplitRoles =
     apiSpec.includes("subject_head") && apiSpec.includes("panel_chair");
   const specStillOldVersion =
     apiSpec.includes("knowledge.json 實際格式（v1.3.0）") || apiSpec.includes("最後更新：2026-04-08");
   const schemaConsistencyOk =
-    knowledgeMeta.version === "1.3.1" &&
-    guidelinesMeta.version === "1.3.1" &&
-    specHasSplitRoles &&
-    !specStillOldVersion;
+    versionsInSync && specHasSplitRoles && !specStillOldVersion;
 
   rows.push({
     scenario: "schema consistency regression",
     precondition: "knowledge.json / guidelines.json / K1_API_SPEC.md 可讀取",
-    action: "比對 meta version 與公開 spec 文字",
-    expected: "三者版本與 split-role 描述一致，且 spec 無舊版漂移",
-    actual: `knowledge=${knowledgeMeta.version}; guidelines=${guidelinesMeta.version}; spec_split_roles=${specHasSplitRoles}; spec_old_version_markers=${specStillOldVersion}`,
+    action: "比對兩份公開檔 meta version 是否同步，並檢查 spec 文字",
+    expected: "knowledge.json 與 guidelines.json 版本一致；spec 有 split-role 描述且無舊版漂移",
+    actual: `knowledge=${knowledgeVer || "(none)"}; guidelines=${guidelinesVer || "(none)"}; in_sync=${versionsInSync}; spec_split_roles=${specHasSplitRoles}; spec_old_version_markers=${specStillOldVersion}`,
     result: schemaConsistencyOk ? "PASS" : "FAIL",
   });
 

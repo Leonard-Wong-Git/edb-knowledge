@@ -17,6 +17,7 @@ Usage:
 import re
 import json
 import sys
+import hashlib
 import datetime
 from pathlib import Path
 
@@ -98,16 +99,18 @@ def _changelog_insert(content, new_ver, note):
     return content[:pos] + entry + content[pos:]
 
 # ─── File registry ─────────────────────────────────────────────────────────
+# Note: k1-dashboard.html removed (deprecated in Session 77).
+# app.html INITIAL_DATA is no longer the SSOT — role_facts.json is.
 FILES = [
     {
-        "path": REPO_ROOT / "k1-dashboard.html",
-        "label": "k1-dashboard.html (INITIAL_DATA._meta.version)",
-        "find": _html_find,
-        "replace": _html_replace,
+        "path": REPO_ROOT / "role_facts.json",
+        "label": "role_facts.json (SSOT, backend source)",
+        "find": _json_find("role_facts.json"),
+        "replace": _json_replace("role_facts.json"),
     },
     {
         "path": REPO_ROOT / "dev" / "knowledge" / "role_facts.json",
-        "label": "dev/knowledge/role_facts.json (_meta.version)",
+        "label": "dev/knowledge/role_facts.json (mirror)",
         "find": _json_find("role_facts.json"),
         "replace": _json_replace("role_facts.json"),
     },
@@ -149,6 +152,35 @@ def bump(version_str, bump_type):
 def read(path):
     return path.read_text(encoding="utf-8") if path.exists() else None
 
+def _canonical_facts_hash(path):
+    """Hash of the facts content (excluding _meta) for SSOT drift detection."""
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    payload = {k: v for k, v in data.items() if not k.startswith("_")}
+    return hashlib.sha256(
+        json.dumps(payload, ensure_ascii=False, sort_keys=True).encode("utf-8")
+    ).hexdigest()
+
+def check_ssot_drift():
+    """Verify repo-root role_facts.json == dev/knowledge/role_facts.json (content only).
+    Returns (ok, message). _meta dates may differ and are ignored."""
+    primary = REPO_ROOT / "role_facts.json"
+    mirror = REPO_ROOT / "dev" / "knowledge" / "role_facts.json"
+    if not primary.exists() or not mirror.exists():
+        return True, "SSOT check skipped — one of the files is missing."
+    h_primary = _canonical_facts_hash(primary)
+    h_mirror = _canonical_facts_hash(mirror)
+    if h_primary != h_mirror:
+        return False, (
+            "SSOT drift detected between repo-root role_facts.json and dev/knowledge/role_facts.json.\n"
+            "   Fix: copy the authoritative version over the other before bumping.\n"
+            f"   repo-root    : {h_primary[:16] if h_primary else 'unreadable'}\n"
+            f"   dev/knowledge: {h_mirror[:16] if h_mirror else 'unreadable'}"
+        )
+    return True, f"SSOT OK — content hash {h_primary[:16]}"
+
 def show_current():
     print("\n📋  Current version inventory:\n")
     versions = set()
@@ -167,6 +199,10 @@ def show_current():
         cl = read(CHANGELOG_PATH)
         cv = _changelog_find(cl)
         print(f"  ✓  CHANGELOG.md (latest entry): {cv or 'not found'}")
+
+    ssot_ok, ssot_msg = check_ssot_drift()
+    marker = "✓" if ssot_ok else "⚠️"
+    print(f"  {marker}  {ssot_msg}")
 
     if len(versions) > 1:
         print(f"\n  ⚠️  WARNING: version mismatch detected across files: {sorted(versions)}")
@@ -195,21 +231,29 @@ def main():
 
     bump_type = args[0]  # patch / minor / major / set
 
-    # Determine new version
+    # SSOT drift guard — block any bump (except dry-run) when repo-root and
+    # dev/knowledge role_facts.json disagree. This prevents silently
+    # versioning an inconsistent dataset the way Session 79 did.
+    ssot_ok, ssot_msg = check_ssot_drift()
+    if not ssot_ok:
+        print(f"❌  {ssot_msg}")
+        if not dry_run:
+            sys.exit(1)
+        print("    (continuing because --dry-run)")
+
+    # Determine new version — repo-root role_facts.json is the SSOT.
     if bump_type == "set":
         if len(args) < 2 or not re.match(r"^\d+\.\d+\.\d+$", args[1]):
             print("❌  Usage: python3 bump_version.py set <x.y.z>")
             sys.exit(1)
         new_ver = args[1]
-        # Detect current from HTML (primary source for display)
-        html_content = read(REPO_ROOT / "k1-dashboard.html")
-        old_ver = _html_find(html_content) if html_content else "unknown"
+        rj = read(REPO_ROOT / "role_facts.json")
+        old_ver = _json_find("role_facts.json")(rj) if rj else "unknown"
     elif bump_type in ("patch", "minor", "major"):
-        # Detect current version — use html as primary, fallback to first json
-        html_content = read(REPO_ROOT / "k1-dashboard.html")
-        old_ver = _html_find(html_content) if html_content else None
+        rj = read(REPO_ROOT / "role_facts.json")
+        old_ver = _json_find("role_facts.json")(rj) if rj else None
         if not old_ver:
-            # Fallback: check role_facts.json
+            # Fallback to mirror
             rj = read(REPO_ROOT / "dev" / "knowledge" / "role_facts.json")
             if rj:
                 old_ver = _json_find("role_facts.json")(rj)
@@ -261,7 +305,7 @@ def main():
     else:
         print(f"\n✅  Version bumped to {new_ver} across all files.\n")
         print("Next steps:")
-        print(f"  cd ~/Downloads/Claude-edb-knowledge && git add k1-dashboard.html dev/knowledge/role_facts.json knowledge.json guidelines.json README.md CHANGELOG.md && git commit -m \"chore: bump version to v{new_ver}\" && git pull --rebase && git push origin main\n")
+        print(f"  cd ~/Downloads/Claude-edb-knowledge && git add role_facts.json dev/knowledge/role_facts.json knowledge.json guidelines.json README.md CHANGELOG.md && git commit -m \"chore: bump version to v{new_ver}\" && git pull --rebase && git push origin main\n")
 
 if __name__ == "__main__":
     main()
