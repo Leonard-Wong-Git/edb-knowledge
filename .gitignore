@@ -10,11 +10,13 @@ AGENTS.md
 CLAUDE.md
 GEMINI.md
 INIT.md
+.claude/
 
 # Uploads / temp
 dev/uploads/
 dev/edb-knowledge-admin-snapshot.json
 dev/init_backup/
+dev/_selftest_work/
 dev/K1_API_SPEC.md
 *.tmp
 *.bak
@@ -42,3 +44,7 @@ landing.html
 # Editor
 .vscode/
 .idea/
+
+# MemPalace per-project files (issue #185)
+mempalace.yaml
+entities.json

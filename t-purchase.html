@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>校本採購指引 — EDB 智能知識庫</title>
+<title>校本採購指引 — EDB 知識庫</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -239,7 +239,7 @@
 <nav class="nav">
   <div class="nav-inner">
     <a class="brand" href="index.html">
-      <span class="mark">EDB</span><span class="name">智能知識庫</span>
+      <span class="mark">EDB</span><span class="name">知識庫</span>
     </a>
     <a class="back" href="index.html">← 返回首頁</a>
   </div>
@@ -256,12 +256,12 @@
     </div>
     <div class="head-actions">
       <a class="btn" href="index.html">取消</a>
-      <button class="btn primary" id="submit" disabled>生成 (~22 秒) ▸</button>
+      <button class="btn primary" id="submit" disabled>建立草稿 (~22 秒) ▸</button>
     </div>
   </div>
 
   <div class="intro">
-    <div><div class="k">輸出</div><div class="v">5 個段落 · 可匯出 .docx/PDF</div></div>
+    <div><div class="k">輸出</div><div class="v">5 個段落 · 草稿預覽</div></div>
     <div><div class="k">引用</div><div class="v">自動引 4–6 份 EDB 通告 + 已核實事實</div></div>
     <div><div class="k">校本資料</div><div class="v">填入校本資料 12 項(6 必填 / 6 可選)</div></div>
   </div>
@@ -335,7 +335,7 @@
         <div class="sk"><span class="n">§5</span><span>附件:表格清單 + 生效日 + 負責人</span><span class="cite">0 cite</span></div>
       </div>
       <div class="sk-est">
-        預計引用 <b>7 個 EDB 源 + 12 條事實</b> · 預計生成時間 <b>~22 秒</b>
+        預計引用 <b>7 個 EDB 源 + 12 條事實</b> · 預計整理時間 <b>~22 秒</b>
       </div>
     </div>
   </div>
@@ -343,10 +343,10 @@
   <section class="gen-stage" id="gen-stage" aria-live="polite">
     <div class="gen-shell">
       <div class="gen-main">
-        <div class="gen-kicker" id="gen-state">生成 · 步驟 1 / 5</div>
-        <h2 class="gen-title" id="gen-title">生成中 · 請勿關閉此頁</h2>
-        <p class="gen-sub" id="gen-sub">系統正按校本資料建立文件骨架，逐段鎖定來源和引用。完成後會停在草稿準備狀態。</p>
-        <div class="gen-track" aria-label="生成進度">
+        <div class="gen-kicker" id="gen-state">建立草稿 · 步驟 1 / 5</div>
+        <h2 class="gen-title" id="gen-title">建立草稿中 · 請勿關閉此頁</h2>
+        <p class="gen-sub" id="gen-sub">正按校本資料建立文件骨架，逐段鎖定來源和引用。完成後會停在草稿準備狀態。</p>
+        <div class="gen-track" aria-label="建立草稿進度">
           <div class="gen-fill" id="gen-fill"></div>
         </div>
         <div class="gen-meta">
@@ -367,7 +367,7 @@
           </div>
           <div class="step" data-step="2">
             <span class="dot">3</span>
-            <span><span class="st">生成 §1–§3 政策主體</span><span class="sd">建立宗旨、採購原則、程序與審批層級。</span></span>
+            <span><span class="st">整理 §1–§3 政策主體</span><span class="sd">建立宗旨、採購原則、程序與審批層級。</span></span>
             <span class="tm">~11s</span>
           </div>
           <div class="step" data-step="3">
@@ -382,7 +382,7 @@
           </div>
         </div>
 
-        <div class="doc-skel" aria-label="文件生成骨架">
+        <div class="doc-skel" aria-label="草稿建立骨架">
           <div class="doc-sec ready" data-doc-step="0">
             <div class="h">§1 目的及範圍</div>
             <div class="doc-line mid"></div><div class="doc-line short"></div>
@@ -433,7 +433,7 @@
         </div>
         <div class="gen-box">
           <div class="lab">檢查</div>
-          <div class="val" id="side-checks">等待生成開始</div>
+          <div class="val" id="side-checks">等待建立草稿</div>
         </div>
       </aside>
     </div>
@@ -497,7 +497,7 @@
         </div>
         <div id="source-list"></div>
         <div class="stale-callout" id="stale-callout">
-          §2 有一個來源標記為過時，建議在正式匯出前重新生成該段引用。
+          §2 有一個來源標記為過時，建議在正式定稿前重新整理該段引用。
         </div>
       </aside>
     </div>
@@ -559,7 +559,7 @@ const sourceMap={
     {id:'[5] 已核實事實 #312',status:'✓',quote:'審批層級應按金額、風險和採購性質分級。'}
   ],
   4:[
-    {id:'校本條款',status:'校本',quote:'本段由用戶輸入的採購上限及特別條款生成。'}
+    {id:'校本條款',status:'校本',quote:'本段按用戶輸入的採購上限及特別條款整理。'}
   ],
   5:[
     {id:'附件清單',status:'校本',quote:'附件及生效資訊由校本資料產生。'}
@@ -595,7 +595,7 @@ editAgain.addEventListener('click',()=>{
   genStage.classList.remove('active');
   draftStage.classList.remove('active');
   btn.disabled=false;
-  btn.textContent='生成 (~22 秒) ▸';
+  btn.textContent='建立草稿 (~22 秒) ▸';
   window.scrollTo({top:0,behavior:'smooth'});
   check();
 });
@@ -637,14 +637,14 @@ function startGeneration(){
   sideSource.innerHTML=copy.pills.map(p=>`<span class="source-pill">${p}</span>`).join('');
   sourceDesc.textContent=copy.desc;
   sideChecks.textContent=copy.checks;
-  genTitle.textContent='生成中 · 請勿關閉此頁';
-  genSub.textContent='系統正按校本資料建立文件骨架，逐段鎖定來源和引用。完成後會停在草稿準備狀態。';
+  genTitle.textContent='建立草稿中 · 請勿關閉此頁';
+  genSub.textContent='正按校本資料建立文件骨架，逐段鎖定來源和引用。完成後會停在草稿準備狀態。';
   genStage.classList.add('active');
   genComplete.classList.remove('show');
   doneActions.classList.remove('show');
   draftStage.classList.remove('active');
   btn.disabled=true;
-  btn.textContent='生成中...';
+  btn.textContent='建立中...';
   window.scrollTo({top:genStage.offsetTop-72,behavior:'smooth'});
   setProgress(0);
   let step=0;
@@ -661,7 +661,7 @@ function startGeneration(){
 function setProgress(step){
   const pct=((step+1)/5)*100;
   genFill.style.width=`${pct}%`;
-  genState.textContent=`生成 · 步驟 ${step+1} / 5`;
+  genState.textContent=`建立草稿 · 步驟 ${step+1} / 5`;
   genStepLabel.textContent=`${step+1} / 5`;
   genEta.textContent=step>=4?'已完成':'預計約 '+Math.max(4,22-(step*5))+' 秒';
   document.querySelectorAll('.step').forEach((el,i)=>{
@@ -680,7 +680,7 @@ function completeGeneration(){
   genComplete.classList.add('show');
   doneActions.classList.add('show');
   sideChecks.textContent+=' · 完成';
-  btn.textContent='已生成';
+  btn.textContent='草稿已建立';
 }
 function showDraft(){
   draftMeta.textContent=`${lastDraftMeta} · 7 個來源`;

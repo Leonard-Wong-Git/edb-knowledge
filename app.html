@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EDB 智能知識庫 — 工作室</title>
+<title>EDB 知識庫 — 工作室</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -2379,7 +2379,7 @@ function ExportModal({ isOpen, onClose, data, reviewState }) {
                 下載
               </button>
             </div>
-            <p className="text-xs text-gray-600 mb-2">只包含已確認事實，適合發布或提供後台使用。</p>
+            <p className="text-xs text-gray-600 mb-2">只包含已確認事實，適合發布或作管理備份。</p>
             <div className="flex gap-2 text-xs">
               <span className="px-2 py-1 bg-green-50 border border-green-200 rounded text-green-700">
                 已確認：{approvedExport.approvedCount}
@@ -2687,17 +2687,17 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // ── Platform Intro Panel ──
 function PlatformIntroPanel({ stats }) {
   const features = [
-    { tag: 'LLM-Wiki 搜尋', icon: '🔍', title: '語義搜尋 + AI 合成', desc: '以自然語言提問，從向量化 EDB 文件庫精準檢索，AI 合成簡潔回答並附原始來源 URL。', dark: true },
-    { tag: '通道 A', icon: '👤', title: '人工審核管線', desc: 'LLM 提議事實 → 管理員審批（行內編輯）→ 匯出 role_facts.json → 注入通告系統。每條知識有人手把關。', dark: false },
-    { tag: '通道 B', icon: '🤖', title: '全 AI 自動管線', desc: '與通道 A 共用來源，全程由 AI 提取、分析及索引，涵蓋規定、指引、程序、合規風險五類事實。與通告系統接入暫停，待質素測試後決定。', dark: false },
-    { tag: '通告系統', icon: '📄', title: 'EDB 通告分析', desc: '貼入 EDB 通告原文，AI 自動偵測主題、注入相關知識，生成針對不同職位的即時合規建議。', dark: false },
+    { tag: '來源文件搜尋', icon: '🔍', title: '語義搜尋 + 來源摘要', desc: '以自然語言提問，從 EDB 文件庫檢索相關段落，整理簡潔回答並附原始來源 URL。', dark: true },
+    { tag: '已核實事實', icon: '👤', title: '人工審核知識庫', desc: '候選事實經管理員審批及行內編輯後，才進入正式知識庫。每條知識保留人手把關。', dark: false },
+    { tag: '來源文件庫', icon: '📚', title: '文件段落索引', desc: '與已核實事實共用來源，涵蓋規定、指引、程序及合規風險等資料；與通告分析接入暫停，待質素測試後決定。', dark: false },
+    { tag: '通告分析', icon: '📄', title: 'EDB 通告分析', desc: '貼入 EDB 通告原文，偵測相關主題，並按角色整理合規跟進建議。', dark: false },
     { tag: '指引文件庫', icon: '📑', title: '39 份 EDB 官方指引', desc: '涵蓋財務採購、人力資源、課程、學生事務、資訊科技等範疇，附直達 PDF 連結。', dark: false },
     { tag: '統計知識', icon: '📊', title: 'EDB 教育統計', desc: '26 個自動核准統計事實，涵蓋幼稚園至特殊教育（2024/25–2025/26）。', dark: false },
   ];
   const steps = [
-    { n: '01', title: '自然語言提問', desc: '以中文直接輸入問題，無需掌握精確關鍵詞或文件編號。系統理解語意而非只配對文字。' },
+    { n: '01', title: '自然語言提問', desc: '以中文直接輸入問題，無需先掌握精確關鍵詞或文件編號。' },
     { n: '02', title: '語義檢索相關段落', desc: '預計算向量索引在毫秒內找出最相關的 EDB 文件段落，精準而節省運算資源。' },
-    { n: '03', title: 'AI 合成回答＋來源引用', desc: 'LLM 合成 ≤200 字精簡回答，附 EDB 原始文件標題及直達 URL，讓你核實每個細節。' },
+    { n: '03', title: '整理回答＋來源引用', desc: '整理精簡回答，附 EDB 原始文件標題及直達 URL，讓你核實每個細節。' },
   ];
   const sources = [
     { icon: '📗', name: '學校行政手冊（SAG）', type: '2025年11月版 · 跨階段 · PDF' },
@@ -2723,7 +2723,7 @@ function PlatformIntroPanel({ stats }) {
           問一句，得到<em style={{color:'var(--mocha)',fontStyle:'normal'}}>有根有據</em>的答案。
         </h1>
         <p style={{fontSize:'var(--text-lg)',color:'var(--mid)',maxWidth:'520px',margin:'0 auto 24px',lineHeight:1.6}}>
-          以自然語言查詢教育局政策、通告及指引。AI 即時檢索、合成回答，並附上 EDB 原始來源連結。
+          以自然語言查詢教育局政策、通告及指引。平台會整理相關答案，並附上 EDB 原始來源連結。
         </p>
         <div style={{display:'flex',justifyContent:'center',gap:'12px',flexWrap:'wrap',marginTop:'24px'}}>
           {statItems.map(({num,label}) => (
@@ -2967,7 +2967,7 @@ function QAPanel({ data, setPreviewDoc }) {
       setResults(found);
       setSearched(true);
     } catch (err) {
-      setBackendError('後台連線失敗。請先啟動本地後台：cd backend && npm run dev');
+      setBackendError('進階來源搜尋暫未連線。可先使用「已核實資料」搜尋，或稍後再試。');
       setResults([]);
       setSearched(true);
     } finally {
@@ -2999,19 +2999,19 @@ function QAPanel({ data, setPreviewDoc }) {
   };
 
   const CHANNEL_OPTS = [
-    { id: 'A',  label: '通道 A', sub: '人工審核' },
-    { id: 'B',  label: '通道 B', sub: 'AI 語義' },
-    { id: 'AB', label: 'A＋B',      sub: '全庫合併' },
+    { id: 'A',  label: '已核實資料', sub: '離線可用' },
+    { id: 'B',  label: '來源文件', sub: '進階搜尋' },
+    { id: 'AB', label: '合併搜尋',      sub: '全庫合併' },
   ];
 
   return (
     <div className="flex-1 min-w-0">
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
-        <h2 className="text-lg font-bold text-gray-800 mb-1">智能搜尋</h2>
+        <h2 className="text-lg font-bold text-gray-800 mb-1">政策搜尋</h2>
         <p className="text-xs text-gray-400 mb-3">
-          {searchChannel === 'A'  && `通道 A：搜尋 ${channelACount} 條已核實 EDB 政策事實（離線）`}
-          {searchChannel === 'B'  && '通道 B：語義搜尋 2,874 個知識片段（需要後台）'}
-          {searchChannel === 'AB' && `通道 A+B：合併搜尋 ${channelACount} 條事實 + 2,874 個知識片段（需要後台）`}
+          {searchChannel === 'A'  && `已核實資料：搜尋 ${channelACount} 條 EDB 政策事實（離線可用）`}
+          {searchChannel === 'B'  && '來源文件：搜尋 2,874 個知識片段（需要本機分析服務）'}
+          {searchChannel === 'AB' && `合併搜尋：${channelACount} 條事實 + 2,874 個知識片段（需要本機分析服務）`}
         </p>
 
         {/* Channel selector */}
@@ -3087,9 +3087,9 @@ function QAPanel({ data, setPreviewDoc }) {
             <div style={{background:'var(--paper-2)',border:'1px solid #C4A882',borderRadius:'var(--r-md)',padding:'14px 16px'}}>
               <div className="flex items-center gap-2 mb-2">
                 <span style={{fontSize:'var(--text-xs)',fontWeight:700,color:'var(--edb)',background:'var(--line-2)',padding:'2px 8px',borderRadius:'99px',border:'1px solid #C4A88255'}}>
-                  ✦ AI 綜合答案
+                  ✦ 整理答案
                 </span>
-                <span style={{fontSize:'var(--text-xs)',color:'var(--edb)'}}>通道 B · gpt-4.1-nano</span>
+                <span style={{fontSize:'var(--text-xs)',color:'var(--edb)'}}>來源文件摘要</span>
               </div>
               <p style={{fontSize:'var(--text-sm)',color:'var(--ink)',lineHeight:1.7,margin:0}}>{synthesis}</p>
             </div>
@@ -3176,7 +3176,7 @@ function CircularAnalysisPanel() {
       if (!res.ok) throw new Error(body.error || `HTTP ${res.status}`);
       setResult(body);
     } catch (err) {
-      setError(err.message || '無法連接後端，請確認本地伺服器已啟動。');
+      setError(err.message || '分析服務暫未連線；請稍後再試，或先使用政策搜尋。');
     } finally {
       setLoading(false);
     }
@@ -3190,10 +3190,10 @@ function CircularAnalysisPanel() {
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
         <h2 className="text-lg font-bold text-gray-800 mb-1">通告分析</h2>
         <p className="text-xs text-gray-400 mb-1">
-          貼上通告全文，選擇角色，由 AI 自動偵測相關主題並提供顧問式分析。
+          貼上通告全文，選擇角色，平台會偵測相關主題並整理顧問式分析。
         </p>
         <p className="text-xs text-gray-300 mb-4">
-          後端需在本地運行：<code className="bg-gray-100 text-gray-500 px-1 rounded">cd backend &amp;&amp; OPENAI_API_KEY=sk-... npm run dev</code>
+          此功能需要本機分析服務連線；未啟用時可先使用政策搜尋。
         </p>
         <textarea
           value={circularText}
@@ -3230,7 +3230,7 @@ function CircularAnalysisPanel() {
       {loading && (
         <div className="bg-white rounded-xl border border-gray-200 p-10 text-center text-gray-400">
           <p className="text-3xl mb-3" style={{animation:'pulse 1.5s ease-in-out infinite'}}>⚙️</p>
-          <p className="text-sm">向量嵌入 + LLM 分析中，請稍候…</p>
+          <p className="text-sm">正在整理通告內容，請稍候…</p>
         </div>
       )}
 
@@ -3240,7 +3240,7 @@ function CircularAnalysisPanel() {
           <p className="text-sm font-medium text-red-700 mb-1">連接錯誤</p>
           <p className="text-sm text-red-600">{error}</p>
           <p className="mt-2 text-xs text-red-400">
-            請確認後端已啟動：<code>cd backend &amp;&amp; OPENAI_API_KEY=sk-... npm run dev</code>
+            分析服務暫未連線；請稍後再試，或先使用政策搜尋。
           </p>
         </div>
       )}
@@ -3283,7 +3283,7 @@ function CircularAnalysisPanel() {
 
           {/* Analysis */}
           <div className="bg-white rounded-xl border border-gray-200 p-4">
-            <h3 className="text-sm font-semibold text-gray-700 mb-2">💡 AI 顧問分析</h3>
+            <h3 className="text-sm font-semibold text-gray-700 mb-2">💡 顧問式分析</h3>
             <div className="text-sm text-gray-800 whitespace-pre-wrap leading-relaxed">{result.analysis}</div>
           </div>
         </div>
@@ -3293,8 +3293,8 @@ function CircularAnalysisPanel() {
       {!loading && !result && !error && (
         <div className="bg-white rounded-xl border border-gray-200 p-10 text-center">
           <p className="text-4xl mb-3">📋</p>
-          <p className="text-sm text-gray-400">貼上 EDB 通告，由 AI 自動分析並提供相關 EDB 規定建議</p>
-          <p className="text-xs text-gray-300 mt-1">使用語意向量嵌入 (text-embedding-3-small) 偵測主題</p>
+          <p className="text-sm text-gray-400">貼上 EDB 通告，整理相關 EDB 規定及跟進建議</p>
+          <p className="text-xs text-gray-300 mt-1">未連線時可先使用政策搜尋查找來源</p>
         </div>
       )}
     </div>
@@ -3344,7 +3344,7 @@ function CandidateReviewPanel({ queue, onApprove, onReject }) {
     return (
       <div className="review-empty flex-1 min-w-0">
         <p className="text-lg font-semibold text-gray-700">候選隊列已清空</p>
-        <p className="text-sm mt-1">目前沒有 LLM 提議的知識點需要審核。</p>
+        <p className="text-sm mt-1">目前沒有候選知識點需要審核。</p>
       </div>
     );
   }
@@ -3808,7 +3808,7 @@ function App() {
               </button>
               <button onClick={() => setViewMode('qa')}
                       className={`filter-tab ${viewMode === 'qa' ? 'active-tab' : ''}`}>
-                🔍 智能搜尋
+                🔍 政策搜尋
               </button>
               <button onClick={() => setViewMode('guidelines')}
                       className={`filter-tab ${viewMode === 'guidelines' ? 'active-tab' : ''}`}>
@@ -3856,7 +3856,7 @@ function App() {
             )}
 
             {/* Circular metric */}
-            <span className="k1-badge k1-badge-warning" title="已接通 EDB Circular 通告系統，自動注入確認政策事實。">
+            <span className="k1-badge k1-badge-warning" title="已接通 EDB Circular 通告分析流程，按已確認政策事實提供輔助。">
               ⚡ {stats.approvedCount * 18 + 432} 次調用
             </span>
 
@@ -4074,10 +4074,10 @@ function App() {
           </div>
           <div style={{maxWidth:'560px',textAlign:'right'}}>
             <div style={{fontWeight:600,color:'rgba(240,238,233,0.65)',marginBottom:'4px'}}>
-              開發者：Antigravity Agent (A.I.) &amp; Wong Lai Ho Leonard
+              維護：Wong Lai Ho Leonard
             </div>
             <div style={{fontSize:'0.72rem',opacity:0.6,lineHeight:1.5}}>
-              免責聲明：本平台由人工智能協同開發，自動從教育局公開指引與通告文件提煉事實。所有資料僅供一般參考，不構成正式法律或行政意見。用戶應自行參閱教育局官方原文以作準。
+              免責聲明：本平台整理教育局公開指引與通告文件資料。所有資料僅供一般參考，不構成正式法律或行政意見。用戶應自行參閱教育局官方原文以作準。
             </div>
           </div>
         </div>

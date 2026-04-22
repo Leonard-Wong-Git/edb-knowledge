@@ -27,7 +27,7 @@ ARCHIVE_POINTER = (
     "<!-- Archives: dev/archive/ — entries moved when >400 lines "
     "or oldest entry >30 days -->"
 )
-ENTRY_HEADING_RE = re.compile(r"^## (\d{4}-\d{2}-\d{2})$", re.MULTILINE)
+ENTRY_HEADING_RE = re.compile(r"^## (\d{4}-\d{2}-\d{2})(?:\b.*)?$", re.MULTILINE)
 PROMPT_BLOCK_HEADER = "### Next Session Handoff Prompt (Verbatim)"
 
 
@@ -402,7 +402,7 @@ def mode_self_test(args: argparse.Namespace) -> int:
             "name": "line_trigger_only",
             "entries": [
                 (today - timedelta(days=i), "x" * 240)
-                for i in range(12)
+                for i in range(30)
             ],
             "expect_trigger": True,
             "expect_archived_min": 1,
@@ -481,7 +481,7 @@ def mode_self_test(args: argparse.Namespace) -> int:
             "trigger_expected": trigger == sc["expect_trigger"],
             "retained_min_two": len(entries_after) >= 2,
             "latest_prompt_preserved": has_prompt_block(entries_after[0].text) if entries_after else False,
-            "pointer_present_when_triggered": (ARCHIVE_POINTER in raw_after) if trigger else True,
+            "pointer_present_when_triggered": (ARCHIVE_POINTER in raw_after) if archived_files else True,
             "line_trim_when_line_trigger": (
                 len(raw_after.splitlines()) <= args.target_lines or len(entries_after) <= 2
             )

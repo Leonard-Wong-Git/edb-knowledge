@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>快速問答 — EDB 智能知識庫</title>
+<title>快速問答 — EDB 知識庫</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -115,7 +115,7 @@
 <nav class="nav">
   <div class="nav-inner">
     <a class="brand" href="index.html">
-      <span class="mark">EDB</span><span class="name">智能知識庫</span>
+      <span class="mark">EDB</span><span class="name">知識庫</span>
     </a>
     <span class="kbd">Esc 關閉</span>
   </div>
@@ -124,7 +124,7 @@
 <div class="wrap">
   <div class="eyebrow">S6 · 快速問答</div>
   <h1>問一個政策問題</h1>
-  <p class="sub">30 秒以內提供已核實答案。由 knowledge.json 1,001 條事實及 EDB 通告出發；沒有高信心答案時，系統不會臆測，會轉交知識團隊跟進。</p>
+  <p class="sub">按本地 knowledge.json 的已核實事實提供答案。未有足夠依據時，頁面會列出可跟進方向，不會自行補作結論。</p>
 
   <form class="qbox" id="form" onsubmit="event.preventDefault();ask()">
     <span class="icon">◈</span>
@@ -137,7 +137,7 @@
     <div class="sect-head">建議問法</div>
     <div class="sg">
       <div class="sg-item" onclick="suggest(this)"><span class="txt">SEN 學生申請補助需時多久？</span><span class="intent">查政策</span></div>
-      <div class="sg-item" onclick="suggest(this)"><span class="txt">建立戶外考察風險評估</span><span class="intent gen">生成文件</span></div>
+      <div class="sg-item" onclick="suggest(this)"><span class="txt">建立戶外考察風險評估</span><span class="intent gen">套用模板</span></div>
       <div class="sg-item" onclick="suggest(this)"><span class="txt">EDBC 18/2024 如何影響本校？</span><span class="intent">查政策</span></div>
       <div class="sg-item" onclick="suggest(this)"><span class="txt">採購 50,000 以上流程</span><span class="intent">查政策</span></div>
       <div class="sg-item" onclick="suggest(this)"><span class="txt">戶外考察 ≥ 100 人需要申報甚麼？</span><span class="intent">查政策</span></div>
@@ -147,52 +147,149 @@
   <!-- answer -->
   <div class="answer" id="answer">
     <div class="q-title" id="qt"></div>
-    <div class="a-head">答覆（30 秒，已核實）</div>
+    <div class="a-head">答覆（已核實資料）</div>
     <div class="a-body" id="ab">
-      須於出發前 6 星期向 EDB 提交 Form DE12<sup>1</sup>，如涉及境外考察，另需家長同意書<sup>2</sup>及保險證明<sup>3</sup>。
+      請先輸入問題。
     </div>
-    <div class="src-list">
-      <div class="head">引用 3 條</div>
-      <div class="s"><span class="n">[1]</span>EDBC 18/2024 §4<span class="ok">已核實</span></div>
-      <div class="s"><span class="n">[2]</span>家長同意書範本 #89<span class="ok">已核實</span></div>
-      <div class="s"><span class="n">[3]</span>已核實事實 #514<span class="ok">已核實</span></div>
+    <div class="src-list" id="srcbox">
+      <div class="head" id="src-head">引用 0 條</div>
+      <div id="src-items"></div>
     </div>
     <div class="extend">
-      <div class="t">想生成完整「戶外考察風險評估」？</div>
+      <div class="t">想建立完整「戶外考察風險評估」草稿？</div>
       <a class="btn primary" href="t-purchase.html">套用模板 ▸</a>
     </div>
   </div>
 
   <!-- no-confident-answer -->
   <div class="no-conf" id="noconf">
-    <div class="h">暫時沒有高信心答案 · 不會臆測</div>
-    <div class="b">最接近的 3 條 EDB 原文：</div>
+    <div class="h">暫時沒有高信心答案</div>
+    <div class="b" id="noconf-copy">未能在已核實事實中找到足夠直接的依據。可嘗試縮短問題或改用政策關鍵詞。</div>
     <div class="src-list" style="border:0;padding:0">
-      <div class="s"><span class="n">•</span>EDBC 4/2019 §7</div>
-      <div class="s"><span class="n">•</span>人事手冊 §12.1</div>
-      <div class="s"><span class="n">•</span>已核實事實 #88(部分)</div>
+      <div class="s"><span class="n">•</span>採購 / 報價 / 津貼</div>
+      <div class="s"><span class="n">•</span>SEN / 學生支援 / 缺課</div>
+      <div class="s"><span class="n">•</span>課程 / 通告編號 / 指引名稱</div>
     </div>
     <div style="display:flex;gap:8px;margin-top:14px">
-      <button class="btn">三條都讀</button>
-      <button class="btn primary">交知識團隊 ▸</button>
+      <a class="btn" href="app.html">到工作台搜尋</a>
+      <a class="btn primary" href="index.html#templates">查看模板 ▸</a>
     </div>
   </div>
 </div>
 
 <script>
 const q=document.getElementById('q');
-function suggest(el){ q.value=el.querySelector('.txt').textContent; ask(); }
-function ask(){
+const idle=document.getElementById('idle');
+const answer=document.getElementById('answer');
+const noconf=document.getElementById('noconf');
+const qt=document.getElementById('qt');
+const ab=document.getElementById('ab');
+const srcHead=document.getElementById('src-head');
+const srcItems=document.getElementById('src-items');
+const noconfCopy=document.getElementById('noconf-copy');
+let factsPromise=null;
+
+function suggest(el){
+  q.value=el.querySelector('.txt').textContent;
+  if(q.value.includes('建立戶外考察風險評估')){
+    location.href='t-purchase.html';
+    return;
+  }
+  ask();
+}
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function loadFacts(){
+  if(!factsPromise){
+    factsPromise=fetch('knowledge.json')
+      .then(r=>{ if(!r.ok)throw new Error('knowledge.json unavailable'); return r.json(); })
+      .then(data=>{
+        const rows=[];
+        Object.entries(data).forEach(([topicId,topic])=>{
+          if(topicId==='_meta' || !topic || typeof topic!=='object')return;
+          const sources=Array.isArray(topic._sources)?topic._sources:[];
+          const sourceMap=topic._sourceMap||{};
+          Object.entries(topic).forEach(([roleId,items])=>{
+            if(roleId.startsWith('_') || !Array.isArray(items))return;
+            items.forEach((text,index)=>{
+              const srcIdx=sourceMap[`${roleId}.${index}`];
+              const source=sources[srcIdx]||null;
+              rows.push({
+                topicId,
+                topicLabel:topic._label||topicId,
+                roleId,
+                text,
+                keywords:topic._keywords_zh||[],
+                sourceTitle:source?.title||topic._label||topicId,
+                sourceUrl:source?.url||''
+              });
+            });
+          });
+        });
+        return rows;
+      });
+  }
+  return factsPromise;
+}
+
+function scoreFact(item,tokens,full){
+  const text=item.text.toLowerCase();
+  const topic=(item.topicLabel+' '+item.topicId+' '+item.roleId+' '+item.keywords.join(' ')).toLowerCase();
+  let score=0;
+  tokens.forEach(t=>{
+    const key=t.toLowerCase();
+    if(!key)return;
+    if(text.includes(key))score+=3;
+    if(topic.includes(key))score+=1;
+  });
+  if(full.length>=4 && text.includes(full.toLowerCase()))score+=5;
+  return score;
+}
+
+async function ask(){
   const v=q.value.trim(); if(!v)return;
-  document.getElementById('idle').style.display='none';
-  document.getElementById('qt').textContent=v;
-  // Fake routing: "校工合約" triggers no-confident state (per spec example)
-  if(/校工|合約|年假/.test(v)){
-    document.getElementById('answer').classList.remove('show');
-    document.getElementById('noconf').classList.add('show');
-  } else {
-    document.getElementById('noconf').classList.remove('show');
-    document.getElementById('answer').classList.add('show');
+  idle.style.display='none';
+  qt.textContent=v;
+  ab.textContent='搜尋已核實事實中…';
+  srcHead.textContent='引用 0 條';
+  srcItems.innerHTML='';
+  noconf.classList.remove('show');
+  answer.classList.add('show');
+
+  try{
+    const rows=await loadFacts();
+    const tokens=[...new Set(v.split(/[\s，,、。？?／/]+/).map(s=>s.trim()).filter(Boolean))];
+    const matches=rows
+      .map(item=>({...item,score:scoreFact(item,tokens,v)}))
+      .filter(item=>item.score>0)
+      .sort((a,b)=>b.score-a.score)
+      .slice(0,5);
+
+    if(matches.length===0){
+      answer.classList.remove('show');
+      noconfCopy.textContent='未能在已核實事實中找到足夠直接的依據。可嘗試縮短問題、改用政策關鍵詞，或到工作台查閱來源文件。';
+      noconf.classList.add('show');
+      return;
+    }
+
+    const top=matches.slice(0,3);
+    ab.innerHTML=top.map((item,i)=>
+      `<p>${esc(item.text)}<sup>${i+1}</sup></p>`
+    ).join('');
+    srcHead.textContent=`引用 ${top.length} 條`;
+    srcItems.innerHTML=top.map((item,i)=>{
+      const source=item.sourceUrl
+        ? `<a href="${esc(item.sourceUrl)}" target="_blank" rel="noopener">${esc(item.sourceTitle)}</a>`
+        : esc(item.sourceTitle);
+      return `<div class="s"><span class="n">[${i+1}]</span>${source}<span class="ok">已核實</span></div>`;
+    }).join('');
+  }catch(err){
+    answer.classList.remove('show');
+    noconfCopy.textContent='暫時未能讀取本地知識庫資料。可返回首頁使用模板，或稍後重新載入此頁。';
+    noconf.classList.add('show');
   }
 }
 // Esc → home

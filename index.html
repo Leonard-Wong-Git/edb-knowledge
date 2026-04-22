@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>EDB 智能知識庫 — 校本文件工作室</title>
-<meta name="description" content="源頭為本的校本文件工作室：由 EDB 通告及 1,001 條已核實事實出發，生成符合校本資料的文件。">
+<title>EDB 知識庫 — 校本文件工作室</title>
+<meta name="description" content="源頭為本的校本文件工作室：由 EDB 通告及已核實事實出發，整理可核對的校本文件草稿。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -173,13 +173,12 @@
   <div class="nav-inner">
     <a class="brand" href="/">
       <span class="mark">EDB</span>
-      <span class="name">智能知識庫</span>
-      <span class="sub">v1.6 · Facade</span>
+      <span class="name">知識庫</span>
+      <span class="sub">v1.6 · 工作室</span>
     </a>
     <div class="nav-right">
       <a href="#templates">文件庫</a>
       <a href="app.html">我的草稿</a>
-      <a href="dev/design/Spec.html">設計規格</a>
       <a href="q.html" title="快速問答">快速問答</a>
       <span class="kbd" id="kbd-hint">⌘K</span>
     </div>
@@ -190,15 +189,15 @@
   <div class="ribbon"><span class="t">離線</span>離線模式 · 上次同步 04-19 · 可用快取模板及 1,001 條已核實事實</div>
 
   <div class="eyebrow">源頭為本 · 校本文件工作室</div>
-  <h1>由 EDB 通告出發，生成符合校本資料的文件</h1>
+  <h1>由 EDB 通告出發，建立可核對的校本文件草稿</h1>
   <p class="lede">
-    這不是一般 AI 聊天機械人，而是一個校本文件工作室：選擇模板 → 填寫校本資料 → 系統抽取 EDB 原文及已核實事實 → 輸出可匯出的 .docx/PDF。
-    每段引用都有上標，右側面板可追溯至 EDB 原通告。
+    這是一個源頭為本的校本文件工作室：選擇模板 → 填寫校本資料 → 按 EDB 原文及已核實事實整理草稿。
+    每段引用都有上標，右側面板可追溯至 EDB 原通告；正式發出前仍需由學校核對。
   </p>
 
   <form class="omni" onsubmit="event.preventDefault();location.href='q.html#q='+encodeURIComponent(this.q.value||'')">
     <span class="icon">◈</span>
-    <input name="q" id="omni-input" autocomplete="off" placeholder="搜政策 · 生成文件 · 按校本資料套用…">
+    <input name="q" id="omni-input" autocomplete="off" placeholder="搜尋政策 · 建立草稿 · 按校本資料套用…">
     <span class="hot">輸入</span>
   </form>
   <div class="channels">
@@ -211,7 +210,7 @@
   <!-- templates -->
   <div class="sh" id="templates">
     <h2>常用校本文件</h2>
-    <span class="right">5 款 · 由 knowledge.json 生成</span>
+    <span class="right">5 款 · 按已核實資料整理</span>
   </div>
   <div class="tmpl-grid">
     <a class="card" style="--rule:var(--edb)" href="t-purchase.html">
@@ -255,23 +254,19 @@
     <div>
       <div class="sh"><h2>我的草稿</h2><span class="right">只限本機</span></div>
       <div class="list-item"><span class="date">昨日</span><span class="t"><b>家長通告 v3</b> · 草稿 · 引 2 源</span></div>
-      <div class="list-item"><span class="date">04-14</span><span class="t"><b>校本採購指引</b> · 完成 · 引 7 源 · 匯出 .docx</span></div>
+      <div class="list-item"><span class="date">04-14</span><span class="t"><b>校本採購指引</b> · 草稿 · 引 7 源</span></div>
     </div>
   </div>
 
   <div class="cta">
-    <div class="t"><b>查看新版完整設計？</b> Preview.html 列出 4 個畫面，Prototype.html 可點擊操作，Spec.html 保存 ASCII 線框與設計決策。</div>
-    <a class="btn primary" href="dev/design/Preview.html">打開預覽 ▸</a>
-    <a class="btn" href="dev/design/Spec.html">設計規格</a>
-    <a class="btn" href="app.html">完整工作台</a>
+    <div class="t"><b>需要完整工作台？</b> 可到管理中心搜尋指引、核對知識條目及查看來源。</div>
+    <a class="btn primary" href="app.html">打開工作台 ▸</a>
+    <a class="btn" href="q.html">快速問答</a>
   </div>
 
   <footer>
     <span>v1.6.0</span>
     <span>1,001 條已核實事實 · 7 個知識主題</span>
-    <a href="dev/design/Spec.html">設計規格</a>
-    <a href="dev/design/Preview.html">設計預覽</a>
-    <a href="dev/design/Prototype.html">互動原型</a>
     <a href="README.md">說明文件</a>
   </footer>
 </div>

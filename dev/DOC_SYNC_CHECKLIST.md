@@ -17,6 +17,7 @@
 | Tech stack / build / dependency change | CODEBASE_CONTEXT.md Stack or Build section | manual review |
 | External API / service change | CODEBASE_CONTEXT.md External Services block | block format check |
 | New governance file added to install | §5a backup list in AGENTS.md; INIT.md ROOT SAFETY CHECK backup list; INIT.md FILE 1 §5a | grep check |
+| Session-log maintenance utility added/changed | AGENTS.md §4a mechanism enforcement; INIT.md FILE 7 + FILE 1 §4a + §5a backup list; README*.md safeguards section; docs/qa/run_checks.sh | script self-test + grep |
 | New project doc added | This file — add a row for the new doc's update triggers | row presence check |
 | Governance bootstrap / INIT execution | SESSION_HANDOFF.md Last Session Record; SESSION_LOG.md task entry + handoff prompt | manual review |
 | Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | manual review |
