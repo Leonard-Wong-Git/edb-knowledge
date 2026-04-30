@@ -2960,7 +2960,7 @@ function QAPanel({ data, setPreviewDoc }) {
   const [isLoading, setIsLoading] = useState(false);
   const [backendError, setBackendError] = useState(null);
 
-  const BACKEND_URL = 'http://localhost:8787';
+  const BACKEND_URL = 'https://edb-knowledge.onrender.com';
   const TOPIC_LABELS = {
     finance: '財務/採購', hr: '人力資源', curriculum: '課程',
     activity: '活動', student: '學生事務', it: '資訊科技', general: '通用/行政'
@@ -3218,7 +3218,7 @@ function QAPanel({ data, setPreviewDoc }) {
 
 // ── Circular Analysis Panel ──
 function CircularAnalysisPanel() {
-  const BACKEND_URL = 'http://localhost:8787/analyze-circular';
+  const BACKEND_URL = 'https://edb-knowledge.onrender.com/analyze-circular';
 
   const [circularText, setCircularText] = useState('');
   const [role, setRole] = useState('principal');
