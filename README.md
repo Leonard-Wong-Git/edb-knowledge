@@ -1,12 +1,22 @@
-# 學校管理知識中心
+# 學校管理知識中心（K1 知識平台）
 
 > 香港教育局（EDB）政策知識庫 — 專為學校管理人員而設
 
 [![Version](https://img.shields.io/badge/version-v2.1.1-teal)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
-[![Platform](https://img.shields.io/badge/platform-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html)
+[![GitHub Pages](https://img.shields.io/badge/Frontend-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/edb-knowledge/app.html)
+[![Backend](https://img.shields.io/badge/Backend-Render-46E3B7)](https://edb-knowledge.onrender.com/health)
 
-**🔗 Live Demo:** [https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html](https://leonard-wong-git.github.io/edb-knowledge/k1-dashboard.html)
+---
+
+## 🔗 連結
+
+| | URL |
+|---|---|
+| **知識平台（主應用）** | https://leonard-wong-git.github.io/edb-knowledge/app.html |
+| **入口頁** | https://leonard-wong-git.github.io/edb-knowledge/ |
+| **Quick Q&A** | https://leonard-wong-git.github.io/edb-knowledge/q.html |
+| **後端 API** | https://edb-knowledge.onrender.com |
 
 ---
 
@@ -14,59 +24,137 @@
 
 | 功能 | 說明 |
 |------|------|
-| 📚 **知識庫** | EDB 政策事實，按角色（校長、副校長、主任、教師等）分類 |
-| 📋 **指引文件庫** | 官方 EDB 指引文件，按類別導覽 |
-| 🔍 **智能搜尋** | 跨主題關鍵字搜尋，顯示相關事實、角色標籤及原始出處連結 |
-| ✅ **審核流程** | Draft → Approved 工作流，支援批量批核及 JSON 匯出 |
-| 🔗 **出處追溯** | 每個事實均連結至具體 EDB 官方文件（PDF 或網頁） |
+| 🔍 **政策搜尋** | 語義搜尋 1,001 條已核實政策事實（Channel A），顯示相關事實、角色標籤及原始出處連結 |
+| 📚 **指引文件庫** | 148 份官方 EDB 指引，按類別 → 子類別 → 年份三層分組導覽 |
+| 📄 **通告分析** | 貼入 EDB 通告文字，AI 自動識別主題、政策影響及相關知識 |
+| ✍️ **知識提煉**（Admin） | 候選事實審核工作流：Pending → Approved → 同步至知識庫 |
+| ⚙️ **知識管理**（Admin） | 批量管理、匯出、版本控制 |
 
 ## 涵蓋主題
 
-- 💰 **財務 / 採購 / 津貼** — 採購程序、報價門檻、整筆撥款
-- 👥 **人力資源** — CPD、代課教師津貼、批假政策、專業操守
+- 💰 **財務 / 採購 / 津貼** — 採購程序、報價門檻、整筆撥款、代課教師津貼
+- 👥 **人力資源** — CPD、批假政策、專業操守、調任安排
 - 📖 **課程** — PECG 2024、八個 KLA、五種基要學習經歷、STEAM
 - 🏃 **校外活動** — 境外活動、戶外活動、全方位學習津貼
 - 🧒 **學生事務** — 訓育、反欺凌、SEN 融合教育、出席記錄
 - 💻 **資訊科技** — 資訊保安政策、BYOD、數據保安
 - 🏫 **通用行政** — 法團校董會、公開資料守則、學校行政手冊
 
+---
+
 ## 技術架構
 
-- **Single-file SPA** — 純前端，無需後端或構建工具
-- **React 18** + **Babel** + **Tailwind CSS 2.2**（全部由 CDN 載入）
-- 資料嵌入 HTML 的 `INITIAL_DATA` 常數，同步備份於 `dev/knowledge/role_facts.json`
+```
+Frontend (GitHub Pages)          Backend (Render)
+─────────────────────────        ──────────────────────────────
+app.html   ← React 18 SPA   ──→  /api/search/channel-a   (語義搜尋)
+index.html ← 入口頁               /api/search/channel-b   (Phase 2)
+q.html     ← Quick Q&A           /api/search/combined    (Phase 2)
+                                  /analyze-circular       (通告分析)
+                                  /health
+```
+
+### Frontend
+- **Single-file React SPA** — `app.html`（React 18 + Babel + Tailwind CSS 2.2，全部 CDN）
+- 靜態托管於 GitHub Pages，無需構建工具
+
+### Backend
+- **Node.js + TypeScript**，托管於 [Render](https://render.com) 免費 tier
+- **Channel A 搜尋**：對 1,001 條已審核事實做語義搜尋（OpenAI `text-embedding-3-small`）
+- **通告分析**：LLM 提取主題、影響角色、政策要點
+- 冷啟動約 30 秒（Render 免費 tier idle 15 分鐘後自動關閉）
+
+### 知識管道
+
+**Channel A — 人工審核（主線）**
+```
+EDB PDF → extract_candidates.py → candidate_queue.json
+→ Admin 審核（inline edit）→ role_facts.json → knowledge.json
+```
+
+**Channel B — 全 AI（副線，Phase 2）**
+```
+EDB PDF → ai_extract.py → wiki_index.json（向量索引）
+→ /api/search/channel-b → 智能搜尋 UI
+```
+
+---
+
+## 知識庫狀態
+
+| 項目 | 數量 |
+|------|------|
+| Channel A 已審核事實 | **1,001 條** |
+| 指引文件庫 | **148 份** |
+| Channel B 向量索引 | **2,874 chunks**（本地，Phase 2 上線中） |
+
+---
 
 ## 文件結構
 
 ```
 edb-knowledge/
-├── k1-dashboard.html          # 主應用程式（單一 HTML 文件）
-├── index.html                 # 入口重定向
-├── knowledge.json             # 公開 API 端點 — 事實庫（供 EDB 通告智能分析系統調用）
-├── guidelines.json            # 公開 API 端點 — 指引文件連結庫（供 EDB 通告智能分析系統調用）
-├── bump_version.py            # 版本號自動更新腳本
-├── README.md                  # 本文件
-├── CHANGELOG.md               # 版本歷史
+├── app.html                    # K1 知識平台主應用（React SPA）
+├── index.html                  # 入口頁
+├── q.html                      # Quick Q&A（本地 knowledge.json 搜尋）
+├── t-purchase.html             # 採購範本流程
+├── role_facts.json             # Channel A 知識庫（公開 API）
+├── knowledge.json              # 知識庫副本（供 EDB 通告系統調用）
+├── guidelines.json             # 指引文件庫（公開 API）
+├── CHANGELOG.md                # 版本歷史
+├── backend/                    # Node.js TypeScript 後端
+│   ├── src/
+│   │   ├── server.ts           # HTTP server + 路由
+│   │   ├── api/                # 各端點處理器
+│   │   └── lib/                # embeddingClient、knowledgeRepository 等
+│   └── package.json
 └── dev/
-    └── knowledge/
-        └── role_facts.json    # 知識庫數據備份（JSON 格式，與 knowledge.json 同步）
+    ├── knowledge/
+    │   ├── role_facts.json     # Channel A 事實庫（source of truth）
+    │   ├── policy_signals.json # Circular System 政策訊號
+    │   └── candidate_queue.json
+    ├── vault/                  # PDF 提取腳本
+    ├── CODEBASE_CONTEXT.md     # 平台整體架構說明
+    ├── CIRCULAR_SYSTEM_INTEGRATION.md  # edb_scraper.py 整合規格
+    └── SESSION_HANDOFF.md      # 開發工作日誌
 ```
+
+---
+
+## 本地開發
+
+### 前端
+直接在瀏覽器開啟 `app.html`，或用任何靜態伺服器。
+
+### 後端
+```bash
+cd backend
+cp .env.example .env          # 填入 OPENAI_API_KEY
+npm install
+npm run dev                   # 啟動於 http://localhost:8787
+```
+
+環境變數（`backend/.env`）：
+```
+OPENAI_API_KEY=sk-...
+OPENAI_MODEL=gpt-4.1-nano
+PORT=8787
+CORS_ORIGIN=https://leonard-wong-git.github.io
+KNOWLEDGE_PATH=../../../dev/knowledge/role_facts.json
+```
+
+---
 
 ## 版本歷史
 
 詳見 [CHANGELOG.md](CHANGELOG.md)
 
+---
+
 ## 數據來源
 
-所有事實均來自香港教育局官方文件：
-
-- [教育局通告 EDBC20006C（CPD）](https://www.edb.gov.hk/attachment/tc/teacher/qualification-training-development/development/cpd-teachers/EDBC20006C.pdf)
-- [《小學教育課程指引》2024 完整版](https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide/PECG%202024_full.pdf)
-- [資助學校採購程序指引（2024）](https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures%20in%20Aided%20Schools%20Trad%20Chi_2024.pdf)
-- [整合代課教師津貼指引（2023）](https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/trg/TRG_guidelines_C.pdf)
-- [學校資訊保安建議措施（2019）](https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/information-security-in-school.html)
-- 及其他 25+ 份 EDB 官方文件
+所有事實均來自香港教育局官方文件，包括教育局通告、課程指引、學校行政手冊等 30+ 份文件。每條事實均附原始文件連結，確保可追溯性。
 
 ---
 
-*最後更新：2026-04-30 | 維護：leonard-wong-git*
+*最後更新：2026-04-30 | K1知識平台 v2.1.1 | 維護：leonard-wong-git*
