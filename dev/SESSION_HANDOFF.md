@@ -108,19 +108,20 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## Last Session Record
 1. UTC date: 2026-04-30
-2. Session ID: Claude_20260430_0002 (Session 90)
+2. Session ID: Claude_20260430_0003 (Session 91)
 3. Completed:
-   - ✅ **[Render 部署]** Channel A backend live at `https://edb-knowledge.onrender.com`；health endpoint `GET /health` 確認正常；app.html BACKEND_URL 更新
    - ✅ **[Batch embed fix]** 修正 `searchChannelA.ts` — 以單次 batch API call 取代 Promise.all(1,001 個別 embedding calls)；修正 Render "Failed to fetch" 根本原因；TypeScript build 通過；已 push
-   - ✅ **[embeddingClient.ts]** 新增 `BatchEmbedFn` type 及 `embed.batch()` 方法（支援最多 2,048 inputs/call，自動分段）
+   - ✅ **[embeddingClient.ts]** 新增 `BatchEmbedFn` type 及 `embed.batch()` 方法
+   - ✅ **[README 全面重寫]** 反映 v2.1.1 現況：app.html、backend Render URL、Channel A/B 架構、文件結構、本地開發指引
+   - ✅ **[SESSION_HANDOFF 更新]** Session 91 記錄完整
 4. Pending from last session (not yet done):
-   - 無
+   - Channel A online search 待用戶在 app.html 驗證（Render 重新部署後）
 5. Next priorities (next session):
-   - 🔍 **驗證 Channel A online search**：Render 重新部署後，在 app.html 測試 `/api/search/channel-a` 搜尋是否正常返回結果
-   - 📋 **Optional UI QA browser pass**：index.html、q.html、t-purchase.html、app.html 視覺檢查
-   - 🗄️ **Phase 2 — Channel B online**：wiki_index.json → Supabase pgvector；加 rate limiting
+   - 🗄️ **Phase 2 — Channel B online**：wiki_index.json (2,874 embeddings) → Supabase pgvector；更新 wikiRepository.ts；Render 加環境變數；加 rate limiting
+   - 🔍 **驗證 Channel A online search**（如尚未確認）
+   - 📋 **Optional UI QA browser pass**
 6. Risks / blockers:
-   - Channel A search: each query still makes 2 API calls (1 for query + 1 batch for all 1,001 facts). Consider caching pre-computed fact embeddings for cost/speed.
-   - Render free tier cold start (~30s) after 15min inactivity — first search will be slow
+   - Channel A search: 每次查詢仍需 2 次 API call（1 query + 1 batch 1,001 facts）。可考慮啟動時預計算並 cache fact embeddings。
+   - Render free tier cold start (~30s) after 15min inactivity
    - Channel B/A+B requires Phase 2 (Supabase) — wiki_index.json not in git
    - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`
