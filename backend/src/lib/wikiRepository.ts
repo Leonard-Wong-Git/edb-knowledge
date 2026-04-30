@@ -97,9 +97,13 @@ export async function searchWiki(
   const supabase = getClient();
   const queryVec = await embedFn(query);
 
+  // pgvector requires the embedding as a string "[x,x,x,...]" when passed via
+  // Supabase JS RPC — passing a raw number[] is not recognised by the cast.
+  const embeddingStr = `[${queryVec.join(",")}]`;
+
   // Call the match_wiki_chunks RPC function
   const { data, error } = await supabase.rpc("match_wiki_chunks", {
-    query_embedding: queryVec,
+    query_embedding: embeddingStr,
     match_threshold: minScore,
     match_count: topK ?? null,
   });
