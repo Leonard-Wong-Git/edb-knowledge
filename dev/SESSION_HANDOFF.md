@@ -3,7 +3,7 @@
 ## Current Baseline
 1. Version: **v1.6.0** (K1知識平台)
 2. Frontend: `index.html` S1 home; `t-purchase.html` S3/S4/S5 draft flow; `q.html` local `knowledge.json` Quick Q&A; `app.html` full React SPA / management workspace.
-3. Knowledge state: **1,001 Channel A facts**, **0 candidates in queue**, **wiki_index.json** 2,874 chunks / 125 MB.
+3. Knowledge state: **1,001 Channel A facts** (三層同步 ✅: `dev/knowledge/role_facts.json` = `role_facts.json` = `knowledge.json`, 全部 v2.1.0), **0 candidates in queue**, **wiki_index.json** 2,874 chunks / 125 MB.
 4. Backend: Node.js TypeScript backend Phase 1 search APIs complete; Channel B/A+B and Circular analysis require local backend runtime.
 5. Product copy baseline: Traditional Chinese UI; no public internal design/dev/backend commands; template flows say "建立草稿/整理" until formal export/generation is connected.
 6. MemPalace: shared install `/Users/leonard/mempalace/.venv`, palace `/Users/leonard/mempalace/palace`, wing `claude_edb_knowledge`; shared palace recovered and mined successfully.
@@ -92,7 +92,7 @@ source_registry → same vault PDFs → ai_extract.py
 ## Open Priorities
 1. Circular System: implement/sync `edb_scraper.py` `_write_policy_signal()` so policy signals include the agreed `url` field.
 2. Phase 4: 指引文件庫 dual sort with `sub_category` (category → sub_category → time desc).
-3. Optional UI QA: run a browser visual pass on `index.html`, `q.html`, `t-purchase.html`, and `app.html` after Session 86 copy cleanup.
+3. Optional UI QA: run a browser visual pass on `index.html`, `q.html`, `t-purchase.html`, and `app.html`.
 4. MemPalace maintenance: keep `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838` until the recovered shared palace remains stable.
 5. Future backlog: Channel B admin prompt editor / quality sandbox after current priorities.
 
@@ -106,22 +106,19 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Last Session Record
-1. UTC date: 2026-04-22
-2. Session ID: Codex_20260422_0603 (GitHub upload after frontend cleanup)
+1. UTC date: 2026-04-30
+2. Session ID: Claude_20260430_0000 (Session 88)
 3. Completed:
-   - ✅ **[Publish prep]** Reviewed dirty tree from frontend cleanup / MemPalace governance sessions and confirmed scope before upload
-   - ✅ **[Release gate]** Ran syntax, JSX parse, session-log maintenance, and local `knowledge.json` search checks before GitHub push
-   - ✅ **[GitHub upload]** Current `main` branch prepared for push to `Leonard-Wong-Git/edb-knowledge`
+   - ✅ **[知識同步審計]** 發現三層 role_facts 斷層：dev(1,001) vs repo root(109) vs knowledge.json(109)
+   - ✅ **[知識三層同步]** `dev/knowledge/role_facts.json` → `role_facts.json`（repo root，backend 用）及 `knowledge.json`（公開 API，q.html 用），全部統一 1,001 facts / v2.1.0
+   - ✅ **[QC]** 三層 fact 數核對 PASS；q.html flatten rows = 1,001；採購搜尋命中 249 條，CPD/專業發展 31 條
 4. Pending from last session (not yet done):
-   - **Circular System 落地**: edb_scraper.py `_write_policy_signal()` (deferred from Session 79)
-   - **MemPalace maintenance**: future updates can rerun `/Users/leonard/mempalace/.venv/bin/mempalace --palace /Users/leonard/mempalace/palace mine .`
+   - **Circular System 落地**: edb_scraper.py `_write_policy_signal()` (持續 deferred)
 5. Next priorities (next session):
-   - 📋 Continue Circular System: edb_scraper.py `_write_policy_signal()` (deferred)
-   - 📋 Phase 4: 指引文件庫 dual sort (`sub_category`)
-   - 📋 Keep `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838` until recovered MemPalace remains stable
+   - 📋 Circular System: edb_scraper.py `_write_policy_signal()` 落地
+   - 📋 Phase 4: 指引文件庫 `sub_category` 雙重排序
+   - 📋 Optional UI QA browser pass
 6. Risks / blockers:
    - Channel A searchChannelA.ts embeds ALL 1,001 facts per query — monitor token usage
-   - Channel B Circular System 接入明確暫停
    - Channel B/A+B requires local backend (`npm run dev`) — not on GitHub Pages
-   - `dev/design/Spec.html` intentionally retains detailed technical/design terminology as an internal reference; user-facing product copy should remain Traditional Chinese
-   - Shared MemPalace recovery used GitHub issue #974 workaround (`hnsw:num_threads=1`); keep backup `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838` until the recovered palace remains stable
+   - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`

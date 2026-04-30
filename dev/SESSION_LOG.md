@@ -2,22 +2,107 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-04-30 Session 88 — 知識三層同步修復 (109 → 1,001 facts)
+
+- **ID:** Claude_20260430_0000
+- **Summary:** 系統審計發現 `dev/knowledge/role_facts.json`（1,001 條，v2.1.0）與 repo root `role_facts.json`（109 條，v2.0.0）及 `knowledge.json`（109 條，v1.4.0）嚴重脫節；Session 79 審批的 892 個新事實未有同步到 backend 和公開 API。本 session 執行三層同步修復。
+- **Changed:** `role_facts.json`（repo root）, `knowledge.json`, `dev/SESSION_HANDOFF.md`, `dev/SESSION_LOG.md`
+- **Done:** 以 `dev/knowledge/role_facts.json` 為單一真相來源，覆寫 repo root `role_facts.json` 及 `knowledge.json`；三層均為 1,001 facts / v2.1.0 / updated 2026-04-30。
+- **QC:** 三層 fact 數核對 PASS (1,001 = 1,001 = 1,001)；q.html flatten rows = 1,001；採購搜尋命中 249 條；CPD/專業發展命中 31 條；`session_log_maintenance.py --check` trigger=False (219 lines, 4 entries)。
+- **Pending:** Circular System `_write_policy_signal()`；Phase 4 指引文件庫雙重排序；Optional UI QA pass。
+- **Next:** 1. Circular System 落地；2. Phase 4 `sub_category`；3. UI QA。
+- **Risks:** Channel A backend 現在注入 1,001 facts per query — token usage 需監察。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Knowledge data sync | SESSION_HANDOFF.md baseline 知識狀態; SESSION_LOG.md 本條目 | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Current objective and progress state:
+- 知識三層同步已修復（Session 88, 2026-04-30）：role_facts.json / knowledge.json / dev/knowledge/role_facts.json 全部統一為 1,001 facts / v2.1.0。
+- q.html 和 backend Channel A 現在都使用最新 1,001 條事實。
+- 最新 commit 包含 role_facts.json + knowledge.json 更新，待 push 到 GitHub。
+
+Pending tasks in priority order:
+1. Circular System: edb_scraper.py `_write_policy_signal()` 落地（持續 deferred）。
+2. Phase 4: 指引文件庫 dual sort with `sub_category` (category → sub_category → time desc)。
+3. Optional UI QA: browser visual pass on index.html / q.html / t-purchase.html / app.html。
+4. MemPalace: keep `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838` until stable.
+
+Key files changed this session:
+- `role_facts.json` (repo root) — 109 → 1,001 facts, v2.1.0
+- `knowledge.json` — 109 → 1,001 facts, v2.1.0
+- `dev/SESSION_HANDOFF.md`, `dev/SESSION_LOG.md` — updated
+
+Known risks / blockers / cautions:
+- Channel A searchChannelA.ts now embeds ALL 1,001 facts per query — monitor token usage.
+- Channel B/A+B requires local backend (npm run dev) — not on GitHub Pages.
+- Shared MemPalace recovery workaround (hnsw:num_threads=1); keep backup at /Users/leonard/mempalace/palace.pre-recovery.20260421_0838.
+- User preference: use Chinese for instructions, arrangements, updates, and summaries.
+
+Validation status:
+- PASS: 三層 fact 數核對 (1,001 = 1,001 = 1,001); q.html flatten rows = 1,001; keyword search probe PASS.
+- Pending push: role_facts.json + knowledge.json + governance files not yet pushed to GitHub.
+
+Post-startup first action: 確認 push 狀態，詢問 Leonard 下一步：(1) git push 同步更新到 GitHub，(2) 繼續 Circular System 落地，(3) Phase 4 指引文件庫排序，或 (4) UI QA pass。
+```
+
 ## 2026-04-22 Session 87 — GitHub Upload After Frontend Cleanup
 
 - **ID:** Codex_20260422_0603
 - **Summary:** Release / publish gate for the already-completed frontend copy cleanup, Quick Q&A local search, MemPalace governance setup, and session-log archive changes; prepared current `main` for GitHub upload.
 - **Changed:** `dev/SESSION_HANDOFF.md`, `dev/SESSION_LOG.md`; staged publish set also includes `.gitignore`, `index.html`, `t-purchase.html`, `q.html`, `app.html`, `dev/CODEBASE_CONTEXT.md`, `dev/DOC_SYNC_CHECKLIST.md`, `dev/archive/SESSION_LOG_2026_Q2.md`, `docs/qa/session_log_maintenance.py`
-- **Done:** Confirmed branch `main`, remote `git@github.com:Leonard-Wong-Git/edb-knowledge.git`, reviewed diff scope, ran release-gate checks, and prepared commit/push for the latest user-visible frontend.
-- **QC:** `git diff --check` PASS; `t-purchase.html` inline JS `node --check` PASS; `q.html` inline JS `node --check` PASS; `app.html` JSX parse via backend esbuild PASS; `knowledge.json` procurement probe returned expected threshold fact; `session_log_maintenance.py --check` PASS; `session_log_maintenance.py --self-test` PASS 5/5.
+- **Done:** Confirmed branch `main`, remote `git@github.com:Leonard-Wong-Git/edb-knowledge.git`, reviewed diff scope, ran release-gate checks, committed `188f583`, pushed `main` to GitHub, then completed session closeout.
+- **QC:** `git diff --check` PASS; `t-purchase.html` inline JS `node --check` PASS; `q.html` inline JS `node --check` PASS; `app.html` JSX parse via backend esbuild PASS; `knowledge.json` procurement probe returned expected threshold fact; `session_log_maintenance.py --check` PASS; `session_log_maintenance.py --self-test` PASS 5/5; final pre-closeout status was clean at `188f583`.
 - **Pending:** Circular System `_write_policy_signal()`; Phase 4 guideline dual sort; optional browser visual pass; keep MemPalace recovery backup until stable.
 - **Next:** 1. Continue Circular System policy signal integration; 2. Phase 4 `sub_category` sorting; 3. Optional visual/browser QA.
-- **Risks:** GitHub Pages serves static files only; Channel B/A+B and Circular analysis still require local backend runtime.
+- **Risks:** GitHub Pages serves static files only; Channel B/A+B and Circular analysis still require local backend runtime; closeout-only governance edits are local until separately pushed.
 
 ### DOC_SYNC Matrix Scan
 | Change Category | Required Doc Updates | Status |
 |---|---|---|
 | Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | ✓ Done |
 | Product version / release milestone change | k1-dashboard.html `_meta`; dev/knowledge/role_facts.json `_meta`; README badge; CHANGELOG; SESSION_HANDOFF.md; SESSION_LOG.md; CODEBASE_CONTEXT.md if release summary changed | N/A — GitHub upload only; no version/schema milestone changed |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Current objective and progress state:
+- Frontend copy cleanup, Quick Q&A local `knowledge.json` search, MemPalace governance updates, and session-log archive maintenance are complete.
+- Latest product/governance changes were committed and pushed to GitHub `main` as `188f583` (`Polish frontend copy and quick QA search`) on 2026-04-22.
+- `index.html`, `t-purchase.html`, `q.html`, and `app.html` now avoid public-facing internal design/dev/backend wording and no longer over-claim formal generation/export where only draft UI exists.
+- `q.html` now searches local `knowledge.json` and renders matched facts with citations.
+- Closeout-only governance edits to `dev/SESSION_HANDOFF.md` and `dev/SESSION_LOG.md` were made after commit `188f583`; push them later if GitHub should also carry this closeout record.
+
+Pending tasks in priority order:
+1. Circular System: implement/sync edb_scraper.py `_write_policy_signal()` in the Circular System repo so policy signals include the agreed `url` field.
+2. Phase 4: 指引文件庫 dual sort with `sub_category` (category → sub_category → time desc).
+3. Optional visual/browser pass on `index.html`, `q.html`, `t-purchase.html`, and `app.html`.
+4. Keep `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838` until recovered shared MemPalace remains stable.
+
+Key files changed in this session:
+- Published commit `188f583`: `.gitignore`, `index.html`, `t-purchase.html`, `q.html`, `app.html`, `docs/qa/session_log_maintenance.py`, `dev/CODEBASE_CONTEXT.md`, `dev/DOC_SYNC_CHECKLIST.md`, `dev/SESSION_HANDOFF.md`, `dev/SESSION_LOG.md`, `dev/archive/SESSION_LOG_2026_Q2.md`
+- Closeout-only local edits after push: `dev/SESSION_HANDOFF.md`, `dev/SESSION_LOG.md`
+
+Known risks / blockers / cautions:
+- GitHub Pages serves static files only; Channel B/A+B and Circular analysis still require local backend runtime.
+- `q.html` local search is keyword-based; semantic/source-file search remains in `app.html` and requires local backend service.
+- Shared MemPalace was rebuilt using a workaround from MemPalace issue #974 (`hnsw:num_threads=1`); old backup remains at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`.
+- User preference: use Chinese for future instructions, arrangements, updates, and summaries.
+
+Validation status:
+- PASS: `git diff --check`; `t-purchase.html` inline JS `node --check`; `q.html` inline JS `node --check`; `app.html` JSX parse via backend esbuild; local `knowledge.json` procurement search probe; `session_log_maintenance.py --check`; `session_log_maintenance.py --apply`; `session_log_maintenance.py --self-test`.
+- PASS: GitHub push succeeded, `main` updated from `2eaff8b` to `188f583`.
+
+Post-startup first action: Ask Leonard whether to push the closeout-only governance edits, continue Circular System policy signal integration, start Phase 4 guideline dual sort, or run the optional browser visual QA pass.
+```
 
 ## 2026-04-22 Session 86 — Frontend Copy Cleanup + Quick Q&A Local Search
 
