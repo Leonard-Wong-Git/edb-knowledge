@@ -5,15 +5,15 @@
  * role_facts.json and loaded via knowledgeRepository.ts.
  *
  * Search strategy:
- *   1. Embed the user query
+ *   1. Embed the user query + all fact texts in TWO API calls (batch)
  *   2. Score each fact text using cosine similarity against the query embedding
  *   3. Return ALL results above minScore, sorted by descending score
  *
- * Note: Channel A facts are short (< 600 chars each), so we embed them
- * on-the-fly per request. For high traffic, consider pre-embedding and caching.
+ * Performance: uses embeddingClient.batch() to send all ~1,001 fact texts in a
+ * single OpenAI API call instead of 1,001 individual calls.
  */
 
-import type { EmbedFn } from "../lib/embeddingClient.js";
+import type { EmbedFn, BatchEmbedFn } from "../lib/embeddingClient.js";
 import { loadKnowledgeBase } from "../lib/knowledgeRepository.js";
 import type { TopicId } from "../types/knowledge.js";
 import { TOPIC_IDS } from "../types/knowledge.js";
@@ -72,7 +72,7 @@ function cosine(a: number[], b: number[]): number {
 
 export async function searchChannelA(
   request: SearchChannelARequest,
-  embedFn: EmbedFn
+  embedFn: EmbedFn & { batch?: BatchEmbedFn }
 ): Promise<SearchChannelAResponse> {
   const { query, topic, role, min_score = 0.1 } = request;
 
@@ -119,10 +119,12 @@ export async function searchChannelA(
     return { query, channel: "A", total: 0, results: [] };
   }
 
-  // Embed all candidate facts in one batch
-  // For Channel A (< 200 facts), this is fast enough per-request
+  // Embed all candidate facts in a single API call using batch embedding.
+  // This replaces the previous Promise.all of N individual calls, which caused
+  // rate-limit failures and connection timeouts on the first search request.
   const factTexts = candidates.map((c) => c.text);
-  const factVecs = await Promise.all(factTexts.map((t) => embedFn(t)));
+  const batchFn = embedFn.batch ?? ((texts: string[]) => Promise.all(texts.map((t) => embedFn(t))));
+  const factVecs = await batchFn(factTexts);
 
   // Score and filter
   const scored: ChannelAResult[] = [];
