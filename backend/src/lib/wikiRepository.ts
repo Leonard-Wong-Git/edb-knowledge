@@ -87,7 +87,10 @@ export async function searchWiki(
     body.match_count = topK;
   }
 
-  const resp = await fetch(`${supabaseUrl}/rest/v1/rpc/match_wiki_chunks`, {
+  const rpcUrl = `${supabaseUrl}/rest/v1/rpc/match_wiki_chunks`;
+  console.log(`[wikiRepo] POST ${rpcUrl} threshold=${minScore} topK=${topK ?? "all"} embLen=${queryVec.length}`);
+
+  const resp = await fetch(rpcUrl, {
     method: "POST",
     headers: {
       apikey: supabaseKey,
@@ -97,12 +100,14 @@ export async function searchWiki(
     body: JSON.stringify(body),
   });
 
+  const rawText = await resp.text();
+  console.log(`[wikiRepo] status=${resp.status} bodyLen=${rawText.length} preview=${rawText.slice(0, 120)}`);
+
   if (!resp.ok) {
-    const errText = await resp.text();
-    throw new Error(`Supabase RPC error ${resp.status}: ${errText}`);
+    throw new Error(`Supabase RPC error ${resp.status}: ${rawText}`);
   }
 
-  const rows = (await resp.json()) as Array<WikiChunk & { score: number }>;
+  const rows = JSON.parse(rawText) as Array<WikiChunk & { score: number }>;
 
   // Post-filters
   let filtered = rows;
