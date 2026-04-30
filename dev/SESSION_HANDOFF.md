@@ -1,9 +1,9 @@
 # Session Handoff
 
 ## Current Baseline
-1. Version: **v1.6.0** (K1知識平台)
+1. Version: **v2.1.1** (K1知識平台)
 2. Frontend: `index.html` S1 home; `t-purchase.html` S3/S4/S5 draft flow; `q.html` local `knowledge.json` Quick Q&A; `app.html` full React SPA / management workspace.
-3. Knowledge state: **1,001 Channel A facts** (三層同步 ✅: `dev/knowledge/role_facts.json` = `role_facts.json` = `knowledge.json`, 全部 v2.1.0), **0 candidates in queue**, **wiki_index.json** 2,874 chunks / 125 MB.
+3. Knowledge state: **1,001 Channel A facts** (三層同步 ✅: `dev/knowledge/role_facts.json` = `role_facts.json` = `knowledge.json`, 全部 v2.1.1), **0 candidates in queue**, **wiki_index.json** 2,874 chunks / 125 MB.
 4. Backend: Node.js TypeScript backend Phase 1 search APIs complete; Channel B/A+B and Circular analysis require local backend runtime.
 5. Product copy baseline: Traditional Chinese UI; no public internal design/dev/backend commands; template flows say "建立草稿/整理" until formal export/generation is connected.
 6. MemPalace: shared install `/Users/leonard/mempalace/.venv`, palace `/Users/leonard/mempalace/palace`, wing `claude_edb_knowledge`; shared palace recovered and mined successfully.
@@ -90,9 +90,9 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-1. Circular System: implement/sync `edb_scraper.py` `_write_policy_signal()` so policy signals include the agreed `url` field.
-2. Phase 4: 指引文件庫 dual sort with `sub_category` (category → sub_category → time desc).
-3. Optional UI QA: run a browser visual pass on `index.html`, `q.html`, `t-purchase.html`, and `app.html`.
+1. ~~Circular System: `_write_policy_signal()` — deferred to Circular System side.~~ → **規格文件 `dev/CIRCULAR_SYSTEM_INTEGRATION.md` 已建立 ✅**（告知 edb_scraper.py 如何實作）
+2. ~~Phase 4: 指引文件庫 dual sort with `sub_category`~~ → **完成 ✅**（148 items 分組，category → sub_category → year desc）
+3. Optional UI QA: run a browser visual pass on `index.html`, `q.html`, `t-purchase.html`, and `app.html`. ← **下一個優先項**
 4. MemPalace maintenance: keep `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838` until the recovered shared palace remains stable.
 5. Future backlog: Channel B admin prompt editor / quality sandbox after current priorities.
 
@@ -107,17 +107,15 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## Last Session Record
 1. UTC date: 2026-04-30
-2. Session ID: Claude_20260430_0000 (Session 88)
+2. Session ID: Claude_20260430_0001 (Session 89)
 3. Completed:
-   - ✅ **[知識同步審計]** 發現三層 role_facts 斷層：dev(1,001) vs repo root(109) vs knowledge.json(109)
-   - ✅ **[知識三層同步]** `dev/knowledge/role_facts.json` → `role_facts.json`（repo root，backend 用）及 `knowledge.json`（公開 API，q.html 用），全部統一 1,001 facts / v2.1.0
-   - ✅ **[QC]** 三層 fact 數核對 PASS；q.html flatten rows = 1,001；採購搜尋命中 249 條，CPD/專業發展 31 條
+   - ✅ **[Item 1 — Circular System 規格]** 建立 `dev/CIRCULAR_SYSTEM_INTEGRATION.md`：完整說明 `_write_policy_signal()` 實作、觸發條件、欄位 schema、URL 格式、查重邏輯、呼叫點整合
+   - ✅ **[Item 2 — Phase 4 指引文件庫雙重分組]** GUIDELINES_REGISTRY 148 項全部加入 `sub_category` 欄位；GuidelinesPanel 新增 `groupedView` useMemo（category → sub_category → year desc）；視覺小標題分隔線；搜尋/全部時退回 flat 視圖
+   - ✅ **[版本]** v2.1.0 → v2.1.1；role_facts.json / knowledge.json / guidelines.json / README.md / CHANGELOG.md / app.html 全部同步
 4. Pending from last session (not yet done):
-   - **Circular System 落地**: edb_scraper.py `_write_policy_signal()` (持續 deferred)
+   - 無（Item 1 已以規格文件形式交付；實作責任在 Circular System 端）
 5. Next priorities (next session):
-   - 📋 Circular System: edb_scraper.py `_write_policy_signal()` 落地
-   - 📋 Phase 4: 指引文件庫 `sub_category` 雙重排序
-   - 📋 Optional UI QA browser pass
+   - 📋 **Optional UI QA browser pass**：瀏覽器視覺檢查 index.html、q.html、t-purchase.html、app.html（指引文件庫雙重分組視覺驗証）
 6. Risks / blockers:
    - Channel A searchChannelA.ts embeds ALL 1,001 facts per query — monitor token usage
    - Channel B/A+B requires local backend (`npm run dev`) — not on GitHub Pages
