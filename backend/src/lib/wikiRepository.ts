@@ -1,20 +1,15 @@
 /**
  * wikiRepository.ts — Channel B: Supabase pgvector semantic search
  *
- * Phase 2: wiki_index.json embeddings are stored in Supabase (wiki_chunks table).
- * Search uses the match_wiki_chunks RPC function (cosine similarity via pgvector).
- *
- * Falls back gracefully if SUPABASE_URL / SUPABASE_ANON_KEY are not set,
- * returning an empty result with a clear error message.
+ * Uses direct fetch() to call the match_wiki_chunks RPC function,
+ * bypassing supabase-js to avoid vector parameter casting issues.
  */
-
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 import type { EmbedFn } from "./embeddingClient.js";
 import { getSupabaseAnonKey, getSupabaseUrl } from "../config/env.js";
 
 // ---------------------------------------------------------------------------
-// Types (shared with searchChannelB / searchCombined)
+// Types
 // ---------------------------------------------------------------------------
 
 export type WikiContentType =
@@ -51,41 +46,23 @@ export interface WikiSearchResult {
 }
 
 // ---------------------------------------------------------------------------
-// Supabase client (singleton)
-// ---------------------------------------------------------------------------
-
-let _client: SupabaseClient | null = null;
-
-function getClient(): SupabaseClient {
-  if (!_client) {
-    _client = createClient(getSupabaseUrl(), getSupabaseAnonKey());
-  }
-  return _client;
-}
-
-// ---------------------------------------------------------------------------
 // Search options
 // ---------------------------------------------------------------------------
 
 export interface WikiSearchOptions {
-  /** Maximum number of results. Default: unlimited (all above threshold). */
   topK?: number;
-  /** Minimum cosine similarity 0–1. Default: 0.1 */
   minScore?: number;
-  /** Filter by topic */
   topic?: string;
-  /** Filter by content_type */
   contentType?: WikiContentType;
 }
 
 // ---------------------------------------------------------------------------
-// Semantic search via Supabase RPC
+// Semantic search via direct REST fetch
 // ---------------------------------------------------------------------------
 
 /**
  * Search Channel B using pgvector cosine similarity.
- * Calls the match_wiki_chunks SQL function in Supabase.
- * Returns ALL results above minScore unless topK is specified.
+ * Calls match_wiki_chunks via direct fetch to Supabase REST API.
  */
 export async function searchWiki(
   query: string,
@@ -94,42 +71,51 @@ export async function searchWiki(
 ): Promise<WikiSearchResult[]> {
   const { topK, minScore = 0.1, topic, contentType } = options;
 
-  const supabase = getClient();
   const queryVec = await embedFn(query);
 
-  // pgvector requires the embedding as a string "[x,x,x,...]" when passed via
-  // Supabase JS RPC — passing a raw number[] is not recognised by the cast.
+  // pgvector text format: "[x,x,x,...]"
   const embeddingStr = `[${queryVec.join(",")}]`;
 
-  // Call the match_wiki_chunks RPC function
-  const { data, error } = await supabase.rpc("match_wiki_chunks", {
+  const supabaseUrl = getSupabaseUrl();
+  const supabaseKey = getSupabaseAnonKey();
+
+  const body: Record<string, unknown> = {
     query_embedding: embeddingStr,
     match_threshold: minScore,
-    match_count: topK ?? null,
+  };
+  if (topK !== undefined) {
+    body.match_count = topK;
+  }
+
+  const resp = await fetch(`${supabaseUrl}/rest/v1/rpc/match_wiki_chunks`, {
+    method: "POST",
+    headers: {
+      apikey: supabaseKey,
+      Authorization: `Bearer ${supabaseKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
   });
 
-  if (error) {
-    throw new Error(`Supabase search error: ${error.message}`);
+  if (!resp.ok) {
+    const errText = await resp.text();
+    throw new Error(`Supabase RPC error ${resp.status}: ${errText}`);
   }
 
-  const rows = (data ?? []) as Array<WikiChunk & { score: number }>;
+  const rows = (await resp.json()) as Array<WikiChunk & { score: number }>;
 
-  // Apply optional post-filters (topic / contentType)
+  // Post-filters
   let filtered = rows;
-  if (topic) {
-    filtered = filtered.filter((r) => r.topic === topic);
-  }
-  if (contentType) {
-    filtered = filtered.filter((r) => r.content_type === contentType);
-  }
+  if (topic) filtered = filtered.filter((r) => r.topic === topic);
+  if (contentType) filtered = filtered.filter((r) => r.content_type === contentType);
 
-  // Deduplicate near-identical chunks (first 80 chars as key)
-  const seenPrefixes = new Set<string>();
+  // Deduplicate by first 80 chars
+  const seen = new Set<string>();
   const deduped: typeof filtered = [];
   for (const row of filtered) {
-    const prefix = row.text.slice(0, 80);
-    if (seenPrefixes.has(prefix)) continue;
-    seenPrefixes.add(prefix);
+    const key = row.text.slice(0, 80);
+    if (seen.has(key)) continue;
+    seen.add(key);
     deduped.push(row);
   }
 
@@ -140,7 +126,6 @@ export async function searchWiki(
   }));
 }
 
-/** Invalidate client cache (e.g. for testing). */
 export function invalidateWikiCache(): void {
-  _client = null;
+  // No-op: no local cache in Supabase mode
 }
