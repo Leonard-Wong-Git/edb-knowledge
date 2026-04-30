@@ -36,6 +36,18 @@ export function getKnowledgePath(): string {
   return value || DEFAULT_KNOWLEDGE_PATH_SETTING;
 }
 
+export function getSupabaseUrl(): string {
+  const value = process.env.SUPABASE_URL?.trim();
+  if (!value) throw new Error("Missing required environment variable: SUPABASE_URL");
+  return value;
+}
+
+export function getSupabaseAnonKey(): string {
+  const value = process.env.SUPABASE_ANON_KEY?.trim();
+  if (!value) throw new Error("Missing required environment variable: SUPABASE_ANON_KEY");
+  return value;
+}
+
 export {
   DEFAULT_CORS_ORIGIN,
   DEFAULT_KNOWLEDGE_PATH_SETTING,

@@ -1,20 +1,20 @@
-import { readFile } from "node:fs/promises";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+/**
+ * wikiRepository.ts — Channel B: Supabase pgvector semantic search
+ *
+ * Phase 2: wiki_index.json embeddings are stored in Supabase (wiki_chunks table).
+ * Search uses the match_wiki_chunks RPC function (cosine similarity via pgvector).
+ *
+ * Falls back gracefully if SUPABASE_URL / SUPABASE_ANON_KEY are not set,
+ * returning an empty result with a clear error message.
+ */
+
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 import type { EmbedFn } from "./embeddingClient.js";
-
-const CURRENT_DIR = path.dirname(fileURLToPath(import.meta.url));
-
-// Resolve wiki_index.json relative to repo root
-// CURRENT_DIR = backend/src/lib/ → ../../../ = repo root
-const DEFAULT_WIKI_INDEX_PATH = path.resolve(
-  CURRENT_DIR,
-  "../../../dev/knowledge/wiki_index.json"
-);
+import { getSupabaseAnonKey, getSupabaseUrl } from "../config/env.js";
 
 // ---------------------------------------------------------------------------
-// Types
+// Types (shared with searchChannelB / searchCombined)
 // ---------------------------------------------------------------------------
 
 export type WikiContentType =
@@ -42,94 +42,35 @@ export interface WikiChunk {
   role?: string;
   school_level?: string;
   reference_year?: string;
-  embedding?: number[];
-}
-
-export interface WikiIndex {
-  _meta: {
-    built_at?: string;
-    total_chunks?: number;
-    embedding_model?: string;
-    version?: string;
-  };
-  chunks: WikiChunk[];
 }
 
 export interface WikiSearchResult {
-  chunk: Omit<WikiChunk, "embedding">;
+  chunk: WikiChunk;
   score: number;
   channel: "B";
 }
 
 // ---------------------------------------------------------------------------
-// Math helpers (no external dependencies)
+// Supabase client (singleton)
 // ---------------------------------------------------------------------------
 
-function dot(a: number[], b: number[]): number {
-  let sum = 0;
-  for (let i = 0; i < a.length; i++) sum += a[i] * b[i];
-  return sum;
-}
+let _client: SupabaseClient | null = null;
 
-function norm(a: number[]): number {
-  return Math.sqrt(dot(a, a));
-}
-
-function cosineSimilarity(a: number[], b: number[]): number {
-  const n = norm(a) * norm(b);
-  return n > 0 ? dot(a, b) / n : 0;
-}
-
-// ---------------------------------------------------------------------------
-// Index loading (cached in process memory after first load)
-// ---------------------------------------------------------------------------
-
-let _cachedIndex: WikiIndex | null = null;
-let _cachedPath: string | null = null;
-
-export async function loadWikiIndex(
-  indexPath: string = DEFAULT_WIKI_INDEX_PATH
-): Promise<WikiIndex> {
-  if (_cachedIndex && _cachedPath === indexPath) {
-    return _cachedIndex;
+function getClient(): SupabaseClient {
+  if (!_client) {
+    _client = createClient(getSupabaseUrl(), getSupabaseAnonKey());
   }
-
-  let raw: string;
-  try {
-    raw = await readFile(indexPath, "utf-8");
-  } catch (err) {
-    throw new Error(
-      `wiki_index.json not found at ${indexPath}. ` +
-        "Run: python3 dev/vault/build_wiki_index.py"
-    );
-  }
-
-  _cachedIndex = JSON.parse(raw) as WikiIndex;
-  _cachedPath = indexPath;
-
-  const total = _cachedIndex.chunks.length;
-  const withEmb = _cachedIndex.chunks.filter((c) => c.embedding?.length).length;
-  console.log(
-    `[wikiRepository] Loaded wiki_index.json: ${withEmb}/${total} chunks with embeddings`
-  );
-
-  return _cachedIndex;
-}
-
-/** Invalidate cache (e.g. after an index rebuild). */
-export function invalidateWikiCache(): void {
-  _cachedIndex = null;
-  _cachedPath = null;
+  return _client;
 }
 
 // ---------------------------------------------------------------------------
-// Semantic search
+// Search options
 // ---------------------------------------------------------------------------
 
 export interface WikiSearchOptions {
-  /** Maximum number of results to return. Default: unlimited (return ALL). */
+  /** Maximum number of results. Default: unlimited (all above threshold). */
   topK?: number;
-  /** Minimum cosine similarity threshold (0–1). Default: 0.1 */
+  /** Minimum cosine similarity 0–1. Default: 0.1 */
   minScore?: number;
   /** Filter by topic */
   topic?: string;
@@ -137,10 +78,14 @@ export interface WikiSearchOptions {
   contentType?: WikiContentType;
 }
 
+// ---------------------------------------------------------------------------
+// Semantic search via Supabase RPC
+// ---------------------------------------------------------------------------
+
 /**
- * Search the wiki index using cosine similarity.
- * Channel B design: returns ALL results above minScore unless topK is specified.
- * Results are sorted by descending similarity score.
+ * Search Channel B using pgvector cosine similarity.
+ * Calls the match_wiki_chunks SQL function in Supabase.
+ * Returns ALL results above minScore unless topK is specified.
  */
 export async function searchWiki(
   query: string,
@@ -149,44 +94,49 @@ export async function searchWiki(
 ): Promise<WikiSearchResult[]> {
   const { topK, minScore = 0.1, topic, contentType } = options;
 
-  const index = await loadWikiIndex();
+  const supabase = getClient();
   const queryVec = await embedFn(query);
 
-  // Score all chunks
-  const scored: Array<{ score: number; chunk: WikiChunk }> = [];
-  const seenPrefixes = new Set<string>();
+  // Call the match_wiki_chunks RPC function
+  const { data, error } = await supabase.rpc("match_wiki_chunks", {
+    query_embedding: queryVec,
+    match_threshold: minScore,
+    match_count: topK ?? null,
+  });
 
-  for (const chunk of index.chunks) {
-    if (!chunk.embedding?.length) continue;
-
-    // Optional filters
-    if (topic && chunk.topic !== topic) continue;
-    if (contentType && chunk.content_type !== contentType) continue;
-
-    const score = cosineSimilarity(queryVec, chunk.embedding);
-    if (score < minScore) continue;
-
-    // Deduplicate near-identical chunks (first 80 chars as key)
-    const prefix = chunk.text.slice(0, 80);
-    if (seenPrefixes.has(prefix)) continue;
-    seenPrefixes.add(prefix);
-
-    scored.push({ score, chunk });
+  if (error) {
+    throw new Error(`Supabase search error: ${error.message}`);
   }
 
-  // Sort by descending score
-  scored.sort((a, b) => b.score - a.score);
+  const rows = (data ?? []) as Array<WikiChunk & { score: number }>;
 
-  // Apply topK limit only if explicitly set
-  const results = topK !== undefined ? scored.slice(0, topK) : scored;
+  // Apply optional post-filters (topic / contentType)
+  let filtered = rows;
+  if (topic) {
+    filtered = filtered.filter((r) => r.topic === topic);
+  }
+  if (contentType) {
+    filtered = filtered.filter((r) => r.content_type === contentType);
+  }
 
-  return results.map(({ score, chunk }) => {
-    // Omit the large embedding vector from the response
-    const { embedding: _emb, ...chunkWithoutEmbedding } = chunk;
-    return {
-      chunk: chunkWithoutEmbedding,
-      score: Math.round(score * 10000) / 10000,
-      channel: "B" as const,
-    };
-  });
+  // Deduplicate near-identical chunks (first 80 chars as key)
+  const seenPrefixes = new Set<string>();
+  const deduped: typeof filtered = [];
+  for (const row of filtered) {
+    const prefix = row.text.slice(0, 80);
+    if (seenPrefixes.has(prefix)) continue;
+    seenPrefixes.add(prefix);
+    deduped.push(row);
+  }
+
+  return deduped.map(({ score, ...chunk }) => ({
+    chunk: chunk as WikiChunk,
+    score,
+    channel: "B" as const,
+  }));
+}
+
+/** Invalidate client cache (e.g. for testing). */
+export function invalidateWikiCache(): void {
+  _client = null;
 }
