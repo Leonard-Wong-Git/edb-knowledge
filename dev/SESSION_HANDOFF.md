@@ -4,7 +4,7 @@
 1. Version: **v2.1.1** (K1知識平台)
 2. Frontend: `index.html` S1 home; `t-purchase.html` S3/S4/S5 draft flow; `q.html` local `knowledge.json` Quick Q&A; `app.html` full React SPA / management workspace.
 3. Knowledge state: **1,001 Channel A facts** (三層同步 ✅: `dev/knowledge/role_facts.json` = `role_facts.json` = `knowledge.json`, 全部 v2.1.1), **0 candidates in queue**, **wiki_index.json** 2,874 chunks / 125 MB.
-4. Backend: Node.js TypeScript backend Phase 1 search APIs complete; Channel B/A+B and Circular analysis require local backend runtime.
+4. Backend: Node.js TypeScript backend Phase 1 search APIs complete; **Channel A online at `https://edb-knowledge.onrender.com`** (Render free tier); Channel B/A+B require Phase 2 (Supabase pgvector — wiki_index.json not in git).
 5. Product copy baseline: Traditional Chinese UI; no public internal design/dev/backend commands; template flows say "建立草稿/整理" until formal export/generation is connected.
 6. MemPalace: shared install `/Users/leonard/mempalace/.venv`, palace `/Users/leonard/mempalace/palace`, wing `claude_edb_knowledge`; shared palace recovered and mined successfully.
 
@@ -90,11 +90,12 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-1. ~~Circular System: `_write_policy_signal()` — deferred to Circular System side.~~ → **規格文件 `dev/CIRCULAR_SYSTEM_INTEGRATION.md` 已建立 ✅**（告知 edb_scraper.py 如何實作）
+1. ~~Circular System: `_write_policy_signal()` — deferred to Circular System side.~~ → **規格文件 `dev/CIRCULAR_SYSTEM_INTEGRATION.md` 已建立 ✅**
 2. ~~Phase 4: 指引文件庫 dual sort with `sub_category`~~ → **完成 ✅**（148 items 分組，category → sub_category → year desc）
-3. Optional UI QA: run a browser visual pass on `index.html`, `q.html`, `t-purchase.html`, and `app.html`. ← **下一個優先項**
-4. MemPalace maintenance: keep `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838` until the recovered shared palace remains stable.
-5. Future backlog: Channel B admin prompt editor / quality sandbox after current priorities.
+3. ~~Render 部署 Channel A~~ → **完成 ✅** `https://edb-knowledge.onrender.com` live；batch embed fix 已推送（Session 90）
+4. Optional UI QA: run a browser visual pass on `index.html`, `q.html`, `t-purchase.html`, and `app.html`. ← **下一個優先項**
+5. **Phase 2 — Channel B online**: migrate `wiki_index.json` (2,874 embeddings) to Supabase pgvector; update `wikiRepository.ts`; add rate limiting before public launch.
+6. MemPalace maintenance: keep `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838` until the recovered shared palace remains stable.
 
 ---
 
@@ -107,16 +108,19 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## Last Session Record
 1. UTC date: 2026-04-30
-2. Session ID: Claude_20260430_0001 (Session 89)
+2. Session ID: Claude_20260430_0002 (Session 90)
 3. Completed:
-   - ✅ **[Item 1 — Circular System 規格]** 建立 `dev/CIRCULAR_SYSTEM_INTEGRATION.md`：完整說明 `_write_policy_signal()` 實作、觸發條件、欄位 schema、URL 格式、查重邏輯、呼叫點整合
-   - ✅ **[Item 2 — Phase 4 指引文件庫雙重分組]** GUIDELINES_REGISTRY 148 項全部加入 `sub_category` 欄位；GuidelinesPanel 新增 `groupedView` useMemo（category → sub_category → year desc）；視覺小標題分隔線；搜尋/全部時退回 flat 視圖
-   - ✅ **[版本]** v2.1.0 → v2.1.1；role_facts.json / knowledge.json / guidelines.json / README.md / CHANGELOG.md / app.html 全部同步
+   - ✅ **[Render 部署]** Channel A backend live at `https://edb-knowledge.onrender.com`；health endpoint `GET /health` 確認正常；app.html BACKEND_URL 更新
+   - ✅ **[Batch embed fix]** 修正 `searchChannelA.ts` — 以單次 batch API call 取代 Promise.all(1,001 個別 embedding calls)；修正 Render "Failed to fetch" 根本原因；TypeScript build 通過；已 push
+   - ✅ **[embeddingClient.ts]** 新增 `BatchEmbedFn` type 及 `embed.batch()` 方法（支援最多 2,048 inputs/call，自動分段）
 4. Pending from last session (not yet done):
-   - 無（Item 1 已以規格文件形式交付；實作責任在 Circular System 端）
+   - 無
 5. Next priorities (next session):
-   - 📋 **Optional UI QA browser pass**：瀏覽器視覺檢查 index.html、q.html、t-purchase.html、app.html（指引文件庫雙重分組視覺驗証）
+   - 🔍 **驗證 Channel A online search**：Render 重新部署後，在 app.html 測試 `/api/search/channel-a` 搜尋是否正常返回結果
+   - 📋 **Optional UI QA browser pass**：index.html、q.html、t-purchase.html、app.html 視覺檢查
+   - 🗄️ **Phase 2 — Channel B online**：wiki_index.json → Supabase pgvector；加 rate limiting
 6. Risks / blockers:
-   - Channel A searchChannelA.ts embeds ALL 1,001 facts per query — monitor token usage
-   - Channel B/A+B requires local backend (`npm run dev`) — not on GitHub Pages
+   - Channel A search: each query still makes 2 API calls (1 for query + 1 batch for all 1,001 facts). Consider caching pre-computed fact embeddings for cost/speed.
+   - Render free tier cold start (~30s) after 15min inactivity — first search will be slow
+   - Channel B/A+B requires Phase 2 (Supabase) — wiki_index.json not in git
    - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`
