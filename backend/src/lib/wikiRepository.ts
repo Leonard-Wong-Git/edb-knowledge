@@ -74,7 +74,8 @@ export async function searchWiki(
   const queryVec = await embedFn(query);
 
   // pgvector text format: "[x,x,x,...]"
-  const embeddingStr = `[${queryVec.join(",")}]`;
+  // Use toFixed(8) to avoid scientific notation (e.g. 1e-7) which pgvector may reject
+  const embeddingStr = `[${queryVec.map((v) => v.toFixed(8)).join(",")}]`;
 
   const supabaseUrl = getSupabaseUrl();
   const supabaseKey = getSupabaseAnonKey();
