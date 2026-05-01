@@ -54,6 +54,49 @@ Known risks:
 Post-startup first action: 確認 git push 狀態，然後詢問 Leonard：UI QA、rate limiting、還是其他優先項。
 ```
 
+## 2026-05-01 Session 95 — Channel B UI 免責聲明 + g04 PDF 重新提取
+
+- **ID:** Claude_20260501_0004
+- **Summary:** Session 95 完成 Priority 2（Channel B UI 免責聲明）及 Priority 1（g04 vault 從真實 PDF 重新提取）。g04 由 knowledge-based LLM 內容替換為 EMBC1/2006 附錄「教職員批假指引」、EDBC16/2015（侍產假）、EDBC16/2018（產假延長14週）及病假常見問題的真實 PDF 提取內容，7 chunks（原 3 chunks）。Supabase 更新腳本 `dev/update_g04_supabase.py` 已備妥，待用戶本地執行。
+- **Changed:** `app.html`（Channel B/AB 免責聲明），`dev/vault/g04/extract_g04.txt`（完整重寫），`dev/update_g04_supabase.py`（新增）, `dev/SESSION_HANDOFF.md`
+- **Done:**
+  - **Channel B UI 免責聲明**：`app.html` Channel B / A+B 結果區加入黃色警示框「來源文件搜尋結果由 AI 語義搜尋生成，行政及財務類查詢結果準確性待確認，建議對照教育局官方原文核實」
+  - **g04 vault 重寫**：`dev/vault/g04/extract_g04.txt` 從以下真實 PDF 重新提取：
+    - EMBC1/2006：一般原則、教學/非教學人員假期類型、須事先徵批的假期、無薪假期影響（晉升/公積金/增薪）、假期記錄要求
+    - EDBC16/2015：侍產假（服務年資40週、5天全薪、預計出生前4週至出生後14週、通知要求、批核程序）
+    - EDBC16/2018：產假延長至14週（由2019年1月1日起，2020年12月11日《僱傭條例》生效）
+    - 病假常見問題：首年28天/其後48天/上限168天/120天門檻按月更新/超過兩天需醫生證明
+  - **update_g04_supabase.py**：一鍵腳本 delete 舊 g04 → embed 新 7 chunks → upload Supabase；同步更新 local wiki_index.json
+  - **預期 Supabase 更新後**：g04 由 3 chunks → 7 chunks；`教職員請假` 查詢應見 g04 真實內容
+- **QC:** vault 分塊驗證：7 chunks，avg 592 chars，內容覆蓋所有假期類型 ✅
+- **Pending:**
+  - 用戶需執行（Terminal）：
+    1. `rm -f .git/index.lock`（如有）
+    2. `cd ~/Downloads/Claude-edb-knowledge && git add dev/vault/g04/extract_g04.txt dev/update_g04_supabase.py dev/upload_wiki_to_supabase.py && git commit -m "feat(g04): replace knowledge-based extract with real PDF content (EMBC1/2006, EDBC16/2015, EDBC16/2018, sick leave FAQ)" && git push origin main`
+    3. `SUPABASE_SERVICE_KEY=sb-... python3 dev/update_g04_supabase.py`（在 repo 根目錄）
+  - MemPalace sync：`python3 dev/mempalace_sync.py write`
+- **Next:** 1. Vault 擴充全 AI pipeline（104 sources pending）；2. Channel A embedding cache
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| g04 vault content change | SESSION_HANDOFF.md Open Priorities | ✓ Done |
+| New tooling (update_g04_supabase.py) | SESSION_LOG.md | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first, then: dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md
+
+Current state (Session 95, 2026-05-01):
+- v2.1.2 online；Channel B topic filtering + UI 免責聲明 + g04 vault 重寫 全部完成
+- g04 vault 已更新為真實 PDF 內容（7 chunks）；Supabase 更新待用戶執行 update_g04_supabase.py
+
+Priority for next session:
+1. 確認 g04 Supabase 更新已執行（如未執行：SUPABASE_SERVICE_KEY=sb-... python3 dev/update_g04_supabase.py）
+2. Vault 擴充全 AI pipeline：104 個 source registry 來源未提取；設計 pdftotext → chunk → embed → Supabase 自動化流程
+3. Channel A embedding cache（startup 預計算 1,001 embeddings，消除 per-query batch call）
+```
+
 ## 2026-05-01 Session 94 — Channel B Topic Filtering + MemPalace Integration
 
 - **ID:** Claude_20260501_0003

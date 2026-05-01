@@ -7,6 +7,7 @@ import { searchChannelB, type SearchChannelBRequest } from "./api/searchChannelB
 import { searchCombined, type SearchCombinedRequest } from "./api/searchCombined.js";
 import { getCorsOrigin, getPort } from "./config/env.js";
 import { createEmbeddingClient } from "./lib/embeddingClient.js";
+import { getCacheSize, initFactEmbeddingCache, isCacheWarm } from "./lib/factEmbeddingCache.js";
 import { createLlmClient } from "./lib/llmClient.js";
 import type { AnalyzeCircularRequest } from "./types/knowledge.js";
 
@@ -85,6 +86,13 @@ function readJsonBody<T>(req: import("node:http").IncomingMessage): Promise<T> {
 const llmClient = createLlmClient();
 const embeddingClient = createEmbeddingClient();
 
+// Warm up the Channel A fact embedding cache in the background.
+// Non-blocking: the first search request will fall back to batch-embed if the
+// cache is not yet ready, then subsequent requests use the cache.
+initFactEmbeddingCache(embeddingClient).catch((err) => {
+  console.error("[startup] Channel A cache init error:", err);
+});
+
 const server = createServer(async (req, res) => {
   // Handle CORS preflight requests from the browser
   if (req.method === "OPTIONS") {
@@ -97,7 +105,11 @@ const server = createServer(async (req, res) => {
   if (req.method === "GET" && req.url === "/health") {
     setCorsHeaders(res);
     res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
-    res.end(JSON.stringify({ ok: true, service: "edb-knowledge-platform-backend" }));
+    res.end(JSON.stringify({
+      ok: true,
+      service: "edb-knowledge-platform-backend",
+      cache_a: { warm: isCacheWarm(), size: getCacheSize() },
+    }));
     return;
   }
 

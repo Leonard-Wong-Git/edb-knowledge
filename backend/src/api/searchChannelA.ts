@@ -14,6 +14,7 @@
  */
 
 import type { EmbedFn, BatchEmbedFn } from "../lib/embeddingClient.js";
+import { getCachedEmbeddings } from "../lib/factEmbeddingCache.js";
 import { loadKnowledgeBase } from "../lib/knowledgeRepository.js";
 import type { TopicId } from "../types/knowledge.js";
 import { TOPIC_IDS } from "../types/knowledge.js";
@@ -152,12 +153,13 @@ export async function searchChannelA(
     return { query, channel: "A", total: 0, results: [] };
   }
 
-  // Embed all candidate facts in a single API call using batch embedding.
-  // This replaces the previous Promise.all of N individual calls, which caused
-  // rate-limit failures and connection timeouts on the first search request.
+  // Embed all candidate facts.
+  // Fast path: use pre-computed vectors from the startup cache (no API call).
+  // Fallback: batch-embed on the fly if cache is not yet warm or has a miss
+  // (e.g. newly approved facts added since last restart).
   const factTexts = candidates.map((c) => c.text);
   const batchFn = embedFn.batch ?? ((texts: string[]) => Promise.all(texts.map((t) => embedFn(t))));
-  const factVecs = await batchFn(factTexts);
+  const factVecs = getCachedEmbeddings(factTexts) ?? await batchFn(factTexts);
 
   // Score and filter
   const scored: ChannelAResult[] = [];

@@ -98,8 +98,8 @@ source_registry → same vault PDFs → ai_extract.py
 4. ~~Phase 2 — Channel B online~~ → **完成 ✅**
 5. ~~Rate limiting~~ → **完成 ✅** 10 req/min/IP sliding window (Session 93)
 6. ~~**Channel B topic filtering**~~ → **完成 ✅** (Session 94)：keyword detection + source allowlist + query expansion；採購/財務/HR/課程均驗證通過
-   - g04 重新從 PDF 提取（現為 knowledge-based，pending）
-   - Channel B UI 加免責說明（pending）
+   - ~~Channel B UI 加免責說明~~ → **完成 ✅** (Session 95)
+   - ~~g04 重新從 PDF 提取~~ → **vault 更新 ✅** (Session 95)；待用戶執行 `python3 dev/update_g04_supabase.py` 更新 Supabase
 7. **Vault 擴充（全 AI 提取）**：104 個 source registry 來源未提取；設計全 AI pipeline 從 PDF → vault → wiki_index → Supabase
 8. **Channel A embedding cache**：啟動時預計算 1,001 facts embeddings，消除每次查詢的 batch call overhead
 9. MemPalace maintenance: keep `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838` until stable.
