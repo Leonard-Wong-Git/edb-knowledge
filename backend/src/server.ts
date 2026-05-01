@@ -62,49 +62,6 @@ const server = createServer(async (req, res) => {
     return;
   }
 
-  // ── Temporary diagnostic endpoint ────────────────────────────────────────
-  if (req.method === "GET" && req.url === "/debug-b") {
-    try {
-      const supabaseUrl = process.env.SUPABASE_URL ?? "";
-      const supabaseKey = process.env.SUPABASE_ANON_KEY ?? "";
-
-      // 1. Direct table query (no vector)
-      const tableResp = await fetch(
-        `${supabaseUrl}/rest/v1/wiki_chunks?select=id,text&limit=2`,
-        { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } }
-      );
-      const tableData = await tableResp.json();
-
-      // 2. RPC with a simple unit vector [1,0,0,...,0]
-      const unitVec = `[1${",0".repeat(1535)}]`;
-      const rpcResp = await fetch(`${supabaseUrl}/rest/v1/rpc/match_wiki_chunks`, {
-        method: "POST",
-        headers: {
-          apikey: supabaseKey,
-          Authorization: `Bearer ${supabaseKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query_embedding: unitVec, match_threshold: 0.0, match_count: 3 }),
-      });
-      const rpcStatus = rpcResp.status;
-      const rpcText = await rpcResp.text();
-
-      setCorsHeaders(res);
-      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify({
-        table_status: tableResp.status,
-        table_rows: tableData,
-        rpc_status: rpcStatus,
-        rpc_preview: rpcText.slice(0, 300),
-      }));
-    } catch (err) {
-      setCorsHeaders(res);
-      res.writeHead(500, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify({ error: String(err) }));
-    }
-    return;
-  }
-
   if (req.method === "POST" && req.url === "/analyze-circular") {
     try {
       const input = await readJsonBody<AnalyzeCircularRequest>(req);

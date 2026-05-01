@@ -89,7 +89,6 @@ export async function searchWiki(
   }
 
   const rpcUrl = `${supabaseUrl}/rest/v1/rpc/match_wiki_chunks`;
-  console.log(`[wikiRepo] POST ${rpcUrl} threshold=${minScore} topK=${topK ?? "all"} embLen=${queryVec.length}`);
 
   const resp = await fetch(rpcUrl, {
     method: "POST",
@@ -102,7 +101,6 @@ export async function searchWiki(
   });
 
   const rawText = await resp.text();
-  console.log(`[wikiRepo] status=${resp.status} bodyLen=${rawText.length} preview=${rawText.slice(0, 120)}`);
 
   if (!resp.ok) {
     throw new Error(`Supabase RPC error ${resp.status}: ${rawText}`);
