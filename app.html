@@ -3187,6 +3187,13 @@ function QAPanel({ data, setPreviewDoc }) {
           {synthesis && results.filter(r => r.channel === 'B').length > 0 && (
             <SourcesAccordion results={results.filter(r => r.channel === 'B')} topicLabels={TOPIC_LABELS} />
           )}
+          {/* Channel B / Combined disclaimer */}
+          {(searchChannel === 'B' || searchChannel === 'AB') && results.length > 0 && (
+            <div style={{display:'flex',alignItems:'flex-start',gap:'8px',padding:'10px 12px',background:'#FFFBEB',border:'1px solid #FCD34D',borderRadius:'var(--r-md)',fontSize:'var(--text-xs)',color:'#92400E',lineHeight:1.6}}>
+              <span style={{flexShrink:0,marginTop:'1px'}}>⚠️</span>
+              <span>來源文件搜尋結果由 AI 語義搜尋生成，<strong>行政及財務類查詢</strong>（如採購門檻、請假程序）結果準確性待確認，建議對照<a href="https://www.edb.gov.hk" target="_blank" rel="noopener noreferrer" style={{color:'#92400E',textDecoration:'underline'}}>教育局官方原文</a>核實。</span>
+            </div>
+          )}
           {/* Channel A results or Channel B without synthesis: full cards (deduped) */}
           {(() => {
             const seen60 = new Set();
