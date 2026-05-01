@@ -80,9 +80,9 @@
   --space-lg:  clamp(1.5rem, 4vw, 2.5rem);
 
   /* Radius — 紙本感, 非 pill (Spec §2.4) */
-  --r-sm: 2px;
-  --r-md: 2px;
-  --r-lg: 3px;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
 
   /* Shadows — hairline paper, 非 SaaS drop shadow */
   --shadow-sm: 0 1px 0 var(--line-2);
@@ -490,21 +490,16 @@ body {
 
 /* ── Stat/review stat cards in sidebar ─────────────── */
 .stat-card {
-  background: linear-gradient(135deg, var(--cd-warm) 0%, var(--cd-cream) 100%);
+  background: var(--cd-warm);
 }
 .review-stat {
-  background: linear-gradient(135deg, var(--cd-warm) 0%, rgba(164,119,100,0.06) 100%);
+  background: var(--cd-warm);
 }
 
 /* ── Animations ─────────────────────────────────────── */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 .animate-in { animation: fadeIn 0.3s ease-out; }
-@keyframes floatWord {
-  0%   { transform: translateY(0px) rotate(var(--rot)) scale(1); }
-  50%  { transform: translateY(-6px) rotate(calc(var(--rot) + 1.5deg)) scale(1.02); }
-  100% { transform: translateY(0px) rotate(var(--rot)) scale(1); }
-}
-.word-float { animation: floatWord ease-in-out infinite; display: inline-block; }
+/* floatWord removed — Decision 7 (WordCloud removed) */
 @keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(0.8); }
@@ -548,14 +543,14 @@ const { useState, useEffect, useCallback, useMemo, useRef } = React;
 
 // ── Role display config ──
 const ROLE_CONFIG = {
-  all_roles:       { label: '全校適用',   color: 'bg-gray-600',    textColor: 'text-white' },
-  principal:       { label: '校長',       color: 'bg-red-800',     textColor: 'text-white' },
-  vice_principal:  { label: '副校長',     color: 'bg-yellow-800',  textColor: 'text-white' },
-  panel_chair:     { label: '主任',       color: 'var(--p-accent)', textColor: 'text-white' },
-  subject_head:    { label: '科主任',     color: 'bg-gray-700',    textColor: 'text-white' },
-  teacher:         { label: '教師',       color: 'bg-green-800',   textColor: 'text-white' },
-  eo_admin:        { label: 'EO',         color: 'bg-purple-900',  textColor: 'text-white' },
-  supplier:        { label: '供應商',     color: 'bg-yellow-700',  textColor: 'text-white' },
+  all_roles:       { label: '全校適用',   color: 'role-all',       textColor: 'text-white' },
+  principal:       { label: '校長',       color: 'role-principal', textColor: 'text-white' },
+  vice_principal:  { label: '副校長',     color: 'role-vp',        textColor: 'text-white' },
+  panel_chair:     { label: '主任',       color: 'role-chair',     textColor: 'text-white' },
+  subject_head:    { label: '科主任',     color: 'role-subject',   textColor: 'text-white' },
+  teacher:         { label: '教師',       color: 'role-teacher',   textColor: 'text-white' },
+  eo_admin:        { label: 'EO',         color: 'role-eo',        textColor: 'text-white' },
+  supplier:        { label: '供應商',     color: 'role-supplier',  textColor: 'text-white' },
 };
 
 const ROLE_ORDER = ['all_roles', 'principal', 'vice_principal', 'panel_chair', 'subject_head', 'teacher', 'eo_admin', 'supplier'];
@@ -3140,7 +3135,7 @@ function QAPanel({ data, setPreviewDoc }) {
         </div>
 
         {isLoading && (
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-xs mt-1" style={{color:'var(--mid)'}}>
             正在語義搜尋，稍候片刻⋯（首次查詢約需 10–30 秒）
           </p>
         )}
@@ -3157,10 +3152,21 @@ function QAPanel({ data, setPreviewDoc }) {
       </div>
 
       {/* Results */}
-      {!searched ? (
-        <div className="bg-white rounded-xl border border-gray-200 p-10 text-center">
-          <p className="text-4xl mb-3">🔍</p>
-          <p className="text-sm text-gray-400">輸入問題或關鍵詞開始搜尋</p>
+      {isLoading ? (
+        <div style={{display:'flex',flexDirection:'column',gap:'8px'}}>
+          {[1,2,3].map(i => (
+            <div key={i} className="skeleton-card">
+              <div className="skeleton" style={{height:'12px',width:'40%'}}></div>
+              <div className="skeleton" style={{height:'14px',width:'90%'}}></div>
+              <div className="skeleton" style={{height:'14px',width:'75%'}}></div>
+              <div className="skeleton" style={{height:'10px',width:'30%',marginTop:'4px'}}></div>
+            </div>
+          ))}
+        </div>
+      ) : !searched ? (
+        <div style={{background:'var(--cd-warm)',borderRadius:'var(--r-md)',border:'1px solid var(--border)',padding:'40px',textAlign:'center'}}>
+          <p style={{fontSize:'2rem',marginBottom:'8px'}}>🔍</p>
+          <p style={{fontSize:'var(--text-sm)',color:'var(--mid)'}}>輸入問題或關鍵詞開始搜尋</p>
         </div>
       ) : results.length === 0 && !backendError ? (
         <div className="bg-white rounded-xl border border-gray-200 p-10 text-center">
@@ -3907,20 +3913,20 @@ function App() {
             {/* View mode tabs */}
             <div className="k1-tab-bar">
               <button onClick={() => setViewMode('about')}
-                      className={`filter-tab ${viewMode === 'about' ? 'active-tab' : ''}`}>
+                      className={`filter-tab ${viewMode === 'about' ? 'active-tab' : ''}`} aria-selected={viewMode === 'about'} role="tab">
                 ℹ️ 平台介紹
               </button>
               <button onClick={() => setViewMode('qa')}
-                      className={`filter-tab ${viewMode === 'qa' ? 'active-tab' : ''}`}>
+                      className={`filter-tab ${viewMode === 'qa' ? 'active-tab' : ''}`} aria-selected={viewMode === 'qa'} role="tab">
                 🔍 政策搜尋
               </button>
               <button onClick={() => setViewMode('guidelines')}
-                      className={`filter-tab ${viewMode === 'guidelines' ? 'active-tab' : ''}`}>
+                      className={`filter-tab ${viewMode === 'guidelines' ? 'active-tab' : ''}`} aria-selected={viewMode === 'guidelines'} role="tab">
                 📚 指引 ({GUIDELINES_REGISTRY.length})
               </button>
               {adminMode && (
                 <button onClick={() => setViewMode('review')}
-                        className={`filter-tab ${viewMode === 'review' ? 'active-tab' : ''}`}
+                        className={`filter-tab ${viewMode === 'review' ? 'active-tab' : ''}`} aria-selected={viewMode === 'review'} role="tab"
                         style={{position:'relative'}}>
                   ✍️ 知識提煉
                   {candidateQueue.length > 0 && (
@@ -3943,7 +3949,7 @@ function App() {
               )}
               {adminMode && (
                 <button onClick={() => setViewMode('knowledge')}
-                        className={`filter-tab ${viewMode === 'knowledge' ? 'active-tab' : ''}`}>
+                        className={`filter-tab ${viewMode === 'knowledge' ? 'active-tab' : ''}`} aria-selected={viewMode === 'knowledge'} role="tab">
                   ⚙️ 知識管理
                 </button>
               )}
@@ -4115,7 +4121,7 @@ function App() {
                   <div className="k1-tab-bar">
                     {[['all','全部'],['draft','待審核'],['approved','已確認']].map(([key,label]) => (
                       <button key={key} onClick={() => setFilterStatus(key)}
-                              className={`filter-tab ${filterStatus === key ? 'active-tab' : ''}`}>
+                              className={`filter-tab ${filterStatus === key ? 'active-tab' : ''}`} aria-selected={filterStatus === key} role="tab">
                         {label}
                       </button>
                     ))}
@@ -4164,6 +4170,34 @@ function App() {
         </div>
        </div>
       </div>
+
+      {/* ── Mobile bottom tab bar ── */}
+      <nav className="mobile-tab-bar" role="navigation" aria-label="主要導航">
+        <button className={`mobile-tab-item ${viewMode === 'qa' ? 'active' : ''}`}
+                onClick={() => setViewMode('qa')} aria-label="政策搜尋">
+          <span className="mobile-tab-icon">🔍</span>政策搜尋
+        </button>
+        <button className={`mobile-tab-item ${viewMode === 'guidelines' ? 'active' : ''}`}
+                onClick={() => setViewMode('guidelines')} aria-label="指引文件庫">
+          <span className="mobile-tab-icon">📚</span>指引
+        </button>
+        <button className={`mobile-tab-item ${viewMode === 'about' ? 'active' : ''}`}
+                onClick={() => setViewMode('about')} aria-label="平台介紹">
+          <span className="mobile-tab-icon">ℹ️</span>平台介紹
+        </button>
+        {adminMode && (
+          <button className={`mobile-tab-item ${viewMode === 'review' ? 'active' : ''}`}
+                  onClick={() => setViewMode('review')} aria-label="知識提煉">
+            <span className="mobile-tab-icon">✍️</span>知識提煉
+          </button>
+        )}
+        {adminMode && (
+          <button className={`mobile-tab-item ${viewMode === 'knowledge' ? 'active' : ''}`}
+                  onClick={() => setViewMode('knowledge')} aria-label="知識管理">
+            <span className="mobile-tab-icon">⚙️</span>知識管理
+          </button>
+        )}
+      </nav>
 
       {/* ── Footer ── */}
       <footer className="k1-footer">
