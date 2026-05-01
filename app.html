@@ -66,12 +66,13 @@
   --p-text:      var(--ink);
   --p-muted:     var(--ink-3);
 
-  /* Fluid type */
+  /* Fluid type — improved hierarchy */
   --text-hero: clamp(2rem, 4.5vw, 3rem);
-  --text-xl:   clamp(1.1rem, 2.3vw, 1.35rem);
-  --text-lg:   clamp(1rem, 2vw, 1.125rem);
-  --text-base: clamp(0.9rem, 1.5vw, 1rem);
-  --text-sm:   clamp(0.78rem, 1.2vw, 0.875rem);
+  --text-xl:   clamp(1.15rem, 2.3vw, 1.4rem);
+  --text-lg:   clamp(1.05rem, 2vw, 1.15rem);
+  --text-base: clamp(0.9rem, 1.5vw, 0.9375rem);  /* 15px base */
+  --text-sm:   clamp(0.8rem, 1.2vw, 0.855rem);   /* 13.7px */
+  --text-xs:   0.72rem;                           /* 11.5px for meta/labels */
 
   /* Spacing */
   --space-xs:  clamp(0.3rem, 0.8vw, 0.5rem);
@@ -89,6 +90,12 @@
   --shadow-md: 0 2px 0 var(--line);
   --shadow-lg: 0 2px 0 var(--line), 0 0 0 1px var(--line);
 
+  /* Topic colour system — 4 policy domains */
+  --t-finance:      #7A4500;  --t-finance-bg:   #FFF3E0;  --t-finance-bd:   rgba(122,69,0,0.18);
+  --t-hr:           #2E7D32;  --t-hr-bg:        #E8F5E9;  --t-hr-bd:        rgba(46,125,50,0.18);
+  --t-curriculum:   #2956A5;  --t-curriculum-bg:#E8F0FE;  --t-curriculum-bd:rgba(41,86,165,0.18);
+  --t-admin:        #6B3FA0;  --t-admin-bg:     #F3E8FF;  --t-admin-bd:     rgba(107,63,160,0.18);
+
   /* Typography stack */
   --font-sans: "Noto Sans HK","IBM Plex Sans","PingFang HK","Microsoft JhengHei","Helvetica Neue",Arial,sans-serif;
   --font-mono: "IBM Plex Mono","SF Mono",Menlo,Consolas,monospace;
@@ -101,9 +108,10 @@ body {
   font-family: var(--font-sans);
   background: var(--paper);
   color: var(--ink);
-  line-height: 1.65;
+  line-height: 1.7;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  font-size: 15px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -128,104 +136,106 @@ body {
 .shadow-sm       { box-shadow: var(--shadow-sm) !important; }
 .shadow-2xl      { box-shadow: var(--shadow-lg) !important; }
 
-/* ── K1 Dashboard Header / Nav ─────────────────────── */
+/* ── K1 Dashboard Header / Nav — EDB深綠實色 ──────── */
 .k1-header {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(240,238,233,0.94);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border);
+  background: var(--edb);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   transition: box-shadow 0.3s;
 }
-.k1-header.scrolled { box-shadow: var(--shadow-md); }
+.k1-header.scrolled { box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
 .k1-header-inner {
   max-width: 1400px; margin: 0 auto;
   padding: 0 var(--space-md);
-  height: 60px;
+  height: 56px;
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
 }
 .k1-logo {
-  display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; gap: 10px;
   cursor: pointer; text-decoration: none;
   flex-shrink: 0;
 }
 .k1-logo-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--mocha); flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 6px;
+  background: rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  color: #fff; letter-spacing: 0.04em; flex-shrink: 0;
 }
 .k1-logo-text {
-  font-size: 1rem; font-weight: 700;
-  color: var(--charcoal); letter-spacing: -0.02em;
+  font-size: 0.95rem; font-weight: 700;
+  color: #fff; letter-spacing: -0.02em;
   line-height: 1.1;
 }
 .k1-logo-sub {
-  font-size: 0.68rem; color: var(--mid);
-  letter-spacing: 0.01em; margin-top: 1px;
+  font-size: 0.65rem; color: rgba(255,255,255,0.5);
+  letter-spacing: 0.06em; margin-top: 2px; text-transform: uppercase;
 }
 .k1-home-link {
   display: inline-flex; align-items: center; gap: 5px;
-  font-size: var(--text-sm); color: var(--mid);
-  text-decoration: none; padding: 6px 12px;
-  border: 1px solid var(--border); border-radius: var(--r-sm);
+  font-size: var(--text-sm); color: rgba(255,255,255,0.65);
+  text-decoration: none; padding: 5px 10px;
+  border: 1px solid rgba(255,255,255,0.2); border-radius: var(--r-sm);
   transition: all 0.2s; white-space: nowrap;
   flex-shrink: 0;
 }
-.k1-home-link:hover { color: var(--charcoal); border-color: var(--mocha); background: rgba(164,119,100,0.06); }
+.k1-home-link:hover { color: #fff; border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.08); }
 .k1-header-actions {
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end;
 }
 
-/* ── View Mode Tabs ────────────────────────────────── */
+/* ── View Mode Tabs — on dark header ──────────────── */
 .k1-tab-bar {
   display: flex; border-radius: var(--r-sm);
-  border: 1px solid var(--border);
-  overflow: hidden; background: var(--cd);
+  border: 1px solid rgba(255,255,255,0.2);
+  overflow: hidden; background: rgba(255,255,255,0.08);
 }
 .filter-tab {
   transition: all 0.15s; cursor: pointer;
-  padding: 7px 14px; font-size: var(--text-sm); font-weight: 500;
-  border: none; background: none; color: var(--mid);
-  border-right: 1px solid var(--border); white-space: nowrap;
+  padding: 6px 14px; font-size: var(--text-sm); font-weight: 500;
+  border: none; background: none; color: rgba(255,255,255,0.65);
+  border-right: 1px solid rgba(255,255,255,0.15); white-space: nowrap;
   font-family: inherit;
 }
 .filter-tab:last-child { border-right: none; }
 .filter-tab.active-tab {
-  background: var(--charcoal); color: var(--cd);
+  background: rgba(255,255,255,0.18); color: #fff; font-weight: 600;
 }
-.filter-tab:not(.active-tab):hover { background: var(--cd-cream); color: var(--charcoal); }
+.filter-tab:not(.active-tab):hover { background: rgba(255,255,255,0.1); color: #fff; }
 
-/* ── Auth / Action Buttons ─────────────────────────── */
+/* ── Auth / Action Buttons — on dark header ─────── */
 .k1-btn {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 7px 14px; border-radius: var(--r-sm);
+  padding: 6px 12px; border-radius: var(--r-sm);
   font-size: var(--text-sm); font-weight: 500;
-  border: 1px solid var(--border); cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.2); cursor: pointer;
   transition: all 0.15s; white-space: nowrap;
-  font-family: inherit; background: var(--cd-warm); color: var(--mid);
+  font-family: inherit; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.75);
 }
-.k1-btn:hover { border-color: var(--mocha); color: var(--charcoal); }
+.k1-btn:hover { border-color: rgba(255,255,255,0.45); color: #fff; background: rgba(255,255,255,0.14); }
 .k1-btn-admin {
-  background: rgba(164,119,100,0.08); color: var(--mocha-dk);
-  border-color: rgba(164,119,100,0.25);
+  background: rgba(255,255,255,0.12); color: #fff;
+  border-color: rgba(255,255,255,0.25);
 }
-.k1-btn-admin:hover { background: rgba(164,119,100,0.14); }
+.k1-btn-admin:hover { background: rgba(255,255,255,0.2); }
 .k1-badge {
   display: inline-flex; align-items: center; gap: 5px;
-  padding: 5px 12px; border-radius: 100px;
+  padding: 4px 10px; border-radius: 100px;
   font-size: var(--text-sm); white-space: nowrap;
 }
-.k1-badge-warning { background: rgba(164,119,100,0.1); color: var(--mocha-dk); border: 1px solid rgba(164,119,100,0.2); }
-.k1-badge-ok { background: var(--edb-wash); color: var(--edb); border: 1px solid var(--edb-2); }
-.k1-badge-error { background: var(--paper-2); color: #A83232; border: 1px solid var(--warn); }
+.k1-badge-warning { background: rgba(255,200,80,0.18); color: #FFDE8A; border: 1px solid rgba(255,200,80,0.3); }
+.k1-badge-ok { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.2); }
+.k1-badge-error { background: rgba(220,80,60,0.2); color: #FFAAA0; border: 1px solid rgba(220,80,60,0.3); }
 
 /* ── Export Button ─────────────────────────────────── */
 .export-btn {
-  background: var(--charcoal); color: var(--cd);
-  border: 1px solid var(--charcoal); transition: all 0.15s;
-  padding: 7px 16px; border-radius: var(--r-sm);
-  font-size: var(--text-sm); font-weight: 600; cursor: pointer;
+  background: rgba(255,255,255,0.92); color: var(--edb);
+  border: 1px solid rgba(255,255,255,0.4); transition: all 0.15s;
+  padding: 6px 14px; border-radius: var(--r-sm);
+  font-size: var(--text-sm); font-weight: 700; cursor: pointer;
   font-family: inherit;
 }
-.export-btn:hover { background: var(--mocha); border-color: var(--mocha); }
+.export-btn:hover { background: #fff; border-color: #fff; }
 
 /* ── Main Layout ───────────────────────────────────── */
 .k1-layout { max-width: 1400px; margin: 0 auto; padding: var(--space-md); }
@@ -245,9 +255,9 @@ body {
 .k1-card-header {
   padding: 10px 16px;
   border-bottom: 1px solid var(--border-lt);
-  font-size: 0.72rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--mid);
+  font-size: 0.68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--ink-3); font-family: var(--font-mono);
 }
 /* Stats card */
 .k1-stat-grid {
@@ -438,6 +448,17 @@ body {
   .review-inspector { position: relative; top: auto; }
 }
 
+/* ── Topic Tags ─────────────────────────────────────── */
+.topic-tag {
+  font-size: 0.68rem; padding: 2px 7px; border-radius: 4px;
+  font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center;
+}
+.topic-finance    { background: var(--t-finance-bg);    color: var(--t-finance);    border: 1px solid var(--t-finance-bd); }
+.topic-hr         { background: var(--t-hr-bg);         color: var(--t-hr);         border: 1px solid var(--t-hr-bd); }
+.topic-curriculum { background: var(--t-curriculum-bg); color: var(--t-curriculum); border: 1px solid var(--t-curriculum-bd); }
+.topic-admin      { background: var(--t-admin-bg);      color: var(--t-admin);      border: 1px solid var(--t-admin-bd); }
+.topic-general    { background: var(--line-2);          color: var(--ink-3);        border: 1px solid var(--line); }
+
 /* ── Role Badge ─────────────────────────────────────── */
 .role-badge {
   font-size: 0.68rem; padding: 2px 8px; border-radius: 100px;
@@ -475,13 +496,113 @@ body {
 .guide-tab { transition: all 0.15s; cursor: pointer; }
 .guide-tab:hover { transform: translateY(-1px); }
 
-/* ── QA panel ───────────────────────────────────────── */
+/* ── QA panel — Airline Board layout ───────────────── */
 .qa-result-card {
   transition: all 0.2s;
   border-left: 3px solid var(--mocha-lt);
   background: var(--cd-warm); border-radius: var(--r-sm);
 }
 .qa-result-card:hover { box-shadow: var(--shadow-md); }
+
+/* Board table container */
+.board-table {
+  border: 1px solid var(--line); border-radius: var(--r-md);
+  overflow: hidden; background: var(--paper-2);
+}
+.board-col-hdr {
+  display: grid;
+  grid-template-columns: 36px 80px 1fr 88px 68px;
+  gap: 0; padding: 7px 14px 6px;
+  font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3);
+  border-bottom: 1px solid var(--line); background: var(--cd);
+}
+.board-result-row {
+  display: grid;
+  grid-template-columns: 36px 80px 1fr 88px 68px;
+  gap: 0; align-items: start;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line-2);
+  cursor: default; transition: background 0.15s;
+  background: var(--paper-2);
+  animation: fadeIn 0.25s ease-out;
+}
+.board-result-row:last-child { border-bottom: none; }
+.board-result-row:hover { background: #F0EDE6; }
+
+/* Channel indicator */
+.board-ch-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  margin-top: 4px; flex-shrink: 0;
+}
+.ch-dot-a { background: var(--edb); }
+.ch-dot-b { background: var(--accent); }
+.ch-dot-ab { background: #7C5BB3; }
+
+/* Source column */
+.board-src-code {
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600;
+  color: var(--edb); letter-spacing: 0.04em; padding-top: 1px;
+  padding-right: 8px; word-break: break-word; line-height: 1.35;
+}
+.board-src-sub {
+  font-size: 0.6rem; color: var(--ink-3); font-weight: 400;
+  letter-spacing: 0; margin-top: 2px; text-transform: none; font-family: var(--font-sans);
+}
+
+/* Content column */
+.board-fact-text {
+  font-size: 0.855rem; color: var(--ink); line-height: 1.6; padding-right: 10px;
+}
+.board-fact-meta {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 5px;
+}
+.board-src-link {
+  font-size: 0.65rem; color: var(--accent); text-decoration: underline;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 3px;
+}
+.board-src-link:hover { color: var(--edb); }
+
+/* Roles column */
+.board-roles { display: flex; flex-wrap: wrap; gap: 3px; align-items: flex-start; }
+.board-role-chip {
+  font-size: 0.62rem; padding: 2px 5px; border-radius: 3px; font-weight: 600; white-space: nowrap;
+}
+
+/* Score column */
+.board-score { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+.board-score-bar { display: flex; gap: 2px; }
+.board-score-seg {
+  width: 7px; height: 7px; border-radius: 2px;
+}
+.seg-on-a { background: var(--edb); }
+.seg-on-b { background: var(--accent); }
+.seg-off  { background: var(--line); }
+.board-score-num {
+  font-family: var(--font-mono); font-size: 0.62rem; color: var(--ink-3);
+}
+/* Board role chips */
+.rc-all      { background: var(--edb-wash);            color: var(--edb);   }
+.rc-principal{ background: #FBE9E7;                    color: #BF360C;      }
+.rc-vp       { background: #FFF3E0;                    color: #E65100;      }
+.rc-chair    { background: #E8EAF6;                    color: #283593;      }
+.rc-subject  { background: #E0F2F1;                    color: #00695C;      }
+.rc-teacher  { background: #E8F5E9;                    color: #1B5E20;      }
+.rc-eo       { background: #EDE7F6;                    color: #4527A0;      }
+.rc-supplier { background: var(--line-2);              color: var(--ink-3); }
+
+@media (max-width: 767px) {
+  .board-col-hdr { display: none; }
+  .board-result-row {
+    grid-template-columns: 28px 1fr;
+    grid-template-rows: auto auto;
+    padding: 10px 12px; gap: 6px 8px;
+  }
+  .board-result-row .board-src-code { display: none; }
+  .board-result-row .board-roles { display: none; }
+  .board-result-row .board-score { display: none; }
+  .board-fact-text { font-size: 0.83rem; }
+}
 .qa-highlight {
   background: rgba(196,168,130,0.35) !important;
   color: var(--charcoal) !important;
@@ -531,6 +652,16 @@ body {
   .k1-sidebar { display: none; }
   .k1-header-inner { height: auto; padding: 10px var(--space-sm); flex-wrap: wrap; gap: 8px; }
   .k1-logo-sub { display: none; }
+  /* Sticky search card on mobile */
+  .k1-search-card {
+    position: sticky; top: 56px; z-index: 35;
+    border-radius: 0 !important;
+    border-left: none !important; border-right: none !important;
+    margin-left: calc(-1 * var(--space-md));
+    margin-right: calc(-1 * var(--space-md));
+    padding-left: var(--space-md) !important;
+    padding-right: var(--space-md) !important;
+  }
 }
 </style>
 </head>
@@ -3075,6 +3206,29 @@ function QAPanel({ data, setPreviewDoc }) {
     return { bg: 'var(--paper-2)', color: 'var(--edb)', label: '通道 B · 文件' };
   };
 
+  // Board layout helpers
+  const TOPIC_CLASS = { finance:'topic-finance', hr:'topic-hr', curriculum:'topic-curriculum' };
+  const getTopicClass = (t) => TOPIC_CLASS[t] || 'topic-admin';
+  const TOPIC_SHORT = { finance:'財務/採購', hr:'人力資源', curriculum:'課程', activity:'活動', student:'學生事務', it:'資訊科技', general:'通用/行政' };
+  const getSrcDisplay = (item) => {
+    if (item.channel === 'A') return { code: TOPIC_SHORT[item.topicId] || item.topicId, sub: '已核實事實' };
+    const t = (item.sourceRef && item.sourceRef.title) || '';
+    const code = t.length > 8 ? t.slice(0, 7) + '…' : (t || '文件庫');
+    return { code, sub: 'Channel B' };
+  };
+  const scoreSegs = (score, ch) => {
+    const filled = Math.round((score || 0) * 5);
+    const cls = ch === 'A' ? 'seg-on-a' : 'seg-on-b';
+    return Array.from({length:5}, (_, i) => (
+      <div key={i} className={`board-score-seg ${i < filled ? cls : 'seg-off'}`}/>
+    ));
+  };
+  const ROLE_CHIP_CLS = {
+    all_roles:'rc-all', principal:'rc-principal', vice_principal:'rc-vp',
+    panel_chair:'rc-chair', subject_head:'rc-subject', teacher:'rc-teacher',
+    eo_admin:'rc-eo', supplier:'rc-supplier',
+  };
+
   const CHANNEL_OPTS = [
     { id: 'A',  label: '已核實資料', sub: '語義搜尋' },
     { id: 'B',  label: '來源文件', sub: '語義搜尋' },
@@ -3083,7 +3237,7 @@ function QAPanel({ data, setPreviewDoc }) {
 
   return (
     <div className="flex-1 min-w-0">
-      <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
+      <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 k1-search-card">
         <h2 className="text-lg font-bold text-gray-800 mb-1">政策搜尋</h2>
         <p className="text-xs text-gray-400 mb-3">
           {searchChannel === 'A'  && `已核實資料：語義搜尋 ${channelACount} 條 EDB 政策事實，附整理答案`}
@@ -3200,7 +3354,7 @@ function QAPanel({ data, setPreviewDoc }) {
               <span>來源文件搜尋結果由 AI 語義搜尋生成，<strong>行政及財務類查詢</strong>（如採購門檻、請假程序）結果準確性待確認，建議對照<a href="https://www.edb.gov.hk" target="_blank" rel="noopener noreferrer" style={{color:'#92400E',textDecoration:'underline'}}>教育局官方原文</a>核實。</span>
             </div>
           )}
-          {/* Channel A results or Channel B without synthesis: full cards (deduped) */}
+          {/* Channel A results or Channel B without synthesis: airline board rows (deduped) */}
           {(() => {
             const seen60 = new Set();
             return results.filter(r => r.channel === 'A' || !synthesis).filter(item => {
@@ -3209,36 +3363,72 @@ function QAPanel({ data, setPreviewDoc }) {
               seen60.add(key);
               return true;
             });
-          })().map((item, i) => {
-            const badge = getChannelBadge(item.channel, item.content_type);
+          })().length > 0 && (() => {
+            const seen60 = new Set();
+            const rows = results.filter(r => r.channel === 'A' || !synthesis).filter(item => {
+              const key = (item.fact || '').slice(0, 60);
+              if (seen60.has(key)) return false;
+              seen60.add(key);
+              return true;
+            });
             return (
-              <div key={i} className="qa-result-card bg-white rounded-lg p-4 border border-gray-200 animate-in">
-                <div className="flex items-center gap-2 mb-2 flex-wrap">
-                  <span className="text-xs px-2 py-0.5 rounded-full font-bold border"
-                        style={{background:badge.bg,color:badge.color,borderColor:badge.color+'33'}}>
-                    {badge.label}
-                  </span>
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-orange-50 text-amber-900 font-bold border border-orange-200">
-                    {TOPIC_LABELS[item.topicId] || item.topicId}
-                  </span>
-                  {item.channel === 'A' && <RoleBadge roleId={item.roleId} />}
-                  {item.channel === 'B' && typeof item.score === 'number' && (
-                    <span className="text-xs text-gray-400 ml-auto">相關度 {item.score.toFixed(2)}</span>
-                  )}
+              <div className="board-table animate-in">
+                <div className="board-col-hdr">
+                  <span></span>
+                  <span>來源</span>
+                  <span>政策內容</span>
+                  <span>適用角色</span>
+                  <span style={{textAlign:'right'}}>相關度</span>
                 </div>
-                <p className="text-sm text-gray-800 mb-2">{highlightFact(item.fact, tokens)}</p>
-                {item.sourceRef && (
-                  <a href={item.sourceRef.url} target="_blank" rel="noopener"
-                     className="source-link inline-flex items-center gap-1">
-                    <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                    {item.sourceRef.title}
-                  </a>
-                )}
+                {rows.map((item, i) => {
+                  const src = getSrcDisplay(item);
+                  const dotCls = item.channel === 'A' ? 'ch-dot-a' : item.channel === 'B' ? 'ch-dot-b' : 'ch-dot-ab';
+                  const rc = ROLE_CHIP_CLS[item.roleId] || 'rc-all';
+                  return (
+                    <div key={i} className="board-result-row">
+                      {/* Channel dot */}
+                      <div><div className={`board-ch-dot ${dotCls}`}/></div>
+                      {/* Source */}
+                      <div className="board-src-code">
+                        {src.code}
+                        <div className="board-src-sub">{src.sub}</div>
+                      </div>
+                      {/* Content */}
+                      <div>
+                        <div className="board-fact-text">{highlightFact(item.fact, tokens)}</div>
+                        <div className="board-fact-meta">
+                          <span className={`topic-tag ${getTopicClass(item.topicId)}`}>
+                            {TOPIC_SHORT[item.topicId] || item.topicId}
+                          </span>
+                          {item.sourceRef && (
+                            <a href={item.sourceRef.url} target="_blank" rel="noopener" className="board-src-link">
+                              <svg width="10" height="10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                              </svg>
+                              原文
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                      {/* Roles */}
+                      <div className="board-roles">
+                        <span className={`board-role-chip ${rc}`}>
+                          {ROLE_CONFIG[item.roleId]?.label || '全校'}
+                        </span>
+                      </div>
+                      {/* Score */}
+                      <div className="board-score">
+                        <div className="board-score-bar">{scoreSegs(item.score, item.channel)}</div>
+                        {typeof item.score === 'number' && (
+                          <div className="board-score-num">{item.score.toFixed(2)}</div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             );
-          })}
+          })()}
         </div>
       )}
     </div>
@@ -3901,7 +4091,7 @@ function App() {
         <div className="k1-header-inner">
           {/* Logo */}
           <div className="k1-logo" onClick={() => { setViewMode('qa'); window.scrollTo(0,0); }}>
-            <span className="k1-logo-dot"></span>
+            <span className="k1-logo-dot">K1</span>
             <div>
               <div className="k1-logo-text">K1知識平台</div>
               <div className="k1-logo-sub">香港學校管治 · {displayVersion}</div>

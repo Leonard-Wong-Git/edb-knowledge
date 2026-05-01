@@ -15,6 +15,10 @@
     --line:#D8D2C4; --line-2:#E8E3D6;
     --edb:#1F3A2E; --edb-2:#2E5A46; --edb-wash:#E9EFE9;
     --accent:#8B6B2E; --stale:#8A7A3B; --warn:#7A3B1F;
+    --t-finance:#7A4500;--t-finance-bg:#FFF3E0;
+    --t-hr:#2E7D32;--t-hr-bg:#E8F5E9;
+    --t-curriculum:#2956A5;--t-curriculum-bg:#E8F0FE;
+    --t-admin:#6B3FA0;--t-admin-bg:#F3E8FF;
     --radius:2px;
     --sans:"Noto Sans HK","PingFang HK","Microsoft JhengHei",Arial,sans-serif;
     --mono:"IBM Plex Mono","SF Mono",Menlo,monospace;
@@ -25,27 +29,28 @@
   a{color:var(--edb-2);text-decoration:none}
   a:hover{color:var(--edb);border-bottom:1px solid var(--edb)}
 
-  /* top nav */
+  /* top nav — EDB深綠實色 */
   .nav{
-    position:sticky;top:0;z-index:20;background:rgba(247,244,237,.92);
-    backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:20;
+    background:var(--edb);
+    border-bottom:1px solid rgba(255,255,255,0.08);
   }
   .nav-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;
-    justify-content:space-between;gap:16px;padding:14px 28px}
+    justify-content:space-between;gap:16px;padding:12px 28px}
   .brand{display:flex;align-items:center;gap:10px}
   .brand .mark{
-    width:28px;height:28px;background:var(--edb);color:var(--paper);
+    width:28px;height:28px;background:rgba(255,255,255,0.15);color:#fff;
     font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;
-    display:grid;place-items:center;border-radius:2px;
+    display:grid;place-items:center;border-radius:4px;
   }
-  .brand .name{font-weight:700;font-size:15px;letter-spacing:-.005em}
-  .brand .sub{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);
+  .brand .name{font-weight:700;font-size:15px;letter-spacing:-.005em;color:#fff}
+  .brand .sub{font-family:var(--mono);font-size:10.5px;color:rgba(255,255,255,0.5);
     letter-spacing:.1em;text-transform:uppercase;margin-left:4px}
   .nav-right{display:flex;align-items:center;gap:18px;font-size:13.5px}
-  .nav-right a{color:var(--ink-2)}
-  .nav-right a:hover{color:var(--edb)}
-  .kbd{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);
-    border:1px solid var(--line);padding:2px 6px;border-radius:2px;background:#fff}
+  .nav-right a{color:rgba(255,255,255,0.7)}
+  .nav-right a:hover{color:#fff;border-bottom-color:rgba(255,255,255,0.4)}
+  .kbd{font-family:var(--mono);font-size:10.5px;color:rgba(255,255,255,0.5);
+    border:1px solid rgba(255,255,255,0.2);padding:2px 6px;border-radius:2px;background:rgba(255,255,255,0.08)}
 
   .wrap{max-width:1280px;margin:0 auto;padding:40px 28px 80px}
 
