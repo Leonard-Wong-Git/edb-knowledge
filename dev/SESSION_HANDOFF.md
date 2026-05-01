@@ -6,7 +6,7 @@
 3. Knowledge state: **1,001 Channel A facts** (三層同步 ✅), **0 candidates in queue**, **wiki_index.json** 2,874 chunks / 125 MB; 2,822 in Supabase.
 4. Backend: Node.js TypeScript backend all search APIs complete; **Channel A + B + A+B online at `https://edb-knowledge.onrender.com`**; rate limiting 10 req/min/IP (sliding window, in-memory).
 5. Channel A: 改用 backend semantic search + LLM synthesis（所有三個 channel 均有整理答案）；min_score A=0.1, B/AB=0.15；case-insensitive keyword fallback 已移除。
-6. Channel B 品質問題（已確認）：SAG 佔 415 chunks，行政財務類查詢（採購/批假）被 SAG 内容淹沒；g04 為 knowledge-based extract（非 PDF 提取）。
+6. Channel B topic filtering（Session 94 完成）：keyword → category → source allowlist → query expansion。採購/財務 → g01+g02+coa_imc（排 SAG）；HR/假期 → g04+g05+sag；課程 → 課程指引。g04 仍為 knowledge-based extract（非 PDF）。
 7. Product copy baseline: Traditional Chinese UI; no public internal design/dev/backend commands.
 8. MemPalace: shared install `/Users/leonard/mempalace/.venv`, palace `/Users/leonard/mempalace/palace`, wing `claude_edb_knowledge`.
 
@@ -97,10 +97,9 @@ source_registry → same vault PDFs → ai_extract.py
 3. ~~Render 部署 Channel A~~ → **完成 ✅**
 4. ~~Phase 2 — Channel B online~~ → **完成 ✅**
 5. ~~Rate limiting~~ → **完成 ✅** 10 req/min/IP sliding window (Session 93)
-6. **Channel B 品質修正（高優先）**：
-   - 加入 topic 過濾：偵測 query topic，只搜該 topic 的 wiki chunks（finance/HR/curriculum）
-   - g04 重新從 PDF 提取（現為 knowledge-based）
-   - Channel B UI 加免責說明（行政財務類結果準確性待確認）
+6. ~~**Channel B topic filtering**~~ → **完成 ✅** (Session 94)：keyword detection + source allowlist + query expansion；採購/財務/HR/課程均驗證通過
+   - g04 重新從 PDF 提取（現為 knowledge-based，pending）
+   - Channel B UI 加免責說明（pending）
 7. **Vault 擴充（全 AI 提取）**：104 個 source registry 來源未提取；設計全 AI pipeline 從 PDF → vault → wiki_index → Supabase
 8. **Channel A embedding cache**：啟動時預計算 1,001 facts embeddings，消除每次查詢的 batch call overhead
 9. MemPalace maintenance: keep `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838` until stable.

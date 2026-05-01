@@ -54,6 +54,47 @@ Known risks:
 Post-startup first action: 確認 git push 狀態，然後詢問 Leonard：UI QA、rate limiting、還是其他優先項。
 ```
 
+## 2026-05-01 Session 94 — Channel B Topic Filtering + MemPalace Integration
+
+- **ID:** Claude_20260501_0003
+- **Summary:** Channel B 系統性品質修正：keyword-based topic detection + source allowlist + query expansion；三個原問題查詢（採購門檻/單一報價/教職員請假）全部驗證通過。加入 MemPalace 整合腳本 `dev/mempalace_sync.py`。
+- **Changed:** `backend/src/api/searchChannelB.ts`, `backend/src/lib/wikiRepository.ts`, `dev/mempalace_sync.py`（新增）, `dev/SESSION_HANDOFF.md`
+- **Done:**
+  - **MemPalace 整合**：`dev/mempalace_sync.py` write/query/list/stats；7 sessions + handoff snapshot 已寫入；session 流程：query 開始、write 結束
+  - **wikiRepository.ts**：`WikiSearchOptions` 加 `sourceIds?: string[]`；post-filter by source_id allowlist
+  - **searchChannelB.ts**：
+    - `SOURCE_SETS`：finance→g01+g02+coa_imc（排 SAG）；hr_admin→g04+g05+sag；activity→g03；curriculum→所有課程指引
+    - `TOPIC_KEYWORDS`：keyword regex → category detection
+    - `detectQueryCategory()`：查詢分類函數
+    - `QUERY_EXPANSIONS` + `expandQuery()`：finance="採購程序 財政限額 報價 招標 採購指引"等，解決「門檻」embedding 偏移問題
+    - `effectiveMinScore`：topic filter 啟動時降至 min(user_score, 0.08)
+    - `enable_topic_filter?: boolean`（default: true）
+  - **診斷發現**：「採購門檻」scoring 低因「門檻」embedding 被 SAG 教師註冊語境拉偏；query expansion 解決
+- **QC:** curl 驗證全 PASS：採購門檻→g01+g02 ✅；單一報價→g01+g02 ✅；教職員請假→sag+g05 ✅；學校管治（無 filter）→多來源 ✅
+- **Pending:** g04 PDF 重新提取；Channel B UI 免責聲明；vault 擴充
+- **Next:** 1. g04 從 PDF 重新提取；2. Channel B UI 加免責聲明；3. Vault 擴充全 AI pipeline（104 sources pending）；4. Channel A embedding cache
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Channel B search behavior change | SESSION_HANDOFF.md Open Priorities | ✓ Done |
+| MemPalace tooling added | SESSION_HANDOFF.md baseline | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first, then: dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md
+
+Current state (Session 94, 2026-05-01):
+- v2.1.2 online；Channel B topic filtering 完成並驗證：採購→g01+g02，HR→sag+g05
+- MemPalace: dev/mempalace_sync.py；session 開始 query，結束 write
+
+Priority for next session:
+1. g04 從 PDF 重新提取（現為 knowledge-based LLM content，非真實 PDF）
+2. Channel B UI 加免責聲明（行政財務查詢結果準確性待確認）
+3. Vault 擴充：104 sources 未提取；全 AI pipeline (pdftotext → chunk → embed → Supabase)
+4. Channel A embedding cache（startup 預計算 1,001 embeddings）
+```
+
 ## 2026-05-01 Session 93 — UI QA + Rate Limiting + Channel B Spot-check
 
 - **ID:** Claude_20260501_0002
