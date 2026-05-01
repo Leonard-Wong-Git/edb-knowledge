@@ -280,8 +280,13 @@ export async function searchChannelB(
   const detectedCategory = enable_topic_filter ? detectQueryCategory(query) : null;
   const sourceIds = detectedCategory ? SOURCE_SETS[detectedCategory] : undefined;
 
+  // When a topic filter is active we've already narrowed to relevant sources,
+  // so we can afford a lower similarity threshold to surface relevant chunks
+  // that use different terminology (e.g. "財政限額" vs "採購門檻").
+  const effectiveMinScore = sourceIds ? Math.min(min_score, 0.08) : min_score;
+
   const rawResults = await searchWiki(query, embedFn, {
-    minScore: min_score,
+    minScore: effectiveMinScore,
     topK: top_k,
     ...(topic ? { topic } : {}),
     ...(content_type ? { contentType: content_type } : {}),
