@@ -13,6 +13,45 @@ import type { AnalyzeCircularRequest } from "./types/knowledge.js";
 const PORT = getPort();
 const CORS_ORIGIN = getCorsOrigin();
 
+// ── In-memory rate limiter ────────────────────────────────────────────────────
+// 10 requests per minute per IP across all POST search/analysis endpoints.
+// Uses a sliding window: each IP stores timestamps of recent requests.
+const RATE_LIMIT = 10;          // max requests
+const RATE_WINDOW_MS = 60_000;  // per 60 seconds
+
+const ipWindows = new Map<string, number[]>();
+
+// Purge stale IPs every 5 minutes to prevent unbounded memory growth
+setInterval(() => {
+  const cutoff = Date.now() - RATE_WINDOW_MS;
+  for (const [ip, timestamps] of ipWindows) {
+    const fresh = timestamps.filter(t => t > cutoff);
+    if (fresh.length === 0) ipWindows.delete(ip);
+    else ipWindows.set(ip, fresh);
+  }
+}, 5 * 60_000);
+
+function checkRateLimit(ip: string): { allowed: boolean; retryAfterSec: number } {
+  const now = Date.now();
+  const cutoff = now - RATE_WINDOW_MS;
+  const timestamps = (ipWindows.get(ip) ?? []).filter(t => t > cutoff);
+  if (timestamps.length >= RATE_LIMIT) {
+    const oldest = Math.min(...timestamps);
+    const retryAfterSec = Math.ceil((oldest + RATE_WINDOW_MS - now) / 1000);
+    return { allowed: false, retryAfterSec };
+  }
+  timestamps.push(now);
+  ipWindows.set(ip, timestamps);
+  return { allowed: true, retryAfterSec: 0 };
+}
+
+function getClientIp(req: import("node:http").IncomingMessage): string {
+  // Respect Render's forwarded IP header; fall back to socket address
+  const forwarded = req.headers["x-forwarded-for"];
+  if (typeof forwarded === "string") return forwarded.split(",")[0].trim();
+  return req.socket?.remoteAddress ?? "unknown";
+}
+
 function setCorsHeaders(res: ServerResponse): void {
   res.setHeader("Access-Control-Allow-Origin", CORS_ORIGIN);
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -60,6 +99,22 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
     res.end(JSON.stringify({ ok: true, service: "edb-knowledge-platform-backend" }));
     return;
+  }
+
+  // ── Rate limiting (all POST endpoints) ───────────────────────────────────
+  if (req.method === "POST") {
+    const ip = getClientIp(req);
+    const { allowed, retryAfterSec } = checkRateLimit(ip);
+    if (!allowed) {
+      setCorsHeaders(res);
+      res.setHeader("Retry-After", String(retryAfterSec));
+      res.writeHead(429, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({
+        error: "請求過於頻繁，請稍後再試。",
+        retry_after_sec: retryAfterSec,
+      }));
+      return;
+    }
   }
 
   if (req.method === "POST" && req.url === "/analyze-circular") {
