@@ -2978,7 +2978,7 @@ function QAPanel({ data, setPreviewDoc }) {
       method: 'POST', headers: {'Content-Type':'application/json'},
       body: JSON.stringify(body)
     });
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    if (!resp.ok) throw Object.assign(new Error(`HTTP ${resp.status}`), { status: resp.status });
     const json = await resp.json();
     setSynthesis(json.synthesis || null);
     return (json.results || []).map(r => ({
@@ -2996,7 +2996,7 @@ function QAPanel({ data, setPreviewDoc }) {
       method: 'POST', headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ query: q, min_score: 0.15, top_k: 8 })
     });
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    if (!resp.ok) throw Object.assign(new Error(`HTTP ${resp.status}`), { status: resp.status });
     const json = await resp.json();
     setSynthesis(json.synthesis || null);
     return (json.results || []).map(r => ({
@@ -3014,7 +3014,7 @@ function QAPanel({ data, setPreviewDoc }) {
       method: 'POST', headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ query: q, min_score: 0.15, top_k: 8 })
     });
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    if (!resp.ok) throw Object.assign(new Error(`HTTP ${resp.status}`), { status: resp.status });
     const json = await resp.json();
     setSynthesis(json.synthesis || null);
     return (json.results || []).map(r => ({
@@ -3045,7 +3045,11 @@ function QAPanel({ data, setPreviewDoc }) {
       setResults(found);
       setSearched(true);
     } catch (err) {
-      setBackendError('進階來源搜尋暫未連線。可先使用「已核實資料」搜尋，或稍後再試。');
+      if (err && err.status === 429) {
+        setBackendError('查詢次數已達上限（每分鐘10次），請稍候約1分鐘後再試。');
+      } else {
+        setBackendError('搜尋服務暫未連線，請稍後再試。');
+      }
       setResults([]);
       setSearched(true);
     } finally {
