@@ -87,7 +87,7 @@ headers = {
     "apikey": SUPABASE_SERVICE_KEY,
     "Authorization": f"Bearer {SUPABASE_SERVICE_KEY}",
     "Content-Type": "application/json",
-    "Prefer": "resolution=merge-duplicates",  # upsert：重複 id 則更新
+    "Prefer": "return=minimal",  # 只插入，不返回資料（更快）
 }
 
 endpoint = f"{SUPABASE_URL}/rest/v1/{TABLE}"
@@ -114,12 +114,22 @@ batches = []
 current_batch = []
 skipped = 0
 
+# Deduplicate by id across ALL chunks before batching
+seen_ids: set = set()
+deduped_chunks = []
 for chunk in chunks:
     cleaned = clean_chunk(chunk)
     if cleaned is None:
         skipped += 1
         continue
-    current_batch.append(cleaned)
+    if cleaned["id"] in seen_ids:
+        skipped += 1
+        continue
+    seen_ids.add(cleaned["id"])
+    deduped_chunks.append(cleaned)
+
+for chunk in deduped_chunks:
+    current_batch.append(chunk)
     if len(current_batch) >= BATCH_SIZE:
         batches.append(current_batch)
         current_batch = []
