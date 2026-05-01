@@ -58,6 +58,12 @@ export interface SearchChannelBRequest {
   include_statistical?: boolean;
   /** Generate LLM synthesis answer. Default: true */
   synthesize?: boolean;
+  /**
+   * Enable automatic query-topic detection to restrict search to relevant
+   * source documents and prevent high-volume sources (e.g. SAG) from
+   * drowning out smaller but more relevant admin guides. Default: true
+   */
+  enable_topic_filter?: boolean;
 }
 
 export interface SearchChannelBResponse {
@@ -67,6 +73,106 @@ export interface SearchChannelBResponse {
   synthesis?: string;
   total: number;
   results: ChannelBResult[];
+}
+
+// ---------------------------------------------------------------------------
+// Topic-aware source filtering
+// ---------------------------------------------------------------------------
+
+/**
+ * Source sets by query category.
+ *
+ * Problem: sag_2025_11 has 415 chunks (14% of index) and covers many topics.
+ * For narrow admin queries (procurement, HR), its sheer volume causes it to
+ * dominate results, pushing out smaller but far more relevant guides.
+ *
+ * Solution: detect the query category from keywords and restrict the search
+ * to the most relevant source documents.
+ */
+const SOURCE_SETS: Record<string, string[]> = {
+  /**
+   * Finance / Procurement — 採購, 招標, 財務管理, 資助則例
+   * Exclude SAG: its "門檻" references are teacher-registration thresholds,
+   * not procurement thresholds; would drown out g01 (32 chunks).
+   */
+  finance: [
+    "g01",               // 資助學校採購程序指引
+    "g02",               // 法團校董會財務管理指引
+    "coa_imc_1_19",      // 資助則例 (IMC)
+    "role_facts_finance",
+    "role_facts_general",
+  ],
+
+  /**
+   * HR / Leave / Professional conduct — 假期, 批假, 薪酬, 操守
+   * Include SAG (it has meaningful HR sections); exclude pure curriculum guides.
+   */
+  hr_admin: [
+    "g04",               // 教職員批假指引
+    "g05",               // 教師專業操守指引
+    "g11",               // 擬定校曆表指引
+    "sag_2025_11",       // School Administration Guide (HR sections)
+    "role_facts_hr",
+    "role_facts_general",
+  ],
+
+  /**
+   * Activity grants — 全方位學習津貼, 課外活動
+   */
+  activity: [
+    "g03",               // 全方位學習津貼運用指引
+    "role_facts_activity",
+    "role_facts_general",
+  ],
+
+  /**
+   * Curriculum / Teaching — 課程, 科目, 教學, 評估, CPD
+   * Exclude SAG (minimal curriculum content, adds noise).
+   */
+  curriculum: [
+    "eng_pri_guide_2025",
+    "ph_pri_guide_2025",
+    "pri_science_guide_2025",
+    "ma_kla_guide_2017",
+    "pri_curr_guide_2024",
+    "chi_hist_jss_2019",
+    "music_p1_s6_2024",
+    "gs_pri_guide_2017",
+    "va_p1_s6_2024",
+    "chi_jss_guide_2023",
+    "chi_pri_guide_2023",
+    "pe_kla_2017",
+    "role_facts_curriculum",
+    "edbc18_2023_pri_science",
+    "edbc20_2023_ph_pri",
+    "edbc9_2024_ph_pri",
+    "edbc12_2025_ph_pri",
+    "edbc13_2025_pri_science",
+    "edbc002_2026",
+    "edbc003_2026",
+    "edbc005_2026",
+    "circ_edbc24017",
+  ],
+};
+
+/** Keyword patterns for each category (Traditional Chinese). */
+const TOPIC_KEYWORDS: Record<string, RegExp> = {
+  finance: /採購|招標|單一報價|競投|供應商|報價單|分判|貨物|服務合約|財務管理|預算|撥款|開支|報銷|捐款|借款|代收費|利益衝突|申報利益|賄賂|廉署|防賄|資助則例|法團校董|校董會經費|採購門檻|採購程序/,
+  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日/,
+  activity: /全方位學習|活動津貼|課外活動|全方位學習津貼/,
+  curriculum: /課程|科目|教學|學習目標|評估|教材|課程發展|學習領域|教師發展|CPD|專業發展|英文科|中文科|數學科|常識科|科學科|體育科|音樂科|視藝科|小學課程|中學課程|課程指引|學習成果|評核/,
+};
+
+/**
+ * Detect query category from keywords.
+ * Returns the category key (matching SOURCE_SETS) or null if none detected.
+ * Finance takes precedence over HR to avoid overlap (e.g. "薪酬採購").
+ */
+function detectQueryCategory(query: string): string | null {
+  for (const [category, pattern] of Object.entries(TOPIC_KEYWORDS)) {
+    if (pattern.test(query)) return category;
+  }
+  return null;
 }
 
 // ---------------------------------------------------------------------------
@@ -158,6 +264,7 @@ export async function searchChannelB(
     top_k = 8,
     include_statistical = false,
     synthesize: doSynthesize = true,
+    enable_topic_filter = true,
   } = request;
 
   if (!query?.trim()) {
@@ -169,11 +276,16 @@ export async function searchChannelB(
     throw new Error(`Invalid topic: ${topic}`);
   }
 
+  // Auto-detect query category for source filtering
+  const detectedCategory = enable_topic_filter ? detectQueryCategory(query) : null;
+  const sourceIds = detectedCategory ? SOURCE_SETS[detectedCategory] : undefined;
+
   const rawResults = await searchWiki(query, embedFn, {
     minScore: min_score,
     topK: top_k,
     ...(topic ? { topic } : {}),
     ...(content_type ? { contentType: content_type } : {}),
+    ...(sourceIds ? { sourceIds } : {}),
   });
 
   let results = rawResults.map(toChannelBResult);

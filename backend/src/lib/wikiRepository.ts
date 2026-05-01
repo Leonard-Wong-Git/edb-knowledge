@@ -54,6 +54,8 @@ export interface WikiSearchOptions {
   minScore?: number;
   topic?: string;
   contentType?: WikiContentType;
+  /** Allowlist of source_id values; if provided, only chunks from these sources are returned */
+  sourceIds?: string[];
 }
 
 // ---------------------------------------------------------------------------
@@ -69,7 +71,7 @@ export async function searchWiki(
   embedFn: EmbedFn,
   options: WikiSearchOptions = {}
 ): Promise<WikiSearchResult[]> {
-  const { topK, minScore = 0.1, topic, contentType } = options;
+  const { topK, minScore = 0.1, topic, contentType, sourceIds } = options;
 
   const queryVec = await embedFn(query);
 
@@ -112,6 +114,10 @@ export async function searchWiki(
   let filtered = rows;
   if (topic) filtered = filtered.filter((r) => r.topic === topic);
   if (contentType) filtered = filtered.filter((r) => r.content_type === contentType);
+  if (sourceIds && sourceIds.length > 0) {
+    const allowSet = new Set(sourceIds);
+    filtered = filtered.filter((r) => allowSet.has(r.source_id));
+  }
 
   // Deduplicate by first 80 chars
   const seen = new Set<string>();
