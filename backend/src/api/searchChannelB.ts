@@ -175,6 +175,26 @@ function detectQueryCategory(query: string): string | null {
   return null;
 }
 
+/**
+ * Query expansion: append category-specific vocabulary to the query before
+ * embedding, so the query vector stays aligned with the terminology used in
+ * the target source documents (e.g. g01 uses "財政限額" not "門檻").
+ *
+ * Without expansion, "採購門檻" embedding gets pulled toward SAG's teacher-
+ * registration usage of "門檻" and scores poorly against g01 chunks.
+ */
+const QUERY_EXPANSIONS: Record<string, string> = {
+  finance:    "採購程序 財政限額 報價 招標 採購指引",
+  hr_admin:   "教職員假期 批假 薪酬 操守",
+  activity:   "全方位學習津貼 活動",
+  curriculum: "課程指引 教學 學習目標",
+};
+
+function expandQuery(query: string, category: string): string {
+  const expansion = QUERY_EXPANSIONS[category];
+  return expansion ? `${query} ${expansion}` : query;
+}
+
 // ---------------------------------------------------------------------------
 // Synthesis
 // ---------------------------------------------------------------------------
@@ -285,7 +305,11 @@ export async function searchChannelB(
   // that use different terminology (e.g. "財政限額" vs "採購門檻").
   const effectiveMinScore = sourceIds ? Math.min(min_score, 0.08) : min_score;
 
-  const rawResults = await searchWiki(query, embedFn, {
+  // Expand the query with category vocabulary to align the embedding with
+  // the terminology used in the target source documents.
+  const embeddingQuery = detectedCategory ? expandQuery(query, detectedCategory) : query;
+
+  const rawResults = await searchWiki(embeddingQuery, embedFn, {
     minScore: effectiveMinScore,
     topK: top_k,
     ...(topic ? { topic } : {}),
