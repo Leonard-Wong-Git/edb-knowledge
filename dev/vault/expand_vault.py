@@ -144,10 +144,11 @@ def get_indexed_source_ids() -> set[str]:
 # ── Text extraction ───────────────────────────────────────────────────────────
 
 def extract_pdf_text(url: str) -> str | None:
-    """Download PDF from URL and extract text using pdftotext."""
-    # Check pdftotext is available
-    if subprocess.run(["which", "pdftotext"], capture_output=True).returncode != 0:
-        print("  ⚠️  pdftotext not found. Install poppler: brew install poppler")
+    """Download PDF from URL and extract text using PyMuPDF (fitz)."""
+    try:
+        import fitz  # PyMuPDF
+    except ImportError:
+        print("  ⚠️  PyMuPDF not installed. Run: pip3 install pymupdf --break-system-packages")
         return None
 
     print(f"  ↓ Downloading PDF…")
@@ -160,34 +161,24 @@ def extract_pdf_text(url: str) -> str | None:
 
     content_type = resp.headers.get("content-type", "")
     if "html" in content_type.lower():
-        # Got a redirect to a landing page instead of a PDF
         print(f"  ⚠️  URL returned HTML (not a PDF). Needs manual handling.")
         return None
 
-    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
-        tmp.write(resp.content)
-        tmp_path = tmp.name
-
     try:
-        result = subprocess.run(
-            ["pdftotext", "-layout", "-enc", "UTF-8", tmp_path, "-"],
-            capture_output=True,
-            text=True,
-            timeout=120,
-        )
-        if result.returncode != 0:
-            print(f"  ❌ pdftotext failed: {result.stderr[:200]}")
-            return None
-        text = result.stdout
+        doc = fitz.open(stream=resp.content, filetype="pdf")
+        pages_text = []
+        for page in doc:
+            pages_text.append(page.get_text("text"))
+        doc.close()
+        text = "\n".join(pages_text)
         if len(text.strip()) < 100:
-            print(f"  ⚠️  pdftotext returned very little text ({len(text)} chars)")
-        print(f"  ✅ Extracted {len(text):,} chars from PDF")
+            print(f"  ⚠️  PyMuPDF returned very little text ({len(text)} chars) — may be a scanned PDF")
+        else:
+            print(f"  ✅ Extracted {len(text):,} chars from PDF ({len(pages_text)} pages)")
         return text
-    except subprocess.TimeoutExpired:
-        print("  ❌ pdftotext timed out")
+    except Exception as e:
+        print(f"  ❌ PyMuPDF extraction failed: {e}")
         return None
-    finally:
-        os.unlink(tmp_path)
 
 
 def extract_html_text(url: str) -> str | None:
