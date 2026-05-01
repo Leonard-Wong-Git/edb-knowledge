@@ -84,7 +84,19 @@ WIKI_INDEX_PATH = REPO_ROOT / "dev" / "knowledge" / "wiki_index.json"
 BACKEND_ENV = REPO_ROOT / "backend" / ".env"
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://youkcekbrbywuqjxgibe.supabase.co")
-SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
+
+def _load_supabase_service_key() -> str:
+    """Load SUPABASE_SERVICE_KEY from environment or backend/.env."""
+    key = os.environ.get("SUPABASE_SERVICE_KEY", "")
+    if not key and BACKEND_ENV.exists():
+        for line in BACKEND_ENV.read_text().splitlines():
+            line = line.strip()
+            if line.startswith("SUPABASE_SERVICE_KEY=") and not line.startswith("#"):
+                key = line.split("=", 1)[1].strip().strip('"').strip("'")
+                break
+    return key
+
+SUPABASE_SERVICE_KEY = _load_supabase_service_key()
 
 OPENAI_EMBED_MODEL = "text-embedding-3-small"
 CHUNK_MAX_CHARS = 600
