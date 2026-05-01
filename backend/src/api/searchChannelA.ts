@@ -18,6 +18,8 @@ import { loadKnowledgeBase } from "../lib/knowledgeRepository.js";
 import type { TopicId } from "../types/knowledge.js";
 import { TOPIC_IDS } from "../types/knowledge.js";
 
+export type LlmFn = (prompt: string) => Promise<string>;
+
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
@@ -40,13 +42,43 @@ export interface SearchChannelARequest {
   role?: string;
   /** Min similarity score 0–1. Default: 0.1 */
   min_score?: number;
+  /** Generate LLM synthesis answer. Default: false */
+  synthesize?: boolean;
 }
 
 export interface SearchChannelAResponse {
   query: string;
   channel: "A";
+  /** LLM-synthesised answer (Traditional Chinese, ≤120 chars) */
+  synthesis?: string;
   total: number;
   results: ChannelAResult[];
+}
+
+// ---------------------------------------------------------------------------
+// Synthesis
+// ---------------------------------------------------------------------------
+
+const SYNTHESIS_PROMPT = `你是香港學校管治的政策顧問。以下是從教育局已核實政策事實庫中檢索到的相關資料。
+請根據這些資料，用簡潔繁體中文回答問題。直接總結資料的重點，不超過120字，不需列出來源編號。
+
+問題：{QUERY}
+
+政策資料：
+{CHUNKS}`;
+
+async function synthesizeAnswer(query: string, results: ChannelAResult[], llmFn: LlmFn): Promise<string> {
+  const top5 = results.slice(0, 5);
+  if (top5.length === 0) return "";
+  const chunkText = top5.map((r, i) => `[${i + 1}] ${r.text}`).join("\n\n");
+  const prompt = SYNTHESIS_PROMPT
+    .replace("{QUERY}", query)
+    .replace("{CHUNKS}", chunkText);
+  try {
+    return await llmFn(prompt);
+  } catch {
+    return "";
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -72,9 +104,10 @@ function cosine(a: number[], b: number[]): number {
 
 export async function searchChannelA(
   request: SearchChannelARequest,
-  embedFn: EmbedFn & { batch?: BatchEmbedFn }
+  embedFn: EmbedFn & { batch?: BatchEmbedFn },
+  llmFn?: LlmFn
 ): Promise<SearchChannelAResponse> {
-  const { query, topic, role, min_score = 0.1 } = request;
+  const { query, topic, role, min_score = 0.1, synthesize: doSynthesize = false } = request;
 
   if (!query?.trim()) {
     throw new Error("query is required");
@@ -144,10 +177,27 @@ export async function searchChannelA(
 
   scored.sort((a, b) => b.score - a.score);
 
+  // Deduplicate by first 60 characters to remove near-identical facts
+  // (same policy stated with slightly different wording from different sources)
+  const seen = new Set<string>();
+  const deduped = scored.filter(r => {
+    const key = r.text.slice(0, 60);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+
+  // LLM synthesis over top results
+  let synthesis: string | undefined;
+  if (doSynthesize && llmFn && deduped.length > 0) {
+    synthesis = await synthesizeAnswer(query, deduped, llmFn);
+  }
+
   return {
     query,
     channel: "A",
-    total: scored.length,
-    results: scored,
+    ...(synthesis !== undefined ? { synthesis } : {}),
+    total: deduped.length,
+    results: deduped,
   };
 }

@@ -4,7 +4,7 @@
 1. Version: **v2.1.1** (K1知識平台)
 2. Frontend: `index.html` S1 home; `t-purchase.html` S3/S4/S5 draft flow; `q.html` local `knowledge.json` Quick Q&A; `app.html` full React SPA / management workspace.
 3. Knowledge state: **1,001 Channel A facts** (三層同步 ✅: `dev/knowledge/role_facts.json` = `role_facts.json` = `knowledge.json`, 全部 v2.1.1), **0 candidates in queue**, **wiki_index.json** 2,874 chunks / 125 MB.
-4. Backend: Node.js TypeScript backend Phase 1 search APIs complete; **Channel A online at `https://edb-knowledge.onrender.com`** (Render free tier); Channel B/A+B require Phase 2 (Supabase pgvector — wiki_index.json not in git).
+4. Backend: Node.js TypeScript backend all search APIs complete; **Channel A + B + A+B online at `https://edb-knowledge.onrender.com`** (Render free tier + Supabase pgvector); 2,822 chunks in Supabase `wiki_chunks` table.
 5. Product copy baseline: Traditional Chinese UI; no public internal design/dev/backend commands; template flows say "建立草稿/整理" until formal export/generation is connected.
 6. MemPalace: shared install `/Users/leonard/mempalace/.venv`, palace `/Users/leonard/mempalace/palace`, wing `claude_edb_knowledge`; shared palace recovered and mined successfully.
 
@@ -92,10 +92,11 @@ source_registry → same vault PDFs → ai_extract.py
 ## Open Priorities
 1. ~~Circular System: `_write_policy_signal()` — deferred to Circular System side.~~ → **規格文件 `dev/CIRCULAR_SYSTEM_INTEGRATION.md` 已建立 ✅**
 2. ~~Phase 4: 指引文件庫 dual sort with `sub_category`~~ → **完成 ✅**（148 items 分組，category → sub_category → year desc）
-3. ~~Render 部署 Channel A~~ → **完成 ✅** `https://edb-knowledge.onrender.com` live；batch embed fix 已推送（Session 90）
-4. Optional UI QA: run a browser visual pass on `index.html`, `q.html`, `t-purchase.html`, and `app.html`. ← **下一個優先項**
-5. **Phase 2 — Channel B online**: migrate `wiki_index.json` (2,874 embeddings) to Supabase pgvector; update `wikiRepository.ts`; add rate limiting before public launch.
-6. MemPalace maintenance: keep `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838` until the recovered shared palace remains stable.
+3. ~~Render 部署 Channel A~~ → **完成 ✅**
+4. ~~Phase 2 — Channel B online~~ → **完成 ✅** Supabase `edb-knowledge`；2,822 chunks；wikiRepository.ts 改用 Supabase RPC；Render env vars 已設（Session 91）
+5. Optional UI QA: run a browser visual pass on `index.html`, `q.html`, `t-purchase.html`, and `app.html`. ← **下一個優先項**
+6. Rate limiting：公開前建議加 rate limit（10 req/min per IP）
+7. MemPalace maintenance: keep `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838` until the recovered shared palace remains stable.
 
 ---
 
@@ -107,21 +108,34 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Last Session Record
-1. UTC date: 2026-04-30
-2. Session ID: Claude_20260430_0003 (Session 91)
+1. UTC date: 2026-05-01
+2. Session ID: Claude_20260501_0001 (Session 92)
 3. Completed:
-   - ✅ **[Batch embed fix]** 修正 `searchChannelA.ts` — 以單次 batch API call 取代 Promise.all(1,001 個別 embedding calls)；修正 Render "Failed to fetch" 根本原因；TypeScript build 通過；已 push
-   - ✅ **[embeddingClient.ts]** 新增 `BatchEmbedFn` type 及 `embed.batch()` 方法
-   - ✅ **[README 全面重寫]** 反映 v2.1.1 現況：app.html、backend Render URL、Channel A/B 架構、文件結構、本地開發指引
-   - ✅ **[SESSION_HANDOFF 更新]** Session 91 記錄完整
+   - ✅ **[Phase 2 — Channel B online]** 全流程完成：Supabase project 建立 → pgvector schema + match_wiki_chunks function → 2,822 chunks 上傳 → Render env vars 設定 → wikiRepository.ts 改用 direct fetch() RPC
+   - ✅ **[Supabase permission fix]** 根本原因：anon role 缺少 `GRANT USAGE ON SCHEMA public`；執行後 /debug-b 確認 table_rows ✅ + RPC ✅
+   - ✅ **[Upload dedup fix]** upload_wiki_to_supabase.py 改為先全局 dedup by id 再批次，解決 batch 內重複 ID 的 conflict error
+   - ✅ **[wikiRepository.ts]** 改用 direct fetch() + toFixed(8) encoding；移除 supabase-js 依賴（pgvector text cast 問題）
+   - ✅ **[Debug cleanup]** 移除 /debug-b endpoint 及 wikiRepo verbose logging；build ✅
+   - ✅ **[系統資訊圖 prompt]** 寫好完整 Gemini/ChatGPT infographic prompt（見 session transcript）
 4. Pending from last session (not yet done):
-   - Channel A online search 待用戶在 app.html 驗證（Render 重新部署後）
+   - 使用者需在 Terminal 執行 `git push origin main`（sandbox 無法 SSH）
+   - 建議在 app.html 驗證 Channel B 及 A+B combined 搜尋結果 total_b > 0
 5. Next priorities (next session):
-   - 🗄️ **Phase 2 — Channel B online**：wiki_index.json (2,874 embeddings) → Supabase pgvector；更新 wikiRepository.ts；Render 加環境變數；加 rate limiting
-   - 🔍 **驗證 Channel A online search**（如尚未確認）
-   - 📋 **Optional UI QA browser pass**
+   - 📋 **Optional UI QA browser pass**（index.html, q.html, t-purchase.html, app.html）
+   - ⚡ **Rate limiting**：公開前建議加 rate limit（10 req/min per IP），可用 node-rate-limiter-flexible
+   - ⚡ **Channel A embedding cache**：啟動時預計算 1,001 facts embeddings，消除每次查詢的 batch call
 6. Risks / blockers:
-   - Channel A search: 每次查詢仍需 2 次 API call（1 query + 1 batch 1,001 facts）。可考慮啟動時預計算並 cache fact embeddings。
    - Render free tier cold start (~30s) after 15min inactivity
-   - Channel B/A+B requires Phase 2 (Supabase) — wiki_index.json not in git
    - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`
+   - Supabase free tier: 500MB DB limit; wiki_chunks currently ~50MB with embeddings
+
+## Supabase Technical Notes (Channel B)
+- Project: `edb-knowledge` at `https://youkcekbrbywuqjxgibe.supabase.co`
+- Table: `public.wiki_chunks` — 2,822 rows, vector(1536), IVFFlat index (lists=50)
+- Function: `match_wiki_chunks(query_embedding text, match_threshold float, match_count int DEFAULT NULL)`
+  - Uses `text::vector` cast internally
+  - Ordered by cosine similarity DESC
+  - No match_count limit when not supplied (returns all above threshold)
+- Permissions: anon role needs BOTH `GRANT USAGE ON SCHEMA public` AND `GRANT SELECT ON wiki_chunks TO anon`
+- Upload: `SUPABASE_SERVICE_KEY` (service_role) required for insert; anon key for read-only search
+- Conflict resolution: `Prefer: return=minimal` (NOT merge-duplicates); dedup by ID before batching

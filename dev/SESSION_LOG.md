@@ -2,6 +2,58 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-01 Session 92 — Phase 2 Channel B Online (Supabase pgvector)
+
+- **ID:** Claude_20260501_0001
+- **Summary:** Channel B 全面上線：Supabase pgvector 建立、2,822 chunks 上傳、權限修復、wikiRepository.ts 改用 direct fetch()、debug endpoint 清除、Combined A+B search 線上驗證通過。
+- **Changed:** `backend/src/lib/wikiRepository.ts`, `backend/src/server.ts`, `backend/src/config/env.ts`, `backend/package.json`, `dev/upload_wiki_to_supabase.py`, `dev/supabase_setup.sql`（新增）, `dev/SESSION_HANDOFF.md`, `dev/SESSION_LOG.md`
+- **Done:**
+  - Supabase project `edb-knowledge` 建立，pgvector schema + `match_wiki_chunks` function（text 參數，內部 `::vector` cast）
+  - `upload_wiki_to_supabase.py` 全局 dedup by id 後批次上傳，2,822 chunks 成功，52 skipped（無 embedding）
+  - wikiRepository.ts 棄用 supabase-js，改 direct fetch() + `toFixed(8)` embedding string
+  - Render env vars 設定（SUPABASE_URL + SUPABASE_ANON_KEY）；Manual Deploy 成功
+  - 根本問題修復：anon role 缺少 `GRANT USAGE ON SCHEMA public`；SQL 執行後 /debug-b 確認 table ✅ + RPC ✅
+  - 移除 `/debug-b` diagnostic endpoint 及 wikiRepo verbose logging
+  - 線上驗證：`/api/search/combined?query=採購程序` → A: 993 B: 8 ✅
+- **QC:** Combined A+B curl PASS (A:993 B:8)；TypeScript build PASS；Render deploy PASS
+- **Pending:** git push（sandbox 無法 SSH，由用戶執行）；UI QA browser pass；rate limiting
+- **Next:** 1. UI QA browser pass（app.html Channel B / Combined 顯示）；2. Rate limiting；3. Channel A embedding cache
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| External API / service change (Supabase) | CODEBASE_CONTEXT.md External Services; SESSION_HANDOFF.md Supabase notes | ✓ Done |
+| Backend behavior change | SESSION_HANDOFF.md baseline; SESSION_LOG.md | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first, then: dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md
+
+Current state (Session 92, 2026-05-01):
+- Phase 2 Channel B 完全上線：Supabase pgvector 2,822 chunks；Combined A+B online 驗證 PASS (A:993 B:8)
+- Render backend: https://edb-knowledge.onrender.com (Channel A + B + Combined + analyzeCircular)
+- Supabase: https://youkcekbrbywuqjxgibe.supabase.co；anon key 查詢；service key 只用於上傳
+
+Pending tasks in priority order:
+1. git push（若上次 session 未完成：cd ~/Downloads/Claude-edb-knowledge && git push origin main）
+2. Optional UI QA browser pass（app.html Channel B / Combined 搜尋顯示）
+3. Rate limiting（node-rate-limiter-flexible，10 req/min per IP，公開前必做）
+4. Channel A embedding cache（啟動時預計算 1,001 facts embeddings）
+5. MemPalace: keep /Users/leonard/mempalace/palace.pre-recovery.20260421_0838 until stable
+
+Key Supabase technical notes (in SESSION_HANDOFF.md):
+- anon role 必須有 GRANT USAGE ON SCHEMA public + GRANT SELECT ON wiki_chunks
+- match_wiki_chunks function 用 text 參數（非 vector），內部做 ::vector cast
+- Upload 用 service_role key；查詢用 anon key
+
+Known risks:
+- Render free tier cold start ~30s after 15min idle
+- Supabase free tier 500MB DB limit
+- MemPalace recovery workaround (hnsw:num_threads=1)
+
+Post-startup first action: 確認 git push 狀態，然後詢問 Leonard：UI QA、rate limiting、還是其他優先項。
+```
+
 ## 2026-04-30 Session 88 — 知識三層同步修復 (109 → 1,001 facts)
 
 - **ID:** Claude_20260430_0000

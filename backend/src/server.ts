@@ -84,7 +84,7 @@ const server = createServer(async (req, res) => {
   if (req.method === "POST" && req.url === "/api/search/channel-a") {
     try {
       const input = await readJsonBody<SearchChannelARequest>(req);
-      const result = await searchChannelA(input, embeddingClient);
+      const result = await searchChannelA(input, embeddingClient, llmClient);
 
       setCorsHeaders(res);
       res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
