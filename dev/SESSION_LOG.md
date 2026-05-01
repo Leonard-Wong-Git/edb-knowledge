@@ -54,6 +54,59 @@ Known risks:
 Post-startup first action: 確認 git push 狀態，然後詢問 Leonard：UI QA、rate limiting、還是其他優先項。
 ```
 
+## 2026-05-01 Session 93 — UI QA + Rate Limiting + Channel B Spot-check
+
+- **ID:** Claude_20260501_0002
+- **Summary:** UI QA 發現 SEN 搜尋在 Channel A (case-sensitive) 及 Channel B (min_score 過高) 均無結果；修復後加入三項 UX 改進、後端 rate limiting、及 Channel B 內容抽查。
+- **Changed:** `backend/src/api/searchChannelA.ts`, `backend/src/server.ts`, `app.html`, `bump_version.py`, `dev/SESSION_HANDOFF.md`
+- **Done:**
+  - **Channel A → Backend Semantic Search**：runChannelA 改用 `/api/search/channel-a` backend，取代本地 keyword 搜尋，支援語義搜尋 + LLM synthesis
+  - **搜尋 synthesis 統一**：Channel A 加入 `synthesize: true`；A/B/AB 三個 channel 均有整理答案；標籤分別顯示「已核實事實摘要」vs「來源文件摘要」
+  - **Loading text**：加入「正在語義搜尋，稍候片刻…（首次查詢約需 10–30 秒）」提示
+  - **近似事實 dedup**：前端 IIFE 以首 60 字去重，避免顯示重複事實
+  - **Rate limiting**：純 TypeScript in-memory 滑動窗口限速（10 req/min/IP），`server.ts` 加 X-Forwarded-For 支援 Render；429 回應繁中錯誤訊息；前端 catch 429 顯示提示
+  - **min_score 調整**：Channel B + Combined 由 0.22 降至 0.15，修復 SEN/短詞無結果問題
+  - **Channel label 更新**："離線可用" → "語義搜尋"
+  - **版本 bump_version.py 修正**：改追蹤 app.html（原追蹤不存在的 k1-dashboard.html）
+  - **版本更新**：v2.1.1 → v2.1.2
+  - **Channel B 內容抽查**：確認系統性品質問題（見下）
+- **QC:** Rate limit curl PASS (429 on 11th req)；UI 429 error message PASS；SEN search A+B PASS
+- **Channel B 品質問題（已確認）：**
+  - "採購門檻" → 返回教師註冊內容（錯誤）：SAG (415 chunks) 壓倒 g01 (32 chunks)
+  - "單一報價" → 零結果：g01 內容太少，語義向量相似度未達 threshold
+  - "教職員請假" → 返回教師資歷內容（錯誤）：同上問題
+  - **根本原因**：wiki_index SAG 佔 415/2874 chunks (14%)；g01 行政財務指引僅 32 chunks；g04 為 knowledge-based extract（非 PDF）
+- **Pending:** SESSION_LOG.md 此條目 commit；Channel B topic filtering（下 session 首要）
+- **Next:** 1. Channel B topic-aware filtering（偵測 finance/HR topic，只搜對應 chunks）；2. g04 從 PDF 重新提取；3. Channel B UI 免責聲明；4. Vault 擴充（全 AI pipeline，104 sources pending）；5. Channel A embedding cache
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Backend API behavior change (Channel A → semantic) | SESSION_HANDOFF.md baseline | ✓ Done |
+| Rate limiting added | SESSION_HANDOFF.md baseline | ✓ Done |
+| Channel B quality issues confirmed | SESSION_HANDOFF.md Open Priorities | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first, then: dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md
+
+Current state (Session 93, 2026-05-01):
+- v2.1.2 online；Channel A + B + Combined 均有語義搜尋 + LLM synthesis
+- Rate limiting: 10 req/min/IP sliding window (in-memory, server.ts)；前端 429 提示 ✅
+- Channel B 系統性品質問題確認：SAG dominates (415/2874 chunks)；g01 admin guide 僅 32 chunks
+
+Priority for next session:
+1. Channel B topic filtering：偵測 query topic (finance/HR/curriculum)，filter wiki_chunks by source_id before cosine search
+2. g04 重新從 PDF 提取（現為 knowledge-based，非真實 PDF content）
+3. Channel B UI 加免責聲明（行政財務查詢結果準確性待確認）
+4. Vault 擴充：104 sources 未提取；考慮全 AI pipeline (pdftotext → chunk → embed → Supabase)
+5. Channel A embedding cache（startup 預計算 1,001 embeddings）
+
+Key quality data:
+- wiki_index: 2,874 chunks; SAG 415, SEN guides 75–275 each, g01 admin guide 32
+- g04 is LLM-generated (not PDF-extracted) — verify before using in production
+```
+
 ## 2026-04-30 Session 88 — 知識三層同步修復 (109 → 1,001 facts)
 
 - **ID:** Claude_20260430_0000

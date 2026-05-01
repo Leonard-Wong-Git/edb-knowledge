@@ -1,12 +1,14 @@
 # Session Handoff
 
 ## Current Baseline
-1. Version: **v2.1.1** (K1知識平台)
+1. Version: **v2.1.2** (K1知識平台)
 2. Frontend: `index.html` S1 home; `t-purchase.html` S3/S4/S5 draft flow; `q.html` local `knowledge.json` Quick Q&A; `app.html` full React SPA / management workspace.
-3. Knowledge state: **1,001 Channel A facts** (三層同步 ✅: `dev/knowledge/role_facts.json` = `role_facts.json` = `knowledge.json`, 全部 v2.1.1), **0 candidates in queue**, **wiki_index.json** 2,874 chunks / 125 MB.
-4. Backend: Node.js TypeScript backend all search APIs complete; **Channel A + B + A+B online at `https://edb-knowledge.onrender.com`** (Render free tier + Supabase pgvector); 2,822 chunks in Supabase `wiki_chunks` table.
-5. Product copy baseline: Traditional Chinese UI; no public internal design/dev/backend commands; template flows say "建立草稿/整理" until formal export/generation is connected.
-6. MemPalace: shared install `/Users/leonard/mempalace/.venv`, palace `/Users/leonard/mempalace/palace`, wing `claude_edb_knowledge`; shared palace recovered and mined successfully.
+3. Knowledge state: **1,001 Channel A facts** (三層同步 ✅), **0 candidates in queue**, **wiki_index.json** 2,874 chunks / 125 MB; 2,822 in Supabase.
+4. Backend: Node.js TypeScript backend all search APIs complete; **Channel A + B + A+B online at `https://edb-knowledge.onrender.com`**; rate limiting 10 req/min/IP (sliding window, in-memory).
+5. Channel A: 改用 backend semantic search + LLM synthesis（所有三個 channel 均有整理答案）；min_score A=0.1, B/AB=0.15；case-insensitive keyword fallback 已移除。
+6. Channel B 品質問題（已確認）：SAG 佔 415 chunks，行政財務類查詢（採購/批假）被 SAG 内容淹沒；g04 為 knowledge-based extract（非 PDF 提取）。
+7. Product copy baseline: Traditional Chinese UI; no public internal design/dev/backend commands.
+8. MemPalace: shared install `/Users/leonard/mempalace/.venv`, palace `/Users/leonard/mempalace/palace`, wing `claude_edb_knowledge`.
 
 ## User Environment (Always Reference Before Giving Shell Commands)
 - **Repo path**: `~/Downloads/Claude-edb-knowledge`
@@ -91,12 +93,17 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## Open Priorities
 1. ~~Circular System: `_write_policy_signal()` — deferred to Circular System side.~~ → **規格文件 `dev/CIRCULAR_SYSTEM_INTEGRATION.md` 已建立 ✅**
-2. ~~Phase 4: 指引文件庫 dual sort with `sub_category`~~ → **完成 ✅**（148 items 分組，category → sub_category → year desc）
+2. ~~Phase 4: 指引文件庫 dual sort with `sub_category`~~ → **完成 ✅**
 3. ~~Render 部署 Channel A~~ → **完成 ✅**
-4. ~~Phase 2 — Channel B online~~ → **完成 ✅** Supabase `edb-knowledge`；2,822 chunks；wikiRepository.ts 改用 Supabase RPC；Render env vars 已設（Session 91）
-5. Optional UI QA: run a browser visual pass on `index.html`, `q.html`, `t-purchase.html`, and `app.html`. ← **下一個優先項**
-6. Rate limiting：公開前建議加 rate limit（10 req/min per IP）
-7. MemPalace maintenance: keep `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838` until the recovered shared palace remains stable.
+4. ~~Phase 2 — Channel B online~~ → **完成 ✅**
+5. ~~Rate limiting~~ → **完成 ✅** 10 req/min/IP sliding window (Session 93)
+6. **Channel B 品質修正（高優先）**：
+   - 加入 topic 過濾：偵測 query topic，只搜該 topic 的 wiki chunks（finance/HR/curriculum）
+   - g04 重新從 PDF 提取（現為 knowledge-based）
+   - Channel B UI 加免責說明（行政財務類結果準確性待確認）
+7. **Vault 擴充（全 AI 提取）**：104 個 source registry 來源未提取；設計全 AI pipeline 從 PDF → vault → wiki_index → Supabase
+8. **Channel A embedding cache**：啟動時預計算 1,001 facts embeddings，消除每次查詢的 batch call overhead
+9. MemPalace maintenance: keep `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838` until stable.
 
 ---
 
