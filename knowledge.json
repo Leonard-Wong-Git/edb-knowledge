@@ -1,8 +1,8 @@
 {
   "_meta": {
-    "version": "2.1.1",
+    "version": "2.1.2",
     "created": "2026-04-04",
-    "updated": "2026-04-30",
+    "updated": "2026-05-01",
     "description": "EDB 學校管理知識庫 — 公開 API 端點供 K1 前端搜尋使用。1,001 事實已核實（v2.1.0）。角色拆分為 subject_head（科主任）與 panel_chair（各統籌主任）。"
   },
   "finance": {

@@ -100,8 +100,8 @@ def _changelog_insert(content, new_ver, note):
 # ─── File registry ─────────────────────────────────────────────────────────
 FILES = [
     {
-        "path": REPO_ROOT / "k1-dashboard.html",
-        "label": "k1-dashboard.html (INITIAL_DATA._meta.version)",
+        "path": REPO_ROOT / "app.html",
+        "label": "app.html (INITIAL_DATA._meta.version)",
         "find": _html_find,
         "replace": _html_replace,
     },

@@ -6,6 +6,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v2.1.2] — 2026-05-01
+
+### Changed
+- Channel A semantic search + LLM synthesis; loading UX; near-dedup; Channel B/AB min_score 0.15
+
+---
+
 ## [v2.1.1] — 2026-04-30
 
 ### Changed
