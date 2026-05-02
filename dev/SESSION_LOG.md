@@ -16,7 +16,12 @@
   - ✅ **[F1 hr_admin regex 擴充]** `searchChannelB.ts` line 161 加入 `教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師` — 修 Query 2「教師註冊及聘任程序」原本 detect=null
   - ✅ **[F2 curriculum allowlist 加幼兒]** `searchChannelB.ts` SOURCE_SETS.curriculum 加入 g29 / g25 / g26 / stat_kg；TOPIC_KEYWORDS.curriculum regex 加入 `幼稚園|幼兒|學前|K1|K2|K3|遊戲學習` — 修 Query 3「幼稚園學習領域與評估」原本只見小學/中學課程
   - 🔍 **[Bonus 發現]** g24 (300 chunks) 與 sag_2025_11 (415 chunks) 係同一份《學校行政手冊（2025 年 11 月版）》兩次 ingestion，DB 重複佔 715 chunks 配額；列入 F4 待處理
-- **QC:** §4a `--check` PASS（line_count=151，trigger=False）；archive script 自帶 latest prompt block 完整性檢查 PASS；F1+F2 改動後 `npm run check` (TypeScript tsc --noEmit) PASS 0 errors
+- **QC:** §4a `--check` PASS（line_count=151，trigger=False）；archive script 自帶 latest prompt block 完整性檢查 PASS；F1+F2 改動後 `npm run check` (TypeScript tsc --noEmit) PASS 0 errors；用戶 Terminal 重 curl 三條 query Render 線上驗收：
+  - **Query 1（教師病假上限多少天）**：sag × 2 → 仍係 366 日學校假期表，g04 未命中 — 屬 F3 量級層（SAG 415 chunks 蓋 g04 7 chunks），非 F1+F2 範疇，預期內 miss
+  - **Query 2（教師註冊及聘任程序）**：sag × 4 全 hr 相關（聘任類型 / 校董會 / 常額代課），原本兩條 off-topic（chi_lit / edbcm58_pri_science）已清晒 — ✅ F1 完全成功
+  - **Query 3（幼稚園學習領域與評估）**：va_p1_s6 × 3 + **g29 第 4 位 score 0.5904** + pe — g29 上線但未 dominate；F2 allowlist 修補生效但量級競爭仍蓋 — 🟡 部分成功
+- **Bonus 發現驗證:** Query 1 嗰條 SAG chunk「366 日 -90 日學校假期 -3 日教師發展日」其實 SAG 內嵌 g04 教職員批假指引總額表，再次印證 F4 dedup 重要（SAG 同 g24/g04 內容有重疊）
+- **MemPalace sync 修正:** 用 venv python 已 work，4 sessions（97/98/99/100）+ SESSION_HANDOFF snapshot 寫入 wing claude_edb_knowledge，total 15 entries
 - **Pending（用戶 Terminal 執行）:**
   - **A** MemPalace sync 修正：用 venv python（system python3 無 chromadb）
   - **新一輪 git push** 含 F1+F2 修補 + SESSION_LOG 後續記錄
@@ -38,35 +43,41 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 
 Current objective and progress state:
-- Sessions 98 / 99 closeout 缺漏的 Verbatim Handoff Prompt 區塊已回填（Session 100, 2026-05-02）
-- §4a archive 執行完畢：SESSION_LOG.md 由 655 lines / 13 entries 壓至 151 lines / 3 entries；archived 10 entries 至 dev/archive/SESSION_LOG_2026_Q2.md
-- Render backend 不在 cowork sandbox egress allowlist；線上驗證需在用戶 Terminal 跑 curl
-- v2.2.0 全平台對齊完成；vault 120 sources / Supabase 10,736 chunks / 8 skipped（scanned/SPA）狀態維持
+- Session 100 (2026-05-02) 完成治理補檔 + §4a archive + Channel B 路由層雙修補（F1+F2）+ 線上驗收
+- F1 ship：searchChannelB.ts hr_admin regex 加 教師註冊/註冊處/聘任/聘用/招聘/入職/教師資格/教席/常額教席/代課教師
+- F2 ship：searchChannelB.ts curriculum allowlist 加 g29/g25/g26/stat_kg；regex 加 幼稚園/幼兒/學前/K1/K2/K3/遊戲學習
+- 線上驗收：Query 2 教師註冊 ✅ 完全成功（4 條全 hr 相關，off-topic 清晒）；Query 3 幼稚園 🟡 g29 入榜第 4 位但未 dominate（va_p1_s6 仍蓋）；Query 1 病假預期內 miss（屬 F3 量級層）
+- 商品狀態維持：v2.2.0 / role_facts 1,001 / Supabase 10,736 chunks / vault 120 sources / Channel A cache warm size:517
+- MemPalace sync 修正：用 venv python（system python 無 chromadb）4 sessions + handoff snapshot 寫入
 
 Pending tasks in priority order:
-1. Git commit + push（用戶 Terminal）：含 v2.2.0 內容變更 + 本 session 治理修補
-   cd ~/Downloads/Claude-edb-knowledge && git add -A && git commit -m "chore: backfill session 98/99 verbatim blocks + §4a archive" && git push origin main
-2. MemPalace sync（用戶 Terminal）：python3 dev/mempalace_sync.py write
-3. Channel B 質量驗證 curl 指令包（已交付）— g04 病假 / g24 教師註冊 / g29 幼兒課程
-4. 收集 C 驗證結果，必要時 tune topic filter / query expansion
-5. 視 user 意願：開新功能、補 source_registry、抑或評估 g21/g22/g33 與 8 skipped sources（注意：找不到 PDF 先 triage source 本身，唔好馬上設計 fallback pipeline）
+1. F3 per-source diversity（wikiRepository.ts）— 解 Query 1 病假被 SAG 蓋 + Query 3 g29 未 dominate；設計 per-source top-N quota 或 score-weighted boost
+2. F4 g24 / sag_2025_11 dedup（Supabase SQL）— 兩者係同一份《學校行政手冊》，重複 715 chunks；先 dry-run 驗證 sag 涵蓋 g24 全部內容才能刪
+3. 視 user 意願：F2 加強 sub-routing（query 含「幼稚園」時動態 narrow 至 g29/g25/g26）抑或一次過做 F3
+4. 評估 g21/g22/g33（視藝/科技/英文）與 8 skipped sources（找不到 PDF 先 triage source 本身）
+5. 監察 Render cold start 對線上驗證影響（~30s after 15min idle）
 
 Key files changed in this session:
-- dev/SESSION_LOG.md（Session 98/99 Verbatim 補回 + Session 100 entry + archive trim）
+- backend/src/api/searchChannelB.ts（F1 hr_admin regex + F2 curriculum allowlist + regex）
+- dev/SESSION_LOG.md（Sessions 98/99 Verbatim 補回 + Session 100 entry + archive trim + Final QC）
 - dev/archive/SESSION_LOG_2026_Q2.md（新增，10 entries）
-- dev/SESSION_HANDOFF.md（Last Session Record / Open Priorities 重新生成）
+- dev/SESSION_HANDOFF.md（Open Priorities regenerated / Last Session Record 更新）
 
 Known risks / blockers / cautions:
 - Cowork sandbox egress allowlist 不含 edb-knowledge.onrender.com → 線上驗證需用戶 Terminal
 - Render free tier cold start ~30s after 15min idle
 - Shared MemPalace recovery workaround (hnsw:num_threads=1)；保留備份 /Users/leonard/mempalace/palace.pre-recovery.20260421_0838
 - Supabase free tier 500MB DB limit；現約 50MB
+- F4 dedup 高風險（SQL DELETE）— 必先 dry-run 驗證 sag 涵蓋 g24 全部內容
 
 Validation status:
-- PASS: §4a --check trigger=False（151 lines / 3 entries）；archive script 自帶 latest prompt block ok=True
-- PENDING: A（git push + MemPalace sync）和 C（Channel B curl）由用戶 Terminal 執行
+- PASS: TypeScript npm run check 0 errors（F1+F2 後）
+- PASS: §4a --check trigger=False（151 lines / 3 entries 已 archive）
+- PASS: 線上 Query 2 教師註冊 sag × 4 全 hr 相關（F1 完全成功）
+- PASS: 線上 Query 3 幼稚園 g29 命中第 4 位 score 0.5904（F2 allowlist 修補生效）
+- 預期內 MISS: 線上 Query 1 病假仍係 SAG 主導 → 屬 F3 量級層問題
 
-Post-startup first action: 詢問 Leonard：A / C 結果如何，下一輪揀新功能、source 擴充、抑或 Channel B tune。
+Post-startup first action: 詢問 Leonard：先做 F3 per-source diversity（解 Query 1 病假 + Query 3 dominate 一次過）、F4 dedup（資料層清垃圾）、抑或視 user 意願開新功能 / 補 source。
 ```
 
 ---

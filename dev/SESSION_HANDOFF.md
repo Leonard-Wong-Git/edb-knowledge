@@ -99,32 +99,35 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-1. **新一輪 git push**（用戶 Terminal）— 含 F1+F2 改動 + SESSION_LOG 後續記錄
-2. **MemPalace sync 修正**（用戶 Terminal）— 用 venv python：`/Users/leonard/mempalace/.venv/bin/python3 dev/mempalace_sync.py write`
-3. **重 curl 三條 query**（用戶 Terminal）— 等 Render auto-deploy ~2-3 分鐘後驗證 F1+F2 修補效果
-4. **F3 量級層**（per-source diversity）— wikiRepository.ts 改排序策略，每 source 至少 1 條，避免 SAG 415 chunks 蓋小 source；下個 session
-5. **F4 g24 / sag_2025_11 dedup**（Supabase SQL）— 兩者係同一份《學校行政手冊》，重複 715 chunks 配額；下個 session
+1. **F3 per-source diversity**（wikiRepository.ts）— 每 source 預留 top-N quota，解 Query 1 病假被 SAG 415 chunks 蓋 + Query 3 g29 未 dominate；屬量級層根因治理
+2. **F4 g24 / sag_2025_11 dedup**（Supabase SQL）— 兩者同份《學校行政手冊》重複 715 chunks；先 dry-run 驗證 sag 涵蓋 g24 全部內容才能刪
+3. **F2 加強 sub-routing**（searchChannelB.ts 輕量改）— query 含「幼稚園」時動態 narrow allowlist 至 g29/g25/g26；可同 F3 二選一
+4. **g21/g22/g33 與 8 skipped sources triage**（按新 memory 規範先驗 source 質素，唔好馬上設計 fallback pipeline）
+5. **Channel A embedding cache 監察**（warm:true size:517 已穩定，視乎 token usage 趨勢）
 
 ## Last Session Record
 1. UTC date: 2026-05-02
 2. Session ID: Claude_20260502_0003 (Session 100)
 3. Completed:
-   - ✅ **[Verbatim 補回]** Sessions 98 / 99 closeout 缺漏的 `### Next Session Handoff Prompt (Verbatim)` 區塊已回填
-   - ✅ **[§4a Archive]** SESSION_LOG.md 由 655 lines / 13 entries 壓至 151 lines / 3 entries；10 entries 移至 `dev/archive/SESSION_LOG_2026_Q2.md`
-   - ✅ **[Sandbox 限制記錄]** Render edb-knowledge.onrender.com 不在 cowork egress allowlist，線上驗證需用戶 Terminal
+   - ✅ **[治理補檔]** Sessions 98 / 99 Verbatim Handoff Prompt 區塊回填；§4a archive lines 655→151；10 entries → `dev/archive/SESSION_LOG_2026_Q2.md`
+   - ✅ **[Channel B 質量 triage]** 用戶 Terminal curl 三條 query 確認 miss target；Supabase chunks count 排除資料層假設（g04:7 / g24:300 / g29:132 / sag:415 全齊）
+   - ✅ **[F1 ship]** searchChannelB.ts hr_admin regex 加 註冊/聘任/招聘/入職 等 10 個 keyword
+   - ✅ **[F2 ship]** searchChannelB.ts curriculum allowlist 加 g29/g25/g26/stat_kg；regex 加 幼稚園/幼兒/K1-3
+   - ✅ **[線上驗收]** Query 2 教師註冊 ✅ 完全修好；Query 3 幼稚園 🟡 g29 入榜未 dominate；Query 1 病假預期內 miss（屬 F3）
+   - ✅ **[MemPalace sync 修正]** 用 venv python 已 work（system python 無 chromadb）
+   - ✅ **[Memory feedback]** 「找不到 PDF 先 triage source 本身」存入 feedback_pdf_not_found_root_cause.md
 4. Pending from this session (not yet done):
-   - **Git commit + push**（用戶 Terminal）：合併 Session 99 v2.2.0 + Session 100 治理修補
-   - **MemPalace sync**：`python3 dev/mempalace_sync.py write`
-   - **Channel B 質量驗證 curl 指令包**（已交付，用戶 Terminal 跑）
+   - **Final git push**（用戶 Terminal）：含 SESSION_LOG/HANDOFF closeout 修改
 5. Next priorities (max 3 — 詳見 Open Priorities)：
-   - 收 C 驗證結果
-   - 視 user 意願開新功能 / 補 source / tune Channel B
-   - 監察 Render cold start
+   - F3 per-source diversity（解 Query 1 + Query 3 dominate 一次過）
+   - F4 g24/sag dedup（資料層清垃圾，先 dry-run）
+   - F2 加強 sub-routing（如不選 F3）
 6. Risks / blockers:
    - Cowork sandbox egress allowlist 不含 edb-knowledge.onrender.com → 線上驗證需用戶 Terminal
    - Render free tier cold start (~30s) after 15min inactivity
    - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`
    - Supabase free tier: 500MB DB limit; wiki_chunks currently ~50MB with embeddings
+   - F4 dedup 高風險（SQL DELETE）— 必先 dry-run 驗證 sag 涵蓋 g24 全部內容
 
 ## Session Close Checklist (每次 session 結束必須執行)
 ```bash
