@@ -2,6 +2,28 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-02 Session 99 — 版本號對齊 + 平台介紹重設計 + Logo 首頁導向
+
+- **ID:** Claude_20260502_0002
+- **Summary:** 全平台版本號統一至 v2.2.0；PlatformIntroPanel 完整重設計（互動示範 / 動態計數動畫 / 三功能卡）；app.html logo 點擊改為返回 index.html。
+- **Changed:** `README.md`, `CHANGELOG.md`, `knowledge.json`, `guidelines.json`, `app.html`, `dev/SESSION_HANDOFF.md`
+- **Done:**
+  - ✅ **[版本號對齊]** README badge → v2.2.0；footer → 2026-05-02 v2.2.0；CHANGELOG 新增 v2.2.0 條目；`knowledge.json` + `guidelines.json` `_meta.version` → 2.2.0；`app.html` INITIAL_DATA `_meta.version` → 2.2.0 + `updated` → 2026-05-02
+  - ✅ **[平台介紹重設計]** `PlatformIntroPanel` 全面重寫：動態計數動畫（ease-out cubic，900ms）；互動示範 tab（校長/文書主任/課程主任 3個真實查詢示例，含模擬回答卡 + 來源引用，fade-in 動畫）；三大核心功能卡（語義搜尋/指引/知識提煉）；連接式三步流程；更新 sources 深色面板（120份文件 + 合規免責聲明）；version badge pill
+  - ✅ **[Logo 首頁導向]** `app.html` K1 logo 點擊從 `switchView('qa')` 改為 `window.location.href = 'index.html'`
+- **QC:** 所有版本號一致（role_facts 2.2.0 / knowledge.json 2.2.0 / guidelines.json 2.2.0 / README badge v2.2.0 / CHANGELOG 最新條目 v2.2.0）
+- **Pending:** Git commit + push（用戶執行）；MemPalace sync（用戶執行）
+- **Next:** 1. 驗證 GitHub Pages 平台介紹 tab 互動效果；2. 驗證 Channel B 搜尋質量（g24/g29）；3. g21/g22/g33 直連 PDF 考慮
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| 版本號全平台對齊 | README / CHANGELOG / SESSION_HANDOFF | ✓ Done |
+| PlatformIntroPanel 重設計 | SESSION_LOG 記錄 | ✓ Done |
+| Logo 導向改動 | SESSION_HANDOFF next priorities | ✓ Done |
+
+---
+
 ## 2026-05-02 Session 98 — Vault 擴充完成 + Supabase 全量同步 + Source Label UI
 
 - **ID:** Claude_20260502_0001
