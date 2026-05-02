@@ -4337,7 +4337,7 @@ function App() {
       <header className="k1-header" id="k1Header">
         <div className="k1-header-inner">
           {/* Logo */}
-          <div className="k1-logo" onClick={() => switchView('qa')}>
+          <div className="k1-logo" onClick={() => { window.location.href = 'index.html'; }} style={{cursor:'pointer'}}>
             <span className="k1-logo-dot">K1</span>
             <div>
               <div className="k1-logo-text">K1知識平台</div>
