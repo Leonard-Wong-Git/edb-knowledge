@@ -99,11 +99,11 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-1. **A** Git commit + push（用戶 Terminal）— 含 v2.2.0 內容 + Session 100 治理修補
-2. **A** MemPalace sync（用戶 Terminal：`python3 dev/mempalace_sync.py write`）
-3. **C** Channel B 質量驗證 curl（g04 病假 / g24 教師註冊 / g29 幼兒課程）— sandbox 不能跑，已交 Terminal 指令包
-4. 收 C 結果再決定是否 tune Channel B topic filter / query expansion
-5. 視 user 意願：開新功能、補 source_registry、抑或評估 g21/g22/g33 與 8 skipped sources（找不到 PDF 先 triage source 本身）
+1. **新一輪 git push**（用戶 Terminal）— 含 F1+F2 改動 + SESSION_LOG 後續記錄
+2. **MemPalace sync 修正**（用戶 Terminal）— 用 venv python：`/Users/leonard/mempalace/.venv/bin/python3 dev/mempalace_sync.py write`
+3. **重 curl 三條 query**（用戶 Terminal）— 等 Render auto-deploy ~2-3 分鐘後驗證 F1+F2 修補效果
+4. **F3 量級層**（per-source diversity）— wikiRepository.ts 改排序策略，每 source 至少 1 條，避免 SAG 415 chunks 蓋小 source；下個 session
+5. **F4 g24 / sag_2025_11 dedup**（Supabase SQL）— 兩者係同一份《學校行政手冊》，重複 715 chunks 配額；下個 session
 
 ## Last Session Record
 1. UTC date: 2026-05-02

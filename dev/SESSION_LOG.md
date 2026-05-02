@@ -12,12 +12,17 @@
   - ✅ **[Session 99 Verbatim 補回]** 反映 v2.2.0 全平台對齊 / PlatformIntroPanel 重設計 / Logo 導向 / git push 待用戶執行
   - ✅ **[§4a Archive]** `python3 docs/qa/session_log_maintenance.py --apply` 執行：lines 655 → 151；entries 13 → 3；archived=10 → `dev/archive/SESSION_LOG_2026_Q2.md`；最新 entry prompt block ok=True
   - ✅ **[B/D 根因 feedback 入 memory]** 「找不到直連 PDF」優先 triage source 本身（URL 失效 / SPA / 官方下架），唔好馬上設計 fallback pipeline
-- **QC:** §4a `--check` PASS（line_count=151，trigger=False）；保留最新 3 entries（97/98/99）+ Session 100 自身；archive script 自帶 latest prompt block 完整性檢查 PASS
+  - ✅ **[Channel B 質量 triage]** 用戶 Terminal curl g04 病假 / g24 教師註冊 / g29 幼稚園 query — 三條全部 miss target source；Supabase chunks count 確認資料齊全（g04:7 / g24:300 / g29:132 / sag:415），排除資料層假設
+  - ✅ **[F1 hr_admin regex 擴充]** `searchChannelB.ts` line 161 加入 `教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師` — 修 Query 2「教師註冊及聘任程序」原本 detect=null
+  - ✅ **[F2 curriculum allowlist 加幼兒]** `searchChannelB.ts` SOURCE_SETS.curriculum 加入 g29 / g25 / g26 / stat_kg；TOPIC_KEYWORDS.curriculum regex 加入 `幼稚園|幼兒|學前|K1|K2|K3|遊戲學習` — 修 Query 3「幼稚園學習領域與評估」原本只見小學/中學課程
+  - 🔍 **[Bonus 發現]** g24 (300 chunks) 與 sag_2025_11 (415 chunks) 係同一份《學校行政手冊（2025 年 11 月版）》兩次 ingestion，DB 重複佔 715 chunks 配額；列入 F4 待處理
+- **QC:** §4a `--check` PASS（line_count=151，trigger=False）；archive script 自帶 latest prompt block 完整性檢查 PASS；F1+F2 改動後 `npm run check` (TypeScript tsc --noEmit) PASS 0 errors
 - **Pending（用戶 Terminal 執行）:**
-  - **A** 一鍵 git push（含 v2.2.0 + 本 session 治理修補）
-  - **A** MemPalace sync
-  - **C** Channel B 質量 curl 指令包（g04/g24/g29 各跑 1 條）
-- **Next:** 1. 收 C 結果再決定是否 tune topic filter；2. 視 user 意願開新功能或補 source；3. 監察 Render cold start 對線上驗證影響
+  - **A** MemPalace sync 修正：用 venv python（system python3 無 chromadb）
+  - **新一輪 git push** 含 F1+F2 修補 + SESSION_LOG 後續記錄
+  - **Render auto-deploy** 等 ~2-3 分鐘
+  - **重 curl 三條 query** 對比 F1+F2 修補效果
+- **Next:** 1. 收新一輪 curl 結果；2. F3 量級層（per-source diversity）排程；3. F4 g24/sag dedup 排程；4. 視 user 意願下一輪方向
 
 ### DOC_SYNC Matrix Scan
 | Change Category | Required Doc Updates | Status |
@@ -25,6 +30,7 @@
 | Governance closeout artefact 補回 | SESSION_LOG Session 98/99 entries | ✓ Done |
 | §4a archive triggered | dev/archive/SESSION_LOG_2026_Q2.md + SESSION_LOG.md trim | ✓ Done |
 | Sandbox egress 限制（Render not allowlisted） | SESSION_HANDOFF Known Risks | ✓ Done |
+| Backend behavior change (Channel B routing) | SESSION_HANDOFF Open Priorities; Session entry QC evidence | ✓ Done |
 
 ### Next Session Handoff Prompt (Verbatim)
 ```text
