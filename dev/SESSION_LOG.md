@@ -2,6 +2,40 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-01 Session 97 — v2.2.0 全平台視覺重設 + Hash Routing + Favicon
+
+- **ID:** Claude_20260501_0006
+- **Summary:** K1知識平台全平台視覺重整完成（Session 96/97 合計）：EDB 深綠 nav 統一全4個HTML、主題顏色系統、航班板式搜尋結果、index.html 改寫為 Landing Page、hash routing deep-link、bookmark favicon、版本升至 v2.2.0。
+- **Changed:** `index.html`, `app.html`, `q.html`, `t-purchase.html`, `role_facts.json`, `dev/SESSION_HANDOFF.md`, `dev/SESSION_LOG.md`
+- **Done:**
+  - ✅ Nav 統一：全4個HTML改為 `background: var(--edb)` 深綠實色，white 文字
+  - ✅ 主題顏色 token：finance/hr/curriculum/admin 四域 bg/bd CSS 變量全4個HTML
+  - ✅ 航班板式搜尋：5欄 grid（channel dot / source / content / roles / score），取代原卡片堆疊
+  - ✅ 字型層次：clamp 字型、line-height 1.7、手機 sticky 搜尋欄（position:sticky top:56px）
+  - ✅ 手機底部 tab bar：全5個 tab，admin 限定
+  - ✅ index.html Landing Page：hero + 靜態統計帶 + 3功能卡 + 4步 how-it-works + 角色網格 + CTA
+  - ✅ Hash routing：`app.html#guidelines` deep-link；`switchView()` 同步 URL hash + scroll；全tab按鈕改用 `switchView`（含 mobile tab bar + logo 按鈕）
+  - ✅ Favicon：SVG data URI favicon（深綠圓角方塊 + K1白字），全4個HTML，bookmark 時顯示圖示
+  - ✅ Version bump：`role_facts.json` v2.1.0 → v2.2.0；SESSION_HANDOFF.md baseline 更新
+- **QC:** 所有 `setViewMode` 已替換為 `switchView`（僅餘 useState 宣告及函數體內部呼叫）；favicon 已插入全4個HTML `<head>` 第一行 link
+- **Pending:** Git commit + push（用戶 Terminal 執行）；MemPalace sync
+- **Next:** 1. 確認 GitHub Pages landing page 正確顯示；2. 確認 `app.html#guidelines` deep-link 正常；3. vault PDF fetch + embed（Session 96 pending）；4. g04 Supabase 更新
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Frontend visual overhaul (all 4 HTML) | SESSION_HANDOFF.md baseline version + frontend description | ✓ Done |
+| New feature (hash routing, favicon) | SESSION_HANDOFF.md Last Session Record | ✓ Done |
+| Version bump (v2.2.0) | role_facts.json _meta.version + SESSION_HANDOFF.md | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first, then: dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md
+Version is now v2.2.0. Confirm GitHub Pages landing page loads correctly and app.html#guidelines deep-link works. Then resume vault PDF fetch+embed pipeline if not yet completed.
+```
+
+---
+
 ## 2026-05-01 Session 92 — Phase 2 Channel B Online (Supabase pgvector)
 
 - **ID:** Claude_20260501_0001
@@ -52,6 +86,55 @@ Known risks:
 - MemPalace recovery workaround (hnsw:num_threads=1)
 
 Post-startup first action: 確認 git push 狀態，然後詢問 Leonard：UI QA、rate limiting、還是其他優先項。
+```
+
+## 2026-05-01 Session 96 — Channel A Embedding Cache + Vault Expansion Pipeline (PyMuPDF)
+
+- **ID:** Claude_20260501_0005
+- **Summary:** Session 96 完成 Priority 4（Channel A embedding cache）及 Priority 3（Vault expansion pipeline `expand_vault.py`）。Cache 線上驗證 `warm: true, size: 517`。Pipeline 由 pdftotext 改為 PyMuPDF（純 Python，無需系統工具）。Terminal 正在進行 PDF fetch（61 個直連 PDF）。
+- **Changed:** `backend/src/lib/factEmbeddingCache.ts`（新增），`backend/src/api/searchChannelA.ts`（cache 整合），`backend/src/server.ts`（warmup + health），`dev/vault/expand_vault.py`（新增，pdftotext→PyMuPDF 修正）
+- **Done:**
+  - **factEmbeddingCache.ts**：新模組；module-level `Map<string, number[]>`；`initFactEmbeddingCache()` 非阻塞背景 warmup；`getCachedEmbeddings()` cache miss 返回 null（觸發 fallback）；`isCacheWarm()` / `getCacheSize()` 診斷函數
+  - **searchChannelA.ts**：`getCachedEmbeddings(factTexts) ?? await batchFn(factTexts)`；cache hit 省去 ~1,001 texts batch embed API call
+  - **server.ts**：startup 呼叫 `initFactEmbeddingCache(embeddingClient)`（non-blocking）；health endpoint 加入 `cache_a: { warm, size }`
+  - **線上驗證**：`curl https://edb-knowledge.onrender.com/health` → `cache_a: { warm: true, size: 517 }` ✅（517 = deduplicated unique texts from 1,001 entries）
+  - **expand_vault.py**：完整 vault 擴充 pipeline；`--fetch`（download+extract→.txt）+ `--embed`（chunk+embed+Supabase upsert）；CLI filters：`--topic`, `--source-type`, `--sources`, `--limit`, `--force`, `--dry-run`；CHUNK_CAP=300；`resolution=merge-duplicates` 防重複上傳
+  - **PyMuPDF 修正**：`extract_pdf_text()` 由 pdftotext subprocess 改為 `import fitz`（PyMuPDF）；`fitz.open(stream=pdf_bytes, filetype="pdf")` 逐頁提取，無需 poppler/Homebrew
+  - **PyMuPDF 安裝**：用戶已執行 `pip3 install pymupdf --break-system-packages` ✅
+- **QC:** health endpoint cache_a warm:true size:517 ✅；expand_vault.py dry-run PASS ✅
+- **Pending:**
+  - Terminal 中：`python3 dev/vault/expand_vault.py --fetch --source-type pdf`（需從 `~/Downloads/Claude-edb-knowledge` 執行）
+  - Fetch 完成後：`SUPABASE_SERVICE_KEY=eyJ...realKey... python3 dev/vault/expand_vault.py --embed`
+  - Git commit + push：`git add dev/vault/expand_vault.py backend/src/lib/factEmbeddingCache.ts backend/src/api/searchChannelA.ts backend/src/server.ts && git commit -m "feat: Channel A embedding cache + vault expansion pipeline (PyMuPDF)" && git push origin main`
+  - MemPalace sync：`python3 dev/mempalace_sync.py write`
+- **Next:** 1. 確認 PDF fetch + embed 完成；2. g04 Supabase 更新（如未執行）；3. 驗證 Channel B 搜尋質量
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Backend new module (factEmbeddingCache) | SESSION_HANDOFF.md baseline + Open Priorities | ✓ Done |
+| New pipeline tooling (expand_vault.py) | SESSION_HANDOFF.md Open Priorities | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first, then: dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md
+
+Current state (Session 96, 2026-05-01):
+- Channel A embedding cache 線上 ✅ (warm:true, size:517)
+- expand_vault.py pipeline 完成（PyMuPDF PDF extraction，不需 poppler）
+- PDF fetch 可能仍在進行中
+
+Priority for next session:
+1. 確認 PDF fetch 完成；如未完成：cd ~/Downloads/Claude-edb-knowledge && python3 dev/vault/expand_vault.py --fetch --source-type pdf
+2. Run embed：SUPABASE_SERVICE_KEY=eyJ...realKey... python3 dev/vault/expand_vault.py --embed
+3. g04 Supabase 更新（若未執行：SUPABASE_SERVICE_KEY=... python3 dev/update_g04_supabase.py）
+4. Git push（若未完成）
+5. MemPalace sync：python3 dev/mempalace_sync.py write
+
+User environment reminder:
+- ALWAYS cd ~/Downloads/Claude-edb-knowledge first
+- pip3 (not pip); PyMuPDF installed ✅
+- Supabase service key from: Supabase Dashboard → Settings → API → service_role
 ```
 
 ## 2026-05-01 Session 95 — Channel B UI 免責聲明 + g04 PDF 重新提取

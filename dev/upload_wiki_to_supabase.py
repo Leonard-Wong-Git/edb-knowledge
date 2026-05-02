@@ -31,7 +31,20 @@ SUPABASE_URL = os.environ.get(
 )
 
 # 從 Supabase Dashboard → Settings → API → service_role (secret) 取得
-SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
+# 自動從 backend/.env 讀取（與 expand_vault.py 一致）
+def _load_service_key() -> str:
+    key = os.environ.get("SUPABASE_SERVICE_KEY", "")
+    if not key:
+        env_path = Path(__file__).parent.parent / "backend" / ".env"
+        if env_path.exists():
+            for line in env_path.read_text().splitlines():
+                line = line.strip()
+                if line.startswith("SUPABASE_SERVICE_KEY=") and not line.startswith("#"):
+                    key = line.split("=", 1)[1].strip().strip('"').strip("'")
+                    break
+    return key
+
+SUPABASE_SERVICE_KEY = _load_service_key()
 
 WIKI_INDEX_PATH = Path(__file__).parent / "knowledge" / "wiki_index.json"
 
@@ -68,9 +81,16 @@ VALID_FIELDS = {
     "school_level", "reference_year", "embedding"
 }
 
+def _sanitize(v):
+    """Strip null bytes from string values (PostgreSQL rejects chr(0))."""
+    if isinstance(v, str):
+        null_byte = chr(0)
+        return v.replace(null_byte, '')
+    return v
+
 def clean_chunk(c: dict) -> dict:
     """保留 schema 欄位，過濾多餘 key，確保 nullable 欄位正確處理。"""
-    cleaned = {k: v for k, v in c.items() if k in VALID_FIELDS}
+    cleaned = {k: _sanitize(v) for k, v in c.items() if k in VALID_FIELDS}
     # 確保 nullable 欄位存在（即使值為 None）
     for nullable in ("role", "school_level", "reference_year"):
         if nullable not in cleaned:
@@ -87,7 +107,7 @@ headers = {
     "apikey": SUPABASE_SERVICE_KEY,
     "Authorization": f"Bearer {SUPABASE_SERVICE_KEY}",
     "Content-Type": "application/json",
-    "Prefer": "return=minimal",  # 只插入，不返回資料（更快）
+    "Prefer": "resolution=merge-duplicates,return=minimal",  # upsert（安全重跑）
 }
 
 endpoint = f"{SUPABASE_URL}/rest/v1/{TABLE}"

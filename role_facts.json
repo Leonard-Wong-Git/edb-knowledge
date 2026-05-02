@@ -1,8 +1,8 @@
 {
   "_meta": {
-    "version": "2.1.0",
+    "version": "2.2.0",
     "created": "2026-04-04",
-    "updated": "2026-04-30",
+    "updated": "2026-05-01",
     "description": "EDB 學校管理知識庫 — 供 EDB 通告智能分析系統注入 LLM prompt 使用。1,001 事實全部 approved（Session 79 合併 408 候選，由 109 增至 1,001）。契約版本 v2.0.0：角色拆分為 subject_head（科主任）與 panel_chair（各統籌主任），不再使用 department_head。各 topic block 可附帶 `_source_refs` 作來源追溯 metadata。"
   },
   "finance": {

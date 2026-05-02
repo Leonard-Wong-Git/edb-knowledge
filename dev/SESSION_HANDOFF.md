@@ -1,8 +1,8 @@
 # Session Handoff
 
 ## Current Baseline
-1. Version: **v2.1.2** (K1知識平台)
-2. Frontend: `index.html` S1 home; `t-purchase.html` S3/S4/S5 draft flow; `q.html` local `knowledge.json` Quick Q&A; `app.html` full React SPA / management workspace.
+1. Version: **v2.2.0** (K1知識平台)
+2. Frontend: `index.html` K1 landing page (hero + features + CTA); `t-purchase.html` S3/S4/S5 draft flow; `q.html` local `knowledge.json` Quick Q&A; `app.html` full React SPA / management workspace.
 3. Knowledge state: **1,001 Channel A facts** (三層同步 ✅), **0 candidates in queue**, **wiki_index.json** 2,874 chunks / 125 MB; 2,822 in Supabase.
 4. Backend: Node.js TypeScript backend all search APIs complete; **Channel A + B + A+B online at `https://edb-knowledge.onrender.com`**; rate limiting 10 req/min/IP (sliding window, in-memory).
 5. Channel A: 改用 backend semantic search + LLM synthesis（所有三個 channel 均有整理答案）；min_score A=0.1, B/AB=0.15；case-insensitive keyword fallback 已移除。
@@ -100,8 +100,8 @@ source_registry → same vault PDFs → ai_extract.py
 6. ~~**Channel B topic filtering**~~ → **完成 ✅** (Session 94)：keyword detection + source allowlist + query expansion；採購/財務/HR/課程均驗證通過
    - ~~Channel B UI 加免責說明~~ → **完成 ✅** (Session 95)
    - ~~g04 重新從 PDF 提取~~ → **vault 更新 ✅** (Session 95)；待用戶執行 `python3 dev/update_g04_supabase.py` 更新 Supabase
-7. **Vault 擴充（全 AI 提取）**：104 個 source registry 來源未提取；設計全 AI pipeline 從 PDF → vault → wiki_index → Supabase
-8. **Channel A embedding cache**：啟動時預計算 1,001 facts embeddings，消除每次查詢的 batch call overhead
+7. **Vault 擴充（全 AI 提取）**：`expand_vault.py` pipeline ✅ (Session 96)；`pip3 install pymupdf` ✅；PDF fetch 進行中（61 個直連 PDF）；完成後執行 `--embed` 上傳 Supabase；HTML SPA sources（43個）需另行處理（BeautifulSoup 只見靜態殼）
+8. ~~**Channel A embedding cache**~~：**完成 ✅** (Session 96)；`factEmbeddingCache.ts` 線上 warm:true size:517
 9. MemPalace maintenance: keep `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838` until stable.
 
 ---
@@ -115,25 +115,44 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## Last Session Record
 1. UTC date: 2026-05-01
-2. Session ID: Claude_20260501_0001 (Session 92)
+2. Session ID: Claude_20260501_0006 (Session 97)
 3. Completed:
-   - ✅ **[Phase 2 — Channel B online]** 全流程完成：Supabase project 建立 → pgvector schema + match_wiki_chunks function → 2,822 chunks 上傳 → Render env vars 設定 → wikiRepository.ts 改用 direct fetch() RPC
-   - ✅ **[Supabase permission fix]** 根本原因：anon role 缺少 `GRANT USAGE ON SCHEMA public`；執行後 /debug-b 確認 table_rows ✅ + RPC ✅
-   - ✅ **[Upload dedup fix]** upload_wiki_to_supabase.py 改為先全局 dedup by id 再批次，解決 batch 內重複 ID 的 conflict error
-   - ✅ **[wikiRepository.ts]** 改用 direct fetch() + toFixed(8) encoding；移除 supabase-js 依賴（pgvector text cast 問題）
-   - ✅ **[Debug cleanup]** 移除 /debug-b endpoint 及 wikiRepo verbose logging；build ✅
-   - ✅ **[系統資訊圖 prompt]** 寫好完整 Gemini/ChatGPT infographic prompt（見 session transcript）
-4. Pending from last session (not yet done):
-   - 使用者需在 Terminal 執行 `git push origin main`（sandbox 無法 SSH）
-   - 建議在 app.html 驗證 Channel B 及 A+B combined 搜尋結果 total_b > 0
+   - ✅ **[全平台視覺重設]** EDB 深綠 nav（全4個HTML）、主題顏色系統 token、航班板式搜尋結果行列、字型層次優化、手機 sticky 搜尋欄、手機底部 tab bar
+   - ✅ **[index.html Landing Page]** 改寫為 K1知識平台 landing page（hero + 統計帶 + 功能卡 + 如何使用 + 角色網格 + CTA）；靜態數字，無 fetch 依賴
+   - ✅ **[Hash routing]** `app.html#guidelines` deep-link 啟動；所有 tab 按鈕改為 `switchView()`，更新 URL hash + 同步 scroll
+   - ✅ **[Favicon]** 全4個HTML加入 SVG favicon（深綠圓角方塊 + K1白字），bookmark 時顯示圖示
+   - ✅ **[Version bump]** `role_facts.json` v2.1.0 → v2.2.0
+4. Pending from this session (not yet done):
+   - **Git commit + push**（用戶在 Terminal 執行）：
+     ```
+     cd ~/Downloads/Claude-edb-knowledge
+     git add index.html app.html q.html t-purchase.html role_facts.json dev/SESSION_HANDOFF.md dev/SESSION_LOG.md
+     git commit -m "feat: v2.2.0 — full platform visual redesign + hash routing + favicon"
+     git push origin main
+     ```
+   - **MemPalace sync**：`python3 dev/mempalace_sync.py write`
+   - PDF vault fetch 未完成（Session 96 pending）：`python3 dev/vault/expand_vault.py --fetch --source-type pdf`
+   - g04 Supabase 更新：`SUPABASE_SERVICE_KEY=... python3 dev/update_g04_supabase.py`
 5. Next priorities (next session):
-   - 📋 **Optional UI QA browser pass**（index.html, q.html, t-purchase.html, app.html）
-   - ⚡ **Rate limiting**：公開前建議加 rate limit（10 req/min per IP），可用 node-rate-limiter-flexible
-   - ⚡ **Channel A embedding cache**：啟動時預計算 1,001 facts embeddings，消除每次查詢的 batch call
+   - 確認 GitHub Pages landing page 正確顯示（`https://leonard-wong-git.github.io/edb-knowledge/`）
+   - 確認 `app.html#guidelines` deep-link 在 GitHub Pages 正常運作
+   - PDF vault fetch + embed（若未完成）
+   - 驗證 Channel B 搜尋質量（vault 填充後）
 6. Risks / blockers:
    - Render free tier cold start (~30s) after 15min inactivity
    - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`
    - Supabase free tier: 500MB DB limit; wiki_chunks currently ~50MB with embeddings
+
+## Session Close Checklist (每次 session 結束必須執行)
+```bash
+# 1. 更新 SESSION_LOG.md + SESSION_HANDOFF.md（Claude 負責）
+# 2. Git commit + push（用戶在 Terminal 執行）
+cd ~/Downloads/Claude-edb-knowledge
+git add -A && git commit -m "session close: <描述>" && git push origin main
+# 3. MemPalace sync（用戶在 Terminal 執行）
+cd ~/Downloads/Claude-edb-knowledge
+python3 dev/mempalace_sync.py write
+```
 
 ## Supabase Technical Notes (Channel B)
 - Project: `edb-knowledge` at `https://youkcekbrbywuqjxgibe.supabase.co`

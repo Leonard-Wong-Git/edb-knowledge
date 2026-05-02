@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EDB 知識庫 — 工作室</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231F3A2E'/><text x='16' y='22' text-anchor='middle' font-family='system-ui,sans-serif' font-size='14' font-weight='700' fill='%23F7F4ED'>K1</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -3210,11 +3211,62 @@ function QAPanel({ data, setPreviewDoc }) {
   const TOPIC_CLASS = { finance:'topic-finance', hr:'topic-hr', curriculum:'topic-curriculum' };
   const getTopicClass = (t) => TOPIC_CLASS[t] || 'topic-admin';
   const TOPIC_SHORT = { finance:'財務/採購', hr:'人力資源', curriculum:'課程', activity:'活動', student:'學生事務', it:'資訊科技', general:'通用/行政' };
+  // ── Source label map (source_id → human-readable display name) ──────────────
+  const SOURCE_LABELS = {
+    sag_2025_11:'SAG', coa_imc_1_19:'資助則例',
+    g01:'採購指引', g02:'財務管理指引', g03:'全方位學習指引',
+    g04:'批假指引', g05:'專業操守指引', g06:'小學課程指引',
+    g07:'基礎教育課程指引', g08:'中文課程指引', g09:'非華語中文指引',
+    g10:'特殊學校課程指引', g11:'校曆表指引', g12:'數學課程指引',
+    g13:'中學課程指引', g14:'資優培育指引', g15:'體育課程指引',
+    g16:'訓育工作指引', g17:'訓輔指引', g18:'校車安全指引',
+    g19:'融合教育指南', g20:'學校活動指引', g21:'視藝安全指引',
+    g22:'科技安全指引', g23:'體育安全指引', g24:'學校行政手冊',
+    g25:'幼稚園指引', g26:'幼稚園收生指引', g27:'小學數學課程指引',
+    g28:'IT保安指引', g29:'幼稚園課程指引', g30:'人文科指引(小學)',
+    g31:'英文課程指引(小學)', g32:'人文學科指引(初中)', g33:'英文課程指引(中學)',
+    g34:'普通話課程指引', g35:'個社人文指引', g36:'科學課程指引',
+    g37:'藝術教育指引', g38:'音樂課程指引', g39:'科技教育指引',
+    stat_edb_figures:'統計數字', stat_kg:'幼稚園統計',
+    stat_pri:'小學統計', stat_sec:'中學統計',
+    stat_special:'特殊學校統計', stat_integrated_edu:'融合教育統計',
+    stat_enrolment_report:'學生人數統計',
+    bafs_sss_2007_2015:'BAFS課程指引', bafs_sss_2007_2020:'BAFS課程指引2020',
+    chi_pri_guide_2023:'小學中文指引', chi_jss_guide_2023:'初中中文指引',
+    chi_sss_guide_2021:'高中中文指引', chi_lit_guide_2025:'中國文學指引',
+    chi_hist_jss_2019:'初中中國歷史', chi_hist_sss_2007_2015:'高中中國歷史',
+    eng_pri_guide_2025:'小學英文指引', eng_sss_guide_2021:'高中英文指引',
+    eng_lit_guide_2023:'英文文學指引', eng_nat_sec_2025:'英文國安教育',
+    eng_jss_supp_2018:'初中英文補充',
+    ma_kla_guide_2017:'數學KLA指引', ma_sss_cag_2017:'高中數學指引',
+    ma_sss_diversity_2021:'高中數學多樣性指引',
+    tech_kla_guide_2017:'科技KLA指引', ct_programming_pri_2020:'計算思維教育',
+    ict_sss_2007_2015:'ICT指引2015', ict_sss_2021:'ICT指引2021',
+    arts_kla_guide_2017:'藝術KLA指引',
+    music_p1_s6_2024:'音樂科指引', music_sss_2024:'高中音樂',
+    music_sss_2015:'高中音樂2015', music_national_anthem_2024:'音樂國歌補充',
+    va_p1_s6_2024:'視藝科指引', va_sss_2015:'高中視藝',
+    pe_sss_2023:'高中體育', pe_kla_2017:'體育KLA指引', pe_sss_2007_2015:'高中體育2015',
+    ces_jss_2024:'CES課程指引', econ_sss_2025:'經濟指引2025',
+    econ_sss_2007_2015:'經濟指引2015', ethics_relig_sss_2024:'倫理與宗教',
+    religious_edu_jss_2024:'宗教教育', geog_sss_2007_2022:'地理指引',
+    history_sss_2007_2015:'高中歷史', ls_jss_2010:'生活與社會',
+    gs_pri_guide_2017:'常識科指引', pri_curr_guide_2024:'小學課程指引2024',
+    pri_science_guide_2025:'小學科學指引', ph_pri_guide_2025:'小學人文科指引',
+    edbc002_2026:'通告 002/2026', edbc003_2026:'通告 003/2026',
+    edbc005_2026:'通告 005/2026',
+    values_edu_framework_2021_trial:'價值觀教育框架',
+    sci_jss_framework_2025:'初中科學框架2025',
+  };
+  const getSourceLabel = (sid) => SOURCE_LABELS[sid] || sid;
+
   const getSrcDisplay = (item) => {
     if (item.channel === 'A') return { code: TOPIC_SHORT[item.topicId] || item.topicId, sub: '已核實事實' };
-    const t = (item.sourceRef && item.sourceRef.title) || '';
-    const code = t.length > 8 ? t.slice(0, 7) + '…' : (t || '文件庫');
-    return { code, sub: 'Channel B' };
+    // Use SOURCE_LABELS first, then fall back to sourceRef title
+    const sid = item.sourceRef?.source_id || item.source_id || '';
+    const label = SOURCE_LABELS[sid] || (item.sourceRef && item.sourceRef.title) || '文件庫';
+    const code = label.length > 10 ? label.slice(0, 9) + '…' : label;
+    return { code, sub: '指引文件' };
   };
   const scoreSegs = (score, ch) => {
     const filled = Math.round((score || 0) * 5);
@@ -3677,7 +3729,7 @@ function CandidateReviewPanel({ queue, onApprove, onReject }) {
                   className={`candidate-row ${selected?.id === cand.id ? 'active' : ''}`}>
             <span className="candidate-row-top">
               <span className="candidate-topic">{cand.suggested_topic || '通用'} · #{idx + 1}</span>
-              <span className="candidate-source">{cand.source_id || cand.source_title || '來源'}</span>
+              <span className="candidate-source">{getSourceLabel(cand.source_id) || cand.source_title || '來源'}</span>
             </span>
             <span className="candidate-text">{cand.proposed_text}</span>
             <span className="candidate-roles">
@@ -3692,7 +3744,7 @@ function CandidateReviewPanel({ queue, onApprove, onReject }) {
       <aside className="review-inspector">
         <div>
           <div className="inspector-label">已選候選</div>
-          <div className="inspector-title">{selected?.source_id || selected?.id}</div>
+          <div className="inspector-title">{selected?.source_id ? getSourceLabel(selected.source_id) : (selected?.id || '—')}</div>
         </div>
 
         <div>
@@ -3728,9 +3780,9 @@ function CandidateReviewPanel({ queue, onApprove, onReject }) {
               出處：{selected?.source_url ? (
                 <a href={selected.page_number ? `${selected.source_url}#page=${selected.page_number}` : selected.source_url}
                    target="_blank" rel="noreferrer" className="source-link">
-                  {selected.source_title || selected.source_id}
+                  {selected.source_title || getSourceLabel(selected.source_id)}
                 </a>
-              ) : (selected?.source_title || selected?.source_id || '未知')}
+              ) : (selected?.source_title || getSourceLabel(selected?.source_id) || '未知')}
               {selected?.page_number && <span> · 第 {selected.page_number} 頁</span>}
             </div>
           </div>
@@ -3773,7 +3825,19 @@ function App() {
   const [editModal, setEditModal] = useState({ isOpen: false, editData: null });
   const [exportModal, setExportModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [viewMode, setViewMode] = useState('qa'); // 'qa' | 'guidelines' | 'knowledge' | 'review'
+  // Hash-based deep linking: app.html#guidelines, #qa, #knowledge, #review, #about
+  const VALID_VIEWS = ['qa', 'guidelines', 'knowledge', 'review', 'about'];
+  const hashView = window.location.hash.replace('#', '');
+  const [viewMode, setViewMode] = useState(
+    VALID_VIEWS.includes(hashView) ? hashView : 'qa'
+  ); // 'qa' | 'guidelines' | 'knowledge' | 'review' | 'about'
+
+  // Keep URL hash in sync when tab changes
+  const switchView = useCallback((v) => {
+    setViewMode(v);
+    window.history.replaceState(null, '', `#${v}`);
+    window.scrollTo(0, 0);
+  }, []);
   const [adminMode, setAdminMode] = useState(false);
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [previewDoc, setPreviewDoc] = useState(null);
@@ -4090,7 +4154,7 @@ function App() {
       <header className="k1-header" id="k1Header">
         <div className="k1-header-inner">
           {/* Logo */}
-          <div className="k1-logo" onClick={() => { setViewMode('qa'); window.scrollTo(0,0); }}>
+          <div className="k1-logo" onClick={() => switchView('qa')}>
             <span className="k1-logo-dot">K1</span>
             <div>
               <div className="k1-logo-text">K1知識平台</div>
@@ -4102,20 +4166,20 @@ function App() {
           <div className="k1-header-actions">
             {/* View mode tabs */}
             <div className="k1-tab-bar">
-              <button onClick={() => setViewMode('about')}
+              <button onClick={() => switchView('about')}
                       className={`filter-tab ${viewMode === 'about' ? 'active-tab' : ''}`} aria-selected={viewMode === 'about'} role="tab">
                 ℹ️ 平台介紹
               </button>
-              <button onClick={() => setViewMode('qa')}
+              <button onClick={() => switchView('qa')}
                       className={`filter-tab ${viewMode === 'qa' ? 'active-tab' : ''}`} aria-selected={viewMode === 'qa'} role="tab">
                 🔍 政策搜尋
               </button>
-              <button onClick={() => setViewMode('guidelines')}
+              <button onClick={() => switchView('guidelines')}
                       className={`filter-tab ${viewMode === 'guidelines' ? 'active-tab' : ''}`} aria-selected={viewMode === 'guidelines'} role="tab">
                 📚 指引 ({GUIDELINES_REGISTRY.length})
               </button>
               {adminMode && (
-                <button onClick={() => setViewMode('review')}
+                <button onClick={() => switchView('review')}
                         className={`filter-tab ${viewMode === 'review' ? 'active-tab' : ''}`} aria-selected={viewMode === 'review'} role="tab"
                         style={{position:'relative'}}>
                   ✍️ 知識提煉
@@ -4138,7 +4202,7 @@ function App() {
                 </button>
               )}
               {adminMode && (
-                <button onClick={() => setViewMode('knowledge')}
+                <button onClick={() => switchView('knowledge')}
                         className={`filter-tab ${viewMode === 'knowledge' ? 'active-tab' : ''}`} aria-selected={viewMode === 'knowledge'} role="tab">
                   ⚙️ 知識管理
                 </button>
@@ -4364,26 +4428,26 @@ function App() {
       {/* ── Mobile bottom tab bar ── */}
       <nav className="mobile-tab-bar" role="navigation" aria-label="主要導航">
         <button className={`mobile-tab-item ${viewMode === 'qa' ? 'active' : ''}`}
-                onClick={() => setViewMode('qa')} aria-label="政策搜尋">
+                onClick={() => switchView('qa')} aria-label="政策搜尋">
           <span className="mobile-tab-icon">🔍</span>政策搜尋
         </button>
         <button className={`mobile-tab-item ${viewMode === 'guidelines' ? 'active' : ''}`}
-                onClick={() => setViewMode('guidelines')} aria-label="指引文件庫">
+                onClick={() => switchView('guidelines')} aria-label="指引文件庫">
           <span className="mobile-tab-icon">📚</span>指引
         </button>
         <button className={`mobile-tab-item ${viewMode === 'about' ? 'active' : ''}`}
-                onClick={() => setViewMode('about')} aria-label="平台介紹">
+                onClick={() => switchView('about')} aria-label="平台介紹">
           <span className="mobile-tab-icon">ℹ️</span>平台介紹
         </button>
         {adminMode && (
           <button className={`mobile-tab-item ${viewMode === 'review' ? 'active' : ''}`}
-                  onClick={() => setViewMode('review')} aria-label="知識提煉">
+                  onClick={() => switchView('review')} aria-label="知識提煉">
             <span className="mobile-tab-icon">✍️</span>知識提煉
           </button>
         )}
         {adminMode && (
           <button className={`mobile-tab-item ${viewMode === 'knowledge' ? 'active' : ''}`}
-                  onClick={() => setViewMode('knowledge')} aria-label="知識管理">
+                  onClick={() => switchView('knowledge')} aria-label="知識管理">
             <span className="mobile-tab-icon">⚙️</span>知識管理
           </button>
         )}

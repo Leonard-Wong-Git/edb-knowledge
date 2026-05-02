@@ -434,7 +434,17 @@ def supabase_delete_source(source_id: str, service_key: str) -> int:
     return 0
 
 
+def _sanitize_text(text: str) -> str:
+    """Strip null bytes (chr(0)) which PostgreSQL text columns reject."""
+    return text.replace('\x00', '').replace('', '')
+
+
 def supabase_upsert_batch(batch: list[dict], service_key: str) -> bool:
+    # Sanitize all text fields before upload
+    clean = []
+    for row in batch:
+        clean.append({k: (_sanitize_text(v) if isinstance(v, str) else v)
+                      for k, v in row.items()})
     url = f"{SUPABASE_URL}/rest/v1/{TABLE}"
     headers = {
         "apikey": service_key,
@@ -442,7 +452,7 @@ def supabase_upsert_batch(batch: list[dict], service_key: str) -> bool:
         "Content-Type": "application/json",
         "Prefer": "resolution=merge-duplicates,return=minimal",
     }
-    resp = requests.post(url, headers=headers, json=batch, timeout=60)
+    resp = requests.post(url, headers=headers, json=clean, timeout=60)
     if resp.status_code in (200, 201):
         return True
     print(f"\n  ❌ Upsert failed {resp.status_code}: {resp.text[:300]}")
