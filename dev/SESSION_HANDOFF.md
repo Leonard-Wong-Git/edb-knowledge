@@ -91,21 +91,6 @@ source_registry → same vault PDFs → ai_extract.py
 
 ---
 
-## Open Priorities
-1. ~~Circular System: `_write_policy_signal()` — deferred to Circular System side.~~ → **規格文件 `dev/CIRCULAR_SYSTEM_INTEGRATION.md` 已建立 ✅**
-2. ~~Phase 4: 指引文件庫 dual sort with `sub_category`~~ → **完成 ✅**
-3. ~~Render 部署 Channel A~~ → **完成 ✅**
-4. ~~Phase 2 — Channel B online~~ → **完成 ✅**
-5. ~~Rate limiting~~ → **完成 ✅** 10 req/min/IP sliding window (Session 93)
-6. ~~**Channel B topic filtering**~~ → **完成 ✅** (Session 94)：keyword detection + source allowlist + query expansion；採購/財務/HR/課程均驗證通過
-   - ~~Channel B UI 加免責說明~~ → **完成 ✅** (Session 95)
-   - ~~g04 重新從 PDF 提取~~ → **vault 更新 ✅** (Session 95)；待用戶執行 `python3 dev/update_g04_supabase.py` 更新 Supabase
-7. **Vault 擴充（全 AI 提取）**：`expand_vault.py` pipeline ✅ (Session 96)；`pip3 install pymupdf` ✅；PDF fetch 進行中（61 個直連 PDF）；完成後執行 `--embed` 上傳 Supabase；HTML SPA sources（43個）需另行處理（BeautifulSoup 只見靜態殼）
-8. ~~**Channel A embedding cache**~~：**完成 ✅** (Session 96)；`factEmbeddingCache.ts` 線上 warm:true size:517
-9. MemPalace maintenance: keep `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838` until stable.
-
----
-
 ## Regression / Verification Notes
 1. All core 2024/2025 curriculum guides verified and reachable ✅
 2. `check_freshness.py` result: **Errors: 0 / Checked: 145** ✅
@@ -113,26 +98,30 @@ source_registry → same vault PDFs → ai_extract.py
 
 ---
 
+## Open Priorities
+1. **A** Git commit + push（用戶 Terminal）— 含 v2.2.0 內容 + Session 100 治理修補
+2. **A** MemPalace sync（用戶 Terminal：`python3 dev/mempalace_sync.py write`）
+3. **C** Channel B 質量驗證 curl（g04 病假 / g24 教師註冊 / g29 幼兒課程）— sandbox 不能跑，已交 Terminal 指令包
+4. 收 C 結果再決定是否 tune Channel B topic filter / query expansion
+5. 視 user 意願：開新功能、補 source_registry、抑或評估 g21/g22/g33 與 8 skipped sources（找不到 PDF 先 triage source 本身）
+
 ## Last Session Record
 1. UTC date: 2026-05-02
-2. Session ID: Claude_20260502_0002 (Session 99)
+2. Session ID: Claude_20260502_0003 (Session 100)
 3. Completed:
-   - ✅ **[版本號對齊]** README badge、footer、CHANGELOG v2.2.0 條目、knowledge.json、guidelines.json、app.html INITIAL_DATA 全部升至 v2.2.0
-   - ✅ **[平台介紹重寫]** PlatformIntroPanel 完整重設計：動態 stat 計數動畫（1,001/10,736/39/120）、互動式 Demo 展示（3個角色查詢示例/tabbed）、三大核心功能卡、連接步驟 how-it-works、更新 sources 深色面板
+   - ✅ **[Verbatim 補回]** Sessions 98 / 99 closeout 缺漏的 `### Next Session Handoff Prompt (Verbatim)` 區塊已回填
+   - ✅ **[§4a Archive]** SESSION_LOG.md 由 655 lines / 13 entries 壓至 151 lines / 3 entries；10 entries 移至 `dev/archive/SESSION_LOG_2026_Q2.md`
+   - ✅ **[Sandbox 限制記錄]** Render edb-knowledge.onrender.com 不在 cowork egress allowlist，線上驗證需用戶 Terminal
 4. Pending from this session (not yet done):
-   - **Git commit + push**（用戶在 Terminal 執行）：
-     ```
-     cd ~/Downloads/Claude-edb-knowledge
-     git add -A
-     git commit -m "feat: v2.2.0 — version alignment + platform intro redesign with demo showcase"
-     git push origin main
-     ```
+   - **Git commit + push**（用戶 Terminal）：合併 Session 99 v2.2.0 + Session 100 治理修補
    - **MemPalace sync**：`python3 dev/mempalace_sync.py write`
-5. Next priorities (next session):
-   - 驗證 GitHub Pages 平台介紹 tab 顯示正確（互動 demo tab 切換效果）
-   - 驗證 Channel B 搜尋質量（新增 g24/g29 chunks 後）
-   - 考慮 g21/g22/g33 直連 PDF（視覺藝術/科技/英文課程）
+   - **Channel B 質量驗證 curl 指令包**（已交付，用戶 Terminal 跑）
+5. Next priorities (max 3 — 詳見 Open Priorities)：
+   - 收 C 驗證結果
+   - 視 user 意願開新功能 / 補 source / tune Channel B
+   - 監察 Render cold start
 6. Risks / blockers:
+   - Cowork sandbox egress allowlist 不含 edb-knowledge.onrender.com → 線上驗證需用戶 Terminal
    - Render free tier cold start (~30s) after 15min inactivity
    - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`
    - Supabase free tier: 500MB DB limit; wiki_chunks currently ~50MB with embeddings
