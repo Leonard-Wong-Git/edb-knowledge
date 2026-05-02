@@ -56,6 +56,14 @@ export interface WikiSearchOptions {
   contentType?: WikiContentType;
   /** Allowlist of source_id values; if provided, only chunks from these sources are returned */
   sourceIds?: string[];
+  /**
+   * Max chunks per source_id in final results. Prevents a single dominant
+   * source (e.g. SAG with 415 chunks) from monopolizing top results.
+   * When > 0, the search over-fetches from Supabase (topK * 5) to ensure
+   * enough diverse sources are available for the quota gate.
+   * Default: undefined (no per-source limit).
+   */
+  maxPerSource?: number;
 }
 
 // ---------------------------------------------------------------------------
@@ -71,7 +79,7 @@ export async function searchWiki(
   embedFn: EmbedFn,
   options: WikiSearchOptions = {}
 ): Promise<WikiSearchResult[]> {
-  const { topK, minScore = 0.1, topic, contentType, sourceIds } = options;
+  const { topK, minScore = 0.1, topic, contentType, sourceIds, maxPerSource } = options;
 
   const queryVec = await embedFn(query);
 
@@ -82,12 +90,18 @@ export async function searchWiki(
   const supabaseUrl = getSupabaseUrl();
   const supabaseKey = getSupabaseAnonKey();
 
+  // Over-fetch when per-source quota is active so the quota gate has
+  // enough diverse sources to choose from (otherwise SAG would still
+  // dominate Supabase's initial top-K and leave nothing for smaller sources).
+  const overFetchEnabled = !!(maxPerSource && maxPerSource > 0 && topK !== undefined);
+  const fetchCount = overFetchEnabled ? (topK as number) * 5 : topK;
+
   const body: Record<string, unknown> = {
     query_embedding: embeddingStr,
     match_threshold: minScore,
   };
-  if (topK !== undefined) {
-    body.match_count = topK;
+  if (fetchCount !== undefined) {
+    body.match_count = fetchCount;
   }
 
   const rpcUrl = `${supabaseUrl}/rest/v1/rpc/match_wiki_chunks`;
@@ -129,7 +143,27 @@ export async function searchWiki(
     deduped.push(row);
   }
 
-  return deduped.map(({ score, ...chunk }) => ({
+  // Per-source quota gate (cap = upper bound, never forces low-score chunks in)
+  // Walks score-DESC list and skips any chunk from a source that already hit cap.
+  let finalRows: typeof deduped;
+  if (overFetchEnabled) {
+    const sourceCounts = new Map<string, number>();
+    const gated: typeof deduped = [];
+    const cap = maxPerSource as number;
+    const limit = topK as number;
+    for (const row of deduped) {
+      const count = sourceCounts.get(row.source_id) ?? 0;
+      if (count >= cap) continue;
+      sourceCounts.set(row.source_id, count + 1);
+      gated.push(row);
+      if (gated.length >= limit) break;
+    }
+    finalRows = gated;
+  } else {
+    finalRows = deduped;
+  }
+
+  return finalRows.map(({ score, ...chunk }) => ({
     chunk: chunk as WikiChunk,
     score,
     channel: "B" as const,

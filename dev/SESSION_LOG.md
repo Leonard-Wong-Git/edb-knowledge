@@ -2,6 +2,71 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-02 Session 101 — 來源配額排序（Channel B 量級層治理）
+
+- **ID:** Claude_20260502_0004
+- **Summary:** 處理 Session 100 線上驗收剩低嘅量級層問題：學校行政手冊（SAG, 415 chunks）對教師病假 query 食晒 top_k；視藝指引（va_p1_s6, 86 chunks）對幼稚園 query 蓋過幼稚園課程指引（g29, 132 chunks）。本 session 在 wikiRepository 加入「每來源預留位」機制（per-source quota cap），令單一強勢 source 唔再 monopolize top results。
+- **Changed:** `backend/src/lib/wikiRepository.ts`, `backend/src/api/searchChannelB.ts`
+- **Done:**
+  - ✅ **[wikiRepository 加配額參數]** `WikiSearchOptions` 加 `maxPerSource?: number`；當 maxPerSource > 0，內部 over-fetch（傳俾 Supabase 嘅 match_count 由 topK → topK × 5），確保配額排序有夠多元 source 可選
+  - ✅ **[配額排序邏輯]** dedup 之後加 quota gate：按 score DESC 行，每 source 計數，達 cap 後 skip；取夠 topK 即 break；cap 係上限唔係下限（唔強塞低分 chunks 入 top_k）
+  - ✅ **[searchChannelB caller-side]** 計算 `maxPerSource = max(2, ceil(top_k / 3))`；當 sourceIds 只有 1 個時自動 disable（單一 source 唔需要 diversity）
+  - ✅ **[Sanity test]** 本地模擬 mock chunks 跑 quota gate：8 條輸入（sag×4, va×3, g29×1）→ topK=5 cap=2 → 結果 sag×2 + va×2 + g29×1，配額成功釋位俾低 score 高優先 source（g29 0.50 入榜雖然輸俾 sag-3 0.55）
+- **QC:** TypeScript `npm run check` PASS 0 errors；本地 sanity test PASS（quota 分佈正確）；線上端對端驗收待用戶 Terminal curl
+- **Pending（用戶 Terminal 執行）:**
+  - Git commit + push（含 wikiRepository + searchChannelB 改動 + Session 101 entry）
+  - Render auto-deploy 等 ~2-3 分鐘
+  - 重 curl 三條 query 對比效果
+- **Next:** 1. 收線上驗收結果；2. 視乎 query 1 病假 / query 3 幼稚園是否 dominate 改善決定要唔要再 tune cap 比例；3. 學校行政手冊重複文件去重（資料層 cleanup）排程
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Backend behavior change (Channel B ranking) | SESSION_HANDOFF Open Priorities; Session entry QC evidence | ✓ Done |
+| New search option (maxPerSource) | wikiRepository.ts inline JSDoc | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Current objective and progress state:
+- Session 101 (2026-05-02) ship 來源配額排序（per-source quota cap）— wikiRepository.ts WikiSearchOptions 加 maxPerSource；搜尋邏輯：score DESC 行，每 source 計數達 cap 後 skip；over-fetch（topK×5）確保多元 source 可選
+- searchChannelB.ts caller 計算 maxPerSource = max(2, ceil(top_k / 3))；單 source allowlist 時自動 disable
+- TypeScript check 0 errors；本地 sanity test PASS
+- 商品狀態：v2.2.0 / role_facts 1,001 / Supabase 10,736 chunks / vault 120 sources / Channel A cache warm size:517
+
+Pending tasks in priority order:
+1. 收線上驗收結果（用戶 Terminal curl 三條 query）— 確認教師病假改善、教師註冊維持、幼稚園 g29 上升
+2. 學校行政手冊重複文件去重（Supabase SQL）— g24 同 sag_2025_11 同份文件兩次 ingestion，重複 715 chunks；先 dry-run 驗證 sag 涵蓋 g24 全部內容才能執行
+3. 8 個無法擷取嘅 source triage（按 memory 規範先驗 source 質素）
+4. 評估視藝/科技/英文課程指引（g21/g22/g33）是否需要直連 PDF
+5. 監察 Render cold start 對線上驗證影響（~30s after 15min idle）
+
+Key files changed in this session:
+- backend/src/lib/wikiRepository.ts（WikiSearchOptions 加 maxPerSource；searchWiki 加 over-fetch + quota gate）
+- backend/src/api/searchChannelB.ts（caller-side 計算 maxPerSource）
+- dev/SESSION_LOG.md（Session 101 entry）
+- dev/SESSION_HANDOFF.md（Open Priorities regenerated）
+
+Known risks / blockers / cautions:
+- Cowork sandbox egress allowlist 不含 edb-knowledge.onrender.com → 線上驗證需用戶 Terminal
+- Render free tier cold start ~30s after 15min idle
+- Shared MemPalace recovery workaround (hnsw:num_threads=1)；保留備份 /Users/leonard/mempalace/palace.pre-recovery.20260421_0838
+- Supabase free tier 500MB DB limit；現約 50MB
+- 學校行政手冊去重高風險（SQL DELETE）— 必先 dry-run 驗證 sag 涵蓋 g24 全部內容
+- 配額排序 over-fetch（topK×5）會增加 Supabase 帶寬；以 top_k=8 計即 40 rows 上限，影響不大但要監察
+
+Validation status:
+- PASS: TypeScript npm run check 0 errors
+- PASS: 本地 sanity test（mock chunks quota 分佈正確）
+- PENDING: 線上端對端驗收（用戶 Terminal curl 三條 query）
+
+Post-startup first action: 詢問 Leonard：線上 curl 結果如何，下一輪揀學校行政手冊去重 / 8 skipped sources triage / 新功能。
+```
+
+---
+
 ## 2026-05-02 Session 100 — 治理補檔（Verbatim 區塊回填 + §4a Archive）
 
 - **ID:** Claude_20260502_0003

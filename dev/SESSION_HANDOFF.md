@@ -99,35 +99,34 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-1. **F3 per-source diversity**（wikiRepository.ts）— 每 source 預留 top-N quota，解 Query 1 病假被 SAG 415 chunks 蓋 + Query 3 g29 未 dominate；屬量級層根因治理
-2. **F4 g24 / sag_2025_11 dedup**（Supabase SQL）— 兩者同份《學校行政手冊》重複 715 chunks；先 dry-run 驗證 sag 涵蓋 g24 全部內容才能刪
-3. **F2 加強 sub-routing**（searchChannelB.ts 輕量改）— query 含「幼稚園」時動態 narrow allowlist 至 g29/g25/g26；可同 F3 二選一
-4. **g21/g22/g33 與 8 skipped sources triage**（按新 memory 規範先驗 source 質素，唔好馬上設計 fallback pipeline）
+1. **線上端對端驗收**（用戶 Terminal）— 重 curl 教師病假 / 教師註冊 / 幼稚園學習領域三條 query，確認來源配額排序改善效果
+2. **學校行政手冊重複文件去重**（Supabase SQL）— g24 同 sag_2025_11 同份文件兩次 ingestion，重複 715 chunks；先 dry-run 驗證 sag 涵蓋 g24 全部內容才能執行 DELETE
+3. **8 個無法擷取嘅 source triage**（按 memory 規範先驗 source 質素，唔好馬上設計 fallback pipeline）
+4. **評估視藝/科技/英文課程指引（g21/g22/g33）直連 PDF 必要性**
 5. **Channel A embedding cache 監察**（warm:true size:517 已穩定，視乎 token usage 趨勢）
 
 ## Last Session Record
 1. UTC date: 2026-05-02
-2. Session ID: Claude_20260502_0003 (Session 100)
+2. Session ID: Claude_20260502_0004 (Session 101)
 3. Completed:
-   - ✅ **[治理補檔]** Sessions 98 / 99 Verbatim Handoff Prompt 區塊回填；§4a archive lines 655→151；10 entries → `dev/archive/SESSION_LOG_2026_Q2.md`
-   - ✅ **[Channel B 質量 triage]** 用戶 Terminal curl 三條 query 確認 miss target；Supabase chunks count 排除資料層假設（g04:7 / g24:300 / g29:132 / sag:415 全齊）
-   - ✅ **[F1 ship]** searchChannelB.ts hr_admin regex 加 註冊/聘任/招聘/入職 等 10 個 keyword
-   - ✅ **[F2 ship]** searchChannelB.ts curriculum allowlist 加 g29/g25/g26/stat_kg；regex 加 幼稚園/幼兒/K1-3
-   - ✅ **[線上驗收]** Query 2 教師註冊 ✅ 完全修好；Query 3 幼稚園 🟡 g29 入榜未 dominate；Query 1 病假預期內 miss（屬 F3）
-   - ✅ **[MemPalace sync 修正]** 用 venv python 已 work（system python 無 chromadb）
-   - ✅ **[Memory feedback]** 「找不到 PDF 先 triage source 本身」存入 feedback_pdf_not_found_root_cause.md
+   - ✅ **[來源配額排序 ship]** wikiRepository.ts WikiSearchOptions 加 `maxPerSource`；searchWiki 加 over-fetch（topK×5）+ quota gate（按 score DESC 行，每 source 達 cap 後 skip）
+   - ✅ **[caller-side 計算]** searchChannelB.ts 計算 `maxPerSource = max(2, ceil(top_k / 3))`；單 source allowlist 時自動 disable
+   - ✅ **[本地 sanity test]** mock chunks 跑 quota gate：sag×4 + va×3 + g29×1 + topK=5 cap=2 → 結果 sag×2 + va×2 + g29×1（g29 score 0.50 雖輸俾 sag-3 0.55 但配額釋位令佢入榜）
+   - ✅ **[Memory feedback]** 「對話禁用內部代號 F1/F2/F3 等」存入 feedback_no_internal_codenames_in_chat.md
 4. Pending from this session (not yet done):
-   - **Final git push**（用戶 Terminal）：含 SESSION_LOG/HANDOFF closeout 修改
+   - Git commit + push（含 wikiRepository + searchChannelB 改動 + Session 101 entry）
+   - 用戶 Terminal 重 curl 三條 query 對比效果
 5. Next priorities (max 3 — 詳見 Open Priorities)：
-   - F3 per-source diversity（解 Query 1 + Query 3 dominate 一次過）
-   - F4 g24/sag dedup（資料層清垃圾，先 dry-run）
-   - F2 加強 sub-routing（如不選 F3）
+   - 收線上驗收結果再決定是否要 tune cap 比例
+   - 學校行政手冊重複文件去重（資料層 cleanup，先 dry-run）
+   - 8 個無法擷取嘅 source triage
 6. Risks / blockers:
    - Cowork sandbox egress allowlist 不含 edb-knowledge.onrender.com → 線上驗證需用戶 Terminal
    - Render free tier cold start (~30s) after 15min inactivity
    - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`
    - Supabase free tier: 500MB DB limit; wiki_chunks currently ~50MB with embeddings
-   - F4 dedup 高風險（SQL DELETE）— 必先 dry-run 驗證 sag 涵蓋 g24 全部內容
+   - 學校行政手冊去重高風險（SQL DELETE）— 必先 dry-run 驗證 sag 涵蓋 g24 全部內容
+   - 配額排序 over-fetch（topK×5）會增加 Supabase 帶寬；以 top_k=8 計即 40 rows 上限，影響不大但要監察
 
 ## Session Close Checklist (每次 session 結束必須執行)
 ```bash

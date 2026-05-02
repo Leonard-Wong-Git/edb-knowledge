@@ -314,12 +314,20 @@ export async function searchChannelB(
   // the terminology used in the target source documents.
   const embeddingQuery = detectedCategory ? expandQuery(query, detectedCategory) : query;
 
+  // Per-source quota: cap each source_id at ~top_k/3 (min 2) so that a single
+  // dominant source like SAG (415 chunks) can't monopolize results and crowd
+  // out smaller, more relevant guides like g04 (7 chunks) or g29 (132 chunks).
+  // Disabled when narrowing to a single source (no diversity needed there).
+  const maxPerSource =
+    sourceIds && sourceIds.length <= 1 ? undefined : Math.max(2, Math.ceil(top_k / 3));
+
   const rawResults = await searchWiki(embeddingQuery, embedFn, {
     minScore: effectiveMinScore,
     topK: top_k,
     ...(topic ? { topic } : {}),
     ...(content_type ? { contentType: content_type } : {}),
     ...(sourceIds ? { sourceIds } : {}),
+    ...(maxPerSource ? { maxPerSource } : {}),
   });
 
   let results = rawResults.map(toChannelBResult);
