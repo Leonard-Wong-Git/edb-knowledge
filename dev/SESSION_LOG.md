@@ -2,6 +2,32 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-02 Session 98 — Vault 擴充完成 + Supabase 全量同步 + Source Label UI
+
+- **ID:** Claude_20260502_0001
+- **Summary:** Vault 擴充 pipeline 全面完成：upload_wiki_to_supabase.py 修復（merge-duplicates + null byte sanitize + auto .env 讀取）；全量 10,736 chunks 同步至 Supabase；g04/g29/g24 個別更新；app.html Source ID 全面替換為中文顯示名稱；source_registry 更新直連 PDF URL。
+- **Changed:** `app.html`, `dev/vault/expand_vault.py`, `dev/upload_wiki_to_supabase.py`, `dev/source/source_registry.json`
+- **Done:**
+  - ✅ **[expand_vault.py 修復]** `_sanitize_text()` 去除 null bytes（PostgreSQL 限制）；`supabase_upsert_batch` 全欄位 sanitize
+  - ✅ **[upload_wiki_to_supabase.py 修復]** auto-load `SUPABASE_SERVICE_KEY` from `backend/.env`；`merge-duplicates` upsert；null byte sanitize
+  - ✅ **[Supabase 全量同步]** 10,736 chunks 上傳（1,176 skipped，無 embedding）；0 failed batches
+  - ✅ **[g04 更新]** 7 chunks 替換（批假指引最新版）
+  - ✅ **[g29 g24 PDF fetch]** g29 幼稚園課程指引 132 chunks；g24 學校行政手冊 300 chunks（上限截斷）；直連 PDF URL 已更新至 source_registry
+  - ✅ **[Source Label UI]** `SOURCE_LABELS` map 加入 app.html；`getSourceLabel()` 替換全 UI 的 source_id 顯示（搜尋板式 / 候選列表 / Inspector）
+  - ✅ **[religious_edu_jss]** Google redirect URL 失效，改回 landing page，status 改為 candidate
+- **QC:** git push 78ce2ce ✅；Supabase 10,736 chunks confirmed；vault 120 sources 提取完成（8 skipped：scanned/SPA）
+- **Pending:** MemPalace sync（用戶執行）
+- **Next:** 1. 驗證 Channel B 搜尋質量（新增 g24/g29 chunks 後）；2. 考慮 g21/g22/g33 直連 PDF；3. 可開始新功能開發
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Supabase chunk count 大幅增加 | SESSION_HANDOFF.md knowledge state | ✓ Done |
+| Source label UI 改動 | SESSION_HANDOFF.md baseline | ✓ Done |
+| source_registry URL 更新 | SESSION_LOG 記錄 | ✓ Done |
+
+---
+
 ## 2026-05-01 Session 97 — v2.2.0 全平台視覺重設 + Hash Routing + Favicon
 
 - **ID:** Claude_20260501_0006

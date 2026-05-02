@@ -1,0 +1,18 @@
+# source_id: g25
+# title: 幼稚園相關指引及須知
+# fact_type: policy
+# topic_tags: general
+# url: https://www.edb.gov.hk/tc/edu-system/preprimary-kindergarten/about-preprimary-kindergarten/guidelines.html
+# source_type: html
+# extracted: 20260501
+# pipeline: expand_vault.py (auto)
+# ============================================================
+
+å¹¼ç¨åç¸éæå¼åé ç¥
+å­¸è²»æ¯ä»çæ¯åºé
+ç®æ¸
+å®
+å¹¼ç¨åãå¹¼ç¨åæ¨å¹¼å
+ä¸­å¿åè¨­æå¹¼ç¨åç­ç´çå­¸æ ¡(å¹¼ç¨å)å®è³£æè²ç¨ååæä¾æ¶è²»æåçæå¼
+ç³è«æ¶åè¶
+é¾æ ¸åä¸éå ±åè²»çå®æ

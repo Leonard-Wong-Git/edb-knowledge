@@ -3,7 +3,7 @@
 ## Current Baseline
 1. Version: **v2.2.0** (K1知識平台)
 2. Frontend: `index.html` K1 landing page (hero + features + CTA); `t-purchase.html` S3/S4/S5 draft flow; `q.html` local `knowledge.json` Quick Q&A; `app.html` full React SPA / management workspace.
-3. Knowledge state: **1,001 Channel A facts** (三層同步 ✅), **0 candidates in queue**, **wiki_index.json** 2,874 chunks / 125 MB; 2,822 in Supabase.
+3. Knowledge state: **1,001 Channel A facts** (三層同步 ✅), **0 candidates in queue**, **wiki_index.json** 12,906 chunks; **Supabase 10,736 chunks** (1,176 無 embedding skipped)。Vault: 120 sources 提取完成（8 skipped：scanned/SPA/無直連）。
 4. Backend: Node.js TypeScript backend all search APIs complete; **Channel A + B + A+B online at `https://edb-knowledge.onrender.com`**; rate limiting 10 req/min/IP (sliding window, in-memory).
 5. Channel A: 改用 backend semantic search + LLM synthesis（所有三個 channel 均有整理答案）；min_score A=0.1, B/AB=0.15；case-insensitive keyword fallback 已移除。
 6. Channel B topic filtering（Session 94 完成）：keyword → category → source allowlist → query expansion。採購/財務 → g01+g02+coa_imc（排 SAG）；HR/假期 → g04+g05+sag；課程 → 課程指引。g04 仍為 knowledge-based extract（非 PDF）。
@@ -114,30 +114,24 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Last Session Record
-1. UTC date: 2026-05-01
-2. Session ID: Claude_20260501_0006 (Session 97)
+1. UTC date: 2026-05-02
+2. Session ID: Claude_20260502_0002 (Session 99)
 3. Completed:
-   - ✅ **[全平台視覺重設]** EDB 深綠 nav（全4個HTML）、主題顏色系統 token、航班板式搜尋結果行列、字型層次優化、手機 sticky 搜尋欄、手機底部 tab bar
-   - ✅ **[index.html Landing Page]** 改寫為 K1知識平台 landing page（hero + 統計帶 + 功能卡 + 如何使用 + 角色網格 + CTA）；靜態數字，無 fetch 依賴
-   - ✅ **[Hash routing]** `app.html#guidelines` deep-link 啟動；所有 tab 按鈕改為 `switchView()`，更新 URL hash + 同步 scroll
-   - ✅ **[Favicon]** 全4個HTML加入 SVG favicon（深綠圓角方塊 + K1白字），bookmark 時顯示圖示
-   - ✅ **[Version bump]** `role_facts.json` v2.1.0 → v2.2.0
+   - ✅ **[版本號對齊]** README badge、footer、CHANGELOG v2.2.0 條目、knowledge.json、guidelines.json、app.html INITIAL_DATA 全部升至 v2.2.0
+   - ✅ **[平台介紹重寫]** PlatformIntroPanel 完整重設計：動態 stat 計數動畫（1,001/10,736/39/120）、互動式 Demo 展示（3個角色查詢示例/tabbed）、三大核心功能卡、連接步驟 how-it-works、更新 sources 深色面板
 4. Pending from this session (not yet done):
    - **Git commit + push**（用戶在 Terminal 執行）：
      ```
      cd ~/Downloads/Claude-edb-knowledge
-     git add index.html app.html q.html t-purchase.html role_facts.json dev/SESSION_HANDOFF.md dev/SESSION_LOG.md
-     git commit -m "feat: v2.2.0 — full platform visual redesign + hash routing + favicon"
+     git add -A
+     git commit -m "feat: v2.2.0 — version alignment + platform intro redesign with demo showcase"
      git push origin main
      ```
    - **MemPalace sync**：`python3 dev/mempalace_sync.py write`
-   - PDF vault fetch 未完成（Session 96 pending）：`python3 dev/vault/expand_vault.py --fetch --source-type pdf`
-   - g04 Supabase 更新：`SUPABASE_SERVICE_KEY=... python3 dev/update_g04_supabase.py`
 5. Next priorities (next session):
-   - 確認 GitHub Pages landing page 正確顯示（`https://leonard-wong-git.github.io/edb-knowledge/`）
-   - 確認 `app.html#guidelines` deep-link 在 GitHub Pages 正常運作
-   - PDF vault fetch + embed（若未完成）
-   - 驗證 Channel B 搜尋質量（vault 填充後）
+   - 驗證 GitHub Pages 平台介紹 tab 顯示正確（互動 demo tab 切換效果）
+   - 驗證 Channel B 搜尋質量（新增 g24/g29 chunks 後）
+   - 考慮 g21/g22/g33 直連 PDF（視覺藝術/科技/英文課程）
 6. Risks / blockers:
    - Render free tier cold start (~30s) after 15min inactivity
    - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`

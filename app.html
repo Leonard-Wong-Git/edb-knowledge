@@ -701,9 +701,9 @@ const makeKey = (topicId, roleId, index) => `${topicId}.${roleId}.${index}`;
 // Draft indices: facts pending user review. All 32 approved by user on 2026-03-17.
 const INITIAL_DATA = {
   "_meta": {
-    "version": "2.1.2",
+    "version": "2.2.0",
     "created": "2026-04-04",
-    "updated": "2026-04-18",
+    "updated": "2026-05-02",
     "description": "EDB 學校管理知識庫 — 供 EDB 通告智能分析系統注入 LLM prompt 使用。1,001 事實全部 approved（Session 79 合併 408 候選，由 109 增至 1,001）。契約版本 v2.0.0：角色拆分為 subject_head（科主任）與 panel_chair（各統籌主任），不再使用 department_head。各 topic block 可附帶 `_source_refs` 作來源追溯 metadata。"
   },
   "finance": {
@@ -2894,102 +2894,285 @@ function GuidelinesPanel({ setPreviewDoc }) {
 
 // ── Platform Intro Panel ──
 function PlatformIntroPanel({ stats }) {
-  const features = [
-    { tag: '來源文件搜尋', icon: '🔍', title: '語義搜尋 + 來源摘要', desc: '以自然語言提問，從 EDB 文件庫檢索相關段落，整理簡潔回答並附原始來源 URL。', dark: true },
-    { tag: '已核實事實', icon: '👤', title: '人工審核知識庫', desc: '候選事實經管理員審批及行內編輯後，才進入正式知識庫。每條知識保留人手把關。', dark: false },
-    { tag: '來源文件庫', icon: '📚', title: '文件段落索引', desc: '與已核實事實共用來源，涵蓋規定、指引、程序及合規風險等資料；與通告分析接入暫停，待質素測試後決定。', dark: false },
-    { tag: '通告分析', icon: '📄', title: 'EDB 通告分析', desc: '貼入 EDB 通告原文，偵測相關主題，並按角色整理合規跟進建議。', dark: false },
-    { tag: '指引文件庫', icon: '📑', title: '39 份 EDB 官方指引', desc: '涵蓋財務採購、人力資源、課程、學生事務、資訊科技等範疇，附直達 PDF 連結。', dark: false },
-    { tag: '統計知識', icon: '📊', title: 'EDB 教育統計', desc: '26 個自動核准統計事實，涵蓋幼稚園至特殊教育（2024/25–2025/26）。', dark: false },
+  const [demoTab, setDemoTab] = React.useState(0);
+  const [demoVisible, setDemoVisible] = React.useState(false);
+  const [counts, setCounts] = React.useState([0, 0, 0, 0]);
+
+  // Animate stat counters on mount
+  const statTargets = [
+    stats.approvedCount || 1001,
+    10736,
+    39,
+    120,
   ];
+  React.useEffect(() => {
+    const duration = 900;
+    const steps = 40;
+    const interval = duration / steps;
+    let step = 0;
+    const timer = setInterval(() => {
+      step++;
+      const progress = step / steps;
+      const ease = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      setCounts(statTargets.map(t => Math.round(t * ease)));
+      if (step >= steps) clearInterval(timer);
+    }, interval);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Animate demo result on tab change
+  React.useEffect(() => {
+    setDemoVisible(false);
+    const t = setTimeout(() => setDemoVisible(true), 120);
+    return () => clearTimeout(t);
+  }, [demoTab]);
+
+  const demoQueries = [
+    {
+      role: '校長',
+      query: '教師年假有多少天？',
+      answer: '根據《學校行政手冊》第3.1.2節，公營學校教師的年假為學校假期，即暑假、聖誕假及農曆新年假期，全年合共約70至80天。正式假期以教育局每年公布的學校假期時間表為準。',
+      source: '學校行政手冊（SAG）2025年11月版',
+      sourceUrl: 'https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/sag_c.pdf',
+      tags: ['人力資源', '假期'],
+    },
+    {
+      role: '文書主任',
+      query: '學校購買儀器需要邀請幾份報價？',
+      answer: '根據《資助則例》第XII章，購買金額 $5,000 至 $50,000 的儀器，須邀請至少三份書面報價；$50,000 以上須採用公開招標或邀請投標程序，並由採購委員會審批。',
+      source: '資助則例（Code of Aid）2024年版',
+      sourceUrl: 'https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf',
+      tags: ['採購', '財務'],
+    },
+    {
+      role: '課程主任',
+      query: '中學中文科課程有哪些學習範疇？',
+      answer: '根據《中學中國語文課程及評估指引》，中文科設六個學習範疇：閱讀、寫作、聆聽、說話、文學、中華文化。各範疇互相緊扣，課程設計應整合語文知識與文化素養。',
+      source: '中學中國語文課程及評估指引（2007）',
+      sourceUrl: 'https://www.edb.gov.hk',
+      tags: ['課程', '中學'],
+    },
+  ];
+
+  const demo = demoQueries[demoTab];
+
+  const channels = [
+    {
+      icon: '🔍',
+      title: '語義搜尋',
+      subtitle: 'Channel A + B 合併',
+      desc: '自然語言提問，從 1,001 條已核實事實及 10,736 個文件片段中語義檢索，LLM 整理回答並附原始來源 URL。',
+      badge: '核心功能',
+      dark: true,
+    },
+    {
+      icon: '📚',
+      title: '指引文件庫',
+      subtitle: '39 份 EDB 官方指引',
+      desc: '涵蓋財務採購、人力資源、課程、學生事務、資訊科技等範疇，按類別及年份排序，附直達 PDF 連結。',
+      badge: '快速查閱',
+      dark: false,
+    },
+    {
+      icon: '✍️',
+      title: '知識提煉',
+      subtitle: '管理員審批流程',
+      desc: '候選事實由 AI 草擬，管理員行內審批及編輯後方進入正式知識庫，確保每條事實有人手把關。',
+      badge: '品質保證',
+      dark: false,
+    },
+  ];
+
   const steps = [
-    { n: '01', title: '自然語言提問', desc: '以中文直接輸入問題，無需先掌握精確關鍵詞或文件編號。' },
-    { n: '02', title: '語義檢索相關段落', desc: '預計算向量索引在毫秒內找出最相關的 EDB 文件段落，精準而節省運算資源。' },
-    { n: '03', title: '整理回答＋來源引用', desc: '整理精簡回答，附 EDB 原始文件標題及直達 URL，讓你核實每個細節。' },
+    { n: '1', icon: '💬', title: '自然語言提問', desc: '以中文直接輸入問題，無需記住文件編號或精確關鍵詞。' },
+    { n: '2', icon: '⚡', title: '向量語義檢索', desc: '預計算 embedding 索引即時找出最相關的 EDB 文件段落，覆蓋 120 份來源。' },
+    { n: '3', icon: '📋', title: '整理回答＋引用', desc: '整合多個段落，整理精簡回答，並附原始文件標題及直達 URL。' },
   ];
-  const sources = [
-    { icon: '📗', name: '學校行政手冊（SAG）', type: '2025年11月版 · 跨階段 · PDF' },
-    { icon: '📘', name: '資助則例（Code of Aid）', type: '2024年版 · 跨階段 · PDF' },
-    { icon: '📄', name: 'EDB 通告及通函', type: '2020–2025 年 · 跨階段' },
-    { icon: '📊', name: 'EDB 教育統計數字（2024/25）', type: '幼稚園至特殊教育 · Excel' },
-    { icon: '📑', name: '各 KLA 課程指引', type: '2015–2025 年 · 21 個 PDF' },
+
+  const sourceGroups = [
+    { icon: '📗', name: '學校行政手冊（SAG）', meta: '2025年11月 · 跨階段' },
+    { icon: '📘', name: '資助則例（Code of Aid）', meta: '2024年 · 跨階段' },
+    { icon: '📑', name: '各 KLA 課程指引', meta: '2015–2025 · 21份' },
+    { icon: '📄', name: 'EDB 通告及通函', meta: '2020–2025 · 多份' },
+    { icon: '📊', name: 'EDB 教育統計', meta: '2024/25 · Excel' },
+    { icon: '📋', name: '採購 / 財務指引', meta: '現行版本 · PDF' },
   ];
+
   const statItems = [
-    { num: (stats.approvedCount || 0) + '+', label: '已核實政策事實' },
-    { num: '2,874', label: '可搜尋知識片段' },
-    { num: '39', label: 'EDB 官方指引文件' },
-    { num: '7', label: '知識主題範疇' },
+    { num: counts[0].toLocaleString(), label: '已核實政策事實', sub: 'Channel A 人工審核' },
+    { num: counts[1].toLocaleString(), label: '可搜尋知識片段', sub: 'Channel B 向量索引' },
+    { num: counts[2].toLocaleString(), label: 'EDB 官方指引', sub: '直達 PDF 連結' },
+    { num: counts[3].toLocaleString(), label: '已處理來源文件', sub: '涵蓋 120 份官方文件' },
   ];
+
   return (
     <div style={{maxWidth:'960px',margin:'0 auto',padding:'var(--space-lg) var(--space-md)'}}>
-      {/* Hero */}
-      <div style={{textAlign:'center',marginBottom:'var(--space-lg)'}}>
-        <p style={{fontSize:'var(--text-sm)',color:'var(--mocha)',fontWeight:700,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'12px'}}>
-          K1知識平台 · 香港學校管治
-        </p>
-        <h1 style={{fontSize:'clamp(2rem,5vw,3.2rem)',fontWeight:900,color:'var(--charcoal)',letterSpacing:'-0.03em',lineHeight:1.15,marginBottom:'16px'}}>
-          問一句，得到<em style={{color:'var(--mocha)',fontStyle:'normal'}}>有根有據</em>的答案。
+
+      {/* ── Hero ── */}
+      <div style={{textAlign:'center',marginBottom:'40px'}}>
+        <div style={{display:'inline-flex',alignItems:'center',gap:'8px',padding:'4px 14px',background:'var(--cd-warm)',border:'1px solid var(--border)',borderRadius:'999px',marginBottom:'20px'}}>
+          <span style={{width:'7px',height:'7px',borderRadius:'50%',background:'var(--mocha)',display:'inline-block',flexShrink:0}}></span>
+          <span style={{fontSize:'0.72rem',fontWeight:700,color:'var(--mocha)',letterSpacing:'0.08em',textTransform:'uppercase'}}>K1知識平台 v2.2.0 · 香港學校管治</span>
+        </div>
+        <h1 style={{fontSize:'clamp(1.9rem,5vw,3rem)',fontWeight:900,color:'var(--charcoal)',letterSpacing:'-0.025em',lineHeight:1.15,marginBottom:'16px'}}>
+          問一句，秒找<br/>
+          <em style={{color:'var(--mocha)',fontStyle:'normal'}}>有根有據</em>的 EDB 政策答案
         </h1>
-        <p style={{fontSize:'var(--text-lg)',color:'var(--mid)',maxWidth:'520px',margin:'0 auto 24px',lineHeight:1.6}}>
-          以自然語言查詢教育局政策、通告及指引。平台會整理相關答案，並附上 EDB 原始來源連結。
+        <p style={{fontSize:'var(--text-base)',color:'var(--mid)',maxWidth:'480px',margin:'0 auto',lineHeight:1.7}}>
+          以自然語言查詢教育局政策、通告及指引，平台從官方文件中語義檢索，整理回答並附原始來源連結。
         </p>
-        <div style={{display:'flex',justifyContent:'center',gap:'12px',flexWrap:'wrap',marginTop:'24px'}}>
-          {statItems.map(({num,label}) => (
-            <div key={label} style={{textAlign:'center',padding:'12px 20px',background:'var(--cd-warm)',borderRadius:'var(--r-md)',border:'1px solid var(--border)',minWidth:'110px'}}>
-              <div style={{fontSize:'1.7rem',fontWeight:900,color:'var(--charcoal)'}}>{num}</div>
-              <div style={{fontSize:'var(--text-sm)',color:'var(--mid)'}}>{label}</div>
+      </div>
+
+      {/* ── Stat strip ── */}
+      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(180px,1fr))',gap:'10px',marginBottom:'40px'}}>
+        {statItems.map(({num,label,sub}) => (
+          <div key={label} style={{textAlign:'center',padding:'18px 12px',background:'var(--cd-warm)',borderRadius:'var(--r-md)',border:'1px solid var(--border)'}}>
+            <div style={{fontSize:'1.8rem',fontWeight:900,color:'var(--charcoal)',letterSpacing:'-0.02em',lineHeight:1}}>{num}</div>
+            <div style={{fontSize:'var(--text-sm)',fontWeight:700,color:'var(--charcoal)',margin:'6px 0 2px'}}>{label}</div>
+            <div style={{fontSize:'0.7rem',color:'var(--mid)',letterSpacing:'0.01em'}}>{sub}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Interactive Demo ── */}
+      <div style={{marginBottom:'40px'}}>
+        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:'12px',marginBottom:'16px'}}>
+          <div>
+            <p style={{fontSize:'0.7rem',fontWeight:700,color:'var(--mocha)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'4px'}}>實際示範</p>
+            <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,color:'var(--charcoal)'}}>搜尋效果預覽</h2>
+          </div>
+          <div style={{display:'flex',gap:'6px',flexWrap:'wrap'}}>
+            {demoQueries.map((q,i) => (
+              <button key={i} onClick={() => setDemoTab(i)}
+                style={{padding:'6px 14px',borderRadius:'999px',border:'1px solid var(--border)',
+                  background: demoTab===i ? 'var(--charcoal)' : 'var(--cd-warm)',
+                  color: demoTab===i ? 'var(--cd)' : 'var(--mid)',
+                  fontSize:'var(--text-sm)',fontWeight:600,cursor:'pointer',fontFamily:'inherit',
+                  transition:'all 0.15s ease',letterSpacing:'0.02em'}}>
+                {q.role}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Query bar (static display) */}
+        <div style={{display:'flex',alignItems:'center',gap:'10px',padding:'12px 16px',
+          background:'white',borderRadius:'var(--r-md)',border:'2px solid var(--charcoal)',
+          marginBottom:'12px',boxShadow:'0 2px 8px rgba(0,0,0,0.06)'}}>
+          <span style={{fontSize:'1rem',opacity:0.4}}>🔍</span>
+          <span style={{fontSize:'var(--text-base)',color:'var(--charcoal)',fontWeight:500,flex:1}}>{demo.query}</span>
+          <span style={{padding:'3px 10px',background:'var(--charcoal)',color:'var(--cd)',borderRadius:'var(--r-sm)',fontSize:'0.7rem',fontWeight:700,letterSpacing:'0.05em',flexShrink:0}}>搜尋</span>
+        </div>
+
+        {/* Result card */}
+        <div style={{
+          padding:'20px 22px',borderRadius:'var(--r-md)',
+          background:'var(--cd-warm)',border:'1px solid var(--border)',
+          opacity: demoVisible ? 1 : 0,
+          transform: demoVisible ? 'translateY(0)' : 'translateY(8px)',
+          transition:'opacity 0.25s ease, transform 0.25s ease',
+        }}>
+          <div style={{display:'flex',alignItems:'center',gap:'8px',marginBottom:'12px',flexWrap:'wrap'}}>
+            {demo.tags.map(t => (
+              <span key={t} style={{padding:'2px 8px',background:'var(--charcoal)',color:'var(--cd)',borderRadius:'var(--r-sm)',fontSize:'0.68rem',fontWeight:700,letterSpacing:'0.05em'}}>{t}</span>
+            ))}
+            <span style={{fontSize:'0.7rem',color:'var(--mid)',marginLeft:'auto',letterSpacing:'0.01em'}}>Channel A + B 合併</span>
+          </div>
+          <p style={{fontSize:'var(--text-sm)',color:'var(--charcoal)',lineHeight:1.75,marginBottom:'16px'}}>{demo.answer}</p>
+          <div style={{display:'flex',alignItems:'center',gap:'8px',padding:'10px 14px',
+            background:'white',borderRadius:'var(--r-sm)',border:'1px solid var(--border)'}}>
+            <span style={{fontSize:'1rem',flexShrink:0}}>📄</span>
+            <div style={{flex:1,minWidth:0}}>
+              <div style={{fontSize:'var(--text-sm)',fontWeight:600,color:'var(--charcoal)',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{demo.source}</div>
+              <div style={{fontSize:'0.7rem',color:'var(--mocha)',marginTop:'1px'}}>EDB 官方文件 · 附原始 URL</div>
+            </div>
+            <span style={{fontSize:'0.7rem',fontWeight:700,color:'var(--mocha)',flexShrink:0,letterSpacing:'0.02em'}}>查看來源 →</span>
+          </div>
+        </div>
+        <p style={{fontSize:'0.7rem',color:'var(--mid)',marginTop:'8px',textAlign:'right',letterSpacing:'0.01em'}}>以上為示範效果，實際搜尋結果視乎查詢内容而定</p>
+      </div>
+
+      {/* ── 3 Channels ── */}
+      <div style={{marginBottom:'40px'}}>
+        <p style={{fontSize:'0.7rem',fontWeight:700,color:'var(--mocha)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'4px'}}>平台功能</p>
+        <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,color:'var(--charcoal)',marginBottom:'16px'}}>三大核心功能</h2>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(260px,1fr))',gap:'12px'}}>
+          {channels.map((c,i) => (
+            <div key={i} style={{padding:'22px',borderRadius:'var(--r-md)',
+              background:c.dark?'var(--charcoal)':'var(--cd-warm)',
+              border:`1px solid ${c.dark?'transparent':'var(--border)'}`,
+            }}>
+              <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'14px'}}>
+                <span style={{fontSize:'1.5rem'}}>{c.icon}</span>
+                <span style={{padding:'3px 10px',borderRadius:'999px',fontSize:'0.68rem',fontWeight:700,letterSpacing:'0.05em',
+                  background:c.dark?'rgba(240,238,233,0.12)':'white',
+                  color:c.dark?'var(--cd)':'var(--mocha)',
+                  border:`1px solid ${c.dark?'rgba(240,238,233,0.15)':'var(--border)'}`
+                }}>{c.badge}</span>
+              </div>
+              <h3 style={{fontSize:'var(--text-base)',fontWeight:800,color:c.dark?'var(--cd)':'var(--charcoal)',marginBottom:'3px'}}>{c.title}</h3>
+              <p style={{fontSize:'0.72rem',fontWeight:600,color:c.dark?'var(--mocha-lt)':'var(--mocha)',marginBottom:'10px',letterSpacing:'0.02em'}}>{c.subtitle}</p>
+              <p style={{fontSize:'var(--text-sm)',color:c.dark?'rgba(240,238,233,0.65)':'var(--mid)',lineHeight:1.65}}>{c.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Bento features */}
-      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(280px,1fr))',gap:'14px',marginBottom:'var(--space-lg)'}}>
-        {features.map((f,i) => (
-          <div key={i} style={{
-            padding:'22px',borderRadius:'var(--r-md)',
-            background:f.dark?'var(--charcoal)':'var(--cd-warm)',
-            border:`1px solid ${f.dark?'transparent':'var(--border)'}`,
-          }}>
-            <span style={{fontSize:'var(--text-sm)',fontWeight:700,color:f.dark?'var(--mocha-lt)':'var(--mocha)',letterSpacing:'0.05em'}}>{f.tag}</span>
-            <div style={{fontSize:'1.6rem',margin:'10px 0 8px'}}>{f.icon}</div>
-            <h3 style={{fontWeight:700,marginBottom:'8px',color:f.dark?'var(--cd)':'var(--charcoal)',fontSize:'var(--text-base)'}}>{f.title}</h3>
-            <p style={{fontSize:'var(--text-sm)',color:f.dark?'rgba(240,238,233,0.65)':'var(--mid)',lineHeight:1.6}}>{f.desc}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* How it works */}
-      <div style={{marginBottom:'var(--space-lg)'}}>
-        <p style={{fontSize:'var(--text-sm)',color:'var(--mocha)',fontWeight:700,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'6px'}}>運作原理</p>
+      {/* ── How it works ── */}
+      <div style={{marginBottom:'40px'}}>
+        <p style={{fontSize:'0.7rem',fontWeight:700,color:'var(--mocha)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'4px'}}>運作原理</p>
         <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,color:'var(--charcoal)',marginBottom:'20px'}}>三步取得有根有據的答案</h2>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(200px,1fr))',gap:'14px'}}>
-          {steps.map(s => (
-            <div key={s.n} style={{padding:'20px',background:'var(--cd-warm)',borderRadius:'var(--r-md)',border:'1px solid var(--border)'}}>
-              <div style={{fontSize:'2rem',fontWeight:900,color:'var(--border)',marginBottom:'8px'}}>{s.n}</div>
-              <h3 style={{fontWeight:700,marginBottom:'8px',fontSize:'var(--text-base)'}}>{s.title}</h3>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))',gap:'0',position:'relative'}}>
+          {steps.map((s,i) => (
+            <div key={s.n} style={{padding:'22px',borderRadius:'var(--r-md)',
+              background:'var(--cd-warm)',border:'1px solid var(--border)',
+              position:'relative',
+              borderLeft: i>0 ? 'none' : '1px solid var(--border)',
+              borderRadius: i===0?'var(--r-md) 0 0 var(--r-md)':i===steps.length-1?'0 var(--r-md) var(--r-md) 0':'0',
+            }}>
+              <div style={{display:'flex',alignItems:'center',gap:'10px',marginBottom:'12px'}}>
+                <div style={{width:'28px',height:'28px',borderRadius:'50%',background:'var(--charcoal)',color:'var(--cd)',
+                  display:'flex',alignItems:'center',justifyContent:'center',fontSize:'0.75rem',fontWeight:900,flexShrink:0}}>
+                  {s.n}
+                </div>
+                <span style={{fontSize:'1.2rem'}}>{s.icon}</span>
+              </div>
+              <h3 style={{fontSize:'var(--text-sm)',fontWeight:800,color:'var(--charcoal)',marginBottom:'6px'}}>{s.title}</h3>
               <p style={{fontSize:'var(--text-sm)',color:'var(--mid)',lineHeight:1.6}}>{s.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Sources */}
-      <div style={{background:'var(--charcoal)',borderRadius:'var(--r-lg)',padding:'var(--space-md)',color:'var(--cd)'}}>
-        <p style={{fontSize:'var(--text-sm)',fontWeight:700,color:'var(--mocha-lt)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'6px'}}>知識來源</p>
-        <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,marginBottom:'18px'}}>全部來自 EDB 官方文件</h2>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(230px,1fr))',gap:'10px'}}>
-          {sources.map(s => (
-            <div key={s.name} style={{display:'flex',alignItems:'flex-start',gap:'12px',padding:'12px',background:'rgba(240,238,233,0.07)',borderRadius:'var(--r-sm)',border:'1px solid rgba(240,238,233,0.1)'}}>
-              <span style={{fontSize:'1.3rem',flexShrink:0}}>{s.icon}</span>
+      {/* ── Sources dark panel ── */}
+      <div style={{background:'var(--charcoal)',borderRadius:'var(--r-lg)',padding:'28px 24px',color:'var(--cd)'}}>
+        <div style={{display:'flex',alignItems:'flex-start',justifyContent:'space-between',flexWrap:'wrap',gap:'16px',marginBottom:'20px'}}>
+          <div>
+            <p style={{fontSize:'0.7rem',fontWeight:700,color:'var(--mocha-lt)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'4px'}}>知識來源</p>
+            <h2 style={{fontSize:'var(--text-xl)',fontWeight:800}}>全部來自 EDB 官方文件</h2>
+          </div>
+          <div style={{textAlign:'right'}}>
+            <div style={{fontSize:'1.6rem',fontWeight:900,color:'var(--cd)',letterSpacing:'-0.02em'}}>120</div>
+            <div style={{fontSize:'0.72rem',color:'rgba(240,238,233,0.5)',letterSpacing:'0.01em'}}>份已處理來源文件</div>
+          </div>
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))',gap:'8px',marginBottom:'20px'}}>
+          {sourceGroups.map(s => (
+            <div key={s.name} style={{display:'flex',alignItems:'center',gap:'10px',padding:'11px 14px',
+              background:'rgba(240,238,233,0.07)',borderRadius:'var(--r-sm)',border:'1px solid rgba(240,238,233,0.1)'}}>
+              <span style={{fontSize:'1.1rem',flexShrink:0}}>{s.icon}</span>
               <div>
-                <div style={{fontSize:'var(--text-sm)',fontWeight:600,marginBottom:'2px'}}>{s.name}</div>
-                <div style={{fontSize:'0.72rem',color:'rgba(240,238,233,0.45)'}}>{s.type}</div>
+                <div style={{fontSize:'var(--text-sm)',fontWeight:600,lineHeight:1.3}}>{s.name}</div>
+                <div style={{fontSize:'0.68rem',color:'rgba(240,238,233,0.4)',marginTop:'1px',letterSpacing:'0.01em'}}>{s.meta}</div>
               </div>
             </div>
           ))}
         </div>
+        <div style={{padding:'14px 16px',background:'rgba(240,238,233,0.06)',borderRadius:'var(--r-sm)',border:'1px solid rgba(240,238,233,0.1)',fontSize:'var(--text-sm)',color:'rgba(240,238,233,0.55)',lineHeight:1.7}}>
+          ⚠️ 本平台為輔助查閱工具，所有回答均附原始文件連結，請以 EDB 官方文件為準。
+        </div>
       </div>
+
     </div>
   );
 }

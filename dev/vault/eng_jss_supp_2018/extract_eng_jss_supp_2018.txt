@@ -1,0 +1,3975 @@
+# source_id: eng_jss_supp_2018
+# title: 英國語文課程指引補充（中一至中三）（2018）
+# fact_type: policy
+# topic_tags: curriculum
+# url: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/ELE%20JS%20Supplement%202018.pdf
+# source_type: pdf
+# extracted: 20260501
+# pipeline: expand_vault.py (auto)
+# ============================================================
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Blank Page) 
+
+ 
+ 
+Preamble 
+ 
+The Supplement to the English Language Education Key Learning Area Curriculum Guide 
+(Secondary 1 — 3) (2018) (this Supplement) is prepared by the Curriculum Development 
+Council (CDC) Committee on English Language Education. It is a supplement to the 
+English Language Education Key Learning Area Curriculum Guide (Primary 1 — 
+Secondary 
+6) 
+(2017) 
+(the 
+ELE 
+KLA 
+Curriculum 
+Guide 
+2017) 
+(http://www.edb.gov.hk/elecg) aiming at providing teachers with further suggestions on 
+the implementation of the English Language curriculum at Key Stage 3 (Secondary 1 — 
+3).  When planning the junior secondary English Language curriculum, schools should 
+make reference to the ELE KLA Curriculum Guide 2017 for an overall picture of the 
+curriculum framework and curriculum planning, the guiding principles of and approaches 
+to learning, teaching and assessment practices, and the use and management of learning 
+and teaching resources. 
+ 
+In preparing this Supplement, the CDC Committee on English Language Education has 
+taken into consideration the concerns, needs and suggestions of various key stakeholders 
+including schools, principals and teachers. Views on the major updates gathered from the 
+series of school briefing cum feedback collection sessions, the territory-wide school survey 
+conducted in 2015, school visits and focus group interviews with teachers conducted 
+between 2016 and 2018 are also incorporated. 
+ 
+This Supplement revisits curriculum emphases provided in the Syllabus for English 
+Language (Secondary 1 — 5) (1999) for renewal and puts forth new emphases to reflect 
+the changing contexts. It provides details about promoting Language across the Curriculum 
+at the secondary level, the learning and teaching of language arts and the four language 
+skills, namely listening, speaking, reading and writing in regard to the major updates of the 
+English Language Education curriculum, with particular emphasis placed on the use of e-
+resources to promote effective learning and teaching. The four language skills are 
+interrelated and interdependent, and real-life communication usually involves the use of 
+more than one language skill. Hence, opportunities should be provided for students to learn 
+and exercise the integrated use of the language skills for authentic and purposeful 
+communication through the use of tasks. However, for the sake of clarity and simplicity, 
+the four language skills are presented separately in this Supplement. Teachers can refer to 
+the Examples (http://www.edb.gov.hk/eleklacgexamples) developed to support the ELE 
+KLA Curriculum Guide 2017 for suggestions on the integrated use of language skills and 
+other areas covered in this Supplement.  
+
+ 
+ 
+ 
+Schools are strongly advised to read this Supplement in conjunction with the ELE KLA 
+Curriculum Guide 2017 and encouraged to adopt the recommendations in this Supplement 
+to promote effective learning, teaching and assessment at the junior secondary level taking 
+into account the school contexts, teachers’ readiness and learning needs of their students. 
+ 
+Views and suggestions on this Supplement may be sent to: 
+ 
+Chief Curriculum Development Officer (English) 
+Curriculum Development Institute 
+Education Bureau 
+Rm 1206, 12/F, Wu Chung House 
+213 Queen’s Road East 
+Wan Chai, Hong Kong 
+ 
+Fax:   2834 7810 
+E-mail: english@edb.gov.hk 
+ 
+
+ 
+ 
+Contents 
+ 
+Preamble 
+ 
+ 
+Chapter 1 
+The Learning and Teaching of Listening 
+3 
+ 
+1.1 
+Importance of Listening 
+3 
+ 
+1.2 
+Effective Listening Skills 
+3 
+ 
+1.3 
+Role of the Teacher 
+4 
+ 
+1.4 
+Choice of Listening Materials 
+5 
+ 
+1.5 
+Activities to Develop Listening Skills 
+6 
+ 
+1.6 
+Task-based Listening Activities 
+10 
+ 
+Chapter 2 
+The Learning and Teaching of Speaking 
+15 
+ 
+2.1 
+Importance of Speaking 
+15 
+ 
+2.2 
+Effective Speaking Skills 
+16 
+ 
+2.3 
+Role of the Teacher 
+17 
+ 
+2.4 
+Choice of Speaking Activities 
+20 
+ 
+2.5 
+Task-based Speaking Activities 
+22 
+ 
+2.6 
+Conducting Speaking Activities 
+24 
+ 
+Chapter 3 
+The Learning and Teaching of Reading 
+29 
+ 
+3.1 
+Importance of Reading 
+29 
+ 
+3.2 
+Effective Reading Skills  
+30 
+ 
+3.3 
+Role of the Teacher 
+31 
+ 
+3.4 
+Choice of Reading Materials 
+33 
+ 
+3.5 
+Task-based Reading Activities 
+34 
+ 
+3.6 
+Conducting a Reading Task 
+34 
+ 
+3.7 
+Intensive and Extensive Reading 
+45 
+ 
+3.8 
+Reading across the Curriculum 
+46 
+ 
+ 
+ 
+
+ 
+ 
+Chapter 4 
+The Learning and Teaching of Writing 
+49 
+ 
+4.1  Importance of Writing 
+49 
+ 
+4.2  Effective Writing Skills 
+50 
+ 
+4.3  Role of the Teacher 
+51 
+ 
+4.4  Choice of Instructional Materials 
+52 
+ 
+4.5  Activities for Developing Students’ Writing Skills 
+52 
+ 
+4.6  Evaluating Student Writing 
+62 
+ 
+4.7  Time Constraints 
+63 
+ 
+4.8  Use of Group Activities 
+64 
+ 
+4.9  Writing across the Curriculum 
+65 
+ 
+Chapter 5 
+The Learning and Teaching of Language Arts 
+69 
+ 
+5.1 
+The Place of Language Arts in the English Language 
+Curriculum 
+69 
+ 
+5.2 
+Reasons for Using Language Arts Materials in the English 
+Language Curriculum 
+70 
+ 
+5.3 
+Choice of Language Arts Materials 
+71 
+ 
+5.4 
+Planning and Designing Activities Using Language Arts 
+Materials 
+73 
+ 
+5.5 
+Suggested Activities for Using Language Arts Materials 
+75 
+ 
+Chapter 6 
+Promoting Language across the Curriculum at Secondary Level
+79 
+ 
+6.1 
+Challenges for Secondary School Students in Learning  
+English and Learning through English 
+79 
+ 
+6.2  Language across the Curriculum (LaC) 
+80 
+ 
+ 
+6.2.1 
+Strategies to Promote LaC 
+80 
+ 
+ 
+6.2.2 
+Rhetorical Functions, Text Structures and  
+Language Items Typical of Academic Texts 
+83 
+ 
+6.3  The Implementation of LaC 
+85 
+ 
+6.4  Teachers’ Role in Implementing LaC 
+86 
+ 
+Bibliography  
+ 
+ 
+ 
+ 
+Membership of the Curriculum Development Council Committee on 
+English Language Education 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Blank Page) 
+ 
+
+ 
+3 
+ 
+Chapter 1  The Learning and Teaching of Listening 
+ 
+1.1 Importance of Listening 
+ 
+Effective listening skills are essential for successful interpersonal communication, 
+whether in work or study situations or socialising with English-speaking people. Good 
+listening skills are also required for leisure and entertainment (e.g. listening to radio 
+programmes in English, watching videos, TV and films in English). At the secondary 
+level, students need adequate listening ability for academic and intellectual purposes 
+not only in English lessons, but also in lessons of non-language subjects where English 
+is the medium of instruction.  
+ 
+In the process of listening, one has to activate various types of knowledge, for example, 
+knowledge of a topic or the culture, in order to construct one’s own interpretation of 
+what has been said. It also requires the activation of contextual information, which 
+includes the physical setting, the number of listeners/speakers, their roles, and their 
+relationship to each other. In other words, the listener interprets what has been said, 
+constructs meaning, and responds on the basis of that interpretation. Strategic listeners 
+also use metacognitive strategies to identify the listening goals, plan for the listening 
+skills to use, monitor their comprehension and evaluate the effectiveness of the skills 
+used. 
+ 
+1.2 Effective Listening Skills 
+ 
+At the primary level, students have developed basic skills for effective listening. For 
+details, please refer to Appendix 5 of the English Language Education Key Learning 
+Area 
+Curriculum 
+Guide 
+(Primary 
+1 
+– 
+Secondary 
+6) 
+(2017) 
+(http://www.edb.gov.hk/elecg). At the junior secondary level, the listening skills to be 
+developed include skills for listening for intended meanings, feelings and attitudes. In 
+order to do so, students need to learn to: 
+ 
+identify key ideas in a passage, discussion or conversation; 
+ 
+extract information and ideas in spoken texts; 
+ 
+identify the sequence of events, causes and effects; 
+ 
+ 
+
+ 
+4 
+ 
+ 
+understand levels of formality and informality; 
+ 
+discriminate between different intonation for various feelings and attitudes; and 
+ 
+make connections between ideas and information with the help of discourse 
+markers. 
+Teachers can make reference to the Learning Progression Framework (LPF) for English 
+Language (Listening Skills) (http://www.edb.gov.hk/lpfel_listening) when planning 
+and developing listening tasks for the learning-teaching-assessment cycle. The LPF 
+serves as a useful tool for providing clear descriptions of students’ performance and 
+progress along the developmental continuum of learning English from Primary 1 to 
+Secondary 6, and enables teachers to plan holistically in developing students’ listening 
+skills progressively.  
+ 
+1.3 Role of the Teacher 
+ 
+To enhance students’ listening abilities, teachers need to: 
+ 
+select a wide range of spoken texts of appropriate lengths and topics which 
+incorporate a variety of language features (e.g. formal or informal, spoken slowly 
+or quickly), integrating multimedia resources where necessary. They can include 
+authentic texts (e.g. radio programmes, audio books, videos), which can be 
+gradually introduced to familiarise students with the characteristics of spoken 
+English (e.g. overlapping turns, hesitations, redundancy);  
+ 
+build students’ confidence by providing learning experiences and activities in 
+which students can gain a sense of achievement;  
+ 
+encourage students to make use of information technology to gain quick and easy 
+access to a variety of listening materials to maximise their listening input;  
+ 
+help students develop good listening habits, which include:  
+ 
+being attentive; 
+ 
+activating prior knowledge of a topic and the culture or the context of the 
+spoken discourse; 
+ 
+anticipating the possible development of the spoken discourse; 
+ 
+listening to important words instead of every word that is spoken; 
+ 
+being selective while listening (e.g. discriminating between relevant 
+information and irrelevant information, between main ideas and supporting 
+ideas, based on the context or task requirements); 
+
+ 
+5 
+ 
+ 
+paying attention to the intonation to understand a person’s feelings and     
+attitudes; and 
+ 
+identifying the implied meaning of a message, which is very often the 
+speaker’s real intent, instead of interpreting the surface meaning. 
+ 
+explain to students what listening entails and how they might approach it. Teachers 
+can make listening meaningful for students by providing tasks which are as 
+realistic as possible;  
+ 
+consider the interplay between tasks and texts when designing tasks for students 
+to demonstrate their understanding of the texts. Task demand increases with text 
+complexity as students progress in listening skills development. To cater for 
+learner diversity, simple tasks can be included for complex texts while more 
+challenging tasks can be designed for simple texts. It is crucial to select or design 
+texts and tasks with care to ensure that they are appropriate to the skills being 
+targeted; and 
+ 
+support the development of metacognitive strategies to facilitate self-directed 
+learning and promote learner independence. Teachers can help deepen students’ 
+understanding of the demands and process of listening by demonstrating the ways 
+they construct their understanding of the listening texts through think-aloud 
+techniques. Teachers can also make it explicit when and how to apply the 
+metacognitive strategies, such as planning for the listening skills to use, verifying 
+guesses, monitoring comprehension and evaluating the effectiveness of the 
+selected skills, to focus students’ attention on the listening process and help them 
+integrate them into the listening activities.  
+ 
+1.4 Choice of Listening Materials 
+ 
+Students should be exposed to as wide a variety of authentic spoken English as possible 
+if they are to understand spoken English as it occurs in the real world, not just classroom 
+English specially developed for teaching. As such, apart from engaging students in 
+listening activities based on classroom spoken discourse, authentic listening materials 
+should be used as much as possible in order to prepare students for listening in real-life 
+situations and to help them become familiar with the characteristics of natural speech 
+like false starts, hesitations, pauses, variations in pitch, increase or decrease in volume, 
+quickening or slackening in pace, different accents, and so on.  
+ 
+ 
+ 
+
+ 
+6 
+ 
+With the rapid development of information technology, a wide array of authentic 
+listening materials readily available online provide useful learning and teaching 
+resources. A variety of text types (e.g. speeches, advertisements, announcements) and 
+listening purposes (e.g. listening for academic development, listening for interactive 
+conversational exchanges, listening for enjoyment) should be introduced to help 
+students prepare for real-life applications. These authentic listening materials should be 
+appropriately adapted and tailored to the level of students while maintaining the real-
+life settings. Online video clips on cross-curricular themes/topics/issues should also be 
+considered for student viewing to help students establish meaningful links among 
+concepts and ideas acquired in different Key Learning Areas. 
+Besides resources on the Internet, other e-resources such as e-books and apps can help 
+facilitate the development of listening skills and promote self-directed learning through 
+engaging students in an interactive mode of learning and allowing them to work at their 
+own pace both inside and outside the classroom. The multimodal cues of these 
+resources render useful support to students as they can be cross-referenced to enhance 
+the development of listening skills. For instance, the synchronised display of text along 
+with the listening input can assist students in getting the main ideas by locating the key 
+words. The video presentation can provide a visual context of the listening material. 
+Visual images such as people engaged in interaction and other contextual information 
+provide cues for students to identify various nuances of speech to understand the 
+speakers’ intended meanings, feelings and attitudes. Most e-resources allow students to 
+have some control over the number of repeats and the speed of the audio presentations. 
+In other words, students can start, pause and review pieces of information to better 
+understand the aural texts according to their individual needs. In addition to facilitating 
+self-directed learning, the resources with interactive features such as online learning 
+platforms could help foster students’ interaction and communication by engaging them 
+in collaborative work. 
+ 
+1.5 Activities to Develop Listening Skills 
+ 
+Teachers are encouraged to consider the following activities to help students at the 
+junior secondary level develop effective listening skills: 
+ 
+ 
+
+ 
+7 
+ 
+ 
+Understanding Instructions and Following Directions 
+ 
+Engage students in task-oriented practice like tracing a route on a map 
+according to the directions they hear. 
+ 
+Let half of the class mime according to an instruction orally given and the 
+other half guess what they are doing. 
+ 
+Developing the Skill of Sequencing 
+ 
+Ask students to re-sequence a list of sentences or a set of pictures in jumbled 
+order in accordance with the spoken text. 
+ 
+Conduct jigsaw listening activities with students. For example, students listen 
+to different parts of a story in groups. After that, students are regrouped to 
+construct the story logically based on what they have heard. Such activities 
+can also promote integrative use of generic skills (e.g. collaborative problem 
+solving skills, holistic thinking skills).  
+ 
+Developing the Skill of Anticipation 
+ 
+Ask students to discuss related topics that activate their prior knowledge, 
+which is used as the basis for prediction and comprehension. 
+ 
+Provide students with background information regarding the text they are 
+going to listen to and ask them to guess what the speaker is going to say. 
+ 
+Give students adequate information about the speaker and the situation and 
+ask them to think about what they might hear. 
+ 
+Play a short extract of the text to students and invite them to predict its 
+possible development. 
+ 
+Engage students in focused listening in which they are told what to listen for 
+beforehand. This will train them to select and pay attention to the key points 
+while listening. 
+ 
+Show a freeze frame of an online video and ask students to predict what the 
+speakers are talking about. Check the predictions by watching the video 
+afterwards.  
+ 
+ 
+
+ 
+8 
+ 
+ 
+Processing Meaning 
+ 
+Ask students to organise the materials into meaningful sections as they listen, 
+for example, making notes under different headings as they listen, using a 
+graphic organiser to organise information. 
+ 
+Use listening texts which include paraphrases and repetitions to provide 
+students with practice in identifying redundant materials. 
+ 
+Understanding the Main Idea or Main Theme 
+ 
+Use non-verbal exercises, such as matching the description from a spoken 
+text with a picture from a set. 
+ 
+Use a radio, TV or Internet news bulletin which begins and ends with the 
+news headlines. Students can easily follow and identify the main points being 
+summarised in these headlines. 
+ 
+Ask students to listen to a spoken text and write down the most important 
+words, and then ask them to write down the key phrases or key sentences of 
+the spoken text. 
+ 
+Ask students to view short online video clips and find out the main idea or 
+main theme as an out-of-class activity, and then have a discussion about it in 
+class. 
+ 
+For more advanced students, ask them to supply a title to a spoken text or 
+summarise in their own words the main points of the spoken text either orally 
+or in writing. This will make them pay full attention to the overall theme as 
+well as the central ideas. 
+ 
+Extracting Information and Ideas  
+ 
+Ask students to listen to the weather forecasts of different cities on the 
+Internet and take notes while listening. Students then do a short oral report 
+by using key words such as “temperature”, “humidity” and “outlook” in their 
+presentations.  
+ 
+ 
+
+ 
+9 
+ 
+ 
+Understanding Levels of Formality and Informality  
+ 
+Expose students to spoken texts of different levels of formality and 
+informality in different settings, for instance, public speaking in a school 
+assembly, a conversation between a student and his/her principal, and a chat 
+between friends. Discuss with students the differences in the levels of 
+formality and informality in terms of language items and structures, the 
+choice of vocabulary and the stylistic features of formal and informal 
+speeches.  
+ 
+Understanding the Speaker’s Feelings or Attitudes 
+ 
+Help students understand the speaker’s feelings or attitudes as well as the 
+underlying meaning of what the speaker says by examining: 
+- 
+the language used (e.g. discourse markers, choice of words, stylistic 
+features such as the use of repetition, exaggeration); and 
+- 
+the manner of speech (e.g. choice of intonation and stress, the volume, 
+pitch and pace). 
+ 
+Start with texts which are straightforward so that students can easily identify 
+the speaker’s feelings and attitudes. Later on, texts in which the speaker’s 
+feelings and attitudes are less explicit can be used. Discussion provides very 
+good training for students to identify the speaker’s feelings and attitudes. 
+ 
+Expose students to different features of speech (e.g. different intonation 
+patterns, special stress, pausing, rephrasing, repetitions, hesitations, self-
+corrections) presented in appropriate contexts to develop their awareness of 
+the nuances of speech. 
+ 
+Making Connections between Ideas and Information with the Help of Discourse 
+Markers  
+ 
+Ask students to jot down the key ideas and information as they listen to a 
+spoken text for the first time and then ask them to focus on the discourse 
+markers (e.g. “first”, “next”, “nevertheless”, “in other words”, “by the way”) 
+when they listen to it again. Students then organise their notes into 
+meaningful sections using a graphic organiser. More advanced students could 
+be asked to write a summary of the text as an extended task.  
+ 
+ 
+ 
+
+ 
+10 
+ 
+1.6 Task-based Listening Activities 
+ 
+Apart from the activities suggested earlier, task-based listening activities, consisting of 
+purposeful contexts in which students can draw upon their framework of knowledge 
+and skills and develop their generic skills in an integrative manner, should be conducted. 
+There are three stages in conducting a listening task. 
+ 
+Pre-listening Stage 
+This is the tuning-in stage. The purpose is to establish a framework for listening so as 
+to prepare students for approaching the upcoming listening task with some point of 
+reference. 
+ 
+Pre-listening activities may include: 
+ 
+soliciting students’ knowledge and opinions on the topic; 
+ 
+predicting content from the title; 
+ 
+commenting on a picture or photograph relevant to the topic; 
+ 
+revising learnt structures or vocabulary items; 
+ 
+introducing the setting of the listening text; 
+ 
+explaining the type of responses required; 
+ 
+reading a short text or viewing a short video segment on the Internet on a similar 
+topic; 
+ 
+reading through comprehension questions in advance; and  
+ 
+raising students’ awareness of the skills involved in the listening process. 
+ 
+ 
+ 
+
+ 
+11 
+ 
+While-listening Stage 
+This is when students are involved in listening, and have to respond as required in the 
+task. Activities may include: 
+ 
+putting pictures in a correct sequence; 
+ 
+following directions on a map; 
+ 
+checking off items in a photograph;  
+ 
+completing a grid, timetable, or chart of information; and 
+ 
+jotting down notes. 
+ 
+As students’ proficiency develops, tasks will gradually become more demanding, 
+eventually requiring students to construct a framework of meaning for themselves, 
+understand explicitly stated ideas, make connections between ideas and information, 
+interpret feelings and attitudes and understand levels of formality and informality. 
+Examples include: 
+ 
+filling gaps with missing words; 
+ 
+picking out particular facts, evidence or cause-and-effect relationships; 
+ 
+constructing a coherent set of notes; 
+ 
+checking True/False statements; 
+ 
+discriminating between different intonation patterns for various feelings and 
+attitudes; and 
+ 
+understanding levels of formality and informality based on the word choice and 
+stylistic features of the spoken discourse such as the use of contractions. 
+ 
+At this stage, it is vital for teachers to support students in the development of 
+metacognitive strategies to plan, monitor and evaluate their own learning progress.  
+Students can be prompted to use different skills, as appropriate, for regulating their 
+comprehension and application (e.g. listening for details, listening for gist, inferring 
+information) followed by actively monitoring and reflecting on their comprehension 
+and the effectiveness of the skills used. Depending on the proficiency of the class, 
+teachers could pause the recording when appropriate to check understanding, explore 
+and demonstrate how the understanding is achieved and assess the effectiveness of the 
+skills employed.  
+
+ 
+12 
+ 
+ 
+Post-listening Stage 
+This is an opportunity for many kinds of follow-up work to be done individually or 
+collaboratively – thematic, lexical, grammatical, skills developmental, and so on. Some 
+post-listening activities are suggested as follows: 
+ 
+giving feedback to students on a class basis or individually as to their mastery of 
+listening skills and setting goals and plans for further development. Reference can 
+be 
+made 
+to 
+the 
+LPF 
+for 
+English 
+Language 
+(Listening 
+Skills) 
+(http://www.edb.gov.hk/lpfel_listening) for identifying students’ strengths and 
+areas for improvement, and understanding what students need to achieve as they 
+progress in listening skills development; 
+ 
+reviewing the listening materials at a self-regulated pace for a different purpose;  
+ 
+making use of relevant podcasts and vodcasts available on the Internet for more 
+listening practice;  
+ 
+writing a group summary for a defined purpose or audience with notes made 
+collaboratively while listening; 
+ 
+reading/listening to a related text for comparison purposes and engaging in small 
+group discussions; 
+ 
+exchanging views on the topic or problem identified; 
+ 
+doing a role play; and 
+ 
+writing on the same theme from a different point of view. 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Blank Page) 
+ 
+
+ 
+15 
+ 
+Chapter 2  The Learning and Teaching of Speaking 
+ 
+2.1 Importance of Speaking 
+ 
+Speaking plays an important role in everyday life. In real-life communication, the most 
+direct way to communicate is through speech. Oral interactions are often indivisible 
+from the learning and teaching activities of an English task, and as such, speaking 
+activities can be well integrated into any listening, reading or writing tasks to support 
+the development of different language skills. Conducting speaking activities on a 
+regular basis can help students improve their fluency and communication skills and 
+raise their awareness of the particular structural or intonation patterns or lexical items 
+used for different communication purposes.  
+ 
+Speaking activities including presentations and discussions provide relevant contexts 
+for students to develop a range of communication/interaction strategies (e.g. 
+maintaining eye contact, speaking at a volume appropriate to the situation, responding 
+readily to others’ questions, opinions or comments) to achieve different communication 
+purposes, as well as for the integrative use of generic skills such as collaborative 
+problem solving skills (i.e. the integration of collaboration skills, communication skills 
+and problem solving skills) and holistic thinking skills (i.e. the integration of critical 
+thinking skills, problem solving skills and creativity) as they work collaboratively to 
+achieve the objectives of the activities concerned.  
+ 
+Speaking tasks also provide good opportunities for promoting self-directed learning. In 
+learning contexts where students are required to speak before an audience (e.g. 
+reporting the outcome of a task to the whole class) or produce recordings (e.g. preparing 
+audio/video clips for a presentation), students can be guided to monitor and evaluate 
+their speaking performance with respect to the learning goals (e.g. articulation, 
+accuracy and fluency in their speech) in the learning process. 
+ 
+ 
+ 
+
+ 
+16 
+ 
+2.2 Effective Speaking Skills 
+ 
+At the primary level, students have developed basic skills for effective oral 
+communication. For details, please refer to Appendix 5 of the English Language 
+Education Key Learning Area Curriculum Guide (Primary 1 – Secondary 6) (2017) 
+(http://www.edb.gov.hk/elecg). At the junior secondary level, the speaking skills to be 
+developed include skills for: 
+ 
+presenting information, ideas, and feelings clearly and coherently; and 
+ 
+participating effectively in an oral interaction. 
+ 
+In order that students can use the spoken language effectively to present information, 
+ideas and feelings, they need to learn to: 
+ 
+convey ideas and information in conversations or discussions; 
+ 
+use words and expressions appropriate to the context; 
+ 
+use appropriate discourse markers; and  
+ 
+use correct pronunciation, intonation and register for different purposes. 
+ 
+Effective oral communication entails the following: 
+ 
+Accuracy. This refers to the skill of using pronunciation (which covers speech 
+sounds, stress, rhythm and intonation), grammar and vocabulary correctly to 
+communicate ideas and express feelings. 
+ 
+Fluency. This is the skill of producing speech at normal speed in a natural manner. 
+Fluent speech is relatively free from an abundance of hesitations and false starts 
+which cause difficulties in communication. 
+ 
+Appropriateness. This is the skill of using formal or informal language to suit 
+particular situations. The choice of formal or informal language varies depending 
+on the communication purposes and the contexts (e.g. participants’ roles, the 
+setting, the topic). 
+ 
+Coherence. This is the skill of producing spoken utterances which “hang together”. 
+Coherent speech makes use of devices such as pronouns, substitution, ellipsis and 
+conjunctions to enable the listener to establish relationships across utterance 
+boundaries. 
+ 
+
+ 
+17 
+ 
+In addition to these skills, students need to develop communication/interaction 
+strategies so that they can participate in oral discussions effectively. The 
+communication/interaction strategies to be developed at Key Stage 3 include the 
+following:   
+ 
+seeking and giving clarification, explaining what information one requires and 
+why, rephrasing one’s questions when necessary, summing up points made and 
+redirecting the discussion when the need arises;  
+ 
+making a balanced contribution without either dominating the discussion or being 
+too reticent; and  
+ 
+expressing, eliciting and responding to ideas, opinions and feelings in a group 
+discussion.  
+ 
+Teachers can make reference to the Learning Progression Framework (LPF) for English 
+Language (Speaking Skills) (http://www.edb.gov.hk/lpfel_speaking), which describes 
+students’ performance and progress along the developmental continuum of learning 
+English from Primary 1 to Secondary 6, for the learning outcomes regarding the 
+following:  
+ 
+content, organisation and communication strategies;  
+ 
+language; and 
+ 
+pronunciation, stress, rhythm and intonation;  
+and plan holistically for the school English Language curriculum to meet students’ 
+needs. 
+ 
+2.3 Role of the Teacher 
+ 
+The role of the teacher in planning and conducting speaking activities includes the 
+following: 
+ 
+Building Students’ Confidence 
+Many students are reluctant to speak up in class because they are afraid of making 
+errors/mistakes and being corrected by the teacher publicly. Teachers therefore 
+need to help students build their confidence as well as trust and mutual support 
+among them. Some suggestions are as follows: 
+ 
+
+ 
+18 
+ 
+ 
+Help students understand that making errors/mistakes is a normal part of the 
+learning process. 
+ 
+Select speaking tasks with no correct answers. 
+ 
+In communicative tasks, focus on what students say (i.e. the message) rather 
+than the language they use. 
+ 
+Before individual presentations, provide opportunities for students to practise 
+with their peers.  
+ 
+Be alert to the emotional and social state of individual students when 
+correcting their errors/mistakes. 
+ 
+Set realistic expectations and acknowledge students’ accomplishment to 
+encourage them to improve further. 
+ 
+Provide positive feedback as far as possible and give practical suggestions to 
+address students’ areas for improvement. 
+ 
+Teaching Enabling Skills 
+Teachers need to ensure that students are equipped with the necessary enabling 
+skills to communicate ideas effectively. An important enabling skill to teach is 
+pronunciation, which covers elements such as speech sounds, stress, rhythm and 
+intonation. It will also be useful to revise or teach phonics at the junior secondary 
+level and phonetics at a later stage. 
+ 
+When teaching pronunciation, teachers should aim at intelligibility rather 
+than native English pronunciation. 
+ 
+Teachers need to help students perceive sounds and intonation patterns before 
+they produce them.  
+ 
+Teachers should place equal emphasis on the suprasegmental features of 
+stress, rhythm and intonation and the segmental elements of speech sounds. 
+ 
+Using Appropriate Tasks 
+Teachers need to select, adapt or design speaking tasks which are interesting, 
+purposeful and relevant to the needs of their students. Teachers should also help 
+students relate their learning to their real life. To connect students’ learning 
+experiences in different Key Learning Areas, teachers can adopt cross-curricular 
+themes in the speaking tasks as well as highlight to students the speaking skills 
+and communication/interaction strategies that students can apply in the 
+
+ 
+19 
+ 
+preparation of presentations and discussions for non-language subjects. More 
+information about tasks and activities for practising speaking skills is provided in 
+the next section. 
+ 
+Monitoring Students’ Performance throughout a Speaking Task 
+Teachers should walk around and listen to groups of students engaged in speaking 
+tasks. While guidance and assistance may be necessary, frequent interruptions 
+demotivate students and should be avoided. Common errors/mistakes should be 
+noted down so that remedial work can be done with students after the tasks. 
+ 
+Keeping Students Speaking in English 
+Teachers may appoint a group member to remind others in the group to speak in 
+English. Teachers may also incorporate the use of e-learning tools (e.g. e-
+platforms/apps that support voice/video recording and editing) to record each 
+group’s speaking performance for analysis and discussion. These techniques help 
+raise students’ awareness of their speaking performance as well as enhance their 
+engagement in the speaking activity. 
+ 
+Providing Feedback to Students 
+At the end of a speaking task, teachers should provide feedback to students about 
+their performance and participation. Based on the learning outcomes of students, 
+teachers can make reference to the LPF for English Language (Speaking Skills) 
+(http://www.edb.gov.hk/lpfel_speaking) 
+to 
+understand 
+students’ 
+speaking 
+performance and provide constructive feedback to acknowledge students’ 
+accomplishment and to improve their performance. Teachers may begin by 
+offering some encouraging remarks before discussing language items or 
+communication strategies which students still need to work on in order to improve 
+their speaking competence. To engage students in providing peer feedback, 
+teachers can make effective use of e-learning tools (e.g. an interactive whiteboard) 
+to project video clips of students’ performance in front of the class and engage 
+students in analysing their performance with reference to the assessment criteria 
+such as content and organisation, language, pronunciation and delivery, and 
+communication/interaction strategies (e.g. eye contact, gestures, facial expressions, 
+turn-taking). e-Platforms or apps that support instant response and messaging can 
+also be used to provide teachers with an overview of students’ learning 
+performance and facilitate the provision of feedback among teachers and students. 
+ 
+ 
+
+ 
+20 
+ 
+ 
+Helping Students Become Self-directed Learners 
+To promote learner independence and develop students’ metacognitive strategies, 
+teachers should provide opportunities for students to develop the ability in 
+planning the content and language for the speaking tasks and in monitoring, 
+reviewing and assessing their own speaking performance. Discussions can be held 
+to raise students’ awareness of the requirements of the speaking task, the language, 
+vocabulary and communication/interaction strategies to use. Checklists can be 
+distributed beforehand to support students in identifying learning goals and 
+assessment criteria so that students are aware of how various aspects of speaking 
+are assessed and exert efforts to do their best. Models of strong and weak speaking 
+performance can be used to help students understand the assessment criteria. e-
+Platforms or apps that support voice/video recording and editing allow students to 
+revisit their performance and make improvement as they evaluate their own 
+speaking performance.  
+ 
+2.4 Choice of Speaking Activities 
+ 
+A wide range of speaking activities should be conducted to develop students’ speaking 
+skills. Some of these activities should focus on the more micro level of speech 
+production or aspects of pronunciation while others should give students the 
+opportunity to develop the skills and strategies needed for effective speech performance. 
+ 
+The following types of activities, while not exhaustive, are effective in helping students 
+enhance their competence in oral communication: 
+ 
+Information-gap activities. These require students to find out information from 
+their classmates in order to solve a problem. 
+ 
+Ranking activities. These require students to reach a consensus in putting a list of 
+factors or attributes (e.g. characteristics of a good teacher) in order. 
+ 
+Jigsaw activities. These require students to put different pieces of information 
+together to form a coherent whole. For example, students are given different 
+sections of a story. They describe their own section in turn orally, and then the 
+whole group determine the sequence of the story. 
+ 
+Guessing activities. These require students to guess the identity of a person, the 
+location of an object and so on. 
+ 
+ 
+
+ 
+21 
+ 
+ 
+Matching activities. These require students to match items that go together. An 
+example is the Bingo game. 
+ 
+Problem-solving activities. These require students to find a solution to a problem, 
+for example, deciding what items are essential for survival on a desert island. 
+ 
+Role play activities. These require students to take on the role of someone other 
+than themselves. They may need to imagine themselves in a real world context and 
+have to use appropriate language to suit the context. 
+ 
+Discussions and debates. These require students to collect information about a 
+certain topic/theme and then have a discussion about it or present arguments for 
+or against a particular motion. 
+ 
+Public address. Activities like a speech, a vote of thanks or a presentation give 
+students opportunities to pay attention to delivery techniques (e.g. diction, 
+appropriate use of discourse markers, voice projection, expression and even 
+posture in addition to content and rhetorical conventions).  
+ 
+Voice/video recording activities. These require students to practise speaking by 
+recording their utterances (e.g. using e-platforms/apps that support voice/video 
+recording and editing), which allows them to listen to and assess their speaking 
+performance and make improvement instantly. 
+ 
+Multimodal texts production. This provides opportunities for students to practise 
+their pronunciation, stress, rhythm and intonation and presentation skills for 
+different communication purposes through creating their own audio/video clips to 
+present their work in multimodal contexts (e.g. an e-book) to convey meaning. 
+ 
+In selecting, adapting or designing any speaking activity, teachers need to check 
+whether the activity embodies such characteristics as the following: 
+ 
+It requires students to speak a lot in English. 
+ 
+It makes use of students’ personal experience.  
+ 
+It allows students to work collaboratively or creatively with peers. 
+ 
+It is cognitively suitable for students. 
+ 
+It is interesting rather than stressful for students.  
+ 
+ 
+
+ 
+22 
+ 
+ 
+It requires students to exchange information or express feelings in order to close 
+an information gap/opinion gap/reasoning gap/imagination gap. 
+ 
+It is realistic and simulates real-life situations. 
+ 
+2.5 Task-based Speaking Activities  
+ 
+Task-based speaking activities are process- as well as goal-oriented. They require 
+students to interact orally and, during this process, students use the spoken language as 
+a means to achieve a definite outcome, such as a drawing, a list of priorities, a solution 
+to a puzzle, an oral report or a written summary of a group consensus. 
+ 
+The following are some examples of speaking activities that can be integrated into a 
+speaking task to help students at the junior secondary level achieve the objectives of (a) 
+presenting information, ideas and feelings clearly and coherently; and (b) participating 
+effectively in an oral interaction. 
+ 
+Students use the target sounds to produce a group story. For example, they are 
+given a list of words containing the sound /r/ (e.g. “wrong”, “road”, “rate”). In 
+groups, they use these words to create a story and read it aloud to other groups. 
+When listening to the story, students write down all the words they can hear which 
+contain the sound /r/. They then summarise the story they have listened to by 
+producing a few sentences that make use of the target sound. 
+ 
+Students write their own tongue-twisters for use in class. They get one point for 
+one sound which is shared by two or more words (e.g. /l/ as in “long” and “lively”). 
+They get two points for two sounds which are shared by two or more words (e.g. 
+/br/ as in “break” and “bring”). Groups of students then take turns to read the 
+tongue-twisters aloud in a competition. 
+ 
+Students practise shadow reading to improve their mastery of stress, rhythm and 
+intonation. First, they view or listen to a recording of a speech a few times until 
+they are familiar with it. They then play the recording again and read the text of 
+the recording at the same time, trying to imitate the stress, rhythm and intonation 
+used. Lastly, they produce their own recording by applying the framework of the 
+speech in new situations. 
+ 
+ 
+
+ 
+23 
+ 
+ 
+As an awareness-raising activity, students can be given several sentences 
+describing a situation (e.g. “It was Parents’ Day. Teachers had meetings with 
+students’ parents. A teacher said to a parent, ‘How many offspring do you have?’”). 
+Students decide whether the language used is too formal or too informal and 
+rephrase the sentences as appropriate. 
+ 
+Students view or listen to some recorded materials and decide on aspects such as 
+the degree of formality, relationship between the speakers and setting. Then they 
+improvise for similar situations. 
+ 
+Students study the transcript of an informal conversation between two close 
+friends about school life. They report the same information in a role play to a 
+student playing the role of a principal, using formal language.  
+ 
+Students work in pairs to do a “Spot the difference” picture activity. Students A 
+and B are each given a similar picture with several differences. Without showing 
+their picture to each other, they exchange information to determine the differences. 
+ 
+Students watch a video clip or listen to a song together. Next, in groups of four, 
+they tell each other what the video clip or song makes them think about or feel. 
+Students with special ideas or stories share their information with the rest of the 
+class. 
+ 
+Students work in groups and imagine themselves as guests in a party. One member 
+of the group takes the role of the host/hostess of the party and introduces the rest 
+of the group to each other. After the introduction, the group carry out a social chat 
+(e.g. asking one another what their hobbies are, telling others how they spend their 
+leisure). 
+ 
+Groups of students are given a topic for discussion. Students need to give 
+suggestions for organising a school function (e.g. the Open Day). They need to 
+respond to the suggestions proposed by their group members and make decision 
+on the activities to be organised for the school function, paying particular attention 
+to different communication/interaction strategies (e.g. maintaining eye contact, 
+turn-taking, seeking clarification). 
+ 
+ 
+
+ 
+24 
+ 
+ 
+Students perform a role play in which they use discussion skills to gather 
+information and ideas for a project (e.g. a greening school campaign). Their task 
+is to discuss ways to improve the campus environment so as to save energy and be 
+more environment-friendly.  
+ 
+2.6 Conducting Speaking Activities 
+ 
+There are four main stages in conducting speaking activities: 
+ 
+Awareness raising. The aim of this stage is to raise students’ awareness of what 
+native speakers do in an oral interaction (e.g. using expressions to encourage 
+people to say more). Some examples of awareness-raising activities are: 
+ 
+Students tap on desks or clap hands in order to understand how stress works 
+in English. 
+ 
+Students view or listen to a recording and identify the use of different 
+intonation patterns to convey meaning. 
+ 
+Students view or listen to a recording and identify the use of conversational 
+fillers such as “Really?” and “I see”. 
+ 
+Students 
+view 
+or 
+listen 
+to 
+a 
+discussion 
+to 
+understand 
+how 
+communication/interaction strategies, such as negotiating meaning and 
+asking for clarification, contribute to effective interaction. 
+ 
+Pre-communicative. This stage gives students controlled practice in speaking. The 
+focus is on a particular skill or language item which is needed for effective speech 
+performance later (e.g. an intonation pattern, a language structure, a list of useful 
+expressions). Pre-communicative activities give students repeated practice in 
+individual items rather than practice in all communication skills together. Students 
+are provided with more guidance on the skills or language needed in these 
+activities. 
+ 
+Communicative. This stage gives students free practice in speaking tasks. Students 
+use language appropriate to the context to convey meaning. Communicative 
+activities aim to develop students’ overall competence in speaking. In other words, 
+elements such as fluency, appropriateness and communication/interaction 
+strategies are often practised together.  
+ 
+ 
+
+ 
+25 
+ 
+ 
+Feedback. This stage allows students to receive useful feedback from the teacher 
+and/or their peers. In assessing students’ oral performance, teachers and students 
+may want to focus on aspects such as the following: 
+ 
+Did students use language appropriate to the context (e.g. level of formality, 
+relationship between the speakers)? 
+ 
+Did students’ grammatical errors/mistakes hinder communication? 
+ 
+Did students convey their message fluently without undue hesitations? 
+ 
+Was the information conveyed coherently? 
+ 
+Were students confident in interacting with others? 
+ 
+Did students make use of appropriate communication/interaction strategies in 
+interacting with others? 
+In providing feedback, reference can be made to the LPF for English Language 
+(Speaking Skills) (http://www.edb.gov.hk/lpfel_speaking) for identifying students’ 
+strengths and areas for improvement, and understanding what students need to 
+achieve as they progress in speaking skills development. 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Blank Page) 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Blank Page) 
+ 
+
+ 
+29 
+ 
+Chapter 3  The Learning and Teaching of Reading 
+ 
+3.1 Importance of Reading  
+ 
+Reading is an effective means to seek information, develop thinking skills, enrich 
+knowledge, enhance language proficiency and broaden perspectives. In everyday life, 
+students read for different communication purposes (e.g. locating information, 
+understanding instructions to perform certain tasks, keeping in touch with friends 
+through correspondence and the social media, seeking enjoyment). Students need 
+adequate reading skills and ability for academic and intellectual purposes too. Mastery 
+of reading skills is important for the acquisition of new knowledge in both formal 
+education and lifelong learning. 
+ 
+In the setting of a language classroom, reading is one of the major learning activities. 
+Reading helps increase knowledge of the target language through exposure to new 
+vocabulary and language items and structures used in context, and helps consolidate 
+learning. Mastery of this language skill helps students develop competence and fluency 
+in the language which may extend to listening, speaking and writing. Strategic readers 
+also use metacognitive strategies to plan, monitor and evaluate their learning progress. 
+They identify their reading goals, make use of appropriate reading skills, monitor their 
+reading process and evaluate the effectiveness of the skills used.  
+ 
+With the rapid development of information technology and the social media, reading 
+can more efficiently connect the reader to the community. Literacy practices can 
+involve collective intelligence and the use of multimodal texts, in which messages are 
+conveyed through different modes (e.g. linguistic, audio, visual, gestural, spatial). If 
+students can move beyond simple comprehension to analyse, synthesise and evaluate 
+not only printed but also electronic reading materials effectively and efficiently across 
+Key Learning Areas (KLAs), they will be better readers and writers of the electronically 
+connected global society. 
+ 
+ 
+ 
+
+ 
+30 
+ 
+3.2 Effective Reading Skills 
+ 
+At the primary level, students have developed basic reading skills. For details, please 
+refer to Appendix 5 of the English Language Education Key Learning Area Curriculum 
+Guide (Primary 1 – Secondary 6) (2017) (http://www.edb.gov.hk/elecg). At the junior 
+secondary level, students have to develop more advanced skills to understand, interpret 
+and analyse different written and multimodal texts. In order to do so, they need to learn 
+to: 
+ 
+make use of knowledge of the world to make sense of the text; 
+ 
+acquire, extract and organise information relevant to specific tasks; 
+ 
+understand how different visual elements create meaning; 
+ 
+relate facts, opinions and information from a variety of print and non-print 
+sources; 
+ 
+understand different feelings, views and attitudes; 
+ 
+differentiate fact from opinion; 
+ 
+identify implied meanings through making inferences; 
+ 
+recognise how writing conventions affect meaning and cohesiveness; 
+ 
+understand how sentences and parts of a sentence relate to each other; 
+ 
+understand the use of discourse markers; and 
+ 
+know what a word or phrase refers to in the previous or subsequent context. 
+ 
+Teachers can make reference to the Learning Progression Framework (LPF) for English 
+Language (Reading Skills) (http://www.edb.gov.hk/lpfel_reading), which describes 
+students’ performance and progress along the developmental continuum of learning 
+English from Primary 1 to Secondary 6 and plan holistically for the school English 
+Language curriculum to meet students’ needs. 
+ 
+ 
+ 
+
+ 
+31 
+ 
+3.3 Role of the Teacher 
+ 
+A teacher has a very important role to play in developing students’ reading skills.  
+He/she can: 
+ 
+increase students’ interest/motivation in reading so that they have pleasurable 
+reading experiences. Suggestions include: 
+ 
+the use of texts that appeal to students. Teachers may select or recommend 
+materials with a variety of content and related to the particular interests of 
+different students; 
+ 
+the use of interesting activities and challenging tasks; 
+ 
+the use of group work and cooperative learning where students interact and 
+assist one another to make meaning with the help of digital communication 
+technology; and 
+ 
+the introduction of a reward system to acknowledge students’ efforts in 
+reading extensively. 
+ 
+create an encouraging, constructive and supportive reading atmosphere both inside 
+and outside the classroom. This will help cultivate in students a positive attitude 
+towards reading so that they become enthusiastic readers. The teacher can: 
+ 
+set up a reading area or an English corner in school; 
+ 
+have English books and magazines displayed prominently; 
+ 
+choose reading materials that suit students’ interests and developmental 
+levels; 
+ 
+hold book fairs; 
+ 
+put up posters about authors and their books; and 
+ 
+organise visits to public libraries. 
+ 
+With the rapid development of information technology, the teacher can promote e-
+reading through: 
+ 
+modelling screen reading to provide students with multiple ways to engage 
+with e-texts; 
+
+ 
+32 
+ 
+ 
+collaborating with the teacher-librarian to encourage students to read e- 
+resources available in the school library; 
+ 
+setting up an e-platform for students to engage in reading outside school 
+hours and to share their reading experiences with peers, teachers and parents; 
+and 
+ 
+encouraging students to make use of the e-resources in the public libraries. 
+ 
+guide students to plan, monitor and evaluate their reading at a metacognitive level. 
+As junior secondary students need to deal with texts of increasing text complexity 
+and language demand in English Language as well as in non-language subjects 
+where English is adopted as the medium of instruction, they should learn to set 
+reading goals, monitor their progress, evaluate their performance and plan how to 
+read more efficiently and effectively. The teacher can raise students’ metacognitive 
+awareness in regard to improving their reading comprehension with various 
+strategies such as thinking aloud to model his or her own thought processes in 
+deconstructing complex texts. 
+ 
+facilitate the development of critical literacy skills to enable students not only to 
+understand, appreciate, and evaluate what they read and view at a deeper level, but 
+also to help them become more reflective and independent learners. The teacher 
+can encourage students to look beyond the literal meaning of the texts and 
+critically analyse and evaluate the texts in respect of the implied meaning, the 
+author’s intent and stance on various issues as embedded in the underlying 
+message of the texts, which may range from social justice to racial or gender 
+equality. 
+ 
+guide students to become independent readers by developing their learning to learn 
+capabilities through the use of e-resources such as online dictionaries, and 
+enabling skills such as phonics skills, vocabulary-building skills and reference 
+skills to facilitate self-directed language learning. 
+ 
+set aside a particular time when students can be read to. Reading to students 
+provides the teacher with an opportunity to demonstrate to students the enjoyment 
+and importance of reading, as well as the behaviour exhibited by a proficient reader. 
+An alternative is for students to listen to audio books or read e-books. Teachers 
+may also set aside time for students to practise reading together or read something 
+they have particularly enjoyed to their classmates. 
+
+ 
+33 
+ 
+ 
+serve as a role model. Teachers should enjoy and value reading themselves and 
+cultivate in students a desire to read. They should show students that they are also 
+avid readers and encourage them to follow suit. 
+ 
+encourage parental involvement in developing lifelong readers. Often parents want 
+to help their children develop good reading habits, but they may not know what 
+they can do. Teachers can encourage parents to provide the basis for a good attitude 
+towards reading. Parents can set good examples by reading themselves and by 
+making appropriate materials available for their children to read. They can 
+encourage their children to discuss what they have read with them. 
+ 
+3.4 Choice of Reading Materials 
+ 
+ 
+In developing reading skills, both print-based and multimodal reading materials 
+can be used. Authentic contexts and texts written to inform, to entertain or to 
+convey a message should be used to explore literacy practices. Any printed or 
+electronic materials and resources that make sense to students can be brought into 
+the classroom as frequently as possible for identifying meaning or information 
+conveyed. These include stories, brochures, journals, reports, speeches, letters 
+(formal and informal), debates, editorials, feature articles in newspapers and blogs 
+covering issues in various cross-curricular domains such as values education (e.g. 
+life education, moral education, environmental education). Apart from offering 
+variety to cater for individual needs, interests and abilities, different text types 
+provide meaningful contexts to illustrate the purposeful use of specific language 
+items and vocabulary. The use of multimodal texts provides students with an 
+opportunity to explore how images, graphics, photos and videos with sound are 
+combined to convey a message effectively to the intended audience.  
+ 
+Language arts materials, such as short stories and poems, can provide students 
+with enjoyable experiences, and enhance their cultural awareness and creativity, 
+while non-fiction materials, such as newspaper/magazine articles and reports, can 
+raise their awareness of different perspectives from which to consider issues and 
+facilitate the promotion of Reading across the Curriculum (RaC). A suggested 
+book list on RaC for Key Stages 1 – 4 is accessible at the following website: 
+http://www.edb.gov.hk/eleresources. 
+ 
+ 
+ 
+
+ 
+34 
+ 
+3.5 Task-based Reading Activities 
+ 
+Task-based reading activities provide students with a meaningful purpose for reading 
+and an appropriate setting for involvement in the reading process. Taking advantage of 
+digital communication technology such as online diaries and blogging activities, 
+teachers can design tasks to engage students in critical reflection, negotiation of 
+meaning and evaluation of the reading content, and promote a collaborative learning 
+environment. During the reading process, students may acquire and practise particular 
+reading skills as well as the integrative use of generic skills such as collaborative 
+problem solving skills (i.e. the integration of collaboration skills, communication skills 
+and problem solving skills) and holistic thinking skills (i.e. the integration of critical 
+thinking skills, problem solving skills and creativity).  
+ 
+3.6 Conducting a Reading Task 
+ 
+A reading task is usually conducted in three stages: 
+ 
+Pre-reading Stage 
+Providing a Purpose for Reading 
+How and what one reads depends very much on the purpose, whether it is reading for 
+gist, for specific information, for exposition, for deliberation of argument, or just for 
+pleasure. Once the purpose is identified, one can use the appropriate reading skills and 
+vary the speed accordingly. 
+ 
+When assigning a reading task, teachers can help set a clear purpose, for example, by 
+giving students a question, problem or task before they read. Students can then judge 
+which parts of the text to ignore, and decide on what to skim over and what to attend to 
+in detail. At the beginning, teachers may need to make conscious efforts to remind 
+students or to discuss with them what to look for as they read. Through modelling and 
+practice, students can be guided to think about what they know, what connections they 
+can make, what questions they want answered and the way the text is organised. The 
+use of multimodal texts that are electronically linked suggests different pathways for 
+reading and hence allows much reader autonomy. Opportunities should be provided to 
+develop navigational skills and search skills to facilitate the reading process and reading 
+skills development.  
+ 
+
+ 
+35 
+ 
+Introducing a Text 
+The introduction of a text means giving students some information on what they are 
+going to read and this includes the topic, the setting, the background, the text type, its 
+organisation and the modes of communication, which may include images, animations 
+and sounds. The rationale behind this is to get students into the right mood for reading 
+a particular text and to make them feel interested in reading it. If students get a global 
+impression of the kind of text they are going to read and have a rough idea of the topic, 
+they will be provided with a general framework that facilitates the more detailed work 
+that follows. 
+ 
+The best introductions are the ones that the teacher draws out from students. Students 
+can be invited to share opinions on a topic as often as possible. For example, before 
+students start reading a text about a melancholic billionaire, teachers can ask students 
+to put down on paper or input via an e-platform the pros and cons of being rich or ask 
+them to engage in a debate. Students can then be asked to read the text and compare 
+what they have thought about the topic and what they have read. 
+ 
+Getting Readers into a Receptive Frame of Mind 
+In the process of reading, readers have to interpret the message conveyed in the text in 
+light of their previous knowledge and experience. They use schemas to make sense of 
+a text. Schemas are the reader’s concepts, beliefs, expectations – virtually everything 
+from past experiences that is used in making sense of things and actions. 
+ 
+Below are some ideas for teachers to develop and activate students’ schemas: 
+ 
+Brainstorming 
+Brainstorming is a pre-reading activity that can establish a foundation for 
+approaching new and unfamiliar materials. It also helps students make connections 
+with their own life experiences, thus engaging them and giving them a stronger 
+purpose for reading. Teachers can first show students the cover/blurb/contents 
+page of a book or the title of a text and ask them to brainstorm a list of words and 
+phrases, questions, ideas, and examples related to the topic. Students then have a 
+discussion to create further understanding and clarify anything they may not 
+understand. Teachers can help students further explore the topic by asking 
+questions to guide the discussion. 
+ 
+ 
+
+ 
+36 
+ 
+ 
+Previewing 
+Previewing means taking the time to look over the materials one plans to read. 
+Previewing of texts by skimming, looking at pictures, examining the title and 
+subheadings, and going through the table of contents, the appendix and the preface 
+helps one’s comprehension of explicit and implicit information. To facilitate 
+navigation of e-texts, previewing requires students to recognise conventions such 
+as the specific tabs, icons and tags that indicate hypertexts or a non-linear network 
+of information. 
+ 
+Prediction 
+Prediction is an important reading skill, which activates readers’ schemas. As 
+students make hypotheses about what the writer intends to say, the experiences 
+and associated knowledge they already have about the topic of the text will be 
+called to mind. Having an idea of what the text is to be about helps a reader make 
+sense of it and sets a purpose for his/her continued reading.  
+ 
+Teachers can get students to predict the content of books, articles and so on from 
+non-linear information like titles and headings, subheadings, captions, blurbs and 
+illustrations. In an electronic reading context where there is no preset pathway for 
+readers to follow, anticipating the content of the hyperlinks and forming 
+meaningful associations with the titles and subheadings can also get readers into a 
+receptive frame of mind.  
+ 
+Students can also be asked to read aloud the first paragraph of a text to let other 
+students discuss and predict what is likely to come in the rest of the text. 
+ 
+Use of Semantic Maps 
+A semantic map is an arrangement of key words which embody concepts about a 
+topic. It can be developed in the following steps: 
+ 
+Step 1: Associations 
+Begin by asking students to work in pairs/groups and discuss what they think of 
+when they hear the word “money”, for instance. List the responses as students 
+offer their associations. 
+ 
+ 
+ 
+
+ 
+37 
+ 
+Step 2: Categorisation 
+Put the associations on a semantic map, probably an electronic one to facilitate 
+discussion and revision, by helping students assign these associations to different 
+categories (e.g. “uses of money”, “kinds of money”, “ways of earning money”, 
+“consequences of having money”). Encourage students to pose their own 
+questions about what they want to learn about the topic from the text using 
+different means (e.g. K-W-L charts) to engage them in an active process of 
+activating prior knowledge, sharing ideas with others and monitoring their own 
+learning. 
+ 
+Step 3: Revision 
+While going through the set of categories and pre-reading questions related to 
+“money”, students add new ideas acquired from their reading and discussions, 
+correcting and augmenting the original semantic map. The revised map is the result 
+of the students’ pre-existing schemas, their new learning from the text, and the 
+integration of old and new knowledge. (Step 3 is also activated for use at the while-
+reading and post-reading stages.) 
+ 
+ 
+Using Signpost Questions 
+The purpose is to direct readers’ attention to the important points in the text or to 
+the things that might otherwise be missed, preventing them from going off the 
+track. The best signpost questions relate either to the whole section or to its final 
+part, so that they cannot be answered until the whole section has been read and 
+understood.  
+ 
+Using a Video on the Topic 
+A short educational video with or without subtitles can stimulate students to think 
+and motivate them to read the text. It is authentic and provides useful information 
+that introduces students to important words and concepts in context and builds 
+background knowledge among students. Teachers can stop, start and rewind the 
+video to ensure that students understand the main idea, and then challenge them to 
+predict the ending of the video, or debate an issue. 
+ 
+ 
+ 
+
+ 
+38 
+ 
+While-reading Stage 
+Breaking up the Text 
+A long text is daunting to readers who are not very skilled or speedy. Before engaging 
+students in actual reading, teachers can break up the text into a number of shorter 
+sections. It is easier to go through shorter texts than lengthy ones. In this way, students’ 
+interest can be better sustained. 
+ 
+Tackling Unfamiliar Lexical Items/Structures 
+The failure to understand a text often results from an inability to decode the meaning 
+of unfamiliar words and structures. Teachers should refrain from teaching all the new 
+words and structures in the text before reading begins. Not only will this be very boring, 
+students will also get used to being given “pre-processed” texts and consequently they 
+will never make the effort to cope with a difficult passage on their own. Instead, if 
+students are to read texts with understanding, they need to be equipped with word attack 
+skills and knowledge of common language items and structures and usage. 
+ 
+Teachers can introduce three categories of words to students – active vocabulary, 
+receptive vocabulary and throwaway vocabulary. Given frequent exposure in context, 
+students can transform receptive vocabulary into active vocabulary, whereas 
+throwaway vocabulary items can be forgotten once they are taken out of context. 
+ 
+Not every unknown word readers come across can be ignored. With words that stand in 
+the way of comprehension, students have to develop word attack skills to tackle them. 
+These skills include: 
+ 
+ 
+Use of Structural Information 
+ 
+By looking at the position of a lexical item in a sentence, students can make 
+a guess at its grammatical category (e.g. whether it is a noun, a verb or an 
+adjective) and deduce its meaning. 
+ 
+ 
+
+ 
+39 
+ 
+ 
+The morphology of a word may offer valuable clues to its meaning. An 
+understanding of affixation, how compound words are built and the way 
+phrasal verbs are put together to form new meanings helps students decode 
+unfamiliar words. 
+ 
+Students can be guided to recognise the various devices used to create textual 
+cohesion, particularly the use of reference words and signpost words. For 
+example, students can be shown how authors use these devices to set 
+expectations and to either reinforce or overthrow these expectations before 
+presenting their own points of view. 
+ 
+Use of Text Grammar 
+When reading a text, students may be guided to note how the choice of language 
+items is affected by the context and how it shapes the tone, style and register of a 
+text. For teaching grammar at the text level, texts related to different topics and 
+students’ learning experiences in other subjects can be chosen to help students 
+understand the salient features of the texts they may come across in other subjects, 
+and enhance students’ understanding of how grammar makes meaning in different 
+texts. For further details of text grammar, please refer to Section 4.2.4 of the 
+English Language Education Key Learning Area Curriculum Guide (Primary 1 – 
+Secondary 6) (2017) (http://www.edb.gov.hk/elecg). 
+ 
+Use of Images 
+Teachers may draw students’ attention to visual cues (e.g. charts, diagrams, maps, 
+key for a map, photos or other illustrations) while reading. They often provide 
+valuable information about the topic or unfamiliar words and facilitate the 
+effective understanding of a text. 
+ 
+Making Inferences from Context 
+Students should be encouraged to infer the meaning of unknown words from 
+context. Teachers should remind students that inferences are about probabilities, 
+not certainties. Certainties are developed over time with more frequent exposure 
+to the language in use. 
+ 
+ 
+
+ 
+40 
+ 
+ 
+Visualising 
+Students should learn to create pictures in their minds while reading a text. These 
+pictures visualised out of reading the text can enhance their reading 
+comprehension and contribute to effective reading. Through visualising, students 
+can turn reading into an active, purposeful and creative process, in which they 
+construct meaning, connect with their previous knowledge and experience and 
+create mental pictures. The teacher should give students explicit examples of the 
+use of visualising in reading, model the thought process involved in visualising 
+and provide students with opportunities to try generating mental pictures while 
+reading. Students can then share what they have visualised with the teacher and 
+their classmates.  
+ 
+Use of a Dictionary 
+Students must learn to use a dictionary effectively and with discretion. They have 
+to learn to decide which words to look up and which ones to bypass. Even if they 
+need to consult the dictionary to get a precise meaning, they should only do so 
+after having tried to work out an approximation on their own. The new words and 
+language items can often be more easily and effectively learnt in context during 
+the process of reading. Students may also make use of online dictionaries with 
+useful features (e.g. audio pronunciations, hyperlinks for cross-references) to learn 
+new words. 
+ 
+Practising Skimming  
+Skimming is a reading skill required for a general impression of the content and 
+structure of a text, the general direction of an argument or a narrative, ascertaining 
+chronological sequences, like time shifts in a narrative or when it uses flashbacks, or a 
+sense of the writer’s tone and intention. When skimming a text, a student should be 
+encouraged to note headings and subheadings and to locate topic sentences. In 
+skimming texts that involve more than written language, a student should be guided to 
+identify features that enhance readability such as icons, toolbars, images and hyperlinks 
+that help highlight key sections for retrieving information. Skimming to get an initial 
+global view is a valuable way of approaching complex texts too.  
+ 
+ 
+
+ 
+41 
+ 
+Activities to practise skimming may include: 
+ 
+skimming a text for answers to simple global questions; 
+ 
+supplying a text with several titles. Students choose which title best fits the text; 
+ 
+supplying a text with photos or diagrams. Students tell what topics are dealt with 
+in the text; 
+ 
+supplying some letters for various purposes (e.g. invitation, complaint, request, 
+appreciation). Students match the letters to different categories; and 
+ 
+supplying copies of news items from different papers or websites about the same 
+incident. Students identify which copy states purely the fact, which one explains 
+the background to the event and which one includes opinion. 
+ 
+The above activities can be conducted as pair or group work to facilitate collaboration 
+and discussion among students. 
+ 
+Practising Scanning 
+Students scan to locate/extract specific information. They glance through a text rapidly 
+to search for specific details (e.g. a name, a date). In a multimodal reading context, 
+students can be alternating among various websites with the help of hyperlinks or 
+toolbars to locate the specific web page for information. Students should be encouraged 
+to look for clue words or phrases that may indicate the location of the answer they are 
+seeking without attempting to deal with the content as a whole. 
+ 
+Practice for scanning can be organised orally to force the pace. It is not scanning unless 
+it is done fast. Some scanning activities are as follows: 
+ 
+The most common activity is to ask students to locate a word or a fact on a page 
+or a hypertext. For instance: 
+ 
+looking up a certain page or a hypertext to find out the year in which a 
+particular event took place; 
+ 
+ 
+
+ 
+42 
+ 
+ 
+counting the number of times a particular word occurs on a single page or 
+web page; and 
+ 
+finding from the index or the site map of a website where “Topic A” is 
+mentioned. 
+ 
+More complex activities can be used on a group basis: 
+ 
+supplying a copy of a newspaper or suggesting a news website and asking 
+students to: 
+- 
+locate the page and column where various headlines and bylines can be 
+found; 
+- 
+locate specific data in editorials, letters to the editor; and 
+- 
+locate videos and pictures being described or corresponding to captions. 
+ 
+supplying a page of advertisements from a newspaper or providing links to 
+several advertisements on the Internet and asking students to answer a series 
+of questions orally (e.g. “Which tour agent offers holidays in Italy?”, “Where 
+can you get a holiday for $980?”). 
+ 
+Understanding Main Ideas 
+By recognising the essential ideas, students can become more proficient in processing 
+and retaining information about the text they read. Some suggested activities aimed at 
+developing students’ ability to understand main ideas include asking students to: 
+ 
+match headings with newspaper articles; 
+ 
+identify the key phrases or sentences in a text; 
+ 
+select from a list the main ideas most relevant to the text they read; 
+ 
+work in pairs, with each team member reading a different text and explaining to 
+each other its main ideas; 
+ 
+summarise orally or in writing the main points of a text; and 
+ 
+deconstruct a text with graphic organisers. 
+ 
+ 
+ 
+
+ 
+43 
+ 
+Questioning 
+Questioning, during the pre-reading stage, while-reading stage or post-reading stage, 
+promotes engagement, invites prediction, creates reasons for reading and fosters 
+understanding. Questions that students can ask include those that can be answered or 
+inferred from the text or by means of further discussion or research. Teachers should 
+model how to raise questions in interacting with a text to enhance students’ reading 
+comprehension. Ample opportunities should then be provided for students to practise 
+questioning.  
+ 
+Identifying Supporting Ideas or Details 
+Making distinctions between general ideas and supporting details is an important part 
+of reading comprehension. Some suggested activities include asking students to: 
+ 
+list the supporting details under each main idea in the text; 
+ 
+find one illustration or example for each main idea provided; and 
+ 
+read strips of paper containing sentences or a paraphrase from the text they read 
+and put these strips under the categories of “main idea” or “supporting detail”. 
+ 
+Reading Beyond the Surface 
+If students are to understand the writer’s points of view, intent or attitude towards a 
+specific issue and work out the implications of facts and ideas presented in the text, 
+they have to be trained to read beyond the literal meaning of the text. 
+ 
+Teachers can help develop students’ ability to make inferences through: 
+ 
+encouraging students to anticipate the content of a text from its title and 
+illustrations; 
+ 
+drawing students’ attention to the use of figures of speech, cohesive devices, 
+rhetorical devices and contextual clues, which help bring out the underlying 
+meaning; 
+ 
+sensitising students to the use of certain typographical features such as italicised 
+words and the use of question marks for statements; 
+ 
+ 
+
+ 
+44 
+ 
+ 
+drawing students’ attention to the writer’s distinctive style or personal experience 
+and to the social, cultural and political setting of the text; 
+ 
+holding discussions about the writer’s points of view and attitude towards specific 
+events; and 
+ 
+discussing the way visual and audio elements (e.g. tables, diagrams, graphs, 
+images, close-ups, animation, voiceovers, sound effects) contribute to the meaning 
+of the text.  
+ 
+As students proceed to a more advanced level, they have to be taught to interrogate the 
+text and respond to the writer’s ideas in light of their past experiences. To start off, 
+general questions inviting evaluation of the information source can be asked to enable 
+students to assess the reliability of information, recognise the presence of bias and 
+challenge the assumptions made. If students have expressed opinions on a topic or the 
+theme, it is desirable to invite comments from peers. Students can also be encouraged 
+to initiate and formulate questions. Teachers may have to go through some texts with 
+the class, thinking aloud the questions these texts raise. The next step is to let students 
+tackle the questions from their own experience, with the teacher and their classmates 
+giving feedback on attempts made. Students will gradually pick up the skill of reading 
+a text critically. 
+ 
+Post-reading Stage 
+At the post-reading stage, teachers may make use of tasks that involve: 
+ 
+eliciting a personal response from readers (e.g. whether they agree or disagree, 
+like or dislike the text); 
+ 
+determining what the author wants readers to think or believe based on a critical 
+analysis of the text; 
+ 
+establishing the connection with other works on the same topic/theme and drawing 
+comparisons between them; 
+ 
+drawing conclusions about the purpose and validity of the ideas and information 
+in the text; 
+ 
+suggesting practical applications of theories or principles; 
+ 
+ 
+
+ 
+45 
+ 
+ 
+retelling or role-playing the text read; 
+ 
+debating the points of view or moral values/issues presented in the text; 
+ 
+choosing or creating a title, which is an excellent way of summing up readers’ 
+overall understanding of a text;  
+ 
+conducting self-evaluation in which students articulate their own progress towards 
+the achievement of their reading goals; and 
+ 
+writing about their thoughts, feelings and insights acquired from the text and 
+sharing them with their classmates via an e-platform. 
+ 
+3.7 Intensive and Extensive Reading 
+ 
+Both intensive and extensive reading are necessary if students are to become proficient 
+readers in the target language. It is best not to think of them as two distinct and separate 
+modes, because the two are complementary and are often intertwined in real life. 
+ 
+The reading skills covered in this chapter are geared at helping students understand 
+what the text means and how the meaning is produced. Such texts are generally shorter 
+in length. However, it is unrealistic to just rely on class time and the limited choice of 
+reading materials that are available to develop fluency and efficiency in students. 
+Teachers have to give thought to the promotion of extensive reading out of class through 
+some kind of reading scheme or programme. The e-learning tools available in the media 
+present interesting opportunities to meet young readers’ reading needs. To help students 
+appreciate reading more fully, they should be motivated to take advantage of the 
+additional opportunities provided by different media and technologies to experience 
+content presented in a multisensory context. With a range of digital media that are 
+becoming more embedded in everyday lives, students should be encouraged to embrace 
+reading beyond the confines of the classroom as a habit. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+46 
+ 
+3.8 Reading across the Curriculum 
+ 
+Since the curriculum reform launched in 2001, emphasis has been placed on motivating 
+students and enhancing their learning to learn capabilities through reading. Building on 
+their existing strengths and experience in promoting reading, schools should continue 
+to set Reading to Learn as a sustainable task while due emphasis should be placed on 
+Reading across the Curriculum (RaC) to help students establish meaningful links 
+among concepts and ideas acquired in different KLAs. Through RaC, students at all 
+key stages of learning can be provided with meaningful contexts and extended learning 
+experiences to further develop their literacy skills, positive values and attitudes, and 
+world knowledge. It is particularly important for students at Key Stage 3 to meet the 
+demands of other subjects or KLAs where the medium of instruction is English. Schools 
+can devise a holistic plan and integrate RaC into the school curriculum to support the 
+whole-school language policy. Teachers can identify suitable reading resources (e.g. 
+information texts in printed or electronic form) and implement RaC through cross-KLA 
+collaboration. For further details on how to implement RaC, please refer to Chapter 4 
+of the English Language Education Key Learning Area Curriculum Guide (Primary 1 
+– Secondary 6) (2017) (http://www.edb.gov.hk/elecg) and Booklet 6B Reading to Learn: 
+Towards Reading across the Curriculum of the Secondary Education Curriculum Guide 
+(2017) 
+(http://www.edb.gov.hk/en/curriculum-
+development/renewal/guides_SECG.html). For illustration of how RaC is promoted in 
+the English classroom, please see Example 11 “Enhancing Students’ Literacy Skills 
+Development: Promoting Reading across the Curriculum through e-Learning 
+(Secondary 1 – 3)” (http://www.edb.gov.hk/eleklacgexamples). 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Blank Page) 
+ 
+
+ 
+49 
+ 
+Chapter 4  The Learning and Teaching of Writing 
+ 
+4.1 Importance of Writing 
+ 
+Writing is an important skill that students need to develop, because in real life people 
+often have to communicate with each other in writing, whether through pen-and-paper 
+or electronic communication. Writing is also important in that it helps students learn. It 
+reinforces the language items and structures, and vocabulary that students acquire. The 
+written product allows students to see how they are progressing and to get feedback 
+from the teacher and/or their peers. Most significantly, writing engages students in a 
+process which constantly requires them to take in information and generate thoughts, 
+to organise and reorganise ideas, and to discover and recreate meanings. In effect, 
+writing provides students with ample opportunities to demonstrate their creativity, 
+originality and thinking skills. Strategic writers also possess strong metacognitive 
+abilities to monitor their own writing process, i.e. planning, drafting, reflection, revising 
+recursively and editing their writing. 
+ 
+With the rapid development of information technology and the social media, “literacy” 
+has taken on a new meaning as texts are no longer a linear form of presentation limited 
+to words but are composed of various modes of communication (e.g. images, 
+animations, sounds, graphics). Students, therefore, need to be equipped with new 
+literacy skills to process and create multimodal texts in which messages are conveyed 
+in different modes (e.g. linguistic, audio, visual, gestural, spatial) (see Figure 1), and 
+the skills to search for and manage information.  
+ 
+Figure 1: Different Communication Modes that Convey Meanings in  
+Multimodal Texts 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(The New London Group, 1996; Kress, 2000) 
+
+ 
+50 
+ 
+4.2 Effective Writing Skills 
+ 
+At the primary level, students have developed basic writing skills. For details, please 
+refer to Appendix 5 of the English Language Education Key Learning Area Curriculum 
+Guide (Primary 1 – Secondary 6) (2017) (http://www.edb.gov.hk/elecg). At the junior 
+secondary level, students have to develop more advanced writing skills to present 
+information, ideas and feelings clearly and coherently. In order to do so, students need 
+to learn to: 
+ 
+evaluate and make use of given information to complete specific tasks; 
+ 
+describe, express or explain ideas, feelings and experiences; 
+ 
+create written and multimodal texts appropriate to the context, purpose and 
+audience; 
+ 
+use strategies to arouse and sustain readers’ interest; 
+ 
+plan and organise ideas, and use appropriate cohesive devices;  
+ 
+use a wide range of language patterns and visuals for various purposes; and 
+ 
+use appropriate tone, style and register for various purposes. 
+ 
+Teachers can make reference to the Learning Progression Framework (LPF) for English 
+Language (Writing Skills) (http://www.edb.gov.hk/lpfel_writing), which describes 
+students’ performance and progress along the developmental continuum of learning 
+English from Primary 1 to Secondary 6, for the learning outcomes regarding the 
+following:  
+ 
+content 
+ 
+organisation; and 
+ 
+language and style; 
+ 
+and plan holistically for the school English Language curriculum to meet students’ 
+needs.  
+ 
+ 
+ 
+
+ 
+51 
+ 
+4.3 Role of the Teacher 
+ 
+To facilitate student learning, teachers need to be clear about the role they should play 
+in the writing classroom. 
+ 
+ 
+In planning, designing and implementing the writing instruction, teachers play 
+different roles at various times: a designer and an interpreter of learning tasks, a 
+motivator, an organiser, a facilitator, a resource person, an evaluator and a reader. 
+ 
+Teachers need to guide students to set task-specific learning goals for the writing 
+tasks and equip them with the necessary skills to plan, monitor and evaluate their 
+writing performance throughout the learning process. 
+ 
+Teachers need to show a positive attitude, believing that students are capable of 
+doing the work in the writing curriculum.  
+ 
+Teachers need to be aware that writing development takes time and therefore 
+instruction should be planned accordingly.  
+ 
+Teachers need to recognise that extensive practice is required in developing 
+students’ writing skills.  
+ 
+Teachers need to be flexible. As students have different needs, interests and 
+abilities, teachers should use a variety of materials and tasks to cater for student 
+diversity. In general, they need to provide students with tasks or assignments that: 
+ 
+represent a broad range of interests, preferably with elements from cross-
+curricular domains such as values education (e.g. life education, moral 
+education, environmental education); 
+ 
+lend themselves to different viewpoints; 
+ 
+relate to the students’ experience; and 
+ 
+vary in their stylistic complexity. 
+ 
+Teachers need to encourage students to take calculated risks, to innovate and to 
+reflect on their work with respect to their learning goals or assessment criteria. 
+ 
+Teachers need to develop amongst the students a sense of community and sharing, 
+so that writing can become a collaborative and cooperative effort. 
+ 
+ 
+
+ 
+52 
+ 
+ 
+Teachers need to be sensitive. They need to create a trusting environment in which 
+students feel comfortable talking about their writing with teachers. Teachers 
+should not be viewed by students as ones who criticise them, but ones who will 
+provide encouragement and help them improve their proficiency. 
+ 
+4.4 Choice of Instructional Materials 
+ 
+Teachers will find the following types of information and resources useful in facilitating 
+their writing instruction: 
+ 
+Print-based materials – including language arts texts, anthologies of readings for 
+writing, grammar handbooks, dictionaries, thesauruses, encyclopedias, short 
+novels and stories, articles from magazines and journals, newspapers, non-fiction 
+books, and textbooks from subject-area fields. 
+ 
+Non-print materials – including films, trailers, and e-resources such as e-books, e-
+journals, web pages, social media texts and blogs.  
+ 
+Learner-generated materials – including text-based or non-text-based materials 
+contributed by students, which provide a good avenue for facilitating exploration 
+of personal/study-related issues or topics. 
+ 
+4.5 Activities for Developing Students’ Writing Skills 
+ 
+The following are some suggested learning activities which teachers can use at the 
+junior secondary level to develop students’ skills at various stages of the writing process, 
+i.e. pre-writing, drafting, revising and editing. 
+ 
+Pre-writing Stage 
+At the pre-writing stage, students are mainly involved in generating and planning ideas.  
+Generating Ideas 
+Idea generation is a crucial initiating process as it helps students get started, which is 
+one of the most difficult steps in writing. Activities which help promote idea generation 
+include: 
+ 
+ 
+
+ 
+53 
+ 
+ 
+Brainstorming 
+Students work in small groups to say as much as they can about a topic without 
+worrying about grammar, organisation, mechanics or the quality of ideas.  
+Through quick exchange, students can explore, clarify, and interpret ideas, as well 
+as gain insights into others’ points of view. Collaborative thinking tools can be 
+introduced to facilitate the brainstorming process. Students can generate ideas 
+collectively with their peers more conveniently with the aid of e-learning tools. For 
+example, they can exchange, on an online class forum, their views and information 
+about a topic they are going to write about before class. 
+ 
+Discussion 
+Students discuss ideas to be included in their writing. Working in pairs/groups 
+facilitates the exchange of ideas and points of view. 
+ 
+Freewriting 
+Students generate ideas by writing as quickly as possible without stopping for a 
+certain period of time (e.g. ten minutes), concentrating on content rather than 
+language. 
+ 
+Questioning 
+Teachers use questions (who? what? where? when? why? how?) to stimulate 
+thinking and develop ideas. Using questions as part of the writing process can 
+stimulate a lot of valuable discussion and genuine communication in class. 
+Alternatively, students can ask one another questions to generate ideas for the 
+writing topic. 
+ 
+Role Play 
+Role play simulates behaviour, language and ideas in a context other than that of 
+the classroom. It also develops perspective and audience awareness, offering 
+students a wealth of different ideas and viewpoints.  
+ 
+Interview 
+Students collect information and ideas through questioning others. This can be a 
+class or an out-of-class activity in which they interview their classmates, 
+schoolmates, teachers, family or friends.  
+
+ 
+54 
+ 
+ 
+Reading/Listening 
+This enables students to learn other people’s ideas, and stimulates them to think of 
+their own new ideas. 
+ 
+Researching 
+Students gather and analyse data, information from different sources (e.g. the 
+Internet, newspapers, books) to increase their understanding of the topic or issue 
+they are going to write about. Students can also search the Internet for appropriate 
+visual input, such as photographs, to be inserted into their multimodal texts. 
+Planning Ideas 
+Planning involves consideration of the purpose and audience of a piece of writing.  
+Through this, students recognise the writing context, which has a significant bearing on 
+the content and writing outlines. They need to learn how to evaluate and make use of 
+given information to complete a specific task. Strategies for planning a piece of writing 
+include: 
+ 
+Identifying Purpose 
+It is necessary to understand the writer’s purpose of writing, since the purpose 
+determines the organisation, tone and the choice of language. The following are 
+some suggested activities to help students identify the purpose of writing: 
+ 
+examining sample texts (e.g. letters to the editor, itineraries) and identifying 
+their text type features to consider the writers’ purpose, and taking into 
+consideration text grammar, work out how the choice of language is affected 
+by the context and how it shapes the tone, style and register of a text (for 
+details of text grammar, please see Section 4.2.4 of the English Language 
+Education Key Learning Area Curriculum Guide (Primary 1 – Secondary 6) 
+(2017) (http://www.edb.gov.hk/elecg)); 
+ 
+learning how language items are used to communicate the intended meanings 
+appropriate to the contexts (e.g. using modal verbs in writing instructions); 
+ 
+responding to a letter to the editor to understand how personal views and 
+opinions are expressed and presented; 
+ 
+ 
+
+ 
+55 
+ 
+ 
+examining how a single event or issue (e.g. a typhoon hitting Hong Kong) 
+has been reported from a variety of angles (e.g. eye-witness accounts, 
+assessments of damage, descriptions of the weather, precautions to be taken); 
+and 
+ 
+considering an event or a situation from the points of view of the various 
+people involved (e.g. writing accounts of a bank robbery in the personae of 
+various characters such as the bank manager, the robber, the police and the 
+customers). 
+ 
+Identifying Audience 
+Before attempting any piece of writing, it is important to ask the question “Who 
+am I writing for?” Presenting a concept in our culture to someone unfamiliar with 
+it is quite different from presenting it to people from our own culture. A keen sense 
+of the audience can help the writer select appropriate content and express it in an 
+appropriate tone, style and register.  
+ 
+The following are some activities which can be used to develop students’ ability 
+in identifying the audience: 
+ 
+examining a text and trying to deduce the audience it was written for; 
+ 
+telling the same story from the perspective of a different character; 
+ 
+rewriting an argumentative text from the perspective of the opposing 
+viewpoint; and  
+ 
+rewriting a letter of complaint to a friend explaining the complaint. 
+ 
+Outlines 
+A brief and flexible outline making use of a graphic organiser can make students 
+see the basic skeleton or form of what they plan to write, and assess what addition 
+or development of main ideas is needed. It should be stressed that students must 
+not regard outlines as straitjackets, but be ready to reshape their plans as they 
+discover new ideas. 
+ 
+ 
+ 
+
+ 
+56 
+ 
+Drafting Stage 
+When writing the first draft, students should focus on getting the content right and leave 
+matters like grammar, punctuation and spelling until later. Class time should be allowed 
+for students to carry out this process. They should be guided to draft written or 
+multimodal texts appropriate to the context, purpose and audience. 
+ 
+Teachers should prepare students for this particular stage of writing by developing their 
+skills in the following areas: 
+ 
+Beginnings and Endings  
+Teachers can use the following activities to help students develop effective beginnings 
+and endings appropriate for the type of writing they are working on.  
+ 
+Examining the beginnings and endings of different text types. Students read and 
+discuss the characteristics of the beginnings and endings of sample texts of a 
+particular text type using the following guiding questions: 
+ 
+Is the opening interesting? What makes it interesting? 
+ 
+What form does the opening take? A general statement, a fact, an opinion, a 
+quotation, an anecdote or others? 
+ 
+Does the opening make you want to read on? 
+ 
+How is the opening related to the other parts of the text? 
+ 
+How is the ending related to the opening? 
+ 
+How is the ending related to the other parts of the text? 
+ 
+Through discussion with peers and the teacher, students recognise the typical 
+characteristics of the beginnings and endings of a particular text type. Should 
+students be working on a draft which comes under the category of this text type, 
+they could apply this knowledge to evaluate the opening and ending of their own 
+drafts. 
+ 
+ 
+
+ 
+57 
+ 
+ 
+Examining examples of effective beginnings of texts and discussing the ploys used 
+to attract the reader’s interest (e.g. an assertive statement to challenge the reader, 
+a rhetorical question, a quotation, an event, a description which creates suspense). 
+ 
+Matching the beginnings and endings of texts to see the ways in which the endings 
+reflect and relate to the openings. 
+ 
+Writing a beginning and an ending to suit the body of a given text. 
+ 
+Developing and Structuring Content 
+Teachers can use the following activities to help students develop and structure a text. 
+ 
+Students work through integrated tasks focusing particularly on reading and 
+writing. Reading provides students with relevant input (e.g. ideas, vocabulary) 
+which they can use, thus enriching the content of their writing. Students can also 
+build up mental schemas of the structures of various text types, which help them 
+shape their own writings. They also learn about the relationship between language 
+and context, and develop their awareness of how the use of language items affects 
+the coherence and structure of the text, which they can then transfer to their own 
+writing.  
+ 
+Teachers should also offer students practice in writing full texts. Writing at the text 
+level provides students with an opportunity to develop ideas through sentences and 
+paragraphs within an overall structure. Various aspects of rhetorical shaping such 
+as cohesive devices (e.g. references, conjunctions, substitutions), paragraphing 
+(developing topic sentences with key supporting details), organisational methods 
+(e.g. deduction, induction), and types of writing (e.g. instructions, summaries, 
+narrative, discussion, comparison, classification) can be practised in a meaningful 
+way. Students can also learn to use language items to communicate the intended 
+meanings and produce texts with the appropriate tone, style and register in respect 
+of the context. 
+ 
+Students should be encouraged not only to read but also to write a broad range of 
+text types, so as to deepen their understanding and experience of the use of 
+different methods of organisation in different types of discourse. The types of texts 
+to be included in a writing programme vary according to the students’ needs, 
+interests and abilities, but teachers should select a range of items from the 
+following areas: 
+ 
+
+ 
+58 
+ 
+ 
+personal writing (e.g. diaries, journals, blogs); 
+ 
+social writing (e.g. personal letters, emails, invitations, telephone messages); 
+ 
+public writing (e.g. form-filling, letters of enquiry, speeches, letters of 
+appreciation, letters of complaint); 
+ 
+study writing (e.g. making notes from reading/lectures, summaries); 
+ 
+creative writing (e.g. rhymes, advertisements, stories, drama, poems, jokes, 
+e-posters); 
+ 
+essay writing (e.g. controversial issues, arguments); and 
+ 
+institutional writing (e.g. memoranda, business letters, reports). 
+ 
+Controlled language exercises focusing on one or more aspects of written 
+discourse can be used to enhance students’ ability to structure a piece of writing. 
+The more common ones aim at developing the skill of using cohesive devices (e.g. 
+combining sentences, logically sequencing jumbled sentences within a paragraph, 
+rearranging jumbled paragraphs), while others aim at developing understanding of 
+discourse organisation (e.g. transferring information from a text to a tree diagram, 
+reducing a text to an outline). It should, however, be stressed that these exercises 
+must be reinforced by freer writing activities which require students to draw on 
+their language learning experience in order to express themselves creatively and 
+to progress towards learner autonomy. 
+ 
+Creating Multimodal Texts 
+Creating a multimodal text is a complex process. It requires students to make meaning 
+by strategically combining different modes of communication (e.g. linguistic, audio, 
+visual, gestural, spatial). Though multimodal is not synonymous with digital, the 
+development of multimodal literacy is strongly associated with the advances made in 
+information technology. In creating a multimodal text, students learn to use a range of 
+software (e.g. word processing and presentation software) to incorporate visual and 
+audio features to contribute effectively to the meaning of a written text, for example, 
+incorporating pictures of ingredients and a video that demonstrates the cooking steps to 
+accompany a recipe. Access to easy-to-use digital production tools and resources has 
+significant implications for literacy development and practice, and should be exploited 
+to develop students’ literacy skills and their abilities to express themselves in diverse 
+modes of communication through the use of information technology. 
+ 
+ 
+
+ 
+59 
+ 
+Teachers can support students in creating multimodal texts through: 
+ 
+asking students to identify multimodal texts (e.g. TV commercials, posters, 
+promotional videos) for a class discussion on their effectiveness in conveying the 
+intended messages; 
+ 
+asking students to discuss how visual and audio features can be added to a written 
+text to enhance its effectiveness in achieving different communication purposes; 
+and 
+ 
+showing students the use of different software to create multimodal texts. 
+ 
+For further illustration of how multimodal texts are promoted in the English classroom, 
+please see Example 20 “Designing Meaningful Homework – Developing Students’ 
+Ability 
+to 
+Produce 
+Multimodal 
+Texts 
+(Secondary 
+1 
+– 
+3)” 
+(http://www.edb.gov.hk/eleklacgexamples). 
+ 
+Revising Stage 
+While drafting is concerned with what the writer wants to say, revision or rewriting 
+concentrates on how to say it effectively. Students should be empowered to reflect on 
+their own work and decide how their writing can be improved. Teachers can model and 
+teach the skills of self-evaluation, and guide students to set their own goals and monitor 
+their progress towards the goals. Another way to facilitate students’ self-assessment of 
+their writing is to provide good samples and models of work to help students understand 
+the assessment criteria. Students should be encouraged to evaluate their drafts and make 
+changes at the text level instead of being overly concerned with grammatical and 
+mechanical errors/mistakes. When revising, they should apply the following: 
+ 
+Am I conveying my ideas clearly to my readers? 
+ 
+Is my writing appropriate in terms of the context, purpose and audience? 
+ 
+Are my explanations and examples clear? 
+ 
+Are my points adequately explained or developed? 
+ 
+Are my arguments logically and consistently presented? 
+ 
+Are there any repetitive/irrelevant ideas? 
+ 
+Are the links between paragraphs clear? 
+
+ 
+60 
+ 
+ 
+Have I used a good range of vocabulary appropriately? 
+ 
+Have I used the appropriate tone, style and register? 
+ 
+Is the language (e.g. grammar, vocabulary, punctuation) accurate? 
+ 
+If visual or audio features are used, do they help convey the intended messages 
+more effectively, or are they overused? 
+ 
+In supporting the revising process, teachers should consider applying the following 
+strategies: 
+Peer Review 
+ 
+Peer review, also known as peer response, peer feedback or peer editing, is often 
+used in the writing classroom to assist revision. Central to this activity is the notion 
+that students work interactively in pairs or small groups to review each other’s 
+draft by way of questions, suggestions or comments. One key benefit of peer 
+review is that it enhances audience awareness and promotes habits of revision with 
+readers in mind. The interaction between students and peer readers enables both 
+parties to gain insights into each other’s point of view. Further, by responding 
+critically to their peers’ writing, students become aware that they need to do the 
+same with their own work to facilitate peer review. 
+ 
+Students need to be given clear instructions and directions about the roles they will 
+play and the tasks they are expected to accomplish. They also need to be guided 
+to give quality feedback. 
+ 
+The worksheet below provides some ideas of the kind of feedback students can be 
+asked to give on their peers’ writing. The questions can be modified and adapted 
+to better suit each classroom situation.  
+ 
+PEER REVIEW WORKSHEET 
+ 
+Complete the following statements: 
+ 
+The best part of this piece of writing is … 
+ 
+I agreed with you when you said … 
+ 
+I disagreed with you when you said … 
+ 
+The suggestions I want to make to improve this paper are … 
+ 
+ 
+
+ 
+61 
+ 
+ 
+ 
+Peer review can also be conducted with the use of information technology. The 
+interactive functions of e-learning tools (e.g. online learning management systems, 
+weblogs, discussion forums) facilitate peer review through providing an e-
+platform where students can give comments and suggest revisions on their peers’ 
+works.  
+ 
+Teacher-Student Conferencing 
+The teacher conducts a discussion with the students on a one-to-one basis or in small 
+groups. It may take place out of class time when a group of students meet with the 
+teacher to discuss the current draft of a piece of writing with reference to their learning 
+goals and writing performance, leading to a revision plan. 
+ 
+Conferences provide students with an informal atmosphere where students can 
+actively participate, ask questions freely, learn to negotiate meaning and clarify 
+the teacher’s responses. Students are able to receive more immediate and elaborate 
+feedback than they would through written comments. Also, students may feel 
+better motivated by the personal attention received.  
+ 
+The obvious drawback of conferences is that they place a great demand on the 
+teacher’s time. One way of addressing this disadvantage is to help students clearly 
+understand the purpose of the conference and have them prepare a list of questions 
+beforehand. This keeps the conference on task and may reduce the time needed for 
+each meeting. 
+ 
+Mini-conferences can be conducted in class during small group work. The teacher 
+walks around as students work, clarifying queries, asking questions and offering 
+suggestions. Mini-conferencing has several benefits: 
+ It becomes part of the regular classroom learning as a focused discussion 
+activity. 
+ The immediate intervention is a natural part of the writing process.  
+ It addresses students’ immediate needs. 
+ 
+ 
+ 
+
+ 
+62 
+ 
+Responding in Writing 
+This refers to teachers’ comments on the drafts they have collected from students.  
+ 
+Teachers should offer positive support by praising what is genuinely good in 
+students’ drafts. They should raise specific questions which will enable students 
+to carry out revisions, make suggestions for reorganising ideas or developing 
+specific points in the draft, and provide a small set of concrete suggestions for 
+improving the grammatical and mechanical aspects of the text. 
+ 
+To make written feedback work, teachers must avoid giving vague and confusing 
+comments which provide little direction for students when they attempt revision. 
+They must also avoid providing detailed editing comments on the surface form 
+without paying attention to organisational and content issues. 
+ 
+To enhance the quality of their feedback, teachers can make reference to the LPF 
+for English Language (Writing Skills) (http://www.edb.gov.hk/lpfel_writing), 
+which is a useful tool for identifying students’ strengths and areas for improvement, 
+and understanding what students need to achieve as they progress in the 
+development of writing skills. 
+ 
+Editing Stage 
+At this stage, students make the final revisions based on feedback from their peers and 
+teacher, and check accuracy to make sure that the text is suitable for presentation to the 
+reader. They also focus on matters such as grammar and mechanics, including spelling, 
+punctuation and handwriting.  
+ 
+4.6 Evaluating Student Writing 
+ 
+Evaluation refers to the teacher’s response to a student’s final draft, based on a set of 
+assessment criteria developed for evaluating student writing. The teacher has the 
+responsibility to inform students about the evaluation policies and criteria for specific 
+writing tasks beforehand. These criteria represent the teacher’s objectives and 
+expectations, which serve as a guide for students in writing and revising their work. 
+Most task-specific criteria focus upon the following areas: purpose and audience, 
+content, organisation, grammar and mechanics.  
+ 
+ 
+ 
+
+ 
+63 
+ 
+Teachers need not correct all the errors/mistakes in students’ work. Total correction is 
+time-consuming for teachers and discouraging for students. Teachers should consider 
+using the following alternative approaches: 
+ 
+Correct errors/mistakes selectively. Instead of correcting all the errors/mistakes in 
+a piece of writing, the teacher should first agree with students what to focus on. 
+For example, the teacher may concentrate on areas where the students particularly 
+need help, such as tenses and articles. Apart from selectively correcting 
+errors/mistakes, teachers write comments in the margin or at the end of a piece of 
+written work. This helps draw attention to recurrent errors/mistakes in a particular 
+area. The teacher then explains these common errors/mistakes and addresses them 
+by engaging the class in appropriate language activities.  
+ 
+Indicate errors/mistakes so that students can correct them. This is done by 
+underlining/highlighting the errors/mistakes and/or using a correction code to alert 
+students to the kinds of errors/mistakes they have made. As a follow-up activity, 
+the teacher can provide students with appropriate activities or exercises addressing 
+their common text-level and/or language errors/mistakes. 
+ 
+4.7 Time Constraints 
+ 
+It may appear to some teachers that process writing takes up too much of their class 
+time. However, this does not mean that process-based approaches are therefore 
+irrelevant and have no place in the writing curriculum. Information technology has 
+contributed much to creating an environment conducive to teaching process writing. 
+For example, the work of drafting and revising has been greatly relieved by e-learning 
+tools (e.g. word-processing software, online graphic organisers). In addition, students 
+do not need to go through the entire writing process every time they are given a writing 
+task. What is important is that teachers make use of each writing assignment to draw 
+students’ attention to a specific aspect of the writing process, be it idea generation, 
+planning, drafting, revising or editing. Teachers may decide when it is appropriate and 
+which assignment to use to take the students through the entire writing process. Such a 
+practice is essential as it provides students with a comprehensive picture of what the 
+approach entails and how they can apply it to their own writing. 
+ 
+ 
+ 
+ 
+ 
+
+ 
+64 
+ 
+4.8 Use of Group Activities 
+ 
+Group and collaborative work in language classrooms contributes to a non-threatening 
+atmosphere under which communicative skills are fostered and the need for interaction 
+is created.  
+ 
+Collaboration and small group work can be employed to help students throughout the 
+writing process. In small groups, students can: 
+ 
+collaboratively gather information, generate ideas and respond to opinions; 
+ 
+work together to solve problems, along with evaluating and making decisions; 
+ 
+role play or participate in simulation activities in the process of discovery; and 
+ 
+participate in reader response activities: discussing, analysing, and evaluating 
+peers’ drafts. 
+ 
+With the rapid development in information technology, teachers may make effective 
+use of e-learning tools (e.g. discussion forums, weblogs, online graphic organisers) to 
+facilitate collaborative writing, so as to enhance students’ participation, provide 
+opportunities for peer- and self-assessment and increase the input for the writing task. 
+ 
+Group writing activities also provide relevant contexts for students to develop their 
+generic skills.  At the junior secondary level, meaningful writing tasks could be 
+developed to facilitate students’ integrative use of generic skills such as collaborative 
+problem solving skills (i.e. the integration of collaboration skills, communication skills 
+and problem solving skills), for example, by guiding students to write a proposal 
+collaboratively to the principal suggesting solutions to the long queuing time at the 
+school canteen; and holistic thinking skills (i.e. the integration of critical thinking skills, 
+problem solving skills and creativity), for example, by engaging them in a group 
+activity to design a gadget that improves one’s health and promote it with an 
+advertisement. 
+ 
+ 
+ 
+ 
+ 
+
+ 
+65 
+ 
+4.9 Writing across the Curriculum 
+ 
+Writing across the Curriculum (WaC) is a meaningful follow-up on Reading across the 
+Curriculum (RaC) as it offers opportunities for students to apply in their writing the 
+language and content knowledge related to non-language subjects making use of input 
+from their reading. In WaC, students are provided with meaningful contexts and 
+extended learning experiences to develop their literacy skills and world knowledge. It 
+helps students establish meaningful links among concepts and ideas in other Key 
+Learning Areas (KLAs), and develop a better understanding of the language features of 
+texts on cross-curricular subjects. WaC is particularly important to Key Stage 3 students 
+who may need to learn non-language subjects through English. It also supports them in 
+coping with more complex texts that deal with cross-curricular themes in the English 
+Language curriculum as well as prepares them for meeting the growing language 
+demand in terms of formality and text complexity at the senior secondary level. 
+ 
+When designing a WaC task, teachers can identify connections between English 
+Language and non-language subjects in terms of different aspects such as text structure, 
+vocabulary, rhetorical functions and their related language items and structures, and set 
+a clear writing purpose to support the use of English for academic purposes in contexts 
+related to non-language subjects. Writing in one subject differs from writing in another 
+subject. The incorporation of WaC in the school English Language curriculum 
+facilitates students’ development of subject-specific language and writing strategies that 
+vary from one subject to another. Implementing WaC does not mean assigning long and 
+complicated academic essays. While such writing has many benefits, they may be too 
+demanding for Key Stage 3 students. More manageable WaC tasks in terms of text 
+length and language demand (e.g. writing explanations for a poster about how to 
+maintain oral health, writing descriptions for a new invention, writing procedures for a 
+recipe) can be introduced to students at the junior secondary level. For further 
+illustration of how students’ learning experiences between English Language Education 
+and other KLAs can be connected through promoting Language across the Curriculum, 
+please see Section 3.4.2 of the English Language Education Key Learning Area 
+Curriculum Guide (Primary 1 – Secondary 6) (2017) (http://www.edb.gov.hk/elecg), 
+Chapter 6 “Promoting Language across the Curriculum at Secondary Level” of this 
+Supplement and Example 2 “Connecting Students’ Learning Experiences between 
+English Language and Non-language Subjects through Promoting Language across the 
+Curriculum at the Junior Secondary Level” (http://www.edb.gov.hk/eleklacgexamples).
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Blank Page) 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Blank Page) 
+ 
+
+ 
+69 
+ 
+Chapter 5  The Learning and Teaching of Language Arts 
+ 
+5.1 The Place of Language Arts in the English Language Curriculum 
+ 
+Language arts has much to offer in developing students’ capability to use English to 
+respond and give expression to real and imaginative experience. It seeks to develop 
+students’ language sensitivity and cultural awareness, as well as creative and critical 
+thinking through the use of imaginative or literary texts1 . The use of language arts 
+materials and relevant learning activities is an effective means to help students progress 
+towards the learning targets of the Experience Strand in the English Language 
+Education curriculum. 
+ 
+Exposure to a wide range of language arts materials at the junior secondary level 
+enhances students’ language skills as well as prepares students for the language arts 
+modules in the Elective Part at the senior secondary level, namely, Learning English 
+through Drama, Learning English through Short Stories, Learning English through 
+Poems and Songs, and Learning English through Popular Culture. The incorporation of 
+language arts into the junior secondary English Language curriculum can also help lay 
+the foundation for the study of Literature in English, an extended and elective subject 
+in the senior secondary curriculum. The use of language arts materials also provides 
+opportunities for the integrated use of language skills, meaningful extension of English 
+language learning and development of generic skills. Hence, teachers are encouraged 
+to use a wide variety of language arts materials and activities in the learning and 
+teaching of English.    
+ 
+“Language arts” is used in this Supplement instead of the term “literature” in order to 
+avoid the confusion which might be caused amongst teachers that it is concerned with 
+the critical study of literary texts such as those prescribed for Literature in English in 
+the Hong Kong Diploma of Secondary Education Examination. It should be stressed 
+that language arts is not concerned with: 
+ 
+the mastery of literary and/or critical terms; 
+ 
+the learning of the biographical details of poets/novelists/playwrights or the 
+historical background of texts; 
+                                                      
+1In the context of language arts in this Supplement, language arts materials/texts may be written, spoken, 
+visual or multimodal, such as poems, novels, short stories, drama, films, radio and television programmes. 
+
+ 
+70 
+ 
+ 
+stylistic analysis;  
+ 
+literary criticism; or 
+ 
+the production of literary works. 
+ 
+5.2 
+Reasons for Using Language Arts Materials in the English Language 
+Curriculum 
+ 
+Language Enrichment 
+ 
+Language arts materials help sharpen students’ awareness of how language can be 
+used to achieve different effects. They offer vivid examples of a range of styles, 
+registers and text types at different levels of difficulty. They are enriched with 
+figurative language which often presents familiar experiences in a new light, 
+encouraging students to consider the nature of the experience and the potential of 
+the language itself. Students are encouraged to be creative and adventurous as they 
+appreciate the richness of the language. 
+ 
+Language arts materials are often open to multiple interpretations. Students’ 
+interpretations of and reactions to a given story, poem, play or film are rarely 
+identical. This difference in points of view allows for stimulating interaction 
+among students. 
+ 
+Language arts materials which deal with issues of universal significance (e.g. 
+human relationships, nature, love, growing up) or issues with cross-curricular 
+themes (e.g. environmental protection, life planning, human rights) can be used as 
+resources for stimulating activities to enable students to develop positive values, 
+think from different perspectives and make thoughtful and reasoned judgements.  
+ 
+The interest and appeal of language arts materials make them a key resource for 
+thought-provoking language activities. Through engaging interactively with the 
+language arts materials and learning activities with their fellow students and the 
+teacher, students will learn to pay careful attention to the materials and generate 
+language as they complete tasks. 
+ 
+
+ 
+71 
+ 
+Cultural Enrichment 
+Language arts materials provide cultural enrichment as they expose students to culture-
+specific situations, which heighten their sensitivity of cultural diversity. They offer a 
+rich context in which the characters’ actions, thoughts and emotions are displayed, all 
+of which provide insights into the codes and values of the society they represent. 
+Students are likely to gain an increased awareness of both the foreign cultures 
+represented in the materials and their own as a result of a juxtaposition of the two. 
+ 
+Personal Involvement 
+Language arts materials allow for personal involvement. More diffuse than 
+informational discourse, they stimulate students to engage in a vigorous process of 
+interactive reading and viewing. The focus of the students’ attention is often shifted 
+from the more mechanical aspects of the target language system to the emotional 
+experience represented in the materials. 
+ 
+5.3 Choice of Language Arts Materials 
+The suitability of language arts materials for the English classroom varies from one 
+group of students to another, depending on their age, needs, interests, cultural 
+background, language level, and intellectual and emotional maturity. It is most 
+important to make use of materials which stimulate their personal imagination and 
+involvement. Teachers should consider the following when selecting language arts 
+materials to be used in class: 
+ 
+Appropriateness of Content 
+The suitability of language arts materials depends on each particular group of students, 
+their age, background, needs, and previous exposure or experience. Conceptual 
+difficulty is also a factor to be considered. Students will not be able to find pleasure in 
+language arts if the ideas conveyed by the selected materials are beyond their 
+intellectual and emotional maturity. 
+ 
+ 
+
+ 
+72 
+ 
+Likelihood of Interest to Students 
+One important factor to consider is whether the materials are able to stimulate personal 
+involvement and provoke strong, positive reactions. Materials which are relevant to 
+students’ life experiences, emotions or dreams may be favoured. Besides, surprise, 
+suspense, original thoughts and critical insights are common elements of language arts 
+materials that find popularity with students. 
+ 
+Amount of Cultural Knowledge Required 
+Language arts materials which are culturally difficult may pose challenges to both 
+teachers and students. However, this should not deter teachers from exploiting them to 
+foster understanding of another culture and to study the target language in the social 
+settings they represent. After all, learning a foreign language is also getting to know a 
+foreign culture. Teachers are advised to introduce these materials with shrewd guidance 
+to support students in understanding them as well as the culture embedded.  
+ 
+Possibilities for Multiple Interpretations 
+The beauty of language arts materials lies in their infinite possibilities for 
+interpretations and each reading or viewing experience is by nature unique. It is 
+desirable to use materials that allow room for multiple interpretations to stimulate 
+thinking. Materials open to interpretations provide opportunities to spark personal 
+responses, and invite analyses and reflections. 
+ 
+Fostering Positive Values and Attitudes 
+Language arts materials such as stories, plays and films mirror a wealth of human 
+experiences, emotions and behaviour in circumstances as well as value-laden issues that 
+provide opportunities for critical and imaginative responses. Materials that deal with 
+fundamental questions of humanity have the capacity to shape young minds with 
+intrinsic values, nurture their empathy towards others as well as guide them to reflect 
+on their beliefs and make wise and moral judgements. Teachers are advised to make 
+effective use of language arts materials to promote positive values and attitudes, with a 
+focus on the seven priority values and attitudes (i.e. perseverance, respect for others, 
+responsibility, national identity, commitment, integrity and care for others) so as to 
+facilitate whole-person development and raise a generation of socially responsible 
+youths for a better society. 
+ 
+ 
+
+ 
+73 
+ 
+Density, Pace, Clarity and Language 
+In choosing written texts, it is important to select texts of the appropriate length. Texts 
+that are too long may pose the problem of maintaining students’ interest. On the other 
+hand, texts that are too short may not be desirable because they lack the extended 
+contextual support found in longer texts. Although language difficulty is a factor to be 
+considered, it should never be the most important consideration. In fact, students do not 
+have to understand every word in the texts. Texts with a certain degree of stylistic 
+complexity may be used to improve students’ language proficiency and develop their 
+receptive skills. 
+ 
+Subtleties and Richness of Language 
+Teachers are advised to select language arts materials demonstrating a range of 
+language features to present themes, characters, experiences and feelings. Both visual 
+and written imaginative or literary texts provide opportunities for students to appreciate 
+the subtleties and richness of the English language through learning the use of figurative 
+language such as metaphor, personification, alliteration and onomatopoeia. The use of 
+language arts materials can equip students at the junior secondary level with the 
+language and skills required in studying the language arts modules in the Elective Part 
+and the study of Literature in English at the senior secondary level. 
+ 
+Engagement of Students in the Selection of Learning Materials 
+It may be a good idea to select different language arts materials and introduce them in 
+the classroom and allow students to select those they prefer to work on. Sometimes two 
+texts on the same theme (e.g. a novel/poem and a film about the First World War) can 
+be selected to provide students with the chance to compare and contrast points of view 
+and features of different genres. 
+ 
+5.4 Planning and Designing Activities Using Language Arts Materials 
+ 
+The following are some suggestions for planning and designing activities that may be 
+used with language arts materials in written or non-written forms. 
+ 
+The reading or viewing of language arts materials is often just one key element in 
+a set of connected activities within a unit. These activities may include a 
+preliminary discussion, interactive work and follow-up activities that integrate the 
+development of different language skills. 
+
+ 
+74 
+ 
+ 
+Group and shared activities allow the teacher to tap the knowledge and experience 
+resources within the group. With its variety of life experiences, a group can foster 
+the development of an individual’s awareness both of his/her own responses and 
+of the world represented in the materials. Students working in groups are 
+encouraged to explore the materials together, and share their experiences, views 
+and interpretations. 
+ 
+Activities involving the use of questions need not be teacher-centred.  Questions 
+can be designed and organised in such a way that they lead students to work either 
+individually or through group discussion to achieve a better understanding of the 
+materials. Students can benefit from answering both closed questions aimed at 
+eliciting information-based responses and open questions encouraging probing 
+investigation and reasoned interpretation. 
+ 
+Teachers should employ a broad range of activities to suit students’ needs, interests 
+and abilities (e.g. storytelling, role play, solo/choral speaking, drama, 
+improvisation, creative writing, audio/video production, jigsaw reading, parallel 
+reading of a written text and another text in different modes of representation). 
+However, it should be stressed that the variety of activities should aim at increasing 
+students’ confidence in developing and expressing their own responses. As their 
+critical faculties are sharpened, students will become keener to articulate their own 
+views and assess other perspectives. Also, they are more likely to engage in 
+creative learning activities and/or extended reading or viewing outside the 
+classroom. 
+ 
+Flexible use of e-learning resources can effectively help students understand, 
+interpret, analyse, appreciate and respond critically to language arts materials. 
+Students can make use of the e-features (e.g. graphics, sound, animation) available 
+to explore imaginative or literary texts in the e-learning environment, while the 
+use of e-platforms or apps (e.g. discussion forums, online graphic organisers) 
+facilitates the exchange of ideas, helps them better organise their ideas during 
+brainstorming activities, and fosters collaboration among students. The use of 
+information technology to give expression and respond to ideas and experiences 
+in language arts materials can also increase students’ learning motivation, develop 
+creativity and enhance their language skills. 
+ 
+ 
+ 
+
+ 
+75 
+ 
+5.5 Suggested Activities for Using Language Arts Materials 
+ 
+The following is a list of activities which may be used with language arts materials in 
+written or non-written forms. It is meant to be suggestive rather than exhaustive, and 
+teachers should feel free to make changes and/or use their own ideas. (The “texts” 
+referred to below may be written, spoken, visual or multimodal.) 
+ 
+Preliminary Activities 
+ 
+poster presentations on the theme/subject of the text; 
+ 
+annotation or discussion of photos/pictures/music related to the text; 
+ 
+predicting what a text is about by reading its title or a few opening lines, looking 
+at the shape in the case of a shape poem, or watching the trailer of a film; 
+ 
+personal reactions to the theme(s) of the text; 
+ 
+discussion of how students would respond if they were in a similar situation to the 
+one in the text;  
+ 
+discussion of the setting of the text (e.g. costumes of the actors in a play); and 
+ 
+brainstorming vocabulary conducive to understanding the text. 
+ 
+Activities Focusing on the Language Arts Materials 
+ 
+jigsaw reading (i.e. reordering a scrambled text); 
+ 
+choosing a description which best summarises the text; 
+ 
+completing sentences which show “cause-effect” relationships in the text; 
+ 
+matching definitions with words in the text; 
+ 
+organising words according to lexical relationships; 
+ 
+discussing how dramatic effects are produced in the text through the use of 
+different devices such as music, colour and images; 
+ 
+gap-filling (i.e. certain words are removed from the text, and students fill in the 
+gaps either by themselves or by choosing from a word list); 
+ 
+choosing from a list of adjectives the one which best describes a certain character, 
+and supplying reasons; 
+
+ 
+76 
+ 
+ 
+reading/viewing an extract, and writing and/or presenting the rest of the dialogue 
+between the characters; 
+ 
+answering comprehension questions about certain words or phrases, the content of 
+the text and its underlying meaning; 
+ 
+understanding and appreciating the effect of sound patterns in the text; 
+ 
+identifying and discussing themes of the text; 
+ 
+considering the same text presented in another form; and 
+ 
+reading aloud the story/poem/speech/drama script. 
+ 
+Follow-up Activities 
+ 
+engaging in a discussion/debate on the theme/subject of the text; 
+ 
+writing creatively (e.g. poems, lyrics, stories, drama scripts) or critically on the 
+theme/subject of the text; 
+ 
+comparing characters from various texts; 
+ 
+doing a role play/simulation and other dramatic presentations such as readers’ 
+theatre; 
+ 
+participating in the presentation of the text through providing oral and written 
+descriptions of feelings and events and expressing one’s reactions to issues related 
+to the text; 
+ 
+rewriting the text in a different text type (e.g. if the text embodies a story, students 
+may be asked to rewrite it as if it were a newspaper article or film script); 
+ 
+sharing reflections on the text via an e-platform; and 
+ 
+creating e-posters, animations or video clips of the text and uploading their work 
+to the e-platform for peer viewing and assessment. 
+ 
+For illustration of how a poem and how storytelling are used in the English Language 
+classroom, please refer to Example 7 “Using Imaginative and Literary Texts to Develop 
+Generic Skills and Positive Values and Attitudes: ‘Where Go the Boats’ (Secondary 1-
+3)” (http://www.edb.gov.hk/eleklacgexamples) and the resource package “Using 
+Storytelling 
+to 
+Develop 
+Students’ 
+Literacy 
+Skills 
+and 
+Positive 
+Values” 
+(http://www.edb.gov.hk/eleresources) respectively.
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Blank Page) 
+ 
+
+ 
+79 
+ 
+Chapter 6 
+Promoting Language across the Curriculum 
+at Secondary Level 
+ 
+6.1 
+Challenges for Secondary School Students in Learning English and Learning      
+through English 
+ 
+At the primary level, Chinese is generally adopted as the medium of instruction (MOI) 
+in the majority of subjects. Through English Language Education as a Key Learning 
+Area (KLA) in the school curriculum, primary school students are provided with a wide 
+range of contexts and learning experiences to develop their English language 
+proficiency, enhance their personal and intellectual development, and extend their 
+understanding of other cultures. At the secondary level, while students continue to 
+develop their English language skills for general purposes, they may also need to 
+acquire language skills for academic purposes to support them in learning non-language 
+subjects through English and in coping with more complex texts that deal with cross-
+curricular themes in the English Language curriculum.  
+ 
+Language demand grows in terms of formality (e.g. learning topics with contexts 
+ranging from students’ everyday life to formal situations), as well as text complexity in 
+reading and writing tasks (e.g. from simple texts to complex texts typically with more 
+embedded/subordinate clauses and prepositional phrases) as students progress from the 
+primary to secondary level. Under the fine-tuned MOI arrangements, schools are given 
+more flexibility in devising their school-based MOI arrangements at the junior 
+secondary level to enrich the English language environment. As stated in the Education 
+Bureau Circular No. 6/2009 “Fine-tuning the Medium of Instruction for Secondary 
+Schools”, schools can adopt diversified MOI arrangements including the following:  
+ 
+allocating no more than 25% of the total lesson time (excluding the lesson time for 
+English Language) to Extended Learning Activities (ELA) in English; 
+ 
+transforming the ELA time into the adoption of English as the MOI in up to two 
+non-language subjects; and 
+ 
+adopting English as the MOI in all non-language subjects based on the Secondary 
+1 intake of the school. 
+ 
+ 
+
+ 
+80 
+ 
+In this connection, junior secondary students are given more opportunities to be 
+exposed to and use English through listening, speaking, reading and writing in non-
+language subjects, in which the language used is more formal and complex. It may 
+involve the use of more subject-specific vocabulary and more complex sentence 
+structures to perform different rhetorical functions. Students are also required to process 
+and produce a greater variety of text types of increasing complexity. 
+ 
+To support students in coping with the growing language demand across key stages of 
+learning in the English Language Education KLA and learning non-language subjects 
+through English, schools are encouraged to promote Language across the Curriculum 
+(LaC). 
+ 
+6.2 
+Language across the Curriculum  
+ 
+LaC is an approach that integrates language learning and content learning (EDB, 2009). 
+It can be adopted to support students in exploring knowledge of different subjects while 
+improving their language proficiency at the same time. Non-language subjects provide 
+a context for language learning while effective language development facilitates the 
+learning of these subjects. 
+ 
+In implementing LaC, teachers should understand the language needs of the different 
+KLAs and the connection between English for general purposes and English for 
+academic purposes. Focus in LaC should be placed on the learning and teaching of 
+subject-specific language items, text structures and rhetorical functions typical of 
+academic texts (Paltridge, Harbon, Hirsch, Shen, Stevenson, Phakiti & Woodrow, 2009). 
+ 
+To develop students’ academic language and content awareness, there must be explicit 
+teaching of reading and enabling skills as well as rhetorical functions, text structures 
+and language items typical of academic texts.  
+ 
+6.2.1 Strategies to Promote LaC 
+ 
+Ways in which English teachers can help students tackle the language demand that they 
+may find challenging in non-language subjects include: 
+ 
+ 
+
+ 
+81 
+ 
+Use of Visual Representation to Deconstruct the Structure, Language and Content       
+of Texts 
+ 
+demonstrating to students learning skills that they can apply in the study of non-
+language subjects by making use of texts on cross-curricular themes in the 
+everyday English classroom, e.g. teachers can guide students to understand a text 
+about environmental pollution by deconstructing the structure, language and 
+content of the text using visual representation such as the graphic organiser in 
+Figure 1. 
+ 
+A Sample Text Used in the English Classroom (Topic: Environmental Pollution) 
+…There are a number of factors contributing to environmental pollution…Vehicles that 
+run on diesel should be banned. Exhaust fumes emitted from diesel vehicles are one of 
+the sources of air pollution, as they contain toxic chemicals … oil spills as a result of 
+equipment fault of oil tankers…Since paper products are made from wood, if more paper 
+is used, more trees will be cut down, which will lead to deforestation. Using less paper 
+can definitely help save our environment…the temperature of the Earth continues to rise 
+because of the frequent use of air-conditioners…  
+ 
+Figure 1: A Fishbone Diagram Illustrating the Cause-and-effect Relationship between 
+Information in the Text 
+ 
+Factors Contributing to Environmental Pollution 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Note: Other examples of graphic organisers (e.g. flow charts, Venn diagrams, data 
+grids) can also be used to illustrate to students the relationships between different 
+pieces of information/events/ideas (e.g. problem and solution, explanation, 
+comparison and contrast) in a text. 
+(as) exhaust fumes from 
+diesel vehicles contain 
+toxic chemicals   
+air pollution
+oil spills 
+(as a result of)
+equipment fault of oil 
+tankers 
+(since) increasing use 
+of paper products 
+(made from wood) 
+(because of)
+frequent use of air-
+conditioners   
+deforestation 
+rise in temperature of the Earth 
+Environmental 
+pollution 
+
+ 
+82 
+ 
+Reading and Enabling Skills 
+ 
+explicitly teaching students reading and enabling skills to support them in 
+comprehending information and ideas in academic texts such as:  
+- 
+vocabulary building strategies (Table 1) including knowledge of word 
+formation (e.g. affixation, compounding, blending) to help them work out the 
+meaning of unfamiliar words with examples from other KLAs; and 
+Table 1: Examples of Vocabulary Building Strategies 
+Knowledge of 
+Word Formation 
+Examples 
+Affixation 
+ exhale (prefix: “ex-”; meaning: away from) 
+ civilisation (suffix: “-tion”; meaning: the process of) 
+Compounding 
+“test” + “tube”  “test tube” 
+Blending 
+“smoke” + “fog”  “smog” 
+- 
+phonics knowledge that can enhance students’ phonological awareness and 
+support them in reading aloud and spelling. 
+ 
+Communication/Interaction Strategies 
+ 
+teaching students strategies for effective oral communication including 
+communication/interaction strategies that students can apply in presentation and 
+discussion activities across subjects (e.g. maintaining eye contact, responding 
+readily to others’ questions, opinions or comments, speaking at a volume 
+appropriate to the situation); and 
+ 
+Features of Different Text Types 
+ 
+raising students’ awareness of the features of different text types (e.g. reports, 
+essays), including the rhetorical functions, text structures and language items 
+typical of academic texts by integrating the use of a variety of text types commonly 
+found across KLAs. 
+ 
+ 
+ 
+
+ 
+83 
+ 
+6.2.2 Rhetorical Functions, Text Structures and Language Items Typical of   
+Academic Texts  
+ 
+The choice of language items ties in closely with the text structures and rhetorical 
+functions in academic texts (Paltridge et al., 2009). The text structure of an academic 
+text (e.g. an exposition) may consist of as simple as one single rhetorical function (e.g. 
+“to compare and contrast”), introduced by particular language items (e.g. the use of the 
+cohesive device “on the contrary” to present opposite views). However, the text 
+structure of a more complex academic text, (e.g. a report as in Figure 2), may include 
+multiple rhetorical functions (e.g. “to describe” and “to make predictions” in the 
+introduction, “to give instructions” in the method section, “to compare” in the results 
+section, “to present facts” in the conclusion, “to give explanations” in the discussion). 
+These rhetorical functions are introduced by different language items, for example, the 
+use of  
+ 
+“aims to” to describe the aim;  
+ 
+the future tense “will dissolve” to make predictions about the results; 
+ 
+imperatives to give instructions; 
+ 
+the comparative adjective “was lighter than” to compare differences in the results 
+observed; 
+ 
+the present tense “dissolves” to present facts; and  
+ 
+the cohesive devices “as a result of” and “because” to give explanations. 
+ 
+Figure 2: An Example of a More Complex Academic Text (e.g. a report) 
+ 
+ 
+00 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Text structure 
+ 
+Introduction 
+Rhetorical functions 
+Language items 
+Method 
+Results 
+Conclusion 
+… aims to… 
+…will dissolve… 
+Put an egg… 
+…was lighter than… 
+…as a result of… 
+…because… 
+Discussion 
+To present facts 
+To give explanations 
+To compare 
+To describe; 
+To make predictions 
+…dissolves… 
+To give instructions 
+
+ 
+84 
+ 
+ 
+Introduction   
+(Aim) 
+This experiment aims to find out the effects of vinegar on eggshells… 
+(Hypothesis)   
+The egg shell will dissolve…   
+ 
+Method 
+(Materials/Apparatus)   
+ 
+2 raw eggs   
+ 
+2 beakers 
+ 
+Some vinegar 
+ 
+ 
+(Procedures)   
+1. 
+Put an egg in each of the beakers. 
+2. 
+Pour some vinegar into one of the beakers until the egg (Egg A) is covered. 
+3. 
+Add nothing to the other beaker (Egg B, the control). 
+4. 
+Record the observation for Eggs A and B after 48 hours. 
+ 
+ 
+Results 
+Some bubbles came out from the surface of the eggshell. The colour of the eggshell of 
+Egg A was lighter than that of Egg B. Part of the eggshell disappeared…   
+   
+Conclusion   
+Vinegar dissolves the eggshell… 
+ 
+Discussion 
+Eggshells contain calcium carbonate, which reacts with the acetic acid in vinegar. The 
+eggshell is dissolved because the acetic acid breaks up the calcium and carbonate in 
+the eggshell. The bubbles on the eggshell are carbon dioxide generated as a result of 
+the reaction between the carbonate and acetic acid…   
+ 
+The experiment can be improved by… 
+ 
+ 
+English teachers can collaborate with teachers of other KLAs and help students make 
+connection with their learning experiences by drawing their attention to the rhetorical 
+functions, text structures and language items commonly found across KLAs (Table 2) 
+and designing related learning and teaching activities for practice and consolidation.  
+ 
+ 
+…
+…
+
+ 
+85 
+ 
+Table 2: Examples of Rhetorical Functions and their Related Language Items 
+Commonly Found across KLAs 
+ 
+Examples of 
+Rhetorical Functions 
+Language Items (Examples)
+Examples 
+Comparing/Contrasting “However”, “on the contrary”, 
+“similarly” 
+Some historians think that the paintings had 
+entertainment functions. However, these paintings 
+were usually found at…(PSHE) 
+Sequencing 
+“After”, “before”, “then” 
+Clean the food thoroughly before cooking…(TE) 
+Explaining 
+“Since”, “because of”, “as a 
+result (of)” 
+As a result, more sulphur dioxide is produced…(SE) 
+Describing  
+Adjectives, relative clauses 
+Larger current makes the bulb brighter… (SE) 
+Defining 
+“Refers to”, “is known as” 
+Osmosis refers to the diffusion of fluid…(SE) 
+Making suggestions 
+“Can”, “may”, “suggest” 
+The government can make better use of the land 
+through…(PSHE) 
+Giving instructions 
+Imperatives 
+List the characteristics of the four phases in the long 
+jump…(PE) 
+Presenting facts 
+Present tense 
+A computer system consists of…(TE) 
+Presenting past events 
+Past tense 
+The waltz was originally a peasant dance in 
+Austria…(AE) 
+Making assumption 
+Conditional clauses, “let”, 
+“suppose” 
+Suppose Jane’s salary is $10,000 now. What is the 
+percentage of… (ME) 
+Note: Key Learning Areas 
+ME: Mathematics Education; PSHE: Personal, Social and Humanities Education; 
+SE: Science Education; TE: Technology Education; AE: Arts Education; 
+PE: Physical Education 
+ 
+6.3 The Implementation of LaC 
+ 
+To support the implementation of LaC, schools are encouraged to: 
+ 
+form a committee/team which includes representatives from English Language 
+and non-language subjects involved in the LaC programme to oversee and plan 
+the implementation of LaC as well as strengthen the collaboration between 
+different KLAs. For more details of cross-KLA collaboration, please refer to the 
+next section “Teachers’ Role in Implementing LaC”; 
+ 
+ 
+
+ 
+86 
+ 
+ 
+formulate their whole-school language policy with regard to their MOI 
+arrangements and plan their school-based LaC programme holistically taking into 
+consideration students’ learning needs across levels and the curriculum content of 
+English Language and non-language subjects adopting English as the MOI to 
+facilitate a smooth transition across key stages; 
+ 
+seek professional development opportunities to enhance teachers’ capability of 
+supporting students in learning through English by enhancing their ability in 
+processing and producing texts written for general/academic purposes; and 
+ 
+allocate resources for the procurement of relevant learning materials that provide 
+suitable contexts (e.g. information texts with themes, text types, language items 
+and structures or vocabulary related to non-language subjects) for the LaC 
+activities. 
+ 
+6.4 
+Teachers’ Role in Implementing LaC 
+ 
+When planning and developing the school English Language curriculum, English 
+teachers are encouraged to: 
+ 
+take into consideration students’ learning needs in English Language and non-
+language subjects where English is adopted as the MOI across levels to ensure a 
+smooth transition from the junior secondary to senior secondary level; 
+ 
+identify learning materials with suitable entry points (e.g. themes, text types, 
+language items and structures, vocabulary) for connecting students’ learning 
+experiences between English Language and non-language subjects; 
+ 
+help students develop the ability in processing and producing English texts through 
+explicit teaching of reading and enabling skills as well as rhetorical functions, text 
+structures and language items typical of academic texts making use of English 
+texts written for general/academic purposes;  
+ 
+reinforce students’ learning experiences through developing learning activities 
+that integrate the knowledge and skills gained in other KLAs (e.g. subject 
+knowledge, generic skills, language skills); and  
+ 
+collaborate with teachers of other KLAs to develop learning activities or cross-
+curricular projects that integrate language and concepts learnt across KLAs and 
+provide students with the opportunities to recycle the knowledge and skills in 
+suitable learning contexts, for example:  
+
+ 
+87 
+ 
+ 
+identifying the entry points, setting realistic goals and drawing up a plan or 
+schedule of work to facilitate the transfer of language knowledge and 
+relevant literacy skills; 
+ 
+developing learning, teaching and assessment materials and activities to help 
+students recycle and consolidate what they have learnt across KLAs (e.g. 
+enabling skills and strategies, concepts, language features); 
+ 
+identifying a common topic and connecting students’ learning experiences 
+by encouraging them to read/write about and discuss the topic, and 
+broadening students’ learning experiences through learning activities or tasks 
+outside the classroom; and 
+ 
+raising students’ awareness of the enabling skills to use as well as rhetorical 
+functions, text structures and language items commonly found across KLAs 
+to facilitate the completion of cross-curricular/subject-specific tasks. 
+ 
+Information related to planning the whole-school curriculum through adopting a cross-
+curricular approach is also available in Section 3.2.5 “Cross-curricular Planning” in 
+Chapter 3 “Curriculum Planning” of the English Language Education Key Learning 
+Area 
+Curriculum 
+Guide 
+(Primary 
+1 
+– 
+Secondary 
+6) 
+(2017) 
+(http://www.edb.gov.hk/elecg). For illustration of how LaC is promoted in the English 
+classroom, please see Example 2 “Connecting Students’ Learning Experiences between 
+English Language and Non-language Subjects through Language across the Curriculum 
+at the Junior Secondary Level” at http://www.edb.gov.hk/eleklacgexamples. 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Blank Page) 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Blank Page) 
+ 
+ 
+
+ 
+ 
+ 
+Baker, F. W. (2016). Media Literacy in the K-12 Classroom (2nd ed.). Eugene: 
+International Society for Technology in Education. 
+Chappuis, J. (2014). Seven Strategies of Assessment for Learning (2nd ed.). Oregon: 
+Pearson. 
+DeCoursey, C. (Ed.). (2012). Language Arts in Asia: Literature and Drama in English, 
+Putonghua and Cantonese. Newcastle: Cambridge Scholars Publishing. 
+Earl, L. M. (2013). Assessment as Learning: Using Classroom Assessment to Maximize 
+Student Learning (2nd ed.). Thousand Oaks, CA: Corwin. 
+Education Bureau. (2009). Teaching Ideas for English Language Teachers in English-
+medium Schools. Retrieved 2 February, 2015, from: 
+http://www.edb.gov.hk/attachment/en/edu-system/primary-secondary/applicable-to-
+secondary/moi/support-and-resources-for-moi-policy/lsplmfs-sch/d-sch/ow/tifeltiem-
+sch/conent.pdf 
+Education Bureau. (2011). When Language Arts Meets Phonics - Phonics in Action at 
+Junior Secondary Level. Hong Kong: Author. 
+Field, J. (2008). Listening in the Language Classroom. New York: Cambridge 
+University Press.  
+Frey, N. & Fisher, D. (2013). Rigorous Reading: 5 Access Points for Comprehending 
+Complex Texts. Thousand Oaks, CA: Corwin. 
+Hamp-Lyons, L. & Heasley, B. (2006). Study Writing – A Course in Writing Skills for 
+Academic Purposes. Cambridge: Cambridge University Press. 
+Harmer, J. (2015). The Practice of English Language Teaching (5th ed.). London: 
+Pearson. 
+Helgesen, M. & Brown, S. (1994). Active Listening: Building Skills for Understanding. 
+New York: Cambridge University Press.  
+Hobbs, R. (2011). Digital and Media Literacy: Connecting Culture and Classroom. 
+Thousand Oaks, CA: Corwin. 
+Hockly, N. (2016). Focus on Learning Technologies. Oxford: Oxford University Press. 
+
+ 
+ 
+ 
+Jewitt, C. & Kress, G. (2003). Multimodal Literacy. New York: P. Lang. 
+Kress, G. (2000). Multimodality. In B. Cope & M. Kalantzis (Eds.), Multiliteracies: 
+Literacy Learning and the Design of Social Futures (pp.182-202). London: Routledge. 
+Lent, R. C. (2015). This is Disciplinary Literacy: Reading, Writing, Thinking, and 
+Doing … Content Area by Content Area. Thousand Oaks, CA: Corwin. 
+Lin, A. (2016). Language across the Curriculum & CLIL in English as an Additional 
+Language (EAL) Contexts – Theory and Practice. Singapore: Springer.  
+Luoma, S. (2004). Assessing Speaking. Cambridge: Cambridge University Press.  
+McGregor, T. (2007). Comprehension Connections: Bridges to Strategic Reading. 
+Portsmouth, NH: Heinemann. 
+Mehisto, P., Marsh, D. & Frigols, M. J. (2008). Uncovering CLIL: Content and 
+Language Integrated Learning in Bilingual and Multilingual Education. Oxford: 
+Macmillan Education. 
+Mok-Cheung, A. Chow, A. & Wong, W. (2006). Strengthening Language Arts in 
+English Language Teaching in Hong Kong. In P. McKay & K. Graves (Eds.), Planning 
+and Teaching Creatively within a Required Curriculum for School Age Learners. 
+Alexandria, VA: TESOL, 59-80. 
+Nation, I. S. P. & Newton, J. (2009). Teaching ESL/EFL Listening and Speaking. New 
+York: Routledge. 
+Nunan, D. & Miller, L. (1995). New Ways in Teaching Listening. New Ways in TESOL 
+Series. Innovative Classroom Techniques (2nd ed.). Alexandria, VA: TESOL.  
+Paltridge, B., Harbon, L., Hirsch, D., Shen, H., Stevenson, M., Phakiti, A. & Woodrow, 
+L. (2009). Teaching Academic Writing: An Introduction for Teachers of Second 
+Language Writers. Ann Arbor, MI: The University of Michigan Press.  
+Readence, J. E., Moore, D. W. & Rickelman R. J. (2000). Prereading Activities for 
+Content Area: Reading and Learning (3rd ed.). Newark, DE: International Reading 
+Association. 
+Serafini, F. (2015). Reading Workshop 2.0: Supporting Readers in the Digital Age. 
+Portsmouth, NH: Heinemann. 
+
+ 
+ 
+ 
+The New London Group (1996). A Pedagogy of Multiliteracies: Designing Social 
+Futures. Harvard Educational Review, 66(1), 60-93. 
+Vasquez, A., Hansen, A. L., & Smith, P. C. (2013). Teaching Language Arts to English 
+Language Learners (2nd ed.). New York: Routledge. 
+Walker, B. J. (2011). Diagnostic Teaching of Reading: Techniques for Instruction and 
+Assessment (7th ed.). Boston: Pearson.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Blank Page) 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Blank Page) 
+ 
+ 
+
+ 
+ 
+ 
+Membership of the Curriculum Development Council Committee on 
+English Language Education 
+(September 2017 – August 2019) 
+ 
+Chairperson: 
+Dr Anson YANG 
+ 
+ 
+ 
+ 
+Vice-chairperson: 
+Ms Barbara CHAN 
+ 
+ 
+ 
+ 
+Members: 
+Dr CHAN Lai-chu, Julia 
+Dr CHAN Shiu-yip, Simon 
+Prof CHUN Ka-wai, Cecilia 
+Dr LAU Gay-lei, Carrie 
+Mr LAW Chi-kin, Laurence 
+Ms LEUNG Chui-chun, Jane 
+Dr LEUNG Chung-hong, Danny 
+Ms LIU King-yau 
+Ms LO Pik-yee 
+Ms LOK Wing-yi, Cassandra 
+Mr Elvin TAO 
+Mr WAI Wai-yeung, Wilfred 
+Ms WONG Kok-yee 
+Dr WONG Ming-har, Ruth 
+Ms YAU Kit-ying, Veronica 
+Ms YUEN Mei-ha 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Ex-officio Members: 
+Mr FU Kai-kee, Louis (EDB) 
+Dr Neil DRAVE (HKEAA) 
+ 
+ 
+ 
+ 
+Secretary: 
+Mr SHEL Siu-lun 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Blank Page) 
+ 
+

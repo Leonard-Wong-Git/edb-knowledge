@@ -6,6 +6,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v2.2.0] — 2026-05-02
+
+### Changed
+- 全平台視覺重設：EDB 深綠 nav（全4個HTML）、主題顏色系統 token、航班板式搜尋結果行列、字型層次優化、手機 sticky 搜尋欄、手機底部 tab bar
+- index.html 改寫為 K1知識平台 Landing Page（hero + 統計帶 + 功能卡 + 角色網格 + CTA）
+- Hash routing：`app.html#guidelines` deep-link 啟動；`switchView()` 更新 URL hash
+- SVG favicon 加入全4個HTML（深綠圓角方塊 + K1白字）
+- Source 標籤系統：UI 全面以中文顯示文件來源，移除內部代碼（g04 等）
+- Vault 擴充：g24（學校行政手冊）、g29（幼稚園課程指引）新增 embed；Supabase 達 10,736 chunks
+
+---
+
 ## [v2.1.2] — 2026-05-01
 
 ### Changed
