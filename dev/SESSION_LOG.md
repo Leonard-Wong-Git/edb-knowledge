@@ -2,6 +2,64 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-03 Session 105 — 健康檢查 + 三項 backlog audit（無動 code，純 planning）
+
+- **ID:** Claude_20260503_0002
+- **Summary:** 應 user 連續做 E→B→D→A 嘅請求，完成全 sandbox 內 audit：(E) 健康檢查無 drift；(B) g21/g22/g33 三個 source_type=pdf 但 url_primary 全缺，需要 user 開 EDB 補；(D) Query expansion 弱點分析，curriculum 同 activity vocabulary 最淺，候選驗證 query 已列；(A) vault refresh 兩分項 — 學校行政手冊統一 source_id 策略 1（軟 dedup 已 ship）足夠，策略 2（徹底 refetch）留下輪；13 problematic entries 三類處理方案出齊（6 已 fallback / 2 需 EDB 找 / 5 等 user 上傳 xlsx）。本 session 不動 backend code，純 audit + action plan。
+- **Changed:** `dev/SESSION_LOG.md`, `dev/SESSION_HANDOFF.md`
+- **Done:**
+  - ✅ **[E 健康檢查]** 三層 facts v2.3.0 / 792 一致；governance 5 文件齊全（41-21KB）；12 backup 快照；2 archive quarterly 文件（Q1 84KB / Q2 421KB）
+  - ✅ **[B g21/g22/g33 triage]** 三者 source_type='pdf' 但 url_primary 全缺，現只有 landing page；需要 user 開 EDB 對應 KLA 安全指引 / 課程文件總頁 inspect 直連
+  - ✅ **[D Query expansion 候選]** vocabulary 字數 finance:5 / hr_admin:11 / activity:2 / curriculum:3；觸發詞數 finance:27 / hr_admin:32 / activity:4 / curriculum:31；候選驗證 query 包：finance「校董會經費批核程序」/ curriculum「資優學生識別準則 / 校本評核 SBA 安排 / STEM 跨學科專題」/ activity「全方位學習津貼開支類別 / 課外活動安排上限」
+  - ✅ **[A vault refresh 計劃]** 學校行政手冊統一 = 策略 1（已 ship 軟 dedup）足夠；13 entries 分三類：6 URL 失效已 fallback（無 immediate action）/ 2 直連未補（sci_kla_guide_2017 + pri_science_cert_application_form，需 user EDB inspect）/ 5 xlsx 待上傳（5 個 stat_ 系列）
+- **QC:** Sandbox audit 全部 read-only，無破壞；無新 governance 違規；§4a check trigger 視乎 entry 大小決定
+- **Pending（用戶 Terminal / browser action）:**
+  - Git commit + push（Session 105 entry + handoff 更新）
+  - 視 user 揀方向：跑 Query expansion 驗證 query（最快出實證）/ 開 EDB 找 g21-22-33 PDF / 下載 xlsx 上 vault / 開新功能（C 留尾段）
+- **Next:** 1. 由 user 揀新方向；2. 任何 backlog 項目都已有清晰 action plan，可隨時取一條 ship
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Audit / planning only (no code change) | SESSION_LOG entry + SESSION_HANDOFF Open Priorities updated context | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Current objective and progress state:
+- Session 105 (2026-05-03) 完成全 sandbox audit：健康檢查無 drift / g21-22-33 PDF 直連缺 / Query expansion 候選分析 / vault refresh 計劃，無動 code
+- 商品狀態：v2.3.0 / role_facts 792 / Supabase 10,736 chunks / vault 120 sources
+
+Pending tasks in priority order:
+1. 揀新方向（Query expansion 驗證 query 線上跑 / 開 EDB 找 g21-22-33 PDF / xlsx 下載 / 新功能 / 其他）
+2. 學校行政手冊徹底 refetch 統一 source_id（backlog；軟 dedup 已 ship 工作正常，唔急）
+3. 6 個 URL 失效 entries 下輪 vault refresh 順手核
+4. 開新功能方向（admin 端 Channel B prompt editor / 新區塊 / Circular System 整合）
+5. Channel A embedding cache 監察
+
+Key files changed in this session:
+- dev/SESSION_LOG.md（Session 105 audit entry）
+- dev/SESSION_HANDOFF.md（Open Priorities regenerated 反映 audit 結果）
+
+Known risks / blockers / cautions:
+- Cowork sandbox egress allowlist 不含 edb.gov.hk → URL inspect 同 xlsx 下載需 user browser
+- Cowork sandbox egress allowlist 不含 edb-knowledge.onrender.com → 線上 query 驗證需用戶 Terminal
+- Render free tier cold start ~30s after 15min idle
+- Mac Python.framework 缺 SSL CA bundle，Supabase REST 直接 hit 會 SSLCertVerificationError；要用 curl 繞
+- Shared MemPalace recovery workaround (hnsw:num_threads=1)；保留備份 /Users/leonard/mempalace/palace.pre-recovery.20260421_0838
+- Supabase free tier 500MB DB limit；現約 50MB
+
+Validation status:
+- PASS: 三層 facts v2.3.0/792 一致；governance 文件齊全；無 git uncommitted（除本 session edit）
+- PASS: 全部 audit 結果 sandbox 內驗證
+
+Post-startup first action: 詢問 Leonard 揀方向（Query expansion 線上驗證 query / EDB PDF 補完 / xlsx 上傳 / 新功能 / 其他）。
+```
+
+---
+
 ## 2026-05-03 Session 104 — Query Expansion 補病假 vocabulary（chunk semantic 層救濟）
 
 - **ID:** Claude_20260503_0001

@@ -99,32 +99,34 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-1. **vault refresh backlog**（學校行政手冊統一 source_id + 13 個 source_registry 問題 entries 順手核）
-2. **評估視藝/科技/英文課程指引（g21/g22/g33）直連 PDF 必要性**
-3. **開新功能方向**（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合 / 其他）
-4. **複用 Query expansion 成功模式至其他 topic**（finance / curriculum / activity 各自加 specific keyword，但需有實證 query 顯示問題後才做，避免 over-engineering）
-5. **Channel A embedding cache 監察**（warm:true size 應隨 Session 102 dedup 變細）
+1. **跑 Query expansion 驗證 query**（用戶 Terminal）— 最快出實證；候選 query：「校董會經費批核程序」/「資優學生識別準則」/「校本評核 SBA 安排」/「STEM 跨學科專題」；如線上見問題，可 evidence-driven 加對應 vocabulary
+2. **g21/g22/g33 直連 PDF 補完**（用戶 browser）— 三者 source_type='pdf' 但 url_primary 全缺；開 EDB 對應 KLA 安全指引 / 課程文件頁找直連
+3. **5 個 stat xlsx 下載 + 上 vault**（用戶 browser）— stat_kg/stat_pri/stat_sec/stat_special/stat_integrated_edu；下載後放 dev/vault/{source_id}/ 用 build_stat_facts.py 提取
+4. **學校行政手冊徹底 refetch 統一 source_id**（backlog 級）— 策略 2 風險中；軟 dedup 已 ship 工作正常，可留下輪 vault 大調整時順手做
+5. **開新功能方向**（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合 / 其他）— 由 user 講方向
 
 ## Last Session Record
 1. UTC date: 2026-05-03
-2. Session ID: Claude_20260503_0001 (Session 104)
+2. Session ID: Claude_20260503_0002 (Session 105)
 3. Completed:
-   - ✅ **[Query expansion 擴充 ship]** searchChannelB.ts QUERY_EXPANSIONS.hr_admin 加 7 個 specific keyword「病假 首年 168日 上限 醫生證明 教師註冊 聘任」
-   - ✅ **[線上端對端驗收 PASS]** g04 第 1 位 score 0.7247（之前 < 0.08 完全唔出）；synthesis 100% 準確引用 g04 真實批假指引內容；4 輪治理（routing + quota + alias + semantic）累積成功
-   - ✅ **[根因治理完成]** Channel B 病假 query 由「synthesis 答錯（混淆 SAG 學校假期表 366 日）」變「synthesis 答對（g04 真實內容首年 28 日 / 其後 48 日 / 上限 168 日 / 120 日門檻）」
+   - ✅ **[E 健康檢查]** 三層 facts v2.3.0 / 792 一致；governance 5 文件齊全；12 backup 快照；2 archive quarterly 文件
+   - ✅ **[B g21/g22/g33 triage]** 三者 source_type='pdf' 但 url_primary 全缺，需要 user 開 EDB 補
+   - ✅ **[D Query expansion 候選]** curriculum (3字) 同 activity (2字) vocabulary 最淺；候選驗證 query 列出（finance/curriculum/activity 各 1-3 條）
+   - ✅ **[A vault refresh 計劃]** 學校行政手冊軟 dedup 已 ship 足夠；13 entries 分三類處理方案出齊（6 已 fallback / 2 需 EDB inspect / 5 等 xlsx 上傳）
 4. Pending from this session (not yet done):
-   - Final git push（含本次 closeout 後續 edit）
+   - Git commit + push（Session 105 entry + handoff 更新）
+   - 視 user 揀方向（Query expansion 驗證 / EDB PDF 補完 / xlsx 上傳 / 新功能）
 5. Next priorities (max 3 — 詳見 Open Priorities)：
-   - vault refresh backlog
-   - 評估 g21/g22/g33 直連 PDF
+   - Query expansion 驗證 query 線上跑
+   - g21/g22/g33 直連 PDF 補完
    - 開新功能方向
 6. Risks / blockers:
-   - Cowork sandbox egress allowlist 不含 edb-knowledge.onrender.com → 線上驗證需用戶 Terminal
+   - Cowork sandbox egress allowlist 不含 edb.gov.hk → URL inspect 同 xlsx 下載需 user browser
+   - Cowork sandbox egress allowlist 不含 edb-knowledge.onrender.com → 線上 query 驗證需用戶 Terminal
    - Render free tier cold start (~30s) after 15min inactivity
    - Mac Python.framework 缺 SSL CA bundle，Supabase REST 直接 hit 會 SSLCertVerificationError；要用 curl 繞
    - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`
    - Supabase free tier: 500MB DB limit; wiki_chunks currently ~50MB with embeddings
-   - Query expansion 加太多 vocabulary 會稀釋 query embedding focus；今次 7 個 keyword 證實足夠不過量
 
 ## Session Close Checklist (每次 session 結束必須執行)
 ```bash
