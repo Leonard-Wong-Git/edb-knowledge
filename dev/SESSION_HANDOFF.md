@@ -1,9 +1,9 @@
 # Session Handoff
 
 ## Current Baseline
-1. Version: **v2.2.0** (K1知識平台)
+1. Version: **v2.3.0** (K1知識平台 — Session 102 dedup)
 2. Frontend: `index.html` K1 landing page (hero + features + CTA); `t-purchase.html` S3/S4/S5 draft flow; `q.html` local `knowledge.json` Quick Q&A; `app.html` full React SPA / management workspace.
-3. Knowledge state: **1,001 Channel A facts** (三層同步 ✅), **0 candidates in queue**, **wiki_index.json** 12,906 chunks; **Supabase 10,736 chunks** (1,176 無 embedding skipped)。Vault: 120 sources 提取完成（8 skipped：scanned/SPA/無直連）。
+3. Knowledge state: **792 Channel A facts** (三層同步 ✅，Session 102 dedup 由 1,001 → 792，移除 209 條 all_roles 與個別 role 副本), **0 candidates in queue**, **wiki_index.json** 12,906 chunks; **Supabase 10,736 chunks** (1,176 無 embedding skipped)。Vault: 120 sources 提取完成（8 skipped：scanned/SPA/無直連）。
 4. Backend: Node.js TypeScript backend all search APIs complete; **Channel A + B + A+B online at `https://edb-knowledge.onrender.com`**; rate limiting 10 req/min/IP (sliding window, in-memory).
 5. Channel A: 改用 backend semantic search + LLM synthesis（所有三個 channel 均有整理答案）；min_score A=0.1, B/AB=0.15；case-insensitive keyword fallback 已移除。
 6. Channel B topic filtering（Session 94 完成）：keyword → category → source allowlist → query expansion。採購/財務 → g01+g02+coa_imc（排 SAG）；HR/假期 → g04+g05+sag；課程 → 課程指引。g04 仍為 knowledge-based extract（非 PDF）。
@@ -99,34 +99,35 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-1. **線上端對端驗收**（用戶 Terminal）— 重 curl 教師病假 / 教師註冊 / 幼稚園學習領域三條 query，確認來源配額排序改善效果
-2. **學校行政手冊重複文件去重**（Supabase SQL）— g24 同 sag_2025_11 同份文件兩次 ingestion，重複 715 chunks；先 dry-run 驗證 sag 涵蓋 g24 全部內容才能執行 DELETE
-3. **8 個無法擷取嘅 source triage**（按 memory 規範先驗 source 質素，唔好馬上設計 fallback pipeline）
-4. **評估視藝/科技/英文課程指引（g21/g22/g33）直連 PDF 必要性**
-5. **Channel A embedding cache 監察**（warm:true size:517 已穩定，視乎 token usage 趨勢）
+1. **Backend 加學校行政手冊 source alias map**（wikiRepository.ts）— g24 → sag_2025_11 別名映射，配額計數時兩個 source_id 視為同組；解 dry-run 揭露嘅雙重 ingestion 重複佔配額
+2. **線上 Channel B 重 curl 驗證 dedup 後 Channel A 注入不變**（用戶 Terminal）— Selector union 邏輯擔保理論上不變，但實證更穩
+3. **學校行政手冊 vault 重新 ingest 統一 source_id**（backlog 級，下一輪 vault refresh 一齊做）
+4. **8 個無法擷取嘅 source triage**（按 memory 規範先驗 source 質素，唔好馬上設計 fallback pipeline）
+5. **評估視藝/科技/英文課程指引（g21/g22/g33）直連 PDF 必要性**
 
 ## Last Session Record
 1. UTC date: 2026-05-02
-2. Session ID: Claude_20260502_0004 (Session 101)
+2. Session ID: Claude_20260502_0005 (Session 102)
 3. Completed:
-   - ✅ **[來源配額排序 ship]** wikiRepository.ts WikiSearchOptions 加 `maxPerSource`；searchWiki 加 over-fetch（topK×5）+ quota gate（按 score DESC 行，每 source 達 cap 後 skip）
-   - ✅ **[caller-side 計算]** searchChannelB.ts 計算 `maxPerSource = max(2, ceil(top_k / 3))`；單 source allowlist 時自動 disable
-   - ✅ **[本地 sanity test]** mock chunks 跑 quota gate：sag×4 + va×3 + g29×1 + topK=5 cap=2 → 結果 sag×2 + va×2 + g29×1（g29 score 0.50 雖輸俾 sag-3 0.55 但配額釋位令佢入榜）
-   - ✅ **[Memory feedback]** 「對話禁用內部代號 F1/F2/F3 等」存入 feedback_no_internal_codenames_in_chat.md
+   - ✅ **[已核實事實庫 dedup ship]** Strategy B 三層覆蓋（root role_facts.json + knowledge.json + dev/knowledge/role_facts.json）：1,001 → 792 facts，移除 209 條 all_roles 與個別 role bucket 重複副本
+   - ✅ **[版本升級]** 三層 _meta.version 2.2.0 → 2.3.0；updated 2026-05-02；加 dedup_note
+   - ✅ **[Backup snapshot]** 三層 dedup 前快照寫入 dev/init_backup/20260502_dedup/
+   - ✅ **[Selector union 驗證]** 4 case sanity test PASS：finance.principal=78 / hr.teacher=123 / curriculum.subject_head=67 / general.eo_admin=30，union 等於 sum 證明無 cross-bucket 殘留
+   - ✅ **[學校行政手冊 dry-run]** g24 vs sag_2025_11 hash 重疊 0/300 vs 0/415 — 發現係同一文件嘅兩種切割方式，DB DELETE 唔合適
 4. Pending from this session (not yet done):
-   - Git commit + push（含 wikiRepository + searchChannelB 改動 + Session 101 entry）
-   - 用戶 Terminal 重 curl 三條 query 對比效果
+   - 用戶 Terminal 移除 preview 檔：`rm -f ~/Downloads/Claude-edb-knowledge/dev/role_facts_dedup_preview.json`
+   - Git commit + push（含三層 dedup + backup + Session 102 entry）
 5. Next priorities (max 3 — 詳見 Open Priorities)：
-   - 收線上驗收結果再決定是否要 tune cap 比例
-   - 學校行政手冊重複文件去重（資料層 cleanup，先 dry-run）
-   - 8 個無法擷取嘅 source triage
+   - Backend source alias map（g24 → sag_2025_11）
+   - 線上 Channel B 重 curl 驗證
+   - vault 重新 ingest 統一 source_id（backlog）
 6. Risks / blockers:
    - Cowork sandbox egress allowlist 不含 edb-knowledge.onrender.com → 線上驗證需用戶 Terminal
    - Render free tier cold start (~30s) after 15min inactivity
+   - Mac Python.framework 缺 SSL CA bundle，Supabase REST 直接 hit 會 SSLCertVerificationError；要用 curl 繞
    - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`
    - Supabase free tier: 500MB DB limit; wiki_chunks currently ~50MB with embeddings
-   - 學校行政手冊去重高風險（SQL DELETE）— 必先 dry-run 驗證 sag 涵蓋 g24 全部內容
-   - 配額排序 over-fetch（topK×5）會增加 Supabase 帶寬；以 top_k=8 計即 40 rows 上限，影響不大但要監察
+   - 殘留 193 組重複屬 mid-level sharing（fact 屬多個 role 但 all_roles 唔 hold）係 trade-off
 
 ## Session Close Checklist (每次 session 結束必須執行)
 ```bash

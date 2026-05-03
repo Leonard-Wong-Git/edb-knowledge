@@ -2,6 +2,73 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-02 Session 102 — 已核實事實庫去重 + 學校行政手冊雙重 ingestion 發現
+
+- **ID:** Claude_20260502_0005
+- **Summary:** 已核實事實庫 1,001 條 facts 之中 484 條為 exact duplicate（48% 重複），執行 Strategy B（保留 all_roles 副本，刪個別 role bucket 副本）後三層同步降至 792 條（移除 209 條，剩 193 組屬 mid-level sharing 不強行壓平）。Channel B 學校行政手冊 dry-run 發現驚訝結果：g24（300 chunks）vs sag_2025_11（415 chunks）hash 重疊 0%，即兩者係同一份文件嘅兩種切割方式（g24 = Session 98 PyMuPDF whole-doc fetch；sag = Session 76 pdftotext partial extract Ch1/3/6/7），DB DELETE 唔合適，改方案下節 backend 加 source alias map（軟 dedup）。
+- **Changed:** `role_facts.json`, `knowledge.json`, `dev/knowledge/role_facts.json`, `dev/init_backup/20260502_dedup/*`（新增 backup）, `dev/role_facts_dedup_preview.json`（中介，可刪）
+- **Done:**
+  - ✅ **[已核實事實庫掃描]** sandbox 跑 Python script：325 組 exact duplicate / 484 重複行 / 0 fuzzy variant；典型 pattern「同一條 fact 出現於 all_roles + 個別 role × N」
+  - ✅ **[Strategy B 三層覆蓋]** 三層 backup 至 dev/init_backup/20260502_dedup/；apply dedup（移除個別 role bucket 入面已存在於 all_roles 嘅副本）；三層 facts: 1,001 → 792；_meta.version: 2.2.0 → 2.3.0；updated: 2026-05-02
+  - ✅ **[Backend selector 邏輯驗證]** knowledgeSelector.ts getTopicFacts() 已 union all_roles + role facts + uniqueFacts() — dedup 後按角色查詢仍然拎齊全部 unique facts，Circular System 注入內容不變
+  - ✅ **[Sanity test selector union]** 模擬 4 條典型 case：finance.principal=78 / hr.teacher=123 / curriculum.subject_head=67 / general.eo_admin=30；union 等於 sum 證明 dedup 乾淨（無 cross-bucket 殘留）
+  - ✅ **[學校行政手冊 dry-run]** 用戶 Terminal curl + Python 比對 g24 vs sag chunks hash：重疊 0/300 vs 0/415，**完全冇 chunk-level 重疊**；發現兩者係同一文件不同切割方式（g24 含封面 + TOC，sag 只 cover Ch1/3/6/7）
+- **QC:** TypeScript `npm run check` PASS 0 errors；selector union sanity test PASS（4/4 case 無 cross-bucket 殘留）；三層 facts/version/updated 全對齊
+- **Pending（用戶 Terminal 執行）:**
+  - 移除 sandbox 留低嘅 preview 檔（permission 問題，sandbox rm 失敗）：`rm -f ~/Downloads/Claude-edb-knowledge/dev/role_facts_dedup_preview.json`
+  - Git commit + push（含 dedup 三層 + backup + Session 102 entry）
+- **Next:** 1. backend 加 source alias map（g24 → sag_2025_11），令配額排序視兩個 source_id 為同組；2. 學校行政手冊 vault 重新 ingest 統一 source_id（backlog）；3. Channel B 線上重 curl 驗證 dedup 後 Channel A 注入不變
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Knowledge data structural cleanup | role_facts.json + knowledge.json + dev/knowledge/role_facts.json _meta.version + dedup_note | ✓ Done |
+| Version bump v2.2.0 → v2.3.0 | 三層 _meta.version + dev/SESSION_HANDOFF baseline | ✓ Done |
+| 學校行政手冊雙重 ingestion 發現 | Open Priorities 加 backend source alias map | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Current objective and progress state:
+- Session 102 (2026-05-02) 完成已核實事實庫 Strategy B dedup：三層由 1,001 → 792 facts；_meta.version v2.2.0 → v2.3.0；已 backup 至 dev/init_backup/20260502_dedup/
+- Backend selector 邏輯驗證：knowledgeSelector.ts 已 union all_roles + role facts，dedup 後按角色查仍拎齊
+- 學校行政手冊 dry-run 發現：g24（300 chunks）vs sag_2025_11（415 chunks）hash 重疊 0%，係同一文件嘅兩種切割方式（g24 = whole PDF + TOC，sag = Ch1/3/6/7 partial），DB DELETE 唔合適
+- 商品狀態：v2.3.0 / role_facts 792 / Supabase 10,736 chunks / vault 120 sources / Channel A cache size 應隨 dedup 變細
+
+Pending tasks in priority order:
+1. Backend 加 source alias map（g24 → sag_2025_11）— wikiRepository.ts quota gate 用 canonical source 計數，避免兩個 source_id 同時佔配額
+2. 學校行政手冊 vault 重新 ingest 統一 source_id（backlog，下一輪 vault refresh 一齊做）
+3. 線上 Channel B 重 curl 驗證 dedup 後質量（Channel A 注入應不變因為 selector union）
+4. 8 個無法擷取嘅 source triage（按 memory 規範先驗 source 質素）
+5. 評估視藝/科技/英文課程指引（g21/g22/g33）直連 PDF 必要性
+
+Key files changed in this session:
+- role_facts.json + knowledge.json + dev/knowledge/role_facts.json（三層 dedup + version bump）
+- dev/init_backup/20260502_dedup/*（dedup 前 backup 三層 snapshot）
+- dev/SESSION_LOG.md（Session 102 entry）
+- dev/SESSION_HANDOFF.md（Last Session Record / Open Priorities 更新）
+
+Known risks / blockers / cautions:
+- Cowork sandbox egress allowlist 不含 edb-knowledge.onrender.com → 線上驗證需用戶 Terminal
+- Render free tier cold start ~30s after 15min idle
+- Mac Python.framework 缺 SSL CA bundle，Supabase REST 直接 hit 會 SSLCertVerificationError；要用 curl 繞
+- Shared MemPalace recovery workaround (hnsw:num_threads=1)；保留備份 /Users/leonard/mempalace/palace.pre-recovery.20260421_0838
+- Supabase free tier 500MB DB limit；現約 50MB
+- 殘留 193 組重複（mid-level sharing：fact 屬多個 role 但 all_roles 唔 hold）係 trade-off，唔強行壓至 schema 改動
+
+Validation status:
+- PASS: TypeScript npm run check 0 errors
+- PASS: 三層 facts 對齊 792 / version 2.3.0 / updated 2026-05-02
+- PASS: Selector union sanity test（finance.principal=78 / hr.teacher=123 / curriculum.subject_head=67 / general.eo_admin=30）
+- PASS: 學校行政手冊 dry-run（hash 重疊 0%，發現同一文件雙重 ingestion 真相）
+
+Post-startup first action: 詢問 Leonard：先 ship backend source alias map（解學校行政手冊配額重複佔位），抑或開新方向。
+```
+
+---
+
 ## 2026-05-02 Session 101 — 來源配額排序（Channel B 量級層治理）
 
 - **ID:** Claude_20260502_0004
