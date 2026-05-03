@@ -99,32 +99,32 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-1. **線上重 curl 教師病假 query 驗證 expansion 效果**（用戶 Terminal）— Session 104 補病假 vocabulary 後驗證 g04 chunks 是否升過 0.08 threshold 入榜
-2. **如 expansion 仍唔夠：re-chunk g04 加 title prefix**（chunk content 層救濟，工程量大）
-3. **vault refresh backlog**（學校行政手冊統一 source_id + 13 個 source_registry 問題 entries）
-4. **評估視藝/科技/英文課程指引（g21/g22/g33）直連 PDF 必要性**
-5. **開新功能方向**（admin 端 Channel B prompt editor / 新區塊 / 其他）
+1. **vault refresh backlog**（學校行政手冊統一 source_id + 13 個 source_registry 問題 entries 順手核）
+2. **評估視藝/科技/英文課程指引（g21/g22/g33）直連 PDF 必要性**
+3. **開新功能方向**（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合 / 其他）
+4. **複用 Query expansion 成功模式至其他 topic**（finance / curriculum / activity 各自加 specific keyword，但需有實證 query 顯示問題後才做，避免 over-engineering）
+5. **Channel A embedding cache 監察**（warm:true size 應隨 Session 102 dedup 變細）
 
 ## Last Session Record
 1. UTC date: 2026-05-03
 2. Session ID: Claude_20260503_0001 (Session 104)
 3. Completed:
-   - ✅ **[Query expansion 擴充 ship]** searchChannelB.ts QUERY_EXPANSIONS.hr_admin 由「教職員假期 批假 薪酬 操守」加 7 個 specific keyword「病假 首年 168日 上限 醫生證明 教師註冊 聘任」，目標 boost g04 / g05 / g11 chunks 對病假 / 註冊 query 嘅 cosine score
-   - ✅ **[Session 103 線上驗收結果分析]** 累積三輪 ranking 治理（Session 100 routing + 101 quota + 103 alias）已實證生效（sag 維持 cap=3 + g24 完全唔出）；g04 仍未入榜根因屬 chunk-level semantic（cosine < 0.08 threshold），唔屬 ranking 層
+   - ✅ **[Query expansion 擴充 ship]** searchChannelB.ts QUERY_EXPANSIONS.hr_admin 加 7 個 specific keyword「病假 首年 168日 上限 醫生證明 教師註冊 聘任」
+   - ✅ **[線上端對端驗收 PASS]** g04 第 1 位 score 0.7247（之前 < 0.08 完全唔出）；synthesis 100% 準確引用 g04 真實批假指引內容；4 輪治理（routing + quota + alias + semantic）累積成功
+   - ✅ **[根因治理完成]** Channel B 病假 query 由「synthesis 答錯（混淆 SAG 學校假期表 366 日）」變「synthesis 答對（g04 真實內容首年 28 日 / 其後 48 日 / 上限 168 日 / 120 日門檻）」
 4. Pending from this session (not yet done):
-   - Git commit + push（含 QUERY_EXPANSIONS 改動 + Session 104 entry）
-   - 線上重 curl 教師病假 query 驗證 expansion 是否令 g04 入榜
+   - Final git push（含本次 closeout 後續 edit）
 5. Next priorities (max 3 — 詳見 Open Priorities)：
-   - 收線上驗收結果
-   - 如未夠：re-chunk g04 加 title prefix（下節）
-   - vault refresh backlog（下輪一齊做）
+   - vault refresh backlog
+   - 評估 g21/g22/g33 直連 PDF
+   - 開新功能方向
 6. Risks / blockers:
    - Cowork sandbox egress allowlist 不含 edb-knowledge.onrender.com → 線上驗證需用戶 Terminal
    - Render free tier cold start (~30s) after 15min inactivity
    - Mac Python.framework 缺 SSL CA bundle，Supabase REST 直接 hit 會 SSLCertVerificationError；要用 curl 繞
    - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`
    - Supabase free tier: 500MB DB limit; wiki_chunks currently ~50MB with embeddings
-   - Query expansion 加太多 vocabulary 會稀釋 query embedding focus；今次只加 7 個最 specific keyword
+   - Query expansion 加太多 vocabulary 會稀釋 query embedding focus；今次 7 個 keyword 證實足夠不過量
 
 ## Session Close Checklist (每次 session 結束必須執行)
 ```bash

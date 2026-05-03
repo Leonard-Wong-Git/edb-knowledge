@@ -10,11 +10,11 @@
 - **Done:**
   - ✅ **[Query expansion 擴充]** hr_admin vocabulary 由「教職員假期 批假 薪酬 操守」改為「教職員假期 批假 薪酬 操守 病假 首年 168日 上限 醫生證明 教師註冊 聘任」
   - ✅ **[擴充原則]** 加少數最 specific 嘅子議題 keyword（病假 / 註冊聘任），唔過度膨脹避免稀釋 query embedding focus
-- **QC:** TypeScript `npm run check` PASS 0 errors
+- **QC:** TypeScript `npm run check` PASS 0 errors；commit 6c8a663 已 push
+- **線上驗收（用戶 Terminal curl 完成）:** ✅ g04 第 1 位 score **0.7247**（之前 < 0.08 完全唔出）；synthesis 100% 準確引用 g04 內容「首年 28 日 / 其後 48 日 / 上限 168 日 / 120 日門檻按月更新」；之前混淆 SAG 學校假期表「366 日」嘅錯誤答案徹底消除；sag chunks cap=3 仍生效
 - **Pending（用戶 Terminal 執行）:**
-  - Git commit + push（含 searchChannelB QUERY_EXPANSIONS 改動 + Session 104 entry）
-  - 線上重 curl 教師病假 query — 驗證 g04 chunks score 是否升過 0.08 threshold 入 top
-- **Next:** 1. 收線上驗收結果；2. 如果 g04 入榜 = 根因治理成功（query expansion 解 chunk semantic gap）；3. 如果仍 miss = 確認屬 chunk content 層問題，下節考慮 re-chunk g04 加 title prefix
+  - Final git push 含本次 closeout 後續 edit
+- **Next:** 1. Channel B 病假 query root cause 已根治，下節由 user 揀新方向；2. 4 輪治理完整 case study 已記錄，可作其他 query / topic 改善模板
 
 ### DOC_SYNC Matrix Scan
 | Change Category | Required Doc Updates | Status |
@@ -53,9 +53,9 @@ Known risks / blockers / cautions:
 
 Validation status:
 - PASS: TypeScript npm run check 0 errors
-- PENDING: 線上端對端驗收 g04 是否入榜（用戶 Terminal curl）
+- PASS: 線上端對端驗收 — g04 第 1 位 score 0.7247；synthesis 100% 準確引用 g04 真實批假指引內容；4 輪 ranking + semantic 治理全部生效
 
-Post-startup first action: 詢問 Leonard：線上 curl 結果如何，下一輪揀 chunk-level re-chunk / vault refresh / 新功能。
+Post-startup first action: 詢問 Leonard：Channel B 病假 query 根因已治，下節揀新方向（vault refresh / 新功能 / 其他 query 質量改善）。
 ```
 
 ---
