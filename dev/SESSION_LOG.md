@@ -2,6 +2,64 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-03 Session 104 — Query Expansion 補病假 vocabulary（chunk semantic 層救濟）
+
+- **ID:** Claude_20260503_0001
+- **Summary:** Session 103 線上驗收顯示來源別名 + 配額 ship 後 sag 維持 cap=3 + g24 完全唔出（兩層 ranking 修補實證生效），但 g04 病假指引仍未入榜 — 鎖定根因屬 chunk-level embedding semantic 問題（g04 chunks「首年 28 日 / 上限 168 日」對 query「教師病假上限多少天」cosine 真係低於 0.08 threshold）。本 session 試 Query expansion 路徑：擴充 hr_admin expansion vocabulary，加入「病假 首年 168 日 上限 醫生證明 教師註冊 聘任」7 個 specific keyword，目標 boost g04 chunks 嘅 query embedding cosine。
+- **Changed:** `backend/src/api/searchChannelB.ts`（QUERY_EXPANSIONS.hr_admin 擴充）
+- **Done:**
+  - ✅ **[Query expansion 擴充]** hr_admin vocabulary 由「教職員假期 批假 薪酬 操守」改為「教職員假期 批假 薪酬 操守 病假 首年 168日 上限 醫生證明 教師註冊 聘任」
+  - ✅ **[擴充原則]** 加少數最 specific 嘅子議題 keyword（病假 / 註冊聘任），唔過度膨脹避免稀釋 query embedding focus
+- **QC:** TypeScript `npm run check` PASS 0 errors
+- **Pending（用戶 Terminal 執行）:**
+  - Git commit + push（含 searchChannelB QUERY_EXPANSIONS 改動 + Session 104 entry）
+  - 線上重 curl 教師病假 query — 驗證 g04 chunks score 是否升過 0.08 threshold 入 top
+- **Next:** 1. 收線上驗收結果；2. 如果 g04 入榜 = 根因治理成功（query expansion 解 chunk semantic gap）；3. 如果仍 miss = 確認屬 chunk content 層問題，下節考慮 re-chunk g04 加 title prefix
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Backend behavior change (Channel B query expansion) | SESSION_HANDOFF Open Priorities; Session entry QC evidence | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Current objective and progress state:
+- Session 104 (2026-05-03) ship Query expansion 擴充 hr_admin vocabulary 加病假 / 教師註冊 specific keyword，目標令 g04 / g05 / g11 chunks 嘅 query embedding cosine 升過 0.08 threshold
+- 累積三輪 Channel B ranking 治理（Session 100 routing + 101 quota + 103 alias）已實證全部生效；剩低 chunk-level embedding semantic 屬 Session 104 expansion 嘅救濟對象
+- 商品狀態：v2.3.0 / role_facts 792 / Supabase 10,736 chunks / vault 120 sources
+
+Pending tasks in priority order:
+1. 線上重 curl 教師病假 query 驗證 expansion 效果（用戶 Terminal）
+2. 如果 expansion 仍唔夠：考慮 re-chunk g04 加 title prefix（chunk content 層救濟，工程量大）
+3. vault refresh backlog（學校行政手冊統一 source_id + 13 problematic entries）
+4. 評估視藝/科技/英文課程指引（g21/g22/g33）直連 PDF 必要性
+5. 開新功能方向（admin 端 Channel B prompt editor / 新區塊 / 其他）
+
+Key files changed in this session:
+- backend/src/api/searchChannelB.ts（QUERY_EXPANSIONS.hr_admin 擴充病假 / 教師註冊 vocabulary）
+- dev/SESSION_LOG.md（Session 104 entry）
+- dev/SESSION_HANDOFF.md（Last Session Record / Open Priorities 更新）
+
+Known risks / blockers / cautions:
+- Cowork sandbox egress allowlist 不含 edb-knowledge.onrender.com → 線上驗證需用戶 Terminal
+- Render free tier cold start ~30s after 15min idle
+- Mac Python.framework 缺 SSL CA bundle，Supabase REST 直接 hit 會 SSLCertVerificationError；要用 curl 繞
+- Shared MemPalace recovery workaround (hnsw:num_threads=1)；保留備份 /Users/leonard/mempalace/palace.pre-recovery.20260421_0838
+- Supabase free tier 500MB DB limit；現約 50MB
+- Query expansion 加太多 vocabulary 會稀釋 query embedding focus；今次只加 7 個最 specific keyword
+
+Validation status:
+- PASS: TypeScript npm run check 0 errors
+- PENDING: 線上端對端驗收 g04 是否入榜（用戶 Terminal curl）
+
+Post-startup first action: 詢問 Leonard：線上 curl 結果如何，下一輪揀 chunk-level re-chunk / vault refresh / 新功能。
+```
+
+---
+
 ## 2026-05-02 Session 103 — 學校行政手冊來源別名 + Source Triage
 
 - **ID:** Claude_20260502_0006

@@ -190,7 +190,7 @@ function detectQueryCategory(query: string): string | null {
  */
 const QUERY_EXPANSIONS: Record<string, string> = {
   finance:    "採購程序 財政限額 報價 招標 採購指引",
-  hr_admin:   "教職員假期 批假 薪酬 操守",
+  hr_admin:   "教職員假期 批假 薪酬 操守 病假 首年 168日 上限 醫生證明 教師註冊 聘任",
   activity:   "全方位學習津貼 活動",
   curriculum: "課程指引 教學 學習目標",
 };
