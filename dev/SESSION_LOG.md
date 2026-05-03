@@ -13,10 +13,19 @@
   - ✅ **[D Query expansion 候選]** vocabulary 字數 finance:5 / hr_admin:11 / activity:2 / curriculum:3；觸發詞數 finance:27 / hr_admin:32 / activity:4 / curriculum:31；候選驗證 query 包：finance「校董會經費批核程序」/ curriculum「資優學生識別準則 / 校本評核 SBA 安排 / STEM 跨學科專題」/ activity「全方位學習津貼開支類別 / 課外活動安排上限」
   - ✅ **[A vault refresh 計劃]** 學校行政手冊統一 = 策略 1（已 ship 軟 dedup）足夠；13 entries 分三類：6 URL 失效已 fallback（無 immediate action）/ 2 直連未補（sci_kla_guide_2017 + pri_science_cert_application_form，需 user EDB inspect）/ 5 xlsx 待上傳（5 個 stat_ 系列）
 - **QC:** Sandbox audit 全部 read-only，無破壞；無新 governance 違規；§4a check trigger 視乎 entry 大小決定
-- **Pending（用戶 Terminal / browser action）:**
-  - Git commit + push（Session 105 entry + handoff 更新）
-  - 視 user 揀方向：跑 Query expansion 驗證 query（最快出實證）/ 開 EDB 找 g21-22-33 PDF / 下載 xlsx 上 vault / 開新功能（C 留尾段）
-- **Next:** 1. 由 user 揀新方向；2. 任何 backlog 項目都已有清晰 action plan，可隨時取一條 ship
+- **線上 expansion 候選驗證結果（user Terminal curl 完成）:**
+  - 校董會經費批核程序 ✅ — role_facts_finance × 2 + g01 + g02 + coa_imc 完美組合，synthesis 引《資助學校採購程序指引》+ 50K/200K 門檻
+  - 校本評核 SBA 安排 ❌ — 4 chunks 全係課程規劃通用內容，**vault 缺 HKEAA SBA framework**（屬 source coverage gap，唔係 ranking 問題）
+  - STEM 跨學科專題 ✅ — tech_kla_guide_2017 + dat_sss_2007_2015 入榜，synthesis 對應準
+- **發現新 backlog item:** HKEAA / 考評局 source family 完全冇入 vault — 屬新 source family 補完範圍
+- **User 提出下節 priorities（已記入 SESSION_HANDOFF Open Priorities）:**
+  - 版本號 + GitHub README 對齊
+  - 首頁同平台介紹數據自動同步（index.html vs app.html 平台介紹兩處統計數字）
+  - 手機端獨立 UI 設計（detect mobile 時提供獨立操作介面，可用 /design:refero-design skill）
+  - 用戶手動跑 8 條 sanity query（Finance/Activity/Kindergarten/HR/Student/General）
+- **Pending（用戶 Terminal action）:**
+  - Final git commit + push（含本次 closeout 後續 edit）
+- **Next:** 由 user 揀方向開始下節（5 條 OP 任取一）
 
 ### DOC_SYNC Matrix Scan
 | Change Category | Required Doc Updates | Status |
@@ -33,11 +42,11 @@ Current objective and progress state:
 - 商品狀態：v2.3.0 / role_facts 792 / Supabase 10,736 chunks / vault 120 sources
 
 Pending tasks in priority order:
-1. 揀新方向（Query expansion 驗證 query 線上跑 / 開 EDB 找 g21-22-33 PDF / xlsx 下載 / 新功能 / 其他）
-2. 學校行政手冊徹底 refetch 統一 source_id（backlog；軟 dedup 已 ship 工作正常，唔急）
-3. 6 個 URL 失效 entries 下輪 vault refresh 順手核
-4. 開新功能方向（admin 端 Channel B prompt editor / 新區塊 / Circular System 整合）
-5. Channel A embedding cache 監察
+1. 版本號 + GitHub README 對齊（三層 _meta v2.3.0 但 README badge / footer / CHANGELOG 可能未跟）
+2. 首頁同平台介紹數據自動同步（index.html vs app.html 平台介紹兩處統計數字脫節，要建自動更新）
+3. 手機端獨立 UI 設計（detect mobile 時新 UI；可用 /design:refero-design skill）
+4. HKEAA / 考評局 source family 補完（Session 105 SBA query 揭發 vault gap）
+5. 用戶手動跑 8 條 sanity query 驗證 paste 結果（找潛在 coverage gap）
 
 Key files changed in this session:
 - dev/SESSION_LOG.md（Session 105 audit entry）

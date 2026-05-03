@@ -99,11 +99,17 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-1. **跑 Query expansion 驗證 query**（用戶 Terminal）— 最快出實證；候選 query：「校董會經費批核程序」/「資優學生識別準則」/「校本評核 SBA 安排」/「STEM 跨學科專題」；如線上見問題，可 evidence-driven 加對應 vocabulary
-2. **g21/g22/g33 直連 PDF 補完**（用戶 browser）— 三者 source_type='pdf' 但 url_primary 全缺；開 EDB 對應 KLA 安全指引 / 課程文件頁找直連
-3. **5 個 stat xlsx 下載 + 上 vault**（用戶 browser）— stat_kg/stat_pri/stat_sec/stat_special/stat_integrated_edu；下載後放 dev/vault/{source_id}/ 用 build_stat_facts.py 提取
-4. **學校行政手冊徹底 refetch 統一 source_id**（backlog 級）— 策略 2 風險中；軟 dedup 已 ship 工作正常，可留下輪 vault 大調整時順手做
-5. **開新功能方向**（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合 / 其他）— 由 user 講方向
+1. **版本號 + GitHub README 對齊**（user 提出）— 三層 _meta.version 已 v2.3.0 / 但 README badge / footer / CHANGELOG 等可能仲未跟，需要 audit 全平台 version 一致性
+2. **首頁同平台介紹數據自動同步**（user 提出）— index.html 同 app.html 平台介紹兩處顯示嘅統計數字（facts 數 / chunks 數 / sources 數）目前可能脫節；要建立自動同步機制（loaded from /api 或者 build-time injection）
+3. **手機端 UI 重新設計**（user 提出，可用 /design:refero-design skill）— detect mobile 時提供獨立操作介面，唔再共用 desktop layout
+4. **HKEAA / 考評局 source family 補完**（Session 105 SBA query 揭發 vault gap）— 為「校本評核 SBA / 公開試 / 考核 framework」query 補 source coverage
+5. **線上手動 sanity 8 條 query 結果驗證**（user 自跑後 paste 結果）— Finance / Activity / Kindergarten / HR / Student / General 各取 1-2 條，找潛在 coverage gap
+
+## Backlog（次優先序，視 OP 完成情況流轉）
+- g21/g22/g33 直連 PDF 補完（user browser）— Session 105 audit 揭發三者 source_type='pdf' 但 url_primary 缺
+- 5 個 stat xlsx 下載 + 上 vault（user browser）
+- 學校行政手冊徹底 refetch 統一 source_id（軟 dedup 已 ship 足夠用）
+- 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合）
 
 ## Last Session Record
 1. UTC date: 2026-05-03
