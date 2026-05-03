@@ -46,6 +46,38 @@ export interface WikiSearchResult {
 }
 
 // ---------------------------------------------------------------------------
+// Source aliases — same document, different ingestions get unified for quota
+// ---------------------------------------------------------------------------
+
+/**
+ * Maps redundant source_id values to their canonical equivalent.
+ *
+ * Background: 學校行政手冊（2025 年 11 月版）was ingested twice into Supabase:
+ *   - sag_2025_11 (Session 76, pdftotext partial extract Ch1/3/6/7, 415 chunks)
+ *   - g24         (Session 98, PyMuPDF whole-doc fetch incl. cover/TOC, 300 chunks)
+ *
+ * Hash overlap is 0% because the chunking strategies differ, but content
+ * semantics overlap heavily. Treating them as separate source_ids in the
+ * per-source quota gate would let one document occupy double the quota
+ * (3 + 3 = 6 slots when cap=3), defeating the diversity goal.
+ *
+ * The alias map below collapses redundant ingestions to a single canonical
+ * source_id for quota counting only — chunks remain stored under their
+ * original source_id and are returned unchanged in results.
+ */
+const SOURCE_ALIASES: Record<string, string> = {
+  g24: "sag_2025_11",
+};
+
+/**
+ * Returns the canonical source_id for quota counting purposes.
+ * Falls back to the input id if no alias is registered.
+ */
+function canonicalSource(id: string): string {
+  return SOURCE_ALIASES[id] ?? id;
+}
+
+// ---------------------------------------------------------------------------
 // Search options
 // ---------------------------------------------------------------------------
 
@@ -145,6 +177,8 @@ export async function searchWiki(
 
   // Per-source quota gate (cap = upper bound, never forces low-score chunks in)
   // Walks score-DESC list and skips any chunk from a source that already hit cap.
+  // Uses canonicalSource() so redundant ingestions of the same document
+  // (e.g. g24 + sag_2025_11) share one quota bucket.
   let finalRows: typeof deduped;
   if (overFetchEnabled) {
     const sourceCounts = new Map<string, number>();
@@ -152,9 +186,10 @@ export async function searchWiki(
     const cap = maxPerSource as number;
     const limit = topK as number;
     for (const row of deduped) {
-      const count = sourceCounts.get(row.source_id) ?? 0;
+      const canonical = canonicalSource(row.source_id);
+      const count = sourceCounts.get(canonical) ?? 0;
       if (count >= cap) continue;
-      sourceCounts.set(row.source_id, count + 1);
+      sourceCounts.set(canonical, count + 1);
       gated.push(row);
       if (gated.length >= limit) break;
     }

@@ -99,35 +99,32 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-1. **Backend 加學校行政手冊 source alias map**（wikiRepository.ts）— g24 → sag_2025_11 別名映射，配額計數時兩個 source_id 視為同組；解 dry-run 揭露嘅雙重 ingestion 重複佔配額
-2. **線上 Channel B 重 curl 驗證 dedup 後 Channel A 注入不變**（用戶 Terminal）— Selector union 邏輯擔保理論上不變，但實證更穩
-3. **學校行政手冊 vault 重新 ingest 統一 source_id**（backlog 級，下一輪 vault refresh 一齊做）
-4. **8 個無法擷取嘅 source triage**（按 memory 規範先驗 source 質素，唔好馬上設計 fallback pipeline）
-5. **評估視藝/科技/英文課程指引（g21/g22/g33）直連 PDF 必要性**
+1. **線上重 curl 教師病假 query 驗證 g04 入榜**（用戶 Terminal）— Session 103 來源別名 ship 之後預期 g04 終於入 top（之前被學校行政手冊雙重 ingestion 雙倍佔位蓋過）
+2. **vault refresh backlog**（下輪統一做）：學校行政手冊重新 ingest 統一 source_id + 13 個 source_registry 問題 entries 順手核
+3. **評估視藝/科技/英文課程指引（g21/g22/g33）直連 PDF 必要性**
+4. **開新功能方向**（admin 端 Channel B prompt editor / index.html 新區塊 / 其他）
+5. **Channel A embedding cache 監察**（warm:true size 應隨 Session 102 dedup 變細）
 
 ## Last Session Record
 1. UTC date: 2026-05-02
-2. Session ID: Claude_20260502_0005 (Session 102)
+2. Session ID: Claude_20260502_0006 (Session 103)
 3. Completed:
-   - ✅ **[已核實事實庫 dedup ship]** Strategy B 三層覆蓋（root role_facts.json + knowledge.json + dev/knowledge/role_facts.json）：1,001 → 792 facts，移除 209 條 all_roles 與個別 role bucket 重複副本
-   - ✅ **[版本升級]** 三層 _meta.version 2.2.0 → 2.3.0；updated 2026-05-02；加 dedup_note
-   - ✅ **[Backup snapshot]** 三層 dedup 前快照寫入 dev/init_backup/20260502_dedup/
-   - ✅ **[Selector union 驗證]** 4 case sanity test PASS：finance.principal=78 / hr.teacher=123 / curriculum.subject_head=67 / general.eo_admin=30，union 等於 sum 證明無 cross-bucket 殘留
-   - ✅ **[學校行政手冊 dry-run]** g24 vs sag_2025_11 hash 重疊 0/300 vs 0/415 — 發現係同一文件嘅兩種切割方式，DB DELETE 唔合適
+   - ✅ **[來源別名映射 ship]** wikiRepository.ts SOURCE_ALIASES map { g24 → sag_2025_11 }；quota gate 用 canonicalSource() 計數，兩個 source_id 共享 cap bucket
+   - ✅ **[本地 sanity test PASS]** g24/sag 共享 cap=2 之後 g04 終於入榜（mock 模擬：sag-1 + g24-1 + va×2 + g04 = top 5）
+   - ✅ **[Source registry triage]** 151 sources 入面 13 entries 有問題分類完成（6 URL 失效已 fallback / 2 直連未補 / 5 待 user 上傳 xlsx）；按 memory 規範全部唔需要 fallback pipeline
 4. Pending from this session (not yet done):
-   - 用戶 Terminal 移除 preview 檔：`rm -f ~/Downloads/Claude-edb-knowledge/dev/role_facts_dedup_preview.json`
-   - Git commit + push（含三層 dedup + backup + Session 102 entry）
+   - Git commit + push（含 wikiRepository alias + Session 103 entry）
+   - 線上重 curl 教師病假 query 驗證 g04 入榜
 5. Next priorities (max 3 — 詳見 Open Priorities)：
-   - Backend source alias map（g24 → sag_2025_11）
-   - 線上 Channel B 重 curl 驗證
-   - vault 重新 ingest 統一 source_id（backlog）
+   - 線上重 curl 驗證
+   - 開新方向（vault refresh / 新功能）
+   - 監察 Channel A embedding cache size 變化
 6. Risks / blockers:
    - Cowork sandbox egress allowlist 不含 edb-knowledge.onrender.com → 線上驗證需用戶 Terminal
    - Render free tier cold start (~30s) after 15min inactivity
    - Mac Python.framework 缺 SSL CA bundle，Supabase REST 直接 hit 會 SSLCertVerificationError；要用 curl 繞
    - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`
    - Supabase free tier: 500MB DB limit; wiki_chunks currently ~50MB with embeddings
-   - 殘留 193 組重複屬 mid-level sharing（fact 屬多個 role 但 all_roles 唔 hold）係 trade-off
 
 ## Session Close Checklist (每次 session 結束必須執行)
 ```bash
