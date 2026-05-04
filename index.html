@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>K1 知識平台 — 香港資助學校政策知識庫</title>
-<meta name="description" content="K1知識平台：為香港資助學校管理人員提供 EDB 政策語義搜尋、指引文件庫及通告分析。1,001 條已核實事實，7,788 個文件片段。">
+<meta name="description" content="K1知識平台：為香港資助學校管理人員提供 EDB 政策語義搜尋、指引文件庫及通告分析。792 條已核實事實，10,736 個文件片段。">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231F3A2E'/><text x='16' y='22' text-anchor='middle' font-family='system-ui,sans-serif' font-size='14' font-weight='700' fill='%23F7F4ED'>K1</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -247,38 +247,42 @@ a{color:inherit;text-decoration:none}
       <em>搜尋 EDB 政策，毋須逐頁翻查通告</em>
     </h1>
     <p class="hero-desc">
-      語義搜尋 1,001 條已核實 EDB 政策事實及 7,788 個原文知識片段。
+      語義搜尋 <span data-stat="facts">792</span> 條已核實 EDB 政策事實及 <span data-stat="chunks">10,736</span> 個原文知識片段。
       輸入問題，即時找到對應的指引條文、適用角色及原始來源。
     </p>
     <div class="hero-actions">
       <a class="btn-primary" href="app.html">
         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
-        立即搜尋政策
+        搜尋
       </a>
       <a class="btn-ghost" href="app.html#guidelines">
         <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h10"/></svg>
-        瀏覽指引文件庫
+        文件庫
+      </a>
+      <a class="btn-ghost" href="#features">
+        <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>
+        核心功能
       </a>
     </div>
   </div>
 
-  <!-- Stats strip inside hero -->
+  <!-- Stats strip inside hero — auto-synced from knowledge.json _meta.stats -->
   <div class="stats-strip" style="margin-top:48px;background:rgba(0,0,0,0.18);border-top:1px solid rgba(255,255,255,0.08);padding:16px 28px;border-radius:0">
     <div class="stats-inner">
       <div class="stat-item">
-        <span class="stat-num">1,001</span>
+        <span class="stat-num" data-stat="facts">792</span>
         <span class="stat-label">已核實政策事實</span>
       </div>
       <div class="stat-item">
-        <span class="stat-num">7,788</span>
+        <span class="stat-num" data-stat="chunks">10,736</span>
         <span class="stat-label">原文知識片段</span>
       </div>
       <div class="stat-item">
-        <span class="stat-num">7</span>
+        <span class="stat-num" data-stat="topics">7</span>
         <span class="stat-label">政策主題</span>
       </div>
       <div class="stat-item">
-        <span class="stat-num">61+</span>
+        <span class="stat-num" data-stat="sources">120</span>
         <span class="stat-label">EDB 原始來源</span>
       </div>
     </div>
@@ -286,10 +290,9 @@ a{color:inherit;text-decoration:none}
 </section>
 
 <!-- Features -->
-<div class="wrap">
+<div class="wrap" id="features">
   <div class="sec-head">
     <h2>三大核心功能</h2>
-    <span class="sec-sub">全部免費使用</span>
   </div>
   <div class="feature-grid">
 
@@ -299,11 +302,11 @@ a{color:inherit;text-decoration:none}
       </div>
       <div class="feature-name">政策語義搜尋</div>
       <div class="feature-desc">
-        輸入自然語言問題，AI 即時比對 1,001 條已核實事實及 7,788 個原文片段，附整理答案及原始來源引用。
+        輸入自然語言問題，AI 即時比對 <span data-stat="facts">792</span> 條已核實事實及 <span data-stat="chunks">10,736</span> 個原文片段，附整理答案及原始來源引用。
       </div>
       <div class="feature-tags">
-        <span class="ftag" style="background:var(--edb-wash);color:var(--edb)">Channel A 已核實</span>
-        <span class="ftag" style="background:#FFF3E0;color:#7A4500">Channel B 原文</span>
+        <span class="ftag" style="background:var(--edb-wash);color:var(--edb)">已核實資料</span>
+        <span class="ftag" style="background:#FFF3E0;color:#7A4500">來源文件</span>
         <span class="ftag" style="background:#F3E8FF;color:#6B3FA0">合併搜尋</span>
       </div>
     </div>
@@ -328,14 +331,18 @@ a{color:inherit;text-decoration:none}
       <div class="feature-icon fi-circular">
         <svg width="20" height="20" fill="none" stroke="#2956A5" viewBox="0 0 24 24" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
       </div>
-      <div class="feature-name">通告分析</div>
+      <div class="feature-name">EDB 通告分析系統 簡介</div>
       <div class="feature-desc">
-        貼入任何 EDB 通告內容，AI 自動提取關鍵政策要點、適用角色及行動事項，節省管理層閱讀時間。
+        K1 知識平台為「EDB 通告分析系統」提供準確核實資料源，令該系統可基於可信知識庫進行通告語義分析及角色推送。
       </div>
       <div class="feature-tags">
-        <span class="ftag" style="background:var(--edb-wash);color:var(--edb)">自動摘要</span>
-        <span class="ftag" style="background:#E8F0FE;color:#2956A5">角色分類</span>
+        <span class="ftag" style="background:var(--edb-wash);color:var(--edb)">資料源支援</span>
+        <span class="ftag" style="background:#E8F0FE;color:#2956A5">外部系統</span>
       </div>
+      <a href="#" data-circular-system-link style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 14px;background:var(--edb);color:#fff;border-radius:8px;font-size:0.85rem;font-weight:600;text-decoration:none">
+        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        進入 EDB 通告分析系統
+      </a>
     </div>
 
   </div>
@@ -364,9 +371,36 @@ a{color:inherit;text-decoration:none}
     <div class="how-step">
       <div class="how-num">Step 04</div>
       <div class="how-title">追溯原文</div>
-      <div class="how-desc">每條結果均附 EDB 原文連結，可一鍵核對，確保資料準確可信</div>
+      <div class="how-desc">大部份結果附 EDB 原文連結，可一鍵核對；部份來源連結為 EDB 索引頁，需於官網內進一步翻查（持續完善中）</div>
     </div>
   </div>
+
+  <!-- Coverage scope -->
+  <div class="sec-head">
+    <h2>資料覆蓋</h2>
+    <span class="sec-sub">幼稚園 K1 至中學 S6</span>
+  </div>
+  <div class="roles-grid">
+    <div class="role-card">
+      <div class="role-name"><span class="role-dot" style="background:#FF8F00"></span>幼稚園（K1-K3）</div>
+      <div class="role-use">幼稚園課程指引、收生安排、幼稚園相關行政指引</div>
+    </div>
+    <div class="role-card">
+      <div class="role-name"><span class="role-dot" style="background:#1565C0"></span>小學（P1-P6）</div>
+      <div class="role-use">小學課程指引、KLA 課程文件、常識／人文／科學課程</div>
+    </div>
+    <div class="role-card">
+      <div class="role-name"><span class="role-dot" style="background:#4527A0"></span>中學（S1-S6）</div>
+      <div class="role-use">中學課程指引、KLA 課程文件、初中／高中課程框架</div>
+    </div>
+    <div class="role-card">
+      <div class="role-name"><span class="role-dot" style="background:#2E7D32"></span>跨階段共通</div>
+      <div class="role-use">學校行政手冊、資助則例、財務／HR／訓導指引</div>
+    </div>
+  </div>
+  <p style="margin-top:14px;padding:14px 18px;background:var(--edb-wash);border-left:4px solid var(--edb);border-radius:6px;font-size:0.9rem;color:#0a3a2a;line-height:1.6">
+    <strong>資料來源：</strong>所有事實、文件片段及指引均來自香港教育局（EDB）官方公開文件，正式決策請以 EDB 官方原文為準。
+  </p>
 
   <!-- Who is it for -->
   <div class="sec-head">
@@ -408,7 +442,7 @@ a{color:inherit;text-decoration:none}
 <footer class="site-footer">
   <div class="wrap" style="width:100%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
     <div class="footer-left">
-      K1知識平台 v2.2 · 香港資助學校政策知識庫 ·
+      K1知識平台 v2.3 · 香港資助學校政策知識庫 ·
       資料僅供參考，正式決策請以 EDB 官方原文為準
     </div>
     <div class="footer-right">
@@ -418,6 +452,22 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
 </footer>
+
+<script>
+  // Auto-sync stats from knowledge.json _meta.stats (single source of truth)
+  // Fallback to hardcoded values if fetch fails (offline / file:// protocol).
+  fetch('knowledge.json')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var stats = (data._meta && data._meta.stats) || {};
+      var fmt = function(n){ return typeof n === 'number' ? n.toLocaleString('en-US') : n; };
+      document.querySelectorAll('[data-stat]').forEach(function(el){
+        var key = el.dataset.stat;
+        if (stats[key] !== undefined) el.textContent = fmt(stats[key]);
+      });
+    })
+    .catch(function(){ /* keep hardcoded fallback values */ });
+</script>
 
 </body>
 </html>

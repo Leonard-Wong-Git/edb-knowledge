@@ -701,10 +701,17 @@ const makeKey = (topicId, roleId, index) => `${topicId}.${roleId}.${index}`;
 // Draft indices: facts pending user review. All 32 approved by user on 2026-03-17.
 const INITIAL_DATA = {
   "_meta": {
-    "version": "2.2.0",
+    "version": "2.3.0",
     "created": "2026-04-04",
-    "updated": "2026-05-02",
-    "description": "EDB 學校管理知識庫 — 供 EDB 通告智能分析系統注入 LLM prompt 使用。1,001 事實全部 approved（Session 79 合併 408 候選，由 109 增至 1,001）。契約版本 v2.0.0：角色拆分為 subject_head（科主任）與 panel_chair（各統籌主任），不再使用 department_head。各 topic block 可附帶 `_source_refs` 作來源追溯 metadata。"
+    "updated": "2026-05-03",
+    "description": "EDB 學校管理知識庫 — 供 EDB 通告智能分析系統注入 LLM prompt 使用。792 條已核實事實（Session 102 dedup 由 1,001 → 792）。契約版本 v2.0.0：角色拆分為 subject_head（科主任）與 panel_chair（各統籌主任），不再使用 department_head。各 topic block 可附帶 `_source_refs` 作來源追溯 metadata。",
+    "stats": {
+      "facts": 792,
+      "chunks": 10736,
+      "sources": 120,
+      "guidelines": 39,
+      "topics": 7
+    }
   },
   "finance": {
     "_source_refs": [
@@ -2898,12 +2905,13 @@ function PlatformIntroPanel({ stats }) {
   const [demoVisible, setDemoVisible] = React.useState(false);
   const [counts, setCounts] = React.useState([0, 0, 0, 0]);
 
-  // Animate stat counters on mount
+  // Animate stat counters on mount — pull from stats.metaStats (single source of truth from _meta.stats)
+  const meta = stats.metaStats || {};
   const statTargets = [
-    stats.approvedCount || 1001,
-    10736,
-    39,
-    120,
+    stats.approvedCount || meta.facts || 792,
+    meta.chunks || 10736,
+    meta.guidelines || 39,
+    meta.sources || 120,
   ];
   React.useEffect(() => {
     const duration = 900;
@@ -2961,7 +2969,7 @@ function PlatformIntroPanel({ stats }) {
       icon: '🔍',
       title: '語義搜尋',
       subtitle: 'Channel A + B 合併',
-      desc: '自然語言提問，從 1,001 條已核實事實及 10,736 個文件片段中語義檢索，LLM 整理回答並附原始來源 URL。',
+      desc: '自然語言提問，從 792 條已核實事實及 10,736 個文件片段中語義檢索，LLM 整理回答並附原始來源 URL。',
       badge: '核心功能',
       dark: true,
     },
@@ -3012,7 +3020,7 @@ function PlatformIntroPanel({ stats }) {
       <div style={{textAlign:'center',marginBottom:'40px'}}>
         <div style={{display:'inline-flex',alignItems:'center',gap:'8px',padding:'4px 14px',background:'var(--cd-warm)',border:'1px solid var(--border)',borderRadius:'999px',marginBottom:'20px'}}>
           <span style={{width:'7px',height:'7px',borderRadius:'50%',background:'var(--mocha)',display:'inline-block',flexShrink:0}}></span>
-          <span style={{fontSize:'0.72rem',fontWeight:700,color:'var(--mocha)',letterSpacing:'0.08em',textTransform:'uppercase'}}>K1知識平台 v2.2.0 · 香港學校管治</span>
+          <span style={{fontSize:'0.72rem',fontWeight:700,color:'var(--mocha)',letterSpacing:'0.08em',textTransform:'uppercase'}}>K1知識平台 v2.3.0 · 香港學校管治</span>
         </div>
         <h1 style={{fontSize:'clamp(1.9rem,5vw,3rem)',fontWeight:900,color:'var(--charcoal)',letterSpacing:'-0.025em',lineHeight:1.15,marginBottom:'16px'}}>
           問一句，秒找<br/>
@@ -4128,7 +4136,7 @@ function App() {
         }
       });
     });
-    return { totalFacts, topicCount, rolesUsed: rolesUsed.size, draftCount, approvedCount };
+    return { totalFacts, topicCount, rolesUsed: rolesUsed.size, draftCount, approvedCount, metaStats: data._meta?.stats };
   }, [data, reviewState]);
 
   // Topic list

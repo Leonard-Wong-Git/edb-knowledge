@@ -3,8 +3,15 @@
     "version": "2.3.0",
     "created": "2026-04-04",
     "updated": "2026-05-02",
-    "description": "EDB 學校管理知識庫 — 供 EDB 通告智能分析系統注入 LLM prompt 使用。1,001 事實全部 approved（Session 79 合併 408 候選，由 109 增至 1,001）。契約版本 v2.0.0：角色拆分為 subject_head（科主任）與 panel_chair（各統籌主任），不再使用 department_head。各 topic block 可附帶 `_source_refs` 作來源追溯 metadata。",
-    "dedup_note": "Session 102 (2026-05-02): Strategy B dedup — removed 209 duplicate role-bucket facts already in all_roles bucket. Backend selector unions all_roles + role buckets so no semantic content lost."
+    "description": "EDB 學校管理知識庫 — 供 EDB 通告智能分析系統注入 LLM prompt 使用。792 條已核實事實（Session 102 dedup 由 1,001 → 792）。契約版本 v2.0.0：角色拆分為 subject_head（科主任）與 panel_chair（各統籌主任），不再使用 department_head。各 topic block 可附帶 `_source_refs` 作來源追溯 metadata。",
+    "dedup_note": "Session 102 (2026-05-02): Strategy B dedup — removed 209 duplicate role-bucket facts already in all_roles bucket. Backend selector unions all_roles + role buckets so no semantic content lost.",
+    "stats": {
+      "facts": 792,
+      "chunks": 10736,
+      "sources": 120,
+      "guidelines": 39,
+      "topics": 7
+    }
   },
   "finance": {
     "_source_refs": [

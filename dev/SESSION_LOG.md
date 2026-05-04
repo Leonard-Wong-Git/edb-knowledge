@@ -2,6 +2,74 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-03 Session 106 — 數據自動同步 + 版本號全平台對齊（B + A 合併 ship）
+
+- **ID:** Claude_20260503_0003
+- **Summary:** 一氣完成 OP #1（版本號對齊）+ OP #2（首頁同平台介紹數據自動同步）：三層 _meta 加 stats block 做 single source of truth；index.html 加 inline JS fetch knowledge.json 動態填數；app.html PlatformIntroPanel statTargets 改用 stats prop；README badge / footer / CHANGELOG / 內文 hardcoded counts 全 sync v2.3.0 + 792 facts；CHANGELOG 加 v2.3.0 entry。Mobile UI 設計（OP #3）留下節做。
+- **Changed:** `knowledge.json`, `role_facts.json`, `dev/knowledge/role_facts.json`, `README.md`, `CHANGELOG.md`, `index.html`, `app.html`
+- **Done:**
+  - ✅ **[三層 _meta.stats block]** 加 `stats: {facts:792, chunks:10736, sources:120, guidelines:39, topics:7}` single source of truth；description 由「1,001 事實」改為「792 條已核實事實（Session 102 dedup 由 1,001 → 792）」
+  - ✅ **[README 全文 sync]** badge v2.2.0 → v2.3.0；footer v2.2.0 → v2.3.0；全文「1,001 條」→「792 條」（4 處）；最後更新 2026-05-02 → 2026-05-03
+  - ✅ **[CHANGELOG v2.3.0 entry]** 加新 entry 記錄 dedup + alias + query expansion + stats block
+  - ✅ **[app.html sync]** INITIAL_DATA._meta v2.2.0 → v2.3.0 + updated 2026-05-03 + stats block；nav badge v2.2.0 → v2.3.0；PlatformIntroPanel statTargets 改用 `stats.metaStats?.{facts,chunks,guidelines,sources}` fallback hardcoded；stats useMemo expose `metaStats: data._meta?.stats`；channel desc 1,001 → 792
+  - ✅ **[index.html dynamic stats]** stats-strip 4 個 stat-num 加 `data-stat="facts|chunks|topics|sources"`；hero-desc 同 feature-desc 內 hardcoded 1,001/7,788 改用 `<span data-stat>` 包住；meta description 同步 792/10,736；加 inline `<script>` fetch knowledge.json → 提取 _meta.stats → 填所有 `[data-stat]` 元素
+- **QC:** TypeScript `npm run check` PASS 0 errors；grep audit 確認唯一 stale references 係 CHANGELOG 嘅 historical narrative（dedup note + v2.2.0 entry header），屬正常
+- **Pending（用戶 Terminal 執行）:**
+  - Git commit + push（B + A 一氣 ship）
+  - reload GitHub Pages 確認首頁 + app.html 平台介紹數據已對齊 + version badge 變 v2.3.0
+- **Next:** 1. C（手機端獨立 UI 設計）下節做；2. E sanity query 結果 paste 後即時診斷；3. HKEAA source family 補完（OP #4）
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Knowledge data structural cleanup (stats block) | knowledge.json + role_facts.json + dev/knowledge/role_facts.json _meta.stats | ✓ Done |
+| Version bump v2.2.0 → v2.3.0 | README badge + footer + CHANGELOG + app.html INITIAL_DATA + nav badge | ✓ Done |
+| Frontend behavior change (stats auto-sync) | index.html inline script + app.html PlatformIntroPanel | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Current objective and progress state:
+- Session 106 (2026-05-03) ship OP #1（版本號對齊）+ OP #2（數據自動同步）：三層 _meta.stats single source of truth；index.html dynamic fetch；app.html PlatformIntroPanel 改用 stats prop；README/CHANGELOG/footer/nav badge 全 sync v2.3.0 + 792
+- 商品狀態：v2.3.0 / role_facts 792 / Supabase 10,736 chunks / vault 120 sources
+
+Pending tasks in priority order:
+1. C（手機端獨立 UI 設計）— Detect mobile 時新 UI；可用 /design:refero-design 或 /ui-ux-responsive skill
+2. HKEAA / 考評局 source family 補完（Session 105 SBA query 揭發 vault gap）
+3. E 用戶手動跑 8 條 sanity query 驗證 paste 結果（找潛在 coverage gap）
+4. g21/g22/g33 直連 PDF 補完（user browser）— Session 105 audit
+5. 5 個 stat xlsx 下載 + 上 vault（user browser）
+
+Key files changed in this session:
+- knowledge.json + role_facts.json + dev/knowledge/role_facts.json（三層 _meta.stats block + description sync）
+- README.md（badge + footer + 全文 hardcoded counts sync v2.3.0/792）
+- CHANGELOG.md（加 v2.3.0 entry）
+- index.html（stats-strip data-stat attributes + hero-desc + feature-desc dynamic span + inline script fetch）
+- app.html（INITIAL_DATA._meta sync + PlatformIntroPanel statTargets dynamic + stats useMemo expose metaStats + nav badge v2.3.0）
+- dev/SESSION_LOG.md + dev/SESSION_HANDOFF.md
+
+Known risks / blockers / cautions:
+- Cowork sandbox egress allowlist 不含 edb.gov.hk → URL inspect 同 xlsx 下載需 user browser
+- Cowork sandbox egress allowlist 不含 edb-knowledge.onrender.com → 線上 query 驗證需用戶 Terminal
+- Render free tier cold start ~30s after 15min idle
+- Mac Python.framework 缺 SSL CA bundle，Supabase REST 直接 hit 會 SSLCertVerificationError；要用 curl 繞
+- Shared MemPalace recovery workaround (hnsw:num_threads=1)；保留備份 /Users/leonard/mempalace/palace.pre-recovery.20260421_0838
+- Supabase free tier 500MB DB limit；現約 50MB
+- index.html dynamic stats 用 fetch knowledge.json — file:// protocol 開 index.html 可能 CORS 失敗；fallback 用 hardcoded 數字（無 break）
+
+Validation status:
+- PASS: TypeScript npm run check 0 errors
+- PASS: 三層 _meta.stats block 同步；description 一致
+- PASS: README + CHANGELOG + footer + nav badge 全 v2.3.0
+- PENDING: 用戶 reload GitHub Pages 確認首頁 + app.html 數據對齊 + version badge 顯示
+
+Post-startup first action: 詢問 Leonard：手機 UI 設計 / HKEAA source / sanity query 結果 / 其他。
+```
+
+---
+
 ## 2026-05-03 Session 105 — 健康檢查 + 三項 backlog audit（無動 code，純 planning）
 
 - **ID:** Claude_20260503_0002

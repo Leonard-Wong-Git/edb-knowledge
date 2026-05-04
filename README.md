@@ -2,7 +2,7 @@
 
 > 香港教育局（EDB）政策知識庫 — 專為學校管理人員而設
 
-[![Version](https://img.shields.io/badge/version-v2.2.0-teal)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-v2.3.0-teal)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![GitHub Pages](https://img.shields.io/badge/Frontend-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/edb-knowledge/app.html)
 [![Backend](https://img.shields.io/badge/Backend-Render-46E3B7)](https://edb-knowledge.onrender.com/health)
@@ -24,7 +24,7 @@
 
 | 功能 | 說明 |
 |------|------|
-| 🔍 **政策搜尋** | 語義搜尋 1,001 條已核實政策事實（Channel A），顯示相關事實、角色標籤及原始出處連結 |
+| 🔍 **政策搜尋** | 語義搜尋 792 條已核實政策事實（Channel A），顯示相關事實、角色標籤及原始出處連結 |
 | 📚 **指引文件庫** | 148 份官方 EDB 指引，按類別 → 子類別 → 年份三層分組導覽 |
 | 📄 **通告分析** | 貼入 EDB 通告文字，AI 自動識別主題、政策影響及相關知識 |
 | ✍️ **知識提煉**（Admin） | 候選事實審核工作流：Pending → Approved → 同步至知識庫 |
@@ -60,7 +60,7 @@ q.html     ← Quick Q&A           /api/search/combined    (Phase 2)
 
 ### Backend
 - **Node.js + TypeScript**，托管於 [Render](https://render.com) 免費 tier
-- **Channel A 搜尋**：對 1,001 條已審核事實做語義搜尋（OpenAI `text-embedding-3-small`）
+- **Channel A 搜尋**：對 792 條已審核事實做語義搜尋（OpenAI `text-embedding-3-small`）
 - **通告分析**：LLM 提取主題、影響角色、政策要點
 - 冷啟動約 30 秒（Render 免費 tier idle 15 分鐘後自動關閉）
 
@@ -84,7 +84,7 @@ EDB PDF → ai_extract.py → wiki_index.json（向量索引）
 
 | 項目 | 數量 |
 |------|------|
-| Channel A 已審核事實 | **1,001 條** |
+| Channel A 已審核事實 | **792 條** |
 | 指引文件庫 | **148 份** |
 | Channel B 向量索引 | **2,874 chunks**（本地，Phase 2 上線中） |
 
@@ -157,4 +157,4 @@ KNOWLEDGE_PATH=../../../dev/knowledge/role_facts.json
 
 ---
 
-*最後更新：2026-05-02 | K1知識平台 v2.2.0 | 維護：leonard-wong-git*
+*最後更新：2026-05-03 | K1知識平台 v2.3.0 | 維護：leonard-wong-git*
