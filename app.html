@@ -2982,12 +2982,13 @@ function PlatformIntroPanel({ stats }) {
       dark: false,
     },
     {
-      icon: '✍️',
-      title: '知識提煉',
-      subtitle: '管理員審批流程',
-      desc: '候選事實由 AI 草擬，管理員行內審批及編輯後方進入正式知識庫，確保每條事實有人手把關。',
-      badge: '品質保證',
+      icon: '📄',
+      title: 'EDB 通告分析系統 簡介',
+      subtitle: '外部系統｜資料源支援',
+      desc: 'K1 知識平台為「EDB 通告分析系統」提供準確核實資料源，令該系統可基於可信知識庫進行通告語義分析及角色推送。',
+      badge: '外部系統',
       dark: false,
+      externalLink: 'https://leonard-wong-git.github.io/EDB-AI-Circular-System/',
     },
   ];
 
@@ -3020,11 +3021,10 @@ function PlatformIntroPanel({ stats }) {
       <div style={{textAlign:'center',marginBottom:'40px'}}>
         <div style={{display:'inline-flex',alignItems:'center',gap:'8px',padding:'4px 14px',background:'var(--cd-warm)',border:'1px solid var(--border)',borderRadius:'999px',marginBottom:'20px'}}>
           <span style={{width:'7px',height:'7px',borderRadius:'50%',background:'var(--mocha)',display:'inline-block',flexShrink:0}}></span>
-          <span style={{fontSize:'0.72rem',fontWeight:700,color:'var(--mocha)',letterSpacing:'0.08em',textTransform:'uppercase'}}>K1知識平台 v2.3.0 · 香港學校管治</span>
+          <span style={{fontSize:'0.72rem',fontWeight:700,color:'var(--mocha)',letterSpacing:'0.08em',textTransform:'uppercase'}}>知識平台 v2.3.0 · 香港學校管治</span>
         </div>
         <h1 style={{fontSize:'clamp(1.9rem,5vw,3rem)',fontWeight:900,color:'var(--charcoal)',letterSpacing:'-0.025em',lineHeight:1.15,marginBottom:'16px'}}>
-          問一句，秒找<br/>
-          <em style={{color:'var(--mocha)',fontStyle:'normal'}}>有根有據</em>的 EDB 政策答案
+          查找教育局各項<em style={{color:'var(--mocha)',fontStyle:'normal'}}>有根有據</em>的政策答案
         </h1>
         <p style={{fontSize:'var(--text-base)',color:'var(--mid)',maxWidth:'480px',margin:'0 auto',lineHeight:1.7}}>
           以自然語言查詢教育局政策、通告及指引，平台從官方文件中語義檢索，整理回答並附原始來源連結。
@@ -3129,7 +3129,7 @@ function PlatformIntroPanel({ stats }) {
       {/* ── How it works ── */}
       <div style={{marginBottom:'40px'}}>
         <p style={{fontSize:'0.7rem',fontWeight:700,color:'var(--mocha)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'4px'}}>運作原理</p>
-        <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,color:'var(--charcoal)',marginBottom:'20px'}}>三步取得有根有據的答案</h2>
+        <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,color:'var(--charcoal)',marginBottom:'20px'}}>三大核心功能</h2>
         <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))',gap:'0',position:'relative'}}>
           {steps.map((s,i) => (
             <div key={s.n} style={{padding:'22px',borderRadius:'var(--r-md)',
@@ -3157,7 +3157,7 @@ function PlatformIntroPanel({ stats }) {
         <div style={{display:'flex',alignItems:'flex-start',justifyContent:'space-between',flexWrap:'wrap',gap:'16px',marginBottom:'20px'}}>
           <div>
             <p style={{fontSize:'0.7rem',fontWeight:700,color:'var(--mocha-lt)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'4px'}}>知識來源</p>
-            <h2 style={{fontSize:'var(--text-xl)',fontWeight:800}}>全部來自 EDB 官方文件</h2>
+            <h2 style={{fontSize:'var(--text-xl)',fontWeight:800}}>全部來自 EDB 網站官方文件</h2>
           </div>
           <div style={{textAlign:'right'}}>
             <div style={{fontSize:'1.6rem',fontWeight:900,color:'var(--cd)',letterSpacing:'-0.02em'}}>120</div>
@@ -4348,7 +4348,7 @@ function App() {
           <div className="k1-logo" onClick={() => { window.location.href = 'index.html'; }} style={{cursor:'pointer'}}>
             <span className="k1-logo-dot">K1</span>
             <div>
-              <div className="k1-logo-text">K1知識平台</div>
+              <div className="k1-logo-text">知識平台</div>
               <div className="k1-logo-sub">香港學校管治 · {displayVersion}</div>
             </div>
           </div>
@@ -4409,11 +4409,6 @@ function App() {
                 {validation.length === 0 ? '✓ 驗證通過' : `⚠ ${validation.length} 問題`}
               </span>
             )}
-
-            {/* Circular metric */}
-            <span className="k1-badge k1-badge-warning" title="已接通 EDB Circular 通告分析流程，按已確認政策事實提供輔助。">
-              ⚡ {stats.approvedCount * 18 + 432} 次調用
-            </span>
 
             {/* Export */}
             {viewMode === 'knowledge' && adminMode && (
@@ -4616,52 +4611,30 @@ function App() {
        </div>
       </div>
 
-      {/* ── Mobile bottom tab bar ── */}
-      <nav className="mobile-tab-bar" role="navigation" aria-label="主要導航">
-        <button className={`mobile-tab-item ${viewMode === 'qa' ? 'active' : ''}`}
-                onClick={() => switchView('qa')} aria-label="政策搜尋">
-          <span className="mobile-tab-icon">🔍</span>政策搜尋
-        </button>
-        <button className={`mobile-tab-item ${viewMode === 'guidelines' ? 'active' : ''}`}
-                onClick={() => switchView('guidelines')} aria-label="指引文件庫">
-          <span className="mobile-tab-icon">📚</span>指引
-        </button>
-        <button className={`mobile-tab-item ${viewMode === 'about' ? 'active' : ''}`}
-                onClick={() => switchView('about')} aria-label="平台介紹">
-          <span className="mobile-tab-icon">ℹ️</span>平台介紹
-        </button>
-        {adminMode && (
+      {/* ── Mobile bottom tab bar — admin-only (public navigation 用 desktop tab bar) ── */}
+      {adminMode && (
+        <nav className="mobile-tab-bar" role="navigation" aria-label="管理員主要導航">
           <button className={`mobile-tab-item ${viewMode === 'review' ? 'active' : ''}`}
                   onClick={() => switchView('review')} aria-label="知識提煉">
             <span className="mobile-tab-icon">✍️</span>知識提煉
           </button>
-        )}
-        {adminMode && (
           <button className={`mobile-tab-item ${viewMode === 'knowledge' ? 'active' : ''}`}
                   onClick={() => switchView('knowledge')} aria-label="知識管理">
             <span className="mobile-tab-icon">⚙️</span>知識管理
           </button>
-        )}
-      </nav>
+        </nav>
+      )}
 
       {/* ── Footer ── */}
       <footer className="k1-footer">
-        <div className="k1-footer-inner">
-          <div style={{display:'flex',flexDirection:'column',gap:'4px'}}>
-            <span style={{fontWeight:600,color:'rgba(240,238,233,0.75)'}}>K1知識平台 — 管理中心 {displayVersion}</span>
-            <span>更新: {data._meta?.updated || data._meta?.created} &nbsp;·&nbsp; {stats.totalFacts} 事實 &nbsp;·&nbsp; {stats.topicCount} 範疇</span>
-            <div style={{marginTop:'4px',display:'flex',gap:'16px'}}>
-              <a href="index.html">← 返回首頁</a>
-              <a href="https://www.edb.gov.hk" target="_blank" rel="noopener">EDB 教育局</a>
-            </div>
+        <div className="k1-footer-inner" style={{flexDirection:'column',gap:'10px',alignItems:'flex-start'}}>
+          <div style={{fontSize:'0.78rem',lineHeight:1.6,opacity:0.85,maxWidth:'100%'}}>
+            <strong style={{fontWeight:700,color:'rgba(240,238,233,0.95)'}}>免責聲明：</strong>本平台整理教育局公開指引與通告文件資料。所有資料僅供一般參考，不構成正式法律或行政意見。用戶應自行參閱教育局官方原文以作準。&nbsp;·&nbsp;設計及維護：Leonard Wong
           </div>
-          <div style={{maxWidth:'560px',textAlign:'right'}}>
-            <div style={{fontWeight:600,color:'rgba(240,238,233,0.65)',marginBottom:'4px'}}>
-              維護：Wong Lai Ho Leonard
-            </div>
-            <div style={{fontSize:'0.72rem',opacity:0.6,lineHeight:1.5}}>
-              免責聲明：本平台整理教育局公開指引與通告文件資料。所有資料僅供一般參考，不構成正式法律或行政意見。用戶應自行參閱教育局官方原文以作準。
-            </div>
+          <div style={{display:'flex',gap:'18px',alignItems:'center',flexWrap:'wrap'}}>
+            <span style={{fontWeight:600,color:'rgba(240,238,233,0.75)',fontSize:'0.78rem'}}>知識平台 — 管理中心 {displayVersion}</span>
+            <a href="index.html">← 返回首頁</a>
+            <a href="https://www.edb.gov.hk" target="_blank" rel="noopener">EDB 教育局網站</a>
           </div>
         </div>
       </footer>
