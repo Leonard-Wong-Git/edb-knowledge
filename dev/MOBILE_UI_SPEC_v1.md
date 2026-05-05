@@ -323,18 +323,39 @@ document.documentElement.dataset.viewport = isMobile ? 'mobile' : 'desktop';
 
 ---
 
-## 10. Refero Research Caveat
+## 10. Visual Reference Library
 
-本 spec doc 嘅 visual reference 主要靠：
-- Tado app（你提供）
-- Pantone Cloud Dancer 2026 + companion palettes
-- ui-ux-responsive skill 嘅 award intelligence
+### 10.1 Tado App（Leonard 提供）
 
-**未跑 Refero MCP search**（sandbox 內 MCP 工具未 connect）。下次有 Refero 可補：
-- search_screens "ios search bar" / "bottom sheet" / "policy search mobile"
-- search_flows "search to detail" / "mobile onboarding"
-- get_screen Tado-similar references
+Primary reference for mobile UX language（minimalist · gradient · large numerals · single-action focus · ambient calm）：
+
+- App Store（GB）: https://apps.apple.com/gb/app/tado/id574418486
+- Tado AI / data-driven blog（Apr 2026）: https://www.tado.com/en/press/from-automation-to-intelligence-tadodeg-turns-15-years-of-data-into-ai-powered-heating-savings
+- WIRED Tado v3 review（visual / UI patterns）: https://www.wired.com/review/tado-wireless-smart-thermostat-v3/
+- Pocket-lint Tado smart thermostat review（screenshot context）: https://www.pocket-lint.com/smart-home/reviews/tado/129799-tado-smart-thermostat-review/
+- IoT Tests Tado starter kit security test（screen overview）: https://www.iot-tests.org/2021/02/tado-starter-kit-in-the-security-test/
+- Mohaipod Tado smart valve experience（user-perspective screen flow）: https://mohaipod.com/turning-my-radiators-from-dumb-to-smart-valve/
+- Reddit r/tado heating-on-off issue discussion（real user app screenshots）: https://www.reddit.com/r/tado/comments/195konu/heating_is_off_but_app_thinks_its_on/
+
+**Patterns to extract for K1 Phase 2 implementation:**
+- Hero gradient + oversized headline numerals
+- Card-based room/zone layout（→ K1 result card mapping）
+- Bottom sheet detail expansion
+- Calm pastel palette mixed with bold accents（→ EDB green + Cloud Dancer atmospheric）
+- Single-action focus per screen（→ K1 search-first hero）
+- Subtle ambient motion（temperature dial pulse → K1 search loading dot pulse）
+
+### 10.2 Pantone + Award Intelligence
+- Pantone Cloud Dancer 2026 + companion palettes（atmospheric, comfort zone, light & shadow）
+- Awwwards / CSSDA / DesignRush 2025-26 trends（Bento grid, Dark mode default, Purposeful motion）
+- ui-ux-responsive skill Part B/C reference
+
+### 10.3 Refero MCP — 暫未 connect
+Sandbox 內 Refero MCP 工具未 active，未跑 search_screens / get_flow。下次 Refero available 可補：
+- search_screens "ios bottom sheet" / "policy search mobile" / "settings mobile minimal"
+- search_flows "search to detail" / "mobile onboarding role picker"
+- get_screen — Tado-similar light-mode + dark-mode pairings
 
 ---
 
-*Spec v1.0 — 2026-05-03 — 待 Leonard review，approved 後開 Implementation Phase 1*
+*Spec v1.1 — 2026-05-03 — Phase 1 已 ship（mobile.css + mobile.js + 4 HTML link）；Phase 2 page-by-page mobile content render 下節進行*

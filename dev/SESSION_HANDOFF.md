@@ -99,11 +99,11 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-1. **手機端獨立 UI 設計**（可用 /design:refero-design 或 /ui-ux-responsive skill）— Detect mobile 時新 UI，唔再共用 desktop layout；屬中至大工程
-2. **HKEAA / 考評局 source family 補完**（Session 105 SBA query 揭發 vault gap）— 為「校本評核 SBA / 公開試 / 考核 framework」query 補 source coverage
-3. **線上手動 sanity 8 條 query 結果驗證**（user 自跑後 paste 結果）— Finance / Activity / Kindergarten / HR / Student / General 各取 1-2 條，找潛在 coverage gap
-4. **g21/g22/g33 直連 PDF 補完**（user browser）— Session 105 audit 揭發三者 source_type='pdf' 但 url_primary 缺
-5. **5 個 stat xlsx 下載 + 上 vault**（user browser）— stat_kg/stat_pri/stat_sec/stat_special/stat_integrated_edu
+1. **Mobile UI Phase 2：page-by-page content render** — Phase 1 已 ship（mobile.css + mobile.js + 4 HTML link）；Phase 2 加 app.html 核心 search hero + result card + bottom sheet，再 index/q/t-purchase mobile main content
+2. **Q&A backlog（Session 107）**：admin login「34 問題」audit + admin login security password gate
+3. **HKEAA / 考評局 source family 補完**（Session 105 SBA query 揭發 vault gap）— 為「校本評核 SBA / 公開試 / 考核 framework」query 補 source coverage
+4. **線上手動 sanity 8 條 query 結果驗證**（user 自跑後 paste 結果）— Finance / Activity / Kindergarten / HR / Student / General 各取 1-2 條，找潛在 coverage gap
+5. **g21/g22/g33 直連 PDF 補完 + 5 個 stat xlsx 下載**（user browser）— Session 105 audit 揭發 backlog
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 - g21/g22/g33 直連 PDF 補完（user browser）— Session 105 audit 揭發三者 source_type='pdf' 但 url_primary 缺
@@ -112,6 +112,29 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合）
 
 ## Last Session Record
+1. UTC date: 2026-05-03
+2. Session ID: Claude_20260503_0004 (Session 107)
+3. Completed:
+   - ✅ **[UX revisions 三批]** index.html 8 點 + app.html 9 點 + #guidelines 修補（分類欄反白 EDB green / 學習階段 filter 全 category / steps grid 對齊）
+   - ✅ **[Mobile UI Spec v1.1]** dev/MOBILE_UI_SPEC_v1.md 完成；user 6 答案 record；6 條 Tado URL reference library
+   - ✅ **[Mobile UI Phase 1 ship]** /mobile.css 完整 design system（EDB green + Cloud Dancer + atmospheric + dark mode auto）+ /mobile.js（detection / role picker first-run / placeholder rotate / cross-page tab bar）+ 4 HTML head link
+   - ✅ **[Q&A 5 條答覆]** 18450 fake count 刪 / 34 問題 audit backlog / 匯出 admin only 保留 / 8 角色 wrap include all_roles / Online security 短期建議 password gate
+4. Pending from this session (not yet done):
+   - Final git push 含 Mobile UI Phase 1 + UX revisions + spec doc
+   - 用戶 mobile reload 確認 role picker / tab bar / dark mode
+5. Next priorities (max 3 — 詳見 Open Priorities)：
+   - Phase 2 mobile content render（app.html 核心）
+   - Q&A backlog（admin login 相關）
+   - HKEAA source family
+6. Risks / blockers:
+   - Cowork sandbox egress allowlist 不含 edb.gov.hk / edb-knowledge.onrender.com / apps.apple.com → 線上驗證需用戶 Terminal / browser
+   - Mobile UI Phase 2 未做 — Phase 1 ship 後 mobile reload 仲見唔到 main content
+   - Render free tier cold start (~30s) after 15min inactivity
+   - Mac Python.framework 缺 SSL CA bundle，Supabase REST 直接 hit 會 SSLCertVerificationError；要用 curl 繞
+   - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`
+   - Supabase free tier: 500MB DB limit; wiki_chunks currently ~50MB with embeddings
+
+## Previous Session Record
 1. UTC date: 2026-05-03
 2. Session ID: Claude_20260503_0003 (Session 106)
 3. Completed:
