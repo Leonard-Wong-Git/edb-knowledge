@@ -2686,7 +2686,8 @@ function GuidelinesPanel({ setPreviewDoc }) {
   const filtered = useMemo(() => {
     let list = GUIDELINES_REGISTRY.filter(g => {
       if (activeCat !== 'all' && g.category !== activeCat) return false;
-      if (activeCat === '課程' && activeLevel !== 'all' && g.level !== activeLevel) return false;
+      // Level filter applies to ALL categories (every entry has a level field)
+      if (activeLevel !== 'all' && g.level !== activeLevel) return false;
       if (searchQ && !g.title.includes(searchQ) && !g.titleShort.includes(searchQ)) return false;
       return true;
     });
@@ -2749,22 +2750,33 @@ function GuidelinesPanel({ setPreviewDoc }) {
             <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">分類</p>
           </div>
           <nav className="py-1">
-            {CATS.filter(c => c.key === 'all' || catCounts[c.key]).map(cat => (
-              <button key={cat.key} onClick={() => { setActiveCat(cat.key); setActiveLevel('all'); }}
-                className={`w-full flex items-center justify-between px-4 py-2.5 text-sm transition-all
-                  ${activeCat === cat.key
-                    ? 'bg-amber-800 text-white font-semibold shadow-md'
-                    : 'text-gray-700 hover:bg-gray-50'}`}>
-                <span className="flex items-center gap-2">
-                  <span className="text-base leading-none">{cat.icon}</span>
-                  <span>{cat.label}</span>
-                </span>
-                <span className={`text-xs font-medium px-1.5 py-0.5 rounded-full min-w-5 text-center
-                  ${activeCat === cat.key ? 'bg-amber-900 text-amber-100' : 'bg-gray-100 text-gray-500'}`}>
-                  {catCounts[cat.key] || 0}
-                </span>
-              </button>
-            ))}
+            {CATS.filter(c => c.key === 'all' || catCounts[c.key]).map(cat => {
+              const isActive = activeCat === cat.key;
+              return (
+                <button key={cat.key} onClick={() => { setActiveCat(cat.key); }}
+                  style={isActive ? {
+                    background: 'var(--edb)',
+                    color: '#ffffff',
+                    fontWeight: 600,
+                    boxShadow: '0 2px 8px rgba(13, 107, 71, 0.25)',
+                  } : {}}
+                  className={`w-full flex items-center justify-between px-4 py-2.5 text-sm transition-all
+                    ${isActive ? '' : 'text-gray-700 hover:bg-gray-50'}`}>
+                  <span className="flex items-center gap-2">
+                    <span className="text-base leading-none">{cat.icon}</span>
+                    <span>{cat.label}</span>
+                  </span>
+                  <span style={isActive ? {
+                    background: 'rgba(255,255,255,0.22)',
+                    color: '#ffffff',
+                  } : {}}
+                  className={`text-xs font-medium px-1.5 py-0.5 rounded-full min-w-5 text-center
+                    ${isActive ? '' : 'bg-gray-100 text-gray-500'}`}>
+                    {catCounts[cat.key] || 0}
+                  </span>
+                </button>
+              );
+            })}
           </nav>
         </div>
       </div>
@@ -2799,21 +2811,25 @@ function GuidelinesPanel({ setPreviewDoc }) {
               ))}
             </div>
           </div>
-          {/* Level filter — shown only for 課程 category */}
-          {activeCat === '課程' && (
-            <div className="flex flex-wrap gap-1.5 pt-2 border-t border-gray-100">
-              <span className="text-xs text-gray-400 self-center mr-1">學習階段：</span>
-              {['all', ...LEVELS].map(lv => (
+          {/* Level filter — shown for ALL categories (every guideline has a level field) */}
+          <div className="flex flex-wrap gap-1.5 pt-2 border-t border-gray-100">
+            <span className="text-xs text-gray-400 self-center mr-1">學習階段：</span>
+            {['all', ...LEVELS].map(lv => {
+              const isActive = activeLevel === lv;
+              return (
                 <button key={lv} onClick={() => setActiveLevel(lv)}
+                  style={isActive ? {
+                    background: 'var(--edb)',
+                    color: '#ffffff',
+                    borderColor: 'var(--edb)',
+                  } : {}}
                   className={`px-2.5 py-1 text-xs rounded-full border font-medium transition-all
-                    ${activeLevel === lv
-                      ? 'bg-amber-800 text-white border-amber-800'
-                      : 'bg-white text-gray-600 border-gray-200 hover:border-amber-300 hover:text-amber-900'}`}>
+                    ${isActive ? '' : 'bg-white text-gray-600 border-gray-200 hover:border-amber-300 hover:text-amber-900'}`}>
                   {lv === 'all' ? '全部階段' : lv}
                 </button>
-              ))}
-            </div>
-          )}
+              );
+            })}
+          </div>
         </div>
 
         {/* Cards — grouped by sub_category when a specific category is active */}
@@ -3129,8 +3145,8 @@ function PlatformIntroPanel({ stats }) {
       {/* ── How it works ── */}
       <div style={{marginBottom:'40px'}}>
         <p style={{fontSize:'0.7rem',fontWeight:700,color:'var(--mocha)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'4px'}}>運作原理</p>
-        <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,color:'var(--charcoal)',marginBottom:'20px'}}>三大核心功能</h2>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))',gap:'0',position:'relative'}}>
+        <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,color:'var(--charcoal)',marginBottom:'20px'}}>三步取得有根有據答案</h2>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))',gap:'12px',position:'relative',width:'100%'}}>
           {steps.map((s,i) => (
             <div key={s.n} style={{padding:'22px',borderRadius:'var(--r-md)',
               background:'var(--cd-warm)',border:'1px solid var(--border)',
