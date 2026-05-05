@@ -1,0 +1,474 @@
+/* ============================================================
+ * mobile.css — K1 Mobile-only experience（v1.0, 2026-05-03）
+ *
+ * Scope: 只在 ≤640px viewport 下 active；desktop 完全不影響
+ * Reference: Tado app + Pantone Cloud Dancer 2026 + DesignRush
+ *            functional storytelling + ui-ux-responsive Part B/C
+ *
+ * 4 HTML 共用：index.html / app.html / q.html / t-purchase.html
+ * ============================================================ */
+
+/* ── Activation Guard：所有 mobile-only style 必須包在 media query 內 ── */
+@media (max-width: 640px) {
+
+  /* ── 1. CSS Custom Properties（Light mode default + Dark via prefers-color-scheme）── */
+  :root {
+    /* EDB brand anchor */
+    --m-edb-deep:        #0D6B47;
+    --m-edb-mid:         #1A8B5F;
+    --m-edb-light:       #4FB388;
+    --m-edb-wash:        #E5F2EB;
+
+    /* Cloud Dancer 2026 + atmospheric companion */
+    --m-cloud:           #F0EEE9;
+    --m-cloud-warm:      #F8F6F2;
+    --m-cream:           #E4DFD5;
+    --m-sea-glass:       #9EC4B8;
+    --m-sky-mist:        #D6E4E8;
+
+    /* Text on light bg — WCAG AAA */
+    --m-text-primary:    #2A3A33;
+    --m-text-secondary:  #5C6A63;
+    --m-text-muted:      #8A938E;
+
+    /* Backgrounds */
+    --m-bg:              var(--m-cloud);
+    --m-bg-card:         #ffffff;
+    --m-bg-elevated:     var(--m-cloud-warm);
+
+    /* Role chip colours (mobile-only mapping) */
+    --m-role-principal:  #BF360C;
+    --m-role-panel:      #283593;
+    --m-role-teacher:    #1B5E20;
+    --m-role-admin:      #4527A0;
+
+    /* Hero gradient */
+    --m-hero-gradient:   linear-gradient(135deg,
+                          var(--m-edb-deep) 0%,
+                          var(--m-edb-mid) 55%,
+                          var(--m-cloud-warm) 100%);
+
+    /* Typography (fluid) */
+    --m-text-base:       16px;
+    --m-text-sm:         14px;
+    --m-text-xs:         12px;
+    --m-text-lg:         18px;
+    --m-text-xl:         22px;
+    --m-text-hero:       clamp(28px, 8vw, 36px);
+    --m-text-stat:       clamp(36px, 12vw, 56px);
+
+    --m-font:            'Noto Sans HK', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --m-leading:         1.55;
+    --m-tracking-tight:  -0.01em;
+
+    /* Spacing */
+    --m-sp-xs:           4px;
+    --m-sp-sm:           8px;
+    --m-sp-md:           16px;
+    --m-sp-lg:           24px;
+    --m-sp-xl:           32px;
+    --m-sp-2xl:          48px;
+
+    /* Radius */
+    --m-r-sm:            8px;
+    --m-r-md:            16px;
+    --m-r-lg:            24px;
+    --m-r-pill:          999px;
+
+    /* Touch */
+    --m-touch:           44px;
+
+    /* Motion */
+    --m-ease:            cubic-bezier(0.32, 0.72, 0, 1);
+    --m-dur-fast:        180ms;
+    --m-dur-base:        240ms;
+    --m-dur-slow:        360ms;
+
+    /* Safe area inset (iPhone notch) */
+    --m-safe-top:        env(safe-area-inset-top, 0px);
+    --m-safe-bottom:     env(safe-area-inset-bottom, 0px);
+  }
+
+  /* ── 1b. Dark mode via prefers-color-scheme ── */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --m-cloud:         #1A1F1C;
+      --m-cloud-warm:    #232925;
+      --m-cream:         #2C332E;
+
+      --m-text-primary:  #F0EEE9;
+      --m-text-secondary:#B5BCB7;
+      --m-text-muted:    #7A827D;
+
+      --m-bg:            var(--m-cloud);
+      --m-bg-card:       var(--m-cloud-warm);
+      --m-bg-elevated:   var(--m-cream);
+
+      --m-edb-wash:      rgba(79, 179, 136, 0.12);
+
+      /* Hero gradient subtler in dark */
+      --m-hero-gradient: linear-gradient(135deg,
+                          var(--m-edb-deep) 0%,
+                          var(--m-edb-mid) 60%,
+                          var(--m-cloud-warm) 100%);
+    }
+  }
+
+  /* ── 2. Reset / Base ── */
+  body {
+    background: var(--m-bg);
+    color: var(--m-text-primary);
+    font-family: var(--m-font);
+    font-size: var(--m-text-base);
+    line-height: var(--m-leading);
+    -webkit-font-smoothing: antialiased;
+    padding: 0;
+    margin: 0;
+    /* Reserve space for bottom tab bar (64px) + safe-area-inset */
+    padding-bottom: calc(64px + var(--m-safe-bottom));
+  }
+
+  /* Mobile-only / desktop-only utility classes */
+  .desktop-only { display: none !important; }
+  .mobile-only  { display: block; }
+
+  /* Hide desktop nav on mobile (assumes desktop nav has class .desktop-nav or similar — extend per page) */
+  .nav, .k1-header, footer.site-footer, footer.k1-footer { display: none !important; }
+
+  /* Hide the existing Hero / wrap when mobile.js renders mobile-shell */
+  body[data-mobile-active="true"] > section.hero,
+  body[data-mobile-active="true"] > div.wrap,
+  body[data-mobile-active="true"] > #root {
+    display: none !important;
+  }
+
+  /* ── 3. Mobile shell layout ── */
+  .m-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
+    background: var(--m-bg);
+  }
+
+  /* ── 4. Top app bar (minimal, 56px) ── */
+  .m-appbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--m-sp-md);
+    height: 56px;
+    background: var(--m-bg);
+    border-bottom: 1px solid var(--m-cream);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding-top: calc(var(--m-sp-md) + var(--m-safe-top));
+  }
+  .m-appbar-title {
+    font-size: var(--m-text-lg);
+    font-weight: 700;
+    color: var(--m-text-primary);
+    letter-spacing: var(--m-tracking-tight);
+  }
+  .m-appbar-icon {
+    width: var(--m-touch);
+    height: var(--m-touch);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    color: var(--m-text-secondary);
+    cursor: pointer;
+  }
+
+  /* ── 5. Hero gradient section (index.html / app.html search) ── */
+  .m-hero {
+    background: var(--m-hero-gradient);
+    color: #ffffff;
+    padding: var(--m-sp-2xl) var(--m-sp-md) var(--m-sp-xl);
+    border-radius: 0 0 var(--m-r-lg) var(--m-r-lg);
+    margin-bottom: var(--m-sp-lg);
+  }
+  .m-hero-eyebrow {
+    font-size: var(--m-text-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: var(--m-sp-sm);
+  }
+  .m-hero-title {
+    font-size: var(--m-text-hero);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: var(--m-tracking-tight);
+    margin: 0 0 var(--m-sp-md);
+  }
+  .m-hero-desc {
+    font-size: var(--m-text-base);
+    opacity: 0.92;
+    line-height: 1.55;
+    margin-bottom: var(--m-sp-lg);
+  }
+
+  /* ── 6. Search input (Tado-inspired large, rounded) ── */
+  .m-search {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: var(--m-r-pill);
+    padding: 0 var(--m-sp-lg);
+    height: 56px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+  .m-search-icon {
+    color: var(--m-text-secondary);
+    margin-right: var(--m-sp-sm);
+    flex-shrink: 0;
+  }
+  .m-search-input {
+    flex: 1;
+    border: 0;
+    background: transparent;
+    font-size: var(--m-text-base);
+    color: var(--m-text-primary);
+    outline: none;
+    /* Prevent iOS auto-zoom by ensuring 16px+ */
+    min-height: var(--m-touch);
+  }
+  .m-search-input::placeholder {
+    color: var(--m-text-muted);
+    transition: opacity var(--m-dur-base) var(--m-ease);
+  }
+
+  /* ── 7. Result card list ── */
+  .m-result-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--m-sp-md);
+    padding: 0 var(--m-sp-md);
+  }
+  .m-result-card {
+    background: var(--m-bg-card);
+    border-radius: var(--m-r-md);
+    padding: var(--m-sp-md);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--m-cream);
+    cursor: pointer;
+    transition: transform var(--m-dur-fast) var(--m-ease);
+  }
+  .m-result-card:active { transform: scale(0.98); }
+
+  .m-result-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--m-sp-sm);
+  }
+  .m-result-source {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--m-text-xs);
+    font-weight: 600;
+    color: var(--m-edb-deep);
+    background: var(--m-edb-wash);
+    padding: 4px 10px;
+    border-radius: var(--m-r-pill);
+  }
+  .m-result-content {
+    font-size: var(--m-text-sm);
+    color: var(--m-text-primary);
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .m-result-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: var(--m-sp-sm);
+  }
+  .m-role-chip {
+    font-size: var(--m-text-xs);
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: var(--m-r-pill);
+    color: #ffffff;
+  }
+
+  /* ── 8. Bottom sheet ── */
+  .m-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 90;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--m-dur-base) var(--m-ease);
+  }
+  .m-sheet-backdrop[aria-hidden="false"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .m-sheet {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--m-bg-card);
+    border-radius: var(--m-r-lg) var(--m-r-lg) 0 0;
+    max-height: 90vh;
+    z-index: 100;
+    transform: translateY(100%);
+    transition: transform var(--m-dur-slow) var(--m-ease);
+    padding: var(--m-sp-md);
+    padding-bottom: calc(var(--m-sp-md) + var(--m-safe-bottom));
+    overflow-y: auto;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.16);
+  }
+  .m-sheet[aria-hidden="false"] { transform: translateY(0); }
+  .m-sheet-handle {
+    width: 44px;
+    height: 4px;
+    background: var(--m-cream);
+    border-radius: var(--m-r-pill);
+    margin: 0 auto var(--m-sp-md);
+  }
+
+  /* ── 9. Bottom tab bar (3 entries: 搜尋 / 文件庫 / 平台介紹) ── */
+  .m-tabbar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: calc(64px + var(--m-safe-bottom));
+    padding-bottom: var(--m-safe-bottom);
+    background: var(--m-bg);
+    border-top: 1px solid var(--m-cream);
+    display: flex;
+    align-items: stretch;
+    z-index: 80;
+  }
+  .m-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: transparent;
+    border: 0;
+    color: var(--m-text-secondary);
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+    min-height: var(--m-touch);
+  }
+  .m-tab[aria-current="page"] {
+    color: var(--m-edb-deep);
+    font-weight: 700;
+  }
+  .m-tab[aria-current="page"]::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 25%; right: 25%;
+    height: 2px;
+    background: var(--m-edb-deep);
+    border-radius: 0 0 2px 2px;
+  }
+  .m-tab-icon {
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  /* ── 10. Role picker overlay (boot-time first-run) ── */
+  .m-role-picker {
+    position: fixed;
+    inset: 0;
+    background: var(--m-bg);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--m-sp-2xl) var(--m-sp-md) var(--m-sp-md);
+    gap: var(--m-sp-md);
+    overflow-y: auto;
+  }
+  .m-role-picker[aria-hidden="true"] { display: none; }
+  .m-role-picker h2 {
+    font-size: var(--m-text-xl);
+    font-weight: 800;
+    color: var(--m-text-primary);
+    text-align: center;
+    margin: 0 0 var(--m-sp-sm);
+    letter-spacing: var(--m-tracking-tight);
+  }
+  .m-role-picker-eyebrow {
+    font-size: var(--m-text-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--m-edb-deep);
+    text-align: center;
+    margin-bottom: var(--m-sp-md);
+  }
+  .m-role-option {
+    display: flex;
+    align-items: center;
+    gap: var(--m-sp-md);
+    padding: var(--m-sp-md);
+    background: var(--m-bg-card);
+    border: 2px solid var(--m-cream);
+    border-radius: var(--m-r-md);
+    color: var(--m-text-primary);
+    cursor: pointer;
+    text-align: left;
+    transition: border-color var(--m-dur-fast) var(--m-ease),
+                transform var(--m-dur-fast) var(--m-ease);
+  }
+  .m-role-option:active { transform: scale(0.98); }
+  .m-role-option[aria-pressed="true"] {
+    border-color: var(--m-edb-deep);
+    background: var(--m-edb-wash);
+  }
+  .m-role-option-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .m-role-option-name {
+    font-size: var(--m-text-base);
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .m-role-option-desc {
+    font-size: var(--m-text-xs);
+    color: var(--m-text-secondary);
+  }
+
+  .m-role-picker-cta {
+    margin-top: auto;
+    padding: var(--m-sp-md);
+    background: var(--m-edb-deep);
+    color: #ffffff;
+    border: 0;
+    border-radius: var(--m-r-pill);
+    font-size: var(--m-text-base);
+    font-weight: 700;
+    min-height: var(--m-touch);
+    cursor: pointer;
+  }
+  .m-role-picker-cta:disabled { opacity: 0.5; }
+
+  /* ── 11. Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+}

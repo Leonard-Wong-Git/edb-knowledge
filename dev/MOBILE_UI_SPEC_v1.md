@@ -312,14 +312,14 @@ document.documentElement.dataset.viewport = isMobile ? 'mobile' : 'desktop';
 
 ---
 
-## 9. 待你決定（Implementation 之前）
+## 9. Spec 決策（Leonard 答覆，2026-05-03）
 
-1. **Mobile.css 命名**：用 `mobile.css` 抑或內嵌入每個 HTML `<style>` 塊（後者唔需要 file fetch，loading 較快但維護分散）？
-2. **Bottom tab bar 4 個入口確認**：搜尋 / 文件庫 / 平台介紹 / 我的角色 — 抑或想換？
-3. **「我的角色」tab**：用嚟切換 role context（影響搜尋 result 嘅 role chip 高亮），抑或省略？
-4. **Search placeholder 啟發句子**：建議準備 5-8 條 rotate（你可以提供 list）抑或我寫初稿？
-5. **EDB 為準 sticky info bar**：32px high 是否 OK？抑或太搶位？
-6. **Tado-inspired ambient gradient bg**：用 EDB 深綠 → Cloud Dancer 米白漸變，可接受？
+1. ✅ **Mobile.css 命名**：A — 獨立 `mobile.css` + `mobile.js` 共享檔（清晰分隔，4 HTML 共用）
+2. ✅ **Bottom tab bar**：3 個入口 = 搜尋 / 文件庫 / 平台介紹（**唔放「我的角色」**）
+3. ✅ **角色切換**：唔做 persistent tab — 改為 **loading 時 first-run role picker overlay**（user 入 mobile app.html 第一次見 role picker，揀完之後寫入 localStorage，將來再 tap settings icon 改）
+4. ✅ **Search placeholder rotate**：A — 我寫初稿（rotate 5-8 條，每 5 秒換）
+5. 🟡 **EDB 為準 sticky info bar**：B — 太搶位，**改為登入後先 show**（unverified user 唔顯示，登入後 footer 永久顯示作 admin context）；未百分百肯定 — 可下節按實機 visual 再 tune
+6. ✅ **Gradient bg + system mode**：A — Tado-inspired EDB 深綠 → Cloud Dancer 漸變；同時支援 **`prefers-color-scheme` light / dark 自動切換**（夜間 OS dark mode → mobile app 自動 dark theme）
 
 ---
 
