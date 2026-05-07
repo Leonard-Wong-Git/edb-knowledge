@@ -167,10 +167,232 @@
     document.body.appendChild(tabbar);
   }
 
-  // ── 6. Init ──
+  // ── 6. Page-specific content render ──
+  const BACKEND_URL = 'https://edb-knowledge.onrender.com';
+
+  // Source label map (mirrors app.html SOURCE_LABELS, mobile-friendly subset)
+  const SOURCE_LABEL = {
+    sag_2025_11: '學校行政手冊',
+    g24: '學校行政手冊',
+    coa_imc_1_19: '資助則例',
+    g01: '採購程序指引',
+    g02: '財務管理指引',
+    g03: '全方位學習津貼',
+    g04: '教職員批假指引',
+    g05: '教師專業操守指引',
+    g11: '校曆表指引',
+    g29: '幼稚園課程指引',
+    role_facts_finance: '已核實知識庫 · 財務',
+    role_facts_hr: '已核實知識庫 · 人事',
+    role_facts_curriculum: '已核實知識庫 · 課程',
+    role_facts_general: '已核實知識庫 · 通用',
+  };
+  const sourceLabel = id => SOURCE_LABEL[id] || (id || '').replace(/^vault_/, '').replace(/_/g, ' ');
+
+  const sourceIcon = id => {
+    if (!id) return '📄';
+    if (id.indexOf('sag') >= 0 || id === 'g24') return '📗';
+    if (id.indexOf('coa') >= 0) return '📘';
+    if (id.indexOf('g0') === 0 || id.indexOf('g1') === 0) return '📋';
+    if (id.indexOf('role_facts') === 0) return '✅';
+    if (id.indexOf('edbc') >= 0) return '📄';
+    return '📑';
+  };
+
+  // Build app.html mobile shell: hero + search + results + sheet
+  function buildAppShell() {
+    if (document.getElementById('m-app-shell')) return;
+    const shell = document.createElement('main');
+    shell.id = 'm-app-shell';
+    shell.className = 'm-shell';
+    shell.innerHTML = ''
+      + '<section class="m-hero">'
+      +   '<div class="m-hero-eyebrow">K1 知識平台 · 香港學校管治</div>'
+      +   '<h1 class="m-hero-title">查找有根有據的政策答案</h1>'
+      +   '<p class="m-hero-desc">輸入問題，即時比對 EDB 已核實事實及原文片段。</p>'
+      +   '<form class="m-search" id="m-search-form" autocomplete="off">'
+      +     '<svg class="m-search-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>'
+      +     '<input class="m-search-input" id="m-search-input" type="search" inputmode="search" placeholder="教師病假上限多少天？" />'
+      +   '</form>'
+      + '</section>'
+      + '<section class="m-result-list" id="m-result-list" aria-live="polite"></section>'
+      + '<div class="m-sheet-backdrop" id="m-sheet-backdrop" aria-hidden="true"></div>'
+      + '<aside class="m-sheet" id="m-sheet" aria-hidden="true" role="dialog" aria-modal="true">'
+      +   '<div class="m-sheet-handle"></div>'
+      +   '<div id="m-sheet-content"></div>'
+      + '</aside>';
+    document.body.insertBefore(shell, document.body.firstChild);
+
+    const form = document.getElementById('m-search-form');
+    const input = document.getElementById('m-search-input');
+    const list = document.getElementById('m-result-list');
+
+    // Initial empty state
+    renderEmpty(list);
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const q = (input.value || '').trim();
+      if (!q) return;
+      input.blur();
+      runSearch(q, list);
+    });
+
+    // Bottom sheet close on backdrop tap
+    document.getElementById('m-sheet-backdrop').addEventListener('click', closeSheet);
+  }
+
+  function renderEmpty(list) {
+    list.innerHTML = ''
+      + '<div style="padding:48px 20px;text-align:center;color:var(--m-text-muted);font-size:14px;line-height:1.6">'
+      +   '<div style="font-size:40px;margin-bottom:12px;opacity:0.5">🔍</div>'
+      +   '輸入政策問題開始搜尋<br>例：採購超過 5 萬元程序？'
+      + '</div>';
+  }
+
+  function renderLoading(list) {
+    list.innerHTML = ''
+      + '<div style="padding:32px 20px;text-align:center;color:var(--m-text-secondary);font-size:14px">'
+      +   '<div style="display:inline-flex;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:var(--m-edb-mid);animation:m-pulse 1s infinite"></span><span style="width:8px;height:8px;border-radius:50%;background:var(--m-edb-mid);animation:m-pulse 1s infinite 0.15s"></span><span style="width:8px;height:8px;border-radius:50%;background:var(--m-edb-mid);animation:m-pulse 1s infinite 0.3s"></span></div>'
+      +   '<div style="margin-top:12px">語義搜尋中，首次查詢約 10–30 秒…</div>'
+      + '</div>'
+      + '<style>@keyframes m-pulse{0%,100%{opacity:0.3}50%{opacity:1}}</style>';
+  }
+
+  function renderError(list, msg) {
+    list.innerHTML = ''
+      + '<div style="padding:24px 16px;text-align:center;color:#c0392b;background:#fdecea;border-radius:12px;margin:16px;font-size:14px">'
+      + '⚠️ ' + (msg || '搜尋暫時不可用，請稍後再試') + '</div>';
+  }
+
+  async function runSearch(query, list) {
+    renderLoading(list);
+    try {
+      const resp = await fetch(BACKEND_URL + '/api/search/combined', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: query, top_k: 8, min_score: 0.15, synthesize: true, enable_topic_filter: true }),
+      });
+      if (resp.status === 429) {
+        renderError(list, '搜尋次數過多，請稍候再試（每分鐘 10 次）');
+        return;
+      }
+      if (!resp.ok) {
+        renderError(list, '伺服器回應 ' + resp.status);
+        return;
+      }
+      const data = await resp.json();
+      renderResults(list, data, query);
+    } catch (err) {
+      renderError(list, '網絡連接失敗');
+    }
+  }
+
+  function renderResults(list, data, query) {
+    const results = (data.results || []).slice(0, 8);
+    if (!results.length) {
+      list.innerHTML = '<div style="padding:32px 20px;text-align:center;color:var(--m-text-muted);font-size:14px">未找到相關政策事實，可改用其他關鍵詞</div>';
+      return;
+    }
+
+    let html = '';
+    if (data.synthesis) {
+      html += '<div style="margin:0 0 4px;padding:16px;background:var(--m-edb-wash);border-radius:var(--m-r-md);border-left:3px solid var(--m-edb-deep)">'
+           +   '<div style="font-size:11px;font-weight:700;color:var(--m-edb-deep);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px">整理答案</div>'
+           +   '<div style="font-size:14px;line-height:1.6;color:var(--m-text-primary)">' + escapeHTML(data.synthesis) + '</div>'
+           + '</div>';
+    }
+    results.forEach((r, idx) => {
+      const sid = r.source_id || '';
+      const channel = r.channel || (r.content_type === 'approved_fact' ? 'A' : 'B');
+      const channelLabel = (r.content_type === 'approved_fact') ? '已核實' : '原文';
+      const score = (typeof r.score === 'number') ? r.score.toFixed(2) : '';
+      html += '<button class="m-result-card" data-idx="' + idx + '" type="button">'
+           +   '<div class="m-result-meta">'
+           +     '<span class="m-result-source">' + sourceIcon(sid) + ' ' + escapeHTML(sourceLabel(sid)) + '</span>'
+           +     '<span style="font-size:11px;color:var(--m-text-muted);font-weight:600">' + channelLabel + ' · ' + score + '</span>'
+           +   '</div>'
+           +   '<div class="m-result-content">' + escapeHTML(r.text || '') + '</div>'
+           + '</button>';
+    });
+    list.innerHTML = html;
+
+    // Wire card taps to bottom sheet
+    list.querySelectorAll('.m-result-card').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = parseInt(btn.dataset.idx, 10);
+        openSheet(results[i]);
+      });
+    });
+  }
+
+  function escapeHTML(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+  }
+
+  function openSheet(row) {
+    const sheet = document.getElementById('m-sheet');
+    const backdrop = document.getElementById('m-sheet-backdrop');
+    const content = document.getElementById('m-sheet-content');
+    if (!sheet || !content) return;
+
+    const sid = row.source_id || '';
+    const url = row.url || '';
+    const channelLabel = (row.content_type === 'approved_fact') ? '已核實資料' : '來源文件原文';
+    const role = row.role || '';
+
+    let html = ''
+      + '<div style="padding:0 4px">'
+      +   '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">'
+      +     '<span class="m-result-source" style="font-size:13px">' + sourceIcon(sid) + ' ' + escapeHTML(sourceLabel(sid)) + '</span>'
+      +     '<span style="font-size:11px;color:var(--m-text-muted);font-weight:600">' + channelLabel + '</span>'
+      +   '</div>'
+      +   (row.title ? '<div style="font-size:13px;color:var(--m-text-secondary);margin-bottom:12px;line-height:1.5">' + escapeHTML(row.title) + '</div>' : '')
+      +   '<div style="font-size:15px;line-height:1.7;color:var(--m-text-primary);margin-bottom:20px;white-space:pre-wrap">' + escapeHTML(row.text || '') + '</div>'
+      +   (role ? '<div style="margin-bottom:16px"><span style="font-size:11px;color:var(--m-text-muted);font-weight:600;letter-spacing:0.08em;text-transform:uppercase">適用角色</span><div style="margin-top:6px"><span class="m-role-chip" style="background:var(--m-edb-deep)">' + escapeHTML(role) + '</span></div></div>' : '')
+      +   (url ? '<a href="' + escapeHTML(url) + '" target="_blank" rel="noopener" style="display:block;text-align:center;padding:14px;background:var(--m-edb-deep);color:#fff;border-radius:var(--m-r-pill);font-weight:700;text-decoration:none;font-size:15px;margin-top:8px">🔗 看 EDB 原文</a>' : '')
+      + '</div>';
+    content.innerHTML = html;
+
+    sheet.setAttribute('aria-hidden', 'false');
+    backdrop.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeSheet() {
+    const sheet = document.getElementById('m-sheet');
+    const backdrop = document.getElementById('m-sheet-backdrop');
+    if (sheet) sheet.setAttribute('aria-hidden', 'true');
+    if (backdrop) backdrop.setAttribute('aria-hidden', 'true');
+  }
+
+  // ── 7. Init ──
   function initMobileShell() {
     // Apply mobile-active flag for CSS hooks
     document.body.dataset.mobileActive = 'true';
+
+    // Detect current page → render appropriate mobile content
+    const here = (location.pathname.split('/').pop() || 'index.html');
+    const hash = location.hash || '';
+
+    if (here === 'app.html' && hash !== '#guidelines') {
+      buildAppShell();
+    } else if (here === 'app.html' && hash === '#guidelines') {
+      // Fallback: 暫露 React GuidelinesPanel（下節做專用 mobile render）
+      // Override mobile.css hide rule via inline style + !important
+      const tryShow = () => {
+        const root = document.getElementById('root');
+        if (root) {
+          root.style.setProperty('display', 'block', 'important');
+          root.style.setProperty('padding-bottom', '80px');
+        }
+      };
+      tryShow();
+      // React 後 mount → retry 一次
+      setTimeout(tryShow, 500);
+    }
+    // index.html / q.html / t-purchase.html → Phase 2 next session
 
     // Build tab bar (every page)
     buildTabBar();
