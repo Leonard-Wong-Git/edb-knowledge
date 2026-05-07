@@ -99,7 +99,7 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-1. **Mobile UI Phase 2：page-by-page content render** — Phase 1 已 ship（mobile.css + mobile.js + 4 HTML link）；Phase 2 加 app.html 核心 search hero + result card + bottom sheet，再 index/q/t-purchase mobile main content
+1. **Mobile UI Phase 2 餘下**：app.html ✅ ship；剩 index.html mobile landing / q.html mobile inline / t-purchase.html mobile form / app.html#guidelines mobile-native render
 2. **Q&A backlog（Session 107）**：admin login「34 問題」audit + admin login security password gate
 3. **HKEAA / 考評局 source family 補完**（Session 105 SBA query 揭發 vault gap）— 為「校本評核 SBA / 公開試 / 考核 framework」query 補 source coverage
 4. **線上手動 sanity 8 條 query 結果驗證**（user 自跑後 paste 結果）— Finance / Activity / Kindergarten / HR / Student / General 各取 1-2 條，找潛在 coverage gap
@@ -112,6 +112,28 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合）
 
 ## Last Session Record
+1. UTC date: 2026-05-05
+2. Session ID: Claude_20260505_0001 (Session 108)
+3. Completed:
+   - ✅ **[Mobile UI Phase 2 — app.html ship]** mobile.js 加 buildAppShell：hero gradient + search form + result cards + bottom sheet + 接 backend `/api/search/combined`（synthesize + topic_filter）
+   - ✅ **[Source helpers]** SOURCE_LABEL map（12 條 source_id → 中文名）+ sourceIcon 自動分類；result card 用 emoji + 中文 label
+   - ✅ **[Empty / loading / error / 429 states]** 全狀態都有 user-friendly 提示
+   - ✅ **[#guidelines fallback]** override mobile.css hide rule 暫露 React panel（下節做 mobile-native）
+4. Pending from this session (not yet done):
+   - 用戶 mobile reload 確認 search flow 正常
+5. Next priorities (max 3 — 詳見 Open Priorities)：
+   - Phase 2 餘下（index/q/t-purchase/guidelines）
+   - Q&A admin login backlog
+   - HKEAA source family
+6. Risks / blockers:
+   - Cowork sandbox egress allowlist 不含 edb.gov.hk / edb-knowledge.onrender.com / apps.apple.com → 線上驗證需用戶 Terminal / browser
+   - Render free tier cold start (~30s) after 15min inactivity → mobile 第一次 search 可能等
+   - index.html / q.html / t-purchase.html mobile reload 仲一片空白
+   - Mac Python.framework 缺 SSL CA bundle，Supabase REST 直接 hit 會 SSLCertVerificationError；要用 curl 繞
+   - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`
+   - Supabase free tier: 500MB DB limit; wiki_chunks currently ~50MB with embeddings
+
+## Previous Session Record
 1. UTC date: 2026-05-03
 2. Session ID: Claude_20260503_0004 (Session 107)
 3. Completed:

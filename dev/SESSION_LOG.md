@@ -2,6 +2,69 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-05 Session 108 — Mobile UI Phase 2 ship（app.html search content）
+
+- **ID:** Claude_20260505_0001
+- **Summary:** Mobile reload 後見一片空白（Phase 1 已 active hide React #root 但無 main content）。今 session ship Phase 2 嘅 app.html 部分：mobile.js 加 buildAppShell()，動態 inject hero gradient + 大 search bar + result cards + bottom sheet，並接駁 backend `/api/search/combined` 真實 API。#guidelines tab 暫用 fallback 露 React panel（下節做 mobile-native version）。Index/q/t-purchase 嘅 mobile content 留下節。
+- **Changed:** `mobile.js`（+ buildAppShell + runSearch + renderResults + openSheet + sourceLabel/sourceIcon helpers + #guidelines fallback override）
+- **Done:**
+  - ✅ **[Mobile app.html shell]** Hero gradient + minimal eyebrow + title + desc + search form；search submit 直接 hit `/api/search/combined`（top_k=8 / synthesize / topic_filter）
+  - ✅ **[Result rendering]** Synthesis card（EDB 深綠 left-border）+ result cards（每張 source icon + label + content 3-line truncate + score + channel badge）；空白 / loading（3 dots pulse）/ error / 429 rate limit 全 state
+  - ✅ **[Bottom sheet]** Tap card 開 sheet（90vh）見全文 + role chip + 「🔗 看 EDB 原文」CTA；backdrop tap 關
+  - ✅ **[Source helpers]** SOURCE_LABEL map 12 條 + sourceIcon 自動分類（sag/coa → 📗📘 / g* → 📋 / role_facts → ✅ / edbc → 📄）
+  - ✅ **[#guidelines fallback]** mobile.css hide #root rule 覆寫 inline `display:block !important` + padding-bottom 80px 避被 tab bar 遮
+- **QC:** mobile.css scope guard 維持 desktop 不影響；buildAppShell 只在 `app.html` 且 `hash !== '#guidelines'` 跑；React #root 保留 hidden 避免重複 layout
+- **Pending（用戶 Terminal 已執行）:**
+  - Git push commit 已上 GitHub Pages
+  - Mobile reload 確認 Phase 2 search work
+- **Next:** 1. Phase 2 餘下：index.html mobile landing / q.html mobile inline / t-purchase.html mobile form / app.html#guidelines mobile-native render；2. Q&A backlog（admin login 34 問題 audit + password gate）；3. HKEAA source family 補完
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Mobile UI Phase 2 partial ship (app.html) | SESSION_HANDOFF Open Priorities + Last Session Record | ✓ Done |
+| Backend API integration (mobile fetch) | mobile.js BACKEND_URL inline | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Current objective and progress state:
+- Session 108 (2026-05-05) ship Mobile UI Phase 2 嘅 app.html 部分：buildAppShell + search submit 接 backend `/api/search/combined` + result cards + bottom sheet
+- Mobile UI 進度：app.html ✅ search work；index.html / q.html / t-purchase.html / app.html#guidelines 仲未 ship mobile content
+- 商品狀態：v2.3.0 / role_facts 792 / Supabase 10,736 chunks / vault 120 sources
+
+Pending tasks in priority order:
+1. Phase 2 餘下：index.html mobile landing / q.html mobile inline / t-purchase.html mobile form / app.html#guidelines mobile-native render
+2. Q&A backlog：admin login 34 問題 audit；admin login security password gate（短期）
+3. HKEAA / 考評局 source family 補完（Session 105 SBA query 揭發 vault gap）
+4. 線上手動 sanity 8 條 query 結果驗證（user 自跑後 paste 結果）
+5. 用 6 條 Tado URL 做 mobile UI 細節 polish（mobile.css visual reference）
+
+Key files changed in this session:
+- mobile.js（+ buildAppShell / runSearch / renderResults / openSheet / sourceLabel + sourceIcon / #guidelines fallback）
+- dev/SESSION_LOG.md（Session 108 entry）
+- dev/SESSION_HANDOFF.md（Last Session Record / Open Priorities 更新）
+
+Known risks / blockers / cautions:
+- Cowork sandbox egress allowlist 不含 edb.gov.hk / edb-knowledge.onrender.com / apps.apple.com → 線上驗證需用戶 Terminal / browser
+- Render free tier cold start ~30s after 15min idle → mobile 第一次 search 可能等
+- index.html / q.html / t-purchase.html mobile reload 仲一片空白（main content 未 render）
+- Mac Python.framework 缺 SSL CA bundle，Supabase REST 直接 hit 會 SSLCertVerificationError；要用 curl 繞
+- Shared MemPalace recovery workaround (hnsw:num_threads=1)；保留備份 /Users/leonard/mempalace/palace.pre-recovery.20260421_0838
+- Supabase free tier 500MB DB limit；現約 50MB
+
+Validation status:
+- PASS: app.html mobile shell 結構正確；search form submit + backend integration code 完成
+- PENDING: 用戶 mobile reload 確認 search → result → sheet flow work；如有 visual bug paste screenshot 即修
+- PENDING: index.html / q.html / t-purchase.html mobile content 未 ship
+
+Post-startup first action: 詢問 Leonard：app.html mobile search test 結果如何，下一輪做 index.html mobile landing 抑或 #guidelines mobile-native 抑或其他方向。
+```
+
+---
+
 ## 2026-05-03 Session 107 — UX revisions（index + app + #guidelines）+ Mobile UI Spec + Phase 1 ship
 
 - **ID:** Claude_20260503_0004
