@@ -123,7 +123,7 @@ source_registry → same vault PDFs → ai_extract.py
    - ✅ **[.claude/launch.json]** 偵測 dev server 並存配置（backend:8787 + frontend-static:8080）；用戶選擇暫不啟動
 4. Pending from this session (not yet done):
    - 用戶 review PROJECT_MASTER_SPEC.md 內容是否需補充
-   - Git push（含遷移後路徑更新 commit）— 用戶在**新路徑** Terminal
+   - （Git push 已完成：commit 4d54b2a + 88205dc 已上 origin/main）
 5. Next priorities (max 3 — 詳見 Open Priorities)：
    - Mobile UI Phase 2 餘下（index/q/t-purchase/#guidelines）
    - Q&A admin login backlog

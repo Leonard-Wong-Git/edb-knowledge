@@ -33,7 +33,7 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Current objective and progress state:
 - Session 109 (2026-05-16) 兩部分：(1) 建立 dev/PROJECT_MASTER_SPEC.md（跨 agent 交接權威知識庫，已接入 §1 第 4 讀 + Mandatory Start Checklist 第 4 項）；(2) 整個專案 mv 遷至新路徑並同步所有舊絕對路徑引用 + 建立 .claude/launch.json（暫不啟動）。
-- git：還原點 commit 4d54b2a 在；遷移後路徑更新尚未 commit。
+- git：commit 4d54b2a（遷移前還原點）+ 88205dc（遷移後路徑同步）已 push 上 origin/main；工作區乾淨。
 - 商品狀態（以 SESSION_HANDOFF Current Baseline 為準）：v2.3.0 / role_facts 792 / Supabase 10,736 chunks / vault 120 sources / Mobile UI app.html search ✅ 其餘頁面 mobile content 未做。
 
 Pending tasks in priority order:
@@ -66,10 +66,10 @@ Known risks / blockers / cautions:
 - PROJECT_MASTER_SPEC 只記結構/不變量；事實條數/版本/mobile 進度一律以 SESSION_HANDOFF Current Baseline 為準
 
 Validation status:
-- PASS: 遷移完整（931MB / git 歷史+remote / clean tree）；所有舊絕對路徑引用已更新；PROJECT_MASTER_SPEC 接入 §1；§4a 無需封存
-- PENDING: 用戶在新路徑 git push；用戶 review PROJECT_MASTER_SPEC 內容
+- PASS: 遷移完整（931MB / git 歷史+remote / clean tree）；所有舊絕對路徑引用已更新；PROJECT_MASTER_SPEC 接入 §1；§4a 無需封存；commit 4d54b2a + 88205dc 已 push origin/main
+- PENDING: 用戶 review PROJECT_MASTER_SPEC 內容是否需補充
 
-Post-startup first action: 確認在新路徑 "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"，然後詢問 Leonard：直接 git push 遷移後改動，抑或先 review PROJECT_MASTER_SPEC，抑或開始 Mobile UI Phase 2。
+Post-startup first action: 確認在新路徑 "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（含空格須雙引號），然後詢問 Leonard：先 review PROJECT_MASTER_SPEC（特別 §E 失敗教訓有冇遺漏），抑或直接開始 Mobile UI Phase 2 餘下頁面（index/q/t-purchase/#guidelines）。
 ```
 
 ---
