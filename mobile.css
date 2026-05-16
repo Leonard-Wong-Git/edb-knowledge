@@ -132,13 +132,18 @@
   .desktop-only { display: none !important; }
   .mobile-only  { display: block; }
 
-  /* Hide desktop nav on mobile (assumes desktop nav has class .desktop-nav or similar — extend per page) */
-  .nav, .k1-header, footer.site-footer, footer.k1-footer { display: none !important; }
+  /* Hide desktop nav on mobile — ONLY once mobile.js has successfully built a
+     takeover shell (body.mobile-shell-active). Without a working shell the
+     desktop content must stay visible (usable, not blank). */
+  body.mobile-shell-active .nav,
+  body.mobile-shell-active .k1-header,
+  body.mobile-shell-active footer.site-footer,
+  body.mobile-shell-active footer.k1-footer { display: none !important; }
 
-  /* Hide the existing Hero / wrap when mobile.js renders mobile-shell */
-  body[data-mobile-active="true"] > section.hero,
-  body[data-mobile-active="true"] > div.wrap,
-  body[data-mobile-active="true"] > #root {
+  /* Hide the existing Hero / wrap only when a mobile shell is actually active */
+  body.mobile-shell-active[data-mobile-active="true"] > section.hero,
+  body.mobile-shell-active[data-mobile-active="true"] > div.wrap,
+  body.mobile-shell-active[data-mobile-active="true"] > #root {
     display: none !important;
   }
 

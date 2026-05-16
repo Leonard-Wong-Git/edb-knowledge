@@ -406,25 +406,59 @@
     const here = (location.pathname.split('/').pop() || 'index.html');
     const hash = location.hash || '';
 
-    if (here === 'app.html' && hash !== '#guidelines') {
-      buildAppShell();
-    } else if (here === 'app.html' && hash === '#guidelines') {
-      // Fallback: 暫露 React GuidelinesPanel（下節做專用 mobile render）
-      const tryShow = () => {
-        const root = document.getElementById('root');
-        if (root) {
-          root.style.setProperty('display', 'block', 'important');
-          root.style.setProperty('padding-bottom', '80px');
+    // Resolve the page-specific shell builder WITHOUT throwing if it is
+    // undefined. The desktop-hiding CSS is gated behind body.mobile-shell-active
+    // (added only on success), so a missing builder = graceful fallback to the
+    // normal desktop content on the small screen instead of a blank page.
+    let shellBuilt = false;
+    try {
+      if (here === 'app.html' && hash !== '#guidelines') {
+        if (typeof buildAppShell === 'function') {
+          buildAppShell();
+          shellBuilt = true;
         }
-      };
-      tryShow();
-      setTimeout(tryShow, 500);
-    } else if (here === 'index.html' || here === '') {
-      buildIndexShell();
-    } else if (here === 'q.html') {
-      buildQShell();
-    } else if (here === 't-purchase.html') {
-      buildTPurchaseShell();
+      } else if (here === 'app.html' && hash === '#guidelines') {
+        // Fallback: 暫露 React GuidelinesPanel（下節做專用 mobile render）
+        const tryShow = () => {
+          const root = document.getElementById('root');
+          if (root) {
+            root.style.setProperty('display', 'block', 'important');
+            root.style.setProperty('padding-bottom', '80px');
+          }
+        };
+        tryShow();
+        setTimeout(tryShow, 500);
+        // This branch only reveals existing #root content; it does not build a
+        // takeover shell, so we do NOT gate the desktop-hiding CSS here.
+      } else if (here === 'index.html' || here === '') {
+        if (typeof buildIndexShell === 'function') {
+          buildIndexShell();
+          shellBuilt = true;
+        }
+      } else if (here === 'q.html') {
+        if (typeof buildQShell === 'function') {
+          buildQShell();
+          shellBuilt = true;
+        }
+      } else if (here === 't-purchase.html') {
+        if (typeof buildTPurchaseShell === 'function') {
+          buildTPurchaseShell();
+          shellBuilt = true;
+        }
+      }
+    } catch (err) {
+      // A builder existed but threw mid-render. Bail out of the takeover so the
+      // desktop content stays visible rather than leaving a blank page.
+      shellBuilt = false;
+      if (window.console && console.warn) {
+        console.warn('[mobile.js] shell builder failed; falling back to desktop content:', err);
+      }
+    }
+
+    // Only now — after a shell actually built — activate the CSS that hides
+    // the desktop chrome/content. No shell ⇒ no class ⇒ desktop content shows.
+    if (shellBuilt) {
+      document.body.classList.add('mobile-shell-active');
     }
 
     // Build tab bar (every page)
@@ -438,10 +472,18 @@
     // Start placeholder rotation (only if .m-search-input exists on this page)
     startPlaceholderRotation();
 
-    // Listen for viewport resize → flip viewport flag if user rotates / resizes
+    // Listen for viewport resize → flip viewport flag if user rotates / resizes.
+    // Keep mobile-shell-active in sync: if we leave mobile, drop the class so
+    // desktop CSS is unaffected; if we return to mobile, only re-add it when a
+    // shell is actually present (never blank desktop content).
     MOBILE_QUERY.addEventListener('change', e => {
       document.documentElement.dataset.viewport = e.matches ? 'mobile' : 'desktop';
       document.body.dataset.mobileActive = e.matches ? 'true' : 'false';
+      if (!e.matches) {
+        document.body.classList.remove('mobile-shell-active');
+      } else if (shellBuilt) {
+        document.body.classList.add('mobile-shell-active');
+      }
     });
   }
 })();
