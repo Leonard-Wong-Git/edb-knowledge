@@ -706,9 +706,9 @@ const INITIAL_DATA = {
     "version": "2.3.0",
     "created": "2026-04-04",
     "updated": "2026-05-03",
-    "description": "EDB 學校管理知識庫 — 供 EDB 通告智能分析系統注入 LLM prompt 使用。792 條已核實事實（Session 102 dedup 由 1,001 → 792）。契約版本 v2.0.0：角色拆分為 subject_head（科主任）與 panel_chair（各統籌主任），不再使用 department_head。各 topic block 可附帶 `_source_refs` 作來源追溯 metadata。",
+    "description": "EDB 學校管理知識庫 — 供 EDB 通告智能分析系統注入 LLM prompt 使用。455 條已核實事實（2026-05-16 去重整合：由 792 → 455 條唯一事實）。契約版本 v2.0.0：角色拆分為 subject_head（科主任）與 panel_chair（各統籌主任），不再使用 department_head。各 topic block 可附帶 `_source_refs` 作來源追溯 metadata。",
     "stats": {
-      "facts": 792,
+      "facts": 455,
       "chunks": 10736,
       "sources": 120,
       "guidelines": 39,
@@ -2088,7 +2088,7 @@ function loadLocalSnapshot() {
     }
     
     if (!hasAnyFacts) {
-      console.warn('Dashboard: Snapshot found but contains 0 facts. Falling back to INITIAL_DATA.');
+      // debug log removed: snapshot had 0 facts; falling back to INITIAL_DATA
       localStorage.removeItem(LOCAL_SNAPSHOT_KEY); // Clean up corrupted state
       return null;
     }
@@ -2098,7 +2098,7 @@ function loadLocalSnapshot() {
       review_state: rs,
     };
   } catch (err) {
-    console.error('Dashboard: Local snapshot load error:', err);
+    // debug log removed: local snapshot load error — fall back to null
     return null;
   }
 }
@@ -2925,11 +2925,17 @@ function PlatformIntroPanel({ stats }) {
 
   // Animate stat counters on mount — pull from stats.metaStats (single source of truth from _meta.stats)
   const meta = stats.metaStats || {};
+  // Single-source derived counts/version (literals kept only as || fallback if stats missing)
+  const factsCount = meta.facts || 455;
+  const chunksCount = meta.chunks || 10736;
+  const guidelinesCount = GUIDELINES_REGISTRY.length;
+  const sourcesCount = meta.sources || 120;
+  const platformVersion = stats.metaVersion || '2.3.0';
   const statTargets = [
-    stats.approvedCount || meta.facts || 792,
-    meta.chunks || 10736,
-    meta.guidelines || 39,
-    meta.sources || 120,
+    stats.approvedCount || factsCount,
+    chunksCount,
+    guidelinesCount,
+    sourcesCount,
   ];
   React.useEffect(() => {
     const duration = 900;
@@ -2987,14 +2993,14 @@ function PlatformIntroPanel({ stats }) {
       icon: '🔍',
       title: '語義搜尋',
       subtitle: 'Channel A + B 合併',
-      desc: '自然語言提問，從 792 條已核實事實及 10,736 個文件片段中語義檢索，LLM 整理回答並附原始來源 URL。',
+      desc: `自然語言提問，從 ${factsCount.toLocaleString()} 條已核實事實及 ${chunksCount.toLocaleString()} 個文件片段中語義檢索，LLM 整理回答並附原始來源 URL。`,
       badge: '核心功能',
       dark: true,
     },
     {
       icon: '📚',
       title: '指引文件庫',
-      subtitle: '39 份 EDB 官方指引',
+      subtitle: `${guidelinesCount} 份 EDB 官方指引`,
       desc: '涵蓋財務採購、人力資源、課程、學生事務、資訊科技等範疇，按類別及年份排序，附直達 PDF 連結。',
       badge: '快速查閱',
       dark: false,
@@ -3012,7 +3018,7 @@ function PlatformIntroPanel({ stats }) {
 
   const steps = [
     { n: '1', icon: '💬', title: '自然語言提問', desc: '以中文直接輸入問題，無需記住文件編號或精確關鍵詞。' },
-    { n: '2', icon: '⚡', title: '向量語義檢索', desc: '預計算 embedding 索引即時找出最相關的 EDB 文件段落，覆蓋 120 份來源。' },
+    { n: '2', icon: '⚡', title: '向量語義檢索', desc: `預計算 embedding 索引即時找出最相關的 EDB 文件段落，覆蓋 ${sourcesCount} 份來源。` },
     { n: '3', icon: '📋', title: '整理回答＋引用', desc: '整合多個段落，整理精簡回答，並附原始文件標題及直達 URL。' },
   ];
 
@@ -3029,7 +3035,7 @@ function PlatformIntroPanel({ stats }) {
     { num: counts[0].toLocaleString(), label: '已核實政策事實', sub: 'Channel A 人工審核' },
     { num: counts[1].toLocaleString(), label: '可搜尋知識片段', sub: 'Channel B 向量索引' },
     { num: counts[2].toLocaleString(), label: 'EDB 官方指引', sub: '直達 PDF 連結' },
-    { num: counts[3].toLocaleString(), label: '已處理來源文件', sub: '涵蓋 120 份官方文件' },
+    { num: counts[3].toLocaleString(), label: '已處理來源文件', sub: `涵蓋 ${sourcesCount} 份官方文件` },
   ];
 
   return (
@@ -3039,7 +3045,7 @@ function PlatformIntroPanel({ stats }) {
       <div style={{textAlign:'center',marginBottom:'40px'}}>
         <div style={{display:'inline-flex',alignItems:'center',gap:'8px',padding:'4px 14px',background:'var(--cd-warm)',border:'1px solid var(--border)',borderRadius:'999px',marginBottom:'20px'}}>
           <span style={{width:'7px',height:'7px',borderRadius:'50%',background:'var(--mocha)',display:'inline-block',flexShrink:0}}></span>
-          <span style={{fontSize:'0.72rem',fontWeight:700,color:'var(--mocha)',letterSpacing:'0.08em',textTransform:'uppercase'}}>知識平台 v2.3.0 · 香港學校管治</span>
+          <span style={{fontSize:'0.72rem',fontWeight:700,color:'var(--mocha)',letterSpacing:'0.08em',textTransform:'uppercase'}}>知識平台 v{platformVersion} · 香港學校管治</span>
         </div>
         <h1 style={{fontSize:'clamp(1.9rem,5vw,3rem)',fontWeight:900,color:'var(--charcoal)',letterSpacing:'-0.025em',lineHeight:1.15,marginBottom:'16px'}}>
           查找教育局各項<em style={{color:'var(--mocha)',fontStyle:'normal'}}>有根有據</em>的政策答案
@@ -3696,171 +3702,7 @@ function QAPanel({ data, setPreviewDoc }) {
   );
 }
 
-// ── Circular Analysis Panel ──
-function CircularAnalysisPanel() {
-  const BACKEND_URL = 'https://edb-knowledge.onrender.com/analyze-circular';
-
-  const [circularText, setCircularText] = useState('');
-  const [role, setRole] = useState('principal');
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState(null);
-  const [error, setError] = useState(null);
-
-  const TOPIC_LABELS = {
-    finance: '財務/採購', hr: '人力資源', curriculum: '課程',
-    activity: '活動', student: '學生事務', it: '資訊科技', general: '通用/行政'
-  };
-
-  const ROLE_OPTIONS = [
-    { value: 'principal',       label: '校長' },
-    { value: 'vice_principal',  label: '副校長' },
-    { value: 'panel_chair',  label: '主任' },
-    { value: 'subject_head', label: '科主任' },
-    { value: 'teacher',         label: '教師' },
-    { value: 'eo_admin',        label: 'EO' },
-    { value: 'supplier',        label: '供應商' },
-    { value: 'all_roles',       label: '全部角色' },
-  ];
-
-  const handleAnalyze = async () => {
-    if (!circularText.trim()) return;
-    setLoading(true);
-    setError(null);
-    setResult(null);
-    try {
-      const res = await fetch(BACKEND_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ circular_text: circularText, role }),
-      });
-      const body = await res.json();
-      if (!res.ok) throw new Error(body.error || `HTTP ${res.status}`);
-      setResult(body);
-    } catch (err) {
-      setError(err.message || '分析服務暫未連線；請稍後再試，或先使用政策搜尋。');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleClear = () => { setResult(null); setError(null); };
-
-  return (
-    <div className="flex-1 min-w-0">
-      {/* Input card */}
-      <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4">
-        <h2 className="text-lg font-bold text-gray-800 mb-1">通告分析</h2>
-        <p className="text-xs text-gray-400 mb-1">
-          貼上通告全文，選擇角色，平台會偵測相關主題並整理顧問式分析。
-        </p>
-        <p className="text-xs text-gray-300 mb-4">
-          此功能需要本機分析服務連線；未啟用時可先使用政策搜尋。
-        </p>
-        <textarea
-          value={circularText}
-          onChange={e => setCircularText(e.target.value)}
-          placeholder="貼上通告全文…"
-          rows={7}
-          className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-200 focus:border-transparent resize-y mb-3 font-mono" />
-        <div className="flex items-center gap-3 flex-wrap">
-          <select
-            value={role}
-            onChange={e => setRole(e.target.value)}
-            className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-amber-200 focus:border-transparent">
-            {ROLE_OPTIONS.map(opt => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
-            ))}
-          </select>
-          <button
-            onClick={handleAnalyze}
-            disabled={loading || !circularText.trim()}
-            style={{ background: 'var(--p-primary)' }}
-            className="px-4 py-1.5 text-white text-sm rounded-lg hover:opacity-90 font-medium disabled:opacity-40 disabled:cursor-not-allowed transition-all">
-            {loading ? '分析中…' : '開始分析'}
-          </button>
-          {(result || error) && (
-            <button onClick={handleClear}
-                    className="px-3 py-1.5 text-xs text-gray-400 hover:text-gray-600 border border-gray-200 rounded-lg">
-              清除結果
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Loading */}
-      {loading && (
-        <div className="bg-white rounded-xl border border-gray-200 p-10 text-center text-gray-400">
-          <p className="text-3xl mb-3" style={{animation:'pulse 1.5s ease-in-out infinite'}}>⚙️</p>
-          <p className="text-sm">正在整理通告內容，請稍候…</p>
-        </div>
-      )}
-
-      {/* Error */}
-      {!loading && error && (
-        <div className="bg-red-50 rounded-xl border border-red-200 p-5">
-          <p className="text-sm font-medium text-red-700 mb-1">連接錯誤</p>
-          <p className="text-sm text-red-600">{error}</p>
-          <p className="mt-2 text-xs text-red-400">
-            分析服務暫未連線；請稍後再試，或先使用政策搜尋。
-          </p>
-        </div>
-      )}
-
-      {/* Results */}
-      {!loading && result && (
-        <div className="space-y-4">
-          {/* Detected topics */}
-          <div className="bg-white rounded-xl border border-gray-200 p-4">
-            <h3 className="text-sm font-semibold text-gray-700 mb-2">🎯 偵測主題</h3>
-            <div className="flex flex-wrap gap-2">
-              {result.detected_topics.length === 0 ? (
-                <span className="text-xs text-gray-400">未偵測到特定主題</span>
-              ) : result.detected_topics.map(t => (
-                <span key={t} className="text-xs px-2.5 py-1 rounded-full bg-orange-50 text-amber-900 border border-orange-200 font-bold">
-                  {TOPIC_LABELS[t] || t}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Used facts */}
-          <div className="bg-white rounded-xl border border-gray-200 p-4">
-            <h3 className="text-sm font-semibold text-gray-700 mb-2">
-              📋 注入知識 <span className="font-normal text-gray-400">({result.used_facts.length} 條)</span>
-            </h3>
-            {result.used_facts.length === 0 ? (
-              <p className="text-xs text-gray-400">無相關已確認知識可注入</p>
-            ) : (
-              <ul className="space-y-1.5">
-                {result.used_facts.map((fact, i) => (
-                  <li key={i} className="text-xs text-gray-600 flex items-start gap-1.5">
-                    <span className="text-amber-400 mt-0.5 flex-shrink-0">•</span>
-                    {fact}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          {/* Analysis */}
-          <div className="bg-white rounded-xl border border-gray-200 p-4">
-            <h3 className="text-sm font-semibold text-gray-700 mb-2">💡 顧問式分析</h3>
-            <div className="text-sm text-gray-800 whitespace-pre-wrap leading-relaxed">{result.analysis}</div>
-          </div>
-        </div>
-      )}
-
-      {/* Empty state */}
-      {!loading && !result && !error && (
-        <div className="bg-white rounded-xl border border-gray-200 p-10 text-center">
-          <p className="text-4xl mb-3">📋</p>
-          <p className="text-sm text-gray-400">貼上 EDB 通告，整理相關 EDB 規定及跟進建議</p>
-          <p className="text-xs text-gray-300 mt-1">未連線時可先使用政策搜尋查找來源</p>
-        </div>
-      )}
-    </div>
-  );
-}
+// ── Circular Analysis Panel removed (dead component: never referenced in VALID_VIEWS / view render) ──
 
 const INITIAL_CANDIDATES = [
   {
@@ -4083,7 +3925,7 @@ function App() {
           localStorage.setItem('k1_processed_candidates', JSON.stringify(processed));
         }
       } catch (e) {
-        console.warn('Failed to mark candidate processed', e);
+        /* debug log removed: failed to mark candidate processed (non-fatal) */
       }
     };
 
@@ -4130,7 +3972,7 @@ function App() {
         JSON.stringify(buildAdminSnapshot(data, reviewState))
       );
     } catch (error) {
-      console.warn('Failed to persist local admin snapshot:', error);
+      /* debug log removed: failed to persist local admin snapshot (non-fatal) */
     }
   }, [data, reviewState]);
 
@@ -4154,7 +3996,7 @@ function App() {
         }
       });
     });
-    return { totalFacts, topicCount, rolesUsed: rolesUsed.size, draftCount, approvedCount, metaStats: data._meta?.stats };
+    return { totalFacts, topicCount, rolesUsed: rolesUsed.size, draftCount, approvedCount, metaStats: data._meta?.stats, metaVersion: data._meta?.version };
   }, [data, reviewState]);
 
   // Topic list
@@ -4445,11 +4287,6 @@ function App() {
                     className="k1-btn" style={{color:'var(--mid)'}}>
               🔄
             </button>
-
-            {/* Circular analysis link */}
-            <a href="k1-dashboard.html" className="k1-home-link" title="舊版管理介面（備份）" style={{opacity:0.4,fontSize:'0.7rem'}}>
-              v1
-            </a>
           </div>
         </div>
       </header>
