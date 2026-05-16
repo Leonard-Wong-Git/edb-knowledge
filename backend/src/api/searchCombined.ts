@@ -17,9 +17,11 @@ import {
   type ChannelAResult,
 } from "./searchChannelA.js";
 import {
+  degradedChannelBResponse,
   searchChannelB,
   type ChannelBResult,
   type LlmFn,
+  type SearchChannelBResponse,
 } from "./searchChannelB.js";
 import type { TopicId } from "../types/knowledge.js";
 
@@ -51,6 +53,10 @@ export interface SearchCombinedResponse {
   total: number;
   total_a: number;
   total_b: number;
+  /** true when Channel B was unconfigured/failed and only Channel A contributed */
+  channel_b_degraded?: boolean;
+  /** Reason Channel B did not contribute, when degraded */
+  channel_b_reason?: string;
   results: CombinedResult[];
 }
 
@@ -104,11 +110,20 @@ export async function searchCombined(
     throw new Error("query is required");
   }
 
-  // Run both channels in parallel
+  // Run both channels in parallel. Channel B is isolated: a failure or
+  // degraded (unconfigured Supabase) Channel B must NOT break the combined
+  // response — Channel A results are still returned successfully.
   const [aResp, bResp] = await Promise.all([
     searchChannelA({ query, topic, min_score }, embedFn),
-    searchChannelB({ query, topic, min_score, top_k, synthesize: false }, embedFn),
+    searchChannelB({ query, topic, min_score, top_k, synthesize: false }, embedFn).catch(
+      (err): SearchChannelBResponse => {
+        console.error("[combined] Channel B failed, degrading to Channel A only:", err);
+        return degradedChannelBResponse(query);
+      }
+    ),
   ]);
+
+  const channelBDegraded = bResp.degraded === true;
 
   // Merge and deduplicate by text prefix (Channel A facts may appear in Channel B index)
   const seenPrefixes = new Set<string>();
@@ -148,6 +163,12 @@ export async function searchCombined(
     total: merged.length,
     total_a: aResp.total,
     total_b: bResp.total,
+    ...(channelBDegraded
+      ? {
+          channel_b_degraded: true,
+          ...(bResp.reason ? { channel_b_reason: bResp.reason } : {}),
+        }
+      : {}),
     results: merged,
   };
 }

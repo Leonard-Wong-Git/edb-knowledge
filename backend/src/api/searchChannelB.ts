@@ -11,6 +11,7 @@
  *   - LLM synthesis: top 5 chunks sent to gpt-4.1-nano for a concise answer
  */
 
+import { isSupabaseConfigured } from "../config/env.js";
 import type { EmbedFn } from "../lib/embeddingClient.js";
 import {
   searchWiki,
@@ -69,10 +70,36 @@ export interface SearchChannelBRequest {
 export interface SearchChannelBResponse {
   query: string;
   channel: "B";
+  /** false when Channel B is unconfigured/degraded; omitted (treated as true) otherwise */
+  ok?: boolean;
+  /** true when Channel B could not run because Supabase is not configured */
+  degraded?: boolean;
+  /** Human-readable reason for degradation (Traditional Chinese) */
+  reason?: string;
   /** LLM-synthesised answer (Traditional Chinese, ≤120 chars) */
   synthesis?: string;
   total: number;
   results: ChannelBResult[];
+}
+
+/**
+ * Reason text surfaced to clients when Channel B is unconfigured.
+ * Exported so the combined handler can reuse the same message.
+ */
+export const CHANNEL_B_UNCONFIGURED_REASON =
+  "Channel B 未配置（Supabase 環境變數缺失）";
+
+/** Build the standard degraded (unconfigured) Channel B response. */
+export function degradedChannelBResponse(query: string): SearchChannelBResponse {
+  return {
+    query,
+    channel: "B",
+    ok: false,
+    degraded: true,
+    reason: CHANNEL_B_UNCONFIGURED_REASON,
+    total: 0,
+    results: [],
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -294,6 +321,14 @@ export async function searchChannelB(
 
   if (!query?.trim()) {
     throw new Error("query is required");
+  }
+
+  // Graceful degradation: if Supabase (Channel B backing store) is not
+  // configured, return an explicit degraded response instead of throwing.
+  // This keeps the dedicated endpoint at HTTP 200 and lets the combined
+  // handler fall back to Channel A only.
+  if (!isSupabaseConfigured()) {
+    return degradedChannelBResponse(query);
   }
 
   // Validate optional topic filter

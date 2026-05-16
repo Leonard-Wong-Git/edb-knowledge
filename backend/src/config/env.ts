@@ -36,6 +36,17 @@ export function getKnowledgePath(): string {
   return value || DEFAULT_KNOWLEDGE_PATH_SETTING;
 }
 
+/**
+ * Non-throwing check for whether Channel B (Supabase pgvector) is configured.
+ * Returns false when SUPABASE_URL or SUPABASE_ANON_KEY is missing/empty so
+ * callers can degrade gracefully instead of throwing.
+ */
+export function isSupabaseConfigured(): boolean {
+  const url = process.env.SUPABASE_URL?.trim();
+  const key = process.env.SUPABASE_ANON_KEY?.trim();
+  return Boolean(url && key);
+}
+
 export function getSupabaseUrl(): string {
   const value = process.env.SUPABASE_URL?.trim();
   if (!value) throw new Error("Missing required environment variable: SUPABASE_URL");
