@@ -13,7 +13,7 @@ Token efficiency:
   - Answer capped at 200 chars + source list
 
 Usage:
-  cd ~/Downloads/Claude-edb-knowledge
+  cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"
 
   # Interactive search
   python3 dev/vault/wiki_search.py "小學採購門檻是多少"

@@ -9,7 +9,7 @@ No API key required — uses character n-gram similarity (Chinese-friendly).
 
 Usage:
   # Check admin snapshot (exported from Dashboard → 匯出 → 管理快照)
-  cd ~/Downloads/Claude-edb-knowledge
+  cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"
   python3 dev/vault/dedup_check.py <path-to-admin-snapshot.json>
 
   # Check existing role_facts.json

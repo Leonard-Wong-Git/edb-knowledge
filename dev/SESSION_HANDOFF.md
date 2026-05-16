@@ -11,10 +11,10 @@
 8. MemPalace: shared install `/Users/leonard/mempalace/.venv`, palace `/Users/leonard/mempalace/palace`, wing `claude_edb_knowledge`.
 
 ## User Environment (Always Reference Before Giving Shell Commands)
-- **Repo path**: `~/Downloads/Claude-edb-knowledge`
-- **Correct cd**: `cd ~/Downloads/Claude-edb-knowledge`
-- **Python script invocation**: always from repo root, e.g. `python3 dev/vault/extract_candidates.py ...`
-- **Backend**: `cd ~/Downloads/Claude-edb-knowledge/backend && npm run dev`
+- **Repo path**: `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft` (relocated 2026-05-16 Session 109; path contains a space — quote it)
+- **Correct cd**: `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"`
+- **Python script invocation**: always from repo root, e.g. `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && python3 dev/vault/extract_candidates.py ...`
+- **Backend**: `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft/backend" && npm run dev`
 
 ## Mandatory Start Checklist
 1. Read `dev/SESSION_HANDOFF.md`
@@ -117,15 +117,20 @@ source_registry → same vault PDFs → ai_extract.py
 2. Session ID: Claude_20260516_0841 (Session 109)
 3. Completed:
    - ✅ **[PROJECT_MASTER_SPEC.md 建立]** 新建 `dev/PROJECT_MASTER_SPEC.md` 作長期權威規格 + 跨 agent 交接知識庫：§A 系統目標/scope/不變量 + §B 功能要求 + §C 已架構系統地圖 + §D 13 條高效已知方法 + §E 9 類必避失敗教訓（提煉自 archive Q1+Q2）+ §F 10 條鎖定決策 + §G 下一個 agent 起手指南
-   - ✅ **[Governance wiring]** CODEBASE_CONTEXT directory map + AI Maintenance Log；DOC_SYNC_CHECKLIST 加 2 條 project-specific row；Mandatory Start Checklist 加第 4 項（讀 PROJECT_MASTER_SPEC）
+   - ✅ **[Governance wiring]** CODEBASE_CONTEXT directory map + AI Maintenance Log；DOC_SYNC_CHECKLIST 加 project-specific row；Mandatory Start Checklist 加第 4 項（讀 PROJECT_MASTER_SPEC）
+   - ✅ **[專案目錄遷移]** 整個 repo 由 `~/Downloads/Claude-edb-knowledge` `mv` 遷至 `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft`（同磁碟 rename，931MB 全量含 .git/node_modules/.venv）；先 commit 還原點 `4d54b2a`；驗證 git 歷史+remote+clean tree 完好
+   - ✅ **[路徑 doc-sync]** AGENTS.md header+§13、SESSION_HANDOFF User Environment+Close Checklist、PROJECT_MASTER_SPEC §A.5、bump_version.py+dedup_check.py 提示 全改新路徑（含空格→雙引號）；功能性腳本用相對路徑不受影響
+   - ✅ **[.claude/launch.json]** 偵測 dev server 並存配置（backend:8787 + frontend-static:8080）；用戶選擇暫不啟動
 4. Pending from this session (not yet done):
    - 用戶 review PROJECT_MASTER_SPEC.md 內容是否需補充
-   - Git push（Session 109 closeout）— 用戶 Terminal
+   - Git push（含遷移後路徑更新 commit）— 用戶在**新路徑** Terminal
 5. Next priorities (max 3 — 詳見 Open Priorities)：
    - Mobile UI Phase 2 餘下（index/q/t-purchase/#guidelines）
    - Q&A admin login backlog
    - HKEAA source family 補完
 6. Risks / blockers:
+   - ⚠️ Repo 路徑含空格 → 所有 cd / 腳本指令必須雙引號包覆絕對路徑；勿再用舊路徑 `~/Downloads/Claude-edb-knowledge`（已不存在）
+   - MemPalace cfg 用相對路徑不受影響；`mine .` / sync 須在新路徑跑；shared palace 在 repo 外不受影響
    - Cowork sandbox egress allowlist 不含 edb.gov.hk / edb-knowledge.onrender.com / apps.apple.com → 線上驗證需用戶 Terminal / browser
    - Render free tier cold start (~30s) after 15min inactivity
    - index.html / q.html / t-purchase.html mobile reload 仲一片空白（Phase 2 未做）
@@ -192,10 +197,10 @@ source_registry → same vault PDFs → ai_extract.py
 ```bash
 # 1. 更新 SESSION_LOG.md + SESSION_HANDOFF.md（Claude 負責）
 # 2. Git commit + push（用戶在 Terminal 執行）
-cd ~/Downloads/Claude-edb-knowledge
+cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"
 git add -A && git commit -m "session close: <描述>" && git push origin main
 # 3. MemPalace sync（用戶在 Terminal 執行）
-cd ~/Downloads/Claude-edb-knowledge
+cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"
 python3 dev/mempalace_sync.py write
 ```
 

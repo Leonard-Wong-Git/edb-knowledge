@@ -33,10 +33,10 @@
 - **下游系統**：EDB Circular System 透過公開 JSON 端點消費 K1 知識。
 
 ### A.5 使用者環境（給 shell 指令前必看）
-- Repo: `~/Downloads/Claude-edb-knowledge`，正確 `cd ~/Downloads/Claude-edb-knowledge`
+- Repo（2026-05-16 Session 109 遷移；**路徑含空格，指令必須加雙引號**）：`/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft`，正確 `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"`
 - 使用者偏好（AGENTS.md §13 強制）：永遠給**完整絕對路徑指令 + `&&` 串連成一個 block**；多步前先講明 working directory。
-- Python 腳本一律由 repo root 跑：`python3 dev/vault/extract_candidates.py ...`
-- Backend：`cd ~/Downloads/Claude-edb-knowledge/backend && npm run dev`
+- Python 腳本一律由 repo root 跑：`cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && python3 dev/vault/extract_candidates.py ...`
+- Backend：`cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft/backend" && npm run dev`
 
 ---
 

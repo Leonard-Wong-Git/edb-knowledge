@@ -261,7 +261,7 @@ def main():
     else:
         print(f"\n✅  Version bumped to {new_ver} across all files.\n")
         print("Next steps:")
-        print(f"  cd ~/Downloads/Claude-edb-knowledge && git add k1-dashboard.html dev/knowledge/role_facts.json knowledge.json guidelines.json README.md CHANGELOG.md && git commit -m \"chore: bump version to v{new_ver}\" && git pull --rebase && git push origin main\n")
+        print(f"  cd \"/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft\" && git add app.html dev/knowledge/role_facts.json knowledge.json guidelines.json README.md CHANGELOG.md && git commit -m \"chore: bump version to v{new_ver}\" && git pull --rebase && git push origin main\n")
 
 if __name__ == "__main__":
     main()

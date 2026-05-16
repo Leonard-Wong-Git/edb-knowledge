@@ -290,8 +290,8 @@ https://applications.edb.gov.hk/circular/upload/EDB{TYPE}/EDB{TYPE}{YY}{NNN}C.pd
 完成整合後，執行以下驗證：
 
 ```bash
-# 在 K1 repo 根目錄
-cd ~/Downloads/Claude-edb-knowledge
+# 在 K1 repo 根目錄（路徑含空格，須雙引號）
+cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"
 
 # 確認寫入成功
 python3 -c "

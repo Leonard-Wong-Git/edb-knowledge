@@ -18,7 +18,7 @@ Token efficiency design:
   - Embeddings stored locally in wiki_index.json — no re-embedding per query
 
 Usage:
-  cd ~/Downloads/Claude-edb-knowledge
+  cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"
 
   # Build full index from all sources
   python3 dev/vault/build_wiki_index.py

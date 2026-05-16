@@ -6,7 +6,7 @@ Parses EDB stat extract files and generates dev/knowledge/stat_facts.json.
 Statistical facts are auto-approved (no human review needed per architecture).
 
 Usage:
-  cd ~/Downloads/Claude-edb-knowledge
+  cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"
   python3 dev/vault/build_stat_facts.py
 
 Output:

@@ -27,6 +27,7 @@
 | _[Add project-specific rows below this line]_ | | |
 | Long-term spec / locked decision / architecture invariant change | dev/PROJECT_MASTER_SPEC.md (relevant §A–§G section); CODEBASE_CONTEXT.md Key Decisions if direction shifts; SESSION_HANDOFF.md if baseline affected | manual review |
 | New cross-agent handoff knowledge doc added | CODEBASE_CONTEXT.md Directory Map + AI Maintenance Log; this registry (row presence); SESSION_HANDOFF/LOG | row presence check |
+| Project relocation / repo absolute-path change | AGENTS.md header line 1 + §13 examples; SESSION_HANDOFF.md User Environment + Session Close Checklist; PROJECT_MASTER_SPEC.md §A.5; any *.py/*.sh with hardcoded abs path hints; SESSION_LOG/HANDOFF entry | grep "old path" returns only archive/log history |
 
 ## Anti-pattern: No Matching Row
 

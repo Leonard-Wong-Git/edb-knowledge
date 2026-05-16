@@ -14,7 +14,7 @@ It serves as:
   3. A future input for AI-assisted human review
 
 Usage:
-  cd ~/Downloads/Claude-edb-knowledge
+  cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"
 
   # Extract from a single vault file
   python3 dev/vault/ai_extract.py dev/vault/circ_edbc24017/extract_edbc24017_.txt
