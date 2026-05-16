@@ -1,7 +1,8 @@
-# K1 知識庫 — EDB Circular System 接口規格 v1.3.1
+# K1 知識庫 — EDB Circular System 接口規格 v2.3.0
 
 > 本文件供 EDB 通告智能分析系統（EDB-AI-Circular-System）接入 K1 知識庫時參考。
-> 上次更新：2026-04-11
+> 上次更新：2026-05-16
+> 對齊 knowledge.json v2.3.0
 
 ---
 
