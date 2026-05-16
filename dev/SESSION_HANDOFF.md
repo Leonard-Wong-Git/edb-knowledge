@@ -103,10 +103,11 @@ source_registry → same vault PDFs → ai_extract.py
 ## Open Priorities
 1. **🟡 guidelines 39→148 OPEN DECISION**（Session 111 新揭）：Leonard 傾向收斂、本次刻意未執行。屬**對外契約變更**（影響下游 Circular System，curriculum 桶 ~25→127），須走 AGENTS.md §3 HIGH-risk PLAN。詳見 PROJECT_MASTER_SPEC §B.1 釐清框。
 2. **🟡 等 Leonard 拍板產品方向**：scope / 目標用戶 / Channel B 是否接 Circular System / Mobile UI Phase 2 是否繼續。**未得確認前唔好對 scope 或 §F 鎖定決策落手。**
-3. **🔎 待 Leonard 親驗 #3（S111 修）**：browser admin-login 後確認「知識提煉/知識管理」見 455（非 1,001）、approve/reject toggle + snapshot 匯出正常、`LOCAL_SNAPSHOT_KEY` v3 令舊壞 localStorage 棄掉。sandbox 入唔到 admin 閘門，必須 Leonard 親驗；有 bug 即修。
-4. **Mobile UI Phase 2 餘下**：index.html mobile landing / q.html mobile inline / t-purchase.html mobile form / app.html#guidelines mobile-native render（app.html search ✅ ship）
-5. **🔴 Q&A admin-login security**：admin login password gate（client-side 閘門非安全邊界 — PROJECT_MASTER_SPEC §E.10，全專案最嚴重未解風險）+「34 問題」audit
-6. **HKEAA source family 補完**（S105 SBA gap）；**（doc-debt 低）** CODEBASE_CONTEXT L29「v1.3.1」標籤 drift / 補 Supabase External Services block / 清 `searchChannelB.ts` stale header / `semanticRegression.ts` guidelines version 斷言 1.3.1（實 2.2.0）
+3. **Mobile UI Phase 2 餘下**：index.html mobile landing / q.html mobile inline / t-purchase.html mobile form / app.html#guidelines mobile-native render（app.html search ✅ ship）
+4. **🔴 Q&A admin-login security**：admin login password gate（client-side 閘門非安全邊界 — PROJECT_MASTER_SPEC §E.10，全專案最嚴重未解風險）+「34 問題」audit
+5. **HKEAA source family 補完**（S105 SBA gap）；**（doc-debt 低）** CODEBASE_CONTEXT L29「v1.3.1」標籤 drift / 補 Supabase External Services block / 清 `searchChannelB.ts` stale header / `semanticRegression.ts` guidelines version 斷言 1.3.1（實 2.2.0）
+
+> ✅ **S111 #3 已驗證 PASS**（2026-05-16，Leonard browser admin-login 親驗：登入後見 455，非 1,001）。已由 Open Priorities 移除。
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 - g21/g22/g33 直連 PDF 補完（user browser）— Session 105 audit 揭發三者 source_type='pdf' 但 url_primary 缺
@@ -123,17 +124,18 @@ source_registry → same vault PDFs → ai_extract.py
    - ✅ **[Team B audit + #3 修]** read-only 確認 `INITIAL_REVIEW_STATE` 仍 1,001-keyed vs 455 嚴重錯位；修（範圍=只修資料對齊）：`dev/regen_review_state_s111.py`（先 backup）重生 **455 全 approved** 保持單行 inlined（E.1）+ comment @713/@1483 + `LOCAL_SNAPSHOT_KEY` v2→v3。零 json/data 改動
    - ✅ 過程自我修正：照 commit message 誤判 app.html 148 regression，verify `GUIDELINES_REGISTRY.length` 後更正（已固化 §G.2）
 4. Pending（用戶 Terminal，含空格路徑雙引號）:
-   - 一個 consolidated git add+commit+push（治理 + 對外文件 + app.html #3 + 新 HANDOFF_PACKAGE.md + regen 腳本，連 S110 從未 commit 編輯）+ MemPalace sync
-   - Leonard browser admin-login **親驗 #3**（sandbox 入唔到，必須親驗）；拍板 guidelines OPEN DECISION + 產品方向
+   - ✅ 已入庫：commit `019df6c` push 上 origin/main；MemPalace sync 完成（venv python）
+   - ✅ #3 已驗證 PASS：Leonard browser admin-login 親驗登入後見 455（非 1,001）
+   - 待 Leonard：拍板 guidelines 39→148 OPEN DECISION + 產品方向
 5. Next priorities (max 3 — 詳見 Open Priorities)：
-   - Leonard 親驗 #3 admin-login（有 bug 即修）
    - guidelines 39→148 OPEN DECISION（須 §3 HIGH-risk PLAN）/ 產品方向待拍板
-   - Mobile UI Phase 2 餘下 / Q&A §E.10
+   - Mobile UI Phase 2 餘下 / 🔴 Q&A §E.10
+   - HKEAA source family + doc-debt 清理
 6. Risks / blockers:
    - 🔴 §E.10：公開站 client-side admin 閘門非安全邊界 + 密碼曾入 log（最嚴重未解風險，仍 open）
    - 🔴 治理根因：改 code/data 嘅 commit 必須同 pass 入 SESSION_LOG，否則交接讀set 失真（S111 desync 教訓）；load-bearing 數字（facts/git HEAD/min_score/連 commit message）動手前 verify actual code/data/git
    - guidelines 39 vs 148 = OPEN DECISION，未經 §3 HIGH-risk PLAN 唔好收斂 / 改 guidelines.json / app.html GUIDELINES_REGISTRY
-   - #3 後回訪 admin localStorage 已 bump v3，舊本地未匯出編輯會棄（原已 keyed 壞 index 不可信）；Leonard 親驗未做
+   - #3 後回訪 admin localStorage 已 bump v3，舊本地未匯出編輯會棄（原已 keyed 壞 index 不可信）；**Leonard 已親驗 PASS（見 455）**
    - 產品方向未定 → 唔好假設沿用舊 scope
    - 其餘同下（路徑空格 / sandbox egress / Render cold start / bump_version / SSL / MemPalace / Supabase）
 

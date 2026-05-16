@@ -13,7 +13,8 @@
 - **Verified（實測）:** knowledge.json `_meta` v2.3.0 stats `{facts:455,chunks:10736,sources:120,guidelines:39,topics:7}`；role_facts 三層 byte-identical md5 `7d00330…`；`git HEAD==origin/main==ae31084`；guidelines.json 39 = `GUIDELINES_REGISTRY`(148) 嚴格子集。
 - **QC:** truth-pass — residual 792/1,001 逐個審 = 全部正確歷史/刻意 drift 記錄，無一當 live。Team A — git diff 逐檔 verify，零 code/data/app.html scope creep，39 保留。#3 — `INITIAL_REVIEW_STATE` OLD 1001→NEW **455** keys、全 `approved`、單行（無 `\n`）、prefix/suffix shape OK、range cross-check（finance.all_roles 83=83 / general.eo_admin 1=1）；changeset **零 json/data 檔改動**。§4a：本次觸發（421→149 行，4 條舊 entry 封存 `dev/archive/SESSION_LOG_2026_Q2.md`，保留 S111+S110）。未跑 backend regression（無改公開契約/data，§3c 不觸發）。
 - **Known residual doc-debt（留下個 agent）:** S110 凍結歷史處（不改寫）；CODEBASE_CONTEXT L29「v1.3.1 approved facts」版本標籤 drift（實際 _meta v2.3.0 / 契約 v2.0.0）；HANDOFF_PACKAGE §3「4,759 行」實為 ~4,057；`searchChannelB.ts` stale header（0.30/810→0.22/Supabase）；`semanticRegression.ts` 斷言 guidelines version `1.3.1`（實 2.2.0，pre-existing stale test，非本次引入）。
-- **Pending（用戶 Terminal，含空格路徑雙引號）:** 一個 consolidated git add+commit+push（治理文檔 + Team A 對外文件 + app.html #3 + 新 HANDOFF_PACKAGE.md + regen 腳本，連同 S110 從未 commit 嘅編輯一併入庫）+ MemPalace sync。Leonard 自行 browser/admin-login 驗證登入後 459→455 review/approve/snapshot（sandbox 入唔到 admin 閘門）。
+- **Done（收尾）:** consolidated commit `019df6c` push 上 origin/main（ae31084..019df6c，治理 + Team A 對外文件 + app.html #3 + 新 HANDOFF_PACKAGE.md + regen 腳本，連 S110 從未 commit 編輯）；MemPalace sync 完成（venv python，system python3 無 chromadb）。**#3 已驗證 PASS：Leonard browser admin-login 親驗登入後見 455（非 1,001）。**
+- **Pending:** 等 Leonard 拍板 guidelines 39→148 OPEN DECISION + 產品方向（無其餘技術 pending）。
 - **Next:** 等 Leonard：(1) guidelines 39→148 OPEN DECISION 要唔要正式走 §3 HIGH-risk PLAN 收斂；(2) 產品方向；(3) 原 Open Priorities（Mobile UI Phase 2 / Q&A §E.10 / HKEAA）。
 
 ### DOC_SYNC Matrix Scan
@@ -34,7 +35,7 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 ⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，所有 shell 指令必須雙引號包覆絕對路徑）。
 
-⚠️ 若 Leonard 仲未喺自己 Terminal 跑收尾 git/MemPalace 指令：working tree 會有一批未 commit 改動（治理文檔 + CHANGELOG/K1_API_SPEC/README + app.html #3 + 新 dev/HANDOFF_PACKAGE.md + dev/regen_review_state_s111.py）。先確認 git status，唔好當已入庫。
+✅ 本 session 已入庫：commit `019df6c`（ae31084..019df6c）已 push 上 origin/main，MemPalace 已 sync，#3 經 Leonard browser admin-login 親驗 PASS（見 455）。起手仍應自行 verify git HEAD / stats（紀律），但本 session 改動確認已落地。
 
 Current objective and progress state:
 - Session 111 (2026-05-16, Claude_20260516_1952) 三塊全部完成：(1) truth-pass v2 — 揭發並消化 8 個 un-logged commit（c78685f..ae31084，含 dedup 792→455 / Channel B Supabase enablement kit / mobile fallback / app refactor，已 push）+ S110 從未 commit 文檔修正；治理讀set 重對齊 455/ae31084 + 指引 4 數字釐清框。(2) Team A — CHANGELOG/K1_API_SPEC/README 編號對齊（CHANGELOG 補 v2.3.0 2026-05-16 dedup entry + 解 version 撞號；guidelines 公開 count 39 保留）。(3) #3 — app.html `INITIAL_REVIEW_STATE` 由舊 1,001-keyed 重生為 455 全 approved + `LOCAL_SNAPSHOT_KEY` v2→v3（修登入後 admin review/approve/snapshot 對唔上）。
@@ -44,7 +45,7 @@ Current objective and progress state:
 Pending tasks in priority order:
 1. 等 Leonard 拍板 guidelines 39→148 OPEN DECISION（傾向收斂、未執行）——要做須走 §3 HIGH-risk PLAN（對外契約變更，影響下游 Circular System，curriculum 桶 ~25→127）。見 PROJECT_MASTER_SPEC §B.1 釐清框。
 2. 等 Leonard 拍板產品方向（scope / 目標用戶 / Channel B 是否接 Circular System / Mobile UI Phase 2 是否繼續）——未確認前唔好對 scope 或 §F 鎖定決策落手。
-3. Leonard 自行 browser admin-login 驗證 #3：登入後「知識提煉/知識管理」見 455（非 1,001）、approve/reject toggle + snapshot 匯出正常、v3 key 令舊壞 localStorage 棄掉（sandbox 入唔到 admin 閘門，必須 Leonard 親驗）。
+3. ✅ #3 已驗證 PASS（2026-05-16，Leonard browser admin-login 親驗：登入後見 455，非 1,001）。已 close，非待辦。
 4. Mobile UI Phase 2 餘下：index.html / q.html / t-purchase.html / app.html#guidelines mobile content。
 5. Q&A admin-login security password gate（🔴 PROJECT_MASTER_SPEC §E.10，全專案最嚴重未解風險）+「34 問題」audit。
 6. HKEAA source family 補完（S105 SBA gap）；（doc-debt 低）CODEBASE_CONTEXT L29「v1.3.1」標籤 / searchChannelB.ts stale header / semanticRegression.ts guidelines version 斷言 1.3.1（實 2.2.0）。
@@ -68,9 +69,10 @@ Known risks / blockers / cautions:
 
 Validation status:
 - PASS: truth-pass residual 逐個審無一當 live count；Team A diff 逐檔 verify 零 scope creep；#3 INITIAL_REVIEW_STATE 1001→455 全 approved、單行 inlined（E.1）、range cross-check OK、零 json/data 改動；§4a 已 apply（421→149，封存 4 條）。
-- PENDING: 用戶一個 consolidated git commit+push（含本 session 全部 + S110 從未 commit 編輯）+ MemPalace sync；Leonard browser admin-login 親驗 #3；Leonard 拍板 guidelines open decision + 產品方向。
+- DONE: commit `019df6c` push origin/main + MemPalace sync 完成；#3 Leonard browser admin-login 親驗 PASS（見 455）。
+- PENDING: 只剩 Leonard 拍板 guidelines 39→148 OPEN DECISION + 產品方向（非技術 pending）。
 
-Post-startup first action: 完成 §1 起手序 + 讀 HANDOFF_PACKAGE 後，先 verify git status（本 session 改動是否已入庫）+ git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，再問 Leonard：(1) #3 admin-login 親驗結果如何（如有 bug 即修）；(2) guidelines 39→148 OPEN DECISION 要唔要而家走 §3 HIGH-risk PLAN；(3) 產品方向 / Open Priorities。未得確認前唔好對 scope / §F 鎖定決策 / 公開契約落手。
+Post-startup first action: 完成 §1 起手序 + 讀 HANDOFF_PACKAGE 後，先 verify git HEAD（應 ≥ 019df6c）+ knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline（紀律），再問 Leonard：(1) guidelines 39→148 OPEN DECISION 要唔要而家走 §3 HIGH-risk PLAN；(2) 產品方向；(3) 定先做 Open Priorities（Mobile UI Phase 2 / 🔴 Q&A §E.10 / HKEAA）。#3 已驗證 PASS 無需再跟。未得確認前唔好對 scope / §F 鎖定決策 / 公開契約落手。
 ```
 
 ---
