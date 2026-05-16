@@ -2,6 +2,67 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-16 Session 109 — PROJECT_MASTER_SPEC.md 建立（跨 agent 交接知識庫）
+
+- **ID:** Claude_20260516_0841
+- **Summary:** 用戶準備將專案交畀另一個 AI agent 接手，要求一份涵蓋 (1) 系統目標/功能要求 (2) 成功高效方法 (3) 失敗經驗 (4) 已架構系統 的完整參考。依 AGENTS.md §10 建立 `dev/PROJECT_MASTER_SPEC.md`（governance 指定路徑，§1 啟動序列必讀）。失敗教訓由派出 general-purpose agent 全面提煉 `dev/archive/` Q1+Q2 季度封存（橫跨 Sessions 1–108）而成，非只靠現存 log。
+- **Changed:** `dev/PROJECT_MASTER_SPEC.md`（新增）, `dev/CODEBASE_CONTEXT.md`（directory map + AI Maintenance Log）, `dev/DOC_SYNC_CHECKLIST.md`（+2 project-specific rows）, `dev/SESSION_HANDOFF.md`（Mandatory Start Checklist +1 / Last Session Record / 移除最舊 Session 105 記錄保持 compactness）
+- **Done:**
+  - ✅ **[PROJECT_MASTER_SPEC §A–§G]** §A 目標/scope/不變量（含「不是 Circular System」釐清）+ §B 各介面功能要求 + §C 已架構系統地圖（前端/雙通道管線/後端/資料儲存/治理）+ §D 13 條高效已知方法 + §E 9 類必避失敗教訓（白屏/三層脫節+dedup/Channel B 四輪治理/外部字段憑記憶/LLM 參數/排程覆蓋/SQL DELETE/環境工具坑/scope 誤判）+ §F 10 條鎖定決策 + §G 起手指南
+  - ✅ **[Governance wiring]** §1 啟動序列第 4 讀；DOC_SYNC 2 新 row；CODEBASE_CONTEXT 雙更新
+- **QC:** §4a check trigger=False（203 行 / 3 entries，無需封存）；PROJECT_MASTER_SPEC filename 嚴格符合 §10（`dev/PROJECT_MASTER_SPEC.md`，非 SPEC/ARCHITECTURE 等別名）；本文件刻意只記結構/不變量，浮動數字指回 SESSION_HANDOFF 避免 drift
+- **Pending（用戶 Terminal）:** Git push Session 109 closeout；用戶 review PROJECT_MASTER_SPEC 內容
+- **Next:** 1. Mobile UI Phase 2 餘下（index/q/t-purchase/#guidelines）；2. Q&A admin login backlog；3. HKEAA source family 補完
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| New cross-agent handoff knowledge doc added | CODEBASE_CONTEXT Directory Map + AI Maintenance Log；DOC_SYNC registry row；SESSION_HANDOFF/LOG | ✓ Done |
+| Long-term spec / locked decision / architecture invariant change | dev/PROJECT_MASTER_SPEC.md（新建，§A–§G）；CODEBASE_CONTEXT Key Decisions（無方向轉變，N/A） | ✓ Row added |
+| Governance bootstrap-adjacent (Mandatory Start Checklist + §1 read list) | SESSION_HANDOFF Start Checklist；CODEBASE_CONTEXT | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Current objective and progress state:
+- Session 109 (2026-05-16) 建立 dev/PROJECT_MASTER_SPEC.md：跨 agent 交接權威知識庫（§A 目標/scope/不變量、§B 功能要求、§C 已架構系統地圖、§D 13 條高效方法、§E 9 類必避失敗教訓、§F 10 條鎖定決策、§G 起手指南）。提煉自 Sessions 1–108 全歷史含 archive Q1+Q2。
+- PROJECT_MASTER_SPEC 已正式接入 §1 啟動序列第 4 讀 + Mandatory Start Checklist 第 4 項。
+- 商品狀態（以 SESSION_HANDOFF Current Baseline 為準）：v2.3.0 / role_facts 792 / Supabase 10,736 chunks / vault 120 sources / Mobile UI app.html search ✅ 其餘頁面 mobile content 未做。
+
+Pending tasks in priority order:
+1. Mobile UI Phase 2 餘下：index.html mobile landing / q.html mobile inline / t-purchase.html mobile form / app.html#guidelines mobile-native render
+2. Q&A backlog：admin login「34 問題」audit；admin login security password gate（短期）
+3. HKEAA / 考評局 source family 補完（Session 105 SBA query 揭發 vault gap）
+4. 線上手動 sanity 8 條 query 結果驗證（user 自跑後 paste 結果）
+5. g21/g22/g33 直連 PDF 補完 + 5 個 stat xlsx 下載上 vault（user browser）
+
+Key files changed in this session:
+- dev/PROJECT_MASTER_SPEC.md（新增 — 長期權威規格 + 交接知識庫）
+- dev/CODEBASE_CONTEXT.md（directory map + AI Maintenance Log）
+- dev/DOC_SYNC_CHECKLIST.md（+2 project-specific rows）
+- dev/SESSION_HANDOFF.md（Mandatory Start Checklist +1 / Last Session Record / 移除最舊 Session 105 保持 compactness）
+- dev/SESSION_LOG.md（Session 109 entry）
+
+Known risks / blockers / cautions:
+- Cowork sandbox egress allowlist 不含 edb.gov.hk / edb-knowledge.onrender.com / apps.apple.com → 線上驗證需用戶 Terminal / browser
+- Render free tier cold start ~30s after 15min idle
+- index.html / q.html / t-purchase.html mobile reload 仲一片空白（Phase 2 未做）
+- Mac Python.framework 缺 SSL CA bundle，Supabase REST 直接 hit 會 SSLCertVerificationError；要用 curl 繞
+- Shared MemPalace recovery workaround (hnsw:num_threads=1)；保留備份 /Users/leonard/mempalace/palace.pre-recovery.20260421_0838
+- Supabase free tier 500MB DB limit；現約 50MB
+- PROJECT_MASTER_SPEC 只記結構/不變量；事實條數/版本/mobile 進度一律以 SESSION_HANDOFF Current Baseline 為準，勿信 spec 內數字
+
+Validation status:
+- PASS: PROJECT_MASTER_SPEC.md 建立並接入 §1 序列；DOC_SYNC + CODEBASE_CONTEXT 同步；§4a check 無需封存
+- PENDING: 用戶 review PROJECT_MASTER_SPEC 內容是否需補充；Git push Session 109
+
+Post-startup first action: 詢問 Leonard：PROJECT_MASTER_SPEC.md 內容是否齊全（特別 §E 失敗教訓有冇遺漏），抑或直接開始 Mobile UI Phase 2 餘下頁面。
+```
+
+---
+
 ## 2026-05-05 Session 108 — Mobile UI Phase 2 ship（app.html search content）
 
 - **ID:** Claude_20260505_0001

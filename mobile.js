@@ -250,41 +250,71 @@
       + '</div>';
   }
 
-  function renderLoading(list) {
+  function renderLoading(list, query) {
     list.innerHTML = ''
-      + '<div style="padding:32px 20px;text-align:center;color:var(--m-text-secondary);font-size:14px">'
+      + '<div id="m-loading-box" style="padding:32px 20px;text-align:center;color:var(--m-text-secondary);font-size:14px">'
       +   '<div style="display:inline-flex;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:var(--m-edb-mid);animation:m-pulse 1s infinite"></span><span style="width:8px;height:8px;border-radius:50%;background:var(--m-edb-mid);animation:m-pulse 1s infinite 0.15s"></span><span style="width:8px;height:8px;border-radius:50%;background:var(--m-edb-mid);animation:m-pulse 1s infinite 0.3s"></span></div>'
-      +   '<div style="margin-top:12px">語義搜尋中，首次查詢約 10–30 秒…</div>'
+      +   '<div id="m-loading-text" style="margin-top:12px">正在搜尋…</div>'
       + '</div>'
       + '<style>@keyframes m-pulse{0%,100%{opacity:0.3}50%{opacity:1}}</style>';
   }
 
-  function renderError(list, msg) {
+  function updateLoadingText(text) {
+    const t = document.getElementById('m-loading-text');
+    if (t) t.textContent = text;
+  }
+
+  function renderError(list, msg, query) {
     list.innerHTML = ''
-      + '<div style="padding:24px 16px;text-align:center;color:#c0392b;background:#fdecea;border-radius:12px;margin:16px;font-size:14px">'
-      + '⚠️ ' + (msg || '搜尋暫時不可用，請稍後再試') + '</div>';
+      + '<div style="padding:20px 16px;text-align:center;color:#c0392b;background:#fdecea;border-radius:12px;margin:16px;font-size:14px;line-height:1.6">'
+      +   '⚠️ ' + escapeHTML(msg || '搜尋暫時不可用，請稍後再試')
+      +   (query ? '<button id="m-retry-btn" type="button" style="display:block;margin:14px auto 0;padding:10px 20px;background:var(--m-edb-deep);color:#fff;border:0;border-radius:var(--m-r-pill);font-weight:700;font-size:14px;cursor:pointer">重試搜尋</button>' : '')
+      + '</div>';
+    if (query) {
+      const btn = document.getElementById('m-retry-btn');
+      if (btn) btn.addEventListener('click', () => runSearch(query, list));
+    }
   }
 
   async function runSearch(query, list) {
-    renderLoading(list);
+    renderLoading(list, query);
+    // Cold start awareness: progressively update loading text
+    const t1 = setTimeout(() => updateLoadingText('正在喚醒伺服器…首次查詢約 30 秒'), 5000);
+    const t2 = setTimeout(() => updateLoadingText('伺服器即將就緒，請耐心等候'), 20000);
+    const t3 = setTimeout(() => updateLoadingText('幾乎好了，再等多陣…'), 40000);
+
+    // 60-second hard timeout via AbortController
+    const ctrl = new AbortController();
+    const killTimer = setTimeout(() => ctrl.abort(), 60000);
+
     try {
       const resp = await fetch(BACKEND_URL + '/api/search/combined', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: query, top_k: 8, min_score: 0.15, synthesize: true, enable_topic_filter: true }),
+        signal: ctrl.signal,
       });
+      clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(killTimer);
+
       if (resp.status === 429) {
-        renderError(list, '搜尋次數過多，請稍候再試（每分鐘 10 次）');
+        renderError(list, '搜尋次數過多，請稍候再試（每分鐘上限 10 次）', query);
         return;
       }
       if (!resp.ok) {
-        renderError(list, '伺服器回應 ' + resp.status);
+        renderError(list, '伺服器回應 HTTP ' + resp.status + '；可能需要重試', query);
         return;
       }
       const data = await resp.json();
       renderResults(list, data, query);
     } catch (err) {
-      renderError(list, '網絡連接失敗');
+      clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(killTimer);
+      const isAbort = err && err.name === 'AbortError';
+      const isNet = err && /network|failed to fetch/i.test(err.message || '');
+      let msg;
+      if (isAbort) msg = '搜尋超時（60 秒）。Render 免費版閒置會休眠，第一次查詢需喚醒，請按重試';
+      else if (isNet) msg = '網絡連接失敗，請檢查 Wi-Fi / 流動數據後重試';
+      else msg = '搜尋失敗：' + (err && err.message ? err.message : '未知錯誤');
+      renderError(list, msg, query);
     }
   }
 
@@ -380,7 +410,6 @@
       buildAppShell();
     } else if (here === 'app.html' && hash === '#guidelines') {
       // Fallback: 暫露 React GuidelinesPanel（下節做專用 mobile render）
-      // Override mobile.css hide rule via inline style + !important
       const tryShow = () => {
         const root = document.getElementById('root');
         if (root) {
@@ -389,10 +418,14 @@
         }
       };
       tryShow();
-      // React 後 mount → retry 一次
       setTimeout(tryShow, 500);
+    } else if (here === 'index.html' || here === '') {
+      buildIndexShell();
+    } else if (here === 'q.html') {
+      buildQShell();
+    } else if (here === 't-purchase.html') {
+      buildTPurchaseShell();
     }
-    // index.html / q.html / t-purchase.html → Phase 2 next session
 
     // Build tab bar (every page)
     buildTabBar();

@@ -20,7 +20,8 @@
 1. Read `dev/SESSION_HANDOFF.md`
 2. Read `dev/SESSION_LOG.md`
 3. Read `dev/CODEBASE_CONTEXT.md`
-4. Confirm environment: backend needs `OPENAI_API_KEY` in `backend/.env`
+4. Read `dev/PROJECT_MASTER_SPEC.md` (long-term spec + cross-agent handoff knowledge: goals, architected systems, proven methods, failure lessons, locked decisions)
+5. Confirm environment: backend needs `OPENAI_API_KEY` in `backend/.env`
 
 ---
 
@@ -112,26 +113,35 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合）
 
 ## Last Session Record
-1. UTC date: 2026-05-05
-2. Session ID: Claude_20260505_0001 (Session 108)
+1. UTC date: 2026-05-16
+2. Session ID: Claude_20260516_0841 (Session 109)
 3. Completed:
-   - ✅ **[Mobile UI Phase 2 — app.html ship]** mobile.js 加 buildAppShell：hero gradient + search form + result cards + bottom sheet + 接 backend `/api/search/combined`（synthesize + topic_filter）
-   - ✅ **[Source helpers]** SOURCE_LABEL map（12 條 source_id → 中文名）+ sourceIcon 自動分類；result card 用 emoji + 中文 label
-   - ✅ **[Empty / loading / error / 429 states]** 全狀態都有 user-friendly 提示
-   - ✅ **[#guidelines fallback]** override mobile.css hide rule 暫露 React panel（下節做 mobile-native）
+   - ✅ **[PROJECT_MASTER_SPEC.md 建立]** 新建 `dev/PROJECT_MASTER_SPEC.md` 作長期權威規格 + 跨 agent 交接知識庫：§A 系統目標/scope/不變量 + §B 功能要求 + §C 已架構系統地圖 + §D 13 條高效已知方法 + §E 9 類必避失敗教訓（提煉自 archive Q1+Q2）+ §F 10 條鎖定決策 + §G 下一個 agent 起手指南
+   - ✅ **[Governance wiring]** CODEBASE_CONTEXT directory map + AI Maintenance Log；DOC_SYNC_CHECKLIST 加 2 條 project-specific row；Mandatory Start Checklist 加第 4 項（讀 PROJECT_MASTER_SPEC）
 4. Pending from this session (not yet done):
-   - 用戶 mobile reload 確認 search flow 正常
+   - 用戶 review PROJECT_MASTER_SPEC.md 內容是否需補充
+   - Git push（Session 109 closeout）— 用戶 Terminal
 5. Next priorities (max 3 — 詳見 Open Priorities)：
-   - Phase 2 餘下（index/q/t-purchase/guidelines）
+   - Mobile UI Phase 2 餘下（index/q/t-purchase/#guidelines）
    - Q&A admin login backlog
-   - HKEAA source family
+   - HKEAA source family 補完
 6. Risks / blockers:
    - Cowork sandbox egress allowlist 不含 edb.gov.hk / edb-knowledge.onrender.com / apps.apple.com → 線上驗證需用戶 Terminal / browser
-   - Render free tier cold start (~30s) after 15min inactivity → mobile 第一次 search 可能等
-   - index.html / q.html / t-purchase.html mobile reload 仲一片空白
+   - Render free tier cold start (~30s) after 15min inactivity
+   - index.html / q.html / t-purchase.html mobile reload 仲一片空白（Phase 2 未做）
    - Mac Python.framework 缺 SSL CA bundle，Supabase REST 直接 hit 會 SSLCertVerificationError；要用 curl 繞
    - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`
    - Supabase free tier: 500MB DB limit; wiki_chunks currently ~50MB with embeddings
+
+## Previous Session Record
+1. UTC date: 2026-05-05
+2. Session ID: Claude_20260505_0001 (Session 108)
+3. Completed:
+   - ✅ **[Mobile UI Phase 2 — app.html ship]** mobile.js 加 buildAppShell：hero gradient + search form + result cards + bottom sheet + 接 backend `/api/search/combined`
+   - ✅ **[Source helpers + states]** SOURCE_LABEL map 12 條 + sourceIcon 自動分類；empty/loading/error/429 全狀態提示；#guidelines fallback 暫露 React panel
+4. Pending: 用戶 mobile reload 確認 search flow
+5. Next priorities: Phase 2 餘下 / Q&A admin login backlog / HKEAA source family
+6. Risks / blockers: 同上（sandbox egress / Render cold start / mobile content / SSL / MemPalace / Supabase）
 
 ## Previous Session Record
 1. UTC date: 2026-05-03
@@ -177,29 +187,6 @@ source_registry → same vault PDFs → ai_extract.py
    - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`
    - Supabase free tier: 500MB DB limit; wiki_chunks currently ~50MB with embeddings
    - index.html dynamic stats 用 fetch knowledge.json — file:// protocol 開 index.html 可能 CORS 失敗；fallback 用 hardcoded 數字（無 break）
-
-## Previous Session Record
-1. UTC date: 2026-05-03
-2. Session ID: Claude_20260503_0002 (Session 105)
-3. Completed:
-   - ✅ **[E 健康檢查]** 三層 facts v2.3.0 / 792 一致；governance 5 文件齊全；12 backup 快照；2 archive quarterly 文件
-   - ✅ **[B g21/g22/g33 triage]** 三者 source_type='pdf' 但 url_primary 全缺，需要 user 開 EDB 補
-   - ✅ **[D Query expansion 候選]** curriculum (3字) 同 activity (2字) vocabulary 最淺；候選驗證 query 列出（finance/curriculum/activity 各 1-3 條）
-   - ✅ **[A vault refresh 計劃]** 學校行政手冊軟 dedup 已 ship 足夠；13 entries 分三類處理方案出齊（6 已 fallback / 2 需 EDB inspect / 5 等 xlsx 上傳）
-4. Pending from this session (not yet done):
-   - Git commit + push（Session 105 entry + handoff 更新）
-   - 視 user 揀方向（Query expansion 驗證 / EDB PDF 補完 / xlsx 上傳 / 新功能）
-5. Next priorities (max 3 — 詳見 Open Priorities)：
-   - Query expansion 驗證 query 線上跑
-   - g21/g22/g33 直連 PDF 補完
-   - 開新功能方向
-6. Risks / blockers:
-   - Cowork sandbox egress allowlist 不含 edb.gov.hk → URL inspect 同 xlsx 下載需 user browser
-   - Cowork sandbox egress allowlist 不含 edb-knowledge.onrender.com → 線上 query 驗證需用戶 Terminal
-   - Render free tier cold start (~30s) after 15min inactivity
-   - Mac Python.framework 缺 SSL CA bundle，Supabase REST 直接 hit 會 SSLCertVerificationError；要用 curl 繞
-   - Shared MemPalace recovery workaround (`hnsw:num_threads=1`); keep backup at `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`
-   - Supabase free tier: 500MB DB limit; wiki_chunks currently ~50MB with embeddings
 
 ## Session Close Checklist (每次 session 結束必須執行)
 ```bash

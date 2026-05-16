@@ -25,6 +25,8 @@
 | Backend README / standalone runbook added | CODEBASE_CONTEXT.md Build & Run or Directory Map; SESSION_HANDOFF.md priorities if operator flow changes; SESSION_LOG.md task entry + QC evidence | manual review |
 | Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | manual review |
 | _[Add project-specific rows below this line]_ | | |
+| Long-term spec / locked decision / architecture invariant change | dev/PROJECT_MASTER_SPEC.md (relevant §A–§G section); CODEBASE_CONTEXT.md Key Decisions if direction shifts; SESSION_HANDOFF.md if baseline affected | manual review |
+| New cross-agent handoff knowledge doc added | CODEBASE_CONTEXT.md Directory Map + AI Maintenance Log; this registry (row presence); SESSION_HANDOFF/LOG | row presence check |
 
 ## Anti-pattern: No Matching Row
 
