@@ -39,7 +39,7 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Current objective and progress state:
 - Session 111 (2026-05-16, Claude_20260516_1952) 三塊全部完成：(1) truth-pass v2 — 揭發並消化 8 個 un-logged commit（c78685f..ae31084，含 dedup 792→455 / Channel B Supabase enablement kit / mobile fallback / app refactor，已 push）+ S110 從未 commit 文檔修正；治理讀set 重對齊 455/ae31084 + 指引 4 數字釐清框。(2) Team A — CHANGELOG/K1_API_SPEC/README 編號對齊（CHANGELOG 補 v2.3.0 2026-05-16 dedup entry + 解 version 撞號；guidelines 公開 count 39 保留）。(3) #3 — app.html `INITIAL_REVIEW_STATE` 由舊 1,001-keyed 重生為 455 全 approved + `LOCAL_SNAPSHOT_KEY` v2→v3（修登入後 admin review/approve/snapshot 對唔上）。
-- 商品狀態（已實測）：v2.3.0 / role_facts 三層 byte-identical 455 / guidelines.json 公開 39（app 內庫 GUIDELINES_REGISTRY 148）/ Supabase 10,736 chunks / git main=origin/main @ ae31084（未計本 session 未 commit 改動）。
+- 商品狀態（已實測）：v2.3.0 / role_facts 三層 byte-identical 455 / guidelines.json 公開 39（app 內庫 GUIDELINES_REGISTRY 148）/ Supabase 10,736 chunks / git main=origin/main @ `b38f3c4`（本 session 全部已 commit+push：`019df6c` 主體 + `b38f3c4` #3-verified 校正；working tree 乾淨）。
 - 未郁公開契約（guidelines.json 維持 39）；#3 屬資料對齊非功能改寫。
 
 Pending tasks in priority order:
@@ -59,7 +59,7 @@ Known risks / blockers / cautions:
 - 🔴 PROJECT_MASTER_SPEC §E.10：公開站 client-side admin 閘門非安全邊界 + 密碼曾入 log；碰 admin/auth/公開推送前必讀（全專案最嚴重未解風險，仍 open）。
 - 🔴 治理紀律根因：改 code/data 嘅 commit 必須同 pass 入 SESSION_LOG，否則交接讀set 失真（S111 desync 教訓）。load-bearing 數字（facts / git HEAD / min_score / 連 commit message）動手前一律 verify actual code/data/git。
 - guidelines 39 vs 148 = OPEN DECISION，未經 §3 HIGH-risk PLAN 唔好收斂或改 guidelines.json / app.html GUIDELINES_REGISTRY。
-- #3 後：回訪 admin localStorage 已 bump v3，舊本地未匯出編輯會棄（原本已 keyed 壞 index 不可信）；Leonard 親驗未做。
+- #3 後：回訪 admin localStorage 已 bump v3，舊本地未匯出編輯會棄（原本已 keyed 壞 index 不可信）；**Leonard 已親驗 PASS（見 455）**。
 - 產品方向未定 → 唔好假設沿用舊 scope。
 - Repo 路徑含空格 → shell 指令必雙引號絕對路徑；舊路徑 ~/Downloads/Claude-edb-knowledge 已不存在。
 - Cowork sandbox egress 不含 edb.gov.hk / onrender.com / apps.apple.com → 線上 / admin-login 驗證交 Leonard Terminal/browser。
@@ -72,7 +72,7 @@ Validation status:
 - DONE: commit `019df6c` push origin/main + MemPalace sync 完成；#3 Leonard browser admin-login 親驗 PASS（見 455）。
 - PENDING: 只剩 Leonard 拍板 guidelines 39→148 OPEN DECISION + 產品方向（非技術 pending）。
 
-Post-startup first action: 完成 §1 起手序 + 讀 HANDOFF_PACKAGE 後，先 verify git HEAD（應 ≥ 019df6c）+ knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline（紀律），再問 Leonard：(1) guidelines 39→148 OPEN DECISION 要唔要而家走 §3 HIGH-risk PLAN；(2) 產品方向；(3) 定先做 Open Priorities（Mobile UI Phase 2 / 🔴 Q&A §E.10 / HKEAA）。#3 已驗證 PASS 無需再跟。未得確認前唔好對 scope / §F 鎖定決策 / 公開契約落手。
+Post-startup first action: 完成 §1 起手序 + 讀 HANDOFF_PACKAGE 後，先 verify git HEAD（應 ≥ `b38f3c4`）+ knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline（紀律），再問 Leonard：(1) guidelines 39→148 OPEN DECISION 要唔要而家走 §3 HIGH-risk PLAN；(2) 產品方向；(3) 定先做 Open Priorities（Mobile UI Phase 2 / 🔴 Q&A §E.10 / HKEAA）。#3 已驗證 PASS 無需再跟。未得確認前唔好對 scope / §F 鎖定決策 / 公開契約落手。
 ```
 
 ---
