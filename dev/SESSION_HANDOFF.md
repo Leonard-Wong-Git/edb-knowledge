@@ -1,11 +1,11 @@
 # Session Handoff
 
 ## Current Baseline
-1. Version: **v2.3.0** (K1知識平台 — Session 102 dedup)
+1. Version: **v2.3.0**；git `main`=`origin/main`@`ae31084`（2026-05-16；S109 closeout `c78685f` 之後 8 個 commit 含 dedup/Supabase kit/mobile/app refactor，**原文檔寫嘅 c78685f 已過時**）
 2. Frontend: `index.html` K1 landing page (hero + features + CTA); `t-purchase.html` S3/S4/S5 draft flow; `q.html` local `knowledge.json` Quick Q&A; `app.html` full React SPA / management workspace.
-3. Knowledge state: **792 Channel A facts** (三層同步 ✅，Session 102 dedup 由 1,001 → 792，移除 209 條 all_roles 與個別 role 副本), **0 candidates in queue**, **wiki_index.json** 12,906 chunks; **Supabase 10,736 chunks** (1,176 無 embedding skipped)。Vault: 120 sources 提取完成（8 skipped：scanned/SPA/無直連）。
+3. Knowledge state: **455 Channel A facts** (三層同步 ✅ byte-identical；2026-05-16 dedup 由 792 → 455，移除 275 條跨角色完全重複 + 合併 36 組相近事實，commit `711f911`，reversible log `dev/DEDUP_LOG_2026-05-16.md`；早前 Session 102 已 1,001 → 792), **0 candidates in queue**, **Supabase 10,736 chunks**。Vault: 120 sources 提取完成。**指引數字 4 層（148 app 內庫 / 39 公開 guidelines.json / 151 source_registry / 120 vault-extracted）見 PROJECT_MASTER_SPEC §B.1 釐清框 — 39 是否擴到 148 = OPEN DECISION，未收斂**。
 4. Backend: Node.js TypeScript backend all search APIs complete; **Channel A + B + A+B online at `https://edb-knowledge.onrender.com`**; rate limiting 10 req/min/IP (sliding window, in-memory).
-5. Channel A: 改用 backend semantic search + LLM synthesis（所有三個 channel 均有整理答案）；min_score A=0.1, B/AB=0.15；case-insensitive keyword fallback 已移除。
+5. Channel A: 改用 backend semantic search + LLM synthesis（所有三個 channel 均有整理答案）；min_score A=0.1, B/AB=0.22（2026-05-16 Session 110 對齊實際 code default，原寫 0.15 已過時）；case-insensitive keyword fallback 已移除。
 6. Channel B topic filtering（Session 94 完成）：keyword → category → source allowlist → query expansion。採購/財務 → g01+g02+coa_imc（排 SAG）；HR/假期 → g04+g05+sag；課程 → 課程指引。g04 仍為 knowledge-based extract（非 PDF）。
 7. Product copy baseline: Traditional Chinese UI; no public internal design/dev/backend commands.
 8. MemPalace: shared install `/Users/leonard/mempalace/.venv`, palace `/Users/leonard/mempalace/palace`, wing `claude_edb_knowledge`.
@@ -21,6 +21,7 @@
 2. Read `dev/SESSION_LOG.md`
 3. Read `dev/CODEBASE_CONTEXT.md`
 4. Read `dev/PROJECT_MASTER_SPEC.md` (long-term spec + cross-agent handoff knowledge: goals, architected systems, proven methods, failure lessons, locked decisions)
+4b. Read `dev/HANDOFF_PACKAGE.md` (Session 110+ — clean verified-state snapshot built by empirical check, not paraphrase; sits above the §1 read set as the trusted current-state map)
 5. Confirm environment: backend needs `OPENAI_API_KEY` in `backend/.env`
 
 ---
@@ -100,11 +101,12 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-1. **Mobile UI Phase 2 餘下**：app.html ✅ ship；剩 index.html mobile landing / q.html mobile inline / t-purchase.html mobile form / app.html#guidelines mobile-native render
-2. **Q&A backlog（Session 107）**：admin login「34 問題」audit + admin login security password gate
-3. **HKEAA / 考評局 source family 補完**（Session 105 SBA query 揭發 vault gap）— 為「校本評核 SBA / 公開試 / 考核 framework」query 補 source coverage
-4. **線上手動 sanity 8 條 query 結果驗證**（user 自跑後 paste 結果）— Finance / Activity / Kindergarten / HR / Student / General 各取 1-2 條，找潛在 coverage gap
-5. **g21/g22/g33 直連 PDF 補完 + 5 個 stat xlsx 下載**（user browser）— Session 105 audit 揭發 backlog
+1. **🟡 guidelines 39→148 OPEN DECISION**（Session 111 新揭）：Leonard 傾向收斂、本次刻意未執行。屬**對外契約變更**（影響下游 Circular System，curriculum 桶 ~25→127），須走 AGENTS.md §3 HIGH-risk PLAN。詳見 PROJECT_MASTER_SPEC §B.1 釐清框。
+2. **🟡 等 Leonard 拍板產品方向**：scope / 目標用戶 / Channel B 是否接 Circular System / Mobile UI Phase 2 是否繼續。**未得確認前唔好對 scope 或 §F 鎖定決策落手。**
+3. **🔎 待 Leonard 親驗 #3（S111 修）**：browser admin-login 後確認「知識提煉/知識管理」見 455（非 1,001）、approve/reject toggle + snapshot 匯出正常、`LOCAL_SNAPSHOT_KEY` v3 令舊壞 localStorage 棄掉。sandbox 入唔到 admin 閘門，必須 Leonard 親驗；有 bug 即修。
+4. **Mobile UI Phase 2 餘下**：index.html mobile landing / q.html mobile inline / t-purchase.html mobile form / app.html#guidelines mobile-native render（app.html search ✅ ship）
+5. **🔴 Q&A admin-login security**：admin login password gate（client-side 閘門非安全邊界 — PROJECT_MASTER_SPEC §E.10，全專案最嚴重未解風險）+「34 問題」audit
+6. **HKEAA source family 補完**（S105 SBA gap）；**（doc-debt 低）** CODEBASE_CONTEXT L29「v1.3.1」標籤 drift / 補 Supabase External Services block / 清 `searchChannelB.ts` stale header / `semanticRegression.ts` guidelines version 斷言 1.3.1（實 2.2.0）
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 - g21/g22/g33 直連 PDF 補完（user browser）— Session 105 audit 揭發三者 source_type='pdf' 但 url_primary 缺
@@ -113,6 +115,51 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合）
 
 ## Last Session Record
+1. UTC date: 2026-05-16
+2. Session ID: Claude_20260516_1952 (Session 111)
+3. Completed（三塊）:
+   - ✅ **[truth-pass v2]** 揭發並消化 governance/state desync：8 個 un-logged commit `c78685f..ae31084`（dedup 792→455 `711f911` / Channel B Supabase kit / mobile fallback / app refactor，已 push）+ S110 從未 commit 文檔修正。治理讀set（PROJECT_MASTER_SPEC/CODEBASE_CONTEXT/HANDOFF_PACKAGE/SESSION_HANDOFF）重對齊 455/ae31084；§B.1 4 數字釐清框（148 app 內庫 / 39 公開 / 151 registry / 120 extracted）+ 更正「148 過時」錯說法；§E.2/§G.2/§F.9 教訓固化
+   - ✅ **[Team A 對外文件編號對齊]** CHANGELOG（+v2.3.0 2026-05-16 dedup entry + 解 version 撞號 v2.3.0@05-03→v2.2.1）/ K1_API_SPEC（§3 v1.3.1→2.3.0、§6 v→2.2.0 **count 39 留**）/ README（148 in-app vs 39 公開釐清）；K1_KNOWLEDGE_INTERFACE_SPEC 已對齊。git diff 逐檔 verify 零 scope creep
+   - ✅ **[Team B audit + #3 修]** read-only 確認 `INITIAL_REVIEW_STATE` 仍 1,001-keyed vs 455 嚴重錯位；修（範圍=只修資料對齊）：`dev/regen_review_state_s111.py`（先 backup）重生 **455 全 approved** 保持單行 inlined（E.1）+ comment @713/@1483 + `LOCAL_SNAPSHOT_KEY` v2→v3。零 json/data 改動
+   - ✅ 過程自我修正：照 commit message 誤判 app.html 148 regression，verify `GUIDELINES_REGISTRY.length` 後更正（已固化 §G.2）
+4. Pending（用戶 Terminal，含空格路徑雙引號）:
+   - 一個 consolidated git add+commit+push（治理 + 對外文件 + app.html #3 + 新 HANDOFF_PACKAGE.md + regen 腳本，連 S110 從未 commit 編輯）+ MemPalace sync
+   - Leonard browser admin-login **親驗 #3**（sandbox 入唔到，必須親驗）；拍板 guidelines OPEN DECISION + 產品方向
+5. Next priorities (max 3 — 詳見 Open Priorities)：
+   - Leonard 親驗 #3 admin-login（有 bug 即修）
+   - guidelines 39→148 OPEN DECISION（須 §3 HIGH-risk PLAN）/ 產品方向待拍板
+   - Mobile UI Phase 2 餘下 / Q&A §E.10
+6. Risks / blockers:
+   - 🔴 §E.10：公開站 client-side admin 閘門非安全邊界 + 密碼曾入 log（最嚴重未解風險，仍 open）
+   - 🔴 治理根因：改 code/data 嘅 commit 必須同 pass 入 SESSION_LOG，否則交接讀set 失真（S111 desync 教訓）；load-bearing 數字（facts/git HEAD/min_score/連 commit message）動手前 verify actual code/data/git
+   - guidelines 39 vs 148 = OPEN DECISION，未經 §3 HIGH-risk PLAN 唔好收斂 / 改 guidelines.json / app.html GUIDELINES_REGISTRY
+   - #3 後回訪 admin localStorage 已 bump v3，舊本地未匯出編輯會棄（原已 keyed 壞 index 不可信）；Leonard 親驗未做
+   - 產品方向未定 → 唔好假設沿用舊 scope
+   - 其餘同下（路徑空格 / sandbox egress / Render cold start / bump_version / SSL / MemPalace / Supabase）
+
+## Previous Session Record
+1. UTC date: 2026-05-16
+2. Session ID: Claude_20260516_1652 (Session 110)
+3. Completed:
+   - ✅ **[文檔 drift truth-pass]** 實測 verify 真實 repo state，修正 D1–D5：§B.1 148→39（+釐清框）/ CODEBASE_CONTEXT 1,001→792 ×2 / wikiRepository L39 改寫成 Supabase 架構（原描述已被取代）/ baseline #5 min_score 0.15→0.22
+   - ✅ **[§E 補完]** PROJECT_MASTER_SPEC +E.10（🔴 公開站 client-side admin 閘門 + 密碼曾入 log，至今 open）/ +E.11（Channel A topic 污染）/ +E.12（EDB 改版打爛 26 URL）；強化 E.4/E.5/E.8 復發成本
+   - ✅ **[Banners]** §F「產品方向審視中、非不可變」+ §G.2「連 SESSION_HANDOFF/CODEBASE_CONTEXT 都會 drift，verify code」
+   - ✅ **[新增 dev/HANDOFF_PACKAGE.md]** self-contained 乾淨可信交接快照（verified-state 表 / 邊度亂 / 開放決策 / 接手第一步）；接入 Start Checklist 4b + DOC_SYNC registry（+1 row）
+   - ✅ 未動任何 code / tech stack（純文檔準確性）
+4. Pending（用戶 Terminal，新路徑）:
+   - Git commit + push（含本 session 文檔修正 + HANDOFF_PACKAGE）
+   - Leonard review HANDOFF_PACKAGE 內容是否需補 / 拍板產品方向
+5. Next priorities (max 3 — 詳見 Open Priorities)：
+   - 等 Leonard 拍板產品方向（未確認前唔好對 scope/§F 落手）
+   - Mobile UI Phase 2 餘下 / Q&A admin-login security（§E.10）
+   - HKEAA source family 補完
+6. Risks / blockers:
+   - 🔴 §E.10：公開站 client-side admin 閘門非安全邊界 + 密碼曾入 log（全專案最嚴重未解風險，仍 open）；碰 admin/auth/公開推送前必讀
+   - 產品方向未定 → 唔好假設沿用舊 scope；§F 已標 current-state 非鎖死
+   - 文檔曾 drift（D1–D5 已修）；load-bearing 常數動手前 verify actual code/data
+   - 其餘同下（路徑空格 / sandbox egress / Render cold start / bump_version / SSL / MemPalace / Supabase）
+
+## Previous Session Record
 1. UTC date: 2026-05-16
 2. Session ID: Claude_20260516_0841 (Session 109)
 3. Completed:

@@ -6,7 +6,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [v2.3.0] — 2026-05-03
+## [v2.3.0] — 2026-05-16
+
+### Changed
+- **語義去重（792 → 455 facts）**：三層同步（root role_facts.json + knowledge.json + dev/knowledge/role_facts.json）
+  - Phase 1：合併 193 組跨 bucket 完全重複字串至 `all_roles`，移除 275 條跨角色完全重複副本
+  - Phase 2：合併 36 組相近事實為加強版 canonical 句子（折疊 98 個變體出現）
+  - backend selector union（`all_roles` + role buckets）擔保無語義內容流失，無角色失去可見度
+  - 衝突事實（不同日期／科目／數字）刻意保留分開
+  - 可逆合併日誌：`dev/DEDUP_LOG_2026-05-16.md`（commit 711f911）
+- **`knowledge.json` `_meta` 更新**：version 2.3.0、updated 2026-05-16、stats `{facts:455, chunks:10736, sources:120, guidelines:39, topics:7}`
+
+---
+
+## [v2.2.1] — 2026-05-03
 
 ### Changed
 - **已核實事實庫去重**：Strategy B dedup 三層同步（root role_facts.json + knowledge.json + dev/knowledge/role_facts.json）由 1,001 → 792 facts；移除 209 條 all_roles 與個別 role bucket 重複副本；backend selector union 邏輯擔保 Circular System 注入內容不變

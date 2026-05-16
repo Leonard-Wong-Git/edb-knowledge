@@ -47,10 +47,19 @@
 |---|---|
 | 平台介紹 | Hero + 統計（從 `knowledge.json` `_meta.stats` 動態取，**禁止 hardcode**）+ 核心功能說明 + 來源條 |
 | 政策搜尋 | 三模式：已核實資料（Channel A）/ 來源文件（Channel B）/ 合併（A+B）。Channel A 可離線；B / A+B 需 backend |
-| 指引文件庫 | 148 份 EDB 指引，三層排序：範疇 → 子類別(`sub_category`) → 年份降序；同科分組小標題 |
+| 指引文件庫 | **148** 份 EDB 文件（app.html `GUIDELINES_REGISTRY`，subtitle 用 `.length` 動態反映；= 全 channel 知識基礎文件全集）；三層排序：範疇 → 子類別(`sub_category`) → 年份降序；同科分組小標題。公開 `guidelines.json` 端點為其中 **39** 份精選子集（見下方釐清框）|
 | 通告分析 | 貼入 EDB 通告文字 → AI 識別主題 / 影響角色 / 政策要點 |
 | ✍️ 知識提煉（Admin） | 左右分欄：左候選 queue，右證據 / inline 修訂 / 角色檢視；approve/reject 資料流 |
 | ⚙️ 知識管理（Admin） | 批量管理、匯出（admin only）、版本控制 |
+
+> **數字釐清（極易混淆，下一個 agent 必讀；2026-05-16 truth-pass v2 實測重寫）**：四個「指引/來源」數字是不同層級與 scope，**全部都係真實有效**，勿混為一談 —
+> - `app.html` `GUIDELINES_REGISTRY` = **148** 份文件 —— 用戶喺「指引文件庫」tab 真正 browse 到嘅全集；A / B / A+B 各 channel 嘅知識本質上都由呢 148 份 EDB 文件衍生。subtitle 用 `GUIDELINES_REGISTRY.length` 動態反映（commit `0871bbe`，**非 bug**）。
+> - `guidelines.json` = **39** 份 —— 對外公開端點，係上述 148 嘅**嚴格子集**（精選核心行政指引，給 Circular System 按主題 fetch）。精簡 schema：`id/title/titleShort/url/year/format`（+curriculum `level`），不洩漏內部 `category/sub_category/isSpine`。
+> - `dev/source/source_registry.json` = **151** 個來源 entry（vault 提取來源登記表，provenance / freshness 層）。
+> - 其中 **120** 個已完成 vault 提取（= `knowledge.json._meta.stats.sources`，SESSION_HANDOFF baseline 引用的 "120 sources"）。
+>
+> ⚠️ **OPEN DECISION（2026-05-16，Leonard 傾向收斂但本次刻意未執行）**：公開 `guidelines.json` 應否由 39 擴張到 **148**，令對外端點反映「所有 channel 都係 148 份文件做基礎」。屬**對外契約變更**，影響下游 Circular System（curriculum 桶 ~25→127），須走 AGENTS.md §3 HIGH-risk PLAN + 更新 §F.3。truth-pass v2 僅明文化、**不收斂**。
+> 註：舊版本框曾寫「148 是過時 registry 計數，已不準」——**該說法本身先係錯**（亦曾誤導 Session 111 一度當佢係 regression）。148 一直係 app 內庫實數，已更正。
 
 ### B.2 `index.html` — 入口頁
 EDB palette landing；hero + 核心功能 anchor；CTA 導向搜尋／文件庫；統計從 `knowledge.json` `_meta.stats` 動態 fetch（`file://` CORS 失敗時 fallback hardcoded，不可 break）。
@@ -159,18 +168,19 @@ source_registry → 同 vault PDFs → ai_extract.py
 ### E.2 知識三層嚴重脫節（Session 88）+ 48% 重複（Session 102）
 - **根因**：審批的新事實只入 `dev/knowledge/role_facts.json`，未同步 repo-root + `knowledge.json`；又因同一 fact 出現在 `all_roles` + 個別 role × N 造成 1,001 條中 484 條 exact duplicate。
 - **防線**：任何 role_facts 改動**必須三層同步**；大規模 dedup 用 Strategy B（保 all_roles 副本、刪 role bucket 副本），先 backup、驗 selector union、確認注入不變。數字會變，**同步不變量不可破**。
+- **2026-05-16 復發（同類，第三次）**：再 dedup 792 → **455**（移除 275 條跨角色完全重複 + 合併 36 組相近事實，commit `711f911`，reversible log `dev/DEDUP_LOG_2026-05-16.md`）。三層 dedup 紀律本身守住（reversible log + 三層 byte-identical），但**該批 commit 完全冇入 SESSION_LOG**（連同 7 個其他 2026-05-16 commit）——衍生 Session 111 治理 gap 發現（見 SESSION_LOG）。教訓延伸：dedup 安全程序 ≠ 治理紀律；繞過 SESSION_LOG 嘅 commit 會令交接讀set 失真。
 
 ### E.3 Channel B 系統性品質問題（Sessions 93→104，四輪治理）
 - **根因**：`wiki_index` 中 SAG 佔比過高壓倒行政指引；g04 曾是 knowledge-based LLM 內容非真實 PDF；抽象 query embedding 被強勢 source 語境拉偏 → 「採購門檻」返回教師註冊、「教職員請假」返回教師資歷。
 - **防線**：routing 層（keyword topic detect + source allowlist + query expansion）+ retrieval 層（per-source quota + over-fetch + SOURCE_ALIASES 軟 dedup）。改 Channel B 排序前先理解這四輪，勿回退。
 
-### E.4 外部平台字段憑記憶猜（EDB 爬蟲，Sessions BE02–BE03，多 session 浪費）
-- **根因**：POST 字段名靠記憶假設（猜 `ContentPlaceHolder1`，實為 `MainContentPlaceHolder`）；表格結構假設錯（EDB 用 `td.circularResultRow`）。
-- **防線**：AGENTS.md §0b — 外部平台一律實測解析，禁止憑記憶輸出高風險指令。
+### E.4 外部平台字段憑記憶猜（EDB 爬蟲，~5 個 backend session 浪費：BE01→BE02→BE03 + `_parse_list` 全重寫）
+- **根因**：POST 字段名靠記憶假設（猜 `ContentPlaceHolder1`，實為 `MainContentPlaceHolder`）；表格結構假設錯（EDB 用 `td.circularResultRow`）；ASP.NET ViewState 處理錯，debug chain 橫跨多個 backend session。
+- **防線**：AGENTS.md §0b — 外部平台一律實測解析，禁止憑記憶輸出高風險指令。**成本教訓**：此類「憑記憶猜外部字段」是本專案最貴的 rework 來源之一（多 session 浪費），不是單次小錯。
 
-### E.5 LLM 模型參數踩坑（反覆）
-- **根因**：(a) gpt-5-nano 是推理模型，`max_completion_tokens` 被推理耗盡返空、不支援 `system` role；(b) 部分模型 `temperature` 非 1 會 400。
-- **防線**：模型參數固定值寫入 `SESSION_HANDOFF.md` Known Risks 作 SSOT，跑前對齊官方文檔，勿沿用記憶。
+### E.5 LLM 模型參數踩坑（**確認跨工具復發**：backend BE04 + Phase 3 `extract_candidates.py` 各獨立踩同一坑）
+- **根因**：(a) gpt-5-nano 是推理模型，`max_completion_tokens` 被推理耗盡返空、不支援 `system` role（需 `developer` role）；(b) 部分模型 `temperature` 非 1 會 400。同一推理模型陷阱在 backend session 解過一次後，於完全無關的 `extract_candidates.py` pipeline 被另一 agent **再踩再解一次** — 跨 session / 跨工具復發，是最強的 rule-promotion 訊號。
+- **防線**：模型參數固定值寫入 `SESSION_HANDOFF.md` Known Risks 作 SSOT，跑前對齊官方文檔，勿沿用記憶。接任何新推理模型前先查官方 param 差異（reasoning token / role 名 / temperature 限制）。
 
 ### E.6 排程覆蓋全量數據 / git rebase 覆蓋治理文件
 - **根因**：days-3 排程直接重寫 JSON 不 merge；GitHub Actions 自動 commit 致遠端領先，`git pull --rebase` 覆蓋 `SESSION_HANDOFF.md`。
@@ -185,7 +195,7 @@ source_registry → 同 vault PDFs → ai_extract.py
 - pdfminer C 擴展卡死 SIGTERM 無效 → 用 `proc.kill()`（SIGKILL）+ `join(2)` + 雙重抑制 pdfminer logging。
 - MemPalace ChromaDB Rust segfault → SQLite 抽取 + `hnsw:num_threads=1` 重建（GitHub issue #974）；用 venv python（system python3 無 chromadb）。
 - Supabase 上線後查詢失敗 → anon role 兩個 GRANT 都要；棄 supabase-js 改 direct `fetch()` + `toFixed(8)` embedding string。
-- `bump_version.py` 有「known to incorrectly wipe role_facts.json schema」紀錄 → 跑前 backup，跑後驗 schema。
+- `bump_version.py` **曾於 Session 64（v1.4.0 release）實際觸發** wipe role_facts.json schema（release 後要把 schema 還原回 2.0.0）→ 不是理論風險，是已 fire 過的 release-time foot-gun；跑前必 backup，跑後必驗 schema。
 - EDB HTML 頁面永久封 iframe → 用 smart fallback panel，不要再試 iframe embed。
 - 實作「新」函數前先 grep 舊定義（曾 `printDetail()` 重複定義）。
 
@@ -193,9 +203,26 @@ source_registry → 同 vault PDFs → ai_extract.py
 - **根因**：曾差點 mount / 修改 Circular System repo。
 - **防線**：K1 與 Circular System 是**兩個獨立專案**；K1 只出公開 JSON 端點，不碰對方 repo（見 §A.3）。
 
+### E.10 公開站點的 client-side admin 閘門 + 密碼明文入 log（🔴 資料/安全風險，跨 Sessions 19–27 反覆，至今仍 open）
+- **根因**：Admin approve / edit / export / 知識管理 閘門只係瀏覽器端 SHA-256（`ADMIN_HASH`），整套控制隨靜態站 deploy 上**公開 GitHub Pages** — **不是真正安全邊界**，任何人可繞。更嚴重：Session 19 曾把明文密碼寫入 `SESSION_LOG.md`。此風險由 Session 19 起反覆出現、橫跨 6+ session，**至今仍係 open priority**（「admin login security password gate」OP #2）。
+- **防線**：(1) client-side 閘門只當 UI 便利，**永不可當安全邊界**；任何敏感控制（approve / export / 知識管理）暴露前必須有 server-side 驗證。(2) **絕不**把密碼 / API key / token 明文寫入任何 log / session 文件 / commit。(3) 公開 artifact push 前 grep secret pattern。這是全專案歷時最長、後果最嚴重的未解風險，下一個 agent 碰 admin / auth / 公開推送前必讀此條。
+
+### E.11 Channel A / analyze-circular 主題偵測污染（Sessions 19→21→63→66，patch 4 次）
+- **根因**：`SIMILARITY_THRESHOLD` 只係下限、無上限亦無相對 gap 過濾 → 財務通告拉入非財務事實，600-char budget 被次要主題塞滿。跨 4 session patch 4 次先靠 gap+cap 解決。
+- **防線**：topic 偵測不可只靠 similarity floor — 必須加 `MAX_TOPICS` 硬上限 + `SCORE_GAP` 相對過濾。重調 threshold 後必跑 5-case sim 回歸 + 2 條真實通告線上回歸先可宣稱修好。**此為 §E.3 的 Channel A 對應面**（§E.3 只講 Channel B retrieval），改 analyze-circular / Channel A 排序前兩條一齊讀。
+
+### E.12 EDB 全站改版一次過打爛 26 條 source URL（Session 61，兩輪緊急復原）
+- **根因**：EDB 官網無預警改版，registry 26 條 URL 同時 404；要兩輪緊急復原（17 主要 + 9 legacy）+ 建 freshness baseline + 每週 GitHub Actions CI。
+- **防線**：EDB 會無預警重組網站（已發生，非假設）→ `check_freshness.py` + 每週 CI 係常設防線，勿停。遇大規模 404：爬 landing page 搵新檔名 / 新路徑，**不要直接刪 source**（source 通常仍有效，只係搬咗）。參見 §D.12。
+
 ---
 
-## F. 鎖定決策（未經 user 明示不要推翻）
+## F. 鎖定決策（current-state 決策，非不可變法律 — 見下方 banner）
+
+> ⚠️ **產品方向審視中（2026-05-16，Leonard 明示）**：以下「鎖定決策」記錄嘅係**截至本次嘅 current-state 決策**，**不是不可變法律**。Leonard 已表明：產品方向可能要變、現有 codebase 偏亂難維護、且不完全信任既有文檔（本次實測已證實文檔有 drift，見 §G.2 banner）。下一個 agent 接手時：
+> - (a) 把 §F 當「現況點解係咁」嘅背景，**不是**「不准郁」嘅禁令；
+> - (b) 任何方向 / scope / 架構調整，同 Leonard 確認後即可推翻對應條目，並喺本文件**同 pass 更新**；
+> - (c) 變更鎖定決策必走 AGENTS.md §3 HIGH-risk PLAN 流程（出 PLAN → 等 user 確認 → 先 READ/CHANGE）。
 
 1. 單檔前端、無 build pipeline（CDN React/Babel/Tailwind）。
 2. `app.html` 為主 SPA；`index.html` 為 EDB landing；`k1-dashboard.html`/`landing.html`/`k1-wiki.html` 已刪不復活。
@@ -205,7 +232,7 @@ source_registry → 同 vault PDFs → ai_extract.py
 6. Channel B Circular System 整合**暫停**；Channel B 不 auto-write role_facts.json。
 7. 繁中產品語言基準；不暴露內部指令；範本流程未接通前只說「建立草稿／整理」。
 8. 角色拆分：`subject_head`（科主任）+ `panel_chair`（統籌主任/主任）+ `eo_admin`（EO）；未經 user 釐清不做廣泛術語統一。
-9. Guidelines 雙層排序（範疇 → `sub_category` → 時序降序）；QAPanel WordCloud 已移除不復活。
+9. Guidelines 雙層排序（範疇 → `sub_category` → 時序降序）；QAPanel WordCloud 已移除不復活。**公開 `guidelines.json` 現為 39 份精選子集，app 內庫實為 148 份**——「39 是否擴張到 148」係 OPEN DECISION（見 §B.1 釐清框），未經 §3 HIGH-risk PLAN 不收斂。
 10. 治理文件當 internal session state，git-ignore 規則依現狀。
 
 ---
@@ -217,6 +244,14 @@ source_registry → 同 vault PDFs → ai_extract.py
 
 ### G.2 當前狀態的權威來源
 **不要信本文件的數字。** 事實條數 / chunks / 版本號 / mobile 進度 / open priorities 一律以 `SESSION_HANDOFF.md` Current Baseline + Open Priorities 為準（會逐 session 更新）。本文件給的是**結構與不變量**。
+
+> ⚠️ **連 SESSION_HANDOFF / CODEBASE_CONTEXT / HANDOFF_PACKAGE 都會 drift，drift 仲會層層疊**（2026-05-16 兩次實測證實）：
+> - **drift 級聯實例**：Session 110 實測「修正」CODEBASE_CONTEXT `1,001 → 792`、出 HANDOFF_PACKAGE 標榜「乾淨可信快照」；但**同一日**另一條未入 SESSION_LOG 嘅 work-stream（8 個 commit）已 dedup 792 → **455**、HEAD 由 `c78685f` 推進到 `ae31084`，而 S110 自己嗰批文檔修正**從未 commit**。結果 Session 111 接手時，連「可信快照」都係 stale。→ truth-pass v2（Session 111）已重新對齊到 455 / ae31084。
+> - SESSION_HANDOFF baseline #5 寫 `min_score B/AB=0.15` 曾 drift，S110 已對齊 **0.22**（`searchChannelB.ts`/`searchCombined.ts` default；A=0.1 正確）——此項仍有效。
+> - 「148 是過時 registry 計數」嘅舊說法本身就係錯（§B.1 已更正）：148 = app 內庫實數，39 = 公開端點子集，兩者皆真。
+> - 連 commit message 都唔可盡信：`0871bbe`「guidelines=148」唔係 regression 而係正確；Session 111 一度照 message 誤判，verify GUIDELINES_REGISTRY.length 後更正。
+>
+> 教訓：對任何 **load-bearing 常數**（事實條數 / min_score / top_k / 模型參數 / 端點路徑 / 資料來源 / git HEAD），動手前以**實際 code / 資料 / git 為準**，文檔（連「可信快照」與 commit message）只作線索。發現 drift 即喺 PERSIST 修正對應文檔。**並且：任何改 code/data 嘅 commit 必須同 pass 入 SESSION_LOG**——Session 111 證實「commit 咗但冇入 SESSION_LOG」係令交接讀set 失真嘅根因，比單純文檔懶更新更危險。此 banner 留作方法論提醒。
 
 ### G.3 動手前自問
 1. 這屬 Product 層還是 Governance 層？（AGENTS.md §0a）

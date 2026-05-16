@@ -30,15 +30,16 @@ K1 **不分析通告**。Circular System **不儲存事實**。兩者以 JSON AP
 
 ---
 
-## 3. knowledge.json 實際格式（v1.3.1）
+## 3. knowledge.json 實際格式（v2.3.0）
 
 ```json
 {
   "_meta": {
-    "version": "1.3.1",
+    "version": "2.3.0",
     "created": "2026-04-04",
-    "updated": "2026-04-10",
-    "description": "..."
+    "updated": "2026-05-16",
+    "description": "...（455 條已核實事實；2026-05-16 dedup：792 → 455）...",
+    "stats": { "facts": 455, "chunks": 10736, "sources": 120, "guidelines": 39, "topics": 7 }
   },
   "finance": {
     "_label": "財務 / 採購 / 津貼 / 撥款",
@@ -129,8 +130,8 @@ facts = knowledge[topic].get("panel_chair", []) + knowledge[topic].get("all_role
 ```json
 {
   "_meta": {
-    "version": "1.3.1",
-    "updated": "2026-04-08",
+    "version": "2.2.0",
+    "updated": "2026-05-01",
     "count": 39
   },
   "finance": [
@@ -202,4 +203,4 @@ Fetch guidelines.json
 
 ---
 
-*K1 知識庫 — 最後更新：2026-04-11*
+*K1 知識庫 — 最後更新：2026-05-16*
