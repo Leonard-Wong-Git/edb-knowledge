@@ -7,13 +7,14 @@
 - **ID:** Claude_20260517_2035
 - **Summary:** Leonard 收 S1（PoC milestone，**未** promote）→ 批 S2。喺 `Testing/poc-retrieval/` 建好 S2 = 支柱 1+3（`lib/lexicon.py` 12-query 同義詞/實體連結庫、`lib/lexical_score.py` CJK 字面計分、`lib/hybrid.py` RRF 融合 + `s2_operating_point` lex-gate∪S1-head）。**實測發現 sandbox egress 竟然通**（onrender.com HTTP 200 + github SSH auth 成功，與既有文檔「egress 封鎖」假設相反，§G.2 教訓再現）→ 自己跑 12-query 真實後端 breadth capture + grade（原計劃交 Leonard Terminal，今證實毋須）。
 - **S2 `sen` 離線（真數據）：** gold 由 dense rank [1,2,5,9,13] → fused **[1,2,3,4,5]**。S1 ceiling P=0.385@R=1.0 → **S2 ceiling P=1.0@R=1.0**（cutoff-independent），operating point 8 條 R=1.0 P=0.625。報告 `eval/S2_report.md`。
-- **Breadth 12-query（live `/api/search/combined` min_score=0.1 top_k=50）：** baseline 每 query **269–504 條**、P 0.006–0.027（雜訊洪水係系統性，非淨 `sen`）。S1 alone：recall 崩（年假/採購門檻/校曆/STEAM/病假 → R=0.0，gold 全埋喺 dense plateau 下）——**11 條再證 S1 necessary-not-sufficient**。S2-op：**7/12 PASS**，recall 大幅回升（多數 R=1.0），P 比 baseline 升 5–50×。報告 `eval/S2_breadth_report.md`。
-- **誠實 gaps（記錄，未修）：** #09 幼稚園收生 abstention 被 `s2_operating_point` 嘅 S1-head union 破壞（surfaced 4，應 ~0）→ 具體可修：加 abstention gate（top dense < τ ∧ zero lexical hit → 真棄答）。#07 CPD R=0.714（gold 標註已警告 noise-flooded topic，lexicon 待調）。#03/#08/#10 標 △ 主要係 grader criterion artifact（S2 取 full-recall vs S1 high-P-low-R；S2 三者 recall 皆 ≥ S1 且遠勝 baseline）。
+- **Breadth 12-query（live `/api/search/combined` min_score=0.1 top_k=50）：** baseline 每 query **269–504 條**、P 0.006–0.027（雜訊洪水係系統性，非淨 `sen`）。S1 alone：recall 崩（年假/採購門檻/校曆/STEAM/病假 → R=0.0，gold 全埋喺 dense plateau 下）——**11 條再證 S1 necessary-not-sufficient**。S2-op 初版 7/12 → **修 2 gap 後 9/12 PASS**，recall 大幅回升（多數 R=1.0），P 比 baseline 升 5–50×。報告 `eval/S2_breadth_report.md`。
+- **2 gap 已修（Leonard「你的建議」→ 我建議 Testing/ 細修，已執行）：** **#09 幼稚園收生**：關鍵發現 dense 對 out-of-domain query *confidently wrong*（#09 dense top 0.698，全 12 query 最高）→ dense-floor abstention 係錯信號；改用 **zero-literal-grounding gate**（max lexical < τ → 真棄答，合 §A.2 不變量）→ #09 由 surfaced 4 變 **0（正確棄答）**。**#07 CPD**：miss 嘅 2 條 generic gold 無 CPD/持續專業發展 字面 → lexicon 加數據實證詞「持續進修／專業發展計劃」→ R **0.714→1.0**。`sen` 無回歸（強 lexical grounding，gate 不觸發）。
+- **餘 3 條 △（#03 採購/#08 體罰/#10 防賄，非 correctness defect）：** #03/#08 = grader criterion artifact（S2 取 full-recall vs S1 high-P-at-collapsed-recall，S2 R 皆 ≥ S1 且遠勝 baseline）；#10 marginal（S2 R=0.833 5/6，仍遠勝 S1 R=0.167）。
 - **Drift fixed（PERSIST）：** S112 聲稱加咗 DOC_SYNC「isolated PoC」row 但從未寫入 registry → 今正式寫入 `dev/DOC_SYNC_CHECKLIST.md`（anti-pattern guard）。`grade_s2_breadth.py` provenance line 由「Leonard-run」改為準確「captured <ts> from onrender …」。
 - **Verified（實測）:** pre-commit git HEAD `dbc10b8`==origin/main；knowledge.json _meta.stats 對返 baseline；Draft 只 4 governance docs 改（S112 closeout 3 + S113 DOC_SYNC 1），**零 code/data/contract**；12 dumps 全 HTTP 200；S2 modules smoke + curl bash -n + grader no-op 皆 OK；§4a trigger=False（217 行）。
 - **QC:** S2 PASS as scoped（`sen` 離線可證 S1 上限被打破；breadth 7/12 PASS + 誠實 gap 清單，無過度宣稱）。本 session Draft code/data/contract 零接觸（全 Testing/）。
-- **Pending（待 Leonard）:** (1) S2 abstention gate + CPD lexicon 微調要唔要做（Testing/ 細修）；(2) S1/S2 是否 promote 入 Draft（獨立 HIGH-risk gate）；(3) P2/P3 排期。
-- **Next:** 視 Leonard：S2 微調（Testing/）或 promote PLAN 或 轉 P2/P3。
+- **Pending（待 Leonard）:** (1) S1/S2 是否 promote 入 Draft（獨立 HIGH-risk gate，改 backend code + 跑 regression）；(2) 餘 3 條 △ 要唔要再調（#10 防賄 lexicon 補 1 詞可上 6/6；#03/#08 屬 tradeoff，建議唔郁）；(3) P2/P3 排期。
+- **Next:** 視 Leonard：promote PLAN 或 #10 細修 或 轉 P2/P3。
 
 ### DOC_SYNC Matrix Scan
 | Change Category | Required Doc Updates | Status |
@@ -35,11 +36,11 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Current objective and progress state:
 - S112: Leonard 定 roadmap P1 搜尋相關性 → P2 分類 148 → P3 數字對齊；39→148 deferred。批 5-支柱新檢索架構，分階段 S1→S4 全喺 Testing/。
-- S113: 收 S1（PoC，未 promote）；S2（支柱 1+3 hybrid lexical+dense+RRF + SEN/SENCO lexicon）建好。`sen` 離線：S1 ceiling P=0.385@R1.0 → S2 P=1.0@R1.0（gold fused [1-5]）。真實後端 breadth 12-query：baseline 每 query 269-504 條 P~0.01；S1 alone recall 崩 5 條；S2-op 7/12 PASS，recall 大升、P 升 5-50×。誠實 gaps：#09 abstention 被 S1-head union 破壞、#07 CPD R=0.714。
+- S113: 收 S1（PoC，未 promote）；S2（支柱 1+3 hybrid lexical+dense+RRF + SEN/SENCO lexicon）建好。`sen` 離線：S1 ceiling P=0.385@R1.0 → S2 P=1.0@R1.0（gold fused [1-5]）。真實後端 breadth 12-query：baseline 每 query 269-504 條 P~0.01；S1 alone recall 崩 5 條；S2-op 初版 7/12 → 修 2 gap 後 **9/12 PASS**，recall 大升、P 升 5-50×。已修：#09 幼稚園收生 zero-literal-grounding abstention gate（dense out-of-domain confidently wrong，top 0.698）→ 正確棄答；#07 CPD lexicon 加詞 → R 0.714→1.0。餘 3 △（#03/#08/#10）非 correctness defect（tradeoff + 1 marginal）。
 
 Pending tasks in priority order:
-1. Leonard 決定 S2 微調（Testing/）：abstention gate（top dense<τ ∧ zero lexical → 真棄答，修 #09）+ CPD lexicon 調（#07）。
-2. S1/S2 是否 promote 入 Draft（獨立 HIGH-risk gate，改 backend code + 跑 regression，Leonard 話事，未做）。
+1. S1/S2 是否 promote 入 Draft（獨立 HIGH-risk gate，改 backend code + 跑 regression，Leonard 話事，未做）。
+2. 餘 3 條 △ 要唔要再調：#10 防賄 lexicon 補 1 詞可上 6/6；#03/#08 屬 full-recall tradeoff（建議唔郁）。
 3. P2：148 文件按校級(中小幼特)+範疇分類；P3：reconcile「整筆撥款（LSG）」誤標 + 補 SEN 家族覆蓋（KG-admission URL / sense.edb.gov.hk+EDBC19006C / 學習支援津貼）。
 4. 原 Open Priorities：Mobile UI Phase 2、🔴 Q&A §E.10 admin-login security、HKEAA source family、低優先 doc-debt。
 
@@ -49,17 +50,17 @@ Key files changed in this session:
 
 Known risks / blockers / cautions:
 - 🔴 PROJECT_MASTER_SPEC §E.10：公開站 client-side admin 閘門 + 密碼曾入 log（最嚴重未解，碰 admin/auth/公開推送前必讀）。
-- S1/S2 係 Testing PoC，**未 promote**；promote 入 Draft = 獨立 HIGH-risk gate。S2 有已知 abstention fallback defect（#09）+ CPD partial（#07），勿過度宣稱已修好搜尋。
+- S1/S2 係 Testing PoC，**未 promote**；promote 入 Draft = 獨立 HIGH-risk gate。S2 2 個真 defect（#09 abstention / #07 CPD）已修，breadth 9/12；餘 3 △ = recall/precision tradeoff + 1 marginal，非 correctness defect。勿過度宣稱「搜尋已全修好」（仍 PoC、未 promote、breadth gold 係 12 短 query 抽樣）。
 - egress 文檔假設過時（S113 實測 onrender+github 通）但可能 intermittent → 每次自行 verify，勿假設恆通亦勿假設恆封。
 - 已核實 role_facts「整筆撥款（LSG）」data error + 知識庫系統性欠 SEN/融合教育覆蓋（P3/P2，未 fix）。
 - 路徑含空格雙引號；Testing/ 喺 Draft git 外；load-bearing 數字動手前 verify code/data/git；改 code/data 之 commit 必入 SESSION_LOG（S111 教訓）。
 - 產品方向：39→148 deferred；P1→P2→P3 順序鎖定，未得 Leonard 確認唔好跳契約收斂/Circular 接線/scope/§F。
 
 Validation status:
-- PASS: S2 as scoped（`sen` 離線可證 S1 上限被打破 P0.385→1.0；breadth 7/12 PASS + 誠實 gap 清單）；Draft 零 code/data/contract；§4a trigger=False；git commit+push 本 session 已落地（startup 仍須自行 verify HEAD，紀律）。
-- PENDING（待 Leonard）：S2 abstention/CPD 微調 / S1·S2 promote / P2·P3 排期。
+- PASS: S2 as scoped（`sen` 離線可證 S1 上限被打破 P0.385→1.0；breadth 修 2 gap 後 9/12 PASS；#09 abstention + #07 CPD 已修，餘 3 △ 非 defect）；Draft 零 code/data/contract；§4a trigger=False；git commit+push 本 session 已落地（startup 仍須自行 verify HEAD，紀律）。
+- PENDING（待 Leonard）：S1·S2 promote（HIGH-risk gate）/ #10 防賄 lexicon 補 1 詞 / P2·P3 排期。
 
-Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE 後，自行 verify git HEAD（應 ≥ 本 session commit）+ knowledge.json._meta.stats vs baseline + 實測 egress（onrender /health）勿照抄假設。睇 Testing/poc-retrieval/eval/S2_report.md + S2_breadth_report.md 了解 S2 狀態。再問 Leonard：(1) S2 abstention gate + CPD lexicon 微調做唔做（Testing/）？(2) S1/S2 promote 入 Draft（HIGH-risk gate）？(3) 轉 P2/P3？未確認前唔好 promote、唔好跳 scope/§F/公開契約。碰 admin/auth/公開推送前必讀 §E.10。
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE 後，自行 verify git HEAD（應 ≥ 本 session 第二個 commit）+ knowledge.json._meta.stats vs baseline + 實測 egress（onrender /health）勿照抄假設。睇 Testing/poc-retrieval/eval/S2_report.md + S2_breadth_report.md + README 了解 S2 狀態（9/12，2 gap 已修）。再問 Leonard：(1) S1/S2 promote 入 Draft（HIGH-risk gate）？(2) #10 防賄細修或餘 △ 點處理？(3) 轉 P2/P3？未確認前唔好 promote、唔好跳 scope/§F/公開契約。碰 admin/auth/公開推送前必讀 §E.10。
 ```
 
 ---
