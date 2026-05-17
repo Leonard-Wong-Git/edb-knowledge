@@ -2,7 +2,132 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
-## 2026-05-16 Session 111 — truth-pass v2 + agent teams（文件編號對齊）+ #3 登入後 admin review-state 修復
+## 2026-05-17 Session 113 — P1 S2 建構 + 真實後端 breadth 驗證（egress 實測竟通）
+
+- **ID:** Claude_20260517_2035
+- **Summary:** Leonard 收 S1（PoC milestone，**未** promote）→ 批 S2。喺 `Testing/poc-retrieval/` 建好 S2 = 支柱 1+3（`lib/lexicon.py` 12-query 同義詞/實體連結庫、`lib/lexical_score.py` CJK 字面計分、`lib/hybrid.py` RRF 融合 + `s2_operating_point` lex-gate∪S1-head）。**實測發現 sandbox egress 竟然通**（onrender.com HTTP 200 + github SSH auth 成功，與既有文檔「egress 封鎖」假設相反，§G.2 教訓再現）→ 自己跑 12-query 真實後端 breadth capture + grade（原計劃交 Leonard Terminal，今證實毋須）。
+- **S2 `sen` 離線（真數據）：** gold 由 dense rank [1,2,5,9,13] → fused **[1,2,3,4,5]**。S1 ceiling P=0.385@R=1.0 → **S2 ceiling P=1.0@R=1.0**（cutoff-independent），operating point 8 條 R=1.0 P=0.625。報告 `eval/S2_report.md`。
+- **Breadth 12-query（live `/api/search/combined` min_score=0.1 top_k=50）：** baseline 每 query **269–504 條**、P 0.006–0.027（雜訊洪水係系統性，非淨 `sen`）。S1 alone：recall 崩（年假/採購門檻/校曆/STEAM/病假 → R=0.0，gold 全埋喺 dense plateau 下）——**11 條再證 S1 necessary-not-sufficient**。S2-op：**7/12 PASS**，recall 大幅回升（多數 R=1.0），P 比 baseline 升 5–50×。報告 `eval/S2_breadth_report.md`。
+- **誠實 gaps（記錄，未修）：** #09 幼稚園收生 abstention 被 `s2_operating_point` 嘅 S1-head union 破壞（surfaced 4，應 ~0）→ 具體可修：加 abstention gate（top dense < τ ∧ zero lexical hit → 真棄答）。#07 CPD R=0.714（gold 標註已警告 noise-flooded topic，lexicon 待調）。#03/#08/#10 標 △ 主要係 grader criterion artifact（S2 取 full-recall vs S1 high-P-low-R；S2 三者 recall 皆 ≥ S1 且遠勝 baseline）。
+- **Drift fixed（PERSIST）：** S112 聲稱加咗 DOC_SYNC「isolated PoC」row 但從未寫入 registry → 今正式寫入 `dev/DOC_SYNC_CHECKLIST.md`（anti-pattern guard）。`grade_s2_breadth.py` provenance line 由「Leonard-run」改為準確「captured <ts> from onrender …」。
+- **Verified（實測）:** pre-commit git HEAD `dbc10b8`==origin/main；knowledge.json _meta.stats 對返 baseline；Draft 只 4 governance docs 改（S112 closeout 3 + S113 DOC_SYNC 1），**零 code/data/contract**；12 dumps 全 HTTP 200；S2 modules smoke + curl bash -n + grader no-op 皆 OK；§4a trigger=False（217 行）。
+- **QC:** S2 PASS as scoped（`sen` 離線可證 S1 上限被打破；breadth 7/12 PASS + 誠實 gap 清單，無過度宣稱）。本 session Draft code/data/contract 零接觸（全 Testing/）。
+- **Pending（待 Leonard）:** (1) S2 abstention gate + CPD lexicon 微調要唔要做（Testing/ 細修）；(2) S1/S2 是否 promote 入 Draft（獨立 HIGH-risk gate）；(3) P2/P3 排期。
+- **Next:** 視 Leonard：S2 微調（Testing/）或 promote PLAN 或 轉 P2/P3。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| New / iterated isolated PoC (Testing/ only, no Draft code/data/contract change) | SESSION_LOG/HANDOFF record；PoC Testing/ README；CODEBASE_CONTEXT N/A（Testing/ 非 Draft tech-stack/dir，未 promote） | ✓ Done |
+| New project doc added (registry anti-pattern guard) | 將缺漏 row 寫入 `dev/DOC_SYNC_CHECKLIST.md`（S112 claimed-added 但未持久化） | ✓ Done（1-line add） |
+| Doc-drift / accuracy correction | `grade_s2_breadth.py` provenance line 改準確；本 entry 記錄 egress 文檔假設已過時 | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD 同 knowledge.json._meta.stats 對唔對得返 SESSION_HANDOFF Current Baseline（S111 證連治理讀set 都會 drift）。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，所有 shell 指令必須雙引號絕對路徑）。P1 retrieval PoC 喺姊妹資料夾 "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Testing/poc-retrieval/"（唔喺 git，Draft 零接觸）。
+
+⚠️ S113 實測：sandbox egress 竟然通（onrender.com + github SSH 都得），與既有文檔「egress 封鎖」假設相反。起手前實測，勿照抄舊假設（§G.2）。但呢個可能 environment/intermittent，每次自行 verify。
+
+Current objective and progress state:
+- S112: Leonard 定 roadmap P1 搜尋相關性 → P2 分類 148 → P3 數字對齊；39→148 deferred。批 5-支柱新檢索架構，分階段 S1→S4 全喺 Testing/。
+- S113: 收 S1（PoC，未 promote）；S2（支柱 1+3 hybrid lexical+dense+RRF + SEN/SENCO lexicon）建好。`sen` 離線：S1 ceiling P=0.385@R1.0 → S2 P=1.0@R1.0（gold fused [1-5]）。真實後端 breadth 12-query：baseline 每 query 269-504 條 P~0.01；S1 alone recall 崩 5 條；S2-op 7/12 PASS，recall 大升、P 升 5-50×。誠實 gaps：#09 abstention 被 S1-head union 破壞、#07 CPD R=0.714。
+
+Pending tasks in priority order:
+1. Leonard 決定 S2 微調（Testing/）：abstention gate（top dense<τ ∧ zero lexical → 真棄答，修 #09）+ CPD lexicon 調（#07）。
+2. S1/S2 是否 promote 入 Draft（獨立 HIGH-risk gate，改 backend code + 跑 regression，Leonard 話事，未做）。
+3. P2：148 文件按校級(中小幼特)+範疇分類；P3：reconcile「整筆撥款（LSG）」誤標 + 補 SEN 家族覆蓋（KG-admission URL / sense.edb.gov.hk+EDBC19006C / 學習支援津貼）。
+4. 原 Open Priorities：Mobile UI Phase 2、🔴 Q&A §E.10 admin-login security、HKEAA source family、低優先 doc-debt。
+
+Key files changed in this session:
+- Draft（僅治理文檔，零 code/data/contract）：dev/SESSION_LOG.md（本 entry）、dev/SESSION_HANDOFF.md（Open Priorities 重生 + S113 record + baseline）、dev/DOC_SYNC_CHECKLIST.md（補 isolated-PoC row）。git commit + push 已由本 session 執行（Leonard「你去做」授權，egress 通）。
+- Testing/poc-retrieval/（PoC，非 git）：lib/{lexicon,lexical_score,hybrid}.py、eval/{run_s2_sen,grade_s2_breadth}.py、eval/curl_pack_breadth.sh、eval/backend_dumps/*.json（12 live dumps）、eval/{S2_report,S2_breadth_report}.md、README.md。
+
+Known risks / blockers / cautions:
+- 🔴 PROJECT_MASTER_SPEC §E.10：公開站 client-side admin 閘門 + 密碼曾入 log（最嚴重未解，碰 admin/auth/公開推送前必讀）。
+- S1/S2 係 Testing PoC，**未 promote**；promote 入 Draft = 獨立 HIGH-risk gate。S2 有已知 abstention fallback defect（#09）+ CPD partial（#07），勿過度宣稱已修好搜尋。
+- egress 文檔假設過時（S113 實測 onrender+github 通）但可能 intermittent → 每次自行 verify，勿假設恆通亦勿假設恆封。
+- 已核實 role_facts「整筆撥款（LSG）」data error + 知識庫系統性欠 SEN/融合教育覆蓋（P3/P2，未 fix）。
+- 路徑含空格雙引號；Testing/ 喺 Draft git 外；load-bearing 數字動手前 verify code/data/git；改 code/data 之 commit 必入 SESSION_LOG（S111 教訓）。
+- 產品方向：39→148 deferred；P1→P2→P3 順序鎖定，未得 Leonard 確認唔好跳契約收斂/Circular 接線/scope/§F。
+
+Validation status:
+- PASS: S2 as scoped（`sen` 離線可證 S1 上限被打破 P0.385→1.0；breadth 7/12 PASS + 誠實 gap 清單）；Draft 零 code/data/contract；§4a trigger=False；git commit+push 本 session 已落地（startup 仍須自行 verify HEAD，紀律）。
+- PENDING（待 Leonard）：S2 abstention/CPD 微調 / S1·S2 promote / P2·P3 排期。
+
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE 後，自行 verify git HEAD（應 ≥ 本 session commit）+ knowledge.json._meta.stats vs baseline + 實測 egress（onrender /health）勿照抄假設。睇 Testing/poc-retrieval/eval/S2_report.md + S2_breadth_report.md 了解 S2 狀態。再問 Leonard：(1) S2 abstention gate + CPD lexicon 微調做唔做（Testing/）？(2) S1/S2 promote 入 Draft（HIGH-risk gate）？(3) 轉 P2/P3？未確認前唔好 promote、唔好跳 scope/§F/公開契約。碰 admin/auth/公開推送前必讀 §E.10。
+```
+
+---
+
+## 2026-05-17 Session 112 — P1 retrieval-relevance：新架構 PLAN + S1 PoC（全程 Testing/，Draft 零接觸）
+
+- **ID:** Claude_20260517_0930
+- **Summary:** Leonard 定 roadmap：(P1) 先修 Channel A/B/A+B 搜尋相關性；(P2) 將 148 文件按校級(中小幼特)+範疇分類，再評通告系統點 consume；(P3) 數字對齊 reality+docs。**39→148 收斂 = 將來會做、最終一致（deferred，非 undecided），本次唔做。** 批准 NEW 5-支柱架構（hybrid lexical+dense+RRF／動態裁切／查詢理解 lexicon／統一 A·B·A+B path／頁碼溯源）取代 patch #5。全部實驗隔離喺 `Testing/poc-retrieval/`，**Draft + 公開契約零接觸**（每步 verify git clean）。
+- **S1 完成（pillar-2 動態裁切，真 `sen` 數據）：** 建 PoC 骨架 + 唯讀 role_facts fixture（md5 7d00330… 一致，455）。Agent-GoldBuilder 草擬 12 短查詢 gold set → Leonard 抽驗 5 條（#1,2,5,6,9）+ meta → validated。真 171 行 `sen` 生產 dump vs gold：BASELINE 171 條/precision 0.029 → cutoff **171→6-8、雜訊尾乾淨砍掉**。誠實結論：pillar-2 necessary-NOT-sufficient（3 條 SENCO gold 分數 0.21-0.24 同雜訊交織，100% recall 時 precision 上限 0.385）→ 必須 S2 lexical（domain-confirmed）。裁決 PASS as scoped。
+- **Domain rulings（Leonard，已入 memory + Testing 決策 log）：** 特殊教育統籌主任=SENCO，查 SEN 必出 SENCO 事實（非 noise，generalize：topical query 展開到負責統籌主任角色）。`年假`：教學人員(老師/校長)冇週年假用學校假期（**出處須明寫**），非教學(EO/OA/校工/部份合約)按合約年假，兩者都返揭角色分別。`採購門檻` 9 條確認正確。`LSG`=**學習支援津貼 Learning Support Grant**（SEN 家族 SENCO 負責）——我+agent 誤判為 Lump Sum Grant，corpus 0 條真 LSG。`幼稚園收生`=corpus 0 條=棄答測試。
+- **Findings（P3/P2，記錄未 fix）：** 已核實 role_facts 有一條誤標「整筆撥款（LSG）」（LSG≠Lump Sum）→ P3 reconcile。知識庫系統性欠 SEN/融合教育 family（sen 薄/幼稚園收生 0/學習支援津貼 0）。gap 之 canonical EDB 源已捕捉（P2 ingest）：KG-admission URL、sense.edb.gov.hk + EDBC19006C。
+- **Drift fixed（PERSIST）：** SESSION_HANDOFF Current Baseline git HEAD `ae31084`→`dbc10b8`（verify 實際）；PROJECT_MASTER_SPEC §F.9/§B.1 39→148「OPEN DECISION undecided」→「deferred future intent（Leonard S112）」。
+- **Verified（實測）:** git HEAD `dbc10b8`==origin/main；knowledge.json _meta.stats {455,10736,120,39,7} 對得返 baseline；Draft `git status` 每個 S1 步驟皆 clean；gold_set.json counts 一致。
+- **QC:** S1 PASS as scoped（真數據可量度、誠實 bounded）。§4a check trigger=False（154 行）。無 backend regression（Draft 無 code/contract 改動，§3c 不觸發）。本 session Draft 零 code/data/contract 改動。
+- **Pending:** Leonard 決定：收 S1 / 行 S2（hybrid+SEN-SENCO lexicon = 真正修 sen 頭部精度）/ 要唔要捕捉其餘 11 query 真實 backend 輸出（sandbox 出唔到 OpenAI/Render → curl 交 Leonard Terminal）。
+- **Next:** S2（支柱 1+3）喺 Testing/；廣度 eval 餘 11 query 靠 Leonard-run capture；P2/P3 findings 待 Leonard 排期。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product direction / roadmap clarified (no code) | SESSION_HANDOFF Open Priorities+baseline；SESSION_LOG entry；PROJECT_MASTER_SPEC §F.9/§B.1（deferred 非 undecided）；auto-memory | ✓ Done |
+| Doc-drift accuracy correction | SESSION_HANDOFF Current Baseline git HEAD ae31084→dbc10b8（verified） | ✓ Done |
+| New isolated PoC (Testing/, no Draft/contract change) | SESSION_HANDOFF/LOG record；CODEBASE_CONTEXT N/A（Testing/ 非 Draft tech-stack/dir 變更，PoC 未 promote）；DOC_SYNC registry 無對應 row → 用呢行 | ✓ Row added |
+| Data-quality / coverage finding (recorded, not fixed) | SESSION_HANDOFF Known Risks；auto-memory project note；Testing decisions log | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD 同 knowledge.json._meta.stats 對唔對得返 SESSION_HANDOFF Current Baseline（S111 已證連治理讀set 都會 drift）。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，所有 shell 指令必須雙引號絕對路徑）。P1 retrieval PoC 喺**姊妹資料夾** "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Testing/poc-retrieval/"（唔喺 git，Draft 零接觸——Leonard 明示實驗用 Testing）。
+
+Current objective and progress state:
+- Session 112 (2026-05-17, Claude_20260517_0930)：Leonard 定 roadmap — P1 搜尋相關性先做、P2 分類 148 文件、P3 數字對齊；39→148 收斂 = 將來會做（deferred，非 undecided）。批准 5-支柱新檢索架構（hybrid+RRF／動態裁切／查詢理解 lexicon／統一 path／頁碼溯源），分階段 S1→S4，全部喺 Testing/，Draft + 公開契約零改動。
+- S1（pillar-2 動態裁切）完成並 PASS as scoped：真 `sen` 171 行生產數據 → cutoff 後 6-8 條，雜訊尾乾淨砍掉。誠實 bounded：pillar-2 necessary-not-sufficient（3 SENCO gold 分數同雜訊交織，100% recall precision 上限 0.385）→ S2 lexical（SEN/SENCO 字面 match）必需，Leonard SENCO 裁示已 domain-confirm。
+- gold_set.json 已 Leonard 抽驗 validated（12 短查詢；#6 LSG=學習支援津貼 corpus gap、#9 幼稚園收生 abstention test）。
+
+Pending tasks in priority order:
+1. Leonard 決定：收 S1？行 S2（hybrid lexical + SEN/SENCO 同義詞庫 = 真正修 sen 頭部精度）？要唔要而家捕捉其餘 11 條 query 真實 backend 輸出（sandbox 出唔到 OpenAI/Render，須包 curl 交 Leonard Terminal 跑先可廣度驗 S2）。
+2. S1 cutoff 是否 promote 入 Draft（獨立 HIGH-risk gate，Leonard 話事，未做）。
+3. P2：148 文件按校級(中小幼特)+範疇分類；P3：reconcile「整筆撥款（LSG）」誤標 + 補 SEN 家族覆蓋（KG-admission URL / sense.edb.gov.hk+EDBC19006C / 學習支援津貼）。
+4. 原 Open Priorities 仍 open：Mobile UI Phase 2、🔴 Q&A §E.10 admin-login security、HKEAA source family、低優先 doc-debt。
+
+Key files changed in this session:
+- Draft（僅治理文檔，無 code/data/contract）：dev/SESSION_HANDOFF.md（baseline git HEAD 修正 dbc10b8 / Open Priorities 重生 / S112 record）、dev/SESSION_LOG.md（本 entry）、dev/PROJECT_MASTER_SPEC.md（§F.9/§B.1 deferred 措辭）
+- Testing/poc-retrieval/（PoC，非 git，Draft 外）：fixtures/role_facts.snapshot.json（md5 7d00330… 一致）、eval/{query_matrix,gold_set.draft,gold_set,sen_production_dump}.json、eval/{finalize_gold,run_s1_sen}.py、eval/gold_set.decisions.md、eval/S1_report.md、lib/dynamic_cutoff.py、README.md
+- auto-memory：project_direction_review / feedback_short_query_first / feedback_domain_role_relevance / MEMORY.md index
+
+Known risks / blockers / cautions:
+- 🔴 PROJECT_MASTER_SPEC §E.10：公開站 client-side admin 閘門非安全邊界 + 密碼曾入 log（全專案最嚴重未解，碰 admin/auth/公開推送前必讀）。
+- S1 cutoff 係 Testing PoC，**未 promote**；promote 入 Draft = 獨立 HIGH-risk gate，Leonard 話事。pillar-2 單獨唔夠（誠實：sen 頭部精度要 S2，勿過度宣稱 S1 已修好 sen）。
+- 已核實 role_facts 有 data error（「整筆撥款（LSG）」誤標 LSG）；知識庫系統性欠 SEN/融合教育覆蓋——P3/P2 待 Leonard 排，未 fix。
+- sandbox egress 出唔到 OpenAI/Supabase/Render → 三通道 semantic 自己跑唔到（連 Channel A 後端都要 OpenAI）；廣度驗 S2 須 Leonard Terminal curl。
+- Repo 路徑含空格 → shell 指令必雙引號絕對路徑。Testing/ 喺 Draft git repo 外，唔會被 Draft commit 帶入。
+- load-bearing 數字動手前 verify actual code/data/git（§G.2）；改 code/data 之 commit 必入 SESSION_LOG（S111 desync 教訓）。
+- 產品方向：39→148 deferred（將來做）；P1→P2→P3 順序鎖定，未得 Leonard 確認前唔好跳去契約收斂或 Circular 接線。
+
+Validation status:
+- PASS: S1 as scoped（真 sen 數據可量度，誠實 bounded）；gold_set.json Leonard 抽驗 validated；Draft 每步 git clean、零 code/data/contract 改動；§4a check trigger=False。
+- PENDING（非技術，待 Leonard）：收 S1 / 行 S2 / 捕捉其餘 11 query 真實輸出 / S1 是否 promote / P2·P3 排期。
+
+Post-startup first action: 完成 §1 起手序 + 讀 HANDOFF_PACKAGE 後，先 verify git HEAD（應 `dbc10b8` 或更新）+ knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline。睇 Testing/poc-retrieval/eval/S1_report.md + gold_set.decisions.md 了解 S1 狀態。再問 Leonard：(1) 收 S1？(2) 行 S2（hybrid+SEN/SENCO lexicon）？(3) 要唔要捕捉其餘 11 query 真實 backend 輸出（包 curl 交佢 Terminal）？未得確認前唔好 promote 入 Draft、唔好跳 P2/P3、唔好碰 scope/§F/公開契約。碰 admin/auth/公開推送前必讀 §E.10。
+```
+
+---
+
 
 - **ID:** Claude_20260516_1952
 - **Summary:** Leonard 開工。三大塊：**(1) truth-pass v2** — §1 起手序後實測 git/data 揭發 governance/state desync：S109 closeout `c78685f` 之後 **8 個 2026-05-16 commit**（`c78685f..ae31084`，已 push，含 dedup 792→455 `711f911` / Channel B Supabase enablement kit / mobile fallback / app refactor / 對外 specs+README+index.html reconcile `0806c90`）**完全冇入 SESSION_LOG**，同時 S110 自己治理文檔修正**從未 commit** 且停喺 792。**(2) agent teams**（Leonard 指示）：Team A 對齊所有對外文件編號；Team B read-only audit 登入後 admin staleness。**(3) #3 修登入後 admin review-state**（Leonard 範圍：只修資料對齊）。全程 4+ 輪與 Leonard 確認收窄 scope。

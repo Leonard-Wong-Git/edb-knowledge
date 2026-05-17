@@ -58,7 +58,7 @@
 > - `dev/source/source_registry.json` = **151** 個來源 entry（vault 提取來源登記表，provenance / freshness 層）。
 > - 其中 **120** 個已完成 vault 提取（= `knowledge.json._meta.stats.sources`，SESSION_HANDOFF baseline 引用的 "120 sources"）。
 >
-> ⚠️ **OPEN DECISION（2026-05-16，Leonard 傾向收斂但本次刻意未執行）**：公開 `guidelines.json` 應否由 39 擴張到 **148**，令對外端點反映「所有 channel 都係 148 份文件做基礎」。屬**對外契約變更**，影響下游 Circular System（curriculum 桶 ~25→127），須走 AGENTS.md §3 HIGH-risk PLAN + 更新 §F.3。truth-pass v2 僅明文化、**不收斂**。
+> ⚠️ **DEFERRED FUTURE（2026-05-17 S112，Leonard 拍板更新；前身為 S111「OPEN DECISION」）**：公開 `guidelines.json` 由 39 擴張到 **148** ——Leonard 明示「將來會做、最終一致」，即係**已定方向、暫緩執行**（**非 undecided**）。排序喺 P1 搜尋相關性 + P2 文件分類**之後**先做。屬**對外契約變更**，影響下游 Circular System（curriculum 桶 ~25→127），執行時仍須走 AGENTS.md §3 HIGH-risk PLAN + 更新 §F.3。未到該階段前**不收斂**。
 > 註：舊版本框曾寫「148 是過時 registry 計數，已不準」——**該說法本身先係錯**（亦曾誤導 Session 111 一度當佢係 regression）。148 一直係 app 內庫實數，已更正。
 
 ### B.2 `index.html` — 入口頁
@@ -232,7 +232,7 @@ source_registry → 同 vault PDFs → ai_extract.py
 6. Channel B Circular System 整合**暫停**；Channel B 不 auto-write role_facts.json。
 7. 繁中產品語言基準；不暴露內部指令；範本流程未接通前只說「建立草稿／整理」。
 8. 角色拆分：`subject_head`（科主任）+ `panel_chair`（統籌主任/主任）+ `eo_admin`（EO）；未經 user 釐清不做廣泛術語統一。
-9. Guidelines 雙層排序（範疇 → `sub_category` → 時序降序）；QAPanel WordCloud 已移除不復活。**公開 `guidelines.json` 現為 39 份精選子集，app 內庫實為 148 份**——「39 是否擴張到 148」係 OPEN DECISION（見 §B.1 釐清框），未經 §3 HIGH-risk PLAN 不收斂。
+9. Guidelines 雙層排序（範疇 → `sub_category` → 時序降序）；QAPanel WordCloud 已移除不復活。**公開 `guidelines.json` 現為 39 份精選子集，app 內庫實為 148 份**——39→148 收斂 = **deferred future intent**（S112 Leonard：將來會做、最終一致，非 undecided；排 P1/P2 之後），執行時須走 §3 HIGH-risk PLAN（見 §B.1 釐清框）。
 10. 治理文件當 internal session state，git-ignore 規則依現狀。
 
 ---

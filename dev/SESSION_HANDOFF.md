@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Current Baseline
-1. Version: **v2.3.0**；git `main`=`origin/main`@`ae31084`（2026-05-16；S109 closeout `c78685f` 之後 8 個 commit 含 dedup/Supabase kit/mobile/app refactor，**原文檔寫嘅 c78685f 已過時**）
+1. Version: **v2.3.0**；git `main`=`origin/main`；pre-S113 HEAD `dbc10b8`，**S113 已 commit+push S112 closeout + S113 治理文檔**（Leonard「你去做」授權，sandbox egress 實測通）——下次起手自行 verify 實際 HEAD（應 ≥ S113 commit）。S113 Draft 僅治理文檔，**零 code/data/contract**；S1+S2 PoC 全喺 Testing/（未 promote）
 2. Frontend: `index.html` K1 landing page (hero + features + CTA); `t-purchase.html` S3/S4/S5 draft flow; `q.html` local `knowledge.json` Quick Q&A; `app.html` full React SPA / management workspace.
 3. Knowledge state: **455 Channel A facts** (三層同步 ✅ byte-identical；2026-05-16 dedup 由 792 → 455，移除 275 條跨角色完全重複 + 合併 36 組相近事實，commit `711f911`，reversible log `dev/DEDUP_LOG_2026-05-16.md`；早前 Session 102 已 1,001 → 792), **0 candidates in queue**, **Supabase 10,736 chunks**。Vault: 120 sources 提取完成。**指引數字 4 層（148 app 內庫 / 39 公開 guidelines.json / 151 source_registry / 120 vault-extracted）見 PROJECT_MASTER_SPEC §B.1 釐清框 — 39 是否擴到 148 = OPEN DECISION，未收斂**。
 4. Backend: Node.js TypeScript backend all search APIs complete; **Channel A + B + A+B online at `https://edb-knowledge.onrender.com`**; rate limiting 10 req/min/IP (sliding window, in-memory).
@@ -101,13 +101,12 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-1. **🟡 guidelines 39→148 OPEN DECISION**（Session 111 新揭）：Leonard 傾向收斂、本次刻意未執行。屬**對外契約變更**（影響下游 Circular System，curriculum 桶 ~25→127），須走 AGENTS.md §3 HIGH-risk PLAN。詳見 PROJECT_MASTER_SPEC §B.1 釐清框。
-2. **🟡 等 Leonard 拍板產品方向**：scope / 目標用戶 / Channel B 是否接 Circular System / Mobile UI Phase 2 是否繼續。**未得確認前唔好對 scope 或 §F 鎖定決策落手。**
-3. **Mobile UI Phase 2 餘下**：index.html mobile landing / q.html mobile inline / t-purchase.html mobile form / app.html#guidelines mobile-native render（app.html search ✅ ship）
-4. **🔴 Q&A admin-login security**：admin login password gate（client-side 閘門非安全邊界 — PROJECT_MASTER_SPEC §E.10，全專案最嚴重未解風險）+「34 問題」audit
-5. **HKEAA source family 補完**（S105 SBA gap）；**（doc-debt 低）** CODEBASE_CONTEXT L29「v1.3.1」標籤 drift / 補 Supabase External Services block / 清 `searchChannelB.ts` stale header / `semanticRegression.ts` guidelines version 斷言 1.3.1（實 2.2.0）
-
-> ✅ **S111 #3 已驗證 PASS**（2026-05-16，Leonard browser admin-login 親驗：登入後見 455，非 1,001）。已由 Open Priorities 移除。
+> 產品方向 S112 已定 roadmap：**P1 搜尋相關性 → P2 分類 148 → P3 數字對齊**；39→148 收斂 = 將來會做（deferred，非 undecided）。順序鎖定，未得 Leonard 確認唔好跳。
+1. **P1 搜尋相關性（S1+S2 PoC 完成，全 `Testing/poc-retrieval/`，Draft 零接觸）**：S1 動態裁切 Leonard 已收（PoC，**未** promote）。S2（支柱 1+3 hybrid lexical+dense+RRF + SEN/SENCO lexicon）建好；`sen` 離線 S1 ceiling P=0.385@R1.0 → S2 P=1.0@R1.0。S113 實測 sandbox egress 通 → 自己跑真實後端 **12-query breadth**：baseline 每 query 269-504 條 P~0.01；S1 alone recall 崩 5 條；**S2-op 7/12 PASS**，recall 大升、P 升 5-50×。誠實 gaps：#09 幼稚園收生 abstention 被 S1-head union 破壞、#07 CPD R=0.714。**待 Leonard：(a) S2 微調 abstention gate(#09)+CPD lexicon(#07)（Testing/ 細修）？(b) S1/S2 promote 入 Draft = 獨立 HIGH-risk gate（改 backend code + 跑 regression）？**
+2. **P2 分類 148 文件**：按校級（中／小／幼／特）+ 範疇（課程/財務/活動…），**然後**先評通告系統點 consume 再講接手。P1 完成後做。
+3. **P3 數字/事實對齊 reality+docs**：fix 已核實 role_facts「整筆撥款（LSG）」誤標（LSG=學習支援津貼）；補 SEN 家族覆蓋缺口（canonical：KG-admission URL / sense.edb.gov.hk+EDBC19006C / 學習支援津貼）。39→148 留待將來收斂（須 §3 HIGH-risk PLAN）。
+4. **🔴 Q&A admin-login security**（§E.10，全專案最嚴重未解）+「34問題」audit；**Mobile UI Phase 2 餘下**（index/q/t-purchase/#guidelines mobile content）。
+5. **HKEAA source family 補完**（S105 SBA gap）；**（doc-debt 低）** CODEBASE_CONTEXT L29「v1.3.1」標籤 / `searchChannelB.ts` stale header / `semanticRegression.ts` guidelines version 斷言 1.3.1（實 2.2.0）。
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 - g21/g22/g33 直連 PDF 補完（user browser）— Session 105 audit 揭發三者 source_type='pdf' 但 url_primary 缺
@@ -116,6 +115,51 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合）
 
 ## Last Session Record
+1. UTC date: 2026-05-17
+2. Session ID: Claude_20260517_2035 (Session 113)
+3. Completed:
+   - ✅ **[收 S1 + 建 S2]** Leonard 收 S1（PoC，未 promote）；喺 Testing/ 建好 S2 = 支柱 1+3（lexicon / lexical_score / hybrid RRF + s2_operating_point）。`sen` 離線：S1 ceiling P=0.385@R1.0 → **S2 P=1.0@R1.0**（gold fused [1-5]）。
+   - ✅ **[egress 實測 + 真實 breadth]** 實測 sandbox 竟接到 onrender + github SSH（與舊文檔假設相反，§G.2）→ 自己跑 12-query live `/api/search/combined` capture+grade（毋須交 Terminal）。baseline 每 query 269-504 條 P~0.01；S1 alone recall 崩 5 條；**S2-op 7/12 PASS**，recall 大升、P 升 5-50×。
+   - ✅ **[誠實 gaps 記錄]** #09 幼稚園收生 abstention 被 S1-head union 破壞（surfaced 4 應 0）；#07 CPD R=0.714（noise-flooded）；#03/08/10 △ = grader criterion artifact（S2 full-recall vs S1 high-P-low-R）。
+   - ✅ **[治理修正]** 補 S112 漏寫嘅 DOC_SYNC「isolated PoC」row；grader provenance line 改準確。git commit+push S112 closeout + S113 治理文檔（Leonard「你去做」授權）。
+4. Pending（待 Leonard）:
+   - S2 微調：abstention gate(#09)+CPD lexicon(#07)（Testing/ 細修）？S1/S2 promote 入 Draft（獨立 HIGH-risk gate）？P2/P3 排期？
+5. Next priorities (max 3 — 詳見 Open Priorities)：
+   - S2 abstention/CPD 微調 或 promote PLAN（Leonard 話事）
+   - P2 分類 148 / P3 reconcile + SEN 覆蓋
+   - 🔴 Q&A §E.10 / Mobile UI Phase 2 / HKEAA
+6. Risks / blockers:
+   - 🔴 §E.10 公開站 client-side admin 閘門 + 密碼曾入 log（最嚴重未解）
+   - S1/S2 = Testing PoC 未 promote；S2 有已知 abstention fallback defect(#09)+CPD partial(#07)，勿過度宣稱已修好搜尋；promote = 獨立 HIGH-risk gate
+   - egress 文檔假設過時（S113 實測 onrender+github 通）但可能 intermittent → 每次自行 verify
+   - 已核實 role_facts「整筆撥款（LSG）」data error + 系統性欠 SEN/融合教育覆蓋（P3/P2 未 fix）
+   - 路徑含空格雙引號；Testing/ 喺 Draft git 外；load-bearing 數字動手前 verify；改 code/data commit 必入 SESSION_LOG
+   - 產品方向 P1→P2→P3 鎖定 + 39→148 deferred；未確認唔好跳契約收斂/Circular/scope/§F
+
+## Previous Session Record
+1. UTC date: 2026-05-17
+2. Session ID: Claude_20260517_0930 (Session 112)
+3. Completed:
+   - ✅ **[產品方向 roadmap 定案]** Leonard 定 P1 搜尋相關性 → P2 分類 148 → P3 數字對齊；39→148 收斂 = deferred future（將來做、非 undecided）。已入 auto-memory + PROJECT_MASTER_SPEC §F.9/§B.1 措辭修正。
+   - ✅ **[P1 新架構 PLAN 批准]** 5 支柱（hybrid lexical+dense+RRF／動態裁切／查詢理解 lexicon／統一 A·B·A+B path／頁碼溯源）取代 patch #5；分階段 S1→S4，全部隔離喺 `Testing/poc-retrieval/`，**Draft + 公開契約零接觸**（每步 verify git clean）。
+   - ✅ **[S1 完成 PASS as scoped]** Agent-GoldBuilder 草擬 12 短查詢 gold → Leonard 抽驗 5 條 validated。真 `sen` 171 行生產數據 vs gold：cutoff 後 **171→6-8、雜訊尾乾淨砍掉**。誠實：pillar-2 necessary-not-sufficient（3 SENCO gold 同雜訊交織，100% recall precision 上限 0.385）→ S2 必需（Leonard SENCO 裁示 domain-confirm）。
+   - ✅ **[Drift fix]** Current Baseline git HEAD `ae31084`→`dbc10b8`（verify 實際）。
+4. Pending（待 Leonard，非技術）:
+   - 收 S1？行 S2（hybrid+SEN/SENCO lexicon）？捕捉其餘 11 query 真實 backend 輸出（sandbox 出唔到 → curl 交 Terminal）？S1 是否 promote 入 Draft（獨立 HIGH-risk gate）？
+   - P2/P3 排期；含已揭 data error「整筆撥款（LSG）」誤標 + SEN 家族覆蓋缺口
+5. Next priorities (max 3 — 詳見 Open Priorities)：
+   - P1 S2（hybrid+lexicon）/ 廣度驗 11 query
+   - P2 分類 148 / P3 reconcile + SEN 覆蓋
+   - 🔴 Q&A §E.10 / Mobile UI Phase 2 / HKEAA
+6. Risks / blockers:
+   - 🔴 §E.10 公開站 client-side admin 閘門 + 密碼曾入 log（最嚴重未解，碰 admin/auth/公開推送前必讀）
+   - S1 係 Testing PoC 未 promote；pillar-2 單獨唔夠（誠實：sen 頭部精度要 S2，勿過度宣稱）；promote = 獨立 HIGH-risk gate
+   - 已核實 role_facts「整筆撥款（LSG）」data error + 知識庫系統性欠 SEN/融合教育覆蓋（P3/P2，未 fix）
+   - sandbox 出唔到 OpenAI/Supabase/Render → 三通道 semantic 自己跑唔到；廣度驗 S2 須 Leonard Terminal curl
+   - 路徑含空格雙引號；Testing/ 喺 Draft git 外；load-bearing 數字動手前 verify code/data/git；改 code/data commit 必入 SESSION_LOG
+   - 產品方向 P1→P2→P3 順序鎖定 + 39→148 deferred；未得確認唔好跳契約收斂/Circular 接線/scope/§F
+
+## Previous Session Record
 1. UTC date: 2026-05-16
 2. Session ID: Claude_20260516_1952 (Session 111)
 3. Completed（三塊）:
