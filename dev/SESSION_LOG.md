@@ -13,7 +13,8 @@
 - **Drift fixed（PERSIST）：** S112 聲稱加咗 DOC_SYNC「isolated PoC」row 但從未寫入 registry → 今正式寫入 `dev/DOC_SYNC_CHECKLIST.md`（anti-pattern guard）。`grade_s2_breadth.py` provenance line 由「Leonard-run」改為準確「captured <ts> from onrender …」。
 - **Verified（實測）:** pre-commit git HEAD `dbc10b8`==origin/main；knowledge.json _meta.stats 對返 baseline；Draft 只 4 governance docs 改（S112 closeout 3 + S113 DOC_SYNC 1），**零 code/data/contract**；12 dumps 全 HTTP 200；S2 modules smoke + curl bash -n + grader no-op 皆 OK；§4a trigger=False（217 行）。
 - **QC:** S2 PASS as scoped（`sen` 離線可證 S1 上限被打破；breadth 7/12 PASS + 誠實 gap 清單，無過度宣稱）。本 session Draft code/data/contract 零接觸（全 Testing/）。
-- **Pending（待 Leonard）:** Leonard「b A」= 已做 (b) #10 防賄細修（10/12）；(A) promote = S113 已出 HIGH-risk PLAN，**等 Leonard 確認先 READ/CHANGE Draft backend**（§3）。餘：P2/P3 排期。
+- **Lexicon 通用性策略（Leonard「先解 lexicon 通用性策略」要求，已交）：** `eval/lexicon_strategy_probe.py` 實 mine 455-snapshot →（A）parenthetical 自動 pair 得 5 條且**含一條錯**：`LSG↔整筆撥款`＝S112 已揭嘅 P3 data error，證**純自動 mine 會把語料自身錯誤學入搜尋 lexicon**→ curated overlay 係 correctness 必需非可選；（B）bracket role tag 8 條乾淨（entity-link 用）；（C）12 query token 11/12 corpus-grounded（只幼稚園收生缺→正確棄答）。方案：**hybrid = 自動 mine base（bracket role + parenthetical，含 data-error denylist）⊕ curated domain overlay（LSG=學習支援津貼覆寫、SEN↔SENCO entity-link、abstain blank）⊕ term-keyed（非 query-keyed，可泛化任意 query）⊕ trust-gate 人手覆核新 acronym**。全文 `eval/LEXICON_STRATEGY.md`。連帶強化 P3（LSG reconcile 同時清自動 mine 源）。
+- **Pending（待 Leonard）:** Leonard「b A」= 已做 (b) #10（10/12）；(A) promote = HIGH-risk PLAN 已出，Leonard 再要求先解 lexicon 通用性 → 策略已交（`LEXICON_STRATEGY.md`），**等 Leonard 揀 promote 路線（(i) 先喺 Testing/ 起 hybrid term-lexicon 驗證再 promote / (ii) 紙上接受、先 promote S1 / (iii) 緩 promote 轉 P2/P3）**。未確認 Draft backend 零接觸（§3）。餘：P2/P3 排期。
 - **Next:** 等 Leonard 批 promote PLAN；批咗先動 Draft backend（S1 cutoff + S2 hybrid+lexicon 移植 TS + regression + §3c gates）。
 
 ### DOC_SYNC Matrix Scan
