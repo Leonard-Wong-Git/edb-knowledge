@@ -15,15 +15,18 @@
 - **QC:** S2 PASS as scoped（`sen` 離線可證 S1 上限被打破；breadth 7/12 PASS + 誠實 gap 清單，無過度宣稱）。本 session Draft code/data/contract 零接觸（全 Testing/）。
 - **Lexicon 通用性策略（Leonard「先解 lexicon 通用性策略」要求，已交）：** `eval/lexicon_strategy_probe.py` 實 mine 455-snapshot →（A）parenthetical 自動 pair 得 5 條且**含一條錯**：`LSG↔整筆撥款`＝S112 已揭嘅 P3 data error，證**純自動 mine 會把語料自身錯誤學入搜尋 lexicon**→ curated overlay 係 correctness 必需非可選；（B）bracket role tag 8 條乾淨（entity-link 用）；（C）12 query token 11/12 corpus-grounded（只幼稚園收生缺→正確棄答）。方案：**hybrid = 自動 mine base（bracket role + parenthetical，含 data-error denylist）⊕ curated domain overlay（LSG=學習支援津貼覆寫、SEN↔SENCO entity-link、abstain blank）⊕ term-keyed（非 query-keyed，可泛化任意 query）⊕ trust-gate 人手覆核新 acronym**。全文 `eval/LEXICON_STRATEGY.md`。連帶強化 P3（LSG reconcile 同時清自動 mine 源）。
 - **Route (i) 已執行（Leonard 揀「先 Testing/ 起 hybrid 再 promote」）：** 建 `lib/term_lexicon.py`（hybrid term-keyed：BASE 自動 mine bracket roles+parenthetical+**LSG data-error denylist** ⊕ OVERLAY curated Leonard 裁示 ⊕ trust-gate 註）；hybrid.py 改 import 佢。驗證：breadth **仍 10/12**（#06 LSG 0.556→0.625 因 overlay 正確 entity-link）、`sen` 無回歸、#09 仍正確棄答、**泛化成立**（非-12 phrasing 實測：「特殊教育需要邊個負責」→SEN+SENCO、「annual leave 點計」→年假群、「學習支援津貼」→正確 LSG 覆寫非語料 整筆撥款 錯）。promote 前置條件達成。
-- **Pending（待 Leonard）:** promote HIGH-risk PLAN 前置（lexicon 通用性）已解，**等 Leonard 落實行 promote PLAN**（S1+S2 由 Python PoC 移植 Draft TS backend + regression + §3c gate；未確認 Draft backend 零接觸，§3）。餘：餘 2 △=tradeoff 唔郁；P2/P3 排期。
-- **Next:** 等 Leonard 批 promote PLAN；批咗先動 Draft backend（S1 cutoff + S2 hybrid+lexicon 移植 TS + regression + §3c gates）。
+- **Promote 嘗試 → §3c gate 已紅 → Leonard 裁示只記錄（Leonard「2」批一次過 promote，後「先睇 regression 細節再決」→「兩個都唔做，淨係如實記錄入治理」）：** READ 階段做 pre-change baseline：`npm run check`✅ `npm run build`✅，但 **`npm run regression:semantic` 喺改前已 overall=FAIL（PASS9/FAIL2）**。唯讀 triage（0 code 改，Draft 乾淨）真因：**FAIL-A role-bucket `finance_distinct=false`** = S111 dedup（792→455）把跨角色重複摺入 all_roles → `finance.all_roles`=83 條/2832 字，`knowledgeSelector` all_roles-first 排序砍 600 字，頭~14 條 all_roles 蓋爆 budget，subject_head/panel_chair 角色專屬 finance 事實**永遠注入唔到**（無 budget 時 distinct=True，角色拆分本身冇壞）→ **自 2026-05-16 起 Circular System 對該兩角色 finance 注入退化成只通用、無角色專屬，係真 product regression，非 S1/S2**；**FAIL-B** = `semanticRegression.ts:292` 硬斷言 `version==="1.3.1"`（實 2.3.0/2.2.0）stale 測試。`SESSION_HANDOFF:99` 原寫「regression PASS=12/FAIL=0 ✅」係 2026-04-12 舊值、現 false。**Leonard 裁示：FAIL-A/B 兩個都唔修，只如實入治理；promote 暫停**。Draft backend 全程零接觸。
+- **治理記錄（PERSIST）：** SESSION_HANDOFF Regression Notes #3 由 false「PASS=12/FAIL=0 ✅」改為實測 FAIL=2 + FAIL-A/B 真因；Open Priorities 重生（promote 暫停；FAIL-A 升為 🔴 真 regression 待排）；Risks 加 FAIL-A + §3c-gate-已紅 + §G.2 教訓（SESSION_HANDOFF 曾載 false PASS 斷言）。
+- **Pending（待 Leonard）:** (1) promote 暫停中，只 Leonard 明示先恢復（恢復 bar=零新增 FAIL）；(2) FAIL-A 真 Circular 注入 regression 修法待 Leonard 排（涉 dedup/budget/排序設計決定）；(3) P2/P3 排期。餘 2 △=tradeoff 唔郁。
+- **Next:** 等 Leonard：恢復 promote／排 FAIL-A triage／轉 P2/P3。未明示前 Draft backend 零接觸（§3）。
 
 ### DOC_SYNC Matrix Scan
 | Change Category | Required Doc Updates | Status |
 |---|---|---|
 | New / iterated isolated PoC (Testing/ only, no Draft code/data/contract change) | SESSION_LOG/HANDOFF record；PoC Testing/ README；CODEBASE_CONTEXT N/A（Testing/ 非 Draft tech-stack/dir，未 promote） | ✓ Done |
 | New project doc added (registry anti-pattern guard) | 將缺漏 row 寫入 `dev/DOC_SYNC_CHECKLIST.md`（S112 claimed-added 但未持久化） | ✓ Done（1-line add） |
-| Doc-drift / accuracy correction | `grade_s2_breadth.py` provenance line 改準確；本 entry 記錄 egress 文檔假設已過時 | ✓ Done |
+| Doc-drift / accuracy correction | `grade_s2_breadth.py` provenance line 改準確；本 entry 記錄 egress 文檔假設已過時；**SESSION_HANDOFF Regression Notes #3 由 false「PASS=12/FAIL=0 ✅」改實測 FAIL=2 + FAIL-A/B 真因**；Open Priorities 重生（promote 暫停 + FAIL-A 升優先） | ✓ Done |
+| Regression discovered (pre-existing, Leonard 裁示只記錄不修) | SESSION_HANDOFF Regression Notes #3 + Risks（FAIL-A 真 Circular 注入 regression / FAIL-B stale 斷言）；SESSION_LOG 本 entry Problem/RootCause/(Fix deferred)/Verification；§8b monitoring（無新 rule，§G.2 已涵蓋「verify load-bearing claims」） | ✓ Done |
 
 ### Next Session Handoff Prompt (Verbatim)
 ```text
@@ -38,31 +41,34 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Current objective and progress state:
 - S112: Leonard 定 roadmap P1 搜尋相關性 → P2 分類 148 → P3 數字對齊；39→148 deferred。批 5-支柱新檢索架構，分階段 S1→S4 全喺 Testing/。
-- S113: 收 S1（PoC，未 promote）；S2（支柱 1+3 hybrid lexical+dense+RRF + SEN/SENCO lexicon）建好。`sen` 離線：S1 ceiling P=0.385@R1.0 → S2 P=1.0@R1.0（gold fused [1-5]）。真實後端 breadth 12-query：baseline 每 query 269-504 條 P~0.01；S1 alone recall 崩 5 條；S2-op 初版 7/12 → 修 3 gap 後 **10/12 PASS**，recall 大升、P 升 5-50×。已修：#09 幼稚園收生 zero-literal-grounding abstention gate（dense out-of-domain confidently wrong，top 0.698）→ 正確棄答；#07 CPD（+持續進修/專業發展計劃）R 0.714→1.0；#10 防賄（+職能劃分/輪換原則）R 5/6→6/6。餘 2 △（#03 採購/#08 體罰）= S2 full-recall vs S1 fake-high-P-at-collapsed-R 嘅 tradeoff，非 defect（谷 P = 掉 gold，唔郁）。Leonard「b A」：(b) #10 已做；(A) promote PLAN 已出，等確認。
+- S113: 收 S1（PoC，未 promote）；S2（支柱 1+3 hybrid lexical+dense+RRF + SEN/SENCO lexicon）建好。`sen` 離線：S1 ceiling P=0.385@R1.0 → S2 P=1.0@R1.0（gold fused [1-5]）。真實後端 breadth 12-query：baseline 每 query 269-504 條 P~0.01；S1 alone recall 崩 5 條；S2-op 初版 7/12 → 修 3 gap 後 **10/12 PASS**，recall 大升、P 升 5-50×。已修：#09 幼稚園收生 zero-literal-grounding abstention gate（dense out-of-domain confidently wrong，top 0.698）→ 正確棄答；#07 CPD（+持續進修/專業發展計劃）R 0.714→1.0；#10 防賄（+職能劃分/輪換原則）R 5/6→6/6。餘 2 △（#03 採購/#08 體罰）= S2 full-recall vs S1 fake-high-P-at-collapsed-R 嘅 tradeoff，非 defect。**Leonard「2」批一次過 promote → READ 階段 pre-change baseline 發現 `regression:semantic` 改前已 overall=FAIL（FAIL-A 真 Circular 注入 regression［S111 dedup×600字budget］+ FAIL-B stale 斷言，皆非 S1/S2）→ Leonard 裁示兩個都唔修、只如實入治理、promote 暫停。Draft backend 零接觸。**
 
 Pending tasks in priority order:
-1. **promote PLAN 已出（HIGH-risk），等 Leonard 確認** —— 確認後先 READ/CHANGE Draft backend：S1 cutoff + S2 hybrid+lexicon 由 Python PoC 移植落 TS（searchChannelA/Combined）、跑 `npm run regression:semantic` + §3c release gate、公開契約零變、可 rollback。未確認前 Draft backend 零接觸。
-2. 餘 2 △（#03/#08）= tradeoff，建議唔郁（谷 P 會掉 gold）。
-3. P2：148 文件按校級(中小幼特)+範疇分類；P3：reconcile「整筆撥款（LSG）」誤標 + 補 SEN 家族覆蓋（KG-admission URL / sense.edb.gov.hk+EDBC19006C / 學習支援津貼）。
-4. 原 Open Priorities：Mobile UI Phase 2、🔴 Q&A §E.10 admin-login security、HKEAA source family、低優先 doc-debt。
+1. **promote 暫停中** —— 只 Leonard 明示先恢復；恢復 §3c bar = 零新增 FAIL（pre-existing FAIL-A/B 照舊）+ breadth harness 驗 S1/S2。未明示前 Draft backend 零接觸（§3）。
+2. **🔴 FAIL-A 真 product regression（未修，Leonard 裁示只記錄）**：S111 dedup（792→455）× 600 字注入 budget × all_roles-first 排序 → subject_head/panel_chair 嘅 finance 注入自 2026-05-16 退化成只通用；修法涉設計決定，待 Leonard 排。FAIL-B = `semanticRegression.ts:292` stale `1.3.1` 斷言（低 doc-debt）。
+3. P2：148 文件按校級(中小幼特)+範疇分類；P3：reconcile「整筆撥款（LSG）」誤標 + 補 SEN 家族覆蓋。餘 2 △=tradeoff 唔郁。
+4. 原 Open Priorities：Mobile UI Phase 2、🔴 Q&A §E.10 admin-login security、HKEAA source family。
 
 Key files changed in this session:
-- Draft（僅治理文檔，零 code/data/contract）：dev/SESSION_LOG.md（本 entry）、dev/SESSION_HANDOFF.md（Open Priorities 重生 + S113 record + baseline）、dev/DOC_SYNC_CHECKLIST.md（補 isolated-PoC row）。git commit + push 已由本 session 執行（Leonard「你去做」授權，egress 通）。
+- Draft（僅治理文檔，零 code/data/contract）：dev/SESSION_LOG.md（本 entry）、dev/SESSION_HANDOFF.md（Regression Notes #3 修正 false PASS 斷言 + Open Priorities 重生 promote 暫停/FAIL-A 升優先 + S113 record + baseline）、dev/DOC_SYNC_CHECKLIST.md（補 isolated-PoC row）。git commit + push 多次由本 session 執行（Leonard 多次授權，egress 通）。**promote READ 階段 0 backend code 改（pre-change baseline + 唯讀 triage 後 Leonard 裁示停）。**
 - Testing/poc-retrieval/（PoC，非 git）：lib/{lexicon,lexical_score,hybrid}.py、eval/{run_s2_sen,grade_s2_breadth}.py、eval/curl_pack_breadth.sh、eval/backend_dumps/*.json（12 live dumps）、eval/{S2_report,S2_breadth_report}.md、README.md。
 
 Known risks / blockers / cautions:
+- 🔴 **FAIL-A 真 product regression（未修，Leonard 裁示只記錄）**：S111 dedup（792→455）× 600 字注入 budget × all_roles-first 排序 → subject_head/panel_chair 嘅 finance 注入自 2026-05-16 退化成只通用、無角色專屬（見 SESSION_HANDOFF Regression Notes #3）。
+- 🔴 §3c gate（`npm run regression:semantic`）本身已紅（FAIL-A/B，非 S1/S2）→ 任何 release/merge/promote claim 前必重新 baseline、勿信舊「✅」（§G.2 再現：SESSION_HANDOFF 曾載 false「PASS=12/FAIL=0」斷言 ~過時值）。
 - 🔴 PROJECT_MASTER_SPEC §E.10：公開站 client-side admin 閘門 + 密碼曾入 log（最嚴重未解，碰 admin/auth/公開推送前必讀）。
-- S1/S2 係 Testing PoC，**未 promote**；promote 入 Draft = 獨立 HIGH-risk gate（PLAN 已出等確認）。S2 3 個可修 gap（#09/#07/#10）已修，breadth 10/12；餘 2 △（#03/#08）= recall/precision tradeoff 非 defect。勿過度宣稱「搜尋已全修好」（仍 PoC、未 promote、breadth gold 係 12 短 query 抽樣）。
+- S1/S2 係 Testing PoC，**未 promote、promote 暫停中**（只 Leonard 明示先恢復）。S2 3 gap（#09/#07/#10）已修，breadth 10/12；餘 2 △（#03/#08）= recall/precision tradeoff 非 defect。勿過度宣稱「搜尋已全修好」（仍 PoC、未 promote、breadth gold 係 12 短 query 抽樣）。
 - egress 文檔假設過時（S113 實測 onrender+github 通）但可能 intermittent → 每次自行 verify，勿假設恆通亦勿假設恆封。
 - 已核實 role_facts「整筆撥款（LSG）」data error + 知識庫系統性欠 SEN/融合教育覆蓋（P3/P2，未 fix）。
 - 路徑含空格雙引號；Testing/ 喺 Draft git 外；load-bearing 數字動手前 verify code/data/git；改 code/data 之 commit 必入 SESSION_LOG（S111 教訓）。
 - 產品方向：39→148 deferred；P1→P2→P3 順序鎖定，未得 Leonard 確認唔好跳契約收斂/Circular 接線/scope/§F。
 
 Validation status:
-- PASS: S2 as scoped（`sen` 離線可證 S1 上限被打破 P0.385→1.0；breadth 修 3 gap 後 **10/12 PASS**；#09/#07/#10 已修，餘 2 △ = tradeoff 非 defect）；Draft 零 code/data/contract；§4a trigger=False；git commit+push 本 session 已落地（startup 仍須自行 verify HEAD，紀律）。
-- PENDING（待 Leonard）：**promote PLAN 確認**（HIGH-risk，確認後先動 Draft backend）/ P2·P3 排期。
+- PASS: S2 as scoped（`sen` 離線 S1 上限被打破 P0.385→1.0；breadth 10/12；term_lexicon 泛化驗證）；Draft 零 code/data/contract（promote READ 階段 0 backend 改）；§4a trigger=False；多次 git commit+push 已落地。
+- DISCOVERED（已如實入治理，Leonard 裁示不修）：§3c `regression:semantic` 改前已 overall=FAIL — FAIL-A 真 Circular 注入 regression（S111 dedup×600字budget）、FAIL-B stale `1.3.1` 斷言。
+- PENDING（待 Leonard）：恢復 promote？／排 FAIL-A triage？／P2·P3 排期。
 
-Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE 後，自行 verify git HEAD（應 ≥ 本 session 最後 commit）+ knowledge.json._meta.stats vs baseline + 實測 egress（onrender /health）勿照抄假設。睇 Testing/poc-retrieval/eval/S2_report.md + S2_breadth_report.md + README 了解 S2 狀態（**10/12，3 gap 已修，餘 2 △ = tradeoff 非 defect**）。Leonard 已「b A」：(b) #10 done；(A) promote PLAN 已出。問 Leonard：(1) 批 promote PLAN？批咗先 READ/CHANGE Draft backend（S1+S2 移植 TS + regression + §3c gate）；(2) 轉 P2/P3？未確認前唔好 promote、唔好跳 scope/§F/公開契約。碰 admin/auth/公開推送前必讀 §E.10。
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE 後，自行 verify git HEAD（應 ≥ 本 session 最後 commit）+ knowledge.json._meta.stats vs baseline + 實測 egress（onrender /health）勿照抄假設。**重要：`npm run regression:semantic` 改前已 overall=FAIL（FAIL-A 真 Circular role 注入 regression / FAIL-B stale 斷言，皆已記錄 SESSION_HANDOFF Regression Notes #3；Leonard 裁示只記錄不修）—— 任何 promote/release 前必自行重新 baseline，勿信舊「✅」。** 睇 Testing/poc-retrieval/eval/{S2_report,S2_breadth_report}.md + LEXICON_STRATEGY.md + lib/term_lexicon.py 了解 S2（10/12，promote 暫停）。問 Leonard：(1) 恢復 promote（恢復 bar=零新增 FAIL）？(2) 排 FAIL-A triage（涉 dedup/budget/排序設計）？(3) 轉 P2/P3？**promote 暫停中、未 Leonard 明示前 Draft backend 零接觸**；唔好跳 scope/§F/公開契約。碰 admin/auth/公開推送前必讀 §E.10。
 ```
 
 ---

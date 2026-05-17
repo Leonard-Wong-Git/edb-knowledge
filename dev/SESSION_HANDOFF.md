@@ -96,17 +96,20 @@ source_registry → same vault PDFs → ai_extract.py
 ## Regression / Verification Notes
 1. All core 2024/2025 curriculum guides verified and reachable ✅
 2. `check_freshness.py` result: **Errors: 0 / Checked: 145** ✅
-3. **Online semantic regression: PASS=12 / FAIL=0** (2026-04-12) ✅
+3. ⚠️ **`npm run regression:semantic` 實測 2026-05-17 S113：overall=FAIL（PASS=9 / FAIL=2）**。原寫「Online semantic regression PASS=12/FAIL=0 (2026-04-12) ✅」**已 false / stale**（2026-04-12 舊值，dedup 前；S113 startup verify 教訓再現 §G.2）。兩個 FAIL 同 S1/S2 無關、Leonard 裁示**只記錄不修**：
+   - **FAIL-A（真 product regression）role-bucket `finance_distinct=false`**：S111 dedup（792→455，2026-05-16）把跨角色重複摺入 `all_roles`，令 `finance.all_roles`=83 條/2832 字；`knowledgeSelector` 排序 all_roles 行先→砍 600 字，頭 ~14 條 all_roles 已蓋爆 budget，**subject_head/panel_chair 角色專屬 finance 事實永遠注入唔到** → Circular System 對該兩角色嘅 finance 注入自 2026-05-16 起退化成「只通用、無角色專屬」。無 budget 時 distinct=True（角色拆分本身冇壞）。**未修**（涉 dedup/budget/排序設計決定，待 Leonard 排）。
+   - **FAIL-B（瑣碎 doc-debt）schema consistency**：`backend/scripts/semanticRegression.ts:292` 硬斷言 `version === "1.3.1"`，實際 knowledge=2.3.0 / guidelines=2.2.0。stale 測試斷言，無行為影響。**未修**。
+4. `npm run check`（typecheck）✅ / `npm run build` ✅（S113 實測，未變）。
 
 ---
 
 ## Open Priorities
 > 產品方向 S112 已定 roadmap：**P1 搜尋相關性 → P2 分類 148 → P3 數字對齊**；39→148 收斂 = 將來會做（deferred，非 undecided）。順序鎖定，未得 Leonard 確認唔好跳。
-1. **P1 搜尋相關性（S1+S2 PoC 完成，全 `Testing/poc-retrieval/`，Draft 零接觸）**：S1 動態裁切 Leonard 已收（PoC，**未** promote）。S2（支柱 1+3 hybrid lexical+dense+RRF + SEN/SENCO lexicon）建好；`sen` 離線 S1 ceiling P=0.385@R1.0 → S2 P=1.0@R1.0。S113 實測 sandbox egress 通 → 自己跑真實後端 **12-query breadth**：baseline 每 query 269-504 條 P~0.01；S1 alone recall 崩 5 條；S2-op 修 3 gap 後 **10/12 PASS**，recall 大升、P 升 5-50×。已修：#09 幼稚園收生 zero-grounding abstention gate（dense out-of-domain confidently wrong）→ 正確棄答；#07 CPD（+持續進修/專業發展計劃）R 0.714→1.0；#10 防賄（+職能劃分/輪換原則）R 5/6→6/6。餘 2 △（#03 採購/#08 體罰）= S2 full-recall vs S1 fake-high-P-at-collapsed-R tradeoff，非 defect（谷 P=掉 gold，唔郁）。**Leonard「b A」：(b) #10 已做；(A) promote HIGH-risk PLAN 已出。Leonard 揀 route (i)→ 已建 `Testing/poc-retrieval/lib/term_lexicon.py`（hybrid term-keyed：自動 mine base + LSG data-error denylist ⊕ curated overlay ⊕ 泛化）；驗證 breadth 仍 **10/12**、`sen` 無回歸、#09 棄答保留、非-12 phrasing 泛化成立、LSG 正確覆寫。promote 前置已解，**等 Leonard 落實行 promote PLAN**（S1+S2 移植 Draft TS backend + regression + §3c；未確認 Draft backend 零接觸，§3）。**
-2. **P2 分類 148 文件**：按校級（中／小／幼／特）+ 範疇（課程/財務/活動…），**然後**先評通告系統點 consume 再講接手。P1 完成後做。
-3. **P3 數字/事實對齊 reality+docs**：fix 已核實 role_facts「整筆撥款（LSG）」誤標（LSG=學習支援津貼）；補 SEN 家族覆蓋缺口（canonical：KG-admission URL / sense.edb.gov.hk+EDBC19006C / 學習支援津貼）。39→148 留待將來收斂（須 §3 HIGH-risk PLAN）。
-4. **🔴 Q&A admin-login security**（§E.10，全專案最嚴重未解）+「34問題」audit；**Mobile UI Phase 2 餘下**（index/q/t-purchase/#guidelines mobile content）。
-5. **HKEAA source family 補完**（S105 SBA gap）；**（doc-debt 低）** CODEBASE_CONTEXT L29「v1.3.1」標籤 / `searchChannelB.ts` stale header / `semanticRegression.ts` guidelines version 斷言 1.3.1（實 2.2.0）。
+1. **P1 搜尋相關性 — S1+S2 PoC 驗證完成，promote 暫停**：全喺 `Testing/poc-retrieval/`，Draft 零接觸。S1（已收 PoC）+ S2（hybrid+term-lexicon+abstention）真實後端 breadth **10/12 PASS**（`sen` P0.385→1.0；#09/#07/#10 gap 已修；餘 2 △=full-recall tradeoff 非 defect）；generalized `term_lexicon.py` 泛化驗證 OK。**promote 嘗試時實測發現 §3c gate（`regression:semantic`）喺改前已 overall=FAIL（見 Regression Notes #3 FAIL-A/B，同 S1/S2 無關）→ Leonard 裁示只記錄不修、promote 暫停**。promote 只喺 Leonard 明示先恢復；恢復時 §3c bar = 零新增 FAIL（pre-existing 2 個照舊）+ breadth harness 驗。
+2. **🔴 Circular 角色注入 regression（FAIL-A，真 product bug，未修）**：S111 dedup（792→455）× 600 字注入預算 × all_roles-first 排序 → 自 2026-05-16 起 subject_head/panel_chair 嘅 finance 注入退化成「只通用、無角色專屬」。已如實記錄（Regression Notes #3），**修法涉 dedup/budget/排序設計決定，待 Leonard 排**。與 P3 相關但不同。
+3. **P2 分類 148 文件**：按校級（中／小／幼／特）+ 範疇，**然後**先評通告系統點 consume 再講接手。
+4. **P3 數字/事實對齊**：fix 已核實 role_facts「整筆撥款（LSG）」誤標（LSG=學習支援津貼）；補 SEN 家族覆蓋缺口（KG-admission URL / sense.edb.gov.hk+EDBC19006C / 學習支援津貼）。39→148 deferred（須 §3 HIGH-risk PLAN）。
+5. **🔴 Q&A admin-login security**（§E.10 最嚴重未解）+「34問題」audit；**Mobile UI Phase 2 餘下**；**HKEAA source family**（S105）；**低 doc-debt**：FAIL-B（`semanticRegression.ts:292` stale `1.3.1`）/ CODEBASE_CONTEXT L29 / `searchChannelB.ts` stale header。
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 - g21/g22/g33 直連 PDF 補完（user browser）— Session 105 audit 揭發三者 source_type='pdf' 但 url_primary 缺
@@ -121,17 +124,19 @@ source_registry → same vault PDFs → ai_extract.py
    - ✅ **[收 S1 + 建 S2]** Leonard 收 S1（PoC，未 promote）；喺 Testing/ 建好 S2 = 支柱 1+3（lexicon / lexical_score / hybrid RRF + s2_operating_point）。`sen` 離線：S1 ceiling P=0.385@R1.0 → **S2 P=1.0@R1.0**（gold fused [1-5]）。
    - ✅ **[egress 實測 + 真實 breadth]** 實測 sandbox 竟接到 onrender + github SSH（與舊文檔假設相反，§G.2）→ 自己跑 12-query live `/api/search/combined` capture+grade（毋須交 Terminal）。baseline 每 query 269-504 條 P~0.01；S1 alone recall 崩 5 條；S2-op 初版 7/12。
    - ✅ **[3 gap 修好（Leonard「你的建議／b A」授權）]** #09 幼稚園收生：發現 dense out-of-domain confidently wrong（top 0.698 全場最高）→ 改 zero-literal-grounding abstention gate → 正確棄答（0 條）。#07 CPD（+持續進修/專業發展計劃）R 0.714→1.0。#10 防賄（+職能劃分/輪換原則，ICAC 職務分隔內控）R 5/6→6/6。`sen` 無回歸；lexicon per-query keyed 不影響他 query。**breadth 7/12 → 10/12 PASS**。餘 2 △（#03/08）= full-recall vs S1-fake-high-P tradeoff，非 defect。
-   - ✅ **[(A) promote PLAN 已出]** S1+S2 由 Python PoC 移植落 Draft backend TS 嘅 HIGH-risk PLAN 已出，**等 Leonard 確認先 READ/CHANGE**（§3）。
-   - ✅ **[治理修正]** 補 S112 漏寫嘅 DOC_SYNC「isolated PoC」row；grader provenance line 改準確。git commit+push S112 closeout + S113 治理文檔多次（Leonard「你去做／你的建議／b A」授權；commit dbc10b8→9a6a4f1→099b982→…）。
+   - ✅ **[(A) promote 嘗試 → 發現 §3c gate 已紅 → Leonard 裁示只記錄]** route (i) 完成（term_lexicon.py 泛化驗證 OK），Leonard「2」批一次過 promote。promote READ 階段先行 pre-change baseline：`check`✅`build`✅ 但 **`regression:semantic` overall=FAIL（PASS9/FAIL2）喺改前已紅**。triage 真因（唯讀，0 code 改）：FAIL-A=S111 dedup×600字budget 令 finance 角色注入退化（真 product regression，非 S1/S2）；FAIL-B=stale `1.3.1` 斷言。Leonard 裁示**兩個都唔做、只如實入治理；promote 暫停**。Draft backend 零接觸。
+   - ✅ **[治理修正]** 補 S112 漏寫 DOC_SYNC row；grader provenance 改準確；**修正 SESSION_HANDOFF Regression Notes #3 由 false「PASS=12/FAIL=0 ✅」→ 實測 FAIL=2 + FAIL-A/B 真因**；Open Priorities 重生（promote 暫停 + FAIL-A 入優先序）。git commit+push S112 closeout + S113 治理文檔多次（Leonard「你去做／你的建議／b A／2／只記錄」授權；commit dbc10b8→…）。
 4. Pending（待 Leonard）:
-   - **promote PLAN 確認**（HIGH-risk，確認後先動 Draft backend：S1+S2 移植 TS + regression + §3c gate）；P2/P3 排期？
+   - promote 暫停中 —— 只喺 Leonard 明示先恢復；FAIL-A（真 Circular 注入 regression）修法待 Leonard 排（涉設計決定）；P2/P3 排期？
 5. Next priorities (max 3 — 詳見 Open Priorities)：
-   - 等 Leonard 批 promote PLAN（批咗先動 Draft backend）
+   - 等 Leonard：恢復 promote？／排 FAIL-A triage？
    - P2 分類 148 / P3 reconcile + SEN 覆蓋
    - 🔴 Q&A §E.10 / Mobile UI Phase 2 / HKEAA
 6. Risks / blockers:
-   - 🔴 §E.10 公開站 client-side admin 閘門 + 密碼曾入 log（最嚴重未解；promote 觸 backend 但唔觸 admin/auth，仍須留意公開契約零變）
-   - S1/S2 = Testing PoC 未 promote；S2 3 gap(#09/#07/#10)已修、breadth 10/12，餘 2 △ = tradeoff 非 defect；勿過度宣稱「搜尋已全修好」（仍 PoC、12 短 query 抽樣）；promote = 獨立 HIGH-risk gate，PLAN 已出等確認
+   - 🔴 **FAIL-A 真 product regression（未修，Leonard 裁示只記錄）**：S111 dedup×600字budget → subject_head/panel_chair 嘅 finance 注入自 2026-05-16 退化成只通用；見 Regression Notes #3。
+   - 🔴 §E.10 公開站 client-side admin 閘門 + 密碼曾入 log（最嚴重未解）
+   - §3c gate（`regression:semantic`）本身已紅（FAIL-A/B，非 S1/S2）→ 任何 release/merge claim 前必重新 baseline、勿信舊「✅」（§G.2 教訓再現：SESSION_HANDOFF 曾載 false PASS 斷言）
+   - S1/S2 = Testing PoC 未 promote；breadth 10/12，餘 2 △=tradeoff 非 defect；勿過度宣稱「搜尋已全修好」（仍 PoC、12 短 query 抽樣）
    - egress 文檔假設過時（S113 實測 onrender+github 通）但可能 intermittent → 每次自行 verify
    - 已核實 role_facts「整筆撥款（LSG）」data error + 系統性欠 SEN/融合教育覆蓋（P3/P2 未 fix）
    - 路徑含空格雙引號；Testing/ 喺 Draft git 外；load-bearing 數字動手前 verify；改 code/data commit 必入 SESSION_LOG
