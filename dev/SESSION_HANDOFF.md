@@ -102,7 +102,7 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## Open Priorities
 > 產品方向 S112 已定 roadmap：**P1 搜尋相關性 → P2 分類 148 → P3 數字對齊**；39→148 收斂 = 將來會做（deferred，非 undecided）。順序鎖定，未得 Leonard 確認唔好跳。
-1. **P1 搜尋相關性（S1+S2 PoC 完成，全 `Testing/poc-retrieval/`，Draft 零接觸）**：S1 動態裁切 Leonard 已收（PoC，**未** promote）。S2（支柱 1+3 hybrid lexical+dense+RRF + SEN/SENCO lexicon）建好；`sen` 離線 S1 ceiling P=0.385@R1.0 → S2 P=1.0@R1.0。S113 實測 sandbox egress 通 → 自己跑真實後端 **12-query breadth**：baseline 每 query 269-504 條 P~0.01；S1 alone recall 崩 5 條；S2-op 修 2 gap 後 **9/12 PASS**，recall 大升、P 升 5-50×。已修：#09 幼稚園收生 zero-grounding abstention gate（dense out-of-domain confidently wrong）→ 正確棄答；#07 CPD lexicon 加詞 → R 0.714→1.0。餘 3 △（#03/#08/#10）非 correctness defect（full-recall tradeoff + 1 marginal）。**待 Leonard：(a) S1/S2 promote 入 Draft = 獨立 HIGH-risk gate（改 backend code + 跑 regression）？(b) #10 防賄補 1 詞或餘 △ 點處理？**
+1. **P1 搜尋相關性（S1+S2 PoC 完成，全 `Testing/poc-retrieval/`，Draft 零接觸）**：S1 動態裁切 Leonard 已收（PoC，**未** promote）。S2（支柱 1+3 hybrid lexical+dense+RRF + SEN/SENCO lexicon）建好；`sen` 離線 S1 ceiling P=0.385@R1.0 → S2 P=1.0@R1.0。S113 實測 sandbox egress 通 → 自己跑真實後端 **12-query breadth**：baseline 每 query 269-504 條 P~0.01；S1 alone recall 崩 5 條；S2-op 修 3 gap 後 **10/12 PASS**，recall 大升、P 升 5-50×。已修：#09 幼稚園收生 zero-grounding abstention gate（dense out-of-domain confidently wrong）→ 正確棄答；#07 CPD（+持續進修/專業發展計劃）R 0.714→1.0；#10 防賄（+職能劃分/輪換原則）R 5/6→6/6。餘 2 △（#03 採購/#08 體罰）= S2 full-recall vs S1 fake-high-P-at-collapsed-R tradeoff，非 defect（谷 P=掉 gold，唔郁）。**Leonard「b A」：(b) #10 已做；(A) S1+S2 promote 入 Draft 嘅 HIGH-risk PLAN 已出，等 Leonard 確認先 READ/CHANGE Draft backend（§3）。**
 2. **P2 分類 148 文件**：按校級（中／小／幼／特）+ 範疇（課程/財務/活動…），**然後**先評通告系統點 consume 再講接手。P1 完成後做。
 3. **P3 數字/事實對齊 reality+docs**：fix 已核實 role_facts「整筆撥款（LSG）」誤標（LSG=學習支援津貼）；補 SEN 家族覆蓋缺口（canonical：KG-admission URL / sense.edb.gov.hk+EDBC19006C / 學習支援津貼）。39→148 留待將來收斂（須 §3 HIGH-risk PLAN）。
 4. **🔴 Q&A admin-login security**（§E.10，全專案最嚴重未解）+「34問題」audit；**Mobile UI Phase 2 餘下**（index/q/t-purchase/#guidelines mobile content）。
@@ -120,17 +120,18 @@ source_registry → same vault PDFs → ai_extract.py
 3. Completed:
    - ✅ **[收 S1 + 建 S2]** Leonard 收 S1（PoC，未 promote）；喺 Testing/ 建好 S2 = 支柱 1+3（lexicon / lexical_score / hybrid RRF + s2_operating_point）。`sen` 離線：S1 ceiling P=0.385@R1.0 → **S2 P=1.0@R1.0**（gold fused [1-5]）。
    - ✅ **[egress 實測 + 真實 breadth]** 實測 sandbox 竟接到 onrender + github SSH（與舊文檔假設相反，§G.2）→ 自己跑 12-query live `/api/search/combined` capture+grade（毋須交 Terminal）。baseline 每 query 269-504 條 P~0.01；S1 alone recall 崩 5 條；S2-op 初版 7/12。
-   - ✅ **[2 gap 修好（Leonard「你的建議」授權）]** #09 幼稚園收生：發現 dense out-of-domain confidently wrong（top 0.698 全場最高）→ 改 zero-literal-grounding abstention gate → 正確棄答（0 條）。#07 CPD：lexicon 加數據實證詞「持續進修／專業發展計劃」→ R 0.714→1.0。`sen` 無回歸。**breadth 7/12 → 9/12 PASS**。餘 3 △（#03/08/10）非 defect（full-recall tradeoff + #10 marginal 5/6）。
-   - ✅ **[治理修正]** 補 S112 漏寫嘅 DOC_SYNC「isolated PoC」row；grader provenance line 改準確。git commit+push S112 closeout + S113 治理文檔 2 次（Leonard「你去做／你的建議」授權；commit dbc10b8→9a6a4f1→…）。
+   - ✅ **[3 gap 修好（Leonard「你的建議／b A」授權）]** #09 幼稚園收生：發現 dense out-of-domain confidently wrong（top 0.698 全場最高）→ 改 zero-literal-grounding abstention gate → 正確棄答（0 條）。#07 CPD（+持續進修/專業發展計劃）R 0.714→1.0。#10 防賄（+職能劃分/輪換原則，ICAC 職務分隔內控）R 5/6→6/6。`sen` 無回歸；lexicon per-query keyed 不影響他 query。**breadth 7/12 → 10/12 PASS**。餘 2 △（#03/08）= full-recall vs S1-fake-high-P tradeoff，非 defect。
+   - ✅ **[(A) promote PLAN 已出]** S1+S2 由 Python PoC 移植落 Draft backend TS 嘅 HIGH-risk PLAN 已出，**等 Leonard 確認先 READ/CHANGE**（§3）。
+   - ✅ **[治理修正]** 補 S112 漏寫嘅 DOC_SYNC「isolated PoC」row；grader provenance line 改準確。git commit+push S112 closeout + S113 治理文檔多次（Leonard「你去做／你的建議／b A」授權；commit dbc10b8→9a6a4f1→099b982→…）。
 4. Pending（待 Leonard）:
-   - S1/S2 promote 入 Draft（獨立 HIGH-risk gate）？#10 防賄補 1 詞或餘 △ 點處理？P2/P3 排期？
+   - **promote PLAN 確認**（HIGH-risk，確認後先動 Draft backend：S1+S2 移植 TS + regression + §3c gate）；P2/P3 排期？
 5. Next priorities (max 3 — 詳見 Open Priorities)：
-   - promote PLAN 或 #10 細修（Leonard 話事）
+   - 等 Leonard 批 promote PLAN（批咗先動 Draft backend）
    - P2 分類 148 / P3 reconcile + SEN 覆蓋
    - 🔴 Q&A §E.10 / Mobile UI Phase 2 / HKEAA
 6. Risks / blockers:
-   - 🔴 §E.10 公開站 client-side admin 閘門 + 密碼曾入 log（最嚴重未解）
-   - S1/S2 = Testing PoC 未 promote；S2 2 個真 defect(#09/#07)已修、breadth 9/12，餘 3 △ = tradeoff/marginal 非 defect；勿過度宣稱「搜尋已全修好」（仍 PoC、12 短 query 抽樣）；promote = 獨立 HIGH-risk gate
+   - 🔴 §E.10 公開站 client-side admin 閘門 + 密碼曾入 log（最嚴重未解；promote 觸 backend 但唔觸 admin/auth，仍須留意公開契約零變）
+   - S1/S2 = Testing PoC 未 promote；S2 3 gap(#09/#07/#10)已修、breadth 10/12，餘 2 △ = tradeoff 非 defect；勿過度宣稱「搜尋已全修好」（仍 PoC、12 短 query 抽樣）；promote = 獨立 HIGH-risk gate，PLAN 已出等確認
    - egress 文檔假設過時（S113 實測 onrender+github 通）但可能 intermittent → 每次自行 verify
    - 已核實 role_facts「整筆撥款（LSG）」data error + 系統性欠 SEN/融合教育覆蓋（P3/P2 未 fix）
    - 路徑含空格雙引號；Testing/ 喺 Draft git 外；load-bearing 數字動手前 verify；改 code/data commit 必入 SESSION_LOG
