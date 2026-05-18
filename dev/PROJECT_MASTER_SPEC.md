@@ -120,7 +120,7 @@ source_registry → 同 vault PDFs → ai_extract.py
 ### C.4 資料儲存
 - **Supabase**（Channel B 向量庫）：project `edb-knowledge`，table `public.wiki_chunks`（vector(1536)，IVFFlat **lists=60** — 依 `backend/supabase/schema.sql` 權威 DDL；舊寫「lists=50」係 drift，S115 CB-2 §0b 修正；pgvector 預設 `probes=1` → 每查掃 ~1/60≈1.7% 向量），RPC `match_wiki_chunks(query_embedding text, match_threshold float, match_count int DEFAULT NULL)`（內部 `text::vector` cast，cosine DESC，不傳 count 則返回全部）。anon role 需 `GRANT USAGE ON SCHEMA public` **且** `GRANT SELECT ON wiki_chunks`。上傳用 service_role key，查詢用 anon key。免費 tier 500MB（現 ~50MB）。
 - **GitHub Pages**：公開 artifacts `knowledge.json` / `guidelines.json` / `K1_API_SPEC.md`。
-- **MemPalace**（本地 AI memory）：shared install `/Users/leonard/mempalace/.venv`，palace `/Users/leonard/mempalace/palace`，wing `claude_edb_knowledge`；recovery workaround `hnsw:num_threads=1`；備份 `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`。
+- **MemPalace — REMOVED 2026-05-18 (S115，Leonard 指示)**：本專案已停用 MemPalace；repo-local config + `dev/mempalace_sync.py` 已刪、治理引用已剝除。Shared palace（repo 外、多專案共用）為其他專案保留；本專案 wing drawers 孤兒化（CLI 無 wing-delete）。勿為本專案重設 MemPalace 除非 Leonard 明示。
 
 ### C.5 治理框架（AGENTS.md 體系）
 - `AGENTS.md`（§0–§13 SSOT）；`CLAUDE.md` / `GEMINI.md` 為 bridge。
@@ -128,7 +128,7 @@ source_registry → 同 vault PDFs → ai_extract.py
 - `dev/DOC_SYNC_CHECKLIST.md`（改動 → 必更新文檔對照表，PERSIST 階段強制 scan）。
 - `docs/qa/session_log_maintenance.py`（§4a 封存工具，>400 行或最舊條目 >30 天觸發；archive 在 `dev/archive/SESSION_LOG_YYYY_QN.md`）。
 - `bump_version.py`（版本號同步 6 檔 + CHANGELOG + README；**注意：歷史上曾有 wipe role_facts.json schema 的已知問題，跑前 backup**）。
-- `dev/mempalace_sync.py`（session close 時 MemPalace 同步）。
+- ~~`dev/mempalace_sync.py`~~ — 已刪除 2026-05-18 (S115)；本專案 session close 不再做 MemPalace 同步。
 
 ### C.6 關鍵規格文檔（深入時讀）
 - `K1_API_SPEC.md` / `K1_KNOWLEDGE_INTERFACE_SPEC.md`：對外資料契約。
@@ -262,7 +262,7 @@ source_registry → 同 vault PDFs → ai_extract.py
 6. 風險 HIGH（≥3 檔 / 不可逆 / 外部系統 / 改治理規則）？→ 出 PLAN 等 user 確認再 READ。
 
 ### G.4 收尾（AGENTS.md §3 PERSIST / §4 closeout）
-更新 `SESSION_HANDOFF.md` + `SESSION_LOG.md`；跑 DOC_SYNC Matrix Scan；如動到 tech stack / 外部服務 / Key Decisions 一併更新 `CODEBASE_CONTEXT.md`；如本文件描述的長期規格 / 鎖定決策有變，同 pass 更新本文件。git push + MemPalace sync 指令交 user Terminal 跑（附完整絕對路徑 + `&&` 串連）。
+更新 `SESSION_HANDOFF.md` + `SESSION_LOG.md`；跑 DOC_SYNC Matrix Scan；如動到 tech stack / 外部服務 / Key Decisions 一併更新 `CODEBASE_CONTEXT.md`；如本文件描述的長期規格 / 鎖定決策有變，同 pass 更新本文件。git commit + push 由 Claude 執行（Leonard S115 授權「push 係你做」；加指定檔勿 -A、完整絕對路徑 + `&&` 串連）。（MemPalace sync 已 S115 移除。）
 
 ---
 

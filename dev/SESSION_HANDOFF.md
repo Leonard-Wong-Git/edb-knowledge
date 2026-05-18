@@ -1,14 +1,14 @@
 # Session Handoff
 
 ## Current Baseline
-1. Version: **v2.3.0**；git `main`=`origin/main` HEAD `71a3a3d`（S115 收尾 verify==baseline，不變）。**S114+S115 Draft 只改治理/文檔（SESSION_LOG/HANDOFF/Q2 archive/CODEBASE_CONTEXT/PROJECT_MASTER_SPEC lists 50→60 drift 修），零 code/data/contract，未 commit（待 Leonard 授權；egress S115 後段已復通）**——下次起手自行 verify 實際 HEAD。S1+S2（Channel A）PoC 未 promote、promote 暫停；**CB-0 Leonard gate PASSED + CB-2 檢索校準執行完成（2026-05-18 S115，全 Testing/，Draft 零接觸）。CB-0 AUTHORITATIVE：Channel B 瓶頸=RETRIEVAL。CB-2 量化：8 條 live-0 中 7 ANN-recoverable（升 ivfflat.probes）+ 1 expansion-recovers（sen）。落地＝promote＝獨立 §3 HIGH-risk gate 待 Leonard 明示**
+1. Version: **v2.3.0**；git `main`=`origin/main` HEAD **`ec157db`**（S115 closeout commit+push 已落地：CB-0 gate→AUTHORITATIVE / CB-2 done / ivfflat lists 50→60 drift 修 / §4a archive；Leonard 授權 push、egress 已通）。零 code/data/contract（只治理/文檔）。**註：本 SESSION_HANDOFF/LOG 內描述 work 時嘅「HEAD 71a3a3d」係 commit *前* 狀態，commit 後自然推進到 ec157db＝正常、非 desync（commit 已完整入 S115 SESSION_LOG，符 §G.2）**——下次起手自行 verify 實際 HEAD（應 `ec157db` 或更新）。S1+S2（Channel A）PoC 未 promote、promote 暫停；**CB-0 Leonard gate PASSED + CB-2 檢索校準執行完成（2026-05-18 S115，全 Testing/，Draft 零接觸）。CB-0 AUTHORITATIVE：Channel B 瓶頸=RETRIEVAL。CB-2 量化：8 條 live-0 中 7 ANN-recoverable（升 ivfflat.probes）+ 1 expansion-recovers（sen）。落地＝promote＝獨立 §3 HIGH-risk gate 待 Leonard 明示**
 2. Frontend: `index.html` K1 landing page (hero + features + CTA); `t-purchase.html` S3/S4/S5 draft flow; `q.html` local `knowledge.json` Quick Q&A; `app.html` full React SPA / management workspace.
 3. Knowledge state: **455 Channel A facts** (三層同步 ✅ byte-identical；2026-05-16 dedup 由 792 → 455，移除 275 條跨角色完全重複 + 合併 36 組相近事實，commit `711f911`，reversible log `dev/DEDUP_LOG_2026-05-16.md`；早前 Session 102 已 1,001 → 792), **0 candidates in queue**, **Supabase 10,736 chunks**。Vault: 120 sources 提取完成。**指引數字 4 層（148 app 內庫 / 39 公開 guidelines.json / 151 source_registry / 120 vault-extracted）見 PROJECT_MASTER_SPEC §B.1 釐清框 — 39 是否擴到 148 = OPEN DECISION，未收斂**。
 4. Backend: Node.js TypeScript backend all search APIs complete; **Channel A + B + A+B online at `https://edb-knowledge.onrender.com`**; rate limiting 10 req/min/IP (sliding window, in-memory).
 5. Channel A: 改用 backend semantic search + LLM synthesis（所有三個 channel 均有整理答案）；min_score A=0.1, B/AB=0.22（2026-05-16 Session 110 對齊實際 code default，原寫 0.15 已過時）；case-insensitive keyword fallback 已移除。
 6. Channel B topic filtering（Session 94 完成）：keyword → category → source allowlist → query expansion。採購/財務 → g01+g02+coa_imc（排 SAG）；HR/假期 → g04+g05+sag；課程 → 課程指引。g04 仍為 knowledge-based extract（非 PDF）。
 7. Product copy baseline: Traditional Chinese UI; no public internal design/dev/backend commands.
-8. MemPalace: shared install `/Users/leonard/mempalace/.venv`, palace `/Users/leonard/mempalace/palace`, wing `claude_edb_knowledge`.
+8. **MemPalace REMOVED 2026-05-18 (S115，Leonard 指示)** — repo-local `.venv`/`mempalace.yaml`/`entities.json` + `dev/mempalace_sync.py` 已刪、治理引用已剝除；本專案不再用 MemPalace。Shared palace `/Users/leonard/mempalace/palace` 為其他專案保留不動；本專案 wing 之 drawers 變孤兒（mempalace CLI 無 wing-delete，physical purge 待 Leonard 另定，見 S115 SESSION_LOG）。
 
 ## User Environment (Always Reference Before Giving Shell Commands)
 - **Repo path**: `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft` (relocated 2026-05-16 Session 109; path contains a space — quote it)
@@ -128,7 +128,7 @@ source_registry → same vault PDFs → ai_extract.py
    - ✅ **[PERSIST]** SESSION_LOG S115 entry（CB-0+CB-2+verbatim handoff 全更新）；SESSION_HANDOFF Current Baseline/Open Priorities 重生（CB-2 done→等 Leonard 落地裁示）/本 record/Supabase Notes lists 50→60；PROJECT_MASTER_SPEC §C.4 lists 50→60 drift 修。
 4. Pending（待 Leonard）:
    - **CB-2 建議落地 = Draft backend 改（searchChannelB / Supabase ivfflat.probes / wikiRepository）= promote = 獨立 §3 HIGH-risk gate**，須 Leonard 明示再出 PLAN，promote 前必 live test-verify（live Supabase 高 probes 未 introspect）。或 Leonard 改排 CB-1 / CB-3。
-   - S114+S115 治理/文檔（SESSION_LOG/HANDOFF/Q2 archive/CODEBASE_CONTEXT? /PROJECT_MASTER_SPEC）+ commit 待 Leonard 授權（egress 已通，可 push）。
+   - ✅ S115 兩個 commit（Leonard「push 係你做」，Claude 執行）：① `ec157db` = CB-0/CB-2/lists-drift/§4a；② 第二個 = MemPalace 移除 + HEAD-status 校正 + DOC_SYNC（CODEBASE_CONTEXT/PROJECT_MASTER_SPEC/SESSION_HANDOFF/SESSION_LOG + git rm mempalace_sync.py）。兩個皆 push origin/main。
 5. Next priorities (max 3 — 詳見 Open Priorities)：
    - 等 Leonard 裁示 CB-2 落地路徑（promote PLAN §3 HIGH-risk）／改排 CB-1／CB-3
    - CB-1 語料衛生 / CB-3 合成可追溯（違 §A.2 #1）
@@ -336,12 +336,10 @@ source_registry → same vault PDFs → ai_extract.py
 ## Session Close Checklist (每次 session 結束必須執行)
 ```bash
 # 1. 更新 SESSION_LOG.md + SESSION_HANDOFF.md（Claude 負責）
-# 2. Git commit + push（用戶在 Terminal 執行）
+# 2. Git commit + push（Leonard S115 授權「push 係你做」— Claude 執行；加指定檔，勿 -A）
 cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"
-git add -A && git commit -m "session close: <描述>" && git push origin main
-# 3. MemPalace sync（用戶在 Terminal 執行）
-cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"
-python3 dev/mempalace_sync.py write
+git add <指定治理/文檔檔> && git commit -m "session close: <描述>" && git push origin main
+# （MemPalace sync 已於 S115 移除 — 本專案不再使用 MemPalace）
 ```
 
 ## Supabase Technical Notes (Channel B)

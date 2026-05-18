@@ -17,6 +17,8 @@
 - **QC（§3d 4 scenario 全 PASS）：** Normal=exhaustive 量化 ANN-miss ✓；Boundary=sen 展開 1893→3 ✓；Error=#6 LSG raw rank 1148 deep、CORPUS_GAP 不偽陽 ✓；Regression=Draft git 只治理文檔+Q2 archive、HEAD `71a3a3d` 不變、Testing/ 喺 git 外（exit 128）、CB-0 4 authoritative 檔 mtime 07:45–09:44 未被 CB-2 動 ✓。
 - **Pending:** CB-2 建議落地 = Draft backend 改（searchChannelB / Supabase ivfflat.probes / wikiRepository）＝**promote，獨立 §3 HIGH-risk gate，待 Leonard 明示**（本方向至今 Draft 零接觸）；live Supabase 高 probes 行為未 introspect，promote 前須 live test-verify。CB-1 語料衛生 / CB-3 合成可追溯待 Leonard 排。S114+S115 治理文檔+Q2 archive uncommitted（待 Leonard commit 授權）。
 - **Next:** 等 Leonard 裁示 — CB-2 建議是否走 promote PLAN（§3 HIGH-risk）／定先做 CB-1／CB-3；promote 仍暫停直至明示；FAIL-A 待排。
+- **[Leonard 指示 2 件] git push + MemPalace 移除：** (1) **push 係你做** → S115 治理 commit `ec157db` push origin/main（heredoc-in-`$()` first try shell parse fail → 改 `git commit -F` 成功）；存 feedback memory「Claude 做 git push」+ Close Checklist 更新。(2) **記原則入 memory**：agent team（收建議/研究可行性＋審核＋監察）幾時都可用、無須每次問 → feedback memory。(3) **刪 MemPalace 資料**（Leonard 揀「本專案 wing + 本地 config + 治理引用」範圍）：刪 repo-local `.venv`(406M)/`mempalace.yaml`/`entities.json` + `git rm dev/mempalace_sync.py`；剝除 active 治理引用（CODEBASE_CONTEXT Directory Map/Build&Run/External Services +Maintenance Log append、SESSION_HANDOFF baseline#8/Close Checklist、PROJECT_MASTER_SPEC §C.4/§C.5/§G.4）；歷史 entry 不改寫（§12）。**§3 divergence**：mempalace CLI 3.3.2 無 wing-delete subcommand → 唔可安全 surgical 刪 shared fragile 多專案 Chroma palace 嘅本專案 wing（§5/§6 禁 risky DB surgery）→ shared palace 不動、本專案 wing drawers 孤兒化、physical purge **待 Leonard 另定**（已停低報＝本回合尾部問題）。`.venv` 實測只 MemPalace tooling 用（無 project script 依賴，system python3 有 numpy/openai）→ 刪安全。
+- **HEAD 推進：** commit 後 HEAD `71a3a3d`→`ec157db`（已 push）；SESSION_HANDOFF Current Baseline + Last Record 已校正（commit 前文字寫 71a3a3d 屬正常 pre-commit 態，commit 已入本 SESSION_LOG＝符 §G.2 非 desync）。本回合 MemPalace 移除 + HEAD 校正係下個 commit。
 
 ### DOC_SYNC Matrix Scan
 | Change Category | Required Doc Updates | Status |
@@ -26,6 +28,8 @@
 | §4a SESSION_LOG maintenance triggered post-write (>400 行) | `--apply` 封存 S110/S112 → `dev/archive/SESSION_LOG_2026_Q2.md`；archive pointer comment 已存在（L3）；retain S115/S114/S113；本 entry §4a 註記已校正（無 false claim 殘留） | ✓ Done |
 | CB-2 isolated PoC executed (Testing/ only, no Draft code/data/contract) | SESSION_LOG 本 entry（CB-2 §0b/CHANGE/結論/QC）+ verbatim handoff 更新；SESSION_HANDOFF Current Baseline/Open Priorities 重生/Last Session Record；CB2_report.md 自帶；CODEBASE_CONTEXT N/A（Testing/ 未 promote） | ✓ Done |
 | §0b doc-drift surfaced (IVFFlat lists 50→60) | schema.sql 權威=60；修正 PROJECT_MASTER_SPEC §C.4 + SESSION_HANDOFF Supabase Technical Notes（lists=50→60、刪 stale「2,822 rows」、加 caveat live 未 introspect）；CODEBASE_CONTEXT 無 lists 數字＝N/A；wiki_index `_meta.total_chunks=2874` 仍 stale doc-debt（Draft data 零接觸不改） | ✓ Done |
+| MemPalace 整合移除 (Leonard 指示) | CODEBASE_CONTEXT（Directory Map/Build&Run/External Services 剝除 + Maintenance Log append）/ SESSION_HANDOFF（baseline#8 + Session Close Checklist）/ PROJECT_MASTER_SPEC（§C.3 §C.5 §G.4）；repo-local 檔刪 + `git rm dev/mempalace_sync.py`；feedback memory ×2（agent-team / Claude-does-push）；歷史記錄不改寫（§12）；shared-palace wing physical purge deferred（§3 divergence，待 Leonard） | ✓ Done |
+| Working-preference change (push ownership) | SESSION_HANDOFF Session Close Checklist「用戶 Terminal」→「Claude 執行」；PROJECT_MASTER_SPEC §G.4；auto-memory feedback_claude_does_git_push.md + MEMORY.md index | ✓ Done |
 
 ### Next Session Handoff Prompt (Verbatim)
 ```text
