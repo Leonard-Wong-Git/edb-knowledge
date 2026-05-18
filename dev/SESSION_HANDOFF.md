@@ -137,6 +137,7 @@ source_registry → same vault PDFs → ai_extract.py
    - CB-0/CB-2 authoritative 但 offline-evidenced：probes 建議須 promote 前 **live Supabase test-verify**（高 probes 真實行為未 introspect）；recall-ceiling caveat（gold top-50 lexical pool）；synthesis 未量＝CB-3
    - egress 間歇（S115 早段 down→後段通）每次自行 verify，勿照抄
    - 其餘同下（FAIL-A / §E.10 / §3c gate 已紅 / S1S2 promote 暫停 / 路徑空格 / Testing 喺 Draft git 外 / 產品方向順序鎖定 / wiki_index _meta.total_chunks=2874 stale 實 12,906 doc-debt）
+7. **Session CLOSED 2026-05-18（Leonard「收工」）** — §4 closeout 完成；S115 3 commit 全 push（HEAD `541e018`）；下次起手＝問 Leonard CB-2 落地路徑（promote §3 HIGH-risk / CB-1 / CB-3）。
 
 ## Previous Session Record
 1. UTC date: 2026-05-18

@@ -18,7 +18,8 @@
 - **Pending:** CB-2 建議落地 = Draft backend 改（searchChannelB / Supabase ivfflat.probes / wikiRepository）＝**promote，獨立 §3 HIGH-risk gate，待 Leonard 明示**（本方向至今 Draft 零接觸）；live Supabase 高 probes 行為未 introspect，promote 前須 live test-verify。CB-1 語料衛生 / CB-3 合成可追溯待 Leonard 排。S114+S115 治理文檔+Q2 archive uncommitted（待 Leonard commit 授權）。
 - **Next:** 等 Leonard 裁示 — CB-2 建議是否走 promote PLAN（§3 HIGH-risk）／定先做 CB-1／CB-3；promote 仍暫停直至明示；FAIL-A 待排。
 - **[Leonard 指示 2 件] git push + MemPalace 移除：** (1) **push 係你做** → S115 治理 commit `ec157db` push origin/main（heredoc-in-`$()` first try shell parse fail → 改 `git commit -F` 成功）；存 feedback memory「Claude 做 git push」+ Close Checklist 更新。(2) **記原則入 memory**：agent team（收建議/研究可行性＋審核＋監察）幾時都可用、無須每次問 → feedback memory。(3) **刪 MemPalace 資料**（Leonard 揀「本專案 wing + 本地 config + 治理引用」範圍）：刪 repo-local `.venv`(406M)/`mempalace.yaml`/`entities.json` + `git rm dev/mempalace_sync.py`；剝除 active 治理引用（CODEBASE_CONTEXT Directory Map/Build&Run/External Services +Maintenance Log append、SESSION_HANDOFF baseline#8/Close Checklist、PROJECT_MASTER_SPEC §C.4/§C.5/§G.4）；歷史 entry 不改寫（§12）。**§3 divergence**：mempalace CLI 3.3.2 無 wing-delete subcommand → 唔可安全 surgical 刪 shared fragile 多專案 Chroma palace 嘅本專案 wing（§5/§6 禁 risky DB surgery）→ shared palace 不動、本專案 wing drawers 孤兒化。停低報 Leonard → **Leonard 裁示：留低孤兒、永久唔郁 shared palace（§3 divergence RESOLVED；未來勿再 raise/purge）**。`.venv` 實測只 MemPalace tooling 用（無 project script 依賴，system python3 有 numpy/openai）→ 刪安全。
-- **HEAD 推進：** commit 後 HEAD `71a3a3d`→`ec157db`（已 push）；SESSION_HANDOFF Current Baseline + Last Record 已校正（commit 前文字寫 71a3a3d 屬正常 pre-commit 態，commit 已入本 SESSION_LOG＝符 §G.2 非 desync）。本回合 MemPalace 移除 + HEAD 校正係下個 commit。
+- **HEAD 推進：** S115 共 3 commit 由 Claude 自 push（Leonard「push 係你做」）：`71a3a3d`→`ec157db`（CB-0/CB-2/lists-drift/§4a）→`6eb314b`（MemPalace 移除）→`541e018`（orphan-drawer 裁示）；origin/main 同步、tree clean。commit 前文字寫舊 HEAD 屬正常 pre-commit 態、已入本 SESSION_LOG＝符 §G.2 非 desync。
+- **收工 CLOSEOUT（Leonard「收工」，2026-05-18 S115）：** §4 closeout 執行 — §4a gate trigger=False（204 行）；Open Priorities 已對現況 re-check（item1=等 Leonard CB-2 落地裁示）；本 verbatim handoff block 已 regenerate 反映最終態（3 commit pushed / MemPalace 移除 / push-ownership / agent-team memory）。Draft code/data/contract 全 S115 零接觸。下次起手＝問 Leonard CB-2 落地路徑（promote §3 HIGH-risk vs CB-1 vs CB-3）。
 
 ### DOC_SYNC Matrix Scan
 | Change Category | Required Doc Updates | Status |
@@ -40,34 +41,38 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 ⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，所有 shell 指令必須雙引號絕對路徑）。Channel B / P1 retrieval PoC 喺姊妹資料夾 "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Testing/poc-retrieval/"（唔喺 git，Draft 零接觸）。`python` 唔存在，用 `python3`。
 
-⚠️ S115 egress：早段 DOWN（onrender 25s timeout）→ 後段 Leonard「network resumed」自測**復通**（onrender 200 / OpenAI reachable）→ CB-2 完整版已執行。間歇性，每次自行實測勿照抄（§G.2）。S114+S115 Draft 治理文檔（SESSION_LOG/HANDOFF/Q2 archive）+ CODEBASE_CONTEXT/PROJECT_MASTER_SPEC（lists 50→60 drift 修）改未 commit（待 Leonard 授權）。
+⚠️ 新工作慣例（S115 Leonard 指示，已入 auto-memory）：**git commit+push 由 Claude 自己做**（唔再交用戶 Terminal；加指定檔勿 -A）。**Agent team 幾時都可用**（收建議/研究可行性＋審核＋監察），無須每次問。egress 間歇（S115 早 down→後通），每次自測勿照抄（§G.2）。
+
+S115 已 closeout（Leonard「收工」）。3 個 commit 全 push：`ec157db`（CB-0/CB-2/lists-drift/§4a）→`6eb314b`（MemPalace 移除）→`541e018`（orphan-drawer 裁示）。HEAD 應 `541e018` 或更新、origin/main 同步。
 
 Current objective and progress state:
-- S115: CB-0 gate **PASSED**（3 ruling + spot-check #1/#5/#8/#9/#11 全對 + #12 留 gold + #5 url 修）→ CB-0 升 **AUTHORITATIVE**。其後 egress 復通，**CB-2 檢索校準完整版執行完成**。全程 Testing/，Draft code/data/contract 零接觸（HEAD 71a3a3d 不變）。
-- CB-0 結論 authoritative：Channel B 瓶頸=RETRIEVAL（11 NORMAL、8 live recall=0，正確 chunk 在 corpus 有真 EDB url）。**CB-2 量化分解嗰 8 條**：7 ANN-recoverable（gold 喺 exhaustive top-8，純失於 IVFFlat probes=1/lists=60）+ 1 expansion-recovers（sen raw rank 1893→展開 rank 3）+ 0 hard。建議：升 ivfflat.probes（最高槓桿、零 code 改）＋選擇性 query expansion＋per-query adaptive threshold（取代固定 0.22/category-drop 0.08）。落地＝Draft promote＝獨立 §3 HIGH-risk gate 待 Leonard。synthesis 未量＝CB-3 另議。
+- S115 完成：**CB-0 gate PASSED→AUTHORITATIVE**（3 ruling + spot-check #1/#5/#8/#9/#11 全對 + #12 gold + #5 url）；**CB-2 檢索校準執行完成**（全 Testing/，Draft backend 零接觸）。CB-0 結論 authoritative：Channel B 瓶頸=RETRIEVAL。CB-2 分解 8 條 live-recall=0：**7 ANN-recoverable**（gold 喺 exhaustive top-8，純失於 IVFFlat probes=1 / schema.sql lists=60）+ **1 expansion-recovers**（sen raw rank 1893→term_lexicon 展開 rank 3）+ 0 hard。建議：升 ivfflat.probes（最高槓桿、零 code 改）＋選擇性 query expansion（盲展開回歸 #07/#08/#10/#12）＋per-query adaptive threshold（取代固定 0.22/category-drop 0.08）。報告 `Testing/poc-retrieval/eval/CB2_report.md`。synthesis 未量＝CB-3 另議。
+- MemPalace **已為本專案完全移除**（Leonard 指示）：repo-local + 治理引用剝除；shared palace 孤兒 drawers **Leonard 裁示留低永久唔郁、勿再 raise/purge**。**勿為本專案重設 MemPalace 除非 Leonard 明示。**
 
 Pending tasks in priority order:
-1. **CB-2 檢索校準 — 執行完成（S115，全 Testing/，offline-evidenced）。下一步＝等 Leonard 裁示落地路徑**：CB-2 建議（升 ivfflat.probes＝救 7/8、選擇性 query expansion＝救 sen、per-query adaptive threshold）要落地必改 Draft backend（`searchChannelB.ts` / Supabase `ivfflat.probes` / `wikiRepository.ts`）＝**promote，獨立 §3 HIGH-risk gate，須 Leonard 明示 + promote 前 live test-verify**（live Supabase 高 probes 行為未 introspect）。Leonard 未明示前 Draft 零接觸、promote 暫停。睇 `Testing/poc-retrieval/eval/CB2_report.md`。
-2. CB-1 語料衛生 / CB-3 合成可追溯（待 CB-2 後按 Leonard 排；全 Testing/ 隔離）。CB-3 = 合成 prompt 明令不引源 + merge A+B（A 零 url/page）違 §A.2 #1，code review 證非 harness。
-3. P1 S1+S2（Channel A）promote 仍**暫停**（本 Channel B 方向不涉 promote）；🔴 FAIL-A 真 Circular 注入 regression 待 Leonard 排（涉 dedup/budget/排序設計）。
-4. P2 分類 148 + P3 數字對齊（roadmap deferred；CB-0 揭 g26/g29/g11 已 ingested = P2/P3 訊號，#6 LSG canonical 來源缺＝P2 ingest 候選）；🔴 Q&A §E.10 admin-login security；Mobile UI Phase 2；HKEAA；低 doc-debt（`wiki_index.json._meta.total_chunks=2874` stale 實 12,906）。
+1. **等 Leonard 裁示 CB-2 落地路徑**：CB-2 建議落地必改 Draft backend（`searchChannelB.ts` / Supabase `ivfflat.probes` / `wikiRepository.ts`）＝**promote＝獨立 §3 HIGH-risk gate，須 Leonard 明示先出 PLAN，promote 前必 live test-verify**（live Supabase 高 probes 行為未 introspect）。或 Leonard 改排 CB-1（語料衛生：清 english/midsent/stat 噪音 + 修 wiki_index `_meta.total_chunks` stale）/ CB-3（合成可追溯：prompt 不引源 + merge A+B 違 §A.2 #1）。未明示前 Draft 零接觸、promote 暫停。
+2. 🔴 FAIL-A 真 Circular 注入 regression 未修（S111 dedup×600字budget×all_roles-first，Leonard 裁示只記錄，待排設計決定）。
+3. P1 S1+S2（Channel A）promote 仍暫停（本 Channel B 方向不涉）。
+4. P2 分類 148 + P3 數字對齊（deferred；CB-0 揭 g26/g29/g11 已 ingested=P2 訊號、#6 LSG canonical 來源缺=P2 ingest 候選）；🔴 §E.10 admin-login security；Mobile UI Phase 2；HKEAA；低 doc-debt（`wiki_index._meta.total_chunks=2874` 實 12,906；FAIL-B `semanticRegression.ts:292` stale 1.3.1）。
 
 Key files changed in this session:
-- Draft（僅治理/文檔，零 code/data/contract，未 commit）：dev/SESSION_LOG.md（本 S115 entry）、dev/SESSION_HANDOFF.md（Current Baseline / Open Priorities 重生 / Last Session Record / Supabase Notes lists 50→60）、dev/archive/SESSION_LOG_2026_Q2.md（§4a 封存）、dev/CODEBASE_CONTEXT.md + dev/PROJECT_MASTER_SPEC.md（§C.4 ivfflat lists 50→60 drift 修，schema.sql 權威）。
-- Testing/poc-retrieval/eval/（PoC，非 git，Draft 零接觸）：CB-0 — gold_set_channelB.json（→AUTHORITATIVE+rulings、#5/#12 url、notes）、grade_channelB.py（→AUTHORITATIVE）、CB0_channelB_report.md。CB-2 新檔 — cb2_build_emb_cache.py、cb2_embed_queries.py、cb2_experiment.py、cb2_emb.npy、cb2_meta.json、cb2_qvecs.json、CB2_report.md。
+- Draft（治理/文檔，零 code/data/contract，**已 commit+push** ec157db→6eb314b→541e018）：dev/SESSION_LOG.md、dev/SESSION_HANDOFF.md、dev/CODEBASE_CONTEXT.md、dev/PROJECT_MASTER_SPEC.md、dev/archive/SESSION_LOG_2026_Q2.md（§4a 封存 S110/S112）；`git rm dev/mempalace_sync.py`；repo-local `.venv`/`mempalace.yaml`/`entities.json` 刪（git-ignored）。
+- Testing/poc-retrieval/eval/（PoC，非 git，Draft 零接觸）：CB-0 — gold_set_channelB.json/grade_channelB.py（→AUTHORITATIVE）、CB0_channelB_report.md。CB-2 新檔 — cb2_build_emb_cache.py、cb2_embed_queries.py、cb2_experiment.py、cb2_emb.npy、cb2_meta.json、cb2_qvecs.json、CB2_report.md。
+- auto-memory（repo 外）：feedback_agent_team.md、feedback_claude_does_git_push.md（+ MEMORY.md index）。
 
 Known risks / blockers / cautions:
-- CB-0 已 AUTHORITATIVE（gate passed）但仍帶 recall-ceiling caveat（gold 由 top-50 lexical pool 選）；synthesis 未量＝CB-3 另議。
-- 🔴 FAIL-A 真 product regression（S111 dedup×600字budget，Leonard 裁示只記錄不修，未排）；🔴 §E.10 公開站 client-side admin 閘門 + 密碼曾入 log（碰 admin/auth/公開推送前必讀）；§3c gate（`regression:semantic`）改前已 overall=FAIL（FAIL-A/B，非 S1/S2）→ 任何 promote/release 前必重新 baseline 勿信舊「✅」。
-- egress 間歇（S115/S114 down、S113 up）每次自行 verify；路徑含空格雙引號；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG（S111 教訓）；產品方向 P1→P2→P3 + 39→148 deferred 鎖定，未確認唔好跳 scope/§F/契約。
-- 已核實 role_facts「整筆撥款（LSG）」data error + 系統性欠 SEN/融合教育覆蓋（P3/P2 未 fix）；wiki_index `_meta.total_chunks` stale（doc-debt 未 fix）。
+- CB-0/CB-2 authoritative 但 offline-evidenced：probes 建議 promote 前必 **live Supabase test-verify**（高 probes 真實行為未 introspect）；recall-ceiling caveat（gold top-50 lexical pool）；synthesis 未量＝CB-3。
+- 🔴 FAIL-A 真 product regression 未修；🔴 §E.10 公開站 client-side admin 閘門 + 密碼曾入 log（碰 admin/auth/公開推送前必讀）；§3c gate（`regression:semantic`）改前已 overall=FAIL → 任何 promote/release 前必重新 baseline 勿信舊「✅」。
+- egress 間歇每次自測；路徑含空格雙引號；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG（S111 教訓）；產品方向 P1→P2→P3 + 39→148 deferred 鎖定，未確認唔好跳 scope/§F/契約。
+- 已核實 role_facts「整筆撥款（LSG）」data error + 系統性欠 SEN/融合教育覆蓋（P3/P2 未 fix）。
 
 Validation status:
-- PASS CB-0: gate passed（spot-check 全對 + 3 ruling + #12/#5）；invariant 0 rolefact/0 null-url across 41 gold；grader layer-1 gate 前後 byte-identical；report=AUTHORITATIVE。
-- PASS CB-2: §3d 4 scenario 全 PASS（Normal exhaustive 量化 / Boundary sen 1893→3 / Error #6 LSG 不偽陽 / Regression Draft 零接觸）；CB-2 獨立重算 live recall === CB-0 authoritative layer-1（自洽）；QC 自揭並修自身 metric tautology bug。Draft git 只治理/文檔 M（SESSION_LOG/HANDOFF/Q2 archive/CODEBASE_CONTEXT/PROJECT_MASTER_SPEC）、HEAD `71a3a3d` 不變、Testing/ 喺 git 外（exit 128）、CB-0 4 檔 mtime 未被 CB-2 動；§4a recheck trigger=False。
-- PENDING：CB-2 建議落地＝promote（獨立 §3 HIGH-risk，待 Leonard）；commit 待 Leonard 授權。
+- PASS CB-0：gate passed（spot-check 全對 + 3 ruling）；0 rolefact/0 null-url across 41 gold；grader layer-1 gate 前後 byte-identical；report=AUTHORITATIVE。
+- PASS CB-2：§3d 4 scenario 全 PASS；CB-2 重算 live recall === CB-0 authoritative（自洽）；QC 自揭並修自身 metric tautology bug。
+- PASS 治理：3 commit push origin/main 同步、tree clean；MemPalace 移除無 active 殘留、shared palace 不動；§0b lists 50→60 drift 修；§4a trigger=False。Draft code/data/contract 全 session 零接觸。
+- PENDING：CB-2 落地＝promote（獨立 §3 HIGH-risk，待 Leonard 裁示 promote vs CB-1 vs CB-3）。
 
-Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE 後，自行 verify git HEAD（應 `71a3a3d` 或更新）+ knowledge.json._meta.stats vs baseline + **實測 egress（onrender /health，勿照抄）**。CB-0 + CB-2 **均已完成 authoritative**：睇 `Testing/poc-retrieval/eval/CB0_channelB_report.md`（三層）+ `CB2_report.md`（ANN-miss 分解 + 校準建議 + §3d）+ `gold_set_channelB.json`。**下一步＝問 Leonard 裁示落地路徑**：CB-2 建議（升 ivfflat.probes＝救 7/8、選擇性 query expansion＝救 sen、per-query adaptive threshold 取代固定 0.22/0.08）落地必改 Draft backend（`searchChannelB.ts` / Supabase ivfflat / `wikiRepository.ts`）＝**promote = 獨立 §3 HIGH-risk gate，須 Leonard 明示再出 PLAN，promote 前必 live test-verify**（live Supabase 高 probes 未 introspect）；或 Leonard 改排 CB-1 語料衛生 / CB-3 合成可追溯（違 §A.2 #1）。未 Leonard 明示前 Draft backend 零接觸、promote 暫停。碰 admin/auth/公開推送前必讀 §E.10。
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE 後，自測 git HEAD（應 `541e018` 或更新）+ knowledge.json._meta.stats vs baseline + **實測 egress（onrender /health，勿照抄）**。CB-0 + CB-2 均已 authoritative：睇 `Testing/poc-retrieval/eval/CB2_report.md`（ANN-miss 分解 + 校準建議 + §3d）+ `CB0_channelB_report.md` + `gold_set_channelB.json`。**第一個動作＝問 Leonard 裁示 CB-2 落地路徑**：(a) 走 promote PLAN（§3 HIGH-risk：改 searchChannelB.ts / Supabase ivfflat.probes / wikiRepository.ts；promote 前必 live test-verify）定 (b) 先做 CB-1 語料衛生 定 (c) CB-3 合成可追溯。未 Leonard 明示前 Draft backend 零接觸、promote 暫停。**MemPalace 已移除——勿重設、勿掂 shared palace 孤兒 drawers。** 碰 admin/auth/公開推送前必讀 §E.10。git commit+push 由 Claude 做（指定檔）。
 ```
 
 ---
