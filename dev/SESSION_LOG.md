@@ -46,7 +46,7 @@ Pending tasks in priority order:
 4. 既有：🔴 FAIL-A Circular 注入 regression（record-only）；🔴 §E.10 admin-login security；P2 分類148/P3 數字；Mobile UI P2；HKEAA；低 doc-debt。
 
 Key files changed in this session:
-- Draft（已 commit+push）：backend/supabase/schema.sql（真實 text 變體 + plpgsql volatile + SET LOCAL ivfflat.probes=8 + 修正 vector→text 簽名 drift/grants/post-run smoke）；dev/SESSION_LOG.md、SESSION_HANDOFF.md、CODEBASE_CONTEXT.md、PROJECT_MASTER_SPEC.md、DOC_SYNC_CHECKLIST.md。
+- Draft（已 commit+push）：backend/supabase/schema.sql（真實 text 變體 + plpgsql volatile + SET LOCAL ivfflat.probes=8 + 修正 vector→text 簽名 drift/grants/post-run smoke）；dev/SESSION_LOG.md、SESSION_HANDOFF.md、CODEBASE_CONTEXT.md、PROJECT_MASTER_SPEC.md、HANDOFF_PACKAGE.md（DOC_SYNC_CHECKLIST 只讀未改：既有 row 已覆蓋）。
 - Live Supabase（Leonard Dashboard，非 git）：match_wiki_chunks → plpgsql volatile + SET LOCAL probes=8（text 變體）；vector overload dropped。
 - Testing/poc-retrieval/eval/（PoC，非 git）：cb2_stage1_verify.py（v1）、cb2_stage1_verify_v2.py（dedicated clean verify）、backend_dumps_probes8*/、CB2_STAGE1_report.md。
 - auto-memory（repo 外）：reference_supabase_pgvector_probes.md、feedback_inspect_live_supabase_before_replace.md、project_direction_review.md（Channel B 北極星）、MEMORY.md。
