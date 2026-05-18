@@ -8,7 +8,7 @@
 5. Channel A: 改用 backend semantic search + LLM synthesis（所有三個 channel 均有整理答案）；min_score A=0.1, B/AB=0.22（2026-05-16 Session 110 對齊實際 code default，原寫 0.15 已過時）；case-insensitive keyword fallback 已移除。
 6. Channel B topic filtering（Session 94 完成）：keyword → category → source allowlist → query expansion。採購/財務 → g01+g02+coa_imc（排 SAG）；HR/假期 → g04+g05+sag；課程 → 課程指引。g04 仍為 knowledge-based extract（非 PDF）。
 7. Product copy baseline: Traditional Chinese UI; no public internal design/dev/backend commands.
-8. **MemPalace REMOVED 2026-05-18 (S115，Leonard 指示)** — repo-local `.venv`/`mempalace.yaml`/`entities.json` + `dev/mempalace_sync.py` 已刪、治理引用已剝除；本專案不再用 MemPalace。Shared palace `/Users/leonard/mempalace/palace` 為其他專案保留不動；本專案 wing 之 drawers 變孤兒（mempalace CLI 無 wing-delete，physical purge 待 Leonard 另定，見 S115 SESSION_LOG）。
+8. **MemPalace REMOVED 2026-05-18 (S115，Leonard 指示)** — repo-local `.venv`/`mempalace.yaml`/`entities.json` + `dev/mempalace_sync.py` 已刪、治理引用已剝除；本專案不再用 MemPalace。Shared palace `/Users/leonard/mempalace/palace` 為其他專案保留不動；本專案 wing 之 drawers 變孤兒（mempalace CLI 無 wing-delete）。**Leonard S115 裁示：留低孤兒、永久唔郁 shared palace（§3 divergence RESOLVED）** — 未來 session 勿再 raise 或嘗試 purge。
 
 ## User Environment (Always Reference Before Giving Shell Commands)
 - **Repo path**: `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft` (relocated 2026-05-16 Session 109; path contains a space — quote it)
