@@ -118,7 +118,7 @@ source_registry → 同 vault PDFs → ai_extract.py
 - 環境變數（`backend/.env`）：`OPENAI_API_KEY`、`OPENAI_MODEL`、`PORT=8787`、`CORS_ORIGIN`、`KNOWLEDGE_PATH`。本地 `file://` dev 需 `CORS_ORIGIN=*`。
 
 ### C.4 資料儲存
-- **Supabase**（Channel B 向量庫）：project `edb-knowledge`，table `public.wiki_chunks`（vector(1536)，IVFFlat lists=50），RPC `match_wiki_chunks(query_embedding text, match_threshold float, match_count int DEFAULT NULL)`（內部 `text::vector` cast，cosine DESC，不傳 count 則返回全部）。anon role 需 `GRANT USAGE ON SCHEMA public` **且** `GRANT SELECT ON wiki_chunks`。上傳用 service_role key，查詢用 anon key。免費 tier 500MB（現 ~50MB）。
+- **Supabase**（Channel B 向量庫）：project `edb-knowledge`，table `public.wiki_chunks`（vector(1536)，IVFFlat **lists=60** — 依 `backend/supabase/schema.sql` 權威 DDL；舊寫「lists=50」係 drift，S115 CB-2 §0b 修正；pgvector 預設 `probes=1` → 每查掃 ~1/60≈1.7% 向量），RPC `match_wiki_chunks(query_embedding text, match_threshold float, match_count int DEFAULT NULL)`（內部 `text::vector` cast，cosine DESC，不傳 count 則返回全部）。anon role 需 `GRANT USAGE ON SCHEMA public` **且** `GRANT SELECT ON wiki_chunks`。上傳用 service_role key，查詢用 anon key。免費 tier 500MB（現 ~50MB）。
 - **GitHub Pages**：公開 artifacts `knowledge.json` / `guidelines.json` / `K1_API_SPEC.md`。
 - **MemPalace**（本地 AI memory）：shared install `/Users/leonard/mempalace/.venv`，palace `/Users/leonard/mempalace/palace`，wing `claude_edb_knowledge`；recovery workaround `hnsw:num_threads=1`；備份 `/Users/leonard/mempalace/palace.pre-recovery.20260421_0838`。
 

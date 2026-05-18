@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Current Baseline
-1. Version: **v2.3.0**；git `main`=`origin/main`；pre-S113 HEAD `dbc10b8`，**S113 已 commit+push S112 closeout + S113 治理文檔**（Leonard「你去做」授權，sandbox egress 實測通）——下次起手自行 verify 實際 HEAD（應 ≥ S113 commit）。S113 Draft 僅治理文檔，**零 code/data/contract**；S1+S2 PoC 全喺 Testing/（未 promote）
+1. Version: **v2.3.0**；git `main`=`origin/main` HEAD `71a3a3d`（S115 收尾 verify==baseline，不變）。**S114+S115 Draft 只改治理/文檔（SESSION_LOG/HANDOFF/Q2 archive/CODEBASE_CONTEXT/PROJECT_MASTER_SPEC lists 50→60 drift 修），零 code/data/contract，未 commit（待 Leonard 授權；egress S115 後段已復通）**——下次起手自行 verify 實際 HEAD。S1+S2（Channel A）PoC 未 promote、promote 暫停；**CB-0 Leonard gate PASSED + CB-2 檢索校準執行完成（2026-05-18 S115，全 Testing/，Draft 零接觸）。CB-0 AUTHORITATIVE：Channel B 瓶頸=RETRIEVAL。CB-2 量化：8 條 live-0 中 7 ANN-recoverable（升 ivfflat.probes）+ 1 expansion-recovers（sen）。落地＝promote＝獨立 §3 HIGH-risk gate 待 Leonard 明示**
 2. Frontend: `index.html` K1 landing page (hero + features + CTA); `t-purchase.html` S3/S4/S5 draft flow; `q.html` local `knowledge.json` Quick Q&A; `app.html` full React SPA / management workspace.
 3. Knowledge state: **455 Channel A facts** (三層同步 ✅ byte-identical；2026-05-16 dedup 由 792 → 455，移除 275 條跨角色完全重複 + 合併 36 組相近事實，commit `711f911`，reversible log `dev/DEDUP_LOG_2026-05-16.md`；早前 Session 102 已 1,001 → 792), **0 candidates in queue**, **Supabase 10,736 chunks**。Vault: 120 sources 提取完成。**指引數字 4 層（148 app 內庫 / 39 公開 guidelines.json / 151 source_registry / 120 vault-extracted）見 PROJECT_MASTER_SPEC §B.1 釐清框 — 39 是否擴到 148 = OPEN DECISION，未收斂**。
 4. Backend: Node.js TypeScript backend all search APIs complete; **Channel A + B + A+B online at `https://edb-knowledge.onrender.com`**; rate limiting 10 req/min/IP (sliding window, in-memory).
@@ -104,12 +104,12 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-> 產品方向 S112 已定 roadmap：**P1 搜尋相關性 → P2 分類 148 → P3 數字對齊**；39→148 收斂 = 將來會做（deferred，非 undecided）。順序鎖定，未得 Leonard 確認唔好跳。
-1. **P1 搜尋相關性 — S1+S2 PoC 驗證完成，promote 暫停**：全喺 `Testing/poc-retrieval/`，Draft 零接觸。S1（已收 PoC）+ S2（hybrid+term-lexicon+abstention）真實後端 breadth **10/12 PASS**（`sen` P0.385→1.0；#09/#07/#10 gap 已修；餘 2 △=full-recall tradeoff 非 defect）；generalized `term_lexicon.py` 泛化驗證 OK。**promote 嘗試時實測發現 §3c gate（`regression:semantic`）喺改前已 overall=FAIL（見 Regression Notes #3 FAIL-A/B，同 S1/S2 無關）→ Leonard 裁示只記錄不修、promote 暫停**。promote 只喺 Leonard 明示先恢復；恢復時 §3c bar = 零新增 FAIL（pre-existing 2 個照舊）+ breadth harness 驗。
-2. **🔴 Circular 角色注入 regression（FAIL-A，真 product bug，未修）**：S111 dedup（792→455）× 600 字注入預算 × all_roles-first 排序 → 自 2026-05-16 起 subject_head/panel_chair 嘅 finance 注入退化成「只通用、無角色專屬」。已如實記錄（Regression Notes #3），**修法涉 dedup/budget/排序設計決定，待 Leonard 排**。與 P3 相關但不同。
-3. **P2 分類 148 文件**：按校級（中／小／幼／特）+ 範疇，**然後**先評通告系統點 consume 再講接手。
-4. **P3 數字/事實對齊**：fix 已核實 role_facts「整筆撥款（LSG）」誤標（LSG=學習支援津貼）；補 SEN 家族覆蓋缺口（KG-admission URL / sense.edb.gov.hk+EDBC19006C / 學習支援津貼）。39→148 deferred（須 §3 HIGH-risk PLAN）。
-5. **🔴 Q&A admin-login security**（§E.10 最嚴重未解）+「34問題」audit；**Mobile UI Phase 2 餘下**；**HKEAA source family**（S105）；**低 doc-debt**：FAIL-B（`semanticRegression.ts:292` stale `1.3.1`）/ CODEBASE_CONTEXT L29 / `searchChannelB.ts` stale header。
+> 產品方向 S112 roadmap：**P1 搜尋相關性 → P2 分類 148 → P3 數字對齊**（39→148 deferred）。**S114 Leonard 定新焦點：P1 內聚焦 Channel B 效果**（唔單做一 channel，用 agent team 互補）。順序鎖定，未得 Leonard 確認唔好跳。
+1. **🟢 CB-2 檢索校準 — 執行完成（S115，全 Testing/，offline-evidenced）。下一步＝等 Leonard 裁示落地路徑**：CB-2 量化 CB-0 嗰 8 條 live-recall=0 NORMAL → **7 ANN-recoverable**（gold 喺 exhaustive top-8，純失於 IVFFlat probes=1 / lists=60）+ **1 expansion-recovers**（#1 sen raw rank 1893→term_lexicon 展開 rank 3）+ 0 hard。建議：(1) 升 `ivfflat.probes`＝最高槓桿（救 7，零 code/embedding 改）(2) query expansion **選擇性**（盲展開回歸 #07/#08/#10/#12，須 fallback）(3) per-query adaptive threshold 取代固定 0.22 / category-drop 0.08（Exp3：固定 0.22 掉 sen gold cos 0.182、0.08 灌噪音）。報告 `Testing/poc-retrieval/eval/CB2_report.md`。**落地必改 Draft backend（`searchChannelB.ts` / Supabase ivfflat.probes / `wikiRepository.ts`）＝promote＝獨立 §3 HIGH-risk gate**：須 Leonard 明示再出 PLAN，promote 前必 live test-verify（live Supabase 高 probes 行為未 introspect）。Leonard 可改排 CB-1/CB-3。未明示前 Draft 零接觸、promote 暫停。
+2. **CB-1 語料衛生 / CB-3 合成可追溯（待 CB-2 後按 Leonard 排，全 Testing/）**：CB-1 = 清 english/midsent/stat 噪音 + 修 `wiki_index._meta.total_chunks` stale。CB-3 = 合成 prompt 明令不引源 + merge A+B（A 零 url/page）→ 🔴 違 §A.2 #1，code review 證非 harness。
+3. **P1 S1+S2 PoC（Channel A）promote 暫停 + 🔴 FAIL-A 真 regression 未修**：S1/S2 breadth 10/12（`term_lexicon` 泛化 OK），但 §3c gate 改前已 overall=FAIL → Leonard 裁示只記錄、promote 暫停（本 Channel B 方向**不涉 promote**）。FAIL-A = S111 dedup（792→455）×600字budget×all_roles-first → subject_head/panel_chair finance 注入自 2026-05-16 退化成只通用；修法涉設計決定，待 Leonard 排。
+4. **P2 分類 148 + P3 數字對齊（roadmap deferred，待 Leonard 排期）**：P2 按校級（中／小／幼／特）+ 範疇分類，再評通告系統 consume。P3 fix role_facts「整筆撥款（LSG）」誤標（LSG=學習支援津貼）+ 補 SEN 家族覆蓋；39→148 deferred（須 §3 HIGH-risk PLAN）。CB-0 AUTHORITATIVE 揭：g26/g29/g11 已 ingested（語料 drift 屬實）= P2 訊號；#6 LSG canonical 來源（sense.edb additional-resources + EDBC19006C）corpus 缺 = P2 ingest 候選。
+5. **🔴 Q&A admin-login security**（§E.10 最嚴重未解）+「34問題」audit；**Mobile UI Phase 2 餘下**；**HKEAA source family**（S105）；**低 doc-debt**：FAIL-B（`semanticRegression.ts:292` stale `1.3.1`）/ CODEBASE_CONTEXT L29 / `searchChannelB.ts` stale header / `wiki_index.json._meta.total_chunks=2874` stale（實 12,906，CB-0 揭）。
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 - g21/g22/g33 直連 PDF 補完（user browser）— Session 105 audit 揭發三者 source_type='pdf' 但 url_primary 缺
@@ -118,6 +118,47 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合）
 
 ## Last Session Record
+1. UTC date: 2026-05-18
+2. Session ID: Claude_20260518_1059 (Session 115)
+3. Completed:
+   - ✅ **[CB-0 Leonard gate PASSED]** 3 ruling 採納（Q1 #9 幼稚園收生=NORMAL 接受語料 drift / Q2 rolefact 確認排除 / Q3 下一階段=CB-2）。我做 12 條 B-gold 唯讀自我覆核（實測 cross-check cb_corpus_pool，唔信 gold_detail）→ 抓 2 discrepancy（#5 g24 url 寫錯實為 sag_c.pdf；#12 circ_edbc24017 寫 url=null 實為真 EDBC24017C.pdf）。Leonard spot-check #1/#5/#8/#9/#11 全對 + 裁 (b)#12 留正式 gold (c)#5 url 准修。
+   - ✅ **[CHANGE 全 Testing/，Draft 零接觸]** `gold_set_channelB.json` _meta→AUTHORITATIVE+rulings、#5 g24 url×2→sag_c.pdf、#12 circ url→真 url、notes 更新；`grade_channelB.py` DRAFT→AUTHORITATIVE。重跑 grader → CB-0 升 AUTHORITATIVE。
+   - ✅ **[CB-0 QC]** gold JSON OK；invariant 0 rolefact/0 null-url across 41 gold；**layer-1 gate 前後 byte-identical**（gold id 未變＝gate 驗證非改動）；CB-0 結論「瓶頸=RETRIEVAL」authoritative。
+   - ✅ **[CB-2 執行完成（egress 復通後，Leonard「其他你繼續做」）]** §3 divergence 報 Leonard→裁示等網→egress 自測復通（onrender 200/OpenAI reachable）→READ→CHANGE→QC→PERSIST。§0b：schema.sql 權威 `lists=60`（解 50/60 矛盾＝docs 50 係 drift）、probes=1→~1.7%、chunk 帶 1536-emb、key SET（不入 log）。新檔（Testing/）cb2_build_emb_cache/embed_queries/experiment → cb2_emb.npy(12906×1536)/cb2_meta/cb2_qvecs/`CB2_report.md`。**結論：8 條 live-0 → 7 ANN-recoverable（升 ivfflat.probes）+1 expansion-recovers（sen 1893→3）+0 hard**；建議升 probes＋選擇性 expansion＋per-query adaptive threshold。QC 自揭並修自身 metric tautology bug；§3d 4 scenario 全 PASS；CB-2 重算 live recall === CB-0 authoritative（自洽）。
+   - ✅ **[PERSIST]** SESSION_LOG S115 entry（CB-0+CB-2+verbatim handoff 全更新）；SESSION_HANDOFF Current Baseline/Open Priorities 重生（CB-2 done→等 Leonard 落地裁示）/本 record/Supabase Notes lists 50→60；PROJECT_MASTER_SPEC §C.4 lists 50→60 drift 修。
+4. Pending（待 Leonard）:
+   - **CB-2 建議落地 = Draft backend 改（searchChannelB / Supabase ivfflat.probes / wikiRepository）= promote = 獨立 §3 HIGH-risk gate**，須 Leonard 明示再出 PLAN，promote 前必 live test-verify（live Supabase 高 probes 未 introspect）。或 Leonard 改排 CB-1 / CB-3。
+   - S114+S115 治理/文檔（SESSION_LOG/HANDOFF/Q2 archive/CODEBASE_CONTEXT? /PROJECT_MASTER_SPEC）+ commit 待 Leonard 授權（egress 已通，可 push）。
+5. Next priorities (max 3 — 詳見 Open Priorities)：
+   - 等 Leonard 裁示 CB-2 落地路徑（promote PLAN §3 HIGH-risk）／改排 CB-1／CB-3
+   - CB-1 語料衛生 / CB-3 合成可追溯（違 §A.2 #1）
+   - P1 S1/S2 promote 仍暫停（本方向不涉）／🔴 FAIL-A 待 Leonard 排
+6. Risks / blockers:
+   - CB-0/CB-2 authoritative 但 offline-evidenced：probes 建議須 promote 前 **live Supabase test-verify**（高 probes 真實行為未 introspect）；recall-ceiling caveat（gold top-50 lexical pool）；synthesis 未量＝CB-3
+   - egress 間歇（S115 早段 down→後段通）每次自行 verify，勿照抄
+   - 其餘同下（FAIL-A / §E.10 / §3c gate 已紅 / S1S2 promote 暫停 / 路徑空格 / Testing 喺 Draft git 外 / 產品方向順序鎖定 / wiki_index _meta.total_chunks=2874 stale 實 12,906 doc-debt）
+
+## Previous Session Record
+1. UTC date: 2026-05-18
+2. Session ID: Claude_20260518_0720 (Session 114)
+3. Completed:
+   - ✅ **[方向轉 Channel B 效果]** Leonard 定新焦點：處理 Channel B 效果（唔單做一 channel），用 agent team 互補。§1 起手 verify：HEAD `71a3a3d`==baseline、stats {455,10736,120,39,7} 對得返、**egress 本 session DOWN（onrender /health timeout，間歇性再證）**。
+   - ✅ **[4-agent 唯讀診斷]** 語料/檢索/合成/實證四切面共識：真 ingester=`dev/vault/build_wiki_index.py`（非文檔 ai_extract）；wiki_index 實 12,906 chunks（`_meta.total_chunks=2874` stale）；短/縮寫 query 嵌入失配 + IVFFlat probes=1（~1.7% 向量）+ 0.22→0.08 threshold；**合成 prompt 明令不引源 + merge A+B（A 零 url/page）→ 結構上不可追溯，違 §A.2 #1**；S1/S2「10/12」gold 100% Channel A — **Channel B 從未被 gold 評估**。
+   - ✅ **[CB-0 評估基礎建成（全 Testing/，Draft 零接觸）]** `cb_corpus_index.py`（streaming 420MB 本地 wiki_index，零 egress）→`cb_corpus_pool.json`；GoldBuilder agent→`gold_set_channelB.json`（chunk-id-keyed，10/12 NORMAL、#6 LSG GAP、**#9 ABSTENTION→NORMAL g26 drift**、rolefact 排除）；`grade_channelB.py`→`CB0_channelB_report.md`（三層）。**結論候選（DRAFT）：Channel B 瓶頸=RETRIEVAL — 8/11 NORMAL query live recall=0/MRR=0，但正確 vault chunk（real EDB url）喺 corpus（10/12 覆蓋）**。
+   - ✅ **[PERSIST]** SESSION_LOG S114 entry + DOC_SYNC scan；SESSION_HANDOFF Open Priorities 重生（item1=Channel B CB-0 DRAFT/gate）+ 本 record。Draft 僅 2 治理文檔改，**零 code/data/contract**，HEAD 不變（未 commit，待 Leonard）。
+4. Pending（待 Leonard，gate）:
+   - spot-check 4-5/12 B-gold（gate discipline）；裁示 (a) #9 ABSTENTION→NORMAL 收唔收 (b) rolefact-exclusion ruling (c) 接受「瓶頸=retrieval」後排 CB-2 檢索校準 vs CB-1 語料衛生先
+5. Next priorities (max 3 — 詳見 Open Priorities)：
+   - 等 Leonard CB-0 gate（spot-check + 3 rulings）
+   - CB-2 檢索校準 / CB-1 語料衛生（待 gate 後排）
+   - P1 S1/S2 promote 仍暫停（本方向不涉）／FAIL-A 待排
+6. Risks / blockers:
+   - **CB-0 DRAFT — 未過 Leonard spot-check gate 前數字 directional 非 authoritative**；gold 由 top-50 lexical pool 選（recall-ceiling caveat）；CB-0 只量 retrieval+corpus，synthesis 未量（dumps synthesize=false）
+   - #9 幼稚園收生 status flip（語料 drift g26 ingested）+ rolefact-exclusion = 待 Leonard ruling；P2/P3 相關訊號
+   - egress 本 session DOWN（onrender timeout）— 間歇性再證，每次自行 verify，勿假設恆通/恆封
+   - 其餘 risk 同 Previous Record（FAIL-A / §E.10 / §3c gate 已紅 / S1S2 PoC 未 promote / 路徑空格 / Testing 喺 Draft git 外 / 產品方向順序鎖定）
+
+## Previous Session Record
 1. UTC date: 2026-05-17
 2. Session ID: Claude_20260517_2035 (Session 113)
 3. Completed:
@@ -305,7 +346,7 @@ python3 dev/mempalace_sync.py write
 
 ## Supabase Technical Notes (Channel B)
 - Project: `edb-knowledge` at `https://youkcekbrbywuqjxgibe.supabase.co`
-- Table: `public.wiki_chunks` — 2,822 rows, vector(1536), IVFFlat index (lists=50)
+- Table: `public.wiki_chunks` — vector(1536), IVFFlat index **lists=60** (per `backend/supabase/schema.sql`, the authoritative DDL — S115 §0b corrected: prior "lists=50" + "2,822 rows" were drift; local wiki_index build artifact = 12,906 chunks / 120 src; live Supabase row-count + index not introspected this session)
 - Function: `match_wiki_chunks(query_embedding text, match_threshold float, match_count int DEFAULT NULL)`
   - Uses `text::vector` cast internally
   - Ordered by cosine similarity DESC
