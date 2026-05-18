@@ -2,6 +2,71 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-18 Session 116 — CB-2 PLAN-1 Stage 1：ivfflat.probes 1→8（含 PGRST203 live 事故+復原）；Stage-1 recall CLEAN PASS 6/6；§C pending
+
+- **ID:** Claude_20260518_1600
+- **Summary:** Leonard 定 Channel B 北極星（無論點問都有合理、有指引、**一定要有頁數** — 入 memory）。出 **PLAN-1 v2**（CB-2 retrieval promote，§3 HIGH-risk，Leonard 批）：scope = probes + adaptive threshold；selective expansion 撞已驗證 §D.9 always-on expansion → 抽出做 PLAN-1b。**Stage 1 = 升 `ivfflat.probes` 1→8**，經 Supabase 受限角色多輪現實修正 + 一次 live 事故 + 復原，最終落**正確 live text 變體**。Agent-team（3 並行唯讀）cross-check。clean-verify v2 → **Stage-1 recall CLEAN PASS**。§C 基建風險判定 closeout 時仍背景跑（task `bur5rn16o`）= Stage-1 最終裁定 PENDING。
+- **Stage 1 機制修正鏈（§0b/§2b triage，全部實證非猜）：** (a) function-SET-clause `set ivfflat.probes=8` → **42501**（Supabase 封 extension GUC clause）；(b) plpgsql `stable`+SET LOCAL → **0A000**（SET 須 VOLATILE）；(c) 套 schema.sql `vector(1536)` 簽名 → **PGRST203 overload** 同 live `text` 變體並存 → **Channel B 全 query 返 0（live 事故）**。診斷 A（session `set ivfflat.probes=8`→8）+ B（proconfig null）定路；ROLLBACK `drop function ...(vector,...)` 還原 baseline；INSPECT 攞真實 live 定義 = `match_wiki_chunks(query_embedding text,...)` 內部 `::vector` cast（schema.sql 自稱「exact contract」實已 drift = 事故根因）。最終 ① APPLY-FINAL：plpgsql **volatile** + `set local ivfflat.probes=8` 落**真實 text 變體**，Leonard Dashboard 套用、smoke 3 行無錯。
+- **Live 狀態改變（非 git）：** 生產 Supabase `match_wiki_chunks` 現 = plpgsql volatile + SET LOCAL ivfflat.probes=8（text 變體）；事故中 drop 咗 vector overload。**Channel B 生產現行 probes=8。**
+- **Agent-team（唯讀，已交）：** (1) CPD root-cause **決定性**：CPD→category=curriculum→SOURCE_SETS 排除 SAG，但 CPD 5 gold 全喺 `sag_2025_11`/`g06`（唔喺 allowlist）→ source 後置過濾砍走、**probes 永遠救唔到** = category-routing defect。(2) 獨立 audit **推翻**我「6/7」overstatement（屬量度 artifact）。(3) clean-verify v2 設計（dedicated /channel-b 繞 masking + pacing + classify）。
+- **Leonard 裁示：** CPD 移出 Stage-1 → PLAN-1b（ANN母體=6）；masking-defect（searchCombined `.catch` 將 Channel B 例外偽裝成「未配置」HTTP200 → B 失敗對 monitoring/eval 隱形）= 獨立 promote-blocker，flag+defer（clean-verify 用 dedicated /channel-b 繞過）。
+- **Verified/QC:** `cb2_stage1_verify_v2.py recall`（dedicated /channel-b、warmup+15s pacing）**全 12 class=OK**：6/6 ANN-recoverable flip 0→>0（年假.75 病假1.0 體罰.33 幼稚園收生.5 防賄.5 校曆1.0）、**0 回歸**（採購.2→.6 採購門檻.2→.4 STEAM穩）、sen/LSG 預期~0、CPD↪PLAN-1b。harness 經獨立 audit 證 bit-identical mirror AUTHORITATIVE `grade_channelB.py`（未改原 grader）。SQL smoke 無 42501/0A000/PGRST203。schema.sql = SQL-only（npm check/build/regression:semantic 不受影響；§3c gate 既有 FAIL-A/B record-only 未碰）。Draft git 只 `backend/supabase/schema.sql` M（+本 closeout governance docs）。§4a trigger=False（209 行）。**§C closeout 時完成（exit 0）：幼稚園收生 8/8 OK·防賄 8/8 OK·採購 7/8（1 transient），gold-consistency 8/8·8/8·7/7、p90<4.2s → 裁定 HARNESS/LOAD artifact、probes=8 sound（非真 free-tier 風險；之前 09/10 間歇失敗 = v1 combined-masking+限流 量度 artifact）。∴ Stage-1 = FULL CLEAN PASS（recall 6/6 + §C 無真基建風險）。**
+- **Pending:** Stage 2 adaptive threshold 未做（同一 §3 HIGH-risk promote gate 內，待 Leonard go）；PLAN-1b（CPD routing + selective expansion vs §D.9）；🔴 masking-defect 修法待 Leonard 排 scope。**PLAN-1 promote 未完成（Stage 2 未做）勿宣稱 released。**
+- **Next:** 接手 = Stage-1 已 FULL PASS（probes=8 生產現行），問 Leonard 下一步：Stage 2 adaptive threshold（同 promote gate）vs PLAN-1b（CPD/expansion）vs 先修 masking-defect promote-blocker。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Draft external-integration code change (Supabase RPC: schema.sql → real text-variant + SET LOCAL probes=8 + drift fix) | SESSION_LOG（本 entry）/ SESSION_HANDOFF（baseline+OP+risks+record）/ CODEBASE_CONTEXT（match_wiki_chunks 真實 text 簽名 + probes=8 live + Maintenance Log）/ PROJECT_MASTER_SPEC（§C.4 Supabase + §D probes 法 + §E 事故教訓）/ commit+push 指定檔 | ✓ Done |
+| Live external platform change (production Supabase function modified — Leonard Dashboard) | SESSION_LOG/HANDOFF 記 live 狀態（probes=8 生產現行、vector overload dropped）；CODEBASE_CONTEXT External Services Supabase 註；下游無契約變（公開 JSON 不變） | ✓ Done |
+| Isolated PoC (Testing/ only, no Draft) — clean-verify v1/v2 + dumps | SESSION_LOG/HANDOFF 記；PoC 自帶 CB2_STAGE1_report.md；CODEBASE_CONTEXT N/A（Testing/ 非 Draft tech-stack/未 promote） | ✓ Done |
+| Lessons-to-rule (§8): schema.sql drift → PGRST203 incident; Supabase managed-role GUC constraints | PROJECT_MASTER_SPEC §E 新條 + §D 法；auto-memory ×2（reference_supabase_pgvector_probes / feedback_inspect_live_supabase_before_replace）+ MEMORY.md | ✓ Done |
+| Promote-blocker discovered, deferred (masking-defect) | SESSION_HANDOFF Known Risks + Open Priorities；PROJECT_MASTER_SPEC §E 註；未修（Leonard flag+defer 裁示） | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。Channel B/retrieval PoC 喺姊妹資料夾 "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Testing/poc-retrieval/"（唔喺 git、Draft 零接觸）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 幾時都可用。
+
+S116 已 closeout（Leonard「收工」）。PLAN-1 v2 = CB-2 retrieval promote。Stage 1（升 ivfflat.probes 1→8）經 Supabase 受限角色多輪修正 + 一次 PGRST203 live 事故（schema.sql 簽名 drift）+ 復原；最終落正確 live text 變體 = plpgsql VOLATILE + SET LOCAL ivfflat.probes=8。**生產 Supabase match_wiki_chunks 現已 probes=8（Leonard Dashboard 套用）。** Draft backend/supabase/schema.sql 已改正真實 text 變體+probes+修 drift，已 commit+push。
+
+Current objective and progress state:
+- **Stage-1 = FULL CLEAN PASS（已最終裁定）**：recall clean-verify v2 全 12 OK、6/6 ANN-recoverable flip 0→>0、0 回歸；§C 基建判定（隔離 8×重試）幼稚園收生 8/8 OK·防賄 8/8 OK·採購 7/8、gold-consistency 8/8·8/8·7/7、p90<4.2s → **HARNESS/LOAD artifact、probes=8 sound（非真 free-tier 風險；之前 09/10 間歇失敗 = v1 combined-masking+限流 量度 artifact，agent-team 已修正）**。生產 Supabase 現行 probes=8。
+- Leonard 裁示：CPD = source-allowlist/category-routing defect（非 probes，gold 喺 sag_2025_11/g06 唔喺 curriculum allowlist）→ 移出 Stage-1、入 PLAN-1b；ANN母體=6。masking-defect（searchCombined 將 Channel B 例外偽裝「未配置」HTTP200）= 獨立 promote-blocker，flag+defer。
+- Channel B 北極星（Leonard S116，入 memory project_direction）：無論點問都有合理、有指引、**一定要有頁數**嘅回饋 = CB-2 retrieval + CB-3 可追溯（頁數不可 defer）+ CB-1 質素。
+
+Pending tasks in priority order:
+1. **Stage 2（adaptive threshold @ searchChannelB.ts:346 取代固定 0.22/category-drop 0.08）—— Stage-1 已 FULL PASS，待 Leonard go（同一 §3 HIGH-risk promote gate 內）**：promote Testing/ `dynamic_cutoff` rank-based knee；CB-2 Exp3 證無單一常數跨 query 分 gold/noise；屬 §E.3 四輪治理脈絡，需 §3d regression matrix + live test-verify。報告 `Testing/poc-retrieval/eval/CB2_STAGE1_report.md`（recall + §C 全段）。
+2. PLAN-1b：CPD category-routing fix（gold 喺 sag_2025_11/g06 唔喺 curriculum allowlist，probes 救唔到）+ 選擇性 expansion vs §D.9 always-on expansion consolidation（全 Testing/ 先）。
+3. 🔴 masking-defect（searchCombined fake「未配置」令 Channel B 失敗對 monitoring/eval 隱形）= 獨立 promote-blocker，待 Leonard 排 scope/§3。
+4. 既有：🔴 FAIL-A Circular 注入 regression（record-only）；🔴 §E.10 admin-login security；P2 分類148/P3 數字；Mobile UI P2；HKEAA；低 doc-debt。
+
+Key files changed in this session:
+- Draft（已 commit+push）：backend/supabase/schema.sql（真實 text 變體 + plpgsql volatile + SET LOCAL ivfflat.probes=8 + 修正 vector→text 簽名 drift/grants/post-run smoke）；dev/SESSION_LOG.md、SESSION_HANDOFF.md、CODEBASE_CONTEXT.md、PROJECT_MASTER_SPEC.md、DOC_SYNC_CHECKLIST.md。
+- Live Supabase（Leonard Dashboard，非 git）：match_wiki_chunks → plpgsql volatile + SET LOCAL probes=8（text 變體）；vector overload dropped。
+- Testing/poc-retrieval/eval/（PoC，非 git）：cb2_stage1_verify.py（v1）、cb2_stage1_verify_v2.py（dedicated clean verify）、backend_dumps_probes8*/、CB2_STAGE1_report.md。
+- auto-memory（repo 外）：reference_supabase_pgvector_probes.md、feedback_inspect_live_supabase_before_replace.md、project_direction_review.md（Channel B 北極星）、MEMORY.md。
+
+Known risks / blockers / cautions:
+- Stage-1 **已 FULL PASS**（§C closeout 完成：HARNESS/LOAD artifact、probes=8 sound）。生產已 probes=8；偶發 transient（採購 §C 1/8、sen recall 首發 MALFORMED→retry 即 OK）= free-tier 可重試恢復、非真風險。**PLAN-1 promote 仍未完成（Stage 2 未做）勿宣稱 released。**
+- 🔴 schema.sql 曾 drift（vector vs 真實 text 簽名）引致 PGRST203 live 事故 → 任何 Supabase RPC DDL 前必 INSPECT live `pg_get_functiondef`、勿信 schema.sql（memory + §E 已固化）。生產 DDL 仍 Leonard Dashboard 親手（Claude 出精確 SQL+rollback+唯讀 INSPECT）。
+- 🔴 masking-defect promote-blocker（Channel B 失敗隱形）；🔴 §E.10 admin-login security；🔴 FAIL-A regression（record-only）；§3c regression:semantic 改前已 overall=FAIL（FAIL-A/B 非本 session；schema.sql SQL-only 不影響 TS gate）。
+- egress 間歇每次自測；路徑空格雙引號；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG（S111 教訓，本 session 已遵）；產品方向 P1→P2→P3 + 39→148 deferred 鎖定。
+
+Validation status:
+- PASS Stage-1 recall：clean-verify v2 全 12 OK、6/6 ANN flip 0→>0、0 回歸；SQL smoke 無 42501/0A000/PGRST203；harness 獨立 audit 證 bit-identical mirror AUTHORITATIVE grader。
+- Stage-1 **FULL PASS 已最終裁定**（recall 6/6 + §C HARNESS/LOAD artifact、probes=8 sound）。PENDING：Stage 2 adaptive threshold 未做（PLAN-1 promote 未完成）；PLAN-1b 未做；masking-defect 未修。
+- 治理：Draft schema.sql + 5 governance docs commit+push origin/main；Testing/ 喺 git 外；§4a trigger=False；memory ×3 寫低。
+
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE + 自測（git HEAD / stats / egress 實測）後，**Stage-1 已 FULL PASS（recall 6/6 + §C HARNESS/LOAD artifact，probes=8 生產現行）——第一件事 = 問 Leonard 下一步排序**：(a) Stage 2 adaptive threshold（同一 §3 HIGH-risk promote gate 內，完成 PLAN-1 promote）定 (b) PLAN-1b（CPD category-routing + selective expansion vs §D.9 consolidation，全 Testing/）定 (c) 先修 🔴 masking-defect promote-blocker。詳情讀 `Testing/poc-retrieval/eval/CB2_STAGE1_report.md`（recall + §C 全段）。**未 Leonard 明示前唔好自行做 Stage 2 / PLAN-1b / 改其他 Draft**；PLAN-1 promote 未完成（Stage 2 未做）勿宣稱 released。碰 admin/auth/公開推送前必讀 §E.10。Channel B 北極星（頁數不可 defer）見 memory project_direction_review。
+```
+
+---
+
 ## 2026-05-18 Session 115 — CB-0 gate PASSED→AUTHORITATIVE；CB-2 檢索校準執行完成（egress 復通）
 
 - **ID:** Claude_20260518_1059

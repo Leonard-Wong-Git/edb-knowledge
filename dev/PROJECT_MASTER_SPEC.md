@@ -118,7 +118,7 @@ source_registry → 同 vault PDFs → ai_extract.py
 - 環境變數（`backend/.env`）：`OPENAI_API_KEY`、`OPENAI_MODEL`、`PORT=8787`、`CORS_ORIGIN`、`KNOWLEDGE_PATH`。本地 `file://` dev 需 `CORS_ORIGIN=*`。
 
 ### C.4 資料儲存
-- **Supabase**（Channel B 向量庫）：project `edb-knowledge`，table `public.wiki_chunks`（vector(1536)，IVFFlat **lists=60** — 依 `backend/supabase/schema.sql` 權威 DDL；舊寫「lists=50」係 drift，S115 CB-2 §0b 修正；pgvector 預設 `probes=1` → 每查掃 ~1/60≈1.7% 向量），RPC `match_wiki_chunks(query_embedding text, match_threshold float, match_count int DEFAULT NULL)`（內部 `text::vector` cast，cosine DESC，不傳 count 則返回全部）。anon role 需 `GRANT USAGE ON SCHEMA public` **且** `GRANT SELECT ON wiki_chunks`。上傳用 service_role key，查詢用 anon key。免費 tier 500MB（現 ~50MB）。
+- **Supabase**（Channel B 向量庫）：project `edb-knowledge`，table `public.wiki_chunks`（embedding 欄 vector(1536)，IVFFlat **lists=60**；lists「50」舊寫係 drift S115 修）。RPC **live 真實簽名 = `match_wiki_chunks(query_embedding TEXT, match_threshold double precision DEFAULT 0.1, match_count integer DEFAULT NULL)`**（後端 send 字串、內部 `query_embedding::vector` cast，cosine DESC，null count = 全返）。⚠️ **`schema.sql` 曾把簽名 drift 成 `vector(1536)`，S116 套落 live 與真實 text 變體並存 → PGRST203 → Channel B 全 0（live 事故）；任何 RPC DDL 前必 INSPECT live `pg_get_functiondef`（§E.13）。** **S116：函數現 `language plpgsql VOLATILE` body `set local ivfflat.probes = 8`**（≈sqrt(lists)；取代 sql/stable/probes=1）= CB-2 PLAN-1 Stage-1（FULL PASS，生產現行 probes=8）。anon 需 `GRANT USAGE ON SCHEMA public` **且** `GRANT SELECT ON wiki_chunks`；DDL 須 Supabase Dashboard（Leonard auth，無 CLI/psql/DB-url 路徑）。上傳 service_role key、查詢 anon key；免費 tier 500MB（現 ~50MB）。
 - **GitHub Pages**：公開 artifacts `knowledge.json` / `guidelines.json` / `K1_API_SPEC.md`。
 - **MemPalace — REMOVED 2026-05-18 (S115，Leonard 指示)**：本專案已停用 MemPalace；repo-local config + `dev/mempalace_sync.py` 已刪、治理引用已剝除。Shared palace（repo 外、多專案共用）為其他專案保留；本專案 wing drawers 孤兒化（CLI 無 wing-delete）。勿為本專案重設 MemPalace 除非 Leonard 明示。
 
@@ -154,6 +154,7 @@ source_registry → 同 vault PDFs → ai_extract.py
 11. **改公開契約必跑 regression** — `npm run regression:semantic` + grep parity，早抓 schema drift。
 12. **「找不到 PDF」先 triage source 本身** — URL 失效 / SPA / 官方下架先核 source 質素，不要馬上設計 fallback pipeline。
 13. **stat facts 程序化建構** — `build_stat_facts.py` 從 parsed extract 硬編碼，比 LLM 快 / 平 / 確定 / 無需 key。
+14. **Supabase pgvector probes 調校（S116 實證）** — 升 `ivfflat.probes` 唯一可行路 = 把 RPC 改 `language plpgsql VOLATILE`、body 首句 `set local ivfflat.probes = N`（N≈sqrt(lists)）。function-level SET clause 撞 42501、stable/sql 撞 0A000（§E.13）。改前 INSPECT live 真實簽名、保持 byte-identical（§E.13 防線）。**Channel B live-verify 必用 dedicated `/api/search/channel-b`**（combined 端點 `.catch` 隱形化 B 例外）+ curl（Mac SSL）+ ≥15s pacing（10 req/min 限）+ warmup（Render 冷啟）+ classify（INFRA_FAIL ≠ recall 0）。詳 auto-memory `reference_supabase_pgvector_probes`。
 
 ---
 
@@ -214,6 +215,10 @@ source_registry → 同 vault PDFs → ai_extract.py
 ### E.12 EDB 全站改版一次過打爛 26 條 source URL（Session 61，兩輪緊急復原）
 - **根因**：EDB 官網無預警改版，registry 26 條 URL 同時 404；要兩輪緊急復原（17 主要 + 9 legacy）+ 建 freshness baseline + 每週 GitHub Actions CI。
 - **防線**：EDB 會無預警重組網站（已發生，非假設）→ `check_freshness.py` + 每週 CI 係常設防線，勿停。遇大規模 404：爬 landing page 搵新檔名 / 新路徑，**不要直接刪 source**（source 通常仍有效，只係搬咗）。參見 §D.12。
+
+### E.13 `schema.sql` 簽名 drift → PGRST203 live 事故 + Supabase 受限角色 GUC 坑（Session 116，Channel B 生產一度全 0）
+- **根因**：`backend/supabase/schema.sql` header 自稱「the exact contract the backend code expects / do not drift」，但實已 drift —— 它定義 `match_wiki_chunks(query_embedding **vector(1536)**,...)`，而後端 `wikiRepository.ts` send embedding 做**字串**、live 真實函數係 `(query_embedding **text**,...)` 內部 `::vector` cast。CB-2 probes promote 信咗 schema.sql 套 vector 變體落 live → 同既有 text 變體**並存重載** → PostgREST **PGRST203「could not choose best candidate」** → Channel B 對所有 query 返 0（combined 靜默退化 A-only，事故對 monitoring 半隱形）。連帶踩中 Supabase 受限 `postgres` 角色坑：function-level `SET ivfflat.probes` clause → **42501**；`SET`/`SET LOCAL` 喺 STABLE/IMMUTABLE 或 `language sql` 函數 → **0A000**（須 VOLATILE plpgsql）。
+- **防線**：(1) **任何 Supabase RPC / 函數 DDL 之前，必先 `select pg_get_functiondef(oid)` 攞 live 真實定義 + overload 清單，據此寫 replacement、勿信 `schema.sql`**（§G.2 verify-don't-trust-docs 對 Supabase DDL 之具體化；已入 auto-memory `feedback_inspect_live_supabase_before_replace`）。`create or replace` 必須同 live signature + return type byte-identical，否則造新 overload。(2) Supabase pgvector probes 正解 = `language plpgsql VOLATILE` + body `set local ivfflat.probes=N`（pooling-safe；機制詳 auto-memory `reference_supabase_pgvector_probes` + §D.14）。(3) 生產 DDL 仍 Leonard Dashboard 親手；Claude 出精確 APPLY+ROLLBACK+唯讀 INSPECT，事故時先 ROLLBACK 還原再 INSPECT 真實態。(4) 🔴 衍生獨立 promote-blocker：`searchCombined.ts` `.catch` 將**任何** Channel B 例外包成假 reason「Channel B 未配置（環境變數缺失）」+ HTTP 200 → Channel B 失敗對 monitoring/eval **完全隱形**，真 transient 與真 misconfig 無法區分（S116 Leonard flag+defer；碰 promote/監控/可靠性前必處理；診斷/評分改用 dedicated `/api/search/channel-b`）。
 
 ---
 

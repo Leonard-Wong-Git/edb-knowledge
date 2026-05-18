@@ -69,19 +69,26 @@ grant select on public.wiki_chunks to anon;
 grant select on public.wiki_chunks to authenticated;
 
 -- 6. match_wiki_chunks RPC ---------------------------------------------------
---    Signature, defaults, and returned columns MUST match wikiRepository.ts:
---      * args: query_embedding vector(1536), match_threshold float,
---              match_count int  (code omits match_count when undefined ->
---              the default applies; null limit = "return all above threshold")
---      * score = cosine similarity = 1 - cosine_distance, rounded to 4 dp,
---        so the code's score >= match_threshold filter is consistent with the
---        SQL WHERE clause.
+--    LIVE-VERIFIED SIGNATURE (2026-05-18 S116): the deployed function the
+--    backend actually calls is (query_embedding TEXT, ...). wikiRepository.ts
+--    sends the embedding as a JSON string; the body casts query_embedding::vector
+--    internally. The earlier "vector(1536)" signature here was DRIFT — applying
+--    it created a SECOND overload alongside the live text one → PostgREST
+--    PGRST203 "could not choose best candidate" → Channel B returned 0 rows
+--    (live incident, S116). Keep the (text, double precision, integer) signature
+--    and return type EXACTLY — any change re-creates the overload incident.
+--      * args: query_embedding text, match_threshold double precision,
+--              match_count int (omitted by code -> null => return all)
+--      * score = 1 - cosine_distance, rounded to 4 dp.
 --      * returns exactly the columns the code reads back (WikiChunk + score).
---    `create or replace` keeps this idempotent.
+--    probes=8 (CB-2 recall lever): MUST be SET LOCAL inside a plpgsql VOLATILE
+--    body. Supabase blocks the function-level SET clause for this extension GUC
+--    (42501); SET is illegal in a STABLE/IMMUTABLE function (0A000); language
+--    sql can't run SET. `create or replace` (same signature) replaces in place.
 create or replace function public.match_wiki_chunks(
-  query_embedding  vector(1536),
-  match_threshold  float   default 0.1,
-  match_count      int     default null
+  query_embedding  text,
+  match_threshold  double precision  default 0.1,
+  match_count      integer           default null
 )
 returns table (
   id              text,
@@ -96,38 +103,43 @@ returns table (
   role            text,
   school_level    text,
   reference_year  text,
-  score           float
+  score           double precision
 )
-language sql
-stable
+language plpgsql
+volatile
 as $$
-  select
-    wc.id,
-    wc.hash,
-    wc.text,
-    wc.source_id,
-    wc.title,
-    wc.url,
-    wc.topic,
-    wc.content_type,
-    wc.fact_type,
-    wc.role,
-    wc.school_level,
-    wc.reference_year,
-    round((1 - (wc.embedding <=> query_embedding))::numeric, 4)::float as score
-  from public.wiki_chunks wc
-  where 1 - (wc.embedding <=> query_embedding) >= match_threshold
-  order by wc.embedding <=> query_embedding
-  limit match_count;            -- null => no limit (return all above threshold)
+begin
+  set local ivfflat.probes = 8;
+  return query
+    select
+      wc.id,
+      wc.hash,
+      wc.text,
+      wc.source_id,
+      wc.title,
+      wc.url,
+      wc.topic,
+      wc.content_type,
+      wc.fact_type,
+      wc.role,
+      wc.school_level,
+      wc.reference_year,
+      round((1 - (wc.embedding <=> query_embedding::vector))::numeric, 4)::float as score
+    from public.wiki_chunks wc
+    where 1 - (wc.embedding <=> query_embedding::vector) >= match_threshold
+    order by wc.embedding <=> query_embedding::vector
+    limit match_count;            -- null => no limit (return all above threshold)
+end;
 $$;
 
 -- Execute grants: the runtime calls the RPC with the anon key.
-grant execute on function public.match_wiki_chunks(vector, float, int) to anon;
-grant execute on function public.match_wiki_chunks(vector, float, int) to authenticated;
+grant execute on function public.match_wiki_chunks(text, double precision, integer) to anon;
+grant execute on function public.match_wiki_chunks(text, double precision, integer) to authenticated;
 
 -- ============================================================================
--- Post-run verification (run in the SQL editor after ingestion):
---   select count(*) from public.wiki_chunks;            -- expect ~2,874
---   select id, score from public.match_wiki_chunks(
---     (select embedding from public.wiki_chunks limit 1), 0.1, 3);
+-- Post-run verification (run in the SQL editor after applying). Pass the
+-- embedding as TEXT (the param is text; the body casts ::vector internally):
+--   select count(*) from public.wiki_chunks;            -- expect ~12,906
+--   select id, round(score::numeric,4) from public.match_wiki_chunks(
+--     (select embedding::text from public.wiki_chunks limit 1), 0.1, 3);
 -- ============================================================================
