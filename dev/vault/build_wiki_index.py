@@ -111,6 +111,42 @@ def chunk_text(text: str, max_chars: int = CHUNK_MAX_CHARS,
     return [c for c in chunks if len(c) >= 20]  # discard tiny fragments
 
 
+# Matches the backend's extractFirstPage() regex (searchChannelB.ts) exactly,
+# so a marker carried here is resolvable to a page number at query time.
+PAGE_MARKER_RE = re.compile(r'={2,}\s*Page\s*(\d+)\s*={2,}', re.IGNORECASE)
+
+
+def chunk_text_with_page_carry(text: str, max_chars: int = CHUNK_MAX_CHARS,
+                               overlap: int = CHUNK_OVERLAP) -> list[str]:
+    """
+    CB-3 (S119 Option B): chunk vault text, then make every chunk page-resolvable.
+
+    `=== Page N ===` markers are sparse (one per source page) so a chunk falling
+    between two markers carries none and extractFirstPage() returns nothing.
+    Here we carry the last-seen page forward: a marker-less chunk is prefixed
+    with the page where the preceding chunk ended.
+
+    Invariants:
+      - Chunks before the first marker (cover / front-matter) are left unchanged.
+      - A source with NO page markers at all yields byte-identical output to
+        chunk_text() — its text_hash (and thus Supabase chunk id) is unchanged,
+        so the 74 marker-less sources are untouched by this change.
+    """
+    chunks = chunk_text(text, max_chars, overlap)
+    current_page = None
+    out = []
+    for ch in chunks:
+        found = PAGE_MARKER_RE.findall(ch)
+        if found:
+            current_page = found[-1]            # carry the page this chunk ends on
+            out.append(ch)                       # already resolvable — unchanged
+        elif current_page is not None:
+            out.append(f"=== Page {current_page} ===\n{ch}")
+        else:
+            out.append(ch)                       # before first marker — unchanged
+    return out
+
+
 def text_hash(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
 
@@ -335,9 +371,9 @@ def build_index(args):
     # Build new chunks
     new_chunks = []
 
-    # 1. Vault extracts → chunked
+    # 1. Vault extracts → chunked (CB-3: page-carry so each chunk is page-resolvable)
     for src in vault_sources:
-        for chunk_text_item in chunk_text(src["text"]):
+        for chunk_text_item in chunk_text_with_page_carry(src["text"]):
             h = text_hash(chunk_text_item)
             if h in existing_hashes and not args.force:
                 continue
