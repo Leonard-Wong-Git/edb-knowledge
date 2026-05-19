@@ -157,6 +157,32 @@ export function failedChannelBResponse(query: string): SearchChannelBResponse {
  * to the most relevant source documents.
  */
 const SOURCE_SETS: Record<string, string[]> = {
+  // ── PLAN-1b selective routes (S118) — matched before the broad production
+  // categories below. SAG is intentionally allowed in `cpd`/`conduct` (their
+  // gold lives in sag_2025_11) but stays bounded by the per-source quota, so
+  // it does not re-introduce the §E.3 SAG-domination these tight sets avoid.
+  cpd: [
+    "sag_2025_11",
+    "g06",
+    "circ_edbc24017",
+    "role_facts_hr",
+    "role_facts_curriculum",
+    "role_facts_general",
+  ],
+  kg_admission: [
+    "g26",
+    "g25",
+    "role_facts_general",
+  ],
+  conduct: [
+    "g05",
+    "sag_2025_11",
+    "role_facts_student",
+    "role_facts_hr",
+    "role_facts_general",
+  ],
+  // (steam route has no source filter — plain retrieval + expansion only.)
+
   /**
    * Finance / Procurement — 採購, 招標, 財務管理, 資助則例
    * Exclude SAG: its "門檻" references are teacher-registration thresholds,
@@ -229,6 +255,11 @@ const SOURCE_SETS: Record<string, string[]> = {
 
 /** Keyword patterns for each category (Traditional Chinese). */
 const TOPIC_KEYWORDS: Record<string, RegExp> = {
+  // PLAN-1b selective routes (S118) — first-match precedence; keep first.
+  cpd: /CPD|持續專業發展|教師專業發展|教師培訓|專業發展計劃|專業階梯|師訓/,
+  kg_admission: /幼稚園收生|幼稚園.{0,3}收生|幼稚園.{0,3}入學|幼稚園.{0,3}報名|K1.{0,3}收生|幼稚園.{0,3}申請入學/,
+  conduct: /體罰|施行體罰|羞辱學生|虐待學生|教師操守|專業操守|教師專業操守/,
+  steam: /STEAM|STEM/,
   finance: /採購|招標|單一報價|競投|供應商|報價單|分判|貨物|服務合約|財務管理|預算|撥款|開支|報銷|捐款|借款|代收費|利益衝突|申報利益|賄賂|廉署|防賄|資助則例|法團校董|校董會經費|採購門檻|採購程序/,
   hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師/,
   activity: /全方位學習|活動津貼|課外活動|全方位學習津貼/,
@@ -256,6 +287,11 @@ function detectQueryCategory(query: string): string | null {
  * registration usage of "門檻" and scores poorly against g01 chunks.
  */
 const QUERY_EXPANSIONS: Record<string, string> = {
+  // PLAN-1b selective routes (S118) — same single map, no parallel mechanism.
+  cpd:          "教師持續專業發展 持續專業發展 教育局通告29/2024 教師培訓要求 專業階梯 校本專業發展政策 師訓會 教師專業能力理念架構",
+  kg_admission: "幼稚園收生安排指引 K1 註冊證 報名費 註冊費 統一註冊日期 申請入學 收生程序 空缺",
+  conduct:      "教師專業操守指引 教育規例第58條 教員不得向學生施行體罰 操守 學生保護",
+  steam:        "STEAM教育 跨學科 課程更新重點 七大重點 STEAM專責小組 科學科技工程藝術數學",
   finance:    "採購程序 財政限額 報價 招標 採購指引",
   hr_admin:   "教職員假期 批假 薪酬 操守 病假 首年 168日 上限 醫生證明 教師註冊 聘任",
   activity:   "全方位學習津貼 活動",

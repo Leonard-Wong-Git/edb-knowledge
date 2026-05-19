@@ -1,12 +1,12 @@
 # Session Handoff
 
 ## Current Baseline
-1. Version: **v2.3.0**；git `main`=`origin/main` HEAD = **S116 closeout commit（commit *後* HEAD 自然推進＝正常非 desync，§G.2；下次起手自行 verify，應 ≥ S116 closeout commit）**。S116 改 **`backend/supabase/schema.sql`**（真實 live text 變體 + plpgsql volatile + `SET LOCAL ivfflat.probes=8` + 修正引致 PGRST203 事故嘅 vector→text 簽名 drift）= **Draft code/data 改動，已 commit+push 並入本 SESSION_LOG（守 S111 教訓）**。**CB-2 PLAN-1 v2 Stage 1 已落地＋FULL PASS：生產 Supabase `match_wiki_chunks` 現行 probes=8（Leonard Dashboard 套用，非 git）**；Stage-1 **FULL CLEAN PASS（recall：clean-verify v2 全 12 OK、6/6 ANN-recoverable flip 0→>0、0 回歸；§C：幼稚園收生/防賄 8/8 OK、gold-consistency 全一致、p90<4.2s → HARNESS/LOAD artifact、probes=8 sound 非真 free-tier 風險）**。Stage 2 adaptive threshold **未做**；CPD→PLAN-1b；**masking-defect = FIXED S117**（`searchCombined` `.catch`→`failedChannelBResponse`，`channel_b_status` discriminator 令真失敗 vs 未配置 可區分；§3d 13/13）= promote-blocker 清除，待 Render auto-deploy on push。**PLAN-1 promote 未完成（Stage 2 未做），勿宣稱 released。**
+1. Version: **v2.3.0**；git `main`=`origin/main` HEAD = **S116 closeout commit（commit *後* HEAD 自然推進＝正常非 desync，§G.2；下次起手自行 verify，應 ≥ S116 closeout commit）**。S116 改 **`backend/supabase/schema.sql`**（真實 live text 變體 + plpgsql volatile + `SET LOCAL ivfflat.probes=8` + 修正引致 PGRST203 事故嘅 vector→text 簽名 drift）= **Draft code/data 改動，已 commit+push 並入本 SESSION_LOG（守 S111 教訓）**。**CB-2 PLAN-1 v2 Stage 1 已落地＋FULL PASS：生產 Supabase `match_wiki_chunks` 現行 probes=8（Leonard Dashboard 套用，非 git）**；Stage-1 **FULL CLEAN PASS（recall：clean-verify v2 全 12 OK、6/6 ANN-recoverable flip 0→>0、0 回歸；§C：幼稚園收生/防賄 8/8 OK、gold-consistency 全一致、p90<4.2s → HARNESS/LOAD artifact、probes=8 sound 非真 free-tier 風險）**。**masking-defect = FIXED S117**（`searchCombined` `.catch`→`failedChannelBResponse` + `channel_b_status` discriminator）。**S118：Stage 2 adaptive combo 經雙獨立驗證判定非可行、正式放棄**（病राhard combo-regression，根因＝上游 ranking defect，cutoff 救唔到）；**PLAN-1 promote 改以 PLAN-1b 達成 — `searchChannelB.ts` 加 4 條 dedicated selective route（cpd/kg_admission/conduct/steam；fixed cutoff 不動、無 combo、唔掂 S117 masking），已 commit+push（待 Render auto-deploy）**：CPD 0→0.8、12 條零回歸、§E.3 SAG≤3、routing 12/12、live-verified。⚠️ probes=8 *live* 仍未獨立 introspect；Supabase free-tier probes=8 偶發 `57014` statement-timeout（生產可用性）。**生產 deploy smoke 前勿宣稱 released；Stage 2 combo 已 closed 勿復活。**
 2. Frontend: `index.html` K1 landing page (hero + features + CTA); `t-purchase.html` S3/S4/S5 draft flow; `q.html` local `knowledge.json` Quick Q&A; `app.html` full React SPA / management workspace.
 3. Knowledge state: **455 Channel A facts** (三層同步 ✅ byte-identical；2026-05-16 dedup 由 792 → 455，移除 275 條跨角色完全重複 + 合併 36 組相近事實，commit `711f911`，reversible log `dev/DEDUP_LOG_2026-05-16.md`；早前 Session 102 已 1,001 → 792), **0 candidates in queue**, **Supabase 10,736 chunks**。Vault: 120 sources 提取完成。**指引數字 4 層（148 app 內庫 / 39 公開 guidelines.json / 151 source_registry / 120 vault-extracted）見 PROJECT_MASTER_SPEC §B.1 釐清框 — 39 是否擴到 148 = OPEN DECISION，未收斂**。
 4. Backend: Node.js TypeScript backend all search APIs complete; **Channel A + B + A+B online at `https://edb-knowledge.onrender.com`**; rate limiting 10 req/min/IP (sliding window, in-memory).
 5. Channel A: 改用 backend semantic search + LLM synthesis（所有三個 channel 均有整理答案）；min_score A=0.1, B/AB=0.22（2026-05-16 Session 110 對齊實際 code default，原寫 0.15 已過時）；case-insensitive keyword fallback 已移除。
-6. Channel B topic filtering（Session 94 完成）：keyword → category → source allowlist → query expansion。採購/財務 → g01+g02+coa_imc（排 SAG）；HR/假期 → g04+g05+sag；課程 → 課程指引。g04 仍為 knowledge-based extract（非 PDF）。
+6. Channel B topic filtering（Session 94 完成）：keyword → category → source allowlist → query expansion。採購/財務 → g01+g02+coa_imc（排 SAG）；HR/假期 → g04+g05+sag；課程 → 課程指引。g04 仍為 knowledge-based extract（非 PDF）。**S118 +4 dedicated selective route（first-match，置 finance 前）**：cpd→[sag_2025_11,g06,circ_edbc24017,role_facts_*]、kg_admission→[g26,g25,role_facts_general]、conduct→[g05,sag_2025_11,role_facts_*]、steam→plain+expansion；SAG 喺 cpd/conduct 由 per-source quota(cap=3) 約束、不破 §E.3。
 7. Product copy baseline: Traditional Chinese UI; no public internal design/dev/backend commands.
 8. **MemPalace REMOVED 2026-05-18 (S115，Leonard 指示)** — repo-local `.venv`/`mempalace.yaml`/`entities.json` + `dev/mempalace_sync.py` 已刪、治理引用已剝除；本專案不再用 MemPalace。Shared palace `/Users/leonard/mempalace/palace` 為其他專案保留不動；本專案 wing 之 drawers 變孤兒（mempalace CLI 無 wing-delete）。**Leonard S115 裁示：留低孤兒、永久唔郁 shared palace（§3 divergence RESOLVED）** — 未來 session 勿再 raise 或嘗試 purge。
 
@@ -105,11 +105,13 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## Open Priorities
 > 產品方向 S112 roadmap：**P1 搜尋相關性 → P2 分類 148 → P3 數字對齊**（39→148 deferred）。**S114 Leonard 定新焦點：P1 內聚焦 Channel B 效果**（唔單做一 channel，用 agent team 互補）。順序鎖定，未得 Leonard 確認唔好跳。
-1. **CB-2 PLAN-1 Stage 2 — adaptive threshold（§3 HIGH-risk promote gate，待 Leonard go）**：`searchChannelB.ts:346` per-query adaptive 取代固定 0.22 / category-drop 0.08（CB-2 Exp3：無單一常數跨 query 分 gold/noise）；promote Testing/ `dynamic_cutoff` rank-based knee；§E.3 四輪治理脈絡，需 §3d matrix + live test-verify。**強烈建議先做 audit-flagged 唯讀 INSPECT**：`pg_get_functiondef`/`proconfig` 實證 probes=8 真係 live（S116 只敘述、未獨立 introspect；S116 曾 PGRST203 drift，§E.13）。完成此 = PLAN-1 promote 完成。
-2. **PLAN-1b — CPD category-routing + 選擇性 expansion consolidation（全 Testing/ 先）**：CPD gold 喺 `sag_2025_11`/`g06`，唔喺 `SOURCE_SETS["curriculum"]` allowlist → probes 永遠救唔到（agent 證）。修 category→source 映射 + selective expansion vs §D.9 always-on `QUERY_EXPANSIONS` 一規一處 consolidation。連帶 sen（expansion-recovers）。
-3. **既有 deferred**：🔴 FAIL-A Circular 注入 regression（S111 dedup×budget，record-only 待設計決定）；🔴 §E.10 admin-login security（最嚴重未解）；P2 分類 148（中/小/幼/特+範疇）+ P3 LSG 誤標/SEN 覆蓋（39→148 deferred 須 §3 HIGH-risk）；Mobile UI P2；HKEAA；低 doc-debt（FAIL-B `semanticRegression.ts:292` stale 1.3.1 / `wiki_index._meta.total_chunks=2874` 實 12,906 / §C「HARNESS/LOAD artifact」label 偏寬＝採購 k=7 未查 HTTP400 MALFORMED，recall 裁定仍企）。
+1. **probes=8 live 獨立 introspect（唯讀，audit-flagged，SQL 已備未跑）**：`pg_get_functiondef`/`proconfig` + overload count 確認生產 `match_wiki_chunks` 真係 plpgsql VOLATILE + SET LOCAL probes=8 單一 overload（S116 只敘述未獨立 introspect；曾 PGRST203 drift §E.13）。Leonard Dashboard 跑；underpins 所有 probes-dependent 檢索宣稱。
+2. **🔴 Supabase free-tier probes=8 statement-timeout（`57014` HTTP400，生產可用性）**：S118 live-verify 5 RPC 2 個 timeout（retry 恢復）。待 Leonard 排：降 probes / app-層 retry / 升 tier。S117 後正確浮面成 `channel_b_status:"error"`（非假「未配置」）。
+3. **CB-3 可追溯（北極星，頁數不可 defer）+ 病假 combo-gap 決定**：CB-3（synthesis 引頁數/來源）未做＝北極星缺口。病假 combo .5→.25＝known combo-gap（fixed cutoff 下無回歸；future PLAN-1c 抑或接受 fixed-only，待 Leonard）。
+4. **既有 deferred**：🔴 FAIL-A Circular 注入 regression（S111 dedup×budget，record-only）；🔴 §E.10 admin-login security（最嚴重未解）；P2 分類 148 + P3 LSG/SEN（39→148 deferred 須 §3 HIGH-risk）；Mobile UI P2；HKEAA；低 doc-debt（FAIL-B `semanticRegression.ts:292` stale 1.3.1 / `wiki_index._meta.total_chunks` stale）。
 
-> ✅ **S117 完成**：masking-defect promote-blocker **已修+verified**（`searchCombined` `.catch`→`failedChannelBResponse`，combined 加 `channel_b_status` discriminator〔"unconfigured"|"error"〕，genuine-unconfigured 路徑不變；§3d deterministic 13/13、npm check/build ✅、regression:semantic delta=0 new）。promote-blocker 清除；生產 deploy 待 Render auto-deploy on push。
+> ✅ **S118 完成**：Stage 2 adaptive combo 雙獨立驗證判定非可行、**放棄（勿復活）**；pivot 並 **promote PLAN-1b 4 條 dedicated selective route**（`searchChannelB.ts`，fixed cutoff，CPD 0→0.8、12 條零回歸、§E.3 SAG≤3、routing 12/12、獨立 audit + live-verify 雙重）。已 commit+push、待 Render auto-deploy。§2 rule 6 override 已記（HIGH-risk 在 Leonard standing 授權「按最終目標選擇及行動直至/goal」+ agent-team 四重控制下進行）。
+> ✅ **S117 完成**：masking-defect promote-blocker 已修+verified（`channel_b_status` discriminator；§3d 13/13）。
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 - g21/g22/g33 直連 PDF 補完（user browser）— Session 105 audit 揭發三者 source_type='pdf' 但 url_primary 缺
@@ -118,6 +120,29 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合）
 
 ## Last Session Record
+1. UTC date: 2026-05-19
+2. Session ID: Claude_20260519_1300 (Session 118)
+3. Completed:
+   - ✅ **[Stage 2 判定非可行、正式放棄]** Leonard `/goal A` → §3 HIGH-risk PLAN → offline acceptance gate FAIL（combo regress 病假/體罰/幼稚園收生/STEAM）；獨立 audit 確認真（根因＝上游 ranking defect，cutoff 結構上救唔到）。依 §3 偏離 + PLAN 停 CHANGE、唔 ship regression。
+   - ✅ **[§2 rule 6 衝突→Leonard 授權自主]** /goal A vs no-ship-regression 報 Leonard → dismiss「wait」→「我不知道點決定，你按最終目標選擇及行動，直至/goal」＝授權。
+   - ✅ **[pivot PLAN-1b，promote]** agent-team：診斷根因（CPD allowlist-gap / 其餘 within-allowlist mis-rank）→ 建 4 條 dedicated selective route → 獨立 audit（揭 worker 病假 overstatement、§E.3 SAG≤3 closed、無 hijack）→ live-verify（真 probes=8 可救 gold 全 surface）。CHANGE：`searchChannelB.ts` +4 route（fixed cutoff 不動、無 combo、唔掂 S117 masking）。
+   - ✅ **[QC]** routing 12/12；npm check/build ✅；regression:semantic delta=0 new（FAIL-A/B record-only 未碰）。
+   - ✅ **[§2 rule 6 OVERRIDE]** HIGH-risk promote 在 Leonard standing 授權 + agent-team 四重控制 + live-verify 下進行 → comply + record（本 + SESSION_LOG）。
+   - ✅ **[PERSIST]** SESSION_LOG S118+verbatim、SESSION_HANDOFF baseline/OP重生/Supabase notes/本 record、PROJECT_MASTER_SPEC §E.3/§D/§C.4、CODEBASE_CONTEXT Maintenance Log、DOC_SYNC、memory；commit+push 指定檔（觸發 Render auto-deploy）。
+4. Pending（待 Leonard）:
+   - (a) 跑唯讀 probes=8-live INSPECT (b) Supabase free-tier probes=8 `57014` timeout 生產可用性 (c) 病假 combo-gap future PLAN-1c vs fixed-only / CB-3 北極星 — Leonard 排序。
+5. Next priorities (max 3 — 詳見 Open Priorities)：
+   - probes=8-live INSPECT / Supabase timeout / CB-3+病假 gap（Leonard 揀）
+   - 🔴 FAIL-A（record-only）/ §E.10（deferred）
+   - P2 分類148 + P3 / Mobile UI P2 / HKEAA
+6. Risks / blockers:
+   - **Stage 2 adaptive combo 放棄（勿復活，雙獨立驗證 dead-end；root cause＝ranking 非 cutoff）**；PLAN-1b 已 promote，生產 deploy 待 Render auto-deploy（smoke 前勿宣稱 released）。
+   - 🔴 Supabase free-tier probes=8 偶發 `57014` statement-timeout（生產可用性，retry 恢復）；🔴 probes=8 live 未獨立 introspect（依賴 probes 行為前必跑唯讀 INSPECT）；schema.sql 曾 drift→PGRST203（§E.13；生產 DDL 仍 Leonard Dashboard）。
+   - 🔴 §E.10；🔴 FAIL-A；§3c regression:semantic 既有 FAIL-A/B record-only（本 change TS-only delta=0）。
+   - 病假 combo .5→.25 known gap（非本 promote 範圍）；egress 間歇每次自測；路徑空格雙引號；Testing/ 喺 git 外；改 Draft commit 必入 SESSION_LOG（已遵）。
+7. Session 進行中（**非** closeout — Leonard 未「收工」）：Stage-2 判非可行已 closed、PLAN-1b promote 完成；待 Leonard 下一步排序。
+
+## Previous Session Record
 1. UTC date: 2026-05-19
 2. Session ID: Claude_20260519_0715 (Session 117)
 3. Completed:
@@ -395,6 +420,8 @@ git add <指定治理/文檔檔> && git commit -m "session close: <描述>" && g
   - **S116: now `language plpgsql VOLATILE` with body `set local ivfflat.probes = 8`** (was `language sql stable`, probes=1 default). Mechanism constraints (all empirically hit): function-level `SET ivfflat.probes` clause → 42501 (Supabase blocks ext-GUC clause); `SET`/`SET LOCAL` in STABLE/IMMUTABLE or `language sql` → 0A000 (must be VOLATILE plpgsql). probes=8≈sqrt(lists=60). Production Channel B currently runs probes=8 (Stage-1 FULL PASS, S116). Reference: auto-memory reference_supabase_pgvector_probes.
   - DDL needs Supabase Dashboard SQL Editor (Leonard's auth); no CLI/psql/DB-url/service-via-PostgREST path. Claude prepares exact APPLY+ROLLBACK+read-only INSPECT; Leonard applies.
   - ✅ **S117 FIXED** (was S116 promote-blocker): `searchCombined.ts` `.catch` now returns `failedChannelBResponse` → combined surfaces `channel_b_status:"error"` + `CHANNEL_B_ERROR_REASON`, distinct from genuine unconfigured (`channel_b_status:"unconfigured"` + 未配置). Real Channel B failures now visible to monitoring/eval via the `channel_b_status` discriminator (no more fake "未配置" masking). Genuine-unconfigured path (`searchChannelB.ts` `isSupabaseConfigured()` guard) unchanged. Dedicated `/api/search/channel-b` still recommended for live-grade (no route-level catch — methodology unchanged). Deploy: Render auto-deploys on push to main.
+  - 🔴 **S118: free-tier probes=8 intermittent statement-timeout** — live-verify saw 2/5 RPC calls return HTTP 400 / Supabase `57014` "canceling statement due to statement timeout" at probes=8 (succeeded on retry; one was cold-start, one intermittent ~60s after a healthy call). Production-availability risk independent of retrieval correctness; post-S117 it correctly surfaces as `channel_b_status:"error"` (not fake "未配置"). Open Priority — options: lower probes / app-level retry / paid tier. probes=8-live itself still NOT independently introspected (audit-flagged; read-only `pg_get_functiondef`/`proconfig` SQL prepared, not yet run).
+  - **S118: Channel B routing +4 dedicated selective routes** (`searchChannelB.ts` `TOPIC_KEYWORDS`/`SOURCE_SETS`/`QUERY_EXPANSIONS`, first-match before `finance`): cpd, kg_admission, conduct, steam (PLAN-1b promote; fixed cutoff unchanged; SAG in cpd/conduct bounded by per-source quota cap=3 → §E.3-safe). Stage-2 adaptive combo abandoned (non-viable; do not revive).
 - Permissions: anon role needs BOTH `GRANT USAGE ON SCHEMA public` AND `GRANT SELECT ON wiki_chunks TO anon`
 - Upload: `SUPABASE_SERVICE_KEY` (service_role) required for insert; anon key for read-only search
 - Conflict resolution: `Prefer: return=minimal` (NOT merge-duplicates); dedup by ID before batching

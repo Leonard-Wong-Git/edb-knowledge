@@ -2,6 +2,69 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-19 Session 118 — Stage 2 combo 判定非可行（雙獨立驗證）→ pivot PLAN-1b：4 條 selective route promote（fixed cutoff）
+
+- **ID:** Claude_20260519_1300
+- **Summary:** Leonard `/goal A` 批 Stage 2 Scope A（combo adaptive cutoff）。出 §3 HIGH-risk PLAN（agent-team groundwork）→ pre-CHANGE offline acceptance gate **FAIL**：combo regress 病假/體罰/幼稚園收生/STEAM。獨立 audit **確認 FAIL 真**（非 harness bug；根因＝上游 ranking defect，正確 gold 排喺高分噪音之下，cutoff 結構上救唔到）。依 §3 偏離 + PLAN「FAIL→stop、唔 ship regression」停 CHANGE。§2 rule 6 衝突（/goal A vs no-ship-regression）報 Leonard → dismiss「do not proceed, wait」→ 其後「我不知道點決定，你按最終目標選擇及行動，直至/goal」＝授權自主。按最終目標（北極星＝正確改善檢索）pivot **PLAN-1b**。
+- **PLAN-1b（agent-team 落手，全 Testing/ 先）：** feasibility 診斷根因（CPD＝純 allowlist-gap：gold 喺 sag_2025_11/g06 唔喺任何 SOURCE_SET；體罰/STEAM/幼稚園收生＝within-allowlist mis-rank）→ 建 4 條 dedicated selective route（cpd/kg_admission/conduct/steam，first-match，dedicated tight set 穿過 §E.3 SAG-exclusion 針孔）+ selective expansion（單一 QUERY_EXPANSIONS、§D.9/§3b 一規一處）。**獨立 audit：** worker 數學 faithful，但「OVERALL PASS」對 **病假 overstated**（病假 combo 仍 .25＝combo 對病假仍 regress、PLAN-1b 無掂）；§E.3 SAG≤3（quota cap=3）closed；8 條 unchanged 無 hijack；STEAM/體罰 lift global-rank-8 脆弱 flag。**Live-verify（dedicated /channel-b 真 probes=8）：** 4 route 可救 gold 全部 live surface（體罰§58 r9、STEAM r8、CPD/幼稚園收生 r1），offline 無高估 → live-robust。
+- **裁定：** Stage 2 adaptive combo＝**正式放棄**（病राhard regression 兩獨立驗證；PLAN-1 promote 不用 adaptive threshold）。PLAN-1 真正得益＝**promote PLAN-1b 4 route（fixed cutoff）**：CPD 0→0.8、幼稚園收生/體罰/STEAM 改善、12 條零回歸、§E.3-safe、live-verified。
+- **CHANGE（Draft）：** `backend/src/api/searchChannelB.ts` — SOURCE_SETS +cpd/kg_admission/conduct（dedicated tight sets，SAG 由 per-source quota 約束）、TOPIC_KEYWORDS +4 route（first-match 置頂）、QUERY_EXPANSIONS +4（同一 map 無 fork）。**min_score/effectiveMinScore 不動（fixed cutoff 保留）、無 combo、唔掂 S117 masking 契約。**
+- **§2 rule 6 OVERRIDE record:** PLAN-1b promote＝Draft external-integration＝§3 HIGH-risk，常規須 Leonard PLAN-confirm。Leonard 明確 standing 授權「按最終目標選擇及行動直至/goal」+ agent-team（feasibility/獨立audit/monitor/live-verify 四重）為控制 + live test-verify 完成 → 視為授權；risk 已述、scope 最小、git-reversible、fixed-cutoff only。按 §2 rule 6 comply + 此 record（+ SESSION_HANDOFF）。
+- **Verified/QC:** routing harness 12/12（4 新 route 對 + 8 unchanged 無 hijack）；`npm run check`✅`build`✅；`regression:semantic` overall=FAIL 但 **delta=0 new**（既有 FAIL-A/B record-only 未碰；7 topic-routing + 2 retrieval 全 PASS＝topicDetector/Channel-A 不受影響）。offline acceptance grade（獨立 audit + live-verify 雙重）＝行為驗收證據。
+- **新風險（記）：** live-verify 5 RPC 有 2 個 HTTP400 / Supabase `57014` statement-timeout（retry 後成功）— free-tier Postgres 喺 probes=8 偶發 timeout，**生產可用性**問題（與檢索正確無關；S117 修好令真錯誤正確浮面成 error 非假「未配置」＝觀測性 working）。
+- **Pending:** PLAN-1b promote 已落 Draft+QC+commit，生產 deploy 待 Render auto-deploy；probes=8 *live* 仍未獨立 `pg_get_functiondef` introspect（唯讀 INSPECT SQL 已交 Leonard、未跑）；Stage 2 combo 放棄；病假 combo-regression＝known（非本 promote 範圍，fixed cutoff 下 病假=.5 無回歸）。
+- **Next:** 接手＝PLAN-1b 4 route 已 promote+verified；問 Leonard：(a) 跑唯讀 probes=8-live INSPECT？(b) Supabase free-tier probes=8 timeout 要否處理（生產可用性）？(c) 病假 combo-gap＝future PLAN-1c 抑或接受 fixed-only？
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change（Channel B PLAN-1b selective routing promote）| SESSION_HANDOFF baseline/Open-Priorities-regen/risks/record + SESSION_LOG 本 entry + QC evidence | ✓ Done |
+| Long-term spec / locked decision / invariant（§E.3 four-round routing +4 selective routes；Stage-2 adaptive 放棄）| PROJECT_MASTER_SPEC §E.3 + §D（dedicated-route+quota 穿 SAG 針孔法）+ §C.4 Supabase free-tier probes=8 timeout caveat | ✓ Done |
+| External API / service change | CODEBASE_CONTEXT External Services block＝N/A（Supabase 外部服務無變；內部 search-API 行為改變）；AI Maintenance Log +S118 | ✓ Done（Log）/ block N/A |
+| Doc carrying now-stale "Stage-2 adaptive threshold is the path" | SESSION_HANDOFF Open Priorities/baseline（Stage-2 dropped，PLAN-1 = PLAN-1b routing）；auto-memory：+project Stage-2-vs-PLAN-1b finding、reference_supabase_pgvector_probes +timeout gotcha | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。Channel B/retrieval PoC 喺姊妹資料夾 "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Testing/poc-retrieval/"（唔喺 git、Draft 零接觸）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式（用嚟做嘢非淨係俾意見）。回覆用中文。
+
+S118：Stage 2 adaptive combo 經雙獨立驗證**判定非可行並放棄**（病राhard combo-regression，根因＝上游 ranking defect）。Leonard 授權「按最終目標選擇及行動直至/goal」→ pivot 並 promote **PLAN-1b**：`searchChannelB.ts` 加 4 條 dedicated selective route（cpd/kg_admission/conduct/steam，first-match，dedicated tight set + 單一 QUERY_EXPANSIONS expansion），**fixed cutoff 不動、無 combo、唔掂 S117 masking**。已 commit+push（觸發 Render auto-deploy）。§2 rule 6 override 已記（HIGH-risk 在 Leonard standing 授權 + agent-team 四重控制 + live-verify 下進行）。
+
+Current objective and progress state:
+- PLAN-1b 4 route＝**promoted + verified**：CPD 0→0.8、幼稚園收生/體罰/STEAM 改善、12 條零回歸、§E.3 SAG≤3 quota-safe、無 hijack；offline grade 經獨立 audit + live-verify（真 probes=8 gold surface）雙重確認。routing harness 12/12、npm check/build ✅、regression:semantic delta=0 new。
+- **Stage 2 adaptive combo＝放棄**（病राcombo .5→.25 hard regression，cutoff 救唔到上游 ranking）。PLAN-1 promote 改以 PLAN-1b routing 達成、**不再用 adaptive threshold**。fixed cutoff 下 病假=.5 無回歸。
+- Channel B 北極星（memory project_direction）：合理+指引+**頁數** = CB-2 retrieval + CB-3 可追溯（頁數不可 defer）+ CB-1 質素。
+
+Pending tasks in priority order:
+1. 問 Leonard 排序：(a) 跑 audit-flagged **唯讀 probes=8-live INSPECT**（SQL 已備、未跑；S116 只敘述未獨立 introspect、曾 PGRST203 drift §E.13）；(b) **Supabase free-tier probes=8 statement-timeout（`57014`）** 生產可用性 — 要否降 probes / 加 retry / 升 tier；(c) 病假 combo-gap＝future PLAN-1c 抑或接受 fixed-only。
+2. CB-3 可追溯（頁數不可 defer，北極星）— 未做。
+3. 既有：🔴 FAIL-A Circular 注入 regression（record-only）；🔴 §E.10 admin-login security；P2 分類148/P3 數字；Mobile UI P2；HKEAA；低 doc-debt（FAIL-B semanticRegression.ts:292 stale 1.3.1）。
+
+Key files changed this session:
+- Draft（已 commit+push）：backend/src/api/searchChannelB.ts（+4 selective route：SOURCE_SETS/TOPIC_KEYWORDS/QUERY_EXPANSIONS）；dev/SESSION_LOG.md、SESSION_HANDOFF.md、PROJECT_MASTER_SPEC.md、CODEBASE_CONTEXT.md。
+- Testing/poc-retrieval/eval/（PoC，非 git）：cb2_stage2_grade.py、CB2_STAGE2_grade_report.md、PLAN1B_grade_report.md + 候選/faithcheck/qvec 檔。
+- auto-memory（repo 外）：reference_supabase_pgvector_probes.md（+free-tier probes=8 timeout gotcha）、project_* Stage-2-vs-PLAN-1b finding、MEMORY.md。
+
+Known risks / blockers / cautions:
+- **Stage 2 adaptive combo 放棄**（勿再嘗試 combo cutoff 救上游 ranking — 雙獨立驗證 dead-end；root cause 係 ranking 非 cutoff）。
+- 🔴 **Supabase free-tier probes=8 偶發 statement-timeout（`57014` HTTP400）** — 生產可用性風險（retry 可恢復；S117 後正確浮面成 channel_b_status:"error" 非假「未配置」）。
+- 🔴 probes=8 *live* 未獨立 introspect（Stage 任何依賴 probes 行為前必跑唯讀 `pg_get_functiondef`）；schema.sql 曾 drift→PGRST203（§E.13；RPC DDL 前必 INSPECT live、生產 DDL 仍 Leonard Dashboard）。
+- 🔴 §E.10 admin-login security；🔴 FAIL-A；§3c regression:semantic 既有 FAIL-A/B record-only（本 change TS-only、delta=0）。
+- 病假 combo .5→.25＝known combo-gap（非本 promote 範圍；fixed cutoff 下無回歸）。egress 間歇每次自測；路徑空格雙引號；Testing/ 喺 Draft git 外；改 Draft code commit 必入 SESSION_LOG；產品方向 P1→P2→P3 + 39→148 deferred 鎖定。
+
+Validation status:
+- PASS PLAN-1b：routing 12/12；npm check/build ✅；regression:semantic delta=0 new；offline grade（獨立 audit 確認、live-verify 真 probes=8 gold surface）；§E.3 SAG≤3。
+- PENDING：probes=8-live INSPECT 未跑；Supabase timeout 未處理；CB-3 未做；Stage 2 combo 已放棄（非 pending，係 closed）。生產 deploy 待 Render auto-deploy（push 已觸發）。
+
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE + 自測（git HEAD / stats / egress 實測）後，**PLAN-1b 4 route 已 promote+verified（push 已觸發 Render auto-deploy）——第一件事＝問 Leonard 排序**：(a) 唯讀 probes=8-live INSPECT（SQL 已備）(b) Supabase free-tier probes=8 timeout 生產可用性 (c) 病假 combo-gap future PLAN-1c vs 接受 fixed-only / 抑或推進 CB-3（北極星頁數）。可選：happy-path 生產 smoke 確認 Render 已 deploy PLAN-1b。**未 Leonard 明示前唔好自行做 Stage 2（已放棄勿復活）/ 其他 Draft / CB-3**。碰 admin/auth/公開推送前必讀 §E.10。Channel B 北極星見 memory project_direction_review。詳細 grade/audit/live-verify 證據喺 Testing/poc-retrieval/eval/PLAN1B_grade_report.md + CB2_STAGE2_grade_report.md。
+```
+
+---
+
 ## 2026-05-19 Session 117 — Fix Channel B masking-defect（promote-blocker）：searchCombined .catch 真失敗 vs 未配置 可區分
 
 - **ID:** Claude_20260519_0715
