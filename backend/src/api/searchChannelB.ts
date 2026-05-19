@@ -27,6 +27,15 @@ import { TOPIC_IDS } from "../types/knowledge.js";
 
 export type LlmFn = (prompt: string) => Promise<string>;
 
+/**
+ * Why Channel B is degraded.
+ *   "unconfigured" = Supabase env missing (static, all-or-none guard)
+ *   "error"        = Channel B threw at search time (transient / infra)
+ * The distinction MUST survive to the client so monitoring/eval can tell a
+ * real failure apart from a misconfiguration (PROJECT_MASTER_SPEC §E.13).
+ */
+export type ChannelBDegradedKind = "unconfigured" | "error";
+
 export interface ChannelBResult {
   id: string;
   text: string;
@@ -72,8 +81,10 @@ export interface SearchChannelBResponse {
   channel: "B";
   /** false when Channel B is unconfigured/degraded; omitted (treated as true) otherwise */
   ok?: boolean;
-  /** true when Channel B could not run because Supabase is not configured */
+  /** true when Channel B could not contribute (unconfigured OR a runtime failure) */
   degraded?: boolean;
+  /** Discriminates *why* it degraded (unconfigured vs real failure) — see ChannelBDegradedKind */
+  degraded_kind?: ChannelBDegradedKind;
   /** Human-readable reason for degradation (Traditional Chinese) */
   reason?: string;
   /** LLM-synthesised answer (Traditional Chinese, ≤120 chars) */
@@ -89,14 +100,43 @@ export interface SearchChannelBResponse {
 export const CHANNEL_B_UNCONFIGURED_REASON =
   "Channel B 未配置（Supabase 環境變數缺失）";
 
-/** Build the standard degraded (unconfigured) Channel B response. */
+/**
+ * Reason text when Channel B threw at search time (transient / infra failure
+ * — NOT a misconfiguration). Deliberately distinct from
+ * CHANNEL_B_UNCONFIGURED_REASON so a real failure is never disguised as
+ * "未配置" to monitoring/eval (was a promote-blocker — PROJECT_MASTER_SPEC §E.13).
+ */
+export const CHANNEL_B_ERROR_REASON =
+  "Channel B 暫時無法使用（檢索服務異常）";
+
+/** Build the standard degraded (Supabase unconfigured) Channel B response. */
 export function degradedChannelBResponse(query: string): SearchChannelBResponse {
   return {
     query,
     channel: "B",
     ok: false,
     degraded: true,
+    degraded_kind: "unconfigured",
     reason: CHANNEL_B_UNCONFIGURED_REASON,
+    total: 0,
+    results: [],
+  };
+}
+
+/**
+ * Build the degraded Channel B response for a real search-time failure
+ * (an exception was thrown). Distinct kind + reason from the unconfigured
+ * case so the combined handler never masks a transient/infra failure as
+ * "未配置" — keeps Channel B failures visible to monitoring/eval.
+ */
+export function failedChannelBResponse(query: string): SearchChannelBResponse {
+  return {
+    query,
+    channel: "B",
+    ok: false,
+    degraded: true,
+    degraded_kind: "error",
+    reason: CHANNEL_B_ERROR_REASON,
     total: 0,
     results: [],
   };

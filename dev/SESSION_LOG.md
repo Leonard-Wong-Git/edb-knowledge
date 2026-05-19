@@ -2,6 +2,68 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-19 Session 117 — Fix Channel B masking-defect（promote-blocker）：searchCombined .catch 真失敗 vs 未配置 可區分
+
+- **ID:** Claude_20260519_0715
+- **Summary:** Leonard 經 agent-team 建議後 `/goal C` = 修 masking-defect。三隊唯讀一致裁定 (c) 行先（promote-blocker、最平 S effort、令日後 Stage-2 promote 喺生產可觀測）。修 `searchCombined.ts` `.catch`：真 Channel B 例外唔再重用 `degradedChannelBResponse`（=「未配置」），改出獨立 `failedChannelBResponse`（`degraded_kind:"error"` + `CHANNEL_B_ERROR_REASON`），combined 加 machine-readable `channel_b_status` discriminator。最小、additive、零前端 coupling、保留 A-only graceful degradation。
+- **§2 rule 6 OVERRIDE record:** (c) 屬 §3 HIGH-risk（Draft backend external-integration）。常規須出 PLAN 等 confirm 先 CHANGE；Leonard 全 scope 知情下揀 C 並設為 binding `/goal` = 授權。risk 已述（HIGH，surface 細、git-reversible、code-only 無 Supabase DDL）；按 §2 rule 6：用戶明示 override → comply + 此 record。Diff + PLAN 已先示。
+- **Triage (§2b):** code-logic / observability-contract defect。根因 `searchCombined.ts:118-123` `.catch` 對*任何* throw 都 return `degradedChannelBResponse` → byte-identical「未配置」HTTP200，真 transient/infra 失敗對 monitoring/eval 隱形（= PROJECT_MASTER_SPEC §E.13 防線4 記錄之 promote-blocker）。
+- **READ (§2c):** searchCombined/searchChannelB/server.ts/env.ts 全文 + grep 全 consumer。確認：缺陷只喺 combined（dedicated /channel-b 真錯→HTTP400 已可分）；前端 index/app/q/t-purchase/mobile.js **零** consume `channel_b_*`/`degraded`（additive 安全）；Testing harness `cb2_stage1_verify_v2.py:89-90` keys on dedicated-endpoint `degraded&&未配置`（combined-only 修改不影響）；genuine-unconfigured 路徑 searchChannelB.ts:331 須保留。
+- **CHANGE:** `searchChannelB.ts` +`ChannelBDegradedKind` type / +`degraded_kind?` on resp / +`CHANNEL_B_ERROR_REASON` / `degradedChannelBResponse` 設 `degraded_kind:"unconfigured"` / +`failedChannelBResponse`(`"error"`)。`searchCombined.ts` import 換 `failedChannelBResponse`+type / `.catch`→`failedChannelBResponse(query)`（保留 console.error err）/ `SearchCombinedResponse` +`channel_b_status?` / return surface。
+- **QC:** `npm run check` ✅ `npm run build` ✅。§3d deterministic harness（/tmp，跑真 source 含真 fetch-fail，已清）**13/13 PASS**：S1 unconfigured→status=unconfigured/未配置；**S2 真例外(fetch failed)→status=error+CHANNEL_B_ERROR_REASON、NOT 未配置、A 仍貢獻**；S3 dedicated unconfigured→degraded_kind=unconfigured+未配置（harness classifier 不變）。`npm run regression:semantic` overall=FAIL 但 **delta=0 new**（PASS9/notes1/FAIL2 = 既有 FAIL-A finance_distinct + FAIL-B schema 1.3.1 stale，record-only、非本 change，未碰 knowledgeSelector/schema）；§3c 已重 baseline 無信 stale ✅。
+- **Agent-team（唯讀 ×3，已交）:** feasibility c>b>a / independent-audit c→b→a / governance-monitor c→a→b — 一致 (c) 行先。Audit 另揭 2 caveat（入 risks）：probes=8 *live* 從未獨立 `pg_get_functiondef`/`proconfig` introspect（只敘述）；§C「HARNESS/LOAD artifact」label 偏寬（採購 k=7 實為未查 HTTP400 MALFORMED，recall 裁定仍企）。
+- **Live verify:** 本 change 未 deploy（Render push 後 auto-deploy）；deterministic harness 已跑真 code path（含真 fetch 失敗）= error-discriminator 權威證據。Push 後做 happy-path 生產 smoke。
+- **Pending:** Stage 2 adaptive threshold（PLAN-1 promote 仍未完成，§3 HIGH-risk，待 Leonard go；建議先做 audit-flagged 唯讀 probes=8-live INSPECT）；PLAN-1b（CPD/expansion，Testing/）；既有 FAIL-A/§E.10。**masking-defect 已修 = promote-blocker 清除。**
+- **Next:** 接手 = masking-defect 已修+verified；問 Leonard 排 Stage 2（連 probes-live INSPECT）vs PLAN-1b。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change（Channel B observability contract：真失敗 vs 未配置 可區分）| SESSION_HANDOFF baseline/Open Priorities 重生/Known Risks/Last Record + SESSION_LOG 本 entry + QC evidence | ✓ Done |
+| Long-term spec / locked decision / invariant（resolving codified failure-lesson 防線）| PROJECT_MASTER_SPEC §E.13 防線4（promote-blocker RESOLVED S117）+ §C.4 Supabase 🔴 masking 行更新 + §D.14 註 | ✓ Done |
+| External API / service change | CODEBASE_CONTEXT External Services block = **N/A**（Supabase 外部服務無變；內部 search-API 回應僅 additive optional fields，無對應 External Services block）；AI Maintenance Log +S117 entry | ✓ Done（Maintenance Log）/ block N/A |
+| Doc carrying now-stale "masking promote-blocker active" | SESSION_HANDOFF Supabase Technical Notes 🔴 行 → RESOLVED；auto-memory `reference_supabase_pgvector_probes` L22 更新 | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。Channel B/retrieval PoC 喺姊妹資料夾 "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Testing/poc-retrieval/"（唔喺 git、Draft 零接觸）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 幾時都可用。
+
+S117：Leonard `/goal C` → 修咗 Channel B **masking-defect**（promote-blocker 清除）。`searchCombined.ts` `.catch` 唔再將真例外偽裝「未配置」：新增 `failedChannelBResponse`（`degraded_kind:"error"` + `CHANNEL_B_ERROR_REASON`）+ combined `channel_b_status` discriminator（"unconfigured"|"error"）；genuine-unconfigured 路徑不變。已 commit+push（觸發 Render auto-deploy）。§2 rule 6 override 已記（HIGH-risk 但 Leonard binding /goal = 授權）。
+
+Current objective and progress state:
+- masking-defect = **FIXED + verified**（§3d deterministic 13/13；npm check/build ✅；regression:semantic delta=0 new，既有 FAIL-A/B record-only）。promote-blocker 清除。
+- PLAN-1 promote **仍未完成**（Stage 2 adaptive threshold 未做）——勿宣稱 released。生產 Supabase probes=8（Stage-1 FULL PASS）。
+- Channel B 北極星（memory project_direction）：合理+有指引+**一定有頁數** = CB-2 retrieval + CB-3 可追溯（頁數不可 defer）+ CB-1 質素。
+
+Pending tasks in priority order:
+1. **Stage 2 — adaptive threshold @ searchChannelB.ts:346（取代固定 0.22 / category-drop 0.08）**：完成 PLAN-1 promote，§3 HIGH-risk gate，需 §3d matrix + live test-verify。**建議先做 audit-flagged 唯讀 INSPECT**：`pg_get_functiondef`/`proconfig` 實證 probes=8 真係 live（S116 只敘述、未獨立 introspect；偏偏 S116 出過 PGRST203 drift 事故，§E.13）。待 Leonard go。
+2. PLAN-1b：CPD category-routing fix（gold 喺 sag_2025_11/g06 唔喺 curriculum allowlist，probes 救唔到）+ 選擇性 expansion vs §D.9 always-on consolidation（全 Testing/ 先）。
+3. 既有：🔴 FAIL-A Circular 注入 regression（record-only）；🔴 §E.10 admin-login security；P2 分類148/P3 數字；Mobile UI P2；HKEAA；低 doc-debt（FAIL-B semanticRegression.ts:292 stale 1.3.1 / wiki_index._meta.total_chunks stale；§C「HARNESS/LOAD artifact」label 偏寬＝採購 k=7 未查 HTTP400）。
+
+Key files changed in this session:
+- Draft（已 commit+push）：backend/src/api/searchChannelB.ts、backend/src/api/searchCombined.ts（masking-defect fix）；dev/SESSION_LOG.md、SESSION_HANDOFF.md、PROJECT_MASTER_SPEC.md、CODEBASE_CONTEXT.md。
+- auto-memory（repo 外）：reference_supabase_pgvector_probes.md L22（masking 已修）。
+
+Known risks / blockers / cautions:
+- **masking-defect FIXED**（promote-blocker 清除）。Render auto-deploy on push — 接手可做 happy-path 生產 smoke 確認 deploy。
+- 🔴 audit caveat：probes=8 *live* 未獨立 introspect（Stage 2 前必做唯讀 `pg_get_functiondef`）；schema.sql 曾 drift→PGRST203（§E.13；任何 Supabase RPC DDL 前必 INSPECT live、勿信 schema.sql；生產 DDL 仍 Leonard Dashboard 親手）。
+- 🔴 §E.10 admin-login security；🔴 FAIL-A regression（record-only）；§3c regression:semantic overall=FAIL = 既有 FAIL-A/B（非本 session，record-only；任何 release claim 前重 baseline 勿信 stale ✅）。
+- egress 間歇每次自測；路徑空格雙引號；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG；產品方向 P1→P2→P3 + 39→148 deferred 鎖定。
+
+Validation status:
+- PASS masking-defect fix：§3d deterministic 13/13（真 fetch-fail→status=error 非 未配置；A-only graceful degradation 保留；dedicated harness classifier 不變）；npm check/build ✅；regression:semantic delta=0 new。
+- PENDING：Stage 2 未做（PLAN-1 promote 未完成）；PLAN-1b 未做。生產 deploy 待 Render auto-deploy（push 已觸發）。
+
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE + 自測（git HEAD / stats / egress 實測）後，**masking-defect 已修+verified（promote-blocker 清除）——第一件事 = 問 Leonard 排序**：(a) Stage 2 adaptive threshold（同一 §3 HIGH-risk promote gate，完成 PLAN-1；強烈建議先做唯讀 probes=8-live INSPECT）定 (b) PLAN-1b（CPD/expansion，全 Testing/）。可選：做 happy-path 生產 smoke 確認 Render 已 deploy masking fix。**未 Leonard 明示前唔好自行做 Stage 2 / PLAN-1b / 改其他 Draft**；PLAN-1 promote 未完成（Stage 2 未做）勿宣稱 released。碰 admin/auth/公開推送前必讀 §E.10。Channel B 北極星見 memory project_direction_review。
+```
+
+---
+
 ## 2026-05-18 Session 116 — CB-2 PLAN-1 Stage 1：ivfflat.probes 1→8（含 PGRST203 live 事故+復原）；Stage-1 recall CLEAN PASS 6/6；§C pending
 
 - **ID:** Claude_20260518_1600

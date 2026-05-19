@@ -17,8 +17,9 @@ import {
   type ChannelAResult,
 } from "./searchChannelA.js";
 import {
-  degradedChannelBResponse,
+  failedChannelBResponse,
   searchChannelB,
+  type ChannelBDegradedKind,
   type ChannelBResult,
   type LlmFn,
   type SearchChannelBResponse,
@@ -55,6 +56,13 @@ export interface SearchCombinedResponse {
   total_b: number;
   /** true when Channel B was unconfigured/failed and only Channel A contributed */
   channel_b_degraded?: boolean;
+  /**
+   * Machine-readable reason Channel B did not contribute. "unconfigured" =
+   * Supabase env missing; "error" = Channel B failed at search time. Lets
+   * monitoring/eval distinguish a real failure from a misconfiguration
+   * without string-matching the reason (PROJECT_MASTER_SPEC §E.13).
+   */
+  channel_b_status?: ChannelBDegradedKind;
   /** Reason Channel B did not contribute, when degraded */
   channel_b_reason?: string;
   results: CombinedResult[];
@@ -118,7 +126,7 @@ export async function searchCombined(
     searchChannelB({ query, topic, min_score, top_k, synthesize: false }, embedFn).catch(
       (err): SearchChannelBResponse => {
         console.error("[combined] Channel B failed, degrading to Channel A only:", err);
-        return degradedChannelBResponse(query);
+        return failedChannelBResponse(query);
       }
     ),
   ]);
@@ -166,6 +174,7 @@ export async function searchCombined(
     ...(channelBDegraded
       ? {
           channel_b_degraded: true,
+          ...(bResp.degraded_kind ? { channel_b_status: bResp.degraded_kind } : {}),
           ...(bResp.reason ? { channel_b_reason: bResp.reason } : {}),
         }
       : {}),
