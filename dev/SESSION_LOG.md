@@ -9,7 +9,7 @@
 - **§3 HIGH-risk 正常流程（非 §2 rule6 override）：** 出完整 PLAN（5 surface inventory + §3d matrix）→ Leonard 明確確認「同意做」，含 scope 修正（q.html/index.html 亦去 access link、檔案 dormant；文案對齊；知悉 t-purchase B-only 較深）。PLAN→confirm→CHANGE 正常 §3，無 rule6 衝突。
 - **CHANGE Phase 1（5 前端 surface，全最小可逆）：** `app.html`（`searchChannel` default 'A'→'B'；`CHANNEL_OPTS`=[B]；selector gated `length>1` 隱藏；stale「2,874」→「10,736 個 EDB 原文知識片段」）；`index.html`（footer q.html link 刪；ftags 已核實/合併→EDB原文/語義/整理；hero 252・feature 307・flow 366 文案去 Channel-A 框架剩 EDB 原文）；`t-purchase.html`（src-ctrl 3 radio→單一 B checked「EDB 原文來源」；`selectedChannel()` fallback 'AB'→'B'；src-card q.html link 刪）；`mobile.js`（`/api/search/combined`→`/api/search/channel-b`、body 去 `enable_topic_filter`；nav `match`/isActive 去 'q.html'）。
 - **零接觸（dormant/可逆）：** backend `/channel-a` `/combined` endpoint、`searchChannelB.ts`、`knowledge.json`/`guidelines.json` 對外契約、`q.html` 檔案本體（14226B 留存，只去 inbound link）、app.html/t-purchase A·AB code path（gated dormant）。Q4 deferred = Channel A 管道照常餵 `knowledge.json` 予下游，未郁。
-- **Verified/QC:** `git status`=只 4 前端檔；契約+backend zero-diff；B-only grep 0 residual（無 q.html/value=A/AB//combined/channel-a）；q.html 留檔；app.html `{}`/`()` 平衡 invariant 與 clean HEAD **完全一致**（無新增 imbalance）；`npm run check`✅`build`✅（前端改動零 backend 耦合）；`regression:semantic` overall=FAIL 但 **delta=0 new**（PASS9/notes1/FAIL2 = 既有 FAIL-A finance_distinct + FAIL-B schema 1.3.1 stale，record-only，與 S117/S118 一致，未碰 backend/knowledge）。§3d 5/5（4 靜態 PASS + 正常流程靜態 PASS／**渲染待 Leonard browser-verify**，依 §D.7/§G.2 sandbox egress·CDN 鎖定方法論，歷來 §3d 用 deterministic 非 screenshot）。
+- **Verified/QC:** `git status`=只 4 前端檔；契約+backend zero-diff；B-only grep 0 residual（無 q.html/value=A/AB//combined/channel-a）；q.html 留檔；app.html `{}`/`()` 平衡 invariant 與 clean HEAD **完全一致**（無新增 imbalance）；`npm run check`✅`build`✅（前端改動零 backend 耦合）；`regression:semantic` overall=FAIL 但 **delta=0 new**（PASS9/notes1/FAIL2 = 既有 FAIL-A finance_distinct + FAIL-B schema 1.3.1 stale，record-only，與 S117/S118 一致，未碰 backend/knowledge）。§3d 5/5（4 靜態 PASS + 正常流程靜態 PASS／渲染依 §D.7/§G.2 鎖定方法論交 Leonard；**後 Leonard browser-verify PASS 2026-05-19 = Phase 1 完全 closed**）。
 - **Pending:** Phase 2 CB-3 頁數診斷（唯讀：sample live `/channel-b` page 命中率 + inspect `build_wiki_index.py`/Supabase corpus `=== Page N ===`）→ 根因 + 3 scope 選項回 Leonard。前端改動 push 後 GitHub Pages auto-deploy；Leonard browser-verify。
 - **Next:** 接手＝Phase 1 promote+commit+push；做 Phase 2 唯讀診斷出 scope 選項；Q4 deferred 勿自行掂；Stage-2 仍 closed 勿復活。
 
@@ -57,7 +57,7 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 S119：Leonard live-test 後定方向＝**搜尋介面 Channel-B-only**。**Phase 1 promote+QC+commit+push**（5 前端 surface 移除 A/AB；檔 dormant、backend endpoint/`knowledge.json` 契約零接觸；Q4 deferred）。**CB-3 頁數 = Option B 全做完並生產 live**：診斷根因＝語料 provenance（39/113 vault 有頁標記）→ B-1（`build_wiki_index.py` `chunk_text_with_page_carry()`，39 源 100%帶頁/+1017/74 源 byte-identical）→ **B-2 專用 driver `dev/cb3_b2_pagecarry_migrate.py` 外科式 per-source DELETE/replace 39 源（25 首輪 + 14 復原；中途 stat 409 incident 已修 dedup 並復原；§8 教訓固化 §E.14）**。live smoke：採購→g01 p=5/1、操守/體罰→g05 p=30/16/9、視覺藝術→va p=27/52，相關度健康無 regression。**全程已 commit+push**。剩 Option C（74 無標記源，達北極星全覆蓋）。
 
 Current objective and progress state:
-- Phase 1 Channel-B-only surface＝**promoted+QC+commit/push**；**渲染待 Leonard browser-verify（GitHub Pages）**。
+- Phase 1 Channel-B-only surface＝**promoted+QC+commit/push + Leonard browser-verify PASS 2026-05-19（完全 closed）**。
 - CB-3 Option B＝**B-1 + B-2 全完成、生產 live verified**：全 39 marker 源 page-carry，total wiki_chunks=10606 內部一致，marker-less + role/stat/guide 零影響。
 - **已知 drift（誠實）：** local `wiki_index.json` 對 39 源 vs Supabase diverge（**Supabase query-authoritative**；local 留全-old 內部一致非 mixed；reconcile=低優先 backlog）。build_wiki_index hash-dedup vs live 語料不齊＝latent（非本 scope，backlog）。
 - Q4（Channel A→`knowledge.json`→下游契約）＝deferred 獨立 track（未明示勿掂）。Stage-2 combo closed 勿復活。
@@ -78,16 +78,16 @@ Known risks / blockers / cautions:
 - **B-2 已完成生產 live**（39 源 page-carry verified；採購程序 偶發 0→retry 即恢復＝已知 free-tier `57014`/冷啟 transient，非 regression，§3 已查實）。
 - local `wiki_index.json` vs Supabase 對 39 源 diverge（Supabase authoritative；reconcile 低優先 backlog）。
 - §8 教訓（§E.14）：新 Supabase upload path 必須**完整** reuse `upload_wiki_to_supabase.py` seen_ids dedup + per-source DELETE/replace；唔可只抄一半（已 fire＝生產 1 源變空+rework）。
-- Phase 1 渲染未 browser-verify（CDN SPA 依 §D.7 交 Leonard；勿宣稱 browser-tested）。
+- Phase 1 渲染 Leonard browser-verify PASS 2026-05-19（已驗、closed）。
 - B ceiling：39 標記源已救；74 無標記（含 sag/g06/g26 高流量、Leonard 測試 query）仍無頁＝需 Option C；HTML-landing 永無 `#page=N`。
 - 檔案 dormant 非刪（q.html/A·AB/backend endpoint 可逆勿清）；Q4 契約未郁未明示勿掂；Stage-2 closed；🔴 Supabase `57014`/§E.10/FAIL-A；§3c regression 既有 FAIL-A/B record-only。egress 間歇每次自測；路徑空格雙引號；Testing/ 喺 git 外；改 Draft code commit 必入 SESSION_LOG。
 
 Validation status:
-- PASS Phase 1（靜態）：契約+backend zero-diff；B-only grep 0 residual；app.html JSX 平衡＝clean HEAD；npm check/build ✅；regression delta=0 new。渲染 PENDING browser-verify。
+- PASS Phase 1：契約+backend zero-diff；B-only grep 0 residual；app.html JSX 平衡＝clean HEAD；npm check/build ✅；regression delta=0 new；**渲染 Leonard browser-verify PASS 2026-05-19（完全 closed）**。
 - PASS CB-3 B-1（離線）+ B-2（生產 live）：39 源 page-carry，per-source count verify OK，live smoke 多 query 頁碼出+相關度 0.59-0.67 健康，marker-less control 未掂，total 10606 一致。
 - PENDING：Phase 1 渲染 browser-verify；Option C；local↔Supabase reconcile；Q4 deferred；Stage-2 closed（非 pending）。
 
-Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE + 自測後，**Phase 1 promoted（渲染待 browser-verify）+ CB-3 Option B（B-1+B-2）全完成生產 live ——第一件事＝問 Leonard：(a) Phase 1 browser-verify OK？(b) CB-3 推唔推 Option C（74 無標記源含 sag/g06/g26 高流量；達北極星全覆蓋）？** 未 Leonard 明示前**唔好自行做 Option C / local↔Supabase reconcile / 掂 Q4 契約/下游 / 復活 Stage-2 / 改其他 Draft**；新 Supabase upload 必守 §E.14。碰 admin/auth/公開推送前必讀 §E.10。CB-3/B-only/Q4 track + §8 incident 見 memory project_direction_review。
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE + 自測後，**Phase 1 全完成（promote+QC+commit+push + Leonard browser-verify PASS 2026-05-19，closed）+ CB-3 Option B（B-1+B-2）全完成生產 live ——第一件事＝問 Leonard：CB-3 推唔推 Option C（74 無標記源含 sag/g06/g26 高流量；達北極星全覆蓋；可重用 `dev/cb3_b2_pagecarry_migrate.py`，必守 §E.14）？** 未 Leonard 明示前**唔好自行做 Option C / local↔Supabase reconcile / 掂 Q4 契約/下游 / 復活 Stage-2 / 改其他 Draft**；新 Supabase upload 必守 §E.14。碰 admin/auth/公開推送前必讀 §E.10。CB-3/B-only/Q4 track + §8 incident 見 memory project_direction_review。
 ```
 
 ---
