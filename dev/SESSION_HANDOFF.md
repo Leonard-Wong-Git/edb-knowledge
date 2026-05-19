@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Current Baseline
-1. Version: **v2.3.0**；git `main`=`origin/main` HEAD = **S116 closeout commit（commit *後* HEAD 自然推進＝正常非 desync，§G.2；下次起手自行 verify，應 ≥ S116 closeout commit）**。S116 改 **`backend/supabase/schema.sql`**（真實 live text 變體 + plpgsql volatile + `SET LOCAL ivfflat.probes=8` + 修正引致 PGRST203 事故嘅 vector→text 簽名 drift）= **Draft code/data 改動，已 commit+push 並入本 SESSION_LOG（守 S111 教訓）**。**CB-2 PLAN-1 v2 Stage 1 已落地＋FULL PASS：生產 Supabase `match_wiki_chunks` 現行 probes=8（Leonard Dashboard 套用，非 git）**；Stage-1 **FULL CLEAN PASS（recall：clean-verify v2 全 12 OK、6/6 ANN-recoverable flip 0→>0、0 回歸；§C：幼稚園收生/防賄 8/8 OK、gold-consistency 全一致、p90<4.2s → HARNESS/LOAD artifact、probes=8 sound 非真 free-tier 風險）**。**masking-defect = FIXED S117**（`searchCombined` `.catch`→`failedChannelBResponse` + `channel_b_status` discriminator）。**S118：Stage 2 adaptive combo 經雙獨立驗證判定非可行、正式放棄**（病राhard combo-regression，根因＝上游 ranking defect，cutoff 救唔到）；**PLAN-1 promote 改以 PLAN-1b 達成 — `searchChannelB.ts` 加 4 條 dedicated selective route（cpd/kg_admission/conduct/steam；fixed cutoff 不動、無 combo、唔掂 S117 masking），已 commit+push（`84033b1`）+ **post-deploy smoke 確認 cpd route 生產 live**（q=CPD → {sag:3,g06:3,role_facts_hr:2}、SAG quota cap=3）**：CPD 0→0.8、12 條零回歸、§E.3 SAG≤3、routing 12/12、live-verified。⚠️ probes=8 *live* 仍未獨立 introspect；Supabase free-tier probes=8 偶發 `57014` statement-timeout（生產可用性）。**S118 已 closeout（Leonard「收工」2026-05-19）；Stage 2 combo closed-as-non-viable 勿復活。**
+1. Version: **v2.3.0**；git `main`=`origin/main` HEAD = **S116 closeout commit（commit *後* HEAD 自然推進＝正常非 desync，§G.2；下次起手自行 verify，應 ≥ S116 closeout commit）**。S116 改 **`backend/supabase/schema.sql`**（真實 live text 變體 + plpgsql volatile + `SET LOCAL ivfflat.probes=8` + 修正引致 PGRST203 事故嘅 vector→text 簽名 drift）= **Draft code/data 改動，已 commit+push 並入本 SESSION_LOG（守 S111 教訓）**。**CB-2 PLAN-1 v2 Stage 1 已落地＋FULL PASS：生產 Supabase `match_wiki_chunks` 現行 probes=8（Leonard Dashboard 套用，非 git）**；Stage-1 **FULL CLEAN PASS（recall：clean-verify v2 全 12 OK、6/6 ANN-recoverable flip 0→>0、0 回歸；§C：幼稚園收生/防賄 8/8 OK、gold-consistency 全一致、p90<4.2s → HARNESS/LOAD artifact、probes=8 sound 非真 free-tier 風險）**。**masking-defect = FIXED S117**（`searchCombined` `.catch`→`failedChannelBResponse` + `channel_b_status` discriminator）。**S118：Stage 2 adaptive combo 經雙獨立驗證判定非可行、正式放棄**（病राhard combo-regression，根因＝上游 ranking defect，cutoff 救唔到）；**PLAN-1 promote 改以 PLAN-1b 達成 — `searchChannelB.ts` 加 4 條 dedicated selective route（cpd/kg_admission/conduct/steam；fixed cutoff 不動、無 combo、唔掂 S117 masking），已 commit+push（`84033b1`）+ **post-deploy smoke 確認 cpd route 生產 live**（q=CPD → {sag:3,g06:3,role_facts_hr:2}、SAG quota cap=3）**：CPD 0→0.8、12 條零回歸、§E.3 SAG≤3、routing 12/12、live-verified。⚠️ probes=8 *live* 仍未獨立 introspect；Supabase free-tier probes=8 偶發 `57014` statement-timeout（生產可用性）。**S118 已 closeout（Leonard「收工」2026-05-19）；Stage 2 combo closed-as-non-viable 勿復活。** **S119：Leonard live-test 後定方向＝搜尋介面行 Channel-B-only；Phase 1 已 promote+QC（`app.html`/`index.html`/`t-purchase.html`/`mobile.js` 全 user-facing A/AB access 移除；q.html 等檔案 dormant 留存、backend endpoint/`knowledge.json` 對外契約零接觸；Q4 契約收斂 deferred 獨立 track）。渲染待 Leonard browser-verify（GitHub Pages）。Phase 2 CB-3 頁數唯讀診斷＝next。**
 2. Frontend: `index.html` K1 landing page (hero + features + CTA); `t-purchase.html` S3/S4/S5 draft flow; `q.html` local `knowledge.json` Quick Q&A; `app.html` full React SPA / management workspace.
 3. Knowledge state: **455 Channel A facts** (三層同步 ✅ byte-identical；2026-05-16 dedup 由 792 → 455，移除 275 條跨角色完全重複 + 合併 36 組相近事實，commit `711f911`，reversible log `dev/DEDUP_LOG_2026-05-16.md`；早前 Session 102 已 1,001 → 792), **0 candidates in queue**, **Supabase 10,736 chunks**。Vault: 120 sources 提取完成。**指引數字 4 層（148 app 內庫 / 39 公開 guidelines.json / 151 source_registry / 120 vault-extracted）見 PROJECT_MASTER_SPEC §B.1 釐清框 — 39 是否擴到 148 = OPEN DECISION，未收斂**。
 4. Backend: Node.js TypeScript backend all search APIs complete; **Channel A + B + A+B online at `https://edb-knowledge.onrender.com`**; rate limiting 10 req/min/IP (sliding window, in-memory).
@@ -104,14 +104,14 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-> 產品方向 S112 roadmap：**P1 搜尋相關性 → P2 分類 148 → P3 數字對齊**（39→148 deferred）。**S114 Leonard 定新焦點：P1 內聚焦 Channel B 效果**（唔單做一 channel，用 agent team 互補）。順序鎖定，未得 Leonard 確認唔好跳。
-1. **probes=8 live 獨立 introspect（唯讀，audit-flagged，SQL 已備未跑）**：`pg_get_functiondef`/`proconfig` + overload count 確認生產 `match_wiki_chunks` 真係 plpgsql VOLATILE + SET LOCAL probes=8 單一 overload（S116 只敘述未獨立 introspect；曾 PGRST203 drift §E.13）。Leonard Dashboard 跑；underpins 所有 probes-dependent 檢索宣稱。
-2. **🔴 Supabase free-tier probes=8 statement-timeout（`57014` HTTP400，生產可用性）**：S118 live-verify 5 RPC 2 個 timeout（retry 恢復）。待 Leonard 排：降 probes / app-層 retry / 升 tier。S117 後正確浮面成 `channel_b_status:"error"`（非假「未配置」）。
-3. **CB-3 可追溯（北極星，頁數不可 defer）+ 病假 combo-gap 決定**：CB-3（synthesis 引頁數/來源）未做＝北極星缺口。病假 combo .5→.25＝known combo-gap（fixed cutoff 下無回歸；future PLAN-1c 抑或接受 fixed-only，待 Leonard）。
-4. **既有 deferred**：🔴 FAIL-A Circular 注入 regression（S111 dedup×budget，record-only）；🔴 §E.10 admin-login security（最嚴重未解）；P2 分類 148 + P3 LSG/SEN（39→148 deferred 須 §3 HIGH-risk）；Mobile UI P2；HKEAA；低 doc-debt（FAIL-B `semanticRegression.ts:292` stale 1.3.1 / `wiki_index._meta.total_chunks` stale）。
+> 產品方向：**S119 Leonard live-test 後定 — 搜尋介面行 Channel-B-only**（A/AB user-facing 全移除、檔案 dormant；Q4 對外契約收斂 deferred 獨立 track，日後 B-only+CB-3 成熟再議）。北極星＝合理＋指引＋**頁數**（CB-3 不可 defer）。順序未得 Leonard 確認唔好跳；Stage-2 adaptive combo closed-as-non-viable 勿復活。
+1. **Phase 1 Channel-B-only 渲染 Leonard browser-verify（GitHub Pages，next 問 Leonard）**：靜態 QC 全 PASS，渲染未驗（CDN SPA 依 §D.7 交 Leonard）。確認 OK / 要否調整。
+2. **Phase 2 CB-3 頁數可追溯唯讀診斷（北極星，next）**：sample live `/api/search/channel-b` `page` 命中率 + inspect `dev/vault/build_wiki_index.py`/Supabase corpus `=== Page N ===` → 根因 + 3 scope 選項（A 前端映射 / B backend 抽取 / C 語料重索引＋Supabase 重傳）回 Leonard 揀。已知 `SourcesAccordion`(app.html:2736) UI 已備、疑語料缺頁標記。
+3. **🔴 既有 deferred**：Supabase free-tier probes=8 `57014` timeout（生產可用性）+ probes=8 live 未獨立 introspect（SQL 已備）；§E.10 admin-login security；FAIL-A Circular 注入 regression（record-only）；P2 分類 148 + P3（39→148 deferred 須 §3 HIGH-risk）；Mobile UI P2；HKEAA；低 doc-debt（FAIL-B `semanticRegression.ts:292` stale 1.3.1 / `wiki_index._meta.total_chunks` stale）。
+4. **Q4 對外契約收斂（deferred 獨立 track）**：Channel A `role_facts.json`→`knowledge.json`→下游 Circular System；3 選項（叫下游改／Channel B 變供料／凍結停供）待 B-only+CB-3 成熟，Leonard 排；未明示勿掂契約/下游。
 
-> ✅ **S118 完成**：Stage 2 adaptive combo 雙獨立驗證判定非可行、**放棄（勿復活）**；pivot 並 **promote PLAN-1b 4 條 dedicated selective route**（`searchChannelB.ts`，fixed cutoff，CPD 0→0.8、12 條零回歸、§E.3 SAG≤3、routing 12/12、獨立 audit + live-verify 雙重）。已 commit+push、待 Render auto-deploy。§2 rule 6 override 已記（HIGH-risk 在 Leonard standing 授權「按最終目標選擇及行動直至/goal」+ agent-team 四重控制下進行）。
-> ✅ **S117 完成**：masking-defect promote-blocker 已修+verified（`channel_b_status` discriminator；§3d 13/13）。
+> ✅ **S119 完成**：Channel-B-only 搜尋 surface Phase 1 promote（5 前端 surface 移除 A/AB access；檔案 dormant 留存、backend endpoint/`knowledge.json` 契約零接觸）。§3 正常流程（PLAN→Leonard「同意做」，非 rule6 override）。QC：契約+backend zero-diff、B-only grep 0 residual、app.html JSX 平衡＝clean HEAD、npm check/build ✅、regression delta=0 new。渲染待 browser-verify。
+> ✅ **S118 完成**：Stage 2 adaptive combo 雙獨立驗證非可行、**放棄（勿復活）**；pivot promote PLAN-1b 4 route（fixed cutoff）。
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 - g21/g22/g33 直連 PDF 補完（user browser）— Session 105 audit 揭發三者 source_type='pdf' 但 url_primary 缺
@@ -120,6 +120,28 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合）
 
 ## Last Session Record
+1. UTC date: 2026-05-19
+2. Session ID: Claude_20260519_1801 (Session 119)
+3. Completed:
+   - ✅ **[方向定案]** Leonard live-test S118 PLAN-1b 5 query → 裁定 Channel B 最好、A 雜訊、A+B 被 A 拖累（實證 FAIL-A/§E.11）→ 定**搜尋介面 Channel-B-only**；Q4 對外契約收斂 deferred 獨立 track；CB-3 頁數＝北極星、結構上只 B 可做。
+   - ✅ **[§3 HIGH-risk 正常流程]** 出 PLAN（5 surface inventory + §3d matrix）→ Leonard「同意做」+ scope 修正（q.html/index.html 亦去 link、檔 dormant；文案對齊；t-purchase B-only 知悉）。PLAN→confirm→CHANGE，非 §2 rule6 override。
+   - ✅ **[CHANGE Phase 1，5 前端 surface 最小可逆]** app.html（default B、CHANNEL_OPTS=[B]、selector gated、stale 2,874→10,736）；index.html（刪 q.html link、ftags+hero/feature/flow 文案對齊 B）；t-purchase.html（channel radio 單一 B、fallback 'B'、刪 q.html link）；mobile.js（/combined→/channel-b、nav 去 q.html）。backend endpoint/`knowledge.json`/`guidelines.json`/q.html 檔本體/A·AB code path **零接觸 dormant**。
+   - ✅ **[QC]** git scope=4 前端檔；契約+backend zero-diff；B-only grep 0 residual；q.html 留檔；app.html `{}`/`()` 平衡 invariant＝clean HEAD；npm check/build ✅；regression:semantic delta=0 new（既有 FAIL-A/B record-only）；§3d 5/5 靜態。
+   - ✅ **[PERSIST]** SESSION_LOG S119+verbatim、SESSION_HANDOFF baseline/OP重生/本 record、PROJECT_MASTER_SPEC §F/§B/§A、CODEBASE_CONTEXT、DOC_SYNC、auto-memory project_direction_review；commit+push 指定檔（GitHub Pages auto-deploy）。
+4. Pending:
+   - Phase 1 渲染待 Leonard browser-verify（GitHub Pages）；Phase 2 CB-3 頁數唯讀診斷未做（next，出 3 scope 選項回 Leonard）；Q4 deferred；Stage-2 closed。
+5. Next priorities (max 3 — 詳見 Open Priorities)：
+   - 問 Leonard：Phase 1 browser-verify OK？／即開 Phase 2 CB-3 診斷
+   - 🔴 Supabase `57014`/probes-introspect / §E.10 / FAIL-A（record-only）
+   - P2 分類148 + P3 / Mobile UI P2 / Q4 契約（deferred track）
+6. Risks / blockers:
+   - Phase 1 渲染未 browser-verify（靜態 QC 全 PASS；CDN SPA 依 §D.7 交 Leonard；勿宣稱 browser-tested）。
+   - 檔案 dormant 非刪（q.html 留檔無入口、A/AB code path gated、backend /channel-a·/combined endpoint 生存只前端唔 call）—全可逆勿當 dead code 清。
+   - Q4 對外契約 deferred：Channel A 管道照常餵 knowledge.json 予下游，**未郁**；未 Leonard 明示勿掂。
+   - Stage-2 combo closed 勿復活；🔴 Supabase probes=8 `57014`/live 未 introspect；🔴 §E.10；🔴 FAIL-A；§3c regression 既有 FAIL-A/B record-only（本 change 前端 only、delta=0）。egress 間歇每次自測；路徑空格雙引號；Testing/ 喺 git 外；改 Draft commit 必入 SESSION_LOG（已遵）。
+7. **Session 進行中（非 closeout — Leonard 未表示「收工」）**：Phase 1 promote+QC+commit+push 完成；待 Leonard browser-verify + 排 Phase 2 CB-3 診斷。
+
+## Previous Session Record
 1. UTC date: 2026-05-19
 2. Session ID: Claude_20260519_1300 (Session 118)
 3. Completed:

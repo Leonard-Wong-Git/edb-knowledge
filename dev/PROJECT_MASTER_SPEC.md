@@ -46,7 +46,7 @@
 | Tab | 功能要求 |
 |---|---|
 | 平台介紹 | Hero + 統計（從 `knowledge.json` `_meta.stats` 動態取，**禁止 hardcode**）+ 核心功能說明 + 來源條 |
-| 政策搜尋 | 三模式：已核實資料（Channel A）/ 來源文件（Channel B）/ 合併（A+B）。Channel A 可離線；B / A+B 需 backend |
+| 政策搜尋 | **S119：用戶介面行 Channel-B-only**（來源文件＝Supabase 語義搜原文）。Channel A（已核實資料）/ A+B（合併）user-facing 入口全移除、code path 留 dormant（可逆）。backend `/channel-a`·`/combined` endpoint **不刪、仍生存**只係前端唔再 call；Channel A `role_facts.json→knowledge.json` 資料管道**照常運作餵下游 Circular System（對外契約零接觸，Q4 deferred 獨立 track）**。需 backend（無離線快路；q.html 等檔 dormant 留存） |
 | 指引文件庫 | **148** 份 EDB 文件（app.html `GUIDELINES_REGISTRY`，subtitle 用 `.length` 動態反映；= 全 channel 知識基礎文件全集）；三層排序：範疇 → 子類別(`sub_category`) → 年份降序；同科分組小標題。公開 `guidelines.json` 端點為其中 **39** 份精選子集（見下方釐清框）|
 | 通告分析 | 貼入 EDB 通告文字 → AI 識別主題 / 影響角色 / 政策要點 |
 | ✍️ 知識提煉（Admin） | 左右分欄：左候選 queue，右證據 / inline 修訂 / 角色檢視；approve/reject 資料流 |
@@ -71,7 +71,7 @@ EDB palette landing；hero + 核心功能 anchor；CTA 導向搜尋／文件庫�
 split grid；4 必填 + 2 選填；live validation；§1–§5 skeleton preview；A/B/AB source 控制；in-page 5 步草稿進度 + 草稿 canvas（來源面板、stale-source 警告、section 選取、修訂 action bar）。文案在未接通正式匯出前只可說「建立草稿／整理」。
 
 ### B.5 Mobile UI（進行中，非完成態）
-`mobile.css` + `mobile.js`：偵測 ≤640px 或 mobile UA；first-run role picker；cross-page bottom tab bar；dark mode auto。**現況：app.html mobile search 已 ship 並接 `/api/search/combined`；index.html / q.html / t-purchase.html / app.html#guidelines 的 mobile content 尚未 render。** 最新進度以 `SESSION_HANDOFF.md` 為準。
+`mobile.css` + `mobile.js`：偵測 ≤640px 或 mobile UA；first-run role picker；cross-page bottom tab bar；dark mode auto。**現況：app.html mobile search 已 ship；S119 起接 `/api/search/channel-b`（原 `/combined`，配合 Channel-B-only 方向）、bottom-nav 去除 q.html 可達；index.html / t-purchase.html / app.html#guidelines 的 mobile content 尚未 render。** 最新進度以 `SESSION_HANDOFF.md` 為準。
 
 ### B.6 Backend API（Node.js + TypeScript，Render 部署）
 - `POST /api/search/channel-a` — role_facts keyword + embedding 搜尋
@@ -232,7 +232,7 @@ source_registry → 同 vault PDFs → ai_extract.py
 > - (c) 變更鎖定決策必走 AGENTS.md §3 HIGH-risk PLAN 流程（出 PLAN → 等 user 確認 → 先 READ/CHANGE）。
 
 1. 單檔前端、無 build pipeline（CDN React/Babel/Tailwind）。
-2. `app.html` 為主 SPA；`index.html` 為 EDB landing；`k1-dashboard.html`/`landing.html`/`k1-wiki.html` 已刪不復活。
+2. `app.html` 為主 SPA；`index.html` 為 EDB landing；`k1-dashboard.html`/`landing.html`/`k1-wiki.html` 已刪不復活。**S119（Leonard live-test 後定，§3 HIGH-risk PLAN→確認 done）：政策搜尋 user-facing 介面行 Channel-B-only，A（已核實資料）/ A+B（合併）入口全移除、code path 留 dormant 可逆；此為現行鎖定 surface 決策。前提区分：此係「搜尋介面」決策，唔係「Channel A 資料管道」決策——Channel A `role_facts.json→knowledge.json` 照常餵下游 Circular System，對外契約零接觸；契約收斂（Q4：叫下游改／Channel B 變供料／凍結停供）= deferred 獨立 track，待 B-only+CB-3 成熟 Leonard 再排，未明示勿掂。**
 3. 公開 `knowledge.json` 為對外 schema SSOT；backend 用相容橋接支援 legacy `department_head` + 拆分角色。
 4. LLM-wiki 分階段架構：trust 由 source/freshness/approval gate 把關，非 LLM 自主發佈。
 5. 兩類事實模型：statistical（auto-approve）vs policy（人工 gated）。

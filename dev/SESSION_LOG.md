@@ -2,6 +2,66 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-19 Session 119 — Channel-B-only 搜尋 surface（Phase 1 promote）：全 user-facing A/AB access 移除（檔案 dormant、契約零接觸）
+
+- **ID:** Claude_20260519_1801
+- **Summary:** Leonard live-test S118 PLAN-1b 5 query（CPD/幼稚園收生/體罰/STEAM/接收警告信後果）→ 一致裁定：Channel B 明顯最好、Channel A 太多雜訊、A+B 被 A 拖累（實證確認既有 FAIL-A/§E.11）。策略決定：**搜尋介面行 Channel-B-only**（全 user-facing 移除 A/AB，檔案留 dormant）；Q4（Channel A→`knowledge.json` 對外契約）= 解耦獨立 track、日後成熟再議；CB-3 頁數可追溯＝北極星、結構上只 B 可做，Phase 2 診斷 next。
+- **§3 HIGH-risk 正常流程（非 §2 rule6 override）：** 出完整 PLAN（5 surface inventory + §3d matrix）→ Leonard 明確確認「同意做」，含 scope 修正（q.html/index.html 亦去 access link、檔案 dormant；文案對齊；知悉 t-purchase B-only 較深）。PLAN→confirm→CHANGE 正常 §3，無 rule6 衝突。
+- **CHANGE Phase 1（5 前端 surface，全最小可逆）：** `app.html`（`searchChannel` default 'A'→'B'；`CHANNEL_OPTS`=[B]；selector gated `length>1` 隱藏；stale「2,874」→「10,736 個 EDB 原文知識片段」）；`index.html`（footer q.html link 刪；ftags 已核實/合併→EDB原文/語義/整理；hero 252・feature 307・flow 366 文案去 Channel-A 框架剩 EDB 原文）；`t-purchase.html`（src-ctrl 3 radio→單一 B checked「EDB 原文來源」；`selectedChannel()` fallback 'AB'→'B'；src-card q.html link 刪）；`mobile.js`（`/api/search/combined`→`/api/search/channel-b`、body 去 `enable_topic_filter`；nav `match`/isActive 去 'q.html'）。
+- **零接觸（dormant/可逆）：** backend `/channel-a` `/combined` endpoint、`searchChannelB.ts`、`knowledge.json`/`guidelines.json` 對外契約、`q.html` 檔案本體（14226B 留存，只去 inbound link）、app.html/t-purchase A·AB code path（gated dormant）。Q4 deferred = Channel A 管道照常餵 `knowledge.json` 予下游，未郁。
+- **Verified/QC:** `git status`=只 4 前端檔；契約+backend zero-diff；B-only grep 0 residual（無 q.html/value=A/AB//combined/channel-a）；q.html 留檔；app.html `{}`/`()` 平衡 invariant 與 clean HEAD **完全一致**（無新增 imbalance）；`npm run check`✅`build`✅（前端改動零 backend 耦合）；`regression:semantic` overall=FAIL 但 **delta=0 new**（PASS9/notes1/FAIL2 = 既有 FAIL-A finance_distinct + FAIL-B schema 1.3.1 stale，record-only，與 S117/S118 一致，未碰 backend/knowledge）。§3d 5/5（4 靜態 PASS + 正常流程靜態 PASS／**渲染待 Leonard browser-verify**，依 §D.7/§G.2 sandbox egress·CDN 鎖定方法論，歷來 §3d 用 deterministic 非 screenshot）。
+- **Pending:** Phase 2 CB-3 頁數診斷（唯讀：sample live `/channel-b` page 命中率 + inspect `build_wiki_index.py`/Supabase corpus `=== Page N ===`）→ 根因 + 3 scope 選項回 Leonard。前端改動 push 後 GitHub Pages auto-deploy；Leonard browser-verify。
+- **Next:** 接手＝Phase 1 promote+commit+push；做 Phase 2 唯讀診斷出 scope 選項；Q4 deferred 勿自行掂；Stage-2 仍 closed 勿復活。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change（Channel-B-only 搜尋 surface）| SESSION_HANDOFF baseline/Open-Priorities-regen/risks/record + SESSION_LOG 本 entry + QC evidence | ✓ Done |
+| Long-term spec / locked decision / architecture invariant change（推翻雙通道搜尋 surface 鎖定決策）| PROJECT_MASTER_SPEC §F.2/§F.6/§F.9 + §B.1/§B.5 + §A.2；CODEBASE_CONTEXT Key Decisions 方向 shift；SESSION_HANDOFF baseline | ✓ Done |
+| External API / service change | CODEBASE_CONTEXT External Services block＝**N/A**（Supabase/backend endpoint 無變；前端只係唔再 call /combined·/channel-a）；Directory Map app.html/q.html/index.html channel-surface 註 + AI Maintenance Log +S119 | ✓ Done（Log/Map）/ block N/A |
+| Doc carrying now-stale "two-channel search surface" | PROJECT_MASTER_SPEC §F；auto-memory project_direction_review（B-only 方向 + Q4 deferred track + CB-3 next）+ MEMORY.md | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。Channel B/retrieval PoC 喺姊妹資料夾 "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Testing/poc-retrieval/"（唔喺 git、Draft 零接觸）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S119：Leonard live-test S118 PLAN-1b 後定方向＝**搜尋介面行 Channel-B-only**。Phase 1 已 promote：全 user-facing A/AB access 移除（`app.html` default B + 收 toggle；`index.html` 刪 q.html link + 文案對齊；`t-purchase.html` channel radio 單一 B；`mobile.js` /combined→/channel-b + nav 去 q.html）。**檔案 dormant（q.html 留檔、A/AB code path gated、backend endpoint 不刪）、對外契約 `knowledge.json` 零接觸（Q4 = Channel A→下游契約 deferred 獨立 track，日後成熟再議）**。已 commit+push（GitHub Pages auto-deploy）。§3 正常流程（PLAN→Leonard「同意做」），非 §2 rule6 override。
+
+Current objective and progress state:
+- Phase 1 Channel-B-only surface＝**promoted + QC-verified**：5 前端 surface 改畢；契約+backend zero-diff；B-only grep 0 residual；app.html JSX 平衡 invariant 同 clean HEAD 一致；npm check/build ✅；regression:semantic delta=0 new（既有 FAIL-A/B record-only）。**渲染待 Leonard browser-verify（GitHub Pages）**。
+- Phase 2 CB-3 頁數可追溯（北極星）＝**未做、next**：診斷先行（唯讀）→ 出 3 scope 選項（A 前端映射細修 / B backend 抽取 / C 語料重索引＋Supabase 重傳）回 Leonard 揀，唔自行做大改。關鍵已知：`SourcesAccordion` app.html:2736 已有頁數顯示 UI，但生產結果普遍冇頁＝語料 `=== Page N ===` 標記疑缺（待診斷實證）。
+- Q4（Channel A `role_facts.json`→`knowledge.json`→下游 Circular System 契約）＝deferred 獨立 track；3 選項（叫下游改／Channel B 變供料／凍結停供）日後 B-only+CB-3 成熟再議；**未 Leonard 明示勿掂契約/下游**。Stage-2 adaptive combo 仍 closed-as-non-viable 勿復活。
+
+Pending tasks in priority order:
+1. **Phase 2 CB-3 頁數診斷（唯讀，next）**：sample live `/api/search/channel-b` 多 query 統計 `page` 命中率；inspect `dev/vault/build_wiki_index.py` chunk 格式 + Supabase corpus 是否含 `=== Page N ===`；出根因 + 3 scope 選項回 Leonard。
+2. 既有：🔴 Supabase free-tier probes=8 `57014` timeout（生產可用性）；🔴 probes=8 live 未獨立 introspect（SQL 已備）；🔴 §E.10 admin-login security；🔴 FAIL-A Circular 注入 regression（record-only）；P2 分類148/P3；Mobile UI P2；HKEAA；低 doc-debt（FAIL-B semanticRegression.ts:292 stale 1.3.1）。
+3. Q4 對外契約收斂（deferred，等 B-only+CB-3 成熟，Leonard 排）。
+
+Key files changed this session:
+- Draft（已 commit+push）：app.html、index.html、t-purchase.html、mobile.js（Channel-B-only surface）；dev/SESSION_LOG.md、SESSION_HANDOFF.md、PROJECT_MASTER_SPEC.md、CODEBASE_CONTEXT.md。
+- auto-memory（repo 外）：project_direction_review.md（B-only 方向 + Q4 deferred + CB-3 北極星 next）、MEMORY.md。
+
+Known risks / blockers / cautions:
+- Phase 1 渲染未 browser-verify（靜態 QC 全 PASS；CDN-dependent SPA 依 §D.7 交 Leonard browser；勿宣稱 browser-tested）。
+- 檔案 dormant 非刪：q.html 留檔但無產品入口；app.html/t-purchase A·AB code path gated dormant；backend /channel-a·/combined endpoint 仍生存只係前端唔 call —— 全可逆，勿當 dead code 清。
+- Q4 對外契約 deferred：Channel A 管道照常餵 knowledge.json 予下游，**未郁**；未 Leonard 明示勿掂契約/Circular/下游。
+- Stage-2 adaptive combo closed-as-non-viable（勿復活）；🔴 Supabase probes=8 `57014` timeout / live 未 introspect；🔴 §E.10；🔴 FAIL-A；§3c regression:semantic 既有 FAIL-A/B record-only（本 change 前端 only、delta=0）。
+- egress 間歇每次自測；路徑空格雙引號；Testing/ 喺 Draft git 外；改 Draft code commit 必入 SESSION_LOG；產品方向 P1→P2→P3 + 39→148 deferred 鎖定。
+
+Validation status:
+- PASS Phase 1（靜態）：git scope=4 前端檔；契約+backend zero-diff；B-only grep 0 residual；q.html 留檔（14226B）；app.html `{}`/`()` 平衡 invariant＝clean HEAD；npm check/build ✅；regression:semantic delta=0 new（既有 FAIL-A/B record-only）。§3d 5/5（4 靜態 PASS + 正常流程靜態 PASS）。
+- PENDING：Phase 1 渲染 Leonard browser-verify（GitHub Pages push 後）；Phase 2 CB-3 診斷未做；Q4 deferred（非 pending）；Stage-2 combo closed（非 pending）。
+
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE + 自測（git HEAD 應 ≥ S119 commit / stats / egress 實測）後，**Phase 1 Channel-B-only surface 已 promote+QC（渲染待 Leonard browser-verify）——第一件事＝問 Leonard：(a) 已 browser-verify Phase 1 OK？要否調整？(b) 即開 Phase 2 CB-3 頁數唯讀診斷（出 3 scope 選項回佢揀）？** 未 Leonard 明示前唔好自行做 Phase 2 大改 / 掂 Q4 契約/下游 / 復活 Stage-2 / 改其他 Draft。碰 admin/auth/公開推送前必讀 §E.10。Channel B 北極星 + B-only 方向 + Q4 track 見 memory project_direction_review。
+```
+
+---
+
 ## 2026-05-19 Session 118 — Stage 2 combo 判定非可行（雙獨立驗證）→ pivot PLAN-1b：4 條 selective route promote（fixed cutoff）
 
 - **ID:** Claude_20260519_1300

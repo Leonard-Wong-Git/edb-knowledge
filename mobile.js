@@ -146,7 +146,7 @@
     const here = (location.pathname.split('/').pop() || 'index.html');
     const hash = location.hash || '';
     const TABS = [
-      { key: 'search',     icon: '🔍', label: '搜尋',       href: 'app.html',                match: ['app.html', 'q.html'] },
+      { key: 'search',     icon: '🔍', label: '搜尋',       href: 'app.html',                match: ['app.html'] },
       { key: 'library',    icon: '📚', label: '文件庫',     href: 'app.html#guidelines',     match: ['#guidelines'] },
       { key: 'about',      icon: 'ℹ️', label: '平台介紹',   href: 'index.html',              match: ['index.html', ''] },
     ];
@@ -154,7 +154,7 @@
     TABS.forEach(t => {
       const isActive =
         (t.key === 'library' && hash === '#guidelines') ||
-        (t.key === 'search'  && (here === 'app.html' || here === 'q.html') && hash !== '#guidelines') ||
+        (t.key === 'search'  && here === 'app.html' && hash !== '#guidelines') ||
         (t.key === 'about'   && (here === 'index.html' || here === '') && hash !== '#guidelines');
       const a = document.createElement('a');
       a.className = 'm-tab';
@@ -288,10 +288,10 @@
     const killTimer = setTimeout(() => ctrl.abort(), 60000);
 
     try {
-      const resp = await fetch(BACKEND_URL + '/api/search/combined', {
+      const resp = await fetch(BACKEND_URL + '/api/search/channel-b', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: query, top_k: 8, min_score: 0.15, synthesize: true, enable_topic_filter: true }),
+        body: JSON.stringify({ query: query, top_k: 8, min_score: 0.15, synthesize: true }),
         signal: ctrl.signal,
       });
       clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(killTimer);

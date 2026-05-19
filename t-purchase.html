@@ -316,13 +316,9 @@
 
       <div class="src-ctrl">
         <div class="lbl">來源控制</div>
-        <label class="r"><input type="radio" name="channel" value="A">
-          <span class="t"><b>只用已核實事實</b><div class="d">快 · 嚴謹 · 不直接引用 EDB 原文</div></span></label>
-        <label class="r"><input type="radio" name="channel" value="B">
-          <span class="t"><b>加入 EDB 原文</b><div class="d">較慢 · 會直接抽取通告段落</div></span></label>
-        <label class="r"><input type="radio" name="channel" value="AB" checked>
-          <span class="t"><b>兩者都用</b><div class="d">預設 · 建議使用</div></span>
-          <span class="reco">建議</span></label>
+        <label class="r"><input type="radio" name="channel" value="B" checked>
+          <span class="t"><b>EDB 原文來源</b><div class="d">直接抽取 EDB 原文段落，建立可追溯引用</div></span>
+          <span class="reco">預設</span></label>
       </div>
 
       <div class="val-warn" id="warn"><span class="t">未填完整</span><span id="warn-text"></span></div>
@@ -617,7 +613,7 @@ document.querySelectorAll('.draft-sec').forEach(sec=>{
 });
 
 function selectedChannel(){
-  return form.querySelector('input[name="channel"]:checked')?.value||'AB';
+  return form.querySelector('input[name="channel"]:checked')?.value||'B';
 }
 function sourceCopy(channel){
   if(channel==='A')return {
@@ -708,7 +704,6 @@ function selectSection(sec){
     <div class="src-card">
       <div class="r"><span class="sid">${src.id}</span><span class="${src.status.includes('⚠')?'warn':'ok'}">${src.status}</span></div>
       <div class="q">「${src.quote}」</div>
-      <a class="open" href="q.html">查看原文 / 相關問答 ↗</a>
     </div>
   `).join('');
   staleCallout.style.display=section==='2'?'block':'none';

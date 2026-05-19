@@ -2759,7 +2759,7 @@ function QAPanel({ data, setPreviewDoc }) {
   const [synthesis, setSynthesis] = useState(null);
   const [searched, setSearched] = useState(false);
   const [qaRole, setQaRole] = useState('all_roles');
-  const [searchChannel, setSearchChannel] = useState('A'); // 'A' | 'B' | 'AB'
+  const [searchChannel, setSearchChannel] = useState('B'); // 'B' only (A / AB surfaces retired — dormant)
   const [isLoading, setIsLoading] = useState(false);
   const [backendError, setBackendError] = useState(null);
 
@@ -2957,10 +2957,9 @@ function QAPanel({ data, setPreviewDoc }) {
     eo_admin:'rc-eo', supplier:'rc-supplier',
   };
 
+  // Channel A / A+B search surfaces retired (kept dormant, reversible).
   const CHANNEL_OPTS = [
-    { id: 'A',  label: '已核實資料', sub: '語義搜尋' },
     { id: 'B',  label: '來源文件', sub: '語義搜尋' },
-    { id: 'AB', label: '合併搜尋',      sub: '全庫合併' },
   ];
 
   return (
@@ -2968,12 +2967,13 @@ function QAPanel({ data, setPreviewDoc }) {
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 k1-search-card">
         <h2 className="text-lg font-bold text-gray-800 mb-1">政策搜尋</h2>
         <p className="text-xs text-gray-400 mb-3">
+          {searchChannel === 'B'  && '來源文件：語義搜尋 10,736 個 EDB 原文知識片段，附整理答案'}
           {searchChannel === 'A'  && `已核實資料：語義搜尋 ${channelACount} 條 EDB 政策事實，附整理答案`}
-          {searchChannel === 'B'  && '來源文件：語義搜尋 2,874 個知識片段，附整理答案'}
-          {searchChannel === 'AB' && `合併搜尋：${channelACount} 條事實 + 2,874 個知識片段，附整理答案`}
+          {searchChannel === 'AB' && `合併搜尋：${channelACount} 條事實 + 10,736 個知識片段，附整理答案`}
         </p>
 
-        {/* Channel selector */}
+        {/* Channel selector — hidden when only one channel is offered */}
+        {CHANNEL_OPTS.length > 1 && (
         <div style={{display:'flex',gap:'8px',marginBottom:'12px'}}>
           {CHANNEL_OPTS.map(({id, label, sub}) => (
             <button key={id}
@@ -2986,6 +2986,7 @@ function QAPanel({ data, setPreviewDoc }) {
             </button>
           ))}
         </div>
+        )}
 
         {/* Search row */}
         <div className="flex gap-2 mb-3">
