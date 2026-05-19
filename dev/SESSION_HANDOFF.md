@@ -142,7 +142,7 @@ source_registry → same vault PDFs → ai_extract.py
    - local `wiki_index.json` vs Supabase 對 39 源 diverge（Supabase query-authoritative；reconcile 低優先 backlog，非生產影響）。
    - Phase 1 渲染 Leonard browser-verify PASS 2026-05-19（已驗、closed）。檔案 dormant 非刪（q.html/A·AB/backend endpoint 可逆勿清）。
    - Q4 對外契約 deferred 未郁未明示勿掂；Stage-2 closed 勿復活；🔴 Supabase `57014`/probes live 未 introspect；🔴 §E.10；🔴 FAIL-A；§3c regression 既有 FAIL-A/B record-only。egress 間歇每次自測；路徑空格雙引號；Testing/ 喺 git 外；改 Draft commit 必入 SESSION_LOG（已遵）。
-7. **Session 進行中（非 closeout — Leonard 未表示「收工」）**：Phase 1 全完成（promote+QC+commit+push + **Leonard browser-verify PASS 2026-05-19 = closed**）；CB-3 Option B（B-1+B-2，含 incident 復原）全完成生產 live + commit+push。待 Leonard：排 Option C（唯一 next）。
+7. **Session CLOSED 2026-05-19（Leonard「收工」）** — §4 closeout 完成；Phase 1 全完成 closed（promote+QC+commit+push + Leonard browser-verify PASS）；CB-3 Option B（B-1+B-2，含 stat 409 incident 修+復原、§8 固化 §E.14）全完成生產 live + commit+push；§4a apply（SESSION_LOG 490→157，5 條→dev/archive/SESSION_LOG_2026_Q2.md，保留 S119/S118）；HEAD origin/main 同步。下次起手＝問 Leonard 排 **Option C**（74 無標記源，唯一 open next）。
 
 ## Previous Session Record
 1. UTC date: 2026-05-19
