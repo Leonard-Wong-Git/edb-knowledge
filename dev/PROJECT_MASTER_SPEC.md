@@ -225,6 +225,11 @@ source_registry → 同 vault PDFs → ai_extract.py
 
 ---
 
+### E.14 新 Supabase upload path 只抄一半 proven pattern → 生產 1 源變空 + rework（S119 CB-3 B-2）
+- **現象**：B-2 專用 driver `dev/cb3_b2_pagecarry_migrate.py` 外科式 replace 39 源，首輪 25 源乾淨完成，但 `stat_enrolment_2012` upload 撞 **409 duplicate pkey** → 該源已 DELETE（113 row）但 0 upload ＝**生產該源變空**；要停、診斷、修 driver、scoped 復原（額外一輪生產 mutation）。
+- **根因**：driver `build_rows()` **只抄咗** `update_g04_supabase.py` 嘅 transport（per-source DELETE+batch upload）但**冇抄** `upload_wiki_to_supabase.py` 已有嘅 `seen_ids` intra-source 去重（L137-149）。stat_enrolment 係表格重複文字 → page-carry 後仍 byte-identical chunk → 同 sha256 → 同 pkey id → 同批第二 insert 409。
+- **防線（§8 codified；§8b：生產 data 風險 + recurrence-prone〔codebase 已有 3 套 divergent chunker / 多個 Supabase script〕→ 升為規則）**：寫**任何**新 Supabase `wiki_chunks` upload path 前，必先讀 `upload_wiki_to_supabase.py` 並**完整** port 其 (a) `seen_ids` by-id dedup、(b) per-source DELETE-by-source_id 再 insert（chunk id=`vault_{src}_{sha256(text)[:16]}`，改文字＝新 id，淨 upsert 會留孤兒）、(c) chunking 必用 `build_wiki_index.py` canonical（**勿**用 update_g04 嗰套 divergent chunker）。proven script 只可**整段** reuse，唔可揀抄。新 driver 必備 `--dry-run`（預設）+ `--only` scope + `--skip-local`（部分 run 唔寫 local 免 mixed artifact）+ per-source post-count verify + fail-stop。
+
 ## F. 鎖定決策（current-state 決策，非不可變法律 — 見下方 banner）
 
 > ⚠️ **產品方向審視中（2026-05-16，Leonard 明示）**：以下「鎖定決策」記錄嘅係**截至本次嘅 current-state 決策**，**不是不可變法律**。Leonard 已表明：產品方向可能要變、現有 codebase 偏亂難維護、且不完全信任既有文檔（本次實測已證實文檔有 drift，見 §G.2 banner）。下一個 agent 接手時：
