@@ -26,7 +26,8 @@
 | 版本 / git | v2.3.0；`main` = `origin/main` @ `ae31084`（**S110 寫嘅 `c78685f` 之後仲有 8 個 2026-05-16 commit，已過時**）；working tree 有未 commit 嘅 Session 111 truth-pass v2 文檔修正（5 dev 檔 + 本檔） | `git log` / `git status` |
 | 知識三層同步 | `role_facts.json` 與 `dev/knowledge/role_facts.json` **byte-identical（md5 一致）**，`knowledge.json` 同為 v2.3.0；`_meta.stats = {facts:`**455**`, chunks:10736, sources:120, guidelines:39, topics:7}`（2026-05-16 dedup 792→455，commit `711f911`，reversible log `dev/DEDUP_LOG_2026-05-16.md`）。**Supabase wiki_chunks live total = 10,682**（S120 CB-3 Option C pilot post-replace：S119 B-2 39 marker 源 page-carry + S120 Option C pilot 3 高流量 PDF 源 page-carry，net +76；`knowledge.json._meta.stats.chunks` 仍係 build-time 數字，已 doc-debt drift 但非 blocker）。E.2「三層脫節」風險現時 **clean** ✅ | md5 + JSON parse |
 | 指引 vs 來源（易混，4 數字）| `app.html` `GUIDELINES_REGISTRY` = **148**（用戶內庫全集，全 channel 知識基礎）；`guidelines.json` = **39**（公開端點，148 嘅嚴格子集，v2.2.0）；`source_registry.json` = **151**；vault-extracted = **120**（= stats.sources）。「39 是否擴到 148」= **OPEN DECISION**（PROJECT_MASTER_SPEC §B.1，本次未收斂）| JSON count + grep registry |
-| Backend | 編譯正常；Channel B = **Supabase pgvector**（`match_wiki_chunks` RPC，非本地 wiki_index）；線上 `https://edb-knowledge.onrender.com`（Render free tier，冷啟 ~30s）。**S116：RPC live 真實簽名 = `(query_embedding TEXT,...)` 內部 `::vector` cast（`schema.sql` 曾 drift 成 vector(1536) → S116 PGRST203 live 事故，已修；任何 RPC DDL 前必 INSPECT live，PMS §E.13）；函數現 plpgsql VOLATILE + `set local ivfflat.probes=8`（CB-2 PLAN-1 Stage-1 FULL PASS，生產現行 probes=8；Stage 2 未做＝promote 未完成）。🔴 `searchCombined.ts` `.catch` 隱形化 Channel B 例外（fake「未配置」）= deferred promote-blocker。** | `select pg_get_functiondef` live / PMS §C.4·§E.13 |
+| Backend | 編譯正常；Channel B = **Supabase pgvector**（`match_wiki_chunks` RPC，非本地 wiki_index）；線上 `https://edb-knowledge.onrender.com`（Render free tier，冷啟 ~30s）。**S116→S121：RPC live 真實簽名 = `(query_embedding TEXT,...)` 內部 `::vector` cast、`language plpgsql VOLATILE` + `set local ivfflat.probes=8` + `SECURITY INVOKER` + owner=postgres（S121 經 RPC INSPECT 重新 reconfirm）。S117：`channel_b_status` discriminator masking-defect 已修。** | `select pg_get_functiondef` live / PMS §C.4·§E.13 |
+| **Supabase RLS (S121 NEW)** | `wiki_chunks` **RLS = ON**；policy `wiki_chunks_anon_read FOR SELECT TO anon,authenticated USING(true)`；anon/authenticated GRANTS = SELECT only；service_role 全 grants + bypass RLS（upload pipeline 不受影響）。S121 前 anon 實有全套 write grants = critical attack surface（PMS §C.4 doc drift fix）。 | INSPECT RPC §D.18 / PMS §E.10 / S121 5/6 live smoke PASS 0 regression |
 | 搜尋參數 | min_score default：**A=0.1，B/AB=0.22**（已對齊 code） | grep `searchChannel*.ts` |
 | Mobile UI | `app.html` mobile search 已 ship 並接 `/api/search/combined`；`index.html` / `q.html` / `t-purchase.html` / `app.html#guidelines` 嘅 mobile content **未 render** | SESSION_HANDOFF + code |
 
@@ -36,8 +37,10 @@
 
 - `app.html` = **4,759 行單檔 React SPA**（CDN React/Babel/Tailwind，零 build pipeline）— 主要複雜度集中地。大改用 PROJECT_MASTER_SPEC §D.2 兩步寫法（先 Write CSS+HTML 留佔位，再 Edit 換 JS）。
 - **Stale code comments**：`backend/src/api/searchChannelB.ts` header 仲寫「min_score=0.30 / wiki_index.json 810 chunks」，與實際（0.22 / Supabase）不符。行為以 code 為準；清理屬獨立小任務，唔好當行為 bug 追。
-- 文檔曾 drift（見 §5）— 養成「verify actual code/data，唔淨信文檔」習慣。
+- 文檔曾 drift（見 §5）— 養成「verify actual code/data，唔淨信文檔」習慣。**S121 第三次實證：** PMS §C.4 寫「anon GRANT SELECT only」，live 實際 anon 全套 write grants（critical doc-drift；S121 已修 live + doc）。**接手前**：任何 load-bearing security claim（grant / policy / RLS / auth）動手前一定要 INSPECT live、唔信 doc。
 - `bump_version.py` 曾於 Session 64 **實際 wipe role_facts.json schema** — 跑前必 backup，跑後必驗 schema（PROJECT_MASTER_SPEC §E.8）。
+- **INSPECT live Supabase catalog 唯一 path**（S121 codified §D.18）= wrap SECURITY DEFINER RPC 3-step ritual（Leonard paste APPLY DDL → Claude service-role REST call → Leonard paste DROP）。Claude 對 `pg_catalog` / `information_schema` 直接 REST 一律 HTTP 406 PGRST106。
+- **任何「anon key 改 wiki_chunks」嘅 future feature**：呢個 path 設計上死路（RLS deny + GRANT REVOKE 雙重攔截）；要做必須 §3 HIGH-risk + 新 policy，不可悄悄 GRANT。
 - 線上驗證（EDB / onrender.com / App Store）sandbox egress 去唔到 → 一律包成 curl 指令交 Leonard 自己 Terminal 跑（附完整 `cd` 絕對路徑）。
 
 ## 4. 開放決策 —— 產品方向審視中（Leonard 2026-05-16 明示）

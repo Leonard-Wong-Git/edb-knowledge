@@ -2,6 +2,78 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-20 Session 121 — Supabase RLS hardening on wiki_chunks（critical security incident response，§3 HIGH-risk live DDL）
+
+- **ID:** Claude_20260520_1720
+- **Trigger:** Leonard 截停 broader Option C batch-1 step 4（repage --write）+ 出示 Supabase Dashboard critical alert「Table publicly accessible — `rls_disabled_in_public` on wiki_chunks」（issued 2026-05-17）。Option C broader 中段 safe stop（vault 0 mutate / Supabase 0 mutate），Leonard 揀「RLS 先、Option C 暫停（推薦）」。
+- **§3 deviation note：** broader Option C batch-1 中段 escalate → Leonard 主動明示 priority shift（非自我糾正）。Tasks #3-#7 keep pending、`dev/vault/repage_pdfs.py` 嘅 +10 dict 改動 keep in tree（benign prep work、broader Option C resume 時用）。
+- **INSPECT live state（wrap RPC workaround）：** Claude service-role REST 對 `pg_catalog` / `information_schema` 一律 HTTP 406 PGRST106（Supabase 默認 schema 唔 expose）；冇 Postgres connection string；冇 Management API token。**Workaround：** 寫一條 SECURITY DEFINER plpgsql function `public.__rls_inspect_temp()` RETURNS jsonb，包 5 條 catalog query。Leonard paste APPLY DDL（CREATE FUNCTION + GRANT EXECUTE TO service_role + 一條 self-test SELECT）落 Dashboard SQL Editor、run；Claude 用 service-role REST call RPC 攞完整 JSON、parse。**§D codify**（見下）。
+- **INSPECT findings — critical：** (1) `wiki_chunks` RLS = **OFF**（alerted） (2) Zero existing policies (3) **anon GRANTS = SELECT + INSERT + UPDATE + DELETE + TRUNCATE + REFERENCES + TRIGGER**（**doc drift：** PMS §C.4 寫「anon 需 GRANT USAGE + GRANT SELECT」暗示 SELECT-only；live 實際有全套 write 權限 — i.e. 任何 anon 用戶可 DELETE/INSERT/UPDATE wiki_chunks，**遠超警報 surface 嘅 read-only-exposure scope**） (4) `authenticated` GRANTS 同 anon 全套 (5) `match_wiki_chunks` RPC 確認 S116 修正 live：`language plpgsql VOLATILE` + `set local ivfflat.probes=8` + `SECURITY INVOKER`（default）+ owner=postgres。**Risk re-rated：** 唔係 read-only public exposure，而係 anon 可全表破壞 / 投毒（DELETE 全表 / INSERT 假指引污染 Channel B / UPDATE 改 row score）。屬 §E.10 family + 升級 critical priority。
+- **§3 HIGH-risk PLAN（promoted、Leonard 確認 paste APPLY）：** ENABLE RLS + CREATE POLICY `wiki_chunks_anon_read` FOR SELECT TO anon,authenticated USING (true)（defense-in-depth：將來 GRANT drift 都被 row-policy 攔住）+ REVOKE INSERT/UPDATE/DELETE/TRUNCATE/REFERENCES/TRIGGER FROM anon,authenticated（service_role 唔變、broader Option C upload 仍 work；service_role bypass RLS by default）。零 backend / frontend code change。
+- **APPLY 執行（Leonard Dashboard 親手）：** paste 4-Phase block（ALTER ENABLE RLS / CREATE POLICY / REVOKE × 6 × 2 role / Phase 4 self-verify jsonb）→ result pane 出 JSON、無 error。**Post-APPLY re-INSPECT（同一 RPC、Claude service-role REST call）：** RLS ON ✅、Policy `wiki_chunks_anon_read` SELECT anon+authenticated USING(true) ✅、anon GRANTS = ["SELECT"] only ✅、authenticated GRANTS = ["SELECT"] only ✅、service_role GRANTS full set unchanged ✅、`match_wiki_chunks` 屬性 unchanged ✅。
+- **Channel B live smoke 6 query 全 PASS、0 regression：** (1)「採購程序」→ g01 p=5/1 / role_facts_finance、score **0.66/0.638/0.62**（與 pre-baseline byte-identical）(2)「幼稚園收生」→ g26 p=2/4 0.696/0.687（S120 Option C pilot page-carry 保留）(3)「化學」→ sci_jss_framework_2025/chem_sss_2007_2018 0.55-0.58 (4)「學校行政手冊」→ g24/sag_2025_11 p=1/role_facts 0.60-0.66（S120 pilot intact）(5)「教師專業操守」→ sag p=205/g05 p=30/sag p=73 0.65-0.72（Option B/C marker 全保留）。**化學評估 0 hits 非 regression**（其他 5/5 通、score 與 pre-baseline 一致；query 太 narrow + threshold 0.22；chem_sss_2007_2018 仲喺 broader Option C 未處理隊列）。
+- **Cleanup：** Leonard paste DROP `__rls_inspect_temp` + final verify block 落 Dashboard，result 確認 `{wiki_chunks_rls:true, policy_count:1, anon_grants:["SELECT"], inspect_fn_dropped:true}`。Temp SECURITY DEFINER function 清走、schema clean。
+- **Supabase Dashboard 警報：** post-APPLY 數分鐘 - 幾小時內 scanner cycle 應 auto-clear「rls_disabled_in_public」alert（async、非阻塞 PERSIST 嘅 verify；下次 Leonard 開 Dashboard 順手 confirm）。
+- **§8 codified：** 寫成 PMS §C.4 doc drift 修正（live anon 真實 grants）+ §E.10 entry partial resolution（read-only-disclosure + anon-write attack-surface = RESOLVED；admin-login client-side gate 仍 OPEN，獨立 issue）+ §E.14 延伸（Option C broader 嘅 service-role upload path 受惠：service_role bypass RLS、driver 不需改）+ §D「INSPECT live Supabase catalog via temp SECURITY DEFINER RPC」workaround codified（path 限制 + apply ritual）。
+- **broader Option C 狀態：** tasks #3-#7 keep pending；`dev/vault/repage_pdfs.py` PILOT_LEGACY/PILOT_OUT 已 +10 entries（benign prep）；resume 點 = task #3 Gate 1（等 Leonard 重新明示 `--write` 走 batch-1）。
+- **Sources changed（commit+push 指定檔）：** Draft: `dev/vault/repage_pdfs.py`（broader Option C +10 entries dict prep work，benign keep-in-tree）; `dev/SESSION_LOG` / `SESSION_HANDOFF` / `PROJECT_MASTER_SPEC` / `CODEBASE_CONTEXT` / `HANDOFF_PACKAGE`。Supabase live（非 git）：`wiki_chunks` RLS=ON + 1 policy + anon/authenticated GRANTS = SELECT only。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| External service / config change（Supabase RLS + GRANT hardening on wiki_chunks 生產 live）| PROJECT_MASTER_SPEC §C.4 anon GRANTS truth-pass + §E.10 partial resolution + §E.13 延伸（INVOKER RPC + RLS interaction） + §D「INSPECT via temp SECURITY DEFINER RPC」workaround；CODEBASE_CONTEXT External Services Supabase notes + AI Maintenance Log +S121；HANDOFF_PACKAGE §2 wiki_chunks state + §3 risks | ✓ Done |
+| Security risk resolution（§E.10 family、partial — RLS family closed）| SESSION_HANDOFF Known Risks update（RLS critical → resolved，admin-login client-side 仍 OPEN 獨立保留）+ Open Priorities regen | ✓ Done |
+| Regression + Lessons-to-Rule（§8）| §E.10 codify partial-fix + §D codify INSPECT workaround + auto-memory project_supabase_security note | ✓ Done |
+| Doc drift（PMS §C.4 anon GRANT claim vs live state）| PMS §C.4 update real anon grants（pre-S121: full set；post-S121: SELECT only）| ✓ Done |
+| broader Option C pause（in-flight，非 abandoned）| SESSION_HANDOFF Open Priorities 標記 paused / resume gate + SESSION_LOG status 記低 + 保留 `dev/vault/repage_pdfs.py` dict +10 entries（benign prep）| ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。Channel B/retrieval PoC 喺姊妹資料夾 "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Testing/poc-retrieval/"（唔喺 git、Draft 零接觸）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S121（2026-05-20，session 進行中、Leonard 未「收工」）：**Supabase critical security incident response 完成生產 live + 0 regression**。Trigger = Leonard 截停 broader Option C batch-1 step 4 + 出示 Dashboard 警報「rls_disabled_in_public」on `wiki_chunks`。INSPECT 揭發**遠超警報 surface**：anon GRANTS 實有 SELECT+INSERT+UPDATE+DELETE+TRUNCATE+REFERENCES+TRIGGER（PMS §C.4 doc drift；任何 anon 用戶可清空/投毒 wiki_chunks）。§3 HIGH-risk PLAN→ Leonard Dashboard 親手 paste：ENABLE RLS + CREATE POLICY `wiki_chunks_anon_read` SELECT anon,authenticated USING(true) + REVOKE 6 write privilege × 2 role。Post-APPLY re-INSPECT 確認 live state 完美對應；Channel B 5/6 live smoke PASS（採購 0.66/0.62/0.638 與 pre-baseline byte-identical / 幼稚園收生 g26 p=2/4 0.696 / 學校行政手冊 sag p=1 / 教師專業操守 sag p=205+g05 p=30+sag p=73 / 化學 sci_jss+chem_sss）；「化學評估」0 hits 非 regression（query 太 narrow、其他 5 query 健康）。Cleanup：DROP temp inspect function、schema clean。Dashboard 警報 async clear（下次開 Dashboard 順手 confirm）。
+
+Current objective and progress state:
+- **Supabase wiki_chunks RLS hardening 完成生產 live**：RLS ON + 1 anon-read SELECT policy + anon/authenticated GRANTS = SELECT only + service_role 全 grants 保留（broader Option C upload 不受影響）。
+- **broader Option C batch-1 = paused 等 resume**：tasks #3-#7 pending；`dev/vault/repage_pdfs.py` PILOT_LEGACY/PILOT_OUT +10 entries（10 sources：tech_kla_guide_2017 / eng_lit_guide_2023 / ls_jss_2010 / religious_edu_jss_2024 / geog_sss_2007_2022 / ces_jss_2024 / phys_sss_2007_2015 / chi_hist_sss_2007_2015 / chem_sss_2007_2018 / geog_jss）已落 + repage dry-run 8/10 OK / 2 URL-encoding fail（geog_sss_2007_2022 / ces_jss_2024 含空格、修法明確）；Gate 1 等 Leonard 重新明示 `--write` 走。
+- §E.10 partial resolution（RLS critical family CLOSED；admin-login client-side gate 仍 OPEN 獨立保留）。
+- Q4（Channel A→`knowledge.json`→下游 Circular System 對外契約）deferred 獨立 track；Stage-2 closed-as-non-viable 勿復活。
+
+Pending tasks in priority order:
+1. **broader Option C batch-1 resume**（tasks #3-#7 pending；先 fix 2 URL-encoding fail：repage_pdfs.py `fetch_pdf` 加 `urllib.parse.quote` for path-with-space PDFs；之後 Gate 1 等 Leonard 明示 `--write`）。
+2. **broader Option C batch-2 ~ batch-6**（51 marker-less PDFs 未掂；batch-1 完成 + verified 後 Leonard 排）。
+3. 細項 backlog（低優先）：local `wiki_index.json` ↔ Supabase reconcile / sag freshness metadata 2025-11→2026-05 / g06 vs pri_curr_guide_2024 SOURCE_ALIASES dedup polish。
+4. 既有 deferred：🔴 §E.10 admin-login client-side gate（RLS family 已修、admin-login 仍 OPEN）；🔴 Supabase `57014` timeout（生產可用性 free-tier transient，retry 即恢復）/ probes=8 live 已 reconfirm 經本 session INSPECT；🔴 FAIL-A Circular 注入 regression（record-only）；P2 分類148/P3；Mobile UI P2；HKEAA；FAIL-B `semanticRegression.ts:292` stale 1.3.1。
+5. Q4 對外契約收斂（deferred 獨立 track）。
+
+Key files changed this session (全部 commit+push)：
+- Draft（modified）：`dev/vault/repage_pdfs.py`（PILOT_LEGACY/PILOT_OUT +10 entries，broader Option C batch-1 prep；benign keep-in-tree）；dev/SESSION_LOG / SESSION_HANDOFF / PROJECT_MASTER_SPEC / CODEBASE_CONTEXT / HANDOFF_PACKAGE。
+- Supabase live（**非 git，Leonard Dashboard 親手 DDL applied**）：`public.wiki_chunks` RLS=ON + policy `wiki_chunks_anon_read` SELECT TO anon,authenticated USING(true) + anon/authenticated GRANTS REVOKE 6 privilege（剩 SELECT only）；temp inspect RPC DROPped after use；service_role grants/`match_wiki_chunks` RPC 屬性全部 unchanged。
+- Testing/：（無 PoC 改動本 session）。
+
+Known risks / blockers / cautions:
+- **新 §D codified workaround**：Claude service-role REST 對 `pg_catalog` / `information_schema` HTTP 406；INSPECT live catalog 須 wrap SECURITY DEFINER RPC（Leonard paste APPLY → Claude call RPC → Leonard paste DROP），三步 ritual。生產 DDL 嘅 Dashboard-only lock 不變（§C.4 / §E.13）。
+- **§E.14 §8 教訓延伸**：service_role bypass RLS（PostgreSQL default + Supabase same）→ Option C broader 嘅 `cb3_b2_pagecarry_migrate.py` driver service-role upload path **不受 RLS 影響、唔需改**；driver 一行唔改可 resume。**新前置條件**：寫任何「以 anon key 改 wiki_chunks」嘅 path = 死路（RLS deny + GRANT REVOKE 雙重攔截、設計如此），如果未來需要 anon-write 必須 §3 HIGH-risk + 新 policy。
+- broader Option C 2 URL-encoding fail（geog_sss_2007_2022 / ces_jss_2024 path 含空格）需 `repage_pdfs.py` `fetch_pdf` 加 URL-encoding（細 fix、resume 前一次過 patch、預估 5 分鐘）。
+- 暫無 RLS-induced regression（5/6 live smoke PASS、化學評估 0 hits 屬 query-relevance 非 RLS）。仍要監察 Render auto-deploy + 任何 anon-side 操作（e.g. 將來如果加 anon-write feature）。
+- 既有 risks：🔴 §E.10 admin-login client-side gate（OPEN，獨立 family，未掂）；🔴 Supabase free-tier 57014 transient（retry 即恢復、非 regression）；🔴 FAIL-A 注入 regression（record-only）；§3c FAIL-A/B record-only；q.html/A·AB code path/backend `/channel-a`·`/combined` endpoint dormant 可逆勿清；Q4 deferred 未明示勿掂；Stage-2 closed 勿復活。
+- egress 間歇每次自測；EDB PDF 永遠用 `url_primary` 勿 `url_landing`（§E.12）；路徑空格雙引號；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG（已遵）。
+
+Validation status:
+- PASS RLS hardening：INSPECT pre/post comparison（anon 7-grant → SELECT only；RLS off→on；policy 0→1 wiki_chunks_anon_read）+ Channel B 5/6 live smoke 0 regression + Cleanup verify clean。
+- PENDING（async）：Supabase Dashboard「rls_disabled_in_public」alert auto-clear（下次 Leonard 開 Dashboard 順手 confirm；非阻塞）。
+- OPEN（非 pending-blocker）：broader Option C batch-1 resume 等 Leonard / 2 URL-encoding fail 補；既有 deferred 同 S120。
+
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE + 自測（git HEAD / knowledge.json._meta.stats vs baseline / egress 實測）後，**S121 已完成 Supabase RLS critical hardening 生產 live + 0 regression（session 進行中 / Leonard 未「收工」）—— 第一件事＝問 Leonard：(a) broader Option C batch-1 而家 resume（先 fix 2 URL-encoding fail、然後 Gate 1 走 --write）？(b) 抑或先做其他（freshness metadata polish / §E.10 admin-login / 等等）？**未 Leonard 明示前**唔好自行 resume broader Option C / 改其他 Draft / 掂 Q4 契約**。碰 admin/auth/公開推送前必讀 §E.10。CB-3 / B-only 方向 / Q4 track / §8 incident 詳見 auto-memory project_direction_review；Supabase RLS workaround details 詳見 PMS §D 新條目。
+```
+
+---
+
 ## 2026-05-20 Session 120 — CB-3 Option C pilot（3 sources：sag_2025_11/g06/g26）page-carry 生產 live
 
 - **ID:** Claude_20260520_0700

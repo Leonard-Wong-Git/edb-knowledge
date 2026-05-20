@@ -32,6 +32,7 @@ import ssl
 import sys
 import urllib.error
 import urllib.request
+from urllib.parse import urlsplit, urlunsplit, quote
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -44,12 +45,24 @@ HEADER_RE = re.compile(r"^(# .+\n)+", re.MULTILINE)
 
 # source_id -> list of legacy extract files to back up + remove
 PILOT_LEGACY = {
+    # S120 pilot (already done — kept for restartable / idempotent driver lookup)
     "sag_2025_11": [
         VAULT_DIR / "sag_2025_11" / "extract_sag_ch1_ch3_ch6_ch7.txt",
         VAULT_DIR / "sag_2025_11" / "extract_sag_ch2_ch4_ch5.txt",
     ],
     "g06": [VAULT_DIR / "g06" / "extract_g06.txt"],
     "g26": [VAULT_DIR / "g26" / "extract_g26.txt"],
+    # S121 broader batch-1 (10 sources, size desc, cross-KLA, excludes g24/g29 dup-risk)
+    "tech_kla_guide_2017": [VAULT_DIR / "tech_kla_guide_2017" / "extract_tech_kla_guide_2017.txt"],
+    "eng_lit_guide_2023": [VAULT_DIR / "eng_lit_guide_2023" / "extract_eng_lit_guide_2023.txt"],
+    "ls_jss_2010": [VAULT_DIR / "ls_jss_2010" / "extract_ls_jss_2010.txt"],
+    "religious_edu_jss_2024": [VAULT_DIR / "religious_edu_jss_2024" / "extract_religious_edu_jss_2024.txt"],
+    "geog_sss_2007_2022": [VAULT_DIR / "geog_sss_2007_2022" / "extract_geog_sss_2007_2022.txt"],
+    "ces_jss_2024": [VAULT_DIR / "ces_jss_2024" / "extract_ces_jss_2024.txt"],
+    "phys_sss_2007_2015": [VAULT_DIR / "phys_sss_2007_2015" / "extract_phys_sss_2007_2015.txt"],
+    "chi_hist_sss_2007_2015": [VAULT_DIR / "chi_hist_sss_2007_2015" / "extract_chi_hist_sss_2007_2015.txt"],
+    "chem_sss_2007_2018": [VAULT_DIR / "chem_sss_2007_2018" / "extract_chem_sss_2007_2018.txt"],
+    "geog_jss": [VAULT_DIR / "geog_jss" / "extract_geog_jss.txt"],
 }
 
 # source_id -> consolidated output filename (single repaged extract per source)
@@ -57,12 +70,30 @@ PILOT_OUT = {
     "sag_2025_11": VAULT_DIR / "sag_2025_11" / "extract_sag_2025_11_repaged.txt",
     "g06": VAULT_DIR / "g06" / "extract_g06_repaged.txt",
     "g26": VAULT_DIR / "g26" / "extract_g26_repaged.txt",
+    "tech_kla_guide_2017": VAULT_DIR / "tech_kla_guide_2017" / "extract_tech_kla_guide_2017_repaged.txt",
+    "eng_lit_guide_2023": VAULT_DIR / "eng_lit_guide_2023" / "extract_eng_lit_guide_2023_repaged.txt",
+    "ls_jss_2010": VAULT_DIR / "ls_jss_2010" / "extract_ls_jss_2010_repaged.txt",
+    "religious_edu_jss_2024": VAULT_DIR / "religious_edu_jss_2024" / "extract_religious_edu_jss_2024_repaged.txt",
+    "geog_sss_2007_2022": VAULT_DIR / "geog_sss_2007_2022" / "extract_geog_sss_2007_2022_repaged.txt",
+    "ces_jss_2024": VAULT_DIR / "ces_jss_2024" / "extract_ces_jss_2024_repaged.txt",
+    "phys_sss_2007_2015": VAULT_DIR / "phys_sss_2007_2015" / "extract_phys_sss_2007_2015_repaged.txt",
+    "chi_hist_sss_2007_2015": VAULT_DIR / "chi_hist_sss_2007_2015" / "extract_chi_hist_sss_2007_2015_repaged.txt",
+    "chem_sss_2007_2018": VAULT_DIR / "chem_sss_2007_2018" / "extract_chem_sss_2007_2018_repaged.txt",
+    "geog_jss": VAULT_DIR / "geog_jss" / "extract_geog_jss_repaged.txt",
 }
 
 
 def fetch_pdf(url: str) -> bytes:
     """Fetch PDF via urllib; fall back to unverified SSL only if Mac
-    Python.framework lacks the CA bundle (matches §D.7 known pattern)."""
+    Python.framework lacks the CA bundle (matches §D.7 known pattern).
+    NB: EDB PDF filenames often contain literal spaces (e.g. "C&A Guide
+    2022-chi.pdf"). urllib.request.Request rejects raw spaces as control
+    chars, so quote() the path segment before constructing the request.
+    safe="/%" preserves path separators and any existing percent-encoding
+    that the registry may already carry."""
+    sp = urlsplit(url)
+    url = urlunsplit((sp.scheme, sp.netloc, quote(sp.path, safe="/%"),
+                      sp.query, sp.fragment))
     req = urllib.request.Request(
         url, headers={"User-Agent": "Mozilla/5.0 repage_pdfs/1.0"})
     try:
