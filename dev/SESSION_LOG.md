@@ -69,7 +69,7 @@ Validation status:
 - PENDING（async）：Supabase Dashboard「rls_disabled_in_public」alert auto-clear（下次 Leonard 開 Dashboard 順手 confirm；非阻塞）。
 - OPEN（非 pending-blocker）：broader Option C batch-1 resume 等 Leonard / 2 URL-encoding fail 補；既有 deferred 同 S120。
 
-Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE + 自測（git HEAD / knowledge.json._meta.stats vs baseline / egress 實測）後，**S121 已完成 Supabase RLS critical hardening 生產 live + 0 regression（session 進行中 / Leonard 未「收工」）—— 第一件事＝問 Leonard：(a) broader Option C batch-1 而家 resume（先 fix 2 URL-encoding fail、然後 Gate 1 走 --write）？(b) 抑或先做其他（freshness metadata polish / §E.10 admin-login / 等等）？**未 Leonard 明示前**唔好自行 resume broader Option C / 改其他 Draft / 掂 Q4 契約**。碰 admin/auth/公開推送前必讀 §E.10。CB-3 / B-only 方向 / Q4 track / §8 incident 詳見 auto-memory project_direction_review；Supabase RLS workaround details 詳見 PMS §D 新條目。
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE + 自測（git HEAD / knowledge.json._meta.stats vs baseline / egress 實測）後，**S121 已 closeout — Supabase RLS critical hardening 生產 live + 5/6 Channel B smoke 0 regression + commit/push 完成 + Dashboard 警報 async clear pending（Leonard 下次開 Dashboard 順手 confirm）—— 第一件事＝問 Leonard：(a) broader Option C batch-1 而家 resume（先 fix 2 URL-encoding fail、然後 Gate 1 走 --write）？(b) 抑或先做其他（freshness metadata polish / §E.10 admin-login / 等等）？**未 Leonard 明示前**唔好自行 resume broader Option C / 改其他 Draft / 掂 Q4 契約**。碰 admin/auth/公開推送前必讀 §E.10。CB-3 / B-only 方向 / Q4 track / §8 incident 詳見 auto-memory project_direction_review；Supabase RLS workaround details 詳見 PMS §D.18 + §C.4 + §E.10 + §E.13。
 ```
 
 ---
