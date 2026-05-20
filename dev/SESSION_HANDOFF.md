@@ -148,7 +148,7 @@ source_registry → same vault PDFs → ai_extract.py
    - Channel B 暫無 RLS-induced regression（5/6 live smoke PASS、化學評估 0 屬 query-relevance 非 RLS）；continue 監察 Render auto-deploy + 任何 anon-side 寫操作（將來如果加 anon-write feature）。
    - 既有 risks：🔴 §E.10 admin-login client-side gate（OPEN 獨立 family）；🔴 Supabase free-tier 57014 transient；🔴 FAIL-A 注入 regression（record-only）；§3c FAIL-A/B record-only；q.html/A·AB code path/backend `/channel-a`·`/combined` endpoint dormant 可逆勿清；Q4 deferred 未明示勿掂；Stage-2 closed 勿復活。
    - egress 間歇每次自測；EDB PDF 永遠用 `url_primary` 勿 `url_landing`（§E.12）；路徑空格雙引號；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG（已遵）。
-7. **Session 進行中（非 closeout — Leonard 未表示「收工」）**：S121 RLS hardening 生產 live 完成 + 5/6 live smoke PASS + commit/push 進行中；下一輪等 Leonard 排序 broader Option C resume vs 其他 OP。
+7. **Session CLOSED 2026-05-20（Leonard「收工」）** — §4 closeout 完成；S121 Supabase RLS critical hardening 生產 live + 5/6 Channel B smoke PASS 0 regression + commit pushed HEAD `fd22e0a` origin/main 同步；§4a trigger=False（308 行 < 400、oldest entry 2026-05-19 < 30d）；下次起手＝問 Leonard 排序 broader Option C batch-1 resume（先 5min URL-encoding patch）／轉做其他 OP（§E.10 admin-login client-side gate / freshness metadata / FAIL-A 等）。
 
 ## Previous Session Record
 1. UTC date: 2026-05-20
