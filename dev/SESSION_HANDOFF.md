@@ -149,7 +149,7 @@ source_registry → same vault PDFs → ai_extract.py
    - Supabase free-tier 偶發 `57014`/冷啟 transient（retry 即恢復，非 regression）；🔴 probes=8 live 未獨立 introspect；🔴 §E.10；🔴 FAIL-A（record-only）；§3c regression 既有 FAIL-A/B record-only。
    - 檔案 dormant 非刪（q.html/A·AB code path/backend `/channel-a`·`/combined` endpoint 全可逆，勿當 dead code 清）；Q4 契約 Channel A 管道照常餵下游未郁，未 Leonard 明示勿掂契約/下游；Stage-2 closed 勿復活。
    - egress 間歇每次自測（onrender /health 勿照抄）；EDB PDF 永遠用 `url_primary` 唔好 `url_landing`（後者多 404 §E.12）；路徑含空格 shell 必雙引號絕對路徑；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG（已遵）。
-7. **Session 進行中**（**非** closeout — Leonard 未表示「收工」）：S120 PERSIST 完成、commit+push 完成；下次起手＝問 Leonard Option C broader 排步伐 / 轉做其他 OP。
+7. **Session CLOSED 2026-05-20（Leonard「收工」）** — §4 closeout 完成；S120 CB-3 Option C pilot 3 sources（sag_2025_11/g06/g26）page-carry 生產 live + 全部 commit+push（HEAD `5f7cb7a` 同步 origin/main）；§4a trigger=False（236 行、3 entries、oldest 2026-05-19）；下次起手＝問 Leonard Option C broader（61 marker-less PDFs）分批步伐 / 轉做其他 OP（57014 INSPECT / §E.10 / FAIL-A 等）。
 
 ## Previous Session Record
 1. UTC date: 2026-05-19

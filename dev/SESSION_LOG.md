@@ -39,7 +39,7 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 ⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。Channel B/retrieval PoC 喺姊妹資料夾 "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Testing/poc-retrieval/"（唔喺 git、Draft 零接觸）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
 
-S120：CB-3 Option C **pilot 3 sources（sag_2025_11/g06/g26）page-carry 生產 live + 北極星端到端 verified**。新增 `dev/vault/repage_pdfs.py`（PyMuPDF page-by-page → 加 `=== Page N ===` marker → driver `cb3_b2_pagecarry_migrate.py --only` per-source surgical replace 完整 reuse §E.14 pattern）。Supabase wiki_chunks 10,606→**10,682** (+76)。Live smoke：g26 q=「幼稚園收生」p=2/3/4 (0.67-0.70)；sag q=「學校行政手冊 校本管理」TOP-1 p=1 (0.657)；既有源 0 regression。經 2 條 §3 deviation 安全修正（diff scan 自我糾正 char drop bug；Option A backup 移出 vault 避 rglob ghost）。HEAD 將同步 origin/main commit+push。
+S120（CLOSED 2026-05-20，Leonard「收工」）：CB-3 Option C **pilot 3 sources（sag_2025_11/g06/g26）page-carry 生產 live + 北極星端到端 verified**。新增 `dev/vault/repage_pdfs.py`（PyMuPDF page-by-page → 加 `=== Page N ===` marker → driver `cb3_b2_pagecarry_migrate.py --only` per-source surgical replace 完整 reuse §E.14 pattern）。Supabase wiki_chunks 10,606→**10,682** (+76)。Live smoke：g26 q=「幼稚園收生」p=2/3/4 (0.67-0.70)；sag q=「學校行政手冊 校本管理」TOP-1 p=1 (0.657)；既有源 0 regression。經 2 條 §3 deviation 安全修正（diff scan 自我糾正 char drop bug；Option A backup 移出 vault 避 rglob ghost）。HEAD `5f7cb7a` 同步 origin/main commit+push 完成；後置 closeout commit 跟住推。
 
 Current objective and progress state:
 - **Option C pilot 完成生產 live**：3 marker-less PDF 源（高流量 admin handbooks）page-carry replaced，全 100% page-resolvable，INVARIANT 109/109 PASS，4 QC gates + 5 live smoke query 全 PASS。
