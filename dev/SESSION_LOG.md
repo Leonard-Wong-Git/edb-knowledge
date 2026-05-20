@@ -2,6 +2,84 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-20 Session 120 — CB-3 Option C pilot（3 sources：sag_2025_11/g06/g26）page-carry 生產 live
+
+- **ID:** Claude_20260520_0700
+- **Summary:** Leonard 揀做 Option C pilot scope（S119 closeout 唯一 open next；先 3 最高流量 marker-less PDF 確認 pipeline，broader 61 PDF 視結果排）。**§3 HIGH-risk PLAN→pilot scope confirm→C-0/C-1/C-2 gated 三 phase→QC→PERSIST**，全 §3 正常流程（非 §2 rule6 override），無外部系統 schema/DDL 變動，只 vault 文本 + Supabase per-source data row replace。
+- **Pilot scope reality check（C-0 scoping read 揭）：** 74 marker-less 源不可能全救（4 HTML + 5 xlsx 結構天花板）；可救 = 64 marker-less PDFs；3 個 pilot 全係 PDF + URL 200 reachable（用 `source_registry.json` `url_primary` 而非 `url_landing`，後者 404 - §E.12）。PyMuPDF 1.27.2 available。
+- **CHANGE C-0：** 新增 `dev/vault/repage_pdfs.py`（PyMuPDF page-by-page 抽取，每頁前綴 `=== Page N ===`，match 後端 `extractFirstPage` regex；保留原 header metadata + annot `# repaged_at:`/`# repaged_pages:`/`# pipeline:`；default = dry-run；--write 落 vault + 同步 backup 至 §5.a-compliant 位置）。
+- **§3 deviation #1（C-0 中段，diff scan 驗 char drop）：** dry-run 報「3 源 char drop 50-60%」但係 bug 比錯（`p.stat().st_size`〔bytes〕vs `len(text)`〔chars〕，UTF-8 中文 3:1）。停 + 出 diff scan 報 Leonard → Leonard 揀「diff scan 證 OK 再走」。Diff scan 結果：g06/g26 byte-identical content（純加 page markers）；**sag_2025_11 反 net positive**（legacy pdftotext miss 咗 203 條 sentences、emit 3 條 broken-layout artifact；whitespace 40.8%→13.1% 屬 noise removal 非 content loss）→ Leonard 揀 proceed C-1。
+- **§3 deviation #2（C-1 中段，spot-check vs count 對唔上）：** 我 repage script 原設計 backup 落 `dev/vault/<src>/_pre_repage_<ts>/`，但 `bw.load_vault_sources()` L161 `VAULT_DIR.rglob("*.txt")` **遞歸**會撈埋 backup → 同 source_id 重 load → snapshot 數字靠 dict overwrite 偶然正確、`next()` spot-check 撈到 backup 顯示 0 markers。driver `cb3_b2_pagecarry_migrate.py` 由 `PAGE_RE.search` filter 保住（backup marker-less → 自動 excluded），但 `build_wiki_index.py` 全 rebuild 會 double-process。停 + 報 Leonard → Leonard 揀 Option A 自我修正：(1) `mv` 3 backup dirs → `dev/init_backup/<ts>/cb3c_pilot_legacy/<src>/`（§5.a-compliant，repo-外 `.gitignore` 保住）(2) patch `repage_pdfs.py` 未來 backup 寫 §5.a 位置 + 加註解防 future recurrence (3) re-snapshot robust。
+- **C-1 量度 PASS（post-Option-A clean）：** vault 112 unique source_id pre = 112 unique post，0 duplicate ghost，**INVARIANT 109/109 PASS**（非 pilot chunk-id sets byte-identical，27 個既 B-2 marker 源 + 79 個 marker-less + role/stat/guideline 全 0 changed）。Pilot post-state：g06 403→412 (+9, 100% page-resolvable)、g26 18→19 (+1, 100%)、sag_2025_11 83→**383** (+300, 100%)。sag +300 確認 diff scan 嘅 content recovery。Whole-vault page-resolvable trajectory：13.2% (pre-B) → 23.7% (post-B-2) → **32.2% (post-pilot C)**。 Spot-check (by-source-id index，robust)：g06 chunk[0] `=== Page 1 ===` 課程發展議會、chunk[411] `=== Page 342 ===` 學校名單；sag chunk[0] `=== Page 1 ===` 學校行政手冊封面、chunk[382] `=== Page 270 ===` 鳴謝；g26 chunk[0-18] p=1→11 全 mapping 正確。
+- **C-2 dry-run（read-only Supabase）：** g06 DELETE 300→INSERT 412 (+112，舊 build_wiki_index divergent chunker 正常化至 canonical) / g26 DELETE 23→INSERT 19 (-4) / sag DELETE 415→INSERT 383 (-32，content +200 但 chunking 正常化)；總 INSERT 814，net +76，預測 total 10,606→10,682。
+- **C-2 EXECUTE：** Phase 1b 全 814 chunks 先 embed（無 mutation；~$0.001 cost）→ wiki_index.json auto-backup 至 `dev/init_backup/20260520_104531_UTC/` → per-source DELETE→upload→count verify：g06 del=300 ins=412 now=412 OK / g26 del=23 ins=19 now=19 OK / sag del=415 ins=383 now=383 OK；Phase 3 `--skip-local`（按 B-2 紀律 + §E.14 教訓避 mixed local artifact，Supabase query-authoritative）。
+- **QC post-execute（4 gates 全 PASS）：** (1) Supabase total = **10,682**（exact 對預測）(2) pilot 3 源 per-source count 100% match (3) marker-less control 6 條（g04/g25/g05/circ_edbc24017/stat_enrolment_2024/role_facts_curriculum）count 全對既有 baseline (4) sample 3 chunk/源 全帶 `=== Page N ===` marker。
+- **Live smoke 北極星端到端 verified（5 query via prod `/api/search/channel-b`）：** ✅ g26：q=「幼稚園收生安排」→ g26 top-3 p=2/3/4 scores 0.667-0.700。✅ sag：q=「學校行政手冊 校本管理」→ **sag_2025_11 TOP-1 p=1 score=0.657**（content 對 PDF Page 1「學校行政手冊 2026 年 5 月版」一致，注意：EDB 已從 2025-11 更新到 2026-05，content fresher than registry metadata `sag_2025_11`/「2025年11月版」— §E.12 EDB drift，記為 backlog freshness metadata update，非 blocker）。✅ B-2 既有源無 regression：q=「採購程序」→ g01 p=5/1 (0.66/0.62)、g02 p=14 (0.53)；q=「小學課程評估」→ pri_curr_guide p=10/11、va p=33、pe p=1。g06 與 pri_curr_guide_2024 內容高度重疊，pri_curr_guide_2024 喺特定 query 排名贏 g06 = ranking 競爭非 regression（g06 data 已 live with markers，可 future SOURCE_ALIASES dedup polish）。Free-tier `57014` transient 撞中兩次 retry 即恢復（§C.4 known）。
+- **Pending（待 Leonard 排）：**
+  1. **Option C broader（61 marker-less PDFs）**：pilot 證 pipeline 可 generalize，可分批（例：10 sources/批 × 6-7 批）；driver `cb3_b2_pagecarry_migrate.py` + `repage_pdfs.py` 兩條都已 reusable，PILOT_LEGACY/PILOT_OUT dict 擴充即可。預估總 cost ~$0.05、總 +800-1500 chunks。每批仍 §3 HIGH-risk Leonard 明示 go。
+  2. **Freshness metadata 更新**：sag_2025_11 → sag_2026_05（content live 已係新版；registry/source_id 仍舊；對外 contract 唔變、純 internal naming）— 細任務、低優先。
+  3. **g06 vs pri_curr_guide_2024 near-duplicate ranking polish**：SOURCE_ALIASES 加 `g06 ⇄ pri_curr_guide_2024` 或 boost；非 regression、低優先。
+- **Sources changed（全 commit+push 指定檔）：** Draft: `dev/vault/repage_pdfs.py` (new), `dev/vault/sag_2025_11/extract_sag_2025_11_repaged.txt` (new), `dev/vault/g06/extract_g06_repaged.txt` (new), `dev/vault/g26/extract_g26_repaged.txt` (new), 4 deleted legacy split files（dev/vault/{sag_2025_11/{ch1_ch3_ch6_ch7,ch2_ch4_ch5},g06/extract_g06,g26/extract_g26}.txt），dev/SESSION_LOG/HANDOFF/PROJECT_MASTER_SPEC/CODEBASE_CONTEXT/HANDOFF_PACKAGE。Supabase wiki_chunks（生產 live，非 git）：3 pilot 源 page-carry replace（738→814）。dev/init_backup/20260520_091950_UTC/ + 20260520_104531_UTC/（gitignored，本機 reversible safety net）。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change（3 pilot sources page-carry 生產 live） | SESSION_HANDOFF baseline/Open-Priorities-regen/risks/record + SESSION_LOG 本 entry + QC evidence | ✓ Done |
+| Long-term spec / locked decision / invariant（CB-3 Option C pilot pipeline 確立：repage_pdfs.py PyMuPDF page-by-page → driver `--only` reuse）| PROJECT_MASTER_SPEC §D 新方法 + §E.14 註解延伸（pilot 驗 §E.14 規矩可 generalize）+ §C.4 chunk total 10,606→10,682 | ✓ Done |
+| External API / service change | CODEBASE_CONTEXT External Services block＝N/A（無 schema/RPC DDL；只 data rows replace 用既有 service-key REST pattern）；Directory Map +repage_pdfs.py + sag/g06/g26 整合單 repaged 檔；AI Maintenance Log +S120 | ✓ Done（Log/Map）/ block N/A |
+| Doc carrying now-stale chunk count / pilot status | HANDOFF_PACKAGE §2 chunks 10,606→10,682 + Option C pilot status；SESSION_HANDOFF Current Baseline #3 chunks update | ✓ Done |
+| Regression + Lessons-to-Rule（repage_pdfs script design bug：backup 落 vault tree 撞 rglob recursion）| PROJECT_MASTER_SPEC §D 新註解（backup 必走 §5.a-compliant `dev/init_backup/<ts>/`，唔可放被 watch 嘅 data tree 內）+ 本 SESSION_LOG §3 deviation #2 段（incident codified；§8b：對 future repage path 有警示但本身唔 promote 為 standalone rule，monitoring）| ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。Channel B/retrieval PoC 喺姊妹資料夾 "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Testing/poc-retrieval/"（唔喺 git、Draft 零接觸）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S120：CB-3 Option C **pilot 3 sources（sag_2025_11/g06/g26）page-carry 生產 live + 北極星端到端 verified**。新增 `dev/vault/repage_pdfs.py`（PyMuPDF page-by-page → 加 `=== Page N ===` marker → driver `cb3_b2_pagecarry_migrate.py --only` per-source surgical replace 完整 reuse §E.14 pattern）。Supabase wiki_chunks 10,606→**10,682** (+76)。Live smoke：g26 q=「幼稚園收生」p=2/3/4 (0.67-0.70)；sag q=「學校行政手冊 校本管理」TOP-1 p=1 (0.657)；既有源 0 regression。經 2 條 §3 deviation 安全修正（diff scan 自我糾正 char drop bug；Option A backup 移出 vault 避 rglob ghost）。HEAD 將同步 origin/main commit+push。
+
+Current objective and progress state:
+- **Option C pilot 完成生產 live**：3 marker-less PDF 源（高流量 admin handbooks）page-carry replaced，全 100% page-resolvable，INVARIANT 109/109 PASS，4 QC gates + 5 live smoke query 全 PASS。
+- Whole-vault page-resolvable：13.2% (pre-B) → 23.7% (post-B-2) → **32.2% (post-pilot C)**。
+- **已知 finding（記）：** (a) sag_2025_11 PDF EDB 已更新 2025-11→2026-05（registry metadata 舊；對外 contract 唔變、純 internal naming drift，建議 freshness backlog）(b) g06 與 pri_curr_guide_2024 內容高度重疊，特定 query 競爭排名 = polish backlog 非 regression (c) local `wiki_index.json` 仍係 pre-pilot 狀態（按 B-2 紀律 --skip-local，Supabase query-authoritative）。
+- Q4（Channel A→`knowledge.json`→Circular System 對外契約）= deferred 獨立 track（3 選項，未明示勿掂）。Stage-2 adaptive combo closed-as-non-viable 勿復活。
+
+Pending tasks in priority order:
+1. **Option C broader（61 marker-less PDFs）**：pilot 證 pipeline 可 generalize；driver + repage_pdfs 已 reusable（擴 PILOT_LEGACY/PILOT_OUT dict 即可）；建議分批（例：10/批 × 6-7 批）、每批仍 §3 HIGH-risk Leonard 明示 go；總 cost ~$0.05、總 +800-1500 chunks。等 Leonard 排步伐。
+2. CB-3 收尾 backlog（低優先，非生產影響）：local `wiki_index.json` ↔ Supabase reconcile（pilot 後再 widen）；freshness metadata sag_2025_11→sag_2026_05；g06 vs pri_curr_guide_2024 SOURCE_ALIASES dedup polish。
+3. 既有 deferred：🔴 Supabase `57014` timeout / probes=8 live 未獨立 introspect（SQL 已備）；🔴 §E.10 admin-login security；🔴 FAIL-A Circular 注入 regression（record-only）；P2 分類148/P3；Mobile UI P2；HKEAA；FAIL-B `semanticRegression.ts:292` stale 1.3.1。
+4. Q4 對外契約收斂（deferred 獨立 track，B-only+CB-3 廣覆蓋後 Leonard 排）。
+
+Key files changed this session (全部 commit+push)：
+- Draft（new）：`dev/vault/repage_pdfs.py`（v1.1 含 §5.a backup convention + char/byte 區分修）；`dev/vault/{sag_2025_11,g06,g26}/extract_<src>_repaged.txt`（新整合單檔，含 page markers）。
+- Draft（deleted）：4 legacy split extracts（dev/vault/sag_2025_11/{extract_sag_ch1_ch3_ch6_ch7.txt,extract_sag_ch2_ch4_ch5.txt}、dev/vault/g06/extract_g06.txt、dev/vault/g26/extract_g26.txt）；legacy 內容已備份至 `dev/init_backup/20260520_091950_UTC/cb3c_pilot_legacy/`（gitignored，本機 reversible）。
+- Draft（modified）：dev/SESSION_LOG / SESSION_HANDOFF / PROJECT_MASTER_SPEC / CODEBASE_CONTEXT / HANDOFF_PACKAGE。
+- Supabase wiki_chunks（生產 live，非 git）：3 pilot 源 page-carry replace（738→814；total 10,606→10,682）。
+- Testing/：（無 PoC 改動本 session）。
+
+Known risks / blockers / cautions:
+- **§E.14 §8 教訓** + **本 session deviation #2 codified**：寫任何新 Supabase upload path 必須完整 reuse `upload_wiki_to_supabase.py`（seen_ids dedup + per-source DELETE/replace + canonical chunker）；任何寫文件/backup 落 `dev/vault/` 樹內必檢查會否撞 `load_vault_sources()` rglob（backup 一律走 §5.a-compliant `dev/init_backup/<ts>/`）。Broader Option C 沿用同 driver 必守。
+- local `wiki_index.json` vs Supabase 對 pilot 3 源 diverge（Supabase query-authoritative；reconcile 低優先 backlog）。
+- sag_2025_11 content fresher than metadata（EDB 已 2026-05；source_id/title 仲係 2025-11）— freshness backlog 非 blocker。
+- 64 marker-less PDF 可救 → 9 結構天花板（4 HTML + 5 xlsx）救唔到；最終 CB-3 北極星全覆蓋上限 ≈ 88%（既有 27 marker + 64 可救 / 113 vault）非 100%。
+- Supabase free-tier 偶發 `57014`/冷啟 transient（retry 即恢復，非 regression）；🔴 probes=8 live 未獨立 introspect；🔴 §E.10；🔴 FAIL-A（record-only）；§3c regression 既有 FAIL-A/B record-only。
+- 檔案 dormant 非刪（q.html/A·AB code path/backend /channel-a·/combined endpoint 全可逆，勿當 dead code 清）；Q4 契約 Channel A 管道照常餵下游未郁；未 Leonard 明示勿掂契約/下游；Stage-2 closed 勿復活。
+- egress 間歇每次自測（onrender /health 勿照抄）；EDB PDF 永遠用 `url_primary` 唔好用 `url_landing`（後者通常 404 §E.12）；路徑含空格 shell 必雙引號絕對路徑；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG（已遵）。
+
+Validation status:
+- PASS C-1 INVARIANT（109/109 non-pilot unchanged，0 ghost duplicate post-Option-A）+ pilot 100% page-resolvable + 32.2% whole-vault。
+- PASS C-2 production：Supabase total 10,682 match；3 pilot per-source count match；6 marker-less control sources unchanged；sample chunks 帶 `=== Page N ===` marker。
+- PASS Live smoke 北極星端到端 verified（5 query，2 條真正命中 pilot top-1/top-3 with page；3 條 B-2 既有 source unchanged）。
+- OPEN（非 pending-blocker）：Option C broader 61 PDFs 未做（pilot 證 pipeline 可，等 Leonard 排）；local↔Supabase reconcile（低優先 backlog）；sag freshness metadata（低優先）；g06/pri_curr_guide near-dup polish（低優先）；Q4 deferred；Stage-2 closed。
+
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE + 自測（git HEAD / knowledge.json._meta.stats vs baseline / egress 實測）後，**S120 已完成 + CB-3 Option C pilot 3 sources 生產 live —— 第一件事＝問 Leonard：(a) Option C broader 61 PDFs 推唔推？分批多細？(b) 抑或先做其他（freshness metadata / SOURCE_ALIASES polish / 🔴 Supabase 57014/probes-introspect / §E.10 / FAIL-A）？** 未 Leonard 明示前**唔好自行做 broader Option C / local↔Supabase reconcile / 掂 Q4 契約/下游 / 復活 Stage-2 / 改其他 Draft**。碰 admin/auth/公開推送前必讀 §E.10。CB-3 / B-only 方向 / Q4 track / §8 incident 詳見 auto-memory project_direction_review。
+```
+
+---
+
 ## 2026-05-19 Session 119 — Channel-B-only 搜尋 surface（Phase 1 promote）：全 user-facing A/AB access 移除（檔案 dormant、契約零接觸）
 
 - **ID:** Claude_20260519_1801
