@@ -7,7 +7,12 @@
 # extracted: 20260501
 # pipeline: expand_vault.py (auto)
 # ============================================================
+# repaged_at: 20260524_154600_UTC
+# repaged_pages: 153
+# pipeline: repage_pdfs.py (PyMuPDF page-by-page + === Page N === markers)
+# ============================================================
 
+=== Page 1 ===
  
  
  
@@ -40,8 +45,7 @@ Published for use in schools by the Education Bureau
 HKSARG 
 2023  
 Effective from Secondary 4 in the 2023/24 school year
- 
-
+=== Page 2 ===
  
  
 Contents 
@@ -138,8 +142,8 @@ Collaboration with Other KLAs
 17 
 3.5 
 Progression 
-17 
-
+17
+=== Page 3 ===
  
  
 3.6 
@@ -252,8 +256,8 @@ Set Texts
 88 
 6.3.2 
 Other Resource Materials 
-89 
-
+89
+=== Page 4 ===
  
  
 6.3.3 
@@ -289,11 +293,8 @@ Glossary
  
 140 
 Membership of the CDC-HKEAA Committee on  Literature in English 
-147 
- 
- 
- 
-
+147
+=== Page 5 ===
  
 i 
  
@@ -335,10 +336,8 @@ Room 1206, Wu Chung House
 213 Queen’s Road East 
 Wanchai, Hong Kong 
 Fax: 2834 7810 
-Email: english@edb.gov.hk 
- 
- 
-
+Email: english@edb.gov.hk
+=== Page 6 ===
  
 ii 
  
@@ -373,8 +372,8 @@ Secondary 1/2/3/4/5/6
 SBA 
 School-based Assessment 
 VTC 
-Vocational Training Council 
-
+Vocational Training Council
+=== Page 7 ===
  
 1 
  
@@ -415,11 +414,8 @@ examples to promote effective learning, teaching and assessment practices, and t
 and teachers plan, develop and implement their school Literature in English curriculum. For a 
 more comprehensive understanding of the English Language Education curriculum, this Guide 
 could be read in conjunction with the English Language Education Key Learning Area Curriculum 
-Guide (Primary 1 – Secondary 6) (2017). 
- 
- 
- 
-
+Guide (Primary 1 – Secondary 6) (2017).
+=== Page 8 ===
  
 2 
  
@@ -469,14 +465,8 @@ develop a greater sensitivity to the nuances of the English language; and
  
 be adequately prepared for areas of further study or work, where qualities promoted in the 
 study of literature, such as creativity, critical thinking and inter-cultural understanding, are 
-highly valued. 
- 
- 
- 
- 
- 
- 
-
+highly valued.
+=== Page 9 ===
  
 3 
  
@@ -529,8 +519,8 @@ are able to make connections among ideas and concepts, their motivation will be 
 the knowledge they acquire, and the skills and positive attitudes they develop in each key learning 
 area (KLA), will also be enhanced. For details about how cross-curricular collaboration can be 
 achieved through curriculum planning and development in Literature in English, please refer to 
-Sections 3.3.4 and 3.4.2. 
-
+Sections 3.3.4 and 3.4.2.
+=== Page 10 ===
  
 4 
  
@@ -582,9 +572,8 @@ Ensuring close alignment between curriculum and assessment.
 Curriculum Structure and Organisation 
  
 The curriculum framework for Literature in English provides the overall structure for organising 
-learning and teaching for the subject. It comprises a set of interlocking components including: 
- 
-
+learning and teaching for the subject. It comprises a set of interlocking components including:
+=== Page 11 ===
  
 5 
  
@@ -648,8 +637,8 @@ curriculum planning
 + 
 Effective learning, teaching and assessment 
 Overall Aims and Learning Targets of Literature in English and 
-the Seven Learning Goals of Secondary Education 
-
+the Seven Learning Goals of Secondary Education
+=== Page 12 ===
  
 6 
  
@@ -710,8 +699,8 @@ As always, the amount of time spent in learning and teaching is governed by a va
 school curriculum planning, students’ abilities and needs, students’ prior knowledge, teaching and assessment 
 strategies, teaching styles and the number of subjects offered. Schools should exercise professional judgement and 
 flexibility over time allocation to achieve specific curriculum aims and objectives as well as to suit students’ specific 
-needs and the school context.  
-
+needs and the school context.
+=== Page 13 ===
  
 7 
  
@@ -764,10 +753,8 @@ analytical and critical appreciation of the language, technique and style throug
 these thoughts and feelings are expressed (such as the use of tone and irony); 
  
 comparing and contrasting literary or creative texts in terms of themes, characterisation, 
-language, technique and style; 
- 
- 
-
+language, technique and style;
+=== Page 14 ===
  
 8 
  
@@ -826,13 +813,8 @@ actions and managing time effectively
 seeking or creating opportunities to broaden and deepen one’s own learning by soliciting 
 feedback and support from various sources 
 - 
-reviewing progress and identifying actions for improving performance 
- 
- 
- 
- 
- 
-
+reviewing progress and identifying actions for improving performance
+=== Page 15 ===
  
 9 
  
@@ -886,14 +868,8 @@ appreciate different cultures, attitudes and belief systems;
 develop respect for intellectual property through ethical and lawful use of copyright materials  
 (e.g. films, books, music); and 
  
-understand the value of academic integrity and honesty. 
- 
- 
- 
- 
- 
- 
-
+understand the value of academic integrity and honesty.
+=== Page 16 ===
  
 10 
  
@@ -942,9 +918,8 @@ demonstrate understanding of the different aspects of literary and creative text
 critical analyses and projects done individually or in groups 
  
 demonstrate an understanding that text interpretation is influenced by the interplay between 
-text, context and the reader 
- 
-
+text, context and the reader
+=== Page 17 ===
  
 11 
  
@@ -968,11 +943,8 @@ work
  
 gain an expanded vocabulary and deepened understanding of grammar by means of wide-
 ranging reading and viewing, and apply some of the literary language they have learned 
-appropriately in critical and creative writing 
- 
- 
- 
-
+appropriately in critical and creative writing
+=== Page 18 ===
  
 12 
  
@@ -1025,8 +997,8 @@ research and project work, participating in literary events and competitions) to
 use of learning time and develop students’ self-directed learning skills; 
  
 collect and reflect on evidence of effective learning and teaching to inform curriculum 
-development; 
-
+development;
+=== Page 19 ===
  
 13 
  
@@ -1079,9 +1051,8 @@ For the goal of “Information Literacy”, students can be guided to use inform
 information technology ethically and effectively through portfolio work.  
  
 For “Healthy Lifestyle”, aesthetic activities, such as visits to theatre productions, can be 
-organised to provide opportunities for appreciation of the arts.  
- 
-
+organised to provide opportunities for appreciation of the arts.
+=== Page 20 ===
  
 14 
  
@@ -1145,8 +1116,8 @@ participate in Speech Festivals and writing competitions;
  
 provide individual or small group consultation to better cater for individual needs; and 
  
-join workshops on poetry, drama, etc. conducted by relevant organisations. 
-
+join workshops on poetry, drama, etc. conducted by relevant organisations.
+=== Page 21 ===
  
 15 
  
@@ -1193,8 +1164,8 @@ knowledge-building, problem-solving and shared decision-making.
 Teachers should exercise flexibility in organising the class for different learning activities. 
 Depending on their nature and purpose, learning and teaching activities can be carried out in groups 
 of varying sizes. It is preferable to have a flexible space for students to discuss points and share 
-texts in small groups, research from books and the Internet, hold individual or group conferences 
-
+texts in small groups, research from books and the Internet, hold individual or group conferences
+=== Page 22 ===
  
 16 
  
@@ -1240,9 +1211,8 @@ of what each other is doing to avoid duplication of effort and enable students t
 they have learned in one class to support their learning in another. For example, work on rhyme 
 might occur at the same time as work on the language of advertising in the English lessons. Ideas 
 and materials from literature classes can also be used in the English curriculum for those who are 
-not studying Literature in English. The boundaries between the two subjects are porous.  
- 
-
+not studying Literature in English. The boundaries between the two subjects are porous.
+=== Page 23 ===
  
 17 
  
@@ -1286,9 +1256,8 @@ they will also start reading the set novel and working on the portfolio, as well
 appreciation of both seen and unseen passages of prose, poetry and drama. In S6, students will 
 continue examining the set texts they have not yet completed in S5. In addition to literary 
 appreciation, they will also work extensively on the film genre for the development of their 
-portfolio work for the SBA. For details of the SBA, please refer to Section 5.5.4.  
- 
-
+portfolio work for the SBA. For details of the SBA, please refer to Section 5.5.4.
+=== Page 24 ===
  
 18 
  
@@ -1340,10 +1309,8 @@ curriculum.
  
 School heads, panel chairpersons and teachers all share the responsibility of initiating appropriate 
 curriculum changes, and their roles as curriculum leaders may vary depending on the school 
-context. Below are some of the key roles they may play. 
- 
- 
-
+context. Below are some of the key roles they may play.
+=== Page 25 ===
  
 19 
  
@@ -1404,8 +1371,8 @@ to improve areas of weakness;
  
 be enthusiastic about writing and film and disseminate that enthusiasm; 
  
-introduce students to a wide variety of texts and set guided questions on them; 
-
+introduce students to a wide variety of texts and set guided questions on them;
+=== Page 26 ===
  
 20 
  
@@ -1420,9 +1387,8 @@ listen as much as question and instruct.
 Depending on the school context, the roles different key players assume may vary from school to 
 school. For more information on the key roles they may play, please refer to Section 3.2.6 of the 
 English Language Education Key Learning Area Curriculum Guide (Primary 1 – Secondary 6) 
-(2017).  
- 
-
+(2017).
+=== Page 27 ===
  
 21 
  
@@ -1468,10 +1434,8 @@ Poetry;
  
 Drama; and 
  
-Film. 
- 
- 
-
+Film.
+=== Page 28 ===
  
 22 
  
@@ -1523,9 +1487,8 @@ understanding and internalising the literary knowledge they have learned, and in
 applying it together with their world knowledge in interpreting texts. Any learning and 
 teaching approaches or strategies that teachers are planning to adopt or develop should be 
 rooted in this understanding, providing students with a diversity of learning contexts and 
-activities to enable them to explore, develop and apply their literary knowledge and skills. 
- 
-
+activities to enable them to explore, develop and apply their literary knowledge and skills.
+=== Page 29 ===
  
 23 
  
@@ -1575,8 +1538,8 @@ Approaches and Strategies
  
 As suggested in the Secondary Education Curriculum Guide (2017), an extensive range of learning 
 and teaching approaches should be employed to suit the content and focuses of learning and 
-students’ diverse needs. 
-
+students’ diverse needs.
+=== Page 30 ===
  
 24 
  
@@ -1624,9 +1587,8 @@ particular writing styles.
 Teaching as inquiry: This engages students in activities where they are required to exercise 
 their critical abilities and creativity to examine and discuss matters such as themes, characters, 
 events and technique and style, and to communicate ideas, views and feelings appropriately 
-and convincingly. 
- 
-
+and convincingly.
+=== Page 31 ===
  
 25 
  
@@ -1669,9 +1631,8 @@ or description are helpful, but not essential.
 “A stone lay on the ground for a century” is not, on its own, a story: there is no 
 action and stones do not normally interest us very much. 
  “A man ate his breakfast this morning” on its own is not a story. It seems 
-pointless. 
- 
-
+pointless.
+=== Page 32 ===
  
 26 
  
@@ -1720,8 +1681,8 @@ Holmes). Stories may have heroes/heroines (e.g. Ralph in Lord of the
 Flies and Jane Eyre in Jane Eyre) and villains (e.g. Quilp in The Old 
 Curiosity Shop), but flawed and conflicted central figures are even more 
 common in more sophisticated texts (e.g. Winston in Nineteen Eighty-
-Four, Okonkwo in Things Fall Apart and Mr. Rochester in Jane Eyre). 
-
+Four, Okonkwo in Things Fall Apart and Mr. Rochester in Jane Eyre).
+=== Page 33 ===
  
 27 
  
@@ -1780,7 +1741,7 @@ GENRE
 This word is used in a number of ways: to cover major categories like 
 prose itself, to describe styles, or to denote types of fiction, e.g. the 
 detective story (itself analysable into the classical style and the hard-
-
+=== Page 34 ===
  
 28 
  
@@ -1837,8 +1798,8 @@ simply say to someone out of the blue, “My sister’s new shoes are green”.
 Outside some absurdist works of literature, or works of “art for art’s 
 sake”, we similarly expect a story to have a message. A fable tries to 
                                                           
-* Sometimes also referred to as the moral of the story. 
-
+* Sometimes also referred to as the moral of the story.
+=== Page 35 ===
  
 29 
  
@@ -1892,8 +1853,8 @@ A story can be told in many ways, e.g. as a series of letters or a diary.
 Usually there is a narrator, possibly more than one in longer texts. One 
 common choice is third-person omniscient narration. The narrator knows 
 what is in everyone’s heart and mind and addresses the reader directly on 
-occasions (e.g. the narrator in George Eliot’s Silas Marner). Ordinarily, 
-
+occasions (e.g. the narrator in George Eliot’s Silas Marner). Ordinarily,
+=== Page 36 ===
  
 30 
  
@@ -1947,8 +1908,8 @@ be symbolic (e.g. H.E. Bates’ “The Waterfall” and Doris Lessing’s
 Orwell) contrast the good countryside with the evil city. Opening scenes 
 can establish the mood through setting (e.g. the fog in Charles Dickens’ 
 Bleak House, and the graveyard in his Great Expectations). Setting can 
-function at both the realist and symbolic level (e.g. the unpredictable river 
-
+function at both the realist and symbolic level (e.g. the unpredictable river
+=== Page 37 ===
  
 31 
  
@@ -1999,9 +1960,8 @@ Teaching suggestions for prose
 Teaching prose fiction commences perhaps best with the reading of short stories. With the help of 
 worksheets and teacher-led discussion, students can be introduced to the concepts and approaches 
 listed under Features of prose fiction. They need to learn to look at a story in terms of both content, 
-arguing about the story and its characters, and form. 
- 
-
+arguing about the story and its characters, and form.
+=== Page 38 ===
  
 32 
  
@@ -2067,8 +2027,8 @@ Are there any symbols?
 14. 
 Is there anything I need to research? 
 15. 
-Did I enjoy the story? 
-
+Did I enjoy the story?
+=== Page 39 ===
  
 33 
  
@@ -2109,8 +2069,8 @@ Love scene
 Sad leave-taking 
 Plot C 
 The villain senses victory 
-Villain killed 
-
+Villain killed
+=== Page 40 ===
  
 34 
  
@@ -2155,8 +2115,8 @@ students to use confidently when writing about unseen poems.
 DICTION 
 Diction refers to the poet’s choice of words. Words do not simply have 
 meaning; they have connotation, an atmosphere around them. Some 
-words are simple, everyday ones; others are much rarer or bring to mind 
-
+words are simple, everyday ones; others are much rarer or bring to mind
+=== Page 41 ===
  
 35 
  
@@ -2211,8 +2171,8 @@ Nine bean-rows will I have there…
  
 Inversions sometimes make it easier to create a rhyme, but using it for 
 this reason is regarded as a weakness. Any example is, of course, open 
-to debate: 
-
+to debate:
+=== Page 42 ===
  
 36 
  
@@ -2268,8 +2228,8 @@ not necessarily an example of personification or anthropomorphism.
  
 REPETITION 
 This is a common feature of poetry mainly used for emphasis, but also 
-for decoration and echo-effects. 
-
+for decoration and echo-effects.
+=== Page 43 ===
  
 37 
  
@@ -2324,8 +2284,8 @@ We bowled along a road that curved a spine …
 [Henley, At Queensferry] 
  
 (ten syllables, five feet, iambic rhythm: stresses on the even numbered 
-syllables). 
-
+syllables).
+=== Page 44 ===
  
 38 
  
@@ -2375,11 +2335,8 @@ sounds, or (ii) a similarity of non-initial consonants.
  
 It needs stressing again that this refers to phonetic similarity. Particular 
 care needs to be taken in the case of vowels as the Roman alphabet has 
-only five vowels, but English has many more vowel sounds. 
- 
- 
- 
-
+only five vowels, but English has many more vowel sounds.
+=== Page 45 ===
  
 39 
  
@@ -2430,8 +2387,8 @@ For Summer has o’erbrimmed their clammy cells.
 [Ode to Autumn] 
  
 The pattern involves “f”s, “l”s, the vowel sound “or” (all, core, gourd, 
-more, warm, for, o’er), various “s” sounds (s, sw, sh, z [hazel/bees]), 
-
+more, warm, for, o’er), various “s” sounds (s, sw, sh, z [hazel/bees]),
+=== Page 46 ===
  
 40 
  
@@ -2485,9 +2442,8 @@ The rugged trunk, indented deep with scars,
 Up to its very summit near the stars, 
 A creeper climbs, in whose embraces bound 
 No other tree could live. 
-[Dutt, Our Casuarina Tree] 
- 
-
+[Dutt, Our Casuarina Tree]
+=== Page 47 ===
  
 41 
  
@@ -2535,8 +2491,8 @@ teaching of poetry. (See “References”.)
  
 In addition to discussing some poems at length, the class should read many others quickly so that 
 they come to realise the enormous range of poetry in English. Different poems can be used to 
-illustrate different features of verse. For instance, one poem might have a special image, another 
-
+illustrate different features of verse. For instance, one poem might have a special image, another
+=== Page 48 ===
  
 42 
  
@@ -2579,9 +2535,8 @@ in how producers of literary works create them.
 Many of the ideas and concepts referred to in the earlier sections of this document are directly 
 relevant here also, though a play usually lacks a central narrator and this gives rise to a number of 
 differences. A dramatist may comment by means of a prologue, epilogue or chorus, but this is far 
-more limited than the interference of a narrator in a novel. 
- 
-
+more limited than the interference of a narrator in a novel.
+=== Page 49 ===
  
 43 
  
@@ -2633,8 +2588,8 @@ Characters are likely to be at the centre of any drama that students
 encounter at this stage in their education, and attitudes towards the 
 actions and viewpoints of the characters are central to the students’ 
 reaction to a play. Techniques of characterisation should also be noted: 
-the actions, speech, style of speech, and description of the character, as 
-
+the actions, speech, style of speech, and description of the character, as
+=== Page 50 ===
  
 44 
  
@@ -2684,9 +2639,8 @@ contemporary political story could be turned into drama, and what themes the pla
 might contain. 
  
 To improve awareness of how a character’s lines have to suit personality, students can be given a 
-list of character-types and asked to write suitable lines for them to be spoken in a similar situation.  
- 
-
+list of character-types and asked to write suitable lines for them to be spoken in a similar situation.
+=== Page 51 ===
  
 45 
  
@@ -2741,8 +2695,8 @@ development. To these are added sound and vision, which distinguishes film from 
 and makes it a unique and powerful medium capable of stimulating students’ senses and cognitive 
 faculties, enlarging their cultural knowledge and understanding, and adding variety to the 
 curriculum. The choice of films for discussion and SBA portfolio is not restricted to those based 
-on literary works. Instead, films are selected on the principles of interest, depth and literary merit. 
-
+on literary works. Instead, films are selected on the principles of interest, depth and literary merit.
+=== Page 52 ===
  
 46 
  
@@ -2789,8 +2743,8 @@ film-making is frequently more “theatrical” with famous stage-actors,
 such as Sir Ian McKellen and Dame Glenda Jackson, taking a rather 
 different approach to their performances. Occasionally directors make a 
                                                           
-* The document uses the term to refer to both males and females. 
-
+* The document uses the term to refer to both males and females.
+=== Page 53 ===
  
 47 
  
@@ -2847,8 +2801,8 @@ analysis of particular films.
 NARRATION 
 Films may contain point of view (POV) shots that show us the world 
 from a character’s particular perspective, but it is hard to maintain for 
-long and most films only treat the camera as a neutral all-seeing narrator 
-
+long and most films only treat the camera as a neutral all-seeing narrator
+=== Page 54 ===
  
 48 
  
@@ -2904,8 +2858,8 @@ Set – Some settings belong to particular genres (e.g. Death Valley
 to westerns, the haunted house). Confined spaces can give a feeling 
 of being trapped; while the open road and open countryside signify 
 freedom (the contrast can be found in Bonnie and Clyde, dir. A. 
-Penn, 1967 and the Lord of the Rings trilogy, dir. P. Jackson, 
-
+Penn, 1967 and the Lord of the Rings trilogy, dir. P. Jackson,
+=== Page 55 ===
  
 49 
  
@@ -2963,8 +2917,8 @@ not wish to spoil the enjoyment of their readers, who might watch the
 movie subsequent to reading the review, and consequently they are 
 sparing of details of plot, especially if there are any surprises or twists. 
 A film analysis, similar to the analytical study or essay required in the 
-SBA of the subject, is usually longer and written in a more scholarly 
-
+SBA of the subject, is usually longer and written in a more scholarly
+=== Page 56 ===
  
 50 
  
@@ -3011,10 +2965,8 @@ Literary aspects: questions to consider
 4. From whose point of view is the story told? 
 5. What is the theme of the film? 
 6. What is the mood of the film? 
-7. What symbols are used in the film? 
- 
- 
-
+7. What symbols are used in the film?
+=== Page 57 ===
  
 51 
  
@@ -3060,11 +3012,8 @@ you feel or think about?
 you feel or think about? 
 3. What scene(s) had very effective or unusual editing? 
 4. Were any special effects used in the film? Did they add to the 
-overall success of the film or otherwise? 
- 
- 
- 
-
+overall success of the film or otherwise?
+=== Page 58 ===
  
 52 
  
@@ -3100,16 +3049,8 @@ It should be noted that the sample analyses and suggested answers included in th
 appendices are for illustration purposes. They are examples which aim to provide a comprehensive 
 picture of what teachers may look for in the various texts. They are by no means representative of 
 the kind of work students generally produce, though they should always be encouraged and helped 
-produce work of a high quality. 
- 
- 
- 
- 
- 
- 
- 
- 
-
+produce work of a high quality.
+=== Page 59 ===
  
 53 
  
@@ -3160,8 +3101,8 @@ around, as if imploring them to help her.
  
                                                           
 * From Ch. 7 from The Old Curiosity Shop (1998) by Dickens, Charles edited by Brennan, Elizabeth. By 
-permission of Oxford University Press. 
-
+permission of Oxford University Press.
+=== Page 60 ===
  
 54 
  
@@ -3220,8 +3161,8 @@ give a framework for the analysis, e.g.
  
 aim of the passage; 
  
-narrative voice; 
-
+narrative voice;
+=== Page 61 ===
  
 55 
  
@@ -3271,8 +3212,8 @@ motionless”. Although Nell is dead, she remains very present; she and her belo
 the grammatical subject of many of the sentences. 
  
 Throughout the passage, like the sounding of a funeral bell, tolls the oft repeated 
-“She was dead” 
-
+“She was dead”
+=== Page 62 ===
  
 56 
  
@@ -3330,8 +3271,8 @@ Is the story sexist?
  
 Post-reading activity 
 Ask the students to write a critical analysis of the story, or set them an essay on some aspect 
-of it. 
-
+of it.
+=== Page 63 ===
  
 57 
  
@@ -3374,9 +3315,8 @@ loneliness and the relationship of the tourist to the less sophisticated, but mo
 native (a key element in, for example, the work of D.H. Lawrence and E.M. Forster). One 
 can also see in the story the intense anxiety of the 1950s, caused by psychological theories 
 in the United States, about the danger of mothers letting their sons become “mommy’s 
-boys” who would probably develop into homosexuals. 
- 
-
+boys” who would probably develop into homosexuals.
+=== Page 64 ===
  
 58 
  
@@ -3418,9 +3358,8 @@ obstacle no longer concerns him once it has been passed. There is, however, a ce
 openness – is there also a sense of the emptiness of human achievement; how sometimes 
 things we desperately wanted can suddenly seem trivial when we have them? Anyway, 
 this is a fine and subtle story reflecting on a young man’s development – though whether 
-a feminist would find some of its assumptions highly questionable is another point… 
-  
-
+a feminist would find some of its assumptions highly questionable is another point…
+=== Page 65 ===
  
 59 
  
@@ -3476,9 +3415,8 @@ Read the poem.
  
 Ask for comment on the diction, tone, imagery and message. 
  
-Ask for comment on the sounds in lines 4–5 and 15. 
- 
-
+Ask for comment on the sounds in lines 4–5 and 15.
+=== Page 66 ===
  
 60 
  
@@ -3528,8 +3466,8 @@ personification of regret as, at the end of the poem, she sits hopeless and alon
 The strong consonants of “pluck” and “snap” emphasise the force of these actions. 
 Alliteration is used for decorative emphasis in lines 7, 8, 9, 10, 12 and 15. The assonance 
 of “o” (-lone/-row) sounds like a sigh (Oh). The poem expresses the beauty of the woman, 
-but shows how she has misused and wasted it. 
-
+but shows how she has misused and wasted it.
+=== Page 67 ===
  
 61 
  
@@ -3584,10 +3522,8 @@ End your groan, and come away.
  
 CARIOLA 
 Hence, villains, tyrants, murderers! Alas! 
-What will you do with my lady? – Call for help!  
- 
- 
-
+What will you do with my lady? – Call for help!
+=== Page 68 ===
  
 62 
  
@@ -3650,8 +3586,8 @@ So I were out of your whispering. Tell my brothers
 That I perceive death, now I am well awake, 
 Best gift is they can give or I can take. 
 I would fain put off my last woman’s-fault9, 
-I’d not be tedious to you.  
-
+I’d not be tedious to you.
+=== Page 69 ===
  
 63 
  
@@ -3711,9 +3647,8 @@ Let me but speak with the Duke. I’ll discover
 Treason to his person.  
  
 BOSOLA 
-Delays:– throttle her. 
- 
-
+Delays:– throttle her.
+=== Page 70 ===
  
 64 
  
@@ -3763,13 +3698,8 @@ change of attitude.
 13. i.e. engaged to be married 
 14. i.e. the rope around her neck 
 15. quick with child = pregnant 
-16. credit = good reputation 
- 
- 
- 
- 
- 
-
+16. credit = good reputation
+=== Page 71 ===
  
 65 
  
@@ -3828,8 +3758,8 @@ Post-reading activity
 Ask students to write either an analysis bringing all these points together, or some production 
 notes on the clothes/costumes, lighting, props, scenery, background noises, music, stage 
 movement and style of speech they would recommend to bring out the full potential of the 
-extract. 
-
+extract.
+=== Page 72 ===
  
 66 
  
@@ -3878,8 +3808,8 @@ this she contrasts with the Duchess, who shows her noble blood by accepting her 
 Although the scene seems to question gender stereotypes, it accepts ones about social class. 
  
 Overall, the scene is dark and frightening with various bizarre details creating an unsettling, 
-slightly weird effect. 
-
+slightly weird effect.
+=== Page 73 ===
  
 67 
  
@@ -3928,9 +3858,8 @@ the relationship between the two scenes.
  
 Post-viewing activity 
 Students write a critical analysis in the form of a commentary on the extract from the film. 
-They may work in groups if they prefer. 
- 
-
+They may work in groups if they prefer.
+=== Page 74 ===
  
 68 
  
@@ -3977,8 +3906,8 @@ conversation follows, portrayed by means of cuts and close-ups. Gollum begs, but
 sideways-slanting eyes make him seem untrustworthy; Sam’s eyes look down showing 
 his distrust and unease, and Frodo gives Sam a sidelong glance, knowing he is not trusted. 
 This increases the suspense generated by the characters’ relationship, embodying as it 
-does the potential for betrayal. The gates clang shut. 
-
+does the potential for betrayal. The gates clang shut.
+=== Page 75 ===
  
 69 
  
@@ -4057,8 +3986,8 @@ and finds open fields. Cutting back to the arena, the screen shows a noblewoman 
 and kneeling over him with a startling blue sky behind her head. The camera looks down 
 at the dying Maximus, and the woman weeps. Maximus’s death is realised cinematically 
 as a strange floating movement over the rose-petalled ground. His wife and son prepared 
-to greet him among the fields in that other world. 
-
+to greet him among the fields in that other world.
+=== Page 76 ===
  
 70 
  
@@ -4101,8 +4030,8 @@ its joy also. The camera returns to a misty Colosseum, and rises. We see, beyond
 of the walls, Roman splendour with a red sun above it. Given the events, this is probably 
 sun-set: Commodus and Maximus have died, and the Empire is entering a period of 
 decline; but there is room for the opposite view – after all, Maximus has finally defeated 
-the tyrant. The music climaxes, creating a final mood of epic dignity. 
-
+the tyrant. The music climaxes, creating a final mood of epic dignity.
+=== Page 77 ===
  
 71 
  
@@ -4144,8 +4073,8 @@ Gertrude. The work of Lacan has created interest in the development of the Self 
 of the Other. 
  
 The more ways in which students are encouraged to look at texts, the richer their experience of 
-literature will be. 
-
+literature will be.
+=== Page 78 ===
  
 72 
  
@@ -4189,8 +4118,8 @@ interpretation and personal response. For example, they may be asked to discuss 
 certain character who has opted for a particular course of action, and give justifications for their 
 interpretation; or they can be asked to imagine that they are that character, disclosing their feelings 
 in a letter to an intimate friend after reflecting on the incident. Engaging students in this way will 
-enable them to explore their own feelings, develop their own responses and make their own 
-
+enable them to explore their own feelings, develop their own responses and make their own
+=== Page 79 ===
  
 73 
  
@@ -4235,8 +4164,8 @@ teachers are encouraged to promote include:
  
 Collaborative learning – This provides students with the opportunity to learn actively, to 
 negotiate with each other to discover meaning, and to develop and share understanding of the 
-literary texts. 
-
+literary texts.
+=== Page 80 ===
  
 74 
  
@@ -4285,12 +4214,8 @@ create situations and select suitable questioning strategies that will provoke t
 as encourage experimentation and creativity; and 
  
 respond to students who require extra help and those who are ready to take on greater 
-challenges. 
- 
- 
- 
- 
-
+challenges.
+=== Page 81 ===
  
 75 
  
@@ -4336,9 +4261,8 @@ straightforward ones can be given to those who find the subject challenging. The
 more emphasis on work outside the class, with students able to choose their own texts and focus 
 their studies on aspects that interest them. Those who are practically-minded might find making a 
 film, staging a drama, or designing a set more exciting. These are all valid activities in terms of 
-literary study and ultimately draw on the same skills. 
- 
-
+literary study and ultimately draw on the same skills.
+=== Page 82 ===
  
 76 
  
@@ -4396,10 +4320,8 @@ can perform and monitor their progress.
 Feedback can be given by teachers or peers, and students presenting their assignment can learn 
 from the reactions of the rest of the class and from self-reflection. While projects are underway, 
 verbal comments should suffice, but a larger piece of completed work merits a detailed written 
-response, recognising achievement and pointing to areas where improvement could be made. 
- 
- 
-
+response, recognising achievement and pointing to areas where improvement could be made.
+=== Page 83 ===
  
 77 
  
@@ -4443,10 +4365,8 @@ promoting learning by providing information about students’ achievements in re
 learning targets and objectives. Assessment helps students, their teachers and parents understand 
 the learning performance and progress, facilitating planning for further improvement. To match 
 the learning targets, objectives and outcomes, different modes of assessment serving formative 
-and/or summative purposes are encouraged in the Literature in English curriculum. 
- 
- 
-
+and/or summative purposes are encouraged in the Literature in English curriculum.
+=== Page 84 ===
  
 78 
  
@@ -4503,10 +4423,8 @@ AaL engages students in reflecting on and monitoring their progress
 of learning through strengthening their roles and responsibilities in 
 relation to their learning.  Students are actively involved in 
 regulating the learning process, evaluating their own performance 
-against the learning goals, and planning for the next step in learning.  
- 
- 
-
+against the learning goals, and planning for the next step in learning.
+=== Page 85 ===
  
 79 
  
@@ -4552,8 +4470,8 @@ learning and teaching.
 (a) 
 Alignment with the Learning Objectives 
 A range of assessment practices should be used to assess the achievement of different learning 
-objectives for whole-person development. These include teacher assessment, self-assessment and 
-
+objectives for whole-person development. These include teacher assessment, self-assessment and
+=== Page 86 ===
  
 80 
  
@@ -4600,11 +4518,8 @@ in learning.
 Encouraging Peer Assessment and Self-assessment 
 In addition to giving their feedback, teachers should also provide opportunities for peer assessment 
 and self-assessment in student learning. The former enables students to learn among themselves, 
-and the latter promotes reflective thinking which is vital for students’ lifelong learning. 
- 
- 
- 
-
+and the latter promotes reflective thinking which is vital for students’ lifelong learning.
+=== Page 87 ===
  
 81 
  
@@ -4644,9 +4559,8 @@ in an examination.
 Projects 
 These are extended pieces of work, which may include conventional written work as well as 
 work presented in video/audio or artwork form. Students should consult the teacher on the 
-length and choice of topic for the work they intend to produce and on the mode of presentation. 
- 
-
+length and choice of topic for the work they intend to produce and on the mode of presentation.
+=== Page 88 ===
  
 82 
  
@@ -4686,10 +4600,8 @@ The outcomes that are assessed and examined through the HKDSE Examination should
 with the aims, objectives and intended learning outcomes of the three-year senior secondary 
 curriculum. To enhance the validity of public assessment, the assessment procedures should 
 address the range of valued learning outcomes, and not just those that are assessable through 
-external written examinations. 
- 
- 
-
+external written examinations.
+=== Page 89 ===
  
 83 
  
@@ -4733,8 +4645,8 @@ decisions that are fair and defensible.
 5.5.2 Assessment Design 
  
 The table below shows the assessment design of the subject with effect from the 2026 HKDSE 
-Examination. The assessment is subject to continual refinement in the light of feedback from live 
-
+Examination. The assessment is subject to continual refinement in the light of feedback from live
+=== Page 90 ===
  
 84 
  
@@ -4818,8 +4730,8 @@ paper.
  
 In the context of public assessment, SBA refers to assessments administered in schools and marked 
 by the students’ own teachers. The primary rationale for SBA in Literature in English is to enhance 
-the validity of the overall assessment and extend it to include a more extensive range of learning 
-
+the validity of the overall assessment and extend it to include a more extensive range of learning
+=== Page 91 ===
  
 85 
  
@@ -4865,8 +4777,8 @@ should:
 advise students on the choice of film(s) and topic for the analytical study or essay; 
  
 provide guidance to students on the responsible, ethical and legal use of research tools and 
-reference materials, as well as the proper citation of sources of information, including AI 
-
+reference materials, as well as the proper citation of sources of information, including AI
+=== Page 92 ===
  
 86 
  
@@ -4922,8 +4834,8 @@ U
 2 
 3 
 4 
-5 
-
+5
+=== Page 93 ===
  
 87 
  
@@ -4942,10 +4854,8 @@ judgement of panels of external moderators through the inspection of samples of 
  
 To provide finer discrimination for selection purposes, the Level 5 candidates with the best 
 performance have their results annotated with the symbols ** and the next top group with the 
-symbol *. The HKDSE certificate itself records the Level awarded to each candidate. 
- 
- 
-
+symbol *. The HKDSE certificate itself records the Level awarded to each candidate.
+=== Page 94 ===
  
 88 
  
@@ -4998,9 +4908,8 @@ critical exploration of literary texts.
  
 A list of works is provided in Appendix 5. Teachers might like to refer to it when selecting and 
 using supplementary materials to increase students’ literary exposure and their skills of literary 
-comprehension and appreciation. 
- 
-
+comprehension and appreciation.
+=== Page 95 ===
  
 89 
  
@@ -5055,8 +4964,8 @@ EDB Educational MultiMedia (EMM) videos and resources (e.g. Between the Lines: H
 Kong Poetry in English) 
  
 Resources in support of student activities and competitions (e.g. Poetry Remake 
-Competition) 
-
+Competition)
+=== Page 96 ===
  
 90 
  
@@ -5107,8 +5016,8 @@ critically analysing all information collected and expressing ideas in their own
 6.3.5 Community Resources 
  
 Many parties in the community can facilitate life-wide learning by providing students with 
-authentic learning experiences, professional services and facilities. Teachers are encouraged to 
-
+authentic learning experiences, professional services and facilities. Teachers are encouraged to
+=== Page 97 ===
  
 91 
  
@@ -5152,8 +5061,8 @@ Teachers are encouraged to exercise their professional judgement in deciding how
 use of learning and teaching resources to suit students’ interests and learning styles. Teachers can, 
 for instance, adjust the input or output of learning tasks to enable students to learn more effectively. 
 For more specific examples of how learning and teaching resources can be used flexibly, please 
-refer to Section 4.6 
-
+refer to Section 4.6
+=== Page 98 ===
  
 92 
  
@@ -5175,11 +5084,8 @@ establish an inventory system that ensures easy expansion and writing-off of res
 materials; and 
  
 devise a review mechanism for evaluating existing resources to further support learning, 
-teaching and curriculum development. 
- 
- 
- 
-
+teaching and curriculum development.
+=== Page 99 ===
  
 93 
  
@@ -5243,11 +5149,8 @@ The Painted Veil (2006) Dir: John Curran
 Life of Pi (2012) Dir: Ang Lee 
  
  *One or more of these films can be used as a means of preparation for the SBA component but 
-should not form its main focus.   
- 
- 
- 
-
+should not form its main focus.
+=== Page 100 ===
  
 94 
  
@@ -5277,8 +5180,8 @@ negative effects of letting our dreams die and are, accordingly, unmetrical. One
 bird running along dragging its useless wing on the ground. The rhyme and alliteration (“dreams 
 die”, “field frozen”) show the beauty of the dreams, though they are as fragile and easily disrupted 
 as the poem. The ending of the poem on the image of winter and the rhyme “snow” add sadness. 
-It suggests it is not easy to keep the dreams alive; it is perhaps easier to despair. 
-
+It suggests it is not easy to keep the dreams alive; it is perhaps easier to despair.
+=== Page 101 ===
  
  
  
@@ -5314,8 +5217,8 @@ interesting that the poet chooses not to repeat the pattern
 may the tide 
 may you kiss 
 but moves the next two “may”s further into the line. Possibly she feels the pattern would become 
-too rigid and harm the graceful flow of the poem. 
-
+too rigid and harm the graceful flow of the poem.
+=== Page 102 ===
  
  
  
@@ -5355,10 +5258,8 @@ microscopic, spores (twice), cooperation, spreading, inseparable and pole. The e
 “mutual genetic cooperation” (11 syllables) mimics the act of working together. The final stanza 
 stresses “l” sounds: circles, climbs, ladder of light, infernal, endless and eternal (the phonetically 
 closely connected “r” sound is also involved in this effect). The poem ends neatly in a two-syllable, 
-two-word phrase: For dust. 
- 
- 
-
+two-word phrase: For dust.
+=== Page 103 ===
  
  
  
@@ -5401,10 +5302,8 @@ again. This disruption of the poem’s structure mirrors the feelings of the poe
 in the change in the rhyme scheme: a/b/c/b in the first two stanzas, but a/b/c/d in the third with an 
 internal half-rhyme (gowns/rounds – this may have been a full rhyme to Blake) and a full internal 
 rhyme in the final line (briars/desires). The further importance of these lines is stressed by the use 
-of alliteration (w and b). 
- 
- 
-
+of alliteration (w and b).
+=== Page 104 ===
  
  
  
@@ -5454,8 +5353,8 @@ be a pause in any recitation of the poem, so we start in medias res; the old lad
 her feast. The poem has to be read aloud. The vowels forced the reader to purse the lips as 
                                                           
 * By William Carlos Williams, from COLLECTED POEMS: 1909-1939, VOLUME I, copyright © 1938 by New 
-Directions Publishing Corp. Reprinted by permission of New Directions Publishing Corp. 
-
+Directions Publishing Corp. Reprinted by permission of New Directions Publishing Corp.
+=== Page 105 ===
  
  
  
@@ -5470,9 +5369,8 @@ on its different appearances). Then the lips are back to work with “sucked”,
 [Note: use of phonetic terms such as labial, dental and sibilant is useful but by no means necessary 
 – observing the phenomenon is what counts, not the technical term. Teachers should use their own 
 discretion and knowledge of their students when deciding whether these terms would interest and 
-assist their students or merely dampen their interest.] 
- 
-
+assist their students or merely dampen their interest.]
+=== Page 106 ===
  
  
  
@@ -5521,8 +5419,8 @@ satisfied with whatever the servant has told them and are talking pleasantly to 
 becomes more and more agitated, making more and more noise to cover the sound of the dead 
 man’s heart, which to him is frighteningly audible. He insists the police must also have been able 
 to hear it, but that only adds to the irony of the piece. Obviously, dead men’s hearts do not beat 
-and no man’s heartbeat makes a deafening sound. Although the narrator does not realise it, he has 
-
+and no man’s heartbeat makes a deafening sound. Although the narrator does not realise it, he has
+=== Page 107 ===
  
  
  
@@ -5579,11 +5477,8 @@ Do you think the policemen see and hear the same as the servant?
  
 What is the effect of the repetition used in the extract? 
  
-The words that might be glossed are: 
- 
- 
- 
-
+The words that might be glossed are:
+=== Page 108 ===
  
  
  
@@ -5634,8 +5529,8 @@ eyes, compared to when she was a solemn girl setting out on the start of her lif
 the open windows). 
                                                           
 * Reprinted by permission of The Society of Authors as the Literary Representative of the Estate of Virginia 
-Woolf. 
-
+Woolf.
+=== Page 109 ===
  
  
  
@@ -5650,10 +5545,8 @@ everyday, but has a certain charm and naturalness.
  
 Further notes 
 Note that it is acceptable to make tentative suggestions in the form of a question or by using words 
-like “possibly”. Few, if any, glosses would be necessary. 
- 
- 
-
+like “possibly”. Few, if any, glosses would be necessary.
+=== Page 110 ===
  
  
  
@@ -5693,8 +5586,8 @@ health. Although the grass, pink cloud, lotus and little house lighten the pictu
 hanging over it do so “with a suggestion of sad tenderness.” Movement is kept to a minimum also: 
 oozing is slow, the leaves are unstirring, the men only pole along, the water is stagnant, the cloud 
 drifts, and the palms droop. Life here seems almost arrested. The scene seems set for sadness or 
-even horror. 
-
+even horror.
+=== Page 111 ===
  
  
  
@@ -5740,8 +5633,8 @@ effect of the frightening metallic sounds the mare fears so much (BraKes/BaCK/tr
 reBounding/Buffers/triKing/cymBals/lashIng/rIghtful/strIdent/ConCussions/: b/k/i). Inversion is 
 used (“back came the trucks” and “Back she went”) to match the action being described. Many 
 similar comments could be made about the sentence “But…whirlwind”. Perhaps the whirlwind 
-reflects also Gudrun’s emotions. 
-
+reflects also Gudrun’s emotions.
+=== Page 112 ===
  
  
  
@@ -5753,9 +5646,8 @@ It seems possible that the passage may describe the opening of a stormy relation
 A final point is the strange way in which the locomotive seems to have the will of its own and puts 
 on its own brakes. Possibly this suggests that we live in a world where “will” is a force almost 
 beyond understanding that determines destiny. The locomotive is in a sense a symbol of the horse 
-rider. 
- 
-
+rider.
+=== Page 113 ===
  
  
  
@@ -5801,7 +5693,7 @@ format (ironically printed on foolscap paper/F4) and the mind of its editor, who
 is getting underway as the extract ends: an idealist, a man who likes to be independent, who is 
 sensitive to being laughed at, stubborn and with the self-image of a man of principle, rather than 
 of business. The passage sets the scene well for a story to commence.
-
+=== Page 114 ===
  
  
  
@@ -5857,8 +5749,8 @@ What genre of film does The African Queen belong to?
 8. 
 How does Hitchcock create suspense in Psycho? 
 9. 
-Does The Death of a Salesman have a hero? 
-
+Does The Death of a Salesman have a hero?
+=== Page 115 ===
  
  
  
@@ -5907,9 +5799,8 @@ The question relates to Keating’s character (do you agree he is an egotist?), 
 blame lies for Niel’s suicide (with his father, himself, the school, Keating…?). The careful 
 candidates might like to distinguish between his/her view and the film’s – i.e. that morally 
 Keating must take a lot of the blame, but that Peter Weir and Robin Williams draw our 
-attention away from this. 
- 
-
+attention away from this.
+=== Page 116 ===
  
  
  
@@ -5959,8 +5850,8 @@ turn?
  
 Candidates should be made aware that an examination question provides an opportunity for a 
 student to display his/her ability and knowledge. A perfunctory response may in a sense answer a 
-question, but the answer itself is not as important here as the discussion that leads to it. 
-
+question, but the answer itself is not as important here as the discussion that leads to it.
+=== Page 117 ===
  
  
  
@@ -6011,9 +5902,8 @@ can be compared in terms of their family, gender and social roles, their qualiti
 their conflicts with other characters and society, how they cope with the conflicts and their 
 overall image in the texts (e.g. heroine or victim). The hidden messages and purposes of 
 creating such female characters (e.g. to subvert gender stereotypes, to critique male 
-dominance in a patriarchal society) can also be discussed in the essay.  
- 
-
+dominance in a patriarchal society) can also be discussed in the essay.
+=== Page 118 ===
  
  
  
@@ -6066,10 +5956,8 @@ Macbeth.
 Give a speech to the assembled people of San Piedro after the end of the events of Snow 
 Falling on Cedars and tell them what you feel they should have learned from the events. 
 10. Imagine you were one of Sal’s community in The Beach. What would you have done in 
-the final days as things went sour? 
- 
- 
-
+the final days as things went sour?
+=== Page 119 ===
  
  
  
@@ -6120,9 +6008,8 @@ The question asks us to judge how happy Max is and at peace with himself. Would
 Rebecca find his situation worthy of mockery or would she seethe with hate that he had 
 avoided punishment? The dialogue form gives plenty of opportunity for inquiring about 
 reasons for attitudes. An attempt would have to be made to imitate the aristocratic tone of 
-Max and Rebecca. 
- 
-
+Max and Rebecca.
+=== Page 120 ===
  
  
  
@@ -6145,11 +6032,8 @@ wish for him to die. I think I would have kept my head and realised humanity had
 put before our selfish convenience.”) 
  
 It is clear that questions 9 and 10 both offer occasions for plot summary. Candidates can 
-only be successful if they learn to resist this. 
- 
- 
- 
-
+only be successful if they learn to resist this.
+=== Page 121 ===
  
  
  
@@ -6218,8 +6102,8 @@ The shark is “he”, a worthy opponent.
 We see the shark as though through the sights of the harpoon. 
  
 − 
-The three participles bring the jaws into focus. 
-
+The three participles bring the jaws into focus.
+=== Page 122 ===
  
  
  
@@ -6268,8 +6152,8 @@ the old man’s “malignancy”. The old man hates the shark utterly.
  
  
 Other sentences that mirror the action could be “The shark swung over…”, and the last 
-part of “The water was white…”. 
-
+part of “The water was white…”.
+=== Page 123 ===
  
  
  
@@ -6321,8 +6205,8 @@ Discuss how the language is used to create the style.
  
  
                                                           
-* Reprinted by permission of HarperCollins Publishers Ltd.©1996. 
-
+* Reprinted by permission of HarperCollins Publishers Ltd.©1996.
+=== Page 124 ===
  
  
  
@@ -6387,8 +6271,8 @@ Sample analysis
 Menaced by the growing power of Sauron with his forces of evil in Mordor, the 
 Fellowship of the Ring, made up of representatives of some of the different races of Middle 
 Earth, forms to resist him. Their prime task is to prevent the One Ring in the possession 
-of Frodo the hobbit, from falling into Sauron’s hands, while at the same time carrying it deep 
-
+of Frodo the hobbit, from falling into Sauron’s hands, while at the same time carrying it deep
+=== Page 125 ===
  
  
  
@@ -6435,8 +6319,8 @@ We read later also of a mouth.
 There is a stress on the absence of colour, e.g. “darkling”, “pallid”, “Shadow”, “grey” 
 and “black-boned”. The imagery is of death, e.g. “black-boned”, “decay”, “stony-faced”, 
 “maggot-holes”. Tolkein, indeed, musters all his art to create this grim picture to emphasise 
-the difficulty of the hobbits’ task and increase the suspense. 
-
+the difficulty of the hobbits’ task and increase the suspense.
+=== Page 126 ===
  
  
  
@@ -6489,8 +6373,8 @@ Candidates may make the following points:
 − naivety (confidence in sales talk) 
                                                           
 * From Ch. 10 from The Diary of a Nobody (1998) edited by Grossmith, G. & W. By permission of Oxford 
-University Press. 
-
+University Press.
+=== Page 127 ===
  
  
  
@@ -6546,8 +6430,8 @@ As we find throughout the book, a lot of the humour comes from the diarist’s m
 detail. For example, the mention of the bath-towels adds the touch of humour so typical of this 
 gentle satire of lower middle-class pretentiousness. Generally, published diaries have more 
 traditionally dealt with the doings of great statesmen rather than the daily lives of clerks. The 
-bourgeois interest in material possessions is well-caught in this way. 
-
+bourgeois interest in material possessions is well-caught in this way.
+=== Page 128 ===
  
 122 
 Example 4 
@@ -6598,8 +6482,8 @@ the menagerie. He has a way with the beasts.
 Androcles (distressed): Not if they are in cages. They should not be kept in 
 cages. 
                                                           
-* Reprinted by permission of The Society of Authors, on behalf of the Estate of Bernard Shaw. 
-
+* Reprinted by permission of The Society of Authors, on behalf of the Estate of Bernard Shaw.
+=== Page 129 ===
  
 123 
  
@@ -6658,10 +6542,8 @@ Shaw’s failure to confront true fanaticism or to give the characters any histo
 credibility weakens the play’s impact. 
  
 − 
-The play’s lightness of tone also makes it unable to deliver its message convincingly. 
- 
- 
-
+The play’s lightness of tone also makes it unable to deliver its message convincingly.
+=== Page 130 ===
  
 124 
 Sample analysis 
@@ -6696,8 +6578,8 @@ feelings.
 The rationalist Shaw is satirising hard-line religious positions, but somehow the 
 failure to confront true fanaticism or to make any attempt to give the characters any historical 
 credibility weakens the play’s impact. Its lightness of tone makes it unable to deliver its 
-message convincingly. 
-
+message convincingly.
+=== Page 131 ===
  
 125 
 Example 5 
@@ -6779,10 +6661,8 @@ How sharper than a serpent’s tooth it is,
  
 To have a thankless child. Away, away. 
 [Exit] 
-******************************************************************* 
- 
- 
-
+*******************************************************************
+=== Page 132 ===
  
 126 
 (i) 
@@ -6839,8 +6719,8 @@ what has actually happened so far, but it also anticipates the real depths of Go
 Lear’s defence of his followers is also exaggerated. He is a man of extremes. The pendulum 
 which swung so firmly against Cordelia at the beginning of the play is now on the move again. 
 Lear begins to realise that he has wronged Cordelia (“O most small fault”). This will soon be 
-reinforced by Regan’s lack of sympathy when her father arrives on her doorstep. 
-
+reinforced by Regan’s lack of sympathy when her father arrives on her doorstep.
+=== Page 133 ===
  
 127 
  
@@ -6855,8 +6735,8 @@ the play.
 (iii) Lear calls up an image of a personified Ingratitude, a devil with a heart of stone. 
 His lines contain examples of the animal imagery that runs throughout the play, e.g. “sea-
 monster”, “kite” and “serpent”. There are also a number of references to body parts, e.g. the 
-“heart”, “gall”, “wound”, “organs of increase” and “spleen”. 
-
+“heart”, “gall”, “wound”, “organs of increase” and “spleen”.
+=== Page 134 ===
  
 128 
 SECTION B 
@@ -6943,8 +6823,8 @@ When in the plains the hosts are put to rout.
  
  
  
-10 
-
+10
+=== Page 135 ===
  
 129 
 I am the silly soul who looks too late, 
@@ -7029,9 +6909,8 @@ analogous to Adam’s Fall.
 in The Bystander the allusions intensify by contrast the indifference of the bystander 
  
 (iii) The boy’s fear is of growing up and leaving home – of having to make his own way in a 
-hostile world. It is a fear of his own mortality. 
- 
-
+hostile world. It is a fear of his own mortality.
+=== Page 136 ===
  
 130 
  
@@ -7091,10 +6970,8 @@ Sestet: Maybe you will sometimes forget
 Separate rhyming patterns 
  
 − 
-Effect of regularity and calmness 
- 
- 
-
+Effect of regularity and calmness
+=== Page 137 ===
  
 131 
  
@@ -7132,10 +7009,8 @@ is actually natural enough for this not to be too strong or sentimental.
  
 (iv) The pause in the middle of the line represents a moment of hesitation and delayed 
 departure. The half-lines on either side of the comma are nearly symmetrical, but there is 
-slightly more weight on the side of going (seven syllables to five). 
- 
- 
-
+slightly more weight on the side of going (seven syllables to five).
+=== Page 138 ===
  
 132 
  
@@ -7186,10 +7061,8 @@ may detract from the sincerity of the poem.
  
 (ii) 
 Dawn: a beginning, not an end; reflects the religious view that she has entered a new life 
-with “another morn” – or may also be ironic. 
- 
- 
-
+with “another morn” – or may also be ironic.
+=== Page 139 ===
  
 133 
  
@@ -7230,11 +7103,8 @@ death is a new morn.
  
 (iv) The poem is suitably sad. The woman is very ill all night and dies as an unattractive day 
 starts. But there is a note of hope at the end. Her final death seems quiet and she enters 
-another day elsewhere. Christian hope seems to counteract the grief. 
- 
- 
- 
-
+another day elsewhere. Christian hope seems to counteract the grief.
+=== Page 140 ===
  
 134 
  
@@ -7288,8 +7158,8 @@ Between new life and growth and the inability to break through to the surface
 Between life and death 
                                                           
 * Copyright © Ann Stanford. From Holding Our Own: The Selected Poems of Ann Stanford published in 2001 by 
-Copper Canyon Press. Reproduced by permission of Copper Canyon Press. 
-
+Copper Canyon Press. Reproduced by permission of Copper Canyon Press.
+=== Page 141 ===
  
 135 
  
@@ -7330,10 +7200,8 @@ constructed one. It seems that the loss of the old home leaves the poet, to use 
 metaphor, rather rootless. Something in the poet’s past has been killed and covered over. It 
 will find it harder to express itself in the new situation. Possibly there is a protest against 
 redevelopment for commercial purposes: has the house made way for a car park? Certainly 
-the poet seems to feel repressed and wants to shout out with the bulbs “we are living”. 
- 
- 
-
+the poet seems to feel repressed and wants to shout out with the bulbs “we are living”.
+=== Page 142 ===
  
 136 
  
@@ -7457,9 +7325,8 @@ Waugh, Evelyn
  
 Wells, H.G. 
  
-Woolf, Virginia 
- 
-
+Woolf, Virginia
+=== Page 143 ===
  
 137 
  
@@ -7581,10 +7448,8 @@ Thomas, Dylan
  
 Wilde, Oscar 
  
-Williams, Tennessee 
- 
- 
-
+Williams, Tennessee
+=== Page 144 ===
  
 138 
  
@@ -7680,11 +7545,8 @@ Whitman, Walt
  
 Williams, William Carlos 
  
-Yeats, W.B. 
- 
- 
- 
-
+Yeats, W.B.
+=== Page 145 ===
  
 139 
  
@@ -7813,13 +7675,8 @@ Vertigo (Hitchcock)
  
 White Squall (Scott) 
  
-The World of Suzie Wong (Quine) 
- 
- 
- 
- 
- 
-
+The World of Suzie Wong (Quine)
+=== Page 146 ===
  
 140 
  
@@ -7874,8 +7731,8 @@ more effective. With the information that internal assessment
 provides, teachers will be able to understand students’ 
 progress in learning, provide them with appropriate 
 feedback and make any adjustments to the learning 
-objectives and teaching strategies they deem necessary. 
-
+objectives and teaching strategies they deem necessary.
+=== Page 147 ===
  
 141 
  
@@ -7927,10 +7784,8 @@ objectives of the curriculum for the purpose of evaluating
 learning effectiveness. Learning outcomes also describe the 
 levels of performance that students should attain after 
 completing a particular key stage of learning and serve as a 
-tool for promoting learning and teaching. 
- 
- 
-
+tool for promoting learning and teaching.
+=== Page 148 ===
  
 142 
  
@@ -7987,8 +7842,8 @@ during senior secondary years, in addition to their academic
 performance as reported in the Hong Kong Diploma of 
 Secondary Education, including the assessment results for 
 Applied Learning courses, thus giving a fuller picture of the 
-student’s whole-person development. 
-
+student’s whole-person development.
+=== Page 149 ===
  
 143 
  
@@ -8004,11 +7859,8 @@ associated with values are attitudes. The latter supports
 motivation and cognitive functioning, and affects one’s way 
 of reacting to events or situations. Since both values and 
 attitudes significantly affect the way a student learns, they 
-form an important part of the school curriculum. 
- 
- 
- 
-
+form an important part of the school curriculum.
+=== Page 150 ===
  
 144 
  
@@ -8052,8 +7904,8 @@ www.vcaa.vic.edu.au
 Teaching of Literature 
  
 Brumfit, C., & Carter, R. (1986). Literature and Language Teaching. Oxford: Oxford University 
-Press. 
-
+Press.
+=== Page 151 ===
  
 145 
  
@@ -8096,9 +7948,8 @@ Marsh, N. (2001). How to begin Studying English Literature. Hampshire: Palgrave 
  
 Peck, J. & Coyle, M. (1995). Practical Criticism. Hampshire: Palgrave Macmillan. 
  
-Peck, J. & Coyle, M. (2002). Literary Terms and Criticism. Hampshire: Palgrave Macmillan. 
- 
-
+Peck, J. & Coyle, M. (2002). Literary Terms and Criticism. Hampshire: Palgrave Macmillan.
+=== Page 152 ===
  
 146 
  
@@ -8141,9 +7992,8 @@ Black, P., & Wiliam, D. (1998b). Inside the black box: Raising standards through
 assessment. Phi Delta Kappan, October, 139-148. 
  
 Stiggins, R. (2004). New assessment beliefs for a new school mission. Phi Delta Kappan, 
-86(1), 22-27. 
- 
-
+86(1), 22-27.
+=== Page 153 ===
  
 147 
  
@@ -8199,13 +8049,4 @@ Dr Cameron SMART  (HKEAA)
  
  
 Secretary: 
-Ms Elizabeth WONG  (EDB) 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+Ms Elizabeth WONG  (EDB)

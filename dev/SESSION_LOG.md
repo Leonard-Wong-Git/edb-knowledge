@@ -2,6 +2,32 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-24 Session 122 — CB-3 Option C broader batch-1（10 marker-less PDF）page-carry 生產 live
+
+- **ID:** Claude_20260524_1717
+- **Trigger:** Leonard 起手序「resume broader Option C batch-1」明示授權；S121 closeout pending item = batch-1 vault `--write` + Supabase migrate（Gate 1 + Gate 2）。發現 S121 commit `fd22e0a` diff 已 apply URL-encoding patch（`urlsplit` + `quote(sp.path, safe="/%")` + `urlunsplit` 已 in-tree），但 commit msg / SESSION_LOG 講「pending 5min patch」係 S121 內部 doc-drift（patch 已落 code、文字描述未跟上）—— `verify code don't trust docs` §G.2 教訓再驗。Re-dry-run 2 previously-failing sources（geog_sss_2007_2022 / ces_jss_2024 path 含空格）= 2/2 PASS（142/126 pages with markers）。
+- **§3 HIGH-risk Gate 1 PLAN→Leonard "push"→EXECUTE 10/10 PASS：** `dev/vault/repage_pdfs.py --only <10 sids> --write` 10 sources 全 written；markers==pages 全對（237/153/183/159/142/126/150/169/159/144）；content sanity new_chars / legacy_chars = 100.6%-102.5%（slight + marker overhead、無 quality regression）；EDB drift 0 fails（4 日 drift window 無中招）；backup at `dev/init_backup/20260524_154600_UTC/cb3c_pilot_legacy/` 10 entries（§5.a-compliant、gitignored）；git status 只 20 entries = 10 D legacy + 10 ?? repaged，其他 vault sources / 全 Draft 其他檔零接觸。
+- **§3 HIGH-risk Gate 2 dry-run（無 anomaly）：** `cb3_b2_pagecarry_migrate.py --only <10> --skip-local` read-only blast：9 sources -16% to -26% canonical chunker normalization（同 S120 g06/g26 pattern），1 source = **eng_lit_guide_2023 300→633 (+111%) = content RECOVERY**（legacy 撞 300 cap、新 chunker 完整覆蓋，同 S120 sag_2025_11 +200 sentences recovery 模式）。Total INSERT 2,390 / DELETE 2,503 / net Supabase rows -113 → 預估 10,569。
+- **§3 HIGH-risk Gate 2 EXECUTE（Leonard "完成後俾link我" full-flow auth）：** Phase 1b embed all 2,390 chunks first（~$0.024 OpenAI cost，no mutation until done）→ `wiki_index.json` auto-backup at `dev/init_backup/20260524_171708_UTC/` → per-source DELETE→upload→count verify 10/10：`del=` `ins=` `now=` 完全對齊（無 orphan、無 missed delete）→ Phase 3 SKIPPED via `--skip-local`（§E.14 紀律、Supabase query-authoritative、local wiki_index.json 內部一致繼續 untouched）。
+- **QC post-execute（4 gates 全 PASS）：** (1) Supabase total = **10,569**（exactly match prediction 10,682 - 2,503 + 2,390）(2) per-source counts 10/10 OK (3) backend `/health` ✅ ok cache_a warm 455 facts (4) sample chunks 帶 `=== Page N ===` marker（migration driver 內部 verify）。
+- **Live smoke 8/10 batch-1 sources 確認 surface with PAGE NUMBERS（北極星端到端 verified）：** ✅「地理科探究主題」→ **geog_jss p=106 (0.667)** + **geog_sss_2007_2022 p=66 (0.612)** ✅「化學實驗」→ **chem_sss_2007_2018 p=145/80/40 top-3** (0.65/0.62/0.61) ✅「物理科」→ **phys_sss_2007_2015 p=143** (0.432) ✅「宗教倫理」→ **religious_edu_jss_2024 p=18/67** (0.55/0.54) ✅「英國文學選讀」→ **eng_lit_guide_2023 p=8/9/81 top-3** (0.48/0.46/0.46，**content +333 chunks recovery confirmed live**) ✅「公民及社會發展科」→ **ces_jss_2024 p=19** (0.558)。剩 3 sources（tech_kla_guide_2017 / ls_jss_2010 / chi_hist_sss_2007_2015）本輪 query 無 surface = ranking/topic-routing 競爭（非 migration regression、data 確認已 indexed、未來可加 dedicated route 或 SOURCE_ALIASES 改善）。
+- **Whole-vault page-resolvable progression：** 13.2% (pre-B) → 23.7% (post-B-2 S119) → 32.2% (post-pilot-C S120) → **~55.2% (post-batch-1 S122)** = 5,830 / 10,569 chunks。Sources marker-bearing：39 (B) + 3 (C pilot) + 10 (batch-1) = **52 / 113 vault sources** (~46%)。
+- **Remaining work：** broader Option C 仲剩 **51 marker-less PDFs**（要分 batch-2 ~ batch-6 處理；pipeline 完全 generalize-ready，extend `PILOT_LEGACY`/`PILOT_OUT` dict 即可）+ 9 結構天花板（4 HTML + 5 xlsx 永遠救唔到）→ CB-3 全覆蓋 final ceiling ≈ 88%（92/113 sources）。
+- **§E.14 §8 教訓再驗：** driver `cb3_b2_pagecarry_migrate.py` 一行唔改（S121 已 verify service_role bypass RLS）+ proven seen_ids / per-source DELETE/replace pattern + `--skip-local` 紀律 → 10/10 OK + 無 409 incident 復發 + INVARIANT 維持。**S120 §3 deviation #2 backup discipline 再驗**：`dev/init_backup/<ts>/cb3c_pilot_legacy/` 受 `.gitignore` 保住、唔被 `bw.load_vault_sources()` rglob 撈到 ghost。
+- **Sources changed（pending commit+push 指定檔）：** Draft new: `dev/vault/<10 sids>/extract_<sid>_repaged.txt` × 10（每個 ~95K-330K chars + page markers）；Draft deleted: `dev/vault/<10 sids>/extract_<sid>.txt` × 10（legacy backed up gitignored）；Draft modified: dev/SESSION_LOG / SESSION_HANDOFF / HANDOFF_PACKAGE / CODEBASE_CONTEXT / PROJECT_MASTER_SPEC。Supabase live（非 git）：wiki_chunks 10,682→10,569（DELETE 2,503 INSERT 2,390 over 10 sources）。dev/init_backup/{20260524_154600_UTC,20260524_171708_UTC}/（gitignored）。
+- **Frontend test link 已提供：** https://leonard-wong-git.github.io/edb-knowledge/app.html（Channel-B-only search surface，backend 直連 Supabase live data，無需 deploy）。Leonard browser-verify pending。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / data change（10 sources Supabase page-carry replace 生產 live）| SESSION_HANDOFF baseline / Open-Priorities-regen / record + SESSION_LOG 本 entry + QC evidence + live smoke result | ✓ Done |
+| Long-term spec / pipeline reuse 印證（broader Option C batch-1 = pilot driver generalize 第一輪實證）| PROJECT_MASTER_SPEC §D.16 broader batch-1 verified note；CODEBASE_CONTEXT AI Maintenance Log +S122 | ✓ Done |
+| External service / data row change（Supabase wiki_chunks 10 源 row 內容/數量變、無 schema/RPC DDL）| CODEBASE_CONTEXT External Services line 132 rows 10,682→10,569；HANDOFF_PACKAGE §2 chunks count | ✓ Done |
+| Doc-drift / known divergence（local wiki_index.json vs Supabase 對 52 源 diverge，原 42 → 52；non-blocker reconcile backlog）| SESSION_HANDOFF Risks update（local↔Supabase reconcile scope 擴）| ✓ Done |
+| S121 commit-msg-vs-diff drift codify（commit msg 寫 pending patch、diff 實已 apply）| §G.2 verify-code-not-docs case study；本 SESSION_LOG entry trigger 段 codified；§8b：本 case `monitoring — promote to rule if recurrence is observed`（單次未到 promote threshold）| ✓ Done |
+
+---
+
 ## 2026-05-20 Session 121 — Supabase RLS hardening on wiki_chunks（critical security incident response，§3 HIGH-risk live DDL）
 
 - **ID:** Claude_20260520_1720
