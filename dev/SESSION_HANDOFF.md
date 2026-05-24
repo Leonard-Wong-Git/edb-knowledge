@@ -151,7 +151,7 @@ source_registry → same vault PDFs → ai_extract.py
    - local `wiki_index.json` vs Supabase 62 源 diverge（pre-S123 52 → post-S123 62；Supabase query-authoritative；reconcile 低優先 backlog）。
    - 既有 risks：🔴 §E.10 admin-login client-side gate（OPEN 獨立 family）；🔴 Supabase free-tier 57014 transient（retry 即恢復、本 session 撞 1 次）；🔴 FAIL-A 注入 regression（record-only）；§3c FAIL-A/B record-only；q.html/A·AB code path/backend `/channel-a`·`/combined` endpoint dormant 可逆勿清；Q4 deferred 未明示勿掂；Stage-2 closed 勿復活。
    - egress 間歇每次自測；EDB PDF 永遠用 `url_primary` 勿 `url_landing`（§E.12）；路徑空格雙引號；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG（已遵）。
-7. **Session 進行中（非 closeout，Leonard 未表示「收工」）**：S123 PERSIST 完成，commit+push 跟住推；下次 Leonard prompt 起再決定排 batch-3 / 轉 OP / 收工。
+7. **Session CLOSED 2026-05-24（Leonard「收工」）** — §4 closeout 完成；S123 broader Option C batch-2（10 sources）page-carry 生產 live + 0 regression + agent-team 3 parallel pre-flight（Feasibility/Audit/Monitor）+ Audit 揭 3 superseder swap（music/va/ethics_relig 2015-2019→2024 新版 + values_edu_framework spine）+ 北極星端到端 9/10 surface verified；S123 主體 HEAD `69c096a` 同步 origin/main；後置 closeout commit 跟住推；§4a apply（SESSION_LOG 418→185 行，archived 3 entries → dev/archive/SESSION_LOG_2026_Q2.md，保留 S123/S122/S121）。下次起手＝問 Leonard 排 broader Option C batch-3（10 sources、剩 41 marker-less PDFs / 共 4-5 批，pre-flight 必跑 audit agent supersede chain check）抑或轉做其他 OP（§E.10 admin-login / S122/S123 ranking polish backlog / freshness metadata / SOURCE_ALIASES polish 等）。
 
 ## Previous Session Record
 1. UTC date: 2026-05-24
