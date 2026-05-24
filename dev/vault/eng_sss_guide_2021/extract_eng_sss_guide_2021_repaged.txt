@@ -7,7 +7,12 @@
 # extracted: 20260501
 # pipeline: expand_vault.py (auto)
 # ============================================================
+# repaged_at: 20260524_204849_UTC
+# repaged_pages: 110
+# pipeline: repage_pdfs.py (PyMuPDF page-by-page + === Page N === markers)
+# ============================================================
 
+=== Page 1 ===
  
  
  
@@ -39,29 +44,12 @@ the Hong Kong Examinations and Assessment Authority
 Published for use in schools by the Education Bureau 
 HKSARG 
 2021   
-Effective from Secondary 4 in the 2021/22 school year 
-
+Effective from Secondary 4 in the 2021/22 school year
+=== Page 2 ===
  
  
-(Blank Page) 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
+(Blank Page)
+=== Page 3 ===
  
  
 Contents 
@@ -163,8 +151,8 @@ Learning Skills
 23 
 3.3.3 
 Extending Language Learning beyond the Classroom 
-23 
-
+23
+=== Page 4 ===
  
  
 3.3.4 
@@ -274,8 +262,8 @@ Purpose and Function of Learning and Teaching Resources
 73 
 6.2 
 Guiding Principles 
-73 
-
+73
+=== Page 5 ===
  
  
 6.3 
@@ -319,17 +307,12 @@ Appendices
 Glossary 
 97 
 Membership of the CDC-HKEAA Committee on  English Language 
-101 
+101
+=== Page 6 ===
  
  
- 
-
- 
- 
-(Blank Page) 
- 
- 
-
+(Blank Page)
+=== Page 7 ===
  
 i 
  
@@ -372,12 +355,12 @@ Room 1206, Wu Chung House
 213 Queen’s Road East 
 Wanchai, Hong Kong 
 Fax: 2834 7810 
-Email: english@edb.gov.hk 
-
+Email: english@edb.gov.hk
+=== Page 8 ===
  
  
-(Blank Page) 
-
+(Blank Page)
+=== Page 9 ===
 1 
  
  
@@ -419,9 +402,8 @@ suggestions and examples to promote effective learning, teaching and assessment 
 help schools and teachers plan, develop and implement their own school-based curriculum. For a 
 more comprehensive understanding of the curriculum, this Guide should be read in conjunction 
 with the English Language Education Key Learning Area Curriculum Guide (Primary 1 – 
-Secondary 6) (2017). 
- 
-
+Secondary 6) (2017).
+=== Page 10 ===
 2 
  
  
@@ -471,8 +453,8 @@ intellectual development, further studies, pleasure and work in the English medi
  
 to enable every student to prepare for the changing socio-economic demands resulting from 
 advances in information technology; these demands include the interpretation, use and 
-production of materials for pleasure, study and work in the English medium. 
-
+production of materials for pleasure, study and work in the English medium.
+=== Page 11 ===
 3 
  
  
@@ -520,8 +502,8 @@ language knowledge and skills to cope with the language demands from other subje
 English as the medium of instruction and prepare them for further studies/higher education.   
  
 Develop learning-to-learn skills as well as positive values and attitudes conducive to 
-independent and lifelong language learning. 
-
+independent and lifelong language learning.
+=== Page 12 ===
 4 
  
  
@@ -555,10 +537,8 @@ applied learning contexts. Schools may explore ways to establish connection betw
 Language and Applied Learning (ApL), which is a valued elective subject in the senior secondary 
 curriculum. For more information on cross-curricular collaboration in curriculum planning and 
 development as well as the provision of English-related ApL courses, such as Applied Learning 
-(Vocational English), please refer to Sections 3.3.4 and 3.3.5. 
- 
- 
-
+(Vocational English), please refer to Sections 3.3.4 and 3.3.5.
+=== Page 13 ===
 5 
  
  
@@ -604,11 +584,8 @@ work; and
  
 further develop learning-to-learn skills and positive values and attitudes conducive to meeting 
 the needs of our rapidly changing knowledge-based society. These include the interpretation, 
-use and production of texts for pleasure, study and work in the English medium. 
- 
- 
- 
-
+use and production of texts for pleasure, study and work in the English medium.
+=== Page 14 ===
 6 
  
  
@@ -661,8 +638,8 @@ These skills are to be developed through learning and teaching in all the Key Le
 (KLAs). To a large extent, they are embedded in the curriculum content of English Language and 
 Knowledge 
 Generic Skills 
-Values & Attitudes 
-
+Values & Attitudes
+=== Page 15 ===
 7 
  
  
@@ -708,8 +685,8 @@ Flexible and diversified modes of curriculum planning
 + 
 Effective learning, teaching and assessment 
 Generic Skills 
-Values and Attitudes 
-
+Values and Attitudes
+=== Page 16 ===
 8 
  
  
@@ -763,8 +740,8 @@ to participate with others in planning, developing, organising, carrying out and
 more complex and extended events 
 e. 
 to obtain and provide objects, services and information in a wider and more complex 
-range of real and simulated situations 
-
+range of real and simulated situations
+=== Page 17 ===
 9 
  
  
@@ -823,8 +800,8 @@ putting oneself in the roles and situations in the story
                                                           
 1 Throughout this document, the term “imaginative or literary texts” refers to a broad range of language arts materials 
 including poems, novels, short stories, dramas, films, film scripts, jokes, advertisements, song lyrics, radio and 
-television programmes, etc. 
-
+television programmes, etc.
+=== Page 18 ===
 10 
  
  
@@ -880,8 +857,8 @@ various situations. Items learnt at Key Stage 3 (Secondary 1 – 3) should be co
 extended to a greater degree of complexity at this level. 
  
 The language items and communicative functions that students are expected to learn in Key 
-Stages 3 – 4 (Secondary 1 – 6) are outlined in Appendix 1 of this Guide. The list is by no means 
-
+Stages 3 – 4 (Secondary 1 – 6) are outlined in Appendix 1 of this Guide. The list is by no means
+=== Page 19 ===
 11 
  
  
@@ -930,8 +907,8 @@ To assist students in their development as proficient users of English, it is im
 introduced systematically to a good variety of text types. Different text types provide meaningful 
 contexts for the learning and purposeful use of specific language items and vocabulary. An 
 awareness of the demands of different text types is essential for successful and effective 
-communication. 
-
+communication.
+=== Page 20 ===
 12 
  
  
@@ -965,11 +942,8 @@ in using English) should be further developed when students move towards a highe
 learning. Some other positive attitudes (e.g. an open-minded attitude towards different cultures, 
 ideologies and points of view) will only be consciously developed in specific tasks. For the 
 attitudes specific to English language learning for Key Stages 1 – 4 (Primary 1 – Secondary 6), 
-please refer to Appendix 5 of this Guide. 
- 
- 
- 
-
+please refer to Appendix 5 of this Guide.
+=== Page 21 ===
 13 
  
  
@@ -1030,8 +1004,8 @@ organising structure, teachers are encouraged to expose students to a variety of
 2 Starting from Secondary 4 in the 2021/22 school year, the four senior secondary core subjects are optimised to release 
 lesson time for flexible arrangements to cater for learner diversity. Under the optimising arrangements in 2021, it is 
 recommended that the four senior secondary core subjects take up no more than half of the total lesson time. For more 
-information, please refer to the Supplementary Notes to the Secondary Education Curriculum Guide (2017). 
-
+information, please refer to the Supplementary Notes to the Secondary Education Curriculum Guide (2017).
+=== Page 22 ===
 14 
  
  
@@ -1097,11 +1071,8 @@ Leisure and Entertainment
 - 
 The World of Sports 
 - 
-“Showbiz” 
- 
- 
- 
-
+“Showbiz”
+=== Page 23 ===
 15 
  
  
@@ -1163,8 +1134,8 @@ column to offer advice on teenage
 problems 
                                                           
 3 These elements are taken from the eight elective modules of the Elective Part of the previous curriculum. Under the 
-optimising arrangements in 2021, there is no division between the Compulsory and Elective Parts. 
-
+optimising arrangements in 2021, there is no division between the Compulsory and Elective Parts.
+=== Page 24 ===
 16 
  
  
@@ -1277,8 +1248,8 @@ sport to be included in the Olympic
 Games/a new city to host the 
 Olympic Games 
  Recreating the ending of a play/ 
-musical 
-
+musical
+=== Page 25 ===
 17 
  
  
@@ -1294,14 +1265,13 @@ song dedication activities, drama performance)4.
 English Language Curriculum (Secondary 4 – 6) (2007) and the resource packages on the eight elective modules in 
 the previous curriculum for more topics and activities they can adapt when designing their school-based curriculum. 
 The relevant resources can be accessed at https://edb.gov.hk/en/curriculum-development/kla/eng-edu/references-
-resources.html. 
-
+resources.html.
+=== Page 26 ===
 18 
  
  
-(Blank Page) 
- 
-
+(Blank Page)
+=== Page 27 ===
 19 
  
  
@@ -1352,8 +1322,8 @@ collect and reflect on evidence of effective learning and teaching to inform fur
 development; 
  
 make use of both formative assessment (e.g. process writing, projects, portfolios) and 
-summative assessment to inform learning and teaching, taking into account the School-based 
-
+summative assessment to inform learning and teaching, taking into account the School-based
+=== Page 28 ===
 20 
  
  
@@ -1404,8 +1374,8 @@ English Language curriculum.
 Teachers are encouraged to adopt the task-based approach and make use of the structure of 
 Modules, Units and Tasks (the M-U-T structure) to organise learning and teaching. A module is 
 an organising focus, which usually contains a number of thematically or conceptually related units. 
-These themes and concepts are explored through tasks. The M-U-T framework enables students 
-
+These themes and concepts are explored through tasks. The M-U-T framework enables students
+=== Page 29 ===
 21 
  
  
@@ -1444,8 +1414,8 @@ Career
 Week 
 Task 2 
 Making the 
-Right Choice 
-
+Right Choice
+=== Page 30 ===
 22 
  
  
@@ -1494,8 +1464,8 @@ Task
 Task 
 Extended 
 Task 
-Project 
-
+Project
+=== Page 31 ===
 23 
  
  
@@ -1547,8 +1517,8 @@ Experiences (e.g. visits, talks, voluntary work, drama performances, job shadowi
 The senior secondary English Language curriculum recognises the value and importance of 
 adopting a cross-curricular approach to language learning, as set out in Section 1.5. Apart from 
 striving to attain the important goal of helping students learn English effectively, a sound and 
-robust school-based senior secondary English Language curriculum should also support students 
-
+robust school-based senior secondary English Language curriculum should also support students
+=== Page 32 ===
 24 
  
  
@@ -1592,10 +1562,8 @@ the genres, text types, language knowledge and skills (e.g. grammatical structur
 that students will need in order to learn and express themselves effectively in the other KLAs. 
  
 The table on the next page presents some examples of the kinds of tasks or activities that students 
-should be encouraged to undertake to connect English language learning with other KLAs: 
- 
- 
-
+should be encouraged to undertake to connect English language learning with other KLAs:
+=== Page 33 ===
 25 
  
  
@@ -1657,8 +1625,8 @@ combination of ApL with the study of English Language at senior secondary level 
 students’ learning experiences. Cross-curricular links and collaboration between ApL and English 
 Language can also be strengthened through offering English-related ApL courses, such as Applied 
 Learning (Vocational English) and Applied Learning (Translation Studies).  For instance, the 
-former helps further develop students’ language skills by providing them with opportunities to 
-
+former helps further develop students’ language skills by providing them with opportunities to
+=== Page 34 ===
 26 
  
  
@@ -1704,8 +1672,8 @@ programmes for less advanced students, writing workshops for advanced students) 
 for their different needs in English language learning; 
  
 organising short school-based programmes/activities (e.g. drama and public speaking classes) 
-to provide opportunities for using English; and  
-
+to provide opportunities for using English; and
+=== Page 35 ===
 27 
  
  
@@ -1754,8 +1722,8 @@ discussions, projects) work well with smaller groups of students, while other ac
 speaking, instruction of a general nature) can be conducted in larger groups to maximise the use 
 of the resources available. Schools are encouraged to exercise flexibility in regrouping students in 
 the same year level to address their diverse needs in English learning. A flexible common block 
-can be created to facilitate the regrouping of students according to their different learning choices 
-
+can be created to facilitate the regrouping of students according to their different learning choices
+=== Page 36 ===
 28 
  
  
@@ -1791,11 +1759,8 @@ the curriculum.
 Depending on the school context, the roles different key players assume may vary from school to 
 school. For more information on the key roles they may play, please refer to Section 3.2.6 of the 
 English Language Education Key Learning Area Curriculum Guide (Primary 1 – Secondary 6) 
-(2017). 
- 
- 
- 
-
+(2017).
+=== Page 37 ===
 29 
  
  
@@ -1842,9 +1807,8 @@ students achieve the learning targets calls for the effective and flexible use o
 approaches and strategies. Depending on the learning context, teachers should design, choose 
 and use approaches and strategies that motivate students, enhance their English proficiency, 
 personal and intellectual development and cultural understanding, and support the 
-development of the generic skills. 
- 
-
+development of the generic skills.
+=== Page 38 ===
 30 
  
  
@@ -1895,8 +1859,8 @@ A task should involve students in a mode of thinking and doing.
 The purposeful activity in which students engage in carrying out a task should lead towards 
 a product. 
  
-A task should require students to draw upon their framework of knowledge and skills and 
-
+A task should require students to draw upon their framework of knowledge and skills and
+=== Page 39 ===
 31 
  
  
@@ -1948,9 +1912,8 @@ encourage students to use English creatively to respond and give expression to r
 imaginative experience; and  
  
 develop students’ critical thinking and problem solving skills, promote the sharing of 
-experiences and foster cultural awareness and understanding. 
- 
-
+experiences and foster cultural awareness and understanding.
+=== Page 40 ===
 32 
  
  
@@ -1998,8 +1961,8 @@ through meaningful everyday language use.
 Extended Tasks and Projects 
  
 Extended tasks or projects are effective means to consolidate and/or stretch students’ learning upon 
-completion of a task. 
-
+completion of a task.
+=== Page 41 ===
 33 
  
  
@@ -2045,8 +2008,8 @@ working with students, and provide appropriate support.
 4.2.2 Learning and Teaching of the Four Language Skills 
  
 Real-life communication seldom involves the use of just one language skill, and so students are 
-strongly encouraged to learn and exercise the integrated use of skills for authentic, purposeful 
-
+strongly encouraged to learn and exercise the integrated use of skills for authentic, purposeful
+=== Page 42 ===
 34 
  
  
@@ -2096,9 +2059,8 @@ Students identify the meanings of different stress and intonation patterns and i
 the speaker’s intent and the real meaning of the message. For example, a simple sentence 
 such as “Ms Smith teaches Geography.” can be spoken with stress on different words to 
 indicate that Ms Smith, not someone else, teaches Geography, or that Ms Smith teaches, 
-not studies Geography, or that Ms Smith teaches Geography, not another subject. 
-  
-
+not studies Geography, or that Ms Smith teaches Geography, not another subject.
+=== Page 43 ===
 35 
  
  
@@ -2162,8 +2124,8 @@ For effective oral communication, students need to acquire a range of speaking s
 These include: 
  
 Accuracy: the skill of using pronunciation (e.g. speech sounds, stress, rhythm, intonation), 
-grammar and vocabulary correctly to communicate ideas and express feelings; 
-
+grammar and vocabulary correctly to communicate ideas and express feelings;
+=== Page 44 ===
 36 
  
  
@@ -2222,8 +2184,8 @@ Using strategies in leading or participating in discussions and negotiations
 - 
 Students listen to recordings and identify useful expressions that encourage people to 
 say more, or identify the use of conversational fillers such as “Really?” and “I see” to 
-sustain interaction. They then apply these strategies in discussions or conversations. 
-
+sustain interaction. They then apply these strategies in discussions or conversations.
+=== Page 45 ===
 37 
  
  
@@ -2270,8 +2232,8 @@ Pre-reading activities
 - 
 Creating a purpose for reading 
  
-The teacher helps set a clear purpose by asking students to consider a question or 
-
+The teacher helps set a clear purpose by asking students to consider a question or
+=== Page 46 ===
 38 
  
  
@@ -2331,8 +2293,8 @@ Prediction
 While reading a story of some length, students can, under the teacher’s guidance, 
 stop at critical points to make predictions about what may happen next to a certain 
 character, or what may happen as a result of a certain turn of events. They can 
-explain their predictions briefly by pointing to story clues. 
-
+explain their predictions briefly by pointing to story clues.
+=== Page 47 ===
 39 
  
  
@@ -2394,8 +2356,8 @@ to develop students’ skills at the various stages of the writing process, whic
 drafting and revising. Teachers should be aware that the process writing approach is not a 
 mechanical sequencing of techniques and that they do not need to use the suggested activities in 
 the order presented below. To handle time constraints, teachers may identify a focus in each process 
-writing task, selecting a specific part of the writing or an aspect of the writing process (e.g. idea 
-
+writing task, selecting a specific part of the writing or an aspect of the writing process (e.g. idea
+=== Page 48 ===
 40 
  
  
@@ -2456,8 +2418,8 @@ Students compare examples of effective and less effective beginnings and endings
 of texts and discuss what makes some beginnings and endings more effective than 
 others. 
  
-Students match the beginnings and endings of texts to see the ways in which the 
-
+Students match the beginnings and endings of texts to see the ways in which the
+=== Page 49 ===
 41 
  
  
@@ -2536,9 +2498,8 @@ Is the choice of words suitable?
  
  
  
-Additional comments: 
- 
-
+Additional comments:
+=== Page 50 ===
 42 
  
  
@@ -2582,9 +2543,8 @@ implementation of LaC/RaC at the senior secondary level may require the collabor
 English and other subject teachers, or the English teachers taking the lead (in schools with most 
 senior secondary subjects taught in Chinese). Teachers can conduct LaC/RaC activities in the 
 English Language classroom as well as incorporate them into co-curricular/life-wide learning 
-activities (e.g. STEM activities, visits to museums). 
- 
-
+activities (e.g. STEM activities, visits to museums).
+=== Page 51 ===
 43 
  
  
@@ -2636,8 +2596,8 @@ real and imaginative experience. Students’ language sensitivity and cultural a
 creative and critical thinking, can be developed with the use of imaginative texts such as poems, 
 novels, short stories, dramas, films, film scripts, advertisements, song lyrics, and radio and 
 television programmes. To help students progress towards the targets and objectives of the 
-Experience Strand, teachers are encouraged to use a wide range of language arts materials in the 
-
+Experience Strand, teachers are encouraged to use a wide range of language arts materials in the
+=== Page 52 ===
 44 
  
  
@@ -2686,8 +2646,8 @@ Personal Involvement
  
 Imaginative texts allow for personal involvement. More diffuse than informational discourse, 
 they stimulate students to engage in a vigorous process of interactive reading. The focus of 
-students’ attention is often shifted from the more mechanical aspects of the target language 
-
+students’ attention is often shifted from the more mechanical aspects of the target language
+=== Page 53 ===
 45 
  
  
@@ -2740,8 +2700,8 @@ Group and shared activities allow the teacher and the participants to tap the kn
 experience within the group. With its variety of life experiences, a group can foster the 
 development of an individual’s awareness of both his/her own responses and of the world 
 represented in the text. Students working in groups are encouraged to take risks in reading 
-and exploring the text together, sharing experiences, views and interpretations. 
-
+and exploring the text together, sharing experiences, views and interpretations.
+=== Page 54 ===
 46 
  
  
@@ -2802,8 +2762,8 @@ either by themselves or by choosing from a word list
 choosing from a list of adjectives the one which best describes a certain character, and 
 supplying reasons 
 - 
-reading/listening to an extract, and writing and/or presenting the dialogue between the 
-
+reading/listening to an extract, and writing and/or presenting the dialogue between the
+=== Page 55 ===
 47 
  
  
@@ -2860,8 +2820,8 @@ teachers, parents, peers) to improve their understanding of the film/documentary
 Some suggested pre-viewing, after-viewing and extension activities are provided below. They aim 
 to develop students’ ability to plan and prepare for, make sense of, reflect on and respond to the 
 viewing. They also provide students with opportunities to practise research skills, communication 
-skills, presentation skills and creativity, and to reinforce their learning in other parts of the 
-
+skills, presentation skills and creativity, and to reinforce their learning in other parts of the
+=== Page 56 ===
 48 
  
  
@@ -2918,8 +2878,8 @@ the most striking or interesting image(s)/picture(s)
 the mood/tone of the film/documentary* 
 - 
 the paralinguistic features (e.g. facial expressions, gestures) used to convey meaning and 
-to draw attention* 
-
+to draw attention*
+=== Page 57 ===
 49 
  
  
@@ -2970,10 +2930,8 @@ film/documentary.
 Quality interaction in the learning and teaching process is essential to ensure effective learning. 
 The following example, which focuses on the use of a short imaginative text to develop reading 
 skills, illustrates how such a dynamic process can be brought about in the English Language 
-classroom: 
- 
- 
-
+classroom:
+=== Page 58 ===
 50 
  
  
@@ -3016,8 +2974,8 @@ clear criteria, enhance audience awareness and encourage a critical response to 
 4.2.6 Adopting e-Learning in the English Language Classroom 
  
 e-Learning refers to an open and flexible learning mode involving the use of the electronic media, 
-including the use of digital resources and communication tools to achieve the learning objectives. 
-
+including the use of digital resources and communication tools to achieve the learning objectives.
+=== Page 59 ===
 51 
  
  
@@ -3067,8 +3025,8 @@ Self-directed learners are able to take the initiative and responsibility for le
 the assistance of others. They would identify their learning needs, formulate goals, and choose 
 resources and strategies for learning. SDL may be interpreted as self-regulated learning, self-
 learning or independent learning in other contexts, evidenced in students’ sense of control and 
-metacognitive skills. 
-
+metacognitive skills.
+=== Page 60 ===
 52 
  
  
@@ -3121,8 +3079,8 @@ e-resources (e.g. interactive features of e-books/webpages) to facilitate their 
 some abstract concepts and complex ideas; 
  
 develop students’ information literacy skills and guide them to think critically and evaluate 
-the data or information on the Internet, which helps them use information effectively and 
-
+the data or information on the Internet, which helps them use information effectively and
+=== Page 61 ===
 53 
  
  
@@ -3173,8 +3131,8 @@ items and skills in an integrated manner. Projects are particularly useful for r
 generalisation and extension of what students have learnt. 
  
 They should be graded carefully from the easier to the more difficult to give students a sense 
-of progress and achievement. 
-
+of progress and achievement.
+=== Page 62 ===
 54 
  
  
@@ -3227,8 +3185,8 @@ Marking Assignments
 There is no one best way of marking English assignments. Effective marking should be meaningful, 
 manageable and motivating. Different types of work call for different treatments. For example, 
 when assessing an oral presentation, the emphasis can be put primarily on content and fluency. 
-When going through book reports, the focus can be upon students’ ideas and personal responses. 
-
+When going through book reports, the focus can be upon students’ ideas and personal responses.
+=== Page 63 ===
 55 
  
  
@@ -3274,8 +3232,8 @@ Catering for Learner Diversity in the English Language Classroom
  
 Every class is composed of individuals who are different from each other in terms of maturity, 
 motivation, ability, learning styles, aspirations and interests. Catering for learner diversity is a 
-significant consideration in determining learning and teaching content, level and methods. 
-
+significant consideration in determining learning and teaching content, level and methods.
+=== Page 64 ===
 56 
  
  
@@ -3324,9 +3282,8 @@ Learning Tasks and Exercises
  
 The learning targets describe the intended learning goals for all students, but the means by which 
 they work towards the common learning targets may differ in a range of ways. The following 
-examples show how different ways of using tasks and exercises can cater for learner diversity: 
- 
-
+examples show how different ways of using tasks and exercises can cater for learner diversity:
+=== Page 65 ===
 57 
  
  
@@ -3384,8 +3341,8 @@ example.
 3. 
 The teacher requires two or more levels of performance: 
 - 
-The less advanced students focus the discussion on improving some obvious aspects 
-
+The less advanced students focus the discussion on improving some obvious aspects
+=== Page 66 ===
 58 
  
  
@@ -3440,8 +3397,8 @@ promote formative assessment to provide effective and timely feedback, both form
 informal; 
  
 adopt different modes of assessment (e.g. short assignments, assessment tasks, projects, 
-questioning) to address the needs of students, identify their strengths and weaknesses and 
-
+questioning) to address the needs of students, identify their strengths and weaknesses and
+=== Page 67 ===
 59 
  
  
@@ -3464,17 +3421,13 @@ For more information on the learning and teaching strategies which could be adop
 to cater for learner diversity, support students with special educational needs and maximise the 
 potential of gifted students in the mainstream English Language classroom, please refer to Sections 
 4.3.2, 4.3.3 and 4.3.4 of the English Language Education Key Learning Area Curriculum Guide 
-(Primary 1 – Secondary 6) (2017). 
- 
- 
-
+(Primary 1 – Secondary 6) (2017).
+=== Page 68 ===
 60 
  
  
-(Blank Page) 
- 
- 
-
+(Blank Page)
+=== Page 69 ===
 61 
  
  
@@ -3517,9 +3470,8 @@ promoting learning by providing information about students’ achievements in re
 learning targets and objectives. Assessment helps students, their teachers and parents understand 
 the learning performance and progress, facilitating planning for further improvement. To match 
 the learning targets, objectives and outcomes, different modes of assessment serving formative 
-and/or summative purposes are encouraged in the English Language curriculum. 
- 
-
+and/or summative purposes are encouraged in the English Language curriculum.
+=== Page 70 ===
 62 
  
  
@@ -3576,9 +3528,8 @@ AaL engages students in reflecting on and monitoring their progress
 of learning through strengthening their roles and responsibilities in 
 relation to their learning. Students are actively involved in 
 regulating the learning process, evaluating their own performance 
-against the learning goals, and planning for the next step in learning. 
- 
-
+against the learning goals, and planning for the next step in learning.
+=== Page 71 ===
 63 
  
  
@@ -3625,13 +3576,8 @@ Distinguish and evaluate views, attitudes or arguments in fairly complex texts
  
 Understand the use of a range of language features in fairly complex texts 
  
-Interpret, analyse, select and organise ideas and information from various sources 
- 
- 
- 
- 
- 
-
+Interpret, analyse, select and organise ideas and information from various sources
+=== Page 72 ===
 64 
  
  
@@ -3691,8 +3637,8 @@ Internal Assessment
  
 This section presents the guiding principles that can be used as the basis for designing 
 internal assessment and some common assessment practices for English Language for use in 
-schools. Some of these principles are common to both internal and public assessments. 
-
+schools. Some of these principles are common to both internal and public assessments.
+=== Page 73 ===
 65 
  
  
@@ -3731,13 +3677,8 @@ Timely and Encouraging Feedback
 Teachers should provide timely and encouraging feedback through a variety of means, such as 
 constructive verbal comments during classroom activities and written remarks on assignments. 
 Such feedback helps students sustain their momentum in learning and identify their strengths and 
-weaknesses. 
- 
- 
- 
- 
- 
-
+weaknesses.
+=== Page 74 ===
 66 
  
  
@@ -3778,9 +3719,8 @@ These may range from low to high in cognitive complexity. They include oral task
 individual presentations, group discussions), listening tasks (e.g. gap-filling, tables, sentence 
 completion), reading tasks (e.g. multiple-choice questions, cloze, open-ended/free-response 
 questions), writing tasks (e.g. reflections, narratives, arguments, expository essays), tasks 
-involving an integration of skills.  
- 
-
+involving an integration of skills.
+=== Page 75 ===
 67 
  
  
@@ -3827,9 +3767,8 @@ can improve their drafts by making suitable revisions. Initial feedback can focu
 order or global level concerns – ideas, organisation and genre requirements – and thereafter on 
 lower-order or surface-level concerns such as language (grammar and mechanics) and style. 
 Teachers are encouraged to develop and use their own feedback sheets or guidelines with the 
-appropriate criteria to suit the purposes of the writing activities and the students’ needs. 
- 
-
+appropriate criteria to suit the purposes of the writing activities and the students’ needs.
+=== Page 76 ===
 68 
  
  
@@ -3872,9 +3811,8 @@ Standards-referencing
 The reporting system is “standards-referenced”, i.e. student performance is matched against 
 standards, which indicate what students have to know and be able to do to merit a certain level of 
 performance. The levels of performance for separate skills/papers are reported as well as an overall 
-level for the subject, accompanied by the level descriptors. 
- 
-
+level for the subject, accompanied by the level descriptors.
+=== Page 77 ===
 69 
  
  
@@ -3933,9 +3871,8 @@ information necessary to complete these tasks is provided. In assessing candidat
 in speaking, tasks on group interactions and individual responses will be set. 
  
 Schools may refer to the live examination papers regarding the format of the examination and the 
-standards at which the questions are pitched. 
- 
-
+standards at which the questions are pitched.
+=== Page 78 ===
 70 
  
  
@@ -3977,9 +3914,8 @@ above are normal in-class and out-of-class activities suggested in the curriculu
 to implement the SBA has taken into consideration the wide range of student ability and efforts 
 have been made to avoid unduly increasing the workload of both teachers and students. Detailed 
 information on the requirements and implementation of the SBA and samples of assessment tasks 
-are provided to teachers by the HKEAA. 
- 
-
+are provided to teachers by the HKEAA.
+=== Page 79 ===
 71 
  
  
@@ -4030,8 +3966,8 @@ U
 2 
 3 
 4 
-5 
-
+5
+=== Page 80 ===
 72 
  
  
@@ -4042,14 +3978,8 @@ To provide finer discrimination for selection purposes, the Level 5 candidates w
 performance have their results annotated with the symbols ** and the next top group with the 
 symbol *. The HKDSE certificate itself records the overall level awarded to each candidate for the 
 subject and the level for each of the components – Reading, Writing, Listening and Integrated 
-Skills and Speaking. 
- 
- 
- 
- 
- 
- 
-
+Skills and Speaking.
+=== Page 81 ===
 73 
  
  
@@ -4104,8 +4034,8 @@ The textbook content should be matched against the school’s English Language c
 to ensure that there is a balanced coverage of the learning targets and objectives, not only at 
 a particular year level but also across year levels. 
  
-The learning targets and objectives should be kept in mind when identifying the focus of each 
-
+The learning targets and objectives should be kept in mind when identifying the focus of each
+=== Page 82 ===
 74 
  
  
@@ -4156,8 +4086,8 @@ Learning at the Senior Secondary Level: Focusing on the Development of Writing S
 multimedia resources (e.g. the series on Exploring Text Types at the Secondary Level) 
  
 More information about the resource materials to support the implementation of the English 
-Language curriculum at the senior secondary level can be accessed at the English Language 
-
+Language curriculum at the senior secondary level can be accessed at the English Language
+=== Page 83 ===
 75 
  
  
@@ -4209,11 +4139,8 @@ to work at their own pace and providing feedback to them.
 Many parties in the community can make useful contribution to life-wide language learning by 
 providing students with authentic learning experiences, up-to-date information, and professional 
 services and facilities. Teachers are encouraged to explore learning opportunities available in the 
-community and work in partnership with the following parties: 
- 
- 
- 
-
+community and work in partnership with the following parties:
+=== Page 84 ===
 76 
  
  
@@ -4255,11 +4182,8 @@ Employers
 Employers’ support may be sought for sponsoring language activities or funding award and 
 scholarship schemes related to English learning. Some companies have customer service centres 
 with information and resources in English, and some offer English guided tours. Students should 
-be encouraged to use these to make language learning more interesting, meaningful and authentic. 
- 
- 
- 
-
+be encouraged to use these to make language learning more interesting, meaningful and authentic.
+=== Page 85 ===
 77 
  
  
@@ -4299,17 +4223,13 @@ establish an inventory system that ensures easy expansion and the writing-off of
 materials; and 
  
 devise a review mechanism for evaluating existing resources to further promote learning, 
-teaching and curriculum development. 
- 
- 
-
+teaching and curriculum development.
+=== Page 86 ===
 78 
  
  
-(Blank Page) 
- 
- 
-
+(Blank Page)
+=== Page 87 ===
 79 
  
  
@@ -4373,8 +4293,8 @@ Had it not been for my teacher, I would never have had the
 confidence to finish this project. 
 May I take this opportunity to express our deepest gratitude to all 
 our teachers for their guidance, patience and support. 
-If you had come earlier, you would have met Michael Jordan.  
-
+If you had come earlier, you would have met Michael Jordan.
+=== Page 88 ===
 80 
  
  
@@ -4448,8 +4368,8 @@ Under no circumstances should you touch this button.
 Use modals and formulaic expressions to 
 request, offer, accept and decline help 
 Can you give me a hand?  
-What can I do for you? 
-
+What can I do for you?
+=== Page 89 ===
 81 
  
  
@@ -4528,8 +4448,8 @@ apologise for the late payment for our purchases from your
 company. 
 Let me apologise on behalf of the company. 
 We deem it necessary to ban smoking in our shopping centre. 
-Should you have any queries, please contact me directly. 
-
+Should you have any queries, please contact me directly.
+=== Page 90 ===
 82 
 Language Items 
 and Communicative Functions 
@@ -4600,8 +4520,8 @@ issue on the agenda.
 If the clubhouse had publicised its new policy better, the reactions 
 from residents would have been more supportive. 
 In my opinion, child abuse has already become a major social 
-problem in Hong Kong. 
-
+problem in Hong Kong.
+=== Page 91 ===
 83 
  
  
@@ -4632,18 +4552,13 @@ May I finish my point first before you voice your opinion?
 Do you mean you don’t agree with the idea at all?  
 Well, yes, to a certain extent. 
 It seems we all think differently and it is quite impossible for us 
-to come to a consensus. Shall we take a vote? 
- 
- 
- 
-
+to come to a consensus. Shall we take a vote?
+=== Page 92 ===
 84 
  
  
-(Blank Page) 
- 
- 
-
+(Blank Page)
+=== Page 93 ===
 85 
  
  
@@ -4682,8 +4597,8 @@ ability to encode and decode language quickly and accurately. Teachers can eithe
 collocation information directly, by telling them common collocates when students learn a word, 
 or use a more discovery-based approach by asking students to search for collocations of particular 
 words in a text. Either way, students will always benefit from knowing the collocation range of a 
-word and its high-frequency collocates. 
-
+word and its high-frequency collocates.
+=== Page 94 ===
 86 
  
  
@@ -4723,11 +4638,8 @@ prefixes, suffixes, compound words and collocation) and knowledge of lexical rel
 collocation and sense relations, such as synonymy, antonymy and hyponymy) can be tapped and 
 developed, in order to help them decipher new words. Through some well-designed exercises, 
 students soon learn that they do not need to resort to the dictionary for every unknown word they 
-encounter. 
- 
- 
- 
-
+encounter.
+=== Page 95 ===
 87 
  
  
@@ -4770,8 +4682,8 @@ can, for example, associate words that are related in their spelling, or shape, 
 or by virtue of the contexts in which they are used. 
  
 Helping students acquire and consolidate various vocabulary building skills is a particularly 
-productive area for the encouragement of learner autonomy. Students can reflect on ways of 
-
+productive area for the encouragement of learner autonomy. Students can reflect on ways of
+=== Page 96 ===
 88 
  
  
@@ -4779,10 +4691,8 @@ learning vocabulary and develop individual approaches to solving problems. They 
 themselves what is important for them to know about individual words, assess their own 
 vocabulary needs and shortcomings regularly, and keep a record of their performance in actual 
 situations. Students can be encouraged to develop their own personal learning styles for vocabulary, 
-in such areas as memorising and retaining new words. 
- 
- 
-
+in such areas as memorising and retaining new words.
+=== Page 97 ===
 89 
  
  
@@ -4902,16 +4812,13 @@ Magazine articles
  Proposals 
  Speeches 
  Resumes 
- Thesauri 
-
+ Thesauri
+=== Page 98 ===
 90 
  
  
-(Blank Page) 
- 
- 
- 
-
+(Blank Page)
+=== Page 99 ===
 91 
  
  
@@ -4981,8 +4888,8 @@ use appropriate register in conversations*
  
  
  
-*Note: These items are more demanding and require considerable teacher support. 
-
+*Note: These items are more demanding and require considerable teacher support.
+=== Page 100 ===
 92 
  
  
@@ -5055,8 +4962,8 @@ use persuasive devices effectively*
  
 use appropriate style and register in writing* 
  
-*Note: These items are more demanding and require considerable teacher support. 
-
+*Note: These items are more demanding and require considerable teacher support.
+=== Page 101 ===
  
 93 
 Language Development Strategies 
@@ -5123,9 +5030,8 @@ understand the use of different tones and degrees of formality
 ask follow-up questions appropriate to the occasion 
 - 
 ask for information or material, both formally and informally, by writing simple notes or 
-letters 
- 
-
+letters
+=== Page 102 ===
  
 94 
  
@@ -5175,10 +5081,8 @@ solve problems
 - 
 listen to different opinions and respond appropriately 
 - 
-express views and suggestions, draw conclusions and make decisions 
- 
- 
-
+express views and suggestions, draw conclusions and make decisions
+=== Page 103 ===
  
 95 
 Appendix 5 
@@ -5273,17 +5177,12 @@ language
 critical attitude 
 towards the use of 
 language to achieve 
-the desired effect 
- 
- 
- 
-
+the desired effect
+=== Page 104 ===
  
 96 
-(Blank Page) 
- 
- 
-
+(Blank Page)
+=== Page 105 ===
  
 97 
 Glossary 
@@ -5340,8 +5239,8 @@ Nine types of generic skills are identified in the Hong Kong
 school curriculum, i.e. collaboration skills, communication 
 skills, creativity, critical thinking skills, information 
 technology skills, mathematical skills, problem solving 
-skills, self-learning skills and self-management skills. 
-
+skills, self-learning skills and self-management skills.
+=== Page 106 ===
  
 98 
 Term 
@@ -5396,8 +5295,8 @@ Learning outcomes
  
 Learning outcomes refer to what learners should be able to 
 do by the end of a particular stage of learning. Learning 
-outcomes are developed based on the learning targets and 
-
+outcomes are developed based on the learning targets and
+=== Page 107 ===
  
 99 
 Term 
@@ -5454,8 +5353,8 @@ Reporting
  
 Candidates’ performance in the public assessment is reported 
 in terms of levels of performance matched against a set of 
-standards. 
-
+standards.
+=== Page 108 ===
  
 100 
 Term 
@@ -5482,11 +5381,8 @@ associated with values are attitudes. The latter supports
 motivation and cognitive functioning, and affects one’s way 
 of reacting to events or situations. Since both values and 
 attitudes significantly affect the way a student learns, they 
-form an important part of the school curriculum. 
- 
- 
- 
-
+form an important part of the school curriculum.
+=== Page 109 ===
  
 101 
 Membership of the CDC-HKEAA Committee on  
@@ -5552,11 +5448,8 @@ Ms Carol PANG (EDB)
 (until August 2018) 
  
 Ms PANG Pui-lin, Pauline (EDB) 
-(since September 2018) 
- 
- 
- 
-
+(since September 2018)
+=== Page 110 ===
  
 102 
 Membership of the CDC-HKEAA Committee on  
@@ -5621,7 +5514,4 @@ Dr Cameron SMART (HKEAA)
  
  
 Secretary: 
-Ms PANG Pui-lin, Pauline (EDB) 
- 
- 
- 
+Ms PANG Pui-lin, Pauline (EDB)

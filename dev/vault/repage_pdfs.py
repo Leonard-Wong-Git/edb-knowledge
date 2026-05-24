@@ -63,6 +63,17 @@ PILOT_LEGACY = {
     "chi_hist_sss_2007_2015": [VAULT_DIR / "chi_hist_sss_2007_2015" / "extract_chi_hist_sss_2007_2015.txt"],
     "chem_sss_2007_2018": [VAULT_DIR / "chem_sss_2007_2018" / "extract_chem_sss_2007_2018.txt"],
     "geog_jss": [VAULT_DIR / "geog_jss" / "extract_geog_jss.txt"],
+    # S123 broader batch-2 (10 sources; 7 SSS C&A guides + values_edu spine; 3 swap vs original size-desc to avoid superseder chain risk for music/va/ethics_relig 2015-2019)
+    "eng_sss_guide_2021": [VAULT_DIR / "eng_sss_guide_2021" / "extract_eng_sss_guide_2021.txt"],
+    "ict_sss_2007_2015": [VAULT_DIR / "ict_sss_2007_2015" / "extract_ict_sss_2007_2015.txt"],
+    "ma_sss_cag_2017": [VAULT_DIR / "ma_sss_cag_2017" / "extract_ma_sss_cag_2017.txt"],
+    "bio_sss_2007_2015": [VAULT_DIR / "bio_sss_2007_2015" / "extract_bio_sss_2007_2015.txt"],
+    "tour_hosp_sss_2007_2015": [VAULT_DIR / "tour_hosp_sss_2007_2015" / "extract_tour_hosp_sss_2007_2015.txt"],
+    "values_edu_framework_2021_trial": [VAULT_DIR / "values_edu_framework_2021_trial" / "extract_values_edu_framework_2021_trial.txt"],
+    "ethics_relig_sss_2024": [VAULT_DIR / "ethics_relig_sss_2024" / "extract_ethics_relig_sss_2024.txt"],
+    "history_sss_2007_2015": [VAULT_DIR / "history_sss_2007_2015" / "extract_history_sss_2007_2015.txt"],
+    "music_sss_2024": [VAULT_DIR / "music_sss_2024" / "extract_music_sss_2024.txt"],
+    "tl_sss_2007_2015": [VAULT_DIR / "tl_sss_2007_2015" / "extract_tl_sss_2007_2015.txt"],
 }
 
 # source_id -> consolidated output filename (single repaged extract per source)
@@ -80,6 +91,17 @@ PILOT_OUT = {
     "chi_hist_sss_2007_2015": VAULT_DIR / "chi_hist_sss_2007_2015" / "extract_chi_hist_sss_2007_2015_repaged.txt",
     "chem_sss_2007_2018": VAULT_DIR / "chem_sss_2007_2018" / "extract_chem_sss_2007_2018_repaged.txt",
     "geog_jss": VAULT_DIR / "geog_jss" / "extract_geog_jss_repaged.txt",
+    # S123 broader batch-2
+    "eng_sss_guide_2021": VAULT_DIR / "eng_sss_guide_2021" / "extract_eng_sss_guide_2021_repaged.txt",
+    "ict_sss_2007_2015": VAULT_DIR / "ict_sss_2007_2015" / "extract_ict_sss_2007_2015_repaged.txt",
+    "ma_sss_cag_2017": VAULT_DIR / "ma_sss_cag_2017" / "extract_ma_sss_cag_2017_repaged.txt",
+    "bio_sss_2007_2015": VAULT_DIR / "bio_sss_2007_2015" / "extract_bio_sss_2007_2015_repaged.txt",
+    "tour_hosp_sss_2007_2015": VAULT_DIR / "tour_hosp_sss_2007_2015" / "extract_tour_hosp_sss_2007_2015_repaged.txt",
+    "values_edu_framework_2021_trial": VAULT_DIR / "values_edu_framework_2021_trial" / "extract_values_edu_framework_2021_trial_repaged.txt",
+    "ethics_relig_sss_2024": VAULT_DIR / "ethics_relig_sss_2024" / "extract_ethics_relig_sss_2024_repaged.txt",
+    "history_sss_2007_2015": VAULT_DIR / "history_sss_2007_2015" / "extract_history_sss_2007_2015_repaged.txt",
+    "music_sss_2024": VAULT_DIR / "music_sss_2024" / "extract_music_sss_2024_repaged.txt",
+    "tl_sss_2007_2015": VAULT_DIR / "tl_sss_2007_2015" / "extract_tl_sss_2007_2015_repaged.txt",
 }
 
 

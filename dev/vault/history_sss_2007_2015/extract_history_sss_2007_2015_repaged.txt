@@ -7,7 +7,12 @@
 # extracted: 20260501
 # pipeline: expand_vault.py (auto)
 # ============================================================
+# repaged_at: 20260524_204849_UTC
+# repaged_pages: 114
+# pipeline: repage_pdfs.py (PyMuPDF page-by-page + === Page N === markers)
+# ============================================================
 
+=== Page 1 ===
                                                         
   
  
@@ -32,10 +37,8 @@
 課程發展議會與香港考試及評核局聯合編訂 
  
 香港特別行政區政府教育局建議學校採用 
-二零零七 （二零一五年十一月更新） 
- 
- 
-
+二零零七 （二零一五年十一月更新）
+=== Page 2 ===
 目  錄 
  
 頁 
@@ -154,8 +157,8 @@ i
  
 4.3.2 
 選擇合適的策略 
-27 
-
+27
+=== Page 3 ===
  
 4.3.3 
 有效提問 
@@ -290,8 +293,8 @@ i
  
 6.5.2 
 學校的資源管理 
-51 
-
+51
+=== Page 4 ===
  
  
  
@@ -340,12 +343,10 @@ i
  
  
  
-課程發展議會－香港考試及評核局歷史委員會(高中)委員名錄 
- 
- 
- 
+課程發展議會－香港考試及評核局歷史委員會(高中)委員名錄
+=== Page 5 ===
 
-
+=== Page 6 ===
  
 i
 引 言 
@@ -386,17 +387,17 @@ i
 香港灣仔皇后大道東213號胡忠大廈13樓 
 教育局課程發展處 
                                                  
-1該報告書名為《高中及高等教育新學制—投資香港未來的行動方案》。 
-
+1該報告書名為《高中及高等教育新學制—投資香港未來的行動方案》。
+=== Page 7 ===
  
 ii 
 總課程發展主任(個人、社會及人文教育)收 
 傳真：2573 5299 
-電郵：ccdopshe@edb.gov.hk 
-
+電郵：ccdopshe@edb.gov.hk
+=== Page 8 ===
  
-ii 
-
+ii
+=== Page 9 ===
  
  
 1
@@ -442,8 +443,8 @@ ii
 2過去譯作「批判性思考」。2015 年起，建議使用「明辨性思考」作為critical thinking 的中譯，以強調其
 要義是謹慎思考，明辨分析。為保持課程文件用語的一致性，所有於2015 年或以後更新的中、小學課程
 文件均會相應更新。我們理解其他華語地區的教育專業部門及群體多採用「批判性思考」或「批判思維」，
-我們將按需要予以註明。 
-
+我們將按需要予以註明。
+=== Page 10 ===
  
  
 2
@@ -501,8 +502,8 @@ ii
 關係； 
  
 (e) 
-塑造今日世界的主要歷史發展及趨勢。 
-
+塑造今日世界的主要歷史發展及趨勢。
+=== Page 11 ===
  
  
 3
@@ -564,7 +565,7 @@ ii
  
 (c) 
 運用歷史的轉變和延續的概念解釋二十世紀的主要事件，並說明這兩
-
+=== Page 12 ===
  
  
 4
@@ -621,7 +622,7 @@ ii
 與持平的判斷。 
  
 高中的歷史研習為準備升讀大學的學生提供了健全的概念架構、對二十世
-
+=== Page 13 ===
  
  
 5
@@ -629,12 +630,12 @@ ii
 至工商管理等課程的技能。學生也可進修一些需要歷史研究技巧的課程，
 如在文化承傳、考古學及人類學等方面的探究。此外，在歷史研習中學生
 進行歷史探究，可以培養他們獨立及明辨性思考能力，使他們能應付要求
-高階思維的職業，如分析員及記者等。 
-
+高階思維的職業，如分析員及記者等。
+=== Page 14 ===
  
  
 6
-
+=== Page 15 ===
  
  
 7
@@ -682,10 +683,8 @@ ii
 治、社會、經濟及文化背景方面認識二十世紀的歷史，培養全球視野，
 了解自己、社會及整個世界的發展。主題式研習既涵蓋了世界歷史較
 闊的範圍，也能平衡課程的深度與廣度，學生有較大的空間去發展明
-辨性思考技能及探究式學習。 
- 
- 
-
+辨性思考技能及探究式學習。
+=== Page 16 ===
  
  
 8
@@ -726,9 +725,8 @@ ii
 3有關本科於2016 及2017 年香港中學文憑試的課程及評估資料，可見於教育局網頁上本科課程及評估指
 引以前的版本(http://www.edb.gov.hk/tc/curriculum-development/kla/pshe/curriculum-documents.html)，或考
 評局網頁(http://www.hkeaa.edu.hk/en/hkdse/assessment/assessment_framework/)上的相關考試年度的評核大
-綱。 
- 
-
+綱。
+=== Page 17 ===
  
  
 9
@@ -788,8 +786,8 @@ ii
 命及五四運動對中國成為現代化國家
 的意義。學生同時亦須對促成中華人
 民共和國成立的主要政治發展有概略
-的了解。 
-
+的了解。
+=== Page 18 ===
  
  
 10
@@ -866,10 +864,8 @@ ii
 地時代發展的主要特點。學生須以東
 南亞國家聯盟的發展為例，說明地區
 性合作的趨勢，進一步找出其與全球
-性合作趨勢的關係。 
- 
- 
-
+性合作趨勢的關係。
+=== Page 19 ===
  
  
 11 
@@ -937,8 +933,8 @@ ii
 突、巴爾幹半島的種族衝突及南非的種
 族隔離政策的起因。學生亦須描述有關
 衝突在二十世紀下半葉的發展，並評估
-聯合國在解決有關衝突中擔當的角色。 
-
+聯合國在解決有關衝突中擔當的角色。
+=== Page 20 ===
  
  
 12
@@ -1011,9 +1007,8 @@ ii
  
 一直以來，學校投放於學與教的時間受多種因素影響，包括學校整體課程規畫、學生的能力及需要、學
 生的已有知識、教學及評估策略、教學風格及學校提供的科目數量等。學校應運用專業判斷，靈活分配
-課時，以達到特定的課程宗旨與目標，並配合校情及學生獨特的需要。 
- 
-
+課時，以達到特定的課程宗旨與目標，並配合校情及學生獨特的需要。
+=== Page 21 ===
  
  
 13
@@ -1068,30 +1063,12 @@ ii
  
  
  
-250 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
+250
+=== Page 22 ===
  
  
 14
- 
-
+=== Page 23 ===
  
  
 15
@@ -1147,11 +1124,8 @@ ii
  
 學習綱領既能為會修讀大專院校歷史課程的學生作適當的準備，
 也須為完成高中教育後不再修讀歷史課程的學生提供同樣寶貴的學
-習經歷。 
-  
- 
- 
-
+習經歷。
+=== Page 24 ===
  
  
 16
@@ -1177,11 +1151,8 @@ ii
 得，決定繼續研習本課程，還是修讀其他科目或選擇應用學習課程。無論
 如何，他們都能在中四的歷史研習中有所得益。至於決定繼續研習本課程
 的學生，應能在中五及中六時應用他們在中四所掌握的知識、概念和技能，
-促進他們的歷史學習。 
- 
- 
- 
-
+促進他們的歷史學習。
+=== Page 25 ===
  
  
 17
@@ -1224,8 +1195,8 @@ ii
 2. 主題甲／主題乙 
 中五、中六 
 應用學習
-課程 
-
+課程
+=== Page 26 ===
  
  
 18
@@ -1277,9 +1248,8 @@ ii
 動是其他在課室以外進行促進學習的評估的方式。 
  
  
-（有關課程架構與評估的關係，可參考附錄一的圖表。） 
- 
-
+（有關課程架構與評估的關係，可參考附錄一的圖表。）
+=== Page 27 ===
  
  
 19
@@ -1349,9 +1319,8 @@ ii
  
 有效地利用學校及社區資源，促進學生學習； 
  
-透過資訊科技的運用，進一步擴大學與教資源。 
- 
-
+透過資訊科技的運用，進一步擴大學與教資源。
+=== Page 28 ===
  
  
 20
@@ -1420,9 +1389,8 @@ ii
 鼓勵本科教師就學科知識及學與教策略進行專業交流；也可安排與背
 景接近的學校分享成功的經驗； 
  
-有效使用校內及社區所提供的資源。 
- 
-
+有效使用校內及社區所提供的資源。
+=== Page 29 ===
  
  
 21
@@ -1463,12 +1431,12 @@ ii
  
 教師須採用以學生為中心的教學模式，刺激學生的學習興趣和動機，並透
 過運用多元化的評估模式，全面評估學生各方面的表現。(有關學與教及評
-估策略的進一步建議，可參閱第四及第五章。) 
-
+估策略的進一步建議，可參閱第四及第五章。)
+=== Page 30 ===
  
  
 22
-
+=== Page 31 ===
  
  
 23
@@ -1517,7 +1485,7 @@ ii
  
  
 理解學習目標﹕每項學習活動必須具有學生清楚了解的學習目標，教
-
+=== Page 32 ===
  
  
 24
@@ -1566,9 +1534,8 @@ ii
 目的的一系列教學取向，這些取向可相互結合，互補不足。圖中的例子將
 在附錄逐一介紹，旨在說明如何透過學習過程取得某些較重要的學習成果。
 事實上，學生可透過一個學習過程達至多個學習目標，而不同的教學策略
-也可取得同一個學習成果。 
- 
-
+也可取得同一個學習成果。
+=== Page 33 ===
  
  
 25
@@ -1626,7 +1593,7 @@ B
 C
 D
 E
-
+=== Page 34 ===
  
  
 26
@@ -1668,7 +1635,7 @@ E
 一個可比較的角度，加深學生對有關議題的理解。 
  
 教授當代歷史必然會遇到具爭議性及敏感的議題，透過互動活動，教師可
-
+=== Page 35 ===
  
  
 27
@@ -1714,7 +1681,7 @@ E
  
  
 由誰製作出來的（例如目擊者／當事人／記錄他們所聽所聞
-
+=== Page 36 ===
  
  
 28
@@ -1765,9 +1732,8 @@ E
 道，是學習歷史的重要工具。然而，學生可能無法處理互聯網所包含的龐
 大資料，因此，教師既須提醒學生要為自己訂定清晰的搜尋目標和方向，
 不應浪費時間在網上漫遊；也要指導學生有效的搜尋技巧，培養他們處理
-資訊的能力，以免搜尋到的資訊最終變成無意義的剪貼拼湊。 
- 
-
+資訊的能力，以免搜尋到的資訊最終變成無意義的剪貼拼湊。
+=== Page 37 ===
  
  
 29
@@ -1807,9 +1773,8 @@ E
  
  
  
-附錄六是一張學生進行歷史探究的查核表樣本。   
- 
-
+附錄六是一張學生進行歷史探究的查核表樣本。
+=== Page 38 ===
  
  
 30
@@ -1845,10 +1810,8 @@ E
 主導，學生最終會因感到沉悶而不願繼續參與。但是，這並不表示教師只
 應提出開放式及複雜的問題，因為太多開放式問題可能令整個討論變得含
 糊，即使最出色的學生也可能難以應付。因此，教師應採用不同類型的問
-題，留意學生的反應，以便隨時改變提問策略。 
- 
- 
-
+題，留意學生的反應，以便隨時改變提問策略。
+=== Page 39 ===
  
  
 31
@@ -1897,7 +1860,7 @@ E
  
 編排不同能力的學生為一組，促進同儕互評及協作式學習。能力高的
 學生通過在同儕學習中擔當的特別角色，有機會接受挑戰，發展潛質，
-
+=== Page 40 ===
  
  
 32
@@ -1946,9 +1909,8 @@ E
 能力強的學生可幫助激發其他同學的參與、給予即時的回饋，並代表小組
 作匯報；協作能力強的學生可帶領分組討論，鼓勵其他組員參與，統籌討
 論的過程以達成結論；明辨性思考能力高的學生可處理措詞的準確性，構
-想出合理的論點，也可質疑及評論其他同學的論點。 
- 
-
+想出合理的論點，也可質疑及評論其他同學的論點。
+=== Page 41 ===
  
  
 33
@@ -1986,7 +1948,7 @@ E
 所領悟並產生新的想法，但與此同時，也可能遇到一些不相關或多餘的史
 實與概念、偏頗的見解、空洞的假設和矛盾的觀點，因而感到疑惑，甚至
 迷失方向，這時教師須提供一個簡單的架構讓學生組織自己的思維。教師
-
+=== Page 42 ===
  
  
 34
@@ -2007,7 +1969,7 @@ E
 還可藉實施「大姐姐計畫」或「大哥哥計畫」，令低年級的學生能與高年級
 的學兄、學姊討論歷史議題或澄清歷史概念。教師也可在班內推廣類似的
 活動，令學生有機會鞏固所學。
-
+=== Page 43 ===
  
  
 35
@@ -2044,9 +2006,8 @@ E
 「促進學習的評估」是要為學與教蒐集回饋，使教師可以運用這些回饋檢
 討教學得失，從而相應地調校教學策略，令學習更有效。這種評估被稱為
 「進展性評估」，因為它關乎學與教的發展和調校。進展性評估是需要經常
-進行的，而一般來說，這種評估關注的是較小的學習點。 
- 
-
+進行的，而一般來說，這種評估關注的是較小的學習點。
+=== Page 44 ===
  
  
 36
@@ -2086,8 +2047,8 @@ E
 學生應認識並了解： 
  
  
-基本的歷史概念，如因果關係、演變與延續、不同事件的異同； 
-
+基本的歷史概念，如因果關係、演變與延續、不同事件的異同；
+=== Page 45 ===
  
  
 37
@@ -2136,9 +2097,8 @@ E
 的表現，包括掌握知識和概念、了解及詮釋價值觀和觀點、運用不同歷史
 資料等，從而促進學生的全人發展。教師應在共同商討各範疇所佔的比重，
 並取得共識的同時，讓學生知道評估目的及評估準則，使他們能全面了解
-預期學習所達致的表現。 
- 
-
+預期學習所達致的表現。
+=== Page 46 ===
  
  
 38
@@ -2183,7 +2143,7 @@ E
  (h) 適當運用評估資料以提供回饋 
  
 校內評估提供豐富的資料，讓教師能在學生的學習上給予持續而有針對性
-
+=== Page 47 ===
  
  
 39
@@ -2240,8 +2200,8 @@ E
 知識和技巧掌握上的長處和弱點，並提供有用的信息，讓學生獲知自己的
 學習水平，也可以使教師據此修訂教學策略，以改進學生的表現。 
  
-自我評估 
-
+自我評估
+=== Page 48 ===
  
  
 40
@@ -2287,8 +2247,8 @@ E
 詳細闡述 
 探討 
 解釋 
-為何 
-
+為何
+=== Page 49 ===
  
  
 41
@@ -2332,9 +2292,8 @@ E
 (c) 
 包容性 
  
-香港中學文憑的評核及考試，需配合全體學生的個性及能力。 
- 
-
+香港中學文憑的評核及考試，需配合全體學生的個性及能力。
+=== Page 50 ===
  
  
 42
@@ -2388,8 +2347,8 @@ E
 分。 
 30% 
 一小時 
-三十分鐘 
-
+三十分鐘
+=== Page 51 ===
  
  
 43
@@ -2443,8 +2402,8 @@ E
 織論點。歷史資料題考核學生詮釋歷史資料的能力，而論述題的考核方式
 尤可考核學生鋪排論點時能否合乎邏輯和前後一致。 
  
-學校可參閱每年考試試卷，以了解考試的形式和試題的深淺程度。 
-
+學校可參閱每年考試試卷，以了解考試的形式和試題的深淺程度。
+=== Page 52 ===
  
  
 44
@@ -2489,8 +2448,8 @@ E
 U 
 4 
 臨界分數 
-分域 
-
+分域
+=== Page 53 ===
  
  
 45
@@ -2498,14 +2457,12 @@ U
 頒予考生的整體等級由公開考試的成績組成。為了提高公開評核的區別能
 力以供遴選之用，在考獲第五等級的考生中，表現最優異的其成績將以「**」
 標示，隨後表現較佳的則以「*」標示。香港中學文憑的證書會記錄考生考
-獲的等級。 
-
+獲的等級。
+=== Page 54 ===
  
  
 46
- 
- 
-
+=== Page 55 ===
  
  
 47
@@ -2550,10 +2507,8 @@ U
 ● 
 能促進討論和延伸探究； 
 ● 
-無論在費用、時間還是功夫方面，都是學校或教師負擔得起的。 
- 
- 
-
+無論在費用、時間還是功夫方面，都是學校或教師負擔得起的。
+=== Page 56 ===
  
  
 48
@@ -2596,7 +2551,7 @@ U
 教師選用歷史資料時，除了注意資料是否可用或便於取用外，還應考慮資
 料是否真實及有根據。此外，教師也應讓學生明白「資料」與「證據」的
 分別，即只有可用作解答相關的歷史問題、並經過其他資料證實的資料才
-
+=== Page 57 ===
  
  
 49
@@ -2639,9 +2594,8 @@ U
 家長能幫助學生將在學校所學與日常生活聯繫起來，藉着種種家庭活動，
 例如參觀博物館或遊覽歷史遺蹟，為學生提供與課堂有關的學習資源。此
 外，由家長口述其參與的有關歷史事件的經歷、其感受和意見，對學生來
-說也是寶貴的資料，學生能產生共鳴之餘，也培養出對歷史的洞察力。 
- 
-
+說也是寶貴的資料，學生能產生共鳴之餘，也培養出對歷史的洞察力。
+=== Page 58 ===
  
  
 50
@@ -2680,7 +2634,7 @@ U
 學生的能力與興趣各有不同，個性也有差異。有些學生以閱讀文本資料方
 式學習最有效，他們應有機會接觸各種有助理解某一課題的文本，包括歷
 史學家及其他學者有關某一時期的著作、官方報告、回憶錄、社會各階層
-
+=== Page 59 ===
  
  
 51
@@ -2721,7 +2675,7 @@ U
  各種學習資源，包括書籍、期刊、雜誌、百科全書、唯讀光碟、互動媒
 體，以及各種在線資源等，必須根據資源性質來編排與分類。教師可透
 過學校圖書館管理員的幫忙，將各種資源妥為分類，並定期更新，以配
-
+=== Page 60 ===
  
  
 52
@@ -2732,10 +2686,8 @@ U
  學習資源，尤其是書本與期刊，要能方便學生取用，以鼓勵閱讀風氣。
 學校圖書館管理員也可在這方面提供協助。不過，培養學生在知識產權
 方面的責任感也十分重要。因此，教師應自行制定使用學習資源的守則，
-並遵守版權條例的規定。 
-   
- 
-
+並遵守版權條例的規定。
+=== Page 61 ===
  
  
 價值觀和 
@@ -2808,8 +2760,8 @@ U
  
 53 
 附錄一 
-歷史思考技能 
-
+歷史思考技能
+=== Page 62 ===
  
  
 54
@@ -2833,10 +2785,8 @@ U
  
 不過，儘管引言部分的教學採用直接傳授式可能較合適和有效，但也
 不應排除其他教學法的可行性和重要性，因為倘若只採用一種教學法
-教授整個課題，課堂將出現全由教師主導及學習氣氛沉悶等問題。  
- 
- 
-
+教授整個課題，課堂將出現全由教師主導及學習氣氛沉悶等問題。
+=== Page 63 ===
  
  
 55
@@ -2860,11 +2810,8 @@ http://www.eurunion.org/infores/euindex.htm).
 每組學生須於研習過程中擬定探究的問題，找出可能的答案及準備一個
 二十分鐘的演示，以概述這兩個組織在推動歐洲及全球經濟合作及一體
 化過程中所作出的嘗試，並評估歐盟和世貿在解決它們內部及對外的爭
-議方面的成果。 
- 
- 
- 
-
+議方面的成果。
+=== Page 64 ===
  
  
 56
@@ -2892,10 +2839,8 @@ http://www.eurunion.org/infores/euindex.htm).
 豐富討論的內容。教師也可進一步播放錄影帶片段或提供其他資料)。 
  
 教師須於討論結束時安排同儕互評，各組須就其他組別的匯報作出評論。
-最後，教師須給予回饋，指出各組演示的優點及缺點。 
- 
- 
-
+最後，教師須給予回饋，指出各組演示的優點及缺點。
+=== Page 65 ===
  
  
 57
@@ -2917,10 +2862,8 @@ http://www.eurunion.org/infores/euindex.htm).
 論，提醒學生有關的問題可能沒有肯定的答案，強調學生須思考可支
 持他們論點的資料及考慮資料來源的真確性。教師與學生一起將不同
 的資訊匯集，並根據全班所獲的證據及發現的資料作結論。最後，教
-師與全班一起修訂答案，為「現代化」界定較具體及詳盡的定義。  
- 
- 
-
+師與全班一起修訂答案，為「現代化」界定較具體及詳盡的定義。
+=== Page 66 ===
  
  
 58
@@ -2966,9 +2909,8 @@ http://www.eurunion.org/infores/euindex.htm).
 – 應該如何演示我的研究？ 
 – 演示形式是否符合評估的標準？ 
 – 哪種演示形式較適合我的報告對象？ 
-– 演示時需要甚麼物料／設備？ 
- 
-
+– 演示時需要甚麼物料／設備？
+=== Page 67 ===
  
  
 59
@@ -2981,12 +2923,8 @@ http://www.eurunion.org/infores/euindex.htm).
 – 這個研究／演示在哪方面有待改善？ 
 – 我從這個過程中學到甚麼？ 
 – 我能否將這次研究所學到的知識應用到其他學
-科或／及日常生活上？ 
- 
- 
- 
- 
-
+科或／及日常生活上？
+=== Page 68 ===
  
  
 60
@@ -3017,10 +2955,8 @@ http://www.eurunion.org/infores/euindex.htm).
  
 跟進活動﹕課堂討論／短文 
 這些文化互動的過程是以和平還是敵對的方式進行的？甚麼因素決定了
-這些互動活動的性質？ 
- 
- 
-
+這些互動活動的性質？
+=== Page 69 ===
  
  
 61
@@ -3060,10 +2996,8 @@ http://www.eurunion.org/infores/euindex.htm).
 10.  
 戰爭作為解決國際紛爭的方式成效如何？ 
 11.  
-利用戰爭解決國際紛爭是否值得？ 
- 
- 
-
+利用戰爭解決國際紛爭是否值得？
+=== Page 70 ===
  
  
 62
@@ -3090,12 +3024,8 @@ http://www.eurunion.org/infores/euindex.htm).
 框架」），協助學生理解「務實主義」的概念，以及如何利用這一概念詮
 釋改革措施在不同時期與情況下的成效。這個概念比較複雜，教師須不
 斷提示並提出具挑戰性的問題，以強化學生的明辨性思考能力，令他們
-更好地掌握有關的概念。 
- 
- 
- 
- 
-
+更好地掌握有關的概念。
+=== Page 71 ===
  
  
 63 
@@ -3133,8 +3063,8 @@ http://www.eurunion.org/infores/euindex.htm).
 及形成自己的知識體系。 
 香港中學文憑 
 學生完成三年高中課程，參加公開評核後獲頒授的證
-書。 
-
+書。
+=== Page 72 ===
  
  
 64 
@@ -3170,8 +3100,8 @@ http://www.eurunion.org/infores/euindex.htm).
 擔精神、誠信及國民身份認同。與價值觀息息相關的
 態度會影響學習動機和認知能力。由於二者在學生的
 學習過程上有舉足輕重的影響，因此，價值觀和態度
-的培養成為學校課程的主要元素。 
-
+的培養成為學校課程的主要元素。
+=== Page 73 ===
  
  
 65 
@@ -3207,8 +3137,8 @@ http://www.eurunion.org/infores/euindex.htm).
 是指預期學生完成課程或某學習階段後的學習表
 現，是根據課程的學習目標及學習重點而擬定，可作
 為評估學習成效的依據，並反映學生在課程學習後應
-能達到的學習表現，以促進他們的學習。  
-
+能達到的學習表現，以促進他們的學習。
+=== Page 74 ===
  
  
 66 
@@ -3238,12 +3168,12 @@ http://www.eurunion.org/infores/euindex.htm).
 平台，幫助學生發展其基礎技能、思考能力、人際關
 係、價值觀及態度和與職業相關的能力，為未來進
 修、工作及終身學習做好準備。應用學習課程與24
-個高中科目互相補足，使高中課程更多樣化。 
-
+個高中科目互相補足，使高中課程更多樣化。
+=== Page 75 ===
  
  
-66 
-
+66
+=== Page 76 ===
  
  
 67
@@ -3283,8 +3213,8 @@ Moss, P. (1987). History scene in the modern world. London: Collins Educational.
 O’Callaghan, B. (1987). A history of the twentieth century. London; New York: Longman.  
  
 Overy, R. J. (Ed.). (2000). The Ttimes history of 20th century (New Edition). London: Times 
-Book.  
-
+Book.
+=== Page 77 ===
  
  
 68
@@ -3324,9 +3254,8 @@ London: Hodder & Stoughton Educational Division.
  
 梁維平（2002）《榮耀與苦難：20 世紀文明的歷史見證》，北京：東方出版社。 
  
-郭少棠（1993）《西方的巨變：1800-1980》，香港：香港教育圖書公司。 
- 
-
+郭少棠（1993）《西方的巨變：1800-1980》，香港：香港教育圖書公司。
+=== Page 78 ===
  
  
 69
@@ -3371,7 +3300,7 @@ from 1500-2000），香港：中華書局（香港）有限公司。
 三卷六冊）(譯自History of the twentieth century)，西安：陝西師範大學出版社。 
  
 【加】弗萊 (Northrop Erye) 著，盛寧譯（1998）《現代百年》(譯自The modern century)，
-
+=== Page 79 ===
  
  
 70
@@ -3412,9 +3341,8 @@ Enright, M. J., Scott, E., & Dodwell, D. (1997). The Hong Kong advantage (Chines
 港優勢》. Hong Kong: Oxford University Press (China). (Chinese Edition. Added) 
  
 Faure, D. (Ed.). (2003). Hong Kong: A reader in social history. Hong Kong: Oxford 
-University Press (China).  
-  
-
+University Press (China).
+=== Page 80 ===
  
  
 71
@@ -3456,8 +3384,8 @@ Hong Kong (Centre of Asian Studies Occasional Papers and Monographs No. 88).
 Hong Kong: Centre of Asian Studies, University of Hong Kong.  
  
 Sinn, E. (Ed.). (2001). Hong Kong, British crown colony, revisited. Hong Kong: Centre of 
-Asian Studies, University of Hong Kong.  
-
+Asian Studies, University of Hong Kong.
+=== Page 81 ===
  
  
 72
@@ -3497,9 +3425,8 @@ Press.
 高岱、馮仲平著，沈永興編（1994）《從砵甸乍到彭定康：歷屆港督傳略》，香港：新天
 出版社。 
  
-余繩武、劉蜀永（1995）《二十世紀的香港》，香港：麒麟書業有限公司。 
- 
-
+余繩武、劉蜀永（1995）《二十世紀的香港》，香港：麒麟書業有限公司。
+=== Page 82 ===
  
  
 73
@@ -3539,8 +3466,8 @@ Press.
 中國 
  
 Bailey, P.J. (2001). China in the twentieth century (2nd Edition). Oxford; Malden, Mass.: 
-Blackwell Publishers.  
-
+Blackwell Publishers.
+=== Page 83 ===
  
  
 74
@@ -3581,8 +3508,8 @@ Zheng, S.P. (1997). Party vs. state in post-1949 China: The institutional dilemm
 New York: Cambridge University Press. 
  
 中國中央檔案館編（2001）《中國共產黨八十年珍貴檔案》（上下冊），北京：中國檔案
-出版社。  
-
+出版社。
+=== Page 84 ===
  
  
 75
@@ -3623,8 +3550,8 @@ The rise of modern china），香港：香港中文大學出版社。
  
 郭廷以（1986）《近代中國史綱》（共兩冊）（第3 版），香港：香港中文大學出版社。 
  
-黃仁宇（1995）《近代中國的出路》，香港：中華書局（香港）有限公司。 
-
+黃仁宇（1995）《近代中國的出路》，香港：中華書局（香港）有限公司。
+=== Page 85 ===
  
  
 76
@@ -3667,9 +3594,8 @@ The rise of modern china），香港：香港中文大學出版社。
 【美】費正清 (John King Fairbank) 編，楊品泉、劉敬坤譯（1998）《劍橋中國中華民
 國史1912-1949》
 （兩卷）
-（譯自 The Cambridge History of China, vol. 12, Republican 
- 
-
+（譯自 The Cambridge History of China, vol. 12, Republican
+=== Page 86 ===
  
  
 77
@@ -3709,9 +3635,8 @@ Benson, J., & Matsumura, T. (2001). Japan 1868-1945: From isolation to occupatio
 England; New York: Longman.  
  
 Borthwick, Mark et al, .（1998）(2nd edition). Pacific century: The emergence of modern 
-Pacific Asia. Boulder: Westview Press.  
- 
-
+Pacific Asia. Boulder: Westview Press.
+=== Page 87 ===
  
  
 78
@@ -3752,9 +3677,8 @@ Honolulu: University of Hawaii Press.
  
 McCargo, D. (2000). Contemporary Japan. New York: St. Martin's Press. 
  
-McClain, J.L. (2002). Japan: A modern history. New York: W.W. Norton & Co.  
- 
-
+McClain, J.L. (2002). Japan: A modern history. New York: W.W. Norton & Co.
+=== Page 88 ===
  
  
 79
@@ -3795,8 +3719,8 @@ comparison with China's path towards modernization. Leiden; New York: E.J. Brill
 版社。 
  
 【日】竹內迅著，田原、張嬿譯（2000）《為證言的證言：一個日本記者的東史郎訴訟
-案實錄》，北京：世界知識出版社。 
-
+案實錄》，北京：世界知識出版社。
+=== Page 89 ===
  
  
 80
@@ -3836,9 +3760,8 @@ SarDesai, D. R (1989). Southeast Asia: Past & present. Boulder: Westview Press.
  
 Springhall, J. (2001). Decolonization since 1945: The collapse of European overseas empires. 
 (The Studies in Contemporary History Series). Basingstoke, Hampshire; New York: 
-Palgrave.  
- 
-
+Palgrave.
+=== Page 90 ===
  
  
 81
@@ -3879,8 +3802,8 @@ Tarling, N. (2001). Southeast Asia: A modern history. Melbourne: Oxford Universi
 明：雲南人民出版社。 
  
 3. 
-二十世紀世界的衝突與合作 
-
+二十世紀世界的衝突與合作
+=== Page 91 ===
  
  
 82
@@ -3921,8 +3844,8 @@ DeMarco, N. (2001). Hot War – Cold War (The Hodder History Investigations seri
 London: Hodder & Stoughton. 
  
 Edwards, O. （2002）. The USA and the Cold War, 1945-63 (The Access to History series) (2nd 
-Edition). London: Hodder & Stoughton Educational Division. 
-
+Edition). London: Hodder & Stoughton Educational Division.
+=== Page 92 ===
  
  
 83
@@ -3963,9 +3886,8 @@ Scott-Baumann, M. (1998). War and peace in the Middle East (The Hodder Twentieth
 Century History series). London: Hodder & Stoughton.  
  
 Shephard, C., Reid, A., & Shephard, K. (1993). Discovering the past Y9: Peace & war. 
-London: John Murray. 
- 
-
+London: John Murray.
+=== Page 93 ===
  
  
 84
@@ -4005,9 +3927,8 @@ apartheid. (3rd Edition). Oxford; Malden, MA: Blackwell Publishers.
  
 周煦（2001）《冷戰後美國的中東政策：1989-2000》，台北：五南圖書出版公司。 
  
-周煦（1999）《冷戰後美國的東亞政策：1989-1997》，台北：生智文化事業有限公司。 
- 
-
+周煦（1999）《冷戰後美國的東亞政策：1989-1997》，台北：生智文化事業有限公司。
+=== Page 94 ===
  
  
 85
@@ -4048,8 +3969,8 @@ apartheid. (3rd Edition). Oxford; Malden, MA: Blackwell Publishers.
  
 陳峰君編（1999）《冷戰後亞太國際關係》，北京：新華出版社。 
  
-郭少棠（1997）《後冷戰國際秩序之形成》，香港：天地圖書有限公司。 
-
+郭少棠（1997）《後冷戰國際秩序之形成》，香港：天地圖書有限公司。
+=== Page 95 ===
  
  
 86
@@ -4091,9 +4012,8 @@ Culpin, C., & Scott, J. (1996). Medicine through time. Glasgow: Collins Educatio
 Davies, G. (Ed.). (1999). The timechart history of medicine. Rickmansworth: Timechart.  
  
 Dorn, A.W. (Ed.). (1999). World order for a new millennium: Political, cultural, and spiritual 
-approaches to building peace. New York: St. Martin’s Press.  
- 
-
+approaches to building peace. New York: St. Martin’s Press.
+=== Page 96 ===
  
  
 87
@@ -4134,8 +4054,8 @@ Publications.
 United Nations. (1995). Secondary school kit on the United Nations. New York: United 
 Nations Publications.  
  
-Wood, D.M., & Yesilada, B.A. (2002). The emerging European Union (2nd Edition). New 
-
+Wood, D.M., & Yesilada, B.A. (2002). The emerging European Union (2nd Edition). New
+=== Page 97 ===
  
  
 88
@@ -4178,8 +4098,8 @@ History Today (monthly). London: History Today Ltd. ISSN: 0018-2753.
  
 The Historian (quarterly). London: The Historical Association. ISSN: 0265-1076. 
  
-《歷史學習》（月刊）。天津：歷史教學社。（國際標準刊號：ISSN 1005-3816） 
-
+《歷史學習》（月刊）。天津：歷史教學社。（國際標準刊號：ISSN 1005-3816）
+=== Page 98 ===
  
  
 89
@@ -4214,11 +4134,8 @@ http://iwh.cass.cn/
 大國崛起（中央電視台12 集大型電視紀錄片）。 
 http://finance.cctv.com/special/C16860/01/index.shtml 
  
-香港 
- 
- 
- 
-
+香港
+=== Page 99 ===
  
  
 90
@@ -4257,10 +4174,8 @@ Harvard China Review Home Page. http://www.harvardchina.org/index.html
  
 中國網。http://www.china.org.cn/chinese/index.htm 
  
-中國社會科學院 (Chinese Academy of Social Sciences) 。 
- 
- 
-
+中國社會科學院 (Chinese Academy of Social Sciences) 。
+=== Page 100 ===
  
  
 91
@@ -4302,8 +4217,8 @@ Kyoto Review of Southeast Asia.
 http://kyotoreview.cseas.kyoto-u.ac.jp/issue/issue2/index.html 
  
 The Association for Asian Studies (US). 
-http://www.aasianst.org/ 
-
+http://www.aasianst.org/
+=== Page 101 ===
  
  
 92
@@ -4340,12 +4255,8 @@ The National Archives Learning Curve Cold War..
 http://learningcurve.pro.gov.uk/coldwar/ 
  
 The Provincial Museum of Alberta - Government History - The Poster War. 
-http://www.royalalbertamuseum.ca/onlineExhibit/posterWar/english/home.htm 
- 
- 
- 
- 
-
+http://www.royalalbertamuseum.ca/onlineExhibit/posterWar/english/home.htm
+=== Page 102 ===
  
  
 93
@@ -4385,9 +4296,8 @@ http://www.oecd.org/home/
 The United Nations. 
 http://www.un.org/ 
  
-United Nations Educational, Scientific and Cultural Organization. 
- 
-
+United Nations Educational, Scientific and Cultural Organization.
+=== Page 103 ===
  
  
 94
@@ -4427,9 +4337,8 @@ The PBS Video
 http://teacher.shop.pbs.org 
  
 The New Video Group 
-http://www.newvideo.com 
- 
-
+http://www.newvideo.com
+=== Page 104 ===
  
  
 95
@@ -4500,8 +4409,8 @@ Zeitgeist Films Ltd
  
 Chinese Revolution, The 
 Video tapes 
-PBS Video 
-
+PBS Video
+=== Page 105 ===
  
  
 96
@@ -4554,8 +4463,8 @@ Blenkin, G. M., Edwards, G., & Kelly, A.V. (1992). Change and the curriculum. Lo
 Paul Chapman Publishing Ltd. 
  
 Boekaerts, M. (2002). Motivation to learn. Retrieved March 8, 2006, from 
-http://www.ibe.unesco.org/publications/EducationalPracticesSeriesPdf/prac10e.pdf 
-
+http://www.ibe.unesco.org/publications/EducationalPracticesSeriesPdf/prac10e.pdf
+=== Page 106 ===
  
  
 97
@@ -4596,8 +4505,8 @@ Book). London: John Murray.
  
 Moore, A., & Shephard, C. (1997).The twentieth-century world special needs support 
 materials: Picture pack workbook (The Discovering the Past for GCSE series). 
-London: John Murray.  
-
+London: John Murray.
+=== Page 107 ===
  
  
 98
@@ -4638,8 +4547,8 @@ London: John Murray.
 Watkins, C. (2005). Classrooms as learning communities: What’s in it for schools? New York: 
 Routledge. 
  
-Worrall, K., & Sparey, E. (2003). Presenting the past (4): The modern world (Teacher’s 
-
+Worrall, K., & Sparey, E. (2003). Presenting the past (4): The modern world (Teacher’s
+=== Page 108 ===
  
  
 99
@@ -4684,9 +4593,8 @@ Resources). Glasgow: Collins Education.
  
 齊健、趙亞夫等（2003）《歷史教育價值論》，北京：高等教育出版社。 
  
-陳偉國、何成剛（2003）《歷史教育測量與評價》，北京：高等教育出版社。 
- 
-
+陳偉國、何成剛（2003）《歷史教育測量與評價》，北京：高等教育出版社。
+=== Page 109 ===
  
  
 100
@@ -4728,9 +4636,8 @@ Teaching History (quarterly). London: The Historical Association. (ISSN: 0040-06
 （月刊）。廣州：華南師範大學歷史系。（國際標準刊號：ISSN 1009-3435） 
  
 《中學歷史教學參考》
-（月刊）。西安：陝西師範大學。（國際標準刊號：ISSN 1002-2198） 
- 
-
+（月刊）。西安：陝西師範大學。（國際標準刊號：ISSN 1002-2198）
+=== Page 110 ===
  
  
 101
@@ -4771,8 +4678,8 @@ rmonise?Page/@id=6016
 The National Archives Learning Curve. 
 http://learningcurve.pro.gov.uk/ 
  
-Paul Halsall - Fordham University Internet History Sourcebooks Project. 
-
+Paul Halsall - Fordham University Internet History Sourcebooks Project.
+=== Page 111 ===
  
  
 102
@@ -4786,9 +4693,8 @@ http://www.esa.co.nz/files/samplepages/SampleSRSoSt1,2_9.pdf
 http://www.cssn.cn/ 
  
 香港資訊教育城 – 歷史科教案及練習 
-http://www.hkedcity.net/resources 
- 
-
+http://www.hkedcity.net/resources
+=== Page 112 ===
  
  
 課程發展議會－香港考試及評核局歷史委員會 
@@ -4821,10 +4727,8 @@ http://www.hkedcity.net/resources
  
 祕書: 
 吳慶紅女士 (教育局) ( 自2010 年3 月起) 
-翁李育慧女士（教育局）(至2010 年2 月止) 
- 
- 
-
+翁李育慧女士（教育局）(至2010 年2 月止)
+=== Page 113 ===
  
  
 課程發展議會－香港考試及評核局 
@@ -4853,19 +4757,8 @@ http://www.hkedcity.net/resources
 楊穎宇博士  (香港考試及評核局) 
  
 祕書: 
-吳慶紅女士  (教育局) 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
+吳慶紅女士  (教育局)
+=== Page 114 ===
  
  
  
@@ -4895,12 +4788,4 @@ http://www.hkedcity.net/resources
 楊穎宇博士  (香港考試及評核局) 
  
 祕書: 
-吳慶紅女士  (教育局) 
- 
- 
- 
- 
- 
- 
- 
- 
+吳慶紅女士  (教育局)
