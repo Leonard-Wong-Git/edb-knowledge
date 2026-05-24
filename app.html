@@ -3080,7 +3080,7 @@ function QAPanel({ data, setPreviewDoc }) {
           {(searchChannel === 'B' || searchChannel === 'AB') && results.length > 0 && (
             <div style={{display:'flex',alignItems:'flex-start',gap:'8px',padding:'10px 12px',background:'#FFFBEB',border:'1px solid #FCD34D',borderRadius:'var(--r-md)',fontSize:'var(--text-xs)',color:'#92400E',lineHeight:1.6}}>
               <span style={{flexShrink:0,marginTop:'1px'}}>⚠️</span>
-              <span>來源文件搜尋結果由 AI 語義搜尋生成，<strong>行政及財務類查詢</strong>（如採購門檻、請假程序）結果準確性待確認，建議對照<a href="https://www.edb.gov.hk" target="_blank" rel="noopener noreferrer" style={{color:'#92400E',textDecoration:'underline'}}>教育局官方原文</a>核實。</span>
+              <span>「整理答案」由 AI 根據以下 EDB 原文片段語意合成，可能有遺漏或表述偏差。重要決定請以來源文件原文為準</span>
             </div>
           )}
           {/* Channel A results or Channel B without synthesis: airline board rows (deduped) */}

@@ -26,6 +26,14 @@
 | Doc-drift / known divergence（local wiki_index.json vs Supabase 對 52 源 diverge，原 42 → 52；non-blocker reconcile backlog）| SESSION_HANDOFF Risks update（local↔Supabase reconcile scope 擴）| ✓ Done |
 | S121 commit-msg-vs-diff drift codify（commit msg 寫 pending patch、diff 實已 apply）| §G.2 verify-code-not-docs case study；本 SESSION_LOG entry trigger 段 codified；§8b：本 case `monitoring — promote to rule if recurrence is observed`（單次未到 promote threshold）| ✓ Done |
 
+#### Follow-up — Channel-B disclaimer copy 改寫（S122 post-PERSIST，同 session）
+- **Trigger：** Leonard 5 截圖 browser-verify Channel-B-only batch-1 surface PASS（地理 / 化學 / 文學 / 宗教 / 公民及社會發展科）+ 提出底部 disclaimer 文案「行政及財務類查詢（如採購門檻、請假程序）結果準確性待確認」**配合現時情況需要改寫**（自 S119 起 surface 已係 Channel-B-only，所有 query 都係 EDB 原文 + AI 整理答案，唔再淨止 admin/finance 類；5 條 demo query 全係課程主題、原 caveat 對佢哋無語境）。
+- **§3 LOW-risk PLAN：** `app.html:3083` inner `<span>` text 換 + 移除 `<strong>` 同 `<a>` markup（Leonard 新文案無強調無 link）；外層 `<div>` 黃底 / ⚠️ emoji span / 顯示條件不變；1 file / reversible / frontend-only / 零 backend/contract 影響。
+- **CHANGE：** Leonard 揀 Option A 縮減版 → 落 EXACT text：「「整理答案」由 AI 根據以下 EDB 原文片段語意合成，可能有遺漏或表述偏差。重要決定請以來源文件原文為準」（無句號跟 Leonard 原樣）。
+- **QC PASS：** `git status` 只 `M app.html`；structural markup `#FFFBEB` / `#FCD34D` / ⚠️ / 顯示條件 `searchChannel === 'B' || 'AB'` 全部保留 verified；新 copy L3083 in place；`行政及財務類查詢` / EDB 官方原文 link 已清乾淨；無 typecheck/build break（前端 inline React、無 build step）。
+- **DOC_SYNC：** UI copy 一條 line、無 governance impact、PROJECT_MASTER_SPEC 無 §F 鎖定決策需要 update（disclaimer 本身唔係 locked decision）；S119 PMS §F.2 channel-B-only 方向不變、本 copy 改寫只係跟住 S119 surface shift 收尾文案 alignment。
+- **Sources changed：** `app.html` 1 line（commit+push 跟住）。
+
 ---
 
 ## 2026-05-20 Session 121 — Supabase RLS hardening on wiki_chunks（critical security incident response，§3 HIGH-risk live DDL）
