@@ -34,6 +34,53 @@
 - **DOC_SYNC：** UI copy 一條 line、無 governance impact、PROJECT_MASTER_SPEC 無 §F 鎖定決策需要 update（disclaimer 本身唔係 locked decision）；S119 PMS §F.2 channel-B-only 方向不變、本 copy 改寫只係跟住 S119 surface shift 收尾文案 alignment。
 - **Sources changed：** `app.html` 1 line（commit+push 跟住）。
 
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。Channel B/retrieval PoC 喺姊妹資料夾 "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Testing/poc-retrieval/"（唔喺 git、Draft 零接觸）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S122（CLOSED 2026-05-24，Leonard「收工」）：**CB-3 Option C broader batch-1（10 marker-less PDF）page-carry 生產 live + 0 regression + Leonard browser-verify PASS + disclaimer copy 配合 Channel-B-only 現況改寫**。HEAD `2c986e1` 同步 origin/main（`3b4087d` S122 主體 + `2c986e1` disclaimer follow-up）；後置 closeout commit 跟住推。Trigger = Leonard 起手「resume broader Option C batch-1」明示授權。發現 S121 commit `fd22e0a` diff 已 apply URL-encoding patch（commit msg / SESSION_LOG 講 pending 5min patch 係 S121 內部 doc-drift；§G.2 verify-code-not-docs 教訓再驗）。Gate 1 vault `--write` 10/10 PASS（markers==pages 全對 / content sanity 100.6-102.5% 無 quality regression / §5.a-compliant backup `dev/init_backup/20260524_154600_UTC/cb3c_pilot_legacy/`）→ Gate 2 dry-run 無 anomaly（9 sources canonical normalization -16~-26%、1 source `eng_lit_guide_2023` 300→633 +111% = content RECOVERY 撞 legacy 300 cap）→ Gate 2 EXECUTE 10/10 OK（DELETE 2,503 / INSERT 2,390 / net -113 / Supabase 10,682→**10,569** exactly match prediction、per-source `del/ins/now` 全對齊）→ live smoke 8/10 batch-1 sources 確認 surface with **PAGE NUMBERS**（地理 → geog_jss p=106 0.667 + geog_sss p=66 0.612 / 化學實驗 → chem_sss top-3 p=145/80/40 / 英國文學選讀 → eng_lit top-3 p=8/9/81 content +333 recovery live verified / 宗教倫理 → religious_edu p=18/67 / 公民及社會發展科 → ces_jss p=19 / 物理 → phys_sss p=143；剩 tech_kla / ls_jss / chi_hist 本輪 query 無 surface = ranking 競爭非 regression、data 已 indexed）。Leonard 5 截圖 browser-verify PASS（地理 / 化學 / 文學 / 宗教 / 公民及社會發展科 surface + 整理答案 + 頁數 + 來源文件）+ 提出 disclaimer 文案配合現況改寫（去 admin/finance framing）→ Option A 縮減版落 `app.html:3083`（去 `<strong>` / `<a>`、跟 Leonard exact text 無句號）。Whole-vault page-resolvable 13.2%→23.7%→32.2%→**~55.2%**；52/113 vault sources marker-bearing（39 B + 3 C pilot + 10 batch-1）。
+
+Current objective and progress state:
+- **broader Option C batch-1（10 sources）= 生產 live closed**：driver `cb3_b2_pagecarry_migrate.py` zero code change reuse OK（S121 RLS 後 service_role bypass RLS confirmed）；seen_ids / per-source DELETE/replace pattern + `--skip-local` 紀律維持；INVARIANT 守。Pipeline generalize-ready verified — batch-2~6 可沿用同 pattern。
+- **Channel-B disclaimer 配合 surface 收尾**：`app.html:3083` 新 copy「『整理答案』由 AI 根據以下 EDB 原文片段語意合成，可能有遺漏或表述偏差。重要決定請以來源文件原文為準」live verified（Leonard 5 截圖底部 footer 觀察 + 改寫 directive）。
+- **Remaining CB-3 工作**：51 marker-less PDFs（batch-2~6 共 5-6 批，每批 10 sources）+ 9 結構天花板（4 HTML + 5 xlsx 永遠救唔到）→ CB-3 final ceiling ≈ 88%。
+- §E.10 partial resolution 維持（RLS family S121 closed；admin-login client-side gate 仍 OPEN）。Q4（Channel A→`knowledge.json`→Circular System 對外契約）deferred 獨立 track；Stage-2 closed-as-non-viable 勿復活。
+
+Pending tasks in priority order:
+1. **broader Option C batch-2 ~ batch-6**（51 marker-less PDFs，等 Leonard 排批次步伐）：pipeline 已 generalize-ready 經 S122 batch-1 完整 verified；driver + `repage_pdfs.py` 一行唔改，extend `PILOT_LEGACY`/`PILOT_OUT` dict 即可。每批仍 §3 HIGH-risk Leonard 明示 go（Gate 1 vault `--write` → Gate 2 Supabase `--execute --skip-local` → QC + smoke）。
+2. **S122 batch-1 ranking polish backlog（低優先，非 regression）**：tech_kla_guide_2017 / ls_jss_2010 / chi_hist_sss_2007_2015 本輪 live smoke 無 surface = ranking/topic-routing 競爭（data 已 indexed），可加 dedicated route 或 SOURCE_ALIASES 改善。
+3. **CB-3 收尾 backlog（低優先，非生產影響）**：(a) local `wiki_index.json` ↔ Supabase reconcile（52 源 diverge，S122 後 scope 擴）；(b) build_wiki_index hash-dedup vs live 語料不齊（latent corpus-consistency）；(c) sag_2025_11 freshness metadata（2025-11→2026-05；對外 contract 不變、純 internal naming）；(d) g06 vs pri_curr_guide_2024 near-duplicate ranking polish（SOURCE_ALIASES dedup）。
+4. **🔴 既有 deferred**：§E.10 admin-login client-side gate（RLS family 已 S121 closed、admin-login 仍 OPEN 獨立保留）；Supabase free-tier probes=8 `57014` transient（生產可用性、retry 即恢復；probes=8 live 已 S121 INSPECT 確認）；FAIL-A Circular 注入 regression（record-only）；P2 分類 148 + P3（39→148 deferred 須 §3 HIGH-risk）；Mobile UI P2；HKEAA；低 doc-debt（FAIL-B `semanticRegression.ts:292` stale 1.3.1 / `wiki_index._meta.total_chunks` stale）。
+5. **Q4 對外契約收斂（deferred 獨立 track）**：Channel A `role_facts.json`→`knowledge.json`→下游 Circular System；3 選項（叫下游改／Channel B 變供料／凍結停供）待 B-only+CB-3 成熟、Leonard 排；未明示勿掂契約/下游。
+
+Key files changed this session (全部 commit+push)：
+- Draft（commit `3b4087d` S122 主體）：dev/SESSION_LOG / SESSION_HANDOFF / PROJECT_MASTER_SPEC / CODEBASE_CONTEXT / HANDOFF_PACKAGE 5 個 governance docs + 10 個 vault rename pairs（`dev/vault/<10 sids>/extract_<sid>.txt` → `extract_<sid>_repaged.txt`，R097-R098 file history 保住）。
+- Draft（commit `2c986e1` disclaimer follow-up）：`app.html:3083` inner span text + SESSION_LOG follow-up sub-entry。
+- Supabase live（非 git，service_role REST 經 driver）：wiki_chunks 10,682→10,569（10 batch-1 sources DELETE 2,503 INSERT 2,390）。
+- dev/init_backup/{20260524_154600_UTC,20260524_171708_UTC}/（gitignored，本機 reversible safety net）。
+- Testing/：（無 PoC 改動本 session）。
+
+Known risks / blockers / cautions:
+- **§G.2 verify-code-not-docs 再驗（S121 commit-msg-vs-diff drift）**：commit message 寫 pending patch、diff 實已 apply；§8b 評估 = monitoring（單次未到 promote-to-rule threshold；recurrence-prone = 接手者寫 commit msg 同 diff 時自行 cross-check）。
+- **§E.14 driver reuse pattern 印證**：service_role bypass RLS（S121 confirmed）→ driver 一行唔改、broader Option C batch-2~6 可放心沿用；seen_ids dedup + per-source DELETE/replace + `--skip-local` 紀律係必守條件（漏少一樣會 fire S119 stat_enrolment 嘅 409 incident）。
+- local `wiki_index.json` vs Supabase 52 源 diverge（S122 後 scope 由 42→52；Supabase query-authoritative；reconcile 低優先 backlog、非生產影響）。
+- batch-1 內 3 sources（tech_kla / ls_jss / chi_hist）本輪 query 無 surface = ranking 競爭非 regression（data 已 indexed）；Leonard browser-verify + calibrate 後再決定要唔要 dedicated route。
+- 既有 risks：🔴 §E.10 admin-login client-side gate（OPEN 獨立 family、未掂）；🔴 Supabase free-tier 57014 transient（retry 即恢復、非 regression）；🔴 FAIL-A 注入 regression（record-only）；§3c FAIL-A/B record-only；q.html/A·AB code path/backend `/channel-a`·`/combined` endpoint dormant 可逆勿清；Q4 deferred 未明示勿掂；Stage-2 closed 勿復活。
+- egress 間歇每次自測；EDB PDF 永遠用 `url_primary` 勿 `url_landing`（§E.12）；路徑空格雙引號；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG（已遵）。
+
+Validation status:
+- PASS S122 batch-1 vault write 10/10（markers==pages、content sanity 100.6-102.5%、6 QC scenario 全 PASS）+ Gate 2 EXECUTE 10/10 OK（per-source counts aligned、Supabase total 10,569 exact-match prediction）+ Live smoke 8/10 batch-1 sources 帶頁 surface verified + Leonard 5 截圖 browser-verify PASS（地理 / 化學 / 文學 / 宗教 / 公民及社會發展科）+ disclaimer copy 改寫 live。
+- PENDING（async）：無（GitHub Pages auto-deploy 已 trigger via `2c986e1`、~30-60 秒生效；Leonard 隨時 refresh 可見新 disclaimer copy）。
+- OPEN（非 pending-blocker）：broader Option C batch-2~6 等 Leonard 排 / S122 ranking polish 等 Leonard browser-verify 後 calibrate / 既有 deferred 同 S121。
+
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE + 自測（git HEAD / knowledge.json._meta.stats vs baseline / egress 實測）後，**S122 已 closeout — broader Option C batch-1 生產 live + Leonard browser-verify PASS + disclaimer copy alignment + 2 commits push 完成 + GitHub Pages async deploy。第一件事＝問 Leonard：(a) broader Option C batch-2 而家排？10 sources/批 × 5 批做剩 51 marker-less PDFs；(b) 抑或先做其他（S122 ranking polish for tech_kla/ls_jss/chi_hist / §E.10 admin-login / freshness metadata / SOURCE_ALIASES polish）？** 未 Leonard 明示前**唔好自行 resume broader Option C / 改其他 Draft / 掂 Q4 契約**。碰 admin/auth/公開推送前必讀 §E.10。CB-3 / B-only 方向 / Q4 track / §8 incident 詳見 auto-memory project_direction_review；Supabase RLS workaround details 詳見 PMS §D.18 + §C.4 + §E.10 + §E.13。
+```
+
 ---
 
 ## 2026-05-20 Session 121 — Supabase RLS hardening on wiki_chunks（critical security incident response，§3 HIGH-risk live DDL）

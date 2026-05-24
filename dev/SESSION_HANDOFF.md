@@ -150,7 +150,7 @@ source_registry → same vault PDFs → ai_extract.py
    - batch-1 內 3 sources（tech_kla / ls_jss / chi_hist）本輪 query 無 surface = ranking 競爭非 regression（data 已 indexed）；Leonard browser-verify + calibrate 後再決定要唔要 dedicated route。
    - 既有 risks：🔴 §E.10 admin-login client-side gate（OPEN 獨立 family）；🔴 Supabase free-tier 57014 transient（retry 即恢復、非 regression）；🔴 FAIL-A 注入 regression（record-only）；§3c FAIL-A/B record-only；q.html/A·AB code path/backend `/channel-a`·`/combined` endpoint dormant 可逆勿清；Q4 deferred 未明示勿掂；Stage-2 closed 勿復活。
    - egress 間歇每次自測；EDB PDF 永遠用 `url_primary` 勿 `url_landing`（§E.12）；路徑空格雙引號；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG（已遵）。
-7. Session 進行中（**非** closeout — Leonard 未表示「收工」）：S122 broader Option C batch-1 完成生產 live + Leonard "你繼續" 授權 PERSIST + commit/push pending 本 turn。
+7. **Session CLOSED 2026-05-24（Leonard「收工」）** — §4 closeout 完成；S122 broader Option C batch-1（10 sources）page-carry 生產 live + 0 regression + Leonard 5 截圖 browser-verify PASS（地理 / 化學 / 文學 / 宗教 / 公民及社會發展科）+ disclaimer copy 改寫（去 admin/finance framing、align Channel-B-only 現況）；2 commits HEAD `2c986e1` 同步 origin/main（`3b4087d` S122 主體 + `2c986e1` follow-up copy 改寫）；§4a trigger=False（342 行、5 entries、oldest 2026-05-19）；後置 closeout commit 跟住推。下次起手＝問 Leonard 排 broader Option C batch-2（10 sources、剩 51 marker-less PDFs / 共 5-6 批）抑或轉做其他 OP（§E.10 admin-login / S122 ranking polish backlog / freshness metadata 等）。
 
 ## Previous Session Record
 1. UTC date: 2026-05-20
