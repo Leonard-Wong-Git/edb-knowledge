@@ -2,6 +2,57 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-25 Session 124 — CB-3 Option C broader batch-3（10 marker-less PDF）page-carry 生產 live + batch-4 pre-flight
+
+- **ID:** Claude_20260525_1334
+- **Trigger:** Leonard S123 closeout 後起手，揀「broader Option C，全部 Batch」→ S124 = batch-3 完成（10 sources）+ batch-4 pre-flight 完成（Leonard 收工前）。§1 startup 經 context compaction 恢復；HEAD `ae31084`（S123 closeout 後 `95c63e1` + `2b58ee3` 已推）。Agent team 3 parallel sub-agents pre-flight pattern。
+- **Batch-3 pre-flight（agent team，主 agent 直接執行）：** Feasibility 10/10 GO（HTTP 200 + pages 70/52/7/105/12/14/109/103/103/3 = 578 total，無 anomaly）；Audit 10/10 KEEP（無 supersede DROP：bafs_sss_2007_2020 係 superseder 非 superseded、其餘無 chain；dat_sss_2007_2015 + dat_sss_supp_2020 確認 parallel docs 非替換、兩者皆 KEEP）；Monitor chunk delta 預測正常 normalization 範圍。
+- **§3 HIGH-risk Gate 1 PLAN→Leonard「go」→EXECUTE 10/10 PASS：** `dev/vault/repage_pdfs.py --only <10 sids> --write` 10 sources 全 written（chi_sss_guide_2021 / chi_lit_guide_2025 / eng_nat_sec_2025 / eng_jss_supp_2018 / ma_sss_diversity_2021 / ct_programming_pri_2020 / bafs_sss_2007_2020 / hmsc_sss_2007_2015 / dat_sss_2007_2015 / dat_sss_supp_2020）；markers==pages 全對（578 total pages）；content sanity 100%+ 無 quality regression；backup `dev/init_backup/20260525_133417_UTC/cb3c_pilot_legacy/` 10 entries（§5.a-compliant、gitignored）。
+- **§3 HIGH-risk Gate 2 dry-run + EXECUTE 10/10 OK：** dry-run 無 anomaly（canonical normalization 範圍）→ EXECUTE DELETE 942 / INSERT 795 / net -147 / Supabase 10,400→**10,253**；per-source `del/ins/now` 全對齊；Phase 3 SKIPPED `--skip-local`（§E.14 紀律）；backend `/health` ✅ cache_a warm 455 facts。
+- **Live smoke 7/10 batch-3 sources 北極星端到端 verified with PAGE NUMBERS：** 7 sources surface with page numbers confirmed；3 ranking competition non-regression（data indexed 確認、競爭非 regression，同 S122/S123 pattern）。
+- **Whole-vault page-resolvable：** ~64.4% (post-S123) → **~73.0% (post-S124)** = ~7,489 / 10,253 chunks。Sources marker-bearing：62 (prev) + 10 (batch-3) = **72 / 113 vault sources**（~64%）。Remaining：31 marker-less PDFs（batch-4~6）+ 9 結構天花板。
+- **Batch-4 pre-flight（主 agent 直接執行，sub-agents Bash 權限受限）：** 10 sources（ict_sss_2021 / chi_hist_jss_ncs_2019 / chi_hist_jss_bilingual_2019 / econ_sss_2025 / econ_sss_supp_2025 / geog_sss_supp_2022 / geog_sss_summary_2022 / geog_sss_update_brief / arts_kla_guide_2017 / music_national_anthem_2024）。Feasibility 10/10 GO（HTTP 200、pages 65/28/19/84/41/13/9/14/109/8）；Audit 10/10 KEEP（無 DROP；ict_sss_2021/econ_sss_2025/econ_sss_supp_2025/arts_kla_guide_2017 = superseder 新版、自身有效）；Monitor ~410 new chunks 估算。Leonard 收工前未執行 Gate 1/2。
+- **Sources changed：** commit `2b58ee3`（S124 主體，origin/main 同步）：`dev/vault/repage_pdfs.py` PILOT_LEGACY/PILOT_OUT +10 batch-3 entries + 10 vault rename pairs（_repaged.txt）。Supabase live（非 git）：wiki_chunks 10,400→10,253（10 batch-3 sources DELETE 942 INSERT 795）。Governance docs 本 closeout commit 跟住推。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / data change（10 sources Supabase page-carry batch-3 生產 live）| SESSION_HANDOFF baseline #1/#3 + Open-Priorities-regen + record + SESSION_LOG 本 entry | ✓ Done |
+| Batch-4 pre-flight result（10/10 GO / 10/10 KEEP，未執行）| SESSION_HANDOFF Open Priorities #1 + SESSION_LOG batch-4 pre-flight 段 | ✓ Done |
+| External service / data row change（Supabase wiki_chunks 10,400→10,253）| SESSION_HANDOFF baseline #3；CODEBASE_CONTEXT + HANDOFF_PACKAGE 留下次 closeout 更新（batch-4 後一次過） | N/A (deferred to batch-4 closeout) |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S124（CLOSED 2026-05-25，Leonard「收工」）：**CB-3 Option C broader batch-3（10 marker-less PDF）page-carry 生產 live + batch-4 pre-flight 完成（10/10 GO，未執行）**。HEAD = S124 closeout commit（下次起手自行 verify；S124 主體 commit `2b58ee3` origin/main）。Trigger = Leonard「broader Option C，全部 Batch」。Batch-3（10 sources：chi_sss_guide_2021 / chi_lit_guide_2025 / eng_nat_sec_2025 / eng_jss_supp_2018 / ma_sss_diversity_2021 / ct_programming_pri_2020 / bafs_sss_2007_2020 / hmsc_sss_2007_2015 / dat_sss_2007_2015 / dat_sss_supp_2020）：pre-flight 10/10 GO / 10/10 KEEP（dat_sss_2007_2015+dat_sss_supp_2020 = parallel docs 兩者皆 KEEP）→ Gate 1 10/10 PASS（578 pages / backup `dev/init_backup/20260525_133417_UTC/`）→ Gate 2 EXECUTE DELETE 942 / INSERT 795 / net -147 / Supabase 10,400→**10,253**→ live smoke 7/10 page-carry surface + 3 ranking competition non-regression。Whole-vault page-resolvable ~64.4%→**~73.0%**；72/113 sources marker-bearing。Batch-4 pre-flight（10 sources：ict_sss_2021 / chi_hist_jss_ncs_2019 / chi_hist_jss_bilingual_2019 / econ_sss_2025 / econ_sss_supp_2025 / geog_sss_supp_2022 / geog_sss_summary_2022 / geog_sss_update_brief / arts_kla_guide_2017 / music_national_anthem_2024）：Feasibility 10/10 GO（pages 65/28/19/84/41/13/9/14/109/8）+ Audit 10/10 KEEP（ict_sss_2021 supersedes ict_sss_2007_2015 = 新版自身有效、econ_sss_2025 supersedes econ_sss_2007_2015 同理）+ Monitor ~410 new chunks。Gate 1/2 **READY 等 Leonard 下次 go**。
+
+Current objective and progress state:
+- **Batch-3（10 sources）= 生產 live closed**；Supabase 10,253；72/113 sources marker-bearing。
+- **Batch-4 pre-flight = 完成**（10/10 GO / 10/10 KEEP）；Gate 1/2 未執行，等 Leonard go。
+- **Remaining CB-3**：31 marker-less PDFs（batch-4~6）+ 9 結構天花板 → CB-3 final ceiling ≈ 88%。
+
+Pending tasks in priority order:
+1. **broader Option C batch-4**（ready to execute — pre-flight 10/10 GO / 10/10 KEEP 已完成）：§3 HIGH-risk Leonard 明示 go → Gate 1 vault `--write` → Gate 2 `--execute --skip-local` → QC + smoke。Batch-4 10 sources = ict_sss_2021 / chi_hist_jss_ncs_2019 / chi_hist_jss_bilingual_2019 / econ_sss_2025 / econ_sss_supp_2025 / geog_sss_supp_2022 / geog_sss_summary_2022 / geog_sss_update_brief / arts_kla_guide_2017 / music_national_anthem_2024。**⚠ repage_pdfs.py PILOT_LEGACY/PILOT_OUT 需先 +10 batch-4 entries，再跑 Gate 1**（batch-3 entries 已落，batch-4 尚未加）。
+2. **broader Option C batch-5~6**（21 remaining after batch-4）：batch-5 = g29/g15/g24/edbc12_2025_ph_pri/edbcm57~edbcm243 pri_science x4/pri_science_cert_course_list/sci_jss_framework_2025；batch-6 = edbcm183_2023_values_edu/sec_curr_guide_2017_booklet_6a/pe_sss_2023。每批仍 §3 HIGH-risk 明示 go + pre-flight audit agent check supersede chain。
+3. **Governance doc full update**（deferred to end of all batches）：CODEBASE_CONTEXT + HANDOFF_PACKAGE §2 chunks 10,400→10,253 + PROJECT_MASTER_SPEC batch-3/4 verified notes；可一次過 batch-4 closeout 做。
+4. **batch ranking polish backlog（低優先）**：S122/S123 batch 3 non-surface + S124 batch-3 3 non-surface，待 Leonard browser-verify calibrate。
+5. **🔴 既有 deferred**：§E.10 admin-login client-side gate；Supabase `57014` transient；FAIL-A 注入 regression（record-only）；P2/P3 deferred；Q4 對外契約收斂（deferred 獨立 track）。
+
+Key files changed this session:
+- `2b58ee3`（S124 主體 commit，origin/main）：`dev/vault/repage_pdfs.py` PILOT_LEGACY/PILOT_OUT +10 batch-3 entries + 10 vault rename pairs。
+- S124 closeout commit（跟住推）：SESSION_LOG + SESSION_HANDOFF。
+- Supabase live（非 git）：wiki_chunks 10,400→10,253（DELETE 942 INSERT 795）。
+- dev/init_backup/20260525_133417_UTC/（gitignored）。
+
+Post-startup first action: verify git HEAD（預期 S124 closeout commit）+ Supabase chunk count（預期 10,253）+ confirm batch-4 PILOT_LEGACY/PILOT_OUT entries NOT yet added to repage_pdfs.py（batch-4 Gate 1 需要先加）→ 問 Leonard：繼續 batch-4（pre-flight 已完成，ready to go）抑或轉做其他 OP？
+```
+
 ## 2026-05-24 Session 123 — CB-3 Option C broader batch-2（10 marker-less PDF）page-carry 生產 live + agent-team 分工
 
 - **ID:** Claude_20260524_2048
