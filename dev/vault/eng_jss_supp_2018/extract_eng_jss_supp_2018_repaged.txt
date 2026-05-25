@@ -7,8 +7,14 @@
 # extracted: 20260501
 # pipeline: expand_vault.py (auto)
 # ============================================================
+# repaged_at: 20260525_133417_UTC
+# repaged_pages: 105
+# pipeline: repage_pdfs.py (PyMuPDF page-by-page + === Page N === markers)
+# ============================================================
 
+=== Page 1 ===
 
+=== Page 2 ===
  
  
  
@@ -17,8 +23,8 @@
  
  
  
-(Blank Page) 
-
+(Blank Page)
+=== Page 3 ===
  
  
 Preamble 
@@ -65,8 +71,8 @@ communication through the use of tasks. However, for the sake of clarity and sim
 the four language skills are presented separately in this Supplement. Teachers can refer to 
 the Examples (http://www.edb.gov.hk/eleklacgexamples) developed to support the ELE 
 KLA Curriculum Guide 2017 for suggestions on the integrated use of language skills and 
-other areas covered in this Supplement.  
-
+other areas covered in this Supplement.
+=== Page 4 ===
  
  
  
@@ -85,9 +91,8 @@ Rm 1206, 12/F, Wu Chung House
 Wan Chai, Hong Kong 
  
 Fax:   2834 7810 
-E-mail: english@edb.gov.hk 
- 
-
+E-mail: english@edb.gov.hk
+=== Page 5 ===
  
  
 Contents 
@@ -185,11 +190,8 @@ Intensive and Extensive Reading
  
 3.8 
 Reading across the Curriculum 
-46 
- 
- 
- 
-
+46
+=== Page 6 ===
  
  
 Chapter 4 
@@ -285,11 +287,10 @@ Bibliography
  
  
 Membership of the Curriculum Development Council Committee on 
-English Language Education 
- 
- 
- 
+English Language Education
+=== Page 7 ===
 
+=== Page 8 ===
  
  
  
@@ -298,21 +299,8 @@ English Language Education
  
  
  
- 
- 
- 
-
- 
- 
- 
- 
- 
- 
- 
- 
-(Blank Page) 
- 
-
+(Blank Page)
+=== Page 9 ===
  
 3 
  
@@ -359,10 +347,8 @@ identify key ideas in a passage, discussion or conversation;
  
 extract information and ideas in spoken texts; 
  
-identify the sequence of events, causes and effects; 
- 
- 
-
+identify the sequence of events, causes and effects;
+=== Page 10 ===
  
 4 
  
@@ -411,8 +397,8 @@ listening to important words instead of every word that is spoken;
  
 being selective while listening (e.g. discriminating between relevant 
 information and irrelevant information, between main ideas and supporting 
-ideas, based on the context or task requirements); 
-
+ideas, based on the context or task requirements);
+=== Page 11 ===
  
 5 
  
@@ -454,11 +440,8 @@ listening activities based on classroom spoken discourse, authentic listening ma
 should be used as much as possible in order to prepare students for listening in real-life 
 situations and to help them become familiar with the characteristics of natural speech 
 like false starts, hesitations, pauses, variations in pitch, increase or decrease in volume, 
-quickening or slackening in pace, different accents, and so on.  
- 
- 
- 
-
+quickening or slackening in pace, different accents, and so on.
+=== Page 12 ===
  
 6 
  
@@ -493,10 +476,8 @@ in collaborative work.
 1.5 Activities to Develop Listening Skills 
  
 Teachers are encouraged to consider the following activities to help students at the 
-junior secondary level develop effective listening skills: 
- 
- 
-
+junior secondary level develop effective listening skills:
+=== Page 13 ===
  
 7 
  
@@ -540,10 +521,8 @@ while listening.
  
 Show a freeze frame of an online video and ask students to predict what the 
 speakers are talking about. Check the predictions by watching the video 
-afterwards.  
- 
- 
-
+afterwards.
+=== Page 14 ===
  
 8 
  
@@ -584,10 +563,8 @@ Extracting Information and Ideas
 Ask students to listen to the weather forecasts of different cities on the 
 Internet and take notes while listening. Students then do a short oral report 
 by using key words such as “temperature”, “humidity” and “outlook” in their 
-presentations.  
- 
- 
-
+presentations.
+=== Page 15 ===
  
 9 
  
@@ -631,11 +608,8 @@ spoken text for the first time and then ask them to focus on the discourse
 markers (e.g. “first”, “next”, “nevertheless”, “in other words”, “by the way”) 
 when they listen to it again. Students then organise their notes into 
 meaningful sections using a graphic organiser. More advanced students could 
-be asked to write a summary of the text as an extended task.  
- 
- 
- 
-
+be asked to write a summary of the text as an extended task.
+=== Page 16 ===
  
 10 
  
@@ -670,11 +644,8 @@ topic;
  
 reading through comprehension questions in advance; and  
  
-raising students’ awareness of the skills involved in the listening process. 
- 
- 
- 
-
+raising students’ awareness of the skills involved in the listening process.
+=== Page 17 ===
  
 11 
  
@@ -720,8 +691,8 @@ information) followed by actively monitoring and reflecting on their comprehensi
 and the effectiveness of the skills used. Depending on the proficiency of the class, 
 teachers could pause the recording when appropriate to check understanding, explore 
 and demonstrate how the understanding is achieved and assess the effectiveness of the 
-skills employed.  
-
+skills employed.
+=== Page 18 ===
  
 12 
  
@@ -762,10 +733,10 @@ exchanging views on the topic or problem identified;
  
 doing a role play; and 
  
-writing on the same theme from a different point of view. 
- 
- 
+writing on the same theme from a different point of view.
+=== Page 19 ===
 
+=== Page 20 ===
  
  
  
@@ -775,23 +746,8 @@ writing on the same theme from a different point of view.
  
  
  
- 
- 
- 
- 
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
-(Blank Page) 
- 
-
+(Blank Page)
+=== Page 21 ===
  
 15 
  
@@ -823,11 +779,8 @@ learning contexts where students are required to speak before an audience (e.g.
 reporting the outcome of a task to the whole class) or produce recordings (e.g. preparing 
 audio/video clips for a presentation), students can be guided to monitor and evaluate 
 their speaking performance with respect to the learning goals (e.g. articulation, 
-accuracy and fluency in their speech) in the learning process. 
- 
- 
- 
-
+accuracy and fluency in their speech) in the learning process.
+=== Page 22 ===
  
 16 
  
@@ -872,9 +825,8 @@ setting, the topic).
 Coherence. This is the skill of producing spoken utterances which “hang together”. 
 Coherent speech makes use of devices such as pronouns, substitution, ellipsis and 
 conjunctions to enable the listener to establish relationships across utterance 
-boundaries. 
- 
-
+boundaries.
+=== Page 23 ===
  
 17 
  
@@ -916,9 +868,8 @@ Building Students’ Confidence
 Many students are reluctant to speak up in class because they are afraid of making 
 errors/mistakes and being corrected by the teacher publicly. Teachers therefore 
 need to help students build their confidence as well as trust and mutual support 
-among them. Some suggestions are as follows: 
- 
-
+among them. Some suggestions are as follows:
+=== Page 24 ===
  
 18 
  
@@ -965,8 +916,8 @@ purposeful and relevant to the needs of their students. Teachers should also hel
 students relate their learning to their real life. To connect students’ learning 
 experiences in different Key Learning Areas, teachers can adopt cross-curricular 
 themes in the speaking tasks as well as highlight to students the speaking skills 
-and communication/interaction strategies that students can apply in the 
-
+and communication/interaction strategies that students can apply in the
+=== Page 25 ===
  
 19 
  
@@ -1009,10 +960,8 @@ such as content and organisation, language, pronunciation and delivery, and
 communication/interaction strategies (e.g. eye contact, gestures, facial expressions, 
 turn-taking). e-Platforms or apps that support instant response and messaging can 
 also be used to provide teachers with an overview of students’ learning 
-performance and facilitate the provision of feedback among teachers and students. 
- 
- 
-
+performance and facilitate the provision of feedback among teachers and students.
+=== Page 26 ===
  
 20 
  
@@ -1054,10 +1003,8 @@ sections of a story. They describe their own section in turn orally, and then th
 whole group determine the sequence of the story. 
  
 Guessing activities. These require students to guess the identity of a person, the 
-location of an object and so on. 
- 
- 
-
+location of an object and so on.
+=== Page 27 ===
  
 21 
  
@@ -1102,10 +1049,8 @@ It allows students to work collaboratively or creatively with peers.
  
 It is cognitively suitable for students. 
  
-It is interesting rather than stressful for students.  
- 
- 
-
+It is interesting rather than stressful for students.
+=== Page 28 ===
  
 22 
  
@@ -1145,10 +1090,8 @@ intonation. First, they view or listen to a recording of a speech a few times un
 they are familiar with it. They then play the recording again and read the text of 
 the recording at the same time, trying to imitate the stress, rhythm and intonation 
 used. Lastly, they produce their own recording by applying the framework of the 
-speech in new situations. 
- 
- 
-
+speech in new situations.
+=== Page 29 ===
  
 23 
  
@@ -1187,10 +1130,8 @@ suggestions for organising a school function (e.g. the Open Day). They need to
 respond to the suggestions proposed by their group members and make decision 
 on the activities to be organised for the school function, paying particular attention 
 to different communication/interaction strategies (e.g. maintaining eye contact, 
-turn-taking, seeking clarification). 
- 
- 
-
+turn-taking, seeking clarification).
+=== Page 30 ===
  
 24 
  
@@ -1242,10 +1183,8 @@ Communicative. This stage gives students free practice in speaking tasks. Studen
 use language appropriate to the context to convey meaning. Communicative 
 activities aim to develop students’ overall competence in speaking. In other words, 
 elements such as fluency, appropriateness and communication/interaction 
-strategies are often practised together.  
- 
- 
-
+strategies are often practised together.
+=== Page 31 ===
  
 25 
  
@@ -1270,9 +1209,22 @@ interacting with others?
 In providing feedback, reference can be made to the LPF for English Language 
 (Speaking Skills) (http://www.edb.gov.hk/lpfel_speaking) for identifying students’ 
 strengths and areas for improvement, and understanding what students need to 
-achieve as they progress in speaking skills development. 
+achieve as they progress in speaking skills development.
+=== Page 32 ===
+ 
+ 
+ 
  
+ 
+ 
+ 
+ 
+ 
+ 
+(Blank Page)
+=== Page 33 ===
 
+=== Page 34 ===
  
  
  
@@ -1282,37 +1234,8 @@ achieve as they progress in speaking skills development.
  
  
  
- 
-(Blank Page) 
- 
- 
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
-(Blank Page) 
- 
-
+(Blank Page)
+=== Page 35 ===
  
 29 
  
@@ -1345,11 +1268,8 @@ conveyed through different modes (e.g. linguistic, audio, visual, gestural, spat
 students can move beyond simple comprehension to analyse, synthesise and evaluate 
 not only printed but also electronic reading materials effectively and efficiently across 
 Key Learning Areas (KLAs), they will be better readers and writers of the electronically 
-connected global society. 
- 
- 
- 
-
+connected global society.
+=== Page 36 ===
  
 30 
  
@@ -1389,11 +1309,8 @@ Teachers can make reference to the Learning Progression Framework (LPF) for Engl
 Language (Reading Skills) (http://www.edb.gov.hk/lpfel_reading), which describes 
 students’ performance and progress along the developmental continuum of learning 
 English from Primary 1 to Secondary 6 and plan holistically for the school English 
-Language curriculum to meet students’ needs. 
- 
- 
- 
-
+Language curriculum to meet students’ needs.
+=== Page 37 ===
  
 31 
  
@@ -1439,8 +1356,8 @@ With the rapid development of information technology, the teacher can promote e-
 reading through: 
  
 modelling screen reading to provide students with multiple ways to engage 
-with e-texts; 
-
+with e-texts;
+=== Page 38 ===
  
 32 
  
@@ -1483,8 +1400,8 @@ provides the teacher with an opportunity to demonstrate to students the enjoymen
 and importance of reading, as well as the behaviour exhibited by a proficient reader. 
 An alternative is for students to listen to audio books or read e-books. Teachers 
 may also set aside time for students to practise reading together or read something 
-they have particularly enjoyed to their classmates. 
-
+they have particularly enjoyed to their classmates.
+=== Page 39 ===
  
 33 
  
@@ -1524,11 +1441,8 @@ while non-fiction materials, such as newspaper/magazine articles and reports, ca
 raise their awareness of different perspectives from which to consider issues and 
 facilitate the promotion of Reading across the Curriculum (RaC). A suggested 
 book list on RaC for Key Stages 1 – 4 is accessible at the following website: 
-http://www.edb.gov.hk/eleresources. 
- 
- 
- 
-
+http://www.edb.gov.hk/eleresources.
+=== Page 40 ===
  
 34 
  
@@ -1566,9 +1480,8 @@ can make, what questions they want answered and the way the text is organised. T
 use of multimodal texts that are electronically linked suggests different pathways for 
 reading and hence allows much reader autonomy. Opportunities should be provided to 
 develop navigational skills and search skills to facilitate the reading process and reading 
-skills development.  
- 
-
+skills development.
+=== Page 41 ===
  
 35 
  
@@ -1606,10 +1519,8 @@ page of a book or the title of a text and ask them to brainstorm a list of words
 phrases, questions, ideas, and examples related to the topic. Students then have a 
 discussion to create further understanding and clarify anything they may not 
 understand. Teachers can help students further explore the topic by asking 
-questions to guide the discussion. 
- 
- 
-
+questions to guide the discussion.
+=== Page 42 ===
  
 36 
  
@@ -1647,11 +1558,8 @@ topic. It can be developed in the following steps:
 Step 1: Associations 
 Begin by asking students to work in pairs/groups and discuss what they think of 
 when they hear the word “money”, for instance. List the responses as students 
-offer their associations. 
- 
- 
- 
-
+offer their associations.
+=== Page 43 ===
  
 37 
  
@@ -1687,11 +1595,8 @@ and motivate them to read the text. It is authentic and provides useful informat
 that introduces students to important words and concepts in context and builds 
 background knowledge among students. Teachers can stop, start and rewind the 
 video to ensure that students understand the main idea, and then challenge them to 
-predict the ending of the video, or debate an issue. 
- 
- 
- 
-
+predict the ending of the video, or debate an issue.
+=== Page 44 ===
  
 38 
  
@@ -1725,10 +1630,8 @@ Use of Structural Information
  
 By looking at the position of a lexical item in a sentence, students can make 
 a guess at its grammatical category (e.g. whether it is a noun, a verb or an 
-adjective) and deduce its meaning. 
- 
- 
-
+adjective) and deduce its meaning.
+=== Page 45 ===
  
 39 
  
@@ -1765,10 +1668,8 @@ Making Inferences from Context
 Students should be encouraged to infer the meaning of unknown words from 
 context. Teachers should remind students that inferences are about probabilities, 
 not certainties. Certainties are developed over time with more frequent exposure 
-to the language in use. 
- 
- 
-
+to the language in use.
+=== Page 46 ===
  
 40 
  
@@ -1804,10 +1705,8 @@ encouraged to note headings and subheadings and to locate topic sentences. In
 skimming texts that involve more than written language, a student should be guided to 
 identify features that enhance readability such as icons, toolbars, images and hyperlinks 
 that help highlight key sections for retrieving information. Skimming to get an initial 
-global view is a valuable way of approaching complex texts too.  
- 
- 
-
+global view is a valuable way of approaching complex texts too.
+=== Page 47 ===
  
 41 
  
@@ -1845,10 +1744,8 @@ The most common activity is to ask students to locate a word or a fact on a page
 or a hypertext. For instance: 
  
 looking up a certain page or a hypertext to find out the year in which a 
-particular event took place; 
- 
- 
-
+particular event took place;
+=== Page 48 ===
  
 42 
  
@@ -1892,11 +1789,8 @@ each other its main ideas;
  
 summarise orally or in writing the main points of a text; and 
  
-deconstruct a text with graphic organisers. 
- 
- 
- 
-
+deconstruct a text with graphic organisers.
+=== Page 49 ===
  
 43 
  
@@ -1935,10 +1829,8 @@ rhetorical devices and contextual clues, which help bring out the underlying
 meaning; 
  
 sensitising students to the use of certain typographical features such as italicised 
-words and the use of question marks for statements; 
- 
- 
-
+words and the use of question marks for statements;
+=== Page 50 ===
  
 44 
  
@@ -1980,10 +1872,8 @@ comparisons between them;
 drawing conclusions about the purpose and validity of the ideas and information 
 in the text; 
  
-suggesting practical applications of theories or principles; 
- 
- 
-
+suggesting practical applications of theories or principles;
+=== Page 51 ===
  
 45 
  
@@ -2018,17 +1908,8 @@ appreciate reading more fully, they should be motivated to take advantage of the
 additional opportunities provided by different media and technologies to experience 
 content presented in a multisensory context. With a range of digital media that are 
 becoming more embedded in everyday lives, students should be encouraged to embrace 
-reading beyond the confines of the classroom as a habit. 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
+reading beyond the confines of the classroom as a habit.
+=== Page 52 ===
  
 46 
  
@@ -2056,9 +1937,10 @@ Towards Reading across the Curriculum of the Secondary Education Curriculum Guid
 development/renewal/guides_SECG.html). For illustration of how RaC is promoted in 
 the English classroom, please see Example 11 “Enhancing Students’ Literacy Skills 
 Development: Promoting Reading across the Curriculum through e-Learning 
-(Secondary 1 – 3)” (http://www.edb.gov.hk/eleklacgexamples). 
- 
+(Secondary 1 – 3)” (http://www.edb.gov.hk/eleklacgexamples).
+=== Page 53 ===
 
+=== Page 54 ===
  
  
  
@@ -2068,24 +1950,8 @@ Development: Promoting Reading across the Curriculum through e-Learning
  
  
  
- 
- 
- 
- 
- 
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
-(Blank Page) 
- 
-
+(Blank Page)
+=== Page 55 ===
  
 49 
  
@@ -2125,8 +1991,8 @@ Multimodal Texts
  
  
  
-(The New London Group, 1996; Kress, 2000) 
-
+(The New London Group, 1996; Kress, 2000)
+=== Page 56 ===
  
 50 
  
@@ -2167,11 +2033,8 @@ organisation; and
 language and style; 
  
 and plan holistically for the school English Language curriculum to meet students’ 
-needs.  
- 
- 
- 
-
+needs.
+=== Page 57 ===
  
 51 
  
@@ -2216,10 +2079,8 @@ Teachers need to encourage students to take calculated risks, to innovate and to
 reflect on their work with respect to their learning goals or assessment criteria. 
  
 Teachers need to develop amongst the students a sense of community and sharing, 
-so that writing can become a collaborative and cooperative effort. 
- 
- 
-
+so that writing can become a collaborative and cooperative effort.
+=== Page 58 ===
  
 52 
  
@@ -2257,10 +2118,8 @@ At the pre-writing stage, students are mainly involved in generating and plannin
 Generating Ideas 
 Idea generation is a crucial initiating process as it helps students get started, which is 
 one of the most difficult steps in writing. Activities which help promote idea generation 
-include: 
- 
- 
-
+include:
+=== Page 59 ===
  
 53 
  
@@ -2299,8 +2158,8 @@ students a wealth of different ideas and viewpoints.
 Interview 
 Students collect information and ideas through questioning others. This can be a 
 class or an out-of-class activity in which they interview their classmates, 
-schoolmates, teachers, family or friends.  
-
+schoolmates, teachers, family or friends.
+=== Page 60 ===
  
 54 
  
@@ -2338,10 +2197,8 @@ learning how language items are used to communicate the intended meanings
 appropriate to the contexts (e.g. using modal verbs in writing instructions); 
  
 responding to a letter to the editor to understand how personal views and 
-opinions are expressed and presented; 
- 
- 
-
+opinions are expressed and presented;
+=== Page 61 ===
  
 55 
  
@@ -2380,11 +2237,8 @@ A brief and flexible outline making use of a graphic organiser can make students
 see the basic skeleton or form of what they plan to write, and assess what addition 
 or development of main ideas is needed. It should be stressed that students must 
 not regard outlines as straitjackets, but be ready to reshape their plans as they 
-discover new ideas. 
- 
- 
- 
-
+discover new ideas.
+=== Page 62 ===
  
 56 
  
@@ -2422,10 +2276,8 @@ Through discussion with peers and the teacher, students recognise the typical
 characteristics of the beginnings and endings of a particular text type. Should 
 students be working on a draft which comes under the category of this text type, 
 they could apply this knowledge to evaluate the opening and ending of their own 
-drafts. 
- 
- 
-
+drafts.
+=== Page 63 ===
  
 57 
  
@@ -2467,9 +2319,8 @@ text types, so as to deepen their understanding and experience of the use of
 different methods of organisation in different types of discourse. The types of texts 
 to be included in a writing programme vary according to the students’ needs, 
 interests and abilities, but teachers should select a range of items from the 
-following areas: 
- 
-
+following areas:
+=== Page 64 ===
  
 58 
  
@@ -2513,10 +2364,8 @@ incorporating pictures of ingredients and a video that demonstrates the cooking 
 accompany a recipe. Access to easy-to-use digital production tools and resources has 
 significant implications for literacy development and practice, and should be exploited 
 to develop students’ literacy skills and their abilities to express themselves in diverse 
-modes of communication through the use of information technology. 
- 
- 
-
+modes of communication through the use of information technology.
+=== Page 65 ===
  
 59 
  
@@ -2568,8 +2417,8 @@ Are my arguments logically and consistently presented?
  
 Are there any repetitive/irrelevant ideas? 
  
-Are the links between paragraphs clear? 
-
+Are the links between paragraphs clear?
+=== Page 66 ===
  
 60 
  
@@ -2615,10 +2464,8 @@ I agreed with you when you said …
  
 I disagreed with you when you said … 
  
-The suggestions I want to make to improve this paper are … 
- 
- 
-
+The suggestions I want to make to improve this paper are …
+=== Page 67 ===
  
 61 
  
@@ -2654,11 +2501,8 @@ suggestions. Mini-conferencing has several benefits:
  It becomes part of the regular classroom learning as a focused discussion 
 activity. 
  The immediate intervention is a natural part of the writing process.  
- It addresses students’ immediate needs. 
- 
- 
- 
-
+ It addresses students’ immediate needs.
+=== Page 68 ===
  
 62 
  
@@ -2696,11 +2540,8 @@ responsibility to inform students about the evaluation policies and criteria for
 writing tasks beforehand. These criteria represent the teacher’s objectives and 
 expectations, which serve as a guide for students in writing and revising their work. 
 Most task-specific criteria focus upon the following areas: purpose and audience, 
-content, organisation, grammar and mechanics.  
- 
- 
- 
-
+content, organisation, grammar and mechanics.
+=== Page 69 ===
  
 63 
  
@@ -2737,13 +2578,8 @@ students’ attention to a specific aspect of the writing process, be it idea ge
 planning, drafting, revising or editing. Teachers may decide when it is appropriate and 
 which assignment to use to take the students through the entire writing process. Such a 
 practice is essential as it provides students with a comprehensive picture of what the 
-approach entails and how they can apply it to their own writing. 
- 
- 
- 
- 
- 
-
+approach entails and how they can apply it to their own writing.
+=== Page 70 ===
  
 64 
  
@@ -2779,13 +2615,8 @@ collaboratively to the principal suggesting solutions to the long queuing time a
 school canteen; and holistic thinking skills (i.e. the integration of critical thinking skills, 
 problem solving skills and creativity), for example, by engaging them in a group 
 activity to design a gadget that improves one’s health and promote it with an 
-advertisement. 
- 
- 
- 
- 
- 
-
+advertisement.
+=== Page 71 ===
  
 65 
  
@@ -2825,7 +2656,21 @@ Chapter 6 “Promoting Language across the Curriculum at Secondary Level” of t
 Supplement and Example 2 “Connecting Students’ Learning Experiences between 
 English Language and Non-language Subjects through Promoting Language across the 
 Curriculum at the Junior Secondary Level” (http://www.edb.gov.hk/eleklacgexamples).
+=== Page 72 ===
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(Blank Page)
+=== Page 73 ===
 
+=== Page 74 ===
  
  
  
@@ -2835,37 +2680,8 @@ Curriculum at the Junior Secondary Level” (http://www.edb.gov.hk/eleklacgexamp
  
  
  
- 
-(Blank Page) 
- 
- 
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
-(Blank Page) 
- 
-
+(Blank Page)
+=== Page 75 ===
  
 69 
  
@@ -2906,8 +2722,8 @@ the learning of the biographical details of poets/novelists/playwrights or the
 historical background of texts; 
                                                       
 1In the context of language arts in this Supplement, language arts materials/texts may be written, spoken, 
-visual or multimodal, such as poems, novels, short stories, drama, films, radio and television programmes. 
-
+visual or multimodal, such as poems, novels, short stories, drama, films, radio and television programmes.
+=== Page 76 ===
  
 70 
  
@@ -2947,9 +2763,8 @@ The interest and appeal of language arts materials make them a key resource for
 thought-provoking language activities. Through engaging interactively with the 
 language arts materials and learning activities with their fellow students and the 
 teacher, students will learn to pay careful attention to the materials and generate 
-language as they complete tasks. 
- 
-
+language as they complete tasks.
+=== Page 77 ===
  
 71 
  
@@ -2981,10 +2796,8 @@ The suitability of language arts materials depends on each particular group of s
 their age, background, needs, and previous exposure or experience. Conceptual 
 difficulty is also a factor to be considered. Students will not be able to find pleasure in 
 language arts if the ideas conveyed by the selected materials are beyond their 
-intellectual and emotional maturity. 
- 
- 
-
+intellectual and emotional maturity.
+=== Page 78 ===
  
 72 
  
@@ -3021,10 +2834,8 @@ effective use of language arts materials to promote positive values and attitude
 focus on the seven priority values and attitudes (i.e. perseverance, respect for others, 
 responsibility, national identity, commitment, integrity and care for others) so as to 
 facilitate whole-person development and raise a generation of socially responsible 
-youths for a better society. 
- 
- 
-
+youths for a better society.
+=== Page 79 ===
  
 73 
  
@@ -3063,8 +2874,8 @@ used with language arts materials in written or non-written forms.
 The reading or viewing of language arts materials is often just one key element in 
 a set of connected activities within a unit. These activities may include a 
 preliminary discussion, interactive work and follow-up activities that integrate the 
-development of different language skills. 
-
+development of different language skills.
+=== Page 80 ===
  
 74 
  
@@ -3103,11 +2914,8 @@ facilitates the exchange of ideas, helps them better organise their ideas during
 brainstorming activities, and fosters collaboration among students. The use of 
 information technology to give expression and respond to ideas and experiences 
 in language arts materials can also increase students’ learning motivation, develop 
-creativity and enhance their language skills. 
- 
- 
- 
-
+creativity and enhance their language skills.
+=== Page 81 ===
  
 75 
  
@@ -3155,8 +2963,8 @@ gap-filling (i.e. certain words are removed from the text, and students fill in 
 gaps either by themselves or by choosing from a word list); 
  
 choosing from a list of adjectives the one which best describes a certain character, 
-and supplying reasons; 
-
+and supplying reasons;
+=== Page 82 ===
  
 76 
  
@@ -3213,7 +3021,9 @@ and
 Positive 
 Values” 
 (http://www.edb.gov.hk/eleresources) respectively.
+=== Page 83 ===
 
+=== Page 84 ===
  
  
  
@@ -3223,24 +3033,8 @@ Values”
  
  
  
- 
- 
- 
- 
- 
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
-(Blank Page) 
- 
-
+(Blank Page)
+=== Page 85 ===
  
 79 
  
@@ -3280,10 +3074,8 @@ transforming the ELA time into the adoption of English as the MOI in up to two
 non-language subjects; and 
  
 adopting English as the MOI in all non-language subjects based on the Secondary 
-1 intake of the school. 
- 
- 
-
+1 intake of the school.
+=== Page 86 ===
  
 80 
  
@@ -3321,10 +3113,8 @@ and language items typical of academic texts.
 6.2.1 Strategies to Promote LaC 
  
 Ways in which English teachers can help students tackle the language demand that they 
-may find challenging in non-language subjects include: 
- 
- 
-
+may find challenging in non-language subjects include:
+=== Page 87 ===
  
 81 
  
@@ -3382,8 +3172,8 @@ conditioners   
 deforestation 
 rise in temperature of the Earth 
 Environmental 
-pollution 
-
+pollution
+=== Page 88 ===
  
 82 
  
@@ -3423,11 +3213,8 @@ Features of Different Text Types
 raising students’ awareness of the features of different text types (e.g. reports, 
 essays), including the rhetorical functions, text structures and language items 
 typical of academic texts by integrating the use of a variety of text types commonly 
-found across KLAs. 
- 
- 
- 
-
+found across KLAs.
+=== Page 89 ===
  
 83 
  
@@ -3496,8 +3283,8 @@ To compare
 To describe; 
 To make predictions 
 …dissolves… 
-To give instructions 
-
+To give instructions
+=== Page 90 ===
  
 84 
  
@@ -3553,7 +3340,7 @@ and designing related learning and teaching activities for practice and consolid
  
 …
 …
-
+=== Page 91 ===
  
 85 
  
@@ -3615,10 +3402,8 @@ form a committee/team which includes representatives from English Language
 and non-language subjects involved in the LaC programme to oversee and plan 
 the implementation of LaC as well as strengthen the collaboration between 
 different KLAs. For more details of cross-KLA collaboration, please refer to the 
-next section “Teachers’ Role in Implementing LaC”; 
- 
- 
-
+next section “Teachers’ Role in Implementing LaC”;
+=== Page 92 ===
  
 86 
  
@@ -3664,8 +3449,8 @@ knowledge, generic skills, language skills); and
 collaborate with teachers of other KLAs to develop learning activities or cross-
 curricular projects that integrate language and concepts learnt across KLAs and 
 provide students with the opportunities to recycle the knowledge and skills in 
-suitable learning contexts, for example:  
-
+suitable learning contexts, for example:
+=== Page 93 ===
  
 87 
  
@@ -3702,10 +3487,22 @@ Secondary
 (http://www.edb.gov.hk/elecg). For illustration of how LaC is promoted in the English 
 classroom, please see Example 2 “Connecting Students’ Learning Experiences between 
 English Language and Non-language Subjects through Language across the Curriculum 
-at the Junior Secondary Level” at http://www.edb.gov.hk/eleklacgexamples. 
+at the Junior Secondary Level” at http://www.edb.gov.hk/eleklacgexamples.
+=== Page 94 ===
+ 
+ 
+ 
  
  
+ 
+ 
+ 
+ 
+ 
+(Blank Page)
+=== Page 95 ===
 
+=== Page 96 ===
  
  
  
@@ -3715,38 +3512,8 @@ at the Junior Secondary Level” at http://www.edb.gov.hk/eleklacgexamples.
  
  
  
- 
-(Blank Page) 
- 
- 
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
-(Blank Page) 
- 
- 
-
+(Blank Page)
+=== Page 97 ===
  
  
  
@@ -3777,8 +3544,8 @@ Helgesen, M. & Brown, S. (1994). Active Listening: Building Skills for Understan
 New York: Cambridge University Press.  
 Hobbs, R. (2011). Digital and Media Literacy: Connecting Culture and Classroom. 
 Thousand Oaks, CA: Corwin. 
-Hockly, N. (2016). Focus on Learning Technologies. Oxford: Oxford University Press. 
-
+Hockly, N. (2016). Focus on Learning Technologies. Oxford: Oxford University Press.
+=== Page 98 ===
  
  
  
@@ -3810,8 +3577,8 @@ Readence, J. E., Moore, D. W. & Rickelman R. J. (2000). Prereading Activities fo
 Content Area: Reading and Learning (3rd ed.). Newark, DE: International Reading 
 Association. 
 Serafini, F. (2015). Reading Workshop 2.0: Supporting Readers in the Digital Age. 
-Portsmouth, NH: Heinemann. 
-
+Portsmouth, NH: Heinemann.
+=== Page 99 ===
  
  
  
@@ -3820,39 +3587,21 @@ Futures. Harvard Educational Review, 66(1), 60-93.
 Vasquez, A., Hansen, A. L., & Smith, P. C. (2013). Teaching Language Arts to English 
 Language Learners (2nd ed.). New York: Routledge. 
 Walker, B. J. (2011). Diagnostic Teaching of Reading: Techniques for Instruction and 
-Assessment (7th ed.). Boston: Pearson.  
+Assessment (7th ed.). Boston: Pearson.
+=== Page 100 ===
+ 
+ 
+ 
  
  
  
  
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+(Blank Page)
+=== Page 101 ===
 
+=== Page 102 ===
  
  
  
@@ -3862,37 +3611,8 @@ Assessment (7th ed.). Boston: Pearson.
  
  
  
-(Blank Page) 
- 
- 
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
-(Blank Page) 
- 
- 
-
+(Blank Page)
+=== Page 103 ===
  
  
  
@@ -3955,12 +3675,8 @@ Dr Neil DRAVE (HKEAA)
  
  
 Secretary: 
-Mr SHEL Siu-lun 
- 
- 
- 
- 
-
+Mr SHEL Siu-lun
+=== Page 104 ===
  
  
  
@@ -3970,6 +3686,6 @@ Mr SHEL Siu-lun
  
  
  
-(Blank Page) 
- 
+(Blank Page)
+=== Page 105 ===
 

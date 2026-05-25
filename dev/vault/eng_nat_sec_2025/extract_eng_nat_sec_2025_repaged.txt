@@ -7,7 +7,12 @@
 # extracted: 20260501
 # pipeline: expand_vault.py (auto)
 # ============================================================
+# repaged_at: 20260525_133417_UTC
+# repaged_pages: 7
+# pipeline: repage_pdfs.py (PyMuPDF page-by-page + === Page N === markers)
+# ============================================================
 
+=== Page 1 ===
 1 
  
 English Language Education Key Learning Area  
@@ -45,8 +50,8 @@ activities within and beyond the English classroom, and cross-curricular and lif
 other subject departments. 
                                                  
 1 This framework is presented in the form of examples. Schools are encouraged to adopt or adapt the learning and teaching activities based on students’ learning 
-needs and abilities. 
-
+needs and abilities.
+=== Page 2 ===
 2 
  
  
@@ -132,8 +137,8 @@ security: Ecological Security
  
  
                                                  
-2 The related learning elements are taken and translated from the Curriculum Framework of National Security Education in Hong Kong (2025). 
-
+2 The related learning elements are taken and translated from the Curriculum Framework of National Security Education in Hong Kong (2025).
+=== Page 3 ===
 3 
  
  
@@ -221,14 +226,8 @@ to
 safeguarding national security 
  
 Related major field of national 
-security: Ecological Security 
- 
- 
- 
- 
- 
- 
-
+security: Ecological Security
+=== Page 4 ===
 4 
  
 English Language Education Key Learning Area – English Language 
@@ -337,9 +336,8 @@ country and Hong Kong in
 safeguarding national security 
  
 Related major field of national 
-security: Cultural Security 
- 
-
+security: Cultural Security
+=== Page 5 ===
 5 
  
 English Language Education Key Learning Area 
@@ -449,12 +447,8 @@ sustainable
 development 
  
 Related major field of national 
-security: Cultural Security 
- 
- 
- 
- 
-
+security: Cultural Security
+=== Page 6 ===
 6 
  
 Literature in English 
@@ -534,15 +528,8 @@ among cultures of different
 nations should be promoted 
  
 Related major field of national 
-security: Cultural Security 
- 
- 
- 
- 
- 
- 
- 
-
+security: Cultural Security
+=== Page 7 ===
 7 
  
  
@@ -581,4 +568,4 @@ Disclaimer:
 The examples in this document are meant to inspire and encourage schools to further explore possible learning and teaching activities 
 to incorporate NSE into the English Language Education curriculum, and are by no means exhaustive. Schools are advised to adapt the 
 suggestions with reference to their students’ needs and abilities to cater for learner diversity, and to tie in with other themes and proper 
-values and attitudes for promoting values education and NSE in a sustainable manner. 
+values and attitudes for promoting values education and NSE in a sustainable manner.

@@ -74,6 +74,17 @@ PILOT_LEGACY = {
     "history_sss_2007_2015": [VAULT_DIR / "history_sss_2007_2015" / "extract_history_sss_2007_2015.txt"],
     "music_sss_2024": [VAULT_DIR / "music_sss_2024" / "extract_music_sss_2024.txt"],
     "tl_sss_2007_2015": [VAULT_DIR / "tl_sss_2007_2015" / "extract_tl_sss_2007_2015.txt"],
+    # S124 broader batch-3 (10 sources; Chinese/English Language + Applied Tech/BAFS; dat_sss_2007_2015+dat_sss_supp_2020 both included as registry-confirmed parallel docs)
+    "chi_sss_guide_2021": [VAULT_DIR / "chi_sss_guide_2021" / "extract_chi_sss_guide_2021.txt"],
+    "chi_lit_guide_2025": [VAULT_DIR / "chi_lit_guide_2025" / "extract_chi_lit_guide_2025.txt"],
+    "eng_nat_sec_2025": [VAULT_DIR / "eng_nat_sec_2025" / "extract_eng_nat_sec_2025.txt"],
+    "eng_jss_supp_2018": [VAULT_DIR / "eng_jss_supp_2018" / "extract_eng_jss_supp_2018.txt"],
+    "ma_sss_diversity_2021": [VAULT_DIR / "ma_sss_diversity_2021" / "extract_ma_sss_diversity_2021.txt"],
+    "ct_programming_pri_2020": [VAULT_DIR / "ct_programming_pri_2020" / "extract_ct_programming_pri_2020.txt"],
+    "bafs_sss_2007_2020": [VAULT_DIR / "bafs_sss_2007_2020" / "extract_bafs_sss_2007_2020.txt"],
+    "hmsc_sss_2007_2015": [VAULT_DIR / "hmsc_sss_2007_2015" / "extract_hmsc_sss_2007_2015.txt"],
+    "dat_sss_2007_2015": [VAULT_DIR / "dat_sss_2007_2015" / "extract_dat_sss_2007_2015.txt"],
+    "dat_sss_supp_2020": [VAULT_DIR / "dat_sss_supp_2020" / "extract_dat_sss_supp_2020.txt"],
 }
 
 # source_id -> consolidated output filename (single repaged extract per source)
@@ -102,6 +113,17 @@ PILOT_OUT = {
     "history_sss_2007_2015": VAULT_DIR / "history_sss_2007_2015" / "extract_history_sss_2007_2015_repaged.txt",
     "music_sss_2024": VAULT_DIR / "music_sss_2024" / "extract_music_sss_2024_repaged.txt",
     "tl_sss_2007_2015": VAULT_DIR / "tl_sss_2007_2015" / "extract_tl_sss_2007_2015_repaged.txt",
+    # S124 broader batch-3
+    "chi_sss_guide_2021": VAULT_DIR / "chi_sss_guide_2021" / "extract_chi_sss_guide_2021_repaged.txt",
+    "chi_lit_guide_2025": VAULT_DIR / "chi_lit_guide_2025" / "extract_chi_lit_guide_2025_repaged.txt",
+    "eng_nat_sec_2025": VAULT_DIR / "eng_nat_sec_2025" / "extract_eng_nat_sec_2025_repaged.txt",
+    "eng_jss_supp_2018": VAULT_DIR / "eng_jss_supp_2018" / "extract_eng_jss_supp_2018_repaged.txt",
+    "ma_sss_diversity_2021": VAULT_DIR / "ma_sss_diversity_2021" / "extract_ma_sss_diversity_2021_repaged.txt",
+    "ct_programming_pri_2020": VAULT_DIR / "ct_programming_pri_2020" / "extract_ct_programming_pri_2020_repaged.txt",
+    "bafs_sss_2007_2020": VAULT_DIR / "bafs_sss_2007_2020" / "extract_bafs_sss_2007_2020_repaged.txt",
+    "hmsc_sss_2007_2015": VAULT_DIR / "hmsc_sss_2007_2015" / "extract_hmsc_sss_2007_2015_repaged.txt",
+    "dat_sss_2007_2015": VAULT_DIR / "dat_sss_2007_2015" / "extract_dat_sss_2007_2015_repaged.txt",
+    "dat_sss_supp_2020": VAULT_DIR / "dat_sss_supp_2020" / "extract_dat_sss_supp_2020_repaged.txt",
 }
 
 
