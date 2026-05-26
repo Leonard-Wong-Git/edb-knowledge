@@ -148,7 +148,7 @@ source_registry → same vault PDFs → ai_extract.py
    - g29 / g24 size-spike 異常未驗 content（可能 EDB url_primary 由 landing→PDF 切換、vault extraction 需 verify、follow-up）。
    - g28 真係 EDB URL drift（§E.12 codified pattern follow-up）。
    - 既有 risks：🔴 §E.10；🔴 57014 transient；🔴 FAIL-A（record-only）；Q4 deferred；Stage-2 closed 勿復活；egress 每次自測；EDB PDF 永遠用 `url_primary`（§E.12）；路徑空格雙引號。
-7. Session 進行中 (尚未 closeout — Leonard 未表示「收工」)：Freshness triage 完成 + PERSIST 完成；commit+push pending；等 Leonard 下一步排序。
+7. **Session CLOSED 2026-05-26 (Leonard「收工」)** — §4 closeout 完成；S126 Freshness workflow chronic-fail triage closed（script bug fix + threshold gate + 5/5 §3d PASS）+ §G.2 第三次 ops 應用 record-only + S126 follow-up trio 列 backlog。HEAD origin/main = `393afca` (S126 fix) + closeout commit pending。§4a trigger=True (471 行 > 400) apply 完成：4 entries→`dev/archive/SESSION_LOG_2026_Q2.md`，retain S126/S125 (192 行)。下次起手＝問 Leonard 揀 §8b 3-rule + governance update / S126 follow-up trio / Future batch-7 / 既有 backlog。
 
 ## Previous Session Record
 1. UTC date: 2026-05-26
