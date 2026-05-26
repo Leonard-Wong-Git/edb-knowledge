@@ -96,6 +96,17 @@ PILOT_LEGACY = {
     "geog_sss_update_brief": [VAULT_DIR / "geog_sss_update_brief" / "extract_geog_sss_update_brief.txt"],
     "arts_kla_guide_2017": [VAULT_DIR / "arts_kla_guide_2017" / "extract_arts_kla_guide_2017.txt"],
     "music_national_anthem_2024": [VAULT_DIR / "music_national_anthem_2024" / "extract_music_national_anthem_2024.txt"],
+    # S125b broader batch-5 (10 sources; Vanilla strategy — 0 deprecation; superseder pe_sss_2023/sci_jss_framework_2025 page-carry while pe_sss_2007_2015/sci_jss_supp_2017 stale stay deferred to batch-6; 5 pri_science circulars same-series cluster)
+    "g24": [VAULT_DIR / "g24" / "extract_g24.txt"],
+    "g29": [VAULT_DIR / "g29" / "extract_g29.txt"],
+    "sci_jss_framework_2025": [VAULT_DIR / "sci_jss_framework_2025" / "extract_sci_jss_framework_2025.txt"],
+    "pe_sss_2023": [VAULT_DIR / "pe_sss_2023" / "extract_pe_sss_2023.txt"],
+    "edbcm183_2023_values_edu": [VAULT_DIR / "edbcm183_2023_values_edu" / "extract_edbcm183_2023_values_edu.txt"],
+    "sec_curr_guide_2017_booklet_6a": [VAULT_DIR / "sec_curr_guide_2017_booklet_6a" / "extract_sec_curr_guide_2017_booklet_6a.txt"],
+    "edbcm58_2024_pri_science": [VAULT_DIR / "edbcm58_2024_pri_science" / "extract_edbcm58_2024_pri_science.txt"],
+    "pri_science_cert_course_list": [VAULT_DIR / "pri_science_cert_course_list" / "extract_pri_science_cert_course_list.txt"],
+    "edbcm57_2024_pri_science": [VAULT_DIR / "edbcm57_2024_pri_science" / "extract_edbcm57_2024_pri_science.txt"],
+    "edbcm243_2024_pri_science": [VAULT_DIR / "edbcm243_2024_pri_science" / "extract_edbcm243_2024_pri_science.txt"],
 }
 
 # source_id -> consolidated output filename (single repaged extract per source)
@@ -146,6 +157,17 @@ PILOT_OUT = {
     "geog_sss_update_brief": VAULT_DIR / "geog_sss_update_brief" / "extract_geog_sss_update_brief_repaged.txt",
     "arts_kla_guide_2017": VAULT_DIR / "arts_kla_guide_2017" / "extract_arts_kla_guide_2017_repaged.txt",
     "music_national_anthem_2024": VAULT_DIR / "music_national_anthem_2024" / "extract_music_national_anthem_2024_repaged.txt",
+    # S125b broader batch-5
+    "g24": VAULT_DIR / "g24" / "extract_g24_repaged.txt",
+    "g29": VAULT_DIR / "g29" / "extract_g29_repaged.txt",
+    "sci_jss_framework_2025": VAULT_DIR / "sci_jss_framework_2025" / "extract_sci_jss_framework_2025_repaged.txt",
+    "pe_sss_2023": VAULT_DIR / "pe_sss_2023" / "extract_pe_sss_2023_repaged.txt",
+    "edbcm183_2023_values_edu": VAULT_DIR / "edbcm183_2023_values_edu" / "extract_edbcm183_2023_values_edu_repaged.txt",
+    "sec_curr_guide_2017_booklet_6a": VAULT_DIR / "sec_curr_guide_2017_booklet_6a" / "extract_sec_curr_guide_2017_booklet_6a_repaged.txt",
+    "edbcm58_2024_pri_science": VAULT_DIR / "edbcm58_2024_pri_science" / "extract_edbcm58_2024_pri_science_repaged.txt",
+    "pri_science_cert_course_list": VAULT_DIR / "pri_science_cert_course_list" / "extract_pri_science_cert_course_list_repaged.txt",
+    "edbcm57_2024_pri_science": VAULT_DIR / "edbcm57_2024_pri_science" / "extract_edbcm57_2024_pri_science_repaged.txt",
+    "edbcm243_2024_pri_science": VAULT_DIR / "edbcm243_2024_pri_science" / "extract_edbcm243_2024_pri_science_repaged.txt",
 }
 
 
