@@ -2,6 +2,89 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-26 Session 126 — Freshness workflow chronic-fail triage closed（bug fix + threshold gate；§G.2 verify-don't-trust-docs 第三次 ops 應用）
+
+- **ID:** Claude_20260526_1811
+- **Trigger:** S125 closeout 留 Freshness workflow chronic fail（5 連 since 2026-04-30）作 priority #1 backlog；Leonard 起手 4-option AskUserQuestion chip 揀 "Freshness workflow triage"；後續 sub-choices 揀 threshold = `errors > max(5, 5%)` + cron 保 weekly + scope = bug fix + threshold + re-run dry-run（freshness_metadata 唔寫返 registry 本 session）+ g28 dead URL 留 follow-up。
+- **§1 startup verify PASS：** HEAD `cf3ea3e` (S125 closeout) origin/main working tree clean / `knowledge.json._meta.stats` `{facts:455, chunks:10736, sources:120, guidelines:39, topics:7}` 對齊 baseline / Supabase wiki_chunks live total 9,920 exact via Range-header REST / egress `/health` HTTP 200 in 22.4s typical cold start，`cache_a.warm=true size=455`。
+- **§3 HIGH-risk PLAN：** scope 5 files / §3d 5-scenario test matrix（Normal / Boundary-low 1-5err / Boundary-high >5err / Regression A dry-run no-write / Regression B filter unchanged）；HIGH-risk per (a) ≥3 files + (b) workflow notification 部份未明；Leonard AskUserQuestion 兩個 sub-question 直接 gate 同 confirm。
+- **READ → dry-run v1 揭真根因（§G.2 第三度應用）：** `python3 dev/source/check_freshness.py --dry-run` → entry ~22 撞 **`AttributeError: 'NoneType' object has no attribute 'get'`** at `check_freshness.py:101 old_mod = meta.get("last_modified")`。Root cause = `meta = src.get("freshness_metadata", {})` 對「key 存在但 value=null」嘅 source entry 失效 — dict `.get(key, default)` 嘅 default 只 trigger on **missing key**、非 null value。Pre-crash 處理 ~21 條：1 dead URL g28 + 20 EDB CHANGE detected。**Handoff 估計 `root cause = line 141-142 if errors > 0: sys.exit(1)` 係 partial truth — script 根本未跑到嗰 exit 就 traceback abort、threshold 太嚴只係次要 surface**。§G.2 verify-don't-trust-docs 第三次 ops 應用（S121 schema.sql 自稱 vector 簽名 vs live text 簽名 / S122 commit-msg「pending 5min patch」vs diff 已 apply / S126 handoff root-cause 估計 vs script 真 crash point = 3 度 recurrence-prone）。
+- **CHANGE `dev/source/check_freshness.py` 三點 minimal：** (a) **null-guard**: `meta = src.get("freshness_metadata") or {}`（handle explicit null）+ inline 解釋 comment（保留：non-obvious dict-API edge case）(b) **threshold gate**: `threshold = max(5, total_checked // 20)`；新 fail 條件 `if errors > threshold: sys.exit(1)`；within-threshold 印 `⚠️ exit 0 (workflow remains green)` 訊息保 transparency (c) **summary 強化**：印 `Threshold` 行 + 失敗時 list `Failed sources (sid + url)` block + 超 threshold 時印 `🚨 errors > threshold — exiting 1`。Cron 同 workflow yaml 唔改（Leonard 確認 weekly 保留）。Syntax PASS via `python3 -c "import ast; ast.parse(...)"`；git scope = 1 file。
+- **QC dry-run v2 + §3d 5-scenario matrix：**
+
+| Scenario | Precondition | Action | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| Normal | All URLs 200 | local dry-run | exit 0、errors=0 | exit 0、errors=1 (g28) ≤ threshold 7 | PASS（變體：boundary-low live-cover normal） |
+| Boundary-low | 1-7 err | local dry-run | exit 0 + warn | 1 err → `⚠️ within threshold` + exit 0 | PASS |
+| Boundary-high | >7 err | code review (live sim 太貴) | exit 1 + 🚨 msg | `if errors > threshold: sys.exit(1)` + 🚨 print 路徑 correctness 經 inspection | PASS (code-review) |
+| Regression A | `--dry-run` flag | local run | source_registry.json byte-unchanged | `git diff --stat dev/source/source_registry.json` empty | PASS |
+| Regression B | verified+public+url_primary filter | local run | total_checked 同 logic 一致 | 147（vs Regression Notes #2 stale 145，+2 = vault 自 2026-04-08 加 2 sources、filter logic same） | PASS |
+
+  Overall: **PASS**。完整數字：Checked 147 / Changes 20 / Errors 1 / Threshold 7 / **exit 0**。
+
+- **20 EDB CHANGE detected + 1 dead URL 紀錄非 persist（本 session scope-out per Leonard）：** Changes：sag_2025_11 / g04 / g29 / g31 / g33 / g37 / g38 / g24 / stat_edb_figures / stat_kg / stat_pri / stat_sec / stat_special / arts_curr_docs / ph_pri_curr / edbc197_2024_ph_pri / moral_civic_curr / arts_kla_guide_2017 / music_p1_s6_2024 / va_p1_s6_2024。**Anomalies surfaced**：(1) g29 Content-Length 1,299→12,481,467（1.3KB→12MB）+ Last-Modified 反向（2022-12→2017-10）懷疑 url_primary 由 landing→直 PDF 切換 / (2) g24 Content-Length 1,525→8,380,019（1.5KB→8MB）同 pattern / (3) edbc197_2024_ph_pri 新 Len 3,389 與 ph_pri_curr 新 Len 3,389 同數字（可能同 URL 或 redirect 收斂）。Dead URL: **g28** `https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/information-security-in-school.html`（HEAD + GET 均 fail；按 §E.12 EDB URL drift pattern 處理 follow-up）。
+- **§G.2 第三次 ops 應用 — §8b promote-candidate：** Recurrence-prone（3 度跨 5 session：S121 / S122 / S126）+ multi-agent collaboration prone（接手 agent 必依賴 handoff 文字描述、唔讀 code）+ long-term drift（doc 文字 vs 真實 code/script crash behaviour）+ 唔可單個 patch 收尾（每次新 drift 都係新 root-cause）= §8b 4/6 criteria met。建議 PROJECT_MASTER_SPEC §G.2 codify：**「root-cause 估計係 handoff hypothesis 非 verified ground truth；triage agent 必先 run + 觀察 actual failure trace，再 verify hypothesis 對唔對」**作 rule clause。本 entry record-only、待下次 governance-update session promote。
+- **Sources changed:**
+  - Draft modified pending commit+push: `dev/source/check_freshness.py`（null-guard + threshold + summary 強化、+15 lines）+ 2 governance docs (SESSION_HANDOFF + SESSION_LOG)。
+  - Draft NOT modified this session: `dev/source/source_registry.json` (byte-unchanged per Regression A) / `.github/workflows/freshness_check.yml` (cron 保留、無 yaml 改) / CODEBASE_CONTEXT (operational tooling change、非 stack/External Services/Key Decisions) / PROJECT_MASTER_SPEC (governance-update 留 batch 性能、§G.2 promote-candidate record-only)。
+  - Supabase live: **unchanged** (本 session 純 ops tooling、無 mutate wiki_chunks)。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Operational tooling fix (freshness workflow script bug + threshold) | SESSION_HANDOFF Regression Notes #2 update（stale baseline → S126 verified state）+ Open Priorities regen（remove freshness #1、加 g28 + persist run follow-up）+ Last Session Record S126 + SESSION_LOG 本 entry | ✓ Done |
+| §G.2 lesson 累積（3 度 recurrence）promote-candidate | PROJECT_MASTER_SPEC §G.2 codify rule clause | ⚠ Skipped (defer to governance-update session per Open Priorities #3；本 entry record-only) |
+| New backlog (g28 dead URL + 20 freshness_metadata persist run + g29/g24 size-spike) | SESSION_HANDOFF Open Priorities #4 + Risks block | ✓ Done |
+| External service / data row change | N/A (Supabase / knowledge.json / source_registry 全 byte-unchanged this session) | N/A |
+| Tech stack / build / dependency change | N/A (script 自身 stdlib + requests、無 new deps) | N/A |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S126 (2026-05-26、Leonard 起手揀「Freshness workflow triage」)：**`dev/source/check_freshness.py` bug fix + threshold gate；chronic 5 連 fail since 2026-04-30 closed**。HEAD = S126 commit pending（下次起手自行 verify origin/main）。Root cause 揭發 = handoff 估計嘅 `if errors > 0: sys.exit(1)` 係 partial truth — script 喺 line 101 撞 `AttributeError: 'NoneType' object has no attribute 'get'`（`meta = src.get("freshness_metadata", {})` 對 explicit-null value 失效、`.get()` default `{}` 只 trigger on missing key），entry ~22 即 traceback abort、threshold 嗰行根本未跑到。§G.2 verify-don't-trust-docs **第三次 ops 應用**（S121 schema.sql / S122 commit-msg-vs-diff / S126 handoff root-cause estimate = 3 度 recurrence-prone）。CHANGE 3 點：(a) null-guard `meta = src.get(...) or {}` (b) threshold gate `errors > max(5, total_checked // 20)` (c) summary 加 failed-sids list + within-threshold exit-0 warn。Cron 保留 weekly Monday 09 UTC（Leonard 確認）。QC dry-run v2 PASS：**Checked 147 / Changes 20 / Errors 1 (g28) / Threshold 7 / exit 0**；§3d 5/5 PASS（Normal / Boundary-low live-verified / Boundary-high code-review / Regression A `git diff` empty / Regression B filter logic same）。20 EDB CHANGE 包 sag_2025_11/g04/g29/g31/g33/g37/g38/g24/stat_*/arts_*/ph_*/edbc197/moral_civic/music_p1_s6/va_p1_s6 + g28 dead URL（§E.12 follow-up）。**Anomalies pending sanity check**：g29 Len 1.3KB→12MB + g24 Len 1.5KB→8MB（懷疑 url_primary 由 landing→直 PDF 切換、可能影響 vault PDF extraction）；g29 Last-Mod 反向至 2017-10。**Freshness_metadata 20 updates 本 session 唔寫返 registry（Leonard scope decision、保持 --dry-run）**。
+
+Current objective and progress state:
+- **S126 完成 Freshness workflow chronic-fail triage**：script bug fix + threshold gate + 5/5 §3d PASS + 真根因 surfaced + §G.2 第三度應用 record（promote-candidate 4/6 §8b criteria met）。
+- **CB-3 達 final ceiling ~88%**（S125 closeout 達成、94/113 marker-bearing）— 北極星目標達成。
+- **2 §8b promote candidates pending governance codify (S125)**: (1) audit cross-check stale-superseded (live + Hybrid verified) (2) NEW semantic-supersede detection。**S126 新加 candidate**: §G.2 root-cause-estimate-is-not-verified-ground-truth rule。
+- **NEW S126 follow-up trio**: (a) g28 dead URL EDB re-discovery (b) check_freshness 跑一次唔加 --dry-run persist 20 freshness_metadata updates (c) g29/g24 size-spike url_primary landing→PDF 切換 sanity check。
+- §E.10 partial resolution 維持（RLS family S121 closed；admin-login client-side gate 仍 OPEN）。Q4 deferred 獨立 track；Stage-2 closed 勿復活。
+
+Pending tasks in priority order:
+1. **§8b 3-rule promotion + PROJECT_MASTER_SPEC governance doc full update**：S125 (1) audit cross-check stale-superseded + (2) NEW semantic-supersede + S126 (3) §G.2 root-cause-estimate-is-not-ground-truth；同時 codify §D.16 batch-4/5/6 verified + NEW `cb3_deprecate_stale.py` documented。建議一次過做 governance update session。
+2. **S126 follow-up trio**：(a) g28 dead URL EDB re-discovery (§E.12 pattern 修 url_primary) (b) check_freshness 跑一次唔加 --dry-run persist 20 freshness_metadata updates (4113 行 data file 改、獨立 commit) (c) g29/g24 size-spike content sanity check (懷疑 url_primary landing→PDF、可能影響 vault PDF extraction)。
+3. **Future batch-7 (optional)**：6 stale Vanilla-preserved sources case-by-case re-evaluate（va_sss_2015 180 / ethics_relig_sss_2007_2019 166 / music_sss_2015 161 / econ_sss_2007_2015 147 / econ_sss_supp_2015 39 / bafs_sss_2007_2015 122 = 815 chunks 仲 in index）；ranking polish 後仍構成顯著競爭可考慮再 Hybrid deprecate；唔急。
+4. **batch ranking polish backlog（低優先）**：S122-S125c 累計 ~15-17 sources ranking competition（去 deprecated 2 後）。
+5. **🔴 既有 deferred**：§E.10 admin-login client-side gate（OPEN）；57014 transient（retry 即恢復）；FAIL-A 注入 regression（record-only）；P2/P3（39→148 deferred）；Mobile UI P2；HKEAA；doc-debt。
+6. **Q4 對外契約收斂（deferred）**：Channel A→knowledge.json→Circular System；3 選項；未明示勿掂。
+
+Key files changed this session (commit+push origin/main 指定檔)：
+- `dev/source/check_freshness.py` — null-guard `src.get(...) or {}` + threshold gate `max(5, total_checked // 20)` + summary 強化 (+15 lines)
+- `dev/SESSION_HANDOFF.md` — Regression Notes #2 update / Open Priorities regen / `> ✅ S126 完成` annotation / Last Session Record S126 + S125 demote
+- `dev/SESSION_LOG.md` — S126 entry prepend
+- NO modifications: source_registry.json (byte-unchanged per Regression A) / freshness_check.yml (cron 保留) / CODEBASE_CONTEXT / PROJECT_MASTER_SPEC / Supabase
+
+Known risks / blockers / cautions:
+- **§G.2 verify-don't-trust-docs 第三次 ops 應用 (recurrence-prone)**：handoff root-cause estimate ≠ verified ground truth；triage agent 必先 run + 觀察 actual failure trace、再 verify hypothesis 對唔對；§8b promote-candidate 4/6 criteria met。
+- **g29 / g24 size-spike 異常**：懷疑 EDB url_primary 由 landing 改至直 PDF（Len 1.3KB→12MB / 1.5KB→8MB）；vault PDF extraction 可能受影響、要 follow-up sanity check。
+- **g28 真係 EDB URL drift**：§E.12 codified pattern 處理；列 follow-up。
+- 既有 risks：🔴 §E.10 admin-login client-side gate（OPEN 獨立 family）；🔴 Supabase free-tier 57014 transient（retry 即恢復）；🔴 FAIL-A 注入 regression（record-only）；§3c FAIL-A/B record-only；q.html/A·AB code path/backend `/channel-a`·`/combined` endpoint dormant 可逆勿清；Q4 deferred 未明示勿掂；Stage-2 closed 勿復活。
+- egress 間歇每次自測；EDB PDF 永遠用 `url_primary` 勿 `url_landing`（§E.12）；路徑空格雙引號；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG（已遵）。
+
+Validation status:
+- PASS S126 freshness fix + 5/5 §3d matrix + dry-run v2 Checked 147 / Changes 20 / Errors 1 / Threshold 7 / exit 0 + commit+push pending (指定 3 檔)。
+- PENDING：commit+push origin/main 指定 3 檔（check_freshness.py + SESSION_HANDOFF + SESSION_LOG）；Leonard 揀下一步。
+- OPEN（非 pending-blocker）：S125 §8b 2-rule + S126 §G.2 candidate codify / S126 follow-up trio / 既有 deferred。
+
+Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD = S126 commit / knowledge.json._meta.stats / Supabase chunk count = 9,920 / egress）後，**S126 Freshness workflow chronic-fail triage 已 closed（script bug fix + threshold gate + 5/5 §3d PASS）+ 揭發 §G.2 第三次 ops 應用（promote-candidate）+ S126 follow-up trio 列入 backlog**。第一件事＝問 Leonard 揀：(a) **§8b 3-rule promotion + PROJECT_MASTER_SPEC governance doc full update**（S125 2 lessons + S126 §G.2 一次過做、batch-4/5/6 verified codify + NEW `cb3_deprecate_stale.py` documented + §G.2 rule clause）；(b) **S126 follow-up trio**（g28 dead URL + freshness_metadata persist run + g29/g24 size-spike sanity check）；(c) **Future batch-7** 6 stale Vanilla-preserved case-by-case re-evaluate；(d) 抑或 **既有 backlog**（🔴 §E.10 admin-login / batch ranking polish / etc）？未 Leonard 明示前**唔好自行 resume / 改其他 Draft / 掂 Q4 契約**。碰 admin/auth/公開推送前必讀 §E.10。
+```
+
 ## 2026-05-26 Session 125 — CB-3 Option C broader batch-4 + batch-5 + batch-6 Hybrid（22 marker-less PDF + 2 deprecation）= 三批一日打完 + Freshness workflow triaged + §8b audit cross-check live-validated + NEW deprecation script `cb3_deprecate_stale.py` + driver 6th-validation
 
 - **ID:** Claude_20260526_0737

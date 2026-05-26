@@ -95,7 +95,7 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## Regression / Verification Notes
 1. All core 2024/2025 curriculum guides verified and reachable ✅
-2. `check_freshness.py` result: **Errors: 0 / Checked: 145** ✅
+2. **S126 (2026-05-26)** `check_freshness.py --dry-run` = **Checked: 147 / Changes: 20 / Errors: 1 / Threshold: 7 → exit 0** ✅。**Root cause of 5 連 chronic fail since 2026-04-30 = script `AttributeError` 撞 `freshness_metadata=null` (line 101) crash 喺 entry ~22，唔係 handoff 估計嘅 `if errors > 0: sys.exit(1)`（後者係次要、threshold 太嚴）**；§G.2 verify-don't-trust-docs 再中。修：`meta = src.get("freshness_metadata") or {}` + `threshold = max(5, total_checked // 20)` gate + summary 加 failed-sids list 方便 GH Actions log artifact 分析。20 EDB CHANGE detected（包 sag_2025_11 / g24 / g29 / stat_* 等）+ 1 dead URL g28 — freshness_metadata 寫返 registry 留下次 sub-task；g28 EDB URL re-discovery 列 follow-up。
 3. ⚠️ **`npm run regression:semantic` 實測 2026-05-17 S113：overall=FAIL（PASS=9 / FAIL=2）**。原寫「Online semantic regression PASS=12/FAIL=0 (2026-04-12) ✅」**已 false / stale**（2026-04-12 舊值，dedup 前；S113 startup verify 教訓再現 §G.2）。兩個 FAIL 同 S1/S2 無關、Leonard 裁示**只記錄不修**：
    - **FAIL-A（真 product regression）role-bucket `finance_distinct=false`**：S111 dedup（792→455，2026-05-16）把跨角色重複摺入 `all_roles`，令 `finance.all_roles`=83 條/2832 字；`knowledgeSelector` 排序 all_roles 行先→砍 600 字，頭 ~14 條 all_roles 已蓋爆 budget，**subject_head/panel_chair 角色專屬 finance 事實永遠注入唔到** → Circular System 對該兩角色嘅 finance 注入自 2026-05-16 起退化成「只通用、無角色專屬」。無 budget 時 distinct=True（角色拆分本身冇壞）。**未修**（涉 dedup/budget/排序設計決定，待 Leonard 排）。
    - **FAIL-B（瑣碎 doc-debt）schema consistency**：`backend/scripts/semanticRegression.ts:292` 硬斷言 `version === "1.3.1"`，實際 knowledge=2.3.0 / guidelines=2.2.0。stale 測試斷言，無行為影響。**未修**。
@@ -104,15 +104,14 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-> 產品方向：**搜尋介面 Channel-B-only**（S119 定，A/AB dormant；Q4 契約 deferred）。北極星＝合理＋指引＋**頁數**（CB-3 不可 defer）。Stage-2 closed 勿復活。**CB-3 達 final ceiling ~88%**（94/113 marker-bearing + 2 deprecated + 6 Vanilla-preserved stale + 9 結構天花板 + 2 others = 113）。**driver 6 輪 verified（S122~S125c、52 sources 0 incident）+ NEW `cb3_deprecate_stale.py` 0 incident first-use**。
-1. **Freshness workflow triage**（chronic ops cleanup）：(a) 本地跑 `python3 dev/source/check_freshness.py --dry-run` 識別 N 條 fail URL；(b) 修 source_registry.json URL drift；(c) 改 script 失敗 threshold（建議 errors >5 才 exit 1 / 用 GitHub Issue 而非 fail email）。SESSION_HANDOFF Regression Notes #2 同步更新「stale baseline」。Chronic 5 連 fail since 2026-04-30、非 blocker、ops noise。
-2. **§8b rule promotion (S125 2 lessons)**：(1) audit cross-check stale-superseded（first applied S125b、Hybrid deprecation verified S125c；codify PROJECT_MASTER_SPEC §D.16 + §8 lessons）(2) NEW semantic-supersede detection（g24/sag、tech_kla/pri_curr、music_sss_2024/music_p1_s6 同 pattern；audit agent 加 KLA-title embedding similarity check）。
-3. **Future batch-7 (optional)**：6 stale Vanilla-preserved sources case-by-case re-evaluate（va_sss_2015 180 / ethics_relig_sss_2007_2019 166 / music_sss_2015 161 / econ_sss_2007_2015 147 / econ_sss_supp_2015 39 / bafs_sss_2007_2015 122 = 815 chunks 仲 in index）；如果 ranking polish 後仍構成顯著競爭、可考慮再 Hybrid deprecate；唔急。
-4. **PROJECT_MASTER_SPEC governance doc full update**：§D.16 batch-4/5/6 verified + §8b 2 new rules codify + NEW `cb3_deprecate_stale.py` documented。
-5. **batch ranking polish backlog（低優先）**：S122-S125c 累計 ~15-17 sources ranking competition（去 deprecated 2 後）。
-6. **🔴 既有 deferred**：§E.10 admin-login client-side gate（OPEN）；57014 transient（retry 即恢復）；FAIL-A 注入 regression（record-only）；P2/P3（39→148 deferred）；Mobile UI P2；HKEAA；doc-debt。
-7. **Q4 對外契約收斂（deferred）**：Channel A→knowledge.json→Circular System；3 選項；未明示勿掂。
+> 產品方向：**搜尋介面 Channel-B-only**（S119 定，A/AB dormant；Q4 契約 deferred）。北極星＝合理＋指引＋**頁數**（CB-3 不可 defer）。Stage-2 closed 勿復活。**CB-3 達 final ceiling ~88%**（94/113 marker-bearing + 2 deprecated + 6 Vanilla-preserved stale + 9 結構天花板 + 2 others = 113）。**driver 6 輪 verified（S122~S125c、52 sources 0 incident）+ NEW `cb3_deprecate_stale.py` 0 incident first-use**。**S126：Freshness workflow chronic-fail triage closed**（script bug fix + threshold gate + dry-run 147/20/1/exit-0 verified）。
+1. **§8b rule promotion (S125 2 lessons)**：(1) audit cross-check stale-superseded（first applied S125b、Hybrid deprecation verified S125c；codify PROJECT_MASTER_SPEC §D.16 + §8 lessons）(2) NEW semantic-supersede detection（g24/sag、tech_kla/pri_curr、music_sss_2024/music_p1_s6 同 pattern；audit agent 加 KLA-title embedding similarity check）。
+2. **Future batch-7 (optional)**：6 stale Vanilla-preserved sources case-by-case re-evaluate（va_sss_2015 180 / ethics_relig_sss_2007_2019 166 / music_sss_2015 161 / econ_sss_2007_2015 147 / econ_sss_supp_2015 39 / bafs_sss_2007_2015 122 = 815 chunks 仲 in index）；如果 ranking polish 後仍構成顯著競爭、可考慮再 Hybrid deprecate；唔急。
+3. **PROJECT_MASTER_SPEC governance doc full update**：§D.16 batch-4/5/6 verified + §8b 2 new rules codify + NEW `cb3_deprecate_stale.py` documented + **S126 freshness fix lesson（§G.2 verify-don't-trust-docs 第三次 ops 應用）**。
+4. **🔴 既有 deferred + S126 follow-up**：§E.10 admin-login client-side gate（OPEN）；57014 transient（retry 即恢復）；FAIL-A 注入 regression（record-only）；P2/P3（39→148 deferred）；Mobile UI P2；HKEAA；doc-debt；batch ranking polish ~15-17 sources（S122-S125c 累計）；**NEW S126**：(a) g28 dead URL EDB re-discovery（`https://www.edb.gov.hk/.../Information-Security/information-security-in-school.html` 404 / 改版）按 §E.12 pattern 修 url_primary；(b) check_freshness 跑一次唔加 `--dry-run` persist 20 EDB content updates 落 source_registry.json freshness_metadata（會改 4113 行 data file、獨立 commit）。
+5. **Q4 對外契約收斂（deferred）**：Channel A→knowledge.json→Circular System；3 選項；未明示勿掂。
 
+> ✅ **S126 完成**：Freshness workflow chronic-fail triage closed — `dev/source/check_freshness.py` bug fix（line 101 `AttributeError: 'NoneType' object has no attribute 'get'` 撞 `freshness_metadata=null`，coerce `meta = src.get(...) or {}`）+ threshold gate (`errors > max(5, total_checked//20)`) + summary 加 failed-sids list；dry-run 147/20/1/exit-0 verified；§G.2 ops 第三次應用（handoff 估計嘅 `errors > 0` 係次要、真根因係 AttributeError mask）；g28 dead URL + 20 freshness_metadata updates persist 列 follow-up。
 > ✅ **S125 完成（三批 + deprecation）**：CB-3 Option C batch-4 + batch-5 + batch-6 Hybrid，共 22 sources page-carry + 2 deprecation；Supabase 10,253→10,133→10,117→9,920；whole-vault page-resolvable ~73.0%→~81.5%；94/113 marker-bearing + 2 deprecated；CB-3 final ceiling ~88% 達成；NEW `cb3_deprecate_stale.py` script first-use 0 incident；§8b 2 rules surfaced + first live applied；Freshness chronic fail triaged。
 > ✅ **S124 完成**：CB-3 Option C broader batch-3（10 sources）page-carry 生產 live；Supabase 10,400→10,253；whole-vault page-resolvable ~64.4%→~73.0%；72/113 sources marker-bearing；batch-4 pre-flight 10/10 GO / 10/10 KEEP ready。
 > ✅ **S123 完成**：CB-3 batch-2（10 sources）生產 live + Audit 揭 3 superseder swap；Supabase 10,569→10,400；62/113 marker-bearing。
@@ -127,6 +126,31 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合）
 
 ## Last Session Record
+1. UTC date: 2026-05-26
+2. Session ID: Claude_20260526_1811 (Session 126 — Freshness workflow chronic-fail triage)
+3. Completed:
+   - ✅ **[PLAN HIGH-risk → Leonard 4-gate confirm via AskUserQuestion]** scope = bug fix + threshold + re-run dry-run；threshold = `errors > max(5, total_checked // 20)`；cron 保持 weekly Monday 09 UTC；freshness_metadata 唔寫返 registry 本 session。
+   - ✅ **[READ → dry-run v1 揭真根因]** 跑 `python3 dev/source/check_freshness.py --dry-run` → entry ~22 撞 **`AttributeError: 'NoneType' object has no attribute 'get'` (line 101)**；root cause = `meta = src.get("freshness_metadata", {})` 對 explicit-null value 失效（`.get(...)` default `{}` 只 trigger on missing key、非 null value）。**Pre-crash 已揭 1 dead URL (g28) + 20 EDB CHANGE detected**。Handoff 估計 root cause = `errors > 0: sys.exit(1)` 係 partial truth — script 根本未跑到嗰行就 crash。§G.2 verify-don't-trust-docs **第三次 ops 應用**（S121 schema.sql / S122 commit-msg-vs-diff / S126 chronic-fail root-cause 全 3 度 recurrence-prone）。
+   - ✅ **[CHANGE `dev/source/check_freshness.py` single-file]** (a) null-guard: `meta = src.get("freshness_metadata") or {}` (b) threshold gate: `threshold = max(5, total_checked // 20)`；`if errors > threshold: sys.exit(1)` + within-threshold exit 0 warn 訊息 (c) summary 加 failed-sids list (sid + url) 方便 GitHub Actions log artifact 分析。Syntax PASS via `ast.parse`；git scope = 1 file。
+   - ✅ **[QC dry-run v2 + §3d matrix PASS]** Re-run cleanly：**Checked 147 / Changes 20 / Errors 1 (g28) / Threshold 7 / exit 0** ✅。§3d 5 scenarios: Normal flow / Boundary-low (1-7 err exit 0+warn live-verified) / Boundary-high (>7 err exit 1+🚨 code-review) / Regression A (`--dry-run` no write — `git diff source_registry.json` empty ✅) / Regression B (filter unchanged — 147 vs stale Regression Notes #2 baseline 145，+2 = vault growth since 2026-04-08 同 filter logic)。
+   - ✅ **[20 EDB CHANGE detected + 1 dead URL 紀錄、唔 persist]** Changes 包：sag_2025_11 / g04 / g29 / g31 / g33 / g37 / g38 / g24 / stat_edb_figures / stat_kg / stat_pri / stat_sec / stat_special / arts_curr_docs / ph_pri_curr / edbc197_2024_ph_pri / moral_civic_curr / arts_kla_guide_2017 / music_p1_s6_2024 / va_p1_s6_2024。**Anomalies**：g29 Len 1299→12,481,467 (1.3KB→12MB) + g24 Len 1525→8,380,019 (1.5KB→8MB) 懷疑 url_primary 由 landing→直 PDF 切換；g29 Last-Mod 反向回到 2017-10 同樣異常（內容已換）。Dead URL: g28 information-security-in-school.html（§E.12 pattern follow-up）。
+   - ✅ **[PERSIST]** SESSION_HANDOFF Regression Notes #2 stale-baseline 更新 / Open Priorities regen / `> ✅ S126 完成` annotation / 本 Last Session Record + S125 demote / SESSION_LOG S126 entry + DOC_SYNC matrix / commit+push 指定檔。
+4. Pending：
+   - g28 dead URL EDB re-discovery / url_primary 修（§E.12 pattern）
+   - check_freshness 跑一次唔加 `--dry-run` persist 20 EDB freshness_metadata updates（會改 4113 行 data file、獨立 commit）
+   - g29 / g24 size-spike content sanity check（懷疑 EDB url_primary 由 landing→PDF 切換、可能影響 vault PDF extraction）
+5. Next priorities (max 3)：
+   - 等 Leonard 排：§8b rule promotion / Future batch-7 / S126 follow-up trio (g28 + persist run + size-spike) / 其他 OP
+   - 🔴 §E.10 admin-login client-side gate（OPEN）/ batch ranking polish backlog
+   - PROJECT_MASTER_SPEC governance doc full update
+6. Risks / blockers:
+   - **§G.2 verify-don't-trust-docs 第三次 ops 應用 (recurrence-prone)** — S121 schema.sql vs live grants / S122 commit-msg vs diff / S126 chronic-fail-root-cause = 3 度；§8b promote-candidate（multi-occurrence、multi-agent collaboration prone、long-term doc-vs-reality drift）。
+   - g29 / g24 size-spike 異常未驗 content（可能 EDB url_primary 由 landing→PDF 切換、vault extraction 需 verify、follow-up）。
+   - g28 真係 EDB URL drift（§E.12 codified pattern follow-up）。
+   - 既有 risks：🔴 §E.10；🔴 57014 transient；🔴 FAIL-A（record-only）；Q4 deferred；Stage-2 closed 勿復活；egress 每次自測；EDB PDF 永遠用 `url_primary`（§E.12）；路徑空格雙引號。
+7. Session 進行中 (尚未 closeout — Leonard 未表示「收工」)：Freshness triage 完成 + PERSIST 完成；commit+push pending；等 Leonard 下一步排序。
+
+## Previous Session Record
 1. UTC date: 2026-05-26
 2. Session ID: Claude_20260526_0737 (Session 125 — batch-4 + batch-5 + batch-6 Hybrid 三批)
 3. Completed:

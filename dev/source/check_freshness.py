@@ -67,6 +67,7 @@ def main():
     changes_detected = 0
     errors = 0
     total_checked = 0
+    failed_records: List[Dict[str, str]] = []
 
     print(f"🔍 Checking freshness for {len(sources)} sources...")
     print(f"📅 Today: {today}")
@@ -74,21 +75,22 @@ def main():
 
     for src in sources:
         # Filter: verified + public + has primary URL
-        if (src.get("status") == "verified" and 
-            src.get("access_mode") == "public" and 
+        if (src.get("status") == "verified" and
+            src.get("access_mode") == "public" and
             src.get("url_primary")):
-            
+
             total_checked += 1
             url = src["url_primary"]
             sid = src["source_id"]
-            
+
             if args.verbose:
                 print(f"[{total_checked}] Checking {sid}...")
-            
+
             headers = get_headers(url)
             if not headers:
                 print(f"  ❌ Failed: {sid} ({url})")
                 errors += 1
+                failed_records.append({"sid": sid, "url": url})
                 continue
 
             # Extract metadata
@@ -96,8 +98,10 @@ def main():
             cont_len = headers.get("Content-Length")
             etag = headers.get("ETag")
 
-            # Compare with existing (if present in new metadata field)
-            meta = src.get("freshness_metadata", {})
+            # Compare with existing freshness_metadata. The key may exist with
+            # value None for sources that never recorded metadata; the {} default
+            # on dict.get only triggers when the key is absent, so coerce here.
+            meta = src.get("freshness_metadata") or {}
             old_mod = meta.get("last_modified")
             old_len = meta.get("content_length")
 
@@ -133,13 +137,28 @@ def main():
     else:
         print("\n🧪 Dry run: no changes saved.")
 
+    # Fail-threshold: tolerate isolated EDB intermittent timeouts / a handful of
+    # stale URLs, but still surface a real outage. Trips when errors exceed the
+    # greater of 5 absolute and 5% of total checked (rounded down).
+    threshold = max(5, total_checked // 20)
+
     print(f"\nSummary:")
-    print(f"  Checked: {total_checked}")
-    print(f"  Changes: {changes_detected}")
-    print(f"  Errors:  {errors}")
+    print(f"  Checked:    {total_checked}")
+    print(f"  Changes:    {changes_detected}")
+    print(f"  Errors:     {errors}")
+    print(f"  Threshold:  {threshold}  (fail when errors > threshold)")
+
+    if failed_records:
+        print(f"\nFailed sources ({len(failed_records)}):")
+        for rec in failed_records:
+            print(f"  - {rec['sid']}: {rec['url']}")
+
+    if errors > threshold:
+        print(f"\n🚨 errors {errors} > threshold {threshold} — exiting 1")
+        sys.exit(1)
 
     if errors > 0:
-        sys.exit(1)
+        print(f"\n⚠️  errors {errors} within threshold {threshold} — exit 0 (workflow remains green)")
 
 if __name__ == "__main__":
     main()
