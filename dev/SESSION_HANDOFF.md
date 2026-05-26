@@ -154,7 +154,7 @@ source_registry → same vault PDFs → ai_extract.py
    - **CB-3 達 final ceiling ~88%**：94/113 marker-bearing + 2 deprecated + 6 Vanilla-preserved stale（future batch-7 待評估）+ 9 結構天花板 = 北極星目標達成。
    - local `wiki_index.json` vs Supabase 94 源 diverge（S125 後 72→94；Supabase query-authoritative；reconcile 低優先 backlog）。
    - 既有 risks：🔴 §E.10；🔴 57014 transient（S125 ict_sss_2021 + g24 + pe_sss_2023 各 1 次 retry 恢復）；🔴 FAIL-A（record-only）；Q4 deferred；Stage-2 closed 勿復活；egress 每次自測；EDB PDF 永遠用 `url_primary`（§E.12）；路徑空格雙引號。
-7. **Session 進行中**（待 Leonard「收工」）— S125 三批 + 2 deprecation 完成生產 live + CB-3 final ceiling ~88% 達成 + freshness triaged + 2 §8b lessons surfaced + NEW script + driver 6th-validation + commit/push batch-6 closeout pending。
+7. **Session CLOSED 2026-05-26（Leonard「收工」）** — S125 三批一日打完（batch-4 / batch-5 / batch-6 Hybrid，共 22 sources page-carry + 2 deprecation）+ Supabase 10,253→9,920 + CB-3 final ceiling ~88% 達成 + 94/113 sources marker-bearing + freshness chronic-fail triaged + 2 §8b lessons surfaced (audit cross-check stale-superseded + NEW semantic-supersede detection) + NEW `dev/cb3_deprecate_stale.py` (159 lines) 0 incident first-use + driver `cb3_b2_pagecarry_migrate.py` 6th-validation 52 sources 0 incident + live smoke deprecation ranking improvement verified (sci_jss_framework_2025 TOP-1+#2 post-deprecation；pe_2007_2015 cleared)。HEAD chain origin/main = `e703910` (batch-4) → `d66f091` (batch-5) → `ad34fd7` (batch-6) + closeout commit pending。§4a trigger=False (388 行 < 400、5 entries、oldest within 30d)。下次起手＝Freshness workflow triage / §8b 2-rule codify + governance update / 既有 backlog（Leonard 揀）。
 
 ## Previous Session Record
 1. UTC date: 2026-05-25
