@@ -107,6 +107,9 @@ PILOT_LEGACY = {
     "pri_science_cert_course_list": [VAULT_DIR / "pri_science_cert_course_list" / "extract_pri_science_cert_course_list.txt"],
     "edbcm57_2024_pri_science": [VAULT_DIR / "edbcm57_2024_pri_science" / "extract_edbcm57_2024_pri_science.txt"],
     "edbcm243_2024_pri_science": [VAULT_DIR / "edbcm243_2024_pri_science" / "extract_edbcm243_2024_pri_science.txt"],
+    # S125c broader batch-6 Hybrid strategy (2 page-carry orphan small + 2 DROP-only deprecation handled by cb3_deprecate_stale.py)
+    "g15": [VAULT_DIR / "g15" / "extract_g15.txt"],
+    "edbcm98_2024_pri_science": [VAULT_DIR / "edbcm98_2024_pri_science" / "extract_edbcm98_2024_pri_science.txt"],
 }
 
 # source_id -> consolidated output filename (single repaged extract per source)
@@ -168,6 +171,9 @@ PILOT_OUT = {
     "pri_science_cert_course_list": VAULT_DIR / "pri_science_cert_course_list" / "extract_pri_science_cert_course_list_repaged.txt",
     "edbcm57_2024_pri_science": VAULT_DIR / "edbcm57_2024_pri_science" / "extract_edbcm57_2024_pri_science_repaged.txt",
     "edbcm243_2024_pri_science": VAULT_DIR / "edbcm243_2024_pri_science" / "extract_edbcm243_2024_pri_science_repaged.txt",
+    # S125c broader batch-6
+    "g15": VAULT_DIR / "g15" / "extract_g15_repaged.txt",
+    "edbcm98_2024_pri_science": VAULT_DIR / "edbcm98_2024_pri_science" / "extract_edbcm98_2024_pri_science_repaged.txt",
 }
 
 

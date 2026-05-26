@@ -7,7 +7,12 @@
 # extracted: 20260501
 # pipeline: expand_vault.py (auto)
 # ============================================================
+# repaged_at: 20260526_135854_UTC
+# repaged_pages: 6
+# pipeline: repage_pdfs.py (PyMuPDF page-by-page + === Page N === markers)
+# ============================================================
 
+=== Page 1 ===
  
  
 1 
@@ -76,10 +81,8 @@
 頁
 （https://www.edb.gov.hk/ps）。教師可於2024/25 學年試行新課程時，
 因應學生的能力、興趣和學習需要，在科學相關的課堂中靈活採用上
-述探究活動的學與教資源。其他課題的學與教資源將陸續推出。 
- 
- 
-
+述探究活動的學與教資源。其他課題的學與教資源將陸續推出。
+=== Page 2 ===
 2 
  
 《小學科學科安全手冊》 
@@ -137,12 +140,8 @@ sci/PS_Safety_Handbook_Chi_2024.pdf
 https://www.edb.gov.hk/attachment/tc/curriculum-
 development/kla/science-edu/pri-
 sci/List_of_Suggested_Teaching_Aids_and_Equipmen
-t_for_Primary_Science.pdf 
- 
- 
- 
- 
-
+t_for_Primary_Science.pdf
+=== Page 3 ===
 3 
  
 小學科學網上學習平台 
@@ -183,11 +182,8 @@ n/curriculum-development/kla/science-edu/primary-science.html）。
 教育局將於2024 年5 月29 日（星期三）舉辦網上簡介會，
 向學校介紹科學探究活動學與教資源、《小學科學科安全手冊》及「小
 學科學網上學習平台」的詳情。學校可透過培訓行事曆報名（網址：
-https://tcs.edb.gov.hk；課程編號：CSD020240564）。 
- 
- 
- 
-
+https://tcs.edb.gov.hk；課程編號：CSD020240564）。
+=== Page 4 ===
 4 
  
  
@@ -206,8 +202,8 @@ https://tcs.edb.gov.hk；課程編號：CSD020240564）。
  
  林威廉博士代行 
  
-2024 年4 月26 日 
-
+2024 年4 月26 日
+=== Page 5 ===
 5 
  
 附件一 
@@ -276,8 +272,8 @@ https://tcs.edb.gov.hk；課程編號：CSD020240564）。
 物質、能量和變化／
 物理變化與化學變化 
 認識導致金屬腐蝕﹙以鐵生鏽為例
-子﹚的必要條件 
-
+子﹚的必要條件
+=== Page 6 ===
 6 
  
 附件二 
@@ -316,6 +312,4 @@ https://tcs.edb.gov.hk；課程編號：CSD020240564）。
 登入方法 
  
 於2024 年6 月底，學生可使用香港教育城的戶口登入網上學習
-平台(https://priscplatform.edb.edcity.hk)。 
- 
- 
+平台(https://priscplatform.edb.edcity.hk)。
