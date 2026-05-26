@@ -7,15 +7,20 @@
 # extracted: 20260501
 # pipeline: expand_vault.py (auto)
 # ============================================================
+# repaged_at: 20260526_073931_UTC
+# repaged_pages: 4
+# pipeline: repage_pdfs.py (PyMuPDF page-by-page + === Page N === markers)
+# ============================================================
 
+=== Page 1 ===
 藝術教育 
 學習領域
 國歌的學與教：  
 音樂科課程補充文件（ 小一至中六 ） 
 課程發展議會編訂 
 香港特別行政區政府教育局建議學校採用 
-二零二零年（二零二四年九月更新） 
-
+二零二零年（二零二四年九月更新）
+=== Page 2 ===
 1 
 （一） 
 引言
@@ -31,8 +36,8 @@
 教育局九龍塘教育服務中心西座三樓 W325 室
 教育局課程發展處 
 藝術教育組收 
-電郵： arts@edb.gov.hk 
-
+電郵： arts@edb.gov.hk
+=== Page 3 ===
 2 
 （二） 
 學與教
@@ -66,8 +71,8 @@ www.cmab.gov.hk/tc/issues/national_anthem.htm
 教育局德育、公民及國民教育組「認識國旗、國徽、國歌、區旗及區徽」網頁 
 www.edb.gov.hk/tc/flag-raising 
 1  
-國歌的曲譜見政制及內地事務局網頁（ www.cmab.gov.hk/tc/issues/national_anthem.htm） 
-
+國歌的曲譜見政制及內地事務局網頁（ www.cmab.gov.hk/tc/issues/national_anthem.htm）
+=== Page 4 ===
 3 
 政制及內地事務局網頁的國歌五線譜版本  
-（ www.cmab.gov.hk/tc/issues/national_anthem.htm） 
+（ www.cmab.gov.hk/tc/issues/national_anthem.htm）

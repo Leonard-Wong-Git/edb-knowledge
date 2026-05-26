@@ -7,21 +7,23 @@
 # extracted: 20260501
 # pipeline: expand_vault.py (auto)
 # ============================================================
+# repaged_at: 20260526_073931_UTC
+# repaged_pages: 106
+# pipeline: repage_pdfs.py (PyMuPDF page-by-page + === Page N === markers)
+# ============================================================
 
+=== Page 1 ===
 學習領域課程指引
 (小一至中六)
 藝術教育
 香港特別行政區政府教育局建議學校採用
 二零一七
 課程發展議會編訂
-
+=== Page 2 ===
  
  
-（空白頁） 
- 
- 
- 
-
+（空白頁）
+=== Page 3 ===
 i 
  
 引 言 
@@ -58,8 +60,8 @@ i 
                                                       
 1 課程發展議會是一個諮詢組織，主要就幼稚園至中學階段的課程發展事宜，向香港特別行政區政府提供意見。
 議會成員包括校長、在職教師、家長、僱主、大專院校學者、相關界別或團體的專業人士、香港考試及評核局
-代表、職業訓練局代表和教育局人員。  
-
+代表、職業訓練局代表和教育局人員。
+=== Page 4 ===
 ii 
  
 提 要 
@@ -109,8 +111,8 @@ ii 
  
 從參與藝術活動中獲得愉悅、享受和滿足；以及 
  
-培養對藝術的終身興趣。 
-
+培養對藝術的終身興趣。
+=== Page 5 ===
 iii 
  
 藝術教育學習領域課程架構 
@@ -146,10 +148,8 @@ iii 
 表現。 
 資源 
  
-運用具質素的學與教資源對支援藝術學習非常重要。 
- 
- 
-
+運用具質素的學與教資源對支援藝術學習非常重要。
+=== Page 6 ===
 iv 
  
 目 錄 
@@ -276,7 +276,7 @@ ii
 4.2 
 教師的角色 
 28
-
+=== Page 7 ===
 v 
  
  
@@ -416,7 +416,7 @@ v 
 附錄九 
 教學設計例子：水墨與音樂共舞 
 72
-
+=== Page 8 ===
 vi 
  
 附錄十 
@@ -443,20 +443,14 @@ vi 
  
 課程發展議會藝術教育委員會委員名錄 
 95
- 
- 
- 
- 
- 
- 
-
+=== Page 9 ===
                                                                  
 1 
  
  
 第一章 
-概論 
-
+概論
+=== Page 10 ===
 2 
  
 第一章 
@@ -489,12 +483,8 @@ vi 
 的價值觀和積極的態度。 
 「學習領域」的設立，有助學生建構新知識和深入瞭解事物。因應不同目的，
 學生可從不同角度，例如學術、社會、實用或綜合地學習不同範疇的知識，而
-學習內容可用科目、模塊、單元、課業等不同方式組織。  
- 
- 
- 
- 
-
+學習內容可用科目、模塊、單元、課業等不同方式組織。
+=== Page 11 ===
 3 
  
 課程架構中各個學習領域的知識、共通能力，以及價值觀和態度互相關連，圖
@@ -526,8 +516,8 @@ vi 
                                                       
 2  「其他學習經歷」是高中課程的重要組成部分，當中包括德育及公民教育、社會服務、與工作有關的經驗，
 藝術發展和體育發展。更多有關「其他學習經歷」的資訊，請參閱《中學教育課程指引》(2017) 分冊7；至
-於「藝術發展」的資訊，請瀏覽http://www.edb.gov.hk/arts/aesthetic。 
-
+於「藝術發展」的資訊，請瀏覽http://www.edb.gov.hk/arts/aesthetic。
+=== Page 12 ===
 4 
  
 1.4 
@@ -569,8 +559,8 @@ vi 
 5 香港在電影、電視、音樂、設計、建築、廣告、漫畫與動畫、遊戲與數碼娛樂、出版和印刷等創意產業領域發
 展迅速。據最新統計資料顯示，香港共有約40 500 間文化和創意產業的相關機構，並約有213 100 名從業員（香
 港特區政府，2016）。近年，本港電影工業更取得顯著成就，多齣香港製作的電影，受到世界重視，並獲得本
-地及國際電影業的認同。 
-
+地及國際電影業的認同。
+=== Page 13 ===
 5 
  
 設6。因此，社會需要更多具創意的人才，以滿足發展的需要。 
@@ -614,8 +604,8 @@ vi 
 空間和海濱長廊。 
 7 例子眾多，包括香港藝術發展局提供大量資助予不同規模的藝團；康樂及文化事務署舉辦多項藝術教育計劃以
 拓展觀眾群；民政事務局和香港藝術發展局提供實習和獎學金計劃，以培育藝術行政人才。此外，社區亦有不
-同的藝術節和展覽，以推廣藝術。 
-
+同的藝術節和展覽，以推廣藝術。
+=== Page 14 ===
 6 
  
  
@@ -633,19 +623,17 @@ vi 
  
 你會如何在藝術教育課程融入「主要更新重點」？ 
  
-學校是否已提供機會幫助藝術教師提升專業能力？  
-
+學校是否已提供機會幫助藝術教師提升專業能力？
+=== Page 15 ===
  
 7 
  
 第二章 
 課程架構
-
+=== Page 16 ===
  
-8 
- 
- 
-
+8
+=== Page 17 ===
  
 9 
  
@@ -667,8 +655,8 @@ vi 
 藝術教育學習領域課程架構讓學校靈活地規劃和推行藝術教育課程。架構圖示
 如下︰ 
  
-*KS 指學習階段 
-
+*KS 指學習階段
+=== Page 18 ===
  
 10 
  
@@ -695,8 +683,8 @@ vi 
 第三學習階段的學習重點，以及相關教學活動例子分別見附錄二和三。學校亦
 可參考本指引，為其他藝術形式例如戲劇和媒體藝術，訂定學習重點和設計學
 習活動。至於舞蹈的學習，教師可參考《體育學習領域課程指引（小一至中六）》
-（2017）。  
-
+（2017）。
+=== Page 19 ===
  
 11 
  
@@ -743,8 +731,8 @@ vi 
  
                                                       
 8 「數學能力」和「自學能力」在早期的課程文件，如《學會學習：課程發展路向》（2001）中，分別被稱為「運
-算能力」和「研習能力」。 
-
+算能力」和「研習能力」。
+=== Page 20 ===
  
 12 
  
@@ -789,8 +777,8 @@ vi 
  
 為歌曲、故事及詩詞創作聲響效果，並使用符號或圖象去記錄音樂意念 
  
-以不同風格和手法去演繹一首樂曲 
-
+以不同風格和手法去演繹一首樂曲
+=== Page 21 ===
 13 
  
 創作富想像力的藝術作品以配合有趣的主題 
@@ -833,7 +821,7 @@ vi 
 2008 年的「新修訂德育及公民教育課程架構」列出七個首要培養的價值觀和
 態度。香港作為一個國際城市，中西文化並存和互動，這些價值觀和態度展現
 出其獨特性。這七個價值觀和態度是：堅毅、尊重他人、責任感、國民身份認
-
+=== Page 22 ===
  
 14 
  
@@ -870,8 +858,8 @@ vi 
  
 運用藝術辭彙和修辭方法去描述藝術作品和一場音樂會的經歷，以及比較
 兩幅繪畫的表達形式。  
-有關「跨課程語文學習」的教學例子，可參閱附錄十和十一。 
-
+有關「跨課程語文學習」的教學例子，可參閱附錄十和十一。
+=== Page 23 ===
  
 15 
  
@@ -908,8 +896,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 教育、科技教育和數學教育學習領域的學習，綜合地探討課題。 
  
 引導學生應用科技探索另類的創作和演出方式。 
-有關STEM 教育的教學例子，可參閱附錄八及十二。 
-
+有關STEM 教育的教學例子，可參閱附錄八及十二。
+=== Page 24 ===
  
 16 
  
@@ -922,14 +910,14 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 在高中階段，學校必須為學生提供「其他學習經歷」，當中包括「藝術發展」。
 此外，學校亦可開設音樂和視覺藝術選修科，以及提供藝術相關的應用學習課
 程供學生選讀。 
-有關應用學習課程的詳情，可參閱http://www.edb.gov.hk/apl。   
-
+有關應用學習課程的詳情，可參閱http://www.edb.gov.hk/apl。
+=== Page 25 ===
  
 17 
  
 第三章 
 課程規劃
-
+=== Page 26 ===
  
 18 
  
@@ -963,8 +951,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 中央課程及學校藝術教育課程發展 
 作為中央課程，本指引為學校訂立方向，並提供課程架構、宗旨、學習目標和
 學習重點，以及建議學習活動，讓學校靈活地發展小一至中六藝術教育課程。
-學校應從學校層面和藝術教育學習領域層面整體地規劃課程，圖示見下頁。 
-
+學校應從學校層面和藝術教育學習領域層面整體地規劃課程，圖示見下頁。
+=== Page 27 ===
  
 19 
  
@@ -982,7 +970,7 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 (ii) 調配曾受專科訓練的藝術教師 
 藝術教師應具備穩固的學科和教學知識，從而有效地推行藝術教育課程。學校
 應調配曾受專科訓練的教師任教各級別的藝術科目，並為他們編配適當數目的
-
+=== Page 28 ===
  
 20 
  
@@ -1012,8 +1000,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 主持講座和工作坊。 
 3.2.2 藝術教育學習領域層面  課程規劃 
 在藝術教育學習領域層面，學校應提供課內和課外的多元化學習機會，讓學生
-在藝術和通過藝術的學習上獲得最大的效益。  
-
+在藝術和通過藝術的學習上獲得最大的效益。
+=== Page 29 ===
 21 
 (i) 配合學校發展計劃
 學校藝術教育課程應配合其發展計劃，以促進學生的全人發展。藝術教育學習
@@ -1047,7 +1035,7 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 8。
 (v) 照顧學生的多樣性
 照顧學生的多樣性並非強要拉近學生之間的差距，或者要求他們在藝術學習上
-
+=== Page 30 ===
 22 
 有劃一的表現，而是因材施教，讓所有學生（包括有特殊教育需要和資優的學
 生）都能發揮藝術潛能。教師在規劃課程時，應考慮學生的學習能力、學習風
@@ -1079,8 +1067,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 或戲劇演出、參觀藝術展覽、實地創作壁畫、欣賞電影或電視廣告。  
 全方位學習活動是藝術教育課程的重要部分，應與課堂學習相輔相成。學校應
 採取適當措施，例如聯繫社區團體、分配學習課時、調配人力和財政資源，去
-組織這些活動。 
-
+組織這些活動。
+=== Page 31 ===
 23 
 有關更多全方位學習的資料，可參閱《基礎教育課程指引－聚焦‧深化‧持續
 （小一至小六）》（2014）分章6、《中學教育課程指引》（2017）分第7，
@@ -1107,8 +1095,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 藝術教育學習領域統籌應主動與其他學習領域或科目協作，以策劃跨領域的學
 習。  
 跨學習領域／學科的學習，可以幫助學生聯繫不同範疇的知識和技能，並提升
-學習效能。以下是一個以印象派藝術為題的例子。  
-
+學習效能。以下是一個以印象派藝術為題的例子。
+=== Page 32 ===
 24 
 藝術教師亦可以與通識教育科教師協作，幫助高中學生聯繫兩方面的學習。在
 通識教育科，學生可以選擇藝術作為獨立專題探究的主題，例如︰ 
@@ -1120,7 +1108,7 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 「快速時裝」對香港的經濟、文化和環境的影響 
 有關更多獨立專題探究的資料，可參閱《通識教育科課程及評估指引（中四至
 中六）》（2007）（2015 年11 月更新）。
-
+=== Page 33 ===
 25 
 3.4 
 學習時間 
@@ -1140,31 +1128,14 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 每一位高中學生都應該參與其他學習經歷。學校應分配總課時的10% - 15%
 予其他學習經歷，當中包括「藝術發展」。有關「藝術發展」的規劃和推行例
 子見附錄六。 
-此外，學校應有效運用藝術課堂以外的時間，以增加學生學習藝術的機會。 
-
+此外，學校應有效運用藝術課堂以外的時間，以增加學生學習藝術的機會。
+=== Page 34 ===
  
 26 
  
 第四章 
-學與教 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
+學與教
+=== Page 35 ===
  
 27 
  
@@ -1210,8 +1181,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
  
 推介全方位藝術學習活動 
  
-引導學生自我反思 
-
+引導學生自我反思
+=== Page 36 ===
  
 28 
  
@@ -1255,8 +1226,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 (ii) 經驗式學習 
 從實踐中獲得經驗對學習藝術十分重要。學生通過欣賞、創作和演出的親身經
 歷，可以建構知識和發展技能，例如，學生可以聆聽音樂、演唱歌曲、創作音
-樂、欣賞藝術作品、試驗藝術媒介、實現設計意念、撰寫劇本和飾演不同角色。 
-
+樂、欣賞藝術作品、試驗藝術媒介、實現設計意念、撰寫劇本和飾演不同角色。
+=== Page 37 ===
  
 29 
  
@@ -1285,10 +1256,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 念。 
 (iv) 共同建構式 
 學生與教師、同儕、藝術家或社區人士討論、分享資源和協作，有助他們激發
-新的意念和建構知識。 
- 
- 
-
+新的意念和建構知識。
+=== Page 38 ===
  
 30 
  
@@ -1319,9 +1288,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 聯繫起來，除可探討不同藝術形式的關係，亦可加深認識相關元素，有助全面
 瞭解藝術。 
 不同藝術科目教師的協作有助推行藝術的綜合學習。教師可共同設計教學、協
-作教學或互相觀課，並分享和檢討學與教策略。  
- 
-
+作教學或互相觀課，並分享和檢討學與教策略。
+=== Page 39 ===
  
 31 
  
@@ -1360,8 +1328,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
  
 為文字、圖象、錄音和錄影片段等列明資料來源；  
  
-在使用他人作品時，遵守有關版權要求；  
-
+在使用他人作品時，遵守有關版權要求；
+=== Page 40 ===
  
 32 
  
@@ -1394,8 +1362,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 當探討「環保」的議題時，學生先擬定研習焦點，以探究與跨學科／學
 習領域相關的課題，例如節省能源、燈光設計，以及光與熱。學生可評
 賞一些環保產品設計，然後嘗試把研習所得的知識用於設計具環保概
-念、富美感和實用的家用燈飾。  
-
+念、富美感和實用的家用燈飾。
+=== Page 41 ===
  
 33 
  
@@ -1430,8 +1398,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 「重質不重量」是組織全方位學習的原則。教師應訂定清晰的學習重點以幫助
 學生聯繫課堂和全方位的學習。為提升學習效能，教師應安排活動前的簡介和
 活動後的綜合解說。此外，學生可以口頭或書面方式與他人分享心得。   
-有關全方位學習的教學設計例子見附錄十一。 
-
+有關全方位學習的教學設計例子見附錄十一。
+=== Page 42 ===
  
 34 
  
@@ -1472,8 +1440,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
  
 藉欣賞聖桑《動物嘉年華》的幾個音樂選段，部分學生想像自己是
 不同的動物，然後創作律動去表達這些動物的特色。其他學生猜想
-同學所扮演的動物，並指出相關音樂選段的特色。 
-
+同學所扮演的動物，並指出相關音樂選段的特色。
+=== Page 43 ===
  
 35 
  
@@ -1516,8 +1484,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 教師應幫助有特殊教育需要的學生建立自信，培養他們學習藝術的興趣，策略
 舉例如下： 
  
-發掘學生的興趣和長處，並相應地選取藝術學習材料。 
-
+發掘學生的興趣和長處，並相應地選取藝術學習材料。
+=== Page 44 ===
  
 36 
  
@@ -1561,8 +1529,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 珍惜歷史和文化遺產，以及尊重多元文化。  
 教師應幫助學生把藝術學習與生活聯繫，以推廣價值觀教育，特別是培養七個
 首要的價值觀和態度──堅毅、尊重他人、責任感、國民身份認同、承擔精神、
-誠信和關愛。活動例子如下： 
-
+誠信和關愛。活動例子如下：
+=== Page 45 ===
  
 37 
  
@@ -1600,9 +1568,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
  
 清楚說明每項家課的目的、完成的方法和日期；以及 
  
-考慮家課的趣味性和挑戰性，並給予合理的數量。 
- 
-
+考慮家課的趣味性和挑戰性，並給予合理的數量。
+=== Page 46 ===
  
 38 
  
@@ -1612,14 +1579,14 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
  
 你如何判斷家課的適切性？ 
  
-你如何與其他科目的教師協調，以確保家課的數量適中？ 
-
+你如何與其他科目的教師協調，以確保家課的數量適中？
+=== Page 47 ===
  
 39 
  
 第五章 
 評估
-
+=== Page 48 ===
  
 40 
  
@@ -1662,8 +1629,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 到的水平。教師可運用總結性評估所得的數據，檢討教學成效和調節教學計
 劃，以加強學與教效能。 
 進展性評估可作為「促進學習的評估」和「作為學習的評估」；總結性評估則
-可視為「對學習的評估」。以下是它們之間的關聯： 
-
+可視為「對學習的評估」。以下是它們之間的關聯：
+=== Page 49 ===
  
 41 
  
@@ -1704,7 +1671,7 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 估他們處理物料和運用視覺語言的能力。 
 (iii) 專題研習 
 以藝術為主題的專題研習，可讓教師評估學生連繫藝術和跨學科知識、選材、
-
+=== Page 50 ===
 42 
 組織和滙報資料等能力。專題研習可以個人或小組形式進行，亦有助教師評估
 學生自主學習的能力。
@@ -1739,7 +1706,7 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 校內評估應根據評估目標執行，並向不同持份者展示學生的表現，形式可以是
 等級、分數和書面評語。在藝術學習的表現和進度方面，不宜只採用等級和分
 數，教師應考慮學生在多方面的表現，給予書面評語，以助學生反思。
-
+=== Page 51 ===
  
 43 
  
@@ -1766,22 +1733,17 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 5.7 
 學校實施評估的理念架構 
 下圖展示進展性評估與總結性評估的關係，以及學與教、校內評估和公開評核
-的關係，供學校在發展藝術教育課程評估計劃時參考。 
-
+的關係，供學校在發展藝術教育課程評估計劃時參考。
+=== Page 52 ===
  
-44 
- 
- 
- 
- 
- 
-
+44
+=== Page 53 ===
  
 45 
  
 第六章 
-學與教資源 
-
+學與教資源
+=== Page 54 ===
  
 46 
  
@@ -1816,8 +1778,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 6.1.4 教科書 
 教科書是眾多種學習材料之一，並非課程的本身。教師在教學時不應受制於書
 本的內容，應靈活地運用教科書授課，並以合適的策略引導學生預習和重溫所
-學，促進自主學習。 
-
+學，促進自主學習。
+=== Page 55 ===
  
 47 
  
@@ -1850,9 +1812,8 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 學校可運用政府的撥款，如「學校發展津貼」、「擴大營辦津貼」、「綜合家
 具及設備津貼」、「資訊科技綜合津貼」和「多元學習津貼」，以推行藝術教
 育課程。學校亦可申請由政府、慈善團體和非政府組織提供的財政資助，例如
-「優質教育基金」，為學生發掘更多藝術學習的機會。 
- 
-
+「優質教育基金」，為學生發掘更多藝術學習的機會。
+=== Page 56 ===
 48 
 6.4 
 社區資源 
@@ -1883,7 +1844,7 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 9 例子包括康樂及文化事務署轄下的公共圖書館、博物館、表演場地和該署舉辦的藝術及文化節目，以及其他節
 目如香港藝術發展局的「校園藝術大使計劃」、香港藝術節的「青少年之友」、香港青年藝術協會的年度藝術
 活動系列等。不同的基金會和大專院校亦有舉辦或支持藝術及文化計劃。
-
+=== Page 57 ===
 49 
 附錄一 
 學校課程的七個學習宗旨
@@ -1927,7 +1888,7 @@ STEM 是科學（Science）、科技（Technology）、工程（Engineering）�
 和反思個人目標；以及
 7.
 建立健康的生活方式，積極參與體藝活動，並懂得欣賞運動和藝術。
-
+=== Page 58 ===
 50 
 附錄二 
 音樂科學習重點及學習活動例子 
@@ -1974,7 +1935,7 @@ SP：發展技能與過程
 CR：培養評賞藝術的能力  
 AC：認識藝術的情境 
 標示該學習目標與右方的學習重點關係較密切
-
+=== Page 59 ===
 51 
 聆聽
 第二學習階段
@@ -2018,7 +1979,7 @@ CI SP CR AC
 地理情境的關係。
  談論某電視廣告的聲響效果，如人聲或樂器
 的運用方法。
-
+=== Page 60 ===
 52 
 聆聽
 第三學習階段
@@ -2068,7 +2029,7 @@ CI SP CR AC
  探究和討論某一類別音樂及其與文化背景和
 歷史環境的關係，如藍調、粵語流行曲及抗
 戰歌曲。
-
+=== Page 61 ===
 53 
 演奏
 第一學習階段
@@ -2107,7 +2068,7 @@ CI SP CR AC
  運用低音樂器，演奏持續低音或頻現句。 
  利用提供的簡單節奏或旋律頻現句，伴奏熟
 悉的歌曲。
-
+=== Page 62 ===
  
  
 54 
@@ -2173,7 +2134,7 @@ espressivo。
  運用資訊科技記錄音樂意念。 
 {
 {
-
+=== Page 63 ===
 55 
 演奏
 第三學習階段
@@ -2205,7 +2166,7 @@ simile, rubato, allargando, fp, sf, sfz。
  準確及流暢地以不同的樂器組合進行合奏。
  全班演唱一首歌曲時，利用一件旋律樂器演
 奏副旋律，並注意聲部的平衡。
-
+=== Page 64 ===
 56 
 創作
 第一學習階段
@@ -2243,8 +2204,8 @@ CI SP CR AC
  即興創作律動以反映音樂的高／低、強／
 弱、長／短、快／慢及旋律動向。
  創作律動以顯示樂曲的速度、力度及氣氛。
- 為音樂或詩歌即興創作律動。 
-
+ 為音樂或詩歌即興創作律動。
+=== Page 65 ===
  
  
 57 
@@ -2281,10 +2242,8 @@ CI SP CR AC
 計。 
  利用記譜或定序程式創作約8 小節的旋律。
  利用記譜程式，在原有旋律上，加上第二聲
-部。 
- 
- 
-
+部。
+=== Page 66 ===
 58 
 創作 
 第三學習階段
@@ -2316,7 +2275,7 @@ CI SP CR AC
  利用記譜或定序程式重新編配樂曲的和聲、
 伴奏或創作一個新的聲部，從而改變樂曲的
 情緒或風格。
-
+=== Page 67 ===
 59 
 附錄三 
 視覺藝術科學習重點及學習活動例子 
@@ -2377,7 +2336,7 @@ SP：發展技能與過程
 CR：培養評賞藝術的能力  
 AC：認識藝術的情境 
 標示該學習目標與右方的學習重點關係較密切
-
+=== Page 68 ===
 60 
 視覺藝術評賞
 第二學習階段
@@ -2436,7 +2395,7 @@ CI SP CR AC
 描繪。
  辨別出不同年代的表現手法。例如：比較古
 代和文藝復興時期的站立人像雕塑。
-
+=== Page 69 ===
 61 
 視覺藝術評賞
 第三學習階段
@@ -2491,7 +2450,7 @@ CI SP CR AC
 信息。
  分析科技對藝術的衝擊。例如：在維米爾和
 克洛斯的繪畫中運用的攝影科技。
-
+=== Page 70 ===
 62 
 視覺藝術創作
 第一學習階段
@@ -2550,7 +2509,7 @@ CI SP CR AC
 自己對顏色和圖象的選擇。
  表達對同儕作品的個人印象。例如：分享對
 同儕作品的見解。
-
+=== Page 71 ===
 63 
 視覺藝術創作
 第二學習階段
@@ -2618,7 +2577,7 @@ CI SP CR AC
  從美感質素和表達的適切性，反思作品的形
 式表現。例如：所運用的顏色、形狀和圖象，
 以及標誌設計，是否適合於幼稚園使用。
-
+=== Page 72 ===
 64 
 視覺藝術創作
 第三學習階段
@@ -2683,13 +2642,13 @@ CI SP CR AC
 支持。例如：製作多幅草稿，從中選出適當
 的一幅，並加以發展成為傳遞某一信息的藝
 術作品。
-
+=== Page 73 ===
 65 
 附錄四
-
+=== Page 74 ===
 66 
 附錄五
-
+=== Page 75 ===
  
  
 67 
@@ -2711,7 +2670,7 @@ CI SP CR AC
 排每循環周兩教節的音樂課或視覺藝術課，以擴濶學生的藝術經驗。此外，學校會
 邀請不同的藝術團體／藝術家到校主持大師班和電影欣賞講座，或演出舞蹈，以配
 合課堂的學習。學校亦鼓勵學生出外參觀展覽和參加藝術比賽，以發揮才華。
-
+=== Page 76 ===
  
  
 68 
@@ -2774,8 +2733,8 @@ CI SP CR AC
  
 欣賞廣東童謠 
  
-尊重和欣賞他人的作品和演出 
-
+尊重和欣賞他人的作品和演出
+=== Page 77 ===
  
  
 69 
@@ -2792,26 +2751,8 @@ CI SP CR AC
 五月初五龍舟節 亞媽叫我睇龍船 
 我唔睇 睇鷄仔 鷄仔大 捉去賣 賣得幾多錢 
    （資料來源：
-http://www.dragonwise.hku.hk/dragonwise/p4index.htm） 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
+http://www.dragonwise.hku.hk/dragonwise/p4index.htm）
+=== Page 78 ===
  
  
 70 
@@ -2871,8 +2812,8 @@ http://www.dragonwise.hku.hk/dragonwise/p4index.htm）
  
 版畫所表現的創意 
 共通能力 
-創造力、溝通能力、明辨性思考能力和數學能力 
-
+創造力、溝通能力、明辨性思考能力和數學能力
+=== Page 79 ===
  
  
 71 
@@ -2888,14 +2829,8 @@ http://www.dragonwise.hku.hk/dragonwise/p4index.htm）
  
 不同形狀魚兒的照片 
  
-不同種類魚群的照片 
- 
- 
- 
- 
- 
- 
-
+不同種類魚群的照片
+=== Page 80 ===
  
 72 
 附錄九 
@@ -2947,8 +2882,8 @@ http://www.dragonwise.hku.hk/dragonwise/p4index.htm）
 信息。 
 3. 
 運用中國水墨和毛筆，按所播放的中國音樂選段即興創作水墨
-畫。 
-
+畫。
+=== Page 81 ===
  
 73 
  
@@ -3021,8 +2956,8 @@ http://www.dragonwise.hku.hk/dragonwise/p4index.htm）
  
 積極的學習態度 
  
-尊重和欣賞別人的作品和演出 
-
+尊重和欣賞別人的作品和演出
+=== Page 82 ===
  
 74 
 學與教資源 
@@ -3039,11 +2974,8 @@ http://www.dragonwise.hku.hk/dragonwise/p4index.htm）
  
 丸山真出的攝影水墨作品 
  
-張滇英的攝影水墨作品 
- 
- 
- 
-
+張滇英的攝影水墨作品
+=== Page 83 ===
  
 75 
 附錄十 
@@ -3100,7 +3032,7 @@ http://www.dragonwise.hku.hk/dragonwise/p4index.htm）
 更加刺激或感人，例如加入新角色、改變原來角色的行為、
 轉換場景等。 
 10. 寫出改編的片段，包括安娜看到甚麼、安娜和艾莎如何相遇、
-
+=== Page 84 ===
  
 76 
 以及她們相遇後的感受。 
@@ -3161,8 +3093,8 @@ Vecho, P. D. (Producer), & Buck C., & Lee, J. (Directors).
 Animation Studios. 
  
 Hara, T. (Producer), & Takahata, I. (Director). (1988). Grave of 
-the Fireflies [Motion Picture]. Japan: Studio Ghibli. 
-
+the Fireflies [Motion Picture]. Japan: Studio Ghibli.
+=== Page 85 ===
  
 77 
 附錄十一 
@@ -3221,7 +3153,7 @@ the Fireflies [Motion Picture]. Japan: Studio Ghibli.
 標，瞭解其文化特色，以啟發設計靈感。 
  
 運用鋼筆和淡彩繪畫技巧，為「八頭架構」人型繪上服裝
-
+=== Page 86 ===
  
 78 
 設計草圖。
@@ -3285,17 +3217,16 @@ Deshpande, A.（2012）。亞洲色彩：紅黃藍綠黑與白。香港：
 所選的環球小姐的民族服裝 
 - 
 由許建樹於2010 年設計的龍袍及由卜柯文於2011 年設計
-的仙鶴袍 
-
+的仙鶴袍
+=== Page 87 ===
  
 79 
  
 「環球小姐」官方網站：http://missuniverse.com 
  
 The Hollywood Reporter 官方網站：
-http://www.hollywoodreporter.com 
-             
-
+http://www.hollywoodreporter.com
+=== Page 88 ===
  
 80 
 附錄十二 
@@ -3351,8 +3282,8 @@ http://www.hollywoodreporter.com
 共通能力 
 數學能力、運用資訊科技能力、明辨性思考能力和創造力 
 價值觀與態度 
-尊重和欣賞別人的作品和演出 
-
+尊重和欣賞別人的作品和演出
+=== Page 89 ===
  
 81 
 學與教資源 
@@ -3368,8 +3299,8 @@ Stein, L. (1995). Structure and style: The study and analysis of
 musical forms. Kent, United Kingdom: Atlantic Books. 
 丘宏義（譯）（2014）。黃金比例：1.618...世界上最美的數
 字。（原作者：Mario Livio）。台灣：遠流出版社。（原著出
-版年：2002） 
-
+版年：2002）
+=== Page 90 ===
  
 82 
 附錄十三 
@@ -3428,7 +3359,7 @@ musical forms. Kent, United Kingdom: Atlantic Books.
 史匹曼於電影選段中演奏此曲的意義 
 5. 
 從生活取材，分組製作三分鐘的錄像作品，以傳遞堅毅、平等
-
+=== Page 91 ===
  
 83 
 或關愛等信息。運用分鏡或時序簡單交代故事情節，並考慮如
@@ -3476,19 +3407,8 @@ http://imdb.com/title/tt0253474/plotsummary?ref_=tt_stry_pl 
 錄像編輯軟件  
 *      《鋼琴戰曲》電影選段 
 時間編碼：2:00:45 至 2:09:20（由鋼琴家打開罐頭食物至軍
-官離開房間） 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
+官離開房間）
+=== Page 92 ===
  
 84 
 附錄十四 
@@ -3525,8 +3445,8 @@ attractiveness: A literature review. Retrieve from
 http://www.kulturnibazar.si/data/upload/school_attractiveness_paper_final_website.p
 df  
 Barbe, J. (2014). Creative connections and the art of play in the music classroom. New 
-York, NY: Alfred Music Publishing. 
-
+York, NY: Alfred Music Publishing.
+=== Page 93 ===
  
 85 
 Bauer, W. I. (2013). The acquisition of musical technological pedagogical and content 
@@ -3562,9 +3482,8 @@ from
 http://www.nashville.gov/Portals/0/SiteContent/Planning/docs/NashvilleNext/Arts%2
 0and%20Culture%20Background%20Report%20-%20March%208%20final.pdf 
 Cramer, N. (2015). Transforming learning in the 21st century college classroom through 
-the Arts. The International Journal of Learning in Higher Education, 21(2), 15-23. 
- 
-
+the Arts. The International Journal of Learning in Higher Education, 21(2), 15-23.
+=== Page 94 ===
  
 86 
 Crawford, R. (2013). Evolving technologies require educational policy change: Music 
@@ -3602,8 +3521,8 @@ Grenfell, J. (2013). The best of all words: Immersive interfaces of art educatio
 and real world teaching and learning environments. US-China Education Review, 
 3(6), 391-406. 
 Greher, G. R. (2011). Music technology partnerships: A context for music teacher 
-preparation. Arts Education Policy Review, 112(3), 130-136. 
-
+preparation. Arts Education Policy Review, 112(3), 130-136.
+=== Page 95 ===
  
 87 
 Gura, M., (2008). Visual arts units for all levels. In ISTE (Ed.). National Educational 
@@ -3639,9 +3558,8 @@ and lower secondary. Singapore: Student Development Curriculum Division.
 Ministry of Education, Science and Technology, Korea. (2008). The school curriculum of 
 the Republic of Korea. South Korea: Author. 
 Ministry of Education and Human Resources Development, Korea. (2007). Music 
-curriculum. South Korea: Author. 
- 
-
+curriculum. South Korea: Author.
+=== Page 96 ===
  
 88 
 National Coalition for Core Arts Standards. (2014). National core arts standards: A 
@@ -3679,8 +3597,8 @@ Tam, C.O. (2016). Development, Implementation and Evaluation of a Digital Lectur
 L. Wong (Ed.). Multiple Approaches in E-learning (pp. 3-12). Hong Kong: 
 Department of Cultural and Creative Arts, Education University of Hong Kong. 
 Thwaites, T. (2014). Technology and music education in a digitized, disembodied, 
-posthuman world. Action, Criticism and Theory for Music Education, 13(2), 30-47. 
-
+posthuman world. Action, Criticism and Theory for Music Education, 13(2), 30-47.
+=== Page 97 ===
  
 89 
 Tillander, M. (2011). Creativity, technology, art, and pedagogical practices. Art Education, 
@@ -3718,8 +3636,8 @@ Wooster, R. (2007). Contemporary theatre in education. Bristol, England: Intelle
 Zande, R.V. (2016). Design education: Creating thinkers to improve the world. Lanham, 
 MD: Rowman & Littlefield. 
 中華人民共和國教育部（2011）。義務教育藝術課程標準。北京：北京師範大學出版
-社。 
-
+社。
+=== Page 98 ===
  
 90 
 香港特區政府（2016）。香港便覽︰創意產業。取自 
@@ -3748,8 +3666,8 @@ http://www.gov.hk/tc/about/abouthk/factsheets/docs/creative_industries.pdf
 港：作者。 
 課程發展議會（2014）。基礎教育課程指引－聚焦‧深化‧持續（小一至小六）。香
 港：作者。 
-課程發展議會（2017）。中學教育課程指引。香港：作者。 
-
+課程發展議會（2017）。中學教育課程指引。香港：作者。
+=== Page 99 ===
  
 91 
 課程發展議會、香港考試及評核局（2015）。音樂科課程及評估指引 (中四至中六)。
@@ -3808,8 +3726,8 @@ chool-based-grant/index.html
  
 與教育有關的版權事宜 
 http://www.edb.gov.hk/tc/sch-admin/admin/about-
-teaching/copyright/index.html 
-
+teaching/copyright/index.html
+=== Page 100 ===
  
 92 
  
@@ -3885,8 +3803,8 @@ http://www.filmarchive.gov.hk
  
 香港公共圖書館 – 藝術資源中心 
 http://www.hkpl.gov.hk/tc/reference/special/arc.ht
-ml 
-
+ml
+=== Page 101 ===
  
 93 
  
@@ -3906,10 +3824,8 @@ http://app3.rthk.hk/cultureweb
 第四台 
 http://www.rthk.org.hk/channel/radio4 
 西九文化區 
-http://www.westkowloon.hk/tc/home 
- 
- 
-
+http://www.westkowloon.hk/tc/home
+=== Page 102 ===
  
 94 
 鳴謝 
@@ -3924,8 +3840,8 @@ http://www.westkowloon.hk/tc/home
  
 將軍澳官立中學 
  
-東華三院李嘉誠中學 
-
+東華三院李嘉誠中學
+=== Page 103 ===
  
 95 
 課程發展議會 
@@ -4020,14 +3936,8 @@ http://www.westkowloon.hk/tc/home
  
  
 譚日旭先生 
-香港培正中學 
- 
- 
- 
- 
- 
- 
-
+香港培正中學
+=== Page 104 ===
  
 96 
 學校教師 
@@ -4112,13 +4022,10 @@ http://www.westkowloon.hk/tc/home
 教育局課程發展處藝術教育組 
 （二零一五年九月一
 日至二零一六年十一
-月二十八日） 
- 
-
- 
- 
-（空白頁） 
+月二十八日）
+=== Page 105 ===
  
  
- 
+（空白頁）
+=== Page 106 ===
 

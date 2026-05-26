@@ -85,6 +85,17 @@ PILOT_LEGACY = {
     "hmsc_sss_2007_2015": [VAULT_DIR / "hmsc_sss_2007_2015" / "extract_hmsc_sss_2007_2015.txt"],
     "dat_sss_2007_2015": [VAULT_DIR / "dat_sss_2007_2015" / "extract_dat_sss_2007_2015.txt"],
     "dat_sss_supp_2020": [VAULT_DIR / "dat_sss_supp_2020" / "extract_dat_sss_supp_2020.txt"],
+    # S125 broader batch-4 (10 sources; ICT/Chi-Hist/Econ/Geog supp/Arts KLA + Music National Anthem; supersede chain audit 10/10 KEEP — ict_sss_2021/econ_sss_2025/econ_sss_supp_2025/arts_kla_guide_2017 are superseder versions, self-valid for page-tracing)
+    "ict_sss_2021": [VAULT_DIR / "ict_sss_2021" / "extract_ict_sss_2021.txt"],
+    "chi_hist_jss_ncs_2019": [VAULT_DIR / "chi_hist_jss_ncs_2019" / "extract_chi_hist_jss_ncs_2019.txt"],
+    "chi_hist_jss_bilingual_2019": [VAULT_DIR / "chi_hist_jss_bilingual_2019" / "extract_chi_hist_jss_bilingual_2019.txt"],
+    "econ_sss_2025": [VAULT_DIR / "econ_sss_2025" / "extract_econ_sss_2025.txt"],
+    "econ_sss_supp_2025": [VAULT_DIR / "econ_sss_supp_2025" / "extract_econ_sss_supp_2025.txt"],
+    "geog_sss_supp_2022": [VAULT_DIR / "geog_sss_supp_2022" / "extract_geog_sss_supp_2022.txt"],
+    "geog_sss_summary_2022": [VAULT_DIR / "geog_sss_summary_2022" / "extract_geog_sss_summary_2022.txt"],
+    "geog_sss_update_brief": [VAULT_DIR / "geog_sss_update_brief" / "extract_geog_sss_update_brief.txt"],
+    "arts_kla_guide_2017": [VAULT_DIR / "arts_kla_guide_2017" / "extract_arts_kla_guide_2017.txt"],
+    "music_national_anthem_2024": [VAULT_DIR / "music_national_anthem_2024" / "extract_music_national_anthem_2024.txt"],
 }
 
 # source_id -> consolidated output filename (single repaged extract per source)
@@ -124,6 +135,17 @@ PILOT_OUT = {
     "hmsc_sss_2007_2015": VAULT_DIR / "hmsc_sss_2007_2015" / "extract_hmsc_sss_2007_2015_repaged.txt",
     "dat_sss_2007_2015": VAULT_DIR / "dat_sss_2007_2015" / "extract_dat_sss_2007_2015_repaged.txt",
     "dat_sss_supp_2020": VAULT_DIR / "dat_sss_supp_2020" / "extract_dat_sss_supp_2020_repaged.txt",
+    # S125 broader batch-4
+    "ict_sss_2021": VAULT_DIR / "ict_sss_2021" / "extract_ict_sss_2021_repaged.txt",
+    "chi_hist_jss_ncs_2019": VAULT_DIR / "chi_hist_jss_ncs_2019" / "extract_chi_hist_jss_ncs_2019_repaged.txt",
+    "chi_hist_jss_bilingual_2019": VAULT_DIR / "chi_hist_jss_bilingual_2019" / "extract_chi_hist_jss_bilingual_2019_repaged.txt",
+    "econ_sss_2025": VAULT_DIR / "econ_sss_2025" / "extract_econ_sss_2025_repaged.txt",
+    "econ_sss_supp_2025": VAULT_DIR / "econ_sss_supp_2025" / "extract_econ_sss_supp_2025_repaged.txt",
+    "geog_sss_supp_2022": VAULT_DIR / "geog_sss_supp_2022" / "extract_geog_sss_supp_2022_repaged.txt",
+    "geog_sss_summary_2022": VAULT_DIR / "geog_sss_summary_2022" / "extract_geog_sss_summary_2022_repaged.txt",
+    "geog_sss_update_brief": VAULT_DIR / "geog_sss_update_brief" / "extract_geog_sss_update_brief_repaged.txt",
+    "arts_kla_guide_2017": VAULT_DIR / "arts_kla_guide_2017" / "extract_arts_kla_guide_2017_repaged.txt",
+    "music_national_anthem_2024": VAULT_DIR / "music_national_anthem_2024" / "extract_music_national_anthem_2024_repaged.txt",
 }
 
 

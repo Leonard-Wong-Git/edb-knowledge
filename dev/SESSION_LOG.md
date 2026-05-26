@@ -2,6 +2,80 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-26 Session 125 — CB-3 Option C broader batch-4（10 marker-less PDF）page-carry 生產 live + Freshness workflow chronic-fail triaged
+
+- **ID:** Claude_20260526_0737
+- **Trigger:** Leonard 起手揀「Batch-4 執行（推薦）」（chip selection 之 §3 HIGH-risk 明示授權 entry point）；S124 closeout pre-flight 已完成（10/10 GO / 10/10 KEEP），repage_pdfs.py PILOT_LEGACY/PILOT_OUT batch-4 entries 未加。Session 中段 Leonard 貼 GitHub Actions「Weekly Freshness Check workflow run failed」notification — triage 揭發 chronic fail（5 連 since 2026-04-30，非 batch-4 觸發），Leonard 揀 batch-4 Gate 2 EXECUTE 優先、freshness 收尾再處理。
+- **§1 startup verify PASS：** HEAD `399de95` working tree clean / knowledge.json._meta.stats `{facts:455, chunks:10736, sources:120, guidelines:39, topics:7}` 對齊 baseline / Supabase wiki_chunks 10,253 exact / repage_pdfs.py batch-4 entries 0 hit（未加，與 S124 handoff prediction 一致）/ egress `/health` 200 in 22s typical 冷啟。
+- **§3 HIGH-risk PLAN 提交 + Leonard「go」：** 6 點 assumptions + 8 scenario §3d test matrix；Leonard 一次 go 授權 Gate 1 + Gate 2 dry-run，Gate 2 EXECUTE 需第二次 go（irreversible）。CHANGE step 0 = `dev/vault/repage_pdfs.py` PILOT_LEGACY/PILOT_OUT 各 +10 batch-4 entries（純 dict extension，無 logic 改），import verify PILOT_LEGACY/PILOT_OUT size 33→43，10 legacy paths 全 exist。
+- **Gate 1 dry-run + EXECUTE 10/10 PASS：** dry-run fetch + PyMuPDF page count = 65/28/19/84/41/13/9/14/106/4 = total 383（pre-flight 預測 390，arts_kla 106 vs 109 + music_anthem 4 vs 8 = EDB content 微更新非異常）。`--write` 10/10 written；markers==pages 全對；content sanity new/legacy 102.5% slight + marker overhead 0 quality regression；backup at `dev/init_backup/20260526_073931_UTC/cb3c_pilot_legacy/` 10 entries（§5.a-compliant gitignored、git check-ignore 確認）；marker spot-check ict_sss_2021/econ_sss_2025/music_national_anthem_2024 first=Page 1 last=Page N 全對齊；git status scope = 1 M repage_pdfs.py + 10 D legacy + 10 ?? repaged，0 其他 vault sources / 其他 Draft 檔 touched（INVARIANT 守）。
+- **Mid-session interrupt: Freshness workflow triage（read-only）：** Leonard 貼 GitHub Actions failure notification → triage 揭發 `.github/workflows/freshness_check.yml` `cron "0 9 * * 1"` Weekly Freshness Check 從 2026-04-30 起 5 連 fail（run #6-#10，每週 schedule 觸發）。Root cause = `dev/source/check_freshness.py` line 141-142 `if errors > 0: sys.exit(1)` — 只要 151 sources HEAD probe 任何 1 條 fail 就 exit 1 → GitHub mark FAILED + email。高機率係 EDB 偶發 5xx / URL 改版（PMS §E.12 codified pattern：曾一次打爛 26 URL）+ HEAD 15s timeout。**SESSION_HANDOFF Regression Notes #2「check_freshness.py Errors: 0 / Checked: 145 ✅」係 stale baseline（已 4+ 星期 false-positive，§G.2 verify-don't-trust-docs 又中）。** Artifact freshness-report-10 (1.2KB) 401 需 token 下載；非 batch-4 觸發（Supabase 未 mutate / workflow 只 HEAD probe）。Leonard 揀 batch-4 Gate 2 EXECUTE 優先；freshness 列入下次 session 處理 backlog。
+- **Gate 2 dry-run + EXECUTE 10/10 OK：** dry-run no anomaly — 10 sources 全 normalize -14~-32% range（canonical chunker pattern）、無 +>50% recovery cap-hit、無 outlier；Total INSERT 417 DELETE 537 net -120 預估 Supabase 10,253→10,133；embed cost ~$0.004。EXECUTE under Leonard 第二次 go：Phase 1b embed all 417 chunks first → wiki_index.json auto-backup `dev/init_backup/20260526_091916_UTC/` → per-source DELETE→upload→count verify 10/10 `del=/ins=/now=` 全對齊 → Phase 3 SKIPPED `--skip-local`（§E.14 紀律）。
+- **QC post-execute（4 gates PASS）：** (1) Supabase total via Range header = **10,133** exact match prediction (10,253 - 537 + 417) (2) INVARIANT 5 spot-check g01=32 / sag_2025_11=383 / chem_sss_2007_2018=172 / eng_lit_guide_2023=633 / music_sss_2024=69 全 unchanged，0 touched (3) backend `/health` ok cache_a cold 可恢復 (4) Gate 1 markers==pages 全對 + raw REST inspect econ_sss_2025 chunk text 含 `=== Page 1 === / === Page 2 ===` markers verified live。
+- **Live smoke 4/10 batch-4 sources surface with page numbers + 6/10 ranking competition non-regression：** ⭐ chi_hist_jss_ncs_2019 p=4/5 (0.572/0.569) / geog_sss_supp_2022 p=1 (0.559 TOP-1) / geog_sss_update_brief p=14 (0.546) / econ_sss_2025 p=6/9 (0.543/0.534 via econ_sss_supp_2025 query)。6 non-surface = ranking 競爭非 regression（ict_sss_2021 now=81 1× 57014 transient retry pri_curr_guide 撞 / chi_hist_jss_bilingual_2019 chi_pri/chi_jss_guide_2023 撞 / **econ_sss_supp_2025 撞 econ_sss_supp_2015** = S123 audit miss pattern superseded 版本仍 in index / geog_sss_summary_2022 太 generic ma_kla 撞 / arts_kla_guide_2017 va_p1_s6_2024 dominate / music_national_anthem_2024 music_p1_s6_2024 dominate + 4-page 國歌 brief 短）。Live smoke parser 自身 bug：API response field 係 `page` 非 `page_number`（first-pass 全 `page=-` false alarm，rerun fix）。Supabase `wiki_chunks` 無 `page` column（42703），實際 backend 從 `text` content extract page marker 後組裝 response — infrastructure intact verified。
+- **Whole-vault page-resolvable progression：** 13.2% → 23.7% (S119) → 32.2% (S120) → 55.2% (S122) → 64.4% (S123) → 73.0% (S124) → **~76.0% (S125)** = ~7,706 / 10,133 chunks；**82 / 113 vault sources marker-bearing**（39 B + 3 C pilot + 10 batch-1 + 10 batch-2 + 10 batch-3 + 10 batch-4）。Remaining: **21 marker-less PDFs**（batch-5~6）+ 9 結構天花板 → CB-3 final ceiling ≈ 88%。
+- **§E.14 §8 教訓 4th-validation：** driver `cb3_b2_pagecarry_migrate.py` 一行唔改 reused = 40 sources end-to-end PASS（S122 batch-1 / S123 batch-2 / S124 batch-3 / S125 batch-4）+ 0 incident。**S125 unique §8b monitoring lesson：S123 superseder audit pattern 需延伸 — pre-flight audit 之前只 check batch-4 自己 chain，未 cross-check 落 index 既有 stale superseded 版本（e.g. econ_sss_supp_2015 在 index 未 retire 同 econ_sss_supp_2025 同 query namespace 競爭、causes batch-4 ranking miss）**。Recurrence-prone (S123/S125 兩度 surface) — 可考慮 §8b promote-to-rule（threshold met：multi-occurrence、recurrence-prone for multi-agent collaboration、非單一 batch fixable），下次 batch-5 audit agent 必須 cross-check index 既有 stale 版本 superseded by batch 候選 sources。
+- **Sources changed：** Draft modified（pending commit+push 指定檔）：`dev/vault/repage_pdfs.py`（PILOT_LEGACY/PILOT_OUT +10 batch-4 entries）+ 5 governance docs（SESSION_LOG / SESSION_HANDOFF / CODEBASE_CONTEXT / HANDOFF_PACKAGE / 本 entry）。Draft new: `dev/vault/<10 batch-4 sids>/extract_<sid>_repaged.txt` × 10。Draft deleted: `dev/vault/<10 batch-4 sids>/extract_<sid>.txt` × 10（legacy backed up gitignored）。Supabase live（非 git）：wiki_chunks 10,253→10,133（10 batch-4 sources DELETE 537 INSERT 417）。dev/init_backup/{20260526_073931_UTC,20260526_091916_UTC}/（gitignored）。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / data change（10 sources Supabase page-carry replace 生產 live）| SESSION_HANDOFF baseline #1/#3 + Open-Priorities-regen + Last Session Record + SESSION_LOG 本 entry | ✓ Done |
+| External service / data row change（Supabase wiki_chunks 10,253→10,133）| CODEBASE_CONTEXT External Services line 132 + AI Maintenance Log +S125；HANDOFF_PACKAGE §2 chunks count | ✓ Done |
+| Long-term spec / pipeline 4-batch reuse 印證 + audit cross-check lesson | PROJECT_MASTER_SPEC §D.16 batch-4 verified note + §8b superseded-in-index lesson | ⚠ Skipped (defer to batch-5 closeout per S124 handoff plan; this entry codifies it inline) |
+| New ops backlog（Freshness workflow chronic fail since 2026-04-30）| SESSION_HANDOFF Open Priorities + Known Risks；後續 session 處理 | ✓ Done |
+| Doc-drift / known divergence（local wiki_index.json vs Supabase 對 82 源 diverge，原 72 → 82）| SESSION_HANDOFF Risks update（local↔Supabase reconcile scope 擴）| ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S125 (in-progress 2026-05-26)：**CB-3 Option C broader batch-4（10 marker-less PDF）page-carry 生產 live + Freshness workflow chronic-fail triaged**。HEAD = S125 commit（下次起手自行 verify；S125 主體 commit pending）。Batch-4 10 sources = ict_sss_2021 / chi_hist_jss_ncs_2019 / chi_hist_jss_bilingual_2019 / econ_sss_2025 / econ_sss_supp_2025 / geog_sss_supp_2022 / geog_sss_summary_2022 / geog_sss_update_brief / arts_kla_guide_2017 / music_national_anthem_2024：Gate 1 vault `--write` 10/10 PASS（pages 65/28/19/84/41/13/9/14/106/4 total 383；content sanity 102.5%；§5.a backup `dev/init_backup/20260526_073931_UTC/`）→ Gate 2 dry-run no anomaly（10 sources -14~-32% canonical normalization、無 +recovery cap-hit、無 outlier）→ Gate 2 EXECUTE 10/10 OK（DELETE 537 / INSERT 417 / net -120 / Supabase 10,253→**10,133**、per-source del/ins/now 全對齊）→ Live smoke 4/10 surface（chi_hist_jss_ncs_2019 p=4/5 / geog_sss_supp_2022 p=1 TOP-1 / geog_sss_update_brief p=14 / econ_sss_2025 p=6/9）+ 6/10 ranking competition non-regression（data indexed 確認、6 sources `now>0`、page markers in chunk text verified via raw REST）。Mid-session **Freshness workflow triage**：5 連 chronic fail since 2026-04-30，root cause = check_freshness.py line 141-142 `if errors > 0: sys.exit(1)` + EDB intermittent + 15s timeout，非 batch-4 觸發，列入下次 session backlog。Whole-vault page-resolvable 73.0%→**~76.0%**；82/113 sources marker-bearing。
+
+Current objective and progress state:
+- **Batch-4（10 sources）= 生產 live closed**（Supabase 10,133；driver `cb3_b2_pagecarry_migrate.py` 4 輪 zero-code-change reuse verified；§E.14 §8 教訓 4th-validation；INVARIANT 5 spot-check 0 touched）。
+- **Remaining CB-3**：**21 marker-less PDFs**（batch-5~6 兩批）+ 9 結構天花板（4 HTML + 5 xlsx）→ CB-3 final ceiling ≈ 88%。
+- **New backlog (S125)**：Freshness workflow chronic fail（5 連 since 2026-04-30、SESSION_HANDOFF Regression #2 stale）等下次 triage。
+- §E.10 partial resolution 維持（RLS family S121 closed；admin-login client-side gate 仍 OPEN）。Q4（Channel A→knowledge.json→Circular System 對外契約）deferred 獨立 track；Stage-2 closed-as-non-viable 勿復活。
+
+Pending tasks in priority order:
+1. **broader Option C batch-5**（10 sources 候選：g29/g15/g24/edbc12_2025_ph_pri/pri_science×4/pri_science_cert_course_list/sci_jss_framework_2025）：pre-flight 全新（feasibility URL probe + audit supersede chain check **+ S125 新教訓：cross-check 既有 index 是否有 stale superseded 版本要 deprecate**）；每批仍 §3 HIGH-risk Leonard 明示 go；driver + repage_pdfs.py 沿用同 4 輪 verified pattern。
+2. **broader Option C batch-6**（11 sources 剩：edbcm183_2023_values_edu / sec_curr_guide_2017_booklet_6a / pe_sss_2023 + 8 個視 batch-5 selection 重列）。
+3. **Freshness workflow triage（NEW S125）**：(a) 本地跑 `python3 dev/source/check_freshness.py --dry-run` 識別具體 N 條 fail URL；(b) 修 source_registry.json URL drift（若係 URL 問題）；(c) 改 `check_freshness.py` 失敗 threshold 邏輯（建議：errors >5 才 exit 1，single-source EDB 抖動唔再洪水 email；或改用 GitHub Issue 而非 fail email）。SESSION_HANDOFF Regression Notes #2 同步更新「stale baseline」。
+4. **Audit cross-check rule promote (§8b S125)：** 下次 batch-5 audit agent 必跑 cross-check 落 wiki_chunks index 是否有被 batch-5 候選 supersede 嘅 stale 版本仍 indexed（e.g. econ_sss_supp_2015 vs econ_sss_supp_2025 S125 觸發）；若有 = audit DROP candidate 或 schedule deprecation batch。
+5. **batch ranking polish backlog（低優先）**：S122 batch-1 → tech_kla/ls_jss/chi_hist；S123 batch-2 → music_sss_2024；S124 batch-3 → 3 non-surface；S125 batch-4 → 6 non-surface（含 1 stale-superseded competition）。共 ~13 sources ranking 競爭。
+6. **🔴 既有 deferred**：§E.10 admin-login client-side gate（OPEN）；Supabase `57014` transient；FAIL-A 注入 regression（record-only）；Mobile UI P2；HKEAA。
+7. **Q4 對外契約收斂（deferred）**：Channel A→knowledge.json→Circular System；3 選項待 CB-3 收尾 + Leonard 排。
+
+Key files changed this session（全部 commit+push）：
+- Draft（S125 主體 commit）：`dev/vault/repage_pdfs.py` PILOT_LEGACY/PILOT_OUT +10 batch-4 entries（純 dict extension）+ 10 vault rename pairs（extract_<sid>.txt → extract_<sid>_repaged.txt）+ governance docs (SESSION_LOG / SESSION_HANDOFF / CODEBASE_CONTEXT / HANDOFF_PACKAGE)。
+- Draft（後置 closeout commit）：本 verbatim handoff + Last Session Record CLOSED status（若 Leonard「收工」）。
+- Supabase live（非 git）：wiki_chunks 10,253→10,133（10 batch-4 sources DELETE 537 INSERT 417）。
+- dev/init_backup/{20260526_073931_UTC,20260526_091916_UTC}/（gitignored）。
+
+Known risks / blockers / cautions:
+- **§8b promote candidate (S125)**：audit cross-check 既有 index stale-superseded 版本 = S123/S125 兩度 surface、recurrence-prone for multi-agent collaboration、單 batch 不可 fix；下次 batch 必跑（已入 priority #4）。
+- **§E.14 driver reuse 4th-validation**：driver `cb3_b2_pagecarry_migrate.py` 4 batch（40 sources）0 incident；pipeline production-ready confirmed；batch-5~6 可放心沿用。
+- **Freshness workflow chronic fail (NEW S125)**：非 batch-4 觸發、低 blast radius（純 ops noise + SESSION_HANDOFF Regression Notes stale）；triage 列 priority #3。
+- local `wiki_index.json` vs Supabase 82 源 diverge（S125 後 72→82；Supabase query-authoritative；reconcile 低優先 backlog）。
+- 既有 risks：🔴 §E.10 admin-login client-side gate（OPEN 獨立 family）；🔴 Supabase free-tier 57014 transient（retry 即恢復；S125 ict_sss_2021 撞 1 次 retry/換 query 恢復）；🔴 FAIL-A 注入 regression（record-only）；§3c FAIL-A/B record-only；q.html/A·AB code path/backend `/channel-a`·`/combined` endpoint dormant 可逆勿清；Q4 deferred 未明示勿掂；Stage-2 closed 勿復活。
+- egress 間歇每次自測；EDB PDF 永遠用 `url_primary` 勿 `url_landing`（§E.12）；路徑空格雙引號；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG（已遵）。
+
+Validation status:
+- PASS S125 batch-4 vault write 10/10（markers==pages 全對、content sanity 102.5%、QC §3d 6 scenario 全 PASS）+ Gate 2 EXECUTE 10/10 OK（per-source counts aligned、Supabase total 10,133 命中 prediction exact）+ Live smoke 4/10 batch-4 sources surface with page numbers + page-marker infra intact verified via raw REST + commit/push pending。
+- PENDING：commit + push S125 主體 + closeout（若 Leonard「收工」），Freshness triage next session。
+- OPEN（非 pending-blocker）：batch-5~6 等 Leonard 排 / S122-S125 ranking polish 等 Leonard browser-verify 後 calibrate / 既有 deferred / Freshness workflow triage。
+
+Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD / knowledge.json._meta.stats / Supabase chunk count = 10,133 / egress）後，**S125 batch-4 已完成生產 live（10 sources DELETE 537 INSERT 417 / Supabase 10,253→10,133 / 4/10 smoke surface + 6/10 ranking competition non-regression / audit-cross-check 新教訓 §8b 待 promote）**。第一件事＝問 Leonard：(a) **broader Option C batch-5** 而家排？10 sources（g29/g15/g24/edbc12/pri_science×4/sci_jss_framework_2025）pre-flight + **新教訓 audit cross-check stale-superseded**（econ_sss_supp_2015 / music_sss_2015 / va_sss_2015 / ethics_relig_2007_2019 等可考 deprecate）；(b) 抑或先做 **Freshness workflow triage**（5 連 chronic fail since 04-30、ops noise）；(c) 抑或先做 **既有 backlog**（S122-S125 ranking polish / §E.10 admin-login / freshness metadata / etc）？未 Leonard 明示前**唔好自行 resume broader Option C / 改其他 Draft / 掂 Q4 契約**。碰 admin/auth/公開推送前必讀 §E.10。
+```
+
+---
+
 ## 2026-05-25 Session 124 — CB-3 Option C broader batch-3（10 marker-less PDF）page-carry 生產 live + batch-4 pre-flight
 
 - **ID:** Claude_20260525_1334

@@ -7,7 +7,12 @@
 # extracted: 20260501
 # pipeline: expand_vault.py (auto)
 # ============================================================
+# repaged_at: 20260526_073931_UTC
+# repaged_pages: 19
+# pipeline: repage_pdfs.py (PyMuPDF page-by-page + === Page N === markers)
+# ============================================================
 
+=== Page 1 ===
 1 
  
 中國歷史科課程大綱（中一至中三）(2019) (中英雙語版) 
@@ -93,8 +98,8 @@ the
 Reform 
 advocated by Shang Yang),  and 
 Emergence of a Broad Range of 
-thoughts and ideas (Contention of a 
-
+thoughts and ideas (Contention of a
+=== Page 2 ===
 2 
  
 (Maximum 4 periods) 
@@ -118,9 +123,8 @@ students’ ability and interest, to decide whether they should teach the extend
 part or not, or they can guide students to learn this part by themselves.  
 **預期學習內容展示課題基本和必須學習的內容。 
 **Expected Learning Content” indicates those fundamental and essential 
-learning content. 
- 
-
+learning content.
+=== Page 3 ===
 3 
  
 中一級 
@@ -180,8 +184,8 @@ and
 the 
 subsequent 
 Power Struggle between Chu and Han 
-Regimes 
-
+Regimes
+=== Page 4 ===
 4 
  
 2. 
@@ -239,8 +243,8 @@ and Astronomical Instruments
 學生自學。 
 Teachers may take reference of their teaching progress, students’ ability and 
 interest, to decide whether they should teach the extended part or not, or they 
-can guide students to learn this part by themselves. 
-
+can guide students to learn this part by themselves.
+=== Page 5 ===
 5 
  
                                 中一級 
@@ -311,8 +315,8 @@ other Ethnicities)
 人口南遷對江南地區經濟發展的貢
 獻
 Economic Impacts of Southward 
-Migration of Hans on Yangzi China 
-
+Migration of Hans on Yangzi China
+=== Page 6 ===
 6 
  
 3. 
@@ -341,8 +345,8 @@ China and Foreign Countries
 學生自學。 
 Teachers may take reference of their teaching progress, students’ ability and 
 interest, to decide whether they should teach the extended part or not, or they 
-can guide students to learn this part by themselves. 
-
+can guide students to learn this part by themselves.
+=== Page 7 ===
 7 
  
                                 中一級 
@@ -420,9 +424,8 @@ Imperial
 Examination 
 System, 
 Appointments of Good Officials and 
-Expansion of Territories) 
- 
-
+Expansion of Territories)
+=== Page 8 ===
 8 
  
 延伸部分*Extended Part： 
@@ -476,17 +479,16 @@ Countries (e.g. Japan, Korea,
 Arabic Empire etc); 
 Establishment of the Tuen Mun 
 Military District and its Role in 
-Maritime Travel 
- 
-
+Maritime Travel
+=== Page 9 ===
 9 
  
 *延伸部分：教師可按教學進度、學生能力和興趣選擇是否教授，又或協助
 學生自學。 
 Teachers may take reference of their teaching progress, students’ ability and 
 interest, to decide whether they should teach the extended part or not, or they 
-can guide students to learn this part by themselves. 
-
+can guide students to learn this part by themselves.
+=== Page 10 ===
 10 
  
                                  中二級 
@@ -554,8 +556,8 @@ Silk,
 1 此部分亦會提及宋末皇室與中原人士的南來、香港經濟發展的概況（如製鹽業、採珠業）。This 
 part would also introduce the south migrations of the Song Imperial Family and the People of Zhongyuan 
 (Central Plain) in the Late Song, and the General Economic Development (e.g. Salt-making and Pearl 
-Collecting Industries) of Hong Kong 
-
+Collecting Industries) of Hong Kong
+=== Page 11 ===
 11 
  
 Ceramics) in Southern China after the 
@@ -594,8 +596,8 @@ Ethnic Groups
 學生自學。 
 Teachers may take reference of their teaching progress, students’ ability and 
 interest, to decide whether they should teach the extended part or not, or they 
-can guide students to learn this part by themselves.  
-
+can guide students to learn this part by themselves.
+=== Page 12 ===
 12 
  
 中二級 
@@ -662,8 +664,8 @@ Beijing
 延伸部分*：Extended Part 
 基督宗教再度來華及影響。The 
 Re-arrival of Christianity to China and 
-its Effects 
-
+its Effects
+=== Page 13 ===
 13 
  
  
@@ -675,8 +677,8 @@ Ming Dynasty
 學生自學。 
 Teachers may take reference of their teaching progress, students’ ability and 
 interest, to decide whether they should teach the extended part or not, or they 
-can guide students to learn this part by themselves. 
-
+can guide students to learn this part by themselves.
+=== Page 14 ===
 14 
  
                                中二級 
@@ -743,8 +745,8 @@ Effects of the Taiping Uprising on the
 Qing Empire 
                                                  
 2 此部分亦會提及清初遷界對香港地區發展的影響。This part would also introduce the Effects of the 
-Order of Great Evacuation on Hong Kong Region in the Early Qing 
-
+Order of Great Evacuation on Hong Kong Region in the Early Qing
+=== Page 15 ===
 15 
  
  
@@ -780,9 +782,8 @@ Late Qing (Maximum
 Objectives, Measures and Effects of 
 the Self-Strengthening Movement, the 
 Hundred Days’ Reform and the New 
-Policies in the Late Qing 
- 
-
+Policies in the Late Qing
+=== Page 16 ===
 16 
  
 中三級 
@@ -849,7 +850,7 @@ Separation
 國共於1924 至1937 年由合作到分裂
 （聯俄容共、清黨、圍剿與長征）到
 再合作（西安事變）的歷程，兩黨關
-
+=== Page 17 ===
 17 
  
 between Kuomintang 
@@ -919,9 +920,8 @@ War
 國共再次分裂、內戰的概況及結果。
 Breakdown of the Second KMT and 
 CPC Coalition, and an Overview and 
-Consequences of the Civil War 
- 
-
+Consequences of the Civil War
+=== Page 18 ===
 18 
  
 中三級 
@@ -986,8 +986,8 @@ periods)
 Important Measures of the Chinese 
 Economic 
 Reform 
-(Agricultural, 
-
+(Agricultural,
+=== Page 19 ===
 19 
  
 Industrial and Commercial Reforms, 
@@ -1047,4 +1047,4 @@ Development of the HKSAR
 學生自學。 
 Teachers may take reference of their teaching progress, students’ ability and 
 interest, to decide whether they should teach the extended part or not, or they 
-can guide students to learn this part by themselves. 
+can guide students to learn this part by themselves.
