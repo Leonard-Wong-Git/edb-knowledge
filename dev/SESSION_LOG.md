@@ -2,6 +2,103 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-27 Session 127 — §8b 3-rule promotion + PROJECT_MASTER_SPEC governance doc full update（pure governance / 0 code-data-Supabase mutation）
+
+- **ID:** Claude_20260527_0720
+- **Trigger:** Leonard 起手揀 "§8b 3-rule + governance update" chip（4-option AskUserQuestion）；S125 closeout 兩條 §8b lesson promote-candidate + S126 §G.2 第三度 ops 應用 promote-candidate 累計到 governance update threshold；Leonard scope sub-confirm「Promote (推薦)」rule 3 全部 codify。
+- **§1 startup verify PASS：** HEAD `0b5ecc4` (S126 closeout commit) origin/main working tree clean / knowledge.json._meta.stats `{facts:455, chunks:10736, sources:120, guidelines:39, topics:7}` 對齊 baseline / Supabase 9,920 採信 S125c verified state（無 service_role key 獨立 introspect、§D.18 ritual 留必要時用）/ egress `/health` HTTP 200 (warm 4.2s after 30s cold-start retry, `cache_a.warm=true size=455`)。注：handoff Prompt 寫「S126 commit pending」係 stale；實際 commit chain `393afca` (S126 fix) + `0b5ecc4` (S126 closeout) 已 push。
+
+- **§3 HIGH-risk PLAN：** 4-file scope（PROJECT_MASTER_SPEC.md + CODEBASE_CONTEXT.md + SESSION_HANDOFF.md + SESSION_LOG.md）+ 7 §3d scenario matrix（Normal #1-4 grep-verifiable rule presence assertions + Regression A-C scope discipline guards）；HIGH-risk per §3 (a) ≥3 檔 + (e) 改 governance rules；Leonard AskUserQuestion 4-option confirm「§8b 3-rule + governance update」+ scope sub-confirm 4-option「Promote (推薦)」rule 3。
+
+- **3 條 §8b lessons codified（4/6 §8b criteria met for each）：**
+  - **Rule 1 — Audit cross-check stale-superseded**（S125b first live applied / S125c Hybrid deprecation verified）：Pre-flight audit sub-agent 必 cross-check index 既有 stale-superseded 版本（唔淨止 batch 自己 chain）；cross-check 法 = `source_registry.json` `supersedes` field + audit-tool 對既有 index 順 `source_id` 掃 stale 同舊 family。S123 + S125b 累計揭發 8 stale sources（1,010 chunks）：va_sss_2015 180 / ethics_relig_sss_2007_2019 166 / music_sss_2015 161 / econ_sss_2007_2015 147 / econ_sss_supp_2015 39 / bafs_sss_2007_2015 122 / pe_sss_2007_2015 119 / sci_jss_supp_2017 76。S125 live miss case = econ_sss_supp_2025 撞 econ_sss_supp_2015 superseded-still-in-index。Codified at PROJECT_MASTER_SPEC §D.16 結尾。
+  - **Rule 2 — Semantic-supersede detection**（S125b 揭、3 度 pattern recurrence、S127 promote）：即使 registry `supersedes=[]` 都當潛在 supersede chain。Cases：(a) g24 vs sag_2025_11 same-domain elder-vs-newer consolidated S125b / (b) tech_kla_guide_2017 vs pri_curr_guide_2024 同 KLA scope shift S122 / (c) music_sss_2024 vs music_p1_s6_2024 cross-level domain coverage S123 — 三度同 KLA + same naming pattern + title overlap 都唔在 registry `supersedes` field 顯示。Audit sub-agent 加 (a) KLA-title embedding similarity ≥0.85 check + (b) same-prefix/naming-pattern detector + (c) human verify before deprecate。Automated tooling 留 future implementation、本 rule 即時 process-level apply（每 batch audit sub-agent 必 raise candidate pair）。Codified at PROJECT_MASTER_SPEC §D.16 結尾。
+  - **Rule 3 — Handoff root-cause estimate ≠ verified ground truth**（S121 / S122 / S126 三度 cross-session recurrence、S127 promote）：triage agent 必先 run + 觀察 actual failure trace（traceback / log / live state）、再 verify hypothesis 對唔對；唔對即更新 root-cause 再 CHANGE。Cases：(a) S121 `schema.sql` 自稱 vector(1536) 簽名 vs live 真實 text 簽名 → 套 schema.sql 落 live → PGRST203 live 事故 §E.13 / (b) S122 commit `fd22e0a` message + SESSION_LOG 講「pending 5min URL-encoding patch」但 `git diff` 顯示 patch 實已 apply / (c) S126 chronic Freshness fail handoff 估「root cause = `if errors > 0: sys.exit(1)`」實 dry-run 真根因係 `check_freshness.py:101 AttributeError` (line 141-142 唔曾跑到)。Codified at PROJECT_MASTER_SPEC §G.2 banner +4th drift instance + §G.3 NEW #7。
+
+- **CHANGE 4-edit PROJECT_MASTER_SPEC.md（additive，無 retire 舊條款）:**
+  - **§D.16 extend**（既有覆蓋 batch-1/2，append batch-3/4/5/6 verified + rule 1 + rule 2 codification）：batch-3 DELETE 942/INSERT 795/net -147 + batch-4 DELETE 537/INSERT 417/net -120 + batch-5 Vanilla DELETE 752/INSERT 736/net -16（g24 +28% 3rd cap-recovery, S122 eng_lit +111% / S123 eng_sss +40% / S125b g24 +28% 三度印證 cap chunker-bound 非 era-dependent）+ batch-6 Hybrid DELETE 206/INSERT 9/net -197（2 page-carry + 2 DROP-only deprecation pe_sss_2007_2015/sci_jss_supp_2017）= **三批一日 Supabase 10,253→9,920 + CB-3 final ceiling ~88%（94/113 marker-bearing + 2 deprecated + 6 Vanilla preserved + 9 結構天花板）達成**。
+  - **NEW §D.19** documenting `dev/cb3_deprecate_stale.py`（159 lines / service_role REST DELETE per `source_id` / per-source post-DELETE verify count==0 / Phase backup audit log §5.a-compliant `dev/init_backup/<ts>/cb3_deprecation_log.json` 含 reversibility note：vault legacy & registry 不刪 → rebuild from preserved vault txt → `cb3_b2_pagecarry_migrate.py --only <sid> --execute` 可復原 / `--skip-local` default / `--execute` gate / Python 3.9 PEP 604 compat fix）+ Hybrid decision framework（superseder direct dominance live verify + chunks count 細 ~<150 + audit cross-check confirm + Leonard sign-off = DROP；其餘 = Vanilla preserve §A.2 #1 traceability）。S125c first-use 2 sources 195 chunks 0 incident。
+  - **§G.2 banner +4th drift instance**（handoff root-cause estimate ≠ ground truth、S121/S122/S126 三度）+ 教訓 sentence 更新加入「failure root-cause 描述」並列 load-bearing 常數一齊講。Rule 3 codification body 明確列三 case + multi-agent collab prone notice。
+  - **§G.3 NEW #7**（接手 issue 嘅 handoff 寫「root cause = X」當 hypothesis、triage agent never skip live-reproduce step、cross-link §G.2 banner 4th 條 + §8b rule 3）。
+
+- **CHANGE CODEBASE_CONTEXT.md**: Directory Map +`dev/cb3_deprecate_stale.py` 行（DROP-only deprecation tool full description）+ existing `cb3_b2_pagecarry_migrate.py` 條目 append「6th-validation across S122-S125c 52 sources 0 incident」+ AI Maintenance Log +S127 entry。
+
+- **CHANGE SESSION_HANDOFF.md**: Open Priorities regen（移除既 #1 §8b 2-rule promotion + #3 governance doc full update 因 S127 已完成 / 保留 S126 follow-up trio 升 #1 / Future batch-7 保 #2 / 既有 deferred + ranking polish 合 #3 / Q4 deferred 保 #4 / 新加 #5 §8b rule 2 future automation tooling）+ Last Session Record S127 + 既 S126 demote → Previous Session Record + `> ✅ S127 完成` annotation prepend before `> ✅ S126 完成`。
+
+- **§3d 7-scenario static verify matrix:**
+
+| # | Scenario | Action | Expected | Actual | Result |
+|---|---|---|---|---|---|
+| 1 | Normal — rule 1 codified | grep `audit cross-check stale-superseded` in PROJECT_MASTER_SPEC.md | 1+ match | 2+ matches (§D.16 + §8b rule 1 ref) | PASS |
+| 2 | Normal — rule 2 codified | grep `semantic-supersede` in PROJECT_MASTER_SPEC.md | 1+ match | 2+ matches (§D.16 rule 2 + §G.2 cross-ref) | PASS |
+| 3 | Normal — rule 3 codified | grep `root-cause estimate` 或 `handoff hypothesis` in §G.2 banner | 1+ match | both phrases present (§G.2 4th + §G.3 #7) | PASS |
+| 4 | Normal — `cb3_deprecate_stale.py` documented | grep `cb3_deprecate_stale` in PROJECT_MASTER_SPEC.md + CODEBASE_CONTEXT.md | both files | found §D.19 + Directory Map row | PASS |
+| 5 | Regression A — §D.16 batch-1/2 既有條款 unchanged | git diff `dev/PROJECT_MASTER_SPEC.md` 看 batch-1/2 內容 byte-stable | additive only | append at 既有條款末尾、batch-1/2 inline text 未郁 | PASS |
+| 6 | Regression B — §D / §E / §G 其他條款 byte-stable | git diff scope = 4 edit points only | 0 unrelated touch | §D.1-15 + §E.* + F unchanged confirmed via diff scope | PASS |
+| 7 | Regression C — AGENTS.md 唔郁 | `git status AGENTS.md` clean | 0 modification | unchanged confirmed | PASS |
+
+  Overall: **PASS**（純文檔 grep-verifiable）。
+
+- **Sources changed:**
+  - Draft modified pending commit+push: `dev/PROJECT_MASTER_SPEC.md`（4 edit points additive、+~150 lines net）/ `dev/CODEBASE_CONTEXT.md`（Directory Map +`cb3_deprecate_stale.py` row + AI Maintenance Log +S127 entry）/ `dev/SESSION_HANDOFF.md`（Open Priorities regen + Last Session Record S127 + S126 demote）/ `dev/SESSION_LOG.md`（本 S127 entry prepend + DOC_SYNC matrix + verbatim handoff prompt）。
+  - Draft NOT modified this session: `AGENTS.md` (governance SSOT untouched per §3b 一規一處 / §8b clause 自身唔郁、本 session 純 PROJECT_MASTER_SPEC 層 codify) / `backend/**` / `app.html` / vault / source_registry / knowledge.json / guidelines.json / dev/cb3_deprecate_stale.py（既有 S125c script 維持 byte-identical）。
+  - Supabase live: **unchanged** (本 session 純 governance markdown、無 mutate wiki_chunks)。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| §8b rule promotion (3 lessons) | PROJECT_MASTER_SPEC §D.16 + §D.19 NEW + §G.2 banner + §G.3 #7 NEW codify | ✓ Done |
+| NEW deprecation script documented | PROJECT_MASTER_SPEC §D.19 + CODEBASE_CONTEXT Directory Map row | ✓ Done |
+| §D.16 batch-3/4/5/6 verified codification | PROJECT_MASTER_SPEC §D.16 extend + AI Maintenance Log S127 entry | ✓ Done |
+| Governance text edit | SESSION_HANDOFF Open Priorities regen + Last Session Record S127 + S126 demote + SESSION_LOG S127 entry + DOC_SYNC + Next Session Handoff verbatim | ✓ Done |
+| External service / data row change | N/A (Supabase / knowledge.json / source_registry 全 byte-unchanged this session) | N/A |
+| Tech stack / build / dependency change | N/A (純 markdown、無 dep change) | N/A |
+| AGENTS.md §8b clause edit | N/A (governance SSOT 維持；本 session 純 PROJECT_MASTER_SPEC 層 codify、無需 retroactive AGENTS.md edit；若 future 多次 ops 復發再考慮 promote up to §8b clause itself) | N/A (deliberate scope choice) |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S127 (2026-05-27、Leonard 起手揀「§8b 3-rule + governance update」)：**§8b 3 rules promoted + PROJECT_MASTER_SPEC governance doc full update closed**。HEAD = S127 commit pending（下次起手自行 verify origin/main）。3 rules codified at PROJECT_MASTER_SPEC：(1) §D.16 audit cross-check stale-superseded（S125b first applied + S125c Hybrid verified）(2) §D.16 semantic-supersede detection（registry `supersedes=[]` 都當潛在 chain；audit sub-agent 加 KLA-title embedding similarity ≥0.85 + same-naming-pattern detector + human verify；automated tooling future）(3) §G.2 banner 4th + §G.3 #7 handoff root-cause estimate ≠ verified ground truth（S121 schema.sql / S122 commit-msg-vs-diff / S126 handoff hypothesis-vs-script-crash 三度 cross-session recurrence；triage agent 必先 run + 觀察 actual failure trace + verify hypothesis）。Plus §D.16 batch-3/4/5/6 verified state codified + NEW §D.19 documenting `cb3_deprecate_stale.py`（service_role REST DELETE / per-source verify count==0 / Phase backup audit log / Hybrid decision framework / S125c first-use 2 sources 195 chunks 0 incident）。**4-file scope + 0 code/data/Supabase mutation**（PROJECT_MASTER_SPEC + CODEBASE_CONTEXT + SESSION_HANDOFF + SESSION_LOG；AGENTS.md 唔郁）。§3d 7-scenario static verify PASS。
+
+Current objective and progress state:
+- **S127 完成 §8b 3-rule + governance doc full update**：4 edit points additive、無 retire 舊條款、§3d 7/7 grep-verifiable static PASS。
+- **CB-3 達 final ceiling ~88%**（S125c closeout 達成、94/113 marker-bearing + 2 deprecated + 6 Vanilla preserved + 9 結構天花板）— 北極星目標達成。
+- **driver 6 輪 verified（S122~S125c、52 sources page-carry 0 incident）+ NEW `cb3_deprecate_stale.py` first-use 2 sources 195 chunks 0 incident**。
+- §E.10 partial resolution 維持（RLS family S121 closed；admin-login client-side gate 仍 OPEN）。Q4 deferred 獨立 track；Stage-2 closed 勿復活。
+
+Pending tasks in priority order:
+1. **S126 follow-up trio**：(a) g28 dead URL EDB re-discovery (§E.12 pattern 修 url_primary) (b) check_freshness 跑一次唔加 --dry-run persist 20 EDB freshness_metadata updates（4113 行 data file 改、獨立 commit）(c) g29/g24 size-spike content sanity check（懷疑 url_primary landing→PDF、可能影響 vault PDF extraction）。
+2. **Future batch-7 (optional)**：6 stale Vanilla-preserved sources case-by-case re-evaluate（va_sss_2015 180 / ethics_relig_sss_2007_2019 166 / music_sss_2015 161 / econ_sss_2007_2015 147 / econ_sss_supp_2015 39 / bafs_sss_2007_2015 122 = 815 chunks 仲 in index）；ranking polish 後仍構成顯著競爭可考慮再 Hybrid deprecate；唔急。
+3. **🔴 既有 deferred + batch ranking polish backlog**：§E.10 admin-login client-side gate（OPEN）；57014 transient（retry 即恢復）；FAIL-A 注入 regression（record-only）；P2/P3（39→148 deferred）；Mobile UI P2；HKEAA；doc-debt；batch ranking polish ~15-17 sources（S122-S125c 累計）。
+4. **Q4 對外契約收斂（deferred）**：Channel A→knowledge.json→Circular System；3 選項；未明示勿掂。
+5. **§8b rule 2 automation tooling（future implementation）**：semantic-supersede detection 嘅 KLA-title embedding similarity check 暫 process-level apply；automated sub-agent prompt 留 future batch / governance session 寫。
+
+Key files changed this session (commit+push origin/main 指定檔)：
+- `dev/PROJECT_MASTER_SPEC.md` — §D.16 extend (batch-3/4/5/6 verified + rule 1 + rule 2) + NEW §D.19 cb3_deprecate_stale.py documentation + §G.2 banner +4th drift instance (rule 3) + §G.3 NEW #7
+- `dev/CODEBASE_CONTEXT.md` — Directory Map +`cb3_deprecate_stale.py` row + cb3_b2_pagecarry_migrate.py 6th-validation note + AI Maintenance Log +S127 entry
+- `dev/SESSION_HANDOFF.md` — Open Priorities regen + Last Session Record S127 + S126 demote → Previous Session Record + `> ✅ S127 完成` annotation prepend
+- `dev/SESSION_LOG.md` — S127 entry prepend + DOC_SYNC matrix + Next Session Handoff Prompt verbatim
+- NO modifications: AGENTS.md / backend / app.html / vault / source_registry / knowledge.json / guidelines.json / Supabase
+
+Known risks / blockers / cautions:
+- 本 session 純 governance markdown 改、0 code/data/Supabase mutation、無新增 risk。
+- 既有 risks：🔴 §E.10 admin-login client-side gate（OPEN 獨立 family）；🔴 Supabase free-tier 57014 transient（retry 即恢復）；🔴 FAIL-A 注入 regression（record-only）；§3c FAIL-A/B record-only；q.html/A·AB code path/backend `/channel-a`·`/combined` endpoint dormant 可逆勿清；Q4 deferred 未明示勿掂；Stage-2 closed 勿復活。
+- egress 間歇每次自測；EDB PDF 永遠用 `url_primary` 勿 `url_landing`（§E.12）；路徑空格雙引號；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG（已遵）。
+
+Validation status:
+- PASS S127 governance update + §3d 7/7 static grep-verifiable + 4 file scope 確認 additive + commit+push pending (指定 4 檔)。
+- PENDING：commit+push origin/main 指定 4 檔（PROJECT_MASTER_SPEC + CODEBASE_CONTEXT + SESSION_HANDOFF + SESSION_LOG）；Leonard 揀下一步。
+- OPEN（非 pending-blocker）：S126 follow-up trio / Future batch-7 / 既有 deferred / §8b rule 2 future automation tooling。
+
+Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD = S127 commit / knowledge.json._meta.stats / Supabase chunk count = 9,920 / egress）後，**S127 §8b 3-rule + governance doc full update 已 closed（PROJECT_MASTER_SPEC §D.16/§D.19/§G.2/§G.3 全 codified + CODEBASE_CONTEXT/SESSION_HANDOFF/SESSION_LOG sync + 4 file scope additive + 0 code/data mutation + §3d 7/7 PASS）+ §8b governance backlog clear**。第一件事＝問 Leonard 揀：(a) **S126 follow-up trio**（g28 dead URL + freshness_metadata persist run + g29/g24 size-spike sanity check）；(b) **Future batch-7** 6 stale Vanilla-preserved case-by-case re-evaluate；(c) 抑或 **既有 backlog**（🔴 §E.10 admin-login / batch ranking polish / etc）；(d) 抑或 **§8b rule 2 future automation tooling**（KLA-title embedding similarity sub-agent prompt）？未 Leonard 明示前**唔好自行 resume / 改其他 Draft / 掂 Q4 契約**。碰 admin/auth/公開推送前必讀 §E.10。
+```
+
 ## 2026-05-26 Session 126 — Freshness workflow chronic-fail triage closed（bug fix + threshold gate；§G.2 verify-don't-trust-docs 第三次 ops 應用）
 
 - **ID:** Claude_20260526_1811
