@@ -110,6 +110,9 @@ PILOT_LEGACY = {
     # S125c broader batch-6 Hybrid strategy (2 page-carry orphan small + 2 DROP-only deprecation handled by cb3_deprecate_stale.py)
     "g15": [VAULT_DIR / "g15" / "extract_g15.txt"],
     "edbcm98_2024_pri_science": [VAULT_DIR / "edbcm98_2024_pri_science" / "extract_edbcm98_2024_pri_science.txt"],
+    # S129 batch-7 content refresh (S128 freshness check揭 14 sources EDB live内容更新，揀 3 PDF marker-bearing 重 page-carry對齊 latest content；arts_kla_guide_2017 既在 PILOT_LEGACY/OUT batch-4 entries 重用，下面只 add music + va P1-S6 兩條)
+    "music_p1_s6_2024": [VAULT_DIR / "music_p1_s6_2024" / "extract_music_p1_s6_2024.txt"],
+    "va_p1_s6_2024": [VAULT_DIR / "va_p1_s6_2024" / "extract_va_p1_s6_2024.txt"],
 }
 
 # source_id -> consolidated output filename (single repaged extract per source)
@@ -174,6 +177,9 @@ PILOT_OUT = {
     # S125c broader batch-6
     "g15": VAULT_DIR / "g15" / "extract_g15_repaged.txt",
     "edbcm98_2024_pri_science": VAULT_DIR / "edbcm98_2024_pri_science" / "extract_edbcm98_2024_pri_science_repaged.txt",
+    # S129 batch-7 content refresh (music + va P1-S6 only; arts_kla_guide_2017 reuses batch-4 PILOT_OUT entry)
+    "music_p1_s6_2024": VAULT_DIR / "music_p1_s6_2024" / "extract_music_p1_s6_2024_repaged.txt",
+    "va_p1_s6_2024": VAULT_DIR / "va_p1_s6_2024" / "extract_va_p1_s6_2024_repaged.txt",
 }
 
 

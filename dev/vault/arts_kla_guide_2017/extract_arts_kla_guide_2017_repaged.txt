@@ -1,13 +1,5 @@
 # source_id: arts_kla_guide_2017
-# title: 藝術教育學習領域課程指引（小一至中六）(2017)
-# fact_type: policy
-# topic_tags: curriculum
-# url: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/AE_KLACG__Chi___2017.pdf
-# source_type: pdf
-# extracted: 20260501
-# pipeline: expand_vault.py (auto)
-# ============================================================
-# repaged_at: 20260526_073931_UTC
+# repaged_at: 20260527_141140_UTC
 # repaged_pages: 106
 # pipeline: repage_pdfs.py (PyMuPDF page-by-page + === Page N === markers)
 # ============================================================
