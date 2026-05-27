@@ -158,7 +158,7 @@ source_registry → same vault PDFs → ai_extract.py
    - **stat_fact 21 chunks 仍 cite 2024/25「最新」wording**：retrieval 兩 layer (vault_extract 2025/26 + stat_fact 2024/25) 不一致；用戶可能撈到 stat_fact 嘅 stale wording。Future backlog 跟。
    - 既有 risks：🔴 §E.10 admin-login client-side gate（OPEN 獨立 family）；🔴 Supabase free-tier 57014 transient（retry 即恢復）；🔴 FAIL-A 注入 regression（record-only）；§3c FAIL-A/B record-only；q.html/A·AB code path/backend `/channel-a`·`/combined` endpoint dormant 可逆勿清；Q4 deferred 未明示勿掂；Stage-2 closed 勿復活。
    - egress 間歇每次自測；EDB PDF 永遠用 `url_primary`（§E.12）；路徑空格雙引號；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG（已遵）。
-7. Session 進行中（**非** closeout — Leonard 未表示「收工」）：S130 batch-7 follow-up stat vault refresh closed + §3 PERSIST 完成；governance docs commit+push pending；視 Leonard 排下一步 / 收工。
+7. **Session CLOSED 2026-05-27（Leonard「收工」）** — §4 closeout 完成；S130 batch-7 follow-up: 4 stat xlsx vault content refresh 2024/25→2025/26 + cb3_b2 `--include-non-page` first use + §3 CHANGE divergence textbook execute + 0 incident + driver 9th-validation 59 sources S122-S130。HEAD origin/main = `0fc6376` (S130 PERSIST) + S130 closeout commit pending；今日連環 push 8 commits chain (9122964→9f5c514→cd0c846→86f8c4f→930a8a8→c85d35c→b55435d→0fc6376)。§4a no trigger (324<400, 3 entries S128/S129/S130 within 30d)。下次起手＝問 Leonard 揀 stat_fact upgrade follow-up (build_stat_facts.py 4 builder rewrite + stat_facts.json rebuild + Supabase content_type=stat_fact replace path) / 5 HTML catalogue-level / Future batch-7 stale Vanilla-preserved / 既有 backlog (🔴 §E.10 / batch ranking polish) / §8b rule 2 automation tooling。
 
 ## Previous Session Record
 1. UTC date: 2026-05-27
