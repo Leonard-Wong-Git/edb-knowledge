@@ -81,19 +81,25 @@ def embed(texts, api_key):
     return out
 
 
-def sb_count(sid, key):
+def sb_count(sid, key, content_type=None):
+    params = {"source_id": f"eq.{sid}", "select": "id"}
+    if content_type:
+        params["content_type"] = f"eq.{content_type}"
     r = requests.get(
         f"{SUPABASE_URL}/rest/v1/{TABLE}",
         headers={"apikey": key, "Authorization": f"Bearer {key}",
                  "Prefer": "count=exact", "Range": "0-0"},
-        params={"source_id": f"eq.{sid}", "select": "id"}, timeout=30)
+        params=params, timeout=30)
     cr = r.headers.get("Content-Range", "")
     return int(cr.split("/")[-1]) if "/" in cr and cr.split("/")[-1].isdigit() else -1
 
 
-def sb_delete(sid, key):
+def sb_delete(sid, key, content_type=None):
+    url = f"{SUPABASE_URL}/rest/v1/{TABLE}?source_id=eq.{sid}"
+    if content_type:
+        url += f"&content_type=eq.{content_type}"
     r = requests.delete(
-        f"{SUPABASE_URL}/rest/v1/{TABLE}?source_id=eq.{sid}",
+        url,
         headers={"apikey": key, "Authorization": f"Bearer {key}",
                  "Content-Type": "application/json",
                  "Prefer": "return=representation"}, timeout=60)
@@ -157,6 +163,15 @@ def main():
                     help="do NOT rewrite local wiki_index.json (use for partial "
                          "recovery runs to avoid a mixed old/new local artifact; "
                          "Supabase is the query-authoritative store)")
+    ap.add_argument("--include-non-page", action="store_true",
+                    help="allow non-page-marker-bearing sources in --only set "
+                         "(stat xlsx, catalogue-level HTML, etc). Requires "
+                         "--only for explicit scoping. Without this flag, "
+                         "non-page sources in --only raise an error. Marker-less "
+                         "text yields byte-identical output via chunk_text() "
+                         "fallback per build_wiki_index invariant; only vault_extract "
+                         "chunks are touched (stat_fact / approved_fact chunks "
+                         "are NOT in vault load and are NOT replaced).")
     args = ap.parse_args()
     mode = "EXECUTE" if args.execute else "DRY-RUN"
     only = {s.strip() for s in args.only.split(",") if s.strip()}
@@ -166,15 +181,31 @@ def main():
     if not okey or not skey:
         raise SystemExit("Missing OPENAI_API_KEY / SUPABASE_SERVICE_KEY in backend/.env")
 
-    targets = [s for s in bw.load_vault_sources() if PAGE_RE.search(s["text"])]
-    if only:
-        targets = [s for s in targets if s["source_id"] in only]
+    if args.include_non_page and not only:
+        raise SystemExit("--include-non-page requires --only for explicit scoping")
+    all_vault = list(bw.load_vault_sources())
+    if args.include_non_page:
+        targets = [s for s in all_vault if s["source_id"] in only]
         missing = only - {s["source_id"] for s in targets}
         if missing:
-            raise SystemExit(f"--only ids not marker-bearing/known: {sorted(missing)}")
+            raise SystemExit(f"--only ids not in vault: {sorted(missing)}")
+    else:
+        targets = [s for s in all_vault if PAGE_RE.search(s["text"])]
+        if only:
+            targets = [s for s in targets if s["source_id"] in only]
+            missing = only - {s["source_id"] for s in targets}
+            if missing:
+                raise SystemExit(f"--only ids not marker-bearing/known: {sorted(missing)}")
+    # When --include-non-page, narrow Supabase mutation to vault_extract chunks
+    # only so co-located stat_fact / approved_fact chunks for the same source_id
+    # are preserved. For the marker-bearing path, ct_filter stays None and the
+    # 8-round-verified semantics are unchanged.
+    ct_filter = "vault_extract" if args.include_non_page else None
+
     print("=" * 74)
     print(f"CB-3 B-2 surgical page-carry migrate — {mode} — {len(targets)} sources"
-          + (f"  (scoped --only)" if only else ""))
+          + (f"  (scoped --only)" if only else "")
+          + (f"  [content_type={ct_filter}]" if ct_filter else ""))
     print("=" * 74)
 
     # Phase 1: chunk + embed ALL (NO mutation yet)
@@ -188,7 +219,7 @@ def main():
 
     if not args.execute:
         for sid, rows in plan:
-            old = sb_count(sid, skey)
+            old = sb_count(sid, skey, content_type=ct_filter)
             print(f"  {sid:<30} DELETE {old:>4} -> INSERT {len(rows):>4}")
         print(f"\nDRY-RUN only — nothing mutated. Total INSERT {tot_new}.")
         return
@@ -208,12 +239,14 @@ def main():
     print(f"Backup: {bdir / 'wiki_index.json'}")
 
     # Phase 2: per-source DELETE -> upload -> verify
+    # ct_filter narrows DELETE + post-count to vault_extract when --include-non-page,
+    # so co-located stat_fact / approved_fact chunks for the same source_id survive.
     results = []
     for sid, rows in plan:
-        old = sb_count(sid, skey)
-        deleted = sb_delete(sid, skey)
+        old = sb_count(sid, skey, content_type=ct_filter)
+        deleted = sb_delete(sid, skey, content_type=ct_filter)
         sb_upload(rows, skey)
-        new = sb_count(sid, skey)
+        new = sb_count(sid, skey, content_type=ct_filter)
         ok = (new == len(rows))
         results.append((sid, old, deleted, len(rows), new, ok))
         print(f"  {sid:<30} del={deleted:>4} ins={len(rows):>4} "
