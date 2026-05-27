@@ -2,6 +2,106 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-27 Session 129 — batch-7 content refresh: 3 PDF marker-bearing re-page-carry (S128 EDB content drift follow-up; driver 8th-validation)
+
+- **ID:** Claude_20260527_0720（同 S127/S128 連續執行）
+- **Trigger:** S128 follow-up trio (b) freshness persist 揭 14 sources EDB-content-updated；Leonard 揀 (a) future content refresh batch → Claude 分類為 A (3 PDF marker-bearing HIGH ROI) / B (4 stat xlsx MEDIUM) / C (5 HTML LOW)、推薦 Scope A → Leonard 「按建議做」→ dry-run 揭 music/va chars -35~39% → Leonard「Proceed Gate 1 全 3 sources (推薦)」。
+- **§3 HIGH-risk PLAN**: (a) ≥3 files + (d) Supabase mutation + (c) irreversible；既 driver 7 輪 0 incident、信 Hybrid-pattern reuse 直入。
+
+- **CHANGE step 0 — `dev/vault/repage_pdfs.py` PILOT_LEGACY/PILOT_OUT +2 entries each (music_p1_s6_2024 + va_p1_s6_2024)；arts_kla_guide_2017 既有 batch-4 entries reuse。**
+
+- **Gate 1 `repage_pdfs.py --only arts_kla_guide_2017,music_p1_s6_2024,va_p1_s6_2024 --write` 3/3 PASS：**
+  - arts_kla_guide_2017: 5.51MB EDB → 106 pages / 106 markers / 67,587 chars (legacy 0 file = batch-4 已 move)
+  - music_p1_s6_2024: 4.39MB EDB → 65 pages / 65 markers / **50,001 chars (legacy 82,339 -39%)** = 對應 EDB live Content-Length -845KB 縮短
+  - va_p1_s6_2024: 6.63MB EDB → 53 pages / 53 markers / **40,499 chars (legacy 62,225 -35%)** = chars 大幅縮短
+  - markers==pages 全對 (106/65/53)；§5.a-compliant backup `dev/init_backup/20260527_141140_UTC/cb3c_pilot_legacy/music_p1_s6_2024 + va_p1_s6_2024`（arts 無 legacy 因為 batch-4 已 move）。
+
+- **Gate 2 `cb3_b2_pagecarry_migrate.py --only ... --execute --skip-local` 3/3 OK：**
+  - dry-run prediction：arts del 116 ins 116 net **0** / music del 108 ins 85 net **-23** / va del 86 ins 71 net **-15** / total **DELETE 310 / INSERT 272 / net -38**。無 anomaly（無 +>50% 大 recovery、無 outlier）；chunks 全 -ve direction 對應 EDB content contraction (chars -35~39%) 合理。
+  - EXECUTE：Phase 1b embed all 272 chunks first → wiki_index.json auto-backup `dev/init_backup/20260527_141248_UTC/` → per-source DELETE→upload→count verify 3/3 `del=/ins=/now=` 全對齊 → Phase 3 SKIPPED `--skip-local` (§E.14 紀律)。
+
+- **QC post-execute 4 gates PASS：**
+  - **Supabase total via Range header = 9,882** exact match prediction (9,920 - 38) ✅
+  - Per-source counts via REST: arts 116 / music 85 / va 71 — match driver report ✅
+  - **INVARIANT 5 spot-check** 0 touched non-target sources: g01=32 / sag_2025_11=383 / chem_sss_2007_2018=172 / eng_lit_guide_2023=633 / music_sss_2024=69 全 unchanged ✅
+  - backend `/health` cache_a warm 455 facts ✅
+
+- **Live smoke 2/3 surface direct with NEW page numbers + 1 ranking competition non-regression：**
+  - ✅ music_p1_s6_2024 q=「音樂科 課程指引 中小學」**TOP-1+2 p=11 / p=16 score 0.704 / 0.701** — new content (post-S129 EDB refresh + new chunker output) live verified
+  - ✅ va_p1_s6_2024 q=「視覺藝術 課程指引」**TOP-1+2 p=17 / p=11 score 0.727 / 0.723** — new content live verified
+  - ⚠️ arts_kla_guide_2017 q=「藝術教育 學習領域 課程指引」0 hits = ranking competition non-regression（116 chunks live indexed confirmed via Supabase count；chars unchanged 67,587 等量 chunking；S122 tech_kla/ls_jss/chi_hist + S123 music_sss_2024 + S125 econ_sss_supp_2025 同 ranking-competition pattern；非 regression、batch ranking polish backlog 對應）。
+
+- **§E.14 §8 lesson 8th-validation across 55 sources S122-S129 0 incident**: pipeline production-ready confirmed 再印證；music/va chars -35~39% 大幅縮短亦零 incident（driver canonical chunker + seen_ids + per-source DELETE/replace + `--skip-local` 紀律守得住）。
+
+- **§G.2 cross-ref 第四次 ops 應用 (record-only)**: S128 sanity check finding 估「freshness baseline 是 stale not EDB drift、music/va vault content 對齊 EDB live」係 verified；但 S129 dry-run 再揭 music/va chars 大幅縮短 = EDB **新版** PDF 內容 condensed (vault stale + EDB content drift 同時存在)；S128 root-cause estimate 對「size spike 唔涉切換」嘅 verdict 正確、但無覆蓋「EDB live 新版本內容 condensed」呢層 — 多 layer reality 唔可由單一 read-only verify 完全 cover。本記錄 only、不 trigger 新 PMS codification（§G.2 banner 已 cover handoff hypothesis vs verified ground truth）。
+
+- **Sources changed:**
+  - Draft committed and pushed `86f8c4f`: `dev/vault/repage_pdfs.py` (PILOT_LEGACY/OUT +2 each) + `dev/vault/arts_kla_guide_2017/extract_arts_kla_guide_2017_repaged.txt` (M) + `dev/vault/music_p1_s6_2024/extract_music_p1_s6_2024.txt` (D) + `dev/vault/music_p1_s6_2024/extract_music_p1_s6_2024_repaged.txt` (new) + `dev/vault/va_p1_s6_2024/extract_va_p1_s6_2024.txt` (D) + `dev/vault/va_p1_s6_2024/extract_va_p1_s6_2024_repaged.txt` (new) — 6 files / +5785 / -5282 lines
+  - Draft modified pending commit+push: `dev/SESSION_HANDOFF.md` (Current Baseline + Open Priorities regen + Last Session Record S129 + S128 demote + ✅ S129 完成 annotation) + `dev/SESSION_LOG.md` (本 S129 entry prepend + DOC_SYNC + verbatim handoff) + `dev/CODEBASE_CONTEXT.md` (External Services Supabase row count 9920→9882)。
+  - Draft NOT modified this session: `dev/source/source_registry.json` (本 session 唔 touch、S128 (b) 已 update freshness baseline)；PROJECT_MASTER_SPEC (§D.16 batch-1~6 codification 已 cover；S129 內容 refresh 用既有 pipeline、唔 trigger 新 codification)；AGENTS.md / backend / app.html / knowledge.json / guidelines.json。
+  - Supabase live: **mutated** 3 sources (arts_kla_guide_2017 / music_p1_s6_2024 / va_p1_s6_2024) per-source DELETE+INSERT; total 9,920→9,882。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Vault content + Supabase mutation (batch-7 content refresh) | SESSION_LOG S129 entry + SESSION_HANDOFF Current Baseline + Open Priorities regen + Last Session Record + CODEBASE_CONTEXT External Services Supabase row count | ✓ Done |
+| repage_pdfs.py PILOT_LEGACY/OUT extension | CODEBASE_CONTEXT Directory Map (既有條目 cover broader scope 擴展點、無新行需加) | N/A (既有條目已說「extend PILOT_LEGACY/PILOT_OUT dict」mechanism、無需逐 batch 加 entry log) |
+| Driver 8th-validation across 55 sources | SESSION_LOG S129 § §E.14 lesson note + SESSION_HANDOFF Current Baseline | ✓ Done |
+| External Services / Data row change | CODEBASE_CONTEXT Supabase wiki_chunks row count 9,920→9,882 | ✓ Done |
+| Tech stack / build / dependency change | N/A (純 ops、無 stack 改) | N/A |
+| Governance rule change | N/A (§D.16 既 codified pipeline reused; §G.2 cross-ref record-only) | N/A |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S129 (2026-05-27、Leonard 起手揀 §8b 3-rule → "建議" → S126 trio → "a" content refresh → "Proceed Gate 1 全 3 sources")：**batch-7 content refresh closed**。HEAD origin/main = `86f8c4f` (S129) + governance closeout commit pending。3 PDF marker-bearing 重 page-carry: arts_kla_guide_2017 (106p/116 chunks unchanged) + music_p1_s6_2024 (65p/108→85 chunks -23, EDB live -845KB) + va_p1_s6_2024 (53p/86→71 chunks -15)。Total DELETE 310 / INSERT 272 / net -38 / Supabase **9,920→9,882**。Gate 1 markers==pages 全對 + §5.a-compliant backup + 0 quality regression；Gate 2 per-source `del/ins/now` 全對齊 + INVARIANT 5 spot-check 0 touched。Live smoke 2/3 surface NEW page numbers (music TOP-1+2 p=11/16 0.704; va TOP-1+2 p=17/11 0.727)；arts ranking competition non-regression。**driver `cb3_b2_pagecarry_migrate.py` 8 輪 verified across 55 sources S122-S129 0 incident** = production-ready confirmed。
+
+Current objective and progress state:
+- **S129 完成 batch-7 content refresh**：3 PDF marker-bearing re-fetch + re-page-carry + Supabase mutation 0 incident + live smoke 2/3 direct surface。
+- **CB-3 達 final ceiling ~88%**（97/113 marker-bearing post-S129 + 2 deprecated + 6 Vanilla preserved + 9 結構天花板）— 北極星目標達成 + content refreshed。
+- **driver 8 輪 verified**（55 sources page-carry 0 incident）+ `cb3_deprecate_stale.py` 0 incident。
+- §E.10 partial resolution 維持（RLS family S121 closed；admin-login client-side gate 仍 OPEN）。Q4 deferred 獨立 track；Stage-2 closed 勿復活。
+
+Pending tasks in priority order:
+1. **Optional content refresh remainder (low ROI)**: 4 stat xlsx (stat_kg/pri/sec/special) + 5 HTML (stat_edb_figures / arts_curr_docs / ph_pri_curr / edbc197_2024_ph_pri / moral_civic_curr) — xlsx 無頁結構天花板、HTML catalogue-level、唔急。
+2. **Future batch-7 stale-preserved re-evaluate (optional)**: 6 stale Vanilla-preserved 815 chunks 仲 in index；ranking polish 後 case-by-case re-evaluate；唔急。
+3. **🔴 既有 deferred + batch ranking polish backlog**: §E.10 admin-login (OPEN); 57014 transient; FAIL-A record-only; P2/P3; Mobile UI; HKEAA; doc-debt; ranking polish ~15-18 sources (arts_kla_guide_2017 + S122-S125c 累計)。
+4. **Q4 對外契約收斂 (deferred)**: Channel A→knowledge.json→Circular System; 未明示勿掂。
+5. **§8b rule 2 automation tooling (future)**: KLA-title embedding similarity sub-agent prompt。
+
+Key files changed this session (commit+push origin/main 指定檔)：
+- `dev/vault/repage_pdfs.py` — PILOT_LEGACY + PILOT_OUT +2 entries each (music_p1_s6_2024 + va_p1_s6_2024 batch-7 content refresh)
+- `dev/vault/arts_kla_guide_2017/extract_arts_kla_guide_2017_repaged.txt` (M, re-fetched + re-paged)
+- `dev/vault/music_p1_s6_2024/extract_music_p1_s6_2024.txt` (D legacy) + `extract_music_p1_s6_2024_repaged.txt` (new)
+- `dev/vault/va_p1_s6_2024/extract_va_p1_s6_2024.txt` (D legacy) + `extract_va_p1_s6_2024_repaged.txt` (new)
+- All 6 vault files committed as `86f8c4f` push origin/main
+- `dev/SESSION_HANDOFF.md` (pending commit) — Current Baseline + Open Priorities + Last Session Record S129 + S128 demote
+- `dev/SESSION_LOG.md` (pending commit) — S129 entry + DOC_SYNC + verbatim
+- `dev/CODEBASE_CONTEXT.md` (pending commit) — Supabase row count 9,920→9,882
+- NO modifications: AGENTS.md / PROJECT_MASTER_SPEC / backend / app.html / source_registry.json / knowledge.json / guidelines.json
+
+Known risks / blockers / cautions:
+- 本 session 無新增 risk。
+- **driver 8 輪 verified 55 sources 0 incident** = pipeline production-ready 再印證；任何新 batch / refresh task 可直接沿用同 pattern。
+- **arts_kla_guide_2017 ranking competition** unchanged post-S129 refresh：data live indexed 116 chunks but va_p1_s6 dominate query；ranking polish 屬 broader backlog (S122-S125c 同 pattern)。
+- 既有 risks：🔴 §E.10 admin-login client-side gate（OPEN 獨立 family）；🔴 Supabase free-tier 57014 transient（retry 即恢復）；🔴 FAIL-A 注入 regression（record-only）；§3c FAIL-A/B record-only；q.html/A·AB code path/backend `/channel-a`·`/combined` endpoint dormant 可逆勿清；Q4 deferred 未明示勿掂；Stage-2 closed 勿復活。
+- egress 間歇每次自測；EDB PDF 永遠用 `url_primary` 勿 `url_landing`（§E.12）；路徑空格雙引號；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG（已遵）。
+
+Validation status:
+- PASS S129 batch-7 3 sources Gate 1 + Gate 2 EXECUTE + QC 4 gates + live smoke 2/3 surface direct。
+- COMMITTED：S129 vault commit `86f8c4f` push origin/main。
+- PENDING：governance docs commit+push 指定 3 檔（SESSION_HANDOFF + SESSION_LOG + CODEBASE_CONTEXT）；Leonard 揀下一步 / 收工。
+- OPEN（非 pending-blocker）：optional content refresh remainder / Future batch-7 / 既有 deferred / §8b rule 2 future automation tooling。
+
+Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD = S129 governance closeout / knowledge.json._meta.stats / Supabase chunk count = 9,882 / egress）後，**S129 batch-7 content refresh 已 closed（3 PDF marker-bearing re-page-carry 0 incident + live smoke direct surface + driver 8 輪 verified）**。第一件事＝問 Leonard 揀：(a) **既有 backlog**（🔴 §E.10 admin-login / batch ranking polish ~15-18 sources / etc）；(b) **Optional content refresh remainder**（4 stat xlsx + 5 HTML、low ROI）；(c) **Future batch-7 stale-preserved re-evaluate**；(d) **§8b rule 2 future automation tooling**；(e) 收工？未 Leonard 明示前**唔好自行 resume / 改其他 Draft / 掂 Q4 契約**。碰 admin/auth/公開推送前必讀 §E.10。
+```
+
 ## 2026-05-27 Session 128 — S126 follow-up trio closed: g28 URL drift fix + freshness persist write-run + g29/g24 size-spike sanity check
 
 - **ID:** Claude_20260527_0720（同 session 127 連續執行、Leonard 一句「按建議做」trigger trio）
