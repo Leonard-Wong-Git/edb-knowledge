@@ -2,6 +2,135 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-27 Session 130 — batch-7 follow-up: 4 stat xlsx vault content refresh to 2025/26 (cb3_b2 --include-non-page first use; 9th driver-validation; §3 CHANGE divergence textbook execute)
+
+- **ID:** Claude_20260527_1721（同 S127/S128/S129 連續同日執行，S129 closeout 後重啟）
+- **Trigger:** Leonard 起手揀「Optional content refresh remainder」chip → Claude recon 9 sources scope → sub-scope "Diff-first 4 stat xlsx 先 read-only" → diff 0 drift but 2025/26 new column → "Advance to 2025/26 value-add upgrade" → driver "Extend cb3_b2 加 --include-non-page" → final scope "Vault-only refresh"。
+- **§3 HIGH-risk PLAN:** (a) ≥3 files + (c) irreversible + (d) Supabase mutation。
+
+- **Step 0 — read-only diff via stdlib zipfile XML parser** (`/tmp/edb_xlsx_diff/dump.py` + `regen.py`): 4 xlsx HEAD HTTP/2 200 verified (EDB reachable) → parse sharedStrings + sheetData → enumerate cells → 49/49 數字對齊 2024/25 H/I column = 0 drift。EDB「Last-Modified 2026-04-27」真意 = xlsx 加咗 2025/26 新 column (column I or J)。Preview new figures: kg 980→958 / kg 學生 125,426→113,204 / pri 學生 319,447→317,233 / sec 學生 340,607→347,820 / special 學生 9,018→9,311 等。
+
+- **Step 1 — §5.a backup + re-extract vault txt × 4**:
+  - Backup: `dev/init_backup/20260527_172106_UTC/stat_refresh_legacy/` (4 source dirs × legacy txt + cb3_b2 pre-modification copy)
+  - Regen via stdlib xlsx parser → 4 new `extract_<src>_2026m05.txt` 含 2020/21→2025/26 6-col tab-aligned schema-compatible (mirror existing rows pattern): kg 39 lines / pri 37 / sec 41 / special 41。
+  - 4 old `extract_<src>_2026m10.txt` deleted (load_vault_sources.rglob 防 ghost-dup with new files)。
+
+- **Step 2 — cb3_b2 patch +`--include-non-page` flag** (`dev/cb3_b2_pagecarry_migrate.py` ~25 line additive):
+  - argparse: +`--include-non-page` (requires `--only`; describes vault_extract-only narrowing)
+  - `sb_count(sid, key, content_type=None)`: adds params content_type filter when set
+  - `sb_delete(sid, key, content_type=None)`: appends `&content_type=eq.<ct>` to URL when set
+  - main: `ct_filter = "vault_extract" if args.include_non_page else None`; passed to all sb_count/sb_delete calls
+  - **Marker-bearing path: ct_filter=None → existing 8-round-verified semantics unchanged**。
+
+- **Regression smoke (pre-execute)**:
+  - `--only g01` (no flag): DELETE 32 → INSERT 32 unchanged ✓ (no `[content_type=...]` label)
+  - Full run no flag: 94 sources unchanged 8,897 chunks ✓
+
+- **§3 CHANGE divergence (textbook stop-report-recover)**:
+  - **First dry-run with new flag** revealed DELETE 33 (not 12) because `sb_delete` 用 source_id-only filter — would wipe co-located stat_fact 21 chunks。違 Leonard "Vault-only" scope。
+  - **Immediate halt + report Leonard** + 3-option AskUserQuestion: (1) Tighten DELETE filter +content_type filter (推薦) / (2) Accept stat_fact wipe / (3) Halt full rollback。
+  - **Leonard 揀 (1)** → patch sb_count/sb_delete + main flow ct_filter → re-dry-run = **DELETE 12 INSERT 12 net 0 ✓**。
+  - **§3 CHANGE rule textbook execute**: stop, report divergence, await user direction, resume per chosen path. 0 incident.
+
+- **Gate 1+2 EXECUTE 4/4 OK** (`python3 dev/cb3_b2_pagecarry_migrate.py --only stat_kg,stat_pri,stat_sec,stat_special --include-non-page --execute --skip-local`):
+  - Phase 1: 12 page-carried chunks built (canonical chunker; marker-less text → byte-identical chunk_text fallback per build_wiki_index invariant)
+  - Phase 1b: embedded 12 chunks (3 each × 4 sources)
+  - wiki_index.json auto-backup → `dev/init_backup/20260527_173802_UTC/`
+  - Per-source results: stat_kg del=3 ins=3 now=3 OK / stat_pri del=3 ins=3 now=3 OK / stat_sec del=3 ins=3 now=3 OK / stat_special del=3 ins=3 now=3 OK
+  - Phase 3 SKIPPED `--skip-local` (§E.14 discipline)
+  - Total: DELETED 12 → INSERTED 12 ✓
+
+- **QC 4 gates PASS**:
+  - **Supabase total via Range header = 9,882** unchanged (net 0) ✓
+  - Per-source content_type distribution unchanged total counts: stat_kg=8 (5 stat_fact + 3 vault_extract) / stat_pri=9 / stat_sec=9 / stat_special=7 ✓ — stat_fact 21 chunks preserved
+  - INVARIANT 7 spot-check 0 touched non-target: g01=32 / sag_2025_11=383 / chem_sss_2007_2018=172 / eng_lit_guide_2023=633 / music_p1_s6_2024=85 / va_p1_s6_2024=71 / arts_kla_guide_2017=116 全 unchanged ✓
+  - backend `/health` HTTP/2 200, cache_a warm 455 facts ✓ (cold-start 40s, retry HTTP 200)
+
+- **Live smoke direct-Supabase verify NEW content** (raw REST select per source):
+  - ✅ stat_kg chunk #1 (len 551) contains: `2025/26` ✓ + `958` ✓ + `113204` ✓ + `7.9:1` ✓ + `0.149` (14.9%) ✓
+  - ✅ stat_pri chunk #1 (len 577) contains: `2025/26` ✓ + `317233` ✓
+  - ✅ stat_sec chunk #1 (len 557) contains: `2025/26` ✓ + `347820` ✓ + `184003` ✓ + `30335` ✓
+  - ✅ stat_special chunk #1 (len 577) contains: `2025/26` ✓ + `9311` ✓ + `4884` ✓ + `4427` ✓
+  - **All 4 stat sources NEW 2025/26 data live indexed in Supabase**。
+  - Channel B 自然 query (e.g.「2025/26 幼稚園學生人數」/「2025/26學年幼稚園數目」) 撞 g29 KGECG-TC-2017 (2017 KG curriculum doc) dominance — 同 S122 tech_kla / S125 econ_sss_supp 同 ranking-competition pattern、非 regression、batch ranking polish backlog 對應。
+
+- **§E.14 §8 lesson 9th-validation across 59 sources S122-S130 0 incident**: page-bearing batches S122-S129 = 55 sources + S130 non-page stat × 4 = 59 sources total。首度 `--include-non-page` flag + content_type narrowing + non-page source path 三 firsts 全 0 regression。Pipeline production-ready confirmed for **both** page-bearing + non-page paths.
+
+- **Sources changed:**
+  - Draft pending commit+push origin/main: 
+    - `dev/vault/stat_kg/extract_kg_2026m05.txt` (new ~39 lines) + `dev/vault/stat_kg/extract_kg_2026m10.txt` (D)
+    - `dev/vault/stat_pri/extract_pri_2026m05.txt` (new ~37) + `extract_pri_2026m10.txt` (D)
+    - `dev/vault/stat_sec/extract_sec_2026m05.txt` (new ~41) + `extract_sec_2026m10.txt` (D)
+    - `dev/vault/stat_special/extract_special_2026m05.txt` (new ~41) + `extract_special_2026m10.txt` (D)
+    - `dev/cb3_b2_pagecarry_migrate.py` (M: +--include-non-page flag, sb_count/sb_delete ct_filter, main flow ct_filter)
+    - `dev/SESSION_HANDOFF.md` (M: Open Priorities #1 narrowed + ✅ S130 完成 annotation + Last Session Record S130 + S129 demote)
+    - `dev/SESSION_LOG.md` (M: 本 S130 entry prepend + DOC_SYNC + verbatim handoff)
+    - `dev/CODEBASE_CONTEXT.md` (M: cb3_b2 description +S130 extension paragraph + AI Maintenance Log +S130 entry)
+  - Draft NOT modified: `dev/vault/build_stat_facts.py` (stat_fact upgrade = future backlog) / `dev/knowledge/stat_facts.json` (unchanged 2024/25) / `dev/source/source_registry.json` (freshness baseline 已 S128 auto-updated 2026-04-27) / `knowledge.json` / `guidelines.json` / PROJECT_MASTER_SPEC / AGENTS.md / backend / app.html。
+  - Supabase live: mutated 4 sources vault_extract chunks only (DELETE 12 → INSERT 12 net 0); stat_fact 21 chunks preserved; total 9,882 unchanged.
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Vault content + Supabase mutation (stat xlsx 2024/25→2025/26 vault-only) | SESSION_LOG S130 entry + SESSION_HANDOFF Open Priorities + Last Session Record | ✓ Done |
+| Driver code extension (cb3_b2 --include-non-page + content_type filter) | CODEBASE_CONTEXT cb3_b2 description +S130 extension + AI Maintenance Log entry | ✓ Done |
+| Driver 9th-validation across 59 sources | SESSION_LOG S130 §E.14 lesson note + SESSION_HANDOFF Risks | ✓ Done |
+| External Services / Data row change | N/A (Supabase total unchanged 9,882; per-source totals also unchanged due to vault-only DELETE+INSERT net 0) | N/A |
+| Tech stack / build / dependency change | N/A (no new deps; stdlib zipfile/xml only) | N/A |
+| Governance rule change | N/A (no PMS codify needed; §3 divergence-stop-report rule cleanly applied as-is; ct_filter pattern reusable but not yet promoted) | N/A |
+| §3 CHANGE divergence event | SESSION_LOG S130 §3 divergence section + SESSION_HANDOFF Risks lesson note | ✓ Done |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S130 (2026-05-27、Leonard 起手揀 Optional content refresh remainder → recon → Diff-first → Advance 2025/26 → cb3_b2 --include-non-page → Vault-only refresh)：**batch-7 follow-up stat vault refresh closed**。HEAD origin/main = 待 PERSIST commit。4 stat xlsx vault content advanced 2024/25→2025/26: DELETE 12 INSERT 12 net 0、Supabase **9,882 unchanged**。Gate 1 stdlib parser + Step 2 cb3_b2 patch +`--include-non-page` flag (~25 line additive) + ct_filter narrows DELETE to content_type=vault_extract → stat_fact 21 chunks preserved。**§3 CHANGE divergence textbook execute**：dry-run v1 揭 DELETE 33 wipe stat_fact → STOP+report → Leonard 3-option fix → patch ct_filter → re-dry-run 12/12 net 0 → execute。QC 4 PASS + Live smoke direct-Supabase verify NEW content 4/4 sources (stat_kg 2025/26+958+113204+7.9:1+14.9% / stat_pri 317233 / stat_sec 347820+184003+30335 / stat_special 9311+4884+4427)。Channel B natural query 撞 g29 dominance = ranking-competition pattern non-regression。**driver `cb3_b2_pagecarry_migrate.py` 9th-validation across 59 sources S122-S130 0 incident**, first non-page source path + first ct_filter use + first `--include-non-page` flag 全 0 regression。
+
+Current objective and progress state:
+- **S130 完成 batch-7 follow-up**: 4 stat xlsx vault refresh 2024/25→2025/26 + cb3_b2 `--include-non-page` first use + §3 CHANGE divergence textbook execute + 0 incident.
+- **CB-3 達 final ceiling ~88%** unchanged (S130 vault refresh 屬 content-update、唔升 page-resolvable %).
+- **driver 9 輪 verified** (page-bearing 8 batches + non-page 1 batch = 59 sources 0 incident) + `cb3_deprecate_stale.py` 0 incident.
+- §E.10 partial resolution 維持 (RLS family S121 closed; admin-login client-side gate OPEN). Q4 deferred 獨立 track; Stage-2 closed 勿復活.
+
+Pending tasks in priority order:
+1. **stat_fact upgrade follow-up** (future backlog from S130): 21 stat_fact chunks 仲 cite 2024/25「最新」wording — 需 build_stat_facts.py 4 builder rewrite (reference_year 2024/25→2025/26 + ~21 fact strings update) + stat_facts.json rebuild + Supabase per-source DELETE content_type=eq.stat_fact + INSERT new chunks。Driver = 需 fork cb3_b2 進一步 or 寫 mini script driven by stat_facts.json。
+2. **5 HTML index catalogue-level (very low ROI)**: stat_edb_figures (vault mojibake 修)/ arts_curr_docs / ph_pri_curr / edbc197_2024_ph_pri / moral_civic_curr — 結構天花板、唔急。
+3. **Future batch-7 stale-preserved re-evaluate (optional)**: 6 stale Vanilla-preserved 815 chunks；ranking polish 後 case-by-case；唔急。
+4. **🔴 既有 deferred + batch ranking polish backlog**: §E.10 admin-login (OPEN); 57014 transient; FAIL-A record-only; P2/P3; Mobile UI; HKEAA; doc-debt; ranking polish ~15-18 sources.
+5. **Q4 對外契約收斂 (deferred)**: Channel A→knowledge.json→Circular System; 未明示勿掂。
+6. **§8b rule 2 automation tooling (future)**: KLA-title embedding similarity sub-agent prompt。
+
+Key files changed this session (commit+push origin/main 指定檔):
+- `dev/vault/stat_kg/extract_kg_2026m05.txt` (new) + `dev/vault/stat_kg/extract_kg_2026m10.txt` (D)
+- `dev/vault/stat_pri/extract_pri_2026m05.txt` (new) + `extract_pri_2026m10.txt` (D)
+- `dev/vault/stat_sec/extract_sec_2026m05.txt` (new) + `extract_sec_2026m10.txt` (D)
+- `dev/vault/stat_special/extract_special_2026m05.txt` (new) + `extract_special_2026m10.txt` (D)
+- `dev/cb3_b2_pagecarry_migrate.py` (M: +--include-non-page flag + ct_filter)
+- `dev/SESSION_HANDOFF.md` (M)
+- `dev/SESSION_LOG.md` (M)
+- `dev/CODEBASE_CONTEXT.md` (M: cb3_b2 description + AI Maintenance Log)
+- NO modifications: build_stat_facts.py / stat_facts.json / source_registry / knowledge.json / guidelines.json / PROJECT_MASTER_SPEC / AGENTS.md / backend / app.html
+
+Known risks / blockers / cautions:
+- 本 session 無新增 risk; §3 CHANGE divergence cleanly recovered.
+- **driver 9 輪 verified 59 sources 0 incident** = pipeline production-ready 再印證 (page + non-page 兩 mode); 任何新 batch / refresh task 可直接沿用同 pattern。
+- **stat_fact 21 chunks 仍 cite 2024/25「最新」wording** 不一致於 vault 2025/26 layer (future backlog #1 跟)。
+- 既有 risks: 🔴 §E.10 admin-login client-side gate (OPEN 獨立 family); 🔴 Supabase free-tier 57014 transient (retry 即恢復); 🔴 FAIL-A 注入 regression (record-only); §3c FAIL-A/B record-only; q.html/A·AB code path/backend `/channel-a`·`/combined` endpoint dormant 可逆勿清; Q4 deferred 未明示勿掂; Stage-2 closed 勿復活。
+- egress 間歇每次自測; EDB PDF 永遠用 `url_primary` (§E.12); 路徑空格雙引號; Testing/ 喺 Draft git 外; 改 Draft code/data commit 必入 SESSION_LOG (已遵)。
+
+Validation status:
+- PASS S130 4 stat sources Gate 1 + Gate 2 EXECUTE + QC 4 gates + Live smoke direct-Supabase verify NEW 2025/26 content。
+- PENDING: governance docs commit+push 指定檔 (4 vault new + 4 vault deleted + cb3_b2 + 3 governance docs)。
+- OPEN (非 pending-blocker): stat_fact upgrade follow-up / 5 HTML catalogue / Future batch-7 / 既有 deferred / §8b rule 2 future automation tooling。
+
+Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測 (git HEAD = S130 PERSIST + closeout commits / knowledge.json._meta.stats / Supabase chunk count = 9,882 / egress) 後，**S130 batch-7 follow-up 已 closed (4 stat xlsx vault refresh 2024/25→2025/26 + cb3_b2 --include-non-page first use + §3 CHANGE divergence textbook execute + 0 incident)**。第一件事＝問 Leonard 揀: (a) **stat_fact upgrade follow-up** (build_stat_facts.py 4 builder rewrite + stat_facts.json rebuild + Supabase content_type=stat_fact replace); (b) **5 HTML catalogue-level** (very low ROI); (c) **Future batch-7 stale Vanilla-preserved re-evaluate**; (d) **既有 backlog** (🔴 §E.10 admin-login / batch ranking polish ~15-18 sources / etc); (e) **§8b rule 2 future automation tooling**; (f) 收工？未 Leonard 明示前**唔好自行 resume / 改其他 Draft / 掂 Q4 契約**。碰 admin/auth/公開推送前必讀 §E.10。
+```
+
 ## 2026-05-27 Session 129 — batch-7 content refresh: 3 PDF marker-bearing re-page-carry (S128 EDB content drift follow-up; driver 8th-validation)
 
 - **ID:** Claude_20260527_0720（同 S127/S128 連續執行）
