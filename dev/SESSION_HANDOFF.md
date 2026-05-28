@@ -141,8 +141,7 @@ source_registry → same vault PDFs → ai_extract.py
    - ✅ **[Fix decision per Leonard = No-op + 文檔化]** quota cap 會將 g29 從 top-5 踢走、留空位俾跨域非-KG sources surface，反而傷北極星 traceability（唯一相關 KG 主文件被搶位 = 比結構性 dominate 更差）。Phase 3a #1 closed as false-alarm。
    - ✅ **[PERSIST 2 doc only, 0 code/data mutation]** SESSION_HANDOFF Open Priority #1 g29 剔走（~15-18 → ~14-17 sources）+ ✅ S133 完成 entry prepend; SESSION_LOG S133 entry prepend + DOC_SYNC matrix。
    - ✅ **[Lesson §G.2 verify-don't-trust hypothesis 再應用]** 「Dominance」 ≠「Ranking bug」— 必先量 inventory + chunk count + live smoke 確認 alternative source 存在與否；Future Phase 3a 源診斷模板已定（4-step）。§8 monitoring tier、未升 SOP。
-4. Pending:
-   - commit+push 2 doc 檔 (SESSION_HANDOFF + SESSION_LOG)
+4. Pending: 已 shipped (commits `8d9aa54` S133 closeout + `103ed4a` hash backfill, both origin/main)
 5. Next priorities (max 3):
    - Phase 3a #2 source case-by-case (tech_kla / chi_hist / ls_jss / arts / econ_sss_supp)
    - Phase 3c 5 HTML catalogue-level refresh (low ROI)
@@ -150,7 +149,7 @@ source_registry → same vault PDFs → ai_extract.py
 6. Risks / blockers:
    - 0 new risks（diagnostic-only session、未動 code/data/Supabase）
    - 既有 risks 不變: 🔴 Supabase free-tier 57014 transient (retry 即恢復); FAIL-A 注入 regression (record-only); §3c FAIL-A/B record-only; §E.10 (a) ACCEPTED conditional on cosmetic-gate design unchanged; q.html/A·AB code path dormant 勿清; Q4 deferred 未明示勿掂; Stage-2 closed; egress 每次自測; EDB PDF `url_primary` (§E.12); 路徑空格雙引號; Testing/ 喺 Draft git 外
-7. **Session CLOSED 2026-05-28（Leonard「Commit S133 doc + 收工」）** — Phase 3a #1 g29 dominance diagnostic completed read-only + Leonard hypothesis confirmed + fix-decision No-op + 4-step diagnostic template codified for future Phase 3a sources。0 code / 0 data / 0 Supabase / 0 source_registry mutation。Commit pending. §4a no trigger (~400 行, entries within 30d)。下次起手＝問 Leonard 揀 Phase 3a #2 source / Phase 3c / 既有 backlog。
+7. **Session CLOSED 2026-05-28（Leonard「Commit S133 doc + 收工」）** — Phase 3a #1 g29 dominance diagnostic completed read-only + Leonard hypothesis confirmed + fix-decision No-op + 4-step diagnostic template codified for future Phase 3a sources。0 code / 0 data / 0 Supabase / 0 source_registry mutation。Commits shipped `8d9aa54` (substantive) + `103ed4a` (verbatim hash backfill) origin/main. §4a no trigger (~400 行, entries within 30d)。下次起手＝問 Leonard 揀 Phase 3a #2 source / Phase 3c / 既有 backlog。
 
 ## Previous Session Record
 1. UTC date: 2026-05-28
