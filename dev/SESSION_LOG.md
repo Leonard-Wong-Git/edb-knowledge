@@ -65,7 +65,7 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 ⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
 
-S133 (2026-05-28, Leonard 起手揀 Phase 3a #1 g29 dominance → 提出 hypothesis「幼稚園資料本身少」→ empirical verify → no-op + 文檔化 → 收工)：**Phase 3a #1 g29 dominance diagnostic = false-alarm, no code/data/Supabase mutation**。HEAD origin/main = S133 doc commit (新 hash 起手 verify)。
+S133 (2026-05-28, Leonard 起手揀 Phase 3a #1 g29 dominance → 提出 hypothesis「幼稚園資料本身少」→ empirical verify → no-op + 文檔化 → 收工)：**Phase 3a #1 g29 dominance diagnostic = false-alarm, no code/data/Supabase mutation**。HEAD origin/main = `8d9aa54` (S133 closeout)。
 
 Diagnostic data (4-step read-only template, future Phase 3a 沿用):
 1. Registry inventory: 151 sources → 4 KG-related (g29 / g25 / g26 / stat_kg), user-facing 只 3 (stat_kg `content_type=stat_fact` 被 Channel B filter 排除)
@@ -101,7 +101,7 @@ Known risks / blockers / cautions:
 
 Validation status:
 - PASS S133 §3d 3 scenarios (inventory query / Supabase count query / live smoke 5 queries)
-- COMMIT pending: S133 doc commit (HEAD will advance from `93a3b74`)
+- COMMITTED: S133 doc commit `8d9aa54` (origin/main advanced from `93a3b74`)
 - OPEN: Phase 3a #2 / 3c / 既有 deferred backlog
 
 Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測 (git HEAD 對齊 SESSION_HANDOFF Last entry / knowledge.json._meta.stats facts:455 / Supabase chunk count = 9,713 / egress onrender /health warm 455) 後，**S133 Phase 3a #1 g29 false-alarm closed**。第一件事＝問 Leonard 揀: (a) **Phase 3a #2 source** (tech_kla / chi_hist / ls_jss / arts / econ_sss_supp — case-by-case 4-step diagnostic); (b) **Phase 3c 5 HTML catalogue-level refresh** (low ROI); (c) **既有 deferred backlog**; (d) **Q4 對外契約收斂** (未明示勿掂); (e) 收工？未 Leonard 明示前**唔好自行 resume / 掂 Q4 契約 / reopen §E.10**。
