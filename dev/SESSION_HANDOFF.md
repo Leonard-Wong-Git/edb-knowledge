@@ -131,6 +131,34 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合）
 
 ## Last Session Record
+1. UTC date: 2026-05-27 (closed 2026-05-28)
+2. Session ID: Claude_20260527_2140 (Session 131 — §E.10 (a) admin-login gate OPEN → ACCEPTED + DOCUMENTED, doc-only)
+3. Completed:
+   - ✅ **[Recon + PLAN HIGH-risk]** Read PMS §E.10 + app.html:693-704 ADMIN_HASH self-acknowledged "COSMETIC / UI-ONLY / intentionally OUT OF SCOPE" + AdminPasswordModal:2039-2093 client-side compare + grep `password[:：=]` archive scan → assumed real leak at line 190.
+   - ✅ **[Risk/effort options matrix → Leonard 揀 B+A combo (rotate + doc)]** + safety = local SHA-256 compute, 0 plaintext chat exposure。
+   - ✅ **[§3 CHANGE divergence #1 halt-report]** Leonard 貼 hash byte-identical 現有 ADMIN_HASH → mathematically impossible collision → STOP + ask re-compute。
+   - ✅ **[§3 CHANGE divergence #2 halt-report]** Leonard self-attest real pw 為自選 non-dictionary 字串；Python verify confirm archive line 190「internal」係 placeholder（`SHA-256("internal") ≠ live ADMIN_HASH`）。「繼續做」interpret = B-rotate rationale collapse (defend against null threat) → 自動降級 A-only doc accept。
+   - ✅ **[CHANGE 3-file edit, 0 code mutation]** PMS §E.10 rewrite (header + (a) 根因段 + 防線 #2/#6 codify §G.2 banner 4th instance pattern + status 末段 reopen condition) / SESSION_HANDOFF Open Priorities #3 rephrase + ✅ S131 完成 prepend / SESSION_LOG S131 entry + DOC_SYNC matrix。
+   - ✅ **[QC 4 scenarios + §3 CHANGE divergence #3 self-surface CRITICAL]** Plaintext grep 揭 `dev/archive/SESSION_LOG_2026_Q2.md:213` 寫住 `sha256("REAL-PLAINTEXT") matches ADMIN_HASH ✅` form = TRUE git-leak since Session 28/29 era (false-negative original grep `password:` pattern 漏 `sha256()` form)。即原 §E.10 leak claim 嚴格正確、但 leak point misaligned (line 213 ≠ 190)。同時自爆 own SESSION_LOG transient plaintext write-in → 即時 self-redact pre-commit。
+   - ✅ **[3-doc re-edit reflecting revised truth]** PMS §E.10 (a) 根因段 split (i) line 190 placeholder (ii) line 213 real leak + (iii) ACCEPTED rationale 由「no leak」修正為「leak attack value ≈ 0 per cosmetic-gate + snapshot-already-public」/ SESSION_HANDOFF ✅ S131 完成 entry 同步 reframe / SESSION_LOG S131 entry 加 §3 divergence #3 record。
+   - ✅ **[Leonard re-confirm A-only commit as-is]** rationale collapse reverse 不改 conclusion，attack value ≈ 0 不論 leak 在唔在 → ACCEPTED stands。
+   - ✅ **[PERSIST + commit + push]** `git add` 3 files + commit msg verified clean of plaintext + push origin/main → HEAD = `6c40449` S131 commit。
+4. Pending：
+   - 收工 closeout commit pending (本 entry + Last/Previous demote + verbatim handoff).
+5. Next priorities (max 3):
+   - 等 Leonard 排：(a) batch ranking polish ~15-18 sources / (b) Future batch-7 6 stale Vanilla-preserved / (c) 5 HTML catalogue-level (low ROI) / (d) §8b rule 2 automation tooling / (e) Q4 deferred 對外契約 (未明示勿掂)。
+   - stat_fact upgrade 已 deprioritized post-S131 sub-recon (Channel B filter `!source_id.startsWith("stat_") && content_type!=="stat_fact"` → user-facing ROI ≈ 0)。
+   - §E.10 (a) 已 ACCEPTED + DOCUMENTED；剩 conditional reopen 監察 = 任何 admin features 拆掉 client-side-only 前提須 reopen。
+6. Risks / blockers:
+   - **§3 CHANGE divergence 3 halts cleanly recovered (textbook execute)**：#1 Terminal output 撞 existing hash (impossible collision detect) → #2 assumption-collapse (archive misleading-placeholder) → #3 QC self-surface (real leak relocate + own SESSION_LOG self-redact)。Lesson: §3d QC scenario grep pattern 必須 enum 各 form (`password:` + `sha256("...")` + plaintext arg) — single pattern false-negative recurrence-prone。
+   - **§G.2 banner 4-instance pattern codified (S121/S122/S126/S131)**：governance/archive 寫嘅 "leak"/"root-cause"/"password" 描述屬 hypothesis，動手前必 verify against live ground truth (live grants / git diff / failure trace / SHA-256 hash)。§8b rule 3 (S127 codified) 加深第 4 instance evidence。
+   - **§E.10 (a) ACCEPTED rationale conditional**：attack-value-near-zero 依賴「cosmetic gate + snapshot already public」前提；任何 admin features 加 server-side auth / 加 sensitive surface / 加 admin write endpoint 必觸發 §E.10 reopen + 重 design auth boundary (寫入 PMS §E.10 末段)。
+   - **Archive line 213 plaintext immutable in git history**：per §4a hard rule "never delete archive entries" + §5 prohibition on destructive history rewrite (filter-branch/force-push) → leak permanently in git。Mitigation: 接受 attack-value-near-zero。
+   - 既有 risks：🔴 Supabase free-tier 57014 transient（retry 即恢復）；🔴 FAIL-A 注入 regression（record-only）；§3c FAIL-A/B record-only；q.html/A·AB code path/backend `/channel-a`·`/combined` endpoint dormant 可逆勿清；Q4 deferred 未明示勿掂；Stage-2 closed 勿復活；stat_fact upgrade deprioritized due to Channel B filter。
+   - egress 間歇每次自測；EDB PDF 永遠用 `url_primary`（§E.12）；路徑空格雙引號；Testing/ 喺 Draft git 外；改 Draft code/data commit 必入 SESSION_LOG（已遵）。
+7. **Session CLOSED 2026-05-28（Leonard「收工」）** — §4 closeout 完成；S131 §E.10 (a) admin-login gate **OPEN → ACCEPTED + DOCUMENTED** doc-only + 0 code/data/Supabase mutation + 3 §3 CHANGE divergence halts cleanly recovered (Terminal hash collision + assumption-collapse + QC self-surface real-leak-relocate) + §G.2 banner 4-instance pattern codified + self-redact own SESSION_LOG plaintext pre-commit + commit `6c40449` origin/main S131 PERSIST。HEAD origin/main = `6c40449` (S131 PERSIST) + closeout commit pending。§4a no trigger (368<400, 4 entries S128/S129/S130/S131 within 30d)。下次起手＝問 Leonard 揀 batch ranking polish ~15-18 sources / Future batch-7 6 stale Vanilla-preserved / 5 HTML catalogue-level / §8b rule 2 automation tooling / Q4 deferred 未明示勿掂。**§E.10 (a) status changed**：碰 admin/auth/公開推送前仍必讀 PMS §E.10 — 但 (a) 已 ACCEPTED conditional on cosmetic-gate design unchanged，唔再 active OPEN priority。
+
+## Previous Session Record
 1. UTC date: 2026-05-27
 2. Session ID: Claude_20260527_1721 (Session 130 — batch-7 follow-up: 4 stat xlsx vault content refresh to 2025/26, cb3_b2 --include-non-page first use)
 3. Completed:
