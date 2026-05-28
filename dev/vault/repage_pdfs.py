@@ -113,6 +113,13 @@ PILOT_LEGACY = {
     # S129 batch-7 content refresh (S128 freshness check揭 14 sources EDB live内容更新，揀 3 PDF marker-bearing 重 page-carry對齊 latest content；arts_kla_guide_2017 既在 PILOT_LEGACY/OUT batch-4 entries 重用，下面只 add music + va P1-S6 兩條)
     "music_p1_s6_2024": [VAULT_DIR / "music_p1_s6_2024" / "extract_music_p1_s6_2024.txt"],
     "va_p1_s6_2024": [VAULT_DIR / "va_p1_s6_2024" / "extract_va_p1_s6_2024.txt"],
+    # S132 Phase 3b: 6 stale Vanilla-preserved sources page-carry per Leonard rule (新版唔明寫「取代」→ 留並照做 page-carry；audit 0 DROP)
+    "va_sss_2015": [VAULT_DIR / "va_sss_2015" / "extract_va_sss_2015.txt"],
+    "ethics_relig_sss_2007_2019": [VAULT_DIR / "ethics_relig_sss_2007_2019" / "extract_ethics_relig_sss_2007_2019.txt"],
+    "music_sss_2015": [VAULT_DIR / "music_sss_2015" / "extract_music_sss_2015.txt"],
+    "econ_sss_2007_2015": [VAULT_DIR / "econ_sss_2007_2015" / "extract_econ_sss_2007_2015.txt"],
+    "econ_sss_supp_2015": [VAULT_DIR / "econ_sss_supp_2015" / "extract_econ_sss_supp_2015.txt"],
+    "bafs_sss_2007_2015": [VAULT_DIR / "bafs_sss_2007_2015" / "extract_bafs_sss_2007_2015.txt"],
 }
 
 # source_id -> consolidated output filename (single repaged extract per source)
@@ -180,6 +187,13 @@ PILOT_OUT = {
     # S129 batch-7 content refresh (music + va P1-S6 only; arts_kla_guide_2017 reuses batch-4 PILOT_OUT entry)
     "music_p1_s6_2024": VAULT_DIR / "music_p1_s6_2024" / "extract_music_p1_s6_2024_repaged.txt",
     "va_p1_s6_2024": VAULT_DIR / "va_p1_s6_2024" / "extract_va_p1_s6_2024_repaged.txt",
+    # S132 Phase 3b: 6 stale Vanilla-preserved
+    "va_sss_2015": VAULT_DIR / "va_sss_2015" / "extract_va_sss_2015_repaged.txt",
+    "ethics_relig_sss_2007_2019": VAULT_DIR / "ethics_relig_sss_2007_2019" / "extract_ethics_relig_sss_2007_2019_repaged.txt",
+    "music_sss_2015": VAULT_DIR / "music_sss_2015" / "extract_music_sss_2015_repaged.txt",
+    "econ_sss_2007_2015": VAULT_DIR / "econ_sss_2007_2015" / "extract_econ_sss_2007_2015_repaged.txt",
+    "econ_sss_supp_2015": VAULT_DIR / "econ_sss_supp_2015" / "extract_econ_sss_supp_2015_repaged.txt",
+    "bafs_sss_2007_2015": VAULT_DIR / "bafs_sss_2007_2015" / "extract_bafs_sss_2007_2015_repaged.txt",
 }
 
 

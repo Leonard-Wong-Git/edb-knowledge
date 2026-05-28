@@ -137,6 +137,7 @@ def build_rows(src):
     rows = []
     seen = set()
     for ch in bw.chunk_text_with_page_carry(src["text"]):
+        ch = ch.replace("\x00", "")  # S132 defensive: Postgres TEXT rejects NUL (error 22P05); PDF extraction artifacts can introduce them
         h = bw.text_hash(ch)
         cid = f"vault_{src['source_id']}_{h}"
         if cid in seen:
