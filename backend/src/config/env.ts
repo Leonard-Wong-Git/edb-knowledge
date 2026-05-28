@@ -1,6 +1,6 @@
 const DEFAULT_OPENAI_MODEL = "gpt-4.1-nano";
 const DEFAULT_PORT = 8787;
-const DEFAULT_CORS_ORIGIN = "https://leonard-wong-git.github.io";
+const DEFAULT_CORS_ORIGIN = "https://leonard-wong-git.github.io,https://policychecker.wongfu.net";
 const DEFAULT_KNOWLEDGE_PATH_SETTING = "../../../role_facts.json";
 
 function requireEnv(name: string): string {
@@ -29,6 +29,13 @@ export function getPort(): number {
 export function getCorsOrigin(): string {
   const value = process.env.CORS_ORIGIN?.trim();
   return value || DEFAULT_CORS_ORIGIN;
+}
+
+export function getCorsOrigins(): string[] {
+  return getCorsOrigin()
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
 }
 
 export function getKnowledgePath(): string {

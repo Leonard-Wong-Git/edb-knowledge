@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-Hant-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>嵌入示範 · PolicyChecker</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta property="og:title" content="嵌入示範 · PolicyChecker">
+<meta property="og:description" content="點樣將 PolicyChecker 嵌入學校網頁或 CMS">
+<meta property="og:image" content="https://policychecker.wongfu.net/og-image.png">
+<meta property="og:url" content="https://policychecker.wongfu.net/embed-sample.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B1F1A; --ink-2:#3A4238; --ink-3:#6B7268;
+    --paper:#F7F4ED; --paper-2:#FBF9F3;
+    --line:#D8D2C4; --line-2:#E8E3D6;
+    --navy:#1e3a5f; --gold:#d4a64a;
+    --sans:"Noto Sans HK","PingFang HK","Microsoft JhengHei",Arial,sans-serif;
+    --mono:"IBM Plex Mono","SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:48px 24px}
+  h1{font-size:28px;font-weight:700;color:var(--navy);margin-bottom:12px}
+  h2{font-size:18px;font-weight:600;color:var(--ink);margin:32px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  p{color:var(--ink-2);margin-bottom:12px}
+  .lead{font-size:16px;color:var(--ink-2);margin-bottom:8px}
+  .meta{font-family:var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.05em}
+  code,pre{font-family:var(--mono);font-size:13px}
+  pre{background:#0f1419;color:#e6e3d7;padding:18px 20px;border-radius:8px;overflow-x:auto;line-height:1.5}
+  pre .c{color:#8a8d8a}
+  .demo{margin:20px 0;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+  iframe{display:block;width:100%;height:720px;border:0}
+  .note{background:var(--paper-2);border-left:3px solid var(--gold);padding:14px 18px;margin:16px 0;font-size:14px;color:var(--ink-2)}
+  .note strong{color:var(--ink);font-weight:600}
+  ul{padding-left:22px;margin:8px 0}
+  li{margin:4px 0;color:var(--ink-2)}
+  a{color:var(--navy);text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="meta">EMBED SAMPLE · POLICYCHECKER</p>
+  <h1>將 PolicyChecker 嵌入學校網頁</h1>
+  <p class="lead">本頁示範如何用一條 iframe 將 PolicyChecker 直接嵌入學校網頁、CMS 或 SharePoint。下面個 iframe 係真正 live 嘅平台 — 試吓搜尋。</p>
+
+  <h2>實時示範</h2>
+  <div class="demo">
+    <iframe
+      src="https://policychecker.wongfu.net/app.html"
+      title="PolicyChecker · 政策核對"
+      loading="lazy"
+      allow="clipboard-write">
+    </iframe>
+  </div>
+
+  <h2>HTML 程式碼（複製貼上）</h2>
+  <pre><code>&lt;iframe
+  src=&quot;https://policychecker.wongfu.net/app.html&quot;
+  title=&quot;PolicyChecker · 政策核對&quot;
+  style=&quot;width:100%; min-height:720px; border:0;&quot;
+  loading=&quot;lazy&quot;
+  allow=&quot;clipboard-write&quot;&gt;
+&lt;/iframe&gt;</code></pre>
+
+  <div class="note">
+    <strong>備註：</strong> <code>min-height</code> 可以按學校網佈局調整。建議至少 600px 確保搜尋介面有足夠空間。
+  </div>
+
+  <h2>常見問題</h2>
+
+  <p><strong>Q：學校 IT 同事點 deploy？</strong></p>
+  <ul>
+    <li>登入學校 CMS（例如 WordPress / Drupal / SharePoint）後台</li>
+    <li>找一個 HTML widget / Custom HTML block</li>
+    <li>貼入上面個程式碼</li>
+    <li>Save + 預覽</li>
+  </ul>
+
+  <p><strong>Q：可唔可以指定打開某個 tab？</strong></p>
+  <ul>
+    <li>而家 iframe 預設打開「政策搜尋」tab</li>
+    <li>未來會加 URL query parameter 支援（例如 <code>?tab=guidelines</code>）— 提需求即加</li>
+  </ul>
+
+  <p><strong>Q：個 iframe 會跟學校網頁顏色嗎？</strong></p>
+  <ul>
+    <li>唔會 — PolicyChecker 內部有自己嘅排版同顏色（navy + paper tone）</li>
+    <li>iframe 邊框已關閉、整合視覺上自然</li>
+  </ul>
+
+  <h2>直接連結（無需 iframe）</h2>
+  <p>如果學校網唔方便 embed，可以直接連去：</p>
+  <ul>
+    <li>主入口：<a href="https://policychecker.wongfu.net/">https://policychecker.wongfu.net/</a></li>
+    <li>工作室：<a href="https://policychecker.wongfu.net/app.html">https://policychecker.wongfu.net/app.html</a></li>
+    <li>快速問答：<a href="https://policychecker.wongfu.net/q.html">https://policychecker.wongfu.net/q.html</a></li>
+  </ul>
+
+  <p class="meta" style="margin-top:48px">© PolicyChecker · 政策核對 · 由 Leonard Wong 維護</p>
+</div>
+</body>
+</html>

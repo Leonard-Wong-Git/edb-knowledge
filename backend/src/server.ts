@@ -1,18 +1,18 @@
 import { createServer } from "node:http";
-import type { ServerResponse } from "node:http";
+import type { IncomingMessage, ServerResponse } from "node:http";
 
 import { analyzeCircular } from "./api/analyzeCircular.js";
 import { searchChannelA, type SearchChannelARequest } from "./api/searchChannelA.js";
 import { searchChannelB, type SearchChannelBRequest } from "./api/searchChannelB.js";
 import { searchCombined, type SearchCombinedRequest } from "./api/searchCombined.js";
-import { getCorsOrigin, getPort } from "./config/env.js";
+import { getCorsOrigins, getPort } from "./config/env.js";
 import { createEmbeddingClient } from "./lib/embeddingClient.js";
 import { getCacheSize, initFactEmbeddingCache, isCacheWarm } from "./lib/factEmbeddingCache.js";
 import { createLlmClient } from "./lib/llmClient.js";
 import type { AnalyzeCircularRequest } from "./types/knowledge.js";
 
 const PORT = getPort();
-const CORS_ORIGIN = getCorsOrigin();
+const CORS_ORIGINS = getCorsOrigins();
 
 // ── In-memory rate limiter ────────────────────────────────────────────────────
 // 10 requests per minute per IP across all POST search/analysis endpoints.
@@ -53,8 +53,13 @@ function getClientIp(req: import("node:http").IncomingMessage): string {
   return req.socket?.remoteAddress ?? "unknown";
 }
 
-function setCorsHeaders(res: ServerResponse): void {
-  res.setHeader("Access-Control-Allow-Origin", CORS_ORIGIN);
+function setCorsHeaders(req: IncomingMessage, res: ServerResponse): void {
+  const requestOrigin = req.headers.origin;
+  const allowed =
+    typeof requestOrigin === "string" && CORS_ORIGINS.includes(requestOrigin)
+      ? requestOrigin
+      : CORS_ORIGINS[0];
+  res.setHeader("Access-Control-Allow-Origin", allowed);
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Vary", "Origin");
@@ -96,14 +101,14 @@ initFactEmbeddingCache(embeddingClient).catch((err) => {
 const server = createServer(async (req, res) => {
   // Handle CORS preflight requests from the browser
   if (req.method === "OPTIONS") {
-    setCorsHeaders(res);
+    setCorsHeaders(req, res);
     res.writeHead(204);
     res.end();
     return;
   }
 
   if (req.method === "GET" && req.url === "/health") {
-    setCorsHeaders(res);
+    setCorsHeaders(req, res);
     res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
     res.end(JSON.stringify({
       ok: true,
@@ -118,7 +123,7 @@ const server = createServer(async (req, res) => {
     const ip = getClientIp(req);
     const { allowed, retryAfterSec } = checkRateLimit(ip);
     if (!allowed) {
-      setCorsHeaders(res);
+      setCorsHeaders(req, res);
       res.setHeader("Retry-After", String(retryAfterSec));
       res.writeHead(429, { "Content-Type": "application/json; charset=utf-8" });
       res.end(JSON.stringify({
@@ -134,13 +139,13 @@ const server = createServer(async (req, res) => {
       const input = await readJsonBody<AnalyzeCircularRequest>(req);
       const result = await analyzeCircular(input, { llmClient, embeddingClient });
 
-      setCorsHeaders(res);
+      setCorsHeaders(req, res);
       res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
       res.end(JSON.stringify(result));
       return;
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
-      setCorsHeaders(res);
+      setCorsHeaders(req, res);
       res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
       res.end(JSON.stringify({ error: message }));
       return;
@@ -153,13 +158,13 @@ const server = createServer(async (req, res) => {
       const input = await readJsonBody<SearchChannelARequest>(req);
       const result = await searchChannelA(input, embeddingClient, llmClient);
 
-      setCorsHeaders(res);
+      setCorsHeaders(req, res);
       res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
       res.end(JSON.stringify(result));
       return;
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
-      setCorsHeaders(res);
+      setCorsHeaders(req, res);
       res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
       res.end(JSON.stringify({ error: message }));
       return;
@@ -172,13 +177,13 @@ const server = createServer(async (req, res) => {
       const input = await readJsonBody<SearchChannelBRequest>(req);
       const result = await searchChannelB(input, embeddingClient, llmClient);
 
-      setCorsHeaders(res);
+      setCorsHeaders(req, res);
       res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
       res.end(JSON.stringify(result));
       return;
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
-      setCorsHeaders(res);
+      setCorsHeaders(req, res);
       res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
       res.end(JSON.stringify({ error: message }));
       return;
@@ -191,25 +196,25 @@ const server = createServer(async (req, res) => {
       const input = await readJsonBody<SearchCombinedRequest>(req);
       const result = await searchCombined(input, embeddingClient, llmClient);
 
-      setCorsHeaders(res);
+      setCorsHeaders(req, res);
       res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
       res.end(JSON.stringify(result));
       return;
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
-      setCorsHeaders(res);
+      setCorsHeaders(req, res);
       res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
       res.end(JSON.stringify({ error: message }));
       return;
     }
   }
 
-  setCorsHeaders(res);
+  setCorsHeaders(req, res);
   res.writeHead(404, { "Content-Type": "application/json; charset=utf-8" });
   res.end(JSON.stringify({ error: "Not found" }));
 });
 
 server.listen(PORT, () => {
   console.log(`學校管理知識中心 backend listening on http://localhost:${PORT}`);
-  console.log(`CORS origin: ${CORS_ORIGIN}`);
+  console.log(`CORS origins: ${CORS_ORIGINS.join(", ")}`);
 });
