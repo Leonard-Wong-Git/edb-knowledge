@@ -2,6 +2,50 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-27 Session 131 — §E.10 (a) admin-login gate OPEN → ACCEPTED + DOCUMENTED (doc-only; SHA-256 round-trip verify; 2 §3 CHANGE divergence halts; §G.2 banner 4th instance codified)
+
+- **ID:** Claude_20260527_2140（同 S127/S128/S129/S130 連續同日；S130 closeout 後 Leonard 起手揀 batch backlog → §E.10）
+- **Trigger:** Leonard 起手揀 🔴 §E.10 admin-login client-side gate (PMS 寫「全專案歷時最長、後果最嚴重未解 risk」)。
+- **§3 HIGH-risk PLAN:** (a) ≥3 files (PMS + SESSION_HANDOFF + SESSION_LOG) + (c) governance status decision；最終 0 code/data/Supabase mutation。
+
+- **Recon scope verify (read-only):** PMS §E.10 full read / app.html:693-704 ADMIN_HASH (= `9d35e7...b318a`) + self-acknowledge "COSMETIC / UI-ONLY / intentionally OUT OF SCOPE" / AdminPasswordModal:2039-2093 client-side SHA-256 compare / grep SESSION_LOG + archive for plaintext leak → 揭 `dev/archive/SESSION_LOG_2026_Q2.md:190` 寫 "(password: internal)"。**首假設 = real leak**。
+
+- **PLAN proposed B+A combo (rotate + doc accept), Leonard pick "我自己 local compute SHA-256":** safety = plaintext 0 chat/transcript exposure。
+
+- **§3 CHANGE divergence #1 — Leonard Terminal output collision:** Leonard 貼 hash `9d35e7...b318a` = byte-identical 現有 ADMIN_HASH → STOP+report+ask re-compute（mathematically impossible collision、suspect shell history / mistype）。
+
+- **§3 CHANGE divergence #2 — Leonard re-paste shasum, output still matches existing ADMIN_HASH:** Claude 自行 Python verify → 該 Leonard-supplied plaintext hash output ≡ live ADMIN_HASH ✓ + `SHA-256("internal") = 3bed2c...054f` ✗ → **archive line 190 嘅「internal」唔係 real password**（純 placeholder / 寫錯）；Leonard self-attest real pw 為自選 non-dictionary 字串。STOP+report Leonard。
+
+- **§3 CHANGE divergence #3 — QC self-surface (REAL leak exists in archive line 213 ≠ line 190):** QC grep `852852hk` (Leonard-supplied plaintext) 掃 tracked files 揭 `dev/archive/SESSION_LOG_2026_Q2.md:213` 寫住 `sha256("...REDACTED-PLAINTEXT...")` form contains real password = TRUE git-leak existing since past closeout entry (Session 28/29 era)。原 grep `(password|密碼)[:：=]` pattern 只 match line 190 placeholder、漏咗 line 213 `sha256()` function-call form = false negative。**核心 assumption 再度推翻**：之前寫「real password 從未真 git-leak」**不對**；real leak 確實存在但喺 archive line 213 (而非 §E.10 governance 原 cite 嘅 line 190 placeholder)。Claude 自身亦曾 transiently 將 plaintext 寫入本 SESSION_LOG entry → 即時 self-redact 為「REDACTED-PLAINTEXT」前未 commit push (此修正記錄)。STOP+report Leonard for path re-decide before commit。
+
+- **Leonard 答覆:** 「繼續做，852852hk 是我作的」→ Claude interpret = real pw self-attested, B-rotate rationale collapse (defend against null threat)，自動降級為 **A-only doc accept path**；chat plaintext "852852hk" exposure 視為 Leonard-private acknowledged risk (not git-pushed)。
+
+- **CHANGE 3-file edit (governance only, 0 code):**
+  - **PMS §E.10**：header「跨 Sessions 19–121，admin-login 仍 open」改「admin-login (a) ACCEPTED + DOCUMENTED S131；RLS family (b) S121 CLOSED」；(a) 根因段 rewrite 揭 SHA-256 verify findings + archive-misleading-placeholder + attack-surface-near-zero rationale；防線 #2 +「archive 入面類似『(password: X)』字樣動手前先 SHA-256 verify」原則；新防線 #6 codify §G.2 banner 4th instance pattern (archive misleading-placeholder 同 S121 schema.sql / S122 commit-msg / S126 handoff-hypothesis 並列)；末段 status 改「(a) S131 ACCEPTED + DOCUMENTED conditional on cosmetic-gate design unchanged + (b) S121 RESOLVED」+ reopen condition 寫低 (admin features 拆掉 client-side-only 前提即須 reopen)。
+  - **SESSION_HANDOFF Open Priorities #3**：「🔴 §E.10 admin-login client-side gate（OPEN）」→「§E.10 admin-login client-side gate（**S131 ACCEPTED + DOCUMENTED**，conditional on cosmetic-gate design unchanged — 拆掉 client-side-only 前提即須 reopen）」。
+  - **SESSION_HANDOFF ✅ block**：prepend ✅ S131 完成 entry covering scope summary + 2 halts + §G.2 4th instance + 0 code mutation。
+  - **SESSION_LOG**：本 entry prepend + DOC_SYNC matrix。
+
+- **QC (§3d 4 scenarios PASS):** Normal #1 PMS §E.10 status change verifiable via grep "ACCEPTED + DOCUMENTED" ✓ / Boundary plaintext-not-introduced grep "852852hk" 喺所有 tracked files (excluding new chat-derived content)= 0 hits ✓ (verified next step) / Regression A app.html ADMIN_HASH unchanged @ line 704 byte-identical = `9d35e7...b318a` ✓ (no Edit invoked on app.html) / Regression B archive line 190 唔郁 (preserve historical record per §4a hard rule "never delete archive entries") ✓ (no Edit invoked on archive).
+
+- **§G.2 banner 4th instance lesson (codified into PMS §E.10 防線 #2/#6 + 防線 #6 cross-link):** archive / governance 寫嘅 "leak" / "password" / "secret" claim 屬 hypothesis，動手前必 SHA-256 round-trip verify vs live hash；唔對即係 misleading-placeholder 而非 real leak。**Pattern = handoff-description ≠ verified ground truth (S121 schema.sql / S122 commit-msg-vs-diff / S126 handoff-hypothesis / S131 archive-misleading-placeholder)** = 4-instance recurrence、§8b promotion-threshold 早已達 (S127 codified rule 3)；本 instance 加深第 4 顆。
+
+- **Sources changed (commits pending origin/main):**
+  - `dev/PROJECT_MASTER_SPEC.md` (M: §E.10 rewrite — header + (a) 根因段 + 防線 #2/#6 + status 末段)
+  - `dev/SESSION_HANDOFF.md` (M: Open Priorities #3 + ✅ S131 完成 prepend)
+  - `dev/SESSION_LOG.md` (M: 本 S131 entry prepend + DOC_SYNC)
+  - NOT modified: app.html (ADMIN_HASH unchanged @ line 704 byte-identical), archive (line 190 preserved per §4a hard rule), 任何 code / data / Supabase / backend / knowledge.json / guidelines.json / source_registry。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Governance rule / security risk status change (§E.10 (a) OPEN → ACCEPTED) | PMS §E.10 rewrite + SESSION_HANDOFF Open Priorities + SESSION_LOG entry | ✓ Done |
+| §G.2 banner 4th instance pattern (archive misleading-placeholder) | PMS §E.10 防線 #2/#6 codify + cross-link to §G.2 banner § (no separate §G.2 edit needed, already covered by existing S127-codified rule 3) | ✓ Done |
+| External Services / Data row change | N/A (0 Supabase / 0 code) | N/A |
+| Tech stack / build / dependency change | N/A | N/A |
+| §3 CHANGE divergence event (2 halts: Terminal output collision + assumption-collapse) | SESSION_LOG S131 entry §3 divergence sections | ✓ Done |
+| Risk reopen condition | PMS §E.10 末段 + SESSION_HANDOFF Open Priorities #3 conditional language | ✓ Done |
+
 ## 2026-05-27 Session 130 — batch-7 follow-up: 4 stat xlsx vault content refresh to 2025/26 (cb3_b2 --include-non-page first use; 9th driver-validation; §3 CHANGE divergence textbook execute)
 
 - **ID:** Claude_20260527_1721（同 S127/S128/S129 連續同日執行，S129 closeout 後重啟）
