@@ -1812,8 +1812,8 @@
       "title_en": "EDB Circular Memorandum No. 197/2024 — Primary Humanities: School Survey and Related Support Measures",
       "title_short": "通函197/2024 人文科問卷",
       "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/ph-primary/index.html",
-      "url_primary": "https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/ph-primary/index.html",
-      "source_type": "html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/ph-primary/edbcm_197_2024_c.pdf",
+      "source_type": "pdf",
       "authority": "edb",
       "spine": false,
       "topic_tags": [
@@ -1822,12 +1822,12 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-05-30",
       "supersedes": null,
       "related_source_ids": [
         "ph_pri_curr"
       ],
-      "notes": "原 EDBCM24197C.pdf 直連已失效；現暫以小學人文科主頁作穩定 landing page 追蹤，待日後補回新 PDF 或 detail 直連。",
+      "notes": "S135 §E.12 URL re-discovery：原 EDBCM24197C.pdf 直連失效後曾改指小學人文科主頁（source_type=html、致 0 chunks）。EDB 已將 PDF 重命名為 edbcm_197_2024_c.pdf（HTTP 200 / 11p 已驗），現修正 url_primary 為直連 + source_type=pdf 並 page-carry 入庫。",
       "freshness_metadata": {
         "last_modified": "Wed, 29 Apr 2026 04:02:18 GMT",
         "content_length": "2557",

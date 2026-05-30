@@ -230,6 +230,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "pri_curr_guide_2024",
     "chi_hist_jss_2019",
     "history_jss_2019",  // S135: 西史/世界歷史初中課程指引（中一至中三）2019 — backfilled (§E.12 URL re-discovery); without this, curriculum-category history queries mis-route to chi_hist (中史)
+    "history_sss_2007_2015",  // S135 Phase 3a tail: 西史高中歷史課程及評估指引（中四至中六）— pre-existing allowlist gap, added for parity with chi_hist + 初中
     "music_p1_s6_2024",
     "gs_pri_guide_2017",
     "va_p1_s6_2024",
@@ -241,6 +242,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbc20_2023_ph_pri",
     "edbc9_2024_ph_pri",
     "edbc12_2025_ph_pri",
+    "edbc197_2024_ph_pri",  // S135 Phase 3c: 通函197/2024 小學人文科問卷 — backfilled (§E.12); add to allowlist so it surfaces for curriculum queries
     "edbc13_2025_pri_science",
     "edbc002_2026",
     "edbc003_2026",

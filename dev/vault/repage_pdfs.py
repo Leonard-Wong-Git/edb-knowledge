@@ -124,6 +124,8 @@ PILOT_LEGACY = {
     # "legacy" = header-only stub seed (no prior extract existed); repage carries its
     # header forward into the repaged file, then backs up + removes the stub.
     "history_jss_2019": [VAULT_DIR / "history_jss_2019" / "extract_history_jss_2019.txt"],
+    # S135 Phase 3c: NEW source backfill (edbc197/2024 通函 PDF, §E.12 URL re-discovery; same stub-seed path)
+    "edbc197_2024_ph_pri": [VAULT_DIR / "edbc197_2024_ph_pri" / "extract_edbc197_2024_ph_pri.txt"],
 }
 
 # source_id -> consolidated output filename (single repaged extract per source)
@@ -200,6 +202,8 @@ PILOT_OUT = {
     "bafs_sss_2007_2015": VAULT_DIR / "bafs_sss_2007_2015" / "extract_bafs_sss_2007_2015_repaged.txt",
     # S135 Phase 3a #3: NEW source backfill (西史初中)
     "history_jss_2019": VAULT_DIR / "history_jss_2019" / "extract_history_jss_2019_repaged.txt",
+    # S135 Phase 3c: NEW source backfill (edbc197/2024 通函)
+    "edbc197_2024_ph_pri": VAULT_DIR / "edbc197_2024_ph_pri" / "extract_edbc197_2024_ph_pri_repaged.txt",
 }
 
 
