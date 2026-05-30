@@ -2,7 +2,7 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
-## 2026-05-30 Session 135 — Phase 3a #3 = 5 sources no-op + history_jss_2019 西史初中 BACKFILL + mis-route fix
+## 2026-05-30 Session 135 — Phase 3 全力完成 (3a #3 5源 no-op + 2 backfill〔history_jss_2019 + edbc197〕+ stat mojibake fix + allowlist parity)
 
 - **ID:** Claude_20260530_1700
 - **Trigger:** Leonard 揀 Phase 3a #3 剩餘源 case-by-case → 4-step read-only diagnostic → 唯一真 finding history_jss_2019 coverage gap → Leonard 授權 HIGH-risk backfill + deploy
@@ -39,24 +39,44 @@ grand total 對齊 baseline 9,713；無 throttle masking（429-aware script + �
 2. **NEW backfill-allowlist coupling（§8b 候選）**：把新源 page-carry 入 Supabase **唔會自動 surface** — topic-routed category 受 `SOURCE_SETS` allowlist gate。**任何 future 新源 backfill 必同時檢查/更新 `SOURCE_SETS`**，否則 user-facing 零效果。recurrence-prone（任何新源都中）→ 留 recurrence 即 promote SOP。
 3. egress 實測：EDB / onrender 本 session 均通；handoff「EDB egress 去唔到」假設過時（§G.2 verify-don't-trust 又中）。
 
+### Phase 3c (same session — Leonard /goal「Phase 3 全力完成」)
+
+5 catalogue-level HTML 源審核（fetch EDB + 解析 PDF 連結 vs registry/Supabase）→ 只 2 個真 actionable：
+
+| 源 | 現況 | 處理 |
+|---|---|---|
+| **edbc197_2024_ph_pri** | 0 chunks、type=html 指 ph-primary index（§E.12：原 EDBCM24197C.pdf 失效）| EDB rename→`edbcm_197_2024_c.pdf`（HTTP 200/11p）→ registry 修正 + repage Gate1 11p/11markers + cb3_b2 Gate2 **del=0 ins=12** |
+| **stat_edb_figures** | vault double-encoded mojibake（latin-1/utf-8）、2 garbage Supabase chunks | carry-decode 還原（2 byte-lossy split 字 六/其 由已知 EDB 刊物名復原）→ re-index `--include-non-page` **del=2 ins=1 clean** |
+| arts_curr_docs | 0 chunks、catalogue | 8 PDF children（arts_kla/music/va）**全已索引** → 結構 no-op |
+| moral_civic_curr | 0 chunks、catalogue.json | 5 children（values_edu/edbcm183/sec_6a…）**全已索引** → 結構 no-op |
+| ph_pri_curr | 0 chunks、catalogue | children（ph_pri_guide_2025 146 + edbc9/12/20）**全已索引** → 結構 no-op |
+
+**allowlist parity**：`SOURCE_SETS.curriculum` 加 `edbc197_2024_ph_pri` + `history_sss_2007_2015`（西史高中 pre-existing gap、Phase 3a 尾巴）。build/check exit 0 → commit `5d0d002` push → Render deploy → **live verify**：edbc197「小學人文科問卷調查」#1/#2 p=5/1 0.652/0.627；西史高中「歷史課程及評估指引 中四至中六」#2/#3 p=1/25。
+
+結構 no-op 不索引 catalogue 導航文字 = 刻意避 Channel B noise（catalogue 內容已被 children page-carried 覆蓋）。**Phase 3 (a/b/c) 全力完成。Supabase 9,838→9,849。**
+
 ### Sources changed
 
-- `dev/source/source_registry.json`（history_jss_2019 url_primary→直連PDF / source_type html→pdf / notes / last_checked）
+- `dev/source/source_registry.json`（history_jss_2019 + edbc197_2024_ph_pri：url_primary→直連PDF / source_type html→pdf / notes / last_checked）
 - `dev/vault/repage_pdfs.py`（PILOT_LEGACY + PILOT_OUT history_jss_2019 entry）
 - `dev/vault/history_jss_2019/extract_history_jss_2019_repaged.txt`（NEW，118p page-carried；stub seed 已 backup→`dev/init_backup/20260530_161915_UTC/`+removed）
-- `backend/src/api/searchChannelB.ts`（`SOURCE_SETS.curriculum` +history_jss_2019）
-- Supabase wiki_chunks（del=0 ins=125；9,713→9,838）+ wiki_index.json（gitignored build artifact，12906→13031）
-- commit `ceb7c91`（4 tracked files）+ PERSIST commit；§5.a backup `dev/init_backup/20260530_161227_UTC_history_jss_backfill/`
+- `dev/vault/edbc197_2024_ph_pri/extract_edbc197_2024_ph_pri_repaged.txt`（NEW Phase 3c，11p page-carried；stub seed backup+removed）
+- `dev/vault/stat_edb_figures/extract_stat_edb_figures.txt`（Phase 3c mojibake fix；§5.a backup `dev/init_backup/20260530_171517_UTC_phase3c/`）
+- `dev/vault/repage_pdfs.py`（history_jss_2019 + edbc197_2024_ph_pri PILOT_LEGACY/OUT entries）
+- `backend/src/api/searchChannelB.ts`（`SOURCE_SETS.curriculum` +history_jss_2019 +history_sss_2007_2015 +edbc197_2024_ph_pri）
+- Supabase wiki_chunks（history_jss del=0 ins=125 → 9,838；edbc197 del=0 ins=12；stat_edb_figures del=2 ins=1 → **9,849**）+ wiki_index.json（gitignored，→13042）
+- commit chain `ceb7c91`（history backfill）→`60dc174`（PERSIST）→`5d0d002`（Phase 3c）+ 本 PERSIST commit
 - **NOT modified:** knowledge.json / guidelines.json / app.html / PROJECT_MASTER_SPEC / CODEBASE_CONTEXT
 
 ### DOC_SYNC Matrix Scan
 
 | Change Category | Required Doc Updates | Status |
 |---|---|---|
-| New source backfill (data + registry + vault) | SESSION_HANDOFF baseline (9,838 / 101 marker-bearing) + SESSION_LOG | ✓ Done |
-| Backend behavior change (allowlist) + Render deploy | SESSION_HANDOFF Last Record + SESSION_LOG; live verify | ✓ Done (deploy verified) |
+| New source backfill ×2 (history_jss_2019 + edbc197) data+registry+vault | SESSION_HANDOFF baseline (9,849 / 102 marker-bearing) + SESSION_LOG | ✓ Done |
+| Backend behavior change (allowlist ×3) + Render deploy | SESSION_HANDOFF Last Record + SESSION_LOG; live verify ×4 | ✓ Done (deploy verified) |
+| Vault content fix (stat_edb_figures mojibake) | SESSION_LOG Phase 3c + SESSION_HANDOFF baseline | ✓ Done |
 | New process lesson (backfill-allowlist coupling) | SESSION_LOG Lessons + SESSION_HANDOFF caution; PMS §8b promote deferred | ✓ Done (monitoring tier) |
-| External service (Supabase chunks / EDB fetch) | CODEBASE_CONTEXT External Services — no schema/endpoint change (chunk count only) | N/A |
+| External service (Supabase chunks / EDB fetch) | CODEBASE_CONTEXT — no schema/endpoint change (chunk count only) | N/A |
 
 ### Next Session Handoff Prompt (Verbatim)
 ```text
