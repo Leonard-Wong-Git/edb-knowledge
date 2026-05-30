@@ -3687,8 +3687,8 @@
       "title_en": "History Curriculum Guide (Secondary 1 - 3) 2019",
       "title_short": "初中歷史2019",
       "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/curriculum-documents.html",
-      "url_primary": "https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/curriculum-documents.html",
-      "source_type": "html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Hist_Curr_Guide_S1-3_Chi_final_10072019.pdf",
+      "source_type": "pdf",
       "authority": "edb",
       "spine": false,
       "topic_tags": [
@@ -3697,10 +3697,10 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-05-30",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
-      "notes": "原 hist_c_j1-3_2019.pdf 直連已失效；現改指向 PSHE 課程文件總頁，該頁仍列出《歷史科課程指引（中一至中三）2019》。",
+      "notes": "S135 §E.12 URL re-discovery：原 hist_c_j1-3_2019.pdf 直連失效後曾改指 PSHE 總頁（source_type=html，致 0 chunks coverage gap）。EDB 已將該 PDF 重命名/搬位為 Hist_Curr_Guide_S1-3_Chi_final_10072019.pdf（HTTP 200 已驗，118 頁），現修正 url_primary 為直連 + source_type=pdf，並 page-carry 入庫（西史初中，與中史 CHist_* 及西史高中 Hist_C&A_Guide 互不重疊）。",
       "freshness_metadata": {
         "last_modified": "Fri, 03 Oct 2025 06:56:12 GMT",
         "content_length": "3976",

@@ -229,6 +229,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "ma_kla_guide_2017",
     "pri_curr_guide_2024",
     "chi_hist_jss_2019",
+    "history_jss_2019",  // S135: 西史/世界歷史初中課程指引（中一至中三）2019 — backfilled (§E.12 URL re-discovery); without this, curriculum-category history queries mis-route to chi_hist (中史)
     "music_p1_s6_2024",
     "gs_pri_guide_2017",
     "va_p1_s6_2024",
