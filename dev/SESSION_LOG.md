@@ -2,6 +2,67 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-30 Session 135 — Phase 3a #3 = 5 sources no-op + history_jss_2019 西史初中 BACKFILL + mis-route fix
+
+- **ID:** Claude_20260530_1700
+- **Trigger:** Leonard 揀 Phase 3a #3 剩餘源 case-by-case → 4-step read-only diagnostic → 唯一真 finding history_jss_2019 coverage gap → Leonard 授權 HIGH-risk backfill + deploy
+- **§3 Risk:** diagnostic READ-only LOW；backfill (vault+Supabase+registry+backend allowlist+Render deploy) = HIGH，逐 gate 執行、Leonard 授權
+
+### Phase 3a #3 diagnostic (read-only, paced 429-aware)
+
+5 cluster 全 **healthy no-op**（Supabase REST count + paced live onrender smoke）：
+
+| Cluster | chunks | 結論 |
+|---|---|---|
+| geog | geog_jss 203 / sss_2007_2022 214 / +40 = 457 | 「地理科」→ geog_jss p=106 ✓（「地理科課程指引」HTTP 400 = 已知 57014 transient，re-probe 正常）|
+| pe | pe_kla_2017 74 / pe_sss_2023 79 = 153 | 「體育科課程指引」→ pe_kla_2017 top-3 0.71-0.74 ✓；pe_sss_2007_2015=0 確認 S125 deprecation 清走；pe_curr_docs=0 catalogue HTML |
+| dat | 108 / ict 216 / music_sss 198 | 同 S134 cluster 一致、healthy |
+
+grand total 對齊 baseline 9,713；無 throttle masking（429-aware script + 總數正常）。
+
+### history_jss_2019 BACKFILL（唯一真 finding）
+
+- **Gap:** history_jss_2019（歷史科課程指引 中一至中三 2019 = 西史/世界歷史初中）= **0 chunks**；live「世界歷史初中」mis-route 去中史 chi_hist_jss_2019。與中史 CHist_*、西史高中 Hist_C&A（history_sss_2007_2015 155 chunks）互不重疊。
+- **Root cause = §E.12 EDB URL churn:** registry notes 揭原 `hist_c_j1-3_2019.pdf` 直連失效 → 曾改指 PSHE catalogue HTML（source_type=html）→ 從未提取。
+- **Re-discovery:** curl EDB catalogue page（**egress 通 — 推翻 handoff「EDB 去唔到」假設**）+ 解析 PDF 連結，搵返 rename 後直連 `Hist_Curr_Guide_S1-3_Chi_final_10072019.pdf`（HTTP 200 / 5.9MB / 118p / page-2 標題核實西史初中）。
+- **Backfill gated execute:** §5.a backup → registry 修正（url_primary 直連 PDF / source_type pdf / notes）→ repage_pdfs.py +PILOT_LEGACY/OUT entry（**首次全新源 path：header-stub seed**）→ repage --write Gate 1 **118 pages/markers** → cb3_b2 --execute Gate 2 **del=0 ins=125 純新增**（Supabase 9,713→**9,838**，per-source verify now=125 OK）。
+
+### §3 CHANGE divergence — backfill-allowlist coupling
+
+- 數據入庫 + unfiltered query 確認可檢索（history_jss_2019 #1 p=106），**但 curriculum-category query 仍 mis-route 去中史**。
+- 根因 = backend `searchChannelB.ts` `SOURCE_SETS.curriculum` allowlist 未含 history_jss_2019（建表時佢仲係 0-chunks/html、實質唔存在）→ 「歷史科課程指引」match curriculum → 搜索限白名單 → 新源被 filter 走。
+- STOP 報告 Leonard → 授權加 allowlist（**只加初中**；西史高中 history_sss_2007_2015 亦不在 allowlist = pre-existing gap、Leonard 揀暫不加）→ `npm check`/`build` exit 0 → commit `ceb7c91` push → **Render auto-deploy** → background poller verify：deploy 上線後「歷史科課程指引 中一至中三」→ **history_jss_2019 #1/#2/#3 p=1/46/6**，中史降 #4/#5。**Mis-route FIXED。**
+
+### Lessons (§8 monitoring)
+
+1. **§E.12 EDB URL re-discovery via catalogue 解析**：直連 PDF rename 後可由 catalogue page 解析搵返；「直連失效」唔代表文件消失。
+2. **NEW backfill-allowlist coupling（§8b 候選）**：把新源 page-carry 入 Supabase **唔會自動 surface** — topic-routed category 受 `SOURCE_SETS` allowlist gate。**任何 future 新源 backfill 必同時檢查/更新 `SOURCE_SETS`**，否則 user-facing 零效果。recurrence-prone（任何新源都中）→ 留 recurrence 即 promote SOP。
+3. egress 實測：EDB / onrender 本 session 均通；handoff「EDB egress 去唔到」假設過時（§G.2 verify-don't-trust 又中）。
+
+### Sources changed
+
+- `dev/source/source_registry.json`（history_jss_2019 url_primary→直連PDF / source_type html→pdf / notes / last_checked）
+- `dev/vault/repage_pdfs.py`（PILOT_LEGACY + PILOT_OUT history_jss_2019 entry）
+- `dev/vault/history_jss_2019/extract_history_jss_2019_repaged.txt`（NEW，118p page-carried；stub seed 已 backup→`dev/init_backup/20260530_161915_UTC/`+removed）
+- `backend/src/api/searchChannelB.ts`（`SOURCE_SETS.curriculum` +history_jss_2019）
+- Supabase wiki_chunks（del=0 ins=125；9,713→9,838）+ wiki_index.json（gitignored build artifact，12906→13031）
+- commit `ceb7c91`（4 tracked files）+ PERSIST commit；§5.a backup `dev/init_backup/20260530_161227_UTC_history_jss_backfill/`
+- **NOT modified:** knowledge.json / guidelines.json / app.html / PROJECT_MASTER_SPEC / CODEBASE_CONTEXT
+
+### DOC_SYNC Matrix Scan
+
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| New source backfill (data + registry + vault) | SESSION_HANDOFF baseline (9,838 / 101 marker-bearing) + SESSION_LOG | ✓ Done |
+| Backend behavior change (allowlist) + Render deploy | SESSION_HANDOFF Last Record + SESSION_LOG; live verify | ✓ Done (deploy verified) |
+| New process lesson (backfill-allowlist coupling) | SESSION_LOG Lessons + SESSION_HANDOFF caution; PMS §8b promote deferred | ✓ Done (monitoring tier) |
+| External service (Supabase chunks / EDB fetch) | CODEBASE_CONTEXT External Services — no schema/endpoint change (chunk count only) | N/A |
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+(待 §4 closeout 生成)
+```
+
 ## 2026-05-30 Session 134 — Phase 3a #2 batch diagnostic = 5 sources no-op (429-masquerade-as-data near-miss)
 
 - **ID:** Claude_20260530_1500
