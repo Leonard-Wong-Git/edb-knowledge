@@ -80,7 +80,48 @@ grand total 對齊 baseline 9,713；無 throttle masking（429-aware script + �
 
 ### Next Session Handoff Prompt (Verbatim)
 ```text
-(待 §4 closeout 生成)
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。S135 證實 EDB + onrender egress 均通 — handoff 舊「EDB 去唔到」假設已過時，仍每次自測。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S135 (2026-05-30, Leonard /goal「Phase 3 全力完成」)：**Phase 3 (a/b/c) 全部完成**。HEAD origin/main = `9434581`（S135 PERSIST）← `5d0d002`（Phase 3c）← `60dc174`（PERSIST）← `ceb7c91`（history backfill）。
+
+S135 做咗：(1) Phase 3a #3 — geog/pe/dat/ict/music_sss 5 cluster 4-step diagnostic 全 healthy no-op；(2) **history_jss_2019 西史初中 backfill** del=0 ins=125（§E.12 EDB URL re-discovery：原直連失效 → catalogue 解析搵返 rename 後 PDF）；(3) **Phase 3c** — edbc197_2024_ph_pri 通函 backfill del=0 ins=12（同 §E.12 pattern）+ stat_edb_figures mojibake fix del=2 ins=1 + arts_curr_docs/moral_civic_curr/ph_pri_curr 結構 no-op（children 全索引）；(4) allowlist parity — `SOURCE_SETS.curriculum` 加 history_jss_2019 + history_sss_2007_2015（西史高中）+ edbc197_2024_ph_pri。全部 Render deploy live verified。
+
+⚠️ KEY LESSON S135 (§8 monitoring, §8b 候選): **backfill-allowlist coupling** — 把新源 page-carry 入 Supabase 唔會自動 surface；topic-routed category 受 backend `SOURCE_SETS` allowlist gate，新源必須同時加 allowlist + redeploy 先 surface。**Future 任何新源 backfill 必檢查/更新 SOURCE_SETS。** 另 §E.12 EDB URL churn：直連 PDF rename 後可由 catalogue page 解析搵返（「直連失效」≠ 文件消失）。
+
+Current objective and progress state:
+- Baseline: Supabase **9,849** / 102 marker-bearing / CB-3 final ceiling ~88% / brand live (policychecker.wongfu.net)
+- **Phase 3 (a/b/c) 全部完成**；driver cb3_b2 13 輪 0 incident（含 S135 全新源 path ×2 + mojibake re-index ×1）
+- 下一階段方向未定，待 Leonard
+
+Pending tasks in priority order:
+1. **下一階段方向待 Leonard 揀**：Q4 對外契約收斂（deferred、未明示勿掂）/ §8b rule 2 semantic-supersede automation tooling / Mobile UI P2 / 39→148 guidelines 擴展 / 既有 deferred backlog
+2. **既有 deferred backlog**：§E.10 (a) admin-login client-side gate（ACCEPTED conditional）/ 57014 transient（retry 即恢復、S135 又遇 2 次）/ FAIL-A 注入 regression（record-only）/ stat_fact 升 2025/26（ROI≈0）
+3. **§8b promote 評估**：backfill-allowlist coupling（S135）+ 429-masquerade（S134）兩個 monitoring-tier lesson，若 recurrence 即 promote 入 PMS §G.2/§8b
+
+Key files changed this session:
+- `dev/source/source_registry.json`（history_jss_2019 + edbc197_2024_ph_pri：url_primary→直連PDF / source_type→pdf）
+- `dev/vault/history_jss_2019/` + `dev/vault/edbc197_2024_ph_pri/`（NEW repaged extracts，page-carried）
+- `dev/vault/stat_edb_figures/extract_stat_edb_figures.txt`（mojibake fix）
+- `dev/vault/repage_pdfs.py`（2 新源 PILOT_LEGACY/OUT entries）
+- `backend/src/api/searchChannelB.ts`（SOURCE_SETS.curriculum +3 entries）
+- Supabase wiki_chunks（9,713→9,849）；dev/SESSION_HANDOFF.md + dev/SESSION_LOG.md
+
+Known risks / blockers / cautions:
+- 0 new product risks（2 backfill 純新增可逆 + mojibake fix 淨改善）
+- NEW caution: backfill-allowlist coupling（新源入庫 ≠ 自動 surface，必加 SOURCE_SETS）
+- 既有不變: 🔴 57014 transient (retry); FAIL-A (record-only); §E.10(a) ACCEPTED conditional; q.html/A·AB code path dormant 勿清; Q4 deferred 未明示勿掂; Stage-2 closed 勿復活; egress 每次自測; 路徑空格雙引號; Testing/ 喺 Draft git 外; 改 Draft code/data commit 必入 SESSION_LOG
+
+Validation status:
+- PASS: build/typecheck exit 0；Supabase per-source verify（history del=0 ins=125 / edbc197 del=0 ins=12 / stat del=2 ins=1）；4 條 live deploy smoke（帶頁碼）
+- COMMITTED: `ceb7c91`→`60dc174`→`5d0d002`→`9434581` origin/main, tree clean
+- OPEN: 下一階段方向待 Leonard
+
+Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD = 9434581 / knowledge.json._meta.stats facts:455 / Supabase 9,849 / egress onrender /health warm 455）後，**Phase 3 已全力完成、無 pending 執行**。第一件事＝問 Leonard 下一階段方向（Q4 契約未明示勿掂 / §8b automation / Mobile UI P2 / 39→148 / 既有 backlog）。未 Leonard 明示前唔好自行 resume / 掂 Q4 契約 / reopen §E.10 / 動 Stage-2。
 ```
 
 ## 2026-05-30 Session 134 — Phase 3a #2 batch diagnostic = 5 sources no-op (429-masquerade-as-data near-miss)
