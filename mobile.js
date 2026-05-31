@@ -25,15 +25,17 @@
 
   document.documentElement.dataset.viewport = 'mobile';
   document.body && (document.body.dataset.mobileActive = 'true');
-  // If body not yet parsed, wait
+  // If body not yet parsed, wait. NOTE: the eager (readyState !== 'loading')
+  // trigger lives at the BOTTOM of this IIFE — initMobileShell()/buildGuidelinesShell()
+  // reference module-scope `const`s (GUIDE_CATS, ROLES, …) declared further down,
+  // so running init before those lines execute throws a TDZ ReferenceError.
   document.addEventListener('DOMContentLoaded', () => {
     document.body.dataset.mobileActive = 'true';
     initMobileShell();
   });
-  if (document.readyState !== 'loading') {
-    document.body && (document.body.dataset.mobileActive = 'true');
-    initMobileShell();
-  }
+
+  // Guard: bind the same-document hashchange→reload handler only once.
+  let hashReloadBound = false;
 
   // ── 2. Role definitions (synced with k1 platform schema) ──
   const ROLES = [
@@ -397,6 +399,158 @@
     if (backdrop) backdrop.setAttribute('aria-hidden', 'true');
   }
 
+  // ── 6b. 文件庫 (#guidelines) dedicated mobile render (Phase 2) ──
+  // Category chips mirror desktop GuidelinesPanel CATS (zero-count cats hidden).
+  const GUIDE_CATS = [
+    { key: 'all',     label: '全部',     icon: '📋' },
+    { key: '課程',     label: '課程',     icon: '📚' },
+    { key: '財務採購',  label: '財務採購',  icon: '💰' },
+    { key: '人力資源',  label: '人力資源',  icon: '👥' },
+    { key: '學生事務',  label: '學生事務',  icon: '🎒' },
+    { key: '學生安全',  label: '學生安全',  icon: '🛡️' },
+    { key: '安全',      label: '科目安全',  icon: '⚠️' },
+    { key: '活動',     label: '活動',     icon: '🏃' },
+    { key: '津貼',     label: '津貼',     icon: '🏷️' },
+    { key: '行政',     label: '行政',     icon: '🏫' },
+    { key: '資訊科技',  label: '資訊科技',  icon: '💻' },
+  ];
+  const GUIDE_LEVELS = ['幼稚園', '小學', '中學', '特殊', '跨階段'];
+
+  function guideYearCls(yr) {
+    const y = parseInt(yr, 10);
+    if (!yr || isNaN(y)) return 'm-gy-old';
+    if (y >= 2024) return 'm-gy-new';
+    if (y >= 2020) return 'm-gy-recent';
+    return 'm-gy-old';
+  }
+
+  function guideFilterSort(reg, st) {
+    let list = reg.filter(g => {
+      if (st.cat !== 'all' && g.category !== st.cat) return false;
+      if (st.level !== 'all' && g.level !== st.level) return false;
+      if (st.q && (g.title || '').indexOf(st.q) < 0 && (g.titleShort || '').indexOf(st.q) < 0) return false;
+      return true;
+    });
+    if (st.sort === 'year-desc') list = list.slice().sort((a, b) => (parseInt(b.year, 10) || 0) - (parseInt(a.year, 10) || 0));
+    else if (st.sort === 'year-asc') list = list.slice().sort((a, b) => (parseInt(a.year, 10) || 0) - (parseInt(b.year, 10) || 0));
+    else if (st.sort === 'title') list = list.slice().sort((a, b) => (a.title || '').localeCompare(b.title || '', 'zh-HK'));
+    return list;
+  }
+
+  // Returns true once the shell is built; false if registry not yet available.
+  function buildGuidelinesShell() {
+    const reg = window.GUIDELINES_REGISTRY;
+    if (!Array.isArray(reg) || !reg.length) return false;
+    if (document.getElementById('m-guide-shell')) return true;
+
+    try {
+    const st = { cat: 'all', level: 'all', q: '', sort: 'year-desc' };
+    const counts = { all: reg.length };
+    reg.forEach(g => { counts[g.category] = (counts[g.category] || 0) + 1; });
+
+    const shell = document.createElement('main');
+    shell.id = 'm-guide-shell';
+    shell.className = 'm-shell';
+
+    let catChips = '<div class="m-guide-chips" id="m-guide-cats" role="tablist" aria-label="分類">';
+    GUIDE_CATS.forEach(c => {
+      if (c.key !== 'all' && !counts[c.key]) return;
+      catChips += '<button type="button" class="m-guide-chip' + (c.key === st.cat ? ' is-active' : '') + '" data-cat="' + c.key + '">'
+        + c.icon + ' ' + escapeHTML(c.label)
+        + ' <span class="m-guide-chip-n">' + (counts[c.key] || 0) + '</span></button>';
+    });
+    catChips += '</div>';
+
+    let levelChips = '<div class="m-guide-chips m-guide-chips-sub" id="m-guide-levels" role="tablist" aria-label="學習階段">';
+    levelChips += '<button type="button" class="m-guide-chip m-chip-sm is-active" data-level="all">全部階段</button>';
+    GUIDE_LEVELS.forEach(lv => {
+      levelChips += '<button type="button" class="m-guide-chip m-chip-sm" data-level="' + lv + '">' + escapeHTML(lv) + '</button>';
+    });
+    levelChips += '</div>';
+
+    const sortRow = '<div class="m-guide-sort" id="m-guide-sort">'
+      + '<span class="m-guide-sort-lbl">排序</span>'
+      + '<button type="button" class="m-guide-sortbtn is-active" data-sort="year-desc">最新</button>'
+      + '<button type="button" class="m-guide-sortbtn" data-sort="year-asc">最舊</button>'
+      + '<button type="button" class="m-guide-sortbtn" data-sort="title">名稱</button>'
+      + '</div>';
+
+    shell.innerHTML = ''
+      + '<header class="m-guide-head">'
+      +   '<div class="m-guide-eyebrow">EDB 官方政策指引</div>'
+      +   '<h1 class="m-guide-title">指引文件庫</h1>'
+      +   '<p class="m-guide-sub">共 ' + reg.length + ' 份官方指引文件，點擊即看 EDB 原文</p>'
+      +   '<form class="m-guide-search" id="m-guide-search-form" autocomplete="off">'
+      +     '<svg class="m-search-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>'
+      +     '<input class="m-guide-search-input" id="m-guide-search-input" type="search" inputmode="search" placeholder="搜尋文件名稱…" />'
+      +   '</form>'
+      + '</header>'
+      + catChips
+      + levelChips
+      + sortRow
+      + '<section class="m-guide-list" id="m-guide-list" aria-live="polite"></section>';
+
+    document.body.insertBefore(shell, document.body.firstChild);
+
+    const listEl = shell.querySelector('#m-guide-list');
+
+    function cardHTML(g) {
+      const fmt = (g.format || '').toString();
+      return '<a class="m-guide-card" href="' + escapeHTML(g.url || '#') + '" target="_blank" rel="noopener">'
+        + '<div class="m-guide-card-top">'
+        +   '<span class="m-guide-fmt">' + escapeHTML(fmt || '文件') + '</span>'
+        +   '<span class="m-guide-year ' + guideYearCls(g.year) + '">' + escapeHTML(g.year || '—') + '</span>'
+        + '</div>'
+        + '<div class="m-guide-card-title">' + escapeHTML(g.title || '') + '</div>'
+        + '<div class="m-guide-card-meta">'
+        +   (g.level ? '<span class="m-guide-level">' + escapeHTML(g.level) + '</span>' : '')
+        +   '<span class="m-guide-open">看 EDB 原文 ↗</span>'
+        + '</div>'
+        + '</a>';
+    }
+
+    function render() {
+      const items = guideFilterSort(reg, st);
+      if (!items.length) {
+        listEl.innerHTML = '<div class="m-guide-empty">未找到符合條件的指引文件<br>可清除篩選或改用其他關鍵詞</div>';
+        return;
+      }
+      let html = '<div class="m-guide-count">' + items.length + ' 份</div>';
+      items.forEach(g => { html += cardHTML(g); });
+      listEl.innerHTML = html;
+    }
+
+    function setActive(container, attr, val) {
+      container.querySelectorAll('.m-guide-chip, .m-guide-sortbtn').forEach(b => {
+        if (b.dataset[attr] != null) b.classList.toggle('is-active', b.dataset[attr] === val);
+      });
+    }
+
+    shell.querySelector('#m-guide-cats').addEventListener('click', e => {
+      const btn = e.target.closest('[data-cat]'); if (!btn) return;
+      st.cat = btn.dataset.cat; setActive(btn.parentElement, 'cat', st.cat); render();
+    });
+    shell.querySelector('#m-guide-levels').addEventListener('click', e => {
+      const btn = e.target.closest('[data-level]'); if (!btn) return;
+      st.level = btn.dataset.level; setActive(btn.parentElement, 'level', st.level); render();
+    });
+    shell.querySelector('#m-guide-sort').addEventListener('click', e => {
+      const btn = e.target.closest('[data-sort]'); if (!btn) return;
+      st.sort = btn.dataset.sort; setActive(btn.parentElement, 'sort', st.sort); render();
+    });
+    const sForm = shell.querySelector('#m-guide-search-form');
+    const sInput = shell.querySelector('#m-guide-search-input');
+    sForm.addEventListener('submit', e => { e.preventDefault(); sInput.blur(); });
+    sInput.addEventListener('input', () => { st.q = (sInput.value || '').trim(); render(); });
+
+    render();
+    return true;
+    } catch (e) {
+      if (window.console && console.warn) console.warn('[mobile.js] buildGuidelinesShell failed:', e);
+      return false;
+    }
+  }
+
   // ── 7. Init ──
   function initMobileShell() {
     // Apply mobile-active flag for CSS hooks
@@ -418,18 +572,39 @@
           shellBuilt = true;
         }
       } else if (here === 'app.html' && hash === '#guidelines') {
-        // Fallback: 暫露 React GuidelinesPanel（下節做專用 mobile render）
-        const tryShow = () => {
+        // Phase 2: dedicated 文件庫 mobile render. window.GUIDELINES_REGISTRY is
+        // set by app.html's Babel-compiled script, which runs AFTER this deferred
+        // file — so poll briefly, then gracefully fall back to revealing the React
+        // #root panel if the registry never appears (e.g. React failed to load).
+        let guideDone = false;
+        const revealRoot = () => {
           const root = document.getElementById('root');
           if (root) {
             root.style.setProperty('display', 'block', 'important');
             root.style.setProperty('padding-bottom', '80px');
           }
         };
-        tryShow();
-        setTimeout(tryShow, 500);
-        // This branch only reveals existing #root content; it does not build a
-        // takeover shell, so we do NOT gate the desktop-hiding CSS here.
+        const build = () => {
+          if (guideDone) return true;
+          if (buildGuidelinesShell()) {
+            guideDone = true;
+            document.body.classList.add('mobile-shell-active');
+            return true;
+          }
+          return false;
+        };
+        if (!build()) {
+          // Deterministic path: app.html fires this once the registry is exposed.
+          window.addEventListener('k1-registry-ready', build, { once: true });
+          // Poll backstop (~12s) in case the event was already missed; then fall
+          // back to revealing the React #root panel (never a blank page).
+          const tryBuild = (attempt) => {
+            if (build()) return;
+            if (attempt < 60) { setTimeout(() => tryBuild(attempt + 1), 200); return; }
+            if (!guideDone) revealRoot();
+          };
+          tryBuild(0);
+        }
       } else if (here === 'index.html' || here === '') {
         if (typeof buildIndexShell === 'function') {
           buildIndexShell();
@@ -485,5 +660,23 @@
         document.body.classList.add('mobile-shell-active');
       }
     });
+
+    // Within app.html the 搜尋 (no hash) and 文件庫 (#guidelines) tabs are
+    // same-document hash links — tapping them changes the hash WITHOUT reloading,
+    // so the shell would not rebuild. Reload once on hash toggle to swap shells
+    // cleanly (cached page, fast). Bind only once across re-inits.
+    if (!hashReloadBound && here === 'app.html') {
+      hashReloadBound = true;
+      window.addEventListener('hashchange', () => { location.reload(); });
+    }
+  }
+
+  // Eager init for the case where this script runs after the DOM is already
+  // parsed (deferred scripts execute at readyState 'interactive', before
+  // DOMContentLoaded). Placed at the END of the IIFE so every module-scope
+  // const above is initialized first (avoids the TDZ described near the top).
+  if (document.readyState !== 'loading') {
+    document.body && (document.body.dataset.mobileActive = 'true');
+    initMobileShell();
   }
 })();

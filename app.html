@@ -1747,6 +1747,15 @@ const GUIDELINES_REGISTRY = [
   { id: 'pe_sss_2007_2015', title: '體育-課程及評估指引(中四至中六) (2007) (2015年11月更新）', titleShort: '高中體育2015', format: 'PDF', category: '課程', sub_category: 'arts_pe', level: '中學', year: '2007', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pe/curriculum-doc/PE%20C&A%20Guide_2015_c.pdf' }
 ];
 
+// Expose the full 148-entry registry to vanilla mobile.js (Mobile UI Phase 2 —
+// dedicated 文件庫 mobile render reads this for desktop-parity). Desktop no-op.
+// The event lets mobile.js build deterministically (this Babel script compiles
+// late, after mobile.js's DOMContentLoaded init has already run).
+if (typeof window !== 'undefined') {
+  window.GUIDELINES_REGISTRY = GUIDELINES_REGISTRY;
+  window.dispatchEvent(new Event('k1-registry-ready'));
+}
+
 const GUIDELINE_CATEGORIES = [...new Set(GUIDELINES_REGISTRY.map(g => g.category))];
 
 // ── Components ──

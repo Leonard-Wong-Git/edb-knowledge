@@ -468,6 +468,222 @@
   }
   .m-role-picker-cta:disabled { opacity: 0.5; }
 
+  /* ── 10b. 文件庫 (#guidelines) dedicated mobile render (Phase 2) ── */
+  .m-guide-head {
+    padding: calc(var(--m-sp-lg) + var(--m-safe-top)) var(--m-sp-md) var(--m-sp-md);
+    background: var(--m-bg-elevated);
+    border-bottom: 1px solid var(--m-cream);
+  }
+  .m-guide-eyebrow {
+    font-size: var(--m-text-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--m-edb-deep);
+    margin-bottom: var(--m-sp-xs);
+  }
+  .m-guide-title {
+    font-size: var(--m-text-xl);
+    font-weight: 800;
+    color: var(--m-text-primary);
+    letter-spacing: var(--m-tracking-tight);
+    margin: 0 0 var(--m-sp-xs);
+  }
+  .m-guide-sub {
+    font-size: var(--m-text-sm);
+    color: var(--m-text-secondary);
+    margin: 0 0 var(--m-sp-md);
+  }
+  .m-guide-search {
+    display: flex;
+    align-items: center;
+    background: var(--m-bg-card);
+    border: 1px solid var(--m-cream);
+    border-radius: var(--m-r-pill);
+    padding: 0 var(--m-sp-md);
+    height: 48px;
+  }
+  .m-guide-search .m-search-icon {
+    color: var(--m-text-muted);
+    margin-right: var(--m-sp-sm);
+    flex-shrink: 0;
+  }
+  .m-guide-search-input {
+    flex: 1;
+    border: 0;
+    background: transparent;
+    font-size: var(--m-text-base);
+    color: var(--m-text-primary);
+    outline: none;
+    min-height: var(--m-touch);
+  }
+  .m-guide-search-input::placeholder { color: var(--m-text-muted); }
+
+  /* Horizontal scroll chip rows */
+  .m-guide-chips {
+    display: flex;
+    gap: var(--m-sp-sm);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: var(--m-sp-md) var(--m-sp-md) 0;
+  }
+  .m-guide-chips::-webkit-scrollbar { display: none; }
+  .m-guide-chips-sub { padding-top: var(--m-sp-sm); }
+  .m-guide-chip {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--m-bg-card);
+    border: 1px solid var(--m-cream);
+    border-radius: var(--m-r-pill);
+    color: var(--m-text-secondary);
+    font-size: var(--m-text-sm);
+    font-weight: 600;
+    padding: 8px 14px;
+    min-height: 38px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background var(--m-dur-fast) var(--m-ease),
+                border-color var(--m-dur-fast) var(--m-ease),
+                color var(--m-dur-fast) var(--m-ease);
+  }
+  .m-chip-sm { font-size: var(--m-text-xs); padding: 6px 12px; min-height: 32px; }
+  .m-guide-chip.is-active {
+    background: var(--m-edb-deep);
+    border-color: var(--m-edb-deep);
+    color: #ffffff;
+  }
+  .m-guide-chip-n {
+    font-size: var(--m-text-xs);
+    font-weight: 700;
+    background: var(--m-edb-wash);
+    color: var(--m-edb-deep);
+    border-radius: var(--m-r-pill);
+    padding: 1px 7px;
+    min-width: 18px;
+    text-align: center;
+  }
+  .m-guide-chip.is-active .m-guide-chip-n {
+    background: rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+  }
+
+  /* Sort row */
+  .m-guide-sort {
+    display: flex;
+    align-items: center;
+    gap: var(--m-sp-sm);
+    padding: var(--m-sp-md) var(--m-sp-md) var(--m-sp-sm);
+  }
+  .m-guide-sort-lbl {
+    font-size: var(--m-text-xs);
+    color: var(--m-text-muted);
+    font-weight: 600;
+    margin-right: 2px;
+  }
+  .m-guide-sortbtn {
+    background: transparent;
+    border: 1px solid var(--m-cream);
+    border-radius: var(--m-r-sm);
+    color: var(--m-text-secondary);
+    font-size: var(--m-text-xs);
+    font-weight: 600;
+    padding: 6px 12px;
+    min-height: var(--m-touch);
+    cursor: pointer;
+  }
+  .m-guide-sortbtn.is-active {
+    background: var(--m-edb-wash);
+    border-color: var(--m-edb-light);
+    color: var(--m-edb-deep);
+  }
+
+  /* Doc card list */
+  .m-guide-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--m-sp-sm);
+    padding: 0 var(--m-sp-md) var(--m-sp-md);
+  }
+  .m-guide-count {
+    font-size: var(--m-text-xs);
+    color: var(--m-text-muted);
+    font-weight: 600;
+    padding: 4px 2px;
+  }
+  .m-guide-empty {
+    padding: 48px 20px;
+    text-align: center;
+    color: var(--m-text-muted);
+    font-size: var(--m-text-sm);
+    line-height: 1.6;
+  }
+  .m-guide-card {
+    display: block;
+    background: var(--m-bg-card);
+    border: 1px solid var(--m-cream);
+    border-radius: var(--m-r-md);
+    padding: var(--m-sp-md);
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: transform var(--m-dur-fast) var(--m-ease);
+  }
+  .m-guide-card:active { transform: scale(0.98); }
+  .m-guide-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--m-sp-sm);
+  }
+  .m-guide-fmt {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--m-text-secondary);
+    background: var(--m-bg-elevated);
+    border: 1px solid var(--m-cream);
+    border-radius: var(--m-r-sm);
+    padding: 2px 8px;
+  }
+  .m-guide-year {
+    font-size: var(--m-text-xs);
+    font-weight: 700;
+    border-radius: var(--m-r-pill);
+    padding: 2px 10px;
+  }
+  .m-gy-new    { background: var(--m-edb-wash); color: var(--m-edb-deep); }
+  .m-gy-recent { background: var(--m-sky-mist); color: var(--m-text-primary); }
+  .m-gy-old    { background: var(--m-bg-elevated); color: var(--m-text-muted); }
+  .m-guide-card-title {
+    font-size: var(--m-text-base);
+    font-weight: 600;
+    color: var(--m-text-primary);
+    line-height: 1.5;
+    margin-bottom: var(--m-sp-sm);
+  }
+  .m-guide-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--m-sp-sm);
+  }
+  .m-guide-level {
+    font-size: var(--m-text-xs);
+    font-weight: 600;
+    color: var(--m-text-secondary);
+    background: var(--m-bg-elevated);
+    border-radius: var(--m-r-pill);
+    padding: 2px 10px;
+  }
+  .m-guide-open {
+    font-size: var(--m-text-xs);
+    font-weight: 700;
+    color: var(--m-edb-deep);
+    white-space: nowrap;
+  }
+
   /* ── 11. Reduced motion ── */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
