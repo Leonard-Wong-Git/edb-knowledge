@@ -28,8 +28,18 @@
 - **NOT modified:** Supabase / knowledge.json / guidelines.json / source_registry / backend / PROJECT_MASTER_SPEC / CODEBASE_CONTEXT
 - commit + push origin/main → GitHub Pages auto-deploy（policychecker.wongfu.net）；Leonard 真機 browser-verify pending
 
+### CORS incident + fix（same-session follow-up — §8 regression record）
+
+- **Problem:** Leonard 真機驗 Mobile 後回報 Channel B 政策搜尋「sen」出「搜尋服務暫未連線，請稍後再試」，retry 仍然。
+- **Triage (§2b):** 非 code bug、非冷啟動。curl 實測：backend `/health` warm（200/0.22s）+ search endpoint 對 **無 Origin** request 正常返結果 → backend 本身通。但帶 `Origin: https://policychecker.wongfu.net` 嘅 OPTIONS/POST → `Access-Control-Allow-Origin` 回 `github.io`（≠ origin）→ **瀏覽器擋回應 → fetch throw → app.html:2881 catch 出 error**。= **環境/配置層 CORS bug**。
+- **Root cause:** `getCorsOrigins()` = `process.env.CORS_ORIGIN || DEFAULT`。源碼 DEFAULT 自 S132 (c6dab15, 2026-05-28) 已含 policychecker，但 **Render env var `CORS_ORIGIN` 覆蓋咗 default 且只有 github.io** → live 清單缺 policychecker。**Latent 自 S132 brand launch：喺品牌域名搜尋一直 0 功能，因一直用 github.io origin 測試而未察覺**（§G.2 「測試環境 ≠ 生產環境 origin」教訓）。
+- **Fix:** `backend/src/config/env.ts` 加 `BASELINE_CORS_ORIGINS = [github.io, policychecker.wongfu.net]`；`getCorsOrigins()` 改為 **union baseline + env origins**（baseline 行先、dedupe）→ 漏/錯 env var 都無法再令品牌域名離線；env var 仍可 ADD 其他 origin（如學校 iframe host）。
+- **Verification:** typecheck+build exit 0；3 情境 node 單元驗（unset / stale-env-bug / env+school 都含兩個 brand origin）；commit `59494fa` push → Render auto-redeploy；live poll 第 4 次（~80s）ACAO 轉 `policychecker.wongfu.net`；端到端 `Origin: policychecker` POST「sen」= **HTTP 200 + ACAO match** ✅ → 原 error 解決。
+- **§8b promote 候選:** 「first-party 品牌 origin 必須 code-baseline、唔可淨靠可變 env var」+「生產 origin 必入 smoke（唔好淨用 dev origin 測）」— recurrence 即 promote。
+- **遺留（獨立、未修）:**「sen」短 query relevance 差 + `phys_sss_2007_2015` 源 **mojibake 亂碼**（端到端確認連 3 chunks surface、分數 0.26-0.27、零特殊教育/融合教育內容）→ 資料質素 backlog（同 S135 stat mojibake 同類；short-query-first）。
+
 ### Doc Sync
-Matched row: **Product behavior / tuning change** → SESSION_HANDOFF + SESSION_LOG（done）。CODEBASE_CONTEXT N/A（無 tech stack/service/Key Decision 變；mobile.js/.css 已在 directory map）。
+Matched row: **Product behavior / tuning change**（Mobile UI）+ **External API / service change**（CORS config）→ SESSION_HANDOFF + SESSION_LOG（done）。CODEBASE_CONTEXT N/A（mobile.js/.css 已在 dir map；CORS 屬 backend env 配置、無新 External Service block 欄位變）。
 
 ### Next Session Handoff Prompt (Verbatim)
 ```text
@@ -42,9 +52,11 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 S136 (2026-05-31)：**Mobile UI Phase 2 完成 — app.html#guidelines（文件庫）專用 mobile render**。Channel B 經確認已到設計天花板（CB-3 ~88% final ceiling、剩 ~12% = 4 HTML + 5 xlsx 結構性硬限、不可再升）。HEAD origin/main = <S136 PERSIST commit>（起手自行 verify）。
 
-S136 做咗（3 檔，純前端、mobile-only、desktop 已驗證不受影響）：(1) `app.html` +9 暴露 `window.GUIDELINES_REGISTRY`(148) + `dispatchEvent('k1-registry-ready')`；(2) `mobile.js` 新 `buildGuidelinesShell()`（分類/階段 chips + 排序 + 搜尋 + 文件卡 tap→EDB，鏡像桌面 GuidelinesPanel）+ guidelines 分支 event-driven build + hashchange→reload；(3) `mobile.css` `.m-guide-*` 樣式。修咗一個 TDZ bug（eager init-trigger 早過 const → 搬去 IIFE 尾）。Live-preview 6 scenario + desktop no-op + search-shell regression 全 PASS。
+S136 做咗 **A. Mobile UI Phase 2**（3 檔，純前端、mobile-only、desktop 已驗證不受影響）：(1) `app.html` +9 暴露 `window.GUIDELINES_REGISTRY`(148) + `dispatchEvent('k1-registry-ready')`；(2) `mobile.js` 新 `buildGuidelinesShell()`（分類/階段 chips + 排序 + 搜尋 + 文件卡 tap→EDB，鏡像桌面 GuidelinesPanel）+ guidelines 分支 event-driven build + hashchange→reload；(3) `mobile.css` `.m-guide-*` 樣式。修咗一個 TDZ bug（eager init-trigger 早過 const → 搬去 IIFE 尾）。Live-preview 6 scenario + desktop no-op + search-shell regression 全 PASS。
 
-⚠️ KEY LESSON S136：(1) **交接文檔 claim 又 stale**（§G.2）— 講 4 個 mobile 介面未 render，實測只 #guidelines 真缺；動手前實證咗先收窄範圍。(2) **deferred-script IIFE 的 eager `readyState!=='loading'` init-trigger 必須排喺所有 module const 之後**，否則 TDZ；live-preview probe 係揪呢類 silent fail 的關鍵（0 console error 都要 probe）。(3) in-browser Babel 編譯 app.html(4759 行)可 >3s，跨-script 時序用 custom event（`k1-registry-ready`）比固定 poll timeout 可靠。
+S136 **B. CORS incident 修復**（Leonard 真機驗 Mobile 後揪出）：Channel B 政策搜尋喺 `policychecker.wongfu.net` 出「搜尋服務暫未連線」。Root cause = Render env var `CORS_ORIGIN` 覆蓋源碼 default、缺品牌域名 → ACAO 回 github.io → 瀏覽器擋。**Latent 自 S132 brand launch**（一直用 github.io origin 測試而漏咗）。Fix = `backend/src/config/env.ts` `getCorsOrigins()` union `BASELINE_CORS_ORIGINS`(github.io + policychecker) + env → 漏 env var 都無法再令品牌域名離線。commit `59494fa` push → Render redeploy → 端到端 `Origin: policychecker` POST = HTTP 200 + ACAO match ✅。**遺留（獨立未修）:**「sen」短 query relevance 差 + `phys_sss_2007_2015` 源 mojibake 亂碼（資料質素 backlog）。
+
+⚠️ KEY LESSON S136：(1) **交接文檔 claim 又 stale**（§G.2）— 講 4 個 mobile 介面未 render，實測只 #guidelines 真缺；動手前實證咗先收窄範圍。(2) **deferred-script IIFE 的 eager `readyState!=='loading'` init-trigger 必須排喺所有 module const 之後**，否則 TDZ；live-preview probe 係揪呢類 silent fail 的關鍵（0 console error 都要 probe）。(3) in-browser Babel 編譯 app.html(4759 行)可 >3s，跨-script 時序用 custom event 比固定 poll timeout 可靠。(4) **生產 origin ≠ 測試 origin**：CORS/配置類問題用 dev origin（github.io）測唔到、要用真品牌域名（policychecker）端到端 smoke；first-party 品牌 origin 應 code-baseline、唔好淨靠可變 Render env var（§8b 候選）。
 
 Current objective and progress state:
 - Baseline: Supabase **9,849** / 102 marker-bearing / CB-3 final ceiling ~88%（已到頂、Channel B 無 pending 執行）/ brand live (policychecker.wongfu.net)
@@ -52,27 +64,30 @@ Current objective and progress state:
 - 下一階段方向待 Leonard
 
 Pending tasks in priority order:
-1. **Leonard 真機 browser-verify Mobile #guidelines**（policychecker.wongfu.net 手機開「文件庫」tab；deploy 後 ~1-2 分鐘 GitHub Pages 生效）
-2. **下一階段方向待 Leonard 揀**：Q4 對外契約收斂（deferred、未明示勿掂）/ §8b rule 2 semantic-supersede automation / 39→148 guidelines 擴展 / 既有 deferred backlog
-3. **既有 deferred backlog**：§E.10 (a) admin-login client-side gate（ACCEPTED conditional）/ 57014 transient（retry 即恢復）/ FAIL-A 注入 regression（record-only）/ stat_fact 升 2025/26（ROI≈0）
+1. **🔴 資料質素 backlog（CORS 修好後浮面、user-facing）**：「sen」短 query → `phys_sss_2007_2015` 源 **mojibake 亂碼**（端到端確認連 3 chunks surface）+ 零特殊教育/融合教育。兩部分：(a) phys_sss mojibake re-index（同 S135 stat fix pattern、可做）；(b) 短英文 query relevance/routing（較深）。待 Leonard 決定優先。
+2. **Leonard 真機 browser-verify**：(a) Mobile #guidelines（手機「文件庫」tab）；(b) Channel B 政策搜尋喺 policychecker.wongfu.net（CORS 已修、應通）。
+3. **下一階段方向待 Leonard**：Q4 對外契約收斂（deferred 未明示勿掂）/ §8b automation / 39→148 / 既有 deferred backlog（§E.10 / 57014 / FAIL-A / stat_fact 2025/26 ROI≈0）。
 
 Key files changed this session:
 - `app.html`（暴露 GUIDELINES_REGISTRY + dispatch event）
 - `mobile.js`（buildGuidelinesShell + guidelines 分支 event-driven + init-trigger 搬尾修 TDZ + hashchange→reload）
 - `mobile.css`（.m-guide-* 樣式）
+- `backend/src/config/env.ts`（CORS hardening：BASELINE_CORS_ORIGINS union）
 - dev/SESSION_HANDOFF.md + dev/SESSION_LOG.md
 
 Known risks / blockers / cautions:
-- 0 new product risks（mobile-only additive；desktop live-verified no-op；registry 暴露無害）
+- **CORS 已修（commit `59494fa`、live verified）**；first-party 品牌 origin 現 code-baseline。Render env var `CORS_ORIGIN` 可繼續 ADD 其他 origin（如學校 iframe host）但唔再能令品牌域名離線。
+- 🔴 **NEW 資料質素**：`phys_sss_2007_2015` mojibake 亂碼 surface（user-facing；待修）+ 短英文 query relevance 差。
 - 既有不變: 🔴 57014 transient (retry); FAIL-A (record-only); §E.10(a) ACCEPTED conditional; q.html/A·AB code path dormant 勿清; Q4 deferred 未明示勿掂; Stage-2 closed 勿復活; egress 每次自測; 路徑空格雙引號; Testing/ 喺 Draft git 外; 改 Draft code/data commit 必入 SESSION_LOG
-- mobile.js 教訓：任何新 module const + 喺 init 路徑用到，必確保 eager init-trigger 喺其後（已搬 IIFE 尾、現安全）
+- mobile.js 教訓：任何新 module const 喺 init 路徑用到，必確保 eager init-trigger 喺其後（已搬 IIFE 尾、現安全）
 
 Validation status:
-- PASS: `node --check mobile.js` exit 0；live preview 6 §3d scenario + desktop no-op + search-shell regression 全 PASS（375px + 1280px 雙 viewport real-engine 驗）
-- COMMITTED: <feature commit> + <PERSIST commit> origin/main（起手自行 verify HEAD），tree clean
-- OPEN: Leonard 真機 verify pending；下一階段方向待 Leonard
+- PASS: Mobile UI — `node --check mobile.js` exit 0；live preview 6 §3d scenario + desktop no-op + search-shell regression 全 PASS（375px + 1280px real-engine）
+- PASS: CORS fix — `npm run check`/`build` exit 0；node 3-scenario union 驗；live ACAO 端到端確認 `policychecker` allowed + Channel B「sen」HTTP 200
+- COMMITTED: Mobile `0c2e201` + PERSIST `664ecdb` + CORS `59494fa` origin/main（起手自行 verify HEAD），tree clean
+- OPEN: 資料質素 backlog（phys_sss mojibake + 短 query relevance）；Leonard 真機 verify；下一階段方向待 Leonard
 
-Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD / knowledge.json stats facts:455 / Supabase 9,849 / egress onrender /health）後，**Mobile UI Phase 2 已完成、無 pending 執行**。第一件事＝(a) 提醒 Leonard 喺手機開 policychecker.wongfu.net →「文件庫」tab 親驗（如有 UI 細節要調再做），同時 (b) 問 Leonard 下一階段方向。未 Leonard 明示前唔好自行 resume / 掂 Q4 契約 / reopen §E.10 / 動 Stage-2。
+Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD / knowledge.json stats facts:455 / Supabase 9,849 / egress onrender /health + **CORS：`Origin: https://policychecker.wongfu.net` 打 OPTIONS `/api/search/channel-b` 應回 ACAO=policychecker**）後，**Mobile UI Phase 2 + CORS 修復已完成**。第一件事＝問 Leonard：要唔要而家修資料質素 backlog（(a) phys_sss_2007_2015 mojibake re-index — 同 S135 stat fix pattern、可即做；(b) 短英文 query「sen」relevance/routing — 較深），定行其他方向。未 Leonard 明示前唔好自行 resume / 掂 Q4 契約 / reopen §E.10 / 動 Stage-2。
 ```
 
 ## 2026-05-30 Session 135 — Phase 3 全力完成 (3a #3 5源 no-op + 2 backfill〔history_jss_2019 + edbc197〕+ stat mojibake fix + allowlist parity)
