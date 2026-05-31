@@ -2,6 +2,79 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-05-31 Session 136 — Mobile UI Phase 2：文件庫 (#guidelines) 專用 mobile render
+
+- **ID:** Claude_20260531_1200
+- **Trigger:** Leonard 確認 Channel B 已到設計天花板（CB-3 ~88% final ceiling、剩 ~12% 結構性硬限）→ 揀 option 4（Mobile UI Phase 2）；資料源拍板 = 148（與桌面一致）
+- **§3 Risk:** HIGH（3 檔 app.html/mobile.js/mobile.css + 公開 brand 介面 policychecker.wongfu.net；criterion a/b）→ 出 PLAN 等 Leonard 拍板資料源 → 入 CHANGE
+
+### READ — 交接 claim 實證為 stale（§G.2 doc-drift 又中）
+交接寫「index/q/t-purchase/app#guidelines 手機內容未 render」。實測（Explore agent + 直讀 code）：index/q/t-purchase 已 CSS 響應式、OK；**唯一真缺 = app.html#guidelines**。`mobile.js:421` 留明文 TODO「下節做專用 mobile render」；現時 fallback 硬露桌面 React panel，`w-44`(176px) 固定側欄喺 375px 壓爆內容（screenshot 證實標題逐字直排）。→ Phase 2 真範圍收窄成單一件事（≠ 交接講嘅 4 個介面）。
+
+### CHANGE — 3 檔
+1. `app.html`（+9）：registry 定義後 `window.GUIDELINES_REGISTRY = GUIDELINES_REGISTRY` + `dispatchEvent('k1-registry-ready')`（暴露 148 俾 vanilla mobile.js；desktop no-op、無害）
+2. `mobile.js`（+215/-11）：新 `buildGuidelinesShell()` — 分類橫向 chips（zero-count 隱藏、鏡像桌面 CATS）+ 學習階段 chips + 最新/最舊/名稱排序 + 名稱搜尋 + 文件卡（format/year/level badge）tap→EDB 原文；filter/sort 語義完全鏡像桌面 `GuidelinesPanel`。guidelines 分支改 event-driven build + 12s poll backstop + graceful revealRoot fallback；新增 hashchange→reload（解 文件庫↔搜尋 tab 同檔 hash 切換唔 rebuild）
+3. `mobile.css`（+216）：`.m-guide-*` 樣式（包在既有 `@media(max-width:640px)`、沿用既有 design tokens）
+
+### §3 CHANGE divergence — TDZ bug（live-preview QC 揪出，textbook stop-and-fix）
+首輪 preview shell 唔 build 且 0 console error。加 probe 揪出 `ReferenceError: Cannot access 'GUIDE_CATS' before initialization`。根因 = IIFE 頂部 eager-trigger `if(readyState!=='loading') initMobileShell()` 排喺 `const GUIDE_CATS` 宣告之上；deferred script 喺 'interactive' 執行 → init 早過 const init → TDZ。（既有 search shell 只靠後續 DOMContentLoaded re-init 僥倖 cover、latent 同類風險。）**修：eager-trigger 搬去 IIFE 尾（全部 module const 已 init 後）→ 連帶修咗 search shell latent TDZ。** Probe 事後全清（noProbes verified）。
+
+### QC — live preview（Electron/Chrome real engine，375px mobile）全 PASS
+- 6 §3d scenario 全 PASS：載入 #guidelines → 148 卡 / 8 分類 chip / 6 階段 chip /「148 份」/ 最新排序 ✓；分類 課程→127、+中學→52、搜尋「採購」→1（資助學校採購程序指引）、名稱排序 reorder ✓；TDZ 修復後 0 error；文件庫↔搜尋 tab hashchange→reload 正確換 shell ✓；**desktop 1280px → mobile.js no-op、React `.w-44` panel 正常、registry 暴露無害 ✓**；search shell 0 regression ✓
+- card href = 真 EDB url；`node --check mobile.js` exit 0
+
+### Sources changed
+- `app.html`（registry 暴露 + event）/ `mobile.js`（buildGuidelinesShell + init relocate + hashchange）/ `mobile.css`（.m-guide-*）
+- **NOT modified:** Supabase / knowledge.json / guidelines.json / source_registry / backend / PROJECT_MASTER_SPEC / CODEBASE_CONTEXT
+- commit + push origin/main → GitHub Pages auto-deploy（policychecker.wongfu.net）；Leonard 真機 browser-verify pending
+
+### Doc Sync
+Matched row: **Product behavior / tuning change** → SESSION_HANDOFF + SESSION_LOG（done）。CODEBASE_CONTEXT N/A（無 tech stack/service/Key Decision 變；mobile.js/.css 已在 directory map）。
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。S135/S136 證實 EDB + onrender egress 均通 — handoff 舊「EDB 去唔到」假設已過時，仍每次自測。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S136 (2026-05-31)：**Mobile UI Phase 2 完成 — app.html#guidelines（文件庫）專用 mobile render**。Channel B 經確認已到設計天花板（CB-3 ~88% final ceiling、剩 ~12% = 4 HTML + 5 xlsx 結構性硬限、不可再升）。HEAD origin/main = <S136 PERSIST commit>（起手自行 verify）。
+
+S136 做咗（3 檔，純前端、mobile-only、desktop 已驗證不受影響）：(1) `app.html` +9 暴露 `window.GUIDELINES_REGISTRY`(148) + `dispatchEvent('k1-registry-ready')`；(2) `mobile.js` 新 `buildGuidelinesShell()`（分類/階段 chips + 排序 + 搜尋 + 文件卡 tap→EDB，鏡像桌面 GuidelinesPanel）+ guidelines 分支 event-driven build + hashchange→reload；(3) `mobile.css` `.m-guide-*` 樣式。修咗一個 TDZ bug（eager init-trigger 早過 const → 搬去 IIFE 尾）。Live-preview 6 scenario + desktop no-op + search-shell regression 全 PASS。
+
+⚠️ KEY LESSON S136：(1) **交接文檔 claim 又 stale**（§G.2）— 講 4 個 mobile 介面未 render，實測只 #guidelines 真缺；動手前實證咗先收窄範圍。(2) **deferred-script IIFE 的 eager `readyState!=='loading'` init-trigger 必須排喺所有 module const 之後**，否則 TDZ；live-preview probe 係揪呢類 silent fail 的關鍵（0 console error 都要 probe）。(3) in-browser Babel 編譯 app.html(4759 行)可 >3s，跨-script 時序用 custom event（`k1-registry-ready`）比固定 poll timeout 可靠。
+
+Current objective and progress state:
+- Baseline: Supabase **9,849** / 102 marker-bearing / CB-3 final ceiling ~88%（已到頂、Channel B 無 pending 執行）/ brand live (policychecker.wongfu.net)
+- **Mobile UI Phase 2 完成**（#guidelines 專用 mobile render live）；index/q/t-purchase mobile 經實證已響應式、無需動
+- 下一階段方向待 Leonard
+
+Pending tasks in priority order:
+1. **Leonard 真機 browser-verify Mobile #guidelines**（policychecker.wongfu.net 手機開「文件庫」tab；deploy 後 ~1-2 分鐘 GitHub Pages 生效）
+2. **下一階段方向待 Leonard 揀**：Q4 對外契約收斂（deferred、未明示勿掂）/ §8b rule 2 semantic-supersede automation / 39→148 guidelines 擴展 / 既有 deferred backlog
+3. **既有 deferred backlog**：§E.10 (a) admin-login client-side gate（ACCEPTED conditional）/ 57014 transient（retry 即恢復）/ FAIL-A 注入 regression（record-only）/ stat_fact 升 2025/26（ROI≈0）
+
+Key files changed this session:
+- `app.html`（暴露 GUIDELINES_REGISTRY + dispatch event）
+- `mobile.js`（buildGuidelinesShell + guidelines 分支 event-driven + init-trigger 搬尾修 TDZ + hashchange→reload）
+- `mobile.css`（.m-guide-* 樣式）
+- dev/SESSION_HANDOFF.md + dev/SESSION_LOG.md
+
+Known risks / blockers / cautions:
+- 0 new product risks（mobile-only additive；desktop live-verified no-op；registry 暴露無害）
+- 既有不變: 🔴 57014 transient (retry); FAIL-A (record-only); §E.10(a) ACCEPTED conditional; q.html/A·AB code path dormant 勿清; Q4 deferred 未明示勿掂; Stage-2 closed 勿復活; egress 每次自測; 路徑空格雙引號; Testing/ 喺 Draft git 外; 改 Draft code/data commit 必入 SESSION_LOG
+- mobile.js 教訓：任何新 module const + 喺 init 路徑用到，必確保 eager init-trigger 喺其後（已搬 IIFE 尾、現安全）
+
+Validation status:
+- PASS: `node --check mobile.js` exit 0；live preview 6 §3d scenario + desktop no-op + search-shell regression 全 PASS（375px + 1280px 雙 viewport real-engine 驗）
+- COMMITTED: <feature commit> + <PERSIST commit> origin/main（起手自行 verify HEAD），tree clean
+- OPEN: Leonard 真機 verify pending；下一階段方向待 Leonard
+
+Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD / knowledge.json stats facts:455 / Supabase 9,849 / egress onrender /health）後，**Mobile UI Phase 2 已完成、無 pending 執行**。第一件事＝(a) 提醒 Leonard 喺手機開 policychecker.wongfu.net →「文件庫」tab 親驗（如有 UI 細節要調再做），同時 (b) 問 Leonard 下一階段方向。未 Leonard 明示前唔好自行 resume / 掂 Q4 契約 / reopen §E.10 / 動 Stage-2。
+```
+
 ## 2026-05-30 Session 135 — Phase 3 全力完成 (3a #3 5源 no-op + 2 backfill〔history_jss_2019 + edbc197〕+ stat mojibake fix + allowlist parity)
 
 - **ID:** Claude_20260530_1700
