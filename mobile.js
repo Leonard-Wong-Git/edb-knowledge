@@ -149,7 +149,7 @@
     const hash = location.hash || '';
     const TABS = [
       { key: 'search',     icon: '🔍', label: '搜尋',       href: 'app.html',                match: ['app.html'] },
-      { key: 'library',    icon: '📚', label: '文件庫',     href: 'app.html#guidelines',     match: ['#guidelines'] },
+      { key: 'library',    icon: '📚', label: '指引文件',   href: 'app.html#guidelines',     match: ['#guidelines'] },
       { key: 'about',      icon: 'ℹ️', label: '平台介紹',   href: 'index.html',              match: ['index.html', ''] },
     ];
 
@@ -478,7 +478,7 @@
     shell.innerHTML = ''
       + '<header class="m-guide-head">'
       +   '<div class="m-guide-eyebrow">EDB 官方政策指引</div>'
-      +   '<h1 class="m-guide-title">指引文件庫</h1>'
+      +   '<h1 class="m-guide-title">指引文件</h1>'
       +   '<p class="m-guide-sub">共 ' + reg.length + ' 份官方指引文件，點擊即看 EDB 原文</p>'
       +   '<form class="m-guide-search" id="m-guide-search-form" autocomplete="off">'
       +     '<svg class="m-search-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>'
