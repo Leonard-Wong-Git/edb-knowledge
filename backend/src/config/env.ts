@@ -3,6 +3,18 @@ const DEFAULT_PORT = 8787;
 const DEFAULT_CORS_ORIGIN = "https://leonard-wong-git.github.io,https://policychecker.wongfu.net";
 const DEFAULT_KNOWLEDGE_PATH_SETTING = "../../../role_facts.json";
 
+// First-party brand origins that must ALWAYS be allowed regardless of the
+// CORS_ORIGIN env var. Hardening after S136 incident: a stale Render
+// `CORS_ORIGIN` env var (missing policychecker.wongfu.net) silently CORS-blocked
+// all searches from the brand domain since the S132 launch. getCorsOrigins()
+// now unions these in so a forgotten/misconfigured env var can never again take
+// the brand domain offline. Env var can still ADD further origins (e.g. school
+// iframe hosts).
+const BASELINE_CORS_ORIGINS = [
+  "https://leonard-wong-git.github.io",
+  "https://policychecker.wongfu.net",
+];
+
 function requireEnv(name: string): string {
   const value = process.env[name];
   if (!value || !value.trim()) {
@@ -32,10 +44,21 @@ export function getCorsOrigin(): string {
 }
 
 export function getCorsOrigins(): string[] {
-  return getCorsOrigin()
+  const fromEnv = getCorsOrigin()
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean);
+  // Union first-party brand origins with env-configured origins (baseline first
+  // so it cannot be dropped by a stale env var), deduped, order preserved.
+  const seen = new Set<string>();
+  const merged: string[] = [];
+  for (const origin of [...BASELINE_CORS_ORIGINS, ...fromEnv]) {
+    if (!seen.has(origin)) {
+      seen.add(origin);
+      merged.push(origin);
+    }
+  }
+  return merged;
 }
 
 export function getKnowledgePath(): string {
