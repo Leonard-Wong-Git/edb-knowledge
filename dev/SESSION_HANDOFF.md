@@ -157,7 +157,7 @@ source_registry → same vault PDFs → ai_extract.py
    - 🔴 **NEW 資料質素**：phys_sss_2007_2015 mojibake 亂碼 user-facing surface（待修）；短 query relevance 差
    - mobile.js 教訓：任何新 module const 喺 init 路徑用到，必確保 eager init-trigger 喺其後（已搬 IIFE 尾、現安全）
    - 既有 risks 不變: 🔴 57014 transient (retry); FAIL-A (record-only); §E.10 (a) ACCEPTED conditional; q.html/A·AB code path dormant 勿清; Q4 deferred 未明示勿掂; Stage-2 closed; egress 每次自測
-7. **✅ Mobile UI Phase 2 + CORS 修復完成。** Mobile #guidelines render live；CORS hardening 令品牌域名搜尋恢復（latent 自 S132 修好）。commits: Mobile `0c2e201` + PERSIST `664ecdb` + CORS `59494fa`（+ 本 PERSIST，起手自行 verify HEAD）。Supabase 仍 **9,849**（0 data mutation）。下次起手＝問 Leonard 要唔要修資料質素 backlog（phys mojibake 可即做）+ 下一階段方向。
+7. **✅ Mobile UI Phase 2 + CORS 修復 + UI polish 完成。** Mobile #guidelines render live；CORS hardening 令品牌域名搜尋恢復（latent 自 S132 修好）；UI polish = 命名統一「指引文件」+ favicon navy→品牌綠 #1F3A2E。commits: Mobile `0c2e201` + PERSIST `664ecdb` + CORS `59494fa` + PERSIST `a58b089` + UI polish `431ba09`（+ 本 PERSIST，起手自行 verify HEAD）。Supabase 仍 **9,849**（0 data mutation）。下次起手＝問 Leonard 要唔要修資料質素 backlog（phys mojibake 可即做）+ 下一階段方向。
 
 ## Previous Session Record
 1. UTC date: 2026-05-30

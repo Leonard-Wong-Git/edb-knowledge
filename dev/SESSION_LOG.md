@@ -41,6 +41,10 @@
 ### Doc Sync
 Matched row: **Product behavior / tuning change**（Mobile UI）+ **External API / service change**（CORS config）→ SESSION_HANDOFF + SESSION_LOG（done）。CODEBASE_CONTEXT N/A（mobile.js/.css 已在 dir map；CORS 屬 backend env 配置、無新 External Service block 欄位變）。
 
+### UI polish（same-session follow-up，Leonard feedback）
+- **命名統一「指引文件」**：原本 首頁(index.html)「文件庫」/ 內頁(app.html)「指引(148)」唔一致 → 三處 nav label + 手機 shell H1 全改「指引文件」（app.html「指引文件 (148)」保留 count）。
+- **favicon 重新上色 navy→品牌綠**：原 favicon 背景係 navy `#0F2D5E`、唔 match 網站綠 header（`--edb #1F3A2E`）→ Leonard 要 favicon 背景跟網站背景色。PIL weighted colour-shift（`new = old + w*(green-navy)`、w 隨「離 navy 距離」漸變）保留 cream 文件 + 金色剔/§ + 平滑邊緣；重生 32/180/192/512 + source；原檔 §5.a backup `dev/init_backup/20260531_150222_UTC_favicon_navy/`。視覺 review 512 確認乾淨。commit `431ba09`。
+
 ### Next Session Handoff Prompt (Verbatim)
 ```text
 Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
@@ -84,7 +88,7 @@ Known risks / blockers / cautions:
 Validation status:
 - PASS: Mobile UI — `node --check mobile.js` exit 0；live preview 6 §3d scenario + desktop no-op + search-shell regression 全 PASS（375px + 1280px real-engine）
 - PASS: CORS fix — `npm run check`/`build` exit 0；node 3-scenario union 驗；live ACAO 端到端確認 `policychecker` allowed + Channel B「sen」HTTP 200
-- COMMITTED: Mobile `0c2e201` + PERSIST `664ecdb` + CORS `59494fa` origin/main（起手自行 verify HEAD），tree clean
+- COMMITTED: Mobile `0c2e201` + PERSIST `664ecdb` + CORS `59494fa` + PERSIST `a58b089` + UI polish（命名統一+favicon 綠）`431ba09` origin/main（起手自行 verify HEAD），tree clean
 - OPEN: 資料質素 backlog（phys_sss mojibake + 短 query relevance）；Leonard 真機 verify；下一階段方向待 Leonard
 
 Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD / knowledge.json stats facts:455 / Supabase 9,849 / egress onrender /health + **CORS：`Origin: https://policychecker.wongfu.net` 打 OPTIONS `/api/search/channel-b` 應回 ACAO=policychecker**）後，**Mobile UI Phase 2 + CORS 修復已完成**。第一件事＝問 Leonard：要唔要而家修資料質素 backlog（(a) phys_sss_2007_2015 mojibake re-index — 同 S135 stat fix pattern、可即做；(b) 短英文 query「sen」relevance/routing — 較深），定行其他方向。未 Leonard 明示前唔好自行 resume / 掂 Q4 契約 / reopen §E.10 / 動 Stage-2。
