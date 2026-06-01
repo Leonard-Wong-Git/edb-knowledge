@@ -2,6 +2,76 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-01 Session 137 — 資料質素 backlog 診斷（phys mojibake 根因 + 「sen」短 query routing）— READ-ONLY，0 mutation
+
+- **ID:** Claude_20260601_1143
+- **Trigger:** Leonard `/workflow 全做` → 診斷兩件資料質素 backlog（phys_sss mojibake + 短 query relevance）
+- **§3 Risk:** 診斷 READ-only = LOW；執行 fork = HIGH → 出 PLAN 後 Leonard「收工」→ 執行全部 deferred
+- **Method:** 背景 workflow（3 agent：phys diagnostic + shortquery diagnostic + adversarial verify）+ inline sibling-audit（65 repaged PDF）+ 直讀 searchChannelB.ts
+
+### 診斷發現
+1. **phys_sss_2007_2015 mojibake 根因 = CID-glyph（Identity-H / 無 ToUnicode CMap）** — 源 PDF 用 Type0 CID 字體無 ToUnicode → PyMuPDF `get_text` 抽出 glyph 索引當 Unicode → valid-but-wrong CJK（19,106 CJK 字、但 物理/課程/科學 出現 **0** 次；U+FFFD=0 證明唔係 byte-loss）。**⚠️ 唔係 S135 pattern**：S135 stat_edb_figures = latin-1/utf-8 雙重編碼（bytes 完整、可 carry-decode）；phys = glyph-index（bytes 入面根本無原文 Unicode、**不可 decode 復原、必須 OCR 重抽**）。**交接「同 S135、可即做」假設證實為錯（§G.2 doc-drift 又中、Nth instance）**。182 chunks 全 vault_extract、100% mojibake。🚧 **Tesseract 未裝 = OCR blocker**（`get_textpage_ocr` raised "Tesseract is not installed"）。修正：wiki_chunks 欄名係 `text` 唔係 `content`。
+2. **adversarial verify（physVerify）** 獨立 re-count = 182、`agree_with_claim=true`、vault_source_clean=false（重開 repaged.txt 確認 body 亂碼、唯一「物理」喺 header metadata 行）。
+3. **sibling audit（inline，掃 65 page-carried PDF）：phys 係唯一 mojibake 源** — 孤立個案、**非 family-wide**（chem/bio/ict/history/geog_sss 等全 clean）。範圍收窄成單源。
+4. **「sen」短 query 根因 = ①+②+③ 疊加（非純資料缺口）**：① routing gap（主因）— 「sen」配唔到任何 TOPIC_KEYWORDS → 無 route/expansion/source 收窄 → raw token 全庫搜 0.22 floor；② phys mojibake = 「sen」落腳點（top-3 全 phys 亂碼 @0.26-0.27，啱啱過 0.22）；③ 真資料缺口 — g10《特殊學校課程指引》(2024) / g19《融合教育運作指南》registry status=verified 但 **0 chunks（從未 ingest）**，g14/sen_curr_area/gifted_policy_docs 同樣 0。**佐證 ① 係主 lever：** 大寫「SEN」→ role_facts_student @0.43；「特殊教育需要」→ role_facts_student @0.62（含 SENCO 轉介 gold fact）+ g06 — 內容 retrievable，只係 bare lowercase token 失敗（text-embedding-3-small 大小寫 artifact）。
+5. **修法設計：SEN dedicated route（Option A，routing-not-cutoff lever）** ready-to-implement ~15 行：`TOPIC_KEYWORDS.sen`（`\bsen\b/i` + 特殊教育/融合教育/統籌主任/SENCO/特殊學校，**置於 curriculum 之前**，first-match precedence）+ `SOURCE_SETS.sen=[g06, sag_2025_11, role_facts_student, role_facts_general, g10, g19]`（g10/g19 ingest 後生效）+ `QUERY_EXPANSIONS.sen`。routed → effectiveMinScore 0.08 over curated set。
+
+### Sources changed
+- **NONE（0 code/data/Supabase mutation）** — 純診斷。只更新 dev/SESSION_HANDOFF.md + dev/SESSION_LOG.md
+- 執行決策 Leonard「收工」全部 deferred：phys 修法（DROP-now / OCR / denylist 未定）+ g10/g19 ingest（未定）+ SEN route（未實施）
+
+### Doc Sync
+研究/診斷 session、無 code/data 變更 → SESSION_HANDOFF + SESSION_LOG only。CODEBASE_CONTEXT / PMS N/A。
+
+### 待辦 lesson（§8 monitoring）
+phys mojibake 根因 = CID Identity-H/無-ToUnicode-CMap 偵測法（expected-word-count==0 + U+FFFD==0 + CID 字體名）— 若日後其他 EDB PDF 同類 recurrence 即 §8b promote。本 session 已用 sibling-audit 確認目前孤立。
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。S135/S136 證實 EDB + onrender egress 均通；S137 再驗 onrender /health + CORS(policychecker ACAO) + Supabase 9,849 全通 — 仍每次自測。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S137 (2026-06-01)：**純診斷 session、0 mutation**。Leonard `/workflow 全做` → 診斷 phys mojibake + 「sen」短 query → 出 PLAN → Leonard「收工」→ 執行決策全部 deferred。Supabase 仍 **9,849**。HEAD 起手自行 verify。
+
+🔴 **重大發現 #1 — phys_sss_2007_2015 mojibake 唔係交接講嘅「同 S135、可即做」**（§G.2 doc-drift 又中）。真根因 = CID-glyph（源 PDF Identity-H/無 ToUnicode CMap → PyMuPDF 抽 glyph 索引當 Unicode → valid-but-wrong CJK；物理/課程/科學 出現 0 次）。**不可 decode 復原、必須 OCR 重抽**（S135 嗰個係 byte 雙重編碼可 carry-decode，呢個唔同類）。182 chunks 全 vault_extract、100% 亂碼（adversarial verify 獨立 re-count=182 confirmed）。🚧 **Tesseract 未裝 = OCR blocker**。修正：wiki_chunks 欄名 `text` 非 `content`。
+
+🟢 **發現 #2 — sibling audit（掃 65 page-carried PDF）：phys 係唯一 mojibake、孤立非 family-wide**。chem/bio/ict/history/geog_sss 等全 clean。範圍 = 單源 182 chunks。
+
+🔴 **發現 #3 — 「sen」根因 = ①routing gap（主）+ ②phys 亂碼落腳點 + ③g10/g19 真資料缺口**。「sen」配唔到 TOPIC_KEYWORDS → 全庫 raw 搜 → 落 phys 亂碼 @0.26。但大寫「SEN」/「特殊教育需要」已正確 surface role_facts_student @0.43-0.62（SENCO gold fact）+ g06 → 內容 retrievable、係 routing 問題。g10《特殊學校課程指引》/ g19《融合教育運作指南》registry verified 但 0 chunks（從未 ingest）。
+
+✅ **修法設計 ready（未實施）：SEN dedicated route（routing-not-cutoff lever，~15 行 searchChannelB.ts）** = TOPIC_KEYWORDS.sen（`\bsen\b/i`+特殊教育/融合教育/統籌主任/SENCO/特殊學校，**置 curriculum 之前**）+ SOURCE_SETS.sen=[g06,sag_2025_11,role_facts_student,role_facts_general,g10,g19] + QUERY_EXPANSIONS.sen。鏡像現有 cpd/conduct route；routed→effectiveMinScore 0.08。
+
+Current objective and progress state:
+- Baseline: Supabase 9,849 / 102 marker-bearing / CB-3 final ceiling ~88% / brand live (policychecker.wongfu.net) / S137 純診斷無變動
+- 資料質素 backlog 已完成診斷、執行 PLAN ready；兩個執行 fork 待 Leonard 決
+
+Pending tasks in priority order:
+1. **SEN dedicated route**（low-risk win、spec ready）— 實施 searchChannelB.ts ~15 行 → typecheck/build → Leonard deploy → live smoke「sen」應 route 去 g06/role_facts_student 真 SEN 內容。可即做、唔使等其他決策。
+2. **phys_sss_2007_2015 182 亂碼 chunks 修法決策**（Leonard 收工未定）：(a) 即 DROP（cb3_deprecate_stale.py、reversible、9,849→9,667、即清污染、OCR 重抽留 follow-up）/ (b) OCR 重抽（須 Leonard 先 brew install tesseract tesseract-lang、慢/重/有誤差但復原真內容）/ (c) 後端 denylist（症狀修）。
+3. **g10/g19 SEN 真資料缺口 ingest**（Leonard 收工未定）：fetch EDB PDF → 先驗冇 mojibake（同 phys 風險）→ page-carry → 索引（同 S135 history_jss backfill pattern；注意 g10/g19 加咗入 SOURCE_SETS.sen 但要 ingest 先生效）。
+4. 既有 deferred 不變：§E.10(a) ACCEPTED conditional / 57014 transient / FAIL-A record-only / Q4 契約 deferred 未明示勿掂 / Stage-2 closed / stat_fact 2025/26 ROI≈0。
+
+Key files changed this session:
+- **NONE**（0 code/data/Supabase mutation）。只 dev/SESSION_HANDOFF.md + dev/SESSION_LOG.md
+
+Known risks / blockers / cautions:
+- 🚧 **OCR blocker**：Tesseract 未裝；phys OCR 路徑要 Leonard 先 `brew install tesseract tesseract-lang`。
+- 🔴 phys mojibake = glyph-index、**不可 decode 復原**（勿當 S135 carry-decode 試、會失敗）；wiki_chunks 欄名 `text` 非 `content`。
+- 🔴 「sen」短英文 query 用戶仍見 phys 亂碼（未修；SEN route + phys 清理任一都解決呢個 surface）。
+- 既有不變: 57014 transient(retry); FAIL-A(record-only); §E.10(a) ACCEPTED conditional; q.html/A·AB dormant 勿清; Q4 deferred 未明示勿掂; Stage-2 closed 勿復活; egress 每次自測; 路徑空格雙引號; 改 Draft code/data commit 必入 SESSION_LOG。
+
+Validation status:
+- 起手自測全 PASS：git HEAD=356e810==origin/main tree clean / knowledge facts=455 / onrender /health warm cache_a=455 / CORS policychecker ACAO match / Supabase wiki_chunks=9,849。
+- 診斷 adversarial-verified（physVerify agree_with_claim=true, count=182）；sibling-audit 65 files scanned。
+- 0 mutation、無 commit（純診斷 + doc closeout）。
+
+Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD / knowledge.json facts:455 / Supabase 9,849 / egress onrender /health / CORS policychecker ACAO）後，問 Leonard 三個 pending 點行先：(1) SEN dedicated route 可即做（low-risk）；(2) phys 修法揀 DROP / OCR(需裝 Tesseract) / denylist；(3) g10/g19 ingest 要唔要做。未 Leonard 明示前唔好自行執行 / 掂 Q4 / reopen §E.10 / 動 Stage-2。phys 勿當 S135 carry-decode 試（不可 decode、要 OCR）。
+```
+
 ## 2026-05-31 Session 136 — Mobile UI Phase 2：文件庫 (#guidelines) 專用 mobile render
 
 - **ID:** Claude_20260531_1200
