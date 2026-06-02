@@ -42,6 +42,11 @@
 ### Doc Sync
 Matched row: **Product behavior / tuning change** → SESSION_HANDOFF + SESSION_LOG（done）。CODEBASE_CONTEXT N/A（無 tech-stack/dir/external-service/Key-Decision 變；g10/g19 = 資料源非新基建、SEN route = 既有檔 tuning）。
 
+### 同 session 後續 — 共用經驗庫（Playbook）接駁 + 初次 harvest（Leonard 指示，additive、scoped）
+- **任務一（裝雙向 pointer）**：將跨-project「共用經驗庫 Playbook」(`/Users/leonard/Downloads/Claude Project/Leonard's playbook/playbook`) 嘅雙向 pointer 裝入本 project startup 檔 `AGENTS.md`（Handoff-Kit 4(a) 風格、3 處純 additive）：(A) 頂部 mandatory-startup marker 加 `§14`；(B) §1 startup 讀清單加第 5 步「lazy-query 該庫 INDEX.md、唔好讀晒所有卡」；(C) 檔尾新增 `## 14) 共用經驗庫（Playbook）` pointer block（本機 clone 路徑版、deposit 檔名 pre-fill `<日期>-policychecker-<短名>.md`）。**`AGENTS.md` 係 gitignored（私有治理檔、唔入 commit）→ 此 SESSION_LOG 記錄係 durable trace。** INDEX.md reachable 已驗。本 project 內部無同名 "playbook"、唔使 disambiguation。
+- **任務二（一次性 harvest）**：翻睇本 project 經驗（SESSION_LOG/HANDOFF/memory/§E·§G lessons）+ dedup against 該庫 INDEX.md，提煉 **7 條可轉移教訓**寫成 inbox 提案（只丟 inbox、**唔掂 trunk**）：verify-load-bearing-state-not-docs (convention) / inspect-live-infra-before-ddl / dry-run-blast-radius-before-destructive-batch / throttled-api-not-empty-data / pdf-extraction-mojibake-triage / external-source-url-churn-rediscovery (patterns) / shell-cmd-abs-path-and-chain (convention)。每條皆有「幾時唔好用/例外」+ 出處。**Playbook repo commit `9fbd406`**（`inbox: policychecker 初次 harvest 提議 7 條`；trunk verified clean）；未 push（待 Leonard 定 / 留 librarian）。之後由該庫 librarian 整理入 trunk，唔關本 project 事。
+- short name 拍板 = **policychecker**。0 EDB code/data/Supabase mutation（純治理檔 + 外部庫 inbox）。
+
 ### 待辦 lesson（§8 monitoring）
 **§G.2 doc-drift 又中（Nth）：S137 交接寫 g10/g19 ingest「同 S135 history_jss PDF page-carry pattern」低估咗工作 — 實測 g10=`source_type=index`（導航頁）、g19=`source_type=html`（hub），兩者皆要 §E.12 URL re-discovery（crawl 揾返真 PDF）先得，非 plan 假設嘅「直接 fetch PDF」。** 兩者真 PDF 均 mojibake pre-flight CLEAN（phys 教訓落實：ingest 前必驗 text layer）。Sub-agent egress 教訓：背景 general-purpose agent 嘅 Bash/WebFetch/WebSearch 被 deny → egress-heavy discovery 要主 agent 自己做。
 
