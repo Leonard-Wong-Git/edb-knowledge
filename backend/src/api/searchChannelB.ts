@@ -181,6 +181,20 @@ const SOURCE_SETS: Record<string, string[]> = {
     "role_facts_hr",
     "role_facts_general",
   ],
+  // SEN / 特殊教育 / 融合教育 (S138). Bare "sen" + 特殊教育/融合教育 queries previously
+  // matched no category → fell through to a raw whole-index search at the 0.22 floor
+  // and surfaced phys_sss mojibake (now dropped). This dedicated route narrows to the
+  // real SEN corpus: g06 (PECG SEN sections) + sag_2025_11 + the student/general role
+  // facts (SENCO gold) + g10《特殊學校課程指引》+ g19《全校參與模式融合教育運作指南》
+  // (both backfilled S138 — §E.12 URL re-discovery). routing-not-cutoff lever (S118 PLAN-1b).
+  sen: [
+    "g06",
+    "sag_2025_11",
+    "role_facts_student",
+    "role_facts_general",
+    "g10",
+    "g19",
+  ],
   // (steam route has no source filter — plain retrieval + expansion only.)
 
   /**
@@ -266,6 +280,10 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   finance: /採購|招標|單一報價|競投|供應商|報價單|分判|貨物|服務合約|財務管理|預算|撥款|開支|報銷|捐款|借款|代收費|利益衝突|申報利益|賄賂|廉署|防賄|資助則例|法團校董|校董會經費|採購門檻|採購程序/,
   hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師/,
   activity: /全方位學習|活動津貼|課外活動|全方位學習津貼/,
+  // SEN — MUST stay before `curriculum` (first-match precedence): "特殊學校課程指引"
+  // contains 課程 and would otherwise route to curriculum. \bsen\b/i catches the bare
+  // English token (real users type "sen"); the rest catch the Chinese terminology.
+  sen: /\bsen\b|\bsenco\b|特殊教育|特殊學校|融合教育|全校參與|統籌主任|特殊學習需要|有特殊教育需要/i,
   curriculum: /課程|科目|教學|學習目標|評估|教材|課程發展|學習領域|教師發展|CPD|專業發展|英文科|中文科|數學科|常識科|科學科|體育科|音樂科|視藝科|小學課程|中學課程|課程指引|學習成果|評核|幼稚園|幼兒|學前|K1|K2|K3|遊戲學習/,
 };
 
@@ -294,6 +312,7 @@ const QUERY_EXPANSIONS: Record<string, string> = {
   cpd:          "教師持續專業發展 持續專業發展 教育局通告29/2024 教師培訓要求 專業階梯 校本專業發展政策 師訓會 教師專業能力理念架構",
   kg_admission: "幼稚園收生安排指引 K1 註冊證 報名費 註冊費 統一註冊日期 申請入學 收生程序 空缺",
   conduct:      "教師專業操守指引 教育規例第58條 教員不得向學生施行體罰 操守 學生保護",
+  sen:          "特殊教育需要 融合教育 全校參與模式 特殊學校課程指引 融合教育運作指南 特殊教育需要統籌主任 SENCO 學生支援組 個別學習計劃 三層支援模式 校本支援 共融校園 照顧學生個別差異",
   steam:        "STEAM教育 跨學科 課程更新重點 七大重點 STEAM專責小組 科學科技工程藝術數學",
   finance:    "採購程序 財政限額 報價 招標 採購指引",
   hr_admin:   "教職員假期 批假 薪酬 操守 病假 首年 168日 上限 醫生證明 教師註冊 聘任",

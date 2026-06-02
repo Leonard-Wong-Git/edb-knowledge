@@ -126,6 +126,10 @@ PILOT_LEGACY = {
     "history_jss_2019": [VAULT_DIR / "history_jss_2019" / "extract_history_jss_2019.txt"],
     # S135 Phase 3c: NEW source backfill (edbc197/2024 通函 PDF, §E.12 URL re-discovery; same stub-seed path)
     "edbc197_2024_ph_pri": [VAULT_DIR / "edbc197_2024_ph_pri" / "extract_edbc197_2024_ph_pri.txt"],
+    # S138 SEN data-gap backfill: 《特殊學校課程指引》(2024) — §E.12 URL re-discovery (registry index.html → direct CGSS Full PDF; mojibake pre-flight CLEAN). Same stub-seed path.
+    "g10": [VAULT_DIR / "g10" / "extract_g10.txt"],
+    # S138 SEN data-gap backfill: 《全校參與模式融合教育運作指南》(2026-01) — §E.12 (registry wsa hub html → direct SENSE-portal PDF; mojibake pre-flight CLEAN).
+    "g19": [VAULT_DIR / "g19" / "extract_g19.txt"],
 }
 
 # source_id -> consolidated output filename (single repaged extract per source)
@@ -204,6 +208,10 @@ PILOT_OUT = {
     "history_jss_2019": VAULT_DIR / "history_jss_2019" / "extract_history_jss_2019_repaged.txt",
     # S135 Phase 3c: NEW source backfill (edbc197/2024 通函)
     "edbc197_2024_ph_pri": VAULT_DIR / "edbc197_2024_ph_pri" / "extract_edbc197_2024_ph_pri_repaged.txt",
+    # S138 SEN data-gap backfill: 《特殊學校課程指引》(2024)
+    "g10": VAULT_DIR / "g10" / "extract_g10_repaged.txt",
+    # S138 SEN data-gap backfill: 《全校參與模式融合教育運作指南》(2026-01)
+    "g19": VAULT_DIR / "g19" / "extract_g19_repaged.txt",
 }
 
 
