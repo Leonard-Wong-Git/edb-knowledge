@@ -2,6 +2,90 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-02 Session 138 — 資料質素 backlog 執行：phys DROP + g10/g19 ingest + SEN route（生產 live + 0 regression）
+
+- **ID:** Claude_20260602_1730
+- **Trigger:** Leonard `/workflow 全做` 起手 → AskUserQuestion 三項全部明示授權：①SEN route 即做 / ②phys 即 DROP / ③g10/g19 要 ingest（S137 診斷 PLAN 落地）
+- **§3 Risk:** HIGH（破壞性 Supabase mutation + code change + deploy + 多檔；criterion c/d）→ Leonard AskUserQuestion 三項授權 = confirmation；每個破壞性 op 前出 dry-run blast radius
+
+### CHANGE（執行次序：phys DROP → g10 → g19 → SEN route）
+1. **phys DROP**：`cb3_deprecate_stale.py --only phys_sss_2007_2015 --execute`（dry-run 確認 182 = S137 adversarial count）→ del=182 post=0 verified，audit log 寫 init_backup。Supabase 9,849→**9,667**。
+2. **g10《特殊學校課程指引》(2024) ingest**：§E.12 URL re-discovery — registry `source_type=index`（index.html 導航頁 = 0 chunks 真 gap）→ crawl 揾返 attachment 直連 `CGSS (2024)_Full version_c.pdf`（25.7MB / 116p）。**mojibake pre-flight CLEAN**（特殊=152/課程=321/U+FFFD=0、proper text layer 非 phys CID-glyph）→ registry fix(url_primary 直連+source_type=pdf) + vault stub seed + repage Gate1 116=116 markers + cb3_b2 Gate2 **del=0 ins=129**（新源純 INSERT）。9,667→**9,796**。
+3. **g19《全校參與模式融合教育運作指南》ingest**：§E.12 — registry `source_type=html`（wsa hub = 0 chunks gap）→ crawl 經 SENSE portal `sense.edb.gov.hk/.../integrated_education/landing/ie_guide_ch.pdf`（**2026年1月最新版** / 88p / 1.2MB）。mojibake CLEAN（融合教育=25/統籌主任=4/U+FFFD=0）→ registry fix(version 2024→2026-01) + stub + repage 88=88 + cb3_b2 **del=0 ins=116**。9,796→**9,912**。
+4. **SEN dedicated route（searchChannelB.ts ~25 行）**：`TOPIC_KEYWORDS.sen`（`\bsen\b|\bsenco\b|特殊教育|特殊學校|融合教育|全校參與|統籌主任...` /i，**置 curriculum 之前** first-match）+ `SOURCE_SETS.sen=[g06,sag_2025_11,role_facts_student,role_facts_general,g10,g19]` + `QUERY_EXPANSIONS.sen`。鏡像 S118 PLAN-1b cpd/conduct route；routed→effectiveMinScore 0.08。
+
+### QC / Test Scenarios（§3d）
+| Scenario | Action | Expected | Actual | Result |
+|---|---|---|---|---|
+| phys 清理 | DROP phys | Supabase −182, phys=0 | 9,667, phys count=0 | PASS |
+| g10 ingest | repage+migrate | del=0 ins≈full, clean | ins=129, FFFD=0 in SB | PASS |
+| g19 ingest | repage+migrate | del=0 ins≈full, clean | ins=116, FFFD=0 in SB | PASS |
+| 資料對賬 | total | 9849−182+129+116 | =9,912 ✓ | PASS |
+| typecheck+build | npm check/build | exit 0 | exit 0 | PASS |
+| SEN route 邏輯 | offline detect() 17 cases | sen 全中 + curriculum 不破 | 15/15 真 assert PASS（2「fail」係 test 期望錯：教師專業操守→conduct 係既有正確；sensible→null = \bsen\b false-positive guard 正確擋住） | PASS |
+| live「sen」 | POST channel-b | route 去真 SEN 內容非 phys 亂碼 | g19 p=6/10/13 @0.76/0.75/0.72 + g06 SEN p=137/138 @0.72，全 FFFD=0 帶頁碼 | PASS |
+| live「融合教育統籌主任 SENCO」 | POST | g19 SENCO 內容 | g19 p=13/10/57 @0.74 + g06 | PASS |
+| live g10-specific | POST「特殊學校 校本課程 智障學生」 | g10 surface | g10 p=39 @0.697「為有特殊教育需要（如智障）學生調適課程」clean | PASS |
+| regression「英文科課程指引」 | POST | route=curriculum 非 sen | music/pri_science/pe_kla/ma_kla（curriculum 完好） | PASS |
+
+- 57014 transient 喺 live smoke 出現過一次、retry 即恢復（PMS §C.4 known、非 regression）。
+
+### Sources changed
+- `backend/src/api/searchChannelB.ts`（SEN route：3 處 SOURCE_SETS/TOPIC_KEYWORDS/QUERY_EXPANSIONS）
+- `dev/source/source_registry.json`（g10 + g19 entry：url_primary 直連 PDF + source_type=pdf + notes §E.12）
+- `dev/vault/repage_pdfs.py`（PILOT_LEGACY + PILOT_OUT 各 +g10/g19）
+- `dev/vault/g10/extract_g10_repaged.txt`（NEW，116p）/ `dev/vault/g19/extract_g19_repaged.txt`（NEW，88p）
+- **Supabase wiki_chunks**：9,849→9,912（−182 phys DROP / +129 g10 / +116 g19）
+- commit `4048408` push origin/main → Render auto-deploy（backend SEN route live verified）
+- **NOT modified:** knowledge.json / guidelines.json / app.html / frontend / PROJECT_MASTER_SPEC / CODEBASE_CONTEXT
+
+### Doc Sync
+Matched row: **Product behavior / tuning change** → SESSION_HANDOFF + SESSION_LOG（done）。CODEBASE_CONTEXT N/A（無 tech-stack/dir/external-service/Key-Decision 變；g10/g19 = 資料源非新基建、SEN route = 既有檔 tuning）。
+
+### 待辦 lesson（§8 monitoring）
+**§G.2 doc-drift 又中（Nth）：S137 交接寫 g10/g19 ingest「同 S135 history_jss PDF page-carry pattern」低估咗工作 — 實測 g10=`source_type=index`（導航頁）、g19=`source_type=html`（hub），兩者皆要 §E.12 URL re-discovery（crawl 揾返真 PDF）先得，非 plan 假設嘅「直接 fetch PDF」。** 兩者真 PDF 均 mojibake pre-flight CLEAN（phys 教訓落實：ingest 前必驗 text layer）。Sub-agent egress 教訓：背景 general-purpose agent 嘅 Bash/WebFetch/WebSearch 被 deny → egress-heavy discovery 要主 agent 自己做。
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。S135-S138 證實 EDB + onrender + Supabase egress 均通；仍每次自測。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S138 (2026-06-02)：**S137 資料質素 backlog 三項全部執行落地、生產 live、0 regression**。Leonard AskUserQuestion 三項全授權。
+- ✅ phys_sss_2007_2015 182 CID-glyph 亂碼 chunks **DROPPED**（cb3_deprecate_stale.py，reversible audit log）。
+- ✅ g10《特殊學校課程指引》(2024, 116p) + g19《全校參與模式融合教育運作指南》(2026-01, 88p) **ingested**（皆 §E.12 URL re-discovery：g10 registry 係 index.html 導航頁、g19 係 wsa hub html → crawl 揾返真直連 PDF；兩者 mojibake pre-flight CLEAN；del=0 純 INSERT +129/+116）。
+- ✅ SEN dedicated route 入 searchChannelB.ts（TOPIC_KEYWORDS.sen 置 curriculum 前 + SOURCE_SETS.sen + QUERY_EXPANSIONS.sen）→ commit 4048408 push → Render deploy → **live「sen」route 去 g19/g06 真 SEN 內容 @0.71-0.76 帶頁碼、phys 亂碼消失**。
+- **Supabase 9,849→9,912**（−182 +129 +116）。103 marker-bearing（102 − phys DROP + g10 + g19）。
+
+Current objective and progress state:
+- Baseline: Supabase 9,912 / 103 marker-bearing / CB-3 final ceiling ~88% / brand live (policychecker.wongfu.net)
+- 資料質素 backlog（S137 診斷）= 全部執行完、live verified。無 pending 子任務。
+
+Pending tasks in priority order:
+1. **🔵 Leonard 真機 verify pending（S136 遺留）**：手機「指引文件」tab（#guidelines mobile render）+ Channel B 政策搜尋 policychecker.wongfu.net；可順手再驗「sen」家陣應出 g19/g06 真 SEN 內容。
+2. **下一階段方向（待 Leonard）**：Q4 對外契約收斂（3 選項、未明示勿掂）/ §8b rule 2 automation / 39→148 guidelines 擴展。
+3. 既有 deferred 不變：§E.10(a) ACCEPTED conditional / 57014 transient / FAIL-A record-only / Stage-2 closed / stat_fact 2025/26 ROI≈0 / g14《校本資優培育課程指引》+ sen_curr_area + gifted_policy_docs 仍 0 chunks（SEN-adjacent gap，本次未做、待 Leonard 決是否補）。
+
+Key files changed this session:
+- backend/src/api/searchChannelB.ts（SEN route）/ dev/source/source_registry.json（g10+g19）/ dev/vault/repage_pdfs.py / dev/vault/g10|g19/*_repaged.txt（NEW）；commit 4048408。
+- Supabase mutation：phys DROP −182、g10 +129、g19 +116。
+
+Known risks / blockers / cautions:
+- 🟢 SEN route + g10/g19 live verified；g19 多數 query #1（operational guide 最 dense），g10 為特殊學校-specific query surface（p=39 @0.697），g06 SEN sections 穩定 surface — 全 clean 帶頁碼。ranking 競爭非 regression。
+- 既有不變: 57014 transient(retry 即恢復); FAIL-A(record-only); §E.10(a) ACCEPTED conditional; q.html/A·AB dormant 勿清; Q4 deferred 未明示勿掂; Stage-2 closed 勿復活; egress 每次自測; 路徑空格雙引號; 改 Draft code/data commit 必入 SESSION_LOG。
+- 🔴 phys mojibake = CID glyph-index、不可 decode（已 DROP 解決）；wiki_chunks 欄名 `text` 非 `content`；init_backup gitignored（backup/audit log 唔入 commit）。
+
+Validation status:
+- 起手自測全 PASS：git HEAD=4048408==origin/main / knowledge facts=455 / onrender /health warm cache_a=455 / CORS policychecker ACAO / Supabase wiki_chunks=9,912（g10=129 g19=116 phys=0）。
+- live SEN smoke 5/5 query PASS（sen/特殊學校課程/融合教育SENCO/g10-specific/curriculum-regression）全 clean 帶頁碼、curriculum route 不破。
+- typecheck+build exit 0；SEN route offline detect() 真 assert 全 PASS。
+
+Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD=4048408 / knowledge facts:455 / Supabase 9,912 / egress onrender /health / CORS policychecker ACAO）後，問 Leonard 下一步方向（S137 資料質素 backlog 已全清）：(1) 是否補埋其餘 SEN-adjacent 0-chunks 源（g14 資優 / sen_curr_area / gifted_policy_docs）；(2) Q4 對外契約收斂；(3) 39→148 guidelines 擴展。未明示前唔好自行掂 Q4 / reopen §E.10 / 動 Stage-2。
+```
+
 ## 2026-06-01 Session 137 — 資料質素 backlog 診斷（phys mojibake 根因 + 「sen」短 query routing）— READ-ONLY，0 mutation
 
 - **ID:** Claude_20260601_1143
