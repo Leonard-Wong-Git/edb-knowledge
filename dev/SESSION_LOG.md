@@ -44,7 +44,7 @@ Matched row: **Product behavior / tuning change** → SESSION_HANDOFF + SESSION_
 
 ### 同 session 後續 — 共用經驗庫（Playbook）接駁 + 初次 harvest（Leonard 指示，additive、scoped）
 - **任務一（裝雙向 pointer）**：將跨-project「共用經驗庫 Playbook」(`/Users/leonard/Downloads/Claude Project/Leonard's playbook/playbook`) 嘅雙向 pointer 裝入本 project startup 檔 `AGENTS.md`（Handoff-Kit 4(a) 風格、3 處純 additive）：(A) 頂部 mandatory-startup marker 加 `§14`；(B) §1 startup 讀清單加第 5 步「lazy-query 該庫 INDEX.md、唔好讀晒所有卡」；(C) 檔尾新增 `## 14) 共用經驗庫（Playbook）` pointer block（本機 clone 路徑版、deposit 檔名 pre-fill `<日期>-policychecker-<短名>.md`）。**`AGENTS.md` 係 gitignored（私有治理檔、唔入 commit）→ 此 SESSION_LOG 記錄係 durable trace。** INDEX.md reachable 已驗。本 project 內部無同名 "playbook"、唔使 disambiguation。
-- **任務二（一次性 harvest）**：翻睇本 project 經驗（SESSION_LOG/HANDOFF/memory/§E·§G lessons）+ dedup against 該庫 INDEX.md，提煉 **7 條可轉移教訓**寫成 inbox 提案（只丟 inbox、**唔掂 trunk**）：verify-load-bearing-state-not-docs (convention) / inspect-live-infra-before-ddl / dry-run-blast-radius-before-destructive-batch / throttled-api-not-empty-data / pdf-extraction-mojibake-triage / external-source-url-churn-rediscovery (patterns) / shell-cmd-abs-path-and-chain (convention)。每條皆有「幾時唔好用/例外」+ 出處。**Playbook repo commit `9fbd406`**（`inbox: policychecker 初次 harvest 提議 7 條`；trunk verified clean）；未 push（待 Leonard 定 / 留 librarian）。之後由該庫 librarian 整理入 trunk，唔關本 project 事。
+- **任務二（一次性 harvest）**：翻睇本 project 經驗（SESSION_LOG/HANDOFF/memory/§E·§G lessons）+ dedup against 該庫 INDEX.md，提煉 **7 條可轉移教訓**寫成 inbox 提案（只丟 inbox、**唔掂 trunk**）：verify-load-bearing-state-not-docs (convention) / inspect-live-infra-before-ddl / dry-run-blast-radius-before-destructive-batch / throttled-api-not-empty-data / pdf-extraction-mojibake-triage / external-source-url-churn-rediscovery (patterns) / shell-cmd-abs-path-and-chain (convention)。每條皆有「幾時唔好用/例外」+ 出處。**Playbook repo commit `9fbd406`**（`inbox: policychecker 初次 harvest 提議 7 條`；提交時 trunk verified clean）。**收工時確認：該庫 librarian routine 已自動處理（commit `213814d` trunk 44→51）— 7 條提案全部 integrate 成 trunk 卡（5 patterns + 2 conventions），原 inbox 檔歸檔去 `inbox/_processed/`。** push 問題由 librarian 自動解決，無 pending。
 - short name 拍板 = **policychecker**。0 EDB code/data/Supabase mutation（純治理檔 + 外部庫 inbox）。
 
 ### 待辦 lesson（§8 monitoring）
@@ -68,6 +68,7 @@ S138 (2026-06-02)：**S137 資料質素 backlog 三項全部執行落地、生�
 Current objective and progress state:
 - Baseline: Supabase 9,912 / 103 marker-bearing / CB-3 final ceiling ~88% / brand live (policychecker.wongfu.net)
 - 資料質素 backlog（S137 診斷）= 全部執行完、live verified。無 pending 子任務。
+- **共用經驗庫 Playbook 已接駁**：AGENTS.md §14 雙向 pointer（開工 lazy-query `…/Leonard's playbook/playbook/INDEX.md`、收工夠成熟先丟 inbox 提案、deposit 檔名 `<日期>-policychecker-<短名>.md`）。S138 初次 harvest 7 條已被 librarian integrate 入 trunk。**下個 session 起手記得 lazy-query 該庫 INDEX**（AGENTS.md §1 第 5 步、§14）。
 
 Pending tasks in priority order:
 1. **🔵 Leonard 真機 verify pending（S136 遺留）**：手機「指引文件」tab（#guidelines mobile render）+ Channel B 政策搜尋 policychecker.wongfu.net；可順手再驗「sen」家陣應出 g19/g06 真 SEN 內容。
@@ -75,8 +76,9 @@ Pending tasks in priority order:
 3. 既有 deferred 不變：§E.10(a) ACCEPTED conditional / 57014 transient / FAIL-A record-only / Stage-2 closed / stat_fact 2025/26 ROI≈0 / g14《校本資優培育課程指引》+ sen_curr_area + gifted_policy_docs 仍 0 chunks（SEN-adjacent gap，本次未做、待 Leonard 決是否補）。
 
 Key files changed this session:
-- backend/src/api/searchChannelB.ts（SEN route）/ dev/source/source_registry.json（g10+g19）/ dev/vault/repage_pdfs.py / dev/vault/g10|g19/*_repaged.txt（NEW）；commit 4048408。
+- backend/src/api/searchChannelB.ts（SEN route）/ dev/source/source_registry.json（g10+g19）/ dev/vault/repage_pdfs.py / dev/vault/g10|g19/*_repaged.txt（NEW）；commit 4048408 + PERSIST 8a7a3e1 + playbook record b17defc。
 - Supabase mutation：phys DROP −182、g10 +129、g19 +116。
+- AGENTS.md §14 共用經驗庫 pointer（gitignored、唔入 commit、記喺 SESSION_LOG）+ 外部 playbook repo inbox 7 提案（已 librarian integrate）。
 
 Known risks / blockers / cautions:
 - 🟢 SEN route + g10/g19 live verified；g19 多數 query #1（operational guide 最 dense），g10 為特殊學校-specific query surface（p=39 @0.697），g06 SEN sections 穩定 surface — 全 clean 帶頁碼。ranking 競爭非 regression。
@@ -84,11 +86,11 @@ Known risks / blockers / cautions:
 - 🔴 phys mojibake = CID glyph-index、不可 decode（已 DROP 解決）；wiki_chunks 欄名 `text` 非 `content`；init_backup gitignored（backup/audit log 唔入 commit）。
 
 Validation status:
-- 起手自測全 PASS：git HEAD=4048408==origin/main / knowledge facts=455 / onrender /health warm cache_a=455 / CORS policychecker ACAO / Supabase wiki_chunks=9,912（g10=129 g19=116 phys=0）。
+- 起手自測全 PASS：git HEAD=b17defc==origin/main（tree clean）/ knowledge facts=455 / onrender /health warm cache_a=455 / CORS policychecker ACAO / Supabase wiki_chunks=9,912（g10=129 g19=116 phys=0）。
 - live SEN smoke 5/5 query PASS（sen/特殊學校課程/融合教育SENCO/g10-specific/curriculum-regression）全 clean 帶頁碼、curriculum route 不破。
 - typecheck+build exit 0；SEN route offline detect() 真 assert 全 PASS。
 
-Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD=4048408 / knowledge facts:455 / Supabase 9,912 / egress onrender /health / CORS policychecker ACAO）後，問 Leonard 下一步方向（S137 資料質素 backlog 已全清）：(1) 是否補埋其餘 SEN-adjacent 0-chunks 源（g14 資優 / sen_curr_area / gifted_policy_docs）；(2) Q4 對外契約收斂；(3) 39→148 guidelines 擴展。未明示前唔好自行掂 Q4 / reopen §E.10 / 動 Stage-2。
+Post-startup first action: 完成 §1（含**新第 5 步：lazy-query 共用經驗庫 `…/Leonard's playbook/playbook/INDEX.md`**，撞 trigger 先開卡）+ HANDOFF_PACKAGE 起手序 + 自測（git HEAD=b17defc / knowledge facts:455 / Supabase 9,912 / egress onrender /health / CORS policychecker ACAO）後，問 Leonard 下一步方向（S137 資料質素 backlog 已全清）：(1) 是否補埋其餘 SEN-adjacent 0-chunks 源（g14 資優 / sen_curr_area / gifted_policy_docs）；(2) Q4 對外契約收斂；(3) 39→148 guidelines 擴展。未明示前唔好自行掂 Q4 / reopen §E.10 / 動 Stage-2。
 ```
 
 ## 2026-06-01 Session 137 — 資料質素 backlog 診斷（phys mojibake 根因 + 「sen」短 query routing）— READ-ONLY，0 mutation

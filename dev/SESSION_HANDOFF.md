@@ -22,6 +22,7 @@
 3. Read `dev/CODEBASE_CONTEXT.md`
 4. Read `dev/PROJECT_MASTER_SPEC.md` (long-term spec + cross-agent handoff knowledge: goals, architected systems, proven methods, failure lessons, locked decisions)
 4b. Read `dev/HANDOFF_PACKAGE.md` (Session 110+ — clean verified-state snapshot built by empirical check, not paraphrase; sits above the §1 read set as the trusted current-state map)
+4c. **Lazy-query 共用經驗庫 Playbook**（S138 接駁、AGENTS.md §1 第 5 步 + §14）：開工只讀 `…/Leonard's playbook/playbook/INDEX.md`（地圖），撞到 task 關鍵字命中 INDEX trigger 先開對應卡；唔好讀晒所有卡。
 5. Confirm environment: backend needs `OPENAI_API_KEY` in `backend/.env`
 
 ---
@@ -147,6 +148,7 @@ source_registry → same vault PDFs → ai_extract.py
    - ✅ **[SEN route]** searchChannelB.ts：TOPIC_KEYWORDS.sen（`\bsen\b|\bsenco\b|特殊教育|...` /i、置 curriculum 前 first-match）+ SOURCE_SETS.sen + QUERY_EXPANSIONS.sen；typecheck+build exit 0；offline detect() 真 assert 全 PASS（含「特殊學校課程指引」→sen 非 curriculum + \bsen\b 不誤中 sensible）。commit `4048408` push → Render deploy。
    - ✅ **[live SEN smoke 5/5 PASS]** sen→g19 p=6/10/13 @0.76/0.75/0.72 + g06 SEN @0.72；融合教育SENCO→g19 p=13/10/57；g10-specific→g10 p=39 @0.697；curriculum「英文科課程指引」→curriculum 不破；全 FFFD=0 帶頁碼、phys 亂碼消失。
    - 🔴 **[§G.2 doc-drift 又中]** S137 交接寫 g10/g19「同 S135 history_jss PDF pattern」低估工作 — 兩者 registry 皆唔係直連 PDF（index / html hub），要 §E.12 crawl re-discovery；mojibake pre-flight 落實 phys 教訓。
+   - ✅ **[共用經驗庫 Playbook 接駁 + 初次 harvest，Leonard 指示]** AGENTS.md 加 §14 雙向 pointer（gitignored→記 SESSION_LOG；開工 §1 第 5 步 lazy-query `…/Leonard's playbook/playbook/INDEX.md`、收工夠成熟先丟 inbox 提案、檔名 `<日期>-policychecker-<短名>.md`）。初次 harvest 7 條可轉移教訓（5 patterns + 2 conventions）丟 inbox commit `9fbd406`；該庫 librarian 已自動 integrate 入 trunk（`213814d` trunk 44→51）、原提案歸檔 `_processed/`。short name = policychecker。
 4. Pending: Leonard 真機 verify（Mobile #guidelines + Channel B policychecker，可順手驗「sen」）；g14+gifted SEN-adjacent 0-chunks 補唔補（待 Leonard）；下一階段方向（Q4 / §8b automation / 39→148）。
 5. Next priorities (max 3):
    - **Leonard 真機 verify**（Mobile #guidelines + 「sen」Channel B 應出 g19/g06 真內容）
@@ -155,7 +157,7 @@ source_registry → same vault PDFs → ai_extract.py
 6. Risks / blockers:
    - 🟢 SEN route + g10/g19 live verified、0 regression；ranking 競爭（g19 多 #1、g10 為特殊學校-specific surface）非 regression。
    - 既有不變: 🔴 57014 transient (retry 即恢復); FAIL-A (record-only); §E.10 (a) ACCEPTED conditional; q.html/A·AB dormant 勿清; Q4 deferred 未明示勿掂; Stage-2 closed; egress 每次自測; wiki_chunks 欄名 `text` 非 `content`; init_backup gitignored。
-7. **✅ S137 資料質素 backlog 全部執行落地、生產 live、0 regression。** commit `4048408`（specific files、init_backup 不入）。起手自測全 PASS（HEAD 4048408==origin/main / facts 455 / onrender warm / CORS policychecker ACAO / Supabase **9,912**〔g10=129 g19=116 phys=0〕）。
+7. **✅ S137 資料質素 backlog 全部執行落地、生產 live、0 regression + 共用經驗庫 Playbook 接駁。** commits：`4048408`（code+data）+ `8a7a3e1`（PERSIST）+ `b17defc`（playbook record）（specific files、init_backup 不入）。起手自測全 PASS（HEAD b17defc==origin/main tree clean / facts 455 / onrender warm / CORS policychecker ACAO / Supabase **9,912**〔g10=129 g19=116 phys=0〕）。
 
 ## Previous Session Record
 1. UTC date: 2026-05-30
