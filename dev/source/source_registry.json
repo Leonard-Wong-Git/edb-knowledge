@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-05-27",
+    "updated": "2026-06-03",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -97,13 +97,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Primary operations spine. Seeded from the agreed LLM-wiki plan and existing repo documentation.",
       "freshness_metadata": {
         "last_modified": "Wed, 20 May 2026 03:07:34 GMT",
         "content_length": "8391841",
-        "etag": "\"05fd4cd5e8dc1:0\""
+        "etag": "\"05fd4cd5e8dc1:0\"",
+        "content_hash": "93a933c3ae1234dbc0789a30673f6724f738f7dbbc7f8e2eec50588e85ed41bd",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -124,13 +126,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "1.19",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Compliance spine. Seeded from the agreed LLM-wiki plan and existing repo documentation.",
       "freshness_metadata": {
         "last_modified": "Fri, 01 Aug 2025 09:08:12 GMT",
         "content_length": "1376780",
-        "etag": "\"02676cec32dc1:0\""
+        "etag": "\"02676cec32dc1:0\"",
+        "content_hash": "e3b077400bf8f4b2ff8978fab253fae286ac880b2efdad7b555610e4efea097b",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -149,13 +153,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Fri, 31 Oct 2025 07:36:08 GMT",
         "content_length": "950936",
-        "etag": "\"0e47d5394adc1:0\""
+        "etag": "\"0e47d5394adc1:0\"",
+        "content_hash": "565839a93b6129264beb80ea5167c2088bd2dabb8fc09f886a9acefb8304b472",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -174,13 +180,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Thu, 25 Sep 2025 08:37:15 GMT",
         "content_length": "612765",
-        "etag": "\"80af5298f72ddc1:0\""
+        "etag": "\"80af5298f72ddc1:0\"",
+        "content_hash": "0b5e1d37702b95e2eee8345399a36e716e6e904835f9d02cea87c53ff35dc74f",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -199,13 +207,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Tue, 05 May 2026 10:32:11 GMT",
         "content_length": "7735",
-        "etag": "\"80475d6e7adcdc1:0\""
+        "etag": "\"80475d6e7adcdc1:0\"",
+        "content_hash": "bce72ed1974f5b202ed1f459ac17b5b8ccfb3bcefc97cd71610812d22be2a652",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -224,13 +234,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2022",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Fri, 16 Dec 2022 02:33:03 GMT",
         "content_length": "2855",
-        "etag": "\"8099a5b8f610d91:0\""
+        "etag": "\"8099a5b8f610d91:0\"",
+        "content_hash": "19d418e192b83c504608973f3fe4f187256cb7b9713d0cb141d8256f6f2af1f7",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -249,13 +261,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Wed, 04 Oct 2017 06:58:21 GMT",
         "content_length": "12481467",
-        "etag": "\"8064102ade3cd31:0\""
+        "etag": "\"8064102ade3cd31:0\"",
+        "content_hash": "50508046afd47b6a1fdf71321039c1f19dd2635b3d6213d43bbe275947f3847f",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -274,13 +288,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Wed, 14 Aug 2024 01:39:50 GMT",
         "content_length": "99052228",
-        "etag": "\"0b736daeaedda1:0\""
+        "etag": "\"0b736daeaedda1:0\"",
+        "content_hash": "e8eccc9623da925ff71d213d410f33efe59021c5e0a3235206c970e538f61b4c",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -299,13 +315,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2014",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Tue, 24 Sep 2024 08:33:22 GMT",
         "content_length": "1646",
-        "etag": "\"035416a5cedb1:0\""
+        "etag": "\"035416a5cedb1:0\"",
+        "content_hash": "d0702d007bb531a40a6545883d2f106566104f0102075112461e1187bbb795e1",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -348,13 +366,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Mon, 11 May 2026 02:02:28 GMT",
         "content_length": "1124",
-        "etag": "\"052f437eae0dc1:0\""
+        "etag": "\"052f437eae0dc1:0\"",
+        "content_hash": "8e4d9699f785db1e1dce9bd885005fb6cfe17de29d5d1856319834f6fde5a1c0",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -373,13 +393,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2000",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Fri, 09 Dec 2022 10:05:17 GMT",
         "content_length": "1796",
-        "etag": "\"29a75bdb5bd91:0\""
+        "etag": "\"29a75bdb5bd91:0\"",
+        "content_hash": "d8cefa321f2100c49c9f9e1896d315218f5d4baf54a0bc6eae5a98d88ef4ab32",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -398,13 +420,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Wed, 31 Jan 2024 02:52:16 GMT",
         "content_length": "3460",
-        "etag": "\"0b0aa7ff053da1:0\""
+        "etag": "\"0b0aa7ff053da1:0\"",
+        "content_hash": "0bd446403ba4a9ab18ae775ba7d076fddbdcfd34c9b2286d8fa987e21edad660",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -423,13 +447,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "原 secondary-humanities.html 已失效；現改指向 PSHE 課程文件總頁，該頁仍列出初中人文學科課程及評估指引（2024）。",
       "freshness_metadata": {
         "last_modified": "Fri, 03 Oct 2025 06:56:12 GMT",
         "content_length": "3976",
-        "etag": "\"04ecccd3234dc1:0\""
+        "etag": "\"04ecccd3234dc1:0\"",
+        "content_hash": "d7fd632a43135be51aa0b4e493fdfde4bb1bdfae88d01d97b5f0ecdb7cdb87cd",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -448,13 +474,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Mon, 11 May 2026 02:02:28 GMT",
         "content_length": "1124",
-        "etag": "\"052f437eae0dc1:0\""
+        "etag": "\"052f437eae0dc1:0\"",
+        "content_hash": "8e4d9699f785db1e1dce9bd885005fb6cfe17de29d5d1856319834f6fde5a1c0",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -473,13 +501,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-02",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "S138 §E.12 URL re-discovery: registry pointed url_primary at the index.html catalogue (source_type=index → 0 chunks coverage gap, the SEN data gap behind the 'sen' short-query miss). The actual consolidated PDF lives at the attachment path: CGSS (2024) Full version (HTTP 200 verified, 116 pages, mojibake pre-flight CLEAN — proper text layer, NOT CID-glyph unlike phys_sss). Corrected url_primary → direct PDF (URL-encoded; filename has spaces/parens), source_type → pdf, and page-carried into Supabase. url_landing kept as the navigation index. Added to backend SOURCE_SETS.sen so it surfaces for SEN queries.",
       "freshness_metadata": {
-        "last_modified": "Mon, 25 Aug 2025 02:22:10 GMT",
-        "content_length": "2434",
-        "etag": "\"0f57df6715dc1:0\""
+        "last_modified": "Thu, 22 Aug 2024 07:14:57 GMT",
+        "content_length": "25727984",
+        "etag": "\"806e39fe62f4da1:0\"",
+        "content_hash": "7a419698392f8c0462e9f2542bb70bd037819c127ca424023e3c7aa9272f69c0",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -498,13 +528,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Wed, 28 Aug 2024 02:04:16 GMT",
         "content_length": "2074",
-        "etag": "\"010cd95eef8da1:0\""
+        "etag": "\"010cd95eef8da1:0\"",
+        "content_hash": "8229f23b70a5a495403846ea1f36f67ef9d9299885fde62b5d3e7d1a0d827870",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -523,13 +555,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Mon, 06 Oct 2025 06:58:32 GMT",
         "content_length": "1122",
-        "etag": "\"0dc7ba08e36dc1:0\""
+        "etag": "\"0dc7ba08e36dc1:0\"",
+        "content_hash": "ffb9e591607bc569c78d28255b93591da29d6a1ab4bd537b3f81150d1c5ee12f",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -548,13 +582,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2002",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Fri, 09 Dec 2022 10:05:17 GMT",
         "content_length": "3946",
-        "etag": "\"b8453bdb5bd91:0\""
+        "etag": "\"b8453bdb5bd91:0\"",
+        "content_hash": "1efcdbe3fa125e200ea77a16442301cd2f14a5562b2eab37db3101be03f95f24",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -573,13 +609,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2002",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "舊 `poklacg_2002/index.html` 已失效；現回填至教育局仍公開的 2002 體育學習領域課程指引 PDF，landing page 指向現行體育課程文件頁。",
       "freshness_metadata": {
         "last_modified": "Fri, 21 Mar 2025 02:39:02 GMT",
         "content_length": "23035",
-        "etag": "\"027d667a9adb1:0\""
+        "etag": "\"027d667a9adb1:0\"",
+        "content_hash": "af0bb0938f994cfcc90dce9b755a353c6a20f79f48d0458df1da6e67b5f910d4",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -598,7 +636,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2000",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "g12"
@@ -607,7 +645,9 @@
       "freshness_metadata": {
         "last_modified": "Fri, 27 Jun 2025 03:12:25 GMT",
         "content_length": "3162",
-        "etag": "\"8032334e11e7db1:0\""
+        "etag": "\"8032334e11e7db1:0\"",
+        "content_hash": "44c25bf439e22044566b3084d504e3d901be7b8550cfc4885ec8544603c2071b",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -626,13 +666,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Tue, 02 Apr 2024 10:10:03 GMT",
         "content_length": "2864",
-        "etag": "\"804fa1ede584da1:0\""
+        "etag": "\"804fa1ede584da1:0\"",
+        "content_hash": "49eaa18333edd17d911f9e96067458322e89da8b07a5fbf435322e09ea573275",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -651,13 +693,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2002",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Thu, 05 Jun 2025 02:54:58 GMT",
         "content_length": "2983",
-        "etag": "\"02dd39c5d5db1:0\""
+        "etag": "\"02dd39c5d5db1:0\"",
+        "content_hash": "576fd4f6b62afb5ad48a74a7e68ea92d355c0e95a8adf1fda9fa299d4b647a90",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -676,13 +720,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2002",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Wed, 22 Apr 2026 02:20:54 GMT",
         "content_length": "2416",
-        "etag": "\"04755a5fed1dc1:0\""
+        "etag": "\"04755a5fed1dc1:0\"",
+        "content_hash": "cc8dd4e9acf7f1d88f05b721a7689d11a5885239109f2c435dc98e3255786c0d",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -701,13 +747,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2003",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "原 music-curri/index.html 已失效；現改指向藝術教育昔日課程文件頁，該頁仍列出《音樂科課程指引（小一至中三）》（2003）。",
       "freshness_metadata": {
         "last_modified": "Wed, 22 Apr 2026 02:25:57 GMT",
         "content_length": "1579",
-        "etag": "\"8068ef59ffd1dc1:0\""
+        "etag": "\"8068ef59ffd1dc1:0\"",
+        "content_hash": "2f344a3c5016054792e1d45b7db02fa2013212dcaaec28e99e6489209df13b3a",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -726,13 +774,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2002",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Thu, 10 Apr 2025 04:26:43 GMT",
-        "content_length": "4229",
-        "etag": "\"808327c3d0a9db1:0\""
+        "content_length": "4233",
+        "etag": "\"808327c3d0a9db1:0\"",
+        "content_hash": "67275b522d87fc3007eec0021f98320b6b1b833120151fc4a515faffca94b141",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -751,13 +801,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2020",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Fri, 09 Dec 2022 10:05:13 GMT",
         "content_length": "1803",
-        "etag": "\"40b3cdbab5bd91:0\""
+        "etag": "\"40b3cdbab5bd91:0\"",
+        "content_hash": "419601d687091e87bd52b28eb030119de263808f848f2012e3835b484e6de11c",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -776,13 +828,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Thu, 29 May 2025 07:26:53 GMT",
         "content_length": "1624",
-        "etag": "\"805ca8c6bd0db1:0\""
+        "etag": "\"805ca8c6bd0db1:0\"",
+        "content_hash": "db15e3384046bec3bb880d910943b6c2d6b02f838298ea48ed8b24ffa5c2a504",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -801,13 +855,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
-        "last_modified": "Wed, 10 Dec 2025 08:23:55 GMT",
-        "content_length": "1241",
-        "etag": "\"805fe152ae69dc1:0\""
+        "last_modified": "Wed, 27 May 2026 09:04:41 GMT",
+        "content_length": "1248",
+        "etag": "\"805a35dab7eddc1:0\"",
+        "content_hash": "f42beab04f472a1a0187afce4d3474797755a544c2089eb715723346093f7100",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -826,13 +882,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2021",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Fri, 09 Dec 2022 10:05:19 GMT",
         "content_length": "1238",
-        "etag": "\"27526bbeb5bd91:0\""
+        "etag": "\"27526bbeb5bd91:0\"",
+        "content_hash": "a973cce2444f6b951138d6d5ea3ca00a4c0293a64ae8be753a55b9680f92aaff",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -851,13 +909,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Fri, 10 Apr 2026 08:32:01 GMT",
         "content_length": "1540",
-        "etag": "\"80d68a80c4c8dc1:0\""
+        "etag": "\"80d68a80c4c8dc1:0\"",
+        "content_hash": "38b5c9b1818697dce296de539ccf3c5b76fffc46d68087b1cf6b2903aa12c532",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -876,13 +936,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Thu, 15 Jan 2026 02:39:23 GMT",
         "content_length": "2680",
-        "etag": "\"807f4728c885dc1:0\""
+        "etag": "\"807f4728c885dc1:0\"",
+        "content_hash": "1d3b95b9d922317fd77e782e60cca0e00443d313b1f29a8aa9b4588b65835abf",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -901,13 +963,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2020",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Wed, 08 Oct 2025 03:15:36 GMT",
         "content_length": "1789",
-        "etag": "\"0bc97d0138dc1:0\""
+        "etag": "\"0bc97d0138dc1:0\"",
+        "content_hash": "fac16f77cb19155473ad82d712675514362982e22872cfef789803174af357bb",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -926,13 +990,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Fri, 09 Dec 2022 10:05:30 GMT",
         "content_length": "1672",
-        "etag": "\"7f791bc5b5bd91:0\""
+        "etag": "\"7f791bc5b5bd91:0\"",
+        "content_hash": "bdba2d5c229c83f901be0b1fc85fcbf20f33ff731bf4c94366dd9bf52c66d5f4",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -951,13 +1017,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2011",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Fri, 09 Dec 2022 10:05:30 GMT",
         "content_length": "1335",
-        "etag": "\"a2da1dc5b5bd91:0\""
+        "etag": "\"a2da1dc5b5bd91:0\"",
+        "content_hash": "903ff5d97bc6278d6fd56bee10fadbb590f15140c363983391a82a16876a5afb",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -976,13 +1044,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Thu, 08 Jan 2026 02:32:19 GMT",
         "content_length": "2342",
-        "etag": "\"80fba924780dc1:0\""
+        "etag": "\"80fba924780dc1:0\"",
+        "content_hash": "e126f03d0affe276624de2bf6076d9bc5b8bcbd93115a8436a01b7151ac5ebe6",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1001,13 +1071,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026-01",
-      "last_checked_at": "2026-06-02",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "S138 §E.12 URL re-discovery: registry pointed url_primary at the edb.gov.hk/.../wsa/ navigation hub (source_type=html → 0 chunks coverage gap, the SEN data gap behind the 'sen' short-query miss). The actual canonical document is hosted on the SENSE portal: 《全校參與模式融合教育運作指南》(Operation Guide on the WSA to Integrated Education), latest 2026年1月 edition (HTTP 200 verified, 88 pages, mojibake pre-flight CLEAN). Corrected url_primary → direct PDF on sense.edb.gov.hk, url_landing → SENSE 指引 page, source_type → pdf, version 2024→2026-01, and page-carried into Supabase. Added to backend SOURCE_SETS.sen so it surfaces for SEN queries.",
       "freshness_metadata": {
-        "last_modified": "Wed, 12 Jun 2024 08:23:54 GMT",
-        "content_length": "1667",
-        "etag": "\"049bddca1bcda1:0\""
+        "last_modified": "Fri, 02 Jan 2026 01:53:08 GMT",
+        "content_length": "1212411",
+        "etag": "\"c01f248b8a7bdc1:0\"",
+        "content_hash": "43c9054de7ae64d83f72942632bbaa96d7477dc29f239e470fa7b9fd39818e64",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1026,13 +1098,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Tue, 28 Apr 2026 10:08:03 GMT",
         "content_length": "22310",
-        "etag": "\"80c365e6f6d6dc1:0\""
+        "etag": "\"80c365e6f6d6dc1:0\"",
+        "content_hash": "a1682fb740b7c6e4d7a293085652cf779f0031ef7367d054b34da621d73ff4ef",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1051,13 +1125,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Wed, 20 May 2026 03:07:34 GMT",
         "content_length": "8380019",
-        "etag": "\"05fd4cd5e8dc1:0\""
+        "etag": "\"05fd4cd5e8dc1:0\"",
+        "content_hash": "3b37bda2b4444eb26ee4cc9c16f7923ac139277f90ac9b03878b9a35e2dd6638",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1076,13 +1152,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
         "last_modified": "Mon, 15 Dec 2025 07:26:48 GMT",
         "content_length": "1458",
-        "etag": "\"06c4b2c946ddc1:0\""
+        "etag": "\"06c4b2c946ddc1:0\"",
+        "content_hash": "13ffef60000d20c9d8d3d3cf982c387f6d48683cb93b6827f80b7f41f1d7a12a",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1101,13 +1179,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "原 kindergarten-k1-admission-arrangements/index.html 已失效；現改為 2026/27 K1 收生安排頁及其《收生安排指引》PDF 直連。",
       "freshness_metadata": {
         "last_modified": "Mon, 09 Jun 2025 04:37:17 GMT",
         "content_length": "503901",
-        "etag": "\"803cd52df8d8db1:0\""
+        "etag": "\"803cd52df8d8db1:0\"",
+        "content_hash": "d10014c683b15ed10f6914f85647054cd26eb9829cdb84cb82ea0f241877167d",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1128,13 +1208,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "定期更新的教育統計數字頁面，涵蓋學校數目、學生人數、教師人手等。由用戶新增。因內容會更新，需定期複查 freshness。",
       "freshness_metadata": {
         "last_modified": "Tue, 28 Apr 2026 07:39:57 GMT",
         "content_length": "2640",
-        "etag": "\"80c4ed35e2d6dc1:0\""
+        "etag": "\"80c4ed35e2d6dc1:0\"",
+        "content_hash": "64645f95341c70c9ce0f54b8789426bf32acf62a546d7287fb80a520b1ffb8d2",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1154,14 +1236,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
       "notes": "幼稚園學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_kg/。",
       "freshness_metadata": {
         "last_modified": "Mon, 27 Apr 2026 07:48:38 GMT",
         "content_length": "17833",
-        "etag": "\"04fe421ad6dc1:0\""
+        "etag": "\"04fe421ad6dc1:0\"",
+        "content_hash": "8b2ada60653ca5b916cb67ed3b221787a8a45c6e0ef14f24accef69c4d70b8a2",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1182,14 +1266,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
       "notes": "小學學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_pri/。",
       "freshness_metadata": {
         "last_modified": "Mon, 27 Apr 2026 07:48:38 GMT",
         "content_length": "17728",
-        "etag": "\"04fe421ad6dc1:0\""
+        "etag": "\"04fe421ad6dc1:0\"",
+        "content_hash": "0d7873a0882b5f8199ab2cbfc4976290ab81de8f9d6e2da1cbdd3c39bd1f3fe7",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1210,14 +1296,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
       "notes": "中學學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_sec/。",
       "freshness_metadata": {
         "last_modified": "Mon, 27 Apr 2026 07:48:38 GMT",
         "content_length": "18097",
-        "etag": "\"04fe421ad6dc1:0\""
+        "etag": "\"04fe421ad6dc1:0\"",
+        "content_hash": "50070df2eaf4ea75fe081a16d6168eeca1d02b1e336394204846e62428566e35",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1236,14 +1324,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
       "notes": "特殊學校學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_special/。",
       "freshness_metadata": {
         "last_modified": "Mon, 27 Apr 2026 07:48:38 GMT",
         "content_length": "17519",
-        "etag": "\"04fe421ad6dc1:0\""
+        "etag": "\"04fe421ad6dc1:0\"",
+        "content_hash": "92138fe23b00a1cfa25d7be64f37637d532ddae05e21e75207e5c7e3472da0af",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1262,14 +1352,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
       "notes": "融合教育（SEN 學生於普通學校就讀）統計數字 Excel 檔案，定期更新。來自 data.gov.hk。待用戶上傳後提取內容至 vault/stat_integrated_edu/。",
       "freshness_metadata": {
         "last_modified": "Thu, 02 Apr 2026 01:29:57 GMT",
         "content_length": "14053",
-        "etag": "\"8018f53640c2dc1:0\""
+        "etag": "\"8018f53640c2dc1:0\"",
+        "content_hash": "a0b31c071d4ec3e9f2be274745dbe59dea5b15d9f0fa5979ce934f874cee1c68",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1328,7 +1420,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "g06",
@@ -1338,7 +1430,9 @@
       "freshness_metadata": {
         "last_modified": "Mon, 09 Feb 2026 06:51:17 GMT",
         "content_length": "6445",
-        "etag": "\"80a0407d9099dc1:0\""
+        "etag": "\"80a0407d9099dc1:0\"",
+        "content_hash": "dc841c64c47b1a06370110a7ab3769ee9ee719e5714632dc899fa5ab178be56d",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1361,7 +1455,7 @@
       "issued_date": "2024-07-15",
       "issued_by": "陳碧華博士（教育局局長代行）",
       "circular_ref": "EDB(CD/K&P)/PRI/150/1/3/(4)",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "g06",
@@ -1372,7 +1466,9 @@
       "freshness_metadata": {
         "last_modified": "Mon, 15 Jul 2024 06:05:18 GMT",
         "content_length": "517500",
-        "etag": "\"bcbd31f87cd6da1:0\""
+        "etag": "\"bcbd31f87cd6da1:0\"",
+        "content_hash": "cab4ae5f60c51f20d3b13ac3694d60a0dd29e5503413ccaebe5577280cac6dc5",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1391,13 +1487,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "課程更新指引及文件的總覽索引頁，涵蓋各學習領域（KLA）的課程改革文件連結。為 curriculum topic 的上層導航頁，適合 LLM-wiki search 指向用途。內容定期更新，需複查 freshness。edb.gov.hk 暫時無法自動抓取，待用戶貼入內容或 Phase 2 解鎖後提取至 vault。",
       "freshness_metadata": {
         "last_modified": "Mon, 09 Mar 2026 00:47:36 GMT",
         "content_length": "2317",
-        "etag": "\"0447d525eafdc1:0\""
+        "etag": "\"0447d525eafdc1:0\"",
+        "content_hash": "57a7d467a746572a9af3f6fdda493c32c69c848b2548b0e60d14b8a656022462",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1416,7 +1514,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "g08",
@@ -1426,7 +1524,9 @@
       "freshness_metadata": {
         "last_modified": "Mon, 06 Oct 2025 06:58:31 GMT",
         "content_length": "3465",
-        "etag": "\"8045e39f8e36dc1:0\""
+        "etag": "\"8045e39f8e36dc1:0\"",
+        "content_hash": "de5cde4f0b476371ac39c6046b6730ed6ca64dd887c321a73f003e13aaf44134",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1445,7 +1545,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "g11"
@@ -1454,7 +1554,9 @@
       "freshness_metadata": {
         "last_modified": "Thu, 18 Sep 2025 01:53:38 GMT",
         "content_length": "2550",
-        "etag": "\"07df9c3f28dc1:0\""
+        "etag": "\"07df9c3f28dc1:0\"",
+        "content_hash": "2b8be41ee425c3734f8ad88301b2c2468a2a2189fc27bc3f4e1619bb805f3fb1",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1473,7 +1575,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "g36",
@@ -1483,7 +1585,9 @@
       "freshness_metadata": {
         "last_modified": "Thu, 11 Sep 2025 00:27:57 GMT",
         "content_length": "1817",
-        "etag": "\"80e4ceebb222dc1:0\""
+        "etag": "\"80e4ceebb222dc1:0\"",
+        "content_hash": "89e2f660ce26648f77f14010aba9eb6d007be9c3a3f3994af2e15c778813962d",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1503,7 +1607,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "cs_curr",
@@ -1513,7 +1617,9 @@
       "freshness_metadata": {
         "last_modified": "Thu, 16 Nov 2023 02:34:45 GMT",
         "content_length": "2245",
-        "etag": "\"80d0d3753518da1:0\""
+        "etag": "\"80d0d3753518da1:0\"",
+        "content_hash": "25ba1b43672130ec8e9998c98b568c3fecbba6047efb8a0f84edf2c658a2d22c",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1532,7 +1638,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "g30",
@@ -1544,7 +1650,9 @@
       "freshness_metadata": {
         "last_modified": "Fri, 03 Oct 2025 06:56:12 GMT",
         "content_length": "3976",
-        "etag": "\"04ecccd3234dc1:0\""
+        "etag": "\"04ecccd3234dc1:0\"",
+        "content_hash": "d7fd632a43135be51aa0b4e493fdfde4bb1bdfae88d01d97b5f0ecdb7cdb87cd",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1563,7 +1671,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "g37",
@@ -1573,7 +1681,9 @@
       "freshness_metadata": {
         "last_modified": "Tue, 21 Apr 2026 01:36:27 GMT",
         "content_length": "2628",
-        "etag": "\"809f43452fd1dc1:0\""
+        "etag": "\"809f43452fd1dc1:0\"",
+        "content_hash": "b987d3970edf530a60ebb443fbc6b97d75e71dd0225e501913aa06c9ca6a0175",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1592,7 +1702,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "g15"
@@ -1601,7 +1711,9 @@
       "freshness_metadata": {
         "last_modified": "Wed, 27 Nov 2024 09:09:58 GMT",
         "content_length": "1748",
-        "etag": "\"0379c21ac40db1:0\""
+        "etag": "\"0379c21ac40db1:0\"",
+        "content_hash": "a781d279fa942d8bd306dc7db64c3e25095cef2416e3444d8e36979d03f8651a",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1620,13 +1732,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "應用學習（跨 KLA）課程文件索引。涵蓋應用學習課程及評估指引，以及職業導向教育 / 特殊學校新高中學制相關文件。已開始由 user-paste 方式整理至 vault/apl_curr_docs/catalogue.json。",
       "freshness_metadata": {
         "last_modified": "Wed, 21 Aug 2024 02:21:32 GMT",
         "content_length": "1552",
-        "etag": "\"0de69d670f3da1:0\""
+        "etag": "\"0de69d670f3da1:0\"",
+        "content_hash": "7037d5b0ba949f4e75243a074625ff07a4f7f1eb57802ffd2e63139fc1cba4a4",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1646,7 +1760,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "ict_sss_2021"
@@ -1655,7 +1769,9 @@
       "freshness_metadata": {
         "last_modified": null,
         "content_length": "0",
-        "etag": null
+        "etag": null,
+        "content_hash": "21129fb4c58f994dd67f6e70aa41d5fb8b672addebb36783b0ffee0399f6e890",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1674,7 +1790,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "gs_pri_guide_2017",
@@ -1684,7 +1800,9 @@
       "freshness_metadata": {
         "last_modified": "Fri, 09 Dec 2022 10:05:13 GMT",
         "content_length": "1392",
-        "etag": "\"41dcb5bab5bd91:0\""
+        "etag": "\"41dcb5bab5bd91:0\"",
+        "content_hash": "da08eaa484f926867da155fcd11b1d4cbce8f60f55cbc2af9c9d9b4183173160",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1703,7 +1821,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "gs_pri_curr",
@@ -1713,7 +1831,9 @@
       "freshness_metadata": {
         "last_modified": "Tue, 13 Feb 2018 02:53:15 GMT",
         "content_length": "16736193",
-        "etag": "\"80df21cb75a4d31:0\""
+        "etag": "\"80df21cb75a4d31:0\"",
+        "content_hash": "92c17fcdd701bd5f6b613522ebfd30d7f06286f6e762b16294352f9477e95456",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1732,7 +1852,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "gs_pri_curr",
       "related_source_ids": [
         "g30",
@@ -1747,7 +1867,9 @@
       "freshness_metadata": {
         "last_modified": "Wed, 29 Apr 2026 04:02:18 GMT",
         "content_length": "3389",
-        "etag": "\"04192f88cd7dc1:0\""
+        "etag": "\"04192f88cd7dc1:0\"",
+        "content_hash": "cde119ce4fe46eb480f2f8c6f63d19ad2d7002e2ad5e3785956d59fd38d4b80c",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1766,7 +1888,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "ph_pri_curr"
@@ -1775,7 +1897,9 @@
       "freshness_metadata": {
         "last_modified": "Wed, 22 Nov 2023 09:25:35 GMT",
         "content_length": "1122775",
-        "etag": "\"33b3f6d8251dda1:0\""
+        "etag": "\"33b3f6d8251dda1:0\"",
+        "content_hash": "ad61ab9a39664cea8c2d2f19db669a7f7c468369767b26ec35800dc0666130ec",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1794,7 +1918,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "ph_pri_curr"
@@ -1803,7 +1927,9 @@
       "freshness_metadata": {
         "last_modified": "Thu, 21 Mar 2024 09:04:24 GMT",
         "content_length": "743075",
-        "etag": "\"b8d057c56e7bda1:0\""
+        "etag": "\"b8d057c56e7bda1:0\"",
+        "content_hash": "3a1dbf99793abc6fc33bcba737301806b133c004ddfe1983cbcca838873dced6",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1822,16 +1948,18 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-30",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "ph_pri_curr"
       ],
       "notes": "S135 §E.12 URL re-discovery：原 EDBCM24197C.pdf 直連失效後曾改指小學人文科主頁（source_type=html、致 0 chunks）。EDB 已將 PDF 重命名為 edbcm_197_2024_c.pdf（HTTP 200 / 11p 已驗），現修正 url_primary 為直連 + source_type=pdf 並 page-carry 入庫。",
       "freshness_metadata": {
-        "last_modified": "Wed, 29 Apr 2026 04:02:18 GMT",
-        "content_length": "2557",
-        "etag": "\"04192f88cd7dc1:0\""
+        "last_modified": "Wed, 25 Sep 2024 08:42:35 GMT",
+        "content_length": "686542",
+        "etag": "\"80f48de26fdb1:0\"",
+        "content_hash": "f181797eddb6f0e942da4230315dbf75ceeb4f470ea0b3b78fa956d77eca70c5",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1850,7 +1978,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "ph_pri_curr",
@@ -1864,7 +1992,9 @@
       "freshness_metadata": {
         "last_modified": "Tue, 24 Jun 2025 01:58:32 GMT",
         "content_length": "845378",
-        "etag": "\"0d4af7cabe4db1:0\""
+        "etag": "\"0d4af7cabe4db1:0\"",
+        "content_hash": "94df160fc35f7e0f1c38b2e21938fc034e6782b83bac5763ad41811d4026ab7c",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1883,7 +2013,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "g30",
       "related_source_ids": [
         "ph_pri_curr",
@@ -1894,7 +2024,9 @@
       "freshness_metadata": {
         "last_modified": "Tue, 04 Nov 2025 01:54:17 GMT",
         "content_length": "19569259",
-        "etag": "\"80aaa2ed2d4ddc1:0\""
+        "etag": "\"80aaa2ed2d4ddc1:0\"",
+        "content_hash": "941ae32231914f9696cd9eff3721bd8bdbe9ea822fa3ae6fee5985e2856a729f",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1914,7 +2046,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "g10"
@@ -1923,7 +2055,9 @@
       "freshness_metadata": {
         "last_modified": "Tue, 14 Oct 2025 06:37:52 GMT",
         "content_length": "3514",
-        "etag": "\"0e0b010d53cdc1:0\""
+        "etag": "\"0e0b010d53cdc1:0\"",
+        "content_hash": "d662c714db9f99894f568f442bffcb1f7d778f30f3c216d66e0bc629782508ba",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1943,13 +2077,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "資優教育政策文件及指引索引，涵蓋三層推行模式、校本資優教育計劃指引等。待提取。",
       "freshness_metadata": {
         "last_modified": "Fri, 09 Dec 2022 10:05:13 GMT",
         "content_length": "1435",
-        "etag": "\"e2b2bbb5bd91:0\""
+        "etag": "\"e2b2bbb5bd91:0\"",
+        "content_hash": "4596b8603d33f0d121e0fe8e2e4b8adfb7ceeb03968fb0a0e3f7ccb0e9ae60d2",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1968,13 +2104,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "國家安全教育課程資源索引，隸屬 PSHE KLA。涵蓋《國家安全教育課程框架》及各科實施建議。待提取。",
       "freshness_metadata": {
         "last_modified": "Mon, 16 Feb 2026 02:37:54 GMT",
         "content_length": "3109",
-        "etag": "\"02d7340ed9edc1:0\""
+        "etag": "\"02d7340ed9edc1:0\"",
+        "content_hash": "3042e458fb886024c7781dfac823de3c0b8f1270682e696514e53589b09d8a15",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -1994,13 +2132,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "STEAM 教育資源及政策索引，隸屬科技教育 KLA。涵蓋跨 KLA 學習、編程教育等內容。待提取。",
       "freshness_metadata": {
         "last_modified": "Thu, 10 Apr 2025 03:55:33 GMT",
         "content_length": "1355",
-        "etag": "\"80288c68cca9db1:0\""
+        "etag": "\"80288c68cca9db1:0\"",
+        "content_hash": "625e300bef9b3da9a7346f3daaf8343878c26e7e19381060e4df960c1f79a201",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2019,7 +2159,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "pri_science_guide_2025",
@@ -2036,7 +2176,9 @@
       "freshness_metadata": {
         "last_modified": "Mon, 23 Jun 2025 03:57:40 GMT",
         "content_length": "2689",
-        "etag": "\"052d0f6f2e3db1:0\""
+        "etag": "\"052d0f6f2e3db1:0\"",
+        "content_hash": "699ff6d29292496d26b6bcbcf1e1797a5517e31332312b0aa4dfc53ba0844223",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2055,14 +2197,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "g36",
       "parent_source_id": "sci_curr_docs",
       "notes": "科學教育 KLA 總綱（小一至中六），比 g36 的 2002 舊版更新。PDF 直連 URL 待補充；現由 vault/science_edu_curr_docs/catalogue.json 追蹤（doc_id: sci_kla_guide_2017）。",
       "freshness_metadata": {
         "last_modified": "Fri, 03 Oct 2025 06:56:12 GMT",
         "content_length": "3976",
-        "etag": "\"04ecccd3234dc1:0\""
+        "etag": "\"04ecccd3234dc1:0\"",
+        "content_hash": "d7fd632a43135be51aa0b4e493fdfde4bb1bdfae88d01d97b5f0ecdb7cdb87cd",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2081,7 +2225,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "sci_curr_docs",
       "related_source_ids": [
@@ -2091,7 +2235,9 @@
       "freshness_metadata": {
         "last_modified": "Fri, 05 Sep 2025 08:25:04 GMT",
         "content_length": "23199370",
-        "etag": "\"0f059943e1edc1:0\""
+        "etag": "\"0f059943e1edc1:0\"",
+        "content_hash": "5cfbcfecf523da42ec7167b9b9a84189d9f5bf812227c72379c294410377db32",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2110,7 +2256,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "pri_science"
@@ -2119,7 +2265,9 @@
       "freshness_metadata": {
         "last_modified": "Wed, 21 Feb 2024 04:39:03 GMT",
         "content_length": "777817",
-        "etag": "\"80d36e57f64da1:0\""
+        "etag": "\"80d36e57f64da1:0\"",
+        "content_hash": "bd69346b4b42c782d2c2bddd2849f8217cfd136a8f5672d2c3e7503056573c38",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2138,7 +2286,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "pri_science"
@@ -2147,7 +2295,9 @@
       "freshness_metadata": {
         "last_modified": "Tue, 27 Feb 2024 04:33:31 GMT",
         "content_length": "580365",
-        "etag": "\"607b2f1e3669da1:0\""
+        "etag": "\"607b2f1e3669da1:0\"",
+        "content_hash": "4410157cad57aec4b2cd2d1fdb617bbc3d5031445212aca64666f7d2ef48c9fe",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2166,7 +2316,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "pri_science"
@@ -2175,7 +2325,9 @@
       "freshness_metadata": {
         "last_modified": "Mon, 04 Mar 2024 01:53:07 GMT",
         "content_length": "934794",
-        "etag": "\"d36c4bb4d66dda1:0\""
+        "etag": "\"d36c4bb4d66dda1:0\"",
+        "content_hash": "e72d5044a8e938d480d90f416d9ff51e53ab8635aa341e87a559388e3bbf616a",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2194,7 +2346,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "pri_science"
@@ -2203,7 +2355,9 @@
       "freshness_metadata": {
         "last_modified": "Fri, 26 Apr 2024 09:37:13 GMT",
         "content_length": "363262",
-        "etag": "\"2b188f51bd97da1:0\""
+        "etag": "\"2b188f51bd97da1:0\"",
+        "content_hash": "5df48a22cfb4357c0a7119eb6324b18fd3ae446cc16b94c0f245ac1e69b9d274",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2222,7 +2376,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "pri_science"
@@ -2231,7 +2385,9 @@
       "freshness_metadata": {
         "last_modified": "Mon, 25 Nov 2024 09:34:43 GMT",
         "content_length": "617249",
-        "etag": "\"80bbe9411d3fdb1:0\""
+        "etag": "\"80bbe9411d3fdb1:0\"",
+        "content_hash": "9f62b77072c4c17f49f51aa94df70878ad54a3c176c5733fdb99bb7dc512c3d8",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2250,7 +2406,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "pri_science",
@@ -2260,7 +2416,9 @@
       "freshness_metadata": {
         "last_modified": "Mon, 23 Jun 2025 02:53:41 GMT",
         "content_length": "329385",
-        "etag": "\"8068976eae3db1:0\""
+        "etag": "\"8068976eae3db1:0\"",
+        "content_hash": "897f237fa616514de309637766f1e45444a5b48d63a90149a68efe53af207215",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2279,16 +2437,18 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "pri_science"
       ],
       "notes": "教師專業發展課程清單。",
       "freshness_metadata": {
-        "last_modified": "Mon, 30 Mar 2026 09:05:05 GMT",
-        "content_length": "224518",
-        "etag": "\"80f68d4c24c0dc1:0\""
+        "last_modified": "Mon, 01 Jun 2026 05:05:14 GMT",
+        "content_length": "228030",
+        "etag": "\"0e1df3a84f1dc1:0\"",
+        "content_hash": "4c298195e42e85e984d8defad40c8665ff5d025c22a886117206fc4f3a1f28ac",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2330,14 +2490,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "sci_curr_docs",
       "notes": "初中科學（中一至中三）補充文件。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Fri, 08 Dec 2017 05:10:27 GMT",
         "content_length": "3250766",
-        "etag": "\"80231cdce26fd31:0\""
+        "etag": "\"80231cdce26fd31:0\"",
+        "content_hash": "67383877efa000cfcd4fba7b7f3639c449e87b83d429aa7fed7a1cffc029b939",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2356,14 +2518,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "sci_jss_supp_2017",
       "parent_source_id": "sci_curr_docs",
       "notes": "初中科學（中一至中三）課程框架，2025 年版本。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Thu, 09 Oct 2025 06:59:16 GMT",
         "content_length": "2426578",
-        "etag": "\"0faf239ea38dc1:0\""
+        "etag": "\"0faf239ea38dc1:0\"",
+        "content_hash": "96964acd0874489e5cf97710293642a11b9997b8df499aa0187443cfac273216",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2382,14 +2546,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "sci_curr_docs",
       "notes": "高中生物課程及評估指引（2007，2015年11月更新）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Tue, 01 Dec 2015 02:00:08 GMT",
         "content_length": "1253020",
-        "etag": "\"084ff0dc2bd11:0\""
+        "etag": "\"084ff0dc2bd11:0\"",
+        "content_hash": "c87a62cecaeb07ff599615bd46972b76c480b3778d981bd4d77527cdb64712d1",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2408,14 +2574,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2018-06",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "sci_curr_docs",
       "notes": "高中化學課程及評估指引（2007，2018年6月更新）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Fri, 07 Aug 2020 08:37:06 GMT",
         "content_length": "2670596",
-        "etag": "\"0256cee956cd61:0\""
+        "etag": "\"0256cee956cd61:0\"",
+        "content_hash": "a26ede119879a91641224c049e6e9cd293517c0aba9151a47723ad409650e483",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2434,14 +2602,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "sci_curr_docs",
       "notes": "高中物理課程及評估指引（2007，2015年11月更新）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Tue, 01 Dec 2015 02:23:28 GMT",
         "content_length": "1620112",
-        "etag": "\"0907643df2bd11:0\""
+        "etag": "\"0907643df2bd11:0\"",
+        "content_hash": "613f053a4c10d7b8314b5c3d5083e8affccd39232c4589b74f98f88d486a2af0",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2460,7 +2630,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "values_edu_framework_2021_trial",
@@ -2473,7 +2643,9 @@
       "freshness_metadata": {
         "last_modified": "Wed, 15 Apr 2026 10:42:14 GMT",
         "content_length": "1794",
-        "etag": "\"0c78485c4ccdc1:0\""
+        "etag": "\"0c78485c4ccdc1:0\"",
+        "content_hash": "29c09c327cd562d5f995da7da7cc6e2275ea5cf447f64179b55f5d7ed79ba73f",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2492,7 +2664,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2021",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "moral_civic_curr"
@@ -2501,7 +2673,9 @@
       "freshness_metadata": {
         "last_modified": "Fri, 02 Aug 2024 06:17:12 GMT",
         "content_length": "10859551",
-        "etag": "\"064a99ca3e4da1:0\""
+        "etag": "\"064a99ca3e4da1:0\"",
+        "content_hash": "e4cb9a85d02501536d427f9936427dfc2ecec25e819589a1e4c51e470ff4ba4a",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2520,7 +2694,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "moral_civic_curr",
@@ -2530,7 +2704,9 @@
       "freshness_metadata": {
         "last_modified": "Thu, 14 Dec 2023 07:59:39 GMT",
         "content_length": "2836228",
-        "etag": "\"91d0e47c632eda1:0\""
+        "etag": "\"91d0e47c632eda1:0\"",
+        "content_hash": "ddc68f97e239d95cbc2cf04fd4bedf4a7da0b59e1f508789aceba8e56b0c2eba",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2549,7 +2725,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "moral_civic_curr"
@@ -2558,7 +2734,9 @@
       "freshness_metadata": {
         "last_modified": "Fri, 29 Sep 2023 01:41:05 GMT",
         "content_length": "904848",
-        "etag": "\"80ceba276f2d91:0\""
+        "etag": "\"80ceba276f2d91:0\"",
+        "content_hash": "75112a82e4a0b38cf55f6d2af319d05a7cfb7ba93464508263bc1035795e7cc2",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2577,7 +2755,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "moral_civic_curr"
@@ -2586,7 +2764,9 @@
       "freshness_metadata": {
         "last_modified": "Wed, 14 Aug 2024 01:39:50 GMT",
         "content_length": "99052228",
-        "etag": "\"0b736daeaedda1:0\""
+        "etag": "\"0b736daeaedda1:0\"",
+        "content_hash": "e8eccc9623da925ff71d213d410f33efe59021c5e0a3235206c970e538f61b4c",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2605,7 +2785,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2008",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "related_source_ids": [
         "moral_civic_curr"
@@ -2614,7 +2794,9 @@
       "freshness_metadata": {
         "last_modified": "Sun, 25 Nov 2012 16:27:04 GMT",
         "content_length": "2101772",
-        "etag": "\"07c24b429cbcd1:0\""
+        "etag": "\"07c24b429cbcd1:0\"",
+        "content_hash": "c0e23eae26a4fbce417409af31df8715cbf49e60a5987e28ab3bf8f1f0fa6342",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2633,14 +2815,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "chi_edu_curr_docs",
       "notes": "最新小學中國語文課程指引（2023）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Thu, 16 May 2024 05:49:58 GMT",
         "content_length": "943621",
-        "etag": "\"04780e254a7da1:0\""
+        "etag": "\"04780e254a7da1:0\"",
+        "content_hash": "e63610a1b4b6a4b57c5a21b0bebe97611140e117ee4b479336f51b3358227099",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2659,14 +2843,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "chi_edu_curr_docs",
       "notes": "最新初中中國語文課程指引（2023）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Wed, 05 Mar 2025 03:57:36 GMT",
         "content_length": "1013576",
-        "etag": "\"078fdba828ddb1:0\""
+        "etag": "\"078fdba828ddb1:0\"",
+        "content_hash": "e7700b7dd65629c15deac2bc3e5a6135e699b004b393a1d062fb3ca1d14cf90c",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2685,14 +2871,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2021",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "chi_edu_curr_docs",
       "notes": "高中中國語文課程及評估指引（2021）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Fri, 17 May 2024 02:49:34 GMT",
         "content_length": "1000886",
-        "etag": "\"0b34ed94a8da1:0\""
+        "etag": "\"0b34ed94a8da1:0\"",
+        "content_hash": "4a51cc1b214596faf4135598b9f2ec6a3c97d3f2385744f90db425c5b6966cd0",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2711,14 +2899,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "chi_edu_curr_docs",
       "notes": "最新2025年更新版中國文學課程及評估指引。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Thu, 26 Jun 2025 08:04:35 GMT",
         "content_length": "774633",
-        "etag": "\"802b7bf470e6db1:0\""
+        "etag": "\"802b7bf470e6db1:0\"",
+        "content_hash": "00a2f8873a1e64aca64091edc5a44b9bf610b254d2750be7d9d1ee68583ff130",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2737,14 +2927,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "g33",
       "notes": "英文科 KLA 國家安全教育課程框架（2025）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Thu, 03 Jul 2025 01:06:16 GMT",
         "content_length": "520942",
-        "etag": "\"0f433adb6ebdb1:0\""
+        "etag": "\"0f433adb6ebdb1:0\"",
+        "content_hash": "734a252fd54dcb6e4fd8038c30f5d0f19804ad7e3ca60b0f69ee5f45a9c32937",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2763,14 +2955,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "g33",
       "notes": "最新2025年小學英文課程指引（CDC）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Fri, 27 Jun 2025 03:37:59 GMT",
         "content_length": "5129319",
-        "etag": "\"80589e014e7db1:0\""
+        "etag": "\"80589e014e7db1:0\"",
+        "content_hash": "0587fafb2c8c097ff3f44d817990a85a8c6a24495ede346a6d271454462b289d",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2789,14 +2983,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2018",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "g33",
       "notes": "初中英文課程指引補充（2018）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Mon, 29 Oct 2018 03:37:29 GMT",
         "content_length": "2429751",
-        "etag": "\"80a29db7386fd41:0\""
+        "etag": "\"80a29db7386fd41:0\"",
+        "content_hash": "b5f85eab8cee6007d173c17d6e241615a57606ca5403a062f503b6eb61ad7336",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2816,14 +3012,16 @@
       "status": "verified",
       "version_label": "2021",
       "issued_note": "Effective from Secondary 4 in 2021/22 school year",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "eng_sss_guide_2007",
       "parent_source_id": "g33",
       "notes": "現行高中英文課程及評估指引（CDC-HKEAA，2021/22起）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Tue, 30 Sep 2025 04:06:31 GMT",
         "content_length": "1605215",
-        "etag": "\"80bd359abf31dc1:0\""
+        "etag": "\"80bd359abf31dc1:0\"",
+        "content_hash": "729da6cae1ab24c0e7b0919c5c7b79d363d7f067e5ce9405cc655a185c724266",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2843,14 +3041,16 @@
       "status": "verified",
       "version_label": "2023",
       "issued_note": "Effective from Secondary 4 in 2023/24 school year",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "eng_lit_guide_2007",
       "parent_source_id": "g33",
       "notes": "現行英文文學課程及評估指引（CDC-HKEAA，2023/24起）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Mon, 03 Jul 2023 08:44:55 GMT",
         "content_length": "4168736",
-        "etag": "\"80ddd6a38aadd91:0\""
+        "etag": "\"80ddd6a38aadd91:0\"",
+        "content_hash": "e634539f447261c7c59efd25a65a669db74f24dbb45e6d87dfa89a8d50bb1e82",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2869,14 +3069,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "ma_curr_index",
       "notes": "數學教育 KLA 總綱（小一至中六），2017年版。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Wed, 07 Feb 2018 08:55:18 GMT",
         "content_length": "4216977",
-        "etag": "\"01f9260f19fd31:0\""
+        "etag": "\"01f9260f19fd31:0\"",
+        "content_hash": "eaaab836269aba54a803803bd02990f83598538d5c8cf95d830a3802c2e8377f",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2895,14 +3097,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017-12",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "ma_curr_index",
       "notes": "現行高中數學課程及評估指引（2017年12月更新版）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Wed, 07 Feb 2018 07:27:47 GMT",
         "content_length": "2108878",
-        "etag": "\"801bbb26e59fd31:0\""
+        "etag": "\"801bbb26e59fd31:0\"",
+        "content_hash": "4f587886cb2ed64d4917db5cfa72c0556fc18ad5a98847c17337406363ae086f",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2922,14 +3126,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2021",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "ma_curr_index",
       "notes": "高中數學照顧學習多樣性重要指引，2021年版。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Fri, 17 Sep 2021 04:37:53 GMT",
         "content_length": "996653",
-        "etag": "\"80a614c77dabd71:0\""
+        "etag": "\"80a614c77dabd71:0\"",
+        "content_hash": "6b2248f4c993b91314052ba42d3a57343b84c87f5cc3a2f7809435ba333eaa2b",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2949,14 +3155,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "notes": "科技教育 KLA 總綱（小一至中六），2017 年版。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Thu, 08 Apr 2021 03:04:52 GMT",
         "content_length": "4234857",
-        "etag": "\"022a0f1232cd71:0\""
+        "etag": "\"022a0f1232cd71:0\"",
+        "content_hash": "0c8fd8f9ae0c334ed6236ca66ec683a8af0c06edddca0010045e916c3803eb27",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -2976,7 +3184,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2020",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "related_source_ids": [
@@ -2986,7 +3194,9 @@
       "freshness_metadata": {
         "last_modified": "Thu, 16 Jul 2020 01:57:24 GMT",
         "content_length": "1004550",
-        "etag": "\"0daf272145bd61:0\""
+        "etag": "\"0daf272145bd61:0\"",
+        "content_hash": "dd5d945cceeaa34470fe44067282f1c5fea5d67baaecd9b02e597bb17d41e145",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3005,14 +3215,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "notes": "高中 BAFS 課程及評估指引（2007，2015年11月更新）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Wed, 15 Nov 2023 03:33:03 GMT",
         "content_length": "3155567",
-        "etag": "\"808162707417da1:0\""
+        "etag": "\"808162707417da1:0\"",
+        "content_hash": "3e3003d9b5daa170130a9c982d00d163f50edf77086b70d2eeca76d12b7a4e91",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3031,14 +3243,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2020-10",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "bafs_sss_2007_2015",
       "parent_source_id": "tech_curr_docs",
       "notes": "高中 BAFS 課程及評估指引（2007，2020年10月更新；2022/23 起實施）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Thu, 16 Nov 2023 02:33:20 GMT",
         "content_length": "5210295",
-        "etag": "\"0d829433518da1:0\""
+        "etag": "\"0d829433518da1:0\"",
+        "content_hash": "d5a63ce80376103148a8e36eca605cebfb9778aa1603a1c93d7b4e47e16b8b31",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3058,14 +3272,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "notes": "高中健康管理與社會關懷課程及評估指引（2007，2015年11月更新）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Tue, 02 Nov 2021 09:06:21 GMT",
         "content_length": "2251716",
-        "etag": "\"80e432e7c8cfd71:0\""
+        "etag": "\"80e432e7c8cfd71:0\"",
+        "content_hash": "df697ca270b17a28322d2c8b114a927076fcac0e98f3df0e7cb552110997c759",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3085,14 +3301,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "notes": "高中科技與生活課程及評估指引（2007，2015年11月更新）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Tue, 02 Nov 2021 09:06:23 GMT",
         "content_length": "1934083",
-        "etag": "\"801164e8c8cfd71:0\""
+        "etag": "\"801164e8c8cfd71:0\"",
+        "content_hash": "bff75420d1855c7548d39b59e9cd706e1e05a59bd8a940b21080d16e9fcb7b32",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3112,14 +3330,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "notes": "高中設計與應用科技課程及評估指引（2007，2015年11月更新）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Tue, 02 Nov 2021 09:06:22 GMT",
         "content_length": "4165797",
-        "etag": "\"07bcbe7c8cfd71:0\""
+        "etag": "\"07bcbe7c8cfd71:0\"",
+        "content_hash": "59c0889423f7e6053a4c969bd0b065316a000ded286af7c5fb038065c93e286e",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3139,7 +3359,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2020-12",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "related_source_ids": [
@@ -3149,7 +3369,9 @@
       "freshness_metadata": {
         "last_modified": "Mon, 28 Dec 2020 02:42:44 GMT",
         "content_length": "306653",
-        "etag": "\"0aa5a1ec3dcd61:0\""
+        "etag": "\"0aa5a1ec3dcd61:0\"",
+        "content_hash": "60ef9673aed5f6d5a07c5eadb9b7877af086be8b035f65a73d298b6e14d11433",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3169,7 +3391,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "related_source_ids": [
@@ -3179,7 +3401,9 @@
       "freshness_metadata": {
         "last_modified": "Tue, 02 Nov 2021 09:06:23 GMT",
         "content_length": "2458635",
-        "etag": "\"801164e8c8cfd71:0\""
+        "etag": "\"801164e8c8cfd71:0\"",
+        "content_hash": "8090bd7d498051cfebde7e9c4d8658a03ef574006d8731d49dca6a597c108a24",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3199,7 +3423,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2021",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "ict_sss_2007_2015",
       "parent_source_id": "tech_curr_docs",
       "related_source_ids": [
@@ -3209,7 +3433,9 @@
       "freshness_metadata": {
         "last_modified": "Mon, 05 Jul 2021 09:12:44 GMT",
         "content_length": "868779",
-        "etag": "\"0eeae97d71d71:0\""
+        "etag": "\"0eeae97d71d71:0\"",
+        "content_hash": "3e983f9cbad6b422ff038b0328d341089332cc36d0811aa59f6780c5ad6fffc2",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3228,14 +3454,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "初中中國歷史課程指引。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Fri, 22 Mar 2024 07:41:08 GMT",
         "content_length": "5958592",
-        "etag": "\"042694d2c7cda1:0\""
+        "etag": "\"042694d2c7cda1:0\"",
+        "content_hash": "10db130f393ba30bb034e6a87ff47646c49629391941cf84484dca03a9b4e2bb",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3254,14 +3482,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "初中中國歷史非華語學生適用版本。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Wed, 31 Jul 2019 03:36:51 GMT",
         "content_length": "1275114",
-        "etag": "\"808b90305147d51:0\""
+        "etag": "\"808b90305147d51:0\"",
+        "content_hash": "c7f9549b30a77a2351cb4abc9e44353e1f3995995d7db54e1a7cd5f46576e8b7",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3280,14 +3510,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "初中中國歷史中英雙語版。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Wed, 31 Jul 2019 03:36:51 GMT",
         "content_length": "658468",
-        "etag": "\"808b90305147d51:0\""
+        "etag": "\"808b90305147d51:0\"",
+        "content_hash": "c40200a5650018089902421403eab63ef098b0b7dc577e8db9be9f67a2f88b9c",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3306,14 +3538,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "高中中國歷史課程及評估指引。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Wed, 28 Aug 2024 05:36:46 GMT",
         "content_length": "2868286",
-        "etag": "\"0ab6445cf9da1:0\""
+        "etag": "\"0ab6445cf9da1:0\"",
+        "content_hash": "0cb1b495b9b4e194d22c6e53a2e65003488ee19e70ca605a4aa58967fc5048cb",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3333,14 +3567,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "ls_jss_2010",
       "parent_source_id": "pshe_curr_docs",
       "notes": "初中公民、經濟與社會課程指引，逐步取代生活與社會課程。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Mon, 16 Mar 2026 06:23:37 GMT",
         "content_length": "2191429",
-        "etag": "\"80fa456cdb5dc1:0\""
+        "etag": "\"80fa456cdb5dc1:0\"",
+        "content_hash": "2d75eadf508fc6d8de8da8689143beec8823975c48f1f22c84581c1184cfca28",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3359,14 +3595,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "econ_sss_2007_2015",
       "parent_source_id": "pshe_curr_docs",
       "notes": "高中經濟課程及評估指引 2025 更新版。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Wed, 07 Jan 2026 03:52:53 GMT",
         "content_length": "2128970",
-        "etag": "\"80188a19897fdc1:0\""
+        "etag": "\"80188a19897fdc1:0\"",
+        "content_hash": "f944b3e604207c9c70e0dba8de101928935ae3128a9b0aa2bdc1f383b264f9e2",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3385,14 +3623,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "econ_sss_supp_2015",
       "parent_source_id": "pshe_curr_docs",
       "notes": "高中經濟補充文件 2025 更新版。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Tue, 29 Jul 2025 05:42:36 GMT",
         "content_length": "1131759",
-        "etag": "\"0ae64964b0dc1:0\""
+        "etag": "\"0ae64964b0dc1:0\"",
+        "content_hash": "e6627730f575692c0e7c9a220255d1647fa5297667355c28e072367a7a315c73",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3411,14 +3651,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "高中經濟課程及評估指引 2015 更新版。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Tue, 01 Dec 2015 03:20:14 GMT",
         "content_length": "2144382",
-        "etag": "\"0eb9831e72bd11:0\""
+        "etag": "\"0eb9831e72bd11:0\"",
+        "content_hash": "ecaf1fcf90ddf36943fc97f33f311468d4de7fbab72042fe58878c32f036bd30",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3437,14 +3679,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2015-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "高中經濟補充文件 2015 版本。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Mon, 30 Nov 2015 08:57:31 GMT",
         "content_length": "728344",
-        "etag": "\"804f60254d2bd11:0\""
+        "etag": "\"804f60254d2bd11:0\"",
+        "content_hash": "46625cf69e47b2779a39bff3bef49a9e2a6061637b1ddbd08c5a05101d7bb037",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3463,14 +3707,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "ethics_relig_sss_2007_2019",
       "parent_source_id": "pshe_curr_docs",
       "notes": "現行倫理與宗教課程及評估指引。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Fri, 10 May 2024 07:25:34 GMT",
         "content_length": "1585444",
-        "etag": "\"0ebf13eaba2da1:0\""
+        "etag": "\"0ebf13eaba2da1:0\"",
+        "content_hash": "9bba4d94edc86f49feca1e4f166b73d087b5a944f470b0adc132db9c9b844fc8",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3489,14 +3735,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2019-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "舊版倫理與宗教課程及評估指引。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Tue, 28 May 2024 08:55:44 GMT",
         "content_length": "1591386",
-        "etag": "\"0e8fdd2dcb0da1:0\""
+        "etag": "\"0e8fdd2dcb0da1:0\"",
+        "content_hash": "31c29d77c9ff75ce3cb3c57df88f4e77aed0833096a4a8f18601773d2606de45",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3515,14 +3763,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "religious_edu_jss",
       "parent_source_id": "pshe_curr_docs",
       "notes": "初中宗教教育課程指引 2024。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Fri, 16 Aug 2024 03:50:25 GMT",
         "content_length": "2052354",
-        "etag": "\"8056106d8fefda1:0\""
+        "etag": "\"8056106d8fefda1:0\"",
+        "content_hash": "210800fd4568f69ed1381eda06c62d2d64319e4ce0534b4050a858ca791eb543",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3567,14 +3817,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2022-07",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "地理科 2022 補充資料。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Thu, 19 Jun 2025 01:18:35 GMT",
         "content_length": "735901",
-        "etag": "\"80e7e513b8e0db1:0\""
+        "etag": "\"80e7e513b8e0db1:0\"",
+        "content_hash": "488468e692eaad768f39a36cf7c3b7b127b431dc11e38eaf6a465491e9a744d7",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3593,14 +3845,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2022-07",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "地理科 2022 更新版。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Mon, 08 Aug 2022 04:13:22 GMT",
         "content_length": "3648990",
-        "etag": "\"09d8c32ddaad81:0\""
+        "etag": "\"09d8c32ddaad81:0\"",
+        "content_hash": "2d455fc34efca5460887eb533e31d1365ebf6e19a89d8705cf990dae5194660c",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3619,14 +3873,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2022-07",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "地理科更新撮要。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Mon, 08 Aug 2022 04:14:37 GMT",
         "content_length": "634931",
-        "etag": "\"80b4405fddaad81:0\""
+        "etag": "\"80b4405fddaad81:0\"",
+        "content_hash": "309b0d33cc44efe42b7e3fe9a46ab3522415747104fab86a84ad66cb4a267910",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3645,14 +3901,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2022",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "高中地理課程更新簡介。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Mon, 06 Mar 2017 02:37:03 GMT",
         "content_length": "343852",
-        "etag": "\"8071ac892296d21:0\""
+        "etag": "\"8071ac892296d21:0\"",
+        "content_hash": "053a7e41ffaedc3da8feac5f99c2357bfd07fcf53866a8fb2754f0c370d6e0f9",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3671,14 +3929,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "legacy",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "初中地理課程指引。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Mon, 26 Nov 2012 02:48:27 GMT",
         "content_length": "4049312",
-        "etag": "\"80cf8a8280cbcd1:0\""
+        "etag": "\"80cf8a8280cbcd1:0\"",
+        "content_hash": "a018ca632939046b993bc06810d3a0dbfdbd932472a8b0a32cf19ffb7efc725d",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3697,14 +3957,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019",
-      "last_checked_at": "2026-05-30",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "S135 §E.12 URL re-discovery：原 hist_c_j1-3_2019.pdf 直連失效後曾改指 PSHE 總頁（source_type=html，致 0 chunks coverage gap）。EDB 已將該 PDF 重命名/搬位為 Hist_Curr_Guide_S1-3_Chi_final_10072019.pdf（HTTP 200 已驗，118 頁），現修正 url_primary 為直連 + source_type=pdf，並 page-carry 入庫（西史初中，與中史 CHist_* 及西史高中 Hist_C&A_Guide 互不重疊）。",
       "freshness_metadata": {
-        "last_modified": "Fri, 03 Oct 2025 06:56:12 GMT",
-        "content_length": "3976",
-        "etag": "\"04ecccd3234dc1:0\""
+        "last_modified": "Thu, 11 Jul 2019 03:46:00 GMT",
+        "content_length": "5915994",
+        "etag": "\"04c88279b37d51:0\"",
+        "content_hash": "31bff136ad53ae9259cc90c4eb2bd4a48b170824dbe28135f3de29448048f160",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3723,14 +3985,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "高中歷史課程及評估指引。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Wed, 10 Jan 2018 09:44:45 GMT",
         "content_length": "2792035",
-        "etag": "\"806479a5f789d31:0\""
+        "etag": "\"806479a5f789d31:0\"",
+        "content_hash": "1f0f00747237e3c1cb2ee549b53c4c619822a34f3235e7c14fb02f516d8ac933",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3749,14 +4013,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "旅遊與款待課程及評估指引。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Fri, 27 Nov 2015 08:39:47 GMT",
         "content_length": "2501147",
-        "etag": "\"808bf12bef28d11:0\""
+        "etag": "\"808bf12bef28d11:0\"",
+        "content_hash": "022585f1e6e30cc5915c5fd459737fe18ce3bafa9d329aa6d688d4423999279b",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3776,14 +4042,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2010",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "生活與社會課程指引；2024/25 起逐步由 CES 課程取代。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Mon, 26 Nov 2012 02:48:54 GMT",
         "content_length": "2442461",
-        "etag": "\"0afa29280cbcd1:0\""
+        "etag": "\"0afa29280cbcd1:0\"",
+        "content_hash": "0c6a410042a74c9c72ce920666ce41291f22a86a336d9f876ea037dd1792cf5a",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3802,14 +4070,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "g37",
       "parent_source_id": "arts_curr_docs",
       "notes": "藝術教育 KLA 總綱（小一至中六）2017。EDB PDF 直連已記錄；用戶亦提供本地副本 `/Users/leonard/Desktop/AE_KLACG__Chi___2017.pdf` 供核對。現由 vault/arts_edu_curr_docs/catalogue.json 追蹤（doc_id: arts_kla_guide_2017）。",
       "freshness_metadata": {
         "last_modified": "Tue, 21 Apr 2026 01:22:34 GMT",
         "content_length": "5506950",
-        "etag": "\"0e9c1542dd1dc1:0\""
+        "etag": "\"0e9c1542dd1dc1:0\"",
+        "content_hash": "ea40022c2082076d5ba00edfe7c41f503f574da6154ef01ddbe3dd08405a2f5c",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3828,14 +4098,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "g38",
       "parent_source_id": "arts_curr_docs",
       "notes": "音樂科課程指引（小一至中六）2024。EDB PDF 直連已記錄；用戶亦提供本地副本 `/Users/leonard/Desktop/mus_cg_c_2024.pdf` 供核對。現由 vault/arts_edu_curr_docs/catalogue.json 追蹤（doc_id: music_p1_s6_2024）。",
       "freshness_metadata": {
         "last_modified": "Tue, 21 Apr 2026 01:22:34 GMT",
         "content_length": "4394678",
-        "etag": "\"0e9c1542dd1dc1:0\""
+        "etag": "\"0e9c1542dd1dc1:0\"",
+        "content_hash": "4c93af82882e65682aed080b9c9ed809e8b8002289275c7f7ea0011c038e6e62",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3854,14 +4126,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-09",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "music_sss_2015",
       "parent_source_id": "arts_curr_docs",
       "notes": "現行高中音樂課程及評估指引（2024年9月更新）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Tue, 26 Nov 2024 06:36:31 GMT",
         "content_length": "1533717",
-        "etag": "\"80c16587cd3fdb1:0\""
+        "etag": "\"80c16587cd3fdb1:0\"",
+        "content_hash": "d7dd7bf0968389e85dd885ec2665b26440dc4f49deaa5d9ea3ae0a2f9592ef81",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3880,14 +4154,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2015-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "arts_curr_docs",
       "notes": "舊版高中音樂課程及評估指引。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Fri, 04 Dec 2015 09:30:32 GMT",
         "content_length": "1490414",
-        "etag": "\"0eccb6b762ed11:0\""
+        "etag": "\"0eccb6b762ed11:0\"",
+        "content_hash": "1fbd25331ecfbb34c57f53f40a143abaa2693f8e166ba01f8638fbe0cf3b13fb",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3906,14 +4182,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-09",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "arts_curr_docs",
       "notes": "音樂科國歌學與教補充文件。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Wed, 23 Oct 2024 04:11:58 GMT",
         "content_length": "700966",
-        "etag": "\"07bd7b3125db1:0\""
+        "etag": "\"07bd7b3125db1:0\"",
+        "content_hash": "b965fa8cc5a4ab798fdfd8badd2b53f8db36d1e64cff15d09d90befe77ab8828",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3932,14 +4210,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "arts_curr_docs",
       "notes": "視覺藝術科課程指引（小一至中六）2024。EDB PDF 直連已記錄；用戶亦提供本地副本 `/Users/leonard/Desktop/va_cg_c_2024.pdf` 供核對。現由 vault/arts_edu_curr_docs/catalogue.json 追蹤（doc_id: va_p1_s6_2024）。",
       "freshness_metadata": {
         "last_modified": "Tue, 21 Apr 2026 01:22:34 GMT",
         "content_length": "6626608",
-        "etag": "\"0e9c1542dd1dc1:0\""
+        "etag": "\"0e9c1542dd1dc1:0\"",
+        "content_hash": "7dbdfbb3e057d213a6ae1790e606daff7dcb7ff982feb8393ab90d7f5dd3169b",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3958,14 +4238,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2015-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "arts_curr_docs",
       "notes": "高中視覺藝術課程及評估指引。EDB PDF 直連已記錄；用戶亦提供本地副本 `/Users/leonard/Desktop/VA_CA_Guide_c-100418.pdf` 供核對。現由 vault/arts_edu_curr_docs/catalogue.json 追蹤（doc_id: va_sss_2015）。",
       "freshness_metadata": {
         "last_modified": "Tue, 10 Apr 2018 02:10:26 GMT",
         "content_length": "1391430",
-        "etag": "\"09551771d0d31:0\""
+        "etag": "\"09551771d0d31:0\"",
+        "content_hash": "8d8d96d7b31b5d8cf7f15d27ad0d602862519f0557f8e3c6b03c9b06a94ddd75",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -3984,14 +4266,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "pe_sss_2007_2015",
       "parent_source_id": "pe_curr_docs",
       "notes": "現行高中體育課程及評估指引（2023）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Wed, 27 Nov 2024 09:07:50 GMT",
         "content_length": "3551626",
-        "etag": "\"0f750d5ab40db1:0\""
+        "etag": "\"0f750d5ab40db1:0\"",
+        "content_hash": "667fda2c91df4e295c2c107fc40df1d256ef2488640cc910949dae28ab3e4e60",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -4010,14 +4294,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": "g15",
       "parent_source_id": "pe_curr_docs",
       "notes": "體育 KLA 總綱（小一至中六）2017。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Fri, 27 Sep 2024 04:15:11 GMT",
         "content_length": "4229378",
-        "etag": "\"807123d89310db1:0\""
+        "etag": "\"807123d89310db1:0\"",
+        "content_hash": "1f2315993169dce6f40fa422cc0611e0f21469625e110f13a1aa1f9b91f567e2",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -4036,14 +4322,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "parent_source_id": "pe_curr_docs",
       "notes": "舊版高中體育課程及評估指引。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Mon, 10 Jul 2023 02:28:14 GMT",
         "content_length": "3036507",
-        "etag": "\"0337c2dd6b2d91:0\""
+        "etag": "\"0337c2dd6b2d91:0\"",
+        "content_hash": "ec92f6e8cc6b7f858d4193cfbdf0cd042bd07b518561359617deb2748ae4f65a",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -4062,13 +4350,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Auto-registered via process_signals.py from policy signal. Signal ID: sig_edbc002_2026",
       "freshness_metadata": {
         "last_modified": "Tue, 17 Mar 2026 06:23:43 GMT",
         "content_length": "555516",
-        "etag": "\"11135c9ad6b5dc1:0\""
+        "etag": "\"11135c9ad6b5dc1:0\"",
+        "content_hash": "5477541e66f3414cf707b0439114cb4ce419744d4d439b57c09c03f0dca53343",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -4087,13 +4377,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Auto-registered via process_signals.py from policy signal. Signal ID: sig_edbc003_2026",
       "freshness_metadata": {
         "last_modified": "Wed, 15 Apr 2026 06:44:10 GMT",
         "content_length": "745796",
-        "etag": "\"698af943a3ccdc1:0\""
+        "etag": "\"698af943a3ccdc1:0\"",
+        "content_hash": "54430f0acfcfce1cd0d74319e12e1c9d742520bdbfd348d56bf547f74bdb8406",
+        "hash_checked_at": "2026-06-03"
       }
     },
     {
@@ -4112,13 +4404,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026",
-      "last_checked_at": "2026-05-27",
+      "last_checked_at": "2026-06-03",
       "supersedes": null,
       "notes": "Auto-registered via process_signals.py from policy signal. Signal ID: sig_edbc005_2026",
       "freshness_metadata": {
         "last_modified": "Thu, 16 Apr 2026 06:05:24 GMT",
         "content_length": "345782",
-        "etag": "\"315ee367cddc1:0\""
+        "etag": "\"315ee367cddc1:0\"",
+        "content_hash": "81610ddaabe80e72c3f1aa8d5d2502efb76d2b0d6d893b2a463a8722c7863152",
+        "hash_checked_at": "2026-06-03"
       }
     }
   ]
