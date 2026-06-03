@@ -2,6 +2,89 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-03 Session 140 — 公開 guidelines.json 39→139 全集投影 + NEW generator（對外契約變更；0 code/data/Supabase mutation）
+
+- **ID:** Claude_20260603_1600
+- **Trigger:** Leonard 開工選下一階段方向 = **「39→148 guidelines 擴展」**（S112 deferred-intent，前身 S111 OPEN DECISION）。
+- **§3 Risk:** HIGH（對外契約變更 + 影響下游 Circular System）→ 出 PLAN + 兩輪 scope 確認後入 CHANGE。
+
+### READ 實證（verify-don't-trust）
+- registry=148（`id/title/titleShort/format/category/sub_category/level/year/isSpine/url`）；公開 schema 丟 `category/sub_category/isSpine`，top-level=topic ID。
+- **冇 generator**：`bump_version.py` 只改 `_meta.version`、唔生成內容 → guidelines.json 同 registry 手動脫鈎 = drift 根源。
+- category→topic 乾淨 7→7（財務採購→finance / 人力資源→hr / 課程→curriculum / 活動→activity / 學生事務→student / 資訊科技→it / 行政→general）。
+- 資料質素發現：`religious_edu_jss` URL=Google grounding-redirect 壞連結 + 係 `religious_edu_jss_2024` 重複；5 組同 URL routing dup；sag/g24 同標題「學校行政手冊」分兩桶。
+
+### §3 CHANGE divergence（scoping 階段捉到，STOP+report）
+- 我原本把 3 個 `format=INDEX`（g10/g16/g28）當「導航頁」叫 Leonard 剔 → **錯**：佢哋係真指引、且原已喺公開 39。剔 = regression。修正 → 保留。重新確認 scope。
+
+### CHANGE
+- **NEW `dev/build_guidelines.py`**（registry=SSOT）：投影 schema + category→topic 映射 + 純規則 drop 9 非文件（`sub_category=='stat'` 7 + `format=='DOCX'` 1 + url 含 `vertexaisearch` 1）+ INDEX→HTML 正規化；default dry-run、`--write` mutate、`--self-test`（含回歸守衛：現有公開 id 不可消失）、`--version` 保留版本不撞 bump_version.py、原子寫入。
+- `guidelines.json` 由 generator `--write --version 2.3.0 --updated 2026-06-03` 生成：**39→139**（finance 4 / hr 2 / curriculum 123 / activity 2 / student 4 / it 1 / general 3）。
+
+### QC / Test Scenarios（§3d）
+| Scenario | Expected | Actual | Result |
+|---|---|---|---|
+| 全集投影 | 148→139+9 drop | self-test 確認 | PASS |
+| 回歸守衛 | 現有 39 條 0 lost | vs existing -0 lost | PASS |
+| 非文件剔除 | 0 leak | 0 XLSX/DOCX/INDEX/vertexai | PASS |
+| g10/g16/g28 保留 | present | 全present | PASS |
+| Circular 篩選 | `guidelines[topic]` work | finance+curriculum=127 | PASS |
+| 升版 | 2.3.0/count 139 | meta 確認 | PASS |
+| idempotent | re-run 無 diff | 139→139 +0 -0 | PASS |
+
+### Sources changed
+- NEW `dev/build_guidelines.py`；`guidelines.json`（39→139）；`K1_API_SPEC.md`（root §6）/`dev/K1_API_SPEC.md`（§4）/`README.md`/`dev/PROJECT_MASTER_SPEC.md`（§B.1+§F.9）/`dev/CODEBASE_CONTEXT.md`（guidelines 行+Directory+Maint Log）/`dev/DOC_SYNC_CHECKLIST.md`（新 row）。
+- **NOT modified:** app.html / Supabase / backend / knowledge.json / role_facts.json。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| guidelines.json 公開契約 / registry 投影變更 | guidelines.json regen + K1_API_SPEC(root+dev) + README + PMS §B.1·§F.9 + CODEBASE + DOC_SYNC row | ✓ Done |
+| New project doc（generator）| CODEBASE Directory Map + DOC_SYNC row | ✓ Row added |
+
+### Follow-up（非阻塞）
+- `knowledge.json._meta.stats.guidelines` 仍 = 39（另一資料檔 build-time stat、Circular 契約不消費）；升 139 屬獨立 data-touch，未越界改，留 follow-up。
+- 同 URL routing dup（5 組）保留（distinct title，Circular 可自行 dedup）；landing 頁保留（Leonard 揀）。
+
+### 待辦 lesson（§8 monitoring）
+派生產物（guidelines.json ← registry）手動脫鈎必 drift；正解 = generator + DOC_SYNC 登記「源頭變→重生」。呼應 playbook `derived-artifact-resync-on-source-change`。recurrence（其他派生 JSON）即 §8b promote。
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。S135-S140 證實 EDB + onrender + Supabase egress 均通；仍每次自測。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S140 (2026-06-03)：**公開 guidelines.json 39→139 全集投影完成、push live、QC 全 PASS**。HEAD origin/main 起手自行 verify（S140 closeout commit）。
+- 公開端點由 39 精選子集 → 148 registry 全集投影 **139**（純規則剔 9 非文件：7 stat 統計表 + 1 DOCX 表 + 1 壞 URL religious_edu_jss）。對外契約變更、curriculum 桶 25→123；現有 39 條 0 lost。
+- NEW generator `dev/build_guidelines.py`（registry=SSOT）：投影 schema + category→topic 映射 + 純規則 drop + --self-test 回歸守衛。**日後 registry 加文件 → re-run `python3 dev/build_guidelines.py --write` 即同步，勿手寫 guidelines.json**（DOC_SYNC 已登記）。
+- 版本 guidelines 2.2.0→2.3.0；0 app.html/Supabase/backend/knowledge.json mutation。
+
+Current objective and progress state:
+- Baseline 不變：Supabase ~9,912 / 103 marker-bearing / CB-3 ceiling ~88% / brand live。公開 guidelines.json 由 39→139（本 session 唯一契約變更）。0 outstanding bug。
+
+Pending tasks in priority order:
+1. **下一階段方向（待 Leonard 明示）**：g14 資優+sen_curr_area+gifted_policy_docs 仍 0 Supabase chunks（SEN-adjacent，可補 g10/g19 §E.12 pattern）/ Q4 對外契約收斂（3 選項、敏感、未明示勿掂）/ §8b rule 2 automation。
+2. **觀察（非阻塞）**：freshness scheduled 週跑（週一 09:00 UTC）開 freshness-change Issue；57014 cold-start mask；**knowledge.json._meta.stats.guidelines=39 follow-up**（升 139 與否，獨立 data-touch）。
+3. 既有 deferred：§E.10(a) ACCEPTED conditional / FAIL-A record-only / stat_fact 2025/26 ROI≈0 / HKEAA。
+
+Key files changed this session:
+- NEW dev/build_guidelines.py；guidelines.json(39→139)；K1_API_SPEC.md+dev/K1_API_SPEC.md；README.md；PMS §B.1·§F.9；CODEBASE_CONTEXT；DOC_SYNC_CHECKLIST；SESSION_HANDOFF/LOG。
+
+Known risks / blockers / cautions:
+- 🟢 0 outstanding bug。guidelines 擴張屬純加法（現有 39 條 0 lost、可 git revert）。
+- 既有不變: 🔴 57014 transient(S139 backend retry；exhaust 後仍 400); FAIL-A(record-only); §E.10(a) ACCEPTED conditional; q.html/A·AB dormant 勿清; Q4 deferred 未明示勿掂; Stage-2 closed 勿復活; egress 每次自測; 路徑空格雙引號; wiki_chunks 欄名 `text` 非 `content`; guidelines.json 勿手寫(用 build_guidelines.py); 改 Draft code/data commit 必入 SESSION_LOG; init_backup gitignored。
+
+Validation status:
+- build_guidelines.py --self-test PASS（含回歸守衛）/ JSON valid / Circular 篩選範例 work / idempotent / 0 leak。
+- Post-publish：GitHub Pages guidelines.json live = 139（起手可 curl 複驗）。
+
+Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD / knowledge facts 455 / onrender /health / egress）+ lazy-query playbook INDEX 後，問 Leonard 下一階段方向（g14+gifted SEN 補完 / Q4 契約〔敏感未明示勿掂〕/ §8b automation）。可順手 curl 複驗 guidelines.json live=139 + 睇 GitHub 有冇 freshness-change Issue。未 Leonard 明示前唔好自行掂 Q4 / reopen §E.10 / 動 Stage-2 / 手寫 guidelines.json。
+```
+
 ## 2026-06-03 Session 139 — 文件變更自動偵測 + 通知（detect+notify tier；code+CI+docs，0 data/Supabase mutation）
 
 - **ID:** Claude_20260603_0959

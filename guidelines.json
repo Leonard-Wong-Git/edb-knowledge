@@ -1,18 +1,37 @@
 {
   "_meta": {
-    "version": "2.2.0",
-    "updated": "2026-05-01",
-    "count": 39,
-    "description": "EDB 指引文件連結庫 — 供 EDB 通告智能分析系統按通告主題提取參考文件連結。每項只含標題、簡稱、URL、年份、格式。"
+    "version": "2.3.0",
+    "updated": "2026-06-03",
+    "count": 139,
+    "description": "EDB 指引文件連結庫 — app 內庫指引/通告全集（已剔統計數據表/申請表/壞連結），供 EDB 通告智能分析系統按通告主題提取參考文件連結。每項只含標題、簡稱、URL、年份、格式。"
   },
   "finance": [
+    {
+      "id": "sag_2025_11",
+      "title": "學校行政手冊（2025年11月版）",
+      "titleShort": "SAG",
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf",
+      "year": "2025",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "coa_imc_1_19",
+      "title": "資助則例（設有法團校董會資助學校適用版本）",
+      "titleShort": "Code of Aid",
+      "url": "https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf",
+      "year": "2024",
+      "format": "PDF",
+      "level": "跨階段"
+    },
     {
       "id": "g01",
       "title": "資助學校採購程序指引（2025年10月更新）",
       "titleShort": "採購程序指引",
       "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures%20in%20Aided%20Schools%20Trad%20Chi_2024.pdf",
       "year": "2025",
-      "format": "PDF"
+      "format": "PDF",
+      "level": "跨階段"
     },
     {
       "id": "g02",
@@ -20,7 +39,8 @@
       "titleShort": "財務管理指引",
       "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf",
       "year": "2023",
-      "format": "PDF"
+      "format": "PDF",
+      "level": "跨階段"
     }
   ],
   "hr": [
@@ -30,7 +50,8 @@
       "titleShort": "批假指引",
       "url": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/guideline-granting-leave/index.html",
       "year": "2025",
-      "format": "HTML"
+      "format": "HTML",
+      "level": "跨階段"
     },
     {
       "id": "g05",
@@ -38,7 +59,8 @@
       "titleShort": "專業操守指引",
       "url": "https://www.edb.gov.hk/tc/teacher/guidelines_tpc/",
       "year": "2022",
-      "format": "HTML"
+      "format": "HTML",
+      "level": "跨階段"
     }
   ],
   "curriculum": [
@@ -73,7 +95,7 @@
       "id": "g30",
       "title": "小學人文科課程及評估指引（試行版）(2023)",
       "titleShort": "人文科指引(小學)",
-      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/primary-humanities.html",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/ph-primary/index.html",
       "year": "2023",
       "format": "PDF",
       "level": "小學"
@@ -109,9 +131,9 @@
       "id": "g32",
       "title": "初中人文學科課程及評估指引（中一至中三）(2024)",
       "titleShort": "人文學科指引(初中)",
-      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/secondary-humanities.html",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/curriculum-documents.html",
       "year": "2024",
-      "format": "PDF",
+      "format": "HTML",
       "level": "中學"
     },
     {
@@ -129,7 +151,7 @@
       "titleShort": "特殊學校課程指引",
       "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/special-educational-needs/curriculum_guide_for_special_schools/index.html",
       "year": "2024",
-      "format": "HTML/PDF",
+      "format": "HTML",
       "level": "特殊"
     },
     {
@@ -163,16 +185,16 @@
       "id": "g15",
       "title": "體育學習領域課程指引（小一至中三）(2002)",
       "titleShort": "體育課程指引",
-      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pe/poklacg_2002/index.html",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pe/PEKLACG_2002/keymes_c.pdf",
       "year": "2002",
-      "format": "HTML",
+      "format": "PDF",
       "level": "跨階段"
     },
     {
       "id": "g34",
       "title": "普通話科課程指引（小一至中三）(2000)",
       "titleShort": "普通話課程指引",
-      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/chi-edu/pu-tong-hua-curriculum-documents.html",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/chi-edu/curriculum-past-documents.html",
       "year": "2000",
       "format": "HTML",
       "level": "跨階段"
@@ -208,7 +230,7 @@
       "id": "g38",
       "title": "音樂教育學習領域課程指引（小一至中三）(2003)",
       "titleShort": "音樂課程指引",
-      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/arts-edu/resources/music-curri/index.html",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/arts-edu/curriculum-docs/curriculum-docs_past/index.html",
       "year": "2003",
       "format": "HTML",
       "level": "跨階段"
@@ -247,7 +269,7 @@
       "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/arts-edu/resources/va-curri/safety/index.html",
       "year": "2025",
       "format": "PDF",
-      "level": "安全"
+      "level": "跨階段"
     },
     {
       "id": "g22",
@@ -256,7 +278,7 @@
       "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/resources/safety.html",
       "year": "2021",
       "format": "PDF",
-      "level": "安全"
+      "level": "跨階段"
     },
     {
       "id": "g23",
@@ -265,7 +287,889 @@
       "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pe/references_resource/safety-guidelines/index.html",
       "year": "2026",
       "format": "HTML",
-      "level": "安全"
+      "level": "跨階段"
+    },
+    {
+      "id": "pecg_2024_landing",
+      "title": "《小學教育課程指引》（2024）課程文件索引頁",
+      "titleShort": "小學指引索引頁",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "小學"
+    },
+    {
+      "id": "circ_edbc24017",
+      "title": "教育局通告第17/2024號：學校課程持續更新：《小學教育課程指引》（2024）",
+      "titleShort": "EDBC24017 小學指引通告",
+      "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+      "year": "2024",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "curr_renewal_guides",
+      "title": "課程更新指引及文件總覽",
+      "titleShort": "課程更新指引總覽",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/renewal/guides.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "chi_edu_curr_docs",
+      "title": "中國語文教育學習領域課程文件",
+      "titleShort": "中文教育課程文件",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/chi-edu/curriculum-documents.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "ma_curr_index",
+      "title": "數學教育學習領域課程文件",
+      "titleShort": "數學課程文件",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/ma/curr/index2.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "sci_curr_docs",
+      "title": "科學教育學習領域課程文件",
+      "titleShort": "科學課程文件",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/science-edu/curriculum-documents.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "tech_curr_docs",
+      "title": "科技教育學習領域課程文件",
+      "titleShort": "科技課程文件",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/curriculum-doc/index.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "pshe_curr_docs",
+      "title": "個人、社會及人文教育學習領域課程文件",
+      "titleShort": "個人社會人文課程文件",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/curriculum-documents.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "arts_curr_docs",
+      "title": "藝術教育學習領域課程文件",
+      "titleShort": "藝術課程文件",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/arts-edu/curriculum-docs/index.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "pe_curr_docs",
+      "title": "體育學習領域課程文件",
+      "titleShort": "體育課程文件",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pe/curriculum-doc/index.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "apl_curr_docs",
+      "title": "應用學習課程文件",
+      "titleShort": "應用學習課程文件",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/applied-learning/curriculum-documents/index.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "cs_curr",
+      "title": "電腦科課程資源（EDB EdCity）",
+      "titleShort": "電腦科課程",
+      "url": "https://cs.edb.edcity.hk/tc/index_cs.php",
+      "year": "2024",
+      "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "gs_pri_curr",
+      "title": "常識科（小學）課程文件",
+      "titleShort": "常識科課程文件",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/gs-primary/curriculum-documents.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "小學"
+    },
+    {
+      "id": "gs_pri_guide_2017",
+      "title": "常識科課程指引（小學）(2017)",
+      "titleShort": "常識科課程指引(2017)",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Chi.pdf",
+      "year": "2017",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "ph_pri_curr",
+      "title": "小學人文科課程",
+      "titleShort": "小學人文科",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/ph-primary/index.html",
+      "year": "2025",
+      "format": "HTML",
+      "level": "小學"
+    },
+    {
+      "id": "edbc20_2023_ph_pri",
+      "title": "教育局通告20/2023號 — 開設小學人文科",
+      "titleShort": "通告20/2023 小學人文科",
+      "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC23020C.pdf",
+      "year": "2023",
+      "format": "HTML",
+      "level": "小學"
+    },
+    {
+      "id": "edbc9_2024_ph_pri",
+      "title": "教育局通告9/2024號 — 《小學人文科課程框架》（定稿）及支援措施",
+      "titleShort": "通告9/2024 人文科框架",
+      "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24009C.pdf",
+      "year": "2024",
+      "format": "HTML",
+      "level": "小學"
+    },
+    {
+      "id": "edbc197_2024_ph_pri",
+      "title": "教育局通函197/2024號 — 小學人文科：學校問卷調查及相關支援措施",
+      "titleShort": "通函197/2024 人文科問卷",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/ph-primary/index.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "小學"
+    },
+    {
+      "id": "edbc12_2025_ph_pri",
+      "title": "教育局通告第12/2025號 — 《小學人文科課程指引》及支援措施",
+      "titleShort": "通告12/2025 人文科指引",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/ph-primary/EDBC_122025_C.pdf",
+      "year": "2025",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "ph_pri_guide_2025",
+      "title": "小學人文科課程指引 (2025)",
+      "titleShort": "小學人文科課程指引",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/ph-primary/Primary_Humanities_Curriculum_Guide.pdf",
+      "year": "2025",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "sen_curr_area",
+      "title": "特殊教育需要課程發展",
+      "titleShort": "SEN課程發展",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/special-educational-needs/index.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "特殊"
+    },
+    {
+      "id": "gifted_policy_docs",
+      "title": "資優教育政策文件及指引",
+      "titleShort": "資優教育政策文件",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/resources_and_support/policy/policy_doc_and_guidelines/index.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "nat_sec_edu",
+      "title": "國家安全教育課程資源",
+      "titleShort": "國家安全教育",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/national-security-education/index.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "steam_edu",
+      "title": "STEAM 教育",
+      "titleShort": "STEAM教育",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/steam/index.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "pri_science",
+      "title": "小學科學科課程",
+      "titleShort": "小學科學科",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/science-edu/primary-science.html",
+      "year": "2025",
+      "format": "HTML",
+      "level": "小學"
+    },
+    {
+      "id": "sci_kla_guide_2017",
+      "title": "科學教育學習領域課程指引（小一至中六）(2017)",
+      "titleShort": "科學KLA指引2017",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/curriculum-documents.html",
+      "year": "2017",
+      "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "pri_science_guide_2025",
+      "title": "《科學（小一至小六）課程指引》（2025）",
+      "titleShort": "小學科學指引2025",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/pri-sci/PSCG(2025).pdf",
+      "year": "2025",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "edbc18_2023_pri_science",
+      "title": "教育局通告第18/2023號 — 開設小學科學科及一系列相關支援措施",
+      "titleShort": "通告18/2023 小學科學科",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/pri-sci/EDBC23018C.pdf",
+      "year": "2023",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "edbcm57_2024_pri_science",
+      "title": "教育局通函第57/2024號 — 支援開設小學科學科的一筆過津貼",
+      "titleShort": "通函57/2024 小學科學津貼",
+      "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM24057C.pdf",
+      "year": "2024",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "edbcm58_2024_pri_science",
+      "title": "教育局通函第58/2024號 — 《科學﹙小一至小六﹚課程框架》、「小學科學教師培訓基地」及相關教師培訓證書課程",
+      "titleShort": "通函58/2024 小學科學框架",
+      "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM24058C.pdf",
+      "year": "2024",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "edbcm98_2024_pri_science",
+      "title": "教育局通函第98/2024號 — 小學科學科相關課程資源",
+      "titleShort": "通函98/2024 小學科學資源",
+      "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM24098C.pdf",
+      "year": "2024",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "edbcm243_2024_pri_science",
+      "title": "教育局通函第243/2024號 — 小學科學科教師專業培訓（2024/25學年）",
+      "titleShort": "通函243/2024 小學科學培訓",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/pri-sci/EDBCM24243C.pdf",
+      "year": "2024",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "edbc13_2025_pri_science",
+      "title": "教育局通告第13/2025號 — 《科學（小一至小六）課程指引》、2025/26學年「小學科學教師培訓基地」與教師培訓安排",
+      "titleShort": "通告13/2025 小學科學指引",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/pri-sci/EDBC25013C.pdf",
+      "year": "2025",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "pri_science_cert_course_list",
+      "title": "「小學科學教師專業培訓證書（30小時）」指定課程清單",
+      "titleShort": "小學科學證書課程清單",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/pri-sci/Designated_Courses_List(30hrs).pdf",
+      "year": "2025",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "sci_jss_supp_2017",
+      "title": "科學教育學習領域課程指引補充文件–科學 (中一至中三) 二零一七年",
+      "titleShort": "初中科學補充指引2017",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/Science(S1-3)_supp_c_2017.pdf",
+      "year": "2017",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "sci_jss_framework_2025",
+      "title": "科學教育學習領域課程指引補充文件–科學 (中一至中三)課程框架 二零二五年",
+      "titleShort": "初中科學課程框架2025",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/JS_Science_Curriculum_Framework_2025_chinese.pdf",
+      "year": "2025",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "bio_sss_2007_2015",
+      "title": "生物(中四至中六) 二零零七年 (二零一五年十一月更新)",
+      "titleShort": "高中生物課程指引2015",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/Bio_C_and_A_Guide_updated_c_20151126.pdf",
+      "year": "2007",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "chem_sss_2007_2018",
+      "title": "化學(中四至中六)二零零七年 (二零一八年六月更新)",
+      "titleShort": "高中化學課程指引2018",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/Chem_C_and_A_Guide_updated_Chi_22082018.pdf",
+      "year": "2007",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "phys_sss_2007_2015",
+      "title": "物理(中四至中六) 二零零七年 (二零一五年十一月更新)",
+      "titleShort": "高中物理課程指引2015",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/Phy_C_and_A_Guide_updated_c_20151126.pdf",
+      "year": "2007",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "moral_civic_curr",
+      "title": "德育及公民教育課程文件",
+      "titleShort": "德育公民教育文件",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/4-key-tasks/moral-civic/curriculum-documents.html",
+      "year": "2024",
+      "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "values_edu_framework_2021_trial",
+      "title": "《價值觀教育課程架構（試行版）》（2021）",
+      "titleShort": "價值觀教育架構2021",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/VE_CF_20211129_r.pdf",
+      "year": "2021",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "edbcm183_2023_values_edu",
+      "title": "教育局通函第183/2023號 —— 豐富《價值觀教育課程架構（試行版）》內容── 優化「首要培育學生的價值觀和態度」",
+      "titleShort": "通函183/2023 價值觀教育",
+      "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM23183C.pdf",
+      "year": "2023",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "sec_curr_guide_2017_booklet_6a",
+      "title": "《中學教育課程指引》(2017) - 分冊6A︰德育及公民教育：加強價值觀教育",
+      "titleShort": "中學課程指引2017 6A",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/secondary/curriculum-guides-documents/SECG_booklet_6A_ch.pdf",
+      "year": "2017",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "pri_curr_guide_2024",
+      "title": "《小學教育課程指引》(2024)",
+      "titleShort": "小學教育課程指引2024",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide/PECG%202024_full.pdf",
+      "year": "2024",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "mce_framework_2008",
+      "title": "《德育及公民教育課程架構》(2008)（包括詳細內容及相關課程發展工具）",
+      "titleShort": "德育公民教育架構2008",
+      "url": "https://www.edb.gov.hk/attachment/tc/common/revised%20mce%20framework.pdf",
+      "year": "2008",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "chi_pri_guide_2023",
+      "title": "《中國語文課程指引（小一至小六）》（2023）",
+      "titleShort": "小學中文課程指引2023",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Primary_Chi_Lang_Curr_Guide_2023.pdf",
+      "year": "2023",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "chi_jss_guide_2023",
+      "title": "《中國語文課程指引（中一至中三）》（2023）",
+      "titleShort": "初中中文課程指引2023",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Junior_Sec_Chi_Lang_Curr_Guide_2023.pdf",
+      "year": "2023",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "chi_sss_guide_2021",
+      "title": "《中國語文課程及評估指引（中四至中六）》（2021）",
+      "titleShort": "高中中文課程及評估指引2021",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/CHI_LANG_CAGuide_2021.pdf",
+      "year": "2021",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "chi_lit_guide_2025",
+      "title": "《中國文學課程及評估指引（中四至中六）》（2025年更新）",
+      "titleShort": "中國文學課程指引2025",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/Chi_Lit_C&A_Guide_2025.pdf",
+      "year": "2025",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "eng_nat_sec_2025",
+      "title": "英文科國家安全教育課程框架（2025）",
+      "titleShort": "英文科國安教育框架2025",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/nse/nse2025_subject_framework_ele.pdf",
+      "year": "2025",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "eng_pri_guide_2025",
+      "title": "英國語文課程指引（小一至小六）（2025）",
+      "titleShort": "小學英文課程指引2025",
+      "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+      "year": "2025",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "eng_jss_supp_2018",
+      "title": "英國語文課程指引補充（中一至中三）（2018）",
+      "titleShort": "初中英文課程指引補充2018",
+      "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/ELE%20JS%20Supplement%202018.pdf",
+      "year": "2018",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "eng_sss_guide_2021",
+      "title": "英國語文課程及評估指引（中四至中六）（2021）",
+      "titleShort": "高中英文課程及評估指引2021",
+      "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/English%20Language%20Curriculum%20and%20Assessment%20Guide%20(Secondary%204%20-%206)%20(2021).pdf",
+      "year": "2021",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "eng_lit_guide_2023",
+      "title": "英文文學課程及評估指引（中四至中六）（2023）",
+      "titleShort": "英文文學課程指引2023",
+      "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/LiE_CAGuide_2023.pdf",
+      "year": "2023",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "ma_kla_guide_2017",
+      "title": "數學教育學習領域課程指引（小一至中六）（2017）",
+      "titleShort": "數學教育KLA指引2017",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/ME_KLACG_chi_2017_12_08.pdf",
+      "year": "2017",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "ma_sss_cag_2017",
+      "title": "數學課程及評估指引（中四至中六）（2017年12月更新）",
+      "titleShort": "高中數學課程及評估指引2017",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/CA_2017_tc.pdf",
+      "year": "2017",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "ma_sss_diversity_2021",
+      "title": "高中數學科照顧學生多樣性及創造空間指引（2021）",
+      "titleShort": "高中數學多樣性指引2021",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/Guidelines%20on%20Catering%20for%20LD%20in%20SS%20Math%20(C).pdf",
+      "year": "2021",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "tech_kla_guide_2017",
+      "title": "科技教育學習領域課程指引 (小一至中六) 二零一七年",
+      "titleShort": "科技KLA指引2017",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/TE_KLACG_Chi_5_Dec_2017_r2.pdf",
+      "year": "2017",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "ct_programming_pri_2020",
+      "title": "《計算思維－編程教育：小學課程補充文件》 (小學) 二零二零年",
+      "titleShort": "計算思維編程教育2020",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/CT_Supplement_Chi%20_2020.pdf",
+      "year": "2020",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "bafs_sss_2007_2015",
+      "title": "企業、會計與財務概論 (中四至中六) 二零零七年 (二零一五年十一月更新)",
+      "titleShort": "BAFS課程指引2015",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/BAFS_CA_Guide_c_2015.pdf",
+      "year": "2007",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "bafs_sss_2007_2020",
+      "title": "企業、會計與財務概論 (中四至中六) (於2022/23學年的中四實施並在2025年及以後的香港中學文憑考試生效) 二零零七年(二零二零年十月更新)",
+      "titleShort": "BAFS課程指引2020",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/BAFS%20C&A%20Guide_c_oct%202020_clean.pdf",
+      "year": "2007",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "hmsc_sss_2007_2015",
+      "title": "健康管理與社會關懷 (中四至中六)二零零七年 (二零一五年 十一月更新)",
+      "titleShort": "健康管理與社會關懷2015",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/HMSC_CA_Guide_c_2015.pdf",
+      "year": "2007",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "tl_sss_2007_2015",
+      "title": "科技與生活 (中四至中六) 二零零七年 (二零一五年十一月更新)",
+      "titleShort": "科技與生活2015",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/TL_CAGuide_c_2015.pdf",
+      "year": "2007",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "dat_sss_2007_2015",
+      "title": "設計與應用科技 (中四至中六) 二零零七年 (二零一五年十一月更新)",
+      "titleShort": "設計與應用科技2015",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/DAT_CAGuide_c_2015.pdf",
+      "year": "2007",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "dat_sss_supp_2020",
+      "title": "設計與應用科技 (中四至中六) - 補充資料 (二零二零年十二月)",
+      "titleShort": "設計與應用科技補充2020",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/DAT_C&A_Supplementary_notes_CHI_Dec_2020.pdf",
+      "year": "2020",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "ict_sss_2007_2015",
+      "title": "資訊及通訊科技(中四至中六) 二零零七年 (二零一五年十一月更新)",
+      "titleShort": "ICT課程指引2015",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/ICT_CAGuide_c_2015.pdf",
+      "year": "2007",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "ict_sss_2021",
+      "title": "資訊及通訊科技 (中四至中六) 二零二一年 (於2022/23學年的中四實施並在2025年及以後的香港中學文憑考試生效)",
+      "titleShort": "ICT課程指引2021",
+      "url": "https://cs.edb.edcity.hk/file/C_and_A_guide/202106/CS_CAG_S4-6_Chi_2021.pdf",
+      "year": "2021",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "chi_hist_jss_2019",
+      "title": "中國歷史科課程指引 (中一至中三) (2019)",
+      "titleShort": "初中中國歷史2019",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/CHist_Curr_Guide_S1-3_Chi_final.pdf",
+      "year": "2019",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "chi_hist_jss_ncs_2019",
+      "title": "調適中國歷史科課程大綱 (中一至中三) (2019) (非華語學生適用)",
+      "titleShort": "初中中國歷史非華語2019",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/references-and-resources/chinese-history/Adapted_Framework_r.pdf",
+      "year": "2019",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "chi_hist_jss_bilingual_2019",
+      "title": "中國歷史科課程大綱 (中一至中三) (2019) (中英雙語版)",
+      "titleShort": "初中中國歷史雙語2019",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/references-and-resources/chinese-history/Chinese_History_Framework_Bilingual_r.pdf",
+      "year": "2019",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "chi_hist_sss_2007_2015",
+      "title": "中國歷史課程及評估指引（中四至中六）2007 （2015年11月更新）",
+      "titleShort": "高中中國歷史2015",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/CHistCAGuide_updated_c_20180108_clean.pdf",
+      "year": "2007",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "ces_jss_2024",
+      "title": "公民、經濟與社會課程指引（中一至中三）（2024）",
+      "titleShort": "CES課程指引2024",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/CESCG_c_20240730 clean.pdf",
+      "year": "2024",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "econ_sss_2025",
+      "title": "經濟課程及評估指引 (中四至中六) (2025年更新)",
+      "titleShort": "經濟課程指引2025",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Econ_C&A_Guide_C_with_updates_in_2025.pdf",
+      "year": "2025",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "econ_sss_supp_2025",
+      "title": "經濟課程及評估指引 (中四至中六)-補充文件 (2025年更新)",
+      "titleShort": "經濟補充文件2025",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Econ_supplementary_doc_Chi_with_updates_in_2025.pdf",
+      "year": "2025",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "econ_sss_2007_2015",
+      "title": "經濟課程及評估指引 (中四至中六) 2007 (2015年11月更新)",
+      "titleShort": "經濟課程指引2015",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/2.Econ_C&A_Guide_updated_c_(2015.11.24).pdf",
+      "year": "2007",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "econ_sss_supp_2015",
+      "title": "經濟課程及評估指引 (中四至中六)-補充文件 (2015年11月版)",
+      "titleShort": "經濟補充文件2015",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/2.Econ_supplementary_doc_Chi_20151130_clean.pdf",
+      "year": "2015",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "ethics_relig_sss_2024",
+      "title": "倫理與宗教課程及評估指引 (中四至中六) 2024",
+      "titleShort": "倫理與宗教2024",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/curriculum-documents/ERS/ERS_CA Guide_updated_c.pdf",
+      "year": "2024",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "ethics_relig_sss_2007_2019",
+      "title": "倫理與宗教課程及評估指引 (中四至中六) 2007 (2019年11月更新)",
+      "titleShort": "倫理與宗教2019",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/ERS_CA Guide_updated_c_(2019.12.03)_clean mode for upload.pdf",
+      "year": "2007",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "religious_edu_jss_2024",
+      "title": "宗教教育課程指引（中一至中三）（2024）",
+      "titleShort": "宗教教育2024",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/RE_Curriculum_Guide_Chi_for_upload.pdf",
+      "year": "2024",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "geog_sss_supp_2022",
+      "title": "《地理課程及評估指引（中四至中六）》(2022年7月更新版)「補充資料」",
+      "titleShort": "地理補充資料2022",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/supplementary_notes-final-chi.pdf",
+      "year": "2022",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "geog_sss_2007_2022",
+      "title": "地理課程及評估指引 (中四至中六) 2007 (2022年7月更新)",
+      "titleShort": "地理課程指引2022",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Geography C&A Guide 2022-chi.pdf",
+      "year": "2007",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "geog_sss_summary_2022",
+      "title": "2022年7月更新的《地理科課程及評估指引(中四至中六)》撮要",
+      "titleShort": "地理撮要2022",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Geography%20C&A%20Guide%202022-chi-amended%20parts-Aug2022.pdf",
+      "year": "2022",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "geog_sss_update_brief",
+      "title": "高中地理課程更新簡介",
+      "titleShort": "地理更新簡介",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/SS_Geography_Consultation_Brief_Feb_2017-chi.pdf",
+      "year": "2022",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "geog_jss",
+      "title": "地理課程指引（中一至三）",
+      "titleShort": "初中地理課程指引",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Geog_Curr_Guide_S1-3_Chi_web_final_21062011.pdf",
+      "year": "2024",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "history_jss_2019",
+      "title": "歷史科課程指引（中一至中三）2019",
+      "titleShort": "初中歷史2019",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/curriculum-documents.html",
+      "year": "2019",
+      "format": "HTML",
+      "level": "中學"
+    },
+    {
+      "id": "history_sss_2007_2015",
+      "title": "歷史課程及評估指引 (中四至中六) 2007 (2015年11月更新)",
+      "titleShort": "高中歷史2015",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Hist_C&A_Guide_c_20180109.pdf",
+      "year": "2007",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "tour_hosp_sss_2007_2015",
+      "title": "旅遊與款待課程及評估指引 (中四至中六) 2007 (2015年11月更新)",
+      "titleShort": "旅遊與款待2015",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/6.THS_C&A_Chi_Guide_c(2015.11.24)PSHE%20section.pdf",
+      "year": "2007",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "ls_jss_2010",
+      "title": "生活與社會課程指引（中一至中三）（2010年）",
+      "titleShort": "生活與社會2010",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/l&s_curriculum_guide_chi.pdf",
+      "year": "2010",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "arts_kla_guide_2017",
+      "title": "藝術教育學習領域課程指引（小一至中六）(2017)",
+      "titleShort": "藝術KLA指引2017",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/AE_KLACG__Chi___2017.pdf",
+      "year": "2017",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "music_p1_s6_2024",
+      "title": "《音樂科課程指引（小一至中六）》（2024）",
+      "titleShort": "音樂科指引2024",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/mus_cg_c_2024.pdf",
+      "year": "2024",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "music_sss_2024",
+      "title": "《音樂課程及評估指引（中四至中六）》（2024年9月更新）",
+      "titleShort": "高中音樂2024",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/mus_c_and_a_c_2024.pdf",
+      "year": "2024",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "music_sss_2015",
+      "title": "《音樂課程及評估指引（中四至中六）》（2015年11月更新）",
+      "titleShort": "高中音樂2015",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/mus-c-and-a-guide-2015-c.pdf",
+      "year": "2015",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "music_national_anthem_2024",
+      "title": "《國歌的學與教：音樂科課程補充文件（小一至中六）》（2024年9月更新）",
+      "titleShort": "音樂國歌補充2024",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/mus_supplement_c_2024.pdf",
+      "year": "2024",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "va_p1_s6_2024",
+      "title": "《視覺藝術科課程指引（小一至中六）》（2024）",
+      "titleShort": "視藝科指引2024",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/va_cg_c_2024.pdf",
+      "year": "2024",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "va_sss_2015",
+      "title": "《視覺藝術課程及評估指引（中四至中六）》（2015年11月更新）",
+      "titleShort": "高中視藝2015",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/VA_CA_Guide_c-100418.pdf",
+      "year": "2015",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "pe_sss_2023",
+      "title": "體育-課程及評估指引(中四至中六) (2023)",
+      "titleShort": "高中體育2023",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pe/curriculum-doc/PE%20C&A%20Guide_c.pdf",
+      "year": "2023",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "pe_kla_2017",
+      "title": "體育學習領域課程指引(小一至中六) (2017)",
+      "titleShort": "體育KLA指引2017",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pe/curriculum-doc/PEKLACG_c.pdf",
+      "year": "2017",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "pe_sss_2007_2015",
+      "title": "體育-課程及評估指引(中四至中六) (2007) (2015年11月更新）",
+      "titleShort": "高中體育2015",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pe/curriculum-doc/PE%20C&A%20Guide_2015_c.pdf",
+      "year": "2007",
+      "format": "PDF",
+      "level": "中學"
     }
   ],
   "activity": [
@@ -275,7 +1179,8 @@
       "titleShort": "全方位學習津貼指引",
       "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/life-wide-learning/resource-and-support/doc-and-guidelines.html",
       "year": "2024",
-      "format": "HTML"
+      "format": "HTML",
+      "level": "跨階段"
     },
     {
       "id": "g20",
@@ -283,7 +1188,8 @@
       "titleShort": "學校活動指引",
       "url": "https://www.edb.gov.hk/tc/sch-admin/admin/about-activities/sch-activities-guidelines/",
       "year": "2020",
-      "format": "HTML"
+      "format": "HTML",
+      "level": "跨階段"
     }
   ],
   "student": [
@@ -293,7 +1199,8 @@
       "titleShort": "訓育工作指引",
       "url": "https://www.edb.gov.hk/tc/teacher/student-guidance-discipline-services/principles-guidelines/guidelines-on-student-discipline/index.html",
       "year": "2017",
-      "format": "HTML/PDF"
+      "format": "HTML",
+      "level": "跨階段"
     },
     {
       "id": "g17",
@@ -301,7 +1208,8 @@
       "titleShort": "訓輔理念與指引",
       "url": "https://www.edb.gov.hk/tc/teacher/student-guidance-discipline-services/principles-guidelines/index.html",
       "year": "2011",
-      "format": "HTML"
+      "format": "HTML",
+      "level": "跨階段"
     },
     {
       "id": "g18",
@@ -309,7 +1217,8 @@
       "titleShort": "校車安全指引",
       "url": "https://www.edb.gov.hk/tc/student-parents/safety/sch-bus-services/index.html",
       "year": "2026",
-      "format": "HTML"
+      "format": "HTML",
+      "level": "跨階段"
     },
     {
       "id": "g19",
@@ -317,7 +1226,8 @@
       "titleShort": "融合教育指南",
       "url": "https://www.edb.gov.hk/tc/edu-system/special/support/wsa/index.html",
       "year": "2024",
-      "format": "HTML"
+      "format": "HTML",
+      "level": "跨階段"
     }
   ],
   "it": [
@@ -327,7 +1237,8 @@
       "titleShort": "IT保安建議措施",
       "url": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/information-security-in-school.html",
       "year": "2019",
-      "format": "HTML/PDF"
+      "format": "HTML",
+      "level": "跨階段"
     }
   ],
   "general": [
@@ -337,7 +1248,8 @@
       "titleShort": "學校行政手冊",
       "url": "https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html",
       "year": "2025",
-      "format": "PDF"
+      "format": "PDF",
+      "level": "跨階段"
     },
     {
       "id": "g25",
@@ -345,15 +1257,17 @@
       "titleShort": "幼稚園指引",
       "url": "https://www.edb.gov.hk/tc/edu-system/preprimary-kindergarten/about-preprimary-kindergarten/guidelines.html",
       "year": "2025",
-      "format": "HTML"
+      "format": "HTML",
+      "level": "幼稚園"
     },
     {
       "id": "g26",
       "title": "2026/27學年幼稚園收生安排指引",
       "titleShort": "幼稚園收生指引",
-      "url": "https://www.edb.gov.hk/tc/edu-system/preprimary-kindergarten/kindergarten-k1-admission-arrangements/index.html",
+      "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/kindergarten-k1-admission-arrangements/202627%20K1%20Admission%20Arrangements/2026-27_Admission%20Guidelines_TC.pdf",
       "year": "2025",
-      "format": "PDF"
+      "format": "PDF",
+      "level": "幼稚園"
     }
   ]
 }

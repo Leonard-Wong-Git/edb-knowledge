@@ -125,14 +125,16 @@ facts = knowledge[topic].get("panel_chair", []) + knowledge[topic].get("all_role
 
 ---
 
-## 6. guidelines.json 格式（不變）
+## 6. guidelines.json 格式（S140：39 → 139 全集投影）
+
+> S140（2026-06-03）：公開端點由 39 精選子集擴為 app 內庫 registry 全集投影 **139** 份（剔 7 統計表 / 1 申請表 / 1 壞連結）。schema 不變；篩選方法（按 topic 取 `guidelines[topic]`）不變，只係每桶文件數增加（curriculum 桶 ~25→123）。建議 Circular System 注入時對 curriculum 類通告做數量上限或相關性排序。
 
 ```json
 {
   "_meta": {
-    "version": "2.2.0",
-    "updated": "2026-05-01",
-    "count": 39
+    "version": "2.3.0",
+    "updated": "2026-06-03",
+    "count": 139
   },
   "finance": [
     {
