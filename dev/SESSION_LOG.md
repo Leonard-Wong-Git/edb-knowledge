@@ -2,7 +2,7 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
-## 2026-06-03 Session 140 — 公開 guidelines.json 39→139 全集投影 + NEW generator（對外契約變更；0 code/data/Supabase mutation）
+## 2026-06-03 Session 140 — 公開 guidelines.json 39→148（全集投影 + landing-curate +9 + 修 3 data bug）+ NEW generator（對外契約變更；0 Supabase/backend/knowledge mutation）
 
 - **ID:** Claude_20260603_1600
 - **Trigger:** Leonard 開工選下一階段方向 = **「39→148 guidelines 擴展」**（S112 deferred-intent，前身 S111 OPEN DECISION）。
@@ -49,6 +49,16 @@
 ### 待辦 lesson（§8 monitoring）
 派生產物（guidelines.json ← registry）手動脫鈎必 drift；正解 = generator + DOC_SYNC 登記「源頭變→重生」。呼應 playbook `derived-artifact-resync-on-source-change`。recurrence（其他派生 JSON）即 §8b promote。
 
+### round-2 — Landing-page curate（agent-team 分工 + 審核；139→148）
+- **Trigger:** Leonard 追問 round-1 保留嘅 16 個「課程文件目錄頁」可否 resolve 成真文件。
+- **可行性實證:** 主 agent 爬 16 頁（egress；sub-agent egress 被 deny per S138）= 159 連結 → 真‧淨增益僅 ~9 份（71 dup + 77 雜訊：語言版本/分章 PDF/海報/通函附件/2009 過時報告）。
+- **Agent-team（Agent tool，非 Workflow）:** 3 curation agent 並行分組（大目錄/KLA/跨KLA+area，純 local 無 egress）判 KEEP/DUP/NOISE → 8 KEEP；1 audit agent 對抗覆核 → 8/8 確認 0 降級 + 揪 2 漏網 + 立規則 R-DOC（HTML 目錄頁 vs 全文 PDF）+ grep 把「ph_pri 3 通告 url 錯」claim 收窄為 1/3。
+- **主 agent egress 複核（sub-agent 做唔到，揪 2 錯）:** 逐份 HEAD + 開 PDF 抽真 title → 揪正 ma pmc/jsmc/ssmc 唔係「課程指引」係「數學KLA指引補充文件—學習內容」；agent 重組嘅 apl url 404、真 url 含 `&`；Suppl_guide year 抽唔到。
+- **CHANGE（app.html GUIDELINES_REGISTRY）:** 加 9 entry（cle_kla_guide_2017 / chi_pri_lo_2023 / chi_sec_lo_2021 / pth_guide_2017 / pshe_kla_guide_2017 / ma_pri+jss+sss_content_2017 / apl_ca_guide_2017，全 HEAD-200 + 首頁驗證、category=課程）+ **修 3 data bug**（sci_kla_guide_2017 url 指錯 pshe 頁→science SEKLACG PDF+format / edbc20+edbc9 format HTML→PDF / edbc197 url=index.html→EDBCM_197_2024_C.pdf+format）。registry 148→**157**。
+- **QC:** build_guidelines.py --self-test PASS（registry=157 public=148 dropped=9）；--check 139→148（curriculum 桶 123→132、回歸守衛 **-0 lost**）；9 新 id 全入 output；sci_kla/edbc197 修正生效；0 非 PDF/HTML leaked；版本 2.3.0→2.4.0。
+- **held（未加）:** `Suppl_guide`（非華語補充指引全文 PDF）— year 不明 + g09 已覆蓋主題，列待人核（blank-over-wrong-guess）。
+- **lesson:** landing 目錄頁 resolve = 大量 dup/雜訊、真增益細；正路 = 揀真文件加 registry（generator 自動帶入），唔係爬晒塞 json。sub-agent egress deny → egress 主 agent 做、curation/audit 純 local 分工。verify-don't-trust 再中（agent 估 url/title 兩度錯，egress 逐份核救返）。
+
 ### Next Session Handoff Prompt (Verbatim)
 ```text
 Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
@@ -58,21 +68,23 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 ⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
 
-S140 (2026-06-03)：**公開 guidelines.json 39→139 全集投影完成、push live、QC 全 PASS**。HEAD origin/main 起手自行 verify（S140 closeout commit）。
-- 公開端點由 39 精選子集 → 148 registry 全集投影 **139**（純規則剔 9 非文件：7 stat 統計表 + 1 DOCX 表 + 1 壞 URL religious_edu_jss）。對外契約變更、curriculum 桶 25→123；現有 39 條 0 lost。
-- NEW generator `dev/build_guidelines.py`（registry=SSOT）：投影 schema + category→topic 映射 + 純規則 drop + --self-test 回歸守衛。**日後 registry 加文件 → re-run `python3 dev/build_guidelines.py --write` 即同步，勿手寫 guidelines.json**（DOC_SYNC 已登記）。
-- 版本 guidelines 2.2.0→2.3.0；0 app.html/Supabase/backend/knowledge.json mutation。
+S140 (2026-06-03)：**公開 guidelines.json 39→148（全集投影 + landing-curate +9 + 修 3 data bug）完成、push live、QC 全 PASS**。HEAD origin/main 起手自行 verify（S140 closeout commit）。
+- round-1：公開端點由 39 精選子集 → registry 全集投影 **139**（純規則剔 9 非文件：7 stat + 1 DOCX + 1 壞 URL religious_edu_jss）。
+- round-2：**landing-curate** — agent-team（3 curate + 1 audit）+ 主 agent egress 逐份核實，由 16 課程文件目錄頁 159 連結揀 9 真‧KLA/課程指引全文 PDF 加入 registry（cle_kla/chi_pri_lo/chi_sec_lo/pth_2017/pshe_kla/ma 三冊/apl_ca）+ 修 3 registry data bug（sci_kla url 指錯頁→science PDF / edbc20+edbc9 format / edbc197 url=index→PDF）。registry 148→**157**、公開 139→**148**（curriculum 桶 132）、版本 2.2.0→**2.4.0**。
+- NEW generator `dev/build_guidelines.py`（registry=SSOT）：**日後 registry 加文件 → re-run `python3 dev/build_guidelines.py --write` 即同步，勿手寫 guidelines.json**（DOC_SYNC 已登記）。
+- **held 待人核**：`Suppl_guide`（非華語補充指引全文 PDF）year 不明 + g09 主題重疊，暫不加。
+- round-2 有改 app.html（registry data）；0 Supabase/backend/knowledge.json mutation。
 
 Current objective and progress state:
-- Baseline 不變：Supabase ~9,912 / 103 marker-bearing / CB-3 ceiling ~88% / brand live。公開 guidelines.json 由 39→139（本 session 唯一契約變更）。0 outstanding bug。
+- Baseline 不變：Supabase ~9,912 / 103 marker-bearing / CB-3 ceiling ~88% / brand live。公開 guidelines.json 39→**148**（本 session 契約變更）；registry 157 entries。0 outstanding bug。
 
 Pending tasks in priority order:
 1. **下一階段方向（待 Leonard 明示）**：g14 資優+sen_curr_area+gifted_policy_docs 仍 0 Supabase chunks（SEN-adjacent，可補 g10/g19 §E.12 pattern）/ Q4 對外契約收斂（3 選項、敏感、未明示勿掂）/ §8b rule 2 automation。
-2. **觀察（非阻塞）**：freshness scheduled 週跑（週一 09:00 UTC）開 freshness-change Issue；57014 cold-start mask；**knowledge.json._meta.stats.guidelines=39 follow-up**（升 139 與否，獨立 data-touch）。
+2. **觀察（非阻塞）**：freshness scheduled 週跑（週一 09:00 UTC）開 freshness-change Issue；57014 cold-start mask；**knowledge.json._meta.stats.guidelines=39 follow-up**（升 148 與否，獨立 data-touch）；**`Suppl_guide` 非華語補充指引 PDF held 待人核**（year + g09 重疊）。
 3. 既有 deferred：§E.10(a) ACCEPTED conditional / FAIL-A record-only / stat_fact 2025/26 ROI≈0 / HKEAA。
 
 Key files changed this session:
-- NEW dev/build_guidelines.py；guidelines.json(39→139)；K1_API_SPEC.md+dev/K1_API_SPEC.md；README.md；PMS §B.1·§F.9；CODEBASE_CONTEXT；DOC_SYNC_CHECKLIST；SESSION_HANDOFF/LOG。
+- NEW dev/build_guidelines.py；guidelines.json(39→148)；**app.html(round-2: GUIDELINES_REGISTRY +9 entry + 修 4 行 data bug，148→157)**；K1_API_SPEC.md+dev/K1_API_SPEC.md；README.md；PMS §B.1·§F.9；CODEBASE_CONTEXT；DOC_SYNC_CHECKLIST；SESSION_HANDOFF/LOG。
 
 Known risks / blockers / cautions:
 - 🟢 0 outstanding bug。guidelines 擴張屬純加法（現有 39 條 0 lost、可 git revert）。
@@ -80,9 +92,9 @@ Known risks / blockers / cautions:
 
 Validation status:
 - build_guidelines.py --self-test PASS（含回歸守衛）/ JSON valid / Circular 篩選範例 work / idempotent / 0 leak。
-- Post-publish：GitHub Pages guidelines.json live = 139（起手可 curl 複驗）。
+- Post-publish：GitHub Pages guidelines.json live = 148（起手可 curl 複驗；自訂域 policychecker.wongfu.net）。
 
-Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD / knowledge facts 455 / onrender /health / egress）+ lazy-query playbook INDEX 後，問 Leonard 下一階段方向（g14+gifted SEN 補完 / Q4 契約〔敏感未明示勿掂〕/ §8b automation）。可順手 curl 複驗 guidelines.json live=139 + 睇 GitHub 有冇 freshness-change Issue。未 Leonard 明示前唔好自行掂 Q4 / reopen §E.10 / 動 Stage-2 / 手寫 guidelines.json。
+Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD / knowledge facts 455 / onrender /health / egress）+ lazy-query playbook INDEX 後，問 Leonard 下一階段方向（g14+gifted SEN 補完 / Q4 契約〔敏感未明示勿掂〕/ §8b automation）。可順手 curl 複驗 guidelines.json live=148 + 睇 GitHub 有冇 freshness-change Issue。未 Leonard 明示前唔好自行掂 Q4 / reopen §E.10 / 動 Stage-2 / 手寫 guidelines.json。
 ```
 
 ## 2026-06-03 Session 139 — 文件變更自動偵測 + 通知（detect+notify tier；code+CI+docs，0 data/Supabase mutation）

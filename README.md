@@ -25,7 +25,7 @@
 | 功能 | 說明 |
 |------|------|
 | 🔍 **政策搜尋** | 語義搜尋 455 條已核實政策事實（Channel A），顯示相關事實、角色標籤及原始出處連結 |
-| 📚 **指引文件庫** | 148 份官方 EDB 指引（in-app 瀏覽庫；公開 `guidelines.json` 端點為 139 份全集投影），按類別 → 子類別 → 年份三層分組導覽 |
+| 📚 **指引文件庫** | 157 份官方 EDB 指引（in-app 瀏覽庫；公開 `guidelines.json` 端點為 148 份全集投影），按類別 → 子類別 → 年份三層分組導覽 |
 | 📄 **通告分析** | 貼入 EDB 通告文字，AI 自動識別主題、政策影響及相關知識 |
 | ✍️ **知識提煉**（Admin） | 候選事實審核工作流：Pending → Approved → 同步至知識庫 |
 | ⚙️ **知識管理**（Admin） | 批量管理、匯出、版本控制 |
@@ -90,7 +90,7 @@ EDB PDF → ai_extract.py → wiki_index.json（向量索引）
 | Channel B 向量索引 | **10,736 chunks**（本地，Phase 2 上線中） |
 
 > 註：由 792 條去重整合至 455 條唯一事實（2026-05-16，commit 711f911；可逆日誌 `dev/DEDUP_LOG_2026-05-16.md`）。
-> 註：`148` 為 in-app 指引瀏覽庫（總文件基礎）；公開 `guidelines.json` API 端點為其全集投影 **139** 份（S140，剔 9 非文件；由 `dev/build_guidelines.py` 生成）。
+> 註：`157` 為 in-app 指引瀏覽庫（總文件基礎，S140 landing-curate +9）；公開 `guidelines.json` API 端點為其全集投影 **148** 份（S140，剔 9 非文件；由 `dev/build_guidelines.py` 生成）。
 
 ---
 

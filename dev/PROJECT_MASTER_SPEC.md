@@ -47,18 +47,18 @@
 |---|---|
 | 平台介紹 | Hero + 統計（從 `knowledge.json` `_meta.stats` 動態取，**禁止 hardcode**）+ 核心功能說明 + 來源條 |
 | 政策搜尋 | **S119：用戶介面行 Channel-B-only**（來源文件＝Supabase 語義搜原文）。Channel A（已核實資料）/ A+B（合併）user-facing 入口全移除、code path 留 dormant（可逆）。backend `/channel-a`·`/combined` endpoint **不刪、仍生存**只係前端唔再 call；Channel A `role_facts.json→knowledge.json` 資料管道**照常運作餵下游 Circular System（對外契約零接觸，Q4 deferred 獨立 track）**。需 backend（無離線快路；q.html 等檔 dormant 留存） |
-| 指引文件庫 | **148** 份 EDB 文件（app.html `GUIDELINES_REGISTRY`，subtitle 用 `.length` 動態反映；= 全 channel 知識基礎文件全集）；三層排序：範疇 → 子類別(`sub_category`) → 年份降序；同科分組小標題。公開 `guidelines.json` 端點 = registry 全集投影 **139** 份（S140 收斂執行：由 generator `dev/build_guidelines.py` 從 registry 生成、純規則剔 9 個非文件〔7 stat 統計表 + 1 DOCX 表格 + 1 壞 URL〕；見下方釐清框）|
+| 指引文件庫 | **148** 份 EDB 文件（app.html `GUIDELINES_REGISTRY`，subtitle 用 `.length` 動態反映；= 全 channel 知識基礎文件全集）；三層排序：範疇 → 子類別(`sub_category`) → 年份降序；同科分組小標題。公開 `guidelines.json` 端點 = registry 全集投影 **148** 份（S140：先收斂 39→139，再 landing-page curate 新增 9 真‧KLA/課程指引全文 PDF→148；由 generator `dev/build_guidelines.py` 從 registry 生成、純規則剔 9 個非文件〔7 stat 統計表 + 1 DOCX 表格 + 1 壞 URL〕；見下方釐清框）|
 | 通告分析 | 貼入 EDB 通告文字 → AI 識別主題 / 影響角色 / 政策要點 |
 | ✍️ 知識提煉（Admin） | 左右分欄：左候選 queue，右證據 / inline 修訂 / 角色檢視；approve/reject 資料流 |
 | ⚙️ 知識管理（Admin） | 批量管理、匯出（admin only）、版本控制 |
 
 > **數字釐清（極易混淆，下一個 agent 必讀；2026-05-16 truth-pass v2 實測重寫）**：四個「指引/來源」數字是不同層級與 scope，**全部都係真實有效**，勿混為一談 —
 > - `app.html` `GUIDELINES_REGISTRY` = **148** 份文件 —— 用戶喺「指引文件庫」tab 真正 browse 到嘅全集；A / B / A+B 各 channel 嘅知識本質上都由呢 148 份 EDB 文件衍生。subtitle 用 `GUIDELINES_REGISTRY.length` 動態反映（commit `0871bbe`，**非 bug**）。
-> - `guidelines.json` = **139** 份（S140，前身 39 精選子集）—— 對外公開端點，現為上述 148 嘅**全集投影**：由 `dev/build_guidelines.py` 從 registry 生成，純規則剔 9 個非文件（`sub_category=='stat'` 7 + `format=='DOCX'` 1 + URL 含 `vertexaisearch` 壞連結 1），其餘 139 純指引/通告全公開。精簡 schema：`id/title/titleShort/url/year/format`（+curriculum `level`、`INDEX` format 正規化做 `HTML`），不洩漏內部 `category/sub_category/isSpine`。**registry = SSOT；日後加文件 re-run generator 即同步（DOC_SYNC 已登記），勿手寫 guidelines.json。**
+> - `guidelines.json` = **148** 份（S140；前身 39 精選子集 → 收斂 139 → landing-curate +9 = 148）—— 對外公開端點，係 registry（S140 後 157 entries）嘅**全集投影**：由 `dev/build_guidelines.py` 生成，純規則剔 9 個非文件（`sub_category=='stat'` 7 + `format=='DOCX'` 1 + URL 含 `vertexaisearch` 壞連結 1），其餘純指引/通告全公開。S140 landing-curate：agent-team（3 curate + 1 audit）+ egress 逐份核實，由 16 個課程文件目錄頁底下 159 連結揀出 9 真‧KLA/課程指引全文 PDF 加入 registry（其餘係 dup/語言版本/分章/海報雜訊），並修 3 處 registry data bug（sci_kla url 指錯頁 / 2 通告 format 欄錯 / edbc197 url=index→PDF）。精簡 schema：`id/title/titleShort/url/year/format`（+curriculum `level`、`INDEX` format 正規化做 `HTML`），不洩漏內部 `category/sub_category/isSpine`。**registry = SSOT；日後加文件 re-run generator 即同步（DOC_SYNC 已登記），勿手寫 guidelines.json。**
 > - `dev/source/source_registry.json` = **151** 個來源 entry（vault 提取來源登記表，provenance / freshness 層）。
 > - 其中 **120** 個已完成 vault 提取（= `knowledge.json._meta.stats.sources`，SESSION_HANDOFF baseline 引用的 "120 sources"）。
 >
-> ✅ **EXECUTED（2026-06-03 S140，Leonard 拍板執行；前身 S112 DEFERRED FUTURE / S111 OPEN DECISION）**：公開 `guidelines.json` 已由 39 擴張到 **139**（148 全集減 9 非文件，非盲倒 148——剔 7 stat 統計表 + 1 DOCX 申請表 + 1 壞 URL `religious_edu_jss`〔Google grounding redirect、且係 `religious_edu_jss_2024` 重複〕；保留 landing 頁 + g10/g16/g28〔format=INDEX 但係真指引、原已公開〕）。走咗 §3 HIGH-risk PLAN（Leonard 兩輪確認文件類型範圍 + 生成機制）。下游 Circular System curriculum 桶 25→**123**（會脹但不 break；topic 篩選 `guidelines[topic]` 仍 work）。**版本 2.2.0→2.3.0；現有 39 條 0 lost（regression guard verified）**。生成機制：NEW `dev/build_guidelines.py`（registry=SSOT）。
+> ✅ **EXECUTED（2026-06-03 S140，Leonard 拍板執行；前身 S112 DEFERRED FUTURE / S111 OPEN DECISION）**：公開 `guidelines.json` 已由 39 擴張到 **148**。**round-1**：registry 全集投影 139（剔 9 非文件——7 stat 統計表 + 1 DOCX 申請表 + 1 壞 URL `religious_edu_jss`〔Google grounding redirect、且係 `religious_edu_jss_2024` 重複〕；保留 landing 頁 + g10/g16/g28〔format=INDEX 但係真指引、原已公開〕）。**round-2**：landing-page curate（agent-team 3 curate + 1 audit + 主 agent egress 逐份核實）由 16 課程文件目錄頁 159 連結揀 9 真‧KLA/課程指引全文 PDF 加入 registry（→157 entries）+ 修 3 registry data bug，公開 139→**148**。走咗 §3 HIGH-risk PLAN（Leonard 多輪確認範圍）。下游 Circular System curriculum 桶 25→**132**（會脹但不 break；topic 篩選 `guidelines[topic]` 仍 work）。**版本 2.2.0→2.4.0；現有條目 0 lost（regression guard verified）**。生成機制：NEW `dev/build_guidelines.py`（registry=SSOT）。`Suppl_guide`（非華語補充指引全文 PDF）held 待人核。
 > 註：舊版本框曾寫「148 是過時 registry 計數，已不準」——**該說法本身先係錯**（亦曾誤導 Session 111 一度當佢係 regression）。148 一直係 app 內庫實數，已更正。
 
 ### B.2 `index.html` — 入口頁
@@ -256,7 +256,7 @@ source_registry → 同 vault PDFs → ai_extract.py
 6. Channel B Circular System 整合**暫停**；Channel B 不 auto-write role_facts.json。
 7. 繁中產品語言基準；不暴露內部指令；範本流程未接通前只說「建立草稿／整理」。
 8. 角色拆分：`subject_head`（科主任）+ `panel_chair`（統籌主任/主任）+ `eo_admin`（EO）；未經 user 釐清不做廣泛術語統一。
-9. Guidelines 雙層排序（範疇 → `sub_category` → 時序降序）；QAPanel WordCloud 已移除不復活。**公開 `guidelines.json` 現為 139 份（S140 由 registry 全集投影、剔 9 非文件；app 內庫實為 148 份）**——39→139 收斂 = **EXECUTED**（S140 Leonard 拍板、走 §3 HIGH-risk PLAN；前身 S112 deferred intent）。日後維持靠 generator `dev/build_guidelines.py`（registry=SSOT、DOC_SYNC 已登記），見 §B.1 釐清框。
+9. Guidelines 雙層排序（範疇 → `sub_category` → 時序降序）；QAPanel WordCloud 已移除不復活。**公開 `guidelines.json` 現為 148 份（S140 由 registry 全集投影、剔 9 非文件；registry 經 landing-curate 後 157 entries）**——39→148 收斂 = **EXECUTED**（S140 Leonard 拍板、走 §3 HIGH-risk PLAN；先 39→139，再 landing-curate +9 KLA/課程指引全文 PDF；前身 S112 deferred intent）。日後維持靠 generator `dev/build_guidelines.py`（registry=SSOT、DOC_SYNC 已登記），見 §B.1 釐清框。
 10. 治理文件當 internal session state，git-ignore 規則依現狀。
 
 ---
@@ -272,7 +272,7 @@ source_registry → 同 vault PDFs → ai_extract.py
 > ⚠️ **連 SESSION_HANDOFF / CODEBASE_CONTEXT / HANDOFF_PACKAGE 都會 drift，drift 仲會層層疊**（2026-05-16 兩次實測證實）：
 > - **drift 級聯實例**：Session 110 實測「修正」CODEBASE_CONTEXT `1,001 → 792`、出 HANDOFF_PACKAGE 標榜「乾淨可信快照」；但**同一日**另一條未入 SESSION_LOG 嘅 work-stream（8 個 commit）已 dedup 792 → **455**、HEAD 由 `c78685f` 推進到 `ae31084`，而 S110 自己嗰批文檔修正**從未 commit**。結果 Session 111 接手時，連「可信快照」都係 stale。→ truth-pass v2（Session 111）已重新對齊到 455 / ae31084。
 > - SESSION_HANDOFF baseline #5 寫 `min_score B/AB=0.15` 曾 drift，S110 已對齊 **0.22**（`searchChannelB.ts`/`searchCombined.ts` default；A=0.1 正確）——此項仍有效。
-> - 「148 是過時 registry 計數」嘅舊說法本身就係錯（§B.1 已更正）：148 = app 內庫實數，139 = 公開端點全集投影（S140；前身 39 子集），兩者皆真。
+> - 「148 是過時 registry 計數」嘅舊說法本身就係錯（§B.1 已更正）：157 = app 內庫實數（S140 landing-curate +9 後），148 = 公開端點全集投影（S140；39→139→148），兩者皆真。
 > - 連 commit message 都唔可盡信：`0871bbe`「guidelines=148」唔係 regression 而係正確；Session 111 一度照 message 誤判，verify GUIDELINES_REGISTRY.length 後更正。
 > - **Handoff root-cause estimate ≠ verified ground truth（S121 / S122 / S126 三度 cross-session recurrence，S127 codified §8b rule promotion 3）**：(a) S121 `schema.sql` 自稱 `match_wiki_chunks(query_embedding vector(1536),...)` 但 live 真實簽名係 `(text,...)` → 套 schema.sql 落 live → PGRST203 live 事故 (§E.13)。(b) S122 commit `fd22e0a` message 同 SESSION_LOG 講「pending 5min URL-encoding patch」、`git diff` 顯示 patch 實已 apply（`urlsplit`+`quote(sp.path,safe="/%")`+`urlunsplit`），唔信 diff 跟 message 等於白做一次 5min patch。(c) S126 chronic Freshness fail SESSION_HANDOFF 估計「root cause = `if errors > 0: sys.exit(1)`」、實 dry-run 真根因係 `check_freshness.py:101 AttributeError: 'NoneType' object has no attribute 'get'`（`meta = src.get("freshness_metadata", {})` 對 explicit-null value 失效）— script 喺 entry ~22 即 traceback abort、threshold 嗰行根本未跑到，handoff hypothesis 只係 partial truth。**§8b rule 3 codified**: handoff `root cause = X` 字眼當 hypothesis、唔係 verified ground truth；triage agent 必先 **run + 觀察 actual failure trace（traceback / log / live state）**、再 verify hypothesis 對唔對；唔對即更新 root-cause 再 CHANGE。Multi-agent collab 尤其 prone（接手 agent 易跟描述跳 CHANGE，未 verify 跑一次）。
 >

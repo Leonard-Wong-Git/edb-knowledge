@@ -1,8 +1,8 @@
 {
   "_meta": {
-    "version": "2.3.0",
+    "version": "2.4.0",
     "updated": "2026-06-03",
-    "count": 139,
+    "count": 148,
     "description": "EDB 指引文件連結庫 — app 內庫指引/通告全集（已剔統計數據表/申請表/壞連結），供 EDB 通告智能分析系統按通告主題提取參考文件連結。每項只含標題、簡稱、URL、年份、格式。"
   },
   "finance": [
@@ -430,7 +430,7 @@
       "titleShort": "通告20/2023 小學人文科",
       "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC23020C.pdf",
       "year": "2023",
-      "format": "HTML",
+      "format": "PDF",
       "level": "小學"
     },
     {
@@ -439,16 +439,16 @@
       "titleShort": "通告9/2024 人文科框架",
       "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24009C.pdf",
       "year": "2024",
-      "format": "HTML",
+      "format": "PDF",
       "level": "小學"
     },
     {
       "id": "edbc197_2024_ph_pri",
       "title": "教育局通函197/2024號 — 小學人文科：學校問卷調查及相關支援措施",
       "titleShort": "通函197/2024 人文科問卷",
-      "url": "https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/ph-primary/index.html",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/ph-primary/EDBCM_197_2024_C.pdf",
       "year": "2024",
-      "format": "HTML",
+      "format": "PDF",
       "level": "小學"
     },
     {
@@ -518,9 +518,9 @@
       "id": "sci_kla_guide_2017",
       "title": "科學教育學習領域課程指引（小一至中六）(2017)",
       "titleShort": "科學KLA指引2017",
-      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/curriculum-documents.html",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/SEKLACG_CHI_2017.pdf",
       "year": "2017",
-      "format": "HTML",
+      "format": "PDF",
       "level": "跨階段"
     },
     {
@@ -1168,6 +1168,87 @@
       "titleShort": "高中體育2015",
       "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pe/curriculum-doc/PE%20C&A%20Guide_2015_c.pdf",
       "year": "2007",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "cle_kla_guide_2017",
+      "title": "《中國語文教育學習領域課程指引（小一至中六）》(2017)",
+      "titleShort": "中文教育KLA指引2017",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/CLEKLAG_2017_for_upload_final_R77.pdf",
+      "year": "2017",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "chi_pri_lo_2023",
+      "title": "《小學中國語文建議學習重點》(2023年修訂)",
+      "titleShort": "小學中文建議學習重點",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+      "year": "2023",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "chi_sec_lo_2021",
+      "title": "《中學中國語文建議學習重點》(2021年修訂)",
+      "titleShort": "中學中文建議學習重點",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/SEC_LO_2021.pdf",
+      "year": "2021",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "pth_guide_2017",
+      "title": "《普通話科課程指引（小一至中三）》(2017)",
+      "titleShort": "普通話課程指引2017",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/PTH_Curriculum_guide_for_upload_final.pdf",
+      "year": "2017",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "pshe_kla_guide_2017",
+      "title": "《個人、社會及人文教育學習領域課程指引（小一至中六）》(2017)",
+      "titleShort": "個社人文KLA指引2017",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/PSHE_KLACG_P1-S6_Chi_2017.pdf",
+      "year": "2017",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "ma_pri_content_2017",
+      "title": "小學數學科學習內容（數學教育學習領域課程指引補充文件）(2017)",
+      "titleShort": "小學數學學習內容2017",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/pmc2017_tc.pdf",
+      "year": "2017",
+      "format": "PDF",
+      "level": "小學"
+    },
+    {
+      "id": "ma_jss_content_2017",
+      "title": "初中數學科學習內容（數學教育學習領域課程指引補充文件）(2017)",
+      "titleShort": "初中數學學習內容2017",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/jsmc2017_tc.pdf",
+      "year": "2017",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "ma_sss_content_2017",
+      "title": "高中數學科學習內容（數學教育學習領域課程指引補充文件）(2017)",
+      "titleShort": "高中數學學習內容2017",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/ssmc2017_tc.pdf",
+      "year": "2017",
+      "format": "PDF",
+      "level": "中學"
+    },
+    {
+      "id": "apl_ca_guide_2017",
+      "title": "應用學習課程及評估指引（高中課程）(2017)",
+      "titleShort": "應用學習課程指引2017",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/applied-learning/ref-and-resources/ApL%20C&A%20Guide%20C%202017.pdf",
+      "year": "2017",
       "format": "PDF",
       "level": "中學"
     }
