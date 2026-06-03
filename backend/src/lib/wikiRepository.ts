@@ -138,20 +138,34 @@ export async function searchWiki(
 
   const rpcUrl = `${supabaseUrl}/rest/v1/rpc/match_wiki_chunks`;
 
-  const resp = await fetch(rpcUrl, {
-    method: "POST",
-    headers: {
-      apikey: supabaseKey,
-      Authorization: `Bearer ${supabaseKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
+  // Supabase free-tier pgvector (ivfflat probes=8) intermittently returns a
+  // 57014 "statement timeout" — most often on the first query after the DB has
+  // been idle. It is transient: an immediate retry almost always succeeds
+  // (empirically 3/3). Retry it here transparently (the embedding above is
+  // reused, not recomputed) so a cold-start blip never surfaces as a failed
+  // search to the user. Any non-57014 error fails fast — retrying won't help.
+  const MAX_ATTEMPTS = 3;
+  let rawText = "";
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    const resp = await fetch(rpcUrl, {
+      method: "POST",
+      headers: {
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
 
-  const rawText = await resp.text();
+    rawText = await resp.text();
+    if (resp.ok) break;
 
-  if (!resp.ok) {
-    throw new Error(`Supabase RPC error ${resp.status}: ${rawText}`);
+    const isStatementTimeout = resp.status >= 500 && rawText.includes("57014");
+    if (!isStatementTimeout || attempt >= MAX_ATTEMPTS) {
+      throw new Error(`Supabase RPC error ${resp.status}: ${rawText}`);
+    }
+    // brief linear backoff before retrying the RPC (250ms, 500ms)
+    await new Promise((resolve) => setTimeout(resolve, 250 * attempt));
   }
 
   const rows = JSON.parse(rawText) as Array<WikiChunk & { score: number }>;
