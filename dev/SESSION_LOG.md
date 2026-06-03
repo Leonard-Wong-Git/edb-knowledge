@@ -59,6 +59,14 @@
 - **held（未加）:** `Suppl_guide`（非華語補充指引全文 PDF）— year 不明 + g09 已覆蓋主題，列待人核（blank-over-wrong-guess）。
 - **lesson:** landing 目錄頁 resolve = 大量 dup/雜訊、真增益細；正路 = 揀真文件加 registry（generator 自動帶入），唔係爬晒塞 json。sub-agent egress deny → egress 主 agent 做、curation/audit 純 local 分工。verify-don't-trust 再中（agent 估 url/title 兩度錯，egress 逐份核救返）。
 
+### round-3 — 公積金覆蓋（Leonard 指定；148→152）
+- **Trigger:** Leonard 問「公積金條例有冇包在此文件內」。
+- **多層查證:** 標題層（guidelines.json/registry 157/Channel A）= **0 公積金 entry**；內文層 = 學校行政手冊 sag_2025_11/g24 各 **81 處**（引《教育條例》85條 / 《強制性公積金計劃條例》/ 《津貼·補助學校公積金規則》）+ coa_imc 2 / g04 2；**live Channel B 查「公積金」= synthesis + 8 results 帶頁碼**（用戶本來就搜到，TOP=g24 公積金帳目段）。
+- **Leonard 指定加** EDB 公積金 hub url（`.../about-sch-staff/provident-fund/index.html`）→ 主 agent 爬：hub 底下 ~90 PDF 多數係季度 financial bulletin / 年報 / 2008-09 舊消息（非指引），真‧指引/條例類得幾份。
+- **CHANGE（app.html registry +4，全 category=人力資源/hr，HEAD-200 + PDF 首頁驗證）:** provident_fund（hub HTML）/ sspf_general_info_2023（《津貼學校公積金的一般資料》16p）/ gspf_general_info_2023（《補助學校公積金的一般資料》14p）/ pf_edu_ord_2013_faq（《2013年教育(修訂)條例》相關常見問題 2p＝直接答「條例」）。registry 157→**161**。
+- **QC:** self-test PASS（registry=161 public=152 dropped=9）；--check 148→152（hr 桶 2→6、回歸守衛 -0 lost）；4 公積金 id 全入 hr 桶；版本 2.4.0→2.5.0；0 非 PDF/HTML leaked。0 Supabase/backend/knowledge mutation。
+- **lesson:** 「內容有冇覆蓋」要分標題層 vs 內文層查 + live Channel B 實證（內文搜尋本來 cover、標題層 0）；主題 hub 頁底下多數係數據/報告噪音，揀官方「一般資料 + 條例 FAQ」最有效。
+
 ### Next Session Handoff Prompt (Verbatim)
 ```text
 Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
@@ -68,15 +76,16 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 ⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
 
-S140 (2026-06-03)：**公開 guidelines.json 39→148（全集投影 + landing-curate +9 + 修 3 data bug）完成、push live、QC 全 PASS**。HEAD origin/main 起手自行 verify（S140 closeout commit）。
+S140 (2026-06-03)：**公開 guidelines.json 39→152（全集投影 + landing-curate +9 + 修 3 bug + 公積金 +4）完成、push live、QC 全 PASS**。HEAD origin/main 起手自行 verify（S140 closeout commit）。
 - round-1：公開端點由 39 精選子集 → registry 全集投影 **139**（純規則剔 9 非文件：7 stat + 1 DOCX + 1 壞 URL religious_edu_jss）。
-- round-2：**landing-curate** — agent-team（3 curate + 1 audit）+ 主 agent egress 逐份核實，由 16 課程文件目錄頁 159 連結揀 9 真‧KLA/課程指引全文 PDF 加入 registry（cle_kla/chi_pri_lo/chi_sec_lo/pth_2017/pshe_kla/ma 三冊/apl_ca）+ 修 3 registry data bug（sci_kla url 指錯頁→science PDF / edbc20+edbc9 format / edbc197 url=index→PDF）。registry 148→**157**、公開 139→**148**（curriculum 桶 132）、版本 2.2.0→**2.4.0**。
+- round-2：**landing-curate** — agent-team（3 curate + 1 audit）+ 主 agent egress 逐份核實，由 16 課程文件目錄頁 159 連結揀 9 真‧KLA/課程指引全文 PDF 加入 registry + 修 3 registry data bug（sci_kla url 指錯頁→science PDF / edbc20+edbc9 format / edbc197 url=index→PDF）。公開 139→**148**（curriculum 桶 132）。
+- round-3：**公積金覆蓋**（Leonard 指定）— 標題層之前 0 公積金（但內文層 sag/g24 已 cover、Channel B 搜到）→ 加 4 entry（provident_fund hub + sspf/gspf 一般資料 Q&A + 2013教育修訂條例 FAQ，category=人力資源/hr）。公開 148→**152**（hr 桶 2→6）。registry → **161**、版本 2.2.0→**2.5.0**。
 - NEW generator `dev/build_guidelines.py`（registry=SSOT）：**日後 registry 加文件 → re-run `python3 dev/build_guidelines.py --write` 即同步，勿手寫 guidelines.json**（DOC_SYNC 已登記）。
 - **held 待人核**：`Suppl_guide`（非華語補充指引全文 PDF）year 不明 + g09 主題重疊，暫不加。
 - round-2 有改 app.html（registry data）；0 Supabase/backend/knowledge.json mutation。
 
 Current objective and progress state:
-- Baseline 不變：Supabase ~9,912 / 103 marker-bearing / CB-3 ceiling ~88% / brand live。公開 guidelines.json 39→**148**（本 session 契約變更）；registry 157 entries。0 outstanding bug。
+- Baseline 不變：Supabase ~9,912 / 103 marker-bearing / CB-3 ceiling ~88% / brand live。公開 guidelines.json 39→**152**（本 session 契約變更：139 收斂 + 9 landing-curate + 4 公積金）；registry 161 entries。0 outstanding bug。
 
 Pending tasks in priority order:
 1. **下一階段方向（待 Leonard 明示）**：g14 資優+sen_curr_area+gifted_policy_docs 仍 0 Supabase chunks（SEN-adjacent，可補 g10/g19 §E.12 pattern）/ Q4 對外契約收斂（3 選項、敏感、未明示勿掂）/ §8b rule 2 automation。
@@ -84,7 +93,7 @@ Pending tasks in priority order:
 3. 既有 deferred：§E.10(a) ACCEPTED conditional / FAIL-A record-only / stat_fact 2025/26 ROI≈0 / HKEAA。
 
 Key files changed this session:
-- NEW dev/build_guidelines.py；guidelines.json(39→148)；**app.html(round-2: GUIDELINES_REGISTRY +9 entry + 修 4 行 data bug，148→157)**；K1_API_SPEC.md+dev/K1_API_SPEC.md；README.md；PMS §B.1·§F.9；CODEBASE_CONTEXT；DOC_SYNC_CHECKLIST；SESSION_HANDOFF/LOG。
+- NEW dev/build_guidelines.py；guidelines.json(39→152)；**app.html(round-2 GUIDELINES_REGISTRY +9 + 修 4 行 data bug；round-3 +4 公積金 entry，148→161)**；K1_API_SPEC.md+dev/K1_API_SPEC.md；README.md；PMS §B.1·§F.9；CODEBASE_CONTEXT；DOC_SYNC_CHECKLIST；SESSION_HANDOFF/LOG。
 
 Known risks / blockers / cautions:
 - 🟢 0 outstanding bug。guidelines 擴張屬純加法（現有 39 條 0 lost、可 git revert）。
@@ -92,9 +101,9 @@ Known risks / blockers / cautions:
 
 Validation status:
 - build_guidelines.py --self-test PASS（含回歸守衛）/ JSON valid / Circular 篩選範例 work / idempotent / 0 leak。
-- Post-publish：GitHub Pages guidelines.json live = 148（起手可 curl 複驗；自訂域 policychecker.wongfu.net）。
+- Post-publish：GitHub Pages guidelines.json live = 152（起手可 curl 複驗；自訂域 policychecker.wongfu.net）。
 
-Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD / knowledge facts 455 / onrender /health / egress）+ lazy-query playbook INDEX 後，問 Leonard 下一階段方向（g14+gifted SEN 補完 / Q4 契約〔敏感未明示勿掂〕/ §8b automation）。可順手 curl 複驗 guidelines.json live=148 + 睇 GitHub 有冇 freshness-change Issue。未 Leonard 明示前唔好自行掂 Q4 / reopen §E.10 / 動 Stage-2 / 手寫 guidelines.json。
+Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD / knowledge facts 455 / onrender /health / egress）+ lazy-query playbook INDEX 後，問 Leonard 下一階段方向（g14+gifted SEN 補完 / Q4 契約〔敏感未明示勿掂〕/ §8b automation）。可順手 curl 複驗 guidelines.json live=152 + 睇 GitHub 有冇 freshness-change Issue。未 Leonard 明示前唔好自行掂 Q4 / reopen §E.10 / 動 Stage-2 / 手寫 guidelines.json。
 ```
 
 ## 2026-06-03 Session 139 — 文件變更自動偵測 + 通知（detect+notify tier；code+CI+docs，0 data/Supabase mutation）

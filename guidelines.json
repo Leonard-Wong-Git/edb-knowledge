@@ -1,8 +1,8 @@
 {
   "_meta": {
-    "version": "2.4.0",
+    "version": "2.5.0",
     "updated": "2026-06-03",
-    "count": 148,
+    "count": 152,
     "description": "EDB 指引文件連結庫 — app 內庫指引/通告全集（已剔統計數據表/申請表/壞連結），供 EDB 通告智能分析系統按通告主題提取參考文件連結。每項只含標題、簡稱、URL、年份、格式。"
   },
   "finance": [
@@ -60,6 +60,42 @@
       "url": "https://www.edb.gov.hk/tc/teacher/guidelines_tpc/",
       "year": "2022",
       "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "provident_fund",
+      "title": "教職員公積金（津貼學校公積金 / 補助學校公積金）",
+      "titleShort": "教職員公積金",
+      "url": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/provident-fund/index.html",
+      "year": "2025",
+      "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "sspf_general_info_2023",
+      "title": "《津貼學校公積金的一般資料》(2023)",
+      "titleShort": "津貼學校公積金一般資料",
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/provident-fund/SSPF_QA_CHI_Oct23.pdf",
+      "year": "2023",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "gspf_general_info_2023",
+      "title": "《補助學校公積金的一般資料》(2023)",
+      "titleShort": "補助學校公積金一般資料",
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/provident-fund/GSPF_QA_CHI_Oct23.pdf",
+      "year": "2023",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "pf_edu_ord_2013_faq",
+      "title": "與《2013年教育(修訂)條例》相關的常見問題（公積金）",
+      "titleShort": "2013教育修訂條例公積金FAQ",
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/provident-fund/Q&A%20relating%20to%20Education%20(Amendment)%20Ordinance%202013_c.pdf",
+      "year": "2013",
+      "format": "PDF",
       "level": "跨階段"
     }
   ],
