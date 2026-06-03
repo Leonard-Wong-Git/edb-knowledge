@@ -2,6 +2,88 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-03 Session 139 — 文件變更自動偵測 + 通知（detect+notify tier；code+CI+docs，0 data/Supabase mutation）
+
+- **ID:** Claude_20260603_0959
+- **Trigger:** Leonard 提功能需求「文件已 AI 分析+可追蹤頁數，下一步：知道文件變更就自動觸發工作」→ 我出設計建議 → Leonard 揀**最輕 tier「只升級偵測+自動通知」**（不自動 mutate/deploy）+「我先評估再定」MVP → 出 §3 PLAN → 兩個分叉揀建議方案（Hybrid hash + Ledger+Issue）
+- **§3 Risk:** HIGH（改 load-bearing 監測腳本〔S126 chronic-fail 前科〕+ CI workflow + 外部 EDB GET）→ 出 PLAN + 設計分叉確認後入 CHANGE；本 tier 刻意排除破壞性鏈（無 fetch-into-vault / repage / Supabase / deploy）
+
+### CHANGE（4 檔）
+1. `dev/source/check_freshness.py`（重寫）：**Hybrid 兩層偵測** — Tier1 HEAD（Last-Mod/Content-Length/ETag）+ Tier2 raw-byte SHA-256 `content_hash`（authoritative，抑制 HEAD 假報）。`content_hash` 跟 metadata 同生命週期：只喺 write-sync 植入/更新；scheduled dry-run 對 baseline 偵測、不持久、保持平。判斷抽成純函數 `classify_change()` + 加 `--self-test`（離線 9 assertion）+ `--changes-out`（JSON 報告）+ `--ledger`（Markdown）+ `--limit`（測試）。原子寫入（temp+rename 防 registry 半寫腐爛）。**保留 exit 語義：changes 永不 fail，只 errors>threshold exit 1（S126 教訓）。**
+2. `.github/workflows/freshness_check.yml`：`issues:write` + timeout 30（首次 write-sync 植 147 hash 一次性重）+ `--changes-out`/`--ledger` 接線 + **github-script 開/更新 Issue**（label `freshness-change`、try/catch 唔 mask 偵測成功、單一 Issue 不 spam）+ commit step 加 ledger（仍只 manual write-sync 觸發）。
+3. `dev/source/FRESHNESS_GUIDE.md`：記 hybrid 偵測模型 + 新指令 + 通知/ledger + **Manual Gate Rule 不變**（偵測自動、re-ingestion 仍人手：URL re-discovery→mojibake pre-flight→repage→cb3_b2→SOURCE_SETS parity→deploy）。
+4. `dev/DOC_SYNC_CHECKLIST.md`：加 row「Freshness monitoring / CI workflow change」（anti-pattern guard：無精確 row 必加）。
+
+### QC / Test Scenarios（§3d）
+| Scenario | Action | Expected | Actual | Result |
+|---|---|---|---|---|
+| 判斷邏輯 | `--self-test` 離線 | 7 logic + 2 ledger 全中 | ALL PASS | PASS |
+| 穩態未變 | live dry-run --limit | 不報、零下載 | changes=0 hashed=0 | PASS |
+| dry-run 不寫 registry | dry-run | registry 不變 | git status clean | PASS |
+| write-sync 植 hash | --limit 2 write（temp 副本）| content_hash+hash_checked_at 寫入 | sag/coa 真 SHA-256 seeded | PASS |
+| bootstrap 不報全變 | write-sync seed | changes=0（非「全部變更」）| changes=0 | PASS |
+| 原子寫入 | write（temp 副本）| 無 .tmp 殘留、registry valid JSON | clean + valid | PASS |
+| HEAD 假報抑制 | classify(cheap=T,hash 相同) | 不報 | (False,None) self-test | PASS |
+| exit 語義 | code review | changes 不影響 exit | 只 errors>threshold exit 1 | PASS |
+| YAML | yaml.safe_load | parse OK | OK | PASS |
+
+- **獨立對抗覆核（Explore agent，唯讀）**：揪出 1 BLOCKER（registry 寫入無保護→腐爛風險）+ 2 MAJOR（github-script API 無 try/catch；new_hash null 未文檔化）→ **全部已修**（原子 temp+rename / try-catch+core.warning / 加 `hash_status` 欄）。覆核「bootstrap 報全變」aside 經實測證為誤判（以 self-test + seed 實測 changes=0 為準）。
+
+### Sources changed
+- `dev/source/check_freshness.py` / `.github/workflows/freshness_check.yml` / `dev/source/FRESHNESS_GUIDE.md` / `dev/DOC_SYNC_CHECKLIST.md`
+- **NOT modified:** source_registry.json（hash 待首次 CI write-sync 植入）/ Supabase / knowledge.json / guidelines.json / app.html / backend / PROJECT_MASTER_SPEC / CODEBASE_CONTEXT
+- 全部測試用 registry **臨時副本**，真 registry 零污染（驗 0 content_hash）。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Freshness monitoring / CI workflow change | FRESHNESS_GUIDE.md（done）/ CODEBASE_CONTEXT Directory Map（N/A — 無新 script 檔、同名腳本內部升級）/ SESSION_HANDOFF+LOG（done）| ✓ Done |
+| New project doc trigger row | DOC_SYNC_CHECKLIST 加 row | ✓ Row added |
+
+### 待辦 lesson（§8 monitoring）
+偵測信號設計：HEAD metadata 太嘈（EDB redirect/re-export churn）→ content-hash 做 authoritative confirm 係正路；但 hash 生命週期必須同 metadata 一致（write-sync 植、scheduled dry-run 唔持久）先唔會每週 147 全 download。屬 monitoring，recurrence（其他 freshness-style 偵測）即 §8b promote。
+
+### 啟用 + 驗證待辦（未 live-verified）
+1. **啟用**：GitHub Actions UI → Run workflow「Weekly Freshness Check」→ dry_run=**false**（首次 write-sync，植 147 hash + commit registry+ledger）。一次性 ~數分鐘。
+2. **Live-verify**：植入後，下次真有 EDB 文件變 → scheduled 週跑（或手動 dry_run=true）應開 `freshness-change` Issue。亦可手動 dry_run 睇 `freshness_changes.json` artifact。
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。S135-S139 證實 EDB + onrender + Supabase egress 均通；仍每次自測。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S139 (2026-06-03)：**新功能「文件變更自動偵測+通知」建好、對抗覆核通過、code+docs committed；但未 live-verified（待啟用首次 write-sync）**。Leonard 揀最輕 tier（只升級偵測+自動通知，不自動 mutate/deploy）。0 data/Supabase/knowledge mutation。HEAD 起手自行 verify。
+
+做咗（4 檔）：(1) check_freshness.py 重寫 = Hybrid HEAD+content-hash 偵測（hash authoritative 抑制 HEAD 假報）+ classify_change 純函數 + --self-test（9 PASS）+ --changes-out/--ledger/--limit + 原子寫入 + 保留 exit 語義（changes 永不 fail，S126）；(2) freshness_check.yml = issues:write + timeout30 + github-script 開/更新 freshness-change Issue + ledger commit；(3) FRESHNESS_GUIDE.md 文檔；(4) DOC_SYNC_CHECKLIST 加 row。
+
+Current objective and progress state:
+- Baseline: Supabase ~9,912 / 103 marker-bearing / CB-3 final ceiling ~88% / brand live (policychecker.wongfu.net)（本 session 無動 data 層）
+- 新功能 detect+notify：code 就位、QC + adversarial 通過，但 **content_hash 未植入 real registry（real 仍 0 hash）→ 未 live-active**。
+
+Pending tasks in priority order:
+1. **啟用 freshness 自動偵測**：GitHub Actions「Weekly Freshness Check」手動 Run workflow、dry_run=false（首次 write-sync 植 147 content_hash + commit registry+ledger）→ 之後週跑自動偵測+開 Issue。一次性。
+2. **🔵 Leonard 真機 verify（S136/S138 遺留）**：手機「指引文件」tab + policychecker.wongfu.net Channel B（可順手打「sen」驗 g19/g06 真內容）。
+3. **下一階段方向（待 Leonard）**：g14+gifted SEN-adjacent 0-chunks 補完 / Q4 對外契約收斂（3 選項、敏感未明示勿掂）/ §8b rule 2 automation / 39→148 guidelines。
+
+Key files changed this session:
+- dev/source/check_freshness.py / .github/workflows/freshness_check.yml / dev/source/FRESHNESS_GUIDE.md / dev/DOC_SYNC_CHECKLIST.md（commit ＋ PERSIST commit；HEAD 起手 verify）
+- NONE：source_registry.json / Supabase / knowledge / backend / app.html 未動。
+
+Known risks / blockers / cautions:
+- 🟢 新功能 detect-only、scheduled=dry-run 安全；未 live-verified（待啟用）。首次 write-sync 會 download 147 源（已設 timeout 30；429-aware：若 CI 撞 throttle，重跑即可）。
+- 既有不變: 57014 transient(retry); FAIL-A(record-only); §E.10(a) ACCEPTED conditional; q.html/A·AB dormant 勿清; Q4 deferred 未明示勿掂; Stage-2 closed 勿復活; egress 每次自測; 路徑空格雙引號; wiki_chunks 欄名 `text` 非 `content`; 改 Draft code/data commit 必入 SESSION_LOG; init_backup gitignored。
+
+Validation status:
+- 起手自測（S139 起手）：git HEAD=4be7155==origin/main tree clean（交接寫 b17defc 已 stale、§G.2 又中，benign closeout commit）/ knowledge facts=455 / role_facts 三層 md5 一致 / onrender /health 200 cache_a warm 455（egress 通）/ Supabase 本機未直 count（local .env 無 SUPABASE_URL）。
+- 功能 QC：--self-test 9 PASS / live dry-run / write-sync seed（temp 副本）/ 原子寫入 / YAML / 對抗覆核 1B+2M 全修。0 data mutation。
+
+Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測 + lazy-query playbook INDEX 後，問 Leonard：(1) 要唔要而家啟用 freshness 自動偵測（手動 Run workflow dry_run=false 植 hash）；(2) 定行其他（真機 verify / SEN-adjacent 補完 / 下一階段方向）。未明示前唔好自行掂 Q4 / reopen §E.10 / 動 Stage-2 / 自行跑 write-sync（植 hash 會 commit registry，要 Leonard 知會）。
+```
+
 ## 2026-06-02 Session 138 — 資料質素 backlog 執行：phys DROP + g10/g19 ingest + SEN route（生產 live + 0 regression）
 
 - **ID:** Claude_20260602_1730
