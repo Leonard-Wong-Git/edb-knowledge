@@ -89,7 +89,7 @@ Current objective and progress state:
 
 Pending tasks in priority order:
 1. **下一階段方向（待 Leonard 明示）**：g14 資優+sen_curr_area+gifted_policy_docs 仍 0 Supabase chunks（SEN-adjacent，可補 g10/g19 §E.12 pattern）/ Q4 對外契約收斂（3 選項、敏感、未明示勿掂）/ §8b rule 2 automation。
-2. **觀察（非阻塞）**：freshness scheduled 週跑（週一 09:00 UTC）開 freshness-change Issue；57014 cold-start mask；**knowledge.json._meta.stats.guidelines=39 follow-up**（升 148 與否，獨立 data-touch）；**`Suppl_guide` 非華語補充指引 PDF held 待人核**（year + g09 重疊）。
+2. **觀察（非阻塞）**：freshness scheduled 週跑（週一 09:00 UTC）開 freshness-change Issue；57014 cold-start mask；**knowledge.json._meta.stats.guidelines=39 follow-up**（升 152 與否，獨立 data-touch）；**`Suppl_guide` 非華語補充指引 PDF held 待人核**（year + g09 重疊）。
 3. 既有 deferred：§E.10(a) ACCEPTED conditional / FAIL-A record-only / stat_fact 2025/26 ROI≈0 / HKEAA。
 
 Key files changed this session:
