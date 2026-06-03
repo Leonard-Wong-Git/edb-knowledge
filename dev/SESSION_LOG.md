@@ -43,9 +43,13 @@
 ### 待辦 lesson（§8 monitoring）
 偵測信號設計：HEAD metadata 太嘈（EDB redirect/re-export churn）→ content-hash 做 authoritative confirm 係正路；但 hash 生命週期必須同 metadata 一致（write-sync 植、scheduled dry-run 唔持久）先唔會每週 147 全 download。屬 monitoring，recurrence（其他 freshness-style 偵測）即 §8b promote。
 
-### 啟用 + 驗證待辦（未 live-verified）
-1. **啟用**：GitHub Actions UI → Run workflow「Weekly Freshness Check」→ dry_run=**false**（首次 write-sync，植 147 hash + commit registry+ledger）。一次性 ~數分鐘。
-2. **Live-verify**：植入後，下次真有 EDB 文件變 → scheduled 週跑（或手動 dry_run=true）應開 `freshness-change` Issue。亦可手動 dry_run 睇 `freshness_changes.json` artifact。
+### 同 session 後續 — 啟用 + mobile verify + SEN 修復（全部 live）
+1. **✅ 啟用 freshness**（Leonard「1. 啟用」）：`gh` 未 auth → 本機背景跑全 write-sync。15 源計時探針 92s/0-error 確認可行 → 全 147 源：**147/147 hashed、0 error、0 failed**，7 源標 head-metadata drift（預期首跑：g10/g19/history_jss_2019 等近期 ingest 源）；ledger 生成；原子寫入無腐爛。commit `d96d56a` push。**自動偵測 live。** ⚠️ **教訓**：首次背景啟動誤用 `run_in_background:true` + `nohup … &` → 被追蹤 wrapper shell 因 `&` 即 exit 0、python detach（log 空、registry 0 seeded 嚇一跳）；實際 python 健康跑緊。改用純 `run_in_background` + `until [ -f json ]||!pgrep` 等待器正確監控。**run_in_background 唔好再加 `&`。**
+2. **✅ mobile verify**：Leonard 真機確認手機「指引文件」UI 整體 OK（清 S136/S138 遺留）。
+3. **✅ SEN「冇反應」根因 + 修復**（Leonard 報手機打「SEN」一直冇反應）：依「冇反應五因」卡先分層、對 live curl triage（非當邏輯 bug 改）。**根因 = Supabase 57014 transient statement-timeout**（free-tier pgvector probes=8，冷啟動第一 query 最易中）被 backend `wikiRepository` 包成 HTTP 400；**非** SEN route / CORS（ACAO=policychecker 正常）/ 前端 wiring。證據：warm 時「sen」「教師病假」全 200、「SEN」第一次（剛冷啟動）400 但 retry 3/3 即 200 出真內容。**修**：`backend/src/lib/wikiRepository.ts` searchWiki RPC 加 **retry-on-57014**（≤3 attempt、250/500ms linear backoff、只 retry `status>=500 && body含57014`、其他錯即拋、embedding 喺 loop 外不重算）。Leonard 揀此建議方案（vs 前端 retry / 調 Supabase）。typecheck+build exit 0；commit `13544d0` push → Render deploy → **post-deploy SEN smoke 6/6 PASS HTTP 200 帶真 SEN 內容**。
+   - **§8b promote 候選**：57014 由「accepted transient」升級成「user-facing 失效」→ 已加 backend retry（regression-style fix）。recurrence / 其他 RPC 同類即考慮 promote SOP。cold-start mask 屬 logic-verified（warm smoke 6/6；真冷啟動 mask 留實際使用觀察）。
+
+> 補充 commit chain S139：`dbef61a`（freshness code+docs）→`48d5308`（PERSIST）→`d96d56a`（啟用 seed+ledger）→`13544d0`（57014 retry）。Render 由 `13544d0` deploy。
 
 ### Next Session Handoff Prompt (Verbatim)
 ```text
