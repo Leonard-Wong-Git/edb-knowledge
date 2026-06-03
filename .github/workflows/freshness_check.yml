@@ -8,6 +8,7 @@ on:
     # Allow manual trigger from GitHub Actions UI
     inputs:
       dry_run:
+        # Default dry-run is the safe choice; select "false" to write+commit hashes/ledger.
         description: "Run in dry-run mode (no registry update)"
         required: false
         default: "true"
@@ -17,12 +18,13 @@ on:
           - "false"
 
 permissions:
-  contents: write      # needed to commit registry updates (manual sync mode)
+  contents: write      # commit registry + ledger updates (manual write-sync mode)
+  issues: write        # open/update the "source changes pending review" issue
 
 jobs:
   freshness-check:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30   # first write-sync seeds content hashes for all 147 sources (one-time heavy); steady-state runs stay cheap
 
     steps:
       - name: Checkout repo
@@ -40,28 +42,88 @@ jobs:
 
       - name: Run freshness check
         run: |
+          DRY_RUN=""
+          LEDGER=""
           if [ "${{ github.event_name }}" = "schedule" ]; then
             DRY_RUN="--dry-run"
           elif [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
             DRY_RUN="--dry-run"
           else
-            DRY_RUN=""
+            # manual write-sync: persist hashes + render the committed ledger
+            LEDGER="--ledger dev/source/freshness_changes.md"
           fi
 
-          echo "Running: python3 dev/source/check_freshness.py $DRY_RUN"
-          python3 dev/source/check_freshness.py $DRY_RUN 2>&1 | tee freshness_output.txt
+          echo "Running: python3 dev/source/check_freshness.py $DRY_RUN --changes-out freshness_changes.json $LEDGER"
+          python3 dev/source/check_freshness.py $DRY_RUN --changes-out freshness_changes.json $LEDGER 2>&1 | tee freshness_output.txt
           exit ${PIPESTATUS[0]}
-        # ↑ Non-zero exit = GitHub marks run as FAILED → sends email notification automatically
+        # ↑ Non-zero exit = errors > threshold only (real outage). Detected CHANGES never
+        #   affect exit code (S126 chronic-fail lesson). GitHub marks failed runs + emails.
 
       - name: Upload freshness report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: freshness-report-${{ github.run_number }}
-          path: freshness_output.txt
+          path: |
+            freshness_output.txt
+            freshness_changes.json
           retention-days: 30
 
-      - name: Commit registry update (manual sync mode only)
+      - name: Notify on content changes (open/update issue)
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let report;
+            try {
+              report = JSON.parse(fs.readFileSync('freshness_changes.json', 'utf8'));
+            } catch (e) {
+              core.info('No change report to parse: ' + e);
+              return;
+            }
+            if (!report.changes || report.changes < 1) {
+              core.info('No content changes detected; not touching issue.');
+              return;
+            }
+            const lines = (report.changed_sources || []).map(c =>
+              `- \`${c.source_id}\` — ${c.title || ''} _(${c.confidence})_`).join('\n');
+            const body = [
+              `🔔 **${report.changes}** EDB source(s) changed (run #${context.runNumber}, ${report.generated_at}, ${report.dry_run ? 'dry-run detection' : 'write-sync'}).`,
+              '',
+              lines,
+              '',
+              '> **Detection only** — re-ingestion stays a manual gate. Per `dev/source/FRESHNESS_GUIDE.md`:',
+              '> URL re-discovery → mojibake pre-flight → repage → cb3_b2 → SOURCE_SETS parity → deploy.',
+              `> Full report: run artifact \`freshness-report-${context.runNumber}\`.`,
+            ].join('\n');
+            const title = '🔔 Freshness: EDB source changes pending review';
+            const label = 'freshness-change';
+            // Notification failure must not mask a successful detection run —
+            // warn (not fail) so the operator can still inspect the artifact.
+            try {
+              const existing = await github.rest.issues.listForRepo({
+                owner: context.repo.owner, repo: context.repo.repo,
+                state: 'open', labels: label,
+              });
+              if (existing.data.length) {
+                await github.rest.issues.update({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: existing.data[0].number, title, body,
+                });
+                core.info('Updated issue #' + existing.data[0].number);
+              } else {
+                await github.rest.issues.create({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  title, body, labels: [label],
+                });
+                core.info('Created freshness-change issue.');
+              }
+            } catch (e) {
+              core.warning('Failed to open/update freshness issue: ' + (e && e.message));
+            }
+
+      - name: Commit registry + ledger update (manual write-sync only)
         if: >
           success() &&
           github.event_name == 'workflow_dispatch' &&
@@ -69,11 +131,10 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add dev/source/source_registry.json
+          git add dev/source/source_registry.json dev/source/freshness_changes.md
           if git diff --cached --quiet; then
-            echo "No registry changes to commit."
+            echo "No registry/ledger changes to commit."
           else
-            git commit -m "chore: freshness sync — automated registry update (run #${{ github.run_number }})"
+            git commit -m "chore: freshness sync — registry + change ledger (run #${{ github.run_number }})"
             git push
           fi
-

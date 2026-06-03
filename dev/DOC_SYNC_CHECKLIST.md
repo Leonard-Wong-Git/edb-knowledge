@@ -30,6 +30,7 @@
 | New cross-agent handoff knowledge doc added | CODEBASE_CONTEXT.md Directory Map + AI Maintenance Log; this registry (row presence); SESSION_HANDOFF/LOG | row presence check |
 | Project relocation / repo absolute-path change | AGENTS.md header line 1 + §13 examples; SESSION_HANDOFF.md User Environment + Session Close Checklist; PROJECT_MASTER_SPEC.md §A.5; any *.py/*.sh with hardcoded abs path hints; SESSION_LOG/HANDOFF entry | grep "old path" returns only archive/log history |
 | Doc-drift truth-pass / accuracy correction (a doc number/architecture statement found wrong vs actual code/data) | Correct every doc carrying the stale value (PROJECT_MASTER_SPEC / CODEBASE_CONTEXT / SESSION_HANDOFF as applicable); CODEBASE_CONTEXT AI Maintenance Log entry; dev/HANDOFF_PACKAGE.md §2/§5 if a verified-state value changed; SESSION_LOG drift table | re-verify corrected value against actual code/data |
+| Freshness monitoring / CI workflow change (check_freshness.py, freshness_check.yml, freshness_metadata schema) | dev/source/FRESHNESS_GUIDE.md (rhythm + commands + detection model); CODEBASE_CONTEXT.md Directory Map if a script/field is added; SESSION_HANDOFF.md priorities/risks if operator flow changes; SESSION_LOG.md task entry + QC evidence | `--self-test` PASS + dry-run smoke; YAML parse |
 
 ## Anti-pattern: No Matching Row
 
