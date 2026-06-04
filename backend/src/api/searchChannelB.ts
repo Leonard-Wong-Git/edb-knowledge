@@ -356,10 +356,13 @@ const QUERY_EXPANSIONS: Record<string, string> = {
   sen:          "特殊教育需要 融合教育 全校參與模式 特殊學校課程指引 融合教育運作指南 特殊教育需要統籌主任 SENCO 學生支援組 個別學習計劃 三層支援模式 校本支援 共融校園 照顧學生個別差異 校內考試特別安排 考試調適 評估調適 特別考試安排",
   steam:        "STEAM教育 跨學科 課程更新重點 七大重點 STEAM專責小組 科學科技工程藝術數學",
   finance:    "採購程序 財政限額 報價 招標 採購指引",
-  hr_admin:   "教職員假期 批假 薪酬 操守 病假 首年 168日 上限 醫生證明 教師註冊 聘任 基本法及香港國安法測試 過剩教師安排 共享教職 體格檢驗 私立學校聘用 加強保障學童",
+  hr_admin:   "教職員假期 批假 薪酬 操守 病假 首年 168日 上限 醫生證明 教師註冊 聘任",
   activity:   "全方位學習津貼 活動",
-  safety:     "校園安全 學校安全 消防裝置及設備 職業安全及健康 實驗室安全 預備室 氣體異味事故 安全管理委員會 熱帶氣旋及持續大雨下的安排 惡劣天氣停課 斜坡維修檢查",
-  gov_admin:  "學校表現指標 學校自我評估工具 問責架構 視學 校外評核 校本管理 法團校董會 學校發展計劃 防貪錦囊 內部監控 學校籌款活動 校舍巡察及保養 大規模修葺工程 增設校舍 更改校名 學校註冊 綜合保險計劃",
+  // S142: safety + gov_admin intentionally have NO expansion. Their SOURCE_SETS span
+  // diverse doc types (fire/cyclone/lab/slope; QA/premises/registration); a single
+  // expansion string would dilute focused queries toward the highest-chunk-count doc
+  // (over-expansion regression caught in S142 smoke: cyclone drowned 消防; edbc14 drowned g04).
+  // SOURCE_SET filter + the query's own terms surface the right doc without dilution.
   curriculum: "課程指引 教學 學習目標",
 };
 
