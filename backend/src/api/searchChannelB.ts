@@ -210,6 +210,8 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g01",               // 資助學校採購程序指引
     "g02",               // 法團校董會財務管理指引
     "coa_imc_1_19",      // 資助則例 (IMC)
+    "fin_mgmt_notes_aided",   // S142: 資助學校財務管理注意事項
+    "bank_choice_notes",      // S142: 學校選擇銀行注意事項
     "role_facts_finance",
     "role_facts_general",
   ],
@@ -223,6 +225,10 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g05",               // 教師專業操守指引
     "g11",               // 擬定校曆表指引
     "sag_2025_11",       // School Administration Guide (HR sections)
+    // S142 EDB-sweep §1 — staffing/appointment/BLNST policy
+    "edbc13_2022_blnst", "edbcm141_2025_blnst", "blnst_test_notes_nondeg", "blnst_test_candidate_notes",
+    "embc5_2005_appointment", "edbc14_2023_student_protect", "staff_medical_health",
+    "job_sharing_guide", "surplus_teacher_arr_2026", "private_sch_employment_notes",
     "role_facts_hr",
     "role_facts_general",
   ],
@@ -233,6 +239,33 @@ const SOURCE_SETS: Record<string, string[]> = {
   activity: [
     "g03",               // 全方位學習津貼運用指引
     "role_facts_activity",
+    "role_facts_general",
+  ],
+
+  /**
+   * Governance / Quality Assurance / Premises / Registration — 校政管治, 視學/自評,
+   * 問責架構, 校本管理, 防貪內部監控, 校舍修葺, 增設校舍/更改校名, 學校發展計劃, 籌款.
+   * S142 EDB-coverage sweep §1 (學校行政及管理). routing-not-cutoff lever.
+   */
+  gov_admin: [
+    "perf_indicators_2022", "sse_tools_2025", "edbc15_2022_accountability",
+    "icac_school_governance", "fundraising_guide", "edbcm_major_repairs_grant",
+    "edbc14_2024_spms", "sch_extension_guide", "sch_name_change_guide", "sdp_guide",
+    "bip_insurance_notes_2025", "major_repairs_proc_nonestate", "major_repairs_proc_estate",
+    "emergency_repairs_guide",
+    "sag_2025_11",
+    "role_facts_general",
+  ],
+
+  /**
+   * School safety — 校園安全, 消防, 職安健, 實驗室安全, 氣體事故, 安全管理委員會,
+   * 熱帶氣旋/惡劣天氣停課安排, 斜坡維修檢查. S142 EDB-coverage sweep §1.
+   */
+  safety: [
+    "edbc22_2024_student_safety", "fire_service_installation", "occupational_safety_health",
+    "gas_odour_measures", "lab_prep_room_aircon", "edbc_tropical_cyclone_day",
+    "edbc_tropical_cyclone_night", "safety_mgmt_committee", "slope_rmi_ei_notes",
+    "sag_2025_11",
     "role_facts_general",
   ],
 
@@ -282,12 +315,16 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   conduct: /體罰|施行體罰|羞辱學生|虐待學生|教師操守|專業操守|教師專業操守/,
   steam: /STEAM|STEM/,
   finance: /採購|招標|單一報價|競投|供應商|報價單|分判|貨物|服務合約|財務管理|預算|撥款|開支|報銷|捐款|借款|代收費|利益衝突|申報利益|賄賂|廉署|防賄|資助則例|法團校董|校董會經費|採購門檻|採購程序/,
-  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師/,
+  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童/,
   activity: /全方位學習|活動津貼|課外活動|全方位學習津貼/,
   // SEN — MUST stay before `curriculum` (first-match precedence): "特殊學校課程指引"
   // contains 課程 and would otherwise route to curriculum. \bsen\b/i catches the bare
   // English token (real users type "sen"); the rest catch the Chinese terminology.
   sen: /\bsen\b|\bsenco\b|特殊教育|特殊學校|融合教育|全校參與|統籌主任|特殊學習需要|有特殊教育需要/i,
+  // S142 EDB-sweep §1 — school safety + governance/QA/premises. MUST stay before `curriculum`
+  // (first-match): some terms (視學, 自我評估) contain chars that curriculum would mis-route.
+  safety: /校園安全|學校安全|消防|火警|演習|疏散|職業安全|職安健|實驗室安全|氣體|防墮|斜坡安全|斜坡維修|熱帶氣旋|颱風|暴雨|惡劣天氣|停課安排|安全管理委員會/,
+  gov_admin: /表現指標|學校自我評估|自我評估|問責架構|視學|校外評核|校本管理|法團校董會|學校發展計劃|防貪|內部監控|籌款|校舍|大規模修葺|修葺工程|增設校舍|擴建校舍|更改校名|改校名|學校註冊/,
   curriculum: /課程|科目|教學|學習目標|評估|教材|課程發展|學習領域|教師發展|CPD|專業發展|英文科|中文科|數學科|常識科|科學科|體育科|音樂科|視藝科|小學課程|中學課程|課程指引|學習成果|評核|幼稚園|幼兒|學前|K1|K2|K3|遊戲學習/,
 };
 
@@ -319,8 +356,10 @@ const QUERY_EXPANSIONS: Record<string, string> = {
   sen:          "特殊教育需要 融合教育 全校參與模式 特殊學校課程指引 融合教育運作指南 特殊教育需要統籌主任 SENCO 學生支援組 個別學習計劃 三層支援模式 校本支援 共融校園 照顧學生個別差異 校內考試特別安排 考試調適 評估調適 特別考試安排",
   steam:        "STEAM教育 跨學科 課程更新重點 七大重點 STEAM專責小組 科學科技工程藝術數學",
   finance:    "採購程序 財政限額 報價 招標 採購指引",
-  hr_admin:   "教職員假期 批假 薪酬 操守 病假 首年 168日 上限 醫生證明 教師註冊 聘任",
+  hr_admin:   "教職員假期 批假 薪酬 操守 病假 首年 168日 上限 醫生證明 教師註冊 聘任 基本法及香港國安法測試 過剩教師安排 共享教職 體格檢驗 私立學校聘用 加強保障學童",
   activity:   "全方位學習津貼 活動",
+  safety:     "校園安全 學校安全 消防裝置及設備 職業安全及健康 實驗室安全 預備室 氣體異味事故 安全管理委員會 熱帶氣旋及持續大雨下的安排 惡劣天氣停課 斜坡維修檢查",
+  gov_admin:  "學校表現指標 學校自我評估工具 問責架構 視學 校外評核 校本管理 法團校董會 學校發展計劃 防貪錦囊 內部監控 學校籌款活動 校舍巡察及保養 大規模修葺工程 增設校舍 更改校名 學校註冊 綜合保險計劃",
   curriculum: "課程指引 教學 學習目標",
 };
 

@@ -4441,6 +4441,846 @@
         "content_hash": "e473133db2e05ad9e81696a71451d6160045af7804f37c9208482b52d12f8558",
         "hash_checked_at": "2026-06-04"
       }
+    },
+    {
+      "source_id": "fin_mgmt_notes_aided",
+      "title": "資助學校財務管理注意事項",
+      "title_en": null,
+      "title_short": "資助學校財務管理注意事項",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/checklist/Points%20to%20Note%20on%20Financial%20Management%20of%20Aided%20Schools_c.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/checklist/Points%20to%20Note%20on%20Financial%20Management%20of%20Aided%20Schools_c.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "finance"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=finance), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.finance.",
+      "freshness_metadata": {
+        "content_hash": "922ccc6cb9a2c959cb28a2172f5a0d0dbb790d301ad5ad055007da438685878a",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "perf_indicators_2022",
+      "title": "香港學校表現指標（中學、小學及特殊學校適用）(2022)",
+      "title_en": null,
+      "title_short": "香港學校表現指標（中學、小學及特殊學",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-quality-assurance/performance-indicators/2022_Performance Indicators_TC.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-quality-assurance/performance-indicators/2022_Performance Indicators_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 32p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
+      "freshness_metadata": {
+        "content_hash": "b48faf8e2c6c39d26b8a6f3bb76ffca4e8b275a79d372033d2dff3bd1f311efb",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "sse_tools_2025",
+      "title": "學校自我評估工具及數據小冊子 (2025)",
+      "title_en": null,
+      "title_short": "學校自我評估工具及數據小冊子 (20",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-quality-assurance/performance-indicators/SSE_Tools_2025_TC.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-quality-assurance/performance-indicators/SSE_Tools_2025_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 13p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
+      "freshness_metadata": {
+        "content_hash": "ff080fec1187334ace43f7871dc0b67c0a09e69767c30e0fa0ae50330300867a",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "edbc15_2022_accountability",
+      "title": "教育局通告第15/2022號 優化學校發展與問責架構",
+      "title_en": null,
+      "title_short": "教育局通告第15/2022號 優化學",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-quality-assurance/circulars-letter/EDBC22015TC.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-quality-assurance/circulars-letter/EDBC22015TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 6p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
+      "freshness_metadata": {
+        "content_hash": "856e6cc45ecf9bfa04e405bc3e4cb06f6072df6c43d795af47f8ef3978495180",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "bank_choice_notes",
+      "title": "學校選擇銀行注意事項",
+      "title_en": null,
+      "title_short": "學校選擇銀行注意事項",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/The%20Choice%20of%20Bank%20Counterparties_EDB%20web_tc.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/The%20Choice%20of%20Bank%20Counterparties_EDB%20web_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "finance"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=finance), egress-verified (HTTP200, 1p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.finance.",
+      "freshness_metadata": {
+        "content_hash": "a665b784966489b8b384582ae52c57d800b90154d4920b224044ae29fd00a858",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "edbc13_2022_blnst",
+      "title": "教育局通告第13/2022號 新聘任教師《基本法及香港國安法》測試",
+      "title_en": null,
+      "title_short": "教育局通告第13/2022號 新聘任",
+      "url_landing": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/EDBC13_2022_tc.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/EDBC13_2022_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
+      "freshness_metadata": {
+        "content_hash": "503cfef7a06aabd313a5aa26600161e82be6ba7ea7aa8c598b96fd50660ac0ab",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "edbcm141_2025_blnst",
+      "title": "教育局通函第141/2025號 教師《基本法及香港國安法》測試",
+      "title_en": null,
+      "title_short": "教育局通函第141/2025號 教師",
+      "url_landing": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/EDBCM1412025_tc.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/EDBCM1412025_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 3p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
+      "freshness_metadata": {
+        "content_hash": "830c118541285e43c545bc900c7edf804633e25abd1790a4bffaf9ac9490cd2b",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "embc5_2005_appointment",
+      "title": "教育統籌局通告第5/2005號 學校教職員的聘任",
+      "title_en": null,
+      "title_short": "教育統籌局通告第5/2005號 學校",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/embc%205_2005_c_16.6.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/embc%205_2005_c_16.6.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
+      "freshness_metadata": {
+        "content_hash": "8d7b9526cfe360f78014ed21578aa4ad176269b07968ccdc5504ad9bed2d93cb",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "edbc14_2023_student_protect",
+      "title": "教育局通告第14/2023號 加強保障學童的措施",
+      "title_en": null,
+      "title_short": "教育局通告第14/2023號 加強保",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/EDBC_14_2023_TC.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/EDBC_14_2023_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 9p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
+      "freshness_metadata": {
+        "content_hash": "2a64e75fbdb21a26f7d9f4d51c66402a6229350cb726a3f3fafed801a6de9b20",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "staff_medical_health",
+      "title": "學校員工的體格檢驗及健康狀況",
+      "title_en": null,
+      "title_short": "學校員工的體格檢驗及健康狀況",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/medical%20examination%20and%20health%20condition%20of%20staff_c.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/medical%20examination%20and%20health%20condition%20of%20staff_c.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 1p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
+      "freshness_metadata": {
+        "content_hash": "e722bd5358e6d3768993ccd0bbb91d17b58d06a87122ec25b6f3f763f7a83d31",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "job_sharing_guide",
+      "title": "資助學校處理共享教職指引",
+      "title_en": null,
+      "title_short": "資助學校處理共享教職指引",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/guidelines(web)-job_sharing_c.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/guidelines(web)-job_sharing_c.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 5p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
+      "freshness_metadata": {
+        "content_hash": "a9abc5e4452f2b54bb13277f29ca5ed2d4b76695a76077abc78eb36cc867805d",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "surplus_teacher_arr_2026",
+      "title": "資助中學及特殊學校過剩教師及實驗室技術員的安排 (2026)",
+      "title_en": null,
+      "title_short": "資助中學及特殊學校過剩教師及實驗室技",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/Arrangements for ST and LT 2026_tc.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/Arrangements for ST and LT 2026_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 5p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
+      "freshness_metadata": {
+        "content_hash": "18b317946fa17843ccea893c1ccf85e02e9ac5e1d5c201a2f2bb42a5fb265a73",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "private_sch_employment_notes",
+      "title": "私立學校處理教職員聘用事宜的注意事項",
+      "title_en": null,
+      "title_short": "私立學校處理教職員聘用事宜的注意事項",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/Points_to_Note_Private_C.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/Points_to_Note_Private_C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
+      "freshness_metadata": {
+        "content_hash": "8eda06e80a09dd5a732ba0fc117b9f8a48746e067575848fde0cdb3fe992bc8e",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "edbc22_2024_student_safety",
+      "title": "教育局通告第22/2024號 學生安全及健康",
+      "title_en": null,
+      "title_short": "教育局通告第22/2024號 學生安",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/School Safety and Health/EDBC222024_TC.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/School Safety and Health/EDBC222024_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 2p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
+      "freshness_metadata": {
+        "content_hash": "822c5ea4dc4a17a925ce8046abc0a67b30d34e682fad83e6cee77a194f9a9b33",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "fundraising_guide",
+      "title": "學校籌款活動指引",
+      "title_en": null,
+      "title_short": "學校籌款活動指引",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-fund-raising/guidelinfundraising_c.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-fund-raising/guidelinfundraising_c.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 8p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
+      "freshness_metadata": {
+        "content_hash": "a9f0a27b989ca3819a2830aad03c1f4e41168bbf45ba505cb9642ecfd60eb700",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "edbcm_major_repairs_grant",
+      "title": "教育局通函 大規模修葺工程津貼（2027-28）",
+      "title_en": null,
+      "title_short": "教育局通函 大規模修葺工程津貼（20",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/MR 2027-28_Aided_Circular Memorandum_TChi.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/MR 2027-28_Aided_Circular Memorandum_TChi.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
+      "freshness_metadata": {
+        "content_hash": "ca13d1c3c451a6d85fdd11ac072a06ea735f17e516e16faa0ee7ecebbdcbed49",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "edbc14_2024_spms",
+      "title": "教育局通告第14/2024號 校舍巡察及保養 (SPMS)",
+      "title_en": null,
+      "title_short": "教育局通告第14/2024號 校舍巡",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/EDBC 14-2024_Chin_SPMS_final (issue).pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/EDBC 14-2024_Chin_SPMS_final (issue).pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 3p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
+      "freshness_metadata": {
+        "content_hash": "49f4d7f6f2a4c5a2a0a461f94a95de75f01965f6a2bef4260840a334635a268f",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "sch_extension_guide",
+      "title": "增設校舍指引（校舍設於為學校用途而設計建造的房產）",
+      "title_en": null,
+      "title_short": "增設校舍指引（校舍設於為學校用途而設",
+      "url_landing": "https://www.edb.gov.hk/attachment/en/sch-admin/sch-registration/about-sch-registration/Guidelines 2025 onwards (all 3 languages)/Extension of School Premises (purposely built)/4a_cguide-purpose-built.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/en/sch-admin/sch-registration/about-sch-registration/Guidelines 2025 onwards (all 3 languages)/Extension of School Premises (purposely built)/4a_cguide-purpose-built.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
+      "freshness_metadata": {
+        "content_hash": "eee6db07fa8683c94d458652671e95941987f9e44fc3dc8698e309f9fa57f956",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "sch_name_change_guide",
+      "title": "學校更改名稱的批核準則及程序",
+      "title_en": null,
+      "title_short": "學校更改名稱的批核準則及程序",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-registration/about-sch-registration/4a_cguide-change sch name_Mar 2026.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-registration/about-sch-registration/4a_cguide-change sch name_Mar 2026.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 2p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
+      "freshness_metadata": {
+        "content_hash": "58b3751cd6e022d11ad398e1bf2b7bf6e750e6fa711b872ee0a1b8e0c9ea0d76",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "sdp_guide",
+      "title": "如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）",
+      "title_en": null,
+      "title_short": "如何編寫學校發展計劃（首份校董會/法",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 5p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
+      "freshness_metadata": {
+        "content_hash": "5c0b6a9d9f81e942883c8d8913fba171fdb3b977671c98afe91ac86e09d0ffe7",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "icac_school_governance",
+      "title": "防貪錦囊：學校管治與內部監控 (ICAC)",
+      "title_en": null,
+      "title_short": "防貪錦囊：學校管治與內部監控 (IC",
+      "url_landing": "https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf",
+      "url_primary": "https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 98p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
+      "freshness_metadata": {
+        "content_hash": "04a6e0882d3a006281eb09af142e531511081d5e6151e0d487eb7d480123df03",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "bip_insurance_notes_2025",
+      "title": "學校綜合保險計劃摘要說明 (2025/26 及 2026/27)",
+      "title_en": null,
+      "title_short": "學校綜合保險計劃摘要說明 (2025",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/BIP_Explanatory_Notes_c 2025.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/BIP_Explanatory_Notes_c 2025.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 2p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
+      "freshness_metadata": {
+        "content_hash": "4a3d5211df915908f369bf0534b576ebdac596a9c1abbba731c5404766495c23",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "fire_service_installation",
+      "title": "消防裝置及設備指引",
+      "title_en": null,
+      "title_short": "消防裝置及設備指引",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/fire%20service%20installation%20and%20equipment%20(c).pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/fire%20service%20installation%20and%20equipment%20(c).pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 1p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
+      "freshness_metadata": {
+        "content_hash": "346e51b64d926fbb73d1534160076d09a02d3d834b58db21f553f8d9d295d36b",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "occupational_safety_health",
+      "title": "職業安全及健康指引",
+      "title_en": null,
+      "title_short": "職業安全及健康指引",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/occupational%20safety%20and%20health%20c.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/occupational%20safety%20and%20health%20c.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 2p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
+      "freshness_metadata": {
+        "content_hash": "f8bc7a79022837ae79fba567268d03dbd18737e98721d3573272f019f0bcf320",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "gas_odour_measures",
+      "title": "校內出現氣體異味時應採取措施的指引",
+      "title_en": null,
+      "title_short": "校內出現氣體異味時應採取措施的指引",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/measures%20to%20be%20taken%20in%20case%20of%20incidents_c.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/measures%20to%20be%20taken%20in%20case%20of%20incidents_c.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 1p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
+      "freshness_metadata": {
+        "content_hash": "d009103f9352e63f8b3ab822212b892debc2e018751f2ccbffc996e21eb61e86",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "lab_prep_room_aircon",
+      "title": "實驗室預備室空調設備指引",
+      "title_en": null,
+      "title_short": "實驗室預備室空調設備指引",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/air%20conditioning%20in%20prep%20room%20(c).pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/air%20conditioning%20in%20prep%20room%20(c).pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 5p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
+      "freshness_metadata": {
+        "content_hash": "53254084cf18927d1e6c201796656227d5a36f9ea8b73a09449b326abce27e4d",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "edbc_tropical_cyclone_day",
+      "title": "教育局通告 熱帶氣旋及持續大雨下的安排（幼稚園及日校）",
+      "title_en": null,
+      "title_short": "教育局通告 熱帶氣旋及持續大雨下的安",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC22005C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC22005C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 10p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
+      "freshness_metadata": {
+        "content_hash": "37417054f00203871a088ebb10044bc51dba56c05a34dbeb713ee555397c21fb",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "edbc_tropical_cyclone_night",
+      "title": "教育局通告 熱帶氣旋及持續大雨下的安排（夜校）",
+      "title_en": null,
+      "title_short": "教育局通告 熱帶氣旋及持續大雨下的安",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC22006C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC22006C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 8p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
+      "freshness_metadata": {
+        "content_hash": "104625e95c30798ce43d9f1c427e64065ed42d737d36b68d88ac39c58fa453e6",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "safety_mgmt_committee",
+      "title": "成立學校安全管理委員會程序",
+      "title_en": null,
+      "title_short": "成立學校安全管理委員會程序",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/AD99028C.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/AD99028C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 15p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
+      "freshness_metadata": {
+        "content_hash": "d16764d34cdedebaffc47ec21019e110c7a2ff0d3d713ee2bfd8af2c7baa73d0",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "major_repairs_proc_nonestate",
+      "title": "大規模修葺工程的程序（非屋邨資助學校）",
+      "title_en": null,
+      "title_short": "大規模修葺工程的程序（非屋邨資助學校",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Procedures for MR- non-estate aided school (Chi)_202507(clean).pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Procedures for MR- non-estate aided school (Chi)_202507(clean).pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
+      "freshness_metadata": {
+        "content_hash": "b5e40408c20c15df0d4af849d584fad0c5ef3ac06c740fe2b06b1b941443cda5",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "major_repairs_proc_estate",
+      "title": "大規模修葺工程的程序（屋邨資助學校）",
+      "title_en": null,
+      "title_short": "大規模修葺工程的程序（屋邨資助學校）",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Procedures for MR- estate aided school (Chi)_202507(clean).pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Procedures for MR- estate aided school (Chi)_202507(clean).pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
+      "freshness_metadata": {
+        "content_hash": "0a1a9642468fa66deb086659eeeb8c0332355f67002293cb4063e4d628699a9c",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "emergency_repairs_guide",
+      "title": "資助學校緊急修葺申請指導資料",
+      "title_en": null,
+      "title_short": "資助學校緊急修葺申請指導資料",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Guidance Notes for Submission of Emergency Repairs (ER) Requests by Aided Schools_Chi_202507(clean).pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Guidance Notes for Submission of Emergency Repairs (ER) Requests by Aided Schools_Chi_202507(clean).pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 7p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
+      "freshness_metadata": {
+        "content_hash": "44d13e598780b044fee3e6c41d747340690d127879c214b51b358f51b25c66dc",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "slope_rmi_ei_notes",
+      "title": "斜坡的例行維修檢查及工程師維修檢查須知",
+      "title_en": null,
+      "title_short": "斜坡的例行維修檢查及工程師維修檢查須",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Points%20to%20note%20on%20RMI%20and%20EI_C.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Points%20to%20note%20on%20RMI%20and%20EI_C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 3p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
+      "freshness_metadata": {
+        "content_hash": "b2f0275dfbef4539da5ac9a5f062036c37301dc0bc0d964942f3d470781c3f82",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "blnst_test_notes_nondeg",
+      "title": "基本法及香港國安法測試（非學位程度）申請人須知",
+      "title_en": null,
+      "title_short": "基本法及香港國安法測試（非學位程度）",
+      "url_landing": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/Notes_ND_tc.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/Notes_ND_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 2p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
+      "freshness_metadata": {
+        "content_hash": "5cc4aeb5fbcd526ef4a78ae27c09bac445b3091e23fd542b641844e742434b7a",
+        "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "blnst_test_candidate_notes",
+      "title": "基本法及香港國安法測試（非學位程度）考生須知",
+      "title_en": null,
+      "title_short": "基本法及香港國安法測試（非學位程度）",
+      "url_landing": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/Guidance Notes_ND_tc.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/Guidance Notes_ND_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
+      "freshness_metadata": {
+        "content_hash": "4acc38c60bba363d638f43b948c3948962fa606cbd0185d8af9b7d256c3e6308",
+        "hash_checked_at": "2026-06-04"
+      }
     }
   ]
 }

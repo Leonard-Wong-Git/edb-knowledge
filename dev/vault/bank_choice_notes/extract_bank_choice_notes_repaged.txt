@@ -1,0 +1,42 @@
+# source_id: bank_choice_notes
+# title: 學校選擇銀行注意事項
+# fact_type: policy
+# topic_tags: finance
+# url: https://www.edb.gov.hk/attachment/tc/The%20Choice%20of%20Bank%20Counterparties_EDB%20web_tc.pdf
+# source_type: pdf
+# extracted: 20260604
+# pipeline: S142 EDB-sweep §1 batch repage (PyMuPDF page-by-page; sch-admin full-text policy)
+# ============================================================
+
+=== Page 1 ===
+ 
+ 
+銀行選擇 
+ 
+ 
+本文旨在重申學校在選擇銀行時的現行指引。 
+ 
+(a) 
+本局建議學校把毋須即時動用的剩餘款項存入銀行。香港金融管理局（金
+管局）已就政府各政策局／部門選擇銀行的事宜發出指引。本文載述該指
+引的重點，以協助學校處理剩餘款項。  
+ 
+(b) 
+為保障學校的利益，學校的各項收入（不論來自政府或其他來源）均應以
+最低風險的方式儲存。 
+ 
+(c) 
+學校可把毋須即時動用的剩餘款項存入根據《銀行業條例》獲發牌的銀行，
+作定期或儲蓄存款。 
+ 
+(d) 
+鑑於金管局的指引，學校宜把款項分散存入數間持牌銀行，以確保存款風
+險由兩至三間銀行分擔，學校在每間銀行的存款應不超逾該款項總額的
+50%。如學校所管理的款項超逾港幣500萬元，則在任何一間銀行的存款
+應不超逾該款項總額的20%。 
+ 
+ 
+ 
+ 
+教育局 
+二零二五年四月
