@@ -130,6 +130,10 @@ PILOT_LEGACY = {
     "g10": [VAULT_DIR / "g10" / "extract_g10.txt"],
     # S138 SEN data-gap backfill: 《全校參與模式融合教育運作指南》(2026-01) — §E.12 (registry wsa hub html → direct SENSE-portal PDF; mojibake pre-flight CLEAN).
     "g19": [VAULT_DIR / "g19" / "extract_g19.txt"],
+    # S141 SEN-adjacent backfill: 《為有特殊教育需要學生提供校內考試特別安排》(2025-09) — sea_guide_c.pdf
+    # discovered under the sen_curr_area hub (the 3 named 0-chunk ids were hub/HTML-only/dup; this is
+    # the only clean page-carryable PDF). mojibake pre-flight CLEAN. Same stub-seed path as g10/g19.
+    "sen_exam_arrangements_2025": [VAULT_DIR / "sen_exam_arrangements_2025" / "extract_sen_exam_arrangements_2025.txt"],
 }
 
 # source_id -> consolidated output filename (single repaged extract per source)
@@ -212,6 +216,8 @@ PILOT_OUT = {
     "g10": VAULT_DIR / "g10" / "extract_g10_repaged.txt",
     # S138 SEN data-gap backfill: 《全校參與模式融合教育運作指南》(2026-01)
     "g19": VAULT_DIR / "g19" / "extract_g19_repaged.txt",
+    # S141 SEN-adjacent backfill: 《為有特殊教育需要學生提供校內考試特別安排》(2025-09)
+    "sen_exam_arrangements_2025": VAULT_DIR / "sen_exam_arrangements_2025" / "extract_sen_exam_arrangements_2025_repaged.txt",
 }
 
 

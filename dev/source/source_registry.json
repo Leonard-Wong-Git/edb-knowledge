@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-06-03",
+    "updated": "2026-06-04",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -4413,6 +4413,33 @@
         "etag": "\"315ee367cddc1:0\"",
         "content_hash": "81610ddaabe80e72c3f1aa8d5d2502efb76d2b0d6d893b2a463a8722c7863152",
         "hash_checked_at": "2026-06-03"
+      }
+    },
+    {
+      "source_id": "sen_exam_arrangements_2025",
+      "title": "《為有特殊教育需要學生提供校內考試特別安排》(2025)",
+      "title_en": "Special Examination Arrangements for Students with Special Educational Needs",
+      "title_short": "SEN校內考試特別安排",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/special-educational-needs/index.html",
+      "url_primary": "https://sense.edb.gov.hk/uploads/page/integrated-education/guidelines/sea_guide_c.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "student"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2025-09",
+      "last_checked_at": "2026-06-04",
+      "supersedes": null,
+      "notes": "S141 SEN-adjacent backfill: discovered under the special-educational-needs curriculum-area hub (sen_curr_area, source_type=html → 0 own chunks; the hub's main child 《特殊學校課程指引》is already g10). Distinct current full-text SEN policy guideline — 《為有特殊教育需要學生提供校內考試特別安排》二零二五年九月(修訂) (HTTP 200, 46 pages, mojibake pre-flight CLEAN). Hosted on SENSE portal (sea_guide_c.pdf); NOT a duplicate of g19 ie_guide_ch.pdf. The 3 originally-targeted 0-chunk ids yielded no other page-carryable PDF (g14 = HTML-only multi-chapter, no PDF/structural ceiling; gifted_policy_docs = static nav-only; sen_curr_area = hub). See SESSION_LOG S141. Added to backend SOURCE_SETS.sen.",
+      "freshness_metadata": {
+        "last_modified": "Tue, 16 Sep 2025 01:38:59 GMT",
+        "content_length": "1496938",
+        "etag": "\"1d2e9dacaa26dc1:0\"",
+        "content_hash": "e473133db2e05ad9e81696a71451d6160045af7804f37c9208482b52d12f8558",
+        "hash_checked_at": "2026-06-04"
       }
     }
   ]
