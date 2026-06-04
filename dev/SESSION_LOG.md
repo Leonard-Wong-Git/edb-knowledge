@@ -2,6 +2,92 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-04 Session 141 — SEN/資優 0-chunk 補完：sea_guide_c.pdf page-carry +51（生產 live；3 個 named id 證實結構天花板；0 knowledge/guidelines mutation）
+
+- **ID:** Claude_20260604_1500
+- **Trigger:** Leonard 開工選下一階段方向 = **「g14+資優 SEN 補完」**（handoff Open Priorities #1(a)：g14/sen_curr_area/gifted_policy_docs 仍 0 Supabase chunks、SEN-adjacent gap）。
+- **§3 Risk:** HIGH（外部 EDB fetch + Supabase data mutation + 線上 deploy）→ 出 PLAN 等確認 → Phase-0 read-only crawl → STOP gate 報 curate → Leonard 拍板 → Phase 1-2 mutation。
+
+### 起手自測（verify-load-bearing-state-not-docs）
+- HEAD `e8bddaa`(S140 closeout)==origin/main ✓ / Channel A facts 455 ✓ / role_facts.json byte-identical(md5) ✓ / 公開 guidelines live 152 v2.5.0 ✓ / onrender /health 200(冷啟喚醒 11.4s) ✓ / Supabase total 9,912 ✓。
+- 雙讀(防 429 偽零)確認 g14=0 / sen_curr_area=0 / gifted_policy_docs=0（claim 屬實）；g10=129 g19=116 sanity ✓。
+
+### Phase-0 read-only crawl（3 個 named id；0 mutation）
+- **g14《校本資優培育課程指引》= 純 HTML 14 分章**（引言+6章+附錄+參考+委員+鳴謝），EDB **無 PDF 版** → 無 `#page=N`、違北極星可追溯頁數 = **結構天花板**。gifted hub 15 PDF 係 resource kit/booklet/海報、非 g14 指引本身。
+- **gifted_policy_docs = 靜態 nav-only 頁**（static HTML 只得 mega-nav、無內容文件連結）。
+- **sen_curr_area = curriculum-area hub**：主 child《特殊學校課程指引》= g10（已 ingest 129）；子頁爆成 ~179 智障學生學科改編 exemplar（115+19+2+43，逐科教學示例=另一大 scope 噪音、非政策指引）。
+- **唯一真‧淨增益 PDF = sea_guide_c.pdf**：《為有特殊教育需要學生提供校內考試特別安排》二零二五年九月(修訂)、46p、SENSE portal、mojibake pre-flight CLEAN（CJK 1350 / U+FFFD 0）、與 g19 ie_guide_ch.pdf 唔同檔。
+- **STOP 報 Leonard** → curate「3 個 named id 真增益僅 1 份」→ Leonard 揀「只 ingest sea_guide（建議）」。
+
+### CHANGE（Phase 1-2）
+- **registry**：+`sen_exam_arrangements_2025`（source_type=pdf、url_primary=SENSE 直連 PDF、topic_tags=[student]、version_label=2025-09、freshness_metadata seeded〔content_hash e473133d…〕、notes 記 hub-discovery + 3 id 結構天花板）；151→**152**、`_meta.updated`→2026-06-04；diff 純加法（29 ins / 2 del = updated 日期 + 末尾逗號）。
+- **vault**：seed header stub → `repage_pdfs.py` PILOT_LEGACY/PILOT_OUT +1 → Gate1 `--write` **46 pages = 46 markers**（stub backup→init_backup、removed）。
+- **Supabase**：`cb3_b2_pagecarry_migrate.py --only sen_exam_arrangements_2025 --execute --skip-local` → **del=0 ins=51 純 INSERT**、now=51 OK；total 9,912→**9,963**；chunks 帶 `=== Page N ===`、title/url 正確。
+- **backend**：`searchChannelB.ts` SOURCE_SETS.sen +`sen_exam_arrangements_2025`（S135 backfill-allowlist coupling）+ QUERY_EXPANSIONS.sen 加「校內考試特別安排/考試調適/評估調適/特別考試安排」。
+
+### QC / Test Scenarios（§3d）
+| Scenario | Expected | Actual | Result |
+|---|---|---|---|
+| repage Gate1 | markers==pages | 46==46 | PASS |
+| cb3_b2 Gate2（新源純加法）| del=0 純 INSERT | del=0 ins=51 now=51 | PASS |
+| Supabase total | 9,912→9,963 | 9,963 | PASS |
+| 頁碼可追溯（北極星）| chunks 帶 `=== Page N ===` | p=1..46 confirmed | PASS |
+| typecheck + build | exit 0 | check 0 / build 0 | PASS |
+| Normal: 特殊教育需要 校內考試特別安排 | 新源 surface 帶頁碼 | 新源 #1 p=9 @0.74 + #6 p=44 | PASS |
+| Regression bare「sen」| sen route 非回歸 | g19/g06 共存、新源 #4 | PASS |
+| Regression 英文科課程指引 | NOT route sen | route curriculum cluster、零污染 | PASS |
+| Broader 融合教育 SENCO | SEN corpus surface | g19 主導 + 新源 #4 帶頁碼 | PASS |
+
+### Sources changed
+- `dev/source/source_registry.json`（+1 source、151→152）；`dev/vault/sen_exam_arrangements_2025/extract_sen_exam_arrangements_2025_repaged.txt`（NEW）；`dev/vault/repage_pdfs.py`（PILOT_LEGACY/PILOT_OUT +1）；`backend/src/api/searchChannelB.ts`（SOURCE_SETS.sen + QUERY_EXPANSIONS.sen）；`dev/PROJECT_MASTER_SPEC.md`（§16 +S141 + 結構天花板釐清）；`dev/DOC_SYNC_CHECKLIST.md`（+row）；`dev/CODEBASE_CONTEXT.md`；`dev/SESSION_HANDOFF.md`；`dev/SESSION_LOG.md`。
+- **NOT modified:** Supabase 其他源 / knowledge.json / guidelines.json / role_facts.json / app.html。
+- commit `e7215e2`（code+data：registry/repage/vault/backend；指定檔勿 -A）origin/main；PERSIST docs 本 entry。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Channel-B vault source backfill / page-carry into Supabase（S122-S141 recurring）| registry + backend SOURCE_SETS/QUERY_EXPANSIONS parity + SESSION_HANDOFF baseline + SESSION_LOG + CODEBASE Directory Map/Maint Log | ✓ Row added（此前無精確 row = registry gap）+ ✓ Done |
+| Long-term spec / structural-ceiling | PMS §16（g14/gifted_policy_docs/sen_curr_area 標勿再 ingest）| ✓ Done |
+
+### lesson（§8 monitoring）
+- **hub-page 真增益細**（S140 landing-curate 教訓再印證、cross-id recurrence）：handoff 假設「可沿 g10/g19 §E.12 pattern 補」，但 3 個 named id 實測係 hub/HTML-only/dup，唯一可 page-carry 得 1 份 → **verify-don't-trust + Phase-0 crawl + STOP gate 救返**（避免對結構天花板源跑無謂 ingest）。
+- g14 類「HTML-only 多分章無 PDF」guideline = 結構天花板新子類（之前 9 源 = HTML-landing + xlsx）；無頁碼不入 page-carry pipeline。已 codify PMS §16。
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。S135-S141 證實 EDB + onrender + Supabase egress 均通；仍每次自測。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S141 (2026-06-04)：**SEN/資優 0-chunk 補完完成、push live、QC 全 PASS**。HEAD origin/main 起手自行 verify（S141 commit `e7215e2`）。
+- Leonard 揀「g14+資優 SEN 補完」→ Phase-0 read-only crawl 3 個 named 0-chunk id（g14/sen_curr_area/gifted_policy_docs）證實**全屬 hub/HTML-only/dup**（g14 純 HTML 無 PDF=結構天花板；gifted_policy_docs nav-only；sen_curr_area hub 主 child=g10）→ STOP curate「真增益僅 1 份」→ Leonard 揀只 ingest sea_guide。
+- **唯一真政策 PDF** sea_guide_c.pdf《為有特殊教育需要學生提供校內考試特別安排》(2025-09、46p) → 新 registry `sen_exam_arrangements_2025`(151→152) + repage Gate1 46/46 + cb3_b2 Gate2 **del=0 ins=51**（Supabase 9,912→**9,963**）+ backend SOURCE_SETS.sen + QUERY_EXPANSIONS.sen + live SEN smoke PASS（新源 #1 p=9 帶頁碼、curriculum 零污染）。
+- **3 個 named id 標結構天花板/勿再 ingest** 已 codify PMS §16。
+
+Current objective and progress state:
+- Baseline：Supabase **9,963** chunks（S141 +51 sea_guide）/ **104 marker-bearing** / CB-3 final ceiling ~88% / 公開 guidelines.json 152 v2.5.0 / registry 152 / brand live policychecker.wongfu.net。**0 outstanding bug**。
+
+Pending tasks in priority order:
+1. **下一階段方向（待 Leonard 明示）**：Q4 對外契約收斂（Channel A→knowledge.json→Circular System、3 選項、敏感、未明示勿掂）/ §8b rule 2 automation（semantic-supersede KLA-title embedding similarity check sub-agent）。
+2. **觀察（非阻塞）**：freshness scheduled 週跑（週一 09:00 UTC）開 freshness-change Issue；57014 cold-start mask；knowledge.json._meta.stats.guidelines=39 stale follow-up；Suppl_guide 非華語補充指引 PDF held 待人核。
+3. 既有 deferred：§E.10(a) ACCEPTED conditional / FAIL-A record-only / stat_fact 2025/26 ROI≈0 / HKEAA。
+
+Key files changed this session:
+- registry(+sen_exam_arrangements_2025 151→152)；dev/vault/sen_exam_arrangements_2025/(NEW repaged)；repage_pdfs.py(PILOT +1)；backend/searchChannelB.ts(SOURCE_SETS.sen + QUERY_EXPANSIONS.sen)；PMS §16；DOC_SYNC(+row)；CODEBASE/HANDOFF/LOG。commit `e7215e2`。
+
+Known risks / blockers / cautions:
+- 🟢 0 outstanding bug。S141 純加法（現有 chunks 0 lost、可 git revert + Supabase DROP）。
+- 既有不變: 🔴 57014 transient(S139 backend retry；exhaust 後仍 400); FAIL-A(record-only); §E.10(a) ACCEPTED conditional; q.html/A·AB dormant 勿清; Q4 deferred 未明示勿掂; Stage-2 closed 勿復活; egress 每次自測; 路徑空格雙引號; wiki_chunks 欄名 `text` 非 `content`; guidelines.json 勿手寫(build_guidelines.py); 改 Draft code/data commit 必入 SESSION_LOG; init_backup gitignored; **g14/gifted_policy_docs/sen_curr_area 結構天花板勿再 ingest（PMS §16）**。
+
+Validation status:
+- repage Gate1 46/46 / cb3_b2 Gate2 del=0 ins=51 now=51 OK / Supabase 9,963 / typecheck+build exit 0 / live SEN smoke 4/4 PASS（新源帶頁碼 + curriculum 零污染 + bare sen 非回歸）。
+
+Post-startup first action: 完成 §1 + HANDOFF_PACKAGE 起手序 + 自測（git HEAD e8bddaa→S141 commit / facts 455 / onrender /health / Supabase 9,963 / guidelines live 152）+ lazy-query playbook INDEX 後，問 Leonard 下一階段方向（Q4 對外契約〔敏感未明示勿掂〕/ §8b rule 2 automation）。可順手睇 GitHub 有冇 freshness-change Issue。未 Leonard 明示前唔好自行掂 Q4 / reopen §E.10 / 動 Stage-2 / 手寫 guidelines.json / 再 ingest g14·gifted_policy_docs·sen_curr_area（結構天花板）。
+```
+
 ## 2026-06-03 Session 140 — 公開 guidelines.json 39→148（全集投影 + landing-curate +9 + 修 3 data bug）+ NEW generator（對外契約變更；0 Supabase/backend/knowledge mutation）
 
 - **ID:** Claude_20260603_1600
