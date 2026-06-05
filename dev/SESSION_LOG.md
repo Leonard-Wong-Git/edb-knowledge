@@ -40,6 +40,13 @@
 ### §5 收生/學位分配 ✅（3 文件、+46 chunks、NEW placement 路由）
 - 爬 spa-systems 7 子頁 51 PDF → 真政策 3（多家長表格/FAQ/名單/HTML 機制 = NOISE）。EDBC18/2019 中學學位分配辦法(11p) + STIMS 學生資料管理系統指引(21p) + 中四學位安排機制(2026)。剔 P1 addendum（英文空）。registry 200→**203**；Supabase 10,548→**10,594**；NEW placement route（P1/SSPA/S4/STIMS）。commit 見 push。
 
+### §6-9 評估（bounded / 飽和，0 ingest）+ SWEEP 核心完成
+- **§6 通函 EDBC/EDBCM:** EDB circular 系統 = ASP.NET app（`td.circularResultRow` + ViewState，PMS §E 記）→ 不可靜態枚舉。高價值 admin 通函已喺 §1-5 經 section 連結捕捉（共 ~18 條 EDBC/EDBCM 入庫）。Exhaustive 枚舉需驅動 ASPX 表單（成本高 + 多數 operational/dated/topic-specific noise）→ out-of-scope，文檔化。
+- **§7 SEN:** S141 已補（sea_guide + g10/g19 + g06）；g14/gifted = 結構天花板（S141 documented）。0 net-new。
+- **§8 課程:** ~130 curriculum docs 已飽和（KLA/各科 C&A/通函齊全）。0 net-new。
+- **§9 雜:** 非華語 g09 ✅、國安 eng_nat_sec_2025+nat_sec_edu ✅、IT g28 ✅。Suppl_guide held（S140 待人核）。0 net-new。
+- **SWEEP 核心完成：§1-5（學校行政/教師人事/學生支援/安全健康/收生派位）= EDB「營運學校」高價值核心全掃，+51 政策文件 / +631 chunks / 6 新路由（gov_admin/safety/student_support/placement + 擴 finance/hr_admin/cpd）。Channel B 對學校管理人員 substantially「夠用」= Q4 前置條件達成。**
+
 ### Next Session Handoff Prompt (Verbatim)
 （見下方 S142 running；逐範疇完成後更新。本 entry 為 RUNNING，§2-9 完成陸續補。）
 
