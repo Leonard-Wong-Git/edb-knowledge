@@ -20,6 +20,7 @@
 - **blocker 2**：manifest_hash 只 hash id-set → 換 embedding model 但 id 不變時 304 consumer 永遠睇唔到 = silent contract break。**修**：manifest_hash 摺入 contract_version+embedding_model。
 - **majors 修**：bulk feed = search superset（stat_fact+原始向量，`include_statistical` 預設 false）／ single static key → timingSafeEqual+401/403/503-fail-closed+多key rotation+daily exfil budget ／ manifest O(N) server scan（304 慳 client 唔慳 server）+ 57014 全表掃 own retry+Range ／ embedding 文字格式+null 語義+null 欄位永遠 present ／ batch 500→150 + `in.()` URL 長度 ／ 缺 id=pending-add 勿 tombstone ／ sync route 勿 call setCorsHeaders。
 - → 重寫 **v0.2**（全 blocker/major 收；§11 留 4 開放決策交 Leonard）。
+- **§11 決策（S144 Leonard 逐條拍板，spec → v0.3 定稿）：** (1) stat chunks **預設排除**（include_statistical=false）；(2) ship 向量 **default**（下游 embedding model 未定、待 re-check、include_embedding param 兩路控、不卡 build）；(3) 限流/budget **照建議**（60/min + 每日 ≈3× 全庫 + 多 key 季度輪換）；(4) **淨靠下游 delete-safety**（K1 不加 sentinel、pipeline 不改、ingest_in_progress 欄保留回 false）。**下一步 = endpoint build §3 HIGH-risk PLAN，待 Leonard GO。**
 
 ### 唔掂（邊界守住）
 - 0 endpoint build、0 掂下游 repo（§A.3）、0 改 Supabase schema/RPC/upload pipeline、0 un-freeze Channel A、0 手寫 knowledge.json/guidelines.json。

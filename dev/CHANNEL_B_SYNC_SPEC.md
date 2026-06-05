@@ -1,6 +1,6 @@
 # Channel B Incremental-Sync Migration Spec（K1-side）
 
-**版本**: 0.2（draft，已過一輪對抗審核 hardening；待 Leonard review 後定）
+**版本**: 0.3（§11 開放決策 S144 Leonard 全部拍板 RESOLVED；契約定稿，待 endpoint build PLAN）
 **建立**: 2026-06-05 · Session S144（Claude）
 **狀態**: 契約設計稿 — **K1-side 端點未 build**（本 spec 只定契約；endpoint 屬後續 dormant/reversible build task）
 **用途**: 定義下游 **Circular System** 由「消費 frozen `knowledge.json`（Channel A @455）」**增量同步（incremental sync）消費 Channel B**（Supabase `wiki_chunks`，現 10,594 chunks）所需嘅 **K1 端契約**。
@@ -89,7 +89,7 @@ Query (可選): ?include_statistical=false  &  ?cursor=<id>&limit=5000
 - `chunks[]` 只含 `{id, source_id, hash}`（無 text/向量）→ ~10,594 × ~90B ≈ ~1MB raw、gzip ~150–250KB。
 - **`manifest_hash` 必須涵蓋 `contract_version` ＋ `embedding_model` ＋ 排序後 id-set**（修 blocker 2：若只 hash id-set，換 embedding model 但 id 不變 → ETag 不變 → 304 → 下游永遠睇唔到版本變 = silent break）。排序後計 → order-independent，避免行序差異造成假變更。
 - **`ETag` = 對「實際送出嘅 payload」計（同一 snapshot），唔好獨立重算**，免 body/ETag desync。
-- **`ingest_in_progress`**（consistency guard，修 blocker 1 之 K1 側選項）：若 K1 偵測到 upload pipeline 進行中，serve **last-consistent snapshot** 並標 `true`，下游見 `true` 即**跳過本輪 delta**（尤其跳 deletes）。即使 K1 無此 guard，下游 §5 delete-safety 亦獨立防護（belt + suspenders）。
+- **`ingest_in_progress`**（consistency guard 欄位）：**S144 決策 = K1 v1 不實作 sentinel、永遠回 `false`**（upload pipeline 不改）；一致性**淨靠下游 delete-safety**（§5 / §11.4）。欄位保留入契約俾將來：若日後 K1 加 sentinel，下游邏輯（見 `true` 即跳本輪 delta、尤其跳 deletes）無需改。
 - **`source_aliases`**：K1 內部 `SOURCE_ALIASES`（同文件不同 source_id），俾下游 dedup。
 - **`include_statistical`**（預設 `false`，鏡 search 預設）：見 §6「superset」說明。
 - **分頁**：`?cursor=<id>&limit=`（id lexical order 穩定，live `order=id` HTTP 200）；回 `next_cursor`。v1.0 N 細未必需要、契約留位。
@@ -227,12 +227,12 @@ apply_deletes(deletes)
 
 ---
 
-## 11. 開放決策（交 Leonard；不阻 spec 定稿）
+## 11. 決策（S144 Leonard 逐條拍板 — RESOLVED）
 
-1. **Stat / guideline chunks 是否入 feed**：bulk = search superset。下游要全 Channel B breadth 通常想要；但 `stat_fact` 可能噪音。預設 `include_statistical=false`，你話事。
-2. **預設 ship 向量定 text-only**：對齊 3-small（路 1）則 ship；若下游用第二 model（路 2）預設 `include_embedding=false` 慳大量頻寬。需 §7 #4 答案。
-3. **Daily exfil budget 數值** + key rotation 節奏。
-4. **是否要 K1 側 `ingest_in_progress` guard**（多一層、需 pipeline 寫 sentinel）定淨靠下游 delete-safety（零 pipeline touch、已足）。
+1. **Stat / guideline chunks 入 feed**：✅ **預設排除**（`include_statistical=false`，鏡 Channel B search 預設）。下游要全廣度可顯式帶 `include_statistical=true`。
+2. **預設 ship 向量定 text-only**：⏳ **下游 query 端 embedding model 未定（待下游 re-check）→ K1 預設 ship 向量**（`include_embedding=true`）。下游若確認用 `text-embedding-3-small` 即零重嵌直接食；若改用第二 model，call 時帶 `include_embedding=false` 慳頻寬、自行重嵌。**Endpoint build 不被此卡住**（純 param 控）；惟下游**正式接入前必須確認 query 端 model**（§7 硬 invariant）。
+3. **限流 / exfil budget / key rotation**：✅ **照建議** — sync 端點 60 req/min + 每日 chunk/bytes 上限 ≈ 3× 全庫拉取量 + 多 key（逗號分隔 env）季度輪換。
+4. **一致性保護**：✅ **淨靠下游 delete-safety**（整源 deletes 兩 poll 確認；零 pipeline touch）；**不加** K1 `ingest_in_progress` sentinel。manifest `ingest_in_progress` 欄保留但 K1 v1 永遠回 `false`（§3）。
 
 ---
 
