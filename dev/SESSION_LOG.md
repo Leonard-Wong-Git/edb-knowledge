@@ -37,6 +37,9 @@
 - **校園安全 core 已喺 §1 safety route**（消防/職安/實驗室/氣體/熱帶氣旋/斜坡/安全管理委員會，由 sch-admin/about-sch/sch-safety 31 PDF curate）→ §4 唔重做。
 - **健康校園 net-new 3**：EDBC100/2002（禁毒健康校園 circular）、hsp_framework（健康校園政策架構）、hsp_drug_testing_2026（含測檢元素計劃）。剔 brief/化驗所操作（low-cjk slides）。registry 197→**200**；Supabase 10,534→**10,548**；route=student_support（+健康校園/禁毒/藥物測試 keyword）。commit `3d815c0`。
 
+### §5 收生/學位分配 ✅（3 文件、+46 chunks、NEW placement 路由）
+- 爬 spa-systems 7 子頁 51 PDF → 真政策 3（多家長表格/FAQ/名單/HTML 機制 = NOISE）。EDBC18/2019 中學學位分配辦法(11p) + STIMS 學生資料管理系統指引(21p) + 中四學位安排機制(2026)。剔 P1 addendum（英文空）。registry 200→**203**；Supabase 10,548→**10,594**；NEW placement route（P1/SSPA/S4/STIMS）。commit 見 push。
+
 ### Next Session Handoff Prompt (Verbatim)
 （見下方 S142 running；逐範疇完成後更新。本 entry 為 RUNNING，§2-9 完成陸續補。）
 
