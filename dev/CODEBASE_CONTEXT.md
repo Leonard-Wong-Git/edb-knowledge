@@ -149,8 +149,8 @@
 - Response path: JSON array of rows; `embedding` column = pgvector text string `"[f,f,…]"` (1536-dim) or `null` (PostgREST omits SQL NULLs → channelBSync coerces role/school_level/reference_year to explicit null)
 - Official docs: PostgREST v12 (Supabase managed) — resource embedding / `in.()` / `Range` pagination
 - Doc-reviewed: 2026-06-05 (Claude_20260605_1513) — select/`in()`/`Range`/anon-header facts from `wikiRepository.ts` proven pattern + live `wiki_chunks` columns
-- Test-verified: 2026-06-05 (Claude_20260605_1513) local gate/validation smoke PASS (503/401/403/400, generic-502, no-CORS); **manifest/chunks 200 + embedding read = PENDING post-deploy live smoke** (local `.env` lacks `SUPABASE_ANON_KEY`/`SUPABASE_URL` → anon path only exercisable on Render)
-- Notes: net-new table-read path (NOT the `match_wiki_chunks` RPC). X-Sync-Key gated, NO CORS (server-to-server). **Load-bearing assumption**: anon role can SELECT `wiki_chunks` incl. the `embedding` column (S121 table-level SELECT) → must confirm on first live smoke; if anon cannot read `embedding`, path-1 (`include_embedding=true`) breaks.
+- Test-verified: 2026-06-05 (Claude_20260605_1513) local gate/validation smoke PASS (503/401/403/400, generic-502, no-CORS). **LIVE smoke PASS post-deploy** (Leonard ran with real key on `edb-knowledge.onrender.com`): `POST /chunks` 200 returns all 13 fields incl. explicit-null `role`/`school_level`/`reference_year` + `embedding` = pgvector text string `"[…]"` 1536-dim (~19,181 chars) → **anon CAN read the `embedding` column, path-1 confirmed**; 400 max_ids guard live; key gate live (valid key reaches 400 validation).
+- Notes: net-new table-read path (NOT the `match_wiki_chunks` RPC). X-Sync-Key gated, NO CORS (server-to-server). Load-bearing assumption (anon SELECT incl. `embedding` column) **CONFIRMED live 2026-06-05** — anon returns the 1536-vec embedding string. Endpoints LIVE (`CHANNEL_B_SYNC_KEY` set on Render).
   - Free-tier `57014` statement-timeout occasional under probes=8 — known transient, retry recovers (PMS §C.4).
 
 ### MemPalace — REMOVED 2026-05-18 (S115, Leonard 指示)
