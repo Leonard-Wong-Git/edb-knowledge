@@ -266,12 +266,28 @@ const SOURCE_SETS: Record<string, string[]> = {
   ],
 
   /**
-   * Governance / Quality Assurance / Premises / Registration — 校政管治, 視學/自評,
-   * 問責架構, 校本管理, 防貪內部監控, 校舍修葺, 增設校舍/更改校名, 學校發展計劃, 籌款.
+   * Quality Assurance / School inspection / Self-evaluation — 視學, 校外評核(ESR),
+   * 學校自我評估(SSE), 表現指標, 質素保證, 問責架構, 校本管理. Split out of gov_admin
+   * (S143): bare short QA tokens (e.g. "視學") under-recalled because the docs use the
+   * newer 校外評核/自我評估/問責 vocabulary and gov_admin carries NO expansion. A dedicated
+   * tight route + targeted expansion bridges the vocabulary gap WITHOUT diluting the broad
+   * gov_admin/safety queries (the S142 over-expansion regression). Tight SOURCE_SET + the
+   * per-source quota keep SAG bounded, so expansion is safe here.
+   */
+  qa_inspection: [
+    "sse_tools_2025",             // 學校表現評量/自我評估 (SSE) tools
+    "perf_indicators_2022",       // 表現指標
+    "edbc15_2022_accountability", // 校外評核/問責架構/校本管理
+    "sag_2025_11",
+    "role_facts_general",
+  ],
+
+  /**
+   * Governance / Premises / Registration — 防貪內部監控, 校舍修葺, 增設校舍/更改校名,
+   * 學校發展計劃, 籌款, 法團校董會, 學校註冊. (QA/視學/自評/問責 → qa_inspection above, S143.)
    * S142 EDB-coverage sweep §1 (學校行政及管理). routing-not-cutoff lever.
    */
   gov_admin: [
-    "perf_indicators_2022", "sse_tools_2025", "edbc15_2022_accountability",
     "icac_school_governance", "fundraising_guide", "edbcm_major_repairs_grant",
     "edbc14_2024_spms", "sch_extension_guide", "sch_name_change_guide", "sdp_guide",
     "bip_insurance_notes_2025", "major_repairs_proc_nonestate", "major_repairs_proc_estate",
@@ -352,7 +368,12 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // S142 EDB-sweep §1 — school safety + governance/QA/premises. MUST stay before `curriculum`
   // (first-match): some terms (視學, 自我評估) contain chars that curriculum would mis-route.
   safety: /校園安全|學校安全|消防|火警|演習|疏散|職業安全|職安健|實驗室安全|氣體|防墮|斜坡安全|斜坡維修|熱帶氣旋|颱風|暴雨|惡劣天氣|停課安排|安全管理委員會/,
-  gov_admin: /表現指標|學校自我評估|自我評估|問責架構|視學|校外評核|校本管理|法團校董會|學校發展計劃|防貪|內部監控|籌款|校舍|大規模修葺|修葺工程|增設校舍|擴建校舍|更改校名|改校名|學校註冊/,
+  // S143 — QA/inspection split out of gov_admin (placed before it, first-match) so bare
+  // short QA tokens (視學/校外評核/自我評估/表現指標/問責/校本管理) route here and get the
+  // targeted expansion. Uses 自我評估 (NOT bare 評估) so it never steals curriculum
+  // assessment queries; still before `curriculum` for first-match.
+  qa_inspection: /視學|校外評核|學校自我評估|自我評估|表現指標|質素保證|問責架構|問責|校本管理/,
+  gov_admin: /法團校董會|學校發展計劃|防貪|內部監控|籌款|校舍|大規模修葺|修葺工程|增設校舍|擴建校舍|更改校名|改校名|學校註冊/,
   curriculum: /課程|科目|教學|學習目標|評估|教材|課程發展|學習領域|教師發展|CPD|專業發展|英文科|中文科|數學科|常識科|科學科|體育科|音樂科|視藝科|小學課程|中學課程|課程指引|學習成果|評核|幼稚園|幼兒|學前|K1|K2|K3|遊戲學習/,
 };
 
@@ -387,10 +408,14 @@ const QUERY_EXPANSIONS: Record<string, string> = {
   hr_admin:   "教職員假期 批假 薪酬 操守 病假 首年 168日 上限 醫生證明 教師註冊 聘任",
   activity:   "全方位學習津貼 活動",
   // S142: safety + gov_admin intentionally have NO expansion. Their SOURCE_SETS span
-  // diverse doc types (fire/cyclone/lab/slope; QA/premises/registration); a single
+  // diverse doc types (fire/cyclone/lab/slope; premises/registration); a single
   // expansion string would dilute focused queries toward the highest-chunk-count doc
   // (over-expansion regression caught in S142 smoke: cyclone drowned 消防; edbc14 drowned g04).
   // SOURCE_SET filter + the query's own terms surface the right doc without dilution.
+  // S143 EXCEPTION — qa_inspection DOES expand: its SOURCE_SET is tight (3 QA docs + SAG)
+  // and single-topic, so bridging 視學→校外評核/自我評估/表現指標 vocabulary lifts recall
+  // without the cross-topic dilution that broad gov_admin/safety expansion would cause.
+  qa_inspection: "校外評核 學校自我評估 表現指標 質素保證 問責架構 校本管理 學校發展",
   curriculum: "課程指引 教學 學習目標",
 };
 
