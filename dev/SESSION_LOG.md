@@ -2,7 +2,7 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
-## 2026-06-05 Session 144 — Q4 Phase 2 整合模型決策（Incremental sync）+ K1-side Channel B 同步契約 spec v0.2 起草（過對抗審核）— RUNNING
+## 2026-06-05 Session 144 — Q4 Phase 2 模型決策（Incremental sync）+ Channel B sync 契約 spec v0.3 定稿 + 下游 prompt + display/version drift 記錄 — CLOSED
 
 - **ID:** Claude_20260605_1338
 - **Trigger:** 新 session 起手自測全對賬 → Leonard 同意推 Q4 Phase 2 → 揀「先對齊下游現況再揀模型」→ 下游 profile（online 長駐 + 自有向量庫 + 近乎即時）→ 拍板 Incremental sync → 「同意，繼續做」起草 spec。
@@ -45,6 +45,45 @@
 | Long-term spec / locked decision / architecture invariant change (Q4 Phase 2 model lock) | PMS §F.2 + §C.6; CODEBASE Key Decisions; SESSION_HANDOFF Open Priorities #1 | ✓ Done |
 | New cross-agent handoff knowledge doc added (`CHANNEL_B_SYNC_SPEC.md`) | CODEBASE Directory Map + AI Maintenance Log; DOC_SYNC registry row; SESSION_HANDOFF/LOG | ✓ Done |
 | Channel B sync contract / endpoint (Q4 Phase 2) [NEW ROW added] | `CHANNEL_B_SYNC_SPEC.md`; backend routes when built; PMS §C.4/§F.2; SESSION_HANDOFF/LOG | ✓ Row added |
+
+### Log maintenance
+§4a check：SESSION_LOG 291 行 < 400、最舊 entry < 30 天 → 不觸發 archive（no-op）。
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）+ dev/CHANNEL_B_SYNC_SPEC.md（Q4 Phase 2 契約 v0.3）。起手務必自行 verify git HEAD + knowledge.json._meta.stats + Supabase total vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。S135-S144 證實 EDB + onrender + Supabase + GitHub Pages egress 均通；仍每次自測。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S144 (2026-06-05)：**Q4 Phase 2 模型決策 + Channel B sync 契約 spec v0.3 定稿 + 下游 prompt + display/version drift 記錄 — 全 docs-only、0 product 改、0 outstanding bug**。HEAD origin/main `5cefe9b` 起手自行 verify。
+- **Q4 Phase 2 模型 LOCKED = Incremental sync（manifest-diff delta feed）**：下游 Circular System 維護自家 Channel B index、poll K1 manifest 拉 id-set delta、本地搜尋。契約 `dev/CHANNEL_B_SYNC_SPEC.md` v0.3（過對抗審核、§11 4 決策 Leonard 全 RESOLVED）。K1 端 manifest+fetch endpoint **未 build**。
+- **下游對接 prompt 已出俾 Leonard**（問下游 query embedding model 是否 text-embedding-3-small 等 + 列下游要 build 嘅 consumer）→ **等下游覆**。
+- **Display/version drift 一次過 fix（approach 已定、待執行）**：knowledge.json._meta.stats chunks→10,594/guidelines→152（Leonard OK 改 frozen metadata、facts/schema 不變）+ README hardcoded(148→161/10,736→10,594/Channel-B framing/日期) + 統一站 version（不 bump）；§3 HIGH-risk、勿跑 bump_version.py（§E.8）。
+
+Current objective and progress state:
+- Baseline：Supabase 10,594 / registry 203 / 公開 guidelines.json 152 v2.5.0 / 公開 knowledge.json 455 v2.3.0（FROZEN）/ brand live policychecker.wongfu.net。**0 outstanding bug**。
+- 下一步主線 = Q4 Phase 2 endpoint build（待 Leonard GO + 下游覆）。
+
+Pending tasks in priority order:
+1. **Q4 Phase 2 endpoint build（§3 HIGH-risk PLAN ready、待 Leonard GO + 下游覆 embedding model）**：build GET /api/channel-b/manifest + POST /api/channel-b/chunks + X-Sync-Key per v0.3 契約。**未 GO 勿 build、勿掂下游 repo（§A.3）、勿 un-freeze Channel A。**
+2. **Display/version drift 一次過 fix（approach 已定、待執行）**：knowledge.json._meta.stats(10,594/152) + README hardcoded + 統一站 version；詳 SESSION_LOG S144 / SESSION_HANDOFF OP #3；§3 HIGH-risk。
+3. 既有 deferred：§8b rule 2 automation / Suppl_guide held / §E.10(a) ACCEPTED / FAIL-A / stat_fact 2025/26 / SESSION_HANDOFF Baseline #1 巨型 stale wall 收斂 / freshness 週跑觀察 / 57014 cold-start。
+
+Key files changed this session (S144)：dev/CHANNEL_B_SYNC_SPEC.md（NEW v0.3）；dev/PROJECT_MASTER_SPEC.md（§F.2/§C.6）；dev/CODEBASE_CONTEXT.md（Key Decisions/Directory Map/AI log）；dev/DOC_SYNC_CHECKLIST.md（新 row）；dev/SESSION_HANDOFF/LOG。**0 code/data/Supabase/knowledge.json/guidelines.json mutation**。commits 00d5291 / adbeabb / 5cefe9b。
+
+Known risks / blockers / cautions:
+- 🟢 0 outstanding bug。S144 全 docs-only、可逆（git revert）。
+- 🔴 **Q4 Phase 2 endpoint build 不可逆對外效果（改 live backend + deploy onrender）+ 下游跨 repo、待 Leonard**：勿自行 build / 勿掂下游 Circular System repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge.json·guidelines.json。
+- ⚠️ Display/version fix 撞 frozen knowledge.json（Leonard 已 OK 改 _meta.stats、facts/schema 不變、下游見檔變一次）；執行出 PLAN、勿跑 bump_version.py（§E.8 前科）。
+- 既有不變: Channel A frozen @455；57014 transient(retry); FAIL-A(record-only); §E.10(a) ACCEPTED conditional; q.html/A·AB dormant 勿清; Stage-2 closed; egress 每次自測; 路徑空格雙引號; wiki_chunks 欄名 `text`; 結構天花板源勿再 ingest; 改 Draft code/data commit 必入 SESSION_LOG; init_backup gitignored。
+
+Validation status: 本 session 0 product change（純 spec/docs/決策/記錄）；git HEAD 5cefe9b==origin/main clean、3 commits pushed；起手自測全 PASS（Supabase 10,594 雙讀 / facts 455 / guidelines 152 / 公開 knowledge.json 455 FROZEN / onrender 200）；§4a SESSION_LOG 291 行 < 400 未觸發 archive。
+
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE + CHANNEL_B_SYNC_SPEC + 自測（git HEAD 5cefe9b / facts 455 / Supabase 10,594 / guidelines 152 / 公開 knowledge.json 455 FROZEN / onrender /health）+ playbook INDEX 後，問 Leonard：(a) 下游 Circular System 有冇覆 embedding model / 接入意向（Q4 Phase 2 endpoint build 要 GO）；(b) 要唔要做 display/version 一次過 fix。**未 Leonard 明示前，勿 build Channel B sync endpoint / 勿掂下游 repo / 勿 un-freeze Channel A / 勿手寫 knowledge.json·guidelines.json / 勿跑 bump_version.py / 勿 reopen §E.10 / 勿動 Stage-2 / 勿再 ingest 結構天花板源。**
+```
 
 ## 2026-06-05 Session 143 — Channel B 廣度試用 + QA recall fix（qa_inspection 路由）+ Q4 Phase 1 凍結 Channel A（docs-only）；生產 live、0 regression — CLOSED
 
