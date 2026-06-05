@@ -2,6 +2,35 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-05 Session 143 — Channel B 廣度試用 + QA recall fix（拆 qa_inspection 路由；生產 live、0 regression）— RUNNING
+
+- **ID:** Claude_20260605_1012
+- **Trigger:** 新 session 起手自測（verify-load-bearing-state）→ Leonard 揀「先試用 Channel B 廣度（建議）」→「先快補 QA recall gap（建議）」。
+- **起手自測全對賬:** git HEAD `6612ef9`(S142 closeout)==origin/main ✓ / Channel A facts 455 ✓ / 公開 guidelines 152 v2.5.0 ✓ / source_registry 203 ✓ / Supabase wiki_chunks **10,594**（service_key REST `Content-Range 0-0/10594` 雙讀防偽零）✓ / onrender /health 200 warm cache_a=455 ✓。
+- **§3 Risk:** HIGH（涉 Render deploy）；Leonard 選項授權；純 routing additive/可逆（git revert 即還原、0 data mutation）。
+
+### Channel B 廣度試用（read-only live smoke、18 query paced 8s 防 429）
+- **substantially「夠用」**：14/18 乾淨命中正確源 + **17/18 帶頁碼（北極星）** + 3/3 synth 答案質素好（危機應變/統一派位/內部監控防貪，繁中精簡附源帶頁）。6 條 S142 新擴 route 全 engage。
+- 4 miss 分類（playbook `throttled-api-not-empty-data`）：斜坡/遣散費/和諧校園 = **benign ranking competition**（薄身 net-new 專檔被 SAG/g04 壓、但內容帶頁有 surface；specific query「長期服務金」→ long_service_payment_guide #5 surface 證實；handoff 已記 benign）；**「視學」→0 = 唯一真 gap**（重現確認 HTTP 200、非 throttle）。
+
+### QA recall fix（§3d 矩陣全 PASS）
+- **根因:** `視學` route 入 gov_admin，但 gov_admin **無 query expansion**（S142 防 over-expansion）+ QA docs 用新詞（校外評核/自我評估/問責）→ 短 token embedding 對唔齊 → under-recall。
+- **Fix（`backend/src/api/searchChannelB.ts` 單檔 +30/−5）:** 拆 **`qa_inspection`** 專 route 置 gov_admin 前 first-match（regex: 視學/校外評核/學校自我評估/自我評估/表現指標/質素保證/問責架構/問責/校本管理；用「自我評估」非 bare「評估」唔偷 curriculum）+ tight SOURCE_SET〔sse_tools_2025/perf_indicators_2022/edbc15_2022_accountability + sag + role_facts_general〕+ 針對性 QUERY_EXPANSIONS〔校外評核/自我評估/表現指標/質素保證/問責/校本管理/學校發展〕。over-expansion-safe = tight set + per-source quota；QA terms 由 gov_admin 移出（one-place §3b）。
+- **QC:** `npm run check`/`build` exit 0 → commit `58b5705` push origin/main → Render deploy → poll「視學」0→5 確認 live。
+- **對抗 regression smoke 17/17 HIT、0 QA-doc 洩漏:** qa 5/5（視學/校外評核/學校自我評估/表現指標/問責架構 → 三大 QA docs 帶頁 0.61-0.75）；gov_admin 5/5（防貪→icac / 更改校名→sch_name / 校舍→major_repairs / 學校發展計劃→sdp / 增設校舍→sch_extension，零 QA 洩漏 = split 乾淨）；safety/curriculum/finance/hr/student_support/placement 7/7 零回歸。
+
+### Sources changed
+- `backend/src/api/searchChannelB.ts`（SOURCE_SETS + TOPIC_KEYWORDS + QUERY_EXPANSIONS 加 qa_inspection、QA terms/sources 由 gov_admin 移出）。commit `58b5705`（指定檔勿 -A）origin/main。
+- **NOT modified:** Supabase / knowledge.json / guidelines.json / role_facts.json / vault / source_registry.json / app.html。
+- **PERSIST docs:** SESSION_HANDOFF（Baseline #1 HEAD 凍-S125 reconcile→58b5705 + #3 append S143 + Open Priorities ✅ annotation）；本 entry。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Product behavior / tuning change | SESSION_HANDOFF baseline/priorities/risks if affected; SESSION_LOG task entry + QC evidence | ✓ Done |
+
+CODEBASE_CONTEXT = N/A（純 routing 邏輯、無 stack/External Services/Key Decisions/Directory Map 改、無新源/新檔）。
+
 ## 2026-06-04 Session 142 — EDB 全覆蓋 gap sweep（逐範疇；Channel B 補到「夠用」為 Q4 鋪路）— RUNNING
 
 - **ID:** Claude_20260604_2100
