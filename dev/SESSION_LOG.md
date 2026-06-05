@@ -2,7 +2,7 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
-## 2026-06-05 Session 143 — Channel B 廣度試用 + QA recall fix（qa_inspection 路由）+ Q4 Phase 1 凍結 Channel A（docs-only）；生產 live、0 regression — RUNNING
+## 2026-06-05 Session 143 — Channel B 廣度試用 + QA recall fix（qa_inspection 路由）+ Q4 Phase 1 凍結 Channel A（docs-only）；生產 live、0 regression — CLOSED
 
 - **ID:** Claude_20260605_1012
 - **Trigger:** 新 session 起手自測（verify-load-bearing-state）→ Leonard 揀「先試用 Channel B 廣度（建議）」→「先快補 QA recall gap（建議）」。
@@ -38,6 +38,43 @@
 | Long-term spec / locked decision / architecture invariant change (Q4 Phase 1 Channel A freeze) | PMS §F.2/§B.1; CODEBASE Key Decisions + AI Maintenance Log; SESSION_HANDOFF Open Priorities + ✅ annotation; K1_API_SPEC root+dev advisory | ✓ Done |
 
 CODEBASE_CONTEXT：QA fix = N/A（純 routing）；Q4 Phase 1 = Key Decisions + AI Maintenance Log updated（locked-decision / direction shift）。0 knowledge.json/guidelines.json/role_facts/Supabase/backend-endpoint mutation。
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）。起手務必自行 verify git HEAD + knowledge.json._meta.stats + Supabase total vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。S135-S143 證實 EDB + onrender + Supabase + GitHub Pages egress 均通；仍每次自測。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S143 (2026-06-05)：**Channel B 廣度確認「夠用」+ QA recall fix（qa_inspection route）+ Q4 Phase 1 凍結 Channel A — 全 live、0 regression、0 outstanding bug**。HEAD origin/main `9978ecc` 起手自行 verify。
+- Channel B 廣度試用 18 query：substantially「夠用」（14/18 命中 + 17/18 帶頁 + synth 質素好）；3 miss = benign ranking competition。
+- QA fix：`searchChannelB.ts` 拆 `qa_inspection` 專route（視學/校外評核/自我評估/表現指標/問責/校本管理 由 gov_admin 移出 + 針對性 expansion；tight SOURCE_SET + per-source quota = over-expansion-safe）→ 視學 0→5、regression 17/17、0 QA-doc 洩漏。commit 58b5705。
+- **Q4 Phase 1 凍結 Channel A（Leonard 明示執行、③→① phased）= docs-only freeze**：knowledge.json 凍 @455 停更、schema 不變、下游零改變、pipeline dormant 可逆、guidelines.json 不凍續 live。PMS §F.2/§B.1 + CODEBASE + K1_API_SPEC root+dev。commit 9978ecc。
+
+Current objective and progress state:
+- **下一步 = Q4 Phase 2（下游 Circular System 轉 Channel B）= 跨 repo、Leonard 喺下游 repo 主導**。K1 只備 migration spec、**絕不 mount／改對方 repo（§A.3）**；需 Leonard 先定 target 整合模型（query-time 搜尋 API per circular？定 Channel-B export？）先可出 K1-side spec。**未 Leonard 明示勿自行起 Phase 2。**
+- Baseline：Supabase 10,594 / registry 203 / 公開 guidelines.json 152 v2.5.0 / 公開 knowledge.json 455 v2.3.0（Q4 Phase 1 FROZEN）/ brand live policychecker.wongfu.net。**0 outstanding bug**。
+
+Pending tasks in priority order:
+1. **Q4 Phase 2（待 Leonard 跨 repo + 設計輸入）**：下游改消費 Channel B；Leonard 定 target 模型 → K1 出 migration spec（K1-side 可逆部分 vs 下游 repo 需 Leonard）。**勿自行掂下游 Circular System repo。**
+2. **觀察（非阻塞）**：freshness scheduled 週跑開 Issue；57014 cold-start mask；薄身新源（slope_rmi/long_service/edbc18_2008_harmonious 2chunks 等）generic query 被 sag/g04 壓 = benign ranking competition、specific query surface 到；knowledge.json.stats build-time 舊值（未越界改）。
+3. 既有 deferred：§8b rule 2 automation / §6 通函 ASPX 驅動（ROI 低）/ Suppl_guide held / §E.10(a) ACCEPTED / FAIL-A / stat_fact 2025/26 / SESSION_HANDOFF Baseline #1 巨型 stale wall 收斂 / dev/K1_API_SPEC.md untracked stale mirror。
+
+Key files changed this session (S143):
+- backend/src/api/searchChannelB.ts（qa_inspection route）；dev/PROJECT_MASTER_SPEC.md（§F.2/§B.1 Q4 Phase 1）；K1_API_SPEC.md（凍結 advisory）；dev/CODEBASE_CONTEXT.md（Key Decisions + AI log）；dev/SESSION_HANDOFF/LOG。0 knowledge.json/guidelines.json/role_facts/Supabase mutation。commits 58b5705 / 1add3a0 / 9978ecc。
+
+Known risks / blockers / cautions:
+- 🟢 0 outstanding bug。S143 全可逆（QA fix 純 routing additive；Q4 Phase 1 docs-only 0 data touch）。
+- 🔴 **Q4 Phase 2 不可逆對外效果 + 跨 repo、待 Leonard**：勿自行掂下游 Circular System repo（§A.3）/ 勿手寫 knowledge.json / 勿手寫 guidelines.json（build_guidelines.py）/ 勿自行 un-freeze Channel A。
+- 既有不變: Channel A frozen @455（Q4 Phase 1）；57014 transient(S139 retry); FAIL-A(record-only); §E.10(a) ACCEPTED conditional; q.html/A·AB dormant 勿清; Stage-2 closed; egress 每次自測; 路徑空格雙引號; wiki_chunks 欄名 `text`; g14/gifted/sen_curr_area 結構天花板勿再 ingest; 改 Draft code/data commit 必入 SESSION_LOG; init_backup gitignored。
+
+Validation status:
+- QA fix：typecheck/build exit 0 + 對抗 regression smoke 17/17 + 0 QA-doc 洩漏 + 視學 0→5 帶頁。Q4 Phase 1：git diff docs-only 0 data touch + 本地 455/152 + live 公開端點 455/152（下游零改變）。Supabase 10,594 雙讀 verified。§4a SESSION_LOG 210 行 < 400、未觸發 archive。
+
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE + 自測（git HEAD 9978ecc / facts 455 / Supabase 10,594 / guidelines 152 / 公開 knowledge.json 455 FROZEN / onrender /health）+ playbook INDEX 後，問 Leonard Q4 Phase 2 點推（要佢先定下游 target 整合模型）。**未 Leonard 明示前，勿自行掂下游 Circular System repo / 勿 un-freeze Channel A / 勿手寫 knowledge.json·guidelines.json / 勿 reopen §E.10 / 勿動 Stage-2 / 勿再 ingest 結構天花板源。**
+```
 
 ## 2026-06-04 Session 142 — EDB 全覆蓋 gap sweep（逐範疇；Channel B 補到「夠用」為 Q4 鋪路）— RUNNING
 

@@ -106,7 +106,7 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## Open Priorities
 > 產品方向：**搜尋介面 Channel-B-only**（S119 定，A/AB dormant；Q4 契約 deferred）。北極星＝合理＋指引＋**頁數**（CB-3 不可 defer）。Stage-2 closed 勿復活。**CB-3 達 final ceiling ~88%**（**155 marker-bearing post-S142§5**（S141 +sen_exam_arrangements_2025 SEN校內考試特別安排；S138 NEW 2 SEN backfill：g10 特殊學校課程指引 + g19 融合教育運作指南，皆 §E.12 URL re-discovery；S135 history_jss_2019 + edbc197）+ 3 deprecated（+S138 phys mojibake DROP）+ 結構天花板 + others）。**Phase 3 = a/b/c 全部完成**（3a ranking polish 全 healthy no-op + 1 backfill；3b S132 6-stale page-carry；3c 1 backfill + 1 mojibake fix + 3 結構 no-op）。**driver `cb3_b2_pagecarry_migrate.py` 13 輪 verified（S122~S135、68 sources 0 final incident；S135 全新源 backfill path〔header-stub seed + del=0 純 INSERT〕×2 + mojibake re-index ×1 0 incident）+ `cb3_deprecate_stale.py` 0 incident**。**S132：PolicyChecker brand launch + Phase 3b 6-stale page-carry closed**（custom domain `policychecker.wongfu.net` live + OG/iframe/embed-sample + 5-round brand unification + 6 sources DELETE 743 INSERT 646 net -169；Supabase 9,882→**9,713**）。
-1. **🔵 ACTIVE — EDB 全覆蓋 gap sweep（Leonard /goal「做齊1+2、抓取分析審核入庫」）**：逐範疇掃 EDB 站政策/指引/通函全文 PDF、agent-team 審核、就建議自主 ingest（relevance/approval/逐範疇 scope 已 locked）。**9 範疇 roadmap：①學校行政 ✅(+35) ②教師/人事 ✅(+3) ③學生訓育輔導支援 ✅(+7) ④校園安全✅ ⑤收生/學位分配 ✅(S142：+3，NEW placement 路由；多家長表格HTML非政策) ⑥通函EDBC ④校園安全 ⑤收生/學位分配 ⑥通函EDBC（ASPX app 不可靜態枚舉；高價值已§1-5捕捉~18條）⑦SEN✅(S141) ⑧課程✅(~130飽和) ⑨雜✅(g09/eng_nat_sec/g28已覆蓋)**。**SWEEP 核心完成 + S143 Channel B QA recall fix（qa_inspection route）+ Q4 Phase 1（凍結 Channel A）✅ EXECUTED。** **Q4 ③→① phased（Leonard 明示「執行 Phase 1」）：Phase 1 = K1-side docs-only freeze（knowledge.json 凍 @455 停更、schema 不變、下游零改變、pipeline dormant 可逆）已完成；Phase 2 = 選項① 下游 Circular System 轉 Channel B = 跨 repo、待 Leonard 喺下游 repo 協調（K1 只備 spec、絕不掂對方 repo §A.3）；選項② 不採（衝突 §F.6）。**〔已 RESOLVED：S141 g14/sen_curr_area/gifted_policy_docs 結構天花板 + sea_guide；S140 39→152 guidelines〕
+1. **🔵 NEXT = Q4 Phase 2（下游 Circular System 轉 Channel B）= 跨 repo、Leonard 喺下游 repo 主導；K1 只備 migration spec、絕不 mount／改對方 repo（§A.3）；需 Leonard 先定 target 整合模型（query-time 搜尋 API per circular？定 Channel-B export？）先可出 spec。未明示勿自行起。**〔✅ 前置全完成：S142 EDB sweep §1-5 +51 docs ／ S143 Channel B 廣度確認「夠用」+ QA recall fix（qa_inspection）+ Q4 Phase 1 凍結 Channel A〕 — 以下為歷史背景 EDB 全覆蓋 gap sweep（Leonard /goal「做齊1+2、抓取分析審核入庫」）：逐範疇掃 EDB 站政策/指引/通函全文 PDF、agent-team 審核、就建議自主 ingest（relevance/approval/逐範疇 scope 已 locked）。**9 範疇 roadmap：①學校行政 ✅(+35) ②教師/人事 ✅(+3) ③學生訓育輔導支援 ✅(+7) ④校園安全✅ ⑤收生/學位分配 ✅(S142：+3，NEW placement 路由；多家長表格HTML非政策) ⑥通函EDBC ④校園安全 ⑤收生/學位分配 ⑥通函EDBC（ASPX app 不可靜態枚舉；高價值已§1-5捕捉~18條）⑦SEN✅(S141) ⑧課程✅(~130飽和) ⑨雜✅(g09/eng_nat_sec/g28已覆蓋)**。**SWEEP 核心完成 + S143 Channel B QA recall fix（qa_inspection route）+ Q4 Phase 1（凍結 Channel A）✅ EXECUTED。** **Q4 ③→① phased（Leonard 明示「執行 Phase 1」）：Phase 1 = K1-side docs-only freeze（knowledge.json 凍 @455 停更、schema 不變、下游零改變、pipeline dormant 可逆）已完成；Phase 2 = 選項① 下游 Circular System 轉 Channel B = 跨 repo、待 Leonard 喺下游 repo 協調（K1 只備 spec、絕不掂對方 repo §A.3）；選項② 不採（衝突 §F.6）。**〔已 RESOLVED：S141 g14/sen_curr_area/gifted_policy_docs 結構天花板 + sea_guide；S140 39→152 guidelines〕
 2. **觀察（非阻塞）**：freshness 第一個 scheduled 週跑（週一 09:00 UTC）應正常偵測 + 開/更新 `freshness-change` Issue；57014 backend retry 喺真冷啟動下嘅 mask 效果（warm SEN smoke 已 6/6；cold-start mask = logic-verified、留實際使用觀察）。
 3. **🔴 既有 deferred + low-priority backlog**：§E.10 admin-login client-side gate（**S131 ACCEPTED + DOCUMENTED**，conditional；拆掉 client-side-only 前提即須 reopen）；57014 transient（**S139 已加 backend retry、deploy live**；exhaust 後仍 400、frontend 有重試掣）；FAIL-A 注入 regression（record-only）；**Q4 對外契約收斂**（Channel A→knowledge.json→Circular System、3 選項、未明示勿掂）；**§8b rule 2**（semantic-supersede KLA-title embedding similarity check 暫 process-level、automated sub-agent 留 future）；**`Suppl_guide` 非華語補充指引全文 PDF held 待人核**（S140 round-2，year 不明 + g09 主題重疊）；**knowledge.json._meta.stats.guidelines=39 stale**（升 152 與否，獨立 data-touch follow-up）；HKEAA；**stat_fact 21 chunks 仍 cite 2024/25**（升 2025/26 ROI≈0 因 Channel B filter `content_type!=="stat_fact"`）；doc-debt。
 
@@ -142,6 +142,25 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合）
 
 ## Last Session Record
+1. UTC date: 2026-06-05
+2. Session ID: Claude_20260605_1012 (S143)
+3. Completed:
+   - ✅ **[起手核實]** HEAD `6612ef9`==origin/main / facts 455 / 公開 guidelines 152 / registry 203 / Supabase wiki_chunks 10,594（service_key REST 雙讀）/ onrender /health 200 全對賬。
+   - ✅ **[Channel B 廣度試用]** 18 paced query → substantially「夠用」（14/18 命中 + 17/18 帶頁碼 + 3/3 synth 質素好）；3 miss = benign ranking competition（薄身新源被 sag/g04 壓、內容帶頁仍 surface、已記）。
+   - ✅ **[QA recall fix]** `backend/src/api/searchChannelB.ts` 拆 `qa_inspection` 專route（視學/校外評核/自我評估/表現指標/問責/校本管理 由 gov_admin 移出 + 針對性 expansion；tight SOURCE_SET〔sse_tools/perf_indicators/edbc15_2022_accountability+SAG〕+ per-source quota = over-expansion-safe）→ 視學 0→5；typecheck/build exit 0 → commit `58b5705` → Render deploy → 對抗 regression smoke **17/17 + 0 QA-doc 洩漏**。
+   - ✅ **[Q4 Phase 1 凍結 Channel A — Leonard 明示「執行 Phase 1」、③→① phased]** docs-only freeze：knowledge.json 凍 @455 停更、schema 不變、下游零改變、pipeline dormant 可逆、endpoint 不刪、guidelines.json 不凍續 live。PMS §F.2/§B.1 + CODEBASE Key Decisions/AI-log + K1_API_SPEC root+dev advisory；commit `9978ecc`。QC：git diff docs-only **0 data touch** + 本地 455/152 + **live 公開端點 455/152 實證下游零改變**。
+4. Pending: **Q4 Phase 2（下游 Circular System 轉 Channel B）= 跨 repo、Leonard 喺下游 repo 主導（K1 只備 spec、絕不掂對方 repo §A.3）、需 Leonard 先定 target 整合模型**。0 outstanding bug。
+5. Next priorities (max 3):
+   - **Q4 Phase 2（待 Leonard 跨 repo + 設計輸入）**：下游改消費 Channel B；Leonard 定 target 模型 → K1 出 migration spec。
+   - **觀察（非阻塞）**：freshness 週跑開 Issue；57014 cold-start；薄身新源 generic query 被 sag/g04 壓 = benign。
+   - 既有 deferred：§8b rule 2 automation / Suppl_guide held / §E.10 ACCEPTED / FAIL-A / stat_fact 2025/26 / Baseline #1 巨型 stale wall 收斂（spawn task）。
+6. Risks / blockers:
+   - 🟢 **0 outstanding bug**。S143 全可逆（QA fix 純 routing additive；Q4 Phase 1 docs-only 0 data touch）。
+   - 🔴 **Q4 Phase 2 不可逆對外效果 + 跨 repo、待 Leonard**：勿自行掂下游 Circular System repo（§A.3）；下游改源/cutover 須 Leonard confirm readiness。
+   - 既有不變: **Channel A frozen @455（Q4 Phase 1）**；57014 transient(S139 retry); FAIL-A(record-only); §E.10(a) ACCEPTED conditional; q.html/A·AB dormant 勿清; Stage-2 closed; egress 每次自測; 路徑空格雙引號; wiki_chunks 欄名 `text`; guidelines.json 勿手寫(build_guidelines.py); 結構天花板源勿再 ingest; 改 Draft code/data commit 必入 SESSION_LOG; init_backup gitignored。
+7. **✅ S143：Channel B 廣度確認「夠用」+ QA recall fix（qa_inspection route）+ Q4 Phase 1 凍結 Channel A 全 live、0 regression。** commit chain `58b5705`(fix)→`1add3a0`(persist)→`9978ecc`(Q4 Phase1)。起手自測全 PASS。
+
+## Previous Session Record
 1. UTC date: 2026-06-04 / 05
 2. Session ID: Claude_20260604 (S141+S142 連續 session — 開頭 SEN/資優 0-chunk 補完〔S141〕→ Leonard /goal「做齊1+2」→ EDB 全覆蓋 gap sweep §1-5〔S142〕；全生產 live、0 regression、Q4 deferred)
 3. Completed:
