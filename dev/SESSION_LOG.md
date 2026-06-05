@@ -22,6 +22,17 @@
 - → 重寫 **v0.2**（全 blocker/major 收；§11 留 4 開放決策交 Leonard）。
 - **§11 決策（S144 Leonard 逐條拍板，spec → v0.3 定稿）：** (1) stat chunks **預設排除**（include_statistical=false）；(2) ship 向量 **default**（下游 embedding model 未定、待 re-check、include_embedding param 兩路控、不卡 build）；(3) 限流/budget **照建議**（60/min + 每日 ≈3× 全庫 + 多 key 季度輪換）；(4) **淨靠下游 delete-safety**（K1 不加 sentinel、pipeline 不改、ingest_in_progress 欄保留回 false）。**下一步 = endpoint build §3 HIGH-risk PLAN，待 Leonard GO。**
 
+### Display / version drift audit + deferred 一次過 fix（S144 recorded — Leonard 揀「先紀錄、適當時一次過改」，本 session 0 改）
+- **觸發:** Leonard 問 GitHub + app 內 display 文字 / version number 是否反映現時最新。以下 audit 全 verified（read actual code，無改）。
+- **前端 chunks/guidelines 數字 = runtime auto-sync from `knowledge.json._meta.stats`**（index.html L289 明文「auto-synced from knowledge.json _meta.stats」+ `data-stat` span；app.html 同模式 Decision 3 dynamic stats）。stats 實值 = `{facts:455 ✓, chunks:`**`10736 STALE`**`（live Supabase 10,594）, guidelines:`**`39 STALE`**`（公開 152 / in-app 161）, sources:120, topics:7}`。facts 455 啱。grep 見「452」= hex 色碼 `#4527A0` false-match、非 fact-count drift。
+- **README.md hardcoded drift:** L88 in-app 指引 `148`→**161**（同檔 L28/L93 自己寫 161、README 內部唔一致）；L90「`10,736` chunks（本地，Phase 2 上線中）」→ **10,594** + 框架過時（係 Supabase pgvector、已 live、主搜尋面）；L51-52/L75-79 Channel B「Phase 2 / `wiki_index.json`」框架過時；L164 日期 `2026-05-16` stale。
+- **Version namespaces（現況、唔一致）:** 站/平台 display = README badge `v2.3.0` + README footer `v2.3.0` + index.html footer `v2.3`；資料契約（獨立、各自合理）= knowledge.json `2.3.0`(frozen) / guidelines.json `2.5.0` / K1_API_SPEC `v1.3.1` / app.html JSON-LD「契約版本 v2.0.0」。
+- **決定嘅做法（待執行、ONE PASS）:**
+  1. **更新 `knowledge.json._meta.stats`**：chunks 10736→**10,594**、guidelines 39→**152**（一改、全部前端 auto-sync display 即正）。**Leonard 明示 OK 改**（facts 455 / schema 不變、屬 metadata-only；惟 re-publish knowledge.json = 下游 Circular System 會見檔變一次〔facts 不變〕，已接受）。
+  2. **README hardcoded 修**：148→161、10,736→10,594、Channel B framing（Supabase/live/主面、剔「Phase 2/本地/wiki_index.json」）、日期。
+  3. **Version =「統一現有版本號」**（**不 bump**、本 session 無 product 改）：站/README/footer display version 對齊單一值（index `v2.3` → `v2.3.0` 對齊）；資料契約版本（knowledge 2.3.0 / guidelines 2.5.0 / API 1.3.1）係獨立契約，執行時同 Leonard confirm 係咪一齊統一定維持各自。
+- **執行時注意:** §3 HIGH-risk（公開 README + app.html 4,759 行 + 掂 frozen knowledge.json metadata）→ 出 PLAN 等 GO。DOC_SYNC 適用 rows：「Product version / release milestone change」+「Doc-drift truth-pass / accuracy correction」（+「guidelines.json public contract」若牽連 stat）。**bump_version.py 有 wipe role_facts schema 前科（PMS §E.8）→ 純 stat/version 對齊建議手改、唔跑 bump_version.py。**
+
 ### 唔掂（邊界守住）
 - 0 endpoint build、0 掂下游 repo（§A.3）、0 改 Supabase schema/RPC/upload pipeline、0 un-freeze Channel A、0 手寫 knowledge.json/guidelines.json。
 
