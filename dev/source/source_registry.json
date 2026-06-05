@@ -5353,6 +5353,174 @@
         "content_hash": "f979c341cf6d7e202500cfac619d62a54e7991a238485cc97aa132682e6acc7a",
         "hash_checked_at": "2026-06-05"
       }
+    },
+    {
+      "source_id": "edbc015_2021_lpe",
+      "title": "教育局通告第15/2021號 生涯規劃教育",
+      "title_en": null,
+      "title_short": "教育局通告第15/2021號 生涯規",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/projects-services/2122/20210930_EDBC_015_2021_Life_Planning_Education_TC.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/projects-services/2122/20210930_EDBC_015_2021_Life_Planning_Education_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "student"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2008-2025",
+      "last_checked_at": "2026-06-05",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §3 (學生訓育輔導支援): full-text policy/circular PDF, agent-team curated KEEP (route=student_support), egress-verified (4p, mojibake CLEAN; MRR briefing-slides + Tai-Po-fire incident resources dropped as non-policy), del=0 page-carry. backend SOURCE_SETS.student_support.",
+      "freshness_metadata": {
+        "content_hash": "e68669b40953be93d79de17e6f0d832b849952bf09da36c42488a9026689d56e",
+        "hash_checked_at": "2026-06-05"
+      }
+    },
+    {
+      "source_id": "lpe_framework_primary",
+      "title": "小學生涯規劃教育推行策略大綱",
+      "title_en": null,
+      "title_short": "小學生涯規劃教育推行策略大綱",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/projects-services/2122/20210929_Framework_for_LPE_for_Primary_Students_tc.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/projects-services/2122/20210929_Framework_for_LPE_for_Primary_Students_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "student"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2008-2025",
+      "last_checked_at": "2026-06-05",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §3 (學生訓育輔導支援): full-text policy/circular PDF, agent-team curated KEEP (route=student_support), egress-verified (16p, mojibake CLEAN; MRR briefing-slides + Tai-Po-fire incident resources dropped as non-policy), del=0 page-carry. backend SOURCE_SETS.student_support.",
+      "freshness_metadata": {
+        "content_hash": "d56e389b99a8087b65766b8d785eab03b87bfe1fc49f7619c25b799c9c3f853e",
+        "hash_checked_at": "2026-06-05"
+      }
+    },
+    {
+      "source_id": "edbc18_2008_harmonious",
+      "title": "教育局通告第18/2008號 締造和諧校園",
+      "title_en": null,
+      "title_short": "教育局通告第18/2008號 締造和",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/gd-resources/Harmonious School_TC.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/gd-resources/Harmonious School_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "student"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2008-2025",
+      "last_checked_at": "2026-06-05",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §3 (學生訓育輔導支援): full-text policy/circular PDF, agent-team curated KEEP (route=student_support), egress-verified (2p, mojibake CLEAN; MRR briefing-slides + Tai-Po-fire incident resources dropped as non-policy), del=0 page-carry. backend SOURCE_SETS.student_support.",
+      "freshness_metadata": {
+        "content_hash": "edb9692244647eec81fbbd9b92ef2dc577e19e0ab2534e7ce9fb72b411fdfda1",
+        "hash_checked_at": "2026-06-05"
+      }
+    },
+    {
+      "source_id": "edbc15_2025_child_abuse",
+      "title": "教育局通告第15/2025號 處理懷疑虐待兒童及家庭暴力個案",
+      "title_en": null,
+      "title_short": "教育局通告第15/2025號 處理懷",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC25015C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC25015C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "student"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2008-2025",
+      "last_checked_at": "2026-06-05",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §3 (學生訓育輔導支援): full-text policy/circular PDF, agent-team curated KEEP (route=student_support), egress-verified (12p, mojibake CLEAN; MRR briefing-slides + Tai-Po-fire incident resources dropped as non-policy), del=0 page-carry. backend SOURCE_SETS.student_support.",
+      "freshness_metadata": {
+        "content_hash": "b23fc05964e55489f771cde0c54f28c381fbdacff5399cacb1c2dc4894aeaa31",
+        "hash_checked_at": "2026-06-05"
+      }
+    },
+    {
+      "source_id": "edbcm83_2020_student_care",
+      "title": "教育局通函第83/2020號 關顧學生 重回正軌",
+      "title_en": null,
+      "title_short": "教育局通函第83/2020號 關顧學",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/gd-resources/2021/20200902_EDBCM20083C.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/gd-resources/2021/20200902_EDBCM20083C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "student"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2008-2025",
+      "last_checked_at": "2026-06-05",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §3 (學生訓育輔導支援): full-text policy/circular PDF, agent-team curated KEEP (route=student_support), egress-verified (5p, mojibake CLEAN; MRR briefing-slides + Tai-Po-fire incident resources dropped as non-policy), del=0 page-carry. backend SOURCE_SETS.student_support.",
+      "freshness_metadata": {
+        "content_hash": "977611ed7c351ae12655ee09480bb5e48e09c890b4d8582705422cdcd042f270",
+        "hash_checked_at": "2026-06-05"
+      }
+    },
+    {
+      "source_id": "crisis_mgmt_handbook",
+      "title": "學校危機處理（手冊）",
+      "title_en": null,
+      "title_short": "學校危機處理（手冊）",
+      "url_landing": "http://www.edb.gov.hk/attachment/tc/student-parents/crisis-management/about-crisis-management/crisistc.pdf",
+      "url_primary": "http://www.edb.gov.hk/attachment/tc/student-parents/crisis-management/about-crisis-management/crisistc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "student"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2008-2025",
+      "last_checked_at": "2026-06-05",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §3 (學生訓育輔導支援): full-text policy/circular PDF, agent-team curated KEEP (route=student_support), egress-verified (82p, mojibake CLEAN; MRR briefing-slides + Tai-Po-fire incident resources dropped as non-policy), del=0 page-carry. backend SOURCE_SETS.student_support.",
+      "freshness_metadata": {
+        "content_hash": "bc9461c3007a347812ca112ffb245fa07f69cf39191e5e0e77bb07aecf95af2a",
+        "hash_checked_at": "2026-06-05"
+      }
+    },
+    {
+      "source_id": "kg_crisis_mgmt",
+      "title": "幼稚園危機處理 — 危機善後介入及心理支援",
+      "title_en": null,
+      "title_short": "幼稚園危機處理 — 危機善後介入及心",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/student-parents/crisis-management/about-crisis-management/kindergarten/crisistc.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/student-parents/crisis-management/about-crisis-management/kindergarten/crisistc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "student"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2008-2025",
+      "last_checked_at": "2026-06-05",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §3 (學生訓育輔導支援): full-text policy/circular PDF, agent-team curated KEEP (route=student_support), egress-verified (39p, mojibake CLEAN; MRR briefing-slides + Tai-Po-fire incident resources dropped as non-policy), del=0 page-carry. backend SOURCE_SETS.student_support.",
+      "freshness_metadata": {
+        "content_hash": "591722cd19037053777661cc684db8a1520e70ffc27c4d81e265e3cc2b03c54e",
+        "hash_checked_at": "2026-06-05"
+      }
     }
   ]
 }
