@@ -28,6 +28,8 @@ K1 **不分析通告**。Circular System **不儲存事實**。兩者以 JSON AP
 - 每次 K1 更新知識並 push，端點自動更新
 - 建議：Circular System 每次分析時 fetch 最新版，不應本地快取超過 1 天
 
+> ⚠️ **凍結公告（2026-06-05，K1 內部 Q4 Phase 1）**：`knowledge.json`（事實庫）已**凍結於現行 455 條 approved facts**、暫停加入新事實；**schema 完全不變、端點繼續正常供應**，下游現階段**無需任何改動**。日後若調整事實供料方式，K1 會另行通知並同步更新本規格。`guidelines.json`（指引文件連結庫）**不在凍結範圍、繼續更新**。
+
 ---
 
 ## 3. knowledge.json 實際格式（v2.3.0）

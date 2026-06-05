@@ -46,7 +46,7 @@
 | Tab | 功能要求 |
 |---|---|
 | 平台介紹 | Hero + 統計（從 `knowledge.json` `_meta.stats` 動態取，**禁止 hardcode**）+ 核心功能說明 + 來源條 |
-| 政策搜尋 | **S119：用戶介面行 Channel-B-only**（來源文件＝Supabase 語義搜原文）。Channel A（已核實資料）/ A+B（合併）user-facing 入口全移除、code path 留 dormant（可逆）。backend `/channel-a`·`/combined` endpoint **不刪、仍生存**只係前端唔再 call；Channel A `role_facts.json→knowledge.json` 資料管道**照常運作餵下游 Circular System（對外契約零接觸，Q4 deferred 獨立 track）**。需 backend（無離線快路；q.html 等檔 dormant 留存） |
+| 政策搜尋 | **S119：用戶介面行 Channel-B-only**（來源文件＝Supabase 語義搜原文）。Channel A（已核實資料）/ A+B（合併）user-facing 入口全移除、code path 留 dormant（可逆）。backend `/channel-a`·`/combined` endpoint **不刪、仍生存**只係前端唔再 call；Channel A `role_facts.json→knowledge.json` 資料管道**S143 Phase 1 已凍結（frozen @455 facts、knowledge.json 停更、schema 不變、繼續供下游零改變；Q4 ③→① phased，Phase 2 下游轉 Channel B 待 Leonard 跨 repo 協調 §A.3；guidelines.json 不凍續 live）**。需 backend（無離線快路；q.html 等檔 dormant 留存） |
 | 指引文件庫 | **148** 份 EDB 文件（app.html `GUIDELINES_REGISTRY`，subtitle 用 `.length` 動態反映；= 全 channel 知識基礎文件全集）；三層排序：範疇 → 子類別(`sub_category`) → 年份降序；同科分組小標題。公開 `guidelines.json` 端點 = registry 全集投影 **152** 份（S140：39→139 收斂、landing-curate +9→148、公積金覆蓋 +4→152；由 generator `dev/build_guidelines.py` 從 registry 生成、純規則剔 9 個非文件〔7 stat 統計表 + 1 DOCX 表格 + 1 壞 URL〕；見下方釐清框）|
 | 通告分析 | 貼入 EDB 通告文字 → AI 識別主題 / 影響角色 / 政策要點 |
 | ✍️ 知識提煉（Admin） | 左右分欄：左候選 queue，右證據 / inline 修訂 / 角色檢視；approve/reject 資料流 |
@@ -249,7 +249,7 @@ source_registry → 同 vault PDFs → ai_extract.py
 > - (c) 變更鎖定決策必走 AGENTS.md §3 HIGH-risk PLAN 流程（出 PLAN → 等 user 確認 → 先 READ/CHANGE）。
 
 1. 單檔前端、無 build pipeline（CDN React/Babel/Tailwind）。
-2. `app.html` 為主 SPA；`index.html` 為 EDB landing；`k1-dashboard.html`/`landing.html`/`k1-wiki.html` 已刪不復活。**S119（Leonard live-test 後定，§3 HIGH-risk PLAN→確認 done）：政策搜尋 user-facing 介面行 Channel-B-only，A（已核實資料）/ A+B（合併）入口全移除、code path 留 dormant 可逆；此為現行鎖定 surface 決策。前提区分：此係「搜尋介面」決策，唔係「Channel A 資料管道」決策——Channel A `role_facts.json→knowledge.json` 照常餵下游 Circular System，對外契約零接觸；契約收斂（Q4：叫下游改／Channel B 變供料／凍結停供）= deferred 獨立 track，待 B-only+CB-3 成熟 Leonard 再排，未明示勿掂。**
+2. `app.html` 為主 SPA；`index.html` 為 EDB landing；`k1-dashboard.html`/`landing.html`/`k1-wiki.html` 已刪不復活。**S119（Leonard live-test 後定，§3 HIGH-risk PLAN→確認 done）：政策搜尋 user-facing 介面行 Channel-B-only，A（已核實資料）/ A+B（合併）入口全移除、code path 留 dormant 可逆；此為現行鎖定 surface 決策。前提区分：此係「搜尋介面」決策，唔係「Channel A 資料管道」決策——Channel A `role_facts.json→knowledge.json` 照常餵下游 Circular System，對外契約零接觸；契約收斂（Q4：叫下游改／Channel B 變供料／凍結停供）= S143 Phase 1 EXECUTED（Leonard 明示「執行 Phase 1」、③→① phased）：Channel A 正式凍結 @455 facts、knowledge.json 停更（凍結點 2026-06-05、schema 不變、繼續供下游零改變）、Channel A pipeline code 留 dormant 可逆（endpoint 不刪）。Phase 2（選項①下游 Circular System 轉 Channel B）= 跨 repo、待 Leonard 喺下游 repo 協調（K1 只備 spec、絕不掂對方 repo §A.3）；選項②（Channel B 變供料）不採（衝突 §F.6）。Rollback = git revert docs 即 un-freeze。**
 3. 公開 `knowledge.json` 為對外 schema SSOT；backend 用相容橋接支援 legacy `department_head` + 拆分角色。
 4. LLM-wiki 分階段架構：trust 由 source/freshness/approval gate 把關，非 LLM 自主發佈。
 5. 兩類事實模型：statistical（auto-approve）vs policy（人工 gated）。

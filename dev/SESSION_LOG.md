@@ -2,7 +2,7 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
-## 2026-06-05 Session 143 — Channel B 廣度試用 + QA recall fix（拆 qa_inspection 路由；生產 live、0 regression）— RUNNING
+## 2026-06-05 Session 143 — Channel B 廣度試用 + QA recall fix（qa_inspection 路由）+ Q4 Phase 1 凍結 Channel A（docs-only）；生產 live、0 regression — RUNNING
 
 - **ID:** Claude_20260605_1012
 - **Trigger:** 新 session 起手自測（verify-load-bearing-state）→ Leonard 揀「先試用 Channel B 廣度（建議）」→「先快補 QA recall gap（建議）」。
@@ -19,6 +19,13 @@
 - **QC:** `npm run check`/`build` exit 0 → commit `58b5705` push origin/main → Render deploy → poll「視學」0→5 確認 live。
 - **對抗 regression smoke 17/17 HIT、0 QA-doc 洩漏:** qa 5/5（視學/校外評核/學校自我評估/表現指標/問責架構 → 三大 QA docs 帶頁 0.61-0.75）；gov_admin 5/5（防貪→icac / 更改校名→sch_name / 校舍→major_repairs / 學校發展計劃→sdp / 增設校舍→sch_extension，零 QA 洩漏 = split 乾淨）；safety/curriculum/finance/hr/student_support/placement 7/7 零回歸。
 
+### Q4 Phase 1 — 凍結 Channel A（docs-only freeze；Leonard ③→① phased、明示「執行 Phase 1」）
+- **前提（verify-based）:** Channel A 已 de-facto 靜止（`candidate_queue.json` 空、role_facts 自 S111 未變）→ freeze = K1-side docs-only state 形式化，**0 data mutation、knowledge.json 唔郁（凍 @455）、guidelines.json 不凍（非 Channel A、續 live @152）、backend endpoint 不刪、下游零改變**。
+- **CHANGE（docs-only）:** PMS §F.2（Q4 line→Phase 1 EXECUTED）+ §B.1（pipeline 照常→frozen）；CODEBASE Key Decisions（Q4 deferred→Phase 1 done）+ AI Maintenance Log；K1_API_SPEC root+dev（凍結 advisory、不洩 Channel B 內部詞）。
+- **明確唔掂:** knowledge.json / role_facts.json / guidelines.json / Supabase / backend endpoint / 下游 Circular System repo（§A.3）/ policy_signals。0 server-side admin（不 reopen §E.10）。
+- **Phase 2（後續、跨 repo、待 Leonard）:** 選項① 下游 Circular System 改消費 Channel B；K1 只備 migration spec、絕不掂對方 repo。選項② 不採（衝突 §F.6）。
+- **Rollback:** git revert docs commit 即 un-freeze（資料從未 touch）。
+
 ### Sources changed
 - `backend/src/api/searchChannelB.ts`（SOURCE_SETS + TOPIC_KEYWORDS + QUERY_EXPANSIONS 加 qa_inspection、QA terms/sources 由 gov_admin 移出）。commit `58b5705`（指定檔勿 -A）origin/main。
 - **NOT modified:** Supabase / knowledge.json / guidelines.json / role_facts.json / vault / source_registry.json / app.html。
@@ -27,9 +34,10 @@
 ### DOC_SYNC Matrix Scan
 | Change Category | Required Doc Updates | Status |
 |---|---|---|
-| Product behavior / tuning change | SESSION_HANDOFF baseline/priorities/risks if affected; SESSION_LOG task entry + QC evidence | ✓ Done |
+| Product behavior / tuning change (QA route fix) | SESSION_HANDOFF baseline/priorities/risks; SESSION_LOG task entry + QC evidence | ✓ Done |
+| Long-term spec / locked decision / architecture invariant change (Q4 Phase 1 Channel A freeze) | PMS §F.2/§B.1; CODEBASE Key Decisions + AI Maintenance Log; SESSION_HANDOFF Open Priorities + ✅ annotation; K1_API_SPEC root+dev advisory | ✓ Done |
 
-CODEBASE_CONTEXT = N/A（純 routing 邏輯、無 stack/External Services/Key Decisions/Directory Map 改、無新源/新檔）。
+CODEBASE_CONTEXT：QA fix = N/A（純 routing）；Q4 Phase 1 = Key Decisions + AI Maintenance Log updated（locked-decision / direction shift）。0 knowledge.json/guidelines.json/role_facts/Supabase/backend-endpoint mutation。
 
 ## 2026-06-04 Session 142 — EDB 全覆蓋 gap sweep（逐範疇；Channel B 補到「夠用」為 Q4 鋪路）— RUNNING
 
