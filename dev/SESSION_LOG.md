@@ -2,6 +2,28 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-04 Session 142 — EDB 全覆蓋 gap sweep（逐範疇；Channel B 補到「夠用」為 Q4 鋪路）— RUNNING
+
+- **ID:** Claude_20260604_2100
+- **Trigger:** Leonard `/goal「就照你建議、做齊功課 1+2、抓取分析審核入庫」` + `/workflow`。**功課 1 = Q4 對外契約收斂（關 Channel A + 下游轉 Channel B）= sequenced 在 Channel B「夠用」之後、且係不可逆對外契約 → 留最後一步交 Leonard 撳掣，grind 途中不自行斬下游（§5）**。**功課 2 = EDB 全站政策文件 gap sweep = 主線 grind**。
+- **Scope（Leonard-locked 三項）:** (1) 相關性=政策/指引/通函全文 PDF（剔 forms/exemplars/海報/語言版本 dup/統計表）；(2) ingest 審批=「就照你建議」自主推進（agent-team adversarial audit 作閘）；(3) 逐範疇分批。
+- **架構約束:** sub-agent egress 被 deny（S138）+ Supabase 串行 → 不用 Workflow tool 並發；用「主爬 + agent-team 純 local 審核」模式（S140 驗證）。
+- **EDB 範疇 roadmap（9 pass）:** 1.學校行政及管理 2.教師/人事 3.學生訓育輔導支援 4.校園安全 5.收生/學位分配 6.通函EDBC/EDBCM 7.SEN（核心已做、查漏）8.課程（飽和、查漏）9.雜（非華語/健康校園/IT/國安）。
+
+### §1 學校行政及管理 ✅（35 文件入庫、+298 chunks、4 路由、生產 live、0 regression）
+- **抓取:** 爬 sch-admin section 9 子範疇 = 137 PDF。
+- **審核（agent-team）:** 3 curate agent（slice A/B/C 純 local 判 KEEP/DUP/NOISE）→ 砍 94 forms/通知書/worked-example/rate-sheet/海報/單張/合約樣本/contact-list/flowchart → 44 KEEP；1 adversarial audit agent（Explore）→ dedup（AD02003C i73=i121）+ value-tier（21 TIER-1 + 22 TIER-2）。Leonard 逐項過 → 照建議（剔 79/80/90/121/122/125/126 + 英文版）。
+- **egress 核實:** 36 fetch、35 mojibake-CLEAN、剔 #111（英文版 cjk=0）→ **35 ingest**。真標題核到（#37 ICAC 防貪 98p / #102 通函 / #83-84 2026-04 更新）。
+- **入庫:** registry 152→**187**（+35 source_type=pdf、content_hash seed）；35 vault repaged（markers==pages）；cb3_b2 **del=0 ins=298 純加法**；Supabase 9,963→**10,261**；driver 17th-validation 0 incident。
+- **路由（backend searchChannelB.ts）:** finance +2、hr_admin +10；**NEW gov_admin route（14：表現指標/自評/問責/防貪/籌款/校舍修葺/增設校舍/改校名/SDP/保險）+ safety route（9：消防/職安/實驗室/氣體/熱帶氣旋/安全管理委員會/斜坡維修）**（TOPIC_KEYWORDS first-match 置 sen 後 curriculum 前 + SOURCE_SETS + QUERY_EXPANSIONS）。typecheck+build exit 0。
+- **§3 CHANGE divergence（smoke 揪出 + 修）:** 初版把所有新文件詞塞入 QUERY_EXPANSIONS → over-expansion 稀釋 focused query（熱帶氣旋壓住消防、edbc14 保障學童壓住 g04 批假）→ **修：hr_admin expansion 還原、safety/gov_admin 不加 expansion（靠 SOURCE_SET filter + query 本身詞）**。呼應 playbook `llm-deterministic-postpass`。
+- **commit:** `80368f8`（ingest+路由）→ `934775d`（expansion fix）origin/main → Render deploy。
+- **QC live smoke（redeploy 後 paced，防 429）全 PASS:** 批假→g04 #1 @0.719 / 消防→fire #1 @0.703 / 表現指標→perf #1+sse_tools / 基本法測試→blnst surface / 更改校名→sch_name #1/#2 / 防貪→icac #1 / 熱帶氣旋→tropical #1-3 / 過剩教師→surplus / bank_choice #1 / **regression：英文科→curriculum 零污染、sen→g19/g06 非回歸、批假→g04（修後）**。全帶頁碼。
+- **lesson:** (1) hub section 爬出 137 → 真政策得 35（74% 噪音，S140 教訓 §section 級再印證）；(2) over-expansion 稀釋 = 新 route 加 SOURCE_SET 已夠、唔好再塞 expansion；(3) live smoke 連發必撞 429 → paced 重測分清 throttle vs 真回歸（throttled-api-not-empty-data）。
+
+### Next Session Handoff Prompt (Verbatim)
+（見下方 S142 running；逐範疇完成後更新。本 entry 為 RUNNING，§2-9 完成陸續補。）
+
 ## 2026-06-04 Session 141 — SEN/資優 0-chunk 補完：sea_guide_c.pdf page-carry +51（生產 live；3 個 named id 證實結構天花板；0 knowledge/guidelines mutation）
 
 - **ID:** Claude_20260604_1500
