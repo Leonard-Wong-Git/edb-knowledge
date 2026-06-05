@@ -21,6 +21,12 @@
 - **QC live smoke（redeploy 後 paced，防 429）全 PASS:** 批假→g04 #1 @0.719 / 消防→fire #1 @0.703 / 表現指標→perf #1+sse_tools / 基本法測試→blnst surface / 更改校名→sch_name #1/#2 / 防貪→icac #1 / 熱帶氣旋→tropical #1-3 / 過剩教師→surplus / bank_choice #1 / **regression：英文科→curriculum 零污染、sen→g19/g06 非回歸、批假→g04（修後）**。全帶頁碼。
 - **lesson:** (1) hub section 爬出 137 → 真政策得 35（74% 噪音，S140 教訓 §section 級再印證）；(2) over-expansion 稀釋 = 新 route 加 SOURCE_SET 已夠、唔好再塞 expansion；(3) live smoke 連發必撞 429 → paced 重測分清 throttle vs 真回歸（throttled-api-not-empty-data）。
 
+### §2 教師/人事 ✅（3 文件入庫、+87 chunks、cpd/hr_admin 路由）
+- **抓取/dedup:** 爬 /tc/teacher/ 12 PDF；qualification-training-development CPD 頁 = 0 直連 PDF（HTML-only 結構天花板，如 g14）。注意 §1 已掃 sch-admin/about-sch-staff（appointment/BLNST/公積金/薪金）→ §2 避重複。
+- **審核 + egress:** 12 → 真政策 3（剔 checklist/日薪率rate-sheet/MPF對沖 PPT×3/FAQ + **guidelines_tc=DUP of g05**〔g05 已 29 page-carried chunks〕）。egress 全 CLEAN。
+- **入庫:** registry 187→**190**；cb3_b2 del=0 ins=87；Supabase 10,261→**10,348**。tdtf_report_2019 教師專業發展專責小組報告(62p)→cpd；supply_teacher_guide 代課教師指引(10p)+long_service_payment_guide 遣散費長服金指引(6p)→hr_admin（keyword +遣散費/長期服務金/長服金）。typecheck+build exit 0。commit `2cf77d7`。
+- **lesson:** §2 大量內容同 §1 sch-admin/about-sch-staff 重疊（HR 散落兩個 EDB top-section）→ sweep 必 cross-section dedup；CPD framework 頁 HTML-only = 結構天花板。
+
 ### Next Session Handoff Prompt (Verbatim)
 （見下方 S142 running；逐範疇完成後更新。本 entry 為 RUNNING，§2-9 完成陸續補。）
 
