@@ -5,6 +5,7 @@ import { analyzeCircular } from "./api/analyzeCircular.js";
 import { searchChannelA, type SearchChannelARequest } from "./api/searchChannelA.js";
 import { searchChannelB, type SearchChannelBRequest } from "./api/searchChannelB.js";
 import { searchCombined, type SearchCombinedRequest } from "./api/searchCombined.js";
+import { handleChunks, handleManifest } from "./api/channelBSync.js";
 import { getCorsOrigins, getPort } from "./config/env.js";
 import { createEmbeddingClient } from "./lib/embeddingClient.js";
 import { getCacheSize, initFactEmbeddingCache, isCacheWarm } from "./lib/factEmbeddingCache.js";
@@ -115,6 +116,18 @@ const server = createServer(async (req, res) => {
       service: "edb-knowledge-platform-backend",
       cache_a: { warm: isCacheWarm(), size: getCacheSize() },
     }));
+    return;
+  }
+
+  // ── Channel B incremental-sync read endpoints (Q4 Phase 2; CHANNEL_B_SYNC_SPEC.md) ──
+  // X-Sync-Key gated, NO CORS (server-to-server), own rate-limit + daily budget.
+  // MUST sit before the public POST 10/min limiter so sync traffic isn't choked.
+  if (req.method === "GET" && req.url?.startsWith("/api/channel-b/manifest")) {
+    await handleManifest(req, res);
+    return;
+  }
+  if (req.method === "POST" && req.url === "/api/channel-b/chunks") {
+    await handleChunks(req, res);
     return;
   }
 

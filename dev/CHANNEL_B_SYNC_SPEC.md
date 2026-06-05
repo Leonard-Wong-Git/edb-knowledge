@@ -1,6 +1,6 @@
 # Channel B Incremental-Sync Migration Spec（K1-side）
 
-**版本**: 0.4（§11 全 RESOLVED；下游 consumer 覆文 S145 納入：embedding 路 1 鎖定、manifest +topic/content_type、profile 校正；契約 build-ready，待 endpoint build PLAN）
+**版本**: 0.5（v0.4 + §13 實作澄清〔對抗審核 follow-up〕；K1 端點已 build〔additive、dormant 至設 key〕、待 deploy + live smoke。v0.4 = §11 全 RESOLVED + 下游 consumer 覆文 S145 納入：embedding 路 1、manifest +topic/content_type、profile 校正）
 **建立**: 2026-06-05 · Session S144（Claude）｜**v0.4 更新**: 2026-06-05 · Session S145（Claude，納入下游 Circular System consumer 覆文）
 **狀態**: 契約設計稿 — **K1-side 端點未 build**（本 spec 只定契約；endpoint 屬後續 dormant/reversible build task）
 **用途**: 定義下游 **Circular System** 由「消費 frozen `knowledge.json`（Channel A @455）」**增量同步（incremental sync）消費 Channel B**（Supabase `wiki_chunks`，現 10,594 chunks）所需嘅 **K1 端契約**。
@@ -255,4 +255,17 @@ apply_deletes(deletes)
 
 ---
 
-*v0.2 draft — 2026-06-05 S144（過一輪對抗審核 hardening）。v0.3 — S144 §11 四決策定案。**v0.4 — 2026-06-05 S145：納入下游 Circular System consumer 覆文 — §11.2 RESOLVED（路 1 / `include_embedding=true`）、manifest +`topic`/`content_type`（反問 a）、限流 + bootstrap pacing（反問 b）、向量格式 + L2-norm 實測（反問 c）、profile 校正（ephemeral cron 3×/日 / file-based numpy，非常駐/非 pgvector）。契約 build-ready，待 Leonard GO 另開 K1-side endpoint build task。***
+## 13. 實作澄清（v0.5 — K1 端點 build 後對抗審核 follow-up）
+
+> K1 端點已實作（`backend/src/api/channelBSync.ts`，additive、dormant 至設 `CHANNEL_B_SYNC_KEY`）。經 5-lens 對抗審核後補以下契約澄清，免下游誤判：
+
+1. **`count` = post-filter**：manifest `count` 永遠等於 `chunks[].length`（已套 `include_statistical`）。預設 `include_statistical=false` → `count` **< 10,594**（排除 stat chunks）；要全量帶 `?include_statistical=true`。§3 例中 `"count": 10594` 只示意 full 值，**下游勿硬把 count 當固定 10,594 校驗**。
+2. **ETag 跨重啟穩定**：ETag = `manifest_hash`（content identity = contract_version + embedding_model + 排序 id-set），**DB 衍生、非 server memory** → process 重啟 / redeploy 後若 id-set 不變，ETag 不變、304 續命中。
+3. **`include_embedding` 預設 `true`**：欄缺省即 true；只有顯式 JSON `false` 先 disable。`include_embedding=true` → `embedding` 欄**必出現**（向量字串或 `null`）；`include_embedding=false` → `embedding` 欄**整個略去**（非 null）。
+4. **`source_aliases` 不入 `manifest_hash`**：alias map 變更**唔會**改 ETag（下游可能 304 睇唔到）→ **K1 alias 只增不減（monotonic）**；真要移除須 bump `contract_version`。
+5. **重複 / 缺 / 畸形 id**：POST `ids` 內重複 → server-side dedupe（每唯一 id 計一次 budget）；缺 id → 略過、不計 budget（§4 pending-add）；id 須 `[A-Za-z0-9_-]{1,128}`，否則 `400 {error:"malformed id"}`。
+6. **DB scan 防護 + 錯誤不洩**：manifest 全表掃有 **singleflight**（同 key 並發 cache-miss 只掃一次）+ TTL 快取 + 自有 57014 retry → 不餓死 live search（§8）。upstream 故障一律 `502 {error:"upstream error"}`，**不洩 Supabase 內文**。
+
+---
+
+*v0.2 draft — 2026-06-05 S144（過一輪對抗審核 hardening）。v0.3 — S144 §11 四決策定案。**v0.4 — 2026-06-05 S145：納入下游 Circular System consumer 覆文 — §11.2 RESOLVED（路 1 / `include_embedding=true`）、manifest +`topic`/`content_type`（反問 a）、限流 + bootstrap pacing（反問 b）、向量格式 + L2-norm 實測（反問 c）、profile 校正（ephemeral cron 3×/日 / file-based numpy，非常駐/非 pgvector）。***  **v0.5 — S145：K1 端點 build（`channelBSync.ts` + env + server wire；X-Sync-Key gate、自有 60/min+daily budget、anon-REST manifest+chunks）+ 5-lens 對抗審核（blocker：502 洩 upstream 內文 → 修；budget TOCTOU/dup-id → reserve-then-refund+dedupe；cache thundering-herd → singleflight；in.() → id-format guard）+ §13 澄清。typecheck/build + 本地 gate smoke PASS；待 Leonard 設 key + deploy + live smoke。***

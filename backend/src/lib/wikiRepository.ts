@@ -65,7 +65,9 @@ export interface WikiSearchResult {
  * source_id for quota counting only — chunks remain stored under their
  * original source_id and are returned unchanged in results.
  */
-const SOURCE_ALIASES: Record<string, string> = {
+// Exported so the Channel B sync manifest endpoint (channelBSync.ts) can surface
+// the same alias map to downstream for de-dup (spec §1 caveat 2 / §3 source_aliases).
+export const SOURCE_ALIASES: Record<string, string> = {
   g24: "sag_2025_11",
 };
 

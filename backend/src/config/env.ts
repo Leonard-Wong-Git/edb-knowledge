@@ -89,6 +89,22 @@ export function getSupabaseAnonKey(): string {
   return value;
 }
 
+/**
+ * Channel B incremental-sync read keys (Q4 Phase 2; CHANNEL_B_SYNC_SPEC.md §6).
+ * Comma-separated to support rotation (multiple valid keys during a swap).
+ * Returns [] when unset/empty so the sync endpoints can fail closed with 503
+ * (sync disabled) rather than throwing. Never log these values.
+ */
+export function getChannelBSyncKeys(): string[] {
+  const value = process.env.CHANNEL_B_SYNC_KEY?.trim();
+  if (!value) return [];
+  return value.split(",").map((s) => s.trim()).filter(Boolean);
+}
+
+export function isChannelBSyncEnabled(): boolean {
+  return getChannelBSyncKeys().length > 0;
+}
+
 export {
   DEFAULT_CORS_ORIGIN,
   DEFAULT_KNOWLEDGE_PATH_SETTING,

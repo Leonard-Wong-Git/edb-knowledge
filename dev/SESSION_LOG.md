@@ -2,7 +2,7 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
-## 2026-06-05 Session 145 — 下游 Circular System consumer 覆文納入 → Channel B sync 契約 spec v0.4 build-ready（docs-only；mid-session checkpoint，session 仍開）
+## 2026-06-05 Session 145 — 下游 consumer 覆文納入（spec v0.4→v0.5）+ Q4 Phase 2 Channel B sync 端點 BUILT（X-Sync-Key gated、dormant 至設 key）+ 5-lens 對抗審核 — 待 Leonard 設 key + deploy + live smoke（session 仍開）
 
 - **ID:** Claude_20260605_1513
 - **Trigger:** 新 session 起手自測全對賬 → Leonard 揀「先 review / 傾下一步」→ 下游覆文到 → 確認 embedding 路 1 + 答 3 反問 + 揀 manifest 帶 topic+content_type + 「即寫 v0.4」。
@@ -16,6 +16,12 @@
 
 ### CHANGE — spec v0.3 → v0.4（`dev/CHANNEL_B_SYNC_SPEC.md`，11 段 targeted edit）
 header v0.4 ／ §0 決策鏈 +consumer-覆文 row + rationale 校正 ／ §2 流程圖 ／ §3 manifest（chunk +`topic`/`content_type` 欄 + size note ~90B→~110-130B）／ §5 cadence（3×/日 cron、兩 cron-run 確認）／ §6 sync-key(Actions secret)+限流+bootstrap pacing ／ §7 embedding invariant（序列化格式 + L2-norm 實測 + 路 1 chosen）／ §9 manifest select +topic/content_type ／ §11.2 ⏳→✅ RESOLVED ／ footer v0.4 changelog。
+
+### Q4 Phase 2 endpoint build（Leonard GO「下游可配合，go ahead」；spec v0.4→v0.5）
+- **CHANGE 6 檔**：NEW `backend/src/api/channelBSync.ts`（manifest+chunks handler、X-Sync-Key gate〔`timingSafeEqual`/多key/503 fail-closed/never-log〕、自有 60/min + daily chunk budget、anon-REST `Range` 分頁 manifest scan + `in.()` chunk fetch、NO CORS）；`env.ts`（+`getChannelBSyncKeys`/`isChannelBSyncEnabled`）；`wikiRepository.ts`（export `SOURCE_ALIASES`）；`server.ts`（wire 2 route 喺公共 POST 10/min 之前）；`.env.example`（`CHANNEL_B_SYNC_KEY` 文檔）。
+- **本地 QC PASS**：`npm run check`+`build` exit 0；HTTP gate smoke = 503（無 key）/401（無 header）/403（錯 key）/400（max_ids+bad-json+not-array+malformed-id）/valid→502（本地無 Supabase）/generic-502-no-leak/no-CORS//health 200 回歸。Supabase-依賴路徑（manifest/chunks 200 + embedding）**待 deploy 後 live smoke**（本地 .env 無 anon key）。
+- **對抗審核（Workflow 5-lens × adversarial-verify、40 agents、2.2M tok）**：35 raised → 28 confirmed → 自行 adjudicate → **修 4 真**：(blocker) 502 洩 Supabase 內文 → generic「upstream error」+ server-log；(major) budget TOCTOU/overspend + dup-id 計數分歧 → 同步 reserve-then-refund + dedupe ids；(major) manifest cache thundering-herd 撞 §8 共用 free-tier DB → **singleflight**；(major) `in.()` 注入 defense-in-depth → `SAFE_ID_RE` 400。**否決（記理由）**：per-IP isolation（global 60/min 其實更嚴、reviewer 搞反）/ budget restart-reset（spec 已定位 soft guard、persist 要掂禁區 Supabase write）/ ETag fingerprint（端點 key-gated、無 key 見唔到 ETag）/ rate-window race（單線程 + 單一 cron consumer、soft limiter negligible）/ CHUNK_COLS export（無 test）。spec → **v0.5**（§13 實作澄清）。
+- **端點 dormant（回 503）至 Leonard 喺 Render 設 `CHANNEL_B_SYNC_KEY` + 一次 deploy**；0 Supabase/schema/RPC/pipeline/Channel-A/knowledge·guidelines.json mutation；revert = 刪 `channelBSync.ts` + server.ts 2 route 行。
 
 ### QC
 - grep 一致性 PASS：header=0.4、無殘 `版本 0.3`、§11.2 無 ⏳（剩 ⏳ 只 §0 表 Q4「K1-build」+「下游-build」兩 row）、`content_type` 8 處一致、L2-norm/路1/`include_embedding=true` 在位、「常駐/近乎即時」殘句全屬已校正語境或 L197「304 後常駐 warm」（server 保暖非 profile claim）。
@@ -33,7 +39,7 @@ header v0.4 ／ §0 決策鏈 +consumer-覆文 row + rationale 校正 ／ §2 �
 ### DOC_SYNC Matrix Scan
 | Change Category | Required Doc Updates | Status |
 |---|---|---|
-| Channel B sync contract change (`CHANNEL_B_SYNC_SPEC.md`; Q4 Phase 2 incremental-sync) | spec v0.4; PMS §C.6 + §F.2; CODEBASE AI log; SESSION_HANDOFF/LOG | ✓ Done（backend routes 仍未 build → N/A 至 endpoint GO） |
+| Channel B sync contract + endpoint (`CHANNEL_B_SYNC_SPEC.md`; Q4 Phase 2 incremental-sync) | spec v0.5; backend routes (`channelBSync.ts` + `server.ts` + `env.ts` + `.env.example`); CODEBASE External Services + Directory Map + AI log; PMS §C.6 + §F.2; SESSION_HANDOFF/LOG | ✓ Done（routes BUILT; `CHANNEL_B_SYNC_KEY` Render env + deploy + live smoke pending Leonard） |
 | Long-term spec / locked-decision change (§11.2 resolved + profile correction) | PMS §F.2; SESSION_HANDOFF Open Priorities #1 | ✓ Done |
 
 ### Log maintenance
@@ -48,9 +54,11 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 ⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
 
-S145 (2026-06-05)：**下游 Circular System consumer 覆文納入 → Channel B sync 契約 spec v0.4 build-ready — 全 docs-only、0 product 改、0 outstanding bug**。HEAD origin/main 起手自行 verify（S145 docs commit）。
-- **Q4 Phase 2 模型 = Incremental sync（manifest-diff delta feed）；下游已覆 → §11.2 RESOLVED**：embedding 路 1（`text-embedding-3-small`、`include_embedding=true` 連向量送、下游零重嵌）。spec `dev/CHANNEL_B_SYNC_SPEC.md` **v0.4 build-ready**（manifest +topic/content_type、bootstrap 71 批 pacing、向量 pgvector`"[…]"`字串+L2-norm≈1.0 實測、profile 校正 = 下游真實係 GitHub Actions ephemeral cron 3×/日 + file-based numpy）。**K1 端 manifest+chunks endpoint 仍未 build。**
-- **下游 ready-gated 喺**：(i) Leonard 把 `dev/CHANNEL_B_SYNC_SPEC.md` 發俾下游；(ii) 下游 3 內部決定（鏡像持久化 / 全量定子集 / 存儲格式）；(iii) 內部批准 → 估 1-2 回合上 staging。3 反問 K1 端答案已備（見本 entry / spec §3/§6/§7）。
+S145 (2026-06-05)：**下游 consumer 覆文納入（spec v0.4→v0.5）+ Q4 Phase 2 Channel B sync 端點 BUILT（dormant 至設 key）+ 5-lens 對抗審核 — 待 Leonard 設 key + deploy + live smoke**。0 outstanding bug。HEAD origin/main 起手自行 verify。
+- **Q4 Phase 2 模型 = Incremental sync；下游已覆 → §11.2 RESOLVED**：embedding 路 1（`text-embedding-3-small`、`include_embedding=true`、零重嵌）。契約 `dev/CHANNEL_B_SYNC_SPEC.md` **v0.5**（v0.4 下游覆文 + §13 對抗審核澄清）。
+- **K1 端點已 build（`backend/src/api/channelBSync.ts`）**：`GET /api/channel-b/manifest` + `POST /api/channel-b/chunks`、X-Sync-Key gate、自有 60/min+daily budget、anon-REST、NO CORS、**dormant（回 503）至設 `CHANNEL_B_SYNC_KEY`**。本地 typecheck/build + gate smoke PASS；對抗審核修 4 真（502 洩內文 / budget TOCTOU+dup / cache thundering-herd / in.() guard）。**live smoke（manifest/chunks 200 + embedding 讀）待 deploy。**
+- **待 Leonard 兩步啟用**：(1) Render env 設 `CHANNEL_B_SYNC_KEY=<openssl rand -hex 32>`（同一值俾下游存 Actions secret）；(2) push 觸發 Render deploy（端點 additive、未設 key 前 503 零風險）。然後我做 live 10-scenario smoke + 驗 anon 能否讀 embedding。
+- **下游 ready-gated**：(i) Leonard 發 spec v0.5 俾下游；(ii) 下游 3 內部決定（鏡像持久化/全量定子集/存儲格式）；(iii) 內部批准。3 反問 K1 答案已喺 spec §3/§6/§7/§13。
 - **Display/version drift 一次過 fix（approach 已定、待執行）**：knowledge.json._meta.stats chunks→10,594/guidelines→152 + README hardcoded(148→161/10,736→10,594/Channel-B framing/日期) + 統一站 version（不 bump、勿跑 bump_version.py §E.8）；§3 HIGH-risk。
 
 Current objective and progress state:
@@ -58,22 +66,22 @@ Current objective and progress state:
 - 下一步主線 = Q4 Phase 2 endpoint build（spec v0.4 ready + 下游已覆 → 只待 Leonard GO build/deploy）。
 
 Pending tasks in priority order:
-1. **Q4 Phase 2 endpoint build（§3 HIGH-risk、spec v0.4 ready、下游已覆 embedding 路1 → 待 Leonard GO）**：build GET /api/channel-b/manifest（select id,source_id,hash,topic,content_type）+ POST /api/channel-b/chunks（include_embedding 預設 true）+ X-Sync-Key（timingSafeEqual/401·403/503-fail-closed/多key/never-log）+ 60-min+daily-3× 限流，per v0.4 §9。需 Leonard 喺 onrender 設 `CHANNEL_B_SYNC_KEY` env + 一次 deploy。**未 GO 勿 build、勿掂下游 repo（§A.3）、勿 un-freeze Channel A。**
+1. **Q4 Phase 2 endpoint DEPLOY + live smoke（端點已 build、§3 HIGH-risk、待 Leonard 設 key + deploy）**：Render env 設 `CHANNEL_B_SYNC_KEY=<openssl rand -hex 32>` + push 觸發 deploy → 我做 live smoke（manifest count / chunks 200 + embedding / 304 / 401·403·503 / 驗 anon 能讀 embedding column）。**未設 key 前端點 503 dormant、零對外風險。勿掂下游 repo（§A.3）、勿 un-freeze Channel A。**
 2. **Display/version drift 一次過 fix（approach 已定、待執行）**：詳 SESSION_LOG S144/S145 + SESSION_HANDOFF OP #3；§3 HIGH-risk。
 3. 既有 deferred：§8b rule 2 automation / Suppl_guide held / §E.10(a) ACCEPTED / FAIL-A / stat_fact 2025/26 / SESSION_HANDOFF Baseline #1 巨型 stale wall 收斂 / freshness 週跑觀察 / 57014 cold-start / **SESSION_HANDOFF.md 1 NUL byte cleanup**。
 
-Key files changed this session (S145)：dev/CHANNEL_B_SYNC_SPEC.md（v0.3→v0.4）；dev/PROJECT_MASTER_SPEC.md（§C.6 + §F.2）；dev/CODEBASE_CONTEXT.md（AI log）；dev/SESSION_HANDOFF.md（Open Priorities #1）；dev/SESSION_LOG.md。**0 code/data/Supabase/knowledge.json/guidelines.json mutation**。
+Key files changed this session (S145)：**backend NEW `backend/src/api/channelBSync.ts` + edits `env.ts`/`wikiRepository.ts`/`server.ts`/`.env.example`**；`dev/CHANNEL_B_SYNC_SPEC.md`（v0.3→v0.5）；`dev/PROJECT_MASTER_SPEC.md`（§C.6 + §F.2）；`dev/CODEBASE_CONTEXT.md`（External Services + Directory Map + AI log ×2）；`dev/SESSION_HANDOFF.md`（OP#1）；`dev/SESSION_LOG.md`。**0 Supabase/data/knowledge.json/guidelines.json mutation；端點 additive 可逆。**
 
 Known risks / blockers / cautions:
 - 🟢 0 outstanding bug。S145 全 docs-only、可逆（git revert）。
-- 🔴 **Q4 Phase 2 endpoint build 不可逆對外效果（改 live backend + deploy onrender + 開新對外資料面）+ 下游跨 repo**：未 Leonard GO 勿 build / 勿掂下游 Circular System repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge.json·guidelines.json。
+- 🟡 **Q4 Phase 2 端點已 build、dormant（回 503）**：deploy = 改 live backend onrender（可逆 = 刪 channelBSync.ts + server.ts 2 route 行，或移除 key env）；未設 `CHANNEL_B_SYNC_KEY` 前零對外效果。**仍：勿掂下游 Circular System repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge.json·guidelines.json。live smoke 必驗 anon 能否讀 `embedding` column（load-bearing 假設、本地驗唔到）。**
 - ⚠️ Display/version fix 撞 frozen knowledge.json（Leonard 已 OK 改 _meta.stats、facts/schema 不變、下游見檔變一次）；執行出 PLAN、勿跑 bump_version.py（§E.8 前科）。
 - ⚠️ `dev/SESSION_HANDOFF.md` 1 NUL byte（grep 當 binary）；勿未確認自動 strip。
 - 既有不變: Channel A frozen @455；57014 transient(retry); FAIL-A(record-only); §E.10(a) ACCEPTED conditional; q.html/A·AB dormant 勿清; Stage-2 closed; egress 每次自測; 路徑空格雙引號; wiki_chunks 欄名 `text`; 結構天花板源勿再 ingest; 改 Draft code/data commit 必入 SESSION_LOG; init_backup gitignored。
 
-Validation status: 本 session 0 product change（純 spec/docs）；spec v0.4 grep 一致性 PASS + diff 只動 spec(+21/−18)；起手自測全 PASS（git cb498c1 / facts 455 / Supabase 10,594 雙讀 / guidelines 152 / knowledge.json frozen 455 / onrender 200）；§4a SESSION_LOG <400 未觸發 archive。
+Validation status: spec v0.5 grep 一致性 PASS；backend `npm run check`+`build` exit 0；本地 HTTP gate smoke 全 PASS（503/401/403/400×4/generic-502/no-CORS//health 回歸）；對抗審核（5-lens×verify）修 4 真。起手自測全 PASS（git cb498c1 / facts 455 / Supabase 10,594 雙讀 / guidelines 152 / knowledge.json frozen 455 / onrender 200）。**Supabase-依賴 live smoke（manifest/chunks/embedding）待 deploy。** ⚠️ §4a：SESSION_LOG 已 >400 行 → 下次正式 closeout 跑 archive。
 
-Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE + CHANNEL_B_SYNC_SPEC v0.4 + 自測（git HEAD / facts 455 / Supabase 10,594 / guidelines 152 / knowledge.json frozen 455 / onrender /health）+ playbook INDEX 後，問 Leonard：(a) 下游已覆 + spec v0.4 ready → 要唔要而家**開 Q4 Phase 2 endpoint build §3 HIGH-risk PLAN**（要佢 onrender 設 CHANNEL_B_SYNC_KEY + 接受一次 deploy）；(b) 定先做 display/version 一次過 fix；(c) 定淨係要我把 spec 整理成可發俾下游嘅版本。**未 Leonard 明示前，勿 build Channel B sync endpoint / 勿掂下游 repo / 勿 un-freeze Channel A / 勿手寫 knowledge.json·guidelines.json / 勿跑 bump_version.py / 勿 reopen §E.10 / 勿動 Stage-2 / 勿再 ingest 結構天花板源 / 勿自動 strip handoff NUL byte。**
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE + CHANNEL_B_SYNC_SPEC v0.5 + 自測（git HEAD / facts 455 / Supabase 10,594 / guidelines 152 / knowledge.json frozen 455 / onrender /health）+ playbook INDEX 後，問 Leonard 主線（Q4 Phase 2 端點已 build、dormant）：(a) 佢設咗 Render `CHANNEL_B_SYNC_KEY` + deploy 未？設咗即做 live smoke（manifest/chunks/embedding/304/gate + 驗 anon 讀 embedding）；(b) 定先做 display/version 一次過 fix。**未 Leonard 明示前，勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge.json·guidelines.json / 勿跑 bump_version.py / 勿 reopen §E.10 / 勿動 Stage-2 / 勿再 ingest 結構天花板源 / 勿自動 strip handoff NUL byte。**
 ```
 
 ## 2026-06-05 Session 144 — Q4 Phase 2 模型決策（Incremental sync）+ Channel B sync 契約 spec v0.3 定稿 + 下游 prompt + display/version drift 記錄 — CLOSED
