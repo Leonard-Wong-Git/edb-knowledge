@@ -141,23 +141,26 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / Circular System 整合）
 
 ## Last Session Record
-1. UTC date: 2026-06-04
-2. Session ID: Claude_20260604 (Session 141 — SEN/資優 0-chunk 補完：sea_guide_c.pdf page-carry +51；3 個 named id 證實結構天花板；生產 live、0 regression)
+1. UTC date: 2026-06-04 / 05
+2. Session ID: Claude_20260604 (S141+S142 連續 session — 開頭 SEN/資優 0-chunk 補完〔S141〕→ Leonard /goal「做齊1+2」→ EDB 全覆蓋 gap sweep §1-5〔S142〕；全生產 live、0 regression、Q4 deferred)
 3. Completed:
-   - ✅ **[起手自測全 PASS]** HEAD `e8bddaa`(S140 closeout)==origin/main / Channel A facts 455 / role_facts byte-identical / 公開 guidelines live 152 v2.5.0 / onrender /health 200(冷啟 11s) / Supabase 9,912〔g14/sen_curr_area/gifted_policy_docs 雙讀 confirm 0、g10=129 g19=116〕。
-   - ✅ **[§3 HIGH-risk PLAN + Phase-0 read-only crawl + STOP gate]** Leonard 揀「g14+資優 SEN 補完」→ 出 PLAN 等確認 → crawl 3 個 named 0-chunk id：**全屬 hub/HTML-only/dup**（g14 純 HTML 14 分章無 PDF=結構天花板無頁碼；gifted_policy_docs 靜態 nav-only；sen_curr_area=hub，主 child=g10 已 ingest、子頁爆 ~179 智障 exemplar=另一 scope 噪音）→ STOP 報 curate「真增益僅 1 份」→ Leonard 揀「只 ingest sea_guide」。
-   - ✅ **[ingest sea_guide_c.pdf]** 唯一真政策 PDF《為有特殊教育需要學生提供校內考試特別安排》(2025-09修訂、46p、SENSE portal、mojibake CLEAN、distinct from g19)→ 新 registry `sen_exam_arrangements_2025`(151→152)+ repage Gate1 46/46 + cb3_b2 Gate2 **del=0 ins=51 純加法**(Supabase 9,912→**9,963**、帶 `=== Page N ===`)+ backend SOURCE_SETS.sen + QUERY_EXPANSIONS.sen + typecheck/build exit 0。driver `cb3_b2` 16th-validation 0 incident。
-   - ✅ **[commit + deploy + live smoke PASS]** commit `e7215e2`(4 檔指定、勿 -A)→ push → Render deploy → live SEN smoke：新源 #1 p=9 @0.74 帶頁碼；bare「sen」非回歸；「英文科課程指引」route curriculum 零污染；融合教育SENCO g19 主導+新源#4。
-   - ✅ **[結構天花板 codify]** g14/gifted_policy_docs/sen_curr_area 標「勿再 ingest」入 PMS §16 + DOC_SYNC 加「Channel-B vault source backfill」row(S122-S141 recurring 卻無 row 之 gap)。
-4. Pending: 下一階段方向待 Leonard（Q4 對外契約〔敏感未明示勿掂〕/ §8b rule 2 automation）。**本 session 主線（SEN 補完）已全清、0 outstanding bug。**
+   - ✅ **[S141 SEN 補完]** sea_guide_c.pdf《為有特殊教育需要學生提供校內考試特別安排》(2025,46p)→ `sen_exam_arrangements_2025` del=0 ins=51；3 個 named 0-chunk id（g14/sen_curr_area/gifted_policy_docs）crawl 證實結構天花板/hub「勿再 ingest」(codify PMS §16)。Supabase 9,912→9,963。commit `e7215e2`。
+   - ✅ **[S142 EDB sweep §1-5 — Leonard 三項 scope locked：政策/指引/通函全文 PDF 相關性 / 就建議自主 ingest / 逐範疇]**：每範疇 主爬→agent-team(curate+adversarial audit)→egress 逐份核實(title/頁數/mojibake)→嚴格篩(剔 forms/exemplars/slides/海報/語言版本/事件資源)→del=0 batch ingest→路由→deploy→paced smoke。
+     §1 學校行政(+35) / §2 教師人事(+3) / §3 學生訓育支援(+7) / §4 健康校園(+3，安全 core 已§1) / §5 收生派位(+3) = **+51 政策文件 / +631 chunks**；registry 152→**203**；Supabase 9,963→**10,594**(全 del=0 可逆)。
+   - ✅ **[6 新/擴路由]** NEW gov_admin（問責/視學/防貪/校舍/改校名/SDP）+ safety（消防/職安/熱帶氣旋/斜坡）+ student_support（生涯規劃/和諧校園/虐兒強制舉報/危機處理手冊/健康校園）+ placement（中學派位/STIMS）+ 擴 finance/hr_admin/cpd。每範疇 paced live smoke PASS、0 regression。
+   - ✅ **[§6-9 評估 bounded/飽和]** §6 通函 EDBC = ASPX app 不可靜態枚舉（高價值已§1-5捕捉~18條）；§7 SEN(S141已補)/§8 課程(~130飽和)/§9 雜(g09/國安/g28已覆蓋) = 0 net-new。SWEEP 核心完成。
+   - 🟡 **[§3 CHANGE divergence 自捉自修]** over-expansion 稀釋（QUERY_EXPANSIONS 塞晒新文件詞→熱帶氣旋壓消防、edbc14 壓 g04）→ 修：新 route 靠 SOURCE_SET filter，hr_admin expansion 還原、safety/gov_admin 不加 expansion。
+   - ✅ **[收工：§4a 已 archive]** SESSION_LOG 423→137 行（5→2 entries，3 條→`dev/archive/SESSION_LOG_2026_Q2.md`）。
+4. Pending: **功課1 Q4（待 Leonard 明示「執行」）= 關 Channel A + 下游轉 Channel B**（不可逆 + 跨 repo〔下游 Circular System 勿掂〕+ Leonard 定咗最後一步）。Channel B 已 substantially「夠用」。**本 session sweep 主線已全清、0 outstanding bug。**
 5. Next priorities (max 3):
-   - **下一階段方向（待 Leonard）**：Q4 對外契約收斂（敏感未明示勿掂）/ §8b rule 2 automation
-   - **觀察（非阻塞）**：freshness scheduled 週跑（週一 09:00 UTC）開 freshness-change Issue；57014 cold-start mask；knowledge.json._meta.stats.guidelines=39 stale follow-up；Suppl_guide 非華語補充指引 held 待人核
-   - 既有 deferred backlog（§E.10 ACCEPTED conditional / FAIL-A record-only / stat_fact 2025/26 / HKEAA）
+   - **Q4（待 Leonard）**：建議先實際試用新 Channel B 廣度 confirm 真夠用 → 再出 §3 HIGH-risk Q4 遷移 PLAN（K1 側可逆 vs 下游 repo 需 Leonard 協調）
+   - **觀察（非阻塞）**：freshness 週跑開 Issue；57014 cold-start；新源小文件 generic query 被 sag/g04 壓=benign ranking competition；§6 通函 ASPX 驅動(ROI 低)
+   - 既有 deferred：§8b rule 2 automation / Suppl_guide held / §E.10 ACCEPTED / FAIL-A / stat_fact 2025/26
 6. Risks / blockers:
-   - 🟢 **0 outstanding bug**。S141 SEN backfill 純加法（現有 chunks 0 lost、可 git revert + Supabase DROP）。
-   - 既有不變: 🔴 57014 transient (S139 backend retry；exhaust 後仍 400、frontend 重試掣); FAIL-A (record-only); §E.10 (a) ACCEPTED conditional; q.html/A·AB dormant 勿清; Q4 deferred 未明示勿掂; Stage-2 closed; egress 每次自測; 路徑空格雙引號; wiki_chunks 欄名 `text` 非 `content`; guidelines.json 勿手寫(用 build_guidelines.py); 改 Draft code/data commit 必入 SESSION_LOG; init_backup gitignored。
-7. **✅ S141 SEN-adjacent 0-chunk gap closed + 結構天花板 3 源 documented。** commit `e7215e2`(registry + repage + vault + backend，specific files、init_backup 不入)。起手自測全 PASS(HEAD e8bddaa==origin/main / facts 455 / guidelines live 152 / onrender 200 / Supabase 9,912→post 9,963)。
+   - 🟢 **0 outstanding bug**。S142 sweep 全 del=0 純加法（git revert + Supabase DROP 可逆）。
+   - 🔴 **Q4 未做、不可逆、跨 repo、待 Leonard 明示**（勿自行關 Channel A / 勿掂下游 Circular System repo）。
+   - 既有不變: 57014 transient(S139 retry); FAIL-A(record-only); §E.10(a) ACCEPTED conditional; q.html/A·AB dormant 勿清; Q4 deferred; Stage-2 closed; egress 每次自測; 路徑空格雙引號; wiki_chunks 欄名 `text`; guidelines.json 勿手寫; g14/gifted/sen_curr_area 結構天花板勿再 ingest; 改 Draft code/data commit 必入 SESSION_LOG; init_backup gitignored。
+7. **✅ S142 EDB-coverage sweep §1-5 完成（+51 政策文件 / +631 chunks / 6 路由 / Supabase 10,594）+ S141 SEN 補完。** commit chain `e7215e2`…`80368f8`…(closeout)。driver cb3_b2 17-22 輪 0 incident。起手自測全 PASS。
 
 ## Previous Session Record
 1. UTC date: 2026-05-30
