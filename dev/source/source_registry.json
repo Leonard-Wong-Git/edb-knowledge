@@ -5521,6 +5521,78 @@
         "content_hash": "591722cd19037053777661cc684db8a1520e70ffc27c4d81e265e3cc2b03c54e",
         "hash_checked_at": "2026-06-05"
       }
+    },
+    {
+      "source_id": "edbc100_2002_healthy_sch",
+      "title": "教育局通告第100/2002號 健康校園政策（禁毒）",
+      "title_en": null,
+      "title_short": "教育局通告第100/2002號 健康",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC10002C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC10002C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "student"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2002-2026",
+      "last_checked_at": "2026-06-05",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §4 (校園安全/健康校園): full-text policy PDF, agent-team curated KEEP, egress-verified (3p, CLEAN), del=0 page-carry. route=student_support. NB: 校園安全 core (fire/職安/實驗室/熱帶氣旋/斜坡) already covered in §1 safety route.",
+      "freshness_metadata": {
+        "content_hash": "a2f181fd7ddc21fea462c5d1d7c6c7fd503b8b8dc11cafd75aa6cafe7475118d",
+        "hash_checked_at": "2026-06-05"
+      }
+    },
+    {
+      "source_id": "hsp_framework",
+      "title": "健康校園政策架構",
+      "title_en": null,
+      "title_short": "健康校園政策架構",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/healthy-sch-policy/hsp_framework_c.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/healthy-sch-policy/hsp_framework_c.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "student"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2002-2026",
+      "last_checked_at": "2026-06-05",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §4 (校園安全/健康校園): full-text policy PDF, agent-team curated KEEP, egress-verified (1p, CLEAN), del=0 page-carry. route=student_support. NB: 校園安全 core (fire/職安/實驗室/熱帶氣旋/斜坡) already covered in §1 safety route.",
+      "freshness_metadata": {
+        "content_hash": "cc4aba25db2568e917701d6b6c442f39282c6ff7e0bc04298dae3297c80b5a33",
+        "hash_checked_at": "2026-06-05"
+      }
+    },
+    {
+      "source_id": "hsp_drug_testing_2026",
+      "title": "含測檢元素的健康校園計劃（2026/27學年）",
+      "title_en": null,
+      "title_short": "含測檢元素的健康校園計劃（2026/",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/healthy-sch-policy/HSP(DT)_2026-27_Chi.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/healthy-sch-policy/HSP(DT)_2026-27_Chi.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "student"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2002-2026",
+      "last_checked_at": "2026-06-05",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §4 (校園安全/健康校園): full-text policy PDF, agent-team curated KEEP, egress-verified (6p, CLEAN), del=0 page-carry. route=student_support. NB: 校園安全 core (fire/職安/實驗室/熱帶氣旋/斜坡) already covered in §1 safety route.",
+      "freshness_metadata": {
+        "content_hash": "e867d5da54f1d52f4e316e46b9acf2672904ca19035d1ce285bcd9d2fbf27c59",
+        "hash_checked_at": "2026-06-05"
+      }
     }
   ]
 }

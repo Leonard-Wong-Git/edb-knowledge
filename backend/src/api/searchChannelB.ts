@@ -252,6 +252,7 @@ const SOURCE_SETS: Record<string, string[]> = {
   student_support: [
     "edbc015_2021_lpe", "lpe_framework_primary", "edbc18_2008_harmonious",
     "edbc15_2025_child_abuse", "edbcm83_2020_student_care", "crisis_mgmt_handbook", "kg_crisis_mgmt",
+    "edbc100_2002_healthy_sch", "hsp_framework", "hsp_drug_testing_2026",  // S142 §4: 健康校園/禁毒
     "g16", "g17",
     "sag_2025_11",
     "role_facts_student", "role_facts_general",
@@ -330,7 +331,7 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   conduct: /體罰|施行體罰|羞辱學生|虐待學生|教師操守|專業操守|教師專業操守/,
   // S142 §3 — student guidance/discipline/support. After conduct (操守/體罰 stays conduct),
   // before the broad production categories so welfare terms route here not finance/curriculum.
-  student_support: /生涯規劃|和諧校園|欺凌|霸凌|虐待兒童|虐兒|強制舉報|危機處理|關顧學生|訓育|輔導服務|學生精神健康|學生自殺|創傷知情|哀傷輔導|學生支援組/,
+  student_support: /生涯規劃|和諧校園|欺凌|霸凌|虐待兒童|虐兒|強制舉報|危機處理|關顧學生|訓育|輔導服務|學生精神健康|學生自殺|創傷知情|哀傷輔導|學生支援組|健康校園|禁毒|藥物測試|校園測檢/,
   steam: /STEAM|STEM/,
   finance: /採購|招標|單一報價|競投|供應商|報價單|分判|貨物|服務合約|財務管理|預算|撥款|開支|報銷|捐款|借款|代收費|利益衝突|申報利益|賄賂|廉署|防賄|資助則例|法團校董|校董會經費|採購門檻|採購程序/,
   hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金/,
