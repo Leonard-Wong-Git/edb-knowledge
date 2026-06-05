@@ -5593,6 +5593,78 @@
         "content_hash": "e867d5da54f1d52f4e316e46b9acf2672904ca19035d1ce285bcd9d2fbf27c59",
         "hash_checked_at": "2026-06-05"
       }
+    },
+    {
+      "source_id": "edbc18_2019_sspa",
+      "title": "教育局通告第18/2019號 中學學位分配辦法",
+      "title_en": null,
+      "title_short": "教育局通告第18/2019號 中學學",
+      "url_landing": "http://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/spa-systems/secondary-spa/general-info/EDBC18_2019_TC.pdf",
+      "url_primary": "http://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/spa-systems/secondary-spa/general-info/EDBC18_2019_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "student"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2019-2026",
+      "last_checked_at": "2026-06-05",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §5 (收生/學位分配): full-text policy PDF (11p, CLEAN), del=0 page-carry. route=placement. NB: most admission content = parent forms/HTML mechanism (non-policy); thin net-new.",
+      "freshness_metadata": {
+        "content_hash": "504037ef546b07bde18e016eda08d4d81507490d169f4a6751cf65bf134a3710",
+        "hash_checked_at": "2026-06-05"
+      }
+    },
+    {
+      "source_id": "stims_guide_2025",
+      "title": "學生資料管理系統（STIMS）指引（2025年9月版）",
+      "title_en": null,
+      "title_short": "學生資料管理系統（STIMS）指引（",
+      "url_landing": "http://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/spa-systems/student-info-management-system/stimsguid_chi.pdf",
+      "url_primary": "http://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/spa-systems/student-info-management-system/stimsguid_chi.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "student"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2019-2026",
+      "last_checked_at": "2026-06-05",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §5 (收生/學位分配): full-text policy PDF (21p, CLEAN), del=0 page-carry. route=placement. NB: most admission content = parent forms/HTML mechanism (non-policy); thin net-new.",
+      "freshness_metadata": {
+        "content_hash": "d1ad8370f2ccbd771bae0a6f4187f2cec4f8ddc6d97d112cedb7fcb3781182b5",
+        "hash_checked_at": "2026-06-05"
+      }
+    },
+    {
+      "source_id": "s4_placement_2026",
+      "title": "中四學位安排機制簡介（2026）",
+      "title_en": null,
+      "title_short": "中四學位安排機制簡介（2026）",
+      "url_landing": "http://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/spa-systems/secondary-4-placement/Secondary 4 Placement Mechanism 2026_web_TC.pdf",
+      "url_primary": "http://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/spa-systems/secondary-4-placement/Secondary 4 Placement Mechanism 2026_web_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "student"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2019-2026",
+      "last_checked_at": "2026-06-05",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §5 (收生/學位分配): full-text policy PDF (2p, CLEAN), del=0 page-carry. route=placement. NB: most admission content = parent forms/HTML mechanism (non-policy); thin net-new.",
+      "freshness_metadata": {
+        "content_hash": "05a04a956a2b3b52efd7bb877fd7eb41bab2f03ac853913930b322134e1a4590",
+        "hash_checked_at": "2026-06-05"
+      }
     }
   ]
 }

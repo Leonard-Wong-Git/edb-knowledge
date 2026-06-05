@@ -175,6 +175,13 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g25",
     "role_facts_general",
   ],
+  // S142 §5 — primary/secondary place allocation + student-info-management (P1/SSPA/S4/STIMS).
+  // Distinct from kg_admission (KG-only). Most admission content is parent forms/HTML mechanism;
+  // these are the thin net-new full-text policy docs.
+  placement: [
+    "edbc18_2019_sspa", "stims_guide_2025", "s4_placement_2026",
+    "role_facts_general",
+  ],
   conduct: [
     "g05",
     "sag_2025_11",
@@ -328,6 +335,8 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // PLAN-1b selective routes (S118) — first-match precedence; keep first.
   cpd: /CPD|持續專業發展|教師專業發展|教師培訓|專業發展計劃|專業階梯|師訓/,
   kg_admission: /幼稚園收生|幼稚園.{0,3}收生|幼稚園.{0,3}入學|幼稚園.{0,3}報名|K1.{0,3}收生|幼稚園.{0,3}申請入學/,
+  // S142 §5 — primary/secondary placement (after kg_admission so 幼稚園 stays there).
+  placement: /中學學位分配|學位分配辦法|中一派位|中四學位|小一派位|統一派位|自行分配學位|跨境學童|學生資料管理系統|STIMS|收生實況調查/,
   conduct: /體罰|施行體罰|羞辱學生|虐待學生|教師操守|專業操守|教師專業操守/,
   // S142 §3 — student guidance/discipline/support. After conduct (操守/體罰 stays conduct),
   // before the broad production categories so welfare terms route here not finance/curriculum.
