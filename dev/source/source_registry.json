@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-06-04",
+    "updated": "2026-06-05",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -5280,6 +5280,78 @@
       "freshness_metadata": {
         "content_hash": "4acc38c60bba363d638f43b948c3948962fa606cbd0185d8af9b7d256c3e6308",
         "hash_checked_at": "2026-06-04"
+      }
+    },
+    {
+      "source_id": "tdtf_report_2019",
+      "title": "教師專業發展專責小組報告 (2019年3月)",
+      "title_en": null,
+      "title_short": "教師專業發展專責小組報告 (2019",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/teacher/report-tftpd/TF%20Final%20Report_tc_final.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/teacher/report-tftpd/TF%20Final%20Report_tc_final.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2019-2025",
+      "last_checked_at": "2026-06-05",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §2 (教師/人事): full-text policy PDF from /tc/teacher/, agent-team curated KEEP (route=cpd), egress-verified (62p, mojibake CLEAN), del=0 page-carry. backend SOURCE_SETS.cpd.",
+      "freshness_metadata": {
+        "content_hash": "0315666319df2c1b14b8b8fe7f537f7bdc2d83aef49e675c30bf8a7e66f6fddd",
+        "hash_checked_at": "2026-06-05"
+      }
+    },
+    {
+      "source_id": "supply_teacher_guide",
+      "title": "資助學校聘用代課教師的指引",
+      "title_en": null,
+      "title_short": "資助學校聘用代課教師的指引",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/teacher/appointments-related/supply-teachers/supply_teacher_guideline_tc.pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/teacher/appointments-related/supply-teachers/supply_teacher_guideline_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2019-2025",
+      "last_checked_at": "2026-06-05",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §2 (教師/人事): full-text policy PDF from /tc/teacher/, agent-team curated KEEP (route=hr_admin), egress-verified (10p, mojibake CLEAN), del=0 page-carry. backend SOURCE_SETS.hr_admin.",
+      "freshness_metadata": {
+        "content_hash": "7a11934f08d4ad3e9174651b38436a6999eac9d0cca8abf51ad5e469a48d35ba",
+        "hash_checked_at": "2026-06-05"
+      }
+    },
+    {
+      "source_id": "long_service_payment_guide",
+      "title": "發放遣散費及長期服務金的指引 (2025年5月)",
+      "title_en": null,
+      "title_short": "發放遣散費及長期服務金的指引 (20",
+      "url_landing": "https://www.edb.gov.hk/attachment/tc/teacher/appointments-related/severance-payment/long service payment homepage_c (updated_052025).pdf",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/teacher/appointments-related/severance-payment/long service payment homepage_c (updated_052025).pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2019-2025",
+      "last_checked_at": "2026-06-05",
+      "supersedes": null,
+      "notes": "S142 EDB-coverage sweep §2 (教師/人事): full-text policy PDF from /tc/teacher/, agent-team curated KEEP (route=hr_admin), egress-verified (6p, mojibake CLEAN), del=0 page-carry. backend SOURCE_SETS.hr_admin.",
+      "freshness_metadata": {
+        "content_hash": "f979c341cf6d7e202500cfac619d62a54e7991a238485cc97aa132682e6acc7a",
+        "hash_checked_at": "2026-06-05"
       }
     }
   ]

@@ -165,6 +165,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "sag_2025_11",
     "g06",
     "circ_edbc24017",
+    "tdtf_report_2019",  // S142 §2: 教師專業發展專責小組報告 (T-standard / CPD policy origin)
     "role_facts_hr",
     "role_facts_curriculum",
     "role_facts_general",
@@ -229,6 +230,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbc13_2022_blnst", "edbcm141_2025_blnst", "blnst_test_notes_nondeg", "blnst_test_candidate_notes",
     "embc5_2005_appointment", "edbc14_2023_student_protect", "staff_medical_health",
     "job_sharing_guide", "surplus_teacher_arr_2026", "private_sch_employment_notes",
+    "supply_teacher_guide", "long_service_payment_guide",  // S142 §2: 代課教師指引 + 遣散費長服金指引
     "role_facts_hr",
     "role_facts_general",
   ],
@@ -315,7 +317,7 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   conduct: /體罰|施行體罰|羞辱學生|虐待學生|教師操守|專業操守|教師專業操守/,
   steam: /STEAM|STEM/,
   finance: /採購|招標|單一報價|競投|供應商|報價單|分判|貨物|服務合約|財務管理|預算|撥款|開支|報銷|捐款|借款|代收費|利益衝突|申報利益|賄賂|廉署|防賄|資助則例|法團校董|校董會經費|採購門檻|採購程序/,
-  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童/,
+  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金/,
   activity: /全方位學習|活動津貼|課外活動|全方位學習津貼/,
   // SEN — MUST stay before `curriculum` (first-match precedence): "特殊學校課程指引"
   // contains 課程 and would otherwise route to curriculum. \bsen\b/i catches the bare
