@@ -27,6 +27,12 @@
 - **入庫:** registry 187→**190**；cb3_b2 del=0 ins=87；Supabase 10,261→**10,348**。tdtf_report_2019 教師專業發展專責小組報告(62p)→cpd；supply_teacher_guide 代課教師指引(10p)+long_service_payment_guide 遣散費長服金指引(6p)→hr_admin（keyword +遣散費/長期服務金/長服金）。typecheck+build exit 0。commit `2cf77d7`。
 - **lesson:** §2 大量內容同 §1 sch-admin/about-sch-staff 重疊（HR 散落兩個 EDB top-section）→ sweep 必 cross-section dedup；CPD framework 頁 HTML-only = 結構天花板。
 
+### §3 學生訓育輔導支援 ✅（7 文件入庫、+186 chunks、NEW student_support 路由）
+- **抓取/curate:** 爬 student-guidance + 自殺預防 + 危機處理 = 80 PDF → noise-strip 39 → egress-verify 14 → 真全文政策 **7**。**剔走：MRR 強制舉報簡介會/概覽/校長分享×4（slides，cjk 極疏；MRR 政策由 EDBC15/2025 circular 覆蓋）+ 大埔火災 TP_* 事件支援資源（非政策）+ 培訓課程/繪本/board-game/lesson-plan**。
+- **入庫:** registry 190→**197**；cb3_b2 del=0 ins=186；Supabase 10,348→**10,534**。7 源：EDBC015/2021 生涯規劃+推行框架(16p)、EDBC18/2008 締造和諧校園、EDBC15/2025 處理懷疑虐待兒童及家暴(12p)、EDBCM83/2020 關顧學生、**crisis_mgmt_handbook 學校危機處理手冊(82p)**、kg_crisis_mgmt 幼稚園危機處理(39p)。
+- **路由:** NEW `student_support`（TOPIC_KEYWORDS 置 conduct 後 + SOURCE_SET 含既有 g16/g17 + sag + role_facts_student；無 expansion 防稀釋）。commit `2070c44`。typecheck+build exit 0。
+- **lesson:** student-welfare section 噪音率最高（80→7=91% 噪音：大量學校分享/簡報/單張/事件資源）；MRR slides ≠ 全文指引（egress cjk-density 分辨）。
+
 ### Next Session Handoff Prompt (Verbatim)
 （見下方 S142 running；逐範疇完成後更新。本 entry 為 RUNNING，§2-9 完成陸續補。）
 
