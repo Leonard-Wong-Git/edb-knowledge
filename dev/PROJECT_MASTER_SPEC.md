@@ -133,7 +133,8 @@ source_registry → 同 vault PDFs → ai_extract.py
 ### C.6 關鍵規格文檔（深入時讀）
 - `K1_API_SPEC.md` / `K1_KNOWLEDGE_INTERFACE_SPEC.md`：對外資料契約。
 - `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` v2：LLM-wiki 分階段架構。
-- `dev/CIRCULAR_SYSTEM_INTEGRATION.md`：與 Circular System 的整合規格（K1 side 已 done）。
+- `dev/CIRCULAR_SYSTEM_INTEGRATION.md`：與 Circular System 的整合規格（**輸入向**：下游寫 policy_signals → Channel A；K1 side 已 done）。
+- `dev/CHANNEL_B_SYNC_SPEC.md`：**輸出向** Channel B 增量同步契約（K1-side，Q4 Phase 2；manifest+fetch 端點待 build；S144 v0.2 過對抗審核 hardening）。
 - `dev/MOBILE_UI_SPEC_v1.md`：mobile 設計規格 v1.1（Tado-inspired + Pantone Cloud Dancer 2026）。
 - `dev/PDF_DOWNLOAD_LIST.md`：EDB PDF 下載清單與 source_id 對照。
 
@@ -249,7 +250,7 @@ source_registry → 同 vault PDFs → ai_extract.py
 > - (c) 變更鎖定決策必走 AGENTS.md §3 HIGH-risk PLAN 流程（出 PLAN → 等 user 確認 → 先 READ/CHANGE）。
 
 1. 單檔前端、無 build pipeline（CDN React/Babel/Tailwind）。
-2. `app.html` 為主 SPA；`index.html` 為 EDB landing；`k1-dashboard.html`/`landing.html`/`k1-wiki.html` 已刪不復活。**S119（Leonard live-test 後定，§3 HIGH-risk PLAN→確認 done）：政策搜尋 user-facing 介面行 Channel-B-only，A（已核實資料）/ A+B（合併）入口全移除、code path 留 dormant 可逆；此為現行鎖定 surface 決策。前提区分：此係「搜尋介面」決策，唔係「Channel A 資料管道」決策——Channel A `role_facts.json→knowledge.json` 照常餵下游 Circular System，對外契約零接觸；契約收斂（Q4：叫下游改／Channel B 變供料／凍結停供）= S143 Phase 1 EXECUTED（Leonard 明示「執行 Phase 1」、③→① phased）：Channel A 正式凍結 @455 facts、knowledge.json 停更（凍結點 2026-06-05、schema 不變、繼續供下游零改變）、Channel A pipeline code 留 dormant 可逆（endpoint 不刪）。Phase 2（選項①下游 Circular System 轉 Channel B）= 跨 repo、待 Leonard 喺下游 repo 協調（K1 只備 spec、絕不掂對方 repo §A.3）；選項②（Channel B 變供料）不採（衝突 §F.6）。Rollback = git revert docs 即 un-freeze。**
+2. `app.html` 為主 SPA；`index.html` 為 EDB landing；`k1-dashboard.html`/`landing.html`/`k1-wiki.html` 已刪不復活。**S119（Leonard live-test 後定，§3 HIGH-risk PLAN→確認 done）：政策搜尋 user-facing 介面行 Channel-B-only，A（已核實資料）/ A+B（合併）入口全移除、code path 留 dormant 可逆；此為現行鎖定 surface 決策。前提区分：此係「搜尋介面」決策，唔係「Channel A 資料管道」決策——Channel A `role_facts.json→knowledge.json` 照常餵下游 Circular System，對外契約零接觸；契約收斂（Q4：叫下游改／Channel B 變供料／凍結停供）= S143 Phase 1 EXECUTED（Leonard 明示「執行 Phase 1」、③→① phased）：Channel A 正式凍結 @455 facts、knowledge.json 停更（凍結點 2026-06-05、schema 不變、繼續供下游零改變）、Channel A pipeline code 留 dormant 可逆（endpoint 不刪）。Phase 2（選項①下游 Circular System 轉 Channel B）= 跨 repo、待 Leonard 喺下游 repo 協調（K1 只備 spec、絕不掂對方 repo §A.3）；選項②（Channel B 變供料）不採（衝突 §F.6）。**S144：Phase 2 整合模型 LOCKED = Incremental sync（manifest-diff delta feed）；K1-side 契約稿 `dev/CHANNEL_B_SYNC_SPEC.md` v0.2（過對抗審核 hardening、修 2 blocker：非原子-ingest 誤刪 live 源、版本變更被 304 隱形）；endpoint 未 build，待 Leonard §11 開放決策。** Rollback = git revert docs 即 un-freeze。**
 3. 公開 `knowledge.json` 為對外 schema SSOT；backend 用相容橋接支援 legacy `department_head` + 拆分角色。
 4. LLM-wiki 分階段架構：trust 由 source/freshness/approval gate 把關，非 LLM 自主發佈。
 5. 兩類事實模型：statistical（auto-approve）vs policy（人工 gated）。

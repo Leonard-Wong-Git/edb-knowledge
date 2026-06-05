@@ -2,6 +2,38 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-05 Session 144 — Q4 Phase 2 整合模型決策（Incremental sync）+ K1-side Channel B 同步契約 spec v0.2 起草（過對抗審核）— RUNNING
+
+- **ID:** Claude_20260605_1338
+- **Trigger:** 新 session 起手自測全對賬 → Leonard 同意推 Q4 Phase 2 → 揀「先對齊下游現況再揀模型」→ 下游 profile（online 長駐 + 自有向量庫 + 近乎即時）→ 拍板 Incremental sync → 「同意，繼續做」起草 spec。
+- **起手自測:** git HEAD `b5b954b`(S143 closeout)==origin/main clean ✓（鏈 58b5705→1add3a0→9978ecc→b5b954b、無 desync）/ Channel A facts 455（本地+onrender cache_a warm）✓ / Supabase wiki_chunks **10,594**（service-key REST 雙讀防偽零）✓ / 公開 guidelines 152 v2.5.0 ✓ / 公開 knowledge.json 455 v2.3.0 FROZEN（policychecker.wongfu.net 200）✓ / onrender /health 200 warm ✓。egress 全通。
+- **§3 Risk:** HIGH（定義對外契約 = 下游照住 build）→ PLAN→Leonard GO→本 pass **只出 spec 文件、endpoint 未 build**。
+
+### 模型決策（Leonard 拍板）
+- 下游 profile 3 問：**online 長駐 service / 有自己向量庫 / 近乎即時**。
+- verify load-bearing：embedding=`text-embedding-3-small`(1536)；`/api/search/channel-b` 無 auth + POST 10/min IP；backend 用 **anon key** 讀 Supabase；`wiki_chunks` **無 timestamp 欄**但 `id=vault_<source_id>_<hash>`(content-hash) + pipeline delete-then-insert → **delta = id set-diff（manifest-diff），零 schema change**。
+- 模型 = **Incremental sync（manifest-diff delta feed）**：下游拉細 delta、維護自家 index、本地查詢（唔依賴 K1 free-tier）。否決 export快照（衝突近即時）/ pure API（綁 free-tier 脆）。
+
+### Spec 起草 + 對抗審核（agent-team 預設）
+- 寫 `dev/CHANNEL_B_SYNC_SPEC.md` v0.1 → spawn 獨立對抗審核 agent（純本地讀 spec+backend+pipeline）→ 揪 **2 blocker + 多 major**。
+- **blocker 1**：pipeline 非原子 delete-then-insert，manifest 中途讀到 → 下游誤 tombstone 成個 live 源 → search flap。**修**：manifest `ingest_in_progress` guard + 下游 delete-safety（整源 deletes 兩 poll 確認）。
+- **blocker 2**：manifest_hash 只 hash id-set → 換 embedding model 但 id 不變時 304 consumer 永遠睇唔到 = silent contract break。**修**：manifest_hash 摺入 contract_version+embedding_model。
+- **majors 修**：bulk feed = search superset（stat_fact+原始向量，`include_statistical` 預設 false）／ single static key → timingSafeEqual+401/403/503-fail-closed+多key rotation+daily exfil budget ／ manifest O(N) server scan（304 慳 client 唔慳 server）+ 57014 全表掃 own retry+Range ／ embedding 文字格式+null 語義+null 欄位永遠 present ／ batch 500→150 + `in.()` URL 長度 ／ 缺 id=pending-add 勿 tombstone ／ sync route 勿 call setCorsHeaders。
+- → 重寫 **v0.2**（全 blocker/major 收；§11 留 4 開放決策交 Leonard）。
+
+### 唔掂（邊界守住）
+- 0 endpoint build、0 掂下游 repo（§A.3）、0 改 Supabase schema/RPC/upload pipeline、0 un-freeze Channel A、0 手寫 knowledge.json/guidelines.json。
+
+### Sources changed（docs-only、可逆）
+- NEW `dev/CHANNEL_B_SYNC_SPEC.md` v0.2；`dev/PROJECT_MASTER_SPEC.md`（§F.2 model lock + §C.6 doc 登記）；`dev/CODEBASE_CONTEXT.md`（Key Decisions + Directory Map + AI log）；`dev/DOC_SYNC_CHECKLIST.md`（新 row）；`dev/SESSION_HANDOFF.md`（Open Priorities #1）；本 entry。0 code/data/Supabase mutation。
+
+### DOC_SYNC Matrix Scan
+| Change Category | Required Doc Updates | Status |
+|---|---|---|
+| Long-term spec / locked decision / architecture invariant change (Q4 Phase 2 model lock) | PMS §F.2 + §C.6; CODEBASE Key Decisions; SESSION_HANDOFF Open Priorities #1 | ✓ Done |
+| New cross-agent handoff knowledge doc added (`CHANNEL_B_SYNC_SPEC.md`) | CODEBASE Directory Map + AI Maintenance Log; DOC_SYNC registry row; SESSION_HANDOFF/LOG | ✓ Done |
+| Channel B sync contract / endpoint (Q4 Phase 2) [NEW ROW added] | `CHANNEL_B_SYNC_SPEC.md`; backend routes when built; PMS §C.4/§F.2; SESSION_HANDOFF/LOG | ✓ Row added |
+
 ## 2026-06-05 Session 143 — Channel B 廣度試用 + QA recall fix（qa_inspection 路由）+ Q4 Phase 1 凍結 Channel A（docs-only）；生產 live、0 regression — CLOSED
 
 - **ID:** Claude_20260605_1012
