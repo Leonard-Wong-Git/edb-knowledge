@@ -106,7 +106,7 @@ source_registry → same vault PDFs → ai_extract.py
 > 產品方向：**搜尋介面 Channel-B-only**（S119 定；Phase 3 全完成；Stage-2 closed）。Channel A frozen @455。**Q4 Phase 2 K1 端 COMPLETE（endpoints LIVE）**。**S146：Channel B 補入庫進行中**（batch1 已入 7 源 +1,002；見 `dev/INGEST_GAP_2026-06-06.md`）。
 
 1. **Channel B 補入庫 — 餘下批次**（batch1：g33/g35/g36/g37/g09/g14/g17 已入；Supabase 11,596）：(a) `gifted_policy_docs` 待 Leonard 畀正確資優政策 link 再單獨抽；(b) INGEST_GAP 🟢30 候選 link + ✅2 直連（mce_framework_2008/phys_sss_2007_2015）+ ❌6 deprecated/superseded 待 Leonard 決定；(c) g17 可深化（3 指引子區）。**工具 `dev/fetch_extract.py` + `dev/ingest_one_source.py`（per-source 安全；勿跑 full `wiki_index.json` upload — local stale 會 resurrect deprecated chunk）。dup/gap 對賬按內容（url/PDF 檔名）唔好淨靠 source_id。**
-2. **下游 Circular System 接入**（K1 端完成；Leonard 發 `dev/CHANNEL_B_SYNC_SPEC.md` v0.5 + sync key → 下游 build；跨 repo §A.3、K1 絕不掂對方 repo）。
+2. **下游 Circular System 接入**（K1 端完成 + LIVE；下游已 ready build consumer）。交接包已備：`dev/CHANNEL_B_HANDOVER.md`（S146 整，spec v0.5 落地摘要 — 2 端點/HTTP 表/enum/rate-limit/delta 演算法）+ `dev/CHANNEL_B_SYNC_SPEC.md` v0.5。Leonard 另經安全途徑發 **`CHANNEL_B_SYNC_KEY`** 值（機密：Render env → 下游 GitHub Actions secret；**非** OpenAI/Supabase key）。跨 repo §A.3、K1 絕不掂對方 repo。
 3. **Display/version 一次過 fix**（approach 已定）：`knowledge.json._meta.stats`（chunks→實際 Supabase 數〔現 **11,596**〕/ guidelines 39→**152**）+ README hardcoded + 統一站 version（不 bump）；§3 HIGH-risk、勿跑 `bump_version.py`（§E.8 前科）。
 4. **既有 deferred**：§8b rule 2 automation / `Suppl_guide` held 待人核 / §E.10(a) ACCEPTED / FAIL-A record-only / stat_fact 2024/25 stale / freshness 週跑觀察 / 57014 cold-start monitor。
 
