@@ -1,0 +1,32 @@
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md（可信狀態快照）+ dev/CHANNEL_B_SYNC_SPEC.md（Q4 Phase 2 契約 v0.5 LIVE）。起手務必自行 verify git HEAD + knowledge.json._meta.stats + Supabase total vs SESSION_HANDOFF Current Baseline，並實測 egress（onrender /health，勿照抄）。S135-S145 證實 EDB + onrender + Supabase + GitHub Pages egress 均通；仍每次自測。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑含空格，shell 必須雙引號絕對路徑）。`python` 唔存在用 `python3`。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 係預設模式。回覆用中文。
+
+S145 (2026-06-05)：**下游 consumer 覆文納入（spec v0.4→v0.5）+ Q4 Phase 2 Channel B sync 端點 BUILT + DEPLOYED LIVE + live smoke PASS（anon embedding confirmed）— K1 端 Q4 Phase 2 完成**。0 outstanding bug。HEAD origin/main 起手自行 verify。
+- **Q4 Phase 2 模型 = Incremental sync；K1 端 LIVE**：spec `dev/CHANNEL_B_SYNC_SPEC.md` **v0.5**（§13 澄清）；`GET /api/channel-b/manifest` + `POST /api/channel-b/chunks` LIVE（X-Sync-Key gated，`CHANNEL_B_SYNC_KEY` 已設 Render service `edb-knowledge`）；live smoke：13 欄 + anon reads `embedding` 1536-vec ~19KB（路 1 confirmed）。**K1 端完成。**
+- **Display/version drift 一次過 fix（approach 已定、待執行）**：`knowledge.json._meta.stats`（chunks 10736→10,594 / guidelines 39→152）+ README hardcoded + 統一站 version（不 bump、勿跑 `bump_version.py` §E.8）；§3 HIGH-risk。
+- **§4a + HANDOFF 收斂**：SESSION_LOG 412→168 行（S141/S142/S143 archived）；SESSION_HANDOFF 800→167 行（NUL stripped + Baseline 精簡 + Previous Records 清除）。
+
+Current objective and progress state:
+- Baseline：Supabase 10,594 / registry 203 / 公開 guidelines.json 152 v2.5.0 / 公開 knowledge.json 455 v2.3.0（FROZEN）/ brand live policychecker.wongfu.net。**0 outstanding bug**。K1 端 Q4 Phase 2 COMPLETE + LIVE。
+- 下一步主線 = 下游 Circular System 接入（Leonard 發 spec v0.5 + sync key）。
+
+Pending tasks in priority order:
+1. **下游 Circular System 接入**（K1 端完成；Leonard 發 `dev/CHANNEL_B_SYNC_SPEC.md` v0.5 + sync key → 下游 build consumer；跨 repo §A.3、K1 不掂）。
+2. **Display/version 一次過 fix**（approach 已定）：`knowledge.json._meta.stats`(10,594/152) + README hardcoded + 統一站 version；§3 HIGH-risk、勿跑 `bump_version.py`（§E.8）。
+3. 既有 deferred：§8b rule 2 automation / Suppl_guide held / §E.10(a) ACCEPTED / FAIL-A / stat_fact 2025/26 / freshness 週跑觀察 / 57014 cold-start。
+
+Key files changed this session (S145)：`backend/src/api/channelBSync.ts`（NEW）+ `env.ts`/`wikiRepository.ts`/`server.ts`/`.env.example`；`dev/CHANNEL_B_SYNC_SPEC.md`（v0.3→v0.5）；`dev/PROJECT_MASTER_SPEC.md`；`dev/CODEBASE_CONTEXT.md`；`dev/SESSION_HANDOFF.md`（800→167 行 NUL-free）；`dev/SESSION_LOG.md`；`dev/archive/SESSION_LOG_2026_Q2.md`（S141/S142/S143）。0 Supabase/data/knowledge.json/guidelines.json mutation。
+
+Known risks / blockers / cautions:
+- 🟢 **0 outstanding bug**。K1 端 Q4 Phase 2 COMPLETE + live smoke PASS。
+- 🟡 下游 consumer build pending（跨 repo §A.3；可觀察 manifest scan 對 free-tier DB 影響；key 季度輪換）。
+- ⚠️ Display/version fix（approach 已定、§3 HIGH-risk、勿跑 `bump_version.py` §E.8）。
+- 既有：Channel A frozen @455；57014 transient(retry)；FAIL-A(record-only)；§E.10(a) ACCEPTED conditional；q.html/A·AB dormant 勿清；Stage-2 closed；egress 每次自測；路徑空格雙引號；wiki_chunks 欄名 `text`；結構天花板源勿再 ingest；init_backup gitignored。
+
+Validation status：git HEAD 起手 verify；backend typecheck+build exit 0；本地 gate smoke PASS；5-lens 審核修 4 真；live smoke PASS（anon embedding confirmed）；HANDOFF 800→167 行 NUL-free；SESSION_LOG 412→168 行 archive OK。**0 outstanding bug。**
+
+Post-startup first action: 完成 §1 起手序 + HANDOFF_PACKAGE + CHANNEL_B_SYNC_SPEC v0.5 + 自測（git HEAD / facts 455 / Supabase 10,594 / guidelines 152 / knowledge.json frozen 455 / onrender /health；可選驗 `/api/channel-b/manifest` 回 401〔key 已設〕）+ playbook INDEX 後，問 Leonard：(a) 下游 Circular System 接入進度（spec v0.5 + key 發咗未 / 下游 build 到邊）；(b) 要唔要做 display/version 一次過 fix。**未 Leonard 明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge.json·guidelines.json / 勿跑 bump_version.py / 勿 reopen §E.10 / 勿動 Stage-2 / 勿再 ingest 結構天花板源。**
