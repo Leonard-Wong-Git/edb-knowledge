@@ -1,12 +1,12 @@
 # Session Handoff
 
 ## Current Baseline
-1. **Version / git**: v2.3.0；git `main`=`origin/main` HEAD = **`8bddcf2`**（S145 closeout：Q4 Phase 2 K1 endpoints LIVE + live smoke PASS；Supabase 10,594/facts 455/guidelines 152 不變）；起手自行 verify。
+1. **Version / git**: v2.3.0；git `main`=`origin/main` HEAD = **`32e670e`** + S146 收工 commit（S146：Channel B 補入庫 batch1+2 +11 源 → Supabase 12,277；下游接入完成）；起手自行 verify。
 2. **Frontend**: `index.html` landing；`app.html` full React SPA；`t-purchase.html` draft flow；`q.html` local knowledge.json Quick Q&A。
 3. **Knowledge state**: **455** Channel A facts（三層同步 byte-identical）、0 queue；Supabase **12,277** chunks（S146 補入庫：batch1 +1,002〔g33/g35/g36/g37/g09/g14/g17〕、batch2 +681〔apl_curr_docs/g07/g23/nat_sec_edu〕）；指引 4 層（161 app/152 公開/203 registry/120 vault）；CB-3 補入庫進行中（見 `dev/INGEST_GAP_2026-06-06.md`）；Phase 3 全完成。
 4. **Backend**: Channel A+B+A+B search APIs live at `https://edb-knowledge.onrender.com`；**Q4 Phase 2 NEW**: `GET /api/channel-b/manifest` + `POST /api/channel-b/chunks`（X-Sync-Key gated，`CHANNEL_B_SYNC_KEY` set on Render；live smoke PASS：13 欄 + anon reads embedding 1536-vec confirmed）；rate limiting 10 req/min/IP + sync 60/min。
 5. **Channel A frozen @455**（Q4 Phase 1 EXECUTED S143）：knowledge.json 停更 @455（schema 不變、下游零改變）；pipeline dormant 可逆；endpoint 不刪；guidelines.json 不凍續 live @152 v2.5.0。
-6. **Channel B sync（Q4 Phase 2 K1-side COMPLETE S145）**：`dev/CHANNEL_B_SYNC_SPEC.md` v0.5；`backend/src/api/channelBSync.ts` LIVE；next = Leonard 發 spec v0.5 + sync key → 下游 Circular System build consumer（跨 repo §A.3）。
+6. **Channel B sync（Q4 Phase 2 全鏈完成 S146）**：K1 端 `dev/CHANNEL_B_SYNC_SPEC.md` v0.5 + `backend/src/api/channelBSync.ts` LIVE（manifest/chunks 401-gated 健康）；**下游 Circular System consumer 已 build 好 + 完成工作**（S146 Leonard 確認）；交接包 `dev/CHANNEL_B_HANDOVER.md`。incremental sync 自動帶新源 delta（本 session +11 源，下游下次 poll 自動執）。
 
 ## User Environment (Always Reference Before Giving Shell Commands)
 - **Repo path**: `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft` (relocated 2026-05-16 Session 109; path contains a space — quote it)
@@ -103,12 +103,11 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-> 產品方向：**搜尋介面 Channel-B-only**（S119 定；Phase 3 全完成；Stage-2 closed）。Channel A frozen @455。**Q4 Phase 2 K1 端 COMPLETE（endpoints LIVE）**。**S146：Channel B 補入庫進行中**（batch1 已入 7 源 +1,002；見 `dev/INGEST_GAP_2026-06-06.md`）。
+> 產品方向：**搜尋介面 Channel-B-only**（Phase 3 全完成；Stage-2 closed）。Channel A frozen @455。**Q4 Phase 2 全鏈完成（K1 endpoints LIVE + 下游 consumer build 好 + 完成工作）**。**S146：Channel B 補入庫 batch1+2 完成（+11 源 → Supabase 12,277）**。主線 0 outstanding；以下全屬可選 follow-up，冇緊急。
 
-1. **Channel B 補入庫 — 餘下 follow-up**（batch1+2 已入 **11 源**；Supabase **12,277**）：(a) `gifted_policy_docs` 待 Leonard 正確資優政策 link；(b) `g38` 音樂指引 = CID 字體亂碼 **needs OCR**（ocrmypdf/Tesseract chi_tra）；(c) `chi_edu_curr_docs` 全本 CLEKLAG（g09 已有節錄，待 Leonard 決定要唔要全本）；(d) INGEST_GAP ✅2 直連 + ❌6 deprecated/superseded + 11 null（聚合/分章，要 multi-PDF/OCR）待決定；(e) g17 可深化（3 指引子區）。**工具 `dev/fetch_extract.py` + `dev/ingest_one_source.py`（已加 NUL strip；per-source 安全；勿跑 full `wiki_index.json` upload — local stale 會 resurrect deprecated chunk）。dup/gap 對賬按內容（url/PDF 檔名）唔好淨靠 source_id。**
-2. **下游 Circular System 接入**（K1 端完成 + LIVE；下游已 ready build consumer）。交接包已備：`dev/CHANNEL_B_HANDOVER.md`（S146 整，spec v0.5 落地摘要 — 2 端點/HTTP 表/enum/rate-limit/delta 演算法）+ `dev/CHANNEL_B_SYNC_SPEC.md` v0.5。Leonard 另經安全途徑發 **`CHANNEL_B_SYNC_KEY`** 值（機密：Render env → 下游 GitHub Actions secret；**非** OpenAI/Supabase key）。跨 repo §A.3、K1 絕不掂對方 repo。
-3. **Display/version 一次過 fix**（approach 已定）：`knowledge.json._meta.stats`（chunks→實際 Supabase 數〔現 **11,596**〕/ guidelines 39→**152**）+ README hardcoded + 統一站 version（不 bump）；§3 HIGH-risk、勿跑 `bump_version.py`（§E.8 前科）。
-4. **既有 deferred**：§8b rule 2 automation / `Suppl_guide` held 待人核 / §E.10(a) ACCEPTED / FAIL-A record-only / stat_fact 2024/25 stale / freshness 週跑觀察 / 57014 cold-start monitor。
+1. **Channel B 補入庫 — 餘下可選**（已入 11 源；仍 40 registry 源未入，但只 ~15 有內容可加，分類見 `dev/INGEST_GAP_2026-06-06.md` 批次2 段）：(a) `mce_framework_2008` 德育公民架構（有直連、即入、最抵做）；(b) `g38` 音樂指引 = CID 字體亂碼 **needs OCR**（ocrmypdf/Tesseract chi_tra）；(c) `g13` 中學課程指引(SECG) / `g16` 訓育工作指引 = 真 guide 但分章碎檔、要 multi-PDF 砌；(d) `chi_edu_curr_docs` 全本 CLEKLAG（g09 已有節錄，待決定）；(e) `gifted_policy_docs` 待 Leonard 正確 link；(f) g17 深化。**其餘 25 源 = dup/已覆蓋/deprecated/舊版/示例，建議唔做。** 工具 `dev/fetch_extract.py` + `dev/ingest_one_source.py`（含 NUL strip；per-source 安全；勿跑 full `wiki_index.json` upload）。dup/gap 按內容（url/PDF 檔名）對賬。
+2. **Display/version 一次過 fix**（approach 已定）：`knowledge.json._meta.stats`（chunks→實際 Supabase 數〔現 **12,277**〕/ guidelines 39→**152**）+ README hardcoded + 統一站 version（不 bump）；§3 HIGH-risk、勿跑 `bump_version.py`（§E.8 前科）。
+3. **既有 deferred**：§8b rule 2 automation / `Suppl_guide` held 待人核 / §E.10(a) ACCEPTED / FAIL-A record-only / stat_fact 2024/25 stale / freshness 週跑觀察 / 57014 cold-start monitor。
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 - g21/g22/g33 直連 PDF 補完（user browser）— Session 105 audit 揭發三者 source_type='pdf' 但 url_primary 缺
@@ -117,30 +116,27 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / 下游 Circular System 整合）
 
 ## Last Session Record
-1. UTC date: 2026-06-05
-2. Session ID: Claude_20260605_1513 (S145)
+1. UTC date: 2026-06-06
+2. Session ID: Claude_20260606_1807 (S146)
 3. Completed:
-   - ✅ **[起手核實]** HEAD `cb498c1`==origin/main / facts 455 三層 byte-identical / Supabase 10,594 雙讀 / guidelines 152 v2.5.0 / knowledge.json frozen 455 v2.3.0 / onrender /health 200 warm。Egress 全通。
-   - ✅ **[Spec v0.4 — 下游覆文納入]** §11.2 RESOLVED（embedding 路 1 `text-embedding-3-small` / `include_embedding=true` 零重嵌）；manifest +`topic`/`content_type`；bootstrap 71 批 pacing；向量 pgvector `"[…]"` string + L2-norm≈1.0 實測；profile 校正（ephemeral cron 3×/日 + file-based numpy）。spec → v0.4。commit `3a81cc8`。
-   - ✅ **[Q4 Phase 2 endpoint build]** NEW `backend/src/api/channelBSync.ts`（manifest+chunks、X-Sync-Key gate、自有 60/min+daily budget、anon-REST、NO CORS）+ env/wikiRepository/server/.env.example。5-lens 對抗審核（40 agents）→ 修 4 真（502 洩內文 / budget TOCTOU+dup / cache thundering-herd singleflight / in.() id-format guard）；spec → v0.5（§13 澄清）。typecheck+build exit 0；本地 gate smoke PASS。commit `7b82e01`。
-   - ✅ **[Deploy + live smoke PASS]** Render auto-deploy → Leonard set `CHANNEL_B_SYNC_KEY` + redeploy → live smoke：chunks 200 全 13 欄 + anon 讀到 `embedding` 1536-vec ~19KB（路 1 confirmed）+ 400 guard + key gate。**K1 端 Q4 Phase 2 COMPLETE**。commit `8bddcf2`。
-   - ✅ **[§4a archive]** SESSION_LOG 412→168 行（S141/S142/S143 archived → `dev/archive/SESSION_LOG_2026_Q2.md`）。
-   - ✅ **[NUL byte fix]** 1 NUL byte stripped from `dev/SESSION_HANDOFF.md`。
-4. Pending: 下游 Circular System consumer build（跨 repo、Leonard 主導）；Display/version 一次過 fix（approach 已定）。**0 outstanding bug**。
-5. Next priorities: 下游接入（spec v0.5 + key）；Display/version fix；既有 deferred。
+   - ✅ **[起手核實]** HEAD 5ae78ac==origin/main / facts 455 / Supabase 10,594 / guidelines 152 v2.5.0 / knowledge.json frozen / onrender /health 200 + manifest 401-gated。egress 全通。
+   - ✅ **[Channel B 補入庫 batch1+2]** 真新增 **11 課程指引源 +1,683 chunks → Supabase 12,277**。batch1(7)：g33/g35/g36/g37/g09(p43-48)/g14/g17；batch2(4)：apl_curr_docs/g07/g23/nat_sec_edu。read-only dedup/識別 pass 先行（防重複放大），逐步 live 獨立核揪出並修：3 dup（g31/g39/gs_pri_curr 刪）+ gifted provenance 錯（刪）+ g07 NUL bug（修 helper + 刪 partial 重入 438）+ g38 CID 亂碼（標 needs-OCR）。
+   - ✅ **[新工具，committed]** `dev/fetch_extract.py`（mojibake-safe PDF/HTML 抽取 + page-carry + NUL strip）+ `dev/ingest_one_source.py`（per-source 安全入庫、重用 canonical chunker、merge-dup、NUL strip）。
+   - ✅ **[下游接入完成]** 下游 Circular System consumer build 好 + 完成工作（Leonard 確認）；交接包 `dev/CHANNEL_B_HANDOVER.md`（spec v0.5 落地）。K1 sync 端點 401-gated 健康。**Channel B Phase 2 全鏈完成。**
+   - ✅ **[缺口冊]** `dev/INGEST_GAP_2026-06-06.md`（51 源缺口 + batch1/2 結果 + 仍 40 未入庫分類：~15 可加 / 25 dup·deprecated·舊版唔做）。
+4. Pending（全屬可選）: mce_framework_2008 直連 / g38 OCR / g13·g16 multi-PDF / chi_edu 全本 / gifted link / g17 深化 / display fix。**0 outstanding bug。**
+5. Next priorities: 見 Open Priorities（補入庫餘下可選 / display fix / deferred）。
 6. Risks / blockers:
-   - 🟢 **0 outstanding bug**。K1 端 Q4 Phase 2 COMPLETE + live smoke PASS。
-   - 🟡 **下游 consumer build pending**（跨 repo §A.3；可觀察 manifest scan 對 free-tier DB 影響；key 季度輪換）。
-   - ⚠️ **Display/version fix**（approach 已定、§3 HIGH-risk 出 PLAN、勿跑 `bump_version.py` §E.8）。
-   - 既有：Channel A frozen @455；57014 transient(retry)；FAIL-A(record-only)；§E.10(a) ACCEPTED conditional；q.html/A·AB dormant 勿清；Stage-2 closed；egress 每次自測；路徑空格雙引號；wiki_chunks 欄名 `text`；結構天花板源勿再 ingest；改 Draft code/data commit 必入 SESSION_LOG；init_backup gitignored。
-7. ✅ **S145：Q4 Phase 2 spec v0.3→v0.5 + K1 endpoints BUILT + deployed LIVE + 5-lens 審核 + live smoke PASS（anon embedding confirmed）。** commits `3a81cc8`→`7b82e01`→`8bddcf2`。
+   - 🟢 **0 outstanding bug**。Channel B Phase 2 全鏈完成 + K1 端點健康。
+   - ⚠️ Display/version fix（approach 已定、§3 HIGH-risk、勿跑 `bump_version.py` §E.8）。
+   - 既有：Channel A frozen @455；57014 transient(retry)；FAIL-A(record-only)；§E.10(a) ACCEPTED；q.html/A·AB dormant 勿清；Stage-2 closed；egress 每次自測；路徑空格雙引號；wiki_chunks 欄名 `text`；結構天花板源勿再 ingest；改 Draft code/data commit 必入 SESSION_LOG；init_backup gitignored；**入庫用 fetch_extract+ingest_one_source、勿跑 full wiki_index upload；dup/gap 按內容（url/PDF 檔名）對賬唔好淨靠 source_id。**
+7. commits: batch1 `fdbd9ca` → handover `5486042` → batch2 `32e670e` → S146 收工 commit。
 
 ## Previous Session Record
 1. UTC date: 2026-06-05
-2. Session ID: Claude_20260605_1338 (S144)
-3. Completed: Q4 Phase 2 模型決策（Incremental sync）+ NEW `dev/CHANNEL_B_SYNC_SPEC.md` spec v0.1→v0.3（過對抗審核 hardening，修 2 blocker）+ §11 4 決策 Leonard RESOLVED + 下游 prompt。全 docs-only、0 product 改。
-4. Pending at time: endpoint build + 下游 embedding model 確認。
-5. commits: `00d5291`→`adbeabb`→`5cefe9b`→`cb498c1`（closeout）。
+2. Session ID: Claude_20260605_1513 (S145)
+3. Completed: Q4 Phase 2 Channel B sync 端點 BUILT + DEPLOYED LIVE + live smoke PASS（anon embedding confirmed）；spec v0.3→v0.5（下游覆文納入 + 5-lens 審核修 4 真）。
+4. commits: `3a81cc8`→`7b82e01`→`8bddcf2`→`5ae78ac`（closeout）。
 
 
 ## Session Close Checklist (每次 session 結束必須執行)

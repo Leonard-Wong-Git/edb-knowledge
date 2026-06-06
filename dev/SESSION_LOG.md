@@ -2,7 +2,7 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
-## 2026-06-06 Session 146 — Channel B 補入庫 batch1：7 新課程指引源 +1,002 chunks（workflow orchestrated + 內容核實清理）
+## 2026-06-06 Session 146 — Channel B 補入庫 batch1+2（+11 源 → Supabase 12,277）+ 下游 Circular System 接入完成 — CLOSED
 
 - **ID:** Claude_20260606_1807
 - **Trigger:** 起手自測全綠 → Leonard 問 Channel B「做哂未/完美未」→ 帶出「掃 EDB 文件入庫」缺口 → 出 51-源缺口冊 → Leonard 批1決定 15 個 → 「/workflows 全部」→ orchestrated extract+ingest → 內容核實 → 清理重複/錯源。
@@ -46,8 +46,12 @@
 - **2 helper fix（root-cause）**：(1) g07 becg_2014 抽出帶 NUL → PG 22P05、insert 半截 400/438；**`fetch_extract.py`+`ingest_one_source.py` 加 NUL strip**（cb3_b2 S132 早有、新 helper 漏咗 = §8 regression）；刪 g07 partial 後重入 438 clean。(2) g38 音樂指引 text-layer = CID 字體亂碼（cjk≈0、U+FFFD guard 揀唔到）→ 標 needs-OCR、未入。
 - **10 dup + 11 null 正確跳過**（見 INGEST_GAP 批次2 段）。registry 4 入庫源 + g38/chi_edu notes 更新。chi_edu 全本 skip（g09 已有節錄，待 Leonard）。
 
+### 下游接入完成 + 收工
+- Leonard 確認**下游 Circular System consumer build 好 + 完成工作** → **Channel B Phase 2 全鏈打通**（K1 endpoints LIVE + 401-gated 健康 + 下游消費端 done）。交接包 `dev/CHANNEL_B_HANDOVER.md`（spec v0.5 落地，無 key）+ `dev/CHANNEL_B_SYNC_SPEC.md` v0.5 已備。incremental sync 自動帶本 session +11 源 delta（下游下次 poll 執）。
+- **收工 reconcile**：HANDOFF baseline（HEAD 32e670e + 下游完成 + Supabase 12,277）、Open Priorities regen（下游接入 closed；餘下全可選 follow-up）、Last/Previous Session Record → S146/S145。仍 **40 registry 源未入庫**（~15 可加 / 25 dup·deprecated·舊版唔做，見 INGEST_GAP 批次2 段）。K1 端點 health-check：/health 200 + manifest/chunks 401-gated。
+
 ### Log maintenance
-§4a check：SESSION_LOG ~165→~255 行 < 400、最舊 entry < 30 天 → 不觸發（no-op）。
+§4a check：SESSION_LOG 233→~245 行 < 400、最舊 entry 2026-06-05 < 30 天 → 不觸發 archive（no-op）。
 
 ### Next Session Handoff Prompt (Verbatim)
 ```text
@@ -58,16 +62,16 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 ⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑空格雙引號）。python3。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 預設。回覆中文。
 
-S146 (2026-06-06)：Channel B 補入庫 batch1+2 — 真新增 11 課程指引源 +1,683 chunks；Supabase 10,594→**12,277**。batch1：g33/g35/g36/g37/g09/g14/g17(+1,002)；batch2：apl_curr_docs/g07/g23/nat_sec_edu(+681)。多個 dup/錯源已刪清（g31/g39/gs_pri_curr/gifted）。新 tested 工具 dev/fetch_extract.py + dev/ingest_one_source.py（已加 NUL strip）。下游交接包 dev/CHANNEL_B_HANDOVER.md 備（待 Leonard 發 key）。
+S146 (2026-06-06)：**Channel B Phase 2 全鏈完成** — (1) 補入庫 batch1+2：真新增 11 課程指引源 +1,683 chunks，Supabase 10,594→**12,277**（batch1 g33/g35/g36/g37/g09/g14/g17；batch2 apl_curr_docs/g07/g23/nat_sec_edu；多個 dup/錯源已刪清 g31/g39/gs_pri_curr/gifted）；(2) **下游 Circular System consumer build 好 + 完成工作**（Leonard 確認）。新 tested 工具 dev/fetch_extract.py + dev/ingest_one_source.py（含 NUL strip）。交接包 dev/CHANNEL_B_HANDOVER.md。**0 outstanding bug。** 仍 40 registry 源未入庫（~15 可加 / 25 dup·deprecated·舊版唔做，見 INGEST_GAP 批次2 段）。
 
 Pending（優先序）:
 1. gifted_policy_docs — 待 Leonard 畀正確資優政策 link 再單獨抽（cd/index.html 無新內容、已由 g06+g14 覆蓋）。
 2. INGEST_GAP 餘下（🟢30 已 dedup 處理完）：g38 音樂指引 = CID 字體亂碼 **needs OCR**（ocrmypdf/Tesseract chi_tra）；chi_edu_curr_docs 全本 CLEKLAG（g09 已有節錄，待 Leonard 決定要唔要全本）；✅2 直連（mce_framework_2008/phys_sss_2007_2015）+ ❌6 deprecated + 11 null（聚合/分章，要 multi-PDF/OCR）待決定。
 3. g17 可深化（3 指引子區，現 12 chunks 概覽）。
-4. Display/version fix（approach 已定、§3 HIGH-risk、勿跑 bump_version.py §E.8）。
-5. 既有：下游 Circular System 接入（spec v0.5 + key）；其餘 deferred。
+4. Display/version fix（approach 已定、§3 HIGH-risk、勿跑 bump_version.py §E.8）：knowledge.json._meta.stats chunks→12,277 / guidelines 39→152 + README + 統一站 version。
+5. 既有 deferred：FAIL-A record-only / §8b rule2 / Suppl_guide held / stat_fact 2024-25 stale / freshness 週跑 / 57014 cold-start monitor。（下游接入已完成、唔再 pending。）
 
-Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 12,277 / facts 455 / guidelines 152 / knowledge.json frozen / onrender /health）+ playbook INDEX 後，問 Leonard：(a) gifted 正確 link 有未；(b) g38 OCR / chi_edu 全本 / 11-null 要唔要做；(c) 下游發咗 sync key 未（CHANNEL_B_HANDOVER.md 備）；(d) display/version fix。**未明示前：勿掂下游 repo / 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines.json / 勿跑 bump_version.py / 勿 reopen §E.10 / 勿動 Stage-2。** 入庫用 dev/fetch_extract.py + dev/ingest_one_source.py（per-source 安全；勿跑 full wiki_index upload）。
+Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 12,277 / facts 455 / guidelines 152 / knowledge.json frozen / onrender /health + manifest 401-gated）+ playbook INDEX 後，問 Leonard 想做邊樣**可選** follow-up（補入庫餘下：mce_framework_2008 直連〔最抵〕/ g38 OCR / g13·g16 multi-PDF / chi_edu 全本 / gifted link / g17 深化；或 display/version fix；或其他）。**未明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines.json / 勿跑 bump_version.py / 勿 reopen §E.10 / 勿動 Stage-2 / 勿再 ingest 結構天花板源。** 入庫一律用 dev/fetch_extract.py + dev/ingest_one_source.py（per-source 安全、含 NUL strip；勿跑 full wiki_index upload）；dup/gap 按內容（url/PDF 檔名）對賬。
 ```
 
 ## 2026-06-05 Session 145 — 下游 consumer 覆文納入（spec v0.4→v0.5）+ Q4 Phase 2 Channel B sync 端點 BUILT + DEPLOYED LIVE + live smoke PASS（anon embedding confirmed）— CLOSED
