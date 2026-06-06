@@ -3,7 +3,7 @@
 ## Current Baseline
 1. **Version / git**: v2.3.0；git `main`=`origin/main` HEAD = **`8bddcf2`**（S145 closeout：Q4 Phase 2 K1 endpoints LIVE + live smoke PASS；Supabase 10,594/facts 455/guidelines 152 不變）；起手自行 verify。
 2. **Frontend**: `index.html` landing；`app.html` full React SPA；`t-purchase.html` draft flow；`q.html` local knowledge.json Quick Q&A。
-3. **Knowledge state**: **455** Channel A facts（三層同步 byte-identical）、0 queue；Supabase **10,594** chunks；指引 4 層（161 app/152 公開/203 registry/120 vault）；CB-3 **~88% ceiling** 達成；Phase 3 全完成。
+3. **Knowledge state**: **455** Channel A facts（三層同步 byte-identical）、0 queue；Supabase **11,596** chunks（S146 +1,002：補入 7 課程指引源 g33/g35/g36/g37/g09/g14/g17）；指引 4 層（161 app/152 公開/203 registry/120 vault）；CB-3 補入庫進行中（見 `dev/INGEST_GAP_2026-06-06.md`）；Phase 3 全完成。
 4. **Backend**: Channel A+B+A+B search APIs live at `https://edb-knowledge.onrender.com`；**Q4 Phase 2 NEW**: `GET /api/channel-b/manifest` + `POST /api/channel-b/chunks`（X-Sync-Key gated，`CHANNEL_B_SYNC_KEY` set on Render；live smoke PASS：13 欄 + anon reads embedding 1536-vec confirmed）；rate limiting 10 req/min/IP + sync 60/min。
 5. **Channel A frozen @455**（Q4 Phase 1 EXECUTED S143）：knowledge.json 停更 @455（schema 不變、下游零改變）；pipeline dormant 可逆；endpoint 不刪；guidelines.json 不凍續 live @152 v2.5.0。
 6. **Channel B sync（Q4 Phase 2 K1-side COMPLETE S145）**：`dev/CHANNEL_B_SYNC_SPEC.md` v0.5；`backend/src/api/channelBSync.ts` LIVE；next = Leonard 發 spec v0.5 + sync key → 下游 Circular System build consumer（跨 repo §A.3）。
@@ -103,11 +103,12 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-> 產品方向：**搜尋介面 Channel-B-only**（S119 定；CB-3 final ceiling ~88% 達成；Phase 3 全完成；Stage-2 closed）。Channel A frozen @455（Q4 Phase 1 EXECUTED）。**Q4 Phase 2 K1 端 COMPLETE（endpoints LIVE）**。
+> 產品方向：**搜尋介面 Channel-B-only**（S119 定；Phase 3 全完成；Stage-2 closed）。Channel A frozen @455。**Q4 Phase 2 K1 端 COMPLETE（endpoints LIVE）**。**S146：Channel B 補入庫進行中**（batch1 已入 7 源 +1,002；見 `dev/INGEST_GAP_2026-06-06.md`）。
 
-1. **下游 Circular System 接入**（K1 端完成；Leonard 發 `dev/CHANNEL_B_SYNC_SPEC.md` v0.5 + sync key → 下游 build consumer；跨 repo §A.3、K1 絕不掂對方 repo）。
-2. **Display/version 一次過 fix**（approach 已定）：`knowledge.json._meta.stats`（chunks 10736→**10,594** / guidelines 39→**152**）+ README hardcoded + 統一站 version（不 bump）；§3 HIGH-risk、勿跑 `bump_version.py`（§E.8 前科）。
-3. **既有 deferred**：§8b rule 2 automation / `Suppl_guide` held 待人核 / §E.10(a) ACCEPTED / FAIL-A record-only / stat_fact 2024/25 stale / freshness 週跑觀察 / 57014 cold-start monitor。
+1. **Channel B 補入庫 — 餘下批次**（batch1：g33/g35/g36/g37/g09/g14/g17 已入；Supabase 11,596）：(a) `gifted_policy_docs` 待 Leonard 畀正確資優政策 link 再單獨抽；(b) INGEST_GAP 🟢30 候選 link + ✅2 直連（mce_framework_2008/phys_sss_2007_2015）+ ❌6 deprecated/superseded 待 Leonard 決定；(c) g17 可深化（3 指引子區）。**工具 `dev/fetch_extract.py` + `dev/ingest_one_source.py`（per-source 安全；勿跑 full `wiki_index.json` upload — local stale 會 resurrect deprecated chunk）。dup/gap 對賬按內容（url/PDF 檔名）唔好淨靠 source_id。**
+2. **下游 Circular System 接入**（K1 端完成；Leonard 發 `dev/CHANNEL_B_SYNC_SPEC.md` v0.5 + sync key → 下游 build；跨 repo §A.3、K1 絕不掂對方 repo）。
+3. **Display/version 一次過 fix**（approach 已定）：`knowledge.json._meta.stats`（chunks→實際 Supabase 數〔現 **11,596**〕/ guidelines 39→**152**）+ README hardcoded + 統一站 version（不 bump）；§3 HIGH-risk、勿跑 `bump_version.py`（§E.8 前科）。
+4. **既有 deferred**：§8b rule 2 automation / `Suppl_guide` held 待人核 / §E.10(a) ACCEPTED / FAIL-A record-only / stat_fact 2024/25 stale / freshness 週跑觀察 / 57014 cold-start monitor。
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 - g21/g22/g33 直連 PDF 補完（user browser）— Session 105 audit 揭發三者 source_type='pdf' 但 url_primary 缺

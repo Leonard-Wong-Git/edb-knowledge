@@ -2,6 +2,68 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-06 Session 146 — Channel B 補入庫 batch1：7 新課程指引源 +1,002 chunks（workflow orchestrated + 內容核實清理）
+
+- **ID:** Claude_20260606_1807
+- **Trigger:** 起手自測全綠 → Leonard 問 Channel B「做哂未/完美未」→ 帶出「掃 EDB 文件入庫」缺口 → 出 51-源缺口冊 → Leonard 批1決定 15 個 → 「/workflows 全部」→ orchestrated extract+ingest → 內容核實 → 清理重複/錯源。
+- **起手自測:** HEAD 5ae78ac==origin/main clean ✓ / Supabase 10,594 ✓ / facts 455 三層 / guidelines 152 v2.5.0 / knowledge.json frozen 455（display drift `_meta.stats` 10736/39 仍 stale）/ onrender /health 200 + channel-b/manifest 401 gated ✓。
+- **§3 Risk:** HIGH（動生產向量庫 + DELETE row + 外部 API）；Leonard 逐步 GO。
+
+### 缺口分析 → 真link
+- Supabase distinct 源 173 / registry 203 → **51 源未入庫（按 source_id 計）**。爬 EDB index 頁出候選真檔 link，寫 `dev/INGEST_GAP_2026-06-06.md`（646 行 / 364 候選 link）。
+- ⚠️ 後證根因：gap **按 source_id 計唔係按內容** → 3「missing g-id」內容其實已喺庫（sibling id）。
+
+### 新工具（tested, reusable）
+- `dev/fetch_extract.py`：mojibake-safe 抽取（PDF fitz 打 `=== Page N ===` + HTML bs4）→ canonical vault 格式。CJK 實測 U+FFFD=0。
+- `dev/ingest_one_source.py`：per-source 安全入庫（重用 build_wiki_index canonical chunker 600/60 page-carry + embed text-embedding-3-small + 只插自己 source_id + merge-duplicates）。**唔用 stale wiki_index.json full upload**（會 resurrect deprecated chunk）。
+
+### workflow cb-ingest-batch1（22 agents）
+- 11 源 extract→embed→insert pipeline。第一次 args 冇傳入即 0-mutation return；inline SOURCES re-launch → 11/11 script-success。
+- **內容核實（verify-don't-trust，唔信自報）→ 3 類問題：**
+  - 3 dup（g31 vs eng_pri_guide_2025 / g39 vs tech_kla_guide_2017 / gs_pri_curr vs gs_pri_guide_2017）→ Leonard：刪我新嗰 3、保留既有。
+  - gifted_policy_docs（534）provenance 錯（url 標 SECG booklet + 混錯源）→ Leonard：重做；但查實 cd/index.html 只 link PECG(=g06)+SECG，無新內容（資優已由 g06+g14 覆蓋）→ **skip，待 Leonard 畀正確 link**。
+  - g17 正確但淺（12 chunks，只 index 概覽）。
+
+### 結果（live-verified）
+- DELETE g31/g39/gs_pri_curr/gifted_policy_docs（各 204→0）+ 移除其本地 vault。
+- **真新增 7 源 +1,002 chunks：g33(421) g35(187) g36(179) g37(116) g09(10,p43-48) g14(77) g17(12)。**
+- Supabase **10,594 → 11,596**（獨立 HEAD count 雙驗）；逐源 live count 11/11 對賬；live Channel B search 撞返新源 ✓。
+- registry 11 源更新 url_primary/source_type/notes（minimal diff 27+/27−）。
+
+### QC
+- 11,596 = 10,594 + 1,002 ✓；CJK U+FFFD=0；g31 sanity 538K字/289頁=983 合理。0 改 Channel A / knowledge.json / guidelines.json / schema / RPC。
+
+### Sources changed
+- NEW `dev/fetch_extract.py`、`dev/ingest_one_source.py`、`dev/INGEST_GAP_2026-06-06.md`、`dev/vault/{g09,g14,g17,g33,g35,g36,g37}/extract_*.txt`；`dev/source/source_registry.json`（11 源）；`dev/CODEBASE_CONTEXT.md`；`dev/SESSION_HANDOFF.md`；本 entry。
+
+### Follow-up / lessons
+- gifted_policy_docs：待 Leonard 畀正確資優政策 link 再單獨抽。g17 可深化。INGEST_GAP 餘下：🟢30 候選 + ✅2 直連 + ❌6 deprecated 待 Leonard 決定。
+- **Lesson:** gap/dup 分析改用「按內容（url/PDF 檔名）對賬」而非單靠 source_id（monitoring — 重複入庫教訓）。Display/version fix 仍 pending。
+
+### Log maintenance
+§4a check：SESSION_LOG ~165→~210 行 < 400、最舊 entry < 30 天 → 不觸發（no-op）。
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md（補入庫進度）。起手自行 verify git HEAD + Supabase total（應 11,596）+ knowledge.json frozen 455 + onrender /health。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑空格雙引號）。python3。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 預設。回覆中文。
+
+S146 (2026-06-06)：Channel B 補入庫 batch1 — 真新增 7 課程指引源 +1,002 chunks（g33/g35/g36/g37/g09/g14/g17）；Supabase 10,594→11,596。3 dup + gifted(provenance錯) 已刪清。新 tested 工具 dev/fetch_extract.py + dev/ingest_one_source.py。
+
+Pending（優先序）:
+1. gifted_policy_docs — 待 Leonard 畀正確資優政策 link 再單獨抽（cd/index.html 無新內容、已由 g06+g14 覆蓋）。
+2. INGEST_GAP_2026-06-06.md 餘下批次：🟢30 有候選 link + ✅2 直連（mce_framework_2008/phys_sss_2007_2015）+ ❌6 deprecated/superseded 待 Leonard 決定。
+3. g17 可深化（3 指引子區，現 12 chunks 概覽）。
+4. Display/version fix（approach 已定、§3 HIGH-risk、勿跑 bump_version.py §E.8）。
+5. 既有：下游 Circular System 接入（spec v0.5 + key）；其餘 deferred。
+
+Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 11,596 / facts 455 / guidelines 152 / knowledge.json frozen / onrender /health）+ playbook INDEX 後，問 Leonard：(a) gifted 正確 link 有未；(b) INGEST_GAP 餘下批次要唔要繼續；(c) display/version fix。**未明示前：勿掂下游 repo / 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines.json / 勿跑 bump_version.py / 勿 reopen §E.10 / 勿動 Stage-2。** 入庫用 dev/fetch_extract.py + dev/ingest_one_source.py（per-source 安全；勿跑 full wiki_index upload）。
+```
+
 ## 2026-06-05 Session 145 — 下游 consumer 覆文納入（spec v0.4→v0.5）+ Q4 Phase 2 Channel B sync 端點 BUILT + DEPLOYED LIVE + live smoke PASS（anon embedding confirmed）— CLOSED
 
 - **ID:** Claude_20260605_1513
