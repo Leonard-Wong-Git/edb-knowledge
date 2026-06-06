@@ -56,6 +56,7 @@ def build_rows(source_id: str):
         sys.exit(f"ERROR: no vault source for '{source_id}' "
                  f"(need dev/vault/{source_id}/extract_{source_id}.txt)")
     src = srcs[0]
+    src["text"] = src["text"].replace("\x00", "")   # strip NUL byte → avoid Postgres 22P05 on INSERT (matches cb3_b2_pagecarry S132 fix)
     topic = (src.get("topic") or "general").split(",")[0].strip()
     if topic not in bw.VALID_TOPICS:
         print(f"  ⚠ topic '{topic}' not in VALID_TOPICS → fallback 'curriculum'", file=sys.stderr)

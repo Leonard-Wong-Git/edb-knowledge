@@ -98,6 +98,7 @@ def main():
     else:
         body, stats = extract_html(args.urls)
 
+    body = body.replace("\x00", "")   # strip NUL byte at source → Postgres TEXT 22P05 guard
     if not body.strip():
         sys.exit(f"ERROR [{args.id}]: extracted empty body")
 

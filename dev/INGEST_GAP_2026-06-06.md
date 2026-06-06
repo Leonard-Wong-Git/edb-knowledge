@@ -70,6 +70,15 @@
 - 工具：`dev/fetch_extract.py`（抽取）+ `dev/ingest_one_source.py`（per-source 安全入庫）。
 - **餘下待你決定**：下面 🟢30 候選 link + ✅2 直連（mce_framework_2008/phys_sss_2007_2015）+ ❌6 deprecated/superseded。
 
+## ✅ 批次2 執行結果（2026-06-06 S146）— 🟢30 dedup-first
+- Read-only agent pass（27 源，3 ALL-DUP 先 skip）揀「當前主指引」+ 中央 dedup → **30 亂候選收窄成 5 個真‧新主指引候選**（擋低 ~25 dup/噪音）。
+- **入庫 4 源 +681 chunks**：`apl_curr_docs`(147 應用學習C&A指引) · `g07`(438 基礎教育課程指引2014全本，NUL bytes 修) · `g23`(57 體育安全指引) · `nat_sec_edu`(39 國安教育框架2025)。**Supabase 11,596 → 12,277**。
+- **g38**（音樂指引）：text-layer 抽出 = CID/自訂字體亂碼（cjk≈0）→ **needs OCR**（ocrmypdf / Tesseract chi_tra），未入庫，follow-up。
+- **10 dup → skip**（主指引已喺庫 sibling）：chi_edu_curr_docs（全本 CLEKLAG，但 g09 已有節錄）· cs_curr · g32 · ma_curr_index · pe_curr_docs · pecg_2024_landing · ph_pri_curr · pri_science · pshe_curr_docs · sci_curr_docs · tech_curr_docs。
+- **11 null → skip**（無單一主檔：聚合/分章/安全hub/標題唔對頁）：g08 · g12 · g13 · g16 · g18 · g21 · g22 · g27 · g28 · g34 · sci_kla_guide_2017。
+- **Lesson**：ingest helper 漏咗 NUL strip（既有 cb3_b2 早有）→ g07 半截 insert（400/438 撞 PG 22P05）；已修 `fetch_extract.py` + `ingest_one_source.py`，刪 g07 partial 後重入完整 438。
+- **餘下 follow-up**：g38 OCR；chi_edu 全本（待 Leonard）；11 null 若要做需 multi-PDF assembly / OCR（逐源人手）。
+
 ---
 
 **以下 = 🟢 30 個爬到 link + 🟡 13 個冇 link 嘅逐源詳列(決定欄留空俾你填):**
