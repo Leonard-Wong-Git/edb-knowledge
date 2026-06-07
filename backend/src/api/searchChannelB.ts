@@ -340,6 +340,9 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbc005_2026",
     "circ_edbc24017",
     "mce_framework_2008",  // S147: 德育及公民教育課程架構(2008) OCR backfill — title 含「課程」→ 德育公民課程 queries route to curriculum; without this allowlist entry the new source never surfaces in routed search (S135 backfill-allowlist coupling)
+    "phys_sss_2007_2015",  // S148: 物理科課程及評估指引(中四至中六, 2007/2015更新) text-layer backfill (clean re-ingest, U+FFFD=0; supersedes the earlier dropped mojibake copy referenced in the `sen` route note). S135 backfill-allowlist coupling.
+    "chi_edu_curr_docs",   // S148: 中國語文教育學習領域課程指引(小一至中六, 2017 CLEKLAG full) text-layer backfill; coexists with g09 (43-48 非華語節錄) — per-source quota bounds overlap. S135 coupling.
+    "g13",                 // S148: 中學教育課程指引(2017) SECG full (Intro+booklet 1-11+6A-6D+Supp_notes, 17 PDFs) text-layer backfill. S135 coupling.
     // Kindergarten / 幼兒教育 sources（Session 100 加入）
     "g29",               // 幼稚園教育課程指引（2017）
     "g25",               // 幼稚園相關指引及須知

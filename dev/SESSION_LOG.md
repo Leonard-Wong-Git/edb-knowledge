@@ -2,6 +2,41 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-07 Session 148 — Channel B 補入庫 follow-up 1-3：phys_sss/chi_edu全本/g13(文字層) + g16(OCR) → Supabase 13,473 + display sync — OPEN
+
+- **ID:** Claude_20260607_1740
+- **Trigger:** Leonard 揀可選 follow-up「1-3 做」（phys_sss / chi_edu 全本 / g13·g16）；#4（g17 深化 / gifted）待有正確 link 再深究。
+- **起手自測（verify-don't-trust，全 live）:** HEAD `188a5db`==origin/main clean ✓ / facts 455 三層 byte-identical(md5 `d3b80c`) ✓ / Supabase 12,484 ✓ / guidelines 152 v2.5.0 ✓ / knowledge.json frozen 455 + `_meta.stats` 12,484·152 ✓ / onrender /health 200 cache_a 455 + channel-b/manifest 401-gated ✓ / playbook INDEX(地圖) ✓。
+- **§3 Risk:** HIGH（外部 API：OpenAI embed+vision + Supabase insert）；逐 gate（pre-flight→extract→ingest→allowlist+build→display→commit）。
+
+### Pre-flight（非破壞試抽，verify-don't-trust）
+- **phys_sss_2007_2015**：registry url=.pdf；實抽 150pp、cjk 19,106、**U+FFFD=0 = 文字層 OK**（handoff 估「2015 舊版可能要 OCR」**係未驗假設、實際 clean** — §G.2 再中）。
+- **chi_edu 全本**：index 頁爬出真檔 = `CLEKLAG_2017_for_upload_final_R77.pdf`（g09 只係佢 p43-48 節錄）；103pp 文字層 OK。
+- **g13 SECG**：index 頁 = 中學教育課程指引(2017)，Intro+booklet 1-11+6A-6D+Supp_notes **17 PDF / 555pp 全文字層 OK**（剔 SSCG_2009 舊版 + PDPO boilerplate）。
+- **g16 訓育**：8 章（preface+ch1-6+capp）**全 CID 亂碼（cjk=0/U+FFFD=0）→ OCR**（剔 PDPO）。
+- **Supabase dup 對賬**：phys_sss/chi_edu_curr_docs/g13/g16 **四個 source_id 全 0 = clean 新源**；g09 現有 10（CLEKLAG 節錄）→ **Leonard 拍板「保留 g09 + 全本另存」**（per-source quota 限重疊，同 g38/music 並存模式）。
+
+### CHANGE / QC（四源一次過）
+- **phys_sss_2007_2015**：`fetch_extract` 149pp → `ingest_one_source` **+182**（topic curriculum、page-resolvable）。
+- **chi_edu_curr_docs**：`fetch_extract` CLEKLAG 100pp → **+157**（curriculum）；與 g09 並存（per Leonard）。
+- **g13**：`fetch_extract` 17 PDF 554pp（連續頁碼）→ **+587**（curriculum）。
+- **g16**：`ocr_extract` 117pp（concurrency=2、dpi200）→ **0 失敗單 pass**（Retry-After 騎過 TPM、毋須 resume；2 個〔不清楚〕draft）；topic header conduct→**student**（conduct∉VALID_TOPICS、訓育→student_support）→ **+63**。
+- **allowlist `searchChannelB.ts`**：phys_sss/chi_edu_curr_docs/g13 加入 `SOURCE_SETS.curriculum`；**g16 已在 `student_support`（S142 預埋、只係當時無 data）= inverse coupling，無需改 allowlist**。
+- **display sync**：chunks 12,484→**13,473** 改齊 6 處（3 層 `_meta.stats` byte-identical md5 `d3b80c`→`7e7ac1` + app.html〔stats+`||`〕+ K1_API_SPEC + README 12,484→13,473）；guidelines 152 不變；無 bump version；`updated` 不動（facts 仍 455）。
+- **Supabase 12,484→13,473**（**+989** content-range 雙讀）；per-source 182/157/587/63 全對；抽樣 embedding dim=1536 non-null；backend `npm run check`+`build` PASS。
+- **direct match_wiki_chunks RPC（繞 routing、whole-index top-100）**：chi_edu **#1** @0.718 p24 / g16 **#1** @0.693 p17 / g13 **#4** @0.651 p37 / phys_sss **#97** @0.504 p144（phys 喺全庫低 rank 屬正常 — 物理 query 同全 curriculum 競爭；routed curriculum set 收窄後會升，**待 deploy 後 routed smoke 確認**）。
+- **0 改** Channel A facts / knowledge.json facts / guidelines.json / schema / RPC / 下游 repo / canonical chunker。
+
+### Doc Sync
+- 「Channel-B vault source backfill」row：registry（4 entry 已存在、URL 正確 = 已 parity，加 S148 notes）/ SOURCE_SETS curriculum +3 / HANDOFF baseline 13,473 / SESSION_LOG / CODEBASE AI-log / INGEST_GAP 標 done ✓。
+- 「Product display number」row：chunks 6 處同步 ✓。
+
+### Follow-up / lessons
+- **Lesson（§G.2 再中）**：「2015 舊版＝可能要 OCR」係未驗假設；phys_sss 實際文字層 clean。入庫前一律 pre-flight 試抽驗文字層，唔好靠 handoff 標籤估路線。
+- **Lesson**：g16 allowlist 喺 S142 已預埋（student_support），只欠 data = backfill-allowlist coupling 嘅 inverse；補 data 後即自動 surface，毋須改 allowlist。
+- **Lesson**：117pp OCR 喺 concurrency=2 + Retry-After 可單 pass 0 失敗（g38 153pp 用 concurrency=6 撞 TPM 嘅教訓已內化）。
+- **commit/push:** 見 commits 行；routed smoke 待 Render deploy 後跑（本 turn 會做並報告）。**未行 §4 full closeout（cards/handoff-prompt/START_NEXT）— 待 Leonard 「收工」。**
+
 ## 2026-06-07 Session 147 — Channel B 雲端 OCR 補入庫 mce(+13) + g38(+194) → Supabase 12,484 + Display/version fix（pending #4 清）— CLOSED
 
 - **ID:** Claude_20260607_1336
