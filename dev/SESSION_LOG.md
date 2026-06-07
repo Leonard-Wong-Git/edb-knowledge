@@ -35,6 +35,7 @@
 - **Lesson（§G.2 再中）**：「2015 舊版＝可能要 OCR」係未驗假設；phys_sss 實際文字層 clean。入庫前一律 pre-flight 試抽驗文字層，唔好靠 handoff 標籤估路線。
 - **Lesson**：g16 allowlist 喺 S142 已預埋（student_support），只欠 data = backfill-allowlist coupling 嘅 inverse；補 data 後即自動 surface，毋須改 allowlist。
 - **Lesson**：117pp OCR 喺 concurrency=2 + Retry-After 可單 pass 0 失敗（g38 153pp 用 concurrency=6 撞 TPM 嘅教訓已內化）。
+- **Cleanup（Leonard 批「做」）**：`git rm` 走 stale duplicate `dev/vault/phys_sss_2007_2015/extract_phys_sss_2007_2015_repaged.txt`（2026-05-01 expand_vault 自動產、**同 source_id** = latent double-pick 地雷）。今次入庫已驗證用咗正確新檔（`build_rows` 取 `srcs[0]`、live Supabase phys_sss=182 不受影響——純本地 vault 檔）。全 vault 掃描確認**再無其他同 source_id 重複** → 回復 one-extract-per-source invariant。第二個 commit。
 - **commit/push:** 見 commits 行；routed smoke 待 Render deploy 後跑（本 turn 會做並報告）。**未行 §4 full closeout（cards/handoff-prompt/START_NEXT）— 待 Leonard 「收工」。**
 
 ## 2026-06-07 Session 147 — Channel B 雲端 OCR 補入庫 mce(+13) + g38(+194) → Supabase 12,484 + Display/version fix（pending #4 清）— CLOSED
