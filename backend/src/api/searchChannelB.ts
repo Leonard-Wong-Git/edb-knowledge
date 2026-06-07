@@ -338,6 +338,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbc003_2026",
     "edbc005_2026",
     "circ_edbc24017",
+    "mce_framework_2008",  // S147: 德育及公民教育課程架構(2008) OCR backfill — title 含「課程」→ 德育公民課程 queries route to curriculum; without this allowlist entry the new source never surfaces in routed search (S135 backfill-allowlist coupling)
     // Kindergarten / 幼兒教育 sources（Session 100 加入）
     "g29",               // 幼稚園教育課程指引（2017）
     "g25",               // 幼稚園相關指引及須知

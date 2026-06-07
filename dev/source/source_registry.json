@@ -2790,7 +2790,7 @@
       "related_source_ids": [
         "moral_civic_curr"
       ],
-      "notes": "德育及公民教育課程架構（2008）修訂版；已回填 PDF 直連。",
+      "notes": "德育及公民教育課程架構（2008）修訂版，PDF 直連。S147：此 PDF 係掃描影像（8 版、無文字層、非 fetch_extract 可抽）→ 雲端 vision OCR（gpt-4o, dev/ocr_extract.py）→ Channel B 入庫 +13 chunks（content_type=vault_extract、OCR 草稿質素、page-resolvable）；已加入 backend SOURCE_SETS.curriculum allowlist。INGEST_GAP 舊標『可即入』係錯（只睇 url=.pdf 未驗文字層）。",
       "freshness_metadata": {
         "last_modified": "Sun, 25 Nov 2012 16:27:04 GMT",
         "content_length": "2101772",

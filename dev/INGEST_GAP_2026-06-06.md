@@ -15,12 +15,13 @@
 |---|---|---|
 | 🟢 爬到真檔 PDF link | 30 | 下面詳列候選,逐個 vet 揀正確主檔 |
 | 🟡 landing 冇直接 PDF | 13 | 要深一層 / AJAX,見下 |
-| ✅ 已有 PDF 直連(免爬) | 2 | `mce_framework_2008`、`phys_sss_2007_2015`(registry `url_primary` 已係 .pdf;phys 係 2015 舊版,要諗值唔值) |
+| ✅ 已有 PDF 直連(免爬) | 2 | `mce_framework_2008`=**S147 已入庫(要 OCR、唔係即入)**；`phys_sss_2007_2015`(registry `url_primary` 已係 .pdf;phys 係 2015 舊版,要諗值唔值，**亦未驗文字層**) |
 | ❌ 建議跳過 | 6 | 見下表 |
 
-### ✅ 已有直連、可即入(2)
+### ✅ 已有直連(2) — ⚠️ S147 修正：「可即入」係錯（只睇 url=.pdf、未驗文字層）
 - `mce_framework_2008` 德育公民教育架構2008 — `https://www.edb.gov.hk/attachment/tc/common/revised mce framework.pdf`
-- `phys_sss_2007_2015` 高中物理指引2015 — registry url_primary 已係 PDF 直連 ⚠️ 2015 舊版
+  - **S147 INGESTED**：實測係**掃描影像 PDF**（8 版、0 文字層、0 glyph span）→ `fetch_extract.py` 抽到空 body → **雲端 vision OCR**（gpt-4o，新工具 `dev/ocr_extract.py`）抽 8 版 9,918 字 U+FFFD=0 → `ingest_one_source.py` 入庫 **+13 chunks**（Supabase 12,277→12,290、全 page-resolvable）+ 加入 backend `SOURCE_SETS.curriculum` allowlist（S135 coupling）。**教訓**：本表「✅可即入」分類只睇 registry `url_primary` 係 `.pdf`，**從未驗證文字層抽唔抽到**（verify-don't-trust §G.2）；同類「直連」候選入庫前必先 `fetch_extract` 試抽、撞空 body = needs OCR。
+- `phys_sss_2007_2015` 高中物理指引2015 — registry url_primary 已係 PDF 直連 ⚠️ 2015 舊版**＋文字層未驗**（同 mce 一樣可能要 OCR；做之前先試抽）
 
 ### ❌ 建議跳過(6)
 | id | 原因 |

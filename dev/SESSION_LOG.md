@@ -2,7 +2,42 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
-## 2026-06-06 Session 146 — Channel B 補入庫 batch1+2（+11 源 → Supabase 12,277）+ 下游 Circular System 接入完成 — CLOSED
+## 2026-06-07 Session 147 — Channel B 補入庫 `mce_framework_2008`（雲端 vision OCR 掃描 PDF → +13 → Supabase 12,290）— OPEN
+
+- **ID:** Claude_20260607_1336
+- **Trigger:** 起手自測全綠 → Leonard 揀可選 follow-up「mce_framework_2008 補入庫」（INGEST_GAP 標『最抵/即入』）。
+- **起手自測（verify-don't-trust，全 live）:** HEAD `e4e75a8`==origin/main clean ✓ / facts 455 三層 byte-identical(md5 `7d0033…`) ✓ / Supabase 12,277 ✓ / guidelines 152 v2.5.0 ✓ / knowledge.json frozen 455（`_meta.stats` 10736/39 display drift 仍 pending #4）/ onrender /health 200 cache_a 455 + channel-b/manifest 401-gated ✓。
+- **§3 Risk:** HIGH（外部 API：OpenAI embed+vision + Supabase insert）；逐 gate GO（OCR 路線 → embed/insert → commit/deploy）。
+
+### 分歧發現（§3 stop-and-report）
+- INGEST_GAP 標 mce「✅ 已有直連、可即入」**係錯**：pre-flight 試抽揭 PDF = HTTP200/application-pdf/2,101,772 bytes（=registry hash、正檔）但**8 版全 0 文字 + 0 glyph span = 掃描影像 PDF、無文字層**。`fetch_extract.py` 抽到空 body。根因＝原分類只睇 `url_primary=.pdf`、**從未驗文字層**（verify-don't-trust §G.2 再中）。
+- 內容對賬（S146 lesson）：Supabase 0 個 mce/moral/civic source_id，siblings（nat_sec_edu 39 / values_edu_2021 93 / sec_curr_6A 21）係唔同文件 → **真新源、零重複**。
+
+### CHANGE
+- **NEW tool `dev/ocr_extract.py`**（雲端 vision OCR；fitz render 每版 PNG@220dpi → OpenAI `gpt-4o` vision 逐版抽繁中 → 同 fetch_extract canonical vault 格式 + `=== Page N ===` page-resolvable + NUL strip）。質素探針（page1）→ 全 8 版 OCR：9,918 字、cjk 7,831、**U+FFFD=0**、page7 dense（4,540 字）。draft 質素（個別 OCR 誤字，靠 chunk 帶 url+頁碼點返原 PDF 保 §A.2 可追溯）。
+- `ingest_one_source.py mce_framework_2008`（dry-run 13 chunks page-resolvable → live）：embed text-embedding-3-small(1536) + insert（merge-dup、只此 source_id）。
+- **backend `searchChannelB.ts`：加 `mce_framework_2008` 入 `SOURCE_SETS.curriculum`**（S135 backfill-allowlist coupling：title 含「課程」→ 德育公民課程 query route 去 curriculum、唔加就 routed search 永遠 surface 唔到；direct RPC 證 vector 層 OK 但 routed 層 0）。
+
+### QC
+- Supabase 12,277→**12,290**（+13，content-range 雙驗）；mce source count=13；13/13 embedding non-null dim=1536；topic=curriculum/content_type=vault_extract/url 正確。
+- **direct match_wiki_chunks RPC**（繞 routing）：「德育公民 核心價值」query 撞返 mce chunks sim 0.57/0.55 = vector 層 live+searchable ✓。
+- backend `npm run check` + `npm run build` 全 PASS（allowlist edit）。
+- 0 改 Channel A / knowledge.json / guidelines.json / schema / RPC / 下游 repo。
+
+### Sources changed
+- NEW `dev/ocr_extract.py`、`dev/vault/mce_framework_2008/extract_mce_framework_2008.txt`；`backend/src/api/searchChannelB.ts`（+1 allowlist 行）；`dev/source/source_registry.json`（mce notes）；`dev/INGEST_GAP_2026-06-06.md`（mce 重分類 + 「可即入」doc-drift 修正）；`dev/SESSION_HANDOFF.md`（baseline 12,290 + Open Priorities）；`dev/CODEBASE_CONTEXT.md`（工具 + External Services + AI log）；本 entry。
+
+### Doc Sync
+- 觸發 row「Channel-B vault source backfill into Supabase」：registry ✓ / backend SOURCE_SETS parity ✓（curriculum allowlist）/ HANDOFF baseline ✓ / SESSION_LOG ✓ / CODEBASE_CONTEXT Directory Map + AI log ✓。
+- 觸發 row「External API / service change」：CODEBASE_CONTEXT External Services 加 OpenAI vision（gpt-4o OCR）block（§0b）✓。
+- 觸發 row「Doc-drift truth-pass」：INGEST_GAP mce「可即入」更正 ✓。
+
+### Follow-up / lessons
+- **Lesson（§8b monitoring）**：「直連 PDF = 可即入」係未驗假設；scanned/CID PDF 抽到空 body = needs OCR。同類「✅直連」候選（phys_sss_2007_2015 等）入庫前必先 `fetch_extract` 試抽、撞空 = 轉 `ocr_extract.py`。
+- 新源入庫**必加 SOURCE_SETS allowlist**先 surface（S135 coupling、本 session 親證 routed 0 vs RPC OK）。
+- ⏳ commit+push（= Render 自動 deploy backend allowlist）待 Leonard GO。Display/version fix（#4）仍 pending。
+
+
 
 - **ID:** Claude_20260606_1807
 - **Trigger:** 起手自測全綠 → Leonard 問 Channel B「做哂未/完美未」→ 帶出「掃 EDB 文件入庫」缺口 → 出 51-源缺口冊 → Leonard 批1決定 15 個 → 「/workflows 全部」→ orchestrated extract+ingest → 內容核實 → 清理重複/錯源。
