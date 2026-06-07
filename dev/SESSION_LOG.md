@@ -2,7 +2,7 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
-## 2026-06-07 Session 148 — Channel B 補入庫 follow-up 1-3：phys_sss/chi_edu全本/g13(文字層) + g16(OCR) → Supabase 13,473 + display sync — OPEN
+## 2026-06-07 Session 148 — Channel B 補入庫 follow-up 1-3：phys_sss/chi_edu全本/g13(文字層) + g16(OCR) → Supabase 13,473 + display sync — CLOSED
 
 - **ID:** Claude_20260607_1740
 - **Trigger:** Leonard 揀可選 follow-up「1-3 做」（phys_sss / chi_edu 全本 / g13·g16）；#4（g17 深化 / gifted）待有正確 link 再深究。
@@ -38,7 +38,30 @@
 - **Cleanup（Leonard 批「做」）**：`git rm` 走 stale duplicate `dev/vault/phys_sss_2007_2015/extract_phys_sss_2007_2015_repaged.txt`（2026-05-01 expand_vault 自動產、**同 source_id** = latent double-pick 地雷）。今次入庫已驗證用咗正確新檔（`build_rows` 取 `srcs[0]`、live Supabase phys_sss=182 不受影響——純本地 vault 檔）。全 vault 掃描確認**再無其他同 source_id 重複** → 回復 one-extract-per-source invariant。第二個 commit。
 - **Routed smoke（post-deploy live）：** `chi_edu_curr_docs` **#1** @0.738 p24 / `g13` **#3** @0.711 p56 / `g16` **#1** @0.693 p17 — 三源完美 surface 帶頁碼。**`phys_sss` ABSENT**（即使 over-fetch 150）。
 - **phys_sss 根因（已驗、§3 執行偏離 stop-and-report → Leonard 拍板「接受現狀」）：** routed search = retrieve-then-filter（`wikiRepository.ts:130-181`：RPC 攞 top `top_k×5`〔預設 40〕**全庫** → app filter SOURCE_SET）+ query expansion（`searchChannelB.ts:552` 加通用 curriculum 詞）。phys_sss 全庫排 ~**#97**（物理同眾理科共詞、expansion 再稀釋）→ 入唔到候選池 → 被 filter 走。**但入庫完全正確**（182 chunks、embeddings 1536 valid、在 curriculum allowlist、direct match_wiki_chunks RPC #97 @0.504、**下游 Circular System by-id 增量同步完全攞到**——routed UI 只係其中一個 consumer）。唯一缺口 = app.html 智能搜尋 UI 對「物理」query 唔頂返。**Leonard 接受現狀**（§8b monitor-only、唔郁 shared 檢索 infra）；將來若要 surface = 另開 dedicated 理科 route（routing-not-cutoff lever、S118 pattern）。
-- **commit/push:** 見 commits 行。**未行 §4 full closeout（cards/handoff-prompt/START_NEXT）— 待 Leonard 「收工」。**
+- **commit/push:** `269df97`(入庫+allowlist+display) → `4ea85ec`(rm stale duplicate) → `cd42d22`(routed smoke 入 governance) → S148 closeout commit。
+- **Log maintenance（§4a）:** no-op — SESSION_LOG 346 行（<400）、oldest entry S144（2026-06-05，<30d）；無觸發 archive。
+- **§4 closeout:** handoff reconciled（Last/Previous Session Record→S148/S147、baseline chunks 13,473、Open Priorities 重生、phys_sss limitation 入 monitor）；DOC_SYNC row 35（Channel-B vault backfill）✓；START_NEXT_SESSION_PROMPT.txt 由下方 verbatim block 重生。
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md（補入庫進度）。起手自行 verify git HEAD==origin/main + Supabase total（應 13,473）+ knowledge.json frozen 455 + knowledge.json._meta.stats（應 13,473/152）+ onrender /health + manifest 401-gated。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑空格雙引號）。python3。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 預設。回覆中文。
+
+S148 (2026-06-07)：**follow-up 1-3 完成入庫** — phys_sss_2007_2015 +182（文字層、非 OCR）、chi_edu_curr_docs（CLEKLAG 全本）+157、g13（SECG 17-PDF）+587 = fetch_extract 文字層；g16（訓育 8 章 CID）+63 = ocr_extract（117pp concurrency=2 0 失敗）→ Supabase 12,484→**13,473**（+989）。前 3 加 SOURCE_SETS.curriculum、g16 已在 student_support。Display chunks 6 處同步 13,473（三層 byte-identical md5 7e7ac1）。清走 stale duplicate phys_sss…_repaged.txt。Routed smoke：chi_edu #1 / g13 #3 / g16 #1 完美；**phys_sss ABSENT**（retrieve-then-filter top-40 全庫 + expansion 稀釋、全庫 ~#97）→ **Leonard 接受現狀**（入庫正確、下游 by-id sync 攞到）。**0 outstanding bug。**
+
+Pending（全屬可選、冇緊急）:
+1. gifted_policy_docs（待 Leonard 正確 link）+ g17 深化（同 #4 link 一齊做）。
+2. 餘 ~9 registry 源有內容可加（見 INGEST_GAP；其餘 dup/deprecated 建議唔做）。
+3. monitor：phys_sss routed-UI 限制（要 surface 須另開 dedicated 理科 route）/ g38·music_p1_s6_2024 stale-ranking / freshness 週跑 / 57014 cold-start / FAIL-A record-only / Suppl_guide held / stat_fact 2024-25 stale。
+
+⚠️ Cautions：chunks 係 moving display number（每次補入庫同步 6 處〔3 層 _meta.stats + app.html + K1_API_SPEC + README〕）；入庫 per-source（文字層 fetch_extract、掃描/CID ocr_extract、再 ingest_one_source；勿 full wiki_index upload）；新源必加 SOURCE_SETS allowlist（S135）；大 OCR job pace org TPM。**未明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines.json / 勿跑 bump_version.py / 勿 reopen §E.10 / 勿動 Stage-2 / 勿改 canonical chunker 或 shared 檢索 infra（match_count/expansion）/ 勿再 ingest 結構天花板源。**
+
+Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 13,473 / facts 455 三層 / guidelines 152 / knowledge.json stats 13,473·152 / onrender /health + manifest 401-gated）+ playbook INDEX 後，問 Leonard 想做邊樣（gifted/g17 待 link、或其他方向），未明示前勿郁上述禁區。
+```
 
 ## 2026-06-07 Session 147 — Channel B 雲端 OCR 補入庫 mce(+13) + g38(+194) → Supabase 12,484 + Display/version fix（pending #4 清）— CLOSED
 

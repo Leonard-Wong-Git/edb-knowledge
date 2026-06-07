@@ -1,18 +1,17 @@
 Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 
-⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md（補入庫進度）。起手自行 verify git HEAD + Supabase total（應 12,484）+ knowledge.json frozen 455 + knowledge.json._meta.stats（應 12,484/152）+ onrender /health + manifest 401-gated。
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md（補入庫進度）。起手自行 verify git HEAD==origin/main + Supabase total（應 13,473）+ knowledge.json frozen 455 + knowledge.json._meta.stats（應 13,473/152）+ onrender /health + manifest 401-gated。
 
 ⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑空格雙引號）。python3。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 預設。回覆中文。
 
-S147 (2026-06-07)：**2 個可選 follow-up 完成** — (1) mce_framework_2008 +13 + g38 音樂指引 +194 = 兩個掃描/CID PDF 用**雲端 vision OCR**（新工具 dev/ocr_extract.py，concurrency+Retry-After+resume）入庫 → Supabase 12,277→**12,484**，兩源加 SOURCE_SETS.curriculum allowlist、routed smoke 各 #1 帶頁碼；(2) **Display/version fix executed**（pending #4 清）：_meta.stats chunks→12,484 / guidelines→152 改齊三層 byte-identical(md5 d3b80c) + app.html + K1_API_SPEC + README(in-app 161)，無 bump version。順手修 SESSION_LOG S146 標題完整性 bug。**0 outstanding bug。**
+S148 (2026-06-07)：**follow-up 1-3 完成入庫** — phys_sss_2007_2015 +182（文字層、非 OCR）、chi_edu_curr_docs（CLEKLAG 全本）+157、g13（SECG 17-PDF）+587 = fetch_extract 文字層；g16（訓育 8 章 CID）+63 = ocr_extract（117pp concurrency=2 0 失敗）→ Supabase 12,484→**13,473**（+989）。前 3 加 SOURCE_SETS.curriculum、g16 已在 student_support。Display chunks 6 處同步 13,473（三層 byte-identical md5 7e7ac1）。清走 stale duplicate phys_sss…_repaged.txt。Routed smoke：chi_edu #1 / g13 #3 / g16 #1 完美；**phys_sss ABSENT**（retrieve-then-filter top-40 全庫 + expansion 稀釋、全庫 ~#97）→ **Leonard 接受現狀**（入庫正確、下游 by-id sync 攞到）。**0 outstanding bug。**
 
 Pending（全屬可選、冇緊急）:
-1. chi_edu_curr_docs 全本 CLEKLAG（g09 已有節錄、待 Leonard 決定）。
-2. phys_sss_2007_2015（2015 舊版 + 文字層未驗 — 做之前先 fetch_extract 試抽、撞空/CID 轉 ocr_extract）。
-3. g13 中學課程指引(SECG) / g16 訓育工作指引（分章碎檔、multi-PDF 砌）；g17 深化；gifted_policy_docs 待正確 link。
-4. 既有 deferred：FAIL-A record-only / §8b rule2 / Suppl_guide held / stat_fact 2024-25 stale / freshness 週跑 / 57014 cold-start monitor / g38·music_p1_s6_2024 stale-ranking monitor。
+1. gifted_policy_docs（待 Leonard 正確 link）+ g17 深化（同 #4 link 一齊做）。
+2. 餘 ~9 registry 源有內容可加（見 INGEST_GAP；其餘 dup/deprecated 建議唔做）。
+3. monitor：phys_sss routed-UI 限制（要 surface 須另開 dedicated 理科 route）/ g38·music_p1_s6_2024 stale-ranking / freshness 週跑 / 57014 cold-start / FAIL-A record-only / Suppl_guide held / stat_fact 2024-25 stale。
 
-⚠️ Cautions：**chunks 係 moving display number**（每次補入庫後同步嗰 6 處〔3 層 _meta.stats + app.html + K1_API_SPEC + README〕或改 app live fetch）；入庫一律 per-source（文字層 fetch_extract、掃描/CID ocr_extract、再 ingest_one_source；勿 full wiki_index upload）；**新源入庫必加 SOURCE_SETS allowlist（S135、否則 routed 唔 surface）**；勿改 canonical chunker；大 OCR job pace org TPM。**未明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines.json / 勿跑 bump_version.py / 勿 reopen §E.10 / 勿動 Stage-2 / 勿再 ingest 結構天花板源。**
+⚠️ Cautions：chunks 係 moving display number（每次補入庫同步 6 處〔3 層 _meta.stats + app.html + K1_API_SPEC + README〕）；入庫 per-source（文字層 fetch_extract、掃描/CID ocr_extract、再 ingest_one_source；勿 full wiki_index upload）；新源必加 SOURCE_SETS allowlist（S135）；大 OCR job pace org TPM。**未明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines.json / 勿跑 bump_version.py / 勿 reopen §E.10 / 勿動 Stage-2 / 勿改 canonical chunker 或 shared 檢索 infra（match_count/expansion）/ 勿再 ingest 結構天花板源。**
 
-Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 12,484 / facts 455 三層 / guidelines 152 / knowledge.json stats 12,484·152 / onrender /health + manifest 401-gated）+ playbook INDEX 後，問 Leonard 想做邊樣可選 follow-up（chi_edu 全本 / phys_sss 試抽 / g13·g16 / g17 深化 / gifted；或其他），未明示前勿郁上述禁區。
+Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 13,473 / facts 455 三層 / guidelines 152 / knowledge.json stats 13,473·152 / onrender /health + manifest 401-gated）+ playbook INDEX 後，問 Leonard 想做邊樣（gifted/g17 待 link、或其他方向），未明示前勿郁上述禁區。
