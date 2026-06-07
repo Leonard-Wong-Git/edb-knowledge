@@ -322,6 +322,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "history_jss_2019",  // S135: 西史/世界歷史初中課程指引（中一至中三）2019 — backfilled (§E.12 URL re-discovery); without this, curriculum-category history queries mis-route to chi_hist (中史)
     "history_sss_2007_2015",  // S135 Phase 3a tail: 西史高中歷史課程及評估指引（中四至中六）— pre-existing allowlist gap, added for parity with chi_hist + 初中
     "music_p1_s6_2024",
+    "g38",               // S147: 音樂教育學習領域課程指引(2003, 小一至中三) — OCR backfill (153p CID-mojibake). Coexists with music_p1_s6_2024 (2024, P1-S6): different era + level scope, not a clean supersede; per-source quota bounds dominance — monitor for stale-2003-ranking.
     "gs_pri_guide_2017",
     "va_p1_s6_2024",
     "chi_jss_guide_2023",

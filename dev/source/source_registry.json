@@ -749,7 +749,7 @@
       "version_label": "2003",
       "last_checked_at": "2026-06-03",
       "supersedes": null,
-      "notes": "原 music-curri/index.html 已失效；現改指向藝術教育昔日課程文件頁，該頁仍列出《音樂科課程指引（小一至中三）》（2003）。 | S146 batch2: text-layer extraction = CID/custom-font garbage (cjk≈0); needs OCR (ocrmypdf / Tesseract chi_tra) before ingest — NOT in vector store",
+      "notes": "原 music-curri/index.html 已失效；現改指向藝術教育昔日課程文件頁，PDF=music_complete_guide_chi.pdf（153 版、36.5MB）。 | S146 batch2: text-layer = CID/custom-font garbage (cjk≈0) needs OCR. | S147 INGESTED: 雲端 vision OCR (gpt-4o, dev/ocr_extract.py concurrency+resume) 全 153 版 → +194 chunks (filler-collapse 修 oversized worksheet chunks)；加 SOURCE_SETS.curriculum allowlist。OCR 草稿質素、page-resolvable。⚠️ 2003 P1-S3 與 music_p1_s6_2024 (2024 P1-S6) 共存、monitor stale-ranking。",
       "freshness_metadata": {
         "last_modified": "Wed, 22 Apr 2026 02:25:57 GMT",
         "content_length": "1579",

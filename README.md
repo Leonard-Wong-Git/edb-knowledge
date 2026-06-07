@@ -85,9 +85,9 @@ EDB PDF → ai_extract.py → wiki_index.json（向量索引）
 | 項目 | 數量 |
 |------|------|
 | Channel A 已審核事實 | **455 條** |
-| 指引文件庫（in-app 瀏覽） | **148 份** |
+| 指引文件庫（in-app 瀏覽） | **161 份** |
 | 來源文件 | **120 份** |
-| Channel B 向量索引 | **10,736 chunks**（本地，Phase 2 上線中） |
+| Channel B 向量索引 | **12,484 chunks**（Supabase pgvector，線上） |
 
 > 註：由 792 條去重整合至 455 條唯一事實（2026-05-16，commit 711f911；可逆日誌 `dev/DEDUP_LOG_2026-05-16.md`）。
 > 註：`161` 為 in-app 指引瀏覽庫（總文件基礎，S140 landing-curate +9 + 公積金 +4）；公開 `guidelines.json` API 端點為其全集投影 **152** 份（S140，剔 9 非文件；由 `dev/build_guidelines.py` 生成）。

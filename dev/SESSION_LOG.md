@@ -35,9 +35,23 @@
 ### Follow-up / lessons
 - **Lesson（§8b monitoring）**：「直連 PDF = 可即入」係未驗假設；scanned/CID PDF 抽到空 body = needs OCR。同類「✅直連」候選（phys_sss_2007_2015 等）入庫前必先 `fetch_extract` 試抽、撞空 = 轉 `ocr_extract.py`。
 - 新源入庫**必加 SOURCE_SETS allowlist**先 surface（S135 coupling、本 session 親證 routed 0 vs RPC OK）。
-- ⏳ commit+push（= Render 自動 deploy backend allowlist）待 Leonard GO。Display/version fix（#4）仍 pending。
+- mce commit+push DONE（`d69080f`、Render deployed、routed smoke mce #1 p=1 @0.674）。
+
+### S147 cont（same session）— g38 全本 OCR 入庫 + Display/version fix
+- **Trigger:** Leonard 揀「1+2」= g38 全本 vision OCR + display fix。
+- **g38（音樂教育學習領域課程指引 2003, 小一至中三）:** registry url=HTML index → 爬出真 PDF `music_complete_guide_chi.pdf`（**153 版、36.5MB**）。Triage：text-layer = **CID-mojibake**（cjk=0 / U+FFFD=0、glyph→控制字元）→ image-render OCR 繞過。
+  - **工具升級 `dev/ocr_extract.py`:** 加 `--concurrency`（ThreadPool；fitz 單線程 render → 並行 OCR）+ **Retry-After-aware 429** + `--resume`（只重抽 〔OCR失敗〕頁、merge、唔重花已成功頁）。**因由:** 首輪 concurrency=6 撞 org gpt-4o **TPM=30k/min** → 88/153 頁 429 失敗；resume concurrency=2 + Retry-After → **88/88 recovered、still_failed=0**（cjk 71,679、U+FFFD=1）。
+  - **filler-collapse:** worksheet/評估示例頁滿 ＿＿＿/▭▭▭ fill-in-blank（無句界）→ canonical chunker（**勿改、shared infra**）切唔開 → 1 個 8171-char malformed chunk。collapse 填充符 runs（移 17,090 無意義字、cjk 全保）→ 全 chunk ≤616。
+  - **入庫:** `ingest_one_source` **+194 chunks**（dedup 後）→ Supabase 12,290→**12,484**；加 `SOURCE_SETS.curriculum` allowlist。⚠️ 與 `music_p1_s6_2024`（2024 P1-S6）共存、非 clean supersede（不同年代+級別 scope）、per-source quota bound、**monitor stale-2003-ranking**。
+  - **QC:** total 12,484 雙讀 ✓ / g38=194 ✓ / direct RPC g38 retrieved 6/50 ✓ / typecheck+build PASS。
+- **Display/version fix（pending #4 CLEARED；§3 HIGH-risk）:** stale `_meta.stats` chunks 10736→**12,484** + guidelines 39→**152** 改齊：三層 knowledge.json / role_facts.json / dev/knowledge/role_facts.json（**byte-identical 維持**，md5 7d0033→**d3b80c**）+ app.html（stats block + `||` fallback）+ K1_API_SPEC:44 + README（in-app 148→**161**〔=GUIDELINES_REGISTRY.length 實測〕+ chunks line「本地」→「Supabase pgvector」）。**`updated` 保留 2026-05-16**（facts 未變 455、免誤導下游 facts-version）。**version 無 bump**（查證 2.3.0 內容版 / 2.0.0 契約版 / 2.5.0 guidelines / 2.2.19 Tailwind 各自合理；`app.html:32`「2.2.1」= Tailwind CDN lib、grep false-positive、非站版）。QC: 三層 md5 一致 + JSON valid + facts 455。
+- **Doc Sync:** Channel-B backfill row（registry g38 + SOURCE_SETS + HANDOFF + CODEBASE + SESSION_LOG）✓；Product-version/release row（display fix：_meta + README + K1_API_SPEC + app.html）✓；Doc-drift row（INGEST_GAP g38 done + README in-app 148→161）✓。
+- **Lesson:** (1) 大 OCR job 必 pace TPM（low concurrency + Retry-After + resume）。(2) worksheet/exemplar PDF 有 fill-in filler → collapse 先 chunk（唔改 shared canonical chunker）。(3) chunks 係 moving display number、每次 ingest 後同步嗰 6 處（或改 app fetch live count）。
+- **commits:** mce `d69080f`（已 push）；g38+display = 本 turn 待 commit+push（= Render deploy g38 allowlist）。
 
 
+
+## 2026-06-06 Session 146 — Channel B 補入庫 batch1+2（+11 源 → Supabase 12,277）+ 下游 Circular System 接入完成 — CLOSED
 
 - **ID:** Claude_20260606_1807
 - **Trigger:** 起手自測全綠 → Leonard 問 Channel B「做哂未/完美未」→ 帶出「掃 EDB 文件入庫」缺口 → 出 51-源缺口冊 → Leonard 批1決定 15 個 → 「/workflows 全部」→ orchestrated extract+ingest → 內容核實 → 清理重複/錯源。

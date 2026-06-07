@@ -78,7 +78,7 @@
 - **10 dup → skip**（主指引已喺庫 sibling）：chi_edu_curr_docs（全本 CLEKLAG，但 g09 已有節錄）· cs_curr · g32 · ma_curr_index · pe_curr_docs · pecg_2024_landing · ph_pri_curr · pri_science · pshe_curr_docs · sci_curr_docs · tech_curr_docs。
 - **11 null → skip**（無單一主檔：聚合/分章/安全hub/標題唔對頁）：g08 · g12 · g13 · g16 · g18 · g21 · g22 · g27 · g28 · g34 · sci_kla_guide_2017。
 - **Lesson**：ingest helper 漏咗 NUL strip（既有 cb3_b2 早有）→ g07 半截 insert（400/438 撞 PG 22P05）；已修 `fetch_extract.py` + `ingest_one_source.py`，刪 g07 partial 後重入完整 438。
-- **餘下 follow-up**：g38 OCR；chi_edu 全本（待 Leonard）；11 null 若要做需 multi-PDF assembly / OCR（逐源人手）。
+- **餘下 follow-up**：~~g38 OCR~~ = **S147 DONE**（music_complete_guide_chi.pdf 153 版 CID-mojibake → 雲端 vision OCR +194 chunks，見 dev/ocr_extract.py）；chi_edu 全本（待 Leonard）；11 null 若要做需 multi-PDF assembly / OCR（逐源人手）。
 
 ---
 
