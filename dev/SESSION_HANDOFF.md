@@ -1,7 +1,7 @@
 # Session Handoff
 
 ## Current Baseline
-1. **Version / git**: v2.3.0；git `main`=`origin/main` HEAD = **`32e670e`** + S146 收工 commit（S146：Channel B 補入庫 batch1+2 +11 源 → Supabase 12,277；下游接入完成）；起手自行 verify。
+1. **Version / git**: v2.3.0（knowledge 內容版凍結 @2.3.0、guidelines @2.5.0，無 bump）；git `main`=`origin/main` HEAD = **`6ae4107`** + S147 closeout commit（S147：mce +13 + g38 +194 雲端 OCR 入庫 → Supabase 12,484；display fix executed）；起手自行 verify。
 2. **Frontend**: `index.html` landing；`app.html` full React SPA；`t-purchase.html` draft flow；`q.html` local knowledge.json Quick Q&A。
 3. **Knowledge state**: **455** Channel A facts（三層同步 byte-identical，md5 `d3b80c`）、0 queue；Supabase **12,484** chunks（S146 +1,683；**S147 +207** = `mce_framework_2008` +13〔掃描影像 PDF〕+ `g38` 音樂指引 +194〔153 版 CID-mojibake〕，兩者皆**雲端 vision OCR**〔新工具 `dev/ocr_extract.py`，concurrency+resume〕+ 加 SOURCE_SETS.curriculum allowlist）；指引 4 層（161 app/152 公開/203 registry/120 vault）；**display fix EXECUTED**（S147：`_meta.stats` chunks→12,484/guidelines→152 三層 byte-identical + app.html + K1_API_SPEC + README in-app 161）；Phase 3 全完成。
 4. **Backend**: Channel A+B+A+B search APIs live at `https://edb-knowledge.onrender.com`；**Q4 Phase 2 NEW**: `GET /api/channel-b/manifest` + `POST /api/channel-b/chunks`（X-Sync-Key gated，`CHANNEL_B_SYNC_KEY` set on Render；live smoke PASS：13 欄 + anon reads embedding 1536-vec confirmed）；rate limiting 10 req/min/IP + sync 60/min。
@@ -116,27 +116,29 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / 下游 Circular System 整合）
 
 ## Last Session Record
-1. UTC date: 2026-06-06
-2. Session ID: Claude_20260606_1807 (S146)
+1. UTC date: 2026-06-07
+2. Session ID: Claude_20260607_1336 (S147)
 3. Completed:
-   - ✅ **[起手核實]** HEAD 5ae78ac==origin/main / facts 455 / Supabase 10,594 / guidelines 152 v2.5.0 / knowledge.json frozen / onrender /health 200 + manifest 401-gated。egress 全通。
-   - ✅ **[Channel B 補入庫 batch1+2]** 真新增 **11 課程指引源 +1,683 chunks → Supabase 12,277**。batch1(7)：g33/g35/g36/g37/g09(p43-48)/g14/g17；batch2(4)：apl_curr_docs/g07/g23/nat_sec_edu。read-only dedup/識別 pass 先行（防重複放大），逐步 live 獨立核揪出並修：3 dup（g31/g39/gs_pri_curr 刪）+ gifted provenance 錯（刪）+ g07 NUL bug（修 helper + 刪 partial 重入 438）+ g38 CID 亂碼（標 needs-OCR）。
-   - ✅ **[新工具，committed]** `dev/fetch_extract.py`（mojibake-safe PDF/HTML 抽取 + page-carry + NUL strip）+ `dev/ingest_one_source.py`（per-source 安全入庫、重用 canonical chunker、merge-dup、NUL strip）。
-   - ✅ **[下游接入完成]** 下游 Circular System consumer build 好 + 完成工作（Leonard 確認）；交接包 `dev/CHANNEL_B_HANDOVER.md`（spec v0.5 落地）。K1 sync 端點 401-gated 健康。**Channel B Phase 2 全鏈完成。**
-   - ✅ **[缺口冊]** `dev/INGEST_GAP_2026-06-06.md`（51 源缺口 + batch1/2 結果 + 仍 40 未入庫分類：~15 可加 / 25 dup·deprecated·舊版唔做）。
-4. Pending（全屬可選）: mce_framework_2008 直連 / g38 OCR / g13·g16 multi-PDF / chi_edu 全本 / gifted link / g17 深化 / display fix。**0 outstanding bug。**
-5. Next priorities: 見 Open Priorities（補入庫餘下可選 / display fix / deferred）。
+   - ✅ **[起手核實]** HEAD e4e75a8==origin/main / facts 455 三層 byte-identical(md5 7d0033) / Supabase 12,277 / guidelines 152 v2.5.0 / knowledge.json frozen / onrender /health 200 + manifest 401-gated。egress 全通（onrender+supabase 本 harness 可達）。
+   - ✅ **[mce_framework_2008 OCR 入庫 +13]** 8 版掃描影像 PDF（0 文字層；INGEST_GAP「✅可即入」係錯、只睇 url=.pdf 未驗文字層）→ **雲端 vision OCR**（gpt-4o、新工具 `dev/ocr_extract.py`）→ Supabase 12,277→12,290 + 加 SOURCE_SETS.curriculum allowlist（S135 coupling）；commit `d69080f`、routed smoke mce #1 p=1 @0.674。
+   - ✅ **[g38 音樂指引 OCR 入庫 +194]** 153 版 CID-mojibake PDF（real PDF 喺 HTML index 底）→ vision OCR（工具升級 **concurrency + Retry-After 429 + `--resume`**；撞 org TPM=30k 88/153 失敗→resume 88/88 recovered；**filler-collapse** 修 worksheet oversized chunk、唔改 shared canonical chunker）→ 12,290→**12,484** + allowlist；routed smoke g38 #1 p=21 @0.774（與 music_p1_s6_2024 共存）。
+   - ✅ **[Display/version fix，pending #4 清]** stale `_meta.stats` chunks 10736→**12,484**/guidelines 39→**152** 改齊三層 byte-identical（md5 7d0033→**d3b80c**）+ app.html + K1_API_SPEC + README（in-app 148→161）；`updated` 保留 2026-05-16（facts 未變）；**無 bump version**（各 version 各自合理、app.html:32 係 Tailwind lib 假陽性）；§E.2 三層同步守住。
+   - ✅ **[完整性修復]** 還原被誤刪嘅 SESSION_LOG S146 標題（上個 commit d69080f prepend S147 時跌咗）。
+4. Pending（全屬可選）: chi_edu 全本（待 Leonard）/ phys_sss_2007_2015（先試抽、可能要 OCR）/ g13·g16 multi-PDF / g17 深化 / gifted link。**0 outstanding bug。**
+5. Next priorities: 見 Open Priorities。
 6. Risks / blockers:
-   - 🟢 **0 outstanding bug**。Channel B Phase 2 全鏈完成 + K1 端點健康。
-   - ⚠️ Display/version fix（approach 已定、§3 HIGH-risk、勿跑 `bump_version.py` §E.8）。
-   - 既有：Channel A frozen @455；57014 transient(retry)；FAIL-A(record-only)；§E.10(a) ACCEPTED；q.html/A·AB dormant 勿清；Stage-2 closed；egress 每次自測；路徑空格雙引號；wiki_chunks 欄名 `text`；結構天花板源勿再 ingest；改 Draft code/data commit 必入 SESSION_LOG；init_backup gitignored；**入庫用 fetch_extract+ingest_one_source、勿跑 full wiki_index upload；dup/gap 按內容（url/PDF 檔名）對賬唔好淨靠 source_id。**
-7. commits: batch1 `fdbd9ca` → handover `5486042` → batch2 `32e670e` → S146 收工 commit。
+   - 🟢 **0 outstanding bug**。
+   - ⚠️ **chunks 係 moving display number** — 每次補入庫後要同步嗰 6 處（3 層 `_meta.stats` + app.html + K1_API_SPEC + README）或改 app fetch live count。
+   - ⚠️ g38(2003) 與 music_p1_s6_2024(2024) routed 共存（per-source quota bound、monitor stale-2003-ranking）。
+   - ⚠️ 大 OCR job 必 pace org TPM（low concurrency + Retry-After + `--resume`）。
+   - 既有：Channel A frozen @455；57014 transient(retry)；FAIL-A(record-only)；§E.10(a) ACCEPTED；q.html/A·AB dormant 勿清；Stage-2 closed；egress 每次自測；路徑空格雙引號；wiki_chunks 欄名 `text`；結構天花板源勿再 ingest；改 Draft code/data commit 必入 SESSION_LOG；init_backup gitignored；**入庫：文字層用 fetch_extract、掃描/CID 用 ocr_extract、再 ingest_one_source；勿跑 full wiki_index upload；新源入庫必加 SOURCE_SETS allowlist（S135）；勿改 canonical chunker；dup/gap 按內容（url/PDF 檔名）對賬。**
+7. commits: mce `d69080f` → g38+display `6ae4107` → S147 closeout commit。
 
 ## Previous Session Record
-1. UTC date: 2026-06-05
-2. Session ID: Claude_20260605_1513 (S145)
-3. Completed: Q4 Phase 2 Channel B sync 端點 BUILT + DEPLOYED LIVE + live smoke PASS（anon embedding confirmed）；spec v0.3→v0.5（下游覆文納入 + 5-lens 審核修 4 真）。
-4. commits: `3a81cc8`→`7b82e01`→`8bddcf2`→`5ae78ac`（closeout）。
+1. UTC date: 2026-06-06
+2. Session ID: Claude_20260606_1807 (S146)
+3. Completed: Channel B 補入庫 batch1+2（+11 源 +1,683 chunks → Supabase 12,277）+ 下游 Circular System 接入完成（Phase 2 全鏈打通）；新工具 `dev/fetch_extract.py` + `dev/ingest_one_source.py`（含 NUL strip）。
+4. commits: `fdbd9ca`→`5486042`→`32e670e`→`e4e75a8`（closeout）。
 
 
 ## Session Close Checklist (每次 session 結束必須執行)

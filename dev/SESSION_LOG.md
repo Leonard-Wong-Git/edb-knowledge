@@ -2,7 +2,7 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
-## 2026-06-07 Session 147 — Channel B 補入庫 `mce_framework_2008`（雲端 vision OCR 掃描 PDF → +13 → Supabase 12,290）— OPEN
+## 2026-06-07 Session 147 — Channel B 雲端 OCR 補入庫 mce(+13) + g38(+194) → Supabase 12,484 + Display/version fix（pending #4 清）— CLOSED
 
 - **ID:** Claude_20260607_1336
 - **Trigger:** 起手自測全綠 → Leonard 揀可選 follow-up「mce_framework_2008 補入庫」（INGEST_GAP 標『最抵/即入』）。
@@ -47,7 +47,29 @@
 - **Display/version fix（pending #4 CLEARED；§3 HIGH-risk）:** stale `_meta.stats` chunks 10736→**12,484** + guidelines 39→**152** 改齊：三層 knowledge.json / role_facts.json / dev/knowledge/role_facts.json（**byte-identical 維持**，md5 7d0033→**d3b80c**）+ app.html（stats block + `||` fallback）+ K1_API_SPEC:44 + README（in-app 148→**161**〔=GUIDELINES_REGISTRY.length 實測〕+ chunks line「本地」→「Supabase pgvector」）。**`updated` 保留 2026-05-16**（facts 未變 455、免誤導下游 facts-version）。**version 無 bump**（查證 2.3.0 內容版 / 2.0.0 契約版 / 2.5.0 guidelines / 2.2.19 Tailwind 各自合理；`app.html:32`「2.2.1」= Tailwind CDN lib、grep false-positive、非站版）。QC: 三層 md5 一致 + JSON valid + facts 455。
 - **Doc Sync:** Channel-B backfill row（registry g38 + SOURCE_SETS + HANDOFF + CODEBASE + SESSION_LOG）✓；Product-version/release row（display fix：_meta + README + K1_API_SPEC + app.html）✓；Doc-drift row（INGEST_GAP g38 done + README in-app 148→161）✓。
 - **Lesson:** (1) 大 OCR job 必 pace TPM（low concurrency + Retry-After + resume）。(2) worksheet/exemplar PDF 有 fill-in filler → collapse 先 chunk（唔改 shared canonical chunker）。(3) chunks 係 moving display number、每次 ingest 後同步嗰 6 處（或改 app fetch live count）。
-- **commits:** mce `d69080f`（已 push）；g38+display = 本 turn 待 commit+push（= Render deploy g38 allowlist）。
+- **commits:** mce `d69080f` → g38+display `6ae4107`（已 push、Render deployed、g38 routed smoke #1 p=21 @0.774）→ S147 closeout commit。
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md（補入庫進度）。起手自行 verify git HEAD + Supabase total（應 12,484）+ knowledge.json frozen 455 + knowledge.json._meta.stats（應 12,484/152）+ onrender /health + manifest 401-gated。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑空格雙引號）。python3。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 預設。回覆中文。
+
+S147 (2026-06-07)：**2 個可選 follow-up 完成** — (1) mce_framework_2008 +13 + g38 音樂指引 +194 = 兩個掃描/CID PDF 用**雲端 vision OCR**（新工具 dev/ocr_extract.py，concurrency+Retry-After+resume）入庫 → Supabase 12,277→**12,484**，兩源加 SOURCE_SETS.curriculum allowlist、routed smoke 各 #1 帶頁碼；(2) **Display/version fix executed**（pending #4 清）：_meta.stats chunks→12,484 / guidelines→152 改齊三層 byte-identical(md5 d3b80c) + app.html + K1_API_SPEC + README(in-app 161)，無 bump version。順手修 SESSION_LOG S146 標題完整性 bug。**0 outstanding bug。**
+
+Pending（全屬可選、冇緊急）:
+1. chi_edu_curr_docs 全本 CLEKLAG（g09 已有節錄、待 Leonard 決定）。
+2. phys_sss_2007_2015（2015 舊版 + 文字層未驗 — 做之前先 fetch_extract 試抽、撞空/CID 轉 ocr_extract）。
+3. g13 中學課程指引(SECG) / g16 訓育工作指引（分章碎檔、multi-PDF 砌）；g17 深化；gifted_policy_docs 待正確 link。
+4. 既有 deferred：FAIL-A record-only / §8b rule2 / Suppl_guide held / stat_fact 2024-25 stale / freshness 週跑 / 57014 cold-start monitor / g38·music_p1_s6_2024 stale-ranking monitor。
+
+⚠️ Cautions：**chunks 係 moving display number**（每次補入庫後同步嗰 6 處〔3 層 _meta.stats + app.html + K1_API_SPEC + README〕或改 app live fetch）；入庫一律 per-source（文字層 fetch_extract、掃描/CID ocr_extract、再 ingest_one_source；勿 full wiki_index upload）；**新源入庫必加 SOURCE_SETS allowlist（S135、否則 routed 唔 surface）**；勿改 canonical chunker；大 OCR job pace org TPM。**未明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines.json / 勿跑 bump_version.py / 勿 reopen §E.10 / 勿動 Stage-2 / 勿再 ingest 結構天花板源。**
+
+Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 12,484 / facts 455 三層 / guidelines 152 / knowledge.json stats 12,484·152 / onrender /health + manifest 401-gated）+ playbook INDEX 後，問 Leonard 想做邊樣可選 follow-up（chi_edu 全本 / phys_sss 試抽 / g13·g16 / g17 深化 / gifted；或其他），未明示前勿郁上述禁區。
+```
 
 
 
