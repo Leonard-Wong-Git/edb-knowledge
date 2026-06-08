@@ -5665,6 +5665,44 @@
         "content_hash": "05a04a956a2b3b52efd7bb877fd7eb41bab2f03ac853913930b322134e1a4590",
         "hash_checked_at": "2026-06-05"
       }
+    },
+    {
+      "source_id": "gifted_tp_resource_kit",
+      "title": "校本資優教育資源套（2024）",
+      "title_short": "資優資源套",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/files/SB GE_TP Resource Kit_20241107_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-11",
+      "last_checked_at": "2026-06-08",
+      "supersedes": null,
+      "notes": "S150 (2026-06-08): Leonard-provided. Ingested to Channel B (41 chunks, text-layer fetch_extract). In SOURCE_SETS.gifted."
+    },
+    {
+      "source_id": "gifted_osalp_compendium",
+      "title": "資優教育基金校外進階學習課程匯編（OSALP）",
+      "title_short": "OSALP匯編",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/OSALP Compendium.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024",
+      "last_checked_at": "2026-06-08",
+      "supersedes": null,
+      "notes": "S150 (2026-06-08): Leonard-provided programme compendium. Ingested to Channel B (19 chunks, text-layer fetch_extract). In SOURCE_SETS.gifted."
     }
   ]
 }

@@ -215,6 +215,8 @@ const SOURCE_SETS: Record<string, string[]> = {
   // precede `curriculum` in TOPIC_KEYWORDS (資優教育課程 contains 課程).
   gifted: [
     "gifted_policy_docs",
+    "gifted_tp_resource_kit",     // S150: 校本資優教育資源套 (2024)
+    "gifted_osalp_compendium",    // S150: 資優教育基金校外進階學習課程匯編 (OSALP)
     "g14",
     "g06",
     "role_facts_general",
