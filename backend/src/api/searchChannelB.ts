@@ -304,6 +304,12 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbc22_2024_student_safety", "fire_service_installation", "occupational_safety_health",
     "gas_odour_measures", "lab_prep_room_aircon", "edbc_tropical_cyclone_day",
     "edbc_tropical_cyclone_night", "safety_mgmt_committee", "slope_rmi_ei_notes",
+    // S149 safety-guideline backfill — siblings of g23 (體育安全, whole-index). KLA/student
+    // safety guides; added so 校車/視藝/科技 safety queries route here and surface them
+    // (S135 backfill-allowlist coupling). TOPIC_KEYWORDS.safety gains 校車/視藝安全/科技安全.
+    "g18",               // 學童乘搭校車的安全指引 (2025/26)
+    "g21",               // 視覺藝術科安全指引
+    "g22",               // 科技教育學習領域安全指引 (2010)
     "sag_2025_11",
     "role_facts_general",
   ],
@@ -372,7 +378,7 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   sen: /\bsen\b|\bsenco\b|特殊教育|特殊學校|融合教育|全校參與|統籌主任|特殊學習需要|有特殊教育需要/i,
   // S142 EDB-sweep §1 — school safety + governance/QA/premises. MUST stay before `curriculum`
   // (first-match): some terms (視學, 自我評估) contain chars that curriculum would mis-route.
-  safety: /校園安全|學校安全|消防|火警|演習|疏散|職業安全|職安健|實驗室安全|氣體|防墮|斜坡安全|斜坡維修|熱帶氣旋|颱風|暴雨|惡劣天氣|停課安排|安全管理委員會/,
+  safety: /校園安全|學校安全|消防|火警|演習|疏散|職業安全|職安健|實驗室安全|氣體|防墮|斜坡安全|斜坡維修|熱帶氣旋|颱風|暴雨|惡劣天氣|停課安排|安全管理委員會|校車|視藝.{0,3}安全|視覺藝術.{0,4}安全|科技教育.{0,4}安全|科技科.{0,3}安全/,
   // S143 — QA/inspection split out of gov_admin (placed before it, first-match) so bare
   // short QA tokens (視學/校外評核/自我評估/表現指標/問責/校本管理) route here and get the
   // targeted expansion. Uses 自我評估 (NOT bare 評估) so it never steals curriculum

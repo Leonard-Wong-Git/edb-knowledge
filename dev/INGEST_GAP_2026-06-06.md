@@ -1,5 +1,7 @@
 # Channel B 入庫缺口 — 真檔 link 對賬表 (2026-06-06)
 
+> **🟢 進度 S149 (2026-06-08):** 安全指引家族 3 源入庫 — `g18`(校車安全 2025/26 Schools+committee **+9**)、`g21`(視藝安全 pri+sec **+48**)、`g22`(科技教育安全 2010 **+58**) = text-layer `fetch_extract`（全 U+FFFD=0、毋須 OCR）→ Supabase 13,473→**13,588**（+115）。3 源加入 `SOURCE_SETS.safety` + `TOPIC_KEYWORDS.safety`（校車/視藝安全/科技安全）。g23 體育安全早已在庫 → 四大安全指引（校車/視藝/科技/體育）齊。**真‧未入‧現行內容缺口至此清空**（餘 31 源全 deprecated / sibling-dup / 舊版噪音，建議唔做）。
+>
 > **🟢 進度 S148 (2026-06-07):** follow-up 1-3 完成入庫 — `phys_sss_2007_2015`(**文字層 clean、非 OCR** +182)、`chi_edu_curr_docs`(CLEKLAG_2017 全本 +157、與 g09 p43-48 節錄並存)、`g13`(SECG 17-PDF 文字層 +587)、`g16`(訓育 8 章 CID→OCR +63)。連同 S147(mce/g38) = **已入 17 源**、Supabase → **13,473**。餘下可選：`gifted_policy_docs`(待 Leonard 正確 link)、`g17` 深化(待 #4 link 一齊做)。⚠️ 下面舊分類「g13/g16=null skip」「phys=未驗文字層/可能要OCR」**已被 S148 實抽推翻**（verify-don't-trust）。
 
 > **背景:** Supabase 向量庫實有 **173** distinct 來源 / 10,594 chunks;registry 登記 **203**。

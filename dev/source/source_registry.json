@@ -857,7 +857,7 @@
       "version_label": "2025",
       "last_checked_at": "2026-06-03",
       "supersedes": null,
-      "notes": "Seeded from existing guidelines.json public artifact.",
+      "notes": "Seeded from existing guidelines.json public artifact. | S149: ingested to Channel B (48 chunks, vault/g21; VAsafety pri+sec, text-layer fetch_extract); added to SOURCE_SETS.safety + TOPIC_KEYWORDS.safety (視藝安全).",
       "freshness_metadata": {
         "last_modified": "Wed, 27 May 2026 09:04:41 GMT",
         "content_length": "1248",
@@ -884,7 +884,7 @@
       "version_label": "2021",
       "last_checked_at": "2026-06-03",
       "supersedes": null,
-      "notes": "Seeded from existing guidelines.json public artifact.",
+      "notes": "Seeded from existing guidelines.json public artifact. | S149: ingested to Channel B (58 chunks, vault/g22; Safety Booklet 2010, text-layer fetch_extract); added to SOURCE_SETS.safety + TOPIC_KEYWORDS.safety (科技安全).",
       "freshness_metadata": {
         "last_modified": "Fri, 09 Dec 2022 10:05:19 GMT",
         "content_length": "1238",
@@ -1046,7 +1046,7 @@
       "version_label": "2026",
       "last_checked_at": "2026-06-03",
       "supersedes": null,
-      "notes": "Seeded from existing guidelines.json public artifact.",
+      "notes": "Seeded from existing guidelines.json public artifact. | S149: ingested to Channel B (9 chunks, vault/g18; 2025/26 Schools guideline + committee, text-layer fetch_extract); added to SOURCE_SETS.safety + TOPIC_KEYWORDS.safety (校車).",
       "freshness_metadata": {
         "last_modified": "Thu, 08 Jan 2026 02:32:19 GMT",
         "content_length": "2342",
