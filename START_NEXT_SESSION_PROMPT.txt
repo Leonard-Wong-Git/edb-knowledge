@@ -1,17 +1,17 @@
 Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 
-⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md（補入庫進度，S149-S150 已標）。起手自行 verify git HEAD==origin/main + Supabase total（應 13,667）+ knowledge.json frozen 455 + knowledge.json._meta.stats（應 13,667/152）+ onrender /health + manifest 401-gated。
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md。起手自行 verify git HEAD==origin/main + Supabase total（應 13,667）+ knowledge.json frozen 455 + knowledge.json._meta.stats（應 13,667/152）+ onrender /health + manifest 401-gated。
 
 ⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑空格雙引號）。python3。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 預設。回覆中文。
 
-S149-S150 (2026-06-08)：**Channel B 補入庫實質完成 + 自動發現機制**。(1) S149 安全指引 g18 校車/g21 視藝/g22 科技 +115 → 新 safety route keyword。(2) S150 gifted 3 源（gifted_policy_docs + gifted_tp_resource_kit + gifted_osalp_compendium）+94 → NEW dedicated gifted route（亦救 g14/g06）；ecr4 全本 1990 skip。(3) NEW dev/source/discover_sources.py + .github/workflows/discover_check.yml（每週一 10:00 UTC 自動 crawl 已登記 index 頁 diff 出未登記新 EDB 文件 → new-source-discovery Issue；detection-only）。Supabase 13,473→**13,667**，registry 203→205，md5 720f5f。真‧未入‧現行內容缺口核實清空（B-group dup 抽 6/16 深層確認）。**0 outstanding bug。**
+S151 (2026-06-08)：**app.html Channel A admin surface 完整移除 → 公眾完全 Channel-B-only**。刪：🔒登入閘 + AdminPasswordModal + ADMIN_HASH/sha256 + 知識提煉/知識管理 2 tab + CRUD/匯出/批准 + FactCard/ExportModal/EditModal/CandidateReviewPanel + snapshot infra + INITIAL_REVIEW_STATE/INITIAL_CANDIDATES + mobile admin bar + 2 orphaned <script>。App() 收窄、VALID_VIEWS=['qa','guidelines','about']、router→about/guidelines/QAPanel。app.html 4100→2935 行。QC：grep 0 dangling + live render 0 console error + 3 tab + About stat 455/13,667/161/120 + 對抗 review PASS。§E.10(a) CLOSED-BY-REMOVAL、§F.11 locked。**0 change to knowledge.json/role_facts/guidelines/backend/Supabase/schema/RPC/下游 repo/canonical chunker。0 outstanding bug。**
 
 Pending（全屬可選、冇緊急）:
-1. discovery crawler 跑全量 triage（手動 GitHub Actions dispatch 或下次 session；噪音多 = review list 非 auto-ingest）。
-2. 餘 10 個 B-group sibling-dup 未深驗（可選補驗確定覆蓋）。
-3. monitor：gifted query 含「教師培訓/CPD」詞會 route 去 cpd（first-match，gifted set 唔 surface；要 surface gifted PD 可移 gifted 前於 cpd）/ gifted_osalp_compendium catalogue 排名低 / phys_sss routed-UI 限制 / freshness 週跑 / 57014 cold-start / stats.sources=120 cosmetic-stale。
+1. chip task_672056cf：app.html QAPanel 副標題硬編碼 chunks=10,736 應改 13,667（pre-existing display drift；建議 data-driven from _meta.stats.chunks）。
+2. discovery crawler 跑全量 triage / 餘 10 B-group sibling-dup 深驗。
+3. monitor：gifted+CPD route precedence / gifted_osalp catalogue 排名低 / phys_sss routed-UI 限制 / freshness 週跑 / 57014 cold-start / stats.sources=120 cosmetic-stale。
 
-⚠️ Cautions：chunks 係 moving display number（每次補入庫同步 6 處〔3 層 _meta.stats + app.html + K1_API_SPEC + README〕）；入庫 per-source（文字層 fetch_extract、掃描/CID ocr_extract、再 ingest_one_source；勿 full wiki_index upload）；新源必加 SOURCE_SETS allowlist（S135）；大 OCR job pace org TPM。**未明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines.json / 勿跑 bump_version.py / 勿 reopen §E.10 / 勿動 Stage-2 / 勿改 canonical chunker 或 shared 檢索 infra（match_count/expansion）/ 勿再 ingest 結構天花板源。**
+⚠️ Cautions：app.html admin/Channel-A 策展功能已永久移除，重建必由零走 §3 HIGH-risk + 真 server-side auth（勿復活 client-side cosmetic gate）。chunks 係 moving display number（補入庫同步 6 處 + 注意 QAPanel 10,736 未同步點）。入庫 per-source（fetch_extract/ocr_extract→ingest_one_source；勿 full wiki_index upload）；新源必加 SOURCE_SETS allowlist（S135）。**未明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines.json / 勿跑 bump_version.py / 勿 reopen §E.10 重建 admin / 勿動 Stage-2 / 勿改 canonical chunker 或 shared 檢索 infra。**
 
-Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 13,667 / facts 455 三層 / guidelines 152 / knowledge.json stats 13,667·152 / onrender /health + manifest 401-gated）+ playbook INDEX 後，問 Leonard 想做邊樣（discovery 全量 triage / B-group 補驗 / 新功能方向 / 或其他），未明示前勿郁上述禁區。
+Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 13,667 / facts 455 三層 / guidelines 152 / knowledge.json stats 13,667·152 / onrender /health + manifest 401-gated）+ playbook INDEX 後，問 Leonard 想做邊樣（chip 10,736 修正 / discovery triage / B-group 補驗 / 新功能方向 / 或其他），未明示前勿郁上述禁區。

@@ -2,6 +2,60 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-08 Session 151 — app.html Channel A admin surface 完整移除 → 公眾完全 Channel-B-only（3 唯讀 tab）— CLOSED
+
+- **ID:** Claude_20260608_1335
+- **Trigger:** 起手自測全綠 → Leonard 揀「先睇全景」→ 出全景 → Leonard：「下游 Circular System 已刪去 Channel A 功能、集中 Channel B，所以應可刪去登入功能」。
+- **起手自測（verify-don't-trust，全 live）:** HEAD `1fb4c22`==origin/main clean / facts 455 三層 byte-identical(md5 `720f5f`) / Supabase **13,667**(content-range 0-999/13667) / guidelines 152(4+6+132+2+4+1+3) / knowledge.json frozen 455 + stats 13,667·152 / onrender /health 200 cache_a 455 + manifest 401-gated / playbook INDEX ✓。egress 正常（onrender + Supabase 都通）。
+- **§3 Risk:** HIGH（刪功能 + 改大單檔 app.html + reopen §E.10 admin gate + 觸 §F locked decision）→ 出 PLAN + 對 code 核實登入閘守乜 + AskUserQuestion 確認 scope，**未即改**。
+
+### READ（verify against code，§G.2）
+- 登入閘 = `adminMode` state（cosmetic SHA-256 `ADMIN_HASH`），守住 **7 類全 Channel A 人工策展**：知識提煉(候選 approve `CandidateReviewPanel`) / 知識管理(455 facts CRUD + sidebar) / 匯出 role_facts.json / +新增 / 批准 / FactCard 增刪改 / mobile admin bar。**app.html 0 個 Channel B admin 功能**（grep 確認無 prompt editor / 後台）→ Leonard 判斷 code 上成立。
+- 公開 3 tab（平台介紹/政策搜尋〔S119 Channel-B-only〕/指引文件）不受影響。
+
+### CHANGE — Leonard 確認 scope：完整移除 incl 死碼 + 455 facts 從 app.html UI 消失 + 完全 Channel-B-only
+- anchored-splice Python one-off（`dev/_remove_admin.py`，15 區、各 `assert` anchor 命中、跑完即刪）移除：🔒登入掣 + `AdminPasswordModal` + `ADMIN_HASH`/`sha256` + 知識提煉/知識管理 2 tab + knowledge sidebar + 匯出/新增/批准/批量 + `FactCard`/`StatusBadge`/`RoleBadge`/`EditModal`/`ExportModal`/`CandidateReviewPanel` + 全 CRUD/review/candidate handlers + snapshot infra(`buildAdminSnapshot`/`migrateSnapshot`/`loadLocalSnapshot`/`downloadJson`/`LOCAL_SNAPSHOT_KEY`) + `INITIAL_REVIEW_STATE` + `INITIAL_CANDIDATES` + mobile admin bar。
+- `App()` 收窄為 `data`(=INITIAL_DATA 唯讀)/`viewMode`/`switchView`/`previewDoc`/`displayVersion`/`stats`(簡化、無 reviewState)；`VALID_VIEWS=['qa','guidelines','about']`；router→about/guidelines/QAPanel(default)。
+- 2 follow-up Edit：移除 2 條 orphaned `<script>`（candidate_queue.js/policy_signals.js）。留 `deepClone`(generic 未用、無害) + inert admin CSS（flag 未移）。
+- **app.html 4100→2935 行（−1176；234,554→166,279 chars）。** git diff = app.html only +9/−1176。
+
+### QC — 雙獨立流 + live render，全 PASS
+- **grep parity**：~40 admin symbol（adminMode/ADMIN_HASH/reviewState/FactCard/ExportModal/CandidateReviewPanel/handle*/...）**0 dangling** + 0 leftover admin 中文 label。
+- **live 瀏覽器 render**（static server :8095 → app.html）：Babel 編譯 **0 console error**；3 公開 tab render；點 guidelines→161 文件 + 分類/篩選；點 about→stat counter 定格 **455 / 13,667 / 161 / 120**（同改前 byte-identical 計算）；無 login/admin UI；screenshot 留證。
+- **獨立對抗 review subagent（general-purpose，background）VERDICT PASS**：0 dangling use；braces 平衡；router 正確；`ReactDOM.createRoot().render(<App/>)` intact；3 公開 component + 預覽抽屜 props 滿足。非阻塞 flag：orphaned script tags（已移）+ inert admin CSS（留）。
+
+### Doc Sync（DOC_SYNC row：Product behavior change + Long-term spec/locked decision）
+- PROJECT_MASTER_SPEC §E.10(a) **CLOSED-BY-REMOVAL S151** + §F.11 新 locked decision + §B.1 admin rows 劃走；CODEBASE_CONTEXT app.html tabs(line 13/69) + AI-log S151；README 功能簡介 → Channel-B-only + 劃走 admin rows + 更新搜尋描述；SESSION_HANDOFF baseline/priorities/risks/Last+Previous record；本 entry。
+- **NEW chip `task_672056cf`**：app.html QAPanel 搜尋副標題硬編碼 chunks=`10,736`（應 13,667）= pre-existing display-drift，spun off 另修（非本 session admin-removal 範圍）。
+
+### Follow-up / lessons
+- **Lesson**：大單檔多區手術，anchored-splice（短 unique anchor〔function 簽名/comment marker〕+ 每區 assert）比逐個 reproduce 全 block 嘅 Edit 穩陣，且可程式化驗 count；git 做 backup。
+- **Lesson（§G.2）**：「登入閘守乜」load-bearing 判斷對 code 核實先動手（確認 0 個 Channel B 功能被守）— 唔靠假設。
+- **0 change to** knowledge.json / role_facts.json / guidelines.json / backend / Supabase / schema / RPC / downstream repo(§A.3) / canonical chunker。凍結 Channel A 資料 + 對外契約零接觸（admin 只 client-side localStorage、無真實寫）。
+- **無 version bump**（knowledge 凍結 @2.3.0；displayVersion 由 `data._meta.version` 動態取）。
+- **Log maintenance（§4a）:** entry 加咗約 +50 行；SESSION_LOG 仍 <400 嘅遠（最舊 S144 2026-06-05 <30d）→ no-op、無 archive。
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md。起手自行 verify git HEAD==origin/main + Supabase total（應 13,667）+ knowledge.json frozen 455 + knowledge.json._meta.stats（應 13,667/152）+ onrender /health + manifest 401-gated。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑空格雙引號）。python3。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 預設。回覆中文。
+
+S151 (2026-06-08)：**app.html Channel A admin surface 完整移除 → 公眾完全 Channel-B-only**。刪：🔒登入閘 + AdminPasswordModal + ADMIN_HASH/sha256 + 知識提煉/知識管理 2 tab + CRUD/匯出/批准 + FactCard/ExportModal/EditModal/CandidateReviewPanel + snapshot infra + INITIAL_REVIEW_STATE/INITIAL_CANDIDATES + mobile admin bar + 2 orphaned <script>。App() 收窄、VALID_VIEWS=['qa','guidelines','about']、router→about/guidelines/QAPanel。app.html 4100→2935 行。QC：grep 0 dangling + live render 0 console error + 3 tab + About stat 455/13,667/161/120 + 對抗 review PASS。§E.10(a) CLOSED-BY-REMOVAL、§F.11 locked。**0 change to knowledge.json/role_facts/guidelines/backend/Supabase/schema/RPC/下游 repo/canonical chunker。0 outstanding bug。**
+
+Pending（全屬可選、冇緊急）:
+1. chip task_672056cf：app.html QAPanel 副標題硬編碼 chunks=10,736 應改 13,667（pre-existing display drift；建議 data-driven from _meta.stats.chunks）。
+2. discovery crawler 跑全量 triage / 餘 10 B-group sibling-dup 深驗。
+3. monitor：gifted+CPD route precedence / gifted_osalp catalogue 排名低 / phys_sss routed-UI 限制 / freshness 週跑 / 57014 cold-start / stats.sources=120 cosmetic-stale。
+
+⚠️ Cautions：app.html admin/Channel-A 策展功能已永久移除，重建必由零走 §3 HIGH-risk + 真 server-side auth（勿復活 client-side cosmetic gate）。chunks 係 moving display number（補入庫同步 6 處 + 注意 QAPanel 10,736 未同步點）。入庫 per-source（fetch_extract/ocr_extract→ingest_one_source；勿 full wiki_index upload）；新源必加 SOURCE_SETS allowlist（S135）。**未明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines.json / 勿跑 bump_version.py / 勿 reopen §E.10 重建 admin / 勿動 Stage-2 / 勿改 canonical chunker 或 shared 檢索 infra。**
+
+Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 13,667 / facts 455 三層 / guidelines 152 / knowledge.json stats 13,667·152 / onrender /health + manifest 401-gated）+ playbook INDEX 後，問 Leonard 想做邊樣（chip 10,736 修正 / discovery triage / B-group 補驗 / 新功能方向 / 或其他），未明示前勿郁上述禁區。
+```
+
 ## 2026-06-08 Session 149-150 — Channel B 補入庫實質完成（安全指引 + gifted 6 源 +209）+ 2 新 dedicated routes + NEW 自動發現工具 — CLOSED
 
 - **ID:** Claude_20260608_1223
