@@ -1,0 +1,115 @@
+name: Weekly New-Source Discovery
+
+on:
+  schedule:
+    # Every Monday at 10:00 UTC (one hour after the freshness check at 09:00)
+    - cron: "0 10 * * 1"
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Crawl only the first N watch pages (0 = all)"
+        required: false
+        default: "0"
+        type: string
+
+permissions:
+  contents: read       # read-only: discovery never writes the registry
+  issues: write        # open/update the "new EDB documents discovered" issue
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Self-test (offline logic)
+        run: python3 dev/source/discover_sources.py --self-test
+
+      - name: Crawl for new documents
+        run: |
+          LIMIT="${{ github.event.inputs.limit || '0' }}"
+          ARG=""
+          if [ "$LIMIT" != "0" ] && [ -n "$LIMIT" ]; then ARG="--limit $LIMIT"; fi
+          echo "Running: discover_sources.py --check $ARG"
+          python3 dev/source/discover_sources.py --check $ARG \
+            --changes-out discovered_sources.json \
+            --ledger discovered_sources.md 2>&1 | tee discover_output.txt
+          exit ${PIPESTATUS[0]}
+
+      - name: Upload discovery report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: discovery-report-${{ github.run_number }}
+          path: |
+            discover_output.txt
+            discovered_sources.json
+            discovered_sources.md
+          retention-days: 30
+
+      - name: Notify on new documents (open/update issue)
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let r;
+            try {
+              r = JSON.parse(fs.readFileSync('discovered_sources.json', 'utf8'));
+            } catch (e) { core.info('No discovery report: ' + e); return; }
+
+            const real = (r.candidates || []).filter(c => !c.likely_noise);
+            if (real.length < 1) {
+              core.info('No likely-real new documents; not touching issue.');
+              return;
+            }
+            const top = real.slice(0, 20).map(c => {
+              const land = (c.landing_page || '').split('/').slice(-2, -1)[0] || '';
+              return `- \`${c.filename}\`${c.basename_known_elsewhere ? ' _(basename seen elsewhere — likely dup)_' : ''}  \n  ${c.url}  \n  _from: ${land}_`;
+            }).join('\n');
+            const body = [
+              `🆕 **${real.length}** likely-new EDB document(s) discovered on watched index pages `,
+              `(run #${context.runNumber}, ${r.generated_at}; ${r.new_candidates} raw candidates, `,
+              `${r.js_suspect_pages} JS-suspect pages, ${r.page_errors} page errors).`,
+              '',
+              '> **Triage only** — these are doc links found on known EDB index pages but NOT in '
+              + '`source_registry.json`. Many will be dups / old versions / chapter-splits. '
+              + 'Vet before any ingest (manual gate, per `FRESHNESS_GUIDE.md`).',
+              '',
+              top,
+              '',
+              real.length > 20 ? `…and ${real.length - 20} more — see run artifact \`discovery-report-${context.runNumber}\` (discovered_sources.md).` : '',
+            ].join('\n');
+            const title = '🆕 Discovery: new EDB documents pending triage';
+            const label = 'new-source-discovery';
+            try {
+              const existing = await github.rest.issues.listForRepo({
+                owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: label,
+              });
+              if (existing.data.length) {
+                await github.rest.issues.update({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: existing.data[0].number, title, body,
+                });
+                core.info('Updated issue #' + existing.data[0].number);
+              } else {
+                await github.rest.issues.create({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  title, body, labels: [label],
+                });
+                core.info('Created discovery issue.');
+              }
+            } catch (e) {
+              core.warning('Failed to open/update discovery issue: ' + (e && e.message));
+            }
