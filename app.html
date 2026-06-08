@@ -2026,7 +2026,7 @@ function PlatformIntroPanel({ stats }) {
     {
       icon: '🔍',
       title: '語義搜尋',
-      subtitle: 'Channel A + B 合併',
+      subtitle: 'EDB 原文語義檢索',
       desc: `自然語言提問，從 ${factsCount.toLocaleString()} 條已核實事實及 ${chunksCount.toLocaleString()} 個文件片段中語義檢索，LLM 整理回答並附原始來源 URL。`,
       badge: '核心功能',
       dark: true,
@@ -2066,8 +2066,8 @@ function PlatformIntroPanel({ stats }) {
   ];
 
   const statItems = [
-    { num: counts[0].toLocaleString(), label: '已核實政策事實', sub: 'Channel A 人工審核' },
-    { num: counts[1].toLocaleString(), label: '可搜尋知識片段', sub: 'Channel B 向量索引' },
+    { num: counts[0].toLocaleString(), label: '已核實政策事實', sub: '經人工審核' },
+    { num: counts[1].toLocaleString(), label: '可搜尋知識片段', sub: '語義向量索引' },
     { num: counts[2].toLocaleString(), label: 'EDB 官方指引', sub: '直達 PDF 連結' },
     { num: counts[3].toLocaleString(), label: '已處理來源文件', sub: `涵蓋 ${sourcesCount} 份官方文件` },
   ];
@@ -2142,7 +2142,7 @@ function PlatformIntroPanel({ stats }) {
             {demo.tags.map(t => (
               <span key={t} style={{padding:'2px 8px',background:'var(--charcoal)',color:'var(--cd)',borderRadius:'var(--r-sm)',fontSize:'0.68rem',fontWeight:700,letterSpacing:'0.05em'}}>{t}</span>
             ))}
-            <span style={{fontSize:'0.7rem',color:'var(--mid)',marginLeft:'auto',letterSpacing:'0.01em'}}>Channel A + B 合併</span>
+            <span style={{fontSize:'0.7rem',color:'var(--mid)',marginLeft:'auto',letterSpacing:'0.01em'}}>語義檢索</span>
           </div>
           <p style={{fontSize:'var(--text-sm)',color:'var(--charcoal)',lineHeight:1.75,marginBottom:'16px'}}>{demo.answer}</p>
           <div style={{display:'flex',alignItems:'center',gap:'8px',padding:'10px 14px',
@@ -2450,10 +2450,10 @@ function QAPanel({ data, setPreviewDoc }) {
     .reduce((s, [, td]) => s + ROLE_ORDER.reduce((n, r) => n + (Array.isArray(td[r]) ? td[r].length : 0), 0), 0);
 
   const getChannelBadge = (ch, ct) => {
-    if (ch === 'A') return { bg: 'var(--edb-wash)', color: 'var(--edb)', label: '通道 A · 已核實' };
-    if (ct === 'approved_fact') return { bg: 'var(--edb-wash)', color: 'var(--edb)', label: '通道 B · 已核實' };
-    if (ct === 'stat_fact') return { bg: 'var(--edb-wash)', color: 'var(--ink-2)', label: '通道 B · 統計' };
-    return { bg: 'var(--paper-2)', color: 'var(--edb)', label: '通道 B · 文件' };
+    if (ch === 'A') return { bg: 'var(--edb-wash)', color: 'var(--edb)', label: '已核實' };
+    if (ct === 'approved_fact') return { bg: 'var(--edb-wash)', color: 'var(--edb)', label: '已核實' };
+    if (ct === 'stat_fact') return { bg: 'var(--edb-wash)', color: 'var(--ink-2)', label: '統計' };
+    return { bg: 'var(--paper-2)', color: 'var(--edb)', label: 'EDB 原文' };
   };
 
   // Board layout helpers
@@ -2540,9 +2540,9 @@ function QAPanel({ data, setPreviewDoc }) {
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 k1-search-card">
         <h2 className="text-lg font-bold text-gray-800 mb-1">政策搜尋</h2>
         <p className="text-xs text-gray-400 mb-3">
-          {searchChannel === 'B'  && '來源文件：語義搜尋 10,736 個 EDB 原文知識片段，附整理答案'}
+          {searchChannel === 'B'  && `來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 13667).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
           {searchChannel === 'A'  && `已核實資料：語義搜尋 ${channelACount} 條 EDB 政策事實，附整理答案`}
-          {searchChannel === 'AB' && `合併搜尋：${channelACount} 條事實 + 10,736 個知識片段，附整理答案`}
+          {searchChannel === 'AB' && `合併搜尋：${channelACount} 條事實 + ${(data._meta?.stats?.chunks || 13667).toLocaleString()} 個知識片段，附整理答案`}
         </p>
 
         {/* Channel selector — hidden when only one channel is offered */}
@@ -2831,7 +2831,7 @@ function App() {
             <strong style={{fontWeight:700,color:'rgba(240,238,233,0.95)'}}>免責聲明：</strong>本平台整理教育局公開指引與通告文件資料。所有資料僅供一般參考，不構成正式法律或行政意見。用戶應自行參閱教育局官方原文以作準。&nbsp;·&nbsp;設計及維護：Leonard Wong
           </div>
           <div style={{display:'flex',gap:'18px',alignItems:'center',flexWrap:'wrap'}}>
-            <span style={{fontWeight:600,color:'rgba(240,238,233,0.75)',fontSize:'0.78rem'}}>政策搜尋平台 — 管理中心 {displayVersion}</span>
+            <span style={{fontWeight:600,color:'rgba(240,238,233,0.75)',fontSize:'0.78rem'}}>政策搜尋平台 {displayVersion}</span>
             <a href="index.html">← 返回首頁</a>
             <a href="https://www.edb.gov.hk" target="_blank" rel="noopener">EDB 教育局網站</a>
           </div>
