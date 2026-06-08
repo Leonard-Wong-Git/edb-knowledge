@@ -1,9 +1,9 @@
 # Session Handoff
 
 ## Current Baseline
-1. **Version / git**: v2.3.0（knowledge 內容版凍結 @2.3.0、guidelines @2.5.0，無 bump）；git `main`=`origin/main` HEAD = `cd42d22`(S148 routed-smoke) + **S148 closeout commit**（S148：phys_sss/chi_edu全本/g13 文字層 + g16 OCR 入庫 → Supabase 13,473；3/4 routed surface，phys_sss routed-UI 限制 Leonard 接受）；起手自行 verify HEAD==origin/main。
+1. **Version / git**: v2.3.0（knowledge 凍結 @2.3.0、guidelines @2.5.0，無 bump）；git `main`=`origin/main` HEAD = `180ec67`(S150 gifted +2) + **S149-S150 closeout commit**；起手自行 verify HEAD==origin/main + Supabase 13,667。
 2. **Frontend**: `index.html` landing；`app.html` full React SPA；`t-purchase.html` draft flow；`q.html` local knowledge.json Quick Q&A。
-3. **Knowledge state**: **455** Channel A facts（三層同步 byte-identical，md5 `7e7ac1`）、0 queue；Supabase **13,473** chunks（…S147 12,484；**S148 +989** = `phys_sss_2007_2015` +182〔文字層〕 + `chi_edu_curr_docs`〔CLEKLAG 全本〕 +157 + `g13`〔SECG 17-PDF〕 +587 + `g16`〔訓育 OCR〕 +63；前三加 SOURCE_SETS.curriculum、g16 已在 student_support）；指引 4 層（161 app/152 公開/203 registry/120 vault）；**display sync EXECUTED**（S148：`_meta.stats` chunks→**13,473** 三層 byte-identical + app.html + K1_API_SPEC + README；guidelines 152 不變、無 bump）；Phase 3 全完成。
+3. **Knowledge state**: **455** Channel A facts（三層同步 byte-identical，md5 `720f5f`）、0 queue；Supabase **13,667** chunks（S148 13,473 → **S149 安全指引 +115**〔g18 校車+9 / g21 視藝+48 / g22 科技+58，文字層〕 → **S150 gifted +94**〔gifted_policy_docs +19 / gifted_tp_resource_kit +41 / gifted_osalp_compendium +19〕）；**新增 2 條 dedicated route**：`safety`(+keyword 校車/視藝安全/科技安全)、`gifted`(+keyword 資優/資賦)；指引（161 app / 152 公開 / **205** registry）；**display sync EXECUTED**（`_meta.stats` chunks→**13,667** 三層 byte-identical + app.html + K1_API_SPEC + README；guidelines 152 不變、無 bump、facts 455 不變）；Phase 3 全完成。
 4. **Backend**: Channel A+B+A+B search APIs live at `https://edb-knowledge.onrender.com`；**Q4 Phase 2 NEW**: `GET /api/channel-b/manifest` + `POST /api/channel-b/chunks`（X-Sync-Key gated，`CHANNEL_B_SYNC_KEY` set on Render；live smoke PASS：13 欄 + anon reads embedding 1536-vec confirmed）；rate limiting 10 req/min/IP + sync 60/min。
 5. **Channel A frozen @455**（Q4 Phase 1 EXECUTED S143）：knowledge.json 停更 @455（schema 不變、下游零改變）；pipeline dormant 可逆；endpoint 不刪；guidelines.json 不凍續 live @152 v2.5.0。
 6. **Channel B sync（Q4 Phase 2 全鏈完成 S146）**：K1 端 `dev/CHANNEL_B_SYNC_SPEC.md` v0.5 + `backend/src/api/channelBSync.ts` LIVE（manifest/chunks 401-gated 健康）；**下游 Circular System consumer 已 build 好 + 完成工作**（S146 Leonard 確認）；交接包 `dev/CHANNEL_B_HANDOVER.md`。incremental sync 自動帶新源 delta（本 session +11 源，下游下次 poll 自動執）。
@@ -103,10 +103,11 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-> 產品方向：**搜尋介面 Channel-B-only**（Phase 3 全完成；Stage-2 closed）。Channel A frozen @455。**Q4 Phase 2 全鏈完成（K1 endpoints LIVE + 下游 consumer 完成）**。主線 **0 outstanding bug**；以下全屬可選、冇緊急。
+> 產品方向：**搜尋介面 Channel-B-only**（Phase 3 全完成；Stage-2 closed）。Channel A frozen @455。**Q4 Phase 2 全鏈完成**。主線 **0 outstanding bug**；以下全屬可選、冇緊急。
 
-1. **Channel B 補入庫 — 餘下可選**（S146-148 已入 17 源；餘 ~9 有內容可加，分類見 `dev/INGEST_GAP_2026-06-06.md`）：(e) `gifted_policy_docs`（待 Leonard 正確 link）；(f) `g17` 深化（待 #4 link、同 gifted 一齊做）。**其餘 ~24 源 = dup/已覆蓋/deprecated/舊版/示例，建議唔做。** **工具**：文字層 PDF/HTML 用 `dev/fetch_extract.py`、掃描影像/CID 亂碼用 `dev/ocr_extract.py`（雲端 vision OCR、concurrency+Retry-After+resume），再 `dev/ingest_one_source.py`（含 NUL strip；per-source 安全；勿跑 full `wiki_index.json` upload）。**入庫前必先試抽驗文字層；新源入庫必加 backend `SOURCE_SETS` allowlist（S135 coupling，否則 routed 唔 surface）；入庫後同步 chunks display 6 處（3 層 `_meta.stats` + app.html + K1_API_SPEC + README）。** dup/gap 按內容（url/PDF 檔名）對賬。
-2. **既有 deferred / monitor-only**：**phys_sss routed-UI 唔頂返物理 query**（S148 Leonard 接受；入庫正確 + 下游 by-id sync 攞到，因全庫低 rank〔~#97〕+ retrieve-then-filter top-40 + curriculum expansion 稀釋；要 surface 須另開 dedicated 理科 route，routing-not-cutoff lever）/ §8b rule 2 automation / `Suppl_guide` held 待人核 / §E.10(a) ACCEPTED / FAIL-A record-only / stat_fact 2024-25 stale / freshness 週跑觀察 / 57014 cold-start monitor / g38·music_p1_s6_2024 stale-2003-ranking monitor。
+1. **Channel B 補入庫 — 實質完成**（S149 安全指引 g18/g21/g22 + S150 gifted 3 源全入；**真‧未入‧現行內容缺口核實清空** — B-group sibling-dup 抽驗 6/16 深層內容確認覆蓋〔sci→g36 / tech→tech_kla / pshe→g35 / ma→ma_kla 同一 PDF / pri_science / ph_pri〕）。餘 ~30 registry 未入源全屬 deprecated / sibling-dup / 舊版噪音，**建議唔做**。新源入庫流程不變（pre-flight 驗文字層 → fetch_extract〔文字層〕/ ocr_extract〔掃描·CID〕 → ingest_one_source → 加 `SOURCE_SETS` allowlist〔S135〕 → display 6 處 → routed smoke）。餘 10 個 dup 未深驗（可選補驗）。
+2. **NEW 自動發現機制（S150）**：`dev/source/discover_sources.py` + `.github/workflows/discover_check.yml`（每週一 10:00 UTC，crawl 已登記 EDB index 頁 diff 出未登記新文件 → 開 `new-source-discovery` GitHub Issue）。**未跑過全量**；可選手動 `workflow_dispatch` 或下次 session 跑全量 triage（噪音多 = review list 非 auto-ingest；JS 頁 flag `js_suspect`）。freshness（每週一 09:00）續監察已登記源改版/死链；上次「7 changed」經核實 = head-metadata baseline-seed artifact、**0 真改**。
+3. **既有 deferred / monitor-only**：**gifted 查詢含「教師培訓/CPD」詞 → route 去 cpd**（first-match precedence、gifted_tp_resource_kit 唔 surface；純 資優 query 正常；要 fix = 移 `gifted` 前於 `cpd`）/ gifted_osalp_compendium = catalogue、general query 排名低（in-route searchable）/ phys_sss routed-UI 限制（Leonard 接受）/ §8b rule 2 automation / Suppl_guide held / §E.10(a) ACCEPTED / FAIL-A record-only / stat_fact 2024-25 stale / 57014 cold-start / g38 stale-2003-ranking / `stats.sources`=120 cosmetic-stale（live ~199）。
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 - g21/g22/g33 直連 PDF 補完（user browser）— Session 105 audit 揭發三者 source_type='pdf' 但 url_primary 缺
@@ -115,30 +116,31 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / 下游 Circular System 整合）
 
 ## Last Session Record
-1. UTC date: 2026-06-07
-2. Session ID: Claude_20260607_1740 (S148)
+1. UTC date: 2026-06-08
+2. Session ID: Claude_20260608_1223 (S149-S150, single session)
 3. Completed:
-   - ✅ **[起手核實]** HEAD 188a5db==origin/main / facts 455 三層 byte-identical(md5 d3b80c) / Supabase 12,484 / guidelines 152 v2.5.0 / knowledge.json frozen + `_meta.stats` 12,484·152 / onrender /health 200 + manifest 401-gated / playbook INDEX。
-   - ✅ **[follow-up 1-3 入庫 +989 → Supabase 13,473]** 4 源 per-source ingest：`phys_sss_2007_2015`+182、`chi_edu_curr_docs`(CLEKLAG 全本)+157、`g13`(SECG 17-PDF)+587 = **文字層** `fetch_extract`（pre-flight 全 U+FFFD=0；handoff「phys 可能要 OCR」係未驗假設、實際 clean — §G.2 再中）；`g16`(訓育 8 章 CID 亂碼)+63 = `ocr_extract` 117pp concurrency=2 **0 失敗單 pass**（Retry-After 騎過 TPM）。allowlist：前 3 加 `SOURCE_SETS.curriculum`；g16 已在 `student_support`（S142 預埋、inverse coupling）。commit `269df97`。
-   - ✅ **[Display sync]** chunks 12,484→**13,473** 改齊 6 處（3 層 byte-identical md5 d3b80c→**7e7ac1** + app.html〔stats+`||`〕+ K1_API_SPEC + README）；guidelines 152 不變、無 bump、`updated` 不動（facts 仍 455）。
-   - ✅ **[Cleanup]** `git rm` stale duplicate `dev/vault/phys_sss_2007_2015/extract_phys_sss_2007_2015_repaged.txt`（同 source_id 地雷）→ vault 回復 one-extract-per-source（掃描確認再無其他重複）。commit `4ea85ec`。
-   - ✅ **[Routed smoke post-deploy]** chi_edu **#1** p24 / g13 **#3** p56 / g16 **#1** p17 三源完美帶頁碼；**phys_sss ABSENT**（retrieve-then-filter top-40 全庫 + curriculum expansion 稀釋、全庫 ~#97）→ **Leonard 拍板接受現狀**（入庫正確、下游 by-id sync 攞到）。commit `cd42d22`。
-4. Pending（全屬可選）: gifted_policy_docs link / g17 深化（待 #4 link 一齊做）。**0 outstanding bug。**
+   - ✅ **[起手核實]** HEAD f26a8a7==origin/main / facts 455 三層(md5 7e7ac1) / Supabase 13,473 / guidelines 152 / knowledge.json frozen + stats 13,473·152 / onrender 200 + manifest 401 / playbook INDEX。
+   - ✅ **[S149 安全指引 +115 → 13,588]** `g18` 校車安全2025/26(Schools+committee)+9 / `g21` 視藝安全(pri+sec)+48 / `g22` 科技安全2010 +58 = 文字層 `fetch_extract`（全 U+FFFD=0、毋須 OCR）。加 `SOURCE_SETS.safety` + 窄 `TOPIC_KEYWORDS.safety`(校車/視藝安全/科技安全)；routing regression 12/12；routed smoke 各 #1 帶頁碼。四大安全指引(校車/視藝/科技/體育 g23)齊。commit `e763f9f`。
+   - ✅ **[S150 gifted 3 源 +94 → 13,667]** `gifted_policy_docs`(policy_chin_March08 2008 + hong-kong-development HTML 混合 PDF+HTML)+19 → **NEW dedicated `gifted` route**(SOURCE_SETS + TOPIC_KEYWORDS 資優/資賦 + expansion，亦令既有 g14/g06 有 route)；再 +2 Leonard link：`gifted_tp_resource_kit`(校本資優資源套2024)+41 / `gifted_osalp_compendium`(OSALP匯編)+19。**`ecr4_c.pdf` 全本 ECR4 1990(175pp、98% 非資優)刻意 skip**（§3 stop-and-report，Leonard 拍板）。registry 203→205。commits `79cea74`→`180ec67`。
+   - ✅ **[NEW 自動發現工具]** `dev/source/discover_sources.py`(crawl 已登記 index 頁 diff 出未登記新文件；self-test 11/11) + `.github/workflows/discover_check.yml`(每週一 10:00 UTC + Issue)。detection-only、manual gate。commit `497d6af`。
+   - ✅ **[核實 verify-don't-trust]** freshness「7 changed」逐個查 = **0 真改**(全 head-metadata no-baseline seed + EDB Last-Modified flutter；g19 / pri_science_cert_course_list 深層內容確認 current 8/8) / B-group sibling-dup 抽 6/16 深層內容確認覆蓋。
+   - ✅ **[Display sync]** chunks 13,473→13,588→13,607→**13,667** 三層 byte-identical(md5 7e7ac1→**720f5f**) + app.html + K1_API_SPEC + README；guidelines 152 / facts 455 不變、無 bump。
+4. Pending（全屬可選）: discovery 全量 triage / 餘 10 B-group dup 深驗 / gifted+CPD route precedence(monitor)。**0 outstanding bug。**
 5. Next priorities: 見 Open Priorities。
 6. Risks / blockers:
    - 🟢 **0 outstanding bug**。
-   - ⚠️ **chunks 係 moving display number** — 每次補入庫後要同步嗰 6 處（3 層 `_meta.stats` + app.html + K1_API_SPEC + README）或改 app fetch live count。
-   - ⚠️ **phys_sss routed-UI 唔頂返物理 query**（已知 retrieval 限制：retrieve-then-filter top-40 + expansion；Leonard 接受、monitor；要 surface 須另開 dedicated 理科 route）。
-   - ⚠️ g38(2003) 與 music_p1_s6_2024(2024) routed 共存（per-source quota bound、monitor stale-2003-ranking）。
-   - ⚠️ 大 OCR job 必 pace org TPM（low concurrency + Retry-After + `--resume`）。
-   - 既有：Channel A frozen @455；57014 transient(retry)；FAIL-A(record-only)；§E.10(a) ACCEPTED；q.html/A·AB dormant 勿清；Stage-2 closed；egress 每次自測；路徑空格雙引號；wiki_chunks 欄名 `text`；結構天花板源勿再 ingest；改 Draft code/data commit 必入 SESSION_LOG；init_backup gitignored；**入庫：文字層用 fetch_extract、掃描/CID 用 ocr_extract、再 ingest_one_source；勿跑 full wiki_index upload；新源入庫必加 SOURCE_SETS allowlist（S135）；勿改 canonical chunker / shared 檢索 infra；dup/gap 按內容（url/PDF 檔名）對賬。**
-7. commits: `269df97`(入庫+allowlist+display) → `4ea85ec`(rm duplicate) → `cd42d22`(routed smoke 入 governance) → S148 closeout commit。
+   - ⚠️ **chunks 係 moving display number** — 每次補入庫後同步嗰 6 處（3 層 `_meta.stats` + app.html + K1_API_SPEC + README）。
+   - ⚠️ **gifted 查詢含「教師培訓/CPD」詞 → route 去 cpd**（first-match；gifted_tp_resource_kit 唔 surface；純資優 query 正常；fix = 移 gifted 前於 cpd）。
+   - ⚠️ gifted_osalp_compendium = catalogue、general query 排名低（in-route searchable，acceptable）。
+   - ⚠️ 大 OCR job 必 pace org TPM；新源入庫必加 SOURCE_SETS allowlist（S135）。
+   - 既有：phys_sss routed-UI 限制(Leonard 接受)；Channel A frozen @455；57014 transient(retry)；FAIL-A(record-only)；§E.10(a) ACCEPTED；Stage-2 closed；egress 每次自測；路徑空格雙引號；wiki_chunks 欄名 `text`；結構天花板源勿再 ingest；改 Draft code/data commit 必入 SESSION_LOG；勿改 canonical chunker / shared 檢索 infra；dup/gap 按內容對賬；`stats.sources`=120 cosmetic-stale(live ~199)。
+7. commits: `e763f9f`(S149 安全) → `79cea74`(S150 gifted route) → `497d6af`(discovery crawler) → `180ec67`(gifted +2) → S149-S150 closeout commit。
 
 ## Previous Session Record
 1. UTC date: 2026-06-07
-2. Session ID: Claude_20260607_1336 (S147)
-3. Completed: Channel B 雲端 vision OCR 補入庫 `mce_framework_2008`+13（8 版掃描影像）+ `g38` 音樂指引 +194（153 版 CID-mojibake；新工具 `dev/ocr_extract.py` concurrency+Retry-After+resume）→ Supabase 12,277→12,484；Display/version fix（`_meta.stats` chunks→12,484/guidelines→152 三層 byte-identical + app.html + K1_API_SPEC + README in-app 161、無 bump）。
-4. commits: `d69080f`→`6ae4107`→`188a5db`（closeout）。
+2. Session ID: Claude_20260607_1740 (S148)
+3. Completed: Channel B follow-up 1-3 入庫 +989 → Supabase 12,484→13,473（`phys_sss_2007_2015`+182 / `chi_edu_curr_docs` CLEKLAG 全本 +157 / `g13` SECG 17-PDF +587 = 文字層；`g16` 訓育 OCR +63）；前 3 加 SOURCE_SETS.curriculum。routed smoke chi_edu/g16 #1·g13 #3；phys_sss ABSENT(全庫低 rank，Leonard 接受)。display chunks→13,473。
+4. commits: `269df97`→`4ea85ec`→`cd42d22`→`f26a8a7`（closeout）。
 
 
 ## Session Close Checklist (每次 session 結束必須執行)

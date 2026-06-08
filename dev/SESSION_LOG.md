@@ -2,6 +2,68 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-08 Session 149-150 — Channel B 補入庫實質完成（安全指引 + gifted 6 源 +209）+ 2 新 dedicated routes + NEW 自動發現工具 — CLOSED
+
+- **ID:** Claude_20260608_1223
+- **Trigger:** 起手自測全綠 → Leonard 揀「Channel B 補入庫」→ 安全指引 3 源 → gifted（Leonard 逐批畀 link）→ 問「全部入晒未 + 有冇自動偵測新文件機制」→ 建自動發現工具。
+- **起手自測（verify-don't-trust，全 live）:** HEAD `f26a8a7`==origin/main / facts 455 三層 byte-identical(md5 `7e7ac1`) / Supabase 13,473 雙讀 / guidelines 152 v2.5.0 / knowledge.json frozen + stats 13,473·152 / onrender 200 + manifest 401 / playbook INDEX ✓。
+- **§3 Risk:** HIGH（OpenAI embed + Supabase 生產 insert + shared routing edit + display）；逐 gate（pre-flight→ingest→allowlist→regression→check/build→display→commit→deploy→routed smoke）。
+
+### Live gap 對賬（按內容、非靠 stale doc）
+- Supabase 190 distinct 源 / registry 203 → **34 未入庫**。分類：deprecated/dead 6 + sibling-dup ~17 + 舊版噪音 ~7 + gifted(待 link) → **真‧未入‧現行內容唯一 = 安全指引家族 g18/g21/g22**（g23 體育已在庫）。
+- B-group sibling-dup 抽 6 代表**深層內容核實**（非靠 S146 標籤）：sci_curr_docs→g36 6/6 / tech_curr_docs→tech_kla_guide_2017 6/6 / pshe_curr_docs→g35 6/6 / pri_science→pri_science_guide_2025 / ph_pri_curr→ph_pri_guide_2025 / ma_curr_index→ma_kla_guide_2017（同一 ME_KLACG PDF 136 chunks；深層 math-layout phrase 偽負，查證實 PDF 相同）→ **dup 標籤站得住**。
+
+### S149 — 安全指引 3 源 +115（13,473→13,588）
+- `g18` 學童乘搭校車安全指引 2025/26（Schools 6pp + committee 2pp）+9 / `g21` 視覺藝術科安全指引（pri 22 + sec 26）+48 / `g22` 科技教育安全指引 2010（52pp）+58 = 全文字層 `fetch_extract`（pre-flight U+FFFD=0、毋須 OCR）。
+- 加 `SOURCE_SETS.safety` + 窄 `TOPIC_KEYWORDS.safety`（`校車|視藝.{0,3}安全|視覺藝術.{0,4}安全|科技教育.{0,4}安全|科技科.{0,3}安全`，全現時 match 唔到 = 零 regression）。routing regression 12/12 PASS（含 視覺藝術科課程指引→curriculum、資訊科技保安→null 唔誤入）。
+- Display sync 6 處（md5 7e7ac1→d87f0d）。QC：Supabase 13,588 雙讀、per-source 9/48/58、emb 1536、check+build PASS。direct RPC 全庫 top-2、routed smoke 3 源各 **#1 帶頁碼**（≠ S148 phys_sss，因 whole-index rank 高 + 入 safety route）。commit `e763f9f`。
+
+### S150 — gifted 3 源 +94（13,588→13,667）+ NEW gifted route
+- `gifted_policy_docs` +19：Leonard 畀正確 link → `policy_chin_March08.pdf`(資優教育政策文件2008, 8pp) + `hong-kong-development` introduction.html + detail.html（**混合 PDF+HTML 砌**：fetch_extract PDF pass 後 append HTML pass）。**`ecr4_c.pdf` 全本 ECR4 1990(175pp、資優只 ~p45-61、98% 非資優)§3 stop-and-report → Leonard 拍板 skip**（免通用舊政策稀釋）。
+- **NEW dedicated `gifted` route**：`SOURCE_SETS.gifted`[gifted_policy_docs/g14/g06/role_facts_general] + `TOPIC_KEYWORDS.gifted`(資優/資賦/天才教育/拔尖保底/gifted，置 curriculum 前) + `QUERY_EXPANSIONS.gifted`。亦令既有 g14(校本資優指引)/g06 終於有 route。regression 19/19 PASS（含 資助則例→finance 唔被搶）。
+- 再 +2 Leonard link（separate registry-backed sources、無 DELETE）：`gifted_tp_resource_kit`(校本資優教育資源套2024, 32pp 實質指引)+41 / `gifted_osalp_compendium`(OSALP 課程匯編, 20pp catalogue)+19。加入 SOURCE_SETS.gifted + registry 2 entry（clone g21 schema）→ 203→**205**。
+- routed smoke：資優 query → gifted set（g06+g14+gifted_policy_docs+tp_resource_kit）帶頁碼；tp_resource_kit #1。**monitor：含「教師培訓/CPD」詞 → cpd first-match（gifted set 唔 surface）；osalp catalogue 排名低**。commits `79cea74`(route)→`180ec67`(+2)。
+
+### NEW 自動發現工具（答 Leonard「自動偵測新文件」）
+- `dev/source/discover_sources.py`：freshness 嘅 companion。freshness 監察**已登記**源改版/死链；discovery **crawl 已登記 EDB index 頁（registry url_landing）→ diff doc-links vs known URLs → surface 未登記新文件**。detection-only、唔寫 registry、唔 ingest。`--check`/`--self-test`(11 assertions)/`--changes-out`/`--ledger`/`--limit`。likely_noise flag(poster/leaflet/dup-basename)但唔 drop（over-list>hide）。限制：static-fetch(JS 頁 flag js_suspect)、只搵 watched index 頁底下、landing 多 dup = triage list。
+- `.github/workflows/discover_check.yml`：每週一 10:00 UTC（freshness 後 1h）+ manual dispatch → 開/更新 `new-source-discovery` Issue。self-test 11/11、live crawl 0 error。commit `497d6af`。
+
+### freshness「7 changed」核實 = 0 真改
+- 7 個全 `head-metadata (no baseline hash)` = 首次 seed baseline artifact + EDB Last-Modified flutter（多個 timestamp 倒退）。g21=今 session 啱入；g39=0-chunk 舊 dup；g19 + pri_science_cert_course_list 深層內容**確認 current 8/8**。→ 冇嘢要 backfill。
+
+### Doc Sync
+- 「Channel-B vault source backfill」row：registry（6 源 notes/2 新 entry）/ SOURCE_SETS（safety +3、gifted route 新增 +5）/ HANDOFF baseline 13,667 / SESSION_LOG / CODEBASE AI-log / INGEST_GAP S149+S150 標 ✓。
+- 「External / tooling change」row：CODEBASE Directory Map + AI-log 加 discover_sources.py + discover_check.yml ✓。
+- 「Product display number」row：chunks 6 處同步 13,667 ✓。
+
+### Follow-up / lessons
+- **Lesson（§G.2 再中、雙向）**：(1) freshness「7 changed」唔好當真改 — confidence `head-metadata no-baseline` = seed artifact；(2) 我自己嘅 B-group dup 核法初版用 front-matter boilerplate phrase → 偽 COVERED（4/6 同一噪音 holder set），改深層 phrase 先準；ma 深層又因 math-layout 偽負 → 查 registry url 證同一 PDF。**load-bearing 判斷連自己嘅 verification 方法都要 verify。**
+- **Lesson**：混合 PDF+HTML 源 = fetch_extract 兩 pass（PDF mode → append HTML body 去同一 vault 檔，strip temp header）。
+- **Lesson**：安全/資優呢類 dedicated tight route = routing-is-the-lever（S118 pattern）；新 source whole-index rank 高時 routed 即 #1（≠ phys_sss）。
+- **Log maintenance（§4a）:** SESSION_LOG 369 行(<400)、最舊 S144(2026-06-05 <30d) → no-op、無 archive。
+- **§4 closeout:** handoff reconciled（baseline HEAD 180ec67 + Supabase 13,667 + md5 720f5f、Open Priorities 重生、Last/Previous→S149-150/S148、新 route+工具+monitor 入 risks）；DOC_SYNC 3 row ✓；START_NEXT 由下方 verbatim block 重生。
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md（補入庫進度，S149-S150 已標）。起手自行 verify git HEAD==origin/main + Supabase total（應 13,667）+ knowledge.json frozen 455 + knowledge.json._meta.stats（應 13,667/152）+ onrender /health + manifest 401-gated。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑空格雙引號）。python3。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 預設。回覆中文。
+
+S149-S150 (2026-06-08)：**Channel B 補入庫實質完成 + 自動發現機制**。(1) S149 安全指引 g18 校車/g21 視藝/g22 科技 +115 → 新 safety route keyword。(2) S150 gifted 3 源（gifted_policy_docs + gifted_tp_resource_kit + gifted_osalp_compendium）+94 → NEW dedicated gifted route（亦救 g14/g06）；ecr4 全本 1990 skip。(3) NEW dev/source/discover_sources.py + .github/workflows/discover_check.yml（每週一 10:00 UTC 自動 crawl 已登記 index 頁 diff 出未登記新 EDB 文件 → new-source-discovery Issue；detection-only）。Supabase 13,473→**13,667**，registry 203→205，md5 720f5f。真‧未入‧現行內容缺口核實清空（B-group dup 抽 6/16 深層確認）。**0 outstanding bug。**
+
+Pending（全屬可選、冇緊急）:
+1. discovery crawler 跑全量 triage（手動 GitHub Actions dispatch 或下次 session；噪音多 = review list 非 auto-ingest）。
+2. 餘 10 個 B-group sibling-dup 未深驗（可選補驗確定覆蓋）。
+3. monitor：gifted query 含「教師培訓/CPD」詞會 route 去 cpd（first-match，gifted set 唔 surface；要 surface gifted PD 可移 gifted 前於 cpd）/ gifted_osalp_compendium catalogue 排名低 / phys_sss routed-UI 限制 / freshness 週跑 / 57014 cold-start / stats.sources=120 cosmetic-stale。
+
+⚠️ Cautions：chunks 係 moving display number（每次補入庫同步 6 處〔3 層 _meta.stats + app.html + K1_API_SPEC + README〕）；入庫 per-source（文字層 fetch_extract、掃描/CID ocr_extract、再 ingest_one_source；勿 full wiki_index upload）；新源必加 SOURCE_SETS allowlist（S135）；大 OCR job pace org TPM。**未明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines.json / 勿跑 bump_version.py / 勿 reopen §E.10 / 勿動 Stage-2 / 勿改 canonical chunker 或 shared 檢索 infra（match_count/expansion）/ 勿再 ingest 結構天花板源。**
+
+Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 13,667 / facts 455 三層 / guidelines 152 / knowledge.json stats 13,667·152 / onrender /health + manifest 401-gated）+ playbook INDEX 後，問 Leonard 想做邊樣（discovery 全量 triage / B-group 補驗 / 新功能方向 / 或其他），未明示前勿郁上述禁區。
+```
+
 ## 2026-06-07 Session 148 — Channel B 補入庫 follow-up 1-3：phys_sss/chi_edu全本/g13(文字層) + g16(OCR) → Supabase 13,473 + display sync — CLOSED
 
 - **ID:** Claude_20260607_1740

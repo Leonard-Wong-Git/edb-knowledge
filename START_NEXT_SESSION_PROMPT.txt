@@ -1,17 +1,17 @@
 Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 
-⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md（補入庫進度）。起手自行 verify git HEAD==origin/main + Supabase total（應 13,473）+ knowledge.json frozen 455 + knowledge.json._meta.stats（應 13,473/152）+ onrender /health + manifest 401-gated。
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md（補入庫進度，S149-S150 已標）。起手自行 verify git HEAD==origin/main + Supabase total（應 13,667）+ knowledge.json frozen 455 + knowledge.json._meta.stats（應 13,667/152）+ onrender /health + manifest 401-gated。
 
 ⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑空格雙引號）。python3。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 預設。回覆中文。
 
-S148 (2026-06-07)：**follow-up 1-3 完成入庫** — phys_sss_2007_2015 +182（文字層、非 OCR）、chi_edu_curr_docs（CLEKLAG 全本）+157、g13（SECG 17-PDF）+587 = fetch_extract 文字層；g16（訓育 8 章 CID）+63 = ocr_extract（117pp concurrency=2 0 失敗）→ Supabase 12,484→**13,473**（+989）。前 3 加 SOURCE_SETS.curriculum、g16 已在 student_support。Display chunks 6 處同步 13,473（三層 byte-identical md5 7e7ac1）。清走 stale duplicate phys_sss…_repaged.txt。Routed smoke：chi_edu #1 / g13 #3 / g16 #1 完美；**phys_sss ABSENT**（retrieve-then-filter top-40 全庫 + expansion 稀釋、全庫 ~#97）→ **Leonard 接受現狀**（入庫正確、下游 by-id sync 攞到）。**0 outstanding bug。**
+S149-S150 (2026-06-08)：**Channel B 補入庫實質完成 + 自動發現機制**。(1) S149 安全指引 g18 校車/g21 視藝/g22 科技 +115 → 新 safety route keyword。(2) S150 gifted 3 源（gifted_policy_docs + gifted_tp_resource_kit + gifted_osalp_compendium）+94 → NEW dedicated gifted route（亦救 g14/g06）；ecr4 全本 1990 skip。(3) NEW dev/source/discover_sources.py + .github/workflows/discover_check.yml（每週一 10:00 UTC 自動 crawl 已登記 index 頁 diff 出未登記新 EDB 文件 → new-source-discovery Issue；detection-only）。Supabase 13,473→**13,667**，registry 203→205，md5 720f5f。真‧未入‧現行內容缺口核實清空（B-group dup 抽 6/16 深層確認）。**0 outstanding bug。**
 
 Pending（全屬可選、冇緊急）:
-1. gifted_policy_docs（待 Leonard 正確 link）+ g17 深化（同 #4 link 一齊做）。
-2. 餘 ~9 registry 源有內容可加（見 INGEST_GAP；其餘 dup/deprecated 建議唔做）。
-3. monitor：phys_sss routed-UI 限制（要 surface 須另開 dedicated 理科 route）/ g38·music_p1_s6_2024 stale-ranking / freshness 週跑 / 57014 cold-start / FAIL-A record-only / Suppl_guide held / stat_fact 2024-25 stale。
+1. discovery crawler 跑全量 triage（手動 GitHub Actions dispatch 或下次 session；噪音多 = review list 非 auto-ingest）。
+2. 餘 10 個 B-group sibling-dup 未深驗（可選補驗確定覆蓋）。
+3. monitor：gifted query 含「教師培訓/CPD」詞會 route 去 cpd（first-match，gifted set 唔 surface；要 surface gifted PD 可移 gifted 前於 cpd）/ gifted_osalp_compendium catalogue 排名低 / phys_sss routed-UI 限制 / freshness 週跑 / 57014 cold-start / stats.sources=120 cosmetic-stale。
 
 ⚠️ Cautions：chunks 係 moving display number（每次補入庫同步 6 處〔3 層 _meta.stats + app.html + K1_API_SPEC + README〕）；入庫 per-source（文字層 fetch_extract、掃描/CID ocr_extract、再 ingest_one_source；勿 full wiki_index upload）；新源必加 SOURCE_SETS allowlist（S135）；大 OCR job pace org TPM。**未明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines.json / 勿跑 bump_version.py / 勿 reopen §E.10 / 勿動 Stage-2 / 勿改 canonical chunker 或 shared 檢索 infra（match_count/expansion）/ 勿再 ingest 結構天花板源。**
 
-Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 13,473 / facts 455 三層 / guidelines 152 / knowledge.json stats 13,473·152 / onrender /health + manifest 401-gated）+ playbook INDEX 後，問 Leonard 想做邊樣（gifted/g17 待 link、或其他方向），未明示前勿郁上述禁區。
+Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 13,667 / facts 455 三層 / guidelines 152 / knowledge.json stats 13,667·152 / onrender /health + manifest 401-gated）+ playbook INDEX 後，問 Leonard 想做邊樣（discovery 全量 triage / B-group 補驗 / 新功能方向 / 或其他），未明示前勿郁上述禁區。
