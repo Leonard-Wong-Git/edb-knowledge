@@ -207,6 +207,18 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g19",
     "sen_exam_arrangements_2025",
   ],
+  // 資優教育 / 天才 (S150). Bare 資優/資賦 queries previously matched no category →
+  // whole-index search at the 0.22 floor; g14 (校本資優培育指引, ingested S146) + the new
+  // gifted_policy_docs (S150: 資優教育政策文件2008 + 香港資優發展 HTML) had no route. This
+  // dedicated set narrows to the real gifted corpus: gifted_policy_docs + g14 + g06 (PECG
+  // gifted sections) + general role facts. routing-not-cutoff lever (S118 PLAN-1b). NB: must
+  // precede `curriculum` in TOPIC_KEYWORDS (資優教育課程 contains 課程).
+  gifted: [
+    "gifted_policy_docs",
+    "g14",
+    "g06",
+    "role_facts_general",
+  ],
   // (steam route has no source filter — plain retrieval + expansion only.)
 
   /**
@@ -385,6 +397,9 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // assessment queries; still before `curriculum` for first-match.
   qa_inspection: /視學|校外評核|學校自我評估|自我評估|表現指標|質素保證|問責架構|問責|校本管理/,
   gov_admin: /法團校董會|學校發展計劃|防貪|內部監控|籌款|校舍|大規模修葺|修葺工程|增設校舍|擴建校舍|更改校名|改校名|學校註冊/,
+  // S150 — 資優教育. MUST precede `curriculum` (資優教育課程 contains 課程). Gifted-specific
+  // terms; 資賦 catches 資賦優異, 資優 catches 資優教育/校本資優/資優學生.
+  gifted: /資優|資賦|天才教育|拔尖保底|gifted/i,
   curriculum: /課程|科目|教學|學習目標|評估|教材|課程發展|學習領域|教師發展|CPD|專業發展|英文科|中文科|數學科|常識科|科學科|體育科|音樂科|視藝科|小學課程|中學課程|課程指引|學習成果|評核|幼稚園|幼兒|學前|K1|K2|K3|遊戲學習/,
 };
 
@@ -414,6 +429,7 @@ const QUERY_EXPANSIONS: Record<string, string> = {
   kg_admission: "幼稚園收生安排指引 K1 註冊證 報名費 註冊費 統一註冊日期 申請入學 收生程序 空缺",
   conduct:      "教師專業操守指引 教育規例第58條 教員不得向學生施行體罰 操守 學生保護",
   sen:          "特殊教育需要 融合教育 全校參與模式 特殊學校課程指引 融合教育運作指南 特殊教育需要統籌主任 SENCO 學生支援組 個別學習計劃 三層支援模式 校本支援 共融校園 照顧學生個別差異 校內考試特別安排 考試調適 評估調適 特別考試安排",
+  gifted:       "資優教育 資賦優異 三層推行模式 校本資優培育課程 拔尖保底 多元智能 資優學生 抽離式課程 校本資優發展計劃",
   steam:        "STEAM教育 跨學科 課程更新重點 七大重點 STEAM專責小組 科學科技工程藝術數學",
   finance:    "採購程序 財政限額 報價 招標 採購指引",
   hr_admin:   "教職員假期 批假 薪酬 操守 病假 首年 168日 上限 醫生證明 教師註冊 聘任",

@@ -2079,7 +2079,7 @@
       "version_label": "rolling",
       "last_checked_at": "2026-06-03",
       "supersedes": null,
-      "notes": "資優教育政策文件及指引索引，涵蓋三層推行模式、校本資優教育計劃指引等。待提取。 | S146: prior 534-chunk ingest deleted (wrong provenance: SECG booklet + unverified circulars). cd/index.html only links PECG(=g06)+SECG; gifted curriculum already covered by g06+g14. Awaiting correct gifted-policy link before re-ingest.",
+      "notes": "資優教育政策文件及指引索引，涵蓋三層推行模式、校本資優教育計劃指引等。待提取。 | S146: prior 534-chunk ingest deleted (wrong provenance: SECG booklet + unverified circulars). cd/index.html only links PECG(=g06)+SECG; gifted curriculum already covered by g06+g14. | S150 (2026-06-08): Leonard provided correct links → ingested 19 chunks: policy_chin_March08.pdf (資優教育政策文件 2008, 8pp) + hong-kong-development introduction.html + detail.html. ecr4_c.pdf (full ECR4 1990 report, gifted only ~p45-61 of 175pp) deliberately SKIPPED to avoid stale general-policy dilution. New dedicated 'gifted' route added (SOURCE_SETS.gifted + TOPIC_KEYWORDS.gifted 資優/資賦 + QUERY_EXPANSIONS; also surfaces g14+g06).",
       "freshness_metadata": {
         "last_modified": "Fri, 09 Dec 2022 10:05:13 GMT",
         "content_length": "1435",
