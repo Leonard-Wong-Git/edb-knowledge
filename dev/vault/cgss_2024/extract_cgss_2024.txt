@@ -1,0 +1,476 @@
+# source_id: cgss_2024
+# title: 特殊學校課程指引資源（2024）
+# url: https://www.edb.gov.hk/attachment/tc/curriculum-development/curriculum-area/special-educational-needs/curriculum_guide_for_special_schools/Resources_CGSS (2024)_c.pdf
+# fact_type: policy
+# topic_tags: curriculum
+
+=== Page 1 ===
+特殊學校課程指引
+i
+參考資料
+教育統籌委員會（2000）。 終身學習‧ 全人發展 — 香港教育制度改革建議。香港：教育統籌
+委員會。
+課程發展議會（2001）。學會學習 － 課程發展路向：終身學習與全人發展。香港：課程發展
+議會。
+教育統籌局（2005）。高中及高等教育新學制—投資香港未來的行動方案。香港：教育統籌局。
+課程發展議會（2017）。中學教育課程指引。香港：課程發展議會。取自
+https://www.edb.gov.hk/tc/curriculum-development/major-level-of-edu/secondary/cg_
+documents.html
+學校課程檢討專責小組（2020）。優化課程迎接未來‧ 培育全人啓迪多元：最後報告。香港：
+教育局。取自
+https://www.edb.gov.hk/attachment/tc/curriculum-development/renewal/taskforce_cur/TF_
+CurriculumReview_FinalReport_c.pdf
+課程發展議會（2021）。中學教育課程指引（2017） 補充說明。香港：課程發展議會。取自
+https://www.edb.gov.hk/attachment/tc/curriculum-development/renewal/Guides/Supp_notes_
+SECG_Chi_20210628.pdf
+教育局（2021）。中學生涯規劃教育及升學就業輔導指引（第二版）。香港：教育局。取自
+https://lifeplanning.edb.gov.hk/uploads/page/attachments/Guide%20on%20LPE%20and%20
+CG_06092021%20%28TC-Final%29.pdf
+教育局（2021）。小學生涯規劃教育推行策略大綱。香港：教育局。取自
+https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/projects-
+services/2122/20210929_Framework_for_LPE_for_Primary_Students_tc.pdf
+課程發展議會（2021）。 價值觀教育課程架構（試行版）。香港：課程發展議會。取自
+https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/
+Value%20Education%20Curriculum%20Framework%20%20Pilot%20Version.pdf
+
+=== Page 2 ===
+ii  
+特殊學校課程指引
+課程發展議會（2024）。小學教育課程指引（2024）。香港：課程發展議會。取自
+https://www.edb.gov.hk/tc/curriculum-development/major-level-of-edu/primary/curriculum-
+documents/Primary_Education_Curriculum_Guide.html
+Hughes, C., Hwang, B., Kim, J. H., Eisenman, L. T., & Killian, D. J. (1995). Quality of life in Applied 
+Research: A Review and Analysis of Empirical Measures. American Journal on Mental Retardation, 
+99(6), 623-641.
+Isaacs, T., Zara, C., Herbert, G., Coombs, S. J. and Smith, C. (2013). Key Concepts in Educational 
+Assessment. London: Sage Books.
+Organisation for Economic Co-operation and Development (OECD). (2019). OECD Future of 
+Education and Skills 2030: OECD Learning Compass 2030- A Series of Concept Notes. OECD 
+Publishing. Retrieved from
+https://www.oecd.org/content/dam/oecd/en/about/projects/edu/education-2040/1-1-learning-
+compass/OECD_Learning_Compass_2030_Concept_Note_Series.pdf
+Schalock, R. L., Brown, I., Brown, R., Cummins, R. A., Felce, D., Matikka, L., Keith, K. D. & Parmenter, 
+T. (2002). Conceptualization, Measurement, and Application of Quality of Life for Persons with 
+Intellectual Disabilities: Results of an International Panel of Experts. Mental Retardation, 40, 457-
+70.
+
+=== Page 3 ===
+特殊學校課程指引
+iii
+相關網址
+教育局：學校課程持續更新
+https://www.edb.gov.hk/tc/curriculum-development/renewal/index.html
+教育局：價值觀教育
+https://www.edb.gov.hk/tc/curriculum-development/4-key-tasks/moral-civic/index.html
+教育局：全方位學習
+https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/life-wide-learning/index.
+html
+教育局：學習領域、跨學科科目／範疇
+中國語文教育： 
+https://www.edb.gov.hk/tc/curriculum-development/kla/chi-edu/index. 
+ 
+html
+英國語文教育： 
+https://www.edb.gov.hk/en/curriculum-development/kla/eng-edu/ 
+ 
+index.html
+數學教育： 
+https://www.edb.gov.hk/tc/curriculum-development/kla/ma/index. 
+ 
+html
+科學教育： 
+https://www.edb.gov.hk/tc/curriculum-development/kla/science-edu/ 
+ 
+index.html
+科技教育： 
+https://www.edb.gov.hk/tc/curriculum-development/kla/technology- 
+ 
+edu/index.html
+個人、社會及人文教育：https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/index. 
+ 
+html
+藝術教育： 
+https://www.edb.gov.hk/tc/curriculum-development/kla/arts-edu/  
+ 
+index.html
+體育： 
+https://www.edb.gov.hk/tc/curriculum-development/kla/physical-  
+ 
+education/index.html
+人文科： 
+https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/ 
+ 
+ph-primary/index.html
+常識科： 
+https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/ 
+ 
+gs-primary/index.html
+
+=== Page 4 ===
+iv  
+特殊學校課程指引
+公民與社會發展科： 
+https://cs.edb.edcity.hk/tc/index_cs.php
+應用學習： 
+https://www.edb.gov.hk/tc/curriculum-development/cross-kla- 
+ 
+ 
+studies/applied-learning/index.html
+STEAM 教育： 
+https://stem.edb.hkedcity.net/zh-hant/home/
+從閱讀中學習： 
+https://www.edb.gov.hk/tc/curriculum-development/4-key-tasks/ 
+ 
+ 
+reading-to-learn/index.html
+運用資訊科技進行互動學習：https://www.edb.gov.hk/tc/curriculum-development/4-key-tasks/ 
+ 
+ 
+it-for-interactive-learning/index.html
+教育局：生涯規劃資訊網站
+https://lifeplanning.edb.gov.hk/tc/
+教育局：融合教育及特殊教育資訊網站
+https://sense.edb.gov.hk
+教育局：特殊教育需要
+https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/special-educational-
+needs/index.html
+教育局：特殊教育需要 — 為智障學生而設的調適課程
+小一至中三課程： 
+https://www.edb.gov.hk/tc/curriculum-development/curriculum- 
+ 
+ 
+area/special-educational-needs/pri1-to-sec3-curriculum/index.html
+高中課程： 
+https://www.edb.gov.hk/tc/curriculum-development/curriculum- 
+ 
+ 
+area/special-educational-needs/ssc/index.html
+高中應用學習調適課程： 
+https://www.edb.gov.hk/tc/curriculum-development/curriculum- 
+ 
+ 
+area/special-educational-needs/adapted-applied-learning/index.html
+教育局一站式學與教資源平台
+https://www.hkedcity.net/edbosp/
+香港考試及評核局
+https://www.hkeaa.edu.hk/tc/
+所列參考資料非遍舉無遺，以上只列出部分，以供讀者參考。
+
+=== Page 5 ===
+課程指引更新：
+校長在領導課程發展的角色
+2023.10.06
+石偉強
+匡智紹邦晨輝學校
+
+=== Page 6 ===
+- 指揮？
+- 補位？
+- 圖騰？
+- 最後防線？ 
+- 什麼都是？
+- 什麼也不是？
+校長在學校的角色？
+
+=== Page 7 ===
+- 校長一人決定學校發展方向？
+- 校長在辦學團體及法團校董會容許的範
+圍內領導
+- 校長 -> 中層人員 -> 教師/專責人員 -> 職員
+- 校長負責發施號令？決定一切？
+校長的位置？
+＝領導
+校長
+課程發展主任
+法團校董會
+
+=== Page 8 ===
+- 課程、教學、校舍、訓輔、人事、財
+務、IT、宿舍、治療⋯⋯⋯⋯⋯⋯
+- 校長怎可能熟悉每一範疇？
+- 校長如何帶領？
+- 校長與中層人員的協作
+- 校長-提供方向
+（為什麼校長經常不在學校？）
+- 中層人員-核實方向
+- 校長＋中層人員：
+共同帶領學校每一範疇的工作
+領導學校發展
+校長
+課程發展主任
+法團校董會
+＝領導
+
+=== Page 9 ===
+- 校長與課程發展主任
+- 領導課程發展：只是校長與課程發展主任的事？
+領導課程發展
+校長
+課程發展主任
+＝領導
+副校長/科任
+科主任/科任
+科主任/科任
+科主任/科任
+
+=== Page 10 ===
+- 「校情為本」
+- 扣連生活
+- 課程內容與學生經驗是否互相呼應？
+- 回應學生未來的需要
+- 老師們有多了解學生的學涯、職涯、休涯？
+- 評估的處理
+- 「顯証」是否真正的顯証？學校是否著力為學生
+提供合適的表達方式和機會？
+- 教職員和持分者的配合
+- 課堂內教師和支援人員的配合？
+- 不同職種同事的協作模式？
+- 家長的角色？
+- 社區及不同界別人士的支持？
+課程發展的方向？
+
+=== Page 11 ===
+- 課程領導能力
+- 校長
+- 課程發展主任
+- 科主任
+- 科的需要與學生的需要：如何平衡？
+- 學習社群與課程發展
+- 正式會議與日常交流
+- 觀課的處理
+- 配合校情的步伐
+如何確保「課程發展」真的發生？
+
+=== Page 12 ===
+- 《特殊學校課程指引》的重要性
+- 「孩子為先」：在學校的12年？還是他們的未來？
+- 有關學習動機與分層教學
+- 分層教學？多少層？終極版本？有可能嗎？
+- 相信學生！
+總結
+
+=== Page 13 ===
+嚴重智障學童的出路探索
+明愛樂義學校
+莫愛玲校長
+2023.10.06
+
+=== Page 14 ===
+地區：港島東西灣河
+宗教：天主教
+創校年份：1993
+服務對象：
+6至18歲中度/嚴重智障兒童
+服務範圍：
+⮚小一至中六教育服務
+⮚康復、護理及住宿服務
+課程：調適中央課程
+明愛樂義學校
+以愛展亮以藝展才
+
+=== Page 15 ===
+嚴重智障畢業生出路
++ 護理/療養院
++ 展能中心
++ 留家照顧
+3
+做好生涯規
+劃教育
+
+=== Page 16 ===
+4
+願景
+在學和離校的樂義仔，
+都能夠生活在友愛、和
+諧、共融的社會裏，享
+受優質的生活。
+校本生涯規劃教育
+校本生涯規劃教育
+大力發展以提升學生生活
+質素為終極目標，重視全
+人發展、與課程聯繫的生
+涯規劃教育，幫助學生順
+利過渡到成人生活
+
+=== Page 17 ===
+本校生涯規劃教育目標
+5
+• 發揮潛能，成就個人夢想
+• 建立自信，自主自決地學習
+• 擁有健康的體魄、良好的生活習慣和人生態度
+• 懂得和別人溝通，建立良好的人際關係
+
+=== Page 18 ===
+價值觀教育：宗教、道德及品格教育
+6
+•
+以主題形式貫穿各學習
+領域、全方位學習等與
+生涯規劃教育相關學習
+經歷，在課堂內外培養
+學生正面的價值觀、態
+度和相關的能力，以面
+對未來生活上的轉變和
+挑戰；
+•
+內容涵蓋十個首要培育
+的價值觀和態度、天主
+教教育核心價值和校訓。
+
+=== Page 19 ===
+生涯規劃教育
+學習元素
+以學生為中心，參考教育局《中學生涯規劃教育及升學就業輔導指引》、《小學生
+涯規劃教育推行策略大綱》、《發展適合嚴重智障學生的生涯規劃教育學習元素》，
+校本課程設計涵蓋「自我認識和發展」、「生涯探索」、「生涯規劃和管理」三個學
+習元素，按學生學習需要、興趣、能力及學習階段進行規劃，幫助學生獲得相關
+的知識、技能和價值觀/態度，為成人生活和持續活得有質素作準備。
+自我認識
+和發展
+生涯探索
+生涯規劃
+和管理
+正面回饋
+
+=== Page 20 ===
+學習重點
+教育局(2021)。《協作研究及發展
+（「種籽」）計劃2020/21─發展
+適合嚴重智障學⽣的⽣涯規劃教
+育學習元素》
+
+=== Page 21 ===
+學習進程及推行策略
+9
+學習進程：配合四個學習階段設學習進程一至四
+推行平台：
+• 跨專業/家校合作的強項為本IEP
+• 核心科目/配合才藝表演的高中選修科(音樂、視藝、設計與應用科技)
+• 課堂以外的學習經歷
+•
+義演、義賣、Brain Café 服務員、服務大使(潔手、打理身心靈花園、運送等)
+•
+家校合作/宿舍/學生活動、周會、班主任課等
+• 激發潛能的物理環境(鼓勵主動關愛、社交、溝通)
+
+=== Page 22 ===
+推行策略(舉隅)
+學習進程四
+一生倚賴照
+顧者的幫助
+預期學習成果、
+成效紀錄：
+IEP、
+學習歷程檔案
+
+=== Page 23 ===
+提升教職員專業能力及拓闊其專業視野
+知識管理專家
+課程
+(2021/22)
+
+=== Page 24 ===
+生涯規劃
+CoP
+教育局/學者/友校
+支援
+優化課堂/IEP的質
+素
+激發潛能的環境
+提升教職員專業能力及拓闊其專業視野
+1 2
+
+=== Page 25 ===
+CoP 成效
+• 教職員認同生涯規劃教育終極目標和發展方向
+• 完成草擬校本政策
+• 完成討論生活質素指標，作為評估基礎
+• 能為教職員提供充足的參考資料
+跟進
+• 參考友校、專家、教育局意見，設計連結學與教的校本生涯規劃教育框架
+
+=== Page 26 ===
+優化課堂/IEP質素的成效
+• 設計強項為本的IEP
+• 能為團隊提供良好教學示範
+• 初步設計了結合生涯規劃教育和IEP的校本課程框架
+跟進
+• 持續進行專業交流
+• 建設校本生涯規劃教育課程框架
+• 建設學習評估資料庫
+
+=== Page 27 ===
+激發潛能的環境
+持續提升幸褔感!
+Brain Café
+
+=== Page 28 ===
+幫助學生/照顧者擴大社會網絡
+1 6
+•
+安排多元化和關係持久的義工服務(例如：天主教教區不同的
+善會)，擴闊學生的生活圈子和支援網絡
+•
+舉辦跨區、跨校的照顧者活動，擴闊照顧者的支援網絡
+•
+幫助家長與相關的非政府機構連結(例如：香港兒童紓緩學會、
+聖雅閣褔群會)
+
+=== Page 29 ===
+1 7
+•
+展能中心、院舍參觀
+•
+家長組織
+嚴重弱智人士家長協會……
+•
+支援照顧者的非政府構機
+香港兒童紓緩學會、生命前線帆船事工、毅立會… …
+與提供轉銜服務的機構交流和協作
+
+=== Page 30 ===
+生活
+質素
+健康
+物質
+幸福
+情感
+幸福
+人際
+關係
+個人
+發展
+自我
+決策
+社會
+包容
+權利
+成為智障人士
+生涯規劃教育研習中心
+為智障學童創業
+未來發展路向
+“為特殊學校學生的離校出路及成人生活選擇的預備，應擴闊
+至以提升生活質素作為重點，例如包括有意義的日間活動、閒
+暇嗜好、社交生活、居家獨立生活以及持續學習等的選擇”
+(特殊學校課程指引，第7章)
+
+=== Page 31 ===
+謝謝!
+1 9
+
+=== Page 32 ===
+參考資料
+2 0
+1. 教育局(2023)。《特殊學校課程指引（試行版）》取自：https://www.edb.gov.hk/attachment/tc/curriculum-
+development/curriculum-area/special-educational-needs/curriculum_guide_for_special_schools/CGSS%20(Pilot%20Version)_Full%20Version_c.pdf
+2. 教育局(2021)。《協作研究及發展（「種籽」）計劃2020/21─發展適合嚴重智障學⽣的⽣涯
+規劃教育學習元素》。取自：https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/seed/whatsnew-2020-
+21/SE0820.pdf
+3. 教育局(2021)《中學生涯規劃教育及升學就業輔導指引》(第二版)。取自：
+https://lifeplanning.edb.gov.hk/uploads/page/attachments/Guide%20on%20LPE%20and%20CG_06092021%20%28TC-Final%29.pdf
+4. 小學生涯規劃教育推行策略大綱(2021)。取自：https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-
+services/projects-services/2122/20210929_Framework_for_LPE_for_Primary_Students_tc.pdf
+5. 星島日報(2023)。《攜手推動生涯規劃創未來-藉商校合作探索職場世界》。取自：
+https://std.stheadline.com/education/article/1950761/%E6%95%99%E8%82%B2-%E7%86%B1%E8%A9%B1-
+%E6%94%9C%E6%89%8B%E6%8E%A8%E5%8B%95%E7%94%9F%E6%B6%AF%E8%A6%8F%E5%8A%83%E5%89%B5%E6%9C%AA%E4%BE%86-
+%E8%97%89%E5%95%86%E6%A0%A1%E5%90%88%E4%BD%9C%E6%8E%A2%E7%B4%A2%E8%81%B7%E5%A0%B4%E4%B8%96%E7%95%8C

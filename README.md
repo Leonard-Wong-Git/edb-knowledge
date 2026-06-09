@@ -24,8 +24,8 @@
 
 | 功能 | 說明 |
 |------|------|
-| ℹ️ **平台介紹** | 平台定位、動態統計（455 已核實事實 / 13,667 知識片段 / 161 指引 / 120 來源，由 `_meta.stats` 動態取）、核心功能說明 |
-| 🔍 **政策搜尋** | Channel-B 語義搜尋：從 13,667 個 EDB 官方原文知識片段檢索，整理回答並附原始文件出處（含頁碼） |
+| ℹ️ **平台介紹** | 平台定位、動態統計（455 已核實事實 / 14,276 知識片段 / 161 指引 / 120 來源，由 `_meta.stats` 動態取）、核心功能說明 |
+| 🔍 **政策搜尋** | Channel-B 語義搜尋：從 14,276 個 EDB 官方原文知識片段檢索，整理回答並附原始文件出處（含頁碼） |
 | 📚 **指引文件庫** | 161 份官方 EDB 指引（in-app 瀏覽庫；公開 `guidelines.json` 端點為 152 份全集投影），按類別 → 子類別 → 年份三層分組導覽 |
 
 > 公眾 app（`app.html`）為 **Channel-B-only 唯讀** 三 tab 介面（S151）。Channel A 人工策展 / 管理員登入功能已移除；`role_facts.json` / `knowledge.json` 凍結 @455 仍作對外資料契約。
@@ -87,7 +87,7 @@ EDB PDF → ai_extract.py → wiki_index.json（向量索引）
 | Channel A 已審核事實 | **455 條** |
 | 指引文件庫（in-app 瀏覽） | **161 份** |
 | 來源文件 | **120 份** |
-| Channel B 向量索引 | **13,667 chunks**（Supabase pgvector，線上） |
+| Channel B 向量索引 | **14,276 chunks**（Supabase pgvector，線上） |
 
 > 註：由 792 條去重整合至 455 條唯一事實（2026-05-16，commit 711f911；可逆日誌 `dev/DEDUP_LOG_2026-05-16.md`）。
 > 註：`161` 為 in-app 指引瀏覽庫（總文件基礎，S140 landing-curate +9 + 公積金 +4）；公開 `guidelines.json` API 端點為其全集投影 **152** 份（S140，剔 9 非文件；由 `dev/build_guidelines.py` 生成）。

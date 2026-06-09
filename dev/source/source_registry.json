@@ -5703,6 +5703,139 @@
       "last_checked_at": "2026-06-08",
       "supersedes": null,
       "notes": "S150 (2026-06-08): Leonard-provided programme compendium. Ingested to Channel B (19 chunks, text-layer fetch_extract). In SOURCE_SETS.gifted."
+    },
+    {
+      "source_id": "kgecg_2017",
+      "title": "幼稚園教育課程指引（2017）",
+      "title_short": "幼稚園課程指引",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/major-level-of-edu/preprimary/curr-doc.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/preprimary/TC_KGECG_2017.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-09",
+      "supersedes": null,
+      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (108 chunks, text-layer fetch_extract). In SOURCE_SETS."
+    },
+    {
+      "source_id": "gifted_ge_series",
+      "title": "資優教育系列：全民資優教育＋校本學生才能庫＋學術英才教育單元",
+      "title_short": "資優教育系列",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/GE_for_All_Education_for_the_Gifted_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-09",
+      "supersedes": null,
+      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (346 chunks, text-layer fetch_extract). In SOURCE_SETS."
+    },
+    {
+      "source_id": "cgss_2024",
+      "title": "特殊學校課程指引資源（2024）",
+      "title_short": "特殊學校課程資源",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/special-educational-needs/curriculum_guide_for_special_schools/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/curriculum-area/special-educational-needs/curriculum_guide_for_special_schools/Resources_CGSS (2024)_c.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-09",
+      "supersedes": null,
+      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (17 chunks, text-layer fetch_extract). In SOURCE_SETS."
+    },
+    {
+      "source_id": "sch_calendar_guide",
+      "title": "學校曆／一般假期／上課日數計算指引",
+      "title_short": "學校曆指引",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/resource-support/guidelines-sch-calendar/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/resource-support/guidelines-sch-calendar/General Holidays_2526_C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-09",
+      "supersedes": null,
+      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (6 chunks, text-layer fetch_extract). In SOURCE_SETS."
+    },
+    {
+      "source_id": "sch_activities_guide",
+      "title": "學校活動指引：戶外活動＋境外遊學團",
+      "title_short": "學校活動指引",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/admin/about-activities/sch-activities-guidelines/",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "activity"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-09",
+      "supersedes": null,
+      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (102 chunks, text-layer fetch_extract). In SOURCE_SETS."
+    },
+    {
+      "source_id": "k1_admission_2627",
+      "title": "2026/27 學年小一（K1）入學安排（通函 EDBCM81/2025＋FAQ）",
+      "title_short": "K1入學2026/27",
+      "url_landing": "https://www.edb.gov.hk/tc/edu-system/preprimary-kindergarten/kindergarten-k1-admission-arrangements/2627_admission_arrangements.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/kindergarten-k1-admission-arrangements/202627 K1 Admission Arrangements/EDBCM81_2025_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-09",
+      "supersedes": null,
+      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (25 chunks, text-layer fetch_extract). In SOURCE_SETS."
+    },
+    {
+      "source_id": "kg_admin_guide",
+      "title": "幼稚園行政指引：學費涵蓋項目＋售賣物品指引",
+      "title_short": "幼稚園行政指引",
+      "url_landing": "https://www.edb.gov.hk/tc/edu-system/preprimary-kindergarten/about-preprimary-kindergarten/guidelines.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/about-preprimary-kindergarten/guidelines/items_covered_by_sch_fee_c.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2024-2026",
+      "last_checked_at": "2026-06-09",
+      "supersedes": null,
+      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (5 chunks, text-layer fetch_extract). In SOURCE_SETS."
     }
   ]
 }

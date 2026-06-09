@@ -173,6 +173,8 @@ const SOURCE_SETS: Record<string, string[]> = {
   kg_admission: [
     "g26",
     "g25",
+    "k1_admission_2627",   // S152: 2026/27 K1 入學安排 (通函 EDBCM81/2025 + FAQ), Discovery
+    "kg_admin_guide",      // S152: 幼稚園學費涵蓋/售賣物品指引, Discovery
     "role_facts_general",
   ],
   // S142 §5 — primary/secondary place allocation + student-info-management (P1/SSPA/S4/STIMS).
@@ -206,6 +208,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g10",
     "g19",
     "sen_exam_arrangements_2025",
+    "cgss_2024",         // S152: 特殊學校課程指引資源 (2024) — alongside g10, Discovery backfill
   ],
   // 資優教育 / 天才 (S150). Bare 資優/資賦 queries previously matched no category →
   // whole-index search at the 0.22 floor; g14 (校本資優培育指引, ingested S146) + the new
@@ -217,6 +220,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "gifted_policy_docs",
     "gifted_tp_resource_kit",     // S150: 校本資優教育資源套 (2024)
     "gifted_osalp_compendium",    // S150: 資優教育基金校外進階學習課程匯編 (OSALP)
+    "gifted_ge_series",           // S152: 全民資優教育 + 校本學生才能庫 + 學術英才教育單元 (Discovery)
     "g14",
     "g06",
     "role_facts_general",
@@ -252,6 +256,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "embc5_2005_appointment", "edbc14_2023_student_protect", "staff_medical_health",
     "job_sharing_guide", "surplus_teacher_arr_2026", "private_sch_employment_notes",
     "supply_teacher_guide", "long_service_payment_guide",  // S142 §2: 代課教師指引 + 遣散費長服金指引
+    "sch_calendar_guide",   // S152: 學校曆/一般假期/上課日數計算 (校曆 keyword already routes here), Discovery
     "role_facts_hr",
     "role_facts_general",
   ],
@@ -261,6 +266,7 @@ const SOURCE_SETS: Record<string, string[]> = {
    */
   activity: [
     "g03",               // 全方位學習津貼運用指引
+    "sch_activities_guide",   // S152: 戶外活動 + 境外遊學團指引 (Discovery)
     "role_facts_activity",
     "role_facts_general",
   ],
@@ -333,6 +339,7 @@ const SOURCE_SETS: Record<string, string[]> = {
    * Exclude SAG (minimal curriculum content, adds noise).
    */
   curriculum: [
+    "kgecg_2017",        // S152: 幼稚園教育課程指引 (2017) — KG curriculum, Discovery backfill
     "eng_pri_guide_2025",
     "ph_pri_guide_2025",
     "pri_science_guide_2025",
@@ -375,7 +382,7 @@ const SOURCE_SETS: Record<string, string[]> = {
 const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // PLAN-1b selective routes (S118) — first-match precedence; keep first.
   cpd: /CPD|持續專業發展|教師專業發展|教師培訓|專業發展計劃|專業階梯|師訓/,
-  kg_admission: /幼稚園收生|幼稚園.{0,3}收生|幼稚園.{0,3}入學|幼稚園.{0,3}報名|K1.{0,3}收生|幼稚園.{0,3}申請入學/,
+  kg_admission: /幼稚園收生|幼稚園.{0,3}收生|幼稚園.{0,3}入學|幼稚園.{0,3}報名|K1.{0,3}收生|幼稚園.{0,3}申請入學|幼稚園.{0,6}學費|學費.{0,4}涵蓋|售賣物品|代辦費/,
   // S142 §5 — primary/secondary placement (after kg_admission so 幼稚園 stays there).
   placement: /中學學位分配|學位分配辦法|中一派位|中四學位|小一派位|統一派位|自行分配學位|跨境學童|學生資料管理系統|STIMS|收生實況調查/,
   conduct: /體罰|施行體罰|羞辱學生|虐待學生|教師操守|專業操守|教師專業操守/,
@@ -385,7 +392,7 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   steam: /STEAM|STEM/,
   finance: /採購|招標|單一報價|競投|供應商|報價單|分判|貨物|服務合約|財務管理|預算|撥款|開支|報銷|捐款|借款|代收費|利益衝突|申報利益|賄賂|廉署|防賄|資助則例|法團校董|校董會經費|採購門檻|採購程序/,
   hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金/,
-  activity: /全方位學習|活動津貼|課外活動|全方位學習津貼/,
+  activity: /全方位學習|活動津貼|課外活動|全方位學習津貼|戶外活動|境外遊學|遊學團|境外學習活動|參觀活動/,
   // SEN — MUST stay before `curriculum` (first-match precedence): "特殊學校課程指引"
   // contains 課程 and would otherwise route to curriculum. \bsen\b/i catches the bare
   // English token (real users type "sen"); the rest catch the Chinese terminology.
