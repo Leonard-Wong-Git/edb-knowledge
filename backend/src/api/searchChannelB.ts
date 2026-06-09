@@ -87,7 +87,7 @@ export interface SearchChannelBResponse {
   degraded_kind?: ChannelBDegradedKind;
   /** Human-readable reason for degradation (Traditional Chinese) */
   reason?: string;
-  /** LLM-synthesised answer (Traditional Chinese, ≤120 chars) */
+  /** LLM-synthesised answer (Traditional Chinese, ≤~250 chars / 上限300) */
   synthesis?: string;
   total: number;
   results: ChannelBResult[];
@@ -465,7 +465,7 @@ function expandQuery(query: string, category: string): string {
 // ---------------------------------------------------------------------------
 
 const SYNTHESIS_PROMPT = `你是香港學校管治的政策顧問。以下是從教育局政策文件中檢索到的相關資料。
-請根據這些資料，用簡潔繁體中文回答問題。直接總結資料的重點，不超過120字，不需列出來源編號。
+請根據這些資料，用繁體中文綜合分析並回答問題，緊扣資料重點，約250字（上限300字），不需列出來源編號。
 
 問題：{QUERY}
 

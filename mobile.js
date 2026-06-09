@@ -190,6 +190,9 @@
     role_facts_general: '已核實知識庫 · 通用',
   };
   const sourceLabel = id => SOURCE_LABEL[id] || (id || '').replace(/^vault_/, '').replace(/_/g, ' ');
+  // Always-Chinese display name: curated short label → the doc's own (Chinese) title
+  // → generic fallback. Never the raw English source_id.
+  const displayName = (id, title) => SOURCE_LABEL[id] || (title && String(title).trim()) || 'EDB 文件';
 
   const sourceIcon = id => {
     if (!id) return '📄';
@@ -336,13 +339,13 @@
     }
     results.forEach((r, idx) => {
       const sid = r.source_id || '';
-      const channel = r.channel || (r.content_type === 'approved_fact' ? 'A' : 'B');
-      const channelLabel = (r.content_type === 'approved_fact') ? '已核實' : '原文';
-      const score = (typeof r.score === 'number') ? r.score.toFixed(2) : '';
+      const verified = r.content_type === 'approved_fact';
+      const pageLabel = (typeof r.page === 'number' && r.page > 0) ? '頁 ' + r.page : '';
+      const metaRight = verified ? ('✅ 已核實' + (pageLabel ? ' · ' + pageLabel : '')) : pageLabel;
       html += '<button class="m-result-card" data-idx="' + idx + '" type="button">'
            +   '<div class="m-result-meta">'
-           +     '<span class="m-result-source">' + sourceIcon(sid) + ' ' + escapeHTML(sourceLabel(sid)) + '</span>'
-           +     '<span style="font-size:11px;color:var(--m-text-muted);font-weight:600">' + channelLabel + ' · ' + score + '</span>'
+           +     '<span class="m-result-source">' + sourceIcon(sid) + ' ' + escapeHTML(displayName(sid, r.title)) + '</span>'
+           +     (metaRight ? '<span style="font-size:11px;color:var(--m-text-muted);font-weight:600">' + metaRight + '</span>' : '')
            +   '</div>'
            +   '<div class="m-result-content">' + escapeHTML(r.text || '') + '</div>'
            + '</button>';
@@ -372,19 +375,24 @@
 
     const sid = row.source_id || '';
     const url = row.url || '';
-    const channelLabel = (row.content_type === 'approved_fact') ? '已核實資料' : '來源文件原文';
+    const verified = row.content_type === 'approved_fact';
     const role = row.role || '';
+    const page = (typeof row.page === 'number' && row.page > 0) ? row.page : null;
+    const isPdf = /\.pdf/i.test(url);
+    const jumpUrl = (isPdf && page) ? (url + '#page=' + page) : url;
+    const pageLabel = page ? ('頁 ' + page) : '';
+    const sheetMetaRight = verified ? ('✅ 已核實' + (pageLabel ? ' · ' + pageLabel : '')) : pageLabel;
 
     let html = ''
       + '<div style="padding:0 4px">'
       +   '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">'
-      +     '<span class="m-result-source" style="font-size:13px">' + sourceIcon(sid) + ' ' + escapeHTML(sourceLabel(sid)) + '</span>'
-      +     '<span style="font-size:11px;color:var(--m-text-muted);font-weight:600">' + channelLabel + '</span>'
+      +     '<span class="m-result-source" style="font-size:13px">' + sourceIcon(sid) + ' ' + escapeHTML(displayName(sid, row.title)) + '</span>'
+      +     (sheetMetaRight ? '<span style="font-size:11px;color:var(--m-text-muted);font-weight:600">' + sheetMetaRight + '</span>' : '')
       +   '</div>'
-      +   (row.title ? '<div style="font-size:13px;color:var(--m-text-secondary);margin-bottom:12px;line-height:1.5">' + escapeHTML(row.title) + '</div>' : '')
+      +   ((row.title && SOURCE_LABEL[sid]) ? '<div style="font-size:13px;color:var(--m-text-secondary);margin-bottom:12px;line-height:1.5">' + escapeHTML(row.title) + '</div>' : '')
       +   '<div style="font-size:15px;line-height:1.7;color:var(--m-text-primary);margin-bottom:20px;white-space:pre-wrap">' + escapeHTML(row.text || '') + '</div>'
       +   (role ? '<div style="margin-bottom:16px"><span style="font-size:11px;color:var(--m-text-muted);font-weight:600;letter-spacing:0.08em;text-transform:uppercase">適用角色</span><div style="margin-top:6px"><span class="m-role-chip" style="background:var(--m-edb-deep)">' + escapeHTML(role) + '</span></div></div>' : '')
-      +   (url ? '<a href="' + escapeHTML(url) + '" target="_blank" rel="noopener" style="display:block;text-align:center;padding:14px;background:var(--m-edb-deep);color:#fff;border-radius:var(--m-r-pill);font-weight:700;text-decoration:none;font-size:15px;margin-top:8px">🔗 看 EDB 原文</a>' : '')
+      +   (url ? '<a href="' + escapeHTML(jumpUrl) + '" target="_blank" rel="noopener" style="display:block;text-align:center;padding:14px;background:var(--m-edb-deep);color:#fff;border-radius:var(--m-r-pill);font-weight:700;text-decoration:none;font-size:15px;margin-top:8px">🔗 看 EDB 原文' + (isPdf && page ? '（第 ' + page + ' 頁）' : '') + '</a>' : '')
       + '</div>';
     content.innerHTML = html;
 

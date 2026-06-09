@@ -2304,10 +2304,23 @@ function SourcesAccordion({ results, topicLabels }) {
                   </span>
                 )}
                 <span style={{fontSize:'10px',color:'var(--ink-3)'}}>
-                  {doc.chunks.length} 個片段 · 最高相關度 {doc.bestScore.toFixed(2)}
+                  {doc.chunks.length} 個片段
                   {(() => {
                     const pages = [...new Set(doc.chunks.map(c => c.page).filter(Boolean))].sort((a,b)=>a-b);
-                    return pages.length > 0 ? ` · 頁 ${pages.join(', ')}` : '';
+                    if (pages.length === 0) return '';
+                    const isPdf = doc.url && doc.url.toLowerCase().includes('.pdf');
+                    return (
+                      <React.Fragment> · 頁 {pages.map((p, pi) => (
+                        <React.Fragment key={p}>
+                          {pi > 0 && ', '}
+                          {isPdf ? (
+                            <a href={`${doc.url}#page=${p}`} target="_blank" rel="noopener"
+                               title={`在新分頁開啟文件第 ${p} 頁`}
+                               style={{color:'var(--edb)',textDecoration:'underline',textUnderlineOffset:'2px'}}>{p}</a>
+                          ) : p}
+                        </React.Fragment>
+                      ))}</React.Fragment>
+                    );
                   })()}
                 </span>
               </div>
@@ -2381,6 +2394,7 @@ function QAPanel({ data, setPreviewDoc }) {
       sourceRef: r.url ? { url: r.url, title: r.title } : null,
       score: r.score, channel: 'B',
       content_type: r.content_type, fact_type: r.fact_type,
+      page: r.page,
     }));
   }, []);
 
