@@ -2,6 +2,59 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-09 Session 152 — Discovery 全量 triage + B-group 補驗（全覆蓋確認）+ 入庫 7 個新發現源 → Supabase 14,276 — CLOSED
+
+- **ID:** Claude_20260609_1004
+- **Trigger:** Start → Leonard「1+2」(discovery triage + B-group 補驗) → 出發現 → Leonard「全做」(入晒新候選)。
+- **起手自測（全 live）:** HEAD `0705762`==origin/main / facts 455 三層(md5 720f5f) / Supabase 13,667 / guidelines 152 / onrender /health 200 + manifest 401 / app.html admin 0 + 無 10,736 ✓。
+- **§3 Risk:** detection (Task 1/2) = LOW；入庫 (全做) = HIGH（OpenAI embed + Supabase 生產 insert + routing + display）→ 逐源 pre-flight + verify-don't-trust。
+
+### Task 2 — B-group 補驗：全覆蓋確認（決定性、同一主 PDF url match）
+- 16 個 sibling-dup 全部核實 **COVERED**：每個現行主 PDF 已在庫（arts→g37 / pe→pe_kla_2017 / cs→ict_sss_2021 / pecg_2024_landing→g06 / g31→eng_pri / g32/g39/sci_kla→g35/tech_kla/g36 / moral_civic→mce_framework_2008 / 6 個 S149-150 control 重confirm）。`g08`(中文 Exemplar_01-14)= 補充教學示例、非主指引（主指引 CLEKLAG=g09 在庫）。**真‧未入‧現行主指引缺口維持清空。** Lesson：`(2025)` 括號 URL-encode 造成假負（pri_science），要 parens-safe 比對。
+
+### Task 1 — Discovery 全量 triage（首次全量跑）
+- `discover_sources.py --check --verbose`：54 watch pages / **400 candidates**（370 likely-real / 30 noise）/ 0 error / 0 js_suspect。
+- 大部分噪音（Code of Aid 版本系列 59 / SECG booklet〔已 g13〕/ PECG 章節 / 入學統計 / 語言版本 / seminar PPT）。噪音過濾 + 逐個對庫 url-probe → 揀出真‧未入庫候選（全 0 命中確認）。
+
+### 全做 — 入庫 7 grouped 源 +609（Supabase 13,667→**14,276**）
+- 全 text-layer（fetch_extract，U+FFFD=0、page-resolvable）：`kgecg_2017` 幼稚園教育課程指引2017(108) — **補平台一直缺嘅 KG 課程指引** / `gifted_ge_series` 全民資優+才能庫+學術英才單元(346) / `cgss_2024` 特殊學校課程資源2024(17) / `sch_calendar_guide` 校曆/假期/上課日(6) / `sch_activities_guide` 戶外活動+境外遊學團(102) / `k1_admission_2627` 2026/27 K1入學(25) / `kg_admin_guide` 幼稚園學費/售賣(5)。
+- 各加 SOURCE_SET route（curriculum/gifted/sen/hr_admin/activity/kg_admission）+ 2 keyword（activity 戶外活動/遊學團;kg_admission 學費/售賣物品）。registry 205→**212**（7 entry）。display sync chunks→14,276（3 層 _meta.stats byte-identical md5 720f5f→**4c3631** + app.html + index.html + K1_API_SPEC + README;facts 455/guidelines 152 不變、無 bump）。
+
+### QC
+- typecheck+build PASS;semantic regression PASS=9 + 2 已知 FAIL（FAIL-A finance / FAIL-B stale-version assert）**0 新增**;direct match_wiki_chunks RPC 7 源全 retrievable（kgecg/gifted/k1/kg_admin/activities 全 #1-2）。
+- **routed smoke（onrender post-deploy）：6/7 surface 帶頁** — kgecg #1 p19 / gifted_ge #3-6 / sch_activities #1 p5 / kg_admin #1 p2 / k1_admission #1（proper「幼稚園K1入學」query）/ sch_calendar #8。**`cgss_2024` ABSENT**（在 sen route + direct-RPC 攞到，但 17 chunks 補充資源 rank 低於 top-8、輸俾主 g10/g19）= monitor-only（phys_sss pattern，Leonard-accept 類）。
+- **0 change to** Channel A facts / knowledge·guidelines.json facts / schema / RPC / 下游 repo / canonical chunker。
+
+### Doc Sync
+- 「Channel-B vault source backfill」row：registry 7 entry / SOURCE_SETS 6 route + 2 keyword / HANDOFF baseline 14,276+212 / SESSION_LOG / CODEBASE AI-log ✓。「Product display number」row：chunks 7 處 14,276 ✓。
+
+### Follow-up / lessons
+- **Lesson**：coverage 核實用「同一份 PDF url 喺唔喺庫」最決定性（免 phrase-layout 假負）；但要 parens-safe（`(2025)` URL-encode 坑）。
+- **Lesson**：小補充源（cgss 17ch）入 route 但 rank 低於 top-8 = retrieve-then-filter + 強主文檔競爭（g10/g19）;入庫+routed 正確、surfacing 受限 = monitor（同 phys_sss）。要 surface 須另開窄 route，17ch 唔值。
+- **Discovery pending（之前 OP#1/#2）= DONE**：全量 triage 跑咗、揀晒真候選入庫;B-group 全覆蓋確認。餘 400 candidates 多數 noise/old/variant，無再入。
+- **Log maintenance（§4a）:** SESSION_LOG ~220 行(<400)、最舊 S148(2026-06-07 <30d) → no-op。
+- **§4 closeout:** handoff baseline 14,276/212、Last/Previous→S152/S151、Open Priorities 重生（discovery+B-group done）、cgss monitor 入 risks;START_NEXT 由下方 verbatim 重生。
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md。起手自行 verify git HEAD==origin/main + Supabase total（應 14,276）+ knowledge.json frozen 455 + knowledge.json._meta.stats（應 14,276/152）+ onrender /health + manifest 401-gated。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑空格雙引號）。python3。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 預設。回覆中文。
+
+S152 (2026-06-09)：**Discovery 全量 triage + B-group 補驗（全覆蓋）+ 入庫 7 新發現源**。(1) B-group 16 sibling-dup 全 COVERED（同主 PDF 在庫）、缺口清空。(2) discover_sources.py 全量跑：54 頁/400 候選/0 error。(3) 全做入庫 7 源 +609 → Supabase 13,667→**14,276**：kgecg_2017(幼稚園課程指引2017、補 KG 缺口)/gifted_ge_series/cgss_2024/sch_calendar_guide/sch_activities_guide/k1_admission_2627/kg_admin_guide。各加 SOURCE_SET route + 2 keyword;registry→212;display 14,276(facts 455/guidelines 152 不變、無 bump)。QC：typecheck+build PASS、regression 0 新 FAIL、direct RPC 全 retrievable、routed smoke 6/7 surface 帶頁。cgss_2024 = in-route 但 rank 低 top-8(monitor、phys_sss pattern)。**0 change to Channel A/knowledge·guidelines facts/schema/RPC/下游/canonical chunker。0 outstanding bug。**
+
+Pending（全屬可選、冇緊急）:
+1. monitor：cgss_2024 routed rank 低(補充資源輸主 g10/g19、要 surface 須另開窄 route) / gifted+CPD route precedence / phys_sss routed-UI / freshness+discovery 週跑 / 57014 cold-start / stats.sources=120 cosmetic-stale。
+2. discovery 餘 ~390 candidates 已 triage = noise/old-version/語言變體/已覆蓋（無再入）;下次 discovery 週跑只睇新 diff。
+
+⚠️ Cautions：入庫 per-source（fetch_extract/ocr_extract→ingest_one_source;勿 full wiki_index upload）;新源必加 SOURCE_SETS allowlist + registry entry + display sync 7 處（3 層 _meta.stats + app.html + index.html + K1_API_SPEC + README;app.html/index.html chunks 已 data-driven 但 _meta.stats 本身要改）。**未明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines.json facts / 勿跑 bump_version.py / 勿 reopen §E.10 重建 admin / 勿動 Stage-2 / 勿改 canonical chunker 或 shared 檢索 infra。**
+
+Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 14,276 / facts 455 三層 / guidelines 152 / knowledge.json stats 14,276·152 / onrender /health + manifest 401-gated）+ playbook INDEX 後，問 Leonard 想做邊樣（新功能方向 / cgss 窄 route / 其他），未明示前勿郁上述禁區。
+```
+
 ## 2026-06-08 Session 151 — app.html Channel A admin surface 完整移除 → 公眾完全 Channel-B-only（3 唯讀 tab）+ display 數字/version sync + de-jargon — CLOSED
 
 - **ID:** Claude_20260608_1335
