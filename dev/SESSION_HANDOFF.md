@@ -1,8 +1,8 @@
 # Session Handoff
 
 ## Current Baseline
-1. **Version / git**: v2.3.0（knowledge 凍結 @2.3.0、guidelines @2.5.0，無 bump — S151 app.html 改動唔 bump，displayVersion 由 `data._meta.version` 動態取）；git `main`=`origin/main` HEAD = **S152 commits**（`b4f04d4` ingest 7 Discovery 源 + closeout，疊喺 S151 `0705762` 上）；起手自行 verify HEAD==origin/main + Supabase **14,276**。
-2. **Frontend**: `index.html` landing；**`app.html` = Channel-B-only 唯讀 SPA（S151：admin 登入閘 + 知識提煉/知識管理 tab + CRUD/匯出/候選審核 全移除；淨 3 tab〔平台介紹/政策搜尋/指引文件〕+ 文件預覽抽屜；app.html 4100→2935 行 −1176）**；`t-purchase.html` draft flow（dormant）；`q.html` local knowledge.json Quick Q&A（dormant）。
+1. **Version / git**: v2.3.0（knowledge 凍結 @2.3.0、guidelines @2.5.0，無 bump — S151 app.html 改動唔 bump，displayVersion 由 `data._meta.version` 動態取）；git `main`=`origin/main` HEAD = **`6b91d8d`（S153 Channel B 搜尋 UX：分析放長 + 來源頁碼跳頁，疊喺 S152 `17423ea` 上）**；起手自行 verify HEAD==origin/main + Supabase **14,276**。
+2. **Frontend**: `index.html` landing；**`app.html` = Channel-B-only 唯讀 SPA（S151：admin 登入閘 + 知識提煉/知識管理 tab + CRUD/匯出/候選審核 全移除；淨 3 tab〔平台介紹/政策搜尋/指引文件〕+ 文件預覽抽屜；app.html 4100→2935 行 −1176）**；`t-purchase.html` draft flow（dormant）；`q.html` local knowledge.json Quick Q&A（dormant）。**S153：政策搜尋（Channel B）合成分析放長 ≤120→約250字（上限300 soft；live ~328）+ 來源頁碼喺結果顯示並可點跳去 PDF 第 N 頁。⚠️ app.html 有兩個搜尋 UI：React desktop `QAPanel`/`SourcesAccordion` + 手寫 mobile shell `mobile.js`（平板用）— 兩個 surface 都改咗；mobile 來源名亦改全中文(`displayName`) + 去走「原文·分數」badge。**
 3. **Knowledge state**: **455** Channel A facts（三層同步 byte-identical，md5 `720f5f`）、0 queue；Supabase **13,667** chunks（S148 13,473 → **S149 安全指引 +115**〔g18 校車+9 / g21 視藝+48 / g22 科技+58，文字層〕 → **S150 gifted +94**〔gifted_policy_docs +19 / gifted_tp_resource_kit +41 / gifted_osalp_compendium +19〕）；**新增 2 條 dedicated route**：`safety`(+keyword 校車/視藝安全/科技安全)、`gifted`(+keyword 資優/資賦)；指引（161 app / 152 公開 / **205** registry）；**display sync EXECUTED**（`_meta.stats` chunks→**13,667** 三層 byte-identical + app.html + K1_API_SPEC + README；guidelines 152 不變、無 bump、facts 455 不變）；Phase 3 全完成。**S151：app.html admin UI（知識提煉/知識管理/登入/CRUD/匯出）全移除 → 公眾完全 Channel-B-only；以上知識數字、role_facts/knowledge.json/guidelines.json 凍結資料與對外契約零接觸（admin 只係 client-side localStorage、無真實寫能力）。** **S152（2026-06-09）：Discovery 全量 triage（54 頁/400 候選）+ B-group 16 sibling-dup 全覆蓋確認（缺口清空）;入庫 7 個新發現源 +609 → Supabase **14,276**（三層 _meta.stats md5 720f5f→`4c3631` byte-identical）、registry 205→**212**;新源：`kgecg_2017`（幼稚園教育課程指引2017，補平台一直缺嘅 KG 課程）/`gifted_ge_series`/`cgss_2024`/`sch_calendar_guide`/`sch_activities_guide`/`k1_admission_2627`/`kg_admin_guide`，各加 SOURCE_SET route（curriculum/gifted/sen/hr_admin/activity/kg_admission）+ 2 keyword;display sync 7 處 14,276（facts 455/guidelines 152 不變、無 bump）。routed smoke 6/7 surface 帶頁;`cgss_2024` in-route 但 rank 低 top-8（monitor）。**
 4. **Backend**: Channel A+B+A+B search APIs live at `https://edb-knowledge.onrender.com`；**Q4 Phase 2 NEW**: `GET /api/channel-b/manifest` + `POST /api/channel-b/chunks`（X-Sync-Key gated，`CHANNEL_B_SYNC_KEY` set on Render；live smoke PASS：13 欄 + anon reads embedding 1536-vec confirmed）；rate limiting 10 req/min/IP + sync 60/min。
 5. **Channel A frozen @455**（Q4 Phase 1 EXECUTED S143）：knowledge.json 停更 @455（schema 不變、下游零改變）；pipeline dormant 可逆；endpoint 不刪；guidelines.json 不凍續 live @152 v2.5.0。
@@ -103,11 +103,11 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-> 產品方向：**全棧 Channel-B-only**（**S151：app.html admin 登入 + Channel-A 策展 UI〔知識提煉/知識管理/CRUD/匯出〕全移除**；Phase 3 全完成；Stage-2 closed）。Channel A frozen @455（資料仍餵對外契約）。**Q4 Phase 2 全鏈完成**。主線 **0 outstanding bug**；以下全屬可選、冇緊急。
+> 產品方向：**全棧 Channel-B-only**（**S151：app.html admin 登入 + Channel-A 策展 UI〔知識提煉/知識管理/CRUD/匯出〕全移除**；Phase 3 全完成；Stage-2 closed）。Channel A frozen @455（資料仍餵對外契約）。**Q4 Phase 2 全鏈完成**。**S153：政策搜尋（Channel B）分析放長(≤120→約250字) + 來源頁碼可顯示/跳 PDF 第 N 頁（desktop + mobile 兩個 surface）已 ship。** 主線 **0 outstanding bug**；以下全屬可選、冇緊急。
 
 1. **Channel B 補入庫 — 完成 + Discovery 增量（S152）**：B-group 16 sibling-dup **全覆蓋確認**（同現行主 PDF 在庫、url-match 決定性）；Discovery 全量 triage 跑咗（54頁/400候選）→ 揀出真‧新候選 **全做入庫 7 源 +609 → Supabase 14,276**（`kgecg_2017` 補 KG 課程缺口 / gifted_ge_series / cgss_2024 / sch_calendar_guide / sch_activities_guide / k1_admission_2627 / kg_admin_guide）。**現行主指引內容缺口清空。** 餘 ~390 discovery candidates 已 triage = noise/old-version/語言變體/已覆蓋，無再入。新源入庫流程：fetch_extract/ocr_extract → ingest_one_source → SOURCE_SETS allowlist〔S135〕+ registry entry → **display 7 處**（3 層 _meta.stats + app.html + index.html + K1_API_SPEC + README）→ routed smoke。
 2. **自動發現 + freshness 週跑（detection-only）**：`discover_sources.py`（每週一 10:00 UTC，**已跑過全量 S152**）續 diff 未登記新文件；freshness（每週一 09:00）監察已登記源改版/死链。下次只睇新 diff。
-3. **既有 deferred / monitor-only**：**NEW `cgss_2024` routed rank 低 top-8**（17ch 補充特殊學校資源、輸主 g10/g19；in-route + direct-RPC 攞到；要 surface 須另開窄 route、17ch 唔值）/ gifted 查詢含「CPD」詞 → cpd first-match / gifted_osalp catalogue 排名低 / phys_sss routed-UI 限制（Leonard 接受）/ §8b rule 2 / Suppl_guide held / §E.10(a) CLOSED-BY-REMOVAL / FAIL-A record-only / 57014 cold-start / `stats.sources`=120 cosmetic-stale（live ~212）。**S151 已修 chunks data-driven + UI de-jargon（chip done）。**
+3. **既有 deferred / monitor-only**：**NEW `cgss_2024` routed rank 低 top-8**（17ch 補充特殊學校資源、輸主 g10/g19；in-route + direct-RPC 攞到；要 surface 須另開窄 route、17ch 唔值）/ gifted 查詢含「CPD」詞 → cpd first-match / gifted_osalp catalogue 排名低 / phys_sss routed-UI 限制（Leonard 接受）/ §8b rule 2 / Suppl_guide held / §E.10(a) CLOSED-BY-REMOVAL / FAIL-A record-only / 57014 cold-start / `stats.sources`=120 cosmetic-stale（live ~212）/ **NEW S153：synthesis live ~328 字略過 300 soft cap（gpt-4.1-nano 近似控制；要更短可收 prompt）**。**S151 已修 chunks data-driven + UI de-jargon（chip done）；S153 政策搜尋 UX（分析放長 + 頁碼跳頁 desktop+mobile）done。**
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 - g21/g22/g33 直連 PDF 補完（user browser）— Session 105 audit 揭發三者 source_type='pdf' 但 url_primary 缺
@@ -117,27 +117,27 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## Last Session Record
 1. UTC date: 2026-06-09
-2. Session ID: Claude_20260609_1004 (S152)
+2. Session ID: Claude_20260609_1230 (S153)
 3. Completed:
-   - ✅ **[起手核實 全 live]** HEAD `0705762`==origin/main / facts 455 三層(md5 720f5f) / Supabase 13,667 / guidelines 152 / onrender /health 200 + manifest 401 / app.html admin 0 + 無 10,736。
-   - ✅ **[Task 2 — B-group 補驗 全覆蓋]** 16 sibling-dup 全 **COVERED**（同現行主 PDF 在庫、url-match 決定性：arts→g37 / pe→pe_kla_2017 / cs→ict_sss_2021 / pecg_2024_landing→g06 / g31/g32/g39→eng_pri/g35/tech_kla / moral_civic→mce_framework_2008 / +6 control reconfirm）。`g08`(中文 Exemplar)= 補充示例非主指引（主 CLEKLAG=g09 在庫）。缺口清空。Lesson：`(2025)` 括號 URL-encode 假負，要 parens-safe。
-   - ✅ **[Task 1 — Discovery 全量 triage]** `discover_sources.py --check` 全量：54 watch pages / 400 candidates / 0 error / 0 js_suspect。噪音過濾 + 逐個 url-probe 對庫 → 揀真‧未入庫候選。
-   - ✅ **[全做 — 入庫 7 源 +609 → 14,276]** kgecg_2017(108、**補平台一直缺嘅 KG 課程指引**)/gifted_ge_series(346)/cgss_2024(17)/sch_calendar_guide(6)/sch_activities_guide(102)/k1_admission_2627(25)/kg_admin_guide(5)。全 text-layer page-resolvable。各加 SOURCE_SET route(curriculum/gifted/sen/hr_admin/activity/kg_admission)+ 2 keyword;registry 205→212;display 7 處 14,276(md5 720f5f→4c3631;facts 455/guidelines 152 不變、無 bump)。
-   - ✅ **[QC]** typecheck+build PASS;semantic regression PASS=9 + 2 已知 FAIL **0 新增**;direct match_wiki_chunks RPC 7 源全 retrievable;**routed smoke(onrender) 6/7 surface 帶頁**(kgecg #1 p19 / sch_activities #1 p5 / kg_admin #1 p2 / k1_admission #1〔proper query〕/ gifted_ge #3-6 / sch_calendar #8);`cgss_2024` ABSENT(in-route + direct-RPC 攞到、但 rank 低 top-8)。0 change Channel A facts/schema/RPC/下游/canonical chunker。
-4. Pending（全屬可選）: cgss_2024 surface 窄 route(monitor) / discovery 週跑新 diff。**0 outstanding bug。**
+   - ✅ **[起手核實 全 live]** HEAD `17423ea`==origin/main / facts 455 三層(md5 4c3631) / Supabase 14,276(content-range 0-999/14276) / guidelines 152 / knowledge.json stats 14,276·152 / onrender /health 200 + manifest 401。
+   - ✅ **[分析放長]** `SYNTHESIS_PROMPT` 不超過120字 → 約250字(上限300 soft) — `searchChannelB.ts` + `searchCombined.ts`;`llmClient` Responses API 無 max_output_tokens cap，prompt 係唯一長度閘。post-deploy live = **328 字**(≈target, monitor)。
+   - ✅ **[頁碼顯示/跳頁 — desktop]** app.html `runChannelB` 補 map `page`(之前漏咗、只 `runCombined` 有)→ `SourcesAccordion` 頁碼出 + 升級可點 `url#page=N`(PDF only);同時去「最高相關度 X.XX」分數(Leonard)。
+   - ✅ **[頁碼 + 中文名 + 去分數 — mobile]** **browser-verify 揭發第二 surface `mobile.js`(手寫 mobile shell，平板用)**:結果卡顯示頁碼 + 抽屜「看 EDB 原文（第 N 頁）」跳 `url#page=N` + 來源名全中文 `displayName`(SOURCE_LABEL→r.title→'EDB 文件'、永不 raw English sid) + 去走「原文 · 0.50」badge(approved_fact 保留 ✅已核實)。
+   - ✅ **[QC]** typecheck+build+`node --check mobile.js` PASS;semantic regression PASS=9 + 2 已知 FAIL **0 新增**;**雙 surface live browser-verify(fetch stub)**:desktop 4 個 `#page` link + 無分數 / mobile 中文名+頁N+`#page=8`跳+無原文分數 / 非-PDF 無頁碼;**post-deploy curl** synthesis 135→328 字 + 全 result 帶 page;0 console error;無 XSS(page 數字/url escape/React escape)。0 change Channel A facts/schema/RPC/下游/canonical chunker、無 bump。
+4. Pending（全屬可選）: synthesis ~328 略過 300 soft cap(monitor) / 其餘見 Open Priorities。**0 outstanding bug。**
 5. Next priorities: 見 Open Priorities。
 6. Risks / blockers:
    - 🟢 **0 outstanding bug**。
-   - ⚠️ **`cgss_2024` routed rank 低 top-8**(17ch 補充特殊學校資源、輸主 g10/g19;in-route+direct-RPC 攞到;要 surface 須另開窄 route、唔值)= monitor(phys_sss pattern)。
-   - ⚠️ **入庫 display sync = 7 處**(3 層 _meta.stats + app.html + index.html + K1_API_SPEC + README;app.html/index.html chunks 已 data-driven 但 `_meta.stats` 本身要改 → 改 3 JSON layer + 4 doc;app.html/index.html 嘅 chunks 數值喺 INITIAL_DATA/data-stat 仍要更新)。
-   - 既有：app.html admin 永久移除(重建走 §3+真 server-auth、勿復活 cosmetic gate §E.10/§F.11) / gifted+CPD precedence / phys_sss routed-UI(Leonard 接受) / Channel A frozen @455 / 57014 cold-start / Stage-2 closed / 大 OCR pace TPM / 新源必加 SOURCE_SETS+registry / egress 自測 / 路徑空格雙引號 / wiki_chunks 欄名 `text` / 結構天花板源勿 ingest / commit 必入 SESSION_LOG / 勿改 canonical chunker / stats.sources=120 cosmetic-stale。
-7. commits: `b4f04d4`(S152 ingest 7 Discovery 源 + routing + display) → **S152 closeout commit**(governance docs)。
+   - ⚠️ **app.html 有兩個搜尋 UI**:React desktop `QAPanel`/`SourcesAccordion` + 手寫 `mobile.js` shell(平板用) — **任何 政策搜尋 結果渲染改動必須兩邊都改**(S153 學到;screenshot 救咗一個本會 desktop-only 嘅漏)。
+   - ⚠️ **synthesis live ~328 字略過 300 soft cap**(gpt-4.1-nano 近似控制;過長可收 prompt) = monitor。
+   - 既有：`cgss_2024` routed rank 低 top-8(monitor) / app.html admin 永久移除(重建走 §3+真 server-auth、勿復活 §E.10/§F.11 cosmetic gate) / gifted+CPD precedence / phys_sss routed-UI(Leonard 接受) / Channel A frozen @455 / 入庫 display sync 7 處 / 新源必加 SOURCE_SETS+registry / 57014 cold-start / Stage-2 closed / 路徑空格雙引號 / wiki_chunks 欄名 `text` / commit 必入 SESSION_LOG / 勿改 canonical chunker / stats.sources=120 cosmetic-stale。
+7. commits: `6b91d8d`(S153 Channel B 搜尋 UX：searchChannelB.ts/searchCombined.ts/app.html/mobile.js) → governance closeout commit。
 
 ## Previous Session Record
-1. UTC date: 2026-06-08
-2. Session ID: Claude_20260608_1335 (S151)
-3. Completed: app.html Channel A admin surface 完整移除 → 公眾完全 Channel-B-only(3 唯讀 tab;登入閘+知識提煉/知識管理+CRUD/匯出+候選審核全刪;4100→2935 行)。§E.10(a) CLOSED-BY-REMOVAL、§F.11 locked。同 session：display 數字 data-driven + UI 去 Channel A/B 內部字眼。QC：grep 0 dangling + live render 0 console error + 對抗 review PASS。
-4. commits: `503b07b`(admin-removal)→`0705762`(display/de-jargon closeout)。
+1. UTC date: 2026-06-09
+2. Session ID: Claude_20260609_1004 (S152)
+3. Completed: Discovery 全量 triage(54頁/400候選/0 error) + B-group 16 sibling-dup 全覆蓋確認 + 入庫 7 新發現源 +609 → Supabase 13,667→**14,276**(kgecg_2017 補 KG 缺口 / gifted_ge_series / cgss_2024 / sch_calendar_guide / sch_activities_guide / k1_admission_2627 / kg_admin_guide);各加 SOURCE_SET route + 2 keyword;registry 205→212;display 7 處 14,276(facts 455/guidelines 152 不變、無 bump)。QC：typecheck/build PASS、regression 0 新 FAIL、direct RPC 全 retrievable、routed smoke 6/7 帶頁(cgss_2024 in-route rank 低 = monitor)。
+4. commits: `b4f04d4`(ingest 7 源 + routing + display) → `17423ea`(closeout governance)。
 
 
 ## Session Close Checklist (每次 session 結束必須執行)

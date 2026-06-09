@@ -2,6 +2,58 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-09 Session 153 — Channel B 政策搜尋 UX：分析放長(120→約250字) + 來源頁碼顯示/跳頁(desktop+mobile) + mobile 全中文檔名/去分數 — CLOSED (deployed)
+
+- **ID:** Claude_20260609_1230
+- **Trigger:** Leonard「Channel B 已成熟，分析可稍長 + 未見頁數可直接 refer 文件」→ PLAN(約250字 + 頁碼顯示/跳頁) → CHANGE → 中途 browser-verify 揭發第二 surface(mobile.js) → 再 Leonard「mobile 檔名要全中文 + 去走原文/0.50」+「desktop 都去分數」→ 全部部署。
+- **起手自測（全 live）:** HEAD `17423ea`==origin/main / facts 455 三層(md5 4c3631) / Supabase **14,276**(content-range 0-999/14276) / guidelines 152 / knowledge.json stats 14,276·152 / onrender /health 200 + manifest 401 ✓.
+- **§3 Risk:** HIGH（backend deploy + app.html 單檔 + mobile.js）→ PLAN + AskUserQuestion 確認長度/頁碼方式，未即改。
+
+### READ — 兩個小根因（verify-in-browser）
+- 合成寫死 120 字（`SYNTHESIS_PROMPT` literal；`llmClient` Responses API 無 max_output_tokens cap → prompt 係唯一長度閘）。
+- backend 一直返 per-result `page`（`extractFirstPage`），`SourcesAccordion` 早有頁碼顯示碼 — 但 app.html `runChannelB` map results **漏咗 `page`**（只 `runCombined` 有）→ 頁碼永不顯示。
+- **Browser-verify 揭發第二 surface**：app.html `<script src=mobile.js>` = React `#root` 以外嘅手寫 mobile shell（`body.mobile-shell-active`，Leonard 平板用嘅就係呢個）；結果卡/抽屜都冇頁碼、且顯示英文 raw source_id + 「原文 · 0.50」。
+
+### CHANGE（4 檔）
+- `searchChannelB.ts`+`searchCombined.ts`：`SYNTHESIS_PROMPT` 不超過120字 → 約250字(上限300, soft)。
+- `app.html`：`runChannelB` map `page`；`SourcesAccordion` 頁碼→可點 `url#page=N`(PDF only) + 去「最高相關度 X.XX」分數。
+- `mobile.js`：結果卡顯示頁碼；bottom-sheet「看 EDB 原文（第 N 頁）」跳 `url#page=N`；來源名全中文 `displayName`(SOURCE_LABEL[sid]→r.title→'EDB 文件'，永不 raw English sid)；去走「原文 · 0.50」channel-badge+score（approved_fact 保留 ✅已核實）。
+
+### QC
+- typecheck+build PASS；`node --check mobile.js` PASS；semantic regression PASS=9 + 2 已知 FAIL(FAIL-A finance / FAIL-B stale 1.3.1 assert)，0 新增；無 XSS（page 數字 / url escapeHTML / React escape）；0 console error。
+- **live browser-verify 雙 surface（fetch stub）**：desktop SourcesAccordion = 4 個 `#page=N` link + 「N 個片段 · 頁 …」無分數；mobile = 中文名(資優教育政策文件及指引) + 頁 N + 抽屜跳 `#page=8` + 無 原文/分數；非-PDF/無頁 source 正確無頁碼/連結。
+- **post-deploy curl smoke**：synthesis 135→**328 字** live（≈target，soft cap）；backend 全 result 帶 page。
+- **0 change to** Channel A / knowledge·guidelines.json facts / schema / RPC / 下游 repo / canonical chunker；**無 version bump**（app.html precedent，displayVersion data-driven）。response schema 不變（synthesis 仍 string；`page` 早在 `ChannelBResult`）。
+
+### Doc Sync（DOC_SYNC row: Product behavior / tuning change）
+- CODEBASE searchChannelB 描述(≤120→約250 + page surfaced in UI) + AI-log S153；SESSION_HANDOFF baseline/Last/Previous/Open Priorities/risks；本 entry。
+
+### Follow-up / lessons
+- **Lesson**：app.html 有**兩個搜尋 UI**（React desktop `QAPanel` + vanilla `mobile.js` shell）— 任何 政策搜尋 結果渲染改動必須兩邊都改；verify-in-browser 嘅 screenshot 救咗一個本來會 desktop-only 嘅漏（Leonard 平板用 mobile shell）。
+- **Monitor**：synthesis ~328 字略過 300 soft cap（gpt-4.1-nano 對 prompt 長度近似控制）— 過長可再收 prompt。
+- **Lesson**：preview 嘅 `<script src=mobile.js>` 唔會被 doc-level cache-bust query 清；要 `fetch(url,{cache:'reload'})` + reload 先 load 到新 mobile.js（browser-cache，非 SW；已確認 0 service-worker）。
+- **Log maintenance（§4a）:** SESSION_LOG <400 行、最舊 <30d → no-op。
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md。起手自行 verify git HEAD==origin/main + Supabase total（應 14,276）+ knowledge.json frozen 455 + knowledge.json._meta.stats（應 14,276/152）+ onrender /health + manifest 401-gated。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑空格雙引號）。python3。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 預設。回覆中文。
+
+S153 (2026-06-09)：**Channel B 政策搜尋 UX — 分析放長 + 來源頁碼可顯示/跳頁（desktop + mobile）+ mobile 全中文檔名/去分數**。已 deploy（HEAD `6b91d8d`，Render redeploy backend + GitHub Pages 出 app.html/mobile.js）。(1) SYNTHESIS_PROMPT 120→約250字(上限300 soft；live ~328)（searchChannelB.ts + searchCombined.ts）。(2) app.html runChannelB map `page` + SourcesAccordion 頁碼→可點 `url#page=N`(PDF) + 去「最高相關度」分數。(3) **app.html load 第二 surface `mobile.js`（手寫 mobile shell，平板用）**：結果卡顯示頁碼 + 抽屜「看EDB原文（第N頁）」跳頁 + 來源名全中文(displayName) + 去走「原文·0.50」badge。QC：typecheck/build/node-check PASS、regression 0 新 FAIL、雙 surface live-verify、post-deploy synthesis 328 字。**0 change to Channel A/knowledge·guidelines facts/schema/RPC/下游/canonical chunker；無 bump。0 outstanding bug。**
+
+Pending（全屬可選、冇緊急）:
+1. monitor：synthesis ~328 字略過 300 soft cap（要更短可收 prompt）/ cgss_2024 routed rank 低 top-8 / gifted+CPD precedence / phys_sss routed-UI / freshness+discovery 週跑 / 57014 cold-start / stats.sources=120 cosmetic-stale。
+2. discovery 餘 ~390 candidates 已 triage = noise/old/variant/已覆蓋；下次只睇新 diff。
+
+⚠️ Cautions：**app.html 有兩個搜尋 UI（React desktop QAPanel + vanilla `mobile.js` shell）— 任何 政策搜尋 結果渲染改動必須兩邊都改**。入庫 per-source（fetch_extract/ocr_extract→ingest_one_source；勿 full wiki_index upload）；新源必加 SOURCE_SETS allowlist + registry + display sync 7 處。**未明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines facts / 勿 bump_version / 勿 reopen §E.10 重建 admin / 勿動 Stage-2 / 勿改 canonical chunker 或 shared 檢索 infra。**
+
+Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 14,276 / facts 455 三層 / guidelines 152 / stats 14,276·152 / onrender /health + manifest 401）+ playbook INDEX 後，問 Leonard 想做邊樣，未明示前勿郁禁區。
+```
+
 ## 2026-06-09 Session 152 — Discovery 全量 triage + B-group 補驗（全覆蓋確認）+ 入庫 7 個新發現源 → Supabase 14,276 — CLOSED
 
 - **ID:** Claude_20260609_1004
