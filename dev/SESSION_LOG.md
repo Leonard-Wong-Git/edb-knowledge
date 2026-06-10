@@ -2,7 +2,7 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
-## 2026-06-10 Session 154 — NEW 文件分析功能：第 4 個公開 tab + POST /api/analyze-document（上載文件逐段比對 EDB 指引）— SHIPPED (deployed)
+## 2026-06-10 Session 154 — (1) NEW 文件分析功能（第 4 公開 tab + POST /api/analyze-document）+ (2) IMC/SBM 校董會治理入庫 +229 — BOTH SHIPPED (deployed)
 
 - **ID:** Claude_20260610_0100
 - **Trigger:** Leonard 揀「新功能方向」→ 釘實 scope「用戶上載學校文件，系統加上相關指引資料及內容，輸回上傳者」→ AskUserQuestion 定格式(PDF文字層/docx/貼文字、無OCR)+輸出(Phase 1 螢幕報告、Phase 2 目標可下載標註文件)+私隱(交我評估→hybrid) → 中途 Leonard 問「香港 IP 出 OpenAI 會否被 block」→ 核實答覆 → `/goal 全力進行` 批准 PLAN 全速執行。
@@ -34,27 +34,45 @@
 - **Lesson**：`req.destroy()` 喺 reject 後即斷 socket = client 永遠見唔到 413；要 removeAllListeners + resume drain 先寫到 response。
 - **Lesson（複用勝自建）**：每段直接調用 `searchChannelB` 公開 API（synthesize:false）= routing/頁碼/清洗/degraded 全部免費複用 + shared infra 零修改；好過 import 私有 helper 或自己打 searchWiki。
 - **Log maintenance（§4a）:** 加本 entry 前 285 行（<400）、最舊 S149-150（2026-06-08，<30d）→ no-op。
-- commits: `a6547c6`（code）→ 本 governance commit。
+- commits: `a6547c6`（文件分析 code）→ `d17c25d`（文件分析 governance）。
+
+---
+
+### ═══ PART 2 — IMC/SBM 校董會治理入庫 +229（同 session 接續）═══
+- **Trigger:** Leonard：「指引欠校董會治理本體，都需要加入」+ 5 條 sbm.edb.gov.hk URL（3 加入：成立運作Ch5 / references index / 簡介會QA；2 Monitor：code-of-aid-IMC index + sch-admin-guide index）。
+- **READ:** probe 3 URL 全 live；庫內 IMC 覆蓋 = g02(財務)+coa_imc_1_19(則例)+sag/g24(行政手冊)+sdp_guide — **缺校董會成立/運作/角色/會議/選舉治理本體**。Crawl references 子頁（imc-operation/sbm-documents/manager-election，靜態 href 可抽）enumerate 全套治理 PDF。**發現已有 `gov_admin` route 但喺 finance 之後，而 finance 佔 `法團校董` token（為 g02）→ 校董會查詢全 route 去 finance、治理源永不 surface**（retrieve-then-filter + 路由 precedence；phys_sss/cgss 同類教訓）。
+- **Pre-flight:** 12 候選 PDF 全下載驗 → 全 **TEXT-OK**（U+FFFD=0、txtpg=全頁、page-resolvable、毋須 OCR）。對 Supabase url-match 查重 = 0（無 sbm host chunk、無該 source_id）。
+- **設計決定（page 正確性）:** grouped 源連續頁碼 → `url#page=N` 只對第一份 PDF 準、appended overshoot；既然啱 ship 咗頁碼跳頁(S153)+文件分析賣點，**改 2-grouped → 4 源拆法**：`imc_establishment_operation`(2014手冊82pp 獨立) + `imc_briefing_qa`(QA2013 34pp 獨立) = 頁碼全對 62% 內容；`imc_governance_supplements`(6 細PDF) + `imc_election_guides`(4 PDF) 分組（細補充/選舉，第一份準）。
+- **CHANGE:** fetch_extract 4 源 → ingest_one_source live（Supabase 14,276→**14,505**：97+48+27+57，per-source before=0 after=count 確認）。NEW `school_governance` route：SOURCE_SETS（4 新源 + g02 + coa_imc_1_19 + sdp_guide + role_facts_general）+ TOPIC_KEYWORDS `/法團校董會|校董會|校董|校監|辦學團體|學校管理委員會|校本條例/` **擺 finance 前**（governance nouns only，純財務 採購/招標/報價 唔含校董→唔被偷；`學校管理委員會` 全詞避免偷 safety `安全管理委員會`）。registry 212→216（4 entry，url_landing=sbm references 子頁→discovery 將來 watch SBM corner）。display sync 7 處 14,505（三層 md5 4c3631→**1bf7fd** byte-identical + app.html + index.html + K1_API_SPEC + README；facts 455/guidelines 152 不變、無 bump）。
+- **Monitor（Leonard「要 Monitor 住」）:** code-of-aid-IMC + sch-admin-guide 兩 index 頁**已喺 discover_sources.py watch-list**（coa_imc_1_19 + sag_2025_11/g24 嘅 url_landing；collect_watch_pages 收 edb.gov.hk + 結尾 .html|/）→ 週跑已 cover、**無需改動**。
+- **QC:** typecheck+build exit 0；routed smoke 4/4：法團校董會職權→imc_briefing_qa/establishment/supplements 帶正確頁、校董選舉→imc_election_guides #1、校董會會議→establishment+election+supplements、**採購門檻報價→g01/fin_mgmt/role_facts_finance（finance 唔被偷）**；semantic regression PASS=9+notes=1+既知 2 FAIL **0 新增**；browser-verify desktop（resize 1400，避開 mobile.js IIFE）About 14,505 + qa 副標「14,505 個 EDB 原文知識片段」+ 0 console error；**對抗覆核 subagent PASS-with-flags 0 critical**（12-query regex trace 確認治理 surface + finance/safety/conduct/hr/curriculum 零誤偷、`學校管理委員會`.test(`安全管理委員會`)=false、3 層 md5 byte-identical、facts 455 凍、version 2.3.0）；**post-deploy onrender 治理 route live（imc_* surface 帶頁、synthesis 373 字、finance intact）+ policychecker.wongfu.net 顯示 14,505 / 0 stale**。
+- **Non-blocking flags（對抗覆核）:** gov_admin+finance 嘅 `法團校董` token 被 school_governance shadow 變 dead（無害可清）；`校政管理`/`校本管理`-alone gap → fall-through whole-index（非誤路）。grouped 源頁碼 overshoot = monitor。
+- **Lesson:** (1) 路由 precedence — 新 route 要避開「上游 route 已佔關鍵 token」陷阱（finance 佔 法團校董 → governance 要擺前）；(2) grouped 連續頁碼 trade-off — 大文件獨立保頁碼正確，細 fragment 先分組；(3) **commit message `-m` 雙引號內反引號 ``school_governance`` 觸發 shell command substitution → message 嗰個位變空**（`46376f4` message 漏咗該詞，cosmetic）→ 教訓：`-m` 用單引號或避反引號。
+- **DOC_SYNC:** 「Channel-B vault source backfill」row（已 registered）：registry 4 / SOURCE_SETS+TOPIC_KEYWORDS / HANDOFF baseline 14,505+216 / SESSION_LOG / CODEBASE AI-log + display 7 處 14,505。
+- **0 change to** wikiRepository.ts / analyzeDocument.ts / knowledge·guidelines facts / schema / RPC / mobile.js / 下游 / canonical chunker。commits: `46376f4`（IMC code+data）→ 本 governance commit。
 
 ### Next Session Handoff Prompt (Verbatim)
 ```text
 Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 
-⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md。起手自行 verify git HEAD==origin/main + Supabase total（應 14,276）+ knowledge.json frozen 455 + knowledge.json._meta.stats（應 14,276/152）+ onrender /health + manifest 401-gated + app.html 四 tab（#analyze 文件分析在內）。
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md。起手自行 verify git HEAD==origin/main + Supabase total（應 14,505）+ knowledge.json frozen 455 + knowledge.json._meta.stats（應 14,505/152）+ onrender /health + manifest 401-gated + app.html 四 tab（#analyze 文件分析在內）。
 
 ⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑空格雙引號）。python3。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 預設。回覆中文。
 
-S154 (2026-06-10)：**NEW 文件分析功能 SHIPPED — 第 4 個公開 tab + POST /api/analyze-document**。用戶上載 PDF(文字層)/docx 或貼文字 → client-side 抽取（pdf.js 3.11.174 UMD + mammoth 1.6.0 CDN；原始檔永不上載）→ 後端分段（<30字 stub 前併/>1200 句界切/12 段 cap/60k 字 cap）→ 每段經 searchChannelB 公開 API（synthesize:false top_k=4 併發 4，shared infra 零修改）→ 一次 LLM 逐段提示（best-effort）→ 逐段報告（指引 url#page=N link + https-only allowlist + 無分數 + fail-visible 三態 + 私隱提示 + stateless）。server.ts readJsonBody +optional maxBytes（淨新 route ~244KB→413；修咗 RST-before-413 bug）。QC：typecheck/build/unit/local-e2e(遊學團→sch_activities p91/採購→g01/校車→g18 全帶頁)/regression 0 新 FAIL/browser-verify 10/10/對抗覆核 PASS-with-flags 0 critical(href allowlist 已修)。**0 change to Channel A/knowledge·guidelines facts/schema/RPC/searchChannelB/wikiRepository/mobile.js/下游/canonical chunker；無 bump。0 outstanding bug。** Code commit a6547c6。
+S154 (2026-06-10) 兩件事都 SHIPPED：
+(1) **NEW 文件分析功能 — 第 4 公開 tab + POST /api/analyze-document**。用戶上載 PDF(文字層)/docx 或貼文字 → client-side 抽取（pdf.js 3.11.174 UMD + mammoth CDN；原始檔永不上載）→ 後端分段（<30字 stub 前併/>1200 句界切/12 段/60k 字 cap）→ 每段經 searchChannelB 公開 API（synthesize:false，shared infra 零改）→ 逐段報告（指引 url#page=N link + https-only allowlist + fail-visible + 私隱提示 + stateless）。server.ts +maxBytes（~244KB→413；修咗 RST-before-413）。
+(2) **IMC/SBM 校董會治理入庫 +229 → Supabase 14,505**（Leonard：指引欠校董會治理本體）。4 源（sbm.edb.gov.hk references，全文字層 page-resolvable）：imc_establishment_operation(成立運作手冊2014, 97ch)/imc_briefing_qa(簡介會QA2013, 48ch)/imc_governance_supplements(Ch5/角色/會議/法例/良好管治/守則 6PDF, 27ch)/imc_election_guides(家長/教師/校友選舉+五步曲 4PDF, 57ch)。**新 school_governance route 擺 finance 前**（finance 佔 法團校董 token 為 g02，唔擺前則校董會查詢全 route 去 finance、治理本體永不 surface；SOURCE_SET 連 g02+coa_imc_1_19+sdp_guide）。registry 212→216；display 7 處 14,505（三層 md5 1bf7fd byte-identical、facts 455/guidelines 152 不變、無 bump）。**2 個 Monitor index 頁（code-of-aid-IMC + sch-admin-guide）已喺 discover watch-list — 已 cover、無需改。**
+QC：typecheck/build/regression 0 新 FAIL；文件分析 local-e2e + browser-verify 10/10；IMC routed smoke 4/4（治理 surface 帶正確頁 + 採購/招標留 finance）；兩個對抗覆核 PASS-with-flags 0 critical；post-deploy onrender 兩功能 live + policychecker.wongfu.net 14,505。**0 change to Channel A/knowledge·guidelines facts/schema/RPC/wikiRepository/mobile.js/下游/canonical chunker；無 bump。0 outstanding bug。** Commits a6547c6+d17c25d(文件分析) / 46376f4(IMC)。
 
 Pending（全屬可選、冇緊急）:
 1. 文件分析 Phase 1.5 = mobile.js 平板 shell 加入口；Phase 2 = 可下載標註文件（PDF/Word 旁註輸出）。
-2. S154 monitor：LLM 逐段提示 best-effort（缺 note 唔影響 matches）/ degraded「請重試」措辭喺 unconfigured 時誤導（prod 唔會發生）/ Azure OpenAI fallback 路徑已查明（llmClient+embeddingClient swap、HK 帳號層風險用）。
-3. 既有 monitor：synthesis ~328 字 soft cap / cgss_2024 rank 低 / gifted+CPD precedence / phys_sss / freshness+discovery 週跑只睇新 diff / 57014 cold-start / stats.sources=120 cosmetic-stale。
+2. S154 monitor：IMC grouped 源（supplements/election）連續頁碼 url#page=N 只對第一份 PDF 準、appended overshoot（兩份大文件獨立=全對）；gov_admin/finance 嘅 法團校董 token 被 shadow 變 dead（無害）；LLM 逐段提示 best-effort；Azure OpenAI fallback 已查明（llmClient+embeddingClient swap、HK 帳號層風險用）。
+3. 既有 monitor：synthesis ~328 字 soft cap / cgss_2024 rank 低 / gifted+CPD precedence / phys_sss / freshness+discovery 週跑只睇新 diff / 57014 cold-start / stats.sources=120 cosmetic-stale（live ~216）。
 
-⚠️ Cautions：**文件分析私隱姿態 = 原始檔永不上載 + 文字經 server→OpenAI stateless** — 改 data flow 必須同步改 UI 私隱文案。app.html 兩個搜尋 UI（React desktop + mobile.js shell）政策搜尋改動要兩邊改；文件分析目前淨 desktop（已知 scope）。入庫 per-source + SOURCE_SETS + display 7 處照舊。**未明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines facts / 勿 bump_version / 勿 reopen §E.10 admin / 勿動 Stage-2 / 勿改 canonical chunker 或 shared 檢索 infra。**
+⚠️ Cautions：**文件分析私隱姿態 = 原始檔永不上載 + 文字經 server→OpenAI stateless** — 改 data flow 必改 UI 私隱文案。app.html 兩個搜尋 UI（React desktop + mobile.js shell）政策搜尋改動要兩邊改；文件分析淨 desktop（已知 scope）。入庫 per-source（fetch_extract→ingest_one_source；勿 full wiki_index upload）+ 新源必加 SOURCE_SETS allowlist + registry + display 7 處 + grouped 源大文件獨立保頁碼。**commit `-m` 用單引號/避反引號（反引號觸發 shell substitution）。未明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines facts / 勿 bump_version / 勿 reopen §E.10 admin / 勿動 Stage-2 / 勿改 canonical chunker 或 shared 檢索 infra。**
 
-Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 14,276 / facts 455 三層 / guidelines 152 / stats 14,276·152 / onrender /health + manifest 401 + 文件分析 live smoke〔POST /api/analyze-document 短文字〕）+ playbook INDEX 後，問 Leonard 想做邊樣（文件分析 Phase 1.5/Phase 2 / 其他），未明示前勿郁禁區。
+Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 14,505 / facts 455 三層 / guidelines 152 / stats 14,505·152 / onrender /health + manifest 401 + 文件分析 live smoke + 校董會 routed smoke〔「法團校董會職權」應 surface imc_* 帶頁〕）+ playbook INDEX 後，問 Leonard 想做邊樣，未明示前勿郁禁區。
 ```
 
 ## 2026-06-09 Session 153 — Channel B 政策搜尋 UX：分析放長(120→約250字) + 來源頁碼顯示/跳頁(desktop+mobile) + mobile 全中文檔名/去分數 — CLOSED (deployed)
