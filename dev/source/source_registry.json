@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-06-05",
+    "updated": "2026-06-10",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -5836,6 +5836,82 @@
       "last_checked_at": "2026-06-09",
       "supersedes": null,
       "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (5 chunks, text-layer fetch_extract). In SOURCE_SETS."
+    },
+    {
+      "source_id": "imc_establishment_operation",
+      "title": "法團校董會的成立與運作（校本管理手冊2014）",
+      "title_short": "校董會成立運作",
+      "url_landing": "https://sbm.edb.gov.hk/tc/references/sbm-documents/",
+      "url_primary": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2013-2025",
+      "last_checked_at": "2026-06-10",
+      "supersedes": null,
+      "notes": "S154 (2026-06-10): SBM-governance backfill (Leonard 指 指引欠校董會治理). Ingested 97 chunks text-layer. In SOURCE_SETS.school_governance."
+    },
+    {
+      "source_id": "imc_briefing_qa",
+      "title": "法團校董會簡介會問答（2013）",
+      "title_short": "校董會簡介問答",
+      "url_landing": "https://sbm.edb.gov.hk/tc/references/imc-operation/",
+      "url_primary": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2013-2025",
+      "last_checked_at": "2026-06-10",
+      "supersedes": null,
+      "notes": "S154 (2026-06-10): SBM-governance backfill (Leonard 指名). Ingested 48 chunks text-layer. In SOURCE_SETS.school_governance."
+    },
+    {
+      "source_id": "imc_governance_supplements",
+      "title": "法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）",
+      "title_short": "校董會管治補充",
+      "url_landing": "https://sbm.edb.gov.hk/tc/references/imc-operation/",
+      "url_primary": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2013-2025",
+      "last_checked_at": "2026-06-10",
+      "supersedes": null,
+      "notes": "S154 (2026-06-10): SBM-governance backfill (6 PDF grouped: Ch5(2019)+角色責任+會議+法例提醒(2023)+良好管治+行為守則擬定; Leonard 指名 Ch5). Ingested 27 chunks text-layer. In SOURCE_SETS.school_governance. Page-jump correct for first doc (Ch5); appended docs overshoot — grouped-source limitation."
+    },
+    {
+      "source_id": "imc_election_guides",
+      "title": "法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）",
+      "title_short": "校董選舉指引",
+      "url_landing": "https://sbm.edb.gov.hk/tc/references/manager-election-of-imc.html",
+      "url_primary": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2013-2025",
+      "last_checked_at": "2026-06-10",
+      "supersedes": null,
+      "notes": "S154 (2026-06-10): SBM-governance backfill (4 PDF grouped: 家長/教師/校友選舉指引(2025)+委任五步曲). Ingested 57 chunks text-layer. In SOURCE_SETS.school_governance."
     }
   ]
 }

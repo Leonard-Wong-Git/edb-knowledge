@@ -228,6 +228,28 @@ const SOURCE_SETS: Record<string, string[]> = {
   // (steam route has no source filter — plain retrieval + expansion only.)
 
   /**
+   * School governance / IMC (法團校董會) — 校董會成立運作, 校董角色責任, 校董會會議,
+   * 校董選舉/委任, 校監, 辦學團體, 校董行為守則, 法例提醒. S154 SBM-governance backfill
+   * (sbm.edb.gov.hk references). MUST precede `finance` in TOPIC_KEYWORDS: finance owns
+   * the substring `法團校董` (for g02 IMC-finance), so without an earlier governance route
+   * any 法團校董會/校董會 query routes to finance and the governance corpus never surfaces.
+   * This set bundles the new governance docs WITH g02 + coa_imc_1_19 so an IMC query gets
+   * the full IMC doc family (governance + finance + 資助則例) in one route. routing-not-cutoff
+   * lever (S118 pattern); S135 backfill-allowlist coupling (new Supabase source needs this
+   * allowlist entry to surface in routed search).
+   */
+  school_governance: [
+    "imc_establishment_operation",  // 法團校董會的成立與運作 (校本管理手冊 2014, 82pp)
+    "imc_briefing_qa",              // 法團校董會簡介會問答 (2013)
+    "imc_governance_supplements",   // 成立運作Ch5/角色責任/會議/法例提醒/良好管治/行為守則
+    "imc_election_guides",          // 家長/教師/校友校董選舉指引 + 委任五步曲
+    "g02",                          // 法團校董會財務管理指引 (IMC family)
+    "coa_imc_1_19",                 // 資助則例 (IMC version)
+    "sdp_guide",                    // 如何編寫學校發展計劃 (IMC service-contract)
+    "role_facts_general",
+  ],
+
+  /**
    * Finance / Procurement — 採購, 招標, 財務管理, 資助則例
    * Exclude SAG: its "門檻" references are teacher-registration thresholds,
    * not procurement thresholds; would drown out g01 (32 chunks).
@@ -390,6 +412,13 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // before the broad production categories so welfare terms route here not finance/curriculum.
   student_support: /生涯規劃|和諧校園|欺凌|霸凌|虐待兒童|虐兒|強制舉報|危機處理|關顧學生|訓育|輔導服務|學生精神健康|學生自殺|創傷知情|哀傷輔導|學生支援組|健康校園|禁毒|藥物測試|校園測檢/,
   steam: /STEAM|STEM/,
+  // S154 — IMC/SBM school governance. MUST precede `finance` (which owns 法團校董 for g02
+  // IMC-finance): a 法團校董會/校董會 query must reach the governance corpus, not finance only.
+  // Governance nouns only (校董/校監/辦學團體/學校管理委員會) — pure finance queries
+  // (採購/招標/報價, no 校董) don't match and still route to finance. Bare 校董 covers
+  // 校董會/校董選舉/委任校董/校董責任/校董守則; 學校管理委員會 (full) avoids stealing
+  // safety's 安全管理委員會.
+  school_governance: /法團校董會|校董會|校董|校監|辦學團體|學校管理委員會|校本條例/,
   finance: /採購|招標|單一報價|競投|供應商|報價單|分判|貨物|服務合約|財務管理|預算|撥款|開支|報銷|捐款|借款|代收費|利益衝突|申報利益|賄賂|廉署|防賄|資助則例|法團校董|校董會經費|採購門檻|採購程序/,
   hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金/,
   activity: /全方位學習|活動津貼|課外活動|全方位學習津貼|戶外活動|境外遊學|遊學團|境外學習活動|參觀活動/,
