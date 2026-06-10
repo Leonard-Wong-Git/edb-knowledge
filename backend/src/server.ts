@@ -2,6 +2,11 @@ import { createServer } from "node:http";
 import type { IncomingMessage, ServerResponse } from "node:http";
 
 import { analyzeCircular } from "./api/analyzeCircular.js";
+import {
+  analyzeDocument,
+  MAX_TEXT_CHARS,
+  type AnalyzeDocumentRequest,
+} from "./api/analyzeDocument.js";
 import { searchChannelA, type SearchChannelARequest } from "./api/searchChannelA.js";
 import { searchChannelB, type SearchChannelBRequest } from "./api/searchChannelB.js";
 import { searchCombined, type SearchCombinedRequest } from "./api/searchCombined.js";
@@ -66,12 +71,28 @@ function setCorsHeaders(req: IncomingMessage, res: ServerResponse): void {
   res.setHeader("Vary", "Origin");
 }
 
-function readJsonBody<T>(req: import("node:http").IncomingMessage): Promise<T> {
+function readJsonBody<T>(
+  req: import("node:http").IncomingMessage,
+  maxBytes?: number
+): Promise<T> {
   return new Promise((resolve, reject) => {
     const chunks: Buffer[] = [];
+    let received = 0;
 
     req.on("data", (chunk) => {
-      chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+      const buf = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
+      received += buf.length;
+      if (maxBytes !== undefined && received > maxBytes) {
+        // Stop buffering and drain the rest so the 413 response can still be
+        // written on this socket (req.destroy() here would RST before the
+        // client sees any response).
+        req.removeAllListeners("data");
+        req.removeAllListeners("end");
+        req.resume();
+        reject(new Error("PAYLOAD_TOO_LARGE"));
+        return;
+      }
+      chunks.push(buf);
     });
 
     req.on("end", () => {
@@ -142,6 +163,30 @@ const server = createServer(async (req, res) => {
       res.end(JSON.stringify({
         error: "請求過於頻繁，請稍後再試。",
         retry_after_sec: retryAfterSec,
+      }));
+      return;
+    }
+  }
+
+  // ── 文件分析: per-segment guideline matching for user-uploaded documents ──
+  // Body cap: MAX_TEXT_CHARS chars of (possibly multi-byte) text + JSON overhead.
+  // Only this endpoint passes a cap — existing endpoints keep prior behavior.
+  if (req.method === "POST" && req.url === "/api/analyze-document") {
+    try {
+      const input = await readJsonBody<AnalyzeDocumentRequest>(req, MAX_TEXT_CHARS * 4 + 4096);
+      const result = await analyzeDocument(input, { embeddingClient, llmClient });
+
+      setCorsHeaders(req, res);
+      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify(result));
+      return;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      setCorsHeaders(req, res);
+      const status = message === "PAYLOAD_TOO_LARGE" ? 413 : 400;
+      res.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({
+        error: status === 413 ? "上載內容過大，請分批分析。" : message,
       }));
       return;
     }

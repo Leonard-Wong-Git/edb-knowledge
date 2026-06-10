@@ -29,6 +29,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<!-- 文件分析 client-side extraction: pdf.js 3.x (UMD; 4.x is ESM-only) + mammoth (docx). deferred — runtime-guarded in AnalyzePanel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js" defer></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════════
@@ -2753,14 +2756,262 @@ function QAPanel({ data, setPreviewDoc }) {
 
 // ── Circular Analysis Panel removed (dead component: never referenced in VALID_VIEWS / view render) ──
 
+// ── 文件分析 Panel ──
+// Client-side extraction (pdf.js text layer / mammoth docx / paste) → only the
+// extracted TEXT is sent to the backend — the raw file never leaves the browser.
+function AnalyzePanel() {
+  const BACKEND_URL = 'https://edb-knowledge.onrender.com';
+  const MAX_CHARS = 60000;
+
+  const [docText, setDocText] = useState('');
+  const [fileName, setFileName] = useState('');
+  const [extracting, setExtracting] = useState(false);
+  const [extractError, setExtractError] = useState(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [analyzeError, setAnalyzeError] = useState(null);
+  const [report, setReport] = useState(null);
+  const fileInputRef = React.useRef(null);
+
+  const resetOutputs = () => { setReport(null); setAnalyzeError(null); };
+
+  const extractPdf = async (buf) => {
+    if (!window.pdfjsLib) throw new Error('PDF 解析元件尚未載入，請重新整理頁面再試。');
+    if (!window.pdfjsLib.GlobalWorkerOptions.workerSrc) {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+    const pdf = await window.pdfjsLib.getDocument({ data: buf }).promise;
+    const pages = [];
+    for (let p = 1; p <= pdf.numPages; p++) {
+      const page = await pdf.getPage(p);
+      const content = await page.getTextContent();
+      pages.push(content.items.map(it => it.str).join(' '));
+    }
+    return pages.join('\n\n').trim();
+  };
+
+  const extractDocx = async (buf) => {
+    if (!window.mammoth) throw new Error('Word 解析元件尚未載入，請重新整理頁面再試。');
+    const result = await window.mammoth.extractRawText({ arrayBuffer: buf });
+    return (result.value || '').trim();
+  };
+
+  const handleFile = async (file) => {
+    if (!file) return;
+    setExtractError(null); resetOutputs();
+    const name = file.name || '';
+    const lower = name.toLowerCase();
+    if (!lower.endsWith('.pdf') && !lower.endsWith('.docx')) {
+      setExtractError('只支援 PDF 或 Word（.docx）檔案；其他內容請直接貼上文字。');
+      return;
+    }
+    setExtracting(true); setFileName(name);
+    try {
+      const buf = await file.arrayBuffer();
+      const text = lower.endsWith('.pdf') ? await extractPdf(buf) : await extractDocx(buf);
+      if (text.length < 50) {
+        throw new Error('未能從檔案抽取文字（掃描影印本暫不支援），請改貼文字內容。');
+      }
+      setDocText(text);
+    } catch (err) {
+      setExtractError(err && err.message ? err.message : '檔案讀取失敗，請改貼文字內容。');
+      setFileName('');
+    } finally {
+      setExtracting(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
+
+  const handleAnalyze = async () => {
+    const text = docText.trim();
+    if (!text || analyzing) return;
+    setAnalyzing(true); setAnalyzeError(null); setReport(null);
+    try {
+      const resp = await fetch(`${BACKEND_URL}/api/analyze-document`, {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ text, ...(fileName ? { filename: fileName } : {}) })
+      });
+      const json = await resp.json().catch(() => null);
+      if (!resp.ok) {
+        if (resp.status === 429) throw new Error('分析次數已達上限（每分鐘10次），請稍候約1分鐘後再試。');
+        throw new Error((json && json.error) || '分析服務暫未連線，請稍後再試。');
+      }
+      setReport(json);
+    } catch (err) {
+      setAnalyzeError(err && err.message ? err.message : '分析服務暫未連線，請稍後再試。');
+    } finally {
+      setAnalyzing(false);
+    }
+  };
+
+  const handleClear = () => {
+    setDocText(''); setFileName(''); setExtractError(null); resetOutputs();
+  };
+
+  const overLimit = docText.length > MAX_CHARS;
+
+  return (
+    <div className="flex-1 min-w-0">
+      {/* ── Input card ── */}
+      <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 k1-search-card">
+        <h2 className="text-lg font-bold text-gray-800 mb-1">文件分析</h2>
+        <p className="text-xs text-gray-400 mb-3">
+          上載學校文件（通告草稿、政策文件等），系統逐段比對 EDB 官方指引，附上相關指引內容及來源頁碼
+        </p>
+
+        {/* Privacy notice */}
+        <div style={{display:'flex',alignItems:'flex-start',gap:'8px',padding:'10px 12px',marginBottom:'12px',background:'#FFFBEB',border:'1px solid #FCD34D',borderRadius:'var(--r-md)',fontSize:'var(--text-xs)',color:'#92400E',lineHeight:1.6}}>
+          <span style={{flexShrink:0,marginTop:'1px'}}>🔒</span>
+          <span>檔案只在你的瀏覽器內讀取，<strong>原始檔案不會上載</strong>；抽取的文字內容會傳送至本平台伺服器及 OpenAI 作語義分析，過程不儲存。請勿包含敏感個人資料（如學生姓名、身份證號碼）；建議先遮蓋或刪除。</span>
+        </div>
+
+        {/* File pick row */}
+        <div className="flex gap-2 mb-3 items-center" style={{flexWrap:'wrap'}}>
+          <input ref={fileInputRef} type="file" accept=".pdf,.docx" style={{display:'none'}}
+                 onChange={e => handleFile(e.target.files && e.target.files[0])} />
+          <button onClick={() => fileInputRef.current && fileInputRef.current.click()}
+                  disabled={extracting || analyzing}
+                  className="px-4 py-2 text-sm rounded-lg border border-gray-200 font-medium transition-all disabled:opacity-50"
+                  style={{background:'var(--cd-warm)',color:'var(--charcoal)'}}>
+            {extracting ? '⏳ 讀取中…' : '📎 選擇檔案（PDF / Word）'}
+          </button>
+          {fileName && !extracting && (
+            <span className="text-xs" style={{color:'var(--mid)'}}>已讀取：{fileName}</span>
+          )}
+          <span className="text-xs text-gray-400">或直接喺下面貼上文字</span>
+        </div>
+        {extractError && (
+          <div style={{marginBottom:'10px',padding:'10px 14px',borderRadius:'var(--r-sm)',background:'var(--paper-2)',border:'1px solid #FECACA',fontSize:'var(--text-sm)',color:'var(--warn)'}}>
+            ⚠️ {extractError}
+          </div>
+        )}
+
+        {/* Text area */}
+        <textarea value={docText}
+                  onChange={e => { setDocText(e.target.value); resetOutputs(); }}
+                  rows={8}
+                  placeholder="貼上文件文字內容，或用上方按鈕選擇 PDF / Word 檔案…"
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-200 focus:border-transparent"
+                  style={{resize:'vertical',lineHeight:1.7}} />
+        <div className="flex gap-2 mt-2 items-center">
+          <button onClick={handleAnalyze} disabled={analyzing || extracting || !docText.trim() || overLimit}
+                  style={{background:'var(--p-primary)'}}
+                  className="px-4 py-2 text-white text-sm rounded-lg hover:opacity-90 font-medium transition-all disabled:opacity-50">
+            {analyzing ? '⏳ 分析中…' : '開始分析'}
+          </button>
+          {docText && (
+            <button onClick={handleClear}
+                    className="px-3 py-2 text-xs text-gray-400 hover:text-gray-600 border border-gray-200 rounded-lg">
+              清除
+            </button>
+          )}
+          <span className="text-xs" style={{color: overLimit ? 'var(--warn)' : 'var(--mid)', marginLeft:'auto'}}>
+            {docText.length.toLocaleString()} / {MAX_CHARS.toLocaleString()} 字元{overLimit ? '（超出上限，請分批分析）' : ''}
+          </span>
+        </div>
+
+        {analyzing && (
+          <p className="text-xs mt-2" style={{color:'var(--mid)'}}>
+            正在逐段比對 EDB 指引，約需 30–90 秒（首次分析需喚醒伺服器）⋯
+          </p>
+        )}
+        {analyzeError && (
+          <div style={{marginTop:'10px',padding:'10px 14px',borderRadius:'var(--r-sm)',background:'var(--paper-2)',border:'1px solid #FECACA',fontSize:'var(--text-sm)',color:'var(--warn)'}}>
+            ⚠️ {analyzeError}
+          </div>
+        )}
+      </div>
+
+      {/* ── Report ── */}
+      {!report && !analyzing && (
+        <div style={{background:'var(--cd-warm)',borderRadius:'var(--r-md)',border:'1px solid var(--border)',padding:'40px',textAlign:'center'}}>
+          <p style={{fontSize:'2rem',marginBottom:'8px'}}>📄</p>
+          <p style={{fontSize:'var(--text-sm)',color:'var(--mid)'}}>上載文件或貼上文字，開始逐段比對 EDB 指引</p>
+        </div>
+      )}
+      {report && (
+        <div className="space-y-3">
+          {/* Summary strip */}
+          <div style={{background:'var(--paper-2)',border:'1px solid #C4A882',borderRadius:'var(--r-md)',padding:'12px 16px',fontSize:'var(--text-sm)',color:'var(--ink)'}}>
+            ✦ {report.filename ? `「${report.filename}」` : '文件'}共 {report.total_segments} 段，已分析 {report.analyzed_segments} 段
+            {report.skipped_segments > 0 && (
+              <span style={{color:'#92400E'}}>；文件較長，餘下 {report.skipped_segments} 段未分析，請分批處理</span>
+            )}
+          </div>
+
+          {/* Per-segment cards */}
+          {(report.segments || []).map(seg => (
+            <div key={seg.index} className="bg-white rounded-xl border border-gray-200 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span style={{fontSize:'var(--text-xs)',fontWeight:700,color:'var(--edb)',background:'var(--line-2)',padding:'2px 8px',borderRadius:'99px',border:'1px solid #C4A88255'}}>
+                  段 {seg.index}
+                </span>
+                {seg.status === 'error' && (
+                  <span style={{fontSize:'var(--text-xs)',color:'var(--warn)'}}>⚠️ 此段檢索失敗，請稍後重試</span>
+                )}
+              </div>
+              <p style={{fontSize:'var(--text-sm)',color:'var(--ink-2)',lineHeight:1.7,margin:'0 0 10px',paddingLeft:'10px',borderLeft:'3px solid var(--line)'}}>
+                {seg.excerpt}
+              </p>
+              {seg.note && (
+                <p style={{fontSize:'var(--text-sm)',color:'var(--ink)',lineHeight:1.7,margin:'0 0 10px'}}>
+                  ✦ {seg.note}
+                </p>
+              )}
+              {seg.status === 'ok' && seg.matches.length === 0 && (
+                <p style={{fontSize:'var(--text-xs)',color:'var(--ink-3)',margin:0}}>未有對應指引內容</p>
+              )}
+              {seg.matches.length > 0 && (
+                <div style={{display:'flex',flexDirection:'column',gap:'8px'}}>
+                  {seg.matches.map((m, mi) => {
+                    // scheme allowlist: only http(s) URLs become links (defence-in-depth vs poisoned rows)
+                    const safeUrl = m.url && /^https?:/i.test(m.url) ? m.url : null;
+                    const isPdf = safeUrl && safeUrl.toLowerCase().includes('.pdf');
+                    const href = safeUrl ? (m.page && isPdf ? `${safeUrl}#page=${m.page}` : safeUrl) : null;
+                    return (
+                      <div key={mi} style={{display:'flex',alignItems:'flex-start',gap:'8px',padding:'8px 10px',background:'var(--paper-2)',borderRadius:'var(--r-sm)',border:'1px solid var(--line)'}}>
+                        <span style={{fontSize:'13px',flexShrink:0,marginTop:'1px'}}>📄</span>
+                        <div style={{flex:1,minWidth:0}}>
+                          <div>
+                            {href ? (
+                              <a href={href} target="_blank" rel="noopener noreferrer"
+                                 title={m.page && isPdf ? `在新分頁開啟文件第 ${m.page} 頁` : '在新分頁開啟文件'}
+                                 style={{fontSize:'var(--text-xs)',fontWeight:600,color:'var(--edb)',textDecoration:'underline',textUnderlineOffset:'2px'}}>
+                                {m.title}{m.page ? `（第 ${m.page} 頁）` : ''}
+                              </a>
+                            ) : (
+                              <span style={{fontSize:'var(--text-xs)',fontWeight:600,color:'var(--ink)'}}>{m.title}</span>
+                            )}
+                          </div>
+                          <p style={{fontSize:'var(--text-xs)',color:'var(--ink-2)',lineHeight:1.6,margin:'4px 0 0'}}>{m.snippet}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          ))}
+
+          {/* Disclaimer */}
+          <div style={{display:'flex',alignItems:'flex-start',gap:'8px',padding:'10px 12px',background:'#FFFBEB',border:'1px solid #FCD34D',borderRadius:'var(--r-md)',fontSize:'var(--text-xs)',color:'#92400E',lineHeight:1.6}}>
+            <span style={{flexShrink:0,marginTop:'1px'}}>⚠️</span>
+            <span>分析結果由 AI 根據 EDB 原文片段語意比對產生，可能有遺漏或表述偏差。重要決定請以教育局官方原文為準。</span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Main App ──
 function App() {
   const data = INITIAL_DATA;
-  const VALID_VIEWS = ['qa', 'guidelines', 'about'];
+  const VALID_VIEWS = ['qa', 'analyze', 'guidelines', 'about'];
   const hashView = window.location.hash.replace('#', '');
   const [viewMode, setViewMode] = useState(
     VALID_VIEWS.includes(hashView) ? hashView : 'qa'
-  ); // 'qa' | 'guidelines' | 'about'
+  ); // 'qa' | 'analyze' | 'guidelines' | 'about'
 
   // Keep URL hash in sync when tab changes
   const switchView = useCallback((v) => {
@@ -2813,6 +3064,10 @@ function App() {
                       className={`filter-tab ${viewMode === 'qa' ? 'active-tab' : ''}`} aria-selected={viewMode === 'qa'} role="tab">
                 🔍 政策搜尋
               </button>
+              <button onClick={() => switchView('analyze')}
+                      className={`filter-tab ${viewMode === 'analyze' ? 'active-tab' : ''}`} aria-selected={viewMode === 'analyze'} role="tab">
+                📄 文件分析
+              </button>
               <button onClick={() => switchView('guidelines')}
                       className={`filter-tab ${viewMode === 'guidelines' ? 'active-tab' : ''}`} aria-selected={viewMode === 'guidelines'} role="tab">
                 📚 指引文件 ({GUIDELINES_REGISTRY.length})
@@ -2831,6 +3086,8 @@ function App() {
             <PlatformIntroPanel stats={stats} />
           ) : viewMode === 'guidelines' ? (
             <GuidelinesPanel setPreviewDoc={setPreviewDoc} />
+          ) : viewMode === 'analyze' ? (
+            <AnalyzePanel />
           ) : (
             <QAPanel data={data} setPreviewDoc={setPreviewDoc} />
           )}
