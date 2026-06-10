@@ -2,6 +2,61 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-10 Session 154 — NEW 文件分析功能：第 4 個公開 tab + POST /api/analyze-document（上載文件逐段比對 EDB 指引）— SHIPPED (deployed)
+
+- **ID:** Claude_20260610_0100
+- **Trigger:** Leonard 揀「新功能方向」→ 釘實 scope「用戶上載學校文件，系統加上相關指引資料及內容，輸回上傳者」→ AskUserQuestion 定格式(PDF文字層/docx/貼文字、無OCR)+輸出(Phase 1 螢幕報告、Phase 2 目標可下載標註文件)+私隱(交我評估→hybrid) → 中途 Leonard 問「香港 IP 出 OpenAI 會否被 block」→ 核實答覆 → `/goal 全力進行` 批准 PLAN 全速執行。
+- **起手自測（全 live）:** HEAD `8bf828d`==origin/main clean / facts 455 三層(md5 4c3631) / Supabase 14,276(content-range 0-999/14276) / guidelines 152 / stats 14,276·152 / onrender /health 200 + manifest 401 ✓。
+- **§3 Risk:** HIGH（新 user-facing feature + 上載 + OpenAI + 大單檔 app.html）→ PLAN 出咗等批先郁；CDN URL 先 curl-200 驗證（§0b 不靠記憶）。
+
+### OpenAI 香港封鎖核實（Leonard 問；WebSearch 官方來源）
+- HK 不在 OpenAI supported list；2024-07-09 起按**請求來源 IP** 封鎖（Vercel hkg1 案例）。**本架構用戶零影響**：browser(HK)→Render(美國，Render 根本無 HK 區)→OpenAI；現有政策搜尋已實證行咗呢條路好耐。會中招嘅只有 browser-direct call 或 HK-hosted backend（兩樣都冇做）。殘餘風險 = HK 註冊帳號層執法（low；行緊 150+ session）→ fallback = Azure OpenAI（官方支援 HK；swap 範圍 = llmClient.ts + embeddingClient.ts 兩檔，檢索邏輯不動）。
+
+### CHANGE（3 檔：NEW analyzeDocument.ts + server.ts + app.html；mobile.js/shared infra 零接觸）
+- **NEW `backend/src/api/analyzeDocument.ts`**：`segmentText`（空行分段；<30 字 stub 前併〔初版 60 被 unit smoke 捉到誤併 40-80 字真句、調 30〕；>1,200 字句界切）→ 每段 `searchChannelB({query:seg, top_k:4, synthesize:false})`（公開 API 複用 routing/頁碼/清洗/degraded 判別；併發 4）→ 一次 LLM call 出逐段一句提示（"N: …" 格式、`parseNotes` 容錯、best-effort 失敗唔沉 matches）→ 結構化 response（excerpt/status/matches{title,url,page,snippet}/note；degraded 顯示為 status:"error" 唔會扮無結果）。Cap：`MAX_TEXT_CHARS=60,000`、`MAX_SEGMENTS=12`（超出 → `skipped_segments` 可見截斷）。Stateless 零存儲。
+- **`server.ts`**：`POST /api/analyze-document` 喺 10/min/IP limiter 之後；`readJsonBody` 加 optional `maxBytes`（default undefined = 現有 4 route byte-identical）；新 route cap ~244KB → 413「上載內容過大」。**QC 捉到 bug：初版 `req.destroy()` 喺寫 413 前 RST socket（client 收 connection reset）→ 修為 removeAllListeners+resume drain，413 正常送達。**
+- **`app.html`**：+`pdf.js 3.11.174` + `mammoth 1.6.0` CDN（**pdf.js 3.x UMD 特登 — 4.x ESM-only 唔啱 no-build babel 頁**；defer + runtime guard）；NEW `AnalyzePanel`（檔案揀選/貼文字 textarea 單一 source、client-side 抽取〔PDF 文字層 <50 字 → 明示「掃描本不支援」〕、私隱提示框、字數 counter + 60k 前端 cap、逐段報告卡：excerpt + LLM 提示 + 指引 match 卡 `url#page=N`〔https-only allowlist + noopener noreferrer〕+ 無分數顯示〔跟 S153 de-score 方向〕+ fail-visible 錯誤/無 match/檢索失敗 三態 + 免責聲明）；`VALID_VIEWS` +'analyze'、第 4 個 tab「📄 文件分析」、router branch。**mobile.js 零接觸**（文件分析 = desktop React surface；平板 shell 入口 = Phase 1.5 — 唔係漏，係批咗嘅 scope）。
+
+### QC（全 PASS）
+- typecheck + build exit 0；unit smoke `segmentText`(5 case 含 10k 無標點不死循環/CRLF/全 stub/空白)+`parseNotes`(越界/全形冒號/first-wins)。
+- **Local live e2e**（:8123 + 真 Supabase/OpenAI env）：3 段樣本通告 9.7s → 遊學團→`sch_activities_guide` p91（S152 新源！）/ 採購→`g01` p7+p12 / 校車→`g18` p2+p3，全帶頁碼；note 2/3 段（best-effort = monitor）。錯誤路徑：空 text→400 / 61k 字→400「文件過長…請分批」/ 480KB→**413**；現有 `/api/search/channel-b` 零回歸。
+- Semantic regression：PASS=9 + notes=1 + **既知 2 FAIL（FAIL-A finance_distinct / FAIL-B 1.3.1 assert）0 新增**。
+- **Browser-verify**（preview :8095，fetch-stub 模式同 S153）：4 tab render、AnalyzePanel 齊件、pdfjs+mammoth 載入、**真 pdf.js worker 頁內抽取成功**（自製 625B 測試 PDF，驗執行非可達）、stub 報告 10/10（summary/skipped 警告/note/`#page=91` link/無 match/error 段/無分數/免責）、qa·guidelines·about 三 tab 回歸 PASS、console 0 error。
+- **對抗覆核 subagent（general-purpose，20+ runtime assertion）VERDICT PASS-with-flags、0 CRITICAL**。Flag 1（href 無 scheme allowlist）→ **已修**：`/^https?:/i` allowlist + noreferrer，重驗 `javascript:alert(1)` URL 降級純文字、正常 link 照出。Non-blocking 留底：JSON.parse 錯誤文字外洩（pre-existing 全 route pattern）/ byte cap 對 `\uXXXX`-escaped JSON 理論偏緊（自家前端 stringify 唔會中）/ degraded_kind 摺平令 unconfigured 時「請重試」措辭誤導（prod 唔會 unconfigured）/ `seg.matches` 依賴 backend contract 保證 / pre-existing duplicate borderRadius + 無 hashchange listener。
+- **0 change**：searchChannelB.ts / wikiRepository.ts / knowledge·role_facts·guidelines.json / schema / RPC / mobile.js / index.html / 下游 / canonical chunker；無 bump（git diff --name-only 對抗覆核獨立確認）。
+
+### Doc Sync
+- **NEW row added**（anti-pattern guard）：「New user-facing feature (new public backend endpoint + frontend surface)」→ README 功能簡介 + CODEBASE_CONTEXT + HANDOFF/LOG + K1_API_SPEC only-if-downstream-contract-changes。
+- 執行：README 功能表 +📄文件分析 row + 三 tab→四 tab note ✓ / CODEBASE_CONTEXT app.html tabs 行 + backend 檔列表 +analyzeDocument.ts + server.ts 行 + AI Maintenance Log S154 ✓ / SESSION_HANDOFF baseline #1·#2 + Open Priorities 重生 + Last/Previous→S154/S153 ✓ / 本 entry ✓ / **K1_API_SPEC 不改**（新 endpoint 唔屬下游靜態 JSON 契約）。
+
+### Follow-up / lessons
+- **Lesson**：分段參數（MIN_SEGMENT_CHARS）要用真中文通告樣本 smoke 先定 — 60 字會誤併 40-80 字真句；中文段落比英文短。
+- **Lesson**：`req.destroy()` 喺 reject 後即斷 socket = client 永遠見唔到 413；要 removeAllListeners + resume drain 先寫到 response。
+- **Lesson（複用勝自建）**：每段直接調用 `searchChannelB` 公開 API（synthesize:false）= routing/頁碼/清洗/degraded 全部免費複用 + shared infra 零修改；好過 import 私有 helper 或自己打 searchWiki。
+- **Log maintenance（§4a）:** 加本 entry 前 285 行（<400）、最舊 S149-150（2026-06-08，<30d）→ no-op。
+- commits: `a6547c6`（code）→ 本 governance commit。
+
+### Next Session Handoff Prompt (Verbatim)
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md。起手自行 verify git HEAD==origin/main + Supabase total（應 14,276）+ knowledge.json frozen 455 + knowledge.json._meta.stats（應 14,276/152）+ onrender /health + manifest 401-gated + app.html 四 tab（#analyze 文件分析在內）。
+
+⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑空格雙引號）。python3。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 預設。回覆中文。
+
+S154 (2026-06-10)：**NEW 文件分析功能 SHIPPED — 第 4 個公開 tab + POST /api/analyze-document**。用戶上載 PDF(文字層)/docx 或貼文字 → client-side 抽取（pdf.js 3.11.174 UMD + mammoth 1.6.0 CDN；原始檔永不上載）→ 後端分段（<30字 stub 前併/>1200 句界切/12 段 cap/60k 字 cap）→ 每段經 searchChannelB 公開 API（synthesize:false top_k=4 併發 4，shared infra 零修改）→ 一次 LLM 逐段提示（best-effort）→ 逐段報告（指引 url#page=N link + https-only allowlist + 無分數 + fail-visible 三態 + 私隱提示 + stateless）。server.ts readJsonBody +optional maxBytes（淨新 route ~244KB→413；修咗 RST-before-413 bug）。QC：typecheck/build/unit/local-e2e(遊學團→sch_activities p91/採購→g01/校車→g18 全帶頁)/regression 0 新 FAIL/browser-verify 10/10/對抗覆核 PASS-with-flags 0 critical(href allowlist 已修)。**0 change to Channel A/knowledge·guidelines facts/schema/RPC/searchChannelB/wikiRepository/mobile.js/下游/canonical chunker；無 bump。0 outstanding bug。** Code commit a6547c6。
+
+Pending（全屬可選、冇緊急）:
+1. 文件分析 Phase 1.5 = mobile.js 平板 shell 加入口；Phase 2 = 可下載標註文件（PDF/Word 旁註輸出）。
+2. S154 monitor：LLM 逐段提示 best-effort（缺 note 唔影響 matches）/ degraded「請重試」措辭喺 unconfigured 時誤導（prod 唔會發生）/ Azure OpenAI fallback 路徑已查明（llmClient+embeddingClient swap、HK 帳號層風險用）。
+3. 既有 monitor：synthesis ~328 字 soft cap / cgss_2024 rank 低 / gifted+CPD precedence / phys_sss / freshness+discovery 週跑只睇新 diff / 57014 cold-start / stats.sources=120 cosmetic-stale。
+
+⚠️ Cautions：**文件分析私隱姿態 = 原始檔永不上載 + 文字經 server→OpenAI stateless** — 改 data flow 必須同步改 UI 私隱文案。app.html 兩個搜尋 UI（React desktop + mobile.js shell）政策搜尋改動要兩邊改；文件分析目前淨 desktop（已知 scope）。入庫 per-source + SOURCE_SETS + display 7 處照舊。**未明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines facts / 勿 bump_version / 勿 reopen §E.10 admin / 勿動 Stage-2 / 勿改 canonical chunker 或 shared 檢索 infra。**
+
+Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 14,276 / facts 455 三層 / guidelines 152 / stats 14,276·152 / onrender /health + manifest 401 + 文件分析 live smoke〔POST /api/analyze-document 短文字〕）+ playbook INDEX 後，問 Leonard 想做邊樣（文件分析 Phase 1.5/Phase 2 / 其他），未明示前勿郁禁區。
+```
+
 ## 2026-06-09 Session 153 — Channel B 政策搜尋 UX：分析放長(120→約250字) + 來源頁碼顯示/跳頁(desktop+mobile) + mobile 全中文檔名/去分數 — CLOSED (deployed)
 
 - **ID:** Claude_20260609_1230
