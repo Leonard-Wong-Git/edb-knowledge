@@ -2,7 +2,7 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
-## 2026-06-10 Session 154 — (1) NEW 文件分析功能（第 4 公開 tab + POST /api/analyze-document）+ (2) IMC/SBM 校董會治理入庫 +229 — BOTH SHIPPED (deployed)
+## 2026-06-10 Session 154 — (1) NEW 文件分析功能（第 4 公開 tab + POST /api/analyze-document）+ (2) IMC/SBM 校董會治理入庫 +229 + (3) Cloudflare 免 cookie 統計 — ALL SHIPPED (deployed)
 
 - **ID:** Claude_20260610_0100
 - **Trigger:** Leonard 揀「新功能方向」→ 釘實 scope「用戶上載學校文件，系統加上相關指引資料及內容，輸回上傳者」→ AskUserQuestion 定格式(PDF文字層/docx/貼文字、無OCR)+輸出(Phase 1 螢幕報告、Phase 2 目標可下載標註文件)+私隱(交我評估→hybrid) → 中途 Leonard 問「香港 IP 出 OpenAI 會否被 block」→ 核實答覆 → `/goal 全力進行` 批准 PLAN 全速執行。
@@ -49,7 +49,18 @@
 - **Non-blocking flags（對抗覆核）:** gov_admin+finance 嘅 `法團校董` token 被 school_governance shadow 變 dead（無害可清）；`校政管理`/`校本管理`-alone gap → fall-through whole-index（非誤路）。grouped 源頁碼 overshoot = monitor。
 - **Lesson:** (1) 路由 precedence — 新 route 要避開「上游 route 已佔關鍵 token」陷阱（finance 佔 法團校董 → governance 要擺前）；(2) grouped 連續頁碼 trade-off — 大文件獨立保頁碼正確，細 fragment 先分組；(3) **commit message `-m` 雙引號內反引號 ``school_governance`` 觸發 shell command substitution → message 嗰個位變空**（`46376f4` message 漏咗該詞，cosmetic）→ 教訓：`-m` 用單引號或避反引號。
 - **DOC_SYNC:** 「Channel-B vault source backfill」row（已 registered）：registry 4 / SOURCE_SETS+TOPIC_KEYWORDS / HANDOFF baseline 14,505+216 / SESSION_LOG / CODEBASE AI-log + display 7 處 14,505。
-- **0 change to** wikiRepository.ts / analyzeDocument.ts / knowledge·guidelines facts / schema / RPC / mobile.js / 下游 / canonical chunker。commits: `46376f4`（IMC code+data）→ 本 governance commit。
+- **0 change to** wikiRepository.ts / analyzeDocument.ts / knowledge·guidelines facts / schema / RPC / mobile.js / 下游 / canonical chunker。commits: `46376f4`（IMC code+data）→ `60da7f0`（IMC governance）。
+
+---
+
+### ═══ PART 3 — Cloudflare Web Analytics 免 cookie 統計（同 session 接續）═══
+- **Trigger:** Leonard「加裝 cloudflare. 統計功能」→ Playbook INDEX 命中 `analytics-minors-cookieless` 卡（battle-tested）→ 方法 A 免 cookie beacon（私隱優先教育受眾、只需流量量級；唔用 GA4 = 無 cookie 無同意機制）→ 出 PLAN + 指引 Leonard 喺 Cloudflare dashboard 攞 token（唯一佢先做到嘅一步）→ Leonard 貼 snippet（token `8a65183a…` = 公開 client-side 識別碼、非 credential、可入 repo）。
+- **§0b 核實:** 官方 get-started + limits docs fetch（免費 tier 10 個非-proxied 站；JS snippet 模式毋須搬 DNS）+ `beacon.min.js` curl-200（33KB）。
+- **CHANGE:** 4 個公開 HTML（index/app/q/t-purchase）`</body>` 前各加一行 defer beacon script（python 批量 + 前置 assert：每檔 `</body>`×1、無既有 beacon）；index.html + app.html footer 加私隱細字「本站採用免 Cookie 匿名流量統計」（Playbook 卡要求）。
+- **QC:** grep 4 檔各 exactly 1 beacon + 1 token；browser-verify **執行級**（CSP 卡精神：verify execution 非 reachability）— app.html + index.html 都觀察到 beacon.min.js 載入 **+ RUM POST 發射去 `cloudflareinsights.com/cdn-cgi/rum`**；footer 細字 render；0 console error。Post-deploy：policychecker.wongfu.net 4 檔 grep beacon ✓（見 closeout verify）。
+- **架構記錄（Playbook 卡要求）:** 前端由「零對外 runtime 服務」→「+1（Cloudflare Analytics）」— CODEBASE_CONTEXT External Services 新 block（Doc-reviewed + Test-verified 2026-06-10）。收集範圍 = pageview/path/referrer/國家/裝置，無 cookie 無個人身分。報表：Leonard Cloudflare dashboard → Analytics & Logs → Web Analytics。
+- **DOC_SYNC:** 「External API / service change」row → CODEBASE External Services block ✓ + AI log ✓；「Product behavior / tuning change」row → HANDOFF baseline/record + 本 entry ✓。
+- commits: `37995bc`（beacon ×4 + footer 細字）→ 本 governance commit。
 
 ### Next Session Handoff Prompt (Verbatim)
 ```text
@@ -60,10 +71,11 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 ⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑空格雙引號）。python3。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 預設。回覆中文。
 
-S154 (2026-06-10) 兩件事都 SHIPPED：
+S154 (2026-06-10) 三件事都 SHIPPED：
 (1) **NEW 文件分析功能 — 第 4 公開 tab + POST /api/analyze-document**。用戶上載 PDF(文字層)/docx 或貼文字 → client-side 抽取（pdf.js 3.11.174 UMD + mammoth CDN；原始檔永不上載）→ 後端分段（<30字 stub 前併/>1200 句界切/12 段/60k 字 cap）→ 每段經 searchChannelB 公開 API（synthesize:false，shared infra 零改）→ 逐段報告（指引 url#page=N link + https-only allowlist + fail-visible + 私隱提示 + stateless）。server.ts +maxBytes（~244KB→413；修咗 RST-before-413）。
 (2) **IMC/SBM 校董會治理入庫 +229 → Supabase 14,505**（Leonard：指引欠校董會治理本體）。4 源（sbm.edb.gov.hk references，全文字層 page-resolvable）：imc_establishment_operation(成立運作手冊2014, 97ch)/imc_briefing_qa(簡介會QA2013, 48ch)/imc_governance_supplements(Ch5/角色/會議/法例/良好管治/守則 6PDF, 27ch)/imc_election_guides(家長/教師/校友選舉+五步曲 4PDF, 57ch)。**新 school_governance route 擺 finance 前**（finance 佔 法團校董 token 為 g02，唔擺前則校董會查詢全 route 去 finance、治理本體永不 surface；SOURCE_SET 連 g02+coa_imc_1_19+sdp_guide）。registry 212→216；display 7 處 14,505（三層 md5 1bf7fd byte-identical、facts 455/guidelines 152 不變、無 bump）。**2 個 Monitor index 頁（code-of-aid-IMC + sch-admin-guide）已喺 discover watch-list — 已 cover、無需改。**
-QC：typecheck/build/regression 0 新 FAIL；文件分析 local-e2e + browser-verify 10/10；IMC routed smoke 4/4（治理 surface 帶正確頁 + 採購/招標留 finance）；兩個對抗覆核 PASS-with-flags 0 critical；post-deploy onrender 兩功能 live + policychecker.wongfu.net 14,505。**0 change to Channel A/knowledge·guidelines facts/schema/RPC/wikiRepository/mobile.js/下游/canonical chunker；無 bump。0 outstanding bug。** Commits a6547c6+d17c25d(文件分析) / 46376f4(IMC)。
+(3) **Cloudflare Web Analytics 免 cookie 統計**：4 個公開 HTML（index/app/q/t-purchase）`</body>` 前一行 defer beacon（token 公開 client-side 識別碼非 secret）+ index/app footer 私隱細字。Playbook analytics-minors-cookieless 卡方法 A（唔用 GA4）。報表喺 Leonard Cloudflare dashboard → Web Analytics。架構=前端 +1 對外 runtime 服務（CODEBASE External Services 已記）。
+QC：typecheck/build/regression 0 新 FAIL；文件分析 local-e2e + browser-verify 10/10；IMC routed smoke 4/4（治理 surface 帶正確頁 + 採購/招標留 finance）；beacon 執行級驗證（RUM POST 觀察到）；兩個對抗覆核 PASS-with-flags 0 critical；post-deploy onrender 功能 live + policychecker.wongfu.net 14,505。**0 change to Channel A/knowledge·guidelines facts/schema/RPC/wikiRepository/mobile.js/下游/canonical chunker；無 bump。0 outstanding bug。** Commits a6547c6+d17c25d(文件分析) / 46376f4+60da7f0(IMC) / 37995bc(Cloudflare)。
 
 Pending（全屬可選、冇緊急）:
 1. 文件分析 Phase 1.5 = mobile.js 平板 shell 加入口；Phase 2 = 可下載標註文件（PDF/Word 旁註輸出）。
