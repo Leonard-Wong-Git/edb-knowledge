@@ -2,6 +2,40 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-13 Session 156 — QC pass：4 modal fixes + QC_REVIEW.md
+
+- **ID:** Claude_20260613_1100 (S156)
+- **Trigger:** Context-compaction resume. Leonard 指示「下一個 session 要繼續做」verify_issues QC。
+- **Completed:**
+  - ✅ START_NEXT_SESSION_PROMPT.txt 補寫（S155 closeout 時 Write blocked）
+  - ✅ verify_issues 全覽（128 issues：sen 48 / gifted 34 / gov_admin 23 / qa_inspection 23）
+  - ✅ 4 surgical modal fixes applied（清楚無歧義嘅情態詞失真）：
+    - sen ch9 clause2：`本校須每年` → `本校宜每年`（source 用 宜，issue [31]）
+    - gifted ch2 clause8：`本校統籌人員須協調` → `本校統籌人員應協調`（source 用 應，issue [7]）
+    - qa_inspection sec5 clause1 table：`本校須以不記名` → `本校應以不記名`（source 用 應，issue [8]）
+    - qa_inspection sec8 clause1：`本校每年須制訂` → `本校每年應制訂` ＋ `法團校董會` → `校董會／學校管理委員會`（source 用 應；SMC 選項漏失，issue [15]）
+  - ✅ 6 docx regenerated（sen×2, gifted×2, qa_inspection×2）
+  - ✅ QC_REVIEW.md — 128 issues 全部列表，標 fixed/review，包 high-priority scope qualifiers + modal + fabricated
+  - ✅ BATCH_STATE.md updated
+- **Not fixed (124 remaining):** fabricated clauses（rewriter 加入原文無嘅義務語句）、scope qualifiers（特殊學校/中學限定被靜默擴展）、其他 modal distortions（compound cases）— 見 QC_REVIEW.md
+- **QC:** docx sizes consistent with before（sen 70279B→70279B；minor byte delta OK for content change）；gen_*.js validator PASS
+- **Product zero-touch:** app.html/backend/Supabase 全未動
+- **Log maintenance (§4a):** SESSION_LOG.md ~550+ 行 > 400 → trigger；但 §4a script 唔存在；最舊 entry 2026-06-10 < 30 天；本 QC session 短，手動評估：建議 Leonard 喺下個 product session 執行 archive
+- **Next Session Handoff Prompt:**
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net). S155-S156 已完成 14 範疇清單 + 學校版 docx（28 files），S156 完成 4 modal QC fixes。
+Product state: HEAD = S156 commit（已 push）；Supabase 14,505；Channel B live；0 outstanding bug。
+Next work: 124 pending verify_issues → see dev/checklists/QC_REVIEW.md for categorized list with actions. Priority: scope qualifiers (特殊學校/中學 limitations being silently expanded) → remaining modal distortions → fabricated clauses.
+Key files: dev/checklists/QC_REVIEW.md（128 issues, 4 fixed, 124 to review）; dev/checklists/<domain>/clauses.json（edit to fix）; _work/gen_checklist_docx.js + gen_school_docx.js（regenerate after fix）.
+Post-startup first action: 問 Leonard 想優先睇邊個域嘅 verify_issues — 建議順序：sen（48 issues）→ gifted（34）→ gov_admin（23）→ qa_inspection（21 remaining）。
+```
+
+---
+
 ## 2026-06-11/13 Session 155 — 通宵自主批次：14 範疇清單 + 學校版 docx 全部完成（任務② DONE）
 
 - **ID:** Claude_20260613_0900 (S155)
@@ -30,7 +64,7 @@
   - Batch4 (wf_0d2c0e0c-ba8) sen/gifted rewrite ✓
   - Batch5 (wf_88f3ba72-399) curriculum rewrite ✓
 - **QC:** 各域 verify_issues.json 已存（sen 48 issues / gifted 34 / gov_admin 23 / qa_inspection 23；student_support/curriculum/cpd/hr_admin 0）— 供 Leonard 審閱，唔影響 docx 生成。
-- **Git commit:** `122a7b9`（804 files changed）；NO push（待 Leonard 確認）。
+- **Git commit + push:** `122a7b9`（804 files）→ `4e496a2`（closeout）— **已 push** (68fe43d..4e496a2 → origin/main)。
 - **Product 零接觸:** app.html / backend / Supabase / Channel A/B pipeline / 公開 route 全部未動。
 - **Log maintenance (§4a):** 加本 entry 後 ~480 行 > 400 → 觸發 §4a；但 §4a trigger check script path = `docs/qa/session_log_maintenance.py`（唔存在）。手動評估：最舊 entry 2026-06-09 < 30 天，主要 trigger 係 line count；本 entry 後若超 400 建議 Leonard 手動 archive 或喺下個 product session 執行。
 - **Next Session Handoff Prompt:**
@@ -39,12 +73,12 @@
 Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 
-Current objective: EDB K1 知識平台 (policychecker.wongfu.net). S155 已完成 14 範疇清單 + 學校版 docx（任務②全部 DONE）。
-Product state: HEAD = 122a7b9（S155 checklist commit，未 push）；Supabase 14,505；Channel B live；0 outstanding bug。
-Pending: git push（Leonard 返嚟確認後執行：cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && git push origin main）。
-Key output: dev/checklists/<domain>/ — 14 個域各有 校本*清單_DRAFT.docx + 學校版_DRAFT.docx + clauses.json + verify_issues.json。
-Known QC flags: verify_issues.json 非空嘅域（sen 48 / gifted 34 / gov_admin 23 / qa_inspection 23）— 供 Leonard review，Clear-cut modal fixes 可處理。
-Post-startup first action: Ask Leonard 是否 git push + 是否要 review verify_issues。
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net). S155 已完成 14 範疇清單 + 學校版 docx（任務②全部 DONE，已 push）。
+Product state: HEAD = 4e496a2（已 push origin/main）；Supabase 14,505；Channel B live；0 outstanding bug。
+Next work: review verify_issues → clear-cut modal fixes（情態詞/範疇定義精準度）。
+Key files: dev/checklists/<domain>/ — 14 個域各有 校本*清單_DRAFT.docx + 學校版_DRAFT.docx + clauses.json + verify_issues.json。
+QC flags: verify_issues.json 非空嘅域（sen 48 / gifted 34 / gov_admin 23 / qa_inspection 23）— 下個 session 主要工作。
+Post-startup first action: 讀 dev/checklists/BATCH_STATE.md 了解整體狀態，然後問 Leonard 想先睇邊個域嘅 verify_issues。
 ```
 
 ---

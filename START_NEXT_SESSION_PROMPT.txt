@@ -1,22 +1,8 @@
 Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 
-⚠️ 然後讀 dev/HANDOFF_PACKAGE.md + dev/CHANNEL_B_SYNC_SPEC.md (v0.5 LIVE) + dev/INGEST_GAP_2026-06-06.md。起手自行 verify git HEAD==origin/main + Supabase total（應 14,505）+ knowledge.json frozen 455 + knowledge.json._meta.stats（應 14,505/152）+ onrender /health + manifest 401-gated + app.html 四 tab（#analyze 文件分析在內）。
-
-⚠️ Repo root = "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"（路徑空格雙引號）。python3。git commit+push 由 Claude 做（指定檔勿 -A）。Agent team 預設。回覆中文。
-
-S154 (2026-06-10) 四件事都 SHIPPED：
-(1) **NEW 文件分析功能 — 第 4 公開 tab + POST /api/analyze-document**。用戶上載 PDF(文字層)/docx 或貼文字 → client-side 抽取（pdf.js 3.11.174 UMD + mammoth CDN；原始檔永不上載）→ 後端分段（<30字 stub 前併/>1200 句界切/12 段/60k 字 cap）→ 每段經 searchChannelB 公開 API（synthesize:false，shared infra 零改）→ 逐段報告（指引 url#page=N link + https-only allowlist + fail-visible + 私隱提示 + stateless）。server.ts +maxBytes（~244KB→413；修咗 RST-before-413）。
-(2) **IMC/SBM 校董會治理入庫 +229 → Supabase 14,505**（Leonard：指引欠校董會治理本體）。4 源（sbm.edb.gov.hk references，全文字層 page-resolvable）：imc_establishment_operation(成立運作手冊2014, 97ch)/imc_briefing_qa(簡介會QA2013, 48ch)/imc_governance_supplements(Ch5/角色/會議/法例/良好管治/守則 6PDF, 27ch)/imc_election_guides(家長/教師/校友選舉+五步曲 4PDF, 57ch)。**新 school_governance route 擺 finance 前**（finance 佔 法團校董 token 為 g02，唔擺前則校董會查詢全 route 去 finance、治理本體永不 surface；SOURCE_SET 連 g02+coa_imc_1_19+sdp_guide）。registry 212→216；display 7 處 14,505（三層 md5 1bf7fd byte-identical、facts 455/guidelines 152 不變、無 bump）。**2 個 Monitor index 頁（code-of-aid-IMC + sch-admin-guide）已喺 discover watch-list — 已 cover、無需改。**
-(3) **Cloudflare Web Analytics 免 cookie 統計**：4 個公開 HTML（index/app/q/t-purchase）`</body>` 前一行 defer beacon（token 公開 client-side 識別碼非 secret）+ index/app footer 私隱細字。Playbook analytics-minors-cookieless 卡方法 A（唔用 GA4）。報表喺 Leonard Cloudflare dashboard → Web Analytics。架構=前端 +1 對外 runtime 服務（CODEBASE External Services 已記）。
-(4) **通告分析入口暫停**（Leonard：button 保留、link 失效）：index.html「進入 EDB 通告分析系統」→ 停用 span（暫停開放 + opacity/not-allowed；原 URL 留 comment 恢復用）；app.html intro 卡 externalLink comment 掉（dead data、從未 render）。兩 surface 零活鏈。
-QC：typecheck/build/regression 0 新 FAIL；文件分析 local-e2e + browser-verify 10/10；IMC routed smoke 4/4（治理 surface 帶正確頁 + 採購/招標留 finance）；beacon 執行級驗證（RUM POST 觀察到）；兩個對抗覆核 PASS-with-flags 0 critical；post-deploy onrender 功能 live + policychecker.wongfu.net 14,505。**0 change to Channel A/knowledge·guidelines facts/schema/RPC/wikiRepository/mobile.js/下游/canonical chunker；無 bump。0 outstanding bug。** Commits a6547c6+d17c25d(文件分析) / 46376f4+60da7f0(IMC) / 37995bc+36af538(Cloudflare) / 0c34611+db4fe12(入口停用)。
-
-Pending（全屬可選、冇緊急）:
-1. 文件分析 Phase 1.5 = mobile.js 平板 shell 加入口；Phase 2 = 可下載標註文件（PDF/Word 旁註輸出）。
-2. S154 monitor：IMC grouped 源（supplements/election）連續頁碼 url#page=N 只對第一份 PDF 準、appended overshoot（兩份大文件獨立=全對）；gov_admin/finance 嘅 法團校董 token 被 shadow 變 dead（無害）；LLM 逐段提示 best-effort；Azure OpenAI fallback 已查明（llmClient+embeddingClient swap、HK 帳號層風險用）。
-3. 既有 monitor：synthesis ~328 字 soft cap / cgss_2024 rank 低 / gifted+CPD precedence / phys_sss / freshness+discovery 週跑只睇新 diff / 57014 cold-start / stats.sources=120 cosmetic-stale（live ~216）。
-
-⚠️ Cautions：**文件分析私隱姿態 = 原始檔永不上載 + 文字經 server→OpenAI stateless** — 改 data flow 必改 UI 私隱文案。app.html 兩個搜尋 UI（React desktop + mobile.js shell）政策搜尋改動要兩邊改；文件分析淨 desktop（已知 scope）。入庫 per-source（fetch_extract→ingest_one_source；勿 full wiki_index upload）+ 新源必加 SOURCE_SETS allowlist + registry + display 7 處 + grouped 源大文件獨立保頁碼。**commit `-m` 用單引號/避反引號（反引號觸發 shell substitution）。未明示前：勿掂下游 repo（§A.3）/ 勿 un-freeze Channel A / 勿手寫 knowledge·guidelines facts / 勿 bump_version / 勿 reopen §E.10 admin / 勿動 Stage-2 / 勿改 canonical chunker 或 shared 檢索 infra。**
-
-Post-startup first action: 完成 §1 + 自測（HEAD / Supabase 14,505 / facts 455 三層 / guidelines 152 / stats 14,505·152 / onrender /health + manifest 401 + 文件分析 live smoke + 校董會 routed smoke〔「法團校董會職權」應 surface imc_* 帶頁〕）+ playbook INDEX 後，問 Leonard 想做邊樣，未明示前勿郁禁區。
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net). S155-S156 已完成 14 範疇清單 + 學校版 docx（28 files），S156 完成 4 modal QC fixes。
+Product state: HEAD = S156 commit（已 push）；Supabase 14,505；Channel B live；0 outstanding bug。
+Next work: 124 pending verify_issues → see dev/checklists/QC_REVIEW.md for categorized list with actions. Priority: scope qualifiers (特殊學校/中學 limitations being silently expanded) → remaining modal distortions → fabricated clauses.
+Key files: dev/checklists/QC_REVIEW.md（128 issues, 4 fixed, 124 to review）; dev/checklists/<domain>/clauses.json（edit to fix）; _work/gen_checklist_docx.js + gen_school_docx.js（regenerate after fix）.
+Post-startup first action: 問 Leonard 想優先睇邊個域嘅 verify_issues — 建議順序：sen（48 issues）→ gifted（34）→ gov_admin（23）→ qa_inspection（21 remaining）。

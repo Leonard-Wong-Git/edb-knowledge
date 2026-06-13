@@ -118,18 +118,28 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / 下游 Circular System 整合）
 
 ## Last Session Record
+1. UTC date: 2026-06-13
+2. Session ID: Claude_20260613_1100 (S156)
+3. Completed:
+   - ✅ **4 surgical modal fixes** — sen ch9 clause2（須每年→宜每年）；gifted ch2 clause8（須協調→應協調）；qa_inspection sec5 clause1 table（須不記名→應不記名）；qa_inspection sec8 clause1（須制訂→應制訂＋法團校董會→校董會/學管會）
+   - ✅ **6 docx regenerated** — sen×2 / gifted×2 / qa_inspection×2
+   - ✅ **QC_REVIEW.md** — 128 issues categorized（4 fixed, 124 pending Leonard review）
+   - ✅ **START_NEXT_SESSION_PROMPT.txt** regenerated（was blocked in S155）
+   - ✅ **Git commit + push**
+4. Pending: 124 remaining verify_issues for Leonard review（see dev/checklists/QC_REVIEW.md：scope qualifiers, fabricated clauses, remaining modal distortions）。
+5. Next priorities: Leonard review QC_REVIEW.md → targeted fixes for high-priority scope issues → 文件分析 Phase 1.5（optional）。
+6. Risks: verify_issues 124 remaining = non-blocker（docx 已可用；QC_REVIEW.md 提供 action list）。
+7. commits: HEAD = S156 commit（已 push）。
+
+## Previous Session Record (S155)
 1. UTC date: 2026-06-11/13
 2. Session ID: Claude_20260613_0900 (S155)
 3. Completed:
-   - ✅ **任務①** PAGE_COVERAGE_REPORT.md（207 源/14,505 chunks；179 全頁碼/7 部分/2 全無/19 結構性無頁）
-   - ✅ **任務②** 14 範疇 × 2 docx = 28 files 全部生成（school_governance/kg_admission/placement/activity/conduct/safety/gov_admin/qa_inspection/hr_admin/student_support/cpd/sen/gifted/curriculum）
-   - ✅ **Git commit 122a7b9**（804 files，dev/checklists/ 全量）；NO push（待 Leonard 確認）
-4. Pending: git push（`cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && git push origin main`）；verify_issues QC（sen 48 / gifted 34 / gov_admin 23 / qa_inspection 23 flags）。
-5. Next priorities: git push → review verify_issues → 文件分析 Phase 1.5（optional）。
-6. Risks: checklist commit 未 push；verify_issues flags 待 Leonard review（非 blocker）。
-7. commits: `122a7b9`（S155 checklist batch，未 push）。
+   - ✅ **任務①** PAGE_COVERAGE_REPORT.md（207 源/14,505 chunks）
+   - ✅ **任務②** 14 範疇 × 2 docx = 28 files 全部生成
+   - ✅ **Git commit 122a7b9**（804 files）→ **4e496a2**（closeout）— **已 push** (68fe43d..4e496a2 → origin/main)
 
-## Previous Session Record
+## Previous Session Record (S154)
 1. UTC date: 2026-06-10
 2. Session ID: Claude_20260610_0100 (S154)
 3. Completed:

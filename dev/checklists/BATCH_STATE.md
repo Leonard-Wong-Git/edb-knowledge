@@ -103,3 +103,8 @@
   - **🎉 ALL 14 DOMAINS COMPLETE — 28/28 docx files generated**
   - **Git commit 122a7b9** — 804 files committed；NO push（待 Leonard 確認）
   - **Current docx status: 14/14 domains done (28 files) ✅ COMPLETE**
+- 2026-06-13 S156 QC pass：
+  - **4 surgical modal fixes applied** — sen[31] 須每年→宜每年；gifted[7] 須協調→應協調；qa_inspection[8] 須不記名→應不記名；qa_inspection[15] 須制訂→應制訂＋法團校董會→校董會/學管會
+  - **docx regenerated**: sen×2, gifted×2, qa_inspection×2 (6 files updated)
+  - **QC_REVIEW.md** generated — 128 issues categorized, 4 fixed, 124 pending Leonard review
+  - Priority for Leonard: scope qualifiers (特殊學校/中學 limitations), remaining modal distortions, fabricated obligations
