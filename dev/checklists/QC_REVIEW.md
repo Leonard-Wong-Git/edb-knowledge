@@ -1,16 +1,16 @@
 # QC Review Report — verify_issues Assessment
 
-> Generated: S156 session — 4 surgical modal fixes applied; remainder for Leonard's review
+> Generated: S156 — 4 surgical modal fixes. Updated S157 (Claude_20260613_0925) — 9 cross-domain scope/eligibility distortions fixed (source-verified, docx regenerated).
 
 ## Summary
 
 | Domain | Total Issues | Fixed (S156) | Needs Leonard Review |
 |---|---|---|---|
-| sen | 48 | 1 | 47 |
-| gifted | 34 | 1 | 33 |
-| gov_admin | 23 | 0 | 23 |
-| qa_inspection | 23 | 2 | 21 |
-| **Total** | **128** | **4** | **124** |
+| sen | 48 | 14 | 34 |
+| gifted | 34 | 3 | 31 |
+| gov_admin | 23 | 2 | 21 |
+| qa_inspection | 23 | 3 | 20 |
+| **Total** | **128** | **22** | **106** |
 
 ## Issue Types
 
@@ -30,8 +30,8 @@
 | 3 | 🔍 Review | distorted-number | 19 | — | Restore source wording: Clause 6 table row 1 merges item 19's content ('適切融入所有教職員的日常工作中，包括將焦點數據收集和觀課活動納入學校發展和課程規劃行動方案') into |
 | 4 | 🔍 Review | distorted-number | 8 | — | Restore source wording: Item 8 req and its source quote both state the SEMIS submission deadline as '每學年8月31日前' (strictly be |
 | 5 | 🔍 Review | fabricated | 0 | — | Remove or rephrase: Clause 1 writes '本校須維護...學生支援紀錄冊'，但 item 0 的 req 與 quote（g19 p.76）只有'檢視'（review），從無'維護'（maintain）。'維 |
-| 6 | 🔍 Review | fabricated | 3 | — | Remove or rephrase: Clause 5 將 item 3 的主體由'中學'改為'本校'，把原條文明確只適用於中學（g19 p.78 quote：'如中學考慮降低學生的支援層級'）的義務，靜默擴展至所有學校，超出源文範圍。 |
-| 7 | 🔍 Review | distorted-number | 3 | — | Restore source wording: Clause 5 使用'第三層支援'，但 item 3 req 及 quote（g19 p.78）的原用詞為'第三層級'，非'第三層支援'，術語不對應。 |
+| 6 | ✅ Fixed | fabricated | 3 | — | 本校→本校（如屬中學）scope 還原 (sec1/clause5, g19 p78) |
+| 7 | ✅ Fixed | distorted-number | 3 | — | 第三層支援→第三層級 術語還原 (sec1/clause5, g19 p78) |
 | 8 | 🔍 Review | distorted-number | 1 | — | Restore source wording: Clause 0 drops '延展' from item 1's requirement. Original (g10 p39): '決定如何運用及延展中央課程架構所給予的彈性'. Clause 0 |
 | 9 | 🔍 Review | distorted-number | 37 | — | Restore source wording: Clause 11 omits the specific mechanism from item 37 (g06 p217): '在放學後設家課輔導小組等，以有效支援有需要的學生'. Neither  |
 | 10 | 🔍 Review | distorted-number | 44 | — | Restore source wording: Clause 11 omits the obligation from item 44 (g06 p222): '並提供課後支援予有需要學生'. The clause preserves the pa |
@@ -41,34 +41,34 @@
 | 14 | 🔍 Review | fabricated | 19 | — | Remove or rephrase: Clause 12 加入「協助識別有特殊教育需要的學生，並提供適切的跟進建議」作為校本教育心理服務的用途說明。sag_2025_11 p186 的 quote 只記載 2016/17 學年起提供校本教 |
 | 15 | 🔍 Review | distorted-number | 19 | — | Restore source wording: Item 19 req 包含「辦學團體可按規定比例聘用駐校教育心理學家」，此條款在 clause 12 完全缺失，令聘用比例規定這一關鍵要求被遺漏。 |
 | 16 | 🔍 Review | distorted-number | 3 | — | Restore source wording: Clause 0 covers id3。id3 quote 原文：「所有學生（包括有殘疾的學生）」，改寫變為「（包括有特殊教育需要的學生）」。《教育實務守則》第17.1段原文類別係「有殘疾的學生」，並 |
-| 17 | 🔍 Review | distorted-number | 2 | — | Restore source wording: Clause 5 covers id2。id2 req 明確限定「特殊學校學校人員必須體恤學生的情況並因應其特殊教育需要，提供適切的測考調適或特別考試安排，例如延長考試時間或使用特別輔助器材等」，so |
-| 18 | 🔍 Review | distorted-number | 31 | — | Restore source wording: Clause 17 covers id31。id31 req 明確限定「特殊學校應為學生的溝通模式制定校本政策，並提供機會予學生學習理解和表達」，source: g10 p61。改寫改為「本校應為學生 |
+| 17 | ✅ Fixed | distorted-number | 2 | — | 本校→本校（如屬特殊學校）(sec4/clause5 句1, g10 p80) |
+| 18 | ✅ Fixed | distorted-number | 31 | — | 本校→本校（如屬特殊學校）(sec4/clause17 句1, g10 p61) |
 | 19 | 🔍 Review | distorted-number | 2 | — | Restore source wording: 源文件 (page 22) quote 寫「改動試題內容或評估準則」，改寫條款改成「改動試題內容或評分準則」。「評估準則」（assessment criteria）與「評分準則」（marking/sc |
 | 20 | 🔍 Review | fabricated | 22 | — | Remove or rephrase: 改寫表格（covers 7,21,22,23）為「中度視障學生」一行加入「休息安排：按個別情況安排」。源文件 item 22（page 25）只列明全失明及嚴重視障學生的休息間隔（中學生每45分鐘休息 |
 | 21 | 🔍 Review | fabricated | 20 | — | Remove or rephrase: Clause 12 table (covers items 20 & 21) adds '第一層支援（視乎個別情況而定）' as the support tier for 輕度聽障(26–40分貝)  |
-| 22 | 🔍 Review | fabricated | 11 | — | Remove or rephrase: Clause 10 (covers items 11 & 13) removes the '特殊學校' scope qualifier present in both original items.  |
-| 23 | 🔍 Review | fabricated | 12 | — | Remove or rephrase: Clause 11 (covers item 12) removes the '特殊學校' scope qualifier. Item 12 req: '特殊學校須教導學生表達「不」的否定或拒絕回應， |
-| 24 | 🔍 Review | distorted-number | 10 | — | Restore source wording: Item 10 requires '須在中、小學概覽內的專欄' (both primary and secondary school overviews). Clause 0 writes '須在學校 |
+| 22 | ✅ Fixed | fabricated | 11 | — | 本校→本校（如屬特殊學校）兩句 (sec6/clause10, g10 p69+p63) |
+| 23 | ✅ Fixed | fabricated | 12 | — | 本校→本校（如屬特殊學校）(sec6/clause11, g10 p63) |
+| 24 | ✅ Fixed | distorted-number | 10 | — | 學校概覽→中、小學概覽 (sec7/clause0, g19 p71) |
 | 25 | 🔍 Review | distorted-number | 2 | — | Restore source wording: Item 2 requires the school to '清楚列出所運用的額外資源（包括「學習支援津貼」、「有特殊教育需要非華語學生支援津貼」）及聘請...的具體工作和工作時間表' — two d |
-| 26 | 🔍 Review | distorted-number | 16 | — | Restore source wording: Item 16 requires '官立及資助小學' (both government AND aided primary schools) to collect year-6 language-im |
+| 26 | ✅ Fixed | distorted-number | 16 | — | 資助小學→官立或資助小學 (sec7/clause9, g19 p63) |
 | 27 | 🔍 Review | fabricated | 15 | — | Remove or rephrase: Item 15 source req and quote both require '必須獲得家長同意' (parental consent). Clause 9 upgrades this to ' |
 | 28 | 🔍 Review | fabricated | 3 | — | Remove or rephrase: Item 3 source req and quote both say '接受有關特殊教育的培訓' (SEN training). Clause 3 writes '接受有關特殊教育的專業培訓' b |
 | 29 | 🔍 Review | bad-citation | 5 | — | Verify correct source citation / Clause 0 covers item 5 (source: g10, page 72) but its citations list only g19/p6 |
 | 30 | 🔍 Review | distorted-number | 5 | — | Restore source wording: Item 5 req states the purpose as '以發揮學生在家學習的最大效能' (maximise in-home learning effectiveness). Clause  |
 | 31 | ✅ Fixed | distorted-number | 1 | — | 須每年→宜每年 (ch9/clause2) |
-| 32 | 🔍 Review | distorted-number | 24 | — | Restore source wording: Item 24 req specifies '成績稍遜學生（小學適用）', making the under-performing-student submission a primary-schoo |
+| 32 | ✅ Fixed | distorted-number | 24 | — | 成績稍遜學生＋（小學適用）(sec8/clause7 表, g19 p73) |
 | 33 | 🔍 Review | fabricated | 20 | — | Remove or rephrase: Clause 6 appends '本校在收到上述資料後，須依照本章所訂程序妥善存放及跟進'. Item 20's req and source quote (g19/p48) only descri |
 | 34 | 🔍 Review | fabricated | 0 | — | Remove or rephrase: Clause 0 inserts '每學年' (annually), imposing an annual-frequency obligation not present in item 0's r |
 | 35 | 🔍 Review | fabricated | 5 | — | Remove or rephrase: Clause 0 uses '（包括管理層及統籌課程的教師）' in '有系統地規劃全校教師（包括管理層及統籌課程的教師）之持續專業發展'. This phrase originates solely |
 | 36 | 🔍 Review | fabricated | 5 | — | Remove or rephrase: Clause 0 table row 2 states '由可調批核職級審批出席申請' as an approval procedure for 教育局其他特殊教育需要相關課程. This proce |
-| 37 | 🔍 Review | distorted-number | 0 | — | Restore source wording: Item 0 requirement and source quote (g19:60) use '應' (should). Clause 0 uniformly uses '須' (must), u |
-| 38 | 🔍 Review | distorted-number | 6 | — | Restore source wording: Item 6 requirement and source quote (g06:133) use '應' (should/参照). Clause 0 uniformly uses '須' (must |
-| 39 | 🔍 Review | distorted-number | 7 | — | Restore source wording: Item 7 requirement and source quote (g06:96) use '應' (should). Clause 0 uniformly uses '須' (must), m |
+| 37 | ✅ Fixed | distorted-number | 0 | — | 須→應 (sec9/clause0, g19 p60) |
+| 38 | ✅ Fixed | distorted-number | 6 | — | 首句插「應」對齊源文應參照 (sec9/clause0, g06 p133) |
+| 39 | ✅ Fixed | distorted-number | 7 | — | 首句「應」covers item7 應參考 (sec9/clause0, g06 p96) |
 | 40 | 🔍 Review | fabricated | 2 | — | Remove or rephrase: Clause 1（covers 2,5）寫「提升全體教職員的評估素養」，但 g10 p.12（item 2 原文）明確指「學校領導人員及教師」，並非全體教職員。把對象擴大至全體教職員屬無來源新增義務。 |
 | 41 | 🔍 Review | fabricated | 4 | — | Remove or rephrase: Clause 2（covers 4）有兩處虛構：(1) 寫「以提升學生生活質素為課程及服務的終極目標」，source（cgss_2024 p.16）只說「以提升學生生活質素為終極目標」，「課程及服務的 |
 | 42 | 🔍 Review | bad-citation | 8 | — | Verify correct source citation / Clause 5（covers 8）引用 sag_2025_11 p.104，但 item 8 的 source 僅為 sag_2025_11 p.60。p.1 |
 | 43 | 🔍 Review | distorted-number | 0 | — | Restore source wording: 原始義務是「在一個月內送交」，觸發時點為轉校；改寫改為「於學生正式離校後一個月內」，加插「正式離校後」作倒數起點，原文（g19 p82 quote）並無此觸發條件，屬時限錨點改寫。 |
-| 44 | 🔍 Review | distorted-number | 12 | — | Restore source wording: 原始 req 及 quote（g10 p52）均為「為學生提供較個人化的課程選擇」，適用對象是特殊學校全體學生；改寫將對象縮窄為「嚴重智障學生」，無任何原文依據，屬對象範圍失真。 |
+| 44 | ✅ Fixed | distorted-number | 12 | — | 本校→本校（如屬特殊學校）、嚴重智障學生→學生 (sec11/clause7 句1, g10 p52) |
 | 45 | 🔍 Review | fabricated | 21 | — | Remove or rephrase: 改寫在 item 21 對應段末加入「確保支援不因學校轉換而中斷」；原始 req（g06 p15）及 quote 均無此目的語句，屬無來源添加。 |
 | 46 | 🔍 Review | fabricated | 4 | — | Remove or rephrase: 改寫在 item 4 對應句末加入「以加強其社區適應能力」；原始 req 及 quote（g10 p72）均只說「編排定期體驗各種社區環境的機會」，無任何目的說明，屬無來源添加。 |
 | 47 | 🔍 Review | fabricated | 19 | — | Remove or rephrase: 改寫將「支援學生適應不同階段銜接」延伸為「適應不同階段銜接過程中的身心需要」；原始 quote（g06 p313）只說「提供適切的協助」，req 亦無「身心需要」字眼，屬無來源添加詞語。 |
@@ -82,7 +82,7 @@
 | 2 | 🔍 Review | distorted-number | 10 | — | Restore source wording: Clause 3 將 item 10 原文「學校教育宗旨及資源」改寫為「學校教育宗旨及可用資源」，加入「可用」二字縮窄義務範圍，與 item 10 的 req 及 quote 不符。 |
 | 3 | 🔍 Review | bad-citation | 18 | — | Verify correct source citation / Clause 7（covers [18]）引用 (gifted_tp_resource_kit, page 7)，但 item 18 的 source_id 為 |
 | 4 | 🔍 Review | fabricated | 0 | — | Remove or rephrase: Clause 0 加咗原始 item 0 及 source quote 均無嘅目的語句「以領導全校推行校本資優教育工作」。Item 0 req 只要求校長認同理念及接受培訓，無提培訓目的；source |
-| 5 | 🔍 Review | distorted-number | 9 | — | Restore source wording: Item 9 原文用「可因應」（許可式義務，schools MAY adapt），但 Clause 1 將整段框架設為「須完成以下前期分析工作」（強制式），把 item 9 的許可式要求改寫成強制要求 |
+| 5 | ✅ Fixed | distorted-number | 9 | — | 表第三行加「可因應」還原許可式 (sec1/clause1, gifted_policy_docs p4) |
 | 6 | 🔍 Review | fabricated | 3 | — | Remove or rephrase: Clause 5 table 第三列「第三層次：校外支援（按校情而定）/ 按實際情況統籌安排」在 covers=[10,3,4] 中無任何原始 item 作為來源：item 10 屬第一層次，item |
 | 7 | ✅ Fixed | distorted-number | 19 | — | 統籌人員須協調→應協調 (ch2/clause8) |
 | 8 | 🔍 Review | fabricated | 22 | — | Remove or rephrase: Clause 9 加咗「以確保資優教育工作具系統性及持續性」目的語句，但 item 22 req 及 source quote 均只列明四個規劃範疇，無提此目標；屬憑空添加的義務性目的語句。 |
@@ -94,7 +94,7 @@
 | 14 | 🔍 Review | fabricated | 4 | — | Remove or rephrase: Clause 2 point (三) appends '協助其發揮潛能' as the stated purpose of learning/expression-skill training. It |
 | 15 | 🔍 Review | fabricated | 10 | — | Remove or rephrase: Clause 5 introduces '訂定個人化的教育目標及學習計劃' — '個人化' (individualised/personalised) does not appear in item  |
 | 16 | 🔍 Review | distorted-number | 1 | — | Restore source wording: Item 1 requires '提供輔導活動及特定空間' — two specific concrete provisions (counselling activities AND a dedic |
-| 17 | 🔍 Review | distorted-number | 5 | — | Restore source wording: Item 5 uses '宜' (recommended/should), indicating a recommended practice. Clause 3 rewrites as '本校持續推 |
+| 17 | ✅ Fixed | distorted-number | 5 | — | 本校持續推廣→本校宜持續推廣 (sec5/clause3, gifted_ge_series p212) |
 | 18 | 🔍 Review | fabricated | 9 | — | Remove or rephrase: Item 9 and its source quote say '為學生訂立及推行輔導計劃' — applying to students generally. Clause 2 inserts '有 |
 | 19 | 🔍 Review | bad-citation | 18 | — | Verify correct source citation / Clause 0 引用 (g06, page 144)，該來源屬於 item 18（「對於雙重特殊資優學生，學校不宜只關注其學習障礙，應以「強項為本」(Stre |
 | 20 | 🔍 Review | bad-citation | 14 | — | Verify correct source citation / Clause 5 引用 (gifted_ge_series, page 65)，該來源屬於 item 14（教育局2019年更新《全校參與模式融合教育運作指南》 |
@@ -116,12 +116,12 @@
 
 | # | Status | Kind | Item | Sec | Fix / Action Required |
 |---|---|---|---|---|---|
-| 0 | 🔍 Review | distorted-number | 3 | 8 | Restore source wording: Clause 1 merges items 1 and 3 into one sentence and applies '書面同意' (written consent) to item 3's app |
+| 0 | ⛔ Won't-fix | distorted-number | 3 | 8 | Leonard S157 裁示保留「書面同意」：lead 主體=結構改動（item1，本須書面＋規例10(a)），要求書面係安全一方、唔誤導學校；item3 源文雖只「批准」但併入結構改動句、書面不為過。 |
 | 1 | 🔍 Review | distorted-number | 4 | 8 | Restore source wording: Clause 2 text reads '修訂圖則及記錄' (及 = and), but item 4's req and source quote both use '修訂圖則／記錄' (slash |
-| 2 | 🔍 Review | distorted-number | 2 | 9 | Restore source wording: Clause 2 covers id 2，原始 item 及 quote 寫「校董會」（泛指學校校董會），但 clause 改寫為「法團校董會」（Incorporated Management Com |
+| 2 | ✅ Fixed | distorted-number | 2 | 9 | 法團校董會→校董會 ×2 還原實體 scope (sec0/clause3, sag p233+icac p66) |
 | 3 | 🔍 Review | fabricated | 4 | 9 | Remove or rephrase: Clause 3 covers id 4，加入「校名更改獲批後，本校須適時更換相關牌匾，確保所展示的名稱與教育局登記的註冊名稱一致」——此更換義務及一致性要求不見於 source id 4 的 req |
 | 4 | 🔍 Review | fabricated | 5 | 9 | Remove or rephrase: Clause 4 covers id 5，原始 req/quote 只說「不得自稱或聲稱為『國際學校』」，clause 額外列明「包括但不限於校名、宣傳材料及對外通訊」三類禁止途徑，此具體列舉不見於  |
-| 5 | 🔍 Review | distorted-number | 0 | 10 | Restore source wording: item 0 req 明確列出「資助學校及按位津貼學校」兩類學校，clause_0 改寫為「本校（資助學校）」，完全刪去「按位津貼學校」，縮窄計劃適用範圍。 |
+| 5 | ✅ Fixed | distorted-number | 0 | 10 | 資助學校→資助學校或按位津貼學校 (sec9/clause0, bip p1) |
 | 6 | 🔍 Review | distorted-number | 5 | 10 | Restore source wording: item 5 quote：「該計劃為學生提供公眾責任及團體人身意外保險的保障」。clause_0 改為「為本校師生及相關人員提供公眾責任及人身意外保障」：(1) 受保對象由「學生」擴大為「師生及相關人 |
 | 7 | 🔍 Review | fabricated | 4 | 10 | Remove or rephrase: clause_2 在義務句末加上「以確保其獲得適切保障」，item 4 source（bip_insurance_notes_2025 p2）quote 為「校方應為他們另外投購保險」，原文無任何目的 |
 | 8 | 🔍 Review | fabricated | 6 | 10 | Remove or rephrase: clause_3 加上「相關決定由法團校董會按本校實際情況審議」，item 6 source（sag_2025_11 p254）quote 僅為「學校應自行決定是否需要為非學校部分及非標準的家具及設備 |
@@ -153,7 +153,7 @@
 | 6 | 🔍 Review | fabricated | 2 | 4 | Remove or rephrase: clause 2 在覆蓋 item 2 的段落加入「確保評估結果能真實反映本校的實際情況及發展需要」，但 item 2 的 source quote（edbc15_2022_accountabilit |
 | 7 | 🔍 Review | fabricated | 3 | 4 | Remove or rephrase: clause 2 在覆蓋 item 3 的段落加入「『要點問題』應作為整全反思的引導框架，而非逐項勾選的核查機制」。item 3 的 source quote（perf_indicators_2022 |
 | 8 | ✅ Fixed | distorted-number | 2 | 5 | 須以不記名→應以不記名 (sec5/clause1 table) |
-| 9 | 🔍 Review | distorted-number | 4 | 5 | Restore source wording: Item req states '學校須委派合適的教師'（須 = must），but clause2 table row '統籌責任' uses '本校宜委派合適的教師'（宜 = should/rec |
+| 9 | ✅ Verified | distorted-number | 4 | 5 | clause 跟足源文 quote「宜」(sse_tools p9)；係 req paraphrase 誤升「須」— 無需改 |
 | 10 | 🔍 Review | fabricated | 0 | 6 | Remove or rephrase: 原文 quote 用「不應把學業增值資料用作宣傳用途」（should not，規範性建議），改寫句改為「不得將…用作宣傳用途」（must not，強制禁止）。情態升級無原文支持，屬虛構加強義務。 |
 | 11 | 🔍 Review | fabricated | 0 | 7 | Remove or rephrase: Clause 1 (covers 0,1) uses '法定文件'（法定文件）— 原始 item 0 req/quote 只寫「文件」/「相關文件」，無任何「法定」或「statutory」修飾；此字眼 |
 | 12 | 🔍 Review | fabricated | 0 | 7 | Remove or rephrase: Clause 1 (covers 0,1) 末句新增「確保上述文件齊備並如期提交」— '如期'（on time）時限義務在 item 0 的 req 及 quote 均無出現，屬虛構義務 |
@@ -174,6 +174,8 @@
 
 ### High Priority — scope/eligibility distortions
 
+> ✅ **ALL 9 FIXED in S157** (Claude_20260613_0925) — restored scope qualifiers, source-verified against items_verified.json, school-version docx regenerated for sen + gov_admin.
+
 These change who an obligation applies to (特殊學校 vs 全校, 中學 vs 全校, etc.):
 
 - **sen[6]** item=3: Clause 5 將 item 3 的主體由'中學'改為'本校'，把原條文明確只適用於中學（g19 p.78 quote：'如中學考慮降低學生的支援層級'）的義務，靜默擴展至所有學校，超出源文範圍。
@@ -186,7 +188,9 @@ These change who an obligation applies to (特殊學校 vs 全校, 中學 vs 全
 - **sen[44]** item=12: 原始 req 及 quote（g10 p52）均為「為學生提供較個人化的課程選擇」，適用對象是特殊學校全體學生；改寫將對象縮窄為「嚴重智障學生」，無任何原文依據，屬對象範圍失真。
 - **gov_admin[5]** item=0: item 0 req 明確列出「資助學校及按位津貼學校」兩類學校，clause_0 改寫為「本校（資助學校）」，完全刪去「按位津貼學校」，縮窄計劃適用範圍。
 
-### Medium Priority — modal distortions (情態詞) not yet fixed
+### Medium Priority — modal distortions (情態詞)
+
+> ✅ **BATCH RESOLVED in S157** (Claude_20260613_0925) — sen[7/24/37/38/39] + gifted[5/17] + gov_admin[2] fixed (source-verified); qa_inspection[9] verified-correct (no change); gov_admin[0] flagged for Leonard (書面 qualifier, legal nuance). docx regenerated sen/gifted/gov_admin.
 
 - **sen[7]** item=3: Clause 5 使用'第三層支援'，但 item 3 req 及 quote（g19 p.78）的原用詞為'第三層級'，非'第三層支援'，術語不對應。
 - **sen[17]** item=2: Clause 5 covers id2。id2 req 明確限定「特殊學校學校人員必須體恤學生的情況並因應其特殊教育需要，提供適切的測考調適或特別考試安排，例如延長考試時間或使用特別輔助器材等」，source: g10 p80。改寫改為「本校必須體恤學生的情況並因應其特殊教育需要，提供適切的測考調適
