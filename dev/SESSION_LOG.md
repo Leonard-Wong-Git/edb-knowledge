@@ -2,6 +2,41 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-13 Session 159 — 學校版分校類 mass-gen（13域 per-type docx）+ 修 undefined 章節 bug
+
+- **ID:** Claude_20260613_S159 (S159)
+- **Trigger:** 開工切去 Draft active root。Leonard：全推 #3 學校版分校類（9域 tagging + 生成器 + mass-generate）。Product 零接觸（純 dev/checklists 內部交付物）。
+- **起手核實:** HEAD `455d281`==origin/main clean；Supabase 14,674（未動）。
+- **Completed:**
+  - ✅ **修 gen_school_docx.js 章節 bug** — 讀 `ch.section_no`/`ch.name`(undefined) → 改 `ch.si` + checklist `sections[si-1].name`。**全 14 域舊「學校版」docx 章節之前全 render「undefined. undefined」、條文「undefined.1」**（S156/S157 QC 集中內容/引用、未覆蓋編號故漏；清單版生成器無此 bug）。
+  - ✅ **兩生成器加 `<type>` CLI filter** — gen_school_docx.js + gen_checklist_docx.js 按 `school_types` field filter（無 field=共用）；title/檔名加校類標、章節 sequential 重編、清單源表只列用到源。
+  - ✅ **3 新腳本** — `apply_school_types.py`（locator→寫 school_types，idempotent，--check/--apply，per-file 格式保 diff）、`add_facility_carveouts.py`（safety 設施→校類，text+table match + keep-shared 排除）、`gen_all.py`（mass-gen driver，按 profile applies_to）。
+  - ✅ **9 域 tagging（背景 Workflow `wf_be940f92-548`，9 agents/~1.25M tok/7.4min）** → 唯讀驗 locator → merge 入 `_school_type_tags.json`；修 1 sen near-dup locator collision + 2 個 S158 錯 locator（activity item 用咗 clause voice / gov_admin sid 寫錯 edbcm→edbc14_2024_spms）。
+  - ✅ **Leonard 科目→校類 ruling** — 視藝(一般)=中小、視藝(酸類/重金屬)=中、家政/科技與生活/科學實驗室/工場=中+特。safety 逐條分「設施專屬 vs 通用」+50 carve-outs（keep-shared 9 條混合/通用：0.3/2.12/8.5 + c0.9/c2.0/c2.1/c2.2/c6.0/c8.1）；curriculum +4（lab/workshop）。hr_admin/cpd 嘅「實驗室技術員」=職系 context 非設施→不動。
+  - ✅ **全 13 域 348 carve-outs、0 error** apply 入 checklist/clauses。
+  - ✅ **mass-generate 102 docx**（13 generic 學校版+13 generic 清單 + 37 per-type 學校版 + 37 per-type 清單 + kg_admission generic 修 bug）。placement/gifted=小+中(2型)，其餘 11 域=小/中/特(3型)。
+- **QC:** 102 docx 全 0 undefined / 0 壞 zip / hyperlink rels 齊 / per-type filter 互斥實證（safety 視藝→中·校巴→小·宿舍→特·家政實驗室工場→中特；placement primary-only clause NOT in 中學版）/ **22 JSON 語義 diff 證只加 school_types、零內容污染** / per-type item 數合理。
+- **Caveat（已接受）:** 混合 clause（safety 3 條 c0.9/c2.0/c2.2 + curriculum 1 條天台複合）核心通用故 keep-shared → 小學版仍見零星設施句；徹底乾淨要 per-type 文字變體（較大工程，未做）。
+- **Data-model note:** clauses.json 章 `si`=1-based、`section_name`空（真名喺 checklist sections[si-1]）；clause 有 `table` field，facility 判斷要 match text+table。
+- **commits:** `b1d4f5c`（deliverables）+ governance closeout commit。
+- **Log maintenance (§4a):** SESSION_LOG >400 行、§4a script 不存在；未 archive；下個 session 處理。
+- **Next Session Handoff Prompt:**
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net).
+Product state: HEAD = S159 governance commit（已 push）；Supabase 14,674；Channel B live；0 outstanding bug。本 session product 零接觸。
+S159 完成：#3 學校版分校類 mass-gen — 13 域 per-type(小/中/特) docx 共 102 份（dev/checklists/<域>/）；修好全 14 域學校版 docx 之前「undefined」章節 bug；13 域 348 校類 carve-outs（school_types field 入 checklist/clauses.json）；Leonard 科目→校類 ruling 已套（視藝=中小、家政/實驗室/工場=中+特）。生成器 = dev/checklists/_work/gen_school_docx.js + gen_checklist_docx.js（<type> arg）；apply_school_types.py / gen_all.py。
+NEXT:（1）Leonard 開 docx review 格式/分流，有改再調生成器或 tags；（2）幼稚園 Phase 2（kg_admission 要補 KG 專屬源先 per-type）；（3）混合 clause 若要小學版徹底無設施句 → per-type 文字變體（較大工程）；（4）#4 文件分析 Phase 2（掃描學校文件→修改補充→可下載標註，食 #3 校類模型）。
+⚠️ 改 tags 後必跑 apply_school_types.py --check（驗 locator 唯一+applies_to⊆phase1）再 --apply；混合 clause 已 keep-shared（小學版見零星設施句=已知 caveat）。
+Post-startup first action: 問 Leonard docx review 有冇要改，定推進 #4 文件分析 Phase 2。
+```
+
+---
+
 ## 2026-06-13 Session 158 — ph_pri 完整重抽 + 人文科 re-anchor + 培訓證書清理 + 校類分版地基
 
 - **ID:** Claude_20260613_S158 (S158)
