@@ -3,8 +3,8 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
 Current objective: EDB K1 知識平台 (policychecker.wongfu.net).
-Product state: HEAD = S157 governance commit（已 push）；Supabase 14,505；Channel B live；0 outstanding bug。
-QC state: 14 範疇清單 + 學校版 docx（28 files）verify_issues QC 全清 — 128/128 resolved（見 dev/checklists/QC_REVIEW.md）。4 學校版 docx 已重生。
-Next work（無緊急、可選）: (1) Leonard spot-check QC fixes / 11 條 kept-readability 目的句 + gov_admin[0] 書面 裁示 / qa[9] 核實 是否認同；(2) 文件分析 Phase 1.5（mobile shell）/ Phase 2（可下載標註文件）；(3) 其餘 10 域（curriculum/hr_admin/student_support/cpd 等，S155 報 0 verify_issues）如需可再 QC。
-⚠️ Data-model trap: verify_issues item_id / clauses covers = 章內局部 index（指 checklist.json sections[si].items），唔係 items_verified 全域 index — 必用 quote 內容搜尋核實真源。citations 應＝covers items sources（可程式驗 drift）。
-Post-startup first action: 問 Leonard 想 spot-check QC、定推進文件分析 Phase 1.5、定其他。
+Product state: HEAD = 6a37e9c (S158，已 push)；Supabase 14,674；Channel B live；0 outstanding bug。
+S158 完成：ph_pri_guide_2025 完整重抽（146→315 chunk、ch3-6 入庫）+ curriculum 人文科 8/9 引用 re-anchor 真指引真物理頁 + 人文科/科學科培訓證書清理 + display sync 14,674。
+NEXT（主線 = #3 學校版分校類）：Leonard 定案「每域 4 份獨立可下載文件（幼/小/中/特）、有共用」；幼稚園 Phase 2（要補 KG 源），Phase 1 = 小/中/特。進度：profiling 14 域完成、per-type tagging 4/13。Resume：①跑餘 9 域 tagging（placement/sen/curriculum/gifted/conduct/qa_inspection/hr_admin/student_support/cpd；Workflow resumeFromRunId wf_d9e8cf6a-6d5 = cached 4 + 跑 9，或重 launch）②改 gen_checklist_docx.js + gen_school_docx.js 加校類 filter（item/clause 加 school_types field，無 field=共用→全該域校類）③pilot 一域（建議 placement，小/中 split 清楚）畀 Leonard 睇格式 ④mass-generate 小/中/特（~37 files）。之後 #4 文件分析 Phase 2（掃描學校文件→修改補充→可下載標註，用 agent team + 食 #3 校類模型）。
+⚠️ ph_pri 用物理頁碼（1-262）非印刷頁標（與全站一致）。S158 撞過 session 上限（reset 6:20pm Europe/London）；重跑 agent team 前留意。
+Post-startup first action: 問 Leonard resume #3（跑餘 9 域 tagging + pilot placement）定其他。

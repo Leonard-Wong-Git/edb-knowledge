@@ -2,6 +2,41 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-13 Session 158 — ph_pri 完整重抽 + 人文科 re-anchor + 培訓證書清理 + 校類分版地基
+
+- **ID:** Claude_20260613_S158 (S158)
+- **Trigger:** 開工於頂層 dormant scaffold → 切去 Draft active root。Leonard：人文科真指引核實 + citation re-anchor（分agent）+ 學校文件清單 + 學校版分校類 + 文件分析 Phase 2。
+- **起手核實:** HEAD `da86ffb`==origin/main clean；Supabase 14,505。
+- **Completed:**
+  - ✅ **ph_pri_guide_2025 LIVE 重抽** — 揭舊抽取封頂 80/262 頁、缺 ch4.7/ch5/ch6 正文（agent 二輪疑「庫缺」→ 親 fetch 真 PDF 證實 262 頁、prev extract `--pages` 封頂）。fetch_extract 全抽（262頁/190k字/U+FFFD=0）→ dry-run 315 → pre-flight（old 146/new 315/overlap 0）→ **INSERT 315 + DELETE 146 stale** → ph_pri=315、總 **14,674** → cache 刷新 → live 搜尋命中 ch5 p193。
+  - ✅ **curriculum 人文科 8/9 re-anchor** — 2 輪 agent（80頁誤 5/9 → 262 頁 8/9）連真指引物理頁 p8/11/19/123/127/192/196/245；idx7 培訓刪。docx rels 驗連結。
+  - ✅ **培訓證書清理** — 人文科 idx7 + 科學科 4 條刪、clause9 表 4→1 行、clause29 trim；2 docx 0「培訓證書」；清單 634→629。
+  - ✅ **display sync** 14,505→14,674 × 7 處（assertion guard）。
+  - ✅ **#3 地基** — 14 域校類 profiling（`_school_type_profiles.json`）+ per-type tagging 4/13（`_school_type_tags.json`：school_governance/activity/safety/gov_admin）；餘 9 域撞 **session 上限**未完。
+  - ✅ 學校文件 full list（28 docx 本機路徑、未上平台）交 Leonard。
+- **方向定案（Leonard）:** 學校版每域 4 份獨立可下載文件（幼/小/中/特）+ 有共用；幼稚園 Phase 2；科學科 cert 都刪。
+- **Data-model note:** clause 有 `table`/`covers` field；`covers`=item index（render 唔用）；刪 cert 要連 clause `table` row 清，唔淨改 `text`。
+- **QC:** docx rels 連結 / 清單 grep cert=0 / display 7 處 0 殘留 / live Supabase 14,674 / live Channel B 命中新 ch5。
+- **Product/Supabase 改動:** LIVE wiki_chunks +169（ph_pri 146→315）；app.html/index.html stat 更新（push=deploy）。
+- **commits:** `6a37e9c`（S158，15 檔，已 push）。
+- **Log maintenance (§4a):** SESSION_LOG >400 行、§4a script 不存在、撞 session 上限；未 archive；下個 product session resume 時處理。
+- **Next Session Handoff Prompt:**
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net).
+Product state: HEAD = 6a37e9c (S158，已 push)；Supabase 14,674；Channel B live；0 outstanding bug。
+S158 完成：ph_pri_guide_2025 完整重抽（146→315 chunk、ch3-6 入庫）+ curriculum 人文科 8/9 引用 re-anchor 真指引真物理頁 + 人文科/科學科培訓證書清理 + display sync 14,674。
+NEXT（主線 = #3 學校版分校類）：Leonard 定案「每域 4 份獨立可下載文件（幼/小/中/特）、有共用」；幼稚園 Phase 2（要補 KG 源），Phase 1 = 小/中/特。進度：profiling 14 域完成、per-type tagging 4/13。Resume：①跑餘 9 域 tagging（placement/sen/curriculum/gifted/conduct/qa_inspection/hr_admin/student_support/cpd；Workflow resumeFromRunId wf_d9e8cf6a-6d5 = cached 4 + 跑 9，或重 launch）②改 gen_checklist_docx.js + gen_school_docx.js 加校類 filter（item/clause 加 school_types field，無 field=共用→全該域校類）③pilot 一域（建議 placement，小/中 split 清楚）畀 Leonard 睇格式 ④mass-generate 小/中/特（~37 files）。之後 #4 文件分析 Phase 2（掃描學校文件→修改補充→可下載標註，用 agent team + 食 #3 校類模型）。
+⚠️ ph_pri 用物理頁碼（1-262）非印刷頁標（與全站一致）。S158 撞過 session 上限（reset 6:20pm Europe/London）；重跑 agent team 前留意。
+Post-startup first action: 問 Leonard resume #3（跑餘 9 域 tagging + pilot placement）定其他。
+```
+
+---
+
 ## 2026-06-13 Session 157 — verify_issues QC：全 128 issues 清晒（5 批）
 
 - **ID:** Claude_20260613_0925 (S157)
