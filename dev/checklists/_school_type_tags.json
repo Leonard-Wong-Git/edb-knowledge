@@ -43,7 +43,7 @@
     "most_shared": true,
     "item_exceptions": [
       {
-        "locator": "在可能的情況下，本校應確保給予所有學生",
+        "locator": "學校應確保所有學生（無論是否有殘障）",
         "source_id": "sch_activities_guide",
         "applies_to": [
           "special"
@@ -165,6 +165,286 @@
         "applies_to": [
           "special"
         ]
+      },
+      {
+        "locator": "學校須委派其中一名理科教師為實驗室安",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "實驗室安全常務委員會的成員應包括所有",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "實驗室安全常務委員會的會議記錄應妥為",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "科技與生活科╱家政科科主任每學年應安",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "科技與生活科╱家政科科主任宜每學年開",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "在科技與生活科╱家政科特別室內發生的",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "每班在科技與生活科╱家政科特別室上課",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "教師必須在上科技與生活科課堂前熟習各",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "每個科技與生活科╱家政科特別室╱縫紉",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "防火裝置應放於科技與生活科╱家政科特",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "科技與生活科課堂進行中，所有房門均不",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "學校應定期視察各科技與生活科╱家政科",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "學校須為科技與生活科╱家政科特別室制",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "理科教師應在每學年初至少抽撥一個課節",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "所有危險化學品均必須附有適當的危險警",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "進行實驗後，師生應立即洗手，尤其是涉",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "在使用本生燈或化學品時，應關掉所有空",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "預備室空調設備和排氣扇必須有連鎖電力",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "切勿在預備室進行會產生難聞或有害蒸氣",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "若實驗室採用石油氣，必須獲消防處處長",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "本生燈的膠喉兩端須用喉碼箍緊，學校應",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "在使用煤氣煮食爐或用本生燈、化學物品",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "如需要在科技與生活科╱家政科特別室內",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "可產生有害氣化物的揮發性化學品不應在",
+        "source_id": "lab_prep_room_aircon",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "如需使用本生燈或化學品，須先關掉所有",
+        "source_id": "lab_prep_room_aircon",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "預備室空調設備須為只供預備室使用的獨",
+        "source_id": "lab_prep_room_aircon",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "應定期檢查科技與生活科特別室內的器具",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "學生在實驗室內必須嚴格遵從教師指示，",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "實驗室及預備室內嚴禁飲食及吸煙；使用",
+        "source_id": "g22",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "學校須設立科學實驗室安全常務委員會，",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "除有教師在場並獲其准許外，學生不得進",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "所有危險化學品／有毒物品應加上清晰標",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "如無教師在場，學生不得進入學校工場或",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "未經教育局常任秘書長批准，任何教師於",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "學校須分別委任一名教師負責掌管校內的",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
       }
     ],
     "clause_exceptions": [
@@ -191,6 +471,125 @@
         "applies_to": [
           "special"
         ]
+      },
+      {
+        "locator": "本校設立實驗室安全常務委員會，負責統",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "科技與生活科／家政科科主任每學年應安",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "為使教師能有效督導學生，每班在科技與",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "教師必須在上科技與生活科／家政科課堂",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "本校設立科學實驗室安全常務委員會，負",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "實驗室及工場的准入規則如下：",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "未經教育局常任秘書長批准，任何教師於",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "本校理科教師應在每學年初至少抽撥一個",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "本校須為科技與生活科╱家政科特別室及",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "實驗室及預備室的一般安全守則如下：",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "危險化學品及有毒物品的標籤、貯存及管",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "實驗室通風及穿起空調的規定如下：",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "本校科技與生活科╱家政科特別室在使用",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "預備室的空調及通風管理規定如下：",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "如需要在科技與生活科╱家政科特別室內",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "個人防護裝備及進行實驗後的衝生規定如",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "氣體裝置的安裝、維修及使用規定如下：",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
       }
     ],
     "notes": "學校安全域本質上係跨校類共用：職安健、消防、校舍設施、實驗室、危機應變、健康急救、保護兒童、校舍保安等規定，對小/中/特三類 Phase-1 校類全部適用，故 phase1_types=全三類、most_shared=true。來源亦多為跨類源（sag_2025_11 學校行政手冊、g22 科技教育安全、fire/OSH/slope/safety_mgmt 指引）。\n\n校類專屬 exceptions 共 3 組：\n(1) 中學專屬 = 視覺藝術科「使用酸類」「含毒重金屬／致癌物料」相關 6 條 item + 1 條 clause（si5）。g21 多數 item/clause 屬全校類共用視藝安全，但呢批 req 開首明寫「中學視覺藝術科」，酸蝕版畫／重金屬釉藥屬中學階段視藝課程，故只標 secondary。\n(2) 小學專屬 = 校車「跟車保母／成人陪同」要求（交通安全 g18 + sag_2025_11 各1 item；clause si6）。法定條款限「運載小學和幼稚園學童」校巴須設保母；幼稚園唔喺 Phase 1，故 Phase-1 範圍內只映射 primary。其餘校車構造／安全帶／校巴管理委員會等屬全校類共用，唔列入。\n(3) 特殊學校專屬 = 宿舍／寄宿相關（危機應變 si7 宿舍部宿生意外通報；健康衞生 si8 寄宿生入宿健康檢查、特殊學校宿舍服務政策、宿舍傳染病/CCTV 政策）。clause 明引「資助特殊學校」及《特殊學校策劃和管理宿舍服務實務指引》，本港日校宿舍部絕大多數為特殊學校，故 boarding 類 scope 為 special。\n\n留意：夜校（edbc_tropical_cyclone_night）相關「夜校」停課安排唔影響小/中/特三類 day-school Phase-1 分類，已併入共用惡劣天氣 clause（si7 表格列日校/夜校兩行），故唔另列 exception。locator 用 item req 開首約 25-28 字 / clause text 開首約 25 字，方便對返原檔。"
@@ -213,7 +612,7 @@
       },
       {
         "locator": "非經常津貼修葺工程費用門檻：小學及特殊學校6,000元",
-        "source_id": "edbcm_major_repairs_grant",
+        "source_id": "edbc14_2024_spms",
         "applies_to": [
           "primary",
           "special"
@@ -246,5 +645,1865 @@
     ],
     "clause_exceptions": [],
     "notes": "校務行政域 12源全部為跨校類 EDB/ICAC 通用治理文件(SAG 學校行政手冊、ICAC 防貪錦囊、籌款指引、修葺程序、綜合保險、SDP、改名/擴建指引等)，無任何「中學…」「小學…」「特殊學校…」校類專屬源，域本質(管治/財務/採購/籌款/校舍修葺/保險/人事/行政/學生福祉)對小中特三類共用。故 phase1_types=小中特全適用、most_shared=true。\\n\\nclause_exceptions 留空：clauses.json 將校類差異多以「比較表」方式收於同一 clause(例如 si=5 大規模修葺門檻表同時列『資助小學及特殊學校 6,000→10,000』『資助中學 10,000(不變)』『直資 參照指引』；si=7 校舍維修門檻表同列小學/特殊/中學)，呢類 clause 本身跨校類共用，唔算專屬。\\n\\nitem_exceptions 為真正校類受限嘅 checklist items：(1) 小六升中『中學學位分配機制』派位 = 純小學(primary)。(2) 大規模修葺/緊急修葺『門檻金額』items 中，明確將『小學及特殊學校』與『中學』分開列嘅(小特一檔、中學另一檔)，標 primary+special(中學金額不同故不在此 applies_to)；對應 SAG/SPMS 同類門檻 item 因表內三類齊列屬共用，不另標。\\n\\n刻意不列為 phase1_type 例外者：『直資(DSS)』『屋邨/非屋邨(estate)』限定詞屬資助模式/校舍性質區分，非小/中/特校類本身，故不映射入 applies_to。『15歲以下小學生或初中生開除學籍』(covers 4,5)橫跨小學+初中(primary+secondary)且屬廣泛適用，未收窄到單一校類，故不列。"
+  },
+  {
+    "domain": "placement",
+    "item_exceptions": [
+      {
+        "locator": "參加派位中學須於3月底前完成所有甄選程序，並於教育局指定",
+        "source_id": "edbc18_2019_sspa",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "參加派位中學須於3月底前完成所有甄選程序，並向教育局遞交",
+        "source_id": "edbc18_2019_sspa",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "參加派位中學不可向家長查詢會否接受其自行分配學位",
+        "source_id": "edbc18_2019_sspa",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "參加派位中學必須讓家長清楚知悉自行分配學位的收生準則",
+        "source_id": "edbc18_2019_sspa",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "參加派位中學須於每年1月接受自行分配學位申請",
+        "source_id": "edbc18_2019_sspa",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "非參加派位直資中學須於4月底前完成所有收生程序",
+        "source_id": "edbc18_2019_sspa",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "官立、資助及按位津貼學校除特殊情況外，均應提供足夠的中四",
+        "source_id": "s4_placement_2026",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "個別未能提供足夠中四學位收納所有原校中三學生的學校",
+        "source_id": "s4_placement_2026",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "原則上學生不應在同一時間內佔有超過一個由公帑資助的中四",
+        "source_id": "s4_placement_2026",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "獲中央安排中四學位的學生，會獲發一張中四註冊證",
+        "source_id": "s4_placement_2026",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "所有學生均會如常於7月初獲通知中學學位分配辦法下的派位",
+        "source_id": "edbc18_2019_sspa",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "參加派位小學應在3月底前完成小六下學期校內評估",
+        "source_id": "edbc18_2019_sspa",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "小學在呈報參加中學學位分配辦法的小六新生及在5月或以後",
+        "source_id": "stims_guide_2025",
+        "applies_to": [
+          "primary"
+        ]
+      }
+    ],
+    "clause_exceptions": [
+      {
+        "locator": "本校須於三月底前完成自行分配學位之全部甄選程序",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "在自行分配學位階段，本校對正取及備取學生家長之聯繫",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校向教育局遞交《自行分配學位正取／備取學生名單》後",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校原則上須為所有應屆中三學生提供足夠之中四學位",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學生原則上不應在同一時間內佔有超過一個由公帑資助之中四",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "獲教育局中央安排中四學位之學生，會獲發一張中四註冊證",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校在系統呈報參加中學學位分配辦法之小六新生",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校參加中學學位分配辦法，須依規向家長公開自行分配學位",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校每年一月接受中一自行分配學位申請",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校作為非參加派位直資中學，在中學學位分配工作中",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校作為參加派位之小學，須於每年三月底前完成小六下學期",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校所有升中學生均於每年七月初如常收取中學學位分配辦法",
+        "applies_to": [
+          "secondary"
+        ]
+      }
+    ],
+    "notes": "分類理據（依 profile 三桶切法）：placement 唔係單一校類，而係「同一升中機制內小學/中學各自承擔責任 + 一層 STIMS 跨類行政共用底盤」。預設共用，只標真校級 carve-out。\n\n【secondary-only — 中學作為 SSPA 收生方 + 中四機制】\nitem: 自行派位名單管理全 6 條（「參加派位中學…」措辭，收生方動作：甄選/遞名單/禁聯絡備取/不改名單）；自行派位申請程序 2 條（收生準則公開、1月接受申請）；直資銜接 1 條（「非參加派位直資中學」）；中四學位安排全 4 條（提供中四學位/原校升讀次序/不佔多於一學位/中四註冊證——只有設中三中四嘅中學適用）；派位結果及中一註冊 1 條（中學作為註冊收生方）。對應 clause si=1(3)/si=4(3)/si=5[1 學校組別除外]/si=7(2)/si=8(1)/si=12(1) 全部 secondary。\n\n【primary-only — 小學作為 SSPA 出口方】\nitem:「參加派位小學…小六下學期校內評估/遞交期考成績」(小六成績與升中資料)；「小學在呈報…小六新生…學校組別」(profile 明文點名 primary-only 嘅 STIMS 例外，係共用桶入面唯一要 split 出嚟嘅單一校類條)。對應 clause si=11 同 si=5 clause[1]（學校組別句）primary。\n\n【刻意當共用、不列例外】\n1. 全部 STIMS 行政底盤：表格 C/A/As/B/E/D 呈報（學生資料登記、出缺課呈報、學生編號 STRN、收生調查、資料合規與保存、私隱條例第486章）——全港中小學共通呈報義務，措辭中性無校類限定，primary+secondary 一視同仁，留共用（clause si=2/si=3/si=6/si=9/si=10 全部不列）。\n2.「居住內地每天到港上學 / 持單程證內地來港」（特殊背景學生填報之跨境條，clause si=5 clause[0]）：profile 判「中小學皆有但小學佔多」，唔係乾淨單一校級 carve-out，故當共用不列——避免假陽性硬塞 primary。\n3.「家長放棄非參加派位直資中學學位、退還承諾書」（item 屬直資銜接、clause si=8 同條）：雖涉家長動作，但同條由「非參加派位直資中學」收生方執行、與 4 月底交名單綑綁喺同一 clause，整條歸 secondary，唔另列共用。\n\n【非校級軸，依鐵律 B 排除——不列為校類例外】\n- 資助模式軸：「官立、資助及按位津貼學校」「直資/非參加派位直資中學」——呢啲係辦學類別，但喺本 domain 佢哋同時係「設中三中四嘅中學」或「中學收生方」嘅描述，校級訊號（中四/中三/中一/升中收生）先係主導，故按校級判 secondary，唔係按資助模式拆；profile 亦確認 funding mode 喺呢度與 secondary 重疊。\n- 設施/科目軸：本 domain 無實驗室/視藝室/宿舍等設施條，N/A。\n- 幼稚園/特殊學校：全 domain 零訊號（無 K1/KG/特殊學校字眼，SSPA 同中四機制都唔涉幼稚園，特殊學校升中另有機制未在此清單），Phase-1 適用集合本身亦只 [primary,secondary]，故無 special carve-out。\n\n【驗證方式】每個 locator 由 checklist req / clauses text 開頭逐字 copy（22-28 中文字，含標點），已逐條對照原文確認 substring 存在且唯一（13 item + 12 clause，無重複開頭碰撞）。item 全部填回正確 source_id（edbc18_2019_sspa / s4_placement_2026 / stims_guide_2025）。共 25 條例外、其餘約 14 條 item + clause 留共用，符合「例外係少數、預設共用」鐵律 A。"
+  },
+  {
+    "domain": "sen",
+    "item_exceptions": [
+      {
+        "locator": "特殊學校必須積極培育學校人員的",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校應為學生提供學習機會",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校應致力促進學生在德、智",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校應加強學校領導人員及教師的課程領導能力，提升評估素養，從而改進學與教效能。",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校應加強學校領導人員及教師的課程領導能力，提升評估素養，從而改進學與教效能，致力推動",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校必須培養學生守法的意識",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校人員應將課程監察、評鑑",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校在規劃課程時，應先參閱",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校須為科目及其他課程範疇",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校須按教育局建議，規劃並",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校在策劃課程時，應靈活運",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校應由教職員、家長及學生",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校應將個別學生的個人學習",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校課程的長期及中期規劃是",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校應參照中央課程文件，因",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校學生的認知能力（包括數",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校應進行適異性教學規劃，",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校的校本課程須為學生提供",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校應透過加強整校課程規劃",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "調適中央課程時，特殊學校應發展",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "實施中央課程時，特殊學校人員須",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校人員應按學生的能力及需",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "對於大部分特殊學校的學生而言，",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校應為所有學生提供實質和",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校應於長期和中期規劃中為",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校還需要就某些範疇為學生",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校人員應協助學生發展表達",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "全港公營小學每年推行「及早識別",
+        "source_id": "g19",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "特殊學校應促使學校人員適切地進",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校教師應將評估結果分享，",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校應依靠校本評估展現學生",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校教師應盡量避免單獨作出",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校的評估應涵蓋識別學生特",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "學校須識別懷疑有讀寫困難的小學",
+        "source_id": "g19",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "學校須為小一新生在9月至12月期",
+        "source_id": "g19",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "學生支援組須與有關教師及校本教",
+        "source_id": "g19",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "特殊學校的評估記錄方式應多元化",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "學校應為小一調適課程及課業，並",
+        "source_id": "g06",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "特殊學校學校人員必須體恤學生的",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "學校支援老師（中學適用）須與有",
+        "source_id": "g19",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "特殊學校應為學生的溝通模式制定",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "小學為呈分試申請豁免呈報評估分",
+        "source_id": "sen_exam_arrangements_2025",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "小學應為有需要特別考試安排的小",
+        "source_id": "sen_exam_arrangements_2025",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "修讀普通課程的特殊學校學生應同",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校領導層及課程主任應致力",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校須教導學生表達「不」的",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校人員應按學生的能力及溝",
+        "source_id": "g10",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "由2019/20學年起，教育局在公營",
+        "source_id": "g19",
+        "applies_to": [
+          "primary",
+          "secondary"
+        ]
+      },
+      {
+        "locator": "由2016/17學年起，所有公營普通",
+        "source_id": "g19",
+        "applies_to": [
+          "primary",
+          "secondary"
+        ]
+      },
+      {
+        "locator": "官立及資助小學須於6月底前收集",
+        "source_id": "g19",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "在資助中學及小學，辦學團體可按",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "primary",
+          "secondary"
+        ]
+      }
+    ],
+    "clause_exceptions": [
+      {
+        "locator": "本校（如屬中學）如考慮降低學生",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校每年推行「及早識別和輔導有",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校教師可運用以下已獲教育局派",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校就小一新生的課程及評估安排",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校（如屬特殊學校）必須體恤學",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "本校（中學適用）支援老師須與有",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校（如屬特殊學校）應為學生的",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "本校（小學適用）為有嚴重困難而",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "修讀普通課程的特殊學校學生應同",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "本校（如屬特殊學校）的領導層及",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "為了加強學生的自我決策能力及提",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "由2016/17學年起，所有公營普通",
+        "applies_to": [
+          "primary",
+          "secondary"
+        ]
+      },
+      {
+        "locator": "由2019/20學年起，教育局分階段",
+        "applies_to": [
+          "primary",
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校在規劃課程時，遵循「同一課",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "本校致力加強學校領導人員及教師",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "本校以提升學生生活質素為終極目",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "本校宿舍部依據《特殊學校策劃和",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "本校在安排學生延長學習年期時，",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "宿舍部宿生如發生嚴重或危及生命",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "本校有效的轉銜規劃應從高小階段",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "本校教師應與學生、家長及相關專",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "本校（如屬特殊學校）應透過開設",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "本校應以「全校參與」模式推行生",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "就中學離校生升讀本地院校或機構",
+        "applies_to": [
+          "secondary"
+        ]
+      }
+    ],
+    "notes": "分類理據（依 profile 權威指引：source_id 硬路由 → 校級）。本範疇 = 兩條平行政策線：(A) 普通學校融合教育線 g19/g06/sen_exam = primary+secondary 共用（佔大多數，係 SEN 核心，預設共用、唔列）；(B) 特殊學校課程線 g10/cgss + sag 宿舍/延長學年 = special 專屬。kindergarten 全範疇零訊號，phase-1 集合已排除。\n\n【special carve-out】凡 g10/cgss req 或 clause 措辭明寫「特殊學校／特殊學校人員」或內容本質為特殊學校獨有（宿舍部、延長學習年期、多重感官障礙、個人溝通系統、五種基要學習經歷課程、同一課程架構調適、生涯轉銜由高小至離校）一律標 special。sag 兩條（宿舍部依實務指引訂政策、宿生危及生命意外3曆日報告）+ 延長學習年期，profile 明判 special。g10 評估章節雖措辭近通用，但 source=特殊學校課程指引、語境為特殊學校人員，按 profile「g10→special」硬路由標 special；普通校對應評估要求已另有 g06/g19/sen_exam 共用條覆蓋，故唔會漏普通校。clauses 中「如屬特殊學校」「修讀普通課程的特殊學校學生」均為明文 special。\n\n【primary carve-out】小一識別計劃（9-12月觀察、12-1月填學習情況量表、1-2月識別會議）、小一課程/評估調適、小學讀寫/語障甄別工具（派發給所有小學）、呈分試豁免呈報、Pre-S1 HKAT 小六表格、官立及資助小學6月底收集小六語障資料轉中學——全屬小學學階出口動作，中學/特殊不適用。\n\n【secondary carve-out】中學降支援層級需與家長溝通存檔、支援老師（中學適用/中學適用）協助向考評局申請、中學離校生資料轉本地院校、生涯規劃為中學生設機制——明文或本質限中學。\n\n【primary+secondary carve-out（排除 special）】校本教育心理服務、校本言語治療師——profile 與原文均寫「公營普通中、小學」「資助中、小學」，特殊學校另有自己編制的專業人員（g10 述特殊學校言語治療師/教育心理學家為校內專責人員，非此「校本服務」計劃），故標 primary+secondary、唔含 special。\n\n【刻意不列為校類例外者】(1) 資助模式軸：直資學校 IEP/結構化支援方案（item「直資學校如確認…」、clause table「直資學校加強支援」「直接資助計劃學校 年終檢討表」）、官立/資助字眼——屬辦學類別跨小中特，依鐵律 B(1) 不列。註：上述「官立及資助小學…小六語障」「在資助中學及小學…教育心理服務」我已列，因其校級限定詞（小學 / 中小學）才是有效收窄軸，「官立/資助」只是附帶定語，去掉後校級限定仍成立。(2) 設施/障別軸：視障/聽障/讀寫/智障/自閉/肢殘等各障別考試安排（延長時間、放大試卷、輔聽儀器、電腦讀屏器、節略版試卷等）——屬學生障別條件而非校級，且同一障別跨小中特皆可出現，依鐵律 B(2) 不列；當中「中學生每45分鐘休息、小學生每30分鐘休息」雖含校級字眼，但屬同一條 req/clause 內跨小中並列的分段參數（非排他收窄至單一校級），故按鐵律 B(3) 維持共用。(3) SENCO/三層支援/IEP/家校溝通/資源運用主體——g19 普通校共用骨幹，預設 primary+secondary 共用，不另列。\n\n【驗證方式】逐條對照 profile specific_examples（特殊學校宿舍、g10 課程調適、小一識別、支援老師中學適用、高中其他學習經歷）已全部命中對應 locator；locator 均由 item req / clause text 開頭逐字 copy（22-28 中文字含標點），已核每條在原文出現且唯一（避免撞「特殊學校應…」開頭重複者，特意取足夠長度區分）。item_exceptions 之 source_id 均由該 item 原欄位取得。"
+  },
+  {
+    "domain": "curriculum",
+    "item_exceptions": [
+      {
+        "locator": "全港小學須於2025/26學年從小一及小四級",
+        "source_id": "pri_curr_guide_2024",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "由2025/26學年起，小學人文科及小學科學",
+        "source_id": "pri_curr_guide_2024",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "為配合2025/26學年推行人文科及科學科，",
+        "source_id": "pri_curr_guide_2024",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "小學科學科將由2025/26學年開始推行，相",
+        "source_id": "pri_curr_guide_2024",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "小學人文科課程將分階段推行：全港小學最早可於",
+        "source_id": "edbc9_2024_ph_pri",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "全港小學須於2025/26學年從小一及小四兩",
+        "source_id": "edbc197_2024_ph_pri",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "教育局為每所公帑資助小學提供35萬「一筆過津",
+        "source_id": "edbc18_2023_pri_science",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "小學科學科課程框架涵蓋四個範疇共15個主題，",
+        "source_id": "edbc18_2023_pri_science",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "小學人文科課程框架涵蓋六個範疇（健康與生活、",
+        "source_id": "edbc20_2023_ph_pri",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "學校應按照課程的必須學習內容編排在各級施教，",
+        "source_id": "ph_pri_guide_2025",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "學校規劃小學人文科時，應按照課程規劃的原則，",
+        "source_id": "ph_pri_guide_2025",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "教師需布置有效益的評估及課業，引發學生對學習",
+        "source_id": "ph_pri_guide_2025",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "學校應嚴謹採用合適和正確的學與教資源（包括涉",
+        "source_id": "ph_pri_guide_2025",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "教育局每年為小學人文科教師提供約4,000個",
+        "source_id": "edbc9_2024_ph_pri",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "「小學人文科學時」的計算可包括小學人文科課堂",
+        "source_id": "edbc197_2024_ph_pri",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "學校在小一及小四年級不應繼續使用常識科教科書",
+        "source_id": "edbc197_2024_ph_pri",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "各校長或校長的代表（如副校長、小學課程統籌主",
+        "source_id": "edbc197_2024_ph_pri",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "學校制訂小學科學科評估政策時，應考慮提升評估",
+        "source_id": "edbc13_2025_pri_science",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "小學科學科須於2025/26學年開始實施課程",
+        "source_id": "edbc13_2025_pri_science",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "小學人文科課程涵蓋個人、社會及人文教育學習領",
+        "source_id": "ph_pri_guide_2025",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "2025/26學年「適用書目表」已包括通過評",
+        "source_id": "ph_pri_guide_2025",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "學校在推行小學人文科時，應按課程框架中所列必",
+        "source_id": "edbc197_2024_ph_pri",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "學校應參考《小學人文科課程指引》第五章建議，",
+        "source_id": "ph_pri_guide_2025",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "由2025/26 學年起於小一及小四級開始推",
+        "source_id": "g06",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "小學人文科課程內容的學習課時須佔不少於80%",
+        "source_id": "g06",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "人文科彈性課時（包括多元學習經歷）須控制在不",
+        "source_id": "g06",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "學校須安排不少於80%的小學人文科課時教授《",
+        "source_id": "g06",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "課程規劃中，個人、社會及人文教育佔初中總課時",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "課程規劃中，科技教育佔初中總課時應為 8%–",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "課程規劃中，藝術教育佔初中總課時應為 8%–",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "課程規劃中，體育佔初中總課時應為 5%–8%",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "所有初中學生須學習中國歷史，為個人、社會及人",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校須提供中國歷史作為獨立必修科目，讓學生有",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校分配於教授和學習中國歷史的課時須為個人、",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "初中三年內各學習領域課時下限合計須達92%（",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "初中跨學習領域彈性課時（三年內約220小時，",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "所有學校須加大力度推行價值觀教育；在第三學習",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "在第四學習階段，學校可透過佔課時10–15%",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校須按《中學教育課程指引》的主要更新重點，",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "四個關鍵項目（德育及公民教育、從閱讀中學習、",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校須應於全年上學日不少於190日；初中各學",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "所有中學須於初中安排約25小時課時讓學生學習",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "初中中國歷史科（中一至中三）為獨立必修科，讓",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "修訂初中地理科課程預留每學年2至4小時課時，",
+        "source_id": "edbc002_2026",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "修訂初中地理科課程不再區分必修與選修單元，整",
+        "source_id": "edbc002_2026",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "教育局預計於2025/26至2026/27兩",
+        "source_id": "edbc002_2026",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校須將本通告（教育局通告第2/2026號）",
+        "source_id": "edbc002_2026",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校在規劃初中地理科課程時，可因應課題善用數",
+        "source_id": "edbc002_2026",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "各學校校長或校長代表（如副校長、教務主任、本",
+        "source_id": "edbc002_2026",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校須按建議分配各學習領域的課時（即三年內總",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "初中課程應推展小學常識科與中學個人、社會及人",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校須為初中課程安排足夠課時，以涵蓋八個主要",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "所有中學須於初中安排約佔總課時百分之五或約每",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "所有中學須於初中安排約25小時的課時，讓學生",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校應推行課程規劃，為初中學生（尤其中三學生",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校須確保所有修讀高中課程的學生修讀四個核心",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "高中課程中，核心科目（中、英、數及公民與社會",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "高中課程中，選修科目（各學習領域科目、應用學",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "高中課程中，其他學習經歷（德育及公民教育、社",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校須確保高中三年總課時達2 400（±20",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "每學年上學日須為190日（不包括考試時間及溫",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "所有高中學生必須修讀四個核心科目，以及兩個或",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "高中課程第四個選修科目必須是主要與其他學習經",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "高中公民與社會發展科（含內地考察）的建議課時",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "公民與社會發展科的內地考察中，「中華文化與現",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校不得將優化高中核心科目後釋出的課時調撥來",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校須依據教育局通函第20/2021號及第3",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "其他學習經歷作為高中課程三大組成部分之一，須",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校須為高中學生提供最少十個選修科目（包括其",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校應以「全校參與」模式提供職業專才教育的指",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校自2021/22學年起，不得在中四開設組",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "高中課程須由核心科目、選修科目及其他學習經歷",
+        "source_id": "g13",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校規劃高中課程時，時間表的編排方面必須先考",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校應成立專責資優教育小組，負責制定校本資優",
+        "source_id": "g13",
+        "applies_to": [
+          "primary",
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校應在整體課程中採用三層架構模式推行資優教",
+        "source_id": "g13",
+        "applies_to": [
+          "primary",
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校須設立科學實驗室安全常務委員",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "除有教師在場並獲其准許外，學生不",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "未經教育局常任秘書長批准，任何教",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      }
+    ],
+    "clause_exceptions": [
+      {
+        "locator": "本校初中課程須涵蓋八個主要學習領域，為學生提供均衡課",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校應提供不少於十個涵蓋不同學習領域的選修科目，供學",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校學生須享有五種基要學習經歷。初中及高中課程應是寬",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "修訂地理科（中一至中三）課程擬於2027/28學年於",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "設有生活與社會課程（中一至中三）的學校，與《基本法》",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校初中每學年最低上學日數為190日，三年總課時為2",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校初中課程規劃中，跨學習領域活動之課時應佔總課時的",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校高中課程規劃須確保學生獲取寬廣均衡之整體學習經歷",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校高中四個核心科目之建議課時分配如下表；四科合計應",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校可安排傾向修讀與數學不相關學科之學生只修讀部分「",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校初中課程規劃，須按教育局建議就八個主要學習領域分",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校須加大力度推行價值觀教育。初中（第三學習階段）的",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "在高中（第四學習階段），本校可透過佔課時10–15%",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校須持續推展以下四個課程關鍵項目，以支援「學會學習",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校須按《中學教育課程指引》的主要更新重點，於未來三",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校初中地理科採用修訂課程，不再區分必修與選修單元，",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "教育局預計於2025/26至2026/27兩個學年為",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "就初中地理科課程框架的修訂，本校校長或校長代表（如副",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校須將教育局通告第2/2026號傳閱予法團校董會（",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校高中課程由三個部分組成，分別為核心科目、選修科目",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校所有修讀高中課程之學生，須修讀四個核心科目，以及",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "如學生修讀第四個選修科目，該科目必須是主要與其他學習",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "自2021/22學年起，本校不得在中四開設組合科學科",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校高中課程各組成部分之課時比例，須符合以下規定：",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校高中三年之總課時須達2,400（±200）小時；",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "公民與社會發展科（包括內地考察）之建議課時應佔總課時",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校須依據教育局通函第20/2021號及第39/20",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "其他學習經歷為高中課程三大組成部分之一，須包括德育及",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校須為高中學生提供最少十個選修科目（包括其他語文及",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校應以「全校參與」模式提供職業專才教育之指導及支援",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校規劃高中課程時，在時間表的編排方面必須先考慮學生",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校不應在初中的校內評估練習中採用或模擬公開考試模式",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校（中學）家課政策的目標應在於幫助學生達至中學教育",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "就未有在初中設有生活與社會課程或沒有教授《基本法》相",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校必須為所有高中學生（中四至中六）提供其他學習經歷",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校須協助學生建立學生學習概覽（SLP），讓學生篩選",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "不同學習領域的教師應緊密合作，共同規劃本校整體課程，",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校須就資訊科技教育制訂學校整體課程規劃，必須關注提",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "全港小學須於2025/26學年開始在小一及小四推行小",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "小學人文科課程建基現行常識科課程，增潤中華文化、國史",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "就小學科學科，本校須確保有足夠已完成有系統培訓的科主",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校每學年上學日數不少於190日，小學全學年課時為1",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校小學階段各學習領域／科目之課時分配，須符合課程發",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "全港小學須於2025/26學年起推行小學人文科及小學",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校全日制小學應發揮課時優勢，於下午時段加入輕鬆之學",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校須按教育局規定，於2025/26學年從小一及小四",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "為配合上述課程推行，本校校長須帶領各科組全面檢視及調",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "小學人文科課程框架涵蓋六個範疇，小學科學科課程框架涵",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校規劃小學人文科時，應按照課程規劃的原則，以協助學",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校安排小學人文科課時時，須確保不少於80%的課時用",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校推行小學人文科時，應嚴謹採用合適和正確的學與教資",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校在小一及小四年級推行小學人文科時，不應繼續使用常",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校制訂小學人文科及小學科學科的評估政策時，應分別參",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "教育局為每所公帑資助小學提供35萬「一筆過津貼」，用",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校應積極支持教師參與教育局提供之專業培訓，以確保具",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校校長或校長的代表（如副校長、小學課程統籌主任、常",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校於小一上學期不設測考，並以多元化的進展性評估代替",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校應成立專責資優教育小組，負責制定校本資優教育政策",
+        "applies_to": [
+          "primary",
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校重視資優教育，認同培育資優學生是體現照顧學生多樣",
+        "applies_to": [
+          "primary",
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校在規劃及推行校本資優培育計劃時，採用「三層架構推",
+        "applies_to": [
+          "primary",
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校須設立科學實驗室安全常務委員",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      }
+    ],
+    "notes": "分類理據：本範疇 Phase-1 適用校類=[primary,secondary,special]，KG 在集合外。經 source_id→校類映射（已用 src map 核實：g13=中學、g06/pri_curr_guide_2024/circ_edbc24017/所有 ph_pri 與 pri_science 通告/ph_pri_guide_2025=小學、kgecg_2017/g29=幼稚園、edbc002_2026=修訂初中地理=中學、sag_2025_11/mce_framework_2008/edbc003_2026/edbc005_2026=跨類）加全句語境逐條判定。\n\n(1) 預設共用：si=1 課程規劃總則（規劃-實施-評鑑循環、全校參與、情境分析、八學習領域、四關鍵項目、自評、教師專業發展）、si=7 校本評估政策原則、si=8 家課政策原則、si=9 國安/基本法/價值觀（國安教育跨全校類，雖多引 g13 但非中學專屬）、si=12 教科書管理、si=13 SEN 融合教育（主流校全校參與，非特殊學校課程）——絕大多數為共用，刻意不列。\n\n(2) 真‧校級 carve-out（列為例外）：secondary-only=初中課程（si=5 全節 + si=2 初中課時）、高中課程（si=6 全節 + si=2 高中課時 + 高中OLE/SLP/職專/應用學習，校本評估初中段、家課中學段、STEAM/資訊科技中學段）；primary-only=小學人文科與科學科推行（si=4 全節 + si=1/si=2 散落人文科科學科條 + 小學六年課時172日/792小時 + 小一上學期不設測考 + 全日制小學下午綜合課）。item_exceptions 主取三個結構單一校段 section（小學人文科科學科28、初中28、高中19），地基穩、profile 點名背書。\n\n(3) 資優教育（資優教育小組 + 三層架構）標 primary+secondary：依 gifted profile 權威判定（資優係主流小中構造，special=false、KG=false；2E 唔等於特殊學校）。故 applies_to=[\"primary\",\"secondary\"]，排除 special。\n\n刻意不列為校類例外者：\n- 資助模式軸（官立/資助/直資/按位津貼）：本範疇 req 幾乎無此軸，且屬辦學類別非校級，按鐵律 B(1) 不列。\n- 設施/科目軸：科學實驗室安全（si1[37]）、天台操場/工場（si1[38]）屬設施條件跨校類，按 B(2) 不列（safety profile 亦判為設施驅動非校級）。\n- KG-only 條（si=3 幼稚園課程全節、幼稚園遊戲時間、學習歷程檔案、幼兒不執筆、幼稚園評估四原則等）：KG 在 Phase-1 集合外，applies_to 無合法值可填（只能 P/S/special），故整批不列，需另立 KG domain 處理。\n- g38 音樂（小一至中三）：校TYPE 層面 primary+secondary 皆有音樂科，且 special 亦按主流調適，屬全校類共用，不作收窄。\n- special：profile 明確 special=inherited，全 633 條 0 條特殊學校專屬課程要求（唯一「特殊學校」命中僅通告派發名單，非實質要求），故無 special-only 例外；special 跟隨主流課程指引按需調適。\n- 跨 phase-1 兩段（primary+secondary）的銜接/通用條（如 si1 七課程更新重點、國安基本法、中小銜接 si9[11]、體育課時中小通用）：因同時 touch 兩個 phase-1 校段＝phase-1 內共用，不視為收窄例外。\n\n驗證方式：(a) src map 以 python 讀 checklist.json['src'] 核實 source_id↔校類；(b) 全部 item_exceptions locator 以 substring 對全 629 個 req 計 uniq=1（22-28 字窗，全 22-26 字）；(c) 全部 clause_exceptions locator 以 substring 對全 201 clause text 計 uniq=1（25-26 字）；(d) 兩條 locator 因全句<22 字無法達下限而剔除（item: 應用學習課程須在兩年內共完成180小時；clause: 應用學習課程須於兩年內共完成180小時。），高中應用學習 carve-out 已由 si=6 其他條覆蓋；(e) section3 item9（全港小學…小一及小四推行小學人文科）因 22-28 字窗內與另一條撞頭、需>28 字方唯一，已剔除以免歧義，小學人文科 carve-out 由 section3 其餘 27 條覆蓋。源檔：/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft/dev/checklists/_work/curriculum/{checklist.json,clauses.json}。"
+  },
+  {
+    "domain": "gifted",
+    "item_exceptions": [],
+    "clause_exceptions": [],
+    "notes": "結論：gifted 範疇無任何乾淨嘅校級(primary-only / secondary-only)規範性 carve-out，item_exceptions 與 clause_exceptions 皆為空 array。理據如下。\n\n【一、profile 權威判斷已定調 most-shared，校級專屬差異極低】_school_type_profiles.json 嘅 gifted object 明寫 dominant=「通用（主要小學+中學主流學校）」、shared_ratio=most-shared、估 ~90%+ 條目跨 primary+secondary 共用，且 notes(4) 結語：「校類專屬差異極低，分拆收益主要在『小學課程指引脈絡』標註而非規範內容本身分歧」。即真正可分嘅係「來源層級／脈絡標註」，唔係規範內容收窄到單一校級——呢類唔符合本任務「真‧校級收窄」嘅 exception 定義(鐵律A/B)，故唔列。\n\n【二、逐個候選逐一排除】\n(1) g06《小學教育課程指引》系列條(分層課業 p.149「教師可按照資優學生的能力和興趣，在同一課題」、錨式活動 p.151、彈性時間表 p.33、全方位學習均等機會 p.289 等，含 clauses si=4 多條)：profile notes(4) 明確警告「唔可因 source 係小學課程指引就機械標 primary-only；要睇 req 措辭有冇真正校類限定詞，冇先當共用層」。呢啲教學技巧(分層課業/錨式活動/彈性課時/濃縮課程)對中學同樣適用，措辭無「小學專用」限定，屬 primary-context 脈絡而非規範性 [primary] 限制 → 共用，不列。\n(2) HKAGE 香港資優教育學苑「10至18歲」條(gifted_tp_resource_kit p.23，clauses si=10「香港資優教育學苑（下稱「學苑」）服務對」)：唯一年齡訊號。但 10-18 歲橫跨小學高年級+中學，profile 判為「primary-upper+secondary」——喺 phase-1 集合{primary,secondary}內仍係兩類皆適用，唔收窄到單一校級，故唔構成乾淨 single-level carve-out(鐵律E 要求 applies_to 係「只」適用嘅子集；此條兩類皆適用=共用基線，不列)。同理鐵律B(3)年齡跨多校類者照 profile 判，唔硬塞單一校級。\n(3) 「建議學校（尤其是小學）採用一般性增潤」(gifted_policy_docs，checklist「建議學校（尤其是小學）採用一」、clauses si=2 第一層次表格)：profile notes(4)點名此條=「小學傾向但全校通用，屬共用條帶弱小學標籤，唔係小學專屬」→ 共用，不列。\n(4) 全部「雙重特殊資優(2E)」條(si=6 個人社交情意、si=7 雙重特殊資優支援、強項為本/S.W.A.M/宿舍-free 等)：profile notes(3)嚴正提示「2E＝資優⨯SEN 交集，係主流校內融合教育支援，唔等於特殊學校範疇…切勿將 2E 條目歸入 special 校類」。本範疇 phase-1 亦只 [primary,secondary]、special=false，故 2E 條一律當 primary+secondary 共用，絕不標 special。\n\n【三、刻意不列為校類例外者及原因】\n- 來源/脈絡軸(g06 小學課程指引 vs 其餘 5 個資優專門指引)：屬「來源層級」非「校級規範」，profile 自己都將佢定位為標註(context tag)而非 applies_to 收窄，故不沿校級軸列為 exception。此與 prompt 鐵律B(2)設施/科目軸精神一致——非校級本質者不列。\n- 年齡軸(HKAGE 10-18)：跨小+中，非單一校級，按 profile 判斷不硬塞(鐵律B(3))。\n- special / kindergarten：本範疇 phase-1 已排除 special(applies_to profile=false)，2E≠特殊學校；KG 亦 false。無任何條目可乾淨歸入 special，故 special carve-out=0。\n\n【四、驗證方式】已 Read 全份 checklist.json(11 sections，全部 items)與 clauses.json(11 chapters/si=1..11 全部 clauses)，逐 section 掃描校級限定詞：全份 0 個「官立/資助/直資/如屬中學/幼稚園」校級或資助模式限定詞(與 profile type_signal「全份 0 個」一致)，「特殊教育」字眼全屬 2E 主流校內語境(非特殊學校政策)。所有 req/clause 主語均為「學校/本校/教師」泛稱，無一條規範內容收窄到單一 phase-1 校級。因此按鐵律A(預設共用、exception 係少數)，本範疇正確結果＝空例外集，與 conduct/hr_admin 等「切分軸非校級」範疇同類處理。"
+  },
+  {
+    "domain": "conduct",
+    "item_exceptions": [],
+    "clause_exceptions": [],
+    "notes": "結論：conduct 範疇無任何乾淨嘅校級(小/中/特)carve-out，item_exceptions 同 clause_exceptions 都係空 array。理據依 profiling 分析(權威指引，dominant_type=「通用」，shared_ratio=most-shared，四校類 applies_to 全 true)逐條核實得出：\n\n1. 真正切分軸係【資助模式／管治架構】而非【校級】。全範疇大量條目帶「資助學校／官立／《資助則例》／校董會／法團校董會／《防止賄賂條例》第9條」字眼(例：操守申報義務「資助學校…採取適當的紀律處分」g05 p.19；聘用操守管理「全職教師未獲校董會事先批准…不得校外兼職」sag p.196；利益申報迴避「所有學校員工均須遵守《防止賄賂條例》第9條…校董會同意」sag p.206；懲處程序機制全部「法團校董會」決定)。依鐵律 B(1)，官立/資助/直資/按位津貼屬「辦學類別」，橫跨小中特，唔係校級收窄，一律唔列。\n\n2. 唯一明文列舉校類嘅係「學生保護舉報」section 嘅《強制舉報虐待兒童條例》第650章條目(checklist item「學校指明專業人員…」quote 寫「幼稚園、小學、中學、特殊學校…的指明專業人員」；對應 clauses.json si=3 第一條)。但呢條係「四校類齊備」嘅 inclusion(正面確認全覆蓋)，並非將要求收窄到單一校級，故屬共用，唔列為 exception。\n\n3. 「聘用非教學人員可參考指引(包括專責人員、特殊學校不同職系的人員)訂操守」(checklist 誠信操守「學校在聘任非教學人員時…」)只係將特殊學校職系作為 inclusion 例子點名，屬擴充(extension)而非排他(exclusive narrowing)；依 profile notes(d)，特殊學校在本範疇無任何專屬「收窄」要求，故唔標 special。\n\n4. 其餘師生操守核心(誠信、師生關係界限/體罰禁止、保密私隱、利益申報迴避、操守申報、懲處程序、聘用甄選、資歷法規、國家安全、持續專業發展)對任何校級嘅教師一視同仁，措辭用「教師／學校／校長」泛稱，無「如屬中學／小學適用／特殊學校專屬」式校級限定詞，全部共用。\n\n刻意不列為校類例外者：(a)所有資助模式軸條目(資助/官立/校董會/法團校董會/資助則例/防賄條例)——屬辦學類別非校級，依 B(1)排除；(b)650章四類列舉條——係 inclusion 全覆蓋非收窄；(c)特殊學校非教學人員職系點名——係擴充例非排他。本範疇無設施/科目軸條目，故 B(2)不觸發。\n\n驗證方式：逐 section、逐 item(checklist.json 全 11 sections)、逐 clause(clauses.json si=1..11)掃描，比對 source_id 與 req/quote 措辭，確認無任何句子將適用範圍限定於 primary/secondary/special 其中之一個或子集；profiling 明示「校類維度近乎冗餘，若系統強制四 bool 全 true 即正確」，與逐條核實結果一致，故兩個 exception array 皆空。"
+  },
+  {
+    "domain": "qa_inspection",
+    "item_exceptions": [
+      {
+        "locator": "學校不應把學業增值資料用作宣傳用途；若選擇向外界發放",
+        "source_id": "sse_tools_2025",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "若學校未能遵守學業增值資料的發放協議，教育局將考慮停止",
+        "source_id": "sse_tools_2025",
+        "applies_to": [
+          "secondary"
+        ]
+      }
+    ],
+    "clause_exceptions": [
+      {
+        "locator": "本校不應將學業增值資料用作宣傳用途。如本校選擇將",
+        "applies_to": [
+          "secondary"
+        ]
+      }
+    ],
+    "notes": "分類理據：本範疇 profiling 判為 most-shared，預設 applies_to=小/中/特三類一視同仁，絕大多數 item/clause（校務治理架構、學校發展規劃、學校自評、績效指標運用、評量數據管理、外評視學準備、問責匯報、財務問責、課程資源監控、員工績效管理、投訴處理機制）對三類學校通用，故不列入 exception。\\n\\n唯一乾淨校級 carve-out = 「增值資料處理」子範疇（secondary-only）。理據：profile specific_examples 明確點名「學業增值資料（academic value-added）係香港中學專有指標，小學／幼稚園無此數據」，呢套資料源自公開試／全港性系統評估，只對設高中／DSE 的中學成立，故此子範疇實質只適用 secondary。對應到資料：checklist items 共 2 條（皆 source_id=sse_tools_2025，「學校不應把學業增值資料用作宣傳用途…」＋「若學校未能遵守學業增值資料的發放協議…」），clauses.json si=6 共 1 條（「本校不應將學業增值資料用作宣傳用途…」，本校-voice 將兩條 req 合併），全部標 [\"secondary\"]。\\n\\n刻意不列為校類例外者：\\n(1) 績效指標運用全部條目（perf_indicators_2022）— 其指標冊標題雖寫「中學、小學及特殊學校適用」，但呢個 scope 係正面確認三類【共用】，並非收窄至單一校級，故當共用、不列例外。幼稚園另有獨立《幼稚園表現指標》且 KG 不在 Phase-1，無需處理。\\n(2) 資助模式軸 — 多處出現「資助學校／法團校董會／《資助則例》」（如校務治理架構、財務問責、員工績效管理），屬辦學類別／管治架構維度，跨小中特，按鐵律 B(1) 一律不標。\\n(3) 設施／宿舍軸 — 本範疇條文無涉實驗室／視藝室／宿舍等設施收窄，無設施例外可標。\\n(4) 法團校董會／校管會等管治對象用語 — 屬法人層級義務，三類通用，非校級。\\n\\n特殊學校(special)：profile 明確「無 special-school 專屬例外條目；特殊學校在本範疇與小／中同框運作（同受 perf_indicators_2022 涵蓋）」，故全範疇無 special-only carve-out，亦無 primary-only carve-out。\\n\\n驗證方式：locator 由 item 的 req 起首及 clause 的 text 起首逐字 copy（22-28 中文字含標點），已人手核對皆為原文開頭子串且在全範疇內唯一識別到該條（「增值資料處理」全範疇僅此 2 items + 1 clause，無撞詞風險）；item_exceptions 的 source_id 由各 item 取得，皆 sse_tools_2025。applies_to 全部 = [\"secondary\"]，符合 Phase-1 集合 [primary,secondary,special] 的合法子集。"
+  },
+  {
+    "domain": "hr_admin",
+    "item_exceptions": [
+      {
+        "locator": "營辦超過一所學校的辦學團體應盡量調配其過剩教師／實驗室技",
+        "source_id": "surplus_teacher_arr_2026",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "被辦學團體調配至轄下另一所學校填補空缺的過剩教師，原則上",
+        "source_id": "surplus_teacher_arr_2026",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "學校在確定過剩教師及實驗室技術員名單後，校董會／法團校董",
+        "source_id": "surplus_teacher_arr_2026",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      },
+      {
+        "locator": "已停止受聘於資助學校為常額教師的合資格過剩教師，可向所屬",
+        "source_id": "surplus_teacher_arr_2026",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      }
+    ],
+    "clause_exceptions": [
+      {
+        "locator": "本校如屬營辦超過一所學校的辦學團體轄下學校，辦學團體應盡",
+        "applies_to": [
+          "secondary",
+          "special"
+        ]
+      }
+    ],
+    "notes": "分類理據：hr_admin profile 明判 dominant_type=通用、most-shared，並明確指出本範疇真正切分軸係「資助模式」(官立/資助/直資/私立/幼稚園計劃)，唔係校級(小/中/特)。故預設=共用，絕大多數 item/clause 唔列例外。\\n\\n唯一乾淨校級 carve-out = surplus_teacher_arr_2026 來源（標題明限「資助中學及特殊學校過剩教師調配安排」）。profile specific_examples 直接點名：此源「幼稚園/小學無此過剩教師調配機制」，並指引「標 secondary+special only」。對應 checklist 4 條 item（調配過剩教師填補空缺／被調配者屬新聘任須考 BLNST／確定名單後通知期／合資格過剩教師保留公積金帳目）+ 學校版 1 條合併 clause（si=1「本校如屬營辦超過一所學校…」整條純由此源 covers 16-19 組成），全部 applies_to=[secondary,special]，排除 primary。已驗證 5 個 locator 喺各自原檔 start=1、contains=1，唯一識別。\\n\\n刻意唔列為校級例外者及原因：\\n(1) 資助模式軸（鐵律 B1）——private_sch_employment_notes（「私立學校應…」3 條）、含「資助則例／資助學校／官立／按位津貼／直資／公營」字眼嘅大批條（如提早退休計劃跨官資直、強積金/公積金、薪金評估、聘書監管等），全屬辦學類別，跨小中特，非校級，唔列。\\n(2) 設施/科目軸 + 跨校類者（鐵律 B2/B3）——「所有剛開始在小學及中學任教英文／普通話科…語文能力要求」「新入職中、小學中文／英文科…學位及師訓資歷」「中、小學體育課須由已完成體育訓練教師教授」等：profile 明指呢類校級字眼係「連住科目教學資歷(小+中)」附帶、唔構成獨立校級規管簇；而且本身同時 cover primary+secondary（兩者皆喺 phase-1），唔係單一校級收窄，故當共用。\\n(3)「半日制小學上學日數不應少於209日」——雖係真‧小學限定，但喺 item 內同「全日制學校≥190日」(全類通用)綑綁，喺學校版亦併入 si=4 共用校曆表 clause（190日全類+209日半日小學+90日假期結構+選舉假期）。若整 item/clause 標 primary-only 會錯誤令 secondary/special 睇唔到 190 日通用規則。profile 自身將「半日制小學≥209」歸入「校級字眼多數係校曆附帶、非針對」，故刻意保留為共用、只屬內部參數差異，唔開校級例外。\\n(4) 幼稚園——profile 指 KG 只喺 BLNST/刑事申報嘅「公營+直資+幼稚園」並列條被一齊點名做付款方，非獨立規管對象；且 KG 唔喺本範疇 Phase-1 集合 [primary,secondary,special] 內，無關。\\n\\n驗證方式：以 python 逐 item req / clause text 開頭 substring 配對，確認 4 item + 1 clause 共 5 個 locator 各自 start=1 & contains=1（全檔唯一）；source_id 由對應 item 直接攞（surplus_teacher_arr_2026）。applies_to 全部 [secondary,special]，符合 phase-1 子集約束。"
+  },
+  {
+    "domain": "student_support",
+    "item_exceptions": [
+      {
+        "locator": "15歲以下小學生或初中生，學校不應在未正式告誡及通知",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "primary",
+          "secondary"
+        ]
+      },
+      {
+        "locator": "所有運載小學和幼稚園學童的校巴（乘客座位數目為20個",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "除非獲教育局常任秘書長另行批准，否則所有小六學生均須",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "小學生涯規劃教育應在2024/25學年或之前在所有高",
+        "source_id": "edbc015_2021_lpe",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "資助特殊學校須按照《特殊學校策劃和管理宿舍服務實務指",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "特殊學校安排學生延長學習年期，需要根據教育局通告第2",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "資助特殊學校如宿舍部宿生發生嚴重或危及生命的意外，必",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "學校須制定宿舍宿生預防傳染病的校本政策及指引，制定宿",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "special"
+        ]
+      }
+    ],
+    "clause_exceptions": [
+      {
+        "locator": "凡年齡在15歲以下之小學生或初中生，本校不應在未正式告誡",
+        "applies_to": [
+          "primary",
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校安排校車接送學生時，每輛運載小學及幼稚園學童的校",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校須按教育局相關通告推行小學生涯規劃教育，並在20",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "六、特殊學校宿舍服務政策（適用於資助特殊學校）",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "八、特殊學校學生延長學習年期安排",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "本校（資助特殊學校）如宿舍部宿生發生嚴重或危及生命的",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "本校宿舍部須制定以下校本政策及機制（適用於資助特殊學",
+        "applies_to": [
+          "special"
+        ]
+      }
+    ],
+    "notes": "分類理據（依 profile 權威指引 + 逐條核實）：本範疇 dominant=通用，主源 sag_2025_11／edbc15 跨四校類，共用 baseline 體量遠大於專屬條，故絕大多數 item/clause 不列例外。只標真‧校級收窄共 8 item + 7 clause。\n\n【special（6 item / 4 clause）】全部係 profile 明點的特殊學校專屬：(1) 宿舍部運作政策 item8.7／clause 9.5「資助特殊學校宿舍服務」；(2) 延長學習年期 item8.9／clause 9.7（通告2/2022「資助特殊學校學生延長學習年期」）；(3) 宿舍部宿生嚴重意外3曆日報告 item9.9／clause 10.8；(4) 宿舍預防傳染病+閉路電視政策 item11.12／clause 12.10（clause 明寫「適用於資助特殊學校宿舍部」，cite p.104 特殊學校宿舍節）。依 profile 指引「資助特殊學校宿舍部 profile 判為 special 先標 special」，故宿舍4條雖屬設施軸，但因 source 明文限定資助特殊學校＋profile 點名，判 special（非泛宿舍）。\n\n【primary（3 item / 2 clause）】(1) 小六升中 item11.1（標準義務由小學作為派位出口承擔；clause 12.2 因綑綁咗共用嘅留級/入學水平兩 sub-point，刻意唔列以免假收窄）；(2) 高小生涯規劃 item11.2／clause 12.8（明寫小學生涯規劃教育＋小四至小六高小）；(3) 校車跟車保母 item9.7／clause 10.6（小學＋幼稚園學童校巴，profile 安全交叉引述判幼/小校車規則；phase-1 內收窄為 primary，中學生不需跟車保母）。\n\n【primary+secondary（1 item / 1 clause）】15歲以下開除學籍批准機制 item1.21／clause 2.10（profile trap d 明列「小／初中限定」；初中=secondary，特殊學校開除SEN生另有機制，故排除special）。clause 2.10 雖綑綁第二句「校長約見家長」程序，但整條由「15歲以下小學生或初中生」開除條件主導，判 primary+secondary。\n\n【刻意當共用、不列例外者】(a) 訓育/輔導 framework（g16/g17 全部、訓輔人員職責節）：profile 講「KG不適用」但 KG 唔在 phase-1 集合；對 primary+secondary+special 三類皆有訓導架構，無排除 special 訊號 → 三類共用，不列。(b) 強制舉報虐兒（item2.6/2.17 列舉「幼/小/中/特」、edbc15）：profile trap b 明示真四校類共用 anchor，phase-1 三類齊覆蓋 → 共用。(c) kg_crisis_mgmt 全部 + item8.0/8.1/10.1（幼稚園危機/家長）：KG-only，唔在 phase-1 [primary,secondary,special] 任一類，不構成 phase-1 校級例外，故不列。(d) 轉介入讀特殊學校 item8.3/8.11/8.12：動作主語係普通學校（轉介出去），跨 primary+secondary，非 special 專屬 → 共用。(e) 資助模式軸：item8.10「資助中、小學駐校教育心理學家」屬資助模式＋primary+secondary，依鐵律 B(1) 唔當校級例外；hsp 健康校園/藥檢偏中學但 source 措辭中性、特殊學校亦適用 → 共用。(f) 設施軸：item9.3「所有寄宿學校」健康檢查＝寄宿設施橫切（特殊學校＋寄宿學校皆有），依 B(2) 屬正交設施條件非校級 → 共用（與明文「資助特殊學校宿舍部」嗰4條區分開）。item8.8 公營中小學非華語、item8.2/8.6 SEN約束隔離（普通校融合教育）亦判共用。\n\n驗證方式：用 python 對 checklist.json sections[si].items[j].req 及 clauses.json clauses[].text 逐條 startswith 配對 locator，全部 15 個 locator uniq=1（唯一命中）；item_exceptions 嘅 source_id 由對應 item 直接攞；全範疇 keyword grep（特殊學校/宿舍/寄宿/小六/高小/初中/中學/小學/直資/官立/幼稚園）掃一次確認無漏網真校級條、無假陽性（中小學描述性字眼、四校類列舉、資助模式、設施軸均已排除）。"
+  },
+  {
+    "domain": "cpd",
+    "item_exceptions": [
+      {
+        "locator": "所有小學校長和教師均應閱覽《小學教育課程指引》（2024）",
+        "source_id": "circ_edbc24017",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "自2004/05學年起，中、小學的擬任校長均須取得校長資格認證",
+        "source_id": "tdtf_report_2019",
+        "applies_to": [
+          "primary",
+          "secondary"
+        ]
+      },
+      {
+        "locator": "新入職的中、小學中文科及英文科常額教師，須持有有關學位",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "primary",
+          "secondary"
+        ]
+      }
+    ],
+    "clause_exceptions": [
+      {
+        "locator": "本校所有校長和教師均應閱覽《小學教育課程指引》",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "自2004/05學年起，本校擬任校長須已取得校長資格認證",
+        "applies_to": [
+          "primary",
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校聘用中文科及英文科常額教師時，須確保新入職教師持有",
+        "applies_to": [
+          "primary",
+          "secondary"
+        ]
+      }
+    ],
+    "notes": "分類理據：CPD profile 已判定本範疇=most-shared（公營/資助 中小特殊 PD 通用骨幹，~9 成條目跨三類一致），真正切分軸係「資助模式」（公營/資助/直資）而非「校級」。故絕大多數 item/clause（新入職核心培訓+60h選修、晉升培訓90/40h、五年內完成、校董會查紀錄、150h三年周期軟指標、T-標準+/COTAP/教師專業階梯、晉升內地學習團、校本PD政策、啟導、PLC、訓輔/SEN/資優師訓、進修假期、員工發展撥款）一律保持共用（不列），完全跟足鐵律 A（exception 係少數）。\n\n只標 3 條真‧校級 carve-out（item + 對應 clause 各 3 條），全部由 profile 嘅 specific_examples 明文點名：\n(1) primary-only：「所有小學校長和教師均應閱覽《小學教育課程指引》（2024）」(source=circ_edbc24017)。措辭明確鎖「小學」，且係小學課程指引閱覽義務，中學/特殊無此文件 → 只 primary。對應 clause 同判（si=3）。\n(2) primary+secondary：「自2004/05學年起，中、小學的擬任校長均須取得校長資格認證」(tdtf_report_2019)。措辭限「中、小學」校長；特殊學校校長另循其聘任條件、KG 不適用 → 中+小，排除 special。對應 clause（si=8 校長培訓資格）文本自身亦明寫「此規定適用於中學及小學層面」，內證一致。\n(3) primary+secondary：「新入職的中、小學中文科及英文科…語文科教師…資歷」(sag_2025_11)。措辭限「中、小學」語文科（中文/英文），三/五年取資歷係中小學語文科教學資歷規定 → 中+小。對應 clause（si=11 教師資歷政策）同判。\n\n刻意不列為校級例外者：\n(A) 資助模式軸（鐵律 B-1）：「公營」「資助學校」「直接資助計劃學校」「公營學校教師」等限定詞（如晉升《資助則例》指定課程、公營學校晉升內地學習團、進修假期）屬辦學類別，跨小中特三類，唔係校級收窄，全部當共用。\n(B) 學位化系列「公營中、小學（包括特殊學校）…教師職位學位化」明文同時納入 primary+secondary+special，正等於本範疇 Phase-1 預設 applies_to 全集，標為 exception 無意義（=共用），故按鐵律 A 刻意不列；其餘兩條「公營中小學…學位化」(g06 / tdtf) 同理屬資助模式軸通用，不列。\n(C) 「校長資格認證」其餘條（過去五年內取得、自2004/05起聘任條件、校長帶領課程規劃）為公營+直資校長通用機制，無「中、小學」獨有縮窄者不列；只有明文限「中、小學」嗰條（含其 clause）先標 primary+secondary。\n(D) g06/circ_edbc24017 雖係《小學教育課程指引》小學底色來源，但 80% req 屬結構性通用 PD（PLC、觀課、評估素養、STEAM、國民教育師訓、校本PD政策等），唔機械標 primary-only — 跟足鐵律 F + profile (D)，只有 req 措辭真有校級限定詞先收窄，否則當共用層。\n(E) KG=false（profile 已判 kindergarten 全域排除，無幼稚園來源），但 Phase-1 適用集合本身只 [primary,secondary,special]，故 applies_to 子集從未含 kindergarten，無需特別處理。\n\n驗證方式：用 python 對 checklist.json sections[].items[].req 及 clauses.json clauses[].text 做 substring 配對，確認 6 個 locator 每個 count=1（唯一命中），並核實學位化 3 條確帶「包括特殊學校/公營中小學」措辭（證屬全集或資助模式軸，刻意不列）。全部 locator 為原文開頭逐字 verbatim prefix（含標點），長度 23-31 中文字（兩條短者已延伸至 27 字落入 22-28 區間）。"
   }
 ]

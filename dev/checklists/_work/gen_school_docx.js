@@ -12,12 +12,18 @@ const {
 } = require(path.join(__dirname, "node_modules/docx"));
 
 const KEY = process.argv[2];
+const TYPE = process.argv[3] || null; // primary|secondary|special|kindergarten | null = generic(all clauses)
+const TYPE_LABEL = { primary: "小學", secondary: "中學", special: "特殊學校", kindergarten: "幼稚園" };
+// include a clause when: no type filter, or clause is shared (no school_types), or its school_types includes TYPE
+const okType = (st) => !TYPE || !st || !Array.isArray(st) || st.length === 0 || st.includes(TYPE);
+const TYPE_SUFFIX = TYPE ? `（${TYPE_LABEL[TYPE]}適用版）` : "";
 const WORK = __dirname;
 const OUTBASE = path.join(WORK, "..");
 const CH = JSON.parse(fs.readFileSync(path.join(WORK, KEY, "clauses.json"), "utf8"));
 const CL = JSON.parse(fs.readFileSync(path.join(WORK, KEY, "checklist.json"), "utf8"));
 const SRC = CL.src; // sid -> [title, url]
 const CN = CL.cn;
+const SECNAMES = (CL.sections || []).map(s => s.name); // chapter name lookup: SECNAMES[ch.si - 1]
 
 const FONT = "Microsoft JhengHei";
 const CONTENT_W = 9026;
@@ -75,7 +81,7 @@ function renderTable(tbl) {
 }
 
 const children = [];
-children.push(p(t(`本校${CN}政策`, { bold: true, size: 44 }), { alignment: AlignmentType.CENTER, spacing: { after: 80 } }));
+children.push(p(t(`本校${CN}政策${TYPE_SUFFIX}`, { bold: true, size: 44 }), { alignment: AlignmentType.CENTER, spacing: { after: 80 } }));
 children.push(p(t("（校本政策文件範本　·　草擬本）", { size: 24, color: "888888" }), { alignment: AlignmentType.CENTER, spacing: { after: 280 } }));
 children.push(p(t("使用說明", { bold: true, size: 24 }), { spacing: { after: 80 } }));
 [
@@ -88,17 +94,22 @@ children.push(p([t("制定日期：", { size: 22 }), blank(), t("　　法團校
 children.push(p([t("生效日期：", { size: 22 }), blank(), t("　　覆檢周期：", { size: 22 }), blank()]));
 
 let totalClauses = 0;
+let dispSecNo = 0;
 for (const ch of CH) {
-  const secNo = ch.section_no;
   if (!ch.clauses) continue;
+  const clauses = ch.clauses.filter(cl => okType(cl.school_types));
+  if (!clauses.length) continue; // entire chapter not applicable to this school type
+  dispSecNo++;
+  const secNo = dispSecNo; // sequential per-type chapter number
+  const secName = SECNAMES[ch.si - 1] || ch.section_name || "";
   children.push(new Paragraph({
     heading: HeadingLevel.HEADING_1, pageBreakBefore: true,
-    children: [t(secNo + ". " + ch.name, { bold: true, size: 28 })],
+    children: [t(secNo + ". " + secName, { bold: true, size: 28 })],
     spacing: { after: 100 },
   }));
   let marker = 0;
   const refMap = new Map();
-  ch.clauses.forEach((cl, ci) => {
+  clauses.forEach((cl, ci) => {
     totalClauses++;
     const num = secNo + "." + (ci + 1);
     const markers = [];
@@ -154,5 +165,6 @@ const doc = new Document({
 
 const outdir = path.join(OUTBASE, KEY);
 fs.mkdirSync(outdir, { recursive: true });
-const OUT = path.join(outdir, `本校${CN}政策_學校版_DRAFT.docx`);
+const FNAME = TYPE ? `本校${CN}政策_學校版_${TYPE_LABEL[TYPE]}_DRAFT.docx` : `本校${CN}政策_學校版_DRAFT.docx`;
+const OUT = path.join(outdir, FNAME);
 Packer.toBuffer(doc).then(buf => { fs.writeFileSync(OUT, buf); console.log("written:", OUT, buf.length, "bytes"); });

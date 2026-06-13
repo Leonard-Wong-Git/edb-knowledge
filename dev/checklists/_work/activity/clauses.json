@@ -523,6 +523,9 @@
         ],
         "covers": [
           11
+        ],
+        "school_types": [
+          "special"
         ]
       },
       {
@@ -1758,7 +1761,10 @@
               "1:2"
             ]
           ]
-        }
+        },
+        "school_types": [
+          "special"
+        ]
       }
     ]
   },

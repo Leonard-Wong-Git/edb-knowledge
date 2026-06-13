@@ -423,6 +423,9 @@
         "covers": [
           0,
           1
+        ],
+        "school_types": [
+          "secondary"
         ]
       }
     ]

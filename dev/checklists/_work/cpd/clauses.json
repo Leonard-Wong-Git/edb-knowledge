@@ -330,6 +330,9 @@
         "adjustables": [],
         "covers": [
           8
+        ],
+        "school_types": [
+          "primary"
         ]
       },
       {
@@ -980,6 +983,10 @@
         "covers": [
           0,
           2
+        ],
+        "school_types": [
+          "primary",
+          "secondary"
         ]
       },
       {
@@ -1302,7 +1309,11 @@
               "須在合約內訂明，要求教師在三或五年內取得所需資歷"
             ]
           ]
-        }
+        },
+        "school_types": [
+          "primary",
+          "secondary"
+        ]
       }
     ]
   },

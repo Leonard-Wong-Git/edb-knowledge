@@ -21,6 +21,9 @@
         "covers": [
           0,
           1
+        ],
+        "school_types": [
+          "secondary"
         ]
       },
       {
@@ -60,6 +63,9 @@
           2,
           3,
           4
+        ],
+        "school_types": [
+          "secondary"
         ]
       },
       {
@@ -75,6 +81,9 @@
         ],
         "covers": [
           5
+        ],
+        "school_types": [
+          "secondary"
         ]
       }
     ]
@@ -263,6 +272,9 @@
         "covers": [
           0,
           1
+        ],
+        "school_types": [
+          "secondary"
         ]
       },
       {
@@ -276,6 +288,9 @@
         "adjustables": [],
         "covers": [
           2
+        ],
+        "school_types": [
+          "secondary"
         ]
       },
       {
@@ -291,6 +306,9 @@
         ],
         "covers": [
           3
+        ],
+        "school_types": [
+          "secondary"
         ]
       }
     ]
@@ -330,7 +348,10 @@
         "covers": [
           2
         ],
-        "table": null
+        "table": null,
+        "school_types": [
+          "primary"
+        ]
       }
     ]
   },
@@ -430,6 +451,9 @@
         ],
         "covers": [
           0
+        ],
+        "school_types": [
+          "secondary"
         ]
       },
       {
@@ -446,6 +470,9 @@
         ],
         "covers": [
           1
+        ],
+        "school_types": [
+          "secondary"
         ]
       }
     ]
@@ -494,6 +521,9 @@
         "covers": [
           0,
           1
+        ],
+        "school_types": [
+          "secondary"
         ]
       }
     ]
@@ -591,7 +621,10 @@
         "covers": [
           0
         ],
-        "table": null
+        "table": null,
+        "school_types": [
+          "primary"
+        ]
       }
     ]
   },
@@ -610,6 +643,9 @@
         "adjustables": [],
         "covers": [
           0
+        ],
+        "school_types": [
+          "secondary"
         ]
       }
     ]

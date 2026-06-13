@@ -424,6 +424,10 @@
         "covers": [
           21,
           22
+        ],
+        "school_types": [
+          "primary",
+          "secondary"
         ]
       }
     ]
@@ -2171,6 +2175,9 @@
         ],
         "covers": [
           7
+        ],
+        "school_types": [
+          "special"
         ]
       },
       {
@@ -2201,6 +2208,9 @@
         ],
         "covers": [
           9
+        ],
+        "school_types": [
+          "special"
         ]
       }
     ]
@@ -2320,7 +2330,10 @@
           7,
           11
         ],
-        "table": null
+        "table": null,
+        "school_types": [
+          "primary"
+        ]
       },
       {
         "text": "本校應成立膳食協調小組，由一名資深教學人員擔任主席，負責制訂健康及環保的膳食政策及相關措施，並督導、統籌及改善學生的膳食安排。",
@@ -2350,7 +2363,10 @@
         "covers": [
           9
         ],
-        "table": null
+        "table": null,
+        "school_types": [
+          "special"
+        ]
       },
       {
         "text": "本校在急救設備、人員培訓及意外記錄方面，須符合以下各項要求：",
@@ -2667,6 +2683,9 @@
         ],
         "covers": [
           2
+        ],
+        "school_types": [
+          "primary"
         ]
       },
       {
@@ -2696,6 +2715,9 @@
         ],
         "covers": [
           12
+        ],
+        "school_types": [
+          "special"
         ]
       }
     ]

@@ -359,6 +359,10 @@
           17,
           18,
           19
+        ],
+        "school_types": [
+          "secondary",
+          "special"
         ]
       }
     ]

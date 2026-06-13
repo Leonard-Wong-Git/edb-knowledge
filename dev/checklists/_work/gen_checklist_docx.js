@@ -9,9 +9,19 @@ const {
 } = require(path.join(__dirname, "node_modules/docx"));
 
 const KEY = process.argv[2];
+const TYPE = process.argv[3] || null; // primary|secondary|special|kindergarten | null = generic(all items)
+const TYPE_LABEL = { primary: "小學", secondary: "中學", special: "特殊學校", kindergarten: "幼稚園" };
+const okType = (st) => !TYPE || !st || !Array.isArray(st) || st.length === 0 || st.includes(TYPE);
+const TYPE_SUFFIX = TYPE ? `（${TYPE_LABEL[TYPE]}適用版）` : "";
 const WORK = __dirname;
 const OUTBASE = path.join(WORK, "..");
 const C = JSON.parse(fs.readFileSync(path.join(WORK, KEY, "checklist.json"), "utf8"));
+// per-type filtered sections (drop items whose school_types excludes TYPE; drop emptied sections)
+const SECTIONS = C.sections
+  .map(s => ({ name: s.name, items: s.items.filter(it => okType(it.school_types)) }))
+  .filter(s => s.items.length);
+const USED_SIDS = new Set();
+SECTIONS.forEach(s => s.items.forEach(it => USED_SIDS.add(it.source_id)));
 const FONT = "Microsoft JhengHei";
 const CONTENT_W = 9026;
 
@@ -21,7 +31,7 @@ const border = { style: BorderStyle.SINGLE, size: 1, color: "BBBBBB" };
 const borders = { top: border, bottom: border, left: border, right: border };
 
 const children = [];
-children.push(p(t(`校本「${C.cn}」政策文件要求清單`, { bold: true, size: 40 }), { spacing: { after: 80 } }));
+children.push(p(t(`校本「${C.cn}」政策文件要求清單${TYPE_SUFFIX}`, { bold: true, size: 40 }), { spacing: { after: 80 } }));
 children.push(p(t("（內部參考 · 草擬本 · 逐條附 EDB 原文出處）", { size: 24, color: "888888" }), { spacing: { after: 240 } }));
 children.push(p(t("本清單由 EDB K1 知識平台自教育局官方文件蒸餾而成，供逐條對照校本政策文件。每條要求附原文出處（文件＋頁碼＋直跳連結）及原文引文；引文照錄 PDF 文字層原樣，怪空格／異體字屬抽取產物。本清單為指引義務整理，並非法律意見；如與教育局原文有出入，概以原文為準。", { size: 22, color: "555555" }), { spacing: { after: 240 } }));
 
@@ -36,6 +46,7 @@ const srcRows = [new TableRow({
   })),
 })];
 for (const [sid, [title, url]] of Object.entries(C.src)) {
+  if (TYPE && !USED_SIDS.has(sid)) continue;
   srcRows.push(new TableRow({
     children: [
       new TableCell({ borders, width: { size: 1700, type: WidthType.DXA }, margins: { top: 80, bottom: 80, left: 120, right: 120 }, children: [p(t(sid, { size: 18 }))] }),
@@ -58,7 +69,7 @@ const mapRows = [new TableRow({
     children: [p(t(h, { bold: true, size: 22 }))],
   })),
 })];
-C.sections.forEach((s, i) => {
+SECTIONS.forEach((s, i) => {
   mapRows.push(new TableRow({
     children: [String(i + 1), s.name, String(s.items.length)].map((v, ci) => new TableCell({
       borders, width: { size: mapW[ci], type: WidthType.DXA },
@@ -72,7 +83,7 @@ children.push(new Table({ width: { size: CONTENT_W, type: WidthType.DXA }, colum
 // items
 children.push(p(t("要求清單", { bold: true, size: 32 }), { pageBreakBefore: true, spacing: { after: 160 } }));
 let total = 0;
-C.sections.forEach((s, si) => {
+SECTIONS.forEach((s, si) => {
   children.push(new Paragraph({
     heading: HeadingLevel.HEADING_1,
     children: [t((si + 1) + ". " + s.name, { bold: true, size: 28 })],
@@ -129,5 +140,6 @@ const doc = new Document({
 
 const outdir = path.join(OUTBASE, KEY);
 fs.mkdirSync(outdir, { recursive: true });
-const OUT = path.join(outdir, `校本${C.cn}政策文件要求清單_DRAFT.docx`);
+const FNAME = TYPE ? `校本${C.cn}政策文件要求清單_${TYPE_LABEL[TYPE]}_DRAFT.docx` : `校本${C.cn}政策文件要求清單_DRAFT.docx`;
+const OUT = path.join(outdir, FNAME);
 Packer.toBuffer(doc).then(buf => { fs.writeFileSync(OUT, buf); console.log("written:", OUT, buf.length, "bytes, items:", total); });
