@@ -118,6 +118,18 @@ source_registry → same vault PDFs → ai_extract.py
 - 開新功能方向（admin 端 Channel B prompt editor / index.html 新區塊 / 下游 Circular System 整合）
 
 ## Last Session Record
+1. UTC date: 2026-06-11/13
+2. Session ID: Claude_20260613_0900 (S155)
+3. Completed:
+   - ✅ **任務①** PAGE_COVERAGE_REPORT.md（207 源/14,505 chunks；179 全頁碼/7 部分/2 全無/19 結構性無頁）
+   - ✅ **任務②** 14 範疇 × 2 docx = 28 files 全部生成（school_governance/kg_admission/placement/activity/conduct/safety/gov_admin/qa_inspection/hr_admin/student_support/cpd/sen/gifted/curriculum）
+   - ✅ **Git commit 122a7b9**（804 files，dev/checklists/ 全量）；NO push（待 Leonard 確認）
+4. Pending: git push（`cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && git push origin main`）；verify_issues QC（sen 48 / gifted 34 / gov_admin 23 / qa_inspection 23 flags）。
+5. Next priorities: git push → review verify_issues → 文件分析 Phase 1.5（optional）。
+6. Risks: checklist commit 未 push；verify_issues flags 待 Leonard review（非 blocker）。
+7. commits: `122a7b9`（S155 checklist batch，未 push）。
+
+## Previous Session Record
 1. UTC date: 2026-06-10
 2. Session ID: Claude_20260610_0100 (S154)
 3. Completed:
@@ -138,12 +150,6 @@ source_registry → same vault PDFs → ai_extract.py
    - ⚠️ app.html 兩個搜尋 UI（React desktop + mobile.js shell）：政策搜尋結果渲染改動必須兩邊都改；**文件分析目前淨 desktop React**（mobile shell 未有入口 = 已知 scope，非 bug）。
    - 既有：synthesis ~328 字 soft cap / cgss_2024 rank 低 / admin 永久移除（重建走 §3+真 server-auth）/ Channel A frozen @455 / 入庫 display sync 7 處 / 新源必加 SOURCE_SETS+registry / 57014 cold-start / Stage-2 closed / 路徑空格雙引號 / commit 必入 SESSION_LOG / 勿改 canonical chunker / stats.sources=120 cosmetic-stale。
 7. commits: `a6547c6`(文件分析 code) → `d17c25d`(governance) → `46376f4`(IMC 入庫) → `60da7f0`(governance) → `37995bc`(Cloudflare ×4) → `36af538`(governance) → `0c34611`(入口停用) → `db4fe12`(governance) → 收工 closeout commit。
-
-## Previous Session Record
-1. UTC date: 2026-06-09
-2. Session ID: Claude_20260609_1230 (S153)
-3. Completed: Channel B 政策搜尋 UX — SYNTHESIS_PROMPT ≤120→約250字(上限300 soft；live ~328) + 來源頁碼顯示/可點 `url#page=N` 跳頁 + 去分數（desktop `QAPanel`/`SourcesAccordion` + mobile.js 兩 surface 都改；mobile 來源名全中文 displayName + 去「原文·分數」badge）。QC：typecheck/build/node-check PASS、regression 0 新 FAIL、雙 surface live browser-verify、post-deploy synthesis 328 字。0 change Channel A facts/schema/RPC/下游/canonical chunker、無 bump。
-4. commits: `6b91d8d`(code) → `9db6042`(governance) → `8bf828d`(START regen)。
 
 
 ## Session Close Checklist (每次 session 結束必須執行)

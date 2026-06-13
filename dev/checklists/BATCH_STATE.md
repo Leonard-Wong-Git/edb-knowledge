@@ -95,6 +95,11 @@
     - gov_admin ch8-14 + qa_inspection ch1-12 → **wf_981151a6-c78** (flow_rewrite_gov_qa.js, 19 chapters)
     - cpd ch8-12 + hr_admin ch1-11 → **wf_967dee17-890** (flow_rewrite_cpd_hr.js, 16 chapters)
   - gov_admin clauses_partial.json saved (ch1-7, 79 clauses)；cpd clauses_partial.json saved (ch1-7, 37 clauses)
-  - **Current docx status: 10/14 domains done (20 files)**
-    - ✅ school_governance, kg_admission, placement, activity, conduct, safety, sen, gifted, student_support, curriculum
-    - ❌ gov_admin (clauses_partial ch1-7 + waiting ch8-14), qa_inspection (waiting), cpd (clauses_partial ch1-7 + waiting ch8-12), hr_admin (waiting)
+  - **gov_admin docx DONE** — 校本校務行政政策文件要求清單_DRAFT.docx (55485B, 226 items, 120 clauses) + 本校校務行政政策_學校版_DRAFT.docx (51036B)；verify_issues=23
+  - **qa_inspection docx DONE** — 校本質素保證與視學政策文件要求清單_DRAFT.docx (21802B, 47 items, 30 clauses) + 本校質素保證與視學政策_學校版_DRAFT.docx (21549B)；verify_issues=23
+  - **wf_967dee17-890 (cpd ch8-12 + hr_admin ch1-11) DONE** — 32 agents，27 results
+  - **cpd docx DONE** — 校本教師專業發展政策文件要求清單_DRAFT.docx (28742B, 91 items, 53 clauses) + 本校教師專業發展政策_學校版_DRAFT.docx (30483B)；verify_issues=0
+  - **hr_admin docx DONE** — 校本人事管理政策文件要求清單_DRAFT.docx (51205B, 193 items, 86 clauses) + 本校人事管理政策_學校版_DRAFT.docx (43026B)；verify_issues=0
+  - **🎉 ALL 14 DOMAINS COMPLETE — 28/28 docx files generated**
+  - **Git commit 122a7b9** — 804 files committed；NO push（待 Leonard 確認）
+  - **Current docx status: 14/14 domains done (28 files) ✅ COMPLETE**

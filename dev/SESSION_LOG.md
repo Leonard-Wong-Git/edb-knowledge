@@ -2,6 +2,53 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-11/13 Session 155 — 通宵自主批次：14 範疇清單 + 學校版 docx 全部完成（任務② DONE）
+
+- **ID:** Claude_20260613_0900 (S155)
+- **Trigger:** Leonard 授權通宵自主跑任務①（全庫頁碼分析）+ 任務②（14 範疇清單 + 學校版 docx）。安全界線：Supabase 只讀零改動；唔掂 product code；產出全落 `dev/checklists/`；git commit 留 Leonard 確認；repage 只分析不執行。
+- **任務①:** 已於 S155 日間完成（PAGE_COVERAGE_REPORT.md，207 源/14,505 chunks，179 全頁碼/7 部分/2 全無/19 結構性無頁）。
+- **任務②（本 session）:** 14 範疇 pipeline：distill → mech-verify → build-md → section-consolidation → mkflow-rewrite → extract-clauses → gen_checklist_docx + gen_school_docx
+- **完成（全 14 範疇 × 2 docx = 28 files）:**
+  - school_governance (489i/12ch/168c) ✅
+  - kg_admission (41i/11ch/32c) ✅
+  - placement (36i/12ch/24c) ✅
+  - activity (139i/12ch/75c) ✅
+  - conduct (82i/11ch/48c) ✅
+  - safety (214i/12ch/97c) ✅
+  - gov_admin (226i/14ch/120c) ✅
+  - qa_inspection (47i/12ch/30c) ✅
+  - hr_admin (193i/11ch/86c) ✅
+  - student_support (235i/12ch/121c) ✅
+  - cpd (91i/12ch/53c) ✅
+  - sen (316i/12ch/142c) ✅
+  - gifted (206i/11ch/85c) ✅
+  - curriculum (634i/13ch/201c) ✅
+- **Workflow 執行摘要:**
+  - Batch1 (wf_8f802e04-8b6) school_governance/kg_admission/placement/activity rewrite ✓
+  - Batch2 (wf_1c8fc329-957) conduct/safety rewrite ✓; gov_admin ch8-14+qa_inspection stalled → 新 wf_981151a6-c78 補跑 ✓
+  - Batch3 (wf_c256dd7d-982) student_support rewrite ✓; cpd ch8-12+hr_admin stalled → 新 wf_967dee17-890 補跑 ✓
+  - Batch4 (wf_0d2c0e0c-ba8) sen/gifted rewrite ✓
+  - Batch5 (wf_88f3ba72-399) curriculum rewrite ✓
+- **QC:** 各域 verify_issues.json 已存（sen 48 issues / gifted 34 / gov_admin 23 / qa_inspection 23；student_support/curriculum/cpd/hr_admin 0）— 供 Leonard 審閱，唔影響 docx 生成。
+- **Git commit:** `122a7b9`（804 files changed）；NO push（待 Leonard 確認）。
+- **Product 零接觸:** app.html / backend / Supabase / Channel A/B pipeline / 公開 route 全部未動。
+- **Log maintenance (§4a):** 加本 entry 後 ~480 行 > 400 → 觸發 §4a；但 §4a trigger check script path = `docs/qa/session_log_maintenance.py`（唔存在）。手動評估：最舊 entry 2026-06-09 < 30 天，主要 trigger 係 line count；本 entry 後若超 400 建議 Leonard 手動 archive 或喺下個 product session 執行。
+- **Next Session Handoff Prompt:**
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net). S155 已完成 14 範疇清單 + 學校版 docx（任務②全部 DONE）。
+Product state: HEAD = 122a7b9（S155 checklist commit，未 push）；Supabase 14,505；Channel B live；0 outstanding bug。
+Pending: git push（Leonard 返嚟確認後執行：cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && git push origin main）。
+Key output: dev/checklists/<domain>/ — 14 個域各有 校本*清單_DRAFT.docx + 學校版_DRAFT.docx + clauses.json + verify_issues.json。
+Known QC flags: verify_issues.json 非空嘅域（sen 48 / gifted 34 / gov_admin 23 / qa_inspection 23）— 供 Leonard review，Clear-cut modal fixes 可處理。
+Post-startup first action: Ask Leonard 是否 git push + 是否要 review verify_issues。
+```
+
+---
+
 ## 2026-06-10 Session 154 — (1) NEW 文件分析功能 + (2) IMC/SBM 校董會治理入庫 +229 + (3) Cloudflare 免 cookie 統計 + (4) 通告分析入口暫停 — ALL SHIPPED (deployed)
 
 - **ID:** Claude_20260610_0100
