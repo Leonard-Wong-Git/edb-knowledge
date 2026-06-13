@@ -15,11 +15,13 @@
   - ✅ **Leonard 科目→校類 ruling** — 視藝(一般)=中小、視藝(酸類/重金屬)=中、家政/科技與生活/科學實驗室/工場=中+特。safety 逐條分「設施專屬 vs 通用」+50 carve-outs（keep-shared 9 條混合/通用：0.3/2.12/8.5 + c0.9/c2.0/c2.1/c2.2/c6.0/c8.1）；curriculum +4（lab/workshop）。hr_admin/cpd 嘅「實驗室技術員」=職系 context 非設施→不動。
   - ✅ **全 13 域 348 carve-outs、0 error** apply 入 checklist/clauses。
   - ✅ **mass-generate 102 docx**（13 generic 學校版+13 generic 清單 + 37 per-type 學校版 + 37 per-type 清單 + kg_admission generic 修 bug）。placement/gifted=小+中(2型)，其餘 11 域=小/中/特(3型)。
+  - ✅ **#4 文件分析 Phase 2 SHIPPED LIVE**（Leonard 揀標註版原文 docx）：`backend/src/api/analyzeDocument.ts` +`school_type`（按校類調整逐段提示，advice-level 食 #3 模型）+ segment `text` field（供 client 砌標註 docx）+ notes prompt 校類 context；`app.html` +docx 8.x UMD CDN（jsdelivr，`window.docx`）+ 本校校類 selector(小/中/特/幼/不限) + 「下載標註版 Word」button + `buildAnnotatedDocx`（client-side 砌、標註文件不上載；`seg.text||excerpt` deploy-order fallback）。驗：typecheck/build / backend 單元(text+school_type) / browser(docx gen PK-valid 7843B + selector + 0 console err) / **post-deploy onrender live e2e PASS**（回 text+matches+note）。深度 source-level 校類 filter 留 Phase 2.5。
+  - ✅ **#2 幼稚園 Phase 2：KG 研究 + 入庫 prep DONE**（Leonard 授權自研補源）：背景 Workflow `wf_4f809e45-640`（4 agent）搵到 **19 源 WebFetch 核實**（多數 page-resolvable）。**2 核心源已抽取**：`kg_admin_guide_2026`（幼稚園行政手冊2026.5，143頁/U+FFFD=0/dry-run **218 chunks** 全 page-resolvable）+ `kg_operation_manual_2026`（學前機構辦學手冊2026.5 v4.3，175頁/U+FFFD=0/**217 chunks**）。**435 新 chunks 待 INSERT**（`dev/vault/<id>/extract_*.txt` 已寫）；`ingest_one_source.py --dry-run` 驗過、upsert-safe（新 id 純加法）。⚠️ topic fallback curriculum（cosmetic）；入庫時加 KG route(searchChannelB.ts SOURCE_SETS)+registry+display-sync 7 點。**live INSERT 留 fresh session**（Leonard 拍板，避長 context drift）。
 - **QC:** 102 docx 全 0 undefined / 0 壞 zip / hyperlink rels 齊 / per-type filter 互斥實證（safety 視藝→中·校巴→小·宿舍→特·家政實驗室工場→中特；placement primary-only clause NOT in 中學版）/ **22 JSON 語義 diff 證只加 school_types、零內容污染** / per-type item 數合理。
 - **Caveat（已接受）:** 混合 clause（safety 3 條 c0.9/c2.0/c2.2 + curriculum 1 條天台複合）核心通用故 keep-shared → 小學版仍見零星設施句；徹底乾淨要 per-type 文字變體（較大工程，未做）。
 - **Data-model note:** clauses.json 章 `si`=1-based、`section_name`空（真名喺 checklist sections[si-1]）；clause 有 `table` field，facility 判斷要 match text+table。
-- **commits:** `b1d4f5c`（deliverables）+ governance closeout commit。
-- **Log maintenance (§4a):** SESSION_LOG >400 行、§4a script 不存在；未 archive；下個 session 處理。
+- **commits（全 push origin/main）:** `b1d4f5c`（#3 deliverables 102 docx）→ `97c0356`（#3 governance）→ `b503784`（#4 文件分析 Phase 2 live）→ 收工 governance commit。
+- **Log maintenance (§4a):** SESSION_LOG >400 行、`docs/qa/session_log_maintenance.py` 不存在（legacy）；未 archive；下個 session 建 script 後處理。
 - **Next Session Handoff Prompt:**
 
 ```text
@@ -28,11 +30,14 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
 Current objective: EDB K1 知識平台 (policychecker.wongfu.net).
-Product state: HEAD = S159 governance commit（已 push）；Supabase 14,674；Channel B live；0 outstanding bug。本 session product 零接觸。
-S159 完成：#3 學校版分校類 mass-gen — 13 域 per-type(小/中/特) docx 共 102 份（dev/checklists/<域>/）；修好全 14 域學校版 docx 之前「undefined」章節 bug；13 域 348 校類 carve-outs（school_types field 入 checklist/clauses.json）；Leonard 科目→校類 ruling 已套（視藝=中小、家政/實驗室/工場=中+特）。生成器 = dev/checklists/_work/gen_school_docx.js + gen_checklist_docx.js（<type> arg）；apply_school_types.py / gen_all.py。
-NEXT:（1）Leonard 開 docx review 格式/分流，有改再調生成器或 tags；（2）幼稚園 Phase 2（kg_admission 要補 KG 專屬源先 per-type）；（3）混合 clause 若要小學版徹底無設施句 → per-type 文字變體（較大工程）；（4）#4 文件分析 Phase 2（掃描學校文件→修改補充→可下載標註，食 #3 校類模型）。
-⚠️ 改 tags 後必跑 apply_school_types.py --check（驗 locator 唯一+applies_to⊆phase1）再 --apply；混合 clause 已 keep-shared（小學版見零星設施句=已知 caveat）。
-Post-startup first action: 問 Leonard docx review 有冇要改，定推進 #4 文件分析 Phase 2。
+Product state: HEAD = S159 收工 governance commit（已 push）；Supabase 14,674；Channel B live；0 outstanding bug。起手 verify HEAD==origin/main + Supabase 14,674。
+S159 完成：(1) #3 學校版分校類 mass-gen — 13 域 per-type(小/中/特) docx 102 份(dev/checklists/<域>/) + 修全 14 域學校版「undefined」章節 bug + 13 域 348 校類 carve-outs(school_types field) + Leonard 科目→校類 ruling(視藝=中小、家政/實驗室/工場=中+特)。生成器 dev/checklists/_work/gen_school_docx.js+gen_checklist_docx.js(<type> arg)/apply_school_types.py/gen_all.py。(2) #4 文件分析 Phase 2 SHIPPED LIVE — 標註版 docx 下載 + 校類選擇器(analyzeDocument.ts +school_type+text；app.html +docx UMD+selector+buildAnnotatedDocx)。(3) #2 KG 研究 done(19 源核實) + 入庫 prep done。
+
+NEXT（主線 = #2 幼稚園 Phase 2 live 入庫，prep 已備）：**2 核心源已抽取待 INSERT**（dev/vault/kg_admin_guide_2026/extract_*.txt = 幼稚園行政手冊2026.5 218chunks；dev/vault/kg_operation_manual_2026/extract_*.txt = 學前機構辦學手冊2026.5 v4.3 217chunks；共 435 新 chunks、U+FFFD=0、page-resolvable、dry-run 驗過）。執行：①`python3 dev/ingest_one_source.py <id>`（live INSERT，upsert-safe；先 --dry-run 再真跑；OPENAI+SUPABASE key 喺 backend/.env）②加 KG route 入 backend/src/api/searchChannelB.ts SOURCE_SETS+TOPIC_KEYWORDS ③registry entry(dev/source/source_registry.json) ④**display-sync 7 點**(14,674→~15,109：3 _meta.stats 層 byte-identical + app.html + index.html + K1_API_SPEC + README)⑤routed smoke + live count verify。之後 ⑥起 KG 清單 pilot（建議 conduct 或 governance 域，用新幼稚園行政手冊，似 14 域 checklist build pipeline）。其餘 17 KG 源候選見 SESSION_LOG（governance/qa/curriculum 等）。
+其他 follow-up：#3 Leonard docx review 反饋(調生成器/tags)；#4 文件分析深度 source-level 校類 filter(Phase 2.5)；混合 clause per-type 文字變體。
+
+⚠️ 入庫紀律（記憶教訓）：live INSERT 前 INSPECT；新源必加 SOURCE_SETS+registry+display-sync 7 點；ingest_one_source upsert-safe 但 display drift 係 recurring gotcha 要 byte-identical；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號。改 tags 後跑 apply_school_types.py --check。
+Post-startup first action: 確認 HEAD/Supabase，然後跑 ingest_one_source.py --dry-run 兩個 KG 源 sanity check，再問 Leonard 即開始 live 入庫定先睇 prep。
 ```
 
 ---
