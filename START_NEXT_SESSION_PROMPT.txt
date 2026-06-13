@@ -1,8 +1,10 @@
 Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 
-Current objective: EDB K1 知識平台 (policychecker.wongfu.net). S155-S156 已完成 14 範疇清單 + 學校版 docx（28 files），S156 完成 4 modal QC fixes。
-Product state: HEAD = S156 commit（已 push）；Supabase 14,505；Channel B live；0 outstanding bug。
-Next work: 124 pending verify_issues → see dev/checklists/QC_REVIEW.md for categorized list with actions. Priority: scope qualifiers (特殊學校/中學 limitations being silently expanded) → remaining modal distortions → fabricated clauses.
-Key files: dev/checklists/QC_REVIEW.md（128 issues, 4 fixed, 124 to review）; dev/checklists/<domain>/clauses.json（edit to fix）; _work/gen_checklist_docx.js + gen_school_docx.js（regenerate after fix）.
-Post-startup first action: 問 Leonard 想優先睇邊個域嘅 verify_issues — 建議順序：sen（48 issues）→ gifted（34）→ gov_admin（23）→ qa_inspection（21 remaining）。
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net).
+Product state: HEAD = S157 governance commit（已 push）；Supabase 14,505；Channel B live；0 outstanding bug。
+QC state: 14 範疇清單 + 學校版 docx（28 files）verify_issues QC 全清 — 128/128 resolved（見 dev/checklists/QC_REVIEW.md）。4 學校版 docx 已重生。
+Next work（無緊急、可選）: (1) Leonard spot-check QC fixes / 11 條 kept-readability 目的句 + gov_admin[0] 書面 裁示 / qa[9] 核實 是否認同；(2) 文件分析 Phase 1.5（mobile shell）/ Phase 2（可下載標註文件）；(3) 其餘 10 域（curriculum/hr_admin/student_support/cpd 等，S155 報 0 verify_issues）如需可再 QC。
+⚠️ Data-model trap: verify_issues item_id / clauses covers = 章內局部 index（指 checklist.json sections[si].items），唔係 items_verified 全域 index — 必用 quote 內容搜尋核實真源。citations 應＝covers items sources（可程式驗 drift）。
+Post-startup first action: 問 Leonard 想 spot-check QC、定推進文件分析 Phase 1.5、定其他。

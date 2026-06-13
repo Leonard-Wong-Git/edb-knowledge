@@ -2,23 +2,26 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
-## 2026-06-13 Session 157 — verify_issues QC：scope 批 + modal 批（17 fixes）
+## 2026-06-13 Session 157 — verify_issues QC：全 128 issues 清晒（5 批）
 
 - **ID:** Claude_20260613_0925 (S157)
-- **Trigger:** Startup at 頂層 dormant scaffold → Leonard 確認切去 `Draft/` active root（「對齊」留收工）。續 S156 QC：清 124 pending verify_issues，按嚴重性 scope→modal→fabricated。
-- **起手核實:** HEAD `f4daea4`==origin/main clean（注意 handoff Current Baseline 仍寫舊 `46376f4` = drift，本 session 修正）；Supabase 14,505 未動。
-- **Completed:**
-  - ✅ **Scope/eligibility 批（9 fixes，全源文核實）** — sen[6]本校→（如屬中學）/ sen[17]（如屬特殊學校）體恤測考〔只改 g10 句〕/ sen[18]（如屬特殊學校）溝通模式政策〔只改首句〕/ sen[22]（如屬特殊學校）領導層+人員〔兩句 g10〕/ sen[23]（如屬特殊學校）教導表達不/ sen[26]資助小學→官立或資助小學/ sen[32]成績稍遜學生＋（小學適用）表格 cell/ sen[44]（如屬特殊學校）為學生〔嚴重智障 cgss 句保留〕/ gov_admin[5]資助學校→或按位津貼學校。
-  - ✅ **Modal/terminology/entity 批（8 fixes，全源文核實）** — sen[7]第三層支援→第三層級/ sen[24]學校概覽→中、小學概覽/ sen[37]須→應/ sen[38+39]首句插「應」對齊源文/ gifted[5]表第三行加「可因應」還原許可式/ gifted[17]本校持續推廣→本校宜持續推廣/ gov_admin[2]法團校董會→校董會 ×2〔其餘 31 處正確嘅法團校董會不動〕。
-  - ⚪ **qa_inspection[9] 核實無需改** — clause table cell「本校宜委派」跟足源文 quote（sse_tools p9「學校宜委派」）；係 verify 嘅 req paraphrase 誤升「須」。verify-against-source 救返 false positive。
-  - ⛔ **gov_admin[0] Leonard 裁示保留「書面同意」** — lead 主體=結構改動（item1 本須書面+規例10(a)），要求書面係安全一方；item3 源文雖只「批准」但併入結構改動句、書面不為過。
-  - ✅ docx regenerated（學校版）：sen / gifted / gov_admin（checklist 版用 checklist.json，源文 quote 不受影響、無需重生）。
-  - ✅ QC_REVIEW.md：22 fixed / 106 pending（sen 14/34, gifted 3/31, gov_admin 2/21, qa_inspection 3/20）。
-- **Data-model trap（記低，下個 QC session 必中）:** verify_issues 嘅 `item_id` ＝ clauses 嘅 `covers` ＝ **章內局部編號（指向 checklist.json 該 section 嘅 items），唔係 items_verified 全域 index**。直接 `items_verified[item_id]` 攞到無關 item（已實證：sen[17] id2 真源喺 items_verified[24]）。正路：用 quote keyword 內容搜尋 items_verified／checklist.json sections[si].items 揾真源核實，先至改。
-- **QC:** 每批改後抽 docx document.xml 驗：新寫法全 present、舊失真寫法全 absent、跨批無 regression、JSON 重新 parse valid。clauses.json 用 raw string-replace（中文未 escape）保 diff 最細、唔 reformat。
+- **Trigger:** Startup at 頂層 dormant scaffold → Leonard 確認切去 `Draft/` active root。續 S156 QC：清全部 124 pending verify_issues；Leonard 指示「5 個 batch 全部要做哂」→ scope→modal→bad-citation→distorted-number→fabricated 逐批清。
+- **起手核實:** HEAD `f4daea4`==origin/main clean（handoff Current Baseline 舊寫 `46376f4` drift，本 session 修正）；Supabase 14,505 未動。
+- **Completed — 全 128 verify_issues resolved（114 實改 / 1 核實正確 / 1 裁示保留 / 12 keep-as-is）:**
+  - ✅ **Scope/eligibility（9）** — 還原 特殊學校/中學/官立及資助小學/按位津貼學校 被靜默擴大或縮窄嘅適用對象（本校（如屬X）voice）。
+  - ✅ **Modal/terminology/entity（8）** — 須↔應↔宜↔可 對齊源文、第三層支援→第三層級、中、小學概覽、法團校董會→校董會 等。
+  - ✅ **Bad-citation（28，含 21 額外 drift）** — 系統化重算 citations=covers-sources：g14 page -1→null（17 clause）、移除 4 spurious、補 5 missing、2 個 content 真係用到改加 covers（item18/item6）。0 residual citation drift 全 4 域。
+  - ✅ **Distorted-number（31）** — 補回漏掉嘅義務動詞/機制/目的、修正數字日期術語（評分→評估準則、12月至1月、2016及2018注資、提早入讀較高班級）、entity scope。sen[3] 保留（角色列已含領導層）。
+  - ✅ **Fabricated（66：55 移除 / 11 保留）** — 移除源文不支持嘅虛構義務/限定詞（書面/專業/維護/法定/個人化/不可或缺）、情態升級（不得→不應）、注入法律名稱、虛構表格 cell/欄；保留 11 條純可讀性目的句（以X/協助X，無新義務，依 Leonard QC-note 原則）。
+  - ⚪ **qa_inspection[9] 核實無需改** — clause 跟足源文 quote「宜」；係 verify req paraphrase 誤升「須」（verify-against-source 救返 false positive）。
+  - ⛔ **gov_admin[0] Leonard 裁示保留「書面同意」** — lead 主體=結構改動（item1 本須書面+規例10(a)），書面係安全一方。
+  - ✅ docx regenerated 全 4 學校版（sen/gifted/gov_admin/qa_inspection）；checklist 版用 checklist.json 源文 quote，不受影響。
+  - ✅ **QC_REVIEW.md：128 resolved / 0 pending**（sen 48/0, gifted 34/0, gov_admin 23/0, qa_inspection 23/0）。
+- **Data-model trap（已存 auto-memory + 此處）:** verify_issues `item_id` ＝ clauses `covers` ＝ **章內局部編號（指 checklist.json sections[si].items），唔係 items_verified 全域 index**。直接 `items_verified[item_id]` 攞到無關 item（實證：sen[17] id2 真源喺 items_verified[24]）。正路：quote keyword 內容搜尋核實真源先改。另：citations 應＝covers items 嘅 (source_id,page) 集合（round-trip 不變不變式，可程式化驗 drift）。
+- **QC:** 每批改後抽 docx document.xml grep 驗（新寫法 present / 舊失真 absent / 跨批無 regression / JSON valid）；clauses.json 改法 = raw string-replace（中文未 escape）或 json.load→dump(indent=2, ensure_ascii=False)（已驗 round-trip byte-identical）保 diff 最細。
 - **Product zero-touch:** app.html / backend / Supabase / 公開 route 全未動。
-- **commits:** `6b76cf1`（content：3 clauses.json + 3 docx + QC_REVIEW）→ governance closeout commit（本 entry + handoff）。
-- **Log maintenance (§4a):** SESSION_LOG > 400 行、§4a script 仍不存在；本 session 屬 checkpoint，未做 archive；建議下個 product session 處理。
+- **commits（全 push origin/main）:** `6b76cf1`(scope+modal content)→`2fa557c`(gov)→`59644a0`(bad-cite+distorted)→`39b63bb`(fabricated)→收工 governance commit。
+- **Log maintenance (§4a):** SESSION_LOG > 400 行、§4a script 不存在；本 session QC-only、未 archive；建議下個 product session 處理。
 - **Next Session Handoff Prompt:**
 
 ```text
@@ -26,12 +29,12 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
-Current objective: EDB K1 知識平台 (policychecker.wongfu.net). verify_issues QC 進行中。
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net).
 Product state: HEAD = S157 governance commit（已 push）；Supabase 14,505；Channel B live；0 outstanding bug。
-QC progress: 22 fixed / 106 pending（見 dev/checklists/QC_REVIEW.md）。scope 批 + modal 批已清。
-Next work: 餘 106 pending — 最大批係 fabricated（虛構目的句/限定詞 ~67，最需 Leonard 判斷係咪構成新義務）+ bad-citation（引錯來源/頁碼）。Fix 流程：改 _work/<domain>/clauses.json（raw string-replace）→ node _work/gen_school_docx.js <domain> 重生學校版 docx → 更新 QC_REVIEW.md status。
-⚠️ Data-model trap: verify_issues item_id / clauses covers = 章內局部 index（指 checklist.json sections[si].items），唔係 items_verified 全域 index — 必用 quote 內容搜尋核實真源。
-Post-startup first action: 問 Leonard 想做 fabricated 定 bad-citation 批，定逐域。
+QC state: 14 範疇清單 + 學校版 docx（28 files）verify_issues QC 全清 — 128/128 resolved（見 dev/checklists/QC_REVIEW.md）。4 學校版 docx 已重生。
+Next work（無緊急、可選）: (1) Leonard spot-check QC fixes / 11 條 kept-readability 目的句 + gov_admin[0] 書面 裁示 / qa[9] 核實 是否認同；(2) 文件分析 Phase 1.5（mobile shell）/ Phase 2（可下載標註文件）；(3) 其餘 10 域（curriculum/hr_admin/student_support/cpd 等，S155 報 0 verify_issues）如需可再 QC。
+⚠️ Data-model trap: verify_issues item_id / clauses covers = 章內局部 index（指 checklist.json sections[si].items），唔係 items_verified 全域 index — 必用 quote 內容搜尋核實真源。citations 應＝covers items sources（可程式驗 drift）。
+Post-startup first action: 問 Leonard 想 spot-check QC、定推進文件分析 Phase 1.5、定其他。
 ```
 
 ---
