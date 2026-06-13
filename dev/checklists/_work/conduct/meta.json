@@ -1,0 +1,15 @@
+{
+ "key": "conduct",
+ "kind": "domain",
+ "cn": "教師專業操守",
+ "lens": "教師專業操守：操守準則、行為界線、利益、師生關係、申報與處理機制。",
+ "tags": null,
+ "sources": {
+  "g05": {
+   "title": "教師專業操守指引",
+   "url": "https://www.edb.gov.hk/tc/teacher/guidelines_tpc/",
+   "chunks": 29
+  }
+ },
+ "n_buckets": 1
+}

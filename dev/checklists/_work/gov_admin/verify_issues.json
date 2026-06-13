@@ -1,0 +1,163 @@
+[
+  {
+    "section_no": 8,
+    "section_name": "校舍擴建",
+    "kind": "distorted-number",
+    "item_id": 3,
+    "detail": "Clause 1 merges items 1 and 3 into one sentence and applies '書面同意' (written consent) to item 3's approval requirement, but item 3's source (sag_2025_11 p.241) quote only says '必須事先取得教育局常任秘書長的批准' — no '書面' qualifier. The '書面' qualifier belongs solely to item 1 (sch_extension_guide p.3). Importing it to item 3 makes that obligation stricter than the source supports."
+  },
+  {
+    "section_no": 8,
+    "section_name": "校舍擴建",
+    "kind": "distorted-number",
+    "item_id": 4,
+    "detail": "Clause 2 text reads '修訂圖則及記錄' (及 = and), but item 4's req and source quote both use '修訂圖則／記錄' (slash conjunction, as printed in the original SAG document). Changing ／ to 及 shifts the document's phrasing from a slash-joined pair to a hard 'and' conjunction, altering the meaning."
+  },
+  {
+    "section_no": 9,
+    "section_name": "校名更改",
+    "kind": "distorted-number",
+    "item_id": 2,
+    "detail": "Clause 2 covers id 2，原始 item 及 quote 寫「校董會」（泛指學校校董會），但 clause 改寫為「法團校董會」（Incorporated Management Committee），兩者係不同法律實體；原文並無限定必須是法團校董會，此替換縮窄了持份者範圍，屬數字/層級失真。"
+  },
+  {
+    "section_no": 9,
+    "section_name": "校名更改",
+    "kind": "fabricated",
+    "item_id": 4,
+    "detail": "Clause 3 covers id 4，加入「校名更改獲批後，本校須適時更換相關牌匾，確保所展示的名稱與教育局登記的註冊名稱一致」——此更換義務及一致性要求不見於 source id 4 的 req 或 quote（sch_name_change_guide p.2 只要求展示註冊名稱的牌匾，沒有提及「獲批後更換」程序）。"
+  },
+  {
+    "section_no": 9,
+    "section_name": "校名更改",
+    "kind": "fabricated",
+    "item_id": 5,
+    "detail": "Clause 4 covers id 5，原始 req/quote 只說「不得自稱或聲稱為『國際學校』」，clause 額外列明「包括但不限於校名、宣傳材料及對外通訊」三類禁止途徑，此具體列舉不見於 sch_name_change_guide p.2 的原文，屬虛構義務細節。"
+  },
+  {
+    "section_no": 10,
+    "section_name": "保險",
+    "kind": "distorted-number",
+    "item_id": 0,
+    "detail": "item 0 req 明確列出「資助學校及按位津貼學校」兩類學校，clause_0 改寫為「本校（資助學校）」，完全刪去「按位津貼學校」，縮窄計劃適用範圍。"
+  },
+  {
+    "section_no": 10,
+    "section_name": "保險",
+    "kind": "distorted-number",
+    "item_id": 5,
+    "detail": "item 5 quote：「該計劃為學生提供公眾責任及團體人身意外保險的保障」。clause_0 改為「為本校師生及相關人員提供公眾責任及人身意外保障」：(1) 受保對象由「學生」擴大為「師生及相關人員」，超出原文範圍；(2) 「團體人身意外保險」被改為「人身意外保障」，刪去具體保險類型名稱，表述含糊。"
+  },
+  {
+    "section_no": 10,
+    "section_name": "保險",
+    "kind": "fabricated",
+    "item_id": 4,
+    "detail": "clause_2 在義務句末加上「以確保其獲得適切保障」，item 4 source（bip_insurance_notes_2025 p2）quote 為「校方應為他們另外投購保險」，原文無任何目的性陳述，此句屬無來源添加。"
+  },
+  {
+    "section_no": 10,
+    "section_name": "保險",
+    "kind": "fabricated",
+    "item_id": 6,
+    "detail": "clause_3 加上「相關決定由法團校董會按本校實際情況審議」，item 6 source（sag_2025_11 p254）quote 僅為「學校應自行決定是否需要為非學校部分及非標準的家具及設備和校舍購買保險」，原文完全無提及法團校董會角色，屬虛構治理義務。"
+  },
+  {
+    "section_no": 11,
+    "section_name": "學校發展計劃",
+    "kind": "distorted-number",
+    "item_id": 3,
+    "detail": "原始 item 3 req/quote 明確列出「校董會／法團校董會服務合約期」兩個選項，改寫 clause 2 只保留「法團校董會服務合約期」，刪去「校董會」選項，縮窄原意。另外原文「表現」被改寫成「整體表現」，加入「整體」二字，改變評審範圍措辭，原文及 quote 均無此字。"
+  },
+  {
+    "section_no": 11,
+    "section_name": "學校發展計劃",
+    "kind": "distorted-number",
+    "item_id": 5,
+    "detail": "原始 item 5 req/quote 明確列出「學校管理委員會或校董會」作為提交對象，改寫 clause 4 只寫「校董會」，刪去「學校管理委員會」選項，令未設法團校董會的學校適用性失準。"
+  },
+  {
+    "section_no": 11,
+    "section_name": "學校發展計劃",
+    "kind": "fabricated",
+    "item_id": 4,
+    "detail": "Clause 3 的 table 「說明」欄為改寫自行加入的描述文字（「闡述本校之整體辦學願景及使命宣言」、「列明本校之具體辦學方向及目標」、「載列本校校訓」、「就本校整體表現作全面回顧及分析」、「列出本校在發展周期內擬優先處理之關注範疇」），原始 item 4 的 req、quote 及 source（sag_2025_11 p.134）均只列出五項標題，並無此等解釋性描述，屬無來源義務語句。"
+  },
+  {
+    "section_no": 12,
+    "section_name": "人事管理",
+    "kind": "fabricated",
+    "item_id": 2,
+    "detail": "Clause 0 加入「負責主持遴選程序」，此目的語句在 item 2 的 req 及 quote 均不存在（source 只說委任校長遴選委員會須向法團校董會負責，並無「主持遴選程序」字眼）。"
+  },
+  {
+    "section_no": 12,
+    "section_name": "人事管理",
+    "kind": "fabricated",
+    "item_id": 3,
+    "detail": "Clause 1 table row 4 行動欄寫「告知教師改編職系後的薪金詳情」，在 item 3 的 quote（「把薪金詳情告知稅務局局長」）及 req 中，並無「教師改編職系後的」此限定修飾語，屬自行添加。"
+  },
+  {
+    "section_no": 12,
+    "section_name": "人事管理",
+    "kind": "fabricated",
+    "item_id": 4,
+    "detail": "Clause 3 加入「事先」（「除非事先徵得教育局常任秘書長批准」），item 4 的 quote 原文為「除非徵得教育局常任秘書長批准」，並無「事先」此時序強化語，屬加強義務的虛構添加。"
+  },
+  {
+    "section_no": 13,
+    "section_name": "校務行政",
+    "kind": "distorted-number",
+    "item_id": 5,
+    "detail": "Item 5 source quote says '每隔一段時間查核未完個案的進度'（不定期、視情況而定），clause 7 改寫為'定期查核未完個案的進度'。'定期'含有固定週期之意，與原文'每隔一段時間'（寬鬆不定期）有語義差異，屬篡改頻率描述。"
+  },
+  {
+    "section_no": 13,
+    "section_name": "校務行政",
+    "kind": "fabricated",
+    "item_id": 4,
+    "detail": "Clause 6 在兩個條件分支之前新增一句'本校在校舍進行商業活動，須事先取得相關批核機構的書面批准。'原始 item 4 quote（p.147）只列兩個具體情況（未設/設有法團校董會），並無任何'相關批核機構'的統括義務，此句為憑空增添。此外，clause 將'未設有法團校董會的資助學校'改為'法團校董會成立前'，刪去'資助學校'的適用範圍限制，擴大義務主體。"
+  },
+  {
+    "section_no": 13,
+    "section_name": "校務行政",
+    "kind": "fabricated",
+    "item_id": 9,
+    "detail": "Clause 7 在申報利益後加入'並被禁止接觸相關資料'。Item 9 quote（p.122）只說'該人員應該向校方申報利益'，並無任何關於禁止接觸資料的規定；其餘三個 covered items（5、6、7）的 quotes 亦均不含此義務。此禁止條款屬無來源虛構。"
+  },
+  {
+    "section_no": 13,
+    "section_name": "校務行政",
+    "kind": "fabricated",
+    "item_id": 13,
+    "detail": "Clause 9 將原文'有關法例的規定'擴寫為'《個人資料（私隱）條例》及相關法例的規定'，點名具體法例。Item 13 的 req 及 quote（p.23）均只說'有關法例'，未點名任何具體條例；在引用文件中注入 source 未有的具體法規名稱屬虛構增添。"
+  },
+  {
+    "section_no": 14,
+    "section_name": "學生福祉",
+    "kind": "fabricated",
+    "item_id": 0,
+    "detail": "Clause 0 opens with「依據《強制舉報虐待兒童條例》」。Items 0、1、12 的 source quote（p.95、p.97）均無提及此條例名稱，屬加入 source 不支持的法律依據。"
+  },
+  {
+    "section_no": 14,
+    "section_name": "學生福祉",
+    "kind": "fabricated",
+    "item_id": 10,
+    "detail": "Clause 5（covers 10, 13）將 source quote「督導、統籌及改善」改寫為「督導、統籌及持續改善」，插入「持續」一字，source p.69 及 p.101 均無此字。"
+  },
+  {
+    "section_no": 14,
+    "section_name": "學生福祉",
+    "kind": "fabricated",
+    "item_id": 13,
+    "detail": "Clause 5（covers 10, 13）在午膳一小時後加上「以支持學生的健康飲食習慣」目的語句，item 13 source quote（p.101）無此表述。"
+  },
+  {
+    "section_no": 14,
+    "section_name": "學生福祉",
+    "kind": "fabricated",
+    "item_id": 14,
+    "detail": "Clause 7（covers 14）加入「本校就學生訓育制度制定書面政策」，item 14 的 req 及 source quote（p.73）均無「書面政策」字眼，屬新增 source 不支持的義務。"
+  }
+]

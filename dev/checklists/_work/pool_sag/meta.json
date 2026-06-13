@@ -1,0 +1,25 @@
+{
+ "key": "pool_sag",
+ "kind": "pool",
+ "cn": "pool_sag",
+ "lens": "《學校行政手冊》係跨域行政手冊：抽取學校管理層必須遵守嘅行政義務，並為每條 item 標註所屬域 tags（可多個）：cpd=教師專業發展/培訓；conduct=教師專業操守；sen=特殊教育需要；hr_admin=人事聘任假期薪酬；student_support=學生支援福祉訓輔；qa_inspection=質素保證自評視學問責；gov_admin=校務行政（籌款/維修/保險/校名/擴建/廉政）；safety=學校安全；curriculum=課程編排管理。同 tags 完全無關嘅內容（純財務/收生機制）可略過。",
+ "tags": [
+  "cpd",
+  "conduct",
+  "sen",
+  "hr_admin",
+  "student_support",
+  "qa_inspection",
+  "gov_admin",
+  "safety",
+  "curriculum"
+ ],
+ "sources": {
+  "sag_2025_11": {
+   "title": "學校行政手冊（2025年11月版）",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf",
+   "chunks": 383
+  }
+ },
+ "n_buckets": 7
+}

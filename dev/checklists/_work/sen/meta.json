@@ -1,0 +1,30 @@
+{
+ "key": "sen",
+ "kind": "domain",
+ "cn": "特殊教育需要",
+ "lens": "特殊教育需要：全校參與模式融合教育、特殊學校課程、校內考試特別安排、SENCO 統籌、家校溝通、資源運用。",
+ "tags": null,
+ "sources": {
+  "g10": {
+   "title": "《特殊學校課程指引》(2024)",
+   "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/curriculum-area/special-educational-needs/curriculum_guide_for_special_schools/CGSS%20(2024)_Full%20version_c.pdf",
+   "chunks": 129
+  },
+  "g19": {
+   "title": "《全校參與模式融合教育運作指南》",
+   "url": "https://sense.edb.gov.hk/uploads/page/integrated_education/landing/ie_guide_ch.pdf",
+   "chunks": 116
+  },
+  "sen_exam_arrangements_2025": {
+   "title": "《為有特殊教育需要學生提供校內考試特別安排》(2025)",
+   "url": "https://sense.edb.gov.hk/uploads/page/integrated-education/guidelines/sea_guide_c.pdf",
+   "chunks": 51
+  },
+  "cgss_2024": {
+   "title": "特殊學校課程指引資源（2024）",
+   "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/curriculum-area/special-educational-needs/curriculum_guide_for_special_schools/Resources_CGSS (2024)_c.pdf",
+   "chunks": 17
+  }
+ },
+ "n_buckets": 6
+}

@@ -1,0 +1,20 @@
+{
+ "key": "activity",
+ "kind": "domain",
+ "cn": "全方位學習及活動",
+ "lens": "全方位學習津貼運用＋學校活動指引：津貼用途界線、活動規劃、安全與帶隊要求、收費與記錄。",
+ "tags": null,
+ "sources": {
+  "g03": {
+   "title": "全方位學習津貼運用指引",
+   "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/life-wide-learning/resource-and-support/doc-and-guidelines.html",
+   "chunks": 14
+  },
+  "sch_activities_guide": {
+   "title": "學校活動指引：戶外活動＋境外遊學團",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf",
+   "chunks": 102
+  }
+ },
+ "n_buckets": 3
+}

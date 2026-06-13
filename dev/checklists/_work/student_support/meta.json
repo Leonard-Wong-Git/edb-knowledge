@@ -1,0 +1,70 @@
+{
+ "key": "student_support",
+ "kind": "domain",
+ "cn": "學生支援與福祉",
+ "lens": "學生支援與福祉：生命教育、和諧校園/防欺凌、保護兒童/懷疑虐兒處理、學生關顧、危機管理、健康校園、藥物測試、訓育及輔導。",
+ "tags": null,
+ "sources": {
+  "edbc015_2021_lpe": {
+   "title": "教育局通告第15/2021號 生涯規劃教育",
+   "url": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/projects-services/2122/20210930_EDBC_015_2021_Life_Planning_Education_TC.pdf",
+   "chunks": 4
+  },
+  "lpe_framework_primary": {
+   "title": "小學生涯規劃教育推行策略大綱",
+   "url": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/projects-services/2122/20210929_Framework_for_LPE_for_Primary_Students_tc.pdf",
+   "chunks": 23
+  },
+  "edbc18_2008_harmonious": {
+   "title": "教育局通告第18/2008號 締造和諧校園",
+   "url": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/gd-resources/Harmonious School_TC.pdf",
+   "chunks": 2
+  },
+  "edbc15_2025_child_abuse": {
+   "title": "教育局通告第15/2025號 處理懷疑虐待兒童及家庭暴力個案",
+   "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC25015C.pdf",
+   "chunks": 19
+  },
+  "edbcm83_2020_student_care": {
+   "title": "教育局通函第83/2020號 關顧學生 重回正軌",
+   "url": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/gd-resources/2021/20200902_EDBCM20083C.pdf",
+   "chunks": 6
+  },
+  "crisis_mgmt_handbook": {
+   "title": "學校危機處理（手冊）",
+   "url": "http://www.edb.gov.hk/attachment/tc/student-parents/crisis-management/about-crisis-management/crisistc.pdf",
+   "chunks": 94
+  },
+  "kg_crisis_mgmt": {
+   "title": "幼稚園危機處理 — 危機善後介入及心理支援",
+   "url": "https://www.edb.gov.hk/attachment/tc/student-parents/crisis-management/about-crisis-management/kindergarten/crisistc.pdf",
+   "chunks": 38
+  },
+  "edbc100_2002_healthy_sch": {
+   "title": "教育局通告第100/2002號 健康校園政策（禁毒）",
+   "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC10002C.pdf",
+   "chunks": 4
+  },
+  "hsp_framework": {
+   "title": "健康校園政策架構",
+   "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/healthy-sch-policy/hsp_framework_c.pdf",
+   "chunks": 2
+  },
+  "hsp_drug_testing_2026": {
+   "title": "含測檢元素的健康校園計劃（2026/27學年）",
+   "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/healthy-sch-policy/HSP(DT)_2026-27_Chi.pdf",
+   "chunks": 8
+  },
+  "g16": {
+   "title": "學生訓育工作指引",
+   "url": "https://www.edb.gov.hk/tc/teacher/student-guidance-discipline-services/principles-guidelines/guidelines-on-student-discipline/index.html",
+   "chunks": 63
+  },
+  "g17": {
+   "title": "理念與指引（訓育及輔導）",
+   "url": "https://www.edb.gov.hk/tc/teacher/student-guidance-discipline-services/principles-guidelines/index.html",
+   "chunks": 12
+  }
+ },
+ "n_buckets": 5
+}

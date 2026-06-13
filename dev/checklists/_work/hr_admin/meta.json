@@ -1,0 +1,90 @@
+{
+ "key": "hr_admin",
+ "kind": "domain",
+ "cn": "人事管理",
+ "lens": "人事管理：教職員聘任（包括性罪行定罪紀錄查核/保護學生）、批假、薪酬、基本法及國安法測試要求、代課、超額教師、遣散費長期服務金、職位共享、員工健康、校曆編訂。",
+ "tags": null,
+ "sources": {
+  "g04": {
+   "title": "教職員批假指引",
+   "url": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/guideline-granting-leave/index.html",
+   "chunks": 7
+  },
+  "g05": {
+   "title": "教師專業操守指引",
+   "url": "https://www.edb.gov.hk/tc/teacher/guidelines_tpc/",
+   "chunks": 29
+  },
+  "g11": {
+   "title": "擬定校曆表指引",
+   "url": "https://www.edb.gov.hk/tc/curriculum-development/resource-support/guidelines-sch-calendar/index.html",
+   "chunks": 9
+  },
+  "edbc13_2022_blnst": {
+   "title": "教育局通告第13/2022號 新聘任教師《基本法及香港國安法》測試",
+   "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/EDBC13_2022_tc.pdf",
+   "chunks": 6
+  },
+  "edbcm141_2025_blnst": {
+   "title": "教育局通函第141/2025號 教師《基本法及香港國安法》測試",
+   "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/EDBCM1412025_tc.pdf",
+   "chunks": 5
+  },
+  "blnst_test_notes_nondeg": {
+   "title": "基本法及香港國安法測試（非學位程度）申請人須知",
+   "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/Notes_ND_tc.pdf",
+   "chunks": 5
+  },
+  "blnst_test_candidate_notes": {
+   "title": "基本法及香港國安法測試（非學位程度）考生須知",
+   "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/Guidance Notes_ND_tc.pdf",
+   "chunks": 8
+  },
+  "embc5_2005_appointment": {
+   "title": "教育統籌局通告第5/2005號 學校教職員的聘任",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/embc%205_2005_c_16.6.pdf",
+   "chunks": 5
+  },
+  "edbc14_2023_student_protect": {
+   "title": "教育局通告第14/2023號 加強保障學童的措施",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/EDBC_14_2023_TC.pdf",
+   "chunks": 12
+  },
+  "staff_medical_health": {
+   "title": "學校員工的體格檢驗及健康狀況",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/medical%20examination%20and%20health%20condition%20of%20staff_c.pdf",
+   "chunks": 2
+  },
+  "job_sharing_guide": {
+   "title": "資助學校處理共享教職指引",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/guidelines(web)-job_sharing_c.pdf",
+   "chunks": 6
+  },
+  "surplus_teacher_arr_2026": {
+   "title": "資助中學及特殊學校過剩教師及實驗室技術員的安排 (2026)",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/Arrangements for ST and LT 2026_tc.pdf",
+   "chunks": 10
+  },
+  "private_sch_employment_notes": {
+   "title": "私立學校處理教職員聘用事宜的注意事項",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/Points_to_Note_Private_C.pdf",
+   "chunks": 6
+  },
+  "supply_teacher_guide": {
+   "title": "資助學校聘用代課教師的指引",
+   "url": "https://www.edb.gov.hk/attachment/tc/teacher/appointments-related/supply-teachers/supply_teacher_guideline_tc.pdf",
+   "chunks": 14
+  },
+  "long_service_payment_guide": {
+   "title": "發放遣散費及長期服務金的指引 (2025年5月)",
+   "url": "https://www.edb.gov.hk/attachment/tc/teacher/appointments-related/severance-payment/long service payment homepage_c (updated_052025).pdf",
+   "chunks": 12
+  },
+  "sch_calendar_guide": {
+   "title": "學校曆／一般假期／上課日數計算指引",
+   "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/resource-support/guidelines-sch-calendar/General Holidays_2526_C.pdf",
+   "chunks": 6
+  }
+ },
+ "n_buckets": 3
+}

@@ -1,0 +1,163 @@
+[
+  {
+    "section_no": 1,
+    "section_name": "校務治理架構",
+    "kind": "fabricated",
+    "item_id": 0,
+    "detail": "Clause 1 第二句「法團校董會為本校最高管治機構，負責監督學校整體運作，確保校政依法施行」屬虛構增添：原始 quote（sag_2025_11 p.14）只說成立法團校董會、由持分者共同參與校政管理學校，並無「最高管治機構」定性、「監督整體運作」或「確保依法施行」等義務表述，source 唔支持呢啲新增句。"
+  },
+  {
+    "section_no": 1,
+    "section_name": "校務治理架構",
+    "kind": "fabricated",
+    "item_id": 1,
+    "detail": "Clause 2 table「責任架構」欄兩格均屬虛構：「法團校董會授權校長執行，結果向法團校董會匯報」及「由校長統籌，按年檢視及更新」，原始 quote（sag_2025_11 p.14）只提發展考績程序、提供資源、制訂員工發展計劃，完全無提授權關係、匯報機制或按年檢視要求，source 唔支持呢啲責任架構細節。"
+  },
+  {
+    "section_no": 2,
+    "section_name": "學校發展規劃",
+    "kind": "fabricated",
+    "item_id": 1,
+    "detail": "Clause 0 inserts '各發展周期須涵蓋以下主要內容：' — '各發展周期' does not appear in sag_2025_11 p.134 quote ('主要內容包括以下各項') nor in the req ('須包括…主要內容'). '涵蓋' also strengthens beyond the source's '包括', implying comprehensive mandatory coverage per cycle, an obligation qualifier the source does not state."
+  },
+  {
+    "section_no": 3,
+    "section_name": "學校自評",
+    "kind": "distorted-number",
+    "item_id": 4,
+    "detail": "Item 4 原文要求：「教育局亦會監管學校教學質素並作出校外評估」（EDB 主動監管及作客觀校外評估）。Clause 2 正文完全刪去此義務，Table 教育局行僅寫「按教育局要求提交自評報告」，角色對調為學校向局方提交報告，原文 EDB 作為主動外部評估者之含義遭扭曲。"
+  },
+  {
+    "section_no": 3,
+    "section_name": "學校自評",
+    "kind": "fabricated",
+    "item_id": 3,
+    "detail": "Clause 2 table 列出四類持份者（法團校董會、家長、教職員、教育局）及具體匯報形式與頻次（每年一次、每年至少一次、每學年至少一次、按教育局規定），原始 items 3 及 4 及其引用來源（sse_tools_2025 p.2、sag_2025_11 p.15）均只泛指「主要持份者」，並無列明任何具體持份者類別、匯報形式或頻次，以上細節屬無來源虛構義務。"
+  },
+  {
+    "section_no": 4,
+    "section_name": "績效指標運用",
+    "kind": "distorted-number",
+    "item_id": 0,
+    "detail": "體適能表現 在 clause 1 表格被標為「新增項目／現有項目下新增子項目」，但原始 quote 明確指「學校表現評量新增三個項目，亦在部分現有項目下新增子項目」——三個項目（包括體適能表現）全屬新增項目，子項目係另一獨立類別。此標籤令讀者混淆體適能表現究竟係新項目抑或子項目，扭曲了「三個項目」的結構描述。"
+  },
+  {
+    "section_no": 4,
+    "section_name": "績效指標運用",
+    "kind": "fabricated",
+    "item_id": 2,
+    "detail": "clause 2 在覆蓋 item 2 的段落加入「確保評估結果能真實反映本校的實際情況及發展需要」，但 item 2 的 source quote（edbc15_2022_accountability / perf_indicators_2022 p8）只說「應充分考慮本身的背景因素，以配合『校情為本，對焦評估』的原則」，並無此目的語句，屬虛構義務陳述。"
+  },
+  {
+    "section_no": 4,
+    "section_name": "績效指標運用",
+    "kind": "fabricated",
+    "item_id": 3,
+    "detail": "clause 2 在覆蓋 item 3 的段落加入「『要點問題』應作為整全反思的引導框架，而非逐項勾選的核查機制」。item 3 的 source quote（perf_indicators_2022 p7）只有負面禁止句：「不應視『要點問題』為檢算清單，不宜割裂地使用，而忽略了學校的特色和整體表現」。「整全反思的引導框架」這一正面規定並不存在於任何引用來源，屬虛構處方性陳述。"
+  },
+  {
+    "section_no": 5,
+    "section_name": "評量數據管理",
+    "kind": "distorted-number",
+    "item_id": 2,
+    "detail": "Source quote uses '應以不記名的模式'（應 = should/recommended），but clause1 table row '不記名原則' upgrades the modal to '本校須以不記名的模式'（須 = must/shall）。Obligation level distorted upward beyond the source text。"
+  },
+  {
+    "section_no": 5,
+    "section_name": "評量數據管理",
+    "kind": "distorted-number",
+    "item_id": 4,
+    "detail": "Item req states '學校須委派合適的教師'（須 = must），but clause2 table row '統籌責任' uses '本校宜委派合適的教師'（宜 = should/recommended）。Obligation level distorted downward relative to the req。The source quote uses 宜, so the clause follows the quote, but the req's stronger 須 is contradicted。"
+  },
+  {
+    "section_no": 6,
+    "section_name": "增值資料處理",
+    "kind": "fabricated",
+    "item_id": 0,
+    "detail": "原文 quote 用「不應把學業增值資料用作宣傳用途」（should not，規範性建議），改寫句改為「不得將…用作宣傳用途」（must not，強制禁止）。情態升級無原文支持，屬虛構加強義務。"
+  },
+  {
+    "section_no": 7,
+    "section_name": "外評視學準備",
+    "kind": "fabricated",
+    "item_id": 0,
+    "detail": "Clause 1 (covers 0,1) uses '法定文件'（法定文件）— 原始 item 0 req/quote 只寫「文件」/「相關文件」，無任何「法定」或「statutory」修飾；此字眼虛構了法律性質"
+  },
+  {
+    "section_no": 7,
+    "section_name": "外評視學準備",
+    "kind": "fabricated",
+    "item_id": 0,
+    "detail": "Clause 1 (covers 0,1) 末句新增「確保上述文件齊備並如期提交」— '如期'（on time）時限義務在 item 0 的 req 及 quote 均無出現，屬虛構義務"
+  },
+  {
+    "section_no": 7,
+    "section_name": "外評視學準備",
+    "kind": "fabricated",
+    "item_id": 2,
+    "detail": "Clause 4 (covers 2) 將原始「效能研究建議向公眾發布…」改寫為「本校須配合教育局就視學報告的透明度要求」— 原文主詞係「效能研究」（研究建議），改寫虛構「教育局」為發令主體，並將研究建議升格為教育局正式規定，屬主體與義務性質雙重虛構"
+  },
+  {
+    "section_no": 7,
+    "section_name": "外評視學準備",
+    "kind": "fabricated",
+    "item_id": 3,
+    "detail": "Clause 3 (covers 3) 在句首加入「外評完成後」— item 3 的 req 及 quote 無任何時間限定，該義務屬持續性一般規定而非視學後專屬要求；此時限限制屬虛構"
+  },
+  {
+    "section_no": 8,
+    "section_name": "問責匯報",
+    "kind": "distorted-number",
+    "item_id": 2,
+    "detail": "item 2 原文：'學校管理委員會或校董會'（SMC 或 IMC 二選一），改寫 clause 1 縮窄為'法團校董會'一種，漏失 SMC 選項，屬層級／範圍失真。另原文情態'應'（should）改寫為'須'（must），義務程度被加強。"
+  },
+  {
+    "section_no": 8,
+    "section_name": "問責匯報",
+    "kind": "fabricated",
+    "item_id": 0,
+    "detail": "clause 0：'積極蒐集其意見'中'積極'一詞，在 perf_indicators_2022 p.13（item 0）及 p.10（item 1）原文均無，屬加入原文不支持之程度副詞，構成新義務語義。"
+  },
+  {
+    "section_no": 8,
+    "section_name": "問責匯報",
+    "kind": "fabricated",
+    "item_id": 2,
+    "detail": "clause 1：'並提交法團校董會審議'，sag_2025_11 p.133（item 2）原文只說'校董會亦需要負起指導及監察的角色，適時提供意見'，並無提交義務及'審議'程序表述。clause 1 僅引用 p.133，將提交審議義務歸入 p.133，屬無引用支持之虛構義務。"
+  },
+  {
+    "section_no": 10,
+    "section_name": "課程資源監控",
+    "kind": "distorted-number",
+    "item_id": 2,
+    "detail": "原文 quote 明確要求「設立／強化校本監察機制」（設立或強化二選一），改寫 clause 1 只寫「設立校本監察機制」，刪去「強化」選項，改變原文的義務範圍。"
+  },
+  {
+    "section_no": 10,
+    "section_name": "課程資源監控",
+    "kind": "fabricated",
+    "item_id": 2,
+    "detail": "Table 第二行（圖書館館藏）監察重點加入「資料時效性」，原文 sag_2025_11 p.38 的 quote 及 req 均無提及時效性要求，屬於 source 不支持的新義務。"
+  },
+  {
+    "section_no": 11,
+    "section_name": "員工績效管理",
+    "kind": "fabricated",
+    "item_id": 1,
+    "detail": "Clause 1 將原始 req 及 quote 嘅「校董會」替換為「法團校董會」。原始來源（sag_2025_11 p.204）全文只寫「校董會」，並無限定為「法團校董會」（IMC）。「法團校董會」係特定類型校董架構，範圍窄過「校董會」，屬加入原文不支持嘅義務主體界定，構成 fabricated。adjustables 標記雖承認需調整，但條文本身已寫錯，未糾正前仍屬問題。"
+  },
+  {
+    "section_no": 12,
+    "section_name": "投訴處理機制",
+    "kind": "fabricated",
+    "item_id": 0,
+    "detail": "Clause 0 says「持續監察各投訴個案之處理情況」，原文 quote 只係「監察有關情況」，並無「持續」此時態加強詞，屬於 source 唔支持嘅情態加強。"
+  },
+  {
+    "section_no": 12,
+    "section_name": "投訴處理機制",
+    "kind": "fabricated",
+    "item_id": 1,
+    "detail": "Clause 1 開首加入「本校須確保迴避原則獲得切實執行」，原 req 及 quote 均無提及「迴避原則」此概念框架，屬於 source 唔支持嘅新增義務語句。"
+  }
+]

@@ -1,0 +1,4149 @@
+[
+  {
+    "si": 1,
+    "section_name": "",
+    "clauses": [
+      {
+        "text": "本校法團校董會（下稱「本會」）須最少設有一名家長校董。本會章程如訂明只設一名家長校董，則須同時設有一名替代家長校董；否則即屬不符合法例要求。如屬上下午班制學校而只有一個認可家長教師會，上午班及下午班須分別設有最少一名家長校董。本會須在章程內訂明家長校董及替代家長校董（如適用）的人數和任期。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 1
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 4
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 46
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 49
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          3,
+          57,
+          66,
+          80
+        ]
+      },
+      {
+        "text": "家長校董及替代家長校董選舉須由本校認可家長教師會（下稱「認可家教會」）舉行。本會須先承認一個團體為認可家教會，方可進行家長校董選舉及提名。如本校未設立家教會，應盡早成立，並確保其章程符合成為認可家教會的條件。認可家教會的章程須規定只有現有學生的家長或現職教員可選出或成為該會幹事，本會方可根據法例承認該團體為認可家教會，負責家長校董選舉。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 16
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 1
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 2
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 8
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 12
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 14
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 16
+          }
+        ],
+        "adjustables": [
+          "法團校董會",
+          "認可家長教師會"
+        ],
+        "covers": [
+          0,
+          4,
+          33,
+          53,
+          74,
+          81,
+          85
+        ]
+      },
+      {
+        "text": "家長校董或替代家長校董必須是本校現有學生的家長；本校現職教員不得獲提名為家長校董。家長校董候選人資格概覽如下：",
+        "table": {
+          "headers": [
+            "資格條件",
+            "規定"
+          ],
+          "rows": [
+            [
+              "現有學生家長",
+              "必須是本校現有學生的家長"
+            ],
+            [
+              "現職教員限制",
+              "現職教員不得獲提名為家長校董"
+            ],
+            [
+              "選舉單位",
+              "選舉不以家庭為單位，父及母各有均等投票權及參選權（一人一票）"
+            ]
+          ]
+        },
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 16
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 2
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 8
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 12
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 51
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          1,
+          2,
+          8,
+          35,
+          54,
+          70,
+          83,
+          84,
+          94,
+          95
+        ]
+      },
+      {
+        "text": "認可家教會不可規定獲選的認可家教會主席自動當選為家長校董，亦不可規定獲選的家長校董自動當選為認可家教會主席。家長校董須另行透過選舉產生，上述職位不得互為自動確認。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 7
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 14
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 49
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          22,
+          65,
+          73,
+          92
+        ]
+      },
+      {
+        "text": "本會須把選舉指引分發給認可家教會參閱，以便制訂家長校董選舉制度。認可家教會在制訂家長校董選舉機制前，必須諮詢所有家長，確保有關制度符合「公平而開放透明」的原則，並向所有家長公布有關詳情。認可家教會必須確保在舉行選舉前已預先制訂校本選舉指引；日後對選舉機制所作的一切修訂，亦須妥為記錄。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 1
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 2
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 8
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 18
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 46
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          5,
+          6,
+          7,
+          24,
+          34,
+          56,
+          93
+        ]
+      },
+      {
+        "text": "認可家教會須委任一名選舉主任，負責監察提名、分發選票及點票工作。選舉主任可由認可家教會幹事互選產生，或由本校委派教師擔任。選舉主任本身不可以是該次選舉的候選人。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 3
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 36
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          9,
+          45,
+          78,
+          91
+        ]
+      },
+      {
+        "text": "選舉通知須以書面形式（如通告、信件等）向所有家長發出，載明以下事項：",
+        "table": {
+          "headers": [
+            "通知事項",
+            "說明"
+          ],
+          "rows": [
+            [
+              "空缺數目",
+              "是次選舉的家長校董空缺數目"
+            ],
+            [
+              "提名期限",
+              "提名截止日期"
+            ],
+            [
+              "提名方法",
+              "提名的方式及所需文件"
+            ],
+            [
+              "投票及點票日期",
+              "投票日期及點票安排"
+            ],
+            [
+              "公布結果日期",
+              "選舉結果的公布日期"
+            ],
+            [
+              "候選人資格及職責",
+              "家長校董的參選資格及職責概述"
+            ]
+          ]
+        },
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 3
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 36
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          10,
+          46
+        ]
+      },
+      {
+        "text": "家長校董選舉的投票日期應與提名截止日期相距最少兩星期。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 4
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 38
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 48
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          11,
+          59,
+          75,
+          86
+        ]
+      },
+      {
+        "text": "候選人須提供個人簡介，並申報有否觸犯《教育條例》第30條所載常任秘書長可拒絕校董註冊的理由。選舉主任須在選舉日之前不少於7天，以書面形式向所有家長發出通知，載明獲提名候選人的姓名、個人簡介及選舉安排。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 3
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 15
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 37
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          15,
+          39,
+          47,
+          48,
+          72,
+          88,
+          96
+        ]
+      },
+      {
+        "text": "家長校董選舉的投票須以不記名方式進行。投票人不得在選票上寫上自己的姓名或任何可辨識身分的符號，亦不得讓其他投票人目睹其投票對象。每名家長不論其就讀本校子女的數目，只可有一票，並以個人身分投票。選舉主任須確保各種交回選票的方法（特別是郵遞）均合乎保密原則。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 3
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 4
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 8
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 15
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 12
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 38
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 48
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 51
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 16
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          12,
+          14,
+          16,
+          36,
+          37,
+          38,
+          55,
+          60,
+          71,
+          76,
+          87
+        ]
+      },
+      {
+        "text": "認可家教會應為選舉設置一個上鎖的投票箱，鎖匙由選舉主任保管。空白選票亦須於投票後交回，不得攜離投票範圍。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 4
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 15
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 38
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 48
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          13,
+          40,
+          61,
+          77
+        ]
+      },
+      {
+        "text": "校本選舉指引須事先訂明以下計票規則，並讓所有家長知悉：",
+        "table": {
+          "headers": [
+            "規則事項",
+            "說明"
+          ],
+          "rows": [
+            [
+              "同票決定方式",
+              "若兩名或以上候選人得票相同，以章程訂明的方式（如第二輪投票或抽簽）決定當選人"
+            ],
+            [
+              "自動當選機制",
+              "如擬採用自動當選機制，須事先在選舉細則內訂明並讓所有投票人知悉"
+            ],
+            [
+              "無效選票準則",
+              "選票無效的情形包括：（一）所投候選人數目多於是次選舉的空缺數目；（二）選票填寫不當；（三）選票載有可辨識投票者身分的符號"
+            ]
+          ]
+        },
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 5
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 22
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 39
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 57
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          25,
+          27,
+          28,
+          42,
+          49,
+          50,
+          79
+        ]
+      },
+      {
+        "text": "點票前，選舉主任須確保所有選票均已從投票箱倒出，方可開始點票。點票工作須由認可家教會主席、選舉主任及校長（如可出席）在場見證。選舉主任須安排點票會，邀請各候選人及相關人士出席見證點票工作。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 5
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 16
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 48
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          19,
+          26,
+          41,
+          62
+        ]
+      },
+      {
+        "text": "選舉結束後，選舉主任須將所有已投選票放入信封，由選舉主任及認可家教會主席封口及簽名，由認可家教會保存至少6個月，以備在有人提出有關選舉不當的指控時供調查之用。信封和選票不應長期保留，惟最少應保存六個月。所有與選舉相關的資料均須存檔，以作記錄。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 6
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 16
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 39
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          17,
+          20,
+          43,
+          51,
+          89,
+          97
+        ]
+      },
+      {
+        "text": "選舉結束後，認可家教會提名當選的家長出任家長校董，並將選舉結果通知本會。本校應在提交家長校董註冊申請前，完成選舉核對清單，確保選舉遵循所有必要規定及程序。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 16
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 23
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          21,
+          23
+        ]
+      },
+      {
+        "text": "校本選舉指引須訂明上訴機制。落選的候選人可在選舉結果公布後一星期內，以書面向認可家教會提出上訴並列明上訴理由。上訴機制須公平公正，章程內須就此訂明相關規定。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 6
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 16
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 39
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          18,
+          44,
+          52,
+          90,
+          98
+        ]
+      },
+      {
+        "text": "在家長校董選舉過程中，任何人士均不得從事下列行為：",
+        "table": {
+          "headers": [
+            "禁止行為",
+            "說明"
+          ],
+          "rows": [
+            [
+              "利益誘導參選或退選",
+              "不得提供利益令任何人參選、不參選或退出競選"
+            ],
+            [
+              "利益影響投票",
+              "不得提供利益、食物、飲料或娛樂，以影響他人在選舉中投票或不投票予某候選人"
+            ],
+            [
+              "虛假或誤導性陳述",
+              "不得發表關於候選人品格、資歷或以往行為的虛假或具誤導性達關鍵程度的陳述"
+            ],
+            [
+              "虛假支持聲稱",
+              "競選刊物不得聲稱或暗示獲任何人士或機構支持，除非已取得該人士或機構的書面同意"
+            ],
+            [
+              "武力或脅迫",
+              "不得向任何人施用或威脅施用武力或脅迫手段，以影響其投票決定"
+            ]
+          ]
+        },
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 35
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 50
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 44
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          29,
+          30,
+          31,
+          32,
+          67,
+          68,
+          69
+        ]
+      },
+      {
+        "text": "家長校董在任期內離任而出現空缺時，認可家教會須以同樣方式在三個月內進行補選，填補有關空缺。如家長校董的職位懸空超過三個月，本會須向常任秘書長申請延長填補空缺的限期。如認可家教會未能在本會成立後3個月內選出家長校董，本會須向常任秘書長申請延期提名該類別校董並提供理由。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 46
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 49
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 19
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          58,
+          63,
+          82,
+          99
+        ]
+      },
+      {
+        "text": "家長校董的子女如不再是本校現有學生，其任期可持續至任期屆滿或該學年終結為止，以較早者為準。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 49
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          64
+        ]
+      }
+    ]
+  },
+  {
+    "si": 2,
+    "section_name": "",
+    "clauses": [
+      {
+        "text": "本校法團校董會之組成，須依《教育條例》規定，包括以下各類別校董：辦學團體校董、校長（當然校董）、教員校董、家長校董、校友校董及獨立校董。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 4
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 3
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          23,
+          35,
+          57
+        ],
+        "table": null
+      },
+      {
+        "text": "辦學團體校董之人數，不得超過本校法團校董會章程所規定校董人數上限的60%；計算該上限時，所有替代校董均不計算在內。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 4
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 3
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 14
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 21
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          24,
+          36,
+          58,
+          37
+        ],
+        "table": null
+      },
+      {
+        "text": "當其時身為校長的人須擔任本校法團校董會校董一職（即當然校董）。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 25
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          28
+        ],
+        "table": null
+      },
+      {
+        "text": "教員校董、家長校董及校友校董須按章程訂明之公開和公平方式由選舉產生；辦學團體校董由辦學團體按章程委任；獨立校董由法團校董會按章程委任。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 11
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 11
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          22,
+          29
+        ],
+        "table": null
+      },
+      {
+        "text": "本校法團校董會須設有最少一名家長校董；如章程只容許設有一名家長校董，則須同時設有一名替代家長校董。如學校設有上下午班制而各有認可家長教師會，上午班及下午班須分別設有最少一名家長校董。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 8
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 45
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 1
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          14,
+          39,
+          66
+        ],
+        "table": null
+      },
+      {
+        "text": "如本校法團校董會章程只容許設有一名家長校董，則須同時設有一名替代家長校董；該替代家長校董亦須由選舉產生，有關安排應事先在選舉章程或選舉指引中聲明。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 8
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 16
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 18
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          15,
+          40,
+          59
+        ],
+        "table": null
+      },
+      {
+        "text": "本校法團校董會須設有最少一名教員校董；如章程只容許設有一名教員校董，則須同時設有一名替代教員校董。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 41
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 18
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          38,
+          67
+        ],
+        "table": null
+      },
+      {
+        "text": "如本校法團校董會章程只容許設有一名教員校董，須同時設有一名替代教員校董；辦學團體亦可委任不超過一名替代辦學團體校董。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 4
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          25,
+          26
+        ],
+        "table": null
+      },
+      {
+        "text": "本校法團校董會須設有最少一名校友校董。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 35
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          68
+        ],
+        "table": null
+      },
+      {
+        "text": "替代校董須履行其作為校董的所有職能，包括出席所有法團校董會會議、參與討論、提出議程項目及發言；惟在以下事項上除外：（一）投票；（二）確定多數校董；（三）確立法定人數。只有在相同界別之校董缺席會議時，替代校董方可投票；如相關校董因利益關係須離席，替代校董亦可在該議案上投票。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 15
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 4
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 16
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 10
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          2,
+          27,
+          56,
+          65,
+          70
+        ],
+        "table": null
+      },
+      {
+        "text": "任何校董不得以多於一個類別的身份在本校法團校董會內擔任校董，亦不可同時參選兩個界別的校董選舉。家長校董、校友校董及獨立校董均不得是本校的教員。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 2
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 46
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 12
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 19
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 36
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          6,
+          33,
+          41,
+          60,
+          73
+        ],
+        "table": null
+      },
+      {
+        "text": "根據《教育條例》規定，教員不得出任家長校董或校友校董。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 20
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 19
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          10,
+          20
+        ],
+        "table": null
+      },
+      {
+        "text": "獲提名註冊為獨立校董的人士，不得具有以下任何身份：（一）本校的教員或專責人員；（二）本校現有學生的家長；（三）本校校友；（四）辦學團體管治團體的成員、指明親屬或僱員。",
+        "citations": [
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 15
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          45
+        ],
+        "table": null
+      },
+      {
+        "text": "各類別校董之任期，由辦學團體訂定並列於法團校董會章程內；任何更改均須按既定程序修改章程，不得僅靠修改認可家長教師會或認可校友會章程以更改相關家長或校友校董的任期。各類別校董的任期宜在九月一日生效及八月三十一日終止。校董不宜無限期連任，惟任期亦不宜過短；章程宜訂明連任限制，任何人不得連任同一類別校董超過三屆。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 15
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 3
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 26
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 29
+          }
+        ],
+        "adjustables": [
+          "三屆"
+        ],
+        "covers": [
+          3,
+          4,
+          5,
+          7,
+          46,
+          47
+        ],
+        "table": null
+      },
+      {
+        "text": "校董（校長除外）可藉給予校監書面通知，辭任校董一職。填補半途出缺職位的新任校董，其任期並非重新起計，而是原任校董任期的餘下部分。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 26
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 27
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          48,
+          51
+        ],
+        "table": null
+      },
+      {
+        "text": "本校法團校董會在組成不完整的情況出現日期起計的3個月內，須盡快填補校董空缺。為免校董交替時出現空缺，本校應預早進行有關校董選舉。各類別校董職位懸空時之填補安排如下表所示。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 15
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 13
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 3
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 26
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 27
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          1,
+          8,
+          9,
+          49,
+          50,
+          52,
+          69
+        ],
+        "table": {
+          "headers": [
+            "空缺類別",
+            "填補期限",
+            "負責方",
+            "逾期申請延期之安排"
+          ],
+          "rows": [
+            [
+              "非獨立校董職位懸空",
+              "法團校董會須通知相關方在兩個月內提名一人填補",
+              "相關認可團體",
+              "可向常任秘書長申請延長限期"
+            ],
+            [
+              "獨立校董職位懸空",
+              "法團校董會須盡快根據《教育條例》提名一人填補",
+              "法團校董會",
+              "—"
+            ],
+            [
+              "法團校董會整體組成不完整",
+              "在不完整情況出現日期起計3個月內盡快填補",
+              "法團校董會",
+              "可向常任秘書長申請延長限期"
+            ]
+          ]
+        }
+      },
+      {
+        "text": "如家長校董職位出現空缺（包括任期屆滿及中途離任），認可家長教師會須在三個月內進行選舉及作出提名，填補空缺；如無法按期作出提名，法團校董會可基於充分理由向常任秘書長申請延長限期。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 6
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 3
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          18,
+          71
+        ],
+        "table": null
+      },
+      {
+        "text": "如教員校董或替代教員校董席位出現空缺（包括任期屆滿、中途辭任或不再受僱於本校等情況），校長須在三個月內進行選舉及作出提名，填補有關空缺；如無法按期作出提名，法團校董會可向常任秘書長申請延長限期。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 23
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          75
+        ],
+        "table": null
+      },
+      {
+        "text": "如校友校董席位出現空缺（包括任期屆滿及中途離任），認可校友會須在三個月內進行選舉及作出提名，填補有關空缺；如認可校友會沒有作出提名，法團校董會須書面通知教育局，並在諮詢校友後，可提名人士填補該空缺。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 40
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          74
+        ],
+        "table": null
+      },
+      {
+        "text": "如家長校董在任內的子女不再是本校現有學生，或獨立校董在任內不再符合獨立人士的要求，其任期可持續至任期屆滿或該學年終結為止，兩者以較早者為準。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 6
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 14
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 9
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          19,
+          64,
+          72
+        ],
+        "table": null
+      },
+      {
+        "text": "所有當選或獲委任之校董，須採用指定表格向常任秘書長提出校董註冊申請，並確保符合《教育條例》第30條之規定。本校須確保候選人知悉有關校董註冊規定。申請人如符合以下任何情形，常任秘書長可拒絕其申請或不予註冊：（一）申請人未滿18歲；（二）申請人每年最少有9個月不在香港居住；（三）申請人已註冊為五間或以上學校的校董；（四）申請人並非出任校董的適合及適當人選。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 23
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 14
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 6
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 50
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 50
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 12
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          11,
+          13,
+          17,
+          21,
+          31,
+          42,
+          78,
+          79
+        ],
+        "table": null
+      },
+      {
+        "text": "年滿70歲的校董申請人，須出示有效醫生證明書，證明其在健康方面適合執行校董的職能，方可申請註冊為校董。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 50
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 12
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          32,
+          43
+        ],
+        "table": null
+      },
+      {
+        "text": "校董不得是《破產條例》所指的破產人，或已根據該條例訂立自願安排的人士。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 11
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          30
+        ],
+        "table": null
+      },
+      {
+        "text": "如任何校董在沒有法團校董會同意下，缺席某學年內的所有法團校董會會議，而該校董已獲適當通知在該等會議中出席，教育局常任秘書長在接獲法團校董會的書面通知後，可取消該校董的校董註冊。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 12
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 22
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          44,
+          62
+        ],
+        "table": null
+      },
+      {
+        "text": "取消校董註冊之程序如下：（一）由負責提名相關校董的認可團體，以類似選出或提名該校董之方式通過決議，向法團校董會提出書面要求；（二）法團校董會接獲上述有效書面要求後，須盡快向常任秘書長發出書面通知，要求取消有關校董的註冊；（三）校監須向每名校董送交該通知的副本。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 26
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 42
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 16
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 27
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 9
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 41
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          12,
+          34,
+          53,
+          63,
+          76,
+          77
+        ],
+        "table": null
+      },
+      {
+        "text": "本校法團校董會成立後，原先已註冊的校董會校董之註冊會自動取消；所有法團校董會校董（包括先前曾為校董的人士）均必須重新辦理校董註冊。",
+        "citations": [
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 14
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          61
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會不得向任何校董提供任何酬勞；除校長、教員校董及替代教員校董外，校董不得在本校內擔任受薪職位。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 34
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          54
+        ],
+        "table": null
+      },
+      {
+        "text": "在商討校長或教員校董的聘任、辭退、聘任條件及薪酬事宜時，有關的校長或教員須避席有關會議及討論，並不得就有關議案投票。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 34
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          55
+        ],
+        "table": null
+      },
+      {
+        "text": "本校法團校董會在承認某家長教師會為認可家長教師會前，須確保其章程列明，只有本校現有學生的家長或現職教員方可選出或出任該會幹事。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 8
+          }
+        ],
+        "adjustables": [
+          "認可家長教師會"
+        ],
+        "covers": [
+          16
+        ],
+        "table": null
+      }
+    ]
+  },
+  {
+    "si": 3,
+    "section_name": "",
+    "clauses": [
+      {
+        "text": "本校法團校董會根據《教育條例》以法團形式設立，作為本校企業管治架構之核心。法團校董會負責策劃本校發展路向、管理財政及人力資源、督導自我完善、促進學生發展，並為學校表現負責。法團校董會須以共同參與決策、透明和問責為基礎，按本校情況發展優質學校教育；本校由法團校董會負責管理，實踐校本管理精神。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 11
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 10
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          0,
+          1,
+          19,
+          67
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會須就本校管理和表現以及學生學習成效作最終負責和交代，並應確保學生在認知、德育及情意方面得以全面發展。根據校本管理及企業管治架構，法團校董會應履行下列核心管治職責：",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 12
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          2,
+          3,
+          36,
+          72,
+          73
+        ],
+        "table": {
+          "headers": [
+            "職責範疇",
+            "具體內容"
+          ],
+          "rows": [
+            [
+              "制定策略方向",
+              "為本校制定具策略性的宗旨和政策"
+            ],
+            [
+              "領導實現",
+              "領導本校實現上述宗旨和政策"
+            ],
+            [
+              "監察管理",
+              "監察本校管理工作，確保運作成效"
+            ],
+            [
+              "向持份者報告",
+              "就管理職份向持份者作出交代和報告"
+            ]
+          ]
+        }
+      },
+      {
+        "text": "法團校董會須就學生的學習成效和本校的管理及營運，直接向教育局、常任秘書長、家長及公眾負責；並應讓家長及持份者分享本校資料和管理訊息，以提高學校運作的透明度。法團校董會須為本校表現向常任秘書長及辦學團體負責。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 14
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 22
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          4,
+          5,
+          56
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會應保持政策透明與態度開放，主動向持份者公開有關本校表現和運作的資料。財務資料須在學校發展計劃書及周年學校報告內披露，並在向各持份者分發的周年校務報告中載錄財務摘要。公開資料範圍至少涵蓋：",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 20
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 5
+          },
+          {
+            "source_id": "g02",
+            "page": 12
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          31,
+          57,
+          64
+        ],
+        "table": {
+          "headers": [
+            "公開資料類別",
+            "披露形式"
+          ],
+          "rows": [
+            [
+              "學校發展計劃",
+              "學校發展計劃書"
+            ],
+            [
+              "年度學校計劃",
+              "周年校務計劃"
+            ],
+            [
+              "年度學校報告",
+              "周年學校報告"
+            ],
+            [
+              "財政狀況",
+              "學校發展計劃書、周年學校報告及財務摘要"
+            ]
+          ]
+        }
+      },
+      {
+        "text": "法團校董會及校長必須遵守管理本校有關的法例，以及教育局常任秘書長不時發出的通告及指示所載的規定。法團校董會的行事程序須遵從《教育條例》、《教育則例》、《資助則例》，以及教育局所發出的規定及指引；並須確保本校遵守《教育條例》及其他相關法例和指引的規定。法團校董會和校長就本校管理訂立具透明度和問責性的行政程序及措施時，應參閱《學校行政手冊》並遵守相關通告、指示和指引。法團校董會須遵守《資助則例》的條款及教育局常任秘書長不時發出的通告及指示。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 8
+          },
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 2
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 10
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 20
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          7,
+          8,
+          20,
+          34,
+          66,
+          70,
+          71
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會必須履行社會責任，對教育專業和教育界的福祉作出貢獻，包括：為實習教師提供教學實習安排或機會、與其他學校分享專業知識，以及協助舉行公開考試。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 14
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          6,
+          74
+        ],
+        "table": null
+      },
+      {
+        "text": "本校管治文件應清楚界定各階層人員的職責；校董承擔督導及監察兩大職能，並制訂有校董參與的機制以發揮該等職能。任何類別的校董均須以其個人身分為本校學生的利益而行事；校董須確保辦學團體訂定的本校抱負和辦學使命得以實踐，並監督規劃及制訂財政預算過程、監察學校表現，確保學校管理層承擔責任。各層人員職責分工如下：",
+        "citations": [
+          {
+            "source_id": "sdp_guide",
+            "page": 4
+          },
+          {
+            "source_id": "g02",
+            "page": 4
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 29
+          }
+        ],
+        "adjustables": [
+          "法團校董會",
+          "校董、校長、中層管理人員及教師"
+        ],
+        "covers": [
+          16,
+          24,
+          53,
+          54,
+          55
+        ],
+        "table": {
+          "headers": [
+            "人員類別",
+            "主要職責"
+          ],
+          "rows": [
+            [
+              "校董",
+              "督導及監察；確保辦學使命實踐；監督財政預算規劃；監察學校表現；確保管理層問責；以個人身分為學生利益行事"
+            ],
+            [
+              "校長",
+              "執行法團校董會訂定之政策；管理日常校務；向法團校董會匯報"
+            ],
+            [
+              "中層管理人員",
+              "協助校長執行政策；負責各相關部門或科組管理"
+            ],
+            [
+              "教師",
+              "按學校政策開展教學及相關專業工作"
+            ]
+          ]
+        }
+      },
+      {
+        "text": "法團校董會應訂立一套對校董具約束力的操守指引，作為校董執行職務時的共同基礎。校董須以義務性質參與本校管理，不得收取酬金。校董不得就其真誠地執行或本意是執行其校董職位職能而作出或不作出的任何事情，招致任何民事法律責任。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 21
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 8
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 2
+          }
+        ],
+        "adjustables": [
+          "法團校董會",
+          "操守指引"
+        ],
+        "covers": [
+          61,
+          62,
+          65
+        ],
+        "table": null
+      },
+      {
+        "text": "本校應安排新任校董參加教育局、辦學團體、本校或其他機構舉辦的校董培訓課程，以確保校董具備履行職責所需的知識和能力。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 51
+          }
+        ],
+        "adjustables": [
+          "法團校董會",
+          "教育局、辦學團體、本校或其他機構"
+        ],
+        "covers": [
+          22
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會須對本校表現負上全面及最終責任，應建立和實施清晰全面、嚴格有效的管治架構及內部監控制度，並不時檢討成效。法團校董會的督導角色包括確保本校在學校發展計劃、周年校務計劃和周年財政預算方面的表現具成效。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 20
+          },
+          {
+            "source_id": "g02",
+            "page": 4
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          63,
+          68
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會應為本校制定公開及可公平地行使的收生政策。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 13
+          }
+        ],
+        "adjustables": [
+          "法團校董會",
+          "收生政策"
+        ],
+        "covers": [
+          37
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會可在常任秘書長就批核班級結構作出決定前，就本校的班級結構向常任秘書長提出意見及建議。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 16
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          13
+        ],
+        "table": null
+      },
+      {
+        "text": "本校應引入共同參與的管理模式，讓教師、家長、校友及社會人士參與校政決策。校長遴選委員會由辦學團體代表及法團校董會代表組成，只有校董才可獲委任為法團校董會代表。",
+        "citations": [
+          {
+            "source_id": "sdp_guide",
+            "page": 4
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 33
+          }
+        ],
+        "adjustables": [
+          "法團校董會",
+          "教師、家長、校友及社會人士"
+        ],
+        "covers": [
+          17,
+          44
+        ],
+        "table": null
+      },
+      {
+        "text": "本校自我評估機制須訂有施行計劃時間表及優先次序，並就自評結果作匯報和跟進。",
+        "citations": [
+          {
+            "source_id": "sdp_guide",
+            "page": 5
+          }
+        ],
+        "adjustables": [
+          "自我評估機制",
+          "施行計劃時間表"
+        ],
+        "covers": [
+          18
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會須以受託人身分持有並管理按照《資助則例》從政府獲取的津貼、學生收費及捐款；行使有關權力時須按經費目的並以學生和學校的最大利益為依歸。法團校董會資助學校須於成立法團校董會後緊隨的學年開始應用《資助則例》。法團校董會作為政府資助金受託人，領取津貼時必須遵守《資助則例》訂明的資助條件，否則政府可撤回津貼。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 15
+          },
+          {
+            "source_id": "g02",
+            "page": 3
+          },
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 2
+          },
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 8
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          9,
+          23,
+          33,
+          59
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會的經費及資產只能用於符合其目的、辦學抱負和使命的用途，不得將經費及資產分派予校董。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 35
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 34
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          45,
+          52
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會須確保不以本校資產作為貸款的抵押或保證。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 73
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          50
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會應事先決定將簽訂合約的權力授予哪位校董，或訂明須由多少位校董確認簽署的合約方為有效。",
+        "citations": [
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 9
+          }
+        ],
+        "adjustables": [
+          "法團校董會",
+          "授權簽約校董"
+        ],
+        "covers": [
+          60
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會必須確保校董及教職員遵守《防止賄賂條例》（第201章），特別是第9條有關索取及接受利益的規定。本校應聽取廉政公署就反貪污程序及措施給予的意見，並採取適當的補救行動。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 11
+          },
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 18
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          35,
+          40
+        ],
+        "table": null
+      },
+      {
+        "text": "本校接受利益和捐贈不得損害學生利益和校譽，並須經法團校董會批准。接受任何金錢捐贈前，法團校董會須向捐贈者查詢是否欲在法團校董會解散時索回該金錢。法團校董會須為本校及其員工制訂明確的收受利益和捐贈政策、問責機制及監管程序。",
+        "citations": [
+          {
+            "source_id": "g02",
+            "page": 16
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 35
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 73
+          }
+        ],
+        "adjustables": [
+          "法團校董會",
+          "收受利益和捐贈政策"
+        ],
+        "covers": [
+          32,
+          47,
+          49
+        ],
+        "table": null
+      },
+      {
+        "text": "未經常任秘書長事先書面准許，本校校監、校董或法團校董會不得在校舍經營或准許他人經營業務或商業活動。如有非公帑業務或商業活動所得利潤，除非事先獲常任秘書長書面准許，該等利潤根據《教育條例》第99B條的規定，須運用於本校學生直接受益的用途上。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 5
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 73
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          21,
+          48
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會必須審慎運用公帑，並須就公帑的運用作出交代。本校須定期（例如按季度）向法團校董會匯報學校的財政狀況。當開支與預算金額有重大偏差時，須即時展開調查、加以解釋及適當糾正，並向法團校董會匯報。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 17
+          },
+          {
+            "source_id": "g02",
+            "page": 11
+          },
+          {
+            "source_id": "g02",
+            "page": 7
+          }
+        ],
+        "adjustables": [
+          "法團校董會",
+          "按季度"
+        ],
+        "covers": [
+          25,
+          26,
+          38
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會須按《教育條例》第40BB(3)及(4)條委任一名執業會計師（即《專業會計師條例》所界定的執業會計師）審核本校的周年帳目，並把帳目提交教育當局。核數師的委任及其酬勞的決定，必須經不少於全體校董的三分之二批准。",
+        "citations": [
+          {
+            "source_id": "g02",
+            "page": 11
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 35
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 5
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          28,
+          46,
+          58
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會須於學年／財政年度結束後六個月內向教育局提交下列文件：外聘核數師報告、經審核周年帳目及管理建議信。本校亦須接受審計署署長在有需要時查閱本校記錄和帳目。",
+        "citations": [
+          {
+            "source_id": "g02",
+            "page": 12
+          },
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 17
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          30,
+          39
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會須就籌款所得款項及各項開支分別作記錄，以供審核之用。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 73
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          51
+        ],
+        "table": null
+      },
+      {
+        "text": "凡本校發生現金損失、欺詐、偽造文件等異常或不尋常事件，法團校董會須立即報警，並從速（例如七天之內）以書面方式向有關的高級學校發展主任匯報。投資活動的討論詳情和議決必須記錄於法團校董會會議記錄，投資虧損的相關責任由引致損失的法團校董會承擔。",
+        "citations": [
+          {
+            "source_id": "g02",
+            "page": 12
+          }
+        ],
+        "adjustables": [
+          "法團校董會",
+          "七天之內"
+        ],
+        "covers": [
+          29,
+          69
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會收到常任秘書長改善通知書後，須在通知書所定期限內採取適當補救措施。如法團校董會未能在有關通知書所定期限內採取適當的補救措施，政府可減少、停止或撤回向本校發放的津貼。法團校董會須妥善管理本校，並確保學生為日後進修或工作（視乎何者適用）作好準備；未符合《資助則例》規定者，常任秘書長可要求作出改善或減少、停止或撤回津貼。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 16
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          15,
+          76
+        ],
+        "table": null
+      },
+      {
+        "text": "本校須配合教育局視察，包括在有需要時讓其查核本校所有文件及記錄。本校須因應教育局不時的規定和要求，更新學校資料及準時呈遞有關學校、教師及學生的準確資料。常任秘書長如認為派員出席本校法團校董會會議有助提升學校運作及表現，可根據《教育條例》第40BA條指派公職人員出席此類會議。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 14
+          },
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 9
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          10,
+          41,
+          75
+        ],
+        "table": null
+      },
+      {
+        "text": "本校管治文件應載明：當學校管理不令人滿意或法團校董會組成不可能使管理令人滿意時，常任秘書長可根據《教育條例》第41條委任校董，任期按其認為適當者而定。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 14
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          12
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會須按照其章程處理事務；修訂章程須藉按章程規定方式通過的決議進行。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 17
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          42
+        ],
+        "table": null
+      },
+      {
+        "text": "如有多於一個團體可獲承認為認可家長教師聯會，法團校董會所承認的須是成員中家長人數最多的團體。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 33
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          43
+        ],
+        "table": null
+      },
+      {
+        "text": "本校管治文件應訂明，常任秘書長可指派公職人員出席法團校董會會議。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 14
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          11
+        ],
+        "table": null
+      },
+      {
+        "text": "法團校董會須妥善管理本校，確保學生為日後進修或工作作好準備。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 16
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          14
+        ],
+        "table": null
+      },
+      {
+        "text": "投資活動的討論詳情和議決必須記錄於法團校董會會議記錄；投資虧損的相關責任由引致損失的法團校董會承擔。",
+        "citations": [
+          {
+            "source_id": "g02",
+            "page": 8
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          27
+        ],
+        "table": null
+      }
+    ]
+  },
+  {
+    "si": 4,
+    "section_name": "",
+    "clauses": [
+      {
+        "text": "本校法團校董會須設有最少一名教員校董；若章程僅容許設立一名教員校董，則須另設替代教員校董。教員校董及替代教員校董均須為本校現任教員，且均不得由本校校長擔任。教員亦不得兼任家長校董或校友校董。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 25
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 36
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 12
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          0,
+          1,
+          11,
+          16,
+          26
+        ]
+      },
+      {
+        "text": "教員校董選舉候選人之資格如下：",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 19
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 36
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 12
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          7,
+          8,
+          14,
+          15,
+          21,
+          32
+        ],
+        "table": {
+          "headers": [
+            "資格條件",
+            "說明"
+          ],
+          "rows": [
+            [
+              "教員類別",
+              "須為本校僱用之准用教員或檢定教員"
+            ],
+            [
+              "職位性質（編制內）",
+              "持有本校編制內教員職位者，符合資格"
+            ],
+            [
+              "職位性質（非編制）",
+              "須於不少於12個月之連續期間內，執行教學職責或其他直接與教學有關之職責"
+            ],
+            [
+              "排除人士",
+              "本校校長不得獲提名為教員校董"
+            ]
+          ]
+        }
+      },
+      {
+        "text": "本校進行教員校董選舉，須嚴格依據《教育條例》及本校法團校董會章程之規定辦理；任何校本細則均不得違反上述條例或章程之規定。選舉機制須確保公平及公開，並向本校全體教員公布有關詳情，同時諮詢教員之意見。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 18
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 36
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          3,
+          12
+        ]
+      },
+      {
+        "text": "如須修改教員校董選舉機制，本校法團校董會必須事先諮詢全體教員；對選舉機制所作之一切修訂，亦須妥為記錄備查。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 36
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          13
+        ]
+      },
+      {
+        "text": "教員校董須由本校全體教員（若本校屬特殊學校，則包括專責人員）以不記名投票方式，透過選舉互選產生。在選舉中，本校所有教員須有均等之投票權及參選權。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 25
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 36
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 12
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 41
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          2,
+          20,
+          22
+        ]
+      },
+      {
+        "text": "本校教員校董選舉一般由本校校長擔任選舉主任，主持並確保選舉程序符合章程規定。選舉主任須依據章程所訂明之時限，一般在選舉日前不少於7天，以書面形式向校內全體教員發出通知，通知內容須包括：獲提名候選人之姓名、個人簡介，以及選舉安排。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 20
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 21
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          4,
+          31
+        ]
+      },
+      {
+        "text": "教員校董選舉之投票日期與提名截止日期之間距，須符合章程所訂明之時限，一般最少相距兩星期。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 22
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 31
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          9,
+          30,
+          33
+        ]
+      },
+      {
+        "text": "點票工作須由本校校長及選舉主任（如選舉主任並非由校長擔任）在場見證。點票前，選舉主任須確保所有選票已從投票箱倒出，方可開始點票。點票完成後，選舉主任應將所有已投之選票放入信封，由校長及選舉主任封口並簽名，信封由本校妥善保存；信封及選票須保存最少六個月，其後方可銷毀。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 22
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          10,
+          28
+        ]
+      },
+      {
+        "text": "選舉結果公布後，校長須按照《教育條例》第40AN條第(1)款之規定，向本校法團校董會提名獲選教員出任教員校董，並通知法團校董會選舉結果；繼而由法團校董會按章程所規定之數目，向常任秘書長申請將獲選教員正式註冊為本校之教員校董或替代教員校董。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 23
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 40
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 41
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          5,
+          18,
+          23
+        ]
+      },
+      {
+        "text": "落選之教員校董候選人，可於知悉選舉結果公布起一星期內，以書面形式向本校法團校董會提出上訴，並列明上訴理由。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 33
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          29
+        ]
+      },
+      {
+        "text": "教員校董及替代教員校董之人數及任期，須於章程內訂明；任期宜由九月一日起生效，並於八月三十一日終止。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 36
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          17
+        ]
+      },
+      {
+        "text": "教員校董或替代教員校董若在任期內離任，或不再受僱於本校，須被當作已按照本校法團校董會章程辭任校董。出現上述空缺時，本校法團校董會須以相同方式，在三個月內進行補選以填補有關空缺。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 26
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 40
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 41
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          6,
+          19,
+          24,
+          27
+        ]
+      },
+      {
+        "text": "若本校教員以決議形式認為某教員校董或替代教員校董不適宜繼續留任，本校校長須就此向法團校董會提出書面要求，要求取消該名教員校董或替代教員校董之註冊。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 41
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          25
+        ]
+      }
+    ]
+  },
+  {
+    "si": 5,
+    "section_name": "",
+    "clauses": [
+      {
+        "text": "本校法團校董會須設立有效及足夠的制衡機制，以避免校董成員涉及利益衝突。本校須依據《教育條例》的規定及教育局發出的指引，訂定清晰完備的程序，規定全體學校人員（包括校董及員工）申報及披露任何利益衝突，並在處理採購及商業活動時嚴格遵守。本校全體校董及教職員凡與學校有業務往來，均須向本校申報其利益的詳細資料，或於相關會議上披露其利害關係。此外，本校法團校董會必須確保學校校董及教職員遵守《防止賄賂條例》（第201章）第9條有關在學校事務或業務上索取及接受利益的規定，並確保各校董根據《教育條例》的規定及教育局指引申報及披露個人利益。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 11
+          },
+          {
+            "source_id": "g02",
+            "page": 9
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 74
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          8,
+          24,
+          25,
+          26,
+          27,
+          18
+        ]
+      },
+      {
+        "text": "本校全體校董須至少每隔12個月，以書面向法團校董會申報利益一次，述明任何金錢上或其他個人利益的詳情。即使並無任何利益申報，校董亦須如實匯報。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 2
+          },
+          {
+            "source_id": "g02",
+            "page": 9
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 18
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          0,
+          4,
+          5,
+          12,
+          28
+        ]
+      },
+      {
+        "text": "校董在首次獲委任時須作一般申報，披露個人權益。其後每年亦須定期申報。若已申報的利益事宜有任何改變，相關校董須在改變發生後一個月內向法團校董會作出書面申報。在可能出現利益衝突的情況下，相關校董應即時呈報。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 2
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 18
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 20
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          1,
+          13,
+          21
+        ]
+      },
+      {
+        "text": "校董不得作出明知在要項上屬虛假或具誤導性的利益申報，否則屬犯法。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 2
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 18
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          2,
+          14,
+          22
+        ]
+      },
+      {
+        "text": "校董在以下任何情況下，須就法團校董會會議正在考慮或將會考慮的事宜，披露有關金錢上或其他個人利益關係的資料，並以書面匯報。若校董在任何法團校董會正在審議的事務，或與任何與本校有或可能有業務往來的公司或機構，涉及任何利益，均須作出披露並以書面匯報。須披露情況如下表所列：",
+        "table": {
+          "headers": [
+            "情況類別",
+            "說明"
+          ],
+          "rows": [
+            [
+              "工作表現評核",
+              "該校董為本校校長或教員，而所議事宜涉及該校董本身作為教職員的工作表現評核"
+            ],
+            [
+              "學生紀律行動",
+              "該校董為本校某學生的家長，而所議事宜涉及對該學生採取的紀律行動"
+            ],
+            [
+              "投訴事宜",
+              "所議事宜涉及對該校董的直接關係人提出的投訴，或涉及對本人提出的投訴"
+            ],
+            [
+              "業務或商業合約",
+              "所議事宜涉及討論經營業務或商業合約"
+            ],
+            [
+              "審議標書",
+              "所議事宜涉及審議標書，而該校董與該事宜有直接關係"
+            ]
+          ]
+        },
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 2
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 75
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 18
+          },
+          {
+            "source_id": "g02",
+            "page": 10
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          3,
+          6,
+          9,
+          15,
+          23,
+          29
+        ]
+      },
+      {
+        "text": "校董就法團校董會會議考慮的事宜披露利害關係後，除非法團校董會另有決定，否則該校董不得在商議該事宜時在場，亦不得參與有關會議的討論及表決，並須避席。預見或出現利益衝突時，校董亦須避席會議，不參與任何涉及利益關係事項的討論及決策。此外，如會議是商討某教員校董本身或與其有緊密聯繫的教員的升職事宜，則該校董不應參與其中。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 75
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 12
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 20
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          10,
+          16,
+          17,
+          20
+        ]
+      },
+      {
+        "text": "本校法團校董會須分別備存登記冊，以記錄所有校董的書面申報及披露，包括利害關係登記冊，登記校董根據相關條例條文作出的申報。上述登記冊須以供教育局督學查閱，並容許公眾人士在合理時間內查閱備存披露的利害關係登記冊。",
+        "citations": [
+          {
+            "source_id": "g02",
+            "page": 10
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 75
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 11
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          7,
+          11,
+          19,
+          30
+        ]
+      }
+    ]
+  },
+  {
+    "si": 6,
+    "section_name": "",
+    "clauses": [
+      {
+        "text": "本校法團校董會須採用公開、公平及競爭的聘任制度，並在處理所有聘任、人事及有關人事管理事宜時，堅守用人唯才、公正不阿、平等和公平原則。法團校董會須就聘用、晉升、辭職、退休、終止聘用、解僱及其他人事管理事宜承擔最終責任。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 25
+          },
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 26
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          9,
+          10,
+          20,
+          21
+        ],
+        "table": null
+      },
+      {
+        "text": "遴選校長的過程必須公開、公平和開放透明，並按照《教育條例》第57A條辦理。本校法團校董會須委出校長遴選委員會，以公平、公正及公開的方式甄選校長，並按法團校董會章程的訂明遴選。校長遴選委員會成員及其組成如下表所示；成員不可同時出任辦學團體及法團校董會雙方的代表。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 29
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 2
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 18
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 19
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 22
+          }
+        ],
+        "adjustables": [
+          "法團校董會章程的訂明"
+        ],
+        "covers": [
+          1,
+          2,
+          7,
+          8,
+          12,
+          13,
+          14,
+          24
+        ],
+        "table": {
+          "headers": [
+            "委員類別",
+            "備註"
+          ],
+          "rows": [
+            [
+              "辦學團體代表",
+              "由辦學團體委派"
+            ],
+            [
+              "法團校董會代表校董",
+              "出任法團校董會代表；不可兼任辦學團體代表"
+            ],
+            [
+              "章程規定的其他人士",
+              "按本校法團校董會章程訂明"
+            ]
+          ]
+        }
+      },
+      {
+        "text": "校長的委任必須由常任秘書長批准。晉升至校長職位，亦必須由常任秘書長批准；其他教職員的晉升或改編職系，則由法團校董會按規定批准。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 29
+          },
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 30
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          11,
+          17
+        ],
+        "table": null
+      },
+      {
+        "text": "聘用或解僱在職員編制內或受僱不少於6個月的教員，必須獲學校多數校董批准（而非僅出席校董）。有關批准須在法團校董會的會議上作出。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 26
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 7
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          15,
+          18
+        ],
+        "table": null
+      },
+      {
+        "text": "本校法團校董會在僱用僱員前，必須以聘書或服務合約的形式，清楚告知該僱員其僱用條款，以及法團校董會對其工作表現的期望；有關內容必須符合教育政策及資助則例。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 29
+          }
+        ],
+        "adjustables": [
+          "聘書或服務合約"
+        ],
+        "covers": [
+          4,
+          25
+        ],
+        "table": null
+      },
+      {
+        "text": "首次受聘任教資助學校的教師、專責人員和學校行政主任，一般須經兩年的試用期；試用期後如要終止聘用，必須給予不少於三個月的通知期或代通知金。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 30
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          23
+        ],
+        "table": null
+      },
+      {
+        "text": "本校法團校董會為保持學校環境健康，須決定應否規定每名教職員（按日支薪的代職人員除外）在受聘前進行體格檢驗，包括由註冊醫生進行X光胸肺檢查。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 29
+          }
+        ],
+        "adjustables": [
+          "應否規定每名教職員（按日支薪的代職人員除外）在受聘前進行體格檢驗"
+        ],
+        "covers": [
+          3,
+          26
+        ],
+        "table": null
+      },
+      {
+        "text": "本校須保存所有受僱教職員的全部證書和其他證件的副本及聘用表。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 28
+          }
+        ],
+        "adjustables": [
+          "聘用表"
+        ],
+        "covers": [
+          27
+        ],
+        "table": null
+      },
+      {
+        "text": "出現教職員變動時，本校法團校董會必須立即以書面通知教育局，並列出有關詳情，包括有關人士的姓名、職位、變動的生效日期及給予的通知期。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 27
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          19
+        ],
+        "table": null
+      },
+      {
+        "text": "本校法團校董會如認為員工工作表現未能令人滿意，可暫停該職員的增薪點。有關決定及理由須在法團校董會的會議上通過及妥為記錄，並應立即以書面通知常任秘書長。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 19
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          22
+        ],
+        "table": null
+      },
+      {
+        "text": "辦學團體有權在其屬下學校之間對校長及教員作出調動，本校法團校董會須遵守相關決定；惟調動必須基於教師專業發展、編制需要或常任秘書長批准的理由。",
+        "citations": [
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 7
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          16
+        ],
+        "table": null
+      },
+      {
+        "text": "本校法團校董會須與教育局簽署校董會／法團校董會服務合約的情況如下表所示。",
+        "citations": [
+          {
+            "source_id": "sdp_guide",
+            "page": 1
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          5,
+          6,
+          28,
+          29
+        ],
+        "table": {
+          "headers": [
+            "適用情況",
+            "生效學年",
+            "備註"
+          ],
+          "rows": [
+            [
+              "經由校舍分配工作獲派校舍的新校（資助學校及直資學校）",
+              "2000/01學年起",
+              "須與教育局簽署校董會／法團校董會服務合約"
+            ],
+            [
+              "參加直資計劃學校",
+              "適用",
+              "須與教育局簽署校董會／法團校董會服務合約"
+            ],
+            [
+              "合併學校（由不同辦學團體屬校組成且非在原有校舍營辦）",
+              "2010/11學年起",
+              "須簽署服務合約；由同一辦學團體屬校組成的合併學校除外"
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "si": 7,
+    "section_name": "",
+    "clauses": [
+      {
+        "text": "本校法團校董會須提名章程所規定數目的人士為獨立校董。獨立校董的人數沒有上限，但須最少設有一位。獨立校董不得擔任下列任何身份：（一）本校的教員或專責人員；（二）本校現有學生的家長；（三）本校的校友；或（四）本校辦學團體管治團體的成員，以及與其有近親或僱傭關係的人士。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 16
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 4
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          0,
+          1,
+          21,
+          23
+        ]
+      },
+      {
+        "text": "就本政策而言，「校友」指曾是本校學生而現時已非本校學生的人，不限於畢業生。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 16
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          5
+        ]
+      },
+      {
+        "text": "本校法團校董會須設有最少一名校友校董。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 35
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 60
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          2,
+          10
+        ]
+      },
+      {
+        "text": "本校法團校董會或辦學團體可承認一個團體為認可校友會，惟該會章程須符合下列全部規定，方可獲承認。本校認可校友會的章程須符合下表各項規定：",
+        "table": {
+          "headers": [
+            "規定事項",
+            "具體要求"
+          ],
+          "rows": [
+            [
+              "會員資格",
+              "本校所有校友均可成為該會會員，不設限制"
+            ],
+            [
+              "幹事資格",
+              "只有本校校友方可選出或成為該會幹事"
+            ],
+            [
+              "選舉制度",
+              "選舉校友校董的制度須公平、開放及透明"
+            ],
+            [
+              "候選人及投票人資格",
+              "章程須清楚說明候選人及投票人的資格"
+            ]
+          ]
+        },
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 41
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 37
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 60
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 14
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 15
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          4,
+          7,
+          11,
+          15,
+          17,
+          24
+        ]
+      },
+      {
+        "text": "校友校董選舉由本校認可校友會負責舉行，並提名章程所規定數目的人士選任為校友校董。校友校董候選人的資格如下：（一）必須是本校校友；（二）不得是本校的在職教員。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 35
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 36
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 61
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 14
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 20
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          3,
+          6,
+          12,
+          16,
+          22,
+          25
+        ]
+      },
+      {
+        "text": "校友校董選舉提名過程中，任何人不得向他人提供利益，以促使其參選、不參選，或令已獲提名的候選人退出競選。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 50
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          9
+        ]
+      },
+      {
+        "text": "校友校董選舉的選舉程序須符合下列時序安排：",
+        "table": {
+          "headers": [
+            "程序事項",
+            "時限規定"
+          ],
+          "rows": [
+            [
+              "提名截止至投票日期的間距",
+              "投票日期應與提名截止日期相距最少兩星期"
+            ],
+            [
+              "選舉日前通知校友",
+              "選舉主任須於選舉日前不少於7天，以書面形式通知所有校友或會員，列出獲提名候選人的姓名及其個人簡介，並說明選舉安排"
+            ]
+          ]
+        },
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 37
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          28,
+          29
+        ]
+      },
+      {
+        "text": "如校友校董選舉中候選人數目相等於或少於空缺數目，則候選人將自動當選，毋須投票。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 56
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          14
+        ]
+      },
+      {
+        "text": "選舉完結後，選舉主任須將所有已投選票放入信封，由選舉主任及認可校友會主席共同封口及簽名，並由認可校友會保存至少6個月。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 48
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          26
+        ]
+      },
+      {
+        "text": "落選的校友校董候選人可於選舉結果公布後一星期內，以書面形式向認可校友會提出上訴，並在上訴書中列明上訴理由。認可校友會章程須訂明公平公正的上訴機制。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 57
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 39
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          20,
+          27
+        ]
+      },
+      {
+        "text": "如認可校友會未有提名任何人選出任校友校董，本校法團校董會須以書面通知教育局有關情況。在此情況下，本校法團校董會可在全體校董過半數支持下，根據《教育條例》第40AP條提名某校友，並向教育局申請將其登記為校友校董。",
+        "citations": [
+          {
+            "source_id": "imc_election_guides",
+            "page": 40
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 14
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 29
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          8,
+          13,
+          18
+        ]
+      },
+      {
+        "text": "校友校董任期內若因任何原因出現空缺，認可校友會須以同樣方式於空缺出現後三個月內進行補選，以填補空缺。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 58
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          19
+        ]
+      }
+    ]
+  },
+  {
+    "si": 8,
+    "section_name": "",
+    "clauses": [
+      {
+        "text": "本校法團校董會（以下簡稱「本校法團校董會」）依《教育條例》所規定，以法團校董會形式設立企業管治架構，推行並支援校本管理。本校法團校董會以共同參與決策、透明及問責為原則，承擔管治職能，並依章程規定處理本校一切校董會事務。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 11
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          27
+        ]
+      },
+      {
+        "text": "本校法團校董會之成立，依據下列程序進行，各步驟如下表所列：",
+        "table": {
+          "headers": [
+            "步驟",
+            "行動事項",
+            "負責方",
+            "相關規定"
+          ],
+          "rows": [
+            [
+              "1",
+              "向教育局常任秘書長呈遞建議之法團校董會章程草稿",
+              "辦學團體",
+              "資助學校須於2011年7月1日或以前提交"
+            ],
+            [
+              "2",
+              "章程草稿獲常任秘書長審批後，呈遞建議校董名單及每名建議校董之校董註冊申請（向教統局學校註冊及監察組遞交）",
+              "辦學團體",
+              "草稿獲批後方可進行"
+            ],
+            [
+              "3",
+              "完成校董名單呈遞後，法團校董會正式成立",
+              "辦學團體",
+              "—"
+            ]
+          ]
+        },
+        "citations": [
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 24
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 2
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 3
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 7
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          3,
+          6,
+          22,
+          23
+        ]
+      },
+      {
+        "text": "本校現已完成法團校董會之成立。就學校架構而言，如本校中、小學部同屬一個學校註冊，本校只須維持一個法團校董會；如分別註冊，則各部須分別設立法團校董會。縱使辦學團體之校董會早已註冊成為有限公司，仍須按《教育條例》規定依上述程序成立法團校董會，程序與其他資助學校無異。",
+        "citations": [
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 3
+          }
+        ],
+        "adjustables": [
+          "中、小學部同屬一個學校註冊，本校只須維持一個法團校董會"
+        ],
+        "covers": [
+          24,
+          25
+        ]
+      },
+      {
+        "text": "法團校董會設立後，須於指定期限內完成以下行政安排，各項要求如下表所列：",
+        "table": {
+          "headers": [
+            "行政事項",
+            "法定期限",
+            "具體要求",
+            "備註"
+          ],
+          "rows": [
+            [
+              "通知首任校監就職",
+              "設立後14天內",
+              "以書面（表格IMC-4）通知學校註冊及監察組",
+              "—"
+            ],
+            [
+              "備置法團印章及註冊辦事處",
+              "設立時起",
+              "使用《教育條例》規定之中英文名稱",
+              "—"
+            ],
+            [
+              "開設銀行戶口",
+              "設立後盡快",
+              "以法團校董會名義開立，以信託人身分接受並管理政府資助款項",
+              "—"
+            ],
+            [
+              "家長校董選舉",
+              "設立後三個月內",
+              "由認可家教會舉行家長校董選舉",
+              "—"
+            ],
+            [
+              "提名獨立校董",
+              "設立後一年內",
+              "根據章程規定提名獨立校董",
+              "—"
+            ]
+          ]
+        },
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 7
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 22
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 4
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 8
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          4,
+          5,
+          15,
+          16,
+          17,
+          18
+        ]
+      },
+      {
+        "text": "家教會及校友會不得以追認方式，提名在法團校董會設立前所得出之校董人選。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 9
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          19
+        ]
+      },
+      {
+        "text": "本校法團校董會須備有常任秘書長所批准之書面章程，並按照章程處理本校一切事務。章程之內容，須按《教育規例》第75A條訂定下列事項，包括：各類校董之人數、提名及選舉程序、任期、幹事之職能，以及會議程序等。章程不應訂定校董之學歷要求，蓋《教育條例》並無作此規定。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 9
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 10
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          7,
+          11,
+          12
+        ]
+      },
+      {
+        "text": "本校法團校董會如欲修訂章程，須嚴格遵循章程所載之程序（包括法定人數要求）進行，並確保修訂符合《教育條例》之規定。辦學團體可在章程草稿中訂明，法團校董會日後修改章程時，必須取得辦學團體同意；辦學團體所訂定之學校抱負及辦學使命，法團校董會不得更改。如擬修改章程內教員校董選舉程序，必須由本校法團校董會按《教育條例》第40AY條及章程之規定，啟動適當之程序修訂章程。修訂章程的具體程序要求如下表所列：",
+        "table": {
+          "headers": [
+            "程序步驟",
+            "要求"
+          ],
+          "rows": [
+            [
+              "提出建議",
+              "修訂建議須以書面提出，並獲不少於全體校董三分之一支持，由該等校董加簽"
+            ],
+            [
+              "發出開會通知",
+              "校監須於開會前不少於28天，向所有校董發出書面開會通知"
+            ],
+            [
+              "會議法定人數",
+              "處理修訂章程建議之會議，法定人數不得少於全體校董的三分之二"
+            ],
+            [
+              "議決通過",
+              "修訂建議須獲出席會議校董不少於60%支持，以及辦學團體支持，方可送交常任秘書長"
+            ],
+            [
+              "生效日期",
+              "將修訂文件送交常任秘書長後，最早於送交一個月後，在常任秘書長不提出反對的情況下，修訂方可正式生效"
+            ]
+          ]
+        },
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 18
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 10
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 24
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 25
+          },
+          {
+            "source_id": "imc_election_guides",
+            "page": 19
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 6
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          1,
+          2,
+          8,
+          9,
+          10,
+          13,
+          14,
+          20,
+          21,
+          26
+        ]
+      }
+    ]
+  },
+  {
+    "si": 9,
+    "section_name": "",
+    "clauses": [
+      {
+        "text": "本校法團校董會每學年須最少召開三次會議，討論校政及作出決策；校董須親身出席。全體校董應保持良好出席率，全情投入學校的行政管理；校董若無合理理由缺席，其出席表現將受關注。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 30
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 12
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 19
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 20
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          1,
+          13,
+          17,
+          20,
+          21
+        ]
+      },
+      {
+        "text": "本校法團校董會的議事規則須以公平的原則訂定及執行，並適用於所有校董。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 19
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          2,
+          22
+        ]
+      },
+      {
+        "text": "應校董要求召開法團校董會會議時，校監須在接獲該要求後的七天內召開會議。開會通知須附有會議議程，並在指明會議日期前的訂明日數內發給所有校董。任何校董均可要求校監把某個項目納入會議議程；校監如拒絕，須在該會議上交代拒絕的理由。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 31
+          }
+        ],
+        "adjustables": [
+          "訂明日數"
+        ],
+        "covers": [
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "text": "法團校董會會議的法定人數為不少於全體校董的半數，且在任何一次會議中，身為本校僱員的校董人數必須少於其他校董的人數。若會議開始逾三十分鐘仍未達法定人數，該會議須延期不少於一星期但不多於四星期，在校監指明的時間及地點舉行。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 31
+          }
+        ],
+        "adjustables": [
+          "不少於一星期但不多於四星期"
+        ],
+        "covers": [
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "text": "法團校董會會議由校監主持。如校監缺席而沒有授權另一校董主持會議，出席的校董須互選一名校董主持該會議。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 31
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          10
+        ]
+      },
+      {
+        "text": "會議上決議的每一項問題均須以出席並投票的校董的過半數票決定；票數均等時，主持會議的校董有權投決定票。在召開會議不切實可行的情況下，法團校董會的事務可藉在各校董之間傳閱文件的方式處理及通過決議。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 32
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          14,
+          15
+        ]
+      },
+      {
+        "text": "本校秘書須就法團校董會每次會議撰寫和備存會議紀錄，當中須記錄討論內容、決定及跟進行動，並提交下次會議通過。校董如提出反對意見，可要求在會議紀錄中記下其意見，秘書須將有關意見記錄在內。本校法團校董會及轄下委員會須保存各成員出席會議及會議詳細記錄，供隨時查閱。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 33
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 20
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          11,
+          12,
+          19
+        ]
+      },
+      {
+        "text": "暫停員工增薪點的決定及理由，須在本校法團校董會的會議上通過及妥為記錄，並立即以書面通知常任秘書長。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 19
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0
+        ]
+      },
+      {
+        "text": "校監應否為獲授權簽署人之一的議案，亦須在由校監主持的會議中加以討論和議決。",
+        "citations": [
+          {
+            "source_id": "g02",
+            "page": 11
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          3
+        ]
+      },
+      {
+        "text": "本校法團校董會應訂立權責分明的權力轉授問責制度，成立轄下委員會，訂定架構及劃分職權範圍，以監察特定範疇，配合學校的不斷發展及運作。委員會的委員及主席由法團校董會委任；委員可由非校董出任，但委員會的主席必須為校董。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 34
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 20
+          }
+        ],
+        "adjustables": [
+          "委員會的委員",
+          "委員會的主席"
+        ],
+        "covers": [
+          16,
+          18
+        ]
+      }
+    ]
+  },
+  {
+    "si": 10,
+    "section_name": "",
+    "clauses": [
+      {
+        "text": "本校法團校董會以受託人身分，對政府經費及學校資產享有全面的管理及行政權，惟行使有關權力時，必須按照有關經費的目的，並以學生和學校的最大利益為依歸。本校在領取《資助則例》所闡明的津貼時，必須遵守《資助則例》第II至第IV部分訂明的資助條件及其他規定。本校法團校董會必須審慎運用公帑，包括根據《資助則例》發放予本校的各類津貼及其他特定教育用途的政府撥款，並須就公帑的運用作出交代。",
+        "citations": [
+          {
+            "source_id": "g02",
+            "page": 3
+          },
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 8
+          },
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 17
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          20,
+          21,
+          13
+        ]
+      },
+      {
+        "text": "本校每個學年的周年財政預算，應獲法團校董會批准，方可執行。",
+        "citations": [
+          {
+            "source_id": "g02",
+            "page": 7
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0
+        ]
+      },
+      {
+        "text": "本校財務管理採用以下銀行帳戶及付款授權安排：",
+        "table": {
+          "headers": [
+            "事項",
+            "規定"
+          ],
+          "rows": [
+            [
+              "銀行帳戶設立",
+              "法團校董會須在其名下開立和持有最少兩個銀行帳戶，一個專門處理政府經費，另一個專門處理非政府經費"
+            ],
+            [
+              "支票簽發",
+              "所有銀行帳戶支票須由兩名獲授權的註冊校董聯署簽發"
+            ],
+            [
+              "網上銀行付款",
+              "網上銀行批准付款亦須由兩名獲授權註冊校董聯合批准"
+            ]
+          ]
+        },
+        "citations": [
+          {
+            "source_id": "g02",
+            "page": 10
+          }
+        ],
+        "adjustables": [
+          "兩名獲授權的註冊校董"
+        ],
+        "covers": [
+          16,
+          1,
+          17
+        ]
+      },
+      {
+        "text": "本校如擬在校舍內開展商業活動，須符合以下規定：（一）有關活動必須在法團校董會會議上討論及通過，並在會議記錄中妥善記錄，方可進行；（二）該商業活動所產生的利潤或淨收入，須運用於本校學生直接受益的用途上；（三）如擬徵收超逾常任秘書長書面核准上限的罰款及特定用途費用，須作教育用途，並得到大部分家長的明確同意，法團校董會方可批准徵收該等費用。",
+        "citations": [
+          {
+            "source_id": "g02",
+            "page": 6
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 6
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          2,
+          18,
+          12,
+          3
+        ]
+      },
+      {
+        "text": "本校法團校董會在正常情況下不應借入款項；在特殊情況下如擬借款，事前必須取得法團校董會批准，方可進行。討論詳情、議決、理據及還款策略均應在會議記錄中妥善記錄，以供查閱。",
+        "citations": [
+          {
+            "source_id": "g02",
+            "page": 7
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          4,
+          19
+        ]
+      },
+      {
+        "text": "本校教職員的聘用及解僱，按人員類別須取得以下批核：",
+        "table": {
+          "headers": [
+            "人員類別",
+            "事項",
+            "批核要求"
+          ],
+          "rows": [
+            [
+              "編制內教員，或僱用為期不少於6個月的教員",
+              "聘用",
+              "須由學校的多數校董批准"
+            ],
+            [
+              "編制內教員，或僱用為期不少於6個月的教員",
+              "解僱",
+              "須在法團校董會會議上由學校的多數校董批准"
+            ],
+            [
+              "以薪金津貼支薪的校長",
+              "聘用",
+              "必須獲常任秘書長批准"
+            ],
+            [
+              "以薪金津貼支薪的60歲以上教職員",
+              "聘用",
+              "必須獲常任秘書長批准"
+            ],
+            [
+              "以薪金津貼支薪的合格教師以外的教員",
+              "聘用",
+              "必須獲常任秘書長批准"
+            ],
+            [
+              "以薪金津貼支薪的以英語為母語的臨時英語教師",
+              "聘用",
+              "必須獲常任秘書長批准"
+            ]
+          ]
+        },
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 26
+          },
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 27
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "text": "就法團校董會的設立及資產管理，本校須遵守以下規定：（一）在設立法團校董會之前，辦學團體應先點算學校現有資產的所屬權，並須清楚劃分政府、辦學團體及學校本身所擁有的資金和資產，方可將資產移交至法團校董會；（二）在設立法團校董會前，如未有確實成立日期，應避免訂立期限較長的合約，建議合約期不超過一年；（三）法團校董會設立後，應清楚紀錄及更新日後各項資產的擁有權。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 16
+          },
+          {
+            "source_id": "imc_briefing_qa",
+            "page": 32
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          8,
+          11,
+          9,
+          10
+        ]
+      },
+      {
+        "text": "本校財務核數及帳目提交須符合以下規定：（一）法團校董會須按照《教育條例》第40BB(3)及(4)條，委任一名執業會計師審核學校的周年帳目；（二）法團校董會須於學年／財政年度結束後六個月內，向教育局提交下列文件：",
+        "table": {
+          "headers": [
+            "須提交文件",
+            "備註"
+          ],
+          "rows": [
+            [
+              "外聘核數師報告",
+              "必須提交"
+            ],
+            [
+              "經審核的周年帳目",
+              "必須提交"
+            ],
+            [
+              "核數師發出的管理建議信",
+              "如有，則須提交"
+            ]
+          ]
+        },
+        "citations": [
+          {
+            "source_id": "g02",
+            "page": 11
+          },
+          {
+            "source_id": "g02",
+            "page": 12
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          15,
+          14
+        ]
+      }
+    ]
+  },
+  {
+    "si": 11,
+    "section_name": "",
+    "clauses": [
+      {
+        "text": "本校法團校董會須在本校推行課程發展議會所建議的課程，並遵照教育局不時公布的最新課程及評估政策。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 12
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          0,
+          15
+        ]
+      },
+      {
+        "text": "本校學校發展計劃為本校問責工具之一。本校法團校董會應核准可保障學生最大利益的學校發展計劃。計劃須列出本校的長遠及周年發展目標，該等目標須經教育局與本校雙方同意，本校有責任確保達致有關目標。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 12
+          },
+          {
+            "source_id": "sdp_guide",
+            "page": 2
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          1,
+          18,
+          3
+        ]
+      },
+      {
+        "text": "本校學校發展計劃所定的目標須具挑戰性、可供實踐和量度。計劃須包括以下各項內容：",
+        "citations": [
+          {
+            "source_id": "sdp_guide",
+            "page": 1
+          },
+          {
+            "source_id": "sdp_guide",
+            "page": 3
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          2,
+          6
+        ],
+        "table": {
+          "headers": [
+            "項目",
+            "說明"
+          ],
+          "rows": [
+            [
+              "周年目標",
+              "具進展性的周年發展目標"
+            ],
+            [
+              "長遠目標",
+              "三至五年長遠發展目標"
+            ],
+            [
+              "表現指標及成功準則",
+              "量度目標達致程度的標準"
+            ],
+            [
+              "評估機制",
+              "監察及評估計劃執行情況的安排"
+            ],
+            [
+              "財政預算",
+              "配合計劃推行的財政資源規劃"
+            ]
+          ]
+        }
+      },
+      {
+        "text": "本校法團校董會須根據辦學團體的辦學宗旨，在本校學校發展計劃內策略性地訂立三至五年的長遠計劃，並為本校制定周年校務計劃及周年財政預算。",
+        "citations": [
+          {
+            "source_id": "g02",
+            "page": 6
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          12,
+          14
+        ]
+      },
+      {
+        "text": "本校學校發展計劃須經本校法團校董會批核，並由校監簽署作實。本校必須在開辦後六個月內，將學校發展計劃呈交所屬高級學校發展主任核准。本校法團校董會並須按教育當局建議的時間表，向辦學團體提交學校發展計劃書、周年校務計劃書及學校報告。",
+        "citations": [
+          {
+            "source_id": "sdp_guide",
+            "page": 3
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 35
+          }
+        ],
+        "adjustables": [
+          "法團校董會",
+          "六個月"
+        ],
+        "covers": [
+          7,
+          8,
+          13
+        ]
+      },
+      {
+        "text": "經核准的學校發展計劃會納入服務合約之內。本校日後如須修訂計劃內的目標及指標，須先獲得高級學校發展主任的書面批准，並須事先取得教育局的同意，方可執行修訂。",
+        "citations": [
+          {
+            "source_id": "sdp_guide",
+            "page": 3
+          },
+          {
+            "source_id": "sdp_guide",
+            "page": 2
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          9,
+          17,
+          5,
+          19
+        ]
+      },
+      {
+        "text": "如本校未能達致個別表現指標，本校法團校董會須按教育局要求，制訂跟進計劃以解決問題或改善有關情況。",
+        "citations": [
+          {
+            "source_id": "sdp_guide",
+            "page": 2
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          4
+        ]
+      },
+      {
+        "text": "本校學校發展計劃應訂明本校法團校董會的承擔及工作重點。計劃的管理及組織部分須包括教職員的考績及發展政策。",
+        "citations": [
+          {
+            "source_id": "sdp_guide",
+            "page": 4
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          10,
+          11
+        ]
+      },
+      {
+        "text": "本校法團校董會可在常任秘書長就批核資助學校的班級結構作出決定前，就本校的班級結構向常任秘書長提出意見及建議。",
+        "citations": [
+          {
+            "source_id": "coa_imc_1_19",
+            "page": 16
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          16
+        ]
+      }
+    ]
+  },
+  {
+    "si": 12,
+    "section_name": "",
+    "clauses": [
+      {
+        "text": "本校校監須為本校校董，但不得同時擔任本校校長或教員職務；現正為本校校長或教員之校董，不得獲委任或當選為校監。校監由辦學團體委任或由校董按法團校董會章程所訂方法選出。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 17
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 18
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 29
+          }
+        ],
+        "adjustables": [
+          "辦學團體委任或由校董按法團校董會章程所訂方法選出"
+        ],
+        "covers": [
+          4,
+          5,
+          7
+        ]
+      },
+      {
+        "text": "校監不得將《教育條例》第40AK條所列明的職能轉授予他人。如校監因離港或患病，以致不能在一段為期不少於28天的期間內執行其職能，須由署理校監代替校監行事。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 18
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          1,
+          11
+        ]
+      },
+      {
+        "text": "本校法團校董會之幹事，除校監外，須包括秘書及司庫。任何校董不得同時擔任兩個或以上之幹事職位。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 18
+          },
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 29
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          2,
+          6
+        ]
+      },
+      {
+        "text": "各幹事職位之任期及罷免機制，依本校法團校董會章程之規定辦理。如幹事出現空缺，本校須按章程所訂幹事之組成及產生方法，適時替補空缺。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 29
+          },
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 19
+          }
+        ],
+        "adjustables": [
+          "法團校董會章程之規定辦理",
+          "章程所訂幹事之組成及產生方法"
+        ],
+        "covers": [
+          3,
+          8
+        ]
+      },
+      {
+        "text": "校監須主持法團校董會之會議，並負責以書面通知常任秘書長有關校董、校長及教員停任等事宜。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 18
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          10
+        ]
+      },
+      {
+        "text": "本校秘書須為法團校董會提供秘書支援，負責保管法團印章，並按《教育條例》第40BH條備存利害關係登記冊。",
+        "citations": [
+          {
+            "source_id": "imc_establishment_operation",
+            "page": 30
+          }
+        ],
+        "adjustables": [
+          "法團校董會"
+        ],
+        "covers": [
+          9
+        ]
+      },
+      {
+        "text": "本校校監、校董或校董會，未經常任秘書長事先以書面准許，不得在校舍經營或准許他人經營任何業務或商業活動；亦不得就供應本校所規定學生須管有或使用之食物、飲品、書籍、文具、制服或任何其他物件，直接或間接作出任何商業安排。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 5
+          }
+        ],
+        "adjustables": [
+          "校監、校董或校董會"
+        ],
+        "covers": [
+          12
+        ]
+      },
+      {
+        "text": "如獲常任秘書長書面准許在校舍經營業務或訂立商業安排，本校校監須在學校財政年度結束後4個月內，或在常任秘書長准許延展之期間內，向常任秘書長提交關於每項有關業務或商業活動及安排之每年經審計帳目報表，以及陳述書說明利潤之運用方式。",
+        "citations": [
+          {
+            "source_id": "imc_governance_supplements",
+            "page": 5
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          13
+        ]
+      }
+    ]
+  }
+]

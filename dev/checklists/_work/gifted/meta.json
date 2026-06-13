@@ -1,0 +1,35 @@
+{
+ "key": "gifted",
+ "kind": "domain",
+ "cn": "資優教育",
+ "lens": "資優教育：三層架構推行模式、校本資優培育、人才庫、課程及活動安排、識別與支援。",
+ "tags": null,
+ "sources": {
+  "gifted_policy_docs": {
+   "title": "資優教育政策文件及指引",
+   "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/resources_and_support/policy/policy_doc_and_guidelines/index.html",
+   "chunks": 19
+  },
+  "gifted_tp_resource_kit": {
+   "title": "校本資優教育資源套（2024）",
+   "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/files/SB GE_TP Resource Kit_20241107_TC.pdf",
+   "chunks": 41
+  },
+  "gifted_osalp_compendium": {
+   "title": "資優教育基金校外進階學習課程匯編（OSALP）",
+   "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/OSALP Compendium.pdf",
+   "chunks": 19
+  },
+  "gifted_ge_series": {
+   "title": "資優教育系列：全民資優教育＋校本學生才能庫＋學術英才教育單元",
+   "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/GE_for_All_Education_for_the_Gifted_TC.pdf",
+   "chunks": 346
+  },
+  "g14": {
+   "title": "校本資優培育課程指引",
+   "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/guidelines-on-school-based-gifted-development-programmes/index.html",
+   "chunks": 77
+  }
+ },
+ "n_buckets": 10
+}

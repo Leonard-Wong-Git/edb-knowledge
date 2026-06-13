@@ -1,0 +1,20 @@
+{
+ "key": "cpd",
+ "kind": "domain",
+ "cn": "教師專業發展",
+ "lens": "教師專業發展：培訓要求、專業發展時數/安排、T-標準、新入職/在職培訓義務。",
+ "tags": null,
+ "sources": {
+  "circ_edbc24017": {
+   "title": "教育局通告第17/2024號：學校課程持續更新：《小學教育課程指引》（2024）",
+   "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+   "chunks": 12
+  },
+  "tdtf_report_2019": {
+   "title": "教師專業發展專責小組報告 (2019年3月)",
+   "url": "https://www.edb.gov.hk/attachment/tc/teacher/report-tftpd/TF%20Final%20Report_tc_final.pdf",
+   "chunks": 61
+  }
+ },
+ "n_buckets": 2
+}

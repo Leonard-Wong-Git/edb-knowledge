@@ -1,0 +1,1528 @@
+# 校本「校董會治理」政策文件 — 要求清單（DRAFT v0.1）
+
+> **狀態：DRAFT，待 Leonard 審。** S155 自主批次產出（2026-06-12）。範疇視角：校董會治理：法團校董會成立、章程、組成、各類校董產生/選舉/委任、角色職權、會議規程、申報利益、管治責任、學校發展計劃。g02/coa 抽治理角度（財務細則屬另一範疇，僅保留治理權責層面）。
+> 生成方法同 finance 樣板：蒸餾 → 獨立對抗覆核 → 完整性批判 → 本機機械重驗（exact→去空格→NFKC 三級引文比對＋頁碼重計）。每條必帶原文引文；引文照錄 PDF 文字層原樣。
+
+## 來源文件
+
+| source_id | 文件 | 連結 |
+|---|---|---|
+| `coa_imc_1_19` | 《資助則例（設有法團校董會資助學校適用版本）》 | [開啟](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf) |
+| `sdp_guide` | 《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》 | [開啟](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf) |
+| `imc_governance_supplements` | 《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》 | [開啟](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf) |
+| `imc_election_guides` | 《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》 | [開啟](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf) |
+| `g02` | 《設有法團校董會的資助學校財務管理指引》 | [開啟](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf) |
+| `imc_establishment_operation` | 《法團校董會的成立與運作（校本管理手冊2014）》 | [開啟](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf) |
+| `imc_briefing_qa` | 《法團校董會簡介會問答（2013）》 | [開啟](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf) |
+
+## 要求清單
+
+### 1. 家長校董選舉
+
+- **R-1.1** 法團校董會須先承認一個團體為認可家長教師會，方可進行家長校董選舉及提名。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 16 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=16)
+  - 引文：「法團校董會須承認一個團體為「認可家長教師會」，該團體才可進行家長校董選舉及作出相關的提名」
+- **R-1.2** 家長校董或替代家長校董必須是該校現有學生的家長。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 16 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=16)
+  - 引文：「家長校董或替代家長校董，必須是有關學校現有學生的家長」
+- **R-1.3** 家長校董選舉不以家庭為單位，父母擁有均等投票權及參選權（一人一票）。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 16 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=16)
+  - 引文：「每個家庭的父及母擁有均等投票權及參選權(一人一票)」
+- **R-1.4** 法團校董會須設最少一名家長校董；章程訂明只設一名時，須同時設一名替代家長校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 1 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=1)
+  - 引文：「如法團校董會章程訂明只設有一名家長校董，便須同時設有一名替代家長校董」
+- **R-1.5** 未成立家教會的學校應盡早成立家教會，並確保其章程符合成為認可家教會的條件。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 1 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=1)
+  - 引文：「未成立家教會的學校，應盡早成立一個家教會」
+- **R-1.6** 法團校董會須把選舉指引分發給認可家教會參閱，以便制訂家長校董選舉制度。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 1 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=1)
+  - 引文：「法團校董會須把本指引分發給認可家教會參閱」
+- **R-1.7** 舉行家長校董選舉前，認可家教會必須已預先制訂校本選舉指引。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 2 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=2)
+  - 引文：「認可家教會必須確保在舉行家長校董選舉前，已預先制訂該指引」
+- **R-1.8** 選舉機制日後所作的一切修訂均須妥為紀錄。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 2 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=2)
+  - 引文：「認可家教會日後對選舉機制所作的一切修訂，亦須妥為紀錄」
+- **R-1.9** 學校現職教員不得獲提名為家長校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 2 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=2)
+  - 引文：「如有關家長是學校的現職教員，他／她便不能獲提名為家長校董」
+- **R-1.10** 委任選舉主任監察提名、分發選票及點票工作；選舉主任本身不可是候選人。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 3 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=3)
+  - 引文：「但選舉主任本身不可以是家長校董選舉的候選人」
+- **R-1.11** 選舉主任以書面通知所有家長選舉事項，包括空缺數目、提名期限、投票及點票日期等。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 3 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=3)
+  - 引文：「選舉主任應以書面形式（例如通告、信件等）通知所有家長有關家長校董選舉的事項」
+- **R-1.12** 投票日期與提名截止日期須相距最少兩星期。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 4 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=4)
+  - 引文：「家長校董選舉的投票日期應與提名截止日期相距最少兩星期」
+- **R-1.13** 校董選舉投票須以不記名方式進行，選票不得載有可辨識身分的符號。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 4 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=4)
+  - 引文：「根據《條例》規定，投票須以不記名方式進行」
+- **R-1.14** 為選舉設置上鎖投票箱，鎖匙由選舉主任保管。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 4 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=4)
+  - 引文：「認可家教會應為選舉設置一個上鎖的投票箱，鎖匙由選舉主任保管」
+- **R-1.15** 確保各種交回選票的方法（特別是郵遞）均合乎保密原則。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 4 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=4)
+  - 引文：「選舉主任應確保交回選票的各種方法( 特別是以郵遞方式交回選票) 均合乎保密原則」
+- **R-1.16** 選舉日前不少於7天向所有投票人發出書面通知，列出候選人姓名、個人簡介及選舉安排。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 3 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=3)
+  - 引文：「選舉主任應於選舉日之前不少於7 天，向所有家長發出書面通知」
+- **R-1.17** 每名家長不論就讀子女數目只可有一票，並以個人身分投票。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 3 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=3)
+  - 引文：「每名家長不論其就讀該校子女的數目，只可有一票，並以個人身分投票」
+- **R-1.18** 已投選票放入信封封口簽名後保存至少6個月，以備選舉不當指控調查之用。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=16)
+  - 引文：「信封由認可家教會保存至少6 個月」
+- **R-1.19** 落選候選人可於選舉結果公布一星期內提出書面上訴並列明上訴理由。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=16)
+  - 引文：「落選的候選人知悉在選舉結果公布的一星期內，可向認可家教會提出書面上訴及列明上訴理由」
+- **R-1.20** 點票工作須由指定人士（如主席、選舉主任及校長）在場見證。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=16)
+  - 引文：「認可家教會主席、選舉主任及校長（如可出席）在場見證點票工作」
+- **R-1.21** 所有與選舉相關的資料均須存檔，以作紀錄。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=16)
+  - 引文：「所有與選舉相關的資料均需存檔，以作紀錄」
+- **R-1.22** 選舉後提名當選者出任校董，並將選舉結果通知法團校董會。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=16)
+  - 引文：「認可家教會提名當選的家長出任家長校董，並將選舉結果通知法團校董會」
+- **R-1.23** 不得規定認可家教會主席自動當選為家長校董，或家長校董自動當選為主席。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 7 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=7)
+  - 引文：「認可家教會不可規定獲選的認可家教會主席可自動當選為家長校董」
+- **R-1.24** 提交校董註冊申請前，須完成選舉核對清單，確保選舉遵循所有必要規定及程序。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 23 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=23)
+  - 引文：「學校應在提交教員校董註冊的申請前，完成附件四的核對清單」
+- **R-1.25** 訂定選舉細則前諮詢所有持分者，確保細則符合公平而開放透明的原則。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 18 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=18)
+  - 引文：「學校應諮詢所有教員，以確保有關細則符合「公平而開放透明」的原則」
+- **R-1.26** 候選人票數相同時，須按章程進行第二輪投票或以抽簽方式決定當選人。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 22 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=22)
+  - 引文：「選舉主任須根據「章程」進行第二輪投票或以抽簽方式決定當選人」
+- **R-1.27** 點票前選舉主任須確保所有選票均已從投票箱倒出。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 22 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=22)
+  - 引文：「選舉主任須確保所有選票均已從投票箱倒出，才開始點票」
+- **R-1.28** 事先說明無效選票的準則，例如所投候選人數目多於空缺數目。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 22 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=22)
+  - 引文：「選票上所投的候選人數目，多於是次選舉的空缺數目」
+- **R-1.29** 擬引入自動當選機制時，應事先在選舉細則內訂明並讓所有投票人知悉。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 22 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=22)
+  - 引文：「應事先在選舉細則內訂明有關機制，並讓所有教員知悉」
+- **R-1.30** 選舉中不得提供利益令任何人參選、不參選或退出競選。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 50 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=50)
+  - 引文：「不得提供利益令任何人參選或不參選」
+- **R-1.31** 競選活動中不得發表關於候選人品格、資歷或以往行為的虛假或誤導性陳述。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 50 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=50)
+  - 引文：「不得發表包括（但不限於）候選人的品格、資歷或以往的行為的虛假或具誤導性達關鍵程度的陳述」
+- **R-1.32** 競選刊物不得聲稱或暗示獲任何人士或機構支持，除非已得到其書面同意。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 50 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=50)
+  - 引文：「除非已得到該名人士或機構的書面同意」
+- **R-1.33** 不得向任何人施用或威脅施用武力或脅迫手段影響投票決定。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 35 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=35)
+  - 引文：「不得向任何人施用或威脅施用武力或脅迫手段，以影響他人的投票決定」
+- **R-1.34** 家長校董及替代家長校董選舉須由學校的認可家長教師會舉行。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 8 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=8)
+  - 引文：「家長校董及替代家長校董選舉須由該校的認可家長教師會舉行。」
+- **R-1.35** 訂明校董選舉制度須公平而開放透明。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 8 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=8)
+  - 引文：「選舉制度須是公平而開放透明的。」
+- **R-1.36** 家長校董候選人必須為現有學生的家長，且不得是該校的教員。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 8 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=8)
+  - 引文：「候選人必須為現有學生的家長。•  候選人不得是該校的教員。」
+- **R-1.37** 確保家長校董選舉中所有家長擁有均等的投票權及參選權。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 8 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=8)
+  - 引文：「所有家長須擁有均等的投票權及參選權。」
+- **R-1.38** 校董選舉投票須以不記名方式進行。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 8 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=8)
+  - 引文：「該選舉須以不記名方式進行投票。」
+- **R-1.39** 家長校董選舉中每名家長不論就讀子女數目均只有一票。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=15)
+  - 引文：「每名家長不論其就讀該校子女的數目，均只有一票。」
+- **R-1.40** 選舉主任須在選舉日前不少於7天以書面通知所有家長候選人姓名、簡介及選舉安排。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=15)
+  - 引文：「選舉主任在選舉日前不少於7天以書面形式通知所有家長」
+- **R-1.41** 為選舉設置上鎖的投票箱，鎖匙由選舉主任保管。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 15 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=15)
+  - 引文：「設置上鎖的投票箱，鎖匙由選舉主任保管。」
+- **R-1.42** 家長校董選舉點票時，認可家教會主席、選舉主任及校長（如可出席）須在場見證。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 5 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=5)
+  - 引文：「認可家教會主席、選舉主任及校長（如可出席）須在場見證點票工作。」
+- **R-1.43** 選舉細則須事先列明候選人得票相同時的決定方式（如第二輪投票或抽簽）。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 5 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=5)
+  - 引文：「若兩個或以上候選人得票相同，會以何種方式決定當選人」
+- **R-1.44** 選舉結束後已投選票須封存由認可家教會保存，最少保留六個月以備調查選舉不當指控。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 6 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=6)
+  - 引文：「信封和選票不應長期保留，但最少應保留六個月」
+- **R-1.45** 在選舉細則內列明家長校董選舉上訴機制，落選候選人可在結果公布一星期內書面上訴。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 6 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=6)
+  - 引文：「落選的候選人可在選舉結果公布的一星期內，以書面方式向認可家教會提出上訴」
+- **R-1.46** 各類校董選舉須委派選舉主任監察提名、分發選票及點票工作，選舉主任本身不得是該選舉的候選人。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 36 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=36)
+  - 引文：「但選舉主任本身不可以是教員校董選舉的候選人」
+- **R-1.47** 選舉通知須列明空缺數目、提名期限、提名方法、投票及點票日期、公布結果日期及候選人資格和職責。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 36 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=36)
+  - 引文：「其中包括教員校董的空缺數目、提名期限、提名方法、投票及點票日期、公布結果日期及其他資料」
+- **R-1.48** 候選人須提供個人簡介，並申報有否觸犯《教育條例》第30條所載可拒絕校董註冊的理由。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 37 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=37)
+  - 引文：「並須在簡介中申報有否觸犯《教育條例》第30條所載有關常任秘書長可拒絕校董註冊的理由」
+- **R-1.49** 選舉主任須在選舉日之前不少於7天，向所有合資格投票人發出載有候選人名單的書面通知。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 37 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=37)
+  - 引文：「選舉主任須在選舉日之前不少於7天，向校內所有教員發出書面通知」
+- **R-1.50** 事先在章程列明若兩個或以上候選人得票相同的決定方式，例如第二輪投票或抽簽。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 39 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=39)
+  - 引文：「若兩個或以上候選人得票相同，會以何種方式決定當選人，例如進行第二輪投票或抽簽決定」
+- **R-1.51** 訂明選票無效情形：所投候選人數目超逾認可數目、填寫不當、或加上可識別投票者身分的符號。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 39 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=39)
+  - 引文：「選票上所投的候選人數目，超逾認可數目；（ii）	選票填寫不當」
+- **R-1.52** 選舉結束後選票須密封封存，保存最少六個月，以備選舉不當指控的調查之用。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 39 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=39)
+  - 引文：「信封和選票應由校方保存最少六個月，以便在有人提出有關選舉不當的指控時，供調查之用」
+- **R-1.53** 落選候選人可在選舉結果公布的一星期內以書面提出上訴，章程須訂明公平公正的上訴機制。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 39 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=39)
+  - 引文：「落選的候選人可在選舉結果公布的一星期內，以書面方式向法團校董會提出上訴」
+- **R-1.54** 家長校董選舉須透過法團校董會認可的家教會舉行；未設立家教會的學校應盡早設立。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 12 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=12)
+  - 引文：「家長校董選舉須透過法團校董會認可的家教會舉行。未設立家教會的學校，應盡早設立一個家教會」
+- **R-1.55** 家長校董候選人不得是學校的教員。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 12 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=12)
+  - 引文：「候選人不可以是學校的教員」
+- **R-1.56** 家長校董選舉中每名家長不論子女數目只可有一票，並以個人身分投票。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 12 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=12)
+  - 引文：「每名家長不論其就讀該校子女的數目，只可有一票，並以個人身分投票」
+- **R-1.57** 家教會在制訂家長校董選舉機制前必須諮詢所有家長，日後一切修訂亦須妥為記錄。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 46 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=46)
+  - 引文：「家教會在制訂家長校董選舉機制前，必須諮詢所有家長。家教會日後對選舉機制所作的一切修訂，亦須妥為記錄」
+- **R-1.58** 在章程內訂明家長校董及替代家長校董的人數和任期。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 46 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=46)
+  - 引文：「法團校董會應在其章程內訂明家長校董及替代家長校董（如適用）的人數和任期」
+- **R-1.59** 家長校董職位懸空超過三個月時，法團校董會須向常任秘書長申請延長填補空缺的限期。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 46 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=46)
+  - 引文：「如家長校董的職位懸空超過三個月，法團校董會便須向常任秘書長申請延長填補該空缺的限期」
+- **R-1.60** 家長校董選舉的投票日期應與提名截止日期相距最少兩星期。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 48 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=48)
+  - 引文：「家長校董選舉的投票日期應與提名截止日期相距最少兩星期」
+- **R-1.61** 投票應以不記名方式進行，投票人不得在選票上寫上姓名或任何可辨識身分的符號。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 48 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=48)
+  - 引文：「投票應以不記名方式進行，即投票人不得在選票上寫上自己的姓名或任何可辨識身分的符號」
+- **R-1.62** 為選舉設置上鎖投票箱，鎖匙由選舉主任保存。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 48 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=48)
+  - 引文：「校方應為選舉設置一個投票箱，投票箱應鎖好，鎖匙由選舉主任保存」
+- **R-1.63** 選舉主任須安排點票會，邀請各候選人及相關人士出席見證點票工作。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 48 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=48)
+  - 引文：「選舉主任須安排一個點票會，邀請所有家長、各候選人、及／或校長出席及見證點票工作」
+- **R-1.64** 家長校董在任期內離任出現空缺時，家教會須以同樣方式在三個月內進行補選。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 49 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=49)
+  - 引文：「家教會須以同樣方式在三個月內進行補選，填補有關的空缺」
+- **R-1.65** 家長校董的子女不再是現有學生時，其任期可持續至任期屆滿或該學年終結，以較早者為準。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 49 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=49)
+  - 引文：「該校董的任期可持續至任期屆滿或該學年終結為止，兩者以較早者為準」
+- **R-1.66** 家教會章程不得規定獲選的家教會主席自動當選為家長校董，或家長校董自動當選為家教會主席。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 49 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=49)
+  - 引文：「家教會不應在其章程中規定獲選的家教會主席可自動當選為家長校董」
+- **R-1.67** 上下午班制學校如只有一個認可家教會，上午班及下午班須分別設有最少一名家長校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 49 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=49)
+  - 引文：「上午班及下午班須分別設有最少一名家長校董」
+- **R-1.68** 選舉候選人及投票人不得提供利益令任何人參選、不參選或退出競選。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 44 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=44)
+  - 引文：「不得提供利益令任何人參選或不參選。2.	不得提供利益令任何已獲提名的候選人退出競選」
+- **R-1.69** 競選活動中不得發表關於候選人品格、資歷或以往行為的虛假或具誤導性陳述。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 44 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=44)
+  - 引文：「不得發表包括（但不限於）候選人的品格、資歷或以往的行為的虛假或具誤導性達關鍵程度的陳述」
+- **R-1.70** 不得提供利益或食物、飲料、娛樂，以影響他人在選舉中投票或不投票予某候選人。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 44 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=44)
+  - 引文：「不得提供利益，令他人在選舉中投票或不投票予某候選人」
+- **R-1.71** 家長校董候選人必須為現有學生的家長，且不得是該校的教員。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 51 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=51)
+  - 引文：「候選人必須為現有學生的家長。• 候選人不得是該校的教員」
+- **R-1.72** 家長校董選舉中所有家長須擁有均等的投票權及參選權，並以不記名方式投票。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 51 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=51)
+  - 引文：「所有家長須擁有均等的投票權及參選權。• 該選舉須以不記名方式進行投票」
+- **R-1.73** 選舉主任須於選舉日前不少於7天向所有家長發信，列出獲提名候選人的姓名。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 47 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=47)
+  - 引文：「選舉主任須於選舉日之前不少於7天，向所有家長另行發信，列出獲提名候選人的姓名」
+- **R-1.74** 家教會不應規定獲選的家教會主席自動當選為家長校董，或獲選家長校董自動當選為家教會主席。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 14 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=14)
+  - 引文：「家教會不應規定，獲選的家教會主席可自動當選為家長校董」
+- **R-1.75** 家教會章程須規定只有現有學生的家長或現職教員可選出或成為該會幹事。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 14 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=14)
+  - 引文：「家教會章程須規定只有現有學生的家長或現職教員可選出或成為該會的幹事」
+- **R-1.76** 校董選舉投票日期應與提名截止日期相距最少兩星期。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 38 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=38)
+  - 引文：「教員校董選舉的投票日期應與提名截止日期相距最少兩星期」
+- **R-1.77** 投票應以不記名方式進行，投票人不得在選票寫上姓名或任何可辨識身分的符號。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 38 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=38)
+  - 引文：「投票人不得在選票上寫上自己的姓名或任何可辨識身分的符號」
+- **R-1.78** 為選舉設置上鎖投票箱，鎖匙由選舉主任保存；空白選票亦須交回，不得攜離投票範圍。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 38 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=38)
+  - 引文：「投票箱應鎖好，鎖匙由選舉主任保存」
+- **R-1.79** 選舉主任本身不可以是該選舉的候選人。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 56 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=56)
+  - 引文：「但選舉主任本身不可以是校友校董選舉的候選人」
+- **R-1.80** 應事先在章程列明候選人得票相同時的決定方式，如第二輪投票或抽籤。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 57 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=57)
+  - 引文：「校友會應事先在其章程列明，若兩個或以上候選人得票相同，會以何種方式決定當選人」
+- **R-1.81** 法團校董會必須最少設有一名家長校董；如只設一名，便須同時設有一名替代家長校董；否則屬不符合法例要求。
+  - 出處：《法團校董會簡介會問答（2013）》第 4 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=4)
+  - 引文：「《教育條例》規定法團校董會必須最少設有一名家長校董；如只設一名家長校董，便須同時設有一名替代家長校董。」
+- **R-1.82** 認可家長教師會的章程必須訂明，該會幹事必須是現有學生的家長或現職教員，法團校董會才可承認該會為認可家教會。
+  - 出處：《法團校董會簡介會問答（2013）》第 16 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=16)
+  - 引文：「根據法例要求，家教會的會章必須訂明，該會的幹事必須是現有學生的家長或現職的教員，法團校董會才可根據法例，承認該會為認可的家教會，負責家長校董選舉。」
+- **R-1.83** 如認可家長教師會未能在法團校董會成立後3個月內選出家長校董，法團校董會須向常任秘書長申請延期提名該類別校董及提供理由。
+  - 出處：《法團校董會簡介會問答（2013）》第 19 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=19)
+  - 引文：「如未能選出家長校董，則法團校董會的組成將不符合條例的規定，法團校董會須向常任秘書長申請延期提名該類別校董及提供理由。」
+- **R-1.84** 家長校董或替代家長校董必須是有關學校現有學生的家長；現職教員不得獲提名為家長校董。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 16 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=16)
+  - 引文：「家長校董或替代家長校董，必須是有關學校現有學生的家長。」
+- **R-1.85** 家長校董選舉不以家庭為單位，每個家庭的父及母各有均等投票權及參選權（一人一票）。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 16 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=16)
+  - 引文：「選舉不是以家庭為單位，每個家庭的父及母擁有均等投票權及參選權(一人一票) (《教育條例》第40AO(5)(c)條)。」
+- **R-1.86** 家長校董選舉須透過認可家教會舉行；認可家教會的章程須列明只有現有學生家長或現職教員可選出或成為該會幹事。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 2 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=2)
+  - 引文：「根據《教育條例》第4 0 A O ( 3 ) 條，除非根據有關團體的章程，只有下述的人可選出或成為該團體的幹事，否則該團體不獲承認為認可家長教師會—( i )該校的現有學生家長；或( i i )該校的現職教員。」
+- **R-1.87** 家長校董選舉的投票日期應與提名截止日期相距最少兩星期。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 4 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=4)
+  - 引文：「家長校董選舉的投票日期應與提名截止日期相距最少兩星期。」
+- **R-1.88** 家長校董選舉的投票須以不記名方式進行，投票人不得在選票上寫上自己姓名或任何可辨識身分的符號。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 4 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=4)
+  - 引文：「根據《條例》規定，投票須以不記名方式進行，即投票人不得在選票上寫上自己的姓名或任何可辨識身分的符號，亦不得讓其他投票人目睹他投票給哪一位候選人。」
+- **R-1.89** 選舉主任須在選舉日前不少於7天，以書面形式通知所有家長獲提名候選人的姓名、個人簡介及選舉安排。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 3 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=3)
+  - 引文：「選舉主任應於選舉日之前不少於7 天，向所有家長發出書面通知，列出獲提名候選人的姓名及其在字數限制之內的個人簡介」
+- **R-1.90** 家長校董選舉後，已投選票應放入信封由選舉主任及認可家教會主席封口及簽名，並由認可家教會保存至少6個月。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=16)
+  - 引文：「選舉主任將所有已投的選票放進信封內，由選舉主任及認可家教會主席封口及簽名。信封由認可家教會保存至少6 個月。」
+- **R-1.91** 落選的家長校董候選人可在選舉結果公布後一星期內向認可家教會提出書面上訴並列明理由。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=16)
+  - 引文：「落選的候選人知悉在選舉結果公布的一星期內，可向認可家教會提出書面上訴及列明上訴理由。」
+- **R-1.92** 選舉主任本身不可以是家長校董選舉的候選人。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 3 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=3)
+  - 引文：「認可家教會應委任一名由該會的幹事互選產生或由學校委派的教師成為選舉主任，負責監察有關提名、分發選票及點票的工作，但選舉主任本身不可以是家長校董選舉的候選人。」
+- **R-1.93** 認可家教會不可規定認可家教會主席自動成為家長校董，或家長校董自動成為認可家教會主席。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 7 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=7)
+  - 引文：「認可家教會不可規定獲選的認可家教會主席可自動當選為家長校董，或規定獲選的家長校董自動當選為認可家教會主席」
+- **R-1.94** 認可家教會必須確保在舉行家長校董選舉前，已預先制訂校本選舉指引；制訂選舉細則時，須諮詢所有家長，並向所有家長公布有關詳情。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 2 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=2)
+  - 引文：「認可家教會必須確保在舉行家長校董選舉前，已預先制訂該指引。認可家教會應就家長校董的選舉諮詢所有家長的意見，以確保有關制度符合「公平而開放透明」的原則，並向所有家長公布有關詳情」
+- **R-1.95** 家長校董候選人必須為學校現有學生的家長。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 8 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=8)
+  - 引文：「候選人必須為現有學生的家長。」
+- **R-1.96** 家長校董候選人不得是該校的教員。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 8 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=8)
+  - 引文：「候選人不得是該校的教員。」
+- **R-1.97** 家長校董選舉前不少於7天，選舉主任須以書面形式通知所有家長候選人資料及選舉安排。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=15)
+  - 引文：「選舉日前不少於7天以書面形式通知所有家長」
+- **R-1.98** 選舉結束後所有已投選票須保存最少六個月，以便處理不當指控時供調查之用。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 6 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=6)
+  - 引文：「信封和選票不應長期保留，但最少應保留六個月，以便在有人提出有關選舉不當的指控時，供調查之用。」
+- **R-1.99** 落選家長校董候選人可在選舉結果公布的一星期內以書面向認可家教會提出上訴。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 6 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=6)
+  - 引文：「一星期內，以書面方式向認可家教會提出上訴，並列明上訴的理由。」
+- **R-1.100** 家長校董席位出現空缺時，認可家教會須在三個月內進行選舉及提名以填補空缺。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 6 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=6)
+  - 引文：「三個月內進行相關選舉及作出家長校董的提名，填補有關空缺。」
+
+### 2. 校董組成與資格
+
+- **R-2.1** 法團校董會校董必須根據《教育條例》規定，以章程所訂明的公開和公平方式選出。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 11 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=11)
+  - 引文：「章 程 所 訂 明 的 公 開 和 公 平 方 式，選 出 法團 校 董 會 校 董」
+- **R-2.2** 法團校董會組成不完整時，須於出現日期起計3個月內盡快填補校董空缺。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=15)
+  - 引文：「在沒有維持其組成完整的情況出現日期起計的3個月內，盡快填補空缺」
+- **R-2.3** 替代校董除投票權、多數計算及法定人數外須視為校董，並履行出席會議等職能。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=15)
+  - 引文：「除條例另有規定的情況外，替代校董就各方面而言須被視為校董」
+- **R-2.4** 校董任期由辦學團體訂定並列於章程；更改任期必須按既定程序修改法團校董會章程。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 15 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=15)
+  - 引文：「校董的任期由辦學團體訂定，列於法團校董會章程內」
+- **R-2.5** 不得僅修改認可家教會／校友會章程以更改家長／校友校董任期。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 15 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=15)
+  - 引文：「學校不可單靠通過修改認可家長教師會/ 認可校友會章程來更改相關家長/ 校友校董的任期」
+- **R-2.6** 校董不宜無限期連任，任期亦不宜過短。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 15 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=15)
+  - 引文：「校董不宜無限期連任；然而，任期亦不宜過短」
+- **R-2.7** 任何人不得在法團校董會內同時出任多於一個界別的校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 2 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=2)
+  - 引文：「校董不可在法團校董會內同時出任多於一個界別的校董」
+- **R-2.8** 各類校董任期宜在九月一日生效及八月三十一日終止。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 3 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=3)
+  - 引文：「家長校董的任期宜在九月一日生效及在八月三十一日終止」
+- **R-2.9** 校董職位懸空超過三個月時，法團校董會須向常任秘書長申請延長填補空缺的限期。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 3 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=3)
+  - 引文：「如家長校董的職位懸空超過三個月，法團校董會便須向常任秘書長申請延長填補該空缺的限期」
+- **R-2.10** 校董席位出現空缺（任期屆滿或中途離任）時，須在三個月內進行選舉及提名填補。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 7 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=7)
+  - 引文：「認可家教會須在三個月內進行相關選舉及作出家長校董的提名，填補有關空缺」
+- **R-2.11** 教員不得出任家長校董或校友校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 20 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=20)
+  - 引文：「根據《條例》規定，教員不得出任家長校董或校友校董」
+- **R-2.12** 當選校董須採用指定表格向常任秘書長提出校董註冊申請。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 23 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=23)
+  - 引文：「當選的教員須採用指定的表格，向常任秘書長提出校董註冊的申請」
+- **R-2.13** 接獲取消校董註冊的書面要求後，法團校董會須向常任秘書長發出書面通知要求取消註冊。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 26 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=26)
+  - 引文：「法團校董會須向常任秘書長發出書面通知，要求取消該名教員校董或替代教員校董的註冊」
+- **R-2.14** 確保候選人知悉《教育條例》第30條所載有關校董註冊的規定。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 14 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=14)
+  - 引文：「家長校董選舉的候選人知悉須注意《教育條例》第3 0 條所載有關校董註冊的規定」
+- **R-2.15** 法團校董會學校須設有最少一名家長校董；上下午班制而各有認可家教會者，上、下午班須分別設有最少一名家長校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 8 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=8)
+  - 引文：「設有法團校董會的學校，須設有最少一名家長校董。」
+- **R-2.16** 如學校只設有一名家長校董，須設有一名替代家長校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 8 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=8)
+  - 引文：「如學校只設有一名家長校董，須設有一名替代家長校董。」
+- **R-2.17** 法團校董會承認家教會為認可家教會前，須確保其章程列明只有現有學生家長或現職教員方可選出或出任幹事。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 8 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=8)
+  - 引文：「惟認可家教會章程必須列明只有下述的人士方可選出或出任該」
+- **R-2.18** 選舉後認可家教會須按《條例》第40AO條第(4)款提名當選家長出任家長校董，當選者以指定表格向常任秘書長申請註冊。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 6 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=6)
+  - 引文：「當選的家長須採用指定的表格，向常任秘書長提出校董註冊的申請。」
+- **R-2.19** 家長校董席位出現空缺時，認可家教會須在三個月內進行選舉及作出提名填補空缺。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 6 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=6)
+  - 引文：「認可家教會須在三個月內進行相關選舉及作出家長校董的提名」
+- **R-2.20** 家長校董子女不再是現有學生時，其任期可持續至任期屆滿或該學年終結為止，以較早者為準。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 6 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=6)
+  - 引文：「該校董的任期可持續至任期屆滿或該學年終結為止，兩者以較早者為準」
+- **R-2.21** 教員不得出任家長校董或校友校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 19 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=19)
+  - 引文：「教員不得出任家長校董或校友校董。」
+- **R-2.22** 確保校董人選符合《教育條例》第30條註冊規定，包括未滿18歲或已註冊為五間或以上學校校董者可被拒絕註冊。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 50 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=50)
+  - 引文：「申請人已註冊為五間或以上的學校校董。」
+- **R-2.23** 按章程訂明的公開和公平方式選出法團校董會校董。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 11 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=11)
+  - 引文：「程 所 訂 明 的 公 開 和 公 平 方 式，選 出 法團 校 董 會 校 董」
+- **R-2.24** 法團校董會組成須包括辦學團體校董、家長校董、教員校董、校長（當然校董）、校友校董及獨立校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 4 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=4)
+  - 引文：「須包括以下人士：辦學團體校董、家長校董、教員校董、校長（當然校董）、校友校董、獨立校董」
+- **R-2.25** 辦學團體校董人數不得超過章程所規定校董人數上限的60%。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 4 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=4)
+  - 引文：「辦學團體校董的人數不得超過法團校董會的章程所規定的校董人數上限的60%」
+- **R-2.26** 如法團校董會只設一名教員校董，須同時設一名替代教員校董；只設一名家長校董亦須設替代家長校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 4 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=4)
+  - 引文：「如法團校董會只設一名教員校董，便須同時設一名替代教員校董」
+- **R-2.27** 辦學團體委任替代辦學團體校董不得超過一名。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 4 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=4)
+  - 引文：「辦學團體亦可委任不超過一名替代辦學團體校董」
+- **R-2.28** 訂明替代校董沒有投票權，只有在有關界別校董缺席會議時，相關替代校董方可投票。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 4 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=4)
+  - 引文：「只有校董才有權投票，替代校董則沒有投票權」
+- **R-2.29** 訂明當其時身為校長的人須擔任校董一職（當然校董）。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 25 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=25)
+  - 引文：「當其時身為校長的人須擔任校董一職」
+- **R-2.30** 教員校董、家長校董及校友校董須由選舉產生；辦學團體校董及獨立校董分別由辦學團體及法團校董會按章程委任。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 11 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=11)
+  - 引文：「教員校董、家長校董及校友校董須按條例規定由選舉產生」
+- **R-2.31** 校董不得是《破產條例》所指的破產人或已根據該條例訂立自願安排。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 11 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=11)
+  - 引文：「是《破產條例》所指的破產人，或已根據該條例訂立自願安排」
+- **R-2.32** 申請註冊為校董者每年最少有9個月不在香港居住、未滿18歲或已註冊為五間或以上學校校董，可被拒絕註冊。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 50 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=50)
+  - 引文：「申請人每年最少有9個月不在香港居住；• 申請人並非出任校董的適合及適當人選」
+- **R-2.33** 年滿70歲的校董申請人須出示有效醫生證明書，證明健康方面適合執行校董職能。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 50 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=50)
+  - 引文：「申請人年滿70歲而無法出示有效的醫生證明書，以證明他在健康方面適合執行校董的職能」
+- **R-2.34** 校董不得在法團校董會內同時出任多於一個界別的校董，亦不可同時參選兩個界別的校董選舉。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 46 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=46)
+  - 引文：「校董不可在法團校董會內同時出任多於一個界別的校董」
+- **R-2.35** 接獲認可團體按條例通過的書面要求後，法團校董會須向常任秘書長發出書面通知，要求取消有關校董的註冊。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 42 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=42)
+  - 引文：「法團校董會須向常任秘書長發出書面通知，要求取消該名教員校董或替代教員校董的註冊」
+- **R-2.36** 法團校董會必須包括辦學團體校董、校長、教員校董、家長校董、校友校董及獨立校董。
+  - 出處：《法團校董會簡介會問答（2013）》第 3 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=3)
+  - 引文：「法團校董會必須包括辦學團體校董、校長、教員校董、家長校董、校友校董及獨立校董」
+- **R-2.37** 辦學團體校董人數不得超過章程所規定校董人數上限的60%。
+  - 出處：《法團校董會簡介會問答（2013）》第 3 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=3)
+  - 引文：「辦學團體校董的人數不得超過法團校董會的章程所規定的校董人數上限的60%」
+- **R-2.38** 計算辦學團體校董人數上限時，所有替代校董不計算在內。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 21 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=21)
+  - 引文：「計算辦學團體校董人數上限時，所有替代校董不計算在內」
+- **R-2.39** 設有法團校董會的學校須設有最少一名教員校董；章程只容許一名時須另設一名替代教員校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 41 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=41)
+  - 引文：「如法團校董會章程規定容許選出不超過一名教員校董，須另設一名替代教員校董」
+- **R-2.40** 法團校董會須設有最少一名家長校董；只設一名時須同時設一名替代家長校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 45 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=45)
+  - 引文：「條例規定法團校董會須設有最少一名家長校董」
+- **R-2.41** 如只設一名家長校董，替代家長校董亦須由選舉產生，有關安排應事先在選舉章程或指引聲明。
+  - 出處：《法團校董會簡介會問答（2013）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=16)
+  - 引文：「則須設一名替代家長校董，而替代家長校董亦須由選舉產生」
+- **R-2.42** 校董不得在法團校董會內同時出任多於一個界別的校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 12 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=12)
+  - 引文：「校董不可在法團校董會同時出任多於一個界別的校董」
+- **R-2.43** 確保校董候選人符合註冊資格，包括不可是破產人、曾犯可判監禁罪行、未滿18歲或已註冊為5間或以上學校的校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 12 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=12)
+  - 引文：「註冊為5間或以上學校的校董」
+- **R-2.44** 年滿70歲人士須提供醫生健康證明書方可擔任校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 12 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=12)
+  - 引文：「年滿70歲而未能提供醫生健康證明書」
+- **R-2.45** 校董不得在未獲法團校董會同意下缺席某學年內的所有會議。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 12 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=12)
+  - 引文：「在未獲法團校董會的同意下缺席某學年內的所有會議」
+- **R-2.46** 獨立校董不得是學校教員或專責人員、現有學生家長、校友，或辦學團體管治團體的成員、指明親屬或僱員。
+  - 出處：《法團校董會簡介會問答（2013）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=15)
+  - 引文：「獲提名註冊為獨立校董的人士不得是—(一) 有關學校的教員或專責人員」
+- **R-2.47** 在章程訂明各類別校董的任期，任期不宜過長。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 26 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=26)
+  - 引文：「建議校董的任期不宜過長」
+- **R-2.48** 章程訂明校董連任限制，任何人不得連任同一類別校董超過指定屆數。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 29 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=29)
+  - 引文：「任何人不得連任〔同一類別的〕校董超過〔三〕屆」
+- **R-2.49** 校董（校長除外）可藉給予校監書面通知辭任校董一職。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 26 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=26)
+  - 引文：「校董如並非校長，可藉給予校監書面通知，辭任校董一職」
+- **R-2.50** 非獨立校董職位懸空時，法團校董會須通知相關方在兩個月內提名一人填補空缺。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 26 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=26)
+  - 引文：「該通知須要求相關方在兩個月（或該通知指明的較短期間）內，提名一人填補該空缺」
+- **R-2.51** 獨立校董職位懸空時，法團校董會須盡快根據教育條例提名一人填補。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 27 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=27)
+  - 引文：「如有獨立校董的職位懸空，法團校董會須盡快根據教育條例提名一人填補該空缺」
+- **R-2.52** 章程訂明填補半途出缺校董的任期計算方式。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 27 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=27)
+  - 引文：「填補半途出缺職位的新的校董的任期並非重新起計，而是原任校董的任期的餘下部分」
+- **R-2.53** 預早進行校董選舉，避免校董交替時出現席位空缺。
+  - 出處：《法團校董會簡介會問答（2013）》第 13 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=13)
+  - 引文：「為免校董交替時出現空缺，學校應預早進行有關的校董選舉」
+- **R-2.54** 接獲取消校董註冊的有效要求後，法團校董會須盡快發出通知，校監須向每名校董送交通知副本。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 27 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=27)
+  - 引文：「校監須向每名校董送交該通知的副本」
+- **R-2.55** 法團校董會不得向校董提供酬勞；除校長、教員校董及替代教員校董外，校董不得在校內擔任受薪職位。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 34 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=34)
+  - 引文：「法團校董會不得向任何校董提供任何酬勞」
+- **R-2.56** 商討校長或教員校董的聘任、辭退、聘任條件及薪酬事宜時，有關校長或教員須避席並不得投票。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 34 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=34)
+  - 引文：「有關的校長或教員須避席有關會議及討論，並不得在有關議案上投票」
+- **R-2.57** 替代校董在該類別校董在場時不可投票；該校董因利益關係離席時，替代校董可投票。
+  - 出處：《法團校董會簡介會問答（2013）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=16)
+  - 引文：「替代校董在該類別的校董在場時，不可以投票」
+- **R-2.58** 法團校董會必須包括辦學團體校董、校長（當然校董）、不少於一名教員校董、不少於一名家長校董、一名或多於一名校友校董，及不少於一名獨立校董。
+  - 出處：《法團校董會簡介會問答（2013）》第 3 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=3)
+  - 引文：「《教育條例》規定法團校董會必須包括辦學團體校董、校長、教員校董、家長校董、校友校董及獨立校董。」
+- **R-2.59** 辦學團體校董的人數不得超過法團校董會章程所規定的校董人數上限的60%。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 14 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=14)
+  - 引文：「辦學團體校董的人數不得超過法團校董會章程所規定的校董人數上限的60%。」
+- **R-2.60** 若法團校董會章程只容許設有一名家長校董，則必須同時設有一名替代家長校董；若法團校董會章程只容許設有一名教員校董，則必須同時設有一名替代教員校董。
+  - 出處：《法團校董會簡介會問答（2013）》第 18 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=18)
+  - 引文：「條例亦規定若法團校董會章程只容許設有一名家長校董，則必須設有一名替代家長校董，該校董也須由選舉產生。」
+- **R-2.61** 任何校董不得以多於一個類別的身份在法團校董會內擔任校董；家長、校友及獨立校董都不得是該校的教員。
+  - 出處：《法團校董會簡介會問答（2013）》第 19 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=19)
+  - 引文：「條例訂明任何校董不得以多於一個類別的身份在法團校董會內擔任校董。家長、校友及獨立校董都不得是該校的教員。」
+- **R-2.62** 法團校董會成立後，原先已註冊的校董會校董的註冊會自動取消，所有法團校董會校董（包括先前為校董的人士）必須重新註冊。
+  - 出處：《法團校董會簡介會問答（2013）》第 14 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=14)
+  - 引文：「條例規定法團校董會成立後，原先校董的註冊會自動取消，所有法團校董會校董(包括先前為校董的人士)必須重新註冊。」
+- **R-2.63** 若某校董在沒有法團校董會同意下缺席某學年內的所有法團校董會會議，常任秘書長在接獲書面通知後，可取消其校董註冊。
+  - 出處：《法團校董會簡介會問答（2013）》第 22 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=22)
+  - 引文：「若某校董在沒有法團校董會的同意下缺席某學年內的所有法團校董會會議，而該校董已獲適當通知在該等會議中出席，教育局常任秘書長在接獲法團校董會的書面通知後，可取消他的校董註冊。」
+- **R-2.64** 校董停任必須按既定程序進行：由負責提名相關校董的團體向法團校董會提出書面要求（須通過決議，方式類似有關校董選出或提名所用的方式），再由法團校董會向常任秘書長發出書面通知，取消相關校董的註冊。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=16)
+  - 引文：「校董的停任，必須：1.由負責提名相關校董註冊的團體向法團校董會提出書面要求；2.由該法團校董會向常任秘書長發出書面通知，取消相關校董的註冊。」
+- **R-2.65** 如家長校董的子女在任內離開學校，或獨立校董在任內不再符合獨立人士要求，其任期可持續至任期屆滿或該學年終結為止，兩者以較早者為準。
+  - 出處：《法團校董會簡介會問答（2013）》第 14 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=14)
+  - 引文：「如家長校董在某學年中不再是學校現有學生的家長，或獨立校董在某學年中不再符合獨立人士的要求，則其任期可持續至任期屆滿或該學年終結為止，兩者以較早者為準。」
+- **R-2.66** 替代校董可參加法團校董會會議並發表意見，但無投票權；僅在相同界別校董缺席時，替代校董方能投票。
+  - 出處：《法團校董會簡介會問答（2013）》第 10 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=10)
+  - 引文：「校董與替代校董並無多大分別，他們可參加法團校董會會議，發表意見。但當涉及投票時，只有校董才有權投票，替代校董沒有投票權；倘有校董缺席會議，屬相同界別的替代校董方能投票。」
+- **R-2.67** 法團校董會須設有最少一名家長校董；如章程只規定一名家長校董，須同時設有一名替代家長校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 1 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=1)
+  - 引文：「《教育條例》（以下簡稱《條例》）規定法團校董會須設有最少一名家長校董；如法團校董會章程訂明只設有一名家長校董，便須同時設有一名替代家長校董。」
+- **R-2.68** 法團校董會須設有最少一名教員校董；如章程只規定一名教員校董，須同時設有一名替代教員校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 18 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=18)
+  - 引文：「《教育條例》（以下簡稱《條例》）規定法團校董會須設有最少一名教員校董；如法團校董會的章程（以下簡稱「章程」）訂明只設有一名教員校董，便須同時設有一名替代教員校董。」
+- **R-2.69** 法團校董會須設有最少一名校友校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 35 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=35)
+  - 引文：「法團校董會須設有最少一名校友校董。」
+- **R-2.70** 法團校董會應在沒有維持組成完整的情況出現日期起計3個月內，盡快填補空缺。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=15)
+  - 引文：「法團校董會應填補空缺以維持其組成完整，在沒有維持其組成完整的情況出現日期起計的3個月內，盡快填補空缺。」
+- **R-2.71** 替代校董須履行其作為校董的所有職能（出席所有法團校董會會議、參與討論、提出議程項目及發言等），但在投票權、確定多數校董及確立法定人數方面除外。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=15)
+  - 引文：「替代校董須履行其作為校董的所有職能，例如：出席所有法團校董會會議、參與討論、提出議程項目及發言等。」
+- **R-2.72** 如家長校董職位空缺，認可家教會須在3個月內進行選舉及提名，填補空缺；無法按期作出提名時，法團校董會可基於充分理由向常任秘書長申請延長限期。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 3 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=3)
+  - 引文：「如家長校董的職位懸空超過三個月，法團校董會便須向常任秘書長申請延長填補該空缺的限期。」
+- **R-2.73** 如家長校董不再是該校現有學生的家長，其任期持續至任期屆滿或該學年終結，以較早者為準。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 9 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=9)
+  - 引文：「如家長校董不再是該校現有學生的家長，他的校董任期將持續至任期屆滿或該學年終結為止，兩者以較早者為準。」
+- **R-2.74** 校董不可在法團校董會內同時出任多於一個界別的校董（如不可同時出任校友校董及家長校董）。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 36 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=36)
+  - 引文：「根據《條例》規定，校董不可在法團校董會內同時出任多於一個界別的校董，例如任何人士均不可同時出任校友校董及家長校董」
+- **R-2.75** 如校友校董職位空缺，認可校友會須在3個月內進行選舉及提名；如沒有提名，法團校董會須書面通知教育局，並在諮詢校友後，可提名人士填補該空缺。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 40 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=40)
+  - 引文：「如校友校董席位出現空缺（包括任期屆滿及中途離任兩種情況），認可校友會須在三個月內進行相關選舉及作出校友校董的提名，填補有關空缺。如認可校友會沒有校友校董的提名，法團校董會須書面通知教育局有關情況。」
+- **R-2.76** 如教員校董職位空缺，校長須在3個月內進行選舉及提名；無法按期作出提名時，法團校董會可向常任秘書長申請延長限期。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 23 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=23)
+  - 引文：「如教員校董或替代教員校董席位出現空缺（包括任期屆滿、中途辭任或不再受僱於學校等情況），校長須在三個月內進行相關選舉及作出教員校董的提名，填補有關空缺。」
+- **R-2.77** 如學校的認可家教會認為某家長校董不適宜繼續擔任，可用類似選出該校董的方式通過決議，向法團校董會提出書面要求取消其註冊，法團校董會須向常任秘書長發出書面通知。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 9 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=9)
+  - 引文：「如學校的認可家教會認為某家長校董不適宜繼續擔任校董，可用類似選出該校董的方式通過決議，向法團校董會提出書面要求，取消該家長校董的註冊。當接獲有關要求後，法團校董會須向常任秘書長發出書面通知，要求取消該名家長校董的註冊。」
+- **R-2.78** 如學校的認可校友會認為某校友校董不適宜繼續擔任，可用類似選出該校董的方式通過決議，向法團校董會提出書面要求取消其註冊，法團校董會須向常任秘書長發出書面通知。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 41 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=41)
+  - 引文：「如學校的認可校友會認為某校友校董不適宜繼續擔任校董，可用類似選出該校董的方式通過決議，向法團校董會提出書面要求，取消該校友校董的註冊。當接獲有關要求後，法團校董會須向常任秘書長發出書面通知，要求取消該名校友校董的註冊。」
+- **R-2.79** 常任秘書長可拒絕每年最少有9個月不在香港居住的人士申請註冊為學校校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 50 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=50)
+  - 引文：「申請人每年最少有9 個月不在香港居住」
+- **R-2.80** 未滿18歲的人士不得申請註冊為學校校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 50 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=50)
+  - 引文：「申請人未滿1 8 歲」
+
+### 3. 管治責任與問責
+
+- **R-3.1** 學校必須以法團校董會的形式設立企業管治架構，推行和支援校本管理。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 11 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=11)
+  - 引文：「學校必須以法團校董會的形式設立企業 管 治 架 構」
+- **R-3.2** 法團校董會須以共同參與決策、透明和問責為基礎，按學校情況發展優質學校教育。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 11 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=11)
+  - 引文：「法團 校 董 會 須 以 共 同 參 與 決 策、透 明 和 問責為基礎」
+- **R-3.3** 法團校董會須就資助學校的管理和表現以及學生的學習成效作最終負責和交代。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 12 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=12)
+  - 引文：「法 團 校 董 會 須 就 資 助 學 校 的 管 理 和 表現，以及學生的學習成效」
+- **R-3.4** 法團校董會應負責為學校制定具策略性的宗旨和政策、領導實現、監察管理工作並向持份者報告。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 12 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=12)
+  - 引文：「為學校 制定具 策 略 性 的 宗 旨 和 政策」
+- **R-3.5** 法團校董會須就學生的學習成效和學校的管理及營運，直接向教育局、常任秘書長、家長及公眾負責。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 14 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=14)
+  - 引文：「就學生的學習成效和學校的管理及營運直接向 教育局、常任秘書長、家長及公眾負責」
+- **R-3.6** 法團校董會應讓家長及持份者分享學校資料和管理訊息，以提高學校運作的透明度。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 14 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=14)
+  - 引文：「讓家長及持份者分享學校資料和管理訊息」
+- **R-3.7** 法團校董會必須履行社會責任，包括提供教學實習安排、與其他學校分享專業知識，以及協助舉行公開考試。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 14 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=14)
+  - 引文：「法 團 校 董 會 必 須 履 行 社 會 責 任」
+- **R-3.8** 法團校董會及校長必須遵守管理資助學校有關的法例及教育局不時發出的通告、指示及指引。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 8 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=8)
+  - 引文：「必須遵守管理資助學校 有關的法例」
+- **R-3.9** 法團校董會和校長就學校管理訂立具透明度和問責性的行政程序及措施時，應參閱《學校行政手冊》。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 8 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=8)
+  - 引文：「亦 應 參 閱 《 學 校 行 政 手 冊 》」
+- **R-3.10** 法團校董會作為政府資助金受託人，領取津貼時必須遵守《資助則例》訂明的資助條件，否則政府可撤回津貼。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 8 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=8)
+  - 引文：「作 為 政 府 資 助 金 受 託 人 的 法 團 校 董 會」
+- **R-3.11** 學校須配合教育局視察，包括在有需要時讓其查核校內所有文件及記錄。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 14 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=14)
+  - 引文：「視 察 學 校 ， 包 括 在 有 需 要 時 查 核 學校 內 部 所 有 文 件 及 記 錄」
+- **R-3.12** 校本管治文件應訂明常任秘書長可指派公職人員出席法團校董會會議。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 14 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=14)
+  - 引文：「可 指派公職人員出席此類會議」
+- **R-3.13** 校本管治文件應載明：學校管理不令人滿意或校董會組成不可能使管理令人滿意時，常任秘書長可根據《教育條例》第41條委任校董。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 14 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=14)
+  - 引文：「常任秘書長可委任“校董，任期按 [他]認為適當者而定」
+- **R-3.14** 法團校董會可在常任秘書長就批核班級結構作出決定前，就學校的班級結構提出意見及建議。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=16)
+  - 引文：「就其學校的班級結構向 常任秘書長 提出意見及建議」
+- **R-3.15** 法團校董會須妥善管理學校，確保學生為日後進修或工作作好準備。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=16)
+  - 引文：「法團校董會須妥善管理學校，並確保學生為日後進修或工作」
+- **R-3.16** 法團校董會收到常任秘書長改善通知書後，須在通知書所定期限內採取適當補救措施，否則津貼可被減少、停止或撤回。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 16 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=16)
+  - 引文：「如法團校董會未能在有關通知書所定期限內採取適當的補救措施」
+- **R-3.17** 學校管治文件應清楚界定各階層人員，包括校董、校長、中層管理人員及教師的職責。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 4 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=4)
+  - 引文：「有否清楚界定各階層人員，包括校董、校長、中層管理人員及教師的職責」
+- **R-3.18** 學校應引入共同參與的管理模式，讓教師、家長、校友及社會人士參與校政決策。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 4 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=4)
+  - 引文：「讓教師、家長、校友及社會人士參與校政決策」
+- **R-3.19** 學校自我評估機制須有施行計劃時間表及優先次序，並就自評結果作匯報和跟進。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 5 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=5)
+  - 引文：「須有施行計劃時間表及優先次序」
+- **R-3.20** 訂明學校由法團校董會負責管理，包括策劃發展路向、管理財政及人力資源並為學校表現負責。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 10 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=10)
+  - 引文：「已設立法團校董會的學校，須由法團校董會負責管理」
+- **R-3.21** 法團校董會須確保學校遵守《教育條例》及其他相關法例和指引的規定。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 10 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=10)
+  - 引文：「法團校董會須確保學校遵守《教育條例》及其他相關法例和指引的規定」
+- **R-3.22** 未經常任秘書長事先書面准許，校監、校董或校董會不得在校舍經營或准許他人經營業務或商業活動。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 5 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=5)
+  - 引文：「任何接受政府撥款學校的校監、校董或校董會，未經常任秘書長事先以書面准許，不得」
+- **R-3.23** 安排新任校董參加教育局、辦學團體、學校或其他機構舉辦的校董培訓課程。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 51 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=51)
+  - 引文：「參加教育局/辦學團體/學校/其他機構舉辦的校董培訓課程」
+- **R-3.24** 法團校董會以受託人身分管理政府經費、學生收費及捐款，行使權力須按經費目的並以學生和學校最大利益為依歸。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 3 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=3)
+  - 引文：「以 學 生 和 學 校 的 最 大 利 益 為 依 歸 而 行 使 有 關權力」
+- **R-3.25** 界定校董督導及監察兩大職能，並制訂有校董參與的機制以發揮該等職能。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 4 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=4)
+  - 引文：「原則上，校董有兩大職能及角色，分別是督導及監察。」
+- **R-3.26** 開支與預算金額有重大偏差時，須即時展開調查、解釋及糾正，並向法團校董會匯報。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 7 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=7)
+  - 引文：「便 須 即 時 展 開 調 查 、 加 以 解 釋 及 適 當 糾 正 ，並向法團校董會匯報」
+- **R-3.27** 學校須定期（例如按季度）向法團校董會匯報學校的財政狀況。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 11 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=11)
+  - 引文：「學 校 須 定 期 (例 如 按 季 度 )向 法 團 校 董 會 匯 報 學校的財政狀況」
+- **R-3.28** 投資活動的討論詳情和議決必須記錄於法團校董會會議記錄，投資虧損責任由引致損失的法團校董會承擔。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 8 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=8)
+  - 引文：「投資虧損的相關責任須由引致損失的法團校董會承擔。」
+- **R-3.29** 按《教育條例》第40BB(3)及(4)條委任一名執業會計師審核學校的周年帳目。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 11 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=11)
+  - 引文：「委任一名執業會計師審核學校的周年帳目」
+- **R-3.30** 現金損失、欺詐、偽造文件等異常事件，法團校董會須立即報警及從速（例如七天之內）書面向高級學校發展主任匯報。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 12 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=12)
+  - 引文：「從 速 (例 如 七 天 之 內 ) 以 書 面 方 式 向 有關的高級學校發展主任匯報」
+- **R-3.31** 法團校董會須於學年／財政年度結束後六個月內向教育局提交外聘核數師報告、經審核周年帳目及管理建議信。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 12 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=12)
+  - 引文：「法團校董會須於學年／財政年度結束後六個月內向教育局提交下列文件」
+- **R-3.32** 向持分者分發的周年校務報告中載錄財務摘要。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 12 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=12)
+  - 引文：「向各持分者分發的周年校務報告中載錄財務摘要」
+- **R-3.33** 學校接受利益和捐贈不得損害學生利益和校譽，並須經校董會批准。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 16 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=16)
+  - 引文：「若學校接受利益和捐贈，不得損害到學生的利益和校譽，並須經校董會批准。」
+- **R-3.34** 法團校董會資助學校須於成立法團校董會後緊隨的學年開始應用《資助則例》。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 2 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=2)
+  - 引文：「法團校董會資助學校須於成立法團校董會後緊隨的學年開始應用 本《資助則例》」
+- **R-3.35** 法團校董會須遵守《資助則例》條款及教育局常任秘書長不時發出的通告及指示。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 2 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=2)
+  - 引文：「法團校董會須遵守《資助則例》的條款，以及教育局常任秘書長不時發出的通告及指 示所載的規定」
+- **R-3.36** 法團校董會必須確保校董及教職員遵守《防止賄賂條例》，特別是第9條有關索取及接受利益的規定。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 11 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=11)
+  - 引文：「遵守《防止賄賂條例》 (第201章)，特別是第 9條」
+- **R-3.37** 法團校董會須就資助學校的管理和表現以及學生的學習成效作最終負責和交代。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 11 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=11)
+  - 引文：「法 團 校 董 會 須 就 資 助 學 校 的 管 理 和 表現，以及學生的學習成效 作最終負責和交」
+- **R-3.38** 為學校制定公開及可公平地行使的收生政策。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 13 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=13)
+  - 引文：「為學校制定 公開及可公平地行使的收生政策」
+- **R-3.39** 法團校董會必須審慎運用公帑，並須就公帑的運用作出交代。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 17 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=17)
+  - 引文：「法團校董會 必須審慎 運用公帑」
+- **R-3.40** 接受審計署署長在有需要時查閱獲發津貼學校的記錄和帳目。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 17 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=17)
+  - 引文：「查閱根據本《資助則例》條款獲發放津貼的學校的記錄和帳目」
+- **R-3.41** 聽取廉政公署就反貪污程序及措施給予的意見，並採取適當的補救行動。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 18 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=18)
+  - 引文：「學校應聽取廉政公署給予的 意見，並採取適當的補救行動。」
+- **R-3.42** 因應教育局不時的規定和要求，更新學校資料及準時呈遞學校、教師及學生的準確資料。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 9 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=9)
+  - 引文：「更新學校資料及準時呈遞有關學校、教師及學生的準確資料」
+- **R-3.43** 法團校董會須按照其章程處理事務，修訂章程須藉按章程規定方式通過的決議進行。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 17 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=17)
+  - 引文：「法團校董會須按照其章程處理事務」
+- **R-3.44** 如有多於一個團體可獲承認為認可家教會，法團校董會所承認的須是成員中家長人數最多的團體。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 33 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=33)
+  - 引文：「如有多於一個團體可獲如此承認，法團校董會所承認的團體須是其成員當中家長人數最多的」
+- **R-3.45** 校長遴選委員會由辦學團體代表及法團校董會代表組成，只有校董才可獲委任為法團校董會代表。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 33 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=33)
+  - 引文：「只有校董才可獲委任為法團校董會代表」
+- **R-3.46** 法團校董會的經費及資產只能用於符合其目的、辦學抱負和使命的用途，不得分派予校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 35 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=35)
+  - 引文：「法團校董會的經費及資產只能用於符合其目的、辦學抱負和使命的用途上，且不得將其經費及資產分派予校董」
+- **R-3.47** 核數師的委任及其酬勞的決定，必須經不少於全體校董的三分之二批准。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 35 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=35)
+  - 引文：「該核數師的酬勞（如有的話）的決定，必須經不少於全體校董的〔三分之二〕批准」
+- **R-3.48** 接受任何金錢捐贈前，法團校董會須向捐贈者查詢是否欲在法團校董會解散時索回該金錢。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 35 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=35)
+  - 引文：「法團校董會在接受任何金錢的捐贈前，須向捐贈者查詢他是否欲在法團校董會解散的情況下索回該金錢」
+- **R-3.49** 除非事先獲常任秘書長書面准許，非公帑業務或商業活動所得利潤須按條例第99B條用於本校學生直接受益的用途。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 73 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=73)
+  - 引文：「所得的利潤或淨收入，根據條例第99B條的規定，運用於本校學生直接受益的用途上」
+- **R-3.50** 法團校董會須為學校及其員工制訂明確的收受利益和捐贈政策、問責機制及監管程序。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 73 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=73)
+  - 引文：「為學校及其員工制訂明確的收受利益和捐贈政策，問責機制及監管程序」
+- **R-3.51** 法團校董會不得以學校的資產作為貸款的抵押或保證。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 73 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=73)
+  - 引文：「須確保法團校董會不能以學校的資產作為貸款的抵押或保證」
+- **R-3.52** 法團校董會須就籌款所得款項及各項開支分別作記錄，以供審核之用。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 73 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=73)
+  - 引文：「辦學團體應要求法團校董會就所得的款項及各項開支分別作記錄，以供審核之用」
+- **R-3.53** 法團校董會經費及資產只能用於符合其目的、辦學抱負和使命的用途，不得分派予校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 34 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=34)
+  - 引文：「法團校董會的經費及資產只能用於符合其目的、辦學抱負和使命的用途上」
+- **R-3.54** 校董須確保辦學團體訂定的本校抱負和辦學使命得以實踐。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 29 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=29)
+  - 引文：「確保辦學團體訂定的本校抱負和辦學使命得以實踐」
+- **R-3.55** 校董須監督規劃及制訂財政預算過程、監察學校表現，並確保學校管理層承擔責任。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 29 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=29)
+  - 引文：「監督規劃及制訂財政預算的過程、監察學校表現、確保學校管理層承擔責任」
+- **R-3.56** 任何類別的校董均須以其個人身分為本校學生的利益而行事。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 29 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=29)
+  - 引文：「任何類別的校董均須以其個人身分為本校學生的利益而行事」
+- **R-3.57** 法團校董會須為學校的表現向常任秘書長及辦學團體負責。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 22 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=22)
+  - 引文：「為學校的表現向常任秘書長及辦學團體負責」
+- **R-3.58** 在學校發展計劃書及周年學校報告內披露財務資料。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 5 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=5)
+  - 引文：「須在其學校發展計劃書及周年學校報告內披露財務資料」
+- **R-3.59** 僱用《專業會計師條例》界定的執業會計師審核法團校董會周年帳目，並把帳目提交教育當局。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 5 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=5)
+  - 引文：「僱用《專業會計師條例》所界定的執業會計師，負責審核法團校董會的周年帳目」
+- **R-3.60** 法團校董會必須以受託人身分持有按照資助則例從政府獲取的津貼。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 15 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=15)
+  - 引文：「學校的法團校董會必須以受託人身分持有按照資助則例從政府獲取的津貼」
+- **R-3.61** 事先決定將簽訂合約的權力授予哪位校董，或訂明須由多少位校董確認簽署的合約方為有效。
+  - 出處：《法團校董會簡介會問答（2013）》第 9 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=9)
+  - 引文：「法團校董會應事先決定將簽訂合約的權力授予哪位校董」
+- **R-3.62** 法團校董會校董不得就真誠地執行或本意是執行其校董職位職能而作出或不作出的任何事情，招致任何民事法律責任。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 2 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=2)
+  - 引文：「條例第40BI條規定，校董不得就他真誠地執行，或本意是執行其校董職位的任何職能，而作出或不作出的任何事情，招致任何民事法律責任。」
+- **R-3.63** 法團校董會校董須以義務性質參與學校管理，不得收取酬金。
+  - 出處：《法團校董會簡介會問答（2013）》第 8 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=8)
+  - 引文：「政府給予資助學校的每筆款項均為學校的日常運作而設，並不包括校董酬金，故法團校董會校董須以義務性質參與學校管理。」
+- **R-3.64** 法團校董會須對學校表現負上全面及最終責任，應建立和實施清晰全面、嚴格有效的管治架構及內部監控制度，並不時檢討成效。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 20 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=20)
+  - 引文：「法團校董會須對學校表現負上全面及最終責任，應建立和實施清晰全面、嚴格有效的管治架構及內部監控制度，並不時檢討成效。」
+- **R-3.65** 法團校董會應公開有關學校表現和運作的資料，包括學校發展計劃、年度學校計劃、年度學校報告及財政狀況。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 20 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=20)
+  - 引文：「法團校董會應保持政策透明與態度開放政策，公開有關學校表現和運作的資料，包括學校發展計劃、年度學校計劃、年度學校報告、財政狀況等」
+- **R-3.66** 法團校董會應訂立一套對校董具約束力的操守指引，並以此作為校董執行職務時共同基礎。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 21 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=21)
+  - 引文：「為建立一個共同基礎，讓校董在執行職務時互相配合，法團校董會應訂立一套對校董具約束力的操守指引。」
+- **R-3.67** 法團校董會行事程序須遵從《教育條例》、《教育則例》、《資助則例》，以及教育局所發出的規定及指引。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 20 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=20)
+  - 引文：「遵從規定、務實行事：行事程序須遵從《教育條例》、《教育則例》、《資助則例》，以及教育局所發出的規定及指引。」
+- **R-3.68** 法團校董會負責策劃學校發展路向、管理財政及人力資源、督導學校自我完善、促進學生發展，並確保學校遵守《教育條例》，為學生提供優質教育。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 10 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=10)
+  - 引文：「法團校董會負責策劃學校的發展路向，管理學校的財政及人力資源，督導學校自我完善，促進學生的發展，確保學校實踐辦學團體訂定的辦學使命，並為學校的表現負責。」
+- **R-3.69** 法團校董會的督導角色包括確保學校在學校發展計劃、周年校務計劃和周年財政預算方面的表現具成效。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 4 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=4)
+  - 引文：「確保學校在學校發展計劃、周年校務計劃和周年財政預算方面的表現具成效」
+- **R-3.70** 任何異常或不尋常的學校事件（如現金損失、欺詐），法團校董會須從速（例如七天之內）以書面向有關的高級學校發展主任匯報。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 12 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=12)
+  - 引文：「從速 (例 如 七 天 之 內 ) 以 書 面 方 式 向 有關的高級學校發展主任匯報。」
+- **R-3.71** 法團校董會及校長必須遵守管理資助學校有關的法例、教育局通告及指引。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 8 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=8)
+  - 引文：「法團校董會及校長：(a) 必須遵守管理資助學校 有關的法例」
+- **R-3.72** 法團校董會和校長就學校管理訂立行政程序及措施時，應參閱《學校行政手冊》並遵守相關通告、指示和指引。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 8 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=8)
+  - 引文：「法團校董會和校長就學校管理訂立具透 明 度 和 問 責 性 的 行 政 程 序 及 措 施時 ， 亦 應 參 閱 《 學 校 行 政 手 冊 》」
+- **R-3.73** 法團校董會須就資助學校的管理和表現，以及學生的學習成效作最終負責和交代，並應確保學生在認知、德育及情意方面得以全面發展。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 12 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=12)
+  - 引文：「法 團 校 董 會 須 就 資 助 學 校 的 管 理 和 表現，以及學生的學習成效 作最終負責和交代，並應 確保學生在認知、德育及情意方面得以全面發展」
+- **R-3.74** 根據校本管理和企業管治架構，法團校董會應負責為學校制定具策略性的宗旨和政策、領導學校實現宗旨和政策、監察學校的管理工作，以及就其管理職份向持份者報告。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 12 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=12)
+  - 引文：「根 據 校 本 管 理 和 企 業 管 治 架 構，法 團 校董 會 應 負 責 ︰(a) 為學校 制定具 策 略 性 的 宗 旨 和 政策；(b) 領 導 學 校 實 現 這 些 宗 旨 和 政 策」
+- **R-3.75** 法團校董會必須履行社會責任，包括為實習教師提供教學實習機會或安排，以及協助舉行公開考試。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 14 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=14)
+  - 引文：「法 團 校 董 會 必 須 履 行 社 會 責 任 ，對 教 育 專 業 和 教 育 界 的 福 祉 作 出 貢獻」
+- **R-3.76** 常任秘書長如認為派員出席學校法團校董會會議有助提升學校運作及表現，可根據《教育條例》第40BA條指派公職人員出席此類會議。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 14 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=14)
+  - 引文：「如 認 為 派 員 出 席 學 校 法 團 校 董 會 會議 有 助 提 升 學 校 運 作 及 表 現 ， 可 指派公職人員出席此類會議」
+- **R-3.77** 法團校董會須妥善管理學校，並確保學生為日後進修或工作作好準備；未符合資助則例規定，常任秘書長可要求作出改善或減少、停止或撤回津貼。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=16)
+  - 引文：「法團校董會須妥善管理學校，並確保學生為日後進修或工作 (視乎何者適用 )作好準備」
+
+### 4. 教員校董選舉
+
+- **R-4.1** 法團校董會學校須設最少一名教員校董；章程只容許一名時須另設替代教員校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 25 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=25)
+  - 引文：「設有法團校董會的學校，須設有最少一名教員校董」
+- **R-4.2** 教員校董必須是該校教員，且不得是該校校長。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 25 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=25)
+  - 引文：「教員校董必須是有關學校的教員」
+- **R-4.3** 教員校董選舉中，學校所有教員須有均等的投票及參選權。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 25 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=25)
+  - 引文：「在選舉中，學校所有教員須有均等的投票及參選權」
+- **R-4.4** 依據《教育條例》及法團校董會章程進行教員校董選舉，校本細則不可違反條例或章程。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 18 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=18)
+  - 引文：「學校須依據《條例》及「章程」進行教員校董選舉」
+- **R-4.5** 教員校董選舉一般由校長擔任選舉主任主持，並確保程序合乎章程規定。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 20 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=20)
+  - 引文：「一般來說，該選舉由校長主持，即由校長擔任選舉主任」
+- **R-4.6** 校長須按《教育條例》第40AN條提名當選教員出任教員校董，並通知法團校董會選舉結果。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 23 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=23)
+  - 引文：「校長須按照《條例》第4 0 A N 條第( 1 ) 款的規定提名當選的教員出任該校的教員校董」
+- **R-4.7** 教員校董或替代教員校董不再受僱於該校時，須當作已按章程辭任校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 26 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=26)
+  - 引文：「如某學校的教員校董或替代教員校董不再是受僱於該校」
+- **R-4.8** 教員校董候選人須為編制內教員職位，或於不少於12個月期間執行教學或直接與教學有關職責。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 19 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=19)
+  - 引文：「於一段為期不少於1 2 個月的期間內，執行教學職責或其他直接與教學有關的職責的」
+- **R-4.9** 校長不得獲提名為教員校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 19 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=19)
+  - 引文：「如有關教員是學校的校長，他／她便不能獲提名為教員校董。」
+- **R-4.10** 教員校董選舉投票日期與提名截止日期須相距章程訂明時限，一般最少兩星期。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 22 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=22)
+  - 引文：「投票日期與提名截止日期相距的時限，一般為最少兩星期」
+- **R-4.11** 教員校董選舉點票時，校長和選舉主任（如非由校長擔任）須在場見證；點票前須確保所有選票已從投票箱倒出。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 22 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=22)
+  - 引文：「校長和選舉主任（如非由校長擔任）須在場見證點票工作。」
+- **R-4.12** 法團校董會須設有最少一名教員校董，教員校董須由教員（特殊學校包括專責人員）互選產生。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 36 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=36)
+  - 引文：「教員校董須由教員及（如學校屬特殊學校）專責人員互選產生」
+- **R-4.13** 教員校董選舉機制須公平和公開，並向所有教員公布詳情及諮詢意見。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 36 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=36)
+  - 引文：「並確保有關機制公平和公開，以及向所有教員公布有關詳情及諮詢他們的意見」
+- **R-4.14** 修改教員校董選舉機制前必須諮詢所有教員，所作一切修訂均須妥為記錄。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 36 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=36)
+  - 引文：「在修改選舉機制前，法團校董會必須諮詢所有教員，及對選舉機制所作的一切修訂，亦須妥為記錄」
+- **R-4.15** 教員校董候選人必須是學校僱用的准用教員或檢定教員，並符合指定資格。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 36 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=36)
+  - 引文：「有關教員必須是學校僱用的准用教員或檢定教員」
+- **R-4.16** 非編制職位教員須於不少於12個月期間內執行教學或直接與教學有關的職責，方可成為教員校董候選人。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 36 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=36)
+  - 引文：「於一段為期不少於12個月的期間內，執行教學職責或其他直接與教學有關的職責」
+- **R-4.17** 校長不得獲提名為教員校董；教員不得出任家長校董或校友校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 36 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=36)
+  - 引文：「條例規定教員不得出任家長校董或校友校董」
+- **R-4.18** 在章程內訂明教員校董及替代教員校董的人數和任期，任期宜在九月一日生效及八月三十一日終止。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 36 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=36)
+  - 引文：「教員校董的任期宜在九月一日生效及在八月三十一日終止」
+- **R-4.19** 校長須向法團校董會提名獲選教員，再由法團校董會向常任秘書長申請將獲選教員註冊為教員校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 40 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=40)
+  - 引文：「校長須向常任秘書長申請，將獲選的教員註冊為該校的教員校董」
+- **R-4.20** 教員校董在任期內離任或不再受僱於學校時，法團校董會須以同樣方式在三個月內進行補選填補空缺。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 40 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=40)
+  - 引文：「法團校董會須以同樣方式在三個月內進行補選，填補有關的空缺」
+- **R-4.21** 教員校董須由教員（特殊學校包括專責人員）以不記名方式透過選舉產生。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 12 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=12)
+  - 引文：「教員校董須由教員及專責人員（如學校屬特殊學校）以不記名方式透過選舉產生」
+- **R-4.22** 教員校董候選人必須是學校僱用的准用教員或檢定教員，且不得是學校的校長。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 12 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=12)
+  - 引文：「教員校董選舉的候選人必須是學校僱用的准用教員或檢定教員」
+- **R-4.23** 教員校董選舉中學校所有教員須有均等的投票及參選權。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 41 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=41)
+  - 引文：「在選舉中，學校所有教員須有均等的投票及參選權」
+- **R-4.24** 校長須提名章程所規定數目的人士註冊為教員校董或替代教員校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 41 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=41)
+  - 引文：「學校的校長須提名該校的法團校董會的章程所規定的數目的人士」
+- **R-4.25** 教員校董或替代教員校董不再受僱於學校時，須當作已按章程辭任校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 41 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=41)
+  - 引文：「不再是受僱於該校，他須被當作已按照該校的法團校董會的章程辭任校董」
+- **R-4.26** 教員通過決議認為教員校董不適宜留任時，校長須向法團校董會提出書面要求取消其註冊。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 41 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=41)
+  - 引文：「校長須向法團校董會提出書面要求，取消該名教員校董或替代教員校董的註冊」
+- **R-4.27** 教員校董必須是有關學校的教員；教員校董不得是該校的校長；教員不得出任家長校董或校友校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 25 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=25)
+  - 引文：「教員校董必須是有關學校的教員。•  教員校董不得是該校的校長。」
+- **R-4.28** 如教員校董不再受僱於該校，須被當作已按照法團校董會章程辭任校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 26 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=26)
+  - 引文：「如某學校的教員校董或替代教員校董不再是受僱於該校，他須被當作已按照該校的法團校董會的章程辭任校董。」
+- **R-4.29** 教員校董選舉後，已投選票須由校長和選舉主任封入信封並簽名，由校方保存至少6個月。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 22 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=22)
+  - 引文：「選舉主任應將所有已投的選票放進信封內，由校長和選舉主任（如非由校長擔任）封口及簽名。信封由校方保存。信封和選票不應長期保留，但最少應保留六個月」
+- **R-4.30** 落選的教員校董候選人可在選舉結果公布後一星期內向法團校董會提出書面上訴並列明理由。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 33 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=33)
+  - 引文：「落選的候選人知悉在選舉結果公布的一星期內，可向法團校董會提出書面上訴及列明上訴理由。」
+- **R-4.31** 教員校董選舉的投票日期應與提名截止日期至少相隔兩週。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 31 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=31)
+  - 引文：「投票日期（投票日期與提名截止日期至少相隔兩週）」
+- **R-4.32** 選舉主任須在選舉日前不少於7天以書面形式通知所有教員獲提名候選人的姓名、個人簡介及選舉安排。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 21 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=21)
+  - 引文：「選舉主任須根據「章程」所指定的時限，一般在選舉日之前不少於7 天，向校內所有教員發出書面通知。該通知須包括獲提名候選人的姓名及其個人簡介」
+- **R-4.33** 教員校董候選人必須在學校擔任准用或檢定教員職位，或於不少於12個月期間內執行教學職責。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 19 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=19)
+  - 引文：「不少於1 2 個月的期間內，執行教學職責或其他直接與教學有關的職責的。」
+- **R-4.34** 教員校董選舉的投票日期與提名截止日期相距須一般最少兩星期。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 22 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=22)
+  - 引文：「一般為最少兩星期。」
+
+### 5. 利益申報
+
+- **R-5.1** 校董須每12個月最少一次向法團校董會作出書面利益申報，並備存於登記冊內。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 2 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=2)
+  - 引文：「校董須每12個月最少一次向其學校的法團校董會作出書面申報，並備存於一份登記冊內」
+- **R-5.2** 申報利益的事宜有改變後一個月內，安排校董作出書面申報。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 2 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=2)
+  - 引文：「在有關申報利益的任何事宜改變後的一個月內，校董可作出書面申報」
+- **R-5.3** 校董不得作出明知在要項上屬虛假或具誤導性的利益申報。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 2 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=2)
+  - 引文：「校董不得作出明知在要項上屬虛假或具誤導性的申報，否則屬犯法」
+- **R-5.4** 校董就法團校董會會議正考慮的利益衝突事宜（如親屬紀律行動、合約標書）須按條例作出披露。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 2 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=2)
+  - 引文：「校董須在以下情況下，根據該條就法團校董會會議正在考慮或將會考慮的事宜作出披露」
+- **R-5.5** 訂定程序規定校董及員工申報及披露利益衝突；校董必須至少每隔12個月以書面向法團校董會申報利益一次。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 9 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=9)
+  - 引文：「校 董 必 須 至 少每 隔 12 個 月 以 書 面 向 法 團 校 董 會 申 報 利 益 一次」
+- **R-5.6** 即使並無任何利益申報，校董亦須如實匯報。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 9 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=9)
+  - 引文：「即使並無任何利益申報，校董亦須如實匯報。」
+- **R-5.7** 校董於法團校董會審議事務或與學校有業務往來的公司涉及任何利益，均須作出披露並以書面匯報。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 10 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=10)
+  - 引文：「均須作出披露，並以書面匯報」
+- **R-5.8** 法團校董會須分別備存登記冊記錄所有書面申報和披露，以供教育局督學查閱。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 10 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=10)
+  - 引文：「法 團 校 董 會 須 分 別 備 存 登 記 冊 以 記 錄 所 有 書 面申報和披露」
+- **R-5.9** 法團校董會必須設立有效和足夠的制衡機制，以避免校董成員涉及利益衝突。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 11 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=11)
+  - 引文：「必 須 設 立 有 效 和 足 夠 的 制 衡 機制以避免校董成員涉及利益衝突」
+- **R-5.10** 校董須就法團校董會會議考慮的事宜披露金錢上或其他個人利益關係的資料。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 75 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=75)
+  - 引文：「校董須就正在或將於法團校董會會議考慮的事宜中，披露有關金錢上或其他個人利益關係的資料」
+- **R-5.11** 校董披露利益關係後，除非法團校董會另有決定，不得在商議該事宜時在場或參與決定。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 75 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=75)
+  - 引文：「除非法團校董會另有決定，否則該校董不得在商議該事宜時在場或參與決定」
+- **R-5.12** 法團校董會須備存利害關係登記冊，登記校董的申報及披露，並容許學校督學及公眾人士在合理時間內查閱。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 75 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=75)
+  - 引文：「法團校董會須備存一份利害關係登記冊，登記校董根據第40BF條作出的申報」
+- **R-5.13** 校董須每12個月最少一次向法團校董會作出書面利益申報，並備存於登記冊內。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 18 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=18)
+  - 引文：「校董須每12個月最少一次向其學校的法團校董會作出書面申報，並備存於一份登記冊內」
+- **R-5.14** 申報利益的事宜改變後一個月內，校董可作出書面申報。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 18 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=18)
+  - 引文：「在有關申報利益的任何事宜改變後的一個月內，校董可作出書面申報」
+- **R-5.15** 校董不得作出明知在要項上屬虛假或具誤導性的申報。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 18 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=18)
+  - 引文：「校董不得作出明知在要項上屬虛假或具誤導性的申報，否則屬犯法」
+- **R-5.16** 訂明校董須於會議上披露利害關係的情況，包括涉及表現評核、紀律行動、投訴及商業合約標書等事宜。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 18 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=18)
+  - 引文：「該校董與該涉及討論經營業務／商業合約或審議標書的事宜有直接關係」
+- **R-5.17** 校董披露利害關係後，除非法團校董會另有決定，否則須避席，不得參與討論及表決。
+  - 出處：《法團校董會簡介會問答（2013）》第 12 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=12)
+  - 引文：「除非法團校董會另有決定，否則他須避席，不得參與有關會議的討論及表決」
+- **R-5.18** 會議商討教員校董本身或與其有緊密聯繫教員的升職事宜時，該校董不應參與其中。
+  - 出處：《法團校董會簡介會問答（2013）》第 12 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=12)
+  - 引文：「如會議是商討該教員校董本身或與他有緊密聯繫的教員的升職事宜，則該校董不應參與其中」
+- **R-5.19** 制訂程序規定成員及教職員須申報與學校有業務往來的利益詳情，或於會議上披露。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 74 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=74)
+  - 引文：「必須向校方申報其利益的詳細資料，或於相關的會議上披露其利害關係」
+- **R-5.20** 法團校董會須容許公眾人士在合理時間內查閱備存披露的利害關係登記冊。
+  - 出處：《法團校董會簡介會問答（2013）》第 11 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=11)
+  - 引文：「法團校董會須容許公眾人士在合理時間內，查閱備存披露的利害關係登記冊。」
+- **R-5.21** 預見或出現利益衝突時，校董須避席會議，不參與任何涉及利益關係事項的討論及決策。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 20 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=20)
+  - 引文：「預見或出現利益衝突，校董須避席會議，不參與任何涉及利益關係事項的討論及決策。」
+- **R-5.22** 法團校董會應訂定清晰完備的披露權益程序；校董在任命時及其後每年均須作一般申報，披露權益；已申報權益如有改變及在可能出現利益衝突的情況下應即時呈報。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 20 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=20)
+  - 引文：「法團校董會應訂定清晰完備的披露權益程序，避免實際發生或潛在的利益衝突。校董在任命時及其後每年須作一般申報，披露權益。已申報權益如有改變及在可能出現利益衝突的情況下應即時呈報。」
+- **R-5.23** 校董不得作出明知在要項上屬虛假或具誤導性的利益申報，否則屬犯法。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 2 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=2)
+  - 引文：「校董不得作出明知在要項上屬虛假或具誤導性的申報，否則屬犯法。」
+- **R-5.24** 校董在以下情況下須就法團校董會正在考慮的事宜作出披露：涉及其本人作為教職員的工作表現評核、其子女受紀律行動、其直接關係的投訴或涉及本人的投訴，以及涉及業務/商業合約或標書的事宜。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 2 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=2)
+  - 引文：「該校董是本校的校長或教員，而該事宜涉及該校董作為教職員的工作表現評核；或• 該校董是本校某學生的家長，而該事宜涉及對該學生採取的紀律行動」
+- **R-5.25** 法團校董會必須設立有效和足夠的制衡機制以避免校董成員涉及利益衝突。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 11 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=11)
+  - 引文：「法團 校 董 會 必 須 設 立 有 效 和 足 夠 的 制 衡 機制以避免校董成員涉及利益衝突。」
+- **R-5.26** 校董必須根據《教育條例》的規定及教育局指引申報及披露個人利益。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 11 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=11)
+  - 引文：「校董並須根據《教育條例》的規定及 教育局發出的指引申報及披露個人利益。」
+- **R-5.27** 法團校董會必須確保學校校董及教職員遵守《防止賄賂條例》（第201章）第9條有關索取及接受利益的規定。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 11 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=11)
+  - 引文：「遵守《防止賄賂條例》 (第201章)，特別是第 9條有關在學校事務或業務上索取及接受利益的規定。」
+- **R-5.28** 法團校董會須制訂適當程序，規定學校人員（包括校董及員工）申報及披露任何利益衝突，在處理採購及商業活動時必須嚴格遵守。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 9 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=9)
+  - 引文：「法團校董會須訂定適當的程序，規定學校人員(包 括 校 董 及 員 工 )申 報 及 披 露 任 何 利 益 衝 突」
+- **R-5.29** 校董必須至少每隔12個月以書面向法團校董會申報利益一次，即使並無任何利益申報亦須如實匯報。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 9 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=9)
+  - 引文：「12 個 月 以 書 面 向 法 團 校 董 會 申 報 利 益 一次，述明任何金錢上或其他個人利益的詳情。即使並無任何利益申報，校董亦須如實匯報。」
+- **R-5.30** 若校董在法團校董會審議的事務或與學校有業務往來的機構涉及任何利益，均須作出披露並以書面匯報。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 10 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=10)
+  - 引文：「若校董在任何法團校董會正在審議的事務，或和任何與學校有或可能有業務往來的公司或機構，涉及任何利益，均須作出披露，並以書面匯報。」
+- **R-5.31** 法團校董會須備存登記冊以記錄所有書面申報和披露，以供教育局督學查閱。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 10 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=10)
+  - 引文：「備 存 登 記 冊 以 記 錄 所 有 書 面申報和披露，以供教育局督學查閱。」
+
+### 6. 校長遴選
+
+- **R-6.1** 晉升至校長職位必須由常任秘書長批准；其他教職員的晉升或改編職系由法團校董會按規定批准。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 30 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=30)
+  - 引文：「除 晉 升 至 校 長 職 位 必 須 由 常 任 秘 書長 批 准 外」
+- **R-6.2** 遴選校長的過程必須公開、公平和開放透明，並按照《教育條例》第57A條辦理。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 29 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=29)
+  - 引文：「遴 選 校 長 的 過 程 必 須 公 開 、 公 平 和開 放 透 明」
+- **R-6.3** 校長遴選委員會須由辦學團體代表、作為法團校董會代表的該校校董及章程規定的其他人組成。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 29 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=29)
+  - 引文：「作 為 法 團 校 董 會 的 代 表 的 該校校董」
+- **R-6.4** 法團校董會須決定應否規定每名教職員（按日支薪代職人員除外）在受聘前進行體格檢驗。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 29 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=29)
+  - 引文：「法 團 校 董 會 須 決 定 應 否規 定 每 名 教 職 員」
+- **R-6.5** 法團校董會在僱用僱員前，必須以聘書或服務合約形式清楚告知僱用條款及工作表現期望。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 29 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=29)
+  - 引文：「必須以聘書或服務合約的形式，清 楚 告 知 該 僱 員 其 僱 用 條款」
+- **R-6.6** 經校舍分配獲派校舍的新校及參加直資計劃學校的校董會/法團校董會，均須與教育局簽署服務合約。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 1 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=1)
+  - 引文：「均須與教育局簽署校董會/法團校董會服務合約」
+- **R-6.7** 由2010/11學年起，合併學校（指定豁免情況除外）須簽署校董會/法團校董會服務合約。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 1 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=1)
+  - 引文：「合併學校須簽署校董會/法團校董會服務合約」
+- **R-6.8** 以公平、公正及公開方式遴選校長，並由法團校董會委出校長遴選委員會甄選校長。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 2 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=2)
+  - 引文：「法團校董會須委出一個校長遴選委員會去甄選校長」
+- **R-6.9** 校長遴選委員會成員包括辦學團體及法團校董會代表，成員不可同時出任雙方代表。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 18 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=18)
+  - 引文：「校長遴選委員會的成員不可同時出任辦學團體及法團校董會的代表」
+- **R-6.10** 法團校董會須採用公開、公平及競爭的聘任制度，堅守用人唯才、公正不阿、平等和公平原則。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 25 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=25)
+  - 引文：「法 團 校 董 會 須 採 用公 開 、 公 平 及競 爭 的 聘 任 制 度」
+- **R-6.11** 法團校董會須就聘用、晉升、辭職、退休、終止聘用、解僱及其他人事管理事宜承擔最終責任。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 26 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=26)
+  - 引文：「法團校董會須就 聘用、晉升、 辭職、退休、 終 止 聘 用 、 解 僱」
+- **R-6.12** 校長的委任必須由常任秘書長批准。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 29 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=29)
+  - 引文：「校長的委任必須 由常任秘書長批准」
+- **R-6.13** 向常任秘書長推薦人士委任為校長前，必須遵從《教育條例》第57A條委出向法團校董會負責的校長遴選委員會。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 29 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=29)
+  - 引文：「遵從《教育條例》第 57A條所載有關委出校長遴選委員會的規定」
+- **R-6.14** 法團校董會須委出校長遴選委員會，以公平、公正及公開方式遴選校長。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 19 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=19)
+  - 引文：「法團校董會須委出一個校長遴選委員會去甄選校長」
+- **R-6.15** 法團校董會須委出一個校長遴選委員會，並按章程訂明以公平、公正及公開的方式遴選校長。
+  - 出處：《法團校董會簡介會問答（2013）》第 22 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=22)
+  - 引文：「學校須以公平、公正及公開的方式遴選校長。根據條例，法團校董會須委出一個校長遴選委員會，並按法團校董會章程的訂明遴選校長。」
+- **R-6.16** 解僱資助則例編制內的教員（包括僱用期不少於6個月的教員），須在校董會或法團校董會的會議上由學校的多數校董（而非出席校董）批准。
+  - 出處：《法團校董會簡介會問答（2013）》第 7 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=7)
+  - 引文：「解僱在《資助則例》的編制內的教員時(包括僱用期不少於6個月的教員)須在校董會或法團校董會的會議上由學校的多數校董﹙而非出席校董﹚批准」
+- **R-6.17** 辦學團體有權在其屬下學校之間對校長及教員作出調動，有關學校的法團校董會須遵守相關決定；惟調動必須基於教師專業發展、編制需要或常任秘書長批准的理由。
+  - 出處：《法團校董會簡介會問答（2013）》第 7 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=7)
+  - 引文：「條例第40AG條列明，辦學團體有權在其屬下學校之間，對校長及教員作出調動，有關學校的法團校董會須遵守相關決定。但這調動必須基於教師專業發展、編制需要或常任秘書長批准的理由。」
+- **R-6.18** 校長的委任必須由常任秘書長批准。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 29 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=29)
+  - 引文：「校長的委任必須 由常任秘書長批准。」
+- **R-6.19** 聘用或解僱在職員編制內或受僱不少於6個月的教員，必須獲學校多數校董批准。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 26 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=26)
+  - 引文：「多數校董 批准」
+- **R-6.20** 出現教職員變動時，法團校董會必須立即以書面通知教育局並列出有關詳情。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 27 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=27)
+  - 引文：「立 即 以 書 面 通 知 教 育 局 ， 並列出有 關 詳 情 ，如有 關 人 士 的 姓名、職位、變 動 的 生 效 日 期 和給予的通知期」
+- **R-6.21** 法團校董會須就聘用、晉升、辭職、退休、終止聘用、解僱及其他人事管理事宜承擔最終責任。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 26 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=26)
+  - 引文：「終 止 聘 用 、 解 僱 ， 以 及 任何其 他 有 關 人 事 管 理 的 事 宜 承 擔 最 終責 任 。」
+- **R-6.22** 法團校董會在所有情況下須採用公開、公平及競爭的聘任制度，並堅守用人唯才原則。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 25 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=25)
+  - 引文：「法 團 校 董 會 須 採 用公 開 、 公 平 及競 爭 的 聘 任 制 度 ，並在 處 理 所 有 聘任、 人 事 和 有 關 人 事管 理 的 事 宜 時 ， 堅 守 用 人 唯 才」
+- **R-6.23** 法團校董會如認為員工工作表現未能令人滿意，可暫停該職員的增薪點，有關決定及理由須在法團校董會的會議上通過及妥為記錄，並應立即以書面通知常任秘書長。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 19 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=19)
+  - 引文：「有關停止員工按年增薪的決定及理由，須在 法 團 校 董 會 的 會 議 上 通 過及妥為記錄。法團校董會應立即 以 書 面 通 知 常 任 秘 書 長 有關事宜」
+- **R-6.24** 首次受聘任教資助學校的教師、專責人員和學校行政主任，一般須經兩年試用期；試用期後終止聘用便須至少三個月前通知。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 30 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=30)
+  - 引文：「首 次 受 聘 任 教 資 助 學 校 的 教師、專 責 人 員 和 學 校 行 政 主任，一般須經兩年 的試用期，期間如要終止聘用 ，必須給予如列載於《 匯編》的足夠 通知期或代通知金」
+- **R-6.25** 遴選校長的過程必須公開、公平和開放透明，以及按照《教育條例》第57A條辦理，遴選委員會須包括辦學團體代表、法團校董會校董代表等。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 29 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=29)
+  - 引文：「遴 選 校 長 的 過 程 必 須 公 開 、 公 平 和開 放 透 明 ， 以 及 按 照 《 教 育 條 例 》第57A條辦理」
+- **R-6.26** 法團校董會在僱用僱員前，必須以聘書或服務合約的形式，清楚告知該僱員其僱用條款及對其工作表現的期望，有關內容必須符合教育政策及資助則例。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 29 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=29)
+  - 引文：「法團校董會在僱用僱員前，必須以聘書或服務合約的形式，清 楚 告 知 該 僱 員 其 僱 用 條款，以及法團校董會對僱員工作表現的期望」
+- **R-6.27** 法團校董會為保持學校環境健康，須決定是否規定每名教職員（按日支薪的代職人員除外）在受聘前進行體格檢驗，包括由註冊醫生進行X光胸肺檢查。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 29 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=29)
+  - 引文：「法 團 校 董 會 須 決 定 應 否規 定 每 名 教 職 員 (按 日 支 薪 的 代 職人 員 除 外 )在 受 聘 前 進 行 體 格 檢驗，包括由註冊醫生進行 X光胸肺檢查」
+- **R-6.28** 學校須保存所有受僱教職員的全部證書和其他證件的副本及聘用表。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 28 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=28)
+  - 引文：「學 校 須 保 存 所 有 受 僱 教 職 員 的 全 部證書和其他證件的副本、聘用表」
+- **R-6.29** 由2000/01學年起，所有經由校舍分配工作獲派校舍的新校的校董會/法團校董會，均須與教育局簽署校董會/法團校董會服務合約。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 1 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=1)
+  - 引文：「所有經由「校舍分配工作」獲派校舍的新校(包括資助學校及直資學校)及參加直資計劃學校的校董會/法團校董會，均須與教育局簽署校董會/法團校董會服務合約」
+- **R-6.30** 由2010/11學年起，合併學校（由不同辦學團體屬校組成且非在原有校舍營辦的情況）須簽署校董會/法團校董會服務合約。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 1 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=1)
+  - 引文：「由 2010/11 學年起，合併學校須簽署校董會/法團校董會服務合約，下列情況除外：•合併學校由同一辦學團體的屬校組成」
+
+### 7. 校友及獨立校董
+
+- **R-7.1** 法團校董會須提名章程所規定數目的人士為獨立校董。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 16 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=16)
+  - 引文：「法團校董會須提名該校法團校董會章程所規定數目的人士為獨立校董」
+- **R-7.2** 獨立校董不得是該校教員或專責人員、現有學生家長、校友或辦學團體管治團體相關人士。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 16 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=16)
+  - 引文：「獨立校董不可以是：1.學校的教員或專責人員；2.該校現有學生的家長；3.該校的校友」
+- **R-7.3** 法團校董會須設有最少一名校友校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 35 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=35)
+  - 引文：「法團校董會須設有最少一名校友校董」
+- **R-7.4** 校友校董選舉須由認可校友會舉行，並提名章程所規定數目的人士註冊為校友校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 35 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=35)
+  - 引文：「認可校友會負責舉行校友校董選舉」
+- **R-7.5** 校友會章程須列明所有校友均可成為會員、只有校友可成為幹事，方可獲承認為認可校友會。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 41 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=41)
+  - 引文：「只有該校的校友可選出或成為該會的幹事」
+- **R-7.6** 以「曾是該校學生而現時已非該校學生的人」界定校友，不限於畢業生。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 16 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=16)
+  - 引文：「「校友」是指曾是該校學生而現時已非該校學生的人(即不單只是畢業生)」
+- **R-7.7** 學校在職教員不得獲提名為校友校董。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 36 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=36)
+  - 引文：「如有關校友是學校的在職教員，他／她便不能獲提名為校友校董」
+- **R-7.8** 認可校友會須於其章程中清楚說明候選人及投票人的資格。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 37 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=37)
+  - 引文：「認可校友會須於其章程中清楚說明投票人的資格」
+- **R-7.9** 認可校友會沒有校友校董提名時，法團校董會須書面通知教育局。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 40 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=40)
+  - 引文：「如認可校友會沒有校友校董的提名，法團校董會須書面通知教育局有關情況」
+- **R-7.10** 校友校董選舉提名中不得提供利益令任何人參選、不參選或令已獲提名候選人退出競選。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 50 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=50)
+  - 引文：「不得提供利益令任何人參選或不參選。」
+- **R-7.11** 設有法團校董會的學校須設有最少一名校友校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 60 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=60)
+  - 引文：「設有法團校董會的學校須設有最少一名校友校董」
+- **R-7.12** 認可校友會章程必須列明所有校友均可成為會員、只有校友可選出或成為幹事，及選舉制度公平開放透明。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 60 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=60)
+  - 引文：「該校的所有校友均可成為其會員；（ii）	只有該校的校友可選出或成為該會的幹事」
+- **R-7.13** 校友校董候選人必須是該校校友，且不得是該校教員。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 61 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=61)
+  - 引文：「候選人必須是該校的校友。• 候選人不得是該校的教員」
+- **R-7.14** 如沒有人按條例獲提名為校友校董，法團校董會可在全體校董過半數支持下提名某校友註冊為校友校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 14 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=14)
+  - 引文：「法團校董會可在全體校董的過半數支持下，根據條例第40AP 條提名某校友註冊為校友校董」
+- **R-7.15** 校友校董選舉中如候選人數目相等於或少於空缺數目，候選人將自動當選。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 56 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=56)
+  - 引文：「如候選人數目相等於或少於空缺數目，則候選人將自動當選」
+- **R-7.16** 校友校董選舉須透過認可校友會舉行，校友會章程須確保選舉機制公平而開放透明。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 14 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=14)
+  - 引文：「校友會章程須就校友校董的選舉程序作出規定，並確保有關機制公平而開放透明」
+- **R-7.17** 校友校董候選人為學校校友，但不可以是學校的教員。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 14 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=14)
+  - 引文：「學校的所有校友都有資格成為候選人，但候選人不可以是學校的教員」
+- **R-7.18** 校友會章程須規定只有學校的校友可選出及成為該會幹事。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=15)
+  - 引文：「只有學校的校友可選出該會的幹事及只有學校的校友可成為該會的幹事」
+- **R-7.19** 如無人獲認可校友會提名，法團校董會可在全體校董過半數支持下提名校友註冊為校友校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 29 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=29)
+  - 引文：「法團校董會可在全體校董的過半數支持下，根據教育條例第40AP條提名某校友註冊為校友校董」
+- **R-7.20** 校友校董任期內離任出現空缺時，校友會須以同樣方式在三個月內進行補選。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 58 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=58)
+  - 引文：「出現空缺，校友會須以同樣方式在三個月內進行補選」
+- **R-7.21** 落選候選人可在選舉結果公布一星期內以書面向校友會上訴；章程須訂明公平公正的上訴機制。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 57 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=57)
+  - 引文：「落選的候選人可在選舉結果公布的一星期內，以書面方式向校友會提出上訴」
+- **R-7.22** 獨立校董必須最少設有一位，人數沒有上限。
+  - 出處：《法團校董會簡介會問答（2013）》第 4 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=4)
+  - 引文：「獨立校董的人數沒有上限，但必須最少設有一位。」
+- **R-7.23** 校友校董不得是有關學校的教員。
+  - 出處：《法團校董會簡介會問答（2013）》第 20 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=20)
+  - 引文：「不可以。根據法例，校友校董不得是有關學校的教員。」
+- **R-7.24** 法團校董會須提名法團校董會章程所規定數目的人士為獨立校董；獨立校董不可是學校教員、現有學生家長、校友，或辦學團體管治成員及其近親或僱員。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 16 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=16)
+  - 引文：「法團校董會須提名該校法團校董會章程所規定數目的人士為獨立校董。獨立校董不可以是：1.學校的教員或專責人員；2.該校現有學生的家長；3.該校的校友；或4.該校的辦學團體的管治團體成員」
+- **R-7.25** 校友校董選舉由認可校友會負責舉行；認可校友會章程須列明所有校友均可成為會員、只有校友可選出或成為幹事，及選舉制度是公平及開放透明的。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 41 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=41)
+  - 引文：「法團校董會或辦學團體可承認一個團體為認可校友會，惟其章程必須列明下述的事項，方能獲承認—( i )該校的所有校友均可成為其會員；( i i )只有該校的校友可選出或成為該會的幹事；及( i i i )選舉校友校董的制度是公平及開放透明的。」
+- **R-7.26** 校友校董候選人必須是該校的校友，不得是學校的在職教員。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 36 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=36)
+  - 引文：「根據《條例》第4 0 A P 條第( 6 ) ( b ) 款，如有關校友是學校的在職教員，他／她便不能獲提名為校友校董。」
+- **R-7.27** 校友校董選舉後，已投選票須由選舉主任及認可校友會主席封入信封並簽名，保存至少6個月。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 48 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=48)
+  - 引文：「選舉主任將所有已投的選票放進信封內，由選舉主任及認可校友會主席封口及簽名。信封由認可校友會保存至少6 個月。」
+- **R-7.28** 落選的校友校董候選人可在選舉結果公布後一星期內向認可校友會提出書面上訴並列明理由。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 39 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=39)
+  - 引文：「落選的候選人可在選舉結果公布的一星期內，以書面方式向認可校友會提出上訴，並列明上訴的理由。」
+- **R-7.29** 校友校董選舉的投票日期應與提名截止日期相距最少兩星期。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 37 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=37)
+  - 引文：「校友校董選舉的投票日期應與提名截止日期相距最少兩星期。」
+- **R-7.30** 選舉主任須在選舉日前不少於7天，以書面形式通知所有校友或會員獲提名候選人的姓名、個人簡介及選舉安排。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 37 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=37)
+  - 引文：「選舉主任應於選舉日之前不少於7 天，向所有校友／會員發出書面通知，列出獲提名候選人的姓名及其在字數限制之內的個人簡介」
+
+### 8. 成立與章程
+
+- **R-8.1** 按章程所列程序（包括法定人數要求）修訂法團校董會章程，並確保修訂符合《教育條例》。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 18 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=18)
+  - 引文：「法團校董會須按照其章程所列的程序(包括法定人數要求)修訂章程」
+- **R-8.2** 章程修訂須送交教育局，常任秘書長不反對方可於送交一個月後生效。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 18 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=18)
+  - 引文：「則該章程的修訂可在送交的一個月後生效」
+- **R-8.3** 修改章程內教員校董選舉程序，必須由法團校董會按《條例》第40AY條及章程規定啟動修訂章程程序。
+  - 出處：《法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）》第 19 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=19)
+  - 引文：「必須由法團校董會按《條例》第4 0 AY 條及「章程」的規定，啟動適當的程序修訂「章程」」
+- **R-8.4** 訂明辦學團體須於2009年7月1日前向常任秘書長提交法團校董會章程草稿，為每所資助學校設立法團校董會。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 3 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=3)
+  - 引文：「必須於2009年7月1日前向常任秘書長提交法團校董會的章程草稿」
+- **R-8.5** 法團校董會須備有法團印章及註冊辦事處，並使用條例規定的中英文名稱。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 4 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=4)
+  - 引文：「法團校董會亦須備有法團印章及註冊辦事處」
+- **R-8.6** 法團校董會須在設立後14天內安排首任校監就職事宜。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 7 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=7)
+  - 引文：「法團校董會須在設立後14天內，將首任校監」
+- **R-8.7** 辦學團體須在章程草稿獲批准後，向教統局學校註冊及監察組遞交建議校董名單及校董註冊申請。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 7 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=7)
+  - 引文：「向教統局學校註冊及監察組遞交學校的建議校董名單，以及每名建議校董註冊為該校校董的申請」
+- **R-8.8** 章程內不應訂定校董學歷的要求。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 10 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=10)
+  - 引文：「條例並沒有規定校董的學歷，因此章程內不應訂定校董學歷的要求」
+- **R-8.9** 法團校董會修改章程必須根據章程內的有關規定進行。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 10 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=10)
+  - 引文：「如法團校董會日後希望修改其章程，必須根據章程內的有關規定進行」
+- **R-8.10** 修訂章程的建議須獲不少於出席會議校董的60%支持及辦學團體支持，方可送交常任秘書長。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 25 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=25)
+  - 引文：「不少於出席有關會議的校董的60%；及（b） 辦學團體支持，便須送交常任秘書長」
+- **R-8.11** 處理修訂章程建議的會議法定人數不得少於全體校董的三分之二。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 25 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=25)
+  - 引文：「會議的法定人數不得少於全體校董的〔三分之二〕」
+- **R-8.12** 法團校董會須備有經常任秘書長批准的書面章程，並按照章程處理其事務。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 9 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=9)
+  - 引文：「法團校董會須備有常任秘書長所批准的書面章程，及按照章程處理其事務」
+- **R-8.13** 法團校董會章程須按《教育規例》第75A條訂定每類校董人數、提名及選舉程序、任期、幹事職能、會議程序等事項。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 9 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=9)
+  - 引文：「法團校董會的章程須訂定以下事項」
+- **R-8.14** 章程修訂建議須以書面提出，並獲不少於全體校董三分之一支持及加簽。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 24 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=24)
+  - 引文：「獲不少於全體校董的〔三分之一〕支持，並由該等校董加簽」
+- **R-8.15** 商議章程修訂的會議，校監須不遲於開會前28天向所有校董發出書面開會通知。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 24 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=24)
+  - 引文：「校監須在不遲於開會前〔28〕天向所有校董發出書面的開會通知」
+- **R-8.16** 法團校董會須在設立後14天內，以表格IMC-4書面通知學校註冊及監察組首任校監就職。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 22 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=22)
+  - 引文：「法團校董會須在設立後14天內，將首任校監就職一事以書面（表格IMC-4）通知「學校註冊及監察組」」
+- **R-8.17** 法團校董會設立後須盡快以其名義開設銀行戶口，以信託人身分接受並管理政府資助款項。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 8 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=8)
+  - 引文：「法團校董會須盡快以其名義開設銀行戶口，以便以信託人身分接受並管理政府給予學校的資助款項」
+- **R-8.18** 認可家教會須於法團校董會設立後三個月內舉行家長校董選舉。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 8 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=8)
+  - 引文：「認可家教會須於法團校董會設立後三個月內舉行家長校董選舉」
+- **R-8.19** 法團校董會須於設立後一年內根據章程規定提名獨立校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 8 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=8)
+  - 引文：「法團校董會須於設立後一年內根據章程規定提名獨立校董」
+- **R-8.20** 家教會及校友會不得以追認方法提名法團校董會設立前所得出的校董人選。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 9 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=9)
+  - 引文：「家教會及校友會不得用追認的方法提名在法團校董會設立前所得出的校董人選」
+- **R-8.21** 法團校董會章程修訂議決通過後，仍須將相關文件呈交常任秘書長，最早只能在呈交後一個月後常任秘書長不提出反對的情況下，修訂才可正式生效。
+  - 出處：《法團校董會簡介會問答（2013）》第 6 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=6)
+  - 引文：「法團校董會按章程的規定議決通過修改章程後，仍須將相關文件呈交常任秘書長，並最早只能在一個月後，常任秘書長不提出反對的情況下，修訂才可正式生效。」
+- **R-8.22** 辦學團體可在章程草稿中規定法團校董會日後修改章程時必須取得辦學團體的同意；惟辦學團體所訂定的學校抱負及辦學使命，法團校董會不得更改。
+  - 出處：《法團校董會簡介會問答（2013）》第 6 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=6)
+  - 引文：「辦學團體亦可在擬定章程草稿時，規定法團校董會將來修改章程時，必須取得辦學團體的同意。」
+- **R-8.23** 資助學校必須在2011年7月1日或以前向教育局常任秘書長提交法團校董會章程草稿，以便成立法團校董會。
+  - 出處：《法團校董會簡介會問答（2013）》第 24 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=24)
+  - 引文：「根據《教育條例》，資助學校必須在2011年7月1日或以前向教育局常任秘書長提交法團校董會的章程草稿，以便成立法團校董會」
+- **R-8.24** 成立法團校董會的辦學團體應先向常任秘書長呈遞建議的章程草稿，草稿獲審批後再呈遞建議校董名單，方可完成法團校董會的成立。
+  - 出處：《法團校董會簡介會問答（2013）》第 2 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=2)
+  - 引文：「有關學校的辦學團體應先向教育局常任秘書長呈遞建議的法團校董會的章程草稿，草稿獲審批後再呈遞建議校董名單。」
+- **R-8.25** 「一條龍」學校的中小學部如同屬一個學校註冊，只須成立一個法團校董會；如分別註冊，則須成立兩個法團校董會。
+  - 出處：《法團校董會簡介會問答（2013）》第 3 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=3)
+  - 引文：「「一條龍」學校的中、小學部如同屬一個學校註冊，只須成立一個法團校董會。如果是分別註冊，則須成立兩個法團校董會。」
+- **R-8.26** 縱使學校的校董會早已註冊成為有限公司，仍須按《教育條例》規定成立法團校董會，程序與其他資助學校無異。
+  - 出處：《法團校董會簡介會問答（2013）》第 3 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=3)
+  - 引文：「成立法團校董會是條例的要求，縱使學校的校董會早已註冊成為有限公司，仍須按《教育條例》規定成立法團校董會」
+- **R-8.27** 法團校董會須按照其章程所列程序（包括法定人數要求）修訂章程，並確保修訂符合《教育條例》；章程修訂可在送交教育局一個月後生效。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 18 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=18)
+  - 引文：「教育局(常任秘書長)對法團校董會送交的法團校董會章程的修訂不提出反對的書面通知，則該章程的修訂可在送交的一個月後生效。」
+- **R-8.28** 學校必須以法團校董會的形式設立企業管治架構，推行和支援校本管理，並須以共同參與決策、透明和問責為基礎。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 11 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=11)
+  - 引文：「學校必須以法團校董會的形式設立企業 管 治 架 構 ， 推 行 和 支 援 校 本 管 理 。法團 校 董 會 須 以 共 同 參 與 決 策、透 明 和 問責為基礎」
+
+### 9. 會議規程
+
+- **R-9.1** 暫停員工增薪點的決定及理由，須在法團校董會的會議上通過及妥為記錄，並立即以書面通知常任秘書長。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 19 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=19)
+  - 引文：「須在 法 團 校 董 會 的 會 議 上 通 過及妥為記錄」
+- **R-9.2** 每學年召開最少三次法團校董會會議，校董須親身出席。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 19 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=19)
+  - 引文：「學校法團校董會一般在每學年召開最少三次會議，校董須親身出席」
+- **R-9.3** 議事規則須以公平原則訂定及執行，適用於所有校董。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 19 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=19)
+  - 引文：「議事規則須以公平的原則訂定及執行，適用於所有校董」
+- **R-9.4** 校監應否為獲授權簽署人之一的議案，須在由校監主持的會議中討論和議決。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 11 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=11)
+  - 引文：「校監應否為其中一名獲授權簽署人這一議案，亦須在由校監主持的會議中加以討論和議決。」
+- **R-9.5** 應校董要求時，校監須在接獲要求後的七天內召開法團校董會會議。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 31 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=31)
+  - 引文：「校監須在接獲該要求後的七天內召開法團校董會會議」
+- **R-9.6** 開會通知須附有會議議程，並在指明會議日期前的訂明日數內發給所有校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 31 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=31)
+  - 引文：「開會通知須 —（a）	附有會議議程」
+- **R-9.7** 任何校董均可要求校監把項目納入會議議程；校監如拒絕，須在該會議上交代拒絕理由。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 31 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=31)
+  - 引文：「任何校董均可要求校監把某個項目納入某會議的議程。校監如拒絕，便須在該會議上交代拒絕的理由」
+- **R-9.8** 法團校董會會議的法定人數為不少於全體校董的半數。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 31 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=31)
+  - 引文：「法團校董會會議的法定人數為不少於全體校董的半數」
+- **R-9.9** 在法團校董會任何會議中，身為本校僱員的校董人數必須少於其他校董的人數。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 31 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=31)
+  - 引文：「所有身為本校僱員的校董人數必須少於其他校董的人數」
+- **R-9.10** 會議逾指定時間30分鐘仍未達法定人數時，須延期不少於一星期但不多於四星期舉行。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 31 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=31)
+  - 引文：「該會議須延期不少於〔一星期〕但不多於〔四星期〕，在校監指明的時間及地點舉行」
+- **R-9.11** 法團校董會會議由校監主持；校監缺席而無授權時，出席校董須互選一名校董主持會議。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 31 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=31)
+  - 引文：「法團校董會會議由校監主持。如校監缺席而沒有授權另一校董主持會議，出席的校董須互選一名校董主持會議」
+- **R-9.12** 秘書須就每次會議撰寫和備存會議紀錄，記錄討論內容、決定及跟進行動，並提交下次會議通過。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 33 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=33)
+  - 引文：「秘書須就法團校董會每次會議撰寫和備存會議紀錄，當中尤以記錄討論內容、決定及跟進行動為要」
+- **R-9.13** 校董提出的反對意見經要求後，秘書須將意見記錄在會議紀錄內。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 33 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=33)
+  - 引文：「校董如提出反對意見，可要求在會議紀錄中記下其意見。秘書須將意見記錄在會議紀錄內」
+- **R-9.14** 法團校董會在任何一個學年內須最少召開三次會議。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 30 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=30)
+  - 引文：「法團校董會在任何一個學年內須最少召開三次會議」
+- **R-9.15** 會議決議以出席並投票校董的過半數票決定；票數均等時主持會議的校董有權投決定票。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 32 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=32)
+  - 引文：「會議上決議的每一項問題均須以出席並投票的校董的過半數票決定」
+- **R-9.16** 訂明在召開會議不切實可行時，可藉校董之間傳閱文件方式處理事務及通過決議。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 32 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=32)
+  - 引文：「法團校董會的事務可藉在各校董之間傳閱文件的方式處理」
+- **R-9.17** 委員會委員和主席須由法團校董會委任；委員可由非校董出任，但主席必須為校董。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 34 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=34)
+  - 引文：「委員會的委員可由非校董出任，但委員會的主席必須為校董」
+- **R-9.18** 法團校董會每一學年須最少召開三次會議。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 12 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=12)
+  - 引文：「法團校董會每一學年須最少召開三次會議，討論校政和作出決策」
+- **R-9.19** 法團校董會應訂立權責分明的權力轉授問責制度，成立轄下委員會，訂定架構及劃分職權範圍，以監察特定範疇。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 20 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=20)
+  - 引文：「各法團校董會應訂立權責分明的權力轉授問責制度，成立轄下委員會，訂定架構及劃分職權範圍，監察特定範疇，以配合學校的不斷發展及運作。」
+- **R-9.20** 法團校董會及轄下委員會須保存各成員出席會議及會議詳細記錄，供隨時查閱。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 20 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=20)
+  - 引文：「法團校董會及轄下委員會須保存各成員出席會議及會議詳細記錄，供隨時查閱。」
+- **R-9.21** 校董應出席每次法團校董會會議；若校董無合理理由缺席，其表現將受關注，全體校董應保持良好出席率，全情投入學校的行政管理。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 20 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=20)
+  - 引文：「校董應出席每次會議，全體校董應保持良好出席率，全情投入學校的行政管理。」
+- **R-9.22** 法團校董會須每學年召開最少三次會議，校董須親身出席。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 19 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=19)
+  - 引文：「學校法團校董會一般在每學年召開最少三次會議，校董須親身出席。」
+- **R-9.23** 法團校董會的議事規則須以公平的原則訂定及執行，適用於所有校董。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 19 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=19)
+  - 引文：「法團校董會可自行訂定議事規則。議事規則須以公平的原則訂定及執行，適用於所有校董。」
+
+### 10. 財務治理
+
+- **R-10.1** 學校的周年財政預算應獲法團校董會批准。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 7 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=7)
+  - 引文：「學校的周年財政預算應獲法團校董會的批准。」
+- **R-10.2** 支票須由兩名獲授權的註冊校董聯署簽發；網上銀行批准付款亦須由兩名獲授權註冊校董聯合批准。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 10 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=10)
+  - 引文：「支 票 亦 須 由 兩 名 獲 授 權 的 註 冊 校 董 聯署 簽 發」
+- **R-10.3** 商業活動必須在法團校董會會議上討論及通過，並在會議記錄中妥善記錄。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 6 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=6)
+  - 引文：「必須在法團校董會會議 上 討 論 及 通 過 ， 並 在 會 議 記 錄 中 妥 善 記 錄」
+- **R-10.4** 徵收超逾常任秘書長書面核准上限的罰款及特定用途費用，須作教育用途並得到大部分家長明確同意，方可由法團校董會批准。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 6 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=6)
+  - 引文：「並得到大部分家長的明確同意，法團校董會便可批准徵收這些費用」
+- **R-10.5** 擬借入款項事前須取得法團校董會批准，討論詳情、議決、理據及還款策略均應記錄於會議記錄供查閱。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 7 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=7)
+  - 引文：「擬 借 入 款 項 ， 事 前 須 取 得 法 團 校 董會的批准才可進行」
+- **R-10.6** 編制內教員職位或僱用為期不少於6個月的教員，其聘用須由學校的多數校董批准。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 26 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=26)
+  - 引文：「而僱用為期不少於 6個月，其聘用須由 學校的多數校董 批准」
+- **R-10.7** 編制內或僱用不少於6個月教員的解僱，須在法團校董會會議上由學校的多數校董批准。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 26 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=26)
+  - 引文：「的 會 議上由學校的多數校董批准。」
+- **R-10.8** 聘用以薪金津貼支薪的校長、60歲以上教職員、合格教師以外教員及以英語為母語的臨時英語教師，必須獲常任秘書長批准。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 27 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=27)
+  - 引文：「聘用下列以 薪 金 津 貼 支 薪 的 教職員，必須獲得常任秘書長批准」
+- **R-10.9** 設立法團校董會之前，必須清楚劃分政府、辦學團體及學校本身所擁有的資金和資產。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=16)
+  - 引文：「必須清楚劃分政府、辦學團體及學校本身所擁有的資金和資產」
+- **R-10.10** 法團校董會設立後，要清楚紀錄及更新日後各項資產的擁有權。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=16)
+  - 引文：「法團校董會設立後，亦要清楚紀錄及更新日後各項資產的擁有權」
+- **R-10.11** 設立法團校董會前未有確實成立日期時，應避免訂立期限較長的合約，建議合約期不超過一年。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 16 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=16)
+  - 引文：「應避免訂立一些期限較長的合約（建議合約期不超過一年）」
+- **R-10.12** 成立法團校董會前，辦學團體應先點算學校現有資產的所屬權，才將資產移交至法團校董會。
+  - 出處：《法團校董會簡介會問答（2013）》第 32 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf#page=32)
+  - 引文：「應先點算學校現有的資產的所屬權，才將資產移交至法團校董會」
+- **R-10.13** 法團校董會學校在校舍內經營業務或商業活動所產生的利潤或淨收入，須運用於該校學生直接受益的用途上。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 6 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=6)
+  - 引文：「法團校董會學校須遵照規例第99B條，確保該業務或商業活動所產生的利潤或淨收入運用於該校學生直接受益的用途上。」
+- **R-10.14** 法團校董會必須審慎運用公帑，包括各類津貼及政府撥款，並須就公帑的運用作出交代。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 17 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=17)
+  - 引文：「法團校董會 必須審慎 運用公帑 ，包括根 據本《資助則例》發放給學校的各類津貼及其他特定 教育用途的政府撥款， 並須就公帑的運用作出交代 。」
+- **R-10.15** 法團校董會須於學年／財政年度結束後六個月內向教育局提交外聘核數師報告、經審核的周年帳目及管理建議信。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 12 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=12)
+  - 引文：「六個月內向教育局提交下列文件︰➢       外聘核數師報告；➢       經審核的周年帳目；以及➢       核 數 師 發 出 的 管 理 建 議 信 (如 有 )。」
+- **R-10.16** 法團校董會須按照《教育條例》第40BB(3)及(4)條委任一名執業會計師審核學校的周年帳目。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 11 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=11)
+  - 引文：「委任一名執業會計師審核學校的周年帳目。」
+- **R-10.17** 法團校董會須在其名下開立和持有最少兩個銀行帳戶（一個處理政府經費，另一個處理非政府經費）。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 10 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=10)
+  - 引文：「最 少 兩 個 銀 行 帳 戶 (一 個 處 理 政 府 經費 ， 另 一 個 處 理 非 政 府 經 費 )。」
+- **R-10.18** 所有銀行帳戶支票須由兩名獲授權的註冊校董聯署簽發。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 10 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=10)
+  - 引文：「兩 名 獲 授 權 的 註 冊 校 董 聯署 簽 發。」
+- **R-10.19** 學校商業活動必須在法團校董會會議上討論及通過，並在會議記錄中妥善記錄，方可進行。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 6 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=6)
+  - 引文：「法團校董會可批核商業活動，但必須在法團校董會會議 上 討 論 及 通 過 ， 並 在 會 議 記 錄 中 妥 善 記 錄 。」
+- **R-10.20** 法團校董會在正常情況下不應借入款項；如擬借款，事前必須取得法團校董會批准，並在會議記錄中記錄討論詳情。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 7 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=7)
+  - 引文：「在正常情況下，法團校董會不應借入款項；在特殊情況下方可以考慮借款」
+- **R-10.21** 法團校董會以受託人身分負責處理從政府獲取的經費及資產，必須按照有關經費的目的並以學生和學校的最大利益為依歸行使有關權力。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 3 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=3)
+  - 引文：「法團校董會身為受託人，對經費及資產均享有全面的管理及行政權，但必須按照有關經費的目的，並 以 學 生 和 學 校 的 最 大 利 益 為 依 歸 而 行 使 有 關權力。」
+- **R-10.22** 作為政府資助金受託人的法團校董會，在領取津貼時必須遵守資助則例第II至第IV部分訂明的資助條件及其他規定。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 8 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=8)
+  - 引文：「作 為 政 府 資 助 金 受 託 人 的 法 團 校 董 會 及其所管理的資助學校，在領取本《資助則例》所闡明的津貼時，必須遵守發放津貼的原則」
+
+### 11. 學校發展計劃
+
+- **R-11.1** 法團校董會須在學校推行課程發展議會所建議的課程，並遵照教育局不時公布的最新課程及評估政策。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 12 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=12)
+  - 引文：「法 團 校 董 會 須 在 學 校 推 行 課 程 發 展 議 會所建議的課程」
+- **R-11.2** 法團校董會應核准可保障學生最大利益的學校發展計劃。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 12 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=12)
+  - 引文：「核准可保障學生最大利益的發展計劃」
+- **R-11.3** 學校發展計劃所定的目標須具挑戰性、可供實踐和量度。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 1 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=1)
+  - 引文：「學校發展計劃所定的目標須具挑戰性、可供實踐和量度」
+- **R-11.4** 學校發展計劃的長遠及周年發展目標須經教育局與學校雙方同意，學校有責任確保達致有關目標。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 2 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=2)
+  - 引文：「該等目標須經教育局與學校雙方同意，而學校有責任確保達致有關目標」
+- **R-11.5** 如學校未能達致個別表現指標，校董會須按教育局要求制訂跟進計劃以解決問題或改善情況。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 2 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=2)
+  - 引文：「教育局會要求校董會制訂跟進計劃」
+- **R-11.6** 學校修訂學校發展計劃內的目標及指標，必須事先取得教育局的同意。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 2 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=2)
+  - 引文：「學校可修訂及改善學校發展計劃內的目標及指標，但必須事先取得教育局的同意」
+- **R-11.7** 學校發展計劃須包括具進展性的周年目標及長遠（三至五年）目標、表現指標及成功準則、評估機制和財政預算。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 3 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=3)
+  - 引文：「具進展性及能達致改善質素的周年目標及長遠﹝三至五年﹞目標」
+- **R-11.8** 學校發展計劃須經由校董會/法團校董會批核，並由校監簽署作實。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 3 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=3)
+  - 引文：「學校發展計劃須經由校董會/法團校董會批核，並由校監簽署作實」
+- **R-11.9** 學校必須在開辦/參加直資後六個月內，呈交學校發展計劃予所屬高級學校發展主任核准。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 3 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=3)
+  - 引文：「學校必須在開辦/參加直資後六個月內呈交學校發展計劃予所屬高級學校發展主任核准」
+- **R-11.10** 核准的學校發展計劃會納入服務合約，日後修改須先獲得高級學校發展主任的書面批准。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 3 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=3)
+  - 引文：「如學校日後須作出修改，須先獲得高級學校發展主任的書面批准」
+- **R-11.11** 學校發展計劃應訂明校董會的承擔及工作重點。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 4 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=4)
+  - 引文：「有否訂明校董會的承擔及工作重點」
+- **R-11.12** 學校發展計劃的管理及組織部分須包括教職員的考績及發展政策。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 4 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=4)
+  - 引文：「須包括教職員的考績及發展政策」
+- **R-11.13** 法團校董會應在學校發展計劃內策略性訂立三至五年長遠計劃，並制定周年校務計劃及周年財政預算。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 6 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=6)
+  - 引文：「在學校發展計劃內策略性地訂立三至五年的長遠計劃」
+- **R-11.14** 法團校董會須按教育當局建議的時間表，向辦學團體提交學校發展計劃書、周年校務計劃書及學校報告。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 35 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=35)
+  - 引文：「向辦學團體提交學校發展計劃書、周年校務計劃書及學校報告」
+- **R-11.15** 法團校董會須根據辦學團體的辦學宗旨在學校發展計劃內策略性地訂立三至五年的長遠計劃，以及制定周年校務計劃及周年財政預算。
+  - 出處：《設有法團校董會的資助學校財務管理指引》第 6 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=6)
+  - 引文：「在學校發展計劃內策略性地訂立三至五年的長遠計劃，以及為學校制定周年校務計劃及周年財政預算。」
+- **R-11.16** 法團校董會須在學校推行課程發展議會所建議的課程，並遵照教育局不時公布的最新課程及評估政策。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 12 頁 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=12)
+  - 引文：「法 團 校 董 會 須 在 學 校 推 行 課 程 發 展 議 會所建議的課程，並遵照 教育局不時公布的最新課程及評估政策」
+- **R-11.17** 法團校董會可在常任秘書長就批核資助學校的班級結構作出決定前，就其學校的班級結構向常任秘書長提出意見及建議。
+  - 出處：《資助則例（設有法團校董會資助學校適用版本）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=16)
+  - 引文：「法 團 校 董 會 可在 常 任 秘 書 長 就 批 核 資 助學校的班級結構作出決定前，就其學校的班級結構向 常任秘書長 提出意見及建議」
+- **R-11.18** 核准的學校發展計劃會納入服務合約之內；學校日後須作出修改，須先獲得高級學校發展主任的書面批准。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 3 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=3)
+  - 引文：「核准的學校發展計劃會納入服務合約之內。如學校日後須作出修改，須先獲得高級學校發展主任的書面批准」
+- **R-11.19** 學校發展計劃是問責工具之一，須列出學校的長遠及周年發展目標，該等目標須經教育局與學校雙方同意，學校有責任確保達致有關目標。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 2 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=2)
+  - 引文：「學校發展計劃是問責工具之一，須列出學校的長遠及周年發展目標。該等目標須經教育局與學校雙方同意，而學校有責任確保達致有關目標」
+- **R-11.20** 學校發展計劃的目標如有需要可修訂及改善，但必須事先取得教育局的同意。
+  - 出處：《如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）》第 2 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf#page=2)
+  - 引文：「如有需要，學校可修訂及改善學校發展計劃內的目標及指標，但必須事先取得教育局的同意」
+
+### 12. 校監與幹事
+
+- **R-12.1** 校監不得轉授《教育條例》第40AK條所列明的職能予他人。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 18 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=18)
+  - 引文：「不能轉授於《教育條例》第40AK 條所列明的職能予他人」
+- **R-12.2** 校監因離港或患病不少於28天不能執行職能時，須由署理校監代替行事。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 18 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=18)
+  - 引文：「以致不能在一段為期不少於28 天的期間內執行其職能，須由署理校監代替校監行事」
+- **R-12.3** 法團校董會幹事除校監外，還須包括秘書及司庫。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 18 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=18)
+  - 引文：「除校監外，法團校董會的幹事還須包括秘書及司庫」
+- **R-12.4** 按章程規定的幹事組成及產生方法，適時替補幹事空缺。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 19 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=19)
+  - 引文：「學校須按法團校董會章程內所規定幹事的組成及產生方法，適時替補空缺」
+- **R-12.5** 校監必須為該校校董，但不得是該校的校長或教員，並按章程由辦學團體委任或由校董選出。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 17 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=17)
+  - 引文：「校監必須為該校校董，但不得是該校的校長或教員」
+- **R-12.6** 校監必須為該校校董，但不得是該校的校長或教員。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 18 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=18)
+  - 引文：「條例規定，校監必須為該校校董，但不得是該校的校長或教員」
+- **R-12.7** 法團校董會除校監外須設秘書及司庫等幹事；校董不得同時擔任兩個或以上的幹事職位。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 29 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=29)
+  - 引文：「校董不得同時擔任兩個或以上的幹事職位」
+- **R-12.8** 現正為校長或本校教員的校董不得獲委任或當選為校監。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 29 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=29)
+  - 引文：「現正為校長或本校教員的校董不得〔獲委任〕〔或：當選〕為校監」
+- **R-12.9** 章程訂明幹事的任期及罷免機制。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 29 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=29)
+  - 引文：「幹事的任期為〔一〕年」
+- **R-12.10** 秘書須為法團校董會提供秘書支援、保管法團印章，並按第40BH條備存利害關係登記冊。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 30 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=30)
+  - 引文：「按照教育條例第40BH條備存一份利害關係登記冊」
+- **R-12.11** 校監須主持法團校董會會議，並負責書面通知常任秘書長校董、校長及教員停任等事宜。
+  - 出處：《法團校董會的成立與運作（校本管理手冊2014）》第 18 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=18)
+  - 引文：「校監須主持法團校董會的會議；負責書面通知常任秘書長有關校董、校長及教員的停任」
+- **R-12.12** 校監如因離港或患病，致不能在不少於28天的期間內執行職能，須由署理校監代替行事，且校監不得將《教育條例》第40AK條所列明的職能轉授他人。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 18 頁 ⚠️頁碼近似 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=18)
+  - 引文：「校監如因離港或患病，以致不能在一段為期不少於28 天的期間內執行其職能，須由署理校監代替校監行事。」
+- **R-12.13** 接受政府撥款學校的校監、校董或校董會，未經常任秘書長事先以書面准許，不得在校舍經營業務或商業活動，亦不得就學生必須管有的物品直接或間接作出商業安排。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 5 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=5)
+  - 引文：「任何接受政府撥款學校的校監、校董或校董會，未經常任秘書長事先以書面准許，不得 —（a）在校舍經營或准許他人經營任何業務或商業活動；或（b）就供應該校所規定其學生須管有或使用的食物、飲品、書籍、文具、制服或任何其他物件，直接或間接進行任何業務」
+- **R-12.14** 如獲准許在校舍經營業務，校監須在學校財政年度結束後4個月內向常任秘書長提交每年經審計帳目報表，及陳述書說明利潤運用方式。
+  - 出處：《法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）》第 5 頁 — [開啟原文](https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf#page=5)
+  - 引文：「在學校財政年度結束後4個月內，或在常任秘書長准許延展的期間內，向常任秘書長提交關於每項該等業務或商業活動、或業務安排或商業安排的每年經審計帳目報表」
+
+## 覆蓋度與 QC 紀錄
+
+- 條目總數：**489**；本機機械重驗全通過（fail 已剔）。
+- 範疇 scope 限制：校董會治理：法團校董會成立、章程、組成、各類校董產生/選舉/委任、角色職權、會議規程、申報利益、管治責任、學校發展計劃。g02/coa 抽治理角度（財務細則屬另一範疇，僅保留治理權責層面）。
+- 本清單係指引義務蒸餾，唔係法律意見；源文件改版須重新派生（freshness 週跑已監察）。
+

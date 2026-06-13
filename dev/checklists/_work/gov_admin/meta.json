@@ -1,0 +1,65 @@
+{
+ "key": "gov_admin",
+ "kind": "domain",
+ "cn": "校務行政",
+ "lens": "校務行政：廉政管治、籌款活動、大型/緊急維修工程程序、校舍擴建、校名更改、保險、學校發展計劃編寫。",
+ "tags": null,
+ "sources": {
+  "icac_school_governance": {
+   "title": "防貪錦囊：學校管治與內部監控 (ICAC)",
+   "url": "https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf",
+   "chunks": 75
+  },
+  "fundraising_guide": {
+   "title": "學校籌款活動指引",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-fund-raising/guidelinfundraising_c.pdf",
+   "chunks": 8
+  },
+  "edbcm_major_repairs_grant": {
+   "title": "教育局通函 大規模修葺工程津貼（2027-28）",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/MR 2027-28_Aided_Circular Memorandum_TChi.pdf",
+   "chunks": 5
+  },
+  "edbc14_2024_spms": {
+   "title": "教育局通告第14/2024號 校舍巡察及保養 (SPMS)",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/EDBC 14-2024_Chin_SPMS_final (issue).pdf",
+   "chunks": 4
+  },
+  "sch_extension_guide": {
+   "title": "增設校舍指引（校舍設於為學校用途而設計建造的房產）",
+   "url": "https://www.edb.gov.hk/attachment/en/sch-admin/sch-registration/about-sch-registration/Guidelines 2025 onwards (all 3 languages)/Extension of School Premises (purposely built)/4a_cguide-purpose-built.pdf",
+   "chunks": 4
+  },
+  "sch_name_change_guide": {
+   "title": "學校更改名稱的批核準則及程序",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-registration/about-sch-registration/4a_cguide-change sch name_Mar 2026.pdf",
+   "chunks": 3
+  },
+  "sdp_guide": {
+   "title": "如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf",
+   "chunks": 5
+  },
+  "bip_insurance_notes_2025": {
+   "title": "學校綜合保險計劃摘要說明 (2025/26 及 2026/27)",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/BIP_Explanatory_Notes_c 2025.pdf",
+   "chunks": 3
+  },
+  "major_repairs_proc_nonestate": {
+   "title": "大規模修葺工程的程序（非屋邨資助學校）",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Procedures for MR- non-estate aided school (Chi)_202507(clean).pdf",
+   "chunks": 6
+  },
+  "major_repairs_proc_estate": {
+   "title": "大規模修葺工程的程序（屋邨資助學校）",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Procedures for MR- estate aided school (Chi)_202507(clean).pdf",
+   "chunks": 5
+  },
+  "emergency_repairs_guide": {
+   "title": "資助學校緊急修葺申請指導資料",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Guidance Notes for Submission of Emergency Repairs (ER) Requests by Aided Schools_Chi_202507(clean).pdf",
+   "chunks": 7
+  }
+ },
+ "n_buckets": 3
+}

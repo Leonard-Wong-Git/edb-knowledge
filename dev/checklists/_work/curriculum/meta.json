@@ -1,0 +1,100 @@
+{
+ "key": "curriculum",
+ "kind": "domain",
+ "cn": "課程管理",
+ "lens": "課程管理（全校層面）：課程規劃與時數、科目開設（小學人文科/科學科推行）、評估政策、課程文件要求、價值觀教育/德育框架推行。科本教學內容唔屬範疇（剔除科本 KLA 指引）。",
+ "tags": null,
+ "sources": {
+  "kgecg_2017": {
+   "title": "幼稚園教育課程指引（2017）",
+   "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/preprimary/TC_KGECG_2017.pdf",
+   "chunks": 108
+  },
+  "pri_curr_guide_2024": {
+   "title": "《小學教育課程指引》(2024)",
+   "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide/PECG%202024_full.pdf",
+   "chunks": 124
+  },
+  "g13": {
+   "title": "中學教育課程指引（2017）— 課程指引及文件",
+   "url": "https://www.edb.gov.hk/tc/curriculum-development/major-level-of-edu/secondary/cg_documents.html",
+   "chunks": 587
+  },
+  "g25": {
+   "title": "幼稚園相關指引及須知",
+   "url": "https://www.edb.gov.hk/tc/edu-system/preprimary-kindergarten/about-preprimary-kindergarten/guidelines.html",
+   "chunks": 1
+  },
+  "g26": {
+   "title": "2026/27學年幼稚園收生安排指引",
+   "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/kindergarten-k1-admission-arrangements/202627%20K1%20Admission%20Arrangements/2026-27_Admission%20Guidelines_TC.pdf",
+   "chunks": 19
+  },
+  "g29": {
+   "title": "幼稚園教育課程指引（2017）",
+   "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/preprimary/KGECG-TC-2017.pdf",
+   "chunks": 107
+  },
+  "g38": {
+   "title": "音樂教育學習領域課程指引（小一至中三）(2003)",
+   "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/arts-edu/curriculum-docs/curriculum-docs_past/index.html",
+   "chunks": 194
+  },
+  "mce_framework_2008": {
+   "title": "《德育及公民教育課程架構》(2008)（包括詳細內容及相關課程發展工具）",
+   "url": "https://www.edb.gov.hk/attachment/tc/common/revised%20mce%20framework.pdf",
+   "chunks": 13
+  },
+  "circ_edbc24017": {
+   "title": "教育局通告第17/2024號：學校課程持續更新：《小學教育課程指引》（2024）",
+   "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+   "chunks": 12
+  },
+  "edbc18_2023_pri_science": {
+   "title": "教育局通告第18/2023號 — 開設小學科學科及一系列相關支援措施",
+   "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/pri-sci/EDBC23018C.pdf",
+   "chunks": 25
+  },
+  "edbc20_2023_ph_pri": {
+   "title": "教育局通告20/2023號 — 開設小學人文科",
+   "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC23020C.pdf",
+   "chunks": 20
+  },
+  "edbc9_2024_ph_pri": {
+   "title": "教育局通告9/2024號 — 《小學人文科課程框架》（定稿）及支援措施",
+   "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24009C.pdf",
+   "chunks": 11
+  },
+  "edbc12_2025_ph_pri": {
+   "title": "教育局通告第12/2025號 — 《小學人文科課程指引》及支援措施",
+   "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/ph-primary/EDBC_122025_C.pdf",
+   "chunks": 10
+  },
+  "edbc197_2024_ph_pri": {
+   "title": "教育局通函197/2024號 — 小學人文科：學校問卷調查及相關支援措施",
+   "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/ph-primary/edbcm_197_2024_c.pdf",
+   "chunks": 12
+  },
+  "edbc13_2025_pri_science": {
+   "title": "教育局通告第13/2025號 — 《科學（小一至小六）課程指引》、2025/26學年「小學科學教師培訓基地」與教師培訓安排",
+   "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/pri-sci/EDBC25013C.pdf",
+   "chunks": 10
+  },
+  "edbc002_2026": {
+   "title": "教育局通告第2/2026號",
+   "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26002C.pdf",
+   "chunks": 24
+  },
+  "edbc003_2026": {
+   "title": "教育局通告第3/2026號",
+   "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26003C.pdf",
+   "chunks": 6
+  },
+  "edbc005_2026": {
+   "title": "教育局通告第5/2026號",
+   "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26005C.pdf",
+   "chunks": 4
+  }
+ },
+ "n_buckets": 24
+}

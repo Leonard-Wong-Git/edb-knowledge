@@ -1,0 +1,45 @@
+{
+ "key": "school_governance",
+ "kind": "domain",
+ "cn": "校董會治理",
+ "lens": "校董會治理：法團校董會成立、章程、組成、各類校董產生/選舉/委任、角色職權、會議規程、申報利益、管治責任、學校發展計劃。g02/coa 抽治理角度（財務細則屬另一範疇，僅保留治理權責層面）。",
+ "tags": null,
+ "sources": {
+  "imc_establishment_operation": {
+   "title": "法團校董會的成立與運作（校本管理手冊2014）",
+   "url": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf",
+   "chunks": 97
+  },
+  "imc_briefing_qa": {
+   "title": "法團校董會簡介會問答（2013）",
+   "url": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf",
+   "chunks": 48
+  },
+  "imc_governance_supplements": {
+   "title": "法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）",
+   "url": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf",
+   "chunks": 27
+  },
+  "imc_election_guides": {
+   "title": "法團校董會校董選舉指引（家長／教師／校友校董・委任五步曲）",
+   "url": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf",
+   "chunks": 57
+  },
+  "g02": {
+   "title": "設有法團校董會的資助學校財務管理指引",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf",
+   "chunks": 25
+  },
+  "coa_imc_1_19": {
+   "title": "資助則例（設有法團校董會資助學校適用版本）",
+   "url": "https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf",
+   "chunks": 37
+  },
+  "sdp_guide": {
+   "title": "如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf",
+   "chunks": 5
+  }
+ },
+ "n_buckets": 6
+}

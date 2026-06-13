@@ -1,0 +1,70 @@
+{
+ "key": "safety",
+ "kind": "domain",
+ "cn": "學校安全",
+ "lens": "學校安全：學生安全、消防裝置、職安健、氣體洩漏、實驗室、惡劣天氣（颱風/暴雨）安排、安全管理委員會、斜坡維修、校車安全、視藝/科技教育安全。",
+ "tags": null,
+ "sources": {
+  "edbc22_2024_student_safety": {
+   "title": "教育局通告第22/2024號 學生安全及健康",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/School Safety and Health/EDBC222024_TC.pdf",
+   "chunks": 2
+  },
+  "fire_service_installation": {
+   "title": "消防裝置及設備指引",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/fire%20service%20installation%20and%20equipment%20(c).pdf",
+   "chunks": 2
+  },
+  "occupational_safety_health": {
+   "title": "職業安全及健康指引",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/occupational%20safety%20and%20health%20c.pdf",
+   "chunks": 2
+  },
+  "gas_odour_measures": {
+   "title": "校內出現氣體異味時應採取措施的指引",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/measures%20to%20be%20taken%20in%20case%20of%20incidents_c.pdf",
+   "chunks": 2
+  },
+  "lab_prep_room_aircon": {
+   "title": "實驗室預備室空調設備指引",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/air%20conditioning%20in%20prep%20room%20(c).pdf",
+   "chunks": 3
+  },
+  "edbc_tropical_cyclone_day": {
+   "title": "教育局通告 熱帶氣旋及持續大雨下的安排（幼稚園及日校）",
+   "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC22005C.pdf",
+   "chunks": 12
+  },
+  "edbc_tropical_cyclone_night": {
+   "title": "教育局通告 熱帶氣旋及持續大雨下的安排（夜校）",
+   "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC22006C.pdf",
+   "chunks": 9
+  },
+  "safety_mgmt_committee": {
+   "title": "成立學校安全管理委員會程序",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/AD99028C.pdf",
+   "chunks": 14
+  },
+  "slope_rmi_ei_notes": {
+   "title": "斜坡的例行維修檢查及工程師維修檢查須知",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Points%20to%20note%20on%20RMI%20and%20EI_C.pdf",
+   "chunks": 3
+  },
+  "g18": {
+   "title": "學童乘搭校車的安全指引",
+   "url": "https://www.edb.gov.hk/tc/student-parents/safety/sch-bus-services/index.html",
+   "chunks": 9
+  },
+  "g21": {
+   "title": "視覺藝術科安全指引",
+   "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/arts-edu/resources/va-curri/safety/index.html",
+   "chunks": 48
+  },
+  "g22": {
+   "title": "科技教育 – 安全指引",
+   "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/resources/safety.html",
+   "chunks": 58
+  }
+ },
+ "n_buckets": 3
+}

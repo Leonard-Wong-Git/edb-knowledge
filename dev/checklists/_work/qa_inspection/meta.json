@@ -1,0 +1,25 @@
+{
+ "key": "qa_inspection",
+ "kind": "domain",
+ "cn": "質素保證與視學",
+ "lens": "質素保證：學校自評（SSE）、表現指標、問責框架、視學配合義務、報告與披露。",
+ "tags": null,
+ "sources": {
+  "sse_tools_2025": {
+   "title": "學校自我評估工具及數據小冊子 (2025)",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-quality-assurance/performance-indicators/SSE_Tools_2025_TC.pdf",
+   "chunks": 10
+  },
+  "perf_indicators_2022": {
+   "title": "香港學校表現指標（中學、小學及特殊學校適用）(2022)",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-quality-assurance/performance-indicators/2022_Performance Indicators_TC.pdf",
+   "chunks": 36
+  },
+  "edbc15_2022_accountability": {
+   "title": "教育局通告第15/2022號 優化學校發展與問責架構",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-quality-assurance/circulars-letter/EDBC22015TC.pdf",
+   "chunks": 8
+  }
+ },
+ "n_buckets": 1
+}

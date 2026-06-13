@@ -1,0 +1,20 @@
+{
+ "key": "pool_g06",
+ "kind": "pool",
+ "cn": "pool_g06",
+ "lens": "課程指引（g06）：只抽取學校層面嘅政策/管理義務（課程規劃、照顧多樣性、資優、教師發展、評估政策），逐條標 tags：cpd/sen/gifted/curriculum。純教學法內容略過。",
+ "tags": [
+  "cpd",
+  "sen",
+  "gifted",
+  "curriculum"
+ ],
+ "sources": {
+  "g06": {
+   "title": "《小學教育課程指引》完整版（2024）",
+   "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide/PECG%202024_full.pdf",
+   "chunks": 412
+  }
+ },
+ "n_buckets": 8
+}
