@@ -1,0 +1,250 @@
+[
+  {
+    "domain": "school_governance",
+    "phase1_types": [
+      "primary",
+      "secondary",
+      "special"
+    ],
+    "most_shared": true,
+    "item_exceptions": [
+      {
+        "locator": "法團校董會須設有最少一名教員校董，教員校董須由教員（特殊學校包括專責",
+        "source_id": "imc_establishment_operation",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "教員校董須由教員（特殊學校包括專責人員）以不記名方式透過選舉產生",
+        "source_id": "imc_establishment_operation",
+        "applies_to": [
+          "special"
+        ]
+      }
+    ],
+    "clause_exceptions": [
+      {
+        "locator": "教員校董須由本校全體教員（若本校屬特殊學校，則包括專責人員）",
+        "applies_to": [
+          "special"
+        ]
+      }
+    ],
+    "notes": "域 = 法團校董會(IMC)治理。7 個源全部係通用 IMC 管治文件(資助則例 coa_imc_1_19、選舉指引 imc_election_guides、成立運作 imc_establishment_operation、財務指引 g02、簡介會問答 imc_briefing_qa、SDP guide、管治補充 imc_governance_supplements),無一個係按校類限定標題,全部適用於設有 IMC 的資助學校 → Phase-1 三類(小/中/特)全適用。絕大多數要求(選舉機制、校董組成、問責、財務、利益申報、會議、章程、SDP、校監幹事)跨校類共用,故 most_shared=true。\n\n唯一乾淨嘅校類專屬 carve-out:教員校董(教員校董選舉)選民範圍 —— 特殊學校嘅「專責人員(specialist staff)」一併計入教員互選選民及參選人,普通小/中學則只限教員。已列入 item_exceptions(2 條 imc_establishment_operation p36/p12)+ clause_exceptions(si 4 clause「若本校屬特殊學校，則包括專責人員」)。\n\n未列為 exception 嘅邊緣情況(刻意保留為共用):(1)「上午班及下午班須分別設有最少一名家長校董」—— 上下午班制(operationally 屬小學/特殊現象),但底層規則(最少一名家長校董)係共用,clause(si 1 / si 2)已把佢當條件子句吸收,唔係 clean 校類排他,故不列。(2)「一條龍」中小學部註冊安排(imc_briefing_qa p3, 成立與章程)同時觸及小學+中學,屬結構性註明而非特殊學校 carve-out,亦不列。獨立校董「教員或專責人員」排他條款係資格定義,跨類共用,不列。\n\n驗證:已 grep 全部 12 sections(家長校董選舉/校董組成與資格/管治責任與問責/教員校董選舉/利益申報/校長遴選/校友及獨立校董/成立與章程/會議規程/財務治理/學校發展計劃/校監與幹事)school-level 限定詞,只得上述命中。"
+  },
+  {
+    "domain": "activity",
+    "phase1_types": [
+      "primary",
+      "secondary",
+      "special"
+    ],
+    "most_shared": true,
+    "item_exceptions": [
+      {
+        "locator": "在可能的情況下，本校應確保給予所有學生",
+        "source_id": "sch_activities_guide",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "教師帶領學生活動的開支必須合理、屬教育用途",
+        "source_id": "g03",
+        "applies_to": [
+          "special"
+        ]
+      }
+    ],
+    "clause_exceptions": [
+      {
+        "locator": "在可能的情況下，本校應確保給予所有學生（無論是否有殘障）",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "教師（特殊學校可按需要包括學校的教學及非教學人員）帶領",
+        "applies_to": [
+          "special"
+        ]
+      }
+    ],
+    "notes": "兩個來源（sch_activities_guide 學校活動安全指引、g03 全方位學習津貼指引）皆為跨校類 EDB 通用指引，標題無校類限定，內容（戶外/水上活動安全、帶隊、惡劣天氣取消、境外遊學、津貼運用、出發前準備）對小/中/特皆普遍適用，故 phase1_types 全選、most_shared=true。校類專屬只有少數：(1) si=11 clause3「特殊教育需要學童師生比例表（VI/HI/MoID/SID/PD輪椅等）+ 智障學童個人資料求助咭」屬特殊學校內容；(2) g03 si=3 clause5 / 對應 item「特殊學校可按需要包括學校的教學及非教學人員」屬特殊學校 carve-out（規則主體共用，但非教學人員擴展為特殊專屬）。註：官立學校（si=7 公務員因公受傷）、直資學校（si=3 津貼計算公式）屬辦學/資助類別區分，非小/中/特 phase-1 校類區分，已排除於 exceptions 之外。SEN 條文雖理論上亦可涉及融合教育下有 SEN 生嘅普通小/中，但 SEN 類別師生比例表本質為特殊學校配置，故標 special。"
+  },
+  {
+    "domain": "safety",
+    "phase1_types": [
+      "primary",
+      "secondary",
+      "special"
+    ],
+    "most_shared": true,
+    "item_exceptions": [
+      {
+        "locator": "中學視覺藝術教學中使用的有毒或有害物料包括含毒重金屬（鉛",
+        "source_id": "g21",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "中學視覺藝術科酸類溶液應由教師或技術員稀釋，切勿讓學生親",
+        "source_id": "g21",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "中學視覺藝術科使用酸類時視覺藝術室必須通風良好，附近絕對",
+        "source_id": "g21",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "中學視覺藝術科科主任須設立安全措施監察小組進行物料、工具",
+        "source_id": "g21",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "中學視覺藝術科使用化學品時應穿戴手套；若不慎翻瀉不明或帶",
+        "source_id": "g21",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "中學視覺藝術科所有工具及器材必須定期保養；尖銳工具須存放",
+        "source_id": "g21",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "學校應安排一名與學童相熟的成人或教師陪同學童乘車；現時客",
+        "source_id": "g18",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "所有運載小學和幼稚園學童的校巴（乘客座位數目為20個或以",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "資助特殊學校如宿舍部宿生發生嚴重或危及生命的意外，必須立",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "所有寄宿學校的負責人均須確保學生在獲取錄為寄宿生前曾接受",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "資助特殊學校須按照《特殊學校策劃和管理宿舍服務實務指引》",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "學校須制定宿舍宿生預防傳染病的校本政策及指引，制定宿舍閉",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "special"
+        ]
+      }
+    ],
+    "clause_exceptions": [
+      {
+        "locator": "中學視覺藝術科使用酸類時，須遵守下列安全規定：（一）使用酸類",
+        "applies_to": [
+          "secondary"
+        ]
+      },
+      {
+        "locator": "本校安排學生乘搭校車時，除司機外，應安排一名與學童相熟",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "本校（資助特殊學校）如宿舍部宿生發生嚴重或危及生命的意外",
+        "applies_to": [
+          "special"
+        ]
+      },
+      {
+        "locator": "本校寄宿部就學生健康及安全事宜，訂定以下規定及政策框架",
+        "applies_to": [
+          "special"
+        ]
+      }
+    ],
+    "notes": "學校安全域本質上係跨校類共用：職安健、消防、校舍設施、實驗室、危機應變、健康急救、保護兒童、校舍保安等規定，對小/中/特三類 Phase-1 校類全部適用，故 phase1_types=全三類、most_shared=true。來源亦多為跨類源（sag_2025_11 學校行政手冊、g22 科技教育安全、fire/OSH/slope/safety_mgmt 指引）。\n\n校類專屬 exceptions 共 3 組：\n(1) 中學專屬 = 視覺藝術科「使用酸類」「含毒重金屬／致癌物料」相關 6 條 item + 1 條 clause（si5）。g21 多數 item/clause 屬全校類共用視藝安全，但呢批 req 開首明寫「中學視覺藝術科」，酸蝕版畫／重金屬釉藥屬中學階段視藝課程，故只標 secondary。\n(2) 小學專屬 = 校車「跟車保母／成人陪同」要求（交通安全 g18 + sag_2025_11 各1 item；clause si6）。法定條款限「運載小學和幼稚園學童」校巴須設保母；幼稚園唔喺 Phase 1，故 Phase-1 範圍內只映射 primary。其餘校車構造／安全帶／校巴管理委員會等屬全校類共用，唔列入。\n(3) 特殊學校專屬 = 宿舍／寄宿相關（危機應變 si7 宿舍部宿生意外通報；健康衞生 si8 寄宿生入宿健康檢查、特殊學校宿舍服務政策、宿舍傳染病/CCTV 政策）。clause 明引「資助特殊學校」及《特殊學校策劃和管理宿舍服務實務指引》，本港日校宿舍部絕大多數為特殊學校，故 boarding 類 scope 為 special。\n\n留意：夜校（edbc_tropical_cyclone_night）相關「夜校」停課安排唔影響小/中/特三類 day-school Phase-1 分類，已併入共用惡劣天氣 clause（si7 表格列日校/夜校兩行），故唔另列 exception。locator 用 item req 開首約 25-28 字 / clause text 開首約 25 字，方便對返原檔。"
+  },
+  {
+    "domain": "gov_admin",
+    "phase1_types": [
+      "primary",
+      "secondary",
+      "special"
+    ],
+    "most_shared": true,
+    "item_exceptions": [
+      {
+        "locator": "除非獲教育局常任秘書長另行批准，否則所有小六學生",
+        "source_id": "sag_2025_11",
+        "applies_to": [
+          "primary"
+        ]
+      },
+      {
+        "locator": "非經常津貼修葺工程費用門檻：小學及特殊學校6,000元",
+        "source_id": "edbcm_major_repairs_grant",
+        "applies_to": [
+          "primary",
+          "special"
+        ]
+      },
+      {
+        "locator": "非屋邨資助學校大規模修葺申請門檻：小學及特殊學校6,000元",
+        "source_id": "major_repairs_proc_nonestate",
+        "applies_to": [
+          "primary",
+          "special"
+        ]
+      },
+      {
+        "locator": "非屋邨資助學校申請大規模修葺工程時，每個預算費用達或超過指定門檻（小",
+        "source_id": "major_repairs_proc_nonestate",
+        "applies_to": [
+          "primary",
+          "special"
+        ]
+      },
+      {
+        "locator": "屋邨資助學校的大規模修葺工程申請門檻與非屋邨資助學校相同（小學及特殊",
+        "source_id": "major_repairs_proc_estate",
+        "applies_to": [
+          "primary",
+          "special"
+        ]
+      }
+    ],
+    "clause_exceptions": [],
+    "notes": "校務行政域 12源全部為跨校類 EDB/ICAC 通用治理文件(SAG 學校行政手冊、ICAC 防貪錦囊、籌款指引、修葺程序、綜合保險、SDP、改名/擴建指引等)，無任何「中學…」「小學…」「特殊學校…」校類專屬源，域本質(管治/財務/採購/籌款/校舍修葺/保險/人事/行政/學生福祉)對小中特三類共用。故 phase1_types=小中特全適用、most_shared=true。\\n\\nclause_exceptions 留空：clauses.json 將校類差異多以「比較表」方式收於同一 clause(例如 si=5 大規模修葺門檻表同時列『資助小學及特殊學校 6,000→10,000』『資助中學 10,000(不變)』『直資 參照指引』；si=7 校舍維修門檻表同列小學/特殊/中學)，呢類 clause 本身跨校類共用，唔算專屬。\\n\\nitem_exceptions 為真正校類受限嘅 checklist items：(1) 小六升中『中學學位分配機制』派位 = 純小學(primary)。(2) 大規模修葺/緊急修葺『門檻金額』items 中，明確將『小學及特殊學校』與『中學』分開列嘅(小特一檔、中學另一檔)，標 primary+special(中學金額不同故不在此 applies_to)；對應 SAG/SPMS 同類門檻 item 因表內三類齊列屬共用，不另標。\\n\\n刻意不列為 phase1_type 例外者：『直資(DSS)』『屋邨/非屋邨(estate)』限定詞屬資助模式/校舍性質區分，非小/中/特校類本身，故不映射入 applies_to。『15歲以下小學生或初中生開除學籍』(covers 4,5)橫跨小學+初中(primary+secondary)且屬廣泛適用，未收窄到單一校類，故不列。"
+  }
+]

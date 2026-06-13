@@ -360,26 +360,6 @@
           "no_page": false
         },
         {
-          "req": "小學科學科教師應完成30小時指定培訓課程，完成者可獲發「小學科學教師專業培訓證書（30小時）」。",
-          "section": "學校課程規劃總則與架構",
-          "page": 3,
-          "approx": false,
-          "quote": "教 師 自 選 完 成 30 小 時 由 教 育 局 提 供 的 一 系 列 指",
-          "chunk_id": "vault_edbc18_2023_pri_science_8514739fc2374f72",
-          "source_id": "edbc18_2023_pri_science",
-          "no_page": false
-        },
-        {
-          "req": "擬任小學科學科科主任或級統籌者應完成「小學科學課程領導專業培訓證書課程（15小時）」，以提升課程領導和管理能力。",
-          "section": "學校課程規劃總則與架構",
-          "page": 3,
-          "approx": false,
-          "quote": "小 學 科 學 課 程 領 導 專 業 培 訓 證 書 課 程",
-          "chunk_id": "vault_edbc18_2023_pri_science_8514739fc2374f72",
-          "source_id": "edbc18_2023_pri_science",
-          "no_page": false
-        },
-        {
           "req": "學校須確保有足夠已完成有系統培訓的科主任和教師教授小學科學科。",
           "section": "學校課程規劃總則與架構",
           "page": 3,
@@ -2959,52 +2939,52 @@
         {
           "req": "全港小學須於2025/26學年開始在小一及小四推行小學人文科，並於2027/28學年推展至所有級別，以取代常識科課程。",
           "section": "小學人文科與科學科推行",
-          "page": 1,
+          "page": 8,
           "approx": false,
           "quote": "全港小學須於2025/26 學年開始在小一及小四推行小學人文科，並於2027/28 學年推展至所有級別，以取代常識科課程。",
           "chunk_id": "vault_edbc12_2025_ph_pri_78661f90d58c29f4",
-          "source_id": "edbc12_2025_ph_pri",
-          "no_page": true
+          "source_id": "ph_pri_guide_2025",
+          "no_page": false
         },
         {
           "req": "學校應按照課程的必須學習內容編排在各級施教，按不同年級之間的銜接，讓學生螺旋向上循序漸進地學習。",
           "section": "小學人文科與科學科推行",
-          "page": 2,
+          "page": 127,
           "approx": false,
           "quote": "學校應按照課程的必須學習內容編排在各級施教，按不同年級之間的銜接，讓學生螺旋向上循序漸進地學習",
           "chunk_id": "vault_edbc12_2025_ph_pri_5b0461778d18ddec",
-          "source_id": "edbc12_2025_ph_pri",
-          "no_page": true
+          "source_id": "ph_pri_guide_2025",
+          "no_page": false
         },
         {
           "req": "學校規劃小學人文科時，應按照課程規劃的原則，以協助學生建立穩固的知識基礎、發展共通能力和思維能力、培養正確的價值觀和態度，以進一步推動人文教育、國民及國家安全教育等，銜接初中及高中的學習。",
           "section": "小學人文科與科學科推行",
-          "page": 2,
+          "page": 123,
           "approx": false,
           "quote": "學校規劃本課程的實施時，應按照課程規劃的原則，以協助學生建立穩固的知識基礎、發展共通能力和思維能力、培養正確的價值觀和態度",
           "chunk_id": "vault_edbc12_2025_ph_pri_5b0461778d18ddec",
-          "source_id": "edbc12_2025_ph_pri",
-          "no_page": true
+          "source_id": "ph_pri_guide_2025",
+          "no_page": false
         },
         {
           "req": "教師需布置有效益的評估及課業，引發學生對學習的興趣和動機，避免機械式操練，讓學生有探究學習的空間，發展潛能。",
           "section": "小學人文科與科學科推行",
-          "page": 1,
+          "page": 192,
           "approx": true,
           "quote": "教師亦需布置有效益的評估及課業，引發學生對學習的興趣和動機，避免機械式操練，讓學生有探究學習的空間，發展潛能",
           "chunk_id": "vault_edbc12_2025_ph_pri_10139a25413f8330",
-          "source_id": "edbc12_2025_ph_pri",
-          "no_page": true
+          "source_id": "ph_pri_guide_2025",
+          "no_page": false
         },
         {
           "req": "學校應嚴謹採用合適和正確的學與教資源（包括涉及運用人工智能的資源），配合小學人文科課程目標和學習主題，設計有效益及有意義的學與教活動。",
           "section": "小學人文科與科學科推行",
-          "page": 1,
+          "page": 245,
           "approx": true,
           "quote": "應嚴謹採用合適和正確的學與教資源（ 包括涉及運用人工智能的資源），配合小學人文科課程目標和學習主題，設計有效益及有意義的學與教活動",
           "chunk_id": "vault_edbc12_2025_ph_pri_10139a25413f8330",
-          "source_id": "edbc12_2025_ph_pri",
-          "no_page": true
+          "source_id": "ph_pri_guide_2025",
+          "no_page": false
         },
         {
           "req": "教育局每年為小學人文科教師提供約4,000個培訓名額，學校應鼓勵教師積極報名參與相關專業培訓課程。",
@@ -3067,44 +3047,24 @@
           "no_page": false
         },
         {
-          "req": "小學科學科「小學科學課程領導專業培訓證書課程」（15小時）申請者，須先完成並獲得「小學科學教師專業培訓證書」（30小時）。",
-          "section": "小學人文科與科學科推行",
-          "page": 4,
-          "approx": false,
-          "quote": "教 師 在 申 請「 小 學 科 學 課 程 領 導 專 業 培 訓 證書 」（ 15 小 時 ）前 ， 須 完 成 並 獲 得「 小 學 科 學 教 師 專 業 培 訓 證 書 」（ 30 小 時 ）",
-          "chunk_id": "vault_edbc13_2025_pri_science_644a9166d67b542b",
-          "source_id": "edbc13_2025_pri_science",
-          "no_page": false
-        },
-        {
           "req": "小學人文科課程涵蓋個人、社會及人文教育學習領域內容，增潤中華文化、國史及國家地理等元素，課程理念為「立德樹人、探究學習、連繫生活」，學校須有系統地從小培養學生國家觀念、民族感情和國民身份認同，落實愛國主義教育。",
           "section": "小學人文科與科學科推行",
-          "page": 1,
+          "page": 19,
           "approx": false,
           "quote": "小學人文科涵蓋個人、社會及人文教育學習領域的內容，增潤中華文化、國史及國家地理等元素。課程理念為「立德樹人、探究學習、連繫生活」",
           "chunk_id": "vault_edbc12_2025_ph_pri_78661f90d58c29f4",
-          "source_id": "edbc12_2025_ph_pri",
-          "no_page": true
+          "source_id": "ph_pri_guide_2025",
+          "no_page": false
         },
         {
           "req": "2025/26學年「適用書目表」已包括通過評審的小一及小四年級人文科課本資料，學校應按此選書；小二及小五年級人文科課本評審預計於2026年第一季完成。",
           "section": "小學人文科與科學科推行",
-          "page": 1,
+          "page": 11,
           "approx": true,
           "quote": "2025/26 學年的「適用書目表」已包括通過評審的小一及小四年級人文科課本資料，供學校選書之用。本局預計小二及小五年級人文科課本評審的工作將於2026 年第一季內完成",
           "chunk_id": "vault_edbc12_2025_ph_pri_6976e4ff801d11c1",
-          "source_id": "edbc12_2025_ph_pri",
-          "no_page": true
-        },
-        {
-          "req": "教育局將於2025/26學年推出全新的小學人文科課程領導專業培訓證書課程（30小時），進一步提升小學人文科科主任的課程領導和管理能力，學校應鼓勵有關教師報名參加。",
-          "section": "小學人文科與科學科推行",
-          "page": 1,
-          "approx": true,
-          "quote": "教育局將於2025/26 學年推出全新的小學人文科課程領導專業培訓證書課程（ 30 小時），進一步提升小學人文科科主任的課程領導和管理的能力",
-          "chunk_id": "vault_edbc12_2025_ph_pri_7aa4406a4728e164",
-          "source_id": "edbc12_2025_ph_pri",
-          "no_page": true
+          "source_id": "ph_pri_guide_2025",
+          "no_page": false
         },
         {
           "req": "學校在推行小學人文科時，應按課程框架中所列必須學習內容編排教學，並可善用不多於20%的彈性課時，為學生提供豐富多元的學習經歷。",
@@ -3117,24 +3077,14 @@
           "no_page": false
         },
         {
-          "req": "小學科學科「小學科學教師專業培訓證書課程」（30小時）選擇性必修課程須修讀最少兩個課程，共12小時。",
-          "section": "小學人文科與科學科推行",
-          "page": 4,
-          "approx": true,
-          "quote": "選 擇 性 必 修 課 程 ， 須 修 讀 最 少 兩 個 課 程 ， 共 12 小 時",
-          "chunk_id": "vault_edbc13_2025_pri_science_5b4b4762df512957",
-          "source_id": "edbc13_2025_pri_science",
-          "no_page": false
-        },
-        {
           "req": "學校應參考《小學人文科課程指引》第五章建議，運用多元評估方式讓學生展示學習成果，並適時提供優質回饋，協助學生主動建構知識，逐步發展和綜合運用共通能力。",
           "section": "小學人文科與科學科推行",
-          "page": 2,
+          "page": 196,
           "approx": false,
           "quote": "第五章「評估」建議教師運用多元評估方式，讓學生展示學習成果，並適時提供優質回饋，協助他們主動建構知識，逐步發展和綜合運用共通能力，培養人文素養",
           "chunk_id": "vault_edbc12_2025_ph_pri_5b0461778d18ddec",
-          "source_id": "edbc12_2025_ph_pri",
-          "no_page": true
+          "source_id": "ph_pri_guide_2025",
+          "no_page": false
         },
         {
           "req": "由2025/26 學年起於小一及小四級開始推行小學人文科及小學科學科以代替小學常識科，學校應配合開展相關課程規劃。",
@@ -7624,6 +7574,10 @@
     "g06": [
       "《小學教育課程指引》完整版（2024）",
       "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide/PECG%202024_full.pdf"
+    ],
+    "ph_pri_guide_2025": [
+      "小學人文科課程指引（2025）",
+      "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/ph-primary/Primary_Humanities_Curriculum_Guide.pdf"
     ]
   }
 }
