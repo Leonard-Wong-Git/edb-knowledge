@@ -3112,14 +3112,125 @@ function AnalyzePanel() {
   );
 }
 
+// ── Policy Templates (政策範本下載) ──
+const TEMPLATE_TYPE_FILTERS = [
+  { key: 'all', label: '全部' },
+  { key: '', label: '通用' },
+  { key: 'primary', label: '小學' },
+  { key: 'secondary', label: '中學' },
+  { key: 'special', label: '特殊學校' },
+];
+const TEMPLATE_KIND_LABEL = { policy: '政策範本（學校版，可編輯）', checklist: '文件要求清單' };
+
+function TemplatesPanel() {
+  const [manifest, setManifest] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState('');
+  const [typeFilter, setTypeFilter] = useState('all');
+
+  useEffect(() => {
+    let alive = true;
+    fetch('policy_templates.json', { cache: 'no-cache' })
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(d => { if (alive) { setManifest(d); setLoading(false); } })
+      .catch(e => { if (alive) { setLoadError(String(e && e.message || e)); setLoading(false); } });
+    return () => { alive = false; };
+  }, []);
+
+  const fileMatches = useCallback((f) => typeFilter === 'all' || f.school_type === typeFilter, [typeFilter]);
+  const totalShown = useMemo(() => {
+    if (!manifest) return 0;
+    return manifest.domains.reduce((n, d) => n + d.files.filter(fileMatches).length, 0);
+  }, [manifest, fileMatches]);
+
+  return (
+    <div className="max-w-5xl mx-auto px-4 py-6">
+      {/* header */}
+      <div className="mb-5">
+        <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">📋 政策範本下載</h2>
+        <p className="text-sm text-gray-500 mt-1 leading-relaxed">
+          按教育局公開指引整理嘅 14 個範疇校本政策草稿（<strong>學校版</strong>，可直接編輯填寫）及對應嘅文件要求清單，分「小學 / 中學 / 特殊學校」適用版本。下載後請按本校實際情況修訂，並自行核對教育局官方原文。
+        </p>
+        <div className="mt-2 text-xs px-3 py-2 rounded-lg" style={{ background: 'var(--paper-2)', color: 'var(--warn)', border: '1px solid var(--line)' }}>
+          ⚠️ 文件標示「DRAFT 草擬本」，僅供參考起草之用，不構成正式法律或行政意見；請核對教育局官方原文作準。
+        </div>
+      </div>
+
+      {/* school-type filter */}
+      <div className="flex items-center gap-1.5 mb-5 flex-wrap">
+        <span className="text-xs text-gray-400 mr-1">校類：</span>
+        {TEMPLATE_TYPE_FILTERS.map(t => (
+          <button key={t.key || 'generic'} onClick={() => setTypeFilter(t.key)}
+                  className={`filter-tab ${typeFilter === t.key ? 'active-tab' : ''}`}
+                  aria-pressed={typeFilter === t.key}>{t.label}</button>
+        ))}
+        {manifest && <span className="text-xs text-gray-400 ml-1">（{totalShown} 份）</span>}
+      </div>
+
+      {loading && (
+        <div className="bg-white rounded-xl border border-gray-200 p-10 text-center text-gray-400">
+          <p className="text-sm">正在載入範本清單…</p>
+        </div>
+      )}
+      {loadError && (
+        <div className="bg-white rounded-xl border border-gray-200 p-10 text-center text-gray-500">
+          <p className="text-sm">範本清單暫時無法載入（{loadError}）。</p>
+          <p className="text-xs text-gray-400 mt-1">如於本機預覽請改用正式網站；或稍後重試。</p>
+        </div>
+      )}
+      {manifest && (
+        <div className="space-y-4">
+          {manifest.domains.map(dom => {
+            const groups = [
+              ['policy', dom.files.filter(f => f.kind === 'policy' && fileMatches(f))],
+              ['checklist', dom.files.filter(f => f.kind === 'checklist' && fileMatches(f))],
+            ];
+            if (groups.every(([, fs]) => fs.length === 0)) return null;
+            return (
+              <div key={dom.key} className="bg-white rounded-xl border border-gray-200 p-4 animate-in">
+                <div className="flex items-center gap-2 mb-3">
+                  <h3 className="text-base font-bold text-gray-800">{dom.cn}</h3>
+                  <span className="text-xs text-gray-400">{dom.files.length} 份</span>
+                </div>
+                {groups.map(([kind, files]) => files.length > 0 && (
+                  <div key={kind} className="mb-3 last:mb-0">
+                    <div className="text-xs font-semibold mb-1.5" style={{ color: 'var(--ink-soft, #6b7280)' }}>{TEMPLATE_KIND_LABEL[kind]}</div>
+                    <div className="flex flex-wrap gap-2">
+                      {files.map(f => (
+                        <a key={f.name} href={encodeURI(f.path)} download={f.name}
+                           style={{
+                             background: kind === 'policy' ? 'var(--edb)' : '#ffffff',
+                             color: kind === 'policy' ? '#ffffff' : 'var(--edb)',
+                             border: kind === 'policy' ? '1px solid var(--edb)' : '1px solid var(--line)',
+                           }}
+                           className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg font-medium transition-colors whitespace-nowrap hover:opacity-90 shadow-sm">
+                          <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 10v6m0 0l-3-3m3 3l3-3M4 6a2 2 0 012-2h8l6 6v6a2 2 0 01-2 2H6a2 2 0 01-2-2V6z" />
+                          </svg>
+                          {f.type_label}
+                          <span style={{ opacity: 0.6 }}>· {Math.round(f.size / 1024)}KB</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Main App ──
 function App() {
   const data = INITIAL_DATA;
-  const VALID_VIEWS = ['qa', 'analyze', 'guidelines', 'about'];
+  const VALID_VIEWS = ['qa', 'analyze', 'templates', 'guidelines', 'about'];
   const hashView = window.location.hash.replace('#', '');
   const [viewMode, setViewMode] = useState(
     VALID_VIEWS.includes(hashView) ? hashView : 'qa'
-  ); // 'qa' | 'analyze' | 'guidelines' | 'about'
+  ); // 'qa' | 'analyze' | 'templates' | 'guidelines' | 'about'
 
   // Keep URL hash in sync when tab changes
   const switchView = useCallback((v) => {
@@ -3176,6 +3287,10 @@ function App() {
                       className={`filter-tab ${viewMode === 'analyze' ? 'active-tab' : ''}`} aria-selected={viewMode === 'analyze'} role="tab">
                 📄 文件分析
               </button>
+              <button onClick={() => switchView('templates')}
+                      className={`filter-tab ${viewMode === 'templates' ? 'active-tab' : ''}`} aria-selected={viewMode === 'templates'} role="tab">
+                📋 政策範本
+              </button>
               <button onClick={() => switchView('guidelines')}
                       className={`filter-tab ${viewMode === 'guidelines' ? 'active-tab' : ''}`} aria-selected={viewMode === 'guidelines'} role="tab">
                 📚 指引文件 ({GUIDELINES_REGISTRY.length})
@@ -3196,6 +3311,8 @@ function App() {
             <GuidelinesPanel setPreviewDoc={setPreviewDoc} />
           ) : viewMode === 'analyze' ? (
             <AnalyzePanel />
+          ) : viewMode === 'templates' ? (
+            <TemplatesPanel />
           ) : (
             <QAPanel data={data} setPreviewDoc={setPreviewDoc} />
           )}
