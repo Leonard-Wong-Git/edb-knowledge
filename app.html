@@ -29,9 +29,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
-<!-- 文件分析 client-side extraction: pdf.js 3.x (UMD; 4.x is ESM-only) + mammoth (docx). deferred — runtime-guarded in AnalyzePanel -->
+<!-- 文件分析 client-side: pdf.js 3.x (UMD; 4.x ESM-only) + mammoth (docx 抽取) + docx 8.x (UMD, 標註版生成). deferred — runtime-guarded in AnalyzePanel -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js" defer></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════════
@@ -2760,6 +2761,65 @@ function QAPanel({ data, setPreviewDoc }) {
 // ── 文件分析 Panel ──
 // Client-side extraction (pdf.js text layer / mammoth docx / paste) → only the
 // extracted TEXT is sent to the backend — the raw file never leaves the browser.
+
+const ANALYZE_SCHOOL_LABELS = { primary: '小學', secondary: '中學', special: '特殊學校', kindergarten: '幼稚園' };
+
+// Build the downloadable annotated docx entirely in-browser from the analysis
+// report (original text already client-side; matches/notes from the API) — the
+// assembled annotated document never leaves the browser (privacy posture).
+async function buildAnnotatedDocx(report, schoolType, fileName) {
+  const D = window.docx;
+  const FONT = 'Microsoft JhengHei';
+  const t = (text, o = {}) => new D.TextRun({ text, font: FONT, ...o });
+  const p = (children, o = {}) => new D.Paragraph({ children: Array.isArray(children) ? children : [children], ...o });
+  const children = [];
+
+  children.push(p(t('文件分析 · 標註版', { bold: true, size: 36 }), { spacing: { after: 80 } }));
+  const meta = [
+    report.filename ? `文件：${report.filename}` : (fileName ? `文件：${fileName}` : null),
+    schoolType ? `校類：${ANALYZE_SCHOOL_LABELS[schoolType] || schoolType}` : null,
+    `共 ${report.total_segments} 段，已分析 ${report.analyzed_segments} 段`,
+  ].filter(Boolean).join('　·　');
+  children.push(p(t(meta, { size: 18, color: '888888' }), { spacing: { after: 60 } }));
+  children.push(p(t('本標註版由 EDB K1 知識平台「文件分析」生成：原文逐段附上相關教育局指引引用、頁碼及提示。分析由 AI 語意比對產生，可能有遺漏或表述偏差；重要決定請以教育局官方原文為準。', { size: 18, color: '888888' }), { spacing: { after: 220 } }));
+
+  (report.segments || []).forEach((seg) => {
+    children.push(p(t(`【段 ${seg.index}】`, { bold: true, size: 20, color: '1F4E36' }), { spacing: { before: 200, after: 40 } }));
+    children.push(p(t(seg.text || seg.excerpt || '', { size: 22 }), { spacing: { after: 60 } }));
+    if (seg.note) {
+      children.push(p(t('✦ 提示：' + seg.note, { size: 20, italics: true, color: 'B45309' }), { indent: { left: 360 }, spacing: { after: 40 } }));
+    }
+    if (seg.matches && seg.matches.length) {
+      children.push(p(t('相關指引：', { size: 18, bold: true, color: '555555' }), { indent: { left: 360 }, spacing: { after: 20 } }));
+      seg.matches.forEach((m) => {
+        const safe = m.url && /^https?:/i.test(m.url) ? m.url : null;
+        const isPdf = safe && safe.toLowerCase().includes('.pdf');
+        const href = safe ? (m.page && isPdf ? `${safe}#page=${m.page}` : safe) : null;
+        const label = `《${m.title}》${m.page ? `（第 ${m.page} 頁）` : ''}`;
+        const runs = [t('• ', { size: 18, color: '555555' })];
+        if (href) runs.push(new D.ExternalHyperlink({ children: [new D.TextRun({ text: label, style: 'Hyperlink', font: FONT, size: 18 })], link: href }));
+        else runs.push(t(label, { size: 18 }));
+        children.push(p(runs, { indent: { left: 540, hanging: 180 }, spacing: { after: 10 } }));
+        if (m.snippet) children.push(p(t(m.snippet, { size: 16, color: '777777' }), { indent: { left: 720 }, spacing: { after: 40 } }));
+      });
+    } else if (seg.status === 'ok') {
+      children.push(p(t('（未檢索到相關指引）', { size: 18, color: '999999' }), { indent: { left: 360 }, spacing: { after: 40 } }));
+    } else {
+      children.push(p(t('（此段檢索失敗，未有指引）', { size: 18, color: 'B45309' }), { indent: { left: 360 }, spacing: { after: 40 } }));
+    }
+  });
+
+  if (report.skipped_segments > 0) {
+    children.push(p(t(`（文件較長，餘下 ${report.skipped_segments} 段未分析；請分批分析後再生成。）`, { size: 18, color: 'B45309' }), { spacing: { before: 160 } }));
+  }
+
+  const doc = new D.Document({
+    styles: { default: { document: { run: { font: FONT, size: 22 } } } },
+    sections: [{ children }],
+  });
+  return D.Packer.toBlob(doc);
+}
+
 function AnalyzePanel() {
   const BACKEND_URL = 'https://edb-knowledge.onrender.com';
   const MAX_CHARS = 60000;
@@ -2771,6 +2831,8 @@ function AnalyzePanel() {
   const [analyzing, setAnalyzing] = useState(false);
   const [analyzeError, setAnalyzeError] = useState(null);
   const [report, setReport] = useState(null);
+  const [schoolType, setSchoolType] = useState('');
+  const [downloading, setDownloading] = useState(false);
   const fileInputRef = React.useRef(null);
 
   const resetOutputs = () => { setReport(null); setAnalyzeError(null); };
@@ -2830,7 +2892,7 @@ function AnalyzePanel() {
     try {
       const resp = await fetch(`${BACKEND_URL}/api/analyze-document`, {
         method: 'POST', headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ text, ...(fileName ? { filename: fileName } : {}) })
+        body: JSON.stringify({ text, ...(fileName ? { filename: fileName } : {}), ...(schoolType ? { school_type: schoolType } : {}) })
       });
       const json = await resp.json().catch(() => null);
       if (!resp.ok) {
@@ -2847,6 +2909,25 @@ function AnalyzePanel() {
 
   const handleClear = () => {
     setDocText(''); setFileName(''); setExtractError(null); resetOutputs();
+  };
+
+  const handleDownload = async () => {
+    if (!report || downloading) return;
+    if (!window.docx) { setAnalyzeError('文件生成元件尚未載入，請重新整理頁面再試。'); return; }
+    setDownloading(true);
+    try {
+      const blob = await buildAnnotatedDocx(report, schoolType, fileName);
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const base = String(report.filename || fileName || '文件').replace(/\.(pdf|docx?)$/i, '');
+      a.href = url; a.download = `${base}_標註版.docx`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    } catch (err) {
+      setAnalyzeError('標註版生成失敗：' + (err && err.message ? err.message : '未知錯誤'));
+    } finally {
+      setDownloading(false);
+    }
   };
 
   const overLimit = docText.length > MAX_CHARS;
@@ -2886,6 +2967,22 @@ function AnalyzePanel() {
             ⚠️ {extractError}
           </div>
         )}
+
+        {/* School-type selector — tailors per-segment notes + annotated doc to the school level */}
+        <div className="flex items-center gap-2 mb-3" style={{flexWrap:'wrap'}}>
+          <label className="text-xs" style={{color:'var(--mid)',fontWeight:600}}>本校校類：</label>
+          <select value={schoolType} onChange={e => { setSchoolType(e.target.value); resetOutputs(); }}
+                  disabled={analyzing}
+                  className="text-sm border border-gray-200 rounded-lg px-2.5 py-1.5 disabled:opacity-50"
+                  style={{background:'var(--paper)',color:'var(--ink)'}}>
+            <option value="">不限（一般比對）</option>
+            <option value="primary">小學</option>
+            <option value="secondary">中學</option>
+            <option value="special">特殊學校</option>
+            <option value="kindergarten">幼稚園</option>
+          </select>
+          <span className="text-xs text-gray-400">系統會按校類調整提示</span>
+        </div>
 
         {/* Text area */}
         <textarea value={docText}
@@ -2938,6 +3035,16 @@ function AnalyzePanel() {
             {report.skipped_segments > 0 && (
               <span style={{color:'#92400E'}}>；文件較長，餘下 {report.skipped_segments} 段未分析，請分批處理</span>
             )}
+          </div>
+
+          {/* Download annotated docx (assembled in-browser; never uploaded) */}
+          <div className="flex items-center gap-2" style={{flexWrap:'wrap'}}>
+            <button onClick={handleDownload} disabled={downloading}
+                    className="px-4 py-2 text-sm rounded-lg font-medium transition-all disabled:opacity-50"
+                    style={{background:'var(--p-primary)',color:'#fff'}}>
+              {downloading ? '⏳ 生成中…' : '⬇️ 下載標註版 Word'}
+            </button>
+            <span className="text-xs text-gray-400">原文逐段附指引引用、頁碼及提示；於瀏覽器內生成，不會上載</span>
           </div>
 
           {/* Per-segment cards */}

@@ -46,11 +46,25 @@ const SNIPPET_CHARS = 220;
 // Types
 // ---------------------------------------------------------------------------
 
+/** School type for tailoring per-segment notes ("食" the #3 校類 model at advice level). */
+export type SchoolType = "primary" | "secondary" | "special" | "kindergarten";
+const SCHOOL_TYPE_LABELS: Record<SchoolType, string> = {
+  primary: "小學",
+  secondary: "中學",
+  special: "特殊學校",
+  kindergarten: "幼稚園",
+};
+function normalizeSchoolType(v: unknown): SchoolType | undefined {
+  return typeof v === "string" && v in SCHOOL_TYPE_LABELS ? (v as SchoolType) : undefined;
+}
+
 export interface AnalyzeDocumentRequest {
   /** Extracted document text (client-side extraction; required). */
   text: string;
   /** Original filename, echoed back for display only. */
   filename?: string;
+  /** Optional school type — tailors the per-segment notes to that school level. */
+  school_type?: string;
 }
 
 export interface AnalyzeDocumentMatch {
@@ -65,6 +79,8 @@ export interface AnalyzeDocumentMatch {
 export interface AnalyzeDocumentSegment {
   index: number;
   excerpt: string;
+  /** Full segment text (for building the downloadable annotated docx client-side). */
+  text: string;
   char_count: number;
   /** "ok" = searched fine (matches may still be empty); "error" = search failed for this segment */
   status: "ok" | "error";
@@ -151,7 +167,7 @@ export function segmentText(text: string): string[] {
 // Per-segment notes (single LLM call for the whole document)
 // ---------------------------------------------------------------------------
 
-const NOTES_PROMPT = `你是香港學校管治的政策顧問。以下是一份學校文件的分段內容，每段附有從教育局官方指引檢索到的相關資料。
+const NOTES_PROMPT = `你是香港學校管治的政策顧問。以下是一份學校文件的分段內容，每段附有從教育局官方指引檢索到的相關資料。{CONTEXT}
 請為每個段落用繁體中文寫一句話（40字內）的提示，說明該段落與檢索到的指引有何關連或需注意之處。
 輸出格式：每行一句，以段落編號開頭，例如「1: 提示內容」。沒有相關資料的段落輸出「N: 未有對應指引」。不要輸出其他文字。
 
@@ -159,8 +175,12 @@ const NOTES_PROMPT = `你是香港學校管治的政策顧問。以下是一份�
 
 function buildNotesPrompt(
   segments: string[],
-  matchesBySegment: AnalyzeDocumentMatch[][]
+  matchesBySegment: AnalyzeDocumentMatch[][],
+  schoolType?: SchoolType
 ): string {
+  const context = schoolType
+    ? `\n本校屬「${SCHOOL_TYPE_LABELS[schoolType]}」，請按該校類的實際情況給出提示（例如某指引只適用於其他校類時，請指出本校類是否適用）。`
+    : "";
   const blocks = segments.map((seg, i) => {
     const refs = matchesBySegment[i]
       .slice(0, 2)
@@ -168,7 +188,9 @@ function buildNotesPrompt(
       .join("\n");
     return `段落${i + 1}：${seg.slice(0, 300)}\n${refs || "  （未檢索到相關指引）"}`;
   });
-  return NOTES_PROMPT.replace("{SEGMENTS}", blocks.join("\n\n"));
+  return NOTES_PROMPT
+    .replace("{CONTEXT}", context)
+    .replace("{SEGMENTS}", blocks.join("\n\n"));
 }
 
 /** Parse "1: note" lines; tolerant of full-width colons and stray text. */
@@ -221,6 +243,7 @@ export async function analyzeDocument(
   deps: AnalyzeDocumentDependencies
 ): Promise<AnalyzeDocumentResponse> {
   const text = input?.text;
+  const schoolType = normalizeSchoolType(input?.school_type);
   if (typeof text !== "string" || !text.trim()) {
     throw new Error("text is required");
   }
@@ -263,7 +286,7 @@ export async function analyzeDocument(
   const matchesBySegment = searchOutcomes.map((o) => o.matches);
   if (matchesBySegment.some((m) => m.length > 0)) {
     try {
-      const raw = await deps.llmClient(buildNotesPrompt(segments, matchesBySegment));
+      const raw = await deps.llmClient(buildNotesPrompt(segments, matchesBySegment, schoolType));
       notes = parseNotes(raw, segments.length);
     } catch {
       /* notes omitted — matches still returned */
@@ -279,6 +302,7 @@ export async function analyzeDocument(
     segments: segments.map((seg, i) => ({
       index: i + 1,
       excerpt: seg.length > EXCERPT_CHARS ? `${seg.slice(0, EXCERPT_CHARS)}…` : seg,
+      text: seg,
       char_count: seg.length,
       status: searchOutcomes[i].status,
       matches: searchOutcomes[i].matches,
