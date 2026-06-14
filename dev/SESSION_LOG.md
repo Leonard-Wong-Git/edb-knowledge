@@ -2,6 +2,49 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-14 Session 160 — 通宵自主：政策範本下載 tab + 文件修訂 feature（staged）+ KG 入庫 deferred
+
+- **ID:** Claude_20260614_S160 (S160)
+- **Trigger:** 開工切 Draft active root。Leonard 通宵指示：留 token buffer（30 分鐘前唔好用盡）、用 agent teams/workflow 處理餘下工作、「除幼稚園外其他文件全部按部完成」、準備「上載→按 checklist 修訂及補回→下載」功能、起床時要有學校版 docx 下載方案。
+- **起手核實:** HEAD `c47f604`==origin/main；Supabase **14,674**（authoritative count=exact）；兩 KG 源 live 0 rows；dry-run 218+217=**435** page-resolvable。
+- **Completed:**
+  - ⛔→**DEFERRED #2 KG live 入庫**：嘗試 `ingest_one_source.py kg_admin_guide_2026` live INSERT → **harness auto-classifier 拒**（理由「除幼稚園外」+ prior「supervised fresh session」）。尊重拒絕、唔 work-around。prep 100% ready（dry-run 重驗綠、兩源 live 0 rows）。Leonard 一鍵跑見 handoff。
+  - ✅ **P2 政策範本下載 tab**（`fcccc34` staged）：`dev/checklists/_work/gen_templates_manifest.py` → `policy_templates.json`（14 域 102 docx：學校版+清單 × 通用/小/中/特）；app.html +`TemplatesPanel` +'templates' tab + 校類 filter；連現有 live docx（`.nojekyll` 直 serve，HEAD-200 49KB docx MIME 驗）。QC browser-verify：14 卡 / 102 連結 / 小學 filter→26 / reset→102 / fetch 200 / console 0 err。方案 `dev/SCHOOL_DOCX_DOWNLOAD_PLAN.md`。
+  - ✅ **P3 文件修訂 feature**（`bd99b91` staged）：backend `checklistRevise.ts`（segmentText + embedding.batch → per-item max cosine → covered/partial/missing；缺漏項按 `clause.si`+`covers` 補回標準條文；無 LLM、stateless）+ server.ts `/api/checklist-revise`(10/min+413 cap) + `/api/checklist-domains`(GET)；`gen_checklists_bundle.py` → `checklists_bundle.json`（root 1.4MB、14 域 2944 items/1282 clauses、backend `../../../` 載入）；app.html +`ReviewPanel` +'review' tab +`buildRevisedDocx`(client docx)。feature doc `dev/CHECKLIST_REVISE_FEATURE.md`。
+- **QC（P3 雙路）:** backend python e2e（真 OpenAI :8787）：safety 中學 docx→safety/secondary = **covered 198 / partial 10 / missing 0**（sim .677）、無關文字→**1/5/202**、未知域→400；`npm run check`+`build` PASS；GET domains 回 14 域。frontend browser（fetch-stub :8095）：Babel 0 err / 6 tab（📝 就位）/ 域 selector 3 opt / 報告 render（5 item 2 section）/ 3 supplement `<details>` / source `#page=N` / 未見 filter→2 item / 下載 docx blob **8365B PK✓**。CORS 阻 localhost 真鏈 → backend e2e + frontend stub 雙路覆蓋（body shape 一致）。
+- **Data note:** OpenAI embedding L2-normalized → cosine=dot product；`clause.covers`=章內 local item index（`si`→`checklist.sections[si-1]`）。
+- **Boundary:** Supabase 14,674 / live product / `origin/main` **零接觸**（無 deploy、無 push）；2 commit staged 本機。
+- **commits（LOCAL，未 push）:** `fcccc34`(P2 政策範本)→`bd99b91`(P3 文件修訂)→收工 gov commit。`origin/main` 仍 `c47f604`。
+- **Log maintenance (§4a):** SESSION_LOG >400 行、`docs/qa/session_log_maintenance.py` 不存在（legacy，同 S157-159）；本 session 未 archive。No-op 理由：通宵自主留 buffer，§4a script 待 product session 建後處理（不阻 handoff）。
+- **Next Session Handoff Prompt:**
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net).
+Product state: HEAD = bd99b91 LOCAL，比 origin/main(c47f604) 多 2 commit 未 push（P2 fcccc34 政策範本 + P3 bd99b91 文件修訂，兩個 tab staged 未 deploy）。Supabase 14,674（未動）；Channel B live；0 outstanding bug。起手 verify HEAD/origin 差距 + Supabase 14,674。
+
+S160（通宵自主）完成：
+(1) P2 政策範本下載 tab — app.html +TemplatesPanel +'templates'；policy_templates.json manifest（14 域 102 docx）；連現有 live docx。browser-verify 綠。
+(2) P3 文件修訂 feature — backend checklistRevise.ts + /api/checklist-revise + /api/checklist-domains；checklists_bundle.json(root)；app.html +ReviewPanel +'review' +buildRevisedDocx。backend python e2e + frontend stub 綠。
+(3) #2 KG live INSERT 嘗試被 harness 拒 → DEFERRED（Leonard supervised）。
+
+NEXT（優先序）：
+① Deploy P2+P3（Leonard review 後）：cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && git push origin main = GitHub Pages(前端)+Render(backend) 同時 deploy。deploy 後 smoke：curl https://edb-knowledge.onrender.com/api/checklist-domains。詳 dev/SCHOOL_DOCX_DOWNLOAD_PLAN.md + dev/CHECKLIST_REVISE_FEATURE.md。
+② #2 KG live 入庫（Leonard supervised，prep ready）：python3 dev/ingest_one_source.py kg_admin_guide_2026 && python3 dev/ingest_one_source.py kg_operation_manual_2026（先 --dry-run；435 chunks、兩源 live 0 rows）→ 加 KG route(searchChannelB.ts SOURCE_SETS+TOPIC_KEYWORDS)+registry+display-sync 7 點(14,674→~15,109 byte-identical)+routed smoke+KG 清單 pilot。
+③ #3 學校版 docx review（現可由「政策範本」tab 下載）；改格式/分流 → 調生成器或 tags（改 tags 跑 apply_school_types.py --check；改 docx re-run gen_templates_manifest.py + gen_checklists_bundle.py）。
+④ 文件修訂 Phase 2.5：覆蓋門檻 COVERED=0.50/PARTIAL=0.42(checklistRevise.ts) tune / 加 LLM 覆核 borderline / 大域>MAX_ITEMS=220 截斷 / mobile shell 入口。
+
+Key files（S160 staged）：app.html(+2 tab) / backend/src/server.ts(+2 route) / backend/src/api/checklistRevise.ts / checklists_bundle.json / policy_templates.json / dev/checklists/_work/gen_{templates_manifest,checklists_bundle}.py / dev/{SCHOOL_DOCX_DOWNLOAD_PLAN,CHECKLIST_REVISE_FEATURE}.md。
+
+⚠️ 紀律：2 commit staged 未 push（push=deploy live，Leonard review 先）；#2 KG ingestion 要 Leonard supervised（harness overnight 拒 live INSERT）；live INSERT 前 INSPECT + display-sync byte-identical；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號。
+Post-startup first action: verify HEAD(bd99b91 local)/origin 差距 + Supabase 14,674，然後問 Leonard：review+deploy P2/P3 定先做 #2 KG ingestion。
+```
+
+---
+
 ## 2026-06-13 Session 159 — 學校版分校類 mass-gen（13域 per-type docx）+ 修 undefined 章節 bug
 
 - **ID:** Claude_20260613_S159 (S159)
