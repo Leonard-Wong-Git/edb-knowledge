@@ -3667,9 +3667,9 @@ function App() {
   }, []);
   const [previewDoc, setPreviewDoc] = useState(null);
 
-  const displayVersion = useMemo(() => {
-    return `v${data._meta?.version || '0.0.0'}`;
-  }, [data]);
+  // S163 P1: header/footer show the user-facing PLATFORM_VERSION (v3.0.0), NOT the
+  // frozen knowledge.json data-contract version (data._meta.version stays 2.3.0).
+  const displayVersion = `v${PLATFORM_VERSION}`;
 
   // Stats — public read-only (derived from _meta.stats / data; no review workflow)
   const stats = useMemo(() => {

@@ -25,6 +25,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **kg_operation clauses schema 正規化**（S163）：由非標準 `section_no`/`name` 改為 canonical `si`/`section_name`，修正 backend supplement linkage（388/388 items 由失效恢復）+ 學校版 docx 章節名空白 bug。
 - **kg_operation 改寫覆核**（S163）：17 條 QC verify flags（虛構鋪墊句／漏義務／錯引用）全部修正。
 
+### Release hardening — v3.0 封版 QC（S163，NO-GO → GO）
+- **P1 版本顯示一致**：`app.html` header/footer `displayVersion` 改由 `PLATFORM_VERSION`（v3.0.0）派生，不再讀 `knowledge.json _meta.version`（維持凍結 2.3.0）。
+- **P2 幼稚園營運搜尋效度**：`searchChannelB.ts` kg_admin route 加「幼稚園營運／營運手冊／運作／健康紀錄」等自然查詢詞 → query「幼稚園營運 手冊 健康紀錄」正確路由至 kg_operation_manual/kg_admin_guide（原誤落 curriculum → 只得 g26 收生指引）；kg_admission 不受影響（routing regression 5 案）。
+- **P3 標註覆蓋誇大**：`checklistRevise.ts` 加 graded 詞彙重疊閘（informative CJK-bigram，DF 自校準濾走 本校/幼稚園 等通用詞）：cosine 之上，需與最匹配段共享 ≥2 informative 詞先計 covered、≥1 計 partial、0 → missing。短窄文「保存健康紀錄量體溫清潔床單」由 covered=20/partial=55 降至 **covered=5/partial=30**（真實多段覆蓋文件不受影響，covered=37）。`MAX_ITEMS` 220→400（kg_operation 388 全評分，零截斷）。
+- **P4 README** 版本徽章 v3.0.0（+ knowledge.json 凍結 2.3.0 註明）。
+- **P5 worktree 衞生**：本機備份／中間檔（`*.bak_*`/`*.pre_*`/`_distill_*`/`_rewrite_*`）`.gitignore`（不刪，僅排除出 release tree）。
+- **P6 Mobile scope（v3.0）**：mobile = 政策搜尋 + 指引文件 + 平台介紹（讀／搜尋面）；**文件標註 + 範本下載 為 desktop 功能**（涉及檔案上載 + Word/PDF 生成，需較大畫面）。詳見 `PROJECT_MASTER_SPEC.md` §B.5。
+- **Regression**：修正 2 條失效已久的 stale 斷言（schema 版本硬編 1.3.1 → 2.3.0/2.5.0；role-bucket distinctness → union-selector「兩角色均取得事實」），+ 加 P2 routing / P3 lexical-gate regression（`backend/scripts/semanticRegression.ts`，20 PASS / 0 FAIL）。
+
 ---
 
 ## [v2.3.0] — 2026-05-16

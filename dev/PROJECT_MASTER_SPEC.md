@@ -70,8 +70,8 @@ EDB palette landing；hero + 核心功能 anchor；CTA 導向搜尋／文件庫�
 ### B.4 `t-purchase.html` — 範本詳情 + 草稿流程
 split grid；4 必填 + 2 選填；live validation；§1–§5 skeleton preview；A/B/AB source 控制；in-page 5 步草稿進度 + 草稿 canvas（來源面板、stale-source 警告、section 選取、修訂 action bar）。文案在未接通正式匯出前只可說「建立草稿／整理」。
 
-### B.5 Mobile UI（進行中，非完成態）
-`mobile.css` + `mobile.js`：偵測 ≤640px 或 mobile UA；first-run role picker；cross-page bottom tab bar；dark mode auto。**現況：app.html mobile search 已 ship；S119 起接 `/api/search/channel-b`（原 `/combined`，配合 Channel-B-only 方向）、bottom-nav 去除 q.html 可達；index.html / t-purchase.html / app.html#guidelines 的 mobile content 尚未 render。** 最新進度以 `SESSION_HANDOFF.md` 為準。
+### B.5 Mobile UI（v3.0 scope = 讀／搜尋面）
+`mobile.css` + `mobile.js`：偵測 ≤640px 或 mobile UA；first-run role picker；cross-page bottom tab bar；dark mode auto。**v3.0 釋出範圍（S163 決定）：mobile = 政策搜尋 + 指引文件（`#guidelines` shell）+ 平台介紹（index.html）三個讀／搜尋面，bottom-nav 3 entries。文件標註（📝 上載 Word/PDF → 就地標註生成）同 範本下載（📋 Word 檔生成下載）係 desktop 功能 —— 涉及檔案上載 + Word/PDF 產生，需較大畫面，mobile shell 不提供（桌面版可用）。** 理由：mobile.js 的 app shell 為 search/guidelines 導向，annotate/templates 無對應 mobile render；硬接會得到 search shell 蓋住 React 的破 UX。若日後要 mobile full-suite，需獨立 session 重做 shell-routing + hashchange 處理 + 真機驗。最新進度以 `SESSION_HANDOFF.md` 為準。
 
 ### B.6 Backend API（Node.js + TypeScript，Render 部署）
 - `POST /api/search/channel-a` — role_facts keyword + embedding 搜尋

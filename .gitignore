@@ -48,3 +48,14 @@ landing.html
 # MemPalace per-project files (issue #185)
 mempalace.yaml
 entities.json
+
+# S163 P5 — local backup / intermediate pipeline artefacts (NOT deleted, just kept out
+# of the release worktree). Manual safety copies + Workflow scratch outputs from the
+# dev/checklists pipeline; reproducible, not source-of-truth.
+*.bak_*
+*.pre_remap
+*.pre_fix
+*.pre_qc_*
+dev/checklists/_work/_distill_*_out.json
+dev/checklists/_work/_rewrite_*_out.json
+dev/checklists/_work/_rewrite_*_out_partial.json
