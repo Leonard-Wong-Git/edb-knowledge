@@ -3566,8 +3566,8 @@ function paraPlainText(paraXml) {
 // Build the VISIBLE inline annotation paragraph(s) inserted right AFTER an
 // annotated body paragraph — so the suggestion is always seen (no need to open
 // Word's comment pane). Returns an array of <w:p> XML strings.
-function findingNoteParas(f) {
-  // pPr children must follow OOXML schema order: shd → spacing → ind.
+function findingNoteParas(f, ins) {
+  // Regular (non-tracked) visible annotation note. pPr child order: shd → spacing → ind.
   const note = function (text, o) {
     o = o || {};
     const pPr =
@@ -3577,15 +3577,19 @@ function findingNoteParas(f) {
     const rPr = '<w:i/><w:sz w:val="' + (o.size || 18) + '"/><w:color w:val="' + (o.color || '7A5B00') + '"/>';
     return '<w:p><w:pPr>' + pPr + '</w:pPr><w:r><w:rPr>' + rPr + '</w:rPr><w:t xml:space="preserve">' + xmlEsc(text) + '</w:t></w:r></w:p>';
   };
-  // Prominent (non-italic, larger) editable clause line — reads as "text to keep/edit".
-  const clauseLine = function (text, o) {
+  // Clause line as a Word TRACKED INSERTION (w:ins) — user clicks 接受 in 校閱 to
+  // apply it into the document, or 拒絕 to drop it. The paragraph mark itself is
+  // marked inserted (pPr/rPr/ins) so accept keeps / reject removes the whole line.
+  const clauseIns = function (text, o) {
     o = o || {};
+    const a = 'w:author="' + xmlEsc(ins.author) + '" w:date="' + ins.date + '"';
     const pPr =
       '<w:shd w:val="clear" w:color="auto" w:fill="' + (o.fill || 'E7F6EC') + '"/>' +
       '<w:spacing w:before="' + (o.before != null ? o.before : 0) + '" w:after="0"/>' +
-      '<w:ind w:left="' + (o.indent != null ? o.indent : 540) + '"/>';
+      '<w:ind w:left="' + (o.indent != null ? o.indent : 540) + '"/>' +
+      '<w:rPr><w:ins w:id="' + ins.next() + '" ' + a + '/></w:rPr>';
     const rPr = '<w:sz w:val="' + (o.size || 21) + '"/><w:color w:val="' + (o.color || '1F4E36') + '"/>' + (o.bold ? '<w:b/>' : '');
-    return '<w:p><w:pPr>' + pPr + '</w:pPr><w:r><w:rPr>' + rPr + '</w:rPr><w:t xml:space="preserve">' + xmlEsc(text) + '</w:t></w:r></w:p>';
+    return '<w:p><w:pPr>' + pPr + '</w:pPr><w:ins w:id="' + ins.next() + '" ' + a + '><w:r><w:rPr>' + rPr + '</w:rPr><w:t xml:space="preserve">' + xmlEsc(text) + '</w:t></w:r></w:ins></w:p>';
   };
   const out = [];
   const src = (f.source && f.source.title) ? '　來源：《' + f.source.title + '》' + (f.source.page ? '（第' + f.source.page + '頁）' : '') : '';
@@ -3596,8 +3600,8 @@ function findingNoteParas(f) {
     const st = f.status === 'partial' ? '部分涵蓋' : '未涵蓋';
     out.push(note('⚠ 建議修訂（' + (f.domain_cn || '清單') + '·' + st + '）：' + (f.note || '') + src, { fill: 'FBF0D9', color: '8A5A00', indent: 360 }));
     if (f.suggestion) {
-      out.push(note('✎ 建議條文（可直接複製／編輯加入本文件，或刪除此標註）：', { fill: 'E7F6EC', color: '1F4E36', indent: 360, before: 20 }));
-      for (const ln of String(f.suggestion).split('\n')) if (ln.trim()) out.push(clauseLine(ln.trim(), { indent: 540 }));
+      out.push(note('✎ 建議條文（下行為「建議插入」；喺 Word「校閱」按「接受」即套用入文件，按「拒絕」清走）：', { fill: 'E7F6EC', color: '1F4E36', indent: 360, before: 20 }));
+      for (const ln of String(f.suggestion).split('\n')) if (ln.trim()) out.push(clauseIns(ln.trim(), { indent: 540 }));
     }
   }
   return out;
@@ -3653,6 +3657,15 @@ async function buildAnnotatedOriginalDocx(arrayBuffer, findings, meta) {
     });
   }
 
+  // Word track-changes context — 建議條文 are emitted as <w:ins> so the user can
+  // 接受/拒絕 in Word's 校閱 tab. ids must be unique across the document.
+  const ins = {
+    author: ANNOTATE_PLATFORM_NAME,
+    date: new Date().toISOString().replace(/\.\d+Z$/, 'Z'),
+    _n: 9000,
+    next: function () { return this._n++; },
+  };
+
   // Pass 2 — rewrite matched paragraphs: highlight, then append visible note paragraphs.
   let located = 0;
   let pIndex = -1;
@@ -3662,7 +3675,7 @@ async function buildAnnotatedOriginalDocx(arrayBuffer, findings, meta) {
     if (!here || !here.length) return paraXml;
     const hp = highlightRuns(paraXml);
     let notes = '';
-    for (const f of here) { located++; notes += findingNoteParas(f).join(''); }
+    for (const f of here) { located++; notes += findingNoteParas(f, ins).join(''); }
     return hp + notes; // note paragraphs become siblings immediately after this one
   });
 
@@ -3712,7 +3725,7 @@ async function buildAnnotatedOriginalDocx(arrayBuffer, findings, meta) {
     const head = [];
     head.push(hp(ANNOTATE_PLATFORM_NAME + ' · 文件標註', { bold: true, size: 30, color: '1F4E36' }));
     head.push(hp('本校校類：' + schoolLabel + '　·　合規範疇：' + domLabel + (m.filename ? '　·　文件：' + m.filename : ''), { size: 18, color: '666666' }));
-    head.push(hp('標示說明：黃色螢光＝相關段落；💡＝參考 EDB 指引（只供參考）；⚠＝建議修訂，其後 ✎ 為可編輯加入的建議條文；未能在原文定位者見文末附錄。分析由 AI 語意比對產生，重要決定請以教育局官方原文為準。', { size: 16, color: '888888', spaceAfter: 160 }));
+    head.push(hp('標示說明：黃色螢光＝相關段落；💡＝參考 EDB 指引（只供參考）；⚠＝建議修訂，其後 ✎ 之建議條文以 Word「追蹤修訂」插入——喺「校閱」分頁按「接受」即套用入文件，按「拒絕」清走。未能在原文定位者見文末附錄。分析由 AI 語意比對產生，重要決定請以教育局官方原文為準。', { size: 16, color: '888888', spaceAfter: 160 }));
     const headXml = head.join('');
     xml = xml.replace(/(<w:body\b(?:\s[^>]*)?>)/, '$1' + headXml);
   }
