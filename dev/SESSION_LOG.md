@@ -14,10 +14,12 @@
 - **QC（P3 雙路）:** backend python e2e（真 OpenAI :8787）：safety 中學 docx→safety/secondary = **covered 198 / partial 10 / missing 0**（sim .677）、無關文字→**1/5/202**、未知域→400；`npm run check`+`build` PASS；GET domains 回 14 域。frontend browser（fetch-stub :8095）：Babel 0 err / 6 tab（📝 就位）/ 域 selector 3 opt / 報告 render（5 item 2 section）/ 3 supplement `<details>` / source `#page=N` / 未見 filter→2 item / 下載 docx blob **8365B PK✓**。CORS 阻 localhost 真鏈 → backend e2e + frontend stub 雙路覆蓋（body shape 一致）。
 - **Data note:** OpenAI embedding L2-normalized → cosine=dot product；`clause.covers`=章內 local item index（`si`→`checklist.sections[si-1]`）。
 - **Deploy + live e2e（Leonard「push 及上線」）:** `git push origin main` → Pages+Render auto-deploy（首 poll 即 both 200）。live e2e：`/api/checklist-domains`=14 域、`/api/checklist-revise` 真實報告（safety 中學 docx 截 8000 字→covered 158/partial 39/missing 11）、live app.html 含 15 新功能 markers、`policy_templates.json`=102、onrender CORS echo `https://policychecker.wongfu.net`。
-- ✅ **#2 幼稚園 Phase 2 KG LIVE 入庫（Leonard sign-off supervised，`1bf497c`）:** INSPECT（HEAD/Supabase 14,674/兩源 live 0 rows/dry-run 218+217）→ live INSERT `kg_admin_guide_2026` 218 + `kg_operation_manual_2026` 217 = **435 chunks**（embed batches → REST upsert，before */0 → after 218/217）→ Supabase 14,674→**15,109**（per-source + total count=exact 驗）。新 `kg_admin` SOURCE_SET+TOPIC_KEYWORDS+QUERY_EXPANSIONS route（擺 curriculum 前；offline precedence 7/7 + 本機 routed smoke 8 結果/6 新源命中 p1/p78、「學前機構辦學手冊」「幼稚園行政手冊」top=新源、收生→kg_admission 無回歸）。display-sync ×7 →15,109（live Pages knowledge.json=15109 驗）。registry 216→**218**（kg_admin tags，真 URL from extract header）。tsc check/build PASS。⚠️ Render route deploy propagating（本機綠；live 未 flip = 慢 deploy 非 build fail）。
-- **Data note:** chunk topic fallback 'curriculum'（'conduct'/'safety' 唔喺 VALID_TOPICS）= cosmetic，routing 靠 kg_admin SOURCE_SET 非 chunk topic。`kg_admin`「幼稚園質素」query → qa_inspection（質素保證 排前，minor）。
-- **Boundary:** Supabase 14,674→**15,109**（#2 KG +435）；新 backend route = additive（現有 route 零回歸）；`checklists_bundle.json` 公開於 root（EDB 衍生 benign）。
-- **commits（已 push origin/main）:** `fcccc34`(P2)→`bd99b91`(P3)→deploy gov→`1bf497c`(KG 入庫)→收尾 gov。
+- ✅ **#2 幼稚園 Phase 2 KG LIVE 入庫（Leonard sign-off supervised，`1bf497c`）:** INSPECT（HEAD/Supabase 14,674/兩源 live 0 rows/dry-run 218+217）→ live INSERT `kg_admin_guide_2026` 218 + `kg_operation_manual_2026` 217 = **435 chunks**（embed batches → REST upsert，before */0 → after 218/217）→ Supabase 14,674→**15,109**（per-source + total count=exact 驗）。新 `kg_admin` SOURCE_SET+TOPIC_KEYWORDS+QUERY_EXPANSIONS route（擺 curriculum 前；offline precedence 7/7 + 本機 routed smoke 8 結果/6 新源命中 p1/p78、「學前機構辦學手冊」「幼稚園行政手冊」top=新源、收生→kg_admission 無回歸）。display-sync ×7 →15,109（live Pages knowledge.json=15109 驗）。registry 216→**218**（kg_admin tags，真 URL from extract header）。tsc check/build PASS。⚠️ **Render route deploy STUCK**（2 push/~40min 未 land；build 本機 PASS + route 在 dist JS = 非 build fail，係 Render free-tier 慢/queue；Leonard 去 Render dashboard manual deploy 收尾）。
+- ✅ **UX 修（Leonard 試用反饋，`6063fe2` LIVE Pages）:** 「指引文件」tab → **「EDB指引」**；上載檔案後**收埋抽取文字欄**（文件分析+文件修訂兩 panel；貼文字模式先顯示，因抽取文字係工程界面無人睇）。browser-verify：tab=EDB指引 / paste textarea present / compile clean。
+- ✅ **「文件標註」合併功能拍板 + spec（`e5f387b` local held）:** Leonard 試用反饋 #1（兩 tab 分唔清）+#3b（輸出要保留原文格式 highlight）→ 揀合併 文件分析+文件修訂 → 上載 → 標註**原文**(保留格式 + highlight 要改處 + 建議) → 下載。完整設計 `dev/DOC_ANNOTATE_FEATURE_DESIGN.md`（核心 JSZip 操作原 docx XML highlight+Word批註 + fallback appendix + 多範疇#2 + PDF Phase2）。待建（需 Render deploy work 先）。
+- **Data note:** chunk topic fallback 'curriculum'（'conduct'/'safety' 唔喺 VALID_TOPICS）= cosmetic，routing 靠 kg_admin SOURCE_SET。`kg_admin`「幼稚園質素」query → qa_inspection（minor）。
+- **Boundary:** Supabase 14,674→**15,109**（#2 KG +435）；新 backend route additive（零回歸）；`checklists_bundle.json` 公開於 root（benign）。
+- **commits:** `fcccc34`(P2)→`bd99b91`(P3)→`1bf497c`(KG)→`6063fe2`(UX) 全 push；`e5f387b`(文件標註 spec+handoff)+收尾 gov = local held（Leonard Render manual deploy 後 push）。
 - **Log maintenance (§4a):** SESSION_LOG >400 行、`docs/qa/session_log_maintenance.py` 不存在（legacy，同 S157-159）；本 session 未 archive。No-op 理由：通宵自主留 buffer，§4a script 待 product session 建後處理（不阻 handoff）。
 - **Next Session Handoff Prompt:**
 
@@ -27,22 +29,26 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
 Current objective: EDB K1 知識平台 (policychecker.wongfu.net).
-Product state: HEAD == origin/main（已 push）。Supabase 15,109（S160 #2 KG 入庫 +435）；Channel B live；0 outstanding bug。起手 verify HEAD==origin/main + Supabase 15,109。
+Product state: HEAD == origin/main（已 push）。Supabase 15,109；Channel B live；0 outstanding bug。起手 verify HEAD==origin/main + Supabase 15,109。
 
-S160（通宵自主 + Leonard supervised）完成 + 上線：
-(1) P2 政策範本下載 tab + (2) P3 文件修訂 feature（/api/checklist-revise）— LIVE deployed，onrender e2e PASS。
-(3) #2 幼稚園 Phase 2 KG LIVE 入庫（Leonard sign-off）：kg_admin_guide_2026 218 + kg_operation_manual_2026 217 = 435 chunks → Supabase 15,109；新 kg_admin route（searchChannelB.ts，擺 curriculum 前）；display-sync ×7；registry 218。本機 routed smoke 命中新源 p1/p78、收生無回歸。commit 1bf497c。
+S160（通宵自主 + Leonard supervised，超長 session）完成：
+(1) P2 政策範本下載 tab + (2) P3 文件修訂 feature — LIVE。
+(3) #2 幼稚園 Phase 2 KG 入庫 — kg_admin_guide_2026 218 + kg_operation_manual_2026 217 = 435 chunks LIVE → Supabase 15,109；新 kg_admin route。
+(4) UX 修（Leonard 試用反饋）：📚「指引文件」→「EDB指引」rename + 上載後收抽取文字欄（文件分析+文件修訂兩 panel）— LIVE。
+(5) Leonard 拍板「文件標註」合併新功能 — spec 寫好 dev/DOC_ANNOTATE_FEATURE_DESIGN.md（待建）。
+
+⚠️ RENDER DEPLOY ISSUE：S160 尾 Render backend deploy stuck（多次 push/~40min，kg_admin route 未 land；前端 Pages 正常）。Leonard 去 Render dashboard Manual Deploy。起手第一件：探針 curl -X POST onrender /api/search/channel-b query「學前機構辦學手冊」→ top 應 = kg_operation_manual_2026；若 top 係 curriculum 源 = route 仍未 deploy，叫 Leonard Render Manual Deploy（或睇 build log 貼出嚟）。
 
 NEXT（優先序）：
-① #2 收尾：verify Render KG 路由 deploy（1bf497c propagating；探針 curl -X POST onrender /api/search/channel-b query「學前機構辦學手冊」→ top 應 = kg_operation_manual_2026；deploy 完即綠，本機已 PASS）。
-② 幼稚園清單 pilot：用新 kg_admin_guide_2026 + kg_operation_manual_2026 起幼稚園範疇要求清單（似 dev/checklists 14 域 build pipeline；建議 conduct/governance/admin 角度）→ docx → 入政策範本 manifest（re-run gen_templates_manifest.py + gen_checklists_bundle.py 再 push）。其餘 17 KG 源候選見 SESSION_LOG S159。
+① 文件標註功能（NEW 主線，Leonard 拍板）：合併 文件分析+文件修訂 → 上載→標註原文(保留格式+highlight+建議)→下載。docx 行先、多範疇、PDF Phase 2。完整 spec = dev/DOC_ANNOTATE_FEATURE_DESIGN.md（核心 = JSZip 操作原 docx XML highlight+Word批註，抽取文字↔XML mapping fragile→真檔測試+fallback appendix；重用 analyzeDocument+checklistRevise；需新 /api/annotate-document → 要 Render deploy work 先）。
+② #2 KG 收尾：verify kg_admin route live（Render deploy 後）+ 幼稚園清單 pilot（用新 2 源起 KG checklist→docx→入政策範本 manifest）。
 ③ #3 學校版 docx review（live，由「政策範本」tab 下載）。
-④ 文件修訂 Phase 2.5：門檻 COVERED=0.50/PARTIAL=0.42 live-tune / 加 LLM 覆核 borderline / 大域>MAX_ITEMS=220 截斷 / mobile shell 入口。
+④ monitor：kg_admin「幼稚園質素」→qa_inspection（minor）/ 文件修訂門檻 COVERED=0.50/PARTIAL=0.42 tunable / 57014 free-tier / IMC 頁碼 / cgss rank 低 / 等。
 
-Key files（S160）：app.html(+2 tab) / backend/src/server.ts(+2 route) / backend/src/api/checklistRevise.ts / backend/src/api/searchChannelB.ts(+kg_admin route) / checklists_bundle.json / policy_templates.json / dev/source/source_registry.json / dev/vault/kg_*_2026/ / display-sync 7 點(→15,109)。
+Key files（S160）：app.html(+政策範本/文件修訂/EDB指引/收文字欄) / backend checklistRevise.ts + searchChannelB.ts(+kg_admin) + server.ts(+2 route) / checklists_bundle.json / policy_templates.json / dev/source/source_registry.json / dev/vault/kg_*_2026/ / dev/{DOC_ANNOTATE_FEATURE_DESIGN,CHECKLIST_REVISE_FEATURE,SCHOOL_DOCX_DOWNLOAD_PLAN}.md。
 
-⚠️ 紀律：live INSERT 前 INSPECT；新源必加 SOURCE_SETS+registry+display-sync 7 點 byte-identical（S160 已做）；改 docx/checklist 後 re-run 兩 generator 再 push；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號。kg_admin「幼稚園質素」query → qa_inspection（minor mis-route、acceptable）。
-Post-startup first action: verify HEAD==origin/main + Supabase 15,109，curl onrender channel-b「學前機構辦學手冊」確認 KG 路由 deploy 已 flip，然後問 Leonard：起幼稚園清單 pilot 定其他。
+⚠️ 紀律：起 backend 改動前先確認 Render deploy work（S160 stuck）；live INSERT 前 INSPECT；新源 SOURCE_SETS+registry+display-sync 7 點 byte-identical；改 docx/checklist re-run gen_templates_manifest.py + gen_checklists_bundle.py 再 push；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號。
+Post-startup first action: verify HEAD==origin/main + Supabase 15,109 + 探針 kg_admin route deploy 狀態，然後問 Leonard：起「文件標註」主線 定先 KG 收尾。
 ```
 
 ---
