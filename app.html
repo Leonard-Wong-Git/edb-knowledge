@@ -3223,14 +3223,307 @@ function TemplatesPanel() {
   );
 }
 
+// ── 文件修訂 (checklist gap analysis: upload → 按 checklist 比對 → 補回 → 下載) ──
+const REVISE_BACKEND_URL = (typeof location !== 'undefined' && location.hostname === 'localhost')
+  ? 'http://localhost:8787' : 'https://edb-knowledge.onrender.com';
+const REVISE_SCHOOL_OPTS = [
+  { v: '', label: '不限（一般比對）' },
+  { v: 'primary', label: '小學' },
+  { v: 'secondary', label: '中學' },
+  { v: 'special', label: '特殊學校' },
+  { v: 'kindergarten', label: '幼稚園' },
+];
+const REVISE_STATUS_META = {
+  covered: { label: '已涵蓋', icon: '✓', color: '#1F4E36', bg: '#E7F0EA', hex: '1F4E36' },
+  partial: { label: '部分涵蓋', icon: '△', color: '#8A5A00', bg: '#FBF0D9', hex: '8A5A00' },
+  missing: { label: '未見涵蓋', icon: '✗', color: '#7A3B1F', bg: '#F6E4DC', hex: '7A3B1F' },
+};
+
+async function buildRevisedDocx(report, schoolTypeLabel) {
+  const D = window.docx;
+  if (!D) throw new Error('docx 程式庫未載入');
+  const { Document, Packer, Paragraph, TextRun, ExternalHyperlink } = D;
+  const children = [];
+  children.push(new Paragraph({ children: [new TextRun({ text: `文件修訂建議 · ${report.domain_cn}`, bold: true, size: 32 })] }));
+  const meta = [
+    report.filename ? `檔案：${report.filename}` : null,
+    schoolTypeLabel ? `校類：${schoolTypeLabel}` : null,
+    `對照 ${report.total_items} 項要求 — 已涵蓋 ${report.covered}、部分 ${report.partial}、未見 ${report.missing}`,
+  ].filter(Boolean).join('　|　');
+  children.push(new Paragraph({ children: [new TextRun({ text: meta, size: 18, color: '666666' })] }));
+  children.push(new Paragraph({ children: [new TextRun({ text: '⚠ 涵蓋狀態為系統自動估算（語義相似度），僅供檢視參考；請人手核對教育局官方原文，本文件不構成正式法律或行政意見。', size: 18, italics: true, color: '7A3B1F' })] }));
+  children.push(new Paragraph({ text: '' }));
+  children.push(new Paragraph({ children: [new TextRun({ text: '建議補充 / 修訂項目（未涵蓋及部分涵蓋）', bold: true, size: 26 })] }));
+  let gapTotal = 0;
+  for (const sec of report.sections) {
+    const gaps = sec.items.filter((it) => it.status !== 'covered');
+    if (!gaps.length) continue;
+    children.push(new Paragraph({ children: [new TextRun({ text: sec.name, bold: true, size: 24, color: '1F4E36' })], spacing: { before: 220 } }));
+    for (const it of gaps) {
+      gapTotal++;
+      const sm = REVISE_STATUS_META[it.status];
+      children.push(new Paragraph({ spacing: { before: 140 }, children: [
+        new TextRun({ text: `〔${sm.label}〕`, bold: true, color: sm.hex }),
+        new TextRun({ text: ' ' + it.req, size: 20 }),
+      ] }));
+      if (it.supplement) {
+        children.push(new Paragraph({ children: [new TextRun({ text: '建議標準條文：', bold: true, size: 18, color: '555555' })] }));
+        for (const line of String(it.supplement).split('\n')) {
+          if (line.trim()) children.push(new Paragraph({ indent: { left: 420 }, children: [new TextRun({ text: line.trim(), size: 18 })] }));
+        }
+      }
+      if (it.sources && it.sources[0]) {
+        const s = it.sources[0];
+        const link = String(s.url || '') + (s.page && /\.pdf/i.test(s.url || '') ? `#page=${s.page}` : '');
+        const isHttp = /^https?:/i.test(link);
+        children.push(new Paragraph({ children: [
+          new TextRun({ text: '來源：', size: 16, color: '888888' }),
+          isHttp
+            ? new ExternalHyperlink({ link, children: [new TextRun({ text: `《${s.title}》${s.page ? '第' + s.page + '頁' : ''}`, size: 16, style: 'Hyperlink' })] })
+            : new TextRun({ text: `《${s.title}》${s.page ? '第' + s.page + '頁' : ''}`, size: 16, color: '888888' }),
+        ] }));
+      }
+    }
+  }
+  if (gapTotal === 0) {
+    children.push(new Paragraph({ children: [new TextRun({ text: '（按系統估算，未發現明顯缺漏項；仍建議人手覆核。）', size: 20, italics: true })] }));
+  }
+  const doc = new Document({ sections: [{ children }] });
+  return Packer.toBlob(doc);
+}
+
+function ReviewPanel() {
+  const [domains, setDomains] = useState([]);
+  const [domain, setDomain] = useState('');
+  const [schoolType, setSchoolType] = useState('');
+  const [docText, setDocText] = useState('');
+  const [fileName, setFileName] = useState('');
+  const [extracting, setExtracting] = useState(false);
+  const [extractError, setExtractError] = useState('');
+  const [analyzing, setAnalyzing] = useState(false);
+  const [error, setError] = useState('');
+  const [report, setReport] = useState(null);
+  const [downloading, setDownloading] = useState(false);
+  const [statusFilter, setStatusFilter] = useState('all');
+  const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    let alive = true;
+    fetch(`${REVISE_BACKEND_URL}/api/checklist-domains`)
+      .then((r) => r.json())
+      .then((d) => { if (alive && Array.isArray(d.domains)) setDomains(d.domains); })
+      .catch(() => {});
+    return () => { alive = false; };
+  }, []);
+
+  const resetOutputs = useCallback(() => { setReport(null); setError(''); }, []);
+
+  async function extractPdf(buf) {
+    const lib = window.pdfjsLib;
+    if (!lib) throw new Error('PDF 程式庫未載入');
+    if (lib.GlobalWorkerOptions && !lib.GlobalWorkerOptions.workerSrc) {
+      lib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+    const pdf = await lib.getDocument({ data: buf }).promise;
+    let out = '';
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const tc = await page.getTextContent();
+      out += tc.items.map((t) => t.str).join(' ') + '\n\n';
+    }
+    return out;
+  }
+  async function extractDocx(buf) {
+    if (!window.mammoth) throw new Error('Word 程式庫未載入');
+    const res = await window.mammoth.extractRawText({ arrayBuffer: buf });
+    return res.value || '';
+  }
+  async function handleFile(file) {
+    if (!file) return;
+    const lower = file.name.toLowerCase();
+    if (!lower.endsWith('.pdf') && !lower.endsWith('.docx')) {
+      setExtractError('只支援 PDF 或 Word (.docx) 檔'); return;
+    }
+    setExtracting(true); setExtractError(''); resetOutputs();
+    try {
+      const buf = await file.arrayBuffer();
+      const text = lower.endsWith('.pdf') ? await extractPdf(buf) : await extractDocx(buf);
+      setDocText(text); setFileName(file.name);
+    } catch (e) {
+      setExtractError('檔案讀取失敗：' + String(e && e.message || e));
+    } finally {
+      setExtracting(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  }
+
+  async function handleRevise() {
+    if (!docText.trim()) { setError('請先上載或貼上文件內容'); return; }
+    if (!domain) { setError('請揀一個政策範疇'); return; }
+    setAnalyzing(true); setError(''); setReport(null);
+    try {
+      const resp = await fetch(`${REVISE_BACKEND_URL}/api/checklist-revise`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: docText, domain, ...(schoolType ? { school_type: schoolType } : {}), ...(fileName ? { filename: fileName } : {}) }),
+      });
+      const data = await resp.json();
+      if (!resp.ok) throw new Error(data.error || `HTTP ${resp.status}`);
+      setReport(data); setStatusFilter('all');
+    } catch (e) {
+      setError('比對失敗：' + String(e && e.message || e));
+    } finally { setAnalyzing(false); }
+  }
+
+  async function handleDownload() {
+    if (!report) return;
+    setDownloading(true);
+    try {
+      const label = REVISE_SCHOOL_OPTS.find((o) => o.v === report.school_type)?.label || '';
+      const blob = await buildRevisedDocx(report, report.school_type ? label : '');
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${(fileName || '文件').replace(/\.[^.]+$/, '')}_修訂建議.docx`;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    } catch (e) {
+      setError('Word 產生失敗：' + String(e && e.message || e));
+    } finally { setDownloading(false); }
+  }
+
+  const visibleSections = useMemo(() => {
+    if (!report) return [];
+    return report.sections
+      .map((sec) => ({ ...sec, shown: statusFilter === 'all' ? sec.items : sec.items.filter((it) => it.status === statusFilter) }))
+      .filter((sec) => sec.shown.length > 0);
+  }, [report, statusFilter]);
+
+  return (
+    <div className="max-w-5xl mx-auto px-4 py-6">
+      <div className="mb-4">
+        <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">📝 文件修訂</h2>
+        <p className="text-sm text-gray-500 mt-1 leading-relaxed">
+          上載本校政策文件（PDF / Word），揀一個政策範疇，系統會按教育局指引清單逐項比對，標示<strong>已涵蓋 / 部分 / 未見</strong>，並為缺漏項<strong>補回建議標準條文</strong>，可下載成 Word 修訂建議。原始檔案只在你的瀏覽器抽取文字，<strong>不會上載</strong>。
+        </p>
+        <div className="mt-2 text-xs px-3 py-2 rounded-lg" style={{ background: 'var(--paper-2)', color: 'var(--warn)', border: '1px solid var(--line)' }}>
+          ⚠️ 涵蓋狀態為系統自動估算（語義相似度），僅供檢視參考；請人手核對教育局官方原文。抽取文字會傳送至伺服器作分析（不留存）。
+        </div>
+      </div>
+
+      {/* upload / paste */}
+      <div className="bg-white rounded-xl border border-gray-200 p-4 mb-3">
+        <div className="flex items-center gap-2 flex-wrap mb-2">
+          <input ref={fileInputRef} type="file" accept=".pdf,.docx" style={{ display: 'none' }} onChange={(e) => handleFile(e.target.files && e.target.files[0])} />
+          <button onClick={() => fileInputRef.current && fileInputRef.current.click()} disabled={extracting}
+                  className="px-3 py-1.5 text-xs rounded-lg font-medium shadow-sm" style={{ background: 'var(--edb)', color: '#fff' }}>
+            {extracting ? '讀取中…' : '📎 選擇檔案 (PDF / Word)'}
+          </button>
+          {fileName && <span className="text-xs text-gray-500">已載入：{fileName}（{docText.length.toLocaleString()} 字）</span>}
+        </div>
+        {extractError && <p className="text-xs mb-2" style={{ color: 'var(--warn)' }}>{extractError}</p>}
+        <textarea value={docText} onChange={(e) => { setDocText(e.target.value); resetOutputs(); }}
+                  placeholder="或直接貼上文件內容…" rows={5}
+                  className="w-full text-sm border border-gray-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-green-700" />
+      </div>
+
+      {/* controls */}
+      <div className="flex items-end gap-3 flex-wrap mb-4">
+        <label className="text-xs text-gray-500">政策範疇
+          <select value={domain} onChange={(e) => { setDomain(e.target.value); resetOutputs(); }}
+                  className="block mt-1 text-sm border border-gray-300 rounded-lg px-2 py-1.5 bg-white min-w-[12rem]">
+            <option value="">— 請選擇 —</option>
+            {domains.map((d) => <option key={d.key} value={d.key}>{d.cn}（{d.item_count} 項）</option>)}
+          </select>
+        </label>
+        <label className="text-xs text-gray-500">本校校類
+          <select value={schoolType} onChange={(e) => { setSchoolType(e.target.value); resetOutputs(); }}
+                  className="block mt-1 text-sm border border-gray-300 rounded-lg px-2 py-1.5 bg-white">
+            {REVISE_SCHOOL_OPTS.map((o) => <option key={o.v || 'all'} value={o.v}>{o.label}</option>)}
+          </select>
+        </label>
+        <button onClick={handleRevise} disabled={analyzing || extracting}
+                className="px-4 py-2 text-sm rounded-lg font-medium shadow-sm" style={{ background: 'var(--edb)', color: '#fff', opacity: (analyzing || extracting) ? 0.6 : 1 }}>
+          {analyzing ? '比對中…' : '開始比對'}
+        </button>
+      </div>
+
+      {error && <div className="bg-white rounded-xl border border-gray-200 p-4 text-sm mb-3" style={{ color: 'var(--warn)' }}>{error}</div>}
+
+      {report && (
+        <div>
+          {/* summary */}
+          <div className="bg-white rounded-xl border border-gray-200 p-4 mb-3">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <div className="text-sm text-gray-700">
+                <strong>{report.domain_cn}</strong> · 對照 {report.total_items} 項要求
+                {report.truncated_items > 0 && <span className="text-gray-400">（只比對首 {report.scored_items} 項，其餘 {report.truncated_items} 項未列）</span>}
+              </div>
+              <button onClick={handleDownload} disabled={downloading}
+                      className="px-3 py-1.5 text-xs rounded-lg font-medium shadow-sm" style={{ background: 'var(--edb)', color: '#fff', opacity: downloading ? 0.6 : 1 }}>
+                {downloading ? '產生中…' : '⬇ 下載修訂建議 Word'}
+              </button>
+            </div>
+            <div className="flex items-center gap-1.5 mt-3 flex-wrap">
+              {[['all', `全部 ${report.scored_items}`], ['missing', `${REVISE_STATUS_META.missing.icon} 未見 ${report.missing}`], ['partial', `${REVISE_STATUS_META.partial.icon} 部分 ${report.partial}`], ['covered', `${REVISE_STATUS_META.covered.icon} 已涵蓋 ${report.covered}`]].map(([k, lbl]) => (
+                <button key={k} onClick={() => setStatusFilter(k)}
+                        className={`filter-tab ${statusFilter === k ? 'active-tab' : ''}`}>{lbl}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* sections */}
+          <div className="space-y-3">
+            {visibleSections.map((sec) => (
+              <div key={sec.name} className="bg-white rounded-xl border border-gray-200 p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <h3 className="text-sm font-bold text-gray-800">{sec.name}</h3>
+                  <span className="text-xs text-gray-400">{REVISE_STATUS_META.missing.icon}{sec.missing} {REVISE_STATUS_META.partial.icon}{sec.partial} {REVISE_STATUS_META.covered.icon}{sec.covered}</span>
+                </div>
+                <div className="space-y-2">
+                  {sec.shown.map((it, idx) => {
+                    const sm = REVISE_STATUS_META[it.status];
+                    return (
+                      <div key={idx} className="rounded-lg border px-3 py-2" style={{ borderColor: 'var(--line)' }}>
+                        <div className="flex items-start gap-2">
+                          <span className="text-xs px-1.5 py-0.5 rounded font-bold whitespace-nowrap" style={{ background: sm.bg, color: sm.color }}>{sm.icon} {sm.label}</span>
+                          <span className="text-sm text-gray-800 leading-snug">{it.req}</span>
+                        </div>
+                        {it.best_excerpt && (
+                          <p className="text-xs text-gray-500 mt-1.5 pl-1 border-l-2" style={{ borderColor: 'var(--line)' }}>　你份文件：{it.best_excerpt}</p>
+                        )}
+                        {it.supplement && (
+                          <details className="mt-1.5">
+                            <summary className="text-xs cursor-pointer" style={{ color: 'var(--edb)' }}>建議標準條文 ▾</summary>
+                            <p className="text-xs text-gray-600 mt-1 whitespace-pre-wrap pl-1">{it.supplement}</p>
+                          </details>
+                        )}
+                        {it.sources && it.sources[0] && /^https?:/i.test(it.sources[0].url || '') && (
+                          <a href={it.sources[0].url + (it.sources[0].page && /\.pdf/i.test(it.sources[0].url) ? `#page=${it.sources[0].page}` : '')}
+                             target="_blank" rel="noopener noreferrer" className="text-xs mt-1 inline-block" style={{ color: '#888' }}>
+                            來源：《{it.sources[0].title}》{it.sources[0].page ? `第${it.sources[0].page}頁` : ''} ↗
+                          </a>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Main App ──
 function App() {
   const data = INITIAL_DATA;
-  const VALID_VIEWS = ['qa', 'analyze', 'templates', 'guidelines', 'about'];
+  const VALID_VIEWS = ['qa', 'analyze', 'templates', 'review', 'guidelines', 'about'];
   const hashView = window.location.hash.replace('#', '');
   const [viewMode, setViewMode] = useState(
     VALID_VIEWS.includes(hashView) ? hashView : 'qa'
-  ); // 'qa' | 'analyze' | 'templates' | 'guidelines' | 'about'
+  ); // 'qa' | 'analyze' | 'templates' | 'review' | 'guidelines' | 'about'
 
   // Keep URL hash in sync when tab changes
   const switchView = useCallback((v) => {
@@ -3291,6 +3584,10 @@ function App() {
                       className={`filter-tab ${viewMode === 'templates' ? 'active-tab' : ''}`} aria-selected={viewMode === 'templates'} role="tab">
                 📋 政策範本
               </button>
+              <button onClick={() => switchView('review')}
+                      className={`filter-tab ${viewMode === 'review' ? 'active-tab' : ''}`} aria-selected={viewMode === 'review'} role="tab">
+                📝 文件修訂
+              </button>
               <button onClick={() => switchView('guidelines')}
                       className={`filter-tab ${viewMode === 'guidelines' ? 'active-tab' : ''}`} aria-selected={viewMode === 'guidelines'} role="tab">
                 📚 指引文件 ({GUIDELINES_REGISTRY.length})
@@ -3313,6 +3610,8 @@ function App() {
             <AnalyzePanel />
           ) : viewMode === 'templates' ? (
             <TemplatesPanel />
+          ) : viewMode === 'review' ? (
+            <ReviewPanel />
           ) : (
             <QAPanel data={data} setPreviewDoc={setPreviewDoc} />
           )}

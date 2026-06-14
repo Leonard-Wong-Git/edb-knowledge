@@ -7,6 +7,11 @@ import {
   MAX_TEXT_CHARS,
   type AnalyzeDocumentRequest,
 } from "./api/analyzeDocument.js";
+import {
+  checklistRevise,
+  listChecklistDomains,
+  type ChecklistReviseRequest,
+} from "./api/checklistRevise.js";
 import { searchChannelA, type SearchChannelARequest } from "./api/searchChannelA.js";
 import { searchChannelB, type SearchChannelBRequest } from "./api/searchChannelB.js";
 import { searchCombined, type SearchCombinedRequest } from "./api/searchCombined.js";
@@ -140,6 +145,20 @@ const server = createServer(async (req, res) => {
     return;
   }
 
+  // ── 文件修訂: checklist domain list for the frontend selector (GET, no rate limit) ──
+  if (req.method === "GET" && req.url === "/api/checklist-domains") {
+    setCorsHeaders(req, res);
+    try {
+      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ ok: true, domains: listChecklistDomains() }));
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      res.writeHead(500, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ error: message }));
+    }
+    return;
+  }
+
   // ── Channel B incremental-sync read endpoints (Q4 Phase 2; CHANNEL_B_SYNC_SPEC.md) ──
   // X-Sync-Key gated, NO CORS (server-to-server), own rate-limit + daily budget.
   // MUST sit before the public POST 10/min limiter so sync traffic isn't choked.
@@ -187,6 +206,29 @@ const server = createServer(async (req, res) => {
       res.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
       res.end(JSON.stringify({
         error: status === 413 ? "上載內容過大，請分批分析。" : message,
+      }));
+      return;
+    }
+  }
+
+  // ── 文件修訂: compare an uploaded document against a domain's compliance checklist ──
+  // Same body cap + rate limiter as 文件分析; embedding-only coverage (no LLM).
+  if (req.method === "POST" && req.url === "/api/checklist-revise") {
+    try {
+      const input = await readJsonBody<ChecklistReviseRequest>(req, MAX_TEXT_CHARS * 4 + 4096);
+      const result = await checklistRevise(input, { embeddingClient });
+
+      setCorsHeaders(req, res);
+      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify(result));
+      return;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      setCorsHeaders(req, res);
+      const status = message === "PAYLOAD_TOO_LARGE" ? 413 : 400;
+      res.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({
+        error: status === 413 ? "上載內容過大，請分批處理。" : message,
       }));
       return;
     }
