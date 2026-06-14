@@ -2,21 +2,21 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
-Current objective: EDB K1 知識平台 (policychecker.wongfu.net).
-Product state: HEAD == origin/main（已 push）。Supabase 15,109；Channel B live；0 outstanding bug。起手 verify HEAD==origin/main + Supabase 15,109。
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.0.0。
+Product state: HEAD == origin/main（已 push，7289380）。Supabase 15,109；Channel B live；Pages+Render live 全綠；0 outstanding bug。起手 verify HEAD==origin/main + Supabase 15,109。
 
-S162（全權自主，4123 排序）完成 ④①②，③ 留低：
-④ 幼稚園清單 pilot — 新範疇 kg_operation（幼稚園營運，388 items/162 clauses/20 章；源 kg_operation_manual_2026+kg_admin_guide_2026）行勻 14-域 pipeline（chunk→distill Workflow→mech-verify→章節整合→rewrite Workflow）→ 15 域；4 docx（學校版+清單 × 通用/幼稚園）入「範本下載」（106 docx）；app.html +幼稚園 filter；backend 零 code 改（bundle-driven，detectRelevantDomains/checklist-domains 自動拎新域）。
-① 跨校類 filter — bundle 加 domain-level school_types（由 _school_type_profiles.json applies_to）+ backend okType precedence（clause→domain→all）+ detectRelevantDomains 加 sel；untagged clause 唔再跨校類漏（一併修 placement/gifted/sen/cpd/qa/school_governance/kg_admission 6 既有域）。
-② dead-code — 刪 AnalyzePanel/ReviewPanel/buildAnnotatedDocx/buildRevisedDocx（app.html 4345→3715）。
-commits ec01e1b(④)→5dde30f(①)→51b6df2(②)+gov 全 push；Supabase 15,109 零接觸。
+S163（Leonard「ABC」全權自主）完成 4 項全 push + live 驗：
+C 核 KG QC（ef43517）：QC_VERIFY_ISSUES 17 flags 全修（_qc_fix.py）+ 揭發並修 S162 結構 bug（kg_operation/clauses.json 非標準 section_no/name → canonical si/section_name：修 backend supplement linkage 388/388 由失效恢復 + 學校版 docx 章節名空白）。
+A 文件標註 Phase 2.5（d71ae1e）：detectDomainsPerSegment（per-segment argmax 路由，top≥1/secondary≥2，AUTO_DETECT_MAX_DOMAINS=3）取代 whole-doc detect；多範疇文件各段路由其域、單範疇仍 1 域、比 legacy 更準。Render 驗 SEN→['sen']。
+版本/首頁/平台介紹（f510ee8）：PLATFORM_VERSION='3.0.0' decouple（凍結 knowledge _meta.version 2.3.0 不動）；app.html 平台介紹 5 channels + index.html +文件標註+範本下載 卡 + v3.0 eyebrow + CHANGELOG v3.0.0。
+B 文件標註 Phase 2 PDF inline highlight（7289380）：+pdf-lib 1.17.1；extractPdf 抽座標；buildAnnotatedPdf 原 PDF 就地螢光 rect+編號 marker+CJK sticky-note（UTF-16BE PDFHexString.fromText，免嵌字型）；download branch docx/pdf。in-browser pipeline 驗全綠。
 
-NEXT（優先序）：
-① ③ 文件標註 Phase 2 / 2.5（4123 餘下，大 feature）：Phase 2 = PDF inline highlight（pdf-lib + pdf.js 座標，難）；Phase 2.5 = per-segment detectQueryCategory 自動偵測範疇。重用 annotateDocument/analyzeDocument。
-② KG pilot 收尾：Leonard 核 dev/checklists/kg_operation/QC_VERIFY_ISSUES.md（16 軟性 fabricated/distorted-number 覆核待辦；已修法團校董會→校董會、13/20 章覆核清）+ 部署後 live 驗「範本下載」見幼稚園營運卡 + /api/checklist-domains 含 kg_operation。
-③ #3 學校版分校類 docx review（monitor，live，「範本下載」tab）。
-④ monitor：kg_admin「幼稚園質素」→qa_inspection / 文件標註門檻 COVERED=0.50/PARTIAL=0.42 + AUTO_DETECT_THRESHOLD=0.38 + auto missing cap 8 tunable / 57014 free-tier / cgss rank 低。
+NEXT（優先序，多數待 Leonard）：
+① Phase 2 PDF highlight 真檔驗：合成 PDF 已驗，建議上載真 EDB／學校 PDF 試對位 + 多 viewer（Acrobat/Preview/Chrome）CJK sticky-note 顯示。座標假設無頁面旋轉（rotation 存未補償）、碎 run／表格命中率 = monitor。
+② Leonard review：v3.0 版本方案（PLATFORM_VERSION decouple，可調）/ KG QC DRAFT 最終核（QC_VERIFY_ISSUES 17 已修）/ #3 學校版 102 docx（範本下載 tab）。
+③ Phase 2.5 多範疇 UX monitor：auto 由 1→≤3 域，真檔觀察會否過多域（SECONDARY_MIN_SEGMENTS=2 / AUTO_DETECT_MAX_DOMAINS=3 tunable）。
+④ monitor：門檻 COVERED=0.50/PARTIAL=0.42/AUTO_DETECT=0.38/auto missing cap 8 / kg_admin「幼稚園質素」→qa_inspection / 57014 free-tier / cgss rank 低。
 
-Key files（S162）：dev/checklists/_work/{pipeline.py(+kg_operation/batch_kg), gen_checklists_bundle.py(+domain school_types from profiles), gen_templates_manifest.py(+幼稚園 type), _build_kg_chunks.py/_remap_kg_sections.py/_regen_md.py(new), flow_distill_batch_kg.js/flow_rewrite_batch_kg.js, kg_operation/(checklist.json/clauses.json/ch_*/buckets)} / dev/checklists/kg_operation/(4 docx + DRAFT md + QC_VERIFY_ISSUES.md) / dev/checklists/_school_type_profiles.json(+kg_operation) / checklists_bundle.json(15 域+domain school_types) / policy_templates.json(106) / backend/src/api/{checklistRevise.ts(okType domain fallback + detectRelevantDomains sel + domain school_types), annotateDocument.ts(pass selType)} / app.html(+幼稚園 filter, −AnalyzePanel/ReviewPanel).
-⚠️ 紀律：起 backend 改動前確認 Render deploy；live INSERT 前 INSPECT；新源 SOURCE_SETS+registry+display-sync 7 點；改 docx/checklist re-run gen_templates_manifest.py + gen_checklists_bundle.py；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；本機 shell set -e（grep -c 0 會中斷，用 python 數）。
-Post-startup first action: verify HEAD==origin/main + Supabase 15,109 + 探針 onrender /api/checklist-domains 含 kg_operation（Render 部署後）+ 範本下載 live 見幼稚園營運卡，然後問 Leonard 起 ③ 文件標註 Phase 2 定先核 KG pilot QC_VERIFY_ISSUES。
+Key files（S163）：backend/src/api/{checklistRevise.ts(+detectDomainsPerSegment), annotateDocument.ts(用之, AUTO_DETECT_MAX_DOMAINS=3)} / app.html(+PLATFORM_VERSION 3.0.0, 平台介紹 5 channels, +buildAnnotatedPdf, extractPdf 抽座標, fileBuffer/download branch docx/pdf, +pdf-lib CDN) / index.html(+文件標註+範本下載 卡, v3.0) / CHANGELOG.md(v3.0.0) / dev/checklists/_work/kg_operation/clauses.json(si/section_name 正規化+17 fix, _qc_fix.py) / dev/checklists/kg_operation/(4 docx 重生 + QC_VERIFY_ISSUES.md) / checklists_bundle.json + policy_templates.json(重生).
+⚠️ 紀律：起 backend 改動前確認 Render deploy；live INSERT 前 INSPECT；新源 SOURCE_SETS+registry+display-sync 7 點；改 docx/checklist re-run gen_checklists_bundle.py + gen_templates_manifest.py（kg_operation 用 si/section_name canonical schema）；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；本機 shell set -e（grep -c 0 會中斷，用 python 數）。
+Post-startup first action: verify HEAD==origin/main + Supabase 15,109 + 探針 onrender /api/annotate-document healthy + Pages app.html 見 v3.0.0，然後問 Leonard 起邊個 NEXT（建議 ① Phase 2 真檔驗 或 ② KG QC 最終核）。
