@@ -5,7 +5,7 @@ Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (acti
 Current objective: EDB K1 知識平台 (policychecker.wongfu.net).
 Product state: HEAD == origin/main（已 push）。Supabase 15,109；Channel B live；0 outstanding bug。起手 verify HEAD==origin/main + Supabase 15,109。
 
-S161（全權自主）完成：「文件標註」合併主線 Phase 1 SHIPPED LIVE — 合併 文件分析+文件修訂 → 一個「📝 文件標註」tab：上載 .docx → 比對 EDB 指引 + 合規清單 gap → 原檔就地標註（保留格式 + 螢光 highlight + Word 批註 + 未能定位項入文末附錄）→ 下載。新 backend/src/api/annotateDocument.ts（重用 analyzeDocument + checklistRevise，零改）+ /api/annotate-document；checklistRevise.ts +detectRelevantDomains（auto-detect）；app.html +AnnotatePanel +buildAnnotatedOriginalDocx（JSZip 操作原 docx XML）+ JSZip CDN；舊 #analyze/#review → #annotate redirect。live e2e onrender PASS。
+S161（全權自主）完成：「文件標註」合併主線 Phase 1 SHIPPED LIVE — 合併 文件分析+文件修訂 → 一個「📝 文件標註」tab：上載 .docx → 比對 EDB 指引 + 合規清單 gap → 原檔就地標註（保留格式 + 螢光 highlight + 就地可見內聯建議（💡指引／⚠修訂）+ 未能定位項入文末附錄）→ 下載。新 backend/src/api/annotateDocument.ts（重用 analyzeDocument + checklistRevise，零改）+ /api/annotate-document；checklistRevise.ts +detectRelevantDomains（auto-detect）；app.html +AnnotatePanel +buildAnnotatedOriginalDocx（JSZip 操作原 docx XML）+ JSZip CDN；舊 #analyze/#review → #annotate redirect。live e2e onrender PASS。
 
 NEXT（優先序，先等 Leonard 試用 Phase 1 反饋）：
 ① 文件標註 Phase 2（PDF inline highlight，pdf-lib+pdf.js 座標）/ Phase 2.5（per-segment detectQueryCategory auto-detect 取代 multi-select）；重點睇真實學校 docx 段落↔XML mapping 命中率（v1 段落級 highlight，碎 run/表格多嘅檔可能多入附錄）+ partial/missing 門檻噪音。

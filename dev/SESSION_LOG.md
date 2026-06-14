@@ -2,7 +2,7 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
-## 2026-06-14 Session 161 — 「文件標註」合併主線 Phase 1 SHIPPED LIVE（原檔就地 highlight + Word 批註）
+## 2026-06-14 Session 161 — 「文件標註」合併主線 Phase 1 SHIPPED LIVE（原檔就地 highlight + 可見內聯建議）
 
 - **ID:** Claude_20260614_S161 (S161)
 - **Trigger:** 開工切 Draft active root（頂層 dormant scaffold）。起手核實全綠後 Leonard 揀起「文件標註」主線，並指示「一次過做哂，包括幼稚園及 UI 等設計；全權去做不用問」。
@@ -12,6 +12,7 @@
   - ✅ **`checklistRevise.ts` +`detectRelevantDomains`（additive export）**：embed ≤40 doc segs + 14 域描述子（cn＋section names），max-cosine 排序、≥0.3 取 top-N。重用 bundle/dot/segmentText，零改現有 export。
   - ✅ **Frontend `app.html`**：+JSZip 3.10.1 CDN；+`buildAnnotatedOriginalDocx(arrayBuffer, findings)`（**核心**：JSZip loadAsync 原 docx → 命中段每 run 加 `<w:highlight w:val="yellow"/>`〔w:highlight 喺 unbounded rPr choice group，位置 schema-safe〕+ 每 finding 包 commentRangeStart/End + commentReference run + 寫 `word/comments.xml`〔含 self-closed stub 分支〕+ `[Content_Types].xml` override + `document.xml.rels` relationship；未定位項入文末「文件標註附錄」）；+`AnnotatePanel`（合 Analyze+Review：上載/貼 + 校類 single + 範疇 multi-select／✨自動 + 就地報告〔📌就地標示 / ➕建議補充 兩組〕+ ⬇下載標註版原檔／下載建議清單）；+`buildAnnotateListDocx`（貼文字/PDF fallback）；VALID_VIEWS `analyze`+`review`→`annotate`、tab 合併成「📝 文件標註」、舊 hash redirect。
   - ✅ **執行偏離 PLAN → 報告 + 修正（§3 CHANGE）**：首版 e2e 發現低 PARTIAL 門檻（0.42）令幾乎所有 item 標 partial → 150 cap 全被 partial 佔、missing 全 truncate（5 段文件變全文標註）。**改 findings builder**：partial 按相似度排序、每域 cap 12；missing 每域 cap 25；總 cap 120；ordering guideline→partial→missing。
+  - ✅ **Leonard 真檔試用反饋 → 即修（同 session 迭代）**：Leonard 用真實「數學」課程 docx 試 → 反饋 (1)附錄標題用內部名「EDB K1 知識平台」應用公開正式名、(2)有 highlight 但睇唔到對應建議（因原用 **Word 批註 comment**，要開批註窗格先見、一般檢視/匯出時隱形）。**改法**：(1) 全部用 `ANNOTATE_PLATFORM_NAME='香港學校政策搜尋平台'`（附錄標題 + 清單 docx 標題）；(2) **棄用隱形 Word 批註，改 `findingNoteParas` 喺每段 highlight 後插入「可見內聯註解段」**（💡相關 EDB 指引 / ⚠建議修訂 + 建議標準條文 + 來源，淺底色 shd + 縮排 + 斜體小字；pPr 子序 shd→spacing→ind 合 schema）— 無論用咩睇都見到 highlight 對應建議。同時移除 comments.xml/content-types/rels 操作 + self-closed stub 分支（連帶消除嗰個 bug surface）。re-verify（真 docx）：well-formed、💡/⚠ 內聯註解 + 建議文字 inline 可見、0 commentReference、附錄用公開名、0 內部名、0 console err。
 - **QC（全 PASS）:**
   - backend `npm run check`（tsc）+ `build` exit 0（首次 interface-extends embeddingClient 型別衝突 → 改 type-alias intersection 解決）。
   - **backend 真 OpenAI e2e（:8787）**：auto-detect（校園安全 doc → 學校安全+學生支援、74 findings=24 partial+50 missing、0 truncated）；explicit domain=conduct+secondary（auto=false、27 findings）；empty text→400；unknown domain→auto-fallback。（本機 Supabase unconfigured → guideline 路徑 degraded，留 onrender 驗。）
@@ -33,7 +34,7 @@ Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (acti
 Current objective: EDB K1 知識平台 (policychecker.wongfu.net).
 Product state: HEAD == origin/main（已 push）。Supabase 15,109；Channel B live；0 outstanding bug。起手 verify HEAD==origin/main + Supabase 15,109。
 
-S161（全權自主）完成：「文件標註」合併主線 Phase 1 SHIPPED LIVE — 合併 文件分析+文件修訂 → 一個「📝 文件標註」tab：上載 .docx → 比對 EDB 指引 + 合規清單 gap → 原檔就地標註（保留格式 + 螢光 highlight + Word 批註 + 未能定位項入文末附錄）→ 下載。新 backend/src/api/annotateDocument.ts（重用 analyzeDocument + checklistRevise，零改）+ /api/annotate-document；checklistRevise.ts +detectRelevantDomains（auto-detect）；app.html +AnnotatePanel +buildAnnotatedOriginalDocx（JSZip 操作原 docx XML）+ JSZip CDN；舊 #analyze/#review → #annotate redirect。live e2e onrender PASS。
+S161（全權自主）完成：「文件標註」合併主線 Phase 1 SHIPPED LIVE — 合併 文件分析+文件修訂 → 一個「📝 文件標註」tab：上載 .docx → 比對 EDB 指引 + 合規清單 gap → 原檔就地標註（保留格式 + 螢光 highlight + 就地可見內聯建議（💡指引／⚠修訂）+ 未能定位項入文末附錄）→ 下載。新 backend/src/api/annotateDocument.ts（重用 analyzeDocument + checklistRevise，零改）+ /api/annotate-document；checklistRevise.ts +detectRelevantDomains（auto-detect）；app.html +AnnotatePanel +buildAnnotatedOriginalDocx（JSZip 操作原 docx XML）+ JSZip CDN；舊 #analyze/#review → #annotate redirect。live e2e onrender PASS。
 
 NEXT（優先序，先等 Leonard 試用 Phase 1 反饋）：
 ① 文件標註 Phase 2（PDF inline highlight，pdf-lib+pdf.js 座標）/ Phase 2.5（per-segment detectQueryCategory auto-detect 取代 multi-select）；重點睇真實學校 docx 段落↔XML mapping 命中率（v1 段落級 highlight，碎 run/表格多嘅檔可能多入附錄）+ partial/missing 門檻噪音。

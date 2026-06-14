@@ -3529,6 +3529,7 @@ function ReviewPanel() {
 const ANNOTATE_BACKEND_URL = (typeof location !== 'undefined' && location.hostname === 'localhost')
   ? 'http://localhost:8787' : 'https://edb-knowledge.onrender.com';
 const ANNOTATE_SCHOOL_LABELS = { primary: '小學', secondary: '中學', special: '特殊學校', kindergarten: '幼稚園' };
+const ANNOTATE_PLATFORM_NAME = '香港學校政策搜尋平台';
 
 // XML-escape for text injected into the docx parts.
 function xmlEsc(s) {
@@ -3555,22 +3556,40 @@ function paraPlainText(paraXml) {
   while ((m = re.exec(paraXml)) !== null) out += m[1];
   return out.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, '&');
 }
-// Build the comment body text for a finding.
-function findingCommentText(f) {
-  const parts = [];
+// Build the VISIBLE inline annotation paragraph(s) inserted right AFTER an
+// annotated body paragraph — so the suggestion is always seen (no need to open
+// Word's comment pane). Returns an array of <w:p> XML strings.
+function findingNoteParas(f) {
+  // pPr children must follow OOXML schema order: shd → spacing → ind.
+  const note = function (text, o) {
+    o = o || {};
+    const pPr =
+      '<w:shd w:val="clear" w:color="auto" w:fill="' + (o.fill || 'FFF8E1') + '"/>' +
+      '<w:spacing w:before="' + (o.before != null ? o.before : 20) + '" w:after="0"/>' +
+      '<w:ind w:left="' + (o.indent != null ? o.indent : 360) + '"/>';
+    const rPr = '<w:i/><w:sz w:val="' + (o.size || 18) + '"/><w:color w:val="' + (o.color || '7A5B00') + '"/>';
+    return '<w:p><w:pPr>' + pPr + '</w:pPr><w:r><w:rPr>' + rPr + '</w:rPr><w:t xml:space="preserve">' + xmlEsc(text) + '</w:t></w:r></w:p>';
+  };
+  const out = [];
+  const src = (f.source && f.source.title) ? '　來源：《' + f.source.title + '》' + (f.source.page ? '（第' + f.source.page + '頁）' : '') : '';
   if (f.kind === 'guideline') {
-    parts.push('【相關 EDB 指引】' + (f.note || ''));
-    if (f.source && f.source.title) parts.push('來源：《' + f.source.title + '》' + (f.source.page ? '（第' + f.source.page + '頁）' : ''));
+    out.push(note('💡 相關 EDB 指引：' + (f.note || '') + src, { fill: 'E7F0EA', color: '1F4E36', indent: 360 }));
   } else {
     const st = f.status === 'partial' ? '部分涵蓋' : '未涵蓋';
-    parts.push('【' + (f.domain_cn || '清單') + '·' + st + '】' + (f.note || ''));
-    if (f.suggestion) parts.push('建議標準條文：' + f.suggestion);
-    if (f.source && f.source.title) parts.push('來源：《' + f.source.title + '》' + (f.source.page ? '（第' + f.source.page + '頁）' : ''));
+    out.push(note('⚠ 建議修訂（' + (f.domain_cn || '清單') + '·' + st + '）：' + (f.note || ''), { fill: 'FBF0D9', color: '8A5A00', indent: 360 }));
+    if (f.suggestion) {
+      out.push(note('建議標準條文：', { fill: 'FBF0D9', color: '555555', indent: 540, before: 0 }));
+      for (const ln of String(f.suggestion).split('\n')) if (ln.trim()) out.push(note(ln.trim(), { fill: 'FBF0D9', color: '333333', indent: 720, before: 0 }));
+    }
+    if (src) out.push(note(src.trim(), { fill: 'FBF0D9', color: '888888', indent: 540, before: 0 }));
   }
-  return parts.join('\n');
+  return out;
 }
 
-// Annotate the ORIGINAL .docx in place. Returns { blob, located, unlocated }.
+// Annotate the ORIGINAL .docx in place. Highlights matched paragraphs and
+// inserts a VISIBLE inline note after each (no hidden Word comments — those were
+// invisible unless the reader opened the comment pane). Returns {blob, located,
+// unlocated}.
 async function buildAnnotatedOriginalDocx(arrayBuffer, findings, meta) {
   const JSZip = window.JSZip;
   if (!JSZip) throw new Error('標註元件 (JSZip) 尚未載入，請重新整理頁面再試。');
@@ -3604,17 +3623,6 @@ async function buildAnnotatedOriginalDocx(arrayBuffer, findings, meta) {
     byPara.get(hit).push(f);
   }
 
-  // Comment id space (respect any comments already in the file).
-  let nextId = 0;
-  const existingComments = zip.file('word/comments.xml');
-  let existingCommentsXml = existingComments ? await existingComments.async('string') : null;
-  if (existingCommentsXml) {
-    let cm; const idRe = /w:id="(\d+)"/g;
-    while ((cm = idRe.exec(existingCommentsXml)) !== null) nextId = Math.max(nextId, parseInt(cm[1], 10) + 1);
-  }
-  const commentXmlParts = [];
-  const nowIso = new Date().toISOString().replace(/\.\d+Z$/, 'Z');
-
   function highlightRuns(paraXml) {
     // Add a yellow highlight to every run (w:highlight is in the unbounded rPr
     // choice group, so position within rPr is schema-valid).
@@ -3628,30 +3636,17 @@ async function buildAnnotatedOriginalDocx(arrayBuffer, findings, meta) {
     });
   }
 
-  // Pass 2 — rewrite matched paragraphs: highlight + comment range(s).
+  // Pass 2 — rewrite matched paragraphs: highlight, then append visible note paragraphs.
   let located = 0;
   let pIndex = -1;
   xml = xml.replace(wp, (paraXml) => {
     pIndex++;
     const here = byPara.get(pIndex);
     if (!here || !here.length) return paraXml;
-    let p = highlightRuns(paraXml);
-    const starts = [];
-    const ends = [];
-    for (const f of here) {
-      const id = nextId++;
-      located++;
-      starts.push('<w:commentRangeStart w:id="' + id + '"/>');
-      ends.push('<w:commentRangeEnd w:id="' + id + '"/><w:r><w:rPr><w:rStyle w:val="CommentReference"/></w:rPr><w:commentReference w:id="' + id + '"/></w:r>');
-      const lines = findingCommentText(f).split('\n').filter(Boolean);
-      const body = lines.map(function (ln) { return '<w:p><w:r><w:t xml:space="preserve">' + xmlEsc(ln) + '</w:t></w:r></w:p>'; }).join('');
-      commentXmlParts.push('<w:comment w:id="' + id + '" w:author="EDB K1 知識平台" w:date="' + nowIso + '" w:initials="EDB">' + (body || '<w:p/>') + '</w:comment>');
-    }
-    // commentRangeStart after pPr (or after the <w:p…> open tag); end + refs before </w:p>.
-    if (/<\/w:pPr>/.test(p)) p = p.replace('</w:pPr>', '</w:pPr>' + starts.join(''));
-    else p = p.replace(/(<w:p\b(?:\s[^>]*)?>)/, '$1' + starts.join(''));
-    p = p.replace('</w:p>', ends.join('') + '</w:p>');
-    return p;
+    const hp = highlightRuns(paraXml);
+    let notes = '';
+    for (const f of here) { located++; notes += findingNoteParas(f).join(''); }
+    return hp + notes; // note paragraphs become siblings immediately after this one
   });
 
   // Appendix — missing items + spans we could not locate (never silently dropped).
@@ -3665,8 +3660,8 @@ async function buildAnnotatedOriginalDocx(arrayBuffer, findings, meta) {
         '<w:r>' + (rpr ? '<w:rPr>' + rpr + '</w:rPr>' : '') + '<w:t xml:space="preserve">' + xmlEsc(text) + '</w:t></w:r></w:p>';
     };
     ap.push('<w:p/>');
-    ap.push(para('— — — EDB K1 知識平台 · 文件標註附錄 — — —', { bold: true, size: 28, color: '1F4E36' }));
-    ap.push(para('以下項目未能在原文逐字定位（多為「建議新增」的合規要求，或格式令系統無法對位），改列於此供人手加入；上文已就地標示的內容以螢光標出並附批註。', { size: 18, color: '888888' }));
+    ap.push(para('— — — ' + ANNOTATE_PLATFORM_NAME + ' · 文件標註附錄 — — —', { bold: true, size: 28, color: '1F4E36' }));
+    ap.push(para('以下項目未能在原文逐字定位（多為「建議新增」的合規要求，或格式令系統無法對位），改列於此供人手加入；上文已就地標示的內容以螢光標出並附就地建議。', { size: 18, color: '888888' }));
     let curDomain = null;
     for (const f of appendixFindings) {
       const tag = f.kind === 'guideline' ? '相關指引' : (f.status === 'partial' ? '部分涵蓋' : '未涵蓋');
@@ -3685,48 +3680,7 @@ async function buildAnnotatedOriginalDocx(arrayBuffer, findings, meta) {
     else xml = xml.replace('</w:body>', apXml + '</w:body>');
   }
 
-  // Write comments.xml + content-type + relationship (only if we actually added comments).
   zip.file('word/document.xml', xml);
-  if (commentXmlParts.length) {
-    if (existingCommentsXml) {
-      // Existing part may be empty: python-docx ships a self-closed
-      // <w:comments …/> stub with no </w:comments> to insert before.
-      if (existingCommentsXml.indexOf('</w:comments>') !== -1) {
-        existingCommentsXml = existingCommentsXml.replace('</w:comments>', commentXmlParts.join('') + '</w:comments>');
-      } else {
-        existingCommentsXml = existingCommentsXml.replace(/<w:comments\b([^>]*?)\s*\/>/, '<w:comments$1>' + commentXmlParts.join('') + '</w:comments>');
-      }
-      zip.file('word/comments.xml', existingCommentsXml);
-    } else {
-      const commentsDoc = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n' +
-        '<w:comments xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">' +
-        commentXmlParts.join('') + '</w:comments>';
-      zip.file('word/comments.xml', commentsDoc);
-      // [Content_Types].xml
-      const ctFile = zip.file('[Content_Types].xml');
-      if (ctFile) {
-        let ct = await ctFile.async('string');
-        if (ct.indexOf('comments+xml') === -1) {
-          ct = ct.replace('</Types>', '<Override PartName="/word/comments.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.comments+xml"/></Types>');
-          zip.file('[Content_Types].xml', ct);
-        }
-      }
-      // word/_rels/document.xml.rels
-      const relPath = 'word/_rels/document.xml.rels';
-      const relFile = zip.file(relPath);
-      if (relFile) {
-        let rels = await relFile.async('string');
-        if (rels.indexOf('relationships/comments') === -1) {
-          let maxRid = 0; let rm; const ridRe = /Id="rId(\d+)"/g;
-          while ((rm = ridRe.exec(rels)) !== null) maxRid = Math.max(maxRid, parseInt(rm[1], 10));
-          const newRid = 'rId' + (maxRid + 1);
-          rels = rels.replace('</Relationships>', '<Relationship Id="' + newRid + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments" Target="comments.xml"/></Relationships>');
-          zip.file(relPath, rels);
-        }
-      }
-    }
-  }
-
   const blob = await zip.generateAsync({ type: 'blob', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
   return { blob: blob, located: located, unlocated: appendixFindings.length };
 }
@@ -4097,7 +4051,7 @@ async function buildAnnotateListDocx(report, schoolType, fileName) {
     (report.domains && report.domains.length) ? `範疇：${report.domains.map((d) => d.domain_cn).join('、')}` : null,
   ].filter(Boolean).join('　·　');
   children.push(p(t(meta, { size: 18, color: '888888' }), { spacing: { after: 60 } }));
-  children.push(p(t('本清單由 EDB K1 知識平台「文件標註」生成。Word(.docx) 上載檔可改用「下載標註版原檔」於原文就地標示。分析為 AI 語意比對，重要決定請以教育局官方原文為準。', { size: 18, color: '888888' }), { spacing: { after: 200 } }));
+  children.push(p(t('本清單由' + ANNOTATE_PLATFORM_NAME + '「文件標註」生成。Word(.docx) 上載檔可改用「下載標註版原檔」於原文就地標示。分析為 AI 語意比對，重要決定請以教育局官方原文為準。', { size: 18, color: '888888' }), { spacing: { after: 200 } }));
   const groups = [['📌 原文相關／需注意（就地標示對象）', (report.findings || []).filter((f) => f.span)], ['➕ 建議補充（原文未涵蓋／未能定位）', (report.findings || []).filter((f) => !f.span)]];
   for (const [title, list] of groups) {
     if (!list.length) continue;
