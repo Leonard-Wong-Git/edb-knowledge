@@ -398,6 +398,23 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g26",               // 2026/27 幼稚園收生安排指引
     "stat_kg",           // 幼稚園統計數字
   ],
+  /*
+   * Kindergarten administration / operation — 幼稚園行政手冊 + 學前機構辦學手冊 (S160).
+   * Distinct from kg_admission (收生-only) and curriculum (課程). Its TOPIC_KEYWORDS
+   * entry sits BEFORE curriculum so KG-admin queries don't fall into curriculum's
+   * broad 幼稚園 match (which lacks these admin manuals).
+   */
+  kg_admin: [
+    "kg_admin_guide_2026",       // S160: 幼稚園行政手冊（2026年5月）
+    "kg_operation_manual_2026",  // S160: 學前機構辦學手冊（2026年5月，第4.3版）
+    "kg_admin_guide",            // S152: 幼稚園學費涵蓋 / 售賣物品指引
+    "kgecg_2017",                // 幼稚園教育課程指引（2017）— broad KG context
+    "g25",                       // 幼稚園相關指引及須知
+    "g29",                       // 幼稚園教育課程指引（2017）
+    "g26",                       // 2026/27 幼稚園收生安排指引
+    "stat_kg",                   // 幼稚園統計數字
+    "role_facts_general",
+  ],
 };
 
 /** Keyword patterns for each category (Traditional Chinese). */
@@ -438,6 +455,8 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // S150 — 資優教育. MUST precede `curriculum` (資優教育課程 contains 課程). Gifted-specific
   // terms; 資賦 catches 資賦優異, 資優 catches 資優教育/校本資優/資優學生.
   gifted: /資優|資賦|天才教育|拔尖保底|gifted/i,
+  // S160: KG administration/operation — MUST precede curriculum (which matches bare 幼稚園).
+  kg_admin: /幼稚園行政|幼稚園.{0,4}行政|辦學手冊|學前機構|幼稚園.{0,4}辦學|幼稚園.{0,4}營辦|開辦幼稚園|幼稚園牌照|幼稚園.{0,4}人事|幼稚園.{0,4}財務|幼稚園.{0,4}管理|幼稚園.{0,4}質素|幼稚園教育計劃|幼教計劃|免費優質幼稚園|幼稚園.{0,4}周年/,
   curriculum: /課程|科目|教學|學習目標|評估|教材|課程發展|學習領域|教師發展|CPD|專業發展|英文科|中文科|數學科|常識科|科學科|體育科|音樂科|視藝科|小學課程|中學課程|課程指引|學習成果|評核|幼稚園|幼兒|學前|K1|K2|K3|遊戲學習/,
 };
 
@@ -465,6 +484,7 @@ const QUERY_EXPANSIONS: Record<string, string> = {
   // PLAN-1b selective routes (S118) — same single map, no parallel mechanism.
   cpd:          "教師持續專業發展 持續專業發展 教育局通告29/2024 教師培訓要求 專業階梯 校本專業發展政策 師訓會 教師專業能力理念架構",
   kg_admission: "幼稚園收生安排指引 K1 註冊證 報名費 註冊費 統一註冊日期 申請入學 收生程序 空缺",
+  kg_admin:     "幼稚園行政手冊 學前機構辦學手冊 幼稚園營辦 幼稚園管理 幼稚園人事 幼稚園財務 幼稚園牌照 幼稚園註冊 質素保證 幼稚園教育計劃 免費優質幼稚園教育計劃 周年計劃 校本管理 學前機構",
   conduct:      "教師專業操守指引 教育規例第58條 教員不得向學生施行體罰 操守 學生保護",
   sen:          "特殊教育需要 融合教育 全校參與模式 特殊學校課程指引 融合教育運作指南 特殊教育需要統籌主任 SENCO 學生支援組 個別學習計劃 三層支援模式 校本支援 共融校園 照顧學生個別差異 校內考試特別安排 考試調適 評估調適 特別考試安排",
   gifted:       "資優教育 資賦優異 三層推行模式 校本資優培育課程 拔尖保底 多元智能 資優學生 抽離式課程 校本資優發展計劃",

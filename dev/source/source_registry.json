@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-06-10",
+    "updated": "2026-06-14",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -5912,6 +5912,44 @@
       "last_checked_at": "2026-06-10",
       "supersedes": null,
       "notes": "S154 (2026-06-10): SBM-governance backfill (4 PDF grouped: 家長/教師/校友選舉指引(2025)+委任五步曲). Ingested 57 chunks text-layer. In SOURCE_SETS.school_governance."
+    },
+    {
+      "source_id": "kg_admin_guide_2026",
+      "title": "幼稚園行政手冊（2026年5月）",
+      "title_short": "幼稚園行政手冊",
+      "url_landing": "https://www.edb.gov.hk/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "kg_admin"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026-05",
+      "last_checked_at": "2026-06-14",
+      "supersedes": null,
+      "notes": "S160 (2026-06-14): 幼稚園行政手冊 ingested to Channel B (218 chunks, text-layer, page-resolvable, U+FFFD=0). New kg_admin SOURCE_SET route (before curriculum). Leonard-supervised live INSERT."
+    },
+    {
+      "source_id": "kg_operation_manual_2026",
+      "title": "學前機構辦學手冊（2026年5月，第4.3版）",
+      "title_short": "學前機構辦學手冊",
+      "url_landing": "https://www.edb.gov.hk/tc/edu-system/preprimary-kindergarten/overview/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "kg_admin"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026-05 v4.3",
+      "last_checked_at": "2026-06-14",
+      "supersedes": null,
+      "notes": "S160 (2026-06-14): 學前機構辦學手冊 v4.3 ingested to Channel B (217 chunks, text-layer, page-resolvable, U+FFFD=0). In kg_admin SOURCE_SET. Leonard-supervised live INSERT."
     }
   ]
 }
