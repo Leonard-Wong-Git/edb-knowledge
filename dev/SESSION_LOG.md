@@ -2,6 +2,51 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-14 Session 163 QC — v3.0 release QC：6 blockers NO-GO→GO（P1–P6）+ regression 修復
+
+- **ID:** Claude_20260614_S163QC (S163 QC follow-up)
+- **Trigger:** Leonard 22:40 自啟（全權跟進 QC Governor 的 v3.0 NO-GO 裁決，醒來收貨）。實際 machine-local 23:11 BST 過咗 22:40 → 起動。起手核實：HEAD `04602b3`==origin、Render `/health` ok(cache_a 455)。baseline regression 揭 **2 條 pre-existing FAIL**（stale）。
+- **P1 版本顯示（`3f239bf`）:** app.html header（政策核對·{displayVersion}）+ footer 嘅 `displayVersion` 原由 `data._meta.version`(2.3.0) 派生 → 改用 `PLATFORM_VERSION`(v3.0.0)。`_meta.version` 維持凍結。local preview 驗 header/footer v3.0.0、無 v2.3.0、0 console err。
+- **P2 KG 營運搜尋（`39e6df1`）:** root cause —「幼稚園營運」唔 match kg_admin regex（有 營辦 無 營運）→ 落 curriculum → 只得 g26。修：kg_admin regex +幼稚園.{0,4}營運|營運手冊|運作|健康紀錄 等。export `detectQueryCategory`。**Render LIVE 驗**：query「幼稚園營運 手冊 健康紀錄」由 total=2(g26×2) → total=5 含 kg_operation_manual_2026+kg_admin_guide_2026。kg_admission 不受影響。
+- **P3 標註覆蓋誇大（`39e6df1`）:** root cause — status 純 max-cosine；text-embedding-3-small 對同範疇中文政策句俾 0.42–0.5 cosine 即使主題無關 → 1 句短文標到 covered=20/partial=55。修：graded 詞彙重疊閘 —— 每 item 取 informative CJK-bigram（DF≤25% 自校準濾走 本校/幼稚園 等通用詞），與最匹配段共享 0→missing、1→最多 partial、≥2→保留 cosine 判定。`MAX_ITEMS` 220→400（kg_operation 388 全評分零截斷）。export `cjkBigrams`。**Render LIVE 驗**：短 KG 文 covered=5/partial=30（QC 報 20/55）；real-embedding e2e 證 richer 多段文 covered=37（無 false-negative）。
+- **P4 README（`3f239bf`）:** badge v3.0.0 + knowledge.json 凍結 2.3.0 註明 + footer 日期。
+- **P5 worktree（`3f239bf`）:** 8 個 untracked 備份／中間檔（`*.bak_*`/`*.pre_*`/`_distill_*`/`_rewrite_*`，含 21MB all_chunks bak）`.gitignore`，**不刪**（無批准）。驗證全部 ignored、worktree 乾淨。
+- **P6 Mobile scope（`3f239bf`）:** 決定 + 文檔（QC option 1）。mobile.js shell 為 search/guidelines 導向、annotate/templates 無對應 mobile render（硬接會 search shell 蓋 React = 破 UX）。v3 mobile scope = 搜尋/指引/平台介紹；文件標註+範本下載 = desktop 功能。PROJECT_MASTER_SPEC §B.5 + CHANGELOG 寫明。
+- **Regression 修復（`39e6df1`）:** 2 條 stale FAIL 修正（schema 版本硬編 1.3.1 → 現凍結 2.3.0/2.5.0；role-bucket distinctness 已隨 S110 dedup union-selector 失效 → 改斷言「兩角色均取得 finance 事實」）+ 加 P2 routing(5)/P3 lexical-gate(4) cases。20 PASS / 0 FAIL（1 PASS-with-notes = offline OpenAI）。
+- **QC：** tsc check+build exit 0（×2）；regression overall PASS；Render LIVE 探針（P2 routing + P3 covered/partial）全綠；app.html local preview（P1 + 0 console err）。
+- **⚠️ Boundary / open:** **GitHub Pages 全站 404**（closeout 時 root+index+app 兩域皆 404；DNS→Pages IP 185.199.108.153；files 仍 tracked、.nojekyll 在、deploy-from-branch 無 Actions workflow → 非 content 造成；private repo 令 raw/API 亦 404 無法查 build log）。研判為 Pages deploy delay/incident，非我 push 引致（root 都 404）。**frontend P1 propagation 待站恢復**；後台 poll 監察中。Render backend 改動已 LIVE。Supabase 15,109 零接觸。
+- **commits（已 push origin/main）:** `39e6df1`(backend P2/P3/regression)→`3f239bf`(frontend/docs P1/P4/P5/P6)→ closeout gov。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.0.0。
+Product state: HEAD == origin/main（已 push）。Supabase 15,109；Render backend live。⚠️ 起手 FIRST：探針 https://policychecker.wongfu.net/ + /app.html HTTP code —— S163QC closeout 時全站 404（Pages deploy delay/incident，非 content；root 都 404、files tracked、.nojekyll 在）。若仍 404：check GitHub Pages 部署狀態（私庫，需 gh auth 或 GitHub web Settings→Pages 睇 build log）/ GitHub Status / 試 empty commit re-trigger；恢復後驗 app.html header/footer 顯示 v3.0.0。若已 200：直接驗 v3.0.0 即可。再 verify HEAD==origin/main + Supabase 15,109 + Render /health。
+
+S163QC（Leonard 全權，22:40 自啟）完成 v3.0 release QC 6 blockers（NO-GO→GO）：
+P1 版本顯示一致（3f239bf）：app.html header/footer displayVersion 由 PLATFORM_VERSION（v3.0.0）派生，唔再讀凍結 _meta.version（2.3.0）。local 驗過，待 Pages 恢復做 live 驗。
+P2 KG 營運搜尋（39e6df1）：searchChannelB kg_admin route +幼稚園營運/營運手冊/運作/健康紀錄。Render LIVE 驗：query surface kg_operation_manual+kg_admin_guide（原 g26-only）。
+P3 標註覆蓋誇大（39e6df1）：checklistRevise graded 詞彙重疊閘（informative bigram DF 自校準）+ MAX_ITEMS 220→400。Render LIVE 驗：短 KG 文 covered 20→5/partial 55→30，richer 文 covered=37（無 false-neg）。
+P4 README v3.0.0 / P5 .gitignore 備份檔(不刪) / P6 mobile scope 文檔（search/guidelines/about；annotate+templates=desktop，PROJECT_MASTER_SPEC §B.5）。
+Regression（39e6df1）：修 2 stale FAIL（schema 1.3.1→2.3.0/2.5.0；role-bucket→union both-roles）+ P2/P3 cases。20 PASS/0 FAIL。
+
+NEXT（優先序）：
+① ⚠️ Pages 404 復原驗證（最優先）：站恢復後 live 驗 app.html v3.0.0 header/footer + index.html + 文件標註/範本下載 tabs 無 console error。若長時間未復，flag Leonard 查 Pages settings/GitHub status。
+② Leonard 收貨：v3.0 QC 6 fixes（其中 P2/P3 Render 已 LIVE 驗、P1 local 驗）。確認後 v3.0 可 NO-GO→GO。
+③ 真檔驗：Phase 2 PDF inline highlight 真 PDF 對位+多 viewer CJK；P3 gate 真檔多範疇文件覆蓋率合理性 monitor（STOPWORD_DF_FRACTION=0.25 / COVERED=0.5 / PARTIAL=0.42 / MAX_ITEMS=400 tunable）。
+④ monitor：P2 KG routing 真用戶查詢覆蓋；Phase 2.5 多範疇 UX；KG QC DRAFT 最終核；#3 學校版 102 docx。
+
+Key files（S163QC）：backend/src/api/{searchChannelB.ts(kg_admin regex +營運; export detectQueryCategory), checklistRevise.ts(graded lexical gate +cjkBigrams export, MAX_ITEMS 400, STOPWORD_DF_FRACTION)} / backend/scripts/semanticRegression.ts(2 stale fixes + P2/P3 cases) / app.html(displayVersion→PLATFORM_VERSION) / README.md / .gitignore / dev/PROJECT_MASTER_SPEC.md(§B.5 mobile) / CHANGELOG.md.
+⚠️ 紀律：起 backend 改動前確認 Render deploy；live INSERT 前 INSPECT；改 docx/checklist re-run gen_checklists_bundle.py+gen_templates_manifest.py（kg_operation canonical si/section_name）；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；本機 shell set -e（grep -c 0 中斷，用 python 數）；curl policychecker 偶被 Cloudflare challenge（9KB page）→ 用 github.io origin 或加 ?cb=。
+Post-startup first action: 探針 policychecker.wongfu.net / + /app.html HTTP status（Pages 恢復未）；若 200 → live 驗 v3.0.0；若 404 → 跟 NEXT① 處理。然後問 Leonard 收貨 v3.0 QC。
+```
+
+---
+
 ## 2026-06-14 Session 163 — ABC：核 KG QC（+修 S162 schema bug）+ 文件標註 Phase 2.5（per-segment）+ 平台 v3.0 改版 + 文件標註 Phase 2（PDF inline highlight）
 
 - **ID:** Claude_20260614_S163 (S163)

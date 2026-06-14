@@ -3,20 +3,21 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
 Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.0.0。
-Product state: HEAD == origin/main（已 push，7289380）。Supabase 15,109；Channel B live；Pages+Render live 全綠；0 outstanding bug。起手 verify HEAD==origin/main + Supabase 15,109。
+Product state: HEAD == origin/main（已 push）。Supabase 15,109；Render backend live。⚠️ 起手 FIRST：探針 https://policychecker.wongfu.net/ + /app.html HTTP code —— S163QC closeout 時全站 404（Pages deploy delay/incident，非 content；root 都 404、files tracked、.nojekyll 在）。若仍 404：check GitHub Pages 部署狀態（私庫，需 gh auth 或 GitHub web Settings→Pages 睇 build log）/ GitHub Status / 試 empty commit re-trigger；恢復後驗 app.html header/footer 顯示 v3.0.0。若已 200：直接驗 v3.0.0 即可。再 verify HEAD==origin/main + Supabase 15,109 + Render /health。
 
-S163（Leonard「ABC」全權自主）完成 4 項全 push + live 驗：
-C 核 KG QC（ef43517）：QC_VERIFY_ISSUES 17 flags 全修（_qc_fix.py）+ 揭發並修 S162 結構 bug（kg_operation/clauses.json 非標準 section_no/name → canonical si/section_name：修 backend supplement linkage 388/388 由失效恢復 + 學校版 docx 章節名空白）。
-A 文件標註 Phase 2.5（d71ae1e）：detectDomainsPerSegment（per-segment argmax 路由，top≥1/secondary≥2，AUTO_DETECT_MAX_DOMAINS=3）取代 whole-doc detect；多範疇文件各段路由其域、單範疇仍 1 域、比 legacy 更準。Render 驗 SEN→['sen']。
-版本/首頁/平台介紹（f510ee8）：PLATFORM_VERSION='3.0.0' decouple（凍結 knowledge _meta.version 2.3.0 不動）；app.html 平台介紹 5 channels + index.html +文件標註+範本下載 卡 + v3.0 eyebrow + CHANGELOG v3.0.0。
-B 文件標註 Phase 2 PDF inline highlight（7289380）：+pdf-lib 1.17.1；extractPdf 抽座標；buildAnnotatedPdf 原 PDF 就地螢光 rect+編號 marker+CJK sticky-note（UTF-16BE PDFHexString.fromText，免嵌字型）；download branch docx/pdf。in-browser pipeline 驗全綠。
+S163QC（Leonard 全權，22:40 自啟）完成 v3.0 release QC 6 blockers（NO-GO→GO）：
+P1 版本顯示一致（3f239bf）：app.html header/footer displayVersion 由 PLATFORM_VERSION（v3.0.0）派生，唔再讀凍結 _meta.version（2.3.0）。local 驗過，待 Pages 恢復做 live 驗。
+P2 KG 營運搜尋（39e6df1）：searchChannelB kg_admin route +幼稚園營運/營運手冊/運作/健康紀錄。Render LIVE 驗：query surface kg_operation_manual+kg_admin_guide（原 g26-only）。
+P3 標註覆蓋誇大（39e6df1）：checklistRevise graded 詞彙重疊閘（informative bigram DF 自校準）+ MAX_ITEMS 220→400。Render LIVE 驗：短 KG 文 covered 20→5/partial 55→30，richer 文 covered=37（無 false-neg）。
+P4 README v3.0.0 / P5 .gitignore 備份檔(不刪) / P6 mobile scope 文檔（search/guidelines/about；annotate+templates=desktop，PROJECT_MASTER_SPEC §B.5）。
+Regression（39e6df1）：修 2 stale FAIL（schema 1.3.1→2.3.0/2.5.0；role-bucket→union both-roles）+ P2/P3 cases。20 PASS/0 FAIL。
 
-NEXT（優先序，多數待 Leonard）：
-① Phase 2 PDF highlight 真檔驗：合成 PDF 已驗，建議上載真 EDB／學校 PDF 試對位 + 多 viewer（Acrobat/Preview/Chrome）CJK sticky-note 顯示。座標假設無頁面旋轉（rotation 存未補償）、碎 run／表格命中率 = monitor。
-② Leonard review：v3.0 版本方案（PLATFORM_VERSION decouple，可調）/ KG QC DRAFT 最終核（QC_VERIFY_ISSUES 17 已修）/ #3 學校版 102 docx（範本下載 tab）。
-③ Phase 2.5 多範疇 UX monitor：auto 由 1→≤3 域，真檔觀察會否過多域（SECONDARY_MIN_SEGMENTS=2 / AUTO_DETECT_MAX_DOMAINS=3 tunable）。
-④ monitor：門檻 COVERED=0.50/PARTIAL=0.42/AUTO_DETECT=0.38/auto missing cap 8 / kg_admin「幼稚園質素」→qa_inspection / 57014 free-tier / cgss rank 低。
+NEXT（優先序）：
+① ⚠️ Pages 404 復原驗證（最優先）：站恢復後 live 驗 app.html v3.0.0 header/footer + index.html + 文件標註/範本下載 tabs 無 console error。若長時間未復，flag Leonard 查 Pages settings/GitHub status。
+② Leonard 收貨：v3.0 QC 6 fixes（其中 P2/P3 Render 已 LIVE 驗、P1 local 驗）。確認後 v3.0 可 NO-GO→GO。
+③ 真檔驗：Phase 2 PDF inline highlight 真 PDF 對位+多 viewer CJK；P3 gate 真檔多範疇文件覆蓋率合理性 monitor（STOPWORD_DF_FRACTION=0.25 / COVERED=0.5 / PARTIAL=0.42 / MAX_ITEMS=400 tunable）。
+④ monitor：P2 KG routing 真用戶查詢覆蓋；Phase 2.5 多範疇 UX；KG QC DRAFT 最終核；#3 學校版 102 docx。
 
-Key files（S163）：backend/src/api/{checklistRevise.ts(+detectDomainsPerSegment), annotateDocument.ts(用之, AUTO_DETECT_MAX_DOMAINS=3)} / app.html(+PLATFORM_VERSION 3.0.0, 平台介紹 5 channels, +buildAnnotatedPdf, extractPdf 抽座標, fileBuffer/download branch docx/pdf, +pdf-lib CDN) / index.html(+文件標註+範本下載 卡, v3.0) / CHANGELOG.md(v3.0.0) / dev/checklists/_work/kg_operation/clauses.json(si/section_name 正規化+17 fix, _qc_fix.py) / dev/checklists/kg_operation/(4 docx 重生 + QC_VERIFY_ISSUES.md) / checklists_bundle.json + policy_templates.json(重生).
-⚠️ 紀律：起 backend 改動前確認 Render deploy；live INSERT 前 INSPECT；新源 SOURCE_SETS+registry+display-sync 7 點；改 docx/checklist re-run gen_checklists_bundle.py + gen_templates_manifest.py（kg_operation 用 si/section_name canonical schema）；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；本機 shell set -e（grep -c 0 會中斷，用 python 數）。
-Post-startup first action: verify HEAD==origin/main + Supabase 15,109 + 探針 onrender /api/annotate-document healthy + Pages app.html 見 v3.0.0，然後問 Leonard 起邊個 NEXT（建議 ① Phase 2 真檔驗 或 ② KG QC 最終核）。
+Key files（S163QC）：backend/src/api/{searchChannelB.ts(kg_admin regex +營運; export detectQueryCategory), checklistRevise.ts(graded lexical gate +cjkBigrams export, MAX_ITEMS 400, STOPWORD_DF_FRACTION)} / backend/scripts/semanticRegression.ts(2 stale fixes + P2/P3 cases) / app.html(displayVersion→PLATFORM_VERSION) / README.md / .gitignore / dev/PROJECT_MASTER_SPEC.md(§B.5 mobile) / CHANGELOG.md.
+⚠️ 紀律：起 backend 改動前確認 Render deploy；live INSERT 前 INSPECT；改 docx/checklist re-run gen_checklists_bundle.py+gen_templates_manifest.py（kg_operation canonical si/section_name）；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；本機 shell set -e（grep -c 0 中斷，用 python 數）；curl policychecker 偶被 Cloudflare challenge（9KB page）→ 用 github.io origin 或加 ?cb=。
+Post-startup first action: 探針 policychecker.wongfu.net / + /app.html HTTP status（Pages 恢復未）；若 200 → live 驗 v3.0.0；若 404 → 跟 NEXT① 處理。然後問 Leonard 收貨 v3.0 QC。
