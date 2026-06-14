@@ -29,11 +29,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
-<!-- 文件分析/標註 client-side: pdf.js 3.x (UMD; 4.x ESM-only) + mammoth (docx 抽取) + docx 8.x (UMD, 重砌標註版) + JSZip 3.x (原 docx XML 就地標註). deferred — runtime-guarded in panels -->
+<!-- 文件分析/標註 client-side: pdf.js 3.x (UMD; 4.x ESM-only) + mammoth (docx 抽取) + docx 8.x (UMD, 重砌標註版) + JSZip 3.x (原 docx XML 就地標註) + pdf-lib 1.x (S163 文件標註 Phase 2 — PDF 原檔就地螢光標示). deferred — runtime-guarded in panels -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" defer></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════════
@@ -3129,6 +3130,96 @@ async function buildAnnotatedOriginalDocx(arrayBuffer, findings, meta) {
   return { blob: blob, located: located, unlocated: appendixFindings.length };
 }
 
+// S163 文件標註 Phase 2 — highlight matched spans IN PLACE on the original PDF.
+// A PDF cannot carry inline Chinese notes without embedding a ~10MB CJK font, so the
+// PDF surfaces WHERE (yellow highlight + numbered marker + a clickable sticky-note
+// annotation whose Chinese the PDF viewer renders with its own UI font), while the
+// on-screen report / 建議清單 docx carry the full WHAT. Coordinate mapping reuses the
+// per-page text positions captured at extraction time — pdf.js text-item transforms
+// are already in PDF user space (origin bottom-left, same as pdf-lib), so un-rotated
+// pages need no viewport transform. Spans are matched whitespace-insensitively and
+// can cross items/lines (one highlight rect per line).
+async function buildAnnotatedPdf(arrayBuffer, findings, pages, meta) {
+  const L = window.PDFLib;
+  if (!L) throw new Error('PDF 標註元件尚未載入，請重新整理頁面再試。');
+  const { PDFDocument, rgb, StandardFonts, PDFName, PDFHexString } = L;
+  const doc = await PDFDocument.load(arrayBuffer);
+  const font = await doc.embedFont(StandardFonts.HelveticaBold);
+  const docPages = doc.getPages();
+  const norm = (s) => (s || '').replace(/\s+/g, '');
+
+  // Per-page normalized text + char→item map for span location.
+  const maps = (pages || []).map((pg) => {
+    let text = ''; const map = [];
+    (pg.items || []).forEach((it, idx) => {
+      const n = norm(it.s);
+      for (let c = 0; c < n.length; c++) { text += n[c]; map.push(idx); }
+    });
+    return { text, map };
+  });
+
+  const HILITE = rgb(1, 0.92, 0.23), MARK = rgb(0.85, 0.20, 0.20), WHITE = rgb(1, 1, 1);
+  let located = 0, unlocated = 0, marker = 0;
+  const inPlace = (findings || []).filter((f) => f.span);
+
+  for (const f of inPlace) {
+    const want = norm(f.span);
+    if (want.length < 4) { unlocated++; continue; }
+    let placed = false;
+    for (let pi = 0; pi < (pages || []).length && !placed; pi++) {
+      const at = maps[pi].text.indexOf(want);
+      if (at < 0) continue;
+      const dpg = docPages[pi]; if (!dpg) continue;
+      const pg = pages[pi];
+      const idxs = [...new Set(maps[pi].map.slice(at, at + want.length))];
+      const boxes = idxs.map((ix) => pg.items[ix]).filter(Boolean);
+      if (!boxes.length) continue;
+      // group items into lines by baseline, one highlight rect per line
+      const lines = {};
+      for (const b of boxes) {
+        const k = Math.round(b.y / 3);
+        if (!lines[k]) lines[k] = { x0: b.x, x1: b.x + b.w, y: b.y, h: b.h };
+        else { lines[k].x0 = Math.min(lines[k].x0, b.x); lines[k].x1 = Math.max(lines[k].x1, b.x + b.w); lines[k].h = Math.max(lines[k].h, b.h); }
+      }
+      const arr = Object.values(lines).sort((a, b) => b.y - a.y);
+      marker++;
+      arr.forEach((ln, li) => {
+        const w = Math.max(2, ln.x1 - ln.x0), h = Math.max(6, ln.h);
+        dpg.drawRectangle({ x: ln.x0, y: ln.y - h * 0.18, width: w, height: h * 1.2, color: HILITE, opacity: 0.40 });
+        if (li === 0) {
+          const cx = Math.max(8, ln.x0 - 9), cy = ln.y + h * 0.3;
+          dpg.drawCircle({ x: cx, y: cy, size: 6.5, color: MARK });
+          const s = String(marker);
+          dpg.drawText(s, { x: cx - s.length * 2.1, y: cy - 3, size: 7, font, color: WHITE });
+        }
+      });
+      // best-effort clickable Chinese sticky-note (viewer renders CJK via /Contents)
+      try {
+        const top = arr[0];
+        const note = `[${marker}] ${f.kind === 'guideline' ? '參考指引' : (f.domain_cn || '合規清單')}：${f.note || ''}` +
+          (f.suggestion ? `\n建議：${f.suggestion}` : '') +
+          (f.source && f.source.title ? `\n來源：《${f.source.title}》${f.source.page ? '第' + f.source.page + '頁' : ''}` : '');
+        const rx = Math.max(2, top.x0 - 9), ry = top.y + top.h * 0.3;
+        const annot = doc.context.obj({
+          Type: 'Annot', Subtype: 'Text', Name: 'Comment', Open: false,
+          Rect: [rx, ry, rx + 16, ry + 16],
+          Contents: PDFHexString.fromText(note),
+          T: PDFHexString.fromText('政策標註'),
+          C: [1, 0.82, 0.2],
+        });
+        const ref = doc.context.register(annot);
+        let annots = dpg.node.lookup(PDFName.of('Annots'));
+        if (!annots) { annots = doc.context.obj([]); dpg.node.set(PDFName.of('Annots'), annots); }
+        annots.push(ref);
+      } catch (_) { /* highlight already drawn; the sticky note is a bonus */ }
+      located++; placed = true;
+    }
+    if (!placed) unlocated++;
+  }
+  const bytes = await doc.save();
+  return { blob: new Blob([bytes], { type: 'application/pdf' }), located, unlocated };
+}
+
 function AnnotatePanel() {
   const [domains, setDomains] = useState([]);
   const [selDomains, setSelDomains] = useState([]); // [] = 自動偵測
@@ -3136,8 +3227,10 @@ function AnnotatePanel() {
   const [schoolType, setSchoolType] = useState('');
   const [docText, setDocText] = useState('');
   const [fileName, setFileName] = useState('');
-  const [fileBuffer, setFileBuffer] = useState(null); // original .docx ArrayBuffer (for in-place annotation)
+  const [fileBuffer, setFileBuffer] = useState(null); // original file ArrayBuffer (docx OR pdf, for in-place annotation)
   const [isDocx, setIsDocx] = useState(false);
+  const [isPdf, setIsPdf] = useState(false);
+  const [pdfPages, setPdfPages] = useState(null); // S163 Phase 2: per-page pdf.js text positions for PDF highlight
   const [extracting, setExtracting] = useState(false);
   const [extractError, setExtractError] = useState('');
   const [analyzing, setAnalyzing] = useState(false);
@@ -3167,12 +3260,24 @@ function AnnotatePanel() {
     }
     const pdf = await lib.getDocument({ data: buf.slice(0) }).promise;
     let out = '';
+    // S163 Phase 2: capture per-page text positions (PDF user space, origin
+    // bottom-left) so matched spans can be highlighted back on the original PDF.
+    const pages = [];
     for (let i = 1; i <= pdf.numPages; i++) {
       const page = await pdf.getPage(i);
+      const vp = page.getViewport({ scale: 1 });
       const tc = await page.getTextContent();
-      out += tc.items.map((t) => t.str).join(' ') + '\n\n';
+      const items = tc.items.map((t) => ({
+        s: t.str,
+        x: t.transform[4],
+        y: t.transform[5],
+        w: t.width || 0,
+        h: t.height || Math.abs(t.transform[3]) || 10,
+      }));
+      pages.push({ w: vp.width, h: vp.height, rotation: vp.rotation || 0, items });
+      out += tc.items.map((t) => t.str).join(' ') + '\n\n'; // text fed to backend — unchanged
     }
-    return out.trim();
+    return { text: out.trim(), pages };
   }
   async function extractDocx(buf) {
     if (!window.mammoth) throw new Error('Word 解析元件尚未載入，請重新整理頁面再試。');
@@ -3190,13 +3295,16 @@ function AnnotatePanel() {
     try {
       const buf = await file.arrayBuffer();
       const docx = lower.endsWith('.docx');
-      const text = docx ? await extractDocx(buf) : await extractPdf(buf);
+      let text, pages = null;
+      if (docx) { text = await extractDocx(buf); }
+      else { const r = await extractPdf(buf); text = r.text; pages = r.pages; }
       if (text.length < 30) throw new Error('未能從檔案抽取文字（掃描影印本暫不支援），請改貼文字內容。');
-      setDocText(text); setFileName(name); setIsDocx(docx);
-      setFileBuffer(docx ? buf : null); // only .docx can be annotated in place
+      setDocText(text); setFileName(name); setIsDocx(docx); setIsPdf(!docx);
+      setFileBuffer(buf); // S163 Phase 2: both .docx and .pdf can now be annotated in place
+      setPdfPages(pages);
     } catch (e) {
       setExtractError(e && e.message ? e.message : '檔案讀取失敗，請改貼文字內容。');
-      setFileName(''); setFileBuffer(null); setIsDocx(false);
+      setFileName(''); setFileBuffer(null); setIsDocx(false); setIsPdf(false); setPdfPages(null);
     } finally {
       setExtracting(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
@@ -3235,28 +3343,38 @@ function AnnotatePanel() {
   }
 
   function handleClear() {
-    setDocText(''); setFileName(''); setFileBuffer(null); setIsDocx(false); setExtractError(''); resetOutputs();
+    setDocText(''); setFileName(''); setFileBuffer(null); setIsDocx(false); setIsPdf(false); setPdfPages(null); setExtractError(''); resetOutputs();
   }
 
   async function handleDownloadOriginal() {
     if (!report || downloading) return;
-    if (!fileBuffer) { setError('就地標註只支援 Word（.docx）上載檔；貼上文字或 PDF 請用「下載建議清單」。'); return; }
+    if (!fileBuffer) { setError('就地標註只支援上載檔（Word 或 PDF）；貼上文字請用「下載建議清單」。'); return; }
     setDownloading(true); setError(''); setDownloadNote('');
     try {
-      const { blob, located, unlocated } = await buildAnnotatedOriginalDocx(fileBuffer, report.findings || [], {
-        headerNote: true,
-        schoolType: report.school_type || schoolType,
-        domains: (report.domains || []).map(d => d.domain_cn),
-        autoDetected: report.auto_detected,
-        filename: report.filename || fileName,
-      });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
       const base = String(report.filename || fileName || '文件').replace(/\.(pdf|docx?)$/i, '');
-      a.href = url; a.download = `${base}_標註版.docx`;
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      setTimeout(() => URL.revokeObjectURL(url), 1500);
-      setDownloadNote(`已就地標示 ${located} 處（螢光＋批註）` + (unlocated ? `；另有 ${unlocated} 項列於文末附錄` : ''));
+      const trigger = (blob, ext) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = `${base}_標註版.${ext}`;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+      };
+      if (isPdf) {
+        // S163 Phase 2: highlight matched spans in place on the original PDF.
+        const { blob, located, unlocated } = await buildAnnotatedPdf(fileBuffer, report.findings || [], pdfPages || [], {});
+        trigger(blob, 'pdf');
+        setDownloadNote(`已於 PDF 就地螢光標示 ${located} 處（點黃色標記旁的批註圖示可看建議）` + (unlocated ? `；另有 ${unlocated} 項未能在原文定位，見下方「建議補充」或下載建議清單` : ''));
+      } else {
+        const { blob, located, unlocated } = await buildAnnotatedOriginalDocx(fileBuffer, report.findings || [], {
+          headerNote: true,
+          schoolType: report.school_type || schoolType,
+          domains: (report.domains || []).map(d => d.domain_cn),
+          autoDetected: report.auto_detected,
+          filename: report.filename || fileName,
+        });
+        trigger(blob, 'docx');
+        setDownloadNote(`已就地標示 ${located} 處（螢光＋批註）` + (unlocated ? `；另有 ${unlocated} 項列於文末附錄` : ''));
+      }
     } catch (e) {
       setError('標註版生成失敗：' + (e && e.message ? e.message : '未知錯誤'));
     } finally { setDownloading(false); }
@@ -3398,10 +3516,10 @@ function AnnotatePanel() {
           {/* Download row */}
           <div className="flex items-center gap-2" style={{flexWrap:'wrap'}}>
             <button onClick={handleDownloadOriginal} disabled={downloading || !fileBuffer}
-                    title={fileBuffer ? '' : '就地標註只支援 Word(.docx) 上載檔'}
+                    title={fileBuffer ? '' : '就地標註支援上載的 Word(.docx) 或 PDF 檔'}
                     className="px-4 py-2 text-sm rounded-lg font-medium transition-all disabled:opacity-50"
                     style={{background:'var(--p-primary)',color:'#fff'}}>
-              {downloading ? '⏳ 生成中…' : '⬇️ 下載標註版原檔 (Word)'}
+              {downloading ? '⏳ 生成中…' : `⬇️ 下載標註版原檔 (${isPdf ? 'PDF' : 'Word'})`}
             </button>
             <button onClick={handleDownloadList} disabled={downloading}
                     className="px-3 py-2 text-sm rounded-lg font-medium border border-gray-200 transition-all disabled:opacity-50"
@@ -3412,7 +3530,10 @@ function AnnotatePanel() {
           </div>
           {downloadNote && <div className="text-xs" style={{color:'var(--edb)'}}>✓ {downloadNote}</div>}
           {!fileBuffer && (
-            <div className="text-xs" style={{color:'#92400E'}}>ℹ️ 此次為貼文字／PDF：就地標註不適用，請用「下載建議清單」。Word(.docx) 上載檔才能就地標示原文。</div>
+            <div className="text-xs" style={{color:'#92400E'}}>ℹ️ 此次為貼上文字：就地標註需上載 Word(.docx) 或 PDF 檔，請用「下載建議清單」。</div>
+          )}
+          {isPdf && (
+            <div className="text-xs" style={{color:'#6B7280'}}>📄 PDF 就地標註：於原檔黃色螢光標示相關段落＋可點批註；詳細建議見下方清單。未能定位的項目（缺漏要求）請用「下載建議清單」。</div>
           )}
 
           {/* In-place findings */}
