@@ -13,8 +13,9 @@
   - ✅ **P3 文件修訂 feature**（`bd99b91` staged）：backend `checklistRevise.ts`（segmentText + embedding.batch → per-item max cosine → covered/partial/missing；缺漏項按 `clause.si`+`covers` 補回標準條文；無 LLM、stateless）+ server.ts `/api/checklist-revise`(10/min+413 cap) + `/api/checklist-domains`(GET)；`gen_checklists_bundle.py` → `checklists_bundle.json`（root 1.4MB、14 域 2944 items/1282 clauses、backend `../../../` 載入）；app.html +`ReviewPanel` +'review' tab +`buildRevisedDocx`(client docx)。feature doc `dev/CHECKLIST_REVISE_FEATURE.md`。
 - **QC（P3 雙路）:** backend python e2e（真 OpenAI :8787）：safety 中學 docx→safety/secondary = **covered 198 / partial 10 / missing 0**（sim .677）、無關文字→**1/5/202**、未知域→400；`npm run check`+`build` PASS；GET domains 回 14 域。frontend browser（fetch-stub :8095）：Babel 0 err / 6 tab（📝 就位）/ 域 selector 3 opt / 報告 render（5 item 2 section）/ 3 supplement `<details>` / source `#page=N` / 未見 filter→2 item / 下載 docx blob **8365B PK✓**。CORS 阻 localhost 真鏈 → backend e2e + frontend stub 雙路覆蓋（body shape 一致）。
 - **Data note:** OpenAI embedding L2-normalized → cosine=dot product；`clause.covers`=章內 local item index（`si`→`checklist.sections[si-1]`）。
-- **Boundary:** Supabase 14,674 / live product / `origin/main` **零接觸**（無 deploy、無 push）；2 commit staged 本機。
-- **commits（LOCAL，未 push）:** `fcccc34`(P2 政策範本)→`bd99b91`(P3 文件修訂)→收工 gov commit。`origin/main` 仍 `c47f604`。
+- **Deploy + live e2e（Leonard「push 及上線」）:** `git push origin main` → Pages+Render auto-deploy（首 poll 即 both 200）。live e2e：`/api/checklist-domains`=14 域、`/api/checklist-revise` 真實報告（safety 中學 docx 截 8000 字→covered 158/partial 39/missing 11）、live app.html 含 15 新功能 markers、`policy_templates.json`=102、onrender CORS echo `https://policychecker.wongfu.net`。
+- **Boundary:** Supabase 14,674 未動；新 backend route = additive（現有 route 零回歸）；`checklists_bundle.json` 公開於 root（EDB 衍生 benign）。
+- **commits（已 push origin/main + LIVE deployed）:** `fcccc34`(P2 政策範本)→`bd99b91`(P3 文件修訂)→收工 gov→deploy 後 gov。
 - **Log maintenance (§4a):** SESSION_LOG >400 行、`docs/qa/session_log_maintenance.py` 不存在（legacy，同 S157-159）；本 session 未 archive。No-op 理由：通宵自主留 buffer，§4a script 待 product session 建後處理（不阻 handoff）。
 - **Next Session Handoff Prompt:**
 
@@ -24,23 +25,22 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
 Current objective: EDB K1 知識平台 (policychecker.wongfu.net).
-Product state: HEAD = bd99b91 LOCAL，比 origin/main(c47f604) 多 2 commit 未 push（P2 fcccc34 政策範本 + P3 bd99b91 文件修訂，兩個 tab staged 未 deploy）。Supabase 14,674（未動）；Channel B live；0 outstanding bug。起手 verify HEAD/origin 差距 + Supabase 14,674。
+Product state: HEAD == origin/main（已 push + LIVE deployed）。Supabase 14,674（未動）；Channel B live；0 outstanding bug。起手 verify HEAD==origin/main + Supabase 14,674。
 
-S160（通宵自主）完成：
-(1) P2 政策範本下載 tab — app.html +TemplatesPanel +'templates'；policy_templates.json manifest（14 域 102 docx）；連現有 live docx。browser-verify 綠。
-(2) P3 文件修訂 feature — backend checklistRevise.ts + /api/checklist-revise + /api/checklist-domains；checklists_bundle.json(root)；app.html +ReviewPanel +'review' +buildRevisedDocx。backend python e2e + frontend stub 綠。
+S160（通宵自主）完成 + 上線：
+(1) P2 政策範本下載 tab — app.html +TemplatesPanel +'templates'；policy_templates.json（14 域 102 docx）；連現有 live docx。LIVE。
+(2) P3 文件修訂 feature — backend checklistRevise.ts + /api/checklist-revise + /api/checklist-domains；checklists_bundle.json(root)；app.html +ReviewPanel +'review' +buildRevisedDocx。LIVE（onrender e2e PASS：14 域 / 真實 revise 報告 / CORS echo policychecker）。
 (3) #2 KG live INSERT 嘗試被 harness 拒 → DEFERRED（Leonard supervised）。
 
 NEXT（優先序）：
-① Deploy P2+P3（Leonard review 後）：cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && git push origin main = GitHub Pages(前端)+Render(backend) 同時 deploy。deploy 後 smoke：curl https://edb-knowledge.onrender.com/api/checklist-domains。詳 dev/SCHOOL_DOCX_DOWNLOAD_PLAN.md + dev/CHECKLIST_REVISE_FEATURE.md。
-② #2 KG live 入庫（Leonard supervised，prep ready）：python3 dev/ingest_one_source.py kg_admin_guide_2026 && python3 dev/ingest_one_source.py kg_operation_manual_2026（先 --dry-run；435 chunks、兩源 live 0 rows）→ 加 KG route(searchChannelB.ts SOURCE_SETS+TOPIC_KEYWORDS)+registry+display-sync 7 點(14,674→~15,109 byte-identical)+routed smoke+KG 清單 pilot。
-③ #3 學校版 docx review（現可由「政策範本」tab 下載）；改格式/分流 → 調生成器或 tags（改 tags 跑 apply_school_types.py --check；改 docx re-run gen_templates_manifest.py + gen_checklists_bundle.py）。
-④ 文件修訂 Phase 2.5：覆蓋門檻 COVERED=0.50/PARTIAL=0.42(checklistRevise.ts) tune / 加 LLM 覆核 borderline / 大域>MAX_ITEMS=220 截斷 / mobile shell 入口。
+① #2 KG live 入庫（Leonard supervised，prep ready）：python3 dev/ingest_one_source.py kg_admin_guide_2026 && python3 dev/ingest_one_source.py kg_operation_manual_2026（先 --dry-run；435 chunks、兩源 live 0 rows）→ 加 KG route(searchChannelB.ts SOURCE_SETS+TOPIC_KEYWORDS)+registry+display-sync 7 點(14,674→~15,109 byte-identical)+routed smoke+KG 清單 pilot。
+② #3 學校版 docx review（live，可由「政策範本」tab 下載）；改格式/分流 → 調生成器或 tags（改 tags 跑 apply_school_types.py --check；改 docx re-run gen_templates_manifest.py + gen_checklists_bundle.py 再 push）。
+③ 文件修訂 Phase 2.5：覆蓋門檻 COVERED=0.50/PARTIAL=0.42(checklistRevise.ts) live-tune / 加 LLM 覆核 borderline / 大域>MAX_ITEMS=220 截斷 / mobile shell 入口。
 
-Key files（S160 staged）：app.html(+2 tab) / backend/src/server.ts(+2 route) / backend/src/api/checklistRevise.ts / checklists_bundle.json / policy_templates.json / dev/checklists/_work/gen_{templates_manifest,checklists_bundle}.py / dev/{SCHOOL_DOCX_DOWNLOAD_PLAN,CHECKLIST_REVISE_FEATURE}.md。
+Key files（S160 LIVE）：app.html(+2 tab) / backend/src/server.ts(+2 route) / backend/src/api/checklistRevise.ts / checklists_bundle.json / policy_templates.json / dev/checklists/_work/gen_{templates_manifest,checklists_bundle}.py / dev/{SCHOOL_DOCX_DOWNLOAD_PLAN,CHECKLIST_REVISE_FEATURE}.md。
 
-⚠️ 紀律：2 commit staged 未 push（push=deploy live，Leonard review 先）；#2 KG ingestion 要 Leonard supervised（harness overnight 拒 live INSERT）；live INSERT 前 INSPECT + display-sync byte-identical；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號。
-Post-startup first action: verify HEAD(bd99b91 local)/origin 差距 + Supabase 14,674，然後問 Leonard：review+deploy P2/P3 定先做 #2 KG ingestion。
+⚠️ 紀律：#2 KG ingestion 要 Leonard supervised（harness overnight 拒 live INSERT）；live INSERT 前 INSPECT + display-sync byte-identical；改 docx/checklist 後 re-run 兩個 generator 再 push（DOC_SYNC）；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號。
+Post-startup first action: verify HEAD==origin/main + Supabase 14,674，然後問 Leonard：開始 #2 KG ingestion 定其他。
 ```
 
 ---
