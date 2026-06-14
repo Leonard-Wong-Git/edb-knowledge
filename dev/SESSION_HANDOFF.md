@@ -103,12 +103,12 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
-> 產品方向：**全棧 Channel-B-only**。Channel A frozen @455。**S160：(A) 政策範本下載 + 文件修訂 兩個 tab LIVE；(B) #2 幼稚園 Phase 2 KG 入庫 LIVE（Supabase 15,109、新 kg_admin route）。HEAD==origin/main（已 push）。** 主線 0 outstanding bug。
+> 產品方向：**全棧 Channel-B-only**。Channel A frozen @455。**S160：政策範本下載 + 文件修訂 + 文件分析 tab LIVE；#2 幼稚園 KG 入庫 LIVE（Supabase 15,109）；Leonard 拍板合併「文件標註」新功能（待建）。HEAD==origin/main。** 主線 0 outstanding bug。
 
-1. **#2 KG 收尾 + 幼稚園清單 pilot（主線）**：(a) **verify Render KG 路由 deploy**（`1bf497c` propagating；本機 routed smoke 已 PASS，live 待 flip — 探針：「學前機構辦學手冊」live top 應 = `kg_operation_manual_2026`；deploy 完即綠）。(b) **起 KG 清單 pilot**：用新 `kg_admin_guide_2026` + `kg_operation_manual_2026` 起幼稚園範疇要求清單（似 14 域 checklist build pipeline；建議 conduct/governance/admin 角度）→ docx → 入「政策範本」manifest（改 docx/checklist 後 re-run `gen_templates_manifest.py` + `gen_checklists_bundle.py` 再 push）。其餘 17 KG 源候選見 S159 SESSION_LOG。
-2. **#3 學校版分校類 — 待 Leonard review docx（monitor，現 live）**：102 docx 喺 `dev/checklists/<域>/`（**可由「政策範本」tab 下載**）。反饋要改格式/分流 → 調生成器（`gen_school_docx.js`/`gen_checklist_docx.js` `<type>` arg）或 tags 一鍵重生（**改 tags 後跑 `apply_school_types.py --check`**；改 docx 後 re-run 兩 generator 再 push）。
-3. **文件修訂 follow-up（Phase 2.5，已 live）**：覆蓋門檻 `COVERED=0.50`/`PARTIAL=0.42`（checklistRevise.ts，tunable — live 觀察真實文件命中再 tune）；大域 >`MAX_ITEMS=220` 項截斷（UI 有提示）；可加 LLM 覆核 borderline；mobile shell 未有入口（同 文件分析/政策範本）。#4 文件分析 source-level 校類 filter 同樣 pending。
-4. **既有 monitor**：`kg_admin` route「幼稚園質素」query 命中 qa_inspection（質素保證 排 kg_admin 前，minor mis-route、acceptable）/ IMC grouped 頁碼只對第一份 PDF 準 / `cgss_2024` routed rank 低 / 57014 free-tier timeout / `stats.sources`=120 cosmetic-stale / S153 synthesis ~328 字 / Azure OpenAI fallback / 自動發現+freshness 週跑。
+1. **文件標註功能（NEW 主線，Leonard 拍板 S160，待建）**：合併「文件分析 + 文件修訂」→ **一個「文件標註」**：上載文件 → 系統喺**原文**標註（**保留格式** + highlight 要改/涉及指引處 + 建議）→ 下載。docx 行先、PDF Phase 2、**多範疇 multi-select**（#2）併入。**完整 spec = `dev/DOC_ANNOTATE_FEATURE_DESIGN.md`**。核心難點 = JSZip 操作原 docx XML 做 highlight + Word 批註（抽取文字↔XML runs mapping fragile → 真檔測試 + fallback appendix、唔好錯位）。⚠️ 需新 `/api/annotate-document` backend → **gated on Render deploy 整返掂**（見 #2）。重用現有 analyzeDocument + checklistRevise 邏輯。
+2. **#2 KG 收尾（gated on Render manual deploy）**：S160 尾 Render deploy stuck（2 push/~40min，`kg_admin` route 未 land）；**Leonard 去 Render dashboard manual deploy** → 完成後 verify route live（探針 curl onrender channel-b「學前機構辦學手冊」→ top 應 = `kg_operation_manual_2026`）。然後 +幼稚園清單 pilot（用新 2 源，似 14 域 pipeline）。
+3. **#3 學校版分校類 — 待 Leonard review docx（monitor，live）**：102 docx 可由「政策範本」tab 下載。改格式/分流 → 調生成器/tags（改 tags 跑 `apply_school_types.py --check`；改 docx re-run 兩 generator 再 push）。
+4. **既有 monitor + follow-up**：S160 #4「EDB指引」rename + #3a 收抽取文字欄 已 ship；`kg_admin`「幼稚園質素」→qa_inspection（minor）/ 文件修訂門檻 tunable / IMC 頁碼 / cgss rank 低 / 57014 free-tier / stats.sources=120 cosmetic / Azure fallback / 週跑。
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 - g21/g22/g33 直連 PDF 補完（user browser）— Session 105 audit 揭發三者 source_type='pdf' 但 url_primary 缺
