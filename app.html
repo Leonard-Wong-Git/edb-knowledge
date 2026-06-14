@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="zh_HK">
 <meta property="og:title" content="搜尋工作室">
-<meta property="og:description" content="EDB 政策語義搜尋 · 指引文件庫 · 通告分析">
+<meta property="og:description" content="EDB 政策語義搜尋 · 文件標註 · 範本下載 · 指引文件庫">
 <meta property="og:url" content="https://policychecker.wongfu.net/app.html">
 <meta property="og:image" content="https://policychecker.wongfu.net/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -21,7 +21,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="搜尋工作室">
-<meta name="twitter:description" content="EDB 政策語義搜尋 · 指引文件庫 · 通告分析">
+<meta name="twitter:description" content="EDB 政策語義搜尋 · 文件標註 · 範本下載 · 指引文件庫">
 <meta name="twitter:image" content="https://policychecker.wongfu.net/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1962,6 +1962,13 @@ function GuidelinesPanel({ setPreviewDoc }) {
 }
 
 // ── Platform Intro Panel ──
+// Public-facing platform release version. DECOUPLED from the frozen knowledge.json
+// data-contract version (_meta.version stays 2.3.0 — the 455-fact Channel A dataset
+// is frozen and consumed by the downstream Circular System). v3.0 marks the
+// platform's growth from a search-only tool into a full compliance suite:
+// 政策搜尋 + 文件標註（就地標註）+ 範本下載 + 合規清單修訂，跨 15 個合規範疇。
+const PLATFORM_VERSION = '3.0.0';
+
 function PlatformIntroPanel({ stats }) {
   const [demoTab, setDemoTab] = React.useState(0);
   const [demoVisible, setDemoVisible] = React.useState(false);
@@ -1974,7 +1981,7 @@ function PlatformIntroPanel({ stats }) {
   const chunksCount = meta.chunks || 15109;
   const guidelinesCount = GUIDELINES_REGISTRY.length;
   const sourcesCount = meta.sources || 120;
-  const platformVersion = stats.metaVersion || '2.3.0';
+  const platformVersion = PLATFORM_VERSION;
   const statTargets = [
     stats.approvedCount || factsCount,
     chunksCount,
@@ -2035,11 +2042,27 @@ function PlatformIntroPanel({ stats }) {
   const channels = [
     {
       icon: '🔍',
-      title: '語義搜尋',
+      title: '政策語義搜尋',
       subtitle: 'EDB 原文語義檢索',
-      desc: `自然語言提問，從 ${factsCount.toLocaleString()} 條已核實事實及 ${chunksCount.toLocaleString()} 個文件片段中語義檢索，LLM 整理回答並附原始來源 URL。`,
+      desc: `自然語言提問，從 ${factsCount.toLocaleString()} 條已核實事實及 ${chunksCount.toLocaleString()} 個文件片段中語義檢索，LLM 整理回答並附原始來源 URL 及頁碼。`,
       badge: '核心功能',
       dark: true,
+    },
+    {
+      icon: '📝',
+      title: '文件標註',
+      subtitle: '上載文件 · 就地標註',
+      desc: '上載學校政策文件，系統逐段比對 EDB 指引與合規清單，於原檔就地螢光標示、附參考指引及可一鍵套用（追蹤修訂）的建議條文，再下載標註版。',
+      badge: '核心功能',
+      dark: true,
+    },
+    {
+      icon: '📋',
+      title: '範本下載',
+      subtitle: '15 個合規範疇',
+      desc: '提供 15 個合規範疇的政策範本（學校版）及文件要求清單，按校類（小學／中學／特殊學校／幼稚園）篩選，即時下載 Word 檔。',
+      badge: '即用範本',
+      dark: false,
     },
     {
       icon: '📚',
@@ -2096,7 +2119,7 @@ function PlatformIntroPanel({ stats }) {
           查找教育局各項<em style={{color:'var(--mocha)',fontStyle:'normal'}}>有根有據</em>的政策答案
         </h1>
         <p style={{fontSize:'var(--text-base)',color:'var(--mid)',maxWidth:'480px',margin:'0 auto',lineHeight:1.7}}>
-          以自然語言查詢教育局政策、通告及指引，平台從官方文件中語義檢索，整理回答並附原始來源連結。
+          由政策搜尋到文件標註——以自然語言查詢教育局政策、通告及指引；上載學校文件即時比對指引與合規清單；並下載 15 個範疇的政策範本。
         </p>
       </div>
 
@@ -2172,7 +2195,7 @@ function PlatformIntroPanel({ stats }) {
       {/* ── 3 Channels ── */}
       <div style={{marginBottom:'40px'}}>
         <p style={{fontSize:'0.7rem',fontWeight:700,color:'var(--mocha)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'4px'}}>平台功能</p>
-        <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,color:'var(--charcoal)',marginBottom:'16px'}}>三大核心功能</h2>
+        <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,color:'var(--charcoal)',marginBottom:'16px'}}>平台核心功能</h2>
         <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(260px,1fr))',gap:'12px'}}>
           {channels.map((c,i) => (
             <div key={i} style={{padding:'22px',borderRadius:'var(--r-md)',
