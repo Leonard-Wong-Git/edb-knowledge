@@ -27,7 +27,7 @@ OUT = REPO_ROOT / "checklists_bundle.json"
 DOMAIN_ORDER = [
     "safety", "conduct", "curriculum", "sen", "student_support", "gifted",
     "cpd", "hr_admin", "activity", "placement", "qa_inspection",
-    "gov_admin", "school_governance", "kg_admission",
+    "gov_admin", "school_governance", "kg_admission", "kg_operation",
 ]
 
 

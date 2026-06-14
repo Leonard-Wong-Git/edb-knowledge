@@ -1,0 +1,20 @@
+{
+ "key": "kg_operation",
+ "kind": "domain",
+ "cn": "幼稚園營運",
+ "lens": "幼稚園／學前機構營運與行政（辦學手冊及行政手冊下嘅校本義務）：學校註冊與牌照、校舍與設施標準、人手編制與資歷、收費與帳目財務管理、安全與衞生、家校溝通與資料披露、質素保證與自評、行政紀錄與呈報。屬幼稚園範疇（school_type=kindergarten）。收生機制屬另一範疇 kg_admission、課程內容屬 curriculum（kgecg_2017），呢兩部分唔重複抽，只抽營運/行政層面義務。",
+ "tags": null,
+ "sources": {
+  "kg_operation_manual_2026": {
+   "title": "學前機構辦學手冊（2026年5月，第4.3版）",
+   "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf",
+   "chunks": 217
+  },
+  "kg_admin_guide_2026": {
+   "title": "幼稚園行政手冊（2026年5月）",
+   "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf",
+   "chunks": 218
+  }
+ },
+ "n_buckets": 8
+}

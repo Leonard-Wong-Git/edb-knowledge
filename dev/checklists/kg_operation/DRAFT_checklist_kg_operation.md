@@ -1,0 +1,1245 @@
+# 校本「幼稚園營運」政策文件 — 要求清單（DRAFT v0.1）
+
+> **狀態：DRAFT，待 Leonard 審。** S162 幼稚園清單 pilot 產出（2026-06-14）。
+> 來源：《學前機構辦學手冊》＋《幼稚園行政手冊》(2026)。範疇＝幼稚園營運與行政義務（收生屬 kg_admission、課程屬 curriculum，不重複）。
+> 生成方法同 14 域：蒸餾 → 獨立對抗覆核 → 完整性批判 → 本機機械重驗（exact→去空格→NFKC 三級引文比對＋頁碼重計）→ 章節整合。每條必帶原文引文。
+
+## 來源文件
+
+| source_id | 文件 | 連結 |
+|---|---|---|
+| `kg_operation_manual_2026` | 《學前機構辦學手冊（2026年5月，第4.3版）》 | [開啟](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf) |
+| `kg_admin_guide_2026` | 《幼稚園行政手冊（2026年5月）》 | [開啟](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf) |
+
+## 要求清單
+
+### 1. 校舍選址與樓宇結構
+
+- **R-1.1** 如幼稚園房產以結構性木地板建造，當局將拒絕根據《教育條例》第12(1)(b)條發出證明書。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 93 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=93)
+  - 引文：「如有關幼稚園房產以結構性的木地板建造，當局將拒絕根據《教育條例》第1 2 ( 1 ) ( b ) 條發出證明書」
+- **R-1.2** 涉及樓宇結構或逃生途徑的改動及加建工程，須由認可人士向屋宇署呈交圖則並事先獲建築事務監督批准及同意。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 93 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=93)
+  - 引文：「認可人士和註冊結構工程師（如有需要）或須正式向屋宇署呈交擬議工程的圖則，以事先獲得建築事務監督批准及同意」
+- **R-1.3** 圖則須以1:50或1:100比例繪製，標明出口路線／出口門、間隔牆及出口門的建造物料與耐火效能。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 93 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=93)
+  - 引文：「呈交的圖則應以合適的比例（1 : 5 0 或1 : 1 0 0 ）繪製」
+- **R-1.4** 圖則上須顯示每個課室最高可容納人數（教師及學生數目）及容納的教職員總數。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 94 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=94)
+  - 引文：「必須在圖則上顯示每個課室最高可容納的人數（教師和學生的數目），以及將要容納的教職員總數」
+- **R-1.5** 幼稚園須受《教育規例》第7條所訂的24米高度限制規限。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 94 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=94)
+  - 引文：「幼稚園須受《教育規例》第7 條所訂的2 4 米高度限制規則規限」
+- **R-1.6** 幼稚園須確保校舍和所有設備均屬安全，為兒童提供安全的學習環境。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 46 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=46)
+  - 引文：「幼稚園應確保校舍和所有設備均屬安全」
+- **R-1.7** 幼稚園若缺乏戶外遊戲場須設戶內遊戲場，面積不少於課室總面積的50%。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 8 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=8)
+  - 引文：「幼稚園若缺乏戶外遊戲場，則須設有戶內遊戲場，而戶內遊戲場的面積應不少於課室總面積的5 0 %」
+- **R-1.8** 為2至6歲兒童服務的幼稚園須符合每名兒童最低人均樓面面積1.8平方米的規定（不包括輔助設施）。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 8 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=8)
+  - 引文：「每名兒童的最低人均樓面面積1 . 8 平方米的規定，包括所有戶內的活動地方，但不包括輔助」
+- **R-1.9** 幼稚園不得設於工業樓宇內或倉庫、貨倉、店舖、戲院、百貨公司或對兒童健康安全有危險行業的樓宇之上。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 8 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=8)
+  - 引文：「學前機構不應設在工業樓宇的任何部分內或位於倉庫、貨倉、店舖、戲院、百貨公司」
+- **R-1.10** 服務兩歲或以上兒童的幼稚園園舍不得高出地面超過24米，例外須經教育局常任秘書長書面授權。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 8 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=8)
+  - 引文：「服務兩歲或以上兒童的幼兒中心和幼稚園則不得高過地面2 4米」
+- **R-1.11** 園舍圖則經教育局常任秘書長批准及註冊後，未獲書面許可不得在結構上作任何更改。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 10 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=10)
+  - 引文：「除非獲得署長/ 常任秘書長書面許可，否則該園舍不得在結構上作任何更改」
+- **R-1.12** 所有護牆及窗口如未設欄柵防護，其高度由緊接地面起計最少須為1.1米。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 10 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=10)
+  - 引文：「所有護牆及窗口如未設有欄柵妥為防護，其高度由緊接的地面起計，最少須為1 . 1 米」
+- **R-1.13** 經營人在租賃或購置擬設立校舍的樓宇前，必須確定該用地適合作幼兒中心/幼稚園用途且符合基本樓宇安全規定。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 74 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=74)
+  - 引文：「必須確定有關樓宇用地適合作幼兒中心/ 幼稚園用途，而該建築物亦是符合基本的樓宇安全規定」
+- **R-1.14** 初生至6歲留宿幼兒中心每名兒童最低人均樓面面積為3.2平方米（不含輔助設施）或3.7平方米（含輔助設施）。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 89 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=89)
+  - 引文：「規定每名兒童於中心內的最低人均樓面面積為3 . 2平方米，包括所有戶內的活動地方，但須扣除輔助設施」
+- **R-1.15** 申請註冊的房產內如有違例建築工程，申請人務請在遞交申請前清拆。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 100 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=100)
+  - 引文：「倘若選擇用作提供學前服務的房產有違例建築工程，申請人務請在遞交申請前清拆這些工程」
+- **R-1.16** 廣告招牌伸出行人道上方須與路面有最少3.5米垂直淨空及與路邊最少1.0米水平淨空。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 100 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=100)
+  - 引文：「伸出行人道上方的廣告招牌與行人道路面的垂直淨空距離最少須為3.5 米，而與行人道路邊有最少1.0 米的水平淨空距離」
+
+### 2. 園舍設施與設備
+
+- **R-2.1** 洗手間必須設有通出露天的窗口，窗口總面積最少為洗手間地面面積的十分之一。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 13 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=13)
+  - 引文：「窗口總面積最少為洗手間地面面積的十分之一」
+- **R-2.2** 洗手間牆壁應至少鋪上一米高瓷磚，地面鋪砌防滑地磚。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 13 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=13)
+  - 引文：「洗手間的牆壁應至少鋪上一米高的瓷磚，地面亦應鋪砌防滑地磚」
+- **R-2.3** 兒童廁所應與職員廁所分開。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 14 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=14)
+  - 引文：「兒童廁所應與職員廁所分開」
+- **R-2.4** 每間留宿幼兒中心須撥出最少一間適當房間純作療養室或病房用途，並宜設獨立洗手間及浴室。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 90 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=90)
+  - 引文：「每間留宿幼兒中心內須撥出最少一間適當的房間，純作療養室或病房用途」
+- **R-2.5** 留宿幼兒中心須設足夠更衣室及沐浴設施，且兒童沐浴設施須與員工沐浴設施分開。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 90 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=90)
+  - 引文：「兒童沐浴設施應與員工沐浴設施分開」
+- **R-2.6** 受托兒童須獲提供社署署長核准類型、設計及物料製成的床及被褥，並須注意睡床安全措施。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 90 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=90)
+  - 引文：「必須獲提供屬社會福利署署長核准的類型或設計及以署長核准的物料製成的床及被褥」
+- **R-2.7** 加建、改建、拆卸校舍、改動校舍結構、更改廁所衞生或課室通風照明設施、劃分課室間隔等事項必須得到教育局常任秘書長批准。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=15)
+  - 引文：「下列事項必須得到教育局常任秘書長批准」
+- **R-2.8** 每間課室入口處須有牌匾或告示牌標明用以識別該房間的號碼或字母。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 15 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=15)
+  - 引文：「每間課室的入口處須有一牌匾或告示牌，標明用以識別該房間的號碼或字母」
+- **R-2.9** 每間課室內須在顯眼處展示告示列明獲准容納學生人數最高限額，不得超逾該限額。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 15 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=15)
+  - 引文：「列明該課室獲准容納的學生人數最高限額，並不得准許該課室容納超逾該最高限額的學生」
+- **R-2.10** 兒童使用的傢具油漆塗料須符合安全標準（如不得含鉛），並符合《玩具及兒童產品安全條例》及《消費品安全條例》。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 12 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=12)
+  - 引文：「傢具的油漆或塗料須符合安全標準，例如不得含鉛」
+- **R-2.11** 全日制機構若在園舍內烹調膳食，須設置符合各政府部門規定的廚房並另設食物儲存室；供應50名兒童以下膳食的廚房面積最少10平方米。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=15)
+  - 引文：「供應5 0 名兒童或以下膳食的廚房，面積最少為1 0 平方米」
+- **R-2.12** 全日制機構若選擇自設廚房提供膳食，須參照第二章2.5段廚房規定設置廚房。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 55 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=55)
+  - 引文：「全日制機構若選擇在園舍自設廚房，為兒童提供膳食，則須參照第二章第2 . 5 段廚房的規定，設置廚房」
+- **R-2.13** 須遵從《殘疾歧視條例》及《設計手冊：暢通無阻的通道》為殘疾人士提供通道及設施，不得擅自拆除或改動。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 101 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=101)
+  - 引文：「申請人應注意《殘疾歧視條例》及屋宇署發出的《設計手冊：暢通無阻的通道》所載有關為殘疾人士提供通道及設施的規定」
+- **R-2.14** 幼稚園每課室每班人數不應超過30人；課室用作全日班午睡時最高限額為每課室20人。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 106 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=106)
+  - 引文：「每 班人數 不應超過 30 人 。當課 室用作 全日班午 睡時 ，其最 高限額 為每課室 20 人」
+- **R-2.15** 開設全日班並在校內烹調食物者，應設置符合屋宇署/房屋署、消防處、衞生署等規定的廚房，另設食物貯存室（為廚房面積20%）。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 106 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=106)
+  - 引文：「應設置一個設備 符合 屋宇署 / 房 屋 署、 消 防處 、衞 生署及 其他有 關部門的 規定的 廚 房」
+- **R-2.16** 幼稚園須為每30名男童或每25名女童設1個洗手盆。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 106 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=106)
+  - 引文：「幼 稚園須 為每 30 名男 童或 每 25 名女童 設 1個洗 手 盆」
+- **R-2.17** 戶內遊戲場面積應不少於課室總面積的50%，並應盡量提供便於由課室通達的戶外遊戲場。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 107 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=107)
+  - 引文：「戶 內 遊 戲 場 的 面 積 應 不 少 於 課 室 總 面 積 的 百 分 之五十」
+- **R-2.18** （覆核補遺）全日制機構在校內烹調膳食的廚房，烹調100名兒童或以上膳食的廚房面積不得少於20平方米。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=15)
+  - 引文：「烹調100名兒童或以上膳食的廚房面積不得少於20平方米，而供應50名兒童或以下膳食的廚房，面積最少為10平方米。」
+- **R-2.19** （覆核補遺）茶水間應使用電器供應茶點，不能使用明火。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 14 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=14)
+  - 引文：「學前機構應設有一個具基本設施及清潔衞生的茶水間，以供應茶點。茶水間應使用電器，不能使用明火。」
+
+### 3. 消防安全與走火
+
+- **R-3.1** 每所學前機構須按《建築物（規劃）規例》及《消防安全守則》提供足夠的逃生途徑及消防和救援進出途徑。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 96 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=96)
+  - 引文：「每所學前機構均須按照《建築物（規劃）規例》第V 部及屋宇署不時編訂的《消防安全守則》的規定，提供足夠的逃生途徑及消防和救援進出途徑」
+- **R-3.2** 任何可容納30人以上的房間／房產，最少須設有兩個出口，出口門須向出口方向開啟。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 97 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=97)
+  - 引文：「任何可容納3 0 人以上的房間／房產，最少須設有兩個出口。出口門必須向出口方向開啟」
+- **R-3.3** 出口路線最小闊度不得少於1050毫米，淨高度不得少於2米並須暢通無阻。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 97 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=97)
+  - 引文：「出口路線的最小闊度不得少於1  0 5 0 毫米」
+- **R-3.4** 所有出口門須可在無須使用鑰匙下隨時從內開啟；學前機構上課時間內出口保安閘必須打開。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 97 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=97)
+  - 引文：「所有出口門必須可以在無須使用鑰匙的情況下隨時從內開啟」
+- **R-3.5** 幼稚園單一方向通往樓梯的盡頭行走距離不得超過18米。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 98 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=98)
+  - 引文：「不得超過1 2 米（適用於幼兒中心）及1 8 米（適用於幼稚園）」
+- **R-3.6** 須遵守消防處的消防規定，並確保所有消防裝置設備能隨時有效操作、員工皆懂操作簡單消防設備。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 18 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=18)
+  - 引文：「須確保所有消防裝置和設備能隨時有效地操作，而所有員工皆懂得操作簡單的消防設備」
+- **R-3.7** 須由註冊消防裝置承辦商至少每隔12個月檢查防火裝置及設備一次。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 18 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=18)
+  - 引文：「須由一名註冊消防裝置承辦商至少每隔1 2個月檢查防火裝置及設備一次」
+- **R-3.8** 機械通風系統須由註冊專門承建商定期檢查，每次檢查相隔不得超過12個月。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 18 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=18)
+  - 引文：「每次檢查日期的相隔時間不得超過1 2 個月」
+- **R-3.9** 校長須確保僱員及兒童最少每6個月進行一次火警演習，並於日誌備存防火演習及撤離時間的書面紀錄。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 19 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=19)
+  - 引文：「須確保僱員及兒童最少每6 個月進行一次涉及使用處所的所有出口的火警演習」
+- **R-3.10** 訪客／家長適用的消防安全指引應張貼於處所內當眼位置。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 116 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=116)
+  - 引文：「此指引應張貼於處所內的當眼位置」
+- **R-3.11** （覆核補遺）容納人數4至30人的出口門最小闊度不得少於750毫米；31至200人的每道出口門最小闊度不得少於850毫米，總闊度不得少於1750毫米。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 97 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=97)
+  - 引文：「若容納人數為4至30人，其出口門的最小闊度不得少於750毫米；若容納人數為31至200人，則每道出口門的最小闊度不得少於850毫米，而總闊度不得少於1750毫米。」
+- **R-3.12** （覆核補遺）所有出口路線的淨高度不得少於2米並暢通無阻，且每個部分任何時間均須提供光度不少於30勒克斯的水平照明。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 97 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=97)
+  - 引文：「所有出口路線的淨高度不得少於2米，並且暢通無阻。出口路線的每個部分應在任何時間均提供光度不少於30勒克斯的水平照明。」
+
+### 4. 氣體、電力及機電安全
+
+- **R-4.1** 固定電力裝置系統必須最少每5年由註冊電業承辦商覆檢及測試並簽發安全證書。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 21 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=21)
+  - 引文：「必須最少每5 年進行一次由註冊電業承辦商或註冊電業工程人員覆檢及測試，並簽發安全證書」
+- **R-4.2** 插座應安裝在離地面1.5米或以上使兒童不能觸及，並使用保護活門式插座。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 21 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=21)
+  - 引文：「插座應安裝在離地面1 . 5 米或以上的高度，使兒童不能觸及」
+- **R-4.3** 所有氣體裝置必須妥善維修並由註冊氣體工程承辦商每年檢查一次並簽發安全證書。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 20 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=20)
+  - 引文：「所有氣體裝置必須妥善維修和由註冊氣體工程承辦商每年檢查一次，並簽發安全證書」
+
+### 5. 樓宇維修與環境衞生
+
+- **R-5.1** 幼稚園須由獲授權人士每隔不超過3年（木地板園舍每12個月）視察園舍，確定結構是否穩妥。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 18 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=18)
+  - 引文：「每隔不超過3 年視察用鋼筋混凝土建造的園舍/ 每隔不超過1 2個月視察設置木地板的園舍」
+- **R-5.2** 機構應定時使用家用漂白水(1:99)清潔傢具、設備和玩具。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 43 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=43)
+  - 引文：「定時使用家用漂白水( 1 : 9 9 ) 清潔傢具、設備和玩具」
+- **R-5.3** 機構應每星期更換一次兒童的床單、被套及枕套。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 43 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=43)
+  - 引文：「每星期更換一次兒童的床單、被套及枕套等」
+- **R-5.4** 飲用、煮食和洗濯用的水須由自來水喉或其他認可水源供應。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 43 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=43)
+  - 引文：「飲用、煮食和洗濯用的水須由自來水喉或其他認可的水源供應」
+- **R-5.5** 幼稚園須提供安全、健康和安排妥善的校園環境，並與家長共同制訂及推行健康政策措施。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 41 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=41)
+  - 引文：「提供一個安全、健康和安排妥善的校園環境」
+- **R-5.6** 幼稚園須保持校舍環境的衞生，營造健康的學習環境。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 41 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=41)
+  - 引文：「幼稚園應保持校舍環境的衞生」
+
+### 6. 兒童健康檢查與紀錄
+
+- **R-6.1** 當兒童返抵園舍須隨即進行健康檢查，發現病徵應立即安排隔離並通知家長帶回求醫。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 28 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=28)
+  - 引文：「當兒童返抵園舍，機構須隨即進行健康檢查，待確定他們身體健康後」
+- **R-6.2** 兒童入讀幼稚園前應接受由註冊醫生進行的全面體格檢查。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 29 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=29)
+  - 引文：「在入讀幼兒中心/ 幼稚園之前，兒童應接受一項全面的體格檢查」
+- **R-6.3** 須備有兒童健康紀錄並適時更新以供隨時查閱，內容包括體重身高、病歷、食物過敏史、體檢報告及免疫接種紀錄。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 30 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=30)
+  - 引文：「學前機構須備有兒童的健康紀錄，並在適當時候更新紀錄，以供隨時查閱」
+- **R-6.4** 幼稚園須妥善保存學童個人健康紀錄及員工病假紀錄，並定期檢查及記錄體溫。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 47 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=47)
+  - 引文：「妥善保存員工病假紀錄」
+- **R-6.5** 中心須備有所有留宿兒童的檢查表格／醫療報告副本，供社署署長、視察主任或中心醫生隨時查閱。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 90 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=90)
+  - 引文：「中心必須備有所有留宿兒童由註冊醫生發出的檢查表格／醫療報告副本，以供社會福利署署長或任何視察主任或中心醫生於合理時間內隨時查閱」
+
+### 7. 疾病處理與傳染病防控
+
+- **R-7.1** 每間學校最少須備有一個急救箱、最少兩名教師曾接受急救訓練，急救箱須隨時有充足設備。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 14 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=14)
+  - 引文：「每間學校最少須備有一個急救箱、每間學校最少須有兩名教師曾接受急救訓練」
+- **R-7.2** 校長如懷疑或得知有教師、學生或僱員染上傳染病或曾接觸傳染病人，須立即向衞生署學校醫生報告。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 14 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=14)
+  - 引文：「校長如懷疑或得知有任何教師、學生或僱員染上傳染病」
+- **R-7.3** 校舍內所有消防裝置或設備須時刻維持性能良好。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 14 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=14)
+  - 引文：「校舍內所有消防裝置或設備須時刻維持性能良好」
+- **R-7.4** 校長須就火警疏散程序擬定計劃，並在學校日誌內記錄防火演習及疏散所需時間。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=15)
+  - 引文：「校方亦須在學校日誌內，記錄該校師生進行的防火演習，以及由校舍疏散到指定地方所需的時間」
+- **R-7.5** 患病兒童須留家休息，如有懷疑須經註冊醫生診斷痊癒後才可復課。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 31 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=31)
+  - 引文：「他們必須經註冊醫生診斷痊癒後，才可復課」
+- **R-7.6** 發現學童有病徵或懷疑染病時，幼稚園須立即安排其與其他學童隔離休息並通知家人接回。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 47 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=47)
+  - 引文：「應立即安排他與其他學童隔離，在員工的照顧下休息，並通知家人接他回家」
+- **R-7.7** 若幼稚園有爆發傳染病跡象或病假人數上升並現類同症狀，須盡速通知衞生署。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 47 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=47)
+  - 引文：「應盡速通知衞生署」
+- **R-7.8** 幼稚園宜委任專責人員協調感染控制措施，統籌及監督預防及控制傳染病工作。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 47 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=47)
+  - 引文：「幼稚園宜委任專責人員，以協調感染控制措施」
+
+### 8. 膳食與食物安全
+
+- **R-8.1** 膳食餐單須根據社署署長批准的飲食種類分量表預先擬備，並隨時供署長、視察主任或中心醫生查閱。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 90 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=90)
+  - 引文：「膳食餐單須根據社會福利署署長所批准的飲食種類分量表所列預先擬備，隨時供社會福利署署長或任何視察主任或中心醫生查閱」
+- **R-8.2** 幼稚園為兒童提供膳食時，須注意營養標準、食物安全措施和避免浪費的原則。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 41 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=41)
+  - 引文：「應注意營養標準、食物安全措施和避免浪費的原則」
+- **R-8.3** 機構須在選擇、貯存和烹調食物三方面確保衞生，遵守世衞處理食物準則。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 45 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=45)
+  - 引文：「機構須在選擇、貯存和烹調食物三方面確保衞生」
+- **R-8.4** 熱食須存放於攝氏60度以上，凍食須存放於攝氏4度或以下。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 45 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=45)
+  - 引文：「熱食存放於攝氏6 0 度以上，凍食存放於攝氏4 度或以下」
+- **R-8.5** 機構應訂立健康飲食政策，向學生、教職員、膳食職員及家長持續推廣健康飲食。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 46 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=46)
+  - 引文：「機構應訂立健康飲食政策，向學生、教職員、負責膳食供應的職員及家長持續推廣健康飲食的重要性」
+- **R-8.6** 學校必須提供明確處理食物致敏原的步驟和程序，所有食物處理人員必須認識主要致敏原及風險降低措施。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 49 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=49)
+  - 引文：「學校必須提供明確處理食物致敏原的步驟和程序，以減少教職員和學生發生過敏反應的風險」
+- **R-8.7** 膳食餐單須按社會福利署署長/教育局常任秘書長批准的食物種類分量表所列標準預先編定，隨時備查。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 50 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=50)
+  - 引文：「膳食餐單須按社會福利署署長/ 教育局常任秘書長批准的食物種類分量表所列的標準預先編定，隨時備查」
+- **R-8.8** 全日制機構若由膳食供應商提供膳食，須與供應商簽訂承包合約並訂明食物選擇、分量、烹調標準等，並監察膳食質和量。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 55 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=55)
+  - 引文：「機構應與有關供應商簽訂承包合約，而本章節所述的食物選擇、食物分量、烹調標準、裝載食物的方法等，必須清楚訂明在合約之內」
+- **R-8.9** 機構應確定所選膳食供應商持有食環署簽發的有效食物製造廠牌照，分判商亦須持有有效牌照。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 55 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=55)
+  - 引文：「機構應確定所選的膳食供應商持有由食物環境衞生署簽發的獲准供應餐盒的有效食物製造廠牌照」
+- **R-8.10** 員工須切實執行個人衞生要求，包括處理食物及如廁後立即洗手。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 44 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=44)
+  - 引文：「為確保個人衞生，員工須切實執行以下各點」
+- **R-8.11** 提供全日制幼稚園教育的學校須為每名學生每日提供最少一餐膳食，並預先擬備餐單供查閱。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 14 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=14)
+  - 引文：「每間提供全日制幼稚園教育的學校，須為每名接受該項教育的學生提供最少每日一餐膳食」
+
+### 9. 意外、緊急事故與保險
+
+- **R-9.1** 所有留宿幼兒中心須在特別事故發生後三個曆日內（包括公眾假期）向社署提交「幼兒中心特別事故報告」。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 86 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=86)
+  - 引文：「必須在特別事故發生後的三個曆日（包括公眾假期）內向社會福利署幼兒中心督導組、津貼組及相關服務科（如適用）提交」
+- **R-9.2** 幼兒中心須在特別事故發生後的3個曆日（包括公眾假期）內向社署幼兒中心督導組提交特別事故報告。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 170 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=170)
+  - 引文：「須在事件發生後的3 個曆日（包括公眾假期）內提交」
+- **R-9.3** 發生緊急事故處理完畢後應適當記錄事件詳情及所採取的行動。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 26 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=26)
+  - 引文：「在處理完該宗緊急事故後，應適當地記錄事件的詳情和所採取的行動」
+- **R-9.4** 機構經營人應購買適合的保險以應付公眾責任及《僱員補償條例》規定的員工補償。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 27 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=27)
+  - 引文：「以應付火警、意外及兒童/ 員工受傷事件引致機構須承擔的公眾責任」
+- **R-9.5** 須備有每名兒童的意外及疾病紀錄，以供醫院急症室或衞生署流行病學調查之用。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 32 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=32)
+  - 引文：「學前機構須備有每名兒童的意外及疾病紀錄」
+- **R-9.6** 每間幼稚園最少須有兩名教員曾接受急救訓練。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 33 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=33)
+  - 引文：「每間幼稚園則最少須有兩名教員曾接受急救訓練」
+- **R-9.7** 所有獨立幼兒中心如遇特別事故，必須盡快通知社會福利署幼兒中心督導組，並於事件發生後三個曆日內提交特別事故報告。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 79 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=79)
+  - 引文：「在事件發生後的三個曆日（包括公眾假期）內向幼兒中心督導組提交「幼兒中心特別事故報告」」
+- **R-9.8** 負責管理急救箱者須確保備有用品一覽表、藥物貼適當標籤、定期檢查數量及有效日期並適時更換。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 114 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=114)
+  - 引文：「負責管理急救箱的人士須確保以下事項:a.急救箱內備有急救用品一覽表;b.所有藥物均貼上適當的標籤」
+- **R-9.9** 如發生意外，幼稚園須密切觀察學生情況，並盡可能為受傷學生施行急救直至情況改善或交醫護處理。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 46 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=46)
+  - 引文：「盡可能為受傷學生施行急救」
+- **R-9.10** 學生傷勢嚴重時幼稚園須啟動危機應變措施，立即致電999要求緊急援助或召喚救護車。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 47 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=47)
+  - 引文：「立即致電999要求緊急援助或代召喚救護車服務」
+- **R-9.11** 嚴重意外須立即通知家長及幼稚園所屬地區高級學校發展主任，並提交書面報告闡述意外詳情。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 47 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=47)
+  - 引文：「須通知幼稚園所屬地區的高級學校發展主任/高級服務主任，並提交書面報告」
+
+### 10. 兒童看管與保安
+
+- **R-10.1** 幼稚園應制定校本機制及流程，協助學校人員就懷疑嚴重虐兒個案作出舉報及跟進。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 36 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=36)
+  - 引文：「幼稚園/ 幼稚園暨幼兒中心應制定校本機制及流程，協助學校人員就懷疑嚴重虐兒個案作出舉報及跟進」
+- **R-10.2** 留宿幼兒中心應遵照《強制舉報虐待兒童條例》等相關條例處理懷疑虐待兒童個案。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 81 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=81)
+  - 引文：「留宿幼兒中心應遵照相關條例，包括《強制舉報虐待兒童條例》」
+- **R-10.3** 指明專業人員如懷疑兒童正遭受或面對遭受嚴重傷害實際風險，須儘快依《條例》作出強制舉報。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 43 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=43)
+  - 引文：「須儘快作出舉報」
+- **R-10.4** 須在中心安裝閉路電視監察系統，並就監控及翻看紀錄制定政策及機制（符合私隱專員公署指引）。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 86 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=86)
+  - 引文：「須在中心安裝閉路電視監察系統，並就監控及翻看閉路電視紀錄制定政策及機制」
+- **R-10.5** 申請註冊時須填寫閉路電視監察系統進度報告（附錄二十七）提交社署審閱。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 86 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=86)
+  - 引文：「在申請註冊時須填寫「留宿幼兒中心安裝閉路電視監察系統及制定監控政策及機制-  進度報告」（附錄二十七），提交予社會福利署」
+- **R-10.6** 留宿幼兒中心須安裝閉路電視監察系統並制定監控政策及機制，並提交進度報告。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 174 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=174)
+  - 引文：「留宿幼兒中心安裝閉路電視監察系統及制定監控政策及機制」
+- **R-10.7** 須為員工訂定工作指引以防兒童溜走或誤將兒童交給非由家長委派的接送者，任何情況不得讓兒童沒有員工看管。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 26 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=26)
+  - 引文：「在任何時段和任何情況下，機構也不得讓兒童沒有員工看管」
+- **R-10.8** 任何時段任何情況下，幼稚園須安排足夠員工看管兒童，並妥善安排家長每天交收兒童。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 46 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=46)
+  - 引文：「幼稚園須安排足夠員工看管兒童，並應妥善安排家長/接送者每天交收兒童」
+- **R-10.9** 懷疑虐兒個案的所有紀錄須統一由校長或專責人員保管，校內查閱須登記且不得與學生一般紀錄一併存檔。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 39 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=39)
+  - 引文：「所有紀錄都應統一由校長／專責人員保管，在校內查閱有關紀錄須受限制，而且必須登記」
+- **R-10.10** 懷疑虐兒個案所有紀錄須統一由校長／專責人員保管，校內查閱受限並須登記。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 45 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=45)
+  - 引文：「所有紀錄都應統一由校長/專責人員保管，在校內查閱有關紀錄須受限制，而且必須登記」
+- **R-10.11** 學校應制定校本機制及流程，協助學校人員就懷疑嚴重虐兒個案作出舉報及跟進。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 136 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=136)
+  - 引文：「學校應制定校本機制及流程，協助學校人員就懷疑嚴重虐兒個案作出舉報及跟進」
+- **R-10.12** 處理懷疑虐兒個案時首位接觸人員應即時通知校長，並立即啟動校本應急機制／危機處理小組，切勿隱瞞或延誤通報。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 136 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=136)
+  - 引文：「學校應立即啟動校本應急機制／危機處理小組」
+- **R-10.13** 如懷疑侵犯者為學校教職員，須嚴格遵循教育局通告第15/2025號附件三程序，並儘早通知學校發展主任。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 41 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=41)
+  - 引文：「如懷疑侵犯者是學校的教職員，學校須嚴格遵循教育局通告第1 5 / 2 0 2 5 號附件三所列的程序」
+- **R-10.14** 幼兒中心（包括留宿幼兒中心）內任何人士均不得向受托兒童施以體罰。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 81 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=81)
+  - 引文：「「任何人不得對中心內兒童施行體罰」」
+- **R-10.15** 學校不應將懷疑虐兒紀錄與有關學生的一般紀錄一併存檔。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 140 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=140)
+  - 引文：「學校都不應將上述紀錄與有關學生的一般紀錄一併存檔」
+- **R-10.16** 教師不得向學生施行體罰。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 14 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=14)
+  - 引文：「教師不得向學生施行體罰。(《教育規例》第58 條)」
+- **R-10.17** 如發現或懷疑兒童遭受虐待，幼稚園須按教育局通告第15/2025號立即依《保護兒童指引》處理或聯絡社署。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 42 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=42)
+  - 引文：「幼稚園須按教育局通告第15/2025 號「處理懷疑虐待兒童及家庭暴力個案」的指示，立即」
+- **R-10.18** 幼稚園須制定校本機制及流程，協助學校人員就懷疑嚴重虐兒個案作出舉報及跟進。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 43 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=43)
+  - 引文：「應制定校本機制及流程，協助學校人員就懷」
+- **R-10.19** 任何人士不得故意阻止或阻礙指明專業人員作出舉報，或披露作出舉報者的身分。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 43 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=43)
+  - 引文：「任何人士不得故意阻止/阻礙指明專業人員作出舉報，或披露作出舉報的指明專業人員的身分」
+- **R-10.20** 懷疑虐兒紀錄不應與有關學生的一般紀錄一併存檔。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 45 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=45)
+  - 引文：「學校都不應將上述紀錄與有關學生的一般紀錄一併存檔」
+- **R-10.21** 幼稚園須按需要在校舍安裝足夠保安設備及制訂保安措施，防止未經授權人士擅自進入。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 46 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=46)
+  - 引文：「幼稚園應按需要在校舍安裝足夠的保安設備和制訂合適的保安措施」
+- **R-10.22** 所有運載幼稚園學童的非專營巴士及學校私家小巴，每輛車上必須提供一名跟車保母。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 49 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=49)
+  - 引文：「每輛車上必須提供一名跟車保母」
+
+### 11. 戶外活動與惡劣天氣安排
+
+- **R-11.1** 擬定活動程序時間表須減少屏幕時間，並避免以屏幕時間作為對兒童的賞罰。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 88 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=88)
+  - 引文：「在擬定活動程序時間表時必須減少屏幕時間，而且應避免以屏幕時間作為對兒童的賞罰」
+- **R-11.2** 留宿幼兒中心的活動程序時間表須呈交社署署長批准方可使用，並須於中心顯眼地方展示。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 89 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=89)
+  - 引文：「活動程序時間表須呈交社會福利署署長批准才可在中心內使用，並必須於中心的顯眼地方展示」
+- **R-11.3** 舉辦野餐、旅行或參觀活動前須通知家長詳情並取得家長書面同意才可讓兒童參加。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 25 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=25)
+  - 引文：「應把詳情通知家長，得到家長的書面同意後，才可以讓兒童參加」
+- **R-11.4** （覆核補遺）擬定活動程序時間表時，就讀幼稚園及幼兒中心幼兒的「靜態屏幕時間」每天不應超過1小時。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 87 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=87)
+  - 引文：「就讀幼稚園及幼兒中心幼兒的「靜態屏幕時間」每天不應超過1小時；少則更好。」
+
+### 12. 教職員聘任、資歷與師生比例
+
+- **R-12.1** 學校須在聘任過程中採用性罪行定罪紀錄查核機制。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 41 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=41)
+  - 引文：「學校須在聘任過程中採用性罪行定罪紀錄查核機制」
+- **R-12.2** 學校須在聘任過程中採用性罪行定罪紀錄查核機制。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 46 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=46)
+  - 引文：「學校須在聘任過程中採用性罪行定罪紀錄查核機制」
+- **R-12.3** 擬聘用已離開教育行業一年或以上的教師，必須向教育局申報其刑事定罪紀錄。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 114 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=114)
+  - 引文：「學校如擬聘用已離開教育行業一年或以上的教師，必須向教育局申報其刑事定罪紀錄」
+- **R-12.4** 聘用教學及非教學人員必須遵從教育局訂明的聘用程序，要求應徵者申報教師註冊、專業失德及刑事定罪等事項。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 115 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=115)
+  - 引文：「學校必須遵從下列的聘用程序，以確保聘用的教學及非教學人員為適合及適當人選」
+- **R-12.5** 無論聘用與否，查核應徵者背景的結果須經校董會討論並紀錄在案。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 115 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=115)
+  - 引文：「無論學校聘用與否，相關結果須經校董會討論並紀錄在案」
+- **R-12.6** 在聘用程序最後階段必須要求準僱員進行性罪行定罪紀錄查核。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 116 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=116)
+  - 引文：「在聘用程序的最後階段，學校必須要求準僱員進行性罪行定罪紀錄查核」
+- **R-12.7** 除非得到教育局常任秘書長書面准許，被取消／拒絕教師註冊的人士不得進入或逗留在任何學校。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 116 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=116)
+  - 引文：「被取消／拒絕教師註冊的人士不得進入或逗留在任何學校」
+- **R-12.8** 校董會須向所有教師發出聘書，列明服務條件、薪級及終止聘用條件。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 13 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=13)
+  - 引文：「校董會須負責向所有教師發出聘書，列明服務條件、薪級及終止聘用的條件(《教育規例》第77 條)」
+- **R-12.9** 未經註冊成為檢定教員或准用教員而任教即屬違法，聘用或准許其任教者亦屬違法。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 13 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=13)
+  - 引文：「任何人士如未經註冊成為檢定教員或准用教員而在學校任教，即屬違法」
+- **R-12.10** 聘用或解僱僱用期不少於6個月的教學人員，均須由學校多數校董批准；解僱須在校董會會議上批准。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 13 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=13)
+  - 引文：「解僱僱用期不少於6 個月的教學人員，均須在校董會的會議上由學校的多數校董批准」
+- **R-12.11** 校長任命必須獲教育局常任秘書長批准，校董會須於學校註冊後一個月內推薦校內一名教師出任校長。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 13 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=13)
+  - 引文：「校長的任命必須獲得教育局常任秘書長批准」
+- **R-12.12** 除獲豁免外，所有僱員必須參加強制性公積金計劃。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 13 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=13)
+  - 引文：「所有僱員必須參加強制性公積金計劃」
+- **R-12.13** 校董會作為僱主須按《僱員補償條例》規定為學校僱員購買保險。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 13 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=13)
+  - 引文：「須按《僱員補償條例》的規定，為學校僱員購買保險，以投保其在法例規定下的責任」
+- **R-12.14** 幼稚園半日制/全日制師生比例須達1:15。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 63 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=63)
+  - 引文：「幼稚園半日制/全日制不適用 不適用1 : 1 5」
+- **R-12.15** 幼稚園在場當值最少教師人數與在場學生人數比例規定為每15名學生須有一位教師在場當值。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 148 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=148)
+  - 引文：「每15 名學生(不足15 名當15 名計算)須有一位教師在場當值」
+- **R-12.16** 幼稚園每班內須最少有一位教師當值。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 148 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=148)
+  - 引文：「每班內須最少有一位教師當值」
+- **R-12.17** 須按九月中所有班級總學生人數計算，維持整體師生比例1:11（校長不計算在內）聘請足夠教師人數，向下調整至整數。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 107 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=107)
+  - 引文：「其整體師生比例的要求由1:15(校長計算在內)，提升至1:11(校長不計算在內)」
+- **R-12.18** 所有新入職幼稚園教師均須具備合格幼稚園教師或同等的資歷。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 149 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=149)
+  - 引文：「新入職幼稚園教師均須具備合格幼稚園教師或同等的資歷」
+- **R-12.19** 具學士學位受聘為幼稚園教師者，必須於入職後兩年內修畢合格幼稚園教師訓練課程。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 150 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=150)
+  - 引文：「惟她/他們必須於入職後兩年內修畢合格幼稚園教師訓練課程，獲得教育統籌」
+- **R-12.20** 幼稚園須符合聘用100%合格幼稚園教師的規定，校監應盡早安排未受訓教師修讀訓練課程。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 150 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=150)
+  - 引文：「零零四至零五學年符合聘用100%合格幼稚園教師的規定，如有需要，各校」
+- **R-12.21** 由2022/23學年起，必須按師生比例1:11規定聘用足夠持有幼兒教育證書資格或以上學歷的教師。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 108 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=108)
+  - 引文：「由2022/23 學年開始，參加幼稚園教育計劃的幼稚園必須按師生比例1:11的規定，聘用足夠持有幼兒教育證書資格或以上學歷的教師」
+- **R-12.22** 所有新任幼稚園校長須持有幼兒教育學士學位、最少一年學歷後相關工作經驗及完成校長證書課程。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 66 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=66)
+  - 引文：「所有新任校長須」
+- **R-12.23** 新任幼稚園校長須持有幼兒教育學士學位或同等學歷、取得學歷後最少一年相關工作經驗，並在受聘前修畢校長證書課程。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 150 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=150)
+  - 引文：「所有新任校長須持有幼兒教育學士學位或具備同等學歷，並在取得學歷後最少有一年相關工作經驗」
+- **R-12.24** 幼稚園校長須持有幼兒教育學士學位或同等學歷，取得學歷後最少有一年相關工作經驗，並在受聘前修畢校長證書課程。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 109 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=109)
+  - 引文：「並在取得學歷後最少有一年相關工作經驗，以及在受聘前修畢一項校長證書課程」
+- **R-12.25** 留宿幼兒中心須委任足夠主管及幼兒工作員，使在場當值職員與在場兒童人數不得低於法定比例。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 84 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=84)
+  - 引文：「機構必須委任足夠的主管及／或幼兒工作員以達法定的人手比例規定」
+- **R-12.26** 留宿幼兒中心在場當值人數任何時間均不得少於一名職員及另一名年滿18歲的人。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 84 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=84)
+  - 引文：「留宿幼兒中心內在場當值的人數，任何時間均不得少於一名職員及另一名年滿1 8 歲的人」
+- **R-12.27** 由2023/24學年起新聘教師（含轉校）均須在《基本法及香港國安法》測試取得及格成績。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 114 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=114)
+  - 引文：「所有參加幼稚園教育計劃的幼稚園的新聘教師(包括新入職教師及轉校教師)均須在《基本法及香港國安法》測試取得及格成績」
+- **R-12.28** 聘用教師前必須查核其已通過《基本法及香港國安法》測試，並透過電子化服務入門網站呈交新聘教師資料。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 115 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=115)
+  - 引文：「必須查核該人士是否已在《基本法及香港國安法》測試取得及格成績，並透過電子化服務入門網站向教育局呈交該學年新聘教師的資料」
+- **R-12.29** 機構必須聘請足夠幼兒工作員/合格幼稚園教師達到法定師生比例規定。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 62 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=62)
+  - 引文：「機構必須聘請足夠的幼兒工作員/ 合格幼稚園教師以達如下的人手比例規定」
+- **R-12.30** 幼兒中心須在聘用程序最後階段要求準僱員進行性罪行定罪紀錄查核。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 64 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=64)
+  - 引文：「在聘用程序的最後階段，須要求準僱員進行性罪行定罪紀錄查核，以確定其申報的性罪行定罪紀錄屬實」
+- **R-12.31** 收納超過30名兒童的留宿幼兒中心必須僱用註冊護士一名。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 65 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=65)
+  - 引文：「收納超過3 0名兒童的留宿幼兒中心必須僱用註冊護士一名，負責照顧兒童的健康」
+- **R-12.32** 幼稚園校監須遵照《教育規例》發聘任書給所有教員，訂明薪級、工作範圍及終止聘用條件。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 65 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=65)
+  - 引文：「校監須遵照《教育規例》的規定發聘任書給所有教員。聘任書內應訂明薪級、工作範圍及終止聘用的條件」
+- **R-12.33** 幼稚園不得僱用或准許非檢定教員或非准用教員任教。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 65 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=65)
+  - 引文：「任何非檢定教員或非准用教員在幼稚園任教，乃屬違法，而僱用或准許該人任教的人士亦屬違法」
+- **R-12.34** 機構須聘用百分百已獲認可訓練課程證書或同等專業資格的員工。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 65 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=65)
+  - 引文：「幼兒中心/ 幼稚園須聘用百分百已獲認可訓練課程證書或同等專業資格的員工」
+- **R-12.35** 所有新入職幼兒中心主管須具備幼兒教育證書或同等專業資格。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 66 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=66)
+  - 引文：「所有新入職幼兒中心主管須具備幼兒教育證書或同等專業資格」
+- **R-12.36** 僱主與僱員的服務條件如工時、年假、病假、分娩假、終止合約安排必須符合《僱傭條例》並列明在僱傭合約內。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 68 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=68)
+  - 引文：「必須符合《僱傭條例》，並清楚列明在僱傭合約內」
+- **R-12.37** 參加計劃幼稚園的整體師生比例須達1:11（校長不計算在內）。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 29 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=29)
+  - 引文：「提升至1:11(校長不計算在內)」
+- **R-12.38** 長全日制幼稚園增聘教師上限為全日制幼稚園教師人數的40%。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 108 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=108)
+  - 引文：「可增聘的教師上限為全日制幼稚園教師人數的40%」
+- **R-12.39** 設有符合政府規定廚房的全日制及長全日制幼稚園，應聘請一名炊事員。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 109 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=109)
+  - 引文：「全日制及長全日制幼稚園如設有符合政府規定的廚房，應聘請一名炊事員」
+- **R-12.40** 應就教師的聘任及晉升事宜制訂校本指引和程序，並按公平公開原則訂立正式甄選程序。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 110 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=110)
+  - 引文：「幼稚園應就教師的聘任及晉升事宜，制訂校本指引和程序」
+- **R-12.41** 校長的聘任須經教育局常任秘書長批准。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 117 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=117)
+  - 引文：「校長的聘任須經教育局常任秘書長批准」
+- **R-12.42** 校董會須向所有教員發出聘書，列明服務條件、薪級及終止聘用條件，校監須代表校董會在聘書正本及副本簽署。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 117 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=117)
+  - 引文：「校董會須負責向所有教員發出聘書，其中須列明服務條件、薪級及終止聘用的條件」
+- **R-12.43** 須為離職教學人員發出列明聘任資料的「服務證明書」，供其新僱主參考。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 118 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=118)
+  - 引文：「幼稚園須為離職的教學人員發出「服務證明書」，列明該員工的相關聘任資料」
+
+### 13. 教職員健康、操守與專業發展
+
+- **R-13.1** 校董會須就接受利益和捐贈事宜制定政策及發出清晰指引，確保採購、收生、招聘及擢升等行政事務廉潔治校。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 15 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=15)
+  - 引文：「有責任就學校、校董(包括校監)和教職員接受利益和捐贈事宜，制定政策及發出清晰指引」
+- **R-13.2** 幼稚園須參閱廉政公署《幼稚園運作防貪指南》及《幼稚園校董及職員行為守則範本》，建立誠信管理制度及內部監控系統。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=16)
+  - 引文：「幼稚園須參閱廉政公署制訂的《幼稚園運作防貪指南》及《幼稚園校董及職員行為守則範本》」
+- **R-13.3** 所有學校校董及職員均須遵守《防止賄賂條例》，學校應為校董／職員制訂完善的誠信指引。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 123 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=123)
+  - 引文：「所有學校校董及職員均須遵守《防止賄賂條例》」
+- **R-13.4** 校董和職員不應接受任何奢華、過於慷慨或頻密的款待。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 124 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=124)
+  - 引文：「校董和職員不應接受任何奢華、過於慷慨或頻密的款待」
+- **R-13.5** 學校管理當局不應批准學校或教職員在處理學生錄取或升級、聘用或晉升等校務時索取或接受利益。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 164 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=164)
+  - 引文：「學生的錄取或升級（經教育局核准的註冊費不屬利益）」
+- **R-13.6** 參與採購的校董及職員須簽署承諾書申報與供應商的密切連繫，已申報利益衝突者應避免處理相關採購。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 85 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=85)
+  - 引文：「必須盡早向校董會作出書面申報」
+- **R-13.7** 須設立處理利益衝突的機制，所有申報及相關管理層的決定／行動必須妥善記錄在案及存檔備查。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 124 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=124)
+  - 引文：「幼稚園須設立處理利益衝突的機制，以避免任何實際、潛在或視為利益衝突的情況」
+- **R-13.8** 管理人員須要求員工在涉及刑事調查或被警方逮捕時即時向中心管理人員報告。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 65 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=65)
+  - 引文：「必須即時向中心管理人員報告；並在調查或訴訟完結後，即時向中心管理人員報告結果」
+- **R-13.9** 若得悉員工涉嫌干犯嚴重罪行或失德行為，管理人員必須在知悉後立刻向社會福利署呈報。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 65 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=65)
+  - 引文：「管理人員必須在知悉有關事件後立刻向社會福利署呈報，以考慮採取跟進行動」
+- **R-13.10** 須為新聘員工提供入職導向訓練，並為在職管理及前線員工安排定期及持續培訓，深化保護兒童意識及相關法律知識。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 85 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=85)
+  - 引文：「包括為新聘用的員工提供入職導向訓練，並為在職的管理人員和前線員工安排定期及持續的培訓」
+- **R-13.11** 須為前線員工提供照顧有特殊需要兒童的訓練課程，提升其照顧能力與技巧。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 85 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=85)
+  - 引文：「經營人須為前線員工提供有關照顧有特殊需要的兒童的訓練課程」
+- **R-13.12** 院長須在入職前完成保護兒童培訓課程並在入職後持續進修，且須按院長登記制度向社署登記及提供最新資料。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 85 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=85)
+  - 引文：「留宿幼兒中心院長必須在入職前完成保護兒童的培訓課程及在入職後持續進修，經營人須按院長登記制度8進行登記」
+- **R-13.13** 院長首次登記前一年內須完成不少於6小時保護兒童培訓，並於登記後每年參與不少於6小時相關培訓。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 85 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=85)
+  - 引文：「前1 年內完成不少於6 小時有關保護兒童培訓的資料」
+- **R-13.14** 學校管理當局須就校董及教職員接受利益和捐贈制定明確政策，包括準則、批核程序、審批權、問責機制及監管程序。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 163 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=163)
+  - 引文：「就接受利益和捐贈為學校制定明確政策，包括學校、校董及教職員接受利益和捐贈的準則、批核程序和審批權」
+- **R-13.15** 學校接受任何利益和捐贈，必須獲學校管理當局批准。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 163 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=163)
+  - 引文：「學校接受任何利益和捐贈，必須獲學校管理當局批准」
+- **R-13.16** 學校管理當局應制定規管教職員外間工作的校本人事管理政策，並備存紀錄冊記錄所有獲批的外間工作。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 165 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=165)
+  - 引文：「學校管理當局應制定規管教職員外間工作的校本人事管理政策」
+- **R-13.17** 學校管理當局不應批准教職員收取費用為校內學生私人補習。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 165 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=165)
+  - 引文：「學校管理當局不應批准其教職員收取費用為校內學生私人補習」
+- **R-13.18** 不應索取或接受營辦商/供應商的捐贈或任何形式利益。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 69 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=69)
+  - 引文：「幼稚園不應索取或接受營辦商/供應商的捐贈或任何形式的利益」
+- **R-13.19** 不得容許校董及職員向任何人士或公司索取或接受利益（包括佣金），並書面知會供應商防賄。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 85 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=85)
+  - 引文：「幼稚園不得容許其校董和職員向任何人士或公司(包括供應商和承辦商)索取或接受其提供的任何利益(包括佣金)」
+- **R-13.20** 教師若知悉自己涉及進行中的刑事調查或訴訟（包括被警方逮捕拘捕），必須即時向學校報告，調查或訴訟完結後亦須即時報告結果。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 121 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=121)
+  - 引文：「必須即時向學校報告，並在調查或訴訟完結後，即時向學校報告結果」
+- **R-13.21** 若得悉教師涉嫌干犯嚴重罪行或失德行為，學校必須立刻向教育局呈報。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 121 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=121)
+  - 引文：「若得悉教師涉嫌干犯嚴重罪行或失德行為，學校必須立刻向教育局呈報」
+- **R-13.22** 機構經營人須根據《職業安全及健康條例》為員工提供安全的工作環境。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 26 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=26)
+  - 引文：「根據《職業安全及健康條例》的規定，為員工提供一個安全的工作環境」
+- **R-13.23** 所有教職員上任前須接受註冊醫生體格檢查（包括X光照肺）並由醫生發出健康證明書。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 33 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=33)
+  - 引文：「所有教職員在上任前須接受註冊醫生的體格檢查，包括Ｘ光照肺；並由醫生發出健康證明書」
+- **R-13.24** 機構須遵守教育局通告有關收受利益和捐贈的規定並參考廉署校董及職員行為守則範本。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 72 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=72)
+  - 引文：「《學校及其教職員收受利益和捐贈事宜》」
+- **R-13.25** 中心管理人員必須制定政策、指引、服務要求及守則，清楚訂明對員工要求及違反要求的紀律處分。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 81 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=81)
+  - 引文：「包括制定政策、指引、服務要求及守則等，以清楚訂明對員工的要求」
+- **R-13.26** 管理人員應透過個別面談、職員會議、分享會等渠道持續深化前線員工的培訓所學並協助其應付照顧壓力。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 86 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=86)
+  - 引文：「持續深化及鞏固前線員工從培訓中所學習的理念、工作態度、知識和技巧，以及協助他們有效應付因照顧受托兒童所面對的壓力」
+- **R-13.27** 學校應每年安排向全體教職員傳閱接受利益和捐贈通告，各人員閱後須簽署以示明白。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 167 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=167)
+  - 引文：「學校應每年安排向全體教職員傳閱本通告。各人員閱後須簽署以示明白通告內容」
+- **R-13.28** 幼稚園須採取合理可行措施消除性騷擾，包括以書面形式制定學校政策並設立處理投訴機制。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 17 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=17)
+  - 引文：「包括以書面形式制定學校政策以消除性騷擾」
+- **R-13.29** 每三年周期內每名幼稚園校長及教師應參加60小時持續專業發展活動。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 118 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=118)
+  - 引文：「在每三年的周期內，每名幼稚園校長及教師應參加60 小時的持續專業發展活動」
+
+### 14. 學費及收費
+
+- **R-14.1** 除事先獲教育局常任秘書長批准外，校方不得收取任何未載於收費證明書的費用。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=15)
+  - 引文：「除非事先得到教育局常任秘書長批准，否則校方不得收取任何未有載於收費證明書的費用」
+- **R-14.2** 對學生／家長／監護人繳交的每筆款項，學校均須發回正式收據。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=15)
+  - 引文：「對於學生/學生家長/監護人繳交的每筆款項，學校均須發回正式收據」
+- **R-14.3** 學校如更改向學生收取的費用總額，必須獲教育局常任秘書長書面批准。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=15)
+  - 引文：「學校如更改向學生收取的費用總額，必須獲得教育局常任秘書長書面批准」
+- **R-14.4** 學校須在校舍顯眼處展示收費證明書。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=15)
+  - 引文：「學校須在校舍的顯眼處展示收費證明書」
+- **R-14.5** 機構須按社會福利署署長/教育局常任秘書長批准的每月全費/費用總額收取費用，不得擅自收費。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 69 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=69)
+  - 引文：「必須按社會福利署署長/ 教育局常任秘書長批准的每月全費/ 費用總額收取費用，否則即屬違法」
+- **R-14.6** 幼稚園收取或更改報名費和註冊費前，須事先徵得教育局常任秘書長書面批准。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 152 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=152)
+  - 引文：「幼稚園須事先徵得教育局常任秘書長書面批准才可收取或更改報名費和註冊費」
+- **R-14.7** 任何調整或新增收費必須事先獲得教育局書面批准。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 66 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=66)
+  - 引文：「任何調整或新增收費必須事先獲得教育局書面批准」
+- **R-14.8** 幼稚園收取註冊費及報名費須依教育局通告第6/2017號處理，超逾核准上限須事先取得書面批准並展示批函。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 71 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=71)
+  - 引文：「機構欲收取超逾通告所定核准上限的費用，則須事先徵得教育局常任秘書長的書面批准，並須將有關批函展示於園舍顯眼的地方」
+- **R-14.9** 報名費上限為40元，半日制及全日制註冊費上限分別為970元及1,570元，不得超收。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 67 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=67)
+  - 引文：「報名費上限為40 元，而半日制和全日制幼稚園的註冊費上限，分別為970 元和1,570 元」
+- **R-14.10** 幼稚園只可向已錄取的學生／兒童收取註冊費。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 153 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=153)
+  - 引文：「學校只可向已錄取的學生/ 兒童收取註冊費」
+- **R-14.11** 已繳註冊費並在該校就讀者，校方須在收取第一期學費後、於該學年第一個月內退回註冊費。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 153 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=153)
+  - 引文：「於有關學年的第一個月內，退回註冊費予該學生/ 兒童」
+- **R-14.12** 機構須在園舍顯眼地方展示社會福利署/教育局發出的收費證明書。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 69 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=69)
+  - 引文：「所有機構必須在園舍顯眼的地方展示社會福利署/ 教育局發出的收費證明書」
+- **R-14.13** 未獲書面批准前，機構不得增加每月全費/更改費用總額。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 69 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=69)
+  - 引文：「未獲社會福利署署長/ 教育局常任秘書長書面批准前，機構不得增加每月全費/ 更改費用總額」
+- **R-14.14** 除事前獲書面批准外，機構不得收取每月全費/費用總額以外的其他費用。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 70 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=70)
+  - 引文：「除事前獲得社會福利署署長/ 教育局常任秘書長的書面批准外，機構不得收取每月全費/ 費用總額以外的其他費用」
+- **R-14.15** 每月全費/費用總額只應用以支付與教學活動、學校運作及維持教育服務水平有直接關係的開支。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 70 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=70)
+  - 引文：「每月全費/ 費用總額應用以支付與教學活動、學校運作和維持教育服務水平有直接關係的開支」
+- **R-14.16** 機構不應要求家長額外支付生日會、節日慶祝會等活動的費用。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 70 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=70)
+  - 引文：「機構不應要求家長額外支付這些慶祝活動的費用」
+- **R-14.17** 幼兒中心收取留位費不得早於兒童入讀前3個月，並須於第一個月月費扣除。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 70 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=70)
+  - 引文：「可在不早於兒童入讀前3 個月預先收取第一個月部分或全部月費作留位之用，該留位費金額應在入讀第一個月的月費扣除」
+- **R-14.18** 機構向家長售賣物品或收費服務前，須以書面通知家長屬自願性質且家長有權向外購買。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 71 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=71)
+  - 引文：「必須事先以書面形式，通知家長購買物品或採用收費服務純屬自願性質，家長有權向外購買該物品或不採用機構提供的服務」
+- **R-14.19** 幼兒中心進行售賣物品或收費服務前，必須事先向社會福利署署長申請批准。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 72 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=72)
+  - 引文：「幼兒中心如欲進行上述第9 . 3 . 1 段的收費活動，必須事先向社會福利署署長申請批准」
+- **R-14.20** 報名費不得超逾核准上限40元；半日制註冊費不得超逾970元、全日制不得超逾1,570元。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 153 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=153)
+  - 引文：「報名費4 0 元( b )  註冊費( i )  半日制班級9 7 0 元( i i )  全日制班級1 , 5 7 0 元」
+- **R-14.21** 獲批准收取超逾報名費核准上限的幼稚園須妥善保存收支紀錄；批核有效期三年，期滿續收須重新申請。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 153 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=153)
+  - 引文：「所有批核有效為期三年，學校其後如欲繼續收取超逾核准上限的報名費用，須重新申請」
+- **R-14.22** 教育局通告或秘書長批准書須在學校報告板或校舍內顯眼處展示。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 153 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=153)
+  - 引文：「須在學校報告板或校舍內的顯眼處展示。幼稚園須參閱《教育規例》第6 7 條」
+- **R-14.23** 第一期學費不得在8月1日前（新學年9月開始）或7月1日前（新學年8月開始）收取。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 153 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=153)
+  - 引文：「第一期學費不得在8 月1 日前( 如新學年在9 月開始) 或7 月1 日前( 如新學年在8 月開始)  收取」
+- **R-14.24** 幼稚園必須按教育局收費證明書內的批准收費，並將證明書展示在校舍顯眼處。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 156 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=156)
+  - 引文：「幼稚園必須按教育局發出的收費證明書內的批准收費，否則即屬違法。幼稚園亦須將收費證明書展示在其校舍的顯」
+- **R-14.25** 幼稚園不應就學費應涵蓋的開支在學費以外另行向家長收費。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 156 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=156)
+  - 引文：「幼稚園不應就所涉開支，在學費以外另行向家長收費」
+- **R-14.26** 預購物品或預收服務費用，不應早於每年五月收取。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 160 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=160)
+  - 引文：「預購物品或預收服務費用，不應早於每年五月收取」
+- **R-14.27** 幼稚園如獲營辦商／供應商折扣或整筆回佣，應撥入學校帳目列為收入項目。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 162 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=162)
+  - 引文：「應將該折扣或整筆回佣撥入學校帳目內，列為收入項目」
+- **R-14.28** 幼稚園須與家長保持溝通，讓家長知悉整月缺課的學費安排。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 39 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=39)
+  - 引文：「幼稚園應與家長保持溝通，讓家長知悉整月缺課的學費安排」
+- **R-14.29** 幼稚園必須遵守《教育規例》及教育局通告內有關學費和其他收費的規定。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 66 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=66)
+  - 引文：「幼稚園必須遵守《教育規例》及教育局通告內有關學費和其他收費的規定」
+- **R-14.30** 參加幼稚園教育計劃的幼稚園不應就半日制服務收取學費。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 66 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=66)
+  - 引文：「參加幼稚園教育計劃的幼稚園不應就半日制服務收取學費」
+- **R-14.31** 如申請收取學費，須提交財務預算及充分理由與數據，證明開支屬必要，並把師生比例維持於1:11。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 66 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=66)
+  - 引文：「如幼稚園申請收取學費，必須提交財務預算及充分理由及數據支持」
+- **R-14.32** 收取的學費及其他收費須直接用於學與教、學校營運及維持教育服務，並確保每項支出合理切合需要。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 67 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=67)
+  - 引文：「收取的學費和其他收費應直接用於學與教、學校營運及維持教育服務」
+- **R-14.33** 學童繳付註冊費並其後入讀者，須於收取第一期學費後、學年第一個月內退回註冊費。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 67 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=67)
+  - 引文：「必須在收取第一期學費後，於有關學年的第一個月內，退回註冊費予該學童」
+- **R-14.34** 向家長售賣教育用品或收費服務須在通告清楚註明選購純屬自願，並提供方格供家長剔選。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 67 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=67)
+  - 引文：「請各家長注意，選購教育用品或服務純屬自願」
+- **R-14.35** 不得從售賣課本獲取利潤；售賣教育用品及收費服務的利潤不得超過購貨成本的15%。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 68 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=68)
+  - 引文：「不得從售賣課本獲取任何利潤；以及售賣教育用品和提供收費服務(如有)所得的利潤，不得超過向供應商購貨成本的15%」
+
+### 15. 採購及招標
+
+- **R-15.1** 幼稚園採購物品及服務時，須邀請足夠數目的供應商或承辦商參與競投／報價，並妥善備存採購／報價記錄。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 161 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=161)
+  - 引文：「邀請足夠數目的供應商或承辦商參與競投/ 報價，確保以公平方式採購用品或服務」
+- **R-15.2** 幼稚園須要求負責採購職務的人員簽署承諾書並在需要時申報利益衝突。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 161 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=161)
+  - 引文：「要求所有負責採購職務的人員簽署承諾書及在需要時申報利益衝突」
+- **R-15.3** 幼稚園須為採購教職員訂立清晰分工，索取報價與接納報價兩項工序必須由不同教職員負責。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 162 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=162)
+  - 引文：「索取報價與接納報價等兩項工序，必須由不同的教職員負責」
+- **R-15.4** 採購限額：5,000元或以下可直接採購；5,000至50,000元向最少兩名供應商索取口頭報價。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 84 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=84)
+  - 引文：「5,000 元以上至50,000 元向最少兩名供應商索取口頭報價」
+- **R-15.5** 採購50,000至200,000元須向最少五名供應商索取書面報價；200,000元以上須邀請最少五名供應商投標。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 84 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=84)
+  - 引文：「50,000 元以上至200,000 元 向最少五名供應商索取書面報價200,000 元以上邀請最少五名供應商投標」
+- **R-15.6** 須定期進行具競爭性報價/招標以甄選營辦商/供應商，至少每三年一次。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 69 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=69)
+  - 引文：「幼稚園須定期進行具競爭性的報價/招標程序以甄選營辦商/供應商，至少每三年一次為宜」
+- **R-15.7** 校監及校長須確保具備完善有效的內部管理制度，以防止詐騙或盜用款項。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 79 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=79)
+  - 引文：「校監及校長必須確保幼稚園具備完善和有效的內部管理制度，以防止詐騙/盜用款項的情況出現」
+- **R-15.8** 採購須按教育局「幼稚園採購程序指引」制訂校本程序，以公平公正公開競爭方式進行並保存紀錄。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 84 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=84)
+  - 引文：「確保以公平、公正、公開競爭的方式進行有關程序，並妥善地保存有關報價和招標紀錄」
+- **R-15.9** 採購須訂立清晰分工，邀請與批核報價/標書須由不同職級職員負責。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 85 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=85)
+  - 引文：「邀請和批核報價單/標書兩項工作，必須由不同職級的職員負責」
+- **R-15.10** 200,000元以上標書須成立開標審核及批核兩個委員會，成員由不同人士出任。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 85 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=85)
+  - 引文：「200,000 元以上的標書，應成立兩個委員會，分別負責(1)開標及審核和(2)批核標書」
+- **R-15.11** 不應藉分期採購或縮短合約期以規避報價及招標款額上限的規定。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 86 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=86)
+  - 引文：「幼稚園不應藉著分期採購所需物品或服務，或藉著縮短一般合約期，以避免遵照有關報價及招標款額上限的規定」
+- **R-15.12** 邀請供應商甄選應定期進行，以不超過三年一次為宜。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 86 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=86)
+  - 引文：「定期進行具競爭性的報價/招標程序甄選供應商/承辦商，有關甄選以不超過三年進行一次為宜」
+- **R-15.13** 邀請書面報價/招標一般應相隔最少三周；緊急情況可經校長批准縮短並記錄原因。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 86 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=86)
+  - 引文：「一般應相隔最少三周」
+- **R-15.14** 一般應接納符合規格而出價最低的報價/標書，不接納最低或不選最高評分者須記錄理據。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 86 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=86)
+  - 引文：「一般而言，應該接納符合規格而出價最低的書面報價單/標書」
+- **R-15.15** 必須妥善備存所有採購紀錄，包括報價/招標紀錄、供應商全名、挑選理由及不接納最低價個案理據。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 86 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=86)
+  - 引文：「幼稚園必須妥善備存所有採購紀錄，包括報價單/招標紀錄、所聯絡供應商的全名、挑選他們的理由」
+- **R-15.16** 單一報價/招標只可在具充份理據且競投無效時採用，5萬以下須校監批准、5萬以上須校董會批准。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 87 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=87)
+  - 引文：「預算每次需費5,000元以上至50,000元的採購項目，須先得到校監的批准」
+- **R-15.17** 辦學團體獲授權為幼稚園採購須事先得校董會批准並存檔，並依循與幼稚園大致相同的採購程序。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 89 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=89)
+  - 引文：「所有授權安排須事先得到校董會的批准，並妥為存檔」
+- **R-15.18** 辦學團體擬供應物品服務予幼稚園，須被視為競投者之一並經相同甄選程序。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 89 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=89)
+  - 引文：「他們應被視為競投者之一，並與其它競投者一樣，須經過競投及相同的甄選程序」
+
+### 16. 財務管理及內部監控
+
+- **R-16.1** 幼稚園須以書面通知家長購買教育用品或採用收費服務純屬自願性質，不得強迫購買。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 157 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=157)
+  - 引文：「幼稚園不應強迫家長購買任何教育用品或接受任何收費服務，並應以書面形式通知家長」
+- **R-16.2** 幼稚園不得從售賣課本中獲取任何利潤。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 158 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=158)
+  - 引文：「不得從售賣課本中獲取任何利潤」
+- **R-16.3** 售賣習作簿、校服、文具等用品（課本除外）及收費服務所得利潤，不得超過向供應商購貨成本價的15%。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 161 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=161)
+  - 引文：「不得超過向供應商購貨成本價的1 5 % 。有關1 5 % 的利潤上限，亦應包括為」
+- **R-16.4** 退出計劃並繼續獲發資助期間，仍須每年遞交經審核的帳目，並原則上不得就半日制學額收取學費。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 141 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=141)
+  - 引文：「每年遞交經審核的帳目；原則上不得就半日制學額收取學費」
+- **R-16.5** 如已停辦，應在停辦日期起計四個月內將完整的經審核最後帳目送交教育局，並由執業會計師審核。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 141 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=141)
+  - 引文：「應在停辦日期起計四個月內將一份完整的經審核最後帳目」
+- **R-16.6** 退出計劃後七年內，須確保政府及授權代表在接獲合理通知後可獲取所有帳目、紀錄及文件以作審核查閱。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 142 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=142)
+  - 引文：「在退出計劃後的七年內，須確保在接獲合理通知後，政府及其授權代表」
+- **R-16.7** 員工薪酬應與資歷和責任相稱，機構應制定整體薪酬及福利政策並清楚列明在聘用合約內。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 68 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=68)
+  - 引文：「機構應制定整體的薪酬及福利政策，並就實際情況訂定個別員工的薪酬，及清楚列明在聘用合約內」
+- **R-16.8** 須就員工薪酬制訂政策，清楚訂明薪酬福利條件及薪酬調整由哪些部門或人員批核。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 113 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=113)
+  - 引文：「必須就員工薪酬制訂政策，清楚訂明薪酬福利條件及薪酬調整，會由哪些部門或人員批核」
+- **R-16.9** 幼稚園對一切出售及購買的教育用品及收費服務，必須保存正確的帳目記錄。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 158 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=158)
+  - 引文：「必須保存正確的帳目記錄」
+- **R-16.10** 幼稚園須按要求向家長及公眾人士公開「售賣課本」的帳目，或在互聯網上展示。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 160 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=160)
+  - 引文：「幼稚園須按要求向家長及公眾人士公開「售賣課本」的帳目，或在互聯網上展示」
+- **R-16.11** 學校管理當局須備存適當帳目，並保留帳目及憑單不少於七年供教育局常任秘書長查閱。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 15 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=15)
+  - 引文：「保留有關帳目及憑單不少於七年，以供教育局常任秘書長查閱」
+- **R-16.12** 參加租金資助計劃的幼稚園須另設獨立分類帳記錄租金資助及支出，並在經審核周年帳目內呈報。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 56 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=56)
+  - 引文：「須另設獨立的分類帳，以記錄租金資助和支出」
+- **R-16.13** 單位資助中60%須劃為教學人員薪酬部分，必須用於教學人員薪酬及相關開支。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 62 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=62)
+  - 引文：「60%會劃為教學人員薪酬部分，必須用於教學人員薪酬和相關開支」
+- **R-16.14** 幼稚園不得把政府資助及學校經費作投機性投資，多餘盈餘只可存入持牌銀行定期或儲蓄帳戶。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 62 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=62)
+  - 引文：「幼稚園不得把政府資助及學校經費作投機性投資」
+- **R-16.15** 校監執行一般校監職務不應收取酬金；只有執行指定職務並附說明的酬金才可計入學費支出。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 67 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=67)
+  - 引文：「校監執行一般應由校監、校董或校長執行的職務，不應收取酬金」
+- **R-16.16** 商業活動的收支須分項記錄在「學校帳」，並在每年提交教育局的經審核周年帳目內獨立填報。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 68 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=68)
+  - 引文：「把商業活動(包括由幼稚園營辦或由辦學團體/營辦機構代辦的商業活動)的收入/支出分項記錄在「學校帳」」
+- **R-16.17** 須備存適當帳目，供教育局或督學隨時查閱，並保留帳目及憑單不少於7年。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 70 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=70)
+  - 引文：「備存適當的帳目」
+- **R-16.18** 須分開帳目以分別記錄「幼稚園計劃帳」與「學校帳」的收支。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 70 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=70)
+  - 引文：「須分開帳目以記錄幼稚園教育計劃資助(「幼稚園計劃帳」)及學校經費(「學校帳」)的收支」
+- **R-16.19** 擬備財務報表時須將整校共同收入及開支按學生人數比例或訂明規則分拆至各課程/分部。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 70 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=70)
+  - 引文：「須先將整校共同收入及所有開支項目按學生人數比例或其他訂明規則分拆」
+- **R-16.20** 須在經審核周年帳目清楚披露所採用的拆帳機制。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 72 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=72)
+  - 引文：「幼稚園須在經審核周年帳目清楚披露其採用的拆帳機制」
+- **R-16.21** 須自行決定加入計劃前購入的固定資產納入哪本帳；未經教育局批准不得調撥已納入計劃帳的固定資產到學校帳。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 74 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=74)
+  - 引文：「除非獲得教育局事先批准，學校不得調撥已納入「幼稚園計劃帳」的固定資產到「學校帳」」
+- **R-16.22** 須備存獨立的固定資產登記冊，按計劃帳、學校帳及啟動津貼分類記錄固定資產。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 74 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=74)
+  - 引文：「幼稚園須備存獨立的固定資產登記冊，以顯示在「幼稚園計劃帳」、「學校帳」及一筆過啟動津貼(如有)下固定資產的分類」
+- **R-16.23** 幼稚園須因應本身情況釐定會計及內部監控制度，並遵從教育局常任秘書長或核數師建議的內部監控程序。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 77 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=77)
+  - 引文：「釐定學校的會計及內部監控制度，以確保學校的管理符合有關條例和規定。幼稚園亦須遵從教育局常任秘書長或校方核數師所建議的內部監控程序」
+- **R-16.24** 計算、查核、記錄款項的職務應與收取或發放款項的職務分由不同員工執行。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 77 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=77)
+  - 引文：「應盡可能將計算、查核和記錄幼稚園應收或應付款項的職務，和收取或發放這些款項的職務分由不同的員工執行」
+- **R-16.25** 教育局資助只發放予以幼稚園名義開設的銀行帳戶；幼稚園的收支不可經非幼稚園名義帳戶處理。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 78 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=78)
+  - 引文：「教育局的任何資助只會發放予以幼稚園名義開設的銀行帳戶內」
+- **R-16.26** 帳戶任何支出須由兩名或以上校董會委任的授權人聯名批核或簽署，其中一位一般為校監。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 78 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=78)
+  - 引文：「須由兩名或以上獲校董會委任的授權人聯名批核或簽署。一般而言，其中一位獲授權人士為該校校監」
+- **R-16.27** 幼稚園應每月製備銀行對帳表，並由不同人員擬備及查核，查核人員（建議校監或校長）簡簽註明日期。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 78 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=78)
+  - 引文：「幼稚園應每月製備銀行對帳表」
+- **R-16.28** 支票不應預先簽署，須畫線並標明「只存入收款人帳戶」，並應密切監察處理6個月以上未兌現支票。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 78 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=78)
+  - 引文：「所有支票均不應預先簽署，只可在收到獲妥當授權的文件時才可簽署。支票必須畫線並標明「只存入收款人帳戶」」
+- **R-16.29** 須將所有收入以風險最低辦法存放，並全部用於核准教育用途或購置學校設施。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 78 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=78)
+  - 引文：「須將全部收入用於核准的教育用途或購置學校設施上」
+- **R-16.30** 盈餘款項應分散存放於數間持牌銀行並設上限（如每間不超逾總額50%）；不得用作高風險投資。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 79 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=79)
+  - 引文：「為每間銀行的存款設定上限，例如不超逾該款項總額的50%」
+- **R-16.31** 管理款項超逾港幣500萬元者，任何一間銀行存款應不超逾總額20%。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 79 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=79)
+  - 引文：「如幼稚園所管理的款項超逾港幣500萬元，則在任何一間銀行的存款應不超逾該款項總額的20%」
+- **R-16.32** 不得把經費用作高風險投資；擬進行投資須在校董會會議記錄載明討論詳情及議決，虧損由校董會承擔。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 79 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=79)
+  - 引文：「幼稚園不應把經費(包括政府撥款)用作高風險的投資活動」
+- **R-16.33** 每次收款須製備預先編號的收款憑單並記錄日期金額，批核人員查核後簡簽註明日期。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 79 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=79)
+  - 引文：「每當收款時，應製備收款憑單。憑單應預先印上編號」
+- **R-16.34** 應使用預先編號的正式收據順序發出，損毀廢棄者註明「註銷」以防重複發出。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 79 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=79)
+  - 引文：「應使用預先印上編號的正式收據」
+- **R-16.35** 所有開支須獲妥當授權才可付款，每次付款製備連續編號付款憑單並夾附發票正本。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 80 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=80)
+  - 引文：「所有開支均須獲得妥當授權才可付款。每次付款時應製備付款憑單」
+- **R-16.36** 製備付款憑單和授權付款的工作應分開由不同人士負責。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 80 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=80)
+  - 引文：「製備付款憑單和授權付款的工作應分開由不同人士負責」
+- **R-16.37** 已繳付的憑單及發票必須蓋上「已繳付」或「PAID」並加日期，以防重複付款。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 80 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=80)
+  - 引文：「所有已繳付的憑單及發票必須蓋上「已繳付」或「PAID」字樣，並且由付款的職員加上日期」
+- **R-16.38** 須備存並適時更新固定資產登記冊，記錄購入日期、說明、位置、數量、款額等。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 80 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=80)
+  - 引文：「幼稚園應備存及適時更新「固定資產登記冊」」
+- **R-16.39** 須定期（不少於每年一次）盤點固定資產並保留紀錄，數量與紀錄不符須調查並向校董會報告。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 80 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=80)
+  - 引文：「幼稚園亦應定期(不少於每年一次)盤點各項固定資產，並將檢查結果及紀錄妥善保留」
+- **R-16.40** 所有現金、貴重物品及重要文件須妥善鎖好；校長應年內不定期突擊點算現金（如一年三次）。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 80 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=80)
+  - 引文：「校長應在年內不定期地突擊點算現金，例如一年內進行三次突擊點算」
+- **R-16.41** 註銷「幼稚園計劃帳」下固定資產一般須取得校監批准。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 80 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=80)
+  - 引文：「如幼稚園需要註銷記錄在「幼稚園計劃帳」下的固定資產，必須取得校監的批准」
+- **R-16.42** 須於每學年完結後按教育局指定格式及日期提交涵蓋整個學年的經審核帳目。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 81 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=81)
+  - 引文：「提交涵蓋整個學年」
+- **R-16.43** 須以幼稚園名義連同核數師報告提交經審核周年帳目，不接受以辦學團體名義提交。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 81 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=81)
+  - 引文：「幼稚園須以幼稚園名義向教育局提交經審核的周年帳目，並連同核數師報告一併提交」
+- **R-16.44** 選擇核數服務須定期（最理想每三年一次）進行具競爭性遴選程序。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 82 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=82)
+  - 引文：「必須力求定期(最理想是每三年一次)進行具競爭性的遴選程序」
+- **R-16.45** 須填妥主要人員薪酬及附帶福利報表，由校監簽署作實並交回所屬辦事處審視。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 82 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=82)
+  - 引文：「須填妥一份主要人員薪酬及附帶福利的報表，由校監簽署作實」
+- **R-16.46** 經審核帳目必須由校監簽署並蓋上學校印鑑，每份報表須由核數師蓋印識別。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 82 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=82)
+  - 引文：「經審核帳目必須由校監簽署，並蓋上學校印鑑」
+- **R-16.47** 須在經審核帳目適當披露所有與有關連人士或機構團體的交易及帳項結餘。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 82 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=82)
+  - 引文：「幼稚園須於經審核帳目適當地披露所有與有關連人士或機構團體的交易及帳項結餘」
+- **R-16.48** 須確保政府及授權代表在合理通知後可獲取所有帳目紀錄資料文件以作審核查閱。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 83 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=83)
+  - 引文：「政府及其授權代表(包括但不限於教育局人員及其代理人和審計署署長及其代理人)可獲取所有或任何帳目、紀錄、資料及文件」
+- **R-16.49** 報價/招標資料須保密處理，往來信函列作「限閱文件」。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 85 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=85)
+  - 引文：「有關報價/招標的資料須保密處理」
+- **R-16.50** 不得以計劃帳或學校帳支付投機性投資虧損、捐贈、購買禮物、退還不恰當校監酬金及紅封包。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 90 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=90)
+  - 引文：「不能以「幼稚園教育計劃帳」和「學校帳」支付的開支項目」
+- **R-16.51** 批准或挑選供應商索取報價的人員，不應同時是批准接納報價的人員，以確保職責分工。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 101 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=101)
+  - 引文：「負責批准及/或挑選供應商索取報價的人員，不應同時是在該次採購工作中批准接納供應商報價的人員」
+- **R-16.52** 不應以個人或職員名義開設操作銀行帳戶，帳戶不應只由一名授權簽署人操作。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 101 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=101)
+  - 引文：「不應以任何個人/幼稚園職員的名義開設及操作銀行帳戶。銀行帳戶不應只由一名獲授權簽署人士操作」
+- **R-16.53** 非牟利幼稚園不得將盈餘以任何形式轉撥予所屬辦學團體、其他機構或人士。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 102 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=102)
+  - 引文：「參加幼稚園教育計劃的非牟利幼稚園不得將盈餘轉撥(不論以何種形式)給所屬的辦學團體/其他機構/人士」
+- **R-16.54** 保管零用現金的人員不應負責批核發還零用現金申請，亦不應以申請人身份申請發還。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 102 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=102)
+  - 引文：「保管零用現金的人員不應負責批核任何發還零用現金申請，以確保適當職責分工」
+- **R-16.55** 向兼職教師支薪以全職教師三分之二薪酬為上限。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 114 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=114)
+  - 引文：「以全職教師三分之二薪酬為上限)向兼職教師支薪」
+
+### 17. 資助運用、籌款及盈餘
+
+- **R-17.1** 接受政府資助的學校所接受的捐贈只可用作學校和教育用途；有特定用途的捐贈只可用作指明用途。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 166 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=166)
+  - 引文：「學校接受的任何捐贈只可用作學校和教育用途。有特定用途的捐贈只可用作指明用途」
+- **R-17.2** 參加幼稚園教育計劃的幼稚園應在經審核帳目內的有關報表／附註中填報捐款。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 166 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=166)
+  - 引文：「參加幼稚園教育計劃的幼稚園，以及須按本局既定格式製備經審核帳目」
+- **R-17.3** 獲非華語學童支援額外資助的幼稚園須確保資助只用於加強支援非華語學童，並制訂全面校本計劃。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 30 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=30)
+  - 引文：「幼稚園須確保上述資助只用於加強支援非華語學童」
+- **R-17.4** 獲非華語學童資助的幼稚園須於學年開始時向教育局提交運用資助的學校計劃，並於學年終結時提交學校報告。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 30 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=30)
+  - 引文：「須在學年開始時向教育局提交運用資助及擬訂支援措施的學校計劃，以及在學年終結時提交學校報告」
+- **R-17.5** 租金資助只可用於本地課程幼稚園分部／班級合資格學生的租金開支，非學校部分租金不應包括在內。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 56 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=56)
+  - 引文：「只可用於本地課程幼稚園分部/班級合資格學生的租金開支」
+- **R-17.6** 租金資助按校舍使用率釐定：50%或以上全額、25%至50%以下50%、25%以下25%。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 91 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=91)
+  - 引文：「校舍使用率租金資助50%或以上全額25%至50%以下50%25%以下25%」
+- **R-17.7** 校舍維修資助可累積盈餘以該年撥款額的500%為上限，達上限教育局會暫停發放並收回超額盈餘。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 63 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=63)
+  - 引文：「以該年撥款額的500%為上限」
+- **R-17.8** 須列出各項資助盈餘及可累積盈餘上限，超過上限的盈餘須記錄作「應付予教育局的款項」。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 81 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=81)
+  - 引文：「超過上限的盈餘須記錄作「應付予教育局的款項」」
+- **R-17.9** 參加幼稚園教育計劃的幼稚園必須確保資助不會用於任何不屬本地非牟利幼稚園教育範疇的活動。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 55 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=55)
+  - 引文：「必須確保幼稚園教育計劃的資助不會用於任何不屬本地非牟利幼稚園教育範疇的活動」
+- **R-17.10** 校方須備存租約及租金收據等文件，相關紀錄須保存不少於七年。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 56 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=56)
+  - 引文：「資助的相關紀錄須保存不少於七年」
+- **R-17.11** 炊事員資助須用於聘請炊事員為全日制／長全日制班級學童烹調膳食，不得作其他用途。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 59 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=59)
+  - 引文：「不得作其他用途」
+- **R-17.12** 幼稚園須於到期日或之前繳付差餉及地租，並只可於悉數繳付後向教育局申請發還。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 60 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=60)
+  - 引文：「須於到期日或之前繳付差餉及地租，並只可以在悉數繳付款項後，方可向教育局申請發還費用」
+- **R-17.13** 獲提升單位資助盈餘上限的幼稚園須提交一份獨立的盈餘使用報告，否則或不符資格續獲提升上限。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 63 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=63)
+  - 引文：「須提交一份獨立的盈餘使用報告」
+- **R-17.14** 學費收入如有盈餘，須保留在學校經費帳目內，不得以任何形式轉撥予任何人士或其他機構。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 67 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=67)
+  - 引文：「若學費收入有盈餘，應保留在學校經費的帳目內，不得以任何形式(包括捐贈及饋贈)轉撥」
+- **R-17.15** 商業活動的全部利潤須撥回幼稚園作學校營運及教育服務之用。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 68 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=68)
+  - 引文：「商業活動所得的全部利潤，均須撥回幼稚園作學校營運和提供幼稚園教育服務之用」
+- **R-17.16** 為學校本身需要籌款須獲教育局常任秘書長書面准許，並經校董會批准記錄存案。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 69 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=69)
+  - 引文：「幼稚園擬為學校本身進行籌款活動，須經校董會批准，並記錄存案」
+- **R-17.17** 接受的捐贈只可用作學校和教育用途；有特定用途的捐贈須得捐贈者同意才可改用，並在帳目填報。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 70 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=70)
+  - 引文：「學校接受的任何捐贈只可用作學校和教育用途」
+- **R-17.18** 本地課程支出須按半日制與全日制單位成本1:1.6至1:2比例分攤到各上課時間。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 70 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=70)
+  - 引文：「每名半日制學生與每名全日制/長全日制學生單位成本的比例為 1：1.6 至 1：2」
+- **R-17.19** 從其他部門/基金以計劃項目形式收到的資助，應以獨立帳戶及獨立帳目處理，並按規定退回餘款。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 73 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=73)
+  - 引文：「應盡可能以「幼稚園計劃帳」以外的銀行帳戶處理這些資助的收支，並在「幼稚園計劃帳」及「學校帳」以外開設獨立帳目作紀錄」
+- **R-17.20** 籌款收集捐款時須使用註有編號的收據/籌款票。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 75 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=75)
+  - 引文：「收集捐款時，應使用註有編號的收據/籌款票」
+- **R-17.21** 每筆超逾港幣5,000元的捐款均應予記錄存案。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 75 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=75)
+  - 引文：「每筆超逾港幣5,000 元的捐款，均應予記錄存案」
+- **R-17.22** 每項籌款活動須編製財政報告並在校內顯眼處展示合理時間，然後保存以備核數。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 75 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=75)
+  - 引文：「幼稚園應就每項籌款活動編製財政報告，並應在學校報告板或校舍內的顯眼處展示一段合理時間」
+
+### 18. 註冊、牌照與行政呈報
+
+- **R-18.1** 幼稚園學生連續七個上課天無故或可疑缺課，須在第七天填妥缺課通報表向教育局通報，並在七個工作天內呈報跟進情況。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 33 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=33)
+  - 引文：「如幼稚園學生連續七個上課天無故或在可疑情況下缺課，學校必須在該生缺課的第七天填妥」
+- **R-18.2** 幼稚園學生連續七個上課天無故或在可疑情況下缺課，必須通報教育局。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 129 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=129)
+  - 引文：「如幼稚園學生連續七個上課天無故或在可疑情況下缺課，必須通報教育局」
+- **R-18.3** 學生缺課（不限日數）而家長未告假，學校應即日主動聯絡家長了解缺課原因。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 129 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=129)
+  - 引文：「學校應即日主動聯絡家長，關心學生，了解缺課原因」
+- **R-18.4** 學生連續七個上課天無故缺課或情況可疑，學校須在缺課第七天填妥「通報表」向所屬學校發展組／聯合辦事處通報。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 130 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=130)
+  - 引文：「學校須在該生缺課的第七天填妥「通報表」，向所屬地區的學校發展組／聯合辦事處通報」
+- **R-18.5** 幼稚園填交通報表後須繼續跟進，並在通報後七個工作天內填妥附件二呈報跟進情況。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 131 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=131)
+  - 引文：「學校須在通報後七個工作天內，填妥附件二，呈報跟進個案的情況」
+- **R-18.6** 幼稚園學生連續七個上課天無故或在可疑情況下缺課，學校必須在第七天填妥缺課通報表向教育局通報。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 42 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=42)
+  - 引文：「連續七個上課天無故或在可疑情況下缺」
+- **R-18.7** 幼稚園須由校董會管理，校董會須負責確保學校管理令人滿意、以適當方式促進學生教育並遵守相關條例及指示。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 10 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=10)
+  - 引文：「根據《教育條例》(第32 條)，每所幼稚園均須由其校董會管理」
+- **R-18.8** 校董會組成須最少有三名校董（包括校監），並符合營辦機構提名及獨立校董等要求。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 10 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=10)
+  - 引文：「最少有三名校董(包括校監)」
+- **R-18.9** 校董會須制訂校董會章程，訂明校董會運作細節。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 10 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=10)
+  - 引文：「制訂校董會章程以訂明運作細節」
+- **R-18.10** 學校須於每年8月15日前向教育局常任秘書長遞交新學年擬定的所有假期資料。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 13 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=13)
+  - 引文：「學校須於每年8 月15 日前向教育局常任秘書長遞交為新學年擬定的所有假期資料」
+- **R-18.11** 經校長簽署及校監加簽的學校假期表須長期張貼在校內當眼地方。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 13 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=13)
+  - 引文：「經由校長簽署及校監加簽的學校假期表，須長期張貼在校內一處當眼的地方」
+- **R-18.12** 學校上課時間如有任何改變，負責人須通知教育局常任秘書長。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 13 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=13)
+  - 引文：「學校的上課時間如有任何改變，負責人須通知教育局常任秘書長」
+- **R-18.13** 幼兒中心主管和幼兒工作員的人事變動必須在14日內通知社會福利署署長。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 65 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=65)
+  - 引文：「任何幼兒中心主管和幼兒工作員的人事變動必須在1 4 日內通知社會福利署署長」
+- **R-18.14** 留宿幼兒中心主管及幼兒工作員有任何變動，經營人必須於14天內通知社會福利署。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 84 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=84)
+  - 引文：「若中心的主管及幼兒工作員有任何變動，經營人必須於1 4 天內通知社會福利署」
+- **R-18.15** 幼兒中心的活動程序時間表須呈交社會福利署署長批准。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 59 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=59)
+  - 引文：「幼兒中心的活動程序時間表須呈交社會福利署署長批准」
+- **R-18.16** 幼稚園的上課時間表及用書表須呈交教育局常任秘書長批准。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 59 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=59)
+  - 引文：「幼稚園的上課時間表及用書表須呈交教育局常任秘書長批准」
+- **R-18.17** 學校須在策劃管理、教職員管理、學與教及家校合作等範疇制定及持續檢視維護國家安全的相關措施。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 17 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=17)
+  - 引文：「應在策劃與管理、教職員管理、學與教及家校合作等範疇，適當地制定及持續檢視與維護國家安全」
+- **R-18.18** 報價/招標文件須加入基於國家安全可取消供應商資格及終止合約的具體條款。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 85 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=85)
+  - 引文：「應在其報價／招標文件中加入具體條款，列明基於國家安全而容許幼稚園取消供應商的資格和終止相關合約」
+- **R-18.19** 新參加或繼續參加計劃的幼稚園須簽署承諾及聲明，同意遵守有關條款及條件。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 143 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=143)
+  - 引文：「幼稚園須簽署承諾及聲明，表示同意遵守有關條款及條件」
+- **R-18.20** 若簽署承諾及聲明的校監離任，須確保繼任校監按政府指明格式和內容重新簽署承諾及聲明。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 143 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=143)
+  - 引文：「該幼稚園須確保繼任校監按政府指明的格式和內容重新簽署承諾及聲明」
+- **R-18.21** 幼兒中心主管和幼兒工作員必須註冊。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 66 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=66)
+  - 引文：「幼兒中心主管和幼兒工作員必須註冊」
+- **R-18.22** 幼稚園校董、校監、校長及教師須申請註冊或批准。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 67 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=67)
+  - 引文：「校董、校監、校長及教師( 檢定或准用) 須申請註冊或批准( 視何者屬適當而定)」
+- **R-18.23** 幼稚園教師須註冊。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 67 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=67)
+  - 引文：「幼稚園教師須註冊」
+- **R-18.24** 經營人在開辦幼兒中心/幼稚園前必須詳閱《幼兒服務條例》《教育條例》等有關法例。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 74 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=74)
+  - 引文：「經營人在開辦幼兒中心/ 幼稚園前，必須詳閱有關法例」
+- **R-18.25** 幼兒中心/幼稚園註冊須取得規劃、屋宇署安全證明書、消防處消防證明書、電力及氣體裝置安全證明書等批准。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 75 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=75)
+  - 引文：「幼兒中心/ 幼稚園如欲註冊，必須獲得下列證明書/ 批准」
+- **R-18.26** 註冊須具備證明有權使用有關樓宇作幼兒中心/幼稚園用途的文件。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 75 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=75)
+  - 引文：「證明有權使用有關樓宇作幼兒中心用途的文件( 例如租約/ 買賣協議/ 業主授權書等)」
+- **R-18.27** 註冊須符合傢具及設備、洗手間設施、通風及照明、急救、衞生、容額等方面的規定。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 76 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=76)
+  - 引文：「傢具及設備•  洗手間設施•  通風及照明•  急救•  衞生• 容額」
+- **R-18.28** 營辦幼兒中心須遵守《幼兒服務條例》和《幼兒服務規例》，營辦幼稚園須遵守《教育條例》和《教育規例》。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 78 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=78)
+  - 引文：「營辦幼兒中心須遵守《幼兒服務條例》和《幼兒服務規例》，營辦幼稚園則須遵守《教育條例》和《教育規例》」
+- **R-18.29** 凡校董停任、校監或校長停止執行職責、教員開始或停止任教等事項，校監須於事情發生後一個月內以書面通知教育局常任秘書長。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 12 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=12)
+  - 引文：「根據《教育條例》第39 條，如有以下事情，學校校監須在事情發生後1個月內以書面通知教育局常任秘書長」
+- **R-18.30** 學年期間學生資料變動（包括整月缺課），幼稚園須在個案出現後7日內透過「統一登入系統」向教育局呈報。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 39 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=39)
+  - 引文：「後7 日內透過「統一登入系統」」
+- **R-18.31** 學校須在缺課通報後七個工作天內，填妥通告附件二呈報跟進個案情況。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 42 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=42)
+  - 引文：「須在通報後七個工作天內」
+- **R-18.32** 參加計劃的幼稚園須為根據《稅務條例》第88條獲豁免繳稅的非牟利幼稚園。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 139 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=139)
+  - 引文：「根據《稅務條例》(第112 章) 第88 條獲豁免繳稅的非牟利幼稚園」
+- **R-18.33** 如欲退出計劃（包括因有意停辦而退出），須在配合新學年開始的生效日期前最少九個月以書面通知教育局。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 140 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=140)
+  - 引文：「須在配合新學年開始的生效日期前最少九個月，以書面通知教育局」
+
+### 19. 家校溝通與資料披露
+
+- **R-19.1** 幼稚園發布招生廣告及派發學校單張時，須按《教育條例》第86A(2)條列出教育局給予學校的註冊編號。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 154 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=154)
+  - 引文：「列出教育局常任秘書長給予學校的註冊編號」
+- **R-19.2** 幼稚園應主動將學校基本資料、核准學費、其他核准收費及教育用品價目載於單張、通訊或入學申請表供家長參考。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 154 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=154)
+  - 引文：「幼稚園應主動將學校的資訊載於學校單張、通訊或入學申請表格等文件內，供家長參考」
+- **R-19.3** 參加免費優質幼稚園教育計劃的幼稚園應同時提供中文及英文版本的入學申請表。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 154 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=154)
+  - 引文：「參加免費優質幼稚園教育計劃的幼稚園應同時提供中文及英文版本的入學申請表」
+- **R-19.4** 參加計劃的幼稚園須把主要營運資料（包括校監校長姓名、教職員資歷薪酬、學費及財務資料等）刊載於《幼稚園及幼稚園暨幼兒中心概覽》。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 10 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=10)
+  - 引文：「須把主要營運資料刊載於教育局編製的《幼稚園及幼稚園暨幼兒中心概覽》」
+- **R-19.5** 參加計劃幼稚園須在學校網頁提供中、英文版基本資料（學校簡介、收生安排、學費、非華語支援等）。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 30 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=30)
+  - 引文：「所有參加幼稚園教育計劃的幼稚園須在學校網頁提供以下各項中、英文版的基本資料」
+- **R-19.6** 須把教育用品或收費服務資料（包括上學年收費一覽表）上載學校網頁供家長參閱。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 68 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=68)
+  - 引文：「須把有關資料(包括上學年收費額的一覽表)上載其學校網頁，供家長參閱」
+- **R-19.7** 應增加透明度和問責性，透過家長通訊、內聯網或學校網頁向家長發放學校最新資料。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 131 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=131)
+  - 引文：「參加幼稚園教育計劃的幼稚園應增加透明度和問責性，以優化學校的管理制度」
+- **R-19.8** 應向家長發放學費一覽表和其他教育局核准的收費一覽表。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 131 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=131)
+  - 引文：「學費一覽表和其他教育局核准的收費一覽表」
+- **R-19.9** 幼稚園須遵守《個人資料(私隱)條例》，並備存一本紀錄冊記錄校方拒絕查閱或改正資料的要求。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 16 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=16)
+  - 引文：「幼稚園須備存一本紀錄冊，記錄校方拒絕查閱或改正資料的要求」
+- **R-19.10** 幼稚園須確保影印及使用電腦軟件等辦事方式符合《版權條例》的規定。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 16 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=16)
+  - 引文：「幼稚園須確保其辦事方式，特別是影印及使用電腦軟件等，均符合《版權條例》的規定」
+- **R-19.11** 處理學生個人資料時，校方須確保收集、使用、保安及查閱均符合《個人資料(私隱)條例》的規定。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 39 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=39)
+  - 引文：「均符合《個人資料(私隱)條例》的規定」
+- **R-19.12** 機構應設立溝通渠道，徵詢家長對服務的意見。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 72 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=72)
+  - 引文：「機構應設立溝通渠道，徵詢家長對服務的意見」
+- **R-19.13** 幼稚園應與家長清楚簽訂認可為學生請假的家長／監護人。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 130 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=130)
+  - 引文：「幼稚園應與家長清楚簽訂認可為學生請假的家長／監護人」
+- **R-19.14** 應制訂清楚而有效的處理投訴程序，被投訴的人員均不應參與處理事件以避免利益衝突。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 135 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=135)
+  - 引文：「幼稚園應制訂清楚而有效的處理投訴程序」
+- **R-19.15** 所有投訴個案應絕對保密，校方須把有關資料妥為記錄和存檔，並提供上訴途徑。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 136 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=136)
+  - 引文：「所有投訴個案應絕對保密。調查人員不得向校內其他人員或甚至親友披露」
+- **R-19.16** 機構須將收費的任何核准變更盡速通知家長。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 69 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=69)
+  - 引文：「機構須將有關收取每月全費/ 費用總額的任何核准變更，盡速通知家長」
+- **R-19.17** 機構在處理家長投訴時應採取積極態度，主動聯絡家長盡快找出問題原因及解決方法。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 72 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=72)
+  - 引文：「機構在處理家長投訴時，應採取積極的態度去面對問題，主動聯絡家長」
+- **R-19.18** 幼稚園須將核准學費額或任何核准變更盡速通知家長。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 156 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=156)
+  - 引文：「幼稚園須將核准的學費額或任何核准的變更，盡速通知家長」
+- **R-19.19** 處理傳媒查詢時，校方應設有一名熟悉學校政策及運作的發言人負責處理市民或傳媒的查詢。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 137 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=137)
+  - 引文：「校方應設有一名發言人，負責處理市民或傳媒對事件的查詢」
+
+### 20. 紀錄保存、查閱與一般行政
+
+- **R-20.1** 所有參加計劃的幼稚園須於每學年終結前參考《表現指標(幼稚園)》進行學校自我評估。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 17 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=17)
+  - 引文：「須於每學年終結前，參考經優化的《表現指標(幼稚園)》進行自我評估」
+- **R-20.2** 學校須循「策劃─推行─評估」循環周期工作，於學期結束時編寫學校報告並擬訂下學年工作計劃。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 18 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=18)
+  - 引文：「編寫本學年的學校報告和擬訂下學年的工作計劃」
+- **R-20.3** 幼稚園須在接獲質素評核通知後四個星期內向教育局提交學校報告和持份者問卷調查結果。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 18 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=18)
+  - 引文：「幼稚園須在接獲通知後的四個星期內向教育局提交學校報告和持份者問卷調查結果」
+- **R-20.4** 參加計劃幼稚園的質素評核結果必須達到既定標準，否則可能被撤銷參加資格及終止資助。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 18 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=18)
+  - 引文：「其質素評核結果必須達到既定標準」
+- **R-20.5** 每一班級均須按教育局常任秘書長批准的形式備存一本點名冊。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 14 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=14)
+  - 引文：「每一班級均須按教育局常任秘書長批准的形式備存一本點名冊」
+- **R-20.6** 如教育局常任秘書長提出要求，管理當局須按指示呈交有關學校或學生的資料。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 14 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=14)
+  - 引文：「如教育局常任秘書長提出要求，管理當局須按指示呈交有關學校或學生的資料」
+- **R-20.7** 須妥善保存新聘教師聘任紀錄及《基本法及香港國安法》測試及格成績副本，存檔年期不少於兩年。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 115 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=115)
+  - 引文：「學校須妥善保存新聘教師聘任紀錄及《基本法及香港國安法》測試及格成績的副本，存檔年期不少於兩年」
+- **R-20.8** 機構亦須符合本辦學手冊、《表現指標（幼稚園）》及《幼稚園教育課程指引》各有關規定。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 78 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=78)
+  - 引文：「亦須符合本辦學手冊、《表現指標（幼稚園）》及《幼稚園教育課程指引》各有關規定」
+- **R-20.9** 機構應為每名兒童有系統地建立學習歷程檔案並定期與家長分享。
+  - 出處：《學前機構辦學手冊（2026年5月，第4.3版）》第 61 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=61)
+  - 引文：「機構應為每名兒童有系統地建立學習歷程檔案，以收集兒童的個人發展紀錄和報告」
+- **R-20.10** 幼稚園須設立校本機制支援有特殊需要或有發展遲緩危機的學童，相關做法受教育局監察。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 29 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=29)
+  - 引文：「幼稚園須設立校本機制，支援有特殊需要或有發展遲緩危機的學童」
+- **R-20.11** 幼稚園須設立完善的學生紀錄制度，備存適當學生紀錄並適時更新、以方便提取的方式保存。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 39 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=39)
+  - 引文：「幼稚園應設立完善的學生紀錄制度。幼稚園應備存適當的學生紀錄，並須適」
+- **R-20.12** 幼稚園須按教育局批准形式，將每一班級學生每天出席及缺課情況正確記錄在點名冊並備存。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 39 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=39)
+  - 引文：「將每一班級學生的出席情況按教育局常任秘書長所批准的形式，正確地記錄在點名冊」
+- **R-20.13** 應設立「器材外借紀錄冊」記錄器材外借資料。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 81 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=81)
+  - 引文：「幼稚園應設立一本「器材外借紀錄冊」記錄有關資料」
+- **R-20.14** 須在參加計劃有效期內及其後最少七年內，妥善分開備存計劃帳及學校經費的帳目及紀錄。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 83 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=83)
+  - 引文：「須在參加幼稚園教育計劃有效期內及其後最少七年」
+- **R-20.15** 永久性質紀錄（如固定資產登記冊、周年帳目、校具清單）在營運期間必須妥為保存不可銷毀。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 83 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=83)
+  - 引文：「凡屬永久性質的紀錄，如固定資產登記冊、周年帳目、校具清單等，在幼稚園營運期間，必須妥為保存，不可銷毀」
+- **R-20.16** 大型修葺/保養工程及新營辦開辦費用證明文件須保存不少於15年。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 83 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=83)
+  - 引文：「保存不少於15年-大型修葺/保養工程的證明文件」
+- **R-20.17** 各類帳簿、付款憑單、銀行存結單、薪金單、學費單收據、接受捐贈紀錄須保存不少於7年。
+  - 出處：《幼稚園行政手冊（2026年5月）》第 83 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=83)
+  - 引文：「保存不少於7年-各類帳簿，即現金出納帳簿、分類帳簿等」
+
+## 覆蓋度與 QC 紀錄
+
+- 條目總數：**388**；章節：20；本機機械重驗全通過（fail 已剔）。
+- 範疇 scope：幼稚園/學前機構營運與行政（校舍/安全/衞生/健康/膳食/人事/財務/註冊/家校溝通/紀錄）。
+- 本清單係指引義務蒸餾，唔係法律意見；源文件改版須重新派生。
+

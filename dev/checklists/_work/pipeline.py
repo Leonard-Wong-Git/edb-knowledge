@@ -35,6 +35,9 @@ DOMAINS = OrderedDict([
     ("kg_admission", D("幼稚園收生",
         ["g26", "g25", "k1_admission_2627", "kg_admin_guide"], [],
         "幼稚園收生及相關行政：K1 入學安排、收生程序、註冊證、學費及售賣物品規則。")),
+    ("kg_operation", D("幼稚園營運",
+        ["kg_operation_manual_2026", "kg_admin_guide_2026"], [],
+        "幼稚園／學前機構營運與行政（辦學手冊及行政手冊下嘅校本義務）：學校註冊與牌照、校舍與設施標準、人手編制與資歷、收費與帳目財務管理、安全與衞生、家校溝通與資料披露、質素保證與自評、行政紀錄與呈報。屬幼稚園範疇（school_type=kindergarten）。收生機制屬另一範疇 kg_admission、課程內容屬 curriculum（kgecg_2017），呢兩部分唔重複抽，只抽營運/行政層面義務。")),
     ("placement", D("學位分配",
         ["edbc18_2019_sspa", "stims_guide_2025", "s4_placement_2026"], [],
         "學位分配：小一入學/中學學位分配/中四學位安排/學生資料管理系統（STIMS）下學校嘅義務。")),
@@ -96,6 +99,7 @@ BATCHES = {
     "batch3": ["hr_admin", "student_support", "cpd"],
     "batch4": ["sen", "gifted"],
     "batch5": ["curriculum"],
+    "batch_kg": ["kg_operation"],
 }
 
 # ---------- shared loaders ----------

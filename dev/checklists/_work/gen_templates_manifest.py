@@ -43,13 +43,14 @@ OUT = REPO_ROOT / "policy_templates.json"
 DOMAIN_ORDER = [
     "safety", "conduct", "curriculum", "sen", "student_support", "gifted",
     "cpd", "hr_admin", "activity", "placement", "qa_inspection",
-    "gov_admin", "school_governance", "kg_admission",
+    "gov_admin", "school_governance", "kg_admission", "kg_operation",
 ]
 
 TYPE_SUFFIX = {  # filename token -> (canonical school_type, label)
     "小學": ("primary", "小學"),
     "中學": ("secondary", "中學"),
     "特殊學校": ("special", "特殊學校"),
+    "幼稚園": ("kindergarten", "幼稚園"),
 }
 
 
@@ -83,9 +84,9 @@ def classify(name: str):
     return kind, school_type, label
 
 
-# stable sort key: policy before checklist, then 通用/小學/中學/特殊學校
+# stable sort key: policy before checklist, then 通用/小學/中學/特殊學校/幼稚園
 KIND_RANK = {"policy": 0, "checklist": 1}
-TYPE_RANK = {"": 0, "primary": 1, "secondary": 2, "special": 3}
+TYPE_RANK = {"": 0, "primary": 1, "secondary": 2, "special": 3, "kindergarten": 4}
 
 
 def main():

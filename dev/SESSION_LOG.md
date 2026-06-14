@@ -2,6 +2,33 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-14 Session 162 — 幼稚園清單 pilot：新 kg_operation 範疇行勻 14-域 pipeline（distill→verify→rewrite→docx→manifest）
+
+- **ID:** Claude_20260614_S162 (S162)
+- **Trigger:** 開工切 Draft active root。起手核實全綠（HEAD `c0cffd3`==origin/main、Supabase **15,109**、`/api/annotate-document` live 探針 OK auto-detect 單域）。Leonard 答「4123」= 按 handoff NEXT 編號排序做晒四項：④幼稚園清單 pilot → ①跨校類 tagging → ②dead-code → ③Phase 2。全權自主。本條覆蓋 ④。
+- **Completed ④（PLAN→READ→CHANGE→QC→PERSIST，HIGH-risk 全權授權直接執行）:**
+  - ✅ **新範疇 `kg_operation`（幼稚園營運）行勻現有 14-域 pipeline**，用 S160 入庫嘅 2 源 `kg_operation_manual_2026`(217)+`kg_admin_guide_2026`(218)。範疇界定：營運/行政義務（校舍/安全/衞生/健康/膳食/人事/財務/註冊/家校溝通/紀錄）；收生留 `kg_admission`、課程留 `curriculum`，lens 明文剔除唔重抽。
+  - ✅ **Step1 chunk**：新 `_build_kg_chunks.py` 用 canonical `build_wiki_index.chunk_text_with_page_carry` chunk 2 源 → merge 入 `_work/all_chunks.json`（14,674→15,109，chunk id `vault_*` byte-identical 同 live Supabase；backup 先）。
+  - ✅ **Step2-4 distill**：`pipeline.py` +`kg_operation` domain+`batch_kg` → prep 8 buckets → **distill Workflow（15 agents：8 distill+verify+critic）→ 414 items** → mech-verify（3 級引文+頁碼重驗）→ **388 items**（31 dropped、109 page-fixed）。
+  - ✅ **章節整合**：distill 自由命名 → 272 碎 section（211 單條）；用 1 mapping agent → 17 canonical chapter，再 keyword 拆財務 126→4 子章 → **20 章 / 388 items**（對齊現有域 11-14 章規模）。
+  - ✅ **Step5 rewrite**：`mkflow-rewrite batch_kg` → **rewrite Workflow（20 章 → 162 校本條文 + 對抗覆核）**。⚠️ 首 run 中途撞 account session limit（ch12-20 fail）→ `resumeFromRunId` resume（cached ch1-11 即回、只重跑 9 章）全完成。
+  - ✅ **覆核 17 issues**：自動修「法團校董會（未設者為校董會）」→「校董會」（幼稚園無法團校董會；10 處 text+12 處 adjustables）；其餘 16 軟性 fabricated/distorted-number 寫入 `kg_operation/QC_VERIFY_ISSUES.md` 供 Leonard／下次 QC 逐條核（似 14 域 S157 verify_issues 清理）。13/20 章覆核全清。
+  - ✅ **Step6-7 docx+manifest**：gen 4 docx（學校版+清單 × 通用/幼稚園，全 PK+document.xml well-formed）→ re-run `gen_checklists_bundle.py`（14→**15 域**，+kg_operation 388 items/162 clauses，bundle 1564KB）+ `gen_templates_manifest.py`（+kg_operation 4 docx；`TYPE_SUFFIX`+`TYPE_RANK` 加「幼稚園」/kindergarten；total 106 docx）。
+  - ✅ **app.html**：`TEMPLATE_TYPE_FILTERS` +`{key:'kindergarten',label:'幼稚園'}`（範本下載校類 filter）+ 範本下載 intro「14→15 個範疇」「小學/中學/特殊學校→+幼稚園」。**backend 零改**（detectRelevantDomains/checklist-domains 純 bundle-driven，自動拎新域）。
+- **QC（全 PASS）:** backend `npm run check`+`build` exit 0（無 code 改、確認 bundle 唔破壞 build）；**真 OpenAI 本機 live e2e（:8787）**：`/api/checklist-domains`=15 域含 kg_operation(388)；`/api/checklist-revise` domain=kg_operation 出 covered/partial/missing；**`detectRelevantDomains` 真 KG 營運 doc auto-detect 淨「幼稚園營運」單域、零跨範疇**。**browser-verify（:8095）**：範本下載 tab、6 校類 filter（含幼稚園）、幼稚園 filter→只 kg_operation 卡+其幼稚園學校版 docx、intro「15 個範疇…幼稚園」、0 console error、screenshot 證。docx 4/4 well-formed。
+- **Data note:** chunk id `vault_<sid>_<hash>` = canonical chunker、同 live Supabase 一致（pilot 純 dev/checklists 內部交付物 + 前端 filter，**Supabase 15,109 零接觸、無入庫**）。
+- **Boundary:** 純前端 filter + 新 dev/checklists 交付物 + 根 checklists_bundle.json/policy_templates.json（公開 benign）。17 覆核 issues 中 16 軟性未修（DRAFT 草擬本、已 QC note 記錄、watermark「概以原文為準」）= follow-up。
+- **commits:** 見下 commit（feature）。
+- **Log maintenance (§4a):** SESSION_LOG <400 行（S161 已 archive 至 180 行），本 session 加 1 entry < 400，no-op。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+（暫定，closeout 時更新）
+```
+
+---
+
 ## 2026-06-14 Session 161 — 「文件標註」合併主線 Phase 1 SHIPPED LIVE（原檔就地 highlight + 可見內聯建議）
 
 - **ID:** Claude_20260614_S161 (S161)
