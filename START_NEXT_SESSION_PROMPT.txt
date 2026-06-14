@@ -3,19 +3,19 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
 Current objective: EDB K1 知識平台 (policychecker.wongfu.net).
-Product state: HEAD == origin/main（已 push + LIVE deployed）。Supabase 14,674（未動）；Channel B live；0 outstanding bug。起手 verify HEAD==origin/main + Supabase 14,674。
+Product state: HEAD == origin/main（已 push）。Supabase 15,109（S160 #2 KG 入庫 +435）；Channel B live；0 outstanding bug。起手 verify HEAD==origin/main + Supabase 15,109。
 
-S160（通宵自主）完成 + 上線：
-(1) P2 政策範本下載 tab — app.html +TemplatesPanel +'templates'；policy_templates.json（14 域 102 docx）；連現有 live docx。LIVE。
-(2) P3 文件修訂 feature — backend checklistRevise.ts + /api/checklist-revise + /api/checklist-domains；checklists_bundle.json(root)；app.html +ReviewPanel +'review' +buildRevisedDocx。LIVE（onrender e2e PASS：14 域 / 真實 revise 報告 / CORS echo policychecker）。
-(3) #2 KG live INSERT 嘗試被 harness 拒 → DEFERRED（Leonard supervised）。
+S160（通宵自主 + Leonard supervised）完成 + 上線：
+(1) P2 政策範本下載 tab + (2) P3 文件修訂 feature（/api/checklist-revise）— LIVE deployed，onrender e2e PASS。
+(3) #2 幼稚園 Phase 2 KG LIVE 入庫（Leonard sign-off）：kg_admin_guide_2026 218 + kg_operation_manual_2026 217 = 435 chunks → Supabase 15,109；新 kg_admin route（searchChannelB.ts，擺 curriculum 前）；display-sync ×7；registry 218。本機 routed smoke 命中新源 p1/p78、收生無回歸。commit 1bf497c。
 
 NEXT（優先序）：
-① #2 KG live 入庫（Leonard supervised，prep ready）：python3 dev/ingest_one_source.py kg_admin_guide_2026 && python3 dev/ingest_one_source.py kg_operation_manual_2026（先 --dry-run；435 chunks、兩源 live 0 rows）→ 加 KG route(searchChannelB.ts SOURCE_SETS+TOPIC_KEYWORDS)+registry+display-sync 7 點(14,674→~15,109 byte-identical)+routed smoke+KG 清單 pilot。
-② #3 學校版 docx review（live，可由「政策範本」tab 下載）；改格式/分流 → 調生成器或 tags（改 tags 跑 apply_school_types.py --check；改 docx re-run gen_templates_manifest.py + gen_checklists_bundle.py 再 push）。
-③ 文件修訂 Phase 2.5：覆蓋門檻 COVERED=0.50/PARTIAL=0.42(checklistRevise.ts) live-tune / 加 LLM 覆核 borderline / 大域>MAX_ITEMS=220 截斷 / mobile shell 入口。
+① #2 收尾：verify Render KG 路由 deploy（1bf497c propagating；探針 curl -X POST onrender /api/search/channel-b query「學前機構辦學手冊」→ top 應 = kg_operation_manual_2026；deploy 完即綠，本機已 PASS）。
+② 幼稚園清單 pilot：用新 kg_admin_guide_2026 + kg_operation_manual_2026 起幼稚園範疇要求清單（似 dev/checklists 14 域 build pipeline；建議 conduct/governance/admin 角度）→ docx → 入政策範本 manifest（re-run gen_templates_manifest.py + gen_checklists_bundle.py 再 push）。其餘 17 KG 源候選見 SESSION_LOG S159。
+③ #3 學校版 docx review（live，由「政策範本」tab 下載）。
+④ 文件修訂 Phase 2.5：門檻 COVERED=0.50/PARTIAL=0.42 live-tune / 加 LLM 覆核 borderline / 大域>MAX_ITEMS=220 截斷 / mobile shell 入口。
 
-Key files（S160 LIVE）：app.html(+2 tab) / backend/src/server.ts(+2 route) / backend/src/api/checklistRevise.ts / checklists_bundle.json / policy_templates.json / dev/checklists/_work/gen_{templates_manifest,checklists_bundle}.py / dev/{SCHOOL_DOCX_DOWNLOAD_PLAN,CHECKLIST_REVISE_FEATURE}.md。
+Key files（S160）：app.html(+2 tab) / backend/src/server.ts(+2 route) / backend/src/api/checklistRevise.ts / backend/src/api/searchChannelB.ts(+kg_admin route) / checklists_bundle.json / policy_templates.json / dev/source/source_registry.json / dev/vault/kg_*_2026/ / display-sync 7 點(→15,109)。
 
-⚠️ 紀律：#2 KG ingestion 要 Leonard supervised（harness overnight 拒 live INSERT）；live INSERT 前 INSPECT + display-sync byte-identical；改 docx/checklist 後 re-run 兩個 generator 再 push（DOC_SYNC）；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號。
-Post-startup first action: verify HEAD==origin/main + Supabase 14,674，然後問 Leonard：開始 #2 KG ingestion 定其他。
+⚠️ 紀律：live INSERT 前 INSPECT；新源必加 SOURCE_SETS+registry+display-sync 7 點 byte-identical（S160 已做）；改 docx/checklist 後 re-run 兩 generator 再 push；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號。kg_admin「幼稚園質素」query → qa_inspection（minor mis-route、acceptable）。
+Post-startup first action: verify HEAD==origin/main + Supabase 15,109，curl onrender channel-b「學前機構辦學手冊」確認 KG 路由 deploy 已 flip，然後問 Leonard：起幼稚園清單 pilot 定其他。
