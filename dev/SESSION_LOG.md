@@ -24,7 +24,12 @@
   - **修法（domain-level scope fallback）：** `_school_type_profiles.json` 已有逐域 `applies_to`（SSOT）→ `gen_checklists_bundle.py` 新增 `domain_school_types()`，把非「全 4 類」嘅域 emit 一個 **domain-level `school_types`** 入 bundle（kg_operation/kg_admission→kindergarten、placement/gifted→primary+secondary、sen/cpd/qa/school_governance→primary+secondary+special；全 4 類則 omit=all 向後兼容）。backend `okType(st, sel, domainSt)` 改 precedence：item/clause 自身 tag 優先 → 否則用 domain-level → 否則 all。`detectRelevantDomains` 加 `sel?` 參數，揀咗校類時**唔會 auto-detect 範疇外嘅域**；`annotateDocument` 傳入正規化 school_type。
   - **QC（真 OpenAI live e2e :8787，全 PASS）：** A) kg_operation+小學→**0 items**（正確排除）；B) kg_operation+幼稚園→full（5/26/189）；C) auto-detect KG doc+小學→揀「校務行政」（all-types）**唔揀 kg_operation**；D) +幼稚園→揀「幼稚園營運」。**Regression：** safety(all-types)+小學→42/38/89（未破）；kg_admission+小學→0（fix 一併生效）；省略 school_type+kg_operation→2/8/210（向後兼容）。tsc check+build exit 0。
   - **Boundary ①：** 純 backend filter 收緊 + bundle 加 domain-level field（additive；無 school_types 嘅 clause 行為對「省略 school_type」不變）。一併修正咗既有 6 個型別專屬域（placement/gifted/sen/cpd/qa/school_governance）嘅同類洩漏。
-- **commits:** 見下（④ `ec01e1b` 已 push；① 隨後）。
+- **commit ①:** `5dde30f`（7 files；push origin/main）。
+- **Completed ②（dead-code cleanup，app.html）:**
+  - 移除 4 個已無 render 引用嘅死碼：`buildAnnotatedDocx`+`AnalyzePanel`（舊文件分析）、`buildRevisedDocx`+`ReviewPanel`（舊文件修訂）。**app.html 4345→3715 行（−630）。** 兩塊非連續（live `TemplatesPanel` + REVISE_SCHOOL_OPTS/TEMPLATE_TYPE_FILTERS 夾喺中間）→ 精確 line-range 刪（boundary assertion + backup + bottom-up）。
+  - **保留**：`REVISE_SCHOOL_OPTS`（live AnnotatePanel@舊3931 用）、`TEMPLATE_TYPE_FILTERS`/`TEMPLATE_KIND_LABEL`/`TemplatesPanel`、AnnotatePanel + helpers（xmlEsc/annNorm/findingNoteParas/buildAnnotatedOriginalDocx）。`ANALYZE_SCHOOL_LABELS`/`REVISE_BACKEND_URL`/`REVISE_STATUS_META` 變孤兒小 const 但無害、保留（handoff 原叮囑保留）。
+  - **QC：** Python brace 平衡（diff 0）；browser-verify（preview reload）：5 tab 全在、AnnotatePanel + TemplatesPanel（含幼稚園營運）both mount、無 SyntaxError/undefined、**0 console error**。chip task_5dc04973 → done。
+- **commits:** 見下（④ `ec01e1b`、① `5dde30f` 已 push；② 隨後）。
 - **Log maintenance (§4a):** SESSION_LOG <400 行（S161 已 archive 至 180 行），本 session 加 1 entry < 400，no-op。
 
 ### Next Session Handoff Prompt (Verbatim)
