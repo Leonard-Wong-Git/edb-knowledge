@@ -117,8 +117,10 @@ export function listChecklistDomains(): { key: string; cn: string; item_count: n
 
 /** Max doc segments embedded for auto-detection (latency bound). */
 const AUTO_DETECT_SEGMENTS = 40;
-/** A domain is "relevant" when its descriptor's max cosine over the doc ≥ this. */
-const AUTO_DETECT_THRESHOLD = 0.3;
+/** A domain is "relevant" when its descriptor's max cosine over the doc ≥ this.
+ *  Raised S161 (Leonard "收緊對焦"): 0.30 let weakly-related domains in (a maths
+ *  syllabus pulled in 特殊教育需要) — 0.38 keeps only a clearly-on-topic domain. */
+const AUTO_DETECT_THRESHOLD = 0.38;
 
 /**
  * Cheap auto-detection of which checklist domains a document touches: embed up

@@ -42,18 +42,23 @@ import {
 
 /** Hard cap on incoming extracted text (shared with the two reused modules). */
 export const MAX_TEXT_CHARS = ANALYZE_MAX_TEXT_CHARS;
-/** Max compliance domains scanned per request (explicit or auto-detected). */
+/** Max compliance domains scanned per request when the caller selects them. */
 const MAX_DOMAINS = 3;
-/** Domains auto-detected when the caller selects none. */
-const AUTO_DETECT_COUNT = 2;
+/** Domains auto-detected when the caller selects none — single best-matching
+ *  domain only (S161 "收緊對焦": auto-detecting 2 pulled unrelated domains like
+ *  特殊教育需要 into a maths-syllabus doc). Explicit selection can still pick ≤3. */
+const AUTO_DETECT_COUNT = 1;
 /** Hard cap on total findings returned (keeps the annotated doc manageable). */
 const MAX_FINDINGS = 120;
 /** Per-domain cap on "partial" findings (the low PARTIAL threshold over-labels,
  *  so we keep only the strongest matches — otherwise weak partials flood the doc
  *  and starve the actionable "missing" requirements). */
 const MAX_PARTIAL_PER_DOMAIN = 12;
-/** Per-domain cap on "missing" findings (appendix-only). */
+/** Per-domain cap on "missing" findings. Auto-detected runs use the tighter cap
+ *  (S161 "收緊對焦": a subject/curriculum doc shouldn't be flooded with whole-domain
+ *  "you also lack policy X" items); explicit domain selection = full completeness. */
 const MAX_MISSING_PER_DOMAIN = 25;
+const MAX_MISSING_PER_DOMAIN_AUTO = 8;
 
 // ---------------------------------------------------------------------------
 // Types
@@ -216,6 +221,7 @@ export async function annotateDocument(
 
   const partialFindings: AnnotateFinding[] = [];
   const missingFindings: AnnotateFinding[] = [];
+  const missingCap = autoDetected ? MAX_MISSING_PER_DOMAIN_AUTO : MAX_MISSING_PER_DOMAIN;
   for (const rr of reviseResults) {
     // Collect this domain's gaps, then keep only the strongest partials so weak
     // 0.42-similarity matches don't flood the highlight layer.
@@ -239,7 +245,7 @@ export async function annotateDocument(
             f: { ...base, span: spanFromExcerpt(it.best_excerpt) },
             sim: typeof it.similarity === "number" ? it.similarity : 0,
           });
-        } else if (missingForDomain < MAX_MISSING_PER_DOMAIN) {
+        } else if (missingForDomain < missingCap) {
           missingFindings.push(base);
           missingForDomain++;
         }
