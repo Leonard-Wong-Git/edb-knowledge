@@ -174,6 +174,83 @@ export async function detectRelevantDomains(
     .map((d) => d.key);
 }
 
+/** Min segments a SECONDARY (non-top) domain must win as argmax before it
+ *  qualifies — one fluke segment must not drag in a whole unrelated domain. The
+ *  top domain is always kept when it wins ≥1 segment. */
+const SECONDARY_MIN_SEGMENTS = 2;
+
+export interface DetectedDomain {
+  key: string;
+  /** Document segments for which this domain was the best (argmax) match. */
+  segments: number;
+  /** Highest cosine of any segment to this domain's descriptor. */
+  score: number;
+}
+
+/**
+ * Per-segment domain detection (Phase 2.5). Instead of collapsing the whole
+ * document to one global best-domain (detectRelevantDomains), every document
+ * segment is routed to its single best-matching domain (argmax cosine, gated by
+ * AUTO_DETECT_THRESHOLD). A domain then qualifies by how many segments it wins:
+ * the top domain needs ≥1, any further domain needs ≥ SECONDARY_MIN_SEGMENTS.
+ * So a genuinely multi-topic document (e.g. a combined policy manual covering
+ * safety + governance + HR) surfaces gaps from each domain it really covers,
+ * while a single-topic document still yields exactly one domain and a lone fluke
+ * segment cannot pull in an off-topic domain. Same embedding cost as
+ * detectRelevantDomains; returns up to `max` domains, most-segments first.
+ */
+export async function detectDomainsPerSegment(
+  text: string,
+  deps: ChecklistReviseDependencies,
+  max = 3,
+  sel?: SchoolType
+): Promise<DetectedDomain[]> {
+  if (typeof text !== "string" || !text.trim()) return [];
+  const docSegs = segmentText(text).slice(0, AUTO_DETECT_SEGMENTS);
+  if (docSegs.length === 0) return [];
+
+  const b = loadBundle();
+  const domains = Object.values(b.domains).filter(
+    (d) => !sel || !d.school_types || d.school_types.includes(sel)
+  );
+  if (domains.length === 0) return [];
+  const descriptors = domains.map(
+    (d) => `${d.cn}：${d.sections.slice(0, 8).map((s) => s.name).join("、")}`
+  );
+
+  const all = await deps.embeddingClient.batch([...docSegs, ...descriptors]);
+  const docEmb = all.slice(0, docSegs.length);
+  const domEmb = all.slice(docSegs.length);
+
+  // Route each segment to its single best domain (argmax), tallying wins +
+  // tracking each domain's peak cosine across the document.
+  const wins = domains.map(() => 0);
+  const best = domains.map(() => -1);
+  for (const de of docEmb) {
+    let bi = -1;
+    let bs = -1;
+    for (let i = 0; i < domEmb.length; i++) {
+      const s = dot(domEmb[i], de);
+      if (s > best[i]) best[i] = s;
+      if (s > bs) {
+        bs = s;
+        bi = i;
+      }
+    }
+    if (bi >= 0 && bs >= AUTO_DETECT_THRESHOLD) wins[bi]++;
+  }
+
+  const ranked = domains
+    .map((d, i) => ({ key: d.key, segments: wins[i], score: best[i] }))
+    .filter((d) => d.segments > 0)
+    .sort((a, b2) => b2.segments - a.segments || b2.score - a.score);
+  if (ranked.length === 0) return [];
+
+  return ranked
+    .filter((d, idx) => idx === 0 || d.segments >= SECONDARY_MIN_SEGMENTS)
+    .slice(0, Math.max(1, max));
+}
+
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------

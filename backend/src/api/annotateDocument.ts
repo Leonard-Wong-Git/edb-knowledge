@@ -31,7 +31,7 @@ import {
 } from "./analyzeDocument.js";
 import {
   checklistRevise,
-  detectRelevantDomains,
+  detectDomainsPerSegment,
   listChecklistDomains,
   type ChecklistReviseDependencies,
   type SchoolType,
@@ -45,10 +45,13 @@ import {
 export const MAX_TEXT_CHARS = ANALYZE_MAX_TEXT_CHARS;
 /** Max compliance domains scanned per request when the caller selects them. */
 const MAX_DOMAINS = 3;
-/** Domains auto-detected when the caller selects none — single best-matching
- *  domain only (S161 "收緊對焦": auto-detecting 2 pulled unrelated domains like
- *  特殊教育需要 into a maths-syllabus doc). Explicit selection can still pick ≤3. */
-const AUTO_DETECT_COUNT = 1;
+/** Max domains auto-detected when the caller selects none (Phase 2.5). Detection
+ *  is now per-segment (detectDomainsPerSegment): each segment is routed to its
+ *  single best domain, so a single-topic doc still resolves to one domain, but a
+ *  genuinely multi-topic doc surfaces every domain it really covers (each backed
+ *  by ≥2 segments). This keeps the S161 "收緊對焦" precision (a fluke segment can't
+ *  pull in an off-topic domain) while removing the hard 1-domain ceiling. */
+const AUTO_DETECT_MAX_DOMAINS = 3;
 /** Hard cap on total findings returned (keeps the annotated doc manageable). */
 const MAX_FINDINGS = 120;
 /** Per-domain cap on "partial" findings (the low PARTIAL threshold over-labels,
@@ -170,10 +173,17 @@ export async function annotateDocument(
   let domainKeys = requested.slice(0, MAX_DOMAINS);
   let autoDetected = false;
   if (domainKeys.length === 0) {
-    // S162 ①: pass the selected school type so auto-detect never picks a domain
-    // outside that type's scope (e.g. 小學 doc must not surface 幼稚園-only kg_operation).
+    // Phase 2.5: per-segment auto-detect. S162 ① — pass the selected school type
+    // so auto-detect never picks a domain outside that type's scope (e.g. a 小學
+    // doc must not surface the 幼稚園-only kg_operation).
     const selType = normalizeSchoolType(input?.school_type) as SchoolType | undefined;
-    domainKeys = await detectRelevantDomains(text, deps, AUTO_DETECT_COUNT, selType);
+    const detected = await detectDomainsPerSegment(
+      text,
+      deps,
+      AUTO_DETECT_MAX_DOMAINS,
+      selType
+    );
+    domainKeys = detected.map((d) => d.key);
     autoDetected = domainKeys.length > 0;
   }
 
