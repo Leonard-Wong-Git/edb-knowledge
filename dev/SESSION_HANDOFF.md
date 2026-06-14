@@ -105,7 +105,7 @@ source_registry → same vault PDFs → ai_extract.py
 ## Open Priorities
 > 產品方向：**全棧 Channel-B-only**，平台 **v3.0.0**。Channel A frozen @455。**S163（ABC）：C 核 KG QC（17 flags 全修 + 修 S162 schema bug）+ A 文件標註 Phase 2.5 per-segment + 版本/首頁/平台介紹 refresh（PLATFORM_VERSION 3.0 decouple）+ B 文件標註 Phase 2 PDF inline highlight 全 DONE & pushed（`ef43517`→`d71ae1e`→`f510ee8`→`7289380`）+ Pages/Render live 驗。** Supabase 15,109、HEAD==origin/main。主線 0 outstanding bug。
 
-1. **Leonard review（待用戶）**：(a) 平台 **v3.0.0** 版本方案——user-facing `PLATFORM_VERSION` 與凍結 knowledge `_meta.version`(2.3.0) 分離，若想改版號／文案喺 `app.html` `PLATFORM_VERSION` 常數 + index.html eyebrow + CHANGELOG；(b) KG pilot `dev/checklists/kg_operation/QC_VERIFY_ISSUES.md`（17 flags 已修，DRAFT 草擬本待最終核）；(c) #3 學校版分校類 102 docx（「範本下載」tab）。
+1. **✅ Leonard 已認可（S163，"all agree"）**：平台 **v3.0.0** 版本方案（PLATFORM_VERSION decouple 凍結合約）+ S162 schema bug fix + KG QC 17 flags fix + Phase 2 PDF 方案——全部 confirmed，唔再係開放問題。餘下純 monitor / 真檔驗。#3 學校版分校類 102 docx review = 仍可隨時做（monitor，live「範本下載」tab）。
 2. **文件標註 Phase 2 真檔驗證（建議）**：S163 PDF highlight 已 in-browser pipeline 驗（合成 PDF 全綠），但未用真 EDB／學校 PDF 端到端跑——建議 Leonard 上載一份真 PDF 試 highlight 對位＋sticky-note CJK 顯示（不同 viewer：Acrobat/Preview/Chrome）。座標假設無頁面旋轉（rotation 已存但未補償）；碎 run／表格命中率 monitor。
 3. **文件標註 Phase 2.5 多範疇 UX（monitor）**：auto 由硬 1 域改 ≤3 域（per-segment）。單範疇文件仍 1 域；多範疇文件會出多域 findings（前端已支援 domains[]）。觀察真檔會否過多域；`SECONDARY_MIN_SEGMENTS=2`/`AUTO_DETECT_MAX_DOMAINS=3` tunable。
 4. **既有 monitor + follow-up**：文件標註門檻 COVERED=0.50/PARTIAL=0.42 + AUTO_DETECT_THRESHOLD=0.38 + auto missing cap 8 / `kg_admin`「幼稚園質素」→qa_inspection / IMC 頁碼 / cgss rank 低 / 57014 free-tier / stats.sources=120 cosmetic / Azure fallback / 週跑。
@@ -127,7 +127,7 @@ source_registry → same vault PDFs → ai_extract.py
    - ✅ **B 文件標註 Phase 2 PDF inline highlight**（`7289380`）：+pdf-lib 1.17.1 CDN；`extractPdf` 抽 per-page 座標；`buildAnnotatedPdf` 原 PDF 就地螢光 rect（per-line）+ 編號 marker + CJK sticky-note 批註（UTF-16BE `PDFHexString.fromText`，免嵌 ~10MB CJK 字型）；fileBuffer+download branch docx/pdf。in-browser pipeline 驗：span 定位、annotation round-trip（`contentsObj.str`=CJK）、valid PDF、0 console err。
 4. Pending: 無阻塞。Leonard review：v3.0 版本方案 / KG QC DRAFT 最終核 / #3 docx review / **Phase 2 真檔 PDF 端到端試**（合成驗過，真檔對位＋多 viewer CJK 顯示待 Leonard 試）。
 5. Next priorities: 見 Open Priorities。
-6. Risks: 🟢 HEAD==origin/main（已 push，`7289380`）、Pages+Render live 驗全綠。⚠️ Phase 2 PDF highlight 座標假設無頁面旋轉（rotation 存但未補償）、碎 run／表格命中率未真檔驗 = monitor。⚠️ Phase 2.5 auto 由 1 域→≤3 域，多範疇文件 findings 可能變多（tunable）。⚠️ KG docx 仍 DRAFT（17 flags 已修、watermark「概以原文為準」）。⚠️ 平台 v3.0.0 = 自主版本決定（decouple 凍結合約），Leonard 可調。Supabase 15,109 零接觸。
+6. Risks: 🟢 HEAD==origin/main（已 push，`7289380`）、Pages+Render live 驗全綠。⚠️ Phase 2 PDF highlight 座標假設無頁面旋轉（rotation 存但未補償）、碎 run／表格命中率未真檔驗 = monitor。⚠️ Phase 2.5 auto 由 1 域→≤3 域，多範疇文件 findings 可能變多（tunable）。⚠️ KG docx 仍 DRAFT（17 flags 已修、watermark「概以原文為準」）。✅ 平台 v3.0.0 = Leonard 已認可（S163 "all agree"，decouple 凍結合約）。Supabase 15,109 零接觸。
 7. commits（**已 push origin/main**）: `ef43517`(C)→`d71ae1e`(A)→`f510ee8`(版本/首頁)→`7289380`(B)→收尾 gov。
    - QC：backend tsc/check+build exit 0；真 OpenAI 本機 e2e（Phase 2.5 detection 4 案）；in-browser pdf-lib pipeline e2e（span/highlight/CJK annotation/valid PDF）；browser-verify（index static + app desktop 5 卡 + 0 console err）；KG supplement linkage 388/388 offline 模擬；Pages+Render live 探針全綠。
 
