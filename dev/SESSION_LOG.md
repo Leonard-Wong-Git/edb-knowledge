@@ -2,6 +2,53 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-14 Session 161 — 「文件標註」合併主線 Phase 1 SHIPPED LIVE（原檔就地 highlight + Word 批註）
+
+- **ID:** Claude_20260614_S161 (S161)
+- **Trigger:** 開工切 Draft active root（頂層 dormant scaffold）。起手核實全綠後 Leonard 揀起「文件標註」主線，並指示「一次過做哂，包括幼稚園及 UI 等設計；全權去做不用問」。
+- **起手核實:** HEAD `c37165e`==origin/main（clean，僅 S158 `.bak` untracked）；Supabase **15,109**（live policychecker knowledge.json：facts 455/guidelines 152 不變）；`kg_admin` route 探針 live（onrender「學前機構辦學手冊」top=`kg_operation_manual_2026` p78 + kg_admin_guide p1/p68）→ **S160 尾 Render deploy stuck 已自行 propagate 解決**。
+- **Completed（PLAN→READ→CHANGE→QC→PERSIST，HIGH-risk 已出 PLAN 待 Leonard 確認後執行）:**
+  - ✅ **Backend `annotateDocument.ts`（新）+ `/api/annotate-document`**：合併端點，input `{text, school_type?, domains?[]}`（domains 空→auto-detect）。重用 `analyzeDocument`（逐段 searchChannelB 指引比對）+ `checklistRevise`（embedding 清單 coverage gap），合成 flat `findings[]`：`{kind:guideline|checklist-gap, span（原文片段，client 用嚟就地定位）, status, note, suggestion, source}`。guideline 取每段 top match；checklist partial 取 best_excerpt 做 span、missing span=null（入附錄）。**零改 analyzeDocument/checklistRevise**（兩 live endpoint byte-identical 行為）；guideline+各域並發 `Promise.all`；單域失敗唔 sink 全體。server.ts route 喺 10/min limiter 後 + `MAX_TEXT_CHARS*4+4096` body cap（413）。
+  - ✅ **`checklistRevise.ts` +`detectRelevantDomains`（additive export）**：embed ≤40 doc segs + 14 域描述子（cn＋section names），max-cosine 排序、≥0.3 取 top-N。重用 bundle/dot/segmentText，零改現有 export。
+  - ✅ **Frontend `app.html`**：+JSZip 3.10.1 CDN；+`buildAnnotatedOriginalDocx(arrayBuffer, findings)`（**核心**：JSZip loadAsync 原 docx → 命中段每 run 加 `<w:highlight w:val="yellow"/>`〔w:highlight 喺 unbounded rPr choice group，位置 schema-safe〕+ 每 finding 包 commentRangeStart/End + commentReference run + 寫 `word/comments.xml`〔含 self-closed stub 分支〕+ `[Content_Types].xml` override + `document.xml.rels` relationship；未定位項入文末「文件標註附錄」）；+`AnnotatePanel`（合 Analyze+Review：上載/貼 + 校類 single + 範疇 multi-select／✨自動 + 就地報告〔📌就地標示 / ➕建議補充 兩組〕+ ⬇下載標註版原檔／下載建議清單）；+`buildAnnotateListDocx`（貼文字/PDF fallback）；VALID_VIEWS `analyze`+`review`→`annotate`、tab 合併成「📝 文件標註」、舊 hash redirect。
+  - ✅ **執行偏離 PLAN → 報告 + 修正（§3 CHANGE）**：首版 e2e 發現低 PARTIAL 門檻（0.42）令幾乎所有 item 標 partial → 150 cap 全被 partial 佔、missing 全 truncate（5 段文件變全文標註）。**改 findings builder**：partial 按相似度排序、每域 cap 12；missing 每域 cap 25；總 cap 120；ordering guideline→partial→missing。
+- **QC（全 PASS）:**
+  - backend `npm run check`（tsc）+ `build` exit 0（首次 interface-extends embeddingClient 型別衝突 → 改 type-alias intersection 解決）。
+  - **backend 真 OpenAI e2e（:8787）**：auto-detect（校園安全 doc → 學校安全+學生支援、74 findings=24 partial+50 missing、0 truncated）；explicit domain=conduct+secondary（auto=false、27 findings）；empty text→400；unknown domain→auto-fallback。（本機 Supabase unconfigured → guideline 路徑 degraded，留 onrender 驗。）
+  - **真 docx 端到端（browser preview 跑真 `buildAnnotatedOriginalDocx` on `dev/checklists/gifted/本校資優教育政策_學校版_小學_DRAFT.docx`）**：DOMParser document.xml + comments.xml well-formed；located 3/unlocated 2；commentReference id [0,1,2] == comment id [0,1,2]、comment body 非空；highlight 10；ct override + rels comments + 附錄齊。**捉到並修 self-closed `<w:comments/>` stub bug**（python-docx 自帶空 stub → `.replace('</w:comments>')` no-op → dangling refs → Word repair；加 self-closed 分支）。
+  - **browser-verify**：app.html Babel 0 err、tab=[平台介紹/政策搜尋/📝文件標註/政策範本/EDB指引]（舊兩 tab 移除）；panel render（校類 5 opt 含幼稚園、自動/自選範疇 toggle、開始標註）；stub-fetch 驅動 paste→開始標註→report render（📌就地標示〔2〕+➕建議補充〔1〕+雙下載 button+paste-mode 提示+2 details）；fallback `buildAnnotateListDocx` PK-valid 8297B well-formed；0 console error。
+  - **live e2e onrender（deploy 即時成功、無 S160 stuck）**：`/api/annotate-document` safety doc → ok/auto-detect 學校安全+學生支援/**3 guideline〔Supabase live、帶 LLM note〕**+24 partial+50 missing/0 truncated；CORS OPTIONS 204 + POST ACAO echo `https://policychecker.wongfu.net`；Pages app.html 13 feature markers live。
+- **Data note:** span↔段落用 `annNorm`（去空白+CJK/ASCII 標點）includes / spanNorm⊇paraNorm（merged 段）/ 20-char prefix probe 三重容錯；highlight 段落級（v1，碎 run/表格命中率待真檔驗，寧入附錄唔錯位）。
+- **Boundary:** 取代 2 個 live tab = 用戶可見（已 browser-verify + live e2e；Leonard 試用 sign-off 留反饋）。Supabase 15,109 未動（純前後端 feature、無入庫）。`AnalyzePanel`/`ReviewPanel`/`buildAnnotatedDocx`/`buildRevisedDocx` 變 dead code（保留、cleanup 列 follow-up；`REVISE_*` const 仍被新 panel 用）。
+- **Doc Sync:** matrix row「New user-facing feature」triggered → README（功能/tab）、CODEBASE_CONTEXT（Stack JSZip + Directory annotateDocument.ts + AI log）、SESSION_HANDOFF（baseline/priorities/risks/last-record）、SESSION_LOG（本條）已更；K1_API_SPEC N/A（無 static-JSON 契約變）；DOC_ANNOTATE_FEATURE_DESIGN.md 標 Phase 1 SHIPPED。
+- **commits:** `6885dbe`（文件標註 Phase 1：app.html + annotateDocument.ts + checklistRevise.ts + server.ts + spec）→ 收尾 gov（本條 + handoff + README + CODEBASE）。全 push origin/main。
+- **Log maintenance (§4a):** SESSION_LOG >400 行、`docs/qa/session_log_maintenance.py` 仍不存在（legacy，同 S157-160）。No-op：延續舊 session 處理，本 session 聚焦 feature，建 script 留獨立小任務（不阻 handoff）。
+- **Next Session Handoff Prompt:**
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net).
+Product state: HEAD == origin/main（已 push）。Supabase 15,109；Channel B live；0 outstanding bug。起手 verify HEAD==origin/main + Supabase 15,109。
+
+S161（全權自主）完成：「文件標註」合併主線 Phase 1 SHIPPED LIVE — 合併 文件分析+文件修訂 → 一個「📝 文件標註」tab：上載 .docx → 比對 EDB 指引 + 合規清單 gap → 原檔就地標註（保留格式 + 螢光 highlight + Word 批註 + 未能定位項入文末附錄）→ 下載。新 backend/src/api/annotateDocument.ts（重用 analyzeDocument + checklistRevise，零改）+ /api/annotate-document；checklistRevise.ts +detectRelevantDomains（auto-detect）；app.html +AnnotatePanel +buildAnnotatedOriginalDocx（JSZip 操作原 docx XML）+ JSZip CDN；舊 #analyze/#review → #annotate redirect。live e2e onrender PASS。
+
+NEXT（優先序，先等 Leonard 試用 Phase 1 反饋）：
+① 文件標註 Phase 2（PDF inline highlight，pdf-lib+pdf.js 座標）/ Phase 2.5（per-segment detectQueryCategory auto-detect 取代 multi-select）；重點睇真實學校 docx 段落↔XML mapping 命中率（v1 段落級 highlight，碎 run/表格多嘅檔可能多入附錄）+ partial/missing 門檻噪音。
+② dead code cleanup：AnalyzePanel/ReviewPanel/buildAnnotatedDocx/buildRevisedDocx 已無 render 引用；刪時保留 REVISE_SCHOOL_OPTS/REVISE_STATUS_META/REVISE_BACKEND_URL（新 AnnotatePanel 用）。
+③ #2 幼稚園清單 pilot（用 kg_admin_guide_2026 / kg_operation_manual_2026 起 KG checklist→docx→政策範本 manifest，似 14 域 pipeline）。
+④ #3 學校版 docx review（live，「政策範本」tab）。
+⑤ monitor：文件標註門檻 COVERED=0.50/PARTIAL=0.42 tunable / kg_admin「幼稚園質素」→qa_inspection / IMC 頁碼 / cgss rank 低 / 57014 free-tier。
+
+Key files（S161）：app.html（AnnotatePanel + buildAnnotatedOriginalDocx + buildAnnotateListDocx + tab merge + JSZip CDN）/ backend/src/api/annotateDocument.ts（新）/ checklistRevise.ts（+detectRelevantDomains）/ server.ts（+route）/ dev/DOC_ANNOTATE_FEATURE_DESIGN.md。
+⚠️ 紀律：起 backend 改動前確認 Render deploy（S161 已正常）；live INSERT 前 INSPECT；新源 SOURCE_SETS+registry+display-sync 7 點；改 docx/checklist re-run gen_templates_manifest.py + gen_checklists_bundle.py；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號。
+Post-startup first action: verify HEAD==origin/main + Supabase 15,109 + 探針 /api/annotate-document live（POST safety doc → 應有 guideline+checklist-gap findings），然後問 Leonard 文件標註 Phase 1 試用反饋 / 落手 Phase 2 定其他。
+```
+
+---
+
 ## 2026-06-14 Session 160 — 通宵自主：政策範本下載 tab + 文件修訂 feature（staged）+ KG 入庫 deferred
 
 - **ID:** Claude_20260614_S160 (S160)

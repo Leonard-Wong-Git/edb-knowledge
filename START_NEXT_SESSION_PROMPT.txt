@@ -5,21 +5,15 @@ Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (acti
 Current objective: EDB K1 知識平台 (policychecker.wongfu.net).
 Product state: HEAD == origin/main（已 push）。Supabase 15,109；Channel B live；0 outstanding bug。起手 verify HEAD==origin/main + Supabase 15,109。
 
-S160（通宵自主 + Leonard supervised，超長 session）完成：
-(1) P2 政策範本下載 tab + (2) P3 文件修訂 feature — LIVE。
-(3) #2 幼稚園 Phase 2 KG 入庫 — kg_admin_guide_2026 218 + kg_operation_manual_2026 217 = 435 chunks LIVE → Supabase 15,109；新 kg_admin route。
-(4) UX 修（Leonard 試用反饋）：📚「指引文件」→「EDB指引」rename + 上載後收抽取文字欄（文件分析+文件修訂兩 panel）— LIVE。
-(5) Leonard 拍板「文件標註」合併新功能 — spec 寫好 dev/DOC_ANNOTATE_FEATURE_DESIGN.md（待建）。
+S161（全權自主）完成：「文件標註」合併主線 Phase 1 SHIPPED LIVE — 合併 文件分析+文件修訂 → 一個「📝 文件標註」tab：上載 .docx → 比對 EDB 指引 + 合規清單 gap → 原檔就地標註（保留格式 + 螢光 highlight + Word 批註 + 未能定位項入文末附錄）→ 下載。新 backend/src/api/annotateDocument.ts（重用 analyzeDocument + checklistRevise，零改）+ /api/annotate-document；checklistRevise.ts +detectRelevantDomains（auto-detect）；app.html +AnnotatePanel +buildAnnotatedOriginalDocx（JSZip 操作原 docx XML）+ JSZip CDN；舊 #analyze/#review → #annotate redirect。live e2e onrender PASS。
 
-⚠️ RENDER DEPLOY ISSUE：S160 尾 Render backend deploy stuck（多次 push/~40min，kg_admin route 未 land；前端 Pages 正常）。Leonard 去 Render dashboard Manual Deploy。起手第一件：探針 curl -X POST onrender /api/search/channel-b query「學前機構辦學手冊」→ top 應 = kg_operation_manual_2026；若 top 係 curriculum 源 = route 仍未 deploy，叫 Leonard Render Manual Deploy（或睇 build log 貼出嚟）。
+NEXT（優先序，先等 Leonard 試用 Phase 1 反饋）：
+① 文件標註 Phase 2（PDF inline highlight，pdf-lib+pdf.js 座標）/ Phase 2.5（per-segment detectQueryCategory auto-detect 取代 multi-select）；重點睇真實學校 docx 段落↔XML mapping 命中率（v1 段落級 highlight，碎 run/表格多嘅檔可能多入附錄）+ partial/missing 門檻噪音。
+② dead code cleanup：AnalyzePanel/ReviewPanel/buildAnnotatedDocx/buildRevisedDocx 已無 render 引用；刪時保留 REVISE_SCHOOL_OPTS/REVISE_STATUS_META/REVISE_BACKEND_URL（新 AnnotatePanel 用）。
+③ #2 幼稚園清單 pilot（用 kg_admin_guide_2026 / kg_operation_manual_2026 起 KG checklist→docx→政策範本 manifest，似 14 域 pipeline）。
+④ #3 學校版 docx review（live，「政策範本」tab）。
+⑤ monitor：文件標註門檻 COVERED=0.50/PARTIAL=0.42 tunable / kg_admin「幼稚園質素」→qa_inspection / IMC 頁碼 / cgss rank 低 / 57014 free-tier。
 
-NEXT（優先序）：
-① 文件標註功能（NEW 主線，Leonard 拍板）：合併 文件分析+文件修訂 → 上載→標註原文(保留格式+highlight+建議)→下載。docx 行先、多範疇、PDF Phase 2。完整 spec = dev/DOC_ANNOTATE_FEATURE_DESIGN.md（核心 = JSZip 操作原 docx XML highlight+Word批註，抽取文字↔XML mapping fragile→真檔測試+fallback appendix；重用 analyzeDocument+checklistRevise 邏輯；需新 /api/annotate-document → 要 Render deploy work 先）。
-② #2 KG 收尾：verify kg_admin route live（Render deploy 後）+ 幼稚園清單 pilot（用新 2 源起 KG checklist→docx→入政策範本 manifest）。
-③ #3 學校版 docx review（live，由「政策範本」tab 下載）。
-④ monitor：kg_admin「幼稚園質素」→qa_inspection（minor）/ 文件修訂門檻 COVERED=0.50/PARTIAL=0.42 tunable / 57014 free-tier / IMC 頁碼 / cgss rank 低 / 等。
-
-Key files（S160）：app.html(+政策範本/文件修訂/EDB指引/收文字欄 tab) / backend checklistRevise.ts + searchChannelB.ts(+kg_admin) + server.ts(+2 route) / checklists_bundle.json / policy_templates.json / dev/source/source_registry.json / dev/vault/kg_*_2026/ / dev/{DOC_ANNOTATE_FEATURE_DESIGN,CHECKLIST_REVISE_FEATURE,SCHOOL_DOCX_DOWNLOAD_PLAN}.md。
-
-⚠️ 紀律：起 backend 改動前先確認 Render deploy work（S160 stuck）；live INSERT 前 INSPECT；新源 SOURCE_SETS+registry+display-sync 7 點 byte-identical；改 docx/checklist re-run gen_templates_manifest.py + gen_checklists_bundle.py 再 push；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號。
-Post-startup first action: verify HEAD==origin/main + Supabase 15,109 + 探針 kg_admin route deploy 狀態，然後問 Leonard：起「文件標註」主線 定先 KG 收尾。
+Key files（S161）：app.html（AnnotatePanel + buildAnnotatedOriginalDocx + buildAnnotateListDocx + tab merge + JSZip CDN）/ backend/src/api/annotateDocument.ts（新）/ checklistRevise.ts（+detectRelevantDomains）/ server.ts（+route）/ dev/DOC_ANNOTATE_FEATURE_DESIGN.md。
+⚠️ 紀律：起 backend 改動前確認 Render deploy（S161 已正常）；live INSERT 前 INSPECT；新源 SOURCE_SETS+registry+display-sync 7 點；改 docx/checklist re-run gen_templates_manifest.py + gen_checklists_bundle.py；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號。
+Post-startup first action: verify HEAD==origin/main + Supabase 15,109 + 探針 /api/annotate-document live（POST safety doc → 應有 guideline+checklist-gap findings），然後問 Leonard 文件標註 Phase 1 試用反饋 / 落手 Phase 2 定其他。
