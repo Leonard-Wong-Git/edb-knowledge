@@ -34,6 +34,7 @@ import {
   detectRelevantDomains,
   listChecklistDomains,
   type ChecklistReviseDependencies,
+  type SchoolType,
 } from "./checklistRevise.js";
 
 // ---------------------------------------------------------------------------
@@ -169,7 +170,10 @@ export async function annotateDocument(
   let domainKeys = requested.slice(0, MAX_DOMAINS);
   let autoDetected = false;
   if (domainKeys.length === 0) {
-    domainKeys = await detectRelevantDomains(text, deps, AUTO_DETECT_COUNT);
+    // S162 ①: pass the selected school type so auto-detect never picks a domain
+    // outside that type's scope (e.g. 小學 doc must not surface 幼稚園-only kg_operation).
+    const selType = normalizeSchoolType(input?.school_type) as SchoolType | undefined;
+    domainKeys = await detectRelevantDomains(text, deps, AUTO_DETECT_COUNT, selType);
     autoDetected = domainKeys.length > 0;
   }
 

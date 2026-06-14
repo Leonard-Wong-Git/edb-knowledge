@@ -18,7 +18,13 @@
 - **QC（全 PASS）:** backend `npm run check`+`build` exit 0（無 code 改、確認 bundle 唔破壞 build）；**真 OpenAI 本機 live e2e（:8787）**：`/api/checklist-domains`=15 域含 kg_operation(388)；`/api/checklist-revise` domain=kg_operation 出 covered/partial/missing；**`detectRelevantDomains` 真 KG 營運 doc auto-detect 淨「幼稚園營運」單域、零跨範疇**。**browser-verify（:8095）**：範本下載 tab、6 校類 filter（含幼稚園）、幼稚園 filter→只 kg_operation 卡+其幼稚園學校版 docx、intro「15 個範疇…幼稚園」、0 console error、screenshot 證。docx 4/4 well-formed。
 - **Data note:** chunk id `vault_<sid>_<hash>` = canonical chunker、同 live Supabase 一致（pilot 純 dev/checklists 內部交付物 + 前端 filter，**Supabase 15,109 零接觸、無入庫**）。
 - **Boundary:** 純前端 filter + 新 dev/checklists 交付物 + 根 checklists_bundle.json/policy_templates.json（公開 benign）。17 覆核 issues 中 16 軟性未修（DRAFT 草擬本、已 QC note 記錄、watermark「概以原文為準」）= follow-up。
-- **commits:** 見下 commit（feature）。
+- **commit ④:** `ec01e1b`（57 files；push origin/main）。
+- **Completed ①（跨校類 tagging — domain-level school-type filter，HIGH-risk 全權執行）:**
+  - **問題（S161 monitor）：** `okType` 對「無 school_types tag 嘅 clause」一律放行（untagged = applies-to-all），令型別專屬範疇（如 kg_operation 幼稚園專屬、kg_admission、placement 等，全部 item/clause 未逐條 tag）嘅條文喺用戶揀其他校類時照漏出。新增 kg_operation（全 untagged 幼稚園域）令此問題更明顯。
+  - **修法（domain-level scope fallback）：** `_school_type_profiles.json` 已有逐域 `applies_to`（SSOT）→ `gen_checklists_bundle.py` 新增 `domain_school_types()`，把非「全 4 類」嘅域 emit 一個 **domain-level `school_types`** 入 bundle（kg_operation/kg_admission→kindergarten、placement/gifted→primary+secondary、sen/cpd/qa/school_governance→primary+secondary+special；全 4 類則 omit=all 向後兼容）。backend `okType(st, sel, domainSt)` 改 precedence：item/clause 自身 tag 優先 → 否則用 domain-level → 否則 all。`detectRelevantDomains` 加 `sel?` 參數，揀咗校類時**唔會 auto-detect 範疇外嘅域**；`annotateDocument` 傳入正規化 school_type。
+  - **QC（真 OpenAI live e2e :8787，全 PASS）：** A) kg_operation+小學→**0 items**（正確排除）；B) kg_operation+幼稚園→full（5/26/189）；C) auto-detect KG doc+小學→揀「校務行政」（all-types）**唔揀 kg_operation**；D) +幼稚園→揀「幼稚園營運」。**Regression：** safety(all-types)+小學→42/38/89（未破）；kg_admission+小學→0（fix 一併生效）；省略 school_type+kg_operation→2/8/210（向後兼容）。tsc check+build exit 0。
+  - **Boundary ①：** 純 backend filter 收緊 + bundle 加 domain-level field（additive；無 school_types 嘅 clause 行為對「省略 school_type」不變）。一併修正咗既有 6 個型別專屬域（placement/gifted/sen/cpd/qa/school_governance）嘅同類洩漏。
+- **commits:** 見下（④ `ec01e1b` 已 push；① 隨後）。
 - **Log maintenance (§4a):** SESSION_LOG <400 行（S161 已 archive 至 180 行），本 session 加 1 entry < 400，no-op。
 
 ### Next Session Handoff Prompt (Verbatim)

@@ -13980,6 +13980,11 @@
      ],
      "si": 12
     }
+   ],
+   "school_types": [
+    "primary",
+    "secondary",
+    "special"
    ]
   },
   "student_support": {
@@ -19011,6 +19016,10 @@
      ],
      "si": 11
     }
+   ],
+   "school_types": [
+    "primary",
+    "secondary"
    ]
   },
   "cpd": {
@@ -20351,6 +20360,11 @@
      ],
      "si": 12
     }
+   ],
+   "school_types": [
+    "primary",
+    "secondary",
+    "special"
    ]
   },
   "hr_admin": {
@@ -25109,6 +25123,10 @@
      ],
      "si": 12
     }
+   ],
+   "school_types": [
+    "primary",
+    "secondary"
    ]
   },
   "qa_inspection": {
@@ -25899,6 +25917,11 @@
      ],
      "si": 12
     }
+   ],
+   "school_types": [
+    "primary",
+    "secondary",
+    "special"
    ]
   },
   "gov_admin": {
@@ -33104,6 +33127,11 @@
      ],
      "si": 12
     }
+   ],
+   "school_types": [
+    "primary",
+    "secondary",
+    "special"
    ]
   },
   "kg_admission": {
@@ -33863,6 +33891,9 @@
      ],
      "si": 11
     }
+   ],
+   "school_types": [
+    "kindergarten"
    ]
   },
   "kg_operation": {
@@ -37569,6 +37600,9 @@
      },
      "si": null
     }
+   ],
+   "school_types": [
+    "kindergarten"
    ]
   }
  }

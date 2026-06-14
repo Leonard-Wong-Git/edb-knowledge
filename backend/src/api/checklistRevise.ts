@@ -92,6 +92,11 @@ interface BundleDomain {
   src: Record<string, [string, string]>;
   sections: BundleSection[];
   clauses: BundleClause[];
+  /** Domain-level school-type scope (S162 ①). Absent = applies to all types.
+   *  Used as the fallback when an item/clause has no own school_types, so an
+   *  untagged requirement in a type-scoped domain (e.g. kg_operation = 幼稚園-only)
+   *  does NOT leak into other school types when the user picks one. */
+  school_types?: string[];
 }
 interface Bundle {
   domains: Record<string, BundleDomain>;
@@ -133,14 +138,19 @@ const AUTO_DETECT_THRESHOLD = 0.38;
 export async function detectRelevantDomains(
   text: string,
   deps: ChecklistReviseDependencies,
-  max = 2
+  max = 2,
+  sel?: SchoolType
 ): Promise<string[]> {
   if (typeof text !== "string" || !text.trim()) return [];
   const docSegs = segmentText(text).slice(0, AUTO_DETECT_SEGMENTS);
   if (docSegs.length === 0) return [];
 
   const b = loadBundle();
-  const domains = Object.values(b.domains);
+  // S162 ①: when a school type is selected, never auto-detect a domain that does
+  // not apply to it (e.g. a 小學 document must not surface the 幼稚園-only kg_operation).
+  const domains = Object.values(b.domains).filter(
+    (d) => !sel || !d.school_types || d.school_types.includes(sel)
+  );
   const descriptors = domains.map(
     (d) => `${d.cn}：${d.sections.slice(0, 8).map((s) => s.name).join("、")}`
   );
@@ -223,9 +233,19 @@ export interface ChecklistReviseDependencies {
 // Helpers
 // ---------------------------------------------------------------------------
 
-/** Absent / empty school_types means "applies to all types". */
-function okType(st: string[] | undefined, sel: SchoolType | undefined): boolean {
-  return !sel || !st || st.length === 0 || st.includes(sel);
+/** Whether an item/clause applies to the selected school type.
+ *  Precedence (S162 ①): the item/clause's own school_types wins; when it has none,
+ *  fall back to the DOMAIN's school_types; when neither is set, it applies to all.
+ *  This stops an untagged requirement in a type-scoped domain (e.g. kg_operation =
+ *  幼稚園-only) from leaking into other school types. */
+function okType(
+  st: string[] | undefined,
+  sel: SchoolType | undefined,
+  domainSt?: string[]
+): boolean {
+  if (!sel) return true;
+  const scope = st && st.length ? st : domainSt;
+  return !scope || scope.length === 0 || scope.includes(sel);
 }
 
 /** OpenAI embeddings are unit-normalized, so cosine === dot product. */
@@ -277,7 +297,7 @@ export async function checklistRevise(
   const flat: Flat[] = [];
   dom.sections.forEach((sec, si) => {
     sec.items.forEach((item, li) => {
-      if (okType(item.school_types, sel)) {
+      if (okType(item.school_types, sel, dom.school_types)) {
         flat.push({ sectionIdx: si, sectionName: sec.name, localIdx: li, item });
       }
     });
@@ -322,7 +342,7 @@ export async function checklistRevise(
             c.si === f.sectionIdx + 1 &&
             Array.isArray(c.covers) &&
             c.covers.includes(f.localIdx) &&
-            okType(c.school_types, sel)
+            okType(c.school_types, sel, dom.school_types)
         )
         .map((c) => c.text)
         .join("\n");
