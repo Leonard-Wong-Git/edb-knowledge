@@ -2,6 +2,51 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-14 Session 163 — ABC：核 KG QC（+修 S162 schema bug）+ 文件標註 Phase 2.5（per-segment）+ 平台 v3.0 改版 + 文件標註 Phase 2（PDF inline highlight）
+
+- **ID:** Claude_20260614_S163 (S163)
+- **Trigger:** 開工切 Draft active root。起手核實全綠（HEAD `8f18f5a`==origin/main、Supabase **15,109**、`/api/checklist-domains`=15 域含 kg_operation、範本下載 live 見幼稚園營運卡）。Leonard：「ABC」= 做晒 3 個 NEXT（C 核 KG QC / A Phase 2.5 / B Phase 2）+「平台簡介及首頁、version number 應該都在改變中，規劃一下」；全權自主、慳 token、中斷則 22:40 續。排序 C→A→版本/首頁→B（有界先、最重 B 留尾、每件獨立 commit）。
+- **C — 核 KG QC（`ef43517`）:**
+  - `dev/checklists/kg_operation/QC_VERIFY_ISSUES.md` 17 flags 全修：`_qc_fix.py`（exact-match + assert，全通過）刪虛構鋪墊／目的句（ch1 木地板、ch2 洗手間框架、ch5×3、ch13 註冊費 carve-out、ch15 廉潔問責、ch9 指派專人、ch6 註冊醫生/每日/方可入班）、補漏義務（ch6 體溫移回 covering clause、ch13 廉署守則範本+調查完結後匯報、ch9 還原留宿/獨立中心適用主體）、移除錯引用（ch6 p47）。
+  - **深挖揭發並修 S162 結構 bug：** kg_operation/clauses.json 用非標準 schema `section_no/name`，而 14 既有域 + `gen_school_docx.js`/`gen_checklist_docx.js` + backend `checklistRevise` 全期望 canonical `si/section_name`。後果：(1) `gen_checklists_bundle.py` 讀 `ch.si`→`None` 令 backend supplement linkage（`c.si===f.sectionIdx+1 && covers.includes(localIdx)`）對 kg_operation **全失效**（offline 模擬：修前 0/388、修後 **388/388** items 拎到 clause）；(2) `gen_school_docx.js` 讀 `SECNAMES[ch.si-1]`→undefined → 學校版 docx **20 章名全空**（似 S159 undefined bug）。正規化 schema、重生 4 docx（章名齊）+ bundle（si=1–20）+ manifest。
+- **A — 文件標註 Phase 2.5（`d71ae1e`）:** `checklistRevise.ts` +`detectDomainsPerSegment`（per-segment argmax 路由：每段路由其單一最佳域，域以 segment 勝數入選——top ≥1、secondary ≥`SECONDARY_MIN_SEGMENTS=2`）；`annotateDocument.ts` 改用之、`AUTO_DETECT_MAX_DOMAINS=3`（原硬 1）。`detectRelevantDomains` 保留（unused）。真 OpenAI e2e（直接調 detector）：maths→curriculum 單域（**legacy whole-doc 誤判 qa_inspection**）、SEN+gifted doc→兩域、primary scoping 排除 kg_operation、empty→[]。前端 `report.domains.map` 已支援多域，零 UI 改。tsc/build PASS；Render 部署後驗 SEN doc→['sen'] 21 findings。
+- **版本+首頁+平台介紹（`f510ee8`）:** Leonard 要求改版號＋首頁＋平台簡介。**決定：decouple** user-facing `PLATFORM_VERSION='3.0.0'`（app.html 常數）與凍結 `knowledge.json` `_meta.version`（維持 2.3.0，455-fact Channel A 凍結+下游 Circular System 合約不動）。v3.0 標誌平台由純搜尋→完整合規套件。app.html 平台介紹 channels 改 5 卡（政策語義搜尋/文件標註/範本下載/指引文件庫/通告分析）+ hero 文案 + 版本徽章用常數；index.html +文件標註+範本下載 feature 卡 + v3.0 eyebrow + hero broaden + meta；CHANGELOG v3.0.0 平台 entry。browser-verify：index static 6/6、app desktop 5 卡+v3.0.0 徽章+0 console err（desktop PlatformIntroPanel 喺 DOM，preview innerWidth=0 只係疊咗 mobile CSS）。
+- **B — 文件標註 Phase 2 PDF inline highlight（`7289380`）:** +pdf-lib 1.17.1 CDN；`extractPdf` 改返 `{text, pages}`（per-page pdf.js text-item 座標，PDF user space 原點左下=同 pdf-lib，無旋轉頁免 viewport transform；text 餵 backend 不變）；handleFile 為 PDF 都設 fileBuffer+pdfPages。新 `buildAnnotatedPdf`：whitespace-insensitive char→item map 定位 span → 每行一條黃色 highlight rect + 編號 marker（Helvetica ASCII）+ CJK sticky-note 批註（`PDFHexString.fromText` UTF-16BE，**免嵌 ~10MB CJK 字型**——viewer 用自己 UI font render /Contents）；missing 項（無 span）留 on-screen/清單。`handleDownloadOriginal` branch docx/pdf；button label + hint 改。**in-browser pipeline e2e**（合成 PDF→pdf.js 抽座標→buildAnnotatedPdf 核心）：span 定位✓、highlight box✓、annotation API✓、save valid PDF✓、round-trip `contentsObj.str`=CJK✓、0 console err。CJK 在 PDF 行不通（無嵌字型）→ note 全文喺 sticky-note + on-screen report + 建議清單。
+- **QC（全 PASS）:** backend tsc check+build exit 0（×2）；真 OpenAI Phase 2.5 detection e2e（4 案）；in-browser pdf-lib pipeline e2e；browser-verify（index static + app desktop 5 卡 + 0 err）；KG supplement linkage 388/388 offline 模擬 + 9 clause text fix assert；docx 4/4 章名齊；**live 探針全綠**（Pages app.html v3.0.0+buildAnnotatedPdf+pdf-lib、index.html v3.0+2 卡、Render /api/annotate-document SEN→['sen']）。
+- **Boundary:** 純前後端 feature + dev/checklists 修正 + 公開 root JSON 重生。**Supabase 15,109 零接觸**。平台版號 decouple = 自主決定（reversible，Leonard 可調 PLATFORM_VERSION）。
+- **Doc Sync:** New user-facing feature/version → README（pending：可補 v3.0/PDF highlight）、CODEBASE_CONTEXT（Stack +pdf-lib、annotateDocument/checklistRevise +detectDomainsPerSegment、AI log）、CHANGELOG（v3.0.0）、SESSION_HANDOFF/LOG 已更；checklists_bundle.json/policy_templates.json 已 regen。
+- **commits（全 push origin/main）:** `ef43517`(C)→`d71ae1e`(A)→`f510ee8`(版本/首頁/平台介紹)→`7289380`(B)→ closeout gov。
+- **Log maintenance (§4a):** SESSION_LOG 242 行（<400），本 session 加 1 entry，no-op。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.0.0。
+Product state: HEAD == origin/main（已 push，7289380）。Supabase 15,109；Channel B live；Pages+Render live 全綠；0 outstanding bug。起手 verify HEAD==origin/main + Supabase 15,109。
+
+S163（Leonard「ABC」全權自主）完成 4 項全 push + live 驗：
+C 核 KG QC（ef43517）：QC_VERIFY_ISSUES 17 flags 全修（_qc_fix.py）+ 揭發並修 S162 結構 bug（kg_operation/clauses.json 非標準 section_no/name → canonical si/section_name：修 backend supplement linkage 388/388 由失效恢復 + 學校版 docx 章節名空白）。
+A 文件標註 Phase 2.5（d71ae1e）：detectDomainsPerSegment（per-segment argmax 路由，top≥1/secondary≥2，AUTO_DETECT_MAX_DOMAINS=3）取代 whole-doc detect；多範疇文件各段路由其域、單範疇仍 1 域、比 legacy 更準。Render 驗 SEN→['sen']。
+版本/首頁/平台介紹（f510ee8）：PLATFORM_VERSION='3.0.0' decouple（凍結 knowledge _meta.version 2.3.0 不動）；app.html 平台介紹 5 channels + index.html +文件標註+範本下載 卡 + v3.0 eyebrow + CHANGELOG v3.0.0。
+B 文件標註 Phase 2 PDF inline highlight（7289380）：+pdf-lib 1.17.1；extractPdf 抽座標；buildAnnotatedPdf 原 PDF 就地螢光 rect+編號 marker+CJK sticky-note（UTF-16BE PDFHexString.fromText，免嵌字型）；download branch docx/pdf。in-browser pipeline 驗全綠。
+
+NEXT（優先序，多數待 Leonard）：
+① Phase 2 PDF highlight 真檔驗：合成 PDF 已驗，建議上載真 EDB／學校 PDF 試對位 + 多 viewer（Acrobat/Preview/Chrome）CJK sticky-note 顯示。座標假設無頁面旋轉（rotation 存未補償）、碎 run／表格命中率 = monitor。
+② Leonard review：v3.0 版本方案（PLATFORM_VERSION decouple，可調）/ KG QC DRAFT 最終核（QC_VERIFY_ISSUES 17 已修）/ #3 學校版 102 docx（範本下載 tab）。
+③ Phase 2.5 多範疇 UX monitor：auto 由 1→≤3 域，真檔觀察會否過多域（SECONDARY_MIN_SEGMENTS=2 / AUTO_DETECT_MAX_DOMAINS=3 tunable）。
+④ monitor：門檻 COVERED=0.50/PARTIAL=0.42/AUTO_DETECT=0.38/auto missing cap 8 / kg_admin「幼稚園質素」→qa_inspection / 57014 free-tier / cgss rank 低。
+
+Key files（S163）：backend/src/api/{checklistRevise.ts(+detectDomainsPerSegment), annotateDocument.ts(用之, AUTO_DETECT_MAX_DOMAINS=3)} / app.html(+PLATFORM_VERSION 3.0.0, 平台介紹 5 channels, +buildAnnotatedPdf, extractPdf 抽座標, fileBuffer/download branch docx/pdf, +pdf-lib CDN) / index.html(+文件標註+範本下載 卡, v3.0) / CHANGELOG.md(v3.0.0) / dev/checklists/_work/kg_operation/clauses.json(si/section_name 正規化+17 fix, _qc_fix.py) / dev/checklists/kg_operation/(4 docx 重生 + QC_VERIFY_ISSUES.md) / checklists_bundle.json + policy_templates.json(重生).
+⚠️ 紀律：起 backend 改動前確認 Render deploy；live INSERT 前 INSPECT；新源 SOURCE_SETS+registry+display-sync 7 點；改 docx/checklist re-run gen_checklists_bundle.py + gen_templates_manifest.py（kg_operation 用 si/section_name canonical schema）；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；本機 shell set -e（grep -c 0 會中斷，用 python 數）。
+Post-startup first action: verify HEAD==origin/main + Supabase 15,109 + 探針 onrender /api/annotate-document healthy + Pages app.html 見 v3.0.0，然後問 Leonard 起邊個 NEXT（建議 ① Phase 2 真檔驗 或 ② KG QC 最終核）。
+```
+
+---
+
 ## 2026-06-14 Session 162 — 幼稚園清單 pilot：新 kg_operation 範疇行勻 14-域 pipeline（distill→verify→rewrite→docx→manifest）
 
 - **ID:** Claude_20260614_S162 (S162)
