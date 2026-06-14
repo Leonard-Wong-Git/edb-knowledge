@@ -40,12 +40,23 @@ const BUNDLE_PATH = path.resolve(CURRENT_DIR, "../../../checklists_bundle.json")
 export const MAX_TEXT_CHARS = 60_000;
 /** Doc segments embedded for coverage breadth. */
 const MAX_DOC_SEGMENTS = 150;
-/** Checklist items scored/returned per request (large domains are truncated, flagged). */
-const MAX_ITEMS = 220;
+/** Checklist items scored/returned per request (large domains are truncated, flagged).
+ *  S163 P3: raised 220→400 so the largest domain (kg_operation, 388 items) is fully
+ *  scored instead of silently truncating its later chapters. */
+const MAX_ITEMS = 400;
 /** max-cosine >= this → "covered"; tunable (text-embedding-3-small, zh policy text). */
 const COVERED_THRESHOLD = 0.5;
 /** max-cosine in [PARTIAL, COVERED) → "partial"; below → "missing". */
 const PARTIAL_THRESHOLD = 0.42;
+/** S163 P3 lexical gate: text-embedding-3-small scores ANY two same-register zh policy
+ *  sentences ~0.42–0.5 cosine even when topically unrelated, so a 1-sentence input was
+ *  marked as "covering" dozens of unrelated requirements (teacher appointment letters,
+ *  registration fees…). On top of cosine we require ≥1 shared INFORMATIVE CJK bigram
+ *  between the requirement and its best-matching segment; "informative" = appearing in
+ *  ≤ this fraction of the domain's items (ubiquitous boilerplate like 本校/幼稚園/須 is
+ *  self-calibrated out). No shared informative term → demote to "missing" (avoids false
+ *  high-confidence coverage while preserving traceability for genuine matches). */
+const STOPWORD_DF_FRACTION = 0.25;
 /** Best-matching doc excerpt length echoed per item. */
 const EXCERPT_CHARS = 160;
 /** Suggested supplement clause length cap per item. */
@@ -332,6 +343,15 @@ function dot(a: number[], b: number[]): number {
   return s;
 }
 
+/** CJK character bigrams of a string (2-char sliding window over Han chars only).
+ *  Used by the S163 P3 lexical-overlap gate. Exported for regression. */
+export function cjkBigrams(s: string): string[] {
+  const cjk = (s || "").replace(/[^一-鿿]/g, "");
+  const out: string[] = [];
+  for (let i = 0; i + 1 < cjk.length; i++) out.push(cjk.slice(i, i + 2));
+  return out;
+}
+
 // ---------------------------------------------------------------------------
 // Handler
 // ---------------------------------------------------------------------------
@@ -389,6 +409,20 @@ export async function checklistRevise(
   const docEmb = all.slice(0, docSegs.length);
   const itemEmb = all.slice(docSegs.length);
 
+  // S163 P3 lexical-overlap gate setup. Per-item informative CJK bigrams + per-segment
+  // bigram sets. A bigram is "informative" if it appears in ≤ STOPWORD_DF_FRACTION of the
+  // scored items — ubiquitous boilerplate (本校/幼稚園/須…) is self-calibrated out so it
+  // can't manufacture overlap.
+  const itemBigramSets = scored.map((f) => new Set(cjkBigrams(f.item.req)));
+  const dfCap = Math.max(2, Math.ceil(scored.length * STOPWORD_DF_FRACTION));
+  const bigramDf = new Map<string, number>();
+  for (const set of itemBigramSets) {
+    for (const bg of set) bigramDf.set(bg, (bigramDf.get(bg) ?? 0) + 1);
+  }
+  const isInformative = (bg: string) => (bigramDf.get(bg) ?? 0) <= dfCap;
+  const itemInfoBigrams = itemBigramSets.map((set) => [...set].filter(isInformative));
+  const segBigramSets = docSegs.map((seg) => new Set(cjkBigrams(seg)));
+
   const results: ReviseItem[] = scored.map((f, k) => {
     const e = itemEmb[k];
     let best = -1;
@@ -400,8 +434,27 @@ export async function checklistRevise(
         bestIdx = d;
       }
     }
-    const status: CoverageStatus =
+    let status: CoverageStatus =
       best >= COVERED_THRESHOLD ? "covered" : best >= PARTIAL_THRESHOLD ? "partial" : "missing";
+    // Graded lexical-overlap gate (S163 P3). A high cosine over same-register policy text
+    // is not enough — grade by how many INFORMATIVE terms the requirement shares with its
+    // best-matching segment: 0 → "missing" (no real topical link), 1 → at most "partial"
+    // (a single shared word is weak evidence, never a confident "covered"), ≥2 → keep the
+    // cosine verdict. Skipped only when the requirement is all-boilerplate (no informative
+    // bigrams) so genuine matches aren't over-penalised. This is what stops a 1-sentence
+    // input from being scored as "covering" dozens of unrelated requirements.
+    if (status !== "missing" && itemInfoBigrams[k].length > 0) {
+      const segSet = segBigramSets[bestIdx];
+      let overlap = 0;
+      for (const bg of itemInfoBigrams[k]) {
+        if (segSet.has(bg)) {
+          overlap++;
+          if (overlap >= 2) break;
+        }
+      }
+      if (overlap === 0) status = "missing";
+      else if (overlap < 2 && status === "covered") status = "partial";
+    }
     const out: ReviseItem = {
       section: f.sectionName,
       req: f.item.req,

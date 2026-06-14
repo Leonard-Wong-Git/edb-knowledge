@@ -456,7 +456,11 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // terms; 資賦 catches 資賦優異, 資優 catches 資優教育/校本資優/資優學生.
   gifted: /資優|資賦|天才教育|拔尖保底|gifted/i,
   // S160: KG administration/operation — MUST precede curriculum (which matches bare 幼稚園).
-  kg_admin: /幼稚園行政|幼稚園.{0,4}行政|辦學手冊|學前機構|幼稚園.{0,4}辦學|幼稚園.{0,4}營辦|開辦幼稚園|幼稚園牌照|幼稚園.{0,4}人事|幼稚園.{0,4}財務|幼稚園.{0,4}管理|幼稚園.{0,4}質素|幼稚園教育計劃|幼教計劃|免費優質幼稚園|幼稚園.{0,4}周年/,
+  // S163 P2: +營運/運作/營運手冊 + 學前機構辦學手冊 health/record operation terms so the
+  // natural query「幼稚園營運 手冊 健康紀錄」routes here (was falling through to curriculum →
+  // g26 收生指引 only). None of these match the earlier kg_admission regex (收生/入學/學費),
+  // so kg_admission queries are unaffected.
+  kg_admin: /幼稚園行政|幼稚園.{0,4}行政|辦學手冊|營運手冊|學前機構|幼稚園.{0,4}辦學|幼稚園.{0,4}營辦|幼稚園.{0,4}營運|幼稚園.{0,4}運作|開辦幼稚園|幼稚園牌照|幼稚園.{0,4}人事|幼稚園.{0,4}財務|幼稚園.{0,4}管理|幼稚園.{0,4}質素|幼稚園.{0,4}健康紀錄|幼稚園.{0,4}健康記錄|幼稚園教育計劃|幼教計劃|免費優質幼稚園|幼稚園.{0,4}周年/,
   curriculum: /課程|科目|教學|學習目標|評估|教材|課程發展|學習領域|教師發展|CPD|專業發展|英文科|中文科|數學科|常識科|科學科|體育科|音樂科|視藝科|小學課程|中學課程|課程指引|學習成果|評核|幼稚園|幼兒|學前|K1|K2|K3|遊戲學習/,
 };
 
@@ -465,7 +469,7 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
  * Returns the category key (matching SOURCE_SETS) or null if none detected.
  * Finance takes precedence over HR to avoid overlap (e.g. "薪酬採購").
  */
-function detectQueryCategory(query: string): string | null {
+export function detectQueryCategory(query: string): string | null {
   for (const [category, pattern] of Object.entries(TOPIC_KEYWORDS)) {
     if (pattern.test(query)) return category;
   }
