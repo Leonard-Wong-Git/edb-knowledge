@@ -35,7 +35,28 @@
 ### Next Session Handoff Prompt (Verbatim)
 
 ```text
-（暫定，closeout 時更新）
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net).
+Product state: HEAD == origin/main（已 push）。Supabase 15,109；Channel B live；0 outstanding bug。起手 verify HEAD==origin/main + Supabase 15,109。
+
+S162（全權自主，4123 排序）完成 ④①②，③ 留低：
+④ 幼稚園清單 pilot — 新範疇 kg_operation（幼稚園營運，388 items/162 clauses/20 章；源 kg_operation_manual_2026+kg_admin_guide_2026）行勻 14-域 pipeline（chunk→distill Workflow→mech-verify→章節整合→rewrite Workflow）→ 15 域；4 docx（學校版+清單 × 通用/幼稚園）入「範本下載」（106 docx）；app.html +幼稚園 filter；backend 零 code 改（bundle-driven，detectRelevantDomains/checklist-domains 自動拎新域）。
+① 跨校類 filter — bundle 加 domain-level school_types（由 _school_type_profiles.json applies_to）+ backend okType precedence（clause→domain→all）+ detectRelevantDomains 加 sel；untagged clause 唔再跨校類漏（一併修 placement/gifted/sen/cpd/qa/school_governance/kg_admission 6 既有域）。
+② dead-code — 刪 AnalyzePanel/ReviewPanel/buildAnnotatedDocx/buildRevisedDocx（app.html 4345→3715）。
+commits ec01e1b(④)→5dde30f(①)→51b6df2(②)+gov 全 push；Supabase 15,109 零接觸。
+
+NEXT（優先序）：
+① ③ 文件標註 Phase 2 / 2.5（4123 餘下，大 feature）：Phase 2 = PDF inline highlight（pdf-lib + pdf.js 座標，難）；Phase 2.5 = per-segment detectQueryCategory 自動偵測範疇。重用 annotateDocument/analyzeDocument。
+② KG pilot 收尾：Leonard 核 dev/checklists/kg_operation/QC_VERIFY_ISSUES.md（16 軟性 fabricated/distorted-number 覆核待辦；已修法團校董會→校董會、13/20 章覆核清）+ 部署後 live 驗「範本下載」見幼稚園營運卡 + /api/checklist-domains 含 kg_operation。
+③ #3 學校版分校類 docx review（monitor，live，「範本下載」tab）。
+④ monitor：kg_admin「幼稚園質素」→qa_inspection / 文件標註門檻 COVERED=0.50/PARTIAL=0.42 + AUTO_DETECT_THRESHOLD=0.38 + auto missing cap 8 tunable / 57014 free-tier / cgss rank 低。
+
+Key files（S162）：dev/checklists/_work/{pipeline.py(+kg_operation/batch_kg), gen_checklists_bundle.py(+domain school_types from profiles), gen_templates_manifest.py(+幼稚園 type), _build_kg_chunks.py/_remap_kg_sections.py/_regen_md.py(new), flow_distill_batch_kg.js/flow_rewrite_batch_kg.js, kg_operation/(checklist.json/clauses.json/ch_*/buckets)} / dev/checklists/kg_operation/(4 docx + DRAFT md + QC_VERIFY_ISSUES.md) / dev/checklists/_school_type_profiles.json(+kg_operation) / checklists_bundle.json(15 域+domain school_types) / policy_templates.json(106) / backend/src/api/{checklistRevise.ts(okType domain fallback + detectRelevantDomains sel + domain school_types), annotateDocument.ts(pass selType)} / app.html(+幼稚園 filter, −AnalyzePanel/ReviewPanel).
+⚠️ 紀律：起 backend 改動前確認 Render deploy；live INSERT 前 INSPECT；新源 SOURCE_SETS+registry+display-sync 7 點；改 docx/checklist re-run gen_templates_manifest.py + gen_checklists_bundle.py；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；本機 shell set -e（grep -c 0 會中斷，用 python 數）。
+Post-startup first action: verify HEAD==origin/main + Supabase 15,109 + 探針 onrender /api/checklist-domains 含 kg_operation（Render 部署後）+ 範本下載 live 見幼稚園營運卡，然後問 Leonard 起 ③ 文件標註 Phase 2 定先核 KG pilot QC_VERIFY_ISSUES。
 ```
 
 ---
