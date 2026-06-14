@@ -12,6 +12,10 @@ import {
   listChecklistDomains,
   type ChecklistReviseRequest,
 } from "./api/checklistRevise.js";
+import {
+  annotateDocument,
+  type AnnotateDocumentRequest,
+} from "./api/annotateDocument.js";
 import { searchChannelA, type SearchChannelARequest } from "./api/searchChannelA.js";
 import { searchChannelB, type SearchChannelBRequest } from "./api/searchChannelB.js";
 import { searchCombined, type SearchCombinedRequest } from "./api/searchCombined.js";
@@ -217,6 +221,30 @@ const server = createServer(async (req, res) => {
     try {
       const input = await readJsonBody<ChecklistReviseRequest>(req, MAX_TEXT_CHARS * 4 + 4096);
       const result = await checklistRevise(input, { embeddingClient });
+
+      setCorsHeaders(req, res);
+      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify(result));
+      return;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      setCorsHeaders(req, res);
+      const status = message === "PAYLOAD_TOO_LARGE" ? 413 : 400;
+      res.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({
+        error: status === 413 ? "上載內容過大，請分批處理。" : message,
+      }));
+      return;
+    }
+  }
+
+  // ── 文件標註: merged guideline-match + checklist-gap, returns findings[] the
+  // client uses to highlight + comment the ORIGINAL docx in place ──
+  // Same body cap + rate limiter as 文件分析/文件修訂.
+  if (req.method === "POST" && req.url === "/api/annotate-document") {
+    try {
+      const input = await readJsonBody<AnnotateDocumentRequest>(req, MAX_TEXT_CHARS * 4 + 4096);
+      const result = await annotateDocument(input, { embeddingClient, llmClient });
 
       setCorsHeaders(req, res);
       res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });

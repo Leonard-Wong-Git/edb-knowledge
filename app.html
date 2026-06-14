@@ -29,10 +29,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
-<!-- 文件分析 client-side: pdf.js 3.x (UMD; 4.x ESM-only) + mammoth (docx 抽取) + docx 8.x (UMD, 標註版生成). deferred — runtime-guarded in AnalyzePanel -->
+<!-- 文件分析/標註 client-side: pdf.js 3.x (UMD; 4.x ESM-only) + mammoth (docx 抽取) + docx 8.x (UMD, 重砌標註版) + JSZip 3.x (原 docx XML 就地標註). deferred — runtime-guarded in panels -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════════
@@ -3521,14 +3522,617 @@ function ReviewPanel() {
   );
 }
 
+// ── 文件標註 Panel (合併 文件分析 + 文件修訂) ──
+// Upload a .docx → match EDB guidelines per paragraph + scan compliance-checklist
+// gaps → return the ORIGINAL file with in-place yellow highlights + Word comments
+// (format preserved) plus a "建議補充" appendix for items not locatable in the text.
+const ANNOTATE_BACKEND_URL = (typeof location !== 'undefined' && location.hostname === 'localhost')
+  ? 'http://localhost:8787' : 'https://edb-knowledge.onrender.com';
+const ANNOTATE_SCHOOL_LABELS = { primary: '小學', secondary: '中學', special: '特殊學校', kindergarten: '幼稚園' };
+
+// XML-escape for text injected into the docx parts.
+function xmlEsc(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+}
+// Normalize for span↔paragraph matching: drop whitespace + common CJK/ASCII punctuation.
+function annNorm(s) {
+  return String(s || '').replace(/\s+/g, '').replace(/[，。、；：．（）()\[\]【】「」『』·・…—\-_/]/g, '');
+}
+function annParaMatches(paraNorm, spanNorm) {
+  if (spanNorm.length < 8 || paraNorm.length < 4) return false;
+  if (paraNorm.indexOf(spanNorm) !== -1) return true;             // span ⊆ paragraph (split case)
+  if (spanNorm.indexOf(paraNorm) !== -1 && paraNorm.length >= 12) return true; // paragraph ⊆ span (merged case)
+  const probe = spanNorm.slice(0, 20);                            // tolerant prefix probe
+  return probe.length >= 12 && paraNorm.indexOf(probe) !== -1;
+}
+// Plain text of a <w:p>…</w:p> XML fragment (concatenated <w:t> contents, entities decoded).
+function paraPlainText(paraXml) {
+  let out = '';
+  const re = /<w:t\b[^>]*>([\s\S]*?)<\/w:t>/g;
+  let m;
+  while ((m = re.exec(paraXml)) !== null) out += m[1];
+  return out.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, '&');
+}
+// Build the comment body text for a finding.
+function findingCommentText(f) {
+  const parts = [];
+  if (f.kind === 'guideline') {
+    parts.push('【相關 EDB 指引】' + (f.note || ''));
+    if (f.source && f.source.title) parts.push('來源：《' + f.source.title + '》' + (f.source.page ? '（第' + f.source.page + '頁）' : ''));
+  } else {
+    const st = f.status === 'partial' ? '部分涵蓋' : '未涵蓋';
+    parts.push('【' + (f.domain_cn || '清單') + '·' + st + '】' + (f.note || ''));
+    if (f.suggestion) parts.push('建議標準條文：' + f.suggestion);
+    if (f.source && f.source.title) parts.push('來源：《' + f.source.title + '》' + (f.source.page ? '（第' + f.source.page + '頁）' : ''));
+  }
+  return parts.join('\n');
+}
+
+// Annotate the ORIGINAL .docx in place. Returns { blob, located, unlocated }.
+async function buildAnnotatedOriginalDocx(arrayBuffer, findings, meta) {
+  const JSZip = window.JSZip;
+  if (!JSZip) throw new Error('標註元件 (JSZip) 尚未載入，請重新整理頁面再試。');
+  const zip = await JSZip.loadAsync(arrayBuffer);
+  const docFile = zip.file('word/document.xml');
+  if (!docFile) throw new Error('此 .docx 結構不支援就地標註（找不到 document.xml）。');
+  let xml = await docFile.async('string');
+
+  const HL = '<w:highlight w:val="yellow"/>';
+  const wp = /<w:p\b(?:\s[^>]*)?>[\s\S]*?<\/w:p>/g;
+
+  // Pass 1 — index every body paragraph's normalized text (same regex/order as pass 2).
+  const paraNorms = [];
+  let pm;
+  while ((pm = wp.exec(xml)) !== null) paraNorms.push(annNorm(paraPlainText(pm[0])));
+
+  // Assign each span-bearing finding to the first paragraph it matches; the rest
+  // (missing items + unlocated spans) go to the appendix (failure decoupled — we
+  // never mis-highlight; we append instead).
+  const byPara = new Map();   // paraIndex -> [finding,…]
+  const unlocated = [];
+  for (const f of findings) {
+    if (!f.span) { unlocated.push(f); continue; }
+    const sNorm = annNorm(f.span);
+    let hit = -1;
+    for (let i = 0; i < paraNorms.length; i++) {
+      if (annParaMatches(paraNorms[i], sNorm)) { hit = i; break; }
+    }
+    if (hit === -1) { unlocated.push(f); continue; }
+    if (!byPara.has(hit)) byPara.set(hit, []);
+    byPara.get(hit).push(f);
+  }
+
+  // Comment id space (respect any comments already in the file).
+  let nextId = 0;
+  const existingComments = zip.file('word/comments.xml');
+  let existingCommentsXml = existingComments ? await existingComments.async('string') : null;
+  if (existingCommentsXml) {
+    let cm; const idRe = /w:id="(\d+)"/g;
+    while ((cm = idRe.exec(existingCommentsXml)) !== null) nextId = Math.max(nextId, parseInt(cm[1], 10) + 1);
+  }
+  const commentXmlParts = [];
+  const nowIso = new Date().toISOString().replace(/\.\d+Z$/, 'Z');
+
+  function highlightRuns(paraXml) {
+    // Add a yellow highlight to every run (w:highlight is in the unbounded rPr
+    // choice group, so position within rPr is schema-valid).
+    return paraXml.replace(/<w:r(\s[^>]*)?>([\s\S]*?)<\/w:r>/g, (full, attrs, inner) => {
+      attrs = attrs || '';
+      let ni;
+      if (/^<w:rPr>/.test(inner)) ni = inner.replace('<w:rPr>', '<w:rPr>' + HL);
+      else if (/^<w:rPr\/>/.test(inner)) ni = inner.replace('<w:rPr/>', '<w:rPr>' + HL + '</w:rPr>');
+      else ni = '<w:rPr>' + HL + '</w:rPr>' + inner;
+      return '<w:r' + attrs + '>' + ni + '</w:r>';
+    });
+  }
+
+  // Pass 2 — rewrite matched paragraphs: highlight + comment range(s).
+  let located = 0;
+  let pIndex = -1;
+  xml = xml.replace(wp, (paraXml) => {
+    pIndex++;
+    const here = byPara.get(pIndex);
+    if (!here || !here.length) return paraXml;
+    let p = highlightRuns(paraXml);
+    const starts = [];
+    const ends = [];
+    for (const f of here) {
+      const id = nextId++;
+      located++;
+      starts.push('<w:commentRangeStart w:id="' + id + '"/>');
+      ends.push('<w:commentRangeEnd w:id="' + id + '"/><w:r><w:rPr><w:rStyle w:val="CommentReference"/></w:rPr><w:commentReference w:id="' + id + '"/></w:r>');
+      const lines = findingCommentText(f).split('\n').filter(Boolean);
+      const body = lines.map(function (ln) { return '<w:p><w:r><w:t xml:space="preserve">' + xmlEsc(ln) + '</w:t></w:r></w:p>'; }).join('');
+      commentXmlParts.push('<w:comment w:id="' + id + '" w:author="EDB K1 知識平台" w:date="' + nowIso + '" w:initials="EDB">' + (body || '<w:p/>') + '</w:comment>');
+    }
+    // commentRangeStart after pPr (or after the <w:p…> open tag); end + refs before </w:p>.
+    if (/<\/w:pPr>/.test(p)) p = p.replace('</w:pPr>', '</w:pPr>' + starts.join(''));
+    else p = p.replace(/(<w:p\b(?:\s[^>]*)?>)/, '$1' + starts.join(''));
+    p = p.replace('</w:p>', ends.join('') + '</w:p>');
+    return p;
+  });
+
+  // Appendix — missing items + spans we could not locate (never silently dropped).
+  const appendixFindings = unlocated;
+  if (appendixFindings.length || (meta && meta.headerNote)) {
+    const ap = [];
+    const para = function (text, o) {
+      o = o || {};
+      const rpr = (o.bold ? '<w:b/>' : '') + (o.size ? '<w:sz w:val="' + o.size + '"/>' : '') + (o.color ? '<w:color w:val="' + o.color + '"/>' : '');
+      return '<w:p>' + (o.spaceBefore ? '<w:pPr><w:spacing w:before="' + o.spaceBefore + '"/></w:pPr>' : '') +
+        '<w:r>' + (rpr ? '<w:rPr>' + rpr + '</w:rPr>' : '') + '<w:t xml:space="preserve">' + xmlEsc(text) + '</w:t></w:r></w:p>';
+    };
+    ap.push('<w:p/>');
+    ap.push(para('— — — EDB K1 知識平台 · 文件標註附錄 — — —', { bold: true, size: 28, color: '1F4E36' }));
+    ap.push(para('以下項目未能在原文逐字定位（多為「建議新增」的合規要求，或格式令系統無法對位），改列於此供人手加入；上文已就地標示的內容以螢光標出並附批註。', { size: 18, color: '888888' }));
+    let curDomain = null;
+    for (const f of appendixFindings) {
+      const tag = f.kind === 'guideline' ? '相關指引' : (f.status === 'partial' ? '部分涵蓋' : '未涵蓋');
+      const dom = f.domain_cn || (f.kind === 'guideline' ? '指引比對' : '清單');
+      if (dom !== curDomain) { ap.push(para('【' + dom + '】', { bold: true, size: 24, color: '1F4E36', spaceBefore: 200 })); curDomain = dom; }
+      ap.push(para('〔' + tag + '〕' + (f.note || ''), { size: 20, spaceBefore: 120 }));
+      if (f.suggestion) {
+        ap.push(para('建議標準條文：', { size: 18, bold: true, color: '555555' }));
+        for (const ln of String(f.suggestion).split('\n')) if (ln.trim()) ap.push(para(ln.trim(), { size: 18 }));
+      }
+      if (f.source && f.source.title) ap.push(para('來源：《' + f.source.title + '》' + (f.source.page ? '（第' + f.source.page + '頁）' : ''), { size: 16, color: '888888' }));
+    }
+    const apXml = ap.join('');
+    const lastSect = xml.lastIndexOf('<w:sectPr');
+    if (lastSect !== -1) xml = xml.slice(0, lastSect) + apXml + xml.slice(lastSect);
+    else xml = xml.replace('</w:body>', apXml + '</w:body>');
+  }
+
+  // Write comments.xml + content-type + relationship (only if we actually added comments).
+  zip.file('word/document.xml', xml);
+  if (commentXmlParts.length) {
+    if (existingCommentsXml) {
+      // Existing part may be empty: python-docx ships a self-closed
+      // <w:comments …/> stub with no </w:comments> to insert before.
+      if (existingCommentsXml.indexOf('</w:comments>') !== -1) {
+        existingCommentsXml = existingCommentsXml.replace('</w:comments>', commentXmlParts.join('') + '</w:comments>');
+      } else {
+        existingCommentsXml = existingCommentsXml.replace(/<w:comments\b([^>]*?)\s*\/>/, '<w:comments$1>' + commentXmlParts.join('') + '</w:comments>');
+      }
+      zip.file('word/comments.xml', existingCommentsXml);
+    } else {
+      const commentsDoc = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n' +
+        '<w:comments xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">' +
+        commentXmlParts.join('') + '</w:comments>';
+      zip.file('word/comments.xml', commentsDoc);
+      // [Content_Types].xml
+      const ctFile = zip.file('[Content_Types].xml');
+      if (ctFile) {
+        let ct = await ctFile.async('string');
+        if (ct.indexOf('comments+xml') === -1) {
+          ct = ct.replace('</Types>', '<Override PartName="/word/comments.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.comments+xml"/></Types>');
+          zip.file('[Content_Types].xml', ct);
+        }
+      }
+      // word/_rels/document.xml.rels
+      const relPath = 'word/_rels/document.xml.rels';
+      const relFile = zip.file(relPath);
+      if (relFile) {
+        let rels = await relFile.async('string');
+        if (rels.indexOf('relationships/comments') === -1) {
+          let maxRid = 0; let rm; const ridRe = /Id="rId(\d+)"/g;
+          while ((rm = ridRe.exec(rels)) !== null) maxRid = Math.max(maxRid, parseInt(rm[1], 10));
+          const newRid = 'rId' + (maxRid + 1);
+          rels = rels.replace('</Relationships>', '<Relationship Id="' + newRid + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments" Target="comments.xml"/></Relationships>');
+          zip.file(relPath, rels);
+        }
+      }
+    }
+  }
+
+  const blob = await zip.generateAsync({ type: 'blob', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+  return { blob: blob, located: located, unlocated: appendixFindings.length };
+}
+
+function AnnotatePanel() {
+  const [domains, setDomains] = useState([]);
+  const [selDomains, setSelDomains] = useState([]); // [] = 自動偵測
+  const [autoMode, setAutoMode] = useState(true);
+  const [schoolType, setSchoolType] = useState('');
+  const [docText, setDocText] = useState('');
+  const [fileName, setFileName] = useState('');
+  const [fileBuffer, setFileBuffer] = useState(null); // original .docx ArrayBuffer (for in-place annotation)
+  const [isDocx, setIsDocx] = useState(false);
+  const [extracting, setExtracting] = useState(false);
+  const [extractError, setExtractError] = useState('');
+  const [analyzing, setAnalyzing] = useState(false);
+  const [error, setError] = useState('');
+  const [report, setReport] = useState(null);
+  const [downloading, setDownloading] = useState(false);
+  const [downloadNote, setDownloadNote] = useState('');
+  const fileInputRef = useRef(null);
+  const MAX_CHARS = 60000;
+
+  useEffect(() => {
+    let alive = true;
+    fetch(`${ANNOTATE_BACKEND_URL}/api/checklist-domains`)
+      .then((r) => r.json())
+      .then((d) => { if (alive && Array.isArray(d.domains)) setDomains(d.domains); })
+      .catch(() => {});
+    return () => { alive = false; };
+  }, []);
+
+  const resetOutputs = useCallback(() => { setReport(null); setError(''); setDownloadNote(''); }, []);
+
+  async function extractPdf(buf) {
+    const lib = window.pdfjsLib;
+    if (!lib) throw new Error('PDF 解析元件尚未載入，請重新整理頁面再試。');
+    if (lib.GlobalWorkerOptions && !lib.GlobalWorkerOptions.workerSrc) {
+      lib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+    const pdf = await lib.getDocument({ data: buf.slice(0) }).promise;
+    let out = '';
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const tc = await page.getTextContent();
+      out += tc.items.map((t) => t.str).join(' ') + '\n\n';
+    }
+    return out.trim();
+  }
+  async function extractDocx(buf) {
+    if (!window.mammoth) throw new Error('Word 解析元件尚未載入，請重新整理頁面再試。');
+    const res = await window.mammoth.extractRawText({ arrayBuffer: buf.slice(0) });
+    return (res.value || '').trim();
+  }
+  async function handleFile(file) {
+    if (!file) return;
+    const name = file.name || '';
+    const lower = name.toLowerCase();
+    if (!lower.endsWith('.pdf') && !lower.endsWith('.docx')) {
+      setExtractError('只支援 PDF 或 Word（.docx）檔；其他內容請直接貼上文字。'); return;
+    }
+    setExtracting(true); setExtractError(''); resetOutputs();
+    try {
+      const buf = await file.arrayBuffer();
+      const docx = lower.endsWith('.docx');
+      const text = docx ? await extractDocx(buf) : await extractPdf(buf);
+      if (text.length < 30) throw new Error('未能從檔案抽取文字（掃描影印本暫不支援），請改貼文字內容。');
+      setDocText(text); setFileName(name); setIsDocx(docx);
+      setFileBuffer(docx ? buf : null); // only .docx can be annotated in place
+    } catch (e) {
+      setExtractError(e && e.message ? e.message : '檔案讀取失敗，請改貼文字內容。');
+      setFileName(''); setFileBuffer(null); setIsDocx(false);
+    } finally {
+      setExtracting(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  }
+
+  function toggleDomain(key) {
+    resetOutputs();
+    setSelDomains((prev) => prev.includes(key) ? prev.filter((k) => k !== key) : (prev.length >= 3 ? prev : [...prev, key]));
+  }
+
+  async function handleAnnotate() {
+    const text = docText.trim();
+    if (!text) { setError('請先上載或貼上文件內容'); return; }
+    if (text.length > MAX_CHARS) { setError('文件過長，請分批處理'); return; }
+    setAnalyzing(true); setError(''); setReport(null); setDownloadNote('');
+    try {
+      const body = {
+        text,
+        ...(fileName ? { filename: fileName } : {}),
+        ...(schoolType ? { school_type: schoolType } : {}),
+        ...(!autoMode && selDomains.length ? { domains: selDomains } : {}),
+      };
+      const resp = await fetch(`${ANNOTATE_BACKEND_URL}/api/annotate-document`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+      });
+      const json = await resp.json().catch(() => null);
+      if (!resp.ok) {
+        if (resp.status === 429) throw new Error('標註次數已達上限（每分鐘10次），請稍候約1分鐘後再試。');
+        throw new Error((json && json.error) || '標註服務暫未連線，請稍後再試。');
+      }
+      setReport(json);
+    } catch (e) {
+      setError(e && e.message ? e.message : '標註服務暫未連線，請稍後再試。');
+    } finally { setAnalyzing(false); }
+  }
+
+  function handleClear() {
+    setDocText(''); setFileName(''); setFileBuffer(null); setIsDocx(false); setExtractError(''); resetOutputs();
+  }
+
+  async function handleDownloadOriginal() {
+    if (!report || downloading) return;
+    if (!fileBuffer) { setError('就地標註只支援 Word（.docx）上載檔；貼上文字或 PDF 請用「下載建議清單」。'); return; }
+    setDownloading(true); setError(''); setDownloadNote('');
+    try {
+      const { blob, located, unlocated } = await buildAnnotatedOriginalDocx(fileBuffer, report.findings || [], { headerNote: true });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const base = String(report.filename || fileName || '文件').replace(/\.(pdf|docx?)$/i, '');
+      a.href = url; a.download = `${base}_標註版.docx`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+      setDownloadNote(`已就地標示 ${located} 處（螢光＋批註）` + (unlocated ? `；另有 ${unlocated} 項列於文末附錄` : ''));
+    } catch (e) {
+      setError('標註版生成失敗：' + (e && e.message ? e.message : '未知錯誤'));
+    } finally { setDownloading(false); }
+  }
+
+  async function handleDownloadList() {
+    if (!report || downloading) return;
+    if (!window.docx) { setError('文件生成元件尚未載入，請重新整理頁面再試。'); return; }
+    setDownloading(true); setError('');
+    try {
+      const blob = await buildAnnotateListDocx(report, schoolType, fileName);
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const base = String(report.filename || fileName || '文件').replace(/\.(pdf|docx?)$/i, '');
+      a.href = url; a.download = `${base}_標註建議清單.docx`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    } catch (e) {
+      setError('清單生成失敗：' + (e && e.message ? e.message : '未知錯誤'));
+    } finally { setDownloading(false); }
+  }
+
+  const overLimit = docText.length > MAX_CHARS;
+  const findings = (report && report.findings) || [];
+  const inPlace = findings.filter((f) => f.span);
+  const appendix = findings.filter((f) => !f.span);
+
+  return (
+    <div className="flex-1 min-w-0">
+      <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 k1-search-card">
+        <h2 className="text-lg font-bold text-gray-800 mb-1">📝 文件標註</h2>
+        <p className="text-xs text-gray-400 mb-3">
+          上載學校文件（Word/.docx 最佳），系統比對 EDB 指引並按合規清單檢查，於<strong>原文就地標示</strong>（保留格式 + 螢光 + Word 批註建議），可下載標註版原檔
+        </p>
+        <div style={{display:'flex',alignItems:'flex-start',gap:'8px',padding:'10px 12px',marginBottom:'12px',background:'#FFFBEB',border:'1px solid #FCD34D',borderRadius:'var(--r-md)',fontSize:'var(--text-xs)',color:'#92400E',lineHeight:1.6}}>
+          <span style={{flexShrink:0,marginTop:'1px'}}>🔒</span>
+          <span>檔案只在你的瀏覽器內讀取及標註，<strong>原始檔案不會上載</strong>；只有抽取的文字會傳送至本平台伺服器及 OpenAI 作語義比對，過程不儲存。請勿包含敏感個人資料（如學生姓名、身份證號碼）。</span>
+        </div>
+
+        {/* File pick */}
+        <div className="flex gap-2 mb-3 items-center" style={{flexWrap:'wrap'}}>
+          <input ref={fileInputRef} type="file" accept=".pdf,.docx" style={{display:'none'}}
+                 onChange={(e) => handleFile(e.target.files && e.target.files[0])} />
+          <button onClick={() => fileInputRef.current && fileInputRef.current.click()} disabled={extracting || analyzing}
+                  className="px-4 py-2 text-sm rounded-lg border border-gray-200 font-medium transition-all disabled:opacity-50"
+                  style={{background:'var(--cd-warm)',color:'var(--charcoal)'}}>
+            {extracting ? '⏳ 讀取中…' : '📎 選擇檔案（Word / PDF）'}
+          </button>
+          {fileName && !extracting && (
+            <span className="text-xs" style={{color:'var(--mid)'}}>
+              ✓ 已讀取：{fileName}（{docText.length.toLocaleString()} 字{isDocx ? '，可就地標註' : '；PDF/文字只出建議清單'}）
+            </span>
+          )}
+          {!fileName && <span className="text-xs text-gray-400">或喺下面貼上文字（貼文字只出建議清單）</span>}
+        </div>
+        {extractError && (
+          <div style={{marginBottom:'10px',padding:'10px 14px',borderRadius:'var(--r-sm)',background:'var(--paper-2)',border:'1px solid #FECACA',fontSize:'var(--text-sm)',color:'var(--warn)'}}>⚠️ {extractError}</div>
+        )}
+
+        {/* School type */}
+        <div className="flex items-center gap-2 mb-3" style={{flexWrap:'wrap'}}>
+          <label className="text-xs" style={{color:'var(--mid)',fontWeight:600}}>本校校類：</label>
+          <select value={schoolType} onChange={(e) => { setSchoolType(e.target.value); resetOutputs(); }} disabled={analyzing}
+                  className="text-sm border border-gray-200 rounded-lg px-2.5 py-1.5 disabled:opacity-50" style={{background:'var(--paper)',color:'var(--ink)'}}>
+            {REVISE_SCHOOL_OPTS.map((o) => <option key={o.v || 'all'} value={o.v}>{o.label}</option>)}
+          </select>
+        </div>
+
+        {/* Domain multi-select */}
+        <div className="mb-3">
+          <div className="flex items-center gap-2 mb-2" style={{flexWrap:'wrap'}}>
+            <label className="text-xs" style={{color:'var(--mid)',fontWeight:600}}>合規範疇：</label>
+            <button onClick={() => { setAutoMode(true); setSelDomains([]); resetOutputs(); }}
+                    className={`filter-tab ${autoMode ? 'active-tab' : ''}`}>✨ 自動偵測</button>
+            <button onClick={() => { setAutoMode(false); resetOutputs(); }}
+                    className={`filter-tab ${!autoMode ? 'active-tab' : ''}`}>自選範疇</button>
+            {!autoMode && <span className="text-xs text-gray-400">最多揀 3 個（已揀 {selDomains.length}）</span>}
+          </div>
+          {!autoMode && (
+            <div className="flex gap-1.5" style={{flexWrap:'wrap'}}>
+              {domains.map((d) => (
+                <button key={d.key} onClick={() => toggleDomain(d.key)}
+                        className={`filter-tab ${selDomains.includes(d.key) ? 'active-tab' : ''}`}
+                        style={{opacity: (!selDomains.includes(d.key) && selDomains.length >= 3) ? 0.45 : 1}}>
+                  {d.cn}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Paste textarea (hidden when a file is loaded) */}
+        {!fileName && (
+          <textarea value={docText} onChange={(e) => { setDocText(e.target.value); resetOutputs(); setFileBuffer(null); setIsDocx(false); }}
+                    rows={7} placeholder="貼上文件文字內容，或用上方按鈕選擇 Word / PDF 檔…"
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-200 focus:border-transparent"
+                    style={{resize:'vertical',lineHeight:1.7}} />
+        )}
+        <div className="flex gap-2 mt-2 items-center" style={{flexWrap:'wrap'}}>
+          <button onClick={handleAnnotate} disabled={analyzing || extracting || !docText.trim() || overLimit}
+                  style={{background:'var(--p-primary)'}}
+                  className="px-4 py-2 text-white text-sm rounded-lg hover:opacity-90 font-medium transition-all disabled:opacity-50">
+            {analyzing ? '⏳ 標註中…' : '開始標註'}
+          </button>
+          {docText && (
+            <button onClick={handleClear} className="px-3 py-2 text-xs text-gray-400 hover:text-gray-600 border border-gray-200 rounded-lg">清除</button>
+          )}
+          <span className="text-xs" style={{color: overLimit ? 'var(--warn)' : 'var(--mid)', marginLeft:'auto'}}>
+            {docText.length.toLocaleString()} / {MAX_CHARS.toLocaleString()} 字元{overLimit ? '（超出上限）' : ''}
+          </span>
+        </div>
+        {analyzing && (
+          <p className="text-xs mt-2" style={{color:'var(--mid)'}}>正在比對 EDB 指引並檢查合規清單，約需 30–90 秒（首次需喚醒伺服器）⋯</p>
+        )}
+        {error && (
+          <div style={{marginTop:'10px',padding:'10px 14px',borderRadius:'var(--r-sm)',background:'var(--paper-2)',border:'1px solid #FECACA',fontSize:'var(--text-sm)',color:'var(--warn)'}}>⚠️ {error}</div>
+        )}
+      </div>
+
+      {/* Empty state */}
+      {!report && !analyzing && (
+        <div style={{background:'var(--cd-warm)',borderRadius:'var(--r-md)',border:'1px solid var(--border)',padding:'40px',textAlign:'center'}}>
+          <p style={{fontSize:'2rem',marginBottom:'8px'}}>📝</p>
+          <p style={{fontSize:'var(--text-sm)',color:'var(--mid)'}}>上載 Word 文件，系統會就地標示相關指引與合規缺漏，並可下載標註版原檔</p>
+        </div>
+      )}
+
+      {/* Report */}
+      {report && (
+        <div className="space-y-3">
+          <div style={{background:'var(--paper-2)',border:'1px solid #C4A882',borderRadius:'var(--r-md)',padding:'12px 16px',fontSize:'var(--text-sm)',color:'var(--ink)'}}>
+            ✦ {report.filename ? `「${report.filename}」` : '文件'}　已分析 {report.analyzed_segments}/{report.total_segments} 段
+            {report.domains && report.domains.length > 0 && (
+              <span>　·　{report.auto_detected ? '自動偵測範疇：' : '合規範疇：'}{report.domains.map((d) => d.domain_cn).join('、')}</span>
+            )}
+            <span>　·　就地標示 {inPlace.length} 處，附錄建議 {appendix.length} 項</span>
+          </div>
+
+          {/* Download row */}
+          <div className="flex items-center gap-2" style={{flexWrap:'wrap'}}>
+            <button onClick={handleDownloadOriginal} disabled={downloading || !fileBuffer}
+                    title={fileBuffer ? '' : '就地標註只支援 Word(.docx) 上載檔'}
+                    className="px-4 py-2 text-sm rounded-lg font-medium transition-all disabled:opacity-50"
+                    style={{background:'var(--p-primary)',color:'#fff'}}>
+              {downloading ? '⏳ 生成中…' : '⬇️ 下載標註版原檔 (Word)'}
+            </button>
+            <button onClick={handleDownloadList} disabled={downloading}
+                    className="px-3 py-2 text-sm rounded-lg font-medium border border-gray-200 transition-all disabled:opacity-50"
+                    style={{background:'var(--cd-warm)',color:'var(--charcoal)'}}>
+              下載建議清單 (Word)
+            </button>
+            <span className="text-xs text-gray-400">於瀏覽器內生成，不會上載</span>
+          </div>
+          {downloadNote && <div className="text-xs" style={{color:'var(--edb)'}}>✓ {downloadNote}</div>}
+          {!fileBuffer && (
+            <div className="text-xs" style={{color:'#92400E'}}>ℹ️ 此次為貼文字／PDF：就地標註不適用，請用「下載建議清單」。Word(.docx) 上載檔才能就地標示原文。</div>
+          )}
+
+          {/* In-place findings */}
+          {inPlace.length > 0 && (
+            <div className="bg-white rounded-xl border border-gray-200 p-4">
+              <h3 className="text-sm font-bold text-gray-800 mb-2">📌 就地標示（{inPlace.length}）— 原文相關／需注意之處</h3>
+              <div className="space-y-2">
+                {inPlace.map((f, i) => (
+                  <div key={i} className="rounded-lg border px-3 py-2" style={{borderColor:'var(--line)'}}>
+                    <div className="flex items-start gap-2">
+                      <span className="text-xs px-1.5 py-0.5 rounded font-bold whitespace-nowrap"
+                            style={{background: f.kind === 'guideline' ? '#E7F0EA' : '#FBF0D9', color: f.kind === 'guideline' ? '#1F4E36' : '#8A5A00'}}>
+                        {f.kind === 'guideline' ? '指引' : (f.domain_cn || '清單')}
+                      </span>
+                      <span className="text-sm text-gray-800 leading-snug">{f.note}</span>
+                    </div>
+                    {f.span && <p className="text-xs text-gray-500 mt-1.5 pl-1 border-l-2" style={{borderColor:'var(--line)'}}>　原文：{f.span.length > 80 ? f.span.slice(0,80)+'…' : f.span}</p>}
+                    {f.suggestion && (
+                      <details className="mt-1.5"><summary className="text-xs cursor-pointer" style={{color:'var(--edb)'}}>建議標準條文 ▾</summary>
+                      <p className="text-xs text-gray-600 mt-1 whitespace-pre-wrap pl-1">{f.suggestion}</p></details>
+                    )}
+                    {f.source && /^https?:/i.test(f.source.url || '') && (
+                      <a href={f.source.url + (f.source.page && /\.pdf/i.test(f.source.url) ? `#page=${f.source.page}` : '')}
+                         target="_blank" rel="noopener noreferrer" className="text-xs mt-1 inline-block" style={{color:'#888'}}>
+                        來源：《{f.source.title}》{f.source.page ? `第${f.source.page}頁` : ''} ↗
+                      </a>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Appendix findings */}
+          {appendix.length > 0 && (
+            <div className="bg-white rounded-xl border border-gray-200 p-4">
+              <h3 className="text-sm font-bold text-gray-800 mb-2">➕ 建議補充（{appendix.length}）— 原文未涵蓋／未能定位</h3>
+              <div className="space-y-2">
+                {appendix.map((f, i) => (
+                  <div key={i} className="rounded-lg border px-3 py-2" style={{borderColor:'var(--line)'}}>
+                    <div className="flex items-start gap-2">
+                      <span className="text-xs px-1.5 py-0.5 rounded font-bold whitespace-nowrap" style={{background:'#F6E4DC',color:'#7A3B1F'}}>
+                        {f.domain_cn || (f.kind === 'guideline' ? '指引' : '清單')}
+                      </span>
+                      <span className="text-sm text-gray-800 leading-snug">{f.note}</span>
+                    </div>
+                    {f.suggestion && (
+                      <details className="mt-1.5"><summary className="text-xs cursor-pointer" style={{color:'var(--edb)'}}>建議標準條文 ▾</summary>
+                      <p className="text-xs text-gray-600 mt-1 whitespace-pre-wrap pl-1">{f.suggestion}</p></details>
+                    )}
+                    {f.source && /^https?:/i.test(f.source.url || '') && (
+                      <a href={f.source.url + (f.source.page && /\.pdf/i.test(f.source.url) ? `#page=${f.source.page}` : '')}
+                         target="_blank" rel="noopener noreferrer" className="text-xs mt-1 inline-block" style={{color:'#888'}}>
+                        來源：《{f.source.title}》{f.source.page ? `第${f.source.page}頁` : ''} ↗
+                      </a>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div style={{display:'flex',alignItems:'flex-start',gap:'8px',padding:'10px 12px',background:'#FFFBEB',border:'1px solid #FCD34D',borderRadius:'var(--r-md)',fontSize:'var(--text-xs)',color:'#92400E',lineHeight:1.6}}>
+            <span style={{flexShrink:0,marginTop:'1px'}}>⚠️</span>
+            <span>標註由 AI 根據 EDB 原文片段語意比對及合規清單估算產生，可能有遺漏或表述偏差。重要決定請以教育局官方原文為準。</span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Fallback download for paste/PDF (no original docx to annotate in place): a
+// freshly built findings list document (reuses the docx UMD lib).
+async function buildAnnotateListDocx(report, schoolType, fileName) {
+  const D = window.docx;
+  if (!D) throw new Error('docx 程式庫未載入');
+  const FONT = 'Microsoft JhengHei';
+  const t = (text, o = {}) => new D.TextRun({ text, font: FONT, ...o });
+  const p = (children, o = {}) => new D.Paragraph({ children: Array.isArray(children) ? children : [children], ...o });
+  const children = [];
+  children.push(p(t('文件標註 · 建議清單', { bold: true, size: 32 }), { spacing: { after: 80 } }));
+  const meta = [
+    report.filename ? `文件：${report.filename}` : (fileName ? `文件：${fileName}` : null),
+    schoolType ? `校類：${ANNOTATE_SCHOOL_LABELS[schoolType] || schoolType}` : null,
+    (report.domains && report.domains.length) ? `範疇：${report.domains.map((d) => d.domain_cn).join('、')}` : null,
+  ].filter(Boolean).join('　·　');
+  children.push(p(t(meta, { size: 18, color: '888888' }), { spacing: { after: 60 } }));
+  children.push(p(t('本清單由 EDB K1 知識平台「文件標註」生成。Word(.docx) 上載檔可改用「下載標註版原檔」於原文就地標示。分析為 AI 語意比對，重要決定請以教育局官方原文為準。', { size: 18, color: '888888' }), { spacing: { after: 200 } }));
+  const groups = [['📌 原文相關／需注意（就地標示對象）', (report.findings || []).filter((f) => f.span)], ['➕ 建議補充（原文未涵蓋／未能定位）', (report.findings || []).filter((f) => !f.span)]];
+  for (const [title, list] of groups) {
+    if (!list.length) continue;
+    children.push(p(t(title, { bold: true, size: 26, color: '1F4E36' }), { spacing: { before: 220, after: 60 } }));
+    for (const f of list) {
+      const tag = f.kind === 'guideline' ? '相關指引' : (f.status === 'partial' ? '部分涵蓋' : '未涵蓋');
+      children.push(p([t(`〔${tag}〕`, { bold: true, color: f.kind === 'guideline' ? '1F4E36' : '8A5A00' }), t(' ' + (f.note || ''), { size: 20 })], { spacing: { before: 120 } }));
+      if (f.span) children.push(p(t('原文：' + (f.span.length > 120 ? f.span.slice(0, 120) + '…' : f.span), { size: 16, color: '777777' }), { indent: { left: 360 } }));
+      if (f.suggestion) {
+        children.push(p(t('建議標準條文：', { size: 18, bold: true, color: '555555' }), { indent: { left: 360 } }));
+        for (const ln of String(f.suggestion).split('\n')) if (ln.trim()) children.push(p(t(ln.trim(), { size: 18 }), { indent: { left: 540 } }));
+      }
+      if (f.source && f.source.title) {
+        const link = String(f.source.url || '') + (f.source.page && /\.pdf/i.test(f.source.url || '') ? `#page=${f.source.page}` : '');
+        const isHttp = /^https?:/i.test(link);
+        children.push(p([t('來源：', { size: 16, color: '888888' }),
+          isHttp ? new D.ExternalHyperlink({ link, children: [new D.TextRun({ text: `《${f.source.title}》${f.source.page ? '第' + f.source.page + '頁' : ''}`, size: 16, style: 'Hyperlink', font: FONT })] })
+                 : t(`《${f.source.title}》${f.source.page ? '第' + f.source.page + '頁' : ''}`, { size: 16, color: '888888' })], { indent: { left: 360 } }));
+      }
+    }
+  }
+  const doc = new D.Document({ styles: { default: { document: { run: { font: FONT, size: 22 } } } }, sections: [{ children }] });
+  return D.Packer.toBlob(doc);
+}
+
 // ── Main App ──
 function App() {
   const data = INITIAL_DATA;
-  const VALID_VIEWS = ['qa', 'analyze', 'templates', 'review', 'guidelines', 'about'];
-  const hashView = window.location.hash.replace('#', '');
+  const VALID_VIEWS = ['qa', 'annotate', 'templates', 'guidelines', 'about'];
+  let hashView = window.location.hash.replace('#', '');
+  // S161: 文件分析 + 文件修訂 merged into 文件標註; redirect the retired hashes one season.
+  if (hashView === 'analyze' || hashView === 'review') hashView = 'annotate';
   const [viewMode, setViewMode] = useState(
     VALID_VIEWS.includes(hashView) ? hashView : 'qa'
-  ); // 'qa' | 'analyze' | 'templates' | 'review' | 'guidelines' | 'about'
+  ); // 'qa' | 'annotate' | 'templates' | 'guidelines' | 'about'
 
   // Keep URL hash in sync when tab changes
   const switchView = useCallback((v) => {
@@ -3581,17 +4185,13 @@ function App() {
                       className={`filter-tab ${viewMode === 'qa' ? 'active-tab' : ''}`} aria-selected={viewMode === 'qa'} role="tab">
                 🔍 政策搜尋
               </button>
-              <button onClick={() => switchView('analyze')}
-                      className={`filter-tab ${viewMode === 'analyze' ? 'active-tab' : ''}`} aria-selected={viewMode === 'analyze'} role="tab">
-                📄 文件分析
+              <button onClick={() => switchView('annotate')}
+                      className={`filter-tab ${viewMode === 'annotate' ? 'active-tab' : ''}`} aria-selected={viewMode === 'annotate'} role="tab">
+                📝 文件標註
               </button>
               <button onClick={() => switchView('templates')}
                       className={`filter-tab ${viewMode === 'templates' ? 'active-tab' : ''}`} aria-selected={viewMode === 'templates'} role="tab">
                 📋 政策範本
-              </button>
-              <button onClick={() => switchView('review')}
-                      className={`filter-tab ${viewMode === 'review' ? 'active-tab' : ''}`} aria-selected={viewMode === 'review'} role="tab">
-                📝 文件修訂
               </button>
               <button onClick={() => switchView('guidelines')}
                       className={`filter-tab ${viewMode === 'guidelines' ? 'active-tab' : ''}`} aria-selected={viewMode === 'guidelines'} role="tab">
@@ -3611,12 +4211,10 @@ function App() {
             <PlatformIntroPanel stats={stats} />
           ) : viewMode === 'guidelines' ? (
             <GuidelinesPanel setPreviewDoc={setPreviewDoc} />
-          ) : viewMode === 'analyze' ? (
-            <AnalyzePanel />
+          ) : viewMode === 'annotate' ? (
+            <AnnotatePanel />
           ) : viewMode === 'templates' ? (
             <TemplatesPanel />
-          ) : viewMode === 'review' ? (
-            <ReviewPanel />
           ) : (
             <QAPanel data={data} setPreviewDoc={setPreviewDoc} />
           )}

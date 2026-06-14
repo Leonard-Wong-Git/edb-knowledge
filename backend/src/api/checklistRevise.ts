@@ -115,6 +115,53 @@ export function listChecklistDomains(): { key: string; cn: string; item_count: n
   }));
 }
 
+/** Max doc segments embedded for auto-detection (latency bound). */
+const AUTO_DETECT_SEGMENTS = 40;
+/** A domain is "relevant" when its descriptor's max cosine over the doc ≥ this. */
+const AUTO_DETECT_THRESHOLD = 0.3;
+
+/**
+ * Cheap auto-detection of which checklist domains a document touches: embed up
+ * to AUTO_DETECT_SEGMENTS doc segments plus one short descriptor per domain
+ * (domain name + its section names), then keep the domains whose descriptor
+ * best-matches the document. Reuses the shared batch embedder and the bundle;
+ * returns at most `max` domain keys, highest-scoring first. Returns [] when the
+ * document matches nothing strongly (caller then annotates guidelines only).
+ */
+export async function detectRelevantDomains(
+  text: string,
+  deps: ChecklistReviseDependencies,
+  max = 2
+): Promise<string[]> {
+  if (typeof text !== "string" || !text.trim()) return [];
+  const docSegs = segmentText(text).slice(0, AUTO_DETECT_SEGMENTS);
+  if (docSegs.length === 0) return [];
+
+  const b = loadBundle();
+  const domains = Object.values(b.domains);
+  const descriptors = domains.map(
+    (d) => `${d.cn}：${d.sections.slice(0, 8).map((s) => s.name).join("、")}`
+  );
+
+  const all = await deps.embeddingClient.batch([...docSegs, ...descriptors]);
+  const docEmb = all.slice(0, docSegs.length);
+  const domEmb = all.slice(docSegs.length);
+
+  return domains
+    .map((d, i) => {
+      let best = -1;
+      for (const de of docEmb) {
+        const s = dot(domEmb[i], de);
+        if (s > best) best = s;
+      }
+      return { key: d.key, score: best };
+    })
+    .sort((a, b2) => b2.score - a.score)
+    .filter((d) => d.score >= AUTO_DETECT_THRESHOLD)
+    .slice(0, Math.max(1, max))
+    .map((d) => d.key);
+}
+
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------

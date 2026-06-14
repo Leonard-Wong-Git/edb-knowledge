@@ -1,4 +1,12 @@
-# 文件標註功能 — 設計 spec（S160 Leonard 拍板，待建）
+# 文件標註功能 — 設計 spec（S160 Leonard 拍板；**Phase 1 已建 S161**）
+
+> **狀態（S161 2026-06-14）：Phase 1 SHIPPED。** 合併 tab 「📝 文件標註」取代 文件分析+文件修訂；新 `backend/src/api/annotateDocument.ts`（重用 analyzeDocument 指引比對 + checklistRevise 清單 gap，零改兩模組）+ `/api/annotate-document` route；`checklistRevise.ts` 加 `detectRelevantDomains`（auto-detect）；`app.html` 加 `AnnotatePanel` + `buildAnnotatedOriginalDocx`（JSZip 就地 highlight + Word 批註 + fallback 附錄）+ JSZip CDN。
+> **v1 設計取捨**：(1) highlight 用**段落級**（命中段每個 run 加 `w:highlight`）而非逐字 run-split — 寧 over-annotate 唔好錯位（heuristic-failure-direction-decouple）。(2) span↔段落用 normalized（去空白+標點）includes/prefix-probe 容錯匹配；搵唔到 → 附錄（never silent drop）。(3) checklist 低 PARTIAL 門檻會過量標 partial → 每域 partial cap 12（按相似度）、missing cap 25、總 cap 120，確保 missing 唔被淹。(4) **修咗一個 bug**：python-docx 生成嘅 docx 自帶 self-closed `<w:comments/>` stub，原 `.replace('</w:comments>')` no-op → dangling comment refs → Word repair；已處理 self-closed 分支。
+> **驗證**：backend typecheck/build + 真 OpenAI e2e（auto-detect/explicit/error）+ 真 docx 端到端（DOMParser well-formed、ref↔comment 對齊、ct/rels/附錄齊）+ browser-verify（tab 合併、render、fallback 清單 docx valid）。Phase 2（PDF inline）/ Phase 2.5（per-segment auto-detect 取代 multi-select）未做。
+
+---
+
+# 原始設計 spec（S160）
 
 > Leonard 反饋拍板（S160）：合併「文件分析 + 文件修訂」做**一個「文件標註」功能** —
 > 上載文件 → 系統喺**原文**標註（**保留格式** + highlight 要改/涉及指引處 + 建議）→ 下載。
