@@ -1,9 +1,15 @@
-# 幼稚園營運（kg_operation）— 改寫覆核待辦（QC verify issues）
+# 幼稚園營運（kg_operation）— 改寫覆核（QC verify issues）
 
+> **✅ 全部 17 條 flag 已於 S163（2026-06-14）覆核並修正。** 詳列見下表（保留作 provenance）。
+> 修法：刪去原文無嘅鋪墊／目的句及限定詞（虛構/加插）；補回漏咗嘅半段義務、還原適用主體（數字/義務走樣）；移除錯置引用（引用錯）。fix script：`dev/checklists/_work/kg_operation/_qc_fix.py`（exact-match + assert，全部 assertion 通過）。
+>
+> **同場修正一個 S162 結構 bug（非上述 17 條，QC 深挖揭發）：** `_work/kg_operation/clauses.json` 原用非標準 schema（`section_no`/`name`），而 14 個既有域 + 兩個 docx 生成器 + backend `checklistRevise` 全部期望 canonical `si`/`section_name`。後果：(1) `gen_checklists_bundle.py` 讀 `ch.si`→`None`，令 backend supplement linkage（`c.si === sectionIdx+1`）對 kg_operation **全部失效**（補回標準條文功能壞，388/388 items 拎唔到 clause）；(2) `gen_school_docx.js` 讀 `SECNAMES[ch.si-1]`→`undefined`，學校版 docx **章節名全空**（似 S159「undefined」bug）。已將 clauses.json 正規化為 `si`/`section_name`，重生 4 docx + bundle + manifest。驗證：bundle si=1–20、supplement linkage **388/388**（修前 0/388）、學校版 docx 20 章名齊。
+>
 > S162 幼稚園清單 pilot 自動產出。每章改寫後經獨立對抗覆核員（預設有錯、python3 機械＋語意比對）檢查。
-> 下列為**未自動修**嘅 flag，供 Leonard／下次 QC session 逐條核（似 14 域 S157 verify_issues 清理）。
-> **已自動修：** 全部「法團校董會（未設者為校董會）」→「校董會」（幼稚園無法團校董會；10 處 clause text + 12 處 adjustables）。
+> **S162 已自動修：** 全部「法團校董會（未設者為校董會）」→「校董會」（幼稚園無法團校董會；10 處 clause text + 12 處 adjustables）。
 > 文件本身為 DRAFT 草擬本，已註明「如與教育局原文有出入，概以原文為準」。
+
+## ✅ 已修（S163）— 下表為原 flag provenance
 
 | 章 | 章名 | 類型 | item | 說明 |
 |---|---|---|---|---|
@@ -25,11 +31,11 @@
 | 15 | 採購及招標 | 虛構/加插 | 15 | 覆蓋 [14,15] 嗰條 clause 將批核機關寫成「須先得到法團校董會（未設者為校董會）的批准」。原始 item 15 quote/req 只講「校董會」，全源從無出現「法團校董會」（grep 確認 0 次）。憑空加入「法團校董會（未設者為校董會）」呢個審批機關／層級，源文唔支持；且幼稚園情境一般無法團校董會（IMC 屬中小學概念），屬虛構並扭曲審批層… |
 | 15 | 採購及招標 | 虛構/加插 | 16 | 覆蓋 [16,17] 嗰條 clause 將授權安排批准機關寫成「事先得到法團校董會（未設者為校董會）的批准」。原始 item 16 quote/req 只係「校董會」。同上，源文全無「法團校董會」，屬加插源文唔支持嘅審批機關／層級。 |
 
-**合計：17 條未修 flag，分佈 7/20 章（其餘 13 章覆核全清）。**
+**合計：原 17 條 flag，分佈 7/20 章（其餘 13 章覆核全清）→ S163 全部已修。**
 
-## 修法建議
-- **虛構/加插（多數）**：刪去原文無嘅鋪墊／目的句（「為確保…」「本校重視…」）或限定詞（「註冊醫生」「每日」「方可入班」），數字/時限本身已保真。
-- **數字/義務走樣**：補回漏咗嘅半段義務（如 ch6 體溫紀錄位置、ch13 廉署守則參考、調查完結後匯報），或還原適用主體（ch9 留宿/獨立中心專屬，勿擴大到一般幼稚園）。
-- **引用錯**：ch6 clause0（covers 0,1）誤列 kg_admin_guide_2026 p47（屬 item3 源），應移除。
+## 修法（S163 已套用）
+- **虛構/加插**：刪去原文無嘅鋪墊／目的句（「為確保採購過程廉潔及問責…」「本校重視校園環境…」「為維持環境衞生…」）或限定詞（「註冊醫生」「每日」「方可入班」「指派專人」「結構性木地板房產須避免」「洗手間設計須符合衞生及安全標準」「確保用水安全衞生」「註冊費不屬利益」carve-out），數字/時限本身已保真。
+- **數字/義務走樣**：ch6 體溫紀錄移回其 covering clause1、ch13 補回「參考廉政公署《校董及職員行為守則範本》」+ 表格補「調查/訴訟完結後即時報告結果」、ch9 還原適用主體（留宿/獨立幼兒中心專屬，勿擴大到一般幼稚園）。
+- **引用錯**：ch6 clause0（covers 0,1）移除誤列 kg_admin_guide_2026 p47（屬 item3 源）。
 
-> 改 clauses.json 後 re-run  + 。
+> 改 clauses.json 後 re-run：`node gen_school_docx.js kg_operation [kindergarten]` + `node gen_checklist_docx.js kg_operation [kindergarten]` + `python3 dev/checklists/_work/gen_checklists_bundle.py` + `python3 dev/checklists/_work/gen_templates_manifest.py`。

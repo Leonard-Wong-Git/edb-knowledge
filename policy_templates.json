@@ -913,7 +913,7 @@
           "type_label": "通用",
           "name": "本校幼稚園營運政策_學校版_DRAFT.docx",
           "path": "dev/checklists/kg_operation/本校幼稚園營運政策_學校版_DRAFT.docx",
-          "size": 59934
+          "size": 59999
         },
         {
           "kind": "policy",
@@ -921,7 +921,7 @@
           "type_label": "幼稚園",
           "name": "本校幼稚園營運政策_學校版_幼稚園_DRAFT.docx",
           "path": "dev/checklists/kg_operation/本校幼稚園營運政策_學校版_幼稚園_DRAFT.docx",
-          "size": 59932
+          "size": 59996
         },
         {
           "kind": "checklist",
@@ -929,7 +929,7 @@
           "type_label": "通用",
           "name": "校本幼稚園營運政策文件要求清單_DRAFT.docx",
           "path": "dev/checklists/kg_operation/校本幼稚園營運政策文件要求清單_DRAFT.docx",
-          "size": 70723
+          "size": 70686
         },
         {
           "kind": "checklist",
@@ -937,7 +937,7 @@
           "type_label": "幼稚園",
           "name": "校本幼稚園營運政策文件要求清單_幼稚園_DRAFT.docx",
           "path": "dev/checklists/kg_operation/校本幼稚園營運政策文件要求清單_幼稚園_DRAFT.docx",
-          "size": 70705
+          "size": 70738
         }
       ]
     }
