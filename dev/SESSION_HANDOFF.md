@@ -134,7 +134,8 @@ source_registry → same vault PDFs → ai_extract.py
 5. Next priorities: 見 Open Priorities。
 6. Risks: 🟢 HEAD==origin/main（已 push）、Render backend LIVE 驗全綠（P2/P3）。**🔴 GitHub Pages 全站 404（closeout 時 root+app+index 兩域；非 content〔files tracked、.nojekyll、deploy-from-branch〕；研判 deploy delay/incident；private repo 無法查 build log）→ frontend P1 待站恢復 live 驗。** ⚠️ P3 gate（STOPWORD_DF_FRACTION 0.25/COVERED 0.5/PARTIAL 0.42/MAX_ITEMS 400 tunable）真檔多範疇覆蓋率 monitor。⚠️ Phase 2 PDF 座標假設無頁面旋轉、碎 run／表格命中率未真檔驗。⚠️ KG docx 仍 DRAFT。✅ 平台 v3.0.0 = Leonard 已認可。Supabase 15,109 零接觸。
 7. commits（**已 push origin/main**）: S163QC `39e6df1`(backend P2/P3/regression)→`3f239bf`(frontend/docs P1/P4/P5/P6)→收尾 gov。
-   - QC：backend tsc check+build exit 0（×2）；regression 20 PASS/0 FAIL；Render LIVE 探針（P2 routing surface KG manuals + P3 covered 20→5/partial 55→30）；app.html local preview（P1 v3.0.0 header/footer + 0 console err）；real-embedding e2e（P3 over-coverage 降 + richer 文 covered=37 無 false-neg）。**Pages live 驗 BLOCKED（站 404）。**
+   - QC：backend tsc check+build exit 0（×2）；regression 20 PASS/0 FAIL；Render LIVE 探針（P2 routing surface KG manuals + P3 covered 20→5/partial 55→30）；real-embedding e2e（P3 over-coverage 降 + richer 文 covered=37 無 false-neg）。**local preview full browser smoke（QC step 8+9，serves committed files）：desktop 5 tabs 載入（平台介紹/政策搜尋/文件標註/範本下載/EDB指引）+ header/footer v3.0.0；mobile 375px bottom nav = 搜尋/指引/平台介紹（v3 scope，無 annotate/templates）；全程 0 console error。** **Pages LIVE 部署驗 BLOCKED（站 404，infra）—— 但 frontend 係 static file，local preview 內容等同部署版，code 已驗。**
+   - **QC GO 條件（全達）：** v3 版本一致(P1，local+smoke 驗)✓ / KG 營運 query 正確 source(P2 Render LIVE)✓ / checklist 短文無誇大覆蓋(P3 Render LIVE)✓ / worktree 乾淨(P5)✓ / mobile scope 已定+反映(P6，mobile smoke 證 nav 符)✓。唯一未閉環 = Pages 站恢復後 P1 live 部署確認（formality）。
 
 ## Previous Session Record (S161)
 1. UTC date: 2026-06-14
