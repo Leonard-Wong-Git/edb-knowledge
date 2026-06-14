@@ -2958,9 +2958,9 @@ function AnalyzePanel() {
             {extracting ? '⏳ 讀取中…' : '📎 選擇檔案（PDF / Word）'}
           </button>
           {fileName && !extracting && (
-            <span className="text-xs" style={{color:'var(--mid)'}}>已讀取：{fileName}</span>
+            <span className="text-xs" style={{color:'var(--mid)'}}>✓ 已讀取：{fileName}（{docText.length.toLocaleString()} 字，已準備分析）</span>
           )}
-          <span className="text-xs text-gray-400">或直接喺下面貼上文字</span>
+          {!fileName && <span className="text-xs text-gray-400">或直接喺下面貼上文字</span>}
         </div>
         {extractError && (
           <div style={{marginBottom:'10px',padding:'10px 14px',borderRadius:'var(--r-sm)',background:'var(--paper-2)',border:'1px solid #FECACA',fontSize:'var(--text-sm)',color:'var(--warn)'}}>
@@ -2984,13 +2984,15 @@ function AnalyzePanel() {
           <span className="text-xs text-gray-400">系統會按校類調整提示</span>
         </div>
 
-        {/* Text area */}
+        {/* Text area — paste mode only; hidden once a file is loaded (extracted text is an engineering view, not for reading) */}
+        {!fileName && (
         <textarea value={docText}
                   onChange={e => { setDocText(e.target.value); resetOutputs(); }}
                   rows={8}
                   placeholder="貼上文件文字內容，或用上方按鈕選擇 PDF / Word 檔案…"
                   className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-200 focus:border-transparent"
                   style={{resize:'vertical',lineHeight:1.7}} />
+        )}
         <div className="flex gap-2 mt-2 items-center">
           <button onClick={handleAnalyze} disabled={analyzing || extracting || !docText.trim() || overLimit}
                   style={{background:'var(--p-primary)'}}
@@ -3421,9 +3423,12 @@ function ReviewPanel() {
           {fileName && <span className="text-xs text-gray-500">已載入：{fileName}（{docText.length.toLocaleString()} 字）</span>}
         </div>
         {extractError && <p className="text-xs mb-2" style={{ color: 'var(--warn)' }}>{extractError}</p>}
+        {/* paste mode only; hidden once a file is loaded (extracted text is an engineering view, not for reading) */}
+        {!fileName && (
         <textarea value={docText} onChange={(e) => { setDocText(e.target.value); resetOutputs(); }}
                   placeholder="或直接貼上文件內容…" rows={5}
                   className="w-full text-sm border border-gray-200 rounded-lg p-2 focus:outline-none focus:ring-1 focus:ring-green-700" />
+        )}
       </div>
 
       {/* controls */}
@@ -3590,7 +3595,7 @@ function App() {
               </button>
               <button onClick={() => switchView('guidelines')}
                       className={`filter-tab ${viewMode === 'guidelines' ? 'active-tab' : ''}`} aria-selected={viewMode === 'guidelines'} role="tab">
-                📚 指引文件 ({GUIDELINES_REGISTRY.length})
+                📚 EDB指引 ({GUIDELINES_REGISTRY.length})
               </button>
             </div>
 
