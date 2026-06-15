@@ -2,6 +2,56 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-15 Session 168 — SMC（學校管理委員會）內容入庫 +18 chunks + 平台 v3.1.0
+
+- **ID:** Claude_20260615_S168
+- **Trigger:** Leonard 提供 2 個 SMC 官方源補 S166 揭發嘅 SMC 內容 gap（corpus 一直 IMC-heavy）：① PDF 學校管理委員會章程樣本 ② HTML 關於 SMC 頁。並指示版本/README/手冊/開場動畫/全入庫/出架構圖 prompt/收工。
+- **SMC 入庫（commit `a82210e`，Leonard「授權全做全入庫」明確授權後執行；首次嘗試被 auto-mode classifier 擋＝缺明確授權，正確 guardrail）：**
+  - pre-flight：PDF 14pp/8,749字/**U+FFFD=0**/page-resolvable（pymupdf+pypdf 驗）；HTML 264KB 但可見文字多係全站導航、SMC 獨有內容稀薄 → **只登記 url_landing watch-list、body 不入庫**（避免導航雜訊污染）。
+  - pipeline：registry 登記 `smc_constitution_sample` → `fetch_new_sources` 格式 extract（pypdf per-page，14 page markers）→ `ingest_one_source.py --dry-run`=**18 chunks**（396/587/614，全 page-resolvable）→ **INSPECT 總數 15,109 baseline 確認 + source=0** → **live INSERT 18/18**（before=0/after=18）→ INSPECT 總數 **15,127**（+18）✓。
+  - routing：`SOURCE_SETS.school_governance` +`smc_constitution_sample`（接 S166 `\b(IMC|SMC)\b` route）。
+  - display sync 7 點 15,109→15,127（knowledge.json/role_facts/dev role_facts **3 層 byte-identical md5 06bf2a3a8a** + app.html + index.html + K1_API_SPEC + README；**_meta.version 凍結 2.3.0、facts 455/guidelines 152 不變**）。
+- **平台 v3.1.0（commit `a82210e`）：** app.html `PLATFORM_VERSION` 3.0.0→3.1.0 + README badge/footer + 文件標註 row 改「乾淨成品版」+ CHANGELOG v3.1.0 section（彙整 S164-168：手機強化/檢索修復/乾淨成品版/SMC 內容）。凍結 knowledge.json 不 bump。
+- **QC（全 PASS）:** backend tsc check+build exit 0；SMC routing 純函數 3 case PASS；Supabase INSPECT before/after（15,109→15,127、source 18）；3 JSON 層 md5 identical + version 凍結驗。**Live（Render+Pages deploy 後）:** `SMC 學校管理委員會 章程` 命中 `smc_constitution_sample`；app.html v3.1.0 + 15,127。
+- **Boundary:** Channel B +1 源（公開 EDB 官方）。Channel A 455 / guidelines 152 / _meta.version 凍結合約零接觸。可逆（merge-duplicates、可按 source_id 刪）。
+- **commit（已 push origin/main）:** `a82210e`（registry+vault extract+SOURCE_SETS+display sync 7+版本+CHANGELOG）→ 本治理 commit。
+- **⏳ Leonard backlog（本 session 收工，未做，已記 handoff/Open Priorities，多數 substantial 留下 session）:**
+  1. **文件標註乾淨成品版 2 項跟進:** (a) 另需一個 Word 顯示「改咗甚麼」（change/diff 摘要）；(b) **格式問題**——乾淨成品版由抽取文字重組 → 原 Word 標題/編號/結構 flatten 咗（Leonard：「改後格式全變」），要改善格式保留（難點：目前 from-text 重砌；考慮 Word 輸入時 JSZip 改原 docx XML 保留格式、PDF 則維持 from-text）。
+  2. **開場動畫/onboarding**（似 CPD approval system）— 首次使用導引，使用者知道點用。
+  3. **使用手冊**（user manual）。
+  4. **EDB 網頁更新 monitor → 全入庫**（Leonard 授權「全入庫」standing）：下 session 跑 freshness/discover（`check_freshness.py`/`discover_sources.py`）→ 逐源 pre-flight（U+FFFD=0/page-resolvable）→ `ingest_one_source.py` 逐源入庫 + display sync。**勿一次過盲入；逐源 INSPECT。**
+  5. dead-code cleanup（task_94ebfd14，文件標註舊 builders）。
+  6. Render cold-start（升 always-on 或 keep-warm cron）。
+- **架構圖 prompt:** 已喺 closeout 回應交畀 Leonard（系統功能 + 技術架構 LLM-wiki/RAG，供佢 gen 圖）。
+- **Log maintenance (§4a):** S167 已 archive（517→188）；本 entry 後 SESSION_LOG 仍 <400，no-op。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.1.0。
+Product state: HEAD == origin/main（已 push a82210e+）。Supabase 15,127；Render backend live；Pages live（v3.1.0）。起手 verify：探針 policychecker.wongfu.net /app.html=200 + PLATFORM_VERSION 3.1.0 + Render /health + HEAD==origin/main + Supabase 15,127 + 抽驗「SMC 學校管理委員會 章程」命中 smc_constitution_sample。
+
+S168（2026-06-15）完成：SMC 內容入庫（smc_constitution_sample 章程樣本 +18 chunks → 15,127；SOURCE_SETS.school_governance；display sync 7 點 byte-identical、_meta 凍結 2.3.0）+ 平台 v3.1.0（PLATFORM_VERSION/README/CHANGELOG）。今日另完成 S164-167（手機範本入口/品牌/可撳搜尋掣、SMC/IMC 英文縮寫 routing 修復、文件標註乾淨成品版）。
+
+NEXT（Leonard backlog，優先序）：
+① 文件標註乾淨成品版跟進：(a) 加一個 Word 顯示「改咗甚麼」(change/diff 摘要)；(b) 修格式——目前由抽取文字重組令原 Word 標題/編號/結構 flatten（Leonard：「改後格式全變」）。建議：Word 輸入改用 JSZip 操作原 docx XML（保留格式，建議融入做正常 run/highlight，免接受修訂），PDF/貼文字維持 from-text 乾淨版。參考已 dead 嘅 buildAnnotatedOriginalDocx（JSZip 原檔操作）+ buildCleanDocx（from-text）。
+② 開場動畫/onboarding（似 CPD approval system）：首次使用導引使用者知道點用。
+③ 使用手冊（user manual）。
+④ EDB 網頁更新 monitor → 全入庫（Leonard 已授權「全入庫」standing）：跑 check_freshness.py / discover_sources.py → 逐源 pre-flight（U+FFFD=0、page-resolvable）→ ingest_one_source.py 逐源 + display sync 7 點。逐源 INSPECT，勿盲批。
+⑤ dead-code cleanup（task_94ebfd14：app.html 文件標註舊 builders/handlers）。
+⑥ Render cold-start（升 always-on 付費 或 keep-warm cron）。
+⑦ monitor：SMC 內容深度（已 +章程樣本，可再加 SMC 服務合約/其他官方源）；buildCleanDocx 段落配對率；P3 gate 多範疇；KG QC DRAFT。
+
+⚠️ 紀律：**live Supabase INSERT 需 Leonard 明確授權**（auto-mode classifier 會擋無授權寫入）+ 入庫前 INSPECT before/after + 用 ingest_one_source.py（canonical chunker、merge-duplicates 可重跑）+ display sync 7 點（3 JSON 層 byte-identical、_meta.version 凍結）；改 backend 前確認 Render deploy + routing 跑 detectQueryCategory 純函數 + Render live 探針；app.html/mobile.js 用 headless Chrome（fresh，bypass 快取，Preview 工具 cache subresource）；docx 由 docx 8.5.0 UMD 砌；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；repo 勿 set private。
+Post-startup first action: 探針 policychecker.wongfu.net v3.1.0 + Render /health + Supabase 15,127 + SMC 抽驗，然後問 Leonard 起邊個 backlog（建議 ① 乾淨成品版格式 或 ② 開場動畫）。
+```
+
+---
+
 ## 2026-06-15 Session 167 — 文件標註簡化為單一「乾淨成品版」下載（解決接受修訂後螢光殘留/原稿亂）
 
 - **ID:** Claude_20260615_S167
