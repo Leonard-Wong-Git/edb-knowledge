@@ -17,9 +17,10 @@
 - **QC 工具學習：** macOS **無 `timeout` 指令**（先前多次「空 dump」全因 `timeout: command not found` 令 chrome 根本冇跑）；headless Chrome `--dump-dom` + `--virtual-time-budget` exit 偶爾唔乾淨 → 拆「chrome 寫檔」與「python parse」兩步（dump 檔仍完整）。純前端 builder 單元測試改用 Node 抽真源 function（同 CDN 版本 lib）比 headless 更 deterministic。
 - **QC 覆核（Codex_20260615_QC_S169，①②③ only；④ deferred 不覆核）：** verdict **PASS-with-flags（no blocker）**。覆核範圍限 `2150f59` + `12f33fb`，確認兩 commit 均只改 `app.html`；worktree 起手 clean。① 以臨時 Word（標題/pStyle、編號段落、表格內段落、多段文字）跑 app.html 真 `buildCleanOriginalDocx`/`buildChangeSummaryDocx`：保留 pStyle/numbering/table、表格內 span 命中、建議普通文字插入、附錄在 `<w:sectPr>` 前、單一 `<w:body>`、零 `w:highlight`、零 `w:ins`；macOS `textutil` 可讀輸出 docx 並見建議/附錄/摘要。② headless Google Chrome + Playwright fresh profiles 驗首訪 tour 自動彈、localStorage `k1_tour_done_v1` gate、reload 不再自動彈、header「使用教學」重開、Esc/略過/完成/×/backdrop 均關閉並寫 gate、5 個 CTA 跳 `#qa/#annotate/#templates/#guidelines/#about`。③ about tab 使用手冊/FAQ render，展開「文件標註」details 後見乾淨成品版、無螢光、保留原格式、私隱文案；visible DOM 無舊「於原檔就地螢光標示」/「追蹤修訂」字眼。Non-blocking flags：未用 Microsoft Word/真校稿檔做人工視覺驗；舊 annotated/list builders 仍含舊文案/螢光/追蹤修訂字串但屬 dead-code cleanup follow-up，現行 UI/手冊不暴露。
 - **Boundary：** 純前端 `app.html`。backend / Supabase 15,127 / 凍結合約（knowledge `_meta` 2.3.0 · facts 455 · guidelines 152）/ desktop 其他功能 / `mobile.js` 零接觸。mobile onboarding 未做（desktop 為主 surface，列 follow-up）。throwaway QC harness `dev/_s169_qc.html` 已刪。
-- **版本：** 暫**未 bump** PLATFORM_VERSION（仍 `3.1.0`）；①②③（或連 ④）是否 = v3.2.0 留 Leonard 決定，QC pass 後再 bump app.html PLATFORM_VERSION + README + CHANGELOG（凍結 knowledge.json 不動）。
+- **⑤ dead-code cleanup（QC pass 後，Leonard「今個 pass 一齊清」，commit `967dd7d`，app.html −464 行 4434→3969）：** 移除 S167/S169 後失效嘅舊 builders — `buildAnnotatedOriginalDocx`/`buildAnnotatedPdf`/`buildEditableDocx`/`buildAnnotateListDocx` + `findingNoteParas` + `handleDownloadOriginal/Editable/List` handlers + 孤立 const `ANNOTATE_PLATFORM_NAME`（7 處引用全喺死 function 內）。Python 按範圍刪（defensive assertion 防錯位，沿用 S151 anchored-splice 先例）。保留共用 `partitionCleanFindings`/`annNorm`/`annParaMatches`/`paraPlainText`/`xmlEsc`/`ANNOTATE_SCHOOL_LABELS` + 現行 `buildCleanDocx`/`buildCleanOriginalDocx`/`buildChangeSummaryDocx`/`handleDownloadClean`/`handleDownloadChanges`/`downloadBlob`/`annotateMeta`。**resolve QC non-blocking flag 2**（舊 builders 殘留 w:highlight/w:ins）：刪後全檔 `w:highlight`=0、`w:ins` 僅 1 處（buildCleanOriginalDocx 註解寫「NO w:ins」）。QC：刪後 Node builder 單元測試 **32/0 PASS**（kept builders 完好可 extract+運作）+ headless Chrome `--dump-dom`（fresh）驗 app boot（tabs render）+ AnnotatePanel（選擇檔案）+ onboarding 完好；removed handlers 零 dangling ref（grep count 0 + boot 成功）。版本不 bump（等 ④）。
+- **版本：** 暫**未 bump** PLATFORM_VERSION（仍 `3.1.0`）；①②③④⑤ 一齊出 = v3.2.0（Leonard 決定「等埋 ④ 一齊先 bump」），④ 完成後再 bump app.html PLATFORM_VERSION + README + CHANGELOG（凍結 knowledge.json 不動）。
 - **Doc Sync:** Product behavior change → SESSION_HANDOFF/LOG（本）✓；Doc-drift truth-pass（channel desc）→ app.html 已修 + CODEBASE_CONTEXT AI log ✓；New user-facing feature README 功能表 / version / CHANGELOG → **deferred 到 release（post-QC + 版本決定）**。
-- **commits（已 push origin/main）:** `ff9bf37`(S168 收尾) → `2150f59`(① app.html) → `12f33fb`(②③ app.html) → 本治理 commit。
+- **commits（已 push origin/main）:** `ff9bf37`(S168 收尾) → `2150f59`(① app.html) → `12f33fb`(②③ app.html) → `ffc8b97`(治理 PERSIST) → `20fd2a7`(QC 記錄) → `967dd7d`(⑤ dead-code cleanup app.html −464)。
 - **Log maintenance (§4a):** SESSION_LOG <400 行，no-op。
 
 ### Next Session Handoff Prompt (Verbatim)
@@ -30,18 +31,19 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
 Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.1.0。
-Product state: HEAD == origin/main（已 push 12f33fb）。Supabase 15,127；Render backend live；Pages live。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.1.0 + Render /health + HEAD==origin/main + Supabase 15,127。
+Product state: HEAD == origin/main（已 push 967dd7d）。Supabase 15,127；Render backend live；Pages live。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.1.0 + Render /health + HEAD==origin/main + Supabase 15,127。
 
-S169（2026-06-15）已 ship + push（待 QC agent 覆核 ①②③）：
+S169（2026-06-15）已 ship + push（QC = PASS-with-flags、no blocker）：
 - ① 文件標註乾淨成品版「保留格式」+「改動摘要」（commit 2150f59，app.html）：Word 輸入用 JSZip 改原 docx XML 保留標題/編號/格式、建議融入正文（無螢光/無追蹤修訂）；新增「改動摘要」下載。Node builder 單元測試 32/0 PASS。
 - ② onboarding 首次使用導引（commit 12f33fb，app.html）：首訪自動彈 6 步導覽 + header「🎓 使用教學」重溫（localStorage gate）。
 - ③ 使用手冊（commit 12f33fb，app.html）：平台介紹 tab in-app 手冊 + FAQ；順手修正 stale 文件標註 channel 描述對齊現行行為。
+- ⑤ dead-code cleanup（commit 967dd7d，app.html −464）：移除 S167/S169 後失效舊 builders（buildAnnotatedOriginalDocx/Pdf/buildEditableDocx/buildAnnotateListDocx + handlers + findingNoteParas + ANNOTATE_PLATFORM_NAME），resolve QC flag 2；Node 32/0 + headless boot 驗。
 
 NEXT（優先序）：
-① 跟進 QC agent 覆核結果（修任何 flag；headless Chrome fresh/bypass 快取驗）。
-② 版本決定：①②③（或連 ④）是否 bump v3.2.0 → 改 app.html PLATFORM_VERSION + README badge/footer + CHANGELOG（勿 bump 凍結 knowledge.json _meta 2.3.0）。
-③ ④ EDB 網頁更新→全入庫（deferred；QC pass 後啟）：跑 dev/source/check_freshness.py --dry-run 及 dev/source/discover_sources.py --check（唯讀）→ 逐源 pre-flight（U+FFFD=0、page-resolvable）→ dev/ingest_one_source.py 逐源 live INSERT + display sync 7 點。⚠️ live INSERT 需逐源 INSPECT before/after + Leonard 明確授權，勿盲批。
-④ dead-code cleanup（task_94ebfd14：S167 文件標註舊 builders；S169 後 buildAnnotatedOriginalDocx/buildAnnotatedPdf/buildEditableDocx/buildAnnotateListDocx 仍 dead）。⑤ Render free-tier cold-start。⑥ mobile onboarding（desktop 已有、mobile.js shell 未做）。⑦ monitor：SMC 對通用「SMC/治理」query recall 被 IMC-heavy corpus 淹（資料在庫可檢索，需更貼題 query 或加 SMC 專屬源）；buildCleanOriginalDocx 表格內段落命中。
+① ④ EDB 網頁更新→全入庫（deferred；可起）：跑 dev/source/check_freshness.py --dry-run 及 dev/source/discover_sources.py --check（唯讀）→ 逐源 pre-flight（U+FFFD=0、page-resolvable）→ dev/ingest_one_source.py 逐源 live INSERT + display sync 7 點。⚠️ live INSERT 需逐源 INSPECT before/after + Leonard 明確授權，勿盲批。
+② ④ 完成後一齊 bump v3.2.0（Leonard 決定「等埋 ④ 一齊」）：改 app.html PLATFORM_VERSION + README badge/footer + CHANGELOG（勿 bump 凍結 knowledge.json _meta 2.3.0）。
+③ Leonard 真機/真檔收貨 ①②③（封版前，QC non-blocking flag）：上載真 Word 驗保留格式 + 表格內段落命中。
+④ Render free-tier cold-start；⑤ mobile onboarding（desktop 已有、mobile.js shell 未做）；⑥ monitor：SMC 對通用「SMC/治理」query recall 被 IMC-heavy corpus 淹（資料在庫可檢索，需更貼題 query 或加 SMC 專屬源）。
 
 ⚠️ 紀律：app.html 改動用 headless Chrome（fresh，bypass 快取；macOS 無 timeout 指令）；docx 8.5.0 UMD（window.docx）/ JSZip 3.10.1 / pdf.js 3.11.174 / mammoth 1.6.0；改 backend 前確認 Render deploy + routing 跑 detectQueryCategory 純函數 + Render live 探針；勿改 canonical chunker；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；路徑空格雙引號；commit -m 勿用反引號；repo 勿 set private。
 Post-startup first action: 起手探針（v3.1.0 + Supabase 15,127 + Render /health + HEAD==origin/main）後，按 Leonard 指示跟進 QC 結果 / 起 ④ / 做版本決定。
