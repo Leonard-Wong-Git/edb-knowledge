@@ -63,15 +63,16 @@
 
 > 系統架構總覽（RAG）：用戶 → 前端（app.html / React SPA / GitHub Pages）→ 後端（Render · Node.js + TypeScript · API Gateway）→ RAG 核心（Query 嵌入 → 主題路由 → 向量搜尋 → LLM 合成）→ 知識庫（Supabase pgvector 15,127 chunks + 455 已核實事實）；外部：OpenAI（Azure 備援）、Cloudflare 免 Cookie 統計。
 
-```
-Frontend (GitHub Pages)          Backend (Render)
-─────────────────────────        ──────────────────────────────
-app.html   ← React 18 SPA   ──→  /api/search/channel-a   (語義搜尋)
-index.html ← 入口頁               /api/search/channel-b   (Phase 2)
-q.html     ← Quick Q&A           /api/search/combined    (Phase 2)
-                                  /analyze-circular       (通告分析)
-                                  /health
-```
+**現行公開後端端點（Render · Node.js + TypeScript）：**
+
+| 端點 | 用途 |
+|---|---|
+| `POST /api/search/channel-b` | 政策搜尋（語義檢索 + LLM 合成） |
+| `POST /api/analyze-document` · `POST /api/annotate-document` | 文件標註（逐段比對 EDB 指引 / 生成標註成品） |
+| `POST /api/checklist-revise` · `GET /api/checklist-domains` | 合規清單 gap 檢查 / 範本範疇 |
+| `GET /health` | 健康檢查 |
+
+> Channel A（已核實事實）凍結 @455；`q.html` / 合併搜尋 / 通告分析入口為休眠狀態（backend route 保留、前端入口已移除）。
 
 ### Frontend
 - **Single-file React SPA** — `app.html`（React 18 + Babel + Tailwind CSS 2.2，全部 CDN）
