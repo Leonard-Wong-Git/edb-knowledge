@@ -2,6 +2,53 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-15 Session 164 — Mobile 範本下載 入口（桌面版功能標示 + 截圖示意）+ README/docs 更新
+
+- **ID:** Claude_20260615_S164
+- **Trigger:** 開工切 Draft active root（頂層 dormant scaffold，已向 Leonard 確認切去 Draft）。起手核實全綠：policychecker.wongfu.net /app.html HTTP 200 + PLATFORM_VERSION v3.0.0（S163QC Pages 404 已恢復）、HEAD==origin/main `d0322b9`、Render /health 200 cache_a 455、範本 docx 喺 Pages 可達（safety 學校版 docx HTTP 200/49,777 bytes）。Leonard 三項指示：① GitHub README 要更新 ② mobile 加範本下載 icon ③ 文件標註留 desktop 版本；經 AskUserQuestion 釐清範本手機畫面 = 「標示桌面版功能、不提供下載、放一個截圖」。
+- **PLAN（HIGH-risk，已 Leonard 確認）:** 純前端 mobile shell + 文檔；不碰 desktop app.html / backend / Supabase / 凍結 JSON 合約。
+- **CHANGE:**
+  - `mobile.js`（commit `0057dfe`）：bottom-nav `TABS` 3→**4** entries（🔍搜尋/📚指引文件/📋範本下載/ℹ️平台介紹）+ active-state 邏輯；init 加 `#templates` 分支（置於 search 預設之前，避免 `hash!=='#guidelines'` 誤吞）；新 `buildTemplatesShell()` = 純靜態畫面（💻桌面版功能 badge + 「範本為可編輯 Word，需電腦下載編輯」說明 + `templates-preview.png` 截圖 figure，`<img onerror>` 優雅隱藏）。利用既有 `hashchange→location.reload()`（mobile.js:676）令切 tab 重建 shell。
+  - `mobile.css`：+`.m-tpl-*` 樣式（沿用 `--m-*` token + `.m-guide-head` 風格）。
+  - `templates-preview.png`（root，新資產）：headless Chrome 截 desktop `app.html#templates` 範本面板 @2x（2360×2048，335KB）。
+  - 文件標註：維持 **desktop-only**，mobile shell 不設入口（符合 Leonard 原意）。
+  - 文檔：`README.md`（+響應式/手機版範圍表、日期 2026-06-15）/`CHANGELOG.md`（v3.0.0 +S164 Changed bullet、P6 改「文件標註 為 desktop 功能」）/`PROJECT_MASTER_SPEC.md` §B.5（改寫 4-entry nav + 範本桌面導引 + annotate desktop-only）/`CODEBASE_CONTEXT.md`（AI log + Directory Map）/`DOC_SYNC_CHECKLIST.md`（新增「Mobile shell scope / bottom-nav 變更」row）。
+- **QC（全 PASS）:** `node --check mobile.js` ✓。**headless Chrome `--dump-dom`（fresh process，bypass 快取 = 權威）核實 mobile `app.html#templates`：** `m-tpl-shell` present ✓ / 「桌面版功能」badge ✓ / `templates-preview.png` img 引用 ✓ / `.m-tab` count = **4** ✓ / `mobile-shell-active` ✓ / 文件標註**不在** mobile nav ✓。**回歸：** `app.html`（search）+ `app.html#guidelines` 兩畫面仍 4-tab、mobile-active、含範本 tab ✓。**desktop 零接觸：** `git status` 證只改 mobile.js/css + 4 docs + 新 png；`app.html`/`index.html`/`backend/` 無 diff。desktop 範本面板截圖視覺確認（5 tabs、校類 filter、各範疇下載鈕齊）。Supabase 15,109 零接觸、無版本 bump（PLATFORM_VERSION 仍 3.0.0）。
+- **Evidence disposition:** kept as recent trace evidence；reusable lesson（mobile #hash 畫面 + desktop-only 功能呈現）已入 DOC_SYNC row + PROJECT_MASTER_SPEC §B.5。
+- **⚠️ Note:** Claude Preview 工具因 `mobile.js` 為 subresource（無 query）而 cache 住舊版（顯示舊 3-tab）— preview 工具快取怪癖，**非真站問題**（GitHub Pages 送正確 cache header；新碼從未被任何真用戶 cache）；headless fresh render 為權威核實，故採用之。乾淨手機視覺截圖因 headless 首次 role-picker overlay + `--user-data-dir` profile 建立卡死而未取（環境問題，與功能無關；DOM dump 已完整證實 tpl shell 正確建於 overlay 之下）。
+- **Boundary:** 純前端 mobile shell（手機 ≤640px / mobile UA 先觸發）+ 文檔。desktop 體驗、backend、Supabase、凍結資料合約全不受影響。
+- **commits（feature 已 commit，待 push）:** `0057dfe`（mobile.js/css + templates-preview.png + 5 docs）→ 本治理 commit。
+- **Log maintenance (§4a):** SESSION_LOG 加 1 entry，總行數 <400、oldest <30d，no-op（無 archive 觸發）。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.0.0。
+Product state: HEAD == origin/main（已 push）。Supabase 15,109；Render backend live；Pages live（v3.0.0）；0 outstanding bug。起手 verify：探針 policychecker.wongfu.net /app.html=200+v3.0.0 + Render /health + HEAD==origin/main + Supabase 15,109。
+
+S164（2026-06-15）完成（純前端 mobile shell + 文檔，desktop/backend/Supabase/凍結合約 零接觸）：
+- mobile 底部導航 3→4 入口（+📋範本下載 #templates）；該手機畫面 = 「💻桌面版功能」標示 + 說明 + 桌面範本面板截圖示意（templates-preview.png，img onerror 優雅隱藏），不提供實際下載（學校版範本為可編輯 Word 檔需電腦用）。文件標註維持 desktop-only（手機不設入口）。
+- README +響應式/手機版範圍表；CHANGELOG v3.0.0 +S164 bullet + P6 改「文件標註 為 desktop」；PROJECT_MASTER_SPEC §B.5 改寫；CODEBASE_CONTEXT/DOC_SYNC 同步。
+- 核實：headless Chrome --dump-dom（fresh，bypass 快取）mobile DOM 全綠（m-tpl-shell/桌面版功能 badge/templates-preview.png img/4 nav tabs/mobile-active/annotate 不在 nav）；search+guidelines 回歸 4-tab；desktop 零 diff。commit 0057dfe。
+
+NEXT（優先序，多數待 Leonard）：
+① 真機驗 mobile 範本下載（iPhone/Android Safari/Chrome）：4-tab 導航排得落、範本畫面截圖清晰、文件標註手機無入口；確認後收貨。
+② Leonard 收貨 v3.0 6 fixes（S163QC，已全 live 驗）→ 正式封 v3.0。
+③ Render 免費 tier cold-start（閒置 15min 瞓 → 第一搜尋 ~50s）：production UX 痛點，考慮升 always-on 付費 tier 或加載入中 UX。
+④ 真檔驗：Phase 2 PDF inline highlight 真 PDF 對位+多 viewer CJK；P3 gate 真檔多範疇覆蓋率 monitor（STOPWORD_DF_FRACTION=0.25/COVERED=0.5/PARTIAL=0.42/MAX_ITEMS=400 tunable）。
+⑤ monitor：P2 KG routing 真用戶查詢；Phase 2.5 多範疇 UX；KG QC DRAFT 最終核；#3 學校版 102 docx review；here.now 鏡像保留/換 slug/綁 domain。
+
+Key files（S164）：mobile.js（TABS 4 entries + #templates branch + buildTemplatesShell）/ mobile.css（.m-tpl-*）/ templates-preview.png（root 資產）/ README.md / CHANGELOG.md / dev/PROJECT_MASTER_SPEC.md §B.5 / dev/CODEBASE_CONTEXT.md / dev/DOC_SYNC_CHECKLIST.md。
+⚠️ 紀律：起 backend 改動前確認 Render deploy；live INSERT 前 INSPECT；改 docx/checklist re-run gen_checklists_bundle.py+gen_templates_manifest.py（kg_operation canonical si/section_name）；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；本機 shell set -e（grep -c 0 中斷用 python 數）；改範本面板外觀記得重截 templates-preview.png；mobile.js 改動用 headless Chrome --dump-dom（fresh）核實，勿信 Preview 工具快取。改 host/CORS：env.ts BASELINE_CORS_ORIGINS exact origin 無尾斜線；repo 勿 set private（會 down free Pages + Render deploy）。
+Post-startup first action: 探針 policychecker.wongfu.net /app.html=200+v3.0.0 + Render /health + HEAD==origin/main + Supabase 15,109，然後問 Leonard：真機驗 mobile 範本下載 收貨 / 起邊個 NEXT。
+```
+
+---
+
 ## 2026-06-14 Session 163 QC — v3.0 release QC：6 blockers NO-GO→GO（P1–P6）+ regression 修復
 
 - **ID:** Claude_20260614_S163QC (S163 QC follow-up)
