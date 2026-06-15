@@ -60,6 +60,11 @@ HARD_NOISE_RE = re.compile(r"(EDB_PDPO|privacy[-_]statement|/common/[^/]*\.pdf$)
 # Filenames that are usually low-value — flagged (not dropped) as likely_noise.
 SOFT_NOISE_RE = re.compile(r"(poster|leaflet|pamphlet|comics?|survival|_eng?\.|_en\.|"
                           r"questionnaire|consultation|brief|membership|bibliography|preamble)", re.I)
+# A watch page yielding more than this many *new* doc links is an archive/listing
+# index (e.g. the free-quality-KG profile dump), not an incremental policy update.
+# Its records are flagged 'enumeration-page' (kept in the report, dropped from the
+# likely-real signal) so a single index page can't flood weekly triage. Tunable.
+ENUMERATION_PAGE_CAP = 25
 
 
 # ---------------------------------------------------------------------------
@@ -95,6 +100,21 @@ def classify_noise(url: str) -> Optional[str]:
     if SOFT_NOISE_RE.search(bn):
         return "soft"
     return None
+
+
+def flag_enumeration(records: List[Dict], cap: int) -> int:
+    """Pages yielding more than `cap` new doc links are archive/listing indexes, not
+    incremental updates — flag their *unflagged* records as 'enumeration-page' so one
+    index dump can't drown the signal. Preserves existing likely_noise labels. Mutates
+    in place; returns the number of records newly flagged. (offline-testable)"""
+    if len(records) <= cap:
+        return 0
+    n = 0
+    for rec in records:
+        if not rec.get("likely_noise"):
+            rec["likely_noise"] = "enumeration-page"
+            n += 1
+    return n
 
 
 def extract_doc_links(html: str, page_url: str) -> List[str]:
@@ -168,6 +188,17 @@ def run_self_test() -> int:
     check("collect_known basenames", "a.pdf" in names)
     new = normalize_url("https://e/NEW.pdf") not in known
     check("diff: unseen url is new", new)
+    under = [{"likely_noise": None} for _ in range(10)]
+    check("enumeration: at/under cap untouched",
+          flag_enumeration(under, 25) == 0 and under[0]["likely_noise"] is None)
+    over = [{"likely_noise": None} for _ in range(30)]
+    n_over = flag_enumeration(over, 25)
+    check("enumeration: over cap flagged",
+          n_over == 30 and over[0]["likely_noise"] == "enumeration-page")
+    mixed = [{"likely_noise": "filename-pattern"}] + [{"likely_noise": None} for _ in range(30)]
+    n_mixed = flag_enumeration(mixed, 25)
+    check("enumeration: preserves existing noise label",
+          mixed[0]["likely_noise"] == "filename-pattern" and n_mixed == 30)
 
     print(f"\nSelf-test: {'ALL PASS' if f == 0 else f'{f} FAIL'}")
     return 1 if f else 0
@@ -281,6 +312,7 @@ def main():
             }
             page_new.append(rec)
             new_records.append(rec)
+        flag_enumeration(page_new, ENUMERATION_PAGE_CAP)
         by_page[page] = page_new
         if args.verbose and page_new:
             print(f"  [{i}] {page} → {len(page_new)} new")

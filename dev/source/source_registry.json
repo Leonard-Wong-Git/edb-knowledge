@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-06-14",
+    "updated": "2026-06-15",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -97,7 +97,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Primary operations spine. Seeded from the agreed LLM-wiki plan and existing repo documentation.",
       "freshness_metadata": {
@@ -126,7 +126,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "1.19",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Compliance spine. Seeded from the agreed LLM-wiki plan and existing repo documentation.",
       "freshness_metadata": {
@@ -153,7 +153,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -180,7 +180,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -207,7 +207,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -234,7 +234,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2022",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -261,7 +261,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -288,7 +288,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -315,15 +315,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2014",
-      "last_checked_at": "2026-06-06",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact. | S146 batch2: ingested to Channel B (438 chunks, vault/g07) — NUL bytes stripped pre-insert",
       "freshness_metadata": {
-        "last_modified": "Tue, 24 Sep 2024 08:33:22 GMT",
-        "content_length": "1646",
-        "etag": "\"035416a5cedb1:0\"",
-        "content_hash": "d0702d007bb531a40a6545883d2f106566104f0102075112461e1187bbb795e1",
-        "hash_checked_at": "2026-06-03"
+        "last_modified": "Fri, 03 Mar 2023 03:11:02 GMT",
+        "content_length": "10538784",
+        "etag": "\"027d8c87d4dd91:0\"",
+        "content_hash": "9203bd66db9a2adb7efd9caac9abe1dd155a0ae20ad5ef7b05e08e6618469e76",
+        "hash_checked_at": "2026-06-15"
       }
     },
     {
@@ -366,7 +366,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact. | S146: NOT ingested as separate Channel B source — same document already in vector store via eng_pri_guide_2025",
       "freshness_metadata": {
@@ -393,7 +393,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2000",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -420,7 +420,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -447,7 +447,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "原 secondary-humanities.html 已失效；現改指向 PSHE 課程文件總頁，該頁仍列出初中人文學科課程及評估指引（2024）。",
       "freshness_metadata": {
@@ -474,15 +474,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007",
-      "last_checked_at": "2026-06-06",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact. | S146(2026-06-06): ingested to Channel B vector store (vault/g33)",
       "freshness_metadata": {
-        "last_modified": "Mon, 11 May 2026 02:02:28 GMT",
-        "content_length": "1124",
-        "etag": "\"052f437eae0dc1:0\"",
-        "content_hash": "8e4d9699f785db1e1dce9bd885005fb6cfe17de29d5d1856319834f6fde5a1c0",
-        "hash_checked_at": "2026-06-03"
+        "last_modified": "Tue, 30 Sep 2025 04:06:31 GMT",
+        "content_length": "1605215",
+        "etag": "\"80bd359abf31dc1:0\"",
+        "content_hash": "729da6cae1ab24c0e7b0919c5c7b79d363d7f067e5ce9405cc655a185c724266",
+        "hash_checked_at": "2026-06-15"
       }
     },
     {
@@ -501,7 +501,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S138 §E.12 URL re-discovery: registry pointed url_primary at the index.html catalogue (source_type=index → 0 chunks coverage gap, the SEN data gap behind the 'sen' short-query miss). The actual consolidated PDF lives at the attachment path: CGSS (2024) Full version (HTTP 200 verified, 116 pages, mojibake pre-flight CLEAN — proper text layer, NOT CID-glyph unlike phys_sss). Corrected url_primary → direct PDF (URL-encoded; filename has spaces/parens), source_type → pdf, and page-carried into Supabase. url_landing kept as the navigation index. Added to backend SOURCE_SETS.sen so it surfaces for SEN queries.",
       "freshness_metadata": {
@@ -528,7 +528,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -555,15 +555,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-06",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact. | S146(2026-06-06): ingested to Channel B vector store (vault/g09) — excerpt pp.43-48 of CLEKLAG_2017",
       "freshness_metadata": {
-        "last_modified": "Mon, 06 Oct 2025 06:58:32 GMT",
-        "content_length": "1122",
-        "etag": "\"0dc7ba08e36dc1:0\"",
-        "content_hash": "ffb9e591607bc569c78d28255b93591da29d6a1ab4bd537b3f81150d1c5ee12f",
-        "hash_checked_at": "2026-06-03"
+        "last_modified": "Fri, 10 Aug 2018 03:51:19 GMT",
+        "content_length": "7476291",
+        "etag": "\"809549655d30d41:0\"",
+        "content_hash": "d6c438a0eb7e5d32bbfd91bbd44add9f7dfa2a7aefca52f7d7bf1e6d74270ad4",
+        "hash_checked_at": "2026-06-15"
       }
     },
     {
@@ -582,7 +582,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2002",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -609,7 +609,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2002",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "舊 `poklacg_2002/index.html` 已失效；現回填至教育局仍公開的 2002 體育學習領域課程指引 PDF，landing page 指向現行體育課程文件頁。",
       "freshness_metadata": {
@@ -636,7 +636,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2000",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "g12"
@@ -666,15 +666,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-06-06",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact. | S146(2026-06-06): ingested to Channel B vector store (vault/g35)",
       "freshness_metadata": {
-        "last_modified": "Tue, 02 Apr 2024 10:10:03 GMT",
-        "content_length": "2864",
-        "etag": "\"804fa1ede584da1:0\"",
-        "content_hash": "49eaa18333edd17d911f9e96067458322e89da8b07a5fbf435322e09ea573275",
-        "hash_checked_at": "2026-06-03"
+        "last_modified": "Mon, 16 Mar 2026 02:45:24 GMT",
+        "content_length": "3867301",
+        "etag": "\"0ba3cf0eeb4dc1:0\"",
+        "content_hash": "155a2c15c3d45ab407439fa1e3ed2b3384ee59e15f104343787d7d2b45713e2b",
+        "hash_checked_at": "2026-06-15"
       }
     },
     {
@@ -693,15 +693,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2002",
-      "last_checked_at": "2026-06-06",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact. | S146(2026-06-06): ingested to Channel B vector store (vault/g36)",
       "freshness_metadata": {
-        "last_modified": "Thu, 05 Jun 2025 02:54:58 GMT",
-        "content_length": "2983",
-        "etag": "\"02dd39c5d5db1:0\"",
-        "content_hash": "576fd4f6b62afb5ad48a74a7e68ea92d355c0e95a8adf1fda9fa299d4b647a90",
-        "hash_checked_at": "2026-06-03"
+        "last_modified": "Fri, 08 Dec 2017 05:10:44 GMT",
+        "content_length": "3541872",
+        "etag": "\"0223ee6e26fd31:0\"",
+        "content_hash": "b7c8d57ea41dff9fe0587141c79619c5d20f73fb5adfa71c59c889049ea2eabf",
+        "hash_checked_at": "2026-06-15"
       }
     },
     {
@@ -720,15 +720,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2002",
-      "last_checked_at": "2026-06-06",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact. | S146(2026-06-06): ingested to Channel B vector store (vault/g37)",
       "freshness_metadata": {
-        "last_modified": "Wed, 22 Apr 2026 02:20:54 GMT",
-        "content_length": "2416",
-        "etag": "\"04755a5fed1dc1:0\"",
-        "content_hash": "cc8dd4e9acf7f1d88f05b721a7689d11a5885239109f2c435dc98e3255786c0d",
-        "hash_checked_at": "2026-06-03"
+        "last_modified": "Tue, 21 Apr 2026 01:22:34 GMT",
+        "content_length": "5506950",
+        "etag": "\"0e9c1542dd1dc1:0\"",
+        "content_hash": "ea40022c2082076d5ba00edfe7c41f503f574da6154ef01ddbe3dd08405a2f5c",
+        "hash_checked_at": "2026-06-15"
       }
     },
     {
@@ -747,7 +747,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2003",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "原 music-curri/index.html 已失效；現改指向藝術教育昔日課程文件頁，PDF=music_complete_guide_chi.pdf（153 版、36.5MB）。 | S146 batch2: text-layer = CID/custom-font garbage (cjk≈0) needs OCR. | S147 INGESTED: 雲端 vision OCR (gpt-4o, dev/ocr_extract.py concurrency+resume) 全 153 版 → +194 chunks (filler-collapse 修 oversized worksheet chunks)；加 SOURCE_SETS.curriculum allowlist。OCR 草稿質素、page-resolvable。⚠️ 2003 P1-S3 與 music_p1_s6_2024 (2024 P1-S6) 共存、monitor stale-ranking。",
       "freshness_metadata": {
@@ -774,7 +774,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2002",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact. | S146: NOT ingested as separate Channel B source — same document already in vector store via tech_kla_guide_2017",
       "freshness_metadata": {
@@ -801,7 +801,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2020",
-      "last_checked_at": "2026-06-06",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact. | S146(2026-06-06): ingested to Channel B vector store (vault/g14)",
       "freshness_metadata": {
@@ -828,7 +828,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -855,7 +855,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact. | S149: ingested to Channel B (48 chunks, vault/g21; VAsafety pri+sec, text-layer fetch_extract); added to SOURCE_SETS.safety + TOPIC_KEYWORDS.safety (視藝安全).",
       "freshness_metadata": {
@@ -882,7 +882,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2021",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact. | S149: ingested to Channel B (58 chunks, vault/g22; Safety Booklet 2010, text-layer fetch_extract); added to SOURCE_SETS.safety + TOPIC_KEYWORDS.safety (科技安全).",
       "freshness_metadata": {
@@ -909,15 +909,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026",
-      "last_checked_at": "2026-06-06",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact. | S146 batch2: ingested to Channel B (57 chunks, vault/g23)",
       "freshness_metadata": {
-        "last_modified": "Fri, 10 Apr 2026 08:32:01 GMT",
-        "content_length": "1540",
-        "etag": "\"80d68a80c4c8dc1:0\"",
-        "content_hash": "38b5c9b1818697dce296de539ccf3c5b76fffc46d68087b1cf6b2903aa12c532",
-        "hash_checked_at": "2026-06-03"
+        "last_modified": "Fri, 10 Apr 2026 08:26:53 GMT",
+        "content_length": "1125782",
+        "etag": "\"80c4f5c8c3c8dc1:0\"",
+        "content_hash": "d9d567b61237a93f21cb073968500fd1c7ca1dd4b98850734528e025fa8aa3aa",
+        "hash_checked_at": "2026-06-15"
       }
     },
     {
@@ -936,7 +936,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -963,7 +963,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2020",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -990,7 +990,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -1017,7 +1017,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2011",
-      "last_checked_at": "2026-06-06",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact. | S146(2026-06-06): ingested to Channel B vector store (vault/g17)",
       "freshness_metadata": {
@@ -1044,7 +1044,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact. | S149: ingested to Channel B (9 chunks, vault/g18; 2025/26 Schools guideline + committee, text-layer fetch_extract); added to SOURCE_SETS.safety + TOPIC_KEYWORDS.safety (校車).",
       "freshness_metadata": {
@@ -1071,7 +1071,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026-01",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S138 §E.12 URL re-discovery: registry pointed url_primary at the edb.gov.hk/.../wsa/ navigation hub (source_type=html → 0 chunks coverage gap, the SEN data gap behind the 'sen' short-query miss). The actual canonical document is hosted on the SENSE portal: 《全校參與模式融合教育運作指南》(Operation Guide on the WSA to Integrated Education), latest 2026年1月 edition (HTTP 200 verified, 88 pages, mojibake pre-flight CLEAN). Corrected url_primary → direct PDF on sense.edb.gov.hk, url_landing → SENSE 指引 page, source_type → pdf, version 2024→2026-01, and page-carried into Supabase. Added to backend SOURCE_SETS.sen so it surfaces for SEN queries.",
       "freshness_metadata": {
@@ -1098,7 +1098,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -1125,7 +1125,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -1152,7 +1152,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
@@ -1179,7 +1179,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "原 kindergarten-k1-admission-arrangements/index.html 已失效；現改為 2026/27 K1 收生安排頁及其《收生安排指引》PDF 直連。",
       "freshness_metadata": {
@@ -1208,7 +1208,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "定期更新的教育統計數字頁面，涵蓋學校數目、學生人數、教師人手等。由用戶新增。因內容會更新，需定期複查 freshness。",
       "freshness_metadata": {
@@ -1236,7 +1236,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
       "notes": "幼稚園學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_kg/。",
@@ -1266,7 +1266,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
       "notes": "小學學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_pri/。",
@@ -1296,7 +1296,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
       "notes": "中學學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_sec/。",
@@ -1324,7 +1324,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
       "notes": "特殊學校學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_special/。",
@@ -1352,7 +1352,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
       "notes": "融合教育（SEN 學生於普通學校就讀）統計數字 Excel 檔案，定期更新。來自 data.gov.hk。待用戶上傳後提取內容至 vault/stat_integrated_edu/。",
@@ -1420,7 +1420,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "g06",
@@ -1455,7 +1455,7 @@
       "issued_date": "2024-07-15",
       "issued_by": "陳碧華博士（教育局局長代行）",
       "circular_ref": "EDB(CD/K&P)/PRI/150/1/3/(4)",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "g06",
@@ -1487,7 +1487,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "課程更新指引及文件的總覽索引頁，涵蓋各學習領域（KLA）的課程改革文件連結。為 curriculum topic 的上層導航頁，適合 LLM-wiki search 指向用途。內容定期更新，需複查 freshness。edb.gov.hk 暫時無法自動抓取，待用戶貼入內容或 Phase 2 解鎖後提取至 vault。",
       "freshness_metadata": {
@@ -1514,7 +1514,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "g08",
@@ -1545,7 +1545,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "g11"
@@ -1575,7 +1575,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "g36",
@@ -1607,7 +1607,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "cs_curr",
@@ -1638,7 +1638,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "g30",
@@ -1671,7 +1671,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "g37",
@@ -1702,7 +1702,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "g15"
@@ -1732,15 +1732,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-06",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "應用學習（跨 KLA）課程文件索引。涵蓋應用學習課程及評估指引，以及職業導向教育 / 特殊學校新高中學制相關文件。已開始由 user-paste 方式整理至 vault/apl_curr_docs/catalogue.json。 | S146 batch2: ingested to Channel B (147 chunks, vault/apl_curr_docs)",
       "freshness_metadata": {
-        "last_modified": "Wed, 21 Aug 2024 02:21:32 GMT",
-        "content_length": "1552",
-        "etag": "\"0de69d670f3da1:0\"",
-        "content_hash": "7037d5b0ba949f4e75243a074625ff07a4f7f1eb57802ffd2e63139fc1cba4a4",
-        "hash_checked_at": "2026-06-03"
+        "last_modified": "Tue, 28 Nov 2017 10:11:26 GMT",
+        "content_length": "4605536",
+        "etag": "\"05bfb3f3168d31:0\"",
+        "content_hash": "6e280dc06d9914ac37e3bf2b8b20eb6a1eefb489f935fe3a766b99fb7ee90dd1",
+        "hash_checked_at": "2026-06-15"
       }
     },
     {
@@ -1760,7 +1760,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "ict_sss_2021"
@@ -1790,7 +1790,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "gs_pri_guide_2017",
@@ -1821,7 +1821,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "gs_pri_curr",
@@ -1852,7 +1852,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "gs_pri_curr",
       "related_source_ids": [
         "g30",
@@ -1888,7 +1888,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "ph_pri_curr"
@@ -1918,7 +1918,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "ph_pri_curr"
@@ -1948,7 +1948,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "ph_pri_curr"
@@ -1978,7 +1978,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "ph_pri_curr",
@@ -2013,7 +2013,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "g30",
       "related_source_ids": [
         "ph_pri_curr",
@@ -2046,7 +2046,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "g10"
@@ -2077,7 +2077,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "資優教育政策文件及指引索引，涵蓋三層推行模式、校本資優教育計劃指引等。待提取。 | S146: prior 534-chunk ingest deleted (wrong provenance: SECG booklet + unverified circulars). cd/index.html only links PECG(=g06)+SECG; gifted curriculum already covered by g06+g14. | S150 (2026-06-08): Leonard provided correct links → ingested 19 chunks: policy_chin_March08.pdf (資優教育政策文件 2008, 8pp) + hong-kong-development introduction.html + detail.html. ecr4_c.pdf (full ECR4 1990 report, gifted only ~p45-61 of 175pp) deliberately SKIPPED to avoid stale general-policy dilution. New dedicated 'gifted' route added (SOURCE_SETS.gifted + TOPIC_KEYWORDS.gifted 資優/資賦 + QUERY_EXPANSIONS; also surfaces g14+g06).",
       "freshness_metadata": {
@@ -2104,15 +2104,15 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-06",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "國家安全教育課程資源索引，隸屬 PSHE KLA。涵蓋《國家安全教育課程框架》及各科實施建議。待提取。 | S146 batch2: ingested to Channel B (39 chunks, vault/nat_sec_edu)",
       "freshness_metadata": {
-        "last_modified": "Mon, 16 Feb 2026 02:37:54 GMT",
-        "content_length": "3109",
-        "etag": "\"02d7340ed9edc1:0\"",
-        "content_hash": "3042e458fb886024c7781dfac823de3c0b8f1270682e696514e53589b09d8a15",
-        "hash_checked_at": "2026-06-03"
+        "last_modified": "Wed, 10 Dec 2025 06:38:39 GMT",
+        "content_length": "1860933",
+        "etag": "\"8041409e9f69dc1:0\"",
+        "content_hash": "5dfbb2be22bed2ebb7a04b00ab438b4d205fd05de6b55898592dacf4b0684f5c",
+        "hash_checked_at": "2026-06-15"
       }
     },
     {
@@ -2132,7 +2132,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "STEAM 教育資源及政策索引，隸屬科技教育 KLA。涵蓋跨 KLA 學習、編程教育等內容。待提取。",
       "freshness_metadata": {
@@ -2159,7 +2159,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "pri_science_guide_2025",
@@ -2197,7 +2197,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "g36",
       "parent_source_id": "sci_curr_docs",
       "notes": "科學教育 KLA 總綱（小一至中六），比 g36 的 2002 舊版更新。PDF 直連 URL 待補充；現由 vault/science_edu_curr_docs/catalogue.json 追蹤（doc_id: sci_kla_guide_2017）。",
@@ -2225,7 +2225,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "sci_curr_docs",
       "related_source_ids": [
@@ -2256,7 +2256,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "pri_science"
@@ -2286,7 +2286,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "pri_science"
@@ -2316,7 +2316,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "pri_science"
@@ -2346,7 +2346,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "pri_science"
@@ -2376,7 +2376,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "pri_science"
@@ -2406,7 +2406,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "pri_science",
@@ -2437,7 +2437,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "pri_science"
@@ -2490,7 +2490,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "sci_curr_docs",
       "notes": "初中科學（中一至中三）補充文件。PDF 直連已回填。",
@@ -2518,7 +2518,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "sci_jss_supp_2017",
       "parent_source_id": "sci_curr_docs",
       "notes": "初中科學（中一至中三）課程框架，2025 年版本。PDF 直連已回填。",
@@ -2546,7 +2546,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "sci_curr_docs",
       "notes": "高中生物課程及評估指引（2007，2015年11月更新）。PDF 直連已回填。",
@@ -2574,7 +2574,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2018-06",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "sci_curr_docs",
       "notes": "高中化學課程及評估指引（2007，2018年6月更新）。PDF 直連已回填。",
@@ -2602,7 +2602,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "sci_curr_docs",
       "notes": "高中物理課程及評估指引（2007，2015年11月更新）。PDF 直連已回填。",
@@ -2630,7 +2630,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "values_edu_framework_2021_trial",
@@ -2664,7 +2664,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2021",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "moral_civic_curr"
@@ -2694,7 +2694,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "moral_civic_curr",
@@ -2725,7 +2725,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "moral_civic_curr"
@@ -2755,7 +2755,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "moral_civic_curr"
@@ -2785,7 +2785,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2008",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "moral_civic_curr"
@@ -2815,7 +2815,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "chi_edu_curr_docs",
       "notes": "最新小學中國語文課程指引（2023）。PDF 直連已回填。",
@@ -2843,7 +2843,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "chi_edu_curr_docs",
       "notes": "最新初中中國語文課程指引（2023）。PDF 直連已回填。",
@@ -2871,7 +2871,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2021",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "chi_edu_curr_docs",
       "notes": "高中中國語文課程及評估指引（2021）。PDF 直連已回填。",
@@ -2899,7 +2899,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "chi_edu_curr_docs",
       "notes": "最新2025年更新版中國文學課程及評估指引。PDF 直連已回填。",
@@ -2927,7 +2927,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "g33",
       "notes": "英文科 KLA 國家安全教育課程框架（2025）。PDF 直連已回填。",
@@ -2955,7 +2955,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "g33",
       "notes": "最新2025年小學英文課程指引（CDC）。PDF 直連已回填。",
@@ -2983,7 +2983,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2018",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "g33",
       "notes": "初中英文課程指引補充（2018）。PDF 直連已回填。",
@@ -3012,7 +3012,7 @@
       "status": "verified",
       "version_label": "2021",
       "issued_note": "Effective from Secondary 4 in 2021/22 school year",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "eng_sss_guide_2007",
       "parent_source_id": "g33",
       "notes": "現行高中英文課程及評估指引（CDC-HKEAA，2021/22起）。PDF 直連已回填。",
@@ -3041,7 +3041,7 @@
       "status": "verified",
       "version_label": "2023",
       "issued_note": "Effective from Secondary 4 in 2023/24 school year",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "eng_lit_guide_2007",
       "parent_source_id": "g33",
       "notes": "現行英文文學課程及評估指引（CDC-HKEAA，2023/24起）。PDF 直連已回填。",
@@ -3069,7 +3069,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "ma_curr_index",
       "notes": "數學教育 KLA 總綱（小一至中六），2017年版。PDF 直連已回填。",
@@ -3097,7 +3097,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017-12",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "ma_curr_index",
       "notes": "現行高中數學課程及評估指引（2017年12月更新版）。PDF 直連已回填。",
@@ -3126,7 +3126,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2021",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "ma_curr_index",
       "notes": "高中數學照顧學習多樣性重要指引，2021年版。PDF 直連已回填。",
@@ -3155,7 +3155,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "notes": "科技教育 KLA 總綱（小一至中六），2017 年版。PDF 直連已回填。",
@@ -3184,7 +3184,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2020",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "related_source_ids": [
@@ -3215,7 +3215,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "notes": "高中 BAFS 課程及評估指引（2007，2015年11月更新）。PDF 直連已回填。",
@@ -3243,7 +3243,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2020-10",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "bafs_sss_2007_2015",
       "parent_source_id": "tech_curr_docs",
       "notes": "高中 BAFS 課程及評估指引（2007，2020年10月更新；2022/23 起實施）。PDF 直連已回填。",
@@ -3272,7 +3272,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "notes": "高中健康管理與社會關懷課程及評估指引（2007，2015年11月更新）。PDF 直連已回填。",
@@ -3301,7 +3301,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "notes": "高中科技與生活課程及評估指引（2007，2015年11月更新）。PDF 直連已回填。",
@@ -3330,7 +3330,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "notes": "高中設計與應用科技課程及評估指引（2007，2015年11月更新）。PDF 直連已回填。",
@@ -3359,7 +3359,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2020-12",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "related_source_ids": [
@@ -3391,7 +3391,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "related_source_ids": [
@@ -3423,7 +3423,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2021",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "ict_sss_2007_2015",
       "parent_source_id": "tech_curr_docs",
       "related_source_ids": [
@@ -3454,7 +3454,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "初中中國歷史課程指引。PDF 直連已回填。",
@@ -3482,7 +3482,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "初中中國歷史非華語學生適用版本。PDF 直連已回填。",
@@ -3510,7 +3510,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "初中中國歷史中英雙語版。PDF 直連已回填。",
@@ -3538,7 +3538,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "高中中國歷史課程及評估指引。PDF 直連已回填。",
@@ -3567,7 +3567,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "ls_jss_2010",
       "parent_source_id": "pshe_curr_docs",
       "notes": "初中公民、經濟與社會課程指引，逐步取代生活與社會課程。PDF 直連已回填。",
@@ -3595,7 +3595,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "econ_sss_2007_2015",
       "parent_source_id": "pshe_curr_docs",
       "notes": "高中經濟課程及評估指引 2025 更新版。PDF 直連已回填。",
@@ -3623,7 +3623,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "econ_sss_supp_2015",
       "parent_source_id": "pshe_curr_docs",
       "notes": "高中經濟補充文件 2025 更新版。PDF 直連已回填。",
@@ -3651,7 +3651,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "高中經濟課程及評估指引 2015 更新版。PDF 直連已回填。",
@@ -3679,7 +3679,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2015-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "高中經濟補充文件 2015 版本。PDF 直連已回填。",
@@ -3707,7 +3707,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "ethics_relig_sss_2007_2019",
       "parent_source_id": "pshe_curr_docs",
       "notes": "現行倫理與宗教課程及評估指引。PDF 直連已回填。",
@@ -3735,7 +3735,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2019-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "舊版倫理與宗教課程及評估指引。PDF 直連已回填。",
@@ -3763,7 +3763,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "religious_edu_jss",
       "parent_source_id": "pshe_curr_docs",
       "notes": "初中宗教教育課程指引 2024。PDF 直連已回填。",
@@ -3817,7 +3817,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2022-07",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "地理科 2022 補充資料。PDF 直連已回填。",
@@ -3845,7 +3845,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2022-07",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "地理科 2022 更新版。PDF 直連已回填。",
@@ -3873,7 +3873,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2022-07",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "地理科更新撮要。PDF 直連已回填。",
@@ -3901,7 +3901,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2022",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "高中地理課程更新簡介。PDF 直連已回填。",
@@ -3929,7 +3929,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "legacy",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "初中地理課程指引。PDF 直連已回填。",
@@ -3957,7 +3957,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "S135 §E.12 URL re-discovery：原 hist_c_j1-3_2019.pdf 直連失效後曾改指 PSHE 總頁（source_type=html，致 0 chunks coverage gap）。EDB 已將該 PDF 重命名/搬位為 Hist_Curr_Guide_S1-3_Chi_final_10072019.pdf（HTTP 200 已驗，118 頁），現修正 url_primary 為直連 + source_type=pdf，並 page-carry 入庫（西史初中，與中史 CHist_* 及西史高中 Hist_C&A_Guide 互不重疊）。",
@@ -3985,7 +3985,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "高中歷史課程及評估指引。PDF 直連已回填。",
@@ -4013,7 +4013,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "旅遊與款待課程及評估指引。PDF 直連已回填。",
@@ -4042,7 +4042,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2010",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
       "notes": "生活與社會課程指引；2024/25 起逐步由 CES 課程取代。PDF 直連已回填。",
@@ -4070,7 +4070,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "g37",
       "parent_source_id": "arts_curr_docs",
       "notes": "藝術教育 KLA 總綱（小一至中六）2017。EDB PDF 直連已記錄；用戶亦提供本地副本 `/Users/leonard/Desktop/AE_KLACG__Chi___2017.pdf` 供核對。現由 vault/arts_edu_curr_docs/catalogue.json 追蹤（doc_id: arts_kla_guide_2017）。",
@@ -4098,7 +4098,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "g38",
       "parent_source_id": "arts_curr_docs",
       "notes": "音樂科課程指引（小一至中六）2024。EDB PDF 直連已記錄；用戶亦提供本地副本 `/Users/leonard/Desktop/mus_cg_c_2024.pdf` 供核對。現由 vault/arts_edu_curr_docs/catalogue.json 追蹤（doc_id: music_p1_s6_2024）。",
@@ -4126,7 +4126,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-09",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "music_sss_2015",
       "parent_source_id": "arts_curr_docs",
       "notes": "現行高中音樂課程及評估指引（2024年9月更新）。PDF 直連已回填。",
@@ -4154,7 +4154,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2015-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "arts_curr_docs",
       "notes": "舊版高中音樂課程及評估指引。PDF 直連已回填。",
@@ -4182,7 +4182,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-09",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "arts_curr_docs",
       "notes": "音樂科國歌學與教補充文件。PDF 直連已回填。",
@@ -4210,7 +4210,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "arts_curr_docs",
       "notes": "視覺藝術科課程指引（小一至中六）2024。EDB PDF 直連已記錄；用戶亦提供本地副本 `/Users/leonard/Desktop/va_cg_c_2024.pdf` 供核對。現由 vault/arts_edu_curr_docs/catalogue.json 追蹤（doc_id: va_p1_s6_2024）。",
@@ -4238,7 +4238,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2015-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "arts_curr_docs",
       "notes": "高中視覺藝術課程及評估指引。EDB PDF 直連已記錄；用戶亦提供本地副本 `/Users/leonard/Desktop/VA_CA_Guide_c-100418.pdf` 供核對。現由 vault/arts_edu_curr_docs/catalogue.json 追蹤（doc_id: va_sss_2015）。",
@@ -4266,7 +4266,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "pe_sss_2007_2015",
       "parent_source_id": "pe_curr_docs",
       "notes": "現行高中體育課程及評估指引（2023）。PDF 直連已回填。",
@@ -4294,7 +4294,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": "g15",
       "parent_source_id": "pe_curr_docs",
       "notes": "體育 KLA 總綱（小一至中六）2017。PDF 直連已回填。",
@@ -4322,7 +4322,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pe_curr_docs",
       "notes": "舊版高中體育課程及評估指引。PDF 直連已回填。",
@@ -4350,7 +4350,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Auto-registered via process_signals.py from policy signal. Signal ID: sig_edbc002_2026",
       "freshness_metadata": {
@@ -4377,7 +4377,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Auto-registered via process_signals.py from policy signal. Signal ID: sig_edbc003_2026",
       "freshness_metadata": {
@@ -4404,7 +4404,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026",
-      "last_checked_at": "2026-06-03",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "Auto-registered via process_signals.py from policy signal. Signal ID: sig_edbc005_2026",
       "freshness_metadata": {
@@ -4431,7 +4431,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025-09",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S141 SEN-adjacent backfill: discovered under the special-educational-needs curriculum-area hub (sen_curr_area, source_type=html → 0 own chunks; the hub's main child 《特殊學校課程指引》is already g10). Distinct current full-text SEN policy guideline — 《為有特殊教育需要學生提供校內考試特別安排》二零二五年九月(修訂) (HTTP 200, 46 pages, mojibake pre-flight CLEAN). Hosted on SENSE portal (sea_guide_c.pdf); NOT a duplicate of g19 ie_guide_ch.pdf. The 3 originally-targeted 0-chunk ids yielded no other page-carryable PDF (g14 = HTML-only multi-chapter, no PDF/structural ceiling; gifted_policy_docs = static nav-only; sen_curr_area = hub). See SESSION_LOG S141. Added to backend SOURCE_SETS.sen.",
       "freshness_metadata": {
@@ -4458,10 +4458,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=finance), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.finance.",
       "freshness_metadata": {
+        "last_modified": "Thu, 10 Mar 2016 01:58:19 GMT",
+        "content_length": "323513",
+        "etag": "\"806f5651707ad11:0\"",
         "content_hash": "922ccc6cb9a2c959cb28a2172f5a0d0dbb790d301ad5ad055007da438685878a",
         "hash_checked_at": "2026-06-04"
       }
@@ -4482,10 +4485,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 32p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
       "freshness_metadata": {
+        "last_modified": "Fri, 17 Apr 2026 04:30:25 GMT",
+        "content_length": "2440459",
+        "etag": "\"80625e922cedc1:0\"",
         "content_hash": "b48faf8e2c6c39d26b8a6f3bb76ffca4e8b275a79d372033d2dff3bd1f311efb",
         "hash_checked_at": "2026-06-04"
       }
@@ -4506,10 +4512,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 13p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
       "freshness_metadata": {
+        "last_modified": "Mon, 22 Sep 2025 06:25:27 GMT",
+        "content_length": "678469",
+        "etag": "\"80658caf892bdc1:0\"",
         "content_hash": "ff080fec1187334ace43f7871dc0b67c0a09e69767c30e0fa0ae50330300867a",
         "hash_checked_at": "2026-06-04"
       }
@@ -4530,10 +4539,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 6p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
       "freshness_metadata": {
+        "last_modified": "Thu, 10 Nov 2022 06:54:20 GMT",
+        "content_length": "551168",
+        "etag": "\"0f6fe41d1f4d81:0\"",
         "content_hash": "856e6cc45ecf9bfa04e405bc3e4cb06f6072df6c43d795af47f8ef3978495180",
         "hash_checked_at": "2026-06-04"
       }
@@ -4554,10 +4566,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=finance), egress-verified (HTTP200, 1p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.finance.",
       "freshness_metadata": {
+        "last_modified": "Thu, 08 May 2025 09:18:48 GMT",
+        "content_length": "264736",
+        "etag": "\"04c6f34fabfdb1:0\"",
         "content_hash": "a665b784966489b8b384582ae52c57d800b90154d4920b224044ae29fd00a858",
         "hash_checked_at": "2026-06-04"
       }
@@ -4578,10 +4593,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
       "freshness_metadata": {
+        "last_modified": "Mon, 24 Oct 2022 08:14:19 GMT",
+        "content_length": "543169",
+        "etag": "\"807f669d80e7d81:0\"",
         "content_hash": "503cfef7a06aabd313a5aa26600161e82be6ba7ea7aa8c598b96fd50660ac0ab",
         "hash_checked_at": "2026-06-04"
       }
@@ -4602,10 +4620,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 3p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
       "freshness_metadata": {
+        "last_modified": "Wed, 17 Sep 2025 01:40:08 GMT",
+        "content_length": "281660",
+        "etag": "\"08cc3ff7327dc1:0\"",
         "content_hash": "830c118541285e43c545bc900c7edf804633e25abd1790a4bffaf9ac9490cd2b",
         "hash_checked_at": "2026-06-04"
       }
@@ -4626,10 +4647,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
       "freshness_metadata": {
+        "last_modified": "Tue, 23 Apr 2013 03:25:14 GMT",
+        "content_length": "58764",
+        "etag": "\"049272bd23fce1:0\"",
         "content_hash": "8d7b9526cfe360f78014ed21578aa4ad176269b07968ccdc5504ad9bed2d93cb",
         "hash_checked_at": "2026-06-04"
       }
@@ -4650,10 +4674,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 9p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
       "freshness_metadata": {
+        "last_modified": "Tue, 22 Aug 2023 01:43:32 GMT",
+        "content_length": "684740",
+        "etag": "\"0baa6e9ad4d91:0\"",
         "content_hash": "2a64e75fbdb21a26f7d9f4d51c66402a6229350cb726a3f3fafed801a6de9b20",
         "hash_checked_at": "2026-06-04"
       }
@@ -4674,10 +4701,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 1p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
       "freshness_metadata": {
+        "last_modified": "Thu, 11 Sep 2025 04:28:51 GMT",
+        "content_length": "138680",
+        "etag": "\"80431093d422dc1:0\"",
         "content_hash": "e722bd5358e6d3768993ccd0bbb91d17b58d06a87122ec25b6f3f763f7a83d31",
         "hash_checked_at": "2026-06-04"
       }
@@ -4698,10 +4728,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 5p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
       "freshness_metadata": {
+        "last_modified": "Fri, 30 Aug 2019 10:32:04 GMT",
+        "content_length": "216449",
+        "etag": "\"02a432a1e5fd51:0\"",
         "content_hash": "a9abc5e4452f2b54bb13277f29ca5ed2d4b76695a76077abc78eb36cc867805d",
         "hash_checked_at": "2026-06-04"
       }
@@ -4722,10 +4755,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 5p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
       "freshness_metadata": {
+        "last_modified": "Tue, 28 Apr 2026 09:06:43 GMT",
+        "content_length": "228358",
+        "etag": "\"8053f254eed6dc1:0\"",
         "content_hash": "18b317946fa17843ccea893c1ccf85e02e9ac5e1d5c201a2f2bb42a5fb265a73",
         "hash_checked_at": "2026-06-04"
       }
@@ -4746,10 +4782,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
       "freshness_metadata": {
+        "last_modified": "Mon, 19 Aug 2024 02:11:48 GMT",
+        "content_length": "401564",
+        "etag": "\"0a7f25ddf1da1:0\"",
         "content_hash": "8eda06e80a09dd5a732ba0fc117b9f8a48746e067575848fde0cdb3fe992bc8e",
         "hash_checked_at": "2026-06-04"
       }
@@ -4770,10 +4809,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 2p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
       "freshness_metadata": {
+        "last_modified": "Tue, 27 Aug 2024 06:53:56 GMT",
+        "content_length": "248379",
+        "etag": "\"0daace24df8da1:0\"",
         "content_hash": "822c5ea4dc4a17a925ce8046abc0a67b30d34e682fad83e6cee77a194f9a9b33",
         "hash_checked_at": "2026-06-04"
       }
@@ -4794,10 +4836,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 8p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
       "freshness_metadata": {
+        "last_modified": "Wed, 20 Sep 2023 04:37:00 GMT",
+        "content_length": "562224",
+        "etag": "\"03e48187cebd91:0\"",
         "content_hash": "a9f0a27b989ca3819a2830aad03c1f4e41168bbf45ba505cb9642ecfd60eb700",
         "hash_checked_at": "2026-06-04"
       }
@@ -4818,10 +4863,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
       "freshness_metadata": {
+        "last_modified": "Mon, 04 May 2026 06:36:01 GMT",
+        "content_length": "343137",
+        "etag": "\"801ef94590dbdc1:0\"",
         "content_hash": "ca13d1c3c451a6d85fdd11ac072a06ea735f17e516e16faa0ee7ecebbdcbed49",
         "hash_checked_at": "2026-06-04"
       }
@@ -4842,10 +4890,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 3p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
       "freshness_metadata": {
+        "last_modified": "Mon, 29 Apr 2024 09:26:17 GMT",
+        "content_length": "241536",
+        "etag": "\"80c29049179ada1:0\"",
         "content_hash": "49f4d7f6f2a4c5a2a0a461f94a95de75f01965f6a2bef4260840a334635a268f",
         "hash_checked_at": "2026-06-04"
       }
@@ -4866,10 +4917,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
       "freshness_metadata": {
+        "last_modified": "Tue, 21 Jan 2025 02:32:29 GMT",
+        "content_length": "828845",
+        "etag": "\"80dc37b7ac6bdb1:0\"",
         "content_hash": "eee6db07fa8683c94d458652671e95941987f9e44fc3dc8698e309f9fa57f956",
         "hash_checked_at": "2026-06-04"
       }
@@ -4890,10 +4944,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 2p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
       "freshness_metadata": {
+        "last_modified": "Thu, 05 Mar 2026 04:20:24 GMT",
+        "content_length": "217961",
+        "etag": "\"074286357acdc1:0\"",
         "content_hash": "58b3751cd6e022d11ad398e1bf2b7bf6e750e6fa711b872ee0a1b8e0c9ea0d76",
         "hash_checked_at": "2026-06-04"
       }
@@ -4914,10 +4971,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 5p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
       "freshness_metadata": {
+        "last_modified": "Wed, 24 Jan 2024 05:05:21 GMT",
+        "content_length": "187832",
+        "etag": "\"80be34ee824eda1:0\"",
         "content_hash": "5c0b6a9d9f81e942883c8d8913fba171fdb3b977671c98afe91ac86e09d0ffe7",
         "hash_checked_at": "2026-06-04"
       }
@@ -4938,10 +4998,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 98p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
       "freshness_metadata": {
+        "last_modified": "Mon, 04 Jan 2021 01:35:04 GMT",
+        "content_length": "2476818",
+        "etag": "\"0144cd339e2d61:0\"",
         "content_hash": "04a6e0882d3a006281eb09af142e531511081d5e6151e0d487eb7d480123df03",
         "hash_checked_at": "2026-06-04"
       }
@@ -4962,10 +5025,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 2p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
       "freshness_metadata": {
+        "last_modified": "Fri, 05 Sep 2025 08:28:33 GMT",
+        "content_length": "238885",
+        "etag": "\"80ceec103f1edc1:0\"",
         "content_hash": "4a3d5211df915908f369bf0534b576ebdac596a9c1abbba731c5404766495c23",
         "hash_checked_at": "2026-06-04"
       }
@@ -4986,10 +5052,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 1p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
       "freshness_metadata": {
+        "last_modified": "Thu, 06 Dec 2012 16:10:25 GMT",
+        "content_length": "88934",
+        "etag": "\"806e3c33ccd3cd1:0\"",
         "content_hash": "346e51b64d926fbb73d1534160076d09a02d3d834b58db21f553f8d9d295d36b",
         "hash_checked_at": "2026-06-04"
       }
@@ -5010,10 +5079,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 2p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
       "freshness_metadata": {
+        "last_modified": "Thu, 06 Dec 2012 16:10:25 GMT",
+        "content_length": "69113",
+        "etag": "\"806e3c33ccd3cd1:0\"",
         "content_hash": "f8bc7a79022837ae79fba567268d03dbd18737e98721d3573272f019f0bcf320",
         "hash_checked_at": "2026-06-04"
       }
@@ -5034,10 +5106,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 1p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
       "freshness_metadata": {
+        "last_modified": "Fri, 28 Aug 2015 10:04:47 GMT",
+        "content_length": "135753",
+        "etag": "\"808930f878e1d01:0\"",
         "content_hash": "d009103f9352e63f8b3ab822212b892debc2e018751f2ccbffc996e21eb61e86",
         "hash_checked_at": "2026-06-04"
       }
@@ -5058,10 +5133,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 5p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
       "freshness_metadata": {
+        "last_modified": "Thu, 06 Dec 2012 16:10:26 GMT",
+        "content_length": "505119",
+        "etag": "\"05d533ccd3cd1:0\"",
         "content_hash": "53254084cf18927d1e6c201796656227d5a36f9ea8b73a09449b326abce27e4d",
         "hash_checked_at": "2026-06-04"
       }
@@ -5082,10 +5160,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 10p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
       "freshness_metadata": {
+        "last_modified": "Fri, 24 Apr 2026 08:44:26 GMT",
+        "content_length": "390876",
+        "etag": "\"b9fa9e8ec6d3dc1:0\"",
         "content_hash": "37417054f00203871a088ebb10044bc51dba56c05a34dbeb713ee555397c21fb",
         "hash_checked_at": "2026-06-04"
       }
@@ -5106,10 +5187,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 8p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
       "freshness_metadata": {
+        "last_modified": "Fri, 24 Apr 2026 08:45:19 GMT",
+        "content_length": "354972",
+        "etag": "\"cba37daec6d3dc1:0\"",
         "content_hash": "104625e95c30798ce43d9f1c427e64065ed42d737d36b68d88ac39c58fa453e6",
         "hash_checked_at": "2026-06-04"
       }
@@ -5130,10 +5214,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 15p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
       "freshness_metadata": {
+        "last_modified": "Thu, 06 Dec 2012 16:10:30 GMT",
+        "content_length": "738755",
+        "etag": "\"05f3736ccd3cd1:0\"",
         "content_hash": "d16764d34cdedebaffc47ec21019e110c7a2ff0d3d713ee2bfd8af2c7baa73d0",
         "hash_checked_at": "2026-06-04"
       }
@@ -5154,10 +5241,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
       "freshness_metadata": {
+        "last_modified": "Fri, 08 Aug 2025 01:37:09 GMT",
+        "content_length": "112810",
+        "etag": "\"80508cf448dc1:0\"",
         "content_hash": "b5e40408c20c15df0d4af849d584fad0c5ef3ac06c740fe2b06b1b941443cda5",
         "hash_checked_at": "2026-06-04"
       }
@@ -5178,10 +5268,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
       "freshness_metadata": {
+        "last_modified": "Fri, 08 Aug 2025 01:37:09 GMT",
+        "content_length": "131110",
+        "etag": "\"80508cf448dc1:0\"",
         "content_hash": "0a1a9642468fa66deb086659eeeb8c0332355f67002293cb4063e4d628699a9c",
         "hash_checked_at": "2026-06-04"
       }
@@ -5202,10 +5295,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 7p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
       "freshness_metadata": {
+        "last_modified": "Fri, 08 Aug 2025 01:37:09 GMT",
+        "content_length": "256862",
+        "etag": "\"80508cf448dc1:0\"",
         "content_hash": "44d13e598780b044fee3e6c41d747340690d127879c214b51b358f51b25c66dc",
         "hash_checked_at": "2026-06-04"
       }
@@ -5226,10 +5322,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=safety), egress-verified (HTTP200, 3p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.safety.",
       "freshness_metadata": {
+        "last_modified": "Mon, 04 Nov 2013 04:29:57 GMT",
+        "content_length": "222362",
+        "etag": "\"8050278416d9ce1:0\"",
         "content_hash": "b2f0275dfbef4539da5ac9a5f062036c37301dc0bc0d964942f3d470781c3f82",
         "hash_checked_at": "2026-06-04"
       }
@@ -5250,10 +5349,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 2p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
       "freshness_metadata": {
+        "last_modified": "Thu, 16 Apr 2026 08:57:07 GMT",
+        "content_length": "283380",
+        "etag": "\"80b3aa07fcddc1:0\"",
         "content_hash": "5cc4aeb5fbcd526ef4a78ae27c09bac445b3091e23fd542b641844e742434b7a",
         "hash_checked_at": "2026-06-04"
       }
@@ -5274,10 +5376,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-04",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
       "freshness_metadata": {
+        "last_modified": "Tue, 26 May 2026 09:21:30 GMT",
+        "content_length": "499567",
+        "etag": "\"0c9349f1ecdc1:0\"",
         "content_hash": "4acc38c60bba363d638f43b948c3948962fa606cbd0185d8af9b7d256c3e6308",
         "hash_checked_at": "2026-06-04"
       }
@@ -5298,10 +5403,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019-2025",
-      "last_checked_at": "2026-06-05",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §2 (教師/人事): full-text policy PDF from /tc/teacher/, agent-team curated KEEP (route=cpd), egress-verified (62p, mojibake CLEAN), del=0 page-carry. backend SOURCE_SETS.cpd.",
       "freshness_metadata": {
+        "last_modified": "Tue, 26 Mar 2019 06:10:37 GMT",
+        "content_length": "1777443",
+        "etag": "\"802c3aa19ae3d41:0\"",
         "content_hash": "0315666319df2c1b14b8b8fe7f537f7bdc2d83aef49e675c30bf8a7e66f6fddd",
         "hash_checked_at": "2026-06-05"
       }
@@ -5322,10 +5430,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019-2025",
-      "last_checked_at": "2026-06-05",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §2 (教師/人事): full-text policy PDF from /tc/teacher/, agent-team curated KEEP (route=hr_admin), egress-verified (10p, mojibake CLEAN), del=0 page-carry. backend SOURCE_SETS.hr_admin.",
       "freshness_metadata": {
+        "last_modified": "Thu, 08 Feb 2024 04:23:20 GMT",
+        "content_length": "396182",
+        "etag": "\"0ecc48b465ada1:0\"",
         "content_hash": "7a11934f08d4ad3e9174651b38436a6999eac9d0cca8abf51ad5e469a48d35ba",
         "hash_checked_at": "2026-06-05"
       }
@@ -5346,10 +5457,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019-2025",
-      "last_checked_at": "2026-06-05",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §2 (教師/人事): full-text policy PDF from /tc/teacher/, agent-team curated KEEP (route=hr_admin), egress-verified (6p, mojibake CLEAN), del=0 page-carry. backend SOURCE_SETS.hr_admin.",
       "freshness_metadata": {
+        "last_modified": "Mon, 16 Jun 2025 07:15:48 GMT",
+        "content_length": "377605",
+        "etag": "\"0eab87b8ededb1:0\"",
         "content_hash": "f979c341cf6d7e202500cfac619d62a54e7991a238485cc97aa132682e6acc7a",
         "hash_checked_at": "2026-06-05"
       }
@@ -5370,10 +5484,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2008-2025",
-      "last_checked_at": "2026-06-05",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §3 (學生訓育輔導支援): full-text policy/circular PDF, agent-team curated KEEP (route=student_support), egress-verified (4p, mojibake CLEAN; MRR briefing-slides + Tai-Po-fire incident resources dropped as non-policy), del=0 page-carry. backend SOURCE_SETS.student_support.",
       "freshness_metadata": {
+        "last_modified": "Thu, 30 Sep 2021 08:00:40 GMT",
+        "content_length": "328137",
+        "etag": "\"0448c42d1b5d71:0\"",
         "content_hash": "e68669b40953be93d79de17e6f0d832b849952bf09da36c42488a9026689d56e",
         "hash_checked_at": "2026-06-05"
       }
@@ -5394,10 +5511,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2008-2025",
-      "last_checked_at": "2026-06-05",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §3 (學生訓育輔導支援): full-text policy/circular PDF, agent-team curated KEEP (route=student_support), egress-verified (16p, mojibake CLEAN; MRR briefing-slides + Tai-Po-fire incident resources dropped as non-policy), del=0 page-carry. backend SOURCE_SETS.student_support.",
       "freshness_metadata": {
+        "last_modified": "Wed, 29 Sep 2021 01:55:13 GMT",
+        "content_length": "627583",
+        "etag": "\"80d69fad5b4d71:0\"",
         "content_hash": "d56e389b99a8087b65766b8d785eab03b87bfe1fc49f7619c25b799c9c3f853e",
         "hash_checked_at": "2026-06-05"
       }
@@ -5418,10 +5538,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2008-2025",
-      "last_checked_at": "2026-06-05",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §3 (學生訓育輔導支援): full-text policy/circular PDF, agent-team curated KEEP (route=student_support), egress-verified (2p, mojibake CLEAN; MRR briefing-slides + Tai-Po-fire incident resources dropped as non-policy), del=0 page-carry. backend SOURCE_SETS.student_support.",
       "freshness_metadata": {
+        "last_modified": "Thu, 13 Jul 2023 03:07:58 GMT",
+        "content_length": "104661",
+        "etag": "\"0fbb23937b5d91:0\"",
         "content_hash": "edb9692244647eec81fbbd9b92ef2dc577e19e0ab2534e7ce9fb72b411fdfda1",
         "hash_checked_at": "2026-06-05"
       }
@@ -5442,10 +5565,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2008-2025",
-      "last_checked_at": "2026-06-05",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §3 (學生訓育輔導支援): full-text policy/circular PDF, agent-team curated KEEP (route=student_support), egress-verified (12p, mojibake CLEAN; MRR briefing-slides + Tai-Po-fire incident resources dropped as non-policy), del=0 page-carry. backend SOURCE_SETS.student_support.",
       "freshness_metadata": {
+        "last_modified": "Wed, 20 Aug 2025 06:39:56 GMT",
+        "content_length": "808102",
+        "etag": "\"f026ef3d9d11dc1:0\"",
         "content_hash": "b23fc05964e55489f771cde0c54f28c381fbdacff5399cacb1c2dc4894aeaa31",
         "hash_checked_at": "2026-06-05"
       }
@@ -5466,10 +5592,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2008-2025",
-      "last_checked_at": "2026-06-05",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §3 (學生訓育輔導支援): full-text policy/circular PDF, agent-team curated KEEP (route=student_support), egress-verified (5p, mojibake CLEAN; MRR briefing-slides + Tai-Po-fire incident resources dropped as non-policy), del=0 page-carry. backend SOURCE_SETS.student_support.",
       "freshness_metadata": {
+        "last_modified": "Wed, 02 Sep 2020 02:42:20 GMT",
+        "content_length": "361261",
+        "etag": "\"0ceb7add280d61:0\"",
         "content_hash": "977611ed7c351ae12655ee09480bb5e48e09c890b4d8582705422cdcd042f270",
         "hash_checked_at": "2026-06-05"
       }
@@ -5490,10 +5619,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2008-2025",
-      "last_checked_at": "2026-06-05",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §3 (學生訓育輔導支援): full-text policy/circular PDF, agent-team curated KEEP (route=student_support), egress-verified (82p, mojibake CLEAN; MRR briefing-slides + Tai-Po-fire incident resources dropped as non-policy), del=0 page-carry. backend SOURCE_SETS.student_support.",
       "freshness_metadata": {
+        "last_modified": "Thu, 14 Mar 2024 03:11:13 GMT",
+        "content_length": "1160128",
+        "etag": "\"805e2245bd75da1:0\"",
         "content_hash": "bc9461c3007a347812ca112ffb245fa07f69cf39191e5e0e77bb07aecf95af2a",
         "hash_checked_at": "2026-06-05"
       }
@@ -5514,10 +5646,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2008-2025",
-      "last_checked_at": "2026-06-05",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §3 (學生訓育輔導支援): full-text policy/circular PDF, agent-team curated KEEP (route=student_support), egress-verified (39p, mojibake CLEAN; MRR briefing-slides + Tai-Po-fire incident resources dropped as non-policy), del=0 page-carry. backend SOURCE_SETS.student_support.",
       "freshness_metadata": {
+        "last_modified": "Fri, 10 Feb 2023 09:41:31 GMT",
+        "content_length": "1090668",
+        "etag": "\"8017f1da333dd91:0\"",
         "content_hash": "591722cd19037053777661cc684db8a1520e70ffc27c4d81e265e3cc2b03c54e",
         "hash_checked_at": "2026-06-05"
       }
@@ -5538,10 +5673,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2002-2026",
-      "last_checked_at": "2026-06-05",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §4 (校園安全/健康校園): full-text policy PDF, agent-team curated KEEP, egress-verified (3p, CLEAN), del=0 page-carry. route=student_support. NB: 校園安全 core (fire/職安/實驗室/熱帶氣旋/斜坡) already covered in §1 safety route.",
       "freshness_metadata": {
+        "last_modified": "Mon, 10 Feb 2025 08:52:39 GMT",
+        "content_length": "209396",
+        "etag": "\"5a7d6723997bdb1:0\"",
         "content_hash": "a2f181fd7ddc21fea462c5d1d7c6c7fd503b8b8dc11cafd75aa6cafe7475118d",
         "hash_checked_at": "2026-06-05"
       }
@@ -5562,10 +5700,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2002-2026",
-      "last_checked_at": "2026-06-05",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §4 (校園安全/健康校園): full-text policy PDF, agent-team curated KEEP, egress-verified (1p, CLEAN), del=0 page-carry. route=student_support. NB: 校園安全 core (fire/職安/實驗室/熱帶氣旋/斜坡) already covered in §1 safety route.",
       "freshness_metadata": {
+        "last_modified": "Mon, 07 Apr 2025 08:54:47 GMT",
+        "content_length": "172407",
+        "etag": "\"80e5b9b69aa7db1:0\"",
         "content_hash": "cc4aba25db2568e917701d6b6c442f39282c6ff7e0bc04298dae3297c80b5a33",
         "hash_checked_at": "2026-06-05"
       }
@@ -5586,10 +5727,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2002-2026",
-      "last_checked_at": "2026-06-05",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §4 (校園安全/健康校園): full-text policy PDF, agent-team curated KEEP, egress-verified (6p, CLEAN), del=0 page-carry. route=student_support. NB: 校園安全 core (fire/職安/實驗室/熱帶氣旋/斜坡) already covered in §1 safety route.",
       "freshness_metadata": {
+        "last_modified": "Fri, 27 Feb 2026 03:14:57 GMT",
+        "content_length": "859344",
+        "etag": "\"804e14097a7dc1:0\"",
         "content_hash": "e867d5da54f1d52f4e316e46b9acf2672904ca19035d1ce285bcd9d2fbf27c59",
         "hash_checked_at": "2026-06-05"
       }
@@ -5610,10 +5754,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019-2026",
-      "last_checked_at": "2026-06-05",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §5 (收生/學位分配): full-text policy PDF (11p, CLEAN), del=0 page-carry. route=placement. NB: most admission content = parent forms/HTML mechanism (non-policy); thin net-new.",
       "freshness_metadata": {
+        "last_modified": "Mon, 12 Apr 2021 10:20:26 GMT",
+        "content_length": "506517",
+        "etag": "\"0115b74852fd71:0\"",
         "content_hash": "504037ef546b07bde18e016eda08d4d81507490d169f4a6751cf65bf134a3710",
         "hash_checked_at": "2026-06-05"
       }
@@ -5634,10 +5781,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019-2026",
-      "last_checked_at": "2026-06-05",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §5 (收生/學位分配): full-text policy PDF (21p, CLEAN), del=0 page-carry. route=placement. NB: most admission content = parent forms/HTML mechanism (non-policy); thin net-new.",
       "freshness_metadata": {
+        "last_modified": "Fri, 12 Sep 2025 09:04:26 GMT",
+        "content_length": "443262",
+        "etag": "\"0c91a3dc423dc1:0\"",
         "content_hash": "d1ad8370f2ccbd771bae0a6f4187f2cec4f8ddc6d97d112cedb7fcb3781182b5",
         "hash_checked_at": "2026-06-05"
       }
@@ -5658,10 +5808,13 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019-2026",
-      "last_checked_at": "2026-06-05",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
       "notes": "S142 EDB-coverage sweep §5 (收生/學位分配): full-text policy PDF (2p, CLEAN), del=0 page-carry. route=placement. NB: most admission content = parent forms/HTML mechanism (non-policy); thin net-new.",
       "freshness_metadata": {
+        "last_modified": "Mon, 15 Sep 2025 01:28:33 GMT",
+        "content_length": "292083",
+        "etag": "\"8076afce025dc1:0\"",
         "content_hash": "05a04a956a2b3b52efd7bb877fd7eb41bab2f03ac853913930b322134e1a4590",
         "hash_checked_at": "2026-06-05"
       }
@@ -5681,9 +5834,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-11",
-      "last_checked_at": "2026-06-08",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S150 (2026-06-08): Leonard-provided. Ingested to Channel B (41 chunks, text-layer fetch_extract). In SOURCE_SETS.gifted."
+      "notes": "S150 (2026-06-08): Leonard-provided. Ingested to Channel B (41 chunks, text-layer fetch_extract). In SOURCE_SETS.gifted.",
+      "freshness_metadata": {
+        "last_modified": "Fri, 08 Nov 2024 07:42:31 GMT",
+        "content_length": "7058578",
+        "etag": "\"804d4ec4b131db1:0\"",
+        "content_hash": "39f0f160f7a556f9be8166f8aa1e0efce6230effa697fc2fa0f086808437abc3",
+        "hash_checked_at": "2026-06-15"
+      }
     },
     {
       "source_id": "gifted_osalp_compendium",
@@ -5700,9 +5860,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-08",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S150 (2026-06-08): Leonard-provided programme compendium. Ingested to Channel B (19 chunks, text-layer fetch_extract). In SOURCE_SETS.gifted."
+      "notes": "S150 (2026-06-08): Leonard-provided programme compendium. Ingested to Channel B (19 chunks, text-layer fetch_extract). In SOURCE_SETS.gifted.",
+      "freshness_metadata": {
+        "last_modified": "Wed, 15 Jan 2025 08:50:11 GMT",
+        "content_length": "29950682",
+        "etag": "\"8023587c2a67db1:0\"",
+        "content_hash": "c114c3ebdca3301634742ccff57eade350261480a044755e662b8fa04f2c1709",
+        "hash_checked_at": "2026-06-15"
+      }
     },
     {
       "source_id": "kgecg_2017",
@@ -5719,9 +5886,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-09",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (108 chunks, text-layer fetch_extract). In SOURCE_SETS."
+      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (108 chunks, text-layer fetch_extract). In SOURCE_SETS.",
+      "freshness_metadata": {
+        "last_modified": "Fri, 09 Mar 2018 02:20:44 GMT",
+        "content_length": "13203317",
+        "etag": "\"0e6283a4db7d31:0\"",
+        "content_hash": "18265ada3f443a55c8ae43cd8deffcb2e1ab27aed665ff72dfacea1fdaf91e7b",
+        "hash_checked_at": "2026-06-15"
+      }
     },
     {
       "source_id": "gifted_ge_series",
@@ -5738,9 +5912,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-09",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (346 chunks, text-layer fetch_extract). In SOURCE_SETS."
+      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (346 chunks, text-layer fetch_extract). In SOURCE_SETS.",
+      "freshness_metadata": {
+        "last_modified": "Mon, 18 May 2026 02:27:07 GMT",
+        "content_length": "958620",
+        "etag": "\"80f66d26de6dc1:0\"",
+        "content_hash": "b159481fa55fb85b0519144fc00c8ac3428cc2e6ec567e9fe560ab8325b56985",
+        "hash_checked_at": "2026-06-15"
+      }
     },
     {
       "source_id": "cgss_2024",
@@ -5757,9 +5938,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-09",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (17 chunks, text-layer fetch_extract). In SOURCE_SETS."
+      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (17 chunks, text-layer fetch_extract). In SOURCE_SETS.",
+      "freshness_metadata": {
+        "last_modified": "Thu, 22 Aug 2024 07:14:42 GMT",
+        "content_length": "395375",
+        "etag": "\"09d48f562f4da1:0\"",
+        "content_hash": "1628d14552ca06b3b9475a1615162afa1d1506d53a0ea442b6510b818c0b21da",
+        "hash_checked_at": "2026-06-15"
+      }
     },
     {
       "source_id": "sch_calendar_guide",
@@ -5776,9 +5964,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-09",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (6 chunks, text-layer fetch_extract). In SOURCE_SETS."
+      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (6 chunks, text-layer fetch_extract). In SOURCE_SETS.",
+      "freshness_metadata": {
+        "last_modified": "Thu, 29 May 2025 07:19:27 GMT",
+        "content_length": "87845",
+        "etag": "\"8029d226ad0db1:0\"",
+        "content_hash": "8d0d9926725f28459512fafeccc74297897ff5e009c3753c80c1aeddf8eb950b",
+        "hash_checked_at": "2026-06-15"
+      }
     },
     {
       "source_id": "sch_activities_guide",
@@ -5795,9 +5990,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-09",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (102 chunks, text-layer fetch_extract). In SOURCE_SETS."
+      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (102 chunks, text-layer fetch_extract). In SOURCE_SETS.",
+      "freshness_metadata": {
+        "last_modified": "Wed, 08 Oct 2025 03:09:21 GMT",
+        "content_length": "2063188",
+        "etag": "\"804613f1038dc1:0\"",
+        "content_hash": "66900349d5369b80b9dca6fe1c313d43f180f9a4e2966d3d42f6e295bc12c514",
+        "hash_checked_at": "2026-06-15"
+      }
     },
     {
       "source_id": "k1_admission_2627",
@@ -5814,9 +6016,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-09",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (25 chunks, text-layer fetch_extract). In SOURCE_SETS."
+      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (25 chunks, text-layer fetch_extract). In SOURCE_SETS.",
+      "freshness_metadata": {
+        "last_modified": "Fri, 06 Jun 2025 07:36:21 GMT",
+        "content_length": "468001",
+        "etag": "\"804884b2b5d6db1:0\"",
+        "content_hash": "74a988bfac09ff718d4caaf671d928dbaee64e0715b1cd82270a6930b346c406",
+        "hash_checked_at": "2026-06-15"
+      }
     },
     {
       "source_id": "kg_admin_guide",
@@ -5833,9 +6042,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024-2026",
-      "last_checked_at": "2026-06-09",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (5 chunks, text-layer fetch_extract). In SOURCE_SETS."
+      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (5 chunks, text-layer fetch_extract). In SOURCE_SETS.",
+      "freshness_metadata": {
+        "last_modified": "Wed, 09 Oct 2013 08:39:26 GMT",
+        "content_length": "92766",
+        "etag": "\"0f3a1fcbc4ce1:0\"",
+        "content_hash": "e3074e0dfb7c7bfadd3972da2104c2f39977cc27335402bed6e3df91f6cdcf61",
+        "hash_checked_at": "2026-06-15"
+      }
     },
     {
       "source_id": "imc_establishment_operation",
@@ -5852,9 +6068,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2013-2025",
-      "last_checked_at": "2026-06-10",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S154 (2026-06-10): SBM-governance backfill (Leonard 指 指引欠校董會治理). Ingested 97 chunks text-layer. In SOURCE_SETS.school_governance."
+      "notes": "S154 (2026-06-10): SBM-governance backfill (Leonard 指 指引欠校董會治理). Ingested 97 chunks text-layer. In SOURCE_SETS.school_governance.",
+      "freshness_metadata": {
+        "last_modified": "Tue, 28 May 2024 05:03:38 GMT",
+        "content_length": "1796919",
+        "etag": "\"0f17266bcb0da1:0\"",
+        "content_hash": "7fafff2c07c59a77f2d76f8f01b968b307eb854d2caa48f8a60e2d4b29b4021d",
+        "hash_checked_at": "2026-06-15"
+      }
     },
     {
       "source_id": "smc_constitution_sample",
@@ -5873,7 +6096,14 @@
       "version_label": "REV.09-2012",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S168 (2026-06-15): SMC (學校管理委員會) 章程樣本 — Leonard 提供補 SMC 內容 gap (corpus 一直 IMC-heavy)。14pp text-layer (U+FFFD=0)。In SOURCE_SETS.school_governance。url_landing = about-SMC HTML 頁（導航為主，body 不入庫，只作 watch-list 參考）。"
+      "notes": "S168 (2026-06-15): SMC (學校管理委員會) 章程樣本 — Leonard 提供補 SMC 內容 gap (corpus 一直 IMC-heavy)。14pp text-layer (U+FFFD=0)。In SOURCE_SETS.school_governance。url_landing = about-SMC HTML 頁（導航為主，body 不入庫，只作 watch-list 參考）。",
+      "freshness_metadata": {
+        "last_modified": "Thu, 21 May 2015 07:12:45 GMT",
+        "content_length": "560329",
+        "etag": "\"408376899593d01:0\"",
+        "content_hash": "ac018bedc79c52ca88d91d167564879f2295bb85c493c71109fb8d89e02a07bd",
+        "hash_checked_at": "2026-06-15"
+      }
     },
     {
       "source_id": "imc_briefing_qa",
@@ -5890,9 +6120,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2013-2025",
-      "last_checked_at": "2026-06-10",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S154 (2026-06-10): SBM-governance backfill (Leonard 指名). Ingested 48 chunks text-layer. In SOURCE_SETS.school_governance."
+      "notes": "S154 (2026-06-10): SBM-governance backfill (Leonard 指名). Ingested 48 chunks text-layer. In SOURCE_SETS.school_governance.",
+      "freshness_metadata": {
+        "last_modified": "Tue, 28 May 2024 05:02:30 GMT",
+        "content_length": "497345",
+        "etag": "\"0f7ea3dbcb0da1:0\"",
+        "content_hash": "025c755df31082504b3371b1b54f8528ca8662340b370221c5812c2bfbeac201",
+        "hash_checked_at": "2026-06-15"
+      }
     },
     {
       "source_id": "imc_governance_supplements",
@@ -5909,9 +6146,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2013-2025",
-      "last_checked_at": "2026-06-10",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S154 (2026-06-10): SBM-governance backfill (6 PDF grouped: Ch5(2019)+角色責任+會議+法例提醒(2023)+良好管治+行為守則擬定; Leonard 指名 Ch5). Ingested 27 chunks text-layer. In SOURCE_SETS.school_governance. Page-jump correct for first doc (Ch5); appended docs overshoot — grouped-source limitation."
+      "notes": "S154 (2026-06-10): SBM-governance backfill (6 PDF grouped: Ch5(2019)+角色責任+會議+法例提醒(2023)+良好管治+行為守則擬定; Leonard 指名 Ch5). Ingested 27 chunks text-layer. In SOURCE_SETS.school_governance. Page-jump correct for first doc (Ch5); appended docs overshoot — grouped-source limitation.",
+      "freshness_metadata": {
+        "last_modified": "Tue, 28 May 2024 05:02:44 GMT",
+        "content_length": "1186435",
+        "etag": "\"0324346bcb0da1:0\"",
+        "content_hash": "1ed6096ba207b3de03912961d0f7f2de01a915ea1befc19cfe776b085b663c5b",
+        "hash_checked_at": "2026-06-15"
+      }
     },
     {
       "source_id": "imc_election_guides",
@@ -5928,9 +6172,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2013-2025",
-      "last_checked_at": "2026-06-10",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S154 (2026-06-10): SBM-governance backfill (4 PDF grouped: 家長/教師/校友選舉指引(2025)+委任五步曲). Ingested 57 chunks text-layer. In SOURCE_SETS.school_governance."
+      "notes": "S154 (2026-06-10): SBM-governance backfill (4 PDF grouped: 家長/教師/校友選舉指引(2025)+委任五步曲). Ingested 57 chunks text-layer. In SOURCE_SETS.school_governance.",
+      "freshness_metadata": {
+        "last_modified": "Thu, 09 Apr 2026 02:43:19 GMT",
+        "content_length": "762606",
+        "etag": "\"7eb912a0cac7dc1:0\"",
+        "content_hash": "5db87cdb41328f807e83dada5e74dab23c721a1655e1f6c4d41f1032d0649926",
+        "hash_checked_at": "2026-06-15"
+      }
     },
     {
       "source_id": "kg_admin_guide_2026",
@@ -5947,9 +6198,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026-05",
-      "last_checked_at": "2026-06-14",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S160 (2026-06-14): 幼稚園行政手冊 ingested to Channel B (218 chunks, text-layer, page-resolvable, U+FFFD=0). New kg_admin SOURCE_SET route (before curriculum). Leonard-supervised live INSERT."
+      "notes": "S160 (2026-06-14): 幼稚園行政手冊 ingested to Channel B (218 chunks, text-layer, page-resolvable, U+FFFD=0). New kg_admin SOURCE_SET route (before curriculum). Leonard-supervised live INSERT.",
+      "freshness_metadata": {
+        "last_modified": "Tue, 26 May 2026 04:14:01 GMT",
+        "content_length": "7359809",
+        "etag": "\"80cabe14c6ecdc1:0\"",
+        "content_hash": "1225574b213bb9c0dd96d107eaf0d491a88a0f7e4af78c4321cad56009205fdf",
+        "hash_checked_at": "2026-06-15"
+      }
     },
     {
       "source_id": "kg_operation_manual_2026",
@@ -5966,9 +6224,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026-05 v4.3",
-      "last_checked_at": "2026-06-14",
+      "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S160 (2026-06-14): 學前機構辦學手冊 v4.3 ingested to Channel B (217 chunks, text-layer, page-resolvable, U+FFFD=0). In kg_admin SOURCE_SET. Leonard-supervised live INSERT."
+      "notes": "S160 (2026-06-14): 學前機構辦學手冊 v4.3 ingested to Channel B (217 chunks, text-layer, page-resolvable, U+FFFD=0). In kg_admin SOURCE_SET. Leonard-supervised live INSERT.",
+      "freshness_metadata": {
+        "last_modified": "Mon, 01 Jun 2026 01:16:03 GMT",
+        "content_length": "8685739",
+        "etag": "\"80cba33664f1dc1:0\"",
+        "content_hash": "3b3f551c77af197395daa7e7b9af4424909315fe45ad56871ec4e8241364be9c",
+        "hash_checked_at": "2026-06-15"
+      }
     }
   ]
 }
