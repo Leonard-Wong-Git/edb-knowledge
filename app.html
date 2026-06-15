@@ -3404,28 +3404,59 @@ function AnnotatePanel() {
     } finally { setDownloading(false); }
   }
 
-  // S166 — single clean ready-to-use output (replaces the editable/annotated/list trio).
+  // S166 — single clean ready-to-use output. S169 ①: Word input now keeps its ORIGINAL
+  // formatting (headings / numbering / tables) by editing the .docx XML in place via
+  // buildCleanOriginalDocx; PDF / pasted text (no original Word structure) stay on the
+  // from-text buildCleanDocx. Output is clean either way (no highlight / no track-change).
+  function downloadBlob(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  }
+  function annotateMeta() {
+    return {
+      schoolType: report.school_type || schoolType,
+      domains: (report.domains || []).map((d) => d.domain_cn),
+      autoDetected: report.auto_detected,
+      filename: report.filename || fileName,
+    };
+  }
   async function handleDownloadClean() {
     if (!report || downloading) return;
     if (!window.docx) { setError('文件生成元件尚未載入，請重新整理頁面再試。'); return; }
     if (!docText || !docText.trim()) { setError('沒有可用文字內容生成。'); return; }
     setDownloading(true); setError(''); setDownloadNote('');
     try {
-      const { blob, merged, total } = await buildCleanDocx(docText, report.findings || [], {
-        schoolType: report.school_type || schoolType,
-        domains: (report.domains || []).map((d) => d.domain_cn),
-        autoDetected: report.auto_detected,
-        filename: report.filename || fileName,
-      });
       const base = String(report.filename || fileName || '文件').replace(/\.(pdf|docx?)$/i, '');
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = `${base}_乾淨成品版.docx`;
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      setTimeout(() => URL.revokeObjectURL(url), 1500);
-      setDownloadNote(`已生成乾淨成品版：${merged} 項建議融入正文（標示「（建議補充）」）；全部 ${total} 項說明與 EDB 出處見文末附錄`);
+      const useOriginal = isDocx && fileBuffer;
+      const { blob, merged, total } = useOriginal
+        ? await buildCleanOriginalDocx(fileBuffer, report.findings || [], annotateMeta())
+        : await buildCleanDocx(docText, report.findings || [], annotateMeta());
+      downloadBlob(blob, `${base}_乾淨成品版.docx`);
+      setDownloadNote(
+        (useOriginal ? '已生成乾淨成品版（保留原 Word 格式）：' : '已生成乾淨成品版：') +
+        `${merged} 項建議融入正文（標示「（建議補充）」）；全部 ${total} 項說明與 EDB 出處見文末附錄`
+      );
     } catch (e) {
       setError('生成失敗：' + (e && e.message ? e.message : '未知錯誤'));
+    } finally { setDownloading(false); }
+  }
+
+  // S169 ①(a) — "改咗甚麼" change/diff summary (separate short Word).
+  async function handleDownloadChanges() {
+    if (!report || downloading) return;
+    if (!window.docx) { setError('文件生成元件尚未載入，請重新整理頁面再試。'); return; }
+    if (!docText || !docText.trim()) { setError('沒有可用文字內容生成。'); return; }
+    setDownloading(true); setError(''); setDownloadNote('');
+    try {
+      const base = String(report.filename || fileName || '文件').replace(/\.(pdf|docx?)$/i, '');
+      const { blob, merged, total } = await buildChangeSummaryDocx(docText, report.findings || [], annotateMeta());
+      downloadBlob(blob, `${base}_改動摘要.docx`);
+      setDownloadNote(`已生成改動摘要：融入正文 ${merged} 項、附錄補充 ${total - merged} 項`);
+    } catch (e) {
+      setError('摘要生成失敗：' + (e && e.message ? e.message : '未知錯誤'));
     } finally { setDownloading(false); }
   }
 
@@ -3562,19 +3593,25 @@ function AnnotatePanel() {
             <span>　·　就地標示 {inPlace.length} 處，附錄建議 {appendix.length} 項</span>
           </div>
 
-          {/* Download — S166: simplified to ONE clean ready-to-use output (Leonard) */}
+          {/* Download — S166 single clean output; S169 +format-preserving Word +改動摘要 */}
           <div className="flex items-center gap-2" style={{flexWrap:'wrap'}}>
             <button onClick={handleDownloadClean} disabled={downloading}
-                    title="原文保持乾淨，AI 建議融入正文（標示「（建議補充）」、無螢光、可直接編輯），所有說明與 EDB 出處集中文末附錄；Word／PDF／貼上文字皆可"
+                    title="原文保持乾淨，AI 建議融入正文（標示「（建議補充）」、無螢光、可直接編輯），所有說明與 EDB 出處集中文末附錄；Word 上載檔保留原有標題／編號／格式，PDF／貼上文字則重排為乾淨版"
                     className="px-4 py-2 text-sm rounded-lg font-medium transition-all disabled:opacity-50"
                     style={{background:'var(--p-primary)',color:'#fff'}}>
               {downloading ? '⏳ 生成中…' : '⬇️ 下載 Word（乾淨成品版）'}
+            </button>
+            <button onClick={handleDownloadChanges} disabled={downloading}
+                    title="一頁式列出乾淨成品版對原文所作的改動：融入正文的建議（連原文段落）+ 附錄補充，方便核對"
+                    className="px-4 py-2 text-sm rounded-lg font-medium transition-all disabled:opacity-50"
+                    style={{background:'var(--cd-warm)',color:'var(--charcoal)',border:'1px solid var(--border)'}}>
+              {downloading ? '⏳ 生成中…' : '📋 下載「改動摘要」'}
             </button>
             <span className="text-xs text-gray-400">於瀏覽器內生成，不會上載</span>
           </div>
           {downloadNote && <div className="text-xs" style={{color:'var(--edb)'}}>✓ {downloadNote}</div>}
           <div style={{fontSize:'var(--text-xs)',color:'#6B7280',lineHeight:1.7,background:'var(--paper-2)',border:'1px solid var(--line)',borderRadius:'var(--r-md)',padding:'8px 12px'}}>
-            📄 <strong>乾淨成品版</strong>：原文保持乾淨可讀，AI 建議直接融入正文（以「（建議補充）」標示，<strong>無螢光、可直接編輯，毋須接受修訂</strong>），所有建議說明與教育局官方出處集中喺<strong>文末附錄</strong>。打開即係一份可採用、可編輯嘅政策草稿——請核對後採用。
+            📄 <strong>乾淨成品版</strong>：原文保持乾淨可讀，AI 建議直接融入正文（以「（建議補充）」標示，<strong>無螢光、可直接編輯，毋須接受修訂</strong>），所有建議說明與教育局官方出處集中喺<strong>文末附錄</strong>。{isDocx ? <span>你上載嘅係 <strong>Word 檔，會保留原有標題／編號／格式</strong>。</span> : <span>PDF／貼上文字會<strong>重排為乾淨版</strong>（如需保留原有格式，請改上載 Word .docx）。</span>}　📋 <strong>改動摘要</strong>：一頁過睇晒邊啲建議融入咗正文、邊啲列咗附錄，方便核對。
           </div>
 
           {/* In-place findings */}
@@ -3781,6 +3818,27 @@ async function buildEditableDocx(docText, findings, meta) {
 // moves ALL explanations + EDB sources into a single END appendix. Reads as a usable,
 // editable policy draft. Supersedes the annotated/editable/list downloads (UI simplified to
 // one button). Built from extracted text → Word/PDF/paste all supported. Reuses annNorm/annParaMatches.
+// Shared partition for the clean outputs: decide which findings merge into the body
+// as a ready clause vs. go to the appendix only. A finding merges iff it is a checklist
+// item WITH a suggestion AND a span that locates in one of the body paragraphs.
+// `paraNorms` = annNorm() of each body paragraph (XML-derived or text-derived).
+// Returns { byPara: Map(paraIndex -> [finding…]), mergedSet: Set(finding) }.
+function partitionCleanFindings(paraNorms, findings) {
+  const byPara = new Map();
+  const mergedSet = new Set();
+  for (const f of findings || []) {
+    if (f.kind === 'guideline' || !f.suggestion || !f.span) continue;
+    const sNorm = annNorm(f.span);
+    let hit = -1;
+    for (let i = 0; i < paraNorms.length; i++) { if (annParaMatches(paraNorms[i], sNorm)) { hit = i; break; } }
+    if (hit === -1) continue;
+    if (!byPara.has(hit)) byPara.set(hit, []);
+    byPara.get(hit).push(f);
+    mergedSet.add(f);
+  }
+  return { byPara, mergedSet };
+}
+
 async function buildCleanDocx(docText, findings, meta) {
   const D = window.docx;
   if (!D) throw new Error('docx 程式庫未載入');
@@ -3794,16 +3852,7 @@ async function buildCleanDocx(docText, findings, meta) {
 
   // Only checklist findings WITH a suggestion AND a located span merge into the body (as a
   // ready clause). Guideline references + unlocated + no-suggestion go to the appendix only.
-  const byPara = new Map();
-  for (const f of findings) {
-    if (f.kind === 'guideline' || !f.suggestion || !f.span) continue;
-    const sNorm = annNorm(f.span);
-    let hit = -1;
-    for (let i = 0; i < paraNorms.length; i++) { if (annParaMatches(paraNorms[i], sNorm)) { hit = i; break; } }
-    if (hit === -1) continue;
-    if (!byPara.has(hit)) byPara.set(hit, []);
-    byPara.get(hit).push(f);
-  }
+  const { byPara } = partitionCleanFindings(paraNorms, findings);
 
   const children = [];
   const schoolLabel = (meta.schoolType && ANNOTATE_SCHOOL_LABELS[meta.schoolType]) || '不限（一般比對）';
@@ -3857,6 +3906,175 @@ async function buildCleanDocx(docText, findings, meta) {
 
   const doc = new D.Document({ styles: { default: { document: { run: { font: FONT, size: 22 } } } }, sections: [{ children }] });
   return { blob: await D.Packer.toBlob(doc), merged, total: findings.length };
+}
+
+// S169 ① — CLEAN ready-to-use output that PRESERVES the original .docx formatting.
+// Unlike buildCleanDocx (which rebuilds from extracted text and flattens headings /
+// numbering / tables), this operates on the original word/document.xml via JSZip so
+// every original paragraph keeps its style. It stays CLEAN: original runs are left
+// 100% untouched (NO highlight), and merged suggestions are inserted as PLAIN
+// "（建議補充）" paragraphs (NO w:ins track-changes), so opening the file shows a
+// tidy finished draft with no marks to accept/clear. Explanations + EDB sources go to
+// the appendix. Returns { blob, merged, total }.
+async function buildCleanOriginalDocx(arrayBuffer, findings, meta) {
+  const JSZip = window.JSZip;
+  if (!JSZip) throw new Error('文件元件 (JSZip) 尚未載入，請重新整理頁面再試。');
+  const zip = await JSZip.loadAsync(arrayBuffer);
+  const docFile = zip.file('word/document.xml');
+  if (!docFile) throw new Error('此 .docx 結構不支援保留格式輸出（找不到 document.xml）。');
+  let xml = await docFile.async('string');
+  meta = meta || {};
+  const wp = /<w:p\b(?:\s[^>]*)?>[\s\S]*?<\/w:p>/g;
+
+  // Pass 1 — normalized text of every body paragraph (same regex/order as pass 2).
+  const paraNorms = [];
+  let pm;
+  while ((pm = wp.exec(xml)) !== null) paraNorms.push(annNorm(paraPlainText(pm[0])));
+
+  const { byPara } = partitionCleanFindings(paraNorms, findings);
+
+  // Plain "（建議補充）" note paragraph(s) — no highlight, no tracked-change, no fill;
+  // blends into the body as ordinary text (honestly marked on the first line only).
+  function cleanNoteParas(f) {
+    const out = [];
+    const lines = String(f.suggestion).split('\n').map((s) => s.trim()).filter(Boolean);
+    lines.forEach((ln, idx) => {
+      const pPr = '<w:pPr><w:spacing w:before="' + (idx === 0 ? 40 : 0) + '" w:after="0"/><w:ind w:left="360"/></w:pPr>';
+      out.push('<w:p>' + pPr + '<w:r><w:t xml:space="preserve">' + xmlEsc((idx === 0 ? '（建議補充）' : '') + ln) + '</w:t></w:r></w:p>');
+    });
+    return out.join('');
+  }
+
+  // Pass 2 — keep original paragraph verbatim; append clean note paragraph(s) after it.
+  let merged = 0;
+  let pIndex = -1;
+  xml = xml.replace(wp, (paraXml) => {
+    pIndex++;
+    const here = byPara.get(pIndex);
+    if (!here || !here.length) return paraXml;       // untouched → format fully preserved
+    let notes = '';
+    for (const f of here) { merged++; notes += cleanNoteParas(f); }
+    return paraXml + notes;
+  });
+
+  // Intro note at the very top of the body (clean framing, not a highlight legend).
+  const ip = function (text, o) {
+    o = o || {};
+    const rpr = (o.bold ? '<w:b/>' : '') + (o.size ? '<w:sz w:val="' + o.size + '"/>' : '') + (o.color ? '<w:color w:val="' + o.color + '"/>' : '');
+    return '<w:p>' + (o.after ? '<w:pPr><w:spacing w:after="' + o.after + '"/></w:pPr>' : '') +
+      '<w:r>' + (rpr ? '<w:rPr>' + rpr + '</w:rPr>' : '') + '<w:t xml:space="preserve">' + xmlEsc(text) + '</w:t></w:r></w:p>';
+  };
+  const schoolLabel = (meta.schoolType && ANNOTATE_SCHOOL_LABELS[meta.schoolType]) || '不限（一般比對）';
+  const domLabel = (meta.domains && meta.domains.length) ? meta.domains.join('、') + (meta.autoDetected ? '（自動偵測）' : '') : '自動偵測';
+  const introXml =
+    ip('本文件保留原有格式，並已整合 AI 根據 EDB 指引提出的建議（標示「（建議補充）」），詳細說明與官方出處見文末附錄。請自行核對後採用；重要決定以教育局官方原文為準。', { size: 16, color: '888888' }) +
+    ip('校類：' + schoolLabel + '　·　範疇：' + domLabel, { size: 16, color: '888888', after: 160 });
+  xml = xml.replace(/(<w:body\b(?:\s[^>]*)?>)/, '$1' + introXml);
+
+  // Appendix — full record of every finding (explanation + EDB source), grouped by domain.
+  // Inserted before the final <w:sectPr> so page geometry is preserved.
+  {
+    const ap = [];
+    const para = function (text, o) {
+      o = o || {};
+      const rpr = (o.bold ? '<w:b/>' : '') + (o.size ? '<w:sz w:val="' + o.size + '"/>' : '') + (o.color ? '<w:color w:val="' + o.color + '"/>' : '');
+      return '<w:p>' + (o.before ? '<w:pPr><w:spacing w:before="' + o.before + '"/></w:pPr>' : '') +
+        '<w:r>' + (rpr ? '<w:rPr>' + rpr + '</w:rPr>' : '') + '<w:t xml:space="preserve">' + xmlEsc(text) + '</w:t></w:r></w:p>';
+    };
+    ap.push('<w:p/>');
+    ap.push(para('附錄：AI 建議說明與出處', { bold: true, size: 26, color: '1F4E36' }));
+    ap.push(para('以下為 AI 根據 EDB 指引提出的建議與參考，連同官方出處供核對。標示「（建議補充）」者已加入上文相應位置；其餘為相關指引或未能在原文定位的建議。', { size: 16, color: '888888' }));
+    const groups = {};
+    for (const f of findings || []) {
+      const dom = f.domain_cn || (f.kind === 'guideline' ? '相關指引' : '清單');
+      (groups[dom] = groups[dom] || []).push(f);
+    }
+    for (const dom of Object.keys(groups)) {
+      ap.push(para('【' + dom + '】', { bold: true, size: 22, color: '1F4E36', before: 160 }));
+      for (const f of groups[dom]) {
+        const tag = f.kind === 'guideline' ? '相關指引' : (f.status === 'partial' ? '部分涵蓋' : '未涵蓋');
+        ap.push(para('〔' + tag + '〕' + (f.note || ''), { size: 19, before: 100 }));
+        if (f.suggestion) {
+          ap.push(para('建議條文：', { size: 17, bold: true, color: '555555' }));
+          for (const ln of String(f.suggestion).split('\n')) if (ln.trim()) ap.push(para(ln.trim(), { size: 18 }));
+        }
+        if (f.source && f.source.title) {
+          ap.push(para('出處：《' + f.source.title + '》' + (f.source.page ? '（第' + f.source.page + '頁）' : ''), { size: 16, color: '888888' }));
+        }
+      }
+    }
+    const apXml = ap.join('');
+    const lastSect = xml.lastIndexOf('<w:sectPr');
+    if (lastSect !== -1) xml = xml.slice(0, lastSect) + apXml + xml.slice(lastSect);
+    else xml = xml.replace('</w:body>', apXml + '</w:body>');
+  }
+
+  zip.file('word/document.xml', xml);
+  const blob = await zip.generateAsync({ type: 'blob', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+  return { blob, merged, total: (findings || []).length };
+}
+
+// S169 ①(a) — "改咗甚麼" change/diff summary. A short Word that lists, at a glance,
+// every change the clean output made: which suggestions were merged into the body
+// (with the original paragraph they attach to) and which were placed in the appendix.
+// Input-agnostic: classifies findings against the extracted docText (same normalized
+// matching the clean builders use), so it stays consistent for Word / PDF / pasted text.
+async function buildChangeSummaryDocx(docText, findings, meta) {
+  const D = window.docx;
+  if (!D) throw new Error('docx 程式庫未載入');
+  const FONT = 'Microsoft JhengHei';
+  const t = (text, o = {}) => new D.TextRun({ text, font: FONT, ...o });
+  const p = (children, o = {}) => new D.Paragraph({ children: Array.isArray(children) ? children : [children], ...o });
+  meta = meta || {};
+  findings = findings || [];
+
+  const rawParas = String(docText || '').split(/\n+/).map((s) => s.trim()).filter(Boolean);
+  const paraNorms = rawParas.map((s) => annNorm(s));
+  const { byPara, mergedSet } = partitionCleanFindings(paraNorms, findings);
+  const appendix = findings.filter((f) => !mergedSet.has(f));
+
+  const children = [];
+  const title = meta.filename ? String(meta.filename).replace(/\.(pdf|docx?)$/i, '') : '學校政策文件';
+  children.push(p(t(title + '　·　改動摘要', { bold: true, size: 30 }), { spacing: { after: 40 } }));
+  children.push(p(t('本頁列出「乾淨成品版」對原文所作的改動，方便核對。融入正文者以「（建議補充）」標示於原文相應段落之後；其餘列於成品版文末附錄。', { size: 16, color: '888888' }), { spacing: { after: 60 } }));
+  children.push(p(t('合共：融入正文 ' + mergedSet.size + ' 項建議；附錄補充 ' + appendix.length + ' 項。', { size: 18, bold: true, color: '1F4E36' }), { spacing: { after: 200 } }));
+
+  // Section 1 — merged into the body, shown next to the original paragraph each attaches to.
+  children.push(p(t('一、融入正文的建議（' + mergedSet.size + '）', { bold: true, size: 24, color: '1F4E36' }), { spacing: { after: 80 } }));
+  if (mergedSet.size === 0) {
+    children.push(p(t('（無——本次沒有建議可定位融入正文。）', { size: 18, color: '888888' }), { spacing: { after: 120 } }));
+  } else {
+    const sortedIdx = Array.from(byPara.keys()).sort((a, b) => a - b);
+    let n = 0;
+    for (const idx of sortedIdx) {
+      const orig = rawParas[idx] || '';
+      children.push(p(t('▸ 原文段落：' + (orig.length > 90 ? orig.slice(0, 90) + '…' : orig), { size: 18, color: '555555' }), { spacing: { before: 140 }, indent: { left: 120 } }));
+      for (const f of byPara.get(idx)) {
+        n++;
+        const st = f.status === 'partial' ? '部分涵蓋' : '未涵蓋';
+        children.push(p(t(n + '. 加入建議（' + (f.domain_cn || '清單') + '·' + st + '）：' + (f.note || ''), { size: 18, bold: true, color: '8A5A00' }), { indent: { left: 360 }, spacing: { before: 40 } }));
+        for (const ln of String(f.suggestion).split('\n')) if (ln.trim()) children.push(p(t('＋ ' + ln.trim(), { size: 18, color: '1F4E36' }), { indent: { left: 540 } }));
+        if (f.source && f.source.title) children.push(p(t('出處：《' + f.source.title + '》' + (f.source.page ? '（第' + f.source.page + '頁）' : ''), { size: 15, color: '888888' }), { indent: { left: 540 } }));
+      }
+    }
+  }
+
+  // Section 2 — appendix-only items (guideline refs, unlocated, no-suggestion).
+  children.push(p(t('二、列於附錄的補充（' + appendix.length + '）', { bold: true, size: 24, color: '1F4E36' }), { spacing: { before: 240, after: 80 } }));
+  if (appendix.length === 0) {
+    children.push(p(t('（無。）', { size: 18, color: '888888' })));
+  } else {
+    let m = 0;
+    for (const f of appendix) {
+      m++;
+      const tag = f.kind === 'guideline' ? '相關指引' : (f.status === 'partial' ? '部分涵蓋' : '未涵蓋');
+      children.push(p(t(m + '. 〔' + tag + '·' + (f.domain_cn || (f.kind === 'guideline' ? '指引' : '清單')) + '〕' + (f.note || ''), { size: 18 }), { spacing: { before: 80 }, indent: { left: 120 } }));
+      if (f.source && f.source.title) children.push(p(t('出處：《' + f.source.title + '》' + (f.source.page ? '（第' + f.source.page + '頁）' : ''), { size: 15, color: '888888' }), { indent: { left: 360 } }));
+    }
+  }
+
+  const doc = new D.Document({ styles: { default: { document: { run: { font: FONT, size: 22 } } } }, sections: [{ children }] });
+  return { blob: await D.Packer.toBlob(doc), merged: mergedSet.size, total: findings.length };
 }
 
 // ── Main App ──
