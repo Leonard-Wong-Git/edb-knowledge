@@ -17,6 +17,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **跨校類 filter**（S162）：domain-level school_types，untagged clause 不再跨校類洩漏。
 
 ### Changed
+- **手機底部導航加入「範本下載」入口**（S164，2026-06-15）：手機 bottom-nav 由 3 → **4 入口**（🔍 搜尋 / 📚 指引文件 / 📋 範本下載 / ℹ️ 平台介紹）。該手機畫面**不提供實際下載清單**（學校版範本為可編輯 Word 檔，需用電腦下載編輯方便使用），改為「💻 桌面版功能」說明 + 桌面範本面板截圖示意（`templates-preview.png`），引導改用桌面瀏覽器下載。文件標註維持 desktop-only。純前端 mobile shell 加建（`mobile.js` / `mobile.css`），不涉 backend / Supabase / 凍結資料合約。
 - **首頁（index.html）+ 平台介紹（app.html）改版**（S163）：核心功能改為 政策搜尋 / 文件標註 / 範本下載 / 指引文件庫 / 通告分析；hero 文案擴展；版本徽章顯示 v3.0。
 - **Channel B Supabase chunks**：10,736（v2.3.0）→ **15,109**（多輪官方源入庫：ph_pri 完整重抽、IMC/SBM 治理、KG 幼稚園 2 源等）。
 - **指引文件**：39 → **152** 份（registry projection + KLA/curriculum + 公積金 HR）。
@@ -31,7 +32,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **P3 標註覆蓋誇大**：`checklistRevise.ts` 加 graded 詞彙重疊閘（informative CJK-bigram，DF 自校準濾走 本校/幼稚園 等通用詞）：cosine 之上，需與最匹配段共享 ≥2 informative 詞先計 covered、≥1 計 partial、0 → missing。短窄文「保存健康紀錄量體溫清潔床單」由 covered=20/partial=55 降至 **covered=5/partial=30**（真實多段覆蓋文件不受影響，covered=37）。`MAX_ITEMS` 220→400（kg_operation 388 全評分，零截斷）。
 - **P4 README** 版本徽章 v3.0.0（+ knowledge.json 凍結 2.3.0 註明）。
 - **P5 worktree 衞生**：本機備份／中間檔（`*.bak_*`/`*.pre_*`/`_distill_*`/`_rewrite_*`）`.gitignore`（不刪，僅排除出 release tree）。
-- **P6 Mobile scope（v3.0）**：mobile = 政策搜尋 + 指引文件 + 平台介紹（讀／搜尋面）；**文件標註 + 範本下載 為 desktop 功能**（涉及檔案上載 + Word/PDF 生成，需較大畫面）。詳見 `PROJECT_MASTER_SPEC.md` §B.5。
+- **P6 Mobile scope（v3.0）**：mobile = 政策搜尋 + 指引文件 + 平台介紹（讀／搜尋面）；**文件標註 為 desktop 功能**（涉及檔案上載 + Word/PDF 生成，需較大畫面）。詳見 `PROJECT_MASTER_SPEC.md` §B.5。
 - **Regression**：修正 2 條失效已久的 stale 斷言（schema 版本硬編 1.3.1 → 2.3.0/2.5.0；role-bucket distinctness → union-selector「兩角色均取得事實」），+ 加 P2 routing / P3 lexical-gate regression（`backend/scripts/semanticRegression.ts`，20 PASS / 0 FAIL）。
 
 ---

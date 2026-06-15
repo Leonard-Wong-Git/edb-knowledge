@@ -620,6 +620,60 @@
     font-size: var(--m-text-sm);
     line-height: 1.6;
   }
+
+  /* ── 範本下載 (#templates) — desktop-only feature notice ── */
+  .m-tpl-body {
+    padding: var(--m-sp-md);
+    padding-bottom: calc(80px + var(--m-safe-bottom));
+  }
+  .m-tpl-card {
+    background: var(--m-bg-card);
+    border: 1px solid var(--m-cream);
+    border-radius: var(--m-r-md);
+    padding: var(--m-sp-lg) var(--m-sp-md);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+  .m-tpl-badge {
+    display: inline-block;
+    font-size: var(--m-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--m-edb-deep);
+    background: var(--m-edb-wash);
+    border-radius: var(--m-r-pill);
+    padding: 6px 14px;
+    margin-bottom: var(--m-sp-md);
+  }
+  .m-tpl-lead {
+    font-size: var(--m-text-base);
+    color: var(--m-text-primary);
+    line-height: var(--m-leading);
+    margin: 0 0 var(--m-sp-sm);
+  }
+  .m-tpl-note {
+    font-size: var(--m-text-sm);
+    color: var(--m-text-secondary);
+    line-height: var(--m-leading);
+    margin: 0 0 var(--m-sp-lg);
+  }
+  .m-tpl-shot {
+    margin: 0;
+  }
+  .m-tpl-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--m-cream);
+    border-radius: var(--m-r-sm);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
+  .m-tpl-shot figcaption {
+    font-size: var(--m-text-xs);
+    color: var(--m-text-muted);
+    text-align: center;
+    margin-top: var(--m-sp-sm);
+  }
+
   .m-guide-card {
     display: block;
     background: var(--m-bg-card);

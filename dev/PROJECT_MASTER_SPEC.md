@@ -70,8 +70,13 @@ EDB palette landing；hero + 核心功能 anchor；CTA 導向搜尋／文件庫�
 ### B.4 `t-purchase.html` — 範本詳情 + 草稿流程
 split grid；4 必填 + 2 選填；live validation；§1–§5 skeleton preview；A/B/AB source 控制；in-page 5 步草稿進度 + 草稿 canvas（來源面板、stale-source 警告、section 選取、修訂 action bar）。文案在未接通正式匯出前只可說「建立草稿／整理」。
 
-### B.5 Mobile UI（v3.0 scope = 讀／搜尋面）
-`mobile.css` + `mobile.js`：偵測 ≤640px 或 mobile UA；first-run role picker；cross-page bottom tab bar；dark mode auto。**v3.0 釋出範圍（S163 決定）：mobile = 政策搜尋 + 指引文件（`#guidelines` shell）+ 平台介紹（index.html）三個讀／搜尋面，bottom-nav 3 entries。文件標註（📝 上載 Word/PDF → 就地標註生成）同 範本下載（📋 Word 檔生成下載）係 desktop 功能 —— 涉及檔案上載 + Word/PDF 產生，需較大畫面，mobile shell 不提供（桌面版可用）。** 理由：mobile.js 的 app shell 為 search/guidelines 導向，annotate/templates 無對應 mobile render；硬接會得到 search shell 蓋住 React 的破 UX。若日後要 mobile full-suite，需獨立 session 重做 shell-routing + hashchange 處理 + 真機驗。最新進度以 `SESSION_HANDOFF.md` 為準。
+### B.5 Mobile UI（v3.0 scope = 讀／搜尋面 + 範本下載導引）
+`mobile.css` + `mobile.js`：偵測 ≤640px 或 mobile UA；first-run role picker；cross-page bottom tab bar；dark mode auto；同頁 hash 切換經 `hashchange → location.reload()` 重建對應 shell。**釋出範圍（S163 決定 + S164 修訂）：bottom-nav 4 entries = 🔍 政策搜尋 + 📚 指引文件（`#guidelines` shell）+ 📋 範本下載（`#templates`）+ ℹ️ 平台介紹（index.html）。**
+- **政策搜尋 / 指引文件 / 平台介紹**：完整手機 shell（讀／搜尋面）。
+- **範本下載（`#templates`，S164）**：手機**不提供實際下載清單**，改為 `buildTemplatesShell()` 靜態畫面 —— 「💻 桌面版功能」說明 + 桌面範本面板截圖示意（`templates-preview.png`，載入失敗 `onerror` 優雅隱藏）。理由：學校版範本為可編輯 Word 檔，需用電腦下載編輯方有意義；故手機只導引用戶改用桌面瀏覽器。純靜態、無 fetch、無外部依賴 → 不會白屏、不影響現有導航。
+- **文件標註（📝）**：維持 **desktop-only**（涉及檔案上載 + 客戶端 Word/PDF 抽取與生成，需較大畫面），mobile shell 不設入口。
+
+理由：mobile.js 的 app shell 為 search/guidelines 導向；annotate 無對應 mobile render，硬接會得到 search shell 蓋住 React 的破 UX。若日後要 mobile 全功能（含 annotate / 真下載），需獨立 session 重做 shell-routing + 真機驗。最新進度以 `SESSION_HANDOFF.md` 為準。
 
 ### B.6 Backend API（Node.js + TypeScript，Render 部署）
 - `POST /api/search/channel-a` — role_facts keyword + embedding 搜尋
