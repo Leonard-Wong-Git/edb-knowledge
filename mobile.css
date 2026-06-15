@@ -224,7 +224,7 @@
     align-items: center;
     background: rgba(255, 255, 255, 0.96);
     border-radius: var(--m-r-pill);
-    padding: 0 var(--m-sp-lg);
+    padding: 0 var(--m-sp-xs) 0 var(--m-sp-lg);
     height: 56px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   }
@@ -235,6 +235,7 @@
   }
   .m-search-input {
     flex: 1;
+    min-width: 0;
     border: 0;
     background: transparent;
     font-size: var(--m-text-base);
@@ -243,6 +244,23 @@
     /* Prevent iOS auto-zoom by ensuring 16px+ */
     min-height: var(--m-touch);
   }
+  /* Tappable search button — mobile users can search WITHOUT relying on the
+     keyboard Enter key (some keyboards/IMEs do not submit reliably). */
+  .m-search-btn {
+    flex-shrink: 0;
+    margin-left: var(--m-sp-sm);
+    height: 44px;
+    padding: 0 var(--m-sp-md);
+    border: 0;
+    border-radius: var(--m-r-pill);
+    background: var(--m-edb-mid);
+    color: #fff;
+    font-size: var(--m-text-sm);
+    font-weight: 700;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .m-search-btn:active { background: var(--m-edb-deep); }
   .m-search-input::placeholder {
     color: var(--m-text-muted);
     transition: opacity var(--m-dur-base) var(--m-ease);

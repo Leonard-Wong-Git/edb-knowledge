@@ -85,7 +85,7 @@
   // ── 4. Build role picker overlay ──
   function buildRolePickerHTML() {
     let html = '';
-    html += '<div class="m-role-picker-eyebrow">K1 知識平台 · 第一次使用</div>';
+    html += '<div class="m-role-picker-eyebrow">香港學校政策搜尋平台 · 第一次使用</div>';
     html += '<h2>請選擇你的角色</h2>';
     html += '<p style="text-align:center;color:var(--m-text-secondary);font-size:var(--m-text-sm);margin:0 0 var(--m-sp-md)">影響搜尋結果的角色適用標籤；之後可在設定改變</p>';
     ROLES.forEach(r => {
@@ -214,12 +214,13 @@
     shell.className = 'm-shell';
     shell.innerHTML = ''
       + '<section class="m-hero">'
-      +   '<div class="m-hero-eyebrow">K1 知識平台 · 香港學校管治</div>'
+      +   '<div class="m-hero-eyebrow">香港學校政策搜尋平台 · 香港學校管治</div>'
       +   '<h1 class="m-hero-title">查找有根有據的政策答案</h1>'
       +   '<p class="m-hero-desc">輸入問題，即時比對 EDB 已核實事實及原文片段。</p>'
       +   '<form class="m-search" id="m-search-form" autocomplete="off">'
       +     '<svg class="m-search-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>'
       +     '<input class="m-search-input" id="m-search-input" type="search" inputmode="search" enterkeyhint="search" placeholder="教師病假上限多少天？" />'
+      +     '<button type="submit" class="m-search-btn" aria-label="搜尋">搜尋</button>'
       +   '</form>'
       + '</section>'
       + '<section class="m-result-list" id="m-result-list" aria-live="polite"></section>'
