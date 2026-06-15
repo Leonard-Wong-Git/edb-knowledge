@@ -91,6 +91,8 @@ split grid；4 必填 + 2 選填；live validation；§1–§5 skeleton preview�
 
 ## C. 已架構好的系統（下一個 agent 的地圖）
 
+> 📐 **系統架構總覽圖**：`docs/system-architecture.png`（RAG：用戶 → 前端 → 後端 Render → RAG 核心〔嵌入→主題路由→向量搜尋→LLM 合成〕→ Supabase pgvector 知識庫；S170 加入，README 技術架構 section 內嵌）。下文 C.1–C.x 為文字細節。
+
 ### C.1 前端（GitHub Pages，`main` branch 靜態托管）
 - Repo: `Leonard-Wong-Git/edb-knowledge`；live: `https://leonard-wong-git.github.io/edb-knowledge/`
 - `app.html` 主 SPA（React 18 + Babel Standalone + Tailwind 2.2，全 CDN，無 build）。DOM mount `#root`；主資料常數 `INITIAL_DATA`（**直接內嵌為 JS object，禁止改回 async fetch**，見 §E）。

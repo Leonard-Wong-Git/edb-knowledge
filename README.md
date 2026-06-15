@@ -59,6 +59,10 @@
 
 ## 技術架構
 
+![Policy Checker — 系統架構 (RAG)](docs/system-architecture.png)
+
+> 系統架構總覽（RAG）：用戶 → 前端（app.html / React SPA / GitHub Pages）→ 後端（Render · Node.js + TypeScript · API Gateway）→ RAG 核心（Query 嵌入 → 主題路由 → 向量搜尋 → LLM 合成）→ 知識庫（Supabase pgvector 15,127 chunks + 455 已核實事實）；外部：OpenAI（Azure 備援）、Cloudflare 免 Cookie 統計。
+
 ```
 Frontend (GitHub Pages)          Backend (Render)
 ─────────────────────────        ──────────────────────────────

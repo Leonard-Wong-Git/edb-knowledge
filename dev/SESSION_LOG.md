@@ -19,8 +19,9 @@
 - **⑥ playbook 沉澱（§14）：** inbox proposal「content monitor 測 served URL 唔好測 registry + 訊號衛生」（playbook repo commit `7057db8`）。
 - **QC 工具學習：** live Supabase 可由 `backend/.env` `SUPABASE_SERVICE_KEY` 做 INSERT/UPDATE（早前只查 anon key 睇漏）。app.html headless Chrome 用 `--virtual-time-budget`（macOS 無 timeout）；`grep -c` 命中 0 會 exit 1 斷 `&&` 鏈（拆開跑）。
 - **Boundary:** 監察 script／版本／前端純改；Supabase 只 SAG **url-only** UPDATE（chunk 數/_meta/display-sync 不變、非 count 變故無需 7 點同步）；凍結合約零接觸。
-- **commits（已 push origin/main）:** `eb9d90b`(清訊號)→`59b8d2b`(404 band-aid)→`6309333`(v3.2.0)→本治理 commit。playbook repo `7057db8`。Supabase：Leonard UPDATE 383 `sag_2025_11` url（verified live）。
-- **Log maintenance (§4a):** SESSION_LOG 287 行 <400、6 entries <11，no-op。
+- **(addendum) RAG 系統架構圖入庫：** Leonard 提供 `Policy Checker-System Architecture.png`（S168 架構圖 prompt 產出，1.5MB 1536×1024）→ copy 入 repo `docs/system-architecture.png` + README「技術架構」section 內嵌 + CODEBASE_CONTEXT Directory Map/AI log + PROJECT_MASTER_SPEC §C 引用。純文檔/資產，零接觸 code/Supabase/凍結合約。
+- **commits（已 push origin/main）:** `eb9d90b`(清訊號)→`59b8d2b`(404 band-aid)→`6309333`(v3.2.0)→`5186d0f`(收工治理)→架構圖 addendum（本 commit）。playbook repo `7057db8`。Supabase：Leonard UPDATE 383 `sag_2025_11` url（verified live）。
+- **Log maintenance (§4a):** SESSION_LOG <400 行、6 entries <11，no-op。
 
 ### Next Session Handoff Prompt (Verbatim)
 
