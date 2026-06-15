@@ -2,22 +2,20 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
-Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.0.0。
-Product state: HEAD == origin/main（已 push）。Supabase 15,109；Render backend live。⚠️ 起手 FIRST：探針 https://policychecker.wongfu.net/ + /app.html HTTP code —— S163QC closeout 時全站 404（Pages deploy delay/incident，非 content；root 都 404、files tracked、.nojekyll 在）。若仍 404：check GitHub Pages 部署狀態（私庫，需 gh auth 或 GitHub web Settings→Pages 睇 build log）/ GitHub Status / 試 empty commit re-trigger；恢復後驗 app.html header/footer 顯示 v3.0.0。若已 200：直接驗 v3.0.0 即可。再 verify HEAD==origin/main + Supabase 15,109 + Render /health。
+Current objective: EDB K1 知識平台，平台 v3.0.0（GO）。主站 policychecker.wongfu.net + 鏡像 https://tender-garnet-hqbd.here.now/。
+Product state: HEAD == origin/main（已 push）。Supabase 15,109；Render backend live（CORS 三域：github.io/policychecker/here.now）。repo public。起手 verify：探針 policychecker.wongfu.net /app.html = 200 + v3.0.0；Render /health 200；HEAD==origin/main；Supabase 15,109。
 
-S163QC（Leonard 全權，22:40 自啟）完成 v3.0 release QC 6 blockers（NO-GO→GO）：
-P1 版本顯示一致（3f239bf）：app.html header/footer displayVersion 由 PLATFORM_VERSION（v3.0.0）派生，唔再讀凍結 _meta.version（2.3.0）。local 驗過，待 Pages 恢復做 live 驗。
-P2 KG 營運搜尋（39e6df1）：searchChannelB kg_admin route +幼稚園營運/營運手冊/運作/健康紀錄。Render LIVE 驗：query surface kg_operation_manual+kg_admin_guide（原 g26-only）。
-P3 標註覆蓋誇大（39e6df1）：checklistRevise graded 詞彙重疊閘（informative bigram DF 自校準）+ MAX_ITEMS 220→400。Render LIVE 驗：短 KG 文 covered 20→5/partial 55→30，richer 文 covered=37（無 false-neg）。
-P4 README v3.0.0 / P5 .gitignore 備份檔(不刪) / P6 mobile scope 文檔（search/guidelines/about；annotate+templates=desktop，PROJECT_MASTER_SPEC §B.5）。
-Regression（39e6df1）：修 2 stale FAIL（schema 1.3.1→2.3.0/2.5.0；role-bucket→union both-roles）+ P2/P3 cases。20 PASS/0 FAIL。
+S163QC（Leonard 22:40 自啟全權）：v3.0 release QC 6 blockers NO-GO→GO，全部 live 驗：
+P1 app.html header/footer displayVersion→PLATFORM_VERSION(v3.0.0；凍結 _meta 2.3.0)。P2 searchChannelB kg_admin +幼稚園營運/營運手冊/運作/健康紀錄（Render LIVE 驗 surface kg_operation_manual+kg_admin_guide）。P3 checklistRevise graded 詞彙重疊閘（informative CJK-bigram DF 自校準）+MAX_ITEMS 220→400（LIVE 短文 covered 20→5/partial 55→30，richer 文 covered=37 無 false-neg）。P4 README v3.0.0 / P5 .gitignore 備份(不刪) / P6 mobile scope 文檔。Regression 修 2 stale FAIL +P2/P3 cases=20 PASS/0 FAIL。commits 39e6df1→3f239bf→…→364b48f(CORS +here.now)→b1002cd(gov).
+
+⚠️ Hosting 事件（已解決，留意教訓）：Leonard 一度將 repo set private → GitHub Pages 免費 plan 唔 serve private → 全站 404 + Render auto-deploy 失 access。最終開返 public 復原（re-enable Pages source 後**要新 push 先觸發 build**；here.now 鏡像只發公開前端子集）。已 deposit playbook inbox。
 
 NEXT（優先序）：
-① ⚠️ Pages 404 復原驗證（最優先）：站恢復後 live 驗 app.html v3.0.0 header/footer + index.html + 文件標註/範本下載 tabs 無 console error。若長時間未復，flag Leonard 查 Pages settings/GitHub status。
-② Leonard 收貨：v3.0 QC 6 fixes（其中 P2/P3 Render 已 LIVE 驗、P1 local 驗）。確認後 v3.0 可 NO-GO→GO。
-③ 真檔驗：Phase 2 PDF inline highlight 真 PDF 對位+多 viewer CJK；P3 gate 真檔多範疇文件覆蓋率合理性 monitor（STOPWORD_DF_FRACTION=0.25 / COVERED=0.5 / PARTIAL=0.42 / MAX_ITEMS=400 tunable）。
-④ monitor：P2 KG routing 真用戶查詢覆蓋；Phase 2.5 多範疇 UX；KG QC DRAFT 最終核；#3 學校版 102 docx。
+① Render 免費 tier cold-start（閒置 15min 瞓 → 第一搜尋 ~50s）：production UX 痛點，考慮升 Render always-on 付費 tier，或加「載入中」UX。
+② Leonard 收貨 v3.0 6 fixes（已全 live 驗）→ 正式封 v3.0。
+③ 真檔驗：Phase 2 PDF inline highlight 真 PDF 對位+多 viewer CJK；P3 gate 真檔多範疇覆蓋率 monitor（STOPWORD_DF_FRACTION=0.25/COVERED=0.5/PARTIAL=0.42/MAX_ITEMS=400 tunable）。
+④ monitor：P2 KG routing 真用戶查詢；Phase 2.5 多範疇 UX；KG QC DRAFT 最終核；#3 學校版 102 docx；here.now 鏡像是否保留/換 slug/綁 custom domain。
 
-Key files（S163QC）：backend/src/api/{searchChannelB.ts(kg_admin regex +營運; export detectQueryCategory), checklistRevise.ts(graded lexical gate +cjkBigrams export, MAX_ITEMS 400, STOPWORD_DF_FRACTION)} / backend/scripts/semanticRegression.ts(2 stale fixes + P2/P3 cases) / app.html(displayVersion→PLATFORM_VERSION) / README.md / .gitignore / dev/PROJECT_MASTER_SPEC.md(§B.5 mobile) / CHANGELOG.md.
-⚠️ 紀律：起 backend 改動前確認 Render deploy；live INSERT 前 INSPECT；改 docx/checklist re-run gen_checklists_bundle.py+gen_templates_manifest.py（kg_operation canonical si/section_name）；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；本機 shell set -e（grep -c 0 中斷，用 python 數）；curl policychecker 偶被 Cloudflare challenge（9KB page）→ 用 github.io origin 或加 ?cb=。
-Post-startup first action: 探針 policychecker.wongfu.net / + /app.html HTTP status（Pages 恢復未）；若 200 → live 驗 v3.0.0；若 404 → 跟 NEXT① 處理。然後問 Leonard 收貨 v3.0 QC。
+Key files（S163QC）：backend/src/api/{searchChannelB.ts(+營運 regex, export detectQueryCategory), checklistRevise.ts(graded lexical gate +cjkBigrams export, MAX_ITEMS 400, STOPWORD_DF_FRACTION)} / backend/scripts/semanticRegression.ts / backend/src/config/env.ts(BASELINE_CORS_ORIGINS +here.now) / app.html(displayVersion→PLATFORM_VERSION) / README.md / .gitignore / dev/PROJECT_MASTER_SPEC.md(§B.5 mobile) / CHANGELOG.md.
+⚠️ 紀律：起 backend 改動前確認 Render deploy；live INSERT 前 INSPECT；改 docx/checklist re-run gen_checklists_bundle.py+gen_templates_manifest.py（kg_operation canonical si/section_name）；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；shell set -e（grep -c 0 中斷用 python 數）；改 host/CORS：env.ts BASELINE_CORS_ORIGINS exact origin 無尾斜線；repo 勿 set private（會 down free Pages + Render deploy）。
+Post-startup first action: 探針 policychecker.wongfu.net /app.html=200+v3.0.0 + Render /health + Supabase 15,109，然後問 Leonard 收貨 v3.0 / 起 NEXT。
