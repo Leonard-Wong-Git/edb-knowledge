@@ -227,6 +227,14 @@ body {
   background: rgba(255,255,255,0.18); color: #fff; font-weight: 600;
 }
 .filter-tab:not(.active-tab):hover { background: rgba(255,255,255,0.1); color: #fff; }
+/* S169 ② — header help/onboarding button (sits beside tab bar on dark header) */
+.k1-help-btn {
+  transition: all 0.15s; cursor: pointer; padding: 6px 12px;
+  font-size: var(--text-sm); font-weight: 600; font-family: inherit; white-space: nowrap;
+  border-radius: var(--r-sm); border: 1px solid rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.82);
+}
+.k1-help-btn:hover { background: rgba(255,255,255,0.18); color: #fff; }
 /* Light-background variant — filter-tab is white-on-dark for the header bar; on
    light content areas (政策範本 校類 filter, 文件標註 範疇 chips) use dark text. */
 .filter-tab-light { color: var(--ink, #3d2b22); border: 1px solid var(--line, #d9d2c6); border-radius: 8px; background: #fff; }
@@ -2052,8 +2060,8 @@ function PlatformIntroPanel({ stats }) {
     {
       icon: '📝',
       title: '文件標註',
-      subtitle: '上載文件 · 就地標註',
-      desc: '上載學校政策文件，系統逐段比對 EDB 指引與合規清單，於原檔就地螢光標示、附參考指引及可一鍵套用（追蹤修訂）的建議條文，再下載標註版。',
+      subtitle: '上載文件 · 生成乾淨成品版',
+      desc: '上載學校政策文件，系統逐段比對 EDB 指引與合規清單，生成一份「乾淨成品版」Word——建議融入正文（標示「（建議補充）」、無螢光、可直接編輯），說明與官方出處集中文末附錄；Word 上載會保留原有標題／編號／格式，另可下載「改動摘要」。',
       badge: '核心功能',
       dark: true,
     },
@@ -2271,6 +2279,63 @@ function PlatformIntroPanel({ stats }) {
         </div>
         <div style={{padding:'14px 16px',background:'rgba(240,238,233,0.06)',borderRadius:'var(--r-sm)',border:'1px solid rgba(240,238,233,0.1)',fontSize:'var(--text-sm)',color:'rgba(240,238,233,0.55)',lineHeight:1.7}}>
           ⚠️ 本平台為輔助查閱工具，所有回答均附原始文件連結，請以 EDB 官方文件為準。
+        </div>
+      </div>
+
+      {/* ── S169 ③ 使用手冊 (in-app user manual) ── */}
+      <div style={{marginTop:'40px'}}>
+        <div style={{textAlign:'center',marginBottom:'20px'}}>
+          <p style={{fontSize:'0.7rem',fontWeight:700,color:'var(--mocha)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'4px'}}>使用手冊</p>
+          <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,color:'var(--charcoal)'}}>五大功能 · 點樣用</h2>
+          <p style={{fontSize:'var(--text-sm)',color:'var(--mid)',marginTop:'6px'}}>撳開每一項睇詳細步驟。隨時可喺右上角「🎓 使用教學」重溫導覽。</p>
+        </div>
+        {[
+          { icon:'🔍', title:'政策搜尋', steps:[
+            '喺「🔍 政策搜尋」輸入關鍵字或問題（例：校車安全、教師年假、法團校董會）。',
+            '系統喺 EDB 指引與通告做語義檢索，整理答案並列出來源；可撳來源頁碼直接跳去官方 PDF。',
+            '貼士：短關鍵字（1–3 個詞）通常已夠；想收窄就逐步加詞。',
+          ]},
+          { icon:'📝', title:'文件標註', steps:[
+            '喺「📝 文件標註」上載學校政策文件（Word .docx 最佳，亦支援 PDF 或直接貼上文字）。',
+            '揀本校校類，範疇可「自動偵測」或自選（最多 3 個），然後撳「開始標註」。',
+            '系統比對 EDB 指引與合規清單，列出「就地標示」與「建議補充」。',
+            '撳「⬇️ 下載 Word（乾淨成品版）」：原文保持乾淨，AI 建議融入正文（標示「（建議補充）」、無螢光、可直接編輯），說明與官方出處集中文末附錄。Word 上載會保留原有標題／編號／格式。',
+            '另可撳「📋 下載改動摘要」一覽改咗甚麼。',
+            '私隱：原始檔不會上載，只有抽取的文字會傳送作比對，過程不儲存；請勿包含敏感個人資料。',
+          ]},
+          { icon:'📋', title:'範本下載', steps:[
+            '喺「📋 範本下載」按合規範疇瀏覽，再按校類（小學／中學／特殊學校／幼稚園）篩選。',
+            '撳下載即取得 Word 政策範本，可作起草藍本。',
+          ]},
+          { icon:'📚', title:'EDB 指引文件庫', steps:[
+            '喺「📚 EDB指引」按範疇與年份瀏覽 EDB 官方指引。',
+            '可即時預覽，或撳連結跳去官方原文 PDF。',
+          ]},
+        ].map((f) => (
+          <details key={f.title} style={{background:'var(--paper)',border:'1px solid var(--border)',borderRadius:'var(--r-md)',padding:'4px 16px',marginBottom:'8px'}}>
+            <summary style={{cursor:'pointer',fontSize:'var(--text-base)',fontWeight:700,color:'var(--charcoal)',padding:'10px 0',listStyle:'none'}}>
+              {f.icon}　{f.title}
+            </summary>
+            <ol style={{margin:'4px 0 14px',paddingLeft:'20px',color:'var(--mid)',fontSize:'var(--text-sm)',lineHeight:1.8}}>
+              {f.steps.map((s, i) => <li key={i} style={{marginBottom:'4px'}}>{s}</li>)}
+            </ol>
+          </details>
+        ))}
+
+        {/* 常見問題 */}
+        <div style={{marginTop:'24px'}}>
+          <h3 style={{fontSize:'var(--text-lg)',fontWeight:800,color:'var(--charcoal)',marginBottom:'10px',textAlign:'center'}}>常見問題</h3>
+          {[
+            { q:'答案準唔準？可唔可以照跟？', a:'本平台是輔助查閱工具，所有答案均附原始文件連結。重要決定請以教育局官方原文為準。' },
+            { q:'文件標註支援咩檔案格式？', a:'支援 Word（.docx，效果最佳，可保留格式）、PDF（需有文字層）、或直接貼上文字。掃描影印本（無文字層）暫不支援。' },
+            { q:'我上載嘅文件安唔安全？', a:'原始檔案只在你的瀏覽器內讀取，不會上載；只有抽取的文字會傳送至伺服器作比對，過程不儲存。請勿包含學生姓名、身份證號碼等敏感個人資料。' },
+            { q:'點解第一次搜尋／標註比較慢？', a:'伺服器閒置一段時間會自動休眠，首次使用需數十秒喚醒，之後回應正常。' },
+          ].map((item, i) => (
+            <details key={i} style={{background:'var(--cd-warm)',border:'1px solid var(--border)',borderRadius:'var(--r-md)',padding:'4px 16px',marginBottom:'8px'}}>
+              <summary style={{cursor:'pointer',fontSize:'var(--text-sm)',fontWeight:700,color:'var(--charcoal)',padding:'10px 0',listStyle:'none'}}>{item.q}</summary>
+              <p style={{margin:'4px 0 14px',color:'var(--mid)',fontSize:'var(--text-sm)',lineHeight:1.8}}>{item.a}</p>
+            </details>
+          ))}
         </div>
       </div>
 
@@ -4077,6 +4142,69 @@ async function buildChangeSummaryDocx(docText, findings, meta) {
   return { blob: await D.Packer.toBlob(doc), merged: mergedSet.size, total: findings.length };
 }
 
+// S169 ② — first-use onboarding tour. A dismissible walkthrough of the 5 channels,
+// shown automatically on first visit (localStorage gate) and re-openable any time from
+// the header "使用教學" button. Pure client-side; no backend / data-contract contact.
+const TOUR_FLAG = 'k1_tour_done_v1';
+const TOUR_STEPS = [
+  { icon: '👋', title: '歡迎使用香港學校政策搜尋平台', body: '呢個平台幫學校快速查閱教育局（EDB）政策指引、為學校文件做合規標註、亦可下載政策範本。一分鐘導覽，帶你睇下五大功能點用。', cta: null },
+  { icon: '🔍', title: '政策搜尋', body: '輸入關鍵字（例如「校車安全」「法團校董會」），平台會喺 EDB 指引與通告中搵出相關內容，附來源頁碼，可直接跳去官方原文 PDF。', cta: { label: '去政策搜尋', view: 'qa' } },
+  { icon: '📝', title: '文件標註', body: '上載學校政策文件（Word 最佳），AI 比對 EDB 指引同合規清單，標出建議，生成一份「乾淨成品版」供你下載編輯——Word 上載會保留原有標題／編號／格式。', cta: { label: '去文件標註', view: 'annotate' } },
+  { icon: '📋', title: '範本下載', body: '各範疇（校園安全、收生、財務等）嘅政策範本，按校類揀選下載，慳返由零起草嘅時間。', cta: { label: '去範本下載', view: 'templates' } },
+  { icon: '📚', title: 'EDB 指引文件庫', body: '分類整理嘅 EDB 官方指引文件，可預覽並跳去官方原文，按範疇與時序排列。', cta: { label: '去指引文件庫', view: 'guidelines' } },
+  { icon: '✅', title: '開始使用', body: '隨時可喺右上角「🎓 使用教學」重溫導覽；想睇詳細步驟可去「ℹ️ 平台介紹」嘅「使用手冊」。所有資料僅供參考，重要決定請以教育局官方原文為準。', cta: { label: '睇使用手冊（平台介紹）', view: 'about' } },
+];
+
+function Onboarding({ open, onClose, onGoto }) {
+  const [step, setStep] = useState(0);
+  useEffect(() => { if (open) setStep(0); }, [open]);
+  useEffect(() => {
+    if (!open) return undefined;
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open, onClose]);
+  if (!open) return null;
+  const s = TOUR_STEPS[step];
+  const last = step === TOUR_STEPS.length - 1;
+  const navBtn = { padding: '8px 16px', fontSize: '0.85rem', fontWeight: 600, borderRadius: '8px', cursor: 'pointer', border: '1px solid var(--border,#d8cfc0)' };
+  return (
+    <div role="dialog" aria-modal="true" aria-label="使用教學" onClick={onClose}
+         style={{ position: 'fixed', inset: 0, zIndex: 2000, background: 'rgba(20,18,15,0.55)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+      <div onClick={(e) => e.stopPropagation()}
+           style={{ background: 'var(--paper,#fff)', borderRadius: '16px', maxWidth: '460px', width: '100%', padding: '28px 26px', boxShadow: '0 20px 60px rgba(0,0,0,0.35)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+          <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--mid,#777)' }}>使用教學　{step + 1}/{TOUR_STEPS.length}</span>
+          <button onClick={onClose} aria-label="關閉" style={{ background: 'none', border: 'none', fontSize: '1.3rem', lineHeight: 1, cursor: 'pointer', color: 'var(--mid,#999)' }}>×</button>
+        </div>
+        <div style={{ fontSize: '2.6rem', marginBottom: '6px' }}>{s.icon}</div>
+        <h2 style={{ fontSize: '1.28rem', fontWeight: 800, color: 'var(--ink,#2a2a2a)', marginBottom: '10px', lineHeight: 1.35 }}>{s.title}</h2>
+        <p style={{ fontSize: '0.92rem', lineHeight: 1.8, color: 'var(--mid,#555)', marginBottom: s.cta ? '14px' : '4px' }}>{s.body}</p>
+        {s.cta && (
+          <button onClick={() => onGoto(s.cta.view)}
+                  style={{ display: 'inline-block', padding: '7px 14px', fontSize: '0.85rem', fontWeight: 600, borderRadius: '8px', cursor: 'pointer', border: 'none', background: 'var(--cd-warm,#f3ece0)', color: 'var(--charcoal,#3a3a3a)' }}>
+            {s.cta.label} →
+          </button>
+        )}
+        <div style={{ display: 'flex', gap: '6px', justifyContent: 'center', margin: '20px 0' }}>
+          {TOUR_STEPS.map((_, i) => (
+            <span key={i} style={{ width: i === step ? '22px' : '7px', height: '7px', borderRadius: '4px', background: i === step ? 'var(--p-primary,#1F4E36)' : 'var(--line,#e0d8c8)', transition: 'all .2s' }} />
+          ))}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <button onClick={onClose} style={{ ...navBtn, background: 'transparent', color: 'var(--mid,#888)' }}>略過</button>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: '8px' }}>
+            {step > 0 && <button onClick={() => setStep(step - 1)} style={{ ...navBtn, background: 'var(--paper,#fff)', color: 'var(--ink,#333)' }}>上一步</button>}
+            {!last
+              ? <button onClick={() => setStep(step + 1)} style={{ ...navBtn, background: 'var(--p-primary,#1F4E36)', color: '#fff', border: 'none' }}>下一步</button>
+              : <button onClick={onClose} style={{ ...navBtn, background: 'var(--p-primary,#1F4E36)', color: '#fff', border: 'none' }}>完成 ✓</button>}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Main App ──
 function App() {
   const data = INITIAL_DATA;
@@ -4095,6 +4223,18 @@ function App() {
     window.scrollTo(0, 0);
   }, []);
   const [previewDoc, setPreviewDoc] = useState(null);
+
+  // S169 ② — onboarding tour: auto-open on first visit, re-openable from header.
+  const [showTour, setShowTour] = useState(false);
+  useEffect(() => {
+    try { if (!localStorage.getItem(TOUR_FLAG)) setShowTour(true); } catch (e) { /* private-mode: skip */ }
+  }, []);
+  const closeTour = useCallback(() => {
+    setShowTour(false);
+    try { localStorage.setItem(TOUR_FLAG, '1'); } catch (e) { /* ignore */ }
+  }, []);
+  const openTour = useCallback(() => setShowTour(true), []);
+  const tourGoto = useCallback((v) => { closeTour(); switchView(v); }, [closeTour, switchView]);
 
   // S163 P1: header/footer show the user-facing PLATFORM_VERSION (v3.0.0), NOT the
   // frozen knowledge.json data-contract version (data._meta.version stays 2.3.0).
@@ -4115,6 +4255,7 @@ function App() {
 
   return (
     <div className="min-h-screen">
+      <Onboarding open={showTour} onClose={closeTour} onGoto={tourGoto} />
       {/* ── K1 Header ── */}
       <header className="k1-header" id="k1Header">
         <div className="k1-header-inner">
@@ -4152,6 +4293,10 @@ function App() {
                 📚 EDB指引 ({GUIDELINES_REGISTRY.length})
               </button>
             </div>
+            <button onClick={openTour} title="重溫使用教學導覽"
+                    className="k1-help-btn" aria-label="使用教學">
+              🎓 使用教學
+            </button>
 
           </div>
         </div>
