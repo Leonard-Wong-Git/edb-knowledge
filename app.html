@@ -1976,7 +1976,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // is frozen and consumed by the downstream Circular System). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + 文件標註（就地標註）+ 範本下載 + 合規清單修訂，跨 15 個合規範疇。
-const PLATFORM_VERSION = '3.1.0';
+const PLATFORM_VERSION = '3.2.0';
 
 function PlatformIntroPanel({ stats }) {
   const [demoTab, setDemoTab] = React.useState(0);
@@ -3781,7 +3781,7 @@ function App() {
   const openTour = useCallback(() => setShowTour(true), []);
   const tourGoto = useCallback((v) => { closeTour(); switchView(v); }, [closeTour, switchView]);
 
-  // S163 P1: header/footer show the user-facing PLATFORM_VERSION (v3.0.0), NOT the
+  // S163 P1: header/footer show the user-facing PLATFORM_VERSION, NOT the
   // frozen knowledge.json data-contract version (data._meta.version stays 2.3.0).
   const displayVersion = `v${PLATFORM_VERSION}`;
 

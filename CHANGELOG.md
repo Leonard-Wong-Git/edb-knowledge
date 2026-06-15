@@ -6,6 +6,26 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v3.2.0] — 2026-06-15 — 文件標註保留格式 · 首次導覽 · 使用手冊 · 監察清訊號 · 404 修復
+
+> 用戶端版本由 `app.html` `PLATFORM_VERSION` 常數驅動（v3.2.0）；知識資料合約 `knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 152 不變）。Channel B 維持 **15,127** chunks（本版只修正 1 個源的 source URL，chunk 數不變）。
+
+### Added
+- **首次使用導覽 onboarding**（S169 ②）：首訪自動彈 6 步導覽（歡迎 + 5 功能 + 完成，每步 CTA 跳該分頁），`localStorage` gate（`k1_tour_done_v1`）；header「🎓 使用教學」可隨時重溫。
+- **平台介紹 in-app 使用手冊 + FAQ**（S169 ③）：5 大功能逐步說明 + 常見問題，平台介紹分頁內置。
+- **文件標註「改動摘要」下載**（S169 ①）：除乾淨成品版外，另出一份列明「融入正文建議」+「附錄補充」+ 計數的改動摘要 Word。
+- **EDB 來源每週自動監察（email 通知）**：`freshness_check`（逢週一偵測現有 219 源內容改動）/ `discover_check`（偵測新文件）兩個 GitHub Actions 排程，結果寫入 GitHub Issue #1/#2；可經 Watch → Issues 收 email。
+
+### Changed
+- **文件標註乾淨成品版「保留原 Word 格式」**（S169 ①）：Word 輸入改用 JSZip 操作原 `document.xml`，原段落 100% 不動（保留標題/編號/表格格式），AI 建議以普通「（建議補充）」段落融入正文（無螢光、無追蹤修訂），說明集中文末附錄。解決 S167 由抽取文字重組令原 Word 標題/編號 flatten 的問題；PDF/貼上文字維持 from-text 乾淨版。
+- **監察訊號校準（清訊號）**：`check_freshness.py` 重置全 215 源 baseline（修正舊「殼頁 vs 真 PDF」假象 → 假警報 9→0）；`discover_sources.py` 加 `ENUMERATION_PAGE_CAP`，封住單一目錄頁列舉灌爆（likely-real 680→223，no-loss）。令每週監察報告唔再狼來了。
+- **dead-code cleanup**（S169 ⑤）：移除文件標註舊 builders（buildAnnotatedOriginalDocx/Pdf/buildEditableDocx/buildAnnotateListDocx + handlers，app.html −464 行）。
+
+### Fixed
+- **「政策搜尋」結果「開啟」連結 404（學校行政手冊）**：`sag_2025_11` 的 Channel-B 片段在 Supabase 存住畸形 URL（`/attachment/…/sch-admin-guide/index.html`，非 PDF → EDB 404）。根因為舊候選佇列入庫值、registry 已改正但 Supabase 未重新同步。修：前端 `SOURCE_URL_FIXUPS` 即時改寫至真 PDF（`SAG_C_markup.pdf`，app.html + mobile.js）+ Supabase `UPDATE` 將 383 個片段的 url 永久改正（url-only、chunk 數/＿meta 不變）。範圍 SAG-only（離線審 13,042 片段 + 線上抽查確認）。
+
+---
+
 ## [v3.1.0] — 2026-06-15 — 手機強化 · 檢索修復 · 乾淨成品版 · SMC 內容
 
 > 用戶端版本由 `app.html` `PLATFORM_VERSION` 常數驅動（v3.1.0）；知識資料合約 `knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 152 不變）。
