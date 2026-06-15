@@ -246,6 +246,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g02",                          // 法團校董會財務管理指引 (IMC family)
     "coa_imc_1_19",                 // 資助則例 (IMC version)
     "sdp_guide",                    // 如何編寫學校發展計劃 (IMC service-contract)
+    "smc_constitution_sample",      // S168: SMC 學校管理委員會章程樣本 (補 SMC 內容 gap, corpus 一直 IMC-heavy)
     "role_facts_general",
   ],
 

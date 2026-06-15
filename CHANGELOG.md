@@ -6,6 +6,26 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v3.1.0] — 2026-06-15 — 手機強化 · 檢索修復 · 乾淨成品版 · SMC 內容
+
+> 用戶端版本由 `app.html` `PLATFORM_VERSION` 常數驅動（v3.1.0）；知識資料合約 `knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 152 不變）。
+
+### Added
+- **SMC（學校管理委員會）內容入庫**（S168）：新源 `smc_constitution_sample`（官立學校學校管理委員會章程樣本，14 頁 text-layer）+18 chunks → Supabase Channel B **15,109 → 15,127**，加入 `school_governance` route。補上 corpus 一直 IMC-heavy、SMC 專屬內容稀薄的缺口（接 S166 SMC/IMC routing 修復）。
+- **手機「範本下載」入口**（S164）：手機底部導航 3→4 入口；範本畫面為「桌面版功能」說明 + 桌面面板截圖示意。
+- **手機可撳「搜尋」掣**（S166）：唔再淨靠鍵盤 Enter（部分手機鍵盤唔觸發提交）。
+
+### Changed
+- **文件標註輸出簡化為單一「乾淨成品版」**（S165→S167）：原文保持乾淨（無螢光、無 inline 註解），AI 建議融入正文做普通文字（「（建議補充）」標示、毋須接受修訂），說明＋EDB 出處集中文末附錄；Word/PDF/貼文字皆出。取代追蹤修訂/可編輯/清單多版本（解決「接受修訂後螢光殘留、原稿亂」）。
+- **手機品牌統一**（S166）：hero／角色選擇標籤「K1 知識平台」→「香港學校政策搜尋平台」。
+- **Channel B chunks**：15,109 → **15,127**（+SMC 18）。
+
+### Fixed
+- **英文縮寫 SMC/IMC 檢索路由**（S166）：英文縮寫原本唔 route → generic search 引錯源（旅遊/課程垃圾）、答案無根據。修 `searchChannelB.ts` 治理 route +`IMC`/`SMC`/英文片語（/i、word-boundary）+ query expansion bridge 英→中；audit 14 query（11 OK）+6 routing regression。
+- **手機搜尋無法觸發**（S166）：見上「可撳搜尋掣」。
+
+---
+
 ## [v3.0.0] — 2026-06-14 — 平台版本（Platform release）
 
 > **版本說明：** `v3.0.0` 是**面向用戶的平台版本**，與凍結的知識資料合約版本分離。`knowledge.json` `_meta.version` 維持 **2.3.0**（455 條已核實事實凍結、下游 Circular System 合約不變）；`guidelines.json` 維持 2.5.0。v3.0 標誌平台由「純搜尋工具」（v2.x）擴展為**完整合規套件**。用戶端顯示版本由 `app.html` 的 `PLATFORM_VERSION` 常數驅動（不再讀 `_meta.version`）。

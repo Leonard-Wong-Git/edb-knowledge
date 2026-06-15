@@ -2,7 +2,7 @@
 
 > 香港教育局（EDB）政策知識庫 — 專為學校管理人員而設
 
-[![Platform](https://img.shields.io/badge/platform-v3.0.0-teal)](CHANGELOG.md)
+[![Platform](https://img.shields.io/badge/platform-v3.1.0-teal)](CHANGELOG.md)
 [![Data contract](https://img.shields.io/badge/knowledge.json-v2.3.0%20(frozen)-lightgrey)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![GitHub Pages](https://img.shields.io/badge/Frontend-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/edb-knowledge/app.html)
@@ -25,9 +25,9 @@
 
 | 功能 | 說明 |
 |------|------|
-| ℹ️ **平台介紹** | 平台定位、動態統計（455 已核實事實 / 15,109 知識片段 / 161 指引 / 120 來源，由 `_meta.stats` 動態取）、核心功能說明 |
-| 🔍 **政策搜尋** | Channel-B 語義搜尋：從 15,109 個 EDB 官方原文知識片段檢索，整理回答並附原始文件出處（含頁碼） |
-| 📝 **文件標註** | 上載學校文件（Word/.docx 最佳，或 PDF/貼文字），系統比對 EDB 指引 + 按合規清單檢查缺漏，於**原文就地標註**（保留格式 + 螢光 highlight + Word 批註建議 + 未能定位項入文末附錄），下載標註版原檔；檔案在瀏覽器內抽取及標註，原始檔案不上載。**三種下載（S165）**：① **可編輯 Word 版**（推薦）建議條文直接寫入文中、綠色螢光標示，可即改即用、毋須「接受修訂」，Word/PDF/貼文字皆出；② 標註版原檔（Word 保留格式·追蹤修訂／PDF 螢光標示）；③ 建議清單。**S161 合併** 舊「文件分析 + 文件修訂」兩 tab 而成（支援本校校類 小/中/特/幼 + 合規範疇 自動偵測／自選） |
+| ℹ️ **平台介紹** | 平台定位、動態統計（455 已核實事實 / 15,127 知識片段 / 161 指引 / 120 來源，由 `_meta.stats` 動態取）、核心功能說明 |
+| 🔍 **政策搜尋** | Channel-B 語義搜尋：從 15,127 個 EDB 官方原文知識片段檢索，整理回答並附原始文件出處（含頁碼） |
+| 📝 **文件標註** | 上載學校文件（Word/.docx 最佳，或 PDF/貼文字），系統比對 EDB 指引 + 按合規清單檢查缺漏，生成一份**乾淨成品版** Word（S167）：原文保持乾淨可讀、AI 建議融入正文做普通文字（以「（建議補充）」標示、無螢光、可直接編輯、毋須接受修訂），所有建議說明與 EDB 官方出處集中文末附錄；Word/PDF/貼文字皆出。檔案在瀏覽器內抽取及生成，原始檔案不上載。**S161 合併** 舊「文件分析 + 文件修訂」兩 tab 而成（支援本校校類 小/中/特/幼 + 合規範疇 自動偵測／自選） |
 | 📋 **範本下載** | 15 範疇學校版政策範本（可編輯 .docx）下載，可按校類（通用/小/中/特/幼）篩選（內部「文件要求清單」不對外列出；S162 +幼稚園營運範疇） |
 | 📚 **指引文件庫** | 161 份官方 EDB 指引（in-app 瀏覽庫；公開 `guidelines.json` 端點為 152 份全集投影），按類別 → 子類別 → 年份三層分組導覽 |
 
@@ -102,7 +102,7 @@ EDB PDF → ai_extract.py → wiki_index.json（向量索引）
 | Channel A 已審核事實 | **455 條** |
 | 指引文件庫（in-app 瀏覽） | **161 份** |
 | 來源文件 | **120 份** |
-| Channel B 向量索引 | **15,109 chunks**（Supabase pgvector，線上） |
+| Channel B 向量索引 | **15,127 chunks**（Supabase pgvector，線上） |
 
 > 註：由 792 條去重整合至 455 條唯一事實（2026-05-16，commit 711f911；可逆日誌 `dev/DEDUP_LOG_2026-05-16.md`）。
 > 註：`161` 為 in-app 指引瀏覽庫（總文件基礎，S140 landing-curate +9 + 公積金 +4）；公開 `guidelines.json` API 端點為其全集投影 **152** 份（S140，剔 9 非文件；由 `dev/build_guidelines.py` 生成）。
@@ -176,4 +176,4 @@ KNOWLEDGE_PATH=../../../dev/knowledge/role_facts.json
 
 ---
 
-*最後更新：2026-06-15 | 平台 v3.0.0（知識資料合約 knowledge.json 維持凍結 v2.3.0）| 維護：leonard-wong-git*
+*最後更新：2026-06-15 | 平台 v3.1.0（知識資料合約 knowledge.json 維持凍結 v2.3.0）| 維護：leonard-wong-git*

@@ -5857,6 +5857,25 @@
       "notes": "S154 (2026-06-10): SBM-governance backfill (Leonard 指 指引欠校董會治理). Ingested 97 chunks text-layer. In SOURCE_SETS.school_governance."
     },
     {
+      "source_id": "smc_constitution_sample",
+      "title": "官立學校「學校管理委員會章程」樣本",
+      "title_short": "校管會章程樣本",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/sch-management-committee/about-sch-management-committee/index.html",
+      "url_primary": "https://applications.edb.gov.hk/smc/resources/%E5%AD%B8%E6%A0%A1%E7%AE%A1%E7%90%86%E5%A7%94%E5%93%A1%E6%9C%83%E7%AB%A0%E7%A8%8B%E6%A8%A3%E6%9C%AC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "REV.09-2012",
+      "last_checked_at": "2026-06-15",
+      "supersedes": null,
+      "notes": "S168 (2026-06-15): SMC (學校管理委員會) 章程樣本 — Leonard 提供補 SMC 內容 gap (corpus 一直 IMC-heavy)。14pp text-layer (U+FFFD=0)。In SOURCE_SETS.school_governance。url_landing = about-SMC HTML 頁（導航為主，body 不入庫，只作 watch-list 參考）。"
+    },
+    {
       "source_id": "imc_briefing_qa",
       "title": "法團校董會簡介會問答（2013）",
       "title_short": "校董會簡介問答",
