@@ -2,6 +2,54 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-15 Session 165 — 文件標註可編輯 Word 版（建議螢光直寫、免接受修訂）+ 手機搜尋 enter 修復
+
+- **ID:** Claude_20260615_S165
+- **Trigger:** 同一 conversation 接 S164。Leonard 真檔試用「文件標註」+ 截圖回饋 3 項（+確認 S164 mobile 範本下載=OK 收貨）：① Word 標註版用追蹤修訂，校長/老師唔識用「接受/拒絕」；② PDF 輸入→PDF 輸出但不能 edit，要建議方法；③ 手機搜尋輸入後撳 enter 唔即時搜尋。經 AskUserQuestion 釘實：①+② 用「可編輯 Word 版 + 改善指引」；建議條文「螢光標示、可直接編輯」。
+- **PLAN（HIGH-risk，已確認）:** 純前端（app.html 文件標註面板 + mobile.js）；不碰 backend / Supabase / 凍結 JSON / 不改現有 builder（純加新嘢）。
+- **READ:** 摸清 `buildAnnotatedOriginalDocx`（Word 原檔就地標+w:ins 追蹤修訂）/`buildAnnotatedPdf`（PDF 螢光）/`buildAnnotateListDocx`（docx-lib 砌清單）/`findingNoteParas`/`annNorm`+`annParaMatches`（module-scope 可重用）/`AnnotatePanel` state（`docText` 對 Word+PDF+貼文字皆有）。確認 `ANNOTATE_BACKEND_URL` localhost→:8787（本地 e2e 要 stub）。
+- **CHANGE（commit `afec532`）:**
+  - **app.html — 新 `buildEditableDocx(docText, findings, meta)`：** 用 `docx` 8.5.0 UMD 由抽取文字砌可編輯 Word；split 段落、重用 `annNorm`/`annParaMatches` 配對 → 配對段 `highlight:'yellow'`、AI 建議條文 `highlight:'green'` **直接寫入文中（正常 run，非 `<w:ins>` 追蹤修訂 → 免接受修訂）**、💡/⚠ note、未定位入「建議補充」附錄、頂部 legend（綠螢光=建議、可編輯、毋須接受修訂）。**Word/PDF/貼文字三種輸入皆出**（PDF 由 extractPdf 已抽文字重組 → 解決「PDF 不可編輯」）。
+  - **新 `handleDownloadEditable`** + 下載列重整：可編輯 Word 版（推薦，primary，enabled when report）｜標註版原檔（secondary，Word·保留格式/PDF·螢光，需 fileBuffer）｜建議清單。加「三種下載」指引塊（含教學「Word『校閱』分頁按『接受』套用／『拒絕』清走」）解決問題①。更新 3 處舊提示（貼文字/PDF 而家都出可編輯版）。
+  - **不改** `buildAnnotatedOriginalDocx`/`buildAnnotatedPdf`/`buildAnnotateListDocx`（零回歸）。
+  - **mobile.js — 問題③：** 搜尋框 `+enterkeyhint="search"` + 明確 Enter `keydown` handler（`submitSearch()`；部分手機鍵盤/IME 對無提交鈕表單唔觸發隱式提交）。
+- **QC（全 PASS）:** `node --check mobile.js` ✓。preview（localhost）cache-bust 後 app.html 0 console error、`buildEditableDocx`/`annNorm` global、docx/JSZip/PDFLib 載入。**`buildEditableDocx` 單元＋深驗：** 合成 report → docx blob 8.5KB、PK zip、JSZip 解開 `document.xml` **well-formed**、含 `w:val="yellow"`+`w:val="green"`+建議文字+原文、**無 `<w:ins>`**（證螢光可編輯、非追蹤修訂）、located/unlocated 正確。**真 UI e2e（stub analyze）：** 貼文字→開始標註→下載列 3 按鈕＋「三種下載」＋「校閱接受/拒絕」教學渲染→點「可編輯 Word 版」→ 觸發 1 下載（docx MIME、note「就地標示 1 處…毋須接受修訂；另有 1 項…建議補充」）。**mobile fresh headless：** `enterkeyhint=search` 在、keydown handler 在 served code、4 nav tabs、mobile-active。`git diff` 只 app.html+mobile.js；backend/凍結 JSON 零接觸。
+- **Live:** commit `afec532` pushed origin/main；Pages deploy 驗（live app.html 含 `buildEditableDocx`、mobile.js 含 `enterkeyhint`）。
+- **Evidence disposition:** kept as recent trace evidence；可編輯版設計 + mobile enter 修復理由入 CHANGELOG/CODEBASE_CONTEXT。
+- **⚠️ 待 Leonard 收貨:** 手機真鍵盤撳 Enter（headless 無法模擬實體鍵盤，已驗 enterkeyhint+handler 在）；真 Word/PDF 檔下載可編輯版開啟對位＋螢光顯示（合成 report e2e 全綠，真檔待試）。
+- **Boundary:** 純前端文件標註輸出 + 手機搜尋 bugfix。desktop 現有 3 個 builder/backend/Supabase/凍結合約全不受影響。
+- **commits（feature 已 push）:** `afec532`（app.html + mobile.js）→ 本治理 commit。
+- **Log maintenance (§4a):** SESSION_LOG 加 1 entry，<400 行、oldest <30d，no-op。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.0.0。
+Product state: HEAD == origin/main（已 push）。Supabase 15,109；Render backend live；Pages live（v3.0.0）；0 outstanding bug。起手 verify：探針 policychecker.wongfu.net /app.html=200+v3.0.0 + Render /health + HEAD==origin/main + Supabase 15,109。
+
+S165（2026-06-15）完成（純前端，backend/Supabase/凍結合約零接觸；commit afec532 pushed+Pages live）：
+- 文件標註新增「可編輯 Word 版」下載（buildEditableDocx）：原文配對段黃螢光、AI 建議條文綠螢光直接寫入文中（非追蹤修訂、可即改即用、毋須接受修訂）、未定位入「建議補充」附錄；Word/PDF/貼文字三種輸入皆出（解決 PDF 不可編輯）。下載列三按鈕（可編輯版推薦/標註版原檔/建議清單）+「三種下載」指引（含教 Word 校閱按接受/拒絕）。不改現有 buildAnnotatedOriginalDocx/buildAnnotatedPdf。
+- 手機搜尋修 enter：mobile.js +enterkeyhint=search + 明確 Enter keydown handler。
+- 核實：buildEditableDocx 單元+真 UI e2e（stub）全綠（docx well-formed、yellow+green highlight、無 w:ins、下載觸發）；mobile fresh headless enterkeyhint 在。
+- S164（同日早）：mobile 底部導航 +範本下載入口（桌面功能標示+截圖 templates-preview.png），Leonard 已收貨 OK。
+
+NEXT（優先序，多數待 Leonard 收貨）：
+① Leonard 真機/真檔收貨 S165：手機撳 Enter 即搜尋；真 Word/PDF 上載 → 下載「可編輯 Word 版」開啟，確認建議綠螢光、可直接改、配對對位合理；標註版原檔（追蹤修訂）指引是否夠清。
+② Render 免費 tier cold-start（閒置 15min 瞓→第一搜尋 ~50s）：production UX 痛點，考慮升 always-on 付費或加載入中 UX。
+③ 真檔驗：Phase 2 PDF inline highlight 真 PDF 對位+多 viewer CJK；P3 gate 真檔多範疇覆蓋率 monitor（STOPWORD_DF_FRACTION=0.25/COVERED=0.5/PARTIAL=0.42/MAX_ITEMS=400 tunable）。
+④ monitor：可編輯版段落配對率（annParaMatches 對 PDF 抽取文字的命中）；P2 KG routing 真查詢；Phase 2.5 多範疇 UX；KG QC DRAFT 最終核；#3 學校版 102 docx；here.now 鏡像去留。
+
+Key files（S165）：app.html（buildEditableDocx + handleDownloadEditable + 下載列三按鈕 + 三種下載指引；不改 buildAnnotatedOriginalDocx/buildAnnotatedPdf/buildAnnotateListDocx）/ mobile.js（搜尋框 enterkeyhint + Enter keydown handler）。
+⚠️ 紀律：起 backend 改動前確認 Render deploy；live INSERT 前 INSPECT；改 docx/checklist re-run gen_checklists_bundle.py+gen_templates_manifest.py（kg_operation canonical si/section_name）；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；本機 shell set -e（grep -c 0 中斷用 python 數）；mobile.js/app.html 改動用 headless Chrome（fresh，bypass 快取）核實，Preview 工具會 cache 舊 subresource（用 ?cb= 或 headless）；docx 由 docx 8.5.0 UMD（window.docx）砌、PDF 抽取由 pdf.js 3.11.174、Word 由 mammoth 1.6.0。改 host/CORS：env.ts BASELINE_CORS_ORIGINS exact origin 無尾斜線；repo 勿 set private（會 down free Pages + Render deploy）。
+Post-startup first action: 探針 policychecker.wongfu.net /app.html=200+v3.0.0 + Render /health + HEAD==origin/main + Supabase 15,109，然後問 Leonard：S165 真機/真檔收貨 / 起邊個 NEXT。
+```
+
+---
+
 ## 2026-06-15 Session 164 — Mobile 範本下載 入口（桌面版功能標示 + 截圖示意）+ README/docs 更新
 
 - **ID:** Claude_20260615_S164

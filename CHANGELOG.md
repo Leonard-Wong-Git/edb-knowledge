@@ -17,6 +17,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **跨校類 filter**（S162）：domain-level school_types，untagged clause 不再跨校類洩漏。
 
 ### Changed
+- **文件標註：新增「可編輯 Word 版」下載 + 改善指引**（S165，2026-06-15）：回應用戶回饋（追蹤修訂版唔識用接受/拒絕；PDF 輸入→PDF 輸出不能編輯）。新 `buildEditableDocx`（由抽取文字砌 docx）：原文配對段**黃色螢光**、AI 建議條文**綠色螢光直接寫入文中（非追蹤修訂，可即改即用、毋須接受修訂）**，未定位項入「建議補充」附錄。**Word／PDF／貼上文字三種輸入皆出可編輯 Word**（解決 PDF 不可編輯）。下載列重整為三按鈕：可編輯 Word 版（推薦）／標註版原檔（Word 保留格式·追蹤修訂｜PDF 螢光）／建議清單；加清晰「三種下載」說明＋教學「Word『校閱』分頁按『接受／拒絕』」。保留 `buildAnnotatedOriginalDocx`/`buildAnnotatedPdf` 不變。純前端，backend/Supabase/凍結合約零接觸。
+- **手機搜尋：修復輸入後撳 Enter 不能即時搜尋**（S165，2026-06-15）：`mobile.js` 搜尋框加 `enterkeyhint="search"` + 明確 Enter `keydown` handler（部分手機鍵盤／IME 對無提交鈕的表單唔觸發隱式提交）。
 - **手機底部導航加入「範本下載」入口**（S164，2026-06-15）：手機 bottom-nav 由 3 → **4 入口**（🔍 搜尋 / 📚 指引文件 / 📋 範本下載 / ℹ️ 平台介紹）。該手機畫面**不提供實際下載清單**（學校版範本為可編輯 Word 檔，需用電腦下載編輯方便使用），改為「💻 桌面版功能」說明 + 桌面範本面板截圖示意（`templates-preview.png`），引導改用桌面瀏覽器下載。文件標註維持 desktop-only。純前端 mobile shell 加建（`mobile.js` / `mobile.css`），不涉 backend / Supabase / 凍結資料合約。
 - **首頁（index.html）+ 平台介紹（app.html）改版**（S163）：核心功能改為 政策搜尋 / 文件標註 / 範本下載 / 指引文件庫 / 通告分析；hero 文案擴展；版本徽章顯示 v3.0。
 - **Channel B Supabase chunks**：10,736（v2.3.0）→ **15,109**（多輪官方源入庫：ph_pri 完整重抽、IMC/SBM 治理、KG 幼稚園 2 源等）。
