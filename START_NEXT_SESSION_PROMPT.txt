@@ -3,7 +3,7 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
 Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.1.0。
-Product state: HEAD == origin/main（已 push a82210e+）。Supabase 15,127；Render backend live；Pages live（v3.1.0）。起手 verify：探針 policychecker.wongfu.net /app.html=200 + PLATFORM_VERSION 3.1.0 + Render /health + HEAD==origin/main + Supabase 15,127 + 抽驗「SMC 學校管理委員會 章程」命中 smc_constitution_sample。
+Product state: HEAD == origin/main（已 push a82210e+）。Supabase 15,127；Render backend live；Pages live（v3.1.0）。起手 verify：探針 policychecker.wongfu.net /app.html=200 + PLATFORM_VERSION 3.1.0 + Render /health + HEAD==origin/main + Supabase 15,127 + 抽驗「SMC 學校管理委員會 章程」命中 smc_constitution_sample（S168 已 live-verified：SMC 與 IMC 分別／IMC 成員組成 均命中 smc + 答案正確分辨 SMC 傳統校董會 vs IMC 法團校董會）。
 
 S168（2026-06-15）完成：SMC 內容入庫（smc_constitution_sample 章程樣本 +18 chunks → 15,127；SOURCE_SETS.school_governance；display sync 7 點 byte-identical、_meta 凍結 2.3.0）+ 平台 v3.1.0（PLATFORM_VERSION/README/CHANGELOG）。今日另完成 S164-167（手機範本入口/品牌/可撳搜尋掣、SMC/IMC 英文縮寫 routing 修復、文件標註乾淨成品版）。
 
