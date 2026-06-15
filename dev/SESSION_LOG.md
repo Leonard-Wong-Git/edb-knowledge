@@ -2,6 +2,55 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-15 Session 166 — 手機品牌統一 + 可撳搜尋掣 + SMC/IMC 英文縮寫 retrieval 修復
+
+- **ID:** Claude_20260615_S166
+- **Trigger:** Leonard 真機/真檔回饋多輪。① 手機介面仍顯示「K1 知識平台」（應對齊公開名）；② 手機未能搜尋（上輪 enter fix 後仍唔穩）；③ Word 標註版接受修訂後綠色仍在、原稿不清晰（**未解決，待設計決定**）。期間實測「SMC 與 IMC 分別」揭發 retrieval 引錯源。
+- **① 品牌統一（mobile.js，commit `5c55320`）:** hero eyebrow + role-picker eyebrow「K1 知識平台」→「香港學校政策搜尋平台」（對齊 desktop 公開名）。
+- **② 手機可撳搜尋掣（mobile.js + mobile.css，`5c55320`）:** 根因 = 搜尋觸發只靠鍵盤隱式提交（放大鏡係裝飾），部分手機鍵盤/IME 唔觸發 → 搜唔到。修：表單加 `type=submit`「搜尋」掣（`.m-search-btn` 綠 pill，44px touch）→ 唔再靠 enter；保留上輪 `enterkeyhint`+Enter keydown handler。Leonard 手機截圖證已出到結果。
+- **✚ SMC/IMC retrieval 修復（backend `searchChannelB.ts` + `semanticRegression.ts`，commit `7d70dda`）:**
+  - **根因（audit-confirmed）:** 英文縮寫 SMC/IMC 唔 match `school_governance` 嘅中文關鍵詞 → 無 route → generic semantic search（英文縮寫 vs 中文「法團校董會」embedding 相似度低）→ 引錯源（旅遊/課程/crisis 等無關文件，分數~0.31）+ 整理答案變 LLM 泛知識（無根據，違反「有根有據」）。中文 query（法團校董會/校董會）一向正確（0.67-0.75）。
+  - **retrieval 審計 Workflow（14 query 並行打 live backend，獨立判斷來源相關性）:** 11 OK / 3 gap。確認系統性問題 = 收窄到治理 route（cpd/steam/sen/gifted 本身已有英文 token = OK；NCS/OLE/KLA/BYOD 因 query 帶中文詞而 OK）。gap：SMC/IMC（routing，修）+ SBA（內容稀疏，follow-up）。
+  - **修:** `TOPIC_KEYWORDS.school_governance` +`\b(?:IMC|SMC)\b`+incorporated/school management committee（`/i`、word-boundary 防誤中如 dynamic）；新增 `QUERY_EXPANSIONS.school_governance`（bridge 英→中治理詞彙，SOURCE_SET 限定 imc_*/g02/coa_imc 內檢索對位）。
+  - **QC:** tsc check+build exit 0；`detectQueryCategory` 11 case 全 PASS（SMC/IMC 變體→school_governance、採購→finance 不被偷、dynamic→curriculum 不誤中、controls 不變）；semanticRegression +6 治理 routing cases。**Live e2e（Render deploy 後）:** `SMC 與 IMC 分別`→ imc_briefing_qa/establishment/election/governance_supplements（0.54-0.67，取代課程垃圾），synthesis grounded（真實校董會組成）；`IMC 成員組成`→ IMC docs+g02 grounded。
+  - **⚠️ monitor:** corpus 以 IMC（法團校董會）為主、SMC（學校管理委員會 舊制）專屬文件較少 → synthesis SMC 標籤偶混淆（内容深度問題，非 routing）。
+- **QC 綜合:** mobile headless fresh render（搜尋掣+eyebrow 改名+enterkeyhint+4 tabs）；backend tsc/build/routing 全 PASS + Render live 驗。
+- **Boundary:** 前端 mobile shell（`5c55320`）+ backend routing（`7d70dda`）。Supabase 15,109 / 凍結 JSON / desktop React app.html 全零接觸。
+- **commits（已 push origin/main）:** `5c55320`（mobile rename+搜尋掣）→ `7d70dda`（SMC/IMC retrieval + regression）→ 本治理 commit。
+- **⏳ 未完（最優先）:** ③ Word 標註輸出「乾淨度」—— 接受修訂後綠螢光仍在 + inline 註解令原稿亂。待 Leonard 揀最終輸出形態（乾淨整合版 / 輕量標示 / 移除 inline 註解）再實作。S165 可編輯版亦用綠螢光，可能同樣需調。
+- **Log maintenance (§4a):** SESSION_LOG 加 1 entry，<400 行、oldest <30d，no-op。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.0.0。
+Product state: HEAD == origin/main（已 push）。Supabase 15,109；Render backend live；Pages live（v3.0.0）。起手 verify：探針 policychecker.wongfu.net /app.html=200+v3.0.0 + Render /health + HEAD==origin/main + Supabase 15,109 + 抽驗 SMC/IMC 搜尋仍命中 IMC 治理文件。
+
+S166（2026-06-15）完成：
+- 手機品牌統一（K1知識平台→香港學校政策搜尋平台）+ 可撳「搜尋」掣（唔再淨靠 enter；mobile.css .m-search-btn）。commit 5c55320，Pages live。
+- SMC/IMC 英文縮寫 retrieval 修復：searchChannelB.ts school_governance route +\\b(IMC|SMC)\\b+英文片語(/i) + QUERY_EXPANSIONS bridge 英→中；+semanticRegression 6 cases。commit 7d70dda，Render live 驗（SMC/IMC→IMC 治理文件 grounded，取代課程垃圾源）。審計 14 query 11 OK。
+
+最優先未完 = ③ Word 標註輸出乾淨度：
+- 問題：Word 標註版（buildAnnotatedOriginalDocx，追蹤修訂）即使「全部接受」後，黃/綠螢光仍在（螢光係永久格式非修訂）+ inline 💡/⚠ 註解段落令原稿亂、唔似成品。S165 可編輯版（buildEditableDocx，綠螢光直寫）同樣有螢光殘留問題。
+- 待 Leonard 決定最終輸出形態（建議選項）：A 乾淨整合版（建議融入正文、無螢光、出處集中文末，似完成政策文件）／B 保留螢光但可一鍵移除／C 移除 inline 註解只留正文+附錄。揀好就喺 app.html 加/改對應 builder（参 buildEditableDocx 結構），headless e2e（docx well-formed+內容）+ desktop 真檔驗。
+
+NEXT 其他（多數待 Leonard）：
+① ③ Word 輸出乾淨版（見上，最優先）。
+② Render 免費 tier cold-start（閒置 15min 瞓→第一搜尋 ~50s；手機搜尋已有 cold-start 進度提示+60s timeout）：考慮升 always-on 或 keep-warm cron。
+③ 真檔驗：文件標註可編輯版（S165）真 Word/PDF 開啟對位；Phase 2 PDF highlight 真檔多 viewer。
+④ monitor：SMC 專屬內容深度（corpus IMC-heavy）；P3 gate 多範疇覆蓋；KG QC DRAFT 最終核；#3 學校版 102 docx。
+
+Key files（S166）：mobile.js（eyebrow rename + 搜尋掣 type=submit）/ mobile.css（.m-search-btn）/ backend/src/api/searchChannelB.ts（school_governance TOPIC_KEYWORDS +英文縮寫 + QUERY_EXPANSIONS）/ backend/scripts/semanticRegression.ts（+6 routing cases）。
+⚠️ 紀律：起 backend 改動前確認 Render deploy；改 searchChannelB routing 後跑 detectQueryCategory 純函數驗 + Render deploy 後 live 探針；live INSERT 前 INSPECT；改 docx/checklist re-run gen_*；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；mobile.js/app.html 改動用 headless Chrome（fresh，bypass 快取，Preview 工具會 cache subresource）；retrieval routing 用 audit workflow（多 query 打 live）驗系統性；repo 勿 set private。
+Post-startup first action: 探針 policychecker.wongfu.net /app.html=200+v3.0.0 + Render /health + SMC/IMC 搜尋抽驗，然後問 Leonard ③ Word 輸出乾淨版想揀邊個方案（A/B/C）/ 起邊個 NEXT。
+```
+
+---
+
 ## 2026-06-15 Session 165 — 文件標註可編輯 Word 版（建議螢光直寫、免接受修訂）+ 手機搜尋 enter 修復
 
 - **ID:** Claude_20260615_S165
