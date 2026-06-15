@@ -21,7 +21,7 @@
 | New project doc added | This file — add a row for the new doc's update triggers | row presence check |
 | Governance bootstrap / INIT execution | SESSION_HANDOFF.md Last Session Record; SESSION_LOG.md task entry + handoff prompt | manual review |
 | Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | manual review |
-| Product version / release milestone change | k1-dashboard.html `_meta`; dev/knowledge/role_facts.json `_meta`; README badge; CHANGELOG; SESSION_HANDOFF.md; SESSION_LOG.md; CODEBASE_CONTEXT.md if release summary changed | manual review |
+| Product version / release milestone change (user-facing `PLATFORM_VERSION`; **decoupled from frozen data contract since S163**) | app.html `PLATFORM_VERSION` constant; README badge + footer; CHANGELOG new section; SESSION_HANDOFF.md baseline/priorities; SESSION_LOG.md task entry; CODEBASE_CONTEXT.md AI Maintenance Log. **Do NOT bump frozen `knowledge.json` / `role_facts.json` `_meta.version`** (data contract stays 2.3.0; downstream Circular System contract unchanged) | headless app.html boot shows new version + no stale old version in render |
 | Backend README / standalone runbook added | CODEBASE_CONTEXT.md Build & Run or Directory Map; SESSION_HANDOFF.md priorities if operator flow changes; SESSION_LOG.md task entry + QC evidence | manual review |
 | Knowledge operating architecture / planning doc | CODEBASE_CONTEXT.md Directory Map or Key Decisions if it changes long-term direction; SESSION_HANDOFF.md priorities/risks if follow-up work changes; SESSION_LOG.md task entry + QC evidence | manual review |
 | _[Add project-specific rows below this line]_ | | |
