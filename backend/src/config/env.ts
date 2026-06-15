@@ -13,6 +13,10 @@ const DEFAULT_KNOWLEDGE_PATH_SETTING = "../../../role_facts.json";
 const BASELINE_CORS_ORIGINS = [
   "https://leonard-wong-git.github.io",
   "https://policychecker.wongfu.net",
+  // S163QC: frontend mirror on here.now (repo set private → GitHub Pages free
+  // unpublished; static site re-hosted here, permanent). Exact origin (no trailing
+  // slash, matching the browser Origin header). Add a new line if the slug changes.
+  "https://tender-garnet-hqbd.here.now",
 ];
 
 function requireEnv(name: string): string {
