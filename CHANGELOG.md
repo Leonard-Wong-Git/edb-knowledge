@@ -17,6 +17,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **跨校類 filter**（S162）：domain-level school_types，untagged clause 不再跨校類洩漏。
 
 ### Changed
+- **文件標註：簡化為單一「乾淨成品版」下載**（S167，2026-06-15）：回應用戶回饋（標註版接受修訂後黃/綠螢光仍殘留、逐段註解令原稿亂）。新 `buildCleanDocx`：原文正文保持乾淨（無螢光、無 inline 💡/⚠ 註解），AI 建議融入正文做普通文字、以「（建議補充）」極簡標示，所有說明與 EDB 官方出處集中文末附錄；Word/PDF/貼上文字皆出。下載由三按鈕（追蹤修訂／可編輯／清單）簡化為單一「乾淨成品版」。打開即一份可採用、可編輯嘅政策草稿。
 - **搜尋：英文縮寫 SMC/IMC 路由修復**（S166，2026-06-15）：用戶查「SMC 與 IMC 分別」原本引錯源（旅遊/課程等無關文件）、整理答案變無根據泛知識。根因＝英文縮寫唔 match `school_governance` 中文關鍵詞 → 無 route → generic semantic search 對中文治理 corpus 相似度低。修：`searchChannelB.ts` 治理 route 加 `IMC`/`SMC`/`incorporated|school management committee`（case-insensitive、word-boundary）+ `QUERY_EXPANSIONS` bridge 英→中治理詞彙。Render live 驗：SMC/IMC 查詢正確命中法團校董會（IMC）治理文件、答案有根有據。retrieval 審計 14 query（11 OK）；+6 routing regression。
 - **手機：可撳「搜尋」掣 + 品牌統一**（S166，2026-06-15）：手機搜尋原只靠鍵盤 Enter 隱式提交（部分鍵盤唔觸發 → 搜唔到），加可撳「搜尋」掣（`.m-search-btn`）；hero／角色選擇 eyebrow「K1 知識平台」→「香港學校政策搜尋平台」對齊公開名。
 - **文件標註：新增「可編輯 Word 版」下載 + 改善指引**（S165，2026-06-15）：回應用戶回饋（追蹤修訂版唔識用接受/拒絕；PDF 輸入→PDF 輸出不能編輯）。新 `buildEditableDocx`（由抽取文字砌 docx）：原文配對段**黃色螢光**、AI 建議條文**綠色螢光直接寫入文中（非追蹤修訂，可即改即用、毋須接受修訂）**，未定位項入「建議補充」附錄。**Word／PDF／貼上文字三種輸入皆出可編輯 Word**（解決 PDF 不可編輯）。下載列重整為三按鈕：可編輯 Word 版（推薦）／標註版原檔（Word 保留格式·追蹤修訂｜PDF 螢光）／建議清單；加清晰「三種下載」說明＋教學「Word『校閱』分頁按『接受／拒絕』」。保留 `buildAnnotatedOriginalDocx`/`buildAnnotatedPdf` 不變。純前端，backend/Supabase/凍結合約零接觸。

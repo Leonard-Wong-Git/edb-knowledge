@@ -2,6 +2,47 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-15 Session 167 — 文件標註簡化為單一「乾淨成品版」下載（解決接受修訂後螢光殘留/原稿亂）
+
+- **ID:** Claude_20260615_S167
+- **Trigger:** Leonard 回饋（S166 ③ 未完）：Word 標註版即使「全部接受」後黃/綠螢光仍在（螢光係永久格式非修訂）+ 逐段 💡/⚠ 註解令原稿亂、唔似成品。AskUserQuestion 釘實：**乾淨成品版（推薦）+ 取代簡化做一個**。
+- **CHANGE（commit `ee2c89f`，純前端 app.html）:**
+  - **新 `buildCleanDocx(docText, findings, meta)`（docx-lib，重用 annNorm/annParaMatches）：** 原文正文保持**乾淨**（無螢光、無 inline 註解）；只有「有 suggestion + 定位到 span」嘅 checklist finding 將建議條文**融入正文做普通文字**、首行帶極簡「（建議補充）」標示（誠實但不喧賓奪主，非螢光非追蹤修訂）；guideline 參考 + 未定位 + 無 suggestion → 只入附錄。文末「**附錄：AI 建議說明與出處**」按範疇列出全部 finding 嘅 tag/說明/建議條文/EDB 出處（可點 link）。Word/PDF/貼文字皆出（由抽取文字砌）。
+  - **下載列簡化為單一按鈕**「⬇️ 下載 Word（乾淨成品版）」+ 新 `handleDownloadClean`；移除「三種下載」指引、改為單一乾淨版說明；更新 panel 介紹/檔案確認/空狀態/貼文字 4 處舊文案。
+  - **舊 builder/handler 變 dead code（保留不刪）：** buildAnnotatedOriginalDocx/buildAnnotatedPdf/buildEditableDocx/buildAnnotateListDocx + handleDownloadOriginal/Editable/List + findingNoteParas。**已 spawn cleanup task `task_94ebfd14`**（precedent：S161→S162 同樣 dead-code 留待下 session 清）。
+- **QC（全 PASS）:** preview（localhost cache-bust）app.html 0 console error、`buildCleanDocx` global、docx/JSZip/PDFLib 載入。**`buildCleanDocx` 深驗：** 合成 report → docx well-formed、**無 `w:highlight`**、**無 `<w:ins>`**、正文有「（建議補充）」融入建議、附錄標題+出處在、原文乾淨；merged=1/total=3（長 span 配對）。**真 UI e2e（stub analyze）：** 貼文字→開始標註→**下載列只剩單一「乾淨成品版」按鈕**（舊三按鈕+指引全清，hasOld可編輯OrList=false）→點擊觸發 docx 下載（正確 MIME）+ note 顯示。
+- **Boundary:** 純前端 app.html 文件標註面板。backend/Supabase 15,109/凍結合約/desktop 其他功能零接觸。dead code 留待 cleanup task。
+- **commit（已 push origin/main）:** `ee2c89f`（app.html）→ 本治理 commit。
+- **Log maintenance (§4a):** SESSION_LOG 加 1 entry；總行數接近上限需留意（下次 closeout 評估 §4a archive，目前 <400 估算）；本次 no-op。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.0.0。
+Product state: HEAD == origin/main（已 push）。Supabase 15,109；Render backend live；Pages live（v3.0.0）。起手 verify：探針 policychecker.wongfu.net /app.html=200+v3.0.0 + Render /health + HEAD==origin/main + Supabase 15,109 + 抽驗 SMC/IMC 搜尋命中 IMC 治理文件。
+
+S167（2026-06-15）完成（純前端 app.html，commit ee2c89f，Pages live）：
+- 文件標註下載簡化為單一「乾淨成品版」(buildCleanDocx)：原文正文乾淨（無螢光、無 inline 註解）；AI 建議融入正文做普通文字、帶「（建議補充）」極簡標示；說明+EDB 出處集中文末附錄。Word/PDF/貼文字皆出。解決「接受修訂後螢光殘留、原稿亂」。
+- 舊 builder/handler（buildAnnotatedOriginalDocx/Pdf/buildEditableDocx/buildAnnotateListDocx + handlers + findingNoteParas）變 dead code，已 spawn cleanup task task_94ebfd14。
+- 同日較早：S166（手機品牌統一+可撳搜尋掣+SMC/IMC retrieval）、S165（可編輯版，已被 S167 取代）、S164（手機範本下載入口）。
+
+NEXT（多數待 Leonard 真機/真檔收貨）：
+① Leonard 真檔收貨 S167「乾淨成品版」：上載真 Word/PDF → 下載 → 確認原稿乾淨、建議「（建議補充）」融入得自然、附錄說明+出處清晰、可直接編輯採用。
+② dead-code cleanup（task_94ebfd14）：清 app.html 文件標註舊 builders/handlers（grep 確認零引用後 bottom-up 刪 + headless 驗）。
+③ Render 免費 tier cold-start（閒置 15min 瞓→第一搜尋 ~50s）：考慮升 always-on 或 keep-warm cron。
+④ monitor：SMC 專屬內容深度（corpus IMC-heavy，SMC vs IMC synthesis 標籤偶混淆）；buildCleanDocx 段落配對率（PDF 抽取文字 vs span）；P3 gate 多範疇覆蓋；KG QC DRAFT 最終核；#3 學校版 102 docx。
+
+Key files（S167）：app.html（buildCleanDocx + handleDownloadClean + 單一下載按鈕 + panel 文案）。前 session：mobile.js/mobile.css（S164/166）、searchChannelB.ts（S166 SMC/IMC route）。
+⚠️ 紀律：app.html/mobile.js 改動用 headless Chrome（fresh，bypass 快取，Preview 工具會 cache subresource）；docx 由 docx 8.5.0 UMD（window.docx）砌、PDF 抽取 pdf.js 3.11.174、Word mammoth 1.6.0；起 backend 改動前確認 Render deploy + 改 routing 跑 detectQueryCategory 純函數 + Render live 探針；改 docx/checklist re-run gen_*；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；repo 勿 set private。
+Post-startup first action: 探針 policychecker.wongfu.net /app.html=200+v3.0.0 + Render /health + SMC/IMC 抽驗，然後問 Leonard：S167 乾淨成品版 真檔收貨 / 起邊個 NEXT（建議 ② cleanup 或 ③ cold-start）。
+```
+
+---
+
 ## 2026-06-15 Session 166 — 手機品牌統一 + 可撳搜尋掣 + SMC/IMC 英文縮寫 retrieval 修復
 
 - **ID:** Claude_20260615_S166
