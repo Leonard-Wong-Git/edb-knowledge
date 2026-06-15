@@ -2,20 +2,19 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
-Current objective: EDB K1 知識平台，平台 v3.0.0（GO）。主站 policychecker.wongfu.net + 鏡像 https://tender-garnet-hqbd.here.now/。
-Product state: HEAD == origin/main（已 push）。Supabase 15,109；Render backend live（CORS 三域：github.io/policychecker/here.now）。repo public。起手 verify：探針 policychecker.wongfu.net /app.html = 200 + v3.0.0；Render /health 200；HEAD==origin/main；Supabase 15,109。
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.1.0。
+Product state: HEAD == origin/main（已 push a82210e+）。Supabase 15,127；Render backend live；Pages live（v3.1.0）。起手 verify：探針 policychecker.wongfu.net /app.html=200 + PLATFORM_VERSION 3.1.0 + Render /health + HEAD==origin/main + Supabase 15,127 + 抽驗「SMC 學校管理委員會 章程」命中 smc_constitution_sample。
 
-S163QC（Leonard 22:40 自啟全權）：v3.0 release QC 6 blockers NO-GO→GO，全部 live 驗：
-P1 app.html header/footer displayVersion→PLATFORM_VERSION(v3.0.0；凍結 _meta 2.3.0)。P2 searchChannelB kg_admin +幼稚園營運/營運手冊/運作/健康紀錄（Render LIVE 驗 surface kg_operation_manual+kg_admin_guide）。P3 checklistRevise graded 詞彙重疊閘（informative CJK-bigram DF 自校準）+MAX_ITEMS 220→400（LIVE 短文 covered 20→5/partial 55→30，richer 文 covered=37 無 false-neg）。P4 README v3.0.0 / P5 .gitignore 備份(不刪) / P6 mobile scope 文檔。Regression 修 2 stale FAIL +P2/P3 cases=20 PASS/0 FAIL。commits 39e6df1→3f239bf→…→364b48f(CORS +here.now)→b1002cd(gov).
+S168（2026-06-15）完成：SMC 內容入庫（smc_constitution_sample 章程樣本 +18 chunks → 15,127；SOURCE_SETS.school_governance；display sync 7 點 byte-identical、_meta 凍結 2.3.0）+ 平台 v3.1.0（PLATFORM_VERSION/README/CHANGELOG）。今日另完成 S164-167（手機範本入口/品牌/可撳搜尋掣、SMC/IMC 英文縮寫 routing 修復、文件標註乾淨成品版）。
 
-⚠️ Hosting 事件（已解決，留意教訓）：Leonard 一度將 repo set private → GitHub Pages 免費 plan 唔 serve private → 全站 404 + Render auto-deploy 失 access。最終開返 public 復原（re-enable Pages source 後**要新 push 先觸發 build**；here.now 鏡像只發公開前端子集）。已 deposit playbook inbox。
+NEXT（Leonard backlog，優先序）：
+① 文件標註乾淨成品版跟進：(a) 加一個 Word 顯示「改咗甚麼」(change/diff 摘要)；(b) 修格式——目前由抽取文字重組令原 Word 標題/編號/結構 flatten（Leonard：「改後格式全變」）。建議：Word 輸入改用 JSZip 操作原 docx XML（保留格式，建議融入做正常 run/highlight，免接受修訂），PDF/貼文字維持 from-text 乾淨版。參考已 dead 嘅 buildAnnotatedOriginalDocx（JSZip 原檔操作）+ buildCleanDocx（from-text）。
+② 開場動畫/onboarding（似 CPD approval system）：首次使用導引使用者知道點用。
+③ 使用手冊（user manual）。
+④ EDB 網頁更新 monitor → 全入庫（Leonard 已授權「全入庫」standing）：跑 check_freshness.py / discover_sources.py → 逐源 pre-flight（U+FFFD=0、page-resolvable）→ ingest_one_source.py 逐源 + display sync 7 點。逐源 INSPECT，勿盲批。
+⑤ dead-code cleanup（task_94ebfd14：app.html 文件標註舊 builders/handlers）。
+⑥ Render cold-start（升 always-on 付費 或 keep-warm cron）。
+⑦ monitor：SMC 內容深度（已 +章程樣本，可再加 SMC 服務合約/其他官方源）；buildCleanDocx 段落配對率；P3 gate 多範疇；KG QC DRAFT。
 
-NEXT（優先序）：
-① Render 免費 tier cold-start（閒置 15min 瞓 → 第一搜尋 ~50s）：production UX 痛點，考慮升 Render always-on 付費 tier，或加「載入中」UX。
-② Leonard 收貨 v3.0 6 fixes（已全 live 驗）→ 正式封 v3.0。
-③ 真檔驗：Phase 2 PDF inline highlight 真 PDF 對位+多 viewer CJK；P3 gate 真檔多範疇覆蓋率 monitor（STOPWORD_DF_FRACTION=0.25/COVERED=0.5/PARTIAL=0.42/MAX_ITEMS=400 tunable）。
-④ monitor：P2 KG routing 真用戶查詢；Phase 2.5 多範疇 UX；KG QC DRAFT 最終核；#3 學校版 102 docx；here.now 鏡像是否保留/換 slug/綁 custom domain。
-
-Key files（S163QC）：backend/src/api/{searchChannelB.ts(+營運 regex, export detectQueryCategory), checklistRevise.ts(graded lexical gate +cjkBigrams export, MAX_ITEMS 400, STOPWORD_DF_FRACTION)} / backend/scripts/semanticRegression.ts / backend/src/config/env.ts(BASELINE_CORS_ORIGINS +here.now) / app.html(displayVersion→PLATFORM_VERSION) / README.md / .gitignore / dev/PROJECT_MASTER_SPEC.md(§B.5 mobile) / CHANGELOG.md.
-⚠️ 紀律：起 backend 改動前確認 Render deploy；live INSERT 前 INSPECT；改 docx/checklist re-run gen_checklists_bundle.py+gen_templates_manifest.py（kg_operation canonical si/section_name）；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；shell set -e（grep -c 0 中斷用 python 數）；改 host/CORS：env.ts BASELINE_CORS_ORIGINS exact origin 無尾斜線；repo 勿 set private（會 down free Pages + Render deploy）。
-Post-startup first action: 探針 policychecker.wongfu.net /app.html=200+v3.0.0 + Render /health + Supabase 15,109，然後問 Leonard 收貨 v3.0 / 起 NEXT。
+⚠️ 紀律：**live Supabase INSERT 需 Leonard 明確授權**（auto-mode classifier 會擋無授權寫入）+ 入庫前 INSPECT before/after + 用 ingest_one_source.py（canonical chunker、merge-duplicates 可重跑）+ display sync 7 點（3 JSON 層 byte-identical、_meta.version 凍結）；改 backend 前確認 Render deploy + routing 跑 detectQueryCategory 純函數 + Render live 探針；app.html/mobile.js 用 headless Chrome（fresh，bypass 快取，Preview 工具 cache subresource）；docx 由 docx 8.5.0 UMD 砌；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；repo 勿 set private。
+Post-startup first action: 探針 policychecker.wongfu.net v3.1.0 + Render /health + Supabase 15,127 + SMC 抽驗，然後問 Leonard 起邊個 backlog（建議 ① 乾淨成品版格式 或 ② 開場動畫）。
