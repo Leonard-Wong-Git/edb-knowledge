@@ -3,18 +3,18 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
 Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.1.0。
-Product state: HEAD == origin/main（已 push a82210e+）。Supabase 15,127；Render backend live；Pages live（v3.1.0）。起手 verify：探針 policychecker.wongfu.net /app.html=200 + PLATFORM_VERSION 3.1.0 + Render /health + HEAD==origin/main + Supabase 15,127 + 抽驗「SMC 學校管理委員會 章程」命中 smc_constitution_sample（S168 已 live-verified：SMC 與 IMC 分別／IMC 成員組成 均命中 smc + 答案正確分辨 SMC 傳統校董會 vs IMC 法團校董會）。
+Product state: HEAD == origin/main（已 push 12f33fb）。Supabase 15,127；Render backend live；Pages live。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.1.0 + Render /health + HEAD==origin/main + Supabase 15,127。
 
-S168（2026-06-15）完成：SMC 內容入庫（smc_constitution_sample 章程樣本 +18 chunks → 15,127；SOURCE_SETS.school_governance；display sync 7 點 byte-identical、_meta 凍結 2.3.0）+ 平台 v3.1.0（PLATFORM_VERSION/README/CHANGELOG）。今日另完成 S164-167（手機範本入口/品牌/可撳搜尋掣、SMC/IMC 英文縮寫 routing 修復、文件標註乾淨成品版）。
+S169（2026-06-15）已 ship + push（待 QC agent 覆核 ①②③）：
+- ① 文件標註乾淨成品版「保留格式」+「改動摘要」（commit 2150f59，app.html）：Word 輸入用 JSZip 改原 docx XML 保留標題/編號/格式、建議融入正文（無螢光/無追蹤修訂）；新增「改動摘要」下載。Node builder 單元測試 32/0 PASS。
+- ② onboarding 首次使用導引（commit 12f33fb，app.html）：首訪自動彈 6 步導覽 + header「🎓 使用教學」重溫（localStorage gate）。
+- ③ 使用手冊（commit 12f33fb，app.html）：平台介紹 tab in-app 手冊 + FAQ；順手修正 stale 文件標註 channel 描述對齊現行行為。
 
-NEXT（Leonard backlog，優先序）：
-① 文件標註乾淨成品版跟進：(a) 加一個 Word 顯示「改咗甚麼」(change/diff 摘要)；(b) 修格式——目前由抽取文字重組令原 Word 標題/編號/結構 flatten（Leonard：「改後格式全變」）。建議：Word 輸入改用 JSZip 操作原 docx XML（保留格式，建議融入做正常 run/highlight，免接受修訂），PDF/貼文字維持 from-text 乾淨版。參考已 dead 嘅 buildAnnotatedOriginalDocx（JSZip 原檔操作）+ buildCleanDocx（from-text）。
-② 開場動畫/onboarding（似 CPD approval system）：首次使用導引使用者知道點用。
-③ 使用手冊（user manual）。
-④ EDB 網頁更新 monitor → 全入庫（Leonard 已授權「全入庫」standing）：跑 check_freshness.py / discover_sources.py → 逐源 pre-flight（U+FFFD=0、page-resolvable）→ ingest_one_source.py 逐源 + display sync 7 點。逐源 INSPECT，勿盲批。
-⑤ dead-code cleanup（task_94ebfd14：app.html 文件標註舊 builders/handlers）。
-⑥ Render cold-start（升 always-on 付費 或 keep-warm cron）。
-⑦ monitor：SMC 內容深度（已 +章程樣本，可再加 SMC 服務合約/其他官方源）；buildCleanDocx 段落配對率；P3 gate 多範疇；KG QC DRAFT。
+NEXT（優先序）：
+① 跟進 QC agent 覆核結果（修任何 flag；headless Chrome fresh/bypass 快取驗）。
+② 版本決定：①②③（或連 ④）是否 bump v3.2.0 → 改 app.html PLATFORM_VERSION + README badge/footer + CHANGELOG（勿 bump 凍結 knowledge.json _meta 2.3.0）。
+③ ④ EDB 網頁更新→全入庫（deferred；QC pass 後啟）：跑 dev/source/check_freshness.py --dry-run 及 dev/source/discover_sources.py --check（唯讀）→ 逐源 pre-flight（U+FFFD=0、page-resolvable）→ dev/ingest_one_source.py 逐源 live INSERT + display sync 7 點。⚠️ live INSERT 需逐源 INSPECT before/after + Leonard 明確授權，勿盲批。
+④ dead-code cleanup（task_94ebfd14：S167 文件標註舊 builders；S169 後 buildAnnotatedOriginalDocx/buildAnnotatedPdf/buildEditableDocx/buildAnnotateListDocx 仍 dead）。⑤ Render free-tier cold-start。⑥ mobile onboarding（desktop 已有、mobile.js shell 未做）。⑦ monitor：SMC 對通用「SMC/治理」query recall 被 IMC-heavy corpus 淹（資料在庫可檢索，需更貼題 query 或加 SMC 專屬源）；buildCleanOriginalDocx 表格內段落命中。
 
-⚠️ 紀律：**live Supabase INSERT 需 Leonard 明確授權**（auto-mode classifier 會擋無授權寫入）+ 入庫前 INSPECT before/after + 用 ingest_one_source.py（canonical chunker、merge-duplicates 可重跑）+ display sync 7 點（3 JSON 層 byte-identical、_meta.version 凍結）；改 backend 前確認 Render deploy + routing 跑 detectQueryCategory 純函數 + Render live 探針；app.html/mobile.js 用 headless Chrome（fresh，bypass 快取，Preview 工具 cache subresource）；docx 由 docx 8.5.0 UMD 砌；勿改 canonical chunker；路徑空格雙引號；commit -m 勿用反引號；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；repo 勿 set private。
-Post-startup first action: 探針 policychecker.wongfu.net v3.1.0 + Render /health + Supabase 15,127 + SMC 抽驗，然後問 Leonard 起邊個 backlog（建議 ① 乾淨成品版格式 或 ② 開場動畫）。
+⚠️ 紀律：app.html 改動用 headless Chrome（fresh，bypass 快取；macOS 無 timeout 指令）；docx 8.5.0 UMD（window.docx）/ JSZip 3.10.1 / pdf.js 3.11.174 / mammoth 1.6.0；改 backend 前確認 Render deploy + routing 跑 detectQueryCategory 純函數 + Render live 探針；勿改 canonical chunker；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；路徑空格雙引號；commit -m 勿用反引號；repo 勿 set private。
+Post-startup first action: 起手探針（v3.1.0 + Supabase 15,127 + Render /health + HEAD==origin/main）後，按 Leonard 指示跟進 QC 結果 / 起 ④ / 做版本決定。
