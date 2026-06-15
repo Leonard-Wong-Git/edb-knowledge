@@ -355,6 +355,15 @@ async function run(): Promise<void> {
     { q: "營運手冊 健康紀錄", expect: "kg_admin" },
     { q: "幼稚園收生 安排", expect: "kg_admission" },
     { q: "幼稚園入學報名", expect: "kg_admission" },
+    // S166 — bilingual governance: English abbreviations SMC/IMC must route to
+    // school_governance (was falling through to generic search → curriculum junk).
+    { q: "SMC 與 IMC 分別", expect: "school_governance" },
+    { q: "IMC 成員組成", expect: "school_governance" },
+    { q: "SMC", expect: "school_governance" },
+    { q: "imc 校董", expect: "school_governance" },
+    // Guard: pure-finance queries (no 校董/IMC/SMC) must still route to finance,
+    // i.e. the new English aliases did not steal finance.
+    { q: "採購超過五萬程序", expect: "finance" },
   ];
   for (const rc of routingCases) {
     const got = detectQueryCategory(rc.q);

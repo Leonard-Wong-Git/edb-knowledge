@@ -435,7 +435,12 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // (採購/招標/報價, no 校董) don't match and still route to finance. Bare 校董 covers
   // 校董會/校董選舉/委任校董/校董責任/校董守則; 學校管理委員會 (full) avoids stealing
   // safety's 安全管理委員會.
-  school_governance: /法團校董會|校董會|校董|校監|辦學團體|學校管理委員會|校本條例/,
+  // S166: bilingual — real users type the English abbreviations SMC (學校管理委員會 /
+  // School Management Committee) and IMC (法團校董會 / Incorporated Management Committee).
+  // Chinese-only keywords missed them → "SMC 與 IMC 分別" fell through to generic semantic
+  // search and surfaced curriculum junk (audit-confirmed). \b(?:IMC|SMC)\b + /i routes them
+  // to the governance corpus; word-boundaries keep them from matching inside other words.
+  school_governance: /法團校董會|校董會|校董|校監|辦學團體|學校管理委員會|校本條例|\b(?:IMC|SMC)\b|incorporated management committee|school management committee/i,
   finance: /採購|招標|單一報價|競投|供應商|報價單|分判|貨物|服務合約|財務管理|預算|撥款|開支|報銷|捐款|借款|代收費|利益衝突|申報利益|賄賂|廉署|防賄|資助則例|法團校董|校董會經費|採購門檻|採購程序/,
   hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金/,
   activity: /全方位學習|活動津貼|課外活動|全方位學習津貼|戶外活動|境外遊學|遊學團|境外學習活動|參觀活動/,
@@ -493,6 +498,11 @@ const QUERY_EXPANSIONS: Record<string, string> = {
   sen:          "特殊教育需要 融合教育 全校參與模式 特殊學校課程指引 融合教育運作指南 特殊教育需要統籌主任 SENCO 學生支援組 個別學習計劃 三層支援模式 校本支援 共融校園 照顧學生個別差異 校內考試特別安排 考試調適 評估調適 特別考試安排",
   gifted:       "資優教育 資賦優異 三層推行模式 校本資優培育課程 拔尖保底 多元智能 資優學生 抽離式課程 校本資優發展計劃",
   steam:        "STEAM教育 跨學科 課程更新重點 七大重點 STEAM專責小組 科學科技工程藝術數學",
+  // S166: bridge English abbreviations to the Chinese governance corpus so an
+  // abbreviation-heavy query ("SMC 與 IMC 分別") embeds near 法團校董會/校董會 chunks.
+  // SOURCE_SET is cohesively governance (imc_*/g02/coa_imc/sdp_guide) → no dilution
+  // (same rationale as the qa_inspection expansion exception).
+  school_governance: "法團校董會 學校管理委員會 校董會 校董 校監 辦學團體 校本管理 法團校董會的成立與運作 Incorporated Management Committee School Management Committee",
   finance:    "採購程序 財政限額 報價 招標 採購指引",
   hr_admin:   "教職員假期 批假 薪酬 操守 病假 首年 168日 上限 醫生證明 教師註冊 聘任",
   activity:   "全方位學習津貼 活動",
