@@ -31,7 +31,7 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層係 dormant scaffold).
 Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.2.0（正式版）。
-Product state: HEAD == origin/main（已 push 6309333+）。Supabase 15,127；Render backend live；Pages live（v3.2.0）。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.0 + Render /health + HEAD==origin/main + Supabase 15,127。
+Product state: HEAD == origin/main（已 push 35458c7）。Supabase 15,127；Render backend live；Pages live（v3.2.0）。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.0 + Render /health + HEAD==origin/main + Supabase 15,127。
 
 S170（2026-06-15）已 ship + push（全 QC PASS、verified live）：
 - 監察清訊號（eb9d90b）：freshness re-seed 全 215 baseline（假警報 9→0、修 stub-baseline artifact）+ discover 加 ENUMERATION_PAGE_CAP=25（likely-real 680→223、no-loss、self-test ALL PASS）。
@@ -40,6 +40,7 @@ S170（2026-06-15）已 ship + push（全 QC PASS、verified live）：
 - EDB 每週監察 email：Leonard 設好 GitHub Watch→Issues（Issue #1 freshness / #2 discovery 每週一 email）。
 - playbook 沉澱：inbox proposal「content monitor 測 served URL 唔好測 registry」(playbook repo 7057db8)。
 - ④ EDB 全入庫＝triaged 無乾淨批次值得入（223 候選全係碎片/舊通告/表格/英文重複；corpus current）→ monitor-driven on-demand。
+- 文檔：加入 RAG 系統架構圖 docs/system-architecture.png（README 技術架構 section 內嵌）+ 清走 README 舊 ASCII（換現行端點表，核實自 server.ts）。
 
 NEXT（優先序）：
 ① served-URL 健康檢查（404 盲點 follow-up）：監察只測 registry URL（全 200）但用戶撳 Supabase served URL（會 drift）→ 加由 store/API 抽 distinct served URL 逐條 HTTP-test，封 source-of-truth skew。
