@@ -3348,7 +3348,7 @@ function AnnotatePanel() {
 
   async function handleDownloadOriginal() {
     if (!report || downloading) return;
-    if (!fileBuffer) { setError('就地標註只支援上載檔（Word 或 PDF）；貼上文字請用「下載建議清單」。'); return; }
+    if (!fileBuffer) { setError('「標註版原檔」只支援上載檔（Word 或 PDF）；貼上文字請用「可編輯 Word 版」或「建議清單」。'); return; }
     setDownloading(true); setError(''); setDownloadNote('');
     try {
       const base = String(report.filename || fileName || '文件').replace(/\.(pdf|docx?)$/i, '');
@@ -3377,6 +3377,30 @@ function AnnotatePanel() {
       }
     } catch (e) {
       setError('標註版生成失敗：' + (e && e.message ? e.message : '未知錯誤'));
+    } finally { setDownloading(false); }
+  }
+
+  async function handleDownloadEditable() {
+    if (!report || downloading) return;
+    if (!window.docx) { setError('文件生成元件尚未載入，請重新整理頁面再試。'); return; }
+    if (!docText || !docText.trim()) { setError('沒有可用文字內容生成可編輯版。'); return; }
+    setDownloading(true); setError(''); setDownloadNote('');
+    try {
+      const { blob, located, unlocated } = await buildEditableDocx(docText, report.findings || [], {
+        schoolType: report.school_type || schoolType,
+        domains: (report.domains || []).map((d) => d.domain_cn),
+        autoDetected: report.auto_detected,
+        filename: report.filename || fileName,
+      });
+      const base = String(report.filename || fileName || '文件').replace(/\.(pdf|docx?)$/i, '');
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = `${base}_可編輯標註版.docx`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+      setDownloadNote(`已生成可編輯 Word 版：就地標示 ${located} 處（建議條文已直接寫入並以綠色螢光標出，可隨意編輯／刪除，毋須接受修訂）` + (unlocated ? `；另有 ${unlocated} 項列於文末「建議補充」` : ''));
+    } catch (e) {
+      setError('可編輯版生成失敗：' + (e && e.message ? e.message : '未知錯誤'));
     } finally { setDownloading(false); }
   }
 
@@ -3425,10 +3449,10 @@ function AnnotatePanel() {
           </button>
           {fileName && !extracting && (
             <span className="text-xs" style={{color:'var(--mid)'}}>
-              ✓ 已讀取：{fileName}（{docText.length.toLocaleString()} 字{isDocx ? '，可就地標註' : '；PDF/文字只出建議清單'}）
+              ✓ 已讀取：{fileName}（{docText.length.toLocaleString()} 字{isDocx ? '，可就地標註或出可編輯版' : '，可標註 PDF 或出可編輯 Word 版'}）
             </span>
           )}
-          {!fileName && <span className="text-xs text-gray-400">或喺下面貼上文字（貼文字只出建議清單）</span>}
+          {!fileName && <span className="text-xs text-gray-400">或喺下面貼上文字（可出可編輯 Word 版或建議清單）</span>}
         </div>
         {extractError && (
           <div style={{marginBottom:'10px',padding:'10px 14px',borderRadius:'var(--r-sm)',background:'var(--paper-2)',border:'1px solid #FECACA',fontSize:'var(--text-sm)',color:'var(--warn)'}}>⚠️ {extractError}</div>
@@ -3513,27 +3537,37 @@ function AnnotatePanel() {
             <span>　·　就地標示 {inPlace.length} 處，附錄建議 {appendix.length} 項</span>
           </div>
 
-          {/* Download row */}
+          {/* Download row — S164: 可編輯版 primary (works for Word/PDF/paste, no 接受修訂) */}
           <div className="flex items-center gap-2" style={{flexWrap:'wrap'}}>
-            <button onClick={handleDownloadOriginal} disabled={downloading || !fileBuffer}
-                    title={fileBuffer ? '' : '就地標註支援上載的 Word(.docx) 或 PDF 檔'}
+            <button onClick={handleDownloadEditable} disabled={downloading}
+                    title="建議條文已直接寫入文中、綠色螢光標示，可即改即用，毋須接受修訂；Word／PDF／貼上文字皆可"
                     className="px-4 py-2 text-sm rounded-lg font-medium transition-all disabled:opacity-50"
                     style={{background:'var(--p-primary)',color:'#fff'}}>
-              {downloading ? '⏳ 生成中…' : `⬇️ 下載標註版原檔 (${isPdf ? 'PDF' : 'Word'})`}
+              {downloading ? '⏳ 生成中…' : '⬇️ 可編輯 Word 版（推薦）'}
+            </button>
+            <button onClick={handleDownloadOriginal} disabled={downloading || !fileBuffer}
+                    title={fileBuffer ? (isPdf ? 'PDF 原檔螢光標示版（不可編輯）' : 'Word 原檔保留原格式，建議以「追蹤修訂」插入') : '就地標註支援上載的 Word(.docx) 或 PDF 檔'}
+                    className="px-3 py-2 text-sm rounded-lg font-medium border transition-all disabled:opacity-50"
+                    style={{background:'var(--cd-warm)',color:'var(--charcoal)',borderColor:'var(--border)'}}>
+              {downloading ? '⏳ 生成中…' : `標註版原檔（${isPdf ? 'PDF·螢光' : 'Word·保留格式'}）`}
             </button>
             <button onClick={handleDownloadList} disabled={downloading}
-                    className="px-3 py-2 text-sm rounded-lg font-medium border border-gray-200 transition-all disabled:opacity-50"
-                    style={{background:'var(--cd-warm)',color:'var(--charcoal)'}}>
-              下載建議清單 (Word)
+                    className="px-3 py-2 text-sm rounded-lg font-medium border transition-all disabled:opacity-50"
+                    style={{background:'var(--cd-warm)',color:'var(--charcoal)',borderColor:'var(--border)'}}>
+              建議清單 (Word)
             </button>
             <span className="text-xs text-gray-400">於瀏覽器內生成，不會上載</span>
           </div>
           {downloadNote && <div className="text-xs" style={{color:'var(--edb)'}}>✓ {downloadNote}</div>}
+          {/* S164: clearer 3-option guidance + how to accept tracked changes */}
+          <div style={{fontSize:'var(--text-xs)',color:'#6B7280',lineHeight:1.7,background:'var(--paper-2)',border:'1px solid var(--line)',borderRadius:'var(--r-md)',padding:'8px 12px'}}>
+            📥 <strong>三種下載：</strong><br/>
+            ① <strong style={{color:'var(--edb)'}}>可編輯 Word 版（推薦）</strong>——建議條文已直接寫入文中、<span style={{background:'#C6EFCE'}}>綠色螢光</span>標示，可即改即用，<strong>毋須「接受修訂」</strong>（Word／PDF／貼上文字皆可）。<br/>
+            ② <strong>標註版原檔</strong>——Word：保留原格式，建議以 Word「追蹤修訂」插入，請喺 Word <strong>「校閱」分頁</strong>按 <strong>「接受」</strong>套用或 <strong>「拒絕」</strong>清走；PDF：原檔螢光標示版（不可編輯）。<br/>
+            ③ <strong>建議清單</strong>——只列出建議條文與出處。
+          </div>
           {!fileBuffer && (
-            <div className="text-xs" style={{color:'#92400E'}}>ℹ️ 此次為貼上文字：就地標註需上載 Word(.docx) 或 PDF 檔，請用「下載建議清單」。</div>
-          )}
-          {isPdf && (
-            <div className="text-xs" style={{color:'#6B7280'}}>📄 PDF 就地標註：於原檔黃色螢光標示相關段落＋可點批註；詳細建議見下方清單。未能定位的項目（缺漏要求）請用「下載建議清單」。</div>
+            <div className="text-xs" style={{color:'#92400E'}}>ℹ️ 此次為貼上文字：「標註版原檔」需上載 Word(.docx) 或 PDF 檔；可改用「可編輯 Word 版（推薦）」或「建議清單」。</div>
           )}
 
           {/* In-place findings */}
@@ -3646,6 +3680,91 @@ async function buildAnnotateListDocx(report, schoolType, fileName) {
   }
   const doc = new D.Document({ styles: { default: { document: { run: { font: FONT, size: 22 } } } }, sections: [{ children }] });
   return D.Packer.toBlob(doc);
+}
+
+// S164 — Editable Word version, works for BOTH Word/PDF/paste input (built from the
+// extracted text, not the original file). Suggestions are written straight into the
+// flow as GREEN-highlighted normal runs (NOT Word tracked-changes) so the reader can
+// edit/delete them directly without learning 接受/拒絕. Matched source paragraphs get a
+// yellow highlight; unlocated items go to a 建議補充 appendix. Trades the original Word
+// rich formatting for editability + simplicity (the formatting-preserving tracked-change
+// version stays available via 下載標註版原檔). Reuses annNorm/annParaMatches.
+async function buildEditableDocx(docText, findings, meta) {
+  const D = window.docx;
+  if (!D) throw new Error('docx 程式庫未載入');
+  const FONT = 'Microsoft JhengHei';
+  const t = (text, o = {}) => new D.TextRun({ text, font: FONT, ...o });
+  const p = (children, o = {}) => new D.Paragraph({ children: Array.isArray(children) ? children : [children], ...o });
+  meta = meta || {};
+
+  // Split the analyzed text into paragraphs (same source the backend segmented).
+  const rawParas = String(docText || '').split(/\n+/).map((s) => s.trim()).filter(Boolean);
+  const paraNorms = rawParas.map((s) => annNorm(s));
+
+  // Assign each span-bearing finding to the first paragraph it matches; rest → appendix
+  // (never mis-place — append instead, same decoupling as the in-place docx path).
+  const byPara = new Map();
+  const unlocated = [];
+  for (const f of findings) {
+    if (!f.span) { unlocated.push(f); continue; }
+    const sNorm = annNorm(f.span);
+    let hit = -1;
+    for (let i = 0; i < paraNorms.length; i++) { if (annParaMatches(paraNorms[i], sNorm)) { hit = i; break; } }
+    if (hit === -1) { unlocated.push(f); continue; }
+    if (!byPara.has(hit)) byPara.set(hit, []);
+    byPara.get(hit).push(f);
+  }
+
+  const children = [];
+  const schoolLabel = (meta.schoolType && ANNOTATE_SCHOOL_LABELS[meta.schoolType]) || '不限（一般比對）';
+  const domLabel = (meta.domains && meta.domains.length) ? meta.domains.join('、') + (meta.autoDetected ? '（自動偵測）' : '') : '自動偵測';
+  children.push(p(t(ANNOTATE_PLATFORM_NAME + ' · 文件標註（可編輯版）', { bold: true, size: 30, color: '1F4E36' }), { spacing: { after: 60 } }));
+  children.push(p(t('本校校類：' + schoolLabel + '　·　合規範疇：' + domLabel + (meta.filename ? '　·　文件：' + meta.filename : ''), { size: 18, color: '666666' }), { spacing: { after: 40 } }));
+  children.push(p(t('標示說明：黃色螢光＝原文相關段落；💡＝參考 EDB 指引（只供參考）；綠色螢光＝建議條文，已直接寫入文中，可隨意編輯或刪除，毋須「接受修訂」。未能在原文定位者見文末「建議補充」。分析由 AI 語意比對產生，重要決定請以教育局官方原文為準。', { size: 16, color: '888888' }), { spacing: { after: 200 } }));
+
+  const src = (f) => (f.source && f.source.title) ? '　來源：《' + f.source.title + '》' + (f.source.page ? '（第' + f.source.page + '頁）' : '') : '';
+  let located = 0;
+  for (let i = 0; i < rawParas.length; i++) {
+    const here = byPara.get(i);
+    if (here && here.length) {
+      located += here.length;
+      children.push(p(t(rawParas[i], { highlight: 'yellow' })));
+      for (const f of here) {
+        if (f.kind === 'guideline') {
+          children.push(p(t('💡 參考 EDB 指引：' + (f.note || '') + src(f), { italics: true, size: 18, color: '1F4E36' }), { indent: { left: 360 } }));
+        } else {
+          const st = f.status === 'partial' ? '部分涵蓋' : '未涵蓋';
+          children.push(p(t('⚠ 建議修訂（' + (f.domain_cn || '清單') + '·' + st + '）：' + (f.note || '') + src(f), { italics: true, size: 18, color: '8A5A00' }), { indent: { left: 360 } }));
+          if (f.suggestion) {
+            children.push(p(t('✎ 建議條文（已加入，可直接編輯）：', { italics: true, size: 18, color: '1F4E36' }), { indent: { left: 360 } }));
+            for (const ln of String(f.suggestion).split('\n')) if (ln.trim()) children.push(p(t(ln.trim(), { size: 21, color: '1F4E36', highlight: 'green' }), { indent: { left: 540 } }));
+          }
+        }
+      }
+    } else {
+      children.push(p(t(rawParas[i])));
+    }
+  }
+
+  if (unlocated.length) {
+    children.push(p(t('— — — ' + ANNOTATE_PLATFORM_NAME + ' · 建議補充（原文未涵蓋／未能定位）— — —', { bold: true, size: 26, color: '1F4E36' }), { spacing: { before: 280, after: 60 } }));
+    children.push(p(t('以下項目未能在原文逐字定位（多為「建議新增」的合規要求），改列於此供人手加入；上文已就地標示者以螢光標出。', { size: 16, color: '888888' }), { spacing: { after: 80 } }));
+    let curDomain = null;
+    for (const f of unlocated) {
+      const tag = f.kind === 'guideline' ? '相關指引' : (f.status === 'partial' ? '部分涵蓋' : '未涵蓋');
+      const dom = f.domain_cn || (f.kind === 'guideline' ? '指引比對' : '清單');
+      if (dom !== curDomain) { children.push(p(t('【' + dom + '】', { bold: true, size: 24, color: '1F4E36' }), { spacing: { before: 200 } })); curDomain = dom; }
+      children.push(p([t('〔' + tag + '〕', { bold: true, color: f.kind === 'guideline' ? '1F4E36' : '8A5A00' }), t(' ' + (f.note || ''), { size: 20 })], { spacing: { before: 120 } }));
+      if (f.suggestion) {
+        children.push(p(t('建議條文：', { size: 18, bold: true, color: '555555' }), { indent: { left: 360 } }));
+        for (const ln of String(f.suggestion).split('\n')) if (ln.trim()) children.push(p(t(ln.trim(), { size: 18, color: '1F4E36', highlight: 'green' }), { indent: { left: 540 } }));
+      }
+      if (f.source && f.source.title) children.push(p(t('來源：《' + f.source.title + '》' + (f.source.page ? '（第' + f.source.page + '頁）' : ''), { size: 16, color: '888888' }), { indent: { left: 360 } }));
+    }
+  }
+
+  const doc = new D.Document({ styles: { default: { document: { run: { font: FONT, size: 22 } } } }, sections: [{ children }] });
+  return { blob: await D.Packer.toBlob(doc), located, unlocated: unlocated.length };
 }
 
 // ── Main App ──

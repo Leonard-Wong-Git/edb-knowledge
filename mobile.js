@@ -219,7 +219,7 @@
       +   '<p class="m-hero-desc">輸入問題，即時比對 EDB 已核實事實及原文片段。</p>'
       +   '<form class="m-search" id="m-search-form" autocomplete="off">'
       +     '<svg class="m-search-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>'
-      +     '<input class="m-search-input" id="m-search-input" type="search" inputmode="search" placeholder="教師病假上限多少天？" />'
+      +     '<input class="m-search-input" id="m-search-input" type="search" inputmode="search" enterkeyhint="search" placeholder="教師病假上限多少天？" />'
       +   '</form>'
       + '</section>'
       + '<section class="m-result-list" id="m-result-list" aria-live="polite"></section>'
@@ -237,12 +237,17 @@
     // Initial empty state
     renderEmpty(list);
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
+    const submitSearch = () => {
       const q = (input.value || '').trim();
       if (!q) return;
       input.blur();
       runSearch(q, list);
+    };
+    form.addEventListener('submit', e => { e.preventDefault(); submitSearch(); });
+    // Belt-and-suspenders: some mobile keyboards / IME do not fire implicit form
+    // submission on Enter when the form has no submit button — bind Enter directly.
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.keyCode === 13) { e.preventDefault(); submitSearch(); }
     });
 
     // Bottom sheet close on backdrop tap
