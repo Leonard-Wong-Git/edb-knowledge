@@ -17,6 +17,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 - 知識片段顯示數 15,127 → 15,336（首頁／平台介紹／README／K1_API_SPEC 同步）。
+- **指引文件庫分類「資訊科技」正名為「數字教育」**，並收錄 DEBP 6 份指引文件（公開 `guidelines.json` 152 → 158、版本 2.5.0 → 2.6.0；app 內庫指引 161 → 167）。註：指引文件庫（策展連結庫）與政策搜尋語料（Supabase）為兩個獨立系統。
 
 ## [v3.2.0] — 2026-06-15 — 文件標註保留格式 · 首次導覽 · 使用手冊 · 監察清訊號 · 404 修復
 
