@@ -2460,15 +2460,6 @@ function QAPanel({ data, setPreviewDoc }) {
   const [backendError, setBackendError] = useState(null);
 
   const BACKEND_URL = 'https://edb-knowledge.onrender.com';
-  // Band-aid: a few Channel-B chunks (sag_2025_11 / 學校行政手冊) carry a stale, malformed
-  // source URL (/attachment/.../sch-admin-guide/index.html) that 404s. Permanent fix is a
-  // Supabase UPDATE to SAG_C_markup.pdf; this rewrite makes the 「開啟」link resolve meanwhile
-  // and becomes a harmless no-op once the data is corrected.
-  const SOURCE_URL_FIXUPS = {
-    'https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/index.html':
-      'https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf',
-  };
-  const fixSourceUrl = (u) => (u && SOURCE_URL_FIXUPS[u]) || u;
   const TOPIC_LABELS = {
     finance: '財務/採購', hr: '人力資源', curriculum: '課程',
     activity: '活動', student: '學生事務', it: '數字教育', general: '通用/行政'
@@ -2510,7 +2501,7 @@ function QAPanel({ data, setPreviewDoc }) {
     return (json.results || []).map(r => ({
       topicId: r.topic || 'general', roleId: r.role || 'all_roles',
       fact: r.text, index: 0,
-      sourceRef: r.url ? { url: fixSourceUrl(r.url), title: r.title } : null,
+      sourceRef: r.url ? { url: r.url, title: r.title } : null,
       score: r.score, channel: 'B',
       content_type: r.content_type, fact_type: r.fact_type,
       page: r.page,
@@ -2530,7 +2521,7 @@ function QAPanel({ data, setPreviewDoc }) {
       topicId: r.topic || r.topicId || 'general',
       roleId: r.role || r.roleId || 'all_roles',
       fact: r.text || r.fact, index: 0,
-      sourceRef: r.url ? { url: fixSourceUrl(r.url), title: r.title } : (r.sourceRef || null),
+      sourceRef: r.url ? { url: r.url, title: r.title } : (r.sourceRef || null),
       score: r.score, channel: r.channel || 'B',
       content_type: r.content_type,
       page: r.page,

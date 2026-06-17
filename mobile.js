@@ -173,14 +173,6 @@
 
   // ── 6. Page-specific content render ──
   const BACKEND_URL = 'https://edb-knowledge.onrender.com';
-  // Band-aid (mirrors app.html): rewrite a known stale/malformed Channel-B source URL
-  // (sag_2025_11 學校行政手冊 → /sch-admin-guide/index.html which 404s) to the real PDF.
-  // Permanent fix is a Supabase UPDATE; harmless no-op once corrected.
-  const SOURCE_URL_FIXUPS = {
-    'https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/index.html':
-      'https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf'
-  };
-  const fixSourceUrl = function (u) { return (u && SOURCE_URL_FIXUPS[u]) || u; };
 
   // Source label map (mirrors app.html SOURCE_LABELS, mobile-friendly subset)
   const SOURCE_LABEL = {
@@ -390,7 +382,7 @@
     if (!sheet || !content) return;
 
     const sid = row.source_id || '';
-    const url = fixSourceUrl(row.url || '');
+    const url = row.url || '';
     const verified = row.content_type === 'approved_fact';
     const role = row.role || '';
     const page = (typeof row.page === 'number' && row.page > 0) ? row.page : null;

@@ -2,6 +2,27 @@
 
 This document establishes the official rhythm for maintaining the source registry freshness metadata and handling broken links or upstream content changes.
 
+## 0. Two complementary monitors (Method A + Method B)
+
+The platform has a **registry** (`source_registry.json`) and a **derived store**
+(Supabase `wiki_chunks`, which carries its own copy of each source URL). They can
+drift apart, so two monitors run weekly, each answering a different question:
+
+| | Monitor | Tests | Question answered | Weekly |
+|---|---|---|---|---|
+| **A** | `check_freshness.py` (this guide) | registry `url_primary` | *Did the upstream EDB source change / die?* | Mon 09:00 UTC |
+| — | `discover_sources.py` | EDB landing/index pages vs registry | *Is there a brand-new EDB doc we never registered?* | Mon 10:00 UTC |
+| **B** | `check_served_urls.py` | store `wiki_chunks.url` (the link a user actually clicks) | *Did the store drift from the registry — is a served link 404ing?* | Mon 11:00 UTC |
+
+**Why B is non-optional here (S170 lesson):** A tested every registry URL green
+(200, errors=0) while 383 `sag_2025_11` chunks served a stale `/index.html` path
+that 404'd — a registry-only monitor *structurally* cannot see store drift. B
+(`check_served_urls.py --check`) pulls every distinct served URL from the store
+and HTTP-tests it; broken links open a `served-url-broken` Issue. Re-anchoring a
+broken served URL (Supabase UPDATE / re-ingest) stays a **manual gate**, same as
+re-ingestion below. B needs the read-only `SUPABASE_ANON_KEY` (env or, in CI, a
+repo secret). See the Playbook card `freshness-monitor-test-served-url`.
+
 ## 1. Monitoring Rhythm
 - **Weekly (Recommended)**: Run the freshness checker to detect broken links and record meta changes.
 - **Before Releases**: Must run and verify all sources in the registry.

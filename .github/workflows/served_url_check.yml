@@ -1,0 +1,140 @@
+name: Weekly Served-URL Health Check
+
+# Method B monitor (delivery integrity): tests the URLs the VECTOR STORE serves
+# to users (`wiki_chunks.url`), not the registry. Catches store↔registry drift
+# that the freshness check (registry-only) structurally cannot see — e.g. the
+# S170 SAG 404 where 383 chunks served a stale /index.html path.
+#
+# ── ONE-TIME SETUP ──────────────────────────────────────────────────────────
+# Requires a repo secret `SUPABASE_ANON_KEY` (read-only anon key — least
+# privilege; the service key is NOT needed and must not be used here). Without
+# it, the run exits non-zero with a clear "key not configured" message so the
+# gap is visible. Add via: repo Settings → Secrets and variables → Actions.
+
+on:
+  schedule:
+    # Every Monday at 11:00 UTC (after freshness 09:00 + discovery 10:00)
+    - cron: "0 11 * * 1"
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Test only the first N distinct served URLs (0 = all)"
+        required: false
+        default: "0"
+        type: string
+
+permissions:
+  contents: read       # read-only: never writes the store, registry, or repo
+  issues: write        # open/update the "broken served URLs" issue
+
+jobs:
+  served-url-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Self-test (offline logic)
+        run: python3 dev/source/check_served_urls.py --self-test
+
+      - name: Check served URLs
+        env:
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          LIMIT="${{ github.event.inputs.limit || '0' }}"
+          ARG=""
+          if [ "$LIMIT" != "0" ] && [ -n "$LIMIT" ]; then ARG="--limit $LIMIT"; fi
+          echo "Running: check_served_urls.py --check $ARG"
+          python3 dev/source/check_served_urls.py --check $ARG \
+            --changes-out served_url_changes.json \
+            --ledger served_url_changes.md 2>&1 | tee served_url_output.txt
+          exit ${PIPESTATUS[0]}
+        # ↑ Non-zero exit = errors (network / 5xx) > threshold only (real outage).
+        #   BROKEN 4xx links never affect exit code (S126 lesson) — they are the
+        #   content signal, routed to the issue below.
+
+      - name: Upload served-URL report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: served-url-report-${{ github.run_number }}
+          path: |
+            served_url_output.txt
+            served_url_changes.json
+            served_url_changes.md
+          retention-days: 30
+
+      - name: Notify on broken served URLs (open/update issue)
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let r;
+            try {
+              r = JSON.parse(fs.readFileSync('served_url_changes.json', 'utf8'));
+            } catch (e) { core.info('No served-URL report: ' + e); return; }
+
+            const broken = r.broken_urls || [];
+            if (broken.length < 1) {
+              core.info('No broken served URLs; not touching issue.');
+              return;
+            }
+            const rows = broken.slice(0, 30).map(b => {
+              const sids = (b.source_ids || []).map(s => '`' + s + '`').join(', ');
+              return `- **${b.status}** — ${b.url}  \n  _source_id(s): ${sids}_`;
+            }).join('\n');
+            // Also surface could-not-test URLs (5xx / timeout / rate-limit) at the
+            // URL level, not just the count — so a persistently-flaky source is visible.
+            const errs = r.error_urls || [];
+            const errRows = errs.slice(0, 15).map(e => {
+              const sids = (e.source_ids || []).map(s => '`' + s + '`').join(', ');
+              return `- ${e.reason} — ${e.url}  \n  _source_id(s): ${sids}_`;
+            }).join('\n');
+            const body = [
+              `🔴 **${broken.length}** broken served URL(s) detected in the vector store `,
+              `(run #${context.runNumber}, ${r.generated_at}; ${r.distinct_urls} distinct URLs, `,
+              `${r.checked} checked, ${r.errors} could-not-test).`,
+              '',
+              '> These are URLs the STORE serves to users (`wiki_chunks.url`) that return 4xx — '
+              + 'not registry URLs. A broken one means the store drifted from the registry '
+              + '(or both went stale upstream). Fix = re-anchor the source URL (registry + '
+              + 'Supabase UPDATE/re-ingest); a manual gate per `dev/source/FRESHNESS_GUIDE.md`.',
+              '',
+              rows,
+              '',
+              broken.length > 30 ? `…and ${broken.length - 30} more — see run artifact \`served-url-report-${context.runNumber}\`.` : '',
+              errs.length ? `\n**Could-not-test (${errs.length}, transient 5xx/timeout/429 — not counted as broken):**\n${errRows}` + (errs.length > 15 ? `\n…and ${errs.length - 15} more (see artifact).` : '') : '',
+            ].join('\n');
+            const title = '🔴 Served-URL: broken links in the store pending fix';
+            const label = 'served-url-broken';
+            try {
+              const existing = await github.rest.issues.listForRepo({
+                owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: label,
+              });
+              if (existing.data.length) {
+                await github.rest.issues.update({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: existing.data[0].number, title, body,
+                });
+                core.info('Updated issue #' + existing.data[0].number);
+              } else {
+                await github.rest.issues.create({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  title, body, labels: [label],
+                });
+                core.info('Created served-url-broken issue.');
+              }
+            } catch (e) {
+              core.warning('Failed to open/update served-url issue: ' + (e && e.message));
+            }

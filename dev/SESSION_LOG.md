@@ -2,6 +2,19 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-17 Session 172 — served-URL 健康檢查（Method B 監察）+ band-aid cleanup
+
+- **ID:** Claude_20260617_1731
+- **Trigger:** 「開工」→ 起手探針全綠（app.html 200 + PLATFORM_VERSION 3.2.0 + Render /health ok·cache_a 455 + HEAD==origin/main `4b0da9b` + Supabase 15,336）→ Leonard 揀「1-3」＝ NEXT ①②③ batch。①② 已 ship+QC，③ 待真檔。
+- **① served-URL 健康檢查（NEW `dev/source/check_served_urls.py` + `.github/workflows/served_url_check.yml`）：** Method B 交付完整性監察，補 S170 揭發嘅盲點——`check_freshness.py` 只測 registry `url_primary`（全 200），但用戶撳 Supabase `wiki_chunks.url`（派生 store，會 drift）。新工具由 store 抽 distinct served URL 逐條 HTTP-test。純函數 `normalize_url`（剝 `#page` fragment）/`aggregate_urls`（base URL dedup→source_ids）/`classify_status`（ok 2xx / broken 4xx / **error 5xx·網絡·408·429 transient**）/`render_ledger` + `--self-test`/`--check`/`--limit`/`--changes-out`/`--ledger`。訊號路由跟 freshness 鐵律（S126）：broken 4xx → JSON 報告 + Issue，**唔影響 exit code**；只 errors > `max(5,checked//20)` exit 1；store-read 失敗 raise→exit 1（唔靜默當「0 broken」）；無 key exit 2 清楚提示。CI 需 repo secret `SUPABASE_ANON_KEY`（read-only 最小權限）。
+- **① 首次 live run：199 distinct URL · 197 OK · 0 errors · 揭發 2 條 pre-existing user-facing 404**（registry-only 監察結構上睇唔到）：(a) `edbc12_2025_ph_pri`＝store 落後 registry（store 存舊 `kla/pshe/ph-pri/EDBC_122025_C.pdf` 404；registry url_primary `cross-kla-studies/ph-primary/…` **200**）→ 修法同 SAG（Supabase UPDATE re-point）；(b) `sch_calendar_guide`＝upstream churn（registry+store 都 stale `General Holidays_2526_C.pdf` 404；landing 已出後繼 `_2627`）→ re-discover + 更新 registry&store。兩條 **detection-only、re-anchor manual gate 待 Leonard 授權**。
+- **② band-aid cleanup（app.html + mobile.js）：** 移除 `SOURCE_URL_FIXUPS`+`fixSourceUrl`（app.html const block + 2 call site runChannelB/runCombined；mobile.js const block + 1 call site openSheet）。① 已證 store serve `SAG_C_markup.pdf`（383 chunks 全 200），band-aid 係 verified no-op。畸形 URL `/attachment/…/sch-admin-guide/index.html` 兩檔 0 occurrence；`node --check mobile.js` OK；headless app.html boot 5 tab + v3.2.0、0 dangling ref；3 條 app.html SAG guideline/intro URL 全 200（無 collateral）。diff 外科式乾淨。
+- **QC（獨立對抗覆核 Codex/QC subagent）：** verdict **PASS-with-flags（no blocker）**。獨立 corroborate：self-test 19/19、SAG 200·malformed 404 live、0 dangling、GET-fallback 正確（HEAD 405→GET 200=ok）、exit-code 語意（broken 唔影響·store-outage→exit 1·無 key→exit 2）、report-key 對齊 workflow。**採納 2 個 Low flag**：(1) 429/408 由 broken 改 error（防 rate-limit 假警報，self-test +2 → **21 PASS**）；(2) workflow Issue body 加列 error_urls（唔淨係 count）。Flag 3（`--limit` testing knob）/4（CHANGELOG·START_NEXT 收工 regen）= 接受/收工處理。
+- **Boundary:** ① 純新增唯讀監察（HTTP + Supabase SELECT，零寫）；② 純前端 no-op cleanup。0 接觸 backend / Supabase chunk 數 **15,336** / 凍結合約（`_meta` 2.3.0·facts 455·guidelines 158）/ schema / RPC / canonical chunker。**no version bump**（① infra 非 user-facing、② 零行為變）。
+- **Doc Sync (§3):** Monitoring/CI workflow（row 33 擴闊涵蓋 Method B + `SUPABASE_ANON_KEY` secret 註）→ FRESHNESS_GUIDE §0 兩監察模型(A/B) + CODEBASE_CONTEXT Directory Map(+2 檔) + AI log（S172）；Product behavior(② band-aid 移除)→ SESSION_HANDOFF/LOG。✓ 全做。Playbook 卡 `freshness-monitor-test-served-url`（S170 開）今 session 落地實證（首跑捉 2 真 404）。
+- **commits（push origin/main）:** 見收工區（本治理 commit）。
+- **Log maintenance (§4a):** SESSION_LOG <400 行、entries <11，no-op。
+
 ## 2026-06-17 Session 171 — 重開「EDB 通告分析系統」入口連結 + 頂層 umbrella root 設 redirect-only
 
 - **ID:** Claude_20260617_0911
