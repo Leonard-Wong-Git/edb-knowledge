@@ -2,6 +2,44 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-17 Session 171 — 重開「EDB 通告分析系統」入口連結 + 頂層 umbrella root 設 redirect-only
+
+- **ID:** Claude_20260617_0911
+- **Trigger:** Session 開喺頂層 umbrella root（非 active root）→ Leonard 指「每次一開 session 都係行 Draft，不論點開都係對的」→ 先設頂層 redirect，再做實際 Draft 任務：重開通告分析入口。
+- **① 頂層 umbrella root 設 redirect-only（非 git；頂層 `dev/*`，不入本 Draft commit）：** 頂層 `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge` 係 dormant scaffold，但自帶一套輕量 Agent Handoff Kit，全 TBD + fresh-install 訊號 → 一開就觸發 onboarding、撞錯 root。修：填頂層 `dev/SESSION_HANDOFF.md`（Durable Anchors / Current Baseline / Active Objective / Next Priorities 全指向 Draft）+ 重寫 Next Session Opening Message + 同步頂層 `START_NEXT_SESSION_PROMPT.txt` 為 Draft redirect。特登唔郁 managed `CLAUDE.md`/`AGENTS.md`（upgrade 會重生成抹走 inline pointer）。QC：parity OK（prompt == fenced block）、舊 onboarding prompt 清走、ack markers 24 完整、**Draft working tree 0 改動**。
+- **② 重開「EDB 通告分析系統」入口（commit `972ab78`，index.html）：** S154 曾應 Leonard 指示停用（`<a>` → 停用 `<span>`「（暫停開放）」+ opacity .55 + not-allowed）；今還原。由 disable commit `0c34611` 取回真原始 markup（完整 `<a class="ftag" target=_blank rel=noopener` + 11px 外連箭咀 SVG），非靠 comment 重砌。URL 核實 live：`leonard-wong-git.github.io/EDB-AI-Circular-System/` 301 → circular.wongfu.net 200。
+- **QC（②）：** git diff 只 index.html 4↔4；active `<a>` 在、殘留「暫停開放」span / 「暫時停用」comment 0/0；headless Chrome render DOM 有正確 href + 無「（暫停開放）」字樣。app.html intro card（line 2086）純 title/desc dead-data，不涉、不改。
+- **Boundary:** 純前端 1 個 block 還原；零接觸 backend / Supabase / 凍結合約（`_meta` 2.3.0 · facts 455 · guidelines 152）。push 觸發 Pages live 部署。下游系統 readiness 依 §A.3 不深究（URL 已 200）。
+- **commits（push origin/main）:** `972ab78`(重開入口) + 本治理 commit。
+- **Log maintenance (§4a):** SESSION_LOG <400 行、entries <11，no-op。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella 已設 redirect-only).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.2.0（正式版）。
+Product state: HEAD == origin/main（已 push，最新 972ab78 重開通告分析入口 + 治理 commit）。Supabase 15,127；Render backend live；Pages live（v3.2.0）。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.0 + Render /health + HEAD==origin/main + Supabase 15,127。
+
+S171（2026-06-17）已 ship + push：
+- 重開「EDB 通告分析系統」入口連結（index.html，還原 S154 停用嘅 <a>；URL leonard-wong-git.github.io/EDB-AI-Circular-System/ 301→circular.wongfu.net 200 verified；commit 972ab78）。headless render 驗。
+- 頂層 umbrella root 設 redirect-only（非 git；頂層 dev/SESSION_HANDOFF.md + START_NEXT_SESSION_PROMPT.txt 指向 Draft，免再撞 onboarding 空殼）。Draft 零接觸。
+
+S170（2026-06-15）：監察清訊號（eb9d90b）+ 學校行政手冊 404 兩層修（59b8d2b + Leonard Supabase UPDATE 383 sag_2025_11 url）+ 平台 v3.2.0（6309333）+ 每週監察 email（Watch→Issues #1/#2）+ playbook 沉澱（7057db8）。
+
+NEXT（優先序）：
+① served-URL 健康檢查（404 盲點 follow-up）：監察只測 registry URL（全 200）但用戶撳 Supabase served URL（會 drift）→ 加由 store/API 抽 distinct served URL 逐條 HTTP-test，封 source-of-truth skew。
+② band-aid cleanup（低優先、無害）：Supabase 已永久修好 SAG，可移除 app.html+mobile.js SOURCE_URL_FIXUPS。
+③ Leonard 真機/真檔收貨 S169 ①②③（保留格式 Word + 表格內段落命中）。
+④ EDB 入庫＝monitor-driven：每週一 Issue #1/#2 email 到，有真·新指引先逐源 pre-flight+INSPECT+Leonard 授權 live INSERT（service key 在 backend/.env）。
+⑤ mobile onboarding（desktop 已有）；⑥ Render free-tier cold-start；⑦ SMC 對通用 query recall 被 IMC-heavy corpus 淹（monitor）。
+
+⚠️ 紀律：app.html 改動用 headless Chrome（fresh，bypass 快取；macOS 無 timeout）；docx 8.5.0 UMD/JSZip 3.10.1/pdf.js 3.11.174/mammoth 1.6.0；live Supabase INSERT/UPDATE 需 INSPECT before/after + Leonard 明確授權（service key 在 backend/.env）；改 backend 前確認 Render deploy + routing 跑 detectQueryCategory 純函數 + Render live 探針；勿改 canonical chunker；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；路徑空格雙引號；commit -m 勿用反引號；repo 勿 set private。
+Post-startup first action: 起手探針（v3.2.0 + Supabase 15,127 + Render /health + HEAD==origin/main）後，按 Leonard 指示起 ① served-URL 健康檢查 / ② band-aid cleanup / 或其他 backlog。
+```
+
 ## 2026-06-15 Session 170 — 監察清訊號 / 學校行政手冊 404 兩層修 / 平台 v3.2.0 正式版
 
 - **ID:** Claude_20260615_2123
