@@ -4333,37 +4333,58 @@
       {
        "req": "學校須按課程目標和架構，結合辦學理念、幼兒成長和需要，設計具校本特色的課程目標、內容和學與教策略。",
        "page": 19,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園課程須以「生活化主題」、「綜合模式」和「從遊戲中學習」模式推行，涵蓋價值觀和態度、技能和知識，促進幼兒均衡發展。",
        "page": 20,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "課程發展為持續進程，學校應定期檢視課程現況，以回應社會轉變及教育趨勢和新議題。",
        "page": 44,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "課程規劃須包括情境分析、組織目標和內容、編訂策略及評估成效四個主要階段，環環緊扣。",
        "page": 44,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應適時修訂學習主題、內容或活動，致力照顧幼兒在性格、能力、興趣、發展步伐、語言、文化和生活習慣等方面的多樣性。",
        "page": 45,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校須按課程架構針對校內不同年齡幼兒的需要規劃機構課程，細緻釐訂學習內容和學與教策略。",
        "page": 96,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "應用科技輔助教學時，所佔用時間以不影響整體教學安排為原則，並須以幼兒健康為重，不宜濫用。",
        "page": 38,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應成立專責資優教育小組，負責制定校本資優教育政策，督導及監察政策推行，並評估各項任務及計劃。",
@@ -4452,12 +4473,18 @@
       {
        "req": "學校應依據本課程指引所提出的建議，規劃開放和富彈性的校本課程，落實兒童為本等六項課程設計主導原則。",
        "page": 43,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校在規劃校本課程時，應考慮辦學理念、師資、社區環境和教學資源等因素，訂立具體可行的教學目標作為課程發展綱領。",
        "page": 46,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校發展校本課程時，須配合教育統籌委員會訂定的整體教育目標及課程發展議會訂定的學校課程宗旨，有系統及策略性地規劃課程。",
@@ -4467,27 +4494,42 @@
       {
        "req": "課程領導須審視幼兒的成長需要，訂立課程發展方向和具體學習目的，規劃課程並持續評鑑成效。",
        "page": 46,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "課程領導須持續評鑑課程成效，定期向校長／副校長匯報，共同商議發展方案或尋求資源以不斷優化課程。",
        "page": 46,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校長／副校長應領導教師共同制定課程目標和發展計劃，凝聚共識，並鼓勵教師積極參加專業發展活動。",
        "page": 46,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園課程須涵蓋六個學習範疇：體能與健康、語文、幼兒數學、大自然與生活、個人與群體及藝術與創意，落實五項發展目標。",
        "page": 19,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園課程架構須涵蓋「價值觀和態度」、「技能」和「知識」三個互有關連的組成部分，與小學及中學共同構建連貫課程體系。",
        "page": 19,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "小學課程須落實四個關鍵項目：德育及公民教育（加強價值觀教育）、從閱讀中學習（跨課程閱讀）、專題研習（跨學科整合）及運用資訊科技進行互動學習（促進自主學習）。",
@@ -4557,17 +4599,26 @@
       {
        "req": "校長／副校長應領導教師共同制定課程目標和發展計劃，凝聚共識。",
        "page": 47,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "課程領導應持續評鑑課程，檢視課程成效，並定期向校長／副校長匯報，共同商議發展方案或尋求資源，不斷優化課程。",
        "page": 48,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校長／副校長應領導教師共同制定課程目標和發展計劃，凝聚共識，並鼓勵教師積極參加專業發展活動，推廣觀摩交流文化。",
        "page": 48,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應參考各相關科目的課程文件，並按建議課時分配靈活安排各部分的百分比。",
@@ -4642,12 +4693,18 @@
       {
        "req": "幼稚園應依據教育局課程指引，規劃開放和富彈性的校本課程，並以兒童為本、照顧幼兒多樣性為原則。",
        "page": 45,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "課程發展屬持續進程，學校應定期檢視課程現況，以回應社會轉變及教育趨勢。",
        "page": 46,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校須遵循通識教育科由2021/22學年中四級起以公民與社會發展科代替的課程安排。",
@@ -4704,17 +4761,26 @@
       {
        "req": "學校應由2017/18學年起循序漸進推行新課程，以落實本課程指引的建議。",
        "page": 14,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園課程架構須涵蓋「個人與群體」、「大自然與生活」、「體能與健康」、「藝術與創意」、「幼兒數學」和「語文」六個學習範疇，以達至五項發展目標。",
        "page": 25,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校須確保學習環境安全健康，定期檢查和更換破損傢具，預防意外發生。",
        "page": 50,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應成立由各學習領域代表組成的「跨課程語文學習」委員會／工作組，就推動「跨課程語文學習」制定方向及監察其推行情況。",
@@ -4724,7 +4790,10 @@
       {
        "req": "學校宜設有完善機制，監察和檢討課程的推行現況，適時向教師作出回饋，調適課程發展路向。",
        "page": 51,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校課程應涵蓋八個學習領域及五種基要學習經歷，提供寬廣而均衡的整體課程。",
@@ -4894,12 +4963,18 @@
       {
        "req": "幼稚園課程應促進幼兒在德、智、體、群、美各方面的全面和均衡發展。",
        "page": 20,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "課程須加強「品德發展」元素，促使課程在德、智、體、群、美方面達至五育並行。",
        "page": 22,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應參考中學教育的學校課程，並考慮學生的能力、興趣和需要，規劃及推行學校課程。",
@@ -4969,22 +5044,34 @@
       {
        "req": "幼稚園課程應以「兒童為本」為核心價值，持守認識和尊重每個幼兒發展獨特規律的重要原則，課程設計應配合幼兒成長和發展需要。",
        "page": 12,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園教育課程應培育幼兒在德、智、體、群、美各方面的均衡發展，並培育幼兒正面的價值觀和積極的態度。",
        "page": 21,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園課程架構涵蓋六個學習範疇，包括「個人與群體」、「大自然與生活」、「體能與健康」、「藝術與創意」、「幼兒數學」和「語文」，以綜合模式推行，不鼓勵分科學習。",
        "page": 26,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "為促進幼兒的身心均衡發展，課程時間分配上要具彈性，避免分科或偏重於學科知識的傳授。",
        "page": 50,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應善用教育局由2019/20學年起發放的恆常「全方位學習津貼」，靈活運用於不同學習領域和課程範疇，為學生組織更多走出課室的體驗學習活動。",
@@ -5208,22 +5295,34 @@
       {
        "req": "幼稚園日常課程活動時間安排須具彈性，避免分科或偏重學科知識傳授，以促進幼兒身心均衡發展。",
        "page": 48,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "半日制幼稚園每天須安排不少於30分鐘、全日制幼稚園每天須安排不少於50分鐘時間，讓幼兒參與自由遊戲。",
        "page": 49,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園日常活動應包括體能活動、音樂活動和藝術活動、自選區角活動、生活經驗分享等；全日制幼稚園並須涵蓋午膳及午睡。",
        "page": 49,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "全日制小學應發揮課時優勢，於下午時段加入輕鬆的學習活動，讓小一生發展潛能並避免勞累。",
        "page": 73,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校宜於下午安排45分鐘固定時段（導修課除外），以確保有充足時間進行多元化聯課活動或全方位學習。",
@@ -5363,12 +5462,18 @@
       {
        "req": "半日制幼稚園應每天安排不少於30分鐘、全日制幼稚園應每天安排不少於50分鐘時間，讓幼兒參與自由遊戲。",
        "page": 57,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應避免於幼兒自由遊戲時段進行其他學習活動，以保障自由遊戲時間不受侵佔。",
        "page": 57,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校課程規劃應確保小學藝術教育正規課時達總課時的15%，初中達8-10%。",
@@ -5388,7 +5493,10 @@
       {
        "req": "半日制幼稚園每日須安排不少於30分鐘自由遊戲，全日制幼稚園每日須安排不少於50分鐘自由遊戲，且不得於自由遊戲時段進行其他學習活動。",
        "page": 57,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "所有高中學生都必須修讀通識教育科（含三個學習範圍六個單元及獨立專題探究）。",
@@ -5473,42 +5581,66 @@
       {
        "req": "幼稚園學校應持守「兒童為本」理念，不宜追隨小學課程內容，以免出現課程小學化的超前教學情況。",
        "page": 70,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "小學應採納學生在幼稚園所熟悉的課堂學習和評估模式，特別在小一階段，以延續學習興趣及建立自信心。",
        "page": 70,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "小學可考慮延遲半個學期或一個學期，才正式實行家課、默書和測驗的安排，讓小一新生逐步適應。",
        "page": 73,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應持守「兒童為本」的理念，不宜追隨小學的課程內容，以免出現課程小學化的超前教學情況。",
        "page": 70,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "教師不應追趕小學的課程，例如要求幼兒書寫筆劃艱深的詞彙或進行步驟繁複的運算練習，應幫助幼兒打穩基礎知識。",
        "page": 73,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應持續推動共融文化，確保所有小一學生在學習和生活銜接上均可得到適切的支援和輔導。",
        "page": 74,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應適時審視校情，了解整體及個別幼兒的需要，制定共融的政策，並在課程規劃和實施上關顧幼兒的多樣性。",
        "page": 64,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應制定周詳的計劃，並持續進行，以幫助新入學的幼兒適應校園生活，並與家長保持緊密連繫，讓家長知悉幼兒在校的適應情況。",
        "page": 70,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校宜靈活編排小一時間表，以便進行單元或主題式的探究學習活動，讓小一新生逐步適應不同科目的學習模式。",
@@ -6142,47 +6274,74 @@
       {
        "req": "學校須將評估作為課程的重要部分，透過評估檢視課程內容和實施成效，作為課程發展的藍圖。",
        "page": 58,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "評估重點應以了解幼兒於德、智、體、群、美五項發展目標的表現為本，評估須涵蓋六個學習範疇。",
        "page": 60,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應讓家長適時獲取及了解評估所得的資料，以掌握子女的表現，配合幼兒的學習。",
        "page": 60,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校不宜在小一生入學初期進行默寫活動或紙筆評估，教師亦不宜要求小一生背誦或強記大量學科知識。",
        "page": 74,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "評估及學與教同屬課程推展不可或缺的部分，學校應於學期開始已作出整體規劃部署。",
        "page": 24,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校不應以口試或筆試等測考形式評核幼兒的學習表現。",
        "page": 24,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園進行評估應體現四項原則：為促進學習而評估、評估應具備持續性、在實際學習環境進行、教師/家長/幼兒共同參與。",
        "page": 51,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "評估以促進學習為目的，不應用於比較幼兒的表現和能力，並應於真實環境進行，跟進幼兒的學習和成長過程。",
        "page": 59,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼兒階段評估不宜以劃一標準評定幼兒的表現，須有系統地在真實學習環境中檢視幼兒身心發展。",
        "page": 96,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校不應在初中的校內評估練習中採用或模擬公開考試模式。",
@@ -6287,27 +6446,42 @@
       {
        "req": "學校須為幼兒建立學習歷程檔案並有整體規劃，確保教師有足夠培訓，並幫助家長了解和認同有關理念。",
        "page": 62,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學習歷程檔案應作為幼兒成長的系統記錄，而非評估工具，並可在幼兒升班時供接任教師參考，離校時交回家長保管。",
        "page": 62,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應持續蒐集家長意見和幼兒回應，在有需要時調整學習歷程檔案的策略，以達至預期目標。",
        "page": 62,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學習歷程檔案可在幼兒升班時供接任教師參考和跟進，在幼兒離校時應交回家長保管。",
        "page": 62,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校以學習歷程檔案作為幼兒的學習記錄，需要有整體規劃，確保教師有足夠的培訓，並幫助家長了解和認同有關理念，持續蒐集家長意見作必要調整。",
        "page": 62,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校內評估必須根據課程目標、學習重點及預期的學習成果，配合學生的學習情況。",
@@ -6422,12 +6596,18 @@
       {
        "req": "評估是課程發展不可缺少的部分，進行評估應體現以下原則：為促進學習而評估、具備持續性、在實際學習環境進行、教師家長幼兒共同參與。",
        "page": 51,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校宜設有完善的機制，監察和檢討課程的推行現況，適時向教師作出回饋，使能調適課程發展路向，持續提升教學質素。",
        "page": 52,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應為小一調適課程及課業，並於上學期以多元化的進展性評估代替測考，且不應進行高風險評估，讓小一新生有足夠時間適應小學的學習模式。",
@@ -6467,12 +6647,18 @@
       {
        "req": "評估重點應以了解幼兒於各發展目標（品德、認知語言、身體、情意群性、美感）的表現為本。",
        "page": 61,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "教師應在真實學習環境中透過觀察和記錄評估幼兒表現，不應依賴口試、筆試或記憶性評估。",
        "page": 61,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校須將校本評估與課業政策上載至學校網頁，讓公眾及持份者（包括學校管理委員會／校董會成員、家長和學生）知悉。",
@@ -6492,12 +6678,18 @@
       {
        "req": "學與教和評估同是課程推展不可或缺的部分，應於學期開始已作出整體規劃部署；學校不應以口試或筆試等測考形式評核幼兒的學習表現。",
        "page": 26,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "有效的評估有賴教師對幼兒進行仔細的觀察、作準確的記錄，以及客觀、全面的分析，以回饋教學，促進幼兒的學習與健康成長。",
        "page": 60,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應持續檢視和完善校本評估政策，提升各持份者的評估素養，推動評估模式的轉變，以創造空間促進學生均衡發展。",
@@ -6687,12 +6879,18 @@
       {
        "req": "學校不應安排就讀幼兒班的幼兒執筆寫字。",
        "page": 61,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "低班及高班幼兒不應進行機械式抄寫和計算，亦不應安排過量、頻密或過於艱深的家課，以免造成不必要的壓力和操練。",
        "page": 61,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "中學應諮詢教師和家長等持份者，制定有關家課的整體政策，協助學生培養良好學習習慣和正面價值觀。",
@@ -6727,7 +6925,10 @@
       {
        "req": "不應安排就讀幼兒班的幼兒執筆寫字；低班及高班幼兒亦不應進行機械式的抄寫和計算，也不應安排過量、頻密或過於艱深的家課。",
        "page": 62,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "每所學校均應制訂適切的課業政策，包括制定校本協調機制，適當協調各科在不同班級的家課分配，並定期檢視校本課業政策。",
@@ -6962,12 +7163,18 @@
       {
        "req": "品德發展課程須初步建立幼兒是非觀念、培養正面的價值觀及自我形象，不應單以行為量表或檢查清單評量幼兒品德表現。",
        "page": 22,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "課程中的品德發展目標須涵蓋初步建立是非觀念、培養正面的自我形象和生活態度、學會尊重和關心身邊的人，以及認識在不同群體的角色和責任。",
        "page": 22,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校可把周會、生活教育課和德育及公民教育課整合，利用教育局相關學與教資源或延伸活動，幫助學生建立正確的價值觀和積極的態度。",
@@ -7057,12 +7264,18 @@
       {
        "req": "學校可因應辦學理念及學校條件，選取培育幼兒正面價值觀和積極態度的重點（如堅毅、關愛、責任感等），以規劃校本品德教育，並邀請家長支持和參與。",
        "page": 22,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "教師宜在學校的日常學習活動中，以持續觀察的方式了解幼兒的品德發展情況，適時給予正面的回饋，不應單以「行為量表」或「檢查清單」評量幼兒品德發展的表現。",
        "page": 23,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應持續透過校本價值觀教育課程規劃，在課堂內外積極推展國民教育，弘揚中華傳統文化和美德，提升學生的國民身份認同。",
@@ -7082,7 +7295,10 @@
       {
        "req": "學校可配合幼兒發展和特質，因應辦學理念及學校條件，選取培育幼兒正面價值觀和積極態度的重點（如堅毅、關愛、責任感），以規劃校本品德教育。",
        "page": 22,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校必須積極推廣國民教育，透過課堂內外的多元學習經歷和活動傳承和弘揚中華文化。",
@@ -7432,7 +7648,10 @@
       {
        "req": "幼稚園教師應設計教材，配合學校的辦學理念、幼兒特點和成長需要，以發展校本課程。",
        "page": 55,
-       "source_id": "g29"
+       "source_id": "g29",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校管理層有責任確保校本學與教資源配合課程宗旨和目標，內容必須正確、完整、客觀和持平，並須設立校本監察機制定期檢視和更新。",
@@ -7517,17 +7736,26 @@
       {
        "req": "學校須制定共融政策，在課程規劃和實施上關顧幼兒的多樣性，並以全校參與的模式促進幼兒的學習和發展。",
        "page": 64,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應認識和接納幼兒的多樣能力表現和學習需要，在課程上作出調適，調節學與教步伐。",
        "page": 64,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應適時修訂學習主題、內容或活動，致力照顧幼兒在性格、能力、興趣、語言、文化和生活習慣等方面的多樣性，並為幼兒提供共融的學習環境。",
        "page": 46,
-       "source_id": "kgecg_2017"
+       "source_id": "kgecg_2017",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校須成立由學生支援小組並由特殊教育需要統籌主任帶領，在規劃及制定學校政策過程中討論課程規劃及調適的原則和程序、校內評估政策和學與教的支援措施。",
