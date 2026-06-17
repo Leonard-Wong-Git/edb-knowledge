@@ -1,0 +1,33 @@
+{
+  "_meta": {
+    "updated": "2026-06-17",
+    "note": "資料庫更新日誌 — 簡述新增/更新的 EDB 文件。每次入庫順手 append 一條（newest first）。"
+  },
+  "entries": [
+    {
+      "date": "2026-06-17",
+      "action": "新增",
+      "title": "中小學數字教育發展藍圖（DEBP）",
+      "desc": "新增 6 份文件：主藍圖、行政摘要、人工智能素養學習架構、教學運用 AI 指南、AI 素養架構示例、AI 應用學與教示例（共 209 個知識片段）。",
+      "url": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/debp.html"
+    },
+    {
+      "date": "2026-06-15",
+      "action": "新增",
+      "title": "學校管理委員會（SMC）章程樣本",
+      "desc": "新增 SMC 章程樣本，補強學校管治範疇（18 個知識片段）。"
+    },
+    {
+      "date": "2026-06-14",
+      "action": "新增",
+      "title": "幼稚園行政手冊 / 學前機構辦學手冊",
+      "desc": "新增幼稚園營運與行政兩份手冊（共 435 個知識片段）。"
+    },
+    {
+      "date": "2026-06-10",
+      "action": "新增",
+      "title": "法團校董會（IMC）治理文件",
+      "desc": "新增法團校董會成立與運作、選舉與委任等治理文件（共 229 個知識片段）。"
+    }
+  ]
+}

@@ -74,10 +74,39 @@ a{color:inherit;text-decoration:none}
   transition:background .15s;
 }
 .nav-cta:hover{background:rgba(255,255,255,0.22);color:#fff;border-bottom:1px solid rgba(255,255,255,0.25)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-log-btn{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;
+  width:34px;height:34px;border-radius:5px;cursor:pointer;
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);
+  color:rgba(255,255,255,0.82);transition:background .15s;
+}
+.nav-log-btn:hover{background:rgba(255,255,255,0.2);color:#fff}
+.nav-log-dot{position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:var(--accent);border:1.5px solid var(--edb);display:none}
+.nav-log-dot.on{display:block}
 @media(max-width:600px){
   .nav-inner{padding:10px 16px}
   .brand .sub{display:none}
 }
+/* ── Update-log modal ── */
+.log-overlay{position:fixed;inset:0;z-index:100;background:rgba(27,31,26,0.55);display:none;align-items:flex-start;justify-content:center;padding:72px 16px}
+.log-overlay.open{display:flex}
+.log-modal{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;max-width:560px;width:100%;max-height:76vh;overflow:auto;box-shadow:0 14px 48px rgba(27,31,26,.28)}
+.log-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--paper-2)}
+.log-head h3{font-size:1.05rem;font-weight:700;color:var(--ink)}
+.log-head .log-sub{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);display:block;margin-top:2px}
+.log-close{background:none;border:none;font-size:22px;line-height:1;cursor:pointer;color:var(--ink-3);padding:0 4px}
+.log-close:hover{color:var(--ink)}
+.log-list{padding:6px 22px 20px}
+.log-item{padding:14px 0;border-bottom:1px solid var(--line-2)}
+.log-item:last-child{border-bottom:none}
+.log-date{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.log-tag{display:inline-block;font-size:10px;font-weight:600;padding:1px 7px;border-radius:10px;margin-left:6px}
+.log-tag.add{background:var(--edb-wash);color:var(--edb)}
+.log-tag.upd{background:#FFF3E0;color:#7A4500}
+.log-ttl{font-weight:600;color:var(--ink);margin-top:4px;font-size:.95rem}
+.log-desc{color:var(--ink-2);font-size:.86rem;margin-top:2px;line-height:1.6}
+.log-desc a{color:var(--t-curriculum);text-decoration:underline}
 
 /* ── Hero ── */
 .hero{
@@ -250,9 +279,26 @@ a{color:inherit;text-decoration:none}
       <span class="name">政策核對</span>
       <span class="sub">香港資助學校 · 政策知識庫</span>
     </a>
-    <a class="nav-cta" href="app.html">進入平台 →</a>
+    <div class="nav-right">
+      <button class="nav-log-btn" id="updateLogBtn" type="button" title="資料庫更新日誌" aria-label="資料庫更新日誌">
+        <svg width="17" height="17" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span class="nav-log-dot" id="updateLogDot"></span>
+      </button>
+      <a class="nav-cta" href="app.html">進入平台 →</a>
+    </div>
   </div>
 </nav>
+
+<!-- 資料庫更新日誌 modal (S171) -->
+<div class="log-overlay" id="logOverlay" role="dialog" aria-modal="true" aria-labelledby="logTitle">
+  <div class="log-modal">
+    <div class="log-head">
+      <div><h3 id="logTitle">資料庫更新日誌</h3><span class="log-sub">Database updates</span></div>
+      <button class="log-close" id="logClose" type="button" aria-label="關閉">×</button>
+    </div>
+    <div class="log-list" id="logList"><p class="log-desc" style="padding:14px 0">載入中…</p></div>
+  </div>
+</div>
 
 <!-- Hero -->
 <section class="hero">
@@ -267,7 +313,7 @@ a{color:inherit;text-decoration:none}
       <em>搜尋 EDB 政策，毋須逐頁翻查通告</em>
     </h1>
     <p class="hero-desc">
-      語義搜尋 <span data-stat="chunks">15,127</span> 個 EDB 原文知識片段，
+      語義搜尋 <span data-stat="chunks">15,336</span> 個 EDB 原文知識片段，
       上載學校文件即時比對指引與合規清單，並下載 15 個範疇的政策範本。
     </p>
     <div class="hero-actions">
@@ -294,7 +340,7 @@ a{color:inherit;text-decoration:none}
         <span class="stat-label">已核實政策事實</span>
       </div>
       <div class="stat-item">
-        <span class="stat-num" data-stat="chunks">15,127</span>
+        <span class="stat-num" data-stat="chunks">15,336</span>
         <span class="stat-label">原文知識片段</span>
       </div>
       <div class="stat-item">
@@ -322,7 +368,7 @@ a{color:inherit;text-decoration:none}
       </div>
       <div class="feature-name">政策語義搜尋</div>
       <div class="feature-desc">
-        輸入自然語言問題，AI 即時比對 <span data-stat="chunks">15,127</span> 個 EDB 原文片段，附整理答案及原始來源引用。
+        輸入自然語言問題，AI 即時比對 <span data-stat="chunks">15,336</span> 個 EDB 原文片段，附整理答案及原始來源引用。
       </div>
       <div class="feature-tags">
         <span class="ftag" style="background:#FFF3E0;color:#7A4500">EDB 原文文件</span>
@@ -517,6 +563,44 @@ a{color:inherit;text-decoration:none}
       });
     })
     .catch(function(){ /* keep hardcoded fallback values */ });
+</script>
+
+<!-- 資料庫更新日誌 — fetch update_log.json, render modal, dot = unseen latest (S171) -->
+<script>
+(function(){
+  var btn=document.getElementById('updateLogBtn'), overlay=document.getElementById('logOverlay'),
+      closeBtn=document.getElementById('logClose'), list=document.getElementById('logList'),
+      dot=document.getElementById('updateLogDot');
+  if(!btn||!overlay) return;
+  var SEEN_KEY='k1_updlog_seen_v1', newest='';
+  function render(entries){
+    list.innerHTML='';
+    if(!entries.length){ list.innerHTML='<p class="log-desc" style="padding:14px 0">暫無更新紀錄。</p>'; return; }
+    entries.forEach(function(e){
+      var item=document.createElement('div'); item.className='log-item';
+      var d=document.createElement('span'); d.className='log-date'; d.textContent=e.date||''; item.appendChild(d);
+      if(e.action){ var t=document.createElement('span'); t.className='log-tag '+(e.action==='更新'?'upd':'add'); t.textContent=e.action; item.appendChild(t); }
+      var ttl=document.createElement('div'); ttl.className='log-ttl'; ttl.textContent=e.title||''; item.appendChild(ttl);
+      var ds=document.createElement('div'); ds.className='log-desc'; ds.textContent=e.desc||'';
+      if(e.url && /^https?:\/\//.test(e.url)){ ds.appendChild(document.createTextNode(' ')); var a=document.createElement('a'); a.href=e.url; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent='查看來源 →'; ds.appendChild(a); }
+      item.appendChild(ds); list.appendChild(item);
+    });
+  }
+  function openLog(){ overlay.classList.add('open'); if(newest){ try{localStorage.setItem(SEEN_KEY,newest);}catch(e){} } dot.classList.remove('on'); }
+  function closeLog(){ overlay.classList.remove('open'); }
+  btn.addEventListener('click', openLog);
+  closeBtn.addEventListener('click', closeLog);
+  overlay.addEventListener('click', function(e){ if(e.target===overlay) closeLog(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'&&overlay.classList.contains('open')) closeLog(); });
+  fetch('update_log.json').then(function(r){return r.json();}).then(function(data){
+    var entries=(data&&data.entries)||[];
+    render(entries);
+    if(entries.length){ newest=entries[0].date||'';
+      var seen=''; try{seen=localStorage.getItem(SEEN_KEY)||'';}catch(e){}
+      if(newest && newest!==seen) dot.classList.add('on');
+    }
+  }).catch(function(){ list.innerHTML='<p class="log-desc" style="padding:14px 0">無法載入更新日誌。</p>'; });
+})();
 </script>
 
 <!-- Cloudflare Web Analytics (cookieless beacon — S154; public client-side token) -->

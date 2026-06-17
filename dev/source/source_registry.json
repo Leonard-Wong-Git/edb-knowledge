@@ -6234,6 +6234,168 @@
         "content_hash": "3b3f551c77af197395daa7e7b9af4424909315fe45ad56871ec4e8241364be9c",
         "hash_checked_at": "2026-06-15"
       }
+    },
+    {
+      "source_id": "debp_blueprint",
+      "title": "中小學數字教育發展藍圖",
+      "title_en": "Digital Education Blueprint (Primary and Secondary Schools)",
+      "title_short": "DEBP",
+      "url_landing": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/debp.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/DEBP_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "it"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026-06",
+      "last_checked_at": "2026-06-17",
+      "supersedes": null,
+      "notes": "S171 (2026-06-17): DEBP 主藍圖。入 mon list + 分析入庫 Channel B (92 chunks, text-layer, page-resolvable, U+FFFD=0; topic=it, digital_education route). 96 頁中約 16 頁圖像未含文字層 (monitor)。",
+      "freshness_metadata": {
+        "last_modified": "Tue, 16 Jun 2026 09:25:45 GMT",
+        "content_length": "7448020",
+        "etag": "\"8072df1b72fddc1:0\"",
+        "content_hash": "cbfd726ea8125a955d4dac38595b294cc69133b512405017f30c1ecec32ccb68",
+        "hash_checked_at": "2026-06-17"
+      }
+    },
+    {
+      "source_id": "debp_exec_summary",
+      "title": "中小學數字教育發展藍圖（行政摘要）",
+      "title_en": "DEBP Executive Summary",
+      "title_short": "DEBP行政摘要",
+      "url_landing": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/debp.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/DEBP_Executive%20Summary_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "it"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026-06",
+      "last_checked_at": "2026-06-17",
+      "supersedes": null,
+      "notes": "S171 (2026-06-17): DEBP 行政摘要。Channel B (5 chunks, text-layer, page-resolvable). digital_education route。",
+      "freshness_metadata": {
+        "last_modified": "Tue, 16 Jun 2026 06:30:41 GMT",
+        "content_length": "238519",
+        "etag": "\"803e0a759fddc1:0\"",
+        "content_hash": "465d08d825e82aefcfd966f7a5b4d1e1717271f5895498f7e55b9055454d802f",
+        "hash_checked_at": "2026-06-17"
+      }
+    },
+    {
+      "source_id": "debp_ai_literacy_framework",
+      "title": "中小學人工智能素養學習架構（附篇一）",
+      "title_en": "AI Literacy Learning Framework Supplement (Primary and Secondary Schools)",
+      "title_short": "AI素養學習架構",
+      "url_landing": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/debp.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/SupplementAILiteracyLearningFramework(PrimaryAndSecondarySchools)_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "it"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026-06",
+      "last_checked_at": "2026-06-17",
+      "supersedes": null,
+      "notes": "S171 (2026-06-17): DEBP 補充·AI 素養學習架構。圖像 PDF 無文字層 → OCR (gpt-4o vision, draft 質, 1 illegible figure region)。Channel B 20 chunks。digital_education route。",
+      "freshness_metadata": {
+        "last_modified": "Tue, 16 Jun 2026 04:29:24 GMT",
+        "content_length": "3373198",
+        "etag": "\"02a92b548fddc1:0\"",
+        "content_hash": "210836c31f084a8eb4b3cee94ac65c08d033a6bbcb7bf5e7897cd5bf6c1251b2",
+        "hash_checked_at": "2026-06-17"
+      }
+    },
+    {
+      "source_id": "debp_ai_teaching_guide",
+      "title": "在教學上運用人工智能指南（中小學）（附篇二）",
+      "title_en": "Guide to Using AI in Teaching Supplement II (Primary and Secondary Schools)",
+      "title_short": "教學運用AI指南",
+      "url_landing": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/debp.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/SupplementIIGuideToUsingAIInTeaching(PrimaryAndSecondarySchools)_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "it"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026-06",
+      "last_checked_at": "2026-06-17",
+      "supersedes": null,
+      "notes": "S171 (2026-06-17): DEBP 補充二·教學運用 AI 指南。圖像 PDF 無文字層 → OCR (gpt-4o vision, draft 質, 1 illegible region)。Channel B 16 chunks。digital_education route。",
+      "freshness_metadata": {
+        "last_modified": "Tue, 16 Jun 2026 04:29:24 GMT",
+        "content_length": "2748584",
+        "etag": "\"02a92b548fddc1:0\"",
+        "content_hash": "45eb7996c7e28a23193b7cab77c5a203f1fe781bbaf046953b6449bfdedd7c7a",
+        "hash_checked_at": "2026-06-17"
+      }
+    },
+    {
+      "source_id": "debp_ailf_example",
+      "title": "中小學人工智能素養架構示例",
+      "title_en": "AI Literacy Framework Examples",
+      "title_short": "AI素養架構示例",
+      "url_landing": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/debp.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/AILFexample_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "it"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026-06",
+      "last_checked_at": "2026-06-17",
+      "supersedes": null,
+      "notes": "S171 (2026-06-17): DEBP AI 素養架構示例。Channel B (19 chunks, text-layer, page-resolvable)。digital_education route。",
+      "freshness_metadata": {
+        "last_modified": "Wed, 17 Jun 2026 04:56:42 GMT",
+        "content_length": "609322",
+        "etag": "\"0e14eb015fedc1:0\"",
+        "content_hash": "d991c00992e51a8f677299fea75e60bfd796a643aa0cc551bb782e8a8267de7a",
+        "hash_checked_at": "2026-06-17"
+      }
+    },
+    {
+      "source_id": "debp_ai_examples",
+      "title": "在學與教中應用人工智能的示例",
+      "title_en": "Examples on Application of AI in Learning and Teaching",
+      "title_short": "AI應用學與教示例",
+      "url_landing": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/debp.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/ExamplesOnApplicationOfAIInLearningAndTeaching_TC.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "it"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026-06",
+      "last_checked_at": "2026-06-17",
+      "supersedes": null,
+      "notes": "S171 (2026-06-17): DEBP AI 應用學與教示例。Channel B (57 chunks, text-layer, page-resolvable)。digital_education route。",
+      "freshness_metadata": {
+        "last_modified": "Tue, 16 Jun 2026 09:29:58 GMT",
+        "content_length": "1006254",
+        "etag": "\"02facb272fddc1:0\"",
+        "content_hash": "137a930840d85478b0353627b6b6eb26301decfc0bc2af94677441a81a1c899b",
+        "hash_checked_at": "2026-06-17"
+      }
     }
   ]
 }
