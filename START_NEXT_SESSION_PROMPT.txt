@@ -3,11 +3,12 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella 已設 redirect-only).
 Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.2.0（正式版）。
-Product state: HEAD == origin/main（已 push，最新 beddcd8）。Supabase 15,336；Render backend live；Pages live（v3.2.0；guidelines.json v2.6.0 公開 158）。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.0 + Render /health + HEAD==origin/main + Supabase 15,336。
+Product state: HEAD == origin/main（已 push，最新 6488b44）。Supabase 15,336；Render backend live；Pages live（v3.2.0；guidelines.json v2.6.0 公開 158、app 內庫 167、支援跨範疇 also_in）。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.0 + Render /health + HEAD==origin/main + Supabase 15,336。
 
 S171（2026-06-17）已 ship + push：
 - DEBP 中小學數字教育發展藍圖 6 源入庫 Channel B（Supabase 15,127→15,336，209 chunks：4 文字層 fetch_extract + 2 OCR ocr_extract gpt-4o；新 digital_education route 擺 curriculum 前；Render live 探針 DEBP query 8/8 全 debp_* 源；topic=it；canonical chunker 未改）+ registry mon list +6（225 源）。
 - 指引文件庫分類「資訊科技」正名「數字教育」+ 收錄 DEBP 6 份指引（guidelines.json v2.5.0→2.6.0、公開 152→158、app 161→167；策展連結庫 GUIDELINES_REGISTRY→guidelines.json，與搜尋語料 Supabase 兩個獨立系統）。
+- 指引庫支援跨範疇 also_in[]（12 份跨範疇文件可現身多類：SEN/資優→學生事務、校曆/g28→行政、DEBP→課程；全部 unique 不變、類別 count 重疊；純 UI、下游契約零改）。
 - 首頁資料庫更新日誌：index.html nav「進入平台」旁 📋 icon → modal，data 由 update_log.json fetch（簡述新增/更新文件；dot=未讀最新）。
 - 重開「EDB 通告分析系統」入口連結（index.html，還原 S154 停用嘅 <a>；URL 301→circular.wongfu.net 200 verified）。
 - 頂層 umbrella root 設 redirect-only（非 git；頂層 handoff + START_NEXT 指向 Draft，免再撞 onboarding 空殼）。Draft 零接觸。
