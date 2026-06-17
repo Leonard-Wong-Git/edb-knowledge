@@ -157,6 +157,17 @@ export function failedChannelBResponse(query: string): SearchChannelBResponse {
  * to the most relevant source documents.
  */
 const SOURCE_SETS: Record<string, string[]> = {
+  // S171 — DEBP 中小學數字教育發展藍圖 / AI 素養 (digital_education route). 6 sources
+  // ingested 2026-06-17 (209 chunks, topic=it). Cohesive digital-education corpus; routed
+  // before curriculum so 數字教育/AI 素養/發展藍圖 queries reach it not generic 課程 search.
+  digital_education: [
+    "debp_blueprint",
+    "debp_exec_summary",
+    "debp_ai_literacy_framework",
+    "debp_ai_teaching_guide",
+    "debp_ailf_example",
+    "debp_ai_examples",
+  ],
   // ── PLAN-1b selective routes (S118) — matched before the broad production
   // categories below. SAG is intentionally allowed in `cpd`/`conduct` (their
   // gold lives in sag_2025_11) but stays bounded by the per-source quota, so
@@ -467,6 +478,11 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // g26 收生指引 only). None of these match the earlier kg_admission regex (收生/入學/學費),
   // so kg_admission queries are unaffected.
   kg_admin: /幼稚園行政|幼稚園.{0,4}行政|辦學手冊|營運手冊|學前機構|幼稚園.{0,4}辦學|幼稚園.{0,4}營辦|幼稚園.{0,4}營運|幼稚園.{0,4}運作|開辦幼稚園|幼稚園牌照|幼稚園.{0,4}人事|幼稚園.{0,4}財務|幼稚園.{0,4}管理|幼稚園.{0,4}質素|幼稚園.{0,4}健康紀錄|幼稚園.{0,4}健康記錄|幼稚園教育計劃|幼教計劃|免費優質幼稚園|幼稚園.{0,4}周年/,
+  // S171 — DEBP 數字教育發展藍圖 / AI 素養. MUST precede curriculum (which matches bare
+  // 教學/教育). Distinctive digital/AI terms only — no overlap with earlier routes
+  // (steam=/STEAM|STEM/ keeps STEAM queries; cpd keeps 教師培訓). \bAI\b/i catches the bare
+  // English token even between CJK (CJK = \W in JS, so AI gets word boundaries).
+  digital_education: /數字教育|數位教育|數碼教育|發展藍圖|\bDEBP\b|人工智能|\bAI\b|AI素養|人工智能素養|生成式人工智能|資訊科技教育/i,
   curriculum: /課程|科目|教學|學習目標|評估|教材|課程發展|學習領域|教師發展|CPD|專業發展|英文科|中文科|數學科|常識科|科學科|體育科|音樂科|視藝科|小學課程|中學課程|課程指引|學習成果|評核|幼稚園|幼兒|學前|K1|K2|K3|遊戲學習/,
 };
 
@@ -516,6 +532,7 @@ const QUERY_EXPANSIONS: Record<string, string> = {
   // and single-topic, so bridging 視學→校外評核/自我評估/表現指標 vocabulary lifts recall
   // without the cross-topic dilution that broad gov_admin/safety expansion would cause.
   qa_inspection: "校外評核 學校自我評估 表現指標 質素保證 問責架構 校本管理 學校發展",
+  digital_education: "中小學數字教育發展藍圖 人工智能素養 AI素養學習架構 在教學上運用人工智能 生成式人工智能 數字素養 數字教育 資訊科技教育 電子學習",
   curriculum: "課程指引 教學 學習目標",
 };
 
