@@ -290,7 +290,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "embc5_2005_appointment", "edbc14_2023_student_protect", "staff_medical_health",
     "job_sharing_guide", "surplus_teacher_arr_2026", "private_sch_employment_notes",
     "supply_teacher_guide", "long_service_payment_guide",  // S142 §2: 代課教師指引 + 遣散費長服金指引
-    "sch_calendar_guide",   // S152: 學校曆/一般假期/上課日數計算 (校曆 keyword already routes here), Discovery
+    // S172: sch_calendar_guide deprecated (404 + year-specific 2025/26 holidays superseded; chunks DELETEd). 校曆 queries stay covered by g11 擬定校曆表指引 above.
     "role_facts_hr",
     "role_facts_general",
   ],

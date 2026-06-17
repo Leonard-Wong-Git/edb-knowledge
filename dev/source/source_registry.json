@@ -5962,7 +5962,7 @@
         "general"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2024-2026",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
@@ -5973,7 +5973,9 @@
         "etag": "\"8029d226ad0db1:0\"",
         "content_hash": "8d0d9926725f28459512fafeccc74297897ff5e009c3753c80c1aeddf8eb950b",
         "hash_checked_at": "2026-06-15"
-      }
+      },
+      "deprecated_at": "2026-06-17",
+      "deprecation_note": "S172: served-URL check flagged 404; source is a year-specific 公眾假期 list (2025/26) superseded upstream by General Holidays_2627. Channel-B chunks DELETEd from Supabase (6); HR/calendar queries covered by g11 擬定校曆表指引."
     },
     {
       "source_id": "sch_activities_guide",

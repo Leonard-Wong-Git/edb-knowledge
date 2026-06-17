@@ -6,6 +6,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [維護] — 2026-06-17 — Served-URL 健康監察 · 失效連結修復
+
+> 平台版本維持 **v3.2.0**（`PLATFORM_VERSION` 不變）；本次為監察工具新增 + 內部清理 + 失效來源連結修復。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,336 → 15,330**（−6，停用一個失效年度性來源）。
+
+### Added
+- **Served-URL 健康監察**（`dev/source/check_served_urls.py` + 每週 GitHub Actions `served_url_check.yml`）：由向量庫實際 serve 畀用戶嗰條 URL（`wiki_chunks.url`）逐條 HTTP 檢查，補足只測來源登記表（registry）嘅新鮮度監察盲點 —— 捉到登記表↔向量庫之間嘅連結漂移（首跑即揭發 2 條失效連結）。
+
+### Fixed
+- 修復 2 條搜尋結果失效連結（404）：**小學人文科課程指引通告**（向量庫存舊路徑、上游已遷移 → 重指向至有效 URL）；**學校曆／一般假期**（2025/26 年度版已被上游 2026/27 版取代 → 停用該年度性來源；校曆查詢仍由《擬定校曆表指引》覆蓋）。
+
+### Changed
+- 知識片段顯示數 15,336 → 15,330（首頁／平台介紹／README／K1_API_SPEC 同步）。
+- 移除前端 SAG source-URL band-aid（`SOURCE_URL_FIXUPS`；S170 永久修復已落地、改寫已成 no-op）。
+
 ## [內容更新] — 2026-06-17 — DEBP 數字教育發展藍圖入庫 · 首頁資料庫更新日誌
 
 > 平台版本維持 **v3.2.0**（`PLATFORM_VERSION` 不變）；本次為知識庫內容擴充 + 首頁附加功能。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 152 不變），`_meta.stats.chunks` **15,127 → 15,336**（+209，DEBP 6 源）。
