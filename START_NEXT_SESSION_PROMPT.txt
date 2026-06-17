@@ -3,25 +3,21 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella 已設 redirect-only).
 Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.2.0（正式版）。
-Product state: HEAD == origin/main（已 push，最新 6488b44）。Supabase 15,336；Render backend live；Pages live（v3.2.0；guidelines.json v2.6.0 公開 158、app 內庫 167、支援跨範疇 also_in）。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.0 + Render /health + HEAD==origin/main + Supabase 15,336。
+Product state: HEAD == origin/main（已 push，最新 2626e8c）。Supabase 15,330；Render backend live（auto-deploy=On Commit、free-tier 偶爾卡要手動 Deploy latest commit）；Pages live（v3.2.0；guidelines.json v2.6.0 公開 158、app 內庫 167、跨範疇 also_in）。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.0 + Render /health + HEAD==origin/main + Supabase 15,330。
 
-S171（2026-06-17）已 ship + push：
-- DEBP 中小學數字教育發展藍圖 6 源入庫 Channel B（Supabase 15,127→15,336，209 chunks：4 文字層 fetch_extract + 2 OCR ocr_extract gpt-4o；新 digital_education route 擺 curriculum 前；Render live 探針 DEBP query 8/8 全 debp_* 源；topic=it；canonical chunker 未改）+ registry mon list +6（225 源）。
-- 指引文件庫分類「資訊科技」正名「數字教育」+ 收錄 DEBP 6 份指引（guidelines.json v2.5.0→2.6.0、公開 152→158、app 161→167；策展連結庫 GUIDELINES_REGISTRY→guidelines.json，與搜尋語料 Supabase 兩個獨立系統）。
-- 指引庫支援跨範疇 also_in[]（12 份跨範疇文件可現身多類：SEN/資優→學生事務、校曆/g28→行政、DEBP→課程；全部 unique 不變、類別 count 重疊；純 UI、下游契約零改）。
-- 首頁資料庫更新日誌：index.html nav「進入平台」旁 📋 icon → modal，data 由 update_log.json fetch（簡述新增/更新文件；dot=未讀最新）。
-- 重開「EDB 通告分析系統」入口連結（index.html，還原 S154 停用嘅 <a>；URL 301→circular.wongfu.net 200 verified）。
-- 頂層 umbrella root 設 redirect-only（非 git；頂層 handoff + START_NEXT 指向 Draft，免再撞 onboarding 空殼）。Draft 零接觸。
-
-S170（2026-06-15）：監察清訊號（eb9d90b）+ 學校行政手冊 404 兩層修（59b8d2b + Leonard Supabase UPDATE 383 sag_2025_11 url）+ 平台 v3.2.0（6309333）+ 每週監察 email（Watch→Issues #1/#2）+ playbook 沉澱（7057db8）。
+S172（2026-06-17）已 ship + push（全 QC + live 驗）：
+- served-URL 健康檢查（Method B 監察）：NEW dev/source/check_served_urls.py + .github/workflows/served_url_check.yml（由 Supabase wiki_chunks.url 抽 distinct served URL 逐條 HTTP-test，封 registry-only freshness 監察睇唔到嘅 store↔registry drift；self-test 21 PASS；broken 4xx→Issue 唔影響 exit、errors>threshold 先 exit 1；408/429 transient）。CI 已啟用：Leonard 設 SUPABASE_ANON_KEY repo secret（read-only）+ 手動 run #1 success（198 URL 全 200、0 broken）；每週一 11:00 UTC 自動跑。
+- 首跑揭發並即修 2 條現存 user-facing 404：#1 edbc12_2025_ph_pri（store 落後 registry → Supabase UPDATE re-point 10 chunks 去 registry 200 URL、url-only）；#2 sch_calendar_guide（年度性 2025/26 公眾假期、上游已換 2627 → deprecate：DELETE 6 chunks + registry status→deprecated + 移除 hr_admin SOURCE_SET dead ref）。Supabase 15,336→15,330、display-sync 8 點。
+- band-aid cleanup：移除 app.html+mobile.js SOURCE_URL_FIXUPS（SAG store 已永久修好、verified no-op）。
+- 文件標註真檔收貨（Leonard SKHKYPS 家課政策 PDF）+ 精準度修復：curriculum 範疇 76 KG-source 清單項（kgecg_2017+g29 幼稚園課程指引）tag school_types=['kindergarten'] + 重生 checklists_bundle.json；live 驗 primary 580→504、KG 污染 0、課業政策項浮現、指引命中 SAG p199 家課。
+- playbook proposal deposited（served-URL 實作 + 429/408 transient + error-URL visibility refinement，repo 8bccdbc）。
+凍結合約 _meta 2.3.0 / facts 455 / guidelines 158 零接觸；canonical chunker 未改；no version bump。
 
 NEXT（優先序）：
-① served-URL 健康檢查（404 盲點 follow-up）：監察只測 registry URL（全 200）但用戶撳 Supabase served URL（會 drift）→ 加由 store/API 抽 distinct served URL 逐條 HTTP-test，封 source-of-truth skew。
-② band-aid cleanup（低優先、無害）：Supabase 已永久修好 SAG，可移除 app.html+mobile.js SOURCE_URL_FIXUPS。
-③ Leonard 真機/真檔收貨 S169 ①②③（保留格式 Word + 表格內段落命中）。
-④ EDB 入庫＝monitor-driven：每週一 Issue #1/#2 email 到，有真·新指引先逐源 pre-flight+INSPECT+Leonard 授權 live INSERT（service key 在 backend/.env）。
-⑤ mobile onboarding（desktop 已有）；⑥ Render free-tier cold-start；⑦ SMC 對通用 query recall 被 IMC-heavy corpus 淹（monitor）。
-⑧ DEBP monitor（S171）：2 OCR 補充 draft 質（各 1 illegible figure region）+ 主藍圖約 16 圖像頁無文字層（如真查詢命中可補 OCR）；digital_education route 真查詢觀察；更新日誌每次入庫順手 append update_log.json。
+① 真 .docx 收貨「保留格式 Word + 表格內段落命中」（S172 PDF 走 from-text buildCleanDocx 路徑、未驗到 .docx 保留格式 buildCleanOriginalDocx path）。
+② 文件標註精準度 follow-up（monitor）：narrow 主題文件 × broad 範疇 → missing 批仍出通用課程管理噪音（人文科/科學科 rollout）、短 PDF 分段偏粗（1 段）——非 KG（已修）、較低優先。
+③ EDB 入庫/壞連結＝monitor-driven：每週一 3 個 Issue（#1 freshness / #2 discovery / served-url-broken）email 到，有真·新指引/壞連結先逐源 pre-flight+INSPECT+Leonard 授權 live INSERT/UPDATE（service key 在 backend/.env）。
+④ mobile onboarding（desktop 已有）；⑤ Render free-tier cold-start ~50s；⑥ SMC 對通用 query recall 被 IMC-heavy corpus 淹（monitor）；⑦ DEBP monitor（2 OCR draft 質 + 主藍圖圖像頁）。
 
-⚠️ 紀律：app.html 改動用 headless Chrome（fresh，bypass 快取；macOS 無 timeout）；docx 8.5.0 UMD/JSZip 3.10.1/pdf.js 3.11.174/mammoth 1.6.0；live Supabase INSERT/UPDATE 需 INSPECT before/after + Leonard 明確授權（service key 在 backend/.env）；改 backend 前確認 Render deploy + routing 跑 detectQueryCategory 純函數 + Render live 探針；勿改 canonical chunker；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；路徑空格雙引號；commit -m 勿用反引號；repo 勿 set private。
-Post-startup first action: 起手探針（v3.2.0 + Supabase 15,336 + Render /health + HEAD==origin/main）後，按 Leonard 指示起 ① served-URL 健康檢查 / ② band-aid cleanup / 或其他 backlog。
+⚠️ 紀律：app.html 改動用 headless Chrome（fresh，bypass 快取；macOS 無 timeout、用 --virtual-time-budget）；docx 8.5.0 UMD/JSZip 3.10.1/pdf.js 3.11.174/mammoth 1.6.0/pdf-lib 1.17.1；live Supabase INSERT/UPDATE/DELETE 需 INSPECT before/after + Leonard 明確授權（service key 在 backend/.env；anon key 喺 GitHub secret SUPABASE_ANON_KEY + Render env）；改 backend/checklists_bundle.json 前確認 Render deploy + routing 跑 detectQueryCategory 純函數 + Render live 探針；改清單 re-run gen_checklists_bundle.py（+gen_templates_manifest.py 若改 docx）；勿改 canonical chunker；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；入庫/deprecate（chunk count 變）要 display-sync 8 點；路徑空格雙引號；commit -m 勿用反引號；repo 勿 set private。
+Post-startup first action: 起手探針（v3.2.0 + Supabase 15,330 + Render /health + HEAD==origin/main）後，按 Leonard 指示起 ① 真 .docx 收貨 / 或其他 backlog。

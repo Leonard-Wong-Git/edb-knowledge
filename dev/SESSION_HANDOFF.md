@@ -125,6 +125,20 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## Last Session Record
 1. UTC date: 2026-06-17
+2. Session ID: Claude_20260617_1731 (S172) — 「開工」起手探針全綠 → Leonard「1-3」batch（NEXT ①②③）→ 建 served-URL 監察 → 首跑揭發 2 條現存 404 → 授權即修（#1 re-point / #2 deprecate）→ band-aid cleanup → Leonard 真檔 PDF 收貨揭發精準度問題 → KG-tagging 修復 → CI 啟用驗證 → 收工。
+3. Completed（詳見 SESSION_LOG S172）:
+   - ✅ **served-URL 健康檢查（Method B 監察）**：`dev/source/check_served_urls.py` + `.github/workflows/served_url_check.yml`（self-test 21 PASS；CI run #1 conclusion=success、198/200/0 broken；每週一 11:00 UTC 自動跑生效）。
+   - ✅ **2 條現存 user-facing 404 即修**：#1 `edbc12_2025_ph_pri` re-point（Supabase UPDATE 10 chunks → registry 200 URL、url-only）；#2 `sch_calendar_guide` deprecate（DELETE 6 + registry status→deprecated + hr_admin SOURCE_SET dead-ref 移除）。served-URL 重掃 **198/198 OK**。
+   - ✅ **band-aid cleanup**：移除 app.html+mobile.js `SOURCE_URL_FIXUPS`（SAG store 已永久修好、verified no-op）。
+   - ✅ **文件標註真檔收貨 + 精準度修復**：curriculum 76 KG-source 清單項（kgecg_2017+g29）tag `['kindergarten']` + 重生 bundle；live 驗 primary 580→504、KG 污染 0、課業項浮現、SAG p199 命中。
+   - ✅ Supabase **15,336→15,330**（deprecate −6）+ display-sync 8 點；playbook proposal deposited（repo `8bccdbc`）。
+4. Pending: 見 Open Priorities 🔜 NEXT。
+5. Next priorities: 真 .docx 收貨「保留格式」→ 文件標註精準度 monitor → EDB monitor-driven 入庫。
+6. Risks: 🟢 HEAD==origin/main（已 push、tree clean、0 outstanding bug）。🟢 凍結合約零接觸（`_meta` 2.3.0·facts 455·guidelines 158）；display-sync 完整（chunks **15,330**）。⚠️ 文件標註 narrow×broad missing 噪音（非 KG、已修 KG 部分、monitor）+ 短 PDF 分段偏粗。⚠️ Render free-tier cold-start ~50s + auto-deploy 偶爾卡（要手動 Deploy latest commit）。
+7. commits（已 push origin/main）: `4b68f97`(①②)→`b2ab8a2`(③)→`f38b511`(④)→`f1bafc6`(④ live)→`2626e8c`(CI 驗)+本 closeout commit。live Supabase PATCH(10)+DELETE(6)（Leonard 授權）。playbook repo `8bccdbc`。
+
+## Previous Session Record (S171)
+1. UTC date: 2026-06-17
 2. Session ID: Claude_20260617_0911 (S171) — session 開喺頂層 umbrella root → Leonard「每次一開 session 都行 Draft」→ 設頂層 redirect-only → 重開通告分析入口 → DEBP 6 源入庫 + 路由 + 首頁更新日誌 → 指引庫正名數字教育 + 收錄 DEBP → 跨範疇 also_in → 收工。
 3. Completed（詳見 SESSION_LOG S171）:
    - ✅ 頂層 umbrella root 設 **redirect-only**（非 git；頂層 `dev/SESSION_HANDOFF.md` + `START_NEXT_SESSION_PROMPT.txt` 指向 Draft，免再撞 onboarding 空殼）。
