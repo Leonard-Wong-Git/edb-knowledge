@@ -9,8 +9,11 @@
 - **① 頂層 umbrella root 設 redirect-only（非 git；頂層 `dev/*`，不入本 Draft commit）：** 頂層 `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge` 係 dormant scaffold，但自帶一套輕量 Agent Handoff Kit，全 TBD + fresh-install 訊號 → 一開就觸發 onboarding、撞錯 root。修：填頂層 `dev/SESSION_HANDOFF.md`（Durable Anchors / Current Baseline / Active Objective / Next Priorities 全指向 Draft）+ 重寫 Next Session Opening Message + 同步頂層 `START_NEXT_SESSION_PROMPT.txt` 為 Draft redirect。特登唔郁 managed `CLAUDE.md`/`AGENTS.md`（upgrade 會重生成抹走 inline pointer）。QC：parity OK（prompt == fenced block）、舊 onboarding prompt 清走、ack markers 24 完整、**Draft working tree 0 改動**。
 - **② 重開「EDB 通告分析系統」入口（commit `972ab78`，index.html）：** S154 曾應 Leonard 指示停用（`<a>` → 停用 `<span>`「（暫停開放）」+ opacity .55 + not-allowed）；今還原。由 disable commit `0c34611` 取回真原始 markup（完整 `<a class="ftag" target=_blank rel=noopener` + 11px 外連箭咀 SVG），非靠 comment 重砌。URL 核實 live：`leonard-wong-git.github.io/EDB-AI-Circular-System/` 301 → circular.wongfu.net 200。
 - **QC（②）：** git diff 只 index.html 4↔4；active `<a>` 在、殘留「暫停開放」span / 「暫時停用」comment 0/0；headless Chrome render DOM 有正確 href + 無「（暫停開放）」字樣。app.html intro card（line 2086）純 title/desc dead-data，不涉、不改。
-- **Boundary:** 純前端 1 個 block 還原；零接觸 backend / Supabase / 凍結合約（`_meta` 2.3.0 · facts 455 · guidelines 152）。push 觸發 Pages live 部署。下游系統 readiness 依 §A.3 不深究（URL 已 200）。
-- **commits（push origin/main）:** `972ab78`(重開入口) + 本治理 commit。
+- **③ DEBP 數字教育發展藍圖入庫（Leonard 授權「6 源全部入」）：** EDB `debp.html`「中小學數字教育發展藍圖」6 份實質文件（略過三摺宣傳單張）→ Channel B Supabase。4 份文字層（`fetch_extract.py`）+ 2 份圖像補充 OCR（`ocr_extract.py` gpt-4o vision，各 1 illegible figure region、0 失敗頁、draft 質）。canonical chunker（`build_wiki_index`，**未改**）→ **209 chunks**（debp_blueprint 92 / debp_ai_examples 57 / debp_ai_literacy_framework 20 / debp_ailf_example 19 / debp_ai_teaching_guide 16 / debp_exec_summary 5）。INSPECT before 15,127 → 6 源全 `*/0`（純加法）→ live INSERT → after **15,336**（per-source 逐個核）。新 `digital_education` route（`searchChannelB.ts` SOURCE_SETS + TOPIC_KEYWORDS〔數字教育/數位/數碼/發展藍圖/DEBP/人工智能/\bAI\b/AI素養/生成式…〕+ QUERY_EXPANSIONS，擺 curriculum 前）。topic=it。registry +6 entry（mon list；freshness_metadata 用 pre-flight HEAD hash/last-modified；225 源；status=verified）。
+- **④ 首頁資料庫更新日誌（Leonard：「進入平台旁建一個 icon」）：** `index.html` nav「進入平台 →」旁加 📋 icon → modal；新 `update_log.json`（curated、newest-first、簡述：日期/動作/文件名/desc/url）；XSS-safe DOM 建構 + https-only href + dot=未讀最新（localStorage `k1_updlog_seen_v1`）。seed 4 條（DEBP + SMC/KG/IMC 近期入庫）。入 DOC_SYNC（每次入庫 append）。
+- **QC（③④）：** route `npm run check`+`build` exit 0；`detectQueryCategory` 純函數測 **16/16 PASS**（DEBP/AI→digital_education；STEAM/STEM/curriculum/kg_admin/校董會/gifted/finance/cpd 零回歸）；**Render live 探針：DEBP query → 8/8 全 debp_* 源**（text-layer + OCR 都 surface）；INSPECT after=15,336 + 6 源逐個對（92/5/19/57/20/16）；display-sync 7 surface 15,127→15,336（git diff 15/15、3 JSON 層 + app.html + index.html + K1_API_SPEC + README）；更新日誌 headless（local HTTP server）render：icon+modal present、DEBP/SMC entry rendered、「載入中」消失、15,336 同步。
+- **Boundary:** WS2 DEBP = **live Supabase INSERT（Leonard 明確授權「6 源全部入」、INSPECT before/after 齊）**；凍結合約 `_meta.version` 2.3.0 / facts 455 / guidelines 152 **不動**（只 `_meta.stats.chunks` 15,127→15,336 display-sync，同 S168 做法）；canonical chunker 未改；OCR 為 draft 質（traceable via chunk url+page）。② 純前端 block 還原；頂層 redirect 非 git。
+- **commits（push origin/main）:** `972ab78`(重開入口) → `da33b8c`(治理) → `10bd47f`(digital_education route) → `9e51b6f`(DEBP 6 源入庫+更新日誌+display-sync+registry+6 vault extracts) + 本治理 commit。Supabase live INSERT 209 chunks（Leonard 授權）。
 - **Log maintenance (§4a):** SESSION_LOG <400 行、entries <11，no-op。
 
 ### Next Session Handoff Prompt (Verbatim)
@@ -21,11 +24,13 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if ex
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella 已設 redirect-only).
 Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.2.0（正式版）。
-Product state: HEAD == origin/main（已 push，最新 972ab78 重開通告分析入口 + 治理 commit）。Supabase 15,127；Render backend live；Pages live（v3.2.0）。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.0 + Render /health + HEAD==origin/main + Supabase 15,127。
+Product state: HEAD == origin/main（已 push，最新 9e51b6f）。Supabase 15,336；Render backend live；Pages live（v3.2.0）。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.0 + Render /health + HEAD==origin/main + Supabase 15,336。
 
 S171（2026-06-17）已 ship + push：
-- 重開「EDB 通告分析系統」入口連結（index.html，還原 S154 停用嘅 <a>；URL leonard-wong-git.github.io/EDB-AI-Circular-System/ 301→circular.wongfu.net 200 verified；commit 972ab78）。headless render 驗。
-- 頂層 umbrella root 設 redirect-only（非 git；頂層 dev/SESSION_HANDOFF.md + START_NEXT_SESSION_PROMPT.txt 指向 Draft，免再撞 onboarding 空殼）。Draft 零接觸。
+- DEBP 中小學數字教育發展藍圖 6 源入庫 Channel B（Supabase 15,127→15,336，209 chunks：4 文字層 fetch_extract + 2 OCR ocr_extract gpt-4o；新 digital_education route 擺 curriculum 前；Render live 探針 DEBP query 8/8 全 debp_* 源；topic=it；canonical chunker 未改）+ registry mon list +6（225 源）。
+- 首頁資料庫更新日誌：index.html nav「進入平台」旁 📋 icon → modal，data 由 update_log.json fetch（簡述新增/更新文件；dot=未讀最新）。
+- 重開「EDB 通告分析系統」入口連結（index.html，還原 S154 停用嘅 <a>；URL 301→circular.wongfu.net 200 verified）。
+- 頂層 umbrella root 設 redirect-only（非 git；頂層 handoff + START_NEXT 指向 Draft，免再撞 onboarding 空殼）。Draft 零接觸。
 
 S170（2026-06-15）：監察清訊號（eb9d90b）+ 學校行政手冊 404 兩層修（59b8d2b + Leonard Supabase UPDATE 383 sag_2025_11 url）+ 平台 v3.2.0（6309333）+ 每週監察 email（Watch→Issues #1/#2）+ playbook 沉澱（7057db8）。
 
@@ -35,9 +40,10 @@ NEXT（優先序）：
 ③ Leonard 真機/真檔收貨 S169 ①②③（保留格式 Word + 表格內段落命中）。
 ④ EDB 入庫＝monitor-driven：每週一 Issue #1/#2 email 到，有真·新指引先逐源 pre-flight+INSPECT+Leonard 授權 live INSERT（service key 在 backend/.env）。
 ⑤ mobile onboarding（desktop 已有）；⑥ Render free-tier cold-start；⑦ SMC 對通用 query recall 被 IMC-heavy corpus 淹（monitor）。
+⑧ DEBP monitor（S171）：2 OCR 補充 draft 質（各 1 illegible figure region）+ 主藍圖約 16 圖像頁無文字層（如真查詢命中可補 OCR）；digital_education route 真查詢觀察；更新日誌每次入庫順手 append update_log.json。
 
 ⚠️ 紀律：app.html 改動用 headless Chrome（fresh，bypass 快取；macOS 無 timeout）；docx 8.5.0 UMD/JSZip 3.10.1/pdf.js 3.11.174/mammoth 1.6.0；live Supabase INSERT/UPDATE 需 INSPECT before/after + Leonard 明確授權（service key 在 backend/.env）；改 backend 前確認 Render deploy + routing 跑 detectQueryCategory 純函數 + Render live 探針；勿改 canonical chunker；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；路徑空格雙引號；commit -m 勿用反引號；repo 勿 set private。
-Post-startup first action: 起手探針（v3.2.0 + Supabase 15,127 + Render /health + HEAD==origin/main）後，按 Leonard 指示起 ① served-URL 健康檢查 / ② band-aid cleanup / 或其他 backlog。
+Post-startup first action: 起手探針（v3.2.0 + Supabase 15,336 + Render /health + HEAD==origin/main）後，按 Leonard 指示起 ① served-URL 健康檢查 / ② band-aid cleanup / 或其他 backlog。
 ```
 
 ## 2026-06-15 Session 170 — 監察清訊號 / 學校行政手冊 404 兩層修 / 平台 v3.2.0 正式版

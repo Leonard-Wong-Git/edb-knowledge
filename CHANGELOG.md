@@ -6,6 +6,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [內容更新] — 2026-06-17 — DEBP 數字教育發展藍圖入庫 · 首頁資料庫更新日誌
+
+> 平台版本維持 **v3.2.0**（`PLATFORM_VERSION` 不變）；本次為知識庫內容擴充 + 首頁附加功能。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 152 不變），`_meta.stats.chunks` **15,127 → 15,336**（+209，DEBP 6 源）。
+
+### Added
+- **中小學數字教育發展藍圖（DEBP）入庫**：EDB `debp.html` 6 份文件（主藍圖、行政摘要、人工智能素養學習架構、教學運用 AI 指南、AI 素養架構示例、AI 應用學與教示例）→ Channel B 共 209 知識片段（4 份文字層 + 2 份 OCR 草稿）；新增 `digital_education` 主題路由；6 源加入來源監察清單。
+- **首頁「資料庫更新日誌」**：`index.html` 導覽列「進入平台」旁新增 📋 icon，開啟簡述近期新增／更新文件的彈窗（資料來源 `update_log.json`）。
+- **重開「EDB 通告分析系統」入口連結**（還原 2026-06-11 S154 暫停）。
+
+### Changed
+- 知識片段顯示數 15,127 → 15,336（首頁／平台介紹／README／K1_API_SPEC 同步）。
+
 ## [v3.2.0] — 2026-06-15 — 文件標註保留格式 · 首次導覽 · 使用手冊 · 監察清訊號 · 404 修復
 
 > 用戶端版本由 `app.html` `PLATFORM_VERSION` 常數驅動（v3.2.0）；知識資料合約 `knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 152 不變）。Channel B 維持 **15,127** chunks（本版只修正 1 個源的 source URL，chunk 數不變）。
