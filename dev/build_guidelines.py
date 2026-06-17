@@ -45,7 +45,7 @@ CATEGORY_TO_TOPIC = {
     "課程": "curriculum",
     "活動": "activity",
     "學生事務": "student",
-    "資訊科技": "it",
+    "數字教育": "it",
     "行政": "general",
 }
 TOPIC_ORDER = ["finance", "hr", "curriculum", "activity", "student", "it", "general"]

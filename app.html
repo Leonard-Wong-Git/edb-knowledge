@@ -739,7 +739,7 @@ const INITIAL_DATA = {
       "facts": 455,
       "chunks": 15336,
       "sources": 120,
-      "guidelines": 152,
+      "guidelines": 158,
       "topics": 7
     }
   },
@@ -1543,7 +1543,13 @@ const GUIDELINES_REGISTRY = [
   { id: 'g17', title: '理念與指引（訓育及輔導）', titleShort: '訓輔理念與指引', format: 'HTML', category: '學生事務', sub_category: 'discipline', level: '跨階段', year: '2011', isSpine: false, url: 'https://www.edb.gov.hk/tc/teacher/student-guidance-discipline-services/principles-guidelines/index.html' },
   { id: 'g18', title: '學童乘搭校車的安全指引', titleShort: '校車安全指引', format: 'HTML', category: '學生事務', sub_category: 'safety', level: '跨階段', year: '2026', isSpine: false, url: 'https://www.edb.gov.hk/tc/student-parents/safety/sch-bus-services/index.html' },
   { id: 'g19', title: '融合教育運作指南', titleShort: '融合教育指南', format: 'HTML', category: '學生事務', sub_category: 'sen', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/edu-system/special/support/wsa/index.html' },
-  { id: 'g28', title: '學校資訊保安建議措施（2019年9月修訂版）', titleShort: 'IT保安建議措施', format: 'INDEX', category: '資訊科技', sub_category: 'security', level: '跨階段', year: '2019', isSpine: false, url: 'https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/information-security-in-school.html' },
+  { id: 'g28', title: '學校資訊保安建議措施（2019年9月修訂版）', titleShort: 'IT保安建議措施', format: 'INDEX', category: '數字教育', sub_category: 'security', level: '跨階段', year: '2019', isSpine: false, url: 'https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/information-security-in-school.html' },
+  { id: 'debp_blueprint', title: '中小學數字教育發展藍圖', titleShort: 'DEBP 發展藍圖', format: 'PDF', category: '數字教育', sub_category: 'blueprint', level: '跨階段', year: '2026', isSpine: true, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/DEBP_TC.pdf' },
+  { id: 'debp_exec_summary', title: '中小學數字教育發展藍圖（行政摘要）', titleShort: 'DEBP 行政摘要', format: 'PDF', category: '數字教育', sub_category: 'blueprint', level: '跨階段', year: '2026', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/DEBP_Executive%20Summary_TC.pdf' },
+  { id: 'debp_ai_literacy_framework', title: '中小學人工智能素養學習架構（附篇一）', titleShort: 'AI 素養學習架構', format: 'PDF', category: '數字教育', sub_category: 'ai_literacy', level: '跨階段', year: '2026', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/SupplementAILiteracyLearningFramework(PrimaryAndSecondarySchools)_TC.pdf' },
+  { id: 'debp_ai_teaching_guide', title: '在教學上運用人工智能指南（中小學）（附篇二）', titleShort: '教學運用 AI 指南', format: 'PDF', category: '數字教育', sub_category: 'ai_literacy', level: '跨階段', year: '2026', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/SupplementIIGuideToUsingAIInTeaching(PrimaryAndSecondarySchools)_TC.pdf' },
+  { id: 'debp_ailf_example', title: '中小學人工智能素養架構示例', titleShort: 'AI 素養架構示例', format: 'PDF', category: '數字教育', sub_category: 'ai_literacy', level: '跨階段', year: '2026', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/AILFexample_TC.pdf' },
+  { id: 'debp_ai_examples', title: '在學與教中應用人工智能的示例', titleShort: 'AI 應用學與教示例', format: 'PDF', category: '數字教育', sub_category: 'ai_literacy', level: '跨階段', year: '2026', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/ExamplesOnApplicationOfAIInLearningAndTeaching_TC.pdf' },
   { id: 'g24', title: '學校行政手冊（2025年11月版）', titleShort: '學校行政手冊', format: 'PDF', category: '行政', sub_category: 'admin', level: '跨階段', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html' },
   { id: 'g25', title: '幼稚園相關指引及須知', titleShort: '幼稚園指引', format: 'HTML', category: '行政', sub_category: 'kindergarten', level: '幼稚園', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/tc/edu-system/preprimary-kindergarten/about-preprimary-kindergarten/guidelines.html' },
   { id: 'g26', title: '2026/27學年幼稚園收生安排指引', titleShort: '幼稚園收生指引', format: 'PDF', category: '行政', sub_category: 'kindergarten', level: '幼稚園', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/kindergarten-k1-admission-arrangements/202627%20K1%20Admission%20Arrangements/2026-27_Admission%20Guidelines_TC.pdf' },
@@ -1702,7 +1708,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
     { key: '活動',   label: '活動',   icon: '🏃' },
     { key: '津貼',   label: '津貼',   icon: '🏷️' },
     { key: '行政',   label: '行政',   icon: '🏫' },
-    { key: '資訊科技', label: '資訊科技', icon: '💻' },
+    { key: '數字教育', label: '數字教育', icon: '💻' },
   ];
 
   const catCounts = useMemo(() => {
@@ -1725,6 +1731,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
     admin: '行政安排', grant: '津貼及資源', activity: '學校活動',
     discipline: '訓育及輔導', sen: '融合教育',
     security: '資訊保安', kindergarten: '幼稚園', stat: '統計數字',
+    blueprint: '數字教育發展藍圖', ai_literacy: '人工智能素養',
   };
 
   // Preferred sub-category order per main category
@@ -1734,7 +1741,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
     '課程':     ['general','language','math_science','pri_science','ph_primary','humanities','values','arts_pe','sen_gifted','safety','admin','stat'],
     '活動':     ['grant','activity'],
     '學生事務': ['discipline','sen','safety','stat'],
-    '資訊科技': ['security'],
+    '數字教育': ['blueprint','ai_literacy','security'],
     '行政':     ['admin','kindergarten'],
   };
 
@@ -2077,7 +2084,7 @@ function PlatformIntroPanel({ stats }) {
       icon: '📚',
       title: '指引文件庫',
       subtitle: `${guidelinesCount} 份 EDB 官方指引`,
-      desc: '涵蓋財務採購、人力資源、課程、學生事務、資訊科技等範疇，按類別及年份排序，附直達 PDF 連結。',
+      desc: '涵蓋財務採購、人力資源、課程、學生事務、數字教育等範疇，按類別及年份排序，附直達 PDF 連結。',
       badge: '快速查閱',
       dark: false,
     },
@@ -2461,7 +2468,7 @@ function QAPanel({ data, setPreviewDoc }) {
   const fixSourceUrl = (u) => (u && SOURCE_URL_FIXUPS[u]) || u;
   const TOPIC_LABELS = {
     finance: '財務/採購', hr: '人力資源', curriculum: '課程',
-    activity: '活動', student: '學生事務', it: '資訊科技', general: '通用/行政'
+    activity: '活動', student: '學生事務', it: '數字教育', general: '通用/行政'
   };
 
   // Channel A: backend semantic search over approved facts (with synthesis)

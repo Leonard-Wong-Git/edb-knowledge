@@ -1,8 +1,8 @@
 {
   "_meta": {
-    "version": "2.5.0",
-    "updated": "2026-06-03",
-    "count": 152,
+    "version": "2.6.0",
+    "updated": "2026-06-17",
+    "count": 158,
     "description": "EDB 指引文件連結庫 — app 內庫指引/通告全集（已剔統計數據表/申請表/壞連結），供 EDB 通告智能分析系統按通告主題提取參考文件連結。每項只含標題、簡稱、URL、年份、格式。"
   },
   "finance": [
@@ -1355,6 +1355,60 @@
       "url": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/information-security-in-school.html",
       "year": "2019",
       "format": "HTML",
+      "level": "跨階段"
+    },
+    {
+      "id": "debp_blueprint",
+      "title": "中小學數字教育發展藍圖",
+      "titleShort": "DEBP 發展藍圖",
+      "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/DEBP_TC.pdf",
+      "year": "2026",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "debp_exec_summary",
+      "title": "中小學數字教育發展藍圖（行政摘要）",
+      "titleShort": "DEBP 行政摘要",
+      "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/DEBP_Executive%20Summary_TC.pdf",
+      "year": "2026",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "debp_ai_literacy_framework",
+      "title": "中小學人工智能素養學習架構（附篇一）",
+      "titleShort": "AI 素養學習架構",
+      "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/SupplementAILiteracyLearningFramework(PrimaryAndSecondarySchools)_TC.pdf",
+      "year": "2026",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "debp_ai_teaching_guide",
+      "title": "在教學上運用人工智能指南（中小學）（附篇二）",
+      "titleShort": "教學運用 AI 指南",
+      "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/SupplementIIGuideToUsingAIInTeaching(PrimaryAndSecondarySchools)_TC.pdf",
+      "year": "2026",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "debp_ailf_example",
+      "title": "中小學人工智能素養架構示例",
+      "titleShort": "AI 素養架構示例",
+      "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/AILFexample_TC.pdf",
+      "year": "2026",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
+      "id": "debp_ai_examples",
+      "title": "在學與教中應用人工智能的示例",
+      "titleShort": "AI 應用學與教示例",
+      "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/ExamplesOnApplicationOfAIInLearningAndTeaching_TC.pdf",
+      "year": "2026",
+      "format": "PDF",
       "level": "跨階段"
     }
   ],
