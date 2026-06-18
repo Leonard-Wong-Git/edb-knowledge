@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 
 import { getOpenAIApiKey } from "../config/env.js";
+import { sdkFetch } from "./sdkFetch.js";
 
 /**
  * A function that takes a text string and returns its embedding vector.
@@ -23,7 +24,7 @@ const EMBEDDING_MODEL = "text-embedding-3-small";
  * more efficient than calling the single function in a Promise.all loop.
  */
 export function createEmbeddingClient(): EmbedFn & { batch: BatchEmbedFn } {
-  const client = new OpenAI({ apiKey: getOpenAIApiKey() });
+  const client = new OpenAI({ apiKey: getOpenAIApiKey(), fetch: sdkFetch });
 
   const embed = async function embed(text: string): Promise<number[]> {
     const response = await client.embeddings.create({

@@ -17,6 +17,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - 兩個下限只作用於 `/api/annotate-document`；`analyzeDocument` / `searchChannelB` / `checklistRevise` 及其獨立 endpoint 行為不變；用戶**手動指定範疇**不受影響。
 - **空狀態提示（`app.html`）**：當文件無任何貼題指引或合規缺漏時，顯示「未找到需標示的貼題指引或合規項目」並引導改用「指定範疇」，取代空白報告。
 
+### Fixed
+- **OpenAI 呼叫韌性（`backend/src/lib/sdkFetch.ts` + embeddingClient/llmClient）**：v3.2.1 部署後 Render 上 Node 原生 fetch（undici）對每個 OpenAI 呼叫持續回 `Premature close`（重用咗 OpenAI 邊緣已關閉嘅 keep-alive 連線；重啟唔修、啟動嵌入快取 warm 0/455），令政策搜尋＋文件標註全線降級。同一 key／code 由其他出口正常（HTTP 200）→ 隔離為 Render egress 嘅 undici keep-alive 問題（非 OpenAI／key／應用碼）。修復：兩個 OpenAI client 改用已綁定嘅 `node-fetch`（預設每請求開新連線，繞過 stale keep-alive）；並 pin Node 至 `22.x`（`engines` + `.node-version`）確保 runtime deterministic。
+
 ---
 
 ## [維護] — 2026-06-17 — Served-URL 健康監察 · 失效連結修復

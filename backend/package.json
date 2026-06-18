@@ -11,7 +11,7 @@
     "regression:semantic": "tsx scripts/semanticRegression.ts"
   },
   "engines": {
-    "node": ">=20"
+    "node": "22.x"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.4",
