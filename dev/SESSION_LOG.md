@@ -2,6 +2,45 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-18 Session 173 — 真 .docx 收貨 + 文件標註 off-domain 相關性下限 (v3.2.1) + OpenAI node-fetch 生產修復
+
+- **ID:** Claude_20260618_0839
+- **Trigger:** 「開工」起手探針全綠（app.html 200 + PLATFORM_VERSION 3.2.0 + Render /health cache_a 455 + HEAD==origin/main `80e2bfd` + Supabase 15,330）→ Leonard 畀真 `.docx`（`1314天主教博智小學﹣ 知識產權及免責聲明.docx`）做 NEXT ① 真檔收貨。
+- **① 真 .docx 收貨（NEXT ① 完成）：** 忠實端到端 harness（真 mammoth 1.6.0 抽取 → 真 Render `/api/annotate-document` → 逐字抽出 app.html `buildCleanOriginalDocx`+helpers 喺 node 離線跑，唔重寫）。份檔 8 段/487 字/**無表格**。**保留格式 path** ✅：輸出 round-trip 過 mammoth（Word 可開）、原 6 段逐字保留、intro+附錄正確、`<w:p>` 8→21 body 零改。**表格內段落命中** ✅（真檔無表 → 合成表格補驗）：builder 將「（建議補充）」note 正確插入該 `<w:tc>` 內、命中段之後；mammoth 每 cell 用 `\n\n` 分隔 → `segmentText` 逐 cell 切 segment（非整表一段）。Desktop 留 2 樣本 docx 俾 Leonard。
+- **② 揭發 off-domain 強行配對 → 文件標註 v3.2.1：** 你份免責聲明（off-domain 法律文書）被強行配對 4 條無關「相關指引」（颱風通告/防貪/公社科）+ 硬塞「學校安全」範疇 18 條垃圾 missing。根因：`searchChannelB` `min_score=0.22`（retrieval 門檻非相關性）+ `detectDomainsPerSegment` `AUTO_DETECT_THRESHOLD=0.38`（路由門檻）對 CJK 正式語體 off-domain 太鬆。Leonard 批「加相關性下限」+（揭發第二頭後）批「domain floor」。**修（`backend/src/api/annotateDocument.ts`，兩個 floor 只喺 annotate 層、`analyzeDocument`/`searchChannelB`/`checklistRevise` 及獨立 endpoint byte-identical、用戶手動選範疇不受影響）：** `GUIDELINE_RELEVANCE_FLOOR=0.62`（guideline finding `top.score<0.62` drop）+ `DOMAIN_RELEVANCE_FLOOR=0.45`（auto-detect domain `score<0.45` drop）+ `app.html`「未找到貼題指引」空狀態。
+- **②實證（live `text-embedding-3-small`）：** guideline——off-domain top ≤0.595 vs 真貼題 ≥0.654（最弱合法 on-domain 0.654）；domain——off-domain descriptor peak 0.396 vs 真 0.53(家課→curriculum)/0.69(safety)。floor 落 gap 中間、偏 recall。**QC：** typecheck PASS；本地 backend（補 Supabase env）端到端：off-domain guideline 4→0 + domain 18→0/auto=false、on-domain guideline=2/課程管理 保留；**多範疇零 regression**（Render pre-floor == Local post-floor 範疇相同 → 證 floor 無殺合法範疇，原「1 domain」係 per-segment 偵測既有行為）；headless app.html boot 乾淨（v3.2.1、空狀態 block 編譯通過、0 Babel error）。bump v3.2.1（app.html PLATFORM_VERSION + README + CHANGELOG；凍結 `_meta` 2.3.0 不動）。
+- **③ 生產事故（v3.2.1 部署觸發）+ 修復：** push `78605bd` 後 Pages 即 3.2.1、但 live 探測 on-domain 都回空 → 揭發 Render Node 原生 fetch（undici）對**每個** OpenAI 呼叫回 `Invalid response body … api.openai.com/v1/embeddings: Premature close`（重用 OpenAI 已關閉嘅 keep-alive 連線）；`/health` `cache_a {warm:false,size:0}`（啟動嵌入快取 warm 失敗）；**restart 唔修**（12/12 分鐘 + restart 後仍衰）；政策搜尋+文件標註全降級。**隔離：** 同一 key 喺**本地直接打 OpenAI = HTTP 200/1.4s/1536 維** → 排除 OpenAI/key/billing；deps lockfile committed → 排除 dep drift；我嘅 floor 改動係純邏輯喺 embedding 之後 → 排除。判定＝**Render egress 嘅 undici keep-alive 問題**。**修（Leonard 批 node-fetch+pin Node）：** NEW `backend/src/lib/sdkFetch.ts`（共用 node-fetch，已綁定 dep、每請求新連線繞過 stale keep-alive）注入 embeddingClient+llmClient 兩個 OpenAI client；pin Node `22.x`（`package.json` engines + `.node-version`）。local typecheck+真打 OpenAI（embedding 1536/batch/LLM）經 node-fetch 全綠。push `f254d0c` → Leonard redeploy → **live 復原**（cache_a warm 455、Channel B OK）。
+- **Live 全驗綠（背景 monitor t+30s 新 build 上線）：** OpenAI 復原 cache_a 455；off-domain `guideline=0/checklist-gap=0/domains=[]`（空狀態）；on-domain `guideline=2/checklist-gap=20/課程管理`（保留）。`>>> ALL VERIFIED LIVE`。
+- **Boundary:** 凍結合約 `_meta` 2.3.0 / facts 455 / guidelines 158 / Supabase 15,330 **零接觸**；canonical chunker 未改；floor 只 annotate 層 + reused module byte-identical；OpenAI 修復係 infra 韌性（無 user-facing API/feature 變，但 bundle v3.2.1 已涵蓋 floor 故同版本線）。
+- **Doc Sync (§3):** Product behavior（文件標註 floor + 空狀態）→ CHANGELOG [3.2.1] + SESSION_HANDOFF/LOG ✓；Backend code fact（2 floor 常數 + sdkFetch/node-fetch + Node pin）→ CODEBASE_CONTEXT（annotateDocument + embeddingClient + 新 sdkFetch 條目）✓；版本 → app.html/README/CHANGELOG ✓。Playbook 卡 `embedding-cosine-overfire-lexical-gate` 今次再命中（cosine floor 變體，本 project 源頭卡）；undici Premature close 修復值得 deposit 新卡（收工 follow-up）。
+- **commits（push origin/main）:** `78605bd`(v3.2.1：guideline+domain floor + 空狀態 + version bump) → `f254d0c`(OpenAI node-fetch sdkFetch + pin Node 22.x) + 本 closeout commit。
+- **Log maintenance (§4a):** closeout 前 SESSION_LOG 154 行（<400）、3 entries（<11）、無 date trigger → **no-op**（不 archive）。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella 已設 redirect-only).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.2.1。
+Product state: HEAD == origin/main（已 push，最新 f254d0c）。Supabase 15,330；Render backend live（OpenAI client 行 node-fetch、Node pin 22.x；auto-deploy=On Commit、free-tier 偶爾卡要手動 Deploy latest commit）；Pages live（v3.2.1）。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.1 + Render /health（cache_a warm 455）+ HEAD==origin/main + Supabase 15,330。
+
+S173（2026-06-18）已 ship + push（全 QC + live 驗綠）：
+- 真 .docx 收貨（NEXT ① 完成）：文件標註「保留格式 Word」path（buildCleanOriginalDocx）+ 表格內段落命中 端到端驗（真檔=博智小學免責聲明無表 → 合成表格證 note 插入 <w:tc>；mammoth 每 cell \n\n → 逐 cell segment）。
+- 文件標註 off-domain 相關性下限 → v3.2.1：annotateDocument.ts 加 GUIDELINE_RELEVANCE_FLOOR=0.62（指引比對）+ DOMAIN_RELEVANCE_FLOOR=0.45（範疇偵測）—— 只 annotate 層、reused module（analyzeDocument/searchChannelB/checklistRevise + 獨立 endpoint）byte-identical、用戶手動選範疇不受影響；+ app.html「未找到貼題指引」空狀態。實證 off-domain 0.595/0.396 vs 真貼題 0.654/0.53；多範疇零 regression；live off 0/0/[]、on guideline=2/課程管理。
+- 生產事故修復（OpenAI 韌性）：v3.2.1 部署觸發 Render undici 對每 OpenAI 呼叫 Premature close（stale keep-alive、restart 唔修、cache 0/455、全降級）；隔離為 Render egress undici（同一 key/code 由其他出口 200）→ 兩 OpenAI client 注入共用 sdkFetch(node-fetch、每請求新連線) + pin Node 22.x（engines+.node-version）；live 復原 cache_a 455。
+凍結合約 _meta 2.3.0 / facts 455 / guidelines 158 零接觸；canonical chunker 未改；Supabase 15,330 零接觸。
+
+NEXT（優先序）：
+① 文件標註精準度 follow-up（monitor）：narrow 主題文件 × broad 範疇 → missing 批仍出通用課程管理噪音（人文/科學科 rollout）、短文件分段偏粗——較低優先。
+② EDB 入庫/壞連結＝monitor-driven：每週一 3 個 Issue（#1 freshness / #2 discovery / served-url-broken）email，有真新指引/壞連結先逐源 pre-flight+INSPECT+Leonard 授權 live INSERT/UPDATE（service key 在 backend/.env）。
+③ mobile onboarding（desktop 已有）；④ Render free-tier cold-start ~50s + auto-deploy 偶爾卡；⑤ SMC 對通用 query recall 被 IMC-heavy corpus 淹（monitor）；⑥ DEBP monitor（2 OCR draft + 主藍圖圖像頁）；⑦ per-segment 範疇偵測收斂單一 broad 範疇（既有偵測質素、monitor）；⑧ Render undici keep-alive 監察（node-fetch 已修；Premature close 復發 → Azure swap fallback）。
+
+⚠️ 紀律：app.html 改動用 headless Chrome（fresh，bypass 快取；macOS 無 timeout、用 --virtual-time-budget）；docx 8.5.0 UMD/JSZip 3.10.1/pdf.js 3.11.174/mammoth 1.6.0/pdf-lib 1.17.1；backend OpenAI client 行 node-fetch（sdkFetch）+ Node pin 22.x（勿改返 undici / engines >=20）；live Supabase INSERT/UPDATE/DELETE 需 INSPECT before/after + Leonard 明確授權（service key 在 backend/.env；anon key 喺 GitHub secret SUPABASE_ANON_KEY + Render env）；改 annotateDocument floor 值要對照 on-domain 唔誤殺 + Render live 探針；改 backend/checklists_bundle.json 前確認 Render deploy + routing 跑 detectQueryCategory 純函數；改清單 re-run gen_checklists_bundle.py（+gen_templates_manifest.py 若改 docx）；勿改 canonical chunker；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；入庫/deprecate（chunk count 變）要 display-sync 8 點；路徑空格雙引號；commit -m 勿用反引號；repo 勿 set private。
+Post-startup first action: 起手探針（v3.2.1 + Supabase 15,330 + Render /health cache_a 455 + HEAD==origin/main）後，按 Leonard 指示起 NEXT ① 文件標註精準度 monitor / 或其他 backlog。
+```
+
 ## 2026-06-17 Session 172 — served-URL 健康檢查（Method B 監察）+ band-aid cleanup
 
 - **ID:** Claude_20260617_1731

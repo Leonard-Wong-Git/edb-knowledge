@@ -2,22 +2,19 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella 已設 redirect-only).
-Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.2.0（正式版）。
-Product state: HEAD == origin/main（已 push，最新 2626e8c）。Supabase 15,330；Render backend live（auto-deploy=On Commit、free-tier 偶爾卡要手動 Deploy latest commit）；Pages live（v3.2.0；guidelines.json v2.6.0 公開 158、app 內庫 167、跨範疇 also_in）。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.0 + Render /health + HEAD==origin/main + Supabase 15,330。
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.2.1。
+Product state: HEAD == origin/main（已 push，最新 f254d0c）。Supabase 15,330；Render backend live（OpenAI client 行 node-fetch、Node pin 22.x；auto-deploy=On Commit、free-tier 偶爾卡要手動 Deploy latest commit）；Pages live（v3.2.1）。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.1 + Render /health（cache_a warm 455）+ HEAD==origin/main + Supabase 15,330。
 
-S172（2026-06-17）已 ship + push（全 QC + live 驗）：
-- served-URL 健康檢查（Method B 監察）：NEW dev/source/check_served_urls.py + .github/workflows/served_url_check.yml（由 Supabase wiki_chunks.url 抽 distinct served URL 逐條 HTTP-test，封 registry-only freshness 監察睇唔到嘅 store↔registry drift；self-test 21 PASS；broken 4xx→Issue 唔影響 exit、errors>threshold 先 exit 1；408/429 transient）。CI 已啟用：Leonard 設 SUPABASE_ANON_KEY repo secret（read-only）+ 手動 run #1 success（198 URL 全 200、0 broken）；每週一 11:00 UTC 自動跑。
-- 首跑揭發並即修 2 條現存 user-facing 404：#1 edbc12_2025_ph_pri（store 落後 registry → Supabase UPDATE re-point 10 chunks 去 registry 200 URL、url-only）；#2 sch_calendar_guide（年度性 2025/26 公眾假期、上游已換 2627 → deprecate：DELETE 6 chunks + registry status→deprecated + 移除 hr_admin SOURCE_SET dead ref）。Supabase 15,336→15,330、display-sync 8 點。
-- band-aid cleanup：移除 app.html+mobile.js SOURCE_URL_FIXUPS（SAG store 已永久修好、verified no-op）。
-- 文件標註真檔收貨（Leonard SKHKYPS 家課政策 PDF）+ 精準度修復：curriculum 範疇 76 KG-source 清單項（kgecg_2017+g29 幼稚園課程指引）tag school_types=['kindergarten'] + 重生 checklists_bundle.json；live 驗 primary 580→504、KG 污染 0、課業政策項浮現、指引命中 SAG p199 家課。
-- playbook proposal deposited（served-URL 實作 + 429/408 transient + error-URL visibility refinement，repo 8bccdbc）。
-凍結合約 _meta 2.3.0 / facts 455 / guidelines 158 零接觸；canonical chunker 未改；no version bump。
+S173（2026-06-18）已 ship + push（全 QC + live 驗綠）：
+- 真 .docx 收貨（NEXT ① 完成）：文件標註「保留格式 Word」path（buildCleanOriginalDocx）+ 表格內段落命中 端到端驗（真檔=博智小學免責聲明無表 → 合成表格證 note 插入 <w:tc>；mammoth 每 cell \n\n → 逐 cell segment）。
+- 文件標註 off-domain 相關性下限 → v3.2.1：annotateDocument.ts 加 GUIDELINE_RELEVANCE_FLOOR=0.62（指引比對）+ DOMAIN_RELEVANCE_FLOOR=0.45（範疇偵測）—— 只 annotate 層、reused module（analyzeDocument/searchChannelB/checklistRevise + 獨立 endpoint）byte-identical、用戶手動選範疇不受影響；+ app.html「未找到貼題指引」空狀態。實證 off-domain 0.595/0.396 vs 真貼題 0.654/0.53；多範疇零 regression；live off 0/0/[]、on guideline=2/課程管理。
+- 生產事故修復（OpenAI 韌性）：v3.2.1 部署觸發 Render undici 對每 OpenAI 呼叫 Premature close（stale keep-alive、restart 唔修、cache 0/455、全降級）；隔離為 Render egress undici（同一 key/code 由其他出口 200）→ 兩 OpenAI client 注入共用 sdkFetch(node-fetch、每請求新連線) + pin Node 22.x（engines+.node-version）；live 復原 cache_a 455。
+凍結合約 _meta 2.3.0 / facts 455 / guidelines 158 零接觸；canonical chunker 未改；Supabase 15,330 零接觸。
 
 NEXT（優先序）：
-① 真 .docx 收貨「保留格式 Word + 表格內段落命中」（S172 PDF 走 from-text buildCleanDocx 路徑、未驗到 .docx 保留格式 buildCleanOriginalDocx path）。
-② 文件標註精準度 follow-up（monitor）：narrow 主題文件 × broad 範疇 → missing 批仍出通用課程管理噪音（人文科/科學科 rollout）、短 PDF 分段偏粗（1 段）——非 KG（已修）、較低優先。
-③ EDB 入庫/壞連結＝monitor-driven：每週一 3 個 Issue（#1 freshness / #2 discovery / served-url-broken）email 到，有真·新指引/壞連結先逐源 pre-flight+INSPECT+Leonard 授權 live INSERT/UPDATE（service key 在 backend/.env）。
-④ mobile onboarding（desktop 已有）；⑤ Render free-tier cold-start ~50s；⑥ SMC 對通用 query recall 被 IMC-heavy corpus 淹（monitor）；⑦ DEBP monitor（2 OCR draft 質 + 主藍圖圖像頁）。
+① 文件標註精準度 follow-up（monitor）：narrow 主題文件 × broad 範疇 → missing 批仍出通用課程管理噪音（人文/科學科 rollout）、短文件分段偏粗——較低優先。
+② EDB 入庫/壞連結＝monitor-driven：每週一 3 個 Issue（#1 freshness / #2 discovery / served-url-broken）email，有真新指引/壞連結先逐源 pre-flight+INSPECT+Leonard 授權 live INSERT/UPDATE（service key 在 backend/.env）。
+③ mobile onboarding（desktop 已有）；④ Render free-tier cold-start ~50s + auto-deploy 偶爾卡；⑤ SMC 對通用 query recall 被 IMC-heavy corpus 淹（monitor）；⑥ DEBP monitor（2 OCR draft + 主藍圖圖像頁）；⑦ per-segment 範疇偵測收斂單一 broad 範疇（既有偵測質素、monitor）；⑧ Render undici keep-alive 監察（node-fetch 已修；Premature close 復發 → Azure swap fallback）。
 
-⚠️ 紀律：app.html 改動用 headless Chrome（fresh，bypass 快取；macOS 無 timeout、用 --virtual-time-budget）；docx 8.5.0 UMD/JSZip 3.10.1/pdf.js 3.11.174/mammoth 1.6.0/pdf-lib 1.17.1；live Supabase INSERT/UPDATE/DELETE 需 INSPECT before/after + Leonard 明確授權（service key 在 backend/.env；anon key 喺 GitHub secret SUPABASE_ANON_KEY + Render env）；改 backend/checklists_bundle.json 前確認 Render deploy + routing 跑 detectQueryCategory 純函數 + Render live 探針；改清單 re-run gen_checklists_bundle.py（+gen_templates_manifest.py 若改 docx）；勿改 canonical chunker；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；入庫/deprecate（chunk count 變）要 display-sync 8 點；路徑空格雙引號；commit -m 勿用反引號；repo 勿 set private。
-Post-startup first action: 起手探針（v3.2.0 + Supabase 15,330 + Render /health + HEAD==origin/main）後，按 Leonard 指示起 ① 真 .docx 收貨 / 或其他 backlog。
+⚠️ 紀律：app.html 改動用 headless Chrome（fresh，bypass 快取；macOS 無 timeout、用 --virtual-time-budget）；docx 8.5.0 UMD/JSZip 3.10.1/pdf.js 3.11.174/mammoth 1.6.0/pdf-lib 1.17.1；backend OpenAI client 行 node-fetch（sdkFetch）+ Node pin 22.x（勿改返 undici / engines >=20）；live Supabase INSERT/UPDATE/DELETE 需 INSPECT before/after + Leonard 明確授權（service key 在 backend/.env；anon key 喺 GitHub secret SUPABASE_ANON_KEY + Render env）；改 annotateDocument floor 值要對照 on-domain 唔誤殺 + Render live 探針；改 backend/checklists_bundle.json 前確認 Render deploy + routing 跑 detectQueryCategory 純函數；改清單 re-run gen_checklists_bundle.py（+gen_templates_manifest.py 若改 docx）；勿改 canonical chunker；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；入庫/deprecate（chunk count 變）要 display-sync 8 點；路徑空格雙引號；commit -m 勿用反引號；repo 勿 set private。
+Post-startup first action: 起手探針（v3.2.1 + Supabase 15,330 + Render /health cache_a 455 + HEAD==origin/main）後，按 Leonard 指示起 NEXT ① 文件標註精準度 monitor / 或其他 backlog。
