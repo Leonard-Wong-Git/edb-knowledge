@@ -6,6 +6,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [3.2.1] — 2026-06-18 — 文件標註 off-domain 相關性下限
+
+> 平台版本 **v3.2.0 → v3.2.1**（`PLATFORM_VERSION`）。文件標註（📝 文件標註 tab）精準度修復：off-domain 文件（例如純法律免責聲明、對外公關文稿）唔再被強行配對出無關「相關指引」或硬塞入合規範疇。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**；Supabase chunks / facts 455 / guidelines 158 數量不變（純比對門檻調整，零資料改動）。
+
+### Changed
+- **文件標註相關性下限（`backend/src/api/annotateDocument.ts`）** —— 解決真檔收貨揭發嘅 off-domain 強行配對：
+  - `GUIDELINE_RELEVANCE_FLOOR = 0.62`：段落最佳指引 cosine 低於此即視為 off-domain 強行配對，不再標為「相關指引」（實證 live `text-embedding-3-small`：off-domain ≤0.595 vs 真·貼題 ≥0.654）。
+  - `DOMAIN_RELEVANCE_FLOOR = 0.45`：自動偵測合規範疇 descriptor peak cosine 低於此即不掃描，避免 off-domain 文件被硬塞範疇後湧出大量無關「未涵蓋」項（實證：off-domain peak 0.396 vs 真·貼題 0.53–0.69）。
+  - 兩個下限只作用於 `/api/annotate-document`；`analyzeDocument` / `searchChannelB` / `checklistRevise` 及其獨立 endpoint 行為不變；用戶**手動指定範疇**不受影響。
+- **空狀態提示（`app.html`）**：當文件無任何貼題指引或合規缺漏時，顯示「未找到需標示的貼題指引或合規項目」並引導改用「指定範疇」，取代空白報告。
+
+---
+
 ## [維護] — 2026-06-17 — Served-URL 健康監察 · 失效連結修復
 
 > 平台版本維持 **v3.2.0**（`PLATFORM_VERSION` 不變）；本次為監察工具新增 + 內部清理 + 失效來源連結修復。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,336 → 15,330**（−6，停用一個失效年度性來源）。

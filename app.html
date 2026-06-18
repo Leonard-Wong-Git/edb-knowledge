@@ -1986,7 +1986,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // is frozen and consumed by the downstream Circular System). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + 文件標註（就地標註）+ 範本下載 + 合規清單修訂，跨 15 個合規範疇。
-const PLATFORM_VERSION = '3.2.0';
+const PLATFORM_VERSION = '3.2.1';
 
 function PlatformIntroPanel({ stats }) {
   const [demoTab, setDemoTab] = React.useState(0);
@@ -3409,6 +3409,19 @@ function AnnotatePanel() {
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* Empty state — S173: when the relevance floor drops all off-domain guideline
+              matches (and no checklist gaps), say so plainly instead of a blank report. */}
+          {inPlace.length === 0 && appendix.length === 0 && (
+            <div className="bg-white rounded-xl border border-gray-200 p-4" style={{textAlign:'center'}}>
+              <div className="text-sm font-bold text-gray-800 mb-1">未找到需標示的貼題指引或合規項目</div>
+              <p className="text-xs text-gray-500" style={{lineHeight:1.7}}>
+                {report.domains && report.domains.length > 0
+                  ? '本文件相關範疇的合規項目大致齊備，未發現明顯缺漏或高度貼題的指引。'
+                  : '系統未能將本文件對應到教育局學校政策指引的任何範疇（可能主題不在涵蓋範圍，例如純法律聲明、對外公關文稿等）。如本文件確涉及學校政策，可於上方改用「指定範疇」手動選擇合規範疇再試。'}
+              </p>
             </div>
           )}
 

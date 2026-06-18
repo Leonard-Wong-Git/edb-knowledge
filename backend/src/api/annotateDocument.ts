@@ -63,6 +63,30 @@ const MAX_PARTIAL_PER_DOMAIN = 12;
  *  "you also lack policy X" items); explicit domain selection = full completeness. */
 const MAX_MISSING_PER_DOMAIN = 25;
 const MAX_MISSING_PER_DOMAIN_AUTO = 8;
+/** Minimum top cosine for a segment's guideline match to be presented as 「相關指引」.
+ *  searchChannelB's min_score (0.22) gates RETRIEVAL, not RELEVANCE: formal-register
+ *  CJK that is topically OFF-domain still scores ~0.5–0.6 cosine, so without this floor a
+ *  website legal disclaimer gets "matched" to 課程指引/防貪錦囊/颱風通告 (0.57–0.59) and
+ *  shown as 相關指引 — confident-looking but irrelevant. Empirically (S173, live
+ *  text-embedding-3-small): off-domain tops cluster ≤0.595, the weakest GENUINE on-domain
+ *  paragraph scores 0.654 → a clean gap; 0.62 drops forced off-domain matches while keeping
+ *  real ones (and favours recall by sitting nearer the off-domain top). Tunable; if real
+ *  docs later clip, escalate to the DF lexical-overlap gate (playbook
+ *  embedding-cosine-overfire-lexical-gate; cjkBigrams already exported from checklistRevise).
+ *  Applied HERE only — analyzeDocument/searchChannelB stay byte-identical. */
+const GUIDELINE_RELEVANCE_FLOOR = 0.62;
+/** Minimum descriptor peak-cosine for an AUTO-DETECTED compliance domain to be
+ *  scanned. detectDomainsPerSegment's internal AUTO_DETECT_THRESHOLD (0.38) is a
+ *  routing bar, not a relevance bar — an off-domain document still grazes a domain
+ *  descriptor (a website disclaimer's 風險/承擔/聲明 register peaks at 0.396 against
+ *  「學校安全」), which then floods the report with spurious "missing requirement"
+ *  findings. Empirically (S173, live text-embedding-3-small): off-domain peak 0.396
+ *  vs genuine on-domain peaks 0.53 (家課→curriculum) / 0.69 (safety→safety) → 0.45
+ *  drops the off-domain graze while keeping real domains. The sibling of
+ *  GUIDELINE_RELEVANCE_FLOOR for the checklist-gap head; applied HERE only, so
+ *  checklistRevise + the standalone /api/checklist-revise stay byte-identical.
+ *  Only gates AUTO-detection — an explicitly user-selected domain is always honoured. */
+const DOMAIN_RELEVANCE_FLOOR = 0.45;
 
 // ---------------------------------------------------------------------------
 // Types
@@ -183,7 +207,12 @@ export async function annotateDocument(
       AUTO_DETECT_MAX_DOMAINS,
       selType
     );
-    domainKeys = detected.map((d) => d.key);
+    // Relevance floor: keep only domains whose descriptor peak clears the floor,
+    // so an off-domain doc that merely grazes a descriptor (≥0.38 routing bar but
+    // < real relevance) auto-detects nothing instead of flooding spurious gaps.
+    domainKeys = detected
+      .filter((d) => d.score >= DOMAIN_RELEVANCE_FLOOR)
+      .map((d) => d.key);
     autoDetected = domainKeys.length > 0;
   }
 
@@ -220,6 +249,10 @@ export async function annotateDocument(
   for (const seg of analysis.segments) {
     if (!seg.matches || seg.matches.length === 0) continue;
     const top = seg.matches[0];
+    // Relevance floor: a top match below GUIDELINE_RELEVANCE_FLOOR is an off-domain
+    // forced match (same register, wrong topic) — drop it so off-topic documents show
+    // 「未找到貼題指引」 instead of confident-looking irrelevant matches.
+    if (typeof top.score !== "number" || top.score < GUIDELINE_RELEVANCE_FLOOR) continue;
     guidelineFindings.push({
       kind: "guideline",
       span: seg.text,

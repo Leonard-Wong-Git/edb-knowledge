@@ -2,7 +2,7 @@
 
 > 香港教育局（EDB）政策知識庫 — 專為學校管理人員而設
 
-[![Platform](https://img.shields.io/badge/platform-v3.2.0-teal)](CHANGELOG.md)
+[![Platform](https://img.shields.io/badge/platform-v3.2.1-teal)](CHANGELOG.md)
 [![Data contract](https://img.shields.io/badge/knowledge.json-v2.3.0%20(frozen)-lightgrey)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![GitHub Pages](https://img.shields.io/badge/Frontend-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/edb-knowledge/app.html)
@@ -181,4 +181,4 @@ KNOWLEDGE_PATH=../../../dev/knowledge/role_facts.json
 
 ---
 
-*最後更新：2026-06-15 | 平台 v3.2.0（知識資料合約 knowledge.json 維持凍結 v2.3.0）| 維護：leonard-wong-git*
+*最後更新：2026-06-18 | 平台 v3.2.1（知識資料合約 knowledge.json 維持凍結 v2.3.0）| 維護：leonard-wong-git*
