@@ -6,6 +6,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [內容更新 + 檢索增強] — 2026-06-21 — 附件細字 footnote 入庫 · 路由獨立檢索
+
+> 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）；本次為知識內容新增（EDB 文件附件表格細字 footnote）＋ 後端檢索增強。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,330 → 15,363**（＋33 curated footnote chunks）。
+
+### Added
+- **附件細字 footnote 入庫**（Channel B Supabase，＋33 chunks，`content_type=footnote_curated`）：EDB 文件附件表格底下嘅細字（註／備註／footnote）好多時藏住正文無提及嘅實質要求（費用上限、資助級別門檻、批核權、計算公式、安全門檻、法律定義、校曆日數、人手比例）。策展提煉成可搜尋知識——例：K1 報名費／註冊費上限、無薪假增薪延遲公式、過剩教師定義、特殊學校境外遊學師生比例、員工評核「三次」門檻、遣散費年資計算。
+
+### Changed
+- **路由獨立 footnote 檢索**（`backend/src/api/searchChannelB.ts` ＋ `wikiRepository.ts`）：curated footnote 以精確 cosine overlay 檢索（`searchFootnotes`），繞過範疇路由排除（footnote 來源未必在命中 route 嘅 source set）＋ ivfflat probes=8 recall 盲點；強配對（≥0.45）保證進入 LLM 合成窗。敵意測試（held-out 33 條全新口語 query）由 75.8% → 100%。Best-effort（`try/catch`），唔影響主搜尋路徑。
+- 知識片段顯示數 **15,330 → 15,363**（首頁／平台介紹／README／K1_API_SPEC `_meta.stats` 同步）。
+
+---
+
 ## [3.2.1] — 2026-06-18 — 文件標註 off-domain 相關性下限
 
 > 平台版本 **v3.2.0 → v3.2.1**（`PLATFORM_VERSION`）。文件標註（📝 文件標註 tab）精準度修復：off-domain 文件（例如純法律免責聲明、對外公關文稿）唔再被強行配對出無關「相關指引」或硬塞入合規範疇。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**；Supabase chunks / facts 455 / guidelines 158 數量不變（純比對門檻調整，零資料改動）。
