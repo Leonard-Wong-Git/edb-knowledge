@@ -108,8 +108,23 @@ Negative（無 table-footnote gap）：g04(prose digest)、blnst_test_notes_nond
 - **根因＝ROUTING（非 chunk 質素）**：診斷 8 條 miss，全部該 footnote 嘅 source **連 footnote 一齊唔喺結果**——查詢路由去咗排除該 source 嘅 source set（supply→治理 / icac→誤路由中文課程 / kg_admin→finance …）。**sim 冇 model 路由 → 偏樂觀（非保守）**。IVFFlat probes=8 approximate recall 亦較 sim exact cosine 低。
 - **修法（待 Leonard 定，要 backend deploy）**：`searchChannelB.ts` 加**路由獨立 footnote pass**（正常路由後永遠額外搜 33 條 footnote_curated、夠相關就 merge）。additive、33 條 cheap、唔郁現有路由。
 
-## ⏸️ CHECKPOINT 2 — 33 chunk 已 LIVE；routing 修法待 Leonard 定
-display-sync(15,363) + commit **HOLD 住**，等 routing 修法掂先一次過做。33 chunk 留 live（已幫到 15/33 路由啱 case，無害可逆）。Leonard 回 (A)授權 backend routing 修法+deploy / (B)維持唔郁 backend。
+## Iter 8（S174）— Leonard /loop=繼續 → routing 修法 + 部署
+- **根因確認**：searchWiki RPC 全局 top-N 後**按 sourceIds post-filter**（wikiRepository L179）→ 路由命中時 footnote 來源不在 SOURCE_SET 即被丟；+ ivfflat probes=8 recall 盲點（freshly-inserted vectors）。
+- **修法（commit `8f2cace`）**：`wikiRepository.searchFootnotes`（fetch 全 33 footnote_curated + **exact local cosine**，繞 RPC/ivfflat/路由）+ `searchChannelB` footnote pass（強配對 ≥0.45 lead 入 synthesis 窗、弱者按分 merge、best-effort try/catch）。WikiContentType +footnote_curated。tsc+build PASS。
+- **揭發並修 embedding 不匹配**：入庫時 embed 咗 text-only，但 sim/staging 用 text+keywords → **re-embed 全 33 為 text+keywords + upsert**（count 不變 15,363）。
+- **本地驗證**（built code + live Supabase = production behavior）：8 miss 修 7→ sag_receipt 加「遲啲開」angle → **full held-out 33/33 = 100%**（live 75.8% → 100%）。回歸無爆。
+- **display-sync 15,363 ×8**（app.html/index.html/3 JSON/K1_API_SPEC/README；CHANGELOG 新 section；凍結合約零接觸、無 PLATFORM_VERSION bump）；headless app.html render 15,363 乾淨。
+- **commits push origin/main**：`8f2cace`(backend 修法) → `9b3d8f9`(display-sync+staging+CHANGELOG)。HEAD==origin/main。
+
+## ✅ Iter 9 — LIVE 部署確認：100% — 目標達成
+- **LIVE production 複測（真 Render endpoint，33 held-out 敵意 query）= 33/33 = 100%**（footnote 直接命中 33/33）。`dev/footnote_live_final.json`。
+- **synthesize=true 證答案修正**（原 hallucination 案例）：代課教師批准 → 正確「6個月/大多數校董」（唔再亂作「30日」）；特殊學校遊學 → 1:1 SEN 比例；員工評核 → 三次門檻。全部 footnote-grounded。
+- **準確度全程**：62%（入庫前 baseline）→ 75.8%（入庫後·修法前）→ **100%（修法後·live production）**。
+
+## 🏁 DONE — 目標達成，報告已出俾 Leonard 確認
+33 footnote LIVE（Supabase 15,363）+ 路由獨立檢索 deployed（`8f2cace`+`9b3d8f9`）+ display-sync + live 100%。**loop 終止**（goal met）。
+若 stray fallback wakeup 觸發：**hold**，唔好再做嘢，等 Leonard 下一步（接受 / 收工 closeout / 擴充更多 footnote）。
+殘留 follow-up（非阻塞）：① 仲有 ~28 條 lower-priority footnote 候選未入（broad sweep，需要先 triage）；② footnote cache 喺 backend process 生命週期內（re-ingest footnote 後要 restart Render 先 reload）；③ 建議做 governance closeout（SESSION_HANDOFF/LOG 仲喺 S173）。
 
 ## （存檔）原 Next step（Iter 6）
 1. 讀 `dev/footnote_livebar.json`：真 surface% + rank1% + 各未過 query。

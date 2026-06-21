@@ -2,6 +2,43 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-21 Session 174 — 附件細字 footnote 入庫機制 (route-independent overlay) · 敵意 live 100%
+
+- **ID:** Claude_20260621_1200
+- **Trigger:** 「開工」起手探針全綠（app.html 200 + PLATFORM_VERSION 3.2.1 + Render /health cache_a 455 + HEAD==origin/main + Supabase 15,330）→ Leonard 指出 EDB 文件**附件表格底嘅細字（註/備註/footnote）藏住正文無講嘅實質要求、值得做 source**，要規劃+試找例子。
+- **① 調查（規劃+試找）：** agent fan-out deep-read 13 文件 → 確認係**系統性 pattern** + **三流失機制**：(A) 扁平埋藏（footnote 抽到但表格拉成線性、檢索沉底）/ (B) 頁數截斷（附件喺 PDF 尾、抽取頁數上限切走，如 g01 缺 31-37、coa_imc_1_19 缺 22 頁）/ (C) 摘要式抽取（html prose digest 銷毀表格結構，如 g04）。全庫截斷審計：3 個舊 `extract_*` 格式源截斷。例子（已逐字核實）：K1 報名費$40/註冊費$970·$1,570、無薪假增薪延遲公式、過剩教師定義、特殊學校遊學 1:1 SEN 比例、評核「三次」門檻、遣散費年資計算等。
+- **② Leonard /loop 自主推進「全部入庫 + 敵意 agent 攻擊到 98% 出報告」：** harvest 全庫 footnote（marker+table-window+substantive filter → 1104 raw → 去噪/dedup/policy-signal 精煉 61 → triage）→ **鎖定 33 條實質 policy footnote**（跨 20 source）→ staging（`dev/footnote_staging.json`，enriched query-friendly chunk）。敵意測試：3 個獨立 agent 生 99 條口語 query + LLM judge；sim（embed + live top-8 bar）迭代——揭發 single-query 100% 係 overfit（多-query rank-1 87.9%）→ multi-angle 擴充 → rank-1 98%；held-out 33 全新 query 驗 93.9%（防 overfit）。
+- **③ Leonard 批 A → LIVE 入庫（INSPECT before/after 齊）：** 33 footnote → Channel B Supabase（`id=footnote_<fid>`、`content_type=footnote_curated` 可逆、掛 existing source_id、`url=source#page`、embedding text-embedding-3-small）。total **15,330→15,363**、footnote_*=33 核實。
+- **④ LIVE 複測揭路由盲點 + 修：** 入庫後 live 複測得 75.8%（footnote 直接命中 15/33）。診斷=`searchWiki` RPC 返全局 top-N 後**按 `sourceIds` post-filter**（`wikiRepository` L179）→ 命中 route 時 footnote 來源不在 SOURCE_SET 即被丟；+ ivfflat probes=8 recall 漏 freshly-inserted vectors。**修（commit `8f2cace`）：** `wikiRepository.searchFootnotes`（fetch 全 33 footnote_curated + **exact local cosine**、繞 RPC/ivfflat/路由、in-memory cache）+ `searchChannelB` footnote pass（強配對 ≥0.45 lead 入 synthesis 窗、弱者按分 merge、best-effort try/catch）；WikiContentType +footnote_curated。**揭發 embedding 不匹配**（入庫 embed text-only ≠ sim/staging 嘅 text+keywords）→ re-embed 全 33 為 text+keywords + upsert（count 不變）。**本地驗證（built code + live Supabase = production behavior）75.8%→33/33=100%**；sag_receipt 加「遲啲開」angle。
+- **⑤ 部署 + LIVE production 確認：** push `8f2cace`+`9b3d8f9`（Render auto-deploy）→ 背景 poll 部署 live → **LIVE production 33 held-out = 33/33 = 100%**（footnote 直接命中 33/33）。synthesize 證原 hallucination（代課批准亂作「30日」）修正為真「**受僱不少於六個月或編制內須大多數校董批准**」；特殊學校遊學 1:1 SEN；評核「三次」門檻——全部 footnote-grounded。**準確度全程：62%（入庫前）→ 75.8%（入庫後·修法前）→ 100%（修法後·live）。**
+- **Boundary:** live Supabase INSERT 33 + upsert（Leonard 批 A 明確授權、INSPECT before/after 齊、可逆）；backend 加 `searchFootnotes`（read-only Supabase SELECT + 本地 cosine）+ footnote pass（additive、best-effort、唔影響主搜尋）；**凍結合約 `_meta` 2.3.0 / facts 455 / guidelines 158 零接觸；canonical chunker 未改；無 PLATFORM_VERSION bump**（內容+檢索增強，跟 [維護]/[內容更新] convention）。display-sync 15,363 ×8。
+- **Doc Sync (§3):** Product（footnote 知識 +33 + 路由獨立檢索）→ CHANGELOG 新 section + SESSION_HANDOFF/LOG ✓；Backend code fact（`searchFootnotes`/footnote_curated/footnote pass/FOOTNOTE_MIN_SCORE 0.42·LEAD 0.45/in-memory cache）→ CODEBASE_CONTEXT AI log ✓；display count 15,363（app.html ×4 / index.html ×3 / 3 JSON _meta.stats / K1_API_SPEC / README）✓。
+- **commits（push origin/main）:** `8f2cace`(footnote overlay backend — searchFootnotes + footnote pass) → `9b3d8f9`(display-sync 15,363 + staging + eval harness + CHANGELOG) + 本 closeout commit。
+- **Log maintenance (§4a):** closeout 前 SESSION_LOG 193 行（<400）、4 entries（<11）、oldest S170 2026-06-15（<30日）→ **no-op**（不 archive）。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella 已設 redirect-only).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.2.1。
+Product state: HEAD == origin/main（已 push，最新 9b3d8f9）。Supabase 15,363（含 33 footnote_curated overlay）；Render backend live（OpenAI client 行 node-fetch、Node pin 22.x；footnote 用 in-memory cache，re-ingest footnote 後要 restart Render 先 reload）；Pages live（v3.2.1）。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.1 + Render /health（cache_a warm 455）+ HEAD==origin/main + Supabase 15,363。
+
+S174（2026-06-21）已 ship + push（全 QC + live 100% 驗）：
+- 附件細字 footnote 入庫機制：EDB 文件附件表格底細字（footnote）藏住正文無講嘅實質要求（費用上限/資助級別/批核權/計算公式/安全門檻/法律定義/校曆/人手比例）→ 全庫掃 + 策展 33 條入 Channel B（content_type=footnote_curated、Supabase 15,330→15,363、id=footnote_*、可逆）。
+- 路由獨立檢索：診斷 searchWiki RPC 後 sourceIds post-filter 丟 footnote + ivfflat probes=8 recall 盲點 → wikiRepository.searchFootnotes（exact-cosine overlay 繞路由/ivfflat、in-memory cache）+ searchChannelB footnote pass（強配對≥0.45 lead 入合成窗、best-effort try/catch）。敵意 held-out 62%→75.8%→live 100%；synthesize 證原 hallucination（代課批准亂作「30日」）修正為真「6個月/大多數校董」。
+- display-sync 15,363；凍結合約零接觸（_meta 2.3.0/facts 455/guidelines 158）；無 PLATFORM_VERSION bump。commits 8f2cace→9b3d8f9。
+
+NEXT（優先序）：
+① footnote 擴充（待 Leonard 定）：全庫仲有 ~28 條 lower-priority footnote 候選未入（先 triage；資料喺 dev/footnote_staging.json + dev/FOOTNOTE_INGEST_LOOP.md）。⚠️ 再加/改 footnote 後要 restart Render（footnote 用 backend in-memory cache）。
+② 文件標註精準度 follow-up（monitor）；③ EDB 入庫/壞連結 monitor-driven（週一 3 Issue email；真貨先逐源 pre-flight+INSPECT+Leonard 授權 live INSERT/UPDATE，service key 在 backend/.env）；④ mobile onboarding（desktop 已有）；⑤ Render free-tier cold-start ~50s + auto-deploy 偶爾卡；⑥ SMC recall 被 IMC corpus 淹（monitor）；⑦ DEBP monitor（2 OCR draft + 藍圖圖像頁）；⑧ per-segment 範疇收斂單一 broad 範疇；⑨ Render undici keep-alive 監察（node-fetch 已修；復發→Azure swap）。
+
+⚠️ 紀律：app.html 改動用 headless Chrome（fresh，bypass 快取；macOS 無 timeout、用 --virtual-time-budget）；backend footnote overlay = wikiRepository.searchFootnotes（exact-cosine over content_type=footnote_curated、in-memory cache、invalidateWikiCache reset）+ searchChannelB footnote pass（FOOTNOTE_MIN_SCORE 0.42 / LEAD 0.45）；footnote chunk = id=footnote_*、掛 source_id 繼承路由、embedding=text+keywords（display text 乾淨）；live Supabase INSERT/UPDATE/DELETE 需 INSPECT before/after + Leonard 明確授權（service key 在 backend/.env；anon key 喺 GitHub secret SUPABASE_ANON_KEY + Render env）；backend OpenAI client 行 node-fetch（sdkFetch）+ Node pin 22.x（勿改返 undici）；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；入庫/deprecate（chunk count 變）要 display-sync 8 點；勿改 canonical chunker；改清單 re-run gen_checklists_bundle.py；路徑空格雙引號；commit -m 勿用反引號；repo 勿 set private。
+Post-startup first action: 起手探針（v3.2.1 + Supabase 15,363 + Render /health cache_a 455 + HEAD==origin/main）後，按 Leonard 指示起 NEXT ① footnote 擴充 / 或其他 backlog。
+```
+
 ## 2026-06-18 Session 173 — 真 .docx 收貨 + 文件標註 off-domain 相關性下限 (v3.2.1) + OpenAI node-fetch 生產修復
 
 - **ID:** Claude_20260618_0839
