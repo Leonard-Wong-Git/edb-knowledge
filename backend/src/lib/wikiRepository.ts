@@ -16,7 +16,8 @@ export type WikiContentType =
   | "vault_extract"
   | "approved_fact"
   | "stat_fact"
-  | "guideline";
+  | "guideline"
+  | "footnote_curated";   // S174: curated 附件細字 footnote facts (route-independent overlay)
 
 export type WikiFactType =
   | "policy"
@@ -221,6 +222,67 @@ export async function searchWiki(
   }));
 }
 
+// ---------------------------------------------------------------------------
+// S174 — curated footnote overlay (route- AND ivfflat-independent)
+// ---------------------------------------------------------------------------
+// The curated 附件細字 footnote chunks (content_type="footnote_curated") must be
+// retrievable regardless of (a) category routing — their source_id may sit outside the
+// matched SOURCE_SET — and (b) the match_wiki_chunks ivfflat probes=8 recall, which
+// intermittently misses freshly-inserted vectors whose list isn't among the query's 8
+// probed lists. Because the set is tiny (~33), fetch them ALL once via a plain REST
+// SELECT (no RPC / no ivfflat) and score by EXACT cosine. Guaranteed retrieval.
+let _footnoteCache: Array<{ chunk: WikiChunk; embedding: number[] }> | null = null;
+
+function parseVec(v: unknown): number[] {
+  if (Array.isArray(v)) return v as number[];
+  if (typeof v === "string") return JSON.parse(v) as number[];
+  return [];
+}
+
+async function loadFootnoteChunks(): Promise<Array<{ chunk: WikiChunk; embedding: number[] }>> {
+  if (_footnoteCache) return _footnoteCache;
+  const url =
+    `${getSupabaseUrl()}/rest/v1/wiki_chunks?content_type=eq.footnote_curated` +
+    `&select=id,hash,text,source_id,title,url,topic,content_type,fact_type,role,school_level,reference_year,embedding`;
+  const key = getSupabaseAnonKey();
+  const resp = await fetch(url, { headers: { apikey: key, Authorization: `Bearer ${key}` } });
+  if (!resp.ok) throw new Error(`footnote overlay load ${resp.status}`);
+  const rows = (await resp.json()) as Array<WikiChunk & { embedding: unknown }>;
+  _footnoteCache = rows.map(({ embedding, ...chunk }) => ({
+    chunk: chunk as WikiChunk,
+    embedding: parseVec(embedding),
+  }));
+  return _footnoteCache;
+}
+
+function cosine(a: number[], b: number[]): number {
+  let dot = 0, na = 0, nb = 0;
+  const n = Math.min(a.length, b.length);
+  for (let i = 0; i < n; i++) { dot += a[i] * b[i]; na += a[i] * a[i]; nb += b[i] * b[i]; }
+  return na && nb ? dot / (Math.sqrt(na) * Math.sqrt(nb)) : 0;
+}
+
+/**
+ * Exact-cosine search over the curated footnote overlay. Caches the (small) footnote
+ * set for the process lifetime — invalidate by restarting the backend after re-ingesting
+ * footnotes. Caller should treat this as best-effort (try/catch).
+ */
+export async function searchFootnotes(
+  query: string,
+  embedFn: EmbedFn,
+  minScore: number,
+  topN: number
+): Promise<WikiSearchResult[]> {
+  const fns = await loadFootnoteChunks();
+  if (fns.length === 0) return [];
+  const qVec = await embedFn(query);
+  return fns
+    .map((f) => ({ chunk: f.chunk, score: cosine(qVec, f.embedding), channel: "B" as const }))
+    .filter((r) => r.score >= minScore)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, topN);
+}
+
 export function invalidateWikiCache(): void {
-  // No-op: no local cache in Supabase mode
+  _footnoteCache = null;
 }

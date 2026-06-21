@@ -15,6 +15,7 @@ import { isSupabaseConfigured } from "../config/env.js";
 import type { EmbedFn } from "../lib/embeddingClient.js";
 import {
   searchWiki,
+  searchFootnotes,
   type WikiContentType,
   type WikiSearchResult,
 } from "../lib/wikiRepository.js";
@@ -617,6 +618,25 @@ function toChannelBResult(r: WikiSearchResult): ChannelBResult {
   };
 }
 
+/**
+ * S174 — Route-independent footnote pass.
+ * Curated 附件細字 footnote chunks (content_type="footnote_curated") are attached to
+ * their source document's source_id, but adversarial/oblique queries often route to a
+ * category whose SOURCE_SET excludes that source — so the footnote, though fetched
+ * globally by the RPC, is discarded by the source-set post-filter (wikiRepository
+ * sourceIds gate). Fix: run a second searchWiki restricted to footnote_curated (NO
+ * source filter) on its own over-fetch budget, then merge by score. Additive +
+ * best-effort (never fails the main search). FOOTNOTE_MIN_SCORE gates off-topic noise;
+ * the final score-sort + top_k slice decides whether a footnote actually surfaces.
+ */
+const FOOTNOTE_MIN_SCORE = 0.42;
+/**
+ * A footnote scoring ≥ this against the raw query is a precise curated answer — give it a
+ * guaranteed lead slot so it reaches the synthesis window (top-5) even when (mis-)routed
+ * main-search results outscore it. Footnotes between MIN and LEAD just merge by score.
+ */
+const FOOTNOTE_LEAD_SCORE = 0.45;
+
 export async function searchChannelB(
   request: SearchChannelBRequest,
   embedFn: EmbedFn,
@@ -681,6 +701,30 @@ export async function searchChannelB(
 
   let results = rawResults.map(toChannelBResult);
 
+  // S174 — route-independent footnote pass (see FOOTNOTE_MIN_SCORE above). Exact cosine
+  // over the curated footnote overlay (bypasses routing AND ivfflat recall). Uses the RAW
+  // query (footnote chunks are not category-tuned). Best-effort: never fails search.
+  try {
+    const fnRaw = await searchFootnotes(query, embedFn, FOOTNOTE_MIN_SCORE, 6);
+    if (fnRaw.length > 0) {
+      const fnResults = fnRaw.map(toChannelBResult);
+      // Strong footnote matches lead (guaranteed synthesis-window slot); weaker ones
+      // merge by score. Dedup by id; main results keep score order behind the lead.
+      const lead = fnResults.filter((r) => r.score >= FOOTNOTE_LEAD_SCORE).slice(0, 2);
+      const seen = new Set(lead.map((r) => r.id));
+      const rest: ChannelBResult[] = [];
+      for (const r of [...results, ...fnResults]) {
+        if (seen.has(r.id)) continue;
+        seen.add(r.id);
+        rest.push(r);
+      }
+      rest.sort((a, b) => b.score - a.score);
+      results = [...lead, ...rest];
+    }
+  } catch {
+    // a footnote-pass failure must never break the main search
+  }
+
   // Filter out statistical facts unless explicitly requested:
   //   - content_type "stat_fact" (auto-approved stats)
   //   - source_id starting with "stat_" (vault extracts from statistical sources)
@@ -690,7 +734,8 @@ export async function searchChannelB(
     );
   }
 
-  // Apply top_k after filtering
+  // Apply top_k. The S174 footnote-pass merge already ordered results (strong footnotes
+  // lead, remaining results by score); don't re-sort or the lead slot would be undone.
   results = results.slice(0, top_k);
 
   // LLM synthesis
