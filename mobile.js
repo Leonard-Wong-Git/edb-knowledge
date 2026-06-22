@@ -48,6 +48,7 @@
   ];
 
   const ROLE_STORAGE_KEY = 'k1-mobile-role';
+  const MOBILE_TOUR_FLAG = 'k1_mobile_tour_v1';
 
   function getStoredRole() {
     try { return localStorage.getItem(ROLE_STORAGE_KEY); }
@@ -55,6 +56,70 @@
   }
   function storeRole(key) {
     try { localStorage.setItem(ROLE_STORAGE_KEY, key); } catch (_) {}
+  }
+
+  function getMobileTourDone() {
+    try { return !!localStorage.getItem(MOBILE_TOUR_FLAG); } catch (_) { return true; }
+  }
+  function setMobileTourDone() {
+    try { localStorage.setItem(MOBILE_TOUR_FLAG, '1'); } catch (_) {}
+  }
+
+  // S175 — 4-step first-visit onboarding tour (mobile-specific features)
+  const MOBILE_TOUR_STEPS = [
+    { icon: '👋', title: '歡迎使用香港學校政策搜尋平台', body: '快速查找 EDB 教育政策，附來源頁碼，直跳官方原文 PDF。四個主要功能讓你告別翻文件。' },
+    { icon: '🔍', title: '政策搜尋', body: '輸入 1–3 個關鍵字（例如「教師病假」「採購 5 萬」），AI 即時比對 EDB 官方指引，附來源頁碼，可直跳 PDF 對應頁。' },
+    { icon: '📚', title: '指引文件庫', body: '分類整理嘅 EDB 官方指引文件——課程、財務、SEN、幼稚園等。點下方「📚 指引文件」打開。' },
+    { icon: '✅', title: '準備好了！', body: '接下來請選擇你嘅崗位角色，系統會根據角色精準篩選最相關嘅政策事實。' },
+  ];
+
+  function showMobileTour(onDone) {
+    var total = MOBILE_TOUR_STEPS.length;
+    var current = 0;
+
+    var overlay = document.getElementById('m-tour');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'm-tour';
+      overlay.className = 'm-tour';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      overlay.setAttribute('aria-label', '平台導覽');
+      document.body.appendChild(overlay);
+    }
+    overlay.setAttribute('aria-hidden', 'false');
+
+    function render() {
+      var s = MOBILE_TOUR_STEPS[current];
+      var isLast = current === total - 1;
+      var dots = '';
+      for (var i = 0; i < total; i++) {
+        dots += '<span class="m-tour-dot' + (i === current ? ' active' : '') + '"></span>';
+      }
+      overlay.innerHTML = ''
+        + '<div class="m-tour-icon">' + s.icon + '</div>'
+        + '<h2 class="m-tour-title">' + escapeHTML(s.title) + '</h2>'
+        + '<p class="m-tour-body">' + escapeHTML(s.body) + '</p>'
+        + '<div class="m-tour-dots">' + dots + '</div>'
+        + '<nav class="m-tour-nav">'
+        +   '<button class="m-tour-skip" id="m-tour-skip">略過</button>'
+        +   '<button class="m-tour-next' + (isLast ? ' primary' : '') + '" id="m-tour-next">'
+        +     (isLast ? '開始使用 →' : '下一步')
+        +   '</button>'
+        + '</nav>';
+      overlay.querySelector('#m-tour-skip').addEventListener('click', finish);
+      overlay.querySelector('#m-tour-next').addEventListener('click', function () {
+        if (isLast) { finish(); } else { current++; render(); }
+      });
+    }
+
+    function finish() {
+      overlay.setAttribute('aria-hidden', 'true');
+      setMobileTourDone();
+      if (typeof onDone === 'function') onDone();
+    }
+
+    render();
   }
 
   // ── 3. Search placeholder rotate (5-8 條，每 5 秒切換) ──
@@ -693,8 +758,10 @@
     // Build tab bar (every page)
     buildTabBar();
 
-    // Show role picker on first run (skip if already chosen)
-    if (!getStoredRole()) {
+    // S175 — First-run sequence: tour (if new) → role picker (if no role set yet)
+    if (!getMobileTourDone()) {
+      showMobileTour(function () { if (!getStoredRole()) showRolePicker(); });
+    } else if (!getStoredRole()) {
       showRolePicker();
     }
 

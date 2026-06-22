@@ -756,6 +756,87 @@
     white-space: nowrap;
   }
 
+  /* ── 10c. Mobile onboarding tour (first-visit walkthrough, S175) ── */
+  .m-tour {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(160deg, #0D6B47 0%, #0A4F35 100%);
+    z-index: 210;
+    display: flex;
+    flex-direction: column;
+    padding: calc(env(safe-area-inset-top, 0px) + 48px) var(--m-sp-md) calc(env(safe-area-inset-bottom, 0px) + 24px);
+  }
+  .m-tour[aria-hidden="true"] { display: none; }
+  .m-tour-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    text-align: center;
+    line-height: 1;
+  }
+  .m-tour-title {
+    font-size: clamp(22px, 6vw, 28px);
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 14px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+  .m-tour-body {
+    font-size: var(--m-text-base);
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.85);
+    flex: 1;
+  }
+  .m-tour-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 28px 0 18px;
+  }
+  .m-tour-dot {
+    height: 7px;
+    width: 7px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    transition: width 0.2s ease, background 0.2s ease;
+  }
+  .m-tour-dot.active { width: 24px; background: #ffffff; }
+  .m-tour-nav {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .m-tour-skip {
+    flex: 0 0 auto;
+    background: transparent;
+    border: 0;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: var(--m-text-sm);
+    font-weight: 600;
+    padding: 12px 4px;
+    cursor: pointer;
+    min-height: var(--m-touch, 48px);
+  }
+  .m-tour-next {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+    font-size: var(--m-text-base);
+    font-weight: 700;
+    border-radius: var(--m-r-pill);
+    min-height: var(--m-touch, 48px);
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+  .m-tour-next.primary {
+    background: #ffffff;
+    color: var(--m-edb-deep);
+    border-color: transparent;
+  }
+  .m-tour-next:active,
+  .m-tour-skip:active { opacity: 0.7; }
+
   /* ── 11. Reduced motion ── */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
