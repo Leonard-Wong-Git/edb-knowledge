@@ -6,6 +6,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [內容修復] — 2026-06-22 — TRG 凍結教席上限 footnote 入庫（修正政策搜尋砌數）
+
+> 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,363 → 15,364**（＋1 curated footnote chunk）。
+
+### Fixed
+- **政策搜尋砌數修復 — 凍結教席上限**（Channel B Supabase，＋1 chunk，`content_type=footnote_curated`，可逆）：查詢「已成立法團校董會學校可凍結的教席上限是百分之幾」時，系統原本檢索唔到真資料（資料庫缺此規則），卻錯誤挪用「法團校董會辦學團體校董人數上限 60%」砌出假答案（張冠李戴 confabulation）。補入真資料：凍結教席（含〔甲〕教師放假暫時凍結、〔乙〕核准編制上的教席空缺、〔丙〕永久凍結常額教席，三類合計）上限為學校**核准教學人員編制的一成（10%）**，源自《為設有法團校董會學校而提供的整合代課教師津貼》附件 III 申請表細字（中英版雙重核實）。本地 self-test：原 query 對新 footnote cosine **0.66**（穩入 LLM 合成窗），英文無關 query 0.31（不誤命中）。
+
+### Changed
+- 知識片段顯示數 **15,363 → 15,364**（首頁／平台介紹／README／K1_API_SPEC `_meta.stats` 同步）。
+
+---
+
 ## [功能 + 資料修復] — 2026-06-22 — 手機首次導覽 · 檢查清單範疇標籤補全
 
 > 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）。知識內容零改動（facts 455 / guidelines 158 / chunks 15,363 不變）。
