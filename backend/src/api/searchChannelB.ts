@@ -554,6 +554,42 @@ const SYNTHESIS_PROMPT = `你是香港學校管治的政策顧問。以下是從
 政策資料：
 {CHUNKS}`;
 
+// S177 — relevance judge (anti-confabulation gate). A cheap binary check BEFORE synthesis:
+// only synthesize when the retrieved chunks actually contain the answer; otherwise decline
+// rather than fabricating from topically-near-but-wrong chunks (the 凍結教席→IMC-60% class).
+// Conservative by design (寧緊莫鬆): any uncertainty → 否 → decline. A small model judges a
+// binary far more reliably than it can judge-and-answer in one shot (verified: a one-shot
+// anti-confab prompt over-refuses on-topic queries; a standalone binary judge scores 5/5).
+const RELEVANCE_JUDGE_PROMPT = `以下是從教育局文件檢索到的資料。請判斷這些資料能否「明確、直接」回答用戶的問題。
+
+從嚴判斷（寧緊莫鬆）：只有當資料實際、明確包含問題所問的「具體答案」（所問的數字／上限／比例／條件／規則本身）時，才答「能」。若資料只是同一大主題但其實在講另一件事、或資料未必直接答到所問事項、或你有任何不確定，一律答「否」。寧可答否，也不要勉強當作能——答錯一個數字會誤導用戶，比答找不到更差。
+
+只回答一個字：能 或 否。
+
+問題：{QUERY}
+
+資料：
+{CHUNKS}`;
+
+const SYNTHESIS_DECLINE =
+  "根據檢索到的教育局文件，暫時未能找到可直接回答此問題的明確資料。下方為主題相關的原始文件，或可參考；亦可嘗試以其他關鍵詞重新搜尋。";
+
+/** S177 — conservative binary relevance gate. Returns true only when the judge is confident
+ *  the chunks directly answer the query (寧緊莫鬆: 不肯定 → 否 → decline). On a judge技術性
+ *  失敗 (API error) it returns true (answer anyway) so a judge outage never silences all
+ *  search — the conservatism is about the judge's verdict, not its availability. */
+async function judgeCanAnswer(query: string, chunkText: string, llmFn: LlmFn): Promise<boolean> {
+  const prompt = RELEVANCE_JUDGE_PROMPT
+    .replace("{QUERY}", query)
+    .replace("{CHUNKS}", chunkText);
+  try {
+    const verdict = (await llmFn(prompt)).trim();
+    return verdict.startsWith("能"); // anything else (否 / noise) → decline
+  } catch {
+    return true; // judge failed technically → fall back to answering, not refusing
+  }
+}
+
 async function synthesizeAnswer(query: string, results: ChannelBResult[], llmFn: LlmFn): Promise<string> {
   const top5 = results.slice(0, 5);
   if (top5.length === 0) return "找不到相關政策。";
@@ -561,6 +597,10 @@ async function synthesizeAnswer(query: string, results: ChannelBResult[], llmFn:
   const chunkText = top5
     .map((r, i) => `[${i + 1}] ${r.text}`)
     .join("\n\n");
+
+  // S177 — anti-confabulation gate: decline rather than fabricate when chunks don't answer.
+  const canAnswer = await judgeCanAnswer(query, chunkText, llmFn);
+  if (!canAnswer) return SYNTHESIS_DECLINE;
 
   const prompt = SYNTHESIS_PROMPT
     .replace("{QUERY}", query)
