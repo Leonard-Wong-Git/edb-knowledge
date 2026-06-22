@@ -2,6 +2,44 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+## 2026-06-22 Session 175 — 手機首次導覽 onboarding tour · 檢查清單 school_types 補標
+
+- **ID:** Claude_20260622 (S175)
+- **Trigger:** 「開工」startup reads 全綠（HEAD 9b3d8f9 / Supabase 15,363 / v3.2.1）→ Leonard「1. 暫時看不到 / 2. 其他可以修就修」→ ① footnote 擴充 defer；proactively 修 ④ mobile onboarding + 部分 ② checklist 補標。
+- **① Mobile onboarding tour（commit `c714abe`）：** Desktop 已有 6 步導覽（`k1_tour_done_v1` gate）；mobile 一直缺。新增 `showMobileTour()` 函數（`mobile.js`，IIFE 內，`MOBILE_TOUR_FLAG='k1_mobile_tour_v1'`）：4 步全螢幕 overlay（①歡迎+平台簡介 ②政策搜尋 ③指引文件庫 ④準備好了）；CSS 新增 `.m-tour*` 81 行（`mobile.css`，z-index 210 > role picker z-index 200）；first-run 序列由 `if(!getStoredRole()) showRolePicker()` → `if(!getMobileTourDone()) showMobileTour(cb) else if(!getStoredRole()) showRolePicker()`。`escapeHTML` 確認係 `function` 聲明（line 437，hoisted）可在 tour 內安全呼叫。
+- **② Checklist school_types 補標（commits `839d741`、`02d9ca0`、`a3babce`）：** 清單項目無 `school_types` 欄位 → 對所有學校類型顯示（`okType` 判斷）→ 噪音。修：
+  - `839d741`：`curriculum/checklist.json` 6 項小學 rollout 通告（`edbc18_2023_pri_science` ×2、`edbc20_2023_ph_pri` ×4）→ `['primary']`；bundle 重生。
+  - `02d9ca0`：`curriculum/checklist.json` 3 項中小兼用通告（`edbc003_2026` ×1、`edbc005_2026` ×2）→ `['primary','secondary']`；bundle 重生。
+  - `a3babce`：`curriculum/checklist.json` 70 項小學課程發展指引 2024（`pri_curr_guide_2024`）→ `['primary']`；`kg_admission/checklist.json` 16 項（`k1_admission_2627` ×7、`kg_admin_guide` ×9）→ `['kindergarten']`；bundle 重生（1573KB，15 域）。
+  - **pending**：`kg_operation` 388 項（`kg_admin_guide_2026` 205 + `kg_operation_manual_2026` 183，全 KG-only）仍無 `school_types`——大批次，待 Leonard 明確授權。
+- **③ DOC_SYNC 文件更新（commit `5cb978d`）：** Row 40 mobile shell scope 要求：`CHANGELOG.md` 新 S175 章節（Added: mobile tour；Fixed: checklist tagging）；`dev/PROJECT_MASTER_SPEC.md §B.5` first-run 序列文字加 S175 說明；`README.md §📱 響應式/手機版範圍` 加 onboarding 一句。CODEBASE_CONTEXT.md 不存在 → skip。
+- **Boundary:** 零 Supabase 改動；`checklists_bundle.json` 重生 3 次（非手改）；凍結合約 `_meta` 2.3.0 / facts 455 / guidelines 158 / PLATFORM_VERSION 3.2.1 / chunks 15,363 全不變；desktop `app.html` / backend 零接觸；`school_types` 改動 = 加欄位（限制顯示），現有無欄位項目行為不變（仍 all-types 顯示）。
+- **commits（push origin/main）:** `c714abe`(feat: mobile onboarding tour) → `839d741`(fix: 6 primary rollout items) → `02d9ca0`(fix: 3 primary+secondary items) → `a3babce`(fix: 70 pri_curr_guide_2024 + 16 kg_admission items) → `5cb978d`(docs: CHANGELOG / README / PROJECT_MASTER_SPEC §B.5)。HEAD `5cb978d`。
+- **Log maintenance (§4a):** closeout 前 SESSION_LOG 5 entries（含本條 = 5；<11）、oldest S172 2026-06-17（<30日）、244 行（<400）→ **no-op**（不 archive）。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/PROJECT_MASTER_SPEC.md
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella 已設 redirect-only).
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.2.1。
+Product state: HEAD == origin/main（已 push，最新 5cb978d，S175）。Supabase 15,363（含 33 footnote_curated overlay）；Render backend live（OpenAI 行 node-fetch，Node pin 22.x；footnote 用 in-memory cache，re-ingest footnote 後要 restart Render）；Pages live（v3.2.1）。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.1 + Render /health cache_a 455 + HEAD==origin/main + Supabase 15,363。
+
+S175（2026-06-22）已 ship + push：
+- 手機首次導覽 onboarding tour（mobile.js + mobile.css）：4 步全螢幕 overlay；k1_mobile_tour_v1 localStorage gate；first-run 序列 tour → role picker。
+- Checklist school_types 補標：curriculum 79 項（primary 73 + primary+secondary 6）+ kg_admission 16 項（kindergarten）；checklists_bundle.json 重生（1573KB，15 域）。⚠️ kg_operation 388 項仍 untagged，待 Leonard 授權。
+- DOC_SYNC 更新：CHANGELOG / PROJECT_MASTER_SPEC §B.5 / README。commits c714abe→839d741→02d9ca0→a3babce→5cb978d。
+
+NEXT（優先序）：
+① footnote 擴充（待 Leonard 定）：全庫仲有 ~28 條 lower-priority footnote 候選未入（資料喺 dev/footnote_staging.json + dev/FOOTNOTE_INGEST_LOOP.md）。⚠️ 再加/改 footnote 後要 restart Render（invalidateWikiCache）。
+② 文件標註精準度 follow-up（monitor）；③ kg_operation school_types 補標（待 Leonard 明確授權）；④ EDB 入庫/壞連結 monitor-driven；⑤ Render cold-start ~50s + auto-deploy 偶爾卡；⑥ SMC recall 被 IMC corpus 淹（monitor）；⑦ DEBP monitor（2 OCR draft + 藍圖圖像頁）；⑧ per-segment 範疇收斂單一 broad 範疇（monitor）；⑨ Render undici keep-alive 監察（node-fetch 已修；復發→Azure swap）。
+
+⚠️ 紀律：live Supabase INSERT/UPDATE/DELETE 需 INSPECT before/after + Leonard 明確授權（service key 在 backend/.env；anon key 喺 GitHub secret SUPABASE_ANON_KEY + Render env）；backend OpenAI client 行 node-fetch（sdkFetch）+ Node pin 22.x（勿改返 undici）；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；入庫/deprecate（chunk count 變）要 display-sync 8 點；改清單後 re-run gen_checklists_bundle.py（勿手改 checklists_bundle.json）；路徑空格雙引號；commit -m 勿用反引號；repo 勿 set private。
+Post-startup first action: 起手探針後，按 Leonard 指示起 NEXT ① footnote 擴充 / kg_operation 補標授權 / 或其他 backlog。
+```
+
 ## 2026-06-21 Session 174 — 附件細字 footnote 入庫機制 (route-independent overlay) · 敵意 live 100%
 
 - **ID:** Claude_20260621_1200
