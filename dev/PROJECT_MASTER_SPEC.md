@@ -71,7 +71,7 @@ EDB palette landing；hero + 核心功能 anchor；CTA 導向搜尋／文件庫�
 split grid；4 必填 + 2 選填；live validation；§1–§5 skeleton preview；A/B/AB source 控制；in-page 5 步草稿進度 + 草稿 canvas（來源面板、stale-source 警告、section 選取、修訂 action bar）。文案在未接通正式匯出前只可說「建立草稿／整理」。
 
 ### B.5 Mobile UI（v3.0 scope = 讀／搜尋面 + 範本下載導引）
-`mobile.css` + `mobile.js`：偵測 ≤640px 或 mobile UA；first-run role picker；cross-page bottom tab bar；dark mode auto；同頁 hash 切換經 `hashchange → location.reload()` 重建對應 shell。**釋出範圍（S163 決定 + S164 修訂）：bottom-nav 4 entries = 🔍 政策搜尋 + 📚 指引文件（`#guidelines` shell）+ 📋 範本下載（`#templates`）+ ℹ️ 平台介紹（index.html）。**
+`mobile.css` + `mobile.js`：偵測 ≤640px 或 mobile UA；**first-run 序列（S175）：4 步 onboarding tour（`k1_mobile_tour_v1` localStorage gate，全螢幕 overlay z-index 210）→ 角色揀選（`k1-mobile-role`）**；cross-page bottom tab bar；dark mode auto；同頁 hash 切換經 `hashchange → location.reload()` 重建對應 shell。**釋出範圍（S163 決定 + S164 修訂）：bottom-nav 4 entries = 🔍 政策搜尋 + 📚 指引文件（`#guidelines` shell）+ 📋 範本下載（`#templates`）+ ℹ️ 平台介紹（index.html）。**
 - **政策搜尋 / 指引文件 / 平台介紹**：完整手機 shell（讀／搜尋面）。
 - **範本下載（`#templates`，S164）**：手機**不提供實際下載清單**，改為 `buildTemplatesShell()` 靜態畫面 —— 「💻 桌面版功能」說明 + 桌面範本面板截圖示意（`templates-preview.png`，載入失敗 `onerror` 優雅隱藏）。理由：學校版範本為可編輯 Word 檔，需用電腦下載編輯方有意義；故手機只導引用戶改用桌面瀏覽器。純靜態、無 fetch、無外部依賴 → 不會白屏、不影響現有導航。
 - **文件標註（📝）**：維持 **desktop-only**（涉及檔案上載 + 客戶端 Word/PDF 抽取與生成，需較大畫面），mobile shell 不設入口。

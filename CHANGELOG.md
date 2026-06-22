@@ -6,6 +6,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [功能 + 資料修復] — 2026-06-22 — 手機首次導覽 · 檢查清單範疇標籤補全
+
+> 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）。知識內容零改動（facts 455 / guidelines 158 / chunks 15,363 不變）。
+
+### Added
+- **手機首次導覽 onboarding tour**（`mobile.js` + `mobile.css`）：首次開啟平台嘅手機用戶會見到 4 步導覽頁面（全螢幕 overlay，z-index 210）——「平台簡介 → 政策搜尋 → 指引文件庫 → 準備好了！」——再引導至角色揀選。以 `k1_mobile_tour_v1` localStorage 旗 gate，重開時不再重複顯示。
+
+### Fixed
+- **檢查清單 `school_types` 標籤補全**（`checklists_bundle.json` 再生）：補完以下項目原本缺少 `school_types` 欄位而對所有學校類型顯示的問題：
+  - **課程（`curriculum`）**：79 項補標 — 6 項來自全港小學專屬通告（`edbc18_2023_pri_science` ×2 / `edbc20_2023_ph_pri` ×4，→ `['primary']`）；3 項來自小學及中學均適用通告（`edbc003_2026` / `edbc005_2026`，→ `['primary','secondary']`）；70 項來自小學課程發展指引 2024（`pri_curr_guide_2024`，→ `['primary']`）。
+  - **幼稚園入學（`kg_admission`）**：16 項補標 — 7 項（`k1_admission_2627`）＋ 9 項（`kg_admin_guide`），→ `['kindergarten']`。
+
+---
+
 ## [內容更新 + 檢索增強] — 2026-06-21 — 附件細字 footnote 入庫 · 路由獨立檢索
 
 > 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）；本次為知識內容新增（EDB 文件附件表格細字 footnote）＋ 後端檢索增強。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,330 → 15,363**（＋33 curated footnote chunks）。

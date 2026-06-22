@@ -35,7 +35,7 @@
 
 ### 📱 響應式 / 手機版範圍
 
-`mobile.css` + `mobile.js` 偵測 ≤640px 或手機 UA 時啟用手機 shell，底部導航 **4 個入口**：🔍 搜尋 / 📚 指引文件 / 📋 範本下載 / ℹ️ 平台介紹。
+`mobile.css` + `mobile.js` 偵測 ≤640px 或手機 UA 時啟用手機 shell，底部導航 **4 個入口**：🔍 搜尋 / 📚 指引文件 / 📋 範本下載 / ℹ️ 平台介紹。首次開啟顯示 **4 步導覽（onboarding tour）**，再引導選擇崗位角色（`k1_mobile_tour_v1` localStorage gate）。
 
 | 功能 | 手機 | 桌面 |
 |------|:----:|:----:|
