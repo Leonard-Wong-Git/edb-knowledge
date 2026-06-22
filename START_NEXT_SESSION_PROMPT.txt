@@ -1,18 +1,14 @@
-Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
-dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/PROJECT_MASTER_SPEC.md
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft
 
-Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella 已設 redirect-only).
-Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.2.1。
-Product state: HEAD == origin/main（已 push，最新 5cb978d，S175）。Supabase 15,363（含 33 footnote_curated overlay）；Render backend live（OpenAI 行 node-fetch，Node pin 22.x；footnote 用 in-memory cache，re-ingest footnote 後要 restart Render）；Pages live（v3.2.1）。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.1 + Render /health cache_a 455 + HEAD==origin/main + Supabase 15,363。
+Read in order:
+1. AGENTS.md
+2. dev/SESSION_HANDOFF.md
+3. dev/SESSION_LOG.md
+4. dev/PROJECT_INDEX.md
+5. dev/RULE_PACKS.md
 
-S175（2026-06-22）已 ship + push：
-- 手機首次導覽 onboarding tour（mobile.js + mobile.css）：4 步全螢幕 overlay；k1_mobile_tour_v1 localStorage gate；first-run 序列 tour → role picker。
-- Checklist school_types 補標：curriculum 79 項（primary 73 + primary+secondary 6）+ kg_admission 16 項（kindergarten）；checklists_bundle.json 重生（1573KB，15 域）。⚠️ kg_operation 388 項仍 untagged，待 Leonard 授權。
-- DOC_SYNC 更新：CHANGELOG / PROJECT_MASTER_SPEC §B.5 / README。commits c714abe→839d741→02d9ca0→a3babce→5cb978d。
+Read dev/DOC_SYNC_REGISTRY.md before file changes or closeout.
 
-NEXT（優先序）：
-① footnote 擴充（待 Leonard 定）：全庫仲有 ~28 條 lower-priority footnote 候選未入（資料喺 dev/footnote_staging.json + dev/FOOTNOTE_INGEST_LOOP.md）。⚠️ 再加/改 footnote 後要 restart Render（invalidateWikiCache）。
-② 文件標註精準度 follow-up（monitor）；③ kg_operation school_types 補標（待 Leonard 明確授權）；④ EDB 入庫/壞連結 monitor-driven；⑤ Render cold-start ~50s + auto-deploy 偶爾卡；⑥ SMC recall 被 IMC corpus 淹（monitor）；⑦ DEBP monitor（2 OCR draft + 藍圖圖像頁）；⑧ per-segment 範疇收斂單一 broad 範疇（monitor）；⑨ Render undici keep-alive 監察（node-fetch 已修；復發→Azure swap）。
+If this root does not match the expected project root, stop and ask for confirmation.
 
-⚠️ 紀律：live Supabase INSERT/UPDATE/DELETE 需 INSPECT before/after + Leonard 明確授權（service key 在 backend/.env；anon key 喺 GitHub secret SUPABASE_ANON_KEY + Render env）；backend OpenAI client 行 node-fetch（sdkFetch）+ Node pin 22.x（勿改返 undici）；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；入庫/deprecate（chunk count 變）要 display-sync 8 點；改清單後 re-run gen_checklists_bundle.py（勿手改 checklists_bundle.json）；路徑空格雙引號；commit -m 勿用反引號；repo 勿 set private。
-Post-startup first action: 起手探針後，按 Leonard 指示起 NEXT ① footnote 擴充 / kg_operation 補標授權 / 或其他 backlog。
+Before changing anything, tell me the current state and your recommended next step.

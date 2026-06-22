@@ -23,27 +23,6 @@
 
 ---
 
-# Project Decisions Log
-
-這個檔保存項目的長期演進、決策、架構取捨與學習觀察 narrative。屬 warm 資料層 —— AI 開工**不需要讀**本檔。
-
-🔹 短期 single-task project：本檔保持近空，你不需要 maintain
-🔹 長期持續演進項目：AI 會在收工時先做維護觸發檢查；命中觸發或到定期兜底時才完整整理。當你問「我們之前為何這樣做」時，AI 會在這裡找答案
-
-不需要你手動寫 —— AI 在收工時自動 update；重大決策可在發生時即時記錄，不必等到最後才回想。
-
-Research-derived decisions use this compact evidence-chain format inside the relevant section, without creating a new section:
-
-```text
-- YYYY-MM-DD [research-derived] Decision summary. Evidence chain: Source=source:<id>; Summary=<source finding>; Inference=<reasoning>; Decision impact=<what changed>; Uncertainty=<limits or none>.
-```
-
-The `source:<id>` token must also appear in `dev/PROJECT_INDEX.md` under `Fact Base` or `External Sources`, so later sessions can trace the decision back to its source map.
-
-This file does not store raw build / upload / QC evidence, current next actions, one-time task results, or reusable operating procedures. Keep those in `dev/SESSION_LOG.md`, `dev/SESSION_HANDOFF.md`, or the relevant rule pack / registered reference.
-
----
-
 ## Evolution Timeline
 
 ### S143 (2026-06-05) — Q4 Phase 1: Channel A Frozen
@@ -55,13 +34,3 @@ This file does not store raw build / upload / QC evidence, current next actions,
 - Channel B sync endpoints built, adversarially reviewed, deployed, live smoke passed.
 - Downstream (Circular System) to build its own consumer from spec v0.5 + sync key.
 - Channel A remains frozen; Channel B search remains live; no data mutations.
-
----
-
-## Decisions Archive
-
-(empty)
-
-## Insights & Learnings
-
-(Cross-session patterns, retrospective notes, and accumulated learnings from this project.)
