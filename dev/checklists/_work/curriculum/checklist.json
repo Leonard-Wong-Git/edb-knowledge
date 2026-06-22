@@ -1385,7 +1385,11 @@
           "quote": "學校 在 規劃及推行課程 時， 須參考及 落實 相關的更新內容 ，以協助學生達至更新的學習宗旨",
           "chunk_id": "vault_edbc005_2026_fb11bacad78fdf50",
           "source_id": "edbc005_2026",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary",
+            "secondary"
+          ]
         },
         {
           "req": "學校應以有機結合、自然連繫、多元策略、互相配合、課堂內外、全校參與的策略，把價值觀教育融入各學習領域和科目的學習。",
@@ -1415,7 +1419,11 @@
           "quote": "上述 更新 即時生效， 相 關詳情已上載到教育局網頁",
           "chunk_id": "vault_edbc005_2026_fb11bacad78fdf50",
           "source_id": "edbc005_2026",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary",
+            "secondary"
+          ]
         },
         {
           "req": "所有中小學校長和教師均應細閱《價值觀教育課程架構》（2026）及相關文件。",
@@ -1425,7 +1433,11 @@
           "quote": "所有中小學校長和教師均應細閱 上述指引及相關文件",
           "chunk_id": "vault_edbc003_2026_0fa922fca070fff2",
           "source_id": "edbc003_2026",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary",
+            "secondary"
+          ]
         },
         {
           "req": "地理科課程框架就每個單元訂明必須學習內容、學習內容說明、地理概念及技能，學校須按框架規劃課程。",
