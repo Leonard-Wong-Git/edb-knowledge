@@ -33,7 +33,10 @@
           "quote": "透過整體課程規劃，以「規劃－實施－評鑑」循環的理念， 根據小學教育七個學習宗旨和課程更新重點檢視校情，為學校課程發展方向訂定優次",
           "chunk_id": "vault_pri_curr_guide_2024_f3245e3b10d05209",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學期終結時，校長應帶領學校核心課程領導（包括副校長、課程統籌主任、科組主任等）運用分析工具檢視學校課程並訂定新學年課程發展方向。",
@@ -43,7 +46,10 @@
           "quote": "學期終結時，校長帶領學校核心課程領導（包括副校長、課程統籌主任、科組主任等）運用不同分析工具檢視學校課程，整理從不同渠道蒐集的數據資料",
           "chunk_id": "vault_pri_curr_guide_2024_f3245e3b10d05209",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校可運用整體課程規劃工具制定課程計劃，並可把相關計劃融入學校發展計劃／學校報告內。",
@@ -106,7 +112,10 @@
           "domains": [
             "課程規劃與時數"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應縱向規劃小一至小六的具體學習目標，並於各級橫向協調，有機結合不同學習領域的學習元素。",
@@ -119,7 +128,10 @@
           "domains": [
             "課程規劃與時數"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "各科組應參考課程發展議會編訂的課程指引，充分了解課程應涵蓋的相關學習元素，並對應七個學習宗旨和課程更新重點進行全面及分層檢視。",
@@ -133,7 +145,10 @@
             "課程規劃與時數",
             "課程文件要求"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應於未來三至六年，有策略地在學校發展計劃內融入課程持續更新主要重點，以更連貫和有系統地規劃課程。",
@@ -319,7 +334,10 @@
           "domains": [
             "課程規劃與時數"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應參考課程發展議會各學習領域或科目課程指引的建議，按學生程度和需要進行課程調適，減少課程內容上的重疊，並關注小學年級之間的課程銜接。",
@@ -332,7 +350,10 @@
           "domains": [
             "課程規劃與時數"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校須按《小學指引》（2024）更新各學習領域課時及彈性課時分配比率，配合2025/26學年開設小學人文科和科學科。",
@@ -587,7 +608,10 @@
           "quote": "四個關鍵項目：- 德育及公民教育：加強價值觀教育- 從閱讀中學習：邁向跨課程閱讀- 專題研習：達至跨學科整合及應用知識與技能- 運用資訊科技進行互動學習：促進自主學習",
           "chunk_id": "vault_pri_curr_guide_2024_005952af9d56123e",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "全港小學須於 2025/26 學年開始推行小學人文科及小學科學科。",
@@ -597,7 +621,10 @@
           "quote": "全港小學須於 2025/26 學年開始推行小學人文科及小學科學科，而兩科各佔小學總課時不少於 7%",
           "chunk_id": "vault_pri_curr_guide_2024_0526faf426c55dd9",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校須整體檢視及調整各學習領域／科目的課時或節數，以配合人文科及科學科的推行。",
@@ -607,7 +634,10 @@
           "quote": "就上述各學習領域／科目的課時分配比率更新，學校需要整體檢視及調整部分學習領域／科目的課時或節數",
           "chunk_id": "vault_pri_curr_guide_2024_357957295920079e",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "小學人文科課程建基現行常識科課程，學校須有系統地從小培養學生國家觀念、民族感情和國民身份認同。",
@@ -617,7 +647,10 @@
           "quote": "人文科課程建基現行常識科課程，當中絕大部分內容重整源自現有常識科課題，並增潤中華文化、國史及國家地理等元素，與時並進，有系統地從小培養學生國家觀念、民族感情和國民身份認同",
           "chunk_id": "vault_pri_curr_guide_2024_5d19770774e97d61",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校整體課程規劃須聚焦七個課程更新重點，並採用適切的學、教、評策略，以達至七個學習宗旨。",
@@ -627,7 +660,10 @@
           "quote": "學校整體課程規劃和實施須因應校情、學生需要和最新教育趨勢，聚焦發展七個課程更新重點",
           "chunk_id": "vault_pri_curr_guide_2024_605d4dffddd147eb",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應優化情境分析，訂定配合校情的發展優次和課程規劃，並定期透過「規劃－實施－評鑑」循環反思課程成效。",
@@ -637,7 +673,10 @@
           "quote": "優化在整體課程規劃前進行的情境分析，以助訂定能夠對應校情的發展優次和課程規劃",
           "chunk_id": "vault_pri_curr_guide_2024_2c09e001011b4e30",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校須以七個學習宗旨作為「規劃－實施－評鑑」循環的反思點，定期自評整體課程規劃進展。",
@@ -647,7 +686,10 @@
           "quote": "以七個學習宗旨作為「規劃－實施－評鑑」循環的反思點",
           "chunk_id": "vault_pri_curr_guide_2024_605d4dffddd147eb",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應以實證為本，善用評估數據（包括APASO、KPM等）定期收集教師、學生及家長意見，以回饋課程規劃。",
@@ -660,7 +702,10 @@
           "domains": [
             "評估政策"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校引入「規劃－實施－評鑑」循環優化課程實施，在學校層面可透過所有教師參與課程評鑑，共同反思課程規劃的進展和成效。",
@@ -674,7 +719,10 @@
             "評估政策",
             "課程規劃與時數"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應定期透過課程評鑑檢視各科組運用學時的成效，並應調整時間表避免個別科目佔整體課時過大比重。",
@@ -790,7 +838,10 @@
           "quote": "所有學習領域 / 科目的教師均須在本科內教導學生如何閱讀，並通過跨科組協作，共同整合不同科目的學習內容",
           "chunk_id": "vault_pri_curr_guide_2024_06dec26ee4fef16b",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應善用「推廣閱讀津貼」購置圖書及舉辦校本閱讀活動，以推廣校園閱讀氛圍。",
@@ -800,7 +851,10 @@
           "quote": "大部分學校能善用「推廣閱讀津貼」，購置圖書及舉辦校本閱讀活動，如邀請作家到校主持講座，以多元化方式鼓勵學生閱讀",
           "chunk_id": "vault_pri_curr_guide_2024_3bd6a58581704e4d",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應將主要更新重點納入學校發展計劃，配合學校未來三至六年的發展優次，系統而連貫地推行。",
@@ -837,7 +891,10 @@
           "domains": [
             "課程規劃與時數"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "課程領導與不同科組的教師應緊密合作，策略性地規劃跨課程學習和閱讀，有機結合及自然連繫不同學習領域的學習重點和內容。",
@@ -1132,7 +1189,10 @@
           "quote": "根據課程發展議會的課程架構，提供寬廣而均衡的整體課程：學習經歷涵蓋八個學習領域（包括知識、共通能力、價值觀和態度）及五種基要學習經歷",
           "chunk_id": "vault_pri_curr_guide_2024_605d4dffddd147eb",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校課程須涵蓋八個學習領域：中國語文教育、英國語文教育、數學教育、個人社會及人文教育、科學教育、科技教育、藝術教育和體育。",
@@ -2199,7 +2259,10 @@
           "quote": "兩科各佔小學總課時不少於 7%，小學教育課程指引專責委員會（專責委員會）平衡不同的考慮後，認同有需要微調彈性課時比率，因此將彈性課時比率更新為 22%",
           "chunk_id": "vault_pri_curr_guide_2024_0526faf426c55dd9",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "中國語文教育課時應佔小學總課時不少於 23%。",
@@ -2209,7 +2272,10 @@
           "quote": "中國語文教育                                 不少於 23%",
           "chunk_id": "vault_pri_curr_guide_2024_4c7195158144a729",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "英國語文教育課時應佔小學總課時不少於 16%。",
@@ -2219,7 +2285,10 @@
           "quote": "英國語文教育                                 不少於 16%",
           "chunk_id": "vault_pri_curr_guide_2024_4c7195158144a729",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "數學教育課時應佔小學總課時不少於 11%。",
@@ -2229,7 +2298,10 @@
           "quote": "數學教育                                   不少於 11%",
           "chunk_id": "vault_pri_curr_guide_2024_4c7195158144a729",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "藝術教育課時應佔小學總課時不少於 9%。",
@@ -2239,7 +2311,10 @@
           "quote": "藝術教育                                    不少於 9%",
           "chunk_id": "vault_pri_curr_guide_2024_4c7195158144a729",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "體育課時應佔小學總課時不少於 5%。",
@@ -2249,7 +2324,10 @@
           "quote": "體育                                      不少於 5%",
           "chunk_id": "vault_pri_curr_guide_2024_4c7195158144a729",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校須按課時分配建議為學生提供足夠的體育課時，不得因偏重學術科目而削減體育課時。",
@@ -2259,7 +2337,10 @@
           "quote": "學校須按本章的課時分配建議，為學生提供足夠的體育課時，不應因為偏重學術科目的學習而削減體育課時",
           "chunk_id": "vault_pri_curr_guide_2024_357957295920079e",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "幼稚園日常課程活動時間安排須具彈性，避免分科或偏重學科知識傳授，以促進幼兒身心均衡發展。",
@@ -2321,7 +2402,10 @@
           "quote": "下午除導修課外，安排 45 分鐘固定時段，以確保有充足的時間進行多元化的聯課活動或全方位學習",
           "chunk_id": "vault_pri_curr_guide_2024_00900bf3d30cc29a",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校可設立每星期三天的「綜合課」，提供空間進行跨學科專題研習、主題閱讀活動、STEAM學習活動等，有機結合不同學習領域課堂內外的學習元素。",
@@ -2331,7 +2415,10 @@
           "quote": "每星期三天的「綜合課」則可提供足夠空間進行 跨學科專題研習、主題閱讀活動、STEAM 學習活動、中華文化日、戶外考察、社區服務、綜藝匯演、參觀、班際比賽等",
           "chunk_id": "vault_pri_curr_guide_2024_00900bf3d30cc29a",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應為高中四個核心科目（中文、英文、數學、通識教育）安排佔總課時45–55%（1,125–1,375小時）。",
@@ -2502,7 +2589,10 @@
           "domains": [
             "課程規劃與時數"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應調整上課時間表及檢視各學科課時比例，避免個別科目佔整體課時過大比重，並應定期透過課程評鑑檢視各科組運用學時的成效。",
@@ -2515,7 +2605,10 @@
           "domains": [
             "課程規劃與時數"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校在規劃整體學校課程時，應參考課程發展議會所建議的課時分配。",
@@ -2545,7 +2638,10 @@
           "quote": "學校應以照顧學生的均衡發展為前提，按表 2.2 所列的建議，適當分配各學習領域／科目的課時，並善用騰出的彈性課時發展課程更新重點",
           "chunk_id": "vault_pri_curr_guide_2024_0526faf426c55dd9",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校領導應檢視學生每年實際上課和學習時間，適時調整時間表和教學安排，以達到總課時及各科課時分配建議。",
@@ -2555,7 +2651,10 @@
           "quote": "學校領導應檢視學生每年實際有多少上課和學習時間，適時反思、調整上課時間表和教學安排，務求達到本章列明的總課時及各學習領域／科目的課時分配建議",
           "chunk_id": "vault_pri_curr_guide_2024_0c7a3f6ca4a42d19",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應善用彈性課時規劃跨課程學習，整合中文、英文、數學、人文、科學等不同學習領域的學習目標和內容。",
@@ -2565,7 +2664,10 @@
           "quote": "學校需要整體檢視及調整部分學習領域／科目的課時或節數，善用彈性課時規劃跨課程學習，整合和串連中文、英文、數學、人文、科學等不同學習領域／科目的學習目標和內容",
           "chunk_id": "vault_pri_curr_guide_2024_357957295920079e",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "在初中階段，學校應善用常規課時和8%彈性課時，安排學生進行跨課程語文學習活動。",
@@ -2604,7 +2706,10 @@
           "quote": "六年總課時                          4752 小時 (792 小時 x 6) (100%)",
           "chunk_id": "vault_pri_curr_guide_2024_4c7195158144a729",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "全日制小學每學年的上學日須為 190 日或 887 小時，課時為 172 日或 792 小時。",
@@ -2614,7 +2719,10 @@
           "quote": "學日數                                          190 日或 88713 小時小學每學年的課時 14                                         172 日或 792 小時",
           "chunk_id": "vault_pri_curr_guide_2024_0526faf426c55dd9",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "半日制幼稚園應每天安排不少於30分鐘、全日制幼稚園應每天安排不少於50分鐘時間，讓幼兒參與自由遊戲。",
@@ -2709,7 +2817,10 @@
           "quote": "可供彈性處理的課時 *                            不多於 22%",
           "chunk_id": "vault_pri_curr_guide_2024_4c7195158144a729",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應訂立校本政策以提高學生參與課前、課間及課後體能活動的機會，並不得削減體育課時。",
@@ -2719,7 +2830,10 @@
           "quote": "學校應以全方位學習方式善用學時，訂立校本政策以提高學生參與課前、課間及課後不同延伸體能活動的機會，營造一個理想的體育氛圍",
           "chunk_id": "vault_pri_curr_guide_2024_357957295920079e",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應配合本身優勢及學生需要調適校本音樂科課程，並為學生提供優質音樂教育。",
@@ -4067,7 +4181,10 @@
           "quote": "就如何提升各持份者的評估素養、優化學校評估政策，以評估求進              創造全人發展的空間提供建議和示例",
           "chunk_id": "vault_pri_curr_guide_2024_f46570c6346bde25",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應關注學生課業量和測考次數過多的問題，避免造成學生壓力而失去學習興趣。",
@@ -4077,7 +4194,10 @@
           "quote": "有意見認為學生的課業量和測考次數過多，造成學生的壓力，使他們失去學習興趣",
           "chunk_id": "vault_pri_curr_guide_2024_f7732f69efe2b26d",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校須將評估作為課程的重要部分，透過評估檢視課程內容和實施成效，作為課程發展的藍圖。",
@@ -4251,7 +4371,10 @@
           "quote": "學校持續檢視和完善評估政策；並提升各持份者的評估素養，推動評估模式的轉變，以創造空間，讓學生充分休息、享受遊戲和運動",
           "chunk_id": "vault_pri_curr_guide_2024_4470debfbc0de4c7",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應按校情制定和完善校本課業政策，並定期檢討課業的數量和頻次。",
@@ -4261,7 +4384,10 @@
           "quote": "學校應按校情及學生的需要，制定和完善校本課業政策，而教師應通過設計有意義的學習任務或課業，提升學生的學習動機和興趣",
           "chunk_id": "vault_pri_curr_guide_2024_4470debfbc0de4c7",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應適時審視校本評估及課業政策，包括檢討評估及課業的數量和頻次。",
@@ -4271,7 +4397,10 @@
           "quote": "學校應適時審視校本評估及課業政策，包括檢討評估及課業的數量和頻次，從而為推動全人發展創造空間",
           "chunk_id": "vault_pri_curr_guide_2024_4862002756602ac1",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "小一上學期不得設測考，學校應定期檢視各級測考和默書的頻次、時間編排和份量。",
@@ -4281,7 +4410,10 @@
           "quote": "改變評估的慣常做法，包括：小一上學期不設測考；推行趣味默書；增加學生自選題目佔分比重；減輕期終試考核範圍的比重；減少測考日數；減少默書篇幅等",
           "chunk_id": "vault_pri_curr_guide_2024_1683dc6a258bf639",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "教師不應把教學時間用於機械式操練以應付全港性系統評估（TSA），亦不應為準備 TSA 而要求學生放學後和假期中補課。",
@@ -4291,7 +4423,10 @@
           "quote": "毋須亦不應把教學時間用於機械式操練學生以應付「全港性系統評估」(TSA)，亦不應為準備 TSA 而要求學生放學後和假期中參加補課",
           "chunk_id": "vault_pri_curr_guide_2024_1683dc6a258bf639",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應從不同渠道（如家長教師會、家長及學生意見調查等）搜集對評估方面的意見，制定行動方案改進評估模式。",
@@ -4565,7 +4700,10 @@
             "評估政策",
             "課程文件要求"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校評估政策應以「促進學習的評估」為前提，採用多元化和創新的評估模式，避免鼓吹比較的文化。",
@@ -4578,7 +4716,10 @@
           "domains": [
             "評估政策"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校不應把教學時間用於機械式操練以應付全港性系統評估（TSA），亦不應為準備TSA而要求學生放學後和假期中參加補課。",
@@ -4591,7 +4732,10 @@
           "domains": [
             "評估政策"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應建議小一上學期以多元化進展性評估代替測考，且不應進行高風險評估。",
@@ -4604,7 +4748,10 @@
           "domains": [
             "評估政策"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校評估政策須規定公平地評核學生，避免個別學生因其特殊教育需要而在評估時受到不公平的對待。",
@@ -5426,7 +5573,10 @@
           "quote": "校本指引訂明：各科教師須避免安排不必要的抄寫課業",
           "chunk_id": "vault_pri_curr_guide_2024_e0e6c28f3a8f8f45",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應完善校本課業政策，以創造空間，並推動課業模式轉變。",
@@ -5436,7 +5586,10 @@
           "quote": "闡釋有效益課業及如何完善校本課業政策，以創造空間，有效益的課業            並就推動課業模式轉變提供建議和示例",
           "chunk_id": "vault_pri_curr_guide_2024_f46570c6346bde25",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應訂定和執行適切的校本課業政策（包括家課政策），按校本情況和學生的學習需要作專業決定。",
@@ -5831,7 +5984,10 @@
           "quote": "當中清楚指出學校應以「立德樹人」為教育使命，強化國民教育、愛國主義教育及國家安全教育",
           "chunk_id": "vault_pri_curr_guide_2024_0111f7f37652e52c",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校必須從小培育德才兼備的學生，加強價值觀教育，涵蓋國民教育（包括愛國主義教育、國家安全教育）及生命教育。",
@@ -5841,7 +5997,10 @@
           "quote": "加強價值觀教育是《小學指引》的重要部分，學校必須從小培育德才兼備的學生，有承擔、有視野、愛國愛港愛家的終身學習者",
           "chunk_id": "vault_pri_curr_guide_2024_42c84cadf839ff2d",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校須培育十二個首要價值觀，包括堅毅、尊重他人、責任感、國民身份認同、承擔精神、誠信、仁愛、守法、同理心、勤勞、孝親及團結。",
@@ -5851,7 +6010,10 @@
           "quote": "十二個首要培育的價值觀和態度包括「堅毅」、「尊重他人」、「責任感」、「國民身份認同」、「承擔精神」、「誠信」、「仁愛」、「守法」、「同理心」、「勤勞」、「孝親」及「團結」",
           "chunk_id": "vault_pri_curr_guide_2024_3377e45da1d4a914",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "國民教育和國家安全教育須融入各學習領域和相關科目，是學校課程不可或缺的部分。",
@@ -5861,7 +6023,10 @@
           "quote": "香港的國民教育和國家安全教育已經融入愛國主義教育的元素和精神，是學校課程不可或缺的部分，涵蓋國史、國情、中華文化、國家地理、《憲法》和《基本法》教育等內容，已納入各學習領域和相關科目",
           "chunk_id": "vault_pri_curr_guide_2024_68589e8feaf5f9db",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應依循《價值觀教育課程架構（試行版）》(2021)，以「全校參與」方式整全地規劃價值觀教育及安排相關學習活動。",
@@ -5874,7 +6039,10 @@
           "domains": [
             "價值觀教育/德育框架推行"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校須以全校參與方式在課堂內外進行價值觀教育，並加強媒體和資訊素養教育。",
@@ -5887,7 +6055,10 @@
           "domains": [
             "價值觀教育/德育框架推行"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "首要培育的價值觀和態度現已增至十二個（包括於2023年新增「仁愛」、「孝親」和「團結」），學校課程規劃應涵蓋此十二個首要價值觀。",
@@ -5900,7 +6071,10 @@
           "domains": [
             "價值觀教育/德育框架推行"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "價值觀教育應以中華文化作為主幹，貫通品德及倫理教育、公民教育、國民教育（包括愛國主義教育及國家安全教育）、生命教育等跨學科範疇。",
@@ -5913,7 +6087,10 @@
           "domains": [
             "價值觀教育/德育框架推行"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應透過有系統和整全的規劃，把生命教育「我的行動承諾」相關學習活動納入周年學校計劃或學校發展計劃中。",
@@ -5927,7 +6104,10 @@
             "價值觀教育/德育框架推行",
             "課程文件要求"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應依據《小學指引》（2024）在課程中首要培育十二個價值觀和態度，包括「堅毅」、「尊重他人」、「責任感」、「國民身份認同」、「承擔精神」、「誠信」、「仁愛」、「守法」、「同理心」、「勤勞」、「團結」和「孝親」。",
@@ -6023,7 +6203,10 @@
           "quote": "加強培育學生十二個首要的價值觀和態度――堅毅、尊重他人、責任感、國民身份認同、承擔精神、誠信、仁愛、守法、同理心、勤勞、孝親和團結",
           "chunk_id": "vault_pri_curr_guide_2024_e57c3b84bee99c55",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校規劃價值觀教育課程時，應因應辦學宗旨、理念、使命、學校特色等，「有機結合」首要價值觀和態度，適切地選取及加入校本價值觀教育課程。",
@@ -6033,7 +6216,10 @@
           "quote": "「有機結合」首要價值觀和態度，適切地選取及加入校本的價值觀教育課程",
           "chunk_id": "vault_pri_curr_guide_2024_e57c3b84bee99c55",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校規劃課程時應緊密扣連各學習領域／科目，制定全面而均衡的內容，並設計相關學習經歷以推行價值觀教育。",
@@ -6171,7 +6357,10 @@
           "quote": "學校把以往獨立的周會、生活教育課和德育及公民教育課整合，利用教育局的相關學與教資源或延伸活動，幫助學生建立正確的價值觀和積極的態度",
           "chunk_id": "vault_pri_curr_guide_2024_00900bf3d30cc29a",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校須依據教育局通告第2/2021號、第4/2021號及第6/2021號推行國家安全教育課程。",
@@ -6261,7 +6450,10 @@
           "quote": "學校應根據學生的成長需要，適切運用以下的學與教資源，加強性教育。在小學階段，最重要的是教導學生要保護自己和尊重別人，以免受到引誘、傷害、犯錯，或甚至違法",
           "chunk_id": "vault_pri_curr_guide_2024_3ed43644afa103a6",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校須運用生活化題材加強生命教育，在課程及全方位學習活動中加入相關元素，並善用社區資源。",
@@ -6271,7 +6463,10 @@
           "quote": "學校亦須運用生活化的題材加強生命教育，在課程及全方位學習活動中加入相關元素，並善用社區資源，與教育局、家長及不同團體攜手合作",
           "chunk_id": "vault_pri_curr_guide_2024_3ed43644afa103a6",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應將七種首要的價值觀和態度與學校政策及措施整合，並納入學校課程。",
@@ -6425,7 +6620,10 @@
           "domains": [
             "價值觀教育/德育框架推行"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校委任課程領導或統籌教師負責帶領和協調各科組，將媒體和資訊素養相關的學習元素融入不同學習領域的學習活動中。",
@@ -6438,7 +6636,10 @@
           "domains": [
             "課程規劃與時數"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應繼續培育學生七種首要的價值觀和態度（堅毅、尊重他人、責任感、國民身份認同、承擔精神、誠信、關愛），並重點加強價值觀教育，包括德育及公民教育與《基本法》教育。",
@@ -6777,7 +6978,10 @@
           "domains": [
             "課程規劃與時數"
           ],
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校領導層應就五種基要學習經歷制定縱向和橫向連繫的相關計劃，確保初中與高中課程的全方位學習活動能暢順銜接，並制定校本機制評估全方位學習現行做法的成效。",
@@ -6994,7 +7198,10 @@
           "quote": "學校普遍為推動 STEAM 教育而成立專責小組，有效統籌與協調相關的學習活動、資源調配和教師專業發展等工作",
           "chunk_id": "vault_pri_curr_guide_2024_005952af9d56123e",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "學校應將STEAM教育元素有系統地納入學校課程和全方位學習活動，並引入外間專業支援和跨校專業交流，逐步建立實踐社群。",
@@ -7004,7 +7211,10 @@
           "quote": "教育元素有系統地納入學校課程和全方位學習活動，亦引入外間專業支援和跨校專業交流，逐步建立 STEAM 教育的實踐社群",
           "chunk_id": "vault_pri_curr_guide_2024_005952af9d56123e",
           "source_id": "pri_curr_guide_2024",
-          "no_page": false
+          "no_page": false,
+          "school_types": [
+            "primary"
+          ]
         },
         {
           "req": "不同學習領域的教師應緊密合作，共同規劃學校整體課程，並籌劃有助推動 STEM 教育的學與教活動。",
