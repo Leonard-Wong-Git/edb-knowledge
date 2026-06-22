@@ -2,6 +2,80 @@
 
 <!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
 
+<!-- ack:section:session-log-preamble -->
+Add new session entries at the top. Record what actually happened in the session; do not copy old completed work forward as new work.
+
+Entries are kept, summarized, or archived — not current state. Do not remove validation evidence. Use latest opening message from most recent entry.
+
+<!-- ack:section:session-log-entry-template -->
+## Entry Template
+
+- **ID:**
+- **Summary:**
+- **Changed:**
+- **Done:**
+- **QC:**
+- **Evidence disposition:** <one-time only / kept as recent trace evidence / absorbed into handoff / indexed in PROJECT_INDEX / promoted to PROJECT_DECISIONS / promoted to rule pack>
+- **Sync:**
+- **Pending:**
+- **Risks:**
+- **Log maintenance:**
+
+### Next Session Opening Message
+
+📋 Next session: agent-managed startup content below
+
+```text
+Read AGENTS.md first, then follow its §1 startup sequence:
+Read in order: dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
+dev/DOC_SYNC_REGISTRY.md
+```
+
+---
+
+<!-- ack:log-entry:start -->
+## 2026-06-22 Session 176 — Agent Handoff Kit v0.3.29 升級
+
+- **ID:** Claude_20260622_S176
+- **Summary:** AHK v0.1.7→v0.3.29 升級；Draft root（唯一目標，頂層 umbrella 只重定向）；doctor 48/48 通過。
+- **Changed:**
+  - `AGENTS.md`：原有 §0–§14 product governance 保留；末段追加 `# Agent Handoff Kit Core Runtime`（managed-core BEGIN/END 包圍）。
+  - `dev/SESSION_HANDOFF.md`：非破壞性補入 ack:section/field 標記集、`## Handoff Sufficiency Check`、`## State Reconciliation Check`、更新 Next Session Opening Message（加 `Work in` + root mismatch guard）。
+  - `dev/SESSION_LOG.md`：補 preamble（含 "Record what actually happened" anchor）、Entry Template 欄位全集（Summary/Changed/Done/Evidence disposition/Pending/Risks）、ack:log-entry:start/end 標記。
+  - `dev/PROJECT_DECISIONS.md`：補 AHK onboarding preamble + `## Decisions Archive`（empty）+ `## Insights & Learnings`。
+  - `dev/PROJECT_INDEX.md`：template version `0.1.7→0.3.29`。
+  - 13 新建治理文件：`dev/DOC_SYNC_REGISTRY.md`、`dev/RULE_PACKS.md`、`dev/rules/*.md`（10 rule packs）。
+  - `dev/governance_migrations/20260622T141715Z/`：升級備份 + migration report。
+- **Done:** AHK 升級完成，符合 Upgrade Done Contract（AGENTS.md health=clean；doctor status=passed；migration report 完整）。
+- **QC:** `npx ... doctor --root .` → `status: passed`，48 項全綠；唯 START_NEXT_SESSION_PROMPT.txt 便利副本落後（收工時重生，非 blocker）。
+- **Evidence disposition:** 升級 trace 留此 log entry；doctor 輸出一次性；治理框架本身保留在已寫入文件中。
+- **Sync:** 零產品代碼改動；凍結合約 _meta 2.3.0 / facts 455 / guidelines / PLATFORM_VERSION 3.2.1 / chunks 15,363 全不變。
+- **Pending:** ① footnote 擴充（待 Leonard 定）；② kg_operation 388 items school_types 補標（待授權）；③ 其他 backlog 見 SESSION_HANDOFF.md Next Priorities。
+- **Risks:** START_NEXT_SESSION_PROMPT.txt 需在收工時從 SESSION_HANDOFF.md 重生（doctor warm）。
+- **Log maintenance:** SESSION_LOG = 7 entries（S176–S170，<11）、oldest S170 2026-06-15（<30日）、344→~395 行（<400 / <1500）→ **no-op**（不 archive）。AHK §4 trigger(b)(c)(d) 亦不命中（PROJECT_DECISIONS 無 ≥30 numbered decisions-like 段；治理決策已即記 Insights；非 10-closeout 邊界）。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella 已設 redirect-only). 亦可用「開工」/「Start Agent Handoff」（AHK 已裝，會讀 START_NEXT_SESSION_PROMPT.txt）。
+Current objective: EDB K1 知識平台 (policychecker.wongfu.net)，平台 v3.2.1。
+Product state: HEAD == origin/main（最新 788538e，S176 = Agent Handoff Kit v0.3.29 治理升級、零產品改動）。Supabase 15,363（含 33 footnote_curated overlay）；Render backend live（OpenAI 行 node-fetch、Node pin 22.x；footnote in-memory cache，re-ingest footnote 後要 restart Render）；Pages live（v3.2.1）。起手 verify：探針 policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.1 + Render /health cache_a 455 + HEAD==origin/main + Supabase 15,363。
+
+S176（2026-06-22）治理升級（無產品變更）：AHK v0.1.7→v0.3.29；AGENTS.md 雙治理層共存（本專案 §0–§14 + AHK core）；新增 dev/RULE_PACKS.md + dev/rules/*.md（10 包）+ dev/DOC_SYNC_REGISTRY.md + dev/PROJECT_INDEX.md + dev/PROJECT_DECISIONS.md；doctor 48/48 PASS。commit 788538e。
+
+NEXT（優先序，全 carry-forward 自 S175，AHK 升級無改）：
+① footnote 擴充（待 Leonard 定）：~28 條 lower-priority footnote 候選未入（dev/footnote_staging.json + dev/FOOTNOTE_INGEST_LOOP.md）。⚠️ 加/改 footnote 後要 restart Render（invalidateWikiCache）。
+② 文件標註精準度 follow-up（monitor）；③ kg_operation 388 項 school_types 補標（待 Leonard 明確授權）；④ EDB 入庫/壞連結 monitor-driven；⑤ Render cold-start ~50s；⑥ SMC recall（monitor）；⑦ DEBP monitor；⑧ per-segment 範疇偵測（monitor）；⑨ Render undici keep-alive 監察（node-fetch 已修，復發→Azure swap）。
+
+⚠️ 紀律：live Supabase INSERT/UPDATE/DELETE 需 INSPECT before/after + Leonard 明確授權；backend OpenAI client 行 node-fetch（sdkFetch）+ Node pin 22.x（勿改返 undici）；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；入庫/deprecate（chunk count 變）要 display-sync 8 點；改清單後 re-run gen_checklists_bundle.py；路徑空格雙引號；commit -m 勿用反引號；repo 勿 set private。雙治理層衝突時取較安全可驗路徑。
+Post-startup first action: 起手探針後，按 Leonard 指示起 NEXT ① footnote 擴充 / kg_operation 補標授權 / 或其他 backlog。
+```
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
 ## 2026-06-22 Session 175 — 手機首次導覽 onboarding tour · 檢查清單 school_types 補標
 
 - **ID:** Claude_20260622 (S175)
@@ -39,6 +113,7 @@ NEXT（優先序）：
 ⚠️ 紀律：live Supabase INSERT/UPDATE/DELETE 需 INSPECT before/after + Leonard 明確授權（service key 在 backend/.env；anon key 喺 GitHub secret SUPABASE_ANON_KEY + Render env）；backend OpenAI client 行 node-fetch（sdkFetch）+ Node pin 22.x（勿改返 undici）；改版號喺 app.html PLATFORM_VERSION（勿 bump 凍結 knowledge.json）；入庫/deprecate（chunk count 變）要 display-sync 8 點；改清單後 re-run gen_checklists_bundle.py（勿手改 checklists_bundle.json）；路徑空格雙引號；commit -m 勿用反引號；repo 勿 set private。
 Post-startup first action: 起手探針後，按 Leonard 指示起 NEXT ① footnote 擴充 / kg_operation 補標授權 / 或其他 backlog。
 ```
+<!-- ack:log-entry:end -->
 
 ## 2026-06-21 Session 174 — 附件細字 footnote 入庫機制 (route-independent overlay) · 敵意 live 100%
 

@@ -26,8 +26,11 @@ Purpose: give a stateless AI a compact map of the project before it reads or edi
 | `tests/` | tests | coding/QC |
 | `docs/` | user or product docs | doc/public behavior change |
 | `dev/` | governance state | startup/closeout |
-| `TBD` | local source-of-truth files | before tasks that depend on project facts |
-| `TBD` | external-source indexes or mirrors | before research, writing, or knowledge-sync tasks |
+| `dev/CODEBASE_CONTEXT.md` | **權威產品脈絡**（tech stack / directory map / External Services / Key Decisions）—— 本檔 Stack/Entry Points 等 TBD 欄勿重複填，以此為準 | coding / API task |
+| `dev/PROJECT_MASTER_SPEC.md` | **權威長期規格**（架構 / runbook / release rules / §F locked decisions） | 架構或規格相關任務 |
+| `backend/` | Node.js/TypeScript backend（Channel B 搜尋 API、Render 部署、OpenAI node-fetch + Node 22.x；`backend/.env` = Supabase service key，勿入 git） | backend / 部署任務 |
+| `app.html` / `index.html` / `mobile.js` / `mobile.css` | 公開前端（`PLATFORM_VERSION` 常數在 `app.html`；GitHub Pages @ policychecker.wongfu.net） | 前端任務 |
+| `dev/checklists/` | 15 域合規清單 + clauses（改後 re-run `gen_checklists_bundle.py`，勿手改 `checklists_bundle.json`） | 清單任務 |
 
 ## Entry Points
 
@@ -100,8 +103,8 @@ Reachable means the source can be found. It does not mean the source has been re
 
 | Check | Command | Run before | Last verified |
 |---|---|---|---|
-| Agent Handoff Kit doctor | TBD | closeout / governance changes | TBD |
-| Project governance check | TBD | closeout / durable file changes | TBD |
+| Agent Handoff Kit doctor | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && npx --yes @adamchanadam/agent-handoff-kit@latest doctor --root .` | closeout / governance changes | 2026-06-22 (S176) — passed 48/48 |
+| Project governance check | 見 `AGENTS.md` `<INSTRUCTIONS>` §3 (PLAN→READ→CHANGE→QC→PERSIST) + §4 closeout | closeout / durable file changes | 2026-06-22 (S176) |
 
 ## Workspace Identity
 
@@ -109,11 +112,12 @@ Record this at closeout so the next AI can detect wrong-root or workspace drift.
 
 | Field | Value | Last verified |
 |---|---|---|
-| Expected project root | TBD | TBD |
-| Git root | TBD | TBD |
-| Branch / commit | TBD | TBD |
-| Worktree or parallel workspace | TBD | TBD |
-| Uncommitted change summary | TBD | TBD |
+| Expected project root | `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft`（唯一目標；頂層 umbrella 只重定向至此） | 2026-06-22 (S176) |
+| Git root | 同 project root（repo `Leonard-Wong-Git/edb-knowledge`；勿 set private） | 2026-06-22 (S176) |
+| Branch / commit | `main` == `origin/main` @ `788538e` | 2026-06-22 (S176) |
+| Worktree or parallel workspace | 無 | 2026-06-22 (S176) |
+| Uncommitted change summary | S176 收工後全部 commit（無殘留）；產品檔 clean | 2026-06-22 (S176) |
+| 治理檔 git 狀態 | ⚠️ `dev/SESSION_HANDOFF.md`／`dev/SESSION_LOG.md`／`START_NEXT_SESSION_PROMPT.txt` 雖列於 `.gitignore` 但**實際已 tracked**（早於 ignore 規則 commit；git 唔會 untrack 已追蹤檔）→ 每次收工照常 commit（見 S173–S175 closeout commits） | 2026-06-22 (S176) |
 
 ## Change Hotspots
 
