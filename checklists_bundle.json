@@ -4428,27 +4428,42 @@
       {
        "req": "全港小學由2025/26學年起，須在小一及小四級推行小學科學科課程，並逐年循序推展至其他級別。",
        "page": 2,
-       "source_id": "edbc18_2023_pri_science"
+       "source_id": "edbc18_2023_pri_science",
+       "school_types": [
+        "primary"
+       ]
       },
       {
        "req": "全港小學須於2025/26學年開始推行小學人文科（建議從小一及小四開始）。",
        "page": 2,
-       "source_id": "edbc20_2023_ph_pri"
+       "source_id": "edbc20_2023_ph_pri",
+       "school_types": [
+        "primary"
+       ]
       },
       {
        "req": "學校可按校情及準備程度，最早於2024/25學年按《小學人文科課程框架》試行新課程。",
        "page": 2,
-       "source_id": "edbc20_2023_ph_pri"
+       "source_id": "edbc20_2023_ph_pri",
+       "school_types": [
+        "primary"
+       ]
       },
       {
        "req": "學校須確保有足夠已完成有系統培訓的科主任和教師教授小學科學科。",
        "page": 3,
-       "source_id": "edbc18_2023_pri_science"
+       "source_id": "edbc18_2023_pri_science",
+       "school_types": [
+        "primary"
+       ]
       },
       {
        "req": "教育局就小學人文科每年提供約4,000個師資培訓名額，以提升教師教授人文科的專業能力。",
        "page": 3,
-       "source_id": "edbc20_2023_ph_pri"
+       "source_id": "edbc20_2023_ph_pri",
+       "school_types": [
+        "primary"
+       ]
       },
       {
        "req": "學校在規劃不同學習階段銜接時，須制訂整體而連貫的課程規劃，涵蓋縱向連貫性、橫向連繫及學與教評估策略。",
@@ -4858,7 +4873,10 @@
       {
        "req": "小學人文科課程建基現行常識科，增潤中華文化、國史及國家地理等元素，有系統地從小培養學生國家觀念及國民身份認同，以落實愛國主義教育。",
        "page": 1,
-       "source_id": "edbc20_2023_ph_pri"
+       "source_id": "edbc20_2023_ph_pri",
+       "school_types": [
+        "primary"
+       ]
       },
       {
        "req": "學校的價值觀教育政策須涵蓋自2020年起確立的九個首要培育價值觀和態度（包括守法和同理心）。",
