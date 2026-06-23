@@ -6,6 +6,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [內容新增] — 2026-06-23 — EDB 津貼申請表格細字入庫（25 條 footnote）
+
+> 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,364 → 15,389**（＋25 curated footnote chunks）。
+
+### Added
+- **EDB 津貼申請表格細字入庫**（Channel B Supabase，＋25 chunks，`content_type=footnote_curated`，可逆）：補回一直未入庫嘅 EDB 津貼／財務申請表「細字」load-bearing 規則（正文唔講、藏喺表格／註腳／certification）。涵蓋——學校發展津貼（CEG：班數階梯／雙課制 25 班／中小兼收用小學費率／不准出補課薪津）、擴大營辦津貼（EOEBG：盈餘 12 個月上限／top-up 50%·25%／應酬餐飲 $200·$450·$600／無薪假法定假／A·B 值）、綜合家具設備津貼（CFEG：盈餘 5 倍／Set-up Fund／單位率）、營辦津貼（OEBG：盈餘 12 個月／Domain 調撥）、空調津貼（AC Grant：特別室封頂 5/12／等值公式／SAC 封頂 2）、整合代課教師津貼補充（凍結空缺 MPF $1,500／不可凍結職位清單）、採購門檻階梯、費率 footnote（寄宿宿費 $440／多元學習 $800〔2026/27 取消〕／MMLC $59,570／全方位 $300,000 下限）。所有數字 **verbatim 核實對官方 PDF**（pymupdf）；self-test 25/25 cosine ≥0.45 lead。
+- 由來：凍結教席事件（下方 entry）揭發 EDB「申請表格」整類文件未入庫 → 系統性補 source coverage。候選清單 + 待補（tips #27/#28）見 `dev/FORMS_FOOTNOTE_CANDIDATES.md`。
+
+### Changed
+- 知識片段顯示數 **15,364 → 15,389**（首頁／平台介紹／README／K1_API_SPEC `_meta.stats` 同步）。
+
+---
+
 ## [內容修復] — 2026-06-22 — TRG 凍結教席上限 footnote 入庫（修正政策搜尋砌數）
 
 > 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,363 → 15,364**（＋1 curated footnote chunk）。
