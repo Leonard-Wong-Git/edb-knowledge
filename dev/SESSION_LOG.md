@@ -34,6 +34,47 @@ dev/DOC_SYNC_REGISTRY.md
 ---
 
 <!-- ack:log-entry:start -->
+## 2026-06-23 Session 178 — 政策搜尋 MPF 漏答修復 (footnote-lead judge bypass) · EDB Tips 細字 2 條入庫
+
+- **ID:** Claude_20260623_S178
+- **Summary:** 「開工」起手探針全綠 → 接 S177 手尾 NEXT ⓪ forms 第二批（Leonard「做」+「而家一齊做」）→ 起手調查 MPF 漏答**推翻 handoff 診斷**：live 重現 MPF footnote 一直係 #1（cosine 0.54–0.76），隔離測試證 S177 anti-confab judge 連單獨完美 footnote 都答「否」→ 真因＝judge 過度保守，**非缺關鍵詞**（故 handoff 寫嘅「加關鍵詞」醫錯症）→ AskUserQuestion，Leonard 揀 Option A（footnote-lead judge bypass）→ 實作 + 本機 e2e QC → 自己 download 官方 Tips PDF + pymupdf verbatim 核 #27/#28 → 入庫 → deploy + Render live verify 6/6 → 收工。
+- **Changed:**
+  - `backend/src/api/searchChannelB.ts`：`synthesizeAnswer` 加 footnote-lead judge bypass — 當 `top5[0]` 係 `content_type=footnote_curated` 且 `score >= FOOTNOTE_LEAD_SCORE`(0.45) 時跳過 `judgeCanAnswer` 直接合成；其餘（vault lead）judge 照 run（行為不變）。
+  - `dev/ingest_tips_footnotes.py`（新）：2 條 Tips footnote ingest（--self-test cosine + dup-id + #28-vs-#26 分離探針／--execute INSPECT before/after），機制同 `forms_ingest.py`。
+  - `dev/FORMS_FOOTNOTE_CANDIDATES.md`：#27/#28 標 ✅S178、加 S178 狀態段（剩 #7/#18 minor）。
+  - display-sync 8 點 15,389→**15,391**（app.html/index.html/knowledge.json/role_facts.json/dev/knowledge/role_facts.json/K1_API_SPEC.md/README.md + CHANGELOG 新 entry）。
+- **Done:**
+  - ✅ **MPF 漏答修復 LIVE**（`f19da01`）：本機 e2e 4/4 MPF query 由 DECLINE→ANSWER（含 0.764 完美命中）；vault-lead「強積金供款」仍 DECLINE（anti-confab 對 vault chunk 完整）；confab-trigger「凍結教席上限百分之幾」仍正確答 10%；spurious-lead E case「公積金供款比率」synthesis 仍 grounded 無砌錯。Render live verify 6/6。
+  - ✅ **Tips #27/#28 入庫 LIVE**（`41b7991`）：#27 出租校舍淨租金 40% 入政府帳（EDBC 5/2011）+ #28 12 個月重複採購累計 $50k/$200k 不得拆單（EDBC 4/2013）；verbatim 核官方 Tips TC PDF（pymupdf，文件署 2025 年 5 月）；self-test 0.76/0.61 lead、#28 分離探針 0.633 唔搶 #26；INSPECT footnote_curated 59→**61**、total 15,389→**15,391**。
+- **QC:** tsc check PASS；本機 backend e2e（:8123/:8124 真 Supabase+OpenAI）MPF 4/4 + tips 2/2 + 回歸 decline 全綠；Render live verify **6/6 as expected**；display-sync 8 點 grep 0 stale + 3 JSON valid（chunks=15391）；Pages live serve 15,391。
+- **commits (push origin/main):** `f19da01`（footnote-lead judge bypass）→ `41b7991`（tips #27/#28 + display-sync 15391）→ 收工 commit。
+- **Pending:** forms #7 CEG plan 未核准 claw-back／#18 CFEG 家具無金額上限（minor/optional）；① footnote 擴充（待 Leonard 定）；kg_operation 388 項 school_types（待授權）。
+- **Risks:** 🟢 HEAD==origin/main `41b7991`、Supabase **15,391**、凍結合約零接觸（`_meta` 2.3.0/facts 455/guidelines 158）、無 PLATFORM_VERSION bump、0 outstanding bug。⚠️ 入/改 footnote 後**必 restart Render**（footnote in-memory cache）。⚠️ MPF fix 殘留：curated footnote spurious lead 會 bypass judge（已觀察 E case 仍 grounded、monitor）。⚠️ OpenAI quota 曾用爆（已充值）。
+- **Log maintenance:** SESSION_LOG 9 entries（含本條，S178–S170）；<11；oldest S170 2026-06-15 <30 日；<1500 行 → **no-op**（不 archive）。AHK §4 trigger(b)(c)(d) 不命中（PROJECT_DECISIONS 無 ≥30 numbered；非 10-closeout 邊界）。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella = redirect-only).
+平台 v3.2.1。起手探針：policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.1 + Render /health (cache_a warm 455) + HEAD==origin/main (最新 41b7991) + Supabase 15,391。
+⚠️ OpenAI quota 曾用爆 (S177 充值恢復)；若 /health cache_a warm=false 或搜尋 429，查 OpenAI billing。
+
+S178 已 LIVE (Render verify 6/6)：①政策搜尋 MPF 漏答修復 (searchChannelB.ts：top 結果係 curated footnote 且 cosine≥0.45 時跳過 S177 anti-confab judge；真因＝judge 過度保守、非缺關鍵詞；vault chunk 領先照 gate、anti-confab 保護不變)；②EDB Tips 細字 2 條 footnote (#27 出租校舍淨租金 40% 入政府帳 EDBC 5/2011；#28 12 個月重複採購累計 $50k/$200k 不得拆單 EDBC 4/2013；footnote_curated 59→61、total 15,389→15,391)。commits f19da01→41b7991。
+
+🔜 NEXT (優先序)：
+① footnote 擴充 (待 Leonard 定)：~28 條 lower-priority 候選 (dev/footnote_staging.json + dev/FOOTNOTE_INGEST_LOOP.md)。
+② kg_operation 388 項 school_types 補標 (待 Leonard 明確授權)。
+③ forms 剩餘 (minor/optional)：#7 CEG plan 未經 IMC/SMC 核准 claw-back／#18 CFEG 家具設備本身無金額上限。見 dev/FORMS_FOOTNOTE_CANDIDATES.md。
+④ 既有 monitor：MPF fix 殘留風險 (curated footnote spurious lead bypass judge，E case 證仍 grounded)／文件標註精準度／EDB 入庫 monitor-driven／Render cold-start ~50s／per-segment 範疇偵測／undici keep-alive (node-fetch 已修)。
+⚠️ 紀律：live Supabase INSERT 要 INSPECT before/after + Leonard 授權 + 可逆 footnote_curated；入/改 footnote 後 restart Render；改版號喺 app.html PLATFORM_VERSION (勿 bump 凍結 knowledge.json)；chunk 數變要 display-sync 8 點；改 docx/checklist re-run gen_checklists_bundle.py；路徑空格雙引號；commit -m 勿用反引號。
+Post-startup first action: 起手探針後，按 Leonard 指示接 footnote 擴充 / kg_operation 補標授權 / 或其他 backlog。
+```
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
 ## 2026-06-23 Session 177 — TRG 凍結教席砌數修復 (footnote + judge gate) · EDB forms 批次 checkpoint
 
 - **ID:** Claude_20260622_S177
