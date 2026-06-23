@@ -6,6 +6,21 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [內容修復＋新增] — 2026-06-23 — 政策搜尋 MPF 漏答修復（footnote-lead judge bypass）＋ EDB Tips 細字 2 條入庫
+
+> 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,389 → 15,391**（＋2 curated footnote chunks）。
+
+### Fixed
+- **政策搜尋 MPF 漏答修復**（後端 `searchChannelB.ts`，零資料改動）：查詢「凍結空缺 MPF 僱主供款」「代課教師津貼 凍結空缺 強積金供款」等時，雖然正確嘅 MPF footnote 已檢索為**第一位**（cosine 高達 0.76），S177 加入嘅 anti-confabulation judge（gpt-4.1-nano，從嚴設計）仍過度保守、誤判「否」→ 回覆「暫時未能找到」（即使單獨畀 judge 睇該 footnote 都誤拒，故「加關鍵詞」非正解）。修正：當**最高分結果係 curated footnote 且 cosine ≥ 0.45（lead 線）**時跳過 judge 直接合成——curated footnote 係人手 verbatim 核實嘅精準答案，唔屬 judge 要防嘅「topically-near-but-wrong vault chunk」confabulation 類別；vault chunk 領先時 judge 照常 gate（anti-confabulation 保護不變）。本機 e2e QC：4/4 MPF query 修好、vault-lead 仍正確 decline、「凍結教席上限」仍正確答 10%。
+
+### Added
+- **EDB「處理政府給予資助學校資助的提示」細字入庫**（Channel B Supabase，＋2 chunks，`content_type=footnote_curated`，可逆）：補回 S177 forms 批次手尾兩條 load-bearing 規則——（1）學校**出租／分租校舍**所收淨租金收入的 **40%** 須記入政府津貼帳（EDBC 5/2011）；（2）**12 個月內重複採購**同類項目，累積價值口頭報價 ≤$50,000／書面報價 ≤$200,000 才可分別重複，**不得分拆訂單**規避招標（EDBC 4/2013）。verbatim 核實對官方 Tips PDF（pymupdf，文件署 2025 年 5 月）；self-test cosine 0.76／0.61 lead；分離探針確認 #28 唔搶 #26 採購門檻 query。
+
+### Changed
+- 知識片段顯示數 **15,389 → 15,391**（首頁／平台介紹／README／K1_API_SPEC `_meta.stats` 同步）。
+
+---
+
 ## [內容新增] — 2026-06-23 — EDB 津貼申請表格細字入庫（25 條 footnote）
 
 > 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,364 → 15,389**（＋25 curated footnote chunks）。

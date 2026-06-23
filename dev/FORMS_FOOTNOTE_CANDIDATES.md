@@ -49,8 +49,8 @@
 | 23 | AC | AC 率等值公式:SAC=1 課室率/標準禮堂=2.5 特別室率/小組室=0.5 課室率/無禮堂有蓋操場=2 特別室率 | AC Grant #11 註 | 高 | ⏳ |
 | 24 | AC | SAC 補貼每校封頂 2 個 | AC Grant #8 | 高 | ⏳ |
 | 26 | Tips | 採購門檻階梯:≤$5k 免競投/>$5k-$50k 2 口頭/>$50k-$200k 5 書面/>$200k 招標 5 供應商 | Tips #3 + EDBC 4/2013 | 高 | ✅(live 對照) |
-| 27 | Tips | 出租校舍淨收入須撥 40% 入政府資助戶口 | Tips #3(b)(EDBC 5/2011) | 高 | ⏳ |
-| 28 | Tips | 12 個月內重複採購:口頭累計 ≤$50k/書面累計 ≤$200k,不得拆單 | Tips #4(g) | 高 | ⏳ |
+| 27 | Tips | 出租校舍淨收入須撥 40% 入政府資助戶口 | Tips #3(b)(EDBC 5/2011) | 高 | ✅S178 入庫(verbatim 核 TC PDF) |
+| 28 | Tips | 12 個月內重複採購:口頭累計 ≤$50k/書面累計 ≤$200k,不得拆單 | Tips #4(g) | 高 | ✅S178 入庫(verbatim 核 TC PDF) |
 
 ### 第二類:費率金額(2026/27,逐年變,入庫要標年度 + 維護)
 | # | 計劃 | substance + figure | source | 核 |
@@ -65,9 +65,9 @@
 | — | Composite IT | 仲用 MMLC 嘅合資格學校每校每年額外 $59,570 | Table I/II 註 | ⏳ |
 | 13 | EOEBG | 新校撥款公式 EOEBG = A + B×N + School Specific Grants | EOEBG guide #13 | ⏳ |
 
-## Next step(session reset 2:10am London 後)
-1. 重跑核實 workflow(`scriptPath` 上面)或自己 download PDF + pymupdf 逐條核 verbatim。
-2. verified → 砌繁中 footnote(text+keywords,範本見 `ingest_trg_footnote.py` FN dict)→ 一個 batch staging JSON。
-3. cosine 自測(每條對 query 變體 ≥0.45 lead)。
-4. **attended** INSPECT + INSERT(可逆 footnote_curated)→ display-sync 8 點 → restart Render → live verify。
-5. 建議:第一類(穩定規則)優先入;第二類費率標「2026/27」+ 列入 freshness 監察(逐年更新)。
+## 狀態(2026-06-23 S178 後)
+- ✅ **S177 入庫 25 條**(CEG/EOEBG/CFEG/OEBG/AC/採購/TRG 補充/費率,見 CHANGELOG + `forms_ingest.py`)。⚠️ **上表 ⏳ 標記係入庫前 checkpoint、未逐一翻新**;真實已入庫者以 live Supabase `footnote_curated=61` 為準(`forms_ingest.py` F dict 嗰 25 + S174 33 + S178 2)。
+- ✅ **S178 入庫 #27**(出租校舍淨租金 40% 入政府帳,EDBC 5/2011)**+ #28**(12 個月重複採購累計 $50k/$200k、不得拆單,EDBC 4/2013)。verbatim 核官方 Tips TC PDF(pymupdf,文件署 2025 年 5 月);`ingest_tips_footnotes.py`;total 15,389→**15,391**、footnote_curated 59→**61**。
+- ✅ **S178 修復 MPF 漏答**:真因＝S177 anti-confab judge 過度保守(連 0.76 完美 MPF footnote 都誤拒),**非缺關鍵詞**;修法＝top 結果係 curated footnote 且 cosine≥0.45 時跳過 judge(`searchChannelB.ts`,vault chunk 照 gate)。本機 e2e QC 4/4 修好 + 無回歸。
+- 🔜 **剩餘候選(minor/optional,待 Leonard 排)**:#7 CEG plan 未經 IMC/SMC 核准 + 10 月底前上載→claw back;#18 CFEG 家具設備本身無金額上限。
+- 第二類費率(已入)屬 2026/27 → 列入 freshness 監察(逐年更新)。
