@@ -1,1 +1,4047 @@
-[{"si": 1, "section_name": "校舍選址與樓宇結構", "clauses": [{"text": "本校於租賃或購置擬設立校舍的樓宇前，必須確定有關樓宇用地適合作幼稚園用途，且該建築物符合基本的樓宇安全規定。本校亦須確保校舍和所有設備均屬安全，為兒童提供安全的學習環境。如有關幼稚園房產以結構性的木地板建造，當局將拒絕根據《教育條例》第12(1)(b)條發出證明書。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 74}, {"source_id": "kg_admin_guide_2026", "page": 46}, {"source_id": "kg_operation_manual_2026", "page": 93}], "adjustables": [], "covers": [12, 5, 0]}, {"text": "本校校舍不得設於工業樓宇的任何部分內，亦不得位於倉庫、貨倉、店舖、戲院、百貨公司或對兒童健康安全有危險行業的樓宇之上。本校如服務兩歲或以上兒童，園舍不得高出地面超過24米；如有例外，須經教育局常任秘書長書面授權。本校幼稚園並受《教育規例》第7條所訂的24米高度限制規限。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 8}, {"source_id": "kg_operation_manual_2026", "page": 94}], "adjustables": [], "covers": [8, 9, 4]}, {"text": "本校如缺乏戶外遊戲場，則須設有戶內遊戲場，而戶內遊戲場的面積不少於課室總面積的50%。就為2至6歲兒童服務的幼稚園而言，本校須符合每名兒童最低人均樓面面積1.8平方米的規定（包括所有戶內的活動地方，但不包括輔助設施）。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 8}], "adjustables": [], "covers": [6, 7]}, {"text": "如本校屬初生至6歲的留宿幼兒中心，每名兒童於中心內的最低人均樓面面積規定如下表所列。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 89}], "adjustables": [], "covers": [13], "table": {"headers": ["範圍", "最低人均樓面面積"], "rows": [["不包括輔助設施", "3.2平方米"], ["包括輔助設施", "3.7平方米"]]}}, {"text": "本校所有護牆及窗口如未設有欄柵妥為防護，其高度由緊接的地面起計，最少須為1.1米。本校如設有伸出行人道上方的廣告招牌，該招牌與行人道路面須有最少3.5米的垂直淨空距離，並與行人道路邊有最少1.0米的水平淨空距離。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 10}, {"source_id": "kg_operation_manual_2026", "page": 100}], "adjustables": [], "covers": [11, 15]}, {"text": "本校園舍圖則經教育局常任秘書長批准及註冊後，除非獲得常任秘書長書面許可，否則不得在結構上作任何更改。凡涉及樓宇結構或逃生途徑的改動及加建工程，本校須由認可人士（及註冊結構工程師，如有需要）正式向屋宇署呈交擬議工程的圖則，以事先獲得建築事務監督批准及同意。呈交的圖則須以合適的比例（1:50或1:100）繪製，標明出口路線／出口門、間隔牆及出口門的建造物料與耐火效能，並須在圖則上顯示每個課室最高可容納的人數（教師和學生的數目），以及將要容納的教職員總數。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 10}, {"source_id": "kg_operation_manual_2026", "page": 93}, {"source_id": "kg_operation_manual_2026", "page": 94}], "adjustables": ["認可人士（及註冊結構工程師，如有需要）"], "covers": [10, 1, 2, 3]}, {"text": "如本校選擇用作提供學前服務的房產內有違例建築工程，本校務請在遞交註冊申請前清拆這些工程。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 100}], "adjustables": [], "covers": [14]}], "verify": {"ok": true, "issues": [], "resolved_s163": true, "input_item_count": 16, "covered_item_count": 16}}, {"si": 2, "section_name": "園舍設施與設備", "clauses": [{"text": "本校洗手間必須設有通出露天的窗口，窗口總面積最少為洗手間地面面積的十分之一；牆壁應至少鋪上一米高的瓷磚，地面應鋪砌防滑地磚。本校兒童廁所應與職員廁所分開設置。本校須為每30名男童或每25名女童設1個洗手盆。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 13}, {"source_id": "kg_operation_manual_2026", "page": 14}, {"source_id": "kg_operation_manual_2026", "page": 106}], "adjustables": [], "covers": [0, 1, 2, 15]}, {"text": "如本校設有留宿幼兒中心，其設施須符合下列規定：每間留宿幼兒中心內須撥出最少一間適當的房間，純作療養室或病房用途，並宜設獨立洗手間及浴室；須設足夠的更衣室及沐浴設施，而兒童沐浴設施須與員工沐浴設施分開；受托兒童必須獲提供屬社會福利署署長核准的類型或設計、並以署長核准的物料製成的床及被褥，本校並須注意睡床的安全措施。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 90}], "adjustables": [], "covers": [3, 4, 5]}, {"text": "本校進行下列事項必須得到教育局常任秘書長批准：加建、改建或拆卸校舍、改動校舍結構、更改廁所衞生或課室通風照明設施、劃分課室間隔等。本校亦須遵從《殘疾歧視條例》及屋宇署發出的《設計手冊：暢通無阻的通道》所載有關為殘疾人士提供通道及設施的規定，不得擅自拆除或改動有關設施。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 15}, {"source_id": "kg_operation_manual_2026", "page": 101}], "adjustables": [], "covers": [6, 12]}, {"text": "本校每間課室的入口處須有一牌匾或告示牌，標明用以識別該房間的號碼或字母。每間課室內須在顯眼處展示告示，列明該課室獲准容納的學生人數最高限額，本校不得准許該課室容納超逾該最高限額的學生。本校每班人數不應超過30人；當課室用作全日班午睡時，其最高限額為每課室20人。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 15}, {"source_id": "kg_operation_manual_2026", "page": 106}], "adjustables": [], "covers": [7, 8, 13]}, {"text": "本校供兒童使用的傢具，其油漆或塗料須符合安全標準，例如不得含鉛，並須符合《玩具及兒童產品安全條例》及《消費品安全條例》的規定。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 12}], "adjustables": [], "covers": [9]}, {"text": "如本校屬全日制機構並選擇在園舍自設廚房為兒童提供膳食，須參照第二章第2.5段廚房的規定設置一個設備符合屋宇署／房屋署、消防處、衞生署及其他有關部門規定的廚房，並另設食物儲存室（其面積為廚房面積的20%）。廚房面積按供應膳食的兒童人數而定，規定如下：", "citations": [{"source_id": "kg_operation_manual_2026", "page": 15}, {"source_id": "kg_operation_manual_2026", "page": 55}, {"source_id": "kg_operation_manual_2026", "page": 106}], "adjustables": [], "covers": [10, 11, 14, 17], "table": {"headers": ["供應膳食兒童人數", "廚房面積規定"], "rows": [["50名兒童或以下", "面積最少為10平方米"], ["100名兒童或以上", "面積不得少於20平方米"]]}}, {"text": "本校的戶內遊戲場面積應不少於課室總面積的百分之五十，並應盡量提供便於由課室通達的戶外遊戲場。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 107}], "adjustables": [], "covers": [16]}, {"text": "本校應設有一個具基本設施及清潔衞生的茶水間，以供應茶點。茶水間應使用電器供應茶點，不能使用明火。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 14}], "adjustables": [], "covers": [18]}], "verify": {"ok": true, "issues": [], "resolved_s163": true, "input_item_count": 19, "covered_item_count": 19}}, {"si": 3, "section_name": "消防安全與走火", "clauses": [{"text": "本校須按照《建築物（規劃）規例》第V部及屋宇署不時編訂的《消防安全守則》的規定，提供足夠的逃生途徑及消防和救援進出途徑。本校任何可容納30人以上的房間／房產，最少須設有兩個出口，而出口門必須向出口方向開啟。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 96}, {"source_id": "kg_operation_manual_2026", "page": 97}], "adjustables": [], "covers": [0, 1]}, {"text": "本校所有出口路線及出口門須符合下列尺寸、淨高度及照明要求：出口路線的最小闊度不得少於1050毫米；所有出口路線的淨高度不得少於2米，並且暢通無阻；出口路線的每個部分在任何時間均須提供光度不少於30勒克斯的水平照明。各出口門的最小闊度按容納人數而定。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 97}], "adjustables": [], "table": {"headers": ["容納人數", "出口門最小闊度", "出口門總闊度"], "rows": [["4至30人", "不得少於750毫米", "不適用"], ["31至200人", "每道不得少於850毫米", "不得少於1750毫米"], ["出口路線（整體）", "不得少於1050毫米", "不適用"]]}, "covers": [2, 10, 11]}, {"text": "本校所有出口門必須可以在無須使用鑰匙的情況下隨時從內開啟；於本校上課時間內，出口保安閘必須打開。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 97}], "adjustables": [], "covers": [3]}, {"text": "本校（屬幼稚園）單一方向通往樓梯的盡頭行走距離不得超過18米。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 98}], "adjustables": [], "covers": [4]}, {"text": "本校須遵守消防處的消防規定，確保所有消防裝置和設備能隨時有效地操作，而所有員工皆懂得操作簡單的消防設備。本校的防火裝置及設備，須由一名註冊消防裝置承辦商至少每隔12個月檢查一次；本校的機械通風系統須由註冊專門承建商定期檢查，每次檢查日期的相隔時間不得超過12個月。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 18}], "adjustables": ["註冊消防裝置承辦商", "註冊專門承建商"], "covers": [5, 6, 7]}, {"text": "本校校長須確保僱員及兒童最少每6個月進行一次涉及使用處所的所有出口的火警演習，並於日誌備存防火演習及撤離時間的書面紀錄。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 19}], "adjustables": ["日誌"], "covers": [8]}, {"text": "本校適用於訪客及家長的消防安全指引，應張貼於處所內的當眼位置。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 116}], "adjustables": [], "covers": [9]}], "verify": {"ok": true, "issues": [], "input_item_count": 12, "covered_item_count": 12}}, {"si": 4, "section_name": "氣體、電力及機電安全", "clauses": [{"text": "本校固定電力裝置系統必須最少每5年進行一次由註冊電業承辦商或註冊電業工程人員覆檢及測試，並簽發安全證書。本校所有電源插座應安裝在離地面1.5米或以上的高度，使兒童不能觸及，並採用保護活門式插座。下表列明本校電力裝置安全的檢查與安裝要求：", "citations": [{"source_id": "kg_operation_manual_2026", "page": 21}], "adjustables": ["註冊電業承辦商或註冊電業工程人員"], "covers": [0, 1], "table": {"headers": ["項目", "要求"], "rows": [["固定電力裝置系統覆檢及測試", "最少每5年一次，由註冊電業承辦商或註冊電業工程人員進行，並簽發安全證書"], ["電源插座安裝高度", "離地面1.5米或以上，使兒童不能觸及"], ["插座類型", "保護活門式插座"]]}}, {"text": "本校所有氣體裝置必須妥善維修，並由註冊氣體工程承辦商每年檢查一次，並簽發安全證書。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 20}], "adjustables": ["註冊氣體工程承辦商"], "covers": [2], "table": null}], "verify": {"ok": true, "issues": [], "input_item_count": 3, "covered_item_count": 3}}, {"si": 5, "section_name": "樓宇維修與環境衞生", "clauses": [{"text": "本校須提供一個安全、健康和安排妥善的校園環境，並與家長共同制訂及推行健康政策措施。本校須保持校舍環境的衞生，以營造健康的學習環境。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 41}], "adjustables": [], "covers": [4, 5]}, {"text": "為確保校舍結構穩妥，本校須安排由獲授權人士按下列周期視察園舍，確定其結構是否穩妥：", "citations": [{"source_id": "kg_operation_manual_2026", "page": 18}], "adjustables": [], "covers": [0], "table": {"headers": ["園舍類型", "視察周期"], "rows": [["以鋼筋混凝土建造的園舍", "每隔不超過3年視察一次"], ["設置木地板的園舍", "每隔不超過12個月視察一次"]]}}, {"text": "本校應定時使用家用漂白水（1:99）清潔傢具、設備和玩具，並應每星期更換一次兒童的床單、被套及枕套等。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 43}], "adjustables": [], "covers": [1, 2]}, {"text": "本校供飲用、煮食和洗濯用的水須由自來水喉或其他認可的水源供應。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 43}], "adjustables": [], "covers": [3]}], "verify": {"ok": true, "issues": [], "resolved_s163": true, "input_item_count": 6, "covered_item_count": 6}}, {"si": 6, "section_name": "兒童健康檢查與紀錄", "clauses": [{"text": "兒童返抵本校園舍時，本校須隨即為其進行健康檢查，並待確定其身體健康；如發現病徵，應立即安排隔離，並通知家長帶回求醫。兒童入讀本校之前，應接受一項全面的體格檢查。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 28}, {"source_id": "kg_operation_manual_2026", "page": 29}], "adjustables": [], "covers": [0, 1]}, {"text": "本校須備有每名兒童的健康紀錄，並在適當時候更新，以供隨時查閱。本校亦須妥善保存學童個人健康紀錄及員工病假紀錄，並定期檢查及記錄兒童體溫。健康紀錄內容至少包括下列各項：", "citations": [{"source_id": "kg_operation_manual_2026", "page": 30}, {"source_id": "kg_admin_guide_2026", "page": 47}], "adjustables": [], "covers": [2, 3], "table": {"headers": ["項目", "紀錄內容"], "rows": [["體格資料", "兒童體重及身高"], ["病歷", "兒童過往病歷"], ["食物過敏史", "兒童食物過敏記錄"], ["體檢報告", "入學前全面體格檢查報告"], ["免疫接種紀錄", "兒童免疫接種記錄"]]}}, {"text": "如本校設有留宿安排，本校須備有所有留宿兒童由註冊醫生發出的檢查表格／醫療報告副本，以供社會福利署署長或任何視察主任或中心醫生於合理時間內隨時查閱。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 90}], "adjustables": [], "covers": [4]}], "verify": {"ok": true, "issues": [], "resolved_s163": true, "input_item_count": 5, "covered_item_count": 5}}, {"si": 7, "section_name": "疾病處理與傳染病防控", "clauses": [{"text": "本校設有急救及醫療應變安排：校內最少須備有一個急救箱，並由專責員工確保急救箱隨時有充足設備；本校最少須有兩名教師曾接受急救訓練。校內所有消防裝置或設備須時刻維持性能良好。校長須就火警疏散程序擬定計劃，並在學校日誌內記錄本校師生進行的防火演習，以及由校舍疏散到指定地方所需的時間。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 14}, {"source_id": "kg_admin_guide_2026", "page": 15}], "adjustables": ["專責員工", "指定地方"], "covers": [0, 2, 3]}, {"text": "本校如懷疑或得知有任何教師、學生或僱員染上傳染病或曾接觸傳染病人，校長須立即向衞生署學校醫生報告。患病兒童須留家休息；如有懷疑，他們必須經註冊醫生診斷痊癒後，才可復課。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 14}, {"source_id": "kg_operation_manual_2026", "page": 31}], "adjustables": [], "covers": [1, 4]}, {"text": "本校發現學童出現病徵或懷疑染病時，應立即安排他與其他學童隔離，在員工的照顧下休息，並通知家人接他回家。若本校有爆發傳染病跡象，或病假人數上升並出現類同症狀，應盡速通知衞生署。本校宜委任專責人員，以協調感染控制措施，統籌及監督預防及控制傳染病的工作。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 47}], "adjustables": ["專責人員"], "covers": [5, 6, 7]}], "verify": {"ok": true, "issues": [], "input_item_count": 8, "covered_item_count": 8}}, {"si": 8, "section_name": "膳食與食物安全", "clauses": [{"text": "本校為兒童提供膳食時，須注意營養標準、食物安全措施和避免浪費的原則。本校膳食餐單須根據社會福利署署長所批准的飲食種類分量表所列預先擬備，並須按社會福利署署長／教育局常任秘書長批准的食物種類分量表所列的標準預先編定，隨時備查，並隨時供社會福利署署長或任何視察主任或中心醫生查閱。提供全日制幼稚園教育的本校，須為每名接受該項教育的學生提供最少每日一餐膳食。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 41}, {"source_id": "kg_operation_manual_2026", "page": 90}, {"source_id": "kg_operation_manual_2026", "page": 50}, {"source_id": "kg_admin_guide_2026", "page": 14}], "adjustables": [], "covers": [0, 1, 6, 10]}, {"text": "本校須在選擇、貯存和烹調食物三方面確保衞生，並遵守世界衞生組織處理食物的準則。在食物存放方面，熱食須存放於攝氏60度以上，凍食須存放於攝氏4度或以下。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 45}], "adjustables": [], "covers": [2, 3]}, {"text": "為確保個人衞生，本校員工須切實執行個人衞生要求，包括於處理食物及如廁後立即洗手。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 44}], "adjustables": [], "covers": [9]}, {"text": "本校應訂立健康飲食政策，向學生、教職員、負責膳食供應的職員及家長持續推廣健康飲食的重要性。本校必須提供明確處理食物致敏原的步驟和程序，以減少教職員和學生發生過敏反應的風險，所有食物處理人員必須認識主要致敏原及相關風險降低措施。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 46}, {"source_id": "kg_operation_manual_2026", "page": 49}], "adjustables": ["本校健康飲食政策"], "covers": [4, 5]}, {"text": "若本校提供全日制幼稚園教育並由膳食供應商提供膳食，本校應與有關供應商簽訂承包合約，並將食物選擇、食物分量、烹調標準、裝載食物的方法等清楚訂明在合約之內，同時監察所提供膳食的質與量。本校應確定所選的膳食供應商持有由食物環境衞生署簽發的獲准供應餐盒的有效食物製造廠牌照；如涉及分判，分判商亦須持有有效牌照。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 55}], "adjustables": ["本校膳食供應商承包合約"], "covers": [7, 8]}], "verify": {"ok": true, "issues": [], "input_item_count": 11, "covered_item_count": 11}}, {"si": 9, "section_name": "意外、緊急事故與保險", "clauses": [{"text": "本校如設有留宿幼兒中心或獨立幼兒中心，遇特別事故時，必須盡快通知社會福利署幼兒中心督導組，並必須在特別事故發生後的三個曆日（包括公眾假期）內向社會福利署幼兒中心督導組、津貼組及相關服務科（如適用）提交「幼兒中心特別事故報告」。處理完該宗緊急事故後，本校應適當地記錄事件的詳情和所採取的行動。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 86}, {"source_id": "kg_operation_manual_2026", "page": 170}, {"source_id": "kg_operation_manual_2026", "page": 79}, {"source_id": "kg_operation_manual_2026", "page": 26}], "adjustables": [], "covers": [0, 1, 6, 2]}, {"text": "本校的機構經營人應購買適合的保險，以應付火警、意外及兒童／員工受傷事件引致機構須承擔的公眾責任，以及《僱員補償條例》規定的員工補償。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 27}], "adjustables": [], "covers": [3]}, {"text": "本校須備有每名兒童的意外及疾病紀錄，以供醫院急症室或衞生署作流行病學調查之用。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 32}], "adjustables": [], "covers": [4]}, {"text": "本校最少須有兩名教員曾接受急救訓練。負責管理急救箱的人士須確保急救箱內備有急救用品一覽表、所有藥物均貼上適當的標籤，並定期檢查急救用品的數量及有效日期，適時更換。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 33}, {"source_id": "kg_operation_manual_2026", "page": 114}], "adjustables": [], "covers": [5, 7]}, {"text": "如發生意外，本校須密切觀察學生情況，並盡可能為受傷學生施行急救，直至學生情況改善或交由醫護人員處理。如學生傷勢嚴重，本校須啟動危機應變措施，立即致電999要求緊急援助或代召喚救護車服務，並即時通知家長，同時通知本校所屬地區的高級學校發展主任／高級服務主任，及後提交書面報告闡述意外詳情。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 46}, {"source_id": "kg_admin_guide_2026", "page": 47}], "adjustables": [], "covers": [8, 9, 10]}], "verify": {"ok": true, "issues": [], "resolved_s163": true, "input_item_count": 11, "covered_item_count": 11}}, {"si": 10, "section_name": "兒童看管與保安", "clauses": [{"text": "本校須制定校本機制及流程，協助學校人員就懷疑嚴重虐兒個案作出舉報及跟進。如本校發現或懷疑兒童遭受虐待，須按教育局通告第15/2025號「處理懷疑虐待兒童及家庭暴力個案」的指示，立即依《保護兒童——預防虐待及處理懷疑虐待兒童個案》指引處理或聯絡社會福利署。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 36}, {"source_id": "kg_operation_manual_2026", "page": 136}, {"source_id": "kg_admin_guide_2026", "page": 42}, {"source_id": "kg_admin_guide_2026", "page": 43}], "adjustables": [], "covers": [0, 10, 16, 17]}, {"text": "處理懷疑虐兒個案時，首位接觸個案的人員應即時通知校長，本校應立即啟動校本應急機制／危機處理小組，切勿隱瞞或延誤通報。如懷疑侵犯者是本校的教職員，本校須嚴格遵循教育局通告第15/2025號附件三所列的程序，並儘早通知學校發展主任。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 41}, {"source_id": "kg_operation_manual_2026", "page": 136}], "adjustables": ["校長", "校本應急機制／危機處理小組", "學校發展主任"], "covers": [11, 12]}, {"text": "指明專業人員如懷疑兒童正遭受或面對遭受嚴重傷害的實際風險，須儘快依《強制舉報虐待兒童條例》作出強制舉報。任何人士不得故意阻止或阻礙指明專業人員作出舉報，或披露作出舉報的指明專業人員的身分。如本校設有留宿幼兒中心，該中心亦應遵照相關條例，包括《強制舉報虐待兒童條例》處理懷疑虐待兒童個案。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 43}, {"source_id": "kg_operation_manual_2026", "page": 81}], "adjustables": [], "covers": [1, 2, 18]}, {"text": "本校在任何時段和任何情況下，均不得讓兒童沒有員工看管。本校須為員工訂定工作指引，以防兒童溜走或誤將兒童交給非由家長委派的接送者，並須安排足夠員工看管兒童，及妥善安排家長／接送者每天交收兒童。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 26}, {"source_id": "kg_admin_guide_2026", "page": 46}], "adjustables": [], "covers": [6, 7]}, {"text": "懷疑虐兒個案的所有紀錄須統一由校長／專責人員保管，在校內查閱有關紀錄須受限制，而且必須登記；本校亦不應將上述紀錄與有關學生的一般紀錄一併存檔。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 39}, {"source_id": "kg_operation_manual_2026", "page": 140}, {"source_id": "kg_admin_guide_2026", "page": 45}], "adjustables": ["校長／專責人員"], "covers": [8, 9, 14, 19]}, {"text": "本校內任何人士均不得對中心內兒童施行體罰；如本校設有幼兒中心（包括留宿幼兒中心），任何人不得對中心內兒童施行體罰。教師不得向學生施行體罰（《教育規例》第58條）。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 81}, {"source_id": "kg_admin_guide_2026", "page": 14}], "adjustables": [], "covers": [13, 15]}, {"text": "如本校設有留宿幼兒中心，須在中心安裝閉路電視監察系統，並就監控及翻看閉路電視紀錄制定符合個人資料私隱專員公署指引的政策及機制。在申請註冊時，須填寫「留宿幼兒中心安裝閉路電視監察系統及制定監控政策及機制——進度報告」（附錄二十七），提交予社會福利署審閱。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 86}, {"source_id": "kg_operation_manual_2026", "page": 174}], "adjustables": [], "covers": [3, 4, 5]}, {"text": "本校須按需要在校舍安裝足夠的保安設備及制訂合適的保安措施，以防止未經授權人士擅自進入。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 46}], "adjustables": [], "covers": [20]}, {"text": "所有運載本校學童的非專營巴士及學校私家小巴，每輛車上必須提供一名跟車保母。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 49}], "adjustables": [], "covers": [21]}], "verify": {"ok": true, "issues": [], "input_item_count": 22, "covered_item_count": 22}}, {"si": 11, "section_name": "戶外活動與惡劣天氣安排", "clauses": [{"text": "本校在擬定幼兒每日活動程序時間表時，必須減少屏幕時間，並應避免以屏幕時間作為對兒童的賞罰。就讀本校幼稚園及幼兒中心幼兒的「靜態屏幕時間」，每天不應超過1小時，少則更好。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 88}, {"source_id": "kg_operation_manual_2026", "page": 87}], "adjustables": [], "covers": [0, 3]}, {"text": "本校如設有留宿幼兒中心，其活動程序時間表須呈交社會福利署署長批准，才可在中心內使用，並必須於中心的顯眼地方展示。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 89}], "adjustables": [], "covers": [1]}, {"text": "本校在舉辦野餐、旅行或參觀活動前，應把詳情通知家長，得到家長以本校《活動同意書》作出的書面同意後，才可以讓兒童參加。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 25}], "adjustables": ["本校《活動同意書》"], "covers": [2]}], "verify": {"ok": true, "issues": [], "input_item_count": 4, "covered_item_count": 4}}, {"si": 12, "section_name": "教職員聘任、資歷與師生比例", "clauses": [{"text": "本校聘任教學及非教學人員時，必須遵從教育局訂明的聘用程序，以確保所聘人選為適合及適當人選，並要求應徵者申報教師註冊、專業失德及刑事定罪等事項。本校如擬聘用已離開教育行業一年或以上的教師，必須向教育局申報其刑事定罪紀錄。無論本校聘用與否，查核應徵者背景的結果須經校董會討論並紀錄在案。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 114}, {"source_id": "kg_admin_guide_2026", "page": 115}], "adjustables": ["校董會"], "covers": [2, 3, 4]}, {"text": "本校必須在聘任過程中採用性罪行定罪紀錄查核機制；在聘用程序的最後階段，本校必須要求準僱員進行性罪行定罪紀錄查核，以確定其申報的性罪行定罪紀錄屬實。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 41}, {"source_id": "kg_admin_guide_2026", "page": 46}, {"source_id": "kg_admin_guide_2026", "page": 116}, {"source_id": "kg_operation_manual_2026", "page": 64}], "adjustables": [], "covers": [0, 1, 5, 29]}, {"text": "由2023/24學年起，本校所有新聘教師（包括新入職教師及轉校教師）均須在《基本法及香港國安法》測試取得及格成績。本校於聘用教師前，必須查核該人士是否已在《基本法及香港國安法》測試取得及格成績，並透過電子化服務入門網站向教育局呈交該學年新聘教師的資料。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 114}, {"source_id": "kg_admin_guide_2026", "page": 115}], "adjustables": [], "covers": [26, 27]}, {"text": "除非得到教育局常任秘書長書面准許，被取消／拒絕教師註冊的人士不得進入或逗留在本校。任何人士如未經註冊成為檢定教員或准用教員而在本校任教，即屬違法，而僱用或准許該人任教的人士亦屬違法；本校不得僱用或准許非檢定教員或非准用教員任教。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 116}, {"source_id": "kg_admin_guide_2026", "page": 13}, {"source_id": "kg_operation_manual_2026", "page": 65}], "adjustables": [], "covers": [6, 8, 32]}, {"text": "本校校董會須負責向所有教師（教員）發出聘書，其中須列明服務條件、薪級及終止聘用的條件（《教育規例》第77條），並由校監代表校董會在聘書正本及副本簽署。本校校監須遵照《教育規例》的規定發聘任書給所有教員，聘任書內應訂明薪級、工作範圍及終止聘用的條件。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 13}, {"source_id": "kg_admin_guide_2026", "page": 117}, {"source_id": "kg_operation_manual_2026", "page": 65}], "adjustables": ["校董會"], "covers": [7, 31, 41]}, {"text": "本校聘用或解僱僱用期不少於6個月的教學人員，均須由本校的多數校董批准；解僱僱用期不少於6個月的教學人員，須在校董會的會議上由本校的多數校董批准。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 13}], "adjustables": ["校董會"], "covers": [9]}, {"text": "本校校長的任命（聘任）必須獲得教育局常任秘書長批准；校董會須於學校註冊後一個月內推薦校內一名教師出任校長。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 13}, {"source_id": "kg_admin_guide_2026", "page": 117}], "adjustables": ["校董會"], "covers": [10, 40]}, {"text": "本校所有新任校長（校監聘任之校長）須持有幼兒教育學士學位或具備同等學歷，並在取得學歷後最少有一年相關工作經驗，以及在受聘前修畢一項校長證書課程。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 66}, {"source_id": "kg_operation_manual_2026", "page": 150}, {"source_id": "kg_admin_guide_2026", "page": 109}], "adjustables": [], "covers": [21, 22, 23]}, {"text": "本校所有新入職幼稚園教師均須具備合格幼稚園教師或同等的資歷。具學士學位受聘為本校幼稚園教師者，必須於入職後兩年內修畢合格幼稚園教師訓練課程。本校須符合聘用100%合格幼稚園教師的規定，校監應盡早安排未受訓教師修讀訓練課程。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 149}, {"source_id": "kg_operation_manual_2026", "page": 150}], "adjustables": [], "covers": [17, 18, 19]}, {"text": "本校須聘用百分百已獲認可訓練課程證書或同等專業資格的員工；所有新入職幼兒中心主管須具備幼兒教育證書或同等專業資格。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 65}, {"source_id": "kg_operation_manual_2026", "page": 66}], "adjustables": [], "covers": [33, 34]}, {"text": "本校須維持下列師生比例及在場當值人手安排：", "citations": [{"source_id": "kg_operation_manual_2026", "page": 63}, {"source_id": "kg_operation_manual_2026", "page": 148}], "adjustables": [], "covers": [13, 14, 15], "table": {"headers": ["項目", "規定"], "rows": [["幼稚園半日制／全日制師生比例", "1:15"], ["在場當值最少教師與在場學生比例", "每15名學生（不足15名當15名計算）須有一位教師在場當值"], ["每班當值教師", "每班內須最少有一位教師當值"]]}}, {"text": "本校須按九月中所有班級總學生人數計算，維持整體師生比例1:11（校長不計算在內）聘請足夠教師人數，並向下調整至整數。本校整體師生比例的要求由1:15（校長計算在內），提升至1:11（校長不計算在內）。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 107}, {"source_id": "kg_admin_guide_2026", "page": 29}], "adjustables": [], "covers": [16, 36]}, {"text": "由2022/23學年開始，本校作為參加幼稚園教育計劃的幼稚園，必須按師生比例1:11的規定，聘用足夠持有幼兒教育證書資格或以上學歷的教師。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 108}], "adjustables": [], "covers": [20]}, {"text": "本校須聘請足夠的幼兒工作員／合格幼稚園教師，以達法定的人手比例規定。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 62}], "adjustables": [], "covers": [28]}, {"text": "本校如屬長全日制幼稚園，可增聘的教師上限為全日制幼稚園教師人數的40%。本校如屬全日制及長全日制幼稚園並設有符合政府規定的廚房，應聘請一名炊事員。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 108}, {"source_id": "kg_admin_guide_2026", "page": 109}], "adjustables": [], "covers": [37, 38]}, {"text": "本校如設有留宿幼兒中心，必須委任足夠的主管及／或幼兒工作員以達法定的人手比例規定，使在場當值職員與在場兒童人數不得低於法定比例。留宿幼兒中心內在場當值的人數，任何時間均不得少於一名職員及另一名年滿18歲的人。收納超過30名兒童的留宿幼兒中心，必須僱用註冊護士一名，負責照顧兒童的健康。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 84}, {"source_id": "kg_operation_manual_2026", "page": 65}], "adjustables": [], "covers": [24, 25, 30]}, {"text": "本校所有僱員除獲豁免外，必須參加強制性公積金計劃。本校校董會作為僱主，須按《僱員補償條例》的規定，為學校僱員購買保險，以投保其在法例規定下的責任。本校僱主與僱員的服務條件，例如工時、年假、病假、分娩假及終止合約安排，必須符合《僱傭條例》，並清楚列明在僱傭合約內。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 13}, {"source_id": "kg_operation_manual_2026", "page": 68}], "adjustables": ["校董會"], "covers": [11, 12, 35]}, {"text": "本校應就教師的聘任及晉升事宜，制訂校本指引和程序，並按公平公開原則訂立正式甄選程序。本校須為離職的教學人員發出「服務證明書」，列明該員工的相關聘任資料，供其新僱主參考。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 110}, {"source_id": "kg_admin_guide_2026", "page": 118}], "adjustables": ["「服務證明書」"], "covers": [39, 42]}], "verify": {"ok": true, "issues": [], "input_item_count": 43, "covered_item_count": 43}}, {"si": 13, "section_name": "教職員健康、操守與專業發展", "clauses": [{"text": "本校管理當局（已成立校董會者為校董會，未設者為校董會）就學校、校董（包括校監）和教職員接受利益和捐贈事宜，制定政策及發出清晰指引，確保採購、收生、招聘及擢升等行政事務廉潔治校。所制定的政策須包括學校、校董及教職員接受利益和捐贈的準則、批核程序、審批權、問責機制及監管程序。本校接受任何利益和捐贈，必須獲本校管理當局批准。本校亦遵守教育局有關《學校及其教職員收受利益和捐贈事宜》通告的規定，並參考廉政公署《校董及職員行為守則範本》。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 15}, {"source_id": "kg_operation_manual_2026", "page": 163}, {"source_id": "kg_operation_manual_2026", "page": 72}], "adjustables": ["校董會（已成立校董會者為校董會，未設者為校董會）"], "covers": [0, 13, 14, 23]}, {"text": "本校參閱廉政公署制訂的《幼稚園運作防貪指南》及《幼稚園校董及職員行為守則範本》，建立誠信管理制度及內部監控系統，並參考該範本為校董及職員制訂完善的誠信指引。本校所有校董及職員均須遵守《防止賄賂條例》。校董和職員不應接受任何奢華、過於慷慨或頻密的款待。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 16}, {"source_id": "kg_admin_guide_2026", "page": 123}, {"source_id": "kg_admin_guide_2026", "page": 124}], "adjustables": [], "covers": [1, 2, 3]}, {"text": "本校管理當局不應批准本校或教職員在處理學生的錄取或升級、聘用或晉升等校務時索取或接受利益（經教育局核准的註冊費不屬利益）。本校不得容許其校董和職員向任何人士或公司（包括供應商和承辦商）索取或接受其提供的任何利益（包括佣金），並以書面知會供應商有關防止賄賂的規定。本校亦不應索取或接受營辦商／供應商的捐贈或任何形式的利益。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 164}, {"source_id": "kg_admin_guide_2026", "page": 85}, {"source_id": "kg_admin_guide_2026", "page": 69}], "adjustables": [], "covers": [4, 18, 17]}, {"text": "本校設立處理利益衝突的機制，以避免任何實際、潛在或視為利益衝突的情況；所有申報及相關管理層的決定／行動必須妥善記錄在案及存檔備查。參與採購的校董及職員須簽署承諾書，盡早向校董會作出書面申報與供應商的密切連繫；已申報利益衝突者應避免處理相關採購。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 124}, {"source_id": "kg_admin_guide_2026", "page": 85}], "adjustables": [], "covers": [6, 5]}, {"text": "本校管理當局應制定規管教職員外間工作的校本人事管理政策，並備存紀錄冊記錄所有獲批的外間工作。本校管理當局不應批准其教職員收取費用為校內學生私人補習。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 165}], "adjustables": [], "covers": [15, 16]}, {"text": "本校就教職員涉及刑事調查或訴訟事宜訂明匯報責任，按下列要求辦理：", "citations": [{"source_id": "kg_operation_manual_2026", "page": 65}, {"source_id": "kg_admin_guide_2026", "page": 121}], "adjustables": [], "covers": [7, 8, 19, 20], "table": {"headers": ["情況", "匯報責任"], "rows": [["教職員涉及進行中的刑事調查或訴訟（包括被警方逮捕拘捕）", "教職員必須即時向本校報告，並在調查或訴訟完結後，即時向本校報告結果"], ["管理人員得悉員工涉及刑事調查或被警方逮捕", "管理人員須要求員工即時向中心管理人員報告，並在調查或訴訟完結後，即時向中心管理人員報告結果"], ["得悉員工涉嫌干犯嚴重罪行或失德行為", "管理人員必須在知悉有關事件後立刻向社會福利署呈報，以考慮採取跟進行動"], ["得悉教師涉嫌干犯嚴重罪行或失德行為", "本校必須立刻向教育局呈報"]]}}, {"text": "本校為新聘用的員工提供入職導向訓練，並為在職的管理人員和前線員工安排定期及持續的培訓，深化保護兒童意識及相關法律知識。本校為前線員工提供有關照顧有特殊需要的兒童的訓練課程，提升其照顧能力與技巧。管理人員應透過個別面談、職員會議、分享會等渠道，持續深化及鞏固前線員工從培訓中所學習的理念、工作態度、知識和技巧，以及協助他們有效應付因照顧受托兒童所面對的壓力。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 85}, {"source_id": "kg_operation_manual_2026", "page": 86}], "adjustables": [], "covers": [9, 10, 25]}, {"text": "本校留宿幼兒中心院長必須在入職前完成保護兒童的培訓課程及在入職後持續進修，並須按院長登記制度向社會福利署進行登記及提供最新資料。院長於首次登記前一年內須完成不少於6小時有關保護兒童的培訓，並於登記後每年參與不少於6小時相關培訓。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 85}], "adjustables": [], "covers": [11, 12]}, {"text": "本校中心管理人員必須制定政策、指引、服務要求及守則等，以清楚訂明對員工的要求及違反要求的紀律處分。本校亦採取合理可行措施消除性騷擾，包括以書面形式制定學校政策以消除性騷擾，並設立處理投訴的機制。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 81}, {"source_id": "kg_admin_guide_2026", "page": 17}], "adjustables": [], "covers": [24, 27]}, {"text": "本校應每年安排向全體教職員傳閱接受利益和捐贈通告，各人員閱後須簽署以示明白通告內容。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 167}], "adjustables": [], "covers": [26]}, {"text": "本校根據《職業安全及健康條例》的規定，為員工提供一個安全的工作環境。所有教職員在上任前須接受註冊醫生的體格檢查，包括Ｘ光照肺，並由醫生發出健康證明書。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 26}, {"source_id": "kg_operation_manual_2026", "page": 33}], "adjustables": [], "covers": [21, 22]}, {"text": "本校在每三年的周期內，每名幼稚園校長及教師應參加60小時的持續專業發展活動。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 118}], "adjustables": [], "covers": [28]}], "verify": {"ok": true, "issues": [], "resolved_s163": true, "input_item_count": 29, "covered_item_count": 29}}, {"si": 14, "section_name": "學費及收費", "clauses": [{"text": "本校所有學費及其他收費，均嚴格遵守《教育規例》及教育局通告內有關學費和其他收費的規定。本校只會按教育局發出的收費證明書內的批准收費收取費用，並按社會福利署署長／教育局常任秘書長批准的每月全費／費用總額收取費用，不得擅自收費。除非事先得到教育局常任秘書長批准，否則本校不得收取任何未有載於收費證明書的費用。對於學生、學生家長或監護人繳交的每筆款項，本校均須發回正式收據。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 15}, {"source_id": "kg_admin_guide_2026", "page": 66}, {"source_id": "kg_operation_manual_2026", "page": 69}, {"source_id": "kg_operation_manual_2026", "page": 156}], "adjustables": [], "covers": [0, 1, 4, 23, 28], "table": null}, {"text": "本校如更改向學生收取的費用總額，必須獲得教育局常任秘書長書面批准。任何調整或新增收費必須事先獲得教育局書面批准；未獲社會福利署署長／教育局常任秘書長書面批准前，本校不得增加每月全費／更改費用總額。除事前獲得社會福利署署長／教育局常任秘書長的書面批准外，本校不得收取每月全費／費用總額以外的其他費用。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 15}, {"source_id": "kg_admin_guide_2026", "page": 66}, {"source_id": "kg_operation_manual_2026", "page": 69}, {"source_id": "kg_operation_manual_2026", "page": 70}], "adjustables": [], "covers": [2, 6, 12, 13], "table": null}, {"text": "本校須在校舍的顯眼處展示教育局發出的收費證明書；機構亦須在園舍顯眼的地方展示社會福利署／教育局發出的收費證明書。本校如獲批准收取超逾報名費核准上限，相關教育局通告或常任秘書長批准書須在學校報告板或校舍內的顯眼處展示。本校亦須參閱《教育規例》第67條的相關規定。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 15}, {"source_id": "kg_operation_manual_2026", "page": 69}, {"source_id": "kg_operation_manual_2026", "page": 153}], "adjustables": [], "covers": [3, 11, 21], "table": null}, {"text": "本校收取或更改報名費和註冊費前，須事先徵得教育局常任秘書長書面批准。本校收取註冊費及報名費須依教育局通告第6/2017號處理；如欲收取超逾通告所定核准上限的費用，則須事先徵得教育局常任秘書長的書面批准，並須將有關批函展示於園舍顯眼的地方。本校如獲批准收取超逾報名費核准上限，須妥善保存收支紀錄；所有批核有效為期三年，其後如欲繼續收取超逾核准上限的報名費用，須重新申請。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 152}, {"source_id": "kg_operation_manual_2026", "page": 71}, {"source_id": "kg_operation_manual_2026", "page": 153}], "adjustables": [], "covers": [5, 7, 20], "table": null}, {"text": "本校收取報名費及註冊費，不得超逾以下核准上限：", "citations": [{"source_id": "kg_admin_guide_2026", "page": 67}, {"source_id": "kg_operation_manual_2026", "page": 153}], "adjustables": [], "covers": [8, 19], "table": {"headers": ["收費項目", "適用班制", "核准上限"], "rows": [["報名費", "不適用", "40元"], ["註冊費", "半日制班級", "970元"], ["註冊費", "全日制班級", "1,570元"]]}}, {"text": "本校只可向已錄取的學生／兒童收取註冊費。已繳註冊費並在本校就讀的學生／兒童，本校必須在收取第一期學費後，於有關學年的第一個月內，退回註冊費予該學生／兒童。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 153}, {"source_id": "kg_admin_guide_2026", "page": 67}], "adjustables": [], "covers": [9, 10, 32], "table": null}, {"text": "本校收取第一期學費，不得在8月1日前（如新學年在9月開始）或7月1日前（如新學年在8月開始）收取。本校如為幼兒中心，可在不早於兒童入讀前3個月，預先收取第一個月部分或全部月費作留位之用，該留位費金額應在入讀第一個月的月費扣除。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 153}, {"source_id": "kg_operation_manual_2026", "page": 70}], "adjustables": [], "covers": [22, 16], "table": null}, {"text": "本校收取的每月全費／費用總額，應用以支付與教學活動、學校運作和維持教育服務水平有直接關係的開支。本校收取的學費和其他收費應直接用於學與教、學校營運及維持教育服務，並確保每項支出合理切合需要。本校不應就學費所涉開支，在學費以外另行向家長收費，亦不應要求家長額外支付生日會、節日慶祝會等慶祝活動的費用。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 70}, {"source_id": "kg_admin_guide_2026", "page": 67}, {"source_id": "kg_operation_manual_2026", "page": 156}], "adjustables": [], "covers": [14, 31, 24, 15], "table": null}, {"text": "本校如參加幼稚園教育計劃，不應就半日制服務收取學費。本校如申請收取學費，必須提交財務預算及充分理由及數據支持，證明有關開支屬必要，並把師生比例維持於1:11。本校須與家長保持溝通，讓家長知悉整月缺課的學費安排。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 66}, {"source_id": "kg_admin_guide_2026", "page": 39}], "adjustables": [], "covers": [29, 30, 27], "table": null}, {"text": "本校向家長售賣物品或提供收費服務前，必須事先以書面形式，通知家長購買物品或採用收費服務純屬自願性質，家長有權向外購買該物品或不採用本校提供的服務。本校向家長售賣教育用品或提供收費服務，須在通告清楚註明選購純屬自願，並提供方格供家長剔選。本校如為幼兒中心，進行上述售賣物品或收費服務前，必須事先向社會福利署署長申請批准。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 71}, {"source_id": "kg_admin_guide_2026", "page": 67}, {"source_id": "kg_operation_manual_2026", "page": 72}], "adjustables": ["家長通告"], "covers": [17, 33, 18], "table": null}, {"text": "本校預購物品或預收服務費用，不應早於每年五月收取。本校不得從售賣課本獲取任何利潤；售賣教育用品和提供收費服務（如有）所得的利潤，不得超過向供應商購貨成本的15%。本校如獲營辦商／供應商給予折扣或整筆回佣，應將該折扣或整筆回佣撥入學校帳目內，列為收入項目。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 160}, {"source_id": "kg_admin_guide_2026", "page": 68}, {"source_id": "kg_operation_manual_2026", "page": 162}], "adjustables": [], "covers": [25, 34, 26], "table": null}], "verify": {"ok": true, "issues": [], "input_item_count": 35, "covered_item_count": 35}}, {"si": 15, "section_name": "採購及招標", "clauses": [{"text": "本校進行採購物品及服務時，須按教育局《幼稚園採購程序指引》制訂校本採購程序，並以公平、公正、公開競爭的方式進行有關程序。本校須邀請足夠數目的供應商或承辦商參與競投／報價，確保以公平方式採購用品或服務，並妥善地保存有關報價和招標紀錄。校監及校長必須確保本校具備完善和有效的內部管理制度，以防止詐騙／盜用款項的情況出現。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 161}, {"source_id": "kg_admin_guide_2026", "page": 84}, {"source_id": "kg_admin_guide_2026", "page": 79}], "adjustables": [], "covers": [0, 7, 6]}, {"text": "本校須要求所有負責採購職務的人員簽署承諾書及在需要時申報利益衝突。本校須為採購人員訂立清晰分工：索取報價與接納報價等兩項工序，必須由不同的教職員負責；邀請和批核報價單／標書兩項工作，亦必須由不同職級的職員負責。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 161}, {"source_id": "kg_operation_manual_2026", "page": 162}, {"source_id": "kg_admin_guide_2026", "page": 85}], "adjustables": ["承諾書"], "covers": [1, 2, 8]}, {"text": "本校採購物品或服務時，須按下列預算金額採用相應的採購方式：", "citations": [{"source_id": "kg_admin_guide_2026", "page": 84}], "adjustables": [], "covers": [3, 4], "table": {"headers": ["預算金額", "採購方式"], "rows": [["5,000元或以下", "可直接採購"], ["5,000元以上至50,000元", "向最少兩名供應商索取口頭報價"], ["50,000元以上至200,000元", "向最少五名供應商索取書面報價"], ["200,000元以上", "邀請最少五名供應商投標"]]}}, {"text": "凡預算每次需費200,000元以上的標書，本校應成立兩個委員會，分別負責（1）開標及審核和（2）批核標書，兩個委員會的成員須由不同人士出任。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 85}], "adjustables": ["開標及審核", "批核標書"], "covers": [9]}, {"text": "本校須定期進行具競爭性的報價／招標程序以甄選營辦商／供應商，至少每三年一次為宜，有關甄選以不超過三年進行一次為宜。本校不應藉著分期採購所需物品或服務，或藉著縮短一般合約期，以避免遵照有關報價及招標款額上限的規定。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 69}, {"source_id": "kg_admin_guide_2026", "page": 86}], "adjustables": [], "covers": [5, 11, 10]}, {"text": "本校邀請供應商提交書面報價／招標的截止日期，一般應相隔最少三周；如遇緊急情況，可經校長批准縮短有關期限，並記錄縮短的原因。一般而言，本校應該接納符合規格而出價最低的書面報價單／標書；如不接納出價最低者，或不選評分最高者，須記錄有關理據。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 86}], "adjustables": ["校長"], "covers": [12, 13]}, {"text": "本校必須妥善備存所有採購紀錄，包括報價單／招標紀錄、所聯絡供應商的全名、挑選他們的理由，以及不接納出價最低個案的理據。如採用單一報價／招標，只可在具充份理據且競投無效的情況下採用；其中預算每次需費5,000元以上至50,000元的採購項目，須先得到校監的批准，50,000元以上的項目須先得到校董會的批准。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 86}, {"source_id": "kg_admin_guide_2026", "page": 87}], "adjustables": ["校監", "校董會"], "covers": [14, 15]}, {"text": "如辦學團體獲授權為本校進行採購，所有授權安排須事先得到校董會的批准，並妥為存檔，且須依循與本校大致相同的採購程序。倘辦學團體擬供應物品或服務予本校，他們應被視為競投者之一，並與其它競投者一樣，須經過競投及相同的甄選程序。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 89}], "adjustables": ["校董會"], "covers": [16, 17]}], "verify": {"ok": true, "issues": [], "resolved_s163": true, "input_item_count": 18, "covered_item_count": 18}}, {"si": 16, "section_name": "財務管理及內部監控", "clauses": [{"text": "本校設立並維持一套會計及內部監控制度。本校須因應本身情況釐定學校的會計及內部監控制度，以確保學校的管理符合有關條例和規定，並須遵從教育局常任秘書長或本校核數師所建議的內部監控程序。本校就一切出售及購買的教育用品及收費服務，必須保存正確的帳目記錄。學校管理當局須備存適當帳目，並保留有關帳目及憑單不少於七年，以供教育局常任秘書長查閱；該等適當帳目亦須供教育局或督學隨時查閱。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 77}, {"source_id": "kg_operation_manual_2026", "page": 158}, {"source_id": "kg_admin_guide_2026", "page": 15}, {"source_id": "kg_admin_guide_2026", "page": 70}], "adjustables": ["教育局常任秘書長", "本校核數師"], "covers": [22, 8, 10, 16]}, {"text": "本校就教育用品及收費服務之收費，遵守以下保真規限。本校不應強迫家長購買任何教育用品或接受任何收費服務，並應以書面形式通知家長有關購買或服務純屬自願性質。本校不得從售賣課本中獲取任何利潤。售賣習作簿、校服、文具等用品（課本除外）及收費服務所得利潤，不得超過向供應商購貨成本價的15%。本校須按要求向家長及公眾人士公開「售賣課本」的帳目，或在互聯網上展示。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 157}, {"source_id": "kg_operation_manual_2026", "page": 158}, {"source_id": "kg_operation_manual_2026", "page": 161}, {"source_id": "kg_operation_manual_2026", "page": 160}], "adjustables": [], "covers": [0, 1, 2, 9]}, {"text": "本校就帳目分立及拆帳機制，作以下安排。本校須分開帳目以分別記錄幼稚園教育計劃資助（「幼稚園計劃帳」）及學校經費（「學校帳」）的收支。本校把商業活動（包括由幼稚園營辦或由辦學團體／營辦機構代辦的商業活動）的收入／支出分項記錄在「學校帳」，並在每年提交教育局的經審核周年帳目內獨立填報。本校擬備財務報表時，須先將整校共同收入及所有開支項目按學生人數比例或其他訂明規則分拆至各課程／分部，並須在經審核周年帳目清楚披露其採用的拆帳機制。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 70}, {"source_id": "kg_admin_guide_2026", "page": 68}, {"source_id": "kg_admin_guide_2026", "page": 72}], "adjustables": ["辦學團體／營辦機構"], "covers": [17, 15, 18, 19]}, {"text": "本校就固定資產之歸帳、登記及處置，作以下規定。本校須自行決定加入計劃前購入的固定資產納入哪本帳；除非獲得教育局事先批准，本校不得調撥已納入「幼稚園計劃帳」的固定資產到「學校帳」。本校須備存獨立的固定資產登記冊，以顯示在「幼稚園計劃帳」、「學校帳」及一筆過啟動津貼（如有）下固定資產的分類，並記錄購入日期、說明、位置、數量、款額等，且須適時更新。本校亦應定期（不少於每年一次）盤點各項固定資產並保留紀錄；數量與紀錄不符時須調查並向校董會報告。如本校需要註銷記錄在「幼稚園計劃帳」下的固定資產，必須取得校監的批准。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 74}, {"source_id": "kg_admin_guide_2026", "page": 80}], "adjustables": ["校董會（未設校董會者）", "校監"], "covers": [20, 21, 37, 38, 40]}, {"text": "本校就單位資助及租金資助之運用，作以下規定。單位資助中60%會劃為教學人員薪酬部分，必須用於教學人員薪酬和相關開支。本校如參加租金資助計劃，須另設獨立的分類帳，以記錄租金資助和支出，並在經審核周年帳目內呈報。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 62}, {"source_id": "kg_admin_guide_2026", "page": 56}], "adjustables": [], "covers": [12, 11]}, {"text": "本校就款項存放及投資，遵守以下規限。本校不得把政府資助及學校經費作投機性投資，多餘盈餘只可存入持牌銀行的定期或儲蓄帳戶。本校須將所有收入以風險最低的辦法存放，並須將全部收入用於核准的教育用途或購置學校設施上。本校不應把經費（包括政府撥款）用作高風險的投資活動；如擬進行投資，須在校董會會議記錄載明討論詳情及議決，虧損由校董會承擔。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 62}, {"source_id": "kg_admin_guide_2026", "page": 78}, {"source_id": "kg_admin_guide_2026", "page": 79}], "adjustables": ["校董會（未設校董會者）"], "covers": [13, 28, 31]}, {"text": "本校就盈餘款項之分散存放，採以下做法。盈餘款項應分散存放於數間持牌銀行並設上限，例如為每間銀行的存款設定上限，例如不超逾該款項總額的50%；該等款項不得用作高風險投資。如本校所管理的款項超逾港幣500萬元，則在任何一間銀行的存款應不超逾該款項總額的20%。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 79}], "adjustables": [], "covers": [29, 30]}, {"text": "本校就銀行帳戶及支出批核，作以下安排。教育局的任何資助只會發放予以本校名義開設的銀行帳戶內；本校的收支不可經非本校名義帳戶處理，亦不應以任何個人／本校職員的名義開設及操作銀行帳戶。帳戶任何支出須由兩名或以上獲校董會委任的授權人聯名批核或簽署；一般而言，其中一位獲授權人士為本校校監；銀行帳戶不應只由一名獲授權簽署人士操作。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 78}, {"source_id": "kg_admin_guide_2026", "page": 101}], "adjustables": ["校董會（未設校董會者）", "校監", "兩名或以上獲校董會委任的授權人"], "covers": [24, 51, 25]}, {"text": "本校就銀行對帳及支票處理，作以下安排。本校應每月製備銀行對帳表，並由不同人員擬備及查核，查核人員（建議由校監或校長擔任）簡簽並註明日期。所有支票均不應預先簽署，只可在收到獲妥當授權的文件時才可簽署；支票必須畫線並標明「只存入收款人帳戶」，並應密切監察處理6個月以上未兌現的支票。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 78}], "adjustables": ["校監或校長"], "covers": [26, 27]}, {"text": "本校就收款之處理，採以下程序。每當收款時，應製備收款憑單，憑單應預先印上編號並記錄日期及金額，批核人員查核後簡簽並註明日期。本校應使用預先印上編號的正式收據，並順序發出；損毀或廢棄的收據須註明「註銷」，以防重複發出。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 79}], "adjustables": [], "covers": [32, 33]}, {"text": "本校就付款之處理，採以下程序。所有開支均須獲得妥當授權才可付款，每次付款時應製備連續編號的付款憑單並夾附發票正本。製備付款憑單和授權付款的工作應分開由不同人士負責。所有已繳付的憑單及發票必須蓋上「已繳付」或「PAID」字樣，並且由付款的職員加上日期，以防重複付款。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 80}], "adjustables": [], "covers": [34, 35, 36]}, {"text": "本校就職責分工，落實以下監控原則，務求計算、查核、記錄與收付款項的職務互相分開，以及採購各環節分由不同人員負責。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 77}, {"source_id": "kg_admin_guide_2026", "page": 101}, {"source_id": "kg_admin_guide_2026", "page": 102}], "adjustables": [], "covers": [23, 50, 53], "table": {"headers": ["監控環節", "職責分工要求"], "rows": [["收付款項", "應盡可能將計算、查核和記錄本校應收或應付款項的職務，和收取或發放這些款項的職務，分由不同的員工執行"], ["供應商報價採購", "負責批准及／或挑選供應商索取報價的人員，不應同時是在該次採購工作中批准接納供應商報價的人員"], ["零用現金", "保管零用現金的人員不應負責批核任何發還零用現金申請，亦不應以申請人身份申請發還，以確保適當職責分工"]]}}, {"text": "本校就現金及貴重物品之保管與點算，作以下安排。所有現金、貴重物品及重要文件須妥善鎖好。校長應在年內不定期地突擊點算現金，例如一年內進行三次突擊點算。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 80}], "adjustables": ["校長"], "covers": [39]}, {"text": "本校就員工薪酬政策，作以下訂定。本校應制定整體的薪酬及福利政策，並就實際情況訂定個別員工的薪酬，及清楚列明在聘用合約內，使員工薪酬與資歷和責任相稱。本校必須就員工薪酬制訂政策，清楚訂明薪酬福利條件及薪酬調整，會由哪些部門或人員批核。本校向兼職教師支薪，以全職教師三分之二薪酬為上限。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 68}, {"source_id": "kg_admin_guide_2026", "page": 113}, {"source_id": "kg_admin_guide_2026", "page": 114}], "adjustables": ["哪些部門或人員批核"], "covers": [6, 7, 54]}, {"text": "本校就校監酬金及盈餘轉撥，遵守以下規限。校監執行一般應由校監、校董或校長執行的職務，不應收取酬金；只有執行指定職務並附說明的酬金才可計入學費支出。作為參加幼稚園教育計劃的非牟利幼稚園，本校不得將盈餘轉撥（不論以何種形式）給所屬的辦學團體／其他機構／人士。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 67}, {"source_id": "kg_admin_guide_2026", "page": 102}], "adjustables": ["辦學團體／其他機構／人士"], "covers": [14, 52]}, {"text": "本校明確列明不得以「幼稚園教育計劃帳」和「學校帳」支付的開支項目，包括投機性投資虧損、捐贈、購買禮物、退還不恰當校監酬金及紅封包。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 90}], "adjustables": [], "covers": [49]}, {"text": "本校就周年帳目之審核、簽署及提交，作以下安排。本校須於每學年完結後，按教育局指定格式及日期提交涵蓋整個學年的經審核帳目；本校須以幼稚園名義向教育局提交經審核的周年帳目，並連同核數師報告一併提交，教育局不接受以辦學團體名義提交。經審核帳目必須由校監簽署，並蓋上學校印鑑，每份報表須由核數師蓋印識別。本校亦須填妥一份主要人員薪酬及附帶福利的報表，由校監簽署作實並交回所屬辦事處審視。本校在選擇核數服務時，必須力求定期（最理想是每三年一次）進行具競爭性的遴選程序。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 81}, {"source_id": "kg_admin_guide_2026", "page": 82}], "adjustables": ["辦學團體", "校監", "核數師", "所屬辦事處"], "covers": [41, 42, 45, 44, 43]}, {"text": "本校就帳目披露及審核查閱，作以下承諾。本校須於經審核帳目適當地披露所有與有關連人士或機構團體的交易及帳項結餘。本校須確保政府及其授權代表（包括但不限於教育局人員及其代理人和審計署署長及其代理人）在接獲合理通知後，可獲取所有或任何帳目、紀錄、資料及文件以作審核查閱。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 82}, {"source_id": "kg_admin_guide_2026", "page": 83}], "adjustables": [], "covers": [46, 47]}, {"text": "本校就報價及招標資料之保密，作以下安排。有關報價／招標的資料須保密處理，往來信函列作「限閱文件」。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 85}], "adjustables": [], "covers": [48]}, {"text": "本校如退出幼稚園教育計劃或停辦，遵守以下帳目及保存責任。本校在退出計劃並繼續獲發資助期間，仍須每年遞交經審核的帳目，並原則上不得就半日制學額收取學費。如本校已停辦，應在停辦日期起計四個月內將一份完整的經審核最後帳目送交教育局，並由執業會計師審核。本校在退出計劃後的七年內，須確保在接獲合理通知後，政府及其授權代表可獲取所有帳目、紀錄及文件以作審核查閱。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 141}, {"source_id": "kg_admin_guide_2026", "page": 142}], "adjustables": ["執業會計師"], "covers": [3, 4, 5]}], "verify": {"ok": true, "issues": [], "input_item_count": 55, "covered_item_count": 55}}, {"si": 17, "section_name": "資助運用、籌款及盈餘", "clauses": [{"text": "本校接受的任何捐贈只可用作學校和教育用途；有特定用途的捐贈只可用作指明用途。如需將特定用途的捐贈改作其他用途，須先得捐贈者同意，並須在經審核帳目內的有關報表／附註中如實填報所有捐款。本校作為參加幼稚園教育計劃的幼稚園，會按教育局既定格式製備經審核帳目。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 166}, {"source_id": "kg_admin_guide_2026", "page": 70}], "adjustables": [], "covers": [0, 1, 16]}, {"text": "本校作為參加幼稚園教育計劃的幼稚園，必須確保幼稚園教育計劃的資助不會用於任何不屬本地非牟利幼稚園教育範疇的活動。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 55}], "adjustables": [], "covers": [8]}, {"text": "本校如獲非華語學童支援的額外資助，須確保該資助只用於加強支援非華語學童，並就此制訂全面的校本計劃。本校須在學年開始時向教育局提交運用資助及擬訂支援措施的學校計劃，並在學年終結時提交學校報告。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 30}], "adjustables": [], "covers": [2, 3]}, {"text": "本校如獲租金資助，該資助只可用於本地課程幼稚園分部／班級合資格學生的租金開支，非學校部分的租金不應包括在內。租金資助按校舍使用率釐定，標準如下。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 56}, {"source_id": "kg_admin_guide_2026", "page": 91}], "adjustables": [], "covers": [4, 5], "table": {"headers": ["校舍使用率", "租金資助"], "rows": [["50%或以上", "全額"], ["25%至50%以下", "50%"], ["25%以下", "25%"]]}}, {"text": "本校須備存租約及租金收據等文件，相關紀錄須保存不少於七年。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 56}], "adjustables": [], "covers": [9]}, {"text": "本校的校舍維修資助可累積盈餘，以該年撥款額的500%為上限。一旦達上限，教育局會暫停發放並收回超額盈餘。本校須就各項資助列出盈餘及可累積盈餘上限，超過上限的盈餘須記錄作「應付予教育局的款項」。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 63}, {"source_id": "kg_admin_guide_2026", "page": 81}], "adjustables": [], "covers": [6, 7]}, {"text": "本校如獲提升單位資助盈餘上限，須提交一份獨立的盈餘使用報告，否則或不符資格續獲提升上限。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 63}], "adjustables": [], "covers": [12]}, {"text": "本校的炊事員資助須用於聘請炊事員為全日制／長全日制班級學童烹調膳食，不得作其他用途。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 59}], "adjustables": [], "covers": [10]}, {"text": "本校須於到期日或之前繳付差餉及地租，並只可於悉數繳付款項後，方可向教育局申請發還費用。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 60}], "adjustables": [], "covers": [11]}, {"text": "本校的學費收入如有盈餘，應保留在學校經費的帳目內，不得以任何形式（包括捐贈及饋贈）轉撥予任何人士或其他機構。本校進行商業活動所得的全部利潤，均須撥回本校作學校營運和提供幼稚園教育服務之用。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 67}, {"source_id": "kg_admin_guide_2026", "page": 68}], "adjustables": [], "covers": [13, 14]}, {"text": "本校的本地課程支出，須按每名半日制學生與每名全日制／長全日制學生單位成本1：1.6至1：2的比例，分攤到各上課時間。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 70}], "adjustables": [], "covers": [17]}, {"text": "本校從其他部門／基金以計劃項目形式收到的資助，應盡可能以「幼稚園計劃帳」以外的銀行帳戶處理這些資助的收支，並在「幼稚園計劃帳」及「學校帳」以外開設獨立帳目作紀錄，並按規定退回餘款。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 73}], "adjustables": [], "covers": [18]}, {"text": "本校如擬為學校本身進行籌款活動，須經校董會批准並記錄存案，並須獲教育局常任秘書長書面准許。本校在籌款收集捐款時，應使用註有編號的收據／籌款票，每筆超逾港幣5,000元的捐款均應予記錄存案。本校應就每項籌款活動編製財政報告，並應在學校報告板或校舍內的顯眼處展示一段合理時間，然後保存以備核數。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 69}, {"source_id": "kg_admin_guide_2026", "page": 75}], "adjustables": ["校董會"], "covers": [15, 19, 20, 21]}], "verify": {"ok": true, "issues": [], "input_item_count": 22, "covered_item_count": 22}}, {"si": 18, "section_name": "註冊、牌照與行政呈報", "clauses": [{"text": "本校為一所須由校董會管理的幼稚園。根據《教育條例》（第32條），本校須由其校董會管理，校董會須負責確保學校管理令人滿意、以適當方式促進學生教育，並遵守相關條例及指示。本校校董會的組成最少有三名校董（包括校監），並符合營辦機構提名及獨立校董等要求；校董會須制訂校董會章程，以訂明校董會運作的細節。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 10}], "adjustables": ["校董會"], "covers": [6, 7, 8]}, {"text": "本校在開辦及註冊前，經營人必須詳閱《幼兒服務條例》、《教育條例》等有關法例。本校註冊須取得規劃、屋宇署安全證明書、消防處消防證明書、電力及氣體裝置安全證明書等批准，並須具備證明本校有權使用有關樓宇作幼兒中心／幼稚園用途的文件（例如租約／買賣協議／業主授權書等）。本校註冊亦須符合傢具及設備、洗手間設施、通風及照明、急救、衞生、容額等方面的規定。本校營辦幼兒中心須遵守《幼兒服務條例》和《幼兒服務規例》，營辦幼稚園則須遵守《教育條例》和《教育規例》。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 74}, {"source_id": "kg_operation_manual_2026", "page": 75}, {"source_id": "kg_operation_manual_2026", "page": 76}, {"source_id": "kg_operation_manual_2026", "page": 78}], "adjustables": [], "covers": [23, 24, 25, 26, 27]}, {"text": "本校相關人員須完成下列註冊或批准事宜：", "citations": [{"source_id": "kg_operation_manual_2026", "page": 66}, {"source_id": "kg_operation_manual_2026", "page": 67}], "adjustables": [], "covers": [20, 21, 22], "table": {"headers": ["人員", "註冊／批准要求"], "rows": [["幼兒中心主管和幼兒工作員", "必須註冊"], ["校董、校監、校長及教師", "須申請註冊或批准（檢定或准用，視何者屬適當而定）"], ["幼稚園教師", "須註冊"]]}}, {"text": "本校學生缺課的處理及通報安排如下。學生缺課（不限日數）而家長未告假，本校應即日主動聯絡家長，關心學生，了解缺課原因。如本校學生連續七個上課天無故或在可疑情況下缺課，本校必須在該生缺課的第七天填妥缺課通報表，向所屬地區的學校發展組／聯合辦事處（即教育局）通報；本校填交通報表後須繼續跟進，並須在通報後七個工作天內填妥附件二，呈報跟進個案的情況。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 33}, {"source_id": "kg_operation_manual_2026", "page": 129}, {"source_id": "kg_operation_manual_2026", "page": 130}, {"source_id": "kg_operation_manual_2026", "page": 131}, {"source_id": "kg_admin_guide_2026", "page": 42}], "adjustables": ["附件二"], "covers": [0, 1, 2, 3, 4, 5, 30]}, {"text": "本校學年期間如有學生資料變動（包括整月缺課），本校須在個案出現後7日內透過「統一登入系統」向教育局呈報。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 39}], "adjustables": [], "covers": [29]}, {"text": "本校假期、上課時間及課程文件的呈報及張貼安排如下。本校須於每年8月15日前向教育局常任秘書長遞交為新學年擬定的所有假期資料；經由校長簽署及校監加簽的學校假期表，須長期張貼在校內一處當眼的地方。本校的上課時間如有任何改變，負責人須通知教育局常任秘書長。此外，幼兒中心的活動程序時間表須呈交社會福利署署長批准；幼稚園的上課時間表及用書表須呈交教育局常任秘書長批准。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 13}, {"source_id": "kg_operation_manual_2026", "page": 59}], "adjustables": [], "covers": [9, 10, 11, 14, 15]}, {"text": "本校相關人事變動的通知安排如下。任何幼兒中心主管和幼兒工作員的人事變動，必須在14日內通知社會福利署署長；留宿幼兒中心的主管及幼兒工作員如有任何變動，經營人必須於14天內通知社會福利署。此外，根據《教育條例》第39條，凡校董停任、校監或校長停止執行職責、教員開始或停止任教等事項，本校校監須在事情發生後1個月內以書面通知教育局常任秘書長。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 65}, {"source_id": "kg_operation_manual_2026", "page": 84}, {"source_id": "kg_admin_guide_2026", "page": 12}], "adjustables": [], "covers": [12, 13, 28]}, {"text": "本校在維護國家安全方面，應在策劃與管理、教職員管理、學與教及家校合作等範疇，適當地制定及持續檢視維護國家安全的相關措施。本校的報價／招標文件中應加入具體條款，列明基於國家安全而容許本校取消供應商的資格和終止相關合約。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 17}, {"source_id": "kg_admin_guide_2026", "page": 85}], "adjustables": [], "covers": [16, 17]}, {"text": "本校如參加相關計劃，須遵守下列資格及承諾事宜。本校須為根據《稅務條例》（第112章）第88條獲豁免繳稅的非牟利幼稚園。新參加或繼續參加計劃時，本校須簽署承諾及聲明，表示同意遵守有關條款及條件；若簽署承諾及聲明的校監離任，本校須確保繼任校監按政府指明的格式和內容重新簽署承諾及聲明。本校如欲退出計劃（包括因有意停辦而退出），須在配合新學年開始的生效日期前最少九個月，以書面通知教育局。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 139}, {"source_id": "kg_admin_guide_2026", "page": 140}, {"source_id": "kg_admin_guide_2026", "page": 143}], "adjustables": [], "covers": [18, 19, 31, 32]}], "verify": {"ok": true, "issues": [], "input_item_count": 33, "covered_item_count": 33}}, {"si": 19, "section_name": "家校溝通與資料披露", "clauses": [{"text": "本校發布招生廣告及派發學校單張時，須按《教育條例》第86A(2)條，列出教育局常任秘書長給予本校的註冊編號。本校亦應主動將學校基本資料、核准學費、其他核准收費及教育用品價目，載於學校單張、通訊或入學申請表格等文件內，供家長參考。本校如參加免費優質幼稚園教育計劃，應同時提供中文及英文版本的入學申請表。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 154}], "adjustables": ["免費優質幼稚園教育計劃"], "covers": [0, 1, 2]}, {"text": "本校如參加幼稚園教育計劃，須把主要營運資料（包括校監及校長姓名、教職員資歷及薪酬、學費及財務資料等），刊載於教育局編製的《幼稚園及幼稚園暨幼兒中心概覽》。本校並須在學校網頁提供中、英文版的基本資料，包括學校簡介、收生安排、學費、非華語支援等。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 10}, {"source_id": "kg_admin_guide_2026", "page": 30}], "adjustables": ["幼稚園教育計劃"], "covers": [3, 4]}, {"text": "為增加透明度和問責性，本校應透過家長通訊、內聯網或學校網頁，向家長發放學校最新資料，包括學費一覽表和其他教育局核准的收費一覽表。本校並須把教育用品或收費服務的有關資料（包括上學年收費額的一覽表）上載學校網頁，供家長參閱。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 131}, {"source_id": "kg_admin_guide_2026", "page": 68}], "adjustables": [], "covers": [5, 6, 7]}, {"text": "本校須遵守《個人資料（私隱）條例》的規定。在處理學生個人資料時，本校須確保資料的收集、使用、保安及查閱均符合該條例的規定，並須備存一本紀錄冊，記錄校方拒絕查閱或改正資料的要求。本校亦須確保其辦事方式，特別是影印及使用電腦軟件等，均符合《版權條例》的規定。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 16}, {"source_id": "kg_admin_guide_2026", "page": 39}], "adjustables": ["紀錄冊"], "covers": [8, 9, 10]}, {"text": "本校應設立溝通渠道，徵詢家長對服務的意見，並應與家長清楚簽訂認可為學生請假的家長／監護人。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 72}, {"source_id": "kg_operation_manual_2026", "page": 130}], "adjustables": [], "covers": [11, 12]}, {"text": "本校應制訂清楚而有效的處理投訴程序。在處理家長投訴時，本校應採取積極的態度去面對問題，主動聯絡家長，盡快找出問題原因及解決方法。被投訴的人員均不應參與處理事件，以避免利益衝突。所有投訴個案應絕對保密，調查人員不得向校內其他人員或甚至親友披露；校方須把有關資料妥為記錄和存檔，並提供上訴途徑。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 135}, {"source_id": "kg_admin_guide_2026", "page": 136}, {"source_id": "kg_operation_manual_2026", "page": 72}], "adjustables": [], "covers": [13, 14, 16]}, {"text": "本校須將核准的學費額或任何核准的變更，以及收取每月全費／費用總額的任何核准變更，盡速通知家長。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 156}, {"source_id": "kg_operation_manual_2026", "page": 69}], "adjustables": [], "covers": [15, 17]}, {"text": "本校應設有一名熟悉學校政策及運作的發言人，負責處理市民或傳媒對事件的查詢。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 137}], "adjustables": ["發言人"], "covers": [18]}], "verify": {"ok": true, "issues": [], "input_item_count": 19, "covered_item_count": 19}}, {"si": 20, "section_name": "紀錄保存、查閱與一般行政", "clauses": [{"text": "本校作為參加幼稚園教育計劃的幼稚園，須循「策劃─推行─評估」循環周期運作，於每學年終結前參考經優化的《表現指標（幼稚園）》進行學校自我評估，並於學期結束時編寫本學年的學校報告及擬訂下學年的工作計劃。本校須在接獲教育局質素評核通知後的四個星期內，向教育局提交學校報告和持份者問卷調查結果。本校的質素評核結果必須達到既定標準，否則可能被撤銷參加資格及終止資助。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 17}, {"source_id": "kg_admin_guide_2026", "page": 18}], "adjustables": [], "covers": [0, 1, 2, 3]}, {"text": "本校的運作須符合本辦學手冊、《表現指標（幼稚園）》及《幼稚園教育課程指引》各有關規定。", "citations": [{"source_id": "kg_operation_manual_2026", "page": 78}], "adjustables": [], "covers": [7]}, {"text": "本校須設立完善的學生紀錄制度，備存適當的學生紀錄，並須適時更新，以方便提取的方式保存。本校應為每名兒童有系統地建立學習歷程檔案，以收集兒童的個人發展紀錄和報告，並定期與家長分享。本校亦須設立校本機制，支援有特殊需要或有發展遲緩危機的學童，相關做法受教育局監察。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 29}, {"source_id": "kg_admin_guide_2026", "page": 39}, {"source_id": "kg_operation_manual_2026", "page": 61}], "adjustables": [], "covers": [8, 9, 10]}, {"text": "本校每一班級均須按教育局常任秘書長批准的形式備存一本點名冊，並將每一班級學生每天的出席及缺課情況，按教育局常任秘書長所批准的形式正確地記錄在點名冊內並予以備存。如教育局常任秘書長提出要求，本校管理當局須按指示呈交有關學校或學生的資料。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 14}, {"source_id": "kg_admin_guide_2026", "page": 39}], "adjustables": [], "covers": [4, 5, 11]}, {"text": "本校須妥善保存新聘教師的聘任紀錄及《基本法及香港國安法》測試及格成績的副本，存檔年期不少於兩年。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 115}], "adjustables": [], "covers": [6]}, {"text": "本校應設立一本「器材外借紀錄冊」，記錄器材外借的有關資料。", "citations": [{"source_id": "kg_admin_guide_2026", "page": 81}], "adjustables": ["器材外借紀錄冊"], "covers": [12]}, {"text": "本校須在參加幼稚園教育計劃有效期內及其後最少七年內，妥善並分開備存計劃帳及學校經費的帳目及紀錄。凡屬永久性質的紀錄，如固定資產登記冊、周年帳目、校具清單等，在本校營運期間必須妥為保存，不可銷毀。其餘各類紀錄的最短保存年期按下表辦理：", "citations": [{"source_id": "kg_admin_guide_2026", "page": 83}], "adjustables": [], "covers": [13, 14, 15, 16], "table": {"headers": ["紀錄類別", "最短保存年期"], "rows": [["大型修葺／保養工程及新營辦開辦費用的證明文件", "不少於15年"], ["各類帳簿（即現金出納帳簿、分類帳簿等）、付款憑單、銀行存結單、薪金單、學費單收據、接受捐贈紀錄", "不少於7年"]]}}], "verify": {"ok": true, "issues": [], "input_item_count": 17, "covered_item_count": 17}}]
+[
+  {
+    "si": 1,
+    "section_name": "校舍選址與樓宇結構",
+    "clauses": [
+      {
+        "text": "本校於租賃或購置擬設立校舍的樓宇前，必須確定有關樓宇用地適合作幼稚園用途，且該建築物符合基本的樓宇安全規定。本校亦須確保校舍和所有設備均屬安全，為兒童提供安全的學習環境。如有關幼稚園房產以結構性的木地板建造，當局將拒絕根據《教育條例》第12(1)(b)條發出證明書。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 74
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 46
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 93
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          12,
+          5,
+          0
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校校舍不得設於工業樓宇的任何部分內，亦不得位於倉庫、貨倉、店舖、戲院、百貨公司或對兒童健康安全有危險行業的樓宇之上。本校如服務兩歲或以上兒童，園舍不得高出地面超過24米；如有例外，須經教育局常任秘書長書面授權。本校幼稚園並受《教育規例》第7條所訂的24米高度限制規限。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 8
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 94
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          8,
+          9,
+          4
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校如缺乏戶外遊戲場，則須設有戶內遊戲場，而戶內遊戲場的面積不少於課室總面積的50%。就為2至6歲兒童服務的幼稚園而言，本校須符合每名兒童最低人均樓面面積1.8平方米的規定（包括所有戶內的活動地方，但不包括輔助設施）。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 8
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          6,
+          7
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "如本校屬初生至6歲的留宿幼兒中心，每名兒童於中心內的最低人均樓面面積規定如下表所列。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 89
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          13
+        ],
+        "table": {
+          "headers": [
+            "範圍",
+            "最低人均樓面面積"
+          ],
+          "rows": [
+            [
+              "不包括輔助設施",
+              "3.2平方米"
+            ],
+            [
+              "包括輔助設施",
+              "3.7平方米"
+            ]
+          ]
+        },
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校所有護牆及窗口如未設有欄柵妥為防護，其高度由緊接的地面起計，最少須為1.1米。本校如設有伸出行人道上方的廣告招牌，該招牌與行人道路面須有最少3.5米的垂直淨空距離，並與行人道路邊有最少1.0米的水平淨空距離。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 10
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 100
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          11,
+          15
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校園舍圖則經教育局常任秘書長批准及註冊後，除非獲得常任秘書長書面許可，否則不得在結構上作任何更改。凡涉及樓宇結構或逃生途徑的改動及加建工程，本校須由認可人士（及註冊結構工程師，如有需要）正式向屋宇署呈交擬議工程的圖則，以事先獲得建築事務監督批准及同意。呈交的圖則須以合適的比例（1:50或1:100）繪製，標明出口路線／出口門、間隔牆及出口門的建造物料與耐火效能，並須在圖則上顯示每個課室最高可容納的人數（教師和學生的數目），以及將要容納的教職員總數。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 10
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 93
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 94
+          }
+        ],
+        "adjustables": [
+          "認可人士（及註冊結構工程師，如有需要）"
+        ],
+        "covers": [
+          10,
+          1,
+          2,
+          3
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "如本校選擇用作提供學前服務的房產內有違例建築工程，本校務請在遞交註冊申請前清拆這些工程。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 100
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          14
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "resolved_s163": true,
+      "input_item_count": 16,
+      "covered_item_count": 16
+    }
+  },
+  {
+    "si": 2,
+    "section_name": "園舍設施與設備",
+    "clauses": [
+      {
+        "text": "本校洗手間必須設有通出露天的窗口，窗口總面積最少為洗手間地面面積的十分之一；牆壁應至少鋪上一米高的瓷磚，地面應鋪砌防滑地磚。本校兒童廁所應與職員廁所分開設置。本校須為每30名男童或每25名女童設1個洗手盆。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 13
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 14
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 106
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          1,
+          2,
+          15
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "如本校設有留宿幼兒中心，其設施須符合下列規定：每間留宿幼兒中心內須撥出最少一間適當的房間，純作療養室或病房用途，並宜設獨立洗手間及浴室；須設足夠的更衣室及沐浴設施，而兒童沐浴設施須與員工沐浴設施分開；受托兒童必須獲提供屬社會福利署署長核准的類型或設計、並以署長核准的物料製成的床及被褥，本校並須注意睡床的安全措施。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 90
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          3,
+          4,
+          5
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校進行下列事項必須得到教育局常任秘書長批准：加建、改建或拆卸校舍、改動校舍結構、更改廁所衞生或課室通風照明設施、劃分課室間隔等。本校亦須遵從《殘疾歧視條例》及屋宇署發出的《設計手冊：暢通無阻的通道》所載有關為殘疾人士提供通道及設施的規定，不得擅自拆除或改動有關設施。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 15
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 101
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          6,
+          12
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校每間課室的入口處須有一牌匾或告示牌，標明用以識別該房間的號碼或字母。每間課室內須在顯眼處展示告示，列明該課室獲准容納的學生人數最高限額，本校不得准許該課室容納超逾該最高限額的學生。本校每班人數不應超過30人；當課室用作全日班午睡時，其最高限額為每課室20人。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 15
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 106
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          7,
+          8,
+          13
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校供兒童使用的傢具，其油漆或塗料須符合安全標準，例如不得含鉛，並須符合《玩具及兒童產品安全條例》及《消費品安全條例》的規定。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 12
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          9
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "如本校屬全日制機構並選擇在園舍自設廚房為兒童提供膳食，須參照第二章第2.5段廚房的規定設置一個設備符合屋宇署／房屋署、消防處、衞生署及其他有關部門規定的廚房，並另設食物儲存室（其面積為廚房面積的20%）。廚房面積按供應膳食的兒童人數而定，規定如下：",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 15
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 55
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 106
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          10,
+          11,
+          14,
+          17
+        ],
+        "table": {
+          "headers": [
+            "供應膳食兒童人數",
+            "廚房面積規定"
+          ],
+          "rows": [
+            [
+              "50名兒童或以下",
+              "面積最少為10平方米"
+            ],
+            [
+              "100名兒童或以上",
+              "面積不得少於20平方米"
+            ]
+          ]
+        },
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校的戶內遊戲場面積應不少於課室總面積的百分之五十，並應盡量提供便於由課室通達的戶外遊戲場。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 107
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          16
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校應設有一個具基本設施及清潔衞生的茶水間，以供應茶點。茶水間應使用電器供應茶點，不能使用明火。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 14
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          18
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "resolved_s163": true,
+      "input_item_count": 19,
+      "covered_item_count": 19
+    }
+  },
+  {
+    "si": 3,
+    "section_name": "消防安全與走火",
+    "clauses": [
+      {
+        "text": "本校須按照《建築物（規劃）規例》第V部及屋宇署不時編訂的《消防安全守則》的規定，提供足夠的逃生途徑及消防和救援進出途徑。本校任何可容納30人以上的房間／房產，最少須設有兩個出口，而出口門必須向出口方向開啟。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 96
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 97
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          1
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校所有出口路線及出口門須符合下列尺寸、淨高度及照明要求：出口路線的最小闊度不得少於1050毫米；所有出口路線的淨高度不得少於2米，並且暢通無阻；出口路線的每個部分在任何時間均須提供光度不少於30勒克斯的水平照明。各出口門的最小闊度按容納人數而定。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 97
+          }
+        ],
+        "adjustables": [],
+        "table": {
+          "headers": [
+            "容納人數",
+            "出口門最小闊度",
+            "出口門總闊度"
+          ],
+          "rows": [
+            [
+              "4至30人",
+              "不得少於750毫米",
+              "不適用"
+            ],
+            [
+              "31至200人",
+              "每道不得少於850毫米",
+              "不得少於1750毫米"
+            ],
+            [
+              "出口路線（整體）",
+              "不得少於1050毫米",
+              "不適用"
+            ]
+          ]
+        },
+        "covers": [
+          2,
+          10,
+          11
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校所有出口門必須可以在無須使用鑰匙的情況下隨時從內開啟；於本校上課時間內，出口保安閘必須打開。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 97
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          3
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校（屬幼稚園）單一方向通往樓梯的盡頭行走距離不得超過18米。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 98
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          4
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須遵守消防處的消防規定，確保所有消防裝置和設備能隨時有效地操作，而所有員工皆懂得操作簡單的消防設備。本校的防火裝置及設備，須由一名註冊消防裝置承辦商至少每隔12個月檢查一次；本校的機械通風系統須由註冊專門承建商定期檢查，每次檢查日期的相隔時間不得超過12個月。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 18
+          }
+        ],
+        "adjustables": [
+          "註冊消防裝置承辦商",
+          "註冊專門承建商"
+        ],
+        "covers": [
+          5,
+          6,
+          7
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校校長須確保僱員及兒童最少每6個月進行一次涉及使用處所的所有出口的火警演習，並於日誌備存防火演習及撤離時間的書面紀錄。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 19
+          }
+        ],
+        "adjustables": [
+          "日誌"
+        ],
+        "covers": [
+          8
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校適用於訪客及家長的消防安全指引，應張貼於處所內的當眼位置。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 116
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          9
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "input_item_count": 12,
+      "covered_item_count": 12
+    }
+  },
+  {
+    "si": 4,
+    "section_name": "氣體、電力及機電安全",
+    "clauses": [
+      {
+        "text": "本校固定電力裝置系統必須最少每5年進行一次由註冊電業承辦商或註冊電業工程人員覆檢及測試，並簽發安全證書。本校所有電源插座應安裝在離地面1.5米或以上的高度，使兒童不能觸及，並採用保護活門式插座。下表列明本校電力裝置安全的檢查與安裝要求：",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 21
+          }
+        ],
+        "adjustables": [
+          "註冊電業承辦商或註冊電業工程人員"
+        ],
+        "covers": [
+          0,
+          1
+        ],
+        "table": {
+          "headers": [
+            "項目",
+            "要求"
+          ],
+          "rows": [
+            [
+              "固定電力裝置系統覆檢及測試",
+              "最少每5年一次，由註冊電業承辦商或註冊電業工程人員進行，並簽發安全證書"
+            ],
+            [
+              "電源插座安裝高度",
+              "離地面1.5米或以上，使兒童不能觸及"
+            ],
+            [
+              "插座類型",
+              "保護活門式插座"
+            ]
+          ]
+        },
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校所有氣體裝置必須妥善維修，並由註冊氣體工程承辦商每年檢查一次，並簽發安全證書。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 20
+          }
+        ],
+        "adjustables": [
+          "註冊氣體工程承辦商"
+        ],
+        "covers": [
+          2
+        ],
+        "table": null,
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "input_item_count": 3,
+      "covered_item_count": 3
+    }
+  },
+  {
+    "si": 5,
+    "section_name": "樓宇維修與環境衞生",
+    "clauses": [
+      {
+        "text": "本校須提供一個安全、健康和安排妥善的校園環境，並與家長共同制訂及推行健康政策措施。本校須保持校舍環境的衞生，以營造健康的學習環境。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 41
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          4,
+          5
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "為確保校舍結構穩妥，本校須安排由獲授權人士按下列周期視察園舍，確定其結構是否穩妥：",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 18
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0
+        ],
+        "table": {
+          "headers": [
+            "園舍類型",
+            "視察周期"
+          ],
+          "rows": [
+            [
+              "以鋼筋混凝土建造的園舍",
+              "每隔不超過3年視察一次"
+            ],
+            [
+              "設置木地板的園舍",
+              "每隔不超過12個月視察一次"
+            ]
+          ]
+        },
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校應定時使用家用漂白水（1:99）清潔傢具、設備和玩具，並應每星期更換一次兒童的床單、被套及枕套等。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 43
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          1,
+          2
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校供飲用、煮食和洗濯用的水須由自來水喉或其他認可的水源供應。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 43
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          3
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "resolved_s163": true,
+      "input_item_count": 6,
+      "covered_item_count": 6
+    }
+  },
+  {
+    "si": 6,
+    "section_name": "兒童健康檢查與紀錄",
+    "clauses": [
+      {
+        "text": "兒童返抵本校園舍時，本校須隨即為其進行健康檢查，並待確定其身體健康；如發現病徵，應立即安排隔離，並通知家長帶回求醫。兒童入讀本校之前，應接受一項全面的體格檢查。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 28
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 29
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          1
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須備有每名兒童的健康紀錄，並在適當時候更新，以供隨時查閱。本校亦須妥善保存學童個人健康紀錄及員工病假紀錄，並定期檢查及記錄兒童體溫。健康紀錄內容至少包括下列各項：",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 30
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 47
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          2,
+          3
+        ],
+        "table": {
+          "headers": [
+            "項目",
+            "紀錄內容"
+          ],
+          "rows": [
+            [
+              "體格資料",
+              "兒童體重及身高"
+            ],
+            [
+              "病歷",
+              "兒童過往病歷"
+            ],
+            [
+              "食物過敏史",
+              "兒童食物過敏記錄"
+            ],
+            [
+              "體檢報告",
+              "入學前全面體格檢查報告"
+            ],
+            [
+              "免疫接種紀錄",
+              "兒童免疫接種記錄"
+            ]
+          ]
+        },
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "如本校設有留宿安排，本校須備有所有留宿兒童由註冊醫生發出的檢查表格／醫療報告副本，以供社會福利署署長或任何視察主任或中心醫生於合理時間內隨時查閱。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 90
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          4
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "resolved_s163": true,
+      "input_item_count": 5,
+      "covered_item_count": 5
+    }
+  },
+  {
+    "si": 7,
+    "section_name": "疾病處理與傳染病防控",
+    "clauses": [
+      {
+        "text": "本校設有急救及醫療應變安排：校內最少須備有一個急救箱，並由專責員工確保急救箱隨時有充足設備；本校最少須有兩名教師曾接受急救訓練。校內所有消防裝置或設備須時刻維持性能良好。校長須就火警疏散程序擬定計劃，並在學校日誌內記錄本校師生進行的防火演習，以及由校舍疏散到指定地方所需的時間。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 14
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 15
+          }
+        ],
+        "adjustables": [
+          "專責員工",
+          "指定地方"
+        ],
+        "covers": [
+          0,
+          2,
+          3
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校如懷疑或得知有任何教師、學生或僱員染上傳染病或曾接觸傳染病人，校長須立即向衞生署學校醫生報告。患病兒童須留家休息；如有懷疑，他們必須經註冊醫生診斷痊癒後，才可復課。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 14
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 31
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          1,
+          4
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校發現學童出現病徵或懷疑染病時，應立即安排他與其他學童隔離，在員工的照顧下休息，並通知家人接他回家。若本校有爆發傳染病跡象，或病假人數上升並出現類同症狀，應盡速通知衞生署。本校宜委任專責人員，以協調感染控制措施，統籌及監督預防及控制傳染病的工作。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 47
+          }
+        ],
+        "adjustables": [
+          "專責人員"
+        ],
+        "covers": [
+          5,
+          6,
+          7
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "input_item_count": 8,
+      "covered_item_count": 8
+    }
+  },
+  {
+    "si": 8,
+    "section_name": "膳食與食物安全",
+    "clauses": [
+      {
+        "text": "本校為兒童提供膳食時，須注意營養標準、食物安全措施和避免浪費的原則。本校膳食餐單須根據社會福利署署長所批准的飲食種類分量表所列預先擬備，並須按社會福利署署長／教育局常任秘書長批准的食物種類分量表所列的標準預先編定，隨時備查，並隨時供社會福利署署長或任何視察主任或中心醫生查閱。提供全日制幼稚園教育的本校，須為每名接受該項教育的學生提供最少每日一餐膳食。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 41
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 90
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 50
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 14
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          1,
+          6,
+          10
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須在選擇、貯存和烹調食物三方面確保衞生，並遵守世界衞生組織處理食物的準則。在食物存放方面，熱食須存放於攝氏60度以上，凍食須存放於攝氏4度或以下。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 45
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          2,
+          3
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "為確保個人衞生，本校員工須切實執行個人衞生要求，包括於處理食物及如廁後立即洗手。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 44
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          9
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校應訂立健康飲食政策，向學生、教職員、負責膳食供應的職員及家長持續推廣健康飲食的重要性。本校必須提供明確處理食物致敏原的步驟和程序，以減少教職員和學生發生過敏反應的風險，所有食物處理人員必須認識主要致敏原及相關風險降低措施。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 46
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 49
+          }
+        ],
+        "adjustables": [
+          "本校健康飲食政策"
+        ],
+        "covers": [
+          4,
+          5
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "若本校提供全日制幼稚園教育並由膳食供應商提供膳食，本校應與有關供應商簽訂承包合約，並將食物選擇、食物分量、烹調標準、裝載食物的方法等清楚訂明在合約之內，同時監察所提供膳食的質與量。本校應確定所選的膳食供應商持有由食物環境衞生署簽發的獲准供應餐盒的有效食物製造廠牌照；如涉及分判，分判商亦須持有有效牌照。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 55
+          }
+        ],
+        "adjustables": [
+          "本校膳食供應商承包合約"
+        ],
+        "covers": [
+          7,
+          8
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "input_item_count": 11,
+      "covered_item_count": 11
+    }
+  },
+  {
+    "si": 9,
+    "section_name": "意外、緊急事故與保險",
+    "clauses": [
+      {
+        "text": "本校如設有留宿幼兒中心或獨立幼兒中心，遇特別事故時，必須盡快通知社會福利署幼兒中心督導組，並必須在特別事故發生後的三個曆日（包括公眾假期）內向社會福利署幼兒中心督導組、津貼組及相關服務科（如適用）提交「幼兒中心特別事故報告」。處理完該宗緊急事故後，本校應適當地記錄事件的詳情和所採取的行動。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 86
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 170
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 79
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 26
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          1,
+          6,
+          2
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校的機構經營人應購買適合的保險，以應付火警、意外及兒童／員工受傷事件引致機構須承擔的公眾責任，以及《僱員補償條例》規定的員工補償。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 27
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          3
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須備有每名兒童的意外及疾病紀錄，以供醫院急症室或衞生署作流行病學調查之用。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 32
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          4
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校最少須有兩名教員曾接受急救訓練。負責管理急救箱的人士須確保急救箱內備有急救用品一覽表、所有藥物均貼上適當的標籤，並定期檢查急救用品的數量及有效日期，適時更換。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 33
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 114
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          5,
+          7
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "如發生意外，本校須密切觀察學生情況，並盡可能為受傷學生施行急救，直至學生情況改善或交由醫護人員處理。如學生傷勢嚴重，本校須啟動危機應變措施，立即致電999要求緊急援助或代召喚救護車服務，並即時通知家長，同時通知本校所屬地區的高級學校發展主任／高級服務主任，及後提交書面報告闡述意外詳情。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 46
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 47
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          8,
+          9,
+          10
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "resolved_s163": true,
+      "input_item_count": 11,
+      "covered_item_count": 11
+    }
+  },
+  {
+    "si": 10,
+    "section_name": "兒童看管與保安",
+    "clauses": [
+      {
+        "text": "本校須制定校本機制及流程，協助學校人員就懷疑嚴重虐兒個案作出舉報及跟進。如本校發現或懷疑兒童遭受虐待，須按教育局通告第15/2025號「處理懷疑虐待兒童及家庭暴力個案」的指示，立即依《保護兒童——預防虐待及處理懷疑虐待兒童個案》指引處理或聯絡社會福利署。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 36
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 136
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 42
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 43
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          10,
+          16,
+          17
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "處理懷疑虐兒個案時，首位接觸個案的人員應即時通知校長，本校應立即啟動校本應急機制／危機處理小組，切勿隱瞞或延誤通報。如懷疑侵犯者是本校的教職員，本校須嚴格遵循教育局通告第15/2025號附件三所列的程序，並儘早通知學校發展主任。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 41
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 136
+          }
+        ],
+        "adjustables": [
+          "校長",
+          "校本應急機制／危機處理小組",
+          "學校發展主任"
+        ],
+        "covers": [
+          11,
+          12
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "指明專業人員如懷疑兒童正遭受或面對遭受嚴重傷害的實際風險，須儘快依《強制舉報虐待兒童條例》作出強制舉報。任何人士不得故意阻止或阻礙指明專業人員作出舉報，或披露作出舉報的指明專業人員的身分。如本校設有留宿幼兒中心，該中心亦應遵照相關條例，包括《強制舉報虐待兒童條例》處理懷疑虐待兒童個案。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 43
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 81
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          1,
+          2,
+          18
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校在任何時段和任何情況下，均不得讓兒童沒有員工看管。本校須為員工訂定工作指引，以防兒童溜走或誤將兒童交給非由家長委派的接送者，並須安排足夠員工看管兒童，及妥善安排家長／接送者每天交收兒童。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 26
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 46
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          6,
+          7
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "懷疑虐兒個案的所有紀錄須統一由校長／專責人員保管，在校內查閱有關紀錄須受限制，而且必須登記；本校亦不應將上述紀錄與有關學生的一般紀錄一併存檔。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 39
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 140
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 45
+          }
+        ],
+        "adjustables": [
+          "校長／專責人員"
+        ],
+        "covers": [
+          8,
+          9,
+          14,
+          19
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校內任何人士均不得對中心內兒童施行體罰；如本校設有幼兒中心（包括留宿幼兒中心），任何人不得對中心內兒童施行體罰。教師不得向學生施行體罰（《教育規例》第58條）。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 81
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 14
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          13,
+          15
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "如本校設有留宿幼兒中心，須在中心安裝閉路電視監察系統，並就監控及翻看閉路電視紀錄制定符合個人資料私隱專員公署指引的政策及機制。在申請註冊時，須填寫「留宿幼兒中心安裝閉路電視監察系統及制定監控政策及機制——進度報告」（附錄二十七），提交予社會福利署審閱。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 86
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 174
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          3,
+          4,
+          5
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須按需要在校舍安裝足夠的保安設備及制訂合適的保安措施，以防止未經授權人士擅自進入。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 46
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          20
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "所有運載本校學童的非專營巴士及學校私家小巴，每輛車上必須提供一名跟車保母。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 49
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          21
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "input_item_count": 22,
+      "covered_item_count": 22
+    }
+  },
+  {
+    "si": 11,
+    "section_name": "戶外活動與惡劣天氣安排",
+    "clauses": [
+      {
+        "text": "本校在擬定幼兒每日活動程序時間表時，必須減少屏幕時間，並應避免以屏幕時間作為對兒童的賞罰。就讀本校幼稚園及幼兒中心幼兒的「靜態屏幕時間」，每天不應超過1小時，少則更好。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 88
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 87
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          3
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校如設有留宿幼兒中心，其活動程序時間表須呈交社會福利署署長批准，才可在中心內使用，並必須於中心的顯眼地方展示。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 89
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          1
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校在舉辦野餐、旅行或參觀活動前，應把詳情通知家長，得到家長以本校《活動同意書》作出的書面同意後，才可以讓兒童參加。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 25
+          }
+        ],
+        "adjustables": [
+          "本校《活動同意書》"
+        ],
+        "covers": [
+          2
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "input_item_count": 4,
+      "covered_item_count": 4
+    }
+  },
+  {
+    "si": 12,
+    "section_name": "教職員聘任、資歷與師生比例",
+    "clauses": [
+      {
+        "text": "本校聘任教學及非教學人員時，必須遵從教育局訂明的聘用程序，以確保所聘人選為適合及適當人選，並要求應徵者申報教師註冊、專業失德及刑事定罪等事項。本校如擬聘用已離開教育行業一年或以上的教師，必須向教育局申報其刑事定罪紀錄。無論本校聘用與否，查核應徵者背景的結果須經校董會討論並紀錄在案。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 114
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 115
+          }
+        ],
+        "adjustables": [
+          "校董會"
+        ],
+        "covers": [
+          2,
+          3,
+          4
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校必須在聘任過程中採用性罪行定罪紀錄查核機制；在聘用程序的最後階段，本校必須要求準僱員進行性罪行定罪紀錄查核，以確定其申報的性罪行定罪紀錄屬實。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 41
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 46
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 116
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 64
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          1,
+          5,
+          29
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "由2023/24學年起，本校所有新聘教師（包括新入職教師及轉校教師）均須在《基本法及香港國安法》測試取得及格成績。本校於聘用教師前，必須查核該人士是否已在《基本法及香港國安法》測試取得及格成績，並透過電子化服務入門網站向教育局呈交該學年新聘教師的資料。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 114
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 115
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          26,
+          27
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "除非得到教育局常任秘書長書面准許，被取消／拒絕教師註冊的人士不得進入或逗留在本校。任何人士如未經註冊成為檢定教員或准用教員而在本校任教，即屬違法，而僱用或准許該人任教的人士亦屬違法；本校不得僱用或准許非檢定教員或非准用教員任教。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 116
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 13
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 65
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          6,
+          8,
+          32
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校校董會須負責向所有教師（教員）發出聘書，其中須列明服務條件、薪級及終止聘用的條件（《教育規例》第77條），並由校監代表校董會在聘書正本及副本簽署。本校校監須遵照《教育規例》的規定發聘任書給所有教員，聘任書內應訂明薪級、工作範圍及終止聘用的條件。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 13
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 117
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 65
+          }
+        ],
+        "adjustables": [
+          "校董會"
+        ],
+        "covers": [
+          7,
+          31,
+          41
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校聘用或解僱僱用期不少於6個月的教學人員，均須由本校的多數校董批准；解僱僱用期不少於6個月的教學人員，須在校董會的會議上由本校的多數校董批准。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 13
+          }
+        ],
+        "adjustables": [
+          "校董會"
+        ],
+        "covers": [
+          9
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校校長的任命（聘任）必須獲得教育局常任秘書長批准；校董會須於學校註冊後一個月內推薦校內一名教師出任校長。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 13
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 117
+          }
+        ],
+        "adjustables": [
+          "校董會"
+        ],
+        "covers": [
+          10,
+          40
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校所有新任校長（校監聘任之校長）須持有幼兒教育學士學位或具備同等學歷，並在取得學歷後最少有一年相關工作經驗，以及在受聘前修畢一項校長證書課程。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 66
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 150
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 109
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          21,
+          22,
+          23
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校所有新入職幼稚園教師均須具備合格幼稚園教師或同等的資歷。具學士學位受聘為本校幼稚園教師者，必須於入職後兩年內修畢合格幼稚園教師訓練課程。本校須符合聘用100%合格幼稚園教師的規定，校監應盡早安排未受訓教師修讀訓練課程。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 149
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 150
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          17,
+          18,
+          19
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須聘用百分百已獲認可訓練課程證書或同等專業資格的員工；所有新入職幼兒中心主管須具備幼兒教育證書或同等專業資格。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 65
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 66
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          33,
+          34
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須維持下列師生比例及在場當值人手安排：",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 63
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 148
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          13,
+          14,
+          15
+        ],
+        "table": {
+          "headers": [
+            "項目",
+            "規定"
+          ],
+          "rows": [
+            [
+              "幼稚園半日制／全日制師生比例",
+              "1:15"
+            ],
+            [
+              "在場當值最少教師與在場學生比例",
+              "每15名學生（不足15名當15名計算）須有一位教師在場當值"
+            ],
+            [
+              "每班當值教師",
+              "每班內須最少有一位教師當值"
+            ]
+          ]
+        },
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須按九月中所有班級總學生人數計算，維持整體師生比例1:11（校長不計算在內）聘請足夠教師人數，並向下調整至整數。本校整體師生比例的要求由1:15（校長計算在內），提升至1:11（校長不計算在內）。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 107
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 29
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          16,
+          36
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "由2022/23學年開始，本校作為參加幼稚園教育計劃的幼稚園，必須按師生比例1:11的規定，聘用足夠持有幼兒教育證書資格或以上學歷的教師。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 108
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          20
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須聘請足夠的幼兒工作員／合格幼稚園教師，以達法定的人手比例規定。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 62
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          28
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校如屬長全日制幼稚園，可增聘的教師上限為全日制幼稚園教師人數的40%。本校如屬全日制及長全日制幼稚園並設有符合政府規定的廚房，應聘請一名炊事員。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 108
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 109
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          37,
+          38
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校如設有留宿幼兒中心，必須委任足夠的主管及／或幼兒工作員以達法定的人手比例規定，使在場當值職員與在場兒童人數不得低於法定比例。留宿幼兒中心內在場當值的人數，任何時間均不得少於一名職員及另一名年滿18歲的人。收納超過30名兒童的留宿幼兒中心，必須僱用註冊護士一名，負責照顧兒童的健康。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 84
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 65
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          24,
+          25,
+          30
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校所有僱員除獲豁免外，必須參加強制性公積金計劃。本校校董會作為僱主，須按《僱員補償條例》的規定，為學校僱員購買保險，以投保其在法例規定下的責任。本校僱主與僱員的服務條件，例如工時、年假、病假、分娩假及終止合約安排，必須符合《僱傭條例》，並清楚列明在僱傭合約內。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 13
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 68
+          }
+        ],
+        "adjustables": [
+          "校董會"
+        ],
+        "covers": [
+          11,
+          12,
+          35
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校應就教師的聘任及晉升事宜，制訂校本指引和程序，並按公平公開原則訂立正式甄選程序。本校須為離職的教學人員發出「服務證明書」，列明該員工的相關聘任資料，供其新僱主參考。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 110
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 118
+          }
+        ],
+        "adjustables": [
+          "「服務證明書」"
+        ],
+        "covers": [
+          39,
+          42
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "input_item_count": 43,
+      "covered_item_count": 43
+    }
+  },
+  {
+    "si": 13,
+    "section_name": "教職員健康、操守與專業發展",
+    "clauses": [
+      {
+        "text": "本校管理當局（已成立校董會者為校董會，未設者為校董會）就學校、校董（包括校監）和教職員接受利益和捐贈事宜，制定政策及發出清晰指引，確保採購、收生、招聘及擢升等行政事務廉潔治校。所制定的政策須包括學校、校董及教職員接受利益和捐贈的準則、批核程序、審批權、問責機制及監管程序。本校接受任何利益和捐贈，必須獲本校管理當局批准。本校亦遵守教育局有關《學校及其教職員收受利益和捐贈事宜》通告的規定，並參考廉政公署《校董及職員行為守則範本》。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 15
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 163
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 72
+          }
+        ],
+        "adjustables": [
+          "校董會（已成立校董會者為校董會，未設者為校董會）"
+        ],
+        "covers": [
+          0,
+          13,
+          14,
+          23
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校參閱廉政公署制訂的《幼稚園運作防貪指南》及《幼稚園校董及職員行為守則範本》，建立誠信管理制度及內部監控系統，並參考該範本為校董及職員制訂完善的誠信指引。本校所有校董及職員均須遵守《防止賄賂條例》。校董和職員不應接受任何奢華、過於慷慨或頻密的款待。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 16
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 123
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 124
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          1,
+          2,
+          3
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校管理當局不應批准本校或教職員在處理學生的錄取或升級、聘用或晉升等校務時索取或接受利益（經教育局核准的註冊費不屬利益）。本校不得容許其校董和職員向任何人士或公司（包括供應商和承辦商）索取或接受其提供的任何利益（包括佣金），並以書面知會供應商有關防止賄賂的規定。本校亦不應索取或接受營辦商／供應商的捐贈或任何形式的利益。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 164
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 85
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 69
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          4,
+          18,
+          17
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校設立處理利益衝突的機制，以避免任何實際、潛在或視為利益衝突的情況；所有申報及相關管理層的決定／行動必須妥善記錄在案及存檔備查。參與採購的校董及職員須簽署承諾書，盡早向校董會作出書面申報與供應商的密切連繫；已申報利益衝突者應避免處理相關採購。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 124
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 85
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          6,
+          5
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校管理當局應制定規管教職員外間工作的校本人事管理政策，並備存紀錄冊記錄所有獲批的外間工作。本校管理當局不應批准其教職員收取費用為校內學生私人補習。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 165
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          15,
+          16
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就教職員涉及刑事調查或訴訟事宜訂明匯報責任，按下列要求辦理：",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 65
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 121
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          7,
+          8,
+          19,
+          20
+        ],
+        "table": {
+          "headers": [
+            "情況",
+            "匯報責任"
+          ],
+          "rows": [
+            [
+              "教職員涉及進行中的刑事調查或訴訟（包括被警方逮捕拘捕）",
+              "教職員必須即時向本校報告，並在調查或訴訟完結後，即時向本校報告結果"
+            ],
+            [
+              "管理人員得悉員工涉及刑事調查或被警方逮捕",
+              "管理人員須要求員工即時向中心管理人員報告，並在調查或訴訟完結後，即時向中心管理人員報告結果"
+            ],
+            [
+              "得悉員工涉嫌干犯嚴重罪行或失德行為",
+              "管理人員必須在知悉有關事件後立刻向社會福利署呈報，以考慮採取跟進行動"
+            ],
+            [
+              "得悉教師涉嫌干犯嚴重罪行或失德行為",
+              "本校必須立刻向教育局呈報"
+            ]
+          ]
+        },
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校為新聘用的員工提供入職導向訓練，並為在職的管理人員和前線員工安排定期及持續的培訓，深化保護兒童意識及相關法律知識。本校為前線員工提供有關照顧有特殊需要的兒童的訓練課程，提升其照顧能力與技巧。管理人員應透過個別面談、職員會議、分享會等渠道，持續深化及鞏固前線員工從培訓中所學習的理念、工作態度、知識和技巧，以及協助他們有效應付因照顧受托兒童所面對的壓力。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 85
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 86
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          9,
+          10,
+          25
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校留宿幼兒中心院長必須在入職前完成保護兒童的培訓課程及在入職後持續進修，並須按院長登記制度向社會福利署進行登記及提供最新資料。院長於首次登記前一年內須完成不少於6小時有關保護兒童的培訓，並於登記後每年參與不少於6小時相關培訓。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 85
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          11,
+          12
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校中心管理人員必須制定政策、指引、服務要求及守則等，以清楚訂明對員工的要求及違反要求的紀律處分。本校亦採取合理可行措施消除性騷擾，包括以書面形式制定學校政策以消除性騷擾，並設立處理投訴的機制。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 81
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 17
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          24,
+          27
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校應每年安排向全體教職員傳閱接受利益和捐贈通告，各人員閱後須簽署以示明白通告內容。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 167
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          26
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校根據《職業安全及健康條例》的規定，為員工提供一個安全的工作環境。所有教職員在上任前須接受註冊醫生的體格檢查，包括Ｘ光照肺，並由醫生發出健康證明書。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 26
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 33
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          21,
+          22
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校在每三年的周期內，每名幼稚園校長及教師應參加60小時的持續專業發展活動。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 118
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          28
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "resolved_s163": true,
+      "input_item_count": 29,
+      "covered_item_count": 29
+    }
+  },
+  {
+    "si": 14,
+    "section_name": "學費及收費",
+    "clauses": [
+      {
+        "text": "本校所有學費及其他收費，均嚴格遵守《教育規例》及教育局通告內有關學費和其他收費的規定。本校只會按教育局發出的收費證明書內的批准收費收取費用，並按社會福利署署長／教育局常任秘書長批准的每月全費／費用總額收取費用，不得擅自收費。除非事先得到教育局常任秘書長批准，否則本校不得收取任何未有載於收費證明書的費用。對於學生、學生家長或監護人繳交的每筆款項，本校均須發回正式收據。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 15
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 66
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 69
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 156
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          1,
+          4,
+          23,
+          28
+        ],
+        "table": null,
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校如更改向學生收取的費用總額，必須獲得教育局常任秘書長書面批准。任何調整或新增收費必須事先獲得教育局書面批准；未獲社會福利署署長／教育局常任秘書長書面批准前，本校不得增加每月全費／更改費用總額。除事前獲得社會福利署署長／教育局常任秘書長的書面批准外，本校不得收取每月全費／費用總額以外的其他費用。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 15
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 66
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 69
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 70
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          2,
+          6,
+          12,
+          13
+        ],
+        "table": null,
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須在校舍的顯眼處展示教育局發出的收費證明書；機構亦須在園舍顯眼的地方展示社會福利署／教育局發出的收費證明書。本校如獲批准收取超逾報名費核准上限，相關教育局通告或常任秘書長批准書須在學校報告板或校舍內的顯眼處展示。本校亦須參閱《教育規例》第67條的相關規定。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 15
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 69
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 153
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          3,
+          11,
+          21
+        ],
+        "table": null,
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校收取或更改報名費和註冊費前，須事先徵得教育局常任秘書長書面批准。本校收取註冊費及報名費須依教育局通告第6/2017號處理；如欲收取超逾通告所定核准上限的費用，則須事先徵得教育局常任秘書長的書面批准，並須將有關批函展示於園舍顯眼的地方。本校如獲批准收取超逾報名費核准上限，須妥善保存收支紀錄；所有批核有效為期三年，其後如欲繼續收取超逾核准上限的報名費用，須重新申請。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 152
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 71
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 153
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          5,
+          7,
+          20
+        ],
+        "table": null,
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校收取報名費及註冊費，不得超逾以下核准上限：",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 67
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 153
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          8,
+          19
+        ],
+        "table": {
+          "headers": [
+            "收費項目",
+            "適用班制",
+            "核准上限"
+          ],
+          "rows": [
+            [
+              "報名費",
+              "不適用",
+              "40元"
+            ],
+            [
+              "註冊費",
+              "半日制班級",
+              "970元"
+            ],
+            [
+              "註冊費",
+              "全日制班級",
+              "1,570元"
+            ]
+          ]
+        },
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校只可向已錄取的學生／兒童收取註冊費。已繳註冊費並在本校就讀的學生／兒童，本校必須在收取第一期學費後，於有關學年的第一個月內，退回註冊費予該學生／兒童。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 153
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 67
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          9,
+          10,
+          32
+        ],
+        "table": null,
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校收取第一期學費，不得在8月1日前（如新學年在9月開始）或7月1日前（如新學年在8月開始）收取。本校如為幼兒中心，可在不早於兒童入讀前3個月，預先收取第一個月部分或全部月費作留位之用，該留位費金額應在入讀第一個月的月費扣除。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 153
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 70
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          22,
+          16
+        ],
+        "table": null,
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校收取的每月全費／費用總額，應用以支付與教學活動、學校運作和維持教育服務水平有直接關係的開支。本校收取的學費和其他收費應直接用於學與教、學校營運及維持教育服務，並確保每項支出合理切合需要。本校不應就學費所涉開支，在學費以外另行向家長收費，亦不應要求家長額外支付生日會、節日慶祝會等慶祝活動的費用。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 70
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 67
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 156
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          14,
+          31,
+          24,
+          15
+        ],
+        "table": null,
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校如參加幼稚園教育計劃，不應就半日制服務收取學費。本校如申請收取學費，必須提交財務預算及充分理由及數據支持，證明有關開支屬必要，並把師生比例維持於1:11。本校須與家長保持溝通，讓家長知悉整月缺課的學費安排。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 66
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 39
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          29,
+          30,
+          27
+        ],
+        "table": null,
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校向家長售賣物品或提供收費服務前，必須事先以書面形式，通知家長購買物品或採用收費服務純屬自願性質，家長有權向外購買該物品或不採用本校提供的服務。本校向家長售賣教育用品或提供收費服務，須在通告清楚註明選購純屬自願，並提供方格供家長剔選。本校如為幼兒中心，進行上述售賣物品或收費服務前，必須事先向社會福利署署長申請批准。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 71
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 67
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 72
+          }
+        ],
+        "adjustables": [
+          "家長通告"
+        ],
+        "covers": [
+          17,
+          33,
+          18
+        ],
+        "table": null,
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校預購物品或預收服務費用，不應早於每年五月收取。本校不得從售賣課本獲取任何利潤；售賣教育用品和提供收費服務（如有）所得的利潤，不得超過向供應商購貨成本的15%。本校如獲營辦商／供應商給予折扣或整筆回佣，應將該折扣或整筆回佣撥入學校帳目內，列為收入項目。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 160
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 68
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 162
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          25,
+          34,
+          26
+        ],
+        "table": null,
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "input_item_count": 35,
+      "covered_item_count": 35
+    }
+  },
+  {
+    "si": 15,
+    "section_name": "採購及招標",
+    "clauses": [
+      {
+        "text": "本校進行採購物品及服務時，須按教育局《幼稚園採購程序指引》制訂校本採購程序，並以公平、公正、公開競爭的方式進行有關程序。本校須邀請足夠數目的供應商或承辦商參與競投／報價，確保以公平方式採購用品或服務，並妥善地保存有關報價和招標紀錄。校監及校長必須確保本校具備完善和有效的內部管理制度，以防止詐騙／盜用款項的情況出現。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 161
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 84
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 79
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          7,
+          6
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須要求所有負責採購職務的人員簽署承諾書及在需要時申報利益衝突。本校須為採購人員訂立清晰分工：索取報價與接納報價等兩項工序，必須由不同的教職員負責；邀請和批核報價單／標書兩項工作，亦必須由不同職級的職員負責。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 161
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 162
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 85
+          }
+        ],
+        "adjustables": [
+          "承諾書"
+        ],
+        "covers": [
+          1,
+          2,
+          8
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校採購物品或服務時，須按下列預算金額採用相應的採購方式：",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 84
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          3,
+          4
+        ],
+        "table": {
+          "headers": [
+            "預算金額",
+            "採購方式"
+          ],
+          "rows": [
+            [
+              "5,000元或以下",
+              "可直接採購"
+            ],
+            [
+              "5,000元以上至50,000元",
+              "向最少兩名供應商索取口頭報價"
+            ],
+            [
+              "50,000元以上至200,000元",
+              "向最少五名供應商索取書面報價"
+            ],
+            [
+              "200,000元以上",
+              "邀請最少五名供應商投標"
+            ]
+          ]
+        },
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "凡預算每次需費200,000元以上的標書，本校應成立兩個委員會，分別負責（1）開標及審核和（2）批核標書，兩個委員會的成員須由不同人士出任。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 85
+          }
+        ],
+        "adjustables": [
+          "開標及審核",
+          "批核標書"
+        ],
+        "covers": [
+          9
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須定期進行具競爭性的報價／招標程序以甄選營辦商／供應商，至少每三年一次為宜，有關甄選以不超過三年進行一次為宜。本校不應藉著分期採購所需物品或服務，或藉著縮短一般合約期，以避免遵照有關報價及招標款額上限的規定。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 69
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 86
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          5,
+          11,
+          10
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校邀請供應商提交書面報價／招標的截止日期，一般應相隔最少三周；如遇緊急情況，可經校長批准縮短有關期限，並記錄縮短的原因。一般而言，本校應該接納符合規格而出價最低的書面報價單／標書；如不接納出價最低者，或不選評分最高者，須記錄有關理據。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 86
+          }
+        ],
+        "adjustables": [
+          "校長"
+        ],
+        "covers": [
+          12,
+          13
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校必須妥善備存所有採購紀錄，包括報價單／招標紀錄、所聯絡供應商的全名、挑選他們的理由，以及不接納出價最低個案的理據。如採用單一報價／招標，只可在具充份理據且競投無效的情況下採用；其中預算每次需費5,000元以上至50,000元的採購項目，須先得到校監的批准，50,000元以上的項目須先得到校董會的批准。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 86
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 87
+          }
+        ],
+        "adjustables": [
+          "校監",
+          "校董會"
+        ],
+        "covers": [
+          14,
+          15
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "如辦學團體獲授權為本校進行採購，所有授權安排須事先得到校董會的批准，並妥為存檔，且須依循與本校大致相同的採購程序。倘辦學團體擬供應物品或服務予本校，他們應被視為競投者之一，並與其它競投者一樣，須經過競投及相同的甄選程序。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 89
+          }
+        ],
+        "adjustables": [
+          "校董會"
+        ],
+        "covers": [
+          16,
+          17
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "resolved_s163": true,
+      "input_item_count": 18,
+      "covered_item_count": 18
+    }
+  },
+  {
+    "si": 16,
+    "section_name": "財務管理及內部監控",
+    "clauses": [
+      {
+        "text": "本校設立並維持一套會計及內部監控制度。本校須因應本身情況釐定學校的會計及內部監控制度，以確保學校的管理符合有關條例和規定，並須遵從教育局常任秘書長或本校核數師所建議的內部監控程序。本校就一切出售及購買的教育用品及收費服務，必須保存正確的帳目記錄。學校管理當局須備存適當帳目，並保留有關帳目及憑單不少於七年，以供教育局常任秘書長查閱；該等適當帳目亦須供教育局或督學隨時查閱。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 77
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 158
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 15
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 70
+          }
+        ],
+        "adjustables": [
+          "教育局常任秘書長",
+          "本校核數師"
+        ],
+        "covers": [
+          22,
+          8,
+          10,
+          16
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就教育用品及收費服務之收費，遵守以下保真規限。本校不應強迫家長購買任何教育用品或接受任何收費服務，並應以書面形式通知家長有關購買或服務純屬自願性質。本校不得從售賣課本中獲取任何利潤。售賣習作簿、校服、文具等用品（課本除外）及收費服務所得利潤，不得超過向供應商購貨成本價的15%。本校須按要求向家長及公眾人士公開「售賣課本」的帳目，或在互聯網上展示。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 157
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 158
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 161
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 160
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          1,
+          2,
+          9
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就帳目分立及拆帳機制，作以下安排。本校須分開帳目以分別記錄幼稚園教育計劃資助（「幼稚園計劃帳」）及學校經費（「學校帳」）的收支。本校把商業活動（包括由幼稚園營辦或由辦學團體／營辦機構代辦的商業活動）的收入／支出分項記錄在「學校帳」，並在每年提交教育局的經審核周年帳目內獨立填報。本校擬備財務報表時，須先將整校共同收入及所有開支項目按學生人數比例或其他訂明規則分拆至各課程／分部，並須在經審核周年帳目清楚披露其採用的拆帳機制。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 70
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 68
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 72
+          }
+        ],
+        "adjustables": [
+          "辦學團體／營辦機構"
+        ],
+        "covers": [
+          17,
+          15,
+          18,
+          19
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就固定資產之歸帳、登記及處置，作以下規定。本校須自行決定加入計劃前購入的固定資產納入哪本帳；除非獲得教育局事先批准，本校不得調撥已納入「幼稚園計劃帳」的固定資產到「學校帳」。本校須備存獨立的固定資產登記冊，以顯示在「幼稚園計劃帳」、「學校帳」及一筆過啟動津貼（如有）下固定資產的分類，並記錄購入日期、說明、位置、數量、款額等，且須適時更新。本校亦應定期（不少於每年一次）盤點各項固定資產並保留紀錄；數量與紀錄不符時須調查並向校董會報告。如本校需要註銷記錄在「幼稚園計劃帳」下的固定資產，必須取得校監的批准。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 74
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 80
+          }
+        ],
+        "adjustables": [
+          "校董會（未設校董會者）",
+          "校監"
+        ],
+        "covers": [
+          20,
+          21,
+          37,
+          38,
+          40
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就單位資助及租金資助之運用，作以下規定。單位資助中60%會劃為教學人員薪酬部分，必須用於教學人員薪酬和相關開支。本校如參加租金資助計劃，須另設獨立的分類帳，以記錄租金資助和支出，並在經審核周年帳目內呈報。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 62
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 56
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          12,
+          11
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就款項存放及投資，遵守以下規限。本校不得把政府資助及學校經費作投機性投資，多餘盈餘只可存入持牌銀行的定期或儲蓄帳戶。本校須將所有收入以風險最低的辦法存放，並須將全部收入用於核准的教育用途或購置學校設施上。本校不應把經費（包括政府撥款）用作高風險的投資活動；如擬進行投資，須在校董會會議記錄載明討論詳情及議決，虧損由校董會承擔。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 62
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 78
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 79
+          }
+        ],
+        "adjustables": [
+          "校董會（未設校董會者）"
+        ],
+        "covers": [
+          13,
+          28,
+          31
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就盈餘款項之分散存放，採以下做法。盈餘款項應分散存放於數間持牌銀行並設上限，例如為每間銀行的存款設定上限，例如不超逾該款項總額的50%；該等款項不得用作高風險投資。如本校所管理的款項超逾港幣500萬元，則在任何一間銀行的存款應不超逾該款項總額的20%。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 79
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          29,
+          30
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就銀行帳戶及支出批核，作以下安排。教育局的任何資助只會發放予以本校名義開設的銀行帳戶內；本校的收支不可經非本校名義帳戶處理，亦不應以任何個人／本校職員的名義開設及操作銀行帳戶。帳戶任何支出須由兩名或以上獲校董會委任的授權人聯名批核或簽署；一般而言，其中一位獲授權人士為本校校監；銀行帳戶不應只由一名獲授權簽署人士操作。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 78
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 101
+          }
+        ],
+        "adjustables": [
+          "校董會（未設校董會者）",
+          "校監",
+          "兩名或以上獲校董會委任的授權人"
+        ],
+        "covers": [
+          24,
+          51,
+          25
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就銀行對帳及支票處理，作以下安排。本校應每月製備銀行對帳表，並由不同人員擬備及查核，查核人員（建議由校監或校長擔任）簡簽並註明日期。所有支票均不應預先簽署，只可在收到獲妥當授權的文件時才可簽署；支票必須畫線並標明「只存入收款人帳戶」，並應密切監察處理6個月以上未兌現的支票。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 78
+          }
+        ],
+        "adjustables": [
+          "校監或校長"
+        ],
+        "covers": [
+          26,
+          27
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就收款之處理，採以下程序。每當收款時，應製備收款憑單，憑單應預先印上編號並記錄日期及金額，批核人員查核後簡簽並註明日期。本校應使用預先印上編號的正式收據，並順序發出；損毀或廢棄的收據須註明「註銷」，以防重複發出。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 79
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          32,
+          33
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就付款之處理，採以下程序。所有開支均須獲得妥當授權才可付款，每次付款時應製備連續編號的付款憑單並夾附發票正本。製備付款憑單和授權付款的工作應分開由不同人士負責。所有已繳付的憑單及發票必須蓋上「已繳付」或「PAID」字樣，並且由付款的職員加上日期，以防重複付款。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 80
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          34,
+          35,
+          36
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就職責分工，落實以下監控原則，務求計算、查核、記錄與收付款項的職務互相分開，以及採購各環節分由不同人員負責。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 77
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 101
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 102
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          23,
+          50,
+          53
+        ],
+        "table": {
+          "headers": [
+            "監控環節",
+            "職責分工要求"
+          ],
+          "rows": [
+            [
+              "收付款項",
+              "應盡可能將計算、查核和記錄本校應收或應付款項的職務，和收取或發放這些款項的職務，分由不同的員工執行"
+            ],
+            [
+              "供應商報價採購",
+              "負責批准及／或挑選供應商索取報價的人員，不應同時是在該次採購工作中批准接納供應商報價的人員"
+            ],
+            [
+              "零用現金",
+              "保管零用現金的人員不應負責批核任何發還零用現金申請，亦不應以申請人身份申請發還，以確保適當職責分工"
+            ]
+          ]
+        },
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就現金及貴重物品之保管與點算，作以下安排。所有現金、貴重物品及重要文件須妥善鎖好。校長應在年內不定期地突擊點算現金，例如一年內進行三次突擊點算。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 80
+          }
+        ],
+        "adjustables": [
+          "校長"
+        ],
+        "covers": [
+          39
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就員工薪酬政策，作以下訂定。本校應制定整體的薪酬及福利政策，並就實際情況訂定個別員工的薪酬，及清楚列明在聘用合約內，使員工薪酬與資歷和責任相稱。本校必須就員工薪酬制訂政策，清楚訂明薪酬福利條件及薪酬調整，會由哪些部門或人員批核。本校向兼職教師支薪，以全職教師三分之二薪酬為上限。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 68
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 113
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 114
+          }
+        ],
+        "adjustables": [
+          "哪些部門或人員批核"
+        ],
+        "covers": [
+          6,
+          7,
+          54
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就校監酬金及盈餘轉撥，遵守以下規限。校監執行一般應由校監、校董或校長執行的職務，不應收取酬金；只有執行指定職務並附說明的酬金才可計入學費支出。作為參加幼稚園教育計劃的非牟利幼稚園，本校不得將盈餘轉撥（不論以何種形式）給所屬的辦學團體／其他機構／人士。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 67
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 102
+          }
+        ],
+        "adjustables": [
+          "辦學團體／其他機構／人士"
+        ],
+        "covers": [
+          14,
+          52
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校明確列明不得以「幼稚園教育計劃帳」和「學校帳」支付的開支項目，包括投機性投資虧損、捐贈、購買禮物、退還不恰當校監酬金及紅封包。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 90
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          49
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就周年帳目之審核、簽署及提交，作以下安排。本校須於每學年完結後，按教育局指定格式及日期提交涵蓋整個學年的經審核帳目；本校須以幼稚園名義向教育局提交經審核的周年帳目，並連同核數師報告一併提交，教育局不接受以辦學團體名義提交。經審核帳目必須由校監簽署，並蓋上學校印鑑，每份報表須由核數師蓋印識別。本校亦須填妥一份主要人員薪酬及附帶福利的報表，由校監簽署作實並交回所屬辦事處審視。本校在選擇核數服務時，必須力求定期（最理想是每三年一次）進行具競爭性的遴選程序。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 81
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 82
+          }
+        ],
+        "adjustables": [
+          "辦學團體",
+          "校監",
+          "核數師",
+          "所屬辦事處"
+        ],
+        "covers": [
+          41,
+          42,
+          45,
+          44,
+          43
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就帳目披露及審核查閱，作以下承諾。本校須於經審核帳目適當地披露所有與有關連人士或機構團體的交易及帳項結餘。本校須確保政府及其授權代表（包括但不限於教育局人員及其代理人和審計署署長及其代理人）在接獲合理通知後，可獲取所有或任何帳目、紀錄、資料及文件以作審核查閱。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 82
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 83
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          46,
+          47
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校就報價及招標資料之保密，作以下安排。有關報價／招標的資料須保密處理，往來信函列作「限閱文件」。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 85
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          48
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校如退出幼稚園教育計劃或停辦，遵守以下帳目及保存責任。本校在退出計劃並繼續獲發資助期間，仍須每年遞交經審核的帳目，並原則上不得就半日制學額收取學費。如本校已停辦，應在停辦日期起計四個月內將一份完整的經審核最後帳目送交教育局，並由執業會計師審核。本校在退出計劃後的七年內，須確保在接獲合理通知後，政府及其授權代表可獲取所有帳目、紀錄及文件以作審核查閱。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 141
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 142
+          }
+        ],
+        "adjustables": [
+          "執業會計師"
+        ],
+        "covers": [
+          3,
+          4,
+          5
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "input_item_count": 55,
+      "covered_item_count": 55
+    }
+  },
+  {
+    "si": 17,
+    "section_name": "資助運用、籌款及盈餘",
+    "clauses": [
+      {
+        "text": "本校接受的任何捐贈只可用作學校和教育用途；有特定用途的捐贈只可用作指明用途。如需將特定用途的捐贈改作其他用途，須先得捐贈者同意，並須在經審核帳目內的有關報表／附註中如實填報所有捐款。本校作為參加幼稚園教育計劃的幼稚園，會按教育局既定格式製備經審核帳目。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 166
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 70
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          1,
+          16
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校作為參加幼稚園教育計劃的幼稚園，必須確保幼稚園教育計劃的資助不會用於任何不屬本地非牟利幼稚園教育範疇的活動。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 55
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          8
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校如獲非華語學童支援的額外資助，須確保該資助只用於加強支援非華語學童，並就此制訂全面的校本計劃。本校須在學年開始時向教育局提交運用資助及擬訂支援措施的學校計劃，並在學年終結時提交學校報告。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 30
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          2,
+          3
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校如獲租金資助，該資助只可用於本地課程幼稚園分部／班級合資格學生的租金開支，非學校部分的租金不應包括在內。租金資助按校舍使用率釐定，標準如下。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 56
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 91
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          4,
+          5
+        ],
+        "table": {
+          "headers": [
+            "校舍使用率",
+            "租金資助"
+          ],
+          "rows": [
+            [
+              "50%或以上",
+              "全額"
+            ],
+            [
+              "25%至50%以下",
+              "50%"
+            ],
+            [
+              "25%以下",
+              "25%"
+            ]
+          ]
+        },
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須備存租約及租金收據等文件，相關紀錄須保存不少於七年。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 56
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          9
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校的校舍維修資助可累積盈餘，以該年撥款額的500%為上限。一旦達上限，教育局會暫停發放並收回超額盈餘。本校須就各項資助列出盈餘及可累積盈餘上限，超過上限的盈餘須記錄作「應付予教育局的款項」。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 63
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 81
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          6,
+          7
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校如獲提升單位資助盈餘上限，須提交一份獨立的盈餘使用報告，否則或不符資格續獲提升上限。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 63
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          12
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校的炊事員資助須用於聘請炊事員為全日制／長全日制班級學童烹調膳食，不得作其他用途。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 59
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          10
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須於到期日或之前繳付差餉及地租，並只可於悉數繳付款項後，方可向教育局申請發還費用。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 60
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          11
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校的學費收入如有盈餘，應保留在學校經費的帳目內，不得以任何形式（包括捐贈及饋贈）轉撥予任何人士或其他機構。本校進行商業活動所得的全部利潤，均須撥回本校作學校營運和提供幼稚園教育服務之用。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 67
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 68
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          13,
+          14
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校的本地課程支出，須按每名半日制學生與每名全日制／長全日制學生單位成本1：1.6至1：2的比例，分攤到各上課時間。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 70
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          17
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校從其他部門／基金以計劃項目形式收到的資助，應盡可能以「幼稚園計劃帳」以外的銀行帳戶處理這些資助的收支，並在「幼稚園計劃帳」及「學校帳」以外開設獨立帳目作紀錄，並按規定退回餘款。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 73
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          18
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校如擬為學校本身進行籌款活動，須經校董會批准並記錄存案，並須獲教育局常任秘書長書面准許。本校在籌款收集捐款時，應使用註有編號的收據／籌款票，每筆超逾港幣5,000元的捐款均應予記錄存案。本校應就每項籌款活動編製財政報告，並應在學校報告板或校舍內的顯眼處展示一段合理時間，然後保存以備核數。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 69
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 75
+          }
+        ],
+        "adjustables": [
+          "校董會"
+        ],
+        "covers": [
+          15,
+          19,
+          20,
+          21
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "input_item_count": 22,
+      "covered_item_count": 22
+    }
+  },
+  {
+    "si": 18,
+    "section_name": "註冊、牌照與行政呈報",
+    "clauses": [
+      {
+        "text": "本校為一所須由校董會管理的幼稚園。根據《教育條例》（第32條），本校須由其校董會管理，校董會須負責確保學校管理令人滿意、以適當方式促進學生教育，並遵守相關條例及指示。本校校董會的組成最少有三名校董（包括校監），並符合營辦機構提名及獨立校董等要求；校董會須制訂校董會章程，以訂明校董會運作的細節。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 10
+          }
+        ],
+        "adjustables": [
+          "校董會"
+        ],
+        "covers": [
+          6,
+          7,
+          8
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校在開辦及註冊前，經營人必須詳閱《幼兒服務條例》、《教育條例》等有關法例。本校註冊須取得規劃、屋宇署安全證明書、消防處消防證明書、電力及氣體裝置安全證明書等批准，並須具備證明本校有權使用有關樓宇作幼兒中心／幼稚園用途的文件（例如租約／買賣協議／業主授權書等）。本校註冊亦須符合傢具及設備、洗手間設施、通風及照明、急救、衞生、容額等方面的規定。本校營辦幼兒中心須遵守《幼兒服務條例》和《幼兒服務規例》，營辦幼稚園則須遵守《教育條例》和《教育規例》。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 74
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 75
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 76
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 78
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          23,
+          24,
+          25,
+          26,
+          27
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校相關人員須完成下列註冊或批准事宜：",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 66
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 67
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          20,
+          21,
+          22
+        ],
+        "table": {
+          "headers": [
+            "人員",
+            "註冊／批准要求"
+          ],
+          "rows": [
+            [
+              "幼兒中心主管和幼兒工作員",
+              "必須註冊"
+            ],
+            [
+              "校董、校監、校長及教師",
+              "須申請註冊或批准（檢定或准用，視何者屬適當而定）"
+            ],
+            [
+              "幼稚園教師",
+              "須註冊"
+            ]
+          ]
+        },
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校學生缺課的處理及通報安排如下。學生缺課（不限日數）而家長未告假，本校應即日主動聯絡家長，關心學生，了解缺課原因。如本校學生連續七個上課天無故或在可疑情況下缺課，本校必須在該生缺課的第七天填妥缺課通報表，向所屬地區的學校發展組／聯合辦事處（即教育局）通報；本校填交通報表後須繼續跟進，並須在通報後七個工作天內填妥附件二，呈報跟進個案的情況。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 33
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 129
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 130
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 131
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 42
+          }
+        ],
+        "adjustables": [
+          "附件二"
+        ],
+        "covers": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          30
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校學年期間如有學生資料變動（包括整月缺課），本校須在個案出現後7日內透過「統一登入系統」向教育局呈報。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 39
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          29
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校假期、上課時間及課程文件的呈報及張貼安排如下。本校須於每年8月15日前向教育局常任秘書長遞交為新學年擬定的所有假期資料；經由校長簽署及校監加簽的學校假期表，須長期張貼在校內一處當眼的地方。本校的上課時間如有任何改變，負責人須通知教育局常任秘書長。此外，幼兒中心的活動程序時間表須呈交社會福利署署長批准；幼稚園的上課時間表及用書表須呈交教育局常任秘書長批准。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 13
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 59
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          9,
+          10,
+          11,
+          14,
+          15
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校相關人事變動的通知安排如下。任何幼兒中心主管和幼兒工作員的人事變動，必須在14日內通知社會福利署署長；留宿幼兒中心的主管及幼兒工作員如有任何變動，經營人必須於14天內通知社會福利署。此外，根據《教育條例》第39條，凡校董停任、校監或校長停止執行職責、教員開始或停止任教等事項，本校校監須在事情發生後1個月內以書面通知教育局常任秘書長。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 65
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 84
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 12
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          12,
+          13,
+          28
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校在維護國家安全方面，應在策劃與管理、教職員管理、學與教及家校合作等範疇，適當地制定及持續檢視維護國家安全的相關措施。本校的報價／招標文件中應加入具體條款，列明基於國家安全而容許本校取消供應商的資格和終止相關合約。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 17
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 85
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          16,
+          17
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校如參加相關計劃，須遵守下列資格及承諾事宜。本校須為根據《稅務條例》（第112章）第88條獲豁免繳稅的非牟利幼稚園。新參加或繼續參加計劃時，本校須簽署承諾及聲明，表示同意遵守有關條款及條件；若簽署承諾及聲明的校監離任，本校須確保繼任校監按政府指明的格式和內容重新簽署承諾及聲明。本校如欲退出計劃（包括因有意停辦而退出），須在配合新學年開始的生效日期前最少九個月，以書面通知教育局。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 139
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 140
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 143
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          18,
+          19,
+          31,
+          32
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "input_item_count": 33,
+      "covered_item_count": 33
+    }
+  },
+  {
+    "si": 19,
+    "section_name": "家校溝通與資料披露",
+    "clauses": [
+      {
+        "text": "本校發布招生廣告及派發學校單張時，須按《教育條例》第86A(2)條，列出教育局常任秘書長給予本校的註冊編號。本校亦應主動將學校基本資料、核准學費、其他核准收費及教育用品價目，載於學校單張、通訊或入學申請表格等文件內，供家長參考。本校如參加免費優質幼稚園教育計劃，應同時提供中文及英文版本的入學申請表。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 154
+          }
+        ],
+        "adjustables": [
+          "免費優質幼稚園教育計劃"
+        ],
+        "covers": [
+          0,
+          1,
+          2
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校如參加幼稚園教育計劃，須把主要營運資料（包括校監及校長姓名、教職員資歷及薪酬、學費及財務資料等），刊載於教育局編製的《幼稚園及幼稚園暨幼兒中心概覽》。本校並須在學校網頁提供中、英文版的基本資料，包括學校簡介、收生安排、學費、非華語支援等。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 10
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 30
+          }
+        ],
+        "adjustables": [
+          "幼稚園教育計劃"
+        ],
+        "covers": [
+          3,
+          4
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "為增加透明度和問責性，本校應透過家長通訊、內聯網或學校網頁，向家長發放學校最新資料，包括學費一覽表和其他教育局核准的收費一覽表。本校並須把教育用品或收費服務的有關資料（包括上學年收費額的一覽表）上載學校網頁，供家長參閱。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 131
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 68
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          5,
+          6,
+          7
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須遵守《個人資料（私隱）條例》的規定。在處理學生個人資料時，本校須確保資料的收集、使用、保安及查閱均符合該條例的規定，並須備存一本紀錄冊，記錄校方拒絕查閱或改正資料的要求。本校亦須確保其辦事方式，特別是影印及使用電腦軟件等，均符合《版權條例》的規定。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 16
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 39
+          }
+        ],
+        "adjustables": [
+          "紀錄冊"
+        ],
+        "covers": [
+          8,
+          9,
+          10
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校應設立溝通渠道，徵詢家長對服務的意見，並應與家長清楚簽訂認可為學生請假的家長／監護人。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 72
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 130
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          11,
+          12
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校應制訂清楚而有效的處理投訴程序。在處理家長投訴時，本校應採取積極的態度去面對問題，主動聯絡家長，盡快找出問題原因及解決方法。被投訴的人員均不應參與處理事件，以避免利益衝突。所有投訴個案應絕對保密，調查人員不得向校內其他人員或甚至親友披露；校方須把有關資料妥為記錄和存檔，並提供上訴途徑。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 135
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 136
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 72
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          13,
+          14,
+          16
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須將核准的學費額或任何核准的變更，以及收取每月全費／費用總額的任何核准變更，盡速通知家長。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 156
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 69
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          15,
+          17
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校應設有一名熟悉學校政策及運作的發言人，負責處理市民或傳媒對事件的查詢。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 137
+          }
+        ],
+        "adjustables": [
+          "發言人"
+        ],
+        "covers": [
+          18
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "input_item_count": 19,
+      "covered_item_count": 19
+    }
+  },
+  {
+    "si": 20,
+    "section_name": "紀錄保存、查閱與一般行政",
+    "clauses": [
+      {
+        "text": "本校作為參加幼稚園教育計劃的幼稚園，須循「策劃─推行─評估」循環周期運作，於每學年終結前參考經優化的《表現指標（幼稚園）》進行學校自我評估，並於學期結束時編寫本學年的學校報告及擬訂下學年的工作計劃。本校須在接獲教育局質素評核通知後的四個星期內，向教育局提交學校報告和持份者問卷調查結果。本校的質素評核結果必須達到既定標準，否則可能被撤銷參加資格及終止資助。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 17
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 18
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校的運作須符合本辦學手冊、《表現指標（幼稚園）》及《幼稚園教育課程指引》各有關規定。",
+        "citations": [
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 78
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          7
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須設立完善的學生紀錄制度，備存適當的學生紀錄，並須適時更新，以方便提取的方式保存。本校應為每名兒童有系統地建立學習歷程檔案，以收集兒童的個人發展紀錄和報告，並定期與家長分享。本校亦須設立校本機制，支援有特殊需要或有發展遲緩危機的學童，相關做法受教育局監察。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 29
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 39
+          },
+          {
+            "source_id": "kg_operation_manual_2026",
+            "page": 61
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          8,
+          9,
+          10
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校每一班級均須按教育局常任秘書長批准的形式備存一本點名冊，並將每一班級學生每天的出席及缺課情況，按教育局常任秘書長所批准的形式正確地記錄在點名冊內並予以備存。如教育局常任秘書長提出要求，本校管理當局須按指示呈交有關學校或學生的資料。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 14
+          },
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 39
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          4,
+          5,
+          11
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須妥善保存新聘教師的聘任紀錄及《基本法及香港國安法》測試及格成績的副本，存檔年期不少於兩年。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 115
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          6
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校應設立一本「器材外借紀錄冊」，記錄器材外借的有關資料。",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 81
+          }
+        ],
+        "adjustables": [
+          "器材外借紀錄冊"
+        ],
+        "covers": [
+          12
+        ],
+        "school_types": [
+          "kindergarten"
+        ]
+      },
+      {
+        "text": "本校須在參加幼稚園教育計劃有效期內及其後最少七年內，妥善並分開備存計劃帳及學校經費的帳目及紀錄。凡屬永久性質的紀錄，如固定資產登記冊、周年帳目、校具清單等，在本校營運期間必須妥為保存，不可銷毀。其餘各類紀錄的最短保存年期按下表辦理：",
+        "citations": [
+          {
+            "source_id": "kg_admin_guide_2026",
+            "page": 83
+          }
+        ],
+        "adjustables": [],
+        "covers": [
+          13,
+          14,
+          15,
+          16
+        ],
+        "table": {
+          "headers": [
+            "紀錄類別",
+            "最短保存年期"
+          ],
+          "rows": [
+            [
+              "大型修葺／保養工程及新營辦開辦費用的證明文件",
+              "不少於15年"
+            ],
+            [
+              "各類帳簿（即現金出納帳簿、分類帳簿等）、付款憑單、銀行存結單、薪金單、學費單收據、接受捐贈紀錄",
+              "不少於7年"
+            ]
+          ]
+        },
+        "school_types": [
+          "kindergarten"
+        ]
+      }
+    ],
+    "verify": {
+      "ok": true,
+      "issues": [],
+      "input_item_count": 17,
+      "covered_item_count": 17
+    }
+  }
+]

@@ -6,6 +6,26 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [內容新增＋維護] — 2026-06-23 — footnote 擴充第三批（SAG 假期/HR＋KG＋活動＋forms 手尾，14 條）＋ kg_operation 清單補標 school_types
+
+> 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,391 → 15,405**（＋14 curated footnote chunks）。
+
+### Added
+- **footnote 擴充第三批入庫**（Channel B Supabase，＋14 chunks，`content_type=footnote_curated`，可逆）：補回一批藏喺附件表格／附錄細字、正文唔講嘅 load-bearing 要求——
+  - **《學校行政手冊》人事與假期（8 條）**：遴選委員會組成（未成立法團校董會：辦學團體代表 ≤60%＋獨立人士）／受聘前體格檢驗（胸肺 X 光）／超額主任跨屬校調配抵銷（通函 26/2025）／非學位教師改編學位職系（校本政策＋校董會通過＋通告 11/2019，每年 5 月 31 日限期）／**病假**（教師首年 28 天→每年 48 天、累積上限 168 天）／**肺病特別假期**（服務 1–4 年最多 3 個月、4–8 年 6 個月、8 年以上至 12 個月）／**侍產假 5 天＋產假 14 週**（通告 16/2015）／**年假**（非教學 7 天起、上限 14 天）＋緊急私事假（每學年最多 2 天）。
+  - **幼稚園／法團校董會／活動（4 條）**：法團校董會免稅須章程含《稅務條例》第 88 條條文／幼稚園租金資助額以九月錄取人數計／幼稚園每班最少一位教師當值／戶外活動建議師生比例（遠足 1:10、宿營 1:30、野外定向 1:8、單車及滑浪風帆 1:5、獨木舟 1:8）。
+  - **forms 手尾（2 條，補完 S177 批次）**：CEG 計劃須經 IMC/SMC 通過並於 10 月底前上載，否則**追回**（clawed back）／CFEG 個別家具設備項目**無金額上限**（只要戶口款項足夠；戶口累積盈餘上限仍為該年撥款 5 倍）。
+  - 全部 verbatim 核實對官方來源（SAG／IMC／KG／活動指引 vault repaged extract；CEG Ground Rules ＋ CFEG User Guide 即場下載 EN PDF 核）；self-test 14/14 cosine 0.65–0.84 lead、新條目互不混淆（rank-1 14/14）。
+
+### Changed
+- **檢查清單 `kg_operation`（幼稚園營運）補標 `school_types`**：388 個項目＋162 條 clause 全標 `['kindergarten']`（全屬幼稚園專用來源 `kg_admin_guide_2026`／`kg_operation_manual_2026`），重生 `checklists_bundle.json`（→ 約 1603 KB）；令文件標註／範本下載對非幼稚園校類唔再顯示幼稚園營運項目。
+- 知識片段顯示數 **15,391 → 15,405**（首頁／平台介紹／README／K1_API_SPEC `_meta.stats` 同步）。
+
+### Monitoring
+- 三條監察各跑一輪：freshness（220 檢查／5 內容變動／0 error，皆 index 頁或已監察 DEBP，detection-only）；discovery（739 候選／225 likely-real，monitor-driven，與 S170 評估一致）；served-URL（210 URL／209 OK／**1 條 404**：`trg_imc_2023` 嘅 TRG_guidelines 連結 en 路徑大階 C 已失效，正確 tc 路徑小階 c 200 — 待授權 repoint）。
+
+---
+
 ## [內容修復＋新增] — 2026-06-23 — 政策搜尋 MPF 漏答修復（footnote-lead judge bypass）＋ EDB Tips 細字 2 條入庫
 
 > 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,389 → 15,391**（＋2 curated footnote chunks）。

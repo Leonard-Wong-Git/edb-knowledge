@@ -34432,82 +34432,130 @@
       {
        "req": "如幼稚園房產以結構性木地板建造，當局將拒絕根據《教育條例》第12(1)(b)條發出證明書。",
        "page": 93,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "涉及樓宇結構或逃生途徑的改動及加建工程，須由認可人士向屋宇署呈交圖則並事先獲建築事務監督批准及同意。",
        "page": 93,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "圖則須以1:50或1:100比例繪製，標明出口路線／出口門、間隔牆及出口門的建造物料與耐火效能。",
        "page": 93,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "圖則上須顯示每個課室最高可容納人數（教師及學生數目）及容納的教職員總數。",
        "page": 94,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須受《教育規例》第7條所訂的24米高度限制規限。",
        "page": 94,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須確保校舍和所有設備均屬安全，為兒童提供安全的學習環境。",
        "page": 46,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園若缺乏戶外遊戲場須設戶內遊戲場，面積不少於課室總面積的50%。",
        "page": 8,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "為2至6歲兒童服務的幼稚園須符合每名兒童最低人均樓面面積1.8平方米的規定（不包括輔助設施）。",
        "page": 8,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園不得設於工業樓宇內或倉庫、貨倉、店舖、戲院、百貨公司或對兒童健康安全有危險行業的樓宇之上。",
        "page": 8,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "服務兩歲或以上兒童的幼稚園園舍不得高出地面超過24米，例外須經教育局常任秘書長書面授權。",
        "page": 8,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "園舍圖則經教育局常任秘書長批准及註冊後，未獲書面許可不得在結構上作任何更改。",
        "page": 10,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "所有護牆及窗口如未設欄柵防護，其高度由緊接地面起計最少須為1.1米。",
        "page": 10,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "經營人在租賃或購置擬設立校舍的樓宇前，必須確定該用地適合作幼兒中心/幼稚園用途且符合基本樓宇安全規定。",
        "page": 74,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "初生至6歲留宿幼兒中心每名兒童最低人均樓面面積為3.2平方米（不含輔助設施）或3.7平方米（含輔助設施）。",
        "page": 89,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "申請註冊的房產內如有違例建築工程，申請人務請在遞交申請前清拆。",
        "page": 100,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "廣告招牌伸出行人道上方須與路面有最少3.5米垂直淨空及與路邊最少1.0米水平淨空。",
        "page": 100,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -34517,97 +34565,154 @@
       {
        "req": "洗手間必須設有通出露天的窗口，窗口總面積最少為洗手間地面面積的十分之一。",
        "page": 13,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "洗手間牆壁應至少鋪上一米高瓷磚，地面鋪砌防滑地磚。",
        "page": 13,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "兒童廁所應與職員廁所分開。",
        "page": 14,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "每間留宿幼兒中心須撥出最少一間適當房間純作療養室或病房用途，並宜設獨立洗手間及浴室。",
        "page": 90,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "留宿幼兒中心須設足夠更衣室及沐浴設施，且兒童沐浴設施須與員工沐浴設施分開。",
        "page": 90,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "受托兒童須獲提供社署署長核准類型、設計及物料製成的床及被褥，並須注意睡床安全措施。",
        "page": 90,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "加建、改建、拆卸校舍、改動校舍結構、更改廁所衞生或課室通風照明設施、劃分課室間隔等事項必須得到教育局常任秘書長批准。",
        "page": 15,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "每間課室入口處須有牌匾或告示牌標明用以識別該房間的號碼或字母。",
        "page": 15,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "每間課室內須在顯眼處展示告示列明獲准容納學生人數最高限額，不得超逾該限額。",
        "page": 15,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "兒童使用的傢具油漆塗料須符合安全標準（如不得含鉛），並符合《玩具及兒童產品安全條例》及《消費品安全條例》。",
        "page": 12,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "全日制機構若在園舍內烹調膳食，須設置符合各政府部門規定的廚房並另設食物儲存室；供應50名兒童以下膳食的廚房面積最少10平方米。",
        "page": 15,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "全日制機構若選擇自設廚房提供膳食，須參照第二章2.5段廚房規定設置廚房。",
        "page": 55,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須遵從《殘疾歧視條例》及《設計手冊：暢通無阻的通道》為殘疾人士提供通道及設施，不得擅自拆除或改動。",
        "page": 101,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園每課室每班人數不應超過30人；課室用作全日班午睡時最高限額為每課室20人。",
        "page": 106,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "開設全日班並在校內烹調食物者，應設置符合屋宇署/房屋署、消防處、衞生署等規定的廚房，另設食物貯存室（為廚房面積20%）。",
        "page": 106,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須為每30名男童或每25名女童設1個洗手盆。",
        "page": 106,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "戶內遊戲場面積應不少於課室總面積的50%，並應盡量提供便於由課室通達的戶外遊戲場。",
        "page": 107,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "全日制機構在校內烹調膳食的廚房，烹調100名兒童或以上膳食的廚房面積不得少於20平方米。",
        "page": 15,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "茶水間應使用電器供應茶點，不能使用明火。",
        "page": 14,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -34617,62 +34722,98 @@
       {
        "req": "每所學前機構須按《建築物（規劃）規例》及《消防安全守則》提供足夠的逃生途徑及消防和救援進出途徑。",
        "page": 96,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "任何可容納30人以上的房間／房產，最少須設有兩個出口，出口門須向出口方向開啟。",
        "page": 97,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "出口路線最小闊度不得少於1050毫米，淨高度不得少於2米並須暢通無阻。",
        "page": 97,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "所有出口門須可在無須使用鑰匙下隨時從內開啟；學前機構上課時間內出口保安閘必須打開。",
        "page": 97,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園單一方向通往樓梯的盡頭行走距離不得超過18米。",
        "page": 98,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須遵守消防處的消防規定，並確保所有消防裝置設備能隨時有效操作、員工皆懂操作簡單消防設備。",
        "page": 18,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須由註冊消防裝置承辦商至少每隔12個月檢查防火裝置及設備一次。",
        "page": 18,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機械通風系統須由註冊專門承建商定期檢查，每次檢查相隔不得超過12個月。",
        "page": 18,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校長須確保僱員及兒童最少每6個月進行一次火警演習，並於日誌備存防火演習及撤離時間的書面紀錄。",
        "page": 19,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "訪客／家長適用的消防安全指引應張貼於處所內當眼位置。",
        "page": 116,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "容納人數4至30人的出口門最小闊度不得少於750毫米；31至200人的每道出口門最小闊度不得少於850毫米，總闊度不得少於1750毫米。",
        "page": 97,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "所有出口路線的淨高度不得少於2米並暢通無阻，且每個部分任何時間均須提供光度不少於30勒克斯的水平照明。",
        "page": 97,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -34682,17 +34823,26 @@
       {
        "req": "固定電力裝置系統必須最少每5年由註冊電業承辦商覆檢及測試並簽發安全證書。",
        "page": 21,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "插座應安裝在離地面1.5米或以上使兒童不能觸及，並使用保護活門式插座。",
        "page": 21,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "所有氣體裝置必須妥善維修並由註冊氣體工程承辦商每年檢查一次並簽發安全證書。",
        "page": 20,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -34702,32 +34852,50 @@
       {
        "req": "幼稚園須由獲授權人士每隔不超過3年（木地板園舍每12個月）視察園舍，確定結構是否穩妥。",
        "page": 18,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構應定時使用家用漂白水(1:99)清潔傢具、設備和玩具。",
        "page": 43,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構應每星期更換一次兒童的床單、被套及枕套。",
        "page": 43,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "飲用、煮食和洗濯用的水須由自來水喉或其他認可水源供應。",
        "page": 43,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須提供安全、健康和安排妥善的校園環境，並與家長共同制訂及推行健康政策措施。",
        "page": 41,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須保持校舍環境的衞生，營造健康的學習環境。",
        "page": 41,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -34737,27 +34905,42 @@
       {
        "req": "當兒童返抵園舍須隨即進行健康檢查，發現病徵應立即安排隔離並通知家長帶回求醫。",
        "page": 28,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "兒童入讀幼稚園前應接受由註冊醫生進行的全面體格檢查。",
        "page": 29,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須備有兒童健康紀錄並適時更新以供隨時查閱，內容包括體重身高、病歷、食物過敏史、體檢報告及免疫接種紀錄。",
        "page": 30,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須妥善保存學童個人健康紀錄及員工病假紀錄，並定期檢查及記錄體溫。",
        "page": 47,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "中心須備有所有留宿兒童的檢查表格／醫療報告副本，供社署署長、視察主任或中心醫生隨時查閱。",
        "page": 90,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -34767,42 +34950,66 @@
       {
        "req": "每間學校最少須備有一個急救箱、最少兩名教師曾接受急救訓練，急救箱須隨時有充足設備。",
        "page": 14,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校長如懷疑或得知有教師、學生或僱員染上傳染病或曾接觸傳染病人，須立即向衞生署學校醫生報告。",
        "page": 14,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校舍內所有消防裝置或設備須時刻維持性能良好。",
        "page": 14,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校長須就火警疏散程序擬定計劃，並在學校日誌內記錄防火演習及疏散所需時間。",
        "page": 15,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "患病兒童須留家休息，如有懷疑須經註冊醫生診斷痊癒後才可復課。",
        "page": 31,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "發現學童有病徵或懷疑染病時，幼稚園須立即安排其與其他學童隔離休息並通知家人接回。",
        "page": 47,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "若幼稚園有爆發傳染病跡象或病假人數上升並現類同症狀，須盡速通知衞生署。",
        "page": 47,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園宜委任專責人員協調感染控制措施，統籌及監督預防及控制傳染病工作。",
        "page": 47,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -34812,57 +35019,90 @@
       {
        "req": "膳食餐單須根據社署署長批准的飲食種類分量表預先擬備，並隨時供署長、視察主任或中心醫生查閱。",
        "page": 90,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園為兒童提供膳食時，須注意營養標準、食物安全措施和避免浪費的原則。",
        "page": 41,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構須在選擇、貯存和烹調食物三方面確保衞生，遵守世衞處理食物準則。",
        "page": 45,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "熱食須存放於攝氏60度以上，凍食須存放於攝氏4度或以下。",
        "page": 45,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構應訂立健康飲食政策，向學生、教職員、膳食職員及家長持續推廣健康飲食。",
        "page": 46,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校必須提供明確處理食物致敏原的步驟和程序，所有食物處理人員必須認識主要致敏原及風險降低措施。",
        "page": 49,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "膳食餐單須按社會福利署署長/教育局常任秘書長批准的食物種類分量表所列標準預先編定，隨時備查。",
        "page": 50,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "全日制機構若由膳食供應商提供膳食，須與供應商簽訂承包合約並訂明食物選擇、分量、烹調標準等，並監察膳食質和量。",
        "page": 55,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構應確定所選膳食供應商持有食環署簽發的有效食物製造廠牌照，分判商亦須持有有效牌照。",
        "page": 55,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "員工須切實執行個人衞生要求，包括處理食物及如廁後立即洗手。",
        "page": 44,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "提供全日制幼稚園教育的學校須為每名學生每日提供最少一餐膳食，並預先擬備餐單供查閱。",
        "page": 14,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -34872,57 +35112,90 @@
       {
        "req": "所有留宿幼兒中心須在特別事故發生後三個曆日內（包括公眾假期）向社署提交「幼兒中心特別事故報告」。",
        "page": 86,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼兒中心須在特別事故發生後的3個曆日（包括公眾假期）內向社署幼兒中心督導組提交特別事故報告。",
        "page": 170,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "發生緊急事故處理完畢後應適當記錄事件詳情及所採取的行動。",
        "page": 26,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構經營人應購買適合的保險以應付公眾責任及《僱員補償條例》規定的員工補償。",
        "page": 27,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須備有每名兒童的意外及疾病紀錄，以供醫院急症室或衞生署流行病學調查之用。",
        "page": 32,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "每間幼稚園最少須有兩名教員曾接受急救訓練。",
        "page": 33,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "所有獨立幼兒中心如遇特別事故，必須盡快通知社會福利署幼兒中心督導組，並於事件發生後三個曆日內提交特別事故報告。",
        "page": 79,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "負責管理急救箱者須確保備有用品一覽表、藥物貼適當標籤、定期檢查數量及有效日期並適時更換。",
        "page": 114,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "如發生意外，幼稚園須密切觀察學生情況，並盡可能為受傷學生施行急救直至情況改善或交醫護處理。",
        "page": 46,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學生傷勢嚴重時幼稚園須啟動危機應變措施，立即致電999要求緊急援助或召喚救護車。",
        "page": 47,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "嚴重意外須立即通知家長及幼稚園所屬地區高級學校發展主任，並提交書面報告闡述意外詳情。",
        "page": 47,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -34932,112 +35205,178 @@
       {
        "req": "幼稚園應制定校本機制及流程，協助學校人員就懷疑嚴重虐兒個案作出舉報及跟進。",
        "page": 36,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "留宿幼兒中心應遵照《強制舉報虐待兒童條例》等相關條例處理懷疑虐待兒童個案。",
        "page": 81,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "指明專業人員如懷疑兒童正遭受或面對遭受嚴重傷害實際風險，須儘快依《條例》作出強制舉報。",
        "page": 43,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須在中心安裝閉路電視監察系統，並就監控及翻看紀錄制定政策及機制（符合私隱專員公署指引）。",
        "page": 86,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "申請註冊時須填寫閉路電視監察系統進度報告（附錄二十七）提交社署審閱。",
        "page": 86,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "留宿幼兒中心須安裝閉路電視監察系統並制定監控政策及機制，並提交進度報告。",
        "page": 174,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須為員工訂定工作指引以防兒童溜走或誤將兒童交給非由家長委派的接送者，任何情況不得讓兒童沒有員工看管。",
        "page": 26,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "任何時段任何情況下，幼稚園須安排足夠員工看管兒童，並妥善安排家長每天交收兒童。",
        "page": 46,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "懷疑虐兒個案的所有紀錄須統一由校長或專責人員保管，校內查閱須登記且不得與學生一般紀錄一併存檔。",
        "page": 39,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "懷疑虐兒個案所有紀錄須統一由校長／專責人員保管，校內查閱受限並須登記。",
        "page": 45,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應制定校本機制及流程，協助學校人員就懷疑嚴重虐兒個案作出舉報及跟進。",
        "page": 136,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "處理懷疑虐兒個案時首位接觸人員應即時通知校長，並立即啟動校本應急機制／危機處理小組，切勿隱瞞或延誤通報。",
        "page": 136,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "如懷疑侵犯者為學校教職員，須嚴格遵循教育局通告第15/2025號附件三程序，並儘早通知學校發展主任。",
        "page": 41,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼兒中心（包括留宿幼兒中心）內任何人士均不得向受托兒童施以體罰。",
        "page": 81,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校不應將懷疑虐兒紀錄與有關學生的一般紀錄一併存檔。",
        "page": 140,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "教師不得向學生施行體罰。",
        "page": 14,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "如發現或懷疑兒童遭受虐待，幼稚園須按教育局通告第15/2025號立即依《保護兒童指引》處理或聯絡社署。",
        "page": 42,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須制定校本機制及流程，協助學校人員就懷疑嚴重虐兒個案作出舉報及跟進。",
        "page": 43,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "任何人士不得故意阻止或阻礙指明專業人員作出舉報，或披露作出舉報者的身分。",
        "page": 43,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "懷疑虐兒紀錄不應與有關學生的一般紀錄一併存檔。",
        "page": 45,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須按需要在校舍安裝足夠保安設備及制訂保安措施，防止未經授權人士擅自進入。",
        "page": 46,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "所有運載幼稚園學童的非專營巴士及學校私家小巴，每輛車上必須提供一名跟車保母。",
        "page": 49,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -35047,22 +35386,34 @@
       {
        "req": "擬定活動程序時間表須減少屏幕時間，並避免以屏幕時間作為對兒童的賞罰。",
        "page": 88,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "留宿幼兒中心的活動程序時間表須呈交社署署長批准方可使用，並須於中心顯眼地方展示。",
        "page": 89,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "舉辦野餐、旅行或參觀活動前須通知家長詳情並取得家長書面同意才可讓兒童參加。",
        "page": 25,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "擬定活動程序時間表時，就讀幼稚園及幼兒中心幼兒的「靜態屏幕時間」每天不應超過1小時。",
        "page": 87,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -35072,217 +35423,346 @@
       {
        "req": "學校須在聘任過程中採用性罪行定罪紀錄查核機制。",
        "page": 41,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校須在聘任過程中採用性罪行定罪紀錄查核機制。",
        "page": 46,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "擬聘用已離開教育行業一年或以上的教師，必須向教育局申報其刑事定罪紀錄。",
        "page": 114,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "聘用教學及非教學人員必須遵從教育局訂明的聘用程序，要求應徵者申報教師註冊、專業失德及刑事定罪等事項。",
        "page": 115,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "無論聘用與否，查核應徵者背景的結果須經校董會討論並紀錄在案。",
        "page": 115,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "在聘用程序最後階段必須要求準僱員進行性罪行定罪紀錄查核。",
        "page": 116,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "除非得到教育局常任秘書長書面准許，被取消／拒絕教師註冊的人士不得進入或逗留在任何學校。",
        "page": 116,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校董會須向所有教師發出聘書，列明服務條件、薪級及終止聘用條件。",
        "page": 13,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "未經註冊成為檢定教員或准用教員而任教即屬違法，聘用或准許其任教者亦屬違法。",
        "page": 13,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "聘用或解僱僱用期不少於6個月的教學人員，均須由學校多數校董批准；解僱須在校董會會議上批准。",
        "page": 13,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校長任命必須獲教育局常任秘書長批准，校董會須於學校註冊後一個月內推薦校內一名教師出任校長。",
        "page": 13,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "除獲豁免外，所有僱員必須參加強制性公積金計劃。",
        "page": 13,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校董會作為僱主須按《僱員補償條例》規定為學校僱員購買保險。",
        "page": 13,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園半日制/全日制師生比例須達1:15。",
        "page": 63,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園在場當值最少教師人數與在場學生人數比例規定為每15名學生須有一位教師在場當值。",
        "page": 148,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園每班內須最少有一位教師當值。",
        "page": 148,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須按九月中所有班級總學生人數計算，維持整體師生比例1:11（校長不計算在內）聘請足夠教師人數，向下調整至整數。",
        "page": 107,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "所有新入職幼稚園教師均須具備合格幼稚園教師或同等的資歷。",
        "page": 149,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "具學士學位受聘為幼稚園教師者，必須於入職後兩年內修畢合格幼稚園教師訓練課程。",
        "page": 150,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須符合聘用100%合格幼稚園教師的規定，校監應盡早安排未受訓教師修讀訓練課程。",
        "page": 150,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "由2022/23學年起，必須按師生比例1:11規定聘用足夠持有幼兒教育證書資格或以上學歷的教師。",
        "page": 108,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "所有新任幼稚園校長須持有幼兒教育學士學位、最少一年學歷後相關工作經驗及完成校長證書課程。",
        "page": 66,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "新任幼稚園校長須持有幼兒教育學士學位或同等學歷、取得學歷後最少一年相關工作經驗，並在受聘前修畢校長證書課程。",
        "page": 150,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園校長須持有幼兒教育學士學位或同等學歷，取得學歷後最少有一年相關工作經驗，並在受聘前修畢校長證書課程。",
        "page": 109,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "留宿幼兒中心須委任足夠主管及幼兒工作員，使在場當值職員與在場兒童人數不得低於法定比例。",
        "page": 84,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "留宿幼兒中心在場當值人數任何時間均不得少於一名職員及另一名年滿18歲的人。",
        "page": 84,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "由2023/24學年起新聘教師（含轉校）均須在《基本法及香港國安法》測試取得及格成績。",
        "page": 114,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "聘用教師前必須查核其已通過《基本法及香港國安法》測試，並透過電子化服務入門網站呈交新聘教師資料。",
        "page": 115,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構必須聘請足夠幼兒工作員/合格幼稚園教師達到法定師生比例規定。",
        "page": 62,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼兒中心須在聘用程序最後階段要求準僱員進行性罪行定罪紀錄查核。",
        "page": 64,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "收納超過30名兒童的留宿幼兒中心必須僱用註冊護士一名。",
        "page": 65,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園校監須遵照《教育規例》發聘任書給所有教員，訂明薪級、工作範圍及終止聘用條件。",
        "page": 65,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園不得僱用或准許非檢定教員或非准用教員任教。",
        "page": 65,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構須聘用百分百已獲認可訓練課程證書或同等專業資格的員工。",
        "page": 65,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "所有新入職幼兒中心主管須具備幼兒教育證書或同等專業資格。",
        "page": 66,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "僱主與僱員的服務條件如工時、年假、病假、分娩假、終止合約安排必須符合《僱傭條例》並列明在僱傭合約內。",
        "page": 68,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "參加計劃幼稚園的整體師生比例須達1:11（校長不計算在內）。",
        "page": 29,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "長全日制幼稚園增聘教師上限為全日制幼稚園教師人數的40%。",
        "page": 108,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "設有符合政府規定廚房的全日制及長全日制幼稚園，應聘請一名炊事員。",
        "page": 109,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "應就教師的聘任及晉升事宜制訂校本指引和程序，並按公平公開原則訂立正式甄選程序。",
        "page": 110,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校長的聘任須經教育局常任秘書長批准。",
        "page": 117,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校董會須向所有教員發出聘書，列明服務條件、薪級及終止聘用條件，校監須代表校董會在聘書正本及副本簽署。",
        "page": 117,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須為離職教學人員發出列明聘任資料的「服務證明書」，供其新僱主參考。",
        "page": 118,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -35292,147 +35772,234 @@
       {
        "req": "校董會須就接受利益和捐贈事宜制定政策及發出清晰指引，確保採購、收生、招聘及擢升等行政事務廉潔治校。",
        "page": 15,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須參閱廉政公署《幼稚園運作防貪指南》及《幼稚園校董及職員行為守則範本》，建立誠信管理制度及內部監控系統。",
        "page": 16,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "所有學校校董及職員均須遵守《防止賄賂條例》，學校應為校董／職員制訂完善的誠信指引。",
        "page": 123,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校董和職員不應接受任何奢華、過於慷慨或頻密的款待。",
        "page": 124,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校管理當局不應批准學校或教職員在處理學生錄取或升級、聘用或晉升等校務時索取或接受利益。",
        "page": 164,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "參與採購的校董及職員須簽署承諾書申報與供應商的密切連繫，已申報利益衝突者應避免處理相關採購。",
        "page": 85,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須設立處理利益衝突的機制，所有申報及相關管理層的決定／行動必須妥善記錄在案及存檔備查。",
        "page": 124,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "管理人員須要求員工在涉及刑事調查或被警方逮捕時即時向中心管理人員報告。",
        "page": 65,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "若得悉員工涉嫌干犯嚴重罪行或失德行為，管理人員必須在知悉後立刻向社會福利署呈報。",
        "page": 65,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須為新聘員工提供入職導向訓練，並為在職管理及前線員工安排定期及持續培訓，深化保護兒童意識及相關法律知識。",
        "page": 85,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須為前線員工提供照顧有特殊需要兒童的訓練課程，提升其照顧能力與技巧。",
        "page": 85,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "院長須在入職前完成保護兒童培訓課程並在入職後持續進修，且須按院長登記制度向社署登記及提供最新資料。",
        "page": 85,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "院長首次登記前一年內須完成不少於6小時保護兒童培訓，並於登記後每年參與不少於6小時相關培訓。",
        "page": 85,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校管理當局須就校董及教職員接受利益和捐贈制定明確政策，包括準則、批核程序、審批權、問責機制及監管程序。",
        "page": 163,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校接受任何利益和捐贈，必須獲學校管理當局批准。",
        "page": 163,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校管理當局應制定規管教職員外間工作的校本人事管理政策，並備存紀錄冊記錄所有獲批的外間工作。",
        "page": 165,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校管理當局不應批准教職員收取費用為校內學生私人補習。",
        "page": 165,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "不應索取或接受營辦商/供應商的捐贈或任何形式利益。",
        "page": 69,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "不得容許校董及職員向任何人士或公司索取或接受利益（包括佣金），並書面知會供應商防賄。",
        "page": 85,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "教師若知悉自己涉及進行中的刑事調查或訴訟（包括被警方逮捕拘捕），必須即時向學校報告，調查或訴訟完結後亦須即時報告結果。",
        "page": 121,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "若得悉教師涉嫌干犯嚴重罪行或失德行為，學校必須立刻向教育局呈報。",
        "page": 121,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構經營人須根據《職業安全及健康條例》為員工提供安全的工作環境。",
        "page": 26,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "所有教職員上任前須接受註冊醫生體格檢查（包括X光照肺）並由醫生發出健康證明書。",
        "page": 33,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構須遵守教育局通告有關收受利益和捐贈的規定並參考廉署校董及職員行為守則範本。",
        "page": 72,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "中心管理人員必須制定政策、指引、服務要求及守則，清楚訂明對員工要求及違反要求的紀律處分。",
        "page": 81,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "管理人員應透過個別面談、職員會議、分享會等渠道持續深化前線員工的培訓所學並協助其應付照顧壓力。",
        "page": 86,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校應每年安排向全體教職員傳閱接受利益和捐贈通告，各人員閱後須簽署以示明白。",
        "page": 167,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須採取合理可行措施消除性騷擾，包括以書面形式制定學校政策並設立處理投訴機制。",
        "page": 17,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "每三年周期內每名幼稚園校長及教師應參加60小時持續專業發展活動。",
        "page": 118,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -35442,177 +36009,282 @@
       {
        "req": "除事先獲教育局常任秘書長批准外，校方不得收取任何未載於收費證明書的費用。",
        "page": 15,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "對學生／家長／監護人繳交的每筆款項，學校均須發回正式收據。",
        "page": 15,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校如更改向學生收取的費用總額，必須獲教育局常任秘書長書面批准。",
        "page": 15,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校須在校舍顯眼處展示收費證明書。",
        "page": 15,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構須按社會福利署署長/教育局常任秘書長批准的每月全費/費用總額收取費用，不得擅自收費。",
        "page": 69,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園收取或更改報名費和註冊費前，須事先徵得教育局常任秘書長書面批准。",
        "page": 152,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "任何調整或新增收費必須事先獲得教育局書面批准。",
        "page": 66,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園收取註冊費及報名費須依教育局通告第6/2017號處理，超逾核准上限須事先取得書面批准並展示批函。",
        "page": 71,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "報名費上限為40元，半日制及全日制註冊費上限分別為970元及1,570元，不得超收。",
        "page": 67,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園只可向已錄取的學生／兒童收取註冊費。",
        "page": 153,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "已繳註冊費並在該校就讀者，校方須在收取第一期學費後、於該學年第一個月內退回註冊費。",
        "page": 153,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構須在園舍顯眼地方展示社會福利署/教育局發出的收費證明書。",
        "page": 69,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "未獲書面批准前，機構不得增加每月全費/更改費用總額。",
        "page": 69,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "除事前獲書面批准外，機構不得收取每月全費/費用總額以外的其他費用。",
        "page": 70,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "每月全費/費用總額只應用以支付與教學活動、學校運作及維持教育服務水平有直接關係的開支。",
        "page": 70,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構不應要求家長額外支付生日會、節日慶祝會等活動的費用。",
        "page": 70,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼兒中心收取留位費不得早於兒童入讀前3個月，並須於第一個月月費扣除。",
        "page": 70,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構向家長售賣物品或收費服務前，須以書面通知家長屬自願性質且家長有權向外購買。",
        "page": 71,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼兒中心進行售賣物品或收費服務前，必須事先向社會福利署署長申請批准。",
        "page": 72,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "報名費不得超逾核准上限40元；半日制註冊費不得超逾970元、全日制不得超逾1,570元。",
        "page": 153,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "獲批准收取超逾報名費核准上限的幼稚園須妥善保存收支紀錄；批核有效期三年，期滿續收須重新申請。",
        "page": 153,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "教育局通告或秘書長批准書須在學校報告板或校舍內顯眼處展示。",
        "page": 153,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "第一期學費不得在8月1日前（新學年9月開始）或7月1日前（新學年8月開始）收取。",
        "page": 153,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園必須按教育局收費證明書內的批准收費，並將證明書展示在校舍顯眼處。",
        "page": 156,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園不應就學費應涵蓋的開支在學費以外另行向家長收費。",
        "page": 156,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "預購物品或預收服務費用，不應早於每年五月收取。",
        "page": 160,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園如獲營辦商／供應商折扣或整筆回佣，應撥入學校帳目列為收入項目。",
        "page": 162,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須與家長保持溝通，讓家長知悉整月缺課的學費安排。",
        "page": 39,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園必須遵守《教育規例》及教育局通告內有關學費和其他收費的規定。",
        "page": 66,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "參加幼稚園教育計劃的幼稚園不應就半日制服務收取學費。",
        "page": 66,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "如申請收取學費，須提交財務預算及充分理由與數據，證明開支屬必要，並把師生比例維持於1:11。",
        "page": 66,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "收取的學費及其他收費須直接用於學與教、學校營運及維持教育服務，並確保每項支出合理切合需要。",
        "page": 67,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學童繳付註冊費並其後入讀者，須於收取第一期學費後、學年第一個月內退回註冊費。",
        "page": 67,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "向家長售賣教育用品或收費服務須在通告清楚註明選購純屬自願，並提供方格供家長剔選。",
        "page": 67,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "不得從售賣課本獲取利潤；售賣教育用品及收費服務的利潤不得超過購貨成本的15%。",
        "page": 68,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -35622,92 +36294,146 @@
       {
        "req": "幼稚園採購物品及服務時，須邀請足夠數目的供應商或承辦商參與競投／報價，並妥善備存採購／報價記錄。",
        "page": 161,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須要求負責採購職務的人員簽署承諾書並在需要時申報利益衝突。",
        "page": 161,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須為採購教職員訂立清晰分工，索取報價與接納報價兩項工序必須由不同教職員負責。",
        "page": 162,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "採購限額：5,000元或以下可直接採購；5,000至50,000元向最少兩名供應商索取口頭報價。",
        "page": 84,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "採購50,000至200,000元須向最少五名供應商索取書面報價；200,000元以上須邀請最少五名供應商投標。",
        "page": 84,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須定期進行具競爭性報價/招標以甄選營辦商/供應商，至少每三年一次。",
        "page": 69,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校監及校長須確保具備完善有效的內部管理制度，以防止詐騙或盜用款項。",
        "page": 79,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "採購須按教育局「幼稚園採購程序指引」制訂校本程序，以公平公正公開競爭方式進行並保存紀錄。",
        "page": 84,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "採購須訂立清晰分工，邀請與批核報價/標書須由不同職級職員負責。",
        "page": 85,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "200,000元以上標書須成立開標審核及批核兩個委員會，成員由不同人士出任。",
        "page": 85,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "不應藉分期採購或縮短合約期以規避報價及招標款額上限的規定。",
        "page": 86,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "邀請供應商甄選應定期進行，以不超過三年一次為宜。",
        "page": 86,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "邀請書面報價/招標一般應相隔最少三周；緊急情況可經校長批准縮短並記錄原因。",
        "page": 86,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "一般應接納符合規格而出價最低的報價/標書，不接納最低或不選最高評分者須記錄理據。",
        "page": 86,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "必須妥善備存所有採購紀錄，包括報價/招標紀錄、供應商全名、挑選理由及不接納最低價個案理據。",
        "page": 86,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "單一報價/招標只可在具充份理據且競投無效時採用，5萬以下須校監批准、5萬以上須校董會批准。",
        "page": 87,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "辦學團體獲授權為幼稚園採購須事先得校董會批准並存檔，並依循與幼稚園大致相同的採購程序。",
        "page": 89,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "辦學團體擬供應物品服務予幼稚園，須被視為競投者之一並經相同甄選程序。",
        "page": 89,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -35717,277 +36443,442 @@
       {
        "req": "幼稚園須以書面通知家長購買教育用品或採用收費服務純屬自願性質，不得強迫購買。",
        "page": 157,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園不得從售賣課本中獲取任何利潤。",
        "page": 158,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "售賣習作簿、校服、文具等用品（課本除外）及收費服務所得利潤，不得超過向供應商購貨成本價的15%。",
        "page": 161,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "退出計劃並繼續獲發資助期間，仍須每年遞交經審核的帳目，並原則上不得就半日制學額收取學費。",
        "page": 141,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "如已停辦，應在停辦日期起計四個月內將完整的經審核最後帳目送交教育局，並由執業會計師審核。",
        "page": 141,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "退出計劃後七年內，須確保政府及授權代表在接獲合理通知後可獲取所有帳目、紀錄及文件以作審核查閱。",
        "page": 142,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "員工薪酬應與資歷和責任相稱，機構應制定整體薪酬及福利政策並清楚列明在聘用合約內。",
        "page": 68,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須就員工薪酬制訂政策，清楚訂明薪酬福利條件及薪酬調整由哪些部門或人員批核。",
        "page": 113,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園對一切出售及購買的教育用品及收費服務，必須保存正確的帳目記錄。",
        "page": 158,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須按要求向家長及公眾人士公開「售賣課本」的帳目，或在互聯網上展示。",
        "page": 160,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校管理當局須備存適當帳目，並保留帳目及憑單不少於七年供教育局常任秘書長查閱。",
        "page": 15,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "參加租金資助計劃的幼稚園須另設獨立分類帳記錄租金資助及支出，並在經審核周年帳目內呈報。",
        "page": 56,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "單位資助中60%須劃為教學人員薪酬部分，必須用於教學人員薪酬及相關開支。",
        "page": 62,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園不得把政府資助及學校經費作投機性投資，多餘盈餘只可存入持牌銀行定期或儲蓄帳戶。",
        "page": 62,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校監執行一般校監職務不應收取酬金；只有執行指定職務並附說明的酬金才可計入學費支出。",
        "page": 67,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "商業活動的收支須分項記錄在「學校帳」，並在每年提交教育局的經審核周年帳目內獨立填報。",
        "page": 68,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須備存適當帳目，供教育局或督學隨時查閱，並保留帳目及憑單不少於7年。",
        "page": 70,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須分開帳目以分別記錄「幼稚園計劃帳」與「學校帳」的收支。",
        "page": 70,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "擬備財務報表時須將整校共同收入及開支按學生人數比例或訂明規則分拆至各課程/分部。",
        "page": 70,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須在經審核周年帳目清楚披露所採用的拆帳機制。",
        "page": 72,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須自行決定加入計劃前購入的固定資產納入哪本帳；未經教育局批准不得調撥已納入計劃帳的固定資產到學校帳。",
        "page": 74,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須備存獨立的固定資產登記冊，按計劃帳、學校帳及啟動津貼分類記錄固定資產。",
        "page": 74,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須因應本身情況釐定會計及內部監控制度，並遵從教育局常任秘書長或核數師建議的內部監控程序。",
        "page": 77,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "計算、查核、記錄款項的職務應與收取或發放款項的職務分由不同員工執行。",
        "page": 77,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "教育局資助只發放予以幼稚園名義開設的銀行帳戶；幼稚園的收支不可經非幼稚園名義帳戶處理。",
        "page": 78,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "帳戶任何支出須由兩名或以上校董會委任的授權人聯名批核或簽署，其中一位一般為校監。",
        "page": 78,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園應每月製備銀行對帳表，並由不同人員擬備及查核，查核人員（建議校監或校長）簡簽註明日期。",
        "page": 78,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "支票不應預先簽署，須畫線並標明「只存入收款人帳戶」，並應密切監察處理6個月以上未兌現支票。",
        "page": 78,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須將所有收入以風險最低辦法存放，並全部用於核准教育用途或購置學校設施。",
        "page": 78,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "盈餘款項應分散存放於數間持牌銀行並設上限（如每間不超逾總額50%）；不得用作高風險投資。",
        "page": 79,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "管理款項超逾港幣500萬元者，任何一間銀行存款應不超逾總額20%。",
        "page": 79,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "不得把經費用作高風險投資；擬進行投資須在校董會會議記錄載明討論詳情及議決，虧損由校董會承擔。",
        "page": 79,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "每次收款須製備預先編號的收款憑單並記錄日期金額，批核人員查核後簡簽註明日期。",
        "page": 79,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "應使用預先編號的正式收據順序發出，損毀廢棄者註明「註銷」以防重複發出。",
        "page": 79,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "所有開支須獲妥當授權才可付款，每次付款製備連續編號付款憑單並夾附發票正本。",
        "page": 80,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "製備付款憑單和授權付款的工作應分開由不同人士負責。",
        "page": 80,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "已繳付的憑單及發票必須蓋上「已繳付」或「PAID」並加日期，以防重複付款。",
        "page": 80,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須備存並適時更新固定資產登記冊，記錄購入日期、說明、位置、數量、款額等。",
        "page": 80,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須定期（不少於每年一次）盤點固定資產並保留紀錄，數量與紀錄不符須調查並向校董會報告。",
        "page": 80,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "所有現金、貴重物品及重要文件須妥善鎖好；校長應年內不定期突擊點算現金（如一年三次）。",
        "page": 80,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "註銷「幼稚園計劃帳」下固定資產一般須取得校監批准。",
        "page": 80,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須於每學年完結後按教育局指定格式及日期提交涵蓋整個學年的經審核帳目。",
        "page": 81,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須以幼稚園名義連同核數師報告提交經審核周年帳目，不接受以辦學團體名義提交。",
        "page": 81,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "選擇核數服務須定期（最理想每三年一次）進行具競爭性遴選程序。",
        "page": 82,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須填妥主要人員薪酬及附帶福利報表，由校監簽署作實並交回所屬辦事處審視。",
        "page": 82,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "經審核帳目必須由校監簽署並蓋上學校印鑑，每份報表須由核數師蓋印識別。",
        "page": 82,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須在經審核帳目適當披露所有與有關連人士或機構團體的交易及帳項結餘。",
        "page": 82,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須確保政府及授權代表在合理通知後可獲取所有帳目紀錄資料文件以作審核查閱。",
        "page": 83,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "報價/招標資料須保密處理，往來信函列作「限閱文件」。",
        "page": 85,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "不得以計劃帳或學校帳支付投機性投資虧損、捐贈、購買禮物、退還不恰當校監酬金及紅封包。",
        "page": 90,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "批准或挑選供應商索取報價的人員，不應同時是批准接納報價的人員，以確保職責分工。",
        "page": 101,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "不應以個人或職員名義開設操作銀行帳戶，帳戶不應只由一名授權簽署人操作。",
        "page": 101,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "非牟利幼稚園不得將盈餘以任何形式轉撥予所屬辦學團體、其他機構或人士。",
        "page": 102,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "保管零用現金的人員不應負責批核發還零用現金申請，亦不應以申請人身份申請發還。",
        "page": 102,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "向兼職教師支薪以全職教師三分之二薪酬為上限。",
        "page": 114,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -35997,112 +36888,178 @@
       {
        "req": "接受政府資助的學校所接受的捐贈只可用作學校和教育用途；有特定用途的捐贈只可用作指明用途。",
        "page": 166,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "參加幼稚園教育計劃的幼稚園應在經審核帳目內的有關報表／附註中填報捐款。",
        "page": 166,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "獲非華語學童支援額外資助的幼稚園須確保資助只用於加強支援非華語學童，並制訂全面校本計劃。",
        "page": 30,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "獲非華語學童資助的幼稚園須於學年開始時向教育局提交運用資助的學校計劃，並於學年終結時提交學校報告。",
        "page": 30,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "租金資助只可用於本地課程幼稚園分部／班級合資格學生的租金開支，非學校部分租金不應包括在內。",
        "page": 56,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "租金資助按校舍使用率釐定：50%或以上全額、25%至50%以下50%、25%以下25%。",
        "page": 91,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校舍維修資助可累積盈餘以該年撥款額的500%為上限，達上限教育局會暫停發放並收回超額盈餘。",
        "page": 63,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須列出各項資助盈餘及可累積盈餘上限，超過上限的盈餘須記錄作「應付予教育局的款項」。",
        "page": 81,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "參加幼稚園教育計劃的幼稚園必須確保資助不會用於任何不屬本地非牟利幼稚園教育範疇的活動。",
        "page": 55,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校方須備存租約及租金收據等文件，相關紀錄須保存不少於七年。",
        "page": 56,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "炊事員資助須用於聘請炊事員為全日制／長全日制班級學童烹調膳食，不得作其他用途。",
        "page": 59,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須於到期日或之前繳付差餉及地租，並只可於悉數繳付後向教育局申請發還。",
        "page": 60,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "獲提升單位資助盈餘上限的幼稚園須提交一份獨立的盈餘使用報告，否則或不符資格續獲提升上限。",
        "page": 63,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學費收入如有盈餘，須保留在學校經費帳目內，不得以任何形式轉撥予任何人士或其他機構。",
        "page": 67,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "商業活動的全部利潤須撥回幼稚園作學校營運及教育服務之用。",
        "page": 68,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "為學校本身需要籌款須獲教育局常任秘書長書面准許，並經校董會批准記錄存案。",
        "page": 69,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "接受的捐贈只可用作學校和教育用途；有特定用途的捐贈須得捐贈者同意才可改用，並在帳目填報。",
        "page": 70,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "本地課程支出須按半日制與全日制單位成本1:1.6至1:2比例分攤到各上課時間。",
        "page": 70,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "從其他部門/基金以計劃項目形式收到的資助，應以獨立帳戶及獨立帳目處理，並按規定退回餘款。",
        "page": 73,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "籌款收集捐款時須使用註有編號的收據/籌款票。",
        "page": 75,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "每筆超逾港幣5,000元的捐款均應予記錄存案。",
        "page": 75,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "每項籌款活動須編製財政報告並在校內顯眼處展示合理時間，然後保存以備核數。",
        "page": 75,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -36112,167 +37069,266 @@
       {
        "req": "幼稚園學生連續七個上課天無故或可疑缺課，須在第七天填妥缺課通報表向教育局通報，並在七個工作天內呈報跟進情況。",
        "page": 33,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園學生連續七個上課天無故或在可疑情況下缺課，必須通報教育局。",
        "page": 129,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學生缺課（不限日數）而家長未告假，學校應即日主動聯絡家長了解缺課原因。",
        "page": 129,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學生連續七個上課天無故缺課或情況可疑，學校須在缺課第七天填妥「通報表」向所屬學校發展組／聯合辦事處通報。",
        "page": 130,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園填交通報表後須繼續跟進，並在通報後七個工作天內填妥附件二呈報跟進情況。",
        "page": 131,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園學生連續七個上課天無故或在可疑情況下缺課，學校必須在第七天填妥缺課通報表向教育局通報。",
        "page": 42,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須由校董會管理，校董會須負責確保學校管理令人滿意、以適當方式促進學生教育並遵守相關條例及指示。",
        "page": 10,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校董會組成須最少有三名校董（包括校監），並符合營辦機構提名及獨立校董等要求。",
        "page": 10,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "校董會須制訂校董會章程，訂明校董會運作細節。",
        "page": 10,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校須於每年8月15日前向教育局常任秘書長遞交新學年擬定的所有假期資料。",
        "page": 13,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "經校長簽署及校監加簽的學校假期表須長期張貼在校內當眼地方。",
        "page": 13,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校上課時間如有任何改變，負責人須通知教育局常任秘書長。",
        "page": 13,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼兒中心主管和幼兒工作員的人事變動必須在14日內通知社會福利署署長。",
        "page": 65,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "留宿幼兒中心主管及幼兒工作員有任何變動，經營人必須於14天內通知社會福利署。",
        "page": 84,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼兒中心的活動程序時間表須呈交社會福利署署長批准。",
        "page": 59,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園的上課時間表及用書表須呈交教育局常任秘書長批准。",
        "page": 59,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校須在策劃管理、教職員管理、學與教及家校合作等範疇制定及持續檢視維護國家安全的相關措施。",
        "page": 17,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "報價/招標文件須加入基於國家安全可取消供應商資格及終止合約的具體條款。",
        "page": 85,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "新參加或繼續參加計劃的幼稚園須簽署承諾及聲明，同意遵守有關條款及條件。",
        "page": 143,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "若簽署承諾及聲明的校監離任，須確保繼任校監按政府指明格式和內容重新簽署承諾及聲明。",
        "page": 143,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼兒中心主管和幼兒工作員必須註冊。",
        "page": 66,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園校董、校監、校長及教師須申請註冊或批准。",
        "page": 67,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園教師須註冊。",
        "page": 67,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "經營人在開辦幼兒中心/幼稚園前必須詳閱《幼兒服務條例》《教育條例》等有關法例。",
        "page": 74,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼兒中心/幼稚園註冊須取得規劃、屋宇署安全證明書、消防處消防證明書、電力及氣體裝置安全證明書等批准。",
        "page": 75,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "註冊須具備證明有權使用有關樓宇作幼兒中心/幼稚園用途的文件。",
        "page": 75,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "註冊須符合傢具及設備、洗手間設施、通風及照明、急救、衞生、容額等方面的規定。",
        "page": 76,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "營辦幼兒中心須遵守《幼兒服務條例》和《幼兒服務規例》，營辦幼稚園須遵守《教育條例》和《教育規例》。",
        "page": 78,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "凡校董停任、校監或校長停止執行職責、教員開始或停止任教等事項，校監須於事情發生後一個月內以書面通知教育局常任秘書長。",
        "page": 12,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學年期間學生資料變動（包括整月缺課），幼稚園須在個案出現後7日內透過「統一登入系統」向教育局呈報。",
        "page": 39,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校須在缺課通報後七個工作天內，填妥通告附件二呈報跟進個案情況。",
        "page": 42,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "參加計劃的幼稚園須為根據《稅務條例》第88條獲豁免繳稅的非牟利幼稚園。",
        "page": 139,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "如欲退出計劃（包括因有意停辦而退出），須在配合新學年開始的生效日期前最少九個月以書面通知教育局。",
        "page": 140,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -36282,97 +37338,154 @@
       {
        "req": "幼稚園發布招生廣告及派發學校單張時，須按《教育條例》第86A(2)條列出教育局給予學校的註冊編號。",
        "page": 154,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園應主動將學校基本資料、核准學費、其他核准收費及教育用品價目載於單張、通訊或入學申請表供家長參考。",
        "page": 154,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "參加免費優質幼稚園教育計劃的幼稚園應同時提供中文及英文版本的入學申請表。",
        "page": 154,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "參加計劃的幼稚園須把主要營運資料（包括校監校長姓名、教職員資歷薪酬、學費及財務資料等）刊載於《幼稚園及幼稚園暨幼兒中心概覽》。",
        "page": 10,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "參加計劃幼稚園須在學校網頁提供中、英文版基本資料（學校簡介、收生安排、學費、非華語支援等）。",
        "page": 30,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須把教育用品或收費服務資料（包括上學年收費一覽表）上載學校網頁供家長參閱。",
        "page": 68,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "應增加透明度和問責性，透過家長通訊、內聯網或學校網頁向家長發放學校最新資料。",
        "page": 131,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "應向家長發放學費一覽表和其他教育局核准的收費一覽表。",
        "page": 131,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須遵守《個人資料(私隱)條例》，並備存一本紀錄冊記錄校方拒絕查閱或改正資料的要求。",
        "page": 16,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須確保影印及使用電腦軟件等辦事方式符合《版權條例》的規定。",
        "page": 16,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "處理學生個人資料時，校方須確保收集、使用、保安及查閱均符合《個人資料(私隱)條例》的規定。",
        "page": 39,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構應設立溝通渠道，徵詢家長對服務的意見。",
        "page": 72,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園應與家長清楚簽訂認可為學生請假的家長／監護人。",
        "page": 130,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "應制訂清楚而有效的處理投訴程序，被投訴的人員均不應參與處理事件以避免利益衝突。",
        "page": 135,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "所有投訴個案應絕對保密，校方須把有關資料妥為記錄和存檔，並提供上訴途徑。",
        "page": 136,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構須將收費的任何核准變更盡速通知家長。",
        "page": 69,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構在處理家長投訴時應採取積極態度，主動聯絡家長盡快找出問題原因及解決方法。",
        "page": 72,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須將核准學費額或任何核准變更盡速通知家長。",
        "page": 156,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "處理傳媒查詢時，校方應設有一名熟悉學校政策及運作的發言人負責處理市民或傳媒的查詢。",
        "page": 137,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     },
@@ -36382,87 +37495,138 @@
       {
        "req": "所有參加計劃的幼稚園須於每學年終結前參考《表現指標(幼稚園)》進行學校自我評估。",
        "page": 17,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "學校須循「策劃─推行─評估」循環周期工作，於學期結束時編寫學校報告並擬訂下學年工作計劃。",
        "page": 18,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須在接獲質素評核通知後四個星期內向教育局提交學校報告和持份者問卷調查結果。",
        "page": 18,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "參加計劃幼稚園的質素評核結果必須達到既定標準，否則可能被撤銷參加資格及終止資助。",
        "page": 18,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "每一班級均須按教育局常任秘書長批准的形式備存一本點名冊。",
        "page": 14,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "如教育局常任秘書長提出要求，管理當局須按指示呈交有關學校或學生的資料。",
        "page": 14,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須妥善保存新聘教師聘任紀錄及《基本法及香港國安法》測試及格成績副本，存檔年期不少於兩年。",
        "page": 115,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構亦須符合本辦學手冊、《表現指標（幼稚園）》及《幼稚園教育課程指引》各有關規定。",
        "page": 78,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "機構應為每名兒童有系統地建立學習歷程檔案並定期與家長分享。",
        "page": 61,
-       "source_id": "kg_operation_manual_2026"
+       "source_id": "kg_operation_manual_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須設立校本機制支援有特殊需要或有發展遲緩危機的學童，相關做法受教育局監察。",
        "page": 29,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須設立完善的學生紀錄制度，備存適當學生紀錄並適時更新、以方便提取的方式保存。",
        "page": 39,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "幼稚園須按教育局批准形式，將每一班級學生每天出席及缺課情況正確記錄在點名冊並備存。",
        "page": 39,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "應設立「器材外借紀錄冊」記錄器材外借資料。",
        "page": 81,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "須在參加計劃有效期內及其後最少七年內，妥善分開備存計劃帳及學校經費的帳目及紀錄。",
        "page": 83,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "永久性質紀錄（如固定資產登記冊、周年帳目、校具清單）在營運期間必須妥為保存不可銷毀。",
        "page": 83,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "大型修葺/保養工程及新營辦開辦費用證明文件須保存不少於15年。",
        "page": 83,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       },
       {
        "req": "各類帳簿、付款憑單、銀行存結單、薪金單、學費單收據、接受捐贈紀錄須保存不少於7年。",
        "page": 83,
-       "source_id": "kg_admin_guide_2026"
+       "source_id": "kg_admin_guide_2026",
+       "school_types": [
+        "kindergarten"
+       ]
       }
      ]
     }
@@ -36475,6 +37639,9 @@
       5,
       0
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 1
     },
     {
@@ -36484,6 +37651,9 @@
       9,
       4
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 1
     },
     {
@@ -36492,12 +37662,18 @@
       6,
       7
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 1
     },
     {
      "text": "如本校屬初生至6歲的留宿幼兒中心，每名兒童於中心內的最低人均樓面面積規定如下表所列。",
      "covers": [
       13
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "table": {
       "headers": [
@@ -36523,6 +37699,9 @@
       11,
       15
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 1
     },
     {
@@ -36533,12 +37712,18 @@
       2,
       3
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 1
     },
     {
      "text": "如本校選擇用作提供學前服務的房產內有違例建築工程，本校務請在遞交註冊申請前清拆這些工程。",
      "covers": [
       14
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 1
     },
@@ -36550,6 +37735,9 @@
       2,
       15
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 2
     },
     {
@@ -36559,6 +37747,9 @@
       4,
       5
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 2
     },
     {
@@ -36566,6 +37757,9 @@
      "covers": [
       6,
       12
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 2
     },
@@ -36576,12 +37770,18 @@
       8,
       13
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 2
     },
     {
      "text": "本校供兒童使用的傢具，其油漆或塗料須符合安全標準，例如不得含鉛，並須符合《玩具及兒童產品安全條例》及《消費品安全條例》的規定。",
      "covers": [
       9
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 2
     },
@@ -36592,6 +37792,9 @@
       11,
       14,
       17
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "table": {
       "headers": [
@@ -36616,12 +37819,18 @@
      "covers": [
       16
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 2
     },
     {
      "text": "本校應設有一個具基本設施及清潔衞生的茶水間，以供應茶點。茶水間應使用電器供應茶點，不能使用明火。",
      "covers": [
       18
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 2
     },
@@ -36631,6 +37840,9 @@
       0,
       1
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 3
     },
     {
@@ -36639,6 +37851,9 @@
       2,
       10,
       11
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "table": {
       "headers": [
@@ -36671,12 +37886,18 @@
      "covers": [
       3
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 3
     },
     {
      "text": "本校（屬幼稚園）單一方向通往樓梯的盡頭行走距離不得超過18米。",
      "covers": [
       4
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 3
     },
@@ -36687,12 +37908,18 @@
       6,
       7
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 3
     },
     {
      "text": "本校校長須確保僱員及兒童最少每6個月進行一次涉及使用處所的所有出口的火警演習，並於日誌備存防火演習及撤離時間的書面紀錄。",
      "covers": [
       8
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 3
     },
@@ -36701,6 +37928,9 @@
      "covers": [
       9
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 3
     },
     {
@@ -36708,6 +37938,9 @@
      "covers": [
       0,
       1
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "table": {
       "headers": [
@@ -36736,6 +37969,9 @@
      "covers": [
       2
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 4
     },
     {
@@ -36744,12 +37980,18 @@
       4,
       5
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 5
     },
     {
      "text": "為確保校舍結構穩妥，本校須安排由獲授權人士按下列周期視察園舍，確定其結構是否穩妥：",
      "covers": [
       0
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "table": {
       "headers": [
@@ -36775,12 +38017,18 @@
       1,
       2
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 5
     },
     {
      "text": "本校供飲用、煮食和洗濯用的水須由自來水喉或其他認可的水源供應。",
      "covers": [
       3
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 5
     },
@@ -36790,6 +38038,9 @@
       0,
       1
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 6
     },
     {
@@ -36797,6 +38048,9 @@
      "covers": [
       2,
       3
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "table": {
       "headers": [
@@ -36833,6 +38087,9 @@
      "covers": [
       4
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 6
     },
     {
@@ -36842,6 +38099,9 @@
       2,
       3
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 7
     },
     {
@@ -36849,6 +38109,9 @@
      "covers": [
       1,
       4
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 7
     },
@@ -36858,6 +38121,9 @@
       5,
       6,
       7
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 7
     },
@@ -36869,6 +38135,9 @@
       6,
       10
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 8
     },
     {
@@ -36877,12 +38146,18 @@
       2,
       3
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 8
     },
     {
      "text": "為確保個人衞生，本校員工須切實執行個人衞生要求，包括於處理食物及如廁後立即洗手。",
      "covers": [
       9
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 8
     },
@@ -36892,6 +38167,9 @@
       4,
       5
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 8
     },
     {
@@ -36899,6 +38177,9 @@
      "covers": [
       7,
       8
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 8
     },
@@ -36910,6 +38191,9 @@
       6,
       2
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 9
     },
     {
@@ -36917,12 +38201,18 @@
      "covers": [
       3
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 9
     },
     {
      "text": "本校須備有每名兒童的意外及疾病紀錄，以供醫院急症室或衞生署作流行病學調查之用。",
      "covers": [
       4
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 9
     },
@@ -36932,6 +38222,9 @@
       5,
       7
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 9
     },
     {
@@ -36940,6 +38233,9 @@
       8,
       9,
       10
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 9
     },
@@ -36951,6 +38247,9 @@
       16,
       17
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 10
     },
     {
@@ -36958,6 +38257,9 @@
      "covers": [
       11,
       12
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 10
     },
@@ -36968,6 +38270,9 @@
       2,
       18
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 10
     },
     {
@@ -36975,6 +38280,9 @@
      "covers": [
       6,
       7
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 10
     },
@@ -36986,6 +38294,9 @@
       14,
       19
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 10
     },
     {
@@ -36993,6 +38304,9 @@
      "covers": [
       13,
       15
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 10
     },
@@ -37003,6 +38317,9 @@
       4,
       5
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 10
     },
     {
@@ -37010,12 +38327,18 @@
      "covers": [
       20
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 10
     },
     {
      "text": "所有運載本校學童的非專營巴士及學校私家小巴，每輛車上必須提供一名跟車保母。",
      "covers": [
       21
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 10
     },
@@ -37025,6 +38348,9 @@
       0,
       3
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 11
     },
     {
@@ -37032,12 +38358,18 @@
      "covers": [
       1
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 11
     },
     {
      "text": "本校在舉辦野餐、旅行或參觀活動前，應把詳情通知家長，得到家長以本校《活動同意書》作出的書面同意後，才可以讓兒童參加。",
      "covers": [
       2
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 11
     },
@@ -37047,6 +38379,9 @@
       2,
       3,
       4
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 12
     },
@@ -37058,6 +38393,9 @@
       5,
       29
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 12
     },
     {
@@ -37065,6 +38403,9 @@
      "covers": [
       26,
       27
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 12
     },
@@ -37075,6 +38416,9 @@
       8,
       32
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 12
     },
     {
@@ -37084,12 +38428,18 @@
       31,
       41
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 12
     },
     {
      "text": "本校聘用或解僱僱用期不少於6個月的教學人員，均須由本校的多數校董批准；解僱僱用期不少於6個月的教學人員，須在校董會的會議上由本校的多數校董批准。",
      "covers": [
       9
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 12
     },
@@ -37098,6 +38448,9 @@
      "covers": [
       10,
       40
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 12
     },
@@ -37108,6 +38461,9 @@
       22,
       23
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 12
     },
     {
@@ -37117,6 +38473,9 @@
       18,
       19
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 12
     },
     {
@@ -37124,6 +38483,9 @@
      "covers": [
       33,
       34
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 12
     },
@@ -37133,6 +38495,9 @@
       13,
       14,
       15
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "table": {
       "headers": [
@@ -37162,12 +38527,18 @@
       16,
       36
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 12
     },
     {
      "text": "由2022/23學年開始，本校作為參加幼稚園教育計劃的幼稚園，必須按師生比例1:11的規定，聘用足夠持有幼兒教育證書資格或以上學歷的教師。",
      "covers": [
       20
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 12
     },
@@ -37176,6 +38547,9 @@
      "covers": [
       28
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 12
     },
     {
@@ -37183,6 +38557,9 @@
      "covers": [
       37,
       38
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 12
     },
@@ -37193,6 +38570,9 @@
       25,
       30
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 12
     },
     {
@@ -37202,6 +38582,9 @@
       12,
       35
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 12
     },
     {
@@ -37209,6 +38592,9 @@
      "covers": [
       39,
       42
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 12
     },
@@ -37220,6 +38606,9 @@
       14,
       23
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 13
     },
     {
@@ -37228,6 +38617,9 @@
       1,
       2,
       3
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 13
     },
@@ -37238,6 +38630,9 @@
       18,
       17
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 13
     },
     {
@@ -37246,6 +38641,9 @@
       6,
       5
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 13
     },
     {
@@ -37253,6 +38651,9 @@
      "covers": [
       15,
       16
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 13
     },
@@ -37263,6 +38664,9 @@
       8,
       19,
       20
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "table": {
       "headers": [
@@ -37297,6 +38701,9 @@
       10,
       25
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 13
     },
     {
@@ -37304,6 +38711,9 @@
      "covers": [
       11,
       12
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 13
     },
@@ -37313,12 +38723,18 @@
       24,
       27
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 13
     },
     {
      "text": "本校應每年安排向全體教職員傳閱接受利益和捐贈通告，各人員閱後須簽署以示明白通告內容。",
      "covers": [
       26
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 13
     },
@@ -37328,12 +38744,18 @@
       21,
       22
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 13
     },
     {
      "text": "本校在每三年的周期內，每名幼稚園校長及教師應參加60小時的持續專業發展活動。",
      "covers": [
       28
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 13
     },
@@ -37346,6 +38768,9 @@
       23,
       28
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 14
     },
     {
@@ -37356,6 +38781,9 @@
       12,
       13
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 14
     },
     {
@@ -37364,6 +38792,9 @@
       3,
       11,
       21
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 14
     },
@@ -37374,6 +38805,9 @@
       7,
       20
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 14
     },
     {
@@ -37381,6 +38815,9 @@
      "covers": [
       8,
       19
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "table": {
       "headers": [
@@ -37415,6 +38852,9 @@
       10,
       32
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 14
     },
     {
@@ -37422,6 +38862,9 @@
      "covers": [
       22,
       16
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 14
     },
@@ -37433,6 +38876,9 @@
       24,
       15
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 14
     },
     {
@@ -37441,6 +38887,9 @@
       29,
       30,
       27
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 14
     },
@@ -37451,6 +38900,9 @@
       33,
       18
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 14
     },
     {
@@ -37459,6 +38911,9 @@
       25,
       34,
       26
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 14
     },
@@ -37469,6 +38924,9 @@
       7,
       6
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 15
     },
     {
@@ -37478,6 +38936,9 @@
       2,
       8
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 15
     },
     {
@@ -37485,6 +38946,9 @@
      "covers": [
       3,
       4
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "table": {
       "headers": [
@@ -37517,6 +38981,9 @@
      "covers": [
       9
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 15
     },
     {
@@ -37526,6 +38993,9 @@
       11,
       10
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 15
     },
     {
@@ -37533,6 +39003,9 @@
      "covers": [
       12,
       13
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 15
     },
@@ -37542,6 +39015,9 @@
       14,
       15
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 15
     },
     {
@@ -37549,6 +39025,9 @@
      "covers": [
       16,
       17
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 15
     },
@@ -37560,6 +39039,9 @@
       10,
       16
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 16
     },
     {
@@ -37570,6 +39052,9 @@
       2,
       9
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 16
     },
     {
@@ -37579,6 +39064,9 @@
       15,
       18,
       19
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 16
     },
@@ -37591,6 +39079,9 @@
       38,
       40
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 16
     },
     {
@@ -37598,6 +39089,9 @@
      "covers": [
       12,
       11
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 16
     },
@@ -37608,6 +39102,9 @@
       28,
       31
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 16
     },
     {
@@ -37615,6 +39112,9 @@
      "covers": [
       29,
       30
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 16
     },
@@ -37625,6 +39125,9 @@
       51,
       25
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 16
     },
     {
@@ -37633,6 +39136,9 @@
       26,
       27
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 16
     },
     {
@@ -37640,6 +39146,9 @@
      "covers": [
       32,
       33
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 16
     },
@@ -37650,6 +39159,9 @@
       35,
       36
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 16
     },
     {
@@ -37658,6 +39170,9 @@
       23,
       50,
       53
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "table": {
       "headers": [
@@ -37686,6 +39201,9 @@
      "covers": [
       39
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 16
     },
     {
@@ -37695,6 +39213,9 @@
       7,
       54
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 16
     },
     {
@@ -37703,12 +39224,18 @@
       14,
       52
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 16
     },
     {
      "text": "本校明確列明不得以「幼稚園教育計劃帳」和「學校帳」支付的開支項目，包括投機性投資虧損、捐贈、購買禮物、退還不恰當校監酬金及紅封包。",
      "covers": [
       49
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 16
     },
@@ -37721,6 +39248,9 @@
       44,
       43
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 16
     },
     {
@@ -37729,12 +39259,18 @@
       46,
       47
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 16
     },
     {
      "text": "本校就報價及招標資料之保密，作以下安排。有關報價／招標的資料須保密處理，往來信函列作「限閱文件」。",
      "covers": [
       48
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 16
     },
@@ -37745,6 +39281,9 @@
       4,
       5
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 16
     },
     {
@@ -37754,12 +39293,18 @@
       1,
       16
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 17
     },
     {
      "text": "本校作為參加幼稚園教育計劃的幼稚園，必須確保幼稚園教育計劃的資助不會用於任何不屬本地非牟利幼稚園教育範疇的活動。",
      "covers": [
       8
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 17
     },
@@ -37769,6 +39314,9 @@
       2,
       3
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 17
     },
     {
@@ -37776,6 +39324,9 @@
      "covers": [
       4,
       5
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "table": {
       "headers": [
@@ -37804,6 +39355,9 @@
      "covers": [
       9
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 17
     },
     {
@@ -37812,12 +39366,18 @@
       6,
       7
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 17
     },
     {
      "text": "本校如獲提升單位資助盈餘上限，須提交一份獨立的盈餘使用報告，否則或不符資格續獲提升上限。",
      "covers": [
       12
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 17
     },
@@ -37826,12 +39386,18 @@
      "covers": [
       10
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 17
     },
     {
      "text": "本校須於到期日或之前繳付差餉及地租，並只可於悉數繳付款項後，方可向教育局申請發還費用。",
      "covers": [
       11
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 17
     },
@@ -37841,6 +39407,9 @@
       13,
       14
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 17
     },
     {
@@ -37848,12 +39417,18 @@
      "covers": [
       17
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 17
     },
     {
      "text": "本校從其他部門／基金以計劃項目形式收到的資助，應盡可能以「幼稚園計劃帳」以外的銀行帳戶處理這些資助的收支，並在「幼稚園計劃帳」及「學校帳」以外開設獨立帳目作紀錄，並按規定退回餘款。",
      "covers": [
       18
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 17
     },
@@ -37865,6 +39440,9 @@
       20,
       21
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 17
     },
     {
@@ -37873,6 +39451,9 @@
       6,
       7,
       8
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 18
     },
@@ -37885,6 +39466,9 @@
       26,
       27
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 18
     },
     {
@@ -37893,6 +39477,9 @@
       20,
       21,
       22
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "table": {
       "headers": [
@@ -37927,12 +39514,18 @@
       5,
       30
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 18
     },
     {
      "text": "本校學年期間如有學生資料變動（包括整月缺課），本校須在個案出現後7日內透過「統一登入系統」向教育局呈報。",
      "covers": [
       29
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 18
     },
@@ -37945,6 +39538,9 @@
       14,
       15
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 18
     },
     {
@@ -37954,6 +39550,9 @@
       13,
       28
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 18
     },
     {
@@ -37961,6 +39560,9 @@
      "covers": [
       16,
       17
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 18
     },
@@ -37972,6 +39574,9 @@
       31,
       32
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 18
     },
     {
@@ -37981,6 +39586,9 @@
       1,
       2
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 19
     },
     {
@@ -37988,6 +39596,9 @@
      "covers": [
       3,
       4
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 19
     },
@@ -37998,6 +39609,9 @@
       6,
       7
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 19
     },
     {
@@ -38007,6 +39621,9 @@
       9,
       10
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 19
     },
     {
@@ -38014,6 +39631,9 @@
      "covers": [
       11,
       12
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 19
     },
@@ -38024,6 +39644,9 @@
       14,
       16
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 19
     },
     {
@@ -38032,12 +39655,18 @@
       15,
       17
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 19
     },
     {
      "text": "本校應設有一名熟悉學校政策及運作的發言人，負責處理市民或傳媒對事件的查詢。",
      "covers": [
       18
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 19
     },
@@ -38049,12 +39678,18 @@
       2,
       3
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 20
     },
     {
      "text": "本校的運作須符合本辦學手冊、《表現指標（幼稚園）》及《幼稚園教育課程指引》各有關規定。",
      "covers": [
       7
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 20
     },
@@ -38065,6 +39700,9 @@
       9,
       10
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 20
     },
     {
@@ -38074,6 +39712,9 @@
       5,
       11
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 20
     },
     {
@@ -38081,12 +39722,18 @@
      "covers": [
       6
      ],
+     "school_types": [
+      "kindergarten"
+     ],
      "si": 20
     },
     {
      "text": "本校應設立一本「器材外借紀錄冊」，記錄器材外借的有關資料。",
      "covers": [
       12
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "si": 20
     },
@@ -38097,6 +39744,9 @@
       14,
       15,
       16
+     ],
+     "school_types": [
+      "kindergarten"
      ],
      "table": {
       "headers": [
