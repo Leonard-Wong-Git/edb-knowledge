@@ -6,9 +6,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [內容新增＋維護] — 2026-06-23 — footnote 擴充第三批（SAG 假期/HR＋KG＋活動＋forms 手尾，14 條）＋ kg_operation 清單補標 school_types
+## [內容新增＋維護] — 2026-06-23 — footnote 擴充第三批（14 條）＋ discovery 三快贏新主題（8 條）＋ kg_operation 補標 ＋ TRG 連結修復
 
-> 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,391 → 15,405**（＋14 curated footnote chunks）。
+> 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,391 → 15,413**（＋22 curated chunks：14 footnote 擴充 ＋ 8 discovery 三快贏）。
 
 ### Added
 - **footnote 擴充第三批入庫**（Channel B Supabase，＋14 chunks，`content_type=footnote_curated`，可逆）：補回一批藏喺附件表格／附錄細字、正文唔講嘅 load-bearing 要求——
@@ -16,13 +16,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - **幼稚園／法團校董會／活動（4 條）**：法團校董會免稅須章程含《稅務條例》第 88 條條文／幼稚園租金資助額以九月錄取人數計／幼稚園每班最少一位教師當值／戶外活動建議師生比例（遠足 1:10、宿營 1:30、野外定向 1:8、單車及滑浪風帆 1:5、獨木舟 1:8）。
   - **forms 手尾（2 條，補完 S177 批次）**：CEG 計劃須經 IMC/SMC 通過並於 10 月底前上載，否則**追回**（clawed back）／CFEG 個別家具設備項目**無金額上限**（只要戶口款項足夠；戶口累積盈餘上限仍為該年撥款 5 倍）。
   - 全部 verbatim 核實對官方來源（SAG／IMC／KG／活動指引 vault repaged extract；CEG Ground Rules ＋ CFEG User Guide 即場下載 EN PDF 核）；self-test 14/14 cosine 0.65–0.84 lead、新條目互不混淆（rank-1 14/14）。
+- **discovery 三快贏新主題入庫**（Channel B Supabase，＋8 chunks，`content_type=footnote_curated` route-independent overlay，可逆）：discovery 偵察（subagent fan-out + WebSearch 對 `source_registry.json` 核）揭發平台偏重課程、缺日常校政／合規／學生支援，Leonard 揀三個 confirmed-absent 主題即時補——
+  - **處理學校投訴（3 條）**：兩階段程序（調查／上訴各建議 2 個月內完成、上訴須 14 天內提出、上訴人員職級較高）／學校投訴覆檢委員會（覆檢條件＋重新調查 2 個月＋高一職級）／校本機制六要素＋向法團校董會報告。源 =《學校處理投訴指引》2023。
+  - **校園精神健康（3 條）**：《4Rs 精神健康約章》（通函 60/2024，2024/25 起公營＋直資貫徹）／以學校為本「三層應急機制」（通函 215/2025，中學恆常化＋高小試行；第一層校內團隊／第二層社署校外支援網絡／第三層醫管局精神科）／轉介須家長同意＋校長轉介表格＋校長熱線 2742 4508＋危機即報警／送急症室。
+  - **學校與《個人資料（私隱）條例》第 486 章（2 條）**：查閱／改正資料要求須 40 日內回覆（拒絕亦須 40 日書面告知理由、須書面提出）／未成年（18 歲以下）學生資料由有管養權者代查閱、無管養權分居家長可拒。
+  - 全部 verbatim grounded 對官方 PDF（投訴指引中文／EDBCM 60·215 中文／PDPO note）；self-test 8/8 cosine 0.70–0.80 lead。route-independent overlay 即時可檢索，無需改後端路由。
 
 ### Changed
 - **檢查清單 `kg_operation`（幼稚園營運）補標 `school_types`**：388 個項目＋162 條 clause 全標 `['kindergarten']`（全屬幼稚園專用來源 `kg_admin_guide_2026`／`kg_operation_manual_2026`），重生 `checklists_bundle.json`（→ 約 1603 KB）；令文件標註／範本下載對非幼稚園校類唔再顯示幼稚園營運項目。
-- 知識片段顯示數 **15,391 → 15,405**（首頁／平台介紹／README／K1_API_SPEC `_meta.stats` 同步）。
+- 知識片段顯示數 **15,391 → 15,413**（首頁／平台介紹／README／K1_API_SPEC `_meta.stats` 同步）。
 
 ### Monitoring
-- 三條監察各跑一輪：freshness（220 檢查／5 內容變動／0 error，皆 index 頁或已監察 DEBP，detection-only）；discovery（739 候選／225 likely-real，monitor-driven，與 S170 評估一致）；served-URL（210 URL／209 OK／**1 條 404**：`trg_imc_2023` 嘅 TRG_guidelines 連結 en 路徑大階 C 已失效，正確 tc 路徑小階 c 200 — 待授權 repoint）。
+- 三條監察各跑一輪：freshness（220 檢查／5 內容變動／0 error，皆 index 頁或已監察 DEBP，detection-only）；discovery（739 候選／225 likely-real，monitor-driven，與 S170 評估一致）；served-URL（210 URL／209 OK／**1 條 404 已修**：`trg_imc_2023` 嘅 TRG_guidelines 連結 en 路徑大階 C 失效 → 經 Leonard 明確授權，repoint 全 3 條 chunk 去 tc 路徑小階 c（`dev/fix_trg_url.py`，re-verify 200）。url-only、可逆）。
 
 ---
 
