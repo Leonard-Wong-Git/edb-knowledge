@@ -34,6 +34,51 @@ dev/DOC_SYNC_REGISTRY.md
 ---
 
 <!-- ack:log-entry:start -->
+## 2026-06-23 Session 179 — footnote 擴充第三批 (14) + discovery 三快贏新主題 (8) + kg_operation 補標 + TRG 404 修復
+
+- **ID:** Claude_20260623_S179
+- **Summary:** 「開工」起手探針全綠（HEAD 9a431fd、v3.2.1、Render warm 455、Supabase 15,391、footnote_curated 61）→ Leonard「全部都做（footnote 擴充+forms+kg_operation）+ 做埋 Monitoring + 再搜未接觸角度」→ 並行偵察（讀 footnote_harvest_hi/staging + 3 monitor 背景 + discovery agent）→ footnote 14 verbatim 核+self-test 14/14+cross-check+INSERT（61→75）+ kg_operation 388/162 補標+bundle 重生 → display-sync 15405 + push 3897169 + Render live 6/6 →「1＋2」→ discovery 三快贏 download 官方 PDF+verbatim+8 self-test 8/8 + TRG 404 修復（前 2 次 ad-hoc curl/script 被安全閘正確擋低 → Leonard「一次過做」明確授權 → INSERT 75→83 + PATCH 3）→ display-sync 15413 + push 89eee3a + Render live 8/8 + TRG 200 →「收工」full closeout。
+- **Changed:**
+  - Supabase wiki_chunks：+22 footnote_curated（61→83）；`trg_imc_2023` 3 chunk url repoint（en/...C.pdf 404 → tc/...c.pdf 200）。total 15,391→**15,413**。
+  - `dev/checklists/_work/kg_operation/checklist.json`+`clauses.json`：388 items + 162 clauses 加 `school_types=['kindergarten']`（backup .pre_s179）；`checklists_bundle.json` 重生（→1603KB）。
+  - 新 reproducible script（--self-test/--execute + INSPECT before/after）：`dev/ingest_s179_footnotes.py`（14）、`dev/ingest_s179_topics.py`（8）、`dev/fix_trg_url.py`（TRG）。
+  - display-sync 8 點 ×2（15,391→15,405→15,413：app.html/index.html/3 JSON _meta.stats/K1_API_SPEC/README）+ CHANGELOG S179 entry。凍結合約零接觸（_meta 2.3.0/facts 455/guidelines 158、無 PLATFORM_VERSION bump）。
+- **Done:**
+  - ✅ **footnote 擴充 14 LIVE（Render 6/6）**：SAG（遴選委員會≤60%/受聘前胸肺X光/超額主任跨屬校調配/改編學位教師/病假28-48-168/肺病假3-6-12月/侍產假5天+產假14週/年假7-14+緊急私事假2天）+ IMC免稅s.88 + 幼稚園租金九月計 + 每班最少1教師 + 戶外活動師生比例 + CEG#7未上載追回 + CFEG#18家具無上限。verbatim 核 vault repaged extract + CEG·CFEG EN PDF；self-test 14/14（0.65–0.84）+ new-vs-new rank-1 14/14 無混淆。
+  - ✅ **discovery 三快贏 8 LIVE（Render 8/8）**：處理學校投訴×3（兩階段各2月/上訴14天/覆檢委員會/六要素）+ 精神健康×3（4Rs約章/三層應急機制/轉介家長同意+校長熱線2742 4508）+ 私隱Cap.486×2（DAR 40日/未成年管養權）。content_type=footnote_curated route-independent overlay 無需改後端路由；verbatim 核官方 PDF（投訴指引中文/EDBCM 60·215 中文/PDPO note）；self-test 8/8（0.70–0.80）。
+  - ✅ **kg_operation 388 items+162 clauses 補標 ['kindergarten']** + bundle 重生（驗 .domains.kg_operation 388/388 tagged）。
+  - ✅ **TRG 404 修復**（3 chunk → tc url、re-verify 200）。
+  - ✅ **Monitoring**：freshness 220檢查/5變動/0err（g11·ma_curr_index·pri_science_cert_course_list·debp_blueprint·debp_ailf_example，detection-only）；discovery 739候選/225 likely-real；served-URL 210/209 OK/1 404（TRG，已修）。
+- **QC:** footnote self-test 14/14 + cross-check rank-1 14/14；discovery self-test 8/8；INSPECT before/after（61→75→83、id 零撞、missing none）；Render live 6/6 + 8/8（答案全 footnote-grounded、零砌數）；TRG re-verify 200；display-sync grep 0 stale + 3 JSON valid（chunks=15413）+ bundle 重生驗。
+- **Evidence disposition:** ingest scripts 留底（reproducible）；discovery 12 角度 → 下方 + Handoff Prompt；monitor signals → handoff NEXT；live verify 一次性可重跑。
+- **discovery agent 12 未接觸角度（grounded vs source_registry.json；✅=本 session done）：** ✅1 處理學校投訴指引 ✅2 學生精神健康 4Rs/三層 ✅3 私隱 Cap.486 ｜ 4 教師註冊制度（教育條例 s.42-49，confirmed absent）5 學校註冊+直資 DSS 制度（confirmed absent）6 NCS 行政/資助（thin）7 傳染病預防停課準則（CHP/EDB，新 host chp.gov.hk）8 學費減免/書簿津貼（WFSFAA，新 host）9 NET 外籍英師計劃 10 EDB 表格庫 formsearch（discovery seed，dynamic app）11 SAG 附錄深抽 + **疑 May-2026 新版（registry 仍 2025-11）** 12 校舍法定安全 EMSD/升降機。結構偏斜：225 源中 135 課程，缺校政/合規/學生支援日常面。新 host（chp/wfsfaa/emsd）入庫前要 source-trust 決定。
+- **commits (push origin/main):** `3897169`（footnote 14 + kg_operation + display-sync 15405）→ `89eee3a`（discovery 8 + TRG repoint + display-sync 15413）→ 收工 commit。
+- **Pending:** discovery 餘下 9 角度（待 Leonard 揀+授權，注意 SAG 版本核）；footnote broad sweep（optional 低值）；freshness 5 變動跟進；既有 monitor。
+- **Risks:** 🟢 HEAD==origin/main `89eee3a`、Supabase 15,413、footnote_curated 83、凍結合約零接觸、0 outstanding bug。⚠️ 入/改 footnote 後必 restart Render（push 已觸發）。⚠️ discovery 8 用 footnote_curated overlay（source_id 未入 registry，同 trg/subvention_tips 一致；served-URL monitor 覆蓋）。⚠️ live Supabase 寫入＝安全閘 gated 要明確授權（3 次被正確擋低，「一次過做」後通過）。⚠️ OpenAI quota 曾用爆（已充值）。
+- **Log maintenance:** SESSION_LOG 10 entries（含本條，S179–S170）；<11；oldest S170 2026-06-15 <30 日；~466 行 <1500（採 AHK N-rule，同 S176–S178 precedent）→ **no-op**（不 archive）。AHK §4 trigger(b)(c)(d) 不命中。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella = redirect-only).
+平台 v3.2.1。起手探針：policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.1 + Render /health (cache_a warm 455) + HEAD==origin/main (最新 89eee3a) + Supabase 15,413 (footnote_curated 83)。
+⚠️ OpenAI quota 曾用爆；若 /health cache_a warm=false 或搜尋 429，查 OpenAI billing。
+
+S179 已 LIVE (Render 6/6 + 8/8)：①footnote 擴充第三批 14 (SAG 假期/HR 8 + 幼稚園/IMC/活動 4 + forms #7/#18 2)；②discovery 三快贏 8 (處理學校投訴×3 / 精神健康 4Rs+三層應急機制×3 / 私隱 Cap.486×2，route-independent overlay 無需改路由)；③kg_operation 388 items+162 clauses 補標 ['kindergarten']+bundle 重生；④TRG served-URL 404 修復 (3 chunk url → tc 200)。footnote_curated 61→83、Supabase 15,391→15,413。commits 3897169→89eee3a。
+
+🔜 NEXT (全部待 Leonard 揀方向/授權)：
+① discovery 餘下 9 個未接觸角度 (agent 全文喺本 entry 上面 discovery 段)：教師註冊制度 / 學校註冊+直資(DSS) / NCS 行政資助 / 傳染病預防(停課準則) / 學費減免書簿津貼 / NET外籍英師計劃 / 校舍法定安全(EMSD升降機) / EDB表格庫 / SAG附錄深抽。⚠️ SAG 疑有 May-2026 新版 (registry 仍 2025-11) → 值得核版本。每角度 = download 官方 PDF + verbatim 核 + curated chunk (overlay) 或全文+routing；live 寫入要明確授權；新 host (chp/wfsfaa/emsd) 要 source-trust 決定。
+② footnote broad sweep (optional 低值)；③ freshness 5 變動跟進 (detection-only)；④ 既有 monitor (MPF bypass 殘留 / 文件標註精準度 / Render cold-start / per-segment / undici / SMC recall / DEBP OCR)。
+
+⚠️ 紀律：live Supabase INSERT/UPDATE 要 INSPECT before/after + Leonard 白紙黑字明確授權 (含新揪出嘅 production 寫入；ad-hoc curl 會被安全閘擋、用 --execute migration script)；入/改 footnote 後 restart Render (push 觸發 redeploy 即得)；curated chunk = id=footnote_fn_*、content_type=footnote_curated、embed=text+keywords、route-independent overlay；改版號喺 app.html PLATFORM_VERSION (勿 bump 凍結 knowledge.json)；chunk 數變要 display-sync 8 點；改 docx/checklist re-run gen_checklists_bundle.py；路徑空格雙引號；commit -m 勿用反引號。
+Post-startup first action: 起手探針後，按 Leonard 指示接 discovery 餘下角度 / 或其他 backlog。
+```
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
 ## 2026-06-23 Session 178 — 政策搜尋 MPF 漏答修復 (footnote-lead judge bypass) · EDB Tips 細字 2 條入庫
 
 - **ID:** Claude_20260623_S178
