@@ -34,6 +34,48 @@ dev/DOC_SYNC_REGISTRY.md
 ---
 
 <!-- ack:log-entry:start -->
+## 2026-06-23 Session 177 — TRG 凍結教席砌數修復 (footnote + judge gate) · EDB forms 批次 checkpoint
+
+- **ID:** Claude_20260622_S177
+- **Summary:** 「開工」起手探針揭發 OpenAI quota 用爆 (Leonard 充 $10 恢復) → Leonard 報政策搜尋砌數 (凍結教席問 → 亂答 IMC 60%) → 診斷 confabulation → **任務1** 入 TRG 凍結教席「核准教學人員編制 10%」footnote + **任務2** synthesis 前加 anti-confabulation judge gate，兩者 live deployed → 揭發 EDB forms 整批未入庫 → 開 forms 入庫批次 (discovery 28+5 候選 → 核實 → **25 條 footnote LIVE 入庫**)；workflow 核實撞 session limit、reset 後自己 download+pymupdf 核實續做 → 收工。
+- **Changed:**
+  - `backend/src/api/searchChannelB.ts`：synthesis 前加 binary relevance judge (`judgeCanAnswer` + `RELEVANCE_JUDGE_PROMPT` 從嚴/寧緊莫鬆 + `SYNTHESIS_DECLINE`)；judge=能行原 prompt、否則 decline；judge API error → fallback 照答。
+  - `dev/ingest_trg_footnote.py` (新)：TRG footnote ingest，--self-test (combine self-check cos=1.0 + query cosine) / --execute (INSPECT before/after)。
+  - `dev/test_synthesis_guard.py` (新)：judge A/B 測試 (5/5 PASS)。
+  - `dev/FORMS_FOOTNOTE_CANDIDATES.md` (新)：forms 批次工作檔 (28 候選 + source + 進度 + next step)。
+  - display-sync 8 點 15,363→**15,364** (app.html/index.html/knowledge.json/role_facts.json/dev/knowledge/role_facts.json/K1_API_SPEC.md/README.md + CHANGELOG)。
+- **Done:**
+  - ✅ 任務1 TRG footnote LIVE：Supabase `footnote_curated` 33→34、total 15,364；原 query 答「核准教學人員編制 10%、三類、校董會同意」(top `trg_imc_2023` lead)，唔再砌 60%；中英 form 雙重核。
+  - ✅ 任務2 judge gate LIVE：`searchChannelB.ts` synthesis 前 binary relevance judge (能→原 prompt 答／否→「暫時未能找到」／judge error→fallback 答)；4 條 live verify 準、唔誤拒；順帶 redeploy 令 `cache_a` warm 返 455。
+  - ✅ 任務3 EDB forms 批次：discovery 28+5 候選 → reset 後自己 download 10 PDF + pymupdf **verbatim 逐條核** (agent 數字全準) → **25 條 footnote LIVE 入庫** (footnote_curated 34→**59**、total **15,389**)；live verify 採購／EOEBG／空調答正確、task1/2 零回歸、無 over-fire、judge gate 照常。
+- **QC:** task1/2/forms 全 live 綠；forms self-test 25/25 cosine ≥0.45 lead；display-sync 二輪 8 點 (15,363→15,364→15,389)。⚠️ 1 monitor：「凍結 MPF」query decline 漏答 (同 source `trg_imc_2023` 3 footnote 競爭、MPF 條冇 surface → judge 保守 decline；唔砌錯，可加關鍵詞優化)。
+- **commits (push origin/main):** `71763f8` (TRG footnote) → `1f0d959` (judge gate) → `7827712` (forms candidates checkpoint) → `ef50b48` (forms 25 入庫 + display-sync 15389) → 收工 commit。
+- **Pending:** ① tips #27/#28 (出租校舍 40%、重複採購不得拆單 — 待揾 Tips PDF 正確 URL，index 頁無直接 PDF)；② MPF footnote surface 優化 (加關鍵詞)；③ forms rate footnotes 已入但屬 2026/27 費率 → 列 freshness 監察 (逐年變)。詳見 `dev/FORMS_FOOTNOTE_CANDIDATES.md`。
+- **Risks:** 🟢 HEAD==origin/main `ef50b48`、Supabase **15,389**、凍結合約零接觸 (`_meta` 2.3.0/facts 455/guidelines 158)。⚠️ 入/改 footnote 後**必 restart Render** (footnote in-memory cache)。⚠️ MPF 漏答 + tips 待補 (monitor)。⚠️ OpenAI quota 曾用爆 (已充值；warm=false 或 429 即查 billing)。
+- **Log maintenance:** SESSION_LOG 8 entries (含本條)；<11；oldest S170 2026-06-15 <30日；<1500 行 → **no-op**。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella = redirect-only).
+平台 v3.2.1。起手探針：policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.1 + Render /health (cache_a warm 455) + HEAD==origin/main (最新 ef50b48) + Supabase 15,389。
+⚠️ OpenAI quota 曾用爆 (S177 Leonard 充值恢復)；若 /health cache_a warm=false 或搜尋 429，查 OpenAI billing。
+
+S177 已 LIVE：①TRG 凍結教席 10% footnote；②政策搜尋防砌數 judge gate (searchChannelB.ts synthesis 前 binary judge：能→答／否→「暫時未能找到」／error→fallback 答)；③EDB 津貼表格細字 25 條 footnote 入庫 (footnote_curated 34→59、total 15,389；CEG/EOEBG/OEBG/CFEG/AC/採購/TRG補充，全 verbatim 核)。全 live verify 綠。commits 71763f8→1f0d959→7827712→ef50b48。
+
+🔜 NEXT (forms 批次手尾 + 既有 carry-forward)：
+① forms 第二批：tips #27/#28 (出租校舍 40%／重複採購不得拆單；待揾 Tips PDF 正確 URL — subsidy-info/tips-handling-gov-subventions/ 係 index 頁無直接 PDF) + MPF footnote surface 優化 (同 source trg_imc_2023 有 3 footnote 競爭、MPF 漏答 → 加關鍵詞)。候選清單 + 進度見 dev/FORMS_FOOTNOTE_CANDIDATES.md。
+② forms rate footnotes (boarding $440／DLG $800／MMLC $59,570／CEG·EOEBG·CFEG·AC 費率) 屬 2026/27 → 列 freshness 監察 (逐年變)。
+③ 既有 carry-forward：kg_operation 388 項 school_types 補標 (待授權)；文件標註精準度 monitor；EDB 入庫/壞連結 monitor-driven；Render cold-start ~50s；per-segment 範疇偵測 monitor。
+⚠️ 紀律：live Supabase INSERT 要 INSPECT before/after + 可逆 footnote_curated；入/改 footnote 後 restart Render；改版號喺 app.html PLATFORM_VERSION (勿 bump 凍結 knowledge)；chunk 數變要 display-sync 8 點；路徑空格雙引號；commit -m 勿用反引號。
+Post-startup first action: 起手探針後，按 Leonard 指示接 forms 第二批 (tips/MPF) 或既有 backlog。
+```
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
 ## 2026-06-22 Session 176 — Agent Handoff Kit v0.3.29 升級
 
 - **ID:** Claude_20260622_S176
