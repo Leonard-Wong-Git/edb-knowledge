@@ -599,8 +599,20 @@ async function synthesizeAnswer(query: string, results: ChannelBResult[], llmFn:
     .join("\n\n");
 
   // S177 — anti-confabulation gate: decline rather than fabricate when chunks don't answer.
-  const canAnswer = await judgeCanAnswer(query, chunkText, llmFn);
-  if (!canAnswer) return SYNTHESIS_DECLINE;
+  // S178 — EXCEPTION: when the lead result is a curated 附件細字 footnote scoring ≥
+  // FOOTNOTE_LEAD_SCORE, trust it and skip the judge. The confabulation the judge guards
+  // against comes from topically-near-but-wrong *vault* chunks (the 凍結教席→IMC-60% class);
+  // a high-cosine curated footnote is a hand-curated, verbatim-verified precise answer by
+  // construction, not a confabulation risk. The conservative nano judge over-declines such
+  // footnotes (verified live: it vetoes a 0.76-cosine perfect-match MPF footnote even in
+  // isolation → false "暫時未能找到"). Vault-led results still go through the judge unchanged.
+  const lead = top5[0];
+  const trustedFootnoteLead =
+    lead.content_type === "footnote_curated" && lead.score >= FOOTNOTE_LEAD_SCORE;
+  if (!trustedFootnoteLead) {
+    const canAnswer = await judgeCanAnswer(query, chunkText, llmFn);
+    if (!canAnswer) return SYNTHESIS_DECLINE;
+  }
 
   const prompt = SYNTHESIS_PROMPT
     .replace("{QUERY}", query)
