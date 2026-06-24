@@ -47,13 +47,15 @@ dev/DOC_SYNC_REGISTRY.md
   - ✅ **SAG 版本核對 confirmed + §3.7.3 新段 curated 入庫 LIVE**。verbatim：「如問題懷疑涉及性侵犯，學校須遵照社會福利署《保護兒童免受虐待–多專業合作程序指引》，諮詢社會福利署的保護家庭及兒童服務課或香港警務處虐兒案件調查組，以採取合適的處理程序。如情況顯示個案可能涉及刑事罪行，學校應向警方舉報。」
   - ✅ **Render live verify**：query「學生懷疑被性侵犯 學校點處理 報警轉介」→ overlay rank **1/8** score 0.739、synthesis grounded（諮詢社署保護家庭及兒童服務課／警務處虐兒組／報警／依《多專業合作程序指引》），核心新段忠實命中零砌數。
   - ✅ registry freshness 完整性閉環（version_label 此前 stale 2025-11/2025）。
+  - ✅ **C — SAG dedup 調查 resolved + 公開顯示面同步**：核實 `wikiRepository` alias `g24→sag_2025_11` + seen-Set dedup + 共用 per-source quota → 雙重 ingest 由 soft-dedup 妥善處理、**無需 hard-dedup**（backlog「軟 dedup 足夠用」屬實）。調查揭發 `g24` 雙重身份（Channel-B 來源 + 公開指引 entry）→ 補做公開顯示面版本核對：`guidelines.json`（sag_2025_11/g24 title/year→2026-05、`_meta` 2.6.0→2.6.1、count 158 不變）+ `app.html` GUIDELINES_REGISTRY 2 entry + 平台介紹示例標籤。commit `7828f3e`。
+  - ✅ **B — 雲端 OCR 引擎參考袋低**：評估 Leonard 一份「OCR 收費版」brief → 架構（serverless key-proxy）對本 project 幫助低（後端已存在、key 已 server-side），但 Google Vision `DOCUMENT_TEXT_DETECTION`（bbox+逐字信心）/Mistral OCR 引擎事實對 image-PDF ingestion（現用 gpt-4o「draft 質」）有用 → 入 handoff Backlog（commit `0707faa`）+ playbook inbox 提案 enrich `doc-extract-method-ladder` C 級（local commit `ead3749`，**未 push**）。
 - **QC:** self-test cosine 0.758 lead + id 全新無撞；live INSPECT before/after（footnote_curated 83→84、missing none）；registry git diff 6 行 + JSON valid；display-sync 15 處/0 stale + 3 JSON valid；Render live overlay rank-1 + grounded synthesis。
 - **Evidence disposition:** ingest script 留底（reproducible）；version-reconcile 方法 + 監察盲點 → 下方 Notes + handoff；side-finding（SAG 雙 ingest）→ handoff monitor。
 - **Notes / 盲點 / side-finding:**
   - 監察盲點：served-URL／freshness 監察測 URL 可達性、唔測內容版本；EDB 同檔名換版（content swap、URL 不變）結構上避過兩個監察（playbook `freshness-monitor-test-served-url` 已記此 failure mode）。
   - Side-finding（記低、未處理）：SAG 喺 store 重複 ingest 兩份——`sag_2025_11`（markup 383 全文 + overlay）+ `g24`（clean 383）。route-independent overlay 唔受影響；日後可決定要唔要 dedup。
-- **commits (push origin/main):** `fb1f8fc`（SAG 2026-05 reconcile — §3.7.3 overlay + registry bump + display-sync 15414）。live Supabase INSERT 1（Leonard 明確授權「做」、INSPECT before/after）。
-- **Pending:** discovery 餘下 8 角度（S179 揾到 12、3 快贏 + S180 SAG = 4 done）；SAG 雙 ingest dedup 決定；footnote broad sweep；freshness 5 變動；既有 monitor。見 SESSION_HANDOFF 🔜 NEXT。
+- **commits (push origin/main):** `fb1f8fc`（§3.7.3 overlay + registry bump + display-sync 15414）→ `e521dee`（handoff/log persist）→ `0707faa`（handoff backlog OCR option）→ `7828f3e`（公開指引 title sync 2026-05 + dedup verified）。live Supabase INSERT 1（Leonard 明確授權「做」、INSPECT before/after）。**playbook 提案 `ead3749` = local commit、未 push**（跨 repo push default branch 被 auto-mode classifier 擋；待 Leonard push 或明確授權）。
+- **Pending:** discovery 餘下 8 角度（S179 揾到 12、3 快贏 + S180 SAG = 4 done）；footnote broad sweep；freshness 5 變動；既有 monitor；**playbook OCR 提案待 push（local `ead3749`）**。（SAG 雙 ingest dedup 已 resolved＝soft-dedup 足夠、無需 hard-dedup。）見 SESSION_HANDOFF 🔜 NEXT。
 - **Risks:** 🟢 HEAD==origin/main `fb1f8fc`、Supabase **15,414**、footnote_curated **84**、凍結合約零接觸、0 outstanding bug。⚠️ live Supabase 寫入 gated 要明確授權。⚠️ Render free-tier cold-start ~50s（warm=false 多屬 cold-start，持續 0 先查 OpenAI billing）。⚠️ OpenAI quota 曾用爆（已充值、本 session warm=455 確認健康）。
 - **Log maintenance:** SESSION_LOG 11 entries（含本條，S180–S170）→ 達 AHK N-rule N≥11 邊界。本 session 係 **mid-task PERSIST 非 full closeout** → archive 延至下個 full closeout（符 §4a「before writing closeout entry」時機）；oldest S170 2026-06-15 <30 日。AHK §4 trigger(b)(c)(d) 不命中。
 
@@ -66,11 +68,11 @@ dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → de
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella = redirect-only).
 平台 v3.2.1。起手探針：policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.1 + Render /health (cache_a warm 455；warm=false 多數係 free-tier cold-start、輪詢十幾秒升返 455 = 良性，持續 0 先查 OpenAI billing) + HEAD==origin/main (最新 fb1f8fc) + Supabase 15,414 (footnote_curated 84).
 
-S180 已 LIVE (Render verify overlay rank-1 + grounded)：SAG 學校行政手冊版本核對 — EDB 已由 2025-11 換到 2026-05 版 (Last-Modified 2026-05-20、served 同檔名故避過 served-URL/freshness 監察)；官方 Log_sheet 證唯一 delta=§3.7.3「與性有關的問題」；逐字 diff 揭實質改動=1 新增段 (懷疑性侵犯→社署保護家庭及兒童服務課/警務處虐兒組轉介+報警)。捕捉為 1 curated overlay (footnote_fn_sag_sexual_abuse_referral、footnote_curated 83→84、total 15,413→15,414) + registry version_label sag_2025_11/g24 → 2026-05 + display-sync。commit fb1f8fc。
+S180 已 LIVE (Render verify overlay rank-1 + grounded)：SAG 學校行政手冊版本核對 — EDB 已由 2025-11 換到 2026-05 版 (Last-Modified 2026-05-20、served 同檔名故避過 served-URL/freshness 監察)；官方 Log_sheet 證唯一 delta=§3.7.3「與性有關的問題」；逐字 diff 揭實質改動=1 新增段 (懷疑性侵犯→社署保護家庭及兒童服務課/警務處虐兒組轉介+報警)。捕捉為 1 curated overlay (footnote_fn_sag_sexual_abuse_referral、footnote_curated 83→84、total 15,413→15,414) + registry version_label sag_2025_11/g24 → 2026-05 + display-sync + 公開指引 title sync 2026-05 (guidelines.json 2.6.1 + app.html)。SAG 雙 ingest 由 soft-dedup 妥善處理 (wikiRepository alias g24→sag_2025_11)、無需 hard-dedup。commits fb1f8fc→e521dee→0707faa→7828f3e。
 
 🔜 NEXT (全部待 Leonard 揀方向/授權)：
 ① discovery 餘下 8 個未接觸角度 (S179 揾到 12、3 快贏 + S180 SAG = 4 done)：教師註冊制度 / 學校註冊+直資(DSS) / NCS 行政資助 / 傳染病預防(停課準則) / 學費減免書簿津貼 / NET外籍英師計劃 / 校舍法定安全(EMSD升降機) / EDB表格庫。每角度 = download 官方 PDF + verbatim 核 + curated overlay 或全文+routing；live 寫入要明確授權；新 host (chp/wfsfaa/emsd) 要 source-trust 決定。
-② SAG 雙重 ingest dedup 決定 (sag_2025_11 markup 383 + g24 clean 383 同一本手冊)。
+② playbook OCR 引擎提案待 push (local ead3749；Google Vision DOCUMENT_TEXT_DETECTION/Mistral OCR，enrich doc-extract-method-ladder C 級；image-PDF ingestion 升級線)。
 ③ footnote broad sweep (optional 低值)；④ freshness 5 變動跟進 (detection-only)；⑤ 既有 monitor (MPF bypass 殘留 / 文件標註精準度 / Render cold-start / per-segment / undici / SMC recall / DEBP OCR)。
 
 ⚠️ 紀律：live Supabase INSERT/UPDATE 要 INSPECT before/after + Leonard 明確授權 (ad-hoc curl 會被安全閘擋、用 --execute migration script)；入/改 footnote 後 restart Render (push 觸發 redeploy 即得)；curated overlay = id=footnote_fn_*、content_type=footnote_curated、route-independent；改版號喺 app.html PLATFORM_VERSION (勿 bump 凍結 knowledge.json)；chunk 數變要 display-sync 8 點；改 docx/checklist re-run gen_checklists_bundle.py；路徑空格雙引號；commit -m 勿用反引號。
