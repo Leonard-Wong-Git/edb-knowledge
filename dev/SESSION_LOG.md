@@ -34,6 +34,51 @@ dev/DOC_SYNC_REGISTRY.md
 ---
 
 <!-- ack:log-entry:start -->
+## 2026-06-24 Session 180 — SAG 學校行政手冊版本核對 (2025-11 → 2026-05)：§3.7.3 新增段 curated overlay 入庫
+
+- **ID:** Claude_20260624_1415_S180
+- **Summary:** 「開工」→ 頂層 redirect → Draft active root；起手探針 HEAD==origin/main 78312a0 / app.html v3.2.1 / Supabase 15,413 (footnote_curated 83)；Render /health 起初 cache_a warm=false → 背景輪詢 ~10s 升返 455（良性 free-tier cold-start、OpenAI 健康，非 quota）。Leonard「做」→ 接 S179 NEXT 嘅 SAG 疑 May-2026 新版 flag → live 核實 confirmed（EDB SAG 已 2026-05、markup/clean Last-Modified 2026-05-20、served 同檔名）→ 官方 Log_sheet 證自 2025-11 起唯一 delta=item 73 (§3.7.3) → 逐字 diff（store vs 2026-05 PDF）揭實質改動=1 新增段（懷疑性侵犯轉介報警程序）→ AskUserQuestion，Leonard 揀 (A) curated overlay → verbatim 重核 (markup+clean byte-identical, display page 80) + self-test cosine 0.758 → Leonard「做」明確授權 → live INSERT + registry bump + display-sync + push fb1f8fc → Render live verify overlay rank 1/8 + synthesis grounded → 報告。
+- **Changed:**
+  - Supabase wiki_chunks: +1 footnote_curated (`footnote_fn_sag_sexual_abuse_referral`, source_id=sag_2025_11, url SAG_C_markup.pdf#page=80, embed=text+keywords)。footnote_curated 83→84、total **15,413→15,414**。
+  - `dev/source/source_registry.json`: sag_2025_11 (version_label 2025-11→2026-05) + g24 (2025→2026-05)、title「2025年11月版」→「2026年5月版」、last_checked_at→2026-06-24（git diff 6 行精準）。
+  - `dev/ingest_sag_373_overlay.py`（新，reproducible --self-test/--execute + INSPECT before/after）。
+  - display-sync 8 點 15,413→15,414 (app.html/index.html/knowledge.json/role_facts.json/dev/knowledge/role_facts.json/K1_API_SPEC.md/README.md + CHANGELOG S180 entry)。凍結合約零接觸 (_meta 2.3.0/facts 455/guidelines 158、無 PLATFORM_VERSION bump)。
+- **Done:**
+  - ✅ **SAG 版本核對 confirmed + §3.7.3 新段 curated 入庫 LIVE**。verbatim：「如問題懷疑涉及性侵犯，學校須遵照社會福利署《保護兒童免受虐待–多專業合作程序指引》，諮詢社會福利署的保護家庭及兒童服務課或香港警務處虐兒案件調查組，以採取合適的處理程序。如情況顯示個案可能涉及刑事罪行，學校應向警方舉報。」
+  - ✅ **Render live verify**：query「學生懷疑被性侵犯 學校點處理 報警轉介」→ overlay rank **1/8** score 0.739、synthesis grounded（諮詢社署保護家庭及兒童服務課／警務處虐兒組／報警／依《多專業合作程序指引》），核心新段忠實命中零砌數。
+  - ✅ registry freshness 完整性閉環（version_label 此前 stale 2025-11/2025）。
+- **QC:** self-test cosine 0.758 lead + id 全新無撞；live INSPECT before/after（footnote_curated 83→84、missing none）；registry git diff 6 行 + JSON valid；display-sync 15 處/0 stale + 3 JSON valid；Render live overlay rank-1 + grounded synthesis。
+- **Evidence disposition:** ingest script 留底（reproducible）；version-reconcile 方法 + 監察盲點 → 下方 Notes + handoff；side-finding（SAG 雙 ingest）→ handoff monitor。
+- **Notes / 盲點 / side-finding:**
+  - 監察盲點：served-URL／freshness 監察測 URL 可達性、唔測內容版本；EDB 同檔名換版（content swap、URL 不變）結構上避過兩個監察（playbook `freshness-monitor-test-served-url` 已記此 failure mode）。
+  - Side-finding（記低、未處理）：SAG 喺 store 重複 ingest 兩份——`sag_2025_11`（markup 383 全文 + overlay）+ `g24`（clean 383）。route-independent overlay 唔受影響；日後可決定要唔要 dedup。
+- **commits (push origin/main):** `fb1f8fc`（SAG 2026-05 reconcile — §3.7.3 overlay + registry bump + display-sync 15414）。live Supabase INSERT 1（Leonard 明確授權「做」、INSPECT before/after）。
+- **Pending:** discovery 餘下 8 角度（S179 揾到 12、3 快贏 + S180 SAG = 4 done）；SAG 雙 ingest dedup 決定；footnote broad sweep；freshness 5 變動；既有 monitor。見 SESSION_HANDOFF 🔜 NEXT。
+- **Risks:** 🟢 HEAD==origin/main `fb1f8fc`、Supabase **15,414**、footnote_curated **84**、凍結合約零接觸、0 outstanding bug。⚠️ live Supabase 寫入 gated 要明確授權。⚠️ Render free-tier cold-start ~50s（warm=false 多屬 cold-start，持續 0 先查 OpenAI billing）。⚠️ OpenAI quota 曾用爆（已充值、本 session warm=455 確認健康）。
+- **Log maintenance:** SESSION_LOG 11 entries（含本條，S180–S170）→ 達 AHK N-rule N≥11 邊界。本 session 係 **mid-task PERSIST 非 full closeout** → archive 延至下個 full closeout（符 §4a「before writing closeout entry」時機）；oldest S170 2026-06-15 <30 日。AHK §4 trigger(b)(c)(d) 不命中。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella = redirect-only).
+平台 v3.2.1。起手探針：policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.1 + Render /health (cache_a warm 455；warm=false 多數係 free-tier cold-start、輪詢十幾秒升返 455 = 良性，持續 0 先查 OpenAI billing) + HEAD==origin/main (最新 fb1f8fc) + Supabase 15,414 (footnote_curated 84).
+
+S180 已 LIVE (Render verify overlay rank-1 + grounded)：SAG 學校行政手冊版本核對 — EDB 已由 2025-11 換到 2026-05 版 (Last-Modified 2026-05-20、served 同檔名故避過 served-URL/freshness 監察)；官方 Log_sheet 證唯一 delta=§3.7.3「與性有關的問題」；逐字 diff 揭實質改動=1 新增段 (懷疑性侵犯→社署保護家庭及兒童服務課/警務處虐兒組轉介+報警)。捕捉為 1 curated overlay (footnote_fn_sag_sexual_abuse_referral、footnote_curated 83→84、total 15,413→15,414) + registry version_label sag_2025_11/g24 → 2026-05 + display-sync。commit fb1f8fc。
+
+🔜 NEXT (全部待 Leonard 揀方向/授權)：
+① discovery 餘下 8 個未接觸角度 (S179 揾到 12、3 快贏 + S180 SAG = 4 done)：教師註冊制度 / 學校註冊+直資(DSS) / NCS 行政資助 / 傳染病預防(停課準則) / 學費減免書簿津貼 / NET外籍英師計劃 / 校舍法定安全(EMSD升降機) / EDB表格庫。每角度 = download 官方 PDF + verbatim 核 + curated overlay 或全文+routing；live 寫入要明確授權；新 host (chp/wfsfaa/emsd) 要 source-trust 決定。
+② SAG 雙重 ingest dedup 決定 (sag_2025_11 markup 383 + g24 clean 383 同一本手冊)。
+③ footnote broad sweep (optional 低值)；④ freshness 5 變動跟進 (detection-only)；⑤ 既有 monitor (MPF bypass 殘留 / 文件標註精準度 / Render cold-start / per-segment / undici / SMC recall / DEBP OCR)。
+
+⚠️ 紀律：live Supabase INSERT/UPDATE 要 INSPECT before/after + Leonard 明確授權 (ad-hoc curl 會被安全閘擋、用 --execute migration script)；入/改 footnote 後 restart Render (push 觸發 redeploy 即得)；curated overlay = id=footnote_fn_*、content_type=footnote_curated、route-independent；改版號喺 app.html PLATFORM_VERSION (勿 bump 凍結 knowledge.json)；chunk 數變要 display-sync 8 點；改 docx/checklist re-run gen_checklists_bundle.py；路徑空格雙引號；commit -m 勿用反引號。
+Post-startup first action: 起手探針後，按 Leonard 指示接 discovery 餘下角度 / SAG dedup / 或其他 backlog。
+```
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
 ## 2026-06-23 Session 179 — footnote 擴充第三批 (14) + discovery 三快贏新主題 (8) + kg_operation 補標 + TRG 404 修復
 
 - **ID:** Claude_20260623_S179
