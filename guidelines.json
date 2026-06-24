@@ -1,17 +1,17 @@
 {
   "_meta": {
-    "version": "2.6.0",
-    "updated": "2026-06-17",
+    "version": "2.6.1",
+    "updated": "2026-06-24",
     "count": 158,
     "description": "EDB 指引文件連結庫 — app 內庫指引/通告全集（已剔統計數據表/申請表/壞連結），供 EDB 通告智能分析系統按通告主題提取參考文件連結。每項只含標題、簡稱、URL、年份、格式。"
   },
   "finance": [
     {
       "id": "sag_2025_11",
-      "title": "學校行政手冊（2025年11月版）",
+      "title": "學校行政手冊（2026年5月版）",
       "titleShort": "SAG",
       "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf",
-      "year": "2025",
+      "year": "2026",
       "format": "PDF",
       "level": "跨階段"
     },
@@ -1415,10 +1415,10 @@
   "general": [
     {
       "id": "g24",
-      "title": "學校行政手冊（2025年11月版）",
+      "title": "學校行政手冊（2026年5月版）",
       "titleShort": "學校行政手冊",
       "url": "https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html",
-      "year": "2025",
+      "year": "2026",
       "format": "PDF",
       "level": "跨階段"
     },

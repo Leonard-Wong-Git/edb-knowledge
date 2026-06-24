@@ -1506,7 +1506,7 @@ function deepClone(obj) {
 
 // ── Guidelines Registry ──
 const GUIDELINES_REGISTRY = [
-  { id: 'sag_2025_11', title: '學校行政手冊（2025年11月版）', titleShort: 'SAG', format: 'PDF', category: '財務採購', sub_category: 'lsg', level: '跨階段', year: '2025', isSpine: true, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf' },
+  { id: 'sag_2025_11', title: '學校行政手冊（2026年5月版）', titleShort: 'SAG', format: 'PDF', category: '財務採購', sub_category: 'lsg', level: '跨階段', year: '2026', isSpine: true, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf' },
   { id: 'coa_imc_1_19', title: '資助則例（設有法團校董會資助學校適用版本）', titleShort: 'Code of Aid', format: 'PDF', category: '財務採購', sub_category: 'lsg', level: '跨階段', year: '2024', isSpine: true, url: 'https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf' },
   { id: 'g01', title: '資助學校採購程序指引（2025年10月更新）', titleShort: '採購程序指引', format: 'PDF', category: '財務採購', sub_category: 'procurement', level: '跨階段', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures%20in%20Aided%20Schools%20Trad%20Chi_2024.pdf' },
   { id: 'g02', title: '設有法團校董會的資助學校財務管理指引', titleShort: '財務管理指引', format: 'PDF', category: '財務採購', sub_category: 'lsg', level: '跨階段', year: '2023', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf' },
@@ -1550,7 +1550,7 @@ const GUIDELINES_REGISTRY = [
   { id: 'debp_ai_teaching_guide', title: '在教學上運用人工智能指南（中小學）（附篇二）', titleShort: '教學運用 AI 指南', format: 'PDF', category: '數字教育', also_in: ['課程'], sub_category: 'ai_literacy', level: '跨階段', year: '2026', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/SupplementIIGuideToUsingAIInTeaching(PrimaryAndSecondarySchools)_TC.pdf' },
   { id: 'debp_ailf_example', title: '中小學人工智能素養架構示例', titleShort: 'AI 素養架構示例', format: 'PDF', category: '數字教育', also_in: ['課程'], sub_category: 'ai_literacy', level: '跨階段', year: '2026', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/AILFexample_TC.pdf' },
   { id: 'debp_ai_examples', title: '在學與教中應用人工智能的示例', titleShort: 'AI 應用學與教示例', format: 'PDF', category: '數字教育', also_in: ['課程'], sub_category: 'ai_literacy', level: '跨階段', year: '2026', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/ExamplesOnApplicationOfAIInLearningAndTeaching_TC.pdf' },
-  { id: 'g24', title: '學校行政手冊（2025年11月版）', titleShort: '學校行政手冊', format: 'PDF', category: '行政', sub_category: 'admin', level: '跨階段', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html' },
+  { id: 'g24', title: '學校行政手冊（2026年5月版）', titleShort: '學校行政手冊', format: 'PDF', category: '行政', sub_category: 'admin', level: '跨階段', year: '2026', isSpine: false, url: 'https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html' },
   { id: 'g25', title: '幼稚園相關指引及須知', titleShort: '幼稚園指引', format: 'HTML', category: '行政', sub_category: 'kindergarten', level: '幼稚園', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/tc/edu-system/preprimary-kindergarten/about-preprimary-kindergarten/guidelines.html' },
   { id: 'g26', title: '2026/27學年幼稚園收生安排指引', titleShort: '幼稚園收生指引', format: 'PDF', category: '行政', sub_category: 'kindergarten', level: '幼稚園', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/kindergarten-k1-admission-arrangements/202627%20K1%20Admission%20Arrangements/2026-27_Admission%20Guidelines_TC.pdf' },
   { id: 'stat_edb_figures', title: '教育統計數字', titleShort: '統計數字', format: 'HTML', category: '人力資源', sub_category: 'stat', level: '跨階段', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/about-edb/publications-stat/figures/index.html' },
@@ -2034,7 +2034,7 @@ function PlatformIntroPanel({ stats }) {
       role: '校長',
       query: '教師年假有多少天？',
       answer: '根據《學校行政手冊》第3.1.2節，公營學校教師的年假為學校假期，即暑假、聖誕假及農曆新年假期，全年合共約70至80天。正式假期以教育局每年公布的學校假期時間表為準。',
-      source: '學校行政手冊（SAG）2025年11月版',
+      source: '學校行政手冊（SAG）2026年5月版',
       sourceUrl: 'https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/sag_c.pdf',
       tags: ['人力資源', '假期'],
     },
@@ -2110,7 +2110,7 @@ function PlatformIntroPanel({ stats }) {
   ];
 
   const sourceGroups = [
-    { icon: '📗', name: '學校行政手冊（SAG）', meta: '2025年11月 · 跨階段' },
+    { icon: '📗', name: '學校行政手冊（SAG）', meta: '2026年5月 · 跨階段' },
     { icon: '📘', name: '資助則例（Code of Aid）', meta: '2024年 · 跨階段' },
     { icon: '📑', name: '各 KLA 課程指引', meta: '2015–2025 · 21份' },
     { icon: '📄', name: 'EDB 通告及通函', meta: '2020–2025 · 多份' },

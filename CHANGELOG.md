@@ -16,11 +16,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 - **`source_registry.json` 版本標籤更新**：`sag_2025_11`（`version_label` `2025-11`→`2026-05`）＋ `g24`（`2025`→`2026-05`），title 同步「2025年11月版」→「2026年5月版」、`last_checked_at`→2026-06-24。閉返 freshness 完整性（registry 版本標籤此前 stale）。
 - 知識片段顯示數 **15,413 → 15,414**（首頁／平台介紹／README／K1_API_SPEC `_meta.stats` 同步）。
+- **公開指引庫 SAG 版本標籤同步**：`guidelines.json`（finance/`sag_2025_11` + general/`g24` 兩 entry：title「2025年11月版」→「2026年5月版」、year 2025→2026、`_meta` 2.6.0→**2.6.1**、count **158 不變**）+ `app.html` GUIDELINES_REGISTRY 兩 entry + 平台介紹示例來源標籤。完成公開顯示面版本核對（SAG dedup 調查時揭發 `g24` 雙重身份〔Channel-B 來源 + 公開指引 entry〕，registry bump 原漏咗公開顯示面）。
 
 ### Monitoring / Notes
+- **SAG 雙重 ingest 確認由 soft-dedup 妥善處理（無需 hard-dedup）**：`wikiRepository.ts` 有顯式 alias `g24 → sag_2025_11` + `seen`-Set dedup + 共用 per-source quota bucket → 兩份 ingest 永不喺結果重複、共用配額。backlog「軟 dedup 已 ship 足夠用」經 code + 機制核實屬實；hard-dedup（DELETE 383）唔值 destructive 風險。
 - **發現經過**：S179 discovery 旗 SAG 疑有 2026-05 新版 → 本 session live 核實 confirmed（`SAG_C_markup.pdf`／`SAG_C.pdf` Last-Modified 2026-05-20、served 同檔名）。官方更新記錄表（Log_sheet）證自 2025-11 起唯一 delta＝項 73（第 3 章 §3.7.3，中英文版同改）。
 - **盲點**：served-URL／freshness 監察測 URL 可達性、唔測內容版本；EDB 同檔名換版（content swap、URL 不變）結構上避過兩個監察（playbook `freshness-monitor-test-served-url` 已記此 failure mode）。
-- **Side-finding（記低、未處理）**：SAG 喺 store 重複 ingest 兩份——`sag_2025_11`（markup 383 全文＋overlay）＋ `g24`（clean 383）。日後可決定要唔要 dedup。
+- **Side-finding（已調查、resolved）**：SAG 喺 store 重複 ingest 兩份——`sag_2025_11`（markup 383 全文＋overlay）＋ `g24`（clean 383）；S180 已核實 soft-dedup 妥善處理（見上 Monitoring 首條），無需 hard-dedup。
 
 ---
 
