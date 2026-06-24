@@ -66,7 +66,7 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
 
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella = redirect-only).
-平台 v3.2.1。起手探針：policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.1 + Render /health (cache_a warm 455；warm=false 多數係 free-tier cold-start、輪詢十幾秒升返 455 = 良性，持續 0 先查 OpenAI billing) + HEAD==origin/main (最新 fb1f8fc) + Supabase 15,414 (footnote_curated 84).
+平台 v3.2.1。起手探針：policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.1 + Render /health (cache_a warm 455；warm=false 多數係 free-tier cold-start、輪詢十幾秒升返 455 = 良性，持續 0 先查 OpenAI billing) + HEAD==origin/main (最新 79840e5 收工 commit) + Supabase 15,414 (footnote_curated 84).
 
 S180 已 LIVE (Render verify overlay rank-1 + grounded)：SAG 學校行政手冊版本核對 — EDB 已由 2025-11 換到 2026-05 版 (Last-Modified 2026-05-20、served 同檔名故避過 served-URL/freshness 監察)；官方 Log_sheet 證唯一 delta=§3.7.3「與性有關的問題」；逐字 diff 揭實質改動=1 新增段 (懷疑性侵犯→社署保護家庭及兒童服務課/警務處虐兒組轉介+報警)。捕捉為 1 curated overlay (footnote_fn_sag_sexual_abuse_referral、footnote_curated 83→84、total 15,413→15,414) + registry version_label sag_2025_11/g24 → 2026-05 + display-sync + 公開指引 title sync 2026-05 (guidelines.json 2.6.1 + app.html)。SAG 雙 ingest 由 soft-dedup 妥善處理 (wikiRepository alias g24→sag_2025_11)、無需 hard-dedup。commits fb1f8fc→e521dee→0707faa→7828f3e。
 
