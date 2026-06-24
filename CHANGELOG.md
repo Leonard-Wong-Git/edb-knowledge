@@ -6,6 +6,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [內容新增＋維護] — 2026-06-24 — 學校行政手冊（SAG）版本核對：2025-11 → 2026-05，§3.7.3 新增段 curated 入庫
+
+> 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,413 → 15,414**（＋1 curated chunk）。
+
+### Added
+- **《學校行政手冊》§3.7.3「與性有關的問題」——2026 年 5 月版新增段入庫**（Channel B Supabase，＋1 chunk，`content_type=footnote_curated`，route-independent overlay，可逆）：捕捉 SAG 2026-05 版唯一實質改動——處理「懷疑涉及性侵犯」個案嘅程序要求：學校須遵照社會福利署《保護兒童免受虐待–多專業合作程序指引》，諮詢社會福利署保護家庭及兒童服務課或香港警務處虐兒案件調查組，以採取合適的處理程序；如情況顯示個案可能涉及刑事罪行，學校應向警方舉報。verbatim 核實（markup＋clean 兩版 byte-identical、display page 80）；self-test cosine 0.758 lead；id `footnote_fn_sag_sexual_abuse_referral`（可逆）。
+
+### Changed
+- **`source_registry.json` 版本標籤更新**：`sag_2025_11`（`version_label` `2025-11`→`2026-05`）＋ `g24`（`2025`→`2026-05`），title 同步「2025年11月版」→「2026年5月版」、`last_checked_at`→2026-06-24。閉返 freshness 完整性（registry 版本標籤此前 stale）。
+- 知識片段顯示數 **15,413 → 15,414**（首頁／平台介紹／README／K1_API_SPEC `_meta.stats` 同步）。
+
+### Monitoring / Notes
+- **發現經過**：S179 discovery 旗 SAG 疑有 2026-05 新版 → 本 session live 核實 confirmed（`SAG_C_markup.pdf`／`SAG_C.pdf` Last-Modified 2026-05-20、served 同檔名）。官方更新記錄表（Log_sheet）證自 2025-11 起唯一 delta＝項 73（第 3 章 §3.7.3，中英文版同改）。
+- **盲點**：served-URL／freshness 監察測 URL 可達性、唔測內容版本；EDB 同檔名換版（content swap、URL 不變）結構上避過兩個監察（playbook `freshness-monitor-test-served-url` 已記此 failure mode）。
+- **Side-finding（記低、未處理）**：SAG 喺 store 重複 ingest 兩份——`sag_2025_11`（markup 383 全文＋overlay）＋ `g24`（clean 383）。日後可決定要唔要 dedup。
+
+---
+
 ## [內容新增＋維護] — 2026-06-23 — footnote 擴充第三批（14 條）＋ discovery 三快贏新主題（8 條）＋ kg_operation 補標 ＋ TRG 連結修復
 
 > 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,391 → 15,413**（＋22 curated chunks：14 footnote 擴充 ＋ 8 discovery 三快贏）。

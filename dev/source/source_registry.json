@@ -80,7 +80,7 @@
   "sources": [
     {
       "source_id": "sag_2025_11",
-      "title": "學校行政手冊（2025年11月版）",
+      "title": "學校行政手冊（2026年5月版）",
       "title_en": "School Administration Guide",
       "title_short": "SAG",
       "url_landing": "https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html",
@@ -96,8 +96,8 @@
       ],
       "access_mode": "public",
       "status": "verified",
-      "version_label": "2025-11",
-      "last_checked_at": "2026-06-15",
+      "version_label": "2026-05",
+      "last_checked_at": "2026-06-24",
       "supersedes": null,
       "notes": "Primary operations spine. Seeded from the agreed LLM-wiki plan and existing repo documentation.",
       "freshness_metadata": {
@@ -1111,7 +1111,7 @@
     },
     {
       "source_id": "g24",
-      "title": "學校行政手冊（2025年11月版）",
+      "title": "學校行政手冊（2026年5月版）",
       "title_en": null,
       "title_short": "學校行政手冊",
       "url_landing": "https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html",
@@ -1124,8 +1124,8 @@
       ],
       "access_mode": "public",
       "status": "verified",
-      "version_label": "2025",
-      "last_checked_at": "2026-06-15",
+      "version_label": "2026-05",
+      "last_checked_at": "2026-06-24",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact.",
       "freshness_metadata": {
