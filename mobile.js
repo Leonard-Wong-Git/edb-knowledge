@@ -271,6 +271,34 @@
     return '📑';
   };
 
+  // ── WhatsApp share helpers ──
+  function buildShareText(query, synthesis, results) {
+    const seen = new Map();
+    (results || []).forEach(r => {
+      const sid = r.source_id || '';
+      if (!sid) return;
+      if (!seen.has(sid)) {
+        seen.set(sid, { label: displayName(sid, r.title), pages: new Set(), score: 0 });
+      }
+      const entry = seen.get(sid);
+      if (typeof r.page === 'number' && r.page > 0) entry.pages.add(r.page);
+      if ((r.score || 0) > entry.score) entry.score = r.score || 0;
+    });
+    const top = Array.from(seen.values()).sort((a, b) => b.score - a.score).slice(0, 5);
+    const srcLine = top.map(s => {
+      const pages = Array.from(s.pages).sort((a, b) => a - b).slice(0, 3);
+      return '《' + s.label + '》' + (pages.length ? ' p.' + pages.join(',') : '');
+    }).join(' · ');
+    const lines = ['【EDB K1 知識平台 · 政策搜尋】', '問：' + (query || '').trim()];
+    if (synthesis) lines.push('', synthesis);
+    if (srcLine) lines.push('', '來源：' + srcLine);
+    lines.push('🔗 https://policychecker.wongfu.net/app.html');
+    return lines.join('\n');
+  }
+  function shareToWhatsApp(text) {
+    window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
+  }
+
   // Build app.html mobile shell: hero + search + results + sheet
   function buildAppShell() {
     if (document.getElementById('m-app-shell')) return;
@@ -408,6 +436,12 @@
       html += '<div style="margin:0 0 4px;padding:16px;background:var(--m-edb-wash);border-radius:var(--m-r-md);border-left:3px solid var(--m-edb-deep)">'
            +   '<div style="font-size:11px;font-weight:700;color:var(--m-edb-deep);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px">整理答案</div>'
            +   '<div style="font-size:14px;line-height:1.6;color:var(--m-text-primary)">' + escapeHTML(data.synthesis) + '</div>'
+           +   '<div style="display:flex;justify-content:flex-end;margin-top:12px;padding-top:10px;border-top:1px solid rgba(0,0,0,0.06)">'
+           +     '<button id="m-share-wa-btn" type="button" aria-label="分享至 WhatsApp" '
+           +       'style="display:inline-flex;align-items:center;gap:6px;background:#25D366;color:#fff;border:none;padding:8px 16px;border-radius:99px;font-size:13px;font-weight:700;cursor:pointer">'
+           +       '📤 分享至 WhatsApp'
+           +     '</button>'
+           +   '</div>'
            + '</div>';
     }
     results.forEach((r, idx) => {
@@ -424,6 +458,14 @@
            + '</button>';
     });
     list.innerHTML = html;
+
+    // Wire WhatsApp share button (only rendered when synthesis present)
+    const shareBtn = document.getElementById('m-share-wa-btn');
+    if (shareBtn) {
+      shareBtn.addEventListener('click', () => {
+        shareToWhatsApp(buildShareText(query, data.synthesis, results));
+      });
+    }
 
     // Wire card taps to bottom sheet
     list.querySelectorAll('.m-result-card').forEach(btn => {

@@ -6,6 +6,29 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v3.2.2] — 2026-06-25 — 政策搜尋「📤 分享至 WhatsApp」按鈕（綜合答案 + 來源簡引 → wa.me deep link）
+
+> 平台版本 v3.2.1 → **v3.2.2**（`PLATFORM_VERSION` bump）。純前端 frontend-only、零 backend / retrieval / synthesis 邏輯改動。凍結合約 `_meta.version` 2.3.0 / facts 455 / guidelines 158 / Supabase **15,536** 全零接觸。
+
+### Added
+- **政策搜尋「📤 分享至 WhatsApp」按鈕**（desktop QAPanel 同 mobile shell 同位、出現喺「整理答案」 synthesis card 底；synthesis-gated，無綜合答案不出按鈕）：點擊開 `https://wa.me/?text=<URL-encoded>` 帶住預填訊息（mobile 開 WhatsApp app 揀 contact share / desktop 開 WhatsApp Web）。
+- 訊息格式（per Leonard「非常簡潔」要求）：`【EDB K1 知識平台 · 政策搜尋】 ／ 問：<query> ／ <綜合答案 ~250 字> ／ 來源：《SAG》 p.80 · 《採購指引》 p.12 · 《財務管理指引》 p.45 ／ 🔗 https://policychecker.wongfu.net/app.html`。
+- 來源行 compact：source_id dedup + score-sort top-5 + 每源最多 3 個 page；wa.me URL 實測 ~965 字符（WhatsApp 4096 字限有大量 headroom）。
+
+### Changed
+- `app.html`: `PLATFORM_VERSION` 3.2.1 → 3.2.2（header / footer badge 顯示 v3.2.2）；`runChannelB` / `runCombined` mapping 加 `source_id` 字段（為 share text builder 用 SOURCE_LABELS 中文短名；不影響 UI display，SourcesAccordion 仍用 raw `sourceRef.title`）。
+- `mobile.js`: 新 `buildShareText` + `shareToWhatsApp` helpers；`renderResults` synthesis card 加 share button row（#25D366 WhatsApp 綠 99px pill）+ click handler wire-up。
+
+### QC
+- 7/8 scenarios PASS：buildShareText 邏輯（mock 5 chunks 3 同源 → `《專業操守指引》 p.9,12,14` 正確 dedup + 排序）／desktop button render (#25D366, 8px radius, 13px/600)／mobile button render (#25D366, 99px pill)／synthesis-gated visibility／wa.me URL 長度／PLATFORM_VERSION 3.2.2 顯示／mobile-shell-active body class @ 375×812／Node syntax check on mobile.js。
+- 1 DEFERRED：localhost CORS 阻 live backend fetch → live verify 跟 push 後 prod policychecker.wongfu.net 做。
+
+### Notes
+- Frontend-only：backend / Supabase / Render / 凍結合約 / data contract 全零接觸；Render 無需 restart；Pages auto-redeploy（push origin/main 觸發）。
+- 留下次：Feature 2a 追問 multi-turn conversation + Feature 2b 文件 scoped Q&A（per Leonard 揀 sequence A = WhatsApp 先 ship、追問+scoped 之後分批做、共享 conversation UI）。
+
+---
+
 ## [內容新增＋維護] — 2026-06-25 — Discovery 8 角度 agents team 大入庫：122 條 footnote curated overlay（教師註冊／學校註冊+DSS／NCS／傳染病停課／學費減免／NET／校舍安全/EMSD／SAG 附錄）
 
 > 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,414 → 15,536**（＋122 curated chunks）；`footnote_curated` 84 → **206**（route-independent overlay）。S181 用 agent team workflow（PLAN→9 並行 research subagent→2 並行 adversarial reviewer→QC 合成→Leonard GO gate→ingest）。

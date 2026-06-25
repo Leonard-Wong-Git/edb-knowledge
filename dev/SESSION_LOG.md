@@ -34,6 +34,52 @@ dev/DOC_SYNC_REGISTRY.md
 ---
 
 <!-- ack:log-entry:start -->
+## 2026-06-25 Session 182 — WhatsApp 分享按鈕 SHIPPED（政策搜尋綜合答案 → wa.me deep link，desktop + mobile，純前端，平台 v3.2.1→v3.2.2）
+
+- **ID:** Claude_20260625_S182
+- **Summary:** S181 closeout 之後 Leonard 同 session 繼續：「1 搜尋後以 WhatsApp share 結果，引用文件及頁數要非常簡潔；2 搜尋後追問或 base 文件再問」→ PLAN 拆三 feature（WhatsApp share／追問 multi-turn／文件 scoped Q&A）+ 提 sequence A/B/C → Leonard 揀 A「WhatsApp 先 ship」→ 5-step workflow (PLAN→READ→CHANGE→QC→PERSIST)。CHANGE 7 edit（app.html ×5 + mobile.js ×2）；QC 7/8 PASS、1 DEFERRED（CORS）；PERSIST DOC_SYNC 6 點 sync + commit + push origin/main → Pages auto-redeploy。
+
+- **Changed:**
+  - `app.html`: PLATFORM_VERSION 3.2.1→3.2.2；`runChannelB`/`runCombined` mapping +`source_id`（為 share builder 用 SOURCE_LABELS 中文短名）；QAPanel +`buildShareText` + `handleShareWhatsApp` helpers；synthesis card 底 +Share button row (#25D366 green, 8px radius, 13px/600)。
+  - `mobile.js`: +`buildShareText` + `shareToWhatsApp` helpers；`renderResults` synthesis card 底 +Share button HTML (#25D366 green, 99px pill) + click handler wire-up（`document.getElementById('m-share-wa-btn')`）。
+  - DOC_SYNC display-sync 6 點：app.html / README badge+footer / CHANGELOG 新 v3.2.2 section / CODEBASE_CONTEXT AI Log / SESSION_HANDOFF Current Baseline + Open Priorities / SESSION_LOG（本條）。凍結合約零接觸（`_meta.version` 2.3.0 / facts 455 / guidelines 158 / Supabase **15,536**）。
+
+- **Done:**
+  - ✅ **WhatsApp 分享按鈕 SHIPPED desktop + mobile**：synthesis-gated（無 synthesis 不出）；點擊開 `https://wa.me/?text=<URL-encoded>`（mobile WhatsApp app 揀 contact／desktop WhatsApp Web）。訊息格式：`【EDB K1 知識平台·政策搜尋】 ／ 問：<q> ／ <答案> ／ 來源：《XXX》 p.N · 《YYY》 p.M ／ 🔗 platform URL`。source_id dedup + score-sort top-5 + 每源最多 3 個 page → compact per Leonard「非常簡潔」要求。wa.me URL 實測 ~965 字（WhatsApp 4096 字限大量 headroom）。
+  - ✅ **PLATFORM_VERSION 3.2.1→3.2.2**（user-facing；凍結合約 `_meta` 2.3.0 不 bump）。
+
+- **QC:**
+  - 7/8 scenarios PASS：buildShareText 邏輯（mock 5 chunks 3 同源 → `《專業操守指引》 p.9,12,14` 正確 dedup + 排序）／desktop button render (#25D366, 8px radius, 13px/600, 152×36)／mobile button render (#25D366, 99px pill)／synthesis-gated visibility（按鈕只喺 `synthesis &&` conditional 內）／wa.me URL 長度 965 字／PLATFORM_VERSION 3.2.2 header 顯示／mobile-shell-active body class @ 375×812／`node --check mobile.js` PASS。
+  - 1 DEFERRED：localhost CORS 阻 live backend fetch（CORS 限 policychecker.wongfu.net origin）→ live e2e verify 跟 push 後 prod 做（真 query → 確認按鈕出 + click 開 wa.me 帶正確文字）。
+  - Preview server local app.html boot 0 console error；React parse OK；headed render 確認 v3.2.2 顯示 header。
+
+- **Evidence disposition:** 1 條 reusable pattern — Claude Preview 用 mock DOM injection 繞 CORS 做 visual + 邏輯 QC，係 frontend-only feature 嘅 standing pattern（mock synthesis HTML inject 入 result list 即可驗 button render + style，不必 prod 部署即可驗大部分 paths）。記低 fact、未夠 promote rule pack（觀察多幾次 frontend-only ship 再決定）。
+
+- **Sync:**
+  - DOC_SYNC_CHECKLIST 行「Product version / release milestone change」全 row 6 trigger done（app.html PLATFORM_VERSION ✅ + README badge+footer ✅ + CHANGELOG new section ✅ + SESSION_HANDOFF baseline+priorities ✅ + SESSION_LOG entry ✅ + CODEBASE_CONTEXT AI Log ✅）
+  - DOC_SYNC_CHECKLIST 行「New user-facing feature」semi-applies（純前端、無新 backend endpoint）：CODEBASE_CONTEXT + SESSION_HANDOFF + SESSION_LOG ✅；README 功能簡介 table 暫無 row（feature 屬「政策搜尋」既有 surface 嘅小增強，非新 tab、唔列獨立 row）。
+  - 凍結合約 row（knowledge.json _meta、role_facts、guidelines）— N/A，全部不變。
+
+- **Pending:**
+  - Live e2e verify on prod policychecker.wongfu.net（push 後等 Pages auto-redeploy ~1-2 分鐘 → 真 query → 確認按鈕出 + click 開 wa.me 帶正確文字）
+  - Feature 2a 追問 multi-turn conversation（per Leonard 揀 sequence A，下一 batch）
+  - Feature 2b 文件 scoped Q&A（per source filter；連 2a 共享 conversation UI、可一齊做）
+
+- **Risks:** 🟢 純前端 + 無 backend/retrieval/synthesis/Supabase 改動、Render 無需 restart；凍結合約零接觸；PLATFORM_VERSION 3.2.1→3.2.2；Supabase 15,536 不變。⚠️ DEFERRED live verify（post-push prod 做）。⚠️ wa.me desktop 開 WhatsApp Web（用戶要 logged in WhatsApp Web 至 share）；mobile 開 native app（OS deep link）。⚠️ source_id mapping +1 字段（runChannelB/runCombined 之前唔 carry source_id，但 SourcesAccordion 仍用 raw `sourceRef.title` display，所以呢個 mapping fix 不影響 UI、只 enable share text 用 SOURCE_LABELS 中文短名）。
+
+- **Log maintenance:** SESSION_LOG = 13 entries（N≥11 trigger active，S181 已 defer 一次、本 session 再 defer）。本 session = lightweight checkpoint（feature ship，非 full closeout）；archive cross-file move ~10 entries 屬 dedicated maintenance pass、建議 next session 開頭做（N=13 已超）。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first, then follow its §1 startup sequence:
+Read in order: dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
+dev/DOC_SYNC_REGISTRY.md
+```
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
 ## 2026-06-25 Session 181 — Discovery 8 angles agents team 大入庫：122 條 footnote_curated overlay (Cap.279/EDBC/CHP/EMSD/SFAA/NET/SAG)
 
 - **ID:** Claude_20260625_S181

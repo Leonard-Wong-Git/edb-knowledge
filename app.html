@@ -1986,7 +1986,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // is frozen and consumed by the downstream Circular System). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + 文件標註（就地標註）+ 範本下載 + 合規清單修訂，跨 15 個合規範疇。
-const PLATFORM_VERSION = '3.2.1';
+const PLATFORM_VERSION = '3.2.2';
 
 function PlatformIntroPanel({ stats }) {
   const [demoTab, setDemoTab] = React.useState(0);
@@ -2505,6 +2505,7 @@ function QAPanel({ data, setPreviewDoc }) {
       score: r.score, channel: 'B',
       content_type: r.content_type, fact_type: r.fact_type,
       page: r.page,
+      source_id: r.source_id || null,
     }));
   }, []);
 
@@ -2525,6 +2526,7 @@ function QAPanel({ data, setPreviewDoc }) {
       score: r.score, channel: r.channel || 'B',
       content_type: r.content_type,
       page: r.page,
+      source_id: r.source_id || null,
     }));
   }, []);
 
@@ -2659,6 +2661,36 @@ function QAPanel({ data, setPreviewDoc }) {
     { id: 'B',  label: '來源文件', sub: '語義搜尋' },
   ];
 
+  // ── WhatsApp share helpers ──
+  const buildShareText = () => {
+    const seen = new Map();
+    results.forEach(r => {
+      const sid = r.source_id || r.sourceRef?.source_id || '';
+      if (!sid) return;
+      if (!seen.has(sid)) {
+        const label = SOURCE_LABELS[sid] || (r.sourceRef && r.sourceRef.title) || sid;
+        seen.set(sid, { label, pages: new Set(), score: 0 });
+      }
+      const entry = seen.get(sid);
+      if (typeof r.page === 'number' && r.page > 0) entry.pages.add(r.page);
+      if ((r.score || 0) > entry.score) entry.score = r.score || 0;
+    });
+    const top = Array.from(seen.values()).sort((a, b) => b.score - a.score).slice(0, 5);
+    const srcLine = top.map(s => {
+      const pages = Array.from(s.pages).sort((a, b) => a - b).slice(0, 3);
+      return `《${s.label}》${pages.length ? ' p.' + pages.join(',') : ''}`;
+    }).join(' · ');
+    const lines = ['【EDB K1 知識平台 · 政策搜尋】', '問：' + query.trim()];
+    if (synthesis) lines.push('', synthesis);
+    if (srcLine) lines.push('', '來源：' + srcLine);
+    lines.push('🔗 https://policychecker.wongfu.net/app.html');
+    return lines.join('\n');
+  };
+  const handleShareWhatsApp = () => {
+    const text = buildShareText();
+    window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
+  };
+
   return (
     <div className="flex-1 min-w-0">
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 k1-search-card">
@@ -2767,6 +2799,13 @@ function QAPanel({ data, setPreviewDoc }) {
                 </span>
               </div>
               <p style={{fontSize:'var(--text-sm)',color:'var(--ink)',lineHeight:1.7,margin:0}}>{synthesis}</p>
+              <div style={{display:'flex',justifyContent:'flex-end',marginTop:'12px',paddingTop:'10px',borderTop:'1px solid #C4A88240'}}>
+                <button onClick={handleShareWhatsApp}
+                        title="將綜合答案 + 引用來源分享至 WhatsApp"
+                        style={{display:'inline-flex',alignItems:'center',gap:'6px',background:'#25D366',color:'#fff',border:'none',padding:'7px 14px',borderRadius:'8px',fontSize:'13px',fontWeight:600,cursor:'pointer'}}>
+                  <span aria-hidden="true">📤</span><span>分享至 WhatsApp</span>
+                </button>
+              </div>
             </div>
           )}
           {/* Channel B with synthesis: show sources as collapsed strip */}
