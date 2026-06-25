@@ -6,6 +6,32 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [內容新增＋維護] — 2026-06-25 — 《價值觀教育課程架構》2026 正式版 + EDBC 3/2026 通告 + EDBCM 221/2025「『智』啟學教」AI 撥款計劃入庫（S183）
+
+> 平台版本維持 **v3.2.2**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines.json 2.6.1 公開 158 不變）；`_meta.stats.chunks` **15,536 → 15,649**（＋113 vault_extract chunks）；`source_registry.json` 225 → **228**（＋3 sources）。Leonard 揀 Option A scope（主框架 only + 配套通告）+ 中途追加 EDBCM 221/2025 piggyback。
+
+### Added
+- **《價值觀教育課程架構》(2026)** 正式版主框架（EDB 4 key tasks 之一）：93 chunks，`source_id=values_edu_framework_2026`，topic=curriculum；課程發展議會 2026/3 接納、2026/27 學年起在中小學正式推行；常委會以 2021 試行版為藍本、經各持份者意見及學校實踐經驗編訂。5 章節（價值觀教育的課程發展理念 / 架構的特色 / 課程內容 / 課程規劃與實施 / 資源與支援）；12 首要價值觀（堅毅 / 尊重他人 / 責任感 / 國民身份認同 / 承擔精神 / 誠信 / 仁愛 / 守法 / 同理心 / 勤勞 / 孝親 / 團結）；總體方向「立根中華、聯通世界、擁抱未來」。Source 86 substantive pages（PDF 89 pages 中 skip 1-3 cover + 89 blank）→ 53,964 chars verbatim 抽取。
+- **教育局通告第 3/2026 號** 配套通告：5 chunks，`source_id=edbc_3_2026_values_edu`，topic=curriculum；公布 VE_CF_2026 嘅 implementation directive；交官立、資助、按位津貼、私立及直接資助計劃學校校長／校監備辦。
+- **教育局通函第 221/2025 號「『智』啟學教」撥款計劃**（AI 賦能教育撥款，piggyback this batch）：15 chunks，`source_id=edbcm_221_2025_smart_teaching`，topic=it；屬 digital_education route。教育局 2025/1 成立「數字教育策略發展督導委員會」，2025 施政報告 QEF 預留 20 億；本計劃成功申請學校獲一次過 **50 萬元** 撥款，啟動 AI 賦能教育（購置／訂閱／租用 AI 軟件／硬件／平台／資源、資助學生 AI 素養活動）。承諾要求：最少 3 個科目／2 個級別推行 AI 輔助教學、發展 6 個 AI 教學例子、舉辦 3 次公開課／3 次經驗分享會／2 個學生活動。申請截止 **2026/2/28**、發款 2026/6/30、可跨學年用至 2027/28、財政紀錄保留 7 年。
+
+### Changed
+- `source_registry.json`：+3 新 sources entries；2 條舊版 `values_edu_framework_2021_trial`（2021 試行版） + `edbcm183_2023_values_edu`（2023 豐富試行版通函）加 `superseded_by: values_edu_framework_2026` 標注（retain 入庫、不 hard-delete；retrieve 仍可命中、ranking 自然分高低）。
+- Display-sync 8 處 chunks 數 15,536 → 15,649：`role_facts.json` / `K1_API_SPEC.md` / `index.html` (×3) / `app.html` (×4) / `knowledge.json` (`_meta.stats.chunks`) / `README.md` (×4) / `dev/CODEBASE_CONTEXT.md` / `dev/knowledge/role_facts.json`。
+
+### QC
+- **Adversarial verbatim subagent review** GO-as-is：programmatic per-page parity check **103/103 pages 0 divergence**（VE_CF 85 + EDBC 5 + EDBCM 13）；12 首要價值觀完整 + 順序對；5 章節 titles 對；中華經典引文（范仲淹「先天下之憂而憂」/ 杜甫 / 屈原 / 諸葛亮 / 岳飛 / 文天祥 等 8 條 quotes）byte-exact；總體方向「立根中華、聯通世界、擁抱未來」全 instances 對。
+- **Self-test chunker**：3 sources 全 page-resolvable=True；char med 574-594（in spec）。
+- **Live INSPECT before**：3 sources 全 0/* （no collision）→ INSERT 93+5+15 = 113 rows → **INSPECT after**: total **15,649 ✓ exact match**、3 sources per-count 全 match expected、無 missing。
+- **Render redeploy** 自動觸發（push 後）— vault_extract chunks 即時 routable（curriculum + it routes 都已存在、無需 backend route patch）。
+
+### Notes
+- 凍結合約零接觸（`_meta.version` 2.3.0 / facts 455 / guidelines.json 2.6.1 公開 158 / PLATFORM_VERSION 3.2.2 全不變）。
+- **路由匹配**：value education 2 條走 curriculum route（既有）；EDBCM 221/2025 走 digital_education / it route（S171 DEBP 209 入庫時 ship 嘅 `digital_education` route 同 path）— 無需 backend code 改。
+- 2021 試行版 + 2023 EDBC 183 retain 入庫策略：學校過渡期仍可能引用試行版內容；retrieve 命中後由 cosine 相似度自然排序，2026 正式版內容相關時 ranking 自然在前。
+
+---
+
 ## [v3.2.2] — 2026-06-25 — 政策搜尋「📤 分享至 WhatsApp」按鈕（綜合答案 + 來源簡引 → wa.me deep link）
 
 > 平台版本 v3.2.1 → **v3.2.2**（`PLATFORM_VERSION` bump）。純前端 frontend-only、零 backend / retrieval / synthesis 邏輯改動。凍結合約 `_meta.version` 2.3.0 / facts 455 / guidelines 158 / Supabase **15,536** 全零接觸。

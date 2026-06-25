@@ -2676,7 +2676,8 @@
         "etag": "\"064a99ca3e4da1:0\"",
         "content_hash": "e4cb9a85d02501536d427f9936427dfc2ecec25e819589a1e4c51e470ff4ba4a",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "superseded_by": "values_edu_framework_2026"
     },
     {
       "source_id": "edbcm183_2023_values_edu",
@@ -2707,7 +2708,59 @@
         "etag": "\"91d0e47c632eda1:0\"",
         "content_hash": "ddc68f97e239d95cbc2cf04fd4bedf4a7da0b59e1f508789aceba8e56b0c2eba",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "superseded_by": "values_edu_framework_2026"
+    },
+    {
+      "source_id": "values_edu_framework_2026",
+      "title": "《價值觀教育課程架構》（2026）",
+      "title_en": "Values Education Curriculum Framework (2026)",
+      "title_short": "價值觀教育架構2026",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/4-key-tasks/moral-civic/ve_curriculum_framework2026.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/VE_CF_2026_.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-25",
+      "supersedes": [
+        "values_edu_framework_2021_trial",
+        "edbcm183_2023_values_edu"
+      ],
+      "related_source_ids": [
+        "moral_civic_curr",
+        "edbc_3_2026_values_edu"
+      ],
+      "notes": "《價值觀教育課程架構》(2026) 正式版，課程發展議會 2026/3 接納、2026/27 學年起在中小學正式推行；常委會以 2021 試行版為藍本、經各持份者意見及學校實踐經驗編訂。5 章節（價值觀教育的課程發展理念／架構的特色／學習期望／課程規劃與實施／資源與支援）；12 首要價值觀；總體方向「立根中華、聯通世界、擁抱未來」。Superseded 2021 試行版及 2023 EDBC 183（豐富試行版內容）。"
+    },
+    {
+      "source_id": "edbc_3_2026_values_edu",
+      "title": "教育局通告第3/2026號 —— 《價值觀教育課程架構》（2026）",
+      "title_en": "EDB Circular No. 3/2026 — Values Education Curriculum Framework (2026)",
+      "title_short": "EDBC 3/2026 價值觀教育",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/4-key-tasks/moral-civic/ve_curriculum_framework2026.html",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26003C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-25",
+      "supersedes": null,
+      "related_source_ids": [
+        "values_edu_framework_2026",
+        "moral_civic_curr"
+      ],
+      "notes": "公布《價值觀教育課程架構》(2026) 嘅教育局通告；交官立、資助、按位津貼、私立及直接資助計劃學校校長／校監備辦。列出 2026 版主要更新及增潤內容（5 章節）。"
     },
     {
       "source_id": "sec_curr_guide_2017_booklet_6a",
@@ -6371,6 +6424,30 @@
         "content_hash": "d991c00992e51a8f677299fea75e60bfd796a643aa0cc551bb782e8a8267de7a",
         "hash_checked_at": "2026-06-17"
       }
+    },
+    {
+      "source_id": "edbcm_221_2025_smart_teaching",
+      "title": "教育局通函第221/2025號 —— 「『智』啟學教」撥款計劃",
+      "title_en": "EDB Circular Memorandum No. 221/2025 — Smart Teaching Funding Scheme (AI for Learning & Teaching)",
+      "title_short": "通函221/2025 智啟學教",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM25221C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM25221C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "it"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2025",
+      "last_checked_at": "2026-06-25",
+      "supersedes": null,
+      "related_source_ids": [
+        "debp_blueprint",
+        "debp_ailf_example"
+      ],
+      "notes": "「『智』啟學教」撥款計劃：支援中小學善用人工智能提升學與教效能。教育局於 2025/1 成立「數字教育策略發展督導委員會」，2025 施政報告 QEF 預留 20 億元推進數字教育；本計劃成功申請學校獲一次過 50 萬元撥款，啟動及推動校本人工智能賦能教育（包括購置／訂閱／租用 AI 軟件／硬件／平台／資源、資助學生參加 AI 素養活動）。承諾要求：將「AI 賦能教育」項目納入學校發展計劃、最少 3 個科目／2 個級別推行 AI 輔助教學、發展 6 個 AI 教學例子、舉辦 3 次公開課／3 次經驗分享會／2 個學生活動。申請截止 2026/2/28、發款 2026/6/30、可跨學年用至 2027/28、財政紀錄保留 7 年。屬 digital_education route。"
     },
     {
       "source_id": "debp_ai_examples",
