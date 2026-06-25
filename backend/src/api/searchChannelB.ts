@@ -626,17 +626,21 @@ async function synthesizeAnswer(query: string, results: ChannelBResult[], llmFn:
     .join("\n\n");
 
   // S177 — anti-confabulation gate: decline rather than fabricate when chunks don't answer.
-  // S178 — EXCEPTION: when the lead result is a curated 附件細字 footnote scoring ≥
-  // FOOTNOTE_LEAD_SCORE, trust it and skip the judge. The confabulation the judge guards
-  // against comes from topically-near-but-wrong *vault* chunks (the 凍結教席→IMC-60% class);
-  // a high-cosine curated footnote is a hand-curated, verbatim-verified precise answer by
-  // construction, not a confabulation risk. The conservative nano judge over-declines such
-  // footnotes (verified live: it vetoes a 0.76-cosine perfect-match MPF footnote even in
-  // isolation → false "暫時未能找到"). Vault-led results still go through the judge unchanged.
+  // S178 — EXCEPTION: footnote_curated lead scoring ≥ FOOTNOTE_LEAD_SCORE bypasses judge
+  // (hand-curated verbatim-verified direct answer by construction, not confab risk).
+  // S183 — EXTENDED: vault_extract lead scoring ≥ VAULT_LEAD_SCORE (0.70) also bypasses
+  // judge. Confabulation the judge guards against (S177 凍結教席→IMC-60% class) occurs
+  // at lower cosine 0.50-0.65 (topically-near-but-wrong); ≥0.70 is empirically direct
+  // topical match. Verified live: 「智啟學教是什麼」EDBCM 221 chunk rank-0 score 0.750
+  // and 「價值觀教育」VE_CF 2021 chunk rank-0 score 0.794 were over-declined by judge
+  // despite being perfect topical matches. Below-0.70 vault chunks still go through
+  // the judge unchanged (full confab protection retained for marginal cosine cases).
   const lead = top5[0];
   const trustedFootnoteLead =
     lead.content_type === "footnote_curated" && lead.score >= FOOTNOTE_LEAD_SCORE;
-  if (!trustedFootnoteLead) {
+  const trustedVaultLead =
+    lead.content_type === "vault_extract" && lead.score >= VAULT_LEAD_SCORE;
+  if (!trustedFootnoteLead && !trustedVaultLead) {
     const canAnswer = await judgeCanAnswer(query, chunkText, llmFn);
     if (!canAnswer) return SYNTHESIS_DECLINE;
   }
@@ -715,6 +719,10 @@ const FOOTNOTE_MIN_SCORE = 0.42;
  * main-search results outscore it. Footnotes between MIN and LEAD just merge by score.
  */
 const FOOTNOTE_LEAD_SCORE = 0.45;
+// S183 — vault_extract lead bypass threshold for judge. ≥0.70 = empirically direct
+// topical match (vault chunks at this cosine reliably answer the query). Below 0.70
+// falls through to judge for confab protection (S177 凍結教席→IMC-60% range was 0.55-0.65).
+const VAULT_LEAD_SCORE = 0.70;
 
 export async function searchChannelB(
   request: SearchChannelBRequest,
