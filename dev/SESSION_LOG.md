@@ -34,6 +34,78 @@ dev/DOC_SYNC_REGISTRY.md
 ---
 
 <!-- ack:log-entry:start -->
+## 2026-06-25 Session 181 — Discovery 8 angles agents team 大入庫：122 條 footnote_curated overlay (Cap.279/EDBC/CHP/EMSD/SFAA/NET/SAG)
+
+- **ID:** Claude_20260625_S181
+- **Summary:** 「開工」→ 頂層 redirect → Draft active root；起手探針全綠 (HEAD `55e428a`==origin/main S180 housekeeping、app v3.2.1、Render cache_a warm 455、Supabase 15,414/footnote_curated 84)。Leonard 講「agents team 全部做、QC plan、QC審批、敵意審查」→ trigger agent team workflow (3-role per memory `feedback_agent_team`)：feasibility (9 並行 research subagent) + audit (2 並行 adversarial reviewer A verbatim + B coverage/routing) + monitor (我 synthesize)。Phase 1 spawn 9 general-purpose agent 並行 verbatim 抽 EDB/CHP/EMSD/SFAA/Cap.279/Cap.618 等官方源 → harvest 180 candidates (127 substantive + 53 forms discovery seed)。Phase 2 spawn 2 reviewer 並行 → reviewer A 抽 sample 26 verbatim spot-check 22/26 PASS + 4 fix-then-pass (無 hallucination：CHP 通報表順序/漂水 §3.4.1 label/CHP 信加 ellipsis/EDBC 22/2024 split §2-§5)；reviewer B 全 127 cross-check coverage+routing 113 novel (89%) + canonicalize source_ids (Cap.279/EDBC 10/2012 collision merge) + URL health 11/11 OK + supabase delta estimate ~170 rows。Phase 3 QC 合成 + 出 3 個 ingest scope option 俾 Leonard 揀 → Leonard 揀 Option B (R1+R2 footnote sweep, no backend code change)。Phase 4 spawn transform agent 將 9 harvest JSON 轉成 1 個 `dev/ingest_s181_batch.py` (S179 schema, 122 entries, 122 unique fids, fix 4 verbatim + drop 5 redundant + canonical source_id)；self-test embed 122 → cosine ≥0.45 LEAD = 121/122 first run + 1 retune (sag_apx_leave_approval_matrix q+keywords 0.401→0.750) → 122/122 (100%)；live INSPECT before 84/15414 → INSERT 122 → INSPECT after 206/15536, no collision, no missing。Phase 5 display-sync 8 mirror + commit `cd47779` push origin/main → Render auto-deploy ~30s → /health cache_a warm 455 OK → live verify 8 representative queries (1 per angle)：7 條 rank #0 + 1 條 rank #1, synthesis 全 grounded with 新 verbatim text (Cap.279 §47/AFI/HK$900k/Composite baseline/ILI 7-day 等)。
+
+- **Changed:**
+  - **Supabase wiki_chunks: +122 footnote_curated rows**（all `content_type=footnote_curated`, `id=footnote_fn_<fid>`, route-independent overlay via `searchFootnotes` exact-cosine path）。footnote_curated 84→**206**、total 15,414→**15,536**。canonical source_ids: `cap279_education_ordinance`, `edbc_10_2012_fee_remission` (dedup angle-specific variants); 24 other new source_ids per harvest (chp_*, emsd_*, edbc_4_2026, edbc_8_2025, edbc_12_2026, sfaa_*, wfsfaa_*, scvpd_*, tpc_2022, etc.)
+  - **`dev/ingest_s181_batch.py` (新, 1589 行, tracked)**: S179 schema, reproducible `--self-test`/`--execute`, F=[122 dicts], INSPECT before/after, embed via build_wiki_index.bw, merge-duplicates upsert.
+  - **display-sync 8 點 15,414→15,536**: knowledge.json `_meta.stats.chunks` + role_facts.json + dev/knowledge/role_facts.json + K1_API_SPEC.md + README.md (4 places) + index.html (3 places) + app.html (4 places: meta + 3 fallback constants) + CHANGELOG.md (S181 chapter prepend)。
+  - 凍結合約零接觸: `_meta.version` 2.3.0 / facts 455 / guidelines.json 2.6.1 公開 158、PLATFORM_VERSION 3.2.1 不變。
+
+- **Done:**
+  - ✅ **8 angles 122 條 footnote LIVE**: 教師註冊 13 (Cap.279 §42-§61 + TPC 2022 sanction ladder + supply teacher BL/NST + CoA unqualified)；學校註冊+DSS 10 (§10-§14 + DSS 2⅓ + 10%/50¢ + Comprehensive Review 5yr + EDBC 10/2012 reserve)；NCS 18 (EDBC 4/2026 Composite baseline+additional+enrichment + 8/2020 5-tier + 9/2019 SEN 3-tier + 79/2025 SBP + KG 5-tier + special school matrix)；傳染病停課 15 (CHP 2025-Nov 修訂 + 20% ILI/7-day closure + 漂水 1:4/1:49/1:99 + 床距 1m + outbreak def 3+/2+ + sick leave appendix + CHP 2025-10-22 letter)；學費減免+書簿津貼 17 (SFAA AFI 公式 + 2024/25 thresholds + KCFR 15 Aug + TA 31 Oct + DSS 10%/50¢ + reserve excess)；NET 18 (EDBC 8/2025 二選一 + HK$900k/$1M + IELTS 7.5 + 2-tier gratuity 10%/15% + Special Allowance $16,859 + 行李/醫療/機票/MPS 薪級)；校舍法定安全+EMSD 13 (EDBC 12/2026 FSI Cap.95B + Cap.618 lift monthly/12mo/5yr + 24hr 嚴重事故通報 + EDBC 22/2024 30 Nov + Cap.279A s.5)；SAG 附錄 14 (附 3-12 跨 sick leave/maternity/leave approval matrix/利益衝突 10 例/教師失德程序/staff retention/cash $300m/BBQ/principal docs)。
+  - ✅ **Render live verify 8/8 PASS**: 教師註冊撤銷 0.683 rank#0、DSS 學費減免 0.723 rank#0、NCS Composite 0.679 rank#0、流感停課 0.650 rank#0、AFI 公式 0.690 rank#0、EMSD 升降機 0.601 rank#0、SAG 病假 0.640 rank#0、NET grant 0.608 rank#1 (rank#0=net_grant_min_1nat 0.639 = 另一 S181 NET footnote)。Synthesis 全 grounded with new verbatim text. Cap.279 §47 完整列出 deregistration grounds, AFI 公式正確計算 family income / household size, NCS Composite Grant baseline/additional/enrichment 三層結構齊。
+  - ✅ **Verbatim audit + adversarial review**: reviewer A 26 sample 22 PASS + 4 fix-then-pass (CHP form 順序/bleach §3.4.1 label/CHP letter ellipsis/EDBC 22/2024 split §2-§5)，全部已 transform 階段 apply；no hallucination/fabrication；critical numeric payload 全 byte-exact (Composite Grant $230k/$710k/$5k/$10k/cap50, NCS-SEN $100k/$200k/$300k, SBP $26,360, NET $900k/$1M/$16,859/$1,400/$5,400, TA $6,206 P1-6, ILI 20%/7day, 漂水 1:99/1:49/1:4, FSI 12-month/24-hr, $3000/8000→$6000/$10000, SAG 28/48/168/14/40/4, IELTS 7.5)。Reviewer B 113 novel + 4 redundant drop + 26 source_id 規範化 + 11/11 URL health。
+  - ✅ **Self-test 100%**: 122/122 cosine ≥0.45 LEAD post re-tune (1 entry sag_apx_leave_approval_matrix from 0.401→0.750 via q+keywords 強化「假期審批 邊個批 校長批 校董會批 教學人員假期」)。
+
+- **QC:**
+  - Self-test full F-list embed × 122 cosine pairs ≥0.45 LEAD = 122/122 (100%)
+  - INSPECT pre: footnote_curated count 84/15414, all 122 target ids non-existent (clean new)
+  - INSPECT post: footnote_curated count 206/15536, 0 missing
+  - Render redeploy: /health cache_a warm=true size=455 confirmed within 2 probes (~45s after push)
+  - Live verify 8/8: 7 rank-0 + 1 rank-1, synthesis all grounded with new verbatim
+  - File diff: 8 mirrors clean (only chunks number changes); CHANGELOG S181 new chapter ~32 lines
+
+- **Evidence disposition:** ingest_s181_batch.py 留底 (reproducible + audit trail for what was INSERTed)；reviewer A/B JSON 留 dev/_research_s181/ (untracked working artifact)；harvest JSONs 留 dev/_research_s181/ (untracked, 180KB+ research dump)；transform pattern (harvest → S179-schema F list with framing question + verbatim + keywords) 屬 reusable agent prompt pattern → 收 SESSION_LOG (本條 + ingest_s181_batch.py 留作下次 large batch ingest 嘅 reference)。
+
+- **Notes / agent team workflow:**
+  - Per memory `feedback_agent_team`: default DO mode using 3-role team — confirmed valid pattern for 9-angle parallel research + 2-reviewer adversarial QC. Total wallclock ~25-30 min phase 1 + ~15 min phase 2 + ~5 min phase 3-4.
+  - Anti-pattern防範: Phase 2 強制 adversarial (skeptic prompt: "DEFAULT TO SKEPTICISM. If verbatim_text contains ANY phrasing that 'smells' LLM-generated, flag it") — 防 LLM-polished paraphrase 滲入。Result: 0 hallucination found despite 9 agent × ~15 candidate each.
+  - Canonical source_id 機制 (reviewer B 揭發 Cap.279 across 3 angles, EDBC 10/2012 across 2 angles): 必須 transform 階段一次 dedup 入 canonical, 否則 Supabase 多份重複 source。
+  - Re-tune pattern (sag_apx_leave_approval_matrix 0.401→0.750): query 太短 + 太 polysemous text → 拉長 query (5 詞→16 詞 多次重申「邊個批」) + 加 sibling keywords ("假期審批"/"批核權力") 提升 lexical overlap。一次過搞掂屬 robust pattern。
+
+- **commits (push origin/main):** `cd47779`(feat S181: 122 footnote ingest + 8 display-sync mirror + CHANGELOG + dev/ingest_s181_batch.py audit trail) + 本 closeout commit (handoff/log reconcile). live Supabase INSERT 122 (Leonard 明確授權 Option B、INSPECT before/after 全綠、Render live verify 8/8)。
+
+- **Pending:** Phase 3 full_chunks_routed + 4 backend new route patch (覆蓋率最後一哩) / source_registry.json 26 新源 metadata fold-in (顯示面 polish) / freshness 5 變動 / 既有 monitor / playbook OCR push (S180 留低 local ead3749)。見 SESSION_HANDOFF 🔜 NEXT。
+
+- **Risks:** 🟢 HEAD==origin/main `cd47779`、Supabase **15,536**、footnote_curated **206**、凍結合約零接觸、PLATFORM_VERSION 3.2.1 不變、0 outstanding bug。⚠️ source_registry 26 新源 metadata 待 fold-in (chunks 已 live、retrieve OK、唯顯示面 polish)。⚠️ Phase 3 full_chunks_routed pending (覆蓋率仍有上升空間，footnote 已 capture 大部分 substantive)。⚠️ live Supabase 寫入安全閘 gated。⚠️ 入/改 footnote 必 restart Render (push 已觸發)。⚠️ 雙治理層共存。
+
+- **Log maintenance:** SESSION_LOG 11 entries → 加本條後 = 12 entries → AHK §4a trigger N≥11 active (S180 已 deferred 一次)。本 session = full closeout，但 archive 涉及 cross-file move (~9 entries from S178 down 入 dev/SESSION_LOG_archive/) — 屬 dedicated maintenance pass，喺 large feature ship session 後做會延長 closeout 太多；defer 到下次 dedicated routine session（建議 next session 開頭即做 archive，N=12 已超過 N≥11 限太多 risk）。AHK §4 trigger(b)(c)(d) 不命中（無 30 entry decisions section、無 substantive new decision/pattern porting）。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella = redirect-only).
+平台 v3.2.1。起手探針：policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.1 + Render /health (cache_a warm 455；warm=false 多數係 free-tier cold-start、輪詢十幾秒升返 455 = 良性) + HEAD==origin/main (最新 cd47779 S181 ingest + closeout commit) + Supabase 15,536 (footnote_curated 206).
+
+S181 已 LIVE (Render verify 8/8 rank-0/1 + grounded)：discovery 8 angles agents team 大入庫 122 條 footnote_curated overlay (教師註冊 13 / 學校註冊+DSS 10 / NCS 18 / 傳染病停課 15 / 學費減免 17 / NET 18 / 校舍安全+EMSD 13 / SAG 附錄 14)。footnote_curated 84→206、Supabase 15,414→15,536、display-sync 8 點、凍結合約零接觸、無 PLATFORM_VERSION bump。Agent team workflow: 9 並行 research subagent + 2 並行 adversarial reviewer + Leonard Option B GO + 122/122 self-test LEAD + INSERT 無 collision + 8/8 live verify。canonical source_id: Cap.279→cap279_education_ordinance, EDBC 10/2012→edbc_10_2012_fee_remission。commit cd47779 + 本 closeout commit。
+
+🔜 NEXT (全部待 Leonard 揀方向/授權)：
+① Phase 3 full_chunks_routed (覆蓋率最後一哩, medium risk)：reviewer B 估 ~60 full chunk + 要 patch backend searchChannelB.ts 加 4 個新 route (teacher_registration Cap.279 + ncs_support 或擴 sen + net_scheme + safety 加 EMSD/Cap.618 keywords) + Render redeploy + routing verify。同 S171 加 digital_education route 同 pattern。
+② source_registry.json 26 新源 metadata fold-in (chunks 已 live、retrieve 唔受影響；只係顯示面 polish — 補 title/url/version_label/type)。
+③ freshness 5 變動跟進 (g11/ma_curr_index/pri_science_cert_course_list/debp_blueprint/debp_ailf_example, detection-only)。
+④ 既有 monitor (MPF bypass / 文件標註精準度 / Render cold-start / per-segment / undici / SMC recall / DEBP OCR)。
+⑤ playbook OCR 提案 push (S180 留低 local ead3749, 跨 repo 待授權)。
+⑥ footnote broad sweep (極低值)。
+
+⚠️ 紀律：live Supabase INSERT/UPDATE 要 INSPECT before/after + Leonard 明確授權；入/改 footnote 後 restart Render (push 觸發 redeploy 即得)；curated overlay = id=footnote_fn_*、content_type=footnote_curated、route-independent；改版號喺 app.html PLATFORM_VERSION (勿 bump 凍結 knowledge.json)；chunk 數變要 display-sync 8 點；canonical source_id 規範 (Cap.279/EDBC 重複者用單一 id)；commit -m 勿用反引號；路徑空格雙引號。
+
+⚠️ Log maintenance：SESSION_LOG 達 12 entries (AHK §4a N≥11 trigger active since S180 first defer)，建議 next session 開頭即做 archive pass (move S171-S178 入 dev/SESSION_LOG_archive/archive_<batch>_<date>.md)。
+
+Post-startup first action：起手探針後，按 Leonard 指示揀 Phase 3 / source_registry fold-in / 或其他 backlog。
+```
+
+<!-- ack:log-entry:end -->
+
+---
+
+<!-- ack:log-entry:start -->
 ## 2026-06-24 Session 180 — SAG 學校行政手冊版本核對 (2025-11 → 2026-05)：§3.7.3 新增段 curated overlay 入庫
 
 - **ID:** Claude_20260624_1415_S180
