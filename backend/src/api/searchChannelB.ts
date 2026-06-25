@@ -724,6 +724,38 @@ const FOOTNOTE_LEAD_SCORE = 0.45;
 // falls through to judge for confab protection (S177 凍結教席→IMC-60% range was 0.55-0.65).
 const VAULT_LEAD_SCORE = 0.70;
 
+// S183 — supersede ranking penalty (governance rule, not source-specific). When a
+// new version of a document is ingested and the old version is marked superseded_by,
+// the old chunks score is reduced by SUPERSEDE_PENALTY so the new version ranks
+// above the old in cosine search. Per Leonard 嘅 retain-but-rank-down 策略:
+// superseded sources stay in store (學校過渡期仍可能引用 old version), but new
+// version surfaces first when both are topically relevant.
+//
+// SOURCE-OF-TRUTH for SUPERSEDED_IDS = dev/source/source_registry.json `superseded_by`
+// field. When ingesting a new superseding version, add the old source_id here (same
+// pattern as SOURCE_SETS — manual sync at ingest time). Penalty 0.05 chosen empirically:
+// VE_CF 2021 trial cos≈0.794, VE_CF 2026 new≈0.753 (差 0.041); penalty 0.05 swaps
+// the ranking (2021 → 0.744 < 2026), surfacing the official 2026 version first.
+const SUPERSEDE_PENALTY = 0.05;
+const SUPERSEDED_IDS = new Set<string>([
+  // S183 — value_education framework 2026 supersedes:
+  "values_edu_framework_2021_trial",
+  "edbcm183_2023_values_edu",
+]);
+
+/** S183 — Apply supersede penalty to results in place. Caller is responsible for
+ *  re-sorting after (e.g. before any lead-detection or top_k slice). Idempotency
+ *  note: only call once per result object (apply at chunk-mapping boundary, not
+ *  in re-sort loops). */
+function applySupersedePenalty<T extends { source_id: string; score: number }>(results: T[]): T[] {
+  for (const r of results) {
+    if (SUPERSEDED_IDS.has(r.source_id)) {
+      r.score = r.score - SUPERSEDE_PENALTY;
+    }
+  }
+  return results;
+}
+
 export async function searchChannelB(
   request: SearchChannelBRequest,
   embedFn: EmbedFn,
@@ -788,6 +820,12 @@ export async function searchChannelB(
 
   let results = rawResults.map(toChannelBResult);
 
+  // S183 — Apply supersede penalty + re-sort. Old-version chunks (registered in
+  // SUPERSEDED_IDS) get score reduced so the new version ranks first when both
+  // are topically relevant. Run after mapping, before any lead detection.
+  applySupersedePenalty(results);
+  results.sort((a, b) => b.score - a.score);
+
   // S174 — route-independent footnote pass (see FOOTNOTE_MIN_SCORE above). Exact cosine
   // over the curated footnote overlay (bypasses routing AND ivfflat recall). Uses the RAW
   // query (footnote chunks are not category-tuned). Best-effort: never fails search.
@@ -795,6 +833,9 @@ export async function searchChannelB(
     const fnRaw = await searchFootnotes(query, embedFn, FOOTNOTE_MIN_SCORE, 6);
     if (fnRaw.length > 0) {
       const fnResults = fnRaw.map(toChannelBResult);
+      // S183 — apply supersede penalty to footnote results too (footnote overlay is
+      // independent retrieve path, needs the same governance rule).
+      applySupersedePenalty(fnResults);
       // Strong footnote matches lead (guaranteed synthesis-window slot); weaker ones
       // merge by score. Dedup by id; main results keep score order behind the lead.
       const lead = fnResults.filter((r) => r.score >= FOOTNOTE_LEAD_SCORE).slice(0, 2);
