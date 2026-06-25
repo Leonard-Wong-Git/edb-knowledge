@@ -34,6 +34,89 @@ dev/DOC_SYNC_REGISTRY.md
 ---
 
 <!-- ack:log-entry:start -->
+## 2026-06-25 Session 183 — 《價值觀教育課程架構》(2026) 正式版 + EDBC 3/2026 + EDBCM 221/2025 智啟學教入庫 + multi-issue debug + 2 governance rules ship + brand fix + Pages outage 救活
+
+- **ID:** Claude_20260625_S183
+- **Summary:** Leonard 指出 EDB 4 key tasks 之一嘅 value education framework 由 2021 試行版升到 2026 正式版 registry 缺 → AskUserQuestion Option A scope（主框架 + 配套通告 + 2021/2023 supersede retain）→ 中途 piggyback EDBCM 221/2025 AI 撥款 → adversarial subagent review 103/103 pages 0 divergence GO → live INSERT 113 chunks → post-INSERT 揭發 3 issue：(a)duplicate ingest (prior `edbc003_2026` 6 chunks 同份 PDF) hard-delete -5 → (b)routing surface fail backend +`value_education` route + 擴 `digital_education` route + 提兩者到 finance 之上 → (c)synthesis judge over-decline (Leonard mobile screenshot) 擴 `VAULT_LEAD_SCORE=0.70` bypass → 兩條 governance rule (supersede penalty 0.05 long-term rule + judge bypass extension) → brand fix (EDB K1 知識平台 → 香港學校政策搜尋平台) → Pages #397 transient outage empty-commit retrigger → 7 commits 全 push live verified。
+
+- **Changed:**
+  - Supabase wiki_chunks: 15,536 → 15,649 → 15,644（淨 +108 vault_extract；3 source INSERT 113 → hard-delete duplicate 5）。
+  - source_registry.json: 225 → 228 → 227（+2 effective new sources VE_CF_2026 + EDBCM_221_2025_smart_teaching；dropped 1 duplicate edbc_3_2026_values_edu post-discovery；2021/2023 兩 entry 加 `superseded_by: values_edu_framework_2026`）。
+  - backend/src/api/searchChannelB.ts: 4 round patch（+`value_education` route SOURCE_SETS + TOPIC_KEYWORDS + QUERY_EXPANSIONS / 擴 `digital_education` SOURCE_SETS + TOPIC_KEYWORDS / 提兩 routes 到 finance 之上 first-match precedence / +`VAULT_LEAD_SCORE=0.70` judge bypass / +`SUPERSEDED_IDS` Set + `SUPERSEDE_PENALTY=0.05` + `applySupersedePenalty()` helper apply 兩次 main+overlay）。
+  - app.html line 2683 + mobile.js line 292: WhatsApp share text 第一行 brand string swap（EDB K1 知識平台 → 香港學校政策搜尋平台）。
+  - Display-sync 9 處 chunks 15,536→15,644：role_facts.json / K1_API_SPEC.md / index.html ×3 / app.html ×4 / knowledge.json / README.md ×4 / dev/CODEBASE_CONTEXT.md / dev/knowledge/role_facts.json / CHANGELOG.md。
+  - update_log.json: +1 entry（newest top、2026-06-25、VE_CF 2026 + 智啟學教 簡潔 desc）+ `_meta.updated` bump。
+  - CHANGELOG.md S183 entry prepend；dev/CODEBASE_CONTEXT.md AI Maintenance Log S183 entry；dev/PROJECT_DECISIONS.md append 2 governance rules（supersede penalty + judge bypass extension）。
+  - 新 files: dev/vault/value_education_2026/{VE_CF_2026.pdf, EDBC_3_2026.pdf, EDBCM_221_2025.pdf, _extract_s183.py}, dev/vault/values_edu_framework_2026/extract.txt, dev/vault/edbcm_221_2025_smart_teaching/extract.txt, dev/_s183_registry_update.py, dev/_s183_registry_add_edbcm221.py。
+  - 凍結合約零接觸：`_meta.version` 2.3.0 / facts 455 / guidelines.json 2.6.1 公開 158 / PLATFORM_VERSION 3.2.2 全不變、無 bump。
+
+- **Done:**
+  - ✅ **3 sources LIVE ingest**：(1) `values_edu_framework_2026` 93 chunks topic=curriculum（86 substantive pages、5 章節、12 首要價值觀、總體方向「立根中華、聯通世界、擁抱未來」）+ (2) `edbcm_221_2025_smart_teaching` 15 chunks topic=it（『智』啟學教 AI 撥款計劃 50 萬/校、申請截止 2026/2/28）+ (prior `edbc003_2026` 6 chunks 同份 EDBC 3/2026 PDF retain、加入 `value_education` route SOURCE_SETS)。
+  - ✅ **Adversarial verbatim subagent review GO-as-is**：programmatic per-page parity 103/103 pages 0 divergence；12 首要價值觀 list 完整+順序對 + 5 章節 titles 對 + 中華經典引文（范仲淹/杜甫/屈原/諸葛亮/岳飛/文天祥 等 8 條 quotes）byte-exact + 總體方向全 instances 對。
+  - ✅ **Backend `value_education` + `digital_education` routes patch LIVE**：routing smoke 12/12 PASS（5 value_education + 3 digital_education + 4 regression unchanged）；Render redeploy post-push live 8 query 7/8 PASS（1 fail = query 含「試行版」語義 ambiguous）。
+  - ✅ **Judge bypass extension LIVE**：3/3 Leonard mobile screenshot user query post-fix ANSWER + grounded（「智啟學教是什麼」EDBCM 221 rank-0 score 0.750 / 「智啟學教撥款適用範圍」grounded EDBCM 221 / 「價值觀教育」VE_CF 2021 rank-0 0.794）。
+  - ✅ **Supersede penalty governance rule LIVE**：3/3 短 query 「價值觀教育」「首要價值觀」「12 首要價值觀」VE_CF 2026 rank 0/1/2、2021 試行版 demoted rank-3+；SSOT = registry `superseded_by`、backend `SUPERSEDED_IDS` Set 雙處 sync。
+  - ✅ **Brand fix LIVE**：served app.html + mobile.js 新 brand「香港學校政策搜尋平台 · 政策搜尋」count=1 各，舊 brand count=0 verified。
+  - ✅ **Pages #397 transient outage 救活**：commit `1359916` Pages deploy step 4s 失敗（build+report ok），empty commit `4ddffb6` #398 success；確認 transient (no persistent issue)。
+
+- **QC:**
+  - INSPECT before/after 全綠：3 source 0/* (no collision) → INSERT 93+5+15 = 113 → 15,649；hard-delete 5 → 15,644。Total Supabase count exact match。
+  - Routing smoke 12/12 PASS（pure function detectQueryCategory test、含 regression）。
+  - tsc 4 round 全 clean（no errors）。
+  - Live 8 query post-routing-patch 7/8 PASS（rank ≤ 2）；3/3 user-reported query post-judge-fix ANSWER；3/3 短 query post-supersede-penalty VE 2026 surface 前。
+  - Pages workflow API 確認 #398 success（public REST API 不需 auth）；served brand grep new=1/stale=0 ×2 files。
+  - 凍結合約 grep 全 zero touch verified。
+
+- **Evidence disposition:** Adversarial subagent review report + routing smoke + live retrieve verify 全 kept as trace evidence；ingest scripts `_extract_s183.py` + `_s183_registry_*.py` 留底 reproducible；governance rule (supersede penalty + judge bypass thresholds) → 已 append PROJECT_DECISIONS.md Insights & Learnings；duplicate ingest prevention discipline (grep URL + title variants) + short-query verification + Pages empty-commit retrigger remediation → 已 record SESSION_HANDOFF 🆕 S183 governance rules block standing instructions。
+
+- **Pending:** VE planning tools 4 條 PDF (Option C deferred 部分) / Feature 2a 追問 + 2b scoped Q&A (S182 deferred、per Leonard sequence A) / S181 NEXT 仍 valid (Phase 3 full_chunks_routed + 4 新 route / source_registry 26 fold-in / freshness 5 變動 / 既有 monitor / playbook OCR push / footnote broad sweep)。**⚠️ CRITICAL: SESSION_LOG archive 第 5 次 defer (line 602 > 400 + N=13)**：next session 開頭即跑 `python docs/qa/session_log_maintenance.py --apply`。
+
+- **Risks:** 🟢 HEAD==origin/main `4ddffb6`（7 commits 全 push）、Supabase **15,644** vault_extract +108 net、source_registry **227**、凍結合約零接觸、PLATFORM_VERSION 3.2.2 不 bump、0 outstanding bug。⚠️ Backend code 4 round patch 累積 surface 廣 → monitor 1-2 週確 regression-free。⚠️ Supersede penalty `SUPERSEDED_IDS` Set 雙處 SSOT (registry + backend hardcoded) 易漂移；future ingest 新 superseding version 時必同步雙處。⚠️ Pages transient outage 唔保證唔再發 → empty commit retrigger standard remediation；workflow status 用 public REST API 查。⚠️ live Supabase INSERT/DELETE 全 Leonard 明確授權；INSPECT before/after 全綠。
+
+- **commits (push origin/main):** `bc26d41`(feat S183 ingest +113 → 15,649) + `edebbbd`(fix S183 hard-delete duplicate + 2 routes patch → 15,644) + `40923d5`(docs S183 update_log.json) + `a718a83`(fix S183 judge bypass vault_extract ≥0.70) + `1359916`(feat S183 supersede penalty 0.05 governance rule) + `71f1c80`(fix S183 WhatsApp share brand) + `4ddffb6`(chore retrigger Pages empty) + 本 closeout commit。
+
+- **Log maintenance:** SESSION_LOG 12 → 13 entries (N≥11 trigger active since S180 / 5th defer at S183 / line trigger 602 > 400 ACTIVE)。本 session 收工巨大 (multi-issue debug + 2 governance rules + brand fix + Pages outage)；archive cross-file pass 屬 dedicated maintenance pass，**defer 第 5 次** with explicit `MUST RUN NEXT SESSION START` flag 寫入 handoff Open Priorities CRITICAL bullet。AHK §4 trigger(c) HIT：append PROJECT_DECISIONS Insights & Learnings 2 governance rules (supersede penalty + judge bypass extension) — done。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella = redirect-only).
+平台 v3.2.2。起手探針：policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.2 + 「香港學校政策搜尋平台·政策搜尋」brand live + Render /health (cache_a warm 455；warm=false 多數係 free-tier cold-start) + HEAD==origin/main (最新 4ddffb6 chain：bc26d41+edebbbd+40923d5+a718a83+1359916+71f1c80+4ddffb6) + Supabase 15,644 (vault_extract +108 net).
+
+S183 已 LIVE (4 Render redeploy + 1 Pages outage 救活 + 全 live verified)：
+- 3 sources INSERT: values_edu_framework_2026 (93 chunks) + edbcm_221_2025_smart_teaching (15) + prior edbc003_2026 (6 retain) → 15,644
+- Backend 2 routes patch: +value_education + 擴 digital_education + 提兩者到 finance 之上 → routing smoke 12/12 PASS, Render 7/8 PASS
+- 2 governance rules ship: (1) Supersede penalty 0.05 (新文件版本 surface 前；SOURCE-OF-TRUTH = registry superseded_by field + backend SUPERSEDED_IDS Set 雙處 sync) (2) Judge bypass extension (footnote_curated ≥0.45 + vault_extract ≥0.70 bypass anti-confab judge)
+- WhatsApp share text brand fix: EDB K1 知識平台 → 香港學校政策搜尋平台 (跟 product banner)
+- Pages transient outage: empty commit retrigger 即修 (standard remediation)
+- 凍結合約零接觸 / PLATFORM_VERSION 3.2.2 不變 / source_registry 227 / 2021+2023 superseded_by retain
+
+🔜 NEXT (active 優先序，全部待 Leonard 揀方向/授權)：
+⚠️ CRITICAL: SESSION_LOG archive 第 5 次 defer (line 602 > 400 + N=13)：next session **開頭即跑** `python docs/qa/session_log_maintenance.py --apply --session-log dev/SESSION_LOG.md --archive-dir dev/archive`，唔好繼續 defer。
+⓪ Feature 2a 追問 multi-turn + Feature 2b 文件 scoped Q&A (S182 deferred、per Leonard sequence A、共享 conversation UI、estimate 1.5-2 日)
+① Phase 3 full_chunks_routed + 4 backend new route (teacher_registration Cap.279 + ncs_support + net_scheme + safety EMSD/Cap.618)
+② VE planning tools 4 條 PDF (S183 Option C deferred 部分；規劃工具表格非 policy)
+③ source_registry.json 26 新源 metadata fold-in (chunks 已 live、retrieve 不受影響、顯示面 polish)
+④ freshness 5 變動跟進 / 既有 monitor / playbook OCR 提案 push / footnote broad sweep
+
+⚠️ S183 standing instructions (long-term rules、future ingest 必跟)：
+(1) Supersede penalty: ingest 新 superseding 版時 必 sync backend SUPERSEDED_IDS Set + registry superseded_by field 雙處
+(2) Pre-ingest grep discipline: 必同時用 URL filename pattern + 中文 title keyword + brand variants grep registry (S183 漏 catch prior edbc003_2026 因為齋 grep brand variant)
+(3) Short-query verification mandatory: 必驗 2-4 token 短 query (per memory feedback_short_query_first)，唔好齋驗 7+ token 長 sentence
+(4) Pages transient outage remediation: build OK + deploy step fail = transient，empty commit retrigger 即修；workflow status 用 public REST API 查 (no auth needed for public repo)；gh CLI v2.95.0 已裝喺 /opt/homebrew/bin
+(5) Judge bypass thresholds: footnote_curated ≥0.45 + vault_extract ≥0.70 (S183 擴)；below threshold 仍經 judge protection
+
+⚠️ 紀律 (S181-S183 累積)：live Supabase INSERT/UPDATE/DELETE 要 INSPECT before/after + Leonard 明確授權；入/改 footnote 後 restart Render；改版號喺 app.html PLATFORM_VERSION (勿 bump 凍結 knowledge.json)；chunk 數變要 display-sync 9 點 (S183 加 CHANGELOG)；canonical source_id 規範；commit -m 勿用反引號；路徑空格雙引號。
+
+Post-startup first action: 起手探針後 → 跑 SESSION_LOG archive script → 按 Leonard 指示揀下一個方向 (推薦 Feature 2a+2b)。
+```
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
 ## 2026-06-25 Session 182 — WhatsApp 分享按鈕 SHIPPED（政策搜尋綜合答案 → wa.me deep link，desktop + mobile，純前端，平台 v3.2.1→v3.2.2）
 
 - **ID:** Claude_20260625_S182
