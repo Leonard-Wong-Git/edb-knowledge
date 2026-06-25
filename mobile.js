@@ -289,7 +289,7 @@
       const pages = Array.from(s.pages).sort((a, b) => a - b).slice(0, 3);
       return '《' + s.label + '》' + (pages.length ? ' p.' + pages.join(',') : '');
     }).join(' · ');
-    const lines = ['【EDB K1 知識平台 · 政策搜尋】', '問：' + (query || '').trim()];
+    const lines = ['【香港學校政策搜尋平台 · 政策搜尋】', '問：' + (query || '').trim()];
     if (synthesis) lines.push('', synthesis);
     if (srcLine) lines.push('', '來源：' + srcLine);
     lines.push('🔗 https://policychecker.wongfu.net/app.html');
