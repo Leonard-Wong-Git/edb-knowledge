@@ -67,14 +67,33 @@ dev/DOC_SYNC_REGISTRY.md
 
 - **Risks:** 🟢 純前端 + 無 backend/retrieval/synthesis/Supabase 改動、Render 無需 restart；凍結合約零接觸；PLATFORM_VERSION 3.2.1→3.2.2；Supabase 15,536 不變。⚠️ DEFERRED live verify（post-push prod 做）。⚠️ wa.me desktop 開 WhatsApp Web（用戶要 logged in WhatsApp Web 至 share）；mobile 開 native app（OS deep link）。⚠️ source_id mapping +1 字段（runChannelB/runCombined 之前唔 carry source_id，但 SourcesAccordion 仍用 raw `sourceRef.title` display，所以呢個 mapping fix 不影響 UI、只 enable share text 用 SOURCE_LABELS 中文短名）。
 
-- **Log maintenance:** SESSION_LOG = 13 entries（N≥11 trigger active，S181 已 defer 一次、本 session 再 defer）。本 session = lightweight checkpoint（feature ship，非 full closeout）；archive cross-file move ~10 entries 屬 dedicated maintenance pass、建議 next session 開頭做（N=13 已超）。
+- **Log maintenance:** SESSION_LOG = 13 entries（AHK §4a N≥11 trigger active since S180 first defer；S181 + S182 各 defer 一次）。本 session = full closeout (Leonard「收工」)；但 archive cross-file move ~10 entries（S171–S179）入 `dev/SESSION_LOG_archive/archive_<batch>_2026Q2.md` 屬 dedicated maintenance pass、喺 closeout 一齊做會延長 closeout 太多 — defer 到 next session 開頭即做（N=13 已超 N≥11 限太多 risk）。AHK §4 trigger(b)(c)(d) 不命中（無 30 entry decisions section、無 substantive new decision/pattern porting）。
 
 ### Next Session Handoff Prompt (Verbatim)
 
 ```text
-Read AGENTS.md first, then follow its §1 startup sequence:
-Read in order: dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
-dev/DOC_SYNC_REGISTRY.md
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
+
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft (active root；頂層 umbrella = redirect-only).
+平台 v3.2.2。起手探針：policychecker.wongfu.net/app.html=200 + PLATFORM_VERSION 3.2.2 + Render /health (cache_a warm 455；warm=false 多數係 free-tier cold-start、輪詢十幾秒升返 455 = 良性，持續 0 先查 OpenAI billing) + HEAD==origin/main (最新 closeout commit 之上：4433afe docs sync + d2e4480 feat S182) + Supabase 15,536 (footnote_curated 206) — S182 0 Supabase 改動。
+
+S182 已 LIVE (post-push live verify 8/8 PASS：prod app.html PLATFORM_VERSION='3.2.2' + 「分享至 WhatsApp」HTML 入 prod 2 occurrences + mobile.js buildShareText/shareToWhatsApp/m-share-wa-btn symbols loaded + Render /health ok cache_a warm 455 不變)：政策搜尋整理答案 card 底加綠色「📤 分享至 WhatsApp」按鈕（desktop QAPanel + mobile shell 同位、synthesis-gated 無 synthesis 不出）。點擊開 wa.me/?text=<encoded>（mobile WhatsApp app / desktop WhatsApp Web 揀 contact share）。訊息格式 compact per Leonard「非常簡潔」要求：【EDB K1 知識平台·政策搜尋】問：<q> / <綜合答案 ~250 字> / 來源：《SAG》 p.80 · 《採購指引》 p.12 · 《財務管理指引》 p.45 / 🔗 https://policychecker.wongfu.net/app.html。source_id dedup + score-sort top-5 + 每源最多 3 個 page；wa.me URL ~965 字 vs WhatsApp 4096 字限大量 headroom。PLATFORM_VERSION 3.2.1→3.2.2；凍結合約零接觸；runChannelB/runCombined mapping +source_id 為 share builder 用 SOURCE_LABELS 中文短名。commits d2e4480(feat) + 4433afe(docs sync) + 本 closeout commit push origin/main。
+
+🔜 NEXT (全部待 Leonard 揀方向/授權)：
+⓪ **Feature 2a 追問 multi-turn + Feature 2b 文件 scoped Q&A**（per Leonard sequence A 確認、ship 完 WhatsApp 後續做、共享 conversation UI、可一齊做、estimate 1.5-2 日）。2a = 答案下加「追問」input + conversation history (≤5 turn) + backend conversation_history param + LLM rewrite 第二問成 standalone + synthesis prompt 帶 history；2b = source card 加「就呢份問」+ top bar `🔒 範圍：《XXX》` + backend `scope_source_id` SQL filter chunks WHERE source_id=$1 + synthesis 只用嗰份 chunks。
+① Phase 3 full_chunks_routed (覆蓋率最後一哩, medium risk)：reviewer B 估 ~60 full chunk + 要 patch backend searchChannelB.ts 加 4 個新 route (teacher_registration Cap.279 + ncs_support 或擴 sen + net_scheme + safety 加 EMSD/Cap.618 keywords) + Render redeploy + routing verify。
+② source_registry.json 26 新源 metadata fold-in (chunks 已 live、retrieve 唔受影響；只係顯示面 polish — 補 title/url/version_label/type)。
+③ freshness 5 變動跟進 (g11/ma_curr_index/pri_science_cert_course_list/debp_blueprint/debp_ailf_example, detection-only)。
+④ 既有 monitor (MPF bypass / 文件標註精準度 / Render cold-start / per-segment / undici / SMC recall / DEBP OCR)。
+⑤ playbook OCR 提案 push (S180 留低 local ead3749, 跨 repo 待授權)。
+⑥ footnote broad sweep (極低值)。
+
+⚠️ 紀律：live Supabase INSERT/UPDATE 要 INSPECT before/after + Leonard 明確授權；入/改 footnote 後 restart Render (push 觸發 redeploy 即得；S182 純前端、無 Render restart 需要)；curated overlay = id=footnote_fn_*、content_type=footnote_curated、route-independent；改版號喺 app.html PLATFORM_VERSION (勿 bump 凍結 knowledge.json)；chunk 數變要 display-sync 8 點 (S182 無 chunk 變動、display-sync 只 6 點＝版本相關)；canonical source_id 規範 (Cap.279/EDBC 重複者用單一 id)；commit -m 勿用反引號；路徑空格雙引號。
+
+⚠️ Log maintenance：SESSION_LOG 達 13 entries (AHK §4a N≥11 trigger active since S180；S181 + S182 各 defer 一次)，建議 next session 開頭即做 archive pass (move S171–S179 入 dev/SESSION_LOG_archive/archive_<batch>_2026Q2.md)。
+
+Post-startup first action：起手探針後，按 Leonard 指示揀 Feature 2a+2b 一齊做（推薦：共享 conversation UI、自然 batch）／或 Phase 3 full_chunks_routed／或其他 backlog。
 ```
 
 <!-- ack:log-entry:end -->
