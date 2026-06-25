@@ -6,6 +6,38 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [內容新增＋維護] — 2026-06-25 — Discovery 8 角度 agents team 大入庫：122 條 footnote curated overlay（教師註冊／學校註冊+DSS／NCS／傳染病停課／學費減免／NET／校舍安全/EMSD／SAG 附錄）
+
+> 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,414 → 15,536**（＋122 curated chunks）；`footnote_curated` 84 → **206**（route-independent overlay）。S181 用 agent team workflow（PLAN→9 並行 research subagent→2 並行 adversarial reviewer→QC 合成→Leonard GO gate→ingest）。
+
+### Added
+- **discovery 餘下 8 角度 verbatim footnote 入庫**（Channel B Supabase，＋122 chunks，`content_type=footnote_curated`，route-independent overlay 走 `searchFootnotes` exact-cosine 路徑，可逆）。Phase 1 = 9 個並行 general-purpose subagent 各 research 一條 angle、verbatim extract 自 EDB/CHP/EMSD/SFAA/WFSFAA 等官方 source；Phase 2 = 2 個並行 adversarial reviewer 做 verbatim spot-check audit + coverage/routing audit；Phase 3 = QC 合成；GO Gate Leonard 揀 Option B（R1+R2 footnote sweep）。8 條 angle 入庫分布：
+  - **教師註冊制度（13）**：Cap.279 §42/§46/§47/§48/§50/§52/§61 — 註冊 / 拒絕 / 撤銷 / 准用教員 gating / 校屬性 / 21 日上訴；TPC 2022 四級 sanction ladder + 14 日代陳述；准用教員最低資歷 + trained priority + BL/NST；Code of Aid 對 unqualified teacher 條文。
+  - **學校註冊 + DSS（10）**：Cap.279 §10/§11/§13/§14 — 註冊 / 申請 / 決定 / 拒絕；DSS 2⅓ 單位資助 cap + 10% / 50¢ 學費減免規則 + 五年 Comprehensive Review；EDBC 10/2012 baseline + 半年學費收入 reserve cap + IMC/SMC 透明度 + 過剩條件 + 直通車 50%。
+  - **NCS 行政資助（18）**：**EDBC 4/2026** 新 Composite Support Grant（baseline $230k/$710k + additional $5k/student + enrichment $10k/SEN cap 50）；EDBC 8/2020 兩級小校資助 + 五級資助表 + 全 Annex 准/不准使用 + 30 Nov 計劃 + 31 Jul 估算；EDBC 9/2019 NCS-SEN 三級 $100k/$200k/$300k；EDBCM 79/2025 SBP $26,360/班；KG 五級表 2019/20 + 特殊學校 sub-matrix。
+  - **傳染病預防 / 停課準則（15）**：CHP 2025 Nov 修訂《學校 / 幼稚園 / CCC 預防傳染病指引》— 校級停課指標（ILI ≥20% / ≥2 ICU / 健兒死亡 → 7 日停課）；爆發定義（3+ 同班 RTI / 2+ HFMD）；CENO 通報電話／傳真／email；表格 routing（SDS / Joint Office / SWD CCCAI）；漂水稀釋 1:4/1:49/1:99；附錄 9 病假復課時限；RTI 退燒 2 日；床距 1 米；SCVPD 停課 rationale；CHP 2025-10-22 致校信。
+  - **學費減免 + 書簿津貼（17）**：SFAA 居港證明 + AFI 公式 + 中小 2024/25 thresholds + KG 3 級 AFI + 全日制社會需要評估；KCFR 15 Aug 限期；TA 31 Oct；EC 學校角色；KG 撥付流程；過繳追回；2 年文件保留；2024/25 TA 金額 + SIA grant；EDBC 10/2012 IMC/SMC + reserve excess + 3 年豁免 + 50% 直通車。
+  - **NET 計劃（18）**：**EDBC 8/2025** 學校二選一（保留 NET post 或收 NET Grant，HK$900k 小 / $1M 中）；2026/27 point-to-note ≥1 全職 NET + 30% 盈餘上限 + School Plan/Report；新入職 NET 資歷上調（學位 + PGDE/TEFL + IELTS 7.5 / Speaking 7.5）；兩級 gratuity 10%/15%；APSM/CM/GM 薪級；Special Allowance $16,859/月；行李津貼 4 級；醫療津貼 $1,400/$5,400；機票 5 人；海外居所 gate；申請時限；IMC/SMC oversight；legacy 15% + 留任獎勵。
+  - **校舍法定安全 / EMSD 升降機（13）**：**EDBC 12/2026** 校舍消防裝置（Cap.279A §39 + Cap.95B §8 + FS251 + 12 月年檢 + 24 小時關閉通報）；EDBC 14/2024 第一責任人 + 維修閾值 $3000/$8000→$6000/$10000；EMSD 升降機 RP 職責矩陣（Cap.618 §12/13）+ 年檢頻率 + 用途許可顯示 + 24 小時嚴重事故通報 + 罰則表；EDBC 22/2024 學生安全清單 30 Nov 限期（拆 §2 framing + §5 30 Nov 兩個 entry）；Audit Report Ch.6 owner duty + 14 日 FS251。
+  - **SAG（學校行政手冊）附錄深抽 14**：附 2 宿營 3 日內通報；附 3 急救箱 16 項；附 3 罰款／費用表（學生證 $50 / 圖書 +20%）；附 3 非標準費 7 條件；附 6 SCRC 承辦商；附 9 病假 28→48→168 + 產假 14/40/4；附 10 假期批核權力矩陣；附 11 利益衝突 10 例；附 12 教師失德程序；附 12 staff 紀錄保留；附 12 現金 $300m/$10k；附 12 BBQ/火鍋安全；附 12 校長委任文件。
+- **新源 26 條登記**（`source_registry.json` 待 fold-in；canonical 化：Cap.279 → `cap279_education_ordinance`、EDBC 10/2012 → `edbc_10_2012_fee_remission`，避免 angle-specific 變體）。
+
+### Changed
+- 知識片段顯示數 **15,414 → 15,536**（首頁／平台介紹／README／K1_API_SPEC `_meta.stats` 同步）。
+
+### QC / Process
+- **agent team workflow**：feasibility (9 research subagent 並行) + audit (2 reviewer 並行 verbatim spot-check + coverage routing) + monitor (我同步 synthesize)。**Reviewer A verbatim sample**：22/26 PASS + 4 fix-then-pass（無 hallucination，全部 stitching/label 小修），4 fixes 已 apply（CHP 通報表還原序、漂水 §3.4.1 label fix、CHP 信加 [...] ellipsis、EDBC 22/2024 split §2/§5）。**Reviewer B coverage**：113/127 novel (89%)、3 routing 注意（缺 TOPIC_KEYWORDS / 1 invalid route_key / 3 source_id 碰撞），全部已 canonicalize；URL health 11/11 spot-check OK。
+- **Self-test**：embed 122 條 candidates + query 122 條 representative，cosine ≥0.45 LEAD = **122/122 (100%)**（首跑 121/122 + re-tune `sag_apx_leave_approval_matrix` 0.401→0.750 一次過搞掂）。
+- **Live INSERT**：INSPECT before footnote_curated=84/15,414 → batch INSERT 122 rows → INSPECT after footnote_curated=206/15,536，無 collision，無 missing。
+
+### Monitoring / Notes
+- **footnote_curated 走 exact-cosine overlay 路徑**（S179 ship 嘅 `wikiRepository.searchFootnotes`）— 無需 backend route patch，新 122 chunk 即時可 retrieve。
+- **full_chunks_routed 暫緩**（reviewer B 估計 ~60 full chunk + 4 個新 backend route：teacher_registration / ncs_support / net_scheme / safety route 加 EMSD/Cap.618 keywords）— 列下次 follow-up，需要 backend code change + Render redeploy + 多 round routing test。
+- **Render redeploy** 自動觸發（push 後）— footnote in-memory cache invalidation；handoff ⚠️ 條 rule 依然 apply。
+- **Backlog**：source_registry.json 新增 26 源嘅 metadata fold-in（minimal title/url 已足，detailed type/version_label 待後續逐源核）。
+
+---
+
 ## [內容新增＋維護] — 2026-06-24 — 學校行政手冊（SAG）版本核對：2025-11 → 2026-05，§3.7.3 新增段 curated 入庫
 
 > 平台版本維持 **v3.2.1**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines 158 不變）；`_meta.stats.chunks` **15,413 → 15,414**（＋1 curated chunk）。

@@ -25,8 +25,8 @@
 
 | 功能 | 說明 |
 |------|------|
-| ℹ️ **平台介紹** | 平台定位、動態統計（455 已核實事實 / 15,414 知識片段 / 167 指引 / 120 來源，由 `_meta.stats` 動態取）、核心功能說明 |
-| 🔍 **政策搜尋** | Channel-B 語義搜尋：從 15,414 個 EDB 官方原文知識片段檢索，整理回答並附原始文件出處（含頁碼） |
+| ℹ️ **平台介紹** | 平台定位、動態統計（455 已核實事實 / 15,536 知識片段 / 167 指引 / 120 來源，由 `_meta.stats` 動態取）、核心功能說明 |
+| 🔍 **政策搜尋** | Channel-B 語義搜尋：從 15,536 個 EDB 官方原文知識片段檢索，整理回答並附原始文件出處（含頁碼） |
 | 📝 **文件標註** | 上載學校文件（Word/.docx 最佳，或 PDF/貼文字），系統比對 EDB 指引 + 按合規清單檢查缺漏，生成一份**乾淨成品版** Word（S167）：原文保持乾淨可讀、AI 建議融入正文做普通文字（以「（建議補充）」標示、無螢光、可直接編輯、毋須接受修訂），所有建議說明與 EDB 官方出處集中文末附錄；Word/PDF/貼文字皆出。檔案在瀏覽器內抽取及生成，原始檔案不上載。**S161 合併** 舊「文件分析 + 文件修訂」兩 tab 而成（支援本校校類 小/中/特/幼 + 合規範疇 自動偵測／自選） |
 | 📋 **範本下載** | 15 範疇學校版政策範本（可編輯 .docx）下載，可按校類（通用/小/中/特/幼）篩選（內部「文件要求清單」不對外列出；S162 +幼稚園營運範疇） |
 | 📚 **指引文件庫** | 161 份官方 EDB 指引（in-app 瀏覽庫；公開 `guidelines.json` 端點為 152 份全集投影），按類別 → 子類別 → 年份三層分組導覽 |
@@ -61,7 +61,7 @@
 
 ![Policy Checker — 系統架構 (RAG)](docs/system-architecture.png)
 
-> 系統架構總覽（RAG）：用戶 → 前端（app.html / React SPA / GitHub Pages）→ 後端（Render · Node.js + TypeScript · API Gateway）→ RAG 核心（Query 嵌入 → 主題路由 → 向量搜尋 → LLM 合成）→ 知識庫（Supabase pgvector 15,414 chunks + 455 已核實事實）；外部：OpenAI（Azure 備援）、Cloudflare 免 Cookie 統計。
+> 系統架構總覽（RAG）：用戶 → 前端（app.html / React SPA / GitHub Pages）→ 後端（Render · Node.js + TypeScript · API Gateway）→ RAG 核心（Query 嵌入 → 主題路由 → 向量搜尋 → LLM 合成）→ 知識庫（Supabase pgvector 15,536 chunks + 455 已核實事實）；外部：OpenAI（Azure 備援）、Cloudflare 免 Cookie 統計。
 
 **現行公開後端端點（Render · Node.js + TypeScript）：**
 
@@ -107,7 +107,7 @@ EDB PDF → ai_extract.py → wiki_index.json（向量索引）
 | Channel A 已審核事實 | **455 條** |
 | 指引文件庫（in-app 瀏覽） | **161 份** |
 | 來源文件 | **120 份** |
-| Channel B 向量索引 | **15,414 chunks**（Supabase pgvector，線上） |
+| Channel B 向量索引 | **15,536 chunks**（Supabase pgvector，線上） |
 
 > 註：由 792 條去重整合至 455 條唯一事實（2026-05-16，commit 711f911；可逆日誌 `dev/DEDUP_LOG_2026-05-16.md`）。
 > 註：`161` 為 in-app 指引瀏覽庫（總文件基礎，S140 landing-curate +9 + 公積金 +4）；公開 `guidelines.json` API 端點為其全集投影 **152** 份（S140，剔 9 非文件；由 `dev/build_guidelines.py` 生成）。
