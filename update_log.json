@@ -1,9 +1,16 @@
 {
   "_meta": {
-    "updated": "2026-06-17",
+    "updated": "2026-06-25",
     "note": "資料庫更新日誌 — 簡述新增/更新的 EDB 文件。每次入庫順手 append 一條（newest first）。"
   },
   "entries": [
+    {
+      "date": "2026-06-25",
+      "action": "新增",
+      "title": "《價值觀教育課程架構》(2026) 正式版 + 智啟學教 AI 撥款計劃",
+      "desc": "新增 EDB 2026 正式版價值觀教育課程架構（12 首要價值觀、5 章節、總體方向「立根中華、聯通世界、擁抱未來」）+ 教育局通函 221/2025「『智』啟學教」AI 賦能教育撥款計劃（共 108 個知識片段）。",
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/4-key-tasks/moral-civic/ve_curriculum_framework2026.html"
+    },
     {
       "date": "2026-06-17",
       "action": "新增",
