@@ -158,9 +158,23 @@ export function failedChannelBResponse(query: string): SearchChannelBResponse {
  * to the most relevant source documents.
  */
 const SOURCE_SETS: Record<string, string[]> = {
+  // S183 — 價值觀教育課程架構 (value_education route). EDB 4 key tasks 之一。
+  // VE_CF_2026 正式版 (93 chunks, S183 入庫) + 配套 EDBC 3/2026 (edbc003_2026, prior 6 chunks)
+  // + 試行版 2021 (existing) + 2023 EDBC 183 豐富 (existing, superseded_by 2026) + 中學課程指引 6A
+  // (existing, 2017 德育及公民教育). Routed before curriculum so 價值觀 / 首要價值觀 / 立根中華
+  // / 德育 / 公民教育 queries reach this dedicated corpus not generic 課程 search.
+  value_education: [
+    "values_edu_framework_2026",
+    "edbc003_2026",
+    "values_edu_framework_2021_trial",
+    "edbcm183_2023_values_edu",
+    "sec_curr_guide_2017_booklet_6a",
+  ],
   // S171 — DEBP 中小學數字教育發展藍圖 / AI 素養 (digital_education route). 6 sources
   // ingested 2026-06-17 (209 chunks, topic=it). Cohesive digital-education corpus; routed
   // before curriculum so 數字教育/AI 素養/發展藍圖 queries reach it not generic 課程 search.
+  // S183 — 擴 +edbcm_221_2025_smart_teaching (15 chunks, 智啟學教撥款計劃) 入 set; 通函
+  // 內容係 AI 賦能教育撥款 + 校本實施承諾, 同 DEBP 路徑一脈。
   digital_education: [
     "debp_blueprint",
     "debp_exec_summary",
@@ -168,6 +182,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "debp_ai_teaching_guide",
     "debp_ailf_example",
     "debp_ai_examples",
+    "edbcm_221_2025_smart_teaching",
   ],
   // ── PLAN-1b selective routes (S118) — matched before the broad production
   // categories below. SAG is intentionally allowed in `cpd`/`conduct` (their
@@ -442,6 +457,18 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // before the broad production categories so welfare terms route here not finance/curriculum.
   student_support: /生涯規劃|和諧校園|欺凌|霸凌|虐待兒童|虐兒|強制舉報|危機處理|關顧學生|訓育|輔導服務|學生精神健康|學生自殺|創傷知情|哀傷輔導|學生支援組|健康校園|禁毒|藥物測試|校園測檢/,
   steam: /STEAM|STEM/,
+  // S183 — value_education promoted before finance/hr_admin/curriculum (first-match
+  // precedence). Original position was below gifted/kg_admin/digital_education, but
+  // queries 「智啟學教 撥款」「AI 撥款」get stolen by finance (which matches 撥款).
+  // value_education keywords are tight + unique (價值觀教育/首要價值觀/立根中華 etc.),
+  // no risk of stealing finance/hr/sen queries. Routed early so 12 美德 list items
+  // (堅毅/尊重他人/責任感/...) embedded in value-edu query reach the dedicated corpus.
+  value_education: /價值觀教育|首要價值觀|價值觀架構|立根中華|聯通世界|擁抱未來|德育|公民教育|品德教育|品德及倫理|生命教育|國民身份認同|愛國主義教育|承擔精神|12.{0,3}首要|十二.{0,3}首要|VE_CF|VECF/i,
+  // S183 — digital_education promoted before finance (same reason as value_education):
+  // 「智啟學教 撥款」/「AI 撥款」get stolen by finance「撥款」. digital_education
+  // keywords (數字教育/AI/智啟學教/etc.) are narrow + unique — finance broad queries
+  // (採購/招標/報價/競投/供應商) unaffected.
+  digital_education: /數字教育|數位教育|數碼教育|發展藍圖|\bDEBP\b|人工智能|\bAI\b|AI素養|人工智能素養|生成式人工智能|資訊科技教育|智啟學教|數字素養|數字技能/i,
   // S154 — IMC/SBM school governance. MUST precede `finance` (which owns 法團校董 for g02
   // IMC-finance): a 法團校董會/校董會 query must reach the governance corpus, not finance only.
   // Governance nouns only (校董/校監/辦學團體/學校管理委員會) — pure finance queries
@@ -479,11 +506,6 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // g26 收生指引 only). None of these match the earlier kg_admission regex (收生/入學/學費),
   // so kg_admission queries are unaffected.
   kg_admin: /幼稚園行政|幼稚園.{0,4}行政|辦學手冊|營運手冊|學前機構|幼稚園.{0,4}辦學|幼稚園.{0,4}營辦|幼稚園.{0,4}營運|幼稚園.{0,4}運作|開辦幼稚園|幼稚園牌照|幼稚園.{0,4}人事|幼稚園.{0,4}財務|幼稚園.{0,4}管理|幼稚園.{0,4}質素|幼稚園.{0,4}健康紀錄|幼稚園.{0,4}健康記錄|幼稚園教育計劃|幼教計劃|免費優質幼稚園|幼稚園.{0,4}周年/,
-  // S171 — DEBP 數字教育發展藍圖 / AI 素養. MUST precede curriculum (which matches bare
-  // 教學/教育). Distinctive digital/AI terms only — no overlap with earlier routes
-  // (steam=/STEAM|STEM/ keeps STEAM queries; cpd keeps 教師培訓). \bAI\b/i catches the bare
-  // English token even between CJK (CJK = \W in JS, so AI gets word boundaries).
-  digital_education: /數字教育|數位教育|數碼教育|發展藍圖|\bDEBP\b|人工智能|\bAI\b|AI素養|人工智能素養|生成式人工智能|資訊科技教育/i,
   curriculum: /課程|科目|教學|學習目標|評估|教材|課程發展|學習領域|教師發展|CPD|專業發展|英文科|中文科|數學科|常識科|科學科|體育科|音樂科|視藝科|小學課程|中學課程|課程指引|學習成果|評核|幼稚園|幼兒|學前|K1|K2|K3|遊戲學習/,
 };
 
@@ -533,7 +555,12 @@ const QUERY_EXPANSIONS: Record<string, string> = {
   // and single-topic, so bridging 視學→校外評核/自我評估/表現指標 vocabulary lifts recall
   // without the cross-topic dilution that broad gov_admin/safety expansion would cause.
   qa_inspection: "校外評核 學校自我評估 表現指標 質素保證 問責架構 校本管理 學校發展",
-  digital_education: "中小學數字教育發展藍圖 人工智能素養 AI素養學習架構 在教學上運用人工智能 生成式人工智能 數字素養 數字教育 資訊科技教育 電子學習",
+  digital_education: "中小學數字教育發展藍圖 人工智能素養 AI素養學習架構 在教學上運用人工智能 生成式人工智能 數字素養 數字教育 資訊科技教育 電子學習 智啟學教 AI賦能教育 50萬撥款 數字教育策略發展督導委員會 學與教效能",
+  // S183 — value_education expansion (same §EXCEPTION rationale as qa_inspection):
+  // SOURCE_SET tight (5 sources, all cohesively value-education) so bridging
+  // 價值觀→12 首要價值觀/立根中華/德育/公民教育/品德 lifts recall without
+  // cross-topic dilution. Includes framework slogans + 12 美德 list items.
+  value_education: "價值觀教育課程架構 首要價值觀 12 首要價值觀 立根中華 聯通世界 擁抱未來 德育及公民教育 品德教育 生命教育 國民教育 國家安全教育 中華文化 堅毅 尊重他人 責任感 國民身份認同 承擔精神 誠信 仁愛 守法 同理心 勤勞 孝親 團結 全人發展 個人成長",
   curriculum: "課程指引 教學 學習目標",
 };
 
