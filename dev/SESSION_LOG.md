@@ -45,6 +45,7 @@ dev/DOC_SYNC_REGISTRY.md
   - backend/src/api/searchChannelB.ts: digital_education route +SOURCE_SET `edbc008_2026` + TOPIC_KEYWORDS `學校效率津貼|效率津貼|學校效率|教育數字化|數字化轉型`（維持 finance 之上）+ QUERY_EXPANSIONS。
   - Display-sync 7 處 15,644→15,656：role_facts.json / dev/knowledge/role_facts.json / knowledge.json / index.html ×3 / app.html ×4 / K1_API_SPEC.md / README.md ×4。
   - index.html: hero eyebrow「香港·資助學校管治平台·v3.0·2026」→「香港資助學校·EDB 政策知識庫·2026」; footer「v2.3」→「v3.2.2」。
+  - **（closeout 後追加，commit `ce9b9d6`）統一對外標題**：index.html title「EDB 學校政策搜尋平台」+ app.html title「搜尋工作室」+ 兩頁 og:title/twitter:title → 全部「香港學校政策搜尋平台」; 兩頁加 `apple-mobile-web-app-title`+`application-name`+`apple-mobile-web-app-capable`（加到主畫面 PWA home-screen 標籤）; WhatsApp brand 已係此名(S183)不變; og:site_name 維持 PolicyChecker 品牌對。preview eval 驗兩頁 4 標題面全 = 香港學校政策搜尋平台。
   - CHANGELOG.md S184 entry; update_log.json +1 entry; 凍結合約零接觸（_meta 2.3.0 / facts 455 / guidelines 158 / PLATFORM_VERSION 3.2.2 全不變）。
   - 新 file: dev/vault/edbc008_2026/extract_edbc008_2026.txt。
 - **Done:**
@@ -66,7 +67,7 @@ dev/DOC_SYNC_REGISTRY.md
 Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 
-Current state: 平台 v3.2.2; Supabase 15,656 chunks (S184 +12 EDBC 8/2026 學校效率津貼); registry 228; HEAD==origin/main 3d856a2; 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158; 0 outstanding bug.
+Current state: 平台 v3.2.2; Supabase 15,656 chunks (S184 +12 EDBC 8/2026 學校效率津貼); registry 228; 對外標題全部統一「香港學校政策搜尋平台」; HEAD==origin/main ce9b9d6 (後接 closeout docs commit); 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158; 0 outstanding bug.
 起手探針: served app.html PLATFORM_VERSION 3.2.2 + Render /health cache_a warm 455 + HEAD==origin/main + Supabase 15,656.
 Post-startup first action: 向 Leonard 報告當前狀態 + 由 Open Priorities 🔜 NEXT 揀任務（active #0 = Feature 2a 追問 multi-turn + 2b 文件 scoped Q&A）。
 ```

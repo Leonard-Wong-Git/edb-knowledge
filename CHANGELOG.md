@@ -17,6 +17,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `backend/src/api/searchChannelB.ts`：`digital_education` route 擴充 — SOURCE_SETS 加 `edbc008_2026`；TOPIC_KEYWORDS 加 `學校效率津貼|效率津貼|學校效率|教育數字化|數字化轉型`（維持在 `finance` 之上，first-match precedence 防「效率津貼」被 finance「津貼」keyword 偷）；QUERY_EXPANSIONS 加 學校效率津貼／教育數字化轉型／提升學校效率／智慧校園／行政效率／整合代課教師津貼。
 - `source_registry.json`：+1 source entry `edbc008_2026`（topic=it，related_source_ids = debp_blueprint + edbcm_221_2025_smart_teaching）。
 - Display-sync 7 處 chunks 數 15,644 → 15,656：`role_facts.json` / `dev/knowledge/role_facts.json` / `knowledge.json` (`_meta.stats.chunks`) / `index.html` (×3) / `app.html` (×4) / `K1_API_SPEC.md` / `README.md` (×4) / `CHANGELOG.md` (本 entry)。
+- **單一真源整理（index.html）**：(1) 版本號自打交 — hero eyebrow `v3.0·2026` + footer `v2.3` 同頁兩個版本號 → 收斂為頁面單一 footer `v3.2.2`（對齊 app.html `PLATFORM_VERSION`）、eyebrow 移走版本號；(2) 四個平台名並存 — 移除第 4 個 stray「資助學校管治平台」（eyebrow 改定位描述「香港資助學校 · EDB 政策知識庫 · 2026」），收斂成「香港學校政策搜尋平台」(產品正名) + 「PolicyChecker / 政策核對」(品牌標記) 一對。
+- **統一所有對外標題為「香港學校政策搜尋平台」**：`index.html` title（原「EDB 學校政策搜尋平台」）+ `app.html` title（原「搜尋工作室」）+ 兩頁 `og:title` / `twitter:title` 全部統一；兩頁新增 `apple-mobile-web-app-title` + `application-name` + `apple-mobile-web-app-capable`（加到主畫面 home-screen 標籤）。涵蓋 browser 分頁標題 / 社交分享 / 加到主畫面 PWA / WhatsApp 分享（後者 S183 已為此名）四個面。`og:site_name` 維持「PolicyChecker · 政策核對」品牌對。
 
 ### QC
 - **Verbatim 抽取**：PyMuPDF `get_text()` 直抽 10 頁、canonical chunker（600/60 page-carry）→ 12 chunks 全 page-resolvable=True，char(min/med/max)=469/588/602。無改寫、無 paraphrase。
