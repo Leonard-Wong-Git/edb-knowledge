@@ -6,6 +6,32 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [內容新增] — 2026-06-26 — 教育局通告第8/2026號「學校效率津貼」入庫（S184）
+
+> 平台版本維持 **v3.2.2**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines.json 2.6.1 公開 158 不變）；`_meta.stats.chunks` **15,644 → 15,656**（淨 +12 vault_extract chunks）；`source_registry.json` 227 → **228**（＋1 new source）。
+
+### Added
+- **教育局通告第 8/2026 號「學校效率津貼」**（School Efficiency Grant）：12 chunks，`source_id=edbc008_2026`，topic=it，page-resolvable，原文 10 頁 text-layer verbatim 抽取。教育局由 **2026/27 學年起設立**，支持學校加快推動教育數字化轉型（配合 2026/6 公布之《中小學數字教育發展藍圖》DEBP），提升學校效率、優化學校行政和學生學習體驗。津貼承接現行「整合代課教師津貼」(TRG) 之財務彈性精神，鼓勵學校透過人工智能協助處理行政工作、推動智慧校園建設、實踐減負增能。
+
+### Changed
+- `backend/src/api/searchChannelB.ts`：`digital_education` route 擴充 — SOURCE_SETS 加 `edbc008_2026`；TOPIC_KEYWORDS 加 `學校效率津貼|效率津貼|學校效率|教育數字化|數字化轉型`（維持在 `finance` 之上，first-match precedence 防「效率津貼」被 finance「津貼」keyword 偷）；QUERY_EXPANSIONS 加 學校效率津貼／教育數字化轉型／提升學校效率／智慧校園／行政效率／整合代課教師津貼。
+- `source_registry.json`：+1 source entry `edbc008_2026`（topic=it，related_source_ids = debp_blueprint + edbcm_221_2025_smart_teaching）。
+- Display-sync 7 處 chunks 數 15,644 → 15,656：`role_facts.json` / `dev/knowledge/role_facts.json` / `knowledge.json` (`_meta.stats.chunks`) / `index.html` (×3) / `app.html` (×4) / `K1_API_SPEC.md` / `README.md` (×4) / `CHANGELOG.md` (本 entry)。
+
+### QC
+- **Verbatim 抽取**：PyMuPDF `get_text()` 直抽 10 頁、canonical chunker（600/60 page-carry）→ 12 chunks 全 page-resolvable=True，char(min/med/max)=469/588/602。無改寫、無 paraphrase。
+- **Dupe check**：入庫前 grep registry（學校效率津貼／效率津貼／8/2026／26008／efficiency）+ repo-wide → 0 hit，確認非重複（吸取 S183 duplicate ingest 教訓）。
+- **Live INSERT**：INSPECT before `edbc008_2026`=0 → INSERT 12/12 → after=12；live total **15,656**（15,644 + 12 ✓ exact）。
+- **Backend typecheck**：`tsc --noEmit` exit 0。
+- **Routing smoke**：本機 Node first-match precedence 測試 —「學校效率津貼」「效率津貼是什麼」「學校效率津貼幾錢」全 → `digital_education`（不再被 finance 偷）；「數字教育發展藍圖」「智啟學教撥款」regression → digital_education 不變；「法團校董會選舉」→ school_governance 不變。
+- **Render 端 live retrieve verify**：push 後 redeploy 完成做。
+
+### Notes
+- 凍結合約零接觸（`_meta.version` 2.3.0 / facts 455 / guidelines.json 2.6.1 公開 158 / PLATFORM_VERSION 3.2.2 全不變）。
+- 入/改 vault_extract chunks 後 Render auto-redeploy（push origin/main 觸發）；vault_extract chunks 即時 routable。
+
+---
+
 ## [內容新增＋維護] — 2026-06-25 — 《價值觀教育課程架構》2026 正式版 + EDBC 3/2026 通告 + EDBCM 221/2025「『智』啟學教」AI 撥款計劃入庫（S183）
 
 > 平台版本維持 **v3.2.2**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines.json 2.6.1 公開 158 不變）；`_meta.stats.chunks` **15,536 → 15,644**（淨 +108 vault_extract chunks，VE_CF_2026 93 + EDBCM 221/2025 15）；`source_registry.json` 225 → **227**（＋2 effective new sources）。Leonard 揀 Option A scope（主框架 only + 配套通告）+ 中途追加 EDBCM 221/2025 piggyback。**Live retrieve verify 揭發 prior session 已 ingest `edbc003_2026`（同份 PDF、6 chunks），new `edbc_3_2026_values_edu` 5 chunks duplicate → hard-delete + remove registry/vault；保留 prior entry。同時揭發 surface fail（VE_CF_2026 主框架 chunks 不在 top-8、EDBCM 221/2025 被 finance 偷 query）→ backend `searchChannelB.ts` 加 dedicated `value_education` route + 擴 `digital_education` route + 提兩者到 finance 之上（first-match 12/12 PASS 含 regression）。**

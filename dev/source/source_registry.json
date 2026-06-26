@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-06-15",
+    "updated": "2026-06-26",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -4415,6 +4415,36 @@
         "etag": "\"698af943a3ccdc1:0\"",
         "content_hash": "54430f0acfcfce1cd0d74319e12e1c9d742520bdbfd348d56bf547f74bdb8406",
         "hash_checked_at": "2026-06-03"
+      }
+    },
+    {
+      "source_id": "edbc008_2026",
+      "title": "教育局通告第8/2026號 —— 學校效率津貼",
+      "title_en": "EDB Circular No. 8/2026 — School Efficiency Grant",
+      "title_short": "通告8/2026 學校效率津貼",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26008C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26008C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "it"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-26",
+      "supersedes": null,
+      "related_source_ids": [
+        "debp_blueprint",
+        "edbcm_221_2025_smart_teaching"
+      ],
+      "notes": "S184 (2026-06-26): 教育局通告第8/2026號「學校效率津貼」。教育局由 2026/27 學年起設立，支持學校加快推動教育數字化轉型（配合《中小學數字教育發展藍圖》），提升學校效率、優化行政與學生學習體驗。由現行「整合代課教師津貼」(TRG) 演化／擴充。Channel B (12 chunks, text-layer, page-resolvable, topic=it)。digital_education route。",
+      "freshness_metadata": {
+        "last_modified": "Fri, 26 Jun 2026 03:55:20 GMT",
+        "content_length": "523581",
+        "etag": "\"c26e6b9b1f5dd1:0\"",
+        "hash_checked_at": "2026-06-26"
       }
     },
     {

@@ -175,6 +175,8 @@ const SOURCE_SETS: Record<string, string[]> = {
   // before curriculum so 數字教育/AI 素養/發展藍圖 queries reach it not generic 課程 search.
   // S183 — 擴 +edbcm_221_2025_smart_teaching (15 chunks, 智啟學教撥款計劃) 入 set; 通函
   // 內容係 AI 賦能教育撥款 + 校本實施承諾, 同 DEBP 路徑一脈。
+  // S184 — 擴 +edbc008_2026 (12 chunks, 學校效率津貼) 入 set; 教育局通告第8/2026號,
+  // 2026/27 起設立, 支持學校加快教育數字化轉型 (配合 DEBP), 同一脈絡。
   digital_education: [
     "debp_blueprint",
     "debp_exec_summary",
@@ -183,6 +185,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "debp_ailf_example",
     "debp_ai_examples",
     "edbcm_221_2025_smart_teaching",
+    "edbc008_2026",
   ],
   // ── PLAN-1b selective routes (S118) — matched before the broad production
   // categories below. SAG is intentionally allowed in `cpd`/`conduct` (their
@@ -468,7 +471,9 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // 「智啟學教 撥款」/「AI 撥款」get stolen by finance「撥款」. digital_education
   // keywords (數字教育/AI/智啟學教/etc.) are narrow + unique — finance broad queries
   // (採購/招標/報價/競投/供應商) unaffected.
-  digital_education: /數字教育|數位教育|數碼教育|發展藍圖|\bDEBP\b|人工智能|\bAI\b|AI素養|人工智能素養|生成式人工智能|資訊科技教育|智啟學教|數字素養|數字技能/i,
+  // S184 — +學校效率津貼/效率津貼/教育數字化轉型 (edbc008_2026). MUST stay before finance:
+  // 「學校效率津貼」query 否則被 finance「津貼」偷; 本通告本質係數字化轉型撥款, 屬 digital_education。
+  digital_education: /數字教育|數位教育|數碼教育|發展藍圖|\bDEBP\b|人工智能|\bAI\b|AI素養|人工智能素養|生成式人工智能|資訊科技教育|智啟學教|數字素養|數字技能|學校效率津貼|效率津貼|學校效率|教育數字化|數字化轉型/i,
   // S154 — IMC/SBM school governance. MUST precede `finance` (which owns 法團校董 for g02
   // IMC-finance): a 法團校董會/校董會 query must reach the governance corpus, not finance only.
   // Governance nouns only (校董/校監/辦學團體/學校管理委員會) — pure finance queries
@@ -555,7 +560,7 @@ const QUERY_EXPANSIONS: Record<string, string> = {
   // and single-topic, so bridging 視學→校外評核/自我評估/表現指標 vocabulary lifts recall
   // without the cross-topic dilution that broad gov_admin/safety expansion would cause.
   qa_inspection: "校外評核 學校自我評估 表現指標 質素保證 問責架構 校本管理 學校發展",
-  digital_education: "中小學數字教育發展藍圖 人工智能素養 AI素養學習架構 在教學上運用人工智能 生成式人工智能 數字素養 數字教育 資訊科技教育 電子學習 智啟學教 AI賦能教育 50萬撥款 數字教育策略發展督導委員會 學與教效能",
+  digital_education: "中小學數字教育發展藍圖 人工智能素養 AI素養學習架構 在教學上運用人工智能 生成式人工智能 數字素養 數字教育 資訊科技教育 電子學習 智啟學教 AI賦能教育 50萬撥款 數字教育策略發展督導委員會 學與教效能 學校效率津貼 效率津貼 教育數字化轉型 提升學校效率 智慧校園 行政效率 整合代課教師津貼",
   // S183 — value_education expansion (same §EXCEPTION rationale as qa_inspection):
   // SOURCE_SET tight (5 sources, all cohesively value-education) so bridging
   // 價值觀→12 首要價值觀/立根中華/德育/公民教育/品德 lifts recall without
