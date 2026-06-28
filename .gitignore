@@ -59,3 +59,9 @@ entities.json
 dev/checklists/_work/_distill_*_out.json
 dev/checklists/_work/_rewrite_*_out.json
 dev/checklists/_work/_rewrite_*_out_partial.json
+
+# Option A (S188) — ingest-package generator STAGING output. Transient per-run
+# packages (extract + package.json) awaiting human approval; reproducible from
+# the dashboard feed, not source-of-truth. The generator script itself IS tracked.
+dev/source/ingest_packages/
+new_circulars.json

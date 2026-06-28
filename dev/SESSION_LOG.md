@@ -35,6 +35,41 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-06-28 Session 188 — Option A 自動入庫管道 Phase 1（入庫包生成器）BUILT + 測試
+
+- **ID:** Claude_20260628_S188
+- **Summary:** Leonard「做埋」→ AskUserQuestion 揀範圍 = **只起 Option A 自動入庫管道**（唔郁 live 站、唔轉 private、唔做 RLS/sibling，嗰啲留 backlog）。我先講清「Option A 個 private repo（批准 queue）≠ 將公開站轉 private」（後者會令 policychecker.wongfu.net 404，GitHub Pages 免費 plan 不支援 private — S163 outage 根因，故絕不盲 flip）。起 Phase 1 包生成器。
+- **Changed:**
+  - **新 file `dev/source/prepare_ingest_package.py`**：Option A Phase 1 入庫包生成器。把 S186 手動 verbatim-ingest pipeline 腳本化成一個可覆核步驟。STAGING-ONLY（只寫 `dev/source/ingest_packages/<id>/`，零掂 Supabase/git/vault/deploy/registry）。流程：fetch circular.wongfu.net feed → 下載 PDF → text-layer probe（avg<100 chars/page = needs_ocr 自動 hold）→ PyMuPDF verbatim 抽 canonical extract（header + `=== Page N ===`，同 ingest_one_source byte-format 一致）→ dry-run chunk（build_wiki_index 同一 chunker，count+page-resolvable+char stats）→ dupe-check（PDF basename + derived source_id vs registry）→ 自動建議 source_id（EDBCM080/2026→edbcm080_2026）/ topic（dashboard topics→VALID_TOPICS）/ route（keyword 鏡 TOPIC_KEYWORDS）/ tier（TIER3 event keyword → skip；mandatory+substantive → T1；其餘 T2）→ attach deadlines/grant_info/k1_topics/channel_b_facts gap → 寫 package.json + INDEX.md。
+  - `.gitignore`：加 `dev/source/ingest_packages/`（transient staging output）+ `new_circulars.json`（watcher CI output）。
+- **Done:**
+  - ✅ py_compile OK。實測 4 候選：EDBCM080（今日已入庫）→ **DUP 正確偵測 skip**；EDBCM077 卓越教學獎 → **T3**（event keyword）；EDBCM101 中一測驗舉行日期 → **T3 + placement route**；EDBC007 開放校舍體育計劃 → **T1**（borderline，human 覆核可改）。全部 extract + chunk + page-resolvable=true、deadlines（3/2/3/1）全捕捉。
+  - ✅ 確認 package「準備包」含齊批准面需要嘅嘢：proposed source_id/topic/route/tier(+reason) + dashboard signals + summary + canonical extract（approve = copy 去 dev/vault/ + 跑 ingest_one_source.py 不變）+ chunking stats + dupe flag。
+- **QC:** py_compile + 4-candidate live 測試（dupe/tier/route/extract/chunk/deadline 全對）。Phase 1 = LOW risk、純 staging、可逆。
+- **Evidence disposition:** Phase 1 完成 absorbed into handoff；測試 trace 留本 entry。
+- **Sync:** 無 display-sync / 無凍結合約改 / 無 version bump（純新工具腳本）。
+- **Pending（Phase 2-4 需 Leonard 參與，HIGH risk，逐 phase sub-PLAN）:** Phase 2 = 建 private ops repo（edb-knowledge-ops）+ 批准格式（package.json → private Issue/檔）+ executor dry-run；Phase 3 = cross-repo token/secrets + live executor（批准 → copy extract→vault → ingest_one_source → route patch → push → display-sync，免開 Claude/git）；Phase 4 = 串通 偵測→自動準備→批准 端到端。安全 backlog（S187）：repo private+hosting 搬遷 / Supabase RLS / sibling repo 審。
+- **Risks:** Phase 1 tier/route 係建議（human 5 秒覆核兜底，設計如此）；OCR 檔自動 hold 留人手。Render free-tier cold-start ~50s。
+- **Log maintenance:** §4a 檢查：SESSION_LOG < 400 行、最舊 entry 在 30 日內 → 唔觸發 archive。no-op。
+
+### Next Session Opening Message
+
+📋 Next session: agent-managed startup content below
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Current state: 平台 v3.2.2; Supabase 15,838 chunks; registry 242; HEAD==origin/main (S188 latest); 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158; 4 監察 active; 0 outstanding bug.
+今日 (2026-06-28) 三大件: S186 watcher 首批 14 條 2026/6 EDB 通告入庫 (2 monitor: edbcm073/edbcm066 短query排名低); S187 安全審計修 API abuse (rate-limit wallet-drain + body cap + Channel A scrape cap) LIVE; S188 Option A 自動入庫管道 Phase 1 包生成器 BUILT (dev/source/prepare_ingest_package.py, staging-only, 測試綠).
+起手探針: served app.html PLATFORM_VERSION 3.2.2 + Render /health warm 455 + Draft HEAD==origin/main + Supabase chunk count.
+Next (待 Leonard): Option A Phase 2 (建 private ops repo edb-knowledge-ops + 批准格式 + executor dry-run, 需 Leonard 開 repo + set secrets) → Phase 3 live executor → Phase 4 端到端. 安全 backlog: repo轉private+hosting搬遷 / Supabase RLS / sibling repo審. 其他: Feature 2a/2b, Phase 3 routed.
+```
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-06-28 Session 187 — 安全審計（12-agent workflow）→ 修 API abuse surface 1 HIGH + 2 MED LIVE
 
 - **ID:** Claude_20260628_S187
