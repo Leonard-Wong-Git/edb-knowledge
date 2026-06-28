@@ -29,13 +29,27 @@ import type { AnalyzeCircularRequest } from "./types/knowledge.js";
 const PORT = getPort();
 const CORS_ORIGINS = getCorsOrigins();
 
+// Body-size cap for the search routes (S187 audit). Queries are short; this
+// blocks oversized POST bodies that would otherwise buffer unbounded in memory
+// (Buffer.concat) before reaching the handler. The analyze-* routes keep their
+// larger MAX_TEXT_CHARS-based cap because they carry full document text.
+const SEARCH_MAX_BYTES = 16_384; // 16 KB
+
 // ── In-memory rate limiter ────────────────────────────────────────────────────
 // 10 requests per minute per IP across all POST search/analysis endpoints.
 // Uses a sliding window: each IP stores timestamps of recent requests.
-const RATE_LIMIT = 10;          // max requests
+const RATE_LIMIT = 10;          // max requests per IP
 const RATE_WINDOW_MS = 60_000;  // per 60 seconds
 
+// Global backstop ceiling across ALL clients on the OpenAI-billing POST routes.
+// Defense-in-depth against denial-of-wallet (S187 audit): even if per-IP keying
+// is defeated (header spoofing, botnet), total OpenAI spend per window is
+// hard-capped. Sized well above realistic concurrent legitimate use
+// (12 distinct IPs at the full 10/min each).
+const GLOBAL_RATE_LIMIT = 120; // max total requests per window across all IPs
+
 const ipWindows = new Map<string, number[]>();
+const globalWindow: number[] = [];
 
 // Purge stale IPs every 5 minutes to prevent unbounded memory growth
 setInterval(() => {
@@ -61,10 +75,31 @@ function checkRateLimit(ip: string): { allowed: boolean; retryAfterSec: number }
   return { allowed: true, retryAfterSec: 0 };
 }
 
+// Global ceiling across all clients (denial-of-wallet backstop, S187).
+function checkGlobalLimit(): { allowed: boolean; retryAfterSec: number } {
+  const now = Date.now();
+  const cutoff = now - RATE_WINDOW_MS;
+  while (globalWindow.length > 0 && globalWindow[0] <= cutoff) globalWindow.shift();
+  if (globalWindow.length >= GLOBAL_RATE_LIMIT) {
+    const retryAfterSec = Math.ceil((globalWindow[0] + RATE_WINDOW_MS - now) / 1000);
+    return { allowed: false, retryAfterSec };
+  }
+  globalWindow.push(now);
+  return { allowed: true, retryAfterSec: 0 };
+}
+
 function getClientIp(req: import("node:http").IncomingMessage): string {
-  // Respect Render's forwarded IP header; fall back to socket address
+  // Render terminates the connection at its own proxy and APPENDS the real
+  // client IP as the LAST entry of X-Forwarded-For. The leftmost entries are
+  // client-supplied and therefore spoofable — keying the rate limiter on
+  // split(",")[0] let an attacker rotate the header for a fresh bucket per fake
+  // IP (denial-of-wallet, S187 audit). Use the RIGHTMOST hop (the value the
+  // trusted proxy observed) instead; fall back to the socket address.
   const forwarded = req.headers["x-forwarded-for"];
-  if (typeof forwarded === "string") return forwarded.split(",")[0].trim();
+  if (typeof forwarded === "string" && forwarded.trim()) {
+    const hops = forwarded.split(",").map((s) => s.trim()).filter(Boolean);
+    if (hops.length > 0) return hops[hops.length - 1];
+  }
   return req.socket?.remoteAddress ?? "unknown";
 }
 
@@ -178,8 +213,10 @@ const server = createServer(async (req, res) => {
   // ── Rate limiting (all POST endpoints) ───────────────────────────────────
   if (req.method === "POST") {
     const ip = getClientIp(req);
-    const { allowed, retryAfterSec } = checkRateLimit(ip);
-    if (!allowed) {
+    const perIp = checkRateLimit(ip);
+    const global = perIp.allowed ? checkGlobalLimit() : { allowed: true, retryAfterSec: 0 };
+    if (!perIp.allowed || !global.allowed) {
+      const retryAfterSec = !perIp.allowed ? perIp.retryAfterSec : global.retryAfterSec;
       setCorsHeaders(req, res);
       res.setHeader("Retry-After", String(retryAfterSec));
       res.writeHead(429, { "Content-Type": "application/json; charset=utf-8" });
@@ -264,7 +301,7 @@ const server = createServer(async (req, res) => {
 
   if (req.method === "POST" && req.url === "/analyze-circular") {
     try {
-      const input = await readJsonBody<AnalyzeCircularRequest>(req);
+      const input = await readJsonBody<AnalyzeCircularRequest>(req, MAX_TEXT_CHARS * 4 + 4096);
       const result = await analyzeCircular(input, { llmClient, embeddingClient });
 
       setCorsHeaders(req, res);
@@ -274,8 +311,11 @@ const server = createServer(async (req, res) => {
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
       setCorsHeaders(req, res);
-      res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify({ error: message }));
+      const status = message === "PAYLOAD_TOO_LARGE" ? 413 : 400;
+      res.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({
+        error: status === 413 ? "上載內容過大，請分批處理。" : message,
+      }));
       return;
     }
   }
@@ -283,7 +323,7 @@ const server = createServer(async (req, res) => {
   // ── Channel A search (approved policy facts) ─────────────────────────────
   if (req.method === "POST" && req.url === "/api/search/channel-a") {
     try {
-      const input = await readJsonBody<SearchChannelARequest>(req);
+      const input = await readJsonBody<SearchChannelARequest>(req, SEARCH_MAX_BYTES);
       const result = await searchChannelA(input, embeddingClient, llmClient);
 
       setCorsHeaders(req, res);
@@ -293,8 +333,11 @@ const server = createServer(async (req, res) => {
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
       setCorsHeaders(req, res);
-      res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify({ error: message }));
+      const status = message === "PAYLOAD_TOO_LARGE" ? 413 : 400;
+      res.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({
+        error: status === 413 ? "查詢內容過大。" : message,
+      }));
       return;
     }
   }
@@ -302,7 +345,7 @@ const server = createServer(async (req, res) => {
   // ── Channel B search (LLM-wiki index, all results) ────────────────────────
   if (req.method === "POST" && req.url === "/api/search/channel-b") {
     try {
-      const input = await readJsonBody<SearchChannelBRequest>(req);
+      const input = await readJsonBody<SearchChannelBRequest>(req, SEARCH_MAX_BYTES);
       const result = await searchChannelB(input, embeddingClient, llmClient);
 
       setCorsHeaders(req, res);
@@ -312,8 +355,11 @@ const server = createServer(async (req, res) => {
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
       setCorsHeaders(req, res);
-      res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify({ error: message }));
+      const status = message === "PAYLOAD_TOO_LARGE" ? 413 : 400;
+      res.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({
+        error: status === 413 ? "查詢內容過大。" : message,
+      }));
       return;
     }
   }
@@ -321,7 +367,7 @@ const server = createServer(async (req, res) => {
   // ── Combined A+B search ───────────────────────────────────────────────────
   if (req.method === "POST" && req.url === "/api/search/combined") {
     try {
-      const input = await readJsonBody<SearchCombinedRequest>(req);
+      const input = await readJsonBody<SearchCombinedRequest>(req, SEARCH_MAX_BYTES);
       const result = await searchCombined(input, embeddingClient, llmClient);
 
       setCorsHeaders(req, res);
@@ -331,8 +377,11 @@ const server = createServer(async (req, res) => {
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
       setCorsHeaders(req, res);
-      res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify({ error: message }));
+      const status = message === "PAYLOAD_TOO_LARGE" ? 413 : 400;
+      res.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({
+        error: status === 413 ? "查詢內容過大。" : message,
+      }));
       return;
     }
   }

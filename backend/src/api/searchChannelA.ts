@@ -114,6 +114,18 @@ export async function searchChannelA(
     throw new Error("query is required");
   }
 
+  // S187 audit: clamp the caller-supplied min_score to a floor and cap the
+  // result count so a single `min_score: 0` request can no longer enumerate the
+  // entire fact corpus in one call (bulk-scrape / response-size amplification).
+  // A real query never needs more than the top few dozen facts; the public
+  // frontend passes the default 0.1 and is unaffected.
+  const MIN_SCORE_FLOOR = 0.05;
+  const MAX_RESULTS = 50;
+  const effectiveMinScore = Math.max(
+    typeof min_score === "number" && Number.isFinite(min_score) ? min_score : 0.1,
+    MIN_SCORE_FLOOR
+  );
+
   const kb = await loadKnowledgeBase();
   const queryVec = await embedFn(query);
 
@@ -165,7 +177,7 @@ export async function searchChannelA(
   const scored: ChannelAResult[] = [];
   for (let i = 0; i < candidates.length; i++) {
     const score = cosine(queryVec, factVecs[i]);
-    if (score < min_score) continue;
+    if (score < effectiveMinScore) continue;
     scored.push({
       id: `A_${candidates[i].topicId}_${i}`,
       text: candidates[i].text,
@@ -187,7 +199,7 @@ export async function searchChannelA(
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
-  });
+  }).slice(0, MAX_RESULTS); // S187: hard cap result count (anti bulk-scrape)
 
   // LLM synthesis over top results
   let synthesis: string | undefined;
