@@ -35,6 +35,45 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-06-28 Session 189 — Option A 自動入庫管道 Phase 2（dry-run executor + 批准格式 + ops repo scaffold）BUILT + QC
+
+- **ID:** Claude_20260628_S189
+- **Summary:** 頂層 dormant root「開工」→ redirect Draft → 起手探針 4/4 綠（served app.html v3.2.2 / Render warm 455 / HEAD `134dcce`==origin/main / knowledge 15,838）→ Leonard `/goal 1` = 推進 **Option A 自動入庫管道 Phase 2**。把 S188 手動 staging 之後嘅 live 入庫管道做成一個**可審計 dry-run executor**，並設計批准格式 + 起未來 private ops repo 嘅 scaffold。全程 staging-only、零 live 寫入、可逆（跟 S188 紀律）。Phase 3（live executor）+ Phase 4（端到端 workflow）需 Leonard 先開 private repo + set secrets，已清楚標 boundary。
+- **Changed:**
+  - **新 file `dev/source/execute_ingest.py`**（tracked）：Option A Phase 2 dry-run executor。接一個 staged package，模擬 6 個 live 步驟並寫 `ingest_packages/<id>/execution_plan.json`：(1) copy extract→`dev/vault/<id>/`（顯示 src/dest/bytes）(2) registry-append（按真 schema 砌 entry）(3) ingest chunk（重用 build_wiki_index canonical chunker，count + char stats + page-resolvable + sample vault_id，**唔 embed/INSERT**）(4) route-patch（喺 searchChannelB.ts 定位 `SOURCE_SETS[<route>]` block + 顯示插入點/preview，已存在則 no-op）(5) display-sync（讀 knowledge.json `_meta.stats.chunks` before → after，列 9 個 touch-point 連 raw `15838`/逗號 `15,838` 兩格式 + occurrence count）(6) commit message。**批准 gate**：approval record `decision != approved` → plan 標 WOULD-BLOCK；**live 模式（無 --dry-run）hard-refuse exit 2**（Phase 3 未 wired，附手動 fallback 指引）。human overrides（topic/route/tier）覆蓋 auto-proposal。
+  - **新 scaffold `dev/source/ops/`**（gitignored，未來 private `edb-knowledge-ops` repo 種子）：`README.md`（架構 + 為何 hosting public / 批准 private + Phase 3/4 Leonard 設置清單）/ `APPROVAL_FORMAT.md`（approval record schema + approver 指引）/ `.github/workflows/executor.yml.template`（未來排程 executor workflow，inert template）/ `approvals/_TEMPLATE.approval.json` + `approvals/edbc007_2026.approval.json`（DEMO record）/ `.gitignore`。
+  - `.gitignore`：加 `dev/source/ops/`（種子 separate private repo、唔 track 入 public repo）；S188 ingest_packages comment 補 execution_plan.json。
+- **Done:**
+  - ✅ executor dry-run 喺 S188 留低 3 個 staged package 全跑通：edbc007_2026（finance/T1，+30 chunks，route finance block 293-302）/ edbcm077_2026（activity/T3，+8）/ edbcm101_2026（placement/T3，+4，route placement 217-220）。
+  - ✅ **完整批准流程端到端示範**：`--init-approval` 建 pending → 改 `edbc007_2026` decision=approved + override route finance→activity → re-run dry-run：GATE ⛔→✅、effective route 翻 activity（approval-override）、route-patch 改指 `SOURCE_SETS.activity` block 328-335、char_med 591 對齊 package。
+  - ✅ live 模式 hard-refuse exit 2 驗證。
+- **QC:** py_compile（execute_ingest + prepare_ingest 兩者）OK。**零 live 寫入核實**：dev/vault/edbc007_2026 唔存在 / registry 仍 242 / knowledge.json 仍 15838 / searchChannelB.ts `git diff` 空。git status：只 `.gitignore`(M) + `execute_ingest.py`(??)，`ops/` 正確 ignore。
+- **Evidence disposition:** Phase 2 完成 absorbed into handoff Current Baseline + Open Priorities；dry-run trace 留本 entry。
+- **Sync:** 無 display-sync / 無凍結合約改 / 無 PLATFORM_VERSION bump（純新 dev 工具 + scaffold；Supabase/Render/Pages 零接觸；commit 推 inert 工具，backend byte-identical → Render no-op redeploy）。
+- **Pending（Phase 3-4 需 Leonard 參與，HIGH risk）:** Phase 3 = wire `execute_ingest.py --live`（真做 6 步 + commit/push，approval gate + post-deploy smoke + 失敗 re-open 守住）；Phase 4 = `executor.yml` 排程 scan approvals → live executor per record → 回報。Leonard 前置：開 private repo `edb-knowledge-ops` + PAT(`MAIN_REPO_PAT` contents:RW on edb-knowledge) + secrets(`SUPABASE_SERVICE_KEY`/`OPENAI_API_KEY`) + 揀 trigger。詳見 `dev/source/ops/README.md` 清單。
+- **Risks:** Phase 2 LOW（staging/dry-run/可逆）。executor route-patch 對「未存在嘅 route」會 warn 要 human 建 block（非靜默）。auto-proposal tier/route 仍係建議，approval gate 兜底。Render free-tier cold-start ~50s。
+- **Log maintenance:** §4a 檢查：SESSION_LOG 387 行（<400）、最舊 2026-06-25（<30 日）→ 唔觸發 archive。no-op。
+
+### Next Session Opening Message
+
+📋 Next session: agent-managed startup content below
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Current state: 平台 v3.2.2; Supabase 15,838 chunks; registry 242; HEAD==origin/main (S189 latest); 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158; 4 監察 active; 0 outstanding bug.
+起手探針: served app.html PLATFORM_VERSION 3.2.2 + Render /health warm 455 + Draft HEAD==origin/main + Supabase chunk count.
+
+Option A 自動入庫管道進度: Phase 1 (S188) 入庫包生成器 prepare_ingest_package.py ✓; Phase 2 (S189) dry-run executor dev/source/execute_ingest.py + 批准格式 + ops repo scaffold dev/source/ops/ (gitignored) ✓ — 全 staging-only 零 live 寫入. 三 staged package 已備 (edbc007 approved-demo / edbcm077 / edbcm101).
+NEXT 待 Leonard: Phase 3 = wire execute_ingest.py --live (真 6 步 + commit/push, approval gate + smoke + 失敗 re-open). 前置(需 Leonard 雙手): 開 private repo edb-knowledge-ops + PAT MAIN_REPO_PAT + secrets SUPABASE_SERVICE_KEY/OPENAI_API_KEY — 清單見 dev/source/ops/README.md. 然後 Phase 4 = executor.yml 排程 端到端.
+其他 backlog: S187 安全(repo私有化+hosting搬遷/Supabase RLS/sibling審) — 可同 Option A private-repo 合一; S186 2源 monitor (edbcm073/edbcm066 短query排名低); Feature 2a/2b; Phase 3 full_chunks_routed.
+```
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-06-28 Session 188 — Option A 自動入庫管道 Phase 1（入庫包生成器）BUILT + 測試
 
 - **ID:** Claude_20260628_S188
