@@ -1,0 +1,121 @@
+name: Daily EDB Circular Check
+
+on:
+  schedule:
+    # Daily at 12:00 UTC. The dashboard feed (circular.wongfu.net) regenerates
+    # each morning (~11:00 UTC observed); run after it so we read fresh data.
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+    inputs:
+      since_days:
+        description: "Safety-net lookback window in days"
+        required: false
+        default: "30"
+        type: string
+
+permissions:
+  contents: read       # detection only — never writes the registry
+  issues: write        # open/update the "new circulars pending review" issue
+
+jobs:
+  new-circular-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run new-circular check
+        run: |
+          SINCE="${{ github.event.inputs.since_days }}"
+          SINCE="${SINCE:-30}"
+          echo "Running: python3 dev/source/check_new_circulars.py --since-days $SINCE --changes-out new_circulars.json"
+          python3 dev/source/check_new_circulars.py --since-days "$SINCE" --changes-out new_circulars.json 2>&1 | tee new_circulars_output.txt
+          exit ${PIPESTATUS[0]}
+        # ↑ Non-zero exit = feed fetch/parse outage only. Detected candidates never
+        #   affect exit code; GitHub marks failed runs + emails on a real outage.
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: new-circulars-${{ github.run_number }}
+          path: |
+            new_circulars_output.txt
+            new_circulars.json
+          retention-days: 30
+
+      - name: Notify on new circulars (open/update issue)
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let report;
+            try {
+              report = JSON.parse(fs.readFileSync('new_circulars.json', 'utf8'));
+            } catch (e) {
+              core.info('No report to parse: ' + e);
+              return;
+            }
+            if (!report.candidates || report.candidates < 1) {
+              core.info('No new circulars detected; not touching issue.');
+              return;
+            }
+            const CAP = 50;
+            const list = (report.new_circulars || []).slice(0, CAP).map(c => {
+              const flag = c.isNew ? '🆕 ' : '';
+              const topics = (c.k1_topics || []).join(', ');
+              const pdf = (c.pdf_urls || [])[0] || '';
+              return `- ${flag}**${c.number}** _(${c.date})_ — ${c.title}` +
+                     (topics ? `  \`[${topics}]\`` : '') +
+                     (c.urgency ? `  ·urgency: ${c.urgency}` : '') +
+                     (pdf ? `\n  ${pdf}` : '');
+            }).join('\n');
+            const overflow = report.candidates > CAP
+              ? `\n\n> … +${report.candidates - CAP} more — see run artifact \`new-circulars-${context.runNumber}\`.` : '';
+            const body = [
+              `🆕 **${report.candidates}** EDB circular(s) not yet in the registry (run #${context.runNumber}, feed ${report.feed_generated_at}, lookback ${report.since_days}d from ${report.cutoff_date}).`,
+              '',
+              list,
+              overflow,
+              '',
+              '> **Detection only** — re-ingestion stays a manual gate. Ingest from `pdf_urls`',
+              '> with PyMuPDF (verbatim); do NOT trust the feed pre-extracted text as SSOT.',
+              '> Pipeline: grep registry dupe → verbatim extract → canonical chunker →',
+              '> ingest_one_source.py → route patch → deploy verify → display-sync.',
+              `> Source: ${report.dashboard_url}`,
+              '> Already-ingested circulars drop off this list automatically.',
+            ].join('\n');
+            const title = '🆕 New EDB circulars pending review';
+            const label = 'new-circular';
+            try {
+              const existing = await github.rest.issues.listForRepo({
+                owner: context.repo.owner, repo: context.repo.repo,
+                state: 'open', labels: label,
+              });
+              if (existing.data.length) {
+                await github.rest.issues.update({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: existing.data[0].number, title, body,
+                });
+                core.info('Updated issue #' + existing.data[0].number);
+              } else {
+                await github.rest.issues.create({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  title, body, labels: [label],
+                });
+                core.info('Created new-circular issue.');
+              }
+            } catch (e) {
+              core.warning('Failed to open/update new-circular issue: ' + (e && e.message));
+            }
