@@ -2,9 +2,10 @@ name: Daily EDB Circular Check
 
 on:
   schedule:
-    # Daily at 12:00 UTC. The dashboard feed (circular.wongfu.net) regenerates
-    # each morning (~11:00 UTC observed); run after it so we read fresh data.
-    - cron: "0 12 * * *"
+    # Daily at 11:30 UTC (= 19:30 Hong Kong time). The dashboard feed
+    # (circular.wongfu.net) regenerates in the evening HK time (~19:00 HK /
+    # ~11:00 UTC observed); run after it so we read the day's fresh data.
+    - cron: "30 11 * * *"
   workflow_dispatch:
     inputs:
       since_days:
