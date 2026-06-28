@@ -35,6 +35,48 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-06-28 Session 185 — 第 4 監察「EDB 通告 dashboard watcher」SHIPPED + 設計者 credit (index.html) + scratch 大清理 + Option A 方向定案
+
+- **ID:** Claude_20260628_S185
+- **Summary:** 頂層 dormant root「開工」→ redirect Draft → 起手探針全綠（HEAD `e55eb3f`==origin/main、app v3.2.2、title 統一、Render /health warm 455）→ Leonard 4 點指令 + 一連串設計討論。完成：(1) index.html footer 加設計者 credit（app.html 移除、credit 只留首頁）；(2) 清 19 個 untracked scratch；(3) 答 Open Priorities / detect 機制 / email 三條問；(4) 揭發 detect gap → 建第 4 監察接 Leonard 自己個 `circular.wongfu.net/circulars.json` dashboard feed。Option A（一鍵批准自動入庫管道）方向定案，下次專注 session 起。
+- **Changed:**
+  - index.html: footer 加「· 設計者：Leonard Wong」（commit `41ce199`，live 驗）。
+  - app.html: footer 移除「設計及維護：Leonard Wong」（commit `7bca227`，live 驗；credit 只留首頁，per Leonard）。
+  - **新 file `dev/source/check_new_circulars.py`**：第 4 監察。fetch `circular.wongfu.net/circulars.json` → load registry PDF basenames → diff（isNew 或近 --since-days[30] + 唔喺 registry = 候選）→ 寫 new_circulars.json report。detection-only、PDF basename 做 match key、exit 非零只限 feed fetch/parse outage。
+  - **新 file `.github/workflows/new_circular_check.yml`**：每日 cron `30 11 * * *`（UTC 11:30 = HK 19:30，feed ~HK 18:57 生成後）+ workflow_dispatch；permissions contents:read + issues:write；零 secret（公開 feed + 自動 GITHUB_TOKEN）；有候選先開/更新 `new-circular` GitHub Issue。commits `5dca4cf`(watcher)→`a99ce48`(cron HK 19:30)。
+  - 清 19 個 untracked scratch：`_deploy_poll_retest.py`/`_livebar_sweep.py`/`_research_s181`/`_s179_forms`/`_s179_topics`/`_tips_verify`/`vault/_s184`/`_test_footnote_pass.mjs`/footnote_harvest×5/`.pre_s179`×2/`source_registry.json.pre_s184`/discovered/freshness/served_url changes。
+  - **未改**：CHANGELOG.md / update_log.json（per Leonard「設計者 credit 不用喺更新提及」；監察為 dev infra 亦非 user-facing）。Supabase 15,656 / registry 228 / 凍結合約 / PLATFORM_VERSION 3.2.2 全零接觸。
+- **Done:**
+  - ✅ 設計者 credit：index.html footer live 顯示「設計者：Leonard Wong」、app.html live 已移除（兩頁輪詢驗）。
+  - ✅ 第 4 監察 LIVE：`python3 check_new_circulars.py` 跑通、撈到 29 條真候選；workflow GitHub API 確認 active（4 monitor：discover/freshness/served-url/**new-circular**）。
+  - ✅ **反向對照證實**：registry 排除 EDBC26008C.pdf（模擬 S184 入庫前）→ watcher 捉到「EDBC008/2026 學校效率津貼 isNew=true」→ 證實機制有效（S184 嗰次純靠人手提供 PDF）。
+  - ✅ 揭發 detect gap：discover 62 個 .html landing 全主題頁、無 EDB 通告總索引；freshness 只監察已入庫源 → 新通告結構上 detect 唔到（實測 debp.html 無 link 住 EDBC26008）。
+- **QC:** py_compile OK；本地實跑 ✅；YAML valid（cron 30 11 * * *、零 secret）；反向對照 ✅；workflow GitHub 註冊 active；footer 兩頁 live 輪詢驗。commits `41ce199`→`7bca227`→`5dca4cf`→`a99ce48` 全 push。
+- **Evidence disposition:** kept as recent trace evidence（監察機制 + Option A 方向 absorbed into handoff baseline + Open Priorities；建置 trace 留本 entry）。
+- **Sync:** 無 display-sync（chunk 數零變動）；CHANGELOG/update_log 按 Leonard 指示不動；CODEBASE_CONTEXT External Services + AI Log 加 circular.wongfu.net feed 依賴。
+- **Pending:** ★ **Option A 自動入庫管道**（下次專注 session 正式 PLAN，HIGH risk 多組件：private ops repo + cross-repo token + 排程 executor + 入庫包生成器 + 時效/分類 schema）。其餘 Open Priorities 見 handoff（Feature 2a/2b、Phase 3 routed、VE planning tools、registry fold-in、freshness、既有 monitor）。
+- **Risks:** 監察依賴 circular.wongfu.net（Leonard 自控服務）+ JSON 格式穩定；feed isNew 隨 dashboard rolling window，已加 --since-days 30 safety net。GitHub Issue 批准面唔真私密（public Pages repo 可反查）→ Option A 定案改用 private repo。Render free-tier cold-start ~50s。
+- **Log maintenance:** §4a 檢查：SESSION_LOG 227 行 < 400、最舊 entry 在 30 日內 → 唔觸發 archive。no-op。
+
+### Next Session Opening Message
+
+📋 Next session: agent-managed startup content below
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Current state: 平台 v3.2.2; Supabase 15,656 chunks (零變動); registry 228; HEAD==origin/main a99ce48 (後接 closeout docs commit); 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158; 4 個自動監察 active (discover/freshness/served-url/new-circular); 0 outstanding bug.
+
+S185 完成: 第 4 監察「EDB 通告 dashboard watcher」(dev/source/check_new_circulars.py + .github/workflows/new_circular_check.yml, 每日 HK 19:30 接 circular.wongfu.net/circulars.json, detection-only); 設計者 credit (index.html footer only); 清 19 個 untracked scratch.
+
+Post-startup first action: 跑起手探針 (served app.html PLATFORM_VERSION 3.2.2 + Render /health warm 455 + HEAD==origin/main + Supabase 15,656), 然後等 Leonard 開 task。最可能下一步 = ★ Option A 自動入庫管道正式 PLAN: 監察→自動入庫包(verbatim+chunk+查重+分類+deadlines時效+channel_b_facts gap+routing)→私密批准面(定案=新 private repo, 因 public Pages repo 令 GitHub Issue 唔真私密)→一鍵批准→排程 executor 自動入庫+deploy。屬 HIGH risk 多組件, 要分階段 PLAN。#2 時效+#3 識分 已大半可由 dashboard 現成欄(deadlines/k1_topics/channel_b_facts gap)解。
+```
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-06-26 Session 184 — EDBC 8/2026 學校效率津貼入庫 (+12 chunks → 15,656) + digital_education route 擴充 + index.html 單一真源整理
 
 - **ID:** Claude_20260626_S184

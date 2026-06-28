@@ -1,14 +1,21 @@
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft
 
-Read in order:
-1. AGENTS.md
-2. dev/SESSION_HANDOFF.md
-3. dev/SESSION_LOG.md
-4. dev/PROJECT_INDEX.md
-5. dev/RULE_PACKS.md
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
+(Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
 
-Read dev/DOC_SYNC_REGISTRY.md before file changes or closeout.
+Current state (S185, 2026-06-28): 平台 v3.2.2; Supabase 15,656 chunks (零變動); registry 228;
+HEAD==origin/main a99ce48 (後接 closeout docs commit); 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158;
+4 個自動監察 active (discover / freshness / served-url / new-circular); 0 outstanding bug.
 
-If this root does not match the expected project root, stop and ask for confirmation.
+S185 完成: 第 4 監察「EDB 通告 dashboard watcher」(dev/source/check_new_circulars.py +
+.github/workflows/new_circular_check.yml, 每日 HK 19:30 接 circular.wongfu.net/circulars.json,
+detection-only); 設計者 credit (index.html footer only); 清 19 個 untracked scratch.
 
-Before changing anything, tell me the current state and your recommended next step.
+Post-startup first action: 跑起手探針 (served app.html PLATFORM_VERSION 3.2.2 + Render /health warm 455
++ Draft HEAD==origin/main + Supabase 15,656), 然後向 Leonard 報告當前狀態同建議下一步。
+最可能下一步 = ★ Option A 自動入庫管道正式 PLAN (HIGH risk 多組件): 監察→自動入庫包(verbatim+chunk+
+查重+分類+deadlines時效+channel_b_facts gap+routing)→私密批准面(定案=新 private repo, 因 public
+Pages repo 令 GitHub Issue 唔真私密)→一鍵批准→排程 executor 自動入庫+deploy。
+
+所有路徑含空格, 終端機指令必須用雙引號包住。改任何嘢之前, 先報告當前狀態同建議下一步。
