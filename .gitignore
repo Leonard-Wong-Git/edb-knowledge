@@ -61,7 +61,14 @@ dev/checklists/_work/_rewrite_*_out.json
 dev/checklists/_work/_rewrite_*_out_partial.json
 
 # Option A (S188) — ingest-package generator STAGING output. Transient per-run
-# packages (extract + package.json) awaiting human approval; reproducible from
-# the dashboard feed, not source-of-truth. The generator script itself IS tracked.
+# packages (extract + package.json + execution_plan.json) awaiting human approval;
+# reproducible from the dashboard feed, not source-of-truth. The generator script
+# itself IS tracked.
 dev/source/ingest_packages/
 new_circulars.json
+
+# Option A (S189, Phase 2) — control-plane scaffold for the future PRIVATE
+# `edb-knowledge-ops` repo (approval queue + executor workflow template + secrets
+# setup docs). Seeds a SEPARATE private repo; must not live tracked in this public
+# repo. The dry-run executor script (dev/source/execute_ingest.py) itself IS tracked.
+dev/source/ops/
