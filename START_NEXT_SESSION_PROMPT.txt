@@ -4,18 +4,28 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
 (Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
 
-Current state (S185, 2026-06-28): 平台 v3.2.2; Supabase 15,656 chunks (零變動); registry 228;
-HEAD==origin/main a99ce48 (後接 closeout docs commit); 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158;
-4 個自動監察 active (discover / freshness / served-url / new-circular); 0 outstanding bug.
+Current state (S188, 2026-06-28): 平台 v3.2.2; Supabase 15,838 chunks; source_registry 242;
+HEAD==origin/main 35b3b22 (後接 closeout docs commit 如有); 凍結合約 _meta 2.3.0 / facts 455 /
+guidelines 158; 4 個自動監察 active (discover / freshness / served-url / new-circular); 0 outstanding bug.
 
-S185 完成: 第 4 監察「EDB 通告 dashboard watcher」(dev/source/check_new_circulars.py +
-.github/workflows/new_circular_check.yml, 每日 HK 19:30 接 circular.wongfu.net/circulars.json,
-detection-only); 設計者 credit (index.html footer only); 清 19 個 untracked scratch.
+今日 (2026-06-28) ship 咗三大件:
+- S186: 第 4 監察 watcher 首批真實捕捉 → 14 條 2026/6 EDB 通告 (Tier 1+2) 入庫 LIVE (+182 chunks,
+  15,656→15,838; 9 route patch + activity 提升; 12/14 top-8 surface). ⚠️ 2 源 monitor: edbcm073_2026
+  (電子學習撥款) + edbcm066_2026 (準英語教師獎學金) in-route 但短 query crowded-route 排名低 (可檢索,
+  Leonard 報 miss 先 boost). 餘 15 條 Tier 3 過渡公告按 S170 鐵律不入.
+- S187: 12-agent 安全審計 → 修 API abuse 1 HIGH + 2 MED LIVE (rate-limit XFF spoof wallet-drain →
+  右 hop + GLOBAL 120/min backstop; search/analyze body cap 16KB+413; Channel A min_score floor +
+  result cap 50). 結論: secrets 全清白, 15,838 chunks 本身難 clone (Supabase 非 repo, anon key 不在
+  前端, 無 write endpoint). 未修 backlog (Leonard 揀只修 API): repo IP 全公開→repo private+hosting
+  搬遷 / Supabase RLS-off+anon SELECT / sibling repo EDB-AI-Circular-System 待審.
+- S188: Option A 自動入庫管道 Phase 1 包生成器 BUILT (dev/source/prepare_ingest_package.py,
+  staging-only, 測試綠). 把手動入庫 pipeline 腳本化成可覆核「準備包」.
 
 Post-startup first action: 跑起手探針 (served app.html PLATFORM_VERSION 3.2.2 + Render /health warm 455
-+ Draft HEAD==origin/main + Supabase 15,656), 然後向 Leonard 報告當前狀態同建議下一步。
-最可能下一步 = ★ Option A 自動入庫管道正式 PLAN (HIGH risk 多組件): 監察→自動入庫包(verbatim+chunk+
-查重+分類+deadlines時效+channel_b_facts gap+routing)→私密批准面(定案=新 private repo, 因 public
-Pages repo 令 GitHub Issue 唔真私密)→一鍵批准→排程 executor 自動入庫+deploy。
++ Draft HEAD==origin/main + Supabase chunk count), 然後向 Leonard 報告當前狀態同建議下一步.
+最可能下一步 = Option A Phase 2 (需 Leonard 開 private ops repo edb-knowledge-ops + set Actions secrets
+〔SUPABASE_SERVICE_KEY / OPENAI_API_KEY / cross-repo PAT〕 + 揀批准 UX: Issue-checkbox / 資料夾移動 /
+label). Phase 2 = 批准格式 + executor dry-run; Phase 3 = live executor; Phase 4 = 端到端串通.
+其他 backlog: 安全 (repo private / RLS / sibling 審) / Feature 2a 追問 + 2b 文件 scoped Q&A / Phase 3 full_chunks_routed.
 
-所有路徑含空格, 終端機指令必須用雙引號包住。改任何嘢之前, 先報告當前狀態同建議下一步。
+所有路徑含空格, 終端機指令必須用雙引號包住. 改任何嘢之前, 先報告當前狀態同建議下一步.
