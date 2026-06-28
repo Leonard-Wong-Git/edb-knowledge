@@ -186,6 +186,9 @@ const SOURCE_SETS: Record<string, string[]> = {
     "debp_ai_examples",
     "edbcm_221_2025_smart_teaching",
     "edbc008_2026",
+    "edbcm073_2026",     // S186: QEF 電子學習撥款計劃 — 提供流動電腦裝置及上網支援 (2026/27)
+    "edbc011_2026",      // S186: 教育局通告11/2026《中小學數字教育發展藍圖》正式通告 (補 DEBP corpus)
+    "edbcm107_2026",     // S186: 學校落實 AI 教育規劃培訓 + AI 教師培訓 (第一期 2026/7-9)
   ],
   // ── PLAN-1b selective routes (S118) — matched before the broad production
   // categories below. SAG is intentionally allowed in `cpd`/`conduct` (their
@@ -205,6 +208,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g25",
     "k1_admission_2627",   // S152: 2026/27 K1 入學安排 (通函 EDBCM81/2025 + FAQ), Discovery
     "kg_admin_guide",      // S152: 幼稚園學費涵蓋/售賣物品指引, Discovery
+    "edbcm080_2026",       // S186: 通函80/2026 — 2027/28學年幼稚園幼兒班收生安排
     "role_facts_general",
   ],
   // S142 §5 — primary/secondary place allocation + student-info-management (P1/SSPA/S4/STIMS).
@@ -251,6 +255,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "gifted_tp_resource_kit",     // S150: 校本資優教育資源套 (2024)
     "gifted_osalp_compendium",    // S150: 資優教育基金校外進階學習課程匯編 (OSALP)
     "gifted_ge_series",           // S152: 全民資優教育 + 校本學生才能庫 + 學術英才教育單元 (Discovery)
+    "edbcm095_2026",              // S186: 通函95/2026 — 資優教育學校網絡計劃2026/27 + 教師專業培訓
     "g14",
     "g06",
     "role_facts_general",
@@ -291,6 +296,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "coa_imc_1_19",      // 資助則例 (IMC)
     "fin_mgmt_notes_aided",   // S142: 資助學校財務管理注意事項
     "bank_choice_notes",      // S142: 學校選擇銀行注意事項
+    "edbcm089_2026",          // S186: 通函89/2026 — 高中多元學習津貼 (其他語言及其他課程, 2026/27) — 津貼 routes here
     "role_facts_finance",
     "role_facts_general",
   ],
@@ -309,6 +315,8 @@ const SOURCE_SETS: Record<string, string[]> = {
     "embc5_2005_appointment", "edbc14_2023_student_protect", "staff_medical_health",
     "job_sharing_guide", "surplus_teacher_arr_2026", "private_sch_employment_notes",
     "supply_teacher_guide", "long_service_payment_guide",  // S142 §2: 代課教師指引 + 遣散費長服金指引
+    "edbcm088_2026",     // S186: 通函88/2026 — 英文／普通話科教師語文能力要求 (LPAT) 及行政安排
+    "edbcm066_2026",     // S186: 通函66/2026 — 準英語教師獎學金 (2026/27)
     // S172: sch_calendar_guide deprecated (404 + year-specific 2025/26 holidays superseded; chunks DELETEd). 校曆 queries stay covered by g11 擬定校曆表指引 above.
     "role_facts_hr",
     "role_facts_general",
@@ -320,6 +328,8 @@ const SOURCE_SETS: Record<string, string[]> = {
   activity: [
     "g03",               // 全方位學習津貼運用指引
     "sch_activities_guide",   // S152: 戶外活動 + 境外遊學團指引 (Discovery)
+    "edbc009_2026",      // S186: 通告9/2026 — 家校合作活動整合津貼
+    "edbcm070_2026",     // S186: 通函70/2026 — 2026/27 家庭與學校合作活動計劃資助申請
     "role_facts_activity",
     "role_facts_general",
   ],
@@ -333,6 +343,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbc015_2021_lpe", "lpe_framework_primary", "edbc18_2008_harmonious",
     "edbc15_2025_child_abuse", "edbcm83_2020_student_care", "crisis_mgmt_handbook", "kg_crisis_mgmt",
     "edbc100_2002_healthy_sch", "hsp_framework", "hsp_drug_testing_2026",  // S142 §4: 健康校園/禁毒
+    "edbcm081_2026",     // S186: 通函81/2026 — 2026/27 為低收入家庭小學生提供在校免費午膳 (welfare)
     "g16", "g17",
     "sag_2025_11",
     "role_facts_student", "role_facts_general",
@@ -383,6 +394,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g18",               // 學童乘搭校車的安全指引 (2025/26)
     "g21",               // 視覺藝術科安全指引
     "g22",               // 科技教育學習領域安全指引 (2010)
+    "edbc012_2026",      // S186: 通告12/2026 — 校舍消防裝置或設備 (消防年檢)
     "sag_2025_11",
     "role_facts_general",
   ],
@@ -418,6 +430,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbc002_2026",
     "edbc003_2026",
     "edbc005_2026",
+    "edbc010_2026",      // S186: 通告10/2026 — 中小學數學課程微調 (加強數學建模元素)
     "circ_edbc24017",
     "mce_framework_2008",  // S147: 德育及公民教育課程架構(2008) OCR backfill — title 含「課程」→ 德育公民課程 queries route to curriculum; without this allowlist entry the new source never surfaces in routed search (S135 backfill-allowlist coupling)
     "phys_sss_2007_2015",  // S148: 物理科課程及評估指引(中四至中六, 2007/2015更新) text-layer backfill (clean re-ingest, U+FFFD=0; supersedes the earlier dropped mojibake copy referenced in the `sen` route note). S135 backfill-allowlist coupling.
@@ -444,6 +457,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g29",                       // 幼稚園教育課程指引（2017）
     "g26",                       // 2026/27 幼稚園收生安排指引
     "stat_kg",                   // 幼稚園統計數字
+    "edbcm060_2026",             // S186: 通函60/2026 — 幼稚園提交2025/26經審核周年帳目 (KG 財務合規)
     "role_facts_general",
   ],
 };
@@ -458,7 +472,7 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   conduct: /體罰|施行體罰|羞辱學生|虐待學生|教師操守|專業操守|教師專業操守/,
   // S142 §3 — student guidance/discipline/support. After conduct (操守/體罰 stays conduct),
   // before the broad production categories so welfare terms route here not finance/curriculum.
-  student_support: /生涯規劃|和諧校園|欺凌|霸凌|虐待兒童|虐兒|強制舉報|危機處理|關顧學生|訓育|輔導服務|學生精神健康|學生自殺|創傷知情|哀傷輔導|學生支援組|健康校園|禁毒|藥物測試|校園測檢/,
+  student_support: /生涯規劃|和諧校園|欺凌|霸凌|虐待兒童|虐兒|強制舉報|危機處理|關顧學生|訓育|輔導服務|學生精神健康|學生自殺|創傷知情|哀傷輔導|學生支援組|健康校園|禁毒|藥物測試|校園測檢|免費午膳|在校午膳/,
   steam: /STEAM|STEM/,
   // S183 — value_education promoted before finance/hr_admin/curriculum (first-match
   // precedence). Original position was below gifted/kg_admin/digital_education, but
@@ -473,7 +487,9 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // (採購/招標/報價/競投/供應商) unaffected.
   // S184 — +學校效率津貼/效率津貼/教育數字化轉型 (edbc008_2026). MUST stay before finance:
   // 「學校效率津貼」query 否則被 finance「津貼」偷; 本通告本質係數字化轉型撥款, 屬 digital_education。
-  digital_education: /數字教育|數位教育|數碼教育|發展藍圖|\bDEBP\b|人工智能|\bAI\b|AI素養|人工智能素養|生成式人工智能|資訊科技教育|智啟學教|數字素養|數字技能|學校效率津貼|效率津貼|學校效率|教育數字化|數字化轉型/i,
+  // S186 — +電子學習撥款/流動電腦裝置/上網支援 (edbcm073_2026). MUST stay before finance:
+  // 「電子學習撥款」否則被 finance「撥款」偷; 本通函本質係 QEF 電子學習裝置撥款, 屬 digital_education。
+  digital_education: /數字教育|數位教育|數碼教育|發展藍圖|\bDEBP\b|人工智能|\bAI\b|AI素養|人工智能素養|生成式人工智能|資訊科技教育|智啟學教|數字素養|數字技能|學校效率津貼|效率津貼|學校效率|教育數字化|數字化轉型|電子學習撥款|電子學習配套|流動電腦裝置|上網支援/i,
   // S154 — IMC/SBM school governance. MUST precede `finance` (which owns 法團校董 for g02
   // IMC-finance): a 法團校董會/校董會 query must reach the governance corpus, not finance only.
   // Governance nouns only (校董/校監/辦學團體/學校管理委員會) — pure finance queries
@@ -486,9 +502,14 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // search and surfaced curriculum junk (audit-confirmed). \b(?:IMC|SMC)\b + /i routes them
   // to the governance corpus; word-boundaries keep them from matching inside other words.
   school_governance: /法團校董會|校董會|校董|校監|辦學團體|學校管理委員會|校本條例|\b(?:IMC|SMC)\b|incorporated management committee|school management committee/i,
-  finance: /採購|招標|單一報價|競投|供應商|報價單|分判|貨物|服務合約|財務管理|預算|撥款|開支|報銷|捐款|借款|代收費|利益衝突|申報利益|賄賂|廉署|防賄|資助則例|法團校董|校董會經費|採購門檻|採購程序/,
-  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金/,
-  activity: /全方位學習|活動津貼|課外活動|全方位學習津貼|戶外活動|境外遊學|遊學團|境外學習活動|參觀活動/,
+  // S186 — activity promoted BEFORE finance (first-match): 「家校合作活動整合津貼」/「家校合作…資助」
+  // 否則被 finance「津貼」偷。activity tokens 全部 unique (全方位學習/課外活動/家校合作/家教會) —
+  // 純 finance query (採購/招標/報價/撥款) 不含呢啲詞, 故 finance 路由不受影響 (S183/S184 同一 promote pattern)。
+  activity: /全方位學習|活動津貼|課外活動|全方位學習津貼|戶外活動|境外遊學|遊學團|境外學習活動|參觀活動|家校合作|家庭與學校合作|家教會|家長教師會/,
+  finance: /採購|招標|單一報價|競投|供應商|報價單|分判|貨物|服務合約|財務管理|預算|撥款|開支|報銷|捐款|借款|代收費|利益衝突|申報利益|賄賂|廉署|防賄|資助則例|法團校董|校董會經費|採購門檻|採購程序|多元學習津貼/,
+  // S186 — hr_admin +語文能力要求/語文基準/基準試 (edbcm088_2026 LPAT) + 準英語教師獎學金 (edbcm066_2026)。
+  // 必在 curriculum 之前 (first-match): 「英文科教師語文能力要求」含「英文科」會被 curriculum 偷。
+  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金|語文能力要求|語文基準|語文能力評核|基準試|準英語教師|英語教師獎學金/,
   // SEN — MUST stay before `curriculum` (first-match precedence): "特殊學校課程指引"
   // contains 課程 and would otherwise route to curriculum. \bsen\b/i catches the bare
   // English token (real users type "sen"); the rest catch the Chinese terminology.
@@ -511,7 +532,7 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // g26 收生指引 only). None of these match the earlier kg_admission regex (收生/入學/學費),
   // so kg_admission queries are unaffected.
   kg_admin: /幼稚園行政|幼稚園.{0,4}行政|辦學手冊|營運手冊|學前機構|幼稚園.{0,4}辦學|幼稚園.{0,4}營辦|幼稚園.{0,4}營運|幼稚園.{0,4}運作|開辦幼稚園|幼稚園牌照|幼稚園.{0,4}人事|幼稚園.{0,4}財務|幼稚園.{0,4}管理|幼稚園.{0,4}質素|幼稚園.{0,4}健康紀錄|幼稚園.{0,4}健康記錄|幼稚園教育計劃|幼教計劃|免費優質幼稚園|幼稚園.{0,4}周年/,
-  curriculum: /課程|科目|教學|學習目標|評估|教材|課程發展|學習領域|教師發展|CPD|專業發展|英文科|中文科|數學科|常識科|科學科|體育科|音樂科|視藝科|小學課程|中學課程|課程指引|學習成果|評核|幼稚園|幼兒|學前|K1|K2|K3|遊戲學習/,
+  curriculum: /課程|科目|教學|學習目標|評估|教材|課程發展|學習領域|教師發展|CPD|專業發展|英文科|中文科|數學科|數學建模|常識科|科學科|體育科|音樂科|視藝科|小學課程|中學課程|課程指引|學習成果|評核|幼稚園|幼兒|學前|K1|K2|K3|遊戲學習/,
 };
 
 /**

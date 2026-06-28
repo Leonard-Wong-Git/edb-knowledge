@@ -6,6 +6,40 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [內容新增] — 2026-06-28 — 2026年6月 EDB 通告／通函 14 份批次入庫（S186）
+
+> 平台版本維持 **v3.2.2**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines.json 2.6.1 公開 158 不變）；`_meta.stats.chunks` **15,656 → 15,838**（淨 +182 vault_extract chunks）；`source_registry.json` 228 → **242**（＋14 new sources）。來源：第 4 監察「new-circular watcher」(S185 建) 每日 HK 19:30 捕捉 → 人手 verbatim 入庫閘。
+
+### Added（14 份 2026/6 通告／通函，182 chunks，全 text-layer page-resolvable）
+- **EDBCM080/2026** 2027/28學年幼稚園幼兒班收生安排（14，`edbcm080_2026`，topic=student → kg_admission route）
+- **EDBCM060/2026** 幼稚園提交2025/26經審核周年帳目（68，`edbcm060_2026`，finance → kg_admin route；含表格附錄 42 頁）
+- **EDBCM088/2026** 英文／普通話科教師語文能力要求（5，`edbcm088_2026`，hr → hr_admin route）
+- **EDBCM081/2026** 2026/27 低收入家庭小學生免費午膳（7，`edbcm081_2026`，finance → student_support route）
+- **EDBC010/2026** 中小學數學課程微調：加強數學建模（5，`edbc010_2026`，curriculum route）
+- **EDBC012/2026** 校舍消防裝置或設備（3，`edbc012_2026`，safety route）
+- **EDBC009/2026** 家校合作活動整合津貼（9，`edbc009_2026`，activity route）
+- **EDBCM070/2026** 2026/27 家庭與學校合作活動計劃資助申請（10，`edbcm070_2026`，activity route）
+- **EDBCM089/2026** 高中多元學習津貼：其他語言及其他課程（15，`edbcm089_2026`，finance route）
+- **EDBCM073/2026** QEF 電子學習撥款計劃：流動電腦裝置及上網支援（12，`edbcm073_2026`，digital_education route）
+- **EDBC011/2026** 《中小學數字教育發展藍圖》正式通告（5，`edbc011_2026`，digital_education route）
+- **EDBCM066/2026** 準英語教師獎學金 2026/27（14，`edbcm066_2026`，hr_admin route）
+- **EDBCM107/2026** 學校落實 AI 教育規劃培訓及 AI 教師培訓 第一期（10，`edbcm107_2026`，digital_education route）
+- **EDBCM095/2026** 資優教育學校網絡計劃2026/27 及教師專業培訓（5，`edbcm095_2026`，gifted route）
+
+### Changed
+- `backend/src/api/searchChannelB.ts`：9 個 route 擴 SOURCE_SETS（kg_admission/kg_admin/hr_admin/student_support/curriculum/finance/safety/activity/digital_education/gifted）；TOPIC_KEYWORDS 加 語文能力要求／語文基準／基準試／準英語教師／英語教師獎學金（hr_admin）、免費午膳／在校午膳（student_support）、數學建模（curriculum）、電子學習撥款／流動電腦裝置／上網支援（digital_education）、家校合作／家庭與學校合作／家教會（activity）、多元學習津貼（finance）；**`activity` route 提升至 `finance` 之上**（first-match precedence，防「家校合作活動整合津貼」被 finance「津貼」keyword 偷，同 S183/S184 promote pattern）。
+- `source_registry.json`：+14 source entries（228 → 242，全含 freshness_metadata）。
+- Display-sync 7 處 chunks 數 15,656 → 15,838：`role_facts.json` / `dev/knowledge/role_facts.json` / `knowledge.json`（`_meta.stats.chunks`）/ `index.html`（×3）/ `app.html`（×4）/ `K1_API_SPEC.md` / `README.md`（×4）/ `CHANGELOG.md`（本 entry）+ `update_log.json`（首頁更新日誌）。
+
+### QC
+- **Verbatim 抽取**：14 份 PyMuPDF `get_text()` 直抽、canonical chunker（600/60 page-carry）→ 182 chunks 全 page-resolvable=True，char 中位數 ~590；NUL=0；無改寫。
+- **Dupe check**：入庫前 grep registry（URL filename + 中文 title keyword）→ 全部 0 hit（除既有 DEBP corpus / 消防指引係不同文件）；INSPECT before=0 確認逐條非重複。
+- **Routing smoke**：`detectQueryCategory` 21/21 PASS（14 新源代表 query 各路由正確 + 7 regression：finance/hr_admin/activity/school_governance/value_education/sen/kg_admin 行為不變）。
+- **tsc**：exit 0。
+- **Live verify**：Render redeploy 後逐源短 query 核（見 SESSION_LOG S186）。
+
+---
+
 ## [內容新增] — 2026-06-26 — 教育局通告第8/2026號「學校效率津貼」入庫（S184）
 
 > 平台版本維持 **v3.2.2**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines.json 2.6.1 公開 158 不變）；`_meta.stats.chunks` **15,644 → 15,656**（淨 +12 vault_extract chunks）；`source_registry.json` 227 → **228**（＋1 new source）。

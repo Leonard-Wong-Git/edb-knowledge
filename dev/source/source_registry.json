@@ -6481,6 +6481,384 @@
         "content_hash": "137a930840d85478b0353627b6b6eb26301decfc0bc2af94677441a81a1c899b",
         "hash_checked_at": "2026-06-17"
       }
+    },
+    {
+      "source_id": "edbcm080_2026",
+      "title": "教育局通函第80/2026號 —— 2027/28學年幼稚園幼兒班收生安排",
+      "title_en": null,
+      "title_short": "通函80/2026 幼兒班收生",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26080C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26080C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "student"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-28",
+      "supersedes": null,
+      "related_source_ids": [],
+      "notes": "S186 (2026-06-28): EDBCM080/2026。2027/28學年幼稚園幼兒班(K1)收生安排：統一註冊日期、報名費上限$40、註冊文件等。 Channel B (14 chunks, text-layer, page-resolvable, topic=student)。kg_admission route。watcher (new-circular monitor) 捕捉後人手 verbatim 入庫。",
+      "freshness_metadata": {
+        "hash_checked_at": "2026-06-28",
+        "last_modified": "Mon, 08 Jun 2026 08:37:43 GMT",
+        "content_length": "479137",
+        "etag": "\"52e1511322f7dc1:0\""
+      }
+    },
+    {
+      "source_id": "edbcm060_2026",
+      "title": "教育局通函第60/2026號 —— 幼稚園提交2025/26年度經審核周年帳目",
+      "title_en": null,
+      "title_short": "通函60/2026 幼稚園經審核帳目",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26060C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26060C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "finance"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-28",
+      "supersedes": null,
+      "related_source_ids": [],
+      "notes": "S186 (2026-06-28): EDBCM060/2026。參加幼稚園教育計劃的幼稚園提交2025/26經審核周年帳目要求、表格及附錄(42頁含表格)。KG 財務合規。 Channel B (68 chunks, text-layer, page-resolvable, topic=finance)。kg_admin route。watcher (new-circular monitor) 捕捉後人手 verbatim 入庫。",
+      "freshness_metadata": {
+        "hash_checked_at": "2026-06-28",
+        "last_modified": "Fri, 26 Jun 2026 03:49:38 GMT",
+        "content_length": "3048234",
+        "etag": "\"78709d01e5dd1:0\""
+      }
+    },
+    {
+      "source_id": "edbcm088_2026",
+      "title": "教育局通函第88/2026號 —— 英文／普通話科教師語文能力要求及相關行政安排",
+      "title_en": null,
+      "title_short": "通函88/2026 教師語文能力要求",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26088C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26088C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-28",
+      "supersedes": null,
+      "related_source_ids": [],
+      "notes": "S186 (2026-06-28): EDBCM088/2026。英文／普通話科教師語文能力要求(LPAT 基準)及相關行政安排。常青 HR 政策。 Channel B (5 chunks, text-layer, page-resolvable, topic=hr)。hr_admin route。watcher (new-circular monitor) 捕捉後人手 verbatim 入庫。",
+      "freshness_metadata": {
+        "hash_checked_at": "2026-06-28",
+        "last_modified": "Tue, 02 Jun 2026 01:37:18 GMT",
+        "content_length": "236491",
+        "etag": "\"4a4f265930f2dc1:0\""
+      }
+    },
+    {
+      "source_id": "edbcm081_2026",
+      "title": "教育局通函第81/2026號 —— 2026/27學年為低收入家庭小學生提供在校免費午膳",
+      "title_en": null,
+      "title_short": "通函81/2026 免費午膳",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26081C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26081C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "finance"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-28",
+      "supersedes": null,
+      "related_source_ids": [],
+      "notes": "S186 (2026-06-28): EDBCM081/2026。2026/27 為低收入家庭小學生提供在校免費午膳計劃。學生福利。 Channel B (7 chunks, text-layer, page-resolvable, topic=finance)。student_support route。watcher (new-circular monitor) 捕捉後人手 verbatim 入庫。",
+      "freshness_metadata": {
+        "hash_checked_at": "2026-06-28",
+        "last_modified": "Thu, 11 Jun 2026 03:49:41 GMT",
+        "content_length": "269863",
+        "etag": "\"c6af335555f9dc1:0\""
+      }
+    },
+    {
+      "source_id": "edbc010_2026",
+      "title": "教育局通告第10/2026號 —— 中小學數學課程微調：加強數學建模元素",
+      "title_en": null,
+      "title_short": "通告10/2026 數學建模",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26010C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26010C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-28",
+      "supersedes": null,
+      "related_source_ids": [],
+      "notes": "S186 (2026-06-28): EDBC010/2026。中小學數學課程微調，加強數學建模(mathematical modelling)元素。課程調整。 Channel B (5 chunks, text-layer, page-resolvable, topic=curriculum)。curriculum route。watcher (new-circular monitor) 捕捉後人手 verbatim 入庫。",
+      "freshness_metadata": {
+        "hash_checked_at": "2026-06-28",
+        "last_modified": "Fri, 12 Jun 2026 03:16:28 GMT",
+        "content_length": "214911",
+        "etag": "\"44d9b0db19fadc1:0\""
+      }
+    },
+    {
+      "source_id": "edbc012_2026",
+      "title": "教育局通告第12/2026號 —— 校舍消防裝置或設備",
+      "title_en": null,
+      "title_short": "通告12/2026 校舍消防",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26012C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26012C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-28",
+      "supersedes": null,
+      "related_source_ids": [],
+      "notes": "S186 (2026-06-28): EDBC012/2026。校舍消防裝置或設備須維持良好狀況，由註冊消防承辦商至少每年檢查一次(消防年檢)。校舍安全合規。 Channel B (3 chunks, text-layer, page-resolvable, topic=general)。safety route。watcher (new-circular monitor) 捕捉後人手 verbatim 入庫。",
+      "freshness_metadata": {
+        "hash_checked_at": "2026-06-28",
+        "last_modified": "Tue, 23 Jun 2026 01:15:25 GMT",
+        "content_length": "211752",
+        "etag": "\"90fe81c5ad2dd1:0\""
+      }
+    },
+    {
+      "source_id": "edbc009_2026",
+      "title": "教育局通告第9/2026號 —— 家校合作活動整合津貼",
+      "title_en": null,
+      "title_short": "通告9/2026 家校合作整合津貼",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26009C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26009C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "finance"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-28",
+      "supersedes": null,
+      "related_source_ids": [],
+      "notes": "S186 (2026-06-28): EDBC009/2026。家校合作活動整合津貼。家庭與學校合作活動撥款。 Channel B (9 chunks, text-layer, page-resolvable, topic=finance)。activity route。watcher (new-circular monitor) 捕捉後人手 verbatim 入庫。",
+      "freshness_metadata": {
+        "hash_checked_at": "2026-06-28",
+        "last_modified": "Mon, 22 Jun 2026 09:15:46 GMT",
+        "content_length": "321511",
+        "etag": "\"68765cb5272dd1:0\""
+      }
+    },
+    {
+      "source_id": "edbcm070_2026",
+      "title": "教育局通函第70/2026號 —— 2026/27學年家庭與學校合作活動計劃資助申請",
+      "title_en": null,
+      "title_short": "通函70/2026 家校合作資助申請",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26070C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26070C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "finance"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-28",
+      "supersedes": null,
+      "related_source_ids": [],
+      "notes": "S186 (2026-06-28): EDBCM070/2026。2026/27 家庭與學校合作活動計劃資助申請程序及表格。 Channel B (10 chunks, text-layer, page-resolvable, topic=finance)。activity route。watcher (new-circular monitor) 捕捉後人手 verbatim 入庫。",
+      "freshness_metadata": {
+        "hash_checked_at": "2026-06-28",
+        "last_modified": "Mon, 22 Jun 2026 09:40:03 GMT",
+        "content_length": "389014",
+        "etag": "\"dfb83d1a2b2dd1:0\""
+      }
+    },
+    {
+      "source_id": "edbcm089_2026",
+      "title": "教育局通函第89/2026號 —— 高中學生多元學習津貼：其他語言及其他課程（2026/27）",
+      "title_en": null,
+      "title_short": "通函89/2026 多元學習津貼",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26089C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26089C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "finance"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-28",
+      "supersedes": null,
+      "related_source_ids": [],
+      "notes": "S186 (2026-06-28): EDBCM089/2026。高中學生多元學習津貼(其他語言及其他課程)，2026/27 學年。津貼經 finance route。 Channel B (15 chunks, text-layer, page-resolvable, topic=finance)。finance route。watcher (new-circular monitor) 捕捉後人手 verbatim 入庫。",
+      "freshness_metadata": {
+        "hash_checked_at": "2026-06-28",
+        "last_modified": "Fri, 12 Jun 2026 04:47:59 GMT",
+        "content_length": "562646",
+        "etag": "\"28513a526fadc1:0\""
+      }
+    },
+    {
+      "source_id": "edbcm073_2026",
+      "title": "教育局通函第73/2026號 —— 優質教育基金電子學習撥款計劃：提供流動電腦裝置及上網支援（2026/27）",
+      "title_en": null,
+      "title_short": "通函73/2026 電子學習撥款",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26073C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26073C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "it"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-28",
+      "supersedes": null,
+      "related_source_ids": [],
+      "notes": "S186 (2026-06-28): EDBCM073/2026。QEF 電子學習撥款計劃：提供流動電腦裝置及上網支援(2026/27)。digital_education route。 Channel B (12 chunks, text-layer, page-resolvable, topic=it)。digital_education route。watcher (new-circular monitor) 捕捉後人手 verbatim 入庫。",
+      "freshness_metadata": {
+        "hash_checked_at": "2026-06-28",
+        "last_modified": "Fri, 12 Jun 2026 01:31:39 GMT",
+        "content_length": "503264",
+        "etag": "\"58bba337bfadc1:0\""
+      }
+    },
+    {
+      "source_id": "edbc011_2026",
+      "title": "教育局通告第11/2026號 —— 《中小學數字教育發展藍圖》",
+      "title_en": null,
+      "title_short": "通告11/2026 數字教育發展藍圖",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26011C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26011C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "it"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-28",
+      "supersedes": null,
+      "related_source_ids": [],
+      "notes": "S186 (2026-06-28): EDBC011/2026。教育局通告第11/2026號正式公布《中小學數字教育發展藍圖》(DEBP)。補 DEBP corpus 正式通告。 Channel B (5 chunks, text-layer, page-resolvable, topic=it)。digital_education route。watcher (new-circular monitor) 捕捉後人手 verbatim 入庫。",
+      "freshness_metadata": {
+        "hash_checked_at": "2026-06-28",
+        "last_modified": "Wed, 17 Jun 2026 01:54:36 GMT",
+        "content_length": "346384",
+        "etag": "\"856e1340fcfddc1:0\""
+      }
+    },
+    {
+      "source_id": "edbcm066_2026",
+      "title": "教育局通函第66/2026號 —— 準英語教師獎學金（2026/27）",
+      "title_en": null,
+      "title_short": "通函66/2026 準英語教師獎學金",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26066C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26066C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-28",
+      "supersedes": null,
+      "related_source_ids": [],
+      "notes": "S186 (2026-06-28): EDBCM066/2026。準英語教師獎學金(2026/27)申請安排。教師培訓資助。 Channel B (14 chunks, text-layer, page-resolvable, topic=hr)。hr_admin route。watcher (new-circular monitor) 捕捉後人手 verbatim 入庫。",
+      "freshness_metadata": {
+        "hash_checked_at": "2026-06-28",
+        "last_modified": "Thu, 18 Jun 2026 01:45:44 GMT",
+        "content_length": "340176",
+        "etag": "\"2e58b12dc4fedc1:0\""
+      }
+    },
+    {
+      "source_id": "edbcm107_2026",
+      "title": "教育局通函第107/2026號 —— 學校落實人工智能教育規劃培訓及AI教師培訓（第一期：2026年7-9月）",
+      "title_en": null,
+      "title_short": "通函107/2026 AI教育培訓",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26107C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26107C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "it"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-28",
+      "supersedes": null,
+      "related_source_ids": [],
+      "notes": "S186 (2026-06-28): EDBCM107/2026。學校落實人工智能教育規劃的培訓及 AI 教師培訓(第一期 2026年7-9月)。digital_education route。 Channel B (10 chunks, text-layer, page-resolvable, topic=it)。digital_education route。watcher (new-circular monitor) 捕捉後人手 verbatim 入庫。",
+      "freshness_metadata": {
+        "hash_checked_at": "2026-06-28",
+        "last_modified": "Thu, 18 Jun 2026 04:37:31 GMT",
+        "content_length": "385031",
+        "etag": "\"c112d52cdcfedc1:0\""
+      }
+    },
+    {
+      "source_id": "edbcm095_2026",
+      "title": "教育局通函第95/2026號 —— 資優教育學校網絡計劃2026/27及相關教師專業培訓課程",
+      "title_en": null,
+      "title_short": "通函95/2026 資優教育學校網絡",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26095C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26095C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "activity"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-28",
+      "supersedes": null,
+      "related_source_ids": [],
+      "notes": "S186 (2026-06-28): EDBCM095/2026。資優教育學校網絡計劃 2026/27 及相關教師專業培訓課程。gifted route。 Channel B (5 chunks, text-layer, page-resolvable, topic=activity)。gifted route。watcher (new-circular monitor) 捕捉後人手 verbatim 入庫。",
+      "freshness_metadata": {
+        "hash_checked_at": "2026-06-28",
+        "last_modified": "Tue, 02 Jun 2026 08:33:06 GMT",
+        "content_length": "645971",
+        "etag": "\"7496536f6af2dc1:0\""
+      }
     }
   ]
 }
