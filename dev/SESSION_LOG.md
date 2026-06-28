@@ -35,6 +35,47 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-06-28 Session 186 — watcher 首批真實捕捉 → 14 條 2026/6 EDB 通告批次入庫 (Tier 1+2) LIVE
+
+- **ID:** Claude_20260628_S186
+- **Summary:** 頂層 dormant root「開工」→ redirect Draft → 起手探針全綠（HEAD `c545bea`==origin/main、app v3.2.2、Render /health warm 455、Supabase 15,656）。Leonard 手動行 → 收到第 4 監察 (S185 建 new-circular watcher) 首次真實 email：GitHub Issue #3 撈到 29 條未入庫通告。我做 dupe check + K1 相關性 triage（Tier 1 核心政策 6 / Tier 2 撥款計劃 8 / Tier 3 過渡公告 15）→ AskUserQuestion → Leonard 揀 **Tier 1+2 = 14 條** 入庫。跟 S181/S183 pipeline 全程執行：下載 → PyMuPDF verbatim 抽 → canonical chunk → live Supabase INSERT → route patch → push → Render+Pages redeploy → live verify。
+- **Changed:**
+  - **Supabase wiki_chunks +182**（14 新 `vault_extract` source，15,656 → **15,838**，逐源 INSPECT before=0 確認無重複）。14 源：edbcm080(14)/edbcm060(68)/edbcm088(5)/edbcm081(7)/edbc010(5)/edbc012(3)/edbc009(9)/edbcm070(10)/edbcm089(15)/edbcm073(12)/edbc011(5)/edbcm066(14)/edbcm107(10)/edbcm095(5)。
+  - `dev/vault/<14>/extract_*.txt`：14 個 canonical verbatim extract（metadata header + `=== Page N ===`、全 text-layer、NUL=0）。
+  - `backend/src/api/searchChannelB.ts`：9 route SOURCE_SETS 擴（kg_admission/kg_admin/hr_admin/student_support/curriculum/finance/safety/activity/digital_education/gifted）+ TOPIC_KEYWORDS 加 語文能力要求/基準試/準英語教師/英語教師獎學金(hr_admin)、免費午膳/在校午膳(student_support)、數學建模(curriculum)、電子學習撥款/流動電腦裝置/上網支援(digital_education)、家校合作/家庭與學校合作/家教會(activity)、多元學習津貼(finance)；**activity route 提升至 finance 之上**（防「家校合作活動整合津貼」被 finance「津貼」偷）。
+  - `source_registry.json` 228 → **242**（+14 entries 全含 freshness_metadata）。
+  - Display-sync 7 處（role_facts ×2 / knowledge.json _meta.stats.chunks / index.html ×3 / app.html ×4 / K1_API_SPEC / README ×4）+ update_log.json 新 entry + CHANGELOG S186 entry。15,656 → 15,838。
+  - **凍結合約零接觸**：knowledge.json `_meta.version`=2.3.0 / facts=455 / guidelines=158 不變（只 chunks 動態 stat 升）；無 PLATFORM_VERSION bump（維持 v3.2.2）。
+- **Done:**
+  - ✅ 14 條全部 live INSERT，Supabase 總數 15,838 核對齊（per-source sum=182）。
+  - ✅ Routing smoke `detectQueryCategory` **21/21 PASS**（14 新源 query + 7 regression）。tsc exit 0。
+  - ✅ Render+Pages redeploy LIVE：12/14 源喺 top-8 surface（edbc010 rank-0、edbcm081 rank-1、edbcm080/070/089 rank-2、edbcm060 rank-3、edbc012 rank-4、edbc009/edbc011/edbcm107/edbcm095 rank-5、edbcm088 rank-7）全帶 synthesis。
+  - ✅ Pages 前端 served index.html=15,838 + 更新日誌新 entry live；Render warm 455；凍結合約完整。
+- **QC:** verbatim spot-check（KG 報名費$40 / 消防年檢 / 數學建模）✓；NUL=0；dupe check 全 0 hit + INSPECT before=0；routing 21/21；tsc 0；live 12/14 top-8。commits `b79f475`（ingest+route+display-sync+docs）push origin/main。
+- **Evidence disposition:** 入庫結果 + 新 baseline absorbed into handoff；trace（rank/score 明細）留本 entry。
+- **Sync:** display-sync 7 處 + update_log + CHANGELOG done；DOC_SYNC registry 不需額外（內容新增類，已跟 display-sync rule）。CODEBASE_CONTEXT External Services 無新增（同 endpoint）。
+- **Pending:** ⚠️ **2 源 monitor**：edbcm073_2026（電子學習撥款，digital_education route 被 DEBP/AI corpus 0.69-0.73 擠出 top-8）+ edbcm066_2026（準英語教師獎學金，hr_admin 被 sag/g04 0.73 擠出；fuller query「準英語教師獎學金 2026/27 申請」surface rank-7）— in-route 可檢索但短 query 排名低（S152 cgss 同類）。Leonard 若報 miss 再 boost（dedicated micro-route / lead-slot / supersede-style boost）。其餘 29 條未入嘅 15 條 Tier 3 過渡公告（活動/比賽/日期/獎項）按 S170 鐵律不入。
+- **Risks:** Render free-tier cold-start ~50s。2 monitor 源見 Pending。Option A 自動入庫管道仍待下次專注 session PLAN（HIGH risk）。
+- **Log maintenance:** §4a 檢查：SESSION_LOG 269 行 < 400、最舊 entry 在 30 日內 → 唔觸發 archive。no-op。
+
+### Next Session Opening Message
+
+📋 Next session: agent-managed startup content below
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Current state: 平台 v3.2.2; Supabase 15,838 chunks (S186 +182, 14 條 2026/6 EDB 通告批次入庫); registry 242; HEAD==origin/main b79f475 (後接 closeout docs commit 如有); 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158; 4 個自動監察 active (discover/freshness/served-url/new-circular); 0 outstanding bug.
+起手探針: served app.html PLATFORM_VERSION 3.2.2 + Render /health warm 455 + Draft HEAD==origin/main + Supabase chunk count。
+Monitor: edbcm073_2026 + edbcm066_2026 in-route 但短 query 排名低 (crowded route) — Leonard 報 miss 先 boost。
+Next 大方向: Option A 自動入庫管道正式 PLAN (HIGH risk) / Feature 2a 追問 + 2b 文件 scoped Q&A / Phase 3 full_chunks_routed。
+```
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-06-28 Session 185 — 第 4 監察「EDB 通告 dashboard watcher」SHIPPED + 設計者 credit (index.html) + scratch 大清理 + Option A 方向定案
 
 - **ID:** Claude_20260628_S185
