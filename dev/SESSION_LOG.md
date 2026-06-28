@@ -35,6 +35,48 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-06-28 Session 187 — 安全審計（12-agent workflow）→ 修 API abuse surface 1 HIGH + 2 MED LIVE
+
+- **ID:** Claude_20260628_S187
+- **Summary:** Leonard 問「PolicyChecker 核心放 GitHub 是否人人可取用 / 15,838 chunks 會否被 clone 走或引用去其他系統」→ 開 12-agent 安全審計 workflow（5 維度並行 repo_visibility/secret_leakage/data_extractability/backend_ip/api_abuse + 每 material finding 敵意覆核，全程 read-only 無觸碰 live service）→ 回答 + 修 3 個確認漏洞。
+- **審計結論（770k tokens、187 tool calls）:**
+  - repo `Leonard-Wong-Git/edb-knowledge` = **PUBLIC**（GitHub Pages 免費 plan）→ tree + git history world-readable；sibling `EDB-AI-Circular-System`（circular.wongfu.net）都 public。
+  - **Secrets 全清白** ✅：Supabase service/anon key + OpenAI key 從未 commit（backend/.env gitignored、git history 零 JWT、前端零 key、search 經後端 proxy）。
+  - **15,838 chunks 本身難 clone** ✅：住 Supabase 非 repo、anon key 不在 repo/前端（REST 401）、無 write endpoint、sync X-Sync-Key gated、Channel B top-8/大 top_k 拒。
+  - 灰色地帶：backend 邏輯 + 揀料藍圖（registry 242 + vault 19MB verbatim）public = 可照藍圖 rebuild；Channel A 455 + min_score:0 dump public-by-design。
+- **Changed（`d12a2c2`）:**
+  - `backend/src/server.ts`：(1) `getClientIp` 改用 XFF **最右 hop**（Render-trusted，唔再信 spoofable 最左）；(2) `GLOBAL_RATE_LIMIT=120/min` + `checkGlobalLimit()` backstop（denial-of-wallet 平台無關閘）；(3) search ×3 + `/analyze-circular` 加 `readJsonBody` body cap（16KB / MAX_TEXT_CHARS）+ PAYLOAD_TOO_LARGE→413。
+  - `backend/src/api/searchChannelA.ts`：`min_score` clamp floor 0.05 + result cap 50（防 `min_score:0` 一 call dump 455）。
+- **Done:**
+  - ✅ 修 🔴 HIGH（rate-limit XFF spoof → OpenAI denial-of-wallet）+ 🟠 MED（body cap，memory DoS）+ 🟢 LOW（Channel A bulk-scrape）。
+  - ✅ 本地實測 3/3 PASS（min_score:0→total 50 / 20KB body→413 / 12 rapid→429 after 10）+ tsc exit 0。
+  - ✅ prod LIVE 驗：min_score:0 由 455→**50**、正常 Channel B 搜尋 8 results+synthesis（top=edbcm080_2026）、oversized→413、/health warm 455。
+- **QC:** 本地 server `--env-file` 起喺 :8787 probe 3/3、tsc 0、prod poll 確認部署、prod sanity 3/3。push `d12a2c2`。
+- **Evidence disposition:** 審計結論 + 未修 backlog absorbed into handoff baseline + Open Priorities；完整審計報告喺 task output（wc1wnmm33）trace。
+- **Sync:** 無 display-sync（chunk 數零變）；凍結合約零接觸；無 version bump（純後端安全修補）。
+- **Pending（Leonard 揀只修 API、其餘留 backlog）:** 🟠 backend IP 全公開（修法=repo private + hosting 搬離 Pages，同 Option A private-repo 合一）；🟢 Supabase RLS-off + anon SELECT（建議開 RLS / anon RPC-only）；sibling repo 待審；GitHub Issues world-readable（low）。
+- **Risks:** XFF 右-hop 假設 Render append 真 IP 喺最右（審計實證 + 業界 single-proxy 標準做法）；GLOBAL_RATE_LIMIT 120 backstop 平台無關兜底。Render free-tier cold-start ~50s。
+- **Log maintenance:** §4a 檢查：SESSION_LOG < 400 行、最舊 entry 在 30 日內 → 唔觸發 archive。no-op。
+
+### Next Session Opening Message
+
+📋 Next session: agent-managed startup content below
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+Current state: 平台 v3.2.2; Supabase 15,838 chunks; registry 242; HEAD==origin/main d12a2c2 (後接 closeout docs commit 如有); 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158; 4 監察 active; 0 outstanding bug.
+S186: watcher 首批 14 條 2026/6 EDB 通告入庫 (2 monitor: edbcm073/edbcm066 短query crowded-route 排名低).
+S187: 安全審計修 API abuse (rate-limit wallet-drain + body cap + Channel A scrape cap), LIVE 驗綠.
+起手探針: served app.html PLATFORM_VERSION 3.2.2 + Render /health warm 455 + Draft HEAD==origin/main + Supabase chunk count.
+Next 大方向 (待 Leonard 揀): (1) Option A 自動入庫管道正式 build (準備包+一撳批准, 同 repo-private 安全加固合一) (2) 安全 backlog: repo 轉 private + Supabase RLS + sibling repo 審計 (3) Feature 2a/2b / Phase 3 routed.
+```
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-06-28 Session 186 — watcher 首批真實捕捉 → 14 條 2026/6 EDB 通告批次入庫 (Tier 1+2) LIVE
 
 - **ID:** Claude_20260628_S186
