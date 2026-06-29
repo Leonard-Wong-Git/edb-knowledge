@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-execute_ingest.py  —  Option A, Phase 2 (S189)
-==============================================
-The ingest EXECUTOR for the automated-ingest pipeline — DRY-RUN ONLY in Phase 2.
+execute_ingest.py  —  Option A, Phase 2 (S189) + Phase 3 live wiring (S190)
+==========================================================================
+The ingest EXECUTOR for the automated-ingest pipeline. --dry-run produces an
+auditable plan (Phase 2); --live performs the 6 steps for real (Phase 3).
 
 Where prepare_ingest_package.py (Phase 1) turns an EDB circular candidate into a
 reviewable "ingest package", this script takes an APPROVED package and produces a
@@ -20,30 +21,36 @@ The 6 live steps it plans / (later) performs, mirroring the manual S186 pipeline
   5. display-sync    bump _meta.stats.chunks across the display-sync touch points
   6. commit          git commit + push (-> Render redeploy + Pages redeploy)
 
-SAFETY / SCOPE (Phase 2 is intentionally inert):
-  - DRY-RUN ONLY. With --dry-run (the default and ONLY wired mode) it writes a
-    single execution_plan.json into the package dir (staging, gitignored) and a
-    console report. It NEVER touches dev/vault/, Supabase, git, the registry, the
-    backend route table, or any display-sync file.
-  - LIVE mode is Phase 3. Invoking without --dry-run hard-refuses with guidance,
-    so this script can never perform a real ingest by accident.
-  - The approval gate: an ingest is "executable" only when its approval record
-    (ops/approvals/<id>.approval.json) has decision == "approved". In dry-run we
-    still plan un-approved packages, but the plan flags WOULD-BLOCK so the gate is
-    visible. Human overrides (tier/route/topic) in the approval record are applied
-    over the package's auto-proposals.
+SAFETY / SCOPE:
+  - --dry-run writes only execution_plan.json (staging, gitignored) + a console
+    report; it touches nothing live.
+  - --live performs the 6 steps for real, but is gated three ways:
+      (a) APPROVAL — runs only when ops/approvals/<id>.approval.json has
+          decision == "approved" (human overrides tier/route/topic apply over the
+          package's auto-proposals);
+      (b) SECRETS — refuses (exit 3) unless OPENAI_API_KEY + SUPABASE_SERVICE_KEY
+          are present, so a run without secrets is inert (the scheduled ops
+          workflow injects them from GitHub Secrets);
+      (c) IDEMPOTENT + RESUMABLE — every step is safe to repeat and progress is
+          journalled to execution_state.json; a failed run leaves the candidate
+          approved and re-runs skip completed steps.
+  - Bare invocation (neither --dry-run nor --live) errors; --live is explicit.
 
 Usage (from repo root):
   python3 dev/source/execute_ingest.py --package edbc007_2026 --dry-run
   python3 dev/source/execute_ingest.py --all-prepared --dry-run     # every non-dupe staged pkg
   python3 dev/source/execute_ingest.py --package edbc007_2026 --init-approval   # write pending record
-  python3 dev/source/execute_ingest.py --package edbc007_2026       # LIVE -> hard refusal (Phase 3)
+  SUPABASE_SERVICE_KEY=… OPENAI_API_KEY=… \
+    python3 dev/source/execute_ingest.py --package edbc007_2026 --live          # Phase 3 real ingest
 """
 import argparse
 import json
+import os
 import re
 import statistics
+import subprocess
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional
@@ -58,6 +65,18 @@ APPROVALS_DIR = OPS_DIR / "approvals"
 REGISTRY_PATH = REPO_ROOT / "dev" / "source" / "source_registry.json"
 KNOWLEDGE_PATH = REPO_ROOT / "knowledge.json"
 ROUTE_FILE = REPO_ROOT / "backend" / "src" / "api" / "searchChannelB.ts"
+VAULT_DIR = REPO_ROOT / "dev" / "vault"
+INGEST_SCRIPT = REPO_ROOT / "dev" / "ingest_one_source.py"
+BACKEND_ENV = REPO_ROOT / "backend" / ".env"
+SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://youkcekbrbywuqjxgibe.supabase.co")
+WIKI_TABLE = "wiki_chunks"
+RENDER_HEALTH = "https://edb-knowledge.onrender.com/health"
+CHANNEL_B_API = "https://edb-knowledge.onrender.com/api/search/channel-b"
+# git files the live committer stages (display-sync targets added dynamically).
+LIVE_COMMIT_PATHS = [
+    "dev/source/source_registry.json",
+    "backend/src/api/searchChannelB.ts",
+]
 
 # display-sync touch points: where _meta.stats.chunks is mirrored. The executor's
 # live step rewrites the count in each; dry-run lists them with before -> after.
@@ -355,29 +374,342 @@ def print_plan(plan: Dict) -> None:
     print("(Phase 2 dry-run: nothing above was performed. No live writes.)")
 
 
-def refuse_live() -> int:
-    print(
-        "⛔ LIVE EXECUTION IS PHASE 3 — NOT WIRED.\n"
-        "   This executor only produces dry-run plans (--dry-run). A real ingest needs\n"
-        "   cross-repo tokens + Supabase service key + git push, which Phase 3 adds.\n\n"
-        "   To ingest a source for real TODAY, use the existing manual path (same as S186):\n"
-        "     1. cp dev/source/ingest_packages/<id>/extract_<id>.txt  dev/vault/<id>/\n"
-        "     2. add the source_registry.json entry\n"
-        "     3. SUPABASE_SERVICE_KEY=… python3 dev/ingest_one_source.py <id>\n"
-        "     4. patch SOURCE_SETS[<route>] in backend/src/api/searchChannelB.ts\n"
-        "     5. display-sync the chunk count + commit + push\n",
-        file=sys.stderr,
-    )
-    return 2
+# ── LIVE EXECUTION (Phase 3, S190) ───────────────────────────────────────────
+# Wires the 6 steps for real. Guarded by: (a) the approval gate, (b) a secrets
+# pre-flight (no OPENAI/SUPABASE key → refuse, so a no-secret run is still inert),
+# (c) per-step idempotency + a resumable execution_state.json so a failed run is
+# safely re-runnable (the candidate stays "approved" and re-opens). Every step is
+# safe to repeat: copy overwrites, registry/route skip-if-present, ingest upserts
+# by PK (merge-duplicates), display-sync is state-gated, commit/push is a no-op if
+# nothing changed.
+
+def _read_secret(key: str) -> str:
+    """Read a secret from the environment, falling back to backend/.env."""
+    v = os.environ.get(key, "")
+    if not v and BACKEND_ENV.exists():
+        for line in BACKEND_ENV.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line.startswith(f"{key}=") and not line.startswith("#"):
+                v = line.split("=", 1)[1].strip().strip('"').strip("'")
+                break
+    return v
+
+
+def secrets_status() -> Dict[str, bool]:
+    return {"OPENAI_API_KEY": bool(_read_secret("OPENAI_API_KEY")),
+            "SUPABASE_SERVICE_KEY": bool(_read_secret("SUPABASE_SERVICE_KEY"))}
+
+
+def _ingest_env() -> Dict[str, str]:
+    """os.environ + backend/.env secrets so the ingest subprocess sees the keys."""
+    env = dict(os.environ)
+    for key in ("OPENAI_API_KEY", "SUPABASE_SERVICE_KEY"):
+        if not env.get(key):
+            val = _read_secret(key)
+            if val:
+                env[key] = val
+    env.setdefault("SUPABASE_URL", SUPABASE_URL)
+    return env
+
+
+# ── resumable execution state ────────────────────────────────────────────────
+def state_path(source_id: str) -> Path:
+    return STAGING_DIR / source_id / "execution_state.json"
+
+
+def load_state(source_id: str) -> Dict:
+    p = state_path(source_id)
+    if p.exists():
+        return json.loads(p.read_text(encoding="utf-8"))
+    return {"source_id": source_id, "steps": {}, "started_at": None,
+            "before_total": None, "after_total": None, "chunks": None}
+
+
+def save_state(st: Dict) -> None:
+    state_path(st["source_id"]).write_text(json.dumps(st, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _done(st: Dict, name: str) -> bool:
+    return st["steps"].get(name, {}).get("status") == "done"
+
+
+def _mark(st: Dict, name: str, **info) -> None:
+    st["steps"][name] = {"status": "done",
+                         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"), **info}
+    save_state(st)
+
+
+def record_execution(source_id: str, status: str, **info) -> None:
+    """Annotate the approval record with the run outcome (re-open path on failure)."""
+    appr = load_approval(source_id)
+    if not appr:
+        return
+    appr["execution"] = {"status": status,
+                         "at": datetime.now(timezone.utc).isoformat(timespec="seconds"), **info}
+    approval_path(source_id).write_text(json.dumps(appr, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+# ── live steps (each idempotent) ─────────────────────────────────────────────
+def live_copy_to_vault(pkg: Dict, eff: Dict) -> Dict:
+    sid = pkg["source_id"]
+    src = REPO_ROOT / pkg["extract"] if pkg.get("extract") else STAGING_DIR / sid / f"extract_{sid}.txt"
+    if not src.exists():
+        raise RuntimeError(f"extract missing: {src}")
+    text = src.read_text(encoding="utf-8")
+    topic = eff.get("topic") or "general"
+    # rewrite the header topic_tags to the effective (post-override) topic; the
+    # vault header is the metadata source ingest_one_source reads (build_wiki_index).
+    if re.search(r"^# topic_tags:.*$", text, flags=re.MULTILINE):
+        text = re.sub(r"^# topic_tags:.*$", f"# topic_tags: {topic}", text, count=1, flags=re.MULTILINE)
+    dest = VAULT_DIR / sid / f"extract_{sid}.txt"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(text, encoding="utf-8")
+    warn = None if topic in bw.VALID_TOPICS else \
+        f"topic '{topic}' not in VALID_TOPICS — ingest will fall back to 'curriculum'"
+    return {"dest": str(dest.relative_to(REPO_ROOT)), "bytes": dest.stat().st_size,
+            "topic_written": topic, "warn": warn}
+
+
+def live_registry_append(pkg: Dict, eff: Dict) -> Dict:
+    reg = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
+    sources = reg.get("sources", [])
+    sid = pkg["source_id"]
+    if any(s.get("source_id") == sid for s in sources):
+        return {"appended": False, "reason": "already in registry", "count": len(sources)}
+    e = plan_registry_entry(pkg, eff)
+    entry = {
+        "source_id": e["source_id"], "title": e["title"], "title_en": None,
+        "title_short": e["title_short"], "url_landing": e["url_landing"],
+        "url_primary": e["url_primary"], "source_type": "pdf", "authority": "edb",
+        "spine": False, "topic_tags": e["topic_tags"], "access_mode": "public",
+        "status": "verified", "version_label": e["version_label"],
+        "last_checked_at": e["last_checked_at"], "supersedes": None, "notes": e["notes"],
+    }
+    sources.append(entry)
+    reg["sources"] = sources
+    if isinstance(reg.get("_meta"), dict):
+        reg["_meta"]["updated"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    REGISTRY_PATH.write_text(json.dumps(reg, ensure_ascii=False, indent=2), encoding="utf-8")
+    return {"appended": True, "count": len(sources)}
+
+
+def live_ingest(sid: str) -> Dict:
+    """Run dev/ingest_one_source.py <sid> (chunk + embed + INSERT). Idempotent
+    (upsert by PK via merge-duplicates). Raises on non-zero exit."""
+    if not INGEST_SCRIPT.exists():
+        raise RuntimeError(f"ingest script missing: {INGEST_SCRIPT}")
+    proc = subprocess.run([sys.executable, str(INGEST_SCRIPT), sid],
+                          cwd=str(REPO_ROOT), env=_ingest_env(),
+                          capture_output=True, text=True, timeout=600)
+    tail = (proc.stdout or "")[-800:] + (("\n[stderr] " + proc.stderr[-400:]) if proc.stderr else "")
+    if proc.returncode != 0:
+        raise RuntimeError(f"ingest_one_source.py exit {proc.returncode}:\n{tail}")
+    return {"returncode": 0, "stdout_tail": tail.strip()}
+
+
+def live_route_patch(route: str, sid: str) -> Dict:
+    rp = plan_route_patch(route, sid)
+    if rp.get("error"):
+        raise RuntimeError(rp["error"])
+    if not rp.get("found"):
+        raise RuntimeError(f"route '{route}' is not an existing SOURCE_SET. A new route also "
+                           f"needs TOPIC_KEYWORDS + a smoke test — refusing to auto-create. "
+                           f"Add the route manually, then re-run.")
+    if rp.get("already_present"):
+        return {"patched": False, "reason": "already present", "route": route}
+    lines = ROUTE_FILE.read_text(encoding="utf-8").splitlines(keepends=True)
+    insert_idx = rp["insert_at_line"] - 1                       # 1-based → 0-based (the closing-bracket line)
+    lines.insert(insert_idx, rp["insert_text"] + "\n")
+    ROUTE_FILE.write_text("".join(lines), encoding="utf-8")
+    return {"patched": True, "route": route, "block_lines": rp["block_lines"]}
+
+
+def live_display_sync(before: int, after: int) -> Dict:
+    """Rewrite the chunk count before→after across the mirror files. State-gated by
+    the caller so it never double-bumps; within a file, replaces every occurrence
+    of the exact count string (matching the manual display-sync)."""
+    results = []
+    for rel, fmt in DISPLAY_SYNC_TARGETS:
+        p = REPO_ROOT / rel
+        if not p.exists():
+            results.append({"file": rel, "exists": False, "replaced": 0})
+            continue
+        b_str = f"{before:,}" if fmt == "comma" else str(before)
+        a_str = f"{after:,}" if fmt == "comma" else str(after)
+        text = p.read_text(encoding="utf-8")
+        n = text.count(b_str)
+        if n:
+            p.write_text(text.replace(b_str, a_str), encoding="utf-8")
+        results.append({"file": rel, "exists": True, "replaced": n, "sub": f"{b_str}->{a_str}"})
+    return {"before": before, "after": after, "targets": results}
+
+
+def live_commit_push(pkg: Dict, eff: Dict, chunks: int, after: Optional[int]) -> Dict:
+    sid = pkg["source_id"]
+    paths = list(LIVE_COMMIT_PATHS) + [f"dev/vault/{sid}/"] + [rel for rel, _ in DISPLAY_SYNC_TARGETS]
+    existing = [p for p in paths if (REPO_ROOT / p).exists()]
+    subprocess.run(["git", "add", "--"] + existing, cwd=str(REPO_ROOT), check=True)
+    staged = subprocess.run(["git", "diff", "--cached", "--name-only"],
+                            cwd=str(REPO_ROOT), capture_output=True, text=True).stdout.strip()
+    if not staged:
+        return {"committed": False, "reason": "nothing staged (already committed?)"}
+    msg = plan_commit_message(pkg, eff, chunks, after)
+    subprocess.run(["git", "commit", "-q", "-m", msg], cwd=str(REPO_ROOT), check=True)
+    head = subprocess.run(["git", "rev-parse", "--short", "HEAD"],
+                          cwd=str(REPO_ROOT), capture_output=True, text=True).stdout.strip()
+    push = subprocess.run(["git", "push", "origin", "HEAD:main"],
+                          cwd=str(REPO_ROOT), capture_output=True, text=True)
+    if push.returncode != 0:
+        raise RuntimeError(f"git push failed (commit {head} is local):\n{push.stderr[-400:]}")
+    return {"committed": True, "commit": head, "files": staged.splitlines()}
+
+
+def post_deploy_smoke(pkg: Dict) -> Dict:
+    """Best-effort: wait for Render to come back, then confirm the new source
+    surfaces in Channel B. Never fatal — async/cold deploys can lag."""
+    try:
+        import requests
+    except Exception as exc:                                    # pragma: no cover
+        return {"ran": False, "note": f"requests unavailable: {exc}"}
+    sid = pkg["source_id"]
+    health_ok = False
+    for _ in range(20):                                         # ~20 × 8s ≈ 160s for cold start
+        try:
+            r = requests.get(RENDER_HEALTH, timeout=15)
+            if r.status_code == 200 and r.json().get("ok"):
+                health_ok = True
+                break
+        except Exception:
+            pass
+        time.sleep(8)
+    surfaced = None
+    if health_ok:
+        query = (pkg.get("title") or "")[:18] or sid
+        try:
+            r = requests.post(CHANNEL_B_API, json={"query": query, "top_k": 8}, timeout=40)
+            body = r.text
+            surfaced = (sid in body) or (str(pkg.get("circular_number") or "_no_") in body)
+        except Exception as exc:
+            surfaced = f"query error: {exc}"
+    return {"ran": True, "health_ok": health_ok, "surfaced": surfaced}
+
+
+# ── live orchestrator ────────────────────────────────────────────────────────
+def exec_live(source_id: str) -> int:
+    pkg = load_package(source_id)
+    approval = load_approval(source_id)
+    eff = effective(pkg, approval)
+
+    # (a) approval + sanity gate — same blockers the dry-run plan flags
+    blockers: List[str] = []
+    if pkg.get("in_registry_already"):
+        blockers.append("package flagged in_registry_already (duplicate)")
+    if pkg.get("needs_ocr"):
+        blockers.append("package flagged needs_ocr (held for manual extraction)")
+    if not pkg.get("extract"):
+        blockers.append("package has no extract file")
+    decision = (approval or {}).get("decision", "no-approval-record")
+    if decision != "approved":
+        blockers.append(f"approval gate: decision='{decision}' (live execution requires 'approved')")
+    if blockers:
+        print(f"⛔ {source_id}: refusing live execution —")
+        for b in blockers:
+            print(f"     - {b}")
+        return 1
+
+    # (b) secrets pre-flight — a no-secret run stays inert (the Phase 3 safety net)
+    sec = secrets_status()
+    missing = [k for k, ok in sec.items() if not ok]
+    if missing:
+        print(f"⛔ {source_id}: live execution needs secrets that are not set: {', '.join(missing)}.\n"
+              f"   Set them in the environment or backend/.env (the ops workflow injects them\n"
+              f"   from GitHub Secrets). Nothing was written.", file=sys.stderr)
+        return 3
+
+    st = load_state(source_id)
+    st["started_at"] = st.get("started_at") or datetime.now(timezone.utc).isoformat(timespec="seconds")
+    save_state(st)
+    print(f"▶ LIVE execute {source_id}  route={eff['route']} topic={eff['topic']} T{eff['tier']} ({eff['source']})")
+
+    try:
+        # 1 copy-to-vault
+        if not _done(st, "1_copy"):
+            r = live_copy_to_vault(pkg, eff)
+            if r.get("warn"):
+                print(f"  ⚠ {r['warn']}")
+            _mark(st, "1_copy", **r)
+            print(f"  [1] vault ← {r['dest']} ({r['bytes']}B, topic={r['topic_written']})")
+        # 2 registry-append
+        if not _done(st, "2_registry"):
+            r = live_registry_append(pkg, eff)
+            _mark(st, "2_registry", **r)
+            print(f"  [2] registry {'appended' if r['appended'] else r.get('reason')} (count={r['count']})")
+        # 3 ingest — capture before-total ONCE before the first successful ingest
+        if st.get("before_total") is None:
+            st["before_total"] = current_chunk_total()
+            st["chunks"] = plan_chunks(pkg).get("chunks", 0)
+            st["after_total"] = (st["before_total"] + st["chunks"]) if st["before_total"] is not None else None
+            save_state(st)
+        if not _done(st, "3_ingest"):
+            r = live_ingest(source_id)
+            _mark(st, "3_ingest", **r)
+            print(f"  [3] ingest OK (+{st['chunks']} chunks)")
+        # 4 route-patch
+        if not _done(st, "4_route"):
+            r = live_route_patch(eff["route"], source_id)
+            _mark(st, "4_route", **r)
+            print(f"  [4] route {eff['route']}: {'patched' if r['patched'] else r.get('reason')}")
+        # 5 display-sync
+        if not _done(st, "5_display_sync"):
+            if st["before_total"] is None or st["after_total"] is None:
+                raise RuntimeError("chunk total unknown — cannot display-sync safely")
+            r = live_display_sync(st["before_total"], st["after_total"])
+            _mark(st, "5_display_sync", **r)
+            hit = sum(t["replaced"] for t in r["targets"])
+            print(f"  [5] display-sync {st['before_total']}→{st['after_total']} ({hit} replacements)")
+        # 6 commit + push
+        if not _done(st, "6_commit"):
+            r = live_commit_push(pkg, eff, st["chunks"] or 0, st["after_total"])
+            _mark(st, "6_commit", **r)
+            print(f"  [6] commit {'pushed ' + r.get('commit', '') if r['committed'] else r.get('reason')}")
+    except Exception as exc:
+        last = next((k for k in ("6_commit", "5_display_sync", "4_route", "3_ingest", "2_registry", "1_copy")
+                     if not _done(st, k)), "?")
+        st["steps"][last] = {"status": "failed", "error": str(exc)[:600],
+                             "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+        save_state(st)
+        record_execution(source_id, "failed", failed_step=last, error=str(exc)[:600])
+        print(f"\n✖ {source_id} FAILED at step {last}:\n   {exc}\n"
+              f"   State saved ({state_path(source_id).relative_to(REPO_ROOT)}). The candidate stays\n"
+              f"   approved; fix the cause and re-run — completed steps are skipped.", file=sys.stderr)
+        return 1
+
+    # post-deploy smoke (best-effort, non-fatal)
+    smoke = post_deploy_smoke(pkg)
+    st["steps"]["7_smoke"] = {"status": "done", **smoke,
+                              "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    save_state(st)
+    if smoke.get("ran"):
+        print(f"  [7] smoke health_ok={smoke['health_ok']} surfaced={smoke['surfaced']}")
+    record_execution(source_id, "success",
+                     commit=st["steps"].get("6_commit", {}).get("commit"),
+                     chunk_delta=st["chunks"], after_total=st["after_total"], smoke=smoke)
+    print(f"✅ {source_id} ingested live (+{st['chunks']} → {st['after_total']}).")
+    return 0
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="Dry-run executor for the Option A automated-ingest pipeline (Phase 2).")
+    ap = argparse.ArgumentParser(description="Executor for the Option A automated-ingest pipeline "
+                                             "(dry-run plan in Phase 2; live ingest in Phase 3).")
     ap.add_argument("--package", help="staged source_id under dev/source/ingest_packages/")
-    ap.add_argument("--all-prepared", action="store_true", help="plan every staged package whose status=='prepared'")
+    ap.add_argument("--all-prepared", action="store_true", help="act on every staged package whose status=='prepared'")
     ap.add_argument("--init-approval", action="store_true", help="write a pending approval record for --package and exit")
-    ap.add_argument("--dry-run", action="store_true", help="produce the execution plan without any live writes (Phase 2 default)")
+    ap.add_argument("--dry-run", action="store_true", help="produce the execution plan without any live writes")
+    ap.add_argument("--live", action="store_true", help="PERFORM the live ingest (needs approval + secrets); Phase 3")
     args = ap.parse_args()
+
+    if args.dry_run and args.live:
+        ap.error("--dry-run and --live are mutually exclusive")
 
     # select packages
     if args.all_prepared:
@@ -398,8 +730,15 @@ def main() -> int:
             print(f"approval record: {approval_path(sid).relative_to(REPO_ROOT)}  decision={rec['decision']}")
         return 0
 
+    if args.live:
+        rc = 0
+        for sid in ids:
+            rc = exec_live(sid) or rc
+        return rc
+
     if not args.dry_run:
-        return refuse_live()
+        ap.error("specify --dry-run (plan only) or --live (perform the ingest)")
+        return 2
 
     for sid in ids:
         plan = build_plan(sid)
