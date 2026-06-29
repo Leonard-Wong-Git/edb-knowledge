@@ -674,7 +674,7 @@ def exec_live(source_id: str) -> int:
             _mark(st, "6_commit", **r)
             print(f"  [6] commit {'pushed ' + r.get('commit', '') if r['committed'] else r.get('reason')}")
     except Exception as exc:
-        last = next((k for k in ("6_commit", "5_display_sync", "4_route", "3_ingest", "2_registry", "1_copy")
+        last = next((k for k in ("1_copy", "2_registry", "3_ingest", "4_route", "5_display_sync", "6_commit")
                      if not _done(st, k)), "?")
         st["steps"][last] = {"status": "failed", "error": str(exc)[:600],
                              "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
