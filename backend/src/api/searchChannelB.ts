@@ -299,6 +299,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbcm089_2026",          // S186: 通函89/2026 — 高中多元學習津貼 (其他語言及其他課程, 2026/27) — 津貼 routes here
     "role_facts_finance",
     "role_facts_general",
+    "edbcm096_2026",              // (auto) Option A watcher ingest
   ],
 
   /**
