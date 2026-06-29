@@ -8,47 +8,177 @@
       "date": "2026-06-28",
       "action": "新增",
       "title": "2026年6月 EDB 通告／通函 14 份批次入庫",
-      "desc": "一次過新增 14 份 2026 年 6 月教育局通告及通函（共 182 個知識片段）：幼稚園幼兒班收生安排、幼稚園經審核周年帳目、教師語文能力要求、低收入家庭小學生免費午膳、數學課程微調（數學建模）、校舍消防裝置、家校合作活動津貼及資助申請、高中多元學習津貼、電子學習撥款（流動電腦裝置）、《中小學數字教育發展藍圖》正式通告、準英語教師獎學金、AI 教育規劃培訓、資優教育學校網絡計劃。全部 text-layer 逐字抽取、可追溯頁碼。",
-      "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26080C.pdf"
+      "desc": "一次過新增 14 份 2026 年 6 月教育局通告及通函：幼稚園幼兒班收生安排、幼稚園經審核周年帳目、教師語文能力要求、低收入家庭小學生免費午膳、數學課程微調（數學建模）、校舍消防裝置、家校合作活動津貼及資助申請、高中多元學習津貼、電子學習撥款（流動電腦裝置）、《中小學數字教育發展藍圖》正式通告、準英語教師獎學金、AI 教育規劃培訓、資優教育學校網絡計劃。全部 text-layer 逐字抽取、可追溯頁碼。",
+      "sources": [
+        {
+          "t": "通函80/2026 幼兒班收生",
+          "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26080C.pdf"
+        },
+        {
+          "t": "通函60/2026 幼稚園經審核帳目",
+          "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26060C.pdf"
+        },
+        {
+          "t": "通函88/2026 教師語文能力要求",
+          "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26088C.pdf"
+        },
+        {
+          "t": "通函81/2026 免費午膳",
+          "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26081C.pdf"
+        },
+        {
+          "t": "通告10/2026 數學建模",
+          "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26010C.pdf"
+        },
+        {
+          "t": "通告12/2026 校舍消防",
+          "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26012C.pdf"
+        },
+        {
+          "t": "通告9/2026 家校合作整合津貼",
+          "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26009C.pdf"
+        },
+        {
+          "t": "通函70/2026 家校合作資助申請",
+          "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26070C.pdf"
+        },
+        {
+          "t": "通函89/2026 多元學習津貼",
+          "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26089C.pdf"
+        },
+        {
+          "t": "通函73/2026 電子學習撥款",
+          "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26073C.pdf"
+        },
+        {
+          "t": "通告11/2026 數字教育發展藍圖",
+          "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26011C.pdf"
+        },
+        {
+          "t": "通函66/2026 準英語教師獎學金",
+          "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26066C.pdf"
+        },
+        {
+          "t": "通函107/2026 AI教育培訓",
+          "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26107C.pdf"
+        },
+        {
+          "t": "通函95/2026 資優教育學校網絡",
+          "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26095C.pdf"
+        }
+      ]
     },
     {
       "date": "2026-06-26",
       "action": "新增",
       "title": "教育局通告第8/2026號 —— 學校效率津貼",
-      "desc": "新增教育局通告第8/2026號「學校效率津貼」：教育局由 2026/27 學年起設立，支持學校加快推動教育數字化轉型（配合《中小學數字教育發展藍圖》），提升學校效率、優化行政與學生學習體驗（共 12 個知識片段）。",
-      "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26008C.pdf"
+      "desc": "新增教育局通告第8/2026號「學校效率津貼」：教育局由 2026/27 學年起設立，支持學校加快推動教育數字化轉型（配合《中小學數字教育發展藍圖》），提升學校效率、優化行政與學生學習體驗。",
+      "sources": [
+        {
+          "t": "通告8/2026 學校效率津貼",
+          "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26008C.pdf"
+        }
+      ]
     },
     {
       "date": "2026-06-25",
       "action": "新增",
       "title": "《價值觀教育課程架構》(2026) 正式版 + 智啟學教 AI 撥款計劃",
-      "desc": "新增 EDB 2026 正式版價值觀教育課程架構（12 首要價值觀、5 章節、總體方向「立根中華、聯通世界、擁抱未來」）+ 教育局通函 221/2025「『智』啟學教」AI 賦能教育撥款計劃（共 108 個知識片段）。",
-      "url": "https://www.edb.gov.hk/tc/curriculum-development/4-key-tasks/moral-civic/ve_curriculum_framework2026.html"
+      "desc": "新增 EDB 2026 正式版價值觀教育課程架構（12 首要價值觀、5 章節、總體方向「立根中華、聯通世界、擁抱未來」）+ 教育局通函 221/2025「『智』啟學教」AI 賦能教育撥款計劃。",
+      "sources": [
+        {
+          "t": "價值觀教育架構2026",
+          "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/VE_CF_2026_.pdf"
+        },
+        {
+          "t": "通函221/2025 智啟學教",
+          "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM25221C.pdf"
+        }
+      ]
     },
     {
       "date": "2026-06-17",
       "action": "新增",
       "title": "中小學數字教育發展藍圖（DEBP）",
-      "desc": "新增 6 份文件：主藍圖、行政摘要、人工智能素養學習架構、教學運用 AI 指南、AI 素養架構示例、AI 應用學與教示例（共 209 個知識片段）。",
-      "url": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/debp.html"
+      "desc": "新增 6 份文件：主藍圖、行政摘要、人工智能素養學習架構、教學運用 AI 指南、AI 素養架構示例、AI 應用學與教示例。",
+      "sources": [
+        {
+          "t": "DEBP",
+          "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/DEBP_TC.pdf"
+        },
+        {
+          "t": "DEBP行政摘要",
+          "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/DEBP_Executive%20Summary_TC.pdf"
+        },
+        {
+          "t": "AI素養學習架構",
+          "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/SupplementAILiteracyLearningFramework(PrimaryAndSecondarySchools)_TC.pdf"
+        },
+        {
+          "t": "教學運用AI指南",
+          "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/SupplementIIGuideToUsingAIInTeaching(PrimaryAndSecondarySchools)_TC.pdf"
+        },
+        {
+          "t": "AI素養架構示例",
+          "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/AILFexample_TC.pdf"
+        },
+        {
+          "t": "AI應用學與教示例",
+          "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/ExamplesOnApplicationOfAIInLearningAndTeaching_TC.pdf"
+        }
+      ]
     },
     {
       "date": "2026-06-15",
       "action": "新增",
       "title": "學校管理委員會（SMC）章程樣本",
-      "desc": "新增 SMC 章程樣本，補強學校管治範疇（18 個知識片段）。"
+      "desc": "新增 SMC 章程樣本，補強學校管治範疇。",
+      "sources": [
+        {
+          "t": "校管會章程樣本",
+          "url": "https://applications.edb.gov.hk/smc/resources/%E5%AD%B8%E6%A0%A1%E7%AE%A1%E7%90%86%E5%A7%94%E5%93%A1%E6%9C%83%E7%AB%A0%E7%A8%8B%E6%A8%A3%E6%9C%AC.pdf"
+        }
+      ]
     },
     {
       "date": "2026-06-14",
       "action": "新增",
       "title": "幼稚園行政手冊 / 學前機構辦學手冊",
-      "desc": "新增幼稚園營運與行政兩份手冊（共 435 個知識片段）。"
+      "desc": "新增幼稚園營運與行政兩份手冊。",
+      "sources": [
+        {
+          "t": "幼稚園行政手冊",
+          "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf"
+        },
+        {
+          "t": "學前機構辦學手冊",
+          "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf"
+        }
+      ]
     },
     {
       "date": "2026-06-10",
       "action": "新增",
       "title": "法團校董會（IMC）治理文件",
-      "desc": "新增法團校董會成立與運作、選舉與委任等治理文件（共 229 個知識片段）。"
+      "desc": "新增法團校董會成立與運作、選舉與委任等治理文件。",
+      "sources": [
+        {
+          "t": "校董會成立運作",
+          "url": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf"
+        },
+        {
+          "t": "校董會簡介問答",
+          "url": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf"
+        },
+        {
+          "t": "校董會管治補充",
+          "url": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-learning-for-school-managers-2/IMC_Establishment_Operation_Ch5_2019sep_tc.pdf"
+        },
+        {
+          "t": "校董選舉指引",
+          "url": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf"
+        }
+      ]
     }
   ]
 }
