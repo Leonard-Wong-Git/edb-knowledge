@@ -588,18 +588,7 @@ a{color:inherit;text-decoration:none}
       if(e.action){ var t=document.createElement('span'); t.className='log-tag '+(e.action==='更新'?'upd':'add'); t.textContent=e.action; item.appendChild(t); }
       var ttl=document.createElement('div'); ttl.className='log-ttl'; ttl.textContent=e.title||''; item.appendChild(ttl);
       var ds=document.createElement('div'); ds.className='log-desc'; ds.textContent=e.desc||'';
-      // sources: array of {t,url}; fall back to legacy single url. 1 → inline link, >1 → labelled list.
-      var srcs=(e.sources&&e.sources.length)?e.sources:(e.url?[{t:'查看來源',url:e.url}]:[]);
-      srcs=srcs.filter(function(s){return s&&/^https?:\/\//.test(s.url);});
-      if(srcs.length===1){ ds.appendChild(document.createTextNode(' ')); var a1=document.createElement('a'); a1.href=srcs[0].url; a1.target='_blank'; a1.rel='noopener noreferrer'; a1.textContent='查看來源 →'; ds.appendChild(a1); }
-      item.appendChild(ds);
-      if(srcs.length>1){
-        var sw=document.createElement('div'); sw.style.cssText='margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline';
-        var lbl=document.createElement('span'); lbl.style.cssText='font-size:0.78rem;color:var(--mid,#999);font-weight:600'; lbl.textContent='查看來源（'+srcs.length+'）：'; sw.appendChild(lbl);
-        srcs.forEach(function(s){ var a=document.createElement('a'); a.href=s.url; a.target='_blank'; a.rel='noopener noreferrer'; a.style.cssText='font-size:0.82rem;white-space:nowrap'; a.textContent=s.t||'來源'; sw.appendChild(a); });
-        item.appendChild(sw);
-      }
-      list.appendChild(item);
+      item.appendChild(ds); list.appendChild(item);
     });
   }
   function openLog(){ overlay.classList.add('open'); if(newest){ try{localStorage.setItem(SEEN_KEY,newest);}catch(e){} } dot.classList.remove('on'); }
