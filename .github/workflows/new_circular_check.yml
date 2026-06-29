@@ -1,11 +1,12 @@
-name: Daily EDB Circular Check
+name: EDB Circular Check (RETIRED — superseded by ops/approval-issue.yml)
 
+# RETIRED 2026-06-29 (S191): superseded by edb-knowledge-ops/.github/workflows/approval-issue.yml,
+# which scans the same circular.wongfu.net feed daily, lists candidates as approval checkboxes, and
+# @mentions Leonard ONLY when there is a NEW candidate. The daily schedule here is disabled to stop
+# the duplicate "🆕 New EDB circulars pending review" email. Manual dispatch is retained as a fallback.
 on:
-  schedule:
-    # Daily at 11:30 UTC (= 19:30 Hong Kong time). The dashboard feed
-    # (circular.wongfu.net) regenerates in the evening HK time (~19:00 HK /
-    # ~11:00 UTC observed); run after it so we read the day's fresh data.
-    - cron: "30 11 * * *"
+  # schedule:
+  #   - cron: "30 11 * * *"   # DISABLED — see RETIRED note above (was: daily 11:30 UTC = 19:30 HK)
   workflow_dispatch:
     inputs:
       since_days:

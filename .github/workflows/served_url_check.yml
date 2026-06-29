@@ -102,6 +102,10 @@ jobs:
               return `- ${e.reason} — ${e.url}  \n  _source_id(s): ${sids}_`;
             }).join('\n');
             const body = [
+              // @mention so this real-breakage alert still reaches Leonard under a
+              // "Participating and @mentions" watch setting (S191 email-noise reduction).
+              `@Leonard-Wong-Git`,
+              '',
               `🔴 **${broken.length}** broken served URL(s) detected in the vector store `,
               `(run #${context.runNumber}, ${r.generated_at}; ${r.distinct_urls} distinct URLs, `,
               `${r.checked} checked, ${r.errors} could-not-test).`,
