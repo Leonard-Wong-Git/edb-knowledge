@@ -115,6 +115,7 @@ def init_approval(pkg: Dict) -> Dict:
         return json.loads(path.read_text(encoding="utf-8"))
     rec = {
         "source_id": sid,
+        "circular_number": pkg.get("circular_number"),   # so the executor can regenerate the package from the feed
         "package_ref": f"dev/source/ingest_packages/{sid}/package.json",
         "title": pkg.get("title"),
         "decision": "pending",                       # pending | approved | rejected
