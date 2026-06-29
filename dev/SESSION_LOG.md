@@ -35,6 +35,40 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-06-29 Session 190 — Option A Phase 3：populate private ops repo + wire execute_ingest.py --live
+
+- **ID:** Claude_20260629_S190
+- **Summary:** 頂層 dormant root「開工」→ redirect Draft → 起手探針 4/4 綠（served app.html v3.2.2 / Render warm 455 / HEAD `0ad0aed`==origin/main / knowledge 15,838）→ Leonard 貼 `https://github.com/Leonard-Wong-Git/edb-knowledge-ops.git`（已自建 private ops repo = Phase 3 前置①）。SSH ls-remote 證呢機 SSH key 對該 private repo 有讀寫權且 repo 全空 → 改變分工：原以為要 Leonard 雙手嘅「推 scaffold 入 repo」我可用 git over SSH 自己做。AskUserQuestion → Leonard 揀「做齊 ②+③」。全程 inert：冇 secrets 任何嘢都唔會 live 入庫。
+- **Changed:**
+  - **② Populate ops repo（git over SSH，非 gh CLI——gh 未登入）**：clone 空 `edb-knowledge-ops` → 將主 repo `dev/source/ops/` scaffold 複製做 repo root（README / APPROVAL_FORMAT / approvals{_TEMPLATE + edbc007 demo} / `.github/workflows/executor.yml.template`〔保持 `.template`、**未啟用**〕/ .gitignore）→ commit + push。ops repo HEAD `492a59b`（branch main）。**無 secrets 入 repo、workflow 仍 inert。**
+  - **③ Wire `execute_ingest.py --live`（主 repo，commit `328b411`）**：加 6 步真執行（live_copy_to_vault〔複製 extract 落 vault 並改寫 header `topic_tags` 為 effective topic〕→ live_registry_append〔append entry，idempotent，更新 `_meta.updated`〕→ live_ingest〔subprocess `dev/ingest_one_source.py`，upsert by PK〕→ live_route_patch〔插入 SOURCE_SETS[route]，route 不存在則 raise 拒絕自動建〕→ live_display_sync〔9 檔 before→after，state-gated〕→ live_commit_push〔git add 指定檔 + commit + push HEAD:main〕）+ best-effort post_deploy_smoke（poll Render /health → Channel B 查新源是否 surface，非致命）。**三重閘**：(a) approval `decision==approved`（先於 secrets 檢查）(b) secrets pre-flight（無 OPENAI/SUPABASE key → exit 3、inert）(c) idempotent + resumable `execution_state.json`（失敗保留 approved、re-run skip 完成步驟）。`--live` 顯式 flag；bare invocation 改為報錯。docstring 更新。
+- **Done:** ② ops repo live（6 檔）。③ Phase 3 live executor wired + 4-gate QC 全綠。
+- **QC:** (1) py_compile OK。(2) **dry-run regression** `--all-prepared` 行為同 S189 完全一致（edbc007 approved→GATE ✅；077/101 no-approval→⛔）。(3) **approval-gate**：`--live` on edbcm077（無 approval）→ exit 1，未掂 secrets/live。(4) **secrets-guard**：forced-empty secrets + bogus BACKEND_ENV on approved edbc007 → exit 3、無 state 檔、零寫入。(5) **零 live 寫入核實**：無建 dev/vault/edbc007_2026 / registry 仍 242 / knowledge 仍 15838 / searchChannelB.ts diff 空 / git status 只 execute_ingest.py（execution_plan + ops/ 皆 gitignored）。**注意：本地 backend/.env 有真 secrets，故未 run 真 `--live`（會真入庫+push）——live 路徑留待 Phase 4 workflow 環境或 Leonard 明確授權單跑。**
+- **Evidence disposition:** absorbed into handoff Current Baseline + Open Priorities；QC trace 留本 entry。
+- **Sync:** 無 display-sync（無 chunk 變）/ 無凍結合約改 / 無 PLATFORM_VERSION bump（純 dev 工具 + 外部 repo seed；Supabase/Render/Pages 零接觸；execute_ingest.py 屬 dev script，backend byte-identical → Render no-op redeploy）。
+- **Pending（Phase 3 收尾 + Phase 4，需 Leonard 雙手前置）:** Leonard 喺 **ops repo** Settings→Secrets→Actions 加：fine-grained PAT `MAIN_REPO_PAT`（Contents:RW on edb-knowledge）+ `SUPABASE_SERVICE_KEY` + `OPENAI_API_KEY`（清單見 `dev/source/ops/README.md`）。然後 **Phase 4**＝將 `executor.yml.template` 改名 `executor.yml` 並填 scan-approvals→`--live`→push 邏輯（agent 做得，要 secrets 齊先 test）。首次真 live 入庫建議 Leonard 在場、manual `workflow_dispatch` 跑 edbc007 approved-demo 驗端到端。
+- **Risks:** Phase 3 碼 LOW（inert、三重閘、可逆/resumable）。⚠️ live_display_sync 用「全檔 replace before-count 字串」（同 manual 做法一致；current count 只現於 current-state + 最新 CHANGELOG entry，舊 entry 數字不同故不誤改，但屬假設）。⚠️ 真 `--live` 未端到端跑過（無安全方法本地測而不真入庫）；Phase 4 首跑要人盯。⚠️ Render free-tier cold-start ~50s（smoke poll 已留 ~160s buffer）。
+- **Log maintenance:** §4a 檢查：SESSION_LOG <400 行、最舊 entry <30 日 → 唔觸發 archive。no-op。
+
+### Next Session Opening Message
+
+📋 Next session: agent-managed startup content below
+
+```text
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft
+Read AGENTS.md first, then §1 startup: dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md. Read dev/DOC_SYNC_REGISTRY.md before file changes/closeout.
+起手探針: served app.html PLATFORM_VERSION 3.2.2 + Render /health warm 455 + Draft HEAD==origin/main + Supabase chunk count 15,838.
+
+Current: 平台 v3.2.2; Supabase 15,838; registry 242; 凍結合約 _meta 2.3.0/facts 455/guidelines 158; 0 outstanding bug.
+Option A: Phase 1 (S188) prepare_ingest_package.py ✓; Phase 2 (S189) dry-run executor + ops scaffold ✓; Phase 3 (S190) ✓ = private repo edb-knowledge-ops populated (HEAD 492a59b) + execute_ingest.py --live wired (triple-gated, inert until secrets). 3 staged pkg ready (edbc007 approved-demo / edbcm077 / edbcm101).
+NEXT 待 Leonard 雙手: 喺 ops repo 加 secrets MAIN_REPO_PAT(Contents:RW edb-knowledge)/SUPABASE_SERVICE_KEY/OPENAI_API_KEY (清單 dev/source/ops/README.md). 然後 Phase 4 = executor.yml.template→executor.yml + scan-approvals→--live→push (agent 做得, secrets 齊先 test; 首跑 manual workflow_dispatch edbc007 人盯).
+其他 backlog: S187 安全(repo私有化 — 可同 ops 方向合一)/S186 2源 monitor/Feature 2a/2b/Phase 3 full_chunks_routed.
+```
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-06-28 Session 189 — Option A 自動入庫管道 Phase 2（dry-run executor + 批准格式 + ops repo scaffold）BUILT + QC
 
 - **ID:** Claude_20260628_S189
