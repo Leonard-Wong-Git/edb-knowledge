@@ -64,6 +64,7 @@ OPS_DIR = REPO_ROOT / "dev" / "source" / "ops"
 APPROVALS_DIR = OPS_DIR / "approvals"
 REGISTRY_PATH = REPO_ROOT / "dev" / "source" / "source_registry.json"
 KNOWLEDGE_PATH = REPO_ROOT / "knowledge.json"
+UPDATE_LOG_PATH = REPO_ROOT / "update_log.json"
 ROUTE_FILE = REPO_ROOT / "backend" / "src" / "api" / "searchChannelB.ts"
 VAULT_DIR = REPO_ROOT / "dev" / "vault"
 INGEST_SCRIPT = REPO_ROOT / "dev" / "ingest_one_source.py"
@@ -564,9 +565,40 @@ def live_display_sync(before: int, after: int) -> Dict:
     return {"before": before, "after": after, "targets": results}
 
 
+def _fmt_circular(num: Optional[str]) -> str:
+    """'EDBCM096/2026' -> '教育局通函第96/2026號' ; 'EDBC007/2026' -> '教育局通告第7/2026號'."""
+    m = re.match(r"(EDBCM|EDBC)0*(\d+)/(\d{4})", num or "")
+    if not m:
+        return num or ""
+    kind = "通函" if m.group(1) == "EDBCM" else "通告"
+    return f"教育局{kind}第{m.group(2)}/{m.group(3)}號"
+
+
+def live_append_update_log(pkg: Dict) -> Dict:
+    """Prepend one concise entry to the public update_log.json (idempotent by title)."""
+    if not UPDATE_LOG_PATH.exists():
+        return {"appended": False, "reason": "no update_log.json"}
+    data = json.loads(UPDATE_LOG_PATH.read_text(encoding="utf-8"))
+    entries = data.get("entries", [])
+    title = pkg.get("title") or pkg.get("source_id")
+    num = pkg.get("circular_number")
+    if num:
+        title = f"{title}（{_fmt_circular(num)}）"
+    if any(e.get("title") == title for e in entries):
+        return {"appended": False, "reason": "already logged", "title": title}
+    summary = (pkg.get("summary") or "").replace("\n", " ").strip()
+    first = summary.split("。")[0].strip()
+    desc = (first[:58] + "…") if len(first) > 60 else (first + "。" if first else title)
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    entries.insert(0, {"date": today, "action": "新增", "title": title, "desc": desc})
+    data["entries"] = entries
+    UPDATE_LOG_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    return {"appended": True, "title": title}
+
+
 def live_commit_push(pkg: Dict, eff: Dict, chunks: int, after: Optional[int]) -> Dict:
     sid = pkg["source_id"]
-    paths = list(LIVE_COMMIT_PATHS) + [f"dev/vault/{sid}/"] + [rel for rel, _ in DISPLAY_SYNC_TARGETS]
+    paths = list(LIVE_COMMIT_PATHS) + ["update_log.json", f"dev/vault/{sid}/"] + [rel for rel, _ in DISPLAY_SYNC_TARGETS]
     existing = [p for p in paths if (REPO_ROOT / p).exists()]
     subprocess.run(["git", "add", "--"] + existing, cwd=str(REPO_ROOT), check=True)
     staged = subprocess.run(["git", "diff", "--cached", "--name-only"],
@@ -694,6 +726,11 @@ def exec_live(source_id: str) -> int:
             _mark(st, "5_display_sync", **r)
             hit = sum(t["replaced"] for t in r["targets"])
             print(f"  [5] display-sync {st['before_total']}→{st['after_total']} ({hit} replacements)")
+        # 5b update-log (concise public entry, idempotent by title)
+        if not _done(st, "5b_update_log"):
+            r = live_append_update_log(pkg)
+            _mark(st, "5b_update_log", **r)
+            print(f"  [5b] update-log: {'appended' if r.get('appended') else r.get('reason')}")
         # 6 commit + push
         if not _done(st, "6_commit"):
             r = live_commit_push(pkg, eff, st["chunks"] or 0, st["after_total"])
