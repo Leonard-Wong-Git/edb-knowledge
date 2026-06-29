@@ -35,6 +35,42 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-06-29 Session 191 — GitHub 電郵收嘈（CI workflow 通知收斂，只留最重要）
+
+- **ID:** Claude_20260629_0919
+- **Summary:** 頂層 dormant root「開工」→ redirect Draft → 起手探針 3/4 綠（served app.html v3.2.2 / Render warm 455 / HEAD `0ec8a1d`==origin/main；Supabase 15,874 用文檔值未直連）→ Leonard「GitHub 電郵太多，只想留最重要 issue 事件」。審視兩 repo（edb-knowledge + edb-knowledge-ops）6 個 workflow 嘅電郵來源，AskUserQuestion 揀收斂程度 = **「只留最重要」**。兩槓桿並用：我改 code（退役重複 + 真故障 @mention），Leonard 改 GitHub 帳號設定（Watch + Actions email）。
+- **Changed:**
+  - **`.github/workflows/new_circular_check.yml`（退役每日 cron）**：揭發佢同 ops `approval-issue.yml` 完全重複（兩個都每日掃 circular.wongfu.net feed 報新通告，後者仲叻＝checkbox 批准 + @mention-on-new）。註解走 `schedule.cron`（保留 `workflow_dispatch` 後備）、`name` 標 RETIRED、加註解指向 approval-issue.yml。即少一條每日重複 email。
+  - **`.github/workflows/served_url_check.yml`（加 @mention）**：broken-URL Issue body 頂部加 `@Leonard-Wong-Git` + 空行，令連結壞咗（真故障）即使 Watch=「Participating and @mentions」都照 ping。`broken.length < 1` 唔開 Issue 嘅 gating 不變；Issue 持開期間靜默 `issues.update` 唔 re-ping（mention 持存非新增）。
+  - **唔郁**：`executor.yml`（關鍵入庫管道，唔冒險；失敗由 GitHub Actions failure-email channel 兜）、`freshness_check.yml`、`discover_check.yml`（靜音即可，@mentions-only Watch 下唔 email）。
+  - **槓桿 A（Leonard 自行於 github.com）**：兩 repo Watch → 「Participating and @mentions」+ Settings→Notifications→Actions 保留 failed-workflow email。確認「1+2 OK」。
+- **Done:** 收嘈生效。最終 = 只收 3 類 email：①批准入庫候選（@你）②連結壞咗（真故障 @你）③pipeline 跑失敗（Actions channel）。freshness/discovery/重複 new_circular 全靜音（Issue 仍建立、上 repo 自睇）。commit `e9fa583`、HEAD==origin/main。
+- **QC:** 兩檔 `yaml.safe_load` valid；new_circular triggers=[workflow_dispatch]（0 active cron）；served_url triggers=[schedule,dispatch] + `@Leonard-Wong-Git` 1 處 + `broken.length < 1` gating 1 處 intact；`git status` 只 2 檔 M（freshness/discover/executor/approval 零接觸）。push 後 HEAD `e9fa583`==origin/main。**注意**：served-url @mention 行為（首次開 Issue ping、持開靜默 update 不 re-ping、修好關閉後再壞重 ping）屬推斷 GitHub 行為，未實測；真驗＝下次有 broken URL 時觀察。
+- **Evidence disposition:** absorbed into handoff Current Baseline S191 block + State Reconciliation；QC trace 留本 entry。
+- **Sync:** DOC_SYNC 命中 row 33「Monitoring / CI workflow change」→ FRESHNESS_GUIDE N/A（grep 證未記 new_circular cadence）、CODEBASE_CONTEXT N/A（無新 script/stack/service/secret，純既有 workflow 行為調整）、無新 CI secret；只更新 SESSION_HANDOFF + SESSION_LOG。無 display-sync（無 chunk 變）/ 無凍結合約改 / 無 PLATFORM_VERSION bump（純 `.github/workflows/`、backend byte-identical → Render no-op redeploy；Pages 內容無變）。
+- **Pending（非阻塞）:** (1) new_circular_check 而家 manual-only、dormant——Leonard 信心夠時可完全刪檔（git 可復原）；(2) served-url @mention 真驗待下次有 broken URL；(3) 其餘 backlog 不變（見 handoff Open Priorities：Circular 安全審計 #1 等）。
+- **Risks:** S191 改 LOW（純 CI 通知行為、可逆、無 data/backend/contract 接觸）。⚠️ 若 Leonard 只改咗一個 repo 嘅 Watch，另一個仲會照 email——已提醒、Leonard 確認兩個都做。⚠️ served-url @mention re-ping 行為屬推斷未實測。
+- **Log maintenance:** §4a 檢查：SESSION_LOG 233 行（<400）、最舊 entry 2026-06-28 S186（<30 日）、5 entries → 唔觸發 archive。no-op。
+
+### Next Session Opening Message
+
+📋 Next session: agent-managed startup content below
+
+```text
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft
+Read AGENTS.md first, then §1 startup: dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md. Read dev/DOC_SYNC_REGISTRY.md before file changes/closeout.
+起手探針: served app.html PLATFORM_VERSION 3.2.2 + Render /health warm 455 + Draft HEAD==origin/main + Supabase chunk count 15,874.
+
+Current: 平台 v3.2.2; Supabase 15,874; registry 244; 凍結合約 _meta 2.3.0/facts 455/guidelines 158; 0 outstanding bug. main HEAD e9fa583; ops repo edb-knowledge-ops HEAD fdb654a.
+S191 完成: GitHub 電郵收嘈. 退役重複嘅每日 new_circular_check.yml (停 cron 保留 workflow_dispatch, 已被 ops/approval-issue.yml 取代) + served_url_check.yml 加 @Leonard-Wong-Git (連結壞=真故障即使 @mentions-only Watch 都 ping). Leonard 已改兩 repo Watch=「Participating and @mentions」+ 保留 Actions failed-workflow email. 最終只收 3 類 email: 批准候選@你 / 連結壞@你 / pipeline 失敗. executor/freshness/discover 唔郁.
+NEXT (待 Leonard 揀方向): ① Circular System 安全審計 (sibling repo EDB-AI-Circular-System, paste prompt 見 SESSION_LOG S190 closeout) ② S187 安全 backlog (repo 私有化, 可同 ops 合一) ③ Feature 2a 追問/2b 文件 scoped Q&A ④ S186 2 源 monitor (edbcm073/edbcm066 短query排名低) ⑤ Phase 3 full_chunks_routed.
+低優先 follow-up: new_circular_check 可完全刪檔; served-url @mention re-ping 行為待真驗; Option A write-back annotate ops approval 未 wired.
+```
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-06-29 Session 190 — Option A Phase 3+4：populate ops repo + wire --live + ship executor.yml workflow
 
 - **ID:** Claude_20260629_S190
