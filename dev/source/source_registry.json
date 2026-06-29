@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-06-26",
+    "updated": "2026-06-29",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -6859,6 +6859,26 @@
         "content_length": "645971",
         "etag": "\"7496536f6af2dc1:0\""
       }
+    },
+    {
+      "source_id": "edbc007_2026",
+      "title": "開放學校設施推動體育發展計劃",
+      "title_en": null,
+      "title_short": "開放學校設施推動體育發展計劃",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26007C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26007C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "finance"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-06-29",
+      "supersedes": null,
+      "notes": "(auto, Option A executor) EDBC007/2026. route=activity, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
     }
   ]
 }

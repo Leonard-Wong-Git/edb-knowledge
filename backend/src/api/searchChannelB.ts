@@ -332,6 +332,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbcm070_2026",     // S186: 通函70/2026 — 2026/27 家庭與學校合作活動計劃資助申請
     "role_facts_activity",
     "role_facts_general",
+    "edbc007_2026",              // (auto) Option A watcher ingest
   ],
 
   /**
