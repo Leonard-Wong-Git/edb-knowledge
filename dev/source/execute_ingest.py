@@ -202,6 +202,7 @@ def plan_chunks(pkg: Dict) -> Dict:
     if not extract.exists():
         return {"error": f"extract missing: {extract}"}
     text = extract.read_text(encoding="utf-8").replace("\x00", "")
+    text = re.sub(r"^(# .+\n)+", "", text, flags=re.MULTILINE).strip()   # strip header — match load_vault_sources (ingest path)
     seen, ids, lens = set(), [], []
     for ch in bw.chunk_text_with_page_carry(text):
         h = bw.text_hash(ch)
@@ -399,6 +400,24 @@ def _read_secret(key: str) -> str:
 def secrets_status() -> Dict[str, bool]:
     return {"OPENAI_API_KEY": bool(_read_secret("OPENAI_API_KEY")),
             "SUPABASE_SERVICE_KEY": bool(_read_secret("SUPABASE_SERVICE_KEY"))}
+
+
+def live_source_count(source_id: str) -> Optional[int]:
+    """Authoritative chunk count for one source in Supabase (post-ingest delta for a
+    new source). Used for display-sync so the count can't drift from the real insert."""
+    import requests
+    svc = _read_secret("SUPABASE_SERVICE_KEY")
+    if not svc:
+        return None
+    try:
+        r = requests.get(f"{SUPABASE_URL}/rest/v1/{WIKI_TABLE}?select=id&source_id=eq.{source_id}",
+                         headers={"apikey": svc, "Authorization": f"Bearer {svc}",
+                                  "Range-Unit": "items", "Range": "0-0", "Prefer": "count=exact"},
+                         timeout=40)
+        cr = r.headers.get("content-range", "")          # e.g. "0-0/6" or "*/0"
+        return int(cr.split("/")[-1]) if "/" in cr else None
+    except Exception:
+        return None
 
 
 def _ingest_env() -> Dict[str, str]:
@@ -645,16 +664,23 @@ def exec_live(source_id: str) -> int:
             r = live_registry_append(pkg, eff)
             _mark(st, "2_registry", **r)
             print(f"  [2] registry {'appended' if r['appended'] else r.get('reason')} (count={r['count']})")
-        # 3 ingest — capture before-total ONCE before the first successful ingest
+        # 3 ingest — capture before-total ONCE (current display count) before ingesting
         if st.get("before_total") is None:
             st["before_total"] = current_chunk_total()
-            st["chunks"] = plan_chunks(pkg).get("chunks", 0)
-            st["after_total"] = (st["before_total"] + st["chunks"]) if st["before_total"] is not None else None
             save_state(st)
         if not _done(st, "3_ingest"):
             r = live_ingest(source_id)
-            _mark(st, "3_ingest", **r)
-            print(f"  [3] ingest OK (+{st['chunks']} chunks)")
+            # authoritative delta = this source's live Supabase row count (immune to
+            # chunk-estimate drift; S190 off-by-one fix). Fall back to the estimate only
+            # if the count query fails.
+            actual = live_source_count(source_id)
+            if actual is None:
+                actual = plan_chunks(pkg).get("chunks", 0)
+            st["chunks"] = actual
+            st["after_total"] = (st["before_total"] + actual) if st["before_total"] is not None else None
+            _mark(st, "3_ingest", chunks=actual, **r)
+            save_state(st)
+            print(f"  [3] ingest OK (+{actual} chunks)")
         # 4 route-patch
         if not _done(st, "4_route"):
             r = live_route_patch(eff["route"], source_id)
