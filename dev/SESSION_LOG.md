@@ -35,6 +35,61 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-07-05 Session 192 — 系統分析 + 改進路線圖 deliverable（read-only 規劃，零 code/data 改動）
+
+- **ID:** Claude_20260705_1315
+- **Summary:** 頂層 dormant root「開工」→ redirect Draft → 跟 Draft §1 startup（讀 handoff/log/CODEBASE_CONTEXT/PMS）→ 起手探針 **4/4 綠**（served app.html v3.2.2 + title「香港學校政策搜尋平台」HTTP 200 / Render `/health` warm 455 / Draft HEAD `a47eedf`==origin/main tree 乾淨 / Supabase 15,874 文檔值未直連）。Leonard 要求：**分析及規劃現時系統功能同方向、改進空間，hands-off，寫成日後 claude agent 可執行嘅 deliverable，然後收工**（並提 `/model fable`——已說明 session 中途 agent 無法自切 model、實際 Opus 4.8 跑，實質要求照做）。純 read-only 分析、無改任何 code/data。
+- **Changed:**
+  - **NEW `dev/SYSTEM_ANALYSIS_AND_ROADMAP.md`** —— 策略分析 + 改進路線圖 deliverable。落地核實現況（app.html nav → 8 桌面 tab：平台介紹/政策搜尋/指引文件/通告分析/文件分析/文件標註/政策範本/文件修訂；server.ts → 11 backend routes）。內容：一頁摘要、現時功能全圖、系統健康誠實評估（做得好 4 項 + 技術債 7 項）、產品方向 A/B 觀察、**8 個已排序改進項 R1–R8**（R1 檢索 eval harness / R2 IA tab 收斂 / R3 Channel A 退役 / R4 codebase 可維護性單檔拆模組 / R5 安全 backlog / R6 Render 冷啟 / R7 mobile 全功能 / R8 reranking，每項帶 risk/工作量/首步/Leonard 決策/相關檔案）、不變量護欄 9 條（摘 PMS §A.2/§E/§F）、roadmap 執行次序、日後 agent 揀項指南。
+  - `dev/SESSION_HANDOFF.md`：Current Baseline prepend S192 block；Open Priorities 頂加 roadmap 指針行；State Reconciliation 更新到 S192。
+  - `dev/CODEBASE_CONTEXT.md`：directory map +1 行（新 doc）。
+  - `START_NEXT_SESSION_PROMPT.txt`：重生為 S192 state-rich prompt。
+- **Done:** deliverable 交付，日後任何 agent 讀 `dev/SYSTEM_ANALYSIS_AND_ROADMAP.md` §4 即可挑 R 項落手。建議即刻無悔項＝R1 檢索 eval baseline + R5 sibling 安全審計（read-only）；R2 依賴 Leonard 定產品定位 A/B。
+- **QC:** 現況數字全部 code-verified（app.html nav labels grep + server.ts route grep），非靠文檔記憶（守 memory 鐵律 verify-against-code）；deliverable 內零 hardcode live 數字（一律指向 handoff）；不變量護欄逐條對回 PMS §A.2/§E/§F。無 code/data 改動 → 無 build/regression/live smoke 需要（純文件）。起手探針 4/4 綠已記錄。
+- **Evidence disposition:** 分析內容 → 新 deliverable（方向性文件）；當前狀態 → handoff Current Baseline S192；session trace + QC → 本 entry；reproducible = git commit（新 doc + 3 治理檔）。
+- **Sync:** 純分析 deliverable + 治理持久化。CODEBASE_CONTEXT directory-map +1 行（新 dev 文件）。無 backend/stack/service/secret/凍結合約/PLATFORM_VERSION 改動 → 無 display-sync、無 Render/Pages redeploy、無 DOC_SYNC 產品 row 觸發。頂層 dormant root 文件層面零接觸（redirect 仍 valid）。
+- **Pending（非阻塞）:** roadmap R1–R8 待 Leonard 揀方向落手（R2/R3/R4 動鎖定決策需 §3 HIGH-risk PLAN + 拍板；R1/R5 可無悔即做）。其餘 backlog 不變（見 handoff Open Priorities：Circular 安全審計 #1 等）。
+- **Risks:** S192 = 純 read-only 分析、零風險（無 code/data/backend/contract 接觸）。⚠️ deliverable 係 point-in-time 方向文件，非 SSOT——日後 agent 落手前必以 handoff live 狀態為準、以 PMS 不變量為界（已喺文件開頭 + §5 + §7 寫明）。
+- **Log maintenance:** §4a 檢查：SESSION_LOG 加 S192 後仍 <400 行、最舊 entry 2026-06-28（<30 日）→ 唔觸發 archive。no-op。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft
+
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
+(Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
+
+Current state (S192, 2026-07-05): 平台 v3.2.2; Supabase 15,874 chunks; source_registry 244;
+HEAD==origin/main (a47eedf + S192 closeout docs commit); 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158;
+0 outstanding bug. 自動化 active: 4 源監察 + Option A 自動入庫管道 (OPERATIONAL, VERIFIED LIVE).
+
+📋 S192 交付: dev/SYSTEM_ANALYSIS_AND_ROADMAP.md — 系統分析 + 改進路線圖 (read-only, 零 code/data 改動).
+8 個已排序改進項 R1–R8 (R1 檢索 eval harness / R2 IA tab 收斂 / R3 Channel A 退役 / R4 codebase 可維護性 /
+R5 安全 backlog / R6 Render 冷啟 / R7 mobile 全功能 / R8 reranking), 每項帶 risk/首步/Leonard 決策/相關檔案.
+揀項目落手前先讀該檔 §4 (項目) + §5 (不變量護欄) + §7 (揀項指南); live 狀態仍以 handoff 為準.
+建議即刻無悔項: R1 檢索 eval baseline + R5 sibling Circular System 安全審計 (read-only);
+R2 IA 收斂依賴 Leonard 先定產品定位 A (搜尋引擎) 定 B (文件合規工作台).
+
+🔜 NEXT (待 Leonard 揀方向, = roadmap R 項對應):
+  ① Circular System 安全審計 (Leonard 下個焦點, = roadmap R5): sibling repo EDB-AI-Circular-System
+     (circular.wongfu.net, 亦 public), 用 PolicyChecker S187 同級 rigor 審 (paste prompt 見 SESSION_LOG S190 closeout).
+  ② S187 PolicyChecker 安全 backlog (= roadmap R5): repo 轉 private + hosting 搬離 Pages (同 ops private-repo 合一) /
+     Supabase 開 RLS + 收 anon RPC-only.
+  其他 backlog (= roadmap R 項): S186 2 源 monitor (edbcm073 / edbcm066 短 query 排名低, 報 miss 先 boost);
+  Feature 2a 追問 + 2b 文件 scoped Q&A (Leonard S182 揀 sequence A); Option A 低優先 follow-up.
+
+Post-startup first action: 跑起手探針 (served app.html v3.2.2 + Render /health warm 455 + Draft HEAD==origin/main
++ Supabase chunk count), 然後向 Leonard 報告當前狀態同建議下一步 (可提 roadmap R1/R5 無悔項).
+
+所有路徑含空格, 終端機指令必須用雙引號包住. 改任何嘢之前, 先報告當前狀態同建議下一步.
+```
+
+---
+
+<!-- ack:log-entry:start -->
+
 ## 2026-06-29 Session 191 — GitHub 電郵收嘈（CI workflow 通知收斂，只留最重要）
 
 - **ID:** Claude_20260629_0919
