@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-06-29",
+    "updated": "2026-07-08",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -6899,6 +6899,26 @@
       "last_checked_at": "2026-06-29",
       "supersedes": null,
       "notes": "(auto, Option A executor) EDBCM096/2026. route=finance, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract."
+    },
+    {
+      "source_id": "edbcm076_2026",
+      "title": "「我的行動承諾」──感恩珍惜．積極樂觀（2026/27）",
+      "title_en": null,
+      "title_short": "「我的行動承諾」──感恩珍惜．積極樂觀（2026",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26076C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26076C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-07-08",
+      "supersedes": null,
+      "notes": "(auto, Option A executor) EDBCM076/2026. route=value_education, Tier 3. watcher→prepare→approve→execute. Channel B vault_extract."
     }
   ]
 }

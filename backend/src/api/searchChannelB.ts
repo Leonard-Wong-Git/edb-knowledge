@@ -169,6 +169,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "values_edu_framework_2021_trial",
     "edbcm183_2023_values_edu",
     "sec_curr_guide_2017_booklet_6a",
+    "edbcm076_2026",              // (auto) Option A watcher ingest
   ],
   // S171 — DEBP 中小學數字教育發展藍圖 / AI 素養 (digital_education route). 6 sources
   // ingested 2026-06-17 (209 chunks, topic=it). Cohesive digital-education corpus; routed
