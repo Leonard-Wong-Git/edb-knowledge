@@ -444,6 +444,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g25",               // 幼稚園相關指引及須知
     "g26",               // 2026/27 幼稚園收生安排指引
     "stat_kg",           // 幼稚園統計數字
+    "edbc013_2026",              // (auto) Option A watcher ingest
   ],
   /*
    * Kindergarten administration / operation — 幼稚園行政手冊 + 學前機構辦學手冊 (S160).
