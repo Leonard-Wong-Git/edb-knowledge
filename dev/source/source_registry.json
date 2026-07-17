@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-07-13",
+    "updated": "2026-07-17",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -6939,6 +6939,26 @@
       "last_checked_at": "2026-07-13",
       "supersedes": null,
       "notes": "(auto, Option A executor) EDBC013/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+    },
+    {
+      "source_id": "edbcm094_2026",
+      "title": "2026-27年度資助學校教職員薪酬調整",
+      "title_en": null,
+      "title_short": "2026-27年度資助學校教職員薪酬調整",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26094C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26094C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "finance"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-07-17",
+      "supersedes": null,
+      "notes": "(auto, Option A executor) EDBCM094/2026. route=hr_admin, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
     }
   ]
 }

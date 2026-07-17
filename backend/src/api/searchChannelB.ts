@@ -322,6 +322,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     // S172: sch_calendar_guide deprecated (404 + year-specific 2025/26 holidays superseded; chunks DELETEd). 校曆 queries stay covered by g11 擬定校曆表指引 above.
     "role_facts_hr",
     "role_facts_general",
+    "edbcm094_2026",              // (auto) Option A watcher ingest
   ],
 
   /**
