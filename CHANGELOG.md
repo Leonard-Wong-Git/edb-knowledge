@@ -8,7 +8,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [內容新增] — 2026-06-28 — 2026年6月 EDB 通告／通函 14 份批次入庫（S186）
 
-> 平台版本維持 **v3.2.2**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines.json 2.6.1 公開 158 不變）；`_meta.stats.chunks` **15,656 → 15,898**（淨 +182 vault_extract chunks）；`source_registry.json` 228 → **242**（＋14 new sources）。來源：第 4 監察「new-circular watcher」(S185 建) 每日 HK 19:30 捕捉 → 人手 verbatim 入庫閘。
+> 平台版本維持 **v3.2.2**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines.json 2.6.1 公開 158 不變）；`_meta.stats.chunks` **15,656 → 15,901**（淨 +182 vault_extract chunks）；`source_registry.json` 228 → **242**（＋14 new sources）。來源：第 4 監察「new-circular watcher」(S185 建) 每日 HK 19:30 捕捉 → 人手 verbatim 入庫閘。
 
 ### Added（14 份 2026/6 通告／通函，182 chunks，全 text-layer page-resolvable）
 - **EDBCM080/2026** 2027/28學年幼稚園幼兒班收生安排（14，`edbcm080_2026`，topic=student → kg_admission route）
@@ -29,7 +29,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 - `backend/src/api/searchChannelB.ts`：9 個 route 擴 SOURCE_SETS（kg_admission/kg_admin/hr_admin/student_support/curriculum/finance/safety/activity/digital_education/gifted）；TOPIC_KEYWORDS 加 語文能力要求／語文基準／基準試／準英語教師／英語教師獎學金（hr_admin）、免費午膳／在校午膳（student_support）、數學建模（curriculum）、電子學習撥款／流動電腦裝置／上網支援（digital_education）、家校合作／家庭與學校合作／家教會（activity）、多元學習津貼（finance）；**`activity` route 提升至 `finance` 之上**（first-match precedence，防「家校合作活動整合津貼」被 finance「津貼」keyword 偷，同 S183/S184 promote pattern）。
 - `source_registry.json`：+14 source entries（228 → 242，全含 freshness_metadata）。
-- Display-sync 7 處 chunks 數 15,656 → 15,898：`role_facts.json` / `dev/knowledge/role_facts.json` / `knowledge.json`（`_meta.stats.chunks`）/ `index.html`（×3）/ `app.html`（×4）/ `K1_API_SPEC.md` / `README.md`（×4）/ `CHANGELOG.md`（本 entry）+ `update_log.json`（首頁更新日誌）。
+- Display-sync 7 處 chunks 數 15,656 → 15,901：`role_facts.json` / `dev/knowledge/role_facts.json` / `knowledge.json`（`_meta.stats.chunks`）/ `index.html`（×3）/ `app.html`（×4）/ `K1_API_SPEC.md` / `README.md`（×4）/ `CHANGELOG.md`（本 entry）+ `update_log.json`（首頁更新日誌）。
 
 ### QC
 - **Verbatim 抽取**：14 份 PyMuPDF `get_text()` 直抽、canonical chunker（600/60 page-carry）→ 182 chunks 全 page-resolvable=True，char 中位數 ~590；NUL=0；無改寫。

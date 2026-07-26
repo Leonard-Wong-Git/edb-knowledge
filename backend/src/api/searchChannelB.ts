@@ -190,6 +190,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbcm073_2026",     // S186: QEF 電子學習撥款計劃 — 提供流動電腦裝置及上網支援 (2026/27)
     "edbc011_2026",      // S186: 教育局通告11/2026《中小學數字教育發展藍圖》正式通告 (補 DEBP corpus)
     "edbcm107_2026",     // S186: 學校落實 AI 教育規劃培訓 + AI 教師培訓 (第一期 2026/7-9)
+    "edbcm113_2026",              // (auto) Option A watcher ingest
   ],
   // ── PLAN-1b selective routes (S118) — matched before the broad production
   // categories below. SAG is intentionally allowed in `cpd`/`conduct` (their

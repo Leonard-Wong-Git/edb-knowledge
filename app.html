@@ -741,7 +741,7 @@ const INITIAL_DATA = {
     "dedup_note": "Session 102 (2026-05-02): Strategy B dedup — removed 209 duplicate role-bucket facts already in all_roles bucket. Backend selector unions all_roles + role buckets so no semantic content lost. | 2026-05-16 (Session: dedup pass): semantic de-dup — Phase 1 consolidated 193 exact cross-bucket duplicate strings into all_roles (removed 275 redundant copies); Phase 2 merged 36 near-duplicate groups into enriched canonical sentences (folded 98 variant occurrences). Fact count 792 -> 455. Backend selector unions all_roles + role bucket so no role lost visibility. Conflicting facts (different dates/subjects/figures) intentionally kept separate. Full reversible merge log: dev/DEDUP_LOG_2026-05-16.md.",
     "stats": {
       "facts": 455,
-      "chunks": 15898,
+      "chunks": 15901,
       "sources": 120,
       "guidelines": 158,
       "topics": 7
@@ -2001,7 +2001,7 @@ function PlatformIntroPanel({ stats }) {
   const meta = stats.metaStats || {};
   // Single-source derived counts/version (literals kept only as || fallback if stats missing)
   const factsCount = meta.facts || 455;
-  const chunksCount = meta.chunks || 15898;
+  const chunksCount = meta.chunks || 15901;
   const guidelinesCount = GUIDELINES_REGISTRY.length;
   const sourcesCount = meta.sources || 120;
   const platformVersion = PLATFORM_VERSION;
@@ -2700,9 +2700,9 @@ function QAPanel({ data, setPreviewDoc }) {
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 k1-search-card">
         <h2 className="text-lg font-bold text-gray-800 mb-1">政策搜尋</h2>
         <p className="text-xs text-gray-400 mb-3">
-          {searchChannel === 'B'  && `來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 15898).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
+          {searchChannel === 'B'  && `來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 15901).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
           {searchChannel === 'A'  && `已核實資料：語義搜尋 ${channelACount} 條 EDB 政策事實，附整理答案`}
-          {searchChannel === 'AB' && `合併搜尋：${channelACount} 條事實 + ${(data._meta?.stats?.chunks || 15898).toLocaleString()} 個知識片段，附整理答案`}
+          {searchChannel === 'AB' && `合併搜尋：${channelACount} 條事實 + ${(data._meta?.stats?.chunks || 15901).toLocaleString()} 個知識片段，附整理答案`}
         </p>
 
         {/* Channel selector — hidden when only one channel is offered */}
