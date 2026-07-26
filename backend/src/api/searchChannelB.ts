@@ -16,6 +16,7 @@ import type { EmbedFn } from "../lib/embeddingClient.js";
 import {
   searchWiki,
   searchFootnotes,
+  searchSpotlightSources,
   type WikiContentType,
   type WikiSearchResult,
 } from "../lib/wikiRepository.js";
@@ -775,6 +776,43 @@ const SUPERSEDED_IDS = new Set<string>([
   "edbcm183_2023_values_edu",
 ]);
 
+/**
+ * S193 — SPOTLIGHT: sources the global ANN pass cannot reach yet.
+ *
+ * Failure mode this fixes (found S193 by live-probing the 4 sources the Option A pipeline
+ * ingested unattended after S192): `searchWiki` asks Supabase for the global top-(top_k*5)
+ * chunks above the threshold and applies the route's SOURCE_SET filter afterwards, in JS.
+ * A newly ingested source with 3–14 chunks therefore has to out-rank ~16k chunks GLOBALLY
+ * just to enter the over-fetch window — so neither adding it to a SOURCE_SET nor adding
+ * TOPIC_KEYWORDS can make it findable. Measured live: edbcm094_2026 scores 0.722 against
+ * its own title yet never appeared in top-8; edbcm113_2026 0.621; edbcm066_2026 0.696.
+ *
+ * Fix = the S174 footnote-overlay shape: exact cosine over this small set (route-independent,
+ * ANN-independent), and if the source is not already visible, give its best chunk one lead
+ * slot. SPOTLIGHT_LEAD_SCORE is set from measurement, not taste: on-topic direct matches
+ * land 0.62–0.72, while 20 adversarial off-topic probes (法團校董會 / 採購招標 / 校車安全 /
+ * 病假頂替 / 學校效率津貼 …) peak at 0.563 — so 0.60 admits the true matches and 0/20 of
+ * the adversarial ones. Weak-but-real matches below 0.60 are deliberately NOT forced in:
+ * at that cosine they are indistinguishable from off-topic neighbours.
+ *
+ * Lifecycle: the Option A executor appends each newly ingested source here automatically
+ * (see dev/source/execute_ingest.py step 4b — keep the ack:spotlight markers, they are the
+ * machine insertion point). An id can be pruned once the source is confirmed to surface
+ * through the normal ANN path; leaving it costs one cosine per chunk per query.
+ */
+const SPOTLIGHT_LEAD_SCORE = 0.6;
+/** One forced slot only — enough to turn "invisible" into "visible", while leaving 7 of 8
+ *  slots organic (footnote leads may already hold up to 2). */
+const SPOTLIGHT_MAX_LEADS = 1;
+const SPOTLIGHT_SOURCE_IDS: string[] = [
+  // ack:spotlight:start
+  "edbcm113_2026", // S193: 小學資訊與創新科技課程框架「人工智能初探」(3 chunks, ANN-starved in digital_education)
+  "edbcm094_2026", // S193: 2026/27 資助學校教職員薪酬調整 (7 chunks, crowded out by sag_2025_11)
+  "edbcm073_2026", // S193: QEF 電子學習撥款 (12 chunks, S186 monitor — crowded out by DEBP corpus)
+  "edbcm066_2026", // S193: 準英語教師獎學金 (14 chunks, S186 monitor — crowded out by sag/g04)
+  // ack:spotlight:end
+];
+
 /** S183 — Apply supersede penalty to results in place. Caller is responsible for
  *  re-sorting after (e.g. before any lead-detection or top_k slice). Idempotency
  *  note: only call once per result object (apply at chunk-mapping boundary, not
@@ -858,11 +896,24 @@ export async function searchChannelB(
   applySupersedePenalty(results);
   results.sort((a, b) => b.score - a.score);
 
+  // S193 — one raw-query embedding shared by both route-independent overlay passes below.
+  // Net embedding calls are unchanged: the footnote pass used to compute this itself.
+  let rawVec: number[] | undefined;
+  try {
+    rawVec = await embedFn(query);
+  } catch {
+    rawVec = undefined; // each overlay falls back to embedding on its own
+  }
+
+  // Slots reserved at the front of `results` by an overlay lead, so a later overlay
+  // inserts behind them instead of displacing them.
+  let forcedLeads = 0;
+
   // S174 — route-independent footnote pass (see FOOTNOTE_MIN_SCORE above). Exact cosine
   // over the curated footnote overlay (bypasses routing AND ivfflat recall). Uses the RAW
   // query (footnote chunks are not category-tuned). Best-effort: never fails search.
   try {
-    const fnRaw = await searchFootnotes(query, embedFn, FOOTNOTE_MIN_SCORE, 6);
+    const fnRaw = await searchFootnotes(query, embedFn, FOOTNOTE_MIN_SCORE, 6, rawVec);
     if (fnRaw.length > 0) {
       const fnResults = fnRaw.map(toChannelBResult);
       // S183 — apply supersede penalty to footnote results too (footnote overlay is
@@ -880,9 +931,50 @@ export async function searchChannelB(
       }
       rest.sort((a, b) => b.score - a.score);
       results = [...lead, ...rest];
+      forcedLeads = lead.length;
     }
   } catch {
     // a footnote-pass failure must never break the main search
+  }
+
+  // S193 — spotlight pass (see SPOTLIGHT_SOURCE_IDS above). Exact cosine over the small set
+  // of recently ingested sources the global ANN over-fetch cannot reach. Only fires when the
+  // source is not already visible in `results`, and only at ≥ SPOTLIGHT_LEAD_SCORE — so it
+  // adds reachability without adding mid-pack noise. Best-effort: never fails search.
+  try {
+    const spotRaw = await searchSpotlightSources(
+      query,
+      embedFn,
+      SPOTLIGHT_SOURCE_IDS,
+      SPOTLIGHT_LEAD_SCORE,
+      SPOTLIGHT_MAX_LEADS + 1,
+      rawVec
+    );
+    if (spotRaw.length > 0) {
+      const spot = spotRaw.map(toChannelBResult);
+      applySupersedePenalty(spot);
+      spot.sort((a, b) => b.score - a.score);
+      const visibleSources = new Set(results.map((r) => r.source_id));
+      const seenIds = new Set(results.map((r) => r.id));
+      const spotLead = spot
+        .filter(
+          (r) =>
+            !visibleSources.has(r.source_id) &&
+            !seenIds.has(r.id) &&
+            r.score >= SPOTLIGHT_LEAD_SCORE
+        )
+        .slice(0, SPOTLIGHT_MAX_LEADS);
+      if (spotLead.length > 0) {
+        results = [
+          ...results.slice(0, forcedLeads),
+          ...spotLead,
+          ...results.slice(forcedLeads),
+        ];
+        forcedLeads += spotLead.length;
+      }
+    }
+  } catch {
+    // a spotlight-pass failure must never break the main search
   }
 
   // Filter out statistical facts unless explicitly requested:

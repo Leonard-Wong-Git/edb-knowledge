@@ -266,18 +266,82 @@ function cosine(a: number[], b: number[]): number {
  * Exact-cosine search over the curated footnote overlay. Caches the (small) footnote
  * set for the process lifetime — invalidate by restarting the backend after re-ingesting
  * footnotes. Caller should treat this as best-effort (try/catch).
+ *
+ * `qVec` lets the caller share one raw-query embedding across overlay passes (footnote +
+ * spotlight) instead of embedding the same text twice. Omit it and the vector is computed
+ * here, exactly as before.
  */
 export async function searchFootnotes(
   query: string,
   embedFn: EmbedFn,
   minScore: number,
-  topN: number
+  topN: number,
+  qVec?: number[]
 ): Promise<WikiSearchResult[]> {
   const fns = await loadFootnoteChunks();
   if (fns.length === 0) return [];
-  const qVec = await embedFn(query);
+  const vec = qVec ?? (await embedFn(query));
   return fns
-    .map((f) => ({ chunk: f.chunk, score: cosine(qVec, f.embedding), channel: "B" as const }))
+    .map((f) => ({ chunk: f.chunk, score: cosine(vec, f.embedding), channel: "B" as const }))
+    .filter((r) => r.score >= minScore)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, topN);
+}
+
+// S193 — spotlight overlay cache, keyed by the requested id-set so a changed
+// SPOTLIGHT_SOURCE_IDS list (redeploy) never serves a stale set.
+let _spotlightCache: { key: string; rows: Array<{ chunk: WikiChunk; embedding: number[] }> } | null =
+  null;
+
+/** Hard ceiling on spotlight chunks pulled into memory — bounds the per-query exact-cosine
+ *  cost and the cold-start payload if the id list is ever left to grow unpruned. */
+const SPOTLIGHT_CHUNK_CAP = 600;
+
+async function loadSpotlightChunks(
+  sourceIds: string[]
+): Promise<Array<{ chunk: WikiChunk; embedding: number[] }>> {
+  const key = [...sourceIds].sort().join(",");
+  if (_spotlightCache && _spotlightCache.key === key) return _spotlightCache.rows;
+  const url =
+    `${getSupabaseUrl()}/rest/v1/wiki_chunks?source_id=in.(${encodeURIComponent(sourceIds.join(","))})` +
+    `&select=id,hash,text,source_id,title,url,topic,content_type,fact_type,role,school_level,reference_year,embedding` +
+    `&limit=${SPOTLIGHT_CHUNK_CAP}`;
+  const anonKey = getSupabaseAnonKey();
+  const resp = await fetch(url, { headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` } });
+  if (!resp.ok) throw new Error(`spotlight overlay load ${resp.status}`);
+  const rows = (await resp.json()) as Array<WikiChunk & { embedding: unknown }>;
+  const parsed = rows.map(({ embedding, ...chunk }) => ({
+    chunk: chunk as WikiChunk,
+    embedding: parseVec(embedding),
+  }));
+  _spotlightCache = { key, rows: parsed };
+  return parsed;
+}
+
+/**
+ * S193 — Exact-cosine search restricted to a named set of source_ids.
+ *
+ * Why this exists: `searchWiki` asks Supabase for the global top-(topK*5) chunks above the
+ * threshold and only THEN applies the route's source filter in JS. A freshly ingested source
+ * with a handful of chunks therefore competes against all ~16k chunks for an over-fetch slot,
+ * and loses — so adding it to a SOURCE_SET (or adding routing keywords) cannot make it
+ * reachable. This pass mirrors `searchFootnotes`: load the small set with embeddings once,
+ * score exactly, and bypass ANN recall entirely. Best-effort — caller wraps in try/catch.
+ */
+export async function searchSpotlightSources(
+  query: string,
+  embedFn: EmbedFn,
+  sourceIds: string[],
+  minScore: number,
+  topN: number,
+  qVec?: number[]
+): Promise<WikiSearchResult[]> {
+  if (sourceIds.length === 0) return [];
+  const rows = await loadSpotlightChunks(sourceIds);
+  if (rows.length === 0) return [];
+  const vec = qVec ?? (await embedFn(query));
+  return rows
+    .map((r) => ({ chunk: r.chunk, score: cosine(vec, r.embedding), channel: "B" as const }))
     .filter((r) => r.score >= minScore)
     .sort((a, b) => b.score - a.score)
     .slice(0, topN);
@@ -285,4 +349,5 @@ export async function searchFootnotes(
 
 export function invalidateWikiCache(): void {
   _footnoteCache = null;
+  _spotlightCache = null;
 }

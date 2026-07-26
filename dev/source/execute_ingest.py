@@ -12,19 +12,21 @@ do to ingest the source end-to-end. In Phase 2 it SIMULATES every live step and
 writes nothing live — so the whole automated path can be inspected and trusted
 before any token, secret, or scheduled job exists.
 
-The 6 live steps it plans / (later) performs, mirroring the manual S186 pipeline:
+The live steps it plans / (later) performs, mirroring the manual S186 pipeline:
 
   1. copy-to-vault   extract_<id>.txt  ->  dev/vault/<id>/extract_<id>.txt
   2. registry-append construct + append the source_registry.json entry
   3. ingest          chunk + embed + INSERT (dev/ingest_one_source.py <id>)
   4. route-patch     add "<id>" to SOURCE_SETS[<route>] in searchChannelB.ts
+  4b. spotlight      register "<id>" in SPOTLIGHT_SOURCE_IDS (route-independent exact-cosine
+                     pass) so a small new source is retrievable at all — see S193
   5. display-sync    bump _meta.stats.chunks across the display-sync touch points
   6. commit          git commit + push (-> Render redeploy + Pages redeploy)
 
 SAFETY / SCOPE:
   - --dry-run writes only execution_plan.json (staging, gitignored) + a console
     report; it touches nothing live.
-  - --live performs the 6 steps for real, but is gated three ways:
+  - --live performs those steps for real, but is gated three ways:
       (a) APPROVAL — runs only when ops/approvals/<id>.approval.json has
           decision == "approved" (human overrides tier/route/topic apply over the
           package's auto-proposals);
@@ -255,6 +257,74 @@ def plan_route_patch(route: str, source_id: str) -> Dict:
     }
 
 
+SPOTLIGHT_START = "// ack:spotlight:start"
+SPOTLIGHT_END = "// ack:spotlight:end"
+
+
+def plan_spotlight_patch(source_id: str) -> Dict:
+    """Preview registering the new source in SPOTLIGHT_SOURCE_IDS (searchChannelB.ts).
+
+    Why this step exists (S193): step 4 only adds the id to a SOURCE_SET, which narrows an
+    already-retrieved candidate list. The main search asks Supabase for the GLOBAL top-(top_k*5)
+    chunks and filters by source set afterwards, so a source with a handful of chunks never
+    enters the window and stays unreachable no matter how it is routed. Registering it in the
+    spotlight list gives it a route-independent exact-cosine pass until it can compete on its
+    own. Found by probing the 4 sources this pipeline ingested unattended after S192: 2 of them
+    could not be retrieved even by their own title.
+    """
+    if not ROUTE_FILE.exists():
+        return {"error": f"route file missing: {ROUTE_FILE}"}
+    lines = ROUTE_FILE.read_text(encoding="utf-8").splitlines()
+    start = end = None
+    for i, ln in enumerate(lines):
+        if SPOTLIGHT_START in ln:
+            start = i
+        elif SPOTLIGHT_END in ln:
+            end = i
+            break
+    if start is None or end is None:
+        return {"found": False,
+                "note": f"spotlight markers not found in {ROUTE_FILE.name} — new sources will "
+                        f"stay ANN-unreachable until registered by hand (see S193)."}
+    already = any(f'"{source_id}"' in lines[k] for k in range(start, end + 1))
+    insert_line = f'  "{source_id}", // (auto) Option A watcher ingest — prune once it surfaces via ANN'
+    return {
+        "found": True, "already_present": already,
+        "file": str(ROUTE_FILE.relative_to(REPO_ROOT)),
+        "block_lines": f"{start + 1}-{end + 1}",
+        "insert_at_line": end + 1,
+        "insert_text": insert_line,
+        "listed": sum(1 for k in range(start + 1, end) if lines[k].strip().startswith('"')),
+    }
+
+
+def live_spotlight_patch(source_id: str) -> Dict:
+    sp = plan_spotlight_patch(source_id)
+    if sp.get("error"):
+        raise RuntimeError(sp["error"])
+    if not sp.get("found"):
+        # Non-fatal: the ingest itself is fine, but say so loudly — this is the difference
+        # between "searchable" and "silently invisible".
+        _annotate("warning", f"{source_id}: spotlight markers missing in searchChannelB.ts — "
+                             f"source may be unreachable by search until registered manually")
+        return {"patched": False, "reason": "markers missing"}
+    if sp.get("already_present"):
+        return {"patched": False, "reason": "already present"}
+    lines = ROUTE_FILE.read_text(encoding="utf-8").splitlines(keepends=True)
+    lines.insert(sp["insert_at_line"] - 1, sp["insert_text"] + "\n")
+    ROUTE_FILE.write_text("".join(lines), encoding="utf-8")
+    return {"patched": True, "listed_after": sp["listed"] + 1}
+
+
+def _annotate(level: str, message: str) -> None:
+    """Emit a GitHub Actions annotation when running in CI, plus a plain console line.
+    Keeps the signal visible in the ops workflow without needing an ops-repo change."""
+    one_line = message.replace("\n", " ")
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        print(f"::{level}::{one_line}")
+    print(f"  {'⚠' if level == 'warning' else 'ℹ'} {one_line}")
+
+
 def current_chunk_total() -> Optional[int]:
     try:
         k = json.loads(KNOWLEDGE_PATH.read_text(encoding="utf-8"))
@@ -318,6 +388,7 @@ def build_plan(source_id: str) -> Dict:
             "2_registry_append": plan_registry_entry(pkg, eff),
             "3_ingest_chunks": chunks,
             "4_route_patch": plan_route_patch(eff["route"], source_id),
+            "4b_spotlight_patch": plan_spotlight_patch(source_id),
             "5_display_sync": ds,
             "6_commit": plan_commit_message(pkg, eff, chunks.get("chunks", 0), ds.get("after")),
         },
@@ -357,6 +428,13 @@ def print_plan(plan: Dict) -> None:
             print(f"                    + {rp['insert_text'].strip()}")
     else:
         print(f"[4] route-patch     ⚠ {rp.get('note', rp.get('error'))}")
+
+    sp = s["4b_spotlight_patch"]
+    if sp.get("found"):
+        flag = "already listed ✓ (no-op)" if sp.get("already_present") else f"insert @ line {sp['insert_at_line']}"
+        print(f"[4b] spotlight      SPOTLIGHT_SOURCE_IDS (block {sp['block_lines']}, {sp['listed']} listed)  {flag}")
+    else:
+        print(f"[4b] spotlight      ⚠ {sp.get('note', sp.get('error'))}")
 
     ds = s["5_display_sync"]
     print(f"[5] display-sync    chunks {ds['before']} → {ds['after']}  (+{ds['delta']})  "
@@ -617,8 +695,15 @@ def live_commit_push(pkg: Dict, eff: Dict, chunks: int, after: Optional[int]) ->
 
 
 def post_deploy_smoke(pkg: Dict) -> Dict:
-    """Best-effort: wait for Render to come back, then confirm the new source
-    surfaces in Channel B. Never fatal — async/cold deploys can lag."""
+    """Wait for Render to come back, then check the new source is actually RETRIEVABLE.
+
+    S193 — this used to record a single true/false that nobody read, so a source could be
+    ingested, committed, deployed and logged while being unreachable by any query. It now
+    probes several phrasings, reports the rank per probe, and raises a GitHub Actions warning
+    annotation when the source cannot be surfaced — the pipeline's only "did this actually
+    work for a user?" check. Still never fatal: the chunks are already in the store, and a
+    cold Render / lagging deploy must not be reported as an ingest failure.
+    """
     try:
         import requests
     except Exception as exc:                                    # pragma: no cover
@@ -634,16 +719,41 @@ def post_deploy_smoke(pkg: Dict) -> Dict:
         except Exception:
             pass
         time.sleep(8)
-    surfaced = None
-    if health_ok:
-        query = (pkg.get("title") or "")[:18] or sid
+    if not health_ok:
+        _annotate("warning", f"{sid}: Render did not report healthy within ~160s — "
+                             f"surfaceability unverified (chunks are ingested; re-check the site)")
+        return {"ran": True, "health_ok": False, "surfaced": None, "probes": []}
+
+    title = (pkg.get("title") or "").strip()
+    # Probe the phrasings a school user would actually type: the document's own title
+    # (trimmed of bracket noise), a short head of it, and the circular number.
+    plain = re.sub(r"[《》「」（）()]", " ", title).strip()
+    probes = [p for p in [plain[:24], plain[:12], _fmt_circular(pkg.get("circular_number"))] if p]
+    results = []
+    for probe in dict.fromkeys(probes):                         # dedup, preserve order
         try:
-            r = requests.post(CHANNEL_B_API, json={"query": query, "top_k": 8}, timeout=40)
-            body = r.text
-            surfaced = (sid in body) or (str(pkg.get("circular_number") or "_no_") in body)
+            r = requests.post(CHANNEL_B_API, json={"query": probe, "top_k": 8}, timeout=45)
+            rows = r.json().get("results", [])
+            rank = next((i for i, row in enumerate(rows) if row.get("source_id") == sid), None)
+            results.append({"query": probe, "rank": rank,
+                            "top": [row.get("source_id") for row in rows[:3]]})
         except Exception as exc:
-            surfaced = f"query error: {exc}"
-    return {"ran": True, "health_ok": health_ok, "surfaced": surfaced}
+            results.append({"query": probe, "error": str(exc)[:80]})
+        time.sleep(1)
+    surfaced = any(p.get("rank") is not None for p in results)
+    for p in results:
+        if "error" in p:
+            print(f"  [smoke] «{p['query']}» → error: {p['error']}")
+        else:
+            state = f"rank {p['rank']}" if p["rank"] is not None else "ABSENT"
+            print(f"  [smoke] «{p['query']}» → {state}  (top: {', '.join(p['top'])})")
+    if not surfaced:
+        _annotate("warning",
+                  f"{sid}: ingested and deployed, but NOT retrievable by any probe "
+                  f"({', '.join(repr(p['query']) for p in results)}). The chunks are in the store; "
+                  f"search cannot reach them. Likely causes: the source needs a routing keyword, "
+                  f"or its chunks score below the spotlight lead bar. Needs a human look.")
+    return {"ran": True, "health_ok": True, "surfaced": surfaced, "probes": results}
 
 
 # ── live orchestrator ────────────────────────────────────────────────────────
@@ -718,6 +828,11 @@ def exec_live(source_id: str) -> int:
             r = live_route_patch(eff["route"], source_id)
             _mark(st, "4_route", **r)
             print(f"  [4] route {eff['route']}: {'patched' if r['patched'] else r.get('reason')}")
+        # 4b spotlight registration — makes the new source reachable at all (S193)
+        if not _done(st, "4b_spotlight"):
+            r = live_spotlight_patch(source_id)
+            _mark(st, "4b_spotlight", **r)
+            print(f"  [4b] spotlight: {'registered' if r['patched'] else r.get('reason')}")
         # 5 display-sync
         if not _done(st, "5_display_sync"):
             if st["before_total"] is None or st["after_total"] is None:
@@ -754,7 +869,8 @@ def exec_live(source_id: str) -> int:
                               "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     save_state(st)
     if smoke.get("ran"):
-        print(f"  [7] smoke health_ok={smoke['health_ok']} surfaced={smoke['surfaced']}")
+        print(f"  [7] smoke health_ok={smoke['health_ok']} surfaced={smoke['surfaced']} "
+              f"({len(smoke.get('probes') or [])} probes)")
     record_execution(source_id, "success",
                      commit=st["steps"].get("6_commit", {}).get("commit"),
                      chunk_delta=st["chunks"], after_total=st["after_total"], smoke=smoke)
