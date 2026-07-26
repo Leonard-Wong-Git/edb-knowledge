@@ -56,7 +56,51 @@ dev/DOC_SYNC_REGISTRY.md
 - **Sync:** DOC_SYNC 命中「Product behavior / tuning change」（handoff + log + QC evidence ✓）；Option A 管道原本**無 row** → 已補 row（registry anti-pattern guard）；CODEBASE_CONTEXT 模組描述 + AI log 更新。**無** Supabase／registry／凍結合約（`_meta` 2.3.0 / facts 455 / guidelines 158）／`PLATFORM_VERSION`／display-sync 改動（純檢索行為修復，同 S174/S183 先例一致唔 bump）。Pages 無需 redeploy（前端零接觸）。
 - **Pending（非阻塞，待 Leonard 決）:** ① 入庫 `IIT_Summary on AI_TC.pdf`（補 edbcm113 只有 3 chunks 的先天單薄；建議做，屬 S170 monitor-driven on-demand 正路）② 核 `ICT_C&A Guide_c_final.pdf` 是否 `ict_sss_2021` 的 EDB 版／新版（可能係 URL churn 或 supersede）③ 「人工智能初探」「電子學習撥款」兩條短 query 仍唔出（chunk 對該 phrasing 只得 0.46–0.47，低於 0.60 bar；①入庫框架正文係更正確的解法，唔建議降 bar）。
 - **Risks:** ⚠️ spotlight 名單會隨每次自動入庫增長（每條 query 對其 chunk 做 exact cosine）；已設 600 chunk 上限 + code 註明「確認能經 ANN 出頭後可 prune」，目前 4 源 36 chunks。⚠️ **新揭發（非本次造成）**：g24 / sag_2025_11 係同一份文件兩次入庫、chunk 文字相同 → cosine 完全同分，Channel B 結果對呢兩個 id 存在固有非決定性（同內容，用戶無感）；日後做檢索 eval harness（roadmap R1）必須容許 tie flip，否則會出假 regression。⚠️ 本次未動 judge 門檻：spotlight lead 若 <0.70 仍過 anti-confab judge（保護不變，故某些 query 有結果但可能唔出整理答案）。
-- **Log maintenance:** §4a 檢查：加 S193 後 SESSION_LOG 仍 < 400 行、最舊 entry 2026-06-28（< 30 日）→ 唔觸發 archive。no-op。
+- **Log maintenance:** §4a 機制閘已跑：`python3 docs/qa/session_log_maintenance.py --check --session-log dev/SESSION_LOG.md` → `trigger=False line_trigger=False date_trigger=False`（line_count=349、entry_count=8；最舊 entry 2026-06-28 = 28 日）→ **no-op，唔觸發 archive**。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft
+
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
+(Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
+
+Current state (S193, 2026-07-26): 平台 v3.2.2; Supabase 15,901 chunks; source_registry 248;
+HEAD==origin/main (ffd7f22 = S193 docs; code commit ef426cc); 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158;
+0 outstanding bug. 自動化 active: 4 源監察 (discover / freshness / served-url / new-circular) + Option A
+自動入庫管道 (OPERATIONAL; 每日 19:30 HK refresh Issue + @mention-on-new; cron 20:00 HK 兜底).
+
+⚠️ S192→S193 之間管道自行入庫 4 源 (+27 chunks, 15,874→15,901, registry 244→248) — 開工時本地會落後
+origin/main, 先 git pull --ff-only 同步 (bot 直接 push main; tree 乾淨 + 0 本地 commit 時 ff-pull 安全).
+
+📋 S193 修好: 「入庫但搵唔到」根因. searchWiki 取全庫 top-(top_k*5)=40 後才按 SOURCE_SET post-filter →
+細源 (3-14 chunks) 結構上入唔到窗口, 加 SOURCE_SETS/TOPIC_KEYWORDS 都救唔到. 修法 = 新
+wikiRepository.searchSpotlightSources() route/ANN-獨立 exact-cosine + SPOTLIGHT_SOURCE_IDS 一個 lead slot
+@0.60 (實測: on-topic 0.62-0.72 vs 20 條敵意 off-topic 最高 0.563). executor 加步驟 4b 自動註冊新源 +
+post_deploy_smoke 改為真閘 (報 rank, 搵唔到發 ::warning:: annotation). LIVE 6/6 PASS, 回歸污染 0/13.
+⚠️ 動 backend 檢索前必讀 dev/SESSION_LOG.md S193 QC 段 (門檻實證 + tie-flip 陷阱).
+
+🔜 NEXT (優先序; ①② 係 S193 直接遺留, 其餘同 S192 roadmap):
+  ① 入庫《人工智能初探》框架正文 IIT_Summary on AI_TC.pdf (561KB/200, 見 handoff Open Priorities S193 ①):
+     edbcm113 通函只有 3 chunks (封面+摘要), 正文才係實質內容; 亦係「人工智能初探」短 query 唔出嘅正解
+     (唔應降 spotlight bar). 屬入庫 triage — 需 Leonard 拍板.
+  ② 核 ICT_C&A Guide_c_final.pdf (2.6MB/200) 是否 registry ict_sss_2021 (現指 edcity URL) 嘅 EDB 新版
+     → 若係新版走 supersede 規則 (SUPERSEDED_IDS + registry superseded_by 雙處同步).
+  ③ Circular System 安全審計 (= roadmap R5): sibling repo EDB-AI-Circular-System (circular.wongfu.net, 亦
+     public), 用 S187 同級 rigor (paste prompt 見 SESSION_LOG S190 closeout).
+  ④ S187 安全 backlog (= R5): repo 轉 private + hosting 搬離 Pages / Supabase 開 RLS + anon RPC-only.
+  ⑤ 維護提醒: spotlight 名單每次自動入庫 +1 (現 4 源 36 chunks / 上限 600), 確認能經 ANN 出頭後可 prune;
+     edbcm073_2026 仍唔出 (0.458 低於 bar, 設計邊界非 bug), Leonard 報 miss 先處理.
+  其他 backlog: roadmap R1-R8 (見 dev/SYSTEM_ANALYSIS_AND_ROADMAP.md §4/§5/§7);
+  Feature 2a 追問 + 2b 文件 scoped Q&A (Leonard S182 揀 sequence A).
+
+Post-startup first action: 跑起手探針 (served app.html v3.2.2 + Render /health warm 455 + Draft
+HEAD==origin/main〔落後就 ff-pull〕+ Supabase chunk count), 然後向 Leonard 報告當前狀態同建議下一步.
+
+所有路徑含空格, 終端機指令必須用雙引號包住. 改任何嘢之前, 先報告當前狀態同建議下一步.
+```
 
 ---
 
