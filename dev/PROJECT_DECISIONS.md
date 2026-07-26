@@ -64,6 +64,23 @@ This file does not store raw build / upload / QC evidence, current next actions,
 
 ## Insights & Learnings
 
+### S194 (2026-07-26) — 兩條可轉移教訓：「200 ≠ 正確文件」＋「append-only 歷史唔可以做 sync 目標」
+
+- **背景：** Leonard 叫我核一份 technology-edu 頁面上未入庫的 PDF 是否 `ict_sss_2021` 的新版（原以為係 supersede 小事）。核出的係：該 registry entry 標題寫《資訊及通訊科技（中四至中六）2021》，`url_primary` 卻指向 `CS_CAG_S4-6_Chi_2021.pdf` —— **`CS` 被讀成 Computer Science，實為 Citizenship and Social development**。81 個《公民與社會發展科課程及評估指引》的 chunks 長期掛住 ICT 標題供用戶檢索（生產實測：搜「公民與社會發展科」，top-1 結果標題係「資訊及通訊科技」），而真正的 ICT 2021 指引從未入庫。
+
+- **教訓 1 — HTTP 200 唔係「文件正確」的證據，兩個既有監察都結構上盲。**
+  - `check_freshness.py` 問的是「上游 bytes 有無變」，`check_served_urls.py` 問的是「用戶點落去的連結通唔通」。兩者對呢個 entry **年年都綠**：URL 一直活、一直穩定、一直 200 —— 只不過係另一份文件。**冇一個監察問「呢份係唔係你以為的文件」。**
+  - **決策：** (a) 入庫紀律 —— 登記或改指任何來源前，必讀 PDF **封面**並對照 registry 標題；檔名縮寫唔算證據（`FRESHNESS_GUIDE.md` §1a）。(b) 建第 5 監察 Method C `check_source_titles.py` 做安全網（確定性 CJK bigram 比對**主題核心**：剝走學段／年份／樣板，因為「中四至中六」「二零二一年」「課程及評估指引」全庫共用，留住的正正係分辨主題的部分）。**唔用 embedding** —— 兩份 EDB 課程指引語域幾乎相同，cosine 會糊化正正需要的分辨力，字元 bigram 反而字面、免費、可重跑。
+  - **首跑結果（192 個 PDF 源）：冇第二個指錯文件**；17 條 flagged 全部良性。即係呢個 bug 係孤例，但孤例造成的用戶可見錯配足以構成常設檢查。
+  - **自身教訓（值得記）：** 監察 v1 **會 miss 佢自己要捉的案** —— `best_coverage` 取所有標題變體的最大值，而 `title_short`「ICT課程指引2021」去噪後只剩「ICT2021」，個「2021」撞正公社科封面的「由2021/22 學年」→ 假高分 0.500 判 ok。**新監察必須用「已知真陽性」做回歸測試，否則你只係測到自己嘅假設。** 修法後校準由 0.468/0.298（margin 0.017）改善到 **1.000/0.000**。
+
+- **教訓 2 — append-only 歷史檔永遠唔可以做 number-sync 的目標。**
+  - display-sync（chunk 總數鏡像）原本用全檔字串取代，目標包含 `CHANGELOG.md` 同 `dev/CODEBASE_CONTEXT.md`。結果**每次入庫都靜默改寫過往條目**：到 S194 發現 S186 的 changelog 條目寫成「15,656 → 15,901（淨 +182）」—— 算術上不可能；另有 5 條 AI 維護日誌記載了發生在該 session **之後**的總數。污染早於 S194，累積多個 session 無人察覺（因為冇人會 diff 舊條目）。
+  - **決策：** 兩檔由 `execute_ingest.py` `DISPLAY_SYNC_TARGETS` **移除**。入庫應該向歷史檔**追加一條新條目**（本來就係佢哋的用途），而唔係重述當前狀態。加入該 list 的檔案必須只承載當前值；若同時承載歷史，就唔屬於該 list。
+  - **可轉移原則：** 自動化「同步一個數字到 N 個地方」時，先問每個目標係**當前狀態鏡像**定係**歷史紀錄**。前者可以盲改，後者盲改就係篡改。呢個 class 的 bug 完全靜默 —— 唔會爆、唔會 fail CI、只會令你日後信錯自己嘅記錄。
+
+- **同場加映（R5 審計順帶）：** handoff 寫住 sibling repo `EDB-AI-Circular-System`「亦 public、待審」，實際已轉 private 並另開 public 成品 repo `edb-circular-site`。**治理文件對外部世界的斷言同樣會 drift**，read-only 核實成本極低（一個 `gh repo list`），值得每次審計先做。
+
 ### S183 (2026-06-25) — 2 governance rules ship：Supersede ranking penalty 0.05 + Judge bypass extension to vault_extract
 - **背景：** S183 ingest VE_CF 2026 主框架 93 chunks + EDBC 3/2026 + EDBCM 221/2025 智啟學教（淨 +108 chunks → 15,644）。Post-deploy Leonard mobile screenshot 反饋 + short-query verification 揭發 2 個 governance-class issue 需要 long-term rule，而非 one-off patch。
 

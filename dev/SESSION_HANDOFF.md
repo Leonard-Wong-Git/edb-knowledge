@@ -24,7 +24,7 @@
 
 ## Current Baseline
 
-> **🆕 S194（2026-07-26）checkpoint（未 full closeout — opening message 同 `START_NEXT_SESSION_PROMPT.txt` 仍係 S193 版，收工時才重生）—— 修一個長期指錯文件的來源 + 人工智能初探框架正文入庫 + 建 roadmap R1 eval harness 同第 5 監察：** HEAD==origin/main（S194 commits `3f2c9d9` 主體 → `e0e2f3b` eval run → 本 checkpoint commit）；**Supabase 15,901 → 16,035**（+215 INSERT／−81 DELETE）；**source_registry 248 → 250**；平台 **v3.2.2** 不變（凍結合約 `_meta` 2.3.0 / facts 455 / guidelines 158 零接觸）。起手探針 4/4 綠。**核心：`ict_sss_2021` 一直指錯文件** —— 標題《資訊及通訊科技 (中四至中六) 2021》但 url 指 `CS_CAG_S4-6_Chi_2021.pdf`，`CS` 被當 Computer Science 實為 **C**itizenship and **S**ocial development → 81 個公社科 chunks 長期掛 ICT 標題（prod 實測：搜「公民與社會發展科」top-1 標題係「資訊及通訊科技」），真 ICT 2021 從未入庫，且 `curriculum` route **從未有任何 ICT 源**。修：新 `cgss_sss_2021` 承載該 81 chunks（**hash set 81/81 相同**，內容逐字不變）→ DELETE 舊 81（post-count 0）→ `ict_sss_2021` 改指 EDB 官方檔 + 入真正文 116 chunks；`curriculum` +2 ICT 源、新 `cgss` route、`SUPERSEDED_IDS` +`ict_sss_2007_2015`。**另入庫**《人工智能初探》框架正文 `iit_ai_framework_2026`（18 chunks；`edbcm113_2026` 只係通函 3 chunks）。**新工具**：`dev/source/eval_retrieval.py`+`eval_queries.json`（roadmap R1，25 短 query、可 diff、容 tie flip）、`dev/source/check_source_titles.py`（第 5 監察／Method C 封面核對）。**LIVE 驗**：eval PASS **12→14**、errors 0；`ict_guide` FAIL→PASS rank 0 @0.624、`nonlocal` FAIL→PASS rank 2、`cgss` top 由 mislabel 0.568 → `cgss_sss_2021` **0.773 且 synthesis grounded**。**封面掃描首跑 192 源：冇第二個指錯文件**（17 flagged 全良性），副產品揪出 2 條真 404（`g01`/`ls_jss_2010`）+ 5 條 registry 寫 pdf 但 serve HTML。**修一個程序缺陷**：display-sync 全檔字串取代一直改寫 CHANGELOG／CODEBASE_CONTEXT **歷史條目**（S186 條曾寫成「15,656→15,901（淨+182）」算術不成立），已修正並將兩檔由 `execute_ingest.py` `DISPLAY_SYNC_TARGETS` 移除。**R5 sibling 審計（read-only）推翻舊假設**：`EDB-AI-Circular-System` 已 **PRIVATE**、另有 public `edb-circular-site`（拆分已完成）；兩 repo 全歷史 secret 掃描（85+594 commits）**乾淨**、public 站零後端碼零 runtime API。⚠️ **1 個未解、需 Leonard 決**：新源檢索命中但 synthesis 被 anti-confab judge 拒答（0.62–0.63 落喺 S183 `vault_extract ≥0.70` bypass 之下；已用控制組證實屬既有門檻行為非本次 regression；降門檻會重開 S177 confab 區間 0.55–0.65 = 安全取捨，故未自行改）。0 outstanding bug。
+> **🆕 S194（2026-07-26）reconciled（數字以本段為準）—— 修一個長期指錯文件的來源 + 人工智能初探框架正文入庫 + 建 roadmap R1 eval harness 同第 5 監察：** HEAD==origin/main（S194 commits `3f2c9d9` 主體 → `e0e2f3b` eval run → 本 checkpoint commit）；**Supabase 15,901 → 16,035**（+215 INSERT／−81 DELETE）；**source_registry 248 → 250**；平台 **v3.2.2** 不變（凍結合約 `_meta` 2.3.0 / facts 455 / guidelines 158 零接觸）。起手探針 4/4 綠。**核心：`ict_sss_2021` 一直指錯文件** —— 標題《資訊及通訊科技 (中四至中六) 2021》但 url 指 `CS_CAG_S4-6_Chi_2021.pdf`，`CS` 被當 Computer Science 實為 **C**itizenship and **S**ocial development → 81 個公社科 chunks 長期掛 ICT 標題（prod 實測：搜「公民與社會發展科」top-1 標題係「資訊及通訊科技」），真 ICT 2021 從未入庫，且 `curriculum` route **從未有任何 ICT 源**。修：新 `cgss_sss_2021` 承載該 81 chunks（**hash set 81/81 相同**，內容逐字不變）→ DELETE 舊 81（post-count 0）→ `ict_sss_2021` 改指 EDB 官方檔 + 入真正文 116 chunks；`curriculum` +2 ICT 源、新 `cgss` route、`SUPERSEDED_IDS` +`ict_sss_2007_2015`。**另入庫**《人工智能初探》框架正文 `iit_ai_framework_2026`（18 chunks；`edbcm113_2026` 只係通函 3 chunks）。**新工具**：`dev/source/eval_retrieval.py`+`eval_queries.json`（roadmap R1，25 短 query、可 diff、容 tie flip）、`dev/source/check_source_titles.py`（第 5 監察／Method C 封面核對）。**LIVE 驗**：eval PASS **12→14**、errors 0；`ict_guide` FAIL→PASS rank 0 @0.624、`nonlocal` FAIL→PASS rank 2、`cgss` top 由 mislabel 0.568 → `cgss_sss_2021` **0.773 且 synthesis grounded**。**封面掃描首跑 192 源：冇第二個指錯文件**（17 flagged 全良性），副產品揪出 2 條真 404（`g01`/`ls_jss_2010`）+ 5 條 registry 寫 pdf 但 serve HTML。**修一個程序缺陷**：display-sync 全檔字串取代一直改寫 CHANGELOG／CODEBASE_CONTEXT **歷史條目**（S186 條曾寫成「15,656→15,901（淨+182）」算術不成立），已修正並將兩檔由 `execute_ingest.py` `DISPLAY_SYNC_TARGETS` 移除。**R5 sibling 審計（read-only）推翻舊假設**：`EDB-AI-Circular-System` 已 **PRIVATE**、另有 public `edb-circular-site`（拆分已完成）；兩 repo 全歷史 secret 掃描（85+594 commits）**乾淨**、public 站零後端碼零 runtime API。⚠️ **1 個未解、需 Leonard 決**：新源檢索命中但 synthesis 被 anti-confab judge 拒答（0.62–0.63 落喺 S183 `vault_extract ≥0.70` bypass 之下；已用控制組證實屬既有門檻行為非本次 regression；降門檻會重開 S177 confab 區間 0.55–0.65 = 安全取捨，故未自行改）。0 outstanding bug。
 >
 > **🆕 S193（2026-07-26）reconciled — 修「入庫但搵唔到」根因 + 令自動管道唔再靜默留債（backend 檢索修復，LIVE 驗證）：** HEAD==origin/main（S193 3 個 commit：**`ef426cc`** code 修復 → **`ffd7f22`** 治理持久化 → 本 closeout commit）；**Supabase 15,901**（+27 / 4 源，全部由 **Option A 管道自 S192 起無人手自動入庫**：`edbcm076_2026` 我的行動承諾 +8 / `edbc013_2026` 非本地兒童入學 +9 / `edbcm094_2026` 2026-27 教職員薪酬調整 +7 / `edbcm113_2026` 小學資訊與創新科技課程框架「人工智能初探」+3；bot commits `b791819`→`d310800`→`281b5f4`→`a94ec71`，本 session 起手 ff-pull 同步本地）；**source_registry 248**；平台 **v3.2.2** 不變（凍結合約 `_meta` 2.3.0 / facts 455 / guidelines 158 全零接觸、無 bump）。起手探針 4/4 綠（served app.html v3.2.2 + 標題 200 / Render `/health` warm 455 / HEAD==origin/main tree 乾淨 / Supabase count=exact 15,901）。**S193 = 逐條 live 探測 4 條自動入庫源 → 揪出 2 條連自己標題都檢索唔到 → Leonard 批「1＋2＋Monitor technology-edu 頁」→ 修根因 + 補機制 + 核實監察**。**根因（code-verified，比「route 擁擠」更深）**：`searchWiki` 向 Supabase 取**全庫** top-(top_k×5)=40，之後才在 JS 按 SOURCE_SET post-filter → 3–14 chunks 的新源要同全庫 15,901 chunks 爭 40 個位，**加 SOURCE_SET／TOPIC_KEYWORDS 結構上救唔到**（實測 edbcm094 對自己標題 cosine 0.722 卻完全唔出）。**修法**＝沿用 S174 footnote overlay 同一結構：`searchSpotlightSources()` 對 `SPOTLIGHT_SOURCE_IDS` 做 route/ANN 獨立 exact-cosine，未可見則給 **1 個 lead slot、門檻 0.60**（實測定：on-topic 0.62–0.72 vs **20 條敵意 off-topic 最高 0.563**，收 0/20 敵意；低分 merge 刻意唔做）；raw-query embedding 兩個 overlay 共用故 **embedding 呼叫數不變**。**機制**＝`execute_ingest.py` 新步驟 **4b** 自動註冊新源入 spotlight（`ack:spotlight` marker 為插入點）+ `post_deploy_smoke` 由「印個無人睇的 bool」改為**真閘**（多 phrasing 探測、報 rank、搵唔到即發 `::warning::` annotation，仍非 fatal）。**LIVE 驗**：目標源 **6/6 PASS**（edbcm113 rank 0；edbcm094 rank 2 ×3 phrasing；edbcm066 rank 2 ×2）+ synthesis grounded；**live 回歸 13 條：spotlight 污染 0/13、既有預期 5/5、9 條仍有 footnote 參與**；A/B 14 條 12 相同，2 條差異經隔離測試證與本改動無關（見 SESSION_LOG S193）。**S186 兩條 monitor 半解**：edbcm066 ✅ 修好；edbcm073 仍唔出（chunk 對「電子學習撥款」只 0.458，低於 bar，屬設計邊界）。**Monitor 核實**：Leonard 指定嘅 technology-edu 課程文件頁**早已在 discovery watch list**（62 頁之一，無需新增）；對該頁 11 個文件連結 diff 揪出 **2 條未入庫**——`IIT_Summary on AI_TC.pdf`（= edbcm113 通函公布嘅框架**正文**，561KB/200）+ `ICT_C&A Guide_c_final.pdf`（2.6MB/200）→ 待 Leonard 決定入庫。0 outstanding bug。
 
@@ -195,6 +195,19 @@ source_registry → same vault PDFs → ai_extract.py
 - **雲端 OCR 引擎選項**（image-PDF ingestion 升級線，S180 評估）：Google Vision `DOCUMENT_TEXT_DETECTION`（逐字信心 + bounding box、每月 1,000 單位永久免費 + ~$1.50/1,000、要綁卡開 billing）／Mistral OCR（Markdown+表格、~$2/1,000）——比現用 `gpt-4o` 圖像 OCR「draft 質」可能更準更平，且 bbox 可餵返 grid 重建。命中 image-PDF 質素問題（如 DEBP 主藍圖 ~16 圖像頁）先評估：**真檔實測 + 開 Google billing**（ingestion 處理公開文件、無未成年私隱顧慮；後端已存在故唔需要 brief 嗰套 serverless key-proxy）。詳見 playbook inbox 提案 `2026-06-24-edb-knowledge-cloud-ocr-engine-options.md` + `doc-extract-method-ladder` 卡。出處：Leonard 一份 OCR 收費版 brief（2026-06，已核實價）。
 
 ## Last Session Record
+1. UTC date: 2026-07-26
+2. Session ID: Claude_20260726_S194 (S194) — 頂層 dormant root「開工」→ redirect Draft → §1 startup → 起手探針 4/4 綠 → Leonard 一次授權三件事「R1 同意／R5 做／①＋②」+ 釐清 technology-edu index 頁＝監察對象、`IIT_Summary on AI_TC.pdf`＝入庫對象 → ② 在 READ 階段由「核 supersede」升級為真 bug → AskUserQuestion → Leonard 揀「A 完整修」＋「做全庫封面掃描」→ 全部完成並 LIVE 驗 → 「收工」full closeout。
+3. Completed（詳見 SESSION_LOG S194）:
+   - ✅ **修 `ict_sss_2021` 長期指錯文件**：`CS_CAG` 被當 Computer Science，實為 Citizenship and Social development → 81 個公社科 chunks 長期掛 ICT 標題（prod 實測 top-1 標題錯配），真 ICT 2021 從未入庫，且 `curriculum` route 從未有任何 ICT 源。修法：新 `cgss_sss_2021` 承載該 81 chunks（**hash set 81/81 相同**，內容逐字不變）→ DELETE 舊 81（post-count 0）→ `ict_sss_2021` 改指 EDB 官方檔 + 入真正文 116 chunks + route/supersede 補齊。
+   - ✅ **入庫《人工智能初探》框架正文** `iit_ai_framework_2026`（18 chunks）；通函 `edbcm113_2026` 只有 3 chunks（封面+摘要），正文才係實質內容。
+   - ✅ **roadmap R1 eval harness**（`dev/source/eval_retrieval.py` + `eval_queries.json` + `eval_runs/`）：25 條短 query、可 diff 兩次跑、容 tie flip、429 唔當零結果。入庫前後兩份 run 已 commit 作跨 session 對照基線。
+   - ✅ **第 5 監察／Method C 封面核對**（`dev/source/check_source_titles.py`）：補 freshness（問「bytes 有無變」）同 served-url（問「連結通唔通」）結構上睇唔到嘅「指錯文件」類。
+   - ✅ **修程序缺陷**：display-sync 全檔字串取代一直靜默改寫 CHANGELOG／CODEBASE_CONTEXT **歷史條目**；已修正受影響數字 + 兩檔由 `execute_ingest.py` `DISPLAY_SYNC_TARGETS` 移除。
+   - ✅ **R5 sibling 審計（read-only）**：推翻 handoff 舊假設（該 repo 已 private，public 面係 `edb-circular-site`）；兩 repo 全歷史 679 commits secret 掃描乾淨。
+4. QC: tsc exit 0 / py_compile ✅ / 兩個新工具 `--self-test` 各 24 項全綠（含針對自身 2 個校準缺陷的回歸測試）/ **eval PASS 12→14、errors 0**（`ict_guide` FAIL→PASS rank 0 @0.624、`nonlocal` FAIL→PASS rank 2、`cgss` top 由 mislabel 0.568 → `cgss_sss_2021` 0.773 且 synthesis grounded）/ chunk hash set 81/81 / live 總數 16,035 由 `count=exact` 直查 / 封面掃描 192 源冇第二個指錯文件。
+5. commits: `3f2c9d9`（主體）→ `e0e2f3b`（eval run + 修 ai_intro 斷言）→ `76e5719`（log/handoff checkpoint）→ `744af53`（§4a archive）→ 本 closeout commit。Supabase **16,035** / registry **250** / v3.2.2 不變 / 凍結合約零接觸。
+
+## Previous Session Record (S193)
 1. UTC date: 2026-07-26
 2. Session ID: Claude_20260726_1219 (S193) — 頂層 dormant root「開工」→ redirect Draft → §1 startup → 起手探針 4/4 綠（其中 git 探針揪出本地落後 origin/main 4 個 bot commit → ff-pull）→ 逐條 live 探測 4 條自動入庫源 → 揪出 2 條檢索唔到 → Leonard 批「1＋2＋Monitor technology-edu 頁」→ 修根因 + 補機制 + 核實監察 → 「收工」full closeout。
 3. Completed（詳見 SESSION_LOG S193）:
@@ -393,6 +406,14 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## State Reconciliation Check
 
+- **Reconciled at:** 2026-07-26 (S194 full closeout — Leonard「收工」)
+- **S194 state sections rewritten or confirmed current:** Current Baseline（prepend S194 reconciled block：Supabase **16,035**、registry **250**、v3.2.2 不變、凍結合約零接觸、mislabel 修復 + 框架正文入庫 + 2 新工具 + display-sync 程序缺陷修復 + R5 審計，全部 LIVE 驗）；Open Priorities（頂加 S194 8 項，並明標 S193 的 ①② 已完成）；`Last Session Record` 由 S193 重寫為 S194（S193 段降級保留為 `Previous Session Record (S193)`，no-loss）；`Next Session Opening Message` 重生；本段。S193 及更早 = 歷史背景不變。
+- **S194 lifecycle check:** S193 遺留 ①（入庫 IIT 框架正文）②（核 ICT guide）**兩項皆已完成，已從 Open Priorities 移除、唔再列為未解項**；②的結果比原描述嚴重（唔係 supersede 而係指錯文件），已在 baseline + log 寫明真相而非沿用舊描述。新增 8 項全部標明性質：①＝**需 Leonard 拍板的安全取捨**（judge 門檻，附 3 選項 + 已證非本次 regression）、②③＝封面掃描副產品待修、④＝只有 Leonard 做得到（PAT scope）、⑤⑥⑦＝維護提醒、⑧＝記錄更正。**無已完成項殘留為未解 next priority 或 active risk。** S186 edbcm073 monitor 仍 open（未受本 session 影響，續留 S193 區塊）。
+- **S194 persistence routing checked:** 是。當前狀態→handoff Current Baseline S194 block；trace + QC 證據（hash set 比對／實測 cosine／eval 前後對照／封面掃描結果／R5 審計細節）→SESSION_LOG S194；模組事實 + 新工具描述→CODEBASE_CONTEXT Directory Map ×2 + AI log；入庫時封面核對紀律 + Method C 監察模型→`dev/source/FRESHNESS_GUIDE.md` §0 + 新 §1a（**可重用程序知識唔止留喺 handoff/log**）；eval harness 同步義務→DOC_SYNC 新 row；跨 repo durable 教訓（URL 200 ≠ 正確文件、append-only 歷史唔可做 sync 目標）→`dev/PROJECT_DECISIONS.md` Insights；用戶面→`update_log.json` 3 條 + CHANGELOG entry；可重現＝commits `3f2c9d9`/`e0e2f3b`/`76e5719`/`744af53`/本 closeout commit。
+- **S194 stale snapshots left:** 無。Current Baseline 頂 S194 block = 準狀態。**主動修正咗兩處既有 stale**：(a) CHANGELOG S186 條 + CODEBASE_CONTEXT 5 條 AI log 被歷次 display-sync 盲目改寫的歷史數字（S186 條曾寫「15,656→15,901（淨+182）」算術不成立）；(b) Open Priorities ⑧ 更正 S190 NEXT ③「sibling repo 亦 public」——該 repo 已 private。
+- **S194 opening message matches current state:** 是。`Next Session Opening Message` 重生為 S194 state-rich 版（HEAD/16,035/250/judge 門檻待決/8 項 NEXT），`START_NEXT_SESSION_PROMPT.txt` 由該 block 重生並 **prompt mirror check PASS（byte-for-byte 相等）**。頂層 dormant root redirect prompt 不變（仍 valid，本 session 跟 S193 先例唔寫該 root）。
+- **S194 sync status:** DOC_SYNC 命中 4 row —— 「Channel-B vault source backfill」（registry entry + backend SOURCE_SETS/TOPIC_KEYWORDS/QUERY_EXPANSIONS parity + display-sync ✓）、「Doc-drift truth-pass / accuracy correction」（修正被污染的歷史數字 + CODEBASE_CONTEXT AI log ✓）、「Monitoring / CI workflow change」（FRESHNESS_GUIDE §0 Method C + §1a + CODEBASE_CONTEXT Directory Map ✓）、「Option A 自動入庫管道改動」（`execute_ingest.py` DISPLAY_SYNC_TARGETS ✓）；**新增 1 row**（檢索 eval harness 改動 —— 原本無 row 覆蓋，按 anti-pattern guard 先補 row）。display-sync 7 檔（15,901→16,035）+ `update_log.json` 3 條 + CHANGELOG entry ✓。凍結合約（`_meta` 2.3.0 / facts 455 / guidelines 158）+ `PLATFORM_VERSION` 3.2.2 = 零接觸 confirmed。Pages redeploy：index.html/app.html/README/update_log 有改 → 已隨 push 觸發。§4a log maintenance：`--check` 報 **trigger=True**（420 行 > 400）→ 跑 `--apply` → 420→187 行、9→3 entries、6 條入 `dev/archive/SESSION_LOG_2026_Q2.md`（raw 保留、零刪除）→ 重跑 `--check` = trigger=False。
+- **舊記錄（S193 closeout）：**
 - **Reconciled at:** 2026-07-26 (S193 full closeout — Leonard「收工」)
 - **S193 state sections rewritten or confirmed current:** Current Baseline（prepend S193 block：HEAD `ef426cc`、Supabase **15,901**、registry **248**、v3.2.2 不變、凍結合約零接觸、起手探針 4/4 綠、spotlight 修復 + executor 4b/可見度閘 LIVE 驗）；Open Priorities（頂加 S193 5 項：IIT 框架正文入庫 / ICT guide 核版 / spotlight 名單維護 / edbcm073 仍唔出 / eval harness 必容 tie flip）；本段。S192 及更早 = 歷史背景不變。
 - **S193 lifecycle check:** S186 兩條 monitor → edbcm066 已解（移出 monitor，記錄於 S193 baseline）、edbcm073 仍 open（明確重列為 Open Priorities ④ 並寫明原因＝0.458 低於門檻，屬設計邊界非 bug）。本 session 完成項（spotlight 修復 / 4b / 可見度閘 / monitor 核實）**無殘留為未解 next priority**；新增 5 項全部標明待 Leonard 決或屬維護提醒。
@@ -433,39 +454,51 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
 (Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
 
-Current state (S193, 2026-07-26): 平台 v3.2.2; Supabase 15,901 chunks; source_registry 248;
-HEAD==origin/main (ffd7f22 = S193 docs; code commit ef426cc); 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158;
-0 outstanding bug. 自動化 active: 4 源監察 (discover / freshness / served-url / new-circular) + Option A
-自動入庫管道 (OPERATIONAL; 每日 19:30 HK refresh Issue + @mention-on-new; cron 20:00 HK 兜底).
+Current state (S194, 2026-07-26): 平台 v3.2.2; Supabase 16,035 chunks; source_registry 250;
+HEAD==origin/main (744af53 + S194 closeout commit; code commit 3f2c9d9); 凍結合約 _meta 2.3.0 /
+facts 455 / guidelines 158; 0 outstanding bug. 自動化 active: 4 源監察 (discover / freshness /
+served-url / new-circular) + Option A 自動入庫管道 (OPERATIONAL; 每日 19:30 HK refresh Issue +
+@mention-on-new; cron 20:00 HK 兜底). 第 5 監察 (封面核對 check_source_titles.py) 已建但未接 CI.
 
-⚠️ S192→S193 之間管道自行入庫 4 源 (+27 chunks, 15,874→15,901, registry 244→248) — 開工時本地會落後
-origin/main, 先 git pull --ff-only 同步 (bot 直接 push main; tree 乾淨 + 0 本地 commit 時 ff-pull 安全).
+⚠️ 管道會自行入庫並直接 push main — 開工時本地可能落後 origin/main, tree 乾淨 + 0 本地 commit
+時先 git pull --ff-only 同步。
 
-📋 S193 修好: 「入庫但搵唔到」根因. searchWiki 取全庫 top-(top_k*5)=40 後才按 SOURCE_SET post-filter →
-細源 (3-14 chunks) 結構上入唔到窗口, 加 SOURCE_SETS/TOPIC_KEYWORDS 都救唔到. 修法 = 新
-wikiRepository.searchSpotlightSources() route/ANN-獨立 exact-cosine + SPOTLIGHT_SOURCE_IDS 一個 lead slot
-@0.60 (實測: on-topic 0.62-0.72 vs 20 條敵意 off-topic 最高 0.563). executor 加步驟 4b 自動註冊新源 +
-post_deploy_smoke 改為真閘 (報 rank, 搵唔到發 ::warning:: annotation). LIVE 6/6 PASS, 回歸污染 0/13.
-⚠️ 動 backend 檢索前必讀 dev/SESSION_LOG.md S193 QC 段 (門檻實證 + tie-flip 陷阱).
+📋 S194 修好: (1) ict_sss_2021 一直指錯文件 — 標題寫《資訊及通訊科技 2021》但 url 指
+CS_CAG_S4-6_Chi_2021.pdf, CS = Citizenship and Social development 而非 Computer Science → 81 個
+公社科 chunks 長期掛 ICT 標題 (prod 實測 top-1 標題錯配), 真 ICT 2021 從未入庫, 且 curriculum
+route 從未有任何 ICT 源。已新立 cgss_sss_2021 承載該 81 chunks (hash set 81/81 相同, 內容逐字
+不變) + 入真 ICT 正文 116 chunks + 新 cgss route + SUPERSEDED_IDS。(2) 入庫《人工智能初探》框架
+正文 iit_ai_framework_2026 (18 chunks)。(3) display-sync 全檔字串取代一直靜默改寫 CHANGELOG /
+CODEBASE_CONTEXT 歷史條目 — 已修正並將兩檔移出 DISPLAY_SYNC_TARGETS (歷史檔只追加, 唔反映當前值)。
+⚠️ 動 backend 檢索前必讀 dev/SESSION_LOG.md S194 QC 段 + S193 QC 段 (門檻實證 + tie-flip 陷阱)。
 
-🔜 NEXT (優先序; ①② 係 S193 直接遺留, 其餘同 S192 roadmap):
-  ① 入庫《人工智能初探》框架正文 IIT_Summary on AI_TC.pdf (561KB/200, 見 handoff Open Priorities S193 ①):
-     edbcm113 通函只有 3 chunks (封面+摘要), 正文才係實質內容; 亦係「人工智能初探」短 query 唔出嘅正解
-     (唔應降 spotlight bar). 屬入庫 triage — 需 Leonard 拍板.
-  ② 核 ICT_C&A Guide_c_final.pdf (2.6MB/200) 是否 registry ict_sss_2021 (現指 edcity URL) 嘅 EDB 新版
-     → 若係新版走 supersede 規則 (SUPERSEDED_IDS + registry superseded_by 雙處同步).
-  ③ Circular System 安全審計 (= roadmap R5): sibling repo EDB-AI-Circular-System (circular.wongfu.net, 亦
-     public), 用 S187 同級 rigor (paste prompt 見 SESSION_LOG S190 closeout).
-  ④ S187 安全 backlog (= R5): repo 轉 private + hosting 搬離 Pages / Supabase 開 RLS + anon RPC-only.
-  ⑤ 維護提醒: spotlight 名單每次自動入庫 +1 (現 4 源 36 chunks / 上限 600), 確認能經 ANN 出頭後可 prune;
-     edbcm073_2026 仍唔出 (0.458 低於 bar, 設計邊界非 bug), Leonard 報 miss 先處理.
-  其他 backlog: roadmap R1-R8 (見 dev/SYSTEM_ANALYSIS_AND_ROADMAP.md §4/§5/§7);
-  Feature 2a 追問 + 2b 文件 scoped Q&A (Leonard S182 揀 sequence A).
+🛠 新工具 (動檢索前後都應該用):
+  python3 dev/source/eval_retrieval.py --self-test
+  python3 dev/source/eval_retrieval.py --run --out after.json
+  python3 dev/source/eval_retrieval.py --compare dev/source/eval_runs/2026-07-26_s194_post_ingest.json after.json
+  任何檢索改動 (SOURCE_SETS / TOPIC_KEYWORDS / spotlight / supersede / 門檻) 都要有一對
+  before→after run 作證據 (DOC_SYNC 已登記)。入新源前跟 FRESHNESS_GUIDE §1a 核封面標題。
+
+🔜 NEXT (優先序):
+  ① 【需 Leonard 拍板, 唯一未解項】anti-confab judge 門檻: 新入 vault_extract 源檢索命中但整理
+     答案被拒 (人工智能初探 0.628 / 資訊及通訊科技 課程指引 0.624, 低於 S183 的 vault_extract
+     ≥0.70 bypass)。已用控制組證實屬既有門檻行為、非 S194 regression。選項 (a) 唔改, 用戶仍見
+     正確來源+頁碼 (b) 降至 ~0.60 — 會重開 S177 confab 區間 0.55-0.65, 必須先做 20+ 條敵意
+     probe (c) 針對裸名詞短 query 改良 judge prompt (另開 PLAN)。唔好未做敵意測試就降門檻。
+  ② 2 條真 404: g01 / ls_jss_2010 (封面掃描副產品, 走 §D.12 landing-page re-discovery)。
+  ③ 5 條 registry 寫 source_type=pdf 但 URL serve HTML: g30 / g31 / g21 / g22 / religious_edu_jss。
+  ④ 只有 Leonard 做得到: 確認 PUBLISH_PAT 係 fine-grained、只限 edb-circular-site contents:write。
+  ⑤ 把封面核對接入 CI (建議月跑, 192 源要下載)。
+  ⑥ g29 同 kgecg_2017 係同一份文件登記兩次 (同 g24/sag_2025_11 同類, 會造成固有 tie)。
+  ⑦ spotlight 現 6 源 63 chunks (上限 600), 確認能經 ANN 出頭後可 prune; edbcm073_2026 仍唔出
+     (0.458 低於 bar, 設計邊界非 bug)。
+  其他 backlog: roadmap R1-R8 (dev/SYSTEM_ANALYSIS_AND_ROADMAP.md §4/§5/§7; R1 已落地);
+  Feature 2a 追問 + 2b 文件 scoped Q&A (Leonard S182 揀 sequence A)。
 
 Post-startup first action: 跑起手探針 (served app.html v3.2.2 + Render /health warm 455 + Draft
-HEAD==origin/main〔落後就 ff-pull〕+ Supabase chunk count), 然後向 Leonard 報告當前狀態同建議下一步.
+HEAD==origin/main〔落後就 ff-pull〕+ Supabase count=exact), 然後向 Leonard 報告當前狀態同建議下一步。
 
-所有路徑含空格, 終端機指令必須用雙引號包住. 改任何嘢之前, 先報告當前狀態同建議下一步.
+所有路徑含空格, 終端機指令必須用雙引號包住。改任何嘢之前, 先報告當前狀態同建議下一步。
 ```
 
 ## Session Close Checklist (每次 session 結束必須執行)

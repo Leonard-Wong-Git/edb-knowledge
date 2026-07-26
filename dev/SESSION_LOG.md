@@ -58,7 +58,68 @@ dev/DOC_SYNC_REGISTRY.md
   - **R5（sibling repo 審計，全程 read-only，未觸碰對方 repo）**：**推翻 handoff 假設** —— `EDB-AI-Circular-System` 已係 **PRIVATE**（handoff 仍寫「亦 public 待審」），另有新 public repo **`edb-circular-site`**（2026-06-29 建）＝已完成 private 後端／public 成品拆分。核實：public 站只有 png/md/json/html/yml，**零 .py／零 scraper／零 prompt／零 .env**；85 commits 全歷史 secret pattern 掃描**乾淨**；出街 bundle 零 apikey/Bearer 字面、**零 runtime API 呼叫**（純靜態）；Pages workflow 權限最小。private 後端：`.gitignore` 覆蓋 `.env`/`*.key`/`*_api_key*`，**594 commits 全歷史 secret 掃描乾淨**、現無 tracked `.env`；publish workflow 用 allowlist `cp` ＋「後端檔誤入公開 repo 即 FATAL」防呆閘；兩 repo forks 均 0。
 - **Pending（需 Leonard 決）:** ① **anti-confab judge 門檻**：新源檢索命中但**整理答案被拒**（`人工智能初探` 0.628、`ICT 課程指引` 0.624 落喺 S183 定的 `vault_extract ≥0.70` bypass 之下）。已用控制組證實屬**既有門檻行為、非本次 regression**（`學校效率津貼` top 係 footnote_curated@0.561 → bypass 0.45 → 答；`價值觀教育` vault_extract@0.753 → 答；`公民與社會發展科`@0.773 → 答且 grounded）。降門檻會重開 S177 confab 區間（0.55–0.65），屬安全／效用取捨，**唔應由我單方面改**。② R5 剩一項只有 Leonard 做得到：確認 `PUBLISH_PAT` 係 fine-grained、只限 `edb-circular-site` contents:write。③ 2 條真 404 ＋ 5 條 pdf-serve-HTML 待處理。
 - **Risks:** ⚠️ private 後端 repo **2026-03-09 建、直到 2026-06-29 一直 public**（handoff S185/S187 記錄可證），即約 3.7 個月後端 IP（scraper／prompt／編纂邏輯）曾世界可讀；轉 private 只保未來、唔追回過去（playbook `split-private-backend-public-artifact` 卡早有此警告）。**不過全歷史掃描證實從未 commit 過任何 secret，故無需 rotate 任何 key**，暴露僅限 IP。⚠️ 公開 feed `circulars.json` 頂層公開了 `model: gpt-5-nano` / `temperature: 1`（低敏感，但屬管道細節）。⚠️ spotlight 名單增至 6 源 63 chunks（上限 600）。
-- **Log maintenance:** §4a 機制閘 **triggered 並已執行**：`--check` 報 `trigger=True line_trigger=True`（line_count 420 > 400，因本 entry 加入）→ 跑 `--apply --archive-dir dev/archive` → **420 → 187 行、9 → 3 entries、6 條移入 `dev/archive/SESSION_LOG_2026_Q2.md`**（raw 內容保留，冇刪任何 entry）→ 重跑 `--check` 確認 `trigger=False`（line_count=187 / entry_count=3）。`--apply` 另報 `latest entry prompt block ok=False`：正常，本 entry 係 checkpoint 而非 full closeout，`### Next Session Handoff Prompt (Verbatim)` 要收工時才寫。
+- **Log maintenance:** §4a 機制閘 **triggered 並已執行**：`--check` 報 `trigger=True line_trigger=True`（line_count 420 > 400，因本 entry 加入）→ 跑 `--apply --archive-dir dev/archive` → **420 → 187 行、9 → 3 entries、6 條移入 `dev/archive/SESSION_LOG_2026_Q2.md`**（raw 內容保留，冇刪任何 entry）→ 重跑 `--check` 確認 `trigger=False`（line_count=187 / entry_count=3）。`--apply` 當時另報 `latest entry prompt block ok=False`：因為 archive 喺 checkpoint 階段跑，`### Next Session Handoff Prompt (Verbatim)` 要到 full closeout 才寫；該 block 已於本次收工補上（見本 entry 末），handoff↔`START_NEXT_SESSION_PROMPT.txt` mirror check byte-for-byte PASS。
+- **Evidence disposition:** 當前狀態→handoff Current Baseline S194 block；hash-set 比對／實測 cosine／eval 前後對照／封面掃描結果／R5 審計細節＝kept as recent trace evidence（本 entry）；入庫時封面核對紀律 + Method C 監察模型→promoted to `dev/source/FRESHNESS_GUIDE.md` §0+§1a（可重用程序知識）；跨 repo durable 教訓→promoted to `dev/PROJECT_DECISIONS.md` Insights；eval harness 同步義務→promoted to DOC_SYNC row；模組事實→CODEBASE_CONTEXT Directory Map + AI log。
+- **Sync:** DOC_SYNC 命中 4 row（Channel-B vault backfill／Doc-drift truth-pass／Monitoring-CI change／Option A 管道改動）＋**新增 1 row**（eval harness，原本無 row → 按 anti-pattern guard 先補）。display-sync 7 檔 15,901→16,035 ＋ `update_log.json` 3 條 ＋ CHANGELOG／CODEBASE_CONTEXT 新條目。凍結合約（`_meta` 2.3.0／facts 455／guidelines 158）＋ `PLATFORM_VERSION` 3.2.2 零接觸。Pages 已隨 push redeploy（前端數字有改）。
+
+
+### Next Session Handoff Prompt (Verbatim)
+
+📋 Next session: agent-managed startup content below
+
+```text
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft
+
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
+(Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
+
+Current state (S194, 2026-07-26): 平台 v3.2.2; Supabase 16,035 chunks; source_registry 250;
+HEAD==origin/main (744af53 + S194 closeout commit; code commit 3f2c9d9); 凍結合約 _meta 2.3.0 /
+facts 455 / guidelines 158; 0 outstanding bug. 自動化 active: 4 源監察 (discover / freshness /
+served-url / new-circular) + Option A 自動入庫管道 (OPERATIONAL; 每日 19:30 HK refresh Issue +
+@mention-on-new; cron 20:00 HK 兜底). 第 5 監察 (封面核對 check_source_titles.py) 已建但未接 CI.
+
+⚠️ 管道會自行入庫並直接 push main — 開工時本地可能落後 origin/main, tree 乾淨 + 0 本地 commit
+時先 git pull --ff-only 同步。
+
+📋 S194 修好: (1) ict_sss_2021 一直指錯文件 — 標題寫《資訊及通訊科技 2021》但 url 指
+CS_CAG_S4-6_Chi_2021.pdf, CS = Citizenship and Social development 而非 Computer Science → 81 個
+公社科 chunks 長期掛 ICT 標題 (prod 實測 top-1 標題錯配), 真 ICT 2021 從未入庫, 且 curriculum
+route 從未有任何 ICT 源。已新立 cgss_sss_2021 承載該 81 chunks (hash set 81/81 相同, 內容逐字
+不變) + 入真 ICT 正文 116 chunks + 新 cgss route + SUPERSEDED_IDS。(2) 入庫《人工智能初探》框架
+正文 iit_ai_framework_2026 (18 chunks)。(3) display-sync 全檔字串取代一直靜默改寫 CHANGELOG /
+CODEBASE_CONTEXT 歷史條目 — 已修正並將兩檔移出 DISPLAY_SYNC_TARGETS (歷史檔只追加, 唔反映當前值)。
+⚠️ 動 backend 檢索前必讀 dev/SESSION_LOG.md S194 QC 段 + S193 QC 段 (門檻實證 + tie-flip 陷阱)。
+
+🛠 新工具 (動檢索前後都應該用):
+  python3 dev/source/eval_retrieval.py --self-test
+  python3 dev/source/eval_retrieval.py --run --out after.json
+  python3 dev/source/eval_retrieval.py --compare dev/source/eval_runs/2026-07-26_s194_post_ingest.json after.json
+  任何檢索改動 (SOURCE_SETS / TOPIC_KEYWORDS / spotlight / supersede / 門檻) 都要有一對
+  before→after run 作證據 (DOC_SYNC 已登記)。入新源前跟 FRESHNESS_GUIDE §1a 核封面標題。
+
+🔜 NEXT (優先序):
+  ① 【需 Leonard 拍板, 唯一未解項】anti-confab judge 門檻: 新入 vault_extract 源檢索命中但整理
+     答案被拒 (人工智能初探 0.628 / 資訊及通訊科技 課程指引 0.624, 低於 S183 的 vault_extract
+     ≥0.70 bypass)。已用控制組證實屬既有門檻行為、非 S194 regression。選項 (a) 唔改, 用戶仍見
+     正確來源+頁碼 (b) 降至 ~0.60 — 會重開 S177 confab 區間 0.55-0.65, 必須先做 20+ 條敵意
+     probe (c) 針對裸名詞短 query 改良 judge prompt (另開 PLAN)。唔好未做敵意測試就降門檻。
+  ② 2 條真 404: g01 / ls_jss_2010 (封面掃描副產品, 走 §D.12 landing-page re-discovery)。
+  ③ 5 條 registry 寫 source_type=pdf 但 URL serve HTML: g30 / g31 / g21 / g22 / religious_edu_jss。
+  ④ 只有 Leonard 做得到: 確認 PUBLISH_PAT 係 fine-grained、只限 edb-circular-site contents:write。
+  ⑤ 把封面核對接入 CI (建議月跑, 192 源要下載)。
+  ⑥ g29 同 kgecg_2017 係同一份文件登記兩次 (同 g24/sag_2025_11 同類, 會造成固有 tie)。
+  ⑦ spotlight 現 6 源 63 chunks (上限 600), 確認能經 ANN 出頭後可 prune; edbcm073_2026 仍唔出
+     (0.458 低於 bar, 設計邊界非 bug)。
+  其他 backlog: roadmap R1-R8 (dev/SYSTEM_ANALYSIS_AND_ROADMAP.md §4/§5/§7; R1 已落地);
+  Feature 2a 追問 + 2b 文件 scoped Q&A (Leonard S182 揀 sequence A)。
+
+Post-startup first action: 跑起手探針 (served app.html v3.2.2 + Render /health warm 455 + Draft
+HEAD==origin/main〔落後就 ff-pull〕+ Supabase count=exact), 然後向 Leonard 報告當前狀態同建議下一步。
+
+所有路徑含空格, 終端機指令必須用雙引號包住。改任何嘢之前, 先報告當前狀態同建議下一步。
+```
 
 ---
 
