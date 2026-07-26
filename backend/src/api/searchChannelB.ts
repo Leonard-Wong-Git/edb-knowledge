@@ -192,6 +192,26 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbc011_2026",      // S186: 教育局通告11/2026《中小學數字教育發展藍圖》正式通告 (補 DEBP corpus)
     "edbcm107_2026",     // S186: 學校落實 AI 教育規劃培訓 + AI 教師培訓 (第一期 2026/7-9)
     "edbcm113_2026",              // (auto) Option A watcher ingest
+    // S194 — 《小學資訊與創新科技課程框架》「人工智能初探」範疇（試行版）正文 (18 chunks).
+    // edbcm113_2026 is only the announcing circular (3 chunks = cover + summary); this is
+    // the framework itself, so an 「人工智能初探」query has real content to answer from.
+    "iit_ai_framework_2026",
+  ],
+  /**
+   * S194 — 公民與社會發展科 (cgss route). Its corpus reached the index by accident: the
+   * 公社科 C&A guide was stored under `ict_sss_2021` because the filename CS_CAG was read
+   * as Computer Science rather than Citizenship and Social development, so 81 chunks of
+   * this subject were served under the ICT title until S194 relabelled them to
+   * `cgss_sss_2021`. Without a route the corpus is only reachable when it happens to win
+   * the global ANN pass — measured 0.577 for 「公民與社會發展科」 but 0.484 for
+   * 「一國兩制 課程」, which loses the global window. Keywords sit AFTER value_education
+   * so 公民教育 / 德育 keep routing there, and before curriculum so the subject-specific
+   * corpus is not diluted by generic 課程 search. This is also the standing suspect for
+   * the long-running "cgss rank 低" monitor.
+   */
+  cgss: [
+    "cgss_sss_2021",
+    "ces_jss_2024",   // 公民、經濟與社會（中一至中三）— the junior-secondary feeder subject
   ],
   // ── PLAN-1b selective routes (S118) — matched before the broad production
   // categories below. SAG is intentionally allowed in `cpd`/`conduct` (their
@@ -448,6 +468,15 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g26",               // 2026/27 幼稚園收生安排指引
     "stat_kg",           // 幼稚園統計數字
     "edbc013_2026",              // (auto) Option A watcher ingest
+    // S194 — the ICT senior-secondary guides. Neither was in ANY route's SOURCE_SET, so
+    // 「資訊及通訊科技 課程指引」 routed to curriculum and could only ever return other
+    // subjects' guides (measured pre-fix: top hit g13, neither ICT source in top 8).
+    // Same "backfill-allowlist coupling" trap as the S135 entries above: ingesting a
+    // source without adding it to the route that its queries reach leaves it unreachable.
+    // ict_sss_2021 carries the real 2021 guide from S194 (116 chunks); before that its id
+    // held the 公社科 guide, now `cgss_sss_2021`.
+    "ict_sss_2021",
+    "ict_sss_2007_2015",  // superseded by the 2021 edition → SUPERSEDED_IDS penalty applies
   ],
   /*
    * Kindergarten administration / operation — 幼稚園行政手冊 + 學前機構辦學手冊 (S160).
@@ -488,6 +517,12 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // no risk of stealing finance/hr/sen queries. Routed early so 12 美德 list items
   // (堅毅/尊重他人/責任感/...) embedded in value-edu query reach the dedicated corpus.
   value_education: /價值觀教育|首要價值觀|價值觀架構|立根中華|聯通世界|擁抱未來|德育|公民教育|品德教育|品德及倫理|生命教育|國民身份認同|愛國主義教育|承擔精神|12.{0,3}首要|十二.{0,3}首要|VE_CF|VECF/i,
+  // S194 — 公民與社會發展科. MUST stay AFTER value_education: that route owns 公民教育 /
+  // 德育, and a 「公民教育」 query belongs there, not in this subject corpus. The tokens
+  // here are specific to the subject (公民與社會發展 / 公社科 / 一國兩制 / 內地考察) and
+  // appear on no other registry source, so nothing else is diverted. Kept before
+  // curriculum so the subject corpus is not diluted by generic 課程 search.
+  cgss: /公民與社會發展|公民與社會|公社科|\bCGSS\b|一國兩制|內地考察/i,
   // S183 — digital_education promoted before finance (same reason as value_education):
   // 「智啟學教 撥款」/「AI 撥款」get stolen by finance「撥款」. digital_education
   // keywords (數字教育/AI/智啟學教/etc.) are narrow + unique — finance broad queries
@@ -595,6 +630,11 @@ const QUERY_EXPANSIONS: Record<string, string> = {
   // cross-topic dilution. Includes framework slogans + 12 美德 list items.
   value_education: "價值觀教育課程架構 首要價值觀 12 首要價值觀 立根中華 聯通世界 擁抱未來 德育及公民教育 品德教育 生命教育 國民教育 國家安全教育 中華文化 堅毅 尊重他人 責任感 國民身份認同 承擔精神 誠信 仁愛 守法 同理心 勤勞 孝親 團結 全人發展 個人成長",
   curriculum: "課程指引 教學 學習目標",
+  // S194 — cgss expansion (same §EXCEPTION rationale as qa_inspection/value_education:
+  // a tight, single-subject SOURCE_SET, so bridging the subject's own vocabulary lifts
+  // recall without cross-topic dilution). Measured need: 「一國兩制 課程」 only reaches
+  // 0.484 against this corpus, which loses the global window unaided.
+  cgss: "公民與社會發展科 課程及評估指引 一國兩制 下的香港 改革開放以來的國家 互聯相依的當代世界 內地考察 專題研習 香港特別行政區 國家安全 當代世界 公民身份",
 };
 
 function expandQuery(query: string, category: string): string {
@@ -774,6 +814,12 @@ const SUPERSEDED_IDS = new Set<string>([
   // S183 — value_education framework 2026 supersedes:
   "values_edu_framework_2021_trial",
   "edbcm183_2023_values_edu",
+  // S194 — the real ICT 2021 C&A guide is now in the corpus (116 chunks), so the 2007/2015
+  // edition it replaces takes the penalty. registry `ict_sss_2007_2015.superseded_by` is the
+  // SSOT and was set in the same session. Note this rule could not be applied before now:
+  // `ict_sss_2021` previously held the 公社科 guide, so there was no 2021 ICT edition to
+  // supersede anything.
+  "ict_sss_2007_2015",
 ]);
 
 /**
@@ -810,6 +856,8 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   "edbcm094_2026", // S193: 2026/27 資助學校教職員薪酬調整 (7 chunks, crowded out by sag_2025_11)
   "edbcm073_2026", // S193: QEF 電子學習撥款 (12 chunks, S186 monitor — crowded out by DEBP corpus)
   "edbcm066_2026", // S193: 準英語教師獎學金 (14 chunks, S186 monitor — crowded out by sag/g04)
+  "iit_ai_framework_2026", // S194: 人工智能初探範疇正文 (18 chunks, measured 0.628-0.676 on its own topics)
+  "edbc013_2026",  // S194: 非本地兒童入學 (9 chunks; the eval harness caught it missing, measured 0.619)
   // ack:spotlight:end
 ];
 

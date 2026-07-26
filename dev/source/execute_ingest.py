@@ -81,9 +81,19 @@ LIVE_COMMIT_PATHS = [
     "backend/src/api/searchChannelB.ts",
 ]
 
-# display-sync touch points: where _meta.stats.chunks is mirrored. The executor's
-# live step rewrites the count in each; dry-run lists them with before -> after.
-# fmt = "raw" (15838) or "comma" (15,838).
+# display-sync touch points: where _meta.stats.chunks is mirrored as CURRENT state.
+# The executor's live step rewrites the count in each; dry-run lists them with
+# before -> after. fmt = "raw" (15838) or "comma" (15,838).
+#
+# S194 — `CHANGELOG.md` and `dev/CODEBASE_CONTEXT.md` were REMOVED from this list.
+# Both are append-only histories, not mirrors of current state, and a blind
+# whole-file replace silently rewrote past entries every single ingest: by S194
+# the S186 changelog entry read "15,656 → 15,901 (淨 +182)" — arithmetically
+# impossible — and five AI-maintenance-log entries claimed totals that postdated
+# the sessions they describe. Corrected in S194; the fix is to stop touching them
+# here. An ingest should APPEND a new entry to each (which is what they are for),
+# never restate history. Anything added to this list must hold only the current
+# total; if a file also carries history, it does not belong here.
 DISPLAY_SYNC_TARGETS = [
     ("knowledge.json", "raw"),
     ("role_facts.json", "raw"),
@@ -92,8 +102,6 @@ DISPLAY_SYNC_TARGETS = [
     ("app.html", "raw"),
     ("index.html", "comma"),
     ("README.md", "comma"),
-    ("dev/CODEBASE_CONTEXT.md", "comma"),
-    ("CHANGELOG.md", "comma"),
 ]
 
 

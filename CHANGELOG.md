@@ -6,9 +6,40 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [內容新增＋資料更正] — 2026-07-26 — 人工智能初探框架正文入庫＋修正一個長期指錯文件的來源（S194）
+
+> 平台版本維持 **v3.2.2**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines.json 2.6.1 公開 158 不變）；`_meta.stats.chunks` **15,901 → 16,035**（＋215 INSERT／−81 DELETE，淨 +134）；`source_registry.json` 248 → **250**（＋2 new sources）。
+
+### Added
+- **《小學資訊與創新科技課程框架》—「人工智能初探」範疇（試行版）** 框架正文（18 chunks，`iit_ai_framework_2026`，13 頁 text-layer，digital_education route + spotlight）。此前庫內只有公布該框架的通函 `edbcm113_2026`（3 chunks＝封面＋摘要），故「人工智能初探」查詢無實質內容可答；入庫正文係正解，並非降低 spotlight 門檻。
+- **資訊及通訊科技 課程及評估指引（中四至中六）2021** 真正文（116 chunks，`ict_sss_2021`，120 頁，curriculum route）。
+
+### Fixed
+- **`ict_sss_2021` 一直指向錯誤文件。** 該 entry 標題為《資訊及通訊科技（中四至中六）2021》，但 `url_primary` 指向 `CS_CAG_S4-6_Chi_2021.pdf` —— `CS` 被當作 Computer Science，實為 **C**itizenship and **S**ocial development，即《公民與社會發展科課程及評估指引》。結果 81 個公社科 chunks 長期掛住 ICT 標題供用戶檢索（生產環境實測：搜「公民與社會發展科」最高分結果標題為「資訊及通訊科技」），同時真 ICT 2021 指引從未入庫。修正：新增 `cgss_sss_2021` 承載該 81 chunks（**內容逐字不變**，chunk hash set 81/81 比對相同）、刪除掛錯 id 的 81 chunks、`ict_sss_2021` 改指 EDB 官方 ICT 檔並入庫真正文。
+- **`curriculum` route 從未包含任何 ICT 來源**，故「資訊及通訊科技 課程指引」查詢結構上無法返回 ICT 指引（修正前實測 top-8 內兩個 ICT 來源皆不出現）。已加入 `ict_sss_2021` + `ict_sss_2007_2015`。
+- **`edbc013_2026`（非本地兒童入學）自動入庫後從未能被檢索**（S193 spotlight 修復時未涵蓋此源）。經實測其對「非本地兒童入學」cosine 0.619 ≥ 門檻 0.60 後加入 spotlight。
+- **display-sync 一直改寫歷史記錄。** `CHANGELOG.md` 與 `dev/CODEBASE_CONTEXT.md` 原本列入 chunk 數的全檔字串取代目標，導致每次入庫都靜默改寫過往條目：本次發現 S186 條目寫成「15,656 → 15,901（淨 +182）」（算術不成立），另有 5 條 AI 維護日誌記載了發生於該 session 之後的總數。已修正受影響條目，並將兩檔從 `execute_ingest.py` 的 display-sync 目標移除（歷史檔只應追加新條目，不應反映當前值）。
+
+### Changed
+- `backend/src/api/searchChannelB.ts`：新 **`cgss` route**（SOURCE_SETS + TOPIC_KEYWORDS 置於 value_education 之後、curriculum 之前 + QUERY_EXPANSIONS）；`digital_education` +`iit_ai_framework_2026`；`curriculum` +2 ICT 來源；`SUPERSEDED_IDS` +`ict_sss_2007_2015`（2021 版真正入庫後首次可套用 S183 supersede 規則）；`SPOTLIGHT_SOURCE_IDS` +`iit_ai_framework_2026` +`edbc013_2026`。
+- `dev/source/source_registry.json`：+2 entries、`ict_sss_2021` url 更正 + `freshness_metadata` 清空待重新 baseline、`ict_sss_2007_2015.superseded_by` 設定。
+- Display-sync 7 檔（`knowledge.json` `_meta.stats.chunks` / `role_facts.json` / `dev/knowledge/role_facts.json` / `K1_API_SPEC.md` / `app.html` ×4 / `index.html` ×3 / `README.md` ×4）＋ `update_log.json` 3 條。
+
+### Added（工具，roadmap R1 + 新監察）
+- **`dev/source/eval_retrieval.py` + `dev/source/eval_queries.json`** —— Channel B 檢索 eval harness（roadmap R1）。25 條固定短 query 對 live endpoint 跑、記錄每條的 ranked source_ids、可 diff 兩次跑並區分「意圖改善」與「靜默回歸」。內建兩條規則：同文件兩次入庫（g24／sag_2025_11 文字相同、cosine 同分）的次序互換不算回歸；429／逾時記為 error 而非「零結果」。自測 24 項全綠。
+- **`dev/source/check_source_titles.py`** —— 封面標題核對監察。對每個 PDF 來源抽封面文字，與 registry 標題做確定性 CJK bigram 比對，揪出「指錯文件」這類既有監察結構上看不到的問題（freshness 只問「上游有無改」、served-url 只問「連結是否 200」，兩者對指錯文件都是綠燈）。自測 24 項全綠（含針對本次 bug 的回歸測試）。
+
+### QC
+- **內容保全機械可證**：`cgss_sss_2021` 重入庫前，比對其 chunk hash set 與 live 掛錯 id 的 81 條 —— 81/81 完全相同、雙向差集 0，故「只改標籤、內容零改動」非口頭保證。
+- **入庫前後 eval baseline**：入庫前 PASS=12／FAIL=3／RECORD_ONLY=10／errors=0；3 條 FAIL 正是本次要修的 3 項。
+- 逐源 count 核實：`cgss_sss_2021`=81、`ict_sss_2021`=116、`iit_ai_framework_2026`=18、DELETE 後 post-count=0；live 總數 **16,035** 由 Supabase `count=exact` 直查（不靠計算 delta，S190 教訓）。
+- `tsc --noEmit` exit 0；`py_compile` 全綠。
+
+---
+
 ## [內容新增] — 2026-06-28 — 2026年6月 EDB 通告／通函 14 份批次入庫（S186）
 
-> 平台版本維持 **v3.2.2**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines.json 2.6.1 公開 158 不變）；`_meta.stats.chunks` **15,656 → 15,901**（淨 +182 vault_extract chunks）；`source_registry.json` 228 → **242**（＋14 new sources）。來源：第 4 監察「new-circular watcher」(S185 建) 每日 HK 19:30 捕捉 → 人手 verbatim 入庫閘。
+> 平台版本維持 **v3.2.2**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines.json 2.6.1 公開 158 不變）；`_meta.stats.chunks` **15,656 → 15,838**（淨 +182 vault_extract chunks）；`source_registry.json` 228 → **242**（＋14 new sources）。來源：第 4 監察「new-circular watcher」(S185 建) 每日 HK 19:30 捕捉 → 人手 verbatim 入庫閘。
 
 ### Added（14 份 2026/6 通告／通函，182 chunks，全 text-layer page-resolvable）
 - **EDBCM080/2026** 2027/28學年幼稚園幼兒班收生安排（14，`edbcm080_2026`，topic=student → kg_admission route）
@@ -29,7 +60,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 - `backend/src/api/searchChannelB.ts`：9 個 route 擴 SOURCE_SETS（kg_admission/kg_admin/hr_admin/student_support/curriculum/finance/safety/activity/digital_education/gifted）；TOPIC_KEYWORDS 加 語文能力要求／語文基準／基準試／準英語教師／英語教師獎學金（hr_admin）、免費午膳／在校午膳（student_support）、數學建模（curriculum）、電子學習撥款／流動電腦裝置／上網支援（digital_education）、家校合作／家庭與學校合作／家教會（activity）、多元學習津貼（finance）；**`activity` route 提升至 `finance` 之上**（first-match precedence，防「家校合作活動整合津貼」被 finance「津貼」keyword 偷，同 S183/S184 promote pattern）。
 - `source_registry.json`：+14 source entries（228 → 242，全含 freshness_metadata）。
-- Display-sync 7 處 chunks 數 15,656 → 15,901：`role_facts.json` / `dev/knowledge/role_facts.json` / `knowledge.json`（`_meta.stats.chunks`）/ `index.html`（×3）/ `app.html`（×4）/ `K1_API_SPEC.md` / `README.md`（×4）/ `CHANGELOG.md`（本 entry）+ `update_log.json`（首頁更新日誌）。
+- Display-sync 7 處 chunks 數 15,656 → 15,838：`role_facts.json` / `dev/knowledge/role_facts.json` / `knowledge.json`（`_meta.stats.chunks`）/ `index.html`（×3）/ `app.html`（×4）/ `K1_API_SPEC.md` / `README.md`（×4）/ `CHANGELOG.md`（本 entry）+ `update_log.json`（首頁更新日誌）。
 
 ### QC
 - **Verbatim 抽取**：14 份 PyMuPDF `get_text()` 直抽、canonical chunker（600/60 page-carry）→ 182 chunks 全 page-resolvable=True，char 中位數 ~590；NUL=0；無改寫。

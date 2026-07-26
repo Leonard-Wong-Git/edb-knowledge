@@ -1,11 +1,19 @@
-# source_id: ict_sss_2021
-# title: 資訊及通訊科技 (中四至中六) 二零二一年 (於2022/23學年的中四實施並在2025年及以後的香港中學文憑考試生效)
+# source_id: cgss_sss_2021
+# title: 公民與社會發展科 課程及評估指引 (中四至中六) 二零二一年 (由2021/22學年中四級開始適用)
 # fact_type: policy
-# topic_tags: curriculum,it
+# topic_tags: curriculum
 # url: https://cs.edb.edcity.hk/file/C_and_A_guide/202106/CS_CAG_S4-6_Chi_2021.pdf
 # source_type: pdf
 # extracted: 20260501
 # pipeline: expand_vault.py (auto)
+# relabelled: 2026-07-26 (S194) — header only; body bytes untouched.
+#   This file was stored as extract_ict_sss_2021_repaged.txt and its 81 chunks were
+#   served under the title 《資訊及通訊科技 (中四至中六) 2021》. The document is not
+#   that guide: CS_CAG = Citizenship and Social development C&A Guide, read as
+#   Computer Science when the registry entry was created. Verified against the
+#   cover (公民與社會發展科 課程及評估指引) and the table of contents (「一國兩制」
+#   下的香港 / 改革開放以來的國家 / 內地考察). The real ICT 2021 guide lives at
+#   dev/vault/ict_sss_2021/ from S194 onward.
 # ============================================================
 # repaged_at: 20260526_073931_UTC
 # repaged_pages: 65

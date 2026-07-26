@@ -2,17 +2,33 @@
 
 This document establishes the official rhythm for maintaining the source registry freshness metadata and handling broken links or upstream content changes.
 
-## 0. Two complementary monitors (Method A + Method B)
+## 0. Complementary monitors (Method A + Method B + Method C)
 
 The platform has a **registry** (`source_registry.json`) and a **derived store**
 (Supabase `wiki_chunks`, which carries its own copy of each source URL). They can
-drift apart, so two monitors run weekly, each answering a different question:
+drift apart, so the monitors below each answer a different question:
 
 | | Monitor | Tests | Question answered | Weekly |
 |---|---|---|---|---|
 | **A** | `check_freshness.py` (this guide) | registry `url_primary` | *Did the upstream EDB source change / die?* | Mon 09:00 UTC |
 | — | `discover_sources.py` | EDB landing/index pages vs registry | *Is there a brand-new EDB doc we never registered?* | Mon 10:00 UTC |
 | **B** | `check_served_urls.py` | store `wiki_chunks.url` (the link a user actually clicks) | *Did the store drift from the registry — is a served link 404ing?* | Mon 11:00 UTC |
+| **C** | `check_source_titles.py` | PDF cover text vs registry title | *Is this entry pointing at the document it claims?* | not yet scheduled (S194, run on demand) |
+
+**Why C exists (S194 lesson):** A and B were both green for years on
+`ict_sss_2021` — its URL was live, stable and returned 200 — while the file it
+pointed at was a completely different document: the entry was titled
+《資訊及通訊科技（中四至中六）2021》 but served `CS_CAG_S4-6_Chi_2021.pdf`, the
+公民與社會發展科 guide (`CS` read as Computer Science instead of Citizenship and
+Social development). 81 chunks of the wrong subject were served under the ICT
+title, and the real ICT guide was never ingested. A asks "did the bytes change?",
+B asks "does the link resolve?" — **neither asks "is this the right document?"**
+C compares the PDF cover against the registry title (deterministic CJK bigram
+coverage of the title's subject phrase; no embeddings). Its output is a ranked
+triage list, not a verdict: the first full run flagged 17 of 192 and all 17 were
+benign (see the script's "Known limitations"). Ingest-time discipline is the
+cheaper half of this defence — **verify the cover names the document you think
+you are registering** (see §1a below).
 
 **Why B is non-optional here (S170 lesson):** A tested every registry URL green
 (200, errors=0) while 383 `sag_2025_11` chunks served a stale `/index.html` path
@@ -22,6 +38,21 @@ and HTTP-tests it; broken links open a `served-url-broken` Issue. Re-anchoring a
 broken served URL (Supabase UPDATE / re-ingest) stays a **manual gate**, same as
 re-ingestion below. B needs the read-only `SUPABASE_ANON_KEY` (env or, in CI, a
 repo secret). See the Playbook card `freshness-monitor-test-served-url`.
+
+## 1a. Cover-title check at ingest time (S194, mandatory)
+
+Before adding or re-pointing a registry entry, read the PDF's **cover** and
+confirm it names the document the entry claims. Filename abbreviations are not
+evidence: `CS_CAG` looks like Computer Science and is Citizenship and Social
+development. Cheapest form:
+
+```bash
+cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && python3 -c "import fitz,sys; print(fitz.open(sys.argv[1]).load_page(0).get_text()[:400])" <the.pdf>
+```
+
+Then, after the registry write, `python3 dev/source/check_source_titles.py
+--check --only <source_id>` should report `ok`. This is the ingest-time half of
+Method C; the sweep is the safety net, not the primary defence.
 
 ## 1. Monitoring Rhythm
 - **Weekly (Recommended)**: Run the freshness checker to detect broken links and record meta changes.
