@@ -20,7 +20,7 @@
     { "id": "sen_exam",       "query": "特殊教育需要 考試安排",     "expect_any": ["sen_exam_arrangements_2025"], "note": "S141 SEN backfill" },
     { "id": "pay_adjust",     "query": "教職員薪酬調整",           "expect_any": ["edbcm094_2026"], "note": "S193 spotlight（原本連自己標題都搵唔到）；刻意用最短 phrasing" },
     { "id": "net_scholar",    "query": "準英語教師獎學金",         "expect_any": ["edbcm066_2026"], "note": "S193 spotlight（S186 monitor 已修好）" },
-    { "id": "ai_intro",       "query": "人工智能初探",             "expect_any": ["edbcm113_2026"], "note": "S193 已知 miss（chunk 對此 phrasing 只 0.46）→ 本 session 入庫框架正文後應轉 PASS" },
+    { "id": "ai_intro",       "query": "人工智能初探",             "expect_any": ["iit_ai_framework_2026", "edbcm113_2026"], "note": "S193 miss（通函 chunk 對此 phrasing 只 0.46）→ S194 入庫框架正文後 rank 0 @0.628。正文係正解，通函保留為次要可接受目標" },
     { "id": "elearning_fund", "query": "電子學習撥款",             "expect_any": [], "note": "edbcm073_2026 已知 miss 0.458 = 設計邊界；record-only 監察" },
     { "id": "ict_guide",      "query": "資訊及通訊科技 課程指引",   "expect_any": ["ict_sss_2021", "ict_sss_2007_2015"], "note": "本 session 修 mislabel 前：只有 2015 版有真 ICT 內容" },
     { "id": "cgss",           "query": "公民與社會發展科",         "expect_any": [], "note": "record-only；本 session 前公社科內容錯掛 ict_sss_2021 之下" },
