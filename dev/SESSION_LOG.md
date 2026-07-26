@@ -35,6 +35,31 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-07-26 Session 193 — 修「入庫但搵唔到」根因（spotlight overlay）+ executor 可見度閘 + technology-edu 監察核實
+
+- **ID:** Claude_20260726_1219
+- **Summary:** 頂層 dormant root「開工」→ redirect Draft → 跟 §1 startup → 起手探針 4 條：served app.html v3.2.2 + 標題 200 ✅／Render `/health` warm 455 ✅／**Draft HEAD 落後 origin/main 4 個 commit**（= Option A 管道自 S192 起無人手自動入庫 4 條通告，ff-pull 同步）✅／Supabase 直連 count=exact **15,901** ✅（registry 248）。逐條 live 探測 4 條自動入庫源，揪出 **2 條連自己標題都檢索唔到** → Leonard 批「1＋2＋再加 Monitor technology-edu 課程文件頁」→ 修根因 + 補機制 + 核實監察，全部 live 驗證。
+- **Changed:**
+  - `backend/src/lib/wikiRepository.ts`：新 `searchSpotlightSources()`（按 source_id 集合做 exact-cosine，route/ANN 皆獨立，沿用 S174 footnote overlay 同一結構）+ `loadSpotlightChunks()`（按 id-set 為 key 的 process cache、`SPOTLIGHT_CHUNK_CAP=600` 上限）+ `searchFootnotes()` 加 optional `qVec` 參數（向後兼容）+ `invalidateWikiCache()` 一併清 spotlight cache。
+  - `backend/src/api/searchChannelB.ts`：`SPOTLIGHT_SOURCE_IDS`（帶 `ack:spotlight:start/end` marker 供 executor 機器插入，初始 4 條）+ `SPOTLIGHT_LEAD_SCORE=0.60` + `SPOTLIGHT_MAX_LEADS=1`；主流程加 spotlight pass（footnote lead 之後插，`forcedLeads` 追蹤位置，source 已可見則不插，套用 supersede penalty，best-effort try/catch）；raw-query embedding 抽出一次由兩個 overlay 共用（**embedding 呼叫數不變**）。
+  - `dev/source/execute_ingest.py`：新步驟 **4b spotlight 註冊**（`plan_spotlight_patch`/`live_spotlight_patch`，marker 缺失時發 warning 而非靜默）+ `post_deploy_smoke` 由「印一個無人睇的 bool」改為**真閘**（多種 phrasing 探測、報 rank、搵唔到就發 `::warning::` GitHub Actions annotation，仍非 fatal）+ `_annotate()` helper + dry-run plan/print 加 4b + docstring 步驟表。
+  - `dev/CODEBASE_CONTEXT.md`：wikiRepository/searchChannelB/execute_ingest 描述 + AI Maintenance Log。`dev/DOC_SYNC_CHECKLIST.md`：補 Option A 管道 row（原本無 row 覆蓋該機制）。
+- **Done:** commit `ef426cc` push → Render auto-deploy → **live 目標源 6/6 PASS**（edbcm113 rank 0；edbcm094 rank 2 ×3 phrasing；edbcm066 rank 2 ×2）+ synthesis grounded（「2026-27 公務員薪酬調整幅度 2%」／「英國語文科 5 級或以上」）。
+- **QC:**
+  - **根因 code-verified**（非靠推測）：`searchWiki` 向 Supabase 取**全庫** top-(top_k×5)=40，之後才在 JS 按 SOURCE_SET post-filter → 3–14 chunks 的新源要同全庫 15,901 chunks 爭 40 個位，**加 SOURCE_SET 或 TOPIC_KEYWORDS 結構上救唔到**。實測佐證：edbcm094 對自己標題 cosine **0.722** 卻完全唔出。
+  - **門檻由實測定**：on-topic 直配 0.62–0.72；**20 條敵意 off-topic probe 最高 0.563**（「學校效率津貼」vs edbcm073）→ 0.60 收 0/20 敵意。低分 merge 刻意唔做（0.45 會收 6/20）。
+  - **A/B 回歸**：本機（已修）對 prod（未修）14 條既有 query → 12 條完全相同；2 條差異**經隔離測試證明與本改動無關**——(a)「公積金 MPF」g24↔sag_2025_11 = 同一份學校行政手冊兩次入庫（`SOURCE_ALIASES`）、文字相同→cosine 完全同分 tie，**未修版本自己連跑亦會 3:3 交替**；(b)「資優教育課程」rank 7/8 近同分互換，**未修本機同樣異於 prod**（= prod-vs-local 環境差異）。另實測 OpenAI embedding 對同一輸入 **bit-identical**，排除 embedding 噪音假設。
+  - **live 回歸**：13 條既有 query → **spotlight 污染 0/13**、既有預期命中 **5/5**、**9 條仍有 footnote_curated 參與**（證明共享 embedding 未破壞 S174 路徑）。
+  - tsc exit 0 ×2；`py_compile` ✅；`discover_sources.py --self-test` ALL PASS；executor dry-run 正確顯示 4b（block 808-813、4 listed）且批准閘仍擋（`decision='no-approval-record'`）+ **零 live 寫入核實**（registry 248 / knowledge 15,901 / 無新 vault dir）。
+  - **Monitor 核實**：Leonard 指定的 `…/technology-edu/curriculum-doc/index.html` **早已在 discovery watch list**（62 頁之一，經 `tech_curr_docs` 等 12 個 registry entry 的 `url_landing`）→ **無需新增、避免重複 row**。用 `discover_sources.py` 自己的函式對該頁 11 個文件連結做 diff：**2 條未入庫**——`IIT_Summary on AI_TC.pdf`（= edbcm113 通函所公布的《人工智能初探》框架**正文**，561KB，HTTP 200）+ `ICT_C&A Guide_c_final.pdf`（2.6MB，200；registry 的 `ict_sss_2021` 指向 edcity 另一 URL，疑為 EDB 版新檔名）。
+- **Evidence disposition:** 根因機制 + 門檻實證 → 已寫入 code 註解（`SPOTLIGHT_SOURCE_IDS` 段落）+ 本 entry；當前狀態 → handoff Current Baseline S193；2 條未入庫候選 + tie 非決定性觀察 → handoff Open Priorities / 監察項；可重現 = commit `ef426cc`。
+- **Sync:** DOC_SYNC 命中「Product behavior / tuning change」（handoff + log + QC evidence ✓）；Option A 管道原本**無 row** → 已補 row（registry anti-pattern guard）；CODEBASE_CONTEXT 模組描述 + AI log 更新。**無** Supabase／registry／凍結合約（`_meta` 2.3.0 / facts 455 / guidelines 158）／`PLATFORM_VERSION`／display-sync 改動（純檢索行為修復，同 S174/S183 先例一致唔 bump）。Pages 無需 redeploy（前端零接觸）。
+- **Pending（非阻塞，待 Leonard 決）:** ① 入庫 `IIT_Summary on AI_TC.pdf`（補 edbcm113 只有 3 chunks 的先天單薄；建議做，屬 S170 monitor-driven on-demand 正路）② 核 `ICT_C&A Guide_c_final.pdf` 是否 `ict_sss_2021` 的 EDB 版／新版（可能係 URL churn 或 supersede）③ 「人工智能初探」「電子學習撥款」兩條短 query 仍唔出（chunk 對該 phrasing 只得 0.46–0.47，低於 0.60 bar；①入庫框架正文係更正確的解法，唔建議降 bar）。
+- **Risks:** ⚠️ spotlight 名單會隨每次自動入庫增長（每條 query 對其 chunk 做 exact cosine）；已設 600 chunk 上限 + code 註明「確認能經 ANN 出頭後可 prune」，目前 4 源 36 chunks。⚠️ **新揭發（非本次造成）**：g24 / sag_2025_11 係同一份文件兩次入庫、chunk 文字相同 → cosine 完全同分，Channel B 結果對呢兩個 id 存在固有非決定性（同內容，用戶無感）；日後做檢索 eval harness（roadmap R1）必須容許 tie flip，否則會出假 regression。⚠️ 本次未動 judge 門檻：spotlight lead 若 <0.70 仍過 anti-confab judge（保護不變，故某些 query 有結果但可能唔出整理答案）。
+- **Log maintenance:** §4a 檢查：加 S193 後 SESSION_LOG 仍 < 400 行、最舊 entry 2026-06-28（< 30 日）→ 唔觸發 archive。no-op。
+
+---
+
 ## 2026-07-05 Session 192 — 系統分析 + 改進路線圖 deliverable（read-only 規劃，零 code/data 改動）
 
 - **ID:** Claude_20260705_1315
