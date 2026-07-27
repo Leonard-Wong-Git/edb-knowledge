@@ -1,0 +1,1236 @@
+{
+  "_meta": {
+    "generated": "2026-07-27",
+    "session": "Claude_20260727_S195",
+    "tool": "dev/source/check_source_titles.py --check",
+    "purpose": "Accepted-state baseline for the cover-title monitor (Method C). Every flagged row below was human-reviewed in S194/S195 and found BENIGN (TOC or 引言 first page, English cover vs Chinese title, pure document-number title, curated composite title, or CID glyph soup). CI must alert on a DIFF against this baseline — a newly flagged source, a materially dropped coverage, or any `error` row — NOT on the raw flag count: gating on severity alone would fire 11 known-benign alarms every run.",
+    "summary": {
+      "ok": 180,
+      "flagged": 18,
+      "skipped": 49,
+      "no_text_layer": 3,
+      "checked": 198,
+      "error_budget": 9
+    }
+  },
+  "rows": {
+    "apl_curr_docs": {
+      "status": "ok",
+      "coverage": 0.571,
+      "matched_field": "title",
+      "severity": null
+    },
+    "arts_kla_guide_2017": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "bafs_sss_2007_2015": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "bafs_sss_2007_2020": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "bank_choice_notes": {
+      "status": "flagged",
+      "coverage": 0.444,
+      "matched_field": "title",
+      "severity": "review"
+    },
+    "bio_sss_2007_2015": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "bip_insurance_notes_2025": {
+      "status": "ok",
+      "coverage": 0.909,
+      "matched_field": "title",
+      "severity": null
+    },
+    "blnst_test_candidate_notes": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "blnst_test_notes_nondeg": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "ces_jss_2024": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "cgss_2024": {
+      "status": "ok",
+      "coverage": 0.714,
+      "matched_field": "title_short",
+      "severity": null
+    },
+    "cgss_sss_2021": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "chem_sss_2007_2018": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "chi_hist_jss_2019": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "chi_hist_jss_bilingual_2019": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "chi_hist_jss_ncs_2019": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "chi_hist_sss_2007_2015": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "chi_jss_guide_2023": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "chi_lit_guide_2025": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "chi_pri_guide_2023": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "chi_sss_guide_2021": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "circ_edbc24017": {
+      "status": "ok",
+      "coverage": 0.933,
+      "matched_field": "title",
+      "severity": null
+    },
+    "coa_imc_1_19": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "crisis_mgmt_handbook": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "ct_programming_pri_2020": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "dat_sss_2007_2015": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "dat_sss_supp_2020": {
+      "status": "ok",
+      "coverage": 0.9,
+      "matched_field": "title",
+      "severity": null
+    },
+    "debp_ai_examples": {
+      "status": "ok",
+      "coverage": 0.692,
+      "matched_field": "title",
+      "severity": null
+    },
+    "debp_ai_literacy_framework": {
+      "status": "no_text_layer",
+      "coverage": null,
+      "matched_field": null,
+      "severity": null
+    },
+    "debp_ai_teaching_guide": {
+      "status": "no_text_layer",
+      "coverage": null,
+      "matched_field": null,
+      "severity": null
+    },
+    "debp_ailf_example": {
+      "status": "ok",
+      "coverage": 0.833,
+      "matched_field": "title",
+      "severity": null
+    },
+    "debp_blueprint": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "debp_exec_summary": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "econ_sss_2007_2015": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "econ_sss_2025": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "econ_sss_supp_2015": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "econ_sss_supp_2025": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc002_2026": {
+      "status": "flagged",
+      "coverage": 0.0,
+      "matched_field": "title (low signal)",
+      "severity": "likely_wrong"
+    },
+    "edbc003_2026": {
+      "status": "flagged",
+      "coverage": 0.0,
+      "matched_field": "title (low signal)",
+      "severity": "likely_wrong"
+    },
+    "edbc005_2026": {
+      "status": "flagged",
+      "coverage": 0.0,
+      "matched_field": "title (low signal)",
+      "severity": "likely_wrong"
+    },
+    "edbc007_2026": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc008_2026": {
+      "status": "ok",
+      "coverage": 0.875,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc009_2026": {
+      "status": "ok",
+      "coverage": 0.917,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc010_2026": {
+      "status": "ok",
+      "coverage": 0.947,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc011_2026": {
+      "status": "ok",
+      "coverage": 0.929,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc012_2026": {
+      "status": "ok",
+      "coverage": 0.917,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc013_2026": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc015_2021_lpe": {
+      "status": "ok",
+      "coverage": 0.667,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc100_2002_healthy_sch": {
+      "status": "ok",
+      "coverage": 0.7,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc12_2025_ph_pri": {
+      "status": "ok",
+      "coverage": 0.846,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc13_2022_blnst": {
+      "status": "ok",
+      "coverage": 0.947,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc13_2025_pri_science": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc14_2023_student_protect": {
+      "status": "ok",
+      "coverage": 0.917,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc14_2024_spms": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc15_2022_accountability": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc15_2025_child_abuse": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc18_2008_harmonious": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc18_2019_sspa": {
+      "status": "ok",
+      "coverage": 0.909,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc18_2023_pri_science": {
+      "status": "ok",
+      "coverage": 0.947,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc197_2024_ph_pri": {
+      "status": "ok",
+      "coverage": 0.905,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc20_2023_ph_pri": {
+      "status": "ok",
+      "coverage": 0.889,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc22_2024_student_safety": {
+      "status": "ok",
+      "coverage": 0.9,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc9_2024_ph_pri": {
+      "status": "ok",
+      "coverage": 0.867,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc_tropical_cyclone_day": {
+      "status": "ok",
+      "coverage": 0.833,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbc_tropical_cyclone_night": {
+      "status": "ok",
+      "coverage": 0.833,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm060_2026": {
+      "status": "ok",
+      "coverage": 0.812,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm066_2026": {
+      "status": "ok",
+      "coverage": 0.909,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm070_2026": {
+      "status": "ok",
+      "coverage": 0.889,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm073_2026": {
+      "status": "ok",
+      "coverage": 0.867,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm076_2026": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm080_2026": {
+      "status": "ok",
+      "coverage": 0.846,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm081_2026": {
+      "status": "ok",
+      "coverage": 0.85,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm088_2026": {
+      "status": "ok",
+      "coverage": 0.889,
+      "matched_field": "title_short",
+      "severity": null
+    },
+    "edbcm089_2026": {
+      "status": "ok",
+      "coverage": 0.857,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm094_2026": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm095_2026": {
+      "status": "ok",
+      "coverage": 0.917,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm096_2026": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm107_2026": {
+      "status": "ok",
+      "coverage": 0.708,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm113_2026": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm141_2025_blnst": {
+      "status": "ok",
+      "coverage": 0.882,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm183_2023_values_edu": {
+      "status": "ok",
+      "coverage": 0.933,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm243_2024_pri_science": {
+      "status": "ok",
+      "coverage": 0.857,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm57_2024_pri_science": {
+      "status": "ok",
+      "coverage": 0.882,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm58_2024_pri_science": {
+      "status": "ok",
+      "coverage": 0.92,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm83_2020_student_care": {
+      "status": "ok",
+      "coverage": 0.818,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm98_2024_pri_science": {
+      "status": "ok",
+      "coverage": 0.846,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm_221_2025_smart_teaching": {
+      "status": "ok",
+      "coverage": 0.833,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm_major_repairs_grant": {
+      "status": "ok",
+      "coverage": 0.875,
+      "matched_field": "title",
+      "severity": null
+    },
+    "embc5_2005_appointment": {
+      "status": "ok",
+      "coverage": 0.867,
+      "matched_field": "title",
+      "severity": null
+    },
+    "emergency_repairs_guide": {
+      "status": "ok",
+      "coverage": 0.923,
+      "matched_field": "title",
+      "severity": null
+    },
+    "eng_jss_supp_2018": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title_en",
+      "severity": null
+    },
+    "eng_lit_guide_2023": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title_en",
+      "severity": null
+    },
+    "eng_nat_sec_2025": {
+      "status": "ok",
+      "coverage": 0.981,
+      "matched_field": "title_en",
+      "severity": null
+    },
+    "eng_pri_guide_2025": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title_en",
+      "severity": null
+    },
+    "eng_sss_guide_2021": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title_en",
+      "severity": null
+    },
+    "ethics_relig_sss_2007_2019": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "ethics_relig_sss_2024": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "fin_mgmt_notes_aided": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "fire_service_installation": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "fundraising_guide": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "g01": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "g02": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "g06": {
+      "status": "skipped",
+      "coverage": null,
+      "matched_field": null,
+      "severity": null
+    },
+    "g07": {
+      "status": "flagged",
+      "coverage": 0.333,
+      "matched_field": "title_short",
+      "severity": "review"
+    },
+    "g09": {
+      "status": "flagged",
+      "coverage": 0.2,
+      "matched_field": "title",
+      "severity": "likely_wrong"
+    },
+    "g10": {
+      "status": "flagged",
+      "coverage": 0.333,
+      "matched_field": "title",
+      "severity": "review"
+    },
+    "g15": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "g19": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "g21": {
+      "status": "ok",
+      "coverage": 0.833,
+      "matched_field": "title",
+      "severity": null
+    },
+    "g22": {
+      "status": "ok",
+      "coverage": 0.667,
+      "matched_field": "title_short",
+      "severity": null
+    },
+    "g23": {
+      "status": "ok",
+      "coverage": 0.667,
+      "matched_field": "title_short",
+      "severity": null
+    },
+    "g24": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "g26": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "g29": {
+      "status": "flagged",
+      "coverage": 0.0,
+      "matched_field": "title",
+      "severity": "likely_wrong"
+    },
+    "g31": {
+      "status": "flagged",
+      "coverage": 0.0,
+      "matched_field": "title",
+      "severity": "likely_wrong"
+    },
+    "g33": {
+      "status": "flagged",
+      "coverage": 0.0,
+      "matched_field": "title",
+      "severity": "likely_wrong"
+    },
+    "g35": {
+      "status": "flagged",
+      "coverage": 0.25,
+      "matched_field": "title",
+      "severity": "likely_wrong"
+    },
+    "g36": {
+      "status": "flagged",
+      "coverage": 0.333,
+      "matched_field": "title",
+      "severity": "review"
+    },
+    "g37": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "gas_odour_measures": {
+      "status": "ok",
+      "coverage": 0.857,
+      "matched_field": "title",
+      "severity": null
+    },
+    "geog_jss": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "geog_sss_2007_2022": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "geog_sss_summary_2022": {
+      "status": "ok",
+      "coverage": 0.556,
+      "matched_field": "title",
+      "severity": null
+    },
+    "geog_sss_supp_2022": {
+      "status": "ok",
+      "coverage": 0.8,
+      "matched_field": "title",
+      "severity": null
+    },
+    "geog_sss_update_brief": {
+      "status": "ok",
+      "coverage": 0.8,
+      "matched_field": "title_short",
+      "severity": null
+    },
+    "gifted_ge_series": {
+      "status": "ok",
+      "coverage": 0.6,
+      "matched_field": "title_short",
+      "severity": null
+    },
+    "gifted_osalp_compendium": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "gifted_tp_resource_kit": {
+      "status": "ok",
+      "coverage": 0.75,
+      "matched_field": "title",
+      "severity": null
+    },
+    "gs_pri_guide_2017": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "history_jss_2019": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "history_sss_2007_2015": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "hmsc_sss_2007_2015": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "hsp_drug_testing_2026": {
+      "status": "ok",
+      "coverage": 0.818,
+      "matched_field": "title",
+      "severity": null
+    },
+    "hsp_framework": {
+      "status": "ok",
+      "coverage": 0.714,
+      "matched_field": "title",
+      "severity": null
+    },
+    "icac_school_governance": {
+      "status": "ok",
+      "coverage": 0.917,
+      "matched_field": "title",
+      "severity": null
+    },
+    "ict_sss_2007_2015": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "ict_sss_2021": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "iit_ai_framework_2026": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title_short",
+      "severity": null
+    },
+    "imc_briefing_qa": {
+      "status": "ok",
+      "coverage": 0.667,
+      "matched_field": "title",
+      "severity": null
+    },
+    "imc_election_guides": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title_short",
+      "severity": null
+    },
+    "imc_establishment_operation": {
+      "status": "ok",
+      "coverage": 0.6,
+      "matched_field": "title",
+      "severity": null
+    },
+    "imc_governance_supplements": {
+      "status": "ok",
+      "coverage": 0.667,
+      "matched_field": "title",
+      "severity": null
+    },
+    "job_sharing_guide": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "k1_admission_2627": {
+      "status": "flagged",
+      "coverage": 0.333,
+      "matched_field": "title_short",
+      "severity": "review"
+    },
+    "kg_admin_guide": {
+      "status": "ok",
+      "coverage": 0.5,
+      "matched_field": "title_short",
+      "severity": null
+    },
+    "kg_admin_guide_2026": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "kg_crisis_mgmt": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "kg_operation_manual_2026": {
+      "status": "flagged",
+      "coverage": 0.0,
+      "matched_field": "title",
+      "severity": "likely_wrong"
+    },
+    "kgecg_2017": {
+      "status": "flagged",
+      "coverage": 0.0,
+      "matched_field": "title",
+      "severity": "likely_wrong"
+    },
+    "lab_prep_room_aircon": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "long_service_payment_guide": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "lpe_framework_primary": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "ls_jss_2010": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "ma_kla_guide_2017": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "ma_sss_cag_2017": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "ma_sss_diversity_2021": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "major_repairs_proc_estate": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "major_repairs_proc_nonestate": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "mce_framework_2008": {
+      "status": "no_text_layer",
+      "coverage": null,
+      "matched_field": null,
+      "severity": null
+    },
+    "music_national_anthem_2024": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "music_p1_s6_2024": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "music_sss_2015": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "music_sss_2024": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "nat_sec_edu": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title_short",
+      "severity": null
+    },
+    "occupational_safety_health": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "pe_kla_2017": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "pe_sss_2007_2015": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "pe_sss_2023": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "perf_indicators_2022": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "ph_pri_guide_2025": {
+      "status": "ok",
+      "coverage": 0.5,
+      "matched_field": "title",
+      "severity": null
+    },
+    "phys_sss_2007_2015": {
+      "status": "flagged",
+      "coverage": 0.0,
+      "matched_field": "title",
+      "severity": "likely_wrong"
+    },
+    "pri_curr_guide_2024": {
+      "status": "skipped",
+      "coverage": null,
+      "matched_field": null,
+      "severity": null
+    },
+    "pri_science_cert_course_list": {
+      "status": "ok",
+      "coverage": 0.941,
+      "matched_field": "title",
+      "severity": null
+    },
+    "pri_science_guide_2025": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "private_sch_employment_notes": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "religious_edu_jss": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "religious_edu_jss_2024": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "s4_placement_2026": {
+      "status": "ok",
+      "coverage": 0.778,
+      "matched_field": "title",
+      "severity": null
+    },
+    "safety_mgmt_committee": {
+      "status": "ok",
+      "coverage": 0.833,
+      "matched_field": "title",
+      "severity": null
+    },
+    "sag_2025_11": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "sch_activities_guide": {
+      "status": "flagged",
+      "coverage": 0.333,
+      "matched_field": "title_short",
+      "severity": "review"
+    },
+    "sch_extension_guide": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "sch_name_change_guide": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "sci_jss_framework_2025": {
+      "status": "ok",
+      "coverage": 0.75,
+      "matched_field": "title",
+      "severity": null
+    },
+    "sci_jss_supp_2017": {
+      "status": "ok",
+      "coverage": 0.75,
+      "matched_field": "title",
+      "severity": null
+    },
+    "sdp_guide": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "sec_curr_guide_2017_booklet_6a": {
+      "status": "ok",
+      "coverage": 0.947,
+      "matched_field": "title",
+      "severity": null
+    },
+    "sen_exam_arrangements_2025": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "slope_rmi_ei_notes": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "smc_constitution_sample": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "sse_tools_2025": {
+      "status": "ok",
+      "coverage": 0.769,
+      "matched_field": "title",
+      "severity": null
+    },
+    "staff_medical_health": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "stims_guide_2025": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "supply_teacher_guide": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "surplus_teacher_arr_2026": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "tdtf_report_2019": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "tech_kla_guide_2017": {
+      "status": "flagged",
+      "coverage": 0.333,
+      "matched_field": "title",
+      "severity": "review"
+    },
+    "tl_sss_2007_2015": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "tour_hosp_sss_2007_2015": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "va_p1_s6_2024": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "va_sss_2015": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "values_edu_framework_2021_trial": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "values_edu_framework_2026": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    }
+  }
+}

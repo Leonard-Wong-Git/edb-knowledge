@@ -1,7 +1,7 @@
 {
   "_meta": {
     "version": "2.6.1",
-    "updated": "2026-06-24",
+    "updated": "2026-07-27",
     "count": 158,
     "description": "EDB 指引文件連結庫 — app 內庫指引/通告全集（已剔統計數據表/申請表/壞連結），供 EDB 通告智能分析系統按通告主題提取參考文件連結。每項只含標題、簡稱、URL、年份、格式。"
   },
@@ -28,7 +28,7 @@
       "id": "g01",
       "title": "資助學校採購程序指引（2025年10月更新）",
       "titleShort": "採購程序指引",
-      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures%20in%20Aided%20Schools%20Trad%20Chi_2024.pdf",
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures_TC.pdf",
       "year": "2025",
       "format": "PDF",
       "level": "跨階段"
@@ -1112,7 +1112,7 @@
       "id": "ls_jss_2010",
       "title": "生活與社會課程指引（中一至中三）（2010年）",
       "titleShort": "生活與社會2010",
-      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/l&s_curriculum_guide_chi.pdf",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/archive/Life_and_Society/l&s_curriculum_guide_chi.pdf",
       "year": "2010",
       "format": "PDF",
       "level": "中學"

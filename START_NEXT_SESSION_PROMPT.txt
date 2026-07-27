@@ -4,45 +4,52 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
 (Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
 
-Current state (S194, 2026-07-26): 平台 v3.2.2; Supabase 16,035 chunks; source_registry 250;
-HEAD==origin/main (744af53 + S194 closeout commit; code commit 3f2c9d9); 凍結合約 _meta 2.3.0 /
-facts 455 / guidelines 158; 0 outstanding bug. 自動化 active: 4 源監察 (discover / freshness /
+Current state (S195, 2026-07-27): 平台 v3.2.2; Supabase 16,035 chunks; source_registry 250;
+HEAD==origin/main; 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158 (guidelines.json v2.6.1,
+_meta.updated 2026-07-27); 0 outstanding bug. 自動化 active: 4 源監察 (discover / freshness /
 served-url / new-circular) + Option A 自動入庫管道 (OPERATIONAL; 每日 19:30 HK refresh Issue +
-@mention-on-new; cron 20:00 HK 兜底). 第 5 監察 (封面核對 check_source_titles.py) 已建但未接 CI.
+@mention-on-new; cron 20:00 HK 兜底). 第 5 監察 (封面核對 check_source_titles.py) 已建但仍未接 CI.
 
 ⚠️ 管道會自行入庫並直接 push main — 開工時本地可能落後 origin/main, tree 乾淨 + 0 本地 commit
 時先 git pull --ff-only 同步。
 
-📋 S194 修好: (1) ict_sss_2021 一直指錯文件 — 標題寫《資訊及通訊科技 2021》但 url 指
-CS_CAG_S4-6_Chi_2021.pdf, CS = Citizenship and Social development 而非 Computer Science → 81 個
-公社科 chunks 長期掛 ICT 標題 (prod 實測 top-1 標題錯配), 真 ICT 2021 從未入庫, 且 curriculum
-route 從未有任何 ICT 源。已新立 cgss_sss_2021 承載該 81 chunks (hash set 81/81 相同, 內容逐字
-不變) + 入真 ICT 正文 116 chunks + 新 cgss route + SUPERSEDED_IDS。(2) 入庫《人工智能初探》框架
-正文 iit_ai_framework_2026 (18 chunks)。(3) display-sync 全檔字串取代一直靜默改寫 CHANGELOG /
-CODEBASE_CONTEXT 歷史條目 — 已修正並將兩檔移出 DISPLAY_SYNC_TARGETS (歷史檔只追加, 唔反映當前值)。
+📋 S195 做咗: 清兩條積咗 4 星期嘅死連結, 零內容改動。(1) g01 資助學校採購程序指引 (34 chunks)
+上游改名、ls_jss_2010 生活與社會 (251 chunks) 搬入 PSHE 檔案庫 — 兩條都 re-crawl 揾返真檔, 逐頁
+比對 30/30 同 183/183 頁完全相同 → 判定 re-point 而非 re-ingest, Supabase 只改 url 欄 285 行
+(#page= 錨點保留), count=exact 16,035 前後同值。(2) 同一條 URL 原來散落 6 處: registry / app.html
+GUIDELINES_REGISTRY / guidelines.json / data.json / secmeta.json / Supabase — 已全部對齊;
+guidelines.json 用 build_guidelines.py --write 重生 (DOC_SYNC row 35: NEVER hand-edit)。
+(3) 5 條 registry 寫 pdf 但 URL serve HTML 已更正, 全部證實零用戶影響。
 ⚠️ 動 backend 檢索前必讀 dev/SESSION_LOG.md S194 QC 段 + S193 QC 段 (門檻實證 + tie-flip 陷阱)。
+⚠️ 外部來源 URL 404 唔好照 re-point: 先逐頁比對確認係改名定改版 (playbook 方法 B + 
+   freshness-monitor-test-served-url 卡)。S195 兩條係改名 (可 re-point), g18 係改版 (要 re-ingest)。
 
-🛠 新工具 (動檢索前後都應該用):
+🛠 常用指令:
+  python3 dev/source/check_served_urls.py --check        # 全掃 268 URL, ~8 分鐘
+  python3 dev/source/check_source_titles.py --check      # 封面核對, 192 PDF, 較慢
   python3 dev/source/eval_retrieval.py --self-test
   python3 dev/source/eval_retrieval.py --run --out after.json
-  python3 dev/source/eval_retrieval.py --compare dev/source/eval_runs/2026-07-26_s194_post_ingest.json after.json
   任何檢索改動 (SOURCE_SETS / TOPIC_KEYWORDS / spotlight / supersede / 門檻) 都要有一對
-  before→after run 作證據 (DOC_SYNC 已登記)。入新源前跟 FRESHNESS_GUIDE §1a 核封面標題。
+  before→after run 作證據。入新源前跟 FRESHNESS_GUIDE §1a 核封面標題。
 
 🔜 NEXT (優先序):
-  ① 【需 Leonard 拍板, 唯一未解項】anti-confab judge 門檻: 新入 vault_extract 源檢索命中但整理
-     答案被拒 (人工智能初探 0.628 / 資訊及通訊科技 課程指引 0.624, 低於 S183 的 vault_extract
-     ≥0.70 bypass)。已用控制組證實屬既有門檻行為、非 S194 regression。選項 (a) 唔改, 用戶仍見
-     正確來源+頁碼 (b) 降至 ~0.60 — 會重開 S177 confab 區間 0.55-0.65, 必須先做 20+ 條敵意
-     probe (c) 針對裸名詞短 query 改良 judge prompt (另開 PLAN)。唔好未做敵意測試就降門檻。
-  ② 2 條真 404: g01 / ls_jss_2010 (封面掃描副產品, 走 §D.12 landing-page re-discovery)。
-  ③ 5 條 registry 寫 source_type=pdf 但 URL serve HTML: g30 / g31 / g21 / g22 / religious_edu_jss。
+  ① 【需 Leonard 拍板】g18 校車安全指引 404 要 re-ingest: 上游 2025/26 版落架, 出咗 2026/27 版
+     (6 頁 vs 庫內 8 頁, 只 3/8 頁相同) = 改版非改名, 照 re-point 會造成引文錯配。同頁另有
+     Drivers/Escorts/Operators/Parents/Students 五份 2026 版未入庫。GitHub Issue #4 追緊。
+  ② 【需 Leonard 拍板, S194 留低】anti-confab judge 門檻: 新入 vault_extract 源檢索命中但整理
+     答案被拒 (0.628 / 0.624, 低於 S183 的 vault_extract ≥0.70 bypass)。選項 (a) 唔改
+     (b) 降至 ~0.60 — 必須先做 20+ 條敵意 probe (c) 改良 judge prompt。唔好未做敵意測試就降門檻。
+  ③ 【已開 Issue #5】g21/g22 引文頁碼/文件錯配: g22 全部頁碼錯開一頁; g21 的 vault 係小學版+
+     中學版兩份 PDF 串埋, 49 條 chunks 全掛小學版 URL。五個監察結構上都睇唔到 (URL 200、封面對)。
   ④ 只有 Leonard 做得到: 確認 PUBLISH_PAT 係 fine-grained、只限 edb-circular-site contents:write。
-  ⑤ 把封面核對接入 CI (建議月跑, 192 源要下載)。
-  ⑥ g29 同 kgecg_2017 係同一份文件登記兩次 (同 g24/sag_2025_11 同類, 會造成固有 tie)。
-  ⑦ spotlight 現 6 源 63 chunks (上限 600), 確認能經 ANN 出頭後可 prune; edbcm073_2026 仍唔出
-     (0.458 低於 bar, 設計邊界非 bug)。
-  其他 backlog: roadmap R1-R8 (dev/SYSTEM_ANALYSIS_AND_ROADMAP.md §4/§5/§7; R1 已落地);
+  ⑤ 把封面核對接入 CI — 唔可以直接接: S195 全掃證實 11 條 likely_wrong 全部良性, 用 severity
+     做 gate 會每次出 11 個假警報。要先加 baseline-diff (--baseline/--compare + self-test), 只對
+     新 flag / 覆蓋率跌 / error 開 Issue。基準已 commit: dev/source/title_baseline.json (203 源)。
+  ⑥ 重複登記: g29=kgecg_2017、g31=eng_pri_guide_2025 (S195 新確認, 已標 related_source_ids)。
+  ⑦ spotlight 現 6 源 63 chunks (上限 600), 確認能經 ANN 出頭後可 prune。
+  ⑧ 【低優先, 需拍板】religious_edu_jss 已修好直連 PDF (2024 版), 但 app.html 仍標 broken-url
+     被 build_guidelines.py 剔走; 修好會令公開 guidelines 158 → 159 = 郁凍結 count。
+  其他 backlog: roadmap R1-R8 (dev/SYSTEM_ANALYSIS_AND_ROADMAP.md §4/§5/§7);
   Feature 2a 追問 + 2b 文件 scoped Q&A (Leonard S182 揀 sequence A)。
 
 Post-startup first action: 跑起手探針 (served app.html v3.2.2 + Render /health warm 455 + Draft

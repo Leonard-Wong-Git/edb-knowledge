@@ -35,6 +35,47 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-07-27 Session 195 — 清兩條積咗 4 星期嘅死連結（re-point 非 re-ingest，逐頁比對作證）＋ registry↔store drift 整理
+
+- **ID:** Claude_20260727_S195
+- **Summary:** Draft root 開工 → §1 startup → 起手探針 4/4 綠（served v3.2.2 / Render warm 455 / HEAD==origin/main `138588a` tree 乾淨、**無新 bot commit** / Supabase count=exact 16,035）→ 我報狀態並建議「① judge 門檻交 Leonard 拍板、②③ registry 衛生我做」→ Leonard「跟你建議」→ **READ 階段兩度發現實況超出我原述、按 §3 停低報告** → Leonard 兩個決定（Supabase 一齊修／g21-g22 只記錄）→ 執行 + 全掃驗證。
+- **§3 兩次停低（值得記低的過程）:**
+  1. 我原本同 Leonard 講「②③ 唔碰 Supabase 內容，只係修 registry」。查實發現**錯**：`wiki_chunks` 每條 chunk 自己帶一份 url，`g01` 34 條 + `ls_jss_2010` **251 條**服務緊死連結，即係用戶真係撳到 404，唔修 Supabase 等於冇修。停低講清楚 → Leonard 批「registry + Supabase 一齊修」。
+  2. 動手時再 grep 發現同一條 URL 散落 **6 處**（registry / `app.html` GUIDELINES_REGISTRY / `guidelines.json` / `data.json` / `dev/checklists/_src/secmeta.json` / Supabase），其中 `guidelines.json` 屬凍結合約檔。無再開多一次會，改為：全部一次過對齊 + **機械核實凍結不變量**（見 QC），並在本 entry 明確記錄。
+- **Changed:**
+  - `dev/source/source_registry.json`：7 條 entry、23 個欄位。`g01`／`ls_jss_2010` url 重錨 + `freshness_metadata` 清空（舊 etag/hash 屬舊檔）；`g21`／`g22` url_primary 由 landing 改為 store 實際供應的直連 PDF；`g31` 指返真身 PDF + `related_source_ids=[eng_pri_guide_2025]`；`g30` `source_type` pdf→html；`religious_edu_jss` 揾返直連 PDF、標題／`version_label` 按封面更正為 2024 版、status candidate→verified。每條都寫低理由入該條目自己的 `notes`。
+  - `app.html`（GUIDELINES_REGISTRY 2 條 url）／`data.json`（2 處）／`dev/checklists/_src/secmeta.json`（1 處）：同兩條 URL 對齊。
+  - `guidelines.json`：**用 `dev/build_guidelines.py --write` 重生**（DOC_SYNC row 35 明令 NEVER hand-edit）。先手改再重生對照，證實兩者除 `_meta.updated` 外**逐字相同**，即手改內容正確但改用官方路徑產出。
+  - Supabase `wiki_chunks.url`：**285 行**（g01 32＋1＋1／ls_jss_2010 251），按 distinct url 分組 PATCH 以原樣保留 `#page=17`／`#page=5` 錨點。
+  - `CHANGELOG.md` 新條目（含 Known issues 段）。GitHub：Issue #4 補修復證據 + 範圍說明；**新開 Issue #5**（g21／g22 引文錯配）。
+- **Done:** 2 條 404 修好並 live 驗；5 條 pdf-serve-HTML 更正；3 項新發現記錄在案。
+- **根因（②，比 handoff 描述深）：** handoff 把呢兩條寫成「封面掃描副產品」，實情係 **served-URL 監察（第 3 監察）早在 2026-06-29 就準確捉到並開咗 Issue #4，一直開住 4 個星期無人跟進**。監察系統健康，債係流程上冇人 close the loop。兩條的上游成因唔同：`g01` = 上游改名（`…Trad Chi_2024.pdf`→`Guidelines on Procurement Procedures_TC.pdf`）；`ls_jss_2010` = 搬入 `/pshe/archive/Life_and_Society/`。兩者皆用 playbook `external-source-url-churn-rediscovery` 方法 B（re-crawl landing／archive 頁）揾返。
+- **QC:**
+  - **re-point vs re-ingest 的判斷有機械證據**：重抽兩份新檔逐頁比對已入庫 vault（空白正規化後全字串相等）→ `g01` **30/30 頁相同**、`ls_jss_2010` **183/183 頁相同** → 判定純搬位／改名，只需改 url。呢一步係跟 playbook `freshness-monitor-test-served-url` 的警告（「churn 唔可單純 re-point」）做的**反向舉證**，唔係口頭假設。
+  - **blast radius 先行**：Supabase 改動前印出每個 distinct url 的行數同新值俾人眼過（285 行），PATCH 逐組 assert `rows_updated == rows_expected`，之後查舊 url 殘留 = **0**、`count=exact` **16,035 前後同值**。
+  - **凍結合約機械核實**：`knowledge.json` + `role_facts.json` sha256 前後相同；`guidelines.json` `_meta` version 2.6.1 / count 158 / 實際條目 158 不變；`PLATFORM_VERSION` 3.2.2 不變。`build_guidelines.py --self-test` PASS（registry 167 / public 158 / dropped 9）。
+  - **監察全掃驗證**：`check_served_urls.py --check` → **268 distinct URL / 268 checked / 267 OK / 1 broken / 0 errors**（修前 2 broken）。
+  - **live 驗**：Channel B「資助學校採購程序」→ `g01` rank 1/2/3 且 url 已係新值（含 `#page=17` 錨點）；「核心單元 個人成長 青少年壓力 抗逆力 生活與社會」→ `ls_jss_2010` **rank 0 @0.715 p.30**，而 vault p.30 正正係該段內容，即頁碼錨點對得上。
+  - **eval before→after 對：N/A 且已說明理由** —— 本次零檢索邏輯改動（無 SOURCE_SETS／TOPIC_KEYWORDS／spotlight／supersede／門檻改動），`url` 欄不參與 embedding 亦不參與排序。唔跑唔係慳工夫，係唔想製造無意義的 tie-flip 噪音。
+- **本次揪出、未修（3 項）:**
+  1. **`g18` 校車安全指引 404（新鮮壞）** —— 2026-07-20 那次監察仲係綠的，即係呢 7 日內先壞。re-crawl 發現上游已出 2026/27 版（`2026_Guidelines_Schools_TC.pdf`，6 頁）而庫內係 2025/26 版（8 頁），逐頁比對**只有 3/8 頁相同** → **改版非改名，照 re-point 會製造 S194 那類引文錯配**，需 re-ingest。未做（需 Leonard 拍板）。同頁另有 Drivers／Escorts／Operators／Parents／Students 五份 2026 版從未入庫。
+  2. **`g21`／`g22` 引文錯配（Issue #5）** —— 驗 g21/g22 的 vault 對唔對得上服務中的 PDF 時發現：g22 vault 51 頁 vs PDF 52 頁，**offset +1 時 50/51 頁相同**（頁碼系統性錯開一頁）；g21 更嚴重，vault 46 頁 = 小學版（22 頁）+ **中學版 `VAsafety_sec_c.pdf`** 兩份串埋，但 49 條 chunks 全部掛小學版 url，即約一半引文指向一份佢哋唔屬於嘅 22 頁文件、錨點 `#page=23`…`#page=46` 指去檔尾之外。**同 S194 `ict_sss_2021` 同一家族**；五個監察結構上全部睇唔到（URL 回 200、封面同標題對得上、bytes 冇變）。Leonard 指示只記錄。
+  3. **`religious_edu_jss` 入公開指引庫** —— 直連 PDF 已修好，但 `app.html` 該條仍標 broken-url，被 `build_guidelines.py` 當 dropped 剔走；修好會令公開 guidelines **158 → 159**，屬凍結 count 變動，未做。
+- **Evidence disposition:** 當前狀態→handoff Current Baseline S195 block；逐頁比對數字／285 行 blast radius／全掃結果／live rank＝kept as recent trace evidence（本 entry）；每條 registry 改動理由→已寫入 registry 各條目 `notes`（下一個 agent 淨睇 registry 就知）；未修 3 項→Open Priorities ①③⑧ + GitHub Issue #4／#5（跨工具留底）；用戶面→CHANGELOG。
+- **Sync:** DOC_SYNC 命中 3 row（guidelines.json/app.html GUIDELINES_REGISTRY ✓ 照 row 用 `--write` 重生／Doc-drift truth-pass ✓／Channel-B vault backfill 部分適用 —— registry + url 對齊，無 SOURCE_SETS 改動故 eval 對 N/A）。**`update_log.json` 判定 N/A**：該日誌按 S190 定案只記「新源入庫／既有源重大更新」，純連結修復屬維護，入去只會製造雜訊。凍結合約 + `PLATFORM_VERSION` 零接觸（機械核實）。Pages 隨 push redeploy（app.html／guidelines.json／data.json 有改）。
+- **Risks:** ⚠️ `g18` 仍然 404，用戶撳「開啟」會壞（9 chunks，範圍細但係真故障）—— Issue #4 開住。⚠️ g21／g22 引文錯配仍在生產（Issue #5）。⚠️ 本次示範咗一個結構性問題：**同一條來源 URL 在 repo 內有 6 份副本，只有其中一份（Supabase）有監察**；registry／`app.html`／`guidelines.json`／`data.json`／`secmeta.json` 五份無人測。日後若再有 URL churn，其餘五處會靜默 stale（本次係人手 grep 揾返）。
+- **Log maintenance:** `python3 docs/qa/session_log_maintenance.py --check` → **trigger=False**（line_count=289 / entry_count=4，兩個 trigger 都未到）→ no-op，唔需要 archive（S194 啱啱跑過一次 archive，剩 3 entries）。
+
+### Next Session Handoff Prompt (Verbatim)
+
+📋 Next session: agent-managed startup content below
+
+（見 `dev/SESSION_HANDOFF.md` 的 `Next Session Opening Message` fenced block —— 本 session 已重生，並已鏡像至 `START_NEXT_SESSION_PROMPT.txt`，mirror check byte-for-byte PASS。）
+
+<!-- ack:log-entry:end -->
+
+---
+
 ## 2026-07-26 Session 194 — 修一個長期指錯文件的來源 + 人工智能初探框架正文入庫 + roadmap R1 eval harness + 封面核對監察 + R5 sibling 審計
 
 - **ID:** Claude_20260726_S194

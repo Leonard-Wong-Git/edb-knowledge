@@ -6,6 +6,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [連結修復＋來源登記整理] — 2026-07-27 — 修復兩條長期壞死的文件連結（S195）
+
+> 平台版本維持 **v3.2.2**（`PLATFORM_VERSION` 不變）。凍結合約全部零接觸：`knowledge.json` `_meta.version` **2.3.0**、facts **455**、`guidelines.json` **2.6.1 / 158**（僅 `_meta.updated` 隨重生更新為 2026-07-27）。Supabase chunk 總數 **16,035 不變**（只改 `url` 欄，無 INSERT／DELETE）；`source_registry.json` **250 不變**（只改既有條目欄位）。
+
+### Fixed
+- **《資助學校採購程序指引》連結 404（`g01`，34 chunks）。** 教育局將檔案改名（`…Trad Chi_2024.pdf` → `Guidelines on Procurement Procedures_TC.pdf`），舊連結自約 2026-06-29 起 404。已重新指向新檔；重抽新檔逐頁比對已入庫內文，**30/30 頁完全相同**，故只更新連結、無需重新入庫。
+- **《生活與社會課程指引（中一至中三）（2010年）》連結 404（`ls_jss_2010`，251 chunks）。** 教育局將檔案搬入個人、社會及人文教育學習領域的檔案庫（`/pshe/archive/Life_and_Society/`）。已重新指向；**183/183 頁完全相同**，同樣只更新連結。
+- 兩條連結的所有副本一併更正：`source_registry.json`、`app.html` 指引文件庫、`guidelines.json`（經 `dev/build_guidelines.py --write` 重生，非手改）、`data.json`、`dev/checklists/_src/secmeta.json`，以及 Supabase `wiki_chunks.url` **285 行**（`#page=` 錨點原樣保留）。
+
+### Changed
+- **5 條 `source_type=pdf` 但連結指向網頁的登記已整理**：`g21`／`g22` 的 `url_primary` 改為資料庫實際供應的直連 PDF（登記追上實況）；`g31` 改指其真身 PDF 並標明與 `eng_pri_guide_2025` 為同一份文件；`g30` 的 `source_type` 由 `pdf` 更正為 `html`（已退役的入口頁）；`religious_edu_jss` 找回直連 PDF —— 封面核實為《宗教教育課程指引（中一至中三）》**二零二四年**版，標題與版本標籤按封面更正，狀態由 `candidate` 改為 `verified`（尚未入庫）。
+
+### Known issues（本次發現，未修）
+- **`g18` 學童乘搭校車的安全指引連結 404。** 教育局已改出 2026/27 版（6 頁），庫內為 2025/26 版（8 頁），僅 3/8 頁相同 —— 屬**內容改版而非改名**，需重新入庫而非改連結，待決定。
+- **`g21`／`g22` 引文頁碼錯開一頁**；`g21` 更有約一半 chunks 實際來自中學版《視覺藝術科安全指引》卻掛住小學版連結。詳見 GitHub issue #5。
+
+---
+
 ## [內容新增＋資料更正] — 2026-07-26 — 人工智能初探框架正文入庫＋修正一個長期指錯文件的來源（S194）
 
 > 平台版本維持 **v3.2.2**（`PLATFORM_VERSION` 不變）。`knowledge.json` `_meta.version` 維持凍結 **2.3.0**（facts 455 / guidelines.json 2.6.1 公開 158 不變）；`_meta.stats.chunks` **15,901 → 16,035**（＋215 INSERT／−81 DELETE，淨 +134）；`source_registry.json` 248 → **250**（＋2 new sources）。
