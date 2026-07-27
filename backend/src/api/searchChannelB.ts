@@ -872,18 +872,29 @@ const SPOTLIGHT_LEAD_SCORE = 0.6;
 const SPOTLIGHT_MAX_LEADS = 1;
 const SPOTLIGHT_SOURCE_IDS: string[] = [
   // ack:spotlight:start
-  // S195 prune. Each entry was re-tested against the MAIN path it is meant to compensate for:
-  // whole-index ANN, top_k*5 = 40 candidates, min_score 0.22 — the same over-fetch that starved
-  // these sources in S193. Four now enter that pool at rank 0 with a clear margin, so the overlay
-  // is no longer what carries them and they were removed:
-  //   edbcm113_2026 rank 0 @0.622 · edbcm094_2026 rank 0 @0.690
-  //   edbcm066_2026 rank 0 @0.696 · iit_ai_framework_2026 rank 0 @0.671
-  // The two below stay: they reach the pool only deep or weakly, which is exactly the condition
-  // the overlay exists for. Re-measure before pruning either.
-  "edbcm073_2026", // S193: QEF 電子學習撥款 (12 chunks). S195: ANN rank 6 @0.396 — and 0.458 on its
-                   // own topic is under the 0.60 lead bar anyway, so it is a known design edge, not a bug.
-  "edbc013_2026",  // S194: 非本地兒童入學 (9 chunks). S195: ANN rank 13 @0.542 — reaches the pool but
-                   // deep enough that route filtering can still lose it.
+  // S195 — a prune was attempted here and REVERTED the same session. All six stay.
+  //
+  // The attempt tested each source against the main path's whole-index ANN pool
+  // (top_k*5 = 40, min_score 0.22) and found four entering at rank 0, which looked
+  // like the overlay was no longer carrying them. The before/after eval pair says
+  // otherwise: removing them turned ai_intro, net_scholar and pay_adjust from PASS
+  // to FAIL, each losing exactly the source that had been pruned.
+  //
+  // The flaw was in the probe, not the overlay: it scored each source against
+  // phrasings chosen to describe it ("人工智能初探 學與教"), while the queries that
+  // matter are the bare short ones real users type ("人工智能初探") — and the
+  // production path also expands queries before embedding, so the pool a probe sees
+  // is not the pool production sees. Testing reachability with your own generous
+  // phrasing measures the phrasing, not the retrieval.
+  //
+  // Before pruning any entry here, run dev/source/eval_retrieval.py before and after
+  // against the LIVE endpoint. That pair is the only evidence that counts.
+  "edbcm113_2026", // S193: 小學資訊與創新科技課程框架「人工智能初探」(3 chunks, ANN-starved in digital_education)
+  "edbcm094_2026", // S193: 2026/27 資助學校教職員薪酬調整 (7 chunks) — S195 eval: pruning broke pay_adjust
+  "edbcm073_2026", // S193: QEF 電子學習撥款 (12 chunks, S186 monitor — crowded out by DEBP corpus)
+  "edbcm066_2026", // S193: 準英語教師獎學金 (14 chunks) — S195 eval: pruning broke net_scholar
+  "iit_ai_framework_2026", // S194: 人工智能初探範疇正文 (18 chunks) — S195 eval: pruning broke ai_intro
+  "edbc013_2026",  // S194: 非本地兒童入學 (9 chunks; the eval harness caught it missing, measured 0.619)
   // ack:spotlight:end
 ];
 
