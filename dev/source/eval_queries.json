@@ -1,34 +1,248 @@
 {
   "_comment": "Channel B retrieval eval set (roadmap R1). SSOT for the fixed query set used by dev/source/eval_retrieval.py. `expect_any` = PASS if ANY of these source_ids appears in the returned top_k. Keep queries SHORT (2-6 tokens) per the S183 governance rule 4 — real users type short queries. `expect_any: []` means 'record only, no assertion' (used for known design-boundary misses we still want to watch).",
   "_tie_aliases": [
-    ["g24", "sag_2025_11"]
+    [
+      "g24",
+      "sag_2025_11"
+    ]
   ],
   "_tie_aliases_comment": "Same document ingested twice with identical chunk text → identical cosine → the order between them is inherently non-deterministic (verified S193: the unmodified build alternates 3:3 on repeat runs). Comparison treats them as one identity so this never reports a false regression.",
   "queries": [
-    { "id": "mpf",            "query": "公積金 MPF",              "expect_any": ["g24", "sag_2025_11"], "note": "S178 MPF 漏答修復 + tie pair" },
-    { "id": "gifted",         "query": "資優教育課程",             "expect_any": ["g14", "gifted_policy_docs", "g13", "sec_curr_guide_2017_booklet_6a"], "note": "gifted route" },
-    { "id": "sef",            "query": "學校效率津貼",             "expect_any": ["edbc008_2026"], "note": "S184 digital_education route, 防被 finance「津貼」偷" },
-    { "id": "values_edu",     "query": "價值觀教育",               "expect_any": ["values_edu_framework_2026"], "note": "S183 supersede penalty：2026 正式版要壓過 2021 試行版（id 由 registry 核實，handoff 簡寫 VE_CF_2026 唔係真 id）" },
-    { "id": "values_12",      "query": "12 首要價值觀",            "expect_any": ["values_edu_framework_2026"], "note": "S183 短 query" },
-    { "id": "smart_teaching", "query": "智啟學教",                 "expect_any": ["edbcm_221_2025_smart_teaching"], "note": "S183 digital_education 提到 finance 之上" },
-    { "id": "teacher_reg",    "query": "教師註冊",                 "expect_any": [], "note": "S181 footnote 13 條；record-only（多源合理）" },
-    { "id": "substitute",     "query": "代課教師 批准",            "expect_any": [], "note": "S174 footnote 修正 hallucination（30日→6個月）" },
-    { "id": "school_rent",    "query": "出租校舍 租金",            "expect_any": [], "note": "S178 tips #27（40% 入政府帳）" },
-    { "id": "procurement",    "query": "採購 不得拆單",            "expect_any": [], "note": "S178 tips #28（12 個月累計 $50k/$200k）" },
-    { "id": "imc",            "query": "SMC IMC",                  "expect_any": ["smc_constitution_sample", "imc_establishment_operation", "imc_governance_supplements", "imc_briefing_qa", "g30", "g31", "coa_imc_1_19", "g02"], "note": "S166 英文縮寫 retrieval 修復（ids 由 registry 核實）" },
-    { "id": "kg_admission",   "query": "幼稚園收生",               "expect_any": [], "note": "kg_admission route" },
-    { "id": "sen_exam",       "query": "特殊教育需要 考試安排",     "expect_any": ["sen_exam_arrangements_2025"], "note": "S141 SEN backfill" },
-    { "id": "pay_adjust",     "query": "教職員薪酬調整",           "expect_any": ["edbcm094_2026"], "note": "S193 spotlight（原本連自己標題都搵唔到）；刻意用最短 phrasing" },
-    { "id": "net_scholar",    "query": "準英語教師獎學金",         "expect_any": ["edbcm066_2026"], "note": "S193 spotlight（S186 monitor 已修好）" },
-    { "id": "ai_intro",       "query": "人工智能初探",             "expect_any": ["iit_ai_framework_2026", "edbcm113_2026"], "note": "S193 miss（通函 chunk 對此 phrasing 只 0.46）→ S194 入庫框架正文後 rank 0 @0.628。正文係正解，通函保留為次要可接受目標" },
-    { "id": "elearning_fund", "query": "電子學習撥款",             "expect_any": [], "note": "edbcm073_2026 已知 miss 0.458 = 設計邊界；record-only 監察" },
-    { "id": "ict_guide",      "query": "資訊及通訊科技 課程指引",   "expect_any": ["ict_sss_2021", "ict_sss_2007_2015"], "note": "本 session 修 mislabel 前：只有 2015 版有真 ICT 內容" },
-    { "id": "cgss",           "query": "公民與社會發展科",         "expect_any": [], "note": "record-only；本 session 前公社科內容錯掛 ict_sss_2021 之下" },
-    { "id": "cgss_topic",     "query": "一國兩制 課程",            "expect_any": [], "note": "record-only；同上，用另一 phrasing 探公社科內容" },
-    { "id": "nonlocal",       "query": "非本地兒童入學",           "expect_any": ["edbc013_2026"], "note": "S192-193 管道自動入庫源" },
-    { "id": "my_pledge",      "query": "我的行動承諾",             "expect_any": ["edbcm076_2026"], "note": "S192-193 管道自動入庫源" },
-    { "id": "home_school",    "query": "家校合作活動整合津貼",      "expect_any": ["edbcm070_2026", "edbcm060_2026"], "note": "S186 activity route 提到 finance 之上，防「津貼」被偷" },
-    { "id": "school_safety",  "query": "校舍安全 EMSD",            "expect_any": [], "note": "S181 footnote 13 條" },
-    { "id": "ncs",            "query": "非華語學生 支援",          "expect_any": [], "note": "S181 footnote 18 條" }
+    {
+      "id": "mpf",
+      "query": "公積金 MPF",
+      "expect_any": [
+        "g24",
+        "sag_2025_11"
+      ],
+      "note": "S178 MPF 漏答修復 + tie pair"
+    },
+    {
+      "id": "gifted",
+      "query": "資優教育課程",
+      "expect_any": [
+        "g14",
+        "gifted_policy_docs",
+        "g13",
+        "sec_curr_guide_2017_booklet_6a"
+      ],
+      "note": "gifted route"
+    },
+    {
+      "id": "sef",
+      "query": "學校效率津貼",
+      "expect_any": [
+        "edbc008_2026"
+      ],
+      "note": "S184 digital_education route, 防被 finance「津貼」偷"
+    },
+    {
+      "id": "values_edu",
+      "query": "價值觀教育",
+      "expect_any": [
+        "values_edu_framework_2026"
+      ],
+      "note": "S183 supersede penalty：2026 正式版要壓過 2021 試行版（id 由 registry 核實，handoff 簡寫 VE_CF_2026 唔係真 id）"
+    },
+    {
+      "id": "values_12",
+      "query": "12 首要價值觀",
+      "expect_any": [
+        "values_edu_framework_2026"
+      ],
+      "note": "S183 短 query"
+    },
+    {
+      "id": "smart_teaching",
+      "query": "智啟學教",
+      "expect_any": [
+        "edbcm_221_2025_smart_teaching"
+      ],
+      "note": "S183 digital_education 提到 finance 之上"
+    },
+    {
+      "id": "teacher_reg",
+      "query": "教師註冊",
+      "expect_any": [],
+      "note": "S181 footnote 13 條；record-only（多源合理）"
+    },
+    {
+      "id": "substitute",
+      "query": "代課教師 批准",
+      "expect_any": [],
+      "note": "S174 footnote 修正 hallucination（30日→6個月）"
+    },
+    {
+      "id": "school_rent",
+      "query": "出租校舍 租金",
+      "expect_any": [],
+      "note": "S178 tips #27（40% 入政府帳）"
+    },
+    {
+      "id": "procurement",
+      "query": "採購 不得拆單",
+      "expect_any": [],
+      "note": "S178 tips #28（12 個月累計 $50k/$200k）"
+    },
+    {
+      "id": "imc",
+      "query": "SMC IMC",
+      "expect_any": [
+        "smc_constitution_sample",
+        "imc_establishment_operation",
+        "imc_governance_supplements",
+        "imc_briefing_qa",
+        "g30",
+        "g31",
+        "coa_imc_1_19",
+        "g02"
+      ],
+      "note": "S166 英文縮寫 retrieval 修復（ids 由 registry 核實）"
+    },
+    {
+      "id": "kg_admission",
+      "query": "幼稚園收生",
+      "expect_any": [],
+      "note": "kg_admission route"
+    },
+    {
+      "id": "sen_exam",
+      "query": "特殊教育需要 考試安排",
+      "expect_any": [
+        "sen_exam_arrangements_2025"
+      ],
+      "note": "S141 SEN backfill"
+    },
+    {
+      "id": "pay_adjust",
+      "query": "教職員薪酬調整",
+      "expect_any": [
+        "edbcm094_2026"
+      ],
+      "note": "S193 spotlight（原本連自己標題都搵唔到）；刻意用最短 phrasing"
+    },
+    {
+      "id": "net_scholar",
+      "query": "準英語教師獎學金",
+      "expect_any": [
+        "edbcm066_2026"
+      ],
+      "note": "S193 spotlight（S186 monitor 已修好）"
+    },
+    {
+      "id": "ai_intro",
+      "query": "人工智能初探",
+      "expect_any": [
+        "iit_ai_framework_2026",
+        "edbcm113_2026"
+      ],
+      "note": "S193 miss（通函 chunk 對此 phrasing 只 0.46）→ S194 入庫框架正文後 rank 0 @0.628。正文係正解，通函保留為次要可接受目標"
+    },
+    {
+      "id": "elearning_fund",
+      "query": "電子學習撥款",
+      "expect_any": [],
+      "note": "edbcm073_2026 已知 miss 0.458 = 設計邊界；record-only 監察"
+    },
+    {
+      "id": "ict_guide",
+      "query": "資訊及通訊科技 課程指引",
+      "expect_any": [
+        "ict_sss_2021",
+        "ict_sss_2007_2015"
+      ],
+      "note": "本 session 修 mislabel 前：只有 2015 版有真 ICT 內容"
+    },
+    {
+      "id": "cgss",
+      "query": "公民與社會發展科",
+      "expect_any": [],
+      "note": "record-only；本 session 前公社科內容錯掛 ict_sss_2021 之下"
+    },
+    {
+      "id": "cgss_topic",
+      "query": "一國兩制 課程",
+      "expect_any": [],
+      "note": "record-only；同上，用另一 phrasing 探公社科內容"
+    },
+    {
+      "id": "nonlocal",
+      "query": "非本地兒童入學",
+      "expect_any": [
+        "edbc013_2026"
+      ],
+      "note": "S192-193 管道自動入庫源"
+    },
+    {
+      "id": "my_pledge",
+      "query": "我的行動承諾",
+      "expect_any": [
+        "edbcm076_2026"
+      ],
+      "note": "S192-193 管道自動入庫源"
+    },
+    {
+      "id": "home_school",
+      "query": "家校合作活動整合津貼",
+      "expect_any": [
+        "edbcm070_2026",
+        "edbcm060_2026"
+      ],
+      "note": "S186 activity route 提到 finance 之上，防「津貼」被偷"
+    },
+    {
+      "id": "school_safety",
+      "query": "校舍安全 EMSD",
+      "expect_any": [],
+      "note": "S181 footnote 13 條"
+    },
+    {
+      "id": "ncs",
+      "query": "非華語學生 支援",
+      "expect_any": [],
+      "note": "S181 footnote 18 條"
+    },
+    {
+      "id": "bus_escort",
+      "query": "跟車保母",
+      "expect_any": [
+        "sch_bus_escorts_2026"
+      ],
+      "note": "S195: bare-noun short query for a source that had no coverage before this session"
+    },
+    {
+      "id": "bus_driver",
+      "query": "校巴司機 安全",
+      "expect_any": [
+        "sch_bus_drivers_2026",
+        "sch_bus_operators_2026"
+      ],
+      "note": "S195: school-bus siblings; either audience-specific guide is a correct hit"
+    },
+    {
+      "id": "bus_school",
+      "query": "學童乘搭校車 學校須知",
+      "expect_any": [
+        "g18"
+      ],
+      "note": "S195: g18 refreshed to the 2026/27 edition — guards against the old edition creeping back"
+    },
+    {
+      "id": "va_safety_sec",
+      "query": "陶藝 入窯 燒窯 安全",
+      "expect_any": [
+        "va_safety_sec"
+      ],
+      "note": "S195: content unique to the secondary VA guide, which was mis-attributed to the primary one until this session"
+    },
+    {
+      "id": "va_safety_pri",
+      "query": "視覺藝術室 小學 安全",
+      "expect_any": [
+        "g21",
+        "va_safety_sec"
+      ],
+      "note": "S195: the two VA guides are near-identical in register; either is acceptable, the split is what matters"
+    }
   ]
 }

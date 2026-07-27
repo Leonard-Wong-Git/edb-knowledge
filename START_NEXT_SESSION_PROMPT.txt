@@ -4,56 +4,57 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
 (Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
 
-Current state (S195, 2026-07-27): 平台 v3.2.2; Supabase 16,033 chunks; source_registry 250;
-HEAD==origin/main; 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158 (guidelines.json v2.6.1,
-_meta.updated 2026-07-27); 0 outstanding bug. 自動化 active: 4 源監察 (discover / freshness /
-served-url / new-circular) + Option A 自動入庫管道 (OPERATIONAL; 每日 19:30 HK refresh Issue +
-@mention-on-new; cron 20:00 HK 兜底). 第 5 監察 (封面核對 check_source_titles.py) 已建但仍未接 CI.
+Current state (S195B, 2026-07-27): 平台 v3.2.2; Supabase 16,062 chunks; source_registry 256;
+HEAD==origin/main; 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158; 0 outstanding bug.
+自動化 active: 5 源監察 (discover / freshness / served-url / new-circular / 封面核對〔S195B 新接入 CI,
+月跑〕) + Option A 自動入庫管道 (OPERATIONAL; 每日 19:30 HK refresh Issue; cron 20:00 HK 兜底)。
+served-URL 全掃 268/268 OK; eval PASS 20/30 FAIL 0 errors 0。
 
 ⚠️ 管道會自行入庫並直接 push main — 開工時本地可能落後 origin/main, tree 乾淨 + 0 本地 commit
 時先 git pull --ff-only 同步。
 
-📋 S195 做咗: 清晒 store 入面全部死連結 — served-URL 全掃由 2 broken 變 268/268 OK, 0 error。(1) g01 資助學校採購程序指引 (34 chunks)
-上游改名、ls_jss_2010 生活與社會 (251 chunks) 搬入 PSHE 檔案庫 — 兩條都 re-crawl 揾返真檔, 逐頁
-比對 30/30 同 183/183 頁完全相同 → 判定 re-point 而非 re-ingest, Supabase 只改 url 欄 285 行
-(#page= 錨點保留), count=exact 16,035 前後同值。(2) 同一條 URL 原來散落 6 處: registry / app.html
-GUIDELINES_REGISTRY / guidelines.json / data.json / secmeta.json / Supabase — 已全部對齊;
-guidelines.json 用 build_guidelines.py --write 重生 (DOC_SYNC row 35: NEVER hand-edit)。
-(3) 5 條 registry 寫 pdf 但 URL serve HTML 已更正, 全部證實零用戶影響。
-(4) g18 校車安全指引係第三條 404, 但屬改版 (上游出 2026/27 版, 只 3/8 頁相同) → 行完整
-re-ingest: 16,035 → 16,033 (+7 新版 / -6 舊版獨有)。⚠️ 陷阱: chunk id 係內容 hash, 兩版有 3 段
-文字相同故 id 重疊 — 照 source_id 刪舊 9 條會連現行內容刪走 3 條, 正確刪除集 = 舊 id 減新 id。
-⚠️ 動 backend 檢索前必讀 dev/SESSION_LOG.md S194 QC 段 + S193 QC 段 (門檻實證 + tie-flip 陷阱)。
-⚠️ 外部來源 URL 404 唔好照 re-point: 先逐頁比對確認係改名定改版 (playbook 方法 B + 
-   freshness-monitor-test-served-url 卡)。S195 兩條係改名 (可 re-point), g18 係改版 (要 re-ingest)。
+📋 S195 (兩輪) 做咗:
+上半 — 清晒 store 全部死連結: g01 / ls_jss_2010 屬上游改名或搬位 (逐頁比對 30/30、183/183 頁相同
+→ 只 re-point, 285 行 url); g18 校車指引屬改版 (只 3/8 頁相同 → 完整 re-ingest)。同一條來源 URL
+原來散落 6 處 (registry / app.html / guidelines.json / data.json / secmeta.json / Supabase),
+只有 Supabase 嗰份有監察 — 已全部對齊。
+下半 — 清埋 8 項優先事項: 入五份校車姊妹指引 + 修 g21/g22 引文錯配 (拆出 va_safety_sec) +
+封面核對接 CI + 合併重複登記 + judge 門檻實測 + 公開庫清重複行。
+
+🧭 兩條「唔好再犯」紀律 (今次用真金白銀學返嚟):
+  1. 改 chunk 版本唔可以照 source_id 刪舊 — chunk id 係內容 hash, 兩版相同嘅段落 id 會重疊,
+     照刪會連現行內容一齊刪走。正確刪除集 = 舊 id 減新 id, 而且要排除 footnote_curated
+     (人手寫, 唔屬 vault)。
+  2. 判斷一個源「搵唔搵得到」唔可以用自己揀嘅 phrasing 做可達性 probe — S195B 用呢招剪 spotlight,
+     eval 即刻捉到 3 條 query PASS→FAIL。真正重要嘅係用戶打嘅裸名詞, 而且生產會先 query-expand
+     再 embed。任何 spotlight / SOURCE_SETS / route 次序改動, 一律以 eval before→after 對為準。
+
+⚠️ 動 backend 檢索前必讀 dev/SESSION_LOG.md S195B QC 段 + S194/S193 QC 段。
 
 🛠 常用指令:
-  python3 dev/source/check_served_urls.py --check        # 全掃 268 URL, ~8 分鐘
-  python3 dev/source/check_source_titles.py --check      # 封面核對, 192 PDF, 較慢
-  python3 dev/source/eval_retrieval.py --self-test
   python3 dev/source/eval_retrieval.py --run --out after.json
-  任何檢索改動 (SOURCE_SETS / TOPIC_KEYWORDS / spotlight / supersede / 門檻) 都要有一對
-  before→after run 作證據。入新源前跟 FRESHNESS_GUIDE §1a 核封面標題。
+  python3 dev/source/eval_retrieval.py --compare dev/source/eval_runs/2026-07-27_s195_final.json after.json
+  python3 dev/source/judge_probe.py                       # 動 anti-confab 門檻前必跑
+  python3 dev/source/check_served_urls.py --check         # 268 URL, ~8 分鐘
+  python3 dev/source/check_source_titles.py --check --baseline   # 一定要帶 --baseline
+  入新源前跟 FRESHNESS_GUIDE §1a 核封面標題; triage 完 flag 要更新 title_baseline.json。
 
 🔜 NEXT (優先序):
-  ① 【需 Leonard 拍板】校車頁另外 5 份 2026/27 版指引未入庫: 供司機/保姆/營辦商/家長/學生
-     (2026_Guidelines_{Drivers,Escorts,Operators,Parents,Students}_TC.pdf, 全部 200)。g18 (供學校)
-     已於 S195 換上 2026/27 版; 呢 5 份係另一受眾, 入唔入由你決定。
-  ② 【需 Leonard 拍板, S194 留低】anti-confab judge 門檻: 新入 vault_extract 源檢索命中但整理
-     答案被拒 (0.628 / 0.624, 低於 S183 的 vault_extract ≥0.70 bypass)。選項 (a) 唔改
-     (b) 降至 ~0.60 — 必須先做 20+ 條敵意 probe (c) 改良 judge prompt。唔好未做敵意測試就降門檻。
-  ③ 【已開 Issue #5】g21/g22 引文頁碼/文件錯配: g22 全部頁碼錯開一頁; g21 的 vault 係小學版+
-     中學版兩份 PDF 串埋, 49 條 chunks 全掛小學版 URL。五個監察結構上都睇唔到 (URL 200、封面對)。
-  ④ 只有 Leonard 做得到: 確認 PUBLISH_PAT 係 fine-grained、只限 edb-circular-site contents:write。
-  ⑤ 把封面核對接入 CI — 唔可以直接接: S195 全掃證實 11 條 likely_wrong 全部良性, 用 severity
-     做 gate 會每次出 11 個假警報。要先加 baseline-diff (--baseline/--compare + self-test), 只對
-     新 flag / 覆蓋率跌 / error 開 Issue。基準已 commit: dev/source/title_baseline.json (203 源)。
-  ⑥ 重複登記: g29=kgecg_2017、g31=eng_pri_guide_2025 (S195 新確認, 已標 related_source_ids)。
-  ⑦ spotlight 現 6 源 63 chunks (上限 600), 確認能經 ANN 出頭後可 prune。
-  ⑧ 【低優先, 需拍板】religious_edu_jss 已修好直連 PDF (2024 版), 但 app.html 仍標 broken-url
-     被 build_guidelines.py 剔走; 修好會令公開 guidelines 158 → 159 = 郁凍結 count。
-  其他 backlog: roadmap R1-R8 (dev/SYSTEM_ANALYSIS_AND_ROADMAP.md §4/§5/§7);
-  Feature 2a 追問 + 2b 文件 scoped Q&A (Leonard S182 揀 sequence A)。
+  ① 【只有 Leonard 做得到】確認 PUBLISH_PAT 係 fine-grained、只限 edb-circular-site
+     contents:write。API 唔會俾 token 自報 scope, 要喺 GitHub Settings → Developer settings →
+     Personal access tokens 睇。
+  ② 「校巴營辦商責任」被 governance route 搶走 (返 IMC/學校行政手冊而唔係 sch_bus_operators_2026)
+     — TOPIC_KEYWORDS first-match 次序問題。改次序要一對 before→after eval run。
+  ③ 【較大】g24 同 sag_2025_11 係同一份《學校行政手冊》登記兩次, 215 條 chunk 文字完全相同
+     (S195B 實測) — 呢個先係 eval 固有 tie 嘅真來源。舊決定係「軟 dedup 已足夠」; 真合併要刪一邊
+     215 條, 屬最高流量來源, 要獨立 PLAN。
+  ④ judge 選項 (c): 改良 judge prompt 應付裸名詞短 query。(b) 降門檻已證數學上做唔到 —
+     敵意 0.632 vs 真命中 0.624 重疊。judge_probe.py 可直接做驗收: 4 條 control 要答到、
+     20 條敵意仍要拒答。
+  ⑤ 【維護】封面核對 baseline 要跟住入庫更新, 否則月跑 CI 會嘈。
+  ⑥ 【維護】spotlight 現 6 源; 要剪必須由 eval 對開始 (見上方紀律 2)。
+  其他 backlog: roadmap R1-R8 (dev/SYSTEM_ANALYSIS_AND_ROADMAP.md); Feature 2a 追問 +
+  2b 文件 scoped Q&A (Leonard S182 揀 sequence A); 雲端 OCR 引擎選項。
 
 Post-startup first action: 跑起手探針 (served app.html v3.2.2 + Render /health warm 455 + Draft
 HEAD==origin/main〔落後就 ff-pull〕+ Supabase count=exact), 然後向 Leonard 報告當前狀態同建議下一步。

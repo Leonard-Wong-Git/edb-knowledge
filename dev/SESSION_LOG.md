@@ -35,6 +35,38 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-07-27 Session 195B — Leonard「全做」：清埋 8 項優先事項；兩項結論同假設相反，一項係自己整壞由 eval 捉返
+
+- **ID:** Claude_20260727_S195B
+- **Summary:** 接住 S195 上半（清死連結）。Leonard「全做」→ 我開 task list、先攞 eval baseline（因為多項改檢索）、逐項落手。8 項：1 項做唔到（需 Leonard 帳戶權限）、2 項結論同原本假設相反、1 項我做錯咗由 eval 捉到即刻還原。
+- **Changed:**
+  - **新源**：`sch_bus_{drivers,escorts,operators,parents,students}_2026`（28 chunks）＋ `va_safety_sec`（27）。新腳本 `dev/_extract_s195_schoolbus.py`／`dev/_extract_s195_safety.py`。
+  - **重抽**：`g21`（22 頁，只餘小學版）／`g22`（52 頁，補回封面頁）。刪除 106 條舊 chunk（腳本 `dev/_s195_delete_stale_g21_g22.py` + 鎖死嘅 `dev/_s195_g21_g22_delete_set.json`，由 Leonard 執行）。
+  - **backend**：`SOURCE_SETS.safety` +5 校車源、`TOPIC_KEYWORDS.safety` +校巴/保母車/跟車保母/學生服務車輛、移除 `kgecg_2017` 兩處 dead 引用、`VAULT_LEAD_SCORE` 加實測註釋、spotlight 先剪後還原（附教訓註釋）。
+  - **監察**：`check_source_titles.py` 加 `--baseline`／`diff_baseline()`＋9 條 self-test；新 `.github/workflows/title_check.yml`（月跑）；`FRESHNESS_GUIDE` §0/§1/§2 補 Method C CI 同指令。
+  - **新工具**：`dev/source/judge_probe.py`（24 條敵意 probe）。`eval_queries.json` 25 → **30**（新增 5 條守住今次入庫嘅源）。
+  - registry 250 → **256**；display-sync 7 檔 16,033 → **16,062**；`update_log.json` +3 條；CHANGELOG 新條目。
+- **Done:** commits `7f4c306`（主體）→ `2f04c42`（spotlight revert）→ 本 closeout commit。**最終 eval PASS 20 / FAIL 0 / errors 0**（30 條）。
+- **QC:**
+  - **eval before→after 對**：baseline `2026-07-27_s195_before.json`（PASS 15/25）→ 中途 `_after.json` **捉到 3 條 regression** → 還原後 `_after_revert.json` 對 baseline **25/25 全同** → 擴 query 後 `_final.json` **PASS 20/30**。四份 run 全部 commit。
+  - **頁碼錨點逐源自檢**（因為今次修嘅正正係錯位）：5 份校車 6/6、2/2、6/6、5/5、1/1；g18 6/6；全部 offset 0 對齊。
+  - **刪除安全**：兩條 `footnote_curated` chunk 明文排除（照 `source_id` 刪會毀掉人手內容）；刪除集 = 舊 id − 新 id；逐條刪逐條驗；事後 g21 23／g22 59／va_safety_sec 27／總數 16,062 全對。
+  - 凍結合約：`knowledge.json` 2.3.0 / facts 455 / `guidelines.json` 2.6.1 **158** —— `build_guidelines.py --self-test` PASS（registry 167→166、public 158 不變）。tsc exit 0 ×4。
+- **兩個結論同原本假設相反：**
+  1. **judge 門檻唔可以降（②）** —— 24 條 probe：敵意類最高 **0.632**、真命中最低 **0.624**，**分佈重疊**。降到 0.60 會放行「教師每年可以請幾多日大假」(0.617)／「學校可唔可以借錢俾教職員」(0.615)／「校服供應商招標要幾多間報價」(0.614)，全部語域啱而個數字唔存在 = S177 砌數重演。**cosine 分唔開「揾到對嘅文件」同「揾到語域相同嘅文件」**，所以唔係揀邊個數字嘅問題。保留 0.70，實測寫入 code。
+  2. **`religious_edu_jss` 唔使郁凍結 count（⑧）** —— 公開庫一早已有正確嘅 `religious_edu_jss_2024`；被剔走嗰條係重複行 + 死連結（全檔唯一一條 vertexaisearch AI 轉址殘留）。刪重複行即可，158 不變。**兼更正我上半場嘅錯**：我曾把 `religious_edu_jss` 改名成 2024 版而製造 registry 重複，已改回 `superseded` 並寫低來龍去脈。
+- **一個我做錯咗嘅改動（⑦，已還原，值得記低）：** 我用「ANN pool 可達性」probe（whole-index top-40、min_score 0.22）判定 4 個 spotlight 源可以剪，4 個都 rank 0。但 before→after eval 顯示 `ai_intro`／`net_scholar`／`pay_adjust` PASS→FAIL，失去嘅正正係被剪嗰 3 個。**根因＝probe 唔忠實**：我用自己揀嘅描述性 phrasing（「人工智能初探 學與教」）測，而真正重要嘅係裸名詞（「人工智能初探」）；加上生產路徑會先 query-expand 再 embed，probe 睇到嘅候選池根本唔係生產嘅池。**教訓：用自己揀嘅寬鬆 phrasing 測「搵唔搵得到」，量度緊嘅係 phrasing，唔係檢索。** 已全部還原 + 寫喺 `SPOTLIGHT_SOURCE_IDS` 上面，下次要剪必須由 eval 對開始。
+- **做唔到（④）：** `PUBLISH_PAT` scope 只可以喺 Leonard 嘅 GitHub 帳戶 Settings → Developer settings → Personal access tokens 睇；API 唔會俾 token 自報 scope。
+- **Pending：** 「校巴營辦商責任」被 governance route 搶走（route 次序問題，要自己一對 before→after 證據）；judge 選項 (c)「改良 judge prompt」未做，但 `judge_probe.py` 已可作為驗收工具。
+- **Evidence disposition:** 當前狀態→handoff Current Baseline S195 下半 block；四份 eval run + judge probe 輸出→`dev/source/eval_runs/`（commit，跨 session 可比）；門檻實測→code 註釋（唔止留喺 log）；spotlight 教訓→`SPOTLIGHT_SOURCE_IDS` 註釋；每條 registry 改動理由→各條目 `notes`；監察 diff 設計→`FRESHNESS_GUIDE` §0。
+- **Sync:** DOC_SYNC 命中 4 row（Channel-B vault backfill ✓ registry+SOURCE_SETS parity+eval 對／檢索 eval harness 改動 ✓ eval_queries 25→30＋4 份 run／Monitoring-CI change ✓ FRESHNESS_GUIDE＋新 workflow＋無新 secret／guidelines.json 契約 ✓ `--write` 重生、158 不變）。`update_log.json` +3 條（今次係真內容改動）。凍結合約＋`PLATFORM_VERSION` 零接觸。Pages 隨 push redeploy。
+- **Risks:** ⚠️ 「校巴營辦商責任」route 次序問題未修。⚠️ g24／sag_2025_11 仍然係同一份學校行政手冊登記兩次、**215 條 chunk 文字完全相同**（今次查到嘅新數字）—— 呢個先係 eval tie 嘅真來源，但 Backlog 舊決定係「軟 dedup 已足夠」，未動。⚠️ Render free tier 偶爾 57014 statement timeout（今次 eval 中段撞過一次，harness 正確記做 error 而非零結果）。
+- **Log maintenance:** `python3 docs/qa/session_log_maintenance.py --check` → **trigger=False**（line_count=331 / entry_count=5）→ no-op。
+
+<!-- ack:log-entry:end -->
+
+---
+
 ## 2026-07-27 Session 195 — 清三條死連結：兩條 re-point（逐頁比對作證）、一條 re-ingest（校車安全指引 2026/27 改版）＋ registry↔store drift 整理
 
 - **ID:** Claude_20260727_S195

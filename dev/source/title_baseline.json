@@ -1,17 +1,21 @@
 {
   "_meta": {
     "generated": "2026-07-27",
-    "session": "Claude_20260727_S195",
+    "session": "Claude_20260727_S195B",
     "tool": "dev/source/check_source_titles.py --check",
     "purpose": "Accepted-state baseline for the cover-title monitor (Method C). Every flagged row below was human-reviewed in S194/S195 and found BENIGN (TOC or 引言 first page, English cover vs Chinese title, pure document-number title, curated composite title, or CID glyph soup). CI must alert on a DIFF against this baseline — a newly flagged source, a materially dropped coverage, or any `error` row — NOT on the raw flag count: gating on severity alone would fire 11 known-benign alarms every run.",
     "summary": {
-      "ok": 180,
-      "flagged": 18,
-      "skipped": 49,
+      "ok": 186,
+      "flagged": 16,
+      "skipped": 50,
       "no_text_layer": 3,
-      "checked": 198,
-      "error_budget": 9
-    }
+      "not_pdf_body": 1,
+      "checked": 202,
+      "error_budget": 10
+    },
+    "changelog": [
+      "2026-07-27 S195B: +7 sources (g18, sch_bus_drivers_2026, sch_bus_escorts_2026, sch_bus_operators_2026, sch_bus_parents_2026, sch_bus_students_2026, va_safety_sec), -2 (g31, kgecg_2017); rescan produced 0 alerts against the previous baseline"
+    ]
   },
   "rows": {
     "apl_curr_docs": {
@@ -656,6 +660,12 @@
       "matched_field": "title",
       "severity": null
     },
+    "g18": {
+      "status": "ok",
+      "coverage": 0.75,
+      "matched_field": "title",
+      "severity": null
+    },
     "g19": {
       "status": "ok",
       "coverage": 1.0,
@@ -693,12 +703,6 @@
       "severity": null
     },
     "g29": {
-      "status": "flagged",
-      "coverage": 0.0,
-      "matched_field": "title",
-      "severity": "likely_wrong"
-    },
-    "g31": {
       "status": "flagged",
       "coverage": 0.0,
       "matched_field": "title",
@@ -902,12 +906,6 @@
       "matched_field": "title",
       "severity": "likely_wrong"
     },
-    "kgecg_2017": {
-      "status": "flagged",
-      "coverage": 0.0,
-      "matched_field": "title",
-      "severity": "likely_wrong"
-    },
     "lab_prep_room_aircon": {
       "status": "ok",
       "coverage": 1.0,
@@ -1065,9 +1063,9 @@
       "severity": null
     },
     "religious_edu_jss": {
-      "status": "ok",
-      "coverage": 1.0,
-      "matched_field": "title",
+      "status": "not_pdf_body",
+      "coverage": null,
+      "matched_field": null,
       "severity": null
     },
     "religious_edu_jss_2024": {
@@ -1099,6 +1097,36 @@
       "coverage": 0.333,
       "matched_field": "title_short",
       "severity": "review"
+    },
+    "sch_bus_drivers_2026": {
+      "status": "ok",
+      "coverage": 0.941,
+      "matched_field": "title",
+      "severity": null
+    },
+    "sch_bus_escorts_2026": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title_short",
+      "severity": null
+    },
+    "sch_bus_operators_2026": {
+      "status": "ok",
+      "coverage": 0.957,
+      "matched_field": "title",
+      "severity": null
+    },
+    "sch_bus_parents_2026": {
+      "status": "ok",
+      "coverage": 0.95,
+      "matched_field": "title",
+      "severity": null
+    },
+    "sch_bus_students_2026": {
+      "status": "ok",
+      "coverage": 0.938,
+      "matched_field": "title",
+      "severity": null
     },
     "sch_extension_guide": {
       "status": "ok",
@@ -1211,6 +1239,12 @@
     "va_p1_s6_2024": {
       "status": "ok",
       "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "va_safety_sec": {
+      "status": "ok",
+      "coverage": 0.833,
       "matched_field": "title",
       "severity": null
     },

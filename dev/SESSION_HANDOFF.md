@@ -24,6 +24,17 @@
 
 ## Current Baseline
 
+> **🆕 S195 下半（2026-07-27）reconciled —— Leonard「全做」：一次過清埋餘下 8 項優先事項，其中兩項嘅答案同原本假設相反，一項係我自己整錯即刻還原：** HEAD==origin/main；**Supabase 16,033 → 16,062**（校車五份 +28／g21 22＋va_safety_sec 27＋g22 58 新入 −106 舊）；**source_registry 250 → 256**；平台 **v3.2.2** 不變；**凍結合約零接觸**（`_meta` 2.3.0 / facts 455 / guidelines **158** —— 見下 ⑧，原以為要 158→159，實情唔使）。**最終 eval：PASS 20 / FAIL 0 / errors 0**（query 由 25 擴到 30，新增 5 條專門守住今次入庫嘅源）。
+> **① 校車五份姊妹指引入庫**（司機/保姆/營辦商/家長/學童，28 chunks）：g18 只講學校自己嘅責任，呢五份係學校要監督或告知嘅對象，所以「跟車保母有咩要求」以前根本無嘢可答。五份頁碼逐頁核對全對齊；live rank 0 @0.624。
+> **③ g21／g22 引文錯配已修（Issue #5）**：g22 原本漏咗封面頁令**每個引用頁碼都早一頁**（重抽 52 頁修正）；g21 更嚴重 —— vault 係小學版＋中學版兩份串埋，49 條 chunks 全掛小學版連結，即約一半引文指向一份佢哋唔屬於嘅 22 頁文件。已拆成 `g21`（小學）+ 新 `va_safety_sec`（中學）。**兩條人手寫嘅 footnote chunk 有明文保護冇被刪**，並已重指去正確 PDF 頁。DELETE 106 行由 Leonard 執行（權限閘擋我），事後驗 23/59/27 全對。
+> **⑤ 封面核對接 CI**：`.github/workflows/title_check.yml` 月跑（1 號 13:00 UTC，無需 secret）。**關鍵設計 = alert on diff, not on count** —— 全掃會 flag 18 條而全部良性，用 severity 做 gate 會每次出 11 個假警報。改為同 `dev/source/title_baseline.json`（人手覆核過嘅接受狀態）比對，只有「新出現嘅 flag／覆蓋率跌 ≥0.15／fetch 失敗」先開 Issue。加咗 9 條 self-test 守住呢個邏輯。
+> **⑥ 重複登記**：`kgecg_2017`／`g31` 標 deprecated（兩者皆 0 chunks，內容分別由 `g29`／`eng_pri_guide_2025` 承載），並清走 `kgecg_2017` 喺 SOURCE_SETS 兩處 dead 引用。合併前先證實兩個 KG 檔係同一份文件（同 108 頁、逐頁對齊、差異純屬文字層抽取瑕疵）。
+> **② judge 門檻：實測後決定唔改，而且係「改唔到」而非「唔想改」。** 新工具 `dev/source/judge_probe.py` 跑 24 條 probe：敵意類（14 條「似學校事務但答案根本唔喺庫」）最高衝到 **0.632**，真命中最低 **0.624** —— **兩個分佈重疊**。降到 0.60 會放行「教師每年可以請幾多日大假」(0.617)、「學校可唔可以借錢俾教職員」(0.615)，即 S177 砌數重演。結論：cosine 分唔開「揾到對嘅文件」同「揾到語域相同嘅文件」，要提升要換 judge 唔係換數字。實測已寫入 code 註釋。
+> **⑧ 唔使郁凍結 count**：查實公開指引庫一早已有正確嘅 2024 宗教教育指引（`religious_edu_jss_2024`），被剔走嗰個 `religious_edu_jss` 係**重複行 + 死連結**（全檔唯一一條 vertexaisearch AI 轉址殘留）。刪走重複行即可，公開數目維持 **158**。⚠️ 同時更正我自己上半場嘅錯：我曾把 `religious_edu_jss` 改名成 2024 版而製造 registry 重複，已改回 `superseded`。
+> **⑦ spotlight prune：我做錯咗，eval 捉到，已還原。** 我用「ANN pool 可達性」probe 判定 4 個源可以剪，但 before→after eval 顯示 `ai_intro`／`net_scholar`／`pay_adjust` 由 PASS 變 FAIL，失去嘅正正就係被剪嗰 3 個。**probe 唔忠實**：我用自己揀嘅描述性 phrasing（「人工智能初探 學與教」）去測，而真正重要嘅係用戶打嘅裸名詞（「人工智能初探」），加上生產路徑會先做 query expansion 再 embed，所以 probe 睇到嘅候選池根本唔係生產嘅池。已全部還原、重跑 eval 對 baseline **25/25 全同**，並把呢個教訓寫喺 `SPOTLIGHT_SOURCE_IDS` 上面。
+> **④ 唯一做唔到嘅**：`PUBLISH_PAT` 係咪 fine-grained、只限 `edb-circular-site` contents:write —— fine-grained PAT 嘅權限只可以喺 GitHub 帳戶 Settings → Developer settings → Personal access tokens 睇，API 唔會俾 token 自報 scope。**只有 Leonard 做得到。**
+> ⚠️ 新發現未處理：「校巴營辦商責任」會被 governance route 搶走（返 IMC／學校行政手冊）—— 屬 route 次序問題，要自己一對 before→after 證據，未郁。
+
 > **🆕 S195（2026-07-27）reconciled（數字以本段為準）—— 清兩條積咗 4 星期嘅死連結 + 整理 registry↔store drift，零內容改動：** HEAD==origin/main（S195 commits：本 session 主體 + closeout commit）；**Supabase 16,035 → 16,033**（前半純改 `url` 欄 285 行、零 INSERT／DELETE；後半 g18 改版 ＋7／−6）；**source_registry 250 不變**（只改既有條目欄位）；平台 **v3.2.2** 不變；**凍結合約零接觸**（`_meta` 2.3.0 / facts 455 / guidelines **158**、`guidelines.json` v2.6.1 —— 只有 `_meta.updated` 隨 `build_guidelines.py --write` 重生為 2026-07-27）。起手探針 4/4 綠。**S195 = Leonard「跟你建議」→ 做 ②（2 條真 404）＋③（5 條 pdf-serve-HTML），中途兩次因發現超出原述而停低確認。****核心發現：呢兩條 404 唔止係 registry 污糟，而係用戶真係撳到 404** —— `g01` 34 chunks ＋ `ls_jss_2010` **251 chunks** 服務緊死連結，另外 `app.html` 指引文件庫／`guidelines.json`／`data.json`／`secmeta.json` 各自都有一份副本（同一條 URL 散落 6 個地方）。兩條都用 playbook 方法 B re-crawl 揾返：`g01` 係上游改名（`…Trad Chi_2024.pdf`→`Guidelines on Procurement Procedures_TC.pdf`）、`ls_jss_2010` 係搬入 PSHE 檔案庫。**關鍵證據＝逐頁比對 vault：30/30 同 183/183 頁完全相同**，所以判定為**純 re-point 而唔係 re-ingest**（避開 playbook `freshness-monitor-test-served-url` 警告嘅「churn 照 re-point」陷阱）。**QC**：`check_served_urls.py --check` 全掃兩次 —— 修完頭兩條後 267 OK／1 broken（即揪出 g18），修完 g18 後 **268／268 OK／0 broken／0 error，成個 store 首次全綠**；live Channel B 實測 `g01` rank 1-3、`ls_jss_2010` rank 0 @0.715 p.30 且 URL 已係新值。**③ 5 條全部證實零用戶影響**（`g21`／`g22` 嘅 store 一早 serve 緊真 PDF，係 registry 落後；`g30`／`g31`／`religious_edu_jss` 各 0 chunks），已逐條更正；`religious_edu_jss` 仲揾返直連 PDF 並經封面核實為 **2024 版**（非原記錄嘅 legacy）。**同一 session 續做（Leonard「go」）：`g18` 校車安全指引 re-ingest 完成** —— 上游 2025/26 版落架、出咗 2026/27 版（6 頁 vs 8 頁、只 3/8 頁相同 = 改版非改名），故走完整 extract→INSERT→DELETE 而非改 URL：**Supabase 16,035 → 16,033**（＋7 新版／−6 舊版獨有）。**過程揪出一個會靜默刪錯嘢嘅陷阱**：chunk id 係內容 hash，兩版有 3 段文字完全相同故 id 重疊 —— **照 `source_id` 一次過刪舊 9 條會連現行內容刪走 3 條**，正確刪除集係「舊 id − 新 id」= 6 條。DELETE 步驟被 auto-mode 權限閘擋，改由 **Leonard 親自執行** `dev/_s195_delete_stale_g18.py --apply`，事後我驗證 g18=7 行／舊 id 殘留 0／總數 16,033。自檢頁碼錨點 **6/6 頁對齊 offset 0**（無 g21/g22 那種錯位）。live 驗：搜「校車 學生服務車輛 安全 座位」→ g18 **rank 0/1 @0.725/0.716**、標題已係（2026/27）、URL 已係新版。⚠️ **2 項仍未修**：(1) **`g21`／`g22` 引文頁碼錯開一頁，`g21` 一半 chunks 實際來自中學版文件卻掛小學版連結** = S194 `ict_sss_2021` 同一家族、五個監察全部睇唔到（GitHub issue #5，Leonard 指示只記錄）。(2) `religious_edu_jss` 修好連結後理論上可入公開指引庫（158→159），**未做**，因為會郁凍結 count。另：校車頁另有 5 份 2026/27 版（司機／保姆／營辦商／家長／學生）從未入庫，待決定。**監察系統證實健康**：Issue #4 由 2026-06-29 起就準確列住呢兩條 404，係無人跟進而唔係捉唔到。0 outstanding bug。
 >
 > **🆕 S194（2026-07-26）reconciled—— 修一個長期指錯文件的來源 + 人工智能初探框架正文入庫 + 建 roadmap R1 eval harness 同第 5 監察：** HEAD==origin/main（S194 commits `3f2c9d9` 主體 → `e0e2f3b` eval run → 本 checkpoint commit）；**Supabase 15,901 → 16,035**（+215 INSERT／−81 DELETE）；**source_registry 248 → 250**；平台 **v3.2.2** 不變（凍結合約 `_meta` 2.3.0 / facts 455 / guidelines 158 零接觸）。起手探針 4/4 綠。**核心：`ict_sss_2021` 一直指錯文件** —— 標題《資訊及通訊科技 (中四至中六) 2021》但 url 指 `CS_CAG_S4-6_Chi_2021.pdf`，`CS` 被當 Computer Science 實為 **C**itizenship and **S**ocial development → 81 個公社科 chunks 長期掛 ICT 標題（prod 實測：搜「公民與社會發展科」top-1 標題係「資訊及通訊科技」），真 ICT 2021 從未入庫，且 `curriculum` route **從未有任何 ICT 源**。修：新 `cgss_sss_2021` 承載該 81 chunks（**hash set 81/81 相同**，內容逐字不變）→ DELETE 舊 81（post-count 0）→ `ict_sss_2021` 改指 EDB 官方檔 + 入真正文 116 chunks；`curriculum` +2 ICT 源、新 `cgss` route、`SUPERSEDED_IDS` +`ict_sss_2007_2015`。**另入庫**《人工智能初探》框架正文 `iit_ai_framework_2026`（18 chunks；`edbcm113_2026` 只係通函 3 chunks）。**新工具**：`dev/source/eval_retrieval.py`+`eval_queries.json`（roadmap R1，25 短 query、可 diff、容 tie flip）、`dev/source/check_source_titles.py`（第 5 監察／Method C 封面核對）。**LIVE 驗**：eval PASS **12→14**、errors 0；`ict_guide` FAIL→PASS rank 0 @0.624、`nonlocal` FAIL→PASS rank 2、`cgss` top 由 mislabel 0.568 → `cgss_sss_2021` **0.773 且 synthesis grounded**。**封面掃描首跑 192 源：冇第二個指錯文件**（17 flagged 全良性），副產品揪出 2 條真 404（`g01`/`ls_jss_2010`）+ 5 條 registry 寫 pdf 但 serve HTML。**修一個程序缺陷**：display-sync 全檔字串取代一直改寫 CHANGELOG／CODEBASE_CONTEXT **歷史條目**（S186 條曾寫成「15,656→15,901（淨+182）」算術不成立），已修正並將兩檔由 `execute_ingest.py` `DISPLAY_SYNC_TARGETS` 移除。**R5 sibling 審計（read-only）推翻舊假設**：`EDB-AI-Circular-System` 已 **PRIVATE**、另有 public `edb-circular-site`（拆分已完成）；兩 repo 全歷史 secret 掃描（85+594 commits）**乾淨**、public 站零後端碼零 runtime API。⚠️ **1 個未解、需 Leonard 決**：新源檢索命中但 synthesis 被 anti-confab judge 拒答（0.62–0.63 落喺 S183 `vault_extract ≥0.70` bypass 之下；已用控制組證實屬既有門檻行為非本次 regression；降門檻會重開 S177 confab 區間 0.55–0.65 = 安全取捨，故未自行改）。0 outstanding bug。
@@ -164,6 +175,7 @@ source_registry → same vault PDFs → ai_extract.py
 ---
 
 ## Open Priorities
+> **🔜 S195 下半（2026-07-27）—— 本段為當前權威清單。上一段 S195 嘅 ①③⑤⑥⑦⑧ 已完成，②⑧ 結論同原假設相反（見 Current Baseline），故整份重生：** ① **【只有 Leonard 做得到，唯一原封不動嘅舊項】** 確認 `PUBLISH_PAT` 係 fine-grained、只限 `edb-circular-site` 的 contents:write —— fine-grained PAT 嘅權限只可以喺 GitHub 帳戶 Settings → Developer settings → Personal access tokens 睇，API 唔會俾 token 自報 scope。② **【新】「校巴營辦商責任」被 governance route 搶走**（返 IMC／學校行政手冊而唔係 `sch_bus_operators_2026`）—— 屬 TOPIC_KEYWORDS first-match 次序問題。改 route 次序必須有一對 before→after eval run 作證據（`dev/source/eval_retrieval.py`），唔好單憑一條 query 判斷。③ **【新，較大】`g24` 同 `sag_2025_11` 係同一份《學校行政手冊》登記兩次，215 條 chunk 文字完全相同**（S195 實測數字）—— 呢個先係 eval 固有 tie 嘅真來源（`_tie_aliases` 現時靠 alias 兜住）。Backlog 舊決定係「軟 dedup 已足夠用」，未動；真要合併＝刪一邊 215 條並統一 source_id，屬高風險（最高流量來源），要獨立 PLAN。④ **【新】judge 選項 (c)：改良 judge prompt 應付裸名詞短 query**。S195 已證 (b) 降門檻在數學上做唔到（敵意 0.632 vs 真命中 0.624 重疊），所以剩低嘅路只有改 judge 本身。`dev/source/judge_probe.py` 24 條 probe 已可直接做驗收工具：目標 = 4 條 control 答得到、20 條敵意仍然拒答。⑤ **【維護】封面核對 baseline 需要跟住入庫更新**：每次 triage 完 flag 認定良性，就要更新 `dev/source/title_baseline.json`，否則月跑 CI 會一直嘈。⑥ **【維護】spotlight 名單現 6 源**（S195 嘗試剪走 4 個，被 eval 捉到 regression 已還原）—— 下次要剪，**必須由 eval before→after 對開始，唔好再用可達性 probe**（教訓已寫喺 `SPOTLIGHT_SOURCE_IDS` 註釋）。其他 backlog: roadmap R1-R8（`dev/SYSTEM_ANALYSIS_AND_ROADMAP.md`；R1 已落地並擴充）；Feature 2a 追問 + 2b 文件 scoped Q&A（Leonard S182 揀 sequence A）；雲端 OCR 引擎選項。
 > **🔜 S195（2026-07-27）—— 本段為當前權威清單（下面 S194 行嘅 ②③ 已完成，其餘項目已收納入本段；再下面各行為歷史背景）：** ① **【新】校車頁另外 5 份 2026/27 版指引未入庫**：供司機／保姆／營辦商／家長／學生（`2026_Guidelines_{Drivers,Escorts,Operators,Parents,Students}_TC.pdf`，全部 200）。`g18`（供學校）已於 S195 換上 2026/27 版；呢 5 份係另一受眾，入唔入由 Leonard 決定 —— 學校角度嘅價值在於回答「保姆／司機有咩要求」。② **【需 Leonard 拍板，S194 留低】anti-confab judge 門檻**：新入 vault_extract 源檢索命中但整理答案被拒（`人工智能初探` 0.628／`資訊及通訊科技 課程指引` 0.624，低於 S183 的 `vault_extract ≥0.70` bypass）。已證屬既有門檻行為、非 regression。選項 (a) 唔改（用戶仍見正確來源＋頁碼）(b) 降至 ~0.60 —— **會重開 S177 confab 區間 0.55–0.65，必須先做 20+ 條敵意 probe** (c) 針對裸名詞短 query 改良 judge prompt（另開 PLAN）。③ **【新】`g21`／`g22` 引文頁碼／文件錯配（GitHub Issue #5）**：g22 全部頁碼錯開一頁（50/51 頁 offset +1 對齊）；g21 更嚴重 —— vault 係小學版＋中學版兩份 PDF 串埋（46 頁），但 49 條 chunks 全部掛小學版 URL，即約一半引文指向一份佢哋唔屬於嘅 22 頁文件。**五個監察結構上全部睇唔到**（URL 200、封面對得上）。修法＝分開重抽兩份 PDF、g21 拆兩個 source_id、重新入庫 + eval before→after 對。④ **【只有 Leonard 做得到】** 確認 `PUBLISH_PAT` 係 fine-grained、只限 `edb-circular-site` 的 contents:write。⑤ **把封面核對（`check_source_titles.py`）接入 CI —— 但唔可以照原計劃直接接**：S195 跑咗全掃（198 checked / 180 ok / 18 flagged / **0 errors**），發現 **11 條 `likely_wrong` 全部係已知良性**（TOC 或引言做首頁／英文封面配中文標題／純文件編號標題／策展複合標題／CID glyph soup）→ **如果 CI 用 severity 做 gate，每次跑都會出 11 個假警報**，正正係 S191 收 email 噪音想避嘅嘢。正解＝**先俾 `check_source_titles.py` 加 baseline-diff 能力**（`--baseline`／`--compare`＋self-test），只對「新出現的 flag／覆蓋率明顯跌／任何 `error` 列」開 Issue。**S195 已 commit `dev/source/title_baseline.json`（203 源已人手覆核的接受狀態）作為該 diff 的基準**，落手時唔使再跑一次全掃。⑥ **重複登記合併**：`g29`＝`kgecg_2017`（同為《幼稚園教育課程指引（2017）》）、`g31`＝`eng_pri_guide_2025`（S195 新確認，已在 registry 標 `related_source_ids`）—— 會令 eval 出現固有 tie。⑦ spotlight 現 6 源 63 chunks（上限 600），確認能經 ANN 出頭後可 prune；`edbcm073_2026` 仍唔出（0.458 低於 bar，設計邊界非 bug）。⑧ **【新，低優先】`religious_edu_jss` 可入公開指引庫**：S195 已修好直連 PDF（2024 版，封面已核），但 `app.html` GUIDELINES_REGISTRY 仍標 broken-url 而被 `build_guidelines.py` 剔走 → 修好會令公開 guidelines **158 → 159**，屬凍結 count 變動，**需 Leonard 拍板先做**。另可考慮入庫該 159 頁指引（現 0 chunks）。其他 backlog: roadmap R1-R8（`dev/SYSTEM_ANALYSIS_AND_ROADMAP.md` §4/§5/§7；R1 已落地）；Feature 2a 追問 + 2b 文件 scoped Q&A（Leonard S182 揀 sequence A）。
 > **🔙 S194（2026-07-26）—— ②③ 已於 S195 完成；其餘項目已收納入上方 S195 段。原文保留作歷史：** **🔜 S194（2026-07-26）—— S193 嘅 ①② 已完成，本輪新增／改變：** ① **【需 Leonard 拍板】anti-confab judge 門檻**：新入嘅 vault_extract 源檢索命中但整理答案被拒（`人工智能初探` 0.628／`資訊及通訊科技 課程指引` 0.624，低於 S183 定的 `vault_extract ≥0.70` bypass）。已證屬既有行為（控制組：footnote_curated@0.561 → bypass 0.45 → 答；vault_extract@0.753 → 答）。選項：(a) 唔改，用戶仍見正確來源＋頁碼（比修復前嚴格更好）；(b) 降至 ~0.60 —— **會重開 S177 confab 區間 0.55–0.65，需先做敵意測試（20+ off-topic probe）才可考慮**；(c) 針對「裸名詞短 query」改良 judge prompt（另開 PLAN）。② **2 條真 404**：`g01`、`ls_jss_2010`（封面掃描副產品；走 §D.12 landing-page re-discovery）。③ **5 條 registry 寫 `source_type=pdf` 但 URL serve HTML**：`g30`／`g31`／`g21`／`g22`／`religious_edu_jss`（其中 g21/g22 早已在 Backlog「直連 PDF 補完」）。④ **R5 唯一剩項（只有 Leonard 做得到）**：確認 `PUBLISH_PAT` 係 fine-grained、只限 `edb-circular-site` 的 contents:write。⑤ **把封面核對接入 CI**（`check_source_titles.py` 已可跑但未有 workflow；建議月跑而非週跑，因 192 源要下載）。⑥ **`g29` 同 `kgecg_2017` 係同一份文件登記兩次**（標題完全相同、皆《幼稚園教育課程指引（2017）》）—— 同 g24／sag_2025_11 同類，會令 eval 出現固有 tie；未合併。⑦ spotlight 名單增至 6 源 63 chunks（上限 600），日後確認能經 ANN 出頭可 prune。⑧ **R5 記錄更正**：`EDB-AI-Circular-System` 已係 private（下方 S190 NEXT ③ 嘅「亦 public」已過時），public 面係 `edb-circular-site`；但該 repo 2026-03-09 至 2026-06-29 曾 public ≈3.7 個月，後端 IP 曾世界可讀（**全歷史掃描證實從未 commit secret，無需 rotate key**）。
 > **🔜 S193（2026-07-26）新增／改變嘅優先項（其餘 S192 roadmap 同下方 NEXT 不變）：** ① **入庫《人工智能初探》框架正文 `IIT_Summary on AI_TC.pdf`**（`https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/IIT_Summary%20on%20AI_TC.pdf`，561KB、HTTP 200、text-layer 未驗）—— edbcm113 通函本身只有 3 chunks（封面+摘要），框架正文才係實質內容；**呢個係「人工智能初探」短 query 唔出嘅正確解法**（唔應該降 spotlight bar）。建議走 Option A 正路：`prepare_ingest_package.py` → 批准 → executor（但佢係 landing-page PDF 非 circular feed 項，可能要手動 stage）。② **核 `ICT_C&A Guide_c_final.pdf`**（2.6MB/200）係唔係 registry `ict_sss_2021`（現指向 edcity URL）嘅 EDB 版／新版 → 若係新版要走 supersede 規則（`SUPERSEDED_IDS` + registry `superseded_by` 雙處同步）。③ **spotlight 名單維護**：每次自動入庫會 +1 條（現 4 源 36 chunks，上限 600 chunks）；確認某源已能經 ANN 正常出頭後可從 `SPOTLIGHT_SOURCE_IDS` prune。④ **edbcm073_2026 仍唔出**（「電子學習撥款」0.458，低於 0.60 bar）→ Leonard 報 miss 先處理（選項：入庫該計劃更詳細文件／dedicated micro-route）。⑤ **檢索 eval harness（roadmap R1）落手時必讀**：g24 / sag_2025_11 係同一份學校行政手冊兩次入庫、chunk 文字相同 → cosine 完全同分，結果對呢兩個 id **存在固有非決定性**（實測未修 code 自己 3:3 交替），harness 必須容許 tie flip，否則會出假 regression。
@@ -198,6 +210,21 @@ source_registry → same vault PDFs → ai_extract.py
 - **雲端 OCR 引擎選項**（image-PDF ingestion 升級線，S180 評估）：Google Vision `DOCUMENT_TEXT_DETECTION`（逐字信心 + bounding box、每月 1,000 單位永久免費 + ~$1.50/1,000、要綁卡開 billing）／Mistral OCR（Markdown+表格、~$2/1,000）——比現用 `gpt-4o` 圖像 OCR「draft 質」可能更準更平，且 bbox 可餵返 grid 重建。命中 image-PDF 質素問題（如 DEBP 主藍圖 ~16 圖像頁）先評估：**真檔實測 + 開 Google billing**（ingestion 處理公開文件、無未成年私隱顧慮；後端已存在故唔需要 brief 嗰套 serverless key-proxy）。詳見 playbook inbox 提案 `2026-06-24-edb-knowledge-cloud-ocr-engine-options.md` + `doc-extract-method-ladder` 卡。出處：Leonard 一份 OCR 收費版 brief（2026-06，已核實價）。
 
 ## Last Session Record
+1. UTC date: 2026-07-27
+2. Session ID: Claude_20260727_S195B (S195 下半) — Leonard「全做」→ 開 task list、先攞 eval baseline、逐項落手 8 項優先事項 → 其中 1 項做唔到（需佢帳戶權限）、2 項結論同原假設相反、1 項我做錯由 eval 捉返即刻還原 → 兩次 DELETE 由 Leonard 執行（權限閘擋我）。
+3. Completed（詳見 SESSION_LOG S195B）:
+   - ✅ **① 五份校車姊妹指引入庫**（28 chunks，頁碼逐份自檢全對齊，live rank 0 @0.624）。
+   - ✅ **③ g21／g22 引文錯配修好**（Issue #5）：g22 補回封面頁修正整體錯開一頁；g21 拆出 `va_safety_sec`（中學版），解決「一半 chunks 掛錯文件」。刪 106 條舊 chunk，**兩條人手 footnote 明文保護未被刪**。
+   - ✅ **⑤ 封面核對接 CI**：月跑 workflow + `--baseline` diff 模式（alert on change, not on count）+ 9 條 self-test。
+   - ✅ **⑥ 重複登記合併**：`kgecg_2017`／`g31` deprecated（合併前先證實同一份文件），清走 2 個 dead allowlist 引用。
+   - ✅ **② judge 門檻實測 → 決定保留 0.70**（敵意 0.632 vs 真命中 0.624，分佈重疊；新工具 `judge_probe.py`）。
+   - ✅ **⑧ 公開庫重複行 + 死連結清走**，凍結 count 158 不變（原以為要 158→159）。
+   - ✅ eval query 25 → **30**（新增 5 條守住今次入庫嘅源）；最終 **PASS 20 / FAIL 0 / errors 0**。
+4. QC: 四份 eval run（before → after〔捉到 3 條 regression〕→ after_revert〔對 baseline 25/25 全同〕→ final〔20/30 PASS〕）全部 commit；頁碼錨點逐源自檢全 offset 0；刪除逐條驗；凍結合約 sha256/count 機械核實；tsc exit 0 ×4。
+5. 未完成: ④ `PUBLISH_PAT` scope（只有 Leonard 睇得到）；「校巴營辦商責任」route 次序；judge 選項 (c) 改良 prompt。
+6. commits: `7f4c306`（主體）→ `2f04c42`（spotlight revert）→ 本 closeout commit。Supabase **16,062** / registry **256** / v3.2.2 / 凍結合約零接觸。
+
+## Previous Session Record (S195 上半)
 1. UTC date: 2026-07-27
 2. Session ID: Claude_20260727_S195 (S195) — Draft root 開工 → §1 startup → 起手探針 4/4 綠（HEAD==origin/main `138588a`、無新 bot commit）→ 我建議「①判斷交 Leonard、②③ 我做」→ Leonard「跟你建議」→ READ 階段兩度發現實況超出我原述、按 §3 停低報告 → Leonard 兩個決定（Supabase 一齊修／g21-g22 只記錄）→ 執行 + 全掃驗證 → 收工。
 3. Completed（詳見 SESSION_LOG S195）:
@@ -421,6 +448,14 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## State Reconciliation Check
 
+- **Reconciled at:** 2026-07-27 (S195 下半 closeout)
+- **S195B state sections rewritten or confirmed current:** Current Baseline（prepend S195 下半 block：Supabase **16,062**、registry **256**、v3.2.2 不變、凍結合約零接觸、8 項優先事項逐項交代包括 1 項做唔到／2 項結論相反／1 項自己整錯已還原）；Open Priorities（**整份重生**：舊 8 項有 6 項完成、2 項結論改變，新列 6 項並全部標明性質同前置條件）；`Last Session Record` 由 S195 上半重寫為 S195B（上半降級為 `Previous Session Record (S195 上半)`，no-loss）；`Next Session Opening Message` 重生；本段。
+- **S195B lifecycle check:** 舊 Open Priorities 8 項處置 —— ①校車五份→**完成**（已從清單移除）；②judge 門檻→**完成但結論係「唔改」**，並衍生新項「改良 judge prompt」；③g21/g22→**完成**（Issue #5 可關）；④PAT→**唯一原封不動保留**（我做唔到）；⑤CI→**完成**，衍生「baseline 要跟住更新」維護項；⑥重複登記→**完成**；⑦spotlight→**嘗試後還原**，重列為「下次要用 eval 對」維護項；⑧religious_edu_jss→**完成且唔使郁凍結 count**。**無已完成項殘留為未解 next priority。** 新增 3 項（route 次序／g24-sag 真重複／judge prompt）全部標明需要獨立證據或 PLAN。
+- **S195B persistence routing checked:** 是。當前狀態→handoff Current Baseline；四份 eval run + judge probe 輸出→`dev/source/eval_runs/`（commit，跨 session 可比對，唔止留喺 log）；**門檻實測→`searchChannelB.ts` code 註釋**（下一個想調呢個數嘅人一定睇到）；**spotlight 教訓→`SPOTLIGHT_SOURCE_IDS` 註釋**；每條 registry 改動理由→各條目 `notes`；監察 diff 設計 + baseline 維護紀律→`FRESHNESS_GUIDE` §0/§2；用戶面→`update_log.json` 3 條 + CHANGELOG。
+- **S195B stale snapshots left:** 無。**主動更正咗自己上半場一個錯**：我曾把 `religious_edu_jss` 改名成 2024 版、status 改 verified，實情 registry 一早有 `religious_edu_jss_2024` 並已宣告 `supersedes`，我嗰個改動製造咗重複 —— 已改回 legacy 身份 + `superseded` + `superseded_by`，並在該條目 notes 寫低整件事。
+- **S195B opening message matches current state:** 是。`Next Session Opening Message` 重生（16,062／256／8 項處置結果／兩條「唔好再犯」紀律），`START_NEXT_SESSION_PROMPT.txt` 由該 block 重生並 mirror check PASS。
+- **S195B sync status:** DOC_SYNC 命中 4 row（Channel-B vault backfill ✓／檢索 eval harness 改動 ✓ eval_queries 25→30 + 4 份 run／Monitoring-CI change ✓ 新 workflow + FRESHNESS_GUIDE，**無新 secret 依賴**／guidelines.json 契約 ✓ `--write` 重生、158 不變）。`update_log.json` +3 條。凍結合約（`_meta` 2.3.0／facts 455／guidelines 158）+ `PLATFORM_VERSION` 3.2.2 零接觸（機械核實）。Pages 隨 push redeploy；Render 已 deploy 兩次（主體 + revert）。§4a：`--check` trigger=False（331 行／5 entries）→ no-op。
+- **舊記錄（S195 上半 closeout）：**
 - **Reconciled at:** 2026-07-27 (S195 closeout)
 - **S195 state sections rewritten or confirmed current:** Current Baseline（prepend S195 block：Supabase **16,035 不變**、registry **250 不變**、v3.2.2 不變、凍結合約零接觸、2 條 404 修好 + 5 條登記整理 + 3 項新發現未修，全部 LIVE 驗）；Open Priorities（**重生**：S194 的 ②③ 已完成故移除，其餘 5 項收納入新 S195 段，新增 3 項〔g18 re-ingest／g21-g22 Issue #5／religious_edu_jss 158→159〕並重新排序；S194 原行降級標示為歷史）；`Last Session Record` 由 S194 重寫為 S195（S194 段降級保留為 `Previous Session Record (S194)`，no-loss）；`Next Session Opening Message` 重生；本段。S194 及更早 = 歷史背景不變。
 - **S195 lifecycle check:** S194 的 ②（2 條真 404）③（5 條 pdf-serve-HTML）**兩項皆已完成，已從 Open Priorities 移除、唔再列為未解項**。②的結果比原描述嚴重（唔止 registry 污糟，而係 285 條 chunks + 5 個檔案副本都服務緊死連結），已在 baseline + log 寫明真相而非沿用舊描述。新增 3 項全部標明性質：①＝需 Leonard 拍板（g18 要 re-ingest，唔可照 re-point）、③＝已開 GitHub Issue #5 留底（Leonard 明確指示只記錄唔修）、⑧＝需拍板（會郁凍結 count 158→159）。**無已完成項殘留為未解 next priority 或 active risk。** Issue #4 保持開住係正確狀態（仍有 1 條真 broken URL `g18`），已在 issue 內註明範圍。
@@ -477,56 +512,57 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
 (Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
 
-Current state (S195, 2026-07-27): 平台 v3.2.2; Supabase 16,033 chunks; source_registry 250;
-HEAD==origin/main; 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158 (guidelines.json v2.6.1,
-_meta.updated 2026-07-27); 0 outstanding bug. 自動化 active: 4 源監察 (discover / freshness /
-served-url / new-circular) + Option A 自動入庫管道 (OPERATIONAL; 每日 19:30 HK refresh Issue +
-@mention-on-new; cron 20:00 HK 兜底). 第 5 監察 (封面核對 check_source_titles.py) 已建但仍未接 CI.
+Current state (S195B, 2026-07-27): 平台 v3.2.2; Supabase 16,062 chunks; source_registry 256;
+HEAD==origin/main; 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158; 0 outstanding bug.
+自動化 active: 5 源監察 (discover / freshness / served-url / new-circular / 封面核對〔S195B 新接入 CI,
+月跑〕) + Option A 自動入庫管道 (OPERATIONAL; 每日 19:30 HK refresh Issue; cron 20:00 HK 兜底)。
+served-URL 全掃 268/268 OK; eval PASS 20/30 FAIL 0 errors 0。
 
 ⚠️ 管道會自行入庫並直接 push main — 開工時本地可能落後 origin/main, tree 乾淨 + 0 本地 commit
 時先 git pull --ff-only 同步。
 
-📋 S195 做咗: 清晒 store 入面全部死連結 — served-URL 全掃由 2 broken 變 268/268 OK, 0 error。(1) g01 資助學校採購程序指引 (34 chunks)
-上游改名、ls_jss_2010 生活與社會 (251 chunks) 搬入 PSHE 檔案庫 — 兩條都 re-crawl 揾返真檔, 逐頁
-比對 30/30 同 183/183 頁完全相同 → 判定 re-point 而非 re-ingest, Supabase 只改 url 欄 285 行
-(#page= 錨點保留), count=exact 16,035 前後同值。(2) 同一條 URL 原來散落 6 處: registry / app.html
-GUIDELINES_REGISTRY / guidelines.json / data.json / secmeta.json / Supabase — 已全部對齊;
-guidelines.json 用 build_guidelines.py --write 重生 (DOC_SYNC row 35: NEVER hand-edit)。
-(3) 5 條 registry 寫 pdf 但 URL serve HTML 已更正, 全部證實零用戶影響。
-(4) g18 校車安全指引係第三條 404, 但屬改版 (上游出 2026/27 版, 只 3/8 頁相同) → 行完整
-re-ingest: 16,035 → 16,033 (+7 新版 / -6 舊版獨有)。⚠️ 陷阱: chunk id 係內容 hash, 兩版有 3 段
-文字相同故 id 重疊 — 照 source_id 刪舊 9 條會連現行內容刪走 3 條, 正確刪除集 = 舊 id 減新 id。
-⚠️ 動 backend 檢索前必讀 dev/SESSION_LOG.md S194 QC 段 + S193 QC 段 (門檻實證 + tie-flip 陷阱)。
-⚠️ 外部來源 URL 404 唔好照 re-point: 先逐頁比對確認係改名定改版 (playbook 方法 B + 
-   freshness-monitor-test-served-url 卡)。S195 兩條係改名 (可 re-point), g18 係改版 (要 re-ingest)。
+📋 S195 (兩輪) 做咗:
+上半 — 清晒 store 全部死連結: g01 / ls_jss_2010 屬上游改名或搬位 (逐頁比對 30/30、183/183 頁相同
+→ 只 re-point, 285 行 url); g18 校車指引屬改版 (只 3/8 頁相同 → 完整 re-ingest)。同一條來源 URL
+原來散落 6 處 (registry / app.html / guidelines.json / data.json / secmeta.json / Supabase),
+只有 Supabase 嗰份有監察 — 已全部對齊。
+下半 — 清埋 8 項優先事項: 入五份校車姊妹指引 + 修 g21/g22 引文錯配 (拆出 va_safety_sec) +
+封面核對接 CI + 合併重複登記 + judge 門檻實測 + 公開庫清重複行。
+
+🧭 兩條「唔好再犯」紀律 (今次用真金白銀學返嚟):
+  1. 改 chunk 版本唔可以照 source_id 刪舊 — chunk id 係內容 hash, 兩版相同嘅段落 id 會重疊,
+     照刪會連現行內容一齊刪走。正確刪除集 = 舊 id 減新 id, 而且要排除 footnote_curated
+     (人手寫, 唔屬 vault)。
+  2. 判斷一個源「搵唔搵得到」唔可以用自己揀嘅 phrasing 做可達性 probe — S195B 用呢招剪 spotlight,
+     eval 即刻捉到 3 條 query PASS→FAIL。真正重要嘅係用戶打嘅裸名詞, 而且生產會先 query-expand
+     再 embed。任何 spotlight / SOURCE_SETS / route 次序改動, 一律以 eval before→after 對為準。
+
+⚠️ 動 backend 檢索前必讀 dev/SESSION_LOG.md S195B QC 段 + S194/S193 QC 段。
 
 🛠 常用指令:
-  python3 dev/source/check_served_urls.py --check        # 全掃 268 URL, ~8 分鐘
-  python3 dev/source/check_source_titles.py --check      # 封面核對, 192 PDF, 較慢
-  python3 dev/source/eval_retrieval.py --self-test
   python3 dev/source/eval_retrieval.py --run --out after.json
-  任何檢索改動 (SOURCE_SETS / TOPIC_KEYWORDS / spotlight / supersede / 門檻) 都要有一對
-  before→after run 作證據。入新源前跟 FRESHNESS_GUIDE §1a 核封面標題。
+  python3 dev/source/eval_retrieval.py --compare dev/source/eval_runs/2026-07-27_s195_final.json after.json
+  python3 dev/source/judge_probe.py                       # 動 anti-confab 門檻前必跑
+  python3 dev/source/check_served_urls.py --check         # 268 URL, ~8 分鐘
+  python3 dev/source/check_source_titles.py --check --baseline   # 一定要帶 --baseline
+  入新源前跟 FRESHNESS_GUIDE §1a 核封面標題; triage 完 flag 要更新 title_baseline.json。
 
 🔜 NEXT (優先序):
-  ① 【需 Leonard 拍板】校車頁另外 5 份 2026/27 版指引未入庫: 供司機/保姆/營辦商/家長/學生
-     (2026_Guidelines_{Drivers,Escorts,Operators,Parents,Students}_TC.pdf, 全部 200)。g18 (供學校)
-     已於 S195 換上 2026/27 版; 呢 5 份係另一受眾, 入唔入由你決定。
-  ② 【需 Leonard 拍板, S194 留低】anti-confab judge 門檻: 新入 vault_extract 源檢索命中但整理
-     答案被拒 (0.628 / 0.624, 低於 S183 的 vault_extract ≥0.70 bypass)。選項 (a) 唔改
-     (b) 降至 ~0.60 — 必須先做 20+ 條敵意 probe (c) 改良 judge prompt。唔好未做敵意測試就降門檻。
-  ③ 【已開 Issue #5】g21/g22 引文頁碼/文件錯配: g22 全部頁碼錯開一頁; g21 的 vault 係小學版+
-     中學版兩份 PDF 串埋, 49 條 chunks 全掛小學版 URL。五個監察結構上都睇唔到 (URL 200、封面對)。
-  ④ 只有 Leonard 做得到: 確認 PUBLISH_PAT 係 fine-grained、只限 edb-circular-site contents:write。
-  ⑤ 把封面核對接入 CI — 唔可以直接接: S195 全掃證實 11 條 likely_wrong 全部良性, 用 severity
-     做 gate 會每次出 11 個假警報。要先加 baseline-diff (--baseline/--compare + self-test), 只對
-     新 flag / 覆蓋率跌 / error 開 Issue。基準已 commit: dev/source/title_baseline.json (203 源)。
-  ⑥ 重複登記: g29=kgecg_2017、g31=eng_pri_guide_2025 (S195 新確認, 已標 related_source_ids)。
-  ⑦ spotlight 現 6 源 63 chunks (上限 600), 確認能經 ANN 出頭後可 prune。
-  ⑧ 【低優先, 需拍板】religious_edu_jss 已修好直連 PDF (2024 版), 但 app.html 仍標 broken-url
-     被 build_guidelines.py 剔走; 修好會令公開 guidelines 158 → 159 = 郁凍結 count。
-  其他 backlog: roadmap R1-R8 (dev/SYSTEM_ANALYSIS_AND_ROADMAP.md §4/§5/§7);
-  Feature 2a 追問 + 2b 文件 scoped Q&A (Leonard S182 揀 sequence A)。
+  ① 【只有 Leonard 做得到】確認 PUBLISH_PAT 係 fine-grained、只限 edb-circular-site
+     contents:write。API 唔會俾 token 自報 scope, 要喺 GitHub Settings → Developer settings →
+     Personal access tokens 睇。
+  ② 「校巴營辦商責任」被 governance route 搶走 (返 IMC/學校行政手冊而唔係 sch_bus_operators_2026)
+     — TOPIC_KEYWORDS first-match 次序問題。改次序要一對 before→after eval run。
+  ③ 【較大】g24 同 sag_2025_11 係同一份《學校行政手冊》登記兩次, 215 條 chunk 文字完全相同
+     (S195B 實測) — 呢個先係 eval 固有 tie 嘅真來源。舊決定係「軟 dedup 已足夠」; 真合併要刪一邊
+     215 條, 屬最高流量來源, 要獨立 PLAN。
+  ④ judge 選項 (c): 改良 judge prompt 應付裸名詞短 query。(b) 降門檻已證數學上做唔到 —
+     敵意 0.632 vs 真命中 0.624 重疊。judge_probe.py 可直接做驗收: 4 條 control 要答到、
+     20 條敵意仍要拒答。
+  ⑤ 【維護】封面核對 baseline 要跟住入庫更新, 否則月跑 CI 會嘈。
+  ⑥ 【維護】spotlight 現 6 源; 要剪必須由 eval 對開始 (見上方紀律 2)。
+  其他 backlog: roadmap R1-R8 (dev/SYSTEM_ANALYSIS_AND_ROADMAP.md); Feature 2a 追問 +
+  2b 文件 scoped Q&A (Leonard S182 揀 sequence A); 雲端 OCR 引擎選項。
 
 Post-startup first action: 跑起手探針 (served app.html v3.2.2 + Render /health warm 455 + Draft
 HEAD==origin/main〔落後就 ff-pull〕+ Supabase count=exact), 然後向 Leonard 報告當前狀態同建議下一步。
