@@ -417,7 +417,12 @@ const SOURCE_SETS: Record<string, string[]> = {
     // S149 safety-guideline backfill — siblings of g23 (體育安全, whole-index). KLA/student
     // safety guides; added so 校車/視藝/科技 safety queries route here and surface them
     // (S135 backfill-allowlist coupling). TOPIC_KEYWORDS.safety gains 校車/視藝安全/科技安全.
-    "g18",               // 學童乘搭校車的安全指引 (2025/26)
+    "g18",               // 學童乘搭校車的安全指引 — 供學校 (S195: refreshed to 2026/27)
+    // S195: the five sibling 2026/27 school-bus guidelines from the same EDB page.
+    // g18 is the school's own obligations; these cover the parties a school supervises
+    // or advises, so 「跟車保母有咩要求」/「校巴司機」 now have something to answer from.
+    "sch_bus_drivers_2026", "sch_bus_escorts_2026", "sch_bus_operators_2026",
+    "sch_bus_parents_2026", "sch_bus_students_2026",
     "g21",               // 視覺藝術科安全指引
     "g22",               // 科技教育學習領域安全指引 (2010)
     "edbc012_2026",      // S186: 通告12/2026 — 校舍消防裝置或設備 (消防年檢)
@@ -430,7 +435,8 @@ const SOURCE_SETS: Record<string, string[]> = {
    * Exclude SAG (minimal curriculum content, adds noise).
    */
   curriculum: [
-    "kgecg_2017",        // S152: 幼稚園教育課程指引 (2017) — KG curriculum, Discovery backfill
+    // S195: kgecg_2017 removed — it duplicated g29 (same document) and had 0 chunks in the
+    // store, so it was a dead allowlist reference. g29 above carries all 107 chunks.
     "eng_pri_guide_2025",
     "ph_pri_guide_2025",
     "pri_science_guide_2025",
@@ -488,7 +494,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "kg_admin_guide_2026",       // S160: 幼稚園行政手冊（2026年5月）
     "kg_operation_manual_2026",  // S160: 學前機構辦學手冊（2026年5月，第4.3版）
     "kg_admin_guide",            // S152: 幼稚園學費涵蓋 / 售賣物品指引
-    "kgecg_2017",                // 幼稚園教育課程指引（2017）— broad KG context
+    // S195: kgecg_2017 removed here too — duplicate of g29, 0 chunks (see curriculum route).
     "g25",                       // 幼稚園相關指引及須知
     "g29",                       // 幼稚園教育課程指引（2017）
     "g26",                       // 2026/27 幼稚園收生安排指引
@@ -558,7 +564,7 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   sen: /\bsen\b|\bsenco\b|特殊教育|特殊學校|融合教育|全校參與|統籌主任|特殊學習需要|有特殊教育需要/i,
   // S142 EDB-sweep §1 — school safety + governance/QA/premises. MUST stay before `curriculum`
   // (first-match): some terms (視學, 自我評估) contain chars that curriculum would mis-route.
-  safety: /校園安全|學校安全|消防|火警|演習|疏散|職業安全|職安健|實驗室安全|氣體|防墮|斜坡安全|斜坡維修|熱帶氣旋|颱風|暴雨|惡劣天氣|停課安排|安全管理委員會|校車|視藝.{0,3}安全|視覺藝術.{0,4}安全|科技教育.{0,4}安全|科技科.{0,3}安全/,
+  safety: /校園安全|學校安全|消防|火警|演習|疏散|職業安全|職安健|實驗室安全|氣體|防墮|斜坡安全|斜坡維修|熱帶氣旋|颱風|暴雨|惡劣天氣|停課安排|安全管理委員會|校車|校巴|保母車|跟車保母|學生服務車輛|保姆車|視藝.{0,3}安全|視覺藝術.{0,4}安全|科技教育.{0,4}安全|科技科.{0,3}安全/,
   // S143 — QA/inspection split out of gov_admin (placed before it, first-match) so bare
   // short QA tokens (視學/校外評核/自我評估/表現指標/問責/校本管理) route here and get the
   // targeted expansion. Uses 自我評估 (NOT bare 評估) so it never steals curriculum
@@ -702,7 +708,21 @@ async function synthesizeAnswer(query: string, results: ChannelBResult[], llmFn:
   // S178 — EXCEPTION: footnote_curated lead scoring ≥ FOOTNOTE_LEAD_SCORE bypasses judge
   // (hand-curated verbatim-verified direct answer by construction, not confab risk).
   // S183 — EXTENDED: vault_extract lead scoring ≥ VAULT_LEAD_SCORE (0.70) also bypasses
-  // judge. Confabulation the judge guards against (S177 凍結教席→IMC-60% class) occurs
+  // judge.
+  // S195 — MEASURED, DO NOT LOWER. Sources ingested after S183 score 0.62-0.63 on their own
+  // subject and are therefore declined, which looks like the threshold is simply too high.
+  // It is not. `dev/source/judge_probe.py` ran 20 adversarial queries (6 off-domain plus 14
+  // "plausible-gap": real school-admin phrasing whose specific answer is NOT in the corpus)
+  // against 4 positive controls. The two distributions OVERLAP:
+  //     adversarial max 0.632 (「幼稚園每班最多可以收幾多個學生」→ kg_admin_guide_2026)
+  //     control     min 0.624 (「跟車保母有咩要求」→ sch_bus_escorts_2026)
+  // i.e. the best adversarial query outscores the worst true hit. A 0.60 bar would admit
+  // 「教師每年可以請幾多日大假」(0.617), 「學校可唔可以借錢俾教職員」(0.615) and
+  // 「校服供應商招標要幾多間報價」(0.614) — all cases where the register matches and the
+  // number does not exist, which is exactly the S177 凍結教席→IMC-60% failure. Cosine cannot
+  // separate "found the right document" from "found a document in the right register", so no
+  // choice of number is safe. Raising recall here needs a better JUDGE, not a lower bar.
+  // Re-run: python3 dev/source/judge_probe.py (evidence: dev/source/eval_runs/2026-07-27_s195_judge_probe.txt) Confabulation the judge guards against (S177 凍結教席→IMC-60% class) occurs
   // at lower cosine 0.50-0.65 (topically-near-but-wrong); ≥0.70 is empirically direct
   // topical match. Verified live: 「智啟學教是什麼」EDBCM 221 chunk rank-0 score 0.750
   // and 「價值觀教育」VE_CF 2021 chunk rank-0 score 0.794 were over-declined by judge
@@ -852,12 +872,18 @@ const SPOTLIGHT_LEAD_SCORE = 0.6;
 const SPOTLIGHT_MAX_LEADS = 1;
 const SPOTLIGHT_SOURCE_IDS: string[] = [
   // ack:spotlight:start
-  "edbcm113_2026", // S193: 小學資訊與創新科技課程框架「人工智能初探」(3 chunks, ANN-starved in digital_education)
-  "edbcm094_2026", // S193: 2026/27 資助學校教職員薪酬調整 (7 chunks, crowded out by sag_2025_11)
-  "edbcm073_2026", // S193: QEF 電子學習撥款 (12 chunks, S186 monitor — crowded out by DEBP corpus)
-  "edbcm066_2026", // S193: 準英語教師獎學金 (14 chunks, S186 monitor — crowded out by sag/g04)
-  "iit_ai_framework_2026", // S194: 人工智能初探範疇正文 (18 chunks, measured 0.628-0.676 on its own topics)
-  "edbc013_2026",  // S194: 非本地兒童入學 (9 chunks; the eval harness caught it missing, measured 0.619)
+  // S195 prune. Each entry was re-tested against the MAIN path it is meant to compensate for:
+  // whole-index ANN, top_k*5 = 40 candidates, min_score 0.22 — the same over-fetch that starved
+  // these sources in S193. Four now enter that pool at rank 0 with a clear margin, so the overlay
+  // is no longer what carries them and they were removed:
+  //   edbcm113_2026 rank 0 @0.622 · edbcm094_2026 rank 0 @0.690
+  //   edbcm066_2026 rank 0 @0.696 · iit_ai_framework_2026 rank 0 @0.671
+  // The two below stay: they reach the pool only deep or weakly, which is exactly the condition
+  // the overlay exists for. Re-measure before pruning either.
+  "edbcm073_2026", // S193: QEF 電子學習撥款 (12 chunks). S195: ANN rank 6 @0.396 — and 0.458 on its
+                   // own topic is under the 0.60 lead bar anyway, so it is a known design edge, not a bug.
+  "edbc013_2026",  // S194: 非本地兒童入學 (9 chunks). S195: ANN rank 13 @0.542 — reaches the pool but
+                   // deep enough that route filtering can still lose it.
   // ack:spotlight:end
 ];
 

@@ -228,7 +228,15 @@ def run_self_test():
     broken = [i for i, w in dropped if w == "broken-url"]
     assert stat, "expected stat drops"
     assert form, "expected form drops"
-    assert broken == ["religious_edu_jss"], "broken-url drop mismatch: %s" % broken
+    # S195: the sole broken-url drop was `religious_edu_jss`, a stale duplicate row carrying a dead
+    # vertexaisearch.cloud.google.com grounding-redirect URL. The public library already listed the
+    # same document as `religious_edu_jss_2024` with the real EDB PDF, so the row was deleted from
+    # GUIDELINES_REGISTRY rather than repaired — the public count was unaffected (it was already
+    # being dropped). The guard now asserts the RULE rather than that one row: no AI-grounding
+    # redirect may ever reach the public artifact.
+    assert broken == [], "unexpected broken-url drop(s): %s" % broken
+    assert not any("vertexaisearch" in (e["url"] or "") for e in items), \
+        "a grounding-redirect URL is back in GUIDELINES_REGISTRY"
     assert "g10" in ids_of(out) and "g16" in ids_of(out) and "g28" in ids_of(out), \
         "g10/g16/g28 must stay public (real guidelines, not nav pages)"
     # category map total = kept + dropped

@@ -1,0 +1,56 @@
+# 學童乘搭學生服務車輛的安全指引 — 供學童遵守（2026/27）
+# source_id: sch_bus_students_2026
+# title: 學童乘搭學生服務車輛的安全指引 — 供學童遵守（2026/27）
+# fact_type: policy
+# topic_tags: student
+# url: https://www.edb.gov.hk/attachment/tc/student-parents/safety/sch-bus-services/2026_Guidelines_Students_TC.pdf
+# source_type: pdf
+# extracted: 2026-07-27 (S195)
+# pipeline: _extract_s195_schoolbus.py (PyMuPDF get_text, verbatim, page markers)
+# note: 2026/27 school-bus safety guidelines for 學童; sibling of g18 (供學校) on the same EDB page
+# ============================================================
+
+=== Page 1 ===
+學童乘搭學生服務車輛的 
+    安全指引 － 供學童遵守     
+ 
+(1) 
+為免產生混亂，乘搭不同車輛的學童，應佩戴不同的標記，以資識
+別。 
+ 
+(2) 
+學童乘搭車輛時，必須遵守規則，例如： 
+(i) 
+除上車或下車時，切勿離開座位； 
+(ii) 
+切勿與司機談話或大聲呼叫； 
+(iii) 切勿玩耍； 
+(iv) 盡量避免在車廂內飲食以保持清潔； 
+(v) 
+切勿將頭、手或身體任何部分伸出窗外； 
+(vi) 
+車輛如未完全停下時，切勿上車或下車； 
+(vii) 切勿把玩車門緊急出口；以及 
+(viii) 切勿把玩安全帶或在行車時解開安全帶。 
+ 
+(3) 
+學童應避免攜帶大型物品乘搭校車。 
+ 
+(4) 
+由2026年1月25日起，如學生服務車輛已裝設安全帶，乘客必須佩
+戴安全帶。在開車前及行車時，學童必須佩戴安全帶（如有的話）。
+佩戴方法須正確，應確保安全帶可使人緊扣在座位上；不應兩人或
+多人同時共用一條安全帶。如乘客拒絕佩戴安全帶，司機可考慮拒
+絕開車。 
+ 
+(5) 
+學童應遵照指示，採用正確的方法上落車。 
+ 
+(6) 
+學童下車後，應與即將開車離去的車輛保持安全的距離。 
+ 
+ 
+ 
+運輸署 
+2026年7月 
+

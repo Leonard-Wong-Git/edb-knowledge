@@ -30,6 +30,17 @@ benign (see the script's "Known limitations"). Ingest-time discipline is the
 cheaper half of this defence — **verify the cover names the document you think
 you are registering** (see §1a below).
 
+**C runs in CI monthly, and alerts on a DIFF (S195).** `.github/workflows/title_check.yml`
+(1st of the month, 13:00 UTC; ~200 PDF downloads, hence monthly not weekly; no secret
+needed). The raw flag count is **not** an alert signal — a full run flags ~18 sources and
+essentially all are benign, so gating on the count or on severity would fire ~11
+known-benign alarms every run, exactly the noise S191 removed. Instead each run is diffed
+against `dev/source/title_baseline.json`, the human-reviewed accepted state, and an Issue
+opens only for a **change**: a source that started failing, a coverage drop of ≥0.15, a new
+source that has never been reviewed, or any source that could not be fetched.
+**When you triage a flag and accept it as benign, update the baseline** — that is the
+mechanism that keeps this monitor quiet, and skipping it is what turns a monitor into spam.
+
 **Why B is non-optional here (S170 lesson):** A tested every registry URL green
 (200, errors=0) while 383 `sag_2025_11` chunks served a stale `/index.html` path
 that 404'd — a registry-only monitor *structurally* cannot see store drift. B
@@ -55,6 +66,10 @@ Then, after the registry write, `python3 dev/source/check_source_titles.py
 Method C; the sweep is the safety net, not the primary defence.
 
 ## 1. Monitoring Rhythm
+- **Weekly (automated)**: Method A freshness (Mon 09:00 UTC), discovery (Mon 10:00 UTC),
+  Method B served-URL (Mon 11:00 UTC).
+- **Monthly (automated)**: Method C cover-title parity (1st, 13:00 UTC) — diff against the
+  accepted baseline, see §0.
 - **Weekly (Recommended)**: Run the freshness checker to detect broken links and record meta changes.
 - **Before Releases**: Must run and verify all sources in the registry.
 - **On Error**: Any error in the checker's log must be investigated and repaired immediately (re-verify URL or search for archive).
@@ -73,6 +88,19 @@ python3 dev/source/check_freshness.py --ledger dev/source/freshness_changes.md
 
 # Scope to first N sources (testing); JSON change report goes to --changes-out
 python3 dev/source/check_freshness.py --dry-run --limit 5 --changes-out /tmp/fc.json
+
+# Method B — served-URL health (what the store actually hands users)
+python3 dev/source/check_served_urls.py --self-test
+python3 dev/source/check_served_urls.py --check
+
+# Method C — cover-title parity. Always pass --baseline: without it you get the raw
+# flag list (~18 rows, mostly benign); with it you get only what CHANGED.
+python3 dev/source/check_source_titles.py --self-test
+python3 dev/source/check_source_titles.py --check --baseline
+python3 dev/source/check_source_titles.py --check --only <id1>,<id2> --baseline
+
+# Refresh the accepted state after triaging flags as benign (or after an ingest batch):
+# re-run --check, then rewrite dev/source/title_baseline.json from the report's rows.
 ```
 
 ### Two-tier change detection (S139 hybrid)

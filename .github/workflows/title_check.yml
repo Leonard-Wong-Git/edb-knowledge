@@ -1,0 +1,168 @@
+name: Monthly Cover-Title Parity Check
+
+# Method C monitor (document identity): downloads every PDF source and checks
+# that the registry title actually matches the document's cover. This is the
+# only monitor that can see the S194 class of bug — `ict_sss_2021` was titled
+# 《資訊及通訊科技》 but pointed at the 公民與社會發展科 guide. Freshness asks "did
+# the bytes change?" and served-URL asks "does the link resolve?"; both stayed
+# green for months while 81 chunks of the wrong subject were served.
+#
+# Monthly, not weekly: a full run downloads ~200 PDFs.
+#
+# ── WHY THE ALERT IS A DIFF, NOT A COUNT ────────────────────────────────────
+# The first full run flagged 18 sources and every one was benign on inspection
+# (table-of-contents covers, English covers vs Chinese titles, pure
+# document-number titles, curated composite titles). Gating on the flag count or
+# on severity would therefore fire ~11 known-benign alarms every single run —
+# precisely the e-mail noise S191 set out to remove. So CI diffs each run against
+# `dev/source/title_baseline.json`, the human-reviewed accepted state, and only
+# opens an issue when something CHANGED: a source that started failing, one whose
+# coverage fell materially, or one that could not be fetched at all.
+#
+# When a flag is reviewed and accepted, update the baseline in the same PR that
+# explains why — that is the mechanism by which this monitor stays quiet.
+
+on:
+  schedule:
+    # 1st of the month, 13:00 UTC (21:00 HK) — after the daily ingest window so a
+    # freshly ingested source is checked in the same run.
+    - cron: "0 13 1 * *"
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Check only the first N pdf sources (0 = all)"
+        required: false
+        default: "0"
+        type: string
+
+permissions:
+  contents: read       # read-only: never writes the registry, the store, or the repo
+  issues: write        # open/update the cover-title issue
+
+jobs:
+  title-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests pymupdf
+
+      - name: Self-test (offline logic, includes the baseline-diff rules)
+        run: python3 dev/source/check_source_titles.py --self-test
+
+      - name: Check cover titles against the registry
+        run: |
+          LIMIT="${{ github.event.inputs.limit || '0' }}"
+          ARG=""
+          if [ "$LIMIT" != "0" ] && [ -n "$LIMIT" ]; then ARG="--limit $LIMIT"; fi
+          echo "Running: check_source_titles.py --check $ARG --baseline"
+          python3 dev/source/check_source_titles.py --check $ARG \
+            --baseline \
+            --changes-out title_report.json \
+            --ledger title_report.md 2>&1 | tee title_output.txt
+          exit ${PIPESTATUS[0]}
+        # ↑ Non-zero exit = fetch errors above the budget only (a real outage).
+        #   Flags and diffs never affect the exit code — same signal routing as
+        #   the freshness and served-URL monitors (S126 lesson).
+
+      - name: Upload cover-title report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: title-report-${{ github.run_number }}
+          path: |
+            title_output.txt
+            title_report.json
+            title_report.md
+          retention-days: 90
+
+      - name: Notify only when the accepted state changed
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let r;
+            try {
+              r = JSON.parse(fs.readFileSync('title_report.json', 'utf8'));
+            } catch (e) { core.info('No title report: ' + e); return; }
+
+            const diff = r.baseline_diff || {};
+            const alerts = diff.alerts || [];
+            if (alerts.length < 1) {
+              core.info(`No change vs the accepted baseline (${diff.unchanged_flags || 0} `
+                + 'accepted flags unchanged); not touching the issue.');
+              return;
+            }
+
+            const REASON = {
+              error: 'could not fetch or read',
+              newly_flagged: 'stopped matching its cover',
+              new_source_flagged: 'new source, cover does not match its title',
+              coverage_drop: 'cover match dropped materially',
+            };
+            const rows = alerts.slice(0, 30).map(a =>
+              `- **\`${a.source_id}\`** — ${REASON[a.reason] || a.reason}  \n  _${a.detail}_`
+            ).join('\n');
+            const resolved = (diff.resolved || []).slice(0, 15).map(x =>
+              `- \`${x.source_id}\` — ${x.detail}`).join('\n');
+            const s = r.summary || {};
+
+            const body = [
+              '@Leonard-Wong-Git',
+              '',
+              `📄 **${alerts.length}** cover-title change(s) vs the accepted baseline `,
+              `(run #${context.runNumber}; ${s.checked} PDFs checked, `,
+              `${s.flagged || 0} flagged in total, ${s.error || 0} could not be read).`,
+              '',
+              '> This monitor asks the question the other four cannot: **is the file at this URL '
+              + 'actually the document the registry says it is?** A 200 response and unchanged '
+              + 'bytes prove nothing about identity — that is how `ict_sss_2021` served 81 chunks '
+              + 'of the wrong subject for months (S194).',
+              '',
+              '> Only CHANGES are listed. Known-benign flags already in '
+              + '`dev/source/title_baseline.json` are deliberately silent '
+              + `(${diff.unchanged_flags || 0} of them this run).`,
+              '',
+              rows,
+              '',
+              alerts.length > 30 ? `…and ${alerts.length - 30} more — see artifact \`title-report-${context.runNumber}\`.` : '',
+              resolved ? `\n**Recovered since the baseline:**\n${resolved}` : '',
+              '',
+              '---',
+              'If a listed source turns out to be benign (a table-of-contents cover, an English '
+              + 'cover, a document-number title), record it by updating '
+              + '`dev/source/title_baseline.json` — that is what stops it alerting again.',
+            ].join('\n');
+
+            const title = '📄 Cover-title: sources whose document identity changed';
+            const label = 'cover-title-change';
+            try {
+              const existing = await github.rest.issues.listForRepo({
+                owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: label,
+              });
+              if (existing.data.length) {
+                await github.rest.issues.update({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: existing.data[0].number, title, body,
+                });
+                core.info('Updated issue #' + existing.data[0].number);
+              } else {
+                await github.rest.issues.create({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  title, body, labels: [label],
+                });
+                core.info('Created cover-title issue.');
+              }
+            } catch (e) {
+              core.warning('Failed to open/update cover-title issue: ' + (e && e.message));
+            }

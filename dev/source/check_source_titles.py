@@ -72,6 +72,16 @@ REGISTRY = REPO_ROOT / "dev" / "source" / "source_registry.json"
 
 FLAG_THRESHOLD = 0.45   # below this → flag for human triage (calibrated in --self-test)
 LIKELY_WRONG = 0.32     # below this → "likely_wrong" severity (the S194 case scored 0.298)
+
+# Baseline diff (S195). The raw flag count is NOT an alert signal: the first full
+# run flagged 18 sources and every one was benign on inspection (TOC covers,
+# English covers, document-number titles, curated composite titles). Gating CI on
+# severity would therefore fire ~11 known-benign alarms every single run — the
+# exact e-mail noise S191 removed. What IS a signal is a CHANGE against the
+# human-reviewed baseline: a source that started failing, one whose coverage fell
+# materially, or one that could not be fetched at all.
+BASELINE = REPO_ROOT / "dev" / "source" / "title_baseline.json"
+COVERAGE_DROP = 0.15    # a fall of at least this much vs baseline is alert-worthy
 COVER_PAGES = 5         # some covers are a graphic; keep reading until there is text
 MIN_CJK_BIGRAMS = 2     # a title variant with less CJK signal than this is unjudgeable
 MIN_LATIN_WORDS = 2     # …unless it carries at least this many latin words
@@ -378,6 +388,64 @@ def run_check(sources: list[dict], only: list[str] | None,
 
 
 # ---------------------------------------------------------------------------
+# baseline diff — what CI actually alerts on
+# ---------------------------------------------------------------------------
+
+
+def diff_baseline(report: dict, baseline: dict) -> dict:
+    """Compare a run against the accepted-state baseline.
+
+    Returns {"alerts": [...], "resolved": [...], "unchanged_flags": n}. Only
+    `alerts` should ever open an issue; `resolved` and `unchanged_flags` are
+    reported for context. A source missing from the baseline is treated as new:
+    if it is flagged, that is an alert (nobody has reviewed it yet).
+    """
+    base_rows = baseline.get("rows", {})
+    alerts, resolved, unchanged = [], [], 0
+
+    for row in report.get("rows", []):
+        sid = row["source_id"]
+        prev = base_rows.get(sid)
+        status, cov = row["status"], row.get("coverage")
+
+        if status == "error":
+            alerts.append({"source_id": sid, "reason": "error",
+                           "detail": row.get("error") or "could not fetch or read the document"})
+            continue
+
+        if status == "flagged":
+            if prev is None:
+                alerts.append({"source_id": sid, "reason": "new_source_flagged",
+                               "detail": f"not in baseline; coverage {cov}"})
+            elif prev.get("status") != "flagged":
+                alerts.append({"source_id": sid, "reason": "newly_flagged",
+                               "detail": f"was {prev.get('status')} "
+                                         f"({prev.get('coverage')}), now flagged ({cov})"})
+            else:
+                unchanged += 1
+
+        prev_cov = (prev or {}).get("coverage")
+        if (prev is not None and cov is not None and prev_cov is not None
+                and prev_cov - cov >= COVERAGE_DROP):
+            alerts.append({"source_id": sid, "reason": "coverage_drop",
+                           "detail": f"{prev_cov} → {cov} (drop {round(prev_cov - cov, 3)})"})
+
+        if (status == "ok" and prev is not None and prev.get("status") == "flagged"):
+            resolved.append({"source_id": sid,
+                             "detail": f"{prev.get('coverage')} → {cov}"})
+
+    # de-duplicate: a newly-flagged source that also dropped coverage is one alert
+    seen, deduped = set(), []
+    for a in alerts:
+        if a["source_id"] in seen and a["reason"] == "coverage_drop":
+            continue
+        seen.add(a["source_id"])
+        deduped.append(a)
+
+    return {"alerts": deduped, "resolved": resolved, "unchanged_flags": unchanged}
+
+
+# ---------------------------------------------------------------------------
 # self-test (offline)
 # ---------------------------------------------------------------------------
 
@@ -478,6 +546,50 @@ def self_test() -> int:
     check("severity bands split at the calibrated value",
           severity(0.298) == "likely_wrong" and severity(0.40) == "review")
 
+    # --- baseline diff (S195): CI must alert on CHANGE, never on the flag count ---
+    base = {"rows": {
+        "accepted_flag": {"status": "flagged", "coverage": 0.30},   # known-benign
+        "healthy":       {"status": "ok", "coverage": 0.90},
+        "was_flagged":   {"status": "flagged", "coverage": 0.20},
+        "slipping":      {"status": "ok", "coverage": 0.80},
+    }}
+    run = {"rows": [
+        {"source_id": "accepted_flag", "status": "flagged", "coverage": 0.30},
+        {"source_id": "healthy",       "status": "ok", "coverage": 0.90},
+        {"source_id": "was_flagged",   "status": "ok", "coverage": 0.75},
+        {"source_id": "slipping",      "status": "ok", "coverage": 0.60},
+        {"source_id": "brand_new",     "status": "flagged", "coverage": 0.10},
+        {"source_id": "unreachable",   "status": "error", "error": "HTTP 404"},
+    ]}
+    d = diff_baseline(run, base)
+    reasons = {a["source_id"]: a["reason"] for a in d["alerts"]}
+    print(f"     [baseline diff] alerts={reasons} resolved="
+          f"{[r['source_id'] for r in d['resolved']]} unchanged_flags={d['unchanged_flags']}")
+    check("a benign flag already in the baseline does NOT alert",
+          "accepted_flag" not in reasons and d["unchanged_flags"] == 1)
+    check("a source absent from the baseline and flagged DOES alert",
+          reasons.get("brand_new") == "new_source_flagged")
+    check("an unfetchable source alerts regardless of baseline",
+          reasons.get("unreachable") == "error")
+    check("a material coverage drop alerts even while still 'ok'",
+          reasons.get("slipping") == "coverage_drop")
+    check("a healthy unchanged source does not alert", "healthy" not in reasons)
+    check("a source that recovered is reported as resolved, not alerted",
+          "was_flagged" not in reasons
+          and [r["source_id"] for r in d["resolved"]] == ["was_flagged"])
+    check("a newly-flagged known source names the transition",
+          diff_baseline({"rows": [{"source_id": "healthy", "status": "flagged",
+                                   "coverage": 0.10}]}, base)["alerts"][0]["reason"]
+          == "newly_flagged")
+    check("the committed baseline parses and covers the corpus",
+          BASELINE.exists() and len(json.loads(
+              BASELINE.read_text(encoding="utf-8")).get("rows", {})) > 150)
+    check("a clean run against the committed baseline yields no alerts",
+          not diff_baseline(
+              {"rows": [{"source_id": sid, **row} for sid, row in
+                        json.loads(BASELINE.read_text(encoding="utf-8"))["rows"].items()]},
+              json.loads(BASELINE.read_text(encoding="utf-8")))["alerts"])
+
     check("a short subject name is judged by containment, not bigrams",
           coverage("生物(中四至中六) 二零零七年", "科學教育學習領域 生物 課程及評估指引") == 1.0
           and coverage("生物(中四至中六)", "科學教育學習領域 化學 課程及評估指引") == 0.0)
@@ -552,6 +664,10 @@ def main() -> int:
     p.add_argument("--limit", type=int)
     p.add_argument("--changes-out", help="write the JSON report here")
     p.add_argument("--ledger", help="write a human-readable markdown report here")
+    p.add_argument("--baseline", nargs="?", const=str(BASELINE),
+                   help="diff the run against an accepted-state baseline "
+                        f"(default: {BASELINE.relative_to(REPO_ROOT)}). CI should use this: "
+                        "it alerts on change, not on the raw flag count.")
     args = p.parse_args()
 
     if args.self_test:
@@ -573,6 +689,22 @@ def main() -> int:
             print(f"  {r['coverage']:<6} {r['source_id']}")
             print(f"         title: {r['title'][:80]}")
             print(f"         cover: {r.get('cover_head','')[:80]}")
+
+    if args.baseline:
+        bpath = Path(args.baseline)
+        if not bpath.exists():
+            print(f"\nbaseline not found: {bpath} — run without --baseline to create one")
+            return 1
+        d = diff_baseline(report, json.loads(bpath.read_text(encoding="utf-8")))
+        report["baseline_diff"] = d
+        print(f"\nbaseline diff vs {bpath.name}: {len(d['alerts'])} alert(s), "
+              f"{len(d['resolved'])} resolved, {d['unchanged_flags']} accepted flag(s) unchanged")
+        for a in d["alerts"]:
+            print(f"  ⚠ {a['source_id']}  [{a['reason']}]  {a['detail']}")
+        for r in d["resolved"]:
+            print(f"  ✅ {r['source_id']}  recovered  {r['detail']}")
+        if not d["alerts"]:
+            print("  (nothing changed against the accepted state — CI stays quiet)")
 
     if args.changes_out:
         Path(args.changes_out).write_text(

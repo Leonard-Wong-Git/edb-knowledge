@@ -1,0 +1,43 @@
+
+=== class A off-domain (6 queries) ===
+  0.415  香港股票市場今日收市指數                 → ls_jss_2010 · 生活與社會課程指引（中一至中三）（2010年）
+  0.391  米線湯底煮法食譜                     → tech_kla_guide_2017 · 科技教育學習領域課程指引 (小一至中六) 二零一七年
+  0.317  英超足球聯賽賽程表                    → g07 · 基礎教育課程指引（小一至小六）（2014）全本
+  0.418  比特幣今年價格走勢                    → econ_sss_2007_2015 · 經濟課程及評估指引 (中四至中六) 2007 (20
+  0.302  台灣高鐵時刻表同票價                   → icac_school_governance · 防貪錦囊：學校管治與內部監控 (ICAC)
+  0.28  iPhone 換電池保養價錢               → sci_jss_framework_2025 · 科學教育學習領域課程指引補充文件–科學 (中一至中三
+  max=0.418  median=0.354  n=6
+
+=== class B plausible-gap (14 queries) ===
+  0.617  教師每年可以請幾多日大假                 → g04 · 教職員批假指引（資助學校）
+  0.546  校長退休金點樣計                     → sag_2025_11 · 學校行政手冊（2025年11月版）
+  0.563  解僱教師要俾幾多個月遣散費                → long_service_payment_guide · 發放遣散費及長期服務金的指引 (2025年5月)
+  0.632  幼稚園每班最多可以收幾多個學生              → kg_admin_guide_2026 · 幼稚園行政手冊（2026年5月）
+  0.545  學校泳池水質檢測標準係咩                 → g23 · 體育學習領域安全指引
+  0.493  老師病假連續請幾耐先要交醫生紙              → staff_medical_health · 學校員工的體格檢驗及健康狀況
+  0.615  學校可唔可以借錢俾教職員                 → icac_school_governance · 防貪錦囊：學校管治與內部監控 (ICAC)
+  0.445  校巴司機最低工資係幾多                  → edbcm094_2026 · 2026-27年度資助學校教職員薪酬調整
+  0.446  學生喺校內可以用手機幾耐                 → sag_2025_11 · 學校行政手冊（2025年11月版）
+  0.584  教師評核幾多分先算合格                  → religious_edu_jss_2024 · 宗教教育課程指引（中一至中三）（2024）
+  0.565  學校每堂補習費可以收幾多                 → sag_2025_11 · 學校行政手冊（2025年11月版）
+  0.614  校服供應商招標要幾多間報價                → g01 · 資助學校採購程序指引（2025年10月更新）
+  0.479  體罰投訴要幾多日內處理完                 → g24 · 學校行政手冊（2025年11月版）
+  0.501  課室冷氣應該調到幾多度                  → lab_prep_room_aircon · 實驗室預備室空調設備指引
+  max=0.632  median=0.5545  n=14
+
+=== class C positive control (4 queries) ===
+  0.628  人工智能初探                       → iit_ai_framework_2026 · 《小學資訊與創新科技課程框架》—「人工智能初探」範疇
+  0.646  資訊及通訊科技 課程指引                 → tech_kla_guide_2017 · 科技教育學習領域課程指引 (小一至中六) 二零一七年
+  0.624  跟車保母有咩要求                     → sch_bus_escorts_2026 · 學童乘搭學生服務車輛的安全指引 — 供跟車保母遵守（
+  0.624  校巴司機安全指引                     → sch_bus_drivers_2026 · 學童乘搭學生服務車輛的安全指引 — 供司機遵守（20
+  max=0.646  median=0.626  n=4
+
+==================================================================
+adversarial (A+B, n=20): max=0.632  p90=0.617  median=0.497
+controls   (C,   n=4): min=0.624  median=0.626
+separation between the worst control and the best adversarial: -0.008
+
+verdict:
+  NO SAFE THRESHOLD — adversarial queries reach as high as the real ones.
+  Lowering the bypass cannot be made safe by threshold choice alone;
+  the fix has to be the judge prompt (option c), not the number.
