@@ -35,7 +35,7 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
-## 2026-07-27 Session 195 — 清兩條積咗 4 星期嘅死連結（re-point 非 re-ingest，逐頁比對作證）＋ registry↔store drift 整理
+## 2026-07-27 Session 195 — 清三條死連結：兩條 re-point（逐頁比對作證）、一條 re-ingest（校車安全指引 2026/27 改版）＋ registry↔store drift 整理
 
 - **ID:** Claude_20260727_S195
 - **Summary:** Draft root 開工 → §1 startup → 起手探針 4/4 綠（served v3.2.2 / Render warm 455 / HEAD==origin/main `138588a` tree 乾淨、**無新 bot commit** / Supabase count=exact 16,035）→ 我報狀態並建議「① judge 門檻交 Leonard 拍板、②③ registry 衛生我做」→ Leonard「跟你建議」→ **READ 階段兩度發現實況超出我原述、按 §3 停低報告** → Leonard 兩個決定（Supabase 一齊修／g21-g22 只記錄）→ 執行 + 全掃驗證。
@@ -48,22 +48,32 @@ dev/DOC_SYNC_REGISTRY.md
   - `guidelines.json`：**用 `dev/build_guidelines.py --write` 重生**（DOC_SYNC row 35 明令 NEVER hand-edit）。先手改再重生對照，證實兩者除 `_meta.updated` 外**逐字相同**，即手改內容正確但改用官方路徑產出。
   - Supabase `wiki_chunks.url`：**285 行**（g01 32＋1＋1／ls_jss_2010 251），按 distinct url 分組 PATCH 以原樣保留 `#page=17`／`#page=5` 錨點。
   - `CHANGELOG.md` 新條目（含 Known issues 段）。GitHub：Issue #4 補修復證據 + 範圍說明；**新開 Issue #5**（g21／g22 引文錯配）。
-- **Done:** 2 條 404 修好並 live 驗；5 條 pdf-serve-HTML 更正；3 項新發現記錄在案。
+  - g18 續做新增：`dev/_extract_s195.py`（NEW）／`dev/_s195_delete_stale_g18.py`（NEW，刪除集 hard-code + dry-run 預設）／`dev/vault/g18/extract_g18.txt` 重寫為 2026/27 版／display-sync 7 檔 16,035→16,033／`update_log.json` +1 條。
+- **Done:** 3 條 404 全部清走（2 條 re-point、1 條 re-ingest）並 live 驗；5 條 pdf-serve-HTML 更正；餘下發現記錄在案。Supabase 16,035 → **16,033**。
 - **根因（②，比 handoff 描述深）：** handoff 把呢兩條寫成「封面掃描副產品」，實情係 **served-URL 監察（第 3 監察）早在 2026-06-29 就準確捉到並開咗 Issue #4，一直開住 4 個星期無人跟進**。監察系統健康，債係流程上冇人 close the loop。兩條的上游成因唔同：`g01` = 上游改名（`…Trad Chi_2024.pdf`→`Guidelines on Procurement Procedures_TC.pdf`）；`ls_jss_2010` = 搬入 `/pshe/archive/Life_and_Society/`。兩者皆用 playbook `external-source-url-churn-rediscovery` 方法 B（re-crawl landing／archive 頁）揾返。
 - **QC:**
   - **re-point vs re-ingest 的判斷有機械證據**：重抽兩份新檔逐頁比對已入庫 vault（空白正規化後全字串相等）→ `g01` **30/30 頁相同**、`ls_jss_2010` **183/183 頁相同** → 判定純搬位／改名，只需改 url。呢一步係跟 playbook `freshness-monitor-test-served-url` 的警告（「churn 唔可單純 re-point」）做的**反向舉證**，唔係口頭假設。
   - **blast radius 先行**：Supabase 改動前印出每個 distinct url 的行數同新值俾人眼過（285 行），PATCH 逐組 assert `rows_updated == rows_expected`，之後查舊 url 殘留 = **0**、`count=exact` **16,035 前後同值**。
   - **凍結合約機械核實**：`knowledge.json` + `role_facts.json` sha256 前後相同；`guidelines.json` `_meta` version 2.6.1 / count 158 / 實際條目 158 不變；`PLATFORM_VERSION` 3.2.2 不變。`build_guidelines.py --self-test` PASS（registry 167 / public 158 / dropped 9）。
-  - **監察全掃驗證**：`check_served_urls.py --check` → **268 distinct URL / 268 checked / 267 OK / 1 broken / 0 errors**（修前 2 broken）。
+  - **監察全掃驗證（跑咗兩次）**：修完 g01／ls_jss 後 → 268 URL / 267 OK / **1 broken**（揪出新壞嘅 `g18`）；再修完 g18 後 → **268 URL / 268 checked / 268 OK / 0 broken / 0 errors** —— 成個 store 首次全綠（Issue #4 自 2026-06-29 起一直有 broken）。
   - **live 驗**：Channel B「資助學校採購程序」→ `g01` rank 1/2/3 且 url 已係新值（含 `#page=17` 錨點）；「核心單元 個人成長 青少年壓力 抗逆力 生活與社會」→ `ls_jss_2010` **rank 0 @0.715 p.30**，而 vault p.30 正正係該段內容，即頁碼錨點對得上。
   - **eval before→after 對：N/A 且已說明理由** —— 本次零檢索邏輯改動（無 SOURCE_SETS／TOPIC_KEYWORDS／spotlight／supersede／門檻改動），`url` 欄不參與 embedding 亦不參與排序。唔跑唔係慳工夫，係唔想製造無意義的 tie-flip 噪音。
-- **本次揪出、未修（3 項）:**
-  1. **`g18` 校車安全指引 404（新鮮壞）** —— 2026-07-20 那次監察仲係綠的，即係呢 7 日內先壞。re-crawl 發現上游已出 2026/27 版（`2026_Guidelines_Schools_TC.pdf`，6 頁）而庫內係 2025/26 版（8 頁），逐頁比對**只有 3/8 頁相同** → **改版非改名，照 re-point 會製造 S194 那類引文錯配**，需 re-ingest。未做（需 Leonard 拍板）。同頁另有 Drivers／Escorts／Operators／Parents／Students 五份 2026 版從未入庫。
-  2. **`g21`／`g22` 引文錯配（Issue #5）** —— 驗 g21/g22 的 vault 對唔對得上服務中的 PDF 時發現：g22 vault 51 頁 vs PDF 52 頁，**offset +1 時 50/51 頁相同**（頁碼系統性錯開一頁）；g21 更嚴重，vault 46 頁 = 小學版（22 頁）+ **中學版 `VAsafety_sec_c.pdf`** 兩份串埋，但 49 條 chunks 全部掛小學版 url，即約一半引文指向一份佢哋唔屬於嘅 22 頁文件、錨點 `#page=23`…`#page=46` 指去檔尾之外。**同 S194 `ict_sss_2021` 同一家族**；五個監察結構上全部睇唔到（URL 回 200、封面同標題對得上、bytes 冇變）。Leonard 指示只記錄。
+- **續做（Leonard「go」）：`g18` 校車安全指引 re-ingest —— 改版而非改名，所以行完整入庫流程:**
+  - **點解唔可以照 re-point**：`2025_Guidelines_Schools_TC(r).pdf` 已被上游撤下（2026-07-20 那次監察仲係綠、即 7 日內先壞），新出 `2026_Guidelines_Schools_TC.pdf`。逐頁比對新舊：**只有 3/8 頁相同** → 內容改版。照 re-point 會令 2025/26 內文掛住 2026/27 文件 = S194 `ict_sss_2021` 那類引文錯配。
+  - **流程**：新寫 `dev/_extract_s195.py`（沿用 `_extract_s194.py` canonical 格式）抽 6 頁 → dry-run chunk **7 條、全部 page-resolvable、char 529/579/596、NUL 0** → `dev/ingest_one_source.py g18` embed + upsert 7 條 → 刪走只屬舊版嘅 6 條。
+  - **⚠️ 過程揪出一個會靜默刪錯嘢嘅陷阱（值得記低）**：chunk id = `vault_<sid>_<content_hash>`，兩版有 **3 段文字完全相同 → id 重疊**。原計劃「DELETE 舊 9 條」**會連新版仍然有效嘅 3 條一齊刪走**。正確刪除集係 **`舊 id − 新 id` = 6 條**，已 hard-code 入刪除腳本（唔重新計算，免日後 vault 改咗就漂）。
+  - **DELETE 被 auto-mode 權限分類器擋**（破壞性 DB 操作）→ 按指示**停低交俾 Leonard 決定**，佢揀「A：自己行」→ 執行 `dev/_s195_delete_stale_g18.py --apply`（dry-run 預設、逐條刪、每條先驗係咪真係掛住 2025 舊 URL、survivor 唔可以有舊 URL 否則 abort）。事後我 read-only 驗證：**g18 = 7 行、舊 id 殘留 0、總數 16,033**（16,035 ＋7 −6 −... 淨 −2）。
+  - **自檢頁碼錨點**（因為啱啱先揪到 g21/g22 錯位，唔可以只信自己）：vault 6 頁 vs PDF 6 頁 **offset 0 全對**，抽 p.5 逐字對照 PDF 第 5 版 → 相同。
+  - **live 驗**：搜「校車 學生服務車輛 安全 座位」→ `g18` **rank 0 @0.725 / rank 1 @0.716**、標題已係《學童乘搭校車的安全指引（2026/27）》、URL 已係新版 PDF。
+  - **display-sync 7 檔 16,035 → 16,033**（15 處替換，逐檔 assert 命中數）；`update_log.json` **今次有加一條**（真內容更新，唔同前半 session 嘅純連結修復）；registry `g18`：url_primary→直連 PDF、`source_type` html→pdf、`version_label` 2026→2026/27、清 freshness、寫 notes。
+  - **刻意唔改**：`app.html` GUIDELINES_REGISTRY／`guidelines.json` 嘅 `g18` 仍指 landing 頁（200，正常）。理由＝指引文件庫係俾人 browse，該頁一次過列齊 6 份對象版本（學校／司機／保姆／營辦商／家長／學生），比直接跳去「供學校」單一 PDF 更有用。呢個係決定，唔係遺漏。
+- **本次揪出、未修（2 項＋1 待決）:**
+  1. **`g21`／`g22` 引文錯配（Issue #5）** —— 驗 g21/g22 的 vault 對唔對得上服務中的 PDF 時發現：g22 vault 51 頁 vs PDF 52 頁，**offset +1 時 50/51 頁相同**（頁碼系統性錯開一頁）；g21 更嚴重，vault 46 頁 = 小學版（22 頁）+ **中學版 `VAsafety_sec_c.pdf`** 兩份串埋，但 49 條 chunks 全部掛小學版 url，即約一半引文指向一份佢哋唔屬於嘅 22 頁文件、錨點 `#page=23`…`#page=46` 指去檔尾之外。**同 S194 `ict_sss_2021` 同一家族**；五個監察結構上全部睇唔到（URL 回 200、封面同標題對得上、bytes 冇變）。Leonard 指示只記錄。
+  2. **校車頁另外 5 份 2026/27 版指引未入庫**（供司機／保姆／營辦商／家長／學生，全部 200）—— 另一受眾，入唔入待 Leonard 決定。
   3. **`religious_edu_jss` 入公開指引庫** —— 直連 PDF 已修好，但 `app.html` 該條仍標 broken-url，被 `build_guidelines.py` 當 dropped 剔走；修好會令公開 guidelines **158 → 159**，屬凍結 count 變動，未做。
-- **Evidence disposition:** 當前狀態→handoff Current Baseline S195 block；逐頁比對數字／285 行 blast radius／全掃結果／live rank＝kept as recent trace evidence（本 entry）；每條 registry 改動理由→已寫入 registry 各條目 `notes`（下一個 agent 淨睇 registry 就知）；未修 3 項→Open Priorities ①③⑧ + GitHub Issue #4／#5（跨工具留底）；用戶面→CHANGELOG。
-- **Sync:** DOC_SYNC 命中 3 row（guidelines.json/app.html GUIDELINES_REGISTRY ✓ 照 row 用 `--write` 重生／Doc-drift truth-pass ✓／Channel-B vault backfill 部分適用 —— registry + url 對齊，無 SOURCE_SETS 改動故 eval 對 N/A）。**`update_log.json` 判定 N/A**：該日誌按 S190 定案只記「新源入庫／既有源重大更新」，純連結修復屬維護，入去只會製造雜訊。凍結合約 + `PLATFORM_VERSION` 零接觸（機械核實）。Pages 隨 push redeploy（app.html／guidelines.json／data.json 有改）。
-- **Risks:** ⚠️ `g18` 仍然 404，用戶撳「開啟」會壞（9 chunks，範圍細但係真故障）—— Issue #4 開住。⚠️ g21／g22 引文錯配仍在生產（Issue #5）。⚠️ 本次示範咗一個結構性問題：**同一條來源 URL 在 repo 內有 6 份副本，只有其中一份（Supabase）有監察**；registry／`app.html`／`guidelines.json`／`data.json`／`secmeta.json` 五份無人測。日後若再有 URL churn，其餘五處會靜默 stale（本次係人手 grep 揾返）。
+- **Evidence disposition:** 當前狀態→handoff Current Baseline S195 block；逐頁比對數字／285 行 blast radius／全掃結果／live rank＝kept as recent trace evidence（本 entry）；每條 registry 改動理由→已寫入 registry 各條目 `notes`（下一個 agent 淨睇 registry 就知）；未修項→Open Priorities（①校車 5 份姊妹指引／③ g21-g22／⑧ religious_edu_jss）+ GitHub Issue #5（跨工具留底）；用戶面→CHANGELOG。
+- **Sync:** DOC_SYNC 命中 3 row（guidelines.json/app.html GUIDELINES_REGISTRY ✓ 照 row 用 `--write` 重生／Doc-drift truth-pass ✓／Channel-B vault backfill 部分適用 —— registry + url 對齊，無 SOURCE_SETS 改動故 eval 對 N/A）。**`update_log.json`：前半 session（純連結修復）判定 N/A**（按 S190 定案只記「新源入庫／既有源重大更新」，維護性改動入去只會製造雜訊）；**後半 g18 改版有 append 一條**（真內容更新，命中 row 43）。display-sync 7 檔 16,035→16,033。凍結合約 + `PLATFORM_VERSION` 零接觸（機械核實）。Pages 隨 push redeploy（app.html／guidelines.json／data.json 有改）。
+- **Risks:** ⚠️ g21／g22 引文錯配仍在生產（Issue #5）。⚠️ `g18` 換版後，任何引用舊 2025/26 版頁碼嘅外部筆記會對唔上（內容已改，屬預期）。⚠️ 本次示範咗一個結構性問題：**同一條來源 URL 在 repo 內有 6 份副本，只有其中一份（Supabase）有監察**；registry／`app.html`／`guidelines.json`／`data.json`／`secmeta.json` 五份無人測。日後若再有 URL churn，其餘五處會靜默 stale（本次係人手 grep 揾返）。
 - **Log maintenance:** `python3 docs/qa/session_log_maintenance.py --check` → **trigger=False**（line_count=289 / entry_count=4，兩個 trigger 都未到）→ no-op，唔需要 archive（S194 啱啱跑過一次 archive，剩 3 entries）。
 
 ### Next Session Handoff Prompt (Verbatim)

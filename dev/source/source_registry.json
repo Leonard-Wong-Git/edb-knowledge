@@ -1019,8 +1019,8 @@
       "title_en": null,
       "title_short": "校車安全指引",
       "url_landing": "https://www.edb.gov.hk/tc/student-parents/safety/sch-bus-services/index.html",
-      "url_primary": "https://www.edb.gov.hk/tc/student-parents/safety/sch-bus-services/index.html",
-      "source_type": "html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/student-parents/safety/sch-bus-services/2026_Guidelines_Schools_TC.pdf",
+      "source_type": "pdf",
       "authority": "edb",
       "spine": false,
       "topic_tags": [
@@ -1028,17 +1028,11 @@
       ],
       "access_mode": "public",
       "status": "verified",
-      "version_label": "2026",
-      "last_checked_at": "2026-06-15",
+      "version_label": "2026/27",
+      "last_checked_at": "2026-07-27",
       "supersedes": null,
-      "notes": "Seeded from existing guidelines.json public artifact. | S149: ingested to Channel B (9 chunks, vault/g18; 2025/26 Schools guideline + committee, text-layer fetch_extract); added to SOURCE_SETS.safety + TOPIC_KEYWORDS.safety (校車).",
-      "freshness_metadata": {
-        "last_modified": "Thu, 08 Jan 2026 02:32:19 GMT",
-        "content_length": "2342",
-        "etag": "\"80fba924780dc1:0\"",
-        "content_hash": "e126f03d0affe276624de2bf6076d9bc5b8bcbd93115a8436a01b7151ac5ebe6",
-        "hash_checked_at": "2026-06-03"
-      }
+      "notes": "Seeded from existing guidelines.json public artifact. | S149: ingested to Channel B (9 chunks, vault/g18; 2025/26 Schools guideline + committee, text-layer fetch_extract); added to SOURCE_SETS.safety + TOPIC_KEYWORDS.safety (校車). | S195: refreshed to the 2026/27 edition. The 2025/26 file (2025_Guidelines_Schools_TC(r).pdf) was withdrawn upstream and 404'd (served-URL issue #4). Page-by-page comparison showed only 3/8 pages carried over, i.e. a content revision rather than a rename, so this was RE-INGESTED, not re-pointed: 7 new chunks inserted, then the 6 rows unique to the 2025/26 text deleted by id. The delete set is old_ids MINUS new_ids — 3 chunk ids were identical across both editions (ids are content hashes), so deleting by source_id would have destroyed valid current chunks. url_primary now points at the PDF itself and source_type is pdf; url_landing keeps the index page, which is where the five sibling 2026 guidelines (Drivers / Escorts / Operators / Parents / Students, none ingested) also live.",
+      "freshness_metadata": null
     },
     {
       "source_id": "g19",

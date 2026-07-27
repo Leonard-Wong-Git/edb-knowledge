@@ -6,9 +6,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [連結修復＋來源登記整理] — 2026-07-27 — 修復兩條長期壞死的文件連結（S195）
+## [連結修復＋內容更新] — 2026-07-27 — 修復三條壞死的文件連結，其中校車安全指引換上 2026/27 版（S195）
 
-> 平台版本維持 **v3.2.2**（`PLATFORM_VERSION` 不變）。凍結合約全部零接觸：`knowledge.json` `_meta.version` **2.3.0**、facts **455**、`guidelines.json` **2.6.1 / 158**（僅 `_meta.updated` 隨重生更新為 2026-07-27）。Supabase chunk 總數 **16,035 不變**（只改 `url` 欄，無 INSERT／DELETE）；`source_registry.json` **250 不變**（只改既有條目欄位）。
+> 平台版本維持 **v3.2.2**（`PLATFORM_VERSION` 不變）。凍結合約全部零接觸：`knowledge.json` `_meta.version` **2.3.0**、facts **455**、`guidelines.json` **2.6.1 / 158**（僅 `_meta.updated` 隨重生更新為 2026-07-27）。Supabase chunk 總數 **16,035 → 16,033**（校車安全指引改版：＋7 新版／−6 舊版獨有）；`source_registry.json` **250 不變**（只改既有條目欄位）。
 
 ### Fixed
 - **《資助學校採購程序指引》連結 404（`g01`，34 chunks）。** 教育局將檔案改名（`…Trad Chi_2024.pdf` → `Guidelines on Procurement Procedures_TC.pdf`），舊連結自約 2026-06-29 起 404。已重新指向新檔；重抽新檔逐頁比對已入庫內文，**30/30 頁完全相同**，故只更新連結、無需重新入庫。
@@ -18,9 +18,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 - **5 條 `source_type=pdf` 但連結指向網頁的登記已整理**：`g21`／`g22` 的 `url_primary` 改為資料庫實際供應的直連 PDF（登記追上實況）；`g31` 改指其真身 PDF 並標明與 `eng_pri_guide_2025` 為同一份文件；`g30` 的 `source_type` 由 `pdf` 更正為 `html`（已退役的入口頁）；`religious_edu_jss` 找回直連 PDF —— 封面核實為《宗教教育課程指引（中一至中三）》**二零二四年**版，標題與版本標籤按封面更正，狀態由 `candidate` 改為 `verified`（尚未入庫）。
 
-### Known issues（本次發現，未修）
-- **`g18` 學童乘搭校車的安全指引連結 404。** 教育局已改出 2026/27 版（6 頁），庫內為 2025/26 版（8 頁），僅 3/8 頁相同 —— 屬**內容改版而非改名**，需重新入庫而非改連結，待決定。
+### Updated
+- **《學童乘搭校車的安全指引》換上 2026/27 學年版（`g18`）。** 舊 2025/26 版檔案已被教育局撤下（連結 404）。逐頁比對顯示新舊版只有 3/8 頁相同 —— 屬**內容改版而非改名**，因此**重新入庫**而非只改連結：新版 6 頁抽出 7 個片段入庫，再刪走只屬舊版的 6 個片段。**注意**：chunk 編號以內容雜湊產生，兩版有 3 段文字完全相同故編號重疊，若按來源編號一次過刪除舊版會連現行內容一併刪走 —— 實際刪除集為「舊編號減新編號」。刪除步驟由 Leonard 執行。
+
+### Known issues（未修）
 - **`g21`／`g22` 引文頁碼錯開一頁**；`g21` 更有約一半 chunks 實際來自中學版《視覺藝術科安全指引》卻掛住小學版連結。詳見 GitHub issue #5。
+- 同一頁的另外五份 2026/27 版指引（供司機／保姆／營辦商／家長／學生）從未入庫，待決定是否收錄。
 
 ---
 

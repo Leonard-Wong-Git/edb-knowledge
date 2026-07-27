@@ -4,7 +4,7 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
 (Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
 
-Current state (S195, 2026-07-27): 平台 v3.2.2; Supabase 16,035 chunks; source_registry 250;
+Current state (S195, 2026-07-27): 平台 v3.2.2; Supabase 16,033 chunks; source_registry 250;
 HEAD==origin/main; 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158 (guidelines.json v2.6.1,
 _meta.updated 2026-07-27); 0 outstanding bug. 自動化 active: 4 源監察 (discover / freshness /
 served-url / new-circular) + Option A 自動入庫管道 (OPERATIONAL; 每日 19:30 HK refresh Issue +
@@ -13,13 +13,16 @@ served-url / new-circular) + Option A 自動入庫管道 (OPERATIONAL; 每日 19
 ⚠️ 管道會自行入庫並直接 push main — 開工時本地可能落後 origin/main, tree 乾淨 + 0 本地 commit
 時先 git pull --ff-only 同步。
 
-📋 S195 做咗: 清兩條積咗 4 星期嘅死連結, 零內容改動。(1) g01 資助學校採購程序指引 (34 chunks)
+📋 S195 做咗: 清晒 store 入面全部死連結 — served-URL 全掃由 2 broken 變 268/268 OK, 0 error。(1) g01 資助學校採購程序指引 (34 chunks)
 上游改名、ls_jss_2010 生活與社會 (251 chunks) 搬入 PSHE 檔案庫 — 兩條都 re-crawl 揾返真檔, 逐頁
 比對 30/30 同 183/183 頁完全相同 → 判定 re-point 而非 re-ingest, Supabase 只改 url 欄 285 行
 (#page= 錨點保留), count=exact 16,035 前後同值。(2) 同一條 URL 原來散落 6 處: registry / app.html
 GUIDELINES_REGISTRY / guidelines.json / data.json / secmeta.json / Supabase — 已全部對齊;
 guidelines.json 用 build_guidelines.py --write 重生 (DOC_SYNC row 35: NEVER hand-edit)。
 (3) 5 條 registry 寫 pdf 但 URL serve HTML 已更正, 全部證實零用戶影響。
+(4) g18 校車安全指引係第三條 404, 但屬改版 (上游出 2026/27 版, 只 3/8 頁相同) → 行完整
+re-ingest: 16,035 → 16,033 (+7 新版 / -6 舊版獨有)。⚠️ 陷阱: chunk id 係內容 hash, 兩版有 3 段
+文字相同故 id 重疊 — 照 source_id 刪舊 9 條會連現行內容刪走 3 條, 正確刪除集 = 舊 id 減新 id。
 ⚠️ 動 backend 檢索前必讀 dev/SESSION_LOG.md S194 QC 段 + S193 QC 段 (門檻實證 + tie-flip 陷阱)。
 ⚠️ 外部來源 URL 404 唔好照 re-point: 先逐頁比對確認係改名定改版 (playbook 方法 B + 
    freshness-monitor-test-served-url 卡)。S195 兩條係改名 (可 re-point), g18 係改版 (要 re-ingest)。
@@ -33,9 +36,9 @@ guidelines.json 用 build_guidelines.py --write 重生 (DOC_SYNC row 35: NEVER h
   before→after run 作證據。入新源前跟 FRESHNESS_GUIDE §1a 核封面標題。
 
 🔜 NEXT (優先序):
-  ① 【需 Leonard 拍板】g18 校車安全指引 404 要 re-ingest: 上游 2025/26 版落架, 出咗 2026/27 版
-     (6 頁 vs 庫內 8 頁, 只 3/8 頁相同) = 改版非改名, 照 re-point 會造成引文錯配。同頁另有
-     Drivers/Escorts/Operators/Parents/Students 五份 2026 版未入庫。GitHub Issue #4 追緊。
+  ① 【需 Leonard 拍板】校車頁另外 5 份 2026/27 版指引未入庫: 供司機/保姆/營辦商/家長/學生
+     (2026_Guidelines_{Drivers,Escorts,Operators,Parents,Students}_TC.pdf, 全部 200)。g18 (供學校)
+     已於 S195 換上 2026/27 版; 呢 5 份係另一受眾, 入唔入由你決定。
   ② 【需 Leonard 拍板, S194 留低】anti-confab judge 門檻: 新入 vault_extract 源檢索命中但整理
      答案被拒 (0.628 / 0.624, 低於 S183 的 vault_extract ≥0.70 bypass)。選項 (a) 唔改
      (b) 降至 ~0.60 — 必須先做 20+ 條敵意 probe (c) 改良 judge prompt。唔好未做敵意測試就降門檻。
