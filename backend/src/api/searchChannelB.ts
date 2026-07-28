@@ -407,8 +407,31 @@ const SOURCE_SETS: Record<string, string[]> = {
   ],
 
   /**
+   * S196 — school transport, split out of `safety`.
+   *
+   * Why a dedicated route rather than keeping these in `safety`: `safety` also carries
+   * `sag_2025_11` (學校行政手冊, 215 chunks) and `role_facts_general`. Measured live on
+   * 「校巴營辦商責任」, the manual's 籌款/捐款/供應商 chunks scored 0.602/0.535/0.529 while
+   * the guideline that actually answers the question (sch_bus_operators_2026) scored 0.506
+   * — so four of the five chunks the synthesizer saw were about school procurement, and the
+   * answer it produced was about 經營利潤 rather than seat belts and escorts. Narrowing the
+   * corpus is the fix; the route ordering was never wrong (detectQueryCategory already
+   * returned `safety` for every bus phrasing tested).
+   *
+   * The set is deliberately just the six 2026/27 EDB school-bus guidelines: g18 is the
+   * school's own obligations, the five siblings are the parties a school supervises.
+   */
+  school_bus: [
+    "g18",
+    "sch_bus_drivers_2026", "sch_bus_escorts_2026", "sch_bus_operators_2026",
+    "sch_bus_parents_2026", "sch_bus_students_2026",
+  ],
+
+  /**
    * School safety — 校園安全, 消防, 職安健, 實驗室安全, 氣體事故, 安全管理委員會,
    * 熱帶氣旋/惡劣天氣停課安排, 斜坡維修檢查. S142 EDB-coverage sweep §1.
+   * S196: the school-bus sources stay listed here too — a generic 「校園安全」 query should
+   * still be able to reach them — but bus-specific wording now routes to `school_bus` above.
    */
   safety: [
     "edbc22_2024_student_safety", "fire_service_installation", "occupational_safety_health",
@@ -564,7 +587,12 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   sen: /\bsen\b|\bsenco\b|特殊教育|特殊學校|融合教育|全校參與|統籌主任|特殊學習需要|有特殊教育需要/i,
   // S142 EDB-sweep §1 — school safety + governance/QA/premises. MUST stay before `curriculum`
   // (first-match): some terms (視學, 自我評估) contain chars that curriculum would mis-route.
-  safety: /校園安全|學校安全|消防|火警|演習|疏散|職業安全|職安健|實驗室安全|氣體|防墮|斜坡安全|斜坡維修|熱帶氣旋|颱風|暴雨|惡劣天氣|停課安排|安全管理委員會|校車|校巴|保母車|跟車保母|學生服務車輛|保姆車|視藝.{0,3}安全|視覺藝術.{0,4}安全|科技教育.{0,4}安全|科技科.{0,3}安全/,
+  // S196 — school transport. MUST precede `safety` (first-match): these tokens used to live
+  // in `safety`, whose SOURCE_SET also holds the 215-chunk 學校行政手冊, and the manual's
+  // procurement chunks out-scored the bus guidelines on 「校巴營辦商責任」. Tokens moved here
+  // rather than duplicated, so there is still one definition per rule (AGENTS §3b).
+  school_bus: /校車|校巴|保母車|保姆車|褓姆車|跟車保母|跟車保姆|學生服務車輛|school bus/i,
+  safety: /校園安全|學校安全|消防|火警|演習|疏散|職業安全|職安健|實驗室安全|氣體|防墮|斜坡安全|斜坡維修|熱帶氣旋|颱風|暴雨|惡劣天氣|停課安排|安全管理委員會|視藝.{0,3}安全|視覺藝術.{0,4}安全|科技教育.{0,4}安全|科技科.{0,3}安全/,
   // S143 — QA/inspection split out of gov_admin (placed before it, first-match) so bare
   // short QA tokens (視學/校外評核/自我評估/表現指標/問責/校本管理) route here and get the
   // targeted expansion. Uses 自我評估 (NOT bare 評估) so it never steals curriculum
@@ -625,6 +653,12 @@ const QUERY_EXPANSIONS: Record<string, string> = {
   // expansion string would dilute focused queries toward the highest-chunk-count doc
   // (over-expansion regression caught in S142 smoke: cyclone drowned 消防; edbc14 drowned g04).
   // SOURCE_SET filter + the query's own terms surface the right doc without dilution.
+  // S196 EXCEPTION — school_bus DOES expand, on the same criterion as qa_inspection below:
+  // its SOURCE_SET is six editions of ONE guideline, so there is no cross-topic doc for an
+  // expansion to dilute toward. Vocabulary is taken verbatim from the guidelines themselves
+  // (學生服務車輛 is the term EDB uses; users type 校巴/保姆車), which is what pulls a bare
+  // 「校巴營辦商責任」 query toward the operator obligations instead of school procurement.
+  school_bus: "學童乘搭學生服務車輛的安全指引 學生服務車輛 校車 校巴 保姆車 學校巴士服務營辦商 跟車保母 司機 學童 座位 安全帶 緊急出口 上車 下車 接載 車輛登記文件 乘客人數",
   // S143 EXCEPTION — qa_inspection DOES expand: its SOURCE_SET is tight (3 QA docs + SAG)
   // and single-topic, so bridging 視學→校外評核/自我評估/表現指標 vocabulary lifts recall
   // without the cross-topic dilution that broad gov_admin/safety expansion would cause.
