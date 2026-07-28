@@ -59,22 +59,38 @@ DEFAULT_ENDPOINT = "https://edb-knowledge.onrender.com/api/search/channel-b"
 # of the footnote corpus is boilerplate.
 STOPWORD_DF_FRACTION = 0.25
 
-# Reused verbatim from judge_probe.py class B — school-admin register, answer not in the
-# corpus. This is the class that produces confabulation; an off-domain-only negative set
-# would be worthless here.
+# Negative controls: queries in school-admin register whose answer is in NEITHER the vault
+# nor the curated footnotes. Each was verified against the live corpus in S196 — do not add
+# to this list without checking, and do not borrow judge_probe.py's class B wholesale.
+#
+# That borrowing is exactly the mistake this comment exists to prevent. judge_probe measures
+# the VAULT threshold, so its class B asks "is this answerable from vault?" — a fair question
+# there. Reused here it is wrong, because the curated footnotes answer several of those
+# queries precisely, and the S196 run consequently reported 7 footnote leads as failures when
+# most were the feature working. The verified split (S196 audit of all 14):
+#   answerable from footnotes -> moved to ANSWERABLE_CONTROLS below
+#   answerable from vault     -> never belonged in a footnote probe at all
+#   answerable from neither   -> the list below
 PLAUSIBLE_GAP = [
-    "教師每年可以請幾多日大假",
-    "校長退休金點樣計",
-    "解僱教師要俾幾多個月遣散費",
-    "幼稚園每班最多可以收幾多個學生",
-    "學校泳池水質檢測標準係咩",
-    "老師病假連續請幾耐先要交醫生紙",
-    "學校可唔可以借錢俾教職員",
-    "校巴司機最低工資係幾多",
-    "學生喺校內可以用手機幾耐",
-    "教師評核幾多分先算合格",
-    "學校每堂補習費可以收幾多",
-    "校服供應商招標要幾多間報價",
+    "校長退休金點樣計",            # g24 covers retirement AGE and service certificates, not pension calculation
+    "學校泳池水質檢測標準係咩",     # g23 covers pool safety and depth, not water-quality testing
+    "校巴司機最低工資係幾多",       # the bus guidelines carry duties, no wage figures
+    "學生喺校內可以用手機幾耐",     # nothing on student phone use anywhere in the corpus
+    "課室冷氣應該調到幾多度",       # lab_prep_room_aircon specifies equipment, never a temperature
+    "教師每年可以請幾多日大假",     # ANNUAL leave is absent; the corpus has sick leave, which is a
+                                   # different entitlement — the failure mode here is answering the
+                                   # neighbouring question rather than inventing a number
+    "學校每堂補習費可以收幾多",     # the approved-fee schedule exists but caps no tutorial fee
+]
+
+# Queries that LOOK adversarial in the same register but are genuinely answered by a curated
+# footnote. A footnote lead on these is the feature, not the defect, so they are scored as
+# positives: losing one is a regression.
+ANSWERABLE_CONTROLS = [
+    "幼稚園每班最多可以收幾多個學生",  # 學前機構辦學手冊 附10: 每班不超過30人, 午睡課室20人
+    "老師病假連續請幾耐先要交醫生紙",  # 學校行政手冊 附錄9: 超逾兩天須出示醫生證明書
+    "校服供應商招標要幾多間報價",      # subvention_tips: >$200k 公開招標邀請最少5個供應商
+    "體罰投訴要幾多日內處理完",        # 學校處理投訴指引 2023: 調查建議兩個月內, 上訴14天
 ]
 
 # The S196 case itself, plus phrasings of it. These must stop taking footnote leads.
@@ -225,8 +241,13 @@ def run(endpoint: str, sample_every: int, pace: float, limit: int | None) -> dic
         })
         time.sleep(pace)
 
-    for q in PLAUSIBLE_GAP + S196_CASES:
-        cls = "s196" if q in S196_CASES else "plausible_gap"
+    for q in PLAUSIBLE_GAP + S196_CASES + ANSWERABLE_CONTROLS:
+        if q in S196_CASES:
+            cls = "s196"
+        elif q in ANSWERABLE_CONTROLS:
+            cls = "answerable"
+        else:
+            cls = "plausible_gap"
         resp = query_once(endpoint, q)
         if "_error" in resp:
             rows.append({"class": cls, "query": q, "error": resp["_error"]})
@@ -247,8 +268,9 @@ def run(endpoint: str, sample_every: int, pace: float, limit: int | None) -> dic
         })
         time.sleep(pace)
 
-    pos = [r for r in rows if r["class"] == "positive" and "error" not in r]
-    neg = [r for r in rows if r["class"] != "positive" and "error" not in r]
+    pos = [r for r in rows if r["class"] in ("positive", "answerable") and "error" not in r]
+    neg = [r for r in rows if r["class"] not in ("positive", "answerable")
+           and "error" not in r]
     pos_led = [r for r in pos if r["kept"]]
     neg_led = [r for r in neg if r["kept"]]
 
@@ -328,7 +350,7 @@ def compare(before_path: str, after_path: str) -> int:
         if "error" in b or "error" in a:
             errors.append(q)
             continue
-        if b["class"] == "positive":
+        if b["class"] in ("positive", "answerable"):
             if b["kept"] and not a["kept"]:
                 lost.append(q)
         else:

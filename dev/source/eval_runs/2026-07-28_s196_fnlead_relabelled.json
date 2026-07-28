@@ -1,0 +1,363 @@
+{
+  "endpoint": "https://edb-knowledge.onrender.com/api/search/channel-b",
+  "informative_bigrams": 7828,
+  "footnote_corpus": 206,
+  "summary": {
+    "positive_total": 30,
+    "positive_with_lead": 30,
+    "negative_total": 10,
+    "negative_with_lead": 2,
+    "errors": 0,
+    "positive_overlap_min": 3,
+    "positive_overlap_median": 11,
+    "negative_overlap_max": 5
+  },
+  "rows": [
+    {
+      "class": "positive",
+      "query": "雙課制（上下午校）資助小學的學校發展津貼（CEG）點計算？",
+      "want_source": "ceg_calc_2026",
+      "lead_source": "ceg_calc_2026",
+      "lead_score": 0.9097,
+      "lead_overlap": 18,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "擴大營辦津貼（EOEBG）新校撥款公式同A／B值（2026/27）？",
+      "want_source": "eoebg_guide_2026",
+      "lead_source": "eoebg_guide_2026",
+      "lead_score": 0.8914,
+      "lead_overlap": 12,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "空調津貼最多資助幾多個學生活動中心（SAC）？",
+      "want_source": "ac_grant_2026",
+      "lead_source": "ac_grant_2026",
+      "lead_score": 0.8974,
+      "lead_overlap": 15,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "資助學校短時間內重複採購同一類項目，會唔會違反招標規定？",
+      "want_source": "subvention_tips",
+      "lead_source": "subvention_tips",
+      "lead_score": 0.7956,
+      "lead_overlap": 24,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "資助學校非教學人員嘅年假同緊急私事假點計？",
+      "want_source": "sag_2025_11",
+      "lead_source": "sag_2025_11",
+      "lead_score": 0.7726,
+      "lead_overlap": 18,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "投訴經學校調查同上訴後仍未解決可以點？",
+      "want_source": "sch_complaint_guide_2023",
+      "lead_source": "sch_complaint_guide_2023",
+      "lead_score": 0.7125,
+      "lead_overlap": 16,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "申請整合代課教師津貼而凍結教師空缺，如空缺凍結達60曆日或以上，僱主強積金（MPF）供款點計？",
+      "want_source": "trg_imc_2023",
+      "lead_source": "trg_imc_2023",
+      "lead_score": 0.8983,
+      "lead_overlap": 32,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "准用教員離職，個 permit 點？",
+      "want_source": "cap279_education_ordinance",
+      "lead_source": "cap279_education_ordinance",
+      "lead_score": 0.7696,
+      "lead_overlap": 7,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "全港所有學校係咪都要註冊？",
+      "want_source": "cap279_education_ordinance",
+      "lead_source": "cap279_education_ordinance",
+      "lead_score": 0.7403,
+      "lead_overlap": 10,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "DSS 學費減免合資格標準要點？",
+      "want_source": "edbc_10_2012_fee_remission",
+      "lead_source": "edbc_10_2012_fee_remission",
+      "lead_score": 0.7886,
+      "lead_overlap": 10,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "非華語學生暑期銜接課程每班幾多錢？",
+      "want_source": "EDBCM_79_2025_TC",
+      "lead_source": "EDBCM_79_2025_TC",
+      "lead_score": 0.6857,
+      "lead_overlap": 15,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "發燒退咗幾耐先可以返學？",
+      "want_source": "chp_prev_cd_schools_2025nov",
+      "lead_source": "chp_prev_cd_schools_2025nov",
+      "lead_score": 0.6061,
+      "lead_overlap": 10,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "幼稚園床位距離要求係幾多？",
+      "want_source": "chp_prev_cd_schools_2025nov",
+      "lead_source": "chp_prev_cd_schools_2025nov",
+      "lead_score": 0.8042,
+      "lead_overlap": 11,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "Eligibility Certificate 學校點處理？",
+      "want_source": "wfsfaa_sfaa_household_app_guidance_2526",
+      "lead_source": "wfsfaa_sfaa_household_app_guidance_2526",
+      "lead_score": 0.6543,
+      "lead_overlap": 3,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "DSS 可申請豁免「不遜於政府資助」基線嗎？",
+      "want_source": "edbc_10_2012_fee_remission",
+      "lead_source": "edbc_10_2012_fee_remission",
+      "lead_score": 0.7807,
+      "lead_overlap": 14,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "NET Grant School Plan / School Report 要點？",
+      "want_source": "edb_point_to_note_net_grant_202627",
+      "lead_source": "edb_point_to_note_net_grant_202627",
+      "lead_score": 0.8068,
+      "lead_overlap": null,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "PNET 津貼／酬金 申請時間？",
+      "want_source": "edb_pnet_annex_jul2025",
+      "lead_source": "edb_pnet_annex_jul2025",
+      "lead_score": 0.6611,
+      "lead_overlap": 6,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "校舍保養係邊個負責？",
+      "want_source": "edbc14_2024_spms",
+      "lead_source": "edbc14_2024_spms",
+      "lead_score": 0.7422,
+      "lead_overlap": 8,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "升降機負責人定義（EMSD 官方 one-liner）？",
+      "want_source": "emsd_le_ordinance_landing_tc",
+      "lead_source": "emsd_le_ordinance_landing_tc",
+      "lead_score": 0.862,
+      "lead_overlap": 9,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "非標準項目收費 7 個條件（毋須事先批准）？",
+      "want_source": "sag_2025_11",
+      "lead_source": "sag_2025_11",
+      "lead_score": 0.7446,
+      "lead_overlap": 15,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "學校代收費用係咪一定要逐筆即時開正式收據（official receipt）？",
+      "want_source": "sag_2025_11",
+      "lead_source": "sag_2025_11",
+      "lead_score": 0.8114,
+      "lead_overlap": 18,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "法團校董會學校自己做生意／經營業務（例如小賣部）賺到嘅錢可以點用？",
+      "want_source": "imc_establishment_operation",
+      "lead_source": "imc_establishment_operation",
+      "lead_score": 0.8339,
+      "lead_overlap": 27,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "代課教師離職／走咗一段時間之後再請，要唔要重新查案底（刑事定罪紀錄）？",
+      "want_source": "supply_teacher_guide",
+      "lead_source": "supply_teacher_guide",
+      "lead_score": 0.8091,
+      "lead_overlap": 29,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "成立咗法團校董會之後跟邊套則例？",
+      "want_source": "coa_imc_1_19",
+      "lead_source": "coa_imc_1_19",
+      "lead_score": 0.7149,
+      "lead_overlap": 14,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "幾多 percent 學生病要停課？",
+      "want_source": "chp_prev_cd_schools_2025nov",
+      "lead_source": "chp_prev_cd_schools_2025nov",
+      "lead_score": 0.6906,
+      "lead_overlap": 7,
+      "kept": true
+    },
+    {
+      "class": "positive",
+      "query": "員工檔案資料保存期 1 年 / 2 年 / 7 年？",
+      "want_source": "sag_2025_11",
+      "lead_source": "sag_2025_11",
+      "lead_score": 0.7435,
+      "lead_overlap": 10,
+      "kept": true
+    },
+    {
+      "class": "plausible_gap",
+      "query": "校長退休金點樣計",
+      "lead_source": null,
+      "lead_score": null,
+      "lead_overlap": null,
+      "kept": false
+    },
+    {
+      "class": "plausible_gap",
+      "query": "學校泳池水質檢測標準係咩",
+      "lead_source": null,
+      "lead_score": null,
+      "lead_overlap": null,
+      "kept": false
+    },
+    {
+      "class": "plausible_gap",
+      "query": "校巴司機最低工資係幾多",
+      "lead_source": null,
+      "lead_score": null,
+      "lead_overlap": null,
+      "kept": false
+    },
+    {
+      "class": "plausible_gap",
+      "query": "學生喺校內可以用手機幾耐",
+      "lead_source": null,
+      "lead_score": null,
+      "lead_overlap": null,
+      "kept": false
+    },
+    {
+      "class": "plausible_gap",
+      "query": "課室冷氣應該調到幾多度",
+      "lead_source": null,
+      "lead_score": null,
+      "lead_overlap": null,
+      "kept": false
+    },
+    {
+      "class": "plausible_gap",
+      "query": "教師每年可以請幾多日大假",
+      "lead_source": "sag_2025_11",
+      "lead_score": 0.6005,
+      "lead_overlap": 5,
+      "kept": true
+    },
+    {
+      "class": "plausible_gap",
+      "query": "學校每堂補習費可以收幾多",
+      "lead_source": "ceg_calc_2026",
+      "lead_score": 0.5206,
+      "lead_overlap": 2,
+      "kept": true
+    },
+    {
+      "class": "s196",
+      "query": "校巴營辦商責任",
+      "lead_source": null,
+      "lead_score": null,
+      "lead_overlap": null,
+      "kept": false
+    },
+    {
+      "class": "s196",
+      "query": "校車營辦商",
+      "lead_source": null,
+      "lead_score": null,
+      "lead_overlap": null,
+      "kept": false
+    },
+    {
+      "class": "s196",
+      "query": "校巴營辦商有咩責任",
+      "lead_source": null,
+      "lead_score": null,
+      "lead_overlap": null,
+      "kept": false
+    },
+    {
+      "class": "answerable",
+      "query": "幼稚園每班最多可以收幾多個學生",
+      "lead_source": "kg_operation_manual_2026",
+      "lead_score": 0.7213,
+      "lead_overlap": 10,
+      "kept": true
+    },
+    {
+      "class": "answerable",
+      "query": "老師病假連續請幾耐先要交醫生紙",
+      "lead_source": "sag_2025_11",
+      "lead_score": 0.5622,
+      "lead_overlap": 3,
+      "kept": true
+    },
+    {
+      "class": "answerable",
+      "query": "校服供應商招標要幾多間報價",
+      "lead_source": "subvention_tips",
+      "lead_score": 0.6007,
+      "lead_overlap": 6,
+      "kept": true
+    },
+    {
+      "class": "answerable",
+      "query": "體罰投訴要幾多日內處理完",
+      "lead_source": "sch_complaint_guide_2023",
+      "lead_score": 0.5883,
+      "lead_overlap": 4,
+      "kept": true
+    }
+  ]
+}
