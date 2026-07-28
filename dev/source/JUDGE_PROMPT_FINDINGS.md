@@ -34,7 +34,11 @@ recorded as "the judge over-declines" without identifying the cause.
 ## Why this blocks the other work
 
 S196 wanted to narrow the footnote judge-bypass so that a footnote which merely grazes the
-query (「教師每年可以請幾多日大假」 → sick-leave footnote) has to face the judge. Measured
+query has to face the judge. Five queries still take a lead they should not: two answer the
+NEIGHBOURING question (「教師每年可以請幾多日大假」 → sick-leave footnote; 「學校每堂補習費
+可以收幾多」 → other approved fees), and three have no basis in the corpus at all — of which
+「學校可唔可以借錢俾教職員」 is the sharpest: nothing anywhere states a rule about a school
+lending to staff, yet the system answers it with conviction. Measured
 coverage-ratio separation is clean (negatives 0.40 / 0.62, positives p10 0.77), so the gate
 itself is buildable at ratio ≥ 0.70 — it would cost the bypass on two answerable controls.
 

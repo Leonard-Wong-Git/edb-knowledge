@@ -81,6 +81,18 @@ PLAUSIBLE_GAP = [
                                    # different entitlement — the failure mode here is answering the
                                    # neighbouring question rather than inventing a number
     "學校每堂補習費可以收幾多",     # the approved-fee schedule exists but caps no tutorial fee
+    # S196 second pass. These three were dropped from the list on a first reading as
+    # "borderline", with no record — which quietly under-reported the residual defect,
+    # since all three still take a footnote lead. Re-checked against the corpus by opening
+    # the actual chunks rather than trusting a keyword hit, and all three are genuine gaps:
+    "解僱教師要俾幾多個月遣散費",   # 三分之二 in the corpus is IMC quorum and DSS fee ratios;
+                                   # the LSP guide gives a pro-rata METHOD, never a month rate
+    "學校可唔可以借錢俾教職員",     # 借貸/借錢/貸款 hits are the BAFS accounting syllabus,
+                                   # student-gambling warning signs and student loan schemes —
+                                   # no rule anywhere about a school lending to its staff, so the
+                                   # confident-sounding answer this query produces is ungrounded
+    "教師評核幾多分先算合格",       # 合格/及格 in the corpus mean QUALIFIED TEACHER status and the
+                                   # BLNST pass, a different sense; no appraisal pass mark exists
 ]
 
 # Queries that LOOK adversarial in the same register but are genuinely answered by a curated
