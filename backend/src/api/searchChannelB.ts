@@ -654,11 +654,16 @@ const QUERY_EXPANSIONS: Record<string, string> = {
   // (over-expansion regression caught in S142 smoke: cyclone drowned 消防; edbc14 drowned g04).
   // SOURCE_SET filter + the query's own terms surface the right doc without dilution.
   // S196 EXCEPTION — school_bus DOES expand, on the same criterion as qa_inspection below:
-  // its SOURCE_SET is six editions of ONE guideline, so there is no cross-topic doc for an
-  // expansion to dilute toward. Vocabulary is taken verbatim from the guidelines themselves
-  // (學生服務車輛 is the term EDB uses; users type 校巴/保姆車), which is what pulls a bare
-  // 「校巴營辦商責任」 query toward the operator obligations instead of school procurement.
-  school_bus: "學童乘搭學生服務車輛的安全指引 學生服務車輛 校車 校巴 保姆車 學校巴士服務營辦商 跟車保母 司機 學童 座位 安全帶 緊急出口 上車 下車 接載 車輛登記文件 乘客人數",
+  // its SOURCE_SET is six audience editions of ONE guideline, so there is no cross-topic doc
+  // for an expansion to dilute toward. Vocabulary is taken verbatim from the guidelines
+  // (學生服務車輛 is EDB's term; users type 校車/校巴/保姆車).
+  //
+  // Deliberately contains NO audience nouns (司機 / 跟車保母 / 營辦商 / 家長). A first draft
+  // did, and the eval caught the cost: 「跟車保母」 dropped from the escorts guide at rank 0
+  // to the operators guide at rank 0, because expanding every query with all six audiences
+  // erases the only tokens that tell the siblings apart. The expansion carries the shared
+  // subject; the user's own words pick the audience.
+  school_bus: "學童乘搭學生服務車輛的安全指引 學生服務車輛 校車 校巴 保姆車 學童 座位 安全帶 緊急出口 上車 下車 接載 客運營業證",
   // S143 EXCEPTION — qa_inspection DOES expand: its SOURCE_SET is tight (3 QA docs + SAG)
   // and single-topic, so bridging 視學→校外評核/自我評估/表現指標 vocabulary lifts recall
   // without the cross-topic dilution that broad gov_admin/safety expansion would cause.
