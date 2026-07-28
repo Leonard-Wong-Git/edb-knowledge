@@ -105,15 +105,21 @@ def build_informative(corpus_texts: list[str]) -> set[str]:
     return {bg for bg, n in df.items() if n <= cap}
 
 
+# Mirrors FOOTNOTE_LEAD_MIN_OVERLAP in searchChannelB.ts. Kept here so the probe reports
+# "unjudgeable" for exactly the queries the gate declines to judge.
+MIN_OVERLAP = 2
+
+
 def overlap(query: str, text: str, informative: set[str]) -> int | None:
     """Distinct informative bigrams shared by query and text.
 
-    Returns None when the query has no informative CJK bigrams at all (English or numeric
-    queries such as "NET grant"). That is "cannot judge", not "no overlap" — the TS gate
-    fails open in the same situation, and reporting it as 0 here would make the probe
-    disagree with the thing it is measuring."""
+    Returns None when the query carries fewer than MIN_OVERLAP informative CJK bigrams —
+    an English or number-led query such as "NET Grant School Plan / School Report 要點？"
+    reduces to one generic bigram. That is "cannot judge", not "no overlap": the TS gate
+    fails open in the same situation, and reporting 0 here would make the probe disagree
+    with the thing it is measuring."""
     qb = set(cjk_bigrams(query)) & informative
-    if not qb:
+    if len(qb) < MIN_OVERLAP:
         return None
     tb = set(cjk_bigrams(text))
     return len(qb & tb)
@@ -287,12 +293,15 @@ def self_test() -> int:
     check("df keeps rare", "校巴" in info)
     check("overlap counts informative only",
           overlap("校巴營辦", "學校校巴營辦", info) >= 1)
-    # judgeable query (營辦 is informative here) that shares nothing with the text
-    check("overlap zero when unrelated", overlap("營辦許可", "學校規定", info) == 0)
+    # judgeable query (3 informative bigrams here) that shares nothing with the text
+    check("overlap zero when unrelated", overlap("校巴營辦", "學校規定", info) == 0)
     # unjudgeable query: no informative CJK bigrams at all -> None, never 0
     check("overlap None when query has no informative cjk",
           overlap("NET grant 2026", "學校校巴營辦", info) is None)
     check("None is distinct from zero", overlap("NET grant", "任何內容", info) is None)
+    # a query with only ONE informative bigram is below the bar the gate can judge on
+    check("single-bigram query is unjudgeable",
+          overlap("校巴", "學校校巴營辦", info) is None)
     check("question split", extract_question("邊個負責？答案在此。") == "邊個負責？")
     check("question fallback when no mark",
           extract_question("一段冇問號嘅長文字" * 5).startswith("一段"))

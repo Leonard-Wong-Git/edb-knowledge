@@ -886,13 +886,17 @@ const FOOTNOTE_LEAD_SCORE = 0.45;
  * judge bypass are withheld. Calibration evidence and the before/after pair:
  * dev/source/footnote_lead_probe.py + dev/source/eval_runs/2026-07-28_s196_fnlead_*.json
  *
- * The value is 1 because that is where the measurement put it, not because 1 felt safe.
- * footnote_lead_probe.py, 26 positive controls (each curated footnote's own question) vs
- * 15 negatives (judge_probe's plausible-gap set plus the three bus phrasings):
- *     all three S196 bus cases     overlap 0
- *     lowest-scoring true positive overlap 1  (an English-heavy query; median was 13)
- * So >=1 removes the whole zero-overlap class and costs nothing. A bar of 2 would have
- * dropped that positive — the first draft of this constant was 2, and the probe caught it.
+ * The value is measured, not chosen. It has to be 2 rather than 1 because Chinese
+ * character bigrams alone cannot tell 營辦商 (operator) from 承辦商 (contractor): both
+ * contain 辦商, so at a bar of 1 the contractor-vetting footnote still led 「校巴營辦商
+ * 責任」 — deployed at 1 first, and the live re-probe caught exactly that. At 2 both
+ * off-topic footnotes are refused on all three bus phrasings.
+ *
+ * Two is safe because it is paired with the query-signal rule below rather than applied
+ * blindly: measured over the whole corpus, all 206 curated footnotes still take the lead
+ * on their own question (3 fall below the query-signal bar and pass ungated). Applying a
+ * flat bar of 2 without that rule cost one footnote its lead — an all-English question
+ * whose only Chinese was 要點.
  *
  * What this does NOT fix, stated so the next session does not mistake it for solved: the
  * plausible-gap negatives still lead, with overlaps from 1 to 10 — a query in the right
@@ -900,7 +904,7 @@ const FOOTNOTE_LEAD_SCORE = 0.45;
  * English. No threshold on this axis separates those; that is Open Priority ④ (a better
  * judge prompt), and judge_probe.py remains its acceptance tool.
  */
-const FOOTNOTE_LEAD_MIN_OVERLAP = 1;
+const FOOTNOTE_LEAD_MIN_OVERLAP = 2;
 // S183 — vault_extract lead bypass threshold for judge. ≥0.70 = empirically direct
 // topical match (vault chunks at this cosine reliably answer the query). Below 0.70
 // falls through to judge for confab protection (S177 凍結教席→IMC-60% range was 0.55-0.65).
@@ -1105,11 +1109,15 @@ export async function searchChannelB(
       // that rides on it are withheld.
       const informative = await footnoteInformativeBigrams();
       const qBigrams = queryInformativeBigrams(query, informative);
-      // An English/numeric query ("NET grant", "MPF 供款") yields no informative CJK
-      // bigrams, so the gate has nothing to measure. Fail OPEN there — refusing every
-      // lead for such queries would be a silent regression of S174/S178 rather than a
-      // safety improvement (playbook: heuristic-failure-direction-decouple).
-      const gateApplies = qBigrams.size > 0;
+      // The gate may only judge a query that carries enough Chinese subject vocabulary to
+      // be judged by. An English or number-led query ("NET Grant School Plan / School
+      // Report 要點？") reduces to one generic bigram, and demanding overlap from that
+      // measures the language of the question, not its subject. Fail OPEN below the bar —
+      // the safe direction is the pre-S196 behaviour (playbook:
+      // heuristic-failure-direction-decouple). Measured: with this rule all 206 curated
+      // footnotes still win the lead on their own question; without it, requiring 2 shared
+      // bigrams silently cost the NET Grant footnote its lead.
+      const gateApplies = qBigrams.size >= FOOTNOTE_LEAD_MIN_OVERLAP;
       const lead = fnResults
         .filter(
           (r) =>
