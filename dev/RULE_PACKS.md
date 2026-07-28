@@ -15,7 +15,7 @@ Read only the packs needed for the current task.
 | Release, publish, deploy, tag, hotfix, GA | `dev/rules/release.md` | release verification and evidence |
 | External notes, knowledge base, Notion, Obsidian, Google Drive | `dev/rules/knowledge.md` | external knowledge source integration |
 | External tool integrations (Connector / MCP / Plugin / Skill) — declared in `## Installed Integrations`; tasks involving Notion / Google Drive / Slack / Linear / Dropbox / HubSpot / GitHub / etc. external read-write | `dev/rules/integrations.md` | Connector-first default + credential separation + multi-layer source-of-truth + cross-session resilience |
-| Reply format, language, output schema | `dev/rules/communication.md` | user-facing response rules |
+| Reply format, language, output schema — **plus any task whose reply will state a measurement, a count, a pass/fail rate, a root cause, or an account of what the agent did or did not do** (S196: claim discipline must load when the claims are made, not only when wording is the topic) | `dev/rules/communication.md` | user-facing response rules + claim discipline (evidence required before a verdict; direction-of-error trigger) |
 
 ## Routing Rule
 
