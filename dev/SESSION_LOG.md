@@ -35,6 +35,39 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-07-28 Session 196 — handoff 講嘅根因係錯嘅：「校巴營辦商責任」唔係 route 次序，係 curated footnote 搶咗 lead slot 兼跳過 anti-confab judge
+
+- **ID:** Claude_20260728_S196
+- **Summary:** 起手探針 4/4 綠 → 我建議做 Open Priority ②（校巴 route 次序）→ Leonard「go」→ **READ 階段用 code + live 證實 handoff 記錯根因，按 §3 停低報告** → Leonard 揀 C（A+B 一次過做）→ 我保住歸因，逐個改動各自一對 eval/probe，共 4 次部署。
+- **§3 停低（值得記低）:** `detectQueryCategory("校巴營辦商責任")` 一直都返 `safety`，六種校巴 phrasing 全部一樣。改 TOPIC_KEYWORDS 次序會係 **no-op**。真根因喺兩層：(1) `SOURCE_SETS.safety` 同時載住 `sag_2025_11`（學校行政手冊 215 chunks），佢嘅籌款／捐款／供應商段落 0.602/0.535/0.529 壓過 `sch_bus_operators_2026` 0.506；(2) 兩條 `footnote_curated` 靠 `FOOTNOTE_LEAD_SCORE=0.45` 攞咗 rank 0/1（0.518 小賣部經營利潤、0.495 承辦商 SCRC），**而 footnote lead 會跳過 anti-confab judge** → 出街答案講「校巴經營利潤必須運用於學生的直接利益」。即係話呢條唔止排名差，係**答錯嘢**。
+- **Changed:**
+  - **A（`school_bus` 專屬 route）**：`SOURCE_SETS.school_bus` = g18 + 5 份 2026/27 姊妹指引；bus tokens 由 `safety` **搬**過去（唔係複製）；新 `QUERY_EXPANSIONS.school_bus`。
+  - **A'（修 expansion）**：第一版 expansion 塞晒六個受眾名詞（司機／營辦商／跟車保母／家長），eval 即刻捉到「跟車保母」由 escorts rank 0 跌落 operators rank 0 —— 姊妹之間唯一嘅分別詞被自己洗走。改為只留共通詞彙。
+  - **B（footnote lead 加 lexical gate）**：新 `backend/src/lib/textBigrams.ts`（`cjkBigrams` 由 `checklistRevise.ts` 搬入 lib 並 re-export，避免 lib→api 反向依賴）＋ `wikiRepository.footnoteInformativeBigrams()`（喺常駐 footnote 語料上做 DF 校準）；footnote 要同 query 共享 ≥ `FOOTNOTE_LEAD_MIN_OVERLAP` 個 informative bigram 先攞得到 lead slot；judge bypass 由「邊個坐 rank 0」改為綁定「gate 批准咗嘅 lead」。**被拒嘅 footnote 唔會被刪，照按分數 merge —— 收走嘅只係特權。**
+  - **B'（1 → 2 ＋ query-signal 規則）**：見下。
+  - 新工具 `dev/source/footnote_lead_probe.py`（13 條 self-test）；`dev/DOC_SYNC_CHECKLIST.md` 補一行「Synthesis 前置閘改動」；`CODEBASE_CONTEXT.md` Directory Map ＋ 3 個模組描述。
+- **Done:** commits `b61e108`(A) → `7078719`(A') → `528435d`(B@1) → `969698e`(B'@2) → `138dfca`(QC 證據＋docs)。四次 Render 部署，每次 live 驗。
+- **兩個「deploy 完先捉到」嘅嘢（offline 校準過關唔代表得）:**
+  1. **門檻 1 唔夠**：中文字元 bigram 分唔開 `營辦商` 同 `承辦商`（兩者都有 `辦商`），所以 SCRC footnote 喺 MIN=1 之下仍然攞到 lead。**係 deploy 完 live 重探先捉到**，離線校準睇唔到（我個 probe 只記錄第一條 footnote lead）。
+  2. **淨係抬高到 2 會有代價**：實測全語料，MIN=2 會令 1 條 footnote 失去自己問題嘅席位 —— 一條幾乎全英文嘅問題（"NET Grant School Plan / School Report 要點？"），佢個 overlap=1 淨係來自 `要點` 呢個通用詞。正解 = **gate 只喺 query 本身有 ≥2 個 informative bigram 先啟動，唔夠就 fail open**（量度唔到就維持舊行為）。實測：206/206 條 footnote 自己嘅問題全部保住（3 條走 fail-open），而三條校巴 phrasing 嘅兩條離題 footnote 全部被擋。
+- **QC:**
+  - **eval 三對**（全部 commit）：baseline `_before` PASS 20/30 → `_after_a`（捉到 1 個 SET_LOST）→ `_after_a2`（修完 SET_LOST 0）→ `_after_b`（MIN=1，PASS 19 errors 1 = Render transient）→ `_final` **PASS 20/30 FAIL 0 errors 0**。
+  - **footnote probe 兩對**：`_fnlead_before` → `_fnlead_final`：**positive 26/26 一條都冇跌**；negative 剷走 4 條（三條校巴 ＋ 校長退休金）。
+  - **全語料覆核（唔止抽樣）**：206/206 footnote 自問仍然攞到 lead；TS 同 Python 兩份鏡像算出嘅 informative bigram 數**都係 7828**，證明冇實作漂移。
+  - **eval 最終 6 條 SET_LOST 逐條人手判斷**：全部同一形狀 —— 離題 curated footnote 失去佢唔應該有嘅頭位，而每條 query 嘅正確文件都升咗上嚟（考試調適原本俾幼稚園非華語津貼 footnote 帶頭、家校合作俾寄宿津貼、薪酬調整俾 NET 計劃改革）。**即係話呢個缺陷 30 條 eval 入面影響 6 條，唔止報上嚟嗰條。**
+  - live 終驗「校巴營辦商責任」：8 條結果全部係校巴指引 @0.714-0.772，答案改為跟車保母／車輛檢查／保護式座椅／2026 年安全帶新規／客運營業證，原本嗰段「經營利潤回饋學生」消失。
+  - tsc exit 0 ×4；`footnote_lead_probe.py --self-test` PASS；routing probe 16 條，其中 3 條唔符我預期嘅**攞 HEAD 版本行同一組 probe 證實係改動前既有行為**（`校舍安全` 落 gov_admin、兩條視藝 query 落 null）。
+  - 凍結合約零接觸（Supabase 16,062 / registry 256 / `_meta` 2.3.0 / facts 455 / guidelines 158 / PLATFORM_VERSION 3.2.2 全部未郁）。
+- **明文未修（唔好當已解決）:** plausible-gap 類 negative 仍然攞得到 lead（overlap 1-10）—— 一條「語域啱、答案根本唔喺庫」嘅 query，overlap 可以**高過**一條用英文問嘅真命中。呢條軸上冇任何門檻分得開，屬 Open Priority ④（改良 judge prompt），`judge_probe.py` 仍然係佢嘅驗收工具。
+- **Evidence disposition:** 當前狀態→handoff Current Baseline S196 block；五份 run→`dev/source/eval_runs/`（commit，跨 session 可比）；兩個常數嘅實測分佈→code 註釋（唔止留喺 log）；新驗收工具→`footnote_lead_probe.py` ＋ DOC_SYNC 新行（可重用程序知識）；handoff 記錯根因→已喺 Open Priorities 更正。
+- **Sync:** DOC_SYNC 命中 3 row（檢索 eval harness ✓ 三對 run／Channel-B SOURCE_SETS+TOPIC_KEYWORDS+QUERY_EXPANSIONS parity ✓／**新增 1 row「Synthesis 前置閘改動」** ✓ 按 anti-pattern guard 先補行）。`update_log.json` **N/A**（純檢索行為修復，無新源入庫，按 S190 定案唔記維護性改動）。凍結合約＋`PLATFORM_VERSION` 零接觸。Pages 無需 redeploy（純 backend）。
+- **Risks:** ⚠️ plausible-gap footnote lead 未解（見上）。⚠️ `footnote_lead_probe.py` 嘅 `MIN_OVERLAP` 同 backend `FOOTNOTE_LEAD_MIN_OVERLAP` 係兩份鏡像，改一邊必須改另一邊，否則 probe 會量度緊一個唔存在嘅 build（已寫入 CODEBASE_CONTEXT 該檔描述）。⚠️ Render free tier 偶發 transient error（本 session eval 撞過一次，harness 正確記做 error）。
+- **Log maintenance:** 收工時跑 `session_log_maintenance.py --check`（本 entry 為 §3 PERSIST 寫入，未做 full closeout）。
+
+<!-- ack:log-entry:end -->
+
+---
+
 ## 2026-07-27 Session 195B — Leonard「全做」：清埋 8 項優先事項；兩項結論同假設相反，一項係自己整壞由 eval 捉返
 
 - **ID:** Claude_20260727_S195B
