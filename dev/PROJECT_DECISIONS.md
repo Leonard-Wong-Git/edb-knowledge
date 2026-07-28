@@ -64,6 +64,31 @@ This file does not store raw build / upload / QC evidence, current next actions,
 
 ## Insights & Learnings
 
+### S195 (2026-07-27) — 三條可轉移教訓：內容雜湊 id 的刪除陷阱、可達性 probe 的自欺、以及一個「唔可以靠調參解決」的安全門檻
+
+- **背景：** 兩輪 session。上半清三條死連結（Leonard「跟你建議」），下半清埋餘下 8 項優先事項（Leonard「全做」）。Supabase 16,035 → 16,062，registry 250 → 256，凍結合約全程零接觸。
+
+- **教訓 1 — chunk id 係內容雜湊時，「刪舊版」唔可以照 `source_id` 刪。**
+  - 兩次遇到（`g18` 校車指引改版、`g21`/`g22` 重抽）。chunk id = `vault_<source_id>_<text_hash>`，所以**兩個版本之間文字冇變的段落，id 完全相同**。`g18` 舊 9 條入面有 **3 條**同新版 id 重疊；照 `source_id` 一次過刪就會連現行有效內容一齊刪走，**而且刪完之後總數睇落仲會「啱數」**（因為新版已 upsert 入去），完全唔會爆。
+  - **決策：** 刪除集一律 = **舊 id 減新 id**，並且要**排除唔屬 vault 的 content_type**（`g21`/`g22` 各有一條人手寫的 `footnote_curated`，照 source_id 刪就會毀掉人手內容）。兩條刪除腳本都把刪除集**寫死入檔**而唔係執行時重算，免得日後 vault 檔一改就漂。
+  - **可轉移原則：** 凡係 content-addressed 的 store（id 由內容決定），「更新一份文件」唔係一個 delete-then-insert 的原子操作，而係一個**集合運算**。用 id 前綴或外鍵去刪，等於假設 id 同文件係一對多的乾淨關係 —— 內容雜湊剛好打破呢個假設。呢類錯誤靜默、事後數字仲對得上。
+
+- **教訓 2 — 用自己揀的 phrasing 去測「搵唔搵得到」，量度緊的係 phrasing，唔係檢索。**
+  - 想剪 spotlight overlay（S193 為「新入源被全庫 ANN 擠走」而建）。我寫咗個可達性 probe：對每個源用代表性 query 打全庫 ANN（top-40、min_score 0.22），睇佢入唔入到候選池。6 個源有 4 個 **rank 0**，睇落好明確 —— 於是剪走。
+  - **before→after eval 即刻打面**：`ai_intro`／`net_scholar`／`pay_adjust` 三條由 PASS 變 FAIL，失去的**正正就係被剪那三個源**。
+  - **根因：** 我用的係自己揀來描述該文件的 phrasing（「人工智能初探 學與教」），而真正重要的係用戶打的**裸名詞**（「人工智能初探」）；加上生產路徑會先做 query expansion 再 embed，所以我個 probe 睇到的候選池**根本唔係生產那個池**。probe 對自己友善，因為 probe 係我寫的。
+  - **決策：** 任何 spotlight／SOURCE_SETS／route 次序改動，**一律以 eval before→after 對為準**，唔接受可達性 probe 作證據。教訓寫入 `SPOTLIGHT_SOURCE_IDS` 註釋（改嗰個人一定睇到），失敗那份 run 保留入 `dev/source/eval_runs/` 做證據。
+  - **可轉移原則：** 自製的驗證器同被驗證的系統共享你嘅假設 —— 尤其當輸入（query）由你揀。要證明「用戶搵到」，就要用**用戶的輸入分佈**，唔係你嘅。S194 個監察漏咗自己要捉的案，係同一個 class 的錯：**你只係測到自己嘅假設**。
+
+- **教訓 3 — 有些安全門檻唔係「調得啱唔啱」，而係「調唔調得到」。**
+  - S183 把 anti-confab judge 的 `vault_extract` bypass 定喺 cosine 0.70。此後入庫的源喺自己主題上只得 0.62–0.63，被拒答，睇落就係門檻定得太高。
+  - 冇直接調，先起 `dev/source/judge_probe.py` 量 24 條：6 條完全離題、**14 條「貌似學校事務但答案根本唔喺庫」**（呢類先係會誘發砌數的，S177 砌出「IMC 60%」就係呢類）、4 條正面對照。
+  - **結果：敵意類最高 0.632、真命中最低 0.624 —— 兩個分佈重疊。** 降到 0.60 會放行「教師每年可以請幾多日大假」(0.617)、「學校可唔可以借錢俾教職員」(0.615)、「校服供應商招標要幾多間報價」(0.614)：全部語域啱、個數字唔存在。
+  - **決策：保留 0.70**，並把實測數字寫入 `searchChannelB.ts` 註釋（唔止留喺 log）。要提升 recall 只剩改 judge prompt 一條路（選項 c），而 `judge_probe.py` 本身就係現成的驗收工具：目標 = 4 條 control 答到、20 條敵意仍拒答。
+  - **可轉移原則：** 當一個訊號的「真陽性」同「危險假陽性」分佈重疊，**冇任何門檻數值可以同時滿足兩邊**；再調只係喺兩種錯之間換位。呢個時候應該去**換訊號或換判斷器**，唔係繼續調參。而且要證明呢一點，敵意樣本必須包含「同語域但無答案」那類 —— 只用完全離題的樣本（本次最高只有 0.418）會得出「門檻可以大幅降低」的錯誤結論。
+
+- **同場加映 — 監察要 alert on diff，唔係 alert on count。** 封面核對（S194 建）今次接入 CI 時發現：全掃 flag 18 條而**全部良性**，用 severity 做 gate 會每次跑出 11 個假警報，正正係 S191 花力氣收走的 email 噪音。改為同一份**人手覆核過的 baseline**（`title_baseline.json`）比對，只有「新出現的 flag／覆蓋率跌 ≥0.15／fetch 失敗」先開 Issue；接受一個 flag 的方式就係更新 baseline。實測：加咗 6 個新源、改咗 3 個標題之後 rescan **0 alert**。
+
 ### S194 (2026-07-26) — 兩條可轉移教訓：「200 ≠ 正確文件」＋「append-only 歷史唔可以做 sync 目標」
 
 - **背景：** Leonard 叫我核一份 technology-edu 頁面上未入庫的 PDF 是否 `ict_sss_2021` 的新版（原以為係 supersede 小事）。核出的係：該 registry entry 標題寫《資訊及通訊科技（中四至中六）2021》，`url_primary` 卻指向 `CS_CAG_S4-6_Chi_2021.pdf` —— **`CS` 被讀成 Computer Science，實為 Citizenship and Social development**。81 個《公民與社會發展科課程及評估指引》的 chunks 長期掛住 ICT 標題供用戶檢索（生產實測：搜「公民與社會發展科」，top-1 結果標題係「資訊及通訊科技」），而真正的 ICT 2021 指引從未入庫。

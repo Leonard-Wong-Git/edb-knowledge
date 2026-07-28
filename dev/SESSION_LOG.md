@@ -61,7 +61,8 @@ dev/DOC_SYNC_REGISTRY.md
 - **Evidence disposition:** 當前狀態→handoff Current Baseline S195 下半 block；四份 eval run + judge probe 輸出→`dev/source/eval_runs/`（commit，跨 session 可比）；門檻實測→code 註釋（唔止留喺 log）；spotlight 教訓→`SPOTLIGHT_SOURCE_IDS` 註釋；每條 registry 改動理由→各條目 `notes`；監察 diff 設計→`FRESHNESS_GUIDE` §0。
 - **Sync:** DOC_SYNC 命中 4 row（Channel-B vault backfill ✓ registry+SOURCE_SETS parity+eval 對／檢索 eval harness 改動 ✓ eval_queries 25→30＋4 份 run／Monitoring-CI change ✓ FRESHNESS_GUIDE＋新 workflow＋無新 secret／guidelines.json 契約 ✓ `--write` 重生、158 不變）。`update_log.json` +3 條（今次係真內容改動）。凍結合約＋`PLATFORM_VERSION` 零接觸。Pages 隨 push redeploy。
 - **Risks:** ⚠️ 「校巴營辦商責任」route 次序問題未修。⚠️ g24／sag_2025_11 仍然係同一份學校行政手冊登記兩次、**215 條 chunk 文字完全相同**（今次查到嘅新數字）—— 呢個先係 eval tie 嘅真來源，但 Backlog 舊決定係「軟 dedup 已足夠」，未動。⚠️ Render free tier 偶爾 57014 statement timeout（今次 eval 中段撞過一次，harness 正確記做 error 而非零結果）。
-- **Log maintenance:** `python3 docs/qa/session_log_maintenance.py --check` → **trigger=False**（line_count=331 / entry_count=5）→ no-op。
+- **Log maintenance:** `python3 docs/qa/session_log_maintenance.py --check` → **trigger=False**（line_count=331 / entry_count=5，兩個 hard trigger 都未到）→ no-op。語意觸發：**有** —— 本 session 屬「多選項取捨並記低理由」＋「跨 session 累積模式」，已按 §4 step 11(c) append `dev/PROJECT_DECISIONS.md` Insights（三條教訓，帶證據鏈）。10-closeout backstop：未到（archive 上次 S194 執行，現 5 entries）。
+- **Playbook（§14）:** 本輪經驗夠穩定且可轉移，已交兩份提案入共用經驗庫 inbox（`2026-07-28-policychecker-content-hash-id-delete-set.md`／`2026-07-28-policychecker-self-authored-probe-measures-your-assumptions.md`）＋開咗 `usage/policychecker.log.md`（4 行，3 條 applied）。playbook repo commit `ee70298` 已 push。未改該庫任何卡或 INDEX（按 §14 規矩由 librarian 處理）。
 
 <!-- ack:log-entry:end -->
 

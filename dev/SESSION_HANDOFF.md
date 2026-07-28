@@ -451,7 +451,7 @@ source_registry → same vault PDFs → ai_extract.py
 - **Reconciled at:** 2026-07-27 (S195 下半 closeout)
 - **S195B state sections rewritten or confirmed current:** Current Baseline（prepend S195 下半 block：Supabase **16,062**、registry **256**、v3.2.2 不變、凍結合約零接觸、8 項優先事項逐項交代包括 1 項做唔到／2 項結論相反／1 項自己整錯已還原）；Open Priorities（**整份重生**：舊 8 項有 6 項完成、2 項結論改變，新列 6 項並全部標明性質同前置條件）；`Last Session Record` 由 S195 上半重寫為 S195B（上半降級為 `Previous Session Record (S195 上半)`，no-loss）；`Next Session Opening Message` 重生；本段。
 - **S195B lifecycle check:** 舊 Open Priorities 8 項處置 —— ①校車五份→**完成**（已從清單移除）；②judge 門檻→**完成但結論係「唔改」**，並衍生新項「改良 judge prompt」；③g21/g22→**完成**（Issue #5 可關）；④PAT→**唯一原封不動保留**（我做唔到）；⑤CI→**完成**，衍生「baseline 要跟住更新」維護項；⑥重複登記→**完成**；⑦spotlight→**嘗試後還原**，重列為「下次要用 eval 對」維護項；⑧religious_edu_jss→**完成且唔使郁凍結 count**。**無已完成項殘留為未解 next priority。** 新增 3 項（route 次序／g24-sag 真重複／judge prompt）全部標明需要獨立證據或 PLAN。
-- **S195B persistence routing checked:** 是。當前狀態→handoff Current Baseline；四份 eval run + judge probe 輸出→`dev/source/eval_runs/`（commit，跨 session 可比對，唔止留喺 log）；**門檻實測→`searchChannelB.ts` code 註釋**（下一個想調呢個數嘅人一定睇到）；**spotlight 教訓→`SPOTLIGHT_SOURCE_IDS` 註釋**；每條 registry 改動理由→各條目 `notes`；監察 diff 設計 + baseline 維護紀律→`FRESHNESS_GUIDE` §0/§2；用戶面→`update_log.json` 3 條 + CHANGELOG。
+- **S195B persistence routing checked:** 是。**可轉移教訓→`dev/PROJECT_DECISIONS.md` Insights**（三條：content-hash id 刪除陷阱／自製 probe 量度自己假設／分佈重疊嘅門檻調唔到）＋**共用經驗庫 inbox 兩份提案**（playbook commit `ee70298`，並開咗 `usage/policychecker.log.md`）—— 即係可重用嘅程序知識冇淨係留喺 handoff／log。其餘：當前狀態→handoff Current Baseline；四份 eval run + judge probe 輸出→`dev/source/eval_runs/`（commit，跨 session 可比對，唔止留喺 log）；**門檻實測→`searchChannelB.ts` code 註釋**（下一個想調呢個數嘅人一定睇到）；**spotlight 教訓→`SPOTLIGHT_SOURCE_IDS` 註釋**；每條 registry 改動理由→各條目 `notes`；監察 diff 設計 + baseline 維護紀律→`FRESHNESS_GUIDE` §0/§2；用戶面→`update_log.json` 3 條 + CHANGELOG。
 - **S195B stale snapshots left:** 無。**主動更正咗自己上半場一個錯**：我曾把 `religious_edu_jss` 改名成 2024 版、status 改 verified，實情 registry 一早有 `religious_edu_jss_2024` 並已宣告 `supersedes`，我嗰個改動製造咗重複 —— 已改回 legacy 身份 + `superseded` + `superseded_by`，並在該條目 notes 寫低整件事。
 - **S195B opening message matches current state:** 是。`Next Session Opening Message` 重生（16,062／256／8 項處置結果／兩條「唔好再犯」紀律），`START_NEXT_SESSION_PROMPT.txt` 由該 block 重生並 mirror check PASS。
 - **S195B sync status:** DOC_SYNC 命中 4 row（Channel-B vault backfill ✓／檢索 eval harness 改動 ✓ eval_queries 25→30 + 4 份 run／Monitoring-CI change ✓ 新 workflow + FRESHNESS_GUIDE，**無新 secret 依賴**／guidelines.json 契約 ✓ `--write` 重生、158 不變）。`update_log.json` +3 條。凍結合約（`_meta` 2.3.0／facts 455／guidelines 158）+ `PLATFORM_VERSION` 3.2.2 零接觸（機械核實）。Pages 隨 push redeploy；Render 已 deploy 兩次（主體 + revert）。§4a：`--check` trigger=False（331 行／5 entries）→ no-op。
@@ -495,7 +495,7 @@ source_registry → same vault PDFs → ai_extract.py
 
 Can the next AI continue from `AGENTS.md`, this handoff, `dev/PROJECT_INDEX.md`, and needed rule packs without searching old log history?
 
-Answer: Yes.
+Answer: Yes（S195B closeout 覆核）。下一個 agent 淨睇本檔可以知道：當前數字（16,062 / 256 / 158 / v3.2.2）、8 項優先事項逐項處置結果、兩條「唔好再犯」紀律、以及下一步排序。**需要深入時，指針齊全**：門檻實測寫喺 `searchChannelB.ts` 註釋、spotlight 教訓寫喺 `SPOTLIGHT_SOURCE_IDS` 註釋、每條 registry 改動理由寫喺該條目 `notes`、可轉移教訓入 `dev/PROJECT_DECISIONS.md` Insights、四份 eval run 同 judge probe 輸出留喺 `dev/source/eval_runs/`。**唔使揭舊 log history。**
 If no, update this handoff before closeout.
 
 Continuity rule: this file carries current state and next action. `dev/SESSION_LOG.md` carries recent evidence only. Archive old detail only when needed; do not create an archive directory by default.
