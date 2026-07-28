@@ -225,6 +225,21 @@ source_registry → same vault PDFs → ai_extract.py
 - **雲端 OCR 引擎選項**（image-PDF ingestion 升級線，S180 評估）：Google Vision `DOCUMENT_TEXT_DETECTION`（逐字信心 + bounding box、每月 1,000 單位永久免費 + ~$1.50/1,000、要綁卡開 billing）／Mistral OCR（Markdown+表格、~$2/1,000）——比現用 `gpt-4o` 圖像 OCR「draft 質」可能更準更平，且 bbox 可餵返 grid 重建。命中 image-PDF 質素問題（如 DEBP 主藍圖 ~16 圖像頁）先評估：**真檔實測 + 開 Google billing**（ingestion 處理公開文件、無未成年私隱顧慮；後端已存在故唔需要 brief 嗰套 serverless key-proxy）。詳見 playbook inbox 提案 `2026-06-24-edb-knowledge-cloud-ocr-engine-options.md` + `doc-extract-method-ladder` 卡。出處：Leonard 一份 OCR 收費版 brief（2026-06，已核實價）。
 
 ## Last Session Record
+1. UTC date: 2026-07-28
+2. Session ID: Claude_20260728_S196 — Leonard 三次批 "go"。任務由「修 route 次序」開始，兩次因為實測推翻前提而停低報告，最後以「設定規則防止我再犯武斷及疏忽」收結。
+3. Completed:
+   - ✅ **A：新 `school_bus` route**（g18 + 5 份姊妹指引，bus tokens 由 safety 搬過去）+ 修正 query expansion（第一版塞晒受眾名詞，eval 捉到「跟車保母」跌位）。校巴內容由 rank 5 @0.506 → rank 2-7 @0.743-0.768。
+   - ✅ **B：curated footnote lead 加 lexical gate**（DF 自校準、≥2 informative bigram、query 訊號不足則 fail open）；judge bypass 改為綁定「gate 批准嘅 lead」。**被拒 footnote 唔會被刪，只收走特權。**
+   - ✅ 新驗收工具 `dev/source/footnote_lead_probe.py`（含集合對數守衛，已用故意整壞證明會 FAIL）。
+   - ✅ **量度到 judge 本身近乎恆等於「否」**（shipped prompt 8/16，8 條有答案嘅全部拒晒，4 條答案逐字喺 chunk 入面）→ 寫成 `dev/source/JUDGE_PROMPT_FINDINGS.md`，**冇 ship 任何 judge 改動**。
+   - ✅ **規則落地**：`dev/rules/communication.md` 5→10 條（第 3 條改寫、第 10 條方向不對稱貫穿條款）+ `dev/RULE_PACKS.md` 擴闊載入條件。
+4. QC: eval 三對（baseline → after_a → after_a2 → after_b → final），最終 **PASS 20/30 FAIL 0 errors 0**；footnote probe 三次（before → final → relabelled/corrected），最終 **positive 30/30、negative 5/13**；全語料覆核 **206/206** footnote 自問仍攞到 lead；TS 同 Python 鏡像 informative bigram 同為 **7828**；tsc exit 0 ×4。凍結合約機械核實零接觸。
+5. 未完成: judge prompt 改良（需未經 tune 嘅驗收集，見 JUDGE_PROMPT_FINDINGS.md）；收緊 footnote bypass（**必須喺修好 judge 之後**，否則淨蝕）；`PUBLISH_PAT` scope（只有 Leonard 做得到）。
+6. 本 session 我出過嘅錯同已記錄嘅更正: 三條 query 被我判「borderline」而剔走（三次判錯、方向一致、令我低報殘餘問題 2/10 vs 實際 5/13）；靠 ilike 命中就下結論（打開先知係 g07 講家課時間）；跨行 regex 食咗 handoff 一段（git diff 捉到、已還原重做）；把「判過但判錯」講成「冇判過」。全部已寫入 SESSION_LOG「紀錄更正」段，並成為新規則第 3/6/8/9 條嘅來源。
+7. commits: `b61e108` → `7078719` → `528435d` → `969698e` → `138dfca` → `ece0a41` → `2cdcce4` → `ad71c0f` → `bb07bc3` → `3d4ecf0` → `9804239` → `c4e5830` → 本 closeout commit。Supabase **16,062 零接觸** / registry **256** / v3.2.2 / 凍結合約零接觸。
+
+
+## Previous Session Record (S195B)
 1. UTC date: 2026-07-27
 2. Session ID: Claude_20260727_S195B (S195 下半) — Leonard「全做」→ 開 task list、先攞 eval baseline、逐項落手 8 項優先事項 → 其中 1 項做唔到（需佢帳戶權限）、2 項結論同原假設相反、1 項我做錯由 eval 捉返即刻還原 → 兩次 DELETE 由 Leonard 執行（權限閘擋我）。
 3. Completed（詳見 SESSION_LOG S195B）:
@@ -463,6 +478,15 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## State Reconciliation Check
 
+- **Reconciled at:** 2026-07-28 (S196 closeout)
+- **S196 state sections rewritten or confirmed current:** Current Baseline（prepend S196 block：Supabase **16,062 零接觸**、registry **256 不變**、v3.2.2 不變、凍結合約機械核實零接觸；A/B 兩個檢索改動 + 兩次自我推翻 + judge 發現）；Open Priorities（**整份重生**：舊 ② route 次序已證唔存在並由實測取代、舊 ⑤ baseline 查實已做，新 ② 為 judge prompt 並釘死「先修 judge 後收 bypass」次序）；`Last Session Record` 由 S195B 重寫為 S196（S195B 降級為 `Previous Session Record (S195B)`，no-loss）；`Next Session Opening Message` 重生；本段。
+- **S196 lifecycle check:** 舊 Open Priorities 6 項處置 —— ①PAT→**原封不動保留**（我做唔到）；②route 次序→**證實唔存在**（`detectQueryCategory` 一直返 `safety`），已由真根因取代並修好，唔再列為未解項；③g24/sag→**不變**；④judge prompt→**升為 ②**，並由「應付裸名詞短 query」重寫為實測發現（judge 近乎恆等於否）＋新增前置依賴；⑤封面 baseline→**查實已覆蓋 S195B 新源（208 條）**，降為維護項；⑥spotlight→**不變**，維護項。**無已完成項殘留為未解 next priority 或 active risk。**
+- **S196 persistence routing checked:** 是。當前狀態→handoff Current Baseline S196 block；五份 eval run + 四份 footnote probe run→`dev/source/eval_runs/`（commit，跨 session 可比）；**兩個常數嘅實測分佈→`searchChannelB.ts` code 註釋**（下一個想調呢兩個數嘅人一定睇到）；**judge 量度結果同未 ship 嘅理由→`dev/source/JUDGE_PROMPT_FINDINGS.md`**（新檔，可重用程序知識，唔止留喺 log）；**可重用嘅報告紀律→`dev/rules/communication.md` 第 3/6-10 條 + `dev/RULE_PACKS.md` 載入條件**（即係唔會淨係留喺 handoff／log）；集合對數→**寫成 `partition_gaps()` + self-test 斷言**（機器化而非靠人記得）；DOC_SYNC 新增「Synthesis 前置閘改動」row。
+- **S196 stale snapshots left:** 無。**本 session 內主動更正咗自己三次**：(a) 報「7 條 negative」→ 實際 5 條（借錯 vault 用途嘅測試集）；(b) 講「S195B 數據標錯」→ 打開原文後證實 S195B 企得住（`不應超過30` 係 g07 講家課時間）；(c) 講「我冇為三條 query 做過決定」→ 實錄顯示我逐條判過且三次判錯。三項連同兩個 commit message 不準確之處，全部寫入 SESSION_LOG「紀錄更正」段。
+- **S196 opening message matches current state:** 是。`Next Session Opening Message` 重生（16,062 零接觸／A+B 兩個改動／judge 發現列為最重要必讀／新增第 3 條紀律），`START_NEXT_SESSION_PROMPT.txt` 由該 block 重生並 **byte-for-byte mirror check PASS**（74 行）。
+- **S196 sync status:** DOC_SYNC 命中 3 row（檢索 eval harness ✓ 三對 run／Channel-B SOURCE_SETS+TOPIC_KEYWORDS+QUERY_EXPANSIONS parity ✓／**Synthesis 前置閘改動 ✓ 本 session 新增嘅 row**）。`update_log.json` **N/A**（純檢索行為修復、零入庫，按 S190 定案）。凍結合約 + `PLATFORM_VERSION` 零接觸（機械核實：Supabase 16,062／registry 256／knowledge `_meta` 2.3.0 facts 455／guidelines 2.6.1 實際條目 158／served `PLATFORM_VERSION 3.2.2`）。Pages 無需 redeploy（純 backend + 治理檔）；Render 已 deploy 4 次。§4a：`--check` trigger=False（375 行／6 entries）→ no-op。
+- **舊記錄（S195B closeout）：**
+
 - **Reconciled at:** 2026-07-27 (S195 下半 closeout)
 - **S195B state sections rewritten or confirmed current:** Current Baseline（prepend S195 下半 block：Supabase **16,062**、registry **256**、v3.2.2 不變、凍結合約零接觸、8 項優先事項逐項交代包括 1 項做唔到／2 項結論相反／1 項自己整錯已還原）；Open Priorities（**整份重生**：舊 8 項有 6 項完成、2 項結論改變，新列 6 項並全部標明性質同前置條件）；`Last Session Record` 由 S195 上半重寫為 S195B（上半降級為 `Previous Session Record (S195 上半)`，no-loss）；`Next Session Opening Message` 重生；本段。
 - **S195B lifecycle check:** 舊 Open Priorities 8 項處置 —— ①校車五份→**完成**（已從清單移除）；②judge 門檻→**完成但結論係「唔改」**，並衍生新項「改良 judge prompt」；③g21/g22→**完成**（Issue #5 可關）；④PAT→**唯一原封不動保留**（我做唔到）；⑤CI→**完成**，衍生「baseline 要跟住更新」維護項；⑥重複登記→**完成**；⑦spotlight→**嘗試後還原**，重列為「下次要用 eval 對」維護項；⑧religious_edu_jss→**完成且唔使郁凍結 count**。**無已完成項殘留為未解 next priority。** 新增 3 項（route 次序／g24-sag 真重複／judge prompt）全部標明需要獨立證據或 PLAN。
@@ -527,60 +551,72 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
 (Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
 
-Current state (S195B, 2026-07-27): 平台 v3.2.2; Supabase 16,062 chunks; source_registry 256;
-HEAD==origin/main; 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158; 0 outstanding bug.
-自動化 active: 5 源監察 (discover / freshness / served-url / new-circular / 封面核對〔S195B 新接入 CI,
-月跑〕) + Option A 自動入庫管道 (OPERATIONAL; 每日 19:30 HK refresh Issue; cron 20:00 HK 兜底)。
-served-URL 全掃 268/268 OK; eval PASS 20/30 FAIL 0 errors 0。
+Current state (S196, 2026-07-28): 平台 v3.2.2; Supabase 16,062 chunks (本 session 零接觸);
+source_registry 256; HEAD==origin/main; 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158;
+0 outstanding bug。eval PASS 20/30 FAIL 0 errors 0。
+自動化 active: 5 源監察 (discover / freshness / served-url / new-circular / 封面核對, 月跑)
++ Option A 自動入庫管道 (OPERATIONAL; 每日 19:30 HK refresh Issue; cron 20:00 HK 兜底)。
 
 ⚠️ 管道會自行入庫並直接 push main — 開工時本地可能落後 origin/main, tree 乾淨 + 0 本地 commit
 時先 git pull --ff-only 同步。
 
-📋 S195 (兩輪) 做咗:
-上半 — 清晒 store 全部死連結: g01 / ls_jss_2010 屬上游改名或搬位 (逐頁比對 30/30、183/183 頁相同
-→ 只 re-point, 285 行 url); g18 校車指引屬改版 (只 3/8 頁相同 → 完整 re-ingest)。同一條來源 URL
-原來散落 6 處 (registry / app.html / guidelines.json / data.json / secmeta.json / Supabase),
-只有 Supabase 嗰份有監察 — 已全部對齊。
-下半 — 清埋 8 項優先事項: 入五份校車姊妹指引 + 修 g21/g22 引文錯配 (拆出 va_safety_sec) +
-封面核對接 CI + 合併重複登記 + judge 門檻實測 + 公開庫清重複行。
+📋 S196 做咗 (全部 backend 檢索行為, 零入庫):
+1. 新 school_bus route (g18 + 5 份姊妹指引), bus tokens 由 safety 搬出。校巴內容由 rank 5
+   @0.506 升到 rank 2-7 @0.743-0.768。
+2. curated footnote 嘅 lead slot 加 lexical gate: 要同 query 共享 >=2 個 informative bigram
+   (喺 206 條 footnote 語料上做 DF 自校準) 先攞得到 lead slot; query 本身唔夠中文訊號就 fail
+   open。judge bypass 由「邊個坐 rank 0」改為綁定「gate 批准嘅 lead」。被拒 footnote 唔會被刪,
+   照按分數 merge — 收走嘅只係特權。
+3. 新驗收工具 dev/source/footnote_lead_probe.py (positive 30/30 / negative 5/13)。
 
-🧭 兩條「唔好再犯」紀律 (今次用真金白銀學返嚟):
-  1. 改 chunk 版本唔可以照 source_id 刪舊 — chunk id 係內容 hash, 兩版相同嘅段落 id 會重疊,
-     照刪會連現行內容一齊刪走。正確刪除集 = 舊 id 減新 id, 而且要排除 footnote_curated
-     (人手寫, 唔屬 vault)。
-  2. 判斷一個源「搵唔搵得到」唔可以用自己揀嘅 phrasing 做可達性 probe — S195B 用呢招剪 spotlight,
-     eval 即刻捉到 3 條 query PASS→FAIL。真正重要嘅係用戶打嘅裸名詞, 而且生產會先 query-expand
-     再 embed。任何 spotlight / SOURCE_SETS / route 次序改動, 一律以 eval before→after 對為準。
+🚨 最重要嘅發現 — 動 anti-confab 任何嘢之前必讀 dev/source/JUDGE_PROMPT_FINDINGS.md:
+   shipped 嘅 judge prompt 近乎恆等於「否」。離線直接叫佢跑 16 條 (8 條庫有答案 / 8 條冇):
+   8/16, 8 條有答案嘅全部拒晒, 其中 4 條答案逐字喺佢見到嗰個 chunk 入面。
+   生產睇落正常, 係因為 footnote / vault 兩個 bypass 幫佢繞過咗 judge。
+   → 後果: 收緊 footnote bypass 嘅設計本身成立 (覆蓋率 negative 0.40/0.62 vs positive p10 0.77,
+     ratio >=0.70 兩條全擋), 但而家做係淨蝕 — 會失去 bypass 嗰 2 條 answerable control,
+     交俾真 judge 判會被拒答。次序由實測釘死: 先修 judge, 後收 bypass。
+   → 候選改寫 V3 已量到 11/16 零誤放, 但未 ship: 16 條 case 係 tune 過嘅數, 而呢個係
+     anti-confab 骨幹。需要一個未經 tune 嘅驗收集先可以 ship。方法喺個檔入面 (chunk 攞一次
+     快取, prompt 離線迭代, 唔使部署)。
 
-⚠️ 動 backend 檢索前必讀 dev/SESSION_LOG.md S195B QC 段 + S194/S193 QC 段。
+🧭 紀律 (前幾個 session 用真金白銀學返嚟, 仍然生效):
+  1. 改 chunk 版本唔可以照 source_id 刪舊 — chunk id 係內容 hash, 兩版相同段落 id 會重疊。
+     正確刪除集 = 舊 id 減新 id, 並排除 footnote_curated。
+  2. 判斷一個源「搵唔搵得到」唔可以用自己揀嘅 phrasing 做 probe。任何 spotlight / SOURCE_SETS /
+     route / 門檻改動, 一律以 eval before→after 對為準。
+  3. 【S196 新增, 已寫入 dev/rules/communication.md】報一個數之前: 先確認產生佢嗰個工具喺當前
+     用途下成立 (借用其他用途嘅工具 = 未驗證), 再打開數字背後至少一個實例親眼睇。搜尋命中唔算
+     證據。拆分/重標任何集合之後要對數。改治理檔用精確字串 + git diff 核實, 唔可以用「grep 搵
+     唔到舊字串」當核實, 禁止跨行 regex。講自己做過乜要引實錄。
+     貫穿條款: 如果一個判斷/遺漏/措辭會令自己份工睇落更好, 呢個方向本身就係觸發條件。
 
 🛠 常用指令:
   python3 dev/source/eval_retrieval.py --run --out after.json
-  python3 dev/source/eval_retrieval.py --compare dev/source/eval_runs/2026-07-27_s195_final.json after.json
-  python3 dev/source/judge_probe.py                       # 動 anti-confab 門檻前必跑
-  python3 dev/source/check_served_urls.py --check         # 268 URL, ~8 分鐘
-  python3 dev/source/check_source_titles.py --check --baseline   # 一定要帶 --baseline
-  入新源前跟 FRESHNESS_GUIDE §1a 核封面標題; triage 完 flag 要更新 title_baseline.json。
+  python3 dev/source/eval_retrieval.py --compare dev/source/eval_runs/2026-07-28_s196_final.json after.json
+  python3 dev/source/footnote_lead_probe.py --self-test     # 含集合對數守衛
+  python3 dev/source/footnote_lead_probe.py --run --out fn_after.json
+  python3 dev/source/judge_probe.py                          # vault 門檻 (結論: 唔好降)
+  python3 dev/source/check_served_urls.py --check            # 268 URL, ~8 分鐘
+  python3 dev/source/check_source_titles.py --check --baseline
+  注意: footnote_lead_probe.py 嘅 MIN_OVERLAP 同 backend FOOTNOTE_LEAD_MIN_OVERLAP 係兩份鏡像,
+  改一邊必須改埋另一邊。
 
 🔜 NEXT (優先序):
   ① 【只有 Leonard 做得到】確認 PUBLISH_PAT 係 fine-grained、只限 edb-circular-site
-     contents:write。API 唔會俾 token 自報 scope, 要喺 GitHub Settings → Developer settings →
-     Personal access tokens 睇。
-  ② 「校巴營辦商責任」被 governance route 搶走 (返 IMC/學校行政手冊而唔係 sch_bus_operators_2026)
-     — TOPIC_KEYWORDS first-match 次序問題。改次序要一對 before→after eval run。
-  ③ 【較大】g24 同 sag_2025_11 係同一份《學校行政手冊》登記兩次, 215 條 chunk 文字完全相同
-     (S195B 實測) — 呢個先係 eval 固有 tie 嘅真來源。舊決定係「軟 dedup 已足夠」; 真合併要刪一邊
-     215 條, 屬最高流量來源, 要獨立 PLAN。
-  ④ judge 選項 (c): 改良 judge prompt 應付裸名詞短 query。(b) 降門檻已證數學上做唔到 —
-     敵意 0.632 vs 真命中 0.624 重疊。judge_probe.py 可直接做驗收: 4 條 control 要答到、
-     20 條敵意仍要拒答。
-  ⑤ 【維護】封面核對 baseline 要跟住入庫更新, 否則月跑 CI 會嘈。
-  ⑥ 【維護】spotlight 現 6 源; 要剪必須由 eval 對開始 (見上方紀律 2)。
+     contents:write (API 唔會俾 token 自報 scope)。
+  ② 修 judge prompt — 先讀 JUDGE_PROMPT_FINDINGS.md。要砌一個未經 tune 嘅驗收集,
+     decline 半邊必須包含 S177 類 (凍結教席→IMC 60%)。改完先可以講收緊 bypass。
+  ③ 【較大】g24 同 sag_2025_11 係同一份《學校行政手冊》登記兩次, 215 條 chunk 文字完全相同 —
+     eval 固有 tie 嘅真來源。真合併要刪一邊 215 條, 屬最高流量來源, 要獨立 PLAN。
+  ④ 【維護】封面核對 baseline (title_baseline.json, 現 208 條) 要跟住入庫更新。
+  ⑤ 【維護】spotlight 現 6 源; 要剪必須由 eval 對開始。
   其他 backlog: roadmap R1-R8 (dev/SYSTEM_ANALYSIS_AND_ROADMAP.md); Feature 2a 追問 +
   2b 文件 scoped Q&A (Leonard S182 揀 sequence A); 雲端 OCR 引擎選項。
 
-Post-startup first action: 跑起手探針 (served app.html v3.2.2 + Render /health warm 455 + Draft
-HEAD==origin/main〔落後就 ff-pull〕+ Supabase count=exact), 然後向 Leonard 報告當前狀態同建議下一步。
+Post-startup first action: 跑起手探針 (served app.html v3.2.2 + Render /health warm 455 +
+Draft HEAD==origin/main〔落後就 ff-pull〕+ Supabase count=exact 16,062), 然後向 Leonard
+報告當前狀態同建議下一步。
 
 所有路徑含空格, 終端機指令必須用雙引號包住。改任何嘢之前, 先報告當前狀態同建議下一步。
 ```

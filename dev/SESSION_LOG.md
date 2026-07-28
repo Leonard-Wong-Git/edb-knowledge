@@ -67,7 +67,18 @@ dev/DOC_SYNC_REGISTRY.md
   2. **judge 本身近乎恆等於「否」。** 離線直接叫 judge（同一 prompt／同一 model／真 top-5 chunks）跑 16 條（8 條庫有答案、8 條冇）：**shipped prompt 8/16，8 條有答案嘅全部拒晒**，其中 4 條答案逐字喺 chunk 入面。生產睇落無事，係因為 footnote／vault 兩個 bypass 幫佢繞過咗；judge 真係行到嘅時候基本上唔會答「能」。**呢個就係 S194／S195B 觀察到「judge 過度拒答」嘅根因** —— prompt 嗰句「有任何不確定，一律答否」被模型當成一條全局信心題。
 - **點解冇 ship bypass 收緊（原本嘅任務）:** 收緊嘅設計成立（覆蓋率 negative 0.40/0.62 vs positive p10 0.77，ratio ≥0.70 兩條全擋），但把會失去 bypass 嗰 2 條 answerable control 交俾**真 judge** 判，**兩條都拒答** → 換嚟嘅係用兩個「答啱」去換兩個「答隔籬」，淨蝕。**次序由實測釘死：先修 judge，後收 bypass。**
 - **點解冇 ship judge 改良:** V3（把判斷寫成「對住文本做測試」而唔係態度）由 8/16 升到 **11/16 零誤放**（S177 凍結教席砌數案例照樣拒）；V4 寫更詳細反而跌返 8/16。但 16 條 case 係我自己 tune 出嚟，而呢個係 anti-confab 骨幹 —— 由「永遠拒」變「有時答」嘅風險面遠超我個測試集。全部量度＋V3 全文＋ship 前需要嘅嘢寫晒入新檔 `dev/source/JUDGE_PROMPT_FINDINGS.md`。**方法本身係最有價值嘅交接**：chunk 攞一次快取，prompt 離線迭代，唔使部署。
-- **Log maintenance:** 收工時跑 `session_log_maintenance.py --check`（本 entry 為 §3 PERSIST 寫入，未做 full closeout）。
+- **紀錄更正（收工時逐項核對 commit 實況後補回，唔改寫歷史）:**
+  1. `3d4ecf0` 個 message 把「7+4≠14」寫成純粹漏對數。**唔準確**：實錄顯示我事前逐條判過嗰三條係「borderline、部分答到」，即係我做過判斷（而且三次都判錯，全部錯向「唔使當佢係問題」嗰邊），唔係冇判過。
+  2. `c4e5830` 個 message 最後一段描述 `footnote_lead_probe.py` 嘅集合對數守衛，**但嗰個改動實際喺 `9804239`**；`c4e5830` 只含兩個 rule 檔。
+  3. 我曾向 Leonard 講「守衛個改動仲喺 working tree」—— **錯**，`9804239` 已經 commit 咗；而且我當時自己印出嘅 `git status` 已經顯示只有兩個 rule 檔有改動，即證據在眼前仍憑印象講。呢三項全部係新寫嘅 communication pack 第 9 條（講自己做過乜要引實錄）要防嘅行為。
+- **收工前規則落地（Leonard 指示「設定規則防止再犯武斷及疏忽」）:** `dev/rules/communication.md` 由 5 條擴到 10 條 —— **第 3 條改寫**（「標示未驗證」→「引唔到出處就唔准落判詞，只可寫『未查』」，按 §3b 整合而非另開平行條文，舊句已retire）；新增第 6-9 條（搜尋命中唔算證據／借用工具前先確認佢原本量度乜／動集合對數＋動文字睇 diff、禁止跨行 regex 改治理檔／講自己做過乜要引實錄）；**第 10 條貫穿條款＝方向不對稱本身就係觸發條件**。`dev/RULE_PACKS.md` 擴闊該 pack 嘅載入條件（原本只喺「reply format」類任務載入，即今日呢種 session 根本讀唔到）。機器化部分：`footnote_lead_probe.py` 加 `partition_gaps()` + self-test 斷言，**用故意整壞佢證明會 FAIL**（exit 1 並列出消失嘅 query），唔係只見過佢 PASS。
+- **Log maintenance:** `python3 docs/qa/session_log_maintenance.py --check --session-log dev/SESSION_LOG.md` → **trigger=False**（line_count=375 / entry_count=6，兩個 hard trigger 都未到）→ no-op。語意觸發：**有** —— 本 session 屬「跨 session 累積模式」（同一類報告紀律問題喺 S195B 已出現過一次），已按 §4 step 11(c) 意圖把可轉移部分寫成 `dev/rules/communication.md` 規則而非只留喺 log。10-closeout backstop：未到。
+
+### Next Session Handoff Prompt (Verbatim)
+
+📋 Next session: agent-managed startup content below
+
+（見 `dev/SESSION_HANDOFF.md` 的 `Next Session Opening Message` fenced block —— 本 session 已重生，並已鏡像至 `START_NEXT_SESSION_PROMPT.txt`，逐字 mirror check PASS，74 行。）
 
 <!-- ack:log-entry:end -->
 
