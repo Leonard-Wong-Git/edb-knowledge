@@ -26,6 +26,7 @@ import { fileURLToPath } from "node:url";
 
 import { segmentText } from "./analyzeDocument.js";
 import type { EmbedFn, BatchEmbedFn } from "../lib/embeddingClient.js";
+import { cjkBigrams } from "../lib/textBigrams.js";
 
 const CURRENT_DIR = path.dirname(fileURLToPath(import.meta.url));
 // Resolves to repo-root checklists_bundle.json in both dev (tsx, src/api) and
@@ -344,13 +345,10 @@ function dot(a: number[], b: number[]): number {
 }
 
 /** CJK character bigrams of a string (2-char sliding window over Han chars only).
- *  Used by the S163 P3 lexical-overlap gate. Exported for regression. */
-export function cjkBigrams(s: string): string[] {
-  const cjk = (s || "").replace(/[^一-鿿]/g, "");
-  const out: string[] = [];
-  for (let i = 0; i + 1 < cjk.length; i++) out.push(cjk.slice(i, i + 2));
-  return out;
-}
+ *  Used by the S163 P3 lexical-overlap gate. Exported for regression.
+ *  S196: the implementation moved to `lib/textBigrams.ts` when the curated-footnote lead
+ *  gate became a second consumer; re-exported here so existing imports are unchanged. */
+export { cjkBigrams };
 
 // ---------------------------------------------------------------------------
 // Handler

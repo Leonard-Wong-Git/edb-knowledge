@@ -7,6 +7,7 @@
 
 import type { EmbedFn } from "./embeddingClient.js";
 import { getSupabaseAnonKey, getSupabaseUrl } from "../config/env.js";
+import { informativeBigrams } from "./textBigrams.js";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -255,6 +256,31 @@ async function loadFootnoteChunks(): Promise<Array<{ chunk: WikiChunk; embedding
   return _footnoteCache;
 }
 
+/**
+ * S196 — bigram document-frequency calibration over the curated footnote corpus.
+ *
+ * The caller (searchChannelB) needs to ask "does this footnote actually share subject
+ * matter with the query, or only register?". Answering that needs to know which bigrams
+ * are boilerplate, and that is a property of the whole footnote corpus, not of the six
+ * chunks a single query retrieves — calibrating on the retrieved set would mark a query's
+ * own topic words as boilerplate whenever retrieval is topically homogeneous.
+ *
+ * The corpus is already resident (loadFootnoteChunks caches it), so this costs one pass
+ * on first use and nothing after. Cleared by invalidateWikiCache with the corpus itself.
+ */
+const FOOTNOTE_STOPWORD_DF_FRACTION = 0.25;
+let _footnoteInformativeCache: Set<string> | null = null;
+
+export async function footnoteInformativeBigrams(): Promise<Set<string>> {
+  if (_footnoteInformativeCache) return _footnoteInformativeCache;
+  const fns = await loadFootnoteChunks();
+  _footnoteInformativeCache = informativeBigrams(
+    fns.map((f) => f.chunk.text),
+    FOOTNOTE_STOPWORD_DF_FRACTION
+  );
+  return _footnoteInformativeCache;
+}
+
 function cosine(a: number[], b: number[]): number {
   let dot = 0, na = 0, nb = 0;
   const n = Math.min(a.length, b.length);
@@ -350,4 +376,6 @@ export async function searchSpotlightSources(
 export function invalidateWikiCache(): void {
   _footnoteCache = null;
   _spotlightCache = null;
+  // S196 — derived from _footnoteCache, so it must not outlive it.
+  _footnoteInformativeCache = null;
 }

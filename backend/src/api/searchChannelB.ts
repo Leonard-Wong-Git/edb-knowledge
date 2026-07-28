@@ -17,9 +17,11 @@ import {
   searchWiki,
   searchFootnotes,
   searchSpotlightSources,
+  footnoteInformativeBigrams,
   type WikiContentType,
   type WikiSearchResult,
 } from "../lib/wikiRepository.js";
+import { overlapWith, queryInformativeBigrams } from "../lib/textBigrams.js";
 import type { TopicId } from "../types/knowledge.js";
 import { TOPIC_IDS } from "../types/knowledge.js";
 
@@ -735,7 +737,12 @@ async function judgeCanAnswer(query: string, chunkText: string, llmFn: LlmFn): P
   }
 }
 
-async function synthesizeAnswer(query: string, results: ChannelBResult[], llmFn: LlmFn): Promise<string> {
+async function synthesizeAnswer(
+  query: string,
+  results: ChannelBResult[],
+  llmFn: LlmFn,
+  forcedFootnoteLeads: number
+): Promise<string> {
   const top5 = results.slice(0, 5);
   if (top5.length === 0) return "找不到相關政策。";
 
@@ -767,9 +774,16 @@ async function synthesizeAnswer(query: string, results: ChannelBResult[], llmFn:
   // and 「價值觀教育」VE_CF 2021 chunk rank-0 score 0.794 were over-declined by judge
   // despite being perfect topical matches. Below-0.70 vault chunks still go through
   // the judge unchanged (full confab protection retained for marginal cosine cases).
+  // S196 — the footnote bypass is granted to a footnote the lexical gate ADMITTED, not to
+  // any footnote that happens to sit at position 0. Before this, the two were the same
+  // thing (every footnote ≥0.45 became a lead), so the only behavioural change is that a
+  // gate-rejected footnote now faces the judge like anything else. This is the half of the
+  // S196 defect that made it dangerous rather than merely untidy: on 「校巴營辦商責任」 an
+  // off-topic footnote about tuck-shop trading profit took position 0, skipped the judge,
+  // and the answer asserted that school-bus operating profit must be returned to students.
   const lead = top5[0];
   const trustedFootnoteLead =
-    lead.content_type === "footnote_curated" && lead.score >= FOOTNOTE_LEAD_SCORE;
+    forcedFootnoteLeads > 0 && lead.content_type === "footnote_curated";
   const trustedVaultLead =
     lead.content_type === "vault_extract" && lead.score >= VAULT_LEAD_SCORE;
   if (!trustedFootnoteLead && !trustedVaultLead) {
@@ -851,6 +865,42 @@ const FOOTNOTE_MIN_SCORE = 0.42;
  * main-search results outscore it. Footnotes between MIN and LEAD just merge by score.
  */
 const FOOTNOTE_LEAD_SCORE = 0.45;
+/**
+ * S196 — lexical gate on the lead slot, on top of FOOTNOTE_LEAD_SCORE.
+ *
+ * The cosine bar alone cannot tell "this footnote answers the question" from "this
+ * footnote is written in the same register" — the same limit S195B measured for the vault
+ * bar, where the best adversarial query (0.632) outscored the worst true hit (0.624). It
+ * showed up here as a live wrong answer: 「校巴營辦商責任」 put an unrelated footnote about
+ * tuck-shop trading profit (0.518) and one about contractor sex-conviction checks (0.495)
+ * into the two lead slots, ahead of the school-bus guidelines that scored 0.74-0.77, and
+ * the answer that reached the user was about operating profit rather than seat belts.
+ *
+ * So the gate is lexical, not another number on the same axis: a footnote may take a lead
+ * slot only if it shares at least this many INFORMATIVE bigrams with the query — bigrams
+ * that occur in ≤25% of the curated footnote corpus, so shared boilerplate (學校/教育/
+ * 津貼…) cannot manufacture the overlap. This is the escalation the S173 relevance-floor
+ * work already named (playbook: embedding-cosine-overfire-lexical-gate).
+ *
+ * Rejected footnotes still merge into the results by score; only the forced slot and the
+ * judge bypass are withheld. Calibration evidence and the before/after pair:
+ * dev/source/footnote_lead_probe.py + dev/source/eval_runs/2026-07-28_s196_fnlead_*.json
+ *
+ * The value is 1 because that is where the measurement put it, not because 1 felt safe.
+ * footnote_lead_probe.py, 26 positive controls (each curated footnote's own question) vs
+ * 15 negatives (judge_probe's plausible-gap set plus the three bus phrasings):
+ *     all three S196 bus cases     overlap 0
+ *     lowest-scoring true positive overlap 1  (an English-heavy query; median was 13)
+ * So >=1 removes the whole zero-overlap class and costs nothing. A bar of 2 would have
+ * dropped that positive — the first draft of this constant was 2, and the probe caught it.
+ *
+ * What this does NOT fix, stated so the next session does not mistake it for solved: the
+ * plausible-gap negatives still lead, with overlaps from 1 to 10 — a query in the right
+ * subject whose specific answer is absent overlaps MORE than a true hit phrased in
+ * English. No threshold on this axis separates those; that is Open Priority ④ (a better
+ * judge prompt), and judge_probe.py remains its acceptance tool.
+ */
+const FOOTNOTE_LEAD_MIN_OVERLAP = 1;
 // S183 — vault_extract lead bypass threshold for judge. ≥0.70 = empirically direct
 // topical match (vault chunks at this cosine reliably answer the query). Below 0.70
 // falls through to judge for confab protection (S177 凍結教席→IMC-60% range was 0.55-0.65).
@@ -1032,6 +1082,9 @@ export async function searchChannelB(
   // Slots reserved at the front of `results` by an overlay lead, so a later overlay
   // inserts behind them instead of displacing them.
   let forcedLeads = 0;
+  // S196 — leads contributed by the footnote overlay only. `forcedLeads` also counts
+  // spotlight leads, which must not confer the footnote judge bypass.
+  let forcedFootnoteLeads = 0;
 
   // S174 — route-independent footnote pass (see FOOTNOTE_MIN_SCORE above). Exact cosine
   // over the curated footnote overlay (bypasses routing AND ivfflat recall). Uses the RAW
@@ -1045,7 +1098,25 @@ export async function searchChannelB(
       applySupersedePenalty(fnResults);
       // Strong footnote matches lead (guaranteed synthesis-window slot); weaker ones
       // merge by score. Dedup by id; main results keep score order behind the lead.
-      const lead = fnResults.filter((r) => r.score >= FOOTNOTE_LEAD_SCORE).slice(0, 2);
+      // S196 — cosine alone is not sufficient to grant the lead (see
+      // FOOTNOTE_LEAD_MIN_OVERLAP): the footnote must also share subject-matter
+      // vocabulary with the query. A footnote that fails the gate is NOT dropped — it
+      // still merges into `rest` by score. Only the forced slot and the judge bypass
+      // that rides on it are withheld.
+      const informative = await footnoteInformativeBigrams();
+      const qBigrams = queryInformativeBigrams(query, informative);
+      // An English/numeric query ("NET grant", "MPF 供款") yields no informative CJK
+      // bigrams, so the gate has nothing to measure. Fail OPEN there — refusing every
+      // lead for such queries would be a silent regression of S174/S178 rather than a
+      // safety improvement (playbook: heuristic-failure-direction-decouple).
+      const gateApplies = qBigrams.size > 0;
+      const lead = fnResults
+        .filter(
+          (r) =>
+            r.score >= FOOTNOTE_LEAD_SCORE &&
+            (!gateApplies || overlapWith(qBigrams, r.text) >= FOOTNOTE_LEAD_MIN_OVERLAP)
+        )
+        .slice(0, 2);
       const seen = new Set(lead.map((r) => r.id));
       const rest: ChannelBResult[] = [];
       for (const r of [...results, ...fnResults]) {
@@ -1056,6 +1127,7 @@ export async function searchChannelB(
       rest.sort((a, b) => b.score - a.score);
       results = [...lead, ...rest];
       forcedLeads = lead.length;
+      forcedFootnoteLeads = lead.length;
     }
   } catch {
     // a footnote-pass failure must never break the main search
@@ -1117,7 +1189,7 @@ export async function searchChannelB(
   // LLM synthesis
   let synthesis: string | undefined;
   if (doSynthesize && llmFn && results.length > 0) {
-    synthesis = await synthesizeAnswer(query, results, llmFn);
+    synthesis = await synthesizeAnswer(query, results, llmFn, forcedFootnoteLeads);
   }
 
   return {
