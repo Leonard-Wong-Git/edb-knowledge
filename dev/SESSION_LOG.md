@@ -62,6 +62,11 @@ dev/DOC_SYNC_REGISTRY.md
 - **Evidence disposition:** 當前狀態→handoff Current Baseline S196 block；五份 run→`dev/source/eval_runs/`（commit，跨 session 可比）；兩個常數嘅實測分佈→code 註釋（唔止留喺 log）；新驗收工具→`footnote_lead_probe.py` ＋ DOC_SYNC 新行（可重用程序知識）；handoff 記錯根因→已喺 Open Priorities 更正。
 - **Sync:** DOC_SYNC 命中 3 row（檢索 eval harness ✓ 三對 run／Channel-B SOURCE_SETS+TOPIC_KEYWORDS+QUERY_EXPANSIONS parity ✓／**新增 1 row「Synthesis 前置閘改動」** ✓ 按 anti-pattern guard 先補行）。`update_log.json` **N/A**（純檢索行為修復，無新源入庫，按 S190 定案唔記維護性改動）。凍結合約＋`PLATFORM_VERSION` 零接觸。Pages 無需 redeploy（純 backend）。
 - **Risks:** ⚠️ plausible-gap footnote lead 未解（見上）。⚠️ `footnote_lead_probe.py` 嘅 `MIN_OVERLAP` 同 backend `FOOTNOTE_LEAD_MIN_OVERLAP` 係兩份鏡像，改一邊必須改另一邊，否則 probe 會量度緊一個唔存在嘅 build（已寫入 CODEBASE_CONTEXT 該檔描述）。⚠️ Render free tier 偶發 transient error（本 session eval 撞過一次，harness 正確記做 error）。
+- **收工前第三輪（Leonard 再批 go ×2）—— 兩個推翻自己嘅發現:**
+  1. **我個 footnote probe 標錯 negative。** 我直接借用 `judge_probe.py` 嘅 class B，但嗰個 set 係為 **vault** 門檻設計（問「vault 答唔答到」），而 curated footnote 精準答到當中 4 條（幼稚園每班30人／病假超逾兩天／招標最少5個報價／投訴兩個月＋14天）。已改為 `ANSWERABLE_CONTROLS` 當 positive。**重跑：positive 30/30 全保、negative 由我report 嘅「7」修正為 2/10。** 真正殘餘只有 2 條，而且形狀唔同（答咗隔籬概念，唔係憑空砌數）。順帶查實 `不應超過30` 嘅 vault 命中係 g07 講家課時間，唔係班級人數 → **S195B「VAULT_LEAD_SCORE 降唔到」結論企得住，唔使重開**。
+  2. **judge 本身近乎恆等於「否」。** 離線直接叫 judge（同一 prompt／同一 model／真 top-5 chunks）跑 16 條（8 條庫有答案、8 條冇）：**shipped prompt 8/16，8 條有答案嘅全部拒晒**，其中 4 條答案逐字喺 chunk 入面。生產睇落無事，係因為 footnote／vault 兩個 bypass 幫佢繞過咗；judge 真係行到嘅時候基本上唔會答「能」。**呢個就係 S194／S195B 觀察到「judge 過度拒答」嘅根因** —— prompt 嗰句「有任何不確定，一律答否」被模型當成一條全局信心題。
+- **點解冇 ship bypass 收緊（原本嘅任務）:** 收緊嘅設計成立（覆蓋率 negative 0.40/0.62 vs positive p10 0.77，ratio ≥0.70 兩條全擋），但把會失去 bypass 嗰 2 條 answerable control 交俾**真 judge** 判，**兩條都拒答** → 換嚟嘅係用兩個「答啱」去換兩個「答隔籬」，淨蝕。**次序由實測釘死：先修 judge，後收 bypass。**
+- **點解冇 ship judge 改良:** V3（把判斷寫成「對住文本做測試」而唔係態度）由 8/16 升到 **11/16 零誤放**（S177 凍結教席砌數案例照樣拒）；V4 寫更詳細反而跌返 8/16。但 16 條 case 係我自己 tune 出嚟，而呢個係 anti-confab 骨幹 —— 由「永遠拒」變「有時答」嘅風險面遠超我個測試集。全部量度＋V3 全文＋ship 前需要嘅嘢寫晒入新檔 `dev/source/JUDGE_PROMPT_FINDINGS.md`。**方法本身係最有價值嘅交接**：chunk 攞一次快取，prompt 離線迭代，唔使部署。
 - **Log maintenance:** 收工時跑 `session_log_maintenance.py --check`（本 entry 為 §3 PERSIST 寫入，未做 full closeout）。
 
 <!-- ack:log-entry:end -->
