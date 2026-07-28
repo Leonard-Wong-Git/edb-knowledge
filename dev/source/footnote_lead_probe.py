@@ -153,6 +153,40 @@ def overlap(query: str, text: str, informative: set[str]) -> int | None:
     return len(qb & tb)
 
 
+
+# ---------------------------------------------------------------------------
+# Set-conservation guard
+# ---------------------------------------------------------------------------
+
+# The whole point of this function is that S196 re-labelled a 14-query set into three
+# groups, wrote back only two of them, and never checked that the parts still summed to
+# the whole. Three queries disappeared, all three were still failing, and the reported
+# residual defect came out at less than half its real size. A comment asking the next
+# agent to "remember to check" would have failed the same way, so the check is code and
+# it runs in --self-test.
+SOURCE_SET_S196_AUDIT = [
+    "教師每年可以請幾多日大假", "校長退休金點樣計", "解僱教師要俾幾多個月遣散費",
+    "幼稚園每班最多可以收幾多個學生", "學校泳池水質檢測標準係咩",
+    "老師病假連續請幾耐先要交醫生紙", "學校可唔可以借錢俾教職員",
+    "校巴司機最低工資係幾多", "學生喺校內可以用手機幾耐", "教師評核幾多分先算合格",
+    "學校每堂補習費可以收幾多", "校服供應商招標要幾多間報價",
+    "體罰投訴要幾多日內處理完", "課室冷氣應該調到幾多度",
+]
+
+
+def partition_gaps(source: list[str], *parts: list[str]) -> tuple[list[str], list[str]]:
+    """Items of `source` present in no part, and items in a part that are not in `source`.
+
+    Both directions matter: the first catches silent shrinkage, the second catches a query
+    quietly rewritten so it no longer corresponds to anything that was audited."""
+    covered: set[str] = set()
+    for part in parts:
+        covered |= set(part)
+    missing = [q for q in source if q not in covered]
+    unknown = sorted(covered - set(source))
+    return missing, unknown
+
+
 # ---------------------------------------------------------------------------
 # IO
 # ---------------------------------------------------------------------------
@@ -343,6 +377,22 @@ def self_test() -> int:
           extract_question("x" * 80 + "？yes") == ("x" * 80 + "？")[:40])
     check("leads_of takes two", len(leads_of({"results": [1, 2, 3]})) == 2)
     check("leads_of empty", leads_of({}) == [])
+
+    # Conservation: every query from the audited source set must be accounted for.
+    missing, unknown = partition_gaps(SOURCE_SET_S196_AUDIT, PLAUSIBLE_GAP, ANSWERABLE_CONTROLS)
+    if missing:
+        print("FAIL partition drops queries with no record:")
+        for q in missing:
+            print(f"       - {q}")
+    if unknown:
+        print("FAIL partition contains queries never audited:")
+        for q in unknown:
+            print(f"       + {q}")
+    check("partition conserves the audited set", not missing and not unknown)
+    check("partition_gaps detects a drop",
+          partition_gaps(["a", "b"], ["a"]) == (["b"], []))
+    check("partition_gaps detects an unaudited addition",
+          partition_gaps(["a"], ["a", "z"]) == ([], ["z"]))
 
     print(f"self-test: {'PASS' if fails == 0 else f'{fails} FAILED'}")
     return 1 if fails else 0
