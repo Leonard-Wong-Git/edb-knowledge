@@ -72,3 +72,8 @@ new_circulars.json
 # setup docs). Seeds a SEPARATE private repo; must not live tracked in this public
 # repo. The dry-run executor script (dev/source/execute_ingest.py) itself IS tracked.
 dev/source/ops/
+
+# S197 Channel A coverage measurement — run artifacts are large (embed cache 14MB,
+# run JSON ~4MB each) and fully reproducible from the tool. Findings live in
+# dev/source/CHANNEL_A_COVERAGE_FINDINGS.md.
+dev/source/coverage_runs/
