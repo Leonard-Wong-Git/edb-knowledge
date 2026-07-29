@@ -413,6 +413,104 @@ def report(path: Path, bucket: str | None, sample: int) -> int:
     return 0
 
 
+# Facts established BY READING to contradict the current corpus. They are listed
+# here by text prefix rather than detected, because the automated pass cannot
+# make this call: it can see that an anchor is absent, not that a different and
+# authoritative number is present in its place. Each was confirmed against
+# sag_2025_11 附錄9 in S197 — see CHANNEL_A_COVERAGE_FINDINGS.md §4 類2.
+CONFLICTS = (
+    "服務未滿六個月者無薪病假，滿六個月至三年最多有薪病假36天",
+    "服務滿六個月至三年者，全薪病假最多36天",
+    "非教學人員週年假期：服務未滿一年者按比例計",
+)
+
+# Shapes that are not policy at all: questionnaire items addressed to the school,
+# activity counts, publication notes, and orphan fragments. A fact matching these
+# retires on its own merit — whether or not the corpus "covers" it. Coverage is
+# not the test for these; several ARE covered, because the questionnaire they
+# were extracted from is itself in the corpus.
+NONPOLICY_PAT = (r"貴校|請填寫|問卷|1至5分|請就下列|評分|日後上載|稍後公布|"
+                 r"\d+\s*場|名額|覆蓋\s*\d+\s*所")
+FRAGMENT_PAT = r"^.{2,11}。$"
+
+
+# Facts cleared by reading the passage, keyed by prefix → the source that carries
+# them. These outrank the automated tiers: the anchor pass marks several of them
+# UNVERIFIED for mechanical reasons (a range endpoint written "超過$5,000" rather
+# than "$5,001"; a figure the embedding pass never retrieved and only a direct
+# text search surfaced). A read passage is the strongest evidence this exercise
+# produces, so it must not be overwritten by a weaker automatic verdict.
+HAND_VERIFIED = {
+    "≤$5,000直購": "subvention_tips — 「$5,000或以下免競投…超過$50,000至$200,000須最少5個書面報價…超過$200,000須公開招標」",
+    "12個月內同類採購累積": "kg_admin_guide_2026 — 「幼稚園只有在12 個月內，採購項目的累積價值不超過50,000 元」",
+    "每所公立資助小學將獲35萬港元": "edbc18_2023_pri_science — 「每所小學35萬的「一筆過津貼」」",
+    "「一筆過津貼」每所小學為35萬港元": "edbc18_2023_pri_science — 同上",
+    "每所小學獲35萬「一筆過津貼」": "edbc18_2023_pri_science — 同上",
+    "教師持續專業發展（CPD）": "tdtf_report_2019 — 「每三年周期內參與不少於150 小時的專業發展活動」；debp_blueprint 同數",
+    "非經常津貼用于大型修葺工程": "coa_imc_1_19 — 「可獲發不超過核准金額 50%的工程及設備資助款項」",
+    "小學科學教師專業培訓課程為30小時": "edbc18_2023_pri_science — 「小學科學教師專業培訓證書課程（30小時）、小學科學課程領導專業培訓證書課程（15小時）」",
+    "小學科學教師專業培訓證書課程為30小時": "edbc18_2023_pri_science — 同上",
+    "校長須確保學校按時推行小學人文科": "g06 — 「全港小學須於2025/26 學年開始從小一及小四開始推行小學人文科」",
+    "2020年起，符合資格的女性教職員": "sag_2025_11 附錄9 — 「連續放假14個星期，包括確實分娩日當日在內」",
+}
+
+
+def fact_tier(r: dict, lex_threshold: int) -> tuple[str, str]:
+    """Retirement tier for one fact, with the reason that decides it."""
+    text = r["text"]
+    if any(text.startswith(c) for c in CONFLICTS):
+        return "CONFLICT", "與現行語料矛盾，人手核實（見 FINDINGS §4 類2）"
+    for prefix, cite in HAND_VERIFIED.items():
+        if text.startswith(prefix):
+            return "HAND_VERIFIED", cite
+    if re.search(NONPOLICY_PAT, text) or re.match(FRAGMENT_PAT, text):
+        return "NONPOLICY", "問卷題／活動統計／出版註記／殘缺片段"
+    if r["bucket"] == "COVERED_ANCHORS":
+        return "CLEARED", "所有硬錨點齊集於同一段原文"
+    if r["bucket"] == "NO_ANCHORS" and r.get("lex_overlap", 0) >= lex_threshold:
+        return "PROVISIONAL", f"無錨點可對，lexical overlap {r.get('lex_overlap')} >= {lex_threshold}"
+    return "UNVERIFIED", f"未確立（{r['bucket']}），需人手讀原文"
+
+
+def ledger(path: Path, out: Path) -> int:
+    """Per-fact retirement ledger: can this fact be dropped, and on what evidence.
+
+    This is the artifact phased retirement needs. It does NOT prune anything;
+    role_facts.json is untouched. CLEARED and PROVISIONAL carry the EDB source
+    and page so the same knowledge is demonstrably reachable with a citation
+    after the fact itself is gone.
+    """
+    rep = json.loads(path.read_text(encoding="utf-8"))
+    thr = rep.get("threshold", 8)
+    # The lexical pass writes a leaner file than the run does; take the count
+    # from whichever field is present rather than assuming one schema.
+    expected = rep.get("facts_run", len(rep["records"]))
+    rows, tally = [], {}
+    for r in rep["records"]:
+        tier, why = fact_tier(r, thr)
+        tally[tier] = tally.get(tier, 0) + 1
+        i = (r.get("anchor_detail") or {}).get("best_idx")
+        p = (r["passages"][i] if i is not None and r["passages"]
+             else (r["passages"][0] if r["passages"] else None))
+        page = ""
+        if p:
+            m = re.search(r"=== Page (\d+) ===", p["text"])
+            page = m.group(1) if m else ""
+        rows.append([str(len(rows) + 1), tier, r["topic"], r["role"],
+                     r["text"].replace("\t", " "),
+                     p["source_id"] if p else "", page, p["url"] if p else "", why])
+    if sum(tally.values()) != expected:
+        raise AssertionError(f"ledger lost facts: {sum(tally.values())} != {expected}")
+    header = ["#", "tier", "topic", "role", "fact", "source_id", "page", "url", "why"]
+    out.write_text("\n".join("\t".join(r) for r in [header] + rows), encoding="utf-8")
+    for t in ("HAND_VERIFIED", "CLEARED", "PROVISIONAL", "NONPOLICY", "CONFLICT",
+              "UNVERIFIED"):
+        print(f"  {t:<14}{tally.get(t, 0):>5}")
+    print(f"  {'TOTAL':<14}{sum(tally.values()):>5}  (== {expected})")
+    print(f"\nwrote {out}")
+    return 0
+
+
 def reclassify(path: Path) -> int:
     """Re-run the anchor verdicts over a saved run, no API calls.
 
@@ -650,6 +748,7 @@ def main() -> int:
     ap.add_argument("--report")
     ap.add_argument("--analyze")
     ap.add_argument("--reclassify")
+    ap.add_argument("--ledger")
     ap.add_argument("--bucket", choices=BUCKETS)
     ap.add_argument("--sample", type=int, default=0)
     ap.add_argument("--out", default="dev/source/coverage_runs/run.json")
@@ -659,6 +758,10 @@ def main() -> int:
 
     if args.self_test:
         return self_test()
+    if args.ledger:
+        q = Path(args.ledger)
+        return ledger(q if q.is_absolute() else ROOT / args.ledger,
+                      ROOT / "dev/source/CHANNEL_A_RETIREMENT_LEDGER.tsv")
     if args.reclassify:
         q = Path(args.reclassify)
         return reclassify(q if q.is_absolute() else ROOT / args.reclassify)
