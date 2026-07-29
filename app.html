@@ -2457,8 +2457,6 @@ function QAPanel({ data, setPreviewDoc }) {
   const [results, setResults] = useState([]);
   const [synthesis, setSynthesis] = useState(null);
   const [searched, setSearched] = useState(false);
-  const [qaRole, setQaRole] = useState('all_roles');
-  const [searchChannel, setSearchChannel] = useState('B'); // 'B' only (A / AB surfaces retired — dormant)
   const [isLoading, setIsLoading] = useState(false);
   const [backendError, setBackendError] = useState(null);
 
@@ -2467,30 +2465,6 @@ function QAPanel({ data, setPreviewDoc }) {
     finance: '財務/採購', hr: '人力資源', curriculum: '課程',
     activity: '活動', student: '學生事務', it: '數字教育', general: '通用/行政'
   };
-
-  // Channel A: backend semantic search over approved facts (with synthesis)
-  const runChannelA = useCallback(async (q, targetRole) => {
-    const body = {
-      query: q,
-      min_score: 0.1,
-      synthesize: true,
-      ...(targetRole !== 'all_roles' ? { role: targetRole } : {}),
-    };
-    const resp = await fetch(`${BACKEND_URL}/api/search/channel-a`, {
-      method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(body)
-    });
-    if (!resp.ok) throw Object.assign(new Error(`HTTP ${resp.status}`), { status: resp.status });
-    const json = await resp.json();
-    setSynthesis(json.synthesis || null);
-    return (json.results || []).map(r => ({
-      topicId: r.topic || 'general',
-      roleId: r.role || 'all_roles',
-      fact: r.text, index: 0,
-      sourceRef: null,
-      score: r.score, channel: 'A',
-    }));
-  }, []);
 
   // Channel B: backend semantic search (requires backend running)
   const runChannelB = useCallback(async (q) => {
@@ -2512,41 +2486,13 @@ function QAPanel({ data, setPreviewDoc }) {
     }));
   }, []);
 
-  // A+B: combined backend search
-  const runCombined = useCallback(async (q) => {
-    const resp = await fetch(`${BACKEND_URL}/api/search/combined`, {
-      method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ query: q, min_score: 0.15, top_k: 8 })
-    });
-    if (!resp.ok) throw Object.assign(new Error(`HTTP ${resp.status}`), { status: resp.status });
-    const json = await resp.json();
-    setSynthesis(json.synthesis || null);
-    return (json.results || []).map(r => ({
-      topicId: r.topic || r.topicId || 'general',
-      roleId: r.role || r.roleId || 'all_roles',
-      fact: r.text || r.fact, index: 0,
-      sourceRef: r.url ? { url: r.url, title: r.title } : (r.sourceRef || null),
-      score: r.score, channel: r.channel || 'B',
-      content_type: r.content_type,
-      page: r.page,
-      source_id: r.source_id || null,
-    }));
-  }, []);
-
   const handleSearch = useCallback(async () => {
     const trimmed = query.trim();
     if (!trimmed) return;
     setIsLoading(true);
     setBackendError(null);
     try {
-      let found = [];
-      if (searchChannel === 'A') {
-        found = await runChannelA(trimmed, qaRole);
-      } else if (searchChannel === 'B') {
-        found = await runChannelB(trimmed);
-      } else {
-        found = await runCombined(trimmed);
-      }
+      const found = await runChannelB(trimmed);
       setResults(found);
       setSearched(true);
     } catch (err) {
@@ -2560,26 +2506,11 @@ function QAPanel({ data, setPreviewDoc }) {
     } finally {
       setIsLoading(false);
     }
-  }, [query, qaRole, searchChannel, runChannelA, runChannelB, runCombined]);
+  }, [query, runChannelB]);
 
   const handleClear = () => { setQuery(''); setResults([]); setSynthesis(null); setSearched(false); setBackendError(null); };
 
-  const highlightFact = (fact, tokens) => {
-    if (!tokens || tokens.length === 0 || searchChannel !== 'A') return fact;
-    const pattern = tokens.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
-    const parts = fact.split(new RegExp(`(${pattern})`, 'g'));
-    return parts.map((part, i) =>
-      tokens.includes(part) ? <mark key={i} className="qa-highlight">{part}</mark> : part
-    );
-  };
-
-  const tokens = (searched && searchChannel === 'A') ? query.trim().split(/[\s，,、]+/).filter(t => t.length > 0) : [];
-
-  const channelACount = Object.entries(data).filter(([k]) => k !== '_meta')
-    .reduce((s, [, td]) => s + ROLE_ORDER.reduce((n, r) => n + (Array.isArray(td[r]) ? td[r].length : 0), 0), 0);
-
   const getChannelBadge = (ch, ct) => {
-    if (ch === 'A') return { bg: 'var(--edb-wash)', color: 'var(--edb)', label: '已核實' };
     if (ct === 'approved_fact') return { bg: 'var(--edb-wash)', color: 'var(--edb)', label: '已核實' };
     if (ct === 'stat_fact') return { bg: 'var(--edb-wash)', color: 'var(--ink-2)', label: '統計' };
     return { bg: 'var(--paper-2)', color: 'var(--edb)', label: 'EDB 原文' };
@@ -2659,11 +2590,6 @@ function QAPanel({ data, setPreviewDoc }) {
     eo_admin:'rc-eo', supplier:'rc-supplier',
   };
 
-  // Channel A / A+B search surfaces retired (kept dormant, reversible).
-  const CHANNEL_OPTS = [
-    { id: 'B',  label: '來源文件', sub: '語義搜尋' },
-  ];
-
   // ── WhatsApp share helpers ──
   const buildShareText = () => {
     const seen = new Map();
@@ -2699,38 +2625,11 @@ function QAPanel({ data, setPreviewDoc }) {
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 k1-search-card">
         <h2 className="text-lg font-bold text-gray-800 mb-1">政策搜尋</h2>
         <p className="text-xs text-gray-400 mb-3">
-          {searchChannel === 'B'  && `來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 16062).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
-          {searchChannel === 'A'  && `已核實資料：語義搜尋 ${channelACount} 條 EDB 政策事實，附整理答案`}
-          {searchChannel === 'AB' && `合併搜尋：${channelACount} 條事實 + ${(data._meta?.stats?.chunks || 16062).toLocaleString()} 個知識片段，附整理答案`}
+          {`來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 16062).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
         </p>
-
-        {/* Channel selector — hidden when only one channel is offered */}
-        {CHANNEL_OPTS.length > 1 && (
-        <div style={{display:'flex',gap:'8px',marginBottom:'12px'}}>
-          {CHANNEL_OPTS.map(({id, label, sub}) => (
-            <button key={id}
-              onClick={() => { setSearchChannel(id); setResults([]); setSynthesis(null); setSearched(false); setBackendError(null); }}
-              style={searchChannel === id
-                ? {flex:1,padding:'8px',borderRadius:'var(--r-sm)',border:'1px solid var(--charcoal)',background:'var(--charcoal)',color:'var(--cd)',cursor:'pointer',textAlign:'center'}
-                : {flex:1,padding:'8px',borderRadius:'var(--r-sm)',border:'1px solid var(--border)',background:'var(--cd-warm)',color:'var(--charcoal)',cursor:'pointer',textAlign:'center'}}>
-              <div style={{fontSize:'var(--text-sm)',fontWeight:700}}>{label}</div>
-              <div style={{fontSize:'0.68rem',opacity:0.6,marginTop:'2px'}}>{sub}</div>
-            </button>
-          ))}
-        </div>
-        )}
 
         {/* Search row */}
         <div className="flex gap-2 mb-3">
-          {searchChannel === 'A' && (
-            <select value={qaRole} onChange={e => setQaRole(e.target.value)}
-                    className="border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 flex-none max-w-[120px] shrink-0 text-gray-700 font-medium">
-              <option value="all_roles">全體同工</option>
-              {Object.entries(ROLE_CONFIG).filter(([k]) => !k.startsWith('_') && k!=='all_roles').map(([k, v]) => (
-                <option key={k} value={k}>{v.label}</option>
-              ))}
-            </select>
-          )}
           <input type="text" value={query}
                  onChange={e => setQuery(e.target.value)}
                  onKeyDown={e => e.key === 'Enter' && handleSearch()}
@@ -2798,7 +2697,7 @@ function QAPanel({ data, setPreviewDoc }) {
                   ✦ 整理答案
                 </span>
                 <span style={{fontSize:'var(--text-xs)',color:'var(--edb)'}}>
-                  {searchChannel === 'A' ? '已核實事實摘要' : '來源文件摘要'}
+                  來源文件摘要
                 </span>
               </div>
               <p style={{fontSize:'var(--text-sm)',color:'var(--ink)',lineHeight:1.7,margin:0}}>{synthesis}</p>
@@ -2815,14 +2714,14 @@ function QAPanel({ data, setPreviewDoc }) {
           {synthesis && results.filter(r => r.channel === 'B').length > 0 && (
             <SourcesAccordion results={results.filter(r => r.channel === 'B')} topicLabels={TOPIC_LABELS} />
           )}
-          {/* Channel B / Combined disclaimer */}
-          {(searchChannel === 'B' || searchChannel === 'AB') && results.length > 0 && (
+          {/* AI-synthesis disclaimer */}
+          {results.length > 0 && (
             <div style={{display:'flex',alignItems:'flex-start',gap:'8px',padding:'10px 12px',background:'#FFFBEB',border:'1px solid #FCD34D',borderRadius:'var(--r-md)',fontSize:'var(--text-xs)',color:'#92400E',lineHeight:1.6}}>
               <span style={{flexShrink:0,marginTop:'1px'}}>⚠️</span>
               <span>「整理答案」由 AI 根據以下 EDB 原文片段語意合成，可能有遺漏或表述偏差。重要決定請以來源文件原文為準</span>
             </div>
           )}
-          {/* Channel A results or Channel B without synthesis: airline board rows (deduped) */}
+          {/* Results without synthesis: airline board rows (deduped) */}
           {(() => {
             const seen60 = new Set();
             return results.filter(r => r.channel === 'A' || !synthesis).filter(item => {
@@ -2863,7 +2762,7 @@ function QAPanel({ data, setPreviewDoc }) {
                       </div>
                       {/* Content */}
                       <div>
-                        <div className="board-fact-text">{highlightFact(item.fact, tokens)}</div>
+                        <div className="board-fact-text">{item.fact}</div>
                         <div className="board-fact-meta">
                           <span className={`topic-tag ${getTopicClass(item.topicId)}`}>
                             {TOPIC_SHORT[item.topicId] || item.topicId}
