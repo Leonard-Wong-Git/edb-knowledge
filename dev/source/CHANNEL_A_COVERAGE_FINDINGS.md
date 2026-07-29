@@ -122,3 +122,45 @@ cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && pytho
 cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && python3 dev/source/channel_a_coverage.py --report dev/source/coverage_runs/2026-07-29_s197_full_v2.json --bucket NO_ANCHORS --sample 20
 ```
 （`--run` 需要 `OPENAI_API_KEY` + `SUPABASE_SERVICE_KEY`；embedding 已快取喺 `coverage_runs/_embed_cache.json`，重跑唔使再畀錢 embed。）
+
+---
+
+## 8. S197 執行結果（同日，Leonard 批「先退服務面」→「逐條讀完 16 條先做」）
+
+### 已做
+
+1. **前端 Channel A 路徑移除**（commit `2d70ef7`，−109/+8 行）。已證摸唔到：`CHANNEL_OPTS` 只有一項，selector 寫住 `length > 1` 先 render。live 驗：served app.html 零殘留、Channel B 搜尋 200/7 條/synthesis 正常。
+2. **eval 集補上盲點**（commit `5754c00`）：原 30 條**冇一條** expect `role_facts_*`、冇一條問「邊個負責」→ 剷走鏡像會量到假綠燈。加 4 條角色職責 query。
+3. **9 條鏡像退出服務路徑**（commit `3ba92fe`）：`RETIRED_MIRROR_CHUNK_IDS`，逐條附已核實出處。**Supabase 零寫入**，刪一行即還原。
+
+### 關鍵數字：機械判定 `CLEARED` 有 44% 撐唔住人手覆核
+
+總帳提供 16 條候選，**只有 9 條過關**。被否決嘅 7 條同佢哋嘅失效模式：
+
+| 事實 | 所謂「替代品」實際係咩 |
+|---|---|
+| 學校發展津貼 8 月發放 | 段落講午膳撥款同 IT 設備，完全無關 |
+| 人文科科主任 30 小時 | 段落講**小學科學科**（30h/15h），主體錯 |
+| 全方位學習津貼須用於… | 只係「五種基要學習經歷」嘅**定義**，唔係津貼用途規則 |
+| 資訊科技統籌主任負責 IT 採購 | 段落講分工同資產管控，**無職責歸屬** |
+| [課程統籌主任] 統籌人文科時間表 | 時間表有，**職責歸屬冇** |
+| [活動主任] 統籌課外活動 | 段落講「其他學習經歷委員會」由**副校長**帶領 |
+| 校長須確保…2027/28 取代常識科 | 「取代常識科」未證實 |
+
+**規則：唔可以由總帳直接延長個 retired list，每條都要開段落嚟讀。** 已寫入 `searchChannelB.ts` 該常數上面嘅註釋。
+
+### 一個我要記低嘅判斷錯誤
+
+我曾提議**整批剷走 109 條**，理由係一條 query（採購門檻）見到無出處鏡像壓住 `g01` p.5。量埋成批之後：**93/109 冇已證替代品**，而且大部分係 `[角色] 負責…` 呢種語料唔會有嘅形態。live 實測「訓導主任 社工」鏡像佔 rank 0/1、語料最近似（`g16` p.17）講跨部門聯繫而唔講邊個負責。**由一個實例推去成批，係我推得太快。**
+
+### QC
+
+- eval 34 條 before→after：**PASS 23 / FAIL 0 / errors 0，0 blocking failures**，32 條完全相同
+- 唯一 SET_ADDED = `procurement` 加入 `subvention_tips`（鏡像讓位俾自己嘅可引用正版，正是預期）
+- `bus_escort` RANK_SHIFT：來源集不變、第 4/5 位對調，同校巴無關；符合設計容許嘅 ANN tie flip，**未獨立證實成因**
+- tsc exit 0 ×2；Supabase 16,062 / registry 256 / v3.2.2 / 凍結合約全部零接觸
+
+### 仍然未做
+
+- **backend 兩條 route（`/api/search/channel-a`、`/api/search/combined`）未郁** —— 阻塞前置係 Render logs `channel-a` 流量，未有答案
+- 總帳 172 條 `UNVERIFIED` + 107 條 `PROVISIONAL` 未讀；按上面 44% 覆核失敗率，呢兩桶**唔可以當可退**
