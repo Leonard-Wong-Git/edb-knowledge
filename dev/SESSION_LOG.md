@@ -35,6 +35,52 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-07-29 Session 197 — Channel A 退役：量度「Channel B 食唔食得晒」，答案唔喺覆蓋率，而喺 Channel A 自己載住乜
+
+- **ID:** Claude_20260729_S197
+- **Summary:** Leonard 問 roadmap → 我指出 R1/R5 已過時、R3 卡喺一個文件互相矛盾嘅前提。Leonard 提出退役標準「已喺 Channel B 或可追蹤出處就可以退」→ 我建工具量度 455 條 → **兩次推翻自己**（一次係把尺壞咗、一次係由一個實例推去成批）→ 最後只退咗前端路徑 + 9 條有已證出處嘅鏡像 chunk。backend 兩條 route **未郁**，卡喺 Leonard 未覆嘅 Render logs。
+- **起手探針 4/4 綠:** served `app.html` `PLATFORM_VERSION 3.2.2` + index 200 / Render `/health` `cache_a.warm=true size=455` / HEAD==origin/main `523f5db` tree 乾淨 / Supabase `content-range 0-999/16062`。
+- **量度設計上兩個唔講就會出假數嘅決定:**
+  1. **「輸出完全一樣」唔係可用標準。** Channel A 事實係冇 URL 冇頁碼嘅裸句（實查 `role_facts.json`：455 條散喺 47 個〔範疇×角色〕桶，`_source_refs` 只喺範疇層），Channel B 出原文＋URL＋頁碼，兩者永遠唔會一樣。改為量「substance 覆蓋」。
+  2. **必須剔走語料入面 Channel A 自己嘅鏡像。** `wiki_chunks` 16,062 = `vault_extract` 15,721 + `footnote_curated` 206 + `approved_fact` 109 + `stat_fact` 26（逐類點過、總和相符）。嗰 109 條**逐字係 455 條嘅子集**（精確字串比對 109/109 命中、0 條外來），同 26 條 stat_fact 一樣 **url 全空**。唔剔走，攞事實去搵第一個命中就係佢自己 @0.828 → 會量到「455/455 全覆蓋」，而個數純粹係「問題就係佢自己嘅答案」。
+- **Changed:**
+  - **新工具 `dev/source/channel_a_coverage.py`**（self-test 34 項，含兩條「故意整壞證明守衛會 FAIL」）：embed 455 條 → RPC 取 40 條 → 濾剩文件語料 → 硬錨點（金額／日數／%／條號）比對，**錨點必須齊集喺同一段**（散落兩份文件 = S177 砌數形態，唔收）；lexical 層自帶對照組；傳輸失敗歸 `ERROR` 永不當「冇覆蓋」。
+  - **`dev/source/CHANNEL_A_RETIREMENT_LEDGER.tsv`**：455 條逐條 tier + 已核實出處 + 頁碼。
+  - **`app.html`**：移除 `runChannelA` / `runCombined` / `searchChannel` / `qaRole` / `channelACount` / `CHANNEL_OPTS` / `highlightFact` + tokens / Channel A 角色選單 / 兩個死 caption（−109/+8 行）。
+  - **`backend/src/api/searchChannelB.ts`**：新 `RETIRED_MIRROR_CHUNK_IDS`（9 個 chunk id，逐個附已核實出處註釋）+ `retiredMirrorFilter`，套落三個 `toChannelBResult` 映射點。
+  - **`dev/source/eval_queries.json`** 30 → **34**（新增 4 條角色職責 query）。
+- **Done:** commits `c01e646`(量度) → `596e383`(總帳) → `2d70ef7`(前端) → `5754c00`(eval 補盲) → `3ba92fe`(9 條鏡像退役) → `d554b4c`(記錄) → 本 closeout commit。
+- **QC:**
+  - **eval 34 條 before→after**：`_before34b` PASS 23 / FAIL 0 / errors 0 → `_after` **PASS 23 / FAIL 0 / errors 0，0 blocking failures**，32 條完全相同。
+  - 唯一 `SET_ADDED` = `procurement` 加入 `subvention_tips` —— 鏡像讓出嘅位由**佢自己嘅可引用正版**補上，正是預期效果。
+  - `bus_escort` `RANK_SHIFT`：來源集不變、第 4/5 位對調，同 9 條改動扯唔上；符合設計容許嘅 ANN tie flip，**未獨立證實成因**。
+  - **live 抽驗**：「採購門檻」rank-0 由 `role_facts_finance`（url 空 / page null）變 `g01` **p.5**；「連續缺課 呈報」「十二種首要價值觀」top-8 鏡像歸零；「訓導主任 社工」鏡像**完整保留** rank 0/1（設計意圖）。
+  - 前端 live 驗：served `app.html` `runChannelA`/`runCombined`/`searchChannel`/`qaRole`/`CHANNEL_OPTS`/`search/channel-a` 全部 **0**；1280px 重載 console 零 error、`select` 數 0；Channel B 搜尋 HTTP 200 / 7 條 / synthesis 正常。
+  - tsc exit 0 ×2；Supabase 16,062 / registry 256 / `_meta` 2.3.0 / facts 455 / guidelines 158 / v3.2.2 **全部零接觸**（Supabase 零寫入，只加 code 層 filter）。
+- **兩次推翻自己（本 session 最有價值嘅部分）:**
+  1. **把尺壞咗。** 首輪報「8月15日前提交假期表」搵唔到錨點；打開 `g11` 一睇：「於每年**八月十五日**前……呈交下一學年的學校假期表」——**同一條規則，中文數字寫**。首 29 條入面 10 條同一原因。加 `fold_cn_numerals`（處理「二零二五」=2025 同「三十」=30 兩種讀法）離線重判：**71 條轉桶，COVERED 100 → 149**。⚠️ 方向性：呢個 bug 令工具**系統性高報缺口**，而每個假缺口都係「唔可以退 Channel A」嘅理由 —— 修之前個數會令「保留」睇落更有道理。
+  2. **由一個實例推去成批。** 我見到「採購門檻」rank-0 係無出處鏡像壓住 `g01` p.5，就提議**整批剷走 109 條**、並講「拎走唔係損失」。量埋成批之後：**93/109 冇已證替代品**，而且大部分係 `[角色] 負責…` 呢種語料唔會有嘅形態。live 實測「訓導主任 社工」鏡像佔 rank 0/1、語料最近似（`g16` p.17）講跨部門聯繫而唔講邊個負責；「活動主任 職責」頭四名三個係鏡像。**剷走真係會蝕。** 已喺報告同 commit message 更正。
+- **另一個必須記低嘅數字：機械判定 `CLEARED` 有 44% 撐唔住人手覆核。** 總帳提供 16 條「有可引用替代品」候選，逐條讀完**只有 9 條過關**。7 條嘅失效模式各異：段落講另一個科目（人文科 vs 小學科學）／用「五種基要學習經歷」嘅**定義**冒充津貼用途**規則**／實質內容有但**職責歸屬冇**（段落講「其他學習經歷委員會由副校長帶領」，事實寫「[活動主任] 負責」）／所謂替代品係一份**問卷通告**。**規則已寫入 `searchChannelB.ts` 該常數註釋：唔准由總帳直接延長個 list，每條都要開段落嚟讀。**
+- **eval 集本來對呢個改動完全盲（已修）:** 原 30 條**冇一條** expect `role_facts_*`、冇一條問「邊個負責」→ 剷走鏡像會量到零回歸，而嗰個綠燈係假嘅，同 S195 spotlight prune 撞板同一形態。加 4 條角色職責 query 後，其中 2 條（`senco_role`/`curr_coord_role`）**由 baseline 證實我釘錯咗預期**（語料 `g19` p.13/p.57 先係服務緊 SENCO 嗰個），已即時更正而唔係留住一個永久紅燈（S195 十一個假警報嘅教訓）；`curr_coord_role` 改 RECORD_ONLY —— 冇任何來源答得好，釘任何一個都係把爛答案封為正確。
+- **順帶揪出、未處理:** 3 條 Channel A 事實**同現行《學校行政手冊》直接矛盾**（病假「36天」vs `sag_2025_11` 附錄9「首年28天／其後48天／累積168天」；非教學人員年假「18/21/24天」vs「7天起、上限14天」）。**已查證呢 3 條唔喺 Supabase**（store 含「36天」嘅 `approved_fact` = 0），所以唔會經 Channel B 出街，只可經 `/api/search/channel-a` 攞到 → 會隨 backend route 退役一齊斷。另：455 條入面有問卷題、活動統計、殘缺片段（「取得校長批准。」「2013年4月1日作出修訂。」← 已鎖定來源係 `coa_imc_1_19` 嘅修訂註腳欄）、簡體字同日文漢字「関」等抽取瑕疵。
+- **Evidence disposition:** 當前狀態→handoff Current Baseline S197 block；量度方法＋兩次自我推翻＋44% 覆核失敗率→`dev/source/CHANNEL_A_COVERAGE_FINDINGS.md`（可重用程序知識，唔止留喺 log）；逐條 tier + 出處→`CHANNEL_A_RETIREMENT_LEDGER.tsv`；三份 eval run→`dev/source/eval_runs/`（commit，跨 session 可比）；**「唔准由總帳延長 retired list」呢條紀律→`searchChannelB.ts` 該常數上面嘅註釋**（下一個想加 id 嘅人一定睇到）；run JSON + embed cache→gitignored（14MB／4MB，可由工具重生）。
+- **Sync:** DOC_SYNC 命中 2 row（檢索 eval harness 改動 ✓ eval_queries 30→34＋三份 run＋before→after 對／**新增 1 row「store chunk 退出服務路徑」** ✓ 按 anti-pattern guard 先補行）。`update_log.json` **N/A**（零入庫、純服務路徑改動）。凍結合約＋`PLATFORM_VERSION` 零接觸。Pages 隨 `app.html` push redeploy（已驗）；Render deploy 1 次（已驗）。
+- **Pending:** backend `/api/search/channel-a` + `/api/search/combined` 未退（阻塞前置＝Render logs `channel-a` 流量，Leonard 未覆）；總帳 **172 條 UNVERIFIED + 107 條 PROVISIONAL** 未逐條讀；133 條 CLEARED 未抽樣覆核。
+- **Risks:** ⚠️ 按 44% 覆核失敗率，`CLEARED`／`PROVISIONAL` 兩桶**唔可以當可退**。⚠️ 100 條無出處鏡像仍然喺 Channel B 服務路徑，「答案必有出處」呢條護欄喺佢哋身上仍然穿窿 —— 但佢哋係「邊個負責」嘅唯一來源，唔可以照剷。⚠️ 文件三處對「下游有冇轉 Channel B」講法不一致（PMS §F.11 話已轉／roadmap R3 當未確認／§F.2 話待協調），而 `CHANNEL_B_SYNC_KEY` 實測**已配置**（probe 得 401 `missing X-Sync-Key` 而非 503 `sync disabled`）—— 呢個只證明 key 設咗，證明唔到下游用緊。
+- **Log maintenance:** `python3 docs/qa/session_log_maintenance.py --check --session-log dev/SESSION_LOG.md` → **trigger=False**（line_count=381 / entry_count=6，兩個 hard trigger 都未到）→ no-op。語意觸發：**有** —— 「機械判定唔可以取代讀原文」屬跨 session 累積模式（S195 spotlight probe／S196 借錯測試集／本次 44%），已按 §4 step 11(c) 寫入 `dev/PROJECT_DECISIONS.md` Insights 而非只留喺 log。10-closeout backstop：未到。
+
+### Next Session Handoff Prompt (Verbatim)
+
+📋 Next session: agent-managed startup content below
+
+（見 `dev/SESSION_HANDOFF.md` 的 `Next Session Opening Message` fenced block —— 本 session 已重生，並已鏡像至 `START_NEXT_SESSION_PROMPT.txt`，逐字 mirror check PASS。）
+
+<!-- ack:log-entry:end -->
+
+---
+
+<!-- ack:log-entry:start -->
+
 ## 2026-07-28 Session 196 — handoff 講嘅根因係錯嘅：「校巴營辦商責任」唔係 route 次序，係 curated footnote 搶咗 lead slot 兼跳過 anti-confab judge
 
 - **ID:** Claude_20260728_S196

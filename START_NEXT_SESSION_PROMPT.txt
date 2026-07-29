@@ -4,68 +4,73 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
 (Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
 
-Current state (S196, 2026-07-28): 平台 v3.2.2; Supabase 16,062 chunks (本 session 零接觸);
+Current state (S197, 2026-07-29): 平台 v3.2.2; Supabase 16,062 chunks (本 session 零寫入);
 source_registry 256; HEAD==origin/main; 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158;
-0 outstanding bug。eval PASS 20/30 FAIL 0 errors 0。
+0 outstanding bug。eval 由 30 擴到 34 條: PASS 23 / FAIL 0 / errors 0。
 自動化 active: 5 源監察 (discover / freshness / served-url / new-circular / 封面核對, 月跑)
 + Option A 自動入庫管道 (OPERATIONAL; 每日 19:30 HK refresh Issue; cron 20:00 HK 兜底)。
 
 ⚠️ 管道會自行入庫並直接 push main — 開工時本地可能落後 origin/main, tree 乾淨 + 0 本地 commit
 時先 git pull --ff-only 同步。
 
-📋 S196 做咗 (全部 backend 檢索行為, 零入庫):
-1. 新 school_bus route (g18 + 5 份姊妹指引), bus tokens 由 safety 搬出。校巴內容由 rank 5
-   @0.506 升到 rank 2-7 @0.743-0.768。
-2. curated footnote 嘅 lead slot 加 lexical gate: 要同 query 共享 >=2 個 informative bigram
-   (喺 206 條 footnote 語料上做 DF 自校準) 先攞得到 lead slot; query 本身唔夠中文訊號就 fail
-   open。judge bypass 由「邊個坐 rank 0」改為綁定「gate 批准嘅 lead」。被拒 footnote 唔會被刪,
-   照按分數 merge — 收走嘅只係特權。
-3. 新驗收工具 dev/source/footnote_lead_probe.py (positive 30/30 / negative 5/13)。
+📋 S197 做咗 (Channel A 退役第一步; Supabase 零寫入):
+1. 前端 Channel A 路徑全清 (app.html −109/+8)。已證摸唔到而唔止無人用: CHANNEL_OPTS 得一項,
+   selector 寫住 length > 1 先 render。
+2. 9 條有已證出處嘅 approved_fact 鏡像 chunk 退出服務路徑 (RETIRED_MIRROR_CHUNK_IDS +
+   retiredMirrorFilter, 套三個映射點)。觸發證據: 「採購門檻」rank-0 本來係 role_facts_finance
+   (url 空 / page null) 壓住 g01 p.5 同一條規則; 修完 rank-0 = g01 p.5。刪一行即還原。
+3. 新工具 dev/source/channel_a_coverage.py + CHANNEL_A_RETIREMENT_LEDGER.tsv (455 條逐條
+   tier + 出處 + 頁碼) + CHANNEL_A_COVERAGE_FINDINGS.md。
+4. eval 30 → 34 條 (新增 4 條「邊個負責」query)。
 
-🚨 最重要嘅發現 — 動 anti-confab 任何嘢之前必讀 dev/source/JUDGE_PROMPT_FINDINGS.md:
-   shipped 嘅 judge prompt 近乎恆等於「否」。離線直接叫佢跑 16 條 (8 條庫有答案 / 8 條冇):
-   8/16, 8 條有答案嘅全部拒晒, 其中 4 條答案逐字喺佢見到嗰個 chunk 入面。
-   生產睇落正常, 係因為 footnote / vault 兩個 bypass 幫佢繞過咗 judge。
-   → 後果: 收緊 footnote bypass 嘅設計本身成立 (覆蓋率 negative 0.40/0.62 vs positive p10 0.77,
-     ratio >=0.70 兩條全擋), 但而家做係淨蝕 — 會失去 bypass 嗰 2 條 answerable control,
-     交俾真 judge 判會被拒答。次序由實測釘死: 先修 judge, 後收 bypass。
-   → 候選改寫 V3 已量到 11/16 零誤放, 但未 ship: 16 條 case 係 tune 過嘅數, 而呢個係
-     anti-confab 骨幹。需要一個未經 tune 嘅驗收集先可以 ship。方法喺個檔入面 (chunk 攞一次
-     快取, prompt 離線迭代, 唔使部署)。
+🚨 落手前必讀兩件事:
+   (a) dev/source/CHANNEL_A_COVERAGE_FINDINGS.md — 量度方法同兩個陷阱。最重要嘅數字:
+       機械判定嘅 CLEARED tier 有 44% 撐唔住人手覆核 (16 條候選, 只 9 條過關)。
+       所以總帳嘅 133 CLEARED / 107 PROVISIONAL / 172 UNVERIFIED 都唔可以當可退。
+       唔准由總帳直接延長 RETIRED_MIRROR_CHUNK_IDS, 每條都要開段落嚟讀。
+   (b) dev/source/JUDGE_PROMPT_FINDINGS.md — shipped judge prompt 近乎恆等於「否」
+       (8/16, 8 條庫有答案嘅全部拒晒)。次序由實測釘死: 先修 judge, 後收 bypass。
 
-🧭 紀律 (前幾個 session 用真金白銀學返嚟, 仍然生效):
+🧭 紀律 (真金白銀學返嚟, 仍然生效):
   1. 改 chunk 版本唔可以照 source_id 刪舊 — chunk id 係內容 hash, 兩版相同段落 id 會重疊。
-     正確刪除集 = 舊 id 減新 id, 並排除 footnote_curated。
   2. 判斷一個源「搵唔搵得到」唔可以用自己揀嘅 phrasing 做 probe。任何 spotlight / SOURCE_SETS /
      route / 門檻改動, 一律以 eval before→after 對為準。
-  3. 【S196 新增, 已寫入 dev/rules/communication.md】報一個數之前: 先確認產生佢嗰個工具喺當前
-     用途下成立 (借用其他用途嘅工具 = 未驗證), 再打開數字背後至少一個實例親眼睇。搜尋命中唔算
-     證據。拆分/重標任何集合之後要對數。改治理檔用精確字串 + git diff 核實, 唔可以用「grep 搵
-     唔到舊字串」當核實, 禁止跨行 regex。講自己做過乜要引實錄。
+  3. 報一個數之前: 先確認產生佢嗰個工具喺當前用途下成立, 再打開數字背後至少一個實例親眼睇。
+     搜尋命中唔算證據。拆分/重標任何集合之後要對數。改治理檔用精確字串 + git diff 核實。
      貫穿條款: 如果一個判斷/遺漏/措辭會令自己份工睇落更好, 呢個方向本身就係觸發條件。
+  4. 【S197 新增】剷走一批嘢之前, 要分清「有可引用替代品」同「係某類知識嘅唯一來源」。
+     100 條剩低嘅 approved_fact 鏡像雖然冇 URL, 但佢哋係「邊個負責」(SENCO / 訓導主任 /
+     活動主任) 嘅唯一來源 — 語料唔會寫成 [角色] 負責…。剷走會蝕。
 
 🛠 常用指令:
   python3 dev/source/eval_retrieval.py --run --out after.json
-  python3 dev/source/eval_retrieval.py --compare dev/source/eval_runs/2026-07-28_s196_final.json after.json
-  python3 dev/source/footnote_lead_probe.py --self-test     # 含集合對數守衛
-  python3 dev/source/footnote_lead_probe.py --run --out fn_after.json
-  python3 dev/source/judge_probe.py                          # vault 門檻 (結論: 唔好降)
+  python3 dev/source/eval_retrieval.py --compare dev/source/eval_runs/2026-07-29_s197_after.json after.json
+  python3 dev/source/channel_a_coverage.py --self-test
+  python3 dev/source/channel_a_coverage.py --report dev/source/coverage_runs/2026-07-29_s197_full_v2.json --bucket NO_ANCHORS --sample 20
+  python3 dev/source/footnote_lead_probe.py --self-test
   python3 dev/source/check_served_urls.py --check            # 268 URL, ~8 分鐘
-  python3 dev/source/check_source_titles.py --check --baseline
-  注意: footnote_lead_probe.py 嘅 MIN_OVERLAP 同 backend FOOTNOTE_LEAD_MIN_OVERLAP 係兩份鏡像,
-  改一邊必須改埋另一邊。
+  注意: coverage_runs/ 係 gitignored (embed cache 14MB, 可由工具重生)。
 
 🔜 NEXT (優先序):
-  ① 【只有 Leonard 做得到】確認 PUBLISH_PAT 係 fine-grained、只限 edb-circular-site
-     contents:write (API 唔會俾 token 自報 scope)。
-  ② 修 judge prompt — 先讀 JUDGE_PROMPT_FINDINGS.md。要砌一個未經 tune 嘅驗收集,
-     decline 半邊必須包含 S177 類 (凍結教席→IMC 60%)。改完先可以講收緊 bypass。
-  ③ 【較大】g24 同 sag_2025_11 係同一份《學校行政手冊》登記兩次, 215 條 chunk 文字完全相同 —
-     eval 固有 tie 嘅真來源。真合併要刪一邊 215 條, 屬最高流量來源, 要獨立 PLAN。
-  ④ 【維護】封面核對 baseline (title_baseline.json, 現 208 條) 要跟住入庫更新。
-  ⑤ 【維護】spotlight 現 6 源; 要剪必須由 eval 對開始。
-  其他 backlog: roadmap R1-R8 (dev/SYSTEM_ANALYSIS_AND_ROADMAP.md); Feature 2a 追問 +
-  2b 文件 scoped Q&A (Leonard S182 揀 sequence A); 雲端 OCR 引擎選項。
+  ① 【阻塞中, 只有 Leonard 做得到】Render dashboard → Logs → search channel-a。
+     有真流量 = 下游仲食緊, 兩條 route 唔郁得 (跨 repo, §A.3)。零流量就拆 backend 半邊:
+     /api/search/channel-a + /api/search/combined + searchChannelA.ts + searchCombined.ts +
+     factEmbeddingCache.ts + /health 拎走 cache_a + 開機唔再 embed 455 條。
+     ⚠️ knowledgeRepository.ts 要留 (analyzeCircular.ts 仍 import)。
+     ⚠️ knowledge.json 刪唔得 (index.html:561 首頁統計 + q.html:233 全靠佢)。
+  ② 【只有 Leonard 做得到】確認 PUBLISH_PAT 係 fine-grained、只限 edb-circular-site
+     contents:write。
+  ③ 修 judge prompt — 先讀 JUDGE_PROMPT_FINDINGS.md, 要一個未經 tune 嘅驗收集,
+     decline 半邊必須包含 S177 類 (凍結教席→IMC 60%)。
+  ④ 總帳 172 UNVERIFIED + 107 PROVISIONAL 未讀, 133 CLEARED 未抽樣 (見上 44%)。
+  ⑤ 100 條無出處鏡像仍喺服務路徑 —— 護欄穿窿, 但係「邊個負責」唯一來源, 唔可以照剷。
+  ⑥ 【較大】g24 同 sag_2025_11 係同一份《學校行政手冊》登記兩次, 215 條 chunk 文字完全相同。
+  ⑦ 【維護】封面核對 baseline (208 條) / spotlight 6 源 / MIN_OVERLAP 兩份鏡像。
+  ⑧ 【文件 drift】三處對「下游有冇轉 Channel B」講法唔一致; CHANNEL_B_SYNC_KEY 實測已配置
+     (probe 得 401 而非 503) 但唔證明下游用緊。①有答案後一併更正。
+  其他 backlog: roadmap R1-R8 (dev/SYSTEM_ANALYSIS_AND_ROADMAP.md — 寫於 2026-07-05,
+  R1 大致落地 / R5 已做 / R8 前置已解除, 落手前先睇 handoff Open Priorities ⑨ 嘅更正);
+  Feature 2a 追問 + 2b 文件 scoped Q&A; 雲端 OCR 引擎選項。
 
 Post-startup first action: 跑起手探針 (served app.html v3.2.2 + Render /health warm 455 +
 Draft HEAD==origin/main〔落後就 ff-pull〕+ Supabase count=exact 16,062), 然後向 Leonard
