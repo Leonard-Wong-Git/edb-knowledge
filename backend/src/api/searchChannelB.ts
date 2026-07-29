@@ -995,6 +995,51 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
  *  re-sorting after (e.g. before any lead-detection or top_k slice). Idempotency
  *  note: only call once per result object (apply at chunk-mapping boundary, not
  *  in re-sort loops). */
+/**
+ * S197 — approved_fact chunks whose substance is available from a cited document.
+ *
+ * The store holds 109 `approved_fact` chunks mirrored from role_facts.json. They
+ * carry an EMPTY url and no page, so an answer built on one cannot be traced —
+ * which breaks the platform's first invariant (a sourced "not found" beats an
+ * unsourced answer). Measured live: 「採購門檻」returned the procurement-ladder
+ * mirror at rank 0 with url '' and page null, ranked ABOVE g01 p.5, which states
+ * the same rule with a page. The mirror was outranking its own citable original.
+ *
+ * Only the entries below are retired, and only after the replacement passage was
+ * read. This is deliberately not a blanket removal of the 109. Most of the rest
+ * are role-attribution facts written as [角色] 負責…, and the corpus does not
+ * state them in that form: 「訓導主任 社工」returns the mirror at ranks 0 and 1
+ * while the nearest corpus passage (g16 p.17) discusses inter-agency liaison
+ * without saying who coordinates it. Dropping those would lose the only place
+ * the platform records which post holds which duty.
+ *
+ * Seven further candidates were rejected at the reading step, which is why this
+ * list is 9 and not 16: their retrieved "replacement" turned out to be a
+ * different subject (小學科學 rather than 人文科), a definition of the learning
+ * experiences rather than the grant rule that cites them, or a passage that
+ * carried the substance but not the role attribution. A mechanical
+ * anchors-all-present verdict was wrong for 7 of 16 — do not extend this list
+ * from the ledger without reading each passage first.
+ *
+ * Reversible: delete the entry to bring a chunk back. Nothing is removed from
+ * Supabase; role_facts.json and the frozen contract are untouched.
+ */
+const RETIRED_MIRROR_CHUNK_IDS = new Set<string>([
+  "fact_role_facts_curriculum_272099379a4e36c8", // 八個學習領域 → g13 p.61 enumerates all eight
+  "fact_role_facts_finance_21b8a570fa6bec3a",    // 採購金額階梯 → subvention_tips states the ladder verbatim
+  "fact_role_facts_curriculum_fd5177fe167ca5a4", // 十二種首要價值觀 → pri_curr_guide_2024 p.31
+  "fact_role_facts_student_a526827468f3154a",    // 缺課7天呈報 → sag_2025_11 p.53 (第七個上課日申報)
+  "fact_role_facts_finance_768d15096affc3a7",    // 採購程序指引(2025年10月) → g01 p.1 cover line
+  "fact_role_facts_curriculum_974a7d0161840e5e", // 九種共通能力 → chi_jss_guide_2023
+  "fact_role_facts_hr_09f2be265524a8d3",         // CPD 每三年150小時 → tdtf_report_2019
+  "fact_role_facts_curriculum_7564671d4fa51a20", // 五種基要學習經歷 → sag_2025_11 §2.1.4 lists all five
+  "fact_role_facts_curriculum_57cbabe00b309b02", // 七個學習宗旨 → g36 p.131
+]);
+
+function retiredMirrorFilter<T extends { id?: string }>(r: T): boolean {
+  return !(r.id && RETIRED_MIRROR_CHUNK_IDS.has(r.id));
+}
+
 function applySupersedePenalty<T extends { source_id: string; score: number }>(results: T[]): T[] {
   for (const r of results) {
     if (SUPERSEDED_IDS.has(r.source_id)) {
@@ -1066,7 +1111,7 @@ export async function searchChannelB(
     ...(maxPerSource ? { maxPerSource } : {}),
   });
 
-  let results = rawResults.map(toChannelBResult);
+  let results = rawResults.map(toChannelBResult).filter(retiredMirrorFilter);
 
   // S183 — Apply supersede penalty + re-sort. Old-version chunks (registered in
   // SUPERSEDED_IDS) get score reduced so the new version ranks first when both
@@ -1096,7 +1141,7 @@ export async function searchChannelB(
   try {
     const fnRaw = await searchFootnotes(query, embedFn, FOOTNOTE_MIN_SCORE, 6, rawVec);
     if (fnRaw.length > 0) {
-      const fnResults = fnRaw.map(toChannelBResult);
+      const fnResults = fnRaw.map(toChannelBResult).filter(retiredMirrorFilter);
       // S183 — apply supersede penalty to footnote results too (footnote overlay is
       // independent retrieve path, needs the same governance rule).
       applySupersedePenalty(fnResults);
@@ -1155,7 +1200,7 @@ export async function searchChannelB(
       rawVec
     );
     if (spotRaw.length > 0) {
-      const spot = spotRaw.map(toChannelBResult);
+      const spot = spotRaw.map(toChannelBResult).filter(retiredMirrorFilter);
       applySupersedePenalty(spot);
       spot.sort((a, b) => b.score - a.score);
       const visibleSources = new Set(results.map((r) => r.source_id));

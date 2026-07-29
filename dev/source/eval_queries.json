@@ -248,17 +248,15 @@
    "id": "senco_role",
    "query": "特殊教育統籌主任 職責",
    "expect_any": [
-    "role_facts_hr"
+    "g19"
    ],
-   "note": "S197 — role-coordinator gold. The corpus states SEN duties as prose; only Channel A states WHO is responsible in the form [角色] 負責…. Pinned so any change to the approved_fact mirror shows up as a FAIL requiring a decision, instead of vanishing silently."
+   "note": "S197 — pinned to role_facts_hr on the assumption the mirror carried this; the baseline run disproved it (role_facts_hr not in top 8). g19《全校參與模式融合教育運作指南》p.13/p.57 is what actually serves it, so the corpus already covers SENCO duties and the mirror is NOT load-bearing here."
   },
   {
    "id": "curr_coord_role",
    "query": "課程統籌主任 職責",
-   "expect_any": [
-    "role_facts_hr"
-   ],
-   "note": "S197 — same shape as senco_role: CPD planning duty is role-attributed only in Channel A."
+   "expect_any": [],
+   "note": "S197 — RECORD_ONLY on purpose. Neither the mirror nor any corpus source answers 'who coordinates the curriculum' well: the baseline returns tdtf_report_2019 (a SENCO promotion-rank footnote) at rank 0 and g19 SEN material below it. Asserting any of those would enshrine a bad answer as correct; recording the ranking keeps the gap visible without manufacturing a green light."
   },
   {
    "id": "discipline_role",
