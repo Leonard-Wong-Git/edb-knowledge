@@ -1,0 +1,49 @@
+{
+  "D11_overtime_pay": {
+    "q": "教師超時工作有冇補水",
+    "declined": false,
+    "syn": "在香港的教育政策中，教師長時間工作的問題備受關注。根據相關政策，教師超時工作並沒有明確的政策補償。儘管教師在職務上可能需要加班，但教育局無法為這些超時工作提供額外補償措施。教師的假期安排主要集中在有薪產假及病假的保障，部分教席教師可享有與全職教師相同的假期，但這並不包括獎勵超時工作。\n\n面對教師專業及心理健康的需求，應加強對教師工時的監管以及工作量的合理分配。政府可以考慮引入教師工作負擔評估機制，確保教師的工作量在合理範圍內。此外，學校應設辦公室時間和妥善安排業務，避免教師需週末或假期進行額外工作，以提高教育質量。\n\n在超額教師的管理上，政策鼓勵學校透過共享教職及合理調配人力資源來解決問題，這同樣有助於減輕教師的工作壓力。因此，未來的政策應更全面地考慮教師在工作中的挑戰，提供必要的支持與保障。",
+    "s199_verified": "gap-ish; live asserted 'no overtime compensation' as policy (defensible-but-unsourced negative)"
+  },
+  "D12_parent_volunteer_fee": {
+    "q": "學校可唔可以收家長義工費",
+    "declined": false,
+    "syn": "根據教育局的政策，學校收取家長義工費的問題相對複雜。一般而言，學校可以向家長徵收特定用途的費用，但需滿足一定條件。首先，這些收費必須得到家長的同意。此外，收取的金額必須在教育局設置的上限範圍內，且學校應事先諮詢家長，確保透明度。\n\n在實務上，義工費可能不符合“額外教育服務”的範疇，因為這類費用應用於增強學校的教育資源，如聘請額外教師或舉辦文化活動。因此，如果學校以義工費名義徵收資金，但未能清楚說明其用途，或未經家長同意，則可能違反相關政策。\n\n另外，義工費的收取也應該避免威脅到家長的經濟負擔。學校在徵收此類費用時，應作出充分的解釋，並提供財務報告，讓家長了解費用的運用情況。因此，學校若考慮收取家長義工費，應保持透明、遵循規定，並獲得家長的支持，以確保合法性和公正性。",
+    "s199_verified": "gap-ish; live applied the general special-purpose-fee conditions to an undefined 'volunteer fee'"
+  },
+  "D13_place_reservation_fee": {
+    "q": "學校可以收幾多錢留位費",
+    "declined": false,
+    "syn": "根據教育局的政策文件，香港學校在收取留位費方面有明確的限制規定。針對幼稚園K1的收生安排，半日制班級的註冊費（即留位費）上限為970元，而全日制班級的上限則為1,570元。學校必須遵守這些金額限制，並不得超過規定的上限，以確保教育資源的公平分配。\n\n這一政策的制定，旨在減輕家長的經濟負擔，特別是在入學階段，並促進教育的公平性。學校必須透明地處理留位費用，並依據相關指引來收取，以防止任何形式的濫用或額外收費問題。此舉也能提高公眾對教育系統的信任度，並確保所有家庭在子女教育方面的機會均等。\n\n總的來說，留位費的上限設定，不僅是對財務管理的規範，也是對學生與家長公平對待的承諾，既能維護學校的運作需要，也不會對家庭造成過大的經濟負擔。",
+    "s199_verified": "NOT A GAP — corpus states K1 註冊費/留位費 cap 970 half-day / 1,570 full-day (g26, k1_admission_2627, kg_admin_guide_2026, all with url). Live answer was CORRECT and grounded. Mislabelled as a gap; the footnote lead did its job."
+  },
+  "D15_outside_parttime": {
+    "q": "教師可唔可以喺校外做兼職",
+    "declined": false,
+    "syn": "教師在校外從事兼職的政策相對複雜，主要涉及到校董會的規定和教育局的指引。根據資料，教師如果想從事受薪的兼職工作，無論在正常上學時間内或以外，必須提前向校董會申請。校董會需要根據《資助則例》的規定，確保該兼職工作不會影響教師的職務和責任，並且對公眾有利。\n\n此外，若教師的兼職涉及無薪工作，也需要申請，尤其是如果該工作可能與其校內職務產生利益衝突。這樣的申請程序反映了對教師專業操守的要求，以保障學生的利益和教育質量。\n\n值得注意的是，使用學校資金（如學校發展津貼）支付兼職教師的補課費用是明確禁止的，進一步強調了資金使用的合規性。此外，教育局會對因教師不當行為而懷疑其專業操守的情況進行檢調。總而言之，教師若想從事校外兼職必須遵循嚴格的程序，以維護教育標準和教師的職業道德。",
+    "s199_verified": "UNCONFIRMED — could not verify a teacher outside-employment rule is absent (SAG is large); live cited 資助則例 board-approval, unverified either way"
+  },
+  "D17_fire_drill_freq": {
+    "q": "學校要幾耐做一次消防演習",
+    "declined": false,
+    "syn": "根據教育局的政策文件，學校必須每12個月進行一次消防演習以確保消防設備和制度的有效性。這不僅是為了符合法規要求，也是為了保護學生和教職員的安全。校長作為校舍內消防安全的第一責任人，必須定期檢查消防裝置、保證其維護良好，這包括遵循《教育規例》和《消防(裝置及設備)規例》的相關規定。\n\n每年檢查由註冊消防裝置承辦商進行，檢查過程中如發現設備損壞，必須立即加以處理，確保裝置恢復有效運作。此外，校園內若舉行任何與火有關的活動（如燒烤或火鍋），也必須遵守一定的消防安全指引，並安排足夠的監管人員以避免意外發生。\n\n透過定期的消防演習和檢查，學校不僅能提升固有的安全防範意識，還能為學生提供安全的學習環境。因此，學校應該在每年的固定時間內安排這些演習，以確保所有人員都能熟悉逃生路線及相關安全措施。",
+    "s199_verified": "CONFIRMED FABRICATION — 消防演習/演練/逃生演習 appear 0 times in the corpus; live invented 'every 12 months' by transplanting the 消防裝置 inspection interval onto a drill frequency that does not exist"
+  },
+  "D20_transfer_notice": {
+    "q": "學生轉校要幾耐前通知學校",
+    "declined": false,
+    "syn": "學生轉校的通知時間安排依賴於不同的情境，尤其在中小學階段。根據相關政策，若學生欲轉校，必須在指定的時間內通知原學校。舉例來說，若學生對於非參加派位的直資中學獲錄取，家長必須在收到學校通知後的約一星期內，以書面形式通知相關學校，以保留學位。此過程中，家長需注意遵從各自學校的具體要求及截止日期。\n\n此外，根據教育局指引，對於有特殊教育需要的學生，在小六升中一的過程中，小學應適時收集家長的同意，並在中學學位分配結果公布後七個工作日內傳送學生所需的特殊教育資料至中學，這也確保中學能夠根據學生的需求及早策劃支援措施。\n\n總體而言，學生轉校的通知期通常需在學校之間的時間框架內進行，並且必須依據各校的具體指引和時間表，這不僅保障了學生的學習連續性，也確保各校能夠妥善安排教學及資源分配。",
+    "s199_verified": "gap; live transplanted a DSS place-reservation ~1-week notice onto a transfer-notice period"
+  },
+  "D23_daily_lessons": {
+    "q": "學生每日最多可以上幾多堂",
+    "declined": false,
+    "syn": "根據教育局的政策資料，小學生每天的上課時間安排相對靈活，並注重多樣化的學習活動結合。通常，小學的授課時間安排在上午8:00至12:45之間，包含固定的早操及班主任課，上午的課程涵蓋中文、英文、數學等核心科目，並設有小息時間。\n\n根據具體的安排，學生每天可以上4至5堂主要課程。上午學時結束後，通常會有午膳時間，接著進入下午的「聯課活動」或「學藝同樂」時段，這段時間是用來進行跨學科的綜合學習或課外活動。因此，雖然學生在上午上課的堂數相對有限，但並不影響他們獲得全方位教育體驗的機會。\n\n由於午後的活動不屬於傳統意義上的「課堂」，這使得學生在非正式的學習環境中繼續探索其他知識領域，達成學習的延伸和多樣性。整體而言，學生每日最多可以上5堂學科課程，並透過午後的活動獲得其他方面的學習經歷。這種安排推動了學生身心的全面發展，並強調教育的整合性。",
+    "s199_verified": "gap; 堂數/節數上限 = 0 in corpus, live read '4-5 堂' off a timetable EXAMPLE as if it were a rule"
+  },
+  "_meta": {
+    "what": "live /api/search/channel-b synthesize:true on 7 footnote-lead gap candidates, S199 2026-07-30",
+    "headline": "7/7 answered, 0 declined. On per-corpus verification: 1 correct (D13, mislabelled), 1 confirmed fabrication (D17), 1 unconfirmed (D15), 4 gap-ish transplants. NOT '7/7 fabricated' — that overclaim was corrected on reading.",
+    "why_it_matters": "the footnote lead skips the judge, so these never faced the anti-confab gate. But D13 shows the same path also carries correct grounded answers, so the bypass cannot simply be removed — the answers must be gated by a judge that RUNS on them. That couples the fix to the judge work: a trustworthy judge is the precondition to narrowing the footnote bypass. The recorded order 'judge first, then bypass' holds."
+  }
+}

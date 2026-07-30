@@ -119,6 +119,44 @@ judge" and seeing both declined — a measurement whose model cannot now be veri
 **The stated reason for not narrowing the bypass may no longer hold.** Re-measure before
 acting on it in either direction.
 
+### S199 — the footnote bypass, measured live, and why judge-first still holds
+
+Run: `dev/source/judge_runs/2026-07-30_s199_footnote_bypass_live.json`.
+
+`D01` is not one bad query; it is a class. Seven fresh queries whose top hit is a curated
+footnote (so the footnote bypass may fire and the judge is skipped) were sent to the live
+endpoint with `synthesize:true`. **All seven produced a confident answer. None declined.**
+
+But "answered" is not "fabricated", and reading each answer against the corpus splits them:
+
+- **`D17` 「學校要幾耐做一次消防演習」 — confirmed live fabrication.** 消防演習 / 消防演練 /
+  逃生演習 appear **0 times** in the store. The answer states drills happen 每12個月, a
+  figure transplanted from the 消防裝置 *inspection* interval. A user is told a made-up
+  drill frequency, with conviction.
+- **`D13` 「學校可以收幾多錢留位費」 — the answer was CORRECT.** The corpus states the K1
+  註冊費／留位費 cap at 970 half-day / 1,570 full-day (`g26`, `k1_admission_2627`,
+  `kg_admin_guide_2026`, all with a url). This query was mislabelled here as a gap; the
+  footnote lead did exactly its job. (Recorded because the mistake ran toward the flattering
+  direction — more fabrications makes this finding look bigger — and was caught only by
+  opening the chunks, not by the label feeling wrong. Same shape as the S196/S197 lessons.)
+- The other five range from a defensible unsourced negative (`D11`) to neighbouring-rule
+  transplants (`D20`, `D23`) to one that could not be confirmed as a gap at all (`D15`).
+
+So the honest headline is **not** "the bypass fabricates everything". It is: **the footnote
+path answers gap queries instead of declining them, at least one of those answers is a
+fabricated figure, and at least one is correct.**
+
+That last clause is the important one. The bypass cannot simply be removed, because `D13`
+shows it also carries right answers a judge would have to pass. The fix is therefore
+coupled, not sequential-optional: these footnote-lead cases have to be routed through a
+judge that both declines `D17` and passes `D13`. On the production model (`gpt-4o-mini`)
+the shipped judge already answers 8/11 of the answerable half and V3 answers 11/11 while
+declining every gap — so a judge that can do both is within reach, but it must be trusted
+FIRST, then the bypass narrowed to send these cases to it. **The recorded order — fix the
+judge, then narrow the footnote bypass — holds.** (An earlier S199 remark that "fixing the
+judge does not fix D01" was half-right: the judge never runs on D01 today, but fixing it is
+the precondition for making the bypass send D01 to it.)
+
 ### Still open
 
 - Bare-noun cases `S01`/`S02` (人工智能初探, ICT 課程指引) decline under both prompts on the
