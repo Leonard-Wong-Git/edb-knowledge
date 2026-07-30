@@ -35,6 +35,41 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-07-30 Session 198 — S197 留低嘅「去睇 Render logs」係一個量唔到嘢嘅指示；換成主動量度
+
+- **ID:** Claude_20260730_1015
+- **Summary:** 起手探針 4/4 綠。Leonard 交返 S197 ① 嘅答案（Render logs search `channel-a` → No matching logs）。**冇當佢係「零流量」** —— 呢個結論啱好對我有利（我想拆 route），照 R-communication 規則 10 當未證實嚟查，結果證實個指示由頭到尾量唔到嘢。改為主動 instrument，已 live。**backend 兩條 route 仍然未拆**，而家等一個 7 日觀察窗。
+- **起手探針 4/4 綠:** HEAD==origin/main `3cbaa9b` tree 乾淨 / Render `/health` `cache_a.warm=true size=455` / served `app.html` `PLATFORM_VERSION 3.2.2` + index 200 / Supabase `content-range 0-0/16062`。加驗凍結合約：`_meta` 2.3.0 / facts 455 / guidelines 逐 topic 加總 **158** / registry 256 / eval 34 —— 全部同 handoff 對得上，零 drift。
+- **根因（三層，逐層有對照組）:**
+  1. **`backend/src/server.ts` 冇任何 per-request log** —— 全檔只有 `:164` 錯誤、`:395/396` 開機三句。條 route 喺 `:324` 直接做嘢，成功請求永遠唔會印任何嘢。
+  2. **Render 唔會代印 request path** —— 對照組：一個確實發生過嘅 `/health` request（我親手 curl 並收到 200 JSON），dashboard search「health」同樣零命中。
+  3. **點解冇** —— 官方文檔 <https://render.com/docs/logging>：per-request log 係 **Pro workspace 以上**先有，呢個係 Hobby free instance。同時查到 **Hobby log 保留期 = 7 日**。
+  正對照：search `CORS` **搵到** `server.ts:396` 嘅開機輸出 → **stdout 收得到、request path 收唔到**。
+- **另一個獨立確認:** 全 repo grep（`.html/.js/.ts/.py/.json`，排除 log/archive）—— 兩條 route 淨係喺 `server.ts` 自己出現，**零呼叫點**；`mobile.js` 早於 S119 已轉去 `/api/search/channel-b`。所以唯一可能消費者只剩下游 Circular System（跨 repo）。⚠️ 順帶揪出文檔 drift：`dev/HANDOFF_PACKAGE.md:32` 仲寫「mobile search 已 ship 並接 `/api/search/combined`」，**已過時、未修**。
+- **Changed:** `backend/src/server.ts` 加 `[route-probe]`（handler 最頂，OPTIONS 同 POST rate limiter 之上，只認兩條 route）；`dev/SESSION_HANDOFF.md` Open Priorities 重生 S198 段；`dev/DOC_SYNC_CHECKLIST.md` **+1 row**（31→32，「臨時觀測 code 加落既有 backend route」）。
+- **Done:** commits `ddc98d5`(probe) → `16fec71`(handoff checkpoint) → `2eb642f`(XFF 修正) → `07173f6`(handoff 更正) → 本 PERSIST commit。
+- **QC:**
+  - `npm run check` / `npm run build` exit 0 ×2（改 XFF 後重跑，冇當上次過咗就算）。
+  - **本機自檢 ×2，兩次都對數**：首版 4 請求 → 3 行（**GET 錯 method 照捉** ✅、**channel-b negative control 零行** ✅）；XFF 版 3 請求 → 2 行（偽造兩跳 `203.0.113.9, 10.1.2.3` 全鏈捕獲、無 XFF 時 `xff=-` 但 peer 在、control 仍零行）。
+  - **Live 驗（Leonard 提供 dashboard 截圖）**：三輪帶序號自測流量 **24 個請求 → 24 行，一行不多一行不少**。部署分水嶺清晰：seq 13 `[p2znr]` 舊格式 → seq 14 `[26wlj]` 新格式，即 `2eb642f` 落地於 10:06:30–10:07:45 UTC。
+  - **XFF 修正的價值直接可見**：live 鏈 = `90.240.109.123`（真實公網）, `172.64.x`/`141.101.x`（Cloudflare）, `10.25.116.1`（Render 內部）。**舊 code 只印到最右嗰個 10.x，認唔到任何人。**
+- **我喺本 session 犯咗、並已更正嘅錯:**
+  1. **用 `/health` 嘅 `cache_a.warm` 偵測部署重啟** —— 行足 421 秒零命中，我一度想寫「未部署」。實情係**呢個偵測結構上無效**：Render 零停機部署先暖好新 instance 先切流量，外部永遠見唔到 `warm=false`。同「信 log search 嘅沉默」係同一種毛病。真憑據係 instance id 變咗（`pcwrl`→`p2znr`→`26wlj`）。
+  2. **講過「09:52 嗰個 cold start 同我杯 curl 對得上」** —— 錯。由 seq=1 錨點（本機 09:40:48 UTC ↔ dashboard 10:40:48 AM）證實 **dashboard 顯示係 UTC+1**，即嗰個開機係 **08:52 UTC**，喺我第一杯 curl（約 09:35 UTC）之前 43 分鐘。**即係有啲嘢喺我開始之前叫醒過個 instance，來源未查明** —— 唔係 channel-a 流量嘅證據，但唔應該當唔存在。
+  3. **PLAN 寫咗 IP 用嚟認人，首版做唔到** —— `getClientIp()` 取最右跳（S187 為 rate limiter 防偽造而設），live 實測最右跳係 Render 內部 10.x。按 §3 停低報告等 Leonard 指示，批「改」後先改，且只改 probe、`getClientIp()` 同 rate limiter 零接觸（仍在 `:247`）。
+- **Evidence disposition:** 當前狀態＋觀察窗讀取日期＋刪除責任→handoff Open Priorities S198 ①；可重用程序知識（「先問個工具結構上量唔量得到」＋ negative control ＋ 部署確認唔可以靠猜重啟）→**`dev/DOC_SYNC_CHECKLIST.md` 新 row 嘅驗收欄**同 **`server.ts` probe 註釋**（handoff 會被重生，code 唔會）；量度細節→本 entry。
+- **Sync:** DOC_SYNC 命中 **1 row（新增）**，見下方 Matrix Scan。`update_log.json` **N/A**（零入庫）。凍結合約 / `PLATFORM_VERSION` / Supabase 16,062 / registry 256 **全部零接觸**。Render deploy 4 次（每個 commit 一次），Pages 零改動。
+- **Pending:** **觀察窗 09:40 UTC (2026-07-30) 開始**，**8 月 2 日 + 8 月 5 日各讀一次**（Hobby 保留 7 日，唔可以等到第 7 日）；讀時**扣起 24 行 `ua=s198-*`**；**🔴 讀完必須刪走 probe**。S197 ②–⑨ 全部未動（PAT scope / judge prompt / 總帳三桶 / 100 條鏡像 / g24 dedup / 維護項 / 文件 drift / roadmap 更正）。`HANDOFF_PACKAGE.md:32` drift 未修。
+- **Risks:** ⚠️ 生產度而家有一段臨時 code。⚠️ 32 分鐘窗內零外部呼叫，**呢個數字唔代表任何嘢**，結論只可以寫「N 日內零外部呼叫」，唔可以寫「冇下游」（月更 job 捉唔到）。⚠️ XFF 最左跳係 client 自報、可偽造，屬 claim 唔係 fact。⚠️ 3 條同《學校行政手冊》矛盾嘅假期日數（病假 36 天等）仍然可經 `/api/search/channel-a` 攞到，route 一日未拆一日 serve 緊錯數。
+- **順帶揪出、先前已存在、未修:** `dev/SESSION_LOG.md` 嘅 `ack:log-entry` marker 唔平衡 —— 第 196／247 行各一個孤兒 `end`（對應 entry 冇 `start`），第 461 行一個孤兒 `start`（冇 `end`）。HEAD 本身已係 3 start／4 end，本 entry 加咗平衡嘅一對變 4／5，**非本 session 引入**。**影響已查明並有限**：歸檔腳本 `docs/qa/session_log_maintenance.py:30` 用 `^## YYYY-MM-DD` heading 切 entry，**唔用 ack marker**，所以即將執行嘅 §4a 歸檔唔會切錯；影響只限 Agent Handoff Kit `doctor` 嘅 marker 校驗。
+- **Log maintenance:** `python3 docs/qa/session_log_maintenance.py --check` → **trigger=True**（line_count=427 / entry_count=7，line trigger 已過 400）。**未執行歸檔** —— §4a 明文係 closeout 先做，本次屬 mid-session PERSIST，唔自作主張搬檔。**收工前必須先跑 `--apply --archive-dir dev/archive` 再寫 closeout entry。**
+
+<!-- ack:log-entry:end -->
+
+---
+
+<!-- ack:log-entry:start -->
+
 ## 2026-07-29 Session 197 — Channel A 退役：量度「Channel B 食唔食得晒」，答案唔喺覆蓋率，而喺 Channel A 自己載住乜
 
 - **ID:** Claude_20260729_S197
