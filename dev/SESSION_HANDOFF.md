@@ -24,7 +24,16 @@
 
 ## Current Baseline
 
-> **🆕 S197（2026-07-29）—— Channel A 退役：量度完先發現真問題唔喺覆蓋率，而喺 Channel A 自己載住乜；我兩次推翻自己：** HEAD==origin/main（S197 commits `c01e646` → `596e383` → `2d70ef7` → `5754c00` → `3ba92fe` → `d554b4c`）；**Supabase 16,062 零寫入**（只加 code 層 filter）；**source_registry 256 不變**；平台 **v3.2.2** 不變；**凍結合約零接觸**（`_meta` 2.3.0 / facts 455 / guidelines 158）。起手探針 4/4 綠。**eval 由 30 擴到 34 條，PASS 23 / FAIL 0 / errors 0，before→after 0 blocking failures。**
+> **🆕 S198（2026-07-30）—— S197 留低嘅阻塞項唔係「等 Leonard 覆」，係「問錯咗地方」；換咗個量得到嘢嘅儀器，而家等一個 7 日窗：** HEAD==origin/main（S198 commits `ddc98d5` → `16fec71` → `2eb642f` → `07173f6` → `b74f5f4` → 本 closeout commit）；**Supabase 16,062 零寫入**；**source_registry 256 不變**；平台 **v3.2.2** 不變；**凍結合約零接觸**（`_meta` 2.3.0 / facts 455 / guidelines 逐 topic 加總 158）。起手探針 4/4 綠。本 session **零入庫、零檢索改動**，故 eval 未重跑。
+> **① S197 ①「去 Render Logs search `channel-a`」係一個結構上量唔到嘢嘅指示。** Leonard 依足做，回「No matching logs」。**冇當佢係零流量** —— 呢個結論啱好對我有利（我想拆 route）。查落三層：`server.ts` 全檔只有三句 `console`（一句錯誤、兩句開機），**冇任何 per-request log**；**對照組**——一個確實發生過嘅 `/health` request（親手 curl 收到 200 JSON）search「health」**同樣零命中**；**正對照**——search `CORS` **搵到** `server.ts:396` 開機輸出。機制由官方文檔確認（<https://render.com/docs/logging>）：**per-request log 係 Pro workspace 以上功能**，呢個係 Hobby free instance；同時查到 **Hobby log 保留期 7 日**。
+> **② 已換成主動量度並 live 驗證。** `[route-probe]` 加喺 `server.ts` handler 最頂（OPTIONS 同 POST rate limiter **之上**，所以 preflight 同被 throttle 嘅呼叫都捉到），只認兩條 route，印 method/path/origin/user-agent/**完整 XFF 鏈**/socket peer，**永不印 body**。**本機自檢 ×2 都對數**：首版 4 請求→3 行（GET 錯 method 照捉、channel-b negative control 零行）；XFF 版 3 請求→2 行。**live 驗**：三輪帶序號自測流量 **24 請求 → 24 行**，一行不多一行不少。
+> **③ 中途按 §3 停低過一次。** PLAN 寫明 IP 用嚟認下游，首版用 `getClientIp()`（取最右跳，S187 為 rate limiter 防偽造而設）—— live 實測最右跳係 Render 內部 `10.x`，**認唔到任何人**，即 PLAN 承諾嘅嘢做唔到。停低報告、Leonard 批「改」後先改成印全鏈；`getClientIp()` 同 rate limiter **零接觸**（仍在 `server.ts:247`）。修正後 live 鏈 = `90.240.109.123`（真實公網）/ `172.64.x`·`141.101.x`（Cloudflare）/ `10.25.116.1`（Render 內部）—— **舊 code 只印到最右嗰個。**
+> **④ 同一個 session 入面我踩咗兩次同一個陷阱。** 部署後我用 `/health` 嘅 `cache_a.warm` 偵測重啟，行足 421 秒零命中，一度想寫「未部署」。實情係 **Render 零停機部署會先暖好新 instance 先切流量，外部永遠見唔到 `warm=false`** —— 同「信 log search 嘅沉默」一模一樣。真憑據係 instance id 變咗（`pcwrl`→`p2znr`→`26wlj`）。**兩次沉默都啱好指向我想要嘅答案**，所以靠「覺得唔妥」係捉唔到嘅，已寫成硬規矩入 `PROJECT_DECISIONS.md` Insights + DOC_SYNC 驗收欄 + code 註釋。
+> **⑤ 順帶更正咗自己另一句話。** 我曾講「09:52 嗰個 cold start 同我杯 curl 對得上」—— **錯**。由 seq=1 錨點（本機 09:40:48 UTC ↔ dashboard 顯示 10:40:48 AM）證實 **dashboard 時間戳係 UTC+1 顯示**，即嗰次開機係 **08:52 UTC**，喺我第一杯 curl（約 09:35 UTC）**之前 43 分鐘**。有嘢喺我開始之前叫醒過個 instance，**來源未查明** —— 唔係 channel-a 流量嘅證據，但唔應該當唔存在。
+> **⑥ 獨立確認：兩條 route 喺 repo 內零呼叫點。** 全 repo grep（`.html/.js/.ts/.py/.json`，排除 log/archive）只喺 `server.ts` 自己出現；`mobile.js` 早於 S119 已轉 `/api/search/channel-b`。**唯一可能消費者只剩下游 Circular System（跨 repo）。** ⚠️ 順帶揪出 `dev/HANDOFF_PACKAGE.md:32` 仍寫「mobile search 接 `/api/search/combined`」，**已過時、未修**。
+> **⑦ 🔴 生產度而家有一段臨時 code。** 觀察窗 **2026-07-30 09:40 UTC 開始**，**8 月 2 日 + 8 月 5 日各讀一次**（Hobby 只保留 7 日），讀時**扣起 24 行 `ua=s198-*`**，**讀完必須刪走 probe**。目前 32 分鐘內零外部呼叫 —— **呢個數字唔代表任何嘢**。
+
+> **🔙 S197（2026-07-29）—— Channel A 退役：量度完先發現真問題唔喺覆蓋率，而喺 Channel A 自己載住乜；我兩次推翻自己：** HEAD==origin/main（S197 commits `c01e646` → `596e383` → `2d70ef7` → `5754c00` → `3ba92fe` → `d554b4c`）；**Supabase 16,062 零寫入**（只加 code 層 filter）；**source_registry 256 不變**；平台 **v3.2.2** 不變；**凍結合約零接觸**（`_meta` 2.3.0 / facts 455 / guidelines 158）。起手探針 4/4 綠。**eval 由 30 擴到 34 條，PASS 23 / FAIL 0 / errors 0，before→after 0 blocking failures。**
 > **① 退役標準由 Leonard 定：「已喺 Channel B 或可追蹤出處就可以退」。** 但「輸出完全一樣」做唔到標準 —— Channel A 事實係**冇 URL 冇頁碼嘅裸句**（455 條散喺 47 個〔範疇×角色〕桶，`_source_refs` 只喺範疇層），Channel B 出原文＋URL＋頁碼。改為量「substance 覆蓋」。
 > **② 量度必須剔走語料入面 Channel A 自己嘅鏡像，否則個數係假嘅。** `wiki_chunks` 16,062 = `vault_extract` 15,721 + `footnote_curated` 206 + **`approved_fact` 109** + **`stat_fact` 26**（逐類點過、總和相符）。嗰 109 條**逐字係 455 條嘅子集**（精確字串比對 109/109 命中、0 條外來），同 26 條 stat_fact 一樣 **url 全空**。唔剔走，攞事實去搵第一個命中就係佢自己 @0.828 → 量到「455/455 全覆蓋」，而個數純粹係「問題就係佢自己嘅答案」。
 > **③ 已做：前端 Channel A 路徑全清**（`2d70ef7`，−109/+8 行）。已證摸唔到而唔止係無人用：`CHANNEL_OPTS` 只得一項，selector 寫住 `length > 1` 先 render，所以 `setSearchChannel` 永遠只收到 `'B'`。live 驗：served `app.html` 六個關鍵字全部 0、1280px 重載 console 零 error、Channel B 搜尋 200/7 條/synthesis 正常。
@@ -238,6 +247,20 @@ source_registry → same vault PDFs → ai_extract.py
 - **雲端 OCR 引擎選項**（image-PDF ingestion 升級線，S180 評估）：Google Vision `DOCUMENT_TEXT_DETECTION`（逐字信心 + bounding box、每月 1,000 單位永久免費 + ~$1.50/1,000、要綁卡開 billing）／Mistral OCR（Markdown+表格、~$2/1,000）——比現用 `gpt-4o` 圖像 OCR「draft 質」可能更準更平，且 bbox 可餵返 grid 重建。命中 image-PDF 質素問題（如 DEBP 主藍圖 ~16 圖像頁）先評估：**真檔實測 + 開 Google billing**（ingestion 處理公開文件、無未成年私隱顧慮；後端已存在故唔需要 brief 嗰套 serverless key-proxy）。詳見 playbook inbox 提案 `2026-06-24-edb-knowledge-cloud-ocr-engine-options.md` + `doc-extract-method-ladder` 卡。出處：Leonard 一份 OCR 收費版 brief（2026-06，已核實價）。
 
 ## Last Session Record
+1. UTC date: 2026-07-30
+2. Session ID: Claude_20260730_1015 — Leonard 交返 S197 ① 嘅 Render logs 答案；我冇當佢係零流量，查落發現個指示本身量唔到嘢，改為主動 instrument。Leonard 批「做」一次、「改」一次、「收工」。
+3. Completed:
+   - ✅ **證實 S197 ① 係一個結構上量唔到嘢嘅指示**（三層根因，逐層有對照組；機制由 Render 官方文檔確認：per-request log = Pro plan 功能，此為 Hobby instance）。
+   - ✅ **`[route-probe]` 上線並 live 驗證**（`server.ts` handler 最頂，只認兩條 route，永不印 body）。本機自檢 ×2 對數，live 24 請求 → 24 行。
+   - ✅ **按 §3 停低一次並修正**：PLAN 承諾嘅 IP 識別首版做唔到（最右跳係 Render 內部 10.x），Leonard 批「改」後改印全鏈；`getClientIp()` 同 rate limiter 零接觸。
+   - ✅ **全 repo grep 確認兩條 route 零內部呼叫點** → 唯一可能消費者只剩下游 Circular System。
+   - ✅ **DOC_SYNC +1 row**（31→32）+ **§4a 歸檔**（462→199 行、8→4 entries，守恆 4+4=8）+ 修好一個既有 `ack:log-entry` marker 唔平衡。
+4. QC: `npm run check` / `npm run build` exit 0 ×2；probe 本機自檢兩次都對數（含 negative control 零行、GET 錯 method 照捉、偽造兩跳 XFF 全鏈捕獲）；live 三輪帶序號流量 24 請求 → 24 行；`session_log_maintenance.py --self-test` 5/5 PASS。Supabase 16,062 零寫入 / registry 256 / v3.2.2 / 凍結合約機械核實零接觸。eval **未重跑**（本 session 零檢索改動）。
+5. 未完成: 觀察窗未讀（8 月 2 日 + 8 月 5 日）；probe 未刪；backend 兩條 route 未拆；S197 ②–⑨ 全部未動；`HANDOFF_PACKAGE.md:32` drift 未修。
+6. 本 session 我出過嘅錯同已記錄嘅更正: (a) **一個鐘之內踩兩次同一個陷阱** —— 信一個量唔到嘢嘅工具嘅沉默（先係 log search，後係 `/health` 重啟偵測），兩次沉默都指向我想要嘅答案；(b) 講錯「09:52 cold start 同我杯 curl 對得上」，實際係 08:52 UTC、喺我開始前 43 分鐘（dashboard 顯示 UTC+1）；(c) PLAN 承諾 IP 認人，首版做唔到。三項全部寫入 SESSION_LOG S198、`PROJECT_DECISIONS.md` Insights 同 DOC_SYNC 驗收欄。
+7. commits: `ddc98d5` → `16fec71` → `2eb642f` → `07173f6` → `b74f5f4` → 本 closeout commit。Supabase **16,062 零寫入** / registry **256** / v3.2.2 / 凍結合約零接觸。
+
+## Previous Session Record (S197)
 1. UTC date: 2026-07-29
 2. Session ID: Claude_20260729_S197 — Leonard 由「roadmap 有無建議」開始，定咗退役標準，批「做」三次；我中途兩次推翻自己並停低報告。
 3. Completed:
@@ -504,6 +527,15 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## State Reconciliation Check
 
+- **Reconciled at:** 2026-07-30 (S198 closeout — Leonard「收工」)
+- **S198 state sections rewritten or confirmed current:** `Current Baseline`（prepend S198 block，7 點：指示本身量唔到嘢／已換主動量度／§3 停低一次／同一 session 踩兩次同一陷阱／更正 cold start 歸因＋dashboard UTC+1／repo 內零呼叫點／🔴 臨時 code 同觀察窗）；`Open Priorities`（**整份重生為 S198 段**，S197 ① 已被取代，②–⑨ 明文標示沿用）；`Last Session Record` 由 S197 重寫為 S198（S197 降級為 `Previous Session Record (S197)`，no-loss）；`Next Session Opening Message` 重生；本段。
+- **S198 lifecycle check:** S197 ① **已解決但唔係用原本嘅方式** —— 原指示係「睇 log 有冇流量」，實測證明佢量唔到嘢，故**唔可以標為完成**，改為重述成「觀察窗進行中，8/2 + 8/5 讀」並降為 ⑤（明文寫住前置＝讀完窗 + 刪 probe）。S197 ②–⑨ **全部原封不動**，重新編號為 S198 ②–④ 加沿用段。**無已完成項殘留為未解 next priority**：probe 上線同 XFF 修正已完成並只以「臨時 code 待刪」形式保留為 risk，唔係 priority。**新增未解項**：觀察窗未讀、probe 未刪、`HANDOFF_PACKAGE.md:32` drift。
+- **S198 persistence routing checked:** 是。當前狀態＋觀察窗讀取日期＋刪除責任→handoff `Current Baseline` S198 ⑦ 同 `Open Priorities` S198 ①；**可重用程序知識（「一個工具嘅沉默唔係證據」＋ negative control ＋ 部署確認唔可以靠猜重啟）→三個唔會被重生嘅位**：`dev/PROJECT_DECISIONS.md` Insights S198、`dev/DOC_SYNC_CHECKLIST.md` 新 row 嘅驗收欄、`backend/src/server.ts` probe 註釋（handoff 會被重生、code 唔會）；量度細節同三個自我更正→`dev/SESSION_LOG.md` S198 entry；歸檔內容→`dev/archive/SESSION_LOG_2026_Q3.md`（新檔，原文保留）。
+- **S198 stale snapshots left:** 無。**本 session 內主動更正咗自己三次**：(a) 兩次信咗量唔到嘢嘅工具嘅沉默（log search、`/health` 重啟偵測），第二次係喺明知第一次陷阱之後一個鐘內再踩；(b) 講錯 08:52 UTC 嗰個 cold start 係我杯 curl 引起（實際早我 43 分鐘，來源未查明）；(c) PLAN 承諾 IP 認人首版做唔到，按 §3 停低等 Leonard 批先改。**另修好一個既有問題**：`dev/SESSION_LOG.md` `ack:log-entry` marker 唔平衡（S195B 缺 `start`），已補一行、純新增零資訊改動，4/4 平衡；**先查明影響（歸檔腳本用 `^## YYYY-MM-DD` 切 entry、唔用 marker）後至修**。
+- **S198 opening message matches current state:** 是。`Next Session Opening Message` 重生（🔴 臨時 code 置頂／觀察窗兩個讀取日期／扣起 24 行自測流量／dashboard UTC+1／落手前必讀由兩件變三件／NEXT 重排為 judge 優先、拆 route 降為等窗）；`START_NEXT_SESSION_PROMPT.txt` 由該 block 重生並做 mirror check。
+- **S198 sync status:** DOC_SYNC 命中 **1 row（新增，31→32）**「臨時觀測 code 加落既有 backend route」—— 按 anti-pattern guard 先補行再填。`update_log.json` **N/A**（零入庫）。凍結合約 + `PLATFORM_VERSION` 零接觸（機械核實：Supabase 16,062 零寫入／registry 256／`_meta` 2.3.0 facts 455／guidelines 逐 topic 加總 158／served `PLATFORM_VERSION 3.2.2`）。Pages **零改動**（本 session 無前端改動）；Render deploy 5 次（每個 commit 一次），probe 已 live 驗。§4a：`--check` trigger=True（462 行／8 entries）→ **已執行 `--apply`**，462→199 行、8→4 entries、4 個 entry 入新檔 `dev/archive/SESSION_LOG_2026_Q3.md`，守恆 4+4=8。
+- **舊記錄（S197 closeout）：**
+
 - **Reconciled at:** 2026-07-29 (S197 closeout — Leonard「收工」)
 - **S197 state sections rewritten or confirmed current:** Current Baseline（prepend S197 block：Supabase **16,062 零寫入**、registry **256 不變**、v3.2.2 不變、凍結合約機械核實零接觸；退役標準／鏡像剔除嘅必要性／兩次自我推翻／44% 覆核失敗率／阻塞點）；Open Priorities（**整份重生** 9 項，並更正 roadmap 三處過時狀態）；`Last Session Record` 由 S196 重寫為 S197（S196 降級為 `Previous Session Record (S196)`，no-loss）；`Next Session Opening Message` 重生；本段。
 - **S197 lifecycle check:** 舊 Open Priorities 6 項處置 —— ①PAT→**原封不動保留**（我做唔到，降為 ②）；②judge prompt→**未做，原文保留為 ③**，前置條件不變；③g24/sag→**不變**，降為 ⑥；④封面 baseline→**不變**，併入 ⑦ 維護；⑤spotlight→**不變**，併入 ⑦；⑥MIN_OVERLAP 鏡像→**不變**，併入 ⑦。新增 ①（Render logs 阻塞）／④（總帳未讀桶）／⑤（100 條鏡像仍穿窿）／⑧（文件 drift）／⑨（roadmap 過時更正）。**無已完成項殘留為未解 next priority 或 active risk**：前端退役同 9 條鏡像退役已完成並已從清單移除，只保留仍然穿窿嗰 100 條為 ⑤。
@@ -586,32 +618,50 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
 (Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
 
-Current state (S197, 2026-07-29): 平台 v3.2.2; Supabase 16,062 chunks (本 session 零寫入);
+Current state (S198, 2026-07-30): 平台 v3.2.2; Supabase 16,062 chunks (本 session 零寫入);
 source_registry 256; HEAD==origin/main; 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158;
-0 outstanding bug。eval 由 30 擴到 34 條: PASS 23 / FAIL 0 / errors 0。
+0 outstanding bug。eval 34 條 (本 session 無檢索改動, 未重跑; 上次 PASS 23 / FAIL 0)。
 自動化 active: 5 源監察 (discover / freshness / served-url / new-circular / 封面核對, 月跑)
 + Option A 自動入庫管道 (OPERATIONAL; 每日 19:30 HK refresh Issue; cron 20:00 HK 兜底)。
 
 ⚠️ 管道會自行入庫並直接 push main — 開工時本地可能落後 origin/main, tree 乾淨 + 0 本地 commit
 時先 git pull --ff-only 同步。
 
-📋 S197 做咗 (Channel A 退役第一步; Supabase 零寫入):
-1. 前端 Channel A 路徑全清 (app.html −109/+8)。已證摸唔到而唔止無人用: CHANNEL_OPTS 得一項,
-   selector 寫住 length > 1 先 render。
-2. 9 條有已證出處嘅 approved_fact 鏡像 chunk 退出服務路徑 (RETIRED_MIRROR_CHUNK_IDS +
-   retiredMirrorFilter, 套三個映射點)。觸發證據: 「採購門檻」rank-0 本來係 role_facts_finance
-   (url 空 / page null) 壓住 g01 p.5 同一條規則; 修完 rank-0 = g01 p.5。刪一行即還原。
-3. 新工具 dev/source/channel_a_coverage.py + CHANNEL_A_RETIREMENT_LEDGER.tsv (455 條逐條
-   tier + 出處 + 頁碼) + CHANNEL_A_COVERAGE_FINDINGS.md。
-4. eval 30 → 34 條 (新增 4 條「邊個負責」query)。
+🔴🔴 生產度而家有一段臨時 code — 呢個係本次交接最唔可以忘記嘅嘢:
+  backend/src/server.ts handler 最頂嘅 [route-probe], 量度 /api/search/channel-a 同
+  /api/search/combined 有冇外部呼叫。只印 method/path/origin/user-agent/完整 XFF 鏈/peer,
+  永不印 body。commit ddc98d5 + 2eb642f, 已 live 驗證。
+  ⏰ 觀察窗 2026-07-30 09:40 UTC 開始。Render Hobby log 只保留 7 日 →
+     8 月 2 日 + 8 月 5 日 各讀一次 (Render → Logs → search route-probe), 唔好等到第 7 日。
+  🧮 讀數時扣起 24 行 ua=s198-* (S198 自測流量), 剩低嘅先係外部呼叫。
+  🗑 讀完必須刪走成段 probe。刪咗就可以按下面 ⑤ 拆 route。
+  ⚠️ dashboard log 時間戳顯示係 UTC+1, 唔係 UTC (實測錨點: 09:40:48 UTC ↔ 顯示 10:40:48 AM)。
 
-🚨 落手前必讀兩件事:
+📋 S198 做咗 (零入庫、零檢索改動、Supabase 零寫入):
+1. 證實 S197 留低嘅 ①「去 Render Logs search channel-a」係一個結構上量唔到嘢嘅指示 —
+   Render per-request log 係 Pro plan 功能, 呢個係 Hobby instance。對照組: 一個確實發生過嘅
+   /health request 同樣零命中; 但 search CORS 搵到 server.ts:396 開機輸出 →
+   stdout 收得到、request path 收唔到。原本嗰個「No matching logs」係零資訊, 唔係零流量。
+2. 改為主動 instrument (見上)。本機自檢 ×2 對數 + live 24 請求 → 24 行。
+3. 全 repo grep 確認兩條 route 零內部呼叫點 (mobile.js 早於 S119 已轉 channel-b) →
+   唯一可能消費者只剩下游 Circular System (跨 repo)。
+4. DOC_SYNC +1 row (31→32)「臨時觀測 code 加落既有 backend route」。
+5. §4a 歸檔已執行: SESSION_LOG 462→199 行、8→4 entries, S195/S194/S193/S192 移入
+   新檔 dev/archive/SESSION_LOG_2026_Q3.md (守恆 4+4=8)。順手修好一個既有嘅
+   ack:log-entry marker 唔平衡 (S195B 缺 start, 已補; 非本 session 造成)。
+
+🚨 落手前必讀三件事:
    (a) dev/source/CHANNEL_A_COVERAGE_FINDINGS.md — 量度方法同兩個陷阱。最重要嘅數字:
        機械判定嘅 CLEARED tier 有 44% 撐唔住人手覆核 (16 條候選, 只 9 條過關)。
        所以總帳嘅 133 CLEARED / 107 PROVISIONAL / 172 UNVERIFIED 都唔可以當可退。
        唔准由總帳直接延長 RETIRED_MIRROR_CHUNK_IDS, 每條都要開段落嚟讀。
    (b) dev/source/JUDGE_PROMPT_FINDINGS.md — shipped judge prompt 近乎恆等於「否」
        (8/16, 8 條庫有答案嘅全部拒晒)。次序由實測釘死: 先修 judge, 後收 bypass。
+   (c) 【S198 新增, 已寫入 PROJECT_DECISIONS Insights + DOC_SYNC 驗收欄 + code 註釋】
+       一個工具嘅沉默唔係證據。面對任何 negative result, 落結論之前先問:
+       「如果目標訊號真係存在, 呢個工具會唔會顯示到?」— 答唔到就搵一個已知發生過嘅事件
+       做對照組。呢個陷阱我喺 S198 一個鐘之內踩咗兩次 (log search + /health 重啟偵測),
+       兩次沉默都啱好指向我想要嘅答案, 所以靠「覺得唔妥」係捉唔到嘅。
 
 🧭 紀律 (真金白銀學返嚟, 仍然生效):
   1. 改 chunk 版本唔可以照 source_id 刪舊 — chunk id 係內容 hash, 兩版相同段落 id 會重疊。
@@ -634,18 +684,25 @@ source_registry 256; HEAD==origin/main; 凍結合約 _meta 2.3.0 / facts 455 / g
   注意: coverage_runs/ 係 gitignored (embed cache 14MB, 可由工具重生)。
 
 🔜 NEXT (優先序):
-  ① 【阻塞中, 只有 Leonard 做得到】Render dashboard → Logs → search channel-a。
-     有真流量 = 下游仲食緊, 兩條 route 唔郁得 (跨 repo, §A.3)。零流量就拆 backend 半邊:
-     /api/search/channel-a + /api/search/combined + searchChannelA.ts + searchCombined.ts +
-     factEmbeddingCache.ts + /health 拎走 cache_a + 開機唔再 embed 455 條。
-     ⚠️ knowledgeRepository.ts 要留 (analyzeCircular.ts 仍 import)。
-     ⚠️ knowledge.json 刪唔得 (index.html:561 首頁統計 + q.html:233 全靠佢)。
+  ① 修 judge prompt (建議首選 — 影響每個用戶答案, 而且零部署可做)。
+     先讀 JUDGE_PROMPT_FINDINGS.md。頭兩步冇風險: 砌一個未經 tune 嘅驗收集 (decline 半邊
+     必須包含 S177 類 凍結教席→IMC 60%; answer 半邊由 curated footnote 自己嘅事實抽),
+     然後先量 shipped prompt 做 baseline。改 prompt 本身係 §3 HIGH risk, 要出 PLAN。
+     量度成本極低: chunk 抓一次快取, prompt 離線迭代, 唔使部署。
   ② 【只有 Leonard 做得到】確認 PUBLISH_PAT 係 fine-grained、只限 edb-circular-site
      contents:write。
-  ③ 修 judge prompt — 先讀 JUDGE_PROMPT_FINDINGS.md, 要一個未經 tune 嘅驗收集,
-     decline 半邊必須包含 S177 類 (凍結教席→IMC 60%)。
-  ④ 總帳 172 UNVERIFIED + 107 PROVISIONAL 未讀, 133 CLEARED 未抽樣 (見上 44%)。
-  ⑤ 100 條無出處鏡像仍喺服務路徑 —— 護欄穿窿, 但係「邊個負責」唯一來源, 唔可以照剷。
+  ③ 總帳 172 UNVERIFIED + 107 PROVISIONAL 未讀, 133 CLEARED 未抽樣 (見上 44%)。
+     離線可做, embedding 已快取, 重跑唔使畀錢。
+  ④ 100 條無出處鏡像仍喺服務路徑 —— 護欄穿窿, 但係「邊個負責」唯一來源, 唔可以照剷。
+  ⑤ 【等觀察窗有結果先做】拆 backend 半邊: /api/search/channel-a + /api/search/combined +
+     searchChannelA.ts + searchCombined.ts + factEmbeddingCache.ts + /health 拎走 cache_a +
+     開機唔再 embed 455 條。前置 = 上面紅字嗰個觀察窗讀完 + probe 刪走。
+     ⚠️ knowledgeRepository.ts 要留 (analyzeCircular.ts 仍 import)。
+     ⚠️ knowledge.json 刪唔得 (index.html:561 首頁統計 + q.html:233 全靠佢)。
+     ⚠️ 額外理由: 3 條同《學校行政手冊》矛盾嘅假期日數 (病假「36天」vs 附錄9 28/48/168天;
+        非教學年假 18/21/24 vs 7天起上限14天) 已證唔喺 Supabase, 只可經 channel-a route
+        攞到 — route 一日未拆, 一日 serve 緊錯數。
+     ⚠️ 結論寫法: 只可以寫「N 日內零外部呼叫」, 唔可以寫「冇下游」(月更 job 捉唔到)。
   ⑥ 【較大】g24 同 sag_2025_11 係同一份《學校行政手冊》登記兩次, 215 條 chunk 文字完全相同。
   ⑦ 【維護】封面核對 baseline (208 條) / spotlight 6 源 / MIN_OVERLAP 兩份鏡像。
   ⑧ 【文件 drift】三處對「下游有冇轉 Channel B」講法唔一致; CHANNEL_B_SYNC_KEY 實測已配置
@@ -657,6 +714,10 @@ source_registry 256; HEAD==origin/main; 凍結合約 _meta 2.3.0 / facts 455 / g
 Post-startup first action: 跑起手探針 (served app.html v3.2.2 + Render /health warm 455 +
 Draft HEAD==origin/main〔落後就 ff-pull〕+ Supabase count=exact 16,062), 然後向 Leonard
 報告當前狀態同建議下一步。
+⏰ 如果今日已經係 2026-08-02 或之後: 起手探針之後即刻提醒 Leonard 開 Render Logs
+   search route-probe 讀觀察窗 (扣起 ua=s198-* 嗰 24 行)。如果已經過咗 2026-08-06,
+   Hobby 7 日保留期已滿, 最早嗰幾日嘅記錄已經永久冇咗 — 照讀剩返嘅, 但結論要寫明
+   個窗殘缺, 唔好當佢係完整 7 日。無論讀到乜, 讀完就要刪走 probe。
 
 所有路徑含空格, 終端機指令必須用雙引號包住。改任何嘢之前, 先報告當前狀態同建議下一步。
 ```

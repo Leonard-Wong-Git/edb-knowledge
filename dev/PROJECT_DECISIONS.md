@@ -64,6 +64,24 @@ This file does not store raw build / upload / QC evidence, current next actions,
 
 ## Insights & Learnings
 
+### S198 (2026-07-30) — 一個工具嘅沉默唔係證據：落結論之前要先問「佢結構上量唔量得到？」
+
+- **背景：** S197 交低一條阻塞項：「Leonard 去 Render Logs search `channel-a`，有流量就唔可以拆 route，冇流量就拆」。Leonard 依足做，畫面回「No matching logs」。**照字面讀，我可以即刻拆 route。**
+
+- **證據鏈：** 冇當佢係零流量，改為驗證個儀器本身。三層：
+  1. `backend/src/server.ts` 全檔只有三句 `console`（一句錯誤、兩句開機），**冇任何 per-request log** —— 成功請求結構上唔會印任何嘢。
+  2. **對照組**：一個確實發生過嘅 `/health` request（我親手 curl、收到 200 JSON），search「health」**同樣零命中**。
+  3. **正對照**：search `CORS` **搵到** `server.ts:396` 嘅開機輸出。→ stdout 收得到、request path 收唔到。
+  4. **官方文檔**（<https://render.com/docs/logging>）確認機制：per-request log 係 **Pro workspace 以上**功能，呢個係 Hobby free instance。同時查到 Hobby log 保留期 = 7 日。
+
+- **推論：** 「No matching logs」嘅資訊量係**零**，唔係「零流量」。而更值得記低嘅係：**同一個 session 入面我自己又犯多次同一個錯** —— 部署後我用 `/health` 嘅 `cache_a.warm` 去偵測重啟，行足 421 秒零命中，一度想寫「未部署」。實情係 Render 零停機部署會先暖好新 instance 先切流量，**外部永遠見唔到 `warm=false`**。真憑據係 instance id 變咗（`pcwrl`→`p2znr`→`26wlj`）。即係話「信一個量唔到嘢嘅工具嘅沉默」呢個陷阱，就算啱啱先踩過、明知要防，**一個鐘之內照樣再踩**。
+
+- **點解呢個形態特別難自己捉到：** 兩次沉默都指向**我想要嘅答案**（冇流量 → 可以拆；同 S195／S196／S197 三次一樣，錯嘅方向都係對自己有利）。一個順住你意思嘅結果唔會覺得可疑，所以靠「察覺唔妥」係捉唔到嘅，只能靠一條硬規矩。
+
+- **決策影響：** (a) DOC_SYNC 新增 row「臨時觀測 code 加落既有 backend route」，驗收欄硬性要求 **negative control**（一條唔應該中嘅鄰近 route 必須零行）同**部署確認要用帶序號嘅自測流量**，唔准靠猜重啟；(b) 呢條規矩寫埋落 `server.ts` probe 嘅註釋，因為 handoff 會被重生、code 唔會；(c) 可操作嘅版本：**面對一個 negative result，先問「如果目標訊號真係存在，呢個工具會唔會顯示到？」—— 答唔到就搵一個已知發生過嘅事件做對照組，答案未出之前唔准落結論。**
+
+- **不確定性：** 呢次係靠一個現成嘅已知事件（我自己杯 `/health` curl）做對照組先拆穿到。**唔係每個情境都有現成對照組**；冇嘅時候要主動製造一個，而製造對照組本身嘅成本未量過。另：Render 文檔講嘅 plan 分級係 2026-07-30 讀嘅，plan 政策可變。
+
 ### S197 (2026-07-29) — 機械判定唔可以取代讀原文：同一個形態第三次出現，今次量到咗個失敗率
 
 - **背景：** Channel A 退役量度。Leonard 定嘅標準係「已喺 Channel B 或可追蹤出處就可以退」。我建咗一個逐條量覆蓋嘅工具，跑完 455 條，交出一個「已清除可退」嘅 tier。
