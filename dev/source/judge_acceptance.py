@@ -89,9 +89,13 @@ JUDGE_MODEL = os.environ.get("JUDGE_MODEL", "gpt-4o-mini")
 # Verbatim copy of RELEVANCE_JUDGE_PROMPT (searchChannelB.ts). Kept as a literal rather
 # than parsed out of the TypeScript so that a drift between the two is a visible diff in
 # this file's history; `--check-parity` compares them.
-SHIPPED_PROMPT = """以下是從教育局文件檢索到的資料。請判斷這些資料能否「明確、直接」回答用戶的問題。
+SHIPPED_PROMPT = """判斷下面「資料」有冇直接回答「問題」。
 
-從嚴判斷（寧緊莫鬆）：只有當資料實際、明確包含問題所問的「具體答案」（所問的數字／上限／比例／條件／規則本身）時，才答「能」。若資料只是同一大主題但其實在講另一件事、或資料未必直接答到所問事項、或你有任何不確定，一律答「否」。寧可答否，也不要勉強當作能——答錯一個數字會誤導用戶，比答找不到更差。
+規則：
+- 問題問緊一個具體事項（數字／期限／上限／比例／條件／責任／規則）。喺資料搵嗰個事項。
+- 資料明文講到嗰個事項就答「能」，措辭唔同唔緊要。例如問「幾耐要交醫生紙」而資料寫「超逾兩天須出示醫生證明書」＝能；問「營辦商責任」而資料列出營辦商須做嘅事＝能。
+- 問題問嘅事項喺資料搵唔到，只有同一大主題下嘅另一件事，就答「否」。例如問「大假幾多日」而資料只有「病假幾多日」＝否；問「補習費上限」而資料只有其他收費項目＝否。
+- 唔好用相近但唔同嘅數字或概念頂替。頂替＝否。
 
 只回答一個字：能 或 否。
 

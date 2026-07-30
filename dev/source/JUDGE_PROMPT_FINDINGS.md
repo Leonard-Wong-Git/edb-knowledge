@@ -1,7 +1,35 @@
 # Anti-confabulation judge — what was measured in S196, and what to do next
 
-Status: **finding recorded, nothing shipped.** `RELEVANCE_JUDGE_PROMPT` in
-`backend/src/api/searchChannelB.ts` is unchanged. Read this before touching it.
+Status: **V3 SHIPPED (S200, 2026-07-30).** `RELEVANCE_JUDGE_PROMPT` in
+`backend/src/api/searchChannelB.ts` now holds the V3 prompt (byte-identical to
+`dev/source/judge_prompts/v3_s196.txt`; `judge_acceptance.py` `SHIPPED_PROMPT` updated in
+lockstep, `--check-parity` green). Read the S200 ship record below before touching it again.
+
+## S200 — SHIPPED with a documented gate override (Leonard, Option 2)
+
+V3 replaced the shipped prompt. Acceptance evidence is `2026-07-30_s199_v3_4omini.json`
+(prompt byte-identical to what now ships): primary **21/22**, answer-half **11/11** (recovers
+`A02`/`A05`/`A06` over shipped's 8/11), decline-half **10/11**, `D00_s177_frozen_post` = 否
+(correct), false answers = **[`D01_student_sickleave`]**.
+
+**The gate says stop; it was overridden on purpose.** DOC_SYNC row 41 and the bar below read
+"any false answer on the decline half = 唔准 ship". V3 has one — `D01`. It shipped anyway on
+this reasoning, recorded per AGENTS §2 rule 6 (override logged in SESSION_LOG S200):
+
+1. **Not a regression.** The currently-live prompt fails `D01` identically (能) — see
+   `2026-07-30_s199_shipped_4omini.json`. V3 introduces **zero** new false answers and
+   recovers three correct declines-to-answers. Every measured axis is ≥ the live baseline.
+2. **The disqualifier does not fire.** `D00_s177_frozen_post` is correctly declined.
+3. **`D01` is not judge-served in production.** Its lead is a `footnote_curated` chunk at
+   0.574 > `FOOTNOTE_LEAD_SCORE` 0.45, so the footnote bypass fires and the judge is never
+   called on it. The harness verdict is the judge's counterfactual, not live behaviour;
+   shipping V3 changes nothing about `D01` live. `D01` belongs to NEXT ④ (narrow the bypass).
+
+So the override trades a literal-gate pass for a change that is strictly better than the
+status quo on everything the judge actually gates. What it does **not** do: fix `D01` live —
+a user asking 「學生請病假要唔要交醫生紙」 still gets the staff rule transplanted onto students,
+because that path skips the judge. That is unchanged by this ship and remains the top open
+defect for the coupled bypass work.
 
 ## ⚠️ S199 — READ THIS FIRST: the model below matters more than any prompt in this file
 
