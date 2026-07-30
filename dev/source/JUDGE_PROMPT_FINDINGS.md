@@ -16,15 +16,15 @@ verdict was seen); baseline run:
 | | cases | shipped verdict |
 |---|---|---|
 | answer half (fact verbatim in the chunks shown) | 11 | 0 answered |
-| decline half (11 fresh gaps + the S177 case) | 12 | 12 declined |
+| decline half (10 fresh gaps + the S177 case) | 11 | 11 declined |
 | secondary: bare-noun topical matches, judged in production today | 2 | 0 answered |
 
 Two consequences that change how the next step has to be read:
 
 1. **The decline half currently proves nothing about the judge.** A function that
-   returns 否 unconditionally scores 12/12 on it. That half only starts carrying
+   returns 否 unconditionally scores 11/11 on it. That half only starts carrying
    information once a candidate answers something — which is exactly what it is for, but
-   nobody should quote "12/12 on declines" as evidence the shipped judge is protecting
+   nobody should quote "11/11 on declines" as evidence the shipped judge is protecting
    anything. It is not distinguishable from a constant.
 2. **The 8/16 in the table above was flattering.** On cases nobody tuned against, the
    shipped prompt does not score half — it scores zero on everything answerable.
@@ -41,7 +41,7 @@ the conclusion S199 already expected (S198's silent-instrument trap).
   S196 tuned against), asked using **the footnote's own question** — authored by whoever
   curated the fact, not by whoever is tuning the prompt. In all 11 the origin footnote
   returns at rank 1, so the answer is verbatim in what the judge sees.
-- Decline half: 11 fresh gap / neighbouring-question cases absent from `judge_probe.py`
+- Decline half: 10 fresh gap / neighbouring-question cases absent from `judge_probe.py`
   and `footnote_lead_probe.py`, plus `D00_s177_frozen_post`, which keeps the **original
   pre-fix chunks** of the S177 incident (live retrieval would now answer it legitimately,
   since the TRG 10% footnote was ingested as the fix). Three are composite traps —
@@ -57,9 +57,48 @@ the conclusion S199 already expected (S198's silent-instrument trap).
 ### The bar for shipping a candidate
 
 Unchanged in substance, now with a number attached: beat 0/11 on the answer half **while
-keeping 12/12 on the decline half**. One false answer is a stop, and a false answer on
+keeping 11/11 on the decline half**. One false answer is a stop, and a false answer on
 `D00_s177_frozen_post` is disqualifying regardless of the rest. Re-run
 `footnote_lead_probe.py` after deploying.
+
+## S199 — V3 measured on the same frozen set (still not shipped)
+
+Run: `dev/source/judge_runs/2026-07-30_s199_v3.json`; prompt file
+`dev/source/judge_prompts/v3_s196.txt`, asserted verbatim against the block below.
+
+| prompt | primary | answer half | decline half | false answers |
+|---|---|---|---|---|
+| shipped | 11/22 | **0/11** | 11/11 | 0 |
+| V3 | **18/22** | **7/11** | **11/11** | **0** |
+
+The number that matters is not 18/22. It is that **V3 was never tuned against this set** —
+it came from S196's 16 cases, which share no query with these 24 — so 7/11 recovered with
+every decline intact is a held-out result, not a fitted one. V3's tuned 11/16 was the
+number expected not to hold; on unseen cases it holds.
+
+Every decline survived, including the three composite traps and `D00_s177_frozen_post`
+(the 60% quota sitting in the chunks was not composed into a frozen-post answer).
+
+Four answer-half cases V3 still declines. Recorded as observation only — **do not iterate
+V3 against them**, that is precisely how the 16-case set became untrustworthy:
+
+- `A00` NCS kindergarten grant tiers and `A01` NCS-SEN grant tiers — in both, the question
+  is Chinese and the answer body in the chunk is English.
+- `A06` the three-tier suicide-risk mechanism — asks how a school identifies and supports,
+  i.e. a process rather than a figure.
+- `A07` the $300,000 per-school floor — asks 有冇下限 (a yes/no about existence), and the
+  chunk answers it in the form 設有上限，但每校不少於$300,000.
+
+Two of the four (`A00`, `A01`) point at a cross-language weakness rather than a tonal one,
+which no amount of rewording the Chinese rules will reach.
+
+### What is still missing before this can ship
+
+The decline half is 11 cases. Zero false answers on 11 cases is not evidence of safety at
+production scale, and this is the anti-confabulation spine: the failure it guards against
+(S177) was a single fabricated number that looked authoritative. The measurement says V3
+is better; it does not say V3 is safe. A ship decision needs a §3 PLAN, Leonard's call on
+the risk, and a live re-check of `footnote_lead_probe.py` afterwards.
 
 ## The finding
 
