@@ -35,6 +35,28 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-07-30 Session 200 — ship judge V3（Open Priority ③；Leonard 揀 Option 2，明文閘 override）
+
+- **ID:** Claude_20260730_1548
+- **Summary:** 起手探針 4/4 綠（served v3.2.2 / Render `/health` warm 455 / HEAD==origin/main `30838f5` tree 乾淨 / Supabase count=exact 16,062）後，Leonard 揀 Open Priority ③「ship judge V3」。§3 HIGH risk + release gate + 撞到治理硬閘 → present PLAN + 三條路，Leonard 揀 **Option 2（照 ship + 明文 override）**。
+- **Changed:** `backend/src/api/searchChannelB.ts`（`RELEVANCE_JUDGE_PROMPT` 換 V3 + 過時 寧緊莫鬆/5-5 rationale 註解重寫）；`dev/source/judge_acceptance.py`（`SHIPPED_PROMPT` 同步換 V3 保 `--check-parity`）；`dev/source/JUDGE_PROMPT_FINDINGS.md`（狀態頭 nothing shipped→SHIPPED + S200 override 記錄）；`dev/CODEBASE_CONTEXT.md`（judge_acceptance baseline 更新 + AI Maintenance Log S200）。commit `bcf7c4f` push origin/main。
+- **Done:** V3 shipped（commit+push）。驗收證據＝`2026-07-30_s199_v3_4omini.json`（prompt 同 shipped code byte-identical，301 chars 已核）：primary 21/22、answer 11/11（收返 A02/A05/A06）、decline 10/11、D00 frozen-post=否、false=[D01]。
+- **明文 OVERRIDE 記錄（AGENTS §2 rule 6）:** 衝突規則＝DOC_SYNC row 41 + `JUDGE_PROMPT_FINDINGS.md` bar「decline 半邊任何 false answer = 唔准 ship」。V3 有一個 false answer（D01）。override 理由：(a) 非退步（shipped 一樣 D01 答錯，`2026-07-30_s199_shipped_4omini.json`，零新增 false answer）；(b) 一票否決唔中（D00 正確拒答）；(c) D01 lead `footnote_curated` @0.574 > `FOOTNOTE_LEAD_SCORE` 0.45 → 生產行 footnote bypass、judge 從不 serve D01（harness 判係反事實）。risk：越過自己寫嘅閘＝precedent；緩解＝D01 明列 NEXT ④ 未修。
+- **更正:** 交接 S199 ③「生產 model 已達…decline 全保」講多咗；artifact 實係 decline **10/11**（D01 漏），已於此記錄同 Current Baseline S200 ② 更正（comm 規則：corrected number 要同原數並存）。
+- **QC:** `--self-test` 0 fail；`--check-parity` byte-identical；`--plumbing-check` 兩條 S177 scenario 叫得出「能」；`tsc --noEmit` exit 0；post-ship `footnote_lead_probe.py`（`2026-07-30_s200_postship_footnote.json`）positive **30/30 零損失**、negative 5/13、errors 0（=零回歸，V3 唔郁 bypass）。
+- **未 clean 驗到:** deploy 傳播。服務無 version endpoint；V3 差異 case（A02/A05/A06）live 全部 footnote bypass、答案唔 flip → 外部觀察唔到 judge prompt 已換。無 render.yaml／無 Action deploy，靠 Render GitHub 整合（預設 auto-deploy on push）。要 Render dashboard → Events 確認 `bcf7c4f`。
+- **Evidence disposition:** absorbed into handoff（Current Baseline S200）；override rationale promoted to `JUDGE_PROMPT_FINDINGS.md` S200 header + `CODEBASE_CONTEXT.md`；run artifacts kept in `dev/source/judge_runs/`。
+- **Sync:** DOC_SYNC row 41 required docs 全部已更（judge_acceptance.py / JUDGE_PROMPT_FINDINGS.md / CODEBASE_CONTEXT.md / SESSION_LOG / handoff Risks-in-baseline）；`--plumbing-check` 已跑、false-vs-accuracy 分開報、ship 後 footnote probe 已跑 —— row 41 checks 全數滿足。
+- **Pending:** ① Leonard 喺 Render dashboard 確認 `bcf7c4f` deploy 已 live（若 auto-deploy 關要 Manual Deploy）；② NEXT ④ 收 footnote bypass（修 D01 live 錯 serve）；③ 本 session 未收工——`Open Priorities` 整份重生 / `START_NEXT_SESSION_PROMPT.txt` 重生 / closeout card 留待「收工」。
+- **Risks:** 🔴 D01 live 仍錯 serve（未變，判 NEXT ④）；🔴 deploy 傳播未外部確認；override 立咗「越 decline-half 閘」先例（需 NEXT ④ 埋單）。
+- **Log maintenance:** §4a/N-rule trigger check（S200 收工執行）：SESSION_LOG 377 行（<400/<1500）、6 entries（<11）、最舊 2026-07-27（<30 日）→ **trigger=False → no-op**，未 archive。
+
+（S200 收工完成：authoritative Next Session Opening Message 已於 `dev/SESSION_HANDOFF.md` 重生為 S200 版，`START_NEXT_SESSION_PROMPT.txt` 由該 block 重生並 mirror check byte-identical。）
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-07-30 Session 199 — Leonard 叫停 judge、問返 Channel A 退役實況；A(Channel A) 然後 B(judge)，純量度
 
 - **ID:** Claude_20260730_S199
