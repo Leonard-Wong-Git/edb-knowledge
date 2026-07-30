@@ -1,0 +1,282 @@
+{
+  "_meta": {
+    "purpose": "Frozen acceptance set for the anti-confabulation judge. Built S199 (2026-07-30) BEFORE any judge verdict was seen.",
+    "sampling_rule": "Answer half: all 206 footnote_curated chunks -> keep question-led ones (is_question_led) -> drop the four topics S196 tuned against (每班/醫生證明/醫生紙/招標/報價/投訴) -> sort by (source_id,id) -> every 16th. One further case (kg_operation_manual, 一班最多收幾多個學生) was dropped on reading because it restates the tuned 幼稚園每班30人 control that the keyword filter, which only sees the question, let through.",
+    "decline_rule": "Authored S199 as fresh gap / neighbouring-question cases, none of them present in judge_probe.py or footnote_lead_probe.py, plus the mandatory S177 case with its original chunks and two off-domain floors. Every label set by reading all five retrieved chunks.",
+    "scoring": "scope=primary is the headline number. scope=secondary (bare-noun topical matches) is reported apart because its label is a project position rather than a passage reading.",
+    "rule": "Do not add, drop or re-label a case because a prompt scored badly on it. The only legitimate re-label is 'I opened the passage and the original label was wrong', recorded in label_note."
+  },
+  "cases": [
+    {
+      "id": "A00_AUD_e76ch02",
+      "half": "answer",
+      "query": "幼稚園收非華語學生點計津貼？",
+      "want": "能",
+      "chunk_mode": "live",
+      "origin": "curated footnote footnote_fn_ncs_kg_5tier_201920 (AUD_e76ch02) — the footnote's own question",
+      "label_note": "rank-1 chunk IS the origin footnote: 5-tiered NCS grant $50,000 to two-teacher salary. Asked-for figure present verbatim.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "A01_EDBC_9_2019_E",
+      "half": "answer",
+      "query": "非華語 SEN 學生額外津貼幾多？",
+      "want": "能",
+      "chunk_mode": "live",
+      "origin": "curated footnote footnote_fn_ncs_sen_3tier (EDBC_9_2019_E) — the footnote's own question",
+      "label_note": "rank-1 chunk IS the origin footnote: NCS-SEN grant, three-tier structure with rates. Present verbatim.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "A02_cap279_education_ordin",
+      "half": "answer",
+      "query": "准用教員離職，個 permit 點？",
+      "want": "能",
+      "chunk_mode": "live",
+      "origin": "curated footnote footnote_fn_cap279_s52_pt_cancel (cap279_education_ordinance) — the footnote's own question",
+      "label_note": "rank-1 chunk IS the origin footnote (Cap.279 §52); rank-3 vault chunk independently states the permit is cancelled automatically on leaving. Present twice.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "A03_chp_prev_cd_schools_20",
+      "half": "answer",
+      "query": "報傳染病打邊個電話？",
+      "want": "能",
+      "chunk_mode": "live",
+      "origin": "curated footnote footnote_fn_chp_ceno_contact (chp_prev_cd_schools_2025nov) — the footnote's own question",
+      "label_note": "rank-1 chunk IS the origin footnote: CENO notification channel. Present verbatim.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "A04_edb_net_package_pdf",
+      "half": "answer",
+      "query": "NET medical insurance 補助上限？",
+      "want": "能",
+      "chunk_mode": "live",
+      "origin": "curated footnote footnote_fn_net_medical_allowance (edb_net_package_pdf) — the footnote's own question",
+      "label_note": "rank-1 chunk IS the origin footnote: medical allowance up to HK$1,400 single / $5,400 married. Present verbatim.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "A05_edbc_10_2012_fee_remis",
+      "half": "answer",
+      "query": "DSS 學費減免合資格標準要點？",
+      "want": "能",
+      "chunk_mode": "live",
+      "origin": "curated footnote footnote_fn_edbc10_2012_fr_baseline (edbc_10_2012_fee_remission) — the footnote's own question",
+      "label_note": "rank-1 chunk IS the origin footnote (EDBC 10/2012 §2 eligibility criteria). Present verbatim.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "A06_edbcm215_2025_mental_h",
+      "half": "answer",
+      "query": "學校點識別同支援有較高自殺風險嘅學生？",
+      "want": "能",
+      "chunk_mode": "live",
+      "origin": "curated footnote footnote_fn_mh_three_tier (edbcm215_2025_mental_health) — the footnote's own question",
+      "label_note": "rank-1 chunk IS the origin footnote: the three-tier emergency mechanism and who does what at each tier. Present verbatim.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "A07_eoebg_rates_2026",
+      "half": "answer",
+      "query": "全方位學習津貼加姊妹學校津貼，每校總額有冇下限？",
+      "want": "能",
+      "chunk_mode": "live",
+      "origin": "curated footnote footnote_fn_lwl_sister_floor (eoebg_rates_2026) — the footnote's own question",
+      "label_note": "rank-1 chunk IS the origin footnote: per-school total not less than $300,000. Present verbatim.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "A09_sag_2025_11",
+      "half": "answer",
+      "query": "非標準項目收費 7 個條件（毋須事先批准）？",
+      "want": "能",
+      "chunk_mode": "live",
+      "origin": "curated footnote footnote_fn_sag_apx_non_std_fee_7cond (sag_2025_11) — the footnote's own question",
+      "label_note": "rank-1 chunk IS the origin footnote: the 7 conditions for charging without prior approval. Present verbatim.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "A10_sch_activities_guide",
+      "half": "answer",
+      "query": "官立學校嘅公務員教師喺帶團（境外遊學）執行職務期間受傷／整親，要跟邊套規例呈報？",
+      "want": "能",
+      "chunk_mode": "live",
+      "origin": "curated footnote footnote_fn_activities_civilservant (sch_activities_guide) — the footnote's own question",
+      "label_note": "rank-1 chunk IS the origin footnote: civil-service regulations on reporting injury on duty. Present verbatim.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "A11_wfsfaa_sfaa_household_",
+      "half": "answer",
+      "query": "調整後家庭入息點計？",
+      "want": "能",
+      "chunk_mode": "live",
+      "origin": "curated footnote footnote_fn_sfaa_afi_formula (wfsfaa_sfaa_household_app_guidance_2526) — the footnote's own question",
+      "label_note": "rank-1 chunk IS the origin footnote: the AFI mechanism. Present verbatim.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "D01_student_sickleave",
+      "half": "decline",
+      "query": "學生請病假要唔要交醫生紙",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S199 as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "Every chunk is about STAFF sick leave; chunk 2 even states 申請病假超逾兩天必須出示醫生證明書 — for teachers and non-teaching staff, not students. Nothing about a student's medical certificate. Answering here means transplanting the staff rule onto students.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "D02_bus_fare",
+      "half": "decline",
+      "query": "校巴車費可以收幾多",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S199 as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "Five chunks of school-bus duties (escorts, seat belts, protective seats, name lists). No fare or charge figure anywhere; fares are not an EDB-set amount in this corpus.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "D03_aircon_replace",
+      "half": "decline",
+      "query": "學校冷氣機幾耐要換一次",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S199 as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "Chunks cover lab prep-room AC specifications and ventilation rates. Chunk 4 carries a 每12個月 interval — for FIRE installations, not air conditioners. No replacement cycle exists.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "D04_security_licence",
+      "half": "decline",
+      "query": "學校請保安員要咩牌照",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S199 as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "Chunks cover school security duties, FS251 fire certificates, cash-escort measures and an amusement-gaming licence. No security-personnel permit requirement (Cap.460) anywhere.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "D05_record_retention",
+      "half": "decline",
+      "query": "學生成績表要保存幾多年",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S199 as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "The sharpest trap in the set: chunk 1 says purchase records keep 3 calendar years, chunk 4 says KG accounting records keep 7 years, chunk 3 says student records must be kept and updated but states NO period. Answering with 3 or 7 years is the S177 composite shape exactly.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "D06_teacher_starting_pay",
+      "half": "decline",
+      "query": "教師起薪點幾多錢",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S199 as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "Chunks explain increment points and how service counts towards them. No starting-salary figure; pay scales are not in this corpus.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "D07_tuckshop_rent",
+      "half": "decline",
+      "query": "小賣部租金點釐定",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S199 as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "Chunk 1 is the 40% net-rent rule for LETTING school premises, chunk 5 is the KG rent-subsidy double cap. Neither says how a tuck-shop rent is set.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "D08_lesson_observation",
+      "half": "decline",
+      "query": "校長每年要做幾多次課堂視學",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S199 as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "Chunks are the school self-evaluation / performance-indicator framework. No required number of lesson observations by the principal.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "D09_offdomain_weather",
+      "half": "decline",
+      "query": "香港天文台今日氣溫",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S199 as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "Off-domain floor. Chunks mention HKO only as a warning source and as geography/science curriculum material. No temperature reading exists in a policy corpus.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "D10_offdomain_airport",
+      "half": "decline",
+      "query": "機場快線頭班車幾點開",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S199 as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "Off-domain floor. Retrieval returns student-service-vehicle specifications because both are 'transport'. No railway timetable exists.",
+      "scope": "primary",
+      "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "D00_s177_frozen_post",
+      "half": "decline",
+      "scope": "primary",
+      "query": "現在已成立法團校董會學校可以凍結的教席上限是百分之幾？",
+      "want": "否",
+      "chunk_mode": "fixed",
+      "chunks": [
+        "計算法團校董會「辦學團體校董」60%人數上限時，替代校董計唔計？《法團校董會的成立與運作》附錄1：計算辦學團體校董人數上限（不得超過校董人數上限嘅60%）時，替代校董不計算在內。",
+        "校本管理組有關法團校董會的問與答（簡介會答問摘要）：一、成立法團校董會；二、校董會組成；三、校董註冊。",
+        "辦學團體可將設立法團校董會的意向以書面通知常任秘書長，須於不遲於預計開課日期前6個月通知。",
+        "雖然條例沒有限制校董人數上限，但如法團校董會的成員人數過多，則可能影響運作；校董人數約有十人。",
+        "設有法團校董會的學校只須因應學生／家長的要求發出正式收據。"
+      ],
+      "origin": "the S177 incident itself, chunks preserved verbatim from dev/test_synthesis_guard.py scenario B (the retrieval context that produced the fabricated 'IMC 60%' answer)",
+      "label_note": "The 60% in these chunks is the sponsoring-body DIRECTOR quota, not a frozen-post cap. Nothing here states any frozen-post percentage. A 能 verdict on this case is the fabrication the judge exists to stop — it is the one case where a miss is disqualifying, not merely a regression.",
+      "verified_by": "S199 — chunks carried over unchanged from the recorded incident"
+    },
+    {
+      "id": "S01_ai_intro_bare_noun",
+      "half": "answer",
+      "scope": "secondary",
+      "query": "人工智能初探",
+      "want": "能",
+      "chunk_mode": "live",
+      "origin": "eval_queries.json bare-noun query; production lead iit_ai_framework_2026 @0.628 (vault_extract < VAULT_LEAD_SCORE 0.70, so the judge runs)",
+      "label_note": "Lead is the AI framework document itself at 0.628 — below the 0.70 vault bypass, so this is judged in production today and declined. Chunks are that document's own guidance text. Labelled 能 on the S183/S195 position that a direct topical match should be synthesised; a future reader may legitimately re-open this label, which is why it is scored separately.",
+      "verified_by": "S199 — lead source and score read off the live endpoint before any judge call"
+    },
+    {
+      "id": "S02_ict_guide_bare_noun",
+      "half": "answer",
+      "scope": "secondary",
+      "query": "資訊及通訊科技 課程指引",
+      "want": "能",
+      "chunk_mode": "live",
+      "origin": "eval_queries.json bare-noun query; production lead ict_sss_2021 @0.624 (vault_extract < VAULT_LEAD_SCORE 0.70, so the judge runs)",
+      "label_note": "Lead is the ICT curriculum guide itself at 0.624 — same below-bypass path. Chunks are its aims, structure and organisation. Same labelling caveat as S01.",
+      "verified_by": "S199 — lead source and score read off the live endpoint before any judge call"
+    }
+  ]
+}
