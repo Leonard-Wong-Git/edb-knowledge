@@ -35,6 +35,45 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-07-30 Session 199 — Leonard 叫停 judge、問返 Channel A 退役實況；A(Channel A) 然後 B(judge)，純量度
+
+- **ID:** Claude_20260730_S199
+- **Summary:** 起手探針 4/4 綠後跟 handoff 揀 Open Priority ① 修 judge。做到量度階段 Leonard 叫停、問「Channel A 退役到底去到邊，唔好淨係『我錯了』」→ 我停低重構成 A(Channel A)然後 B(judge)。**純量度 session：零 Supabase 寫入、零 code 改（`RELEVANCE_JUDGE_PROMPT` 同 bypass 常數未郁）、零 route 改。** 本 session 最貴一堂＝judge 量錯 model，由 Leonard 撳 Render dashboard 揪返。
+- **起手探針 4/4 綠:** served `app.html` `PLATFORM_VERSION 3.2.2` + index 200 / Render `/health` `cache_a.warm=true size=455` / HEAD==origin/main `12bf7c3` tree 乾淨 / Supabase `content-range 0-0/16062`。加驗凍結合約：`_meta` 2.3.0 / facts 455 / guidelines 逐 topic 加總 158 / registry 256 —— 全部同 handoff 對得上，零 drift。
+- **A — Channel A 退役重構（Leonard 叫停後）:**
+  1. **precondition「Channel B 覆蓋 Channel A」已量 = 覆蓋唔晒。** 兩軸釐清：455 條事實入面 109 條鏡像入 store（`approved_fact`，url 全空 109/109，9 條已退、100 條仲 serve）、346 條淨經 `channel-a` route。職責歸屬類逐條打開 retrieved passage 核實（唔信 tier）：事實係「〔科主任〕須…／〔EO〕負責…」指名角色揹職責，top passage 全部只泛講程序、唔講邊個具名角色揹 → **結構性資料模型缺口，量度補救唔到**。
+  2. **Leonard 拍板 Option 2（升做有出處 footnote）。** 唯讀可行性 triage：拆咗「總帳 141/141 有 url」陷阱（url 係 retrieval 目標唔係出處，對 83 UNVERIFIED 係 topically-近但錨點對唔到嗰份 = 44% 陷阱重演）。讀樣本：CLEARED 抽 5 ~3 可升（採購門檻 g01、教師申述 g05）、UNVERIFIED 抽 4 ~0-1。**真實大細：升唔到嘅硬核只有 24 條純職責歸屬（`[角色] 負責…`），唔係 ~100+；117 條「提到角色」大部分揾返出處可升。** → `CHANNEL_A_COVERAGE_FINDINGS.md` §5-6。
+- **B — judge / footnote bypass:**
+  3. **建凍結驗收工具 `judge_acceptance.py` + 24 條凍結集**（11 answer + 11 decline + 2 secondary，量度前 commit `a65e723`）。answer 半邊由 curated footnote 自己嗰條問題機械抽（每 16 條、剔走 S196 tune 過 4 個題目），11 條 origin footnote 全部 rank-1（答案逐字喺 chunk）。decline 半邊 11 條全新空白 + S177 `D00_s177_frozen_post`（用返 pre-fix chunks），三條複合陷阱（學生醫生紙 chunks 寫住教職員規則 / 成績表保存 chunks 有 3 年 7 年但無學生記錄年期 / 冷氣換 chunks 有 12 個月係消防裝置）。self-test 22 條含「答everything必衰」故意整壞守衛。
+  4. **量錯 model：首兩份 baseline 用 code default `gpt-4.1-nano`**（`env.ts` fallback，README/DEPLOY 都寫呢個），**Leonard dashboard 確認 Render 實設 `OPENAI_MODEL=gpt-4o-mini`**。同一 shipped prompt：nano 0/11（constant 否）vs gpt-4o-mini 8/11。**「judge 恆等於否」係 fallback model 特性、唔係 shipped prompt 特性；S196 findings（8/16）全部標「未經生產驗證」。** nano run 改名 `_nano_ARTIFACT` + 檔內標記。
+  5. **V3（S196 未 ship 候選）生產 model：21/22、answer 11/11（shipped 8/11）、decline 全保、held-out**（V3 出自 S196 16 條、同呢 24 條零 query 重疊）。
+  6. **footnote bypass live 發現：** 7 條 footnote-lead 空白查詢 `synthesize:true` live 全部答咗、0 decline。逐條 Supabase ilike 核實：**D17「消防演習幾耐」實錘砌數**（「消防演習/演練/逃生演習」庫入面 0 條，「每12個月」由「消防裝置檢查」搬過嚟）；**D13「留位費」其實答啱**（g26/k1_admission 有 970/1570 有 url，我一度標錯做空白已更正）。**footnote lead 跳過 judge → 改 judge prompt 唔 touch 佢哋；但 D13 證明同路載住啱答案唔可以照剷 → 修法係「先修 judge、後收 footnote bypass」，次序企穩、件事耦合。**
+- **Changed（全部新增/唯讀量度，零 live code）:** 新 `dev/source/judge_acceptance.py` + `judge_acceptance_cases.json` + `judge_prompts/v3_s196.txt` + `judge_runs/`（chunks_cache + 4 份 run：nano ARTIFACT ×2、生產 ×2、footnote bypass live）；擴充 `JUDGE_PROMPT_FINDINGS.md`（S199 段：生產 model 數 + bypass 耦合）+ `CHANNEL_A_COVERAGE_FINDINGS.md`（§5-6）；`CODEBASE_CONTEXT.md` Directory Map（`judge_acceptance.*` 條目 + judge baseline 更正）；`DOC_SYNC_CHECKLIST.md` **+1 row**（32→33）「Anti-confab judge prompt 改動」。
+- **Done:** commits `a65e723`(凍結集) → `829aa49`(shipped baseline + plumbing control) → `c96dc6d`(V3 + decline 數更正) → `a80c69b`(model 錯誤修正) → `1aeab49`(A 重構) → `f02c069`(footnote bypass live) → `710d8cc`(Option 2 triage) → 本 closeout commit。
+- **QC:** `judge_acceptance.py --self-test` 22/22 PASS ×N；`--check-parity` PASS（harness prompt 同 `searchChannelB.ts` 逐字相同）；`--plumbing-check` 兩 model 都出「能」（證明 constant-否 係判詞唔係 wiring）。D13/D17 砌數判定用 Supabase ilike count 逐條核實。Supabase 16,062 零寫入 / registry 256 / guidelines 158 / facts 455 / v3.2.2 / 凍結合約機械核實零接觸。eval **未重跑**（零檢索改動）。
+- **我出過、並已更正嘅錯（四次，全部向「對自己有利」嗰邊）:**
+  1. **用錯 judge model** —— 信 code default 而唔係 Render dashboard，出兩份唔代表生產嘅 baseline，Leonard 撳 dashboard 揪返。教訓「對照組證明儀器有反應、證明唔到儀器指住正確系統；凡 Render 側嘅嘢只有 dashboard 答得到」寫入 `judge_acceptance.py` 註釋 + FINDINGS + commit。
+  2. **D13 標錯做空白** —— 「越多砌數個發現越大」個方向對我有利，打開 Supabase 核實先發現 970/1570 有出處、footnote 做緊正經嘢，已剔出 decline 集。
+  3. **一度講「7/7 砌數」overclaim** —— 逐條讀後散為「7/7 答咗但只 1 條實錘砌數、1 條其實啱」。
+  4. **decline 半邊數錯**（commit + findings 一度寫 12，實際 11）—— 直接由檔案數返更正，commit message 寫明無分數受影響。
+- **Evidence disposition:** 當前狀態 + 四項未解 next priority → handoff `Current Baseline` S199 + `Open Priorities`；可重用程序知識（model 要 dashboard 確認 / 對照組局限 / url≠出處 / Option 2 triage / footnote bypass 耦合）→ `JUDGE_PROMPT_FINDINGS.md` + `CHANNEL_A_COVERAGE_FINDINGS.md` §5-6 + `judge_acceptance.py` 註釋（唔會被重生嘅位）；量度細節 + 四個自我更正 → 本 entry；凍結集 + 四份 run → `judge_runs/`（commit，跨 session 可比）。
+- **Sync:** DOC_SYNC 命中 **1 row（新增，32→33）**「Anti-confab judge prompt 改動」—— 按 anti-pattern guard 先補行再填。`update_log.json` **N/A**（零入庫）。凍結合約 / `PLATFORM_VERSION` / Supabase 16,062 / registry 256 **全部零接觸**。**Render 零 deploy**（`RELEVANCE_JUDGE_PROMPT` 未郁，judge 量度係離線）；**Pages 零改動**（無前端）。`START_NEXT_SESSION_PROMPT.txt` 由 handoff fenced block 程式化抽取重生，mirror check PASS。
+- **Pending:** Option 2 真入庫未開始（要 PLAN）；24 條孤兒細決定未做；ship V3 未做（要 PLAN）；footnote bypass 未收；🔴 觀察窗未讀（8/2 + 8/5）、probe 未刪；backend route 未拆；總帳三桶未讀完；`HANDOFF_PACKAGE.md:32` drift 未修。
+- **Risks:** ⚠️ D01/D17 呢類 footnote-lead live 砌數而家仍 serve 緊（修要 §3 HIGH risk，唔喺本 session 純量度範圍）。⚠️ judge/synthesis model 係 `gpt-4o-mini` 唔係 code default，任何量度引用做生產前必 dashboard 確認。⚠️ S198 probe 仍 live，觀察窗未讀。⚠️ 3 條矛盾假期日數仍可經 channel-a route 攞到。
+- **Log maintenance:** `session_log_maintenance.py --check` → **trigger=False**（line_count=316 / entry_count=4，兩個 hard trigger 都未到）→ no-op。語意觸發：**有** —— 「判斷儀器/量度前先確認佢係咪指住生產系統」屬跨 session 累積模式（S195 spotlight probe / S196 借錯測試集 / S197 44% / S198 log-search + warm 偵測兩次 / 本次 model 錯），但呢條係 S198 已寫入 `PROJECT_DECISIONS.md` Insights 嗰條嘅延伸（對照組局限），已喺 `judge_acceptance.py` 註釋 + FINDINGS 機械化，**唔另開 PROJECT_DECISIONS 條目避免重複**。10-closeout backstop：未到。
+
+### Next Session Handoff Prompt (Verbatim)
+
+📋 Next session: agent-managed startup content below
+
+（見 `dev/SESSION_HANDOFF.md` 的 `Next Session Opening Message` fenced block —— 本 session 已重生，並已鏡像至 `START_NEXT_SESSION_PROMPT.txt`，逐字 mirror check PASS。）
+
+<!-- ack:log-entry:end -->
+
+---
+
+<!-- ack:log-entry:start -->
+
 ## 2026-07-30 Session 198 — S197 留低嘅「去睇 Render logs」係一個量唔到嘢嘅指示；換成主動量度
 
 - **ID:** Claude_20260730_1015
