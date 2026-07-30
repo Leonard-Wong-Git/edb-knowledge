@@ -310,6 +310,44 @@ def cmd_score(prompt_path: str | None, out_path: str | None, pace: float, label:
     return 0
 
 
+def cmd_plumbing_check() -> int:
+    """Control for the measurement itself, not for the judge.
+
+    The shipped prompt answered 否 to all 24 cases on first run. A constant 否 is also
+    what a broken harness produces — wrong endpoint, empty completion, verdict parsed
+    from the wrong field — and the failure would have pointed at the conclusion S199 was
+    already expecting, which is precisely when a silent tool must not be trusted (S198).
+
+    So this runs the two scenarios S177 recorded as 能 with the same prompt, model and
+    call path, on chunks small and blunt enough that a working judge cannot decline them.
+    If these come back 能, the plumbing is sound and a 否 elsewhere is the judge's verdict.
+    Chunks are inlined from dev/test_synthesis_guard.py scenarios A and C.
+    """
+    api_key = read_env_value("OPENAI_API_KEY")
+    if not api_key:
+        sys.exit("no OPENAI_API_KEY (env or backend/.env)")
+    controls = [
+        ("A 病假日數", "教師有薪病假有幾多日？", [
+            "資助學校常額教師的有薪病假：首次服務的第一年可享有28天有薪病假，其後每滿一年可享有全年48天有薪病假，有薪病假可累積至168天。",
+            "如教師中斷服務超過一年，會喪失已積存的有薪病假。"]),
+        ("C 採購報價", "學校採購要幾多個書面報價？", [
+            "學校採購貨品或服務，款額超過$5,000但不超過$50,000，須取得不少於兩份書面報價；超過$50,000但不超過$1,400,000，須取得不少於五份書面報價。",
+            "採購須符合公開、公平、具成本效益的原則。"]),
+    ]
+    ok = True
+    for name, query, chunks in controls:
+        prompt = (SHIPPED_PROMPT.replace("{QUERY}", query)
+                  .replace("{CHUNKS}", chunk_block(chunks)))
+        raw = call_judge(prompt, api_key)
+        answered = verdict_is_answer(raw)
+        print(f"  {'ok  ' if answered else 'FAIL'} {name}: expect 能, got {raw[:12]!r}")
+        ok = ok and answered
+    print("plumbing OK — the harness can elicit 能, so a 否 is a verdict, not a wiring fault"
+          if ok else
+          "PLUMBING BROKEN — a 能 could not be elicited at all; no judge conclusion is safe")
+    return 0 if ok else 1
+
+
 def cmd_check_parity() -> int:
     """The shipped prompt is duplicated here; prove the copy still matches the source."""
     ts = (REPO_ROOT / "backend" / "src" / "api" / "searchChannelB.ts").read_text(encoding="utf-8")
@@ -396,6 +434,8 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--self-test", action="store_true", help="offline assertions, no network")
+    ap.add_argument("--plumbing-check", action="store_true",
+                    help="control: prove the harness can elicit 能 at all")
     ap.add_argument("--check-parity", action="store_true",
                     help="verify SHIPPED_PROMPT still matches searchChannelB.ts")
     ap.add_argument("--fetch", action="store_true", help="cache top-5 chunks per case")
@@ -408,6 +448,8 @@ def main() -> int:
 
     if args.self_test:
         return self_test()
+    if args.plumbing_check:
+        return cmd_plumbing_check()
     if args.check_parity:
         return cmd_check_parity()
     if args.fetch:

@@ -1,0 +1,59 @@
+{
+  "label": "shipped (S177 RELEVANCE_JUDGE_PROMPT)",
+  "model": "gpt-4.1-nano",
+  "run_at": "2026-07-30T11:00:36Z",
+  "summary": {
+    "scope": "primary",
+    "n": 22,
+    "correct": 11,
+    "answer_half": {
+      "n": 11,
+      "correct": 0
+    },
+    "decline_half": {
+      "n": 11,
+      "correct": 11
+    },
+    "false_answers": [],
+    "false_declines": [
+      "A00_AUD_e76ch02",
+      "A01_EDBC_9_2019_E",
+      "A02_cap279_education_ordin",
+      "A03_chp_prev_cd_schools_20",
+      "A04_edb_net_package_pdf",
+      "A05_edbc_10_2012_fee_remis",
+      "A06_edbcm215_2025_mental_h",
+      "A07_eoebg_rates_2026",
+      "A09_sag_2025_11",
+      "A10_sch_activities_guide",
+      "A11_wfsfaa_sfaa_household_"
+    ],
+    "missing": []
+  },
+  "verdicts": {
+    "A00_AUD_e76ch02": "否",
+    "A01_EDBC_9_2019_E": "否",
+    "A02_cap279_education_ordin": "否",
+    "A03_chp_prev_cd_schools_20": "否",
+    "A04_edb_net_package_pdf": "否",
+    "A05_edbc_10_2012_fee_remis": "否",
+    "A06_edbcm215_2025_mental_h": "否",
+    "A07_eoebg_rates_2026": "否",
+    "A09_sag_2025_11": "否",
+    "A10_sch_activities_guide": "否",
+    "A11_wfsfaa_sfaa_household_": "否",
+    "D01_student_sickleave": "否",
+    "D02_bus_fare": "否",
+    "D03_aircon_replace": "否",
+    "D04_security_licence": "否",
+    "D05_record_retention": "否",
+    "D06_teacher_starting_pay": "否",
+    "D07_tuckshop_rent": "否",
+    "D08_lesson_observation": "否",
+    "D09_offdomain_weather": "否",
+    "D10_offdomain_airport": "否",
+    "D00_s177_frozen_post": "否",
+    "S01_ai_intro_bare_noun": "否",
+    "S02_ict_guide_bare_noun": "否"
+  }
+}

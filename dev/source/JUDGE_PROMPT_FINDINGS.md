@@ -3,6 +3,64 @@
 Status: **finding recorded, nothing shipped.** `RELEVANCE_JUDGE_PROMPT` in
 `backend/src/api/searchChannelB.ts` is unchanged. Read this before touching it.
 
+## S199 update — the S196 finding holds on an untuned set, and it is worse than 8/16
+
+S196's step 1 ("build an untuned acceptance set") and step 2 ("measure the shipped prompt
+on it first") are done. Tool: `dev/source/judge_acceptance.py`; set:
+`judge_acceptance_cases.json` (24 cases, frozen and committed in `a65e723` **before** any
+verdict was seen); baseline run:
+`dev/source/judge_runs/2026-07-30_s199_shipped_baseline.json`.
+
+**The shipped prompt returned 否 on all 24 cases.** Not "mostly declines" — a constant.
+
+| | cases | shipped verdict |
+|---|---|---|
+| answer half (fact verbatim in the chunks shown) | 11 | 0 answered |
+| decline half (11 fresh gaps + the S177 case) | 12 | 12 declined |
+| secondary: bare-noun topical matches, judged in production today | 2 | 0 answered |
+
+Two consequences that change how the next step has to be read:
+
+1. **The decline half currently proves nothing about the judge.** A function that
+   returns 否 unconditionally scores 12/12 on it. That half only starts carrying
+   information once a candidate answers something — which is exactly what it is for, but
+   nobody should quote "12/12 on declines" as evidence the shipped judge is protecting
+   anything. It is not distinguishable from a constant.
+2. **The 8/16 in the table above was flattering.** On cases nobody tuned against, the
+   shipped prompt does not score half — it scores zero on everything answerable.
+
+The measurement was controlled before it was believed: `--plumbing-check` runs two blunt
+S177-era scenarios through the same prompt, model and call path, and both return 能. A
+uniform 否 is therefore the judge's verdict and not a broken harness — the check exists
+because a wiring fault would have produced the same all-否 output and pointed straight at
+the conclusion S199 already expected (S198's silent-instrument trap).
+
+### What the acceptance set is, and what it is not
+
+- Answer half: every 16th question-led curated footnote (after dropping the four topics
+  S196 tuned against), asked using **the footnote's own question** — authored by whoever
+  curated the fact, not by whoever is tuning the prompt. In all 11 the origin footnote
+  returns at rank 1, so the answer is verbatim in what the judge sees.
+- Decline half: 11 fresh gap / neighbouring-question cases absent from `judge_probe.py`
+  and `footnote_lead_probe.py`, plus `D00_s177_frozen_post`, which keeps the **original
+  pre-fix chunks** of the S177 incident (live retrieval would now answer it legitimately,
+  since the TRG 10% footnote was ingested as the fix). Three are composite traps —
+  a student medical-certificate question whose chunks state the staff rule verbatim, a
+  record-retention question carrying "3 years" for purchase records and "7 years" for KG
+  accounts but no period for student records, and an air-conditioner replacement question
+  carrying a 12-month interval that belongs to fire equipment.
+- **Not** an unbiased sample of user traffic, and not externally sourced. Its honesty
+  rests on being frozen before measurement and on every label being read off a passage.
+- Two bare-noun cases are scored apart because calling them answerable is the project's
+  S183/S195 position, not a passage reading.
+
+### The bar for shipping a candidate
+
+Unchanged in substance, now with a number attached: beat 0/11 on the answer half **while
+keeping 12/12 on the decline half**. One false answer is a stop, and a false answer on
+`D00_s177_frozen_post` is disqualifying regardless of the rest. Re-run
+`footnote_lead_probe.py` after deploying.
+
 ## The finding
 
 The shipped judge declines essentially everything.
