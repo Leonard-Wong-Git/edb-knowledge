@@ -1,5 +1,5 @@
 {
-  "label": "shipped (S177 RELEVANCE_JUDGE_PROMPT)",
+  "label": "shipped (S177 RELEVANCE_JUDGE_PROMPT) — ARTIFACT: measured on gpt-4.1-nano, which production does NOT run (Render sets OPENAI_MODEL=gpt-4o-mini). Kept for model-sensitivity comparison only; do not quote as a baseline.",
   "model": "gpt-4.1-nano",
   "run_at": "2026-07-30T11:00:36Z",
   "summary": {

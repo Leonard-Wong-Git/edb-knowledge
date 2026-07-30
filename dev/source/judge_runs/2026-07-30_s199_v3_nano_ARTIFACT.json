@@ -1,5 +1,5 @@
 {
-  "label": "V3 (S196 candidate, unshipped)",
+  "label": "V3 (S196 candidate, unshipped) — ARTIFACT: measured on gpt-4.1-nano, which production does NOT run (Render sets OPENAI_MODEL=gpt-4o-mini). Kept for model-sensitivity comparison only; do not quote as a baseline.",
   "model": "gpt-4.1-nano",
   "run_at": "2026-07-30T11:59:31Z",
   "summary": {

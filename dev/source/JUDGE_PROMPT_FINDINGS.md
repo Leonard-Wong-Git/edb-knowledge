@@ -3,37 +3,58 @@
 Status: **finding recorded, nothing shipped.** `RELEVANCE_JUDGE_PROMPT` in
 `backend/src/api/searchChannelB.ts` is unchanged. Read this before touching it.
 
-## S199 update — the S196 finding holds on an untuned set, and it is worse than 8/16
+## ⚠️ S199 — READ THIS FIRST: the model below matters more than any prompt in this file
 
-S196's step 1 ("build an untuned acceptance set") and step 2 ("measure the shipped prompt
-on it first") are done. Tool: `dev/source/judge_acceptance.py`; set:
-`judge_acceptance_cases.json` (24 cases, frozen and committed in `a65e723` **before** any
-verdict was seen); baseline run:
-`dev/source/judge_runs/2026-07-30_s199_shipped_baseline.json`.
+**Production does not run the model this file's earlier findings were measured on.**
+`env.ts` falls back to `gpt-4.1-nano`, and `backend/README.md` and `DEPLOY_CHANNEL_B.md`
+both show that value — but the Render service sets **`OPENAI_MODEL=gpt-4o-mini`**
+(confirmed by Leonard in the dashboard Environment tab, 2026-07-30). Nothing outside
+Render can read it: `/health` does not report the model and the OpenAI API will not say
+which model a key is used with. It has to be re-confirmed in the dashboard before any
+judge measurement is quoted as production behaviour.
 
-**The shipped prompt returned 否 on all 24 cases.** Not "mostly declines" — a constant.
+S199 first measured on the code default and got a completely different judge. The two
+runs are kept, relabelled `_nano_ARTIFACT`, because the contrast is itself the finding:
 
-| | cases | shipped verdict |
-|---|---|---|
-| answer half (fact verbatim in the chunks shown) | 11 | 0 answered |
-| decline half (10 fresh gaps + the S177 case) | 11 | 11 declined |
-| secondary: bare-noun topical matches, judged in production today | 2 | 0 answered |
+| prompt | model | primary | answer half | decline half | false answers |
+|---|---|---|---|---|---|
+| shipped | gpt-4.1-nano (**not production**) | 11/22 | 0/11 | 11/11 | 0 |
+| shipped | **gpt-4o-mini (production)** | 18/22 | **8/11** | 10/11 | **1** |
+| V3 | gpt-4.1-nano (**not production**) | 18/22 | 7/11 | 11/11 | 0 |
+| V3 | **gpt-4o-mini (production)** | **21/22** | **11/11** | 10/11 | **1** |
 
-Two consequences that change how the next step has to be read:
+On the code default the judge is close to a constant 否 — 0/11 on cases whose answer is
+verbatim in the chunks. **On the model production actually runs, the same prompt answers
+8 of 11.** The prompt was never the whole story; the model was carrying most of it.
 
-1. **The decline half currently proves nothing about the judge.** A function that
-   returns 否 unconditionally scores 11/11 on it. That half only starts carrying
-   information once a candidate answers something — which is exactly what it is for, but
-   nobody should quote "11/11 on declines" as evidence the shipped judge is protecting
-   anything. It is not distinguishable from a constant.
-2. **The 8/16 in the table above was flattering.** On cases nobody tuned against, the
-   shipped prompt does not score half — it scores zero on everything answerable.
+### What this does to the rest of this document
 
-The measurement was controlled before it was believed: `--plumbing-check` runs two blunt
-S177-era scenarios through the same prompt, model and call path, and both return 能. A
-uniform 否 is therefore the judge's verdict and not a broken harness — the check exists
-because a wiring fault would have produced the same all-否 output and pointed straight at
-the conclusion S199 already expected (S198's silent-instrument trap).
+The S196 finding below ("the shipped judge declines essentially everything", 8/16, all
+eight answerable cases declined) is **unverified against production**. Its harness was
+never committed, so which model it used cannot be recovered — but its result reproduces
+the nano behaviour closely and does not resemble the production-model behaviour at all.
+Treat 8/16, the 「寧緊莫鬆」 diagnosis and "V3 recovers 3" as measured against a model the
+service does not run, until someone re-measures. **Do not delete them** — they are the
+evidence trail for a real defect, just possibly not the defect that ships.
+
+The consequence for planning is larger than the numbers. The recorded order of work —
+「先修 judge，後收 bypass」 — rests on S196 having put two answerable controls to "the real
+judge" and seeing both declined. If that was the code default, the premise no longer
+holds, and narrowing the footnote bypass may now be affordable. That has to be
+re-measured, not assumed in either direction.
+
+### The measurement was controlled before it was believed
+
+`--plumbing-check` runs two blunt S177-era scenarios through the same prompt, model and
+call path, and both return 能 on either model. So the all-否 nano result was a genuine
+verdict rather than broken wiring. The check caught nothing — and it still earned its
+place, because the wiring fault it rules out would have produced exactly the output S199
+was expecting to see (S198's silent-instrument trap). It did not, however, protect
+against the failure that actually happened: **the harness was wired correctly to the
+wrong model.** A control proves the instrument responds; it says nothing about whether
+the instrument is pointed at the system under test. That question — "is this the thing
+production runs?" — has to be asked separately, and for anything Render-side it can only
+be answered in the dashboard.
 
 ### What the acceptance set is, and what it is not
 
@@ -61,44 +82,54 @@ keeping 11/11 on the decline half**. One false answer is a stop, and a false ans
 `D00_s177_frozen_post` is disqualifying regardless of the rest. Re-run
 `footnote_lead_probe.py` after deploying.
 
-## S199 — V3 measured on the same frozen set (still not shipped)
+## S199 — what the frozen set found on the production model
 
-Run: `dev/source/judge_runs/2026-07-30_s199_v3.json`; prompt file
-`dev/source/judge_prompts/v3_s196.txt`, asserted verbatim against the block below.
+Runs: `2026-07-30_s199_shipped_4omini.json` / `2026-07-30_s199_v3_4omini.json`. Prompt
+file `dev/source/judge_prompts/v3_s196.txt`, asserted verbatim against the V3 block below.
 
-| prompt | primary | answer half | decline half | false answers |
-|---|---|---|---|---|
-| shipped | 11/22 | **0/11** | 11/11 | 0 |
-| V3 | **18/22** | **7/11** | **11/11** | **0** |
+**V3 is better than shipped on the production model too**: 11/11 on the answer half
+against shipped's 8/11, recovering `A02` (permit cancellation), `A05` (DSS fee-remission
+criteria) and `A06` (three-tier mechanism), with no decline lost. V3 was never tuned
+against this set — it came from S196's sixteen cases, which share no query with these
+twenty-four — so that is a held-out result.
 
-The number that matters is not 18/22. It is that **V3 was never tuned against this set** —
-it came from S196's 16 cases, which share no query with these 24 — so 7/11 recovered with
-every decline intact is a held-out result, not a fitted one. V3's tuned 11/16 was the
-number expected not to hold; on unseen cases it holds.
+**But both prompts fail the same case, and that case is live.**
 
-Every decline survived, including the three composite traps and `D00_s177_frozen_post`
-(the 60% quota sitting in the chunks was not composed into a frozen-post answer).
+### The one thing this session found that is shipping wrong today
 
-Four answer-half cases V3 still declines. Recorded as observation only — **do not iterate
-V3 against them**, that is precisely how the 16-case set became untrustworthy:
+`D01_student_sickleave` — 「學生請病假要唔要交醫生紙」. The retrieved chunks state, verbatim,
+the rule for **staff**: 資助學校教師同非教學人員…申請病假超逾兩天必須出示有效的醫生證明書.
+Nothing in them is about students. Both the shipped prompt and V3 answer 能, and the live
+endpoint returns a confident synthesis telling the user that a student needs a medical
+certificate after two days, explicitly reasoning across from the staff rule.
 
-- `A00` NCS kindergarten grant tiers and `A01` NCS-SEN grant tiers — in both, the question
-  is Chinese and the answer body in the chunk is English.
-- `A06` the three-tier suicide-risk mechanism — asks how a school identifies and supports,
-  i.e. a process rather than a figure.
-- `A07` the $300,000 per-school floor — asks 有冇下限 (a yes/no about existence), and the
-  chunk answers it in the form 設有上限，但每校不少於$300,000.
+Verified against the live endpoint on 2026-07-30, quoting the answer it returned:
+「當學生請病假超過兩天時，必須出示有效的醫生證明書」, followed by
+「月薪教職員在病假方面若申請超過兩天則必須提交醫生證明」. It transplants the staff rule onto
+students and states it as policy. This is the S177 class — a rule that exists, applied to
+a subject it does not cover — and it is what a user gets right now.
 
-Two of the four (`A00`, `A01`) point at a cross-language weakness rather than a tonal one,
-which no amount of rewording the Chinese rules will reach.
+**Fixing the judge prompt does not fix it.** The lead on that query is a
+`footnote_curated` chunk at 0.574, so the footnote bypass applies and the judge is never
+called. The defect lives in the bypass path that S196 wanted to narrow and deferred.
 
-### What is still missing before this can ship
+That deferral was justified by measuring the two affected controls against "the real
+judge" and seeing both declined — a measurement whose model cannot now be verified. On
+`gpt-4o-mini` the judge answers 8/11 of the answerable half unaided, and 11/11 under V3.
+**The stated reason for not narrowing the bypass may no longer hold.** Re-measure before
+acting on it in either direction.
 
-The decline half is 11 cases. Zero false answers on 11 cases is not evidence of safety at
-production scale, and this is the anti-confabulation spine: the failure it guards against
-(S177) was a single fabricated number that looked authoritative. The measurement says V3
-is better; it does not say V3 is safe. A ship decision needs a §3 PLAN, Leonard's call on
-the risk, and a live re-check of `footnote_lead_probe.py` afterwards.
+### Still open
+
+- Bare-noun cases `S01`/`S02` (人工智能初探, ICT 課程指引) decline under both prompts on the
+  production model. That is the S194/S195 complaint, still unresolved, and it is a
+  separate axis from the confabulation one.
+- The decline half is 11 cases and one of them is already a miss. One false answer out of
+  eleven is not a safety estimate; it is a warning. The set needs widening before any
+  prompt change is argued from it — 14 further gap candidates were retrieved in S199 and
+  are awaiting per-passage labelling.
+- Shipping V3 still needs a §3 PLAN, Leonard's decision on the risk, and a live re-run of
+  `footnote_lead_probe.py` afterwards. Note that V3 changes nothing about `D01`.
 
 ## The finding
 

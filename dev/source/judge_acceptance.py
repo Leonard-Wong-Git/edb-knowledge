@@ -71,10 +71,20 @@ CACHE_PATH = RUNS_DIR / "chunks_cache.json"
 ENDPOINT = "https://edb-knowledge.onrender.com/api/search/channel-b"
 
 # Mirror of production: `createLlmClient()` uses the Responses API with the model from
-# `getOpenAIModel()`, whose default is gpt-4.1-nano, and sets no temperature. If Render
-# ever sets OPENAI_MODEL, this constant must follow it or the measurement stops
-# describing production.
-JUDGE_MODEL = "gpt-4.1-nano"
+# `getOpenAIModel()` and sets no temperature.
+#
+# The model is NOT the code default. `env.ts` falls back to gpt-4.1-nano and both
+# backend/README.md and DEPLOY_CHANNEL_B.md show that value, but the Render service sets
+# `OPENAI_MODEL=gpt-4o-mini`, verified by Leonard in the dashboard Environment tab on
+# 2026-07-30 (S199). The first S199 baseline was measured on the code default and
+# therefore did not describe production at all — the runs are kept, relabelled, as a
+# model-sensitivity artifact rather than as a baseline.
+#
+# Nothing outside Render can read this value: /health does not report the model and the
+# OpenAI API will not say which model a key is being used with. So it cannot be probed —
+# it has to be re-confirmed in the dashboard whenever a measurement is going to be quoted
+# as production behaviour. Override here via JUDGE_MODEL env var when testing another.
+JUDGE_MODEL = os.environ.get("JUDGE_MODEL", "gpt-4o-mini")
 
 # Verbatim copy of RELEVANCE_JUDGE_PROMPT (searchChannelB.ts). Kept as a literal rather
 # than parsed out of the TypeScript so that a drift between the two is a visible diff in
