@@ -5,6 +5,16 @@ Status: **V3 SHIPPED (S200, 2026-07-30).** `RELEVANCE_JUDGE_PROMPT` in
 `dev/source/judge_prompts/v3_s196.txt`; `judge_acceptance.py` `SHIPPED_PROMPT` updated in
 lockstep, `--check-parity` green). Read the S200 ship record below before touching it again.
 
+**S201 UPDATE (2026-07-31): the footnote judge-bypass was REMOVED (commit `fc287ff`,
+deployed, live-verified).** Footnote-lead queries now face V3 instead of skipping it, so the
+S200-era statement below that "`D01` is not judge-served in production" is **no longer true** —
+`D01` now reaches V3, which still answers it (a transplant the V3 PROMPT misses), so `D01`
+live behaviour is unchanged for now and waits on a hardened judge (V4). What DID change: gap
+queries the judge declines (e.g. `D17`「消防演習」, previously a live fabrication「每12個月」)
+now decline instead of fabricate. The acceptance set was also widened to 35 (decline half
+11→21); V3 on it scores answer 12/12, decline 19/21 (misses `D01`, `GN10` — both transplants).
+See SESSION_LOG S201 and the widened-set note in `judge_acceptance_cases.json` `_meta.widened_s201`.
+
 ## S200 — SHIPPED with a documented gate override (Leonard, Option 2)
 
 V3 replaced the shipped prompt. Acceptance evidence is `2026-07-30_s199_v3_4omini.json`
