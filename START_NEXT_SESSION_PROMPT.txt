@@ -40,8 +40,8 @@ RELEVANCE_JUDGE_PROMPT 由「寧緊莫鬆」換成 V3 (判斷=對文本做測試
 4. 更正: 交接 S199「decline 全保」講多咗, artifact 實 10/11 (D01 漏)。
 5. QC 全綠: --self-test 0 fail / --check-parity byte-identical / --plumbing-check 叫得出「能」/
    tsc exit 0 / post-ship footnote_lead_probe positive 30/30 零損失、negative 5/13、errors 0。
-🔴 deploy 傳播外部驗唔到 (V3 差異 case 全 bypass judge、答案唔 flip);Render auto-deploy on push
-   已確立 (S117) → bcf7c4f deploy 已自動觸發, 但要 Render → Events 一眼確認 (NEXT ①)。
+✅ deploy 已確認 live (Leonard 貼 Render Events, 綠剔 bcf7c4f, 15:50 UTC) → V3 正式喺生產跑緊。
+   (當時外部驗唔到係因為 V3 差異 case 全 bypass judge、答案唔 flip; auto-deploy on push 已確立 S117。)
 🔴 D01「學生請病假要唔要交醫生紙」live 仍錯 serve (ship V3 唔 touch, judge 唔行呢條) → NEXT ②。
 (S199 背景: Channel A 退役重構成資料模型缺口 + Leonard 拍板 Option 2; judge 量錯 model 又更正;
  見 CHANNEL_A_COVERAGE_FINDINGS.md §5-6 + JUDGE_PROMPT_FINDINGS.md 頂 S200/S199 段。)
@@ -77,12 +77,12 @@ RELEVANCE_JUDGE_PROMPT 由「寧緊莫鬆」換成 V3 (判斷=對文本做測試
   注意: coverage_runs/ + judge_runs/chunks_cache.json 用得; embed/chunk cache 已喺 disk。
 
 🔜 NEXT (優先序; §3 項目全部要 PLAN + Leonard go):
-  ① 【只有 Leonard, 最快】Render → Events 確認 bcf7c4f (S200 ship V3) deploy live;
-     順帶確認 OPENAI_MODEL=gpt-4o-mini。auto-deploy on push 已確立 (S117), 正常已自動。
-  ② 【收 footnote bypass; judge V3 已 ship 但仲有兩個硬前置, 唔可 rush】修 D01/D17 live 錯 serve。
-     前置 (a) ① deploy 確認 live; (b) JUDGE_PROMPT_FINDINGS「Still open」: decline 集要先擴闊
+  ① ✅【已完成】bcf7c4f (S200 ship V3) deploy live 已確認 (Leonard 貼 Render Events 綠剔);
+     OPENAI_MODEL=gpt-4o-mini S199 同日已確認。→ V3 正式喺生產跑緊。
+  ② 【收 footnote bypass; judge V3 已 ship + deploy 已確認, 前置 (a) 已解; 仲剩 (b), 唔可 rush】
+     修 D01/D17 live 錯 serve。前置 (b): JUDGE_PROMPT_FINDINGS「Still open」—— decline 集要先擴闊
      (S199 撈咗 14 條 gap candidate 未 per-passage label) 先可 argue gate 改動, 跳過=違反紀律。
-     兩前置齊先入 §3 PLAN。D13 證明同路載住啱答案, 唔可照剷 → 令呢啲 case 去見修好嘅 judge。
+     (b) 齊先入 §3 PLAN。D13 證明同路載住啱答案, 唔可照剷 → 令呢啲 case 去見修好嘅 judge。
   ③ Channel A Option 2 入庫 (方向已定, 執行未開始; §3 HIGH risk + 跨 session)。117 條「提到角色」
      → footnote_curated + URL 入庫 (優先 CLEARED/HAND_VERIFIED)。每條打開文件核實 (44% 陷阱);
      揾唔到出處嘅唔准砌。工具: channel_a_coverage.py + RETIREMENT_LEDGER.tsv + FINDINGS §6。
@@ -104,8 +104,7 @@ RELEVANCE_JUDGE_PROMPT 由「寧緊莫鬆」換成 V3 (判斷=對文本做測試
 Post-startup first action: 跑起手探針 (served app.html v3.2.2 + Render /health warm 455 +
 Draft HEAD==origin/main〔落後就 ff-pull〕+ Supabase count=exact 16,062), 然後向 Leonard
 報告當前狀態同建議下一步。
-⏰ 若 NEXT ① 未做 (Leonard 未確認 bcf7c4f deploy): 起手探針之後提醒佢去 Render → Events
-   一眼確認 S200 ship V3 已 live (auto-deploy on push 正常已自動), 順帶確認 OPENAI_MODEL。
+ℹ️ S200 ship V3 deploy 已確認 live (bcf7c4f, Render Events 綠剔) —— NEXT ① 已解, 由 ② 起。
 ⏰ 如果今日已經係 2026-08-02 或之後: 起手探針之後即刻提醒 Leonard 開 Render Logs
    search route-probe 讀觀察窗 (扣起 ua=s198-* 嗰 24 行)。如果過咗 2026-08-06, Hobby
    7 日保留期滿, 最早幾日永久冇咗 — 照讀剩返, 但結論寫明窗殘缺。讀完就刪走 probe。
