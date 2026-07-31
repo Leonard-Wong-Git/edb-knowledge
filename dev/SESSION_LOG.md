@@ -52,7 +52,9 @@ dev/DOC_SYNC_REGISTRY.md
 
 ### Next Session Handoff Prompt (Verbatim)
 
-（本 session 為 checkpoint,非 full closeout（Leonard 未講收工）—— handoff Open Priority ② 已標 DONE + 加 V4 harden 新項 + Current Baseline 加 S201 行;`START_NEXT_SESSION_PROMPT.txt` 未重生。下個 session 照讀 handoff fenced block；收工時再整份重生 opening message。）
+📋 Next session: agent-managed startup content below
+
+（見 `dev/SESSION_HANDOFF.md` 的 `Next Session Opening Message` fenced block —— S201 收工已整份重生為 S201 版〔NEXT ① route-probe 觀察窗 8/2 時間閘、② 硬化 judge V4 收 transplant〕，並已鏡像至 `START_NEXT_SESSION_PROMPT.txt`，逐字 mirror check PASS〔111 行 byte-identical〕。）
 
 <!-- ack:log-entry:end -->
 
