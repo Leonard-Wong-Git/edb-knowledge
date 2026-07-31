@@ -749,8 +749,7 @@ async function judgeCanAnswer(query: string, chunkText: string, llmFn: LlmFn): P
 async function synthesizeAnswer(
   query: string,
   results: ChannelBResult[],
-  llmFn: LlmFn,
-  forcedFootnoteLeads: number
+  llmFn: LlmFn
 ): Promise<string> {
   const top5 = results.slice(0, 5);
   if (top5.length === 0) return "找不到相關政策。";
@@ -760,15 +759,13 @@ async function synthesizeAnswer(
     .join("\n\n");
 
   // S177 — anti-confabulation gate: decline rather than fabricate when chunks don't answer.
-  // S178 — EXCEPTION: footnote_curated lead scoring ≥ FOOTNOTE_LEAD_SCORE bypasses judge
-  // (hand-curated verbatim-verified direct answer by construction, not confab risk).
-  // S183 — EXTENDED: vault_extract lead scoring ≥ VAULT_LEAD_SCORE (0.70) also bypasses
-  // judge.
-  // S195 — MEASURED, DO NOT LOWER. Sources ingested after S183 score 0.62-0.63 on their own
-  // subject and are therefore declined, which looks like the threshold is simply too high.
-  // It is not. `dev/source/judge_probe.py` ran 20 adversarial queries (6 off-domain plus 14
-  // "plausible-gap": real school-admin phrasing whose specific answer is NOT in the corpus)
-  // against 4 positive controls. The two distributions OVERLAP:
+  // S183 — EXCEPTION: a vault_extract lead scoring ≥ VAULT_LEAD_SCORE (0.70) bypasses the
+  // judge (empirically a direct topical match; below 0.70 still goes through the judge).
+  // S195 — MEASURED, DO NOT LOWER the vault bar. Sources ingested after S183 score 0.62-0.63
+  // on their own subject and are therefore declined, which looks like the threshold is simply
+  // too high. It is not. `dev/source/judge_probe.py` ran 20 adversarial queries (6 off-domain
+  // plus 14 "plausible-gap": real school-admin phrasing whose specific answer is NOT in the
+  // corpus) against 4 positive controls. The two distributions OVERLAP:
   //     adversarial max 0.632 (「幼稚園每班最多可以收幾多個學生」→ kg_admin_guide_2026)
   //     control     min 0.624 (「跟車保母有咩要求」→ sch_bus_escorts_2026)
   // i.e. the best adversarial query outscores the worst true hit. A 0.60 bar would admit
@@ -777,25 +774,25 @@ async function synthesizeAnswer(
   // number does not exist, which is exactly the S177 凍結教席→IMC-60% failure. Cosine cannot
   // separate "found the right document" from "found a document in the right register", so no
   // choice of number is safe. Raising recall here needs a better JUDGE, not a lower bar.
-  // Re-run: python3 dev/source/judge_probe.py (evidence: dev/source/eval_runs/2026-07-27_s195_judge_probe.txt) Confabulation the judge guards against (S177 凍結教席→IMC-60% class) occurs
-  // at lower cosine 0.50-0.65 (topically-near-but-wrong); ≥0.70 is empirically direct
-  // topical match. Verified live: 「智啟學教是什麼」EDBCM 221 chunk rank-0 score 0.750
-  // and 「價值觀教育」VE_CF 2021 chunk rank-0 score 0.794 were over-declined by judge
-  // despite being perfect topical matches. Below-0.70 vault chunks still go through
-  // the judge unchanged (full confab protection retained for marginal cosine cases).
-  // S196 — the footnote bypass is granted to a footnote the lexical gate ADMITTED, not to
-  // any footnote that happens to sit at position 0. Before this, the two were the same
-  // thing (every footnote ≥0.45 became a lead), so the only behavioural change is that a
-  // gate-rejected footnote now faces the judge like anything else. This is the half of the
-  // S196 defect that made it dangerous rather than merely untidy: on 「校巴營辦商責任」 an
-  // off-topic footnote about tuck-shop trading profit took position 0, skipped the judge,
-  // and the answer asserted that school-bus operating profit must be returned to students.
+  //
+  // S201 — REMOVED the footnote_curated judge-bypass (was S178, extended by the S196 lexical
+  // gate). Its premise — "a hand-curated footnote lead is a verbatim-verified answer, so no
+  // confab risk" — is false: a footnote can be verbatim-correct yet retrieved for the wrong
+  // question. `D01_student_sickleave` (「學生請病假要唔要交醫生紙」) leads on a footnote that
+  // states the STAFF sick-leave rule; the bypass skipped the judge and the synthesizer
+  // transplanted it onto students. The lexical gate admits register-match, not answer-match —
+  // the same limit as cosine. Measured before removing (dev/source/judge_acceptance.py, V3 on
+  // gpt-4o-mini, dev/source/judge_runs/2026-07-31_s201_v3_widened.json): the judge answers
+  // 12/12 of the answer half (every curated-footnote control + procurement, so no legitimate
+  // footnote answer is lost) and declines 19/21 gaps — a net win over auto-answering. The two
+  // residual misses (D01, GN10) are subject/scope transplants the judge PROMPT still gets
+  // wrong; they are unchanged by this change (no regression) and wait on a hardened judge.
+  // The footnote forced lead slot (S174/S196 ranking) is unchanged — footnotes still reach
+  // the synthesis window; they simply no longer skip the judge once there.
   const lead = top5[0];
-  const trustedFootnoteLead =
-    forcedFootnoteLeads > 0 && lead.content_type === "footnote_curated";
   const trustedVaultLead =
     lead.content_type === "vault_extract" && lead.score >= VAULT_LEAD_SCORE;
-  if (!trustedFootnoteLead && !trustedVaultLead) {
+  if (!trustedVaultLead) {
     const canAnswer = await judgeCanAnswer(query, chunkText, llmFn);
     if (!canAnswer) return SYNTHESIS_DECLINE;
   }
@@ -1140,9 +1137,6 @@ export async function searchChannelB(
   // Slots reserved at the front of `results` by an overlay lead, so a later overlay
   // inserts behind them instead of displacing them.
   let forcedLeads = 0;
-  // S196 — leads contributed by the footnote overlay only. `forcedLeads` also counts
-  // spotlight leads, which must not confer the footnote judge bypass.
-  let forcedFootnoteLeads = 0;
 
   // S174 — route-independent footnote pass (see FOOTNOTE_MIN_SCORE above). Exact cosine
   // over the curated footnote overlay (bypasses routing AND ivfflat recall). Uses the RAW
@@ -1189,7 +1183,6 @@ export async function searchChannelB(
       rest.sort((a, b) => b.score - a.score);
       results = [...lead, ...rest];
       forcedLeads = lead.length;
-      forcedFootnoteLeads = lead.length;
     }
   } catch {
     // a footnote-pass failure must never break the main search
@@ -1251,7 +1244,7 @@ export async function searchChannelB(
   // LLM synthesis
   let synthesis: string | undefined;
   if (doSynthesize && llmFn && results.length > 0) {
-    synthesis = await synthesizeAnswer(query, results, llmFn, forcedFootnoteLeads);
+    synthesis = await synthesizeAnswer(query, results, llmFn);
   }
 
   return {
