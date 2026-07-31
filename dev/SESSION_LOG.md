@@ -35,6 +35,27 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-07-31 Session 201 — ②(b) groundwork：擴闊 judge decline 半邊（11→21），frozen-before-scoring
+
+- **ID:** Claude_20260731_S201
+- **Summary:** 起手探針 4/4 綠後,Leonard 揀 Open Priority ②(b)。目標:decline 半邊得 11 條、已有 1 條 live miss(D01),1/11 太薄唔夠 argue gate 改動。**發現 handoff/findings 講嘅「S199 撈咗 14 條 gap candidate」從未持久化**(chunks_cache 只有 24 條、git 全歷史 + coverage_runs + scratch 都搵唔到)→ 實際係重新 author 14 條。逐條打開 live top-5 passage 親眼讀先落 label(唔靠 query 感覺)。**零 live code / bypass 常數 / prompt / Supabase 改動**;只讀 `/api/search/channel-b`(synthesize:false)。
+- **Changed:** `judge_acceptance_cases.json`（+11 case：10 decline GN02/03/04/05/07/08/09/10/13/14 + 1 answer GN11；`_meta.widened_s201` 記 provenance）；`JUDGE_PROMPT_FINDINGS.md`（Still open bullet：retire「14 awaiting labelling」→ 記 S201 實況）；`judge_runs/chunks_cache.json`（`--fetch` 快取新 11 條，共 35）。
+- **Done:** 14 條 candidate 逐條 label：**11 gap(否)+ 3 answerable(能)**。3 條逆 pre-read 假設 flip(GN06 gap→能、GN10 能→gap、GN12 gap→能)= passage 話事唔係 prior 話事。入集：10 clean gap → decline 半邊 **11→21**（D01 miss 由 1/11 變 1/21）+ GN11(採購>$200k公開招標,逐字答到,同 D13 shape)→ answer 半邊 **11→12**。drop：GN01(borderline,chunk0 6個月批准太近)。留做 findings 唔入集：GN06(儲物櫃/影印卡按金答到)、GN12(閉路電視可裝+守PCPD指引,borderline)。**D01 保留做 decline** —— Leonard domain 更正確認 ground truth=否(學生病假醫生紙=校本要求、無 EDB 出處),live 答「能」正是 NEXT ② 要修嘅 S177-class defect。
+- **QC:** JSON valid;`--self-test` **0 fail**（22 assertions,含「case ids unique」「every case has verified label note」）;`--check-parity` **byte-identical**(prompt 零接觸);`--fetch` 35/35 cached;counts=primary answer 12 / primary decline 21 / secondary 2 / total 35。**未 --score**(方法論:freeze 喺 scoring 之前;scoring 屬 NEXT ② §3 change,要先 dashboard reconfirm OPENAI_MODEL)。Supabase 16,062 零寫入 / 凍結合約 / v3.2.2 / registry 256 全零接觸。
+- **Evidence disposition:** 擴闊後嘅集 + 逐條 label 出處 → `judge_acceptance_cases.json`（frozen,commit）;可重用觀察(S199「14 candidate」從未持久化;label 要 passage-driven;3 條 flip)→ 本 entry + FINDINGS Still open;working scratch(candidate/chunks/labelled json)留 scratchpad 未 commit。
+- **Sync:** DOC_SYNC row 41(anti-confab judge)之 artifact 命中 —— 但觸發係「擴闊驗收集」非 prompt 改動(prompt parity 已證);唔另開 row(§8b 一次性擴闊)。`update_log.json` N/A(零入庫)。Render 零 deploy / Pages 零改。
+- **Pending:** NEXT ② 本體(改 footnote bypass gate,§3 HIGH risk,要 PLAN + Leonard go + dashboard reconfirm model + 用擴闊後嘅集 --score before→after)。其餘 handoff Open Priorities(③ Channel A Option 2 入庫、⑤ 8/2+8/5 route-probe 觀察窗、⑦ 拆 backend route…)不變。
+- **Risks:** ⚠️ 擴闊後嘅集**未 scored**,唔好當「judge 喺呢 21 條 decline 得幾多分」有數 —— 嗰個係 NEXT ② 先量。⚠️ D01/D17 呢類 footnote-lead live 砌數仍 serve 緊(未修)。⚠️ S198 probe 仍 live,觀察窗 8/2 未到。
+- **Log maintenance:** entry_count=6(<11)/ line_count≈377(<1500)→ **trigger=False, no-op**。語意觸發:無新增(label-must-be-passage-driven 已喺 communication rules + FINDINGS 機械化)。10-closeout backstop 未到。
+
+### Next Session Handoff Prompt (Verbatim)
+
+（本 session 為 lightweight checkpoint,非 full closeout —— `dev/SESSION_HANDOFF.md` 的 authoritative `Next Session Opening Message` 未整份重生;僅更新 Open Priority ② 狀態。下個 session 照讀 handoff fenced block。）
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-07-30 Session 200 — ship judge V3（Open Priority ③；Leonard 揀 Option 2，明文閘 override）
 
 - **ID:** Claude_20260730_1548

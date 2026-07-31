@@ -4,7 +4,8 @@
     "sampling_rule": "Answer half: all 206 footnote_curated chunks -> keep question-led ones (is_question_led) -> drop the four topics S196 tuned against (每班/醫生證明/醫生紙/招標/報價/投訴) -> sort by (source_id,id) -> every 16th. One further case (kg_operation_manual, 一班最多收幾多個學生) was dropped on reading because it restates the tuned 幼稚園每班30人 control that the keyword filter, which only sees the question, let through.",
     "decline_rule": "Authored S199 as fresh gap / neighbouring-question cases, none of them present in judge_probe.py or footnote_lead_probe.py, plus the mandatory S177 case with its original chunks and two off-domain floors. Every label set by reading all five retrieved chunks.",
     "scoring": "scope=primary is the headline number. scope=secondary (bare-noun topical matches) is reported apart because its label is a project position rather than a passage reading.",
-    "rule": "Do not add, drop or re-label a case because a prompt scored badly on it. The only legitimate re-label is 'I opened the passage and the original label was wrong', recorded in label_note."
+    "rule": "Do not add, drop or re-label a case because a prompt scored badly on it. The only legitimate re-label is 'I opened the passage and the original label was wrong', recorded in label_note.",
+    "widened_s201": "S201 (2026-07-31, ②b) widened the decline half from 11 (with one known live miss, D01) — too thin to argue a gate change from — to 21. Added 10 decline cases (GN02/03/04/05/07/08/09/10/13/14: gap / neighbouring-question / off-domain / number-transplant / subject-transplant) + 1 answer case (GN11 procurement >$200k public tender, answer present verbatim, same shape as D13). Each label read off all five fetched passages BEFORE any judge verdict. 3 of 14 candidates flipped against the pre-read hypothesis (GN06 gap->answerable, GN10 answerable->gap, GN12 gap->answerable), i.e. passage-driven not prior-driven. Not added: GN01 (borderline — chunk0 6-month board-approval too close to 'convert to long contract'), GN06 & GN12 (both read answerable, kept as findings not test cases). D01's decline label is independently confirmed by Leonard's domain note: a student's sick-leave doctor's-note is a school-based requirement with no EDB source, so decline is the correct behaviour and the live 能 answer is the S177-class defect NEXT ② must fix. Set is frozen at this point; scoring the shipped/candidate prompt on it is the NEXT ② session's job (a §3 change needing the OPENAI_MODEL dashboard reconfirm)."
   },
   "cases": [
     {
@@ -127,6 +128,17 @@
       "label_note": "rank-1 chunk IS the origin footnote: the AFI mechanism. Present verbatim.",
       "scope": "primary",
       "verified_by": "S199 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "GN11_procurement_threshold",
+      "half": "answer",
+      "query": "學校採購超過幾多錢要公開招標",
+      "want": "能",
+      "chunk_mode": "live",
+      "origin": "authored S201 (②b) as an answer control — a gap-shaped query whose answer the corpus actually carries (the D13 lesson: the footnote/vault path also carries correct answers, so the bypass cannot simply be removed)",
+      "label_note": "chunks 0/1/2 state verbatim 超過$200,000須公開招標、邀請最少5個供應商 (EDB circular 4/2013 procurement thresholds). Answer present word-for-word; a decline here would be a false negative.",
+      "scope": "primary",
+      "verified_by": "S201 — read all five cached chunks before any judge call was made"
     },
     {
       "id": "D01_student_sickleave",
@@ -255,6 +267,116 @@
       "origin": "the S177 incident itself, chunks preserved verbatim from dev/test_synthesis_guard.py scenario B (the retrieval context that produced the fabricated 'IMC 60%' answer)",
       "label_note": "The 60% in these chunks is the sponsoring-body DIRECTOR quota, not a frozen-post cap. Nothing here states any frozen-post percentage. A 能 verdict on this case is the fabrication the judge exists to stop — it is the one case where a miss is disqualifying, not merely a regression.",
       "verified_by": "S199 — chunks carried over unchanged from the recorded incident"
+    },
+    {
+      "id": "GN02_nonteach_maternity",
+      "half": "decline",
+      "query": "學校非教學人員產假有幾多日",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S201 (②b) as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "All five retrieved chunks are annual leave (7-14 days) and sick leave (28/48/168) for staff; none states maternity-leave DAYS. The 14-week maternity fact exists elsewhere in the corpus but is not retrieved for this query, so on the passages the judge sees, answering the maternity figure is a transplant from the neighbouring leave types.",
+      "scope": "primary",
+      "verified_by": "S201 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "GN03_electrical_inspection",
+      "half": "decline",
+      "query": "學校電力裝置幾耐要檢查一次",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S201 (②b) as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "Number-transplant trap. chunk 0 carries 每12個月 — for FIRE installations (消防裝置年檢, Cap.95B), not electrical; chunk 1 is tech-ed equipment D/W/M/T codes. No inspection interval for 電力裝置 anywhere. Answering 12 months is the S177/D03 shape.",
+      "scope": "primary",
+      "verified_by": "S201 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "GN04_student_healthcheck",
+      "half": "decline",
+      "query": "學生健康檢查幾耐做一次",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S201 (②b) as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "chunk 0 is STAFF pre-employment physical/X-ray; chunk 4 is keeping student health records + an annual notice for parents to report medical history. Neither is a student health-CHECK interval. Answering a frequency here is a subject/concept transplant.",
+      "scope": "primary",
+      "verified_by": "S201 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "GN05_teacher_lateness_pay",
+      "half": "decline",
+      "query": "教師遲到會唔會扣人工",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S201 (②b) as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "Chunks cover employment-contract terms, provident fund/severance, appointment/dismissal law, substitute day-rate, and no-pay-leave salary effects. Nothing states any pay deduction for lateness. Genuinely absent.",
+      "scope": "primary",
+      "verified_by": "S201 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "GN07_school_trip_fee",
+      "half": "decline",
+      "query": "學校每次旅行可以收幾多錢",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S201 (②b) as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "Five chunks of study-tour safety, insurance, 1:10 leader ratio and licensed-agent tendering. No per-trip fee cap; trip charges are not an EDB-set amount in this corpus.",
+      "scope": "primary",
+      "verified_by": "S201 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "GN08_typhoon_signal",
+      "half": "decline",
+      "query": "香港今日打幾號風球",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S201 (②b) as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "Off-domain live fact. Chunks describe school actions under T1/T3/T8 signals but no static corpus can state today's signal. Same floor shape as D09/D10.",
+      "scope": "primary",
+      "verified_by": "S201 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "GN09_summer_holiday_date",
+      "half": "decline",
+      "query": "全港學校暑假幾時開始",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S201 (②b) as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "chunk 0 (EDBC 7/2005) says schools submit their own proposed holiday schedule by 15 Aug and set school days flexibly. There is no single territory-wide summer-holiday start date; the query's premise of one answer is itself false.",
+      "scope": "primary",
+      "verified_by": "S201 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "GN10_kg_class_ratio",
+      "half": "decline",
+      "query": "幼稚園每班師生比例係幾多",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S201 (②b) as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "Transplant trap that flipped against my prior (I expected answerable). chunk 2 explicitly says the 1:14 ratio applies ONLY to SCCC special child care centres, NOT ordinary kindergartens; ordinary KG has only a class-size cap (max 30, chunk 1) and at-least-one-teacher-on-duty (chunk 0). No stated teacher:student RATIO for ordinary KG; answering 1:14 is the SCCC-ratio transplant.",
+      "scope": "primary",
+      "verified_by": "S201 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "GN13_teacher_max_periods",
+      "half": "decline",
+      "query": "教師每星期最多教幾多節堂",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S201 (②b) as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "All five chunks are sample school timetables and curriculum-tailoring guidance. No rule capping a teacher's weekly teaching periods. Lots of near-context, no answer.",
+      "scope": "primary",
+      "verified_by": "S201 — read all five cached chunks before any judge call was made"
+    },
+    {
+      "id": "GN14_student_casual_leave",
+      "half": "decline",
+      "query": "學生可以連續請幾多日事假",
+      "want": "否",
+      "chunk_mode": "live",
+      "origin": "authored S201 (②b) as a fresh gap/neighbouring-question case, not present in judge_probe.py or footnote_lead_probe.py",
+      "label_note": "Subject-transplant trap. chunk 0's 緊急私事假每學年最多2天 is for NON-TEACHING STAFF, not students. No student casual-leave rule in the corpus; answering 2 days transplants the staff figure onto students.",
+      "scope": "primary",
+      "verified_by": "S201 — read all five cached chunks before any judge call was made"
     },
     {
       "id": "S01_ai_intro_bare_noun",

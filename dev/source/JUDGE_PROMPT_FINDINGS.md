@@ -190,10 +190,20 @@ the precondition for making the bypass send D01 to it.)
 - Bare-noun cases `S01`/`S02` (人工智能初探, ICT 課程指引) decline under both prompts on the
   production model. That is the S194/S195 complaint, still unresolved, and it is a
   separate axis from the confabulation one.
-- The decline half is 11 cases and one of them is already a miss. One false answer out of
-  eleven is not a safety estimate; it is a warning. The set needs widening before any
-  prompt change is argued from it — 14 further gap candidates were retrieved in S199 and
-  are awaiting per-passage labelling.
+- ~~The decline half is 11 cases and one of them is already a miss... 14 further gap
+  candidates were retrieved in S199 and are awaiting per-passage labelling.~~ **DONE S201
+  (2026-07-31, ②b).** The 14 S199 candidates were never persisted, so S201 authored 14
+  fresh in-domain candidates and labelled each by reading all five fetched passages before
+  any judge verdict. Result: 10 clean gaps added to the decline half (now **21**, so D01's
+  known miss is 1/21 not 1/11) + 1 answerable control added to the answer half (GN11
+  procurement >$200k, same D13 shape). 3 of 14 flipped against the pre-read hypothesis
+  (GN06 gap→answerable, GN10 answerable→gap, GN12 gap→answerable) = passage-driven. Dropped:
+  GN01 (borderline). Kept as findings not cases: GN06, GN12 (both read answerable). D01's
+  decline label is now also confirmed by Leonard's domain note (student sick-leave doctor's
+  note = school-based, no EDB source → decline is correct; the live 能 is the defect). The
+  set is frozen at 12 answer / 21 decline / 2 secondary; **it has NOT yet been scored** —
+  measuring the shipped/candidate prompt on the widened set is NEXT ②'s job (a §3 change
+  that must reconfirm `OPENAI_MODEL` in the dashboard first).
 - Shipping V3 still needs a §3 PLAN, Leonard's decision on the risk, and a live re-run of
   `footnote_lead_probe.py` afterwards. Note that V3 changes nothing about `D01`.
 
