@@ -17,7 +17,7 @@
 **最值得投資嘅 5 個方向（詳見 §4，已排序）**：
 1. **R1 檢索品質 eval harness** —— 用客觀 metric（recall@k / MRR）取代 ad-hoc live smoke，令 ranking 回歸有得自動抓（治本現時最痛嘅「逐源手調 route」痛點）。
 2. **R2 資訊架構 / tab 收斂** —— 桌面已 ~8 tab，主要用戶旅程唔清；mobile 得 4 entry（parity gap）。收斂成幾個清晰 mode。
-3. **R3 Channel A 正式退役**（待下游轉 Channel B 完成）—— 清 dormant code、三層同步、combined endpoint，大幅減 surface。
+3. **R3 Channel A 正式退役**（下游轉 Channel B S146 已完成；R3 現只 gated on route-probe 8/5〔NEXT ①〕+ backend dismantle〔NEXT ⑥〕，不再等下游）—— 清 dormant code、三層同步、combined endpoint，大幅減 surface。
 4. **R4 codebase 可維護性** —— 單檔 app.html 逾 3,000 行 inline JSX；Leonard 早已 flag「偏亂難維護」。評估「保持單一部署但拆模組 / 加輕量 build」。
 5. **R5 安全 backlog 埋尾**（S187 已 flag）—— repo 私有化 + Supabase RLS 加固 + sibling Circular System 審計。
 
@@ -93,7 +93,7 @@
 2. **驗證重手動** —— 大量 live smoke 靠 Leonard 喺 Terminal 跑 curl（Mac SSL / sandbox egress 限制）。`regression:semantic` 係 offline 固定 case，冇客觀 retrieval metric，ranking 回歸靠人肉發現。
 3. **前端無測試 + 單檔巨大** —— app.html 逾 3,000 行 inline JSX/Babel Standalone、零測試；改動只能靠 preview / 人眼。Leonard 早已 flag「codebase 偏亂難維護」（PMS §F banner）。
 4. **功能面膨脹、IA 未收斂** —— 桌面 8 tab；文件工具（分析/標註/範本/修訂）定位相近但各佔 top-level；mobile 得 4 entry。
-5. **Channel A dormant 包袱** —— 凍結但 code path / 三層 / combined endpoint 仍在，構成理解成本；Q4 Phase 2（下游轉 Channel B）跨 repo 未完，退役時機未到。
+5. **Channel A dormant 包袱** —— 凍結但 code path / 三層 / combined endpoint 仍在，構成理解成本；Q4 Phase 2（下游轉 Channel B）S146 已完成，退役（R3）現只 gated on route-probe 8/5 + backend dismantle。
 6. **安全 backlog 未埋尾** —— repo public 令 backend IP（routing/keywords/prompts）+ vault verbatim world-readable；Supabase RLS 只做咗 defense-in-depth 一半；sibling Circular System 未審（S187 已 flag，係現時 Open Priorities #1）。
 7. **infra 磨擦** —— Render free-tier idle 15 分鐘冷啟 ~50s，傷首 query 體驗。
 
@@ -133,12 +133,12 @@
 - **依賴 / 決策**：**必須 Leonard 先定 §3 產品定位（A/B）** + IA 提案批准。改鎖定 surface 走 §3 HIGH-risk PLAN。
 - **相關檔案**：`app.html`（nav + tab render）、`mobile.js`（bottom-nav `buildXShell`）、PMS §B.1 / §B.5、`dev/MOBILE_UI_SPEC_v1.md`。
 
-### R3 — Channel A 正式退役（減 surface，待下游 ready）
-- **現況/問題**：Channel A 凍結 @455、admin 已刪，但 code path dormant、`role_facts.json` 三層同步、`/api/search/channel-a` + `/combined` endpoint 仍在。Q4 Phase 2（下游 Circular System 轉食 Channel B）跨 repo 未完。
-- **為何重要**：dormant 雙通道係持續嘅理解成本 + 維護面。下游一旦全轉 Channel B，Channel A 就係純包袱，可大刀清走。
-- **建議方向**：**分階段、可逆**。(1) 先確認下游已唔再 fetch `knowledge.json`（Leonard 跨 repo 核實）→ (2) 移除前端 dormant code path（q.html / combined 相關）→ (3) 收 endpoint（`channel-a` / `combined`）→ (4) 三層 / `role_facts.json` 歸檔。每步 git-revertable。
-- **Risk / 工作量**：**HIGH risk**（動對外契約 + 跨 repo 依賴 + 不可逆感）/ 中工作量。**唔可貿然做**——要證下游真係唔食先。
-- **首步**：**唔好郁 code**。先寫一份「Channel A 退役前置檢查清單」+ 同 Leonard 確認下游 Circular System 消費狀態（K1 side 只出端點、絕不掂對方 repo，PMS §A.3）。
+### R3 — Channel A 正式退役（減 surface；下游 ready，S146 已轉 Channel B）
+- **現況/問題**：Channel A 凍結 @455、admin 已刪，但 code path dormant、`role_facts.json` 三層同步、`/api/search/channel-a` + `/combined` endpoint 仍在。Q4 Phase 2（下游 Circular System 轉食 Channel B）**S146 已完成**（Leonard 確認 + S202 route-probe 零 channel-a 流量佐證）。
+- **為何重要**：dormant 雙通道係持續嘅理解成本 + 維護面。下游既已全轉 Channel B，Channel A 就係純包袱，可大刀清走。
+- **建議方向**：**分階段、可逆**。(1) ~~先確認下游已唔再 fetch `knowledge.json`~~ **已確認（S146 + S202 零流量）** → (2) 移除前端 dormant code path（q.html / combined 相關）→ (3) 收 endpoint（`channel-a` / `combined`）→ (4) 三層 / `role_facts.json` 歸檔。每步 git-revertable。
+- **Risk / 工作量**：**HIGH risk**（動對外契約 + 不可逆感）/ 中工作量。前置：route-probe 8/5 讀完刪 probe（NEXT ①）+ backend dismantle（NEXT ⑥）。
+- **首步**：route-probe 觀察窗 8/5 第二次讀確認仍零外部呼叫 → 刪 `server.ts:168–198` probe（NEXT ①），即解鎖 R3 執行。
 - **依賴 / 決策**：**Leonard 跨 repo 確認 + 拍板**。這是 PMS §F.2 / §F.11 鎖定決策範圍。
 - **相關檔案**：PMS §F.2 / §A.3、`dev/CHANNEL_B_SYNC_SPEC.md`、`backend/src/api/searchCombined.ts`、`backend/src/api/searchChannelA.ts`、三層 `role_facts.json`。
 
@@ -211,7 +211,7 @@
 | **即刻（無悔、無需拍板）** | **R1** 檢索 eval baseline · **R5** sibling 安全審計（read-only） | 兩者都 LOW risk、唔改生產、且係其他項嘅地基/已定焦點 |
 | **待 Leonard 一句方向** | **§3 產品定位 A/B** → **R2** IA 提案 | R2 依賴定位；定位係 Leonard 專屬決策 |
 | **中期** | **R4** 可維護性提案（trade-off 表）· **R6** 冷啟緩解 | R4 令之後改動更快；R6 快勝 |
-| **待下游 ready** | **R3** Channel A 退役 | 依賴下游轉 Channel B + Leonard 跨 repo 確認 |
+| **下游 ready（S146 已轉）** | **R3** Channel A 退役 | 下游轉 Channel B S146 已完成；現只 gated on route-probe 8/5〔①〕+ backend dismantle〔⑥〕 |
 | **後續** | **R7** mobile 全功能（排 R2 後）· **R8** reranking（排 R1 後） | 明確有前置依賴 |
 
 **一句總結**：先用 **R1** 打好「檢索有得客觀量度」嘅地基（無悔）＋跑 **R5** sibling 審計（已定焦點）；同時等 Leonard 用一句話定產品主線（定位 A/B），再落 **R2** IA 收斂。其餘按依賴鏈跟上。

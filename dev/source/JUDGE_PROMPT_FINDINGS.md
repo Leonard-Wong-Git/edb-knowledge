@@ -15,6 +15,20 @@ now decline instead of fabricate. The acceptance set was also widened to 35 (dec
 11→21); V3 on it scores answer 12/12, decline 19/21 (misses `D01`, `GN10` — both transplants).
 See SESSION_LOG S201 and the widened-set note in `judge_acceptance_cases.json` `_meta.widened_s201`.
 
+**S202 UPDATE (2026-08-02): V4 measured on a fresh held-out set + repeated-run noise control. NOT SHIPPED — nothing in production changed.** NEXT ② asked whether a hardened judge (V4) could catch the transplant class V3 misses (`D01` staff→student, `GN10` SCCC-ratio→ordinary-KG). Two candidates were built from the V3 base: `v4a_s202.txt` (+8 chars: widen the existing 頂替 rule to include 對象/適用範圍) and `v4b_s202.txt` (+75 chars: one explicit subject/scope-transplant bullet with examples). A fresh 10-case held-out set disjoint from the frozen 35 was authored and labelled by reading all 5 passages first (`judge_transplant_fresh_s202.json`; 0 flips vs pre-read hypothesis; cache `judge_runs/chunks_cache_fresh_s202.json`). Harness gained `--cases`/`--cache` overrides so the frozen set stays pristine. Model reconfirmed `gpt-4o-mini` in the Render dashboard before scoring; `--plumbing-check` green.
+
+Result (7 frozen-35 runs to separate signal from the judge's run-to-run noise; answer-half was **12/12 on every run** — no recall loss from either V4):
+
+| case | type | V3 shipped (4 runs) | V4b (3 runs) | read |
+|---|---|---|---|---|
+| `GN10` KG ratio (SCCC→ordinary) | **scope** transplant, explicit in chunk | false-answer 4/4 | **0/3** | V4b **reliably fixes** |
+| `D01` student sick-leave (staff→student) | **subject** transplant, boundary implicit | 4/4 | **3/3** | V4b does **not** fix |
+| `GN03` electrical inspection (gap) | model-boundary noise | 2/4 | 1/3 | prompt-independent noise |
+
+Fresh held-out (1 run each): V3 = V4a = V4b, all 9/10, all miss `FT06` (校董薪酬, a subject transplant); answer-half 3/3. `v4a` = `v3` everywhere (rejected).
+
+**The finding:** the prompt-only lever catches EXPLICIT scope transplants (`GN10`, whose chunk literally says "1:14 applies only to SCCC") but NOT IMPLICIT subject transplants (`D01`, `FT06`, whose chunks state a staff rule without ever saying "not students / not directors"). `D01` — the live, now judge-served defect (S201 removed its bypass) — resists even V4b's explicit rule, stably (3/3). So V4b's only real win is one marginal case (`GN10`), while the headline defect stays live; a production prompt change is not justified for that. **NEXT ② is therefore reframed: subject-transplant needs a NON-prompt mechanism** (e.g. a structured "data-subject vs question-subject" check before synthesis, or the coupled footnote-bypass narrowing), not more judge-prompt tuning. Methodology note carried forward: a single judge run cannot separate a real fix from noise (`GN03` flipped for the SAME prompt across runs); repeated runs are required for any future judge verdict. Runs: `judge_runs/2026-08-02_s202_{v3,v4a,v4b}_fresh.json`, `..._{v3,v4a,v4b}_frozen35*.json`.
+
 ## S200 — SHIPPED with a documented gate override (Leonard, Option 2)
 
 V3 replaced the shipped prompt. Acceptance evidence is `2026-07-30_s199_v3_4omini.json`
@@ -211,9 +225,10 @@ the precondition for making the bypass send D01 to it.)
   GN01 (borderline). Kept as findings not cases: GN06, GN12 (both read answerable). D01's
   decline label is now also confirmed by Leonard's domain note (student sick-leave doctor's
   note = school-based, no EDB source → decline is correct; the live 能 is the defect). The
-  set is frozen at 12 answer / 21 decline / 2 secondary; **it has NOT yet been scored** —
-  measuring the shipped/candidate prompt on the widened set is NEXT ②'s job (a §3 change
-  that must reconfirm `OPENAI_MODEL` in the dashboard first).
+  set is frozen at 12 answer / 21 decline / 2 secondary. **SCORED S202** (see the S202 UPDATE
+  at the top): V3 baseline + V4a/V4b on this frozen set and on a fresh held-out set. V4b fixes
+  the scope-transplant `GN10` but not the subject-transplant `D01`; answer-half stayed 12/12.
+  NEXT ② is reframed to a non-prompt mechanism for subject transplants — no more prompt tuning.
 - Shipping V3 still needs a §3 PLAN, Leonard's decision on the risk, and a live re-run of
   `footnote_lead_probe.py` afterwards. Note that V3 changes nothing about `D01`.
 

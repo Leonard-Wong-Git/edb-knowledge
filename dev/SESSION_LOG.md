@@ -35,6 +35,30 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-08-02 Session 203 — ⑩ 文件 drift 清 + ② judge V4 量度（未 ship）+ ⑧ g24/sag 偵查（出 PLAN）
+
+- **ID:** Claude_20260802_S203
+- **Summary:** 起手探針 4/4 綠（Supabase `count=exact` 實核 16,062）。Leonard 揀「1+2」再續「B→⑧」。完成三件：⑩ 文件 drift 修好（純文件）、② judge V4 量度完成（Phase A+B，**未 ship**，reframe）、⑧ g24/sag 重登偵查（純唯讀，出 PLAN）。**零生產改動**：生產 judge prompt byte-identical、Supabase 零寫入、v3.2.2/凍結合約零接觸。
+- **⑩ 文件 drift（完成）:** Leonard 確認方向＝「下游轉 Channel B 已完成」（依 S146 Leonard 確認 + S202 route-probe 零 channel-a 流量佐證）。改 `PROJECT_MASTER_SPEC.md`（line 49 Phase 2 狀態、line 262 Phase 2 + S145 endpoint 狀態）、`SYSTEM_ANALYSIS_AND_ROADMAP.md`（R1 摘要行 / dormant 包袱 §96 / R3 段 136-141 / 依賴表 214，共 5 處）、`HANDOFF_PACKAGE.md:32`（mobile endpoint combined→channel-b）。grep QC：stale 措辭殘留清零。
+- **② judge V4 量度（完成，未 ship）:** Phase A（離線）造 `judge_prompts/v4a_s202.txt`(+8 最小)／`v4b_s202.txt`(+75 明示)（由 v3 base 程式生成，只差指定區）+ fresh held-out 集 `judge_transplant_fresh_s202.json`（10 條，7 移植/gap + 3 對照；逐條讀 5 passage 落 label，**0 flip**）+ harness `judge_acceptance.py` 加 `--cases`/`--cache` override（additive，frozen 不污染）。Phase B（Leonard dashboard reconfirm `gpt-4o-mini`）：`--plumbing-check` 綠 → fresh 集 score V3/V4a/V4b（全 9/10、同漏 FT06、答半 3/3）→ frozen-35 score V4a/V4b + **同 session V3 rebaseline** → 再 V3×2 / V4b×2 = **7 runs 噪音控制**。**定案**：V4b 穩修 GN10（false 0/3 vs V3 4/4）、答半 7 runs 全 12/12（零 recall 損）、但 **D01 3/3 + fresh FT06 照漏**（對象移植頑固）；V4a=V3（淘汰）；GN03 噪音（V3 2/4、V4b 1/3，prompt 無關）。**結論：prompt-only 槓桿掂到明示範圍移植、掂唔到隱含對象移植 → 建議唔 ship、② reframe 做非-prompt 對象核對機制。**
+- **⑧ g24/sag 偵查（完成，出 PLAN）:** 親眼驗 Supabase（服務 key REST）：g24 383 / sag_2025_11 409、**正規化文字重疊 377**（推翻 handoff/PMS-era doc/searchChannelB.ts:415/code comment 全部「215」或「sag415·g24300」）、shared chunk ID=0、**g24 零獨有內容**（6 條 g24-only 內容 sag 全語義覆蓋：拭抹試驗/疏散/署任津貼/精神上無行為能力人士/胸肺 全 YES）、封面實寫「2026年5月版」。g24 被 `role_facts.json:694`（general._source_refs）+ `eval_queries.json`（mpf gold + `_tie_aliases`）引用，兩處都同 sag 並列 → remap 乾淨。合併 PLAN 6 步已入 Open Priorities ⑧。
+- **Changed:** `dev/PROJECT_MASTER_SPEC.md`、`dev/SYSTEM_ANALYSIS_AND_ROADMAP.md`、`dev/HANDOFF_PACKAGE.md`（⑩）；`dev/source/JUDGE_PROMPT_FINDINGS.md`（S202 段 + Still-open 更新）、`dev/source/judge_prompts/v4a_s202.txt`＋`v4b_s202.txt`（NEW）、`dev/source/judge_transplant_fresh_s202.json`（NEW）、`dev/source/judge_acceptance.py`（+`--cases`/`--cache`）、`dev/source/judge_runs/2026-08-02_s202_*`＋`chunks_cache_fresh_s202.json`（NEW，量度證據）（②）；handoff/log（closeout）。**無 backend production code / 無 Supabase 寫入 / 無 registry / 無 knowledge.json 改動。**
+- **Done:** ⑩ 完成；② 量度完成 + findings 記錄 + reframe；⑧ 偵查完成 + PLAN 備妥。
+- **QC:** 起手探針 4/4 綠；⑩ grep 殘留清零；② `--self-test`(frozen+fresh 各 0 fail)／`--check-parity`(byte-identical，生產 prompt 未動)／`--plumbing-check`(能) + 7 runs；⑧ 純唯讀 Supabase REST + 語義覆蓋驗證。
+- **Evidence disposition:** ② 量度定案 + 方法論 promoted to `JUDGE_PROMPT_FINDINGS.md` S202 段（+ fresh 集 `_meta`、V4a/V4b、harness）；judge 非決定性教訓 → handoff opening message 🧭 紀律 #6；⑧ 真數 + PLAN → Open Priorities ⑧（執行前檔）；run 檔 kept as recent trace evidence（`judge_runs/2026-08-02_s202_*`）。
+- **Sync:** ⑩ 純文件（非 code/retrieval/synthesis-gate）→ DOC_SYNC 無命中 code category；② V4 未 ship（parity 綠）；⑧ 純唯讀。凍結合約 + PLATFORM_VERSION 零接觸。Render/Pages 零 deploy。
+- **Pending:** ① route-probe 8/5 讀 + 刪 probe；② 非-prompt 對象核對機制（reframed）；③ Channel A Option 2 入庫；⑧ 執行合併（HIGH risk 等 GO）；其餘見 Open Priorities S203 段。
+- **Risks:** 🔴 生產度臨時 probe（`server.ts:168–198`）仍 live，8/5 讀完必刪（不變，V4 未 ship 無新增生產 risk）。⚠️ ⑧ 執行時 `searchChannelB.ts:415` + `wikiRepository.ts` 註解 stale 數（215/415/300）待一併清（已入 PLAN 步 ⑥）。
+- **Log maintenance:** §4a `--check`：SESSION_LOG 145 行（<400）、最舊 entry 2026-07-30（<30 日）→ **no-op**（S202 已維護至 122，S203 +1 entry）。
+
+### Next Session Handoff Prompt (Verbatim)
+
+（見 `dev/SESSION_HANDOFF.md` 的 `Next Session Opening Message` fenced block —— S203 收工已就地更新為 S203 版〔state header S203 / 三件事 ⑩·②·⑧ / NEXT ② reframe / NEXT ⑧ 真數 377+PLAN / NEXT ⑩ DONE〕，並已鏡像至 `START_NEXT_SESSION_PROMPT.txt`，逐字 mirror check PASS。）
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-08-02 Session 202 — NEXT ① route-probe 觀察窗第一次讀（8/2）＝全窗綠，零外部呼叫
 
 - **ID:** Claude_20260802_S202

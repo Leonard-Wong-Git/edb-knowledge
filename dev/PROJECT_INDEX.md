@@ -32,6 +32,7 @@ Purpose: give a stateless AI a compact map of the project before it reads or edi
 | `app.html` / `index.html` / `mobile.js` / `mobile.css` | 公開前端（`PLATFORM_VERSION` 常數在 `app.html`；GitHub Pages @ policychecker.wongfu.net） | 前端任務 |
 | `dev/source/channel_a_coverage.py` + `CHANNEL_A_RETIREMENT_LEDGER.tsv` + `CHANNEL_A_COVERAGE_FINDINGS.md` | **Channel A 退役量度**（逐條事實 → 文件語料覆蓋 + 已核實出處）。落手前必讀 FINDINGS：機械判定嘅 tier 有 44% 撐唔住人手覆核 | Channel A 退役 / 鏡像 chunk 相關任務 |
 | `dev/source/eval_retrieval.py` + `eval_queries.json` + `eval_runs/` | 檢索 eval harness（34 條短 query，打 live endpoint）。**任何檢索改動必須一對 before→after**；改前先確認個集覆蓋到你要動嗰個維度 | 檢索 / 路由 / 門檻改動 |
+| `dev/source/judge_acceptance.py` + `judge_acceptance_cases.json`（frozen 35）+ `judge_transplant_fresh_s202.json`（fresh held-out 10）+ `judge_prompts/`（v3 shipped / v4a·v4b candidates）+ `judge_runs/` | anti-confab judge 驗收 harness。`--cases`/`--cache` override 可獨立計分 held-out 集（frozen 不污染）；**judge 係 LLM 非決定性，任何 verdict 要 ≥3 runs**；量前 dashboard reconfirm `OPENAI_MODEL`。findings＝`JUDGE_PROMPT_FINDINGS.md` | judge / synthesis-gate 改動 |
 | `dev/checklists/` | 15 域合規清單 + clauses（改後 re-run `gen_checklists_bundle.py`，勿手改 `checklists_bundle.json`） | 清單任務 |
 
 ## Entry Points

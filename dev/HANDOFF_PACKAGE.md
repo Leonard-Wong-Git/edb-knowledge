@@ -29,7 +29,7 @@
 | Backend | 編譯正常；Channel B = **Supabase pgvector**（`match_wiki_chunks` RPC，非本地 wiki_index）；線上 `https://edb-knowledge.onrender.com`（Render free tier，冷啟 ~30s）。**S116→S121：RPC live 真實簽名 = `(query_embedding TEXT,...)` 內部 `::vector` cast、`language plpgsql VOLATILE` + `set local ivfflat.probes=8` + `SECURITY INVOKER` + owner=postgres（S121 經 RPC INSPECT 重新 reconfirm）。S117：`channel_b_status` discriminator masking-defect 已修。** | `select pg_get_functiondef` live / PMS §C.4·§E.13 |
 | **Supabase RLS (S121 NEW)** | `wiki_chunks` **RLS = ON**；policy `wiki_chunks_anon_read FOR SELECT TO anon,authenticated USING(true)`；anon/authenticated GRANTS = SELECT only；service_role 全 grants + bypass RLS（upload pipeline 不受影響）。S121 前 anon 實有全套 write grants = critical attack surface（PMS §C.4 doc drift fix）。 | INSPECT RPC §D.18 / PMS §E.10 / S121 5/6 live smoke PASS 0 regression |
 | 搜尋參數 | min_score default：**A=0.1，B/AB=0.22**（已對齊 code） | grep `searchChannel*.ts` |
-| Mobile UI | `app.html` mobile search 已 ship 並接 `/api/search/combined`；`index.html` / `q.html` / `t-purchase.html` / `app.html#guidelines` 嘅 mobile content **未 render** | SESSION_HANDOFF + code |
+| Mobile UI | `app.html` mobile search 已 ship 並接 `/api/search/channel-b`（S119 起 channel-b-only；`app.html:2471` + `mobile.js:397` 實測；原寫 `/combined` 已過時，S202 更正）；`index.html` / `q.html` / `t-purchase.html` / `app.html#guidelines` 嘅 mobile content **未 render** | SESSION_HANDOFF + code |
 
 > 會逐 session 變嘅數字，永遠以 `dev/SESSION_HANDOFF.md` Current Baseline 為準；但本 session 實測證明連 SESSION_HANDOFF 都會 drift，**load-bearing 常數動手前一律 verify code/data**。
 

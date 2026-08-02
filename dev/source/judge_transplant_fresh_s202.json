@@ -1,0 +1,151 @@
+{
+  "_meta": {
+    "purpose": "Fresh held-out validation set for NEXT ② (judge V3->V4 hardening on subject/scope TRANSPLANT). Deliberately DISJOINT from the frozen 35-case judge_acceptance_cases.json so that tuning V4 to catch D01/GN10 does not fit-to-test. Score V4 candidates HERE for held-out generalization evidence; score the frozen 35 SEPARATELY for regression (answer-half must not drop, D00 veto must stay 否).",
+    "authored": "S202 (2026-08-02), Phase A offline design. Queries + transplant_type + hypothesis authored WITHOUT any judge verdict and WITHOUT reading retrieved passages.",
+    "label_discipline": "FINALIZED S202 Phase B step-1 (2026-08-02). Every `want` was set AFTER reading all 5 fetched passages. Result: 0 flips against pre-read hypothesis (7 transplant/gap = 否, 3 controls = 能). FT02 flagged BORDERLINE. Passages cached in judge_runs/chunks_cache_fresh_s202.json. Ready to score (Phase B step-2) once OPENAI_MODEL reconfirmed in Render dashboard.",
+    "transplant_defn": "A TRANSPLANT = the corpus states a rule/figure for a DIFFERENT subject (e.g. staff vs student) or a DIFFERENT applicable scope (e.g. SCCC special centres vs ordinary KG) than the one asked. The item type matches; the subject/scope does not. Correct verdict = 否 even though a same-topic figure is present. This is the class V3 misses (D01 staff->student, GN10 SCCC->ordinary KG).",
+    "scoring": "Same halves/false-answer discipline as the frozen set. A 能 on any hypothesis-否 case that reads as a true transplant after passage-read = a false answer (the exact defect V4 must fix). A 否 on an answer-control (FT-C*) = a recall regression (the exact risk of over-hardening).",
+    "run_plan_phase_B": [
+      "0. RECONFIRM OPENAI_MODEL in the Render dashboard before quoting any number (env.ts default gpt-4.1-nano != prod gpt-4o-mini).",
+      "1. python3 judge_acceptance.py --self-test",
+      "2. python3 judge_acceptance.py --plumbing-check",
+      "3. python3 judge_acceptance.py --fetch --cases judge_transplant_fresh_s202.json --cache judge_runs/chunks_cache_fresh_s202.json",
+      "4. READ every fetched passage; finalize `want`; set verified_by; note flips.",
+      "5. FRESH held-out: --score --cases judge_transplant_fresh_s202.json --cache judge_runs/chunks_cache_fresh_s202.json --prompt judge_prompts/v4a_s202.txt --label v4a-fresh --out judge_runs/2026-08-02_s202_v4a_fresh.json  (repeat for v4b, and for shipped V3 as the baseline on this same fresh set)",
+      "6. REGRESSION: --score --prompt judge_prompts/v4a_s202.txt --label v4a-frozen35 --out judge_runs/2026-08-02_s202_v4a_frozen35.json  (repeat v4b; the frozen set uses its own default cases + cache)",
+      "7. GATE: answer-half on frozen-35 must stay 12/12; D00_s177_frozen_post must stay 否; false_answers reported apart from accuracy; then decide ship (C)."
+    ]
+  },
+  "cases": [
+    {
+      "id": "FT01_janitor_annual_leave",
+      "half": "decline",
+      "query": "工友（校工）有薪年假有幾多日",
+      "want": "否",
+      "chunk_mode": "live",
+      "transplant_type": "subject (non-teaching janitor vs teacher/regular-staff leave provisions)",
+      "hypothesis": "retrieval likely returns teacher/regular-staff leave; janitor annual-leave figure is not an EDB-set item -> transplant -> 否",
+      "origin": "authored S202 fresh, disjoint from frozen 35 and from footnote_lead_probe.py",
+      "label_note": "CONFIRMED 否. All 5 passages are STAFF sick leave / leave-record rules; the janitor (非專責人員) ANNUAL-leave day count is not stated in the retrieved chunks. Answering = transplant from staff sick-leave/other-staff figures.",
+      "scope": "primary",
+      "verified_by": "S202 (2026-08-02) — read all 5 cached passages before any judge verdict"
+    },
+    {
+      "id": "FT02_supply_teacher_provident",
+      "half": "decline",
+      "query": "代課教師有冇公積金供款",
+      "want": "否",
+      "chunk_mode": "live",
+      "transplant_type": "subject (supply/relief teacher vs regular-establishment provident-fund rule)",
+      "hypothesis": "corpus states provident-fund/gratuity for regular staff; supply-teacher provision likely absent -> transplant -> 否",
+      "origin": "authored S202 fresh, disjoint from frozen 35",
+      "label_note": "CONFIRMED 否 (BORDERLINE, flagged). [1] gives employer MPF (強積金) 5%/$1,500 in a frozen-post integrated-supply-grant context; [2][3] give 公積金 rules for REGULAR teachers' no-pay leave. Neither directly states a supply teacher's 公積金 entitlement. A 能 here would transplant regular-teacher 公積金 or the MPF-frozen-post rule. Weak discriminator (arguably 能 via [1]).",
+      "scope": "primary",
+      "verified_by": "S202 (2026-08-02) — read all 5 cached passages before any judge verdict"
+    },
+    {
+      "id": "FT03_student_medical_allowance",
+      "half": "decline",
+      "query": "學生可唔可以申請醫療津貼",
+      "want": "否",
+      "chunk_mode": "live",
+      "transplant_type": "subject (staff medical benefit vs student) — same shape as D01 but different benefit",
+      "hypothesis": "medical allowance/insurance is a staff (e.g. NET) benefit; student version not an EDB item -> transplant -> 否",
+      "origin": "authored S202 fresh, D01-shaped but distinct benefit + query",
+      "label_note": "CONFIRMED 否. [1] NCS summer-course school grant, [2] book grant residency, [3][4][5] STAFF sick leave. No student medical allowance anywhere. Same shape as D01 (staff benefit -> student).",
+      "scope": "primary",
+      "verified_by": "S202 (2026-08-02) — read all 5 cached passages before any judge verdict"
+    },
+    {
+      "id": "FT04_private_indep_poa",
+      "half": "decline",
+      "query": "私立獨立學校要唔要參加小一入學統籌辦法",
+      "want": "否",
+      "chunk_mode": "live",
+      "transplant_type": "scope (POA applies to aided/government schools, not private independent)",
+      "hypothesis": "corpus describes POA for aided/govt schools; applying it to private independent is a scope transplant -> 否",
+      "origin": "authored S202 fresh",
+      "label_note": "CONFIRMED 否. Passages cover SEN transition, 指明學校 definition (mentions private independent schools re 建校津貼), K1 registration, secondary self-allocation — none states whether private independent schools participate in the P1 POA (小一入學統籌辦法).",
+      "scope": "primary",
+      "verified_by": "S202 (2026-08-02) — read all 5 cached passages before any judge verdict"
+    },
+    {
+      "id": "FT05_intl_school_fee_cap",
+      "half": "decline",
+      "query": "國際學校學費加幅有冇上限",
+      "want": "否",
+      "chunk_mode": "live",
+      "transplant_type": "scope (fee-increase control applies to aided/DSS, not international schools)",
+      "hypothesis": "fee-revision approval/cap is for local aided/DSS; international schools out of scope -> transplant -> 否",
+      "origin": "authored S202 fresh",
+      "label_note": "CONFIRMED 否. All 5 are aided-school grant/subsidy caps (全方位學習/CEG/餐飲/設施). Nothing about international-school fee-increase limits (a different scope).",
+      "scope": "primary",
+      "verified_by": "S202 (2026-08-02) — read all 5 cached passages before any judge verdict"
+    },
+    {
+      "id": "FT06_imc_director_salary",
+      "half": "decline",
+      "query": "法團校董會校董有冇薪酬",
+      "want": "否",
+      "chunk_mode": "live",
+      "transplant_type": "subject (school-manager/director governance vs staff remuneration)",
+      "hypothesis": "corpus covers director registration/quota, not director pay; staff pay figures must not transplant onto directors -> 否",
+      "origin": "authored S202 fresh",
+      "label_note": "CONFIRMED 否. Passages: IMC business-profit use, 60% sponsoring-body director quota, constitution sample, director composition — none states director remuneration. Answering with staff pay = transplant.",
+      "scope": "primary",
+      "verified_by": "S202 (2026-08-02) — read all 5 cached passages before any judge verdict"
+    },
+    {
+      "id": "FT07_special_school_class_size",
+      "half": "decline",
+      "query": "特殊學校每班最多幾多學生",
+      "want": "否",
+      "chunk_mode": "live",
+      "transplant_type": "scope (ordinary class-size cap vs special-school class size) — DELIBERATE flip-risk case",
+      "hypothesis": "expected transplant, BUT special-school class size may genuinely be stated -> may flip to 能 on passage-read (kept precisely to test over-decline, GN10-style)",
+      "origin": "authored S202 fresh, intentional flip-candidate",
+      "label_note": "CONFIRMED 否 (did NOT flip). [1] is an OUTDOOR-TRIP escort ratio (1:10, special school to 1:1) — NOT class size; [2] AC-grant special-room count; [3][4][5] SEN policy/roles. Special-school class size (max students/class) not stated. [1] is the classic transplant trap (escort ratio != class size).",
+      "scope": "primary",
+      "verified_by": "S202 (2026-08-02) — read all 5 cached passages before any judge verdict"
+    },
+    {
+      "id": "FT-C1_teacher_sickleave_control",
+      "half": "answer",
+      "query": "資助學校教師有薪病假有幾多日",
+      "want": "能",
+      "chunk_mode": "live",
+      "transplant_type": "ANSWER CONTROL — same staff sick-leave data D01 transplants, asked about the CORRECT subject (teacher)",
+      "hypothesis": "the sick-leave rule IS for staff; asked about the right subject -> present -> 能. If V4 declines this it is over-hardening (recall regression). Primary discriminator that V4 targets subject-MISMATCH, not the topic.",
+      "origin": "authored S202 fresh, paired against D01",
+      "label_note": "CONFIRMED 能. [1][2] state verbatim 首年28天 / 其後48天 / 累積168天 for 月薪教學人員. Correct-subject counterpart to D01 — V4 MUST still answer 能.",
+      "scope": "primary",
+      "verified_by": "S202 (2026-08-02) — read all 5 cached passages before any judge verdict"
+    },
+    {
+      "id": "FT-C2_teacher_maternity_control",
+      "half": "answer",
+      "query": "資助學校教師有薪產假有幾多日",
+      "want": "能",
+      "chunk_mode": "live",
+      "transplant_type": "ANSWER CONTROL — teacher maternity (paired against frozen GN02 non-teaching maternity)",
+      "hypothesis": "teacher maternity leave likely stated -> 能. Flip to 否 if corpus genuinely lacks it (then it is a gap, not a control).",
+      "origin": "authored S202 fresh",
+      "label_note": "CONFIRMED 能. [1] states verbatim 以薪金津貼支薪的教師可享14星期有薪產假 (+5-day 侍產假).",
+      "scope": "primary",
+      "verified_by": "S202 (2026-08-02) — read all 5 cached passages before any judge verdict"
+    },
+    {
+      "id": "FT-C3_kg_class_size_cap_control",
+      "half": "answer",
+      "query": "幼稚園每班最多可以收幾多個學生",
+      "want": "能",
+      "chunk_mode": "live",
+      "transplant_type": "ANSWER CONTROL — KG class-size CAP (distinct from GN10's scope-specific師生比例), findings quote 每班學生人數不應超過30人",
+      "hypothesis": "class-size cap is stated for ordinary KG -> 能. Discriminates the answerable cap from GN10's SCCC-only ratio. Flip if passages disagree.",
+      "origin": "authored S202 fresh, paired against GN10",
+      "label_note": "CONFIRMED 能. [1] states verbatim 每班學生人數不應超過30人 (學前機構辦學手冊). Discriminates the answerable class-size CAP from GN10's SCCC-only 師生比例.",
+      "scope": "primary",
+      "verified_by": "S202 (2026-08-02) — read all 5 cached passages before any judge verdict"
+    }
+  ]
+}

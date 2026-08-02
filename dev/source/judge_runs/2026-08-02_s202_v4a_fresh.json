@@ -1,0 +1,35 @@
+{
+  "label": "v4a-fresh",
+  "model": "gpt-4o-mini",
+  "run_at": "2026-08-02T16:24:27Z",
+  "summary": {
+    "scope": "primary",
+    "n": 10,
+    "correct": 9,
+    "answer_half": {
+      "n": 3,
+      "correct": 3
+    },
+    "decline_half": {
+      "n": 7,
+      "correct": 6
+    },
+    "false_answers": [
+      "FT06_imc_director_salary"
+    ],
+    "false_declines": [],
+    "missing": []
+  },
+  "verdicts": {
+    "FT01_janitor_annual_leave": "否",
+    "FT02_supply_teacher_provident": "否",
+    "FT03_student_medical_allowance": "否",
+    "FT04_private_indep_poa": "否",
+    "FT05_intl_school_fee_cap": "否",
+    "FT06_imc_director_salary": "能",
+    "FT07_special_school_class_size": "否",
+    "FT-C1_teacher_sickleave_control": "能",
+    "FT-C2_teacher_maternity_control": "能",
+    "FT-C3_kg_class_size_cap_control": "能"
+  }
+}

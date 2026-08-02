@@ -4,13 +4,14 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
 (Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
 
-Current state (S202, 2026-08-02): 平台 v3.2.2; Supabase 16,062 chunks (S202 零寫入);
-source_registry 256; HEAD==origin/main (S202 checkpoint commit 2ec82cf + 本 closeout commit);
-凍結合約 _meta 2.3.0 / facts 455 / guidelines 158。
-**S202 = NEXT ① route-probe 觀察窗第一次讀 (8/2) 完成 = 全窗綠, 零外部呼叫** (詳見下 🔴 段)。
-零 code / 零 Supabase / 零 route 改動 — 純唯讀量度 + handoff checkpoint。
-(上一 session S201 已 ship: 收 footnote judge-bypass〔searchChannelB.ts 移走 trustedFootnoteLead,
-footnote-lead query 一律過 V3 judge〕, commit fc287ff deploy live; judge acceptance 集擴闊到 35。)
+Current state (S203, 2026-08-02): 平台 v3.2.2; Supabase 16,062 chunks (零寫入);
+source_registry 256; HEAD==origin/main (本 closeout commit); 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158。
+**S203 = ⑩ 文件 drift 修好 + ② judge V4 量度 (未 ship, reframe) + ⑧ g24/sag 偵查 (出 PLAN)。**
+零生產改動: V4 未 ship (生產 judge prompt byte-identical)、Supabase 零寫入、v3.2.2/凍結合約零接觸。
+  ⑩: PMS 3處 + roadmap 5處 + HANDOFF_PACKAGE:32 統一「下游轉 Channel B S146 已完成」。
+  ②: V4b 穩修 GN10(範圍移植) 但 D01/FT06(對象移植)照漏 → prompt-only 封頂 → reframe 非-prompt 機制 (見 NEXT ②)。
+  ⑧: 親眼驗 Supabase → 真實文字重疊 377 (舊 doc「215」全 stale)、g24 零獨有內容、PLAN 備妥等 GO (見 NEXT ⑧)。
+(S202 已完成 NEXT ① 8/2 第一次讀 = 全窗綠零外部呼叫; S201 已 ship 收 footnote judge-bypass。)
 自動化 active: 5 源監察 (discover / freshness / served-url / new-circular / 封面核對, 月跑)
 + Option A 自動入庫管道 (OPERATIONAL; 每日 19:30 HK refresh Issue; cron 20:00 HK 兜底)。
 
@@ -41,8 +42,8 @@ footnote-lead query 一律過 V3 judge〕, commit fc287ff deploy live; judge acc
    transplant, live 仍會答, V3 judge 自己都判「能」→ 要硬化 judge (V4) 先修 = NEXT ②。
 
 🚨 落手前必讀:
-   (a) JUDGE_PROMPT_FINDINGS.md — 頂 S201 段: footnote bypass 已移走、D01 而家過 judge (V3
-       仍答);Still open 段: 擴闊集 V3 19/21 + transplant 兩條; S199 段: 生產 model 數。
+   (a) JUDGE_PROMPT_FINDINGS.md — 頂 S202 段: V4 量度定案 (V4b 修 GN10、D01 頑固、prompt-only
+       封頂、reframe 非-prompt); S201 段: footnote bypass 已移走、D01 而家過 judge; S199 段: 生產 model 數。
    (b) judge_acceptance.py + judge_acceptance_cases.json (_meta.widened_s201) — 凍結集紀律:
        量度前 freeze、label 要讀 passage、false answer 同 accuracy 分開、--plumbing-check 必跑、
        D00_s177_frozen_post 一票否決。⚠️ 35 條已 frozen, 喺佢身上 tune V4 會燒 held-out。
@@ -60,6 +61,9 @@ footnote-lead query 一律過 V3 judge〕, commit fc287ff deploy live; judge acc
      唯一來源、升唔到; 唔准砌一個出處 (= D17/S177 砌數)。
   5. 改 chunk 版本唔可以照 source_id 刪舊 (chunk id 係內容 hash, 兩版重疊)。任何檢索改動
      一律 eval before→after 對為準; 任何 synthesis-gate 改動一律 live before→after 對為準。
+  6. judge 係 LLM、非決定性 (S203: GN03 同一 V3 prompt 兩次 run flip)。單次 run 分唔到信號同
+     噪音 → 任何 judge verdict 要重複 run (≥3) 先落結論; frozen-35 用 --cache default、fresh 集
+     用 --cache 分檔 (S203 judge_transplant_fresh_s202.json)。
 
 🛠 常用指令:
   python3 dev/source/judge_acceptance.py --self-test
@@ -75,11 +79,12 @@ footnote-lead query 一律過 V3 judge〕, commit fc287ff deploy live; judge acc
      = 全窗綠零外部呼叫 (7/30 09:40 UTC→8/2 共 26 行全部 s198 自測+s201 對照, 零第三方)。🔜 8/5
      再 search route-probe (扣 ua=s198-*/ua=s201-control-probe, dashboard UTC+1), 確認仍零 →
      讀完必須刪走 server.ts:168–198 probe。過咗 8/6 Hobby 7 日滿, 照讀剩返但結論寫明窗殘缺。= 拆 backend(⑥)前置。
-  ② 【硬化 judge V4 收 transplant 類; §3 HIGH-risk prompt 改動】D01/GN10 呢類主體/範圍移植
-     V3 判唔到 (擴闊集 decline 19/21 嗰 2 條)。V3→V4 令佢哋 flip 做否。⚠️ 35 條 acceptance set
-     已 frozen, tune V4 會燒 held-out → 另撈 fresh transplant 集或原則性設計 + 一次量。
-     ship gate: --plumbing-check 確認 model / false answer 同 accuracy 分開 / D00 一票否決 /
-     改完重跑 footnote_lead_probe。工具: judge_acceptance.py(35) + 2026-07-31_s201_v3_widened.json。
+  ② 【judge 對象移植 — S203 已 REFRAME: 用非-prompt 機制, 唔再 tune judge prompt】S203 量度定案
+     (JUDGE_PROMPT_FINDINGS.md S202 段 + 7 runs): V4b 穩修 GN10(範圍移植, 0/3 vs V3 4/4)、答半
+     12/12 零 recall 損, 但 D01(對象移植)3/3 + fresh FT06 照漏 → prompt-only 掂唔到隱含對象移植。
+     新方向 = 合成前加結構化「資料對象 vs 問題對象」核對, 或耦合收窄 footnote bypass。V4b 可選
+     strict-improvement ship 取 GN10 但 D01 照 live → 建議唔 ship。工具: v4a/v4b_s202.txt +
+     judge_transplant_fresh_s202.json(labelled) + harness --cases/--cache。
   ③ Channel A Option 2 入庫 (方向已定, 執行未開始; §3 HIGH risk + 跨 session)。117 條「提到角色」
      → footnote_curated + URL 入庫 (優先 CLEARED/HAND_VERIFIED)。每條打開文件核實 (44% 陷阱);
      揾唔到出處嘅唔准砌。工具: channel_a_coverage.py + RETIREMENT_LEDGER.tsv + FINDINGS §6。
@@ -90,10 +95,13 @@ footnote-lead query 一律過 V3 judge〕, commit fc287ff deploy live; judge acc
      ⚠️ knowledgeRepository.ts 要留 (analyzeCircular.ts 仍 import); knowledge.json 刪唔得
      (index.html:561 + q.html:233)。3 條矛盾假期日數只可經 channel-a route 攞到。
   ⑦ 總帳 172 UNVERIFIED + 107 PROVISIONAL 未讀、133 CLEARED 未抽樣 (44% 唔可當可退)。同③重疊。
-  ⑧ 【較大】g24 同 sag_2025_11 同一份手冊登記兩次, 215 條 chunk 文字相同 (要獨立 PLAN)。
+  ⑧ 【g24/sag 合併 — S203 偵查完成, PLAN 備妥, HIGH risk 等 GO】實測(親眼驗 Supabase, 推翻舊「215」):
+     文字重疊 377、g24 383/sag 409、g24 零獨有內容、版本 2026年5月版。PLAN: 前置驗證(g24 下 0 條
+     footnote_curated + 備份) → remap role_facts:694 + eval_queries mpf gold/tie → eval before→after →
+     刪 383 條 g24(16,062→15,679) → live synthesis before→after → 清 SOURCE_ALIASES/tie。
   ⑨ 【維護】封面 baseline 208 / spotlight 6 源 / MIN_OVERLAP 兩份鏡像。
-  ⑩ 【文件 drift】三處「下游有冇轉 Channel B」講法唔一致; HANDOFF_PACKAGE.md:32 過時。
-  其他 backlog: roadmap R1-R8 (寫於 2026-07-05); Feature 2a 追問 + 2b 文件 scoped Q&A;
+  ⑩ ✅【DONE S203】文件 drift(下游轉 Channel B / HANDOFF_PACKAGE:32) 已修, 移出清單。
+  其他 backlog: roadmap R1-R8 (R3 已 S203 更正); Feature 2a 追問 + 2b 文件 scoped Q&A;
   雲端 OCR 引擎選項。
 
 Post-startup first action: 跑起手探針 (served app.html v3.2.2 + Render /health warm 455 +

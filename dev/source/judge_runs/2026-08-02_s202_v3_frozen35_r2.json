@@ -1,0 +1,61 @@
+{
+  "label": "v3-frozen35-r2",
+  "model": "gpt-4o-mini",
+  "run_at": "2026-08-02T16:30:32Z",
+  "summary": {
+    "scope": "primary",
+    "n": 33,
+    "correct": 31,
+    "answer_half": {
+      "n": 12,
+      "correct": 12
+    },
+    "decline_half": {
+      "n": 21,
+      "correct": 19
+    },
+    "false_answers": [
+      "D01_student_sickleave",
+      "GN10_kg_class_ratio"
+    ],
+    "false_declines": [],
+    "missing": []
+  },
+  "verdicts": {
+    "A00_AUD_e76ch02": "能",
+    "A01_EDBC_9_2019_E": "能",
+    "A02_cap279_education_ordin": "能",
+    "A03_chp_prev_cd_schools_20": "能",
+    "A04_edb_net_package_pdf": "能",
+    "A05_edbc_10_2012_fee_remis": "能",
+    "A06_edbcm215_2025_mental_h": "能",
+    "A07_eoebg_rates_2026": "能",
+    "A09_sag_2025_11": "能",
+    "A10_sch_activities_guide": "能",
+    "A11_wfsfaa_sfaa_household_": "能",
+    "GN11_procurement_threshold": "能",
+    "D01_student_sickleave": "能",
+    "D02_bus_fare": "否",
+    "D03_aircon_replace": "否",
+    "D04_security_licence": "否",
+    "D05_record_retention": "否",
+    "D06_teacher_starting_pay": "否",
+    "D07_tuckshop_rent": "否",
+    "D08_lesson_observation": "否",
+    "D09_offdomain_weather": "否",
+    "D10_offdomain_airport": "否",
+    "D00_s177_frozen_post": "否",
+    "GN02_nonteach_maternity": "否",
+    "GN03_electrical_inspection": "否",
+    "GN04_student_healthcheck": "否",
+    "GN05_teacher_lateness_pay": "否",
+    "GN07_school_trip_fee": "否",
+    "GN08_typhoon_signal": "否",
+    "GN09_summer_holiday_date": "否",
+    "GN10_kg_class_ratio": "能",
+    "GN13_teacher_max_periods": "否",
+    "GN14_student_casual_leave": "否",
+    "S01_ai_intro_bare_noun": "否",
+    "S02_ict_guide_bare_noun": "否"
+  }
+}

@@ -458,7 +458,22 @@ def main() -> int:
     ap.add_argument("--label", default="shipped", help="label recorded in the run file")
     ap.add_argument("--out", help="write the run JSON here")
     ap.add_argument("--pace", type=float, default=1.0, help="seconds between calls")
+    ap.add_argument("--cases",
+                    help="alternate cases file (default: the frozen judge_acceptance_cases.json). "
+                         "Use for a held-out set — e.g. judge_transplant_fresh_s202.json — so tuning "
+                         "does not fit the frozen set.")
+    ap.add_argument("--cache",
+                    help="alternate chunk cache (default: judge_runs/chunks_cache.json). Pair a fresh "
+                         "cases file with its own cache so the frozen cache stays pristine.")
     args = ap.parse_args()
+
+    # Optional overrides: reassign the module globals the commands read at call time, so an
+    # alternate held-out set can be fetched/scored without touching the frozen defaults.
+    global CASES_PATH, CACHE_PATH
+    if args.cases:
+        CASES_PATH = Path(args.cases)
+    if args.cache:
+        CACHE_PATH = Path(args.cache)
 
     if args.self_test:
         return self_test()
