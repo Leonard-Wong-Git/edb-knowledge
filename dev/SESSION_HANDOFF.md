@@ -24,6 +24,8 @@
 
 ## Current Baseline
 
+> **🆕 S202（2026-08-02）—— NEXT ① route-probe 觀察窗第一次讀（8/2）＝全窗綠，零外部呼叫：** HEAD==origin/main（`2ec82cf`＝S202 8/2 checkpoint ＋本 closeout commit）；**Supabase 16,062 零寫入**、registry 256、平台 v3.2.2、凍結合約全部零接觸；起手探針 4/4 綠（served v3.2.2 / Render `/health` warm 455 / HEAD==origin/main〔push 前〕/ Supabase 沿用 16,062 未重數）。**① route-probe 8/2 讀（Leonard 喺 Render dashboard、Claude 遠端放對照訊號協助）：** Render Logs「Last 7 days」search `route-probe`，2026-07-30 09:40 UTC → 08-02 全窗 **26 行全部有主** ＝ 24× `s198-deploycheck-*`（7/30 自測）＋ 2× `s201-control-probe`（8/2，Claude 為驗儀器親手放），**零第三方 / 零非自測 origin/ua** → 兩條 channel-a route（`/api/search/channel-a`、`/combined`）由 7/30 起零外部呼叫。**② 儀器信心＝S198 紀律落地：** 頭先 search 空手，冇當「零流量」；先放 `s201-control-probe` 即時對照（出到＝儀器 work）、再用 s198（7/30 回溯，「Last 7 days」下 24 行全現形）確認窗涵蓋返起點，先落結論。Hobby log 保留 7 日、dashboard UTC+1 均第三度實證。**③ probe 未刪**（`server.ts:168–198` 仍 live，留待 8/5 第二次讀後一齊刪）。**④ 零 code / 零 Supabase / 零 route 改動**，純唯讀量度 ＋ handoff checkpoint（commit `2ec82cf`）＋ §4a log 維護（402→122 行，4 舊 entry 搬入 `dev/archive/SESSION_LOG_2026_Q3.md`，只搬冇刪）。**🔜 8/5（≤8/6 前）再讀一次，讀完＋刪 probe ＝ 拆 backend route（⑥）前置。**
+
 > **🆕 S201（2026-07-31）—— NEXT ② 收 footnote judge-bypass 完成（ship + deploy + live 驗）：** HEAD==origin/main（`fc287ff` = 收 bypass；本 session commits `ded9504`〔擴闊 decline 集 11→21〕→ `b7627b7`〔V3 baseline run〕→ `fc287ff`〔收 bypass〕）；**Supabase 16,062 零寫入**；registry 256 / 平台 v3.2.2 / 凍結合約全部零接觸；起手探針 4/4 綠。**① 擴闊 judge decline 集 11→21**（10 條 fresh gap 逐條讀 passage、GN11 入 answer 半邊；`judge_acceptance_cases.json` frozen）。**② 量 V3 baseline（擴闊 35 條、gpt-4o-mini dashboard reconfirm）**:answer 12/12、decline 19/21（2 false = D01/GN10，皆 transplant 類）。**③ 收 footnote judge-bypass**:`searchChannelB.ts` 移走 `trustedFootnoteLead`，footnote-lead query 而家過 V3；vault bypass + lead-slot 排序 + prompt 不變。**④ deploy + live 驗**:D17 消防演習 砌數→**拒答**、D13 留位費 仍正確答、D01 仍答（V3 miss，pending V4）。QC 全綠（tsc 0 / check-parity byte-identical / footnote_lead_probe before==after）。**🔴 新 open：②b 硬化 judge V4 收 transplant 類（D01/GN10）**，見 Open Priorities。
 >
 > **🔙 S200（2026-07-30）—— ship judge V3，連一個明文閘 override（Leonard 揀 Option 2）：** 換 `RELEVANCE_JUDGE_PROMPT`（`backend/src/api/searchChannelB.ts`）為 V3（byte-identical `dev/source/judge_prompts/v3_s196.txt`）＋同步改 `dev/source/judge_acceptance.py` `SHIPPED_PROMPT`（`--check-parity` byte-identical）＋重寫過時 rationale 註解。commit **`bcf7c4f`**（4 檔）已 push origin/main。Supabase 16,062 零寫入；registry 256、平台 v3.2.2、凍結合約全部零接觸。
@@ -228,7 +230,7 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## Open Priorities
 
-> **✅ CHECKPOINT S201.1（2026-08-02，Claude）—— NEXT ① route-probe 第一次讀（8/2）完成 ＝ 全窗綠。** Render Logs「Last 7 days」search `route-probe`：2026-07-30 09:40 UTC → 08-02 全窗 **26 行全部有主** ＝ 24× `s198-deploycheck-*`（7/30 自測）＋ 2× `s201-control-probe`（8/2，Claude 為驗儀器親手放，非真流量）。**零第三方、零非自測 `origin`／`ua`** → 兩條 channel-a route（`/api/search/channel-a`、`/combined`）由 7/30 起零外部呼叫。儀器經 s198（7/30 回溯）＋ s201（即時）雙重對照確認正常；Hobby log 保留 7 日、dashboard UTC+1 均再實證。**probe 未刪**（留待 8/5 第二次讀後一齊刪）。🔜 **8/5 再讀一次（≤8/6 前），讀完＋刪 `server.ts:168–198` probe ＝ 拆 backend route（⑥）前置。**
+> **🔜 S202（2026-08-02）—— 本段為當前權威清單。S201 段 ① 嘅 8/2 讀已完成（全窗綠，見 Current Baseline S202），① 更新為淨剩 8/5 讀＋刪 probe；②–⑪ 一律不變，見下 S201 段。** ① **🔴【時間閘 —— 淨剩 8/5 一次讀，只有 Leonard 做得到】S198 route-probe 觀察窗。** 8/2 第一次已讀 ＝ 全窗綠零外部呼叫（Render Logs「Last 7 days」search `route-probe`，2026-07-30 09:40 UTC→8/2 共 26 行全部 `s198-deploycheck-*` 自測＋`s201-control-probe` 對照，零第三方 / 零非自測 origin/ua）。`server.ts:168–198` probe 仍 live。**🔜 8/5 再 search `route-probe` 一次（≤8/6 Hobby 7 日滿前），同樣扣 `ua=s198-*` 同 `ua=s201-control-probe`，確認仍零外部 → 讀完必須刪走成段 probe。** 讀完＋刪 ＝ 拆 backend route（⑥）前置。**②–⑪ 見下 S201 段（② 硬化 judge V4 收 transplant／③ Channel A Option 2 入庫／④ 24 條孤兒決定／⑤ PUBLISH_PAT／⑥ 拆 backend route〔等①〕／⑦ 總帳未讀桶／⑧ g24 重複登記／⑨ 維護／⑩ 文件 drift／⑪ roadmap 現況）全部不變。**
 > **🔜 S201（2026-07-31）—— 本段為當前權威清單，整份重生。S200 段（footnote bypass 線 ①收 bypass ②量度 全部完成 + deploy + live 驗）降為歷史，未完項收納入本段。** ① **🔴【時間閘 —— 8 月 2 + 8 月 5 讀，只有 Leonard 做得到，剩 2 日】S198 route-probe 觀察窗。** `backend/src/server.ts` 頂 `[route-probe]` 仍 live。Render → Logs → search `route-probe`,**扣起 24 行 `ua=s198-*`**,dashboard 時間戳 UTC+1。**🔴 讀完必須刪走 probe。** 過咗 8/6 = Hobby 7 日滿,照讀但結論寫明窗殘缺。讀完 + probe 刪 = 拆 backend route（⑥）前置。 ② **【硬化 judge V4 收 transplant 類；§3 HIGH-risk prompt 改動，要 PLAN + Leonard go + dashboard reconfirm model】** 收 bypass 後 `D01`（學生醫生紙,staff→student）同 `GN10`（幼稚園師生比例,SCCC 1:14→普通KG）呢類**主體/範圍移植** live 仍會答 —— V3 judge prompt 自己都捉唔到（擴闊集 decline 19/21 嘅嗰 2 條）。硬化 judge(V3→V4)令佢哋 flip 做否。⚠️ **陷阱:35 條 acceptance set 已 frozen,喺佢身上 tune V4 會燒 held-out 價值** → 要另撈 fresh transplant 驗證集,或原則性設計 + 一次量。ship gate:`--plumbing-check` 確認 model、false answer 同 accuracy 分開、`D00_s177_frozen_post` 一票否決、改完重跑 `footnote_lead_probe.py`。工具:`judge_acceptance.py`(35 條) + `dev/source/judge_runs/2026-07-31_s201_v3_widened.json`(V3 baseline)。 ③ **【Channel A Option 2 入庫 —— Leonard 已拍板方向，執行未開始；§3 HIGH risk + 跨 session，要獨立 PLAN + go】** 117 條「提到角色」事實逐條揾真 citation、以 `footnote_curated` + URL 重新入庫（優先 CLEARED/HAND_VERIFIED tier；`channel_a_coverage.py` + `CHANNEL_A_RETIREMENT_LEDGER.tsv` + `CHANNEL_A_COVERAGE_FINDINGS.md` §6）。**陷阱:總帳 url 係 retrieval 目標唔係出處,每條打開文件核實(44% 陷阱);揾唔到出處嘅唔准砌(= D17/S177 砌數)。** ④ **【接 ③ 細子決定】** 24 條純職責歸屬孤兒（`[角色] 負責…`）升唔到 → 接受蝕 / 保留殘餘（細、有界）。 ⑤ **【只有 Leonard 做得到】** 確認 `PUBLISH_PAT` fine-grained、只限 `edb-circular-site` contents:write。 ⑥ **【等 ① 有結果先做】拆 backend 半邊**:`/api/search/channel-a` + `/combined` + `searchChannelA.ts` + `searchCombined.ts` + `factEmbeddingCache.ts` + `/health` 拎走 `cache_a` + 開機唔再 embed 455。⚠️ `knowledgeRepository.ts` 要留（`analyzeCircular.ts` 仍 import）;`knowledge.json` 刪唔得（index.html:561 + q.html:233）;3 條矛盾假期日數只可經 channel-a route 攞到,route 一日未拆一日 serve 緊錯數;結論只可寫「N 日內零外部呼叫」。 ⑦ **【總帳未讀桶,離線可做】** 172 UNVERIFIED + 107 PROVISIONAL 未讀、133 CLEARED 未抽樣（44% 唔可當可退）;同 ③ 部分重疊。 ⑧ **【較大】** `g24` 同 `sag_2025_11` 同一份手冊登記兩次,215 條 chunk 文字相同（要獨立 PLAN）。 ⑨ **【維護】** 封面 baseline 208 / spotlight 6 源 / `MIN_OVERLAP` 兩份鏡像（`footnote_lead_probe.py` ↔ backend `FOOTNOTE_LEAD_MIN_OVERLAP`）。 ⑩ **【文件 drift,未修】** 三處「下游有冇轉 Channel B」講法唔一致;`HANDOFF_PACKAGE.md:32` 過時。 ⑪ **【roadmap 現況更正】** `dev/SYSTEM_ANALYSIS_AND_ROADMAP.md`（2026-07-05）:R1 大致落地未 CI-gate、R5 只剩 PAT、R8 前置已解。其他 backlog: Feature 2a 追問 + 2b 文件 scoped Q&A;雲端 OCR 引擎選項。
 
 > **🔙 S199（2026-07-30）—— 已被上面 S200 取代（③ ship V3 已完成；其餘收納入 S200 段）。原文保留作歷史。整份重生。S198 段降為歷史（其 ① 觀察窗仍生效，見本段 ⑤；probe 未刪）。** ① **【Channel A Option 2 入庫 —— Leonard 已拍板方向，執行未開始；§3 HIGH risk + 跨 session，要獨立 PLAN + go】** 把 117 條「提到角色」事實逐條揾返真 citation、以 `footnote_curated` + URL 重新入庫（優先 CLEARED/HAND_VERIFIED tier，可升率最高；`channel_a_coverage.py` + `CHANNEL_A_RETIREMENT_LEDGER.tsv` + `CHANNEL_A_COVERAGE_FINDINGS.md` §6 齊）。**陷阱:總帳 url 係 retrieval 目標唔係出處,每條要打開文件核實(44% 陷阱)。揾唔到出處嘅唔准砌一個(= D17/S177 砌數)。** ② **【接住 ① 嘅細子決定】24 條純職責歸屬孤兒(`[角色] 負責…`)升唔到 → 接受蝕呢 24 條 / 或保留殘餘。已由 100+ 縮到 24,係細、有界嘅決定。** ③ **【judge:先修 judge、後收 footnote bypass —— 次序由 S199 實測企穩,件事係耦合】** V3 喺生產 model `gpt-4o-mini` 已達 answer 11/11 + decline 全保(`dev/source/judge_acceptance.py --score`,凍結集已 commit)。ship V3 = §3 HIGH risk,要 PLAN + Leonard go;ship 前必 `--plumbing-check`(確認 model)、false answer 同 accuracy 分開報、`D00_s177_frozen_post` 中招一票否決;ship 後必重跑 `footnote_lead_probe.py`。**先讀 `JUDGE_PROMPT_FINDINGS.md`(已含 S199 生產 model 數 + footnote bypass live 發現)。** ④ **【收 footnote bypass —— 排 ③ 之後】** D01/D17 呢類「footnote lead 帶隔籬規則、跳過 judge、答得斬釘截鐵」而家 live serve 緊。但 D13 證明同一路都載住啱答案(留位費 970/1570 有出處),**唔可以照剷 bypass** → 要令呢啲 case 去見一個(修好嘅)judge。驗收工具:`dev/source/judge_runs/2026-07-30_s199_footnote_bypass_live.json`。⑤ **【S198 觀察窗 —— 硬外部閘,8 月 2 + 8 月 5 讀】** `backend/src/server.ts` 頂 `[route-probe]` 仍 live。Render → Logs → search `route-probe`,**扣起 24 行 `ua=s198-*`**,dashboard 時間戳 UTC+1。**🔴 讀完必須刪走 probe。** 過咗 8/6 = Hobby 7 日保留期滿,最早幾日永久冇咗,照讀但結論寫明窗殘缺。讀完 + probe 刪走 = 前置,先可拆 backend route(見下 ⑦)。⑥ **【只有 Leonard 做得到】** 確認 `PUBLISH_PAT` 係 fine-grained、只限 `edb-circular-site` contents:write（API 唔會俾 token 自報 scope）。⑦ **【等 ⑤ 有結果先做】拆 backend 半邊**:`/api/search/channel-a` + `/api/search/combined` + `searchChannelA.ts` + `searchCombined.ts` + `factEmbeddingCache.ts` + `/health` 拎走 `cache_a` + 開機唔再 embed 455 條。⚠️ `knowledgeRepository.ts` 要留(`analyzeCircular.ts` 仍 import);`knowledge.json` 刪唔得(index.html:561 + q.html:233);結論只可寫「N 日內零外部呼叫」。**額外理由:3 條矛盾假期日數只可經 channel-a route 攞到,route 一日未拆一日 serve 緊錯數。** ⑧ **【總帳未讀桶,離線可做,embedding 已快取】** 172 UNVERIFIED + 107 PROVISIONAL 未逐條讀、133 CLEARED 未抽樣。按 44% 覆核失敗率唔可以當可退。呢個同 ① 部分重疊(讀落去就係決定邊 117 條可升)。⑨ **【較大】`g24` 同 `sag_2025_11` 同一份《學校行政手冊》登記兩次,215 條 chunk 文字完全相同** —— eval 固有 tie 真來源(`_tie_aliases` 兜住)。真合併＝刪一邊 215 條,最高流量來源,要獨立 PLAN。⑩ **【維護】** 封面核對 baseline(`title_baseline.json` 現 208 條)跟入庫更新;spotlight 現 6 源要剪必由 eval 對開始;`footnote_lead_probe.py` `MIN_OVERLAP` 同 backend `FOOTNOTE_LEAD_MIN_OVERLAP` 兩份鏡像改一邊必改另一邊。⑪ **【文件 drift,未修】** 三處對「下游有冇轉 Channel B」講法唔一致(PMS §F.11／roadmap R3／§F.2);`HANDOFF_PACKAGE.md:32` 仍寫「mobile search 接 combined」已過時。⑫ **【roadmap 現況更正】** `dev/SYSTEM_ANALYSIS_AND_ROADMAP.md` 寫於 2026-07-05:R1 檢索 eval 大致落地(但未 CI-gate)、R5 sibling 審計已做(只剩 PAT)、R8 前置已解除。其他 backlog: Feature 2a 追問 + 2b 文件 scoped Q&A(Leonard S182 揀 sequence A);雲端 OCR 引擎選項。
@@ -271,6 +273,19 @@ source_registry → same vault PDFs → ai_extract.py
 - **雲端 OCR 引擎選項**（image-PDF ingestion 升級線，S180 評估）：Google Vision `DOCUMENT_TEXT_DETECTION`（逐字信心 + bounding box、每月 1,000 單位永久免費 + ~$1.50/1,000、要綁卡開 billing）／Mistral OCR（Markdown+表格、~$2/1,000）——比現用 `gpt-4o` 圖像 OCR「draft 質」可能更準更平，且 bbox 可餵返 grid 重建。命中 image-PDF 質素問題（如 DEBP 主藍圖 ~16 圖像頁）先評估：**真檔實測 + 開 Google billing**（ingestion 處理公開文件、無未成年私隱顧慮；後端已存在故唔需要 brief 嗰套 serverless key-proxy）。詳見 playbook inbox 提案 `2026-06-24-edb-knowledge-cloud-ocr-engine-options.md` + `doc-extract-method-ladder` 卡。出處：Leonard 一份 OCR 收費版 brief（2026-06，已核實價）。
 
 ## Last Session Record
+1. UTC date: 2026-08-02
+2. Session ID: Claude_20260802_S202 — NEXT ① route-probe 觀察窗第一次讀（8/2）
+3. Completed:
+   - ✅ **route-probe 8/2 讀 ＝ 全窗綠**：Render Logs「Last 7 days」search `route-probe`，2026-07-30 09:40 UTC→8/2 共 **26 行全部有主**（24× `s198-deploycheck-*` 自測 ＋ 2× `s201-control-probe` 對照），零第三方 / 零非自測 origin/ua → 兩條 channel-a route（`/api/search/channel-a`、`/combined`）由 7/30 起零外部呼叫。
+   - ✅ **儀器雙重對照確認正常**：Claude 遠端放 `s201-control-probe`（即時，出到＝儀器 work）＋ s198 7/30 回溯（「Last 7 days」下 24 行全現形＝窗涵蓋起點）。頭先空手 search 冇當「零流量」（S198 紀律落地）。
+   - ✅ **checkpoint 入 handoff OP① ＋ push**：commit `2ec82cf`。
+   - ✅ **§4a log 維護**：SESSION_LOG 402→122 行，4 舊 entry 搬入 `dev/archive/SESSION_LOG_2026_Q3.md`（只搬冇刪）。
+4. QC：起手探針 4/4 綠；probe 儀器經 s198＋s201 雙對照證正常；**零 code／零 Supabase／零 route 改動**（純唯讀量度）。
+5. 未完成（詳見 Open Priorities）：① route-probe **8/5 第二次讀**（≤8/6 前）＋讀完刪 `server.ts:168–198` probe；②–⑪ 見 S201 段（硬化 judge V4／Channel A Option 2 入庫…）不變。
+6. 關鍵教訓：Render Hobby log search「搜唔到」≠「零事件」——必先放即時對照（s201）＋回溯已知事件（s198 7/30）驗窗涵蓋，先可信 negative（S198 真金白銀那一堂再落地）。「Last 7 days」時間範圍未 set 會令 search 空手＝儀器操作問題唔係流量。
+7. commits：`2ec82cf`（8/2 checkpoint）＋本 closeout commit。Supabase 16,062 零寫入、registry 256 / v3.2.2 / 凍結合約零接觸。
+
+## Previous Session Record (S201)
 1. UTC date: 2026-07-31
 2. Session ID: Claude_20260731_S201 — NEXT ②：收 footnote judge-bypass（擴闊 decline 集 → 量 V3 → 收 bypass → deploy → live 驗）。Leonard 逐步揀:(A) groundwork → (A) 開 ② 本體 → 量度後揀 (B) 收 bypass V3 先 → push → 收工。
 3. Completed:
@@ -581,6 +596,15 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## State Reconciliation Check
 
+- **Reconciled at:** 2026-08-02 (S202 closeout — Leonard「收工」)
+- **S202 state sections rewritten or confirmed current:** `Current Baseline`（prepend S202 block：route-probe 8/2 讀＝全窗綠 26 行全部有主／儀器雙重對照＝S198 紀律落地／probe 未刪／零 code·Supabase·route 改動＋§4a log 維護）；`Open Priorities`（prepend S202 權威 block：① 8/2 已讀更新為淨剩 8/5 讀＋刪 probe，②–⑪ 明列不變見 S201 段）；`Last Session Record` 由 S201 重寫為 S202（S201 降 `Previous Session Record (S201)`，no-loss）；`Next Session Opening Message` 五處就地更新（state header→S202／🔴🔴 route-probe→8/2 done·8/5 left／做咗→S202／NEXT ①→8/5 only／⏰⏰ 時間關鍵→8/5）；本段。
+- **S202 lifecycle check:** S201 唯一時效遺留（NEXT ① route-probe 觀察窗，8/2+8/5 讀）**第一次讀已完成**＝全窗綠零外部呼叫，已由「剩 2 日內」更新為「淨剩 8/5 一次讀＋刪 probe」，**未從 Open Priorities 移除**（因 8/5 讀＋刪 probe 仍未做，正確保留為 ①，非殘留已完成項）。②–⑪ 全部沿用 S201、無變動、無已完成項殘留為未解 next priority。新增未解項：無（純執行既有 ①）。**Risk 更新**：生產度臨時 probe 仍 live（`server.ts:168–198`），8/5 讀完必刪 — 仍為 active，量度視窗確認零外部後即可拆。
+- **S202 persistence routing checked:** 是。當前狀態→handoff `Current Baseline` S202 ＋ `Open Priorities`；量度結果 + 儀器對照方法 + §4a 維護 → `dev/SESSION_LOG.md` S202 entry；**可重用教訓（Render Hobby log negative≠零事件、必先即時對照＋回溯已知事件驗窗、「Last 7 days」未 set 令 search 空手）** 已在 handoff `Last Session Record` §6 ＋ opening message 🧭 紀律 #2（S198 既有紀律再落地，無需新增 rule pack）。無 code／Supabase／registry 改動故無 CODEBASE_CONTEXT 更新。working scratch（screenshot 觀察）未持久化。
+- **S202 stale snapshots left:** 無。S201 段全部保留原文（降為 `Previous Session Record (S201)`），無改寫歷史。opening message 舊 route-probe「8/2+8/5 剩 2 日」述已就地更新為 8/2-done。
+- **S202 opening message matches current state:** 是。`Next Session Opening Message` 五處就地更新（見上），state header ＝ S202 / HEAD 2ec82cf / route-probe 8/2 done·8/5 left。`START_NEXT_SESSION_PROMPT.txt` ＝頂層 dormant root redirect（指向 Draft、非 per-session state），本 session 零改動仍 valid（Draft opening message 為權威）。
+- **S202 sync status:** 本 session 零入庫、零檢索改動、零 synthesis-gate 改動 → DOC_SYNC 無命中 change category（純唯讀量度＋handoff/log 持久化）。§4a：`--check` trigger=True（402 行）→ `--apply` 執行，402→122 行、4 舊 entry 搬入 `dev/archive/SESSION_LOG_2026_Q3.md`（只搬冇刪、archive pointer 已在）。凍結合約＋`PLATFORM_VERSION` 零接觸（Supabase 16,062 零寫入 / registry 256 / `_meta` 2.3.0 / facts 455 / guidelines 158 / served 3.2.2）。Render/Pages 零 deploy（無 code 改）。
+- **舊記錄（S201 closeout）：**
+
 - **Reconciled at:** 2026-07-31 (S201 closeout — Leonard「C = 收工」)
 - **S201 state sections rewritten or confirmed current:** `Current Baseline`（prepend S201 block：擴闊 decline 集 11→21／量 V3 baseline 12-12·19-21／收 footnote judge-bypass fc287ff／deploy+live 驗 D17 flip·D13 保留·D01 未變）；`Open Priorities`（**整份重生為 S201 段 11 項**，S200 段 footnote-bypass 線全部完成降歷史；route-probe 觀察窗升 **①**〔時間閘 8/2 剩 2 日〕、硬化 judge V4 收 transplant 為 **②**）；`Last Session Record` 由 S200 重寫為 S201（S200 降 `Previous Session Record (S200)`，no-loss，並標註 S200「D01 judge 從不 serve」已因 S201 收 bypass 而 stale）；`Next Session Opening Message` 重生（S201 做咗／NEXT 以 route-probe 觀察窗為 #1／transplant V4 為 #2／必讀改指 FINDINGS S201 段）；本段。
 - **S201 lifecycle check:** S200 唯一未完 active 遺留（NEXT ②「收 footnote bypass」，兩硬前置 deploy+decline 集擴闊）**已完成**：兩前置齊 → ship（移走 trustedFootnoteLead）→ deploy → live 驗，已從 Open Priorities 移除、唔再列未解。其衍生**新項「硬化 judge V4 收 transplant 類」**（D01/GN10，V3 judge prompt 自己 miss）正確列為 ②（未完成、有明確前置陷阱：frozen set 上 tune 會燒 held-out）。S198 route-probe 觀察窗（原 S200 ⑤）**時效已到 → 升為 ①**（8/2+8/5，剩 2 日）。**無已完成項殘留為未解 next priority／active risk**：D01/GN10 live 仍答係**明確標為 pending V4 嘅已知殘留**（收 bypass 令佢哋去見 judge，但 judge 自己 miss，唔係 regression、唔係本次可完成之交付）。新增未解項：硬化 judge V4（②）。
@@ -697,25 +721,26 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
 (Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
 
-Current state (S201, 2026-07-31): 平台 v3.2.2; Supabase 16,062 chunks (本 session 零寫入);
-source_registry 256; HEAD==origin/main (S201 commits ded9504→b7627b7→fc287ff→4e7d90b + 本
-closeout commit); 凍結合約 _meta 2.3.0 / facts 455 / guidelines 158。
-**S201 收咗 footnote judge-bypass (NEXT ②)**: searchChannelB.ts 移走 trustedFootnoteLead →
-footnote-lead query 而家一律過 judge (V3), 唔再享特權跳過。vault bypass(≥0.70)/forced lead
-slot/lexical gate/RELEVANCE_JUDGE_PROMPT 字串全部不變。commit fc287ff, deploy 已確認 live。
-judge acceptance 集擴闊到 35 (decline 半邊 11→21)。
+Current state (S202, 2026-08-02): 平台 v3.2.2; Supabase 16,062 chunks (S202 零寫入);
+source_registry 256; HEAD==origin/main (S202 checkpoint commit 2ec82cf + 本 closeout commit);
+凍結合約 _meta 2.3.0 / facts 455 / guidelines 158。
+**S202 = NEXT ① route-probe 觀察窗第一次讀 (8/2) 完成 = 全窗綠, 零外部呼叫** (詳見下 🔴 段)。
+零 code / 零 Supabase / 零 route 改動 — 純唯讀量度 + handoff checkpoint。
+(上一 session S201 已 ship: 收 footnote judge-bypass〔searchChannelB.ts 移走 trustedFootnoteLead,
+footnote-lead query 一律過 V3 judge〕, commit fc287ff deploy live; judge acceptance 集擴闊到 35。)
 自動化 active: 5 源監察 (discover / freshness / served-url / new-circular / 封面核對, 月跑)
 + Option A 自動入庫管道 (OPERATIONAL; 每日 19:30 HK refresh Issue; cron 20:00 HK 兜底)。
 
 ⚠️ 管道會自行入庫並直接 push main — 開工時本地可能落後 origin/main, tree 乾淨 + 0 本地 commit
 時先 git pull --ff-only 同步。
 
-🔴🔴 生產度而家仲有一段臨時 code (S198 留低, 未刪) —— 而家係 NEXT ①, 時間已到:
-  backend/src/server.ts handler 最頂嘅 [route-probe], 量度兩條 channel-a route 有冇外部呼叫。
-  ⏰ 觀察窗 2026-07-30 09:40 UTC 開始。Render Hobby log 只保留 7 日 →
-     8 月 2 日 + 8 月 5 日 各讀一次 (Render → Logs → search route-probe), 唔好等到第 7 日。
-  🧮 讀數時扣起 24 行 ua=s198-* (S198 自測流量)。⚠️ dashboard 時間戳係 UTC+1 唔係 UTC。
-  🗑 讀完必須刪走成段 probe。刪咗 + 讀完 = 拆 backend route 嘅前置 (見 NEXT ⑥)。
+🔴🔴 生產度而家仲有一段臨時 code (S198 留低, 未刪) —— NEXT ①, 淨剩 8/5 一次讀:
+  backend/src/server.ts:168–198 [route-probe], 量度兩條 channel-a route 有冇外部呼叫。
+  ✅ 8/2 第一次已讀 = 全窗綠: Render Logs「Last 7 days」search route-probe, 觀察窗起點
+     2026-07-30 09:40 UTC → 8/2 共 26 行全部有主 (24× s198 自測 + 2× s201 對照), 零第三方。
+  🔜 8/5 再 search route-probe 一次 (≤8/6 Hobby 7 日滿前), 同樣扣 ua=s198-* / ua=s201-control-probe。
+  🧮 dashboard 時間戳係 UTC+1 唔係 UTC (8/2 三度實證)。
+  🗑 8/5 讀完 (確認仍零外部) 必須刪走成段 probe。刪咗 + 讀完 = 拆 backend route 前置 (見 NEXT ⑥)。
 
 ⚠️⚠️ 一個貫穿全局嘅事實 (S199 用真金白銀學到): judge / synthesis 用嘅 model 唔係 code
   default。env.ts fallback 係 gpt-4.1-nano、README/DEPLOY 都寫呢個, 但 Render 實設
@@ -723,21 +748,14 @@ judge acceptance 集擴闊到 35 (decline 半邊 11→21)。
   任何 judge/synthesis 量度, 引用做「生產行為」之前必須去 Render dashboard 確認 model。
   對照組 (--plumbing-check) 證明「儀器有反應」, 證明唔到「儀器指住正確系統」。
 
-📋 S201 做咗 (Leonard: groundwork → 開 ② 本體 → 揀 B 收 bypass V3 先 → push → 收工):
-1. 擴闊 judge decline 集 11→21: S199 講嘅「14 條 candidate」從未持久化 → 重新 author 14 條,
-   逐條打開 live top-5 passage 親眼讀先落 label (11 gap + 3 answerable, 3 條逆假設 flip)。
-   10 clean gap 入 decline、GN11(採購>$200k) 入 answer。judge_acceptance_cases.json 24→35。
-2. 量 V3 baseline (擴闊 35 條, gpt-4o-mini dashboard reconfirm, --plumbing-check 綠):
-   answer 12/12、decline 19/21 (2 false = D01/GN10, 皆 transplant 類)、D00 一票否決正確拒答。
-   run: 2026-07-31_s201_v3_widened.json。
-3. 收 footnote judge-bypass: searchChannelB.ts synthesizeAnswer 移走 trustedFootnoteLead
-   (連 forcedFootnoteLeads)。commit fc287ff, deploy 已確認 live (poll 0 即見 D17 flip)。
-4. live before→after 驗 (synthesize:true 生產): D17 消防演習 砌數「每12個月」→ 拒答;
-   D13 留位費 仍正確答 970/1570 (零退步); D01 仍答 (V3 miss, pending NEXT ②)。
-5. QC 全綠: --self-test 0 fail / --check-parity byte-identical (prompt 未郁) / tsc 0 /
-   零殘留 bypass 引用 / footnote_lead_probe --run before==after 30/30·5/13·0err (lead-slot 零回歸)。
-🔴 D01(學生醫生紙,staff→student) + GN10(幼稚園師生比例,SCCC 1:14→普通KG) 呢類 transplant
-   V3 自己都判「能」→ live 仍會答 → 要硬化 judge (V4) 先修 = NEXT ②。收 bypass 唔 touch 呢個。
+📋 S202 做咗 (Leonard 喺 Render dashboard 讀, Claude 遠端協助 + 記錄):
+1. route-probe 8/2 第一次讀 = 全窗綠 (見上 🔴 段): 兩條 channel-a route 由 7/30 起零外部呼叫。
+2. 儀器雙重對照: 頭先空手 search 冇當「零流量」→ Claude 遠端放 s201-control-probe (即時, 出到
+   = 儀器 work) + s198 7/30 回溯 (「Last 7 days」下 24 行全現形 = 窗涵蓋起點), 先落結論 (S198 紀律)。
+3. checkpoint 入 handoff OP① + push (commit 2ec82cf); §4a log 維護 402→122 行, 4 舊 entry
+   搬入 dev/archive/SESSION_LOG_2026_Q3.md (只搬冇刪)。
+🔴 (S201 遺留, 未修) D01(學生醫生紙,staff→student) + GN10(幼稚園師生比例,SCCC 1:14→普通KG) 呢類
+   transplant, live 仍會答, V3 judge 自己都判「能」→ 要硬化 judge (V4) 先修 = NEXT ②。
 
 🚨 落手前必讀:
    (a) JUDGE_PROMPT_FINDINGS.md — 頂 S201 段: footnote bypass 已移走、D01 而家過 judge (V3
@@ -770,9 +788,10 @@ judge acceptance 集擴闊到 35 (decline 半邊 11→21)。
   注意: judge_runs/chunks_cache.json (35 條) 已快取; embed/chunk cache 已喺 disk。
 
 🔜 NEXT (優先序; §3 項目全部要 PLAN + Leonard go):
-  ① 🔴【時間閘, 剩 2 日內, 只有 Leonard 做得到】S198 route-probe 觀察窗: 8/2 + 8/5 讀
-     (Render → Logs → search route-probe, 扣 ua=s198-*, dashboard 時間戳 UTC+1)。
-     讀完必須刪走 probe。過咗 8/6 = Hobby 7 日滿, 照讀剩返但結論寫明窗殘缺。= 拆 backend(⑥)前置。
+  ① 🔴【時間閘, 淨剩 8/5 一次讀, 只有 Leonard 做得到】S198 route-probe 觀察窗。8/2 第一次已讀
+     = 全窗綠零外部呼叫 (7/30 09:40 UTC→8/2 共 26 行全部 s198 自測+s201 對照, 零第三方)。🔜 8/5
+     再 search route-probe (扣 ua=s198-*/ua=s201-control-probe, dashboard UTC+1), 確認仍零 →
+     讀完必須刪走 server.ts:168–198 probe。過咗 8/6 Hobby 7 日滿, 照讀剩返但結論寫明窗殘缺。= 拆 backend(⑥)前置。
   ② 【硬化 judge V4 收 transplant 類; §3 HIGH-risk prompt 改動】D01/GN10 呢類主體/範圍移植
      V3 判唔到 (擴闊集 decline 19/21 嗰 2 條)。V3→V4 令佢哋 flip 做否。⚠️ 35 條 acceptance set
      已 frozen, tune V4 會燒 held-out → 另撈 fresh transplant 集或原則性設計 + 一次量。
@@ -797,9 +816,10 @@ judge acceptance 集擴闊到 35 (decline 半邊 11→21)。
 Post-startup first action: 跑起手探針 (served app.html v3.2.2 + Render /health warm 455 +
 Draft HEAD==origin/main〔落後就 ff-pull〕+ Supabase count=exact 16,062), 然後向 Leonard
 報告當前狀態同建議下一步。
-⏰⏰ 時間關鍵: 今日若已係 2026-08-02 或之後, 起手探針之後即刻提醒 Leonard 開 Render Logs
-   search route-probe 讀觀察窗 (扣起 ua=s198-* 嗰 24 行), 讀完刪 probe = NEXT ①。如果過咗
-   2026-08-06, Hobby 7 日保留期滿, 最早幾日永久冇咗 — 照讀剩返, 但結論寫明窗殘缺。
+⏰⏰ 時間關鍵: NEXT ① 8/2 第一次讀已完成 (全窗綠)。今日若已係 2026-08-05 或之後, 起手探針之後
+   即刻提醒 Leonard 開 Render Logs「Last 7 days」search route-probe 讀第二次 (扣 ua=s198-*
+   同 ua=s201-control-probe), 確認仍零外部 → 讀完刪 server.ts:168–198 probe = 完成 NEXT ①。
+   如果過咗 2026-08-06 Hobby 7 日保留期滿, 最早幾日永久冇咗 — 照讀剩返, 但結論寫明窗殘缺。
 
 所有路徑含空格, 終端機指令必須用雙引號包住。改任何嘢之前, 先報告當前狀態同建議下一步。
 ```
