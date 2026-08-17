@@ -7167,6 +7167,230 @@
       "last_checked_at": "2026-08-17",
       "supersedes": null,
       "notes": "(auto, Option A executor) EDBCM116/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+    },
+    {
+      "source_id": "staff_est_pri",
+      "title": "資助小學教學人員編制",
+      "title_en": null,
+      "title_short": "資助小學教學人員編制",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/Staff_est_pri_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2022/23起",
+      "last_checked_at": "2026-08-17",
+      "supersedes": null,
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 表格文件：vault extract 由 dev/vault/extract_table_rows.py 座標重建（72 行，算術自檢 0 失敗），非 expand_vault --fetch 預設抽取。refresh 時必須重跑該腳本，唔可以直接 --fetch --force。"
+    },
+    {
+      "source_id": "staff_est_sp_sch_pri",
+      "title": "資助特殊學校小學部教學人員編制",
+      "title_en": null,
+      "title_short": "資助特殊學校小學部教學人員編制",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/Staff_est_sp_sch_pri_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2022/23起",
+      "last_checked_at": "2026-08-17",
+      "supersedes": null,
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 表格文件：同上，extract_table_rows.py 重建（48 行，算術自檢 0 失敗）。"
+    },
+    {
+      "source_id": "roles_functions_pri",
+      "title": "資助小學學位教師職系不同職級的角色和職能",
+      "title_en": null,
+      "title_short": "資助小學學位教師職系不同職級的角色和職能",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/Roles_functions_pri_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": null,
+      "last_checked_at": "2026-08-17",
+      "supersedes": null,
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 對應用戶「主任編制／職責」問法。"
+    },
+    {
+      "source_id": "psm_sgt",
+      "title": "學生輔導教師出任小學學位教師職位",
+      "title_en": null,
+      "title_short": "學生輔導教師出任小學學位教師職位",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/PSM_SGT_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": null,
+      "last_checked_at": "2026-08-17",
+      "supersedes": null,
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
+    },
+    {
+      "source_id": "faq_edbc19011",
+      "title": "「資助學校教師職位全面學位化」政策常見問題和解答",
+      "title_en": null,
+      "title_short": "「資助學校教師職位全面學位化」政策常見問題和解答",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/FAQ_EDBC19011_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": null,
+      "last_checked_at": "2026-08-17",
+      "supersedes": null,
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
+    },
+    {
+      "source_id": "ppt_grad_pri_policy",
+      "title": "資助學校教師職位全面學位化——政策概要",
+      "title_en": null,
+      "title_short": "資助學校教師職位全面學位化——政策概要",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/ppt_all_grad_pri_policy.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2019-04",
+      "last_checked_at": "2026-08-17",
+      "supersedes": null,
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
+    },
+    {
+      "source_id": "ppt_grad_pri_faq",
+      "title": "資助學校教師職位全面學位化——常見問題分析",
+      "title_en": null,
+      "title_short": "資助學校教師職位全面學位化——常見問題分析",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/ppt_all_grad_pri_faq.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2019-04",
+      "last_checked_at": "2026-08-17",
+      "supersedes": null,
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
+    },
+    {
+      "source_id": "edbc19011",
+      "title": "教育局通告第11/2019號 資助學校教師職位全面學位化",
+      "title_en": null,
+      "title_short": "教育局通告第11/2019號 資助學校教師職位全面學位化",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/index.html",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC19011C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2019",
+      "last_checked_at": "2026-08-17",
+      "supersedes": null,
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
+    },
+    {
+      "source_id": "edbc00030",
+      "title": "教育局通告第30/2000號",
+      "title_en": null,
+      "title_short": "教育局通告第30/2000號",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/index.html",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/edbc/EDBC00030C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2000",
+      "last_checked_at": "2026-08-17",
+      "supersedes": null,
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
+    },
+    {
+      "source_id": "coa_pri_e",
+      "title": "小學資助則例",
+      "title_en": "CODE OF AID FOR PRIMARY SCHOOLS",
+      "title_short": "小學資助則例",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/regulations/codes-of-aid/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/en/sch-admin/regulations/codes-of-aid/coa_pri_e.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr",
+        "finance",
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": null,
+      "last_checked_at": "2026-08-17",
+      "supersedes": null,
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 ⚠️ 只有英文版（EDB codes-of-aid 頁面全系列無中文版，S204 實核）；中文查詢靠 multilingual embedding 跨語命中，命中率待 eval 觀察。載非教學人員（文書／校工）編制條款。"
+    },
+    {
+      "source_id": "coa_ss_e",
+      "title": "特殊學校資助則例",
+      "title_en": "CODE OF AID FOR SPECIAL SCHOOLS",
+      "title_short": "特殊學校資助則例",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/regulations/codes-of-aid/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/en/sch-admin/regulations/codes-of-aid/coa_ss_e.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr",
+        "finance",
+        "general"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": null,
+      "last_checked_at": "2026-08-17",
+      "supersedes": null,
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 ⚠️ 只有英文版（同上）。"
     }
   ]
 }
