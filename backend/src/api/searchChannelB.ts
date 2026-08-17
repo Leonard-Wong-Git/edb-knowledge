@@ -508,6 +508,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     // held the 公社科 guide, now `cgss_sss_2021`.
     "ict_sss_2021",
     "ict_sss_2007_2015",  // superseded by the 2021 edition → SUPERSEDED_IDS penalty applies
+    "edbcm116_2026",              // (auto) Option A watcher ingest
   ],
   /*
    * Kindergarten administration / operation — 幼稚園行政手冊 + 學前機構辦學手冊 (S160).
@@ -994,6 +995,7 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   "edbcm066_2026", // S193: 準英語教師獎學金 (14 chunks) — S195 eval: pruning broke net_scholar
   "iit_ai_framework_2026", // S194: 人工智能初探範疇正文 (18 chunks) — S195 eval: pruning broke ai_intro
   "edbc013_2026",  // S194: 非本地兒童入學 (9 chunks; the eval harness caught it missing, measured 0.619)
+  "edbcm116_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   // ack:spotlight:end
 ];
 

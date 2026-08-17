@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-07-27",
+    "updated": "2026-08-17",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -7147,6 +7147,26 @@
         "g21"
       ],
       "notes": "S195 NEW: split out of g21. Its 25 pages had been living inside g21's vault file since S149, served under the primary guide's URL. Preface states it revises the 2002 edition and covers 中學 visual-arts activities (the primary guide revises the 2000 edition); document text references a 2023 update, hence version_label 2023. 26 pages, text-layer, cover verified."
+    },
+    {
+      "source_id": "edbcm116_2026",
+      "title": "國民教育——活動規劃年曆（2026/27 學年）",
+      "title_en": null,
+      "title_short": "國民教育——活動規劃年曆（2026/27 學年）",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26116C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26116C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-08-17",
+      "supersedes": null,
+      "notes": "(auto, Option A executor) EDBCM116/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
     }
   ]
 }
