@@ -741,8 +741,8 @@ const INITIAL_DATA = {
     "dedup_note": "Session 102 (2026-05-02): Strategy B dedup — removed 209 duplicate role-bucket facts already in all_roles bucket. Backend selector unions all_roles + role buckets so no semantic content lost. | 2026-05-16 (Session: dedup pass): semantic de-dup — Phase 1 consolidated 193 exact cross-bucket duplicate strings into all_roles (removed 275 redundant copies); Phase 2 merged 36 near-duplicate groups into enriched canonical sentences (folded 98 variant occurrences). Fact count 792 -> 455. Backend selector unions all_roles + role bucket so no role lost visibility. Conflicting facts (different dates/subjects/figures) intentionally kept separate. Full reversible merge log: dev/DEDUP_LOG_2026-05-16.md.",
     "stats": {
       "facts": 455,
-      "chunks": 16070,
-      "sources": 120,
+      "chunks": 17472,
+      "sources": 288,
       "guidelines": 158,
       "topics": 7
     }
@@ -1512,6 +1512,17 @@ function deepClone(obj) {
 const GUIDELINES_REGISTRY = [
   { id: 'sag_2025_11', title: '學校行政手冊（2026年5月版）', titleShort: 'SAG', format: 'PDF', category: '財務採購', sub_category: 'lsg', level: '跨階段', year: '2026', isSpine: true, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf' },
   { id: 'coa_imc_1_19', title: '資助則例（設有法團校董會資助學校適用版本）', titleShort: 'Code of Aid', format: 'PDF', category: '財務採購', sub_category: 'lsg', level: '跨階段', year: '2024', isSpine: true, url: 'https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf' },
+  { id: 'staff_est_pri', title: '資助小學教學人員編制（2022/23 學年起）', titleShort: '小學教學人員編制', format: 'PDF', category: '人力資源', sub_category: 'establishment', level: '小學', year: '2022', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/Staff_est_pri_tc.pdf' },
+  { id: 'staff_est_sp_sch_pri', title: '資助特殊學校小學部教學人員編制（2022/23 學年起）', titleShort: '特殊學校小學部編制', format: 'PDF', category: '人力資源', sub_category: 'establishment', level: '特殊', year: '2022', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/Staff_est_sp_sch_pri_tc.pdf' },
+  { id: 'roles_functions_pri', title: '資助小學學位教師職系不同職級的角色和職能', titleShort: '學位教師職級角色', format: 'PDF', category: '人力資源', sub_category: 'establishment', level: '小學', year: '2019', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/Roles_functions_pri_tc.pdf' },
+  { id: 'psm_sgt', title: '學生輔導教師出任小學學位教師職位', titleShort: '學生輔導教師出任學位教師', format: 'PDF', category: '人力資源', sub_category: 'establishment', level: '小學', year: '2019', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/PSM_SGT_tc.pdf' },
+  { id: 'edbc19011', title: '教育局通告第11/2019號 資助學校教師職位全面學位化', titleShort: '通告11/2019 全面學位化', format: 'PDF', category: '人力資源', sub_category: 'establishment', level: '跨階段', year: '2019', isSpine: false, url: 'https://applications.edb.gov.hk/circular/upload/EDBC/EDBC19011C.pdf' },
+  { id: 'faq_edbc19011', title: '「資助學校教師職位全面學位化」政策常見問題和解答', titleShort: '學位化常見問題', format: 'PDF', category: '人力資源', sub_category: 'establishment', level: '跨階段', year: '2019', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/FAQ_EDBC19011_tc.pdf' },
+  { id: 'ppt_grad_pri_policy', title: '資助學校教師職位全面學位化——政策概要', titleShort: '學位化政策概要', format: 'PDF', category: '人力資源', sub_category: 'establishment', level: '跨階段', year: '2019', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/ppt_all_grad_pri_policy.pdf' },
+  { id: 'ppt_grad_pri_faq', title: '資助學校教師職位全面學位化——常見問題分析', titleShort: '學位化問題分析', format: 'PDF', category: '人力資源', sub_category: 'establishment', level: '跨階段', year: '2019', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/ppt_all_grad_pri_faq.pdf' },
+  { id: 'edbc00030', title: '教育局通告第30/2000號（教員晉升、署任）', titleShort: '通告30/2000', format: 'PDF', category: '人力資源', sub_category: 'establishment', level: '跨階段', year: '2000', isSpine: false, url: 'https://applications.edb.gov.hk/circular/upload/edbc/EDBC00030C.pdf' },
+  { id: 'coa_pri_e', title: '小學資助則例 Code of Aid for Primary Schools（英文版）', titleShort: '小學資助則例', format: 'PDF', category: '財務採購', sub_category: 'lsg', level: '小學', year: '2021', isSpine: false, url: 'https://www.edb.gov.hk/attachment/en/sch-admin/regulations/codes-of-aid/coa_pri_e.pdf' },
+  { id: 'coa_ss_e', title: '特殊學校資助則例 Code of Aid for Special Schools（英文版）', titleShort: '特殊學校資助則例', format: 'PDF', category: '財務採購', sub_category: 'lsg', level: '特殊', year: '2021', isSpine: false, url: 'https://www.edb.gov.hk/attachment/en/sch-admin/regulations/codes-of-aid/coa_ss_e.pdf' },
   { id: 'g01', title: '資助學校採購程序指引（2025年10月更新）', titleShort: '採購程序指引', format: 'PDF', category: '財務採購', sub_category: 'procurement', level: '跨階段', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures_TC.pdf' },
   { id: 'g02', title: '設有法團校董會的資助學校財務管理指引', titleShort: '財務管理指引', format: 'PDF', category: '財務採購', sub_category: 'lsg', level: '跨階段', year: '2023', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf' },
   { id: 'g04', title: '教職員批假指引', titleShort: '批假指引', format: 'HTML', category: '人力資源', sub_category: 'leave', level: '跨階段', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/guideline-granting-leave/index.html' },
@@ -1729,6 +1740,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
   const SUB_CAT_LABELS = {
     procurement: '採購程序', lsg: '法團校董會',
     leave: '請假安排', conduct: '專業操守',
+    establishment: '人員編制',
     general: '整體課程指引', language: '語文教育',
     math_science: '數理科學及科技', humanities: '人文社會科學',
     values: '價值觀及公民教育', arts_pe: '藝術及體育',
@@ -1989,7 +2001,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // is frozen and consumed by the downstream Circular System). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + 文件標註（就地標註）+ 範本下載 + 合規清單修訂，跨 15 個合規範疇。
-const PLATFORM_VERSION = '3.2.2';
+const PLATFORM_VERSION = '3.3.0';
 
 function PlatformIntroPanel({ stats }) {
   const [demoTab, setDemoTab] = React.useState(0);
@@ -2000,7 +2012,7 @@ function PlatformIntroPanel({ stats }) {
   const meta = stats.metaStats || {};
   // Single-source derived counts/version (literals kept only as || fallback if stats missing)
   const factsCount = meta.facts || 455;
-  const chunksCount = meta.chunks || 16070;
+  const chunksCount = meta.chunks || 17472;
   const guidelinesCount = GUIDELINES_REGISTRY.length;
   const sourcesCount = meta.sources || 120;
   const platformVersion = PLATFORM_VERSION;
@@ -2625,7 +2637,7 @@ function QAPanel({ data, setPreviewDoc }) {
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 k1-search-card">
         <h2 className="text-lg font-bold text-gray-800 mb-1">政策搜尋</h2>
         <p className="text-xs text-gray-400 mb-3">
-          {`來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 16070).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
+          {`來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 17472).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
         </p>
 
         {/* Search row */}

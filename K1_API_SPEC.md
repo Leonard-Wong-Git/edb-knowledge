@@ -41,7 +41,7 @@ K1 **不分析通告**。Circular System **不儲存事實**。兩者以 JSON AP
     "created": "2026-04-04",
     "updated": "2026-05-16",
     "description": "...（455 條已核實事實；2026-05-16 dedup：792 → 455）...",
-    "stats": { "facts": 455, "chunks": 16070, "sources": 120, "guidelines": 158, "topics": 7 }
+    "stats": { "facts": 455, "chunks": 17472, "sources": 288, "guidelines": 158, "topics": 7 }
   },
   "finance": {
     "_label": "財務 / 採購 / 津貼 / 撥款",
