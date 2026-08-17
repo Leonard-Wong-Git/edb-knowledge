@@ -133,6 +133,17 @@ def load_registry() -> list[dict]:
     with open(REGISTRY_PATH, encoding="utf-8") as f:
         return json.load(f)["sources"]
 
+
+def source_chunk_cap(source_id: str) -> int:
+    """Per-source chunk ceiling: registry `chunk_cap` when set, else CHUNK_CAP."""
+    for src in load_registry():
+        if src.get("source_id") == source_id:
+            cap = src.get("chunk_cap")
+            if isinstance(cap, int) and cap > 0:
+                return cap
+            break
+    return CHUNK_CAP
+
 def get_extracted_source_ids() -> set[str]:
     """Return source IDs that already have a vault extract .txt file."""
     extracted = set()
@@ -361,10 +372,16 @@ def build_chunks_from_vault_file(extract_path: Path) -> list[dict]:
     topic = tag_str.split(",")[0].strip() if tag_str else "general"
 
     texts = chunk_text(body)
-    # Apply cap
-    if len(texts) > CHUNK_CAP:
-        print(f"  ✂️  Capped at {CHUNK_CAP} chunks (was {len(texts)})")
-        texts = texts[:CHUNK_CAP]
+    # Apply cap. CHUNK_CAP keeps one huge source from dominating the corpus, but it drops
+    # the TAIL, so on a long reference document it silently discards the appendices — where
+    # the Codes of Aid keep their staff establishment schedules. A source may raise its own
+    # ceiling with `chunk_cap` in source_registry.json; every other source is unaffected.
+    # (Retrieval already caps how many results one source_id may occupy, so a larger source
+    # cannot crowd the result list either way.) Record the reason in the registry entry.
+    cap = source_chunk_cap(sid)
+    if len(texts) > cap:
+        print(f"  ✂️  Capped at {cap} chunks (was {len(texts)})")
+        texts = texts[:cap]
 
     chunks = []
     for text in texts:

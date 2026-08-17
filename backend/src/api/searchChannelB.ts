@@ -325,6 +325,11 @@ const SOURCE_SETS: Record<string, string[]> = {
     "role_facts_finance",
     "role_facts_general",
     "edbcm096_2026",              // (auto) Option A watcher ingest
+    // S204 — TOPIC_KEYWORDS.finance owns 資助則例 and precedes hr_admin, so every Code of
+    // Aid query lands here, not in hr_admin. coa_imc_1_19 above is the IMC edition only;
+    // these two are the primary / special school editions ingested in S204. They are also
+    // listed under hr_admin because the staffing schedules they carry answer HR queries.
+    "coa_pri_e", "coa_ss_e",
   ],
 
   /**
@@ -347,6 +352,19 @@ const SOURCE_SETS: Record<string, string[]> = {
     "role_facts_hr",
     "role_facts_general",
     "edbcm094_2026",              // (auto) Option A watcher ingest
+    // S204 — the 資助小學學位教師 cluster (graduate-teacher-posts). Nothing in the corpus
+    // answered 「學校有幾多班就有幾多老師」: no registry source covered 人手編制 at all, and
+    // the live endpoint returned nothing relevant even for a document's own full title.
+    // Ingested to Channel B and listed here in the same pass — the S194 note above is the
+    // precedent: a source that is ingested but absent from the route its queries reach is
+    // unreachable, which is exactly how these 11 behaved between ingest and this entry.
+    "staff_est_pri",             // 全日制/半日制資助小學教學人員編制 (班數 → 各職級人數)
+    "staff_est_sp_sch_pri",      // 資助特殊學校小學部教學人員編制
+    "roles_functions_pri",       // 學位教師職系不同職級的角色和職能 (「主任編制/職責」問法)
+    "psm_sgt",                   // 學生輔導教師出任小學學位教師職位
+    "faq_edbc19011", "edbc19011", "ppt_grad_pri_policy", "ppt_grad_pri_faq",
+    "edbc00030",                 // 教育局通告第30/2000號
+    "coa_pri_e", "coa_ss_e",     // 資助則例 (英文版本 — EDB 無中文版; 載非教學人員編制條款)
   ],
 
   /**
@@ -583,7 +601,10 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   finance: /採購|招標|單一報價|競投|供應商|報價單|分判|貨物|服務合約|財務管理|預算|撥款|開支|報銷|捐款|借款|代收費|利益衝突|申報利益|賄賂|廉署|防賄|資助則例|法團校董|校董會經費|採購門檻|採購程序|多元學習津貼/,
   // S186 — hr_admin +語文能力要求/語文基準/基準試 (edbcm088_2026 LPAT) + 準英語教師獎學金 (edbcm066_2026)。
   // 必在 curriculum 之前 (first-match): 「英文科教師語文能力要求」含「英文科」會被 curriculum 偷。
-  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金|語文能力要求|語文基準|語文能力評核|基準試|準英語教師|英語教師獎學金/,
+  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金|語文能力要求|語文基準|語文能力評核|基準試|準英語教師|英語教師獎學金|人員編制|教學人員編制|核准編制|教師編制|主任編制|編制表|主任級|學位化|學位教師職系/,
+  // NOTE: 資助則例 is deliberately absent here — TOPIC_KEYWORDS.finance already
+  // owns it and is evaluated first, so a copy in hr_admin would be dead weight.
+  // coa_pri_e / coa_ss_e are reachable because they sit in BOTH SOURCE_SETS.
   // SEN — MUST stay before `curriculum` (first-match precedence): "特殊學校課程指引"
   // contains 課程 and would otherwise route to curriculum. \bsen\b/i catches the bare
   // English token (real users type "sen"); the rest catch the Chinese terminology.

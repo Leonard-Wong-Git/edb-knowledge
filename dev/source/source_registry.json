@@ -7368,7 +7368,8 @@
       "version_label": null,
       "last_checked_at": "2026-08-17",
       "supersedes": null,
-      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 ⚠️ 只有英文版（EDB codes-of-aid 頁面全系列無中文版，S204 實核）；中文查詢靠 multilingual embedding 跨語命中，命中率待 eval 觀察。載非教學人員（文書／校工）編制條款。"
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 ⚠️ 只有英文版（EDB codes-of-aid 頁面全系列無中文版，S204 實核）；中文查詢靠 multilingual embedding 跨語命中，命中率待 eval 觀察。載非教學人員（文書／校工）編制條款。 chunk_cap=600（預設 300 會截走文件尾段；S204 實核被丟嗰半含 APPENDIX 標題 + 11 條 clerical/文書人員內容，即非教學人員編制條款。只放寬本源，其餘源不變）。",
+      "chunk_cap": 600
     },
     {
       "source_id": "coa_ss_e",
@@ -7390,7 +7391,8 @@
       "version_label": null,
       "last_checked_at": "2026-08-17",
       "supersedes": null,
-      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 ⚠️ 只有英文版（同上）。"
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 ⚠️ 只有英文版（同上）。 chunk_cap=800（預設 300 會截走文件尾段；S204 實核被丟嗰半含 APPENDIX 標題 + 11 條 clerical/文書人員內容，即非教學人員編制條款。只放寬本源，其餘源不變）。",
+      "chunk_cap": 800
     }
   ]
 }
