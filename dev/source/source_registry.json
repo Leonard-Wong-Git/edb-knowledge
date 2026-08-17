@@ -7203,11 +7203,11 @@
         "hr"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "held_back",
       "version_label": "2022/23起",
       "last_checked_at": "2026-08-17",
       "supersedes": null,
-      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 表格文件：同上，extract_table_rows.py 重建（48 行，算術自檢 0 失敗）。 chunk_max_chars=160：一行一 chunk（600 字會塞 ~6 行，令查詢命中嗰行被溝淡；實測 0.521→0.590）。",
+      "notes": "⛔ S204 HELD BACK — vault extract 同 registry entry 保留，但 Supabase chunks 已刪（0 條）。原因：本表按「教學人員總數」索引，唔係按班數。入咗庫之後，合成器將佢當成普通小學嘅班數表，對「12班小學有幾多個學位教師」連續 3 次 run 答錯（實際 5 名，佢答 12 名），而 staff_est_pri（正確表、分數 0.654 高過佢 0.650）當時排第 6、跌出 synthesis 只讀嘅頭 5 條窗外。呢個屬交接 NEXT ② 記錄嘅「資料對象 vs 問題對象」移植失效類。恢復條件：對象核對機制落地後，重跑 expand_vault.py --embed --force --sources staff_est_sp_sch_pri，並以「12班小學有幾多個學位教師」×3 runs 確認唔會再移植。 S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 表格文件：同上，extract_table_rows.py 重建（48 行，算術自檢 0 失敗）。 chunk_max_chars=160：一行一 chunk（600 字會塞 ~6 行，令查詢命中嗰行被溝淡；實測 0.521→0.590）。",
       "chunk_max_chars": 160
     },
     {
