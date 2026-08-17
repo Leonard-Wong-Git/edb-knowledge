@@ -368,6 +368,27 @@ const SOURCE_SETS: Record<string, string[]> = {
   ],
 
   /**
+   * Staffing establishment — 教學人員編制, 學位教師職系, 資助則例的人手條款 (S204).
+   *
+   * Split out of hr_admin rather than folded into it because of QUERY_EXPANSIONS: the
+   * hr_admin expansion is leave/salary vocabulary (假期 批假 薪酬 病假 醫生證明 …), which is
+   * right for its own queries but measurably wrong here. Measured on staff_est_pri:
+   * 「全日制資助小學教學人員編制」 scores 0.816 raw and 0.616 once the hr_admin expansion is
+   * appended — a 0.20 loss that pushed the table under the SPOTLIGHT_LEAD_SCORE gate.
+   * This route therefore has NO expansion entry (same choice as safety / gov_admin).
+   */
+  staffing: [
+    "staff_est_pri", "staff_est_sp_sch_pri",
+    "roles_functions_pri", "psm_sgt",
+    "faq_edbc19011", "edbc19011", "ppt_grad_pri_policy", "ppt_grad_pri_faq",
+    "edbc00030",
+    "coa_pri_e", "coa_ss_e",
+    "surplus_teacher_arr_2026",  // 過剩教師 — the flip side of a 編制 change
+    "sag_2025_11",               // SAG carries the 改編職系 / 主任級 procedure
+    "role_facts_hr",
+  ],
+
+  /**
    * Activity grants — 全方位學習津貼, 課外活動
    */
   activity: [
@@ -601,7 +622,12 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   finance: /採購|招標|單一報價|競投|供應商|報價單|分判|貨物|服務合約|財務管理|預算|撥款|開支|報銷|捐款|借款|代收費|利益衝突|申報利益|賄賂|廉署|防賄|資助則例|法團校董|校董會經費|採購門檻|採購程序|多元學習津貼/,
   // S186 — hr_admin +語文能力要求/語文基準/基準試 (edbcm088_2026 LPAT) + 準英語教師獎學金 (edbcm066_2026)。
   // 必在 curriculum 之前 (first-match): 「英文科教師語文能力要求」含「英文科」會被 curriculum 偷。
-  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金|語文能力要求|語文基準|語文能力評核|基準試|準英語教師|英語教師獎學金|人員編制|教學人員編制|核准編制|教師編制|主任編制|編制表|主任級|學位化|學位教師職系/,
+  // S204 — must precede hr_admin so 編制 queries skip its leave/salary expansion, and
+  // must FOLLOW finance so 資助則例 keeps routing to finance (which owns that term and
+  // now also carries coa_pri_e / coa_ss_e). Deliberately specific: a bare 編制 would
+  // capture 課程編制 and steal curriculum queries.
+  staffing: /人員編制|教學人員編制|核准編制|教師編制|主任編制|編制表|主任級|學位化|學位教師職系|班師比/,
+  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金|語文能力要求|語文基準|語文能力評核|基準試|準英語教師|英語教師獎學金/,
   // NOTE: 資助則例 is deliberately absent here — TOPIC_KEYWORDS.finance already
   // owns it and is evaluated first, so a copy in hr_admin would be dead weight.
   // coa_pri_e / coa_ss_e are reachable because they sit in BOTH SOURCE_SETS.

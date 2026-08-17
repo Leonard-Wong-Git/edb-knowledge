@@ -134,15 +134,24 @@ def load_registry() -> list[dict]:
         return json.load(f)["sources"]
 
 
-def source_chunk_cap(source_id: str) -> int:
-    """Per-source chunk ceiling: registry `chunk_cap` when set, else CHUNK_CAP."""
+def source_override(source_id: str, key: str, default: int) -> int:
+    """Per-source integer override from source_registry.json, else the global default.
+
+    `chunk_cap`       — ceiling on chunks per source (the global cap drops the TAIL, which
+                        on a long reference document discards its appendices).
+    `chunk_max_chars` — target chunk size. Row-per-line tables want one row per chunk: a
+                        600-char chunk holds ~6 establishment rows, and the extra rows
+                        dilute the one the query is about (measured on staff_est_pri:
+                        「12班小學有幾多個學位教師」 scores 0.521 against a 6-row chunk and
+                        0.590 against the single row).
+    """
     for src in load_registry():
         if src.get("source_id") == source_id:
-            cap = src.get("chunk_cap")
-            if isinstance(cap, int) and cap > 0:
-                return cap
+            val = src.get(key)
+            if isinstance(val, int) and val > 0:
+                return val
             break
-    return CHUNK_CAP
+    return default
 
 def get_extracted_source_ids() -> set[str]:
     """Return source IDs that already have a vault extract .txt file."""
@@ -371,14 +380,14 @@ def build_chunks_from_vault_file(extract_path: Path) -> list[dict]:
     tag_str = meta.get("topic_tags", "")
     topic = tag_str.split(",")[0].strip() if tag_str else "general"
 
-    texts = chunk_text(body)
+    texts = chunk_text(body, max_chars=source_override(sid, "chunk_max_chars", CHUNK_MAX_CHARS))
     # Apply cap. CHUNK_CAP keeps one huge source from dominating the corpus, but it drops
     # the TAIL, so on a long reference document it silently discards the appendices — where
     # the Codes of Aid keep their staff establishment schedules. A source may raise its own
     # ceiling with `chunk_cap` in source_registry.json; every other source is unaffected.
     # (Retrieval already caps how many results one source_id may occupy, so a larger source
     # cannot crowd the result list either way.) Record the reason in the registry entry.
-    cap = source_chunk_cap(sid)
+    cap = source_override(sid, "chunk_cap", CHUNK_CAP)
     if len(texts) > cap:
         print(f"  ✂️  Capped at {cap} chunks (was {len(texts)})")
         texts = texts[:cap]

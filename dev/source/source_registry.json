@@ -7186,7 +7186,8 @@
       "version_label": "2022/23起",
       "last_checked_at": "2026-08-17",
       "supersedes": null,
-      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 表格文件：vault extract 由 dev/vault/extract_table_rows.py 座標重建（72 行，算術自檢 0 失敗），非 expand_vault --fetch 預設抽取。refresh 時必須重跑該腳本，唔可以直接 --fetch --force。"
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 表格文件：vault extract 由 dev/vault/extract_table_rows.py 座標重建（72 行，算術自檢 0 失敗），非 expand_vault --fetch 預設抽取。refresh 時必須重跑該腳本，唔可以直接 --fetch --force。 chunk_max_chars=160：一行一 chunk（600 字會塞 ~6 行，令查詢命中嗰行被溝淡；實測 0.521→0.590）。",
+      "chunk_max_chars": 160
     },
     {
       "source_id": "staff_est_sp_sch_pri",
@@ -7206,7 +7207,8 @@
       "version_label": "2022/23起",
       "last_checked_at": "2026-08-17",
       "supersedes": null,
-      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 表格文件：同上，extract_table_rows.py 重建（48 行，算術自檢 0 失敗）。"
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 表格文件：同上，extract_table_rows.py 重建（48 行，算術自檢 0 失敗）。 chunk_max_chars=160：一行一 chunk（600 字會塞 ~6 行，令查詢命中嗰行被溝淡；實測 0.521→0.590）。",
+      "chunk_max_chars": 160
     },
     {
       "source_id": "roles_functions_pri",
