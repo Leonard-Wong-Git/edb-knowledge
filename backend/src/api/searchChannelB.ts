@@ -1066,6 +1066,18 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   "iit_ai_framework_2026", // S194: 人工智能初探範疇正文 (18 chunks) — S195 eval: pruning broke ai_intro
   "edbc013_2026",  // S194: 非本地兒童入學 (9 chunks; the eval harness caught it missing, measured 0.619)
   "edbcm116_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
+  // S204 — the graduate-teacher-posts cluster. Measured after ingest + routing: adding the
+  // ids to hr_admin and giving TOPIC_KEYWORDS the 編制 vocabulary changed nothing, because
+  // the ANN over-fetch runs before the SOURCE_SET filter — the exact failure this block
+  // documents. staff_est_sp_sch_pri is deliberately NOT here: it reaches top-8 on its own
+  // (0.613 live), so it needs no forced slot.
+  "staff_est_pri",        // 15 chunks — 全日制/半日制小學編制表 (the 幾多班→幾多老師 answer)
+  "roles_functions_pri",  // 1 chunk
+  "psm_sgt",              // 2 chunks
+  "ppt_grad_pri_faq",     // 6 chunks
+  "ppt_grad_pri_policy",  // 7 chunks
+  "edbc19011",            // 12 chunks
+  "faq_edbc19011",        // 17 chunks
   // ack:spotlight:end
 ];
 
