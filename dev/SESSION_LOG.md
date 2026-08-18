@@ -35,6 +35,45 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-08-18 Session 206 — 頁碼指路修復：expand_vault 兩層甩頁碼，11 個源重入
+
+- **ID:** Claude_20260818_1900
+- **Summary:** 由 Open Priority ①（檢索「可見 ≠ 見到啱嗰段」）入手，live 重現後發現交接寫嘅兩個修法都修唔到佢自己指嘅 case。Leonard 一句「我記得已做，出表格就指該頁數」把問題重新定位：指路機制一早 ship 咗，壞嘅係頁碼來源。查落係 `expand_vault.py` 兩層都甩：抽 PDF 時冇寫 `=== Page N ===`、切 chunk 時冇 carry。兩層都修好，11 個源重入，全庫無頁碼 chunk 1,859 → 451。
+- **① OP① 重現（唯讀，結論：交接框架錯）:** 用 registry notes 逐字記低嘅查詢「12班小學有幾多個學位教師」live 重現 —— 頭兩位係 forced footnote lead（0.5735 幼稚園當值教師 / 0.4715 職系改編），分數低過後面嘅 vault chunk；3–5 位係 `staff_est_pri` 表頭同腳註行（per-source quota = `max(2, ceil(8/3))` = 3）。用生產同一個 model 重算 exact cosine：正確嗰條「開辦 12 班…小學學位教師 5 名」= **0.6049，源內排 14/81**；源內最高 0.6537 係**零數據嘅表頭行**。故交接兩個修法**都唔掂**：擴窗 5→8 加入嘅係其他來源；改 spotlight 條件會插入嗰條表頭行。另實測 `detectQueryCategory('12班小學有幾多個學位教師')` = `null`，`'幾多班幾多老師'` = `null` —— S204 加嘅「編制」route 對自然口語唔 fire。
+- **② 儀器適配性（communication rule 7）:** `eval_retrieval.py` 只記 `source_ids`/`scores`/`content_types`/`pages`，**冇 chunk 身分**，結構上量唔到「見唔見到啱嗰段」；34 條 eval query 亦冇一條編制查詢。故 eval 對本類改動只可做「冇誤傷」守門，做唔到勝負判準。已據此調整驗收設計。
+- **③ 根因（兩層，同一支管道）:** `build_wiki_index.py` 一直有 `chunk_text_with_page_carry`（S119 CB-3），`execute_ingest.py:218` 亦一直用佢；但人手管道 `expand_vault.py` (a) `extract_pdf_text` 逐頁抽完用 `"\n".join()` 接埋，**從來冇寫過頁碼標記**；(b) `build_chunks_from_vault_file` 用自己嘅 `chunk_text()`，**冇 page carry**。即凡經 `expand_vault --fetch` 入嘅 PDF 全源零頁碼；有標記嘅源亦只有撞正標記嗰幾條 chunk 有頁。
+- **Changed:**
+  - `dev/vault/build_wiki_index.py` — 抽出 `carry_pages(chunks)` 純函數；`chunk_text_with_page_carry` 改為 `carry_pages(chunk_text(...))`，行為不變（commit `98dfbf8`）。
+  - `dev/vault/expand_vault.py` — import 同一個 `carry_pages` 套喺自己 chunker 之後（`98dfbf8`）；`extract_pdf_text` 逐頁寫 `=== Page N ===`，並把「掃描 PDF」守門由總長度改為只數真文字（`5fa7343`）。
+  - 11 個源重入 Supabase：`staff_est_pri`（`98dfbf8`）、`coa_pri_e`/`coa_ss_e`/`edbc00030`/`faq_edbc19011`/`edbc19011`/`ppt_grad_pri_policy`/`ppt_grad_pri_faq`/`psm_sgt`/`roles_functions_pri`（`5fa7343`）、`edbc12_2025_ph_pri`（`6ab966c`，先 `git mv` 對齊檔名）。
+  - `dev/source/source_registry.json` — 11 個源 notes 補 S206 repage 記錄（本 closeout commit）。
+- **Done / 數據:** 全庫無頁碼 chunk **1,859 → 451**（修 1,408 條）；全庫總數 17,472 → **17,473**。逐源核：11 個源全部 **0 條無頁碼**。`coa_pri_e` 509→494（121/121 頁）、`coa_ss_e` 700→707（197/197 頁）、`staff_est_pri` 4/81→81/81、`edbc12_2025_ph_pri` 10→13。
+- **QC:**
+  - `carry_pages` 不變式 4/4 PASS，並**故意寫壞實作證明斷言會響**（守門唔係永遠綠）。
+  - **動 Supabase 之前**先驗 no-op：`edbc00030` 67/67、`g04` 7/7 重建 chunk id 同線上**完全相同** → 證明對無標記源零影響。
+  - **零內容漂移閘**：9 個源逐個比對「今日重抽 vs git 內現存 extract」，正規化後要逐字相同先准入庫，9/9 過。
+  - `extract_pdf_text` 兩面測（真 PDF 即場生成）：10 頁空白掃描 → 10 個標記且掃描警告**照響**；3 頁有字 → 3 個標記、唔響。
+  - eval 對本 session 開工基線（`2026-08-18_s206_before.json` → `_after_edbc12.json`）：兩邊 **PASS=23 / FAIL=0 / errors=0**，33 SAME、1 RANK_SHIFT（`mpf`，即 `coa_pri_e` 因標記溝淡 cosine ~0.015 由 rank 4 → 7）、**0 blocking failure**。
+  - `npm run check` exit 0、`npm run build` exit 0（本 session 零 backend TS 改動，作 row 37 要求嘅守門）。
+  - **真 UI 實拍**：搜尋結果「參考來源」出「資助小學教學人員編制 · 3 個片段 · 頁 1, 3 ↗」，DOM 內錨為 `…Staff_est_pri_tc.pdf#page=1` / `#page=3`。live 亦見 `coa_ss_e` p.29、`coa_pri_e` p.100。
+- **Evidence disposition:** 根因兩層 + 「規則共用、chunker 唔共用」嘅理由 → 已寫入 code 註釋同 commit message（唔會被重生）；11 個源 refresh 注意事項（尤其 `staff_est_pri` 唔准 `--fetch --force`）→ `source_registry.json` notes；逐步量度數字 → 本 entry；剩餘 451 條分類 → handoff `Current Baseline` + `Open Priorities`。
+- **Sync:** DOC_SYNC row 37「Channel-B vault source backfill / page-carry into Supabase」命中並兌現：registry entry ✓、SOURCE_SETS/TOPIC_KEYWORDS parity N/A（零新源、零 route 改動）、handoff Current Baseline 已記 chunk 總數 + 帶標記數 ✓、本 log entry 帶 Gate 證據 ✓、CODEBASE_CONTEXT AI Maintenance Log ✓（無新 vault 目錄）。Gate1 markers==pages 全部對數；Gate2 post-count==insert（`coa_pri_e` del 509/ins 494 → 線上 494，其餘同理）。凍結合約零接觸（`_meta` 2.3.0 / facts 455 / `guidelines.json` 2.6.1 / 158）；`PLATFORM_VERSION` 3.3.0 不變。
+- **Pending:** 剩 451 條無頁碼，已分類（見 handoff）。其中真缺陷 139 條：95 條 HTML 源（**要指章唔係指頁**，Leonard 已同意方向）、44 條 footnote 冇錨（40 條 PDF 可人手補）。g14 另揪出三個同源問題（title 錯、段落標記外洩到用戶可見文字、網頁導覽雜訊入咗 chunk），已量：5 個 HTML 源 98 條之中 20 條殘留標記、17 條含雜訊。
+- **Risks:**
+  - 頁碼標記令 cosine 溝淡約 0.015–0.02，`coa_pri_e` 喺 `mpf` 查詢由 rank 4 跌到 7（仍在 top 8）。呢個代價全庫另外 15,613 條帶標記 chunk 一直付緊。
+  - `edbc12_2025_ph_pri` 係**明示例外**：其舊 extract 早於現行抽取器，過唔到「逐字相同」閘（30 段差異）。改用「零內容增減」判準——字元多重集完全相同，差異全屬次序（頁碼/項目符號位置、兩個表格項對調）。已記入 commit message。
+  - 使用計數器 `/api/stats/usage` 現為 5，**五次全部係本 session 驗 UI 時瀏覽器發出**（API 呼叫全部帶 `x-probe` 排除）。Leonard 明示不用理，但下次讀真實用量要扣返。
+- **Log maintenance:** `docs/qa/session_log_maintenance.py --check` → `trigger=False line_trigger=False date_trigger=False`（line_count=372、entry_count=7）→ **no-op**。
+- **教訓（本 session 三條）:**
+  1. **交接寫低嘅修法可以指錯目標** —— S205 第 8 條紀律再中一次。今次唔止「選項框架錯」，係「兩個選項都修唔到佢自己指嘅 case」。落手前 live 重現 + 逐條算 exact cosine 先揭到。
+  2. **用戶記得嘅嘢可以係對嘅，而且比我嘅分析更中要害** —— Leonard 一句「出表格就指該頁數」直接把問題由「檢索排序」重新定位到「頁碼來源」，慳返一輪唔必要嘅檢索改動。
+  3. **報 population 數字要即刻拆類** —— 「1,859 條冇頁碼」令 Leonard 合理但錯誤地推論同 Channel A 退役有關；拆開之後 109 條先係 Channel A 鏡像、162 條其實已經 work。已存入 memory（`feedback_breakdown_before_scope`）。
+
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-08-18 Session 205 — OP① 收尾：route-probe 兩次讀齊、零外部呼叫、probe 已刪
 
 - **ID:** Claude_20260818_1400

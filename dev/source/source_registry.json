@@ -1969,7 +1969,7 @@
         "ph_pri_curr",
         "ph_pri_guide_2025"
       ],
-      "notes": "《小學人文科課程指引》及支援措施。正式公布小學人文科課程指引。關鍵要點：小一及小四 2025/26 起，全校 2027/28 取代常識科；科主任 30 小時培訓證書課程。已提取 facts C2/C3/C4 並寫入 role_facts.json。EDB PDF 直連已記錄；本地副本：/Users/leonard/Desktop/EDBC_122025_C.pdf。",
+      "notes": "《小學人文科課程指引》及支援措施。正式公布小學人文科課程指引。關鍵要點：小一及小四 2025/26 起，全校 2027/28 取代常識科；科主任 30 小時培訓證書課程。已提取 facts C2/C3/C4 並寫入 role_facts.json。EDB PDF 直連已記錄；本地副本：/Users/leonard/Desktop/EDBC_122025_C.pdf。 S206 repage：本源 chunk 已全部帶 `=== Page N ===`（頁碼由 backend `extractDominantPage` 喺 chunk 文字度 read-time 解析，唔係 DB 欄位）。成因係 `expand_vault.py` 兩層都甩頁碼：抽 PDF 時冇寫標記、切 chunk 時冇 carry。兩層已修（commit 98dfbf8 + 5fa7343）。日後 refresh 照跑 `--fetch --force` + `--embed --force` 即可，頁碼會自動帶返；refresh 前後應核 markers==pages。",
       "stage_tags": [
         "primary"
       ],
@@ -7186,7 +7186,7 @@
       "version_label": "2022/23起",
       "last_checked_at": "2026-08-18",
       "supersedes": null,
-      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 表格文件：vault extract 由 dev/vault/extract_table_rows.py 座標重建（72 行，算術自檢 0 失敗），非 expand_vault --fetch 預設抽取。refresh 時必須重跑該腳本，唔可以直接 --fetch --force。 chunk_max_chars=160：一行一 chunk（600 字會塞 ~6 行，令查詢命中嗰行被溝淡；實測 0.521→0.590）。",
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 表格文件：vault extract 由 dev/vault/extract_table_rows.py 座標重建（72 行，算術自檢 0 失敗），非 expand_vault --fetch 預設抽取。refresh 時必須重跑該腳本，唔可以直接 --fetch --force。 chunk_max_chars=160：一行一 chunk（600 字會塞 ~6 行，令查詢命中嗰行被溝淡；實測 0.521→0.590）。 S206 repage：chunk 已全部帶 `=== Page N ===`（page-carry 已入 `expand_vault.py`，commit 98dfbf8）。⚠️ 本源 extract 由 `extract_table_rows.py` 出，refresh 時仍然唔可以 `--fetch --force`，要重跑該腳本再 `--embed --force`。",
       "chunk_max_chars": 160
     },
     {
@@ -7228,7 +7228,7 @@
       "version_label": null,
       "last_checked_at": "2026-08-18",
       "supersedes": null,
-      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 對應用戶「主任編制／職責」問法。"
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 對應用戶「主任編制／職責」問法。 S206 repage：本源 chunk 已全部帶 `=== Page N ===`（頁碼由 backend `extractDominantPage` 喺 chunk 文字度 read-time 解析，唔係 DB 欄位）。成因係 `expand_vault.py` 兩層都甩頁碼：抽 PDF 時冇寫標記、切 chunk 時冇 carry。兩層已修（commit 98dfbf8 + 5fa7343）。日後 refresh 照跑 `--fetch --force` + `--embed --force` 即可，頁碼會自動帶返；refresh 前後應核 markers==pages。"
     },
     {
       "source_id": "psm_sgt",
@@ -7248,7 +7248,7 @@
       "version_label": null,
       "last_checked_at": "2026-08-18",
       "supersedes": null,
-      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 S206 repage：本源 chunk 已全部帶 `=== Page N ===`（頁碼由 backend `extractDominantPage` 喺 chunk 文字度 read-time 解析，唔係 DB 欄位）。成因係 `expand_vault.py` 兩層都甩頁碼：抽 PDF 時冇寫標記、切 chunk 時冇 carry。兩層已修（commit 98dfbf8 + 5fa7343）。日後 refresh 照跑 `--fetch --force` + `--embed --force` 即可，頁碼會自動帶返；refresh 前後應核 markers==pages。"
     },
     {
       "source_id": "faq_edbc19011",
@@ -7268,7 +7268,7 @@
       "version_label": null,
       "last_checked_at": "2026-08-18",
       "supersedes": null,
-      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 S206 repage：本源 chunk 已全部帶 `=== Page N ===`（頁碼由 backend `extractDominantPage` 喺 chunk 文字度 read-time 解析，唔係 DB 欄位）。成因係 `expand_vault.py` 兩層都甩頁碼：抽 PDF 時冇寫標記、切 chunk 時冇 carry。兩層已修（commit 98dfbf8 + 5fa7343）。日後 refresh 照跑 `--fetch --force` + `--embed --force` 即可，頁碼會自動帶返；refresh 前後應核 markers==pages。"
     },
     {
       "source_id": "ppt_grad_pri_policy",
@@ -7288,7 +7288,7 @@
       "version_label": "2019-04",
       "last_checked_at": "2026-08-18",
       "supersedes": null,
-      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 S206 repage：本源 chunk 已全部帶 `=== Page N ===`（頁碼由 backend `extractDominantPage` 喺 chunk 文字度 read-time 解析，唔係 DB 欄位）。成因係 `expand_vault.py` 兩層都甩頁碼：抽 PDF 時冇寫標記、切 chunk 時冇 carry。兩層已修（commit 98dfbf8 + 5fa7343）。日後 refresh 照跑 `--fetch --force` + `--embed --force` 即可，頁碼會自動帶返；refresh 前後應核 markers==pages。"
     },
     {
       "source_id": "ppt_grad_pri_faq",
@@ -7308,7 +7308,7 @@
       "version_label": "2019-04",
       "last_checked_at": "2026-08-18",
       "supersedes": null,
-      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 S206 repage：本源 chunk 已全部帶 `=== Page N ===`（頁碼由 backend `extractDominantPage` 喺 chunk 文字度 read-time 解析，唔係 DB 欄位）。成因係 `expand_vault.py` 兩層都甩頁碼：抽 PDF 時冇寫標記、切 chunk 時冇 carry。兩層已修（commit 98dfbf8 + 5fa7343）。日後 refresh 照跑 `--fetch --force` + `--embed --force` 即可，頁碼會自動帶返；refresh 前後應核 markers==pages。"
     },
     {
       "source_id": "edbc19011",
@@ -7328,7 +7328,7 @@
       "version_label": "2019",
       "last_checked_at": "2026-08-18",
       "supersedes": null,
-      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 S206 repage：本源 chunk 已全部帶 `=== Page N ===`（頁碼由 backend `extractDominantPage` 喺 chunk 文字度 read-time 解析，唔係 DB 欄位）。成因係 `expand_vault.py` 兩層都甩頁碼：抽 PDF 時冇寫標記、切 chunk 時冇 carry。兩層已修（commit 98dfbf8 + 5fa7343）。日後 refresh 照跑 `--fetch --force` + `--embed --force` 即可，頁碼會自動帶返；refresh 前後應核 markers==pages。"
     },
     {
       "source_id": "edbc00030",
@@ -7348,7 +7348,7 @@
       "version_label": "2000",
       "last_checked_at": "2026-08-18",
       "supersedes": null,
-      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 S206 repage：本源 chunk 已全部帶 `=== Page N ===`（頁碼由 backend `extractDominantPage` 喺 chunk 文字度 read-time 解析，唔係 DB 欄位）。成因係 `expand_vault.py` 兩層都甩頁碼：抽 PDF 時冇寫標記、切 chunk 時冇 carry。兩層已修（commit 98dfbf8 + 5fa7343）。日後 refresh 照跑 `--fetch --force` + `--embed --force` 即可，頁碼會自動帶返；refresh 前後應核 markers==pages。"
     },
     {
       "source_id": "coa_pri_e",
@@ -7370,7 +7370,7 @@
       "version_label": null,
       "last_checked_at": "2026-08-18",
       "supersedes": null,
-      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 ⚠️ 只有英文版（EDB codes-of-aid 頁面全系列無中文版，S204 實核）；中文查詢靠 multilingual embedding 跨語命中，命中率待 eval 觀察。載非教學人員（文書／校工）編制條款。 chunk_cap=600（預設 300 會截走文件尾段；S204 實核被丟嗰半含 APPENDIX 標題 + 11 條 clerical/文書人員內容，即非教學人員編制條款。只放寬本源，其餘源不變）。",
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 ⚠️ 只有英文版（EDB codes-of-aid 頁面全系列無中文版，S204 實核）；中文查詢靠 multilingual embedding 跨語命中，命中率待 eval 觀察。載非教學人員（文書／校工）編制條款。 chunk_cap=600（預設 300 會截走文件尾段；S204 實核被丟嗰半含 APPENDIX 標題 + 11 條 clerical/文書人員內容，即非教學人員編制條款。只放寬本源，其餘源不變）。 S206 repage：本源 chunk 已全部帶 `=== Page N ===`（頁碼由 backend `extractDominantPage` 喺 chunk 文字度 read-time 解析，唔係 DB 欄位）。成因係 `expand_vault.py` 兩層都甩頁碼：抽 PDF 時冇寫標記、切 chunk 時冇 carry。兩層已修（commit 98dfbf8 + 5fa7343）。日後 refresh 照跑 `--fetch --force` + `--embed --force` 即可，頁碼會自動帶返；refresh 前後應核 markers==pages。",
       "chunk_cap": 600
     },
     {
@@ -7393,7 +7393,7 @@
       "version_label": null,
       "last_checked_at": "2026-08-18",
       "supersedes": null,
-      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 ⚠️ 只有英文版（同上）。 chunk_cap=800（預設 300 會截走文件尾段；S204 實核被丟嗰半含 APPENDIX 標題 + 11 條 clerical/文書人員內容，即非教學人員編制條款。只放寬本源，其餘源不變）。",
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 ⚠️ 只有英文版（同上）。 chunk_cap=800（預設 300 會截走文件尾段；S204 實核被丟嗰半含 APPENDIX 標題 + 11 條 clerical/文書人員內容，即非教學人員編制條款。只放寬本源，其餘源不變）。 S206 repage：本源 chunk 已全部帶 `=== Page N ===`（頁碼由 backend `extractDominantPage` 喺 chunk 文字度 read-time 解析，唔係 DB 欄位）。成因係 `expand_vault.py` 兩層都甩頁碼：抽 PDF 時冇寫標記、切 chunk 時冇 carry。兩層已修（commit 98dfbf8 + 5fa7343）。日後 refresh 照跑 `--fetch --force` + `--embed --force` 即可，頁碼會自動帶返；refresh 前後應核 markers==pages。",
       "chunk_cap": 800
     }
   ]
