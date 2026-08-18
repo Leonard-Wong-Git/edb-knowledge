@@ -2891,7 +2891,7 @@ function TemplatesPanel() {
     <div className="max-w-5xl mx-auto px-4 py-6">
       {/* header */}
       <div className="mb-5">
-        <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">📋 範本下載</h2>
+        <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">📋 範本下載(beta)</h2>
         <p className="text-sm text-gray-500 mt-1 leading-relaxed">
           按教育局公開指引整理嘅 15 個範疇校本政策草稿（<strong>學校版</strong>，可直接編輯填寫），分「小學 / 中學 / 特殊學校 / 幼稚園」適用版本。下載後請按本校實際情況修訂，並自行核對教育局官方原文。
         </p>
@@ -3208,7 +3208,7 @@ function AnnotatePanel() {
   return (
     <div className="flex-1 min-w-0">
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 k1-search-card">
-        <h2 className="text-lg font-bold text-gray-800 mb-1">📝 文件標註</h2>
+        <h2 className="text-lg font-bold text-gray-800 mb-1">📝 文件標註(beta)</h2>
         <p className="text-xs text-gray-400 mb-3">
           上載學校文件（Word/.docx 最佳，或 PDF／貼上文字），系統比對 EDB 指引並按合規清單檢查缺漏，生成一份<strong>乾淨可用嘅政策草稿</strong>——建議融入正文、附錄列明說明與官方出處——可下載編輯
         </p>
@@ -3826,11 +3826,11 @@ function App() {
               </button>
               <button onClick={() => switchView('annotate')}
                       className={`filter-tab ${viewMode === 'annotate' ? 'active-tab' : ''}`} aria-selected={viewMode === 'annotate'} role="tab">
-                📝 文件標註
+                📝 文件標註(beta)
               </button>
               <button onClick={() => switchView('templates')}
                       className={`filter-tab ${viewMode === 'templates' ? 'active-tab' : ''}`} aria-selected={viewMode === 'templates'} role="tab">
-                📋 範本下載
+                📋 範本下載(beta)
               </button>
               <button onClick={() => switchView('guidelines')}
                       className={`filter-tab ${viewMode === 'guidelines' ? 'active-tab' : ''}`} aria-selected={viewMode === 'guidelines'} role="tab">

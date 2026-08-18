@@ -700,7 +700,7 @@
     shell.innerHTML = ''
       + '<header class="m-guide-head">'
       +   '<div class="m-guide-eyebrow">EDB 校本政策範本</div>'
-      +   '<h1 class="m-guide-title">範本下載</h1>'
+      +   '<h1 class="m-guide-title">範本下載(beta)</h1>'
       +   '<p class="m-guide-sub">15 個合規範疇的學校版政策範本（可編輯 Word 檔），按校類下載。</p>'
       + '</header>'
       + '<section class="m-tpl-body">'
