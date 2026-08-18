@@ -2466,6 +2466,11 @@ function SourcesAccordion({ results, topicLabels }) {
 
 function QAPanel({ data, setPreviewDoc }) {
   const [query, setQuery] = useState('');
+  // S204 — cumulative search count. Cloudflare Web Analytics only keeps a short rolling
+  // window, so it cannot answer "how much has this been used in total". Counted server-side
+  // (no cookie, no visitor identity) and rendered only once it loads: a counter that shows
+  // a placeholder or a zero on a slow backend reads as "nobody uses this".
+  const [usageTotal, setUsageTotal] = useState(null);
   const [results, setResults] = useState([]);
   const [synthesis, setSynthesis] = useState(null);
   const [searched, setSearched] = useState(false);
@@ -2473,6 +2478,15 @@ function QAPanel({ data, setPreviewDoc }) {
   const [backendError, setBackendError] = useState(null);
 
   const BACKEND_URL = 'https://edb-knowledge.onrender.com';
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`${BACKEND_URL}/api/stats/usage`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => { if (!cancelled && d && d.ok) setUsageTotal(d.total); })
+      .catch(() => {});   // counter is decoration; never surface its failure to the user
+    return () => { cancelled = true; };
+  }, []);
   const TOPIC_LABELS = {
     finance: '財務/採購', hr: '人力資源', curriculum: '課程',
     activity: '活動', student: '學生事務', it: '數字教育', general: '通用/行政'
@@ -2638,6 +2652,7 @@ function QAPanel({ data, setPreviewDoc }) {
         <h2 className="text-lg font-bold text-gray-800 mb-1">政策搜尋</h2>
         <p className="text-xs text-gray-400 mb-3">
           {`來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 17472).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
+          {usageTotal !== null && ` · 累計已服務 ${usageTotal.toLocaleString()} 次查詢`}
         </p>
 
         {/* Search row */}

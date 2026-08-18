@@ -232,7 +232,10 @@ def query_once(endpoint: str, query: str, retries: int = 2) -> dict:
         try:
             req = urllib.request.Request(
                 endpoint, data=body,
-                headers={"Content-Type": "application/json"}, method="POST")
+                headers={"Content-Type": "application/json",
+                         # S204: served normally but NOT counted by the usage counter —
+                         # this harness fires dozens of live queries per run.
+                         "x-probe": "1"}, method="POST")
             with urllib.request.urlopen(req, timeout=90) as r:
                 return json.load(r)
         except Exception as exc:  # 429 / 57014 / network — never treat as "no results"

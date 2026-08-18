@@ -208,7 +208,10 @@ def fetch_chunks(query: str, retries: int = 2) -> list[str]:
         try:
             req = urllib.request.Request(
                 ENDPOINT, data=body,
-                headers={"Content-Type": "application/json"}, method="POST")
+                headers={"Content-Type": "application/json",
+                         # S204: served normally but NOT counted by the usage counter —
+                         # this harness fires dozens of live queries per run.
+                         "x-probe": "1"}, method="POST")
             with urllib.request.urlopen(req, timeout=120) as r:
                 payload = json.load(r)
             results = payload.get("results") or []

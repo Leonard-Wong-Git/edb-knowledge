@@ -18,6 +18,7 @@ import {
 } from "./api/annotateDocument.js";
 import { searchChannelA, type SearchChannelARequest } from "./api/searchChannelA.js";
 import { searchChannelB, type SearchChannelBRequest } from "./api/searchChannelB.js";
+import { PROBE_HEADER, readUsageTotals, recordSearch } from "./lib/usageCounter.js";
 import { searchCombined, type SearchCombinedRequest } from "./api/searchCombined.js";
 import { handleChunks, handleManifest } from "./api/channelBSync.js";
 import { getCorsOrigins, getPort } from "./config/env.js";
@@ -216,6 +217,24 @@ const server = createServer(async (req, res) => {
     return;
   }
 
+  // ── Cumulative usage counter (GET, no rate limit) ─────────────────────────
+  // Cloudflare Web Analytics only keeps a short rolling window; this is the running total.
+  if (req.method === "GET" && req.url === "/api/stats/usage") {
+    setCorsHeaders(req, res);
+    try {
+      const totals = await readUsageTotals();
+      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ ok: true, ...totals }));
+    } catch (error) {
+      // The counter is decoration, not a contract — report the failure rather than
+      // inventing a number the caller would render as fact.
+      const message = error instanceof Error ? error.message : "Unknown error";
+      res.writeHead(503, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ ok: false, error: message }));
+    }
+    return;
+  }
+
   // ── 文件修訂: checklist domain list for the frontend selector (GET, no rate limit) ──
   if (req.method === "GET" && req.url === "/api/checklist-domains") {
     setCorsHeaders(req, res);
@@ -379,6 +398,7 @@ const server = createServer(async (req, res) => {
     try {
       const input = await readJsonBody<SearchChannelBRequest>(req, SEARCH_MAX_BYTES);
       const result = await searchChannelB(input, embeddingClient, llmClient);
+      recordSearch(Boolean(req.headers[PROBE_HEADER]));
 
       setCorsHeaders(req, res);
       res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });

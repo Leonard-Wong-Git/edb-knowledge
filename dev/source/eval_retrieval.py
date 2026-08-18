@@ -158,7 +158,10 @@ def query_once(endpoint: str, query: str, top_k: int) -> dict:
     for attempt in range(1, MAX_ATTEMPTS + 1):
         req = urllib.request.Request(
             endpoint, data=body,
-            headers={"Content-Type": "application/json"}, method="POST")
+            headers={"Content-Type": "application/json",
+                         # S204: served normally but NOT counted by the usage counter —
+                         # this harness fires dozens of live queries per run.
+                         "x-probe": "1"}, method="POST")
         try:
             with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT_S) as resp:
                 return json.loads(resp.read().decode("utf-8"))

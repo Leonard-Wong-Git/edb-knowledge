@@ -6,7 +6,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [內容新增＋檢索修正] — 2026-08-17 — 人手編制文件群入庫、頁碼歸屬修正（S204）
+## [內容新增＋檢索修正] — 2026-08-18 — 人手編制文件群入庫、頁碼歸屬修正（S204）
 
 > 平台版本 **v3.2.2 → v3.3.0**。凍結合約零接觸：`knowledge.json` `_meta.version` **2.3.0**、facts **455**、`guidelines.json` **2.6.1 / 158**。Supabase **16,070 → 17,472**；`source_registry.json` 257 → **268**；`GUIDELINES_REGISTRY` 166 → **177**；`_meta.stats.sources` 120 → **288**（積壓漂移，本次按 Supabase distinct source_id 扣除 7 個 `role_facts_*` 偽來源後校正）。
 

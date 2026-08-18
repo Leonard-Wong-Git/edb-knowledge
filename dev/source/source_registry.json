@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-08-17",
+    "updated": "2026-08-18",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -7164,7 +7164,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026",
-      "last_checked_at": "2026-08-17",
+      "last_checked_at": "2026-08-18",
       "supersedes": null,
       "notes": "(auto, Option A executor) EDBCM116/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
     },
@@ -7184,7 +7184,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2022/23起",
-      "last_checked_at": "2026-08-17",
+      "last_checked_at": "2026-08-18",
       "supersedes": null,
       "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 表格文件：vault extract 由 dev/vault/extract_table_rows.py 座標重建（72 行，算術自檢 0 失敗），非 expand_vault --fetch 預設抽取。refresh 時必須重跑該腳本，唔可以直接 --fetch --force。 chunk_max_chars=160：一行一 chunk（600 字會塞 ~6 行，令查詢命中嗰行被溝淡；實測 0.521→0.590）。",
       "chunk_max_chars": 160
@@ -7205,7 +7205,7 @@
       "access_mode": "public",
       "status": "held_back",
       "version_label": "2022/23起",
-      "last_checked_at": "2026-08-17",
+      "last_checked_at": "2026-08-18",
       "supersedes": null,
       "notes": "⛔ S204 HELD BACK — vault extract 同 registry entry 保留，但 Supabase chunks 已刪（0 條）。原因：本表按「教學人員總數」索引，唔係按班數。入咗庫之後，合成器將佢當成普通小學嘅班數表，對「12班小學有幾多個學位教師」連續 3 次 run 答錯（實際 5 名，佢答 12 名），而 staff_est_pri（正確表、分數 0.654 高過佢 0.650）當時排第 6、跌出 synthesis 只讀嘅頭 5 條窗外。呢個屬交接 NEXT ② 記錄嘅「資料對象 vs 問題對象」移植失效類。恢復條件：對象核對機制落地後，重跑 expand_vault.py --embed --force --sources staff_est_sp_sch_pri，並以「12班小學有幾多個學位教師」×3 runs 確認唔會再移植。 S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 表格文件：同上，extract_table_rows.py 重建（48 行，算術自檢 0 失敗）。 chunk_max_chars=160：一行一 chunk（600 字會塞 ~6 行，令查詢命中嗰行被溝淡；實測 0.521→0.590）。",
       "chunk_max_chars": 160
@@ -7226,7 +7226,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": null,
-      "last_checked_at": "2026-08-17",
+      "last_checked_at": "2026-08-18",
       "supersedes": null,
       "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 對應用戶「主任編制／職責」問法。"
     },
@@ -7246,7 +7246,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": null,
-      "last_checked_at": "2026-08-17",
+      "last_checked_at": "2026-08-18",
       "supersedes": null,
       "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
     },
@@ -7266,7 +7266,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": null,
-      "last_checked_at": "2026-08-17",
+      "last_checked_at": "2026-08-18",
       "supersedes": null,
       "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
     },
@@ -7286,7 +7286,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019-04",
-      "last_checked_at": "2026-08-17",
+      "last_checked_at": "2026-08-18",
       "supersedes": null,
       "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
     },
@@ -7306,7 +7306,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019-04",
-      "last_checked_at": "2026-08-17",
+      "last_checked_at": "2026-08-18",
       "supersedes": null,
       "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
     },
@@ -7326,7 +7326,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2019",
-      "last_checked_at": "2026-08-17",
+      "last_checked_at": "2026-08-18",
       "supersedes": null,
       "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
     },
@@ -7346,7 +7346,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2000",
-      "last_checked_at": "2026-08-17",
+      "last_checked_at": "2026-08-18",
       "supersedes": null,
       "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。"
     },
@@ -7368,7 +7368,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": null,
-      "last_checked_at": "2026-08-17",
+      "last_checked_at": "2026-08-18",
       "supersedes": null,
       "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 ⚠️ 只有英文版（EDB codes-of-aid 頁面全系列無中文版，S204 實核）；中文查詢靠 multilingual embedding 跨語命中，命中率待 eval 觀察。載非教學人員（文書／校工）編制條款。 chunk_cap=600（預設 300 會截走文件尾段；S204 實核被丟嗰半含 APPENDIX 標題 + 11 條 clerical/文書人員內容，即非教學人員編制條款。只放寬本源，其餘源不變）。",
       "chunk_cap": 600
@@ -7391,7 +7391,7 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": null,
-      "last_checked_at": "2026-08-17",
+      "last_checked_at": "2026-08-18",
       "supersedes": null,
       "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 ⚠️ 只有英文版（同上）。 chunk_cap=800（預設 300 會截走文件尾段；S204 實核被丟嗰半含 APPENDIX 標題 + 11 條 clerical/文書人員內容，即非教學人員編制條款。只放寬本源，其餘源不變）。",
       "chunk_cap": 800
