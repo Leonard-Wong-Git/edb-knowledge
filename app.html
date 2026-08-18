@@ -708,17 +708,38 @@ body {
 </style>
 <script>
 /**
- * S204 — tab visibility switches (single source of truth for BOTH app.html and mobile.js).
- * Flip a flag to false to withdraw a tab without deleting its panel: the desktop button
- * disappears, its #hash falls back to 政策搜尋, and the mobile bottom bar drops the entry.
- * Flip it back when the feature is ready — the panel code stays intact on purpose.
+ * S204 — TAB VISIBILITY SWITCHES. Single source of truth for app.html AND mobile.js.
  *
- * Plain script, not the Babel block below: mobile.js initialises on DOMContentLoaded,
- * which fires before Babel finishes compiling, so a flag defined there would arrive too
- * late for the mobile bar to read.
+ * To withdraw a tab: set its flag to false. To bring it back: set it to true. Do NOT delete
+ * panel code — a withdrawn tab is meant to return, and every surface below reads this map,
+ * so one flag is the whole operation.
+ *
+ * Plain <script>, not the Babel block below: mobile.js initialises on DOMContentLoaded,
+ * which fires before Babel finishes compiling, so a flag defined there arrives too late for
+ * the mobile bar to read.
+ *
+ * ── EVERY SURFACE DRIVEN BY THIS MAP (keep this list complete; S204 shipped twice because
+ *    two of them were missed the first time) ──────────────────────────────────────────────
+ *   1. app.html  top tab button            — rendered only when the flag is true
+ *   2. app.html  VALID_VIEWS               — a bookmarked #hash for a withdrawn tab falls
+ *                                            back to 政策搜尋 instead of a blank panel
+ *   3. app.html  PlatformIntroPanel        — the 平台核心功能 card (`channels`, keyed by `view`)
+ *   4. app.html  PlatformIntroPanel        — the 使用手冊 accordion entry (keyed by `view`)
+ *   5. app.html  TOUR_STEPS                — a step whose cta points at a withdrawn tab is
+ *                                            dropped, so the tour never offers a dead button
+ *   6. mobile.js buildTabBar()             — the bottom bar entry (maps search→qa,
+ *                                            library→guidelines)
+ *   7. index.html feature card             — NOT flag-driven (static HTML, no React): hidden
+ *                                            by an inline style with a comment pointing here.
+ *                                            Restoring a tab means deleting that style too.
+ *
+ * ── WHEN RESTORING ──────────────────────────────────────────────────────────────────────
+ *   Flip the flag, delete the index.html inline style (item 7), drop the "(beta)" suffix if
+ *   the feature is out of beta, and re-check the DOC_SYNC row "Tab withdraw / restore".
  *
  * templates: withdrawn 2026-08-18 — policy_templates.json is a generated manifest that has
- * not been regenerated alongside the corpus, so the list on show was going stale.
+ * not been regenerated alongside the corpus, so the list on show was going stale. Restore
+ * after re-running dev/checklists/_work/gen_templates_manifest.py.
  */
 window.FEATURE_TABS = { about: true, qa: true, annotate: true, templates: false, guidelines: true };
 </script>
@@ -2108,6 +2129,7 @@ function PlatformIntroPanel({ stats }) {
 
   const channels = [
     {
+      view: 'qa',
       icon: '🔍',
       title: '政策語義搜尋',
       subtitle: 'EDB 原文語義檢索',
@@ -2116,22 +2138,25 @@ function PlatformIntroPanel({ stats }) {
       dark: true,
     },
     {
+      view: 'annotate',
       icon: '📝',
-      title: '文件標註',
+      title: '文件標註(beta)',
       subtitle: '上載文件 · 生成乾淨成品版',
       desc: '上載學校政策文件，系統逐段比對 EDB 指引與合規清單，生成一份「乾淨成品版」Word——建議融入正文（標示「（建議補充）」、無螢光、可直接編輯），說明與官方出處集中文末附錄；Word 上載會保留原有標題／編號／格式，另可下載「改動摘要」。',
       badge: '核心功能',
       dark: true,
     },
     {
+      view: 'templates',
       icon: '📋',
-      title: '範本下載',
+      title: '範本下載(beta)',
       subtitle: '15 個合規範疇',
       desc: '提供 15 個合規範疇的政策範本（學校版）及文件要求清單，按校類（小學／中學／特殊學校／幼稚園）篩選，即時下載 Word 檔。',
       badge: '即用範本',
       dark: false,
     },
     {
+      view: 'guidelines',
       icon: '📚',
       title: '指引文件庫',
       subtitle: `${guidelinesCount} 份 EDB 官方指引`,
@@ -2149,7 +2174,7 @@ function PlatformIntroPanel({ stats }) {
       // externalLink retired S154 (Leonard: link 暫時失效；此欄位本身從未被 channels.map render — dead data，comment 掉防將來誤接)。
       // 恢復用: 'https://leonard-wong-git.github.io/EDB-AI-Circular-System/'
     },
-  ];
+  ].filter((c) => !c.view || FEATURE_TABS[c.view] !== false);   // S204 — withdrawn tabs drop their card
 
   const steps = [
     { n: '1', icon: '💬', title: '自然語言提問', desc: '以中文直接輸入問題，無需記住文件編號或精確關鍵詞。' },
@@ -2351,12 +2376,12 @@ function PlatformIntroPanel({ stats }) {
           <p style={{fontSize:'var(--text-sm)',color:'var(--mid)',marginTop:'6px'}}>撳開每一項睇詳細步驟。隨時可喺右上角「🎓 使用教學」重溫導覽。</p>
         </div>
         {[
-          { icon:'🔍', title:'政策搜尋', steps:[
+          { view:'qa', icon:'🔍', title:'政策搜尋', steps:[
             '喺「🔍 政策搜尋」輸入關鍵字或問題（例：校車安全、教師年假、法團校董會）。',
             '系統喺 EDB 指引與通告做語義檢索，整理答案並列出來源；可撳來源頁碼直接跳去官方 PDF。',
             '貼士：短關鍵字（1–3 個詞）通常已夠；想收窄就逐步加詞。',
           ]},
-          { icon:'📝', title:'文件標註', steps:[
+          { view:'annotate', icon:'📝', title:'文件標註(beta)', steps:[
             '喺「📝 文件標註」上載學校政策文件（Word .docx 最佳，亦支援 PDF 或直接貼上文字）。',
             '揀本校校類，範疇可「自動偵測」或自選（最多 3 個），然後撳「開始標註」。',
             '系統比對 EDB 指引與合規清單，列出「就地標示」與「建議補充」。',
@@ -2364,15 +2389,15 @@ function PlatformIntroPanel({ stats }) {
             '另可撳「📋 下載改動摘要」一覽改咗甚麼。',
             '私隱：原始檔不會上載，只有抽取的文字會傳送作比對，過程不儲存；請勿包含敏感個人資料。',
           ]},
-          { icon:'📋', title:'範本下載', steps:[
+          { view:'templates', icon:'📋', title:'範本下載(beta)', steps:[
             '喺「📋 範本下載」按合規範疇瀏覽，再按校類（小學／中學／特殊學校／幼稚園）篩選。',
             '撳下載即取得 Word 政策範本，可作起草藍本。',
           ]},
-          { icon:'📚', title:'EDB 指引文件庫', steps:[
+          { view:'guidelines', icon:'📚', title:'EDB 指引文件庫', steps:[
             '喺「📚 EDB指引」按範疇與年份瀏覽 EDB 官方指引。',
             '可即時預覽，或撳連結跳去官方原文 PDF。',
           ]},
-        ].map((f) => (
+        ].filter((f) => !f.view || FEATURE_TABS[f.view] !== false).map((f) => (
           <details key={f.title} style={{background:'var(--paper)',border:'1px solid var(--border)',borderRadius:'var(--r-md)',padding:'4px 16px',marginBottom:'8px'}}>
             <summary style={{cursor:'pointer',fontSize:'var(--text-base)',fontWeight:700,color:'var(--charcoal)',padding:'10px 0',listStyle:'none'}}>
               {f.icon}　{f.title}
