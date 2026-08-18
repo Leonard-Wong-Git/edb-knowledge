@@ -24,6 +24,8 @@
 
 ## Current Baseline
 
+> **🆕 S205（2026-08-18）—— Open Priority ① 收尾：S198 route-probe 兩次讀齊、零外部呼叫、probe 已刪：** HEAD==origin/main @ `bee54c9`；**零 Supabase 寫入／零檢索改動／零 synthesis-gate 改動**，chunks 仍 17,472、`source_registry` 268、`GUIDELINES_REGISTRY` 177、平台 v3.3.0、凍結合約零接觸（`_meta` 2.3.0 / facts 455 / `guidelines.json` 2.6.1 / 158）。**① 交接框架有錯，已更正：** 交接寫「(a) 直接刪 / (b) 重開新觀察窗」，但 git 歷史證明 probe 只有一個 commit（`ddc98d5` 7/30）、之後零改動、Render auto-deploy on push → **連續 live 十九日**；而 Hobby 七日保留係 **rolling**，dashboard 一直坐住現成七日窗（8/11→8/18），「重開新窗」係唔存在嘅成本。**② 兩次獨立讀皆零第三方：** S202 8/2 讀 7/30→8/2 共 26 行全自測；S205 8/18 讀 8/11→8/18 共 2 行 = 當日親手放嘅 `s205-control-probe`。合共十日。**③ 儀器先行（S198 紀律第三次落地）：** 先 curl 放對照訊號證儀器活住（dashboard 15:06:59，對到秒，UTC+1 第四度實證），先數零。**④ probe 已刪：** commit `a1a6442`，`server.ts` 169–200 共 32 行純刪除；`getClientIp` / rate limiter / CORS / 其餘 route 零接觸。**⑤ 部署後 live 讀已閂：** 四個帶序號標記（14:15:05 / 14:17:03 / 14:17:32 / 14:22:28 UTC，最遲一個喺 push 後十四分鐘）**全部冇出現** → 新版真落地、probe 生產上已死。**⑥ 拆 backend channel-a 半邊（Backlog ⑥）前置由此解鎖。**
+
 > **🆕 S204（2026-08-18）—— 人手編制文件群入庫 + 頁碼歸屬修正 + v3.3.0 + 累積計數器：** HEAD==origin/main；**Supabase 16,070 → 17,472**（＋1,344 入庫、−23 換 109 逐行重入、−28 回滾特殊學校表）；`source_registry` 257→**268**；`GUIDELINES_REGISTRY` 166→**177**；平台 **v3.2.2 → v3.3.0**；凍結合約零接觸（`knowledge.json._meta.version` 2.3.0 / facts 455 / guidelines.json 2.6.1 / 158）。**① 頁碼歸屬修正已 ship：** `extractFirstPage`→`extractDominantPage`，真 PDF 核對 g24 74.1%→147/147、kg_admin 63.0%→127/127，全庫 5,453/15,601（35%）頁碼改變（4,927 條 −1）；`page` 唔入 scoring／synthesis，只影響頁碼同 `#page=N`。**② 資助小學學位教師文件群 10 份可搜尋**（特殊學校表 held back，見 ⑤）；新 `dev/vault/extract_table_rows.py` 座標重建表格＋算術不變式守門。**③ 可達性要四層**（SOURCE_SET → TOPIC_KEYWORDS → SPOTLIGHT → 獨立 `staffing` route 免 expansion ＋ 逐行 chunk），入庫本身唔等於搵到。**④ 新增累積計數器**（`usage_daily` + `bump_usage`/`get_usage_total`，`GET /api/stats/usage`，`x-probe` 排除自測），現值由 0 起計。**⑤ 特殊學校編制表 held_back**：入庫後令合成器對「12班小學有幾多學位教師」3/3 答錯（12 vs 正確 5），已刪 chunk，恢復條件寫入 registry notes。**⑥ eval before→after 兩次 PASS=23/FAIL=0**，31/34 完全不變。 **⑦ tab 開關機制成文：** `window.FEATURE_TABS` 驅動 7 個受影響位（唯一例外 index.html 靜態卡靠 inline style），註解列晒清單 + 恢復程序，`DOC_SYNC_CHECKLIST.md` 新增「Tab withdraw / restore」一行。教訓：首次實作逐個手 gate 漏咗兩個位，改成 `view` key 統一 filter 後先真正一個 flag 搞掂。
 
 > **🆕 S203（2026-08-02）—— 文件 drift 清（⑩）＋ judge V4 量度（②，未 ship）＋ g24/sag 偵查（⑧，出 PLAN）：** HEAD==origin/main（本 closeout commit）；**Supabase 16,062 零寫入**（本 session `count=exact` 實核）、registry 256、平台 v3.2.2、凍結合約全部零接觸；起手探針 4/4 綠（served v3.2.2 / Render `/health` warm 455 / HEAD==origin/main `bc2a8ae` / Supabase 16,062 exact）。Leonard 揀「1+2」再續 ⑧。**① NEXT ⑩ 文件 drift 修好（純文件）：** PMS 3 處 + roadmap 5 處 + `HANDOFF_PACKAGE.md:32` 統一為「下游轉 Channel B **S146 已完成**」（Leonard 確認方向＝已完成；S202 route-probe 零 channel-a 流量佐證）；R3 現只 gated on route-probe 8/5 + backend dismantle，不再等下游。**② NEXT ② judge V4 量度完成（Phase A+B，🔴 未 ship，零生產改動）：** 造 `v4a_s202.txt`(+8 最小)／`v4b_s202.txt`(+75 明示) + fresh held-out 10 條（`judge_transplant_fresh_s202.json`，逐條讀 passage、0 flip）+ harness `--cases`/`--cache`；dashboard reconfirm `gpt-4o-mini`；**7 次 run 噪音控制**。結論：**V4b 穩定修 GN10（範圍移植，0/3 vs V3 4/4）、零 recall 損（答半 7 runs 全 12/12），但 D01（對象移植）3/3 照漏、fresh FT06 照漏** → prompt-only 槓桿掂到明示範圍移植、掂唔到隱含對象移植 → **建議唔 ship、② reframe 做「非-prompt 對象核對機制」**（findings 已寫入 `dev/source/JUDGE_PROMPT_FINDINGS.md` S202 段）。**③ NEXT ⑧ g24/sag 偵查完成（純唯讀，出 PLAN）：** 親眼驗 Supabase → **真實文字重疊 377**（舊 doc/handoff 寫「215」全 stale）、g24 383 / sag_2025_11 409、**g24 零獨有內容**（6 條 g24-only 內容 sag 全覆蓋）、封面實寫「2026年5月版」（`sag_2025_11` 係 stale 命名）；g24 被 `role_facts.json:694` + eval gold 引用但都同 sag 並列（remap 乾淨）。合併 PLAN 備妥（remap → eval before→after → 刪 383 → live before→after → 清 code），**HIGH risk 另等 GO**（future session）。**④ probe 仍未刪**（`server.ts:168–198` 待 8/5 第二次讀後刪）。
@@ -261,6 +263,20 @@ source_registry → same vault PDFs → ai_extract.py
 - **雲端 OCR 引擎選項**（image-PDF ingestion 升級線，S180 評估）：Google Vision `DOCUMENT_TEXT_DETECTION`（逐字信心 + bounding box、每月 1,000 單位永久免費 + ~$1.50/1,000、要綁卡開 billing）／Mistral OCR（Markdown+表格、~$2/1,000）——比現用 `gpt-4o` 圖像 OCR「draft 質」可能更準更平，且 bbox 可餵返 grid 重建。命中 image-PDF 質素問題（如 DEBP 主藍圖 ~16 圖像頁）先評估：**真檔實測 + 開 Google billing**（ingestion 處理公開文件、無未成年私隱顧慮；後端已存在故唔需要 brief 嗰套 serverless key-proxy）。詳見 playbook inbox 提案 `2026-06-24-edb-knowledge-cloud-ocr-engine-options.md` + `doc-extract-method-ladder` 卡。出處：Leonard 一份 OCR 收費版 brief（2026-06，已核實價）。
 
 ## Last Session Record
+1. UTC date: 2026-08-18
+2. Session ID: Claude_20260818_1400 — S205。同日接力 S204，單一目標：清 Open Priority ①（由 7/30 賴到今日嘅臨時觀測 code）。
+3. Completed:
+   - ✅ **交接框架修正**：二選一（刪 / 重開窗）其實有第三個更好選項 —— Hobby 七日保留係 rolling，probe 連續 live 十九日，現成七日窗一直喺 dashboard 等人讀。
+   - ✅ **第二次讀完成**：8/11→8/18 七日窗，只得兩行、皆自測 → 兩條 channel-a route 零外部呼叫（連 S202 8/2 讀合共十日、兩次獨立讀）。
+   - ✅ **probe 已刪**：`server.ts` 169–200，32 行純刪除（`a1a6442`）。
+   - ✅ **部署後 live 讀已閂**：四個帶序號標記全部冇出現（DOC_SYNC row 48 專門要求嘅嗰格，唔准用 `/health` 猜重啟）。
+   - ✅ **治理文件已更新**：Open Priorities 五→四項並重編號＋修好兩處交叉引用；opening message 紅旗改寫成已閂結果；CODEBASE_CONTEXT AI Maintenance Log 補一行閂返 S198 嗰筆。
+4. QC：`npm run check` + `npm run build` exit 0；`dist/server.js` route-probe = 0；`git diff --stat` = 1 file / 32 deletions；部署後 `/health` 仍 warm 455、兩條 route 行為不變（GET → 404）。起手探針 6/6 綠。
+5. 未完成：見 Open Priorities ①–④ 及 Backlog。
+6. 關鍵教訓：(a) **rolling 保留窗唔使「重開」，只需要讀** —— 交接嘅二選一框架本身可以係錯，落手前先驗前提。(b) **「應該冇」唔係「冇」** —— Leonard 第一次答「應該一行都冇」係期望語氣，追問一句先落結論；放四個標記就係為咗有嘢俾人睇，靠推斷閂數就白放（S197／S198 同一個坑第三次，今次未遂）。
+7. commits：`a1a6442`（刪 code）→ `37e0e71`（治理文件）→ `bee54c9`（閂讀數）。
+
+## Previous Session Record (S204)
 1. UTC date: 2026-08-18
 2. Session ID: Claude_20260818_1115 — S204。由一個真實用戶問題（「幾多班有幾多老師／校工」答唔到）拆到底，順帶完成 v3.3.0、累積計數器、beta 標示、tab 開關。
 3. Completed:
@@ -611,6 +627,15 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## State Reconciliation Check
 
+- **Reconciled at:** 2026-08-18 (S205 closeout — Leonard「收工」)
+- **S205 state sections rewritten or confirmed current:** `Current Baseline`（prepend S205 block：probe 兩次讀齊 + 已刪 + 部署後讀已閂；S204 段原文保留降為歷史）；`Open Priorities`（**整份重生**：舊 ① route-probe 已完成故移除，餘四項上移並重新編號 ①–④，順手修好兩處指向舊編號嘅交叉引用）；`Last Session Record`（改寫為 S205，S204 原文完整降為 `Previous Session Record (S204)`，零刪減）；`Next Session Opening Message`（重生為 S205 版）。`Architecture Decisions` / `Regression / Verification Notes` / `User Environment` / `Mandatory Start Checklist` / `Supabase Technical Notes` 本 session 零改動、確認仍然 current。
+- **S205 lifecycle check:** 舊 Open Priority ①（route-probe）**已完成並已從 Open Priorities 移除**，唔會以未解狀態殘留喺 next priorities / risks / opening message —— opening message 嗰個 🔴🔴 紅旗亦已改寫成已閂結果。Backlog ⑥「拆 backend channel-a」由「等 OP① 有結果」改為「S205 已解鎖前置」，係**條件變更**而非完成，故仍留 Backlog。`START_NEXT_SESSION_PROMPT.txt` 本 session 中途有意 drift，本次 closeout 已重生對齊（見下）。零 completed-but-still-open 衝突。
+- **S205 persistence routing checked:** 是。當前狀態→handoff `Current Baseline` + `Open Priorities` + `Last Session Record`；逐步證據 / 四個標記時間 / 兩次讀數→`SESSION_LOG.md` S205 entry；穩定專案事實（probe 已移除、S198 記錄閂上）→`CODEBASE_CONTEXT.md` AI Maintenance Log；DOC_SYNC row 48 生命週期收尾→已記於 log `Sync` 欄。**可轉移經驗**（rolling 保留窗唔使重開 / 期望語氣唔等於觀察）→ 未入 playbook，已列為下 session 可做嘅 inbox 提案（見 Open Priorities 下方 Backlog 未列，故記於此）。
+- **S205 stale snapshots left:** 無。S204 段全部保留原文（降 `Previous Session Record (S204)`）。另主動更正兩處因本 session 而 stale 嘅述句：Open Priorities 舊 ⑤ 內文「同 ② 係同一個根」→「同 ① 係同一個根」；Backlog「拆 backend channel-a（⑥，等 OP① 有結果）」→「S205 已解鎖」。
+- **S205 opening message matches current state:** 是。整段重生（state header＝S205／HEAD＝`bee54c9`／NEXT 四項／probe 段由紅旗改為已閂結果），並已逐字鏡像至 `START_NEXT_SESSION_PROMPT.txt`（mirror check 見 closeout 輸出）。
+- **S205 sync status:** DOC_SYNC_CHECKLIST **row 48「臨時觀測 code 加落既有 backend route」＝ 生命週期收尾**（該 row 四項要求全部兌現：臨時性、刪除責任、讀取日期、自測識別標記）。本 session 零入庫、零檢索改動、零 synthesis-gate 改動、零凍結合約接觸 → 其餘 row 無命中。
+- **舊記錄（S203 closeout）：**
+
 - **Reconciled at:** 2026-08-02 (S203 closeout — Leonard「收工」)
 - **S203 state sections rewritten or confirmed current:** `Current Baseline`（prepend S203 block：⑩ 文件 drift 修好／② judge V4 量度未 ship＋reframe／⑧ g24/sag 偵查出 PLAN／probe 未刪／零生產改動）；`Open Priorities`（**整份重生為 S203 段**：① 8/5 route-probe 不變、② reframe 非-prompt、⑧ 更新真數 377＋PLAN、⑩ 標 DONE 移出、S202 段降歷史）；`Last Session Record` 由 S202 重寫為 S203（S202 降 `Previous Session Record (S202)`，no-loss）；`Next Session Opening Message` 就地更新（state header→S203／做咗段→S203 三件事／NEXT ② reframe／NEXT ⑧ 真數＋PLAN／NEXT ⑩ DONE／必讀 (a)→FINDINGS S202 段／紀律 +#6 judge 非決定性）；本段。
 - **S203 lifecycle check:** ⑩ 完成 → 已從 Open Priorities 移出（標 ✅ DONE，非殘留未解）。② 量度完成 → 由「硬化 judge V4」reframe 為「非-prompt 對象核對機制」（未完成、方向已轉、V4 prompt-tuning 明確標為 dead-end 不再試）。⑧ 偵查完成 → 仍為未解（執行合併未做，PLAN 備妥、HIGH risk 等 GO，正確保留）。① route-probe 8/5 讀＋刪 probe 不變（未做，正確保留）。**無已完成項殘留為未解 next priority／active risk**。**Risk 更新**：生產度臨時 probe 仍 live（`server.ts:168–198`），8/5 讀完必刪 — active 不變；V4 未 ship 故無新增生產 risk。
@@ -728,7 +753,8 @@ source_registry → same vault PDFs → ai_extract.py
 
 Can the next AI continue from `AGENTS.md`, this handoff, `dev/PROJECT_INDEX.md`, and needed rule packs without searching old log history?
 
-Answer: Yes（S199 closeout 覆核）。下一個 agent 淨睇本檔可以知道：當前數字（16,062 零寫入 / 256 / 158 / v3.2.2）、Channel A 退役做到邊一步 + **Leonard 已拍板 Option 2** + 硬核只 24 條、judge 喺**生產 model** 嘅真實數（V3 21/22，shipped 8/11 answer）、D01/D17 live 砌數同修法耦合、四項未解 next priority 排序、以及最關鍵一條紀律（**判斷 judge/synthesis 前必去 Render dashboard 確認 `OPENAI_MODEL=gpt-4o-mini`；對照組證明唔到儀器指住正確系統**）。**需要深入時，指針齊全**：Channel A 資料模型缺口 + Option 2 triage 寫喺 `CHANNEL_A_COVERAGE_FINDINGS.md` §5-6、逐條 tier 喺 `CHANNEL_A_RETIREMENT_LEDGER.tsv`、judge 生產 model 數 + footnote bypass 喺 `JUDGE_PROMPT_FINDINGS.md` 頂 S199 段、凍結驗收集紀律喺 `judge_acceptance.py`、四份 run 喺 `dev/source/judge_runs/`。**唔使揭舊 log history。**（舊 S197：機械判定 44% 撐唔住人手讀，仍生效，見 FINDINGS §2-4。）
+Answer: Yes（S205 closeout 覆核）。下一個 agent 淨睇本檔可以知道：**當前數字**（HEAD `bee54c9` / Supabase 17,472 / `source_registry` 268 / `GUIDELINES_REGISTRY` 177 / 平台 v3.3.0 / 凍結合約 `_meta` 2.3.0・facts 455・`guidelines.json` 2.6.1・158）；**四項未解 Open Priority 嘅排序同各自卡喺乜**（① 檢索「可見≠見到啱嗰段」＋ synthesis 只讀 5 條、② 指引庫落後 102 源、③ 特殊學校編制表等對象核對機制、④ 表格／註解 `content_kind`）；**S198 route-probe 全條線已閂**（兩次讀、零外部呼叫、probe 已刪、部署後讀已閂 —— 唔使再翻）；以及三條仍然生效嘅紀律（**判斷 judge/synthesis 前必去 Render dashboard 確認 `OPENAI_MODEL=gpt-4o-mini`**、**入庫 ≠ 可達要逐層實測**、**negative result 落結論前先證儀器量得到**）。**需要深入時，指針齊全**：Channel A 退役 triage 喺 `CHANNEL_A_COVERAGE_FINDINGS.md` §5-6、逐條 tier 喺 `CHANNEL_A_RETIREMENT_LEDGER.tsv`、judge 生產 model 數喺 `JUDGE_PROMPT_FINDINGS.md`、凍結驗收集紀律喺 `judge_acceptance.py`、run 檔喺 `dev/source/judge_runs/` 同 `dev/source/eval_runs/`。**唔使揭舊 log history。**
+**⚠️ 已知治理缺口（S205 發現，未補）**：S204 closeout 冇寫 `State Reconciliation Check` 條目（本節由 S205 直接接 S203）。唔追溯補寫 —— 重建唔到當時嘅 reconciliation，寫咗即係砌數。下次 closeout 照常寫即可。
 If no, update this handoff before closeout.
 
 Continuity rule: this file carries current state and next action. `dev/SESSION_LOG.md` carries recent evidence only. Archive old detail only when needed; do not create an archive directory by default.
@@ -743,53 +769,39 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 (Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
 
-Current state (S204, 2026-08-18): 平台 v3.3.0; Supabase 17,472 chunks; source_registry 268;
+Current state (S205, 2026-08-18): HEAD bee54c9; 平台 v3.3.0; Supabase 17,472 chunks; source_registry 268;
 GUIDELINES_REGISTRY 177; 凍結合約 _meta 2.3.0 / facts 455 / guidelines.json 2.6.1 / 158 全部零接觸。
-S204 = 人手編制文件群入庫 + 頁碼歸屬修正 + v3.3.0 + 累積計數器 + tab 開關機制。
+S205 = 清 Open Priority ① (S198 route-probe 兩次讀齊、零外部呼叫、probe 已刪、部署後讀已閂)。
+S204 (同日較早) = 人手編制文件群入庫 + 頁碼歸屬修正 + v3.3.0 + 累積計數器 + tab 開關機制。
 
 自動化 active: 5 源監察 (discover / freshness / served-url / 封面核對, 每週一) + Option A 自動入庫管道
 (edb-knowledge-ops, 每日跑; 會自行 push main 並更新片段數)。開工時本地可能落後 origin/main —— tree 乾淨
 + 0 本地 commit 先 git pull --ff-only; 有本地 commit 就 rebase (S204 撞過一次, 管道同時改 searchChannelB.ts)。
 
-✅ S205 已清 (呢項唔再係 open): S198 route-probe 已刪 (commit a1a6442)。兩次獨立讀齊、皆零外部呼叫 ——
-  S202 8/2 讀 7/30→8/2 共 26 行全部自測; S205 8/18 讀 rolling 7 日窗 8/11→8/18 只得 2 行, 即當日
-  親手放嘅 s205-control-probe。S203 要求嘅 8/5 第二次讀確係走漏, 但唔使「重開新窗」——
-  probe 由 7/30 連續行到 8/18 冇停過, dashboard 一直坐住一個現成 7 日窗, 冇人去讀啫。
-  拆 backend channel-a 半邊 (Backlog ⑥) 嘅前置條件由此滿足。
+✅ S198 route-probe 全條線已閂 (唔使再翻)。兩次獨立讀皆零外部呼叫: S202 8/2 讀 7/30→8/2 共 26 行全自測;
+  S205 8/18 讀 rolling 七日窗 8/11→8/18 共 2 行 = 當日親手放嘅 s205-control-probe。probe 已刪 (a1a6442,
+  server.ts 169–200 共 32 行純刪除)。部署後四個帶序號標記全部冇出現 = 新版真落地。
+  **拆 backend channel-a 半邊 (Backlog) 前置由此解鎖, 未做。**
 
 ⚠️⚠️ 貫穿全局 (S199 用真金白銀學到): judge / synthesis 用嘅 model 唔係 code default。
   env.ts fallback 係 gpt-4.1-nano, 但 Render 實設 OPENAI_MODEL=gpt-4o-mini。/health 唔報 model。
   任何 judge/synthesis 量度, 引用做「生產行為」之前必須去 Render dashboard 確認。
 
-📋 S204 做咗 (全部已 deploy 並 live 驗證):
-1. 頁碼歸屬: extractFirstPage → extractDominantPage。真 PDF 核對 g24 147/147、kg_admin 127/127
-   (舊 74.1% / 63.0%); 全庫 5,453/15,601 (35%) 頁碼改變。page 唔入 scoring/synthesis。
-2. 資助小學學位教師文件群 10 份入庫 (+1,344 chunks, 16,070→17,472); 新 dev/vault/extract_table_rows.py
-   座標重建表格 + 算術不變式守門 (72/48 行零失敗); expand_vault 加 per-source chunk_cap / chunk_max_chars。
-3. 可達性四層: hr_admin SOURCE_SET + TOPIC_KEYWORDS 新「編制」詞 + SPOTLIGHT +7 + 獨立 staffing route
-   (避開令 cosine 跌 0.20 嘅 hr_admin expansion) + 逐行 chunk。四條查詢由 <0.60 升至 0.607–0.816。
-4. v3.3.0 + 顯示同步 (chunks 17,472 / sources 120→288 積壓漂移校正 / 指引 177)。
-5. 累積計數器: usage_daily + bump_usage()/get_usage_total() (SECURITY DEFINER, anon EXECUTE);
-   後端 lib/usageCounter.ts + GET /api/stats/usage; x-probe 排除自測 (三個 harness 已加)。
-6. mobile.js/css 加 ?v=3.3.0 (回訪瀏覽器一直行舊版, 實測 transferSize:0)。
-7. window.FEATURE_TABS tab 開關 (head 普通 script, 因 mobile.js 喺 Babel 編譯前初始化);
-   templates:false 一次過收起五個入口。開返 flag 即復原, 面板 code 原封未動。
-
-🔴 S204 自製又回滾嘅嘢 (教訓): 特殊學校小學部編制表入庫後, 合成器將其「教學人員總數=36」行
-   套落普通小學「12班」問題, 3/3 答錯 (12 vs 正確 5)。機制: staff_est_pri 分數更高 (0.654 vs 0.650)
-   但排第 6, 而 synthesis 只讀 results.slice(0,5)。已刪 chunk (status=held_back, 恢復條件寫入
-   registry notes), 回滾後同一查詢 3/3 回復安全 decline。**令系統答到嘢, 可以係退步。**
-
 🧭 紀律 (真金白銀學返嚟, 仍然生效):
   1. 判斷 judge/synthesis 行為前, 先去 Render dashboard 確認 OPENAI_MODEL。
   2. negative result 落結論前先問「如果目標訊號存在, 呢個工具顯唔顯示到?」搵已發生事件做對照組。
+     (S205 第三度落地: 先放 s205-control-probe 證儀器活住, 先數零。)
   3. 報一個數之前打開數字背後至少一個實例親眼睇。搜尋命中唔算證據。
   4. 剷任何嘢前分清「有可引用替代品」同「唯一來源」。
   5. 任何檢索改動一律 eval before→after 對為準; 任何 synthesis-gate 改動一律 live before→after 對為準。
   6. judge 係 LLM、非決定性 → 任何 verdict 要重複 run (≥3) 先落結論。
-  7. (S204 新增) 入庫 ≠ 可達。SOURCE_SET / TOPIC_KEYWORDS / SPOTLIGHT / route expansion 四層
-     任何一層唔啱都搵唔到, 每層都要實測先知。假設要逐個測 —— S204 有三個假設 (Q&A 格式、chunk 被切爛、
-     mojibake 2.4%) 測完都唔成立。
+  7. 入庫 ≠ 可達。SOURCE_SET / TOPIC_KEYWORDS / SPOTLIGHT / route expansion 四層任何一層唔啱都搵唔到,
+     每層都要實測先知。假設要逐個測。
+  8. (S205 新增) 交接寫低嘅選項框架本身可以係錯 —— 落手前先驗前提。S205 交接叫二選一「刪 / 重開觀察窗」,
+     但 Hobby 七日保留係 rolling、probe 連續 live 十九日, 現成七日窗一直喺 dashboard 等人讀,
+     「重開新窗」根本係唔存在嘅成本。
+  9. (S205 新增) 「應該冇」唔係「冇」。用戶答「應該一行都冇」係期望語氣, 唔可以當觀察閂數;
+     追問一句「已經睇咗定係照推斷」先落結論。放咗標記就係為咗有嘢俾人睇。
 
 🛠 常用指令:
   python3 dev/source/eval_retrieval.py --self-test ; --run --label X --out dev/source/eval_runs/<date>_X.json
@@ -802,17 +814,18 @@ S204 = 人手編制文件群入庫 + 頁碼歸屬修正 + v3.3.0 + 累積計數�
 
 🔜 NEXT (Open Priorities ①–④ 詳見 handoff; §3 項目全部要 PLAN + Leonard go):
   ① 檢索「可見 ≠ 見到啱嗰段」+ synthesis 只讀 5 條 vs 榜有 8 條。S204 錯答嘅直接成因。
-     兩個修法 (改 spotlight 條件 / 擴合成窗) 都要 eval before→after。
+     兩個修法 (改 spotlight 條件為「最佳 chunk 未出現先插」/ 擴合成窗) 都要 eval before→after。
   ② GUIDELINES_REGISTRY 落後 102 個來源 + 加 registry-drift 監察 (Leonard 明確要求)。
-  ③ 特殊學校編制表恢復 (等對象核對機制)。
+  ③ 特殊學校編制表恢復 (等「資料對象 vs 問題對象」核對機制)。
   ④ 表格 / 註解 content_kind 分類 —— 方向已定「指路唔係砌表」, 前端零改動靠現有 #page=N。
   Backlog: 拆 backend channel-a 半邊 (S205 已解鎖前置); 時限性資料標示 + 第 6 監察; 公眾提交表單
   (Phase 1 Google Form); 範本 manifest 更新後開返 FEATURE_TABS.templates; 真亂碼未量度;
   承 S203 (judge 對象移植機制 / Channel A Option 2 / PUBLISH_PAT / 總帳 / g24-sag 合併)。
+  Playbook inbox 未交: S205 兩條可轉移經驗 (rolling 保留窗唔使重開 / 期望語氣唔等於觀察)。
 
 Post-startup first action: 跑起手探針 —— served app.html PLATFORM_VERSION (應為 3.3.0) + Render /health
 warm 455 + Draft HEAD==origin/main (落後就 ff-pull, 有本地 commit 就 rebase) + Supabase count=exact
-(應為 17,472) + GET /api/stats/usage —— 然後向 Leonard 報告當前狀態同建議下一步。
+(應為 17,472) + GET /api/stats/usage (S204 上線, 現值可能仍為 0) —— 然後向 Leonard 報告當前狀態同建議下一步。
 
 所有路徑含空格, 終端機指令必須用雙引號包住。改任何嘢之前, 先報告當前狀態同建議下一步。
 ```

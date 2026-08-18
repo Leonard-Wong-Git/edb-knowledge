@@ -50,9 +50,80 @@ dev/DOC_SYNC_REGISTRY.md
 - **Sync:** DOC_SYNC_CHECKLIST row 48「臨時觀測 code 加落既有 backend route」＝ 本次係該 row 生命週期嘅**收尾**（該 row 原本要求 handoff 寫明刪除責任 + 觸發條件 + 讀取日期 + 自測識別標記，四項今次全部兌現）。CODEBASE_CONTEXT AI Maintenance Log 已補一行。凍結合約零接觸。
 - **Pending:** ⚠️ `START_NEXT_SESSION_PROMPT.txt` 仍係 S204 版，同已更新嘅 handoff opening message 有意 drift，**收工時要重生 + mirror check**。（部署後 live 讀已閂 —— 見 QC。）
 - **Risks:** 拆 backend channel-a 半邊（Backlog ⑥）前置已解鎖，但未做。指引庫落後 102 個來源（現 OP②）未動。
-- **Log maintenance:** 本 entry 前 `dev/SESSION_LOG.md` = 278 行（<400），最舊 entry 2026-07-30（<30 日）→ 兩個 trigger 皆 False → **no-op**。
+- **Log maintenance:** `session_log_maintenance.py --check` → `trigger=False line_trigger=False date_trigger=False`（line_count=301、entry_count=7、最舊 entry 2026-07-30 <30 日）→ **no-op**。
+- **治理缺口（本 session 發現，不追溯補寫）:** S204 closeout 冇寫 `State Reconciliation Check` 條目 —— 該節由 S205 直接接 S203。唔補寫係因為重建唔到當時嘅 reconciliation，砌返一段等於偽造證據；已記入 handoff `Handoff Sufficiency Check` 作已知缺口。
 
 ---
+
+### Next Session Handoff Prompt (Verbatim)
+
+📋 Next session: agent-managed startup content below
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+(Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
+
+Current state (S205, 2026-08-18): HEAD bee54c9; 平台 v3.3.0; Supabase 17,472 chunks; source_registry 268;
+GUIDELINES_REGISTRY 177; 凍結合約 _meta 2.3.0 / facts 455 / guidelines.json 2.6.1 / 158 全部零接觸。
+S205 = 清 Open Priority ① (S198 route-probe 兩次讀齊、零外部呼叫、probe 已刪、部署後讀已閂)。
+S204 (同日較早) = 人手編制文件群入庫 + 頁碼歸屬修正 + v3.3.0 + 累積計數器 + tab 開關機制。
+
+自動化 active: 5 源監察 (discover / freshness / served-url / 封面核對, 每週一) + Option A 自動入庫管道
+(edb-knowledge-ops, 每日跑; 會自行 push main 並更新片段數)。開工時本地可能落後 origin/main —— tree 乾淨
++ 0 本地 commit 先 git pull --ff-only; 有本地 commit 就 rebase (S204 撞過一次, 管道同時改 searchChannelB.ts)。
+
+✅ S198 route-probe 全條線已閂 (唔使再翻)。兩次獨立讀皆零外部呼叫: S202 8/2 讀 7/30→8/2 共 26 行全自測;
+  S205 8/18 讀 rolling 七日窗 8/11→8/18 共 2 行 = 當日親手放嘅 s205-control-probe。probe 已刪 (a1a6442,
+  server.ts 169–200 共 32 行純刪除)。部署後四個帶序號標記全部冇出現 = 新版真落地。
+  **拆 backend channel-a 半邊 (Backlog) 前置由此解鎖, 未做。**
+
+⚠️⚠️ 貫穿全局 (S199 用真金白銀學到): judge / synthesis 用嘅 model 唔係 code default。
+  env.ts fallback 係 gpt-4.1-nano, 但 Render 實設 OPENAI_MODEL=gpt-4o-mini。/health 唔報 model。
+  任何 judge/synthesis 量度, 引用做「生產行為」之前必須去 Render dashboard 確認。
+
+🧭 紀律 (真金白銀學返嚟, 仍然生效):
+  1. 判斷 judge/synthesis 行為前, 先去 Render dashboard 確認 OPENAI_MODEL。
+  2. negative result 落結論前先問「如果目標訊號存在, 呢個工具顯唔顯示到?」搵已發生事件做對照組。
+     (S205 第三度落地: 先放 s205-control-probe 證儀器活住, 先數零。)
+  3. 報一個數之前打開數字背後至少一個實例親眼睇。搜尋命中唔算證據。
+  4. 剷任何嘢前分清「有可引用替代品」同「唯一來源」。
+  5. 任何檢索改動一律 eval before→after 對為準; 任何 synthesis-gate 改動一律 live before→after 對為準。
+  6. judge 係 LLM、非決定性 → 任何 verdict 要重複 run (≥3) 先落結論。
+  7. 入庫 ≠ 可達。SOURCE_SET / TOPIC_KEYWORDS / SPOTLIGHT / route expansion 四層任何一層唔啱都搵唔到,
+     每層都要實測先知。假設要逐個測。
+  8. (S205 新增) 交接寫低嘅選項框架本身可以係錯 —— 落手前先驗前提。S205 交接叫二選一「刪 / 重開觀察窗」,
+     但 Hobby 七日保留係 rolling、probe 連續 live 十九日, 現成七日窗一直喺 dashboard 等人讀,
+     「重開新窗」根本係唔存在嘅成本。
+  9. (S205 新增) 「應該冇」唔係「冇」。用戶答「應該一行都冇」係期望語氣, 唔可以當觀察閂數;
+     追問一句「已經睇咗定係照推斷」先落結論。放咗標記就係為咗有嘢俾人睇。
+
+🛠 常用指令:
+  python3 dev/source/eval_retrieval.py --self-test ; --run --label X --out dev/source/eval_runs/<date>_X.json
+  python3 dev/source/eval_retrieval.py --compare <before.json> <after.json>
+  python3 dev/vault/extract_table_rows.py --self-test ; --source <id> --dry-run
+  python3 dev/vault/expand_vault.py --embed --force --sources <id>      # --force 繞過 wiki_index 已索引跳過
+  python3 dev/source/judge_acceptance.py --self-test ; --plumbing-check
+  cd backend && npm run check && npm run build
+  curl -s https://edb-knowledge.onrender.com/api/stats/usage
+
+🔜 NEXT (Open Priorities ①–④ 詳見 handoff; §3 項目全部要 PLAN + Leonard go):
+  ① 檢索「可見 ≠ 見到啱嗰段」+ synthesis 只讀 5 條 vs 榜有 8 條。S204 錯答嘅直接成因。
+     兩個修法 (改 spotlight 條件為「最佳 chunk 未出現先插」/ 擴合成窗) 都要 eval before→after。
+  ② GUIDELINES_REGISTRY 落後 102 個來源 + 加 registry-drift 監察 (Leonard 明確要求)。
+  ③ 特殊學校編制表恢復 (等「資料對象 vs 問題對象」核對機制)。
+  ④ 表格 / 註解 content_kind 分類 —— 方向已定「指路唔係砌表」, 前端零改動靠現有 #page=N。
+  Backlog: 拆 backend channel-a 半邊 (S205 已解鎖前置); 時限性資料標示 + 第 6 監察; 公眾提交表單
+  (Phase 1 Google Form); 範本 manifest 更新後開返 FEATURE_TABS.templates; 真亂碼未量度;
+  承 S203 (judge 對象移植機制 / Channel A Option 2 / PUBLISH_PAT / 總帳 / g24-sag 合併)。
+  Playbook inbox 未交: S205 兩條可轉移經驗 (rolling 保留窗唔使重開 / 期望語氣唔等於觀察)。
+
+Post-startup first action: 跑起手探針 —— served app.html PLATFORM_VERSION (應為 3.3.0) + Render /health
+warm 455 + Draft HEAD==origin/main (落後就 ff-pull, 有本地 commit 就 rebase) + Supabase count=exact
+(應為 17,472) + GET /api/stats/usage (S204 上線, 現值可能仍為 0) —— 然後向 Leonard 報告當前狀態同建議下一步。
+
+所有路徑含空格, 終端機指令必須用雙引號包住。改任何嘢之前, 先報告當前狀態同建議下一步。
+```
 
 <!-- ack:log-entry:end -->
 
