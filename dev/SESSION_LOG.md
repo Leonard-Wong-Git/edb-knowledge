@@ -35,6 +35,115 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-08-18 Session 204 — 人手編制文件群入庫 + 頁碼歸屬修正 + v3.3.0 + 累積計數器
+
+- **ID:** Claude_20260818_1115
+- **Summary:** 由一個真實用戶問題（「學校有幾多班就有幾多老師／校工」答唔到）拆到底：實證係 ingestion gap（256 源零覆蓋人手編制），修完入庫仲要再修路由、spotlight、query expansion、chunk 粒度四層先真正可達。期間發現並回滾一個自製嘅移植性錯答。另完成 v3.3.0 顯示同步、累積使用計數器、beta 標示、可重用 tab 開關。
+- **① 頁碼歸屬（ship）：** `extractFirstPage` → `extractDominantPage`。舊邏輯取 chunk 第一個 `=== Page N ===`，跨頁時報錯頁（實例：g24 某 chunk 96% 屬 p53、因尾 5 字有 p54 標記而報 54）。新邏輯取承載最多內容嗰頁。真 PDF 核對：g24 74.1%→147/147、kg_admin 63.0%→127/127；全庫 15,601 條有頁碼者 **5,453（35%）改變**（4,927 條 −1）。`page` 唔入 scoring／唔入 synthesis prompt，故只影響頁碼同 `#page=N` 深連結。
+- **② graduate-teacher-posts 文件群（ship）：** registry 257→**268**；vault extract 11 份；Supabase 16,070→17,414→（回滾 sp + 逐行重入）**17,472**。新增 `dev/vault/extract_table_rows.py`（座標重建表格 + 算術不變式守門，72/48 行零失敗）；`expand_vault.py` 加 registry 覆寫 `chunk_cap`（則例全量 509/700，預設 300 會截走含 clerical 條款嘅尾段）同 `chunk_max_chars`（表格源 160＝一行一 chunk）。
+- **③ 可達性要四層（教訓）：** 入庫後 live 仍然搵唔到 → (a) 加入 `hr_admin` SOURCE_SET；(b) `TOPIC_KEYWORDS` 從來冇「編制」詞；(c) 加 SPOTLIGHT（ANN over-fetch 喺 SOURCE_SET 過濾之前，15 條 chunk 嘅源要全球排前 40 先入窗）；(d) 開獨立 `staffing` route 避開 `hr_admin` 嘅假期/薪酬 expansion（實測令編制查詢 cosine 0.816→0.616）＋逐行 chunk（0.521→0.590）。最終四條查詢全部由 <0.60 升到 0.607–0.816 過閘。
+- **④ 移植性錯答（自製→回滾）：** 特殊學校小學部編制表入庫後，合成器將其「教學人員總數=36」行套落普通小學「12班」問題，連續 3 runs 答 12 名（正確 5 名）。機制：staff_est_pri 分數更高（0.654 vs 0.650）但排第 6，而 synthesis 只讀 `results.slice(0,5)`。已刪其 28 條 chunk（`status=held_back`，恢復條件寫入 registry notes），回滾後同一查詢 3/3 回復安全 decline。
+- **⑤ v3.3.0 + 顯示同步：** chunks 16,070→17,472（用 executor 自己嘅 `live_display_sync` 掃 7 個鏡像檔）、`sources` 120→**288**（積壓漂移，= Supabase distinct source_id 295 − 7 個 role_facts_* 偽來源）、`GUIDELINES_REGISTRY` 166→**177**（新 sub_category `establishment`）。PLATFORM_VERSION 3.2.2→3.3.0 + README badge/footer + index footer + CHANGELOG 新段（只 append）。
+- **⑥ 累積計數器（新功能）：** Leonard 貼 DDL 建 `usage_daily` + `bump_usage()`/`get_usage_total()`（SECURITY DEFINER）。後端新增 `lib/usageCounter.ts` + `GET /api/stats/usage`，搜尋成功後 fire-and-forget 計數；帶 `x-probe` 唔計（三個 harness 已加，`eval_retrieval` 一跑 34 次會灌水）。前端：平台介紹第 5 張卡 + 手機 hero 行。
+- **⑦ 快取修正：** `mobile.js`/`mobile.css` 從來冇版本參數，回訪瀏覽器一直行舊版（實測服務端有新 code 但 `transferSize:0`）。四個 HTML 全部加 `?v=3.3.0`。
+- **⑧ beta 標示 + tab 開關：** 文件標註(beta)／範本下載(beta)；新增 `window.FEATURE_TABS`（head 普通 script，因 mobile.js 喺 Babel 編譯前初始化）。`templates:false` 一次過收起：桌面掣、`VALID_VIEWS`（bookmark #templates 退回 qa）、手機底欄、導覽步驟（6→5）、index 功能卡。面板 code 原封不動，開返 flag 即復原。
+- **Changed:** `backend/src/api/searchChannelB.ts`、`backend/src/lib/usageCounter.ts`(NEW)、`backend/src/server.ts`、`dev/vault/extract_table_rows.py`(NEW)、`dev/vault/expand_vault.py`、`dev/source/source_registry.json`、`app.html`、`index.html`、`mobile.js`、`q.html`、`t-purchase.html`、`README.md`、`CHANGELOG.md`、`K1_API_SPEC.md`、`knowledge.json`／`role_facts.json`／`dev/knowledge/role_facts.json`(只 `_meta.stats`)、三個 harness(+`x-probe`)、11 個 vault extract。
+- **QC:** eval before→after 兩次都 PASS=23/FAIL=0/errors=0；diff 31 條相同、1 SET_LOST（`substitute` 第 8 位互換，synthesis 只讀 5 條故影響唔到答案）、1 SET_ADDED（`mpf` +資助則例，改善）、1 RANK_SHIFT。路由 15/15（9 條回歸）。頁碼函數 7/7（2 條真 chunk 對真 PDF + 5 邊界）。計數器 live 3 測（讀取／+1／x-probe 唔計）。headless render 驗 V3.3.0、EDB指引(177)、17,472、零殘留 3.2.2。`npm run check`／`build` 全綠。
+- **Evidence disposition:** 可達性四層教訓 + 移植失效實例 → handoff Open Priorities；表格抽取方法 → `extract_table_rows.py` docstring；計數器機制 → `usageCounter.ts` docstring；eval run 檔 kept as trace（`eval_runs/2026-08-18_s204_before/after.json`）。
+- **Sync:** DOC_SYNC「Product version / release milestone」+「Product behavior / tuning」兩行已執行。凍結合約零接觸（`knowledge.json._meta.version` 2.3.0 / facts 455 / guidelines.json 2.6.1/158）。
+- **Pending:** 見 handoff Open Priorities（spotlight 可見≠啱段、synthesis 5 vs 8、指引庫落後 102、sp 表恢復、時限性資料、表格/註解分類、公眾表單、範本 manifest、**S198 route-probe 觀察窗已過期但 probe 仍 live**）。
+- **Risks:** 🔴 `backend/src/server.ts:193` route-probe 由 7/30 起仍喺生產（S203 交接嘅 8/5 讀取窗已過，Hobby 7 日 log 早已滾走）。⚠️ 指引庫落後 102 個來源，用戶搜到但瀏覽唔到。
+- **Log maintenance:** `--check` trigger=False（169 行 <400，最舊 entry 2026-07-30 <30 日）→ **no-op**。
+
+### Next Session Handoff Prompt (Verbatim)
+
+📋 Next session: agent-managed startup content below
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+(Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
+
+Current state (S204, 2026-08-18): 平台 v3.3.0; Supabase 17,472 chunks; source_registry 268;
+GUIDELINES_REGISTRY 177; 凍結合約 _meta 2.3.0 / facts 455 / guidelines.json 2.6.1 / 158 全部零接觸。
+S204 = 人手編制文件群入庫 + 頁碼歸屬修正 + v3.3.0 + 累積計數器 + tab 開關機制。
+
+自動化 active: 5 源監察 (discover / freshness / served-url / 封面核對, 每週一) + Option A 自動入庫管道
+(edb-knowledge-ops, 每日跑; 會自行 push main 並更新片段數)。開工時本地可能落後 origin/main —— tree 乾淨
++ 0 本地 commit 先 git pull --ff-only; 有本地 commit 就 rebase (S204 撞過一次, 管道同時改 searchChannelB.ts)。
+
+🔴🔴 最舊未清: backend/src/server.ts:193 一段 S198 route-probe 由 7/30 起仍喺生產。
+  S203 交接要求 8/5 前讀第二次 —— 該窗已過期, Render Hobby 只留 7 日 log, 7/30–8/2 嗰段永久冇咗。
+  要 Leonard 決定: (a) 直接刪 probe (8/2 全窗綠係唯一證據), 或 (b) 重開新窗再讀一次。
+  刪咗 = 拆 backend channel-a 嘅前置。呢個係 Open Priority ①。
+
+⚠️⚠️ 貫穿全局 (S199 用真金白銀學到): judge / synthesis 用嘅 model 唔係 code default。
+  env.ts fallback 係 gpt-4.1-nano, 但 Render 實設 OPENAI_MODEL=gpt-4o-mini。/health 唔報 model。
+  任何 judge/synthesis 量度, 引用做「生產行為」之前必須去 Render dashboard 確認。
+
+📋 S204 做咗 (全部已 deploy 並 live 驗證):
+1. 頁碼歸屬: extractFirstPage → extractDominantPage。真 PDF 核對 g24 147/147、kg_admin 127/127
+   (舊 74.1% / 63.0%); 全庫 5,453/15,601 (35%) 頁碼改變。page 唔入 scoring/synthesis。
+2. 資助小學學位教師文件群 10 份入庫 (+1,344 chunks, 16,070→17,472); 新 dev/vault/extract_table_rows.py
+   座標重建表格 + 算術不變式守門 (72/48 行零失敗); expand_vault 加 per-source chunk_cap / chunk_max_chars。
+3. 可達性四層: hr_admin SOURCE_SET + TOPIC_KEYWORDS 新「編制」詞 + SPOTLIGHT +7 + 獨立 staffing route
+   (避開令 cosine 跌 0.20 嘅 hr_admin expansion) + 逐行 chunk。四條查詢由 <0.60 升至 0.607–0.816。
+4. v3.3.0 + 顯示同步 (chunks 17,472 / sources 120→288 積壓漂移校正 / 指引 177)。
+5. 累積計數器: usage_daily + bump_usage()/get_usage_total() (SECURITY DEFINER, anon EXECUTE);
+   後端 lib/usageCounter.ts + GET /api/stats/usage; x-probe 排除自測 (三個 harness 已加)。
+6. mobile.js/css 加 ?v=3.3.0 (回訪瀏覽器一直行舊版, 實測 transferSize:0)。
+7. window.FEATURE_TABS tab 開關 (head 普通 script, 因 mobile.js 喺 Babel 編譯前初始化);
+   templates:false 一次過收起五個入口。開返 flag 即復原, 面板 code 原封未動。
+
+🔴 S204 自製又回滾嘅嘢 (教訓): 特殊學校小學部編制表入庫後, 合成器將其「教學人員總數=36」行
+   套落普通小學「12班」問題, 3/3 答錯 (12 vs 正確 5)。機制: staff_est_pri 分數更高 (0.654 vs 0.650)
+   但排第 6, 而 synthesis 只讀 results.slice(0,5)。已刪 chunk (status=held_back, 恢復條件寫入
+   registry notes), 回滾後同一查詢 3/3 回復安全 decline。**令系統答到嘢, 可以係退步。**
+
+🧭 紀律 (真金白銀學返嚟, 仍然生效):
+  1. 判斷 judge/synthesis 行為前, 先去 Render dashboard 確認 OPENAI_MODEL。
+  2. negative result 落結論前先問「如果目標訊號存在, 呢個工具顯唔顯示到?」搵已發生事件做對照組。
+  3. 報一個數之前打開數字背後至少一個實例親眼睇。搜尋命中唔算證據。
+  4. 剷任何嘢前分清「有可引用替代品」同「唯一來源」。
+  5. 任何檢索改動一律 eval before→after 對為準; 任何 synthesis-gate 改動一律 live before→after 對為準。
+  6. judge 係 LLM、非決定性 → 任何 verdict 要重複 run (≥3) 先落結論。
+  7. (S204 新增) 入庫 ≠ 可達。SOURCE_SET / TOPIC_KEYWORDS / SPOTLIGHT / route expansion 四層
+     任何一層唔啱都搵唔到, 每層都要實測先知。假設要逐個測 —— S204 有三個假設 (Q&A 格式、chunk 被切爛、
+     mojibake 2.4%) 測完都唔成立。
+
+🛠 常用指令:
+  python3 dev/source/eval_retrieval.py --self-test ; --run --label X --out dev/source/eval_runs/<date>_X.json
+  python3 dev/source/eval_retrieval.py --compare <before.json> <after.json>
+  python3 dev/vault/extract_table_rows.py --self-test ; --source <id> --dry-run
+  python3 dev/vault/expand_vault.py --embed --force --sources <id>      # --force 繞過 wiki_index 已索引跳過
+  python3 dev/source/judge_acceptance.py --self-test ; --plumbing-check
+  cd backend && npm run check && npm run build
+  curl -s https://edb-knowledge.onrender.com/api/stats/usage
+
+🔜 NEXT (Open Priorities ①–⑤ 詳見 handoff; §3 項目全部要 PLAN + Leonard go):
+  ① 🔴 route-probe 決定 (刪 / 重開新窗) —— 只有 Leonard 睇到 Render logs。
+  ② 檢索「可見 ≠ 見到啱嗰段」+ synthesis 只讀 5 條 vs 榜有 8 條。今日錯答嘅直接成因。
+     兩個修法 (改 spotlight 條件 / 擴合成窗) 都要 eval before→after。
+  ③ GUIDELINES_REGISTRY 落後 102 個來源 + 加 registry-drift 監察 (Leonard 明確要求)。
+  ④ 特殊學校編制表恢復 (等對象核對機制)。
+  ⑤ 表格 / 註解 content_kind 分類 —— 方向已定「指路唔係砌表」, 前端零改動靠現有 #page=N。
+  Backlog: 時限性資料標示 + 第 6 監察; 公眾提交表單 (Phase 1 Google Form); 範本 manifest 更新後開返
+  FEATURE_TABS.templates; 真亂碼未量度; 承 S203 (judge 對象移植機制 / Channel A Option 2 / PUBLISH_PAT /
+  拆 backend / 總帳 / g24-sag 合併)。
+
+Post-startup first action: 跑起手探針 —— served app.html PLATFORM_VERSION (應為 3.3.0) + Render /health
+warm 455 + Draft HEAD==origin/main (落後就 ff-pull, 有本地 commit 就 rebase) + Supabase count=exact
+(應為 17,472) + GET /api/stats/usage —— 然後向 Leonard 報告當前狀態同建議下一步。
+
+所有路徑含空格, 終端機指令必須用雙引號包住。改任何嘢之前, 先報告當前狀態同建議下一步。
+```
+
+<!-- ack:log-entry:end -->
+
+---
+
+
+
 ## 2026-08-02 Session 203 — ⑩ 文件 drift 清 + ② judge V4 量度（未 ship）+ ⑧ g24/sag 偵查（出 PLAN）
 
 - **ID:** Claude_20260802_S203
