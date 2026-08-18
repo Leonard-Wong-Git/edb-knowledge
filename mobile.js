@@ -310,6 +310,7 @@
       +   '<div class="m-hero-eyebrow">香港學校政策搜尋平台 · 香港學校管治</div>'
       +   '<h1 class="m-hero-title">查找有根有據的政策答案</h1>'
       +   '<p class="m-hero-desc">輸入問題，即時比對 EDB 已核實事實及原文片段。</p>'
+      +   '<p class="m-hero-desc" id="m-hero-usage" style="opacity:.72;margin-top:-2px"></p>'
       +   '<form class="m-search" id="m-search-form" autocomplete="off">'
       +     '<svg class="m-search-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>'
       +     '<input class="m-search-input" id="m-search-input" type="search" inputmode="search" enterkeyhint="search" placeholder="教師病假上限多少天？" />'
@@ -323,6 +324,19 @@
       +   '<div id="m-sheet-content"></div>'
       + '</aside>';
     document.body.insertBefore(shell, document.body.firstChild);
+
+    // S204 — cumulative search count. The desktop QAPanel shows this inside its 來源文件
+    // subtitle, which the mobile shell has no equivalent of, so without its own line here
+    // phone users never see the counter. textContent, not innerHTML; and the line stays
+    // empty on failure rather than rendering a misleading zero.
+    fetch(BACKEND_URL + '/api/stats/usage')
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || !d.ok) return;
+        var el = document.getElementById('m-hero-usage');
+        if (el) el.textContent = '累計已服務 ' + Number(d.total).toLocaleString() + ' 次查詢';
+      })
+      .catch(function () {});
 
     const form = document.getElementById('m-search-form');
     const input = document.getElementById('m-search-input');
