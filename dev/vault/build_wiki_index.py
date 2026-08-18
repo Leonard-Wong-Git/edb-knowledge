@@ -132,7 +132,22 @@ def chunk_text_with_page_carry(text: str, max_chars: int = CHUNK_MAX_CHARS,
         chunk_text() — its text_hash (and thus Supabase chunk id) is unchanged,
         so the 74 marker-less sources are untouched by this change.
     """
-    chunks = chunk_text(text, max_chars, overlap)
+    return carry_pages(chunk_text(text, max_chars, overlap))
+
+
+def carry_pages(chunks: list[str]) -> list[str]:
+    """
+    S206: the page-carry rule itself, lifted out of chunk_text_with_page_carry so
+    the second ingestion pipeline can reuse it. Chunker-agnostic on purpose — it
+    takes an already-chunked list. expand_vault.py splits text differently from
+    this module, and their chunk hashes must stay independent, so they share the
+    RULE without sharing the chunker (AGENTS §3b: one definition per rule).
+
+    Invariants relied on by both callers:
+      - Chunks before the first marker (cover / front-matter) are left unchanged.
+      - A chunk list with NO markers at all is returned byte-identical, so a
+        marker-less source keeps its text_hash (and thus its Supabase chunk id).
+    """
     current_page = None
     out = []
     for ch in chunks:

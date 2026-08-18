@@ -75,6 +75,12 @@ try:
 except ImportError:
     BS4_AVAILABLE = False
 
+# S206 — page-carry rule. This pipeline keeps its own chunker (sharing
+# build_wiki_index's would re-hash every chunk it has ever written), but must not
+# keep its own copy of the RULE. Import the one definition instead.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from build_wiki_index import carry_pages  # noqa: E402
+
 # ── Config ────────────────────────────────────────────────────────────────────
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -380,7 +386,14 @@ def build_chunks_from_vault_file(extract_path: Path) -> list[dict]:
     tag_str = meta.get("topic_tags", "")
     topic = tag_str.split(",")[0].strip() if tag_str else "general"
 
-    texts = chunk_text(body, max_chars=source_override(sid, "chunk_max_chars", CHUNK_MAX_CHARS))
+    # S206 — carry the last-seen `=== Page N ===` forward so every chunk between two
+    # markers stays page-resolvable. Without this, extractDominantPage() (backend
+    # searchChannelB.ts) returns undefined and the UI can no longer point at a page —
+    # measured on staff_est_pri: 4 of 81 chunks carried a page, 77 did not.
+    # No-op (byte-identical, same text_hash) for sources whose extract has no markers.
+    texts = carry_pages(
+        chunk_text(body, max_chars=source_override(sid, "chunk_max_chars", CHUNK_MAX_CHARS))
+    )
     # Apply cap. CHUNK_CAP keeps one huge source from dominating the corpus, but it drops
     # the TAIL, so on a long reference document it silently discards the appendices — where
     # the Codes of Aid keep their staff establishment schedules. A source may raise its own
