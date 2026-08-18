@@ -234,17 +234,15 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## Open Priorities
 
-> **🔜 S204（2026-08-18）—— 本段整份重生。S204 完成頁碼修正、編制文件群入庫、v3.3.0、計數器；以下為新排序。**
+> **🔜 S205（2026-08-18）—— 本段重生。S205 完成並移除 S198 route-probe（舊 ①），其餘順序上移一位。**
 
-① **🔴【生產度臨時 code，最舊未清】S198 route-probe 仍 live**（`backend/src/server.ts:193` 一段）。S203 交接要求 8/5 前讀第二次，該窗已過期且 Render Hobby 只留 7 日 log，7/30–8/2 嗰段永久冇咗。**要 Leonard 決定：**(a) 直接刪 probe（8/2 全窗綠已是唯一證據），或 (b) 重開新觀察窗再讀一次。刪咗 = 拆 backend channel-a（見 Backlog）嘅前置。
+① **【今日實證，最直接影響答案質素】檢索「可見 ≠ 見到啱嗰段」。** `staff_est_pri` 最佳 chunk 0.654，但入榜嘅係 0.630/0.626/0.618 三條腳註／表頭（腳註寫「12至17班」字面贏過真資料行）；SPOTLIGHT 因 `!visibleSources.has(source_id)` 見源已可見而唔補插。同時 **synthesis 只讀 `results.slice(0,5)` 而結果榜有 8 條** —— 今日嘅錯答就係正確表排第 6 被擋喺窗外。兩個修法：改 spotlight 條件為「最佳 chunk 未出現先插」／擴 synthesis 窗。**兩者都要 eval before→after。**
 
-② **【今日實證，最直接影響答案質素】檢索「可見 ≠ 見到啱嗰段」。** `staff_est_pri` 最佳 chunk 0.654，但入榜嘅係 0.630/0.626/0.618 三條腳註／表頭（腳註寫「12至17班」字面贏過真資料行）；SPOTLIGHT 因 `!visibleSources.has(source_id)` 見源已可見而唔補插。同時 **synthesis 只讀 `results.slice(0,5)` 而結果榜有 8 條** —— 今日嘅錯答就係正確表排第 6 被擋喺窗外。兩個修法：改 spotlight 條件為「最佳 chunk 未出現先插」／擴 synthesis 窗。**兩者都要 eval before→after。**
+② **【用戶可見落差】`GUIDELINES_REGISTRY` 落後 102 個來源。** `source_registry` 非退役 265 vs 指引庫 177 —— 校車安全五份、視藝安全（中學）、AI 課程框架等搜得到但喺「📚EDB指引」瀏覽唔到。根因：Option A 管道更新 Supabase 同片段數，但從來唔掂 `GUIDELINES_REGISTRY`。要 (a) 人手審核邊類該公開瀏覽（通函未必啱）、(b) 加 registry-drift 監察防止再落後（Leonard 明確要求 Monitor 呢個位）。
 
-③ **【用戶可見落差】`GUIDELINES_REGISTRY` 落後 102 個來源。** `source_registry` 非退役 265 vs 指引庫 177 —— 校車安全五份、視藝安全（中學）、AI 課程框架等搜得到但喺「📚EDB指引」瀏覽唔到。根因：Option A 管道更新 Supabase 同片段數，但從來唔掂 `GUIDELINES_REGISTRY`。要 (a) 人手審核邊類該公開瀏覽（通函未必啱）、(b) 加 registry-drift 監察防止再落後（Leonard 明確要求 Monitor 呢個位）。
+③ **【資料正確性，等機制】特殊學校編制表恢復。** `staff_est_sp_sch_pri` status=held_back、chunk 0 條。恢復條件：合成前有「資料對象 vs 問題對象」核對機制（即 S203 reframe 嘅 NEXT ②）。恢復步驟同驗證方法已寫入 registry notes。
 
-④ **【資料正確性，等機制】特殊學校編制表恢復。** `staff_est_sp_sch_pri` status=held_back、chunk 0 條。恢復條件：合成前有「資料對象 vs 問題對象」核對機制（即 S203 reframe 嘅 NEXT ②）。恢復步驟同驗證方法已寫入 registry notes。
-
-⑤ **【產品方向，Leonard 提】表格 / 註解 first 呈現。** 全庫掃描：~600–900 條（4–6%）結構化資料被文字化壓平、150 條目錄雜訊（用戶截圖見過）。方向已定為**指路唔係砌表**（前端零改動，靠現有 `#page=N`）。落地做法：入庫時標 `content_kind`（table_row / footnote / heading / prose），檢索時確保查具體數值嘅問題至少有一條 `table_row` 入合成窗——同 ② 係同一個根。
+④ **【產品方向，Leonard 提】表格 / 註解 first 呈現。** 全庫掃描：~600–900 條（4–6%）結構化資料被文字化壓平、150 條目錄雜訊（用戶截圖見過）。方向已定為**指路唔係砌表**（前端零改動，靠現有 `#page=N`）。落地做法：入庫時標 `content_kind`（table_row / footnote / heading / prose），檢索時確保查具體數值嘅問題至少有一條 `table_row` 入合成窗——同 ① 係同一個根。
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 
@@ -253,7 +251,7 @@ source_registry → same vault PDFs → ai_extract.py
 - **公眾提交表單**（Leonard 提）：Phase 1 = Google Form + 平台加一粒「意見／報錯」掣（零代碼，先驗證有冇人用）；Phase 2 = 站內表單 → 現有 Render 後端 → Supabase 新表（要處理防濫發、唔收非必要個人資料）。
 - **範本下載恢復**：`policy_templates.json`（106 檔／15 範疇）未隨知識庫更新，S204 已用 `window.FEATURE_TABS.templates=false` 收起。重新生成 manifest 後把 flag 揼返 true 即復原（面板 code 原封未動）。
 - **真亂碼未量度**：S204 掃描時偵測器分唔清長 URL／底線填充，故**冇報數**。`gifted_ge_series` 確有真 CID 亂碼實例（playbook `pdf-extraction-mojibake-triage`）。要做要另寫準確偵測。
-- **承 S203 未完**：judge 對象移植非-prompt 機制（②，工具 `v4a/v4b_s202.txt` + fresh 集已備）；Channel A Option 2 入庫 117 條（③，HIGH risk 跨 session）；24 條純職責歸屬孤兒決定（④）；`PUBLISH_PAT` fine-grained 確認（⑤，只有 Leonard 做得到）；拆 backend channel-a 半邊（⑥，等 OP① 有結果）；總帳 172 UNVERIFIED + 107 PROVISIONAL 未讀（⑦）；g24/sag 合併 PLAN 備妥等 GO（⑧，真數 377 重疊、g24 零獨有內容）；維護：封面 baseline 208 / spotlight 6 源 / `MIN_OVERLAP` 兩份鏡像（⑨）。
+- **承 S203 未完**：judge 對象移植非-prompt 機制（②，工具 `v4a/v4b_s202.txt` + fresh 集已備）；Channel A Option 2 入庫 117 條（③，HIGH risk 跨 session）；24 條純職責歸屬孤兒決定（④）；`PUBLISH_PAT` fine-grained 確認（⑤，只有 Leonard 做得到）；拆 backend channel-a 半邊（⑥，**S205 已解鎖** —— route-probe 兩次讀齊、零外部呼叫、probe 已刪，前置條件已滿足）；總帳 172 UNVERIFIED + 107 PROVISIONAL 未讀（⑦）；g24/sag 合併 PLAN 備妥等 GO（⑧，真數 377 重疊、g24 零獨有內容）；維護：封面 baseline 208 / spotlight 6 源 / `MIN_OVERLAP` 兩份鏡像（⑨）。
 
 **原有：**
 - g21/g22/g33 直連 PDF 補完（user browser）— Session 105 audit 揭發三者 source_type='pdf' 但 url_primary 缺
@@ -753,10 +751,11 @@ S204 = 人手編制文件群入庫 + 頁碼歸屬修正 + v3.3.0 + 累積計數�
 (edb-knowledge-ops, 每日跑; 會自行 push main 並更新片段數)。開工時本地可能落後 origin/main —— tree 乾淨
 + 0 本地 commit 先 git pull --ff-only; 有本地 commit 就 rebase (S204 撞過一次, 管道同時改 searchChannelB.ts)。
 
-🔴🔴 最舊未清: backend/src/server.ts:193 一段 S198 route-probe 由 7/30 起仍喺生產。
-  S203 交接要求 8/5 前讀第二次 —— 該窗已過期, Render Hobby 只留 7 日 log, 7/30–8/2 嗰段永久冇咗。
-  要 Leonard 決定: (a) 直接刪 probe (8/2 全窗綠係唯一證據), 或 (b) 重開新窗再讀一次。
-  刪咗 = 拆 backend channel-a 嘅前置。呢個係 Open Priority ①。
+✅ S205 已清 (呢項唔再係 open): S198 route-probe 已刪 (commit a1a6442)。兩次獨立讀齊、皆零外部呼叫 ——
+  S202 8/2 讀 7/30→8/2 共 26 行全部自測; S205 8/18 讀 rolling 7 日窗 8/11→8/18 只得 2 行, 即當日
+  親手放嘅 s205-control-probe。S203 要求嘅 8/5 第二次讀確係走漏, 但唔使「重開新窗」——
+  probe 由 7/30 連續行到 8/18 冇停過, dashboard 一直坐住一個現成 7 日窗, 冇人去讀啫。
+  拆 backend channel-a 半邊 (Backlog ⑥) 嘅前置條件由此滿足。
 
 ⚠️⚠️ 貫穿全局 (S199 用真金白銀學到): judge / synthesis 用嘅 model 唔係 code default。
   env.ts fallback 係 gpt-4.1-nano, 但 Render 實設 OPENAI_MODEL=gpt-4o-mini。/health 唔報 model。
@@ -801,16 +800,15 @@ S204 = 人手編制文件群入庫 + 頁碼歸屬修正 + v3.3.0 + 累積計數�
   cd backend && npm run check && npm run build
   curl -s https://edb-knowledge.onrender.com/api/stats/usage
 
-🔜 NEXT (Open Priorities ①–⑤ 詳見 handoff; §3 項目全部要 PLAN + Leonard go):
-  ① 🔴 route-probe 決定 (刪 / 重開新窗) —— 只有 Leonard 睇到 Render logs。
-  ② 檢索「可見 ≠ 見到啱嗰段」+ synthesis 只讀 5 條 vs 榜有 8 條。今日錯答嘅直接成因。
+🔜 NEXT (Open Priorities ①–④ 詳見 handoff; §3 項目全部要 PLAN + Leonard go):
+  ① 檢索「可見 ≠ 見到啱嗰段」+ synthesis 只讀 5 條 vs 榜有 8 條。S204 錯答嘅直接成因。
      兩個修法 (改 spotlight 條件 / 擴合成窗) 都要 eval before→after。
-  ③ GUIDELINES_REGISTRY 落後 102 個來源 + 加 registry-drift 監察 (Leonard 明確要求)。
-  ④ 特殊學校編制表恢復 (等對象核對機制)。
-  ⑤ 表格 / 註解 content_kind 分類 —— 方向已定「指路唔係砌表」, 前端零改動靠現有 #page=N。
-  Backlog: 時限性資料標示 + 第 6 監察; 公眾提交表單 (Phase 1 Google Form); 範本 manifest 更新後開返
-  FEATURE_TABS.templates; 真亂碼未量度; 承 S203 (judge 對象移植機制 / Channel A Option 2 / PUBLISH_PAT /
-  拆 backend / 總帳 / g24-sag 合併)。
+  ② GUIDELINES_REGISTRY 落後 102 個來源 + 加 registry-drift 監察 (Leonard 明確要求)。
+  ③ 特殊學校編制表恢復 (等對象核對機制)。
+  ④ 表格 / 註解 content_kind 分類 —— 方向已定「指路唔係砌表」, 前端零改動靠現有 #page=N。
+  Backlog: 拆 backend channel-a 半邊 (S205 已解鎖前置); 時限性資料標示 + 第 6 監察; 公眾提交表單
+  (Phase 1 Google Form); 範本 manifest 更新後開返 FEATURE_TABS.templates; 真亂碼未量度;
+  承 S203 (judge 對象移植機制 / Channel A Option 2 / PUBLISH_PAT / 總帳 / g24-sag 合併)。
 
 Post-startup first action: 跑起手探針 —— served app.html PLATFORM_VERSION (應為 3.3.0) + Render /health
 warm 455 + Draft HEAD==origin/main (落後就 ff-pull, 有本地 commit 就 rebase) + Supabase count=exact

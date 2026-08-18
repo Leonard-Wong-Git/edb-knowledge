@@ -35,6 +35,28 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-08-18 Session 205 — OP① 收尾：route-probe 兩次讀齊、零外部呼叫、probe 已刪
+
+- **ID:** Claude_20260818_1400
+- **Summary:** 起手探針 6/6 綠後直接清 Open Priority ①（由 7/30 賴到今日嘅臨時觀測 code）。交接寫嘅二選一（(a) 直接刪 / (b) 重開新窗）其實有第三個更好選項：probe 由 7/30 連續行到今日冇停過，而 Render Hobby 係 **rolling** 7 日保留，所以 dashboard 一直坐住一個現成嘅 8/11→8/18 七日窗，唔使等、唔使重開，只係之前冇人去讀。讀完即刪。單檔 32 行純刪除。
+- **① 起手探針（6/6）:** 服務中 `app.html` `PLATFORM_VERSION='3.3.0'`；Render `/health` warm 455；Draft tree 乾淨 + HEAD==origin/main @ `fa7c9fe`（0/0）；Supabase `wiki_chunks` `count=exact` = **17,472**；`source_registry` 268（262 verified / 3 deprecated / 2 superseded / 1 held_back）；`GUIDELINES_REGISTRY` 177（實數 app.html 陣列）；凍結合約 `_meta` 2.3.0 / facts 455 / `guidelines.json` 2.6.1 / 158 零漂移。`/api/stats/usage` = `total:0, today:0, since:2026-08-18`（計數器 S204 先上線，未有非-probe 真實流量；唔係故障）。
+- **② 交接框架修正（本 session 主要判斷）:** handoff 寫「(b) 重開新觀察窗再讀一次」隱含咗「窗已經冚咗」。實際 git 歷史證明 probe 只有一個 commit（`ddc98d5` 7/30）、之後零改動、HEAD==origin/main 且 Render auto-deploy on push → **佢連續 live 咗 19 日**。Rolling 保留 = 任何時刻都有最近 7 日。所以「重開新窗」係一個唔存在嘅成本。
+- **③ 儀器對照先行（S198 紀律落地，第三次）:** 落結論前先 curl 兩條 route 帶 `ua=s205-control-probe`（14:06:58–59 UTC）。Leonard dashboard「Last 7 days」search `route-probe` → 只得嗰兩行，時間 15:06:59（dashboard UTC+1，對到秒；UTC+1 第四度實證）。**先證儀器活住，再數零。**
+- **④ 兩次讀合併結論:** S202 8/2 讀＝7/30 09:40 UTC→8/2 共 26 行全部自測（24× `s198-deploycheck-*` + 2× `s201-control-probe`）；S205 8/18 讀＝8/11→8/18 共 2 行全部自測。合共十日、兩次獨立讀、零第三方 → `/api/search/channel-a` 同 `/api/search/combined` 確認零外部呼叫者。S203 要求嘅 8/5 第二次讀確係走漏，7/30–8/11 嗰段永久冇咗，但唔影響結論（現窗更長更乾淨：期間 S203 純文件、S204 全部帶 `x-probe` 或打 channel-b）。
+- **Changed:** `backend/src/server.ts`（刪 169–200 行＝S198 probe 註解 block + `if` block，32 行純刪除；`getClientIp` / rate limiter / CORS / 其餘 route 零接觸；留低嘅 `PROBE_HEADER` 係 usage counter 嘅 `x-probe`，無關）。commit `a1a6442`，push `fa7c9fe..a1a6442`。
+- **QC:** `npm run check` exit 0；`npm run build` exit 0；`grep -c route-probe dist/server.js` = **0**；`git diff --stat` = 1 file / 32 deletions（證明零附帶改動）。部署後 `/health` 仍 `ok:true` warm 455、兩條 route 行為不變（GET → 404，同刪之前一樣）。**帶序號部署後自測流量已放**（`s205-postdeploy-probe` 14:15:05 UTC、`s205-final-probe` ~14:22 UTC）——**呢一格要 Leonard 喺 dashboard 讀先閂到**（見 Pending）。
+- **Evidence disposition:** 「rolling 保留窗＝唔使重開」呢個推論 → 已寫入 handoff opening message，並值得日後升做 playbook 卡（觀測窗類）；probe 兩次讀數 → kept as trace evidence（本 entry）；OP① 本身 → 已從 handoff Open Priorities 移除。
+- **Sync:** DOC_SYNC_CHECKLIST row 48「臨時觀測 code 加落既有 backend route」＝ 本次係該 row 生命週期嘅**收尾**（該 row 原本要求 handoff 寫明刪除責任 + 觸發條件 + 讀取日期 + 自測識別標記，四項今次全部兌現）。CODEBASE_CONTEXT AI Maintenance Log 已補一行。凍結合約零接觸。
+- **Pending:** 🟡 **部署後 live 讀未閂**：要 Leonard search `route-probe`，確認 `s205-postdeploy-probe` / `s205-final-probe` **冇**新行（＝新版落咗地、probe 真係死咗）。若見到新行 → deploy 未落地或刪除未生效，要覆核。⚠️ `START_NEXT_SESSION_PROMPT.txt` 仍係 S204 版，同已更新嘅 handoff opening message 有意 drift，**收工時要重生 + mirror check**。
+- **Risks:** 拆 backend channel-a 半邊（Backlog ⑥）前置已解鎖，但未做。指引庫落後 102 個來源（現 OP②）未動。
+- **Log maintenance:** 本 entry 前 `dev/SESSION_LOG.md` = 278 行（<400），最舊 entry 2026-07-30（<30 日）→ 兩個 trigger 皆 False → **no-op**。
+
+---
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-08-18 Session 204 — 人手編制文件群入庫 + 頁碼歸屬修正 + v3.3.0 + 累積計數器
 
 - **ID:** Claude_20260818_1115
