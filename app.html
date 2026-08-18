@@ -706,8 +706,8 @@ body {
   }
 }
 </style>
-<link rel="stylesheet" href="mobile.css">
-<script src="mobile.js" defer></script>
+<link rel="stylesheet" href="mobile.css?v=3.3.0">
+<script src="mobile.js?v=3.3.0" defer></script>
 </head>
 <body>
 <div id="root"></div>
@@ -2004,9 +2004,23 @@ function GuidelinesPanel({ setPreviewDoc }) {
 const PLATFORM_VERSION = '3.3.0';
 
 function PlatformIntroPanel({ stats }) {
+  // S204 — cumulative search count. It belongs beside the corpus stats: this is the tab a
+  // reader opens to ask "how big is this and is anyone using it", so a usage number tucked
+  // into the 政策搜尋 subtitle is effectively hidden. Null until loaded, and the card is
+  // omitted rather than showing 0 if the backend is unreachable.
+  const [usageTotal, setUsageTotal] = React.useState(null);
   const [demoTab, setDemoTab] = React.useState(0);
   const [demoVisible, setDemoVisible] = React.useState(false);
   const [counts, setCounts] = React.useState([0, 0, 0, 0]);
+
+  React.useEffect(() => {
+    let cancelled = false;
+    fetch('https://edb-knowledge.onrender.com/api/stats/usage')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => { if (!cancelled && d && d.ok) setUsageTotal(d.total); })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, []);
 
   // Animate stat counters on mount — pull from stats.metaStats (single source of truth from _meta.stats)
   const meta = stats.metaStats || {};
@@ -2138,6 +2152,9 @@ function PlatformIntroPanel({ stats }) {
     { num: counts[1].toLocaleString(), label: '可搜尋知識片段', sub: '語義向量索引' },
     { num: counts[2].toLocaleString(), label: 'EDB 官方指引', sub: '直達 PDF 連結' },
     { num: counts[3].toLocaleString(), label: '已處理來源文件', sub: `涵蓋 ${sourcesCount} 份官方文件` },
+    ...(usageTotal !== null
+      ? [{ num: usageTotal.toLocaleString(), label: '累計查詢次數', sub: '自 2026 年 8 月起計' }]
+      : []),
   ];
 
   return (
