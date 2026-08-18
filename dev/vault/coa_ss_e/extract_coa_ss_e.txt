@@ -4,10 +4,11 @@
 # topic_tags: hr,finance,general
 # url: https://www.edb.gov.hk/attachment/en/sch-admin/regulations/codes-of-aid/coa_ss_e.pdf
 # source_type: pdf
-# extracted: 20260817
+# extracted: 20260818
 # pipeline: expand_vault.py (auto)
 # ============================================================
 
+=== Page 1 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 1 
  
@@ -38,6 +39,7 @@ SPECIAL SCHOOLS
  
 (NOVEMBER 1998) 
 
+=== Page 2 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 2 
  
@@ -95,6 +97,7 @@ Operating Expenses Block Grant
  
 41 
 
+=== Page 3 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 3 
  
@@ -150,6 +153,7 @@ Index
  
  
 
+=== Page 4 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 4 
  
@@ -214,6 +218,7 @@ that a school is not being managed satisfactorily or that the education of
 the pupils is not being promoted in a proper manner; or 
  
 
+=== Page 5 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 5 
  
@@ -246,6 +251,7 @@ custody of money for which the school or any controlling or any other agencies
 to which money from the school is diverted or both are accountable in the public 
 interest. 
 
+=== Page 6 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 6 
  
@@ -318,6 +324,7 @@ to be served on the School Management Committee, setting out the
 grounds on which it appears to him that the special school is not being 
 managed satisfactorily, or that the education of the pupils is not being 
 
+=== Page 7 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 7 
  
@@ -387,6 +394,7 @@ Management Committee.
  
  
 
+=== Page 8 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 8 
  
@@ -453,6 +461,7 @@ the Permanent Secretary.
  
  
 
+=== Page 9 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 9 
  
@@ -513,6 +522,7 @@ proportion as determined by the Permanent Secretary.
  
  
 
+=== Page 10 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 10 
  
@@ -582,6 +592,7 @@ prefer.  The option once exercised in favour of the Administration Grant
 is final and irrevocable. 
  
 
+=== Page 11 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 11 
  
@@ -648,6 +659,7 @@ normally be given three months before the incremental date.
  
  
 
+=== Page 12 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 12 
  
@@ -710,6 +722,7 @@ aided schools/caput schools/DSS schools.
  
  
 
+=== Page 13 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 13 
  
@@ -784,6 +797,7 @@ to appear in court as witnesses.
  
  
 
+=== Page 14 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 14 
  
@@ -867,6 +881,7 @@ When the last day of such no-pay leave of a teacher is followed by the
 major school holidays, i.e. Christmas, Chinese New Year, Easter and 
 Summer Vacation, payment of salary will resume on the day the member 
 
+=== Page 15 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 15 
  
@@ -938,6 +953,7 @@ The School Management Committee may grant paternity leave up to 5
 working days with full-pay to those laboratory technicians and non-
 teaching staff paid out of Salaries Grant with not less than 40 weeks’ 
 
+=== Page 16 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 16 
  
@@ -1012,6 +1028,7 @@ any other purposes.
  
  
 
+=== Page 17 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 17 
  
@@ -1080,6 +1097,7 @@ less than 90 days will be paid on a monthly basis.  (updated on 1 September
 2021) 
  
 
+=== Page 18 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 18 
  
@@ -1150,6 +1168,7 @@ Domain for funds schools can only use for specified purposes.  Surplus of the
 General Domain can be used to top up expenditure on Special Domain items 
 and items chargeable to other government subsidies outside the Grant.  The rates 
 
+=== Page 19 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 19 
  
@@ -1215,6 +1234,7 @@ respect of any such grant.
  
  
 
+=== Page 20 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 20 
  
@@ -1282,6 +1302,7 @@ vehicle, sprinkler leakage or bursting or overflowing of water tanks,
 apparatus and pipes, riots or malicious acts of any person, and damage 
 caused by construction or excavation work by a third party adjacent to 
 
+=== Page 21 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 21 
  
@@ -1326,6 +1347,7 @@ acquire it separately at their own costs from any insurance company.
  
  
 
+=== Page 22 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 22 
  
@@ -1389,6 +1411,7 @@ Permanent Secretary may from time to time issue.
  
  
 
+=== Page 23 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 23 
  
@@ -1459,6 +1482,7 @@ medical examination including a chest X-ray examination by a
 registered medical practitioner.  
   
 
+=== Page 24 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 24 
  
@@ -1531,6 +1555,7 @@ special school are shown at Appendix 4.
  
  
 
+=== Page 25 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 25 
  
@@ -1597,6 +1622,7 @@ what such contribution shall be;
 (vii) the entitlement of such teacher to paid sick leave, maternity leave 
 or paternity leave; (updated on 1 September 2016) 
 
+=== Page 26 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 26 
  
@@ -1653,6 +1679,7 @@ inform the teacher whether or not it intends to propose renewal of the
 contract of service relating to his employment. 
  
 
+=== Page 27 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 27 
  
@@ -1719,6 +1746,7 @@ shall retire at the end of the school year in which he reaches the age of
 sixty.  Under exceptional circumstances, the Permanent Secretary may on 
 the recommendation of the School Management Committee and subject 
 
+=== Page 28 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 28 
  
@@ -1783,6 +1811,7 @@ Arrangements for acting appointments and allowances are set out at
 Appendix 3.  Such acting allowances will be treated as salary for 
 provident fund purposes.  (updated on 1 September 2019) 
 
+=== Page 29 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 29 
  
@@ -1848,6 +1877,7 @@ and any other income;
 (v) 
 payment vouchers in respect of all expenditure; 
 
+=== Page 30 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 30 
  
@@ -1908,6 +1938,7 @@ name of the school, one of which accounts shall be kept solely in respect
 of moneys received from the Government. 
  
 
+=== Page 31 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 31 
  
@@ -1972,6 +2003,7 @@ school as he shall determine.
  
  
 
+=== Page 32 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 32 
  
@@ -2037,6 +2069,7 @@ to the school, together with any cash belonging to the school which may
 be in his charge, to such other person as the Permanent Secretary may 
 approve as Supervisor, or pending the Permanent Secretary’s approval of 
 
+=== Page 33 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 33 
  
@@ -2074,6 +2107,7 @@ Government such proportion of grants made to the special school during
 the period in which the outgoing Supervisor acted as Supervisor as he shall 
 assess. 
 
+=== Page 34 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 34 
  
@@ -2167,6 +2201,7 @@ Terms of Employment for Laboratory Technicians
 Appendix 7 
 Teaching Staff’s Contracts 
 
+=== Page 35 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 35 
  
@@ -2200,6 +2235,7 @@ Appendix 18 Notes on Building Grants
  
 Appendix 19 School Assets and Settlement of Claims 
 
+=== Page 36 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 36 
  
@@ -2264,6 +2300,7 @@ specifically designed and constructed kitchens approved by the Director of Fire
 Services. 
  
 
+=== Page 37 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 37 
  
@@ -2334,6 +2371,7 @@ parents have proved unsuccessful;
 sufficiently serious. 
   
 
+=== Page 38 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 38 
  
@@ -2405,6 +2443,7 @@ wishing to attend such activities.  All pupils shall be informed of this require
 the commencement of each school year. 
  
 
+=== Page 39 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 39 
  
@@ -2471,6 +2510,7 @@ changes.  Where a series of graded books is to be replaced, the new series shoul
 introduced gradually, beginning at the lowest level and not at all levels throughout the 
 school at any one time except in the event of the implementation of a new syllabus.  
 
+=== Page 40 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 40 
  
@@ -2538,6 +2578,7 @@ their pupils in school.
  
  
 
+=== Page 41 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 41 
  
@@ -2574,6 +2615,7 @@ Permanent Secretary may from time to time issue are fully complied with.
 Comprehensive price lists of all commodities for sale to pupils must be 
 displayed prominently in the school. 
 
+=== Page 42 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 42 
  
@@ -2631,6 +2673,7 @@ Resource Teacher for Supportive Educational Programmes, Teacher Librarian and te
 class teaching.  (updated on 1 September 2022) 
  
 
+=== Page 43 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 43 
  
@@ -2686,6 +2729,7 @@ Number of periods taught by teacher per week
 Total number of periods taught per week 
  
 
+=== Page 44 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 44 
  
@@ -2744,6 +2788,7 @@ entitlement is capped.  Any additional RTs incurred on top of
 the capped entitlement would be provided in form of cash grant, 
 i.e. the Staff Encashment Grant.  The Education Bureau may 
 
+=== Page 45 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 45 
  
@@ -2801,6 +2846,7 @@ to provide support to students with HI who are attending
 aided special schools and in need of additional support, at 
 the ratio of 1 teacher for 1 unit.  The size of a unit is 1 - 50 
 
+=== Page 46 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 46 
  
@@ -2866,6 +2912,7 @@ With effect from the 2020/21 school year, each special
 school with a primary section, regardless of the number of approved 
 classes, is entitled to the provision of a Primary School Curriculum 
 
+=== Page 47 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 47 
  
@@ -2915,6 +2962,7 @@ Section of Special Schools
  
  
 
+=== Page 48 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 48 
  
@@ -2988,6 +3036,7 @@ rehabilitation co-ordinator.
  
  
 
+=== Page 49 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 49 
  
@@ -3062,6 +3111,7 @@ The size of a unit is 1 - 25 students for ESS for primary schools and
  
  
 
+=== Page 50 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 50 
  
@@ -3149,6 +3199,7 @@ IDD.
  
  
 
+=== Page 51 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 51 
  
@@ -3251,6 +3302,7 @@ wastage or promoted to OT I.  (updated on 1 September 2021)
  
  
 
+=== Page 52 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 52 
  
@@ -3334,6 +3386,7 @@ cum IDD
  
  
 
+=== Page 53 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 53 
  
@@ -3401,6 +3454,7 @@ Grant incurred.
 (updated on 1 September 2018) 
  
 
+=== Page 54 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 54 
  
@@ -3471,6 +3525,7 @@ schools for children with PD; and
  
  
 
+=== Page 55 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 55 
  
@@ -3539,6 +3594,7 @@ warden may be appointed at the Social Work Assistant (SWA) level.
 (updated on 1 September 2020) 
  
 
+=== Page 56 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 56 
  
@@ -3630,6 +3686,7 @@ For boarding sections of schools for children with MoIDD, schools
 for children with SIDD, schools for children with PD or schools for children 
 with VI cum IDD, the minimum provision will be 1 nurse at any one time 
 
+=== Page 57 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 57 
  
@@ -3696,6 +3753,7 @@ section offering 5-day boarding service only.
  
  
 
+=== Page 58 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 58 
  
@@ -3740,6 +3798,7 @@ created after summation and rounding up of the fraction may be appointed as
 houseparent/programme worker/janitor staff at the discretion of the school to 
 meet operational needs. 
 
+=== Page 59 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 59 
  
@@ -3796,6 +3855,7 @@ classes.
  
  
 
+=== Page 60 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 60 
  
@@ -3832,6 +3892,7 @@ Senior Primary School Master/Mistress
 level) with 4 equivalent ordinary primary classes. 
  
 
+=== Page 61 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 61 
  
@@ -3951,6 +4012,7 @@ APSM
 11 
 22 
 
+=== Page 62 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 62 
  
@@ -4027,6 +4089,7 @@ posts.
 (updated on 1 September 2022) 
  
 
+=== Page 63 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 63 
  
@@ -4174,6 +4237,7 @@ GM
  
  
 
+=== Page 64 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 64 
  
@@ -4331,6 +4395,7 @@ GM
  
  
 
+=== Page 65 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 65 
  
@@ -4359,6 +4424,7 @@ classes
  
 (updated on 1 September 2023) 
 
+=== Page 66 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 66 
  
@@ -4476,6 +4542,7 @@ ESS
 The term “intellectual developmental disorder (IDD)” has replaced “intellectual disability (ID)” 
 to align with the latest international and professional practice.  (updated on 1 September 2025) 
 
+=== Page 67 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 67 
  
@@ -4544,6 +4611,7 @@ without a break in service is subject to the adjusted salary bar or the highest 
 bar point he/she has ever experienced in the appointment as GM, whichever is the 
 higher. 
 
+=== Page 68 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 68 
  
@@ -4612,6 +4680,7 @@ appointment as CM, whichever is the higher.
  
  
 
+=== Page 69 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 69 
  
@@ -4663,6 +4732,7 @@ grade.  Serving non-graduate teachers at CM, AM, SAM and PAM rank will be
 accommodated in their current post until natural wastage or regraded to the graduate grade.  
 (updated on 1 September 2019) 
 
+=== Page 70 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 70 
  
@@ -4732,6 +4802,7 @@ on/after 1.8.2007
 on/after 1.8.2007  
 (Note: with omitted points at Point 16) 
 
+=== Page 71 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 71 
  
@@ -4811,6 +4882,7 @@ before 1.4.2000
 6 - 15 if appointed 
 on/after 1.8.2007 
 
+=== Page 72 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 72 
  
@@ -4877,6 +4949,7 @@ on/after 1.4.2000
  
  
 
+=== Page 73 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 73 
  
@@ -4923,6 +4996,7 @@ Unqualified Teacher
  
  
 
+=== Page 74 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 74 
  
@@ -5006,6 +5080,7 @@ on/after 1.8.2007
 (Note: with omitted points at Point 13) 
  
 
+=== Page 75 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 75 
  
@@ -5095,6 +5170,7 @@ on/after 1.8.2007
  
  
 
+=== Page 76 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 76 
  
@@ -5143,6 +5219,7 @@ Motor Driver
 Teacher Assistant 
  
 
+=== Page 77 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 77 
  
@@ -5201,6 +5278,7 @@ recognised by the Permanent Secretary.
  
  
 
+=== Page 78 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 78 
  
@@ -5257,6 +5335,7 @@ education
 programmes, aided special schools, practical schools and skills 
 opportunity schools.  
 
+=== Page 79 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 79 
  
@@ -5310,6 +5389,7 @@ graduate grade through promotion/selection exercise starting from
  
  
 
+=== Page 80 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 80 
  
@@ -5356,6 +5436,7 @@ purposes.
  
  
 
+=== Page 81 ===
 81 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -5412,6 +5493,7 @@ newly-appointed teachers remunerated with cash grant are also required to
 obtain a pass in the Basic Law and National Security Law Test.  The 
 requirement applies to all ranks of the teacher grade (including principals).  
 
+=== Page 82 ===
 82 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -5495,6 +5577,7 @@ pupils with visual impairment; and
 to perform such other duties as may be required. 
  
 
+=== Page 83 ===
 83 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -5574,6 +5657,7 @@ to perform such other duties as may be required.
 (updated on 1 September 2022) 
  
 
+=== Page 84 ===
 84 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -5647,6 +5731,7 @@ henceforth.
  
  
 
+=== Page 85 ===
 85 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -5717,6 +5802,7 @@ the ability to speak fluent Cantonese.
  
  
 
+=== Page 86 ===
 86 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -5785,6 +5871,7 @@ Promotion rank for Physiotherapist I.
  
  
 
+=== Page 87 ===
 87 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -5855,6 +5942,7 @@ have the Certificate of Registration (Part I) issued by the
 Nursing Council of Hong Kong or equivalent; 
  
 
+=== Page 88 ===
 88 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -5927,6 +6015,7 @@ have the Certificate of Enrolment (Part I) issued by the
 Nursing Council of Hong Kong or equivalent; and 
  
 
+=== Page 89 ===
 89 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -5998,6 +6087,7 @@ a local degree in Social Science majoring in Social Work,
 or equivalent; or 
  
 
+=== Page 90 ===
 90 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -6066,6 +6156,7 @@ a Diploma in Social Work awarded by the Hong Kong
 Polytechnic/Polytechnic University, or equivalent; or 
  
 
+=== Page 91 ===
 91 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -6133,6 +6224,7 @@ of Education Examination (HKCEE), or equivalent
 the ability to speak fluent Cantonese. 
  
 
+=== Page 92 ===
 92 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -6205,6 +6297,7 @@ equivalent [Note1 & 2]; and
 the ability to speak fluent Cantonese. 
  
 
+=== Page 93 ===
 93 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -6273,6 +6366,7 @@ of Education Examination (HKCEE), or equivalent [Note
 (d) the ability to speak fluent Cantonese. 
  
 
+=== Page 94 ===
 94 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -6344,6 +6438,7 @@ suitable candidates who do not possess the language qualifications.
 Provided that the school is satisfied with the candidates’ language 
 ability for carrying out the required duties, appointment can be offered. 
 
+=== Page 95 ===
 95 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -6412,6 +6507,7 @@ after.
  
  
 
+=== Page 96 ===
 96 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -6480,6 +6576,7 @@ have some knowledge of English.
  
  
 
+=== Page 97 ===
 97 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -6510,6 +6607,7 @@ The guides to appointment in respect of the grade of School
 Executive Officer is at Attachment L. 
 (updated on 1 September 2019)
 
+=== Page 98 ===
 98 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -6589,6 +6687,7 @@ in the former post; if there is a break in service,
 he/she should be remunerated at the minimum point of 
 the pay scale. 
 
+=== Page 99 ===
 99 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -6672,6 +6771,7 @@ service, he/she should be remunerated at the minimum
 point of the pay scale. 
  
 
+=== Page 100 ===
 100 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -6747,6 +6847,7 @@ Principal I/II
 With effect from the 2004/05 school year, aspiring 
 principals are required to attain the Certification for 
 
+=== Page 101 ===
 101 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -6819,6 +6920,7 @@ scale.
  
   
 
+=== Page 102 ===
 102 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -6904,6 +7006,7 @@ school.
 Salary Scale: 
 MPS Point 34 - Point 39 
 
+=== Page 103 ===
 103 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -6972,6 +7075,7 @@ they will enter the new scale at the point
 which is next above their pay and retain their 
 existing incremental date; and 
 
+=== Page 104 ===
 104 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -7020,6 +7124,7 @@ taken to be the first day of the following
 month. 
 (updated on 1 September 2008) 
 
+=== Page 105 ===
 105 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -7094,6 +7199,7 @@ inclusive).
 (d) MPS Point 15 - Point 33 for those appointed on 
 or after 1.10.2010. 
 
+=== Page 106 ===
 106 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -7162,6 +7268,7 @@ course(s) specified by or acceptable to the Permanent
 Secretary.  
   
 
+=== Page 107 ===
 107 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -7252,6 +7359,7 @@ acceptable
 teacher 
 training qualification, will: 
 
+=== Page 108 ===
 108 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -7332,6 +7440,7 @@ determined by the date of regrading;
  
  
 
+=== Page 109 ===
 109 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -7357,6 +7466,7 @@ incremental date will be taken to be the
 first day of the following month. 
 (updated on 1 September 2010) 
 
+=== Page 110 ===
 110 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -7430,6 +7540,7 @@ should have successfully completed a course of
 training in special education recognised by the 
 Permanent Secretary.  (updated on 1 September 2021) 
 
+=== Page 111 ===
 111 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -7456,6 +7567,7 @@ created under the enhanced graduate teacher
 ratio accordingly. 
 (updated on 1 September 2008) 
 
+=== Page 112 ===
 112 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -7538,6 +7650,7 @@ or equivalent qualifications.
  
  
 
+=== Page 113 ===
 113 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -7605,6 +7718,7 @@ the pay scale for the rank.
 #The PAM rank in primary special school will be phased out through natural wastage. 
 (updated on 1 September 2008) 
 
+=== Page 114 ===
 114 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -7676,6 +7790,7 @@ to
 Senior Graduate 
 Masters/Mistresses in his/her serving school to fill 
 
+=== Page 115 ===
 115 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -7698,6 +7813,7 @@ cease with immediate effect.
    
 (updated on 1 September 2021) 
 
+=== Page 116 ===
 116 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -7771,6 +7887,7 @@ first degree plus teacher training in
 primary education and special education, 
 or equivalent qualifications.
 
+=== Page 117 ===
 117 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -7852,6 +7969,7 @@ pay and their new incremental date will
 be determined by the date of promotion. 
 (updated on 1 September 2022) 
 
+=== Page 118 ===
 118 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -7925,6 +8043,7 @@ minimum point of the pay scale.
  
  
 
+=== Page 119 ===
 119 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -7989,6 +8108,7 @@ Period of probation:
  
  
 
+=== Page 120 ===
 120 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -8042,6 +8162,7 @@ successfully completed a course of training in special
 education recognised by the Permanent Secretary.  
 (updated on 1 September 2021) 
 
+=== Page 121 ===
 121 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -8119,6 +8240,7 @@ school.
  
  
 
+=== Page 122 ===
 122 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -8181,6 +8303,7 @@ considered for appointment to principalship.
  
  
 
+=== Page 123 ===
 123 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -8198,6 +8321,7 @@ on or between the 16th day and the end of the month,
 the incremental date will be taken to be the first day 
 of the following month. 
 
+=== Page 124 ===
 124 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -8271,6 +8395,7 @@ or
 equivalent qualifications. 
  
 
+=== Page 125 ===
 125 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -8347,6 +8472,7 @@ completed a course of training in special education
 recognised by the Permanent Secretary.  
 (updated on 1 September 2022) 
 
+=== Page 126 ===
 126 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -8361,6 +8487,7 @@ could be considered for appointment to principalship.
  
  
 
+=== Page 127 ===
 127 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -8438,6 +8565,7 @@ Teacher
 Qualifications 
 Assessment (NGTQA); or 
 
+=== Page 128 ===
 128 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -8502,6 +8630,7 @@ on or after 1.8.2007.
  
  
 
+=== Page 129 ===
 129 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -8569,6 +8698,7 @@ Teacher’s Certificate; or
  
  
 
+=== Page 130 ===
 130 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -8650,6 +8780,7 @@ the top of the basic scale.
  
  
 
+=== Page 131 ===
 131 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -8714,6 +8845,7 @@ bar is at MPS Point 19.
  
  
 
+=== Page 132 ===
 132 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -8733,6 +8865,7 @@ Priority should still be
 given to teachers with standard qualifications. 
 (updated on 1 September 2010) 
 
+=== Page 133 ===
 133 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -8795,6 +8928,7 @@ or after 1.10.2010
  
  
 
+=== Page 134 ===
 134 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -8870,6 +9004,7 @@ School
 Master/Mistress 
 (updated on 1 September 2024) 
 
+=== Page 135 ===
 135 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -8938,6 +9073,7 @@ respective pay scale is not exceeded.
  
  
 
+=== Page 136 ===
 136 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -9022,6 +9158,7 @@ the time they were regraded.
  
  
 
+=== Page 137 ===
 137 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -9075,6 +9212,7 @@ following month.
 (updated on 1 
 September 2010) 
 
+=== Page 138 ===
 138 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -9144,6 +9282,7 @@ child management and deliver parent
 training programmes in collaboration with 
 school personnel. 
 
+=== Page 139 ===
 139 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -9219,6 +9358,7 @@ Promotion Prospects:
 Nil 
  
 
+=== Page 140 ===
 140 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -9262,6 +9402,7 @@ Psychologist I on or after 1 September 2012.
  
  
 
+=== Page 141 ===
 141 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -9334,6 +9475,7 @@ cannot obtain the above required full membership within 9 months after the appoi
 contracts will be terminated. 
  
 
+=== Page 142 ===
 142 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -9412,6 +9554,7 @@ between 1.4.2000 and 31.7.2007 (both dates
 inclusive) 
  
 
+=== Page 143 ===
 143 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -9483,6 +9626,7 @@ candidate for independent professional work as
 an educational psychologist. 
 (updated on 1 September 2018) 
 
+=== Page 144 ===
 144 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -9557,6 +9701,7 @@ diversified
 support 
 strategies according to the needs of the students. 
 
+=== Page 145 ===
 145 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -9610,6 +9755,7 @@ appointment can be offered.
  
  
 
+=== Page 146 ===
 146 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -9657,6 +9803,7 @@ Nil
  
  
 
+=== Page 147 ===
 147 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -9739,6 +9886,7 @@ Promotion Prospects:
 Senior Physiotherapist 
  
 
+=== Page 148 ===
 148 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -9781,6 +9929,7 @@ offered.
  
  
 
+=== Page 149 ===
 149 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -9858,6 +10007,7 @@ Promotion Prospects:
  
 Senior Occupational Therapist 
 
+=== Page 150 ===
 150 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -9894,6 +10044,7 @@ offered.
  
  
 
+=== Page 151 ===
 151 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -9966,6 +10117,7 @@ Promotion Prospects:
  
 Nil 
 
+=== Page 152 ===
 152 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10011,6 +10163,7 @@ offered.
  
  
 
+=== Page 153 ===
 153 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10070,6 +10223,7 @@ complete/acquire the required training within the prescribed period
 and with no acceptable reasons, the School Management Committee 
 should make an alternative appointment for the promotion post. 
 
+=== Page 154 ===
 154 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10136,6 +10290,7 @@ the remaining one scale).
 A teacher will not be affected by the LP4 requirement if: 
  
 
+=== Page 155 ===
 155 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10202,6 +10357,7 @@ Please see Guides to Appointment. [Appendix 4/Attachment H(iii)]
  
 Please see Guides to Appointment. [Appendix 4/Attachment G(ii)] 
 
+=== Page 156 ===
 156 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10257,6 +10413,7 @@ that they have at least 5 years of satisfactory service as Laboratory
 Technicians II.  It should be noted, however, that posts of Laboratory 
 Technicians I will only be established in secondary special schools 
 
+=== Page 157 ===
 157 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10306,6 +10463,7 @@ Work Assistant level and be granted a responsibility allowance
 equivalent to the 2 additional increments above the substantive pay of 
 the Assistant Warden on the Social Work Assistant scale. 
 
+=== Page 158 ===
 158 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10334,6 +10492,7 @@ Note:
 Teaching experience in schools in the Direct Subsidy Scheme will be recognised for 
 promotion purposes. 
 
+=== Page 159 ===
 159 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10388,6 +10547,7 @@ months’ notice in writing.
  
  
 
+=== Page 160 ===
 160 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10445,6 +10605,7 @@ members of the School Management Committee and is fully justifiable.
  
  
 
+=== Page 161 ===
 161 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10466,6 +10627,7 @@ The working experience of a laboratory technician in a DSS school operating loca
 curricula can be considered as equivalent to that in an aided secondary school. 
 (updated on 1 September 2017)
 
+=== Page 162 ===
 162 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10513,6 +10675,7 @@ Either (a) To follow the procedures with regard to Dismissal or Termination
 of Appointment of a teacher as spelt out at Appendix 8 of this 
 Code of Aid. 
 
+=== Page 163 ===
 163 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10550,6 +10713,7 @@ warning(s), the School Management Committee may terminate
 the appointment of the teacher by giving 1 month’s notice at 
 the end of the school year. 
 
+=== Page 164 ===
 164 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10591,6 +10755,7 @@ In each case of dismissal of a teacher, a sufficient period of notice of
 termination of employment must be given in accordance with 
 Section 61. 
 
+=== Page 165 ===
 165 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10645,6 +10810,7 @@ of the date of commencement of classes, and in the case of reprovisioned special
 schools he may approve the continued payment of the salaries of staff of the original 
 school should the completion of the building be delayed beyond the scheduled date. 
 
+=== Page 166 ===
 166 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10702,6 +10868,7 @@ employment and 4 paid sickness days for each month of service thereafter.
 (c) The maximum sick leave balance which may be accumulated shall be 
 120 days. 
 
+=== Page 167 ===
 167 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10764,6 +10931,7 @@ the staff will be granted no-pay special tuberculosis leave.
  
  
 
+=== Page 168 ===
 168 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10783,6 +10951,7 @@ Chinese medicine practitioners for sick leave with effect from 1 December 2006
 is not applicable to sick leave for injury on duty/occupational disease unless 
 and until the Employees’ Compensation Ordinance is amended to this effect. 
 
+=== Page 169 ===
 169 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10847,6 +11016,7 @@ registered Chinese medicine practitioner, additional maternity leave may be gran
 pay leave to bring the total absence up to 6 months.  Further leave without pay on the same 
 terms may be granted.  (updated on 29 January 2007) 
 
+=== Page 170 ===
 170 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10898,6 +11068,7 @@ is generated, or do other work injurious to pregnancy as specified in the medica
 request her employer to refrain from giving her such work during her pregnancy period. 
 (updated on 29 January 2007) 
 
+=== Page 171 ===
 171 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -10964,6 +11135,7 @@ sector.  Transfer within a period of 45 days will not be taken as break in servi
  
 (updated on 1 September 2017) 
 
+=== Page 172 ===
 172 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -11020,6 +11192,7 @@ Benefits to contributors are increased on the following sliding scale
 according to length of continuous contributory service on withdrawal from the Funds 
 in normal circumstances: 
 
+=== Page 173 ===
 173 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -11082,6 +11255,7 @@ Not less than 10 years
 100% 
 100% 
 
+=== Page 174 ===
 174 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -11141,6 +11315,7 @@ of the OEBG will be given.
  
  
 
+=== Page 175 ===
 175 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -11208,6 +11383,7 @@ schools should return the excess to the Education Bureau.
  
  
 
+=== Page 176 ===
 176 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -11243,6 +11419,7 @@ The auditors should certify that the OEBG funds have been used in accordance
 with the ambit and rules as promulgated in the Code of Aid and in circulars 
 issued by the Education Bureau from time to time. 
 
+=== Page 177 ===
 177 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -11283,6 +11460,7 @@ Grant Rate
 Composite Consumer Price Index. 
  
 
+=== Page 178 ===
 178 
 CODE OF AID FOR SPECIAL SCHOOLS 
  
@@ -11329,6 +11507,7 @@ protected from loss or damage;
 (b) developing accountable school-based procedures for F&E acquisition/ 
 replacement, monitoring and evaluation; 
 
+=== Page 179 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 179 
  
@@ -11367,6 +11546,7 @@ have to be met by the CFEG.)
  
  
 
+=== Page 180 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 180 
  
@@ -11421,6 +11601,7 @@ that such purchases are essential and his/her certifying that the prices are fai
 reasonable and such records being properly kept by schools. 
  
 
+=== Page 181 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 181 
  
@@ -11477,6 +11658,7 @@ subjects.
  
  
 
+=== Page 182 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 182 
  
@@ -11497,6 +11679,7 @@ Memorandum on Annual Accounts of Aided Schools.
  
  
 
+=== Page 183 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 183 
  
@@ -11556,6 +11739,7 @@ necessary measures to facilitate the contractors and term consultants appointed
 by the Education Bureau to take forward the approved projects.   
 (updated on 1 September 2024) 
 
+=== Page 184 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 184 
  
@@ -11614,6 +11798,7 @@ estimated costs and providing comments as necessary on the technical aspects of
 the works proposed by the schools to the Education Bureau for considerations. 
 (updated on 1 September 2024) 
 
+=== Page 185 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 185 
  
@@ -11666,6 +11851,7 @@ require, and shall in particular provide the following:
 (a) 
 That the premises will be used solely for approved educational purposes or 
 
+=== Page 186 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 186 
  
@@ -11689,6 +11875,7 @@ covenants and conditions contained in the Deed of Covenant, it shall be
 lawful for the Government to re-enter upon the lot and the school without 
 the payment of any compensation whatsoever. 
 
+=== Page 187 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 187 
  
@@ -11736,6 +11923,7 @@ portion is borne by the Applicant.  Such non-subvented portion and the related
 cost will not be eligible for recurrent or non-recurrent subsidy from the Government. 
  
 
+=== Page 188 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 188 
  
@@ -11782,6 +11970,7 @@ by PWTB for collection of tenders.
  
  
 
+=== Page 189 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 189 
  
@@ -11833,6 +12022,7 @@ covenants and conditions contained in the Deed of Covenant, it shall be
 lawful for the Government to re-enter upon the lot and the school without 
 the payment of any compensation whatsoever. 
 
+=== Page 190 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 190 
  
@@ -11866,6 +12056,7 @@ the ArchSD.
 The above serves the purpose of a general guide which will be revised from time to time 
 in accordance with the prevailing policy and practice. 
 
+=== Page 191 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 191 
  
@@ -11919,6 +12110,7 @@ fully and as soon as practicable, forward his detailed report with the following
 information, together with copies of other relevant documents, e.g. police reports, to the 
 respective Senior School Development Officer: 
 
+=== Page 192 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 192 
  
@@ -11972,6 +12164,7 @@ escort the cash.
  
 (b) If the amount exceeds $10,000, commercial security guards should be hired. 
 
+=== Page 193 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 193 
  
@@ -12061,6 +12254,7 @@ A.2
 Cook, salary 
 A.3 
 
+=== Page 194 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 194 
  
@@ -12155,6 +12349,7 @@ A.4
 No-pay leave, teaching staff 
 S.30 
 
+=== Page 195 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 195 
  
@@ -12253,6 +12448,7 @@ S.48, A.1
 Pupils, suspension and expulsion 
 S.49, A.1 
 
+=== Page 196 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 196 
  
@@ -12356,6 +12552,7 @@ S.35
 Supply school nurse, employment 
 S.37(b) 
 
+=== Page 197 ===
 CODE OF AID FOR SPECIAL SCHOOLS 
 197 
  

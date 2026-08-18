@@ -205,14 +205,24 @@ def extract_pdf_text(url: str) -> str | None:
     try:
         doc = fitz.open(stream=resp.content, filetype="pdf")
         pages_text = []
-        for page in doc:
-            pages_text.append(page.get_text("text"))
+        raw_len = 0
+        for i, page in enumerate(doc):
+            # S206 — emit the page marker the READ side depends on. `page` is resolved at
+            # query time by extractDominantPage() (backend searchChannelB.ts) from these
+            # markers; without them every chunk of a PDF ingested through this pipeline is
+            # page-less and the UI cannot offer the #page=N jump that the product promises.
+            # Same format as fetch_new_sources.py, which has always written them.
+            body = page.get_text("text")
+            raw_len += len(body.strip())
+            pages_text.append(f"=== Page {i + 1} ===\n{body}")
         doc.close()
         text = "\n".join(pages_text)
-        if len(text.strip()) < 100:
-            print(f"  ⚠️  PyMuPDF returned very little text ({len(text)} chars) — may be a scanned PDF")
+        # Measure the scanned-PDF guard on the EXTRACTED text only. Counting the markers
+        # would let a 10-page scan clear a 100-char bar on marker text alone.
+        if raw_len < 100:
+            print(f"  ⚠️  PyMuPDF returned very little text ({raw_len} chars) — may be a scanned PDF")
         else:
-            print(f"  ✅ Extracted {len(text):,} chars from PDF ({len(pages_text)} pages)")
+            print(f"  ✅ Extracted {raw_len:,} chars from PDF ({len(pages_text)} pages)")
         return text
     except Exception as e:
         print(f"  ❌ PyMuPDF extraction failed: {e}")

@@ -4,10 +4,11 @@
 # topic_tags: hr
 # url: https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/Roles_functions_pri_tc.pdf
 # source_type: pdf
-# extracted: 20260817
+# extracted: 20260818
 # pipeline: expand_vault.py (auto)
 # ============================================================
 
+=== Page 1 ===
 資助小學 
 學位教師職系不同職級的角色和職能 
  

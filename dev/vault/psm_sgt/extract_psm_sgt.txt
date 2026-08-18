@@ -4,10 +4,11 @@
 # topic_tags: hr
 # url: https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/graduate-teacher-posts/PSM_SGT_tc.pdf
 # source_type: pdf
-# extracted: 20260817
+# extracted: 20260818
 # pipeline: expand_vault.py (auto)
 # ============================================================
 
+=== Page 1 ===
 學生輔導教師出任小學學位教師職位
 有關資助小學聘任或改編學生輔導教師出任小學學位教師職位的安排如下：
 1.

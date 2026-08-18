@@ -4,10 +4,11 @@
 # topic_tags: hr,finance,general
 # url: https://www.edb.gov.hk/attachment/en/sch-admin/regulations/codes-of-aid/coa_pri_e.pdf
 # source_type: pdf
-# extracted: 20260817
+# extracted: 20260818
 # pipeline: expand_vault.py (auto)
 # ============================================================
 
+=== Page 1 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 1
  
@@ -30,6 +31,7 @@ PRIMARY SCHOOLS
  
  
 
+=== Page 2 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 2
 CODE OF AID FOR PRIMARY SCHOOLS 
@@ -398,6 +400,7 @@ Appendices
 Part V  
 Index  
 
+=== Page 3 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 3
 Purpose of the Code 
@@ -443,6 +446,7 @@ shall consist of no less than five managers except in cases as approved by the P
 Secretary. 
  
 
+=== Page 4 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 4
 Director of Audit and Commissioner Against Corruption to have right of access to records 
@@ -496,6 +500,7 @@ amount of grant to be made to each such school.
 the school to which the grant was made is no longer in need of such grant or part of such 
 grant. 
 
+=== Page 5 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 5
 Powers of the Permanent Secretary to reduce or withdraw grants  
@@ -545,6 +550,7 @@ accommodation and facilities available in the school and after full consultation
 School Management Committee.  
  
 
+=== Page 6 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 6
 Permanent Secretary to approve fees  
@@ -591,6 +597,7 @@ Other income to be taken into account
 received shall be credited to the school accounts in such proportion as determined by the 
 Permanent Secretary. 
 
+=== Page 7 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 7
 Recurrent Grants 
@@ -643,6 +650,7 @@ Schools which have opted for the Revised Administration Grant may opt for the
 Administration Grant if they so prefer. The option once exercised in favour of the 
 Administration Grant is final and irrevocable. 
 
+=== Page 8 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 8
  
@@ -692,6 +700,7 @@ a government school,
 an aided school, 
 (iii) a school under the Direct Subsidy Scheme, 
 
+=== Page 9 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 9
 (iv) an assisted private school on or after 1 January 1966, or 
@@ -745,6 +754,7 @@ executive officers
 27.   (a)  A teacher in an aided school who is selected by the Permanent Secretary for a course 
 of training may continue to receive full salary for the approved period of study leave.  
 
+=== Page 10 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 10 
  (b) 
@@ -805,6 +815,7 @@ affairs during the term. However, in exceptional cases, the Supervisor may grant
 leave with pay for a maximum of 2 days per academic year to teachers on grounds of 
 urgent private affairs of grave importance. 
 
+=== Page 11 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 11 
  
@@ -859,6 +870,7 @@ leave for other purposes, paid maternity leave, paid study leave or no-pay leave
  
  
 
+=== Page 12 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 12 
 Appointment of clerical staff 
@@ -911,6 +923,7 @@ with supporting documents in accordance with the conditions provided in this Cod
 the Employment Ordinance and the instruction he may from time to time issue. 
 (updated on 12 January 2006) 
 
+=== Page 13 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 13 
  
@@ -962,6 +975,7 @@ Permanent Secretary may approve non-recurrent and capital grants
 39.  (a)  The Permanent Secretary may approve grants in respect of items such as major repairs 
 and furniture and equipment requirements not covered by the Composite Furniture and 
 
+=== Page 14 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 14 
 Equipment Grant. The grant shall be based on the approved tendered cost or actual cost, 
@@ -1015,6 +1029,7 @@ should themselves decide whether to take out insurance for non-school portions a
 buildings and above-standard or non-standard items of furniture and equipment 
 purchased out of their own funds, and the premiums shall be met from schools' own 
 
+=== Page 15 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 15 
 funds. For above-standard or non-standard items of furniture and equipment for school 
@@ -1066,6 +1081,7 @@ Schools to accept teaching practice arrangements
 47.  Schools should co-operate, whenever possible, in the training of teachers by accepting for 
 teaching practice student teachers undergoing training from the Hong Kong Institute of 
 
+=== Page 16 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 16 
 Education and the local universities. Consultation with the institutions concerned should be 
@@ -1122,6 +1138,7 @@ school head;
  
 (ii)  direct appointment of staff (excluding educational psychologists) to promotion 
 
+=== Page 17 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 17 
 ranks; 
@@ -1178,6 +1195,7 @@ applicant may last have been employed. (updated on 1 September 2019)
 (b) The Head of an aided school shall verify the date of birth of any person employed as a 
 staff in such school, and shall require such person to produce for inspection the Hong 
 
+=== Page 18 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 18 
 Kong Identity Card, a birth certificate, statutory declaration or such other documents as 
@@ -1235,6 +1253,7 @@ contribution shall be;
 (vii) the entitlement of such teacher to paid sick leave, maternity leave or paternity 
 leave; (updated on 1 September 2016)  
 
+=== Page 19 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 19 
  
@@ -1287,6 +1306,7 @@ Salaries Grant Account. Nevertheless, the School Management Committee may waive
 the said payment if the teacher's explanation is justified and inform the Permanent 
 Secretary of such a waiver and the reasons thereof. (updated on 1 September 2025) 
 
+=== Page 20 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 20 
 (f) 
@@ -1339,6 +1359,7 @@ approved establishment and pay scales for these staff shall normally retire at t
  
  
 
+=== Page 21 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 21 
 Promotion and Regrading 
@@ -1389,6 +1410,7 @@ provisions of the Subsidised Schools Provident Fund Rules made under the Educati
 Ordinance. The benefits which a teacher-contributor may receive from the funds are 
 briefly reproduced from the Rules in Appendix 13.  
 
+=== Page 22 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 22 
 (b) 
@@ -1446,6 +1468,7 @@ register of hire of school accommodation;
 All books of accounts, receipts, counterfoils and vouchers shall at all reasonable times 
 be available for inspection by the Permanent Secretary or officer authorised by him in 
 
+=== Page 23 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 23 
 that behalf. Records of a permanent nature, e.g., annual accounts, inventories, records 
@@ -1505,6 +1528,7 @@ registered under the Professional Accountants Ordinance; and the audit fee shall
 charged against the school's School and Class Grant account. 
  
 
+=== Page 24 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 24 
 (c) 
@@ -1561,6 +1585,7 @@ for the period up to and including the last day of operation of that school as a
 Outgoing Supervisor to hand over accounts  
 75.  (a)  If at any time for any cause the Supervisor of an aided school ceases to act as such, he 
 
+=== Page 25 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 25 
 shall hand over all accounts and records relating to the school, together with any cash 
@@ -1596,6 +1621,7 @@ period in which the outgoing supervisor acted as Supervisor as he shall assess.
 --------- 
  
 
+=== Page 26 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 26 
 Appendices to Code of Aid for Primary Schools 
@@ -1710,6 +1736,7 @@ School-based Speech Therapist
 Attachment M 
 Primary School Assistant Social Work Officer 
 
+=== Page 27 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 27 
 Attachment N 
@@ -1851,6 +1878,7 @@ School Assets and Settlement of Claims
  
  
 
+=== Page 28 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 28 
 Appendix 1 
@@ -1916,6 +1944,7 @@ Secretary through the Head/Supervisor of the school.
  
  
 
+=== Page 29 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 29 
 Admission of Pupils 
@@ -1977,6 +2006,7 @@ most circumstances, the pupil in question should be allowed to continue normal
 schooling, pending the outcome of any investigation into the cause of his misbehaviour 
 by the school and, if necessary, he should be referred for professional advice. 
 
+=== Page 30 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 30 
 (b) The suspension of a pupil for a short period of time may be ordered on grounds of 
@@ -2041,6 +2071,7 @@ of any particular event, and of all dates on which the usual work of the school 
 suspended.  
  
 
+=== Page 31 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 31 
 23. 
@@ -2104,6 +2135,7 @@ coded rainstorm warning system or as otherwise instructed by the Permanent Secre
 schools or the suspension of classes in one or more districts. Pupils living in such 
 districts need not go to school even if their schools are located elsewhere. 
 
+=== Page 32 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 32 
  
@@ -2154,6 +2186,7 @@ to time issue are fully complied with.
 Comprehensive price lists of all commodities for sale to pupils must be displayed 
 prominently in the school. 
 
+=== Page 33 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 33 
 Appendix 2A 
@@ -2215,6 +2248,7 @@ rank may be appointed by promotion or direct appointment to take up the deputy h
 (updated on 1 September 2022) 
  
 
+=== Page 34 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 34 
  
@@ -2275,6 +2309,7 @@ post at the PSM rank. (updated on 1 September 2020)
  
  
 
+=== Page 35 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 35 
 (e)  Special Educational Needs Coordinator (SENCO)  
@@ -2334,6 +2369,7 @@ Appendix 4.
 (updated on 1 September 2019) 
  
 
+=== Page 36 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 36 
  
@@ -2358,6 +2394,7 @@ Attachment N of Appendix 4.
  
  
 
+=== Page 37 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 37 
 Appendix 2B 
@@ -2434,6 +2471,7 @@ the Revised Administration Grant, amount of which is calculated with reference t
 It will be provided with clerical staff according to the scale at (I) above and pay the actual salaries of its 
 clerical staff through the Salaries Grant. 
 
+=== Page 38 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 38 
 Appendix 2/Attachment A1 
@@ -2678,6 +2716,7 @@ Head)
 55 
  
 
+=== Page 39 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 39 
  
@@ -2699,6 +2738,7 @@ teacher posts.
  
  
 
+=== Page 40 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 40 
 Appendix 2/Attachment A2 
@@ -2942,6 +2982,7 @@ Head)
 57  
 59 
 
+=== Page 41 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 41 
  
@@ -2960,6 +3001,7 @@ teacher posts.
  
  
 
+=== Page 42 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 42 
  
@@ -3072,6 +3114,7 @@ Senior Assistant Master/Mistress (SAM)#
 Degree in Primary Education, or equivalent.)             
  
 
+=== Page 43 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 43 
 8. 
@@ -3168,6 +3211,7 @@ The salary scales of School-based Speech Therapist
 18 - 33 if appointed before 
 1.4.2000 
 
+=== Page 44 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 44 
  
@@ -3261,6 +3305,7 @@ minimum salary of the higher rank in which he is acting; or at a rate equivalent
 90% of the increment next on the rank-scale of the acting post above the level of the 
 teacher's substantive salary if it is the same or more than the minimum salary of the 
 
+=== Page 45 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 45 
 acting post. The rate will be revised to 100% of the difference after the first 180 
@@ -3315,6 +3360,7 @@ payable.
 (updated on 1 September 2019) 
  
 
+=== Page 46 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 46 
  
@@ -3369,6 +3415,7 @@ The guide to appointment in respect of clerical staff is shown at Attachment O.
  
  
 
+=== Page 47 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 47 
 Appendix 4/Attachment A 
@@ -3479,6 +3526,7 @@ as follows:
  
  
 
+=== Page 48 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 48 
  
@@ -3531,6 +3579,7 @@ pay scale for the rank.
  
  
 
+=== Page 49 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 49 
 Appendix 4/Attachment B 
@@ -3625,6 +3674,7 @@ as a Headmaster/Headmistress II;
  
  
 
+=== Page 50 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 50 
  
@@ -3704,6 +3754,7 @@ be determined by the date of regrading;
 (iii) If he/she is regraded on his/her incremental date, 
 for the purpose of these rules, his/her pay before 
 
+=== Page 51 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 51 
 regrading will be taken to be the pay he/she would 
@@ -3735,6 +3786,7 @@ the rank.
  
  
 
+=== Page 52 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 52 
 Appendix 4/Attachment C 
@@ -3812,6 +3864,7 @@ Period of probation
  
  
 
+=== Page 53 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 53 
  
@@ -3865,6 +3918,7 @@ appointment to principalship.
  
  
 
+=== Page 54 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 54 
 Appendix 4/Attachment D1 
@@ -3946,6 +4000,7 @@ Headmaster/Headmistress II.
  
  
 
+=== Page 55 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 55 
  
@@ -4015,6 +4070,7 @@ following month.
  
  
 
+=== Page 56 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 56 
 Appendix 4/Attachment D2 
@@ -4079,6 +4135,7 @@ Teacher, before being promoted.
  
  
 
+=== Page 57 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 57 
  
@@ -4164,6 +4221,7 @@ of Assistant
 Master/Mistress (Student Guidance Teacher) will enter at 
 the minimum of the Primary School Master/Mistress pay 
 
+=== Page 58 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 58 
 scale with his/her new incremental date determined by the 
@@ -4179,6 +4237,7 @@ will be taken to be the first day of the following month.
  
  
 
+=== Page 59 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 59 
 Appendix 4/Attachment E 
@@ -4255,6 +4314,7 @@ pay points above the prevailing starting salary and would be
 adjusted automatically whenever there is a change in the 
 starting salary in the future. A serving untrained APSM without 
 
+=== Page 60 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 60 
 a break in service is subject to the adjusted salary bar or the 
@@ -4338,6 +4398,7 @@ salary bar of his/her new post, he/she can
 progress along the respective pay scale to the 
 new salary bar point. Subject to the acquisition 
 
+=== Page 61 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 61 
 of acceptable teacher training qualification, 
@@ -4401,6 +4462,7 @@ provided that the maximum of the pay scale is
 not exceeded; or (updated on 1 November 2013) 
  
 
+=== Page 62 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 62 
 (iii) 
@@ -4467,6 +4529,7 @@ the first day of the following month.
  
  
 
+=== Page 63 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 63 
 Appendix 4/Attachment F 
@@ -4518,6 +4581,7 @@ Nil
  
  
 
+=== Page 64 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 64 
 Appendix 4/Attachment G 
@@ -4573,6 +4637,7 @@ body.
  
  
 
+=== Page 65 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 65 
 Appendix 4/Attachment H1 
@@ -4649,6 +4714,7 @@ Secretary.
  
  
 
+=== Page 66 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 66 
 Appendix 4/Attachment H2 
@@ -4733,6 +4799,7 @@ Master/Mistress under school-based entitlement or
 Primary School Master/Mistress (Student Guidance 
 Teacher) under sponsor-based entitlement.  
 
+=== Page 67 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 67 
  
@@ -4752,6 +4819,7 @@ specified by or acceptable to the Permanent Secretary.
 (updated on 1 September 2019) 
   
 
+=== Page 68 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 68 
 Appendix 4/Attachment I 
@@ -4834,6 +4902,7 @@ Bar at MPS Point 19 for those appointed on or after
 With effect from 1.8.2007, the salary bar would be set at five 
 pay points above the prevailing starting salary and would be 
 
+=== Page 69 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 69 
 adjusted automatically whenever there is a change in the 
@@ -4900,6 +4969,7 @@ A salary bar is specified in paragraph 3 above, beyond
 which untrained teachers will not be allowed to proceed. 
 Other than those holders of qualifications acquired 
 
+=== Page 70 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 70 
 through the Non-Graduate Teacher Qualifications 
@@ -4986,6 +5056,7 @@ qualifications
 (such 
 as 
 
+=== Page 71 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 71 
 Approved 
@@ -5008,6 +5079,7 @@ reappointment as CM after a break in service.
  
  
 
+=== Page 72 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 72 
 Appendix 4/Attachment J 
@@ -5088,6 +5160,7 @@ training programmes in collaboration with
 school personnel.  
  
 
+=== Page 73 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 73 
 (b) Teacher support level 
@@ -5170,6 +5243,7 @@ membership of the Hong Kong Psychological
 Society or the British Psychological Society or 
 equivalent. The Master’s or Doctoral Degree in 
 
+=== Page 74 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 74 
 Educational Psychology (Professional Practice) 
@@ -5195,6 +5269,7 @@ Educational Psychologist I on or after 1.9.2012.
  
  
 
+=== Page 75 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 75 
 Appendix 4/Attachment K 
@@ -5270,6 +5345,7 @@ therapists, etc.; and
 ＊ Schools should add a clause in the employment contracts for new appointees that if the appointees cannot obtain 
 the above required full membership within nine months after the appointment, their contracts will be terminated. 
 
+=== Page 76 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 76 
 • To promote home-school co-operation in 
@@ -5347,6 +5423,7 @@ MPS Point 23-33 for those appointed on or after
 Educational Psychologist I. 
  
 
+=== Page 77 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 77 
 Educational Psychologist II will be eligible for 
@@ -5409,6 +5486,7 @@ educational psychologist.
  
  
 
+=== Page 78 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 78 
 Appendix 4/Attachment L 
@@ -5476,6 +5554,7 @@ the school curriculum;
 Enhance home-school cooperation: To adopt 
 diversified support strategies according to the 
 
+=== Page 79 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 79 
 needs of the students to strengthen home-school 
@@ -5533,6 +5612,7 @@ required duties, appointment can be offered.
  
  
 
+=== Page 80 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 80 
 Appendix 4/Attachment M 
@@ -5608,6 +5688,7 @@ regarded as having met the requirement of a
 Grade E in similar subjects under the HKCEE 
 before 2007. 
 
+=== Page 81 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 81 
 2. 
@@ -5678,6 +5759,7 @@ Nil
  
  
 
+=== Page 82 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 82 
 Appendix 4/Attachment N 
@@ -5723,6 +5805,7 @@ Nil
  
  
 
+=== Page 83 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 83 
 Appendix 4/Attachment O 
@@ -5779,6 +5862,7 @@ HKCEE 2007 and after.
  
  
 
+=== Page 84 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 84 
 3.  Salary Scale 
@@ -5798,6 +5882,7 @@ Clerical Assistant
  
  
 
+=== Page 85 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 85 
 Appendix 5 
@@ -5856,6 +5941,7 @@ At least three papers are at Level 4 or above. For Writing, Speaking and CLA, Le
 papers are scored, in one sitting, at ‘4’ or above (i.e. having attained Level 4 in three 
 or more scales in Writing and CLA and four or more scales in Speaking); or 
 
+=== Page 86 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 86 
  
@@ -5909,6 +5995,7 @@ Appendix 4. (updated on 1 November 2012)
  
  
 
+=== Page 87 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 87 
 Appendix 6 
@@ -5970,6 +6057,7 @@ month's notice at the end of the school year.
  
  
 
+=== Page 88 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 88 
 Appendix 7 
@@ -6001,6 +6089,7 @@ In each case of dismissal of a teacher, a sufficient period of notice of termina
 employment must be given in accordance with Section 57. 
  
 
+=== Page 89 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 89 
 Appendix 8 
@@ -6047,6 +6136,7 @@ the original school should the completion of the building be delayed beyond the 
 date.  
  
 
+=== Page 90 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 90 
 Appendix 9 
@@ -6100,6 +6190,7 @@ Permanent Secretary. (updated on 29 January 2007)
 teacher will be granted no-pay special tuberculosis leave. 
  
 
+=== Page 91 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 91 
 3. 
@@ -6125,6 +6216,7 @@ medicine practitioners for sick leave with effect from 1 December 2006 is not ap
 sick leave for injury on duty/occupational disease unless and until the Employees’ 
 Compensation Ordinance is amended to this effect. 
 
+=== Page 92 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 92 
 Appendix 10 
@@ -6185,6 +6277,7 @@ granted. (updated on 29 January 2007)
 The following categories of female teachers will also be eligible for full pay for any part of 
 the maternity leave which falls within a major school holiday, i.e. Christmas, Chinese New 
 
+=== Page 93 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 93 
 Year, Easter and Summer Vacation –  
@@ -6233,6 +6326,7 @@ teachers with regard to maternity leave, where applicable. (updated on 1 Septemb
  
  
 
+=== Page 94 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 94 
 Appendix 11A 
@@ -6276,6 +6370,7 @@ Transfer within a period of 45 days will not be taken as break of service.
  
  
 
+=== Page 95 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 95 
 Appendix 11B 
@@ -6299,6 +6394,7 @@ MPS Point 16 -33              18 days                   22 days
  
  
 
+=== Page 96 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 96 
 Appendix 11C 
@@ -6320,6 +6416,7 @@ MPS Point 16 -33              18 days                   22 days
 (updated on 1 September 2018) 
  
 
+=== Page 97 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 97 
 Appendix 11D 
@@ -6341,6 +6438,7 @@ MPS Point 15 -27              18 days                   22 days
 (updated on 1 September 2019) 
  
 
+=== Page 98 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 98 
 Appendix 11E 
@@ -6399,6 +6497,7 @@ Transfer within a period of 45 days will not be taken as break of service.
  
  
 
+=== Page 99 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 99 
 Appendix 12 
@@ -6453,6 +6552,7 @@ request her employer to refrain from giving her such work during her pregnancy p
  
  
 
+=== Page 100 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 100 
 Appendix 13 
@@ -6526,6 +6626,7 @@ but less than 6 years)
  
  
 
+=== Page 101 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 101 
  
@@ -6554,6 +6655,7 @@ Not less than 10 years
 100% 
  
 
+=== Page 102 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 102 
 Appendix 14 
@@ -6605,6 +6707,7 @@ the amount of the OEBG, i.e. no topping up of the OEBG will be given.
  
  
 
+=== Page 103 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 103 
 6. 
@@ -6665,6 +6768,7 @@ Special Domain respectively. The surpluses should be totalled and if this total 
 12 months’ provision of the prevailing level of the OEBG, schools should return the excess 
 to the Education Bureau.  
 
+=== Page 104 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 104 
 11. When the surplus exceeds the 12 months' provision, schools are free to decide from which 
@@ -6692,6 +6796,7 @@ accordance with the format as required by the Education Bureau. The auditors sho
 that the OEBG funds have been used in accordance with the ambit and rules as promulgated 
 in the Code of Aid and in circulars issued by the Education Bureau from time to time.  
 
+=== Page 105 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 105 
  Appendix 15 
@@ -6749,6 +6854,7 @@ Schools should devise their own budget on how to use the CFEG funds and seek the
 approval of their SMCs of the budget and make the approved budget transparent to 
 parents and teachers. 
 
+=== Page 106 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 106 
  
@@ -6787,6 +6893,7 @@ met by the CFEG.)
  
 Appendix 16 is relevant. 
 
+=== Page 107 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 107 
 Appendix 16 
@@ -6839,6 +6946,7 @@ The Principal should appoint a TOVC at least 3 working days before the tender op
 The TOVC will be responsible for opening, vetting and referring tender documents to the 
 appropriate subject teacher(s) and administrative staff for evaluation and recommendation 
 
+=== Page 108 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 108 
 before the tender documents are referred to the Tender Approving Committee for 
@@ -6883,6 +6991,7 @@ requirements laid down in the relevant Circular Memorandum on Annual Accounts of
 Schools.  
 (updated on 1 September 2017) 
 
+=== Page 109 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 109 
 Appendix 17 
@@ -6946,6 +7055,7 @@ commencement of works in the non-school portion, the school is required to agree
 the scope of works and to pay the necessary costs with an on-cost at prevailing rate charged 
 for the works in the non-school portion. 
 
+=== Page 110 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 110 
  
@@ -7009,6 +7119,7 @@ For items involving works in a non-school portion, the school should state clear
 submitting the application. Normally, the term consultants/Architectural Services Department 
 will not be responsible for any works in non-school portion which is separately identifiable 
 
+=== Page 111 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 111
 from the school portion. The term consultants/Architectural Services Department will only 
@@ -7052,6 +7163,7 @@ whatsoever.
  
  
 
+=== Page 112 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 112 
 Appendix 18 
@@ -7114,6 +7226,7 @@ be forwarded to the Permanent Secretary for comment.
 7. 
 The Applicant should submit recommendations for appointment of consultants to the 
 
+=== Page 113 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 113 
 Permanent Secretary for approval on the recommendations of Architectural Services 
@@ -7174,6 +7287,7 @@ purposes approved by the Permanent Secretary.
 That the school will be managed in accordance with the Education Ordinance and its 
 subsidiary legislation and the Code of Aid for Primary Schools.  
 
+=== Page 114 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 114 
  
@@ -7229,6 +7343,7 @@ Appendix
 The above serves the purpose of a general guide which will be revised from time to time in 
 accordance with the prevailing policy and practice. 
 
+=== Page 115 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 115 
 Appendix 19 
@@ -7293,6 +7408,7 @@ Senior School Development Officer as appropriate:-
  
 (b)  progress of internal investigation; and  
 
+=== Page 116 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 116 
  
@@ -7342,6 +7458,7 @@ escort the cash.
  
  
 
+=== Page 117 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 117 
 INDEX 
@@ -7445,6 +7562,7 @@ S.34(a), A.11A
 Educational psychologists, paid leave to serve as jurors 
 S.26(b) 
 
+=== Page 118 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 118 
 Educational psychologists, paid study leave 
@@ -7552,6 +7670,7 @@ S.51
 Primary School Assistant Social Work Officers, increments for experience 
 S.25 
 
+=== Page 119 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 119 
 Primary School Assistant Social Work Officers, maternity leave 
@@ -7660,6 +7779,7 @@ S.27
 School-based speech therapists, paternity leave 
 S26(a), S34(e), A.9 
 
+=== Page 120 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 120 
 School-based speech therapists, qualifications for appointment 
@@ -7767,6 +7887,7 @@ S26(a), A.9
 Teaching staff, probationary period 
 S.56 
 
+=== Page 121 ===
 CODE OF AID FOR PRIMARY SCHOOLS                                                               
 121 
 Teaching staff, promotion 
