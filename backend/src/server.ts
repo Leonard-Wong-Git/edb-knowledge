@@ -166,38 +166,6 @@ initFactEmbeddingCache(embeddingClient).catch((err) => {
 });
 
 const server = createServer(async (req, res) => {
-  // ── Channel A retirement probe (S198, TEMPORARY — delete once decided) ────
-  // Question: does anything outside this repo still call the two Channel A
-  // routes? It cannot be read off Render's logs as they stand — per-request
-  // logging is a Pro-plan feature (https://render.com/docs/logging), so on this
-  // Hobby instance "nobody calls this route" and "this route never prints"
-  // produce the identical empty search. Verified S198: a /health request known
-  // to have been made was equally absent from a dashboard search for "health",
-  // while a startup console.log from this file was found — stdout is captured,
-  // request paths are not. This closes the gap for these two paths only.
-  // Placed above the OPTIONS branch and the POST rate limiter on purpose, so a
-  // browser preflight or a throttled caller still registers. Headers only —
-  // never the body, which carries user query text. Hobby log retention is 7
-  // days, so the window must be read before it expires.
-  //
-  // Logs the WHOLE X-Forwarded-For chain, deliberately not getClientIp(). That
-  // helper takes the rightmost hop because a rate limiter must not key on a
-  // spoofable value (S187), but measured here the rightmost hop is a Render
-  // internal proxy address (10.x) and identifies nobody. The question this
-  // probe asks is "who is calling", not "who do I throttle", and the window is
-  // seven days and unrepeatable — so record the full chain and judge it when
-  // read. The leftmost entry is client-supplied and must be treated as a claim,
-  // not a fact. getClientIp and the rate limiter are untouched.
-  if (req.url === "/api/search/channel-a" || req.url === "/api/search/combined") {
-    console.log(
-      `[route-probe] ${req.method} ${req.url}` +
-        ` origin=${req.headers.origin ?? "-"}` +
-        ` ua=${String(req.headers["user-agent"] ?? "-").slice(0, 120)}` +
-        ` xff=${String(req.headers["x-forwarded-for"] ?? "-").slice(0, 200)}` +
-        ` peer=${req.socket?.remoteAddress ?? "-"}`,
-    );
-  }
-
   // Handle CORS preflight requests from the browser
   if (req.method === "OPTIONS") {
     setCorsHeaders(req, res);
