@@ -706,6 +706,22 @@ body {
   }
 }
 </style>
+<script>
+/**
+ * S204 — tab visibility switches (single source of truth for BOTH app.html and mobile.js).
+ * Flip a flag to false to withdraw a tab without deleting its panel: the desktop button
+ * disappears, its #hash falls back to 政策搜尋, and the mobile bottom bar drops the entry.
+ * Flip it back when the feature is ready — the panel code stays intact on purpose.
+ *
+ * Plain script, not the Babel block below: mobile.js initialises on DOMContentLoaded,
+ * which fires before Babel finishes compiling, so a flag defined there would arrive too
+ * late for the mobile bar to read.
+ *
+ * templates: withdrawn 2026-08-18 — policy_templates.json is a generated manifest that has
+ * not been regenerated alongside the corpus, so the list on show was going stale.
+ */
+window.FEATURE_TABS = { about: true, qa: true, annotate: true, templates: false, guidelines: true };
+</script>
 <link rel="stylesheet" href="mobile.css?v=3.3.0">
 <script src="mobile.js?v=3.3.0" defer></script>
 </head>
@@ -2002,6 +2018,9 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + 文件標註（就地標註）+ 範本下載 + 合規清單修訂，跨 15 個合規範疇。
 const PLATFORM_VERSION = '3.3.0';
+// S204 — tab switches; defined in a plain <script> in <head> so mobile.js can read them
+// at its DOMContentLoaded init, which runs BEFORE this Babel script compiles.
+const FEATURE_TABS = window.FEATURE_TABS;
 
 function PlatformIntroPanel({ stats }) {
   // S204 — cumulative search count. It belongs beside the corpus stats: this is the tab a
@@ -3697,7 +3716,9 @@ const TOUR_STEPS = [
   { icon: '📋', title: '範本下載', body: '各範疇（校園安全、收生、財務等）嘅政策範本，按校類揀選下載，慳返由零起草嘅時間。', cta: { label: '去範本下載', view: 'templates' } },
   { icon: '📚', title: 'EDB 指引文件庫', body: '分類整理嘅 EDB 官方指引文件，可預覽並跳去官方原文，按範疇與時序排列。', cta: { label: '去指引文件庫', view: 'guidelines' } },
   { icon: '✅', title: '開始使用', body: '隨時可喺右上角「🎓 使用教學」重溫導覽；想睇詳細步驟可去「ℹ️ 平台介紹」嘅「使用手冊」。所有資料僅供參考，重要決定請以教育局官方原文為準。', cta: { label: '睇使用手冊（平台介紹）', view: 'about' } },
-];
+// S204 — drop tour steps whose destination tab is withdrawn, otherwise the tour offers a
+// button that navigates nowhere. Steps with no cta (the welcome / closing cards) always stay.
+].filter((step) => !step.cta || window.FEATURE_TABS?.[step.cta.view] !== false);
 
 function Onboarding({ open, onClose, onGoto }) {
   const [step, setStep] = useState(0);
@@ -3752,7 +3773,7 @@ function Onboarding({ open, onClose, onGoto }) {
 // ── Main App ──
 function App() {
   const data = INITIAL_DATA;
-  const VALID_VIEWS = ['qa', 'annotate', 'templates', 'guidelines', 'about'];
+  const VALID_VIEWS = ['qa', 'annotate', 'templates', 'guidelines', 'about'].filter((v) => FEATURE_TABS[v]);
   let hashView = window.location.hash.replace('#', '');
   // S161: 文件分析 + 文件修訂 merged into 文件標註; redirect the retired hashes one season.
   if (hashView === 'analyze' || hashView === 'review') hashView = 'annotate';
@@ -3828,10 +3849,12 @@ function App() {
                       className={`filter-tab ${viewMode === 'annotate' ? 'active-tab' : ''}`} aria-selected={viewMode === 'annotate'} role="tab">
                 📝 文件標註(beta)
               </button>
+              {FEATURE_TABS.templates && (
               <button onClick={() => switchView('templates')}
                       className={`filter-tab ${viewMode === 'templates' ? 'active-tab' : ''}`} aria-selected={viewMode === 'templates'} role="tab">
                 📋 範本下載(beta)
               </button>
+              )}
               <button onClick={() => switchView('guidelines')}
                       className={`filter-tab ${viewMode === 'guidelines' ? 'active-tab' : ''}`} aria-selected={viewMode === 'guidelines'} role="tab">
                 📚 EDB指引 ({GUIDELINES_REGISTRY.length})

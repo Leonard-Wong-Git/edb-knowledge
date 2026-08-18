@@ -217,7 +217,15 @@
       { key: 'library',    icon: '📚', label: '指引文件',   href: 'app.html#guidelines',     match: ['#guidelines'] },
       { key: 'templates',  icon: '📋', label: '範本下載',   href: 'app.html#templates',      match: ['#templates'] },
       { key: 'about',      icon: 'ℹ️', label: '平台介紹',   href: 'index.html',              match: ['index.html', ''] },
-    ];
+    ].filter(function (t) {
+      // S204 — honour the withdrawn-tab switches from app.html. window.FEATURE_TABS is set
+      // by a plain script in <head>, so it is already there when this runs on
+      // DOMContentLoaded; if it is somehow absent, show everything rather than an empty bar.
+      const flags = window.FEATURE_TABS;
+      if (!flags) return true;
+      const flagKey = (t.key === 'search') ? 'qa' : (t.key === 'library') ? 'guidelines' : t.key;
+      return flags[flagKey] !== false;
+    });
 
     TABS.forEach(t => {
       const isActive =
