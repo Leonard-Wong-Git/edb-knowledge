@@ -35,6 +35,56 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-08-19 Session 207 — 指章唔係指頁：per-chunk 子頁 URL + g14/g17 三缺陷 + 兩個源解亂碼
+
+- **ID:** Claude_20260819_S207
+- **Summary:** Leonard「全做」。清 Open Priority ①（HTML 源指章）+ ②（g14 三個同源缺陷），順手揪出並修好兩個 source 喺生產庫亂碼咗。**Supabase 總數 17,473 不變**（91 刪 91 入）、`source_registry` 268 不變、平台 v3.3.0 不變、凍結合約零接觸（`_meta` 2.3.0 / facts 455 / `guidelines.json` 2.6.1 / 158）。
+- **① OP① 指章（`wiki_chunks.url` 逐條寫子頁）:** 關鍵觀察係 `url` 本身**已經係 per-chunk 欄位**，只不過入庫時全部填同一個 landing 頁 —— 所以前端、後端、schema **一律唔使改**。新 `carry_sections()` 喺 `build_wiki_index.py`（同 S206 `carry_pages` 同一契約：chunker-agnostic、無標記源全 None 即完全 no-op），`source_registry.json` 加 `section_urls` opt-in map，`expand_vault.build_chunks_from_vault_file` 消費。**g14 76 條 → 10 個子頁；g17 13 條 → 6 個目標（3 子頁 + 3 附件 PDF，後者仲保住 `#page=N`，live 實見 `page=3`）。** Map **逐個 label 寫實、唔准 base+suffix 推導** —— g17 就係反例：3 個 slug 喺 `whole-school-approach-to-guidance-discipline/`，3 個附件喺 `/attachment/...`，任何推導都錯。
+- **② 交接嘅「只有 g14 有真 slug」講少咗:** 交接寫 g17 嘅標記係附件 PDF 檔名。實測 g17 頭 3 個（`cornerstone`/`development`/`framework`）**係真子頁**，只不過唔喺 registry `url_primary` 嗰條 path 之下（要去 landing 頁抓 link 先見到）；後 3 個確係附件 PDF，一樣指得到。所以 g17 6/6 全部有得指。
+- **③ Fail-closed 閘即刻收貨:** 入庫前逐條 HEAD 驗 200，一條唔過即 skip 成個 source。**第一次跑就捉到我自己個錯** —— 3 條附件 PDF 砌漏咗 `/attachment` 前綴，3/6 條 404。冇呢個閘就會靜靜哋入咗庫（per-chunk URL 冇任何監察讀，要等用戶撳落去先知）。HEAD ≥400 會再試 GET 先落判（有站拒 HEAD）。
+- **④ 兩個 regex 陷阱（今次真正嘅技術教訓）:**
+  1. **Overlap 令標記甩行錨。** expand_vault 個 chunker 會用空格接 overlap 尾巴，令原本獨佔一行嘅標記變咗 line-middle（`…培育課程。 === chapter-one ===`）。用 `^…$` 錨行嘅 regex **靜靜哋只認到全份文件第一個標記**，之後 74 條全部當 `introduction`。
+  2. **放寬之後即出 false positive。** 兩個相鄰頁碼標記（`=== Page 5 === 6 (Blank Page) === Page 6 ===`）前者收尾 `===` 同後者開頭 `===` 夾住中間正文 → 讀成章節名。全庫實測 **847 個幻影 label 橫跨 135 個源**。正解係**兩步**：先剷頁碼標記，再認段落標記；lookahead 唔 work（會俾空白 run 嘅 backtracking 打敗）。同一個次序喺 `cleanChunkText` 都係 load-bearing —— 段落 pass 一定要行喺頁碼 pass **之後**，否則會連中間正文一齊剷。
+- **⑤ OP② 三缺陷:** (a) **title** —— extract header 寫《校本資優培育**計劃**指引》，EDB 官方同 registry 都係**課程**指引；核實過**所有公開鏡像（`guidelines.json` / `app.html` / `data.json`）本來就啱**，錯嘅只有 vault extract 一份，即係只影響 chunk 顯示。g17 個 title 只係 registry 嘅風格變體、唔係事實錯誤，**冇郁**。(b) **標記外洩** —— 用修正後嘅偵測器實數 **22 條橫跨 g04/g14/g17**（唔係我第一次報嘅 683，嗰個係 ④.2 個 false positive）；喺 `cleanChunkText` 一次過修，覆蓋所有源、past and future、零 chunk id 成本。(c) **導覽雜訊** —— EDB 把 nav/footer chrome 放喺 content column 入面，BeautifulSoup 剷唔到：g14 70 行 + g17 21 行讀返出嚟變咗引文一部分。新 `strip_web_chrome()`（**只做整行 exact match**，句中含同樣字眼唔會中）現已套用喺每次 HTML 抽取。
+- **⑥ 額外揪出：g20 / g25 生產庫亂碼。** EDB 送 `Content-Type: text/html` **冇 charset** → requests 跌返 ISO-8859-1，而文件自己 `<meta>` 宣告 UTF-8 → `resp.text` 逐 byte 亂碼（`å­¸æ ¡æ´»å…`）。**反直覺位：** 個 200 字下限守門一直放行呢兩條，**正正因為佢哋壞咗** —— 亂碼令每個中文字變三個 latin-1 字元、字數虛脹；encoding 修好之後真文字反而唔夠 200 字被拒收。加 `min_extract_chars` per-source override（呢兩個本來就係 link-hub landing 頁，短係正常）。
+- **Changed:**
+  - `dev/vault/build_wiki_index.py` — 新 `SECTION_MARKER_RE` + `carry_sections()`（`a7ad697`）
+  - `dev/vault/expand_vault.py` — `source_section_urls()` / `verify_section_urls()`（fail closed）/ per-chunk url 派發 / `strip_web_chrome()` / charset 修正 / `min_extract_chars`（`a7ad697`）
+  - `dev/vault/test_carry_rules.py` — **新檔**，`carry_pages` + `carry_sections` 共 14 條不變式，`--prove-assertions` 模式故意用 no-op 實作證明測試會紅（`a7ad697`）
+  - `dev/_s207_clean_html_extracts.py` — **新檔**，一次性清 g14/g17 extract，帶「行多重集差異必須淨係 chrome 白名單 + title 修正」嘅閘，唔過就唔寫（`a7ad697`）
+  - `dev/source/source_registry.json` — g14/g17 `section_urls` + notes（含「⚠️ 唔准 `--fetch`」）、g20/g25 `min_extract_chars` + notes（`a7ad697`）
+  - `dev/source/eval_retrieval.py` — retry clause 由 `(URLError, TimeoutError)` 擴到 `(OSError, http.client.HTTPException)`；之前一個裸 `ConnectionResetError` 會中途炸死成個 run，蝕晒已經跑咗嘅 query（`a7ad697`）
+  - `dev/vault/g14|g17|g20|g25/extract_*.txt` — 清洗 / 重抽（`a7ad697`）
+  - `backend/src/api/searchChannelB.ts` — `cleanChunkText` 加段落標記 pass（`3dc9952`）
+  - `dev/DOC_SYNC_CHECKLIST.md` — 新 row「Per-chunk deep link」
+- **QC:**
+  - `test_carry_rules.py --self-test` **14/14 PASS**；`--prove-assertions` 對 no-op 實作**觸發 8 條**（守門證明得到會紅）。
+  - Section URL map **16/16 HEAD 200**（動 embedding / DB 之前）。
+  - **零內容遺失閘**：g14 全部 77 條、g17 全部 12 條舊 chunk 嘅文字，喺清洗後 extract 入面**全部搵得返**。唯一一條「唔覆蓋」係一個 chunk 開頭嘅 3 字殘片（`要內容`，chrome 行被 chunk 邊界切開），其餘 401 字完整存在 —— 即真內容 100% 保住。
+  - **g20/g25 encoding-only 證明**：舊文字 `latin-1 → utf-8` 還原之後同新 extract **逐字對到**，唯一差異係舊資料真係爛咗嘅位（`十八日` 存成 `十<壞字>日`）→ 反證舊 row 係**有損**，唔可以喺顯示層修完算。
+  - `cleanChunkText` 5 個 case 實測（slug 標記剷走 / 中文標題標記剷走 / **兩個相鄰頁碼標記中間嘅正文保住** / 淨頁碼標記 / 句中 `===` 唔郁）。
+  - `npm run check` / `npm run build` 兩個 exit 0。
+  - **eval before→after**：30 SAME、2 RANK_SHIFT（`bus_escort`、`gifted`，都係組內換位）、**1 SET_ADDED（`kg_admission` 多咗 `g25` —— 亂碼修好之後佢先至搜得到）**、0 regression。1 條 error（`nonlocal` 撞 Supabase `57014` statement timeout）**唔係回歸**：live 連環重試 3 次，回傳同 baseline 一模一樣嘅 8 個 source。
+  - **Post-deploy live 實測**：g14 出 `chapter-six.html`、title 顯示《校本資優培育課程指引》、引文冇標記冇雜訊；g17 出 `framework.html` / `development.html`，附件 PDF chunk 出 `page=3` + `…body_chi.pdf`；g25 喺「幼稚園售賣教育用品收費服務指引」**score 0.753** 命中。
+- **Evidence disposition:** 兩個 regex 陷阱嘅理由 → code 註釋 + `test_carry_rules.py` 斷言（唔會被重生沖走）；`section_urls` 嘅 opt-in / fail-closed / 唔准推導規則 → `dev/DOC_SYNC_CHECKLIST.md` 新 row；「唔准 `--fetch`」→ registry notes；逐步量度數字 → 本 entry；四條可轉移經驗 → Playbook inbox（見 Sync）。
+- **Sync:** DOC_SYNC row 37（Channel-B vault backfill）命中並兌現：registry entry ✓、SOURCE_SETS / TOPIC_KEYWORDS parity **N/A**（零新源、零 route 改動）、handoff Current Baseline ✓、本 log entry 帶閘證據 ✓、CODEBASE_CONTEXT AI Maintenance Log ✓（無新 vault 目錄）。**Registry updated:** 新增「Per-chunk deep link」row（原本冇 row 覆蓋 per-chunk URL 呢個 change type）。公開鏡像 `guidelines.json` / `app.html` GUIDELINES_REGISTRY / `data.json` **零改動**（實查過 g14 title 喺嗰三處本來就啱）。Playbook inbox 交咗 4 份 proposal（S206 欠低嗰兩條 + S207 兩條），`usage/policychecker.log.md` append 2 行。
+- **Pending:** 見 handoff Open Priorities。本 session 新開一項：**per-chunk URL 完全冇監察覆蓋** —— `check_served_urls.py` 只讀 registry `url_primary`，而家有 89 條 chunk 帶住自己嘅 deep link，冇任何嘢會發現佢哋壞咗。
+- **Risks:**
+  - 上面嗰條監察缺口（已入 Open Priorities）。
+  - `g14` / `g17` 嘅 extract **唔可以 `--fetch`**：佢哋係 S146 用一個已經唔存在嘅多頁 crawler 砌出嚟，現行 `extract_html_text` 只抓 `url_primary` 一頁，一 refetch 就剷走其餘 9 / 5 個 section。已寫入 registry notes，但呢個係「靠註釋擋」，唔係機制擋。
+  - 我第一次報「683 條 chunk 有標記外洩」係錯數（偵測器 false positive），修好偵測器之後係 22 條。**差 31 倍。** 呢個正正撞返 S206 第 10 條紀律 —— 而我係報咗數之後先打開實例睇。
+- **Log maintenance:** `docs/qa/session_log_maintenance.py --check` → 見下方 QC 記錄。
+- **教訓（本 session 三條）:**
+  1. **守門要證明佢會紅。** `--prove-assertions` 模式（用 no-op 實作跑同一批斷言，要求至少 N 條觸發）第一次就有價值：如果我淨係跑正常 self-test，兩個 regex 陷阱都會靜靜哋過。
+  2. **放寬一個 regex 一定要即刻搵新 false positive。** 我為咗修「overlap 甩行錨」而拆走行錨，同一改動立刻製造咗 847 個幻影 label。放寬約束 = 開新 attack surface，唔可以只驗原本嗰個 case。
+  3. **健康指標遇上 encoding bug 會反向。** 「至少 200 字」呢個守門一直收垃圾、擋好嘢，因為亂碼會撐大字元數。任何以長度 / 大小做健康判準嘅閘都有呢個盲點。
+
+<!-- ack:log-entry:end -->
+
+---
+
+<!-- ack:log-entry:start -->
+
 ## 2026-08-18 Session 206 — 頁碼指路修復：expand_vault 兩層甩頁碼，11 個源重入
 
 - **ID:** Claude_20260818_1900
