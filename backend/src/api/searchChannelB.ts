@@ -921,6 +921,14 @@ function cleanChunkText(raw: string): string {
   const cjkRe = new RegExp(`([${CJK}])[ \t]+([${CJK}0-9（）、，。：；「」『』—…])`, "g");
   return raw
     .replace(/={2,}\s*Page\s*\d+\s*={2,}/gi, " ")   // strip === Page N ===
+    // S207: strip `=== <section> ===` too. Crawled multi-page HTML sources store one
+    // marker per sub-page, and 22 chunks across g04/g14/g17 were showing them to the
+    // user inside the quoted passage ("=== chapter-one ===" ahead of the first
+    // sentence). Must run AFTER the page pass: two page markers on one line otherwise
+    // present `=== Page 5 === 6 === Page 6 ===` as a section wrapping the text between,
+    // and this would delete that body text. The label is bounded and `=`-free so a
+    // line of prose containing "===" is untouched.
+    .replace(/={2,}[ \t]*[^=\n]{1,120}?[ \t]*={2,}/g, " ")
     .replace(/\f/g, " ")
     .replace(cjkRe, "$1$2")
     .replace(cjkRe, "$1$2")
