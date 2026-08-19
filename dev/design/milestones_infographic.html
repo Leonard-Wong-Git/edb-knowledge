@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="zh-Hant-HK"><head><meta charset="utf-8">
+<title>PolicyChecker 五個月</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --green:#1B5E3A; --green-d:#0F3D25; --green-l:#2E7D52;
+  --cream:#F7F5EF; --paper:#FFFDF8; --orange:#E08A3C; --orange-l:#FBEEDD;
+  --ink:#1A1F1C; --mute:#5C6660; --line:#DCD8CC;
+}
+body{
+  width:1200px; background:var(--cream); color:var(--ink);
+  font-family:"PingFang TC","Heiti TC","STHeiti","Hiragino Sans CNS","Songti TC","Hiragino Sans GB",sans-serif;
+  -webkit-font-smoothing:antialiased; line-height:1.75;
+}
+.wrap{padding:0 0 72px}
+
+/* ---------- ① HERO ---------- */
+.hero{background:var(--green); color:#fff; padding:64px 72px 56px; position:relative; overflow:hidden}
+.hero::after{content:""; position:absolute; right:-90px; top:-90px; width:340px; height:340px;
+  border:28px solid rgba(255,255,255,.07); border-radius:50%}
+.eyebrow{font-size:17px; letter-spacing:.22em; color:#A9D8BE; margin-bottom:18px}
+.hero h1{font-size:76px; line-height:1.1; letter-spacing:.02em; font-weight:700}
+.hero h2{font-size:31px; font-weight:400; color:#CFE9DA; margin-top:20px; line-height:1.5}
+.hero h2 b{color:var(--orange); font-weight:700}
+.stats{display:flex; gap:0; margin-top:48px; border-top:1px solid rgba(255,255,255,.22); padding-top:30px; position:relative; z-index:2}
+.stat{flex:1; border-left:1px solid rgba(255,255,255,.18); padding-left:26px}
+.stat:first-child{border-left:0; padding-left:0}
+.stat .n{font-size:42px; font-weight:700; line-height:1.15; letter-spacing:.01em}
+.stat .l{font-size:16px; color:#A9D8BE; margin-top:4px}
+
+/* ---------- generic ---------- */
+.sec{padding:0 72px; margin-top:60px}
+.sec-h{display:flex; align-items:baseline; gap:16px; margin-bottom:26px}
+.sec-h .idx{font-size:20px; font-weight:700; color:#fff; background:var(--green);
+  width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:0 0 auto}
+.sec-h h3{font-size:30px; font-weight:700; color:var(--green-d); letter-spacing:.02em}
+.sec-h .sub{font-size:17px; color:var(--mute)}
+
+/* ---------- ② origin ---------- */
+.origin{background:var(--paper); border-left:8px solid var(--orange); padding:30px 36px; border-radius:0 10px 10px 0;
+  box-shadow:0 1px 0 var(--line)}
+.origin .d{font-size:16px; color:var(--orange); font-weight:700; letter-spacing:.08em; margin-bottom:10px}
+.origin p{font-size:23px; line-height:1.72; color:var(--ink)}
+
+/* ---------- ③ timeline ---------- */
+.tl{position:relative; padding-left:54px}
+.tl::before{content:""; position:absolute; left:15px; top:12px; bottom:12px; width:3px; background:var(--line)}
+.ph{position:relative; margin-bottom:22px; background:var(--paper); border:1px solid var(--line);
+  border-radius:12px; padding:24px 30px}
+.ph::before{content:""; position:absolute; left:-46px; top:30px; width:17px; height:17px; border-radius:50%;
+  background:var(--green); border:4px solid var(--cream); box-shadow:0 0 0 2px var(--green)}
+.ph.star{border:2px solid var(--green); box-shadow:0 4px 0 rgba(27,94,58,.10)}
+.ph.star2{border:3px solid var(--orange); background:#FFFCF6; box-shadow:0 5px 0 rgba(224,138,60,.14)}
+.ph.star2::before{background:var(--orange); box-shadow:0 0 0 2px var(--orange)}
+.ph-top{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:14px}
+.ph-n{font-size:15px; font-weight:700; color:#fff; background:var(--green-l); padding:3px 12px; border-radius:20px}
+.ph.star2 .ph-n{background:var(--orange)}
+.ph-t{font-size:25px; font-weight:700; color:var(--green-d)}
+.ph.star2 .ph-t{color:#9A4E0B}
+.ph-d{font-size:16px; color:var(--mute)}
+.tag{font-size:14px; font-weight:700; letter-spacing:.14em; color:var(--orange); border:1.5px solid var(--orange);
+  padding:1px 9px; border-radius:4px}
+.ph ul{list-style:none}
+.ph li{font-size:18.5px; line-height:1.72; padding-left:22px; position:relative; margin-bottom:7px; color:#2A322D}
+.ph li::before{content:""; position:absolute; left:4px; top:13px; width:7px; height:7px; border-radius:50%; background:var(--green-l)}
+.ph li b{color:var(--green-d)}
+.ph li.warn::before{background:var(--orange)}
+.ph li.warn{color:#7A4410}
+
+/* ---------- ④ numbers ---------- */
+.nums{background:var(--paper); border:1px solid var(--line); border-radius:12px; overflow:hidden}
+.nrow{display:flex; align-items:center; border-bottom:1px solid var(--line); padding:17px 30px}
+.nrow:last-child{border-bottom:0}
+.nrow .lab{width:210px; flex:0 0 auto; font-size:19px; font-weight:700; color:var(--green-d)}
+.nrow .seq{font-size:21px; color:var(--mute); letter-spacing:.01em}
+.nrow .seq b{color:var(--ink)}
+.nrow .seq .now{color:var(--green); font-weight:700}
+.nrow.hi{background:var(--orange-l); padding:24px 30px}
+.nrow.hi .lab{color:#9A4E0B; font-size:21px}
+.nrow.hi .seq{font-size:26px; color:#8A5A2B}
+.nrow.hi .seq .now{color:var(--orange); font-weight:700; font-size:38px}
+
+/* ---------- ⑤ ledger ---------- */
+.ledger{display:flex; gap:22px}
+.led{flex:1; border-radius:12px; padding:26px 30px}
+.led.alive{background:#EAF3ED; border:2px solid var(--green)}
+.led.gone{background:var(--paper); border:1px solid var(--line)}
+.led h4{font-size:21px; font-weight:700; margin-bottom:16px}
+.led.alive h4{color:var(--green-d)}
+.led.gone h4{color:var(--mute)}
+.chips{display:flex; flex-wrap:wrap; gap:9px}
+.chip{font-size:17.5px; padding:6px 14px; border-radius:6px}
+.led.alive .chip{background:var(--green); color:#fff; font-weight:700}
+.led.gone .chip{background:#EFECE3; color:#6B7269; text-decoration:line-through; text-decoration-color:#B9B3A4}
+
+/* ---------- ⑥ insights ---------- */
+.cards{display:flex; gap:22px}
+.card{flex:1; background:var(--paper); border:1px solid var(--line); border-top:6px solid var(--orange);
+  border-radius:12px; padding:28px 26px; display:flex; flex-direction:column}
+.card .big{font-size:52px; font-weight:700; color:var(--orange); line-height:1.05}
+.card .cap{font-size:15px; color:var(--mute); margin:2px 0 16px}
+.card h4{font-size:22px; font-weight:700; color:var(--green-d); line-height:1.45; margin-bottom:12px}
+.card p{font-size:17.5px; line-height:1.72; color:#3A423C}
+
+/* ---------- ⑦ today ---------- */
+.today{background:var(--green-d); border-radius:12px; padding:26px 34px; display:flex; flex-wrap:wrap;
+  gap:12px 0; align-items:center}
+.today .b{color:#fff; font-size:19px; padding:0 22px; border-right:1px solid rgba(255,255,255,.22)}
+.today .b:last-child{border-right:0}
+.today .b:first-child{padding-left:0}
+.today .b b{color:var(--orange); font-weight:700}
+
+/* ---------- ⑧ quote ---------- */
+.quote{margin:64px 72px 0; text-align:center; padding:52px 40px; border-top:3px solid var(--green);
+  border-bottom:3px solid var(--green)}
+.quote p{font-size:36px; font-weight:700; color:var(--green-d); line-height:1.6; letter-spacing:.01em}
+.quote .src{font-size:16px; color:var(--mute); margin-top:20px; letter-spacing:.08em}
+.foot{text-align:center; font-size:15px; color:var(--mute); margin-top:34px; letter-spacing:.04em}
+</style></head><body><div class="wrap">
+
+<!-- ① -->
+<div class="hero">
+  <div class="eyebrow">PolicyChecker ・ 香港學校政策搜尋平台</div>
+  <h1>五個月</h1>
+  <h2>由「幫我看通告」，到<b>「我能指出第幾頁」</b></h2>
+  <div class="stats">
+    <div class="stat"><div class="n">207</div><div class="l">個開發回合</div></div>
+    <div class="stat"><div class="n">578</div><div class="l">次程式提交</div></div>
+    <div class="stat"><div class="n">5</div><div class="l">個月</div></div>
+    <div class="stat"><div class="n">v0.9.0 → v3.3.0</div><div class="l">平台版本</div></div>
+  </div>
+</div>
+
+<!-- ② -->
+<div class="sec">
+  <div class="sec-h"><div class="idx">1</div><h3>起點</h3><div class="sub">2026 年 3 月 9 日</div></div>
+  <div class="origin">
+    <div class="d">第一天</div>
+    <p>第一天交付的並不是知識庫，而是一個「通告分析」的互動原型。<br>
+       同一天就改變了方向 —— 因為<b>沒有知識庫支撐的 AI 分析，是沒有依據的</b>。</p>
+  </div>
+</div>
+
+<!-- ③ -->
+<div class="sec">
+  <div class="sec-h"><div class="idx">2</div><h3>六個階段</h3><div class="sub">2026 年 3 月 → 8 月</div></div>
+  <div class="tl">
+
+    <div class="ph">
+      <div class="ph-top"><span class="ph-n">階段一</span><span class="ph-t">人手審核知識庫</span><span class="ph-d">3 月中 – 4 月中</span></div>
+      <ul>
+        <li>首個版本 v0.9.0 推出，其後 v1.0.0 加入後台審批流程</li>
+        <li>確立兩項至今未變的規則：<b>政策事實必須經人手批准</b>；角色細分為科主任、統籌主任、行政主任</li>
+        <li class="warn">教訓：教育局全站改版，一次過令 26 條來源連結失效，需緊急復原</li>
+      </ul>
+    </div>
+
+    <div class="ph star">
+      <div class="ph-top"><span class="ph-n">階段二</span><span class="ph-t">雙通道架構與向量搜尋</span><span class="ph-d">4 月中 – 5 月初</span><span class="tag">關鍵</span></div>
+      <ul>
+        <li><b>把文件拆解</b>：每段不超過 600 字元、相鄰段落重疊 60 字元以保留上文下理、以內容雜湊去除重複</li>
+        <li>採用 text-embedding-3-small 嵌入模型；首版共 <b>810 個知識片段</b>，成本約 0.002 美元</li>
+        <li>鎖定原則：<b>AI 抽取的內容，不得自動寫入已核實事實庫</b></li>
+        <li>5 月 1 日向量資料庫正式上線，共 2,822 個片段</li>
+      </ul>
+    </div>
+
+    <div class="ph">
+      <div class="ph-top"><span class="ph-n">階段三</span><span class="ph-t">資料質素治理（零新功能）</span><span class="ph-d">4 月底 – 5 月中</span></div>
+      <ul>
+        <li>三層資料嚴重脫節：1,001 條與 109 條並存，需重新同步</li>
+        <li>重複率高達 <b>48%</b>；去重後由 1,001 條降至 792 條，再降至 455 條</li>
+        <li>同一份《學校行政手冊》曾兩度入庫，片段雜湊重疊率竟然是 <b>0%</b> —— 原來是兩種切割方式，並非重複</li>
+        <li class="warn">生產事故：程式庫內的資料庫定義與線上實際不符，直接套用後令搜尋一度全無結果</li>
+      </ul>
+    </div>
+
+    <div class="ph star2">
+      <div class="ph-top"><span class="ph-n">階段四</span><span class="ph-t">轉捩點：確立「頁數可追溯」</span><span class="ph-d">5 月中 – 5 月底</span><span class="tag">核心</span></div>
+      <ul>
+        <li>真人實測五條查詢，判定<b>原文搜尋明顯最佳</b>，人手事實庫反而構成雜訊 → 搜尋介面只保留原文通道</li>
+        <li>診斷結果出乎意料：頁碼命中率是 0，<b>根因不在介面、也不在後端，而在語料本身沒有頁碼</b> —— 113 份文件之中，只有 39 份帶頁標記</li>
+        <li>兩步修復：切片時承繼頁碼（13% → 24%）；再逐頁重新抽取 PDF（→ 32%）</li>
+        <li>意外收穫：重新抽取時，發現舊工具漏抽了 <b>203 句</b>內容</li>
+        <li>5 月 28 日品牌上線 policychecker.wongfu.net</li>
+      </ul>
+    </div>
+
+    <div class="ph">
+      <div class="ph-top"><span class="ph-n">階段五</span><span class="ph-t">功能擴張，隨即收斂</span><span class="ph-d">6 月</span></div>
+      <ul>
+        <li><b>新增</b>：頁碼顯示與一鍵跳頁、文件分析、文件標註、免 cookie 統計、WhatsApp 分享、手機導覽、公開指引由 39 份增至 148 份、每日自動入庫管道、五項自動監察</li>
+        <li><b>移除</b>：舊通道凍結於 455 條事實；整個後台（登入、知識提煉、知識管理）完整移除，單檔前端由 4,100 行減至 2,935 行</li>
+        <li class="warn">真檔試用的教訓：以 Word 批註呈現建議是「隱形」的 —— 同日改為可見的內聯註解</li>
+      </ul>
+    </div>
+
+    <div class="ph">
+      <div class="ph-top"><span class="ph-n">階段六</span><span class="ph-t">量度，並回頭修正頁碼</span><span class="ph-d">7 月 – 8 月</span></div>
+      <ul>
+        <li>系統體檢：桌面版一度多達 8 個分頁，明確指出需要收斂</li>
+        <li class="warn">最昂貴的一課：量度所用的 AI 模型，並不是程式碼寫的預設值，而是線上環境變數所設定的</li>
+        <li>8 月 18 日：發現頁碼在兩層流程中遺失，無頁碼片段由 <b>1,859 條減至 451 條</b></li>
+        <li>8 月 19 日：網頁來源沒有頁碼，改為讓每條片段指回自己所屬的<b>章節</b></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- ④ -->
+<div class="sec">
+  <div class="sec-h"><div class="idx">3</div><h3>數字弧線</h3><div class="sub">起點 → 中途 → 今日</div></div>
+  <div class="nums">
+    <div class="nrow"><div class="lab">知識片段</div><div class="seq">810 → 2,822 → 10,682 → 15,874 → <span class="now">17,473</span></div></div>
+    <div class="nrow"><div class="lab">已核實事實</div><div class="seq">109 → 1,001 → 792 → <span class="now">455</span>（凍結）</div></div>
+    <div class="nrow hi"><div class="lab">可解析頁碼</div><div class="seq">13% → 24% → 32% → <span class="now">97.4%</span></div></div>
+    <div class="nrow"><div class="lab">公開指引文件</div><div class="seq">39 → 148 → <span class="now">158</span></div></div>
+    <div class="nrow"><div class="lab">登記來源</div><div class="seq">120 → 151 → 244 → <span class="now">268</span></div></div>
+    <div class="nrow"><div class="lab">公開分頁</div><div class="seq">6 → 8（高峰）→ <span class="now">4</span></div></div>
+  </div>
+</div>
+
+<!-- ⑤ -->
+<div class="sec">
+  <div class="sec-h"><div class="idx">4</div><h3>功能生死簿</h3><div class="sub">減法比加法困難</div></div>
+  <div class="ledger">
+    <div class="led alive">
+      <h4>今日仍在</h4>
+      <div class="chips">
+        <span class="chip">平台介紹</span><span class="chip">政策搜尋</span>
+        <span class="chip">文件標註</span><span class="chip">指引文件</span>
+      </div>
+    </div>
+    <div class="led gone">
+      <h4>曾經加入，其後移除或收起</h4>
+      <div class="chips">
+        <span class="chip">詞雲動畫</span><span class="chip">舊通道搜尋介面</span><span class="chip">整個管理員後台</span>
+        <span class="chip">三個實驗頁面</span><span class="chip">通告分析（暫停後重開）</span>
+        <span class="chip">文件分析與文件修訂（已合併）</span><span class="chip">Word 批註</span>
+        <span class="chip">政策範本下載（暫收）</span><span class="chip">搜尋分數顯示</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑥ -->
+<div class="sec">
+  <div class="sec-h"><div class="idx">5</div><h3>三個反直覺的發現</h3><div class="sub">最值得帶走的三件事</div></div>
+  <div class="cards">
+    <div class="card">
+      <div class="big">97.4%</div><div class="cap">可解析頁碼比例</div>
+      <h4>問題不在搜尋排序，<br>而在資料本身</h4>
+      <p>用戶找不到「第幾頁」，第一反應是調整演算法。實情是入庫時根本沒有記錄頁碼 —— 113 份文件之中，只有 39 份帶頁標記。修好兩層流程之後，可解析頁碼由 13% 升至 97.4%。</p>
+    </div>
+    <div class="card">
+      <div class="big">2 份</div><div class="cap">一直靜靜損壞的文件</div>
+      <h4>健康指標，<br>可以反過來傷害你</h4>
+      <p>系統設有一道關卡：抽取不足 200 字即視為失敗、拒絕收錄。兩份文件因編碼錯誤而變成亂碼，一個中文字變成三個字元，字數虛脹，反而順利過關。編碼修正之後，真實文字不足 200 字，才被拒絕。</p>
+    </div>
+    <div class="card">
+      <div class="big">44%</div><div class="cap">機械判定站不住腳的比例</div>
+      <h4>機械判定，<br>頂不住人手覆核</h4>
+      <p>以程式判定哪些舊資料「已被新來源覆蓋、可以退役」。逐條人手覆核之後，44% 的「已清理」判定站不住腳。機械判定可以收窄範圍，但不能取代閱讀原文。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ⑦ -->
+<div class="sec">
+  <div class="sec-h"><div class="idx">6</div><h3>今日狀態</h3><div class="sub">2026 年 8 月 19 日</div></div>
+  <div class="today">
+    <div class="b">平台 <b>v3.3.0</b></div>
+    <div class="b"><b>17,473</b> 個知識片段</div>
+    <div class="b"><b>268</b> 個登記來源</div>
+    <div class="b"><b>158</b> 份公開指引</div>
+    <div class="b"><b>5</b> 項自動監察</div>
+    <div class="b">每日<b>自動入庫</b>管道</div>
+  </div>
+</div>
+
+<!-- ⑧ -->
+<div class="quote">
+  <p>「寧可回答『找不到』，<br>也不能給出一個無法追溯回原文的答案。」</p>
+  <div class="src">—— 寫入系統規格的不變量</div>
+</div>
+<div class="foot">PolicyChecker ・ 香港學校政策搜尋平台 ・ policychecker.wongfu.net ・ 設計者：Leonard Wong</div>
+
+</div></body></html>

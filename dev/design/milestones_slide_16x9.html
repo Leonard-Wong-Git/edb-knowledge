@@ -1,0 +1,108 @@
+<!doctype html><html lang="zh-Hant-HK"><head><meta charset="utf-8"><title>PolicyChecker 五個月 ・ 16:9</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--green:#1B5E3A;--green-d:#0F3D25;--green-l:#2E7D52;--cream:#F7F5EF;--paper:#FFFDF8;
+--orange:#E08A3C;--orange-l:#FBEEDD;--ink:#1A1F1C;--mute:#5C6660;--line:#DCD8CC}
+html,body{width:1600px;height:900px;overflow:hidden}
+body{background:var(--cream);color:var(--ink);
+font-family:"PingFang TC","Heiti TC","STHeiti","Hiragino Sans CNS","Songti TC",sans-serif;
+-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;padding:44px 56px 34px}
+
+/* top */
+.top{display:flex;align-items:flex-end;justify-content:space-between;
+  border-bottom:3px solid var(--green);padding-bottom:22px}
+.tl-l .eyebrow{font-size:15px;letter-spacing:.2em;color:var(--green-l);margin-bottom:8px}
+.tl-l h1{font-size:52px;font-weight:700;color:var(--green-d);letter-spacing:.02em;line-height:1.1}
+.tl-l h2{font-size:25px;font-weight:400;color:var(--mute);margin-top:10px}
+.tl-l h2 b{color:var(--orange);font-weight:700}
+.tstats{display:flex;gap:0;text-align:right}
+.ts{padding:0 20px;border-right:1px solid var(--line)}
+.ts:last-child{padding-right:0;border-right:0}
+.ts .n{font-size:26px;font-weight:700;color:var(--green-d);line-height:1.2}
+.ts .l{font-size:13px;color:var(--mute);margin-top:2px}
+
+/* timeline */
+.mid{flex:1;display:flex;flex-direction:column;justify-content:center;padding:6px 0}
+.rail{position:relative;display:flex;gap:14px}
+.rail::before{content:"";position:absolute;left:20px;right:20px;top:13px;height:3px;background:var(--line)}
+.node{flex:1;position:relative;padding-top:40px}
+.dot{position:absolute;top:5px;left:0;width:19px;height:19px;border-radius:50%;
+  background:var(--green);border:4px solid var(--cream);box-shadow:0 0 0 2px var(--green)}
+.node.key .dot{background:var(--orange);box-shadow:0 0 0 2px var(--orange)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:16px 17px;height:100%}
+.node.key .card{border:3px solid var(--orange);background:#FFFCF6;box-shadow:0 4px 0 rgba(224,138,60,.14)}
+.mo{font-size:13px;font-weight:700;letter-spacing:.1em;color:#fff;background:var(--green-l);
+  display:inline-block;padding:2px 10px;border-radius:20px;margin-bottom:9px}
+.node.key .mo{background:var(--orange)}
+.ct{font-size:19px;font-weight:700;color:var(--green-d);line-height:1.4;margin-bottom:8px}
+.node.key .ct{color:#9A4E0B}
+.cd{font-size:15px;line-height:1.65;color:#3A423C}
+.cd b{color:var(--green-d)}
+
+/* bottom */
+.bot{display:flex;gap:18px;margin-top:4px}
+.res{flex:1;background:var(--green);color:#fff;border-radius:11px;padding:18px 22px;display:flex;
+  align-items:center;gap:20px}
+.res.hi{background:var(--orange)}
+.res .big{font-size:36px;font-weight:700;line-height:1.1;white-space:nowrap}
+.res .txt{font-size:16px;line-height:1.55;color:#DCEDE3}
+.res.hi .txt{color:#FFF3E4}
+.quote{text-align:center;margin-top:22px;font-size:23px;font-weight:700;color:var(--green-d);letter-spacing:.01em}
+.quote span{font-size:14px;font-weight:400;color:var(--mute);display:block;margin-top:7px;letter-spacing:.06em}
+</style></head><body>
+
+<div class="top">
+  <div class="tl-l">
+    <div class="eyebrow">POLICYCHECKER ・ 香港學校政策搜尋平台</div>
+    <h1>五個月</h1>
+    <h2>由「幫我看通告」，到<b>「我能指出第幾頁」</b></h2>
+  </div>
+  <div class="tstats">
+    <div class="ts"><div class="n">207</div><div class="l">個開發回合</div></div>
+    <div class="ts"><div class="n">578</div><div class="l">次程式提交</div></div>
+    <div class="ts"><div class="n">v0.9.0 → v3.3.0</div><div class="l">平台版本</div></div>
+    <div class="ts"><div class="n">17,473</div><div class="l">個知識片段</div></div>
+  </div>
+</div>
+
+<div class="mid">
+  <div class="rail">
+    <div class="node"><div class="dot"></div><div class="card">
+      <div class="mo">3 月</div><div class="ct">人手審核知識庫</div>
+      <div class="cd">確立第一條規則：<b>政策事實必須經人手批准</b>，AI 不得自行發佈。</div></div></div>
+
+    <div class="node"><div class="dot"></div><div class="card">
+      <div class="mo">4 月</div><div class="ct">雙通道與向量搜尋</div>
+      <div class="cd">把文件拆解成 <b>600 字元</b>片段、相鄰<b>重疊 60 字元</b>保留上文下理，再建立嵌入向量。</div></div></div>
+
+    <div class="node"><div class="dot"></div><div class="card">
+      <div class="mo">5 月初</div><div class="ct">資料質素治理</div>
+      <div class="cd">重複率高達 <b>48%</b>；已核實事實庫由 1,001 條降至 <b>455 條</b>。零新功能。</div></div></div>
+
+    <div class="node key"><div class="dot"></div><div class="card">
+      <div class="mo">5 月中 ★</div><div class="ct">轉捩點：確立「頁數可追溯」</div>
+      <div class="cd">真人實測後，搜尋只保留原文通道。診斷發現<b>頁碼根本沒有入語料</b>。</div></div></div>
+
+    <div class="node"><div class="dot"></div><div class="card">
+      <div class="mo">6 月</div><div class="ct">擴張後隨即收斂</div>
+      <div class="cd">新增文件標註與每日自動入庫；<b>移除整個管理員後台</b>，前端減 1,176 行。</div></div></div>
+
+    <div class="node"><div class="dot"></div><div class="card">
+      <div class="mo">8 月</div><div class="ct">回頭修正頁碼</div>
+      <div class="cd">無頁碼片段由 1,859 條減至 <b>451 條</b>；網頁來源改為指回所屬<b>章節</b>。</div></div></div>
+  </div>
+</div>
+
+<div class="bot">
+  <div class="res hi"><div class="big">13% → 97.4%</div>
+    <div class="txt">可解析頁碼比例。<br>由「答得到」變成「指得出第幾頁」。</div></div>
+  <div class="res"><div class="big">8 → 4</div>
+    <div class="txt">公開分頁數目。<br>減法比加法困難得多。</div></div>
+  <div class="res"><div class="big">5 + 1</div>
+    <div class="txt">五項自動監察 ＋ 每日自動入庫管道，<br>人手只需在 GitHub Issue 剔選批准。</div></div>
+</div>
+
+<div class="quote">「寧可回答『找不到』，也不能給出一個無法追溯回原文的答案。」
+  <span>PolicyChecker ・ policychecker.wongfu.net ・ 設計者：Leonard Wong</span></div>
+
+</body></html>

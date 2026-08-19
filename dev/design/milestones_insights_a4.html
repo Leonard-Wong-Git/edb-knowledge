@@ -1,0 +1,72 @@
+<!doctype html><html lang="zh-Hant-HK"><head><meta charset="utf-8"><title>三件反直覺的事 ・ A4</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--green:#1B5E3A;--green-d:#0F3D25;--green-l:#2E7D52;--cream:#F7F5EF;--paper:#FFFDF8;
+--orange:#E08A3C;--orange-l:#FBEEDD;--ink:#1A1F1C;--mute:#5C6660;--line:#DCD8CC}
+html,body{width:794px;height:1123px;overflow:hidden}
+body{background:var(--cream);color:var(--ink);
+font-family:"PingFang TC","Heiti TC","STHeiti","Hiragino Sans CNS","Songti TC",sans-serif;
+-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;padding:46px 52px 34px}
+
+.hd{border-bottom:3px solid var(--green);padding-bottom:20px}
+.eyebrow{font-size:12px;letter-spacing:.2em;color:var(--green-l);margin-bottom:9px}
+h1{font-size:37px;font-weight:700;color:var(--green-d);line-height:1.28;letter-spacing:.01em}
+h1 b{color:var(--orange)}
+.sub{font-size:14.5px;color:var(--mute);margin-top:12px;line-height:1.6}
+
+.cards{flex:1;display:flex;flex-direction:column;justify-content:space-between;padding:24px 0 4px}
+.c{background:var(--paper);border:1px solid var(--line);border-left:7px solid var(--orange);
+  border-radius:0 12px 12px 0;padding:22px 26px;display:flex;gap:24px;align-items:flex-start}
+.c .num{flex:0 0 168px;text-align:center;padding-top:2px}
+.c .num .n{font-size:52px;font-weight:700;color:var(--orange);line-height:1.02;letter-spacing:-.01em}
+.c .num .cap{font-size:12px;color:var(--mute);margin-top:8px;line-height:1.5}
+.c .body{flex:1;border-left:1px solid var(--line);padding-left:24px}
+.c .body h3{font-size:22px;font-weight:700;color:var(--green-d);line-height:1.42;margin-bottom:11px}
+.c .body p{font-size:15px;line-height:1.78;color:#3A423C}
+.c .body p b{color:var(--green-d)}
+
+.ft{border-top:3px solid var(--green);padding-top:20px;text-align:center}
+.ft .q{font-size:19.5px;font-weight:700;color:var(--green-d);line-height:1.6}
+.ft .src{font-size:12px;color:var(--mute);margin-top:12px;letter-spacing:.05em}
+</style></head><body>
+
+<div class="hd">
+  <div class="eyebrow">POLICYCHECKER ・ 香港學校政策搜尋平台</div>
+  <h1>建立一個政策知識庫，<br>我學到的<b>三件反直覺的事</b></h1>
+  <div class="sub">來自 PolicyChecker（policychecker.wongfu.net）五個月、207 個開發回合的實戰紀錄</div>
+</div>
+
+<div class="cards">
+
+  <div class="c">
+    <div class="num"><div class="n">97.4%</div><div class="cap">可解析頁碼比例<br>（起初只有 13%）</div></div>
+    <div class="body">
+      <h3>問題不在搜尋排序，<br>而在資料本身</h3>
+      <p>用戶找不到「第幾頁」，我們第一反應是調整演算法。實情是<b>入庫時根本沒有記錄頁碼</b> —— 113 份文件之中，只有 39 份帶頁標記。修好抽取與切片兩層流程之後，可解析頁碼由 13% 升至 97.4%。</p>
+    </div>
+  </div>
+
+  <div class="c">
+    <div class="num"><div class="n">2 份</div><div class="cap">一直靜靜損壞、<br>卻順利過關的文件</div></div>
+    <div class="body">
+      <h3>健康指標，<br>可以反過來傷害你</h3>
+      <p>系統設有一道關卡：抽取不足 200 字即視為失敗、拒絕收錄。兩份文件因編碼錯誤而變成亂碼，一個中文字變成三個字元，<b>字數虛脹，反而順利過關</b>。編碼修正之後，真實文字不足 200 字，才被拒絕。</p>
+    </div>
+  </div>
+
+  <div class="c">
+    <div class="num"><div class="n">44%</div><div class="cap">機械判定<br>站不住腳的比例</div></div>
+    <div class="body">
+      <h3>機械判定，<br>頂不住人手覆核</h3>
+      <p>我們以程式判定哪些舊資料「已被新來源覆蓋、可以退役」。逐條人手覆核之後，<b>44% 的「已清理」判定站不住腳</b>。機械判定可以收窄範圍，但不能取代閱讀原文。</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="ft">
+  <div class="q">「報一個數字之前，先打開數字背後<br>至少一個實例親眼查看。搜尋命中不算證據。」</div>
+  <div class="src">PolicyChecker ・ 香港學校政策搜尋平台 ・ 設計者：Leonard Wong</div>
+</div>
+
+</body></html>
