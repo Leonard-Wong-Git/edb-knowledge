@@ -135,6 +135,52 @@ def chunk_text_with_page_carry(text: str, max_chars: int = CHUNK_MAX_CHARS,
     return carry_pages(chunk_text(text, max_chars, overlap))
 
 
+# S207 — a crawled multi-page HTML source writes `=== <section> ===` between pages,
+# the same shape as `=== Page N ===` but naming a sub-page instead of a page number.
+# Whitespace-delimited rather than line-anchored: expand_vault's chunker prepends an
+# overlap tail joined with a space, so a marker that owned its own line in the extract
+# arrives mid-line in the chunk ("…培育課程。 === chapter-one ===\n[資料庫]…"). An
+# anchored pattern silently matched only the first marker of the whole document.
+# Page markers are recognised here and discarded by carry_sections() rather than
+# excluded in the pattern — a lookahead is defeated by backtracking over the
+# whitespace run, which is how the first draft read `=== Page 12 ===` as a section.
+SECTION_MARKER_RE = re.compile(r'(?:^|\s)={2,}[ \t]*([^=\n]{1,120}?)[ \t]*={2,}(?=\s|$)')
+_PAGE_LABEL_RE = re.compile(r'^Page[ \t]+\d+$', re.IGNORECASE)
+
+
+def carry_sections(chunks: list[str]) -> list[str | None]:
+    """
+    S207: the section-carry rule, shaped after carry_pages() and sharing its
+    contract — chunker-agnostic, takes an already-chunked list, returns one entry
+    per chunk. Unlike carry_pages() it does NOT rewrite the text: a section
+    resolves to a URL (a per-chunk column) rather than to a read-time parse, so
+    there is nothing to inject into the chunk body.
+
+    Invariants relied on by callers (asserted in dev/vault/test_carry_rules.py):
+      - Chunks before the first marker return None (no section known yet).
+      - A chunk list with NO section markers yields all-None, so a marker-less
+        source keeps its header URL and is untouched.
+      - `=== Page 12 ===` is never read as a section label, and never clears a
+        section already carried — the two marker kinds coexist in one extract
+        (g17 names an attachment PDF, then pages inside it).
+    """
+    current = None
+    out: list[str | None] = []
+    for ch in chunks:
+        # Remove page markers FIRST. Two adjacent page markers on one line
+        # (`=== Page 5 === 6 (Blank Page) === Page 6 ===`) otherwise present the
+        # closing `===` of one and the opening `===` of the next as a single
+        # section marker wrapped around the text between them — a false positive
+        # that reads body text as a section name. Measured corpus-wide before the
+        # fix: 847 phantom labels across 135 sources, e.g. '(Blank Page)', '第二章概論'.
+        labels = [lab.strip() for lab in SECTION_MARKER_RE.findall(PAGE_MARKER_RE.sub("\n", ch))]
+        labels = [lab for lab in labels if lab and not _PAGE_LABEL_RE.match(lab)]
+        if labels:
+            current = labels[-1]             # carry the section this chunk ends in
+        out.append(current)
+    return out
+
+
 def carry_pages(chunks: list[str]) -> list[str]:
     """
     S206: the page-carry rule itself, lifted out of chunk_text_with_page_carry so

@@ -37,6 +37,7 @@ top_k is the normal, intended effect of an ingest).
 from __future__ import annotations
 
 import argparse
+import http.client
 import json
 import statistics
 import sys
@@ -172,8 +173,13 @@ def query_once(endpoint: str, query: str, top_k: int) -> dict:
                 time.sleep(DEFAULT_PACE_S * attempt * 2)
                 continue
             raise RuntimeError(f"{last}: {e.read()[:200]!r}") from e
-        except (urllib.error.URLError, TimeoutError) as e:
-            last = f"network {e}"
+        except (OSError, http.client.HTTPException) as e:
+            # S207: the earlier `(URLError, TimeoutError)` clause let a bare
+            # ConnectionResetError from the TLS read escape and kill the whole run
+            # mid-set, losing every query already paid for. Render's free tier drops
+            # idle connections, so this is routine, not exceptional. OSError covers
+            # URLError/TimeoutError/ConnectionReset alike; HTTPError is caught above.
+            last = f"network {type(e).__name__}: {e}"
             if attempt < MAX_ATTEMPTS:
                 time.sleep(DEFAULT_PACE_S * attempt)
                 continue

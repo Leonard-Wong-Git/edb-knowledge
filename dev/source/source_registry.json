@@ -803,13 +803,25 @@
       "version_label": "2020",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "Seeded from existing guidelines.json public artifact. | S146(2026-06-06): ingested to Channel B vector store (vault/g14)",
+      "notes": "Seeded from existing guidelines.json public artifact. | S146(2026-06-06): ingested to Channel B vector store (vault/g14) | S207: section_urls opt-in — the extract is a 10-sub-page crawl, so每條 chunk cite 返自己嗰章 (指章唔係指頁; #page=N 對網頁唔存在). Title corrected 計劃→課程 to match EDB + this registry. ⚠️ 唔好用 --fetch: 現行 extract_html_text 只抓 url_primary 一頁,會剷走 9 個 section。要重抽必須用多頁 crawler。",
       "freshness_metadata": {
         "last_modified": "Fri, 09 Dec 2022 10:05:13 GMT",
         "content_length": "1803",
         "etag": "\"40b3cdbab5bd91:0\"",
         "content_hash": "419601d687091e87bd52b28eb030119de263808f848f2012e3835b484e6de11c",
         "hash_checked_at": "2026-06-03"
+      },
+      "section_urls": {
+        "introduction": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/guidelines-on-school-based-gifted-development-programmes/introduction.html",
+        "chapter-one": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/guidelines-on-school-based-gifted-development-programmes/chapter-one.html",
+        "chapter-two": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/guidelines-on-school-based-gifted-development-programmes/chapter-two.html",
+        "chapter-three": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/guidelines-on-school-based-gifted-development-programmes/chapter-three.html",
+        "chapter-four": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/guidelines-on-school-based-gifted-development-programmes/chapter-four.html",
+        "chapter-five": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/guidelines-on-school-based-gifted-development-programmes/chapter-five.html",
+        "chapter-six": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/guidelines-on-school-based-gifted-development-programmes/chapter-six.html",
+        "identification-and-selection-procedures": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/guidelines-on-school-based-gifted-development-programmes/identification-and-selection-procedures.html",
+        "kla-exemplar": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/guidelines-on-school-based-gifted-development-programmes/kla-exemplar.html",
+        "appendices": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/guidelines-on-school-based-gifted-development-programmes/appendices.html"
       }
     },
     {
@@ -956,14 +968,15 @@
       "version_label": "2020",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "Seeded from existing guidelines.json public artifact.",
+      "notes": "Seeded from existing guidelines.json public artifact. | S207: `min_extract_chars` lowered — 呢個係 link-hub landing page,內容本來就短。舊 extract 係 mojibake（EDB 冇喺 header 出 charset → requests 當 ISO-8859-1）,亂碼令字元數虛脹先過到 200 字閘;encoding 修好後真文字反而過唔到,故按源下調。",
       "freshness_metadata": {
         "last_modified": "Wed, 08 Oct 2025 03:15:36 GMT",
         "content_length": "1789",
         "etag": "\"0bc97d0138dc1:0\"",
         "content_hash": "fac16f77cb19155473ad82d712675514362982e22872cfef789803174af357bb",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "min_extract_chars": 80
     },
     {
       "source_id": "g16",
@@ -1010,13 +1023,21 @@
       "version_label": "2011",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "Seeded from existing guidelines.json public artifact. | S146(2026-06-06): ingested to Channel B vector store (vault/g17)",
+      "notes": "Seeded from existing guidelines.json public artifact. | S146(2026-06-06): ingested to Channel B vector store (vault/g17) | S207: section_urls opt-in — 3 個 slug 喺 whole-school-approach-to-guidance-discipline/ (唔係 registry url_primary 嗰個 path),3 個附件 PDF 喺 searching-students-their-belongings-at-school/ 且 chunk 內已有 === Page N === → 連 #page=N 都指到。⚠️ 同 g14:唔好用 --fetch。",
       "freshness_metadata": {
         "last_modified": "Fri, 09 Dec 2022 10:05:30 GMT",
         "content_length": "1335",
         "etag": "\"a2da1dc5b5bd91:0\"",
         "content_hash": "903ff5d97bc6278d6fd56bee10fadbb590f15140c363983391a82a16876a5afb",
         "hash_checked_at": "2026-06-03"
+      },
+      "section_urls": {
+        "cornerstone": "https://www.edb.gov.hk/tc/teacher/student-guidance-discipline-services/principles-guidelines/whole-school-approach-to-guidance-discipline/cornerstone.html",
+        "development": "https://www.edb.gov.hk/tc/teacher/student-guidance-discipline-services/principles-guidelines/whole-school-approach-to-guidance-discipline/development.html",
+        "framework": "https://www.edb.gov.hk/tc/teacher/student-guidance-discipline-services/principles-guidelines/whole-school-approach-to-guidance-discipline/framework.html",
+        "general principles for searching students and their belongings at school_chi": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/principles-guidelines/searching-students-their-belongings-at-school/general%20principles%20for%20searching%20students%20and%20their%20belongings%20at%20school_chi.pdf",
+        "principles and procedures for searching a students belongings_chi": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/principles-guidelines/searching-students-their-belongings-at-school/principles%20and%20procedures%20for%20searching%20a%20students%20belongings_chi.pdf",
+        "principles and procedures for searching a students body_chi": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/principles-guidelines/searching-students-their-belongings-at-school/principles%20and%20procedures%20for%20searching%20a%20students%20body_chi.pdf"
       }
     },
     {
@@ -1139,14 +1160,15 @@
       "version_label": "2025",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "Seeded from existing guidelines.json public artifact.",
+      "notes": "Seeded from existing guidelines.json public artifact. | S207: `min_extract_chars` lowered — 呢個係 link-hub landing page,內容本來就短。舊 extract 係 mojibake（EDB 冇喺 header 出 charset → requests 當 ISO-8859-1）,亂碼令字元數虛脹先過到 200 字閘;encoding 修好後真文字反而過唔到,故按源下調。",
       "freshness_metadata": {
         "last_modified": "Mon, 15 Dec 2025 07:26:48 GMT",
         "content_length": "1458",
         "etag": "\"06c4b2c946ddc1:0\"",
         "content_hash": "13ffef60000d20c9d8d3d3cf982c387f6d48683cb93b6827f80b7f41f1d7a12a",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "min_extract_chars": 80
     },
     {
       "source_id": "g26",

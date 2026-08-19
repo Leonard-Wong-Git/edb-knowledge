@@ -79,7 +79,7 @@ except ImportError:
 # build_wiki_index's would re-hash every chunk it has ever written), but must not
 # keep its own copy of the RULE. Import the one definition instead.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from build_wiki_index import carry_pages  # noqa: E402
+from build_wiki_index import carry_pages, carry_sections  # noqa: E402
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
@@ -159,6 +159,51 @@ def source_override(source_id: str, key: str, default: int) -> int:
             break
     return default
 
+def source_section_urls(source_id: str) -> dict[str, str]:
+    """Per-source `section_urls` map from source_registry.json — opt-in, empty by default.
+
+    A crawled multi-page HTML source (g14, g17) stores every sub-page in ONE extract,
+    separated by `=== <section> ===`. `wiki_chunks.url` is a per-chunk column, so each
+    chunk can cite the sub-page it actually came from instead of the source landing
+    page — the "指章唔係指頁" fix, with no backend or frontend change. `#page=N` does
+    not exist for a web page; a section URL is the web equivalent of a page anchor.
+
+    The map is written out label-by-label rather than derived from a base + suffix:
+    a guessed URL that 404s is worse than no anchor at all, and every entry is
+    HEAD-verified before ingestion (see verify_section_urls).
+    """
+    for src in load_registry():
+        if src.get("source_id") == source_id:
+            val = src.get("section_urls")
+            return val if isinstance(val, dict) else {}
+    return {}
+
+
+def verify_section_urls(source_id: str, mapping: dict[str, str]) -> bool:
+    """HEAD every URL in a section map. Fail closed — one bad URL blocks the source.
+
+    Called before embedding, never after: a 404 written into wiki_chunks.url is
+    invisible until a user clicks it, and the served-url monitor only checks the
+    registry's own url_primary, not per-chunk URLs.
+    """
+    ok = True
+    for label, url in sorted(mapping.items()):
+        try:
+            resp = requests.head(url, headers=HTTP_HEADERS, timeout=30, allow_redirects=True)
+            code = resp.status_code
+            if code >= 400:  # some EDB pages refuse HEAD but serve GET
+                code = requests.get(url, headers=HTTP_HEADERS, timeout=30,
+                                    allow_redirects=True, stream=True).status_code
+        except Exception as e:
+            print(f"  ❌ {source_id}/{label}: {e}")
+            ok = False
+            continue
+        print(f"  {'✅' if code == 200 else '❌'} {code}  {label} → {url}")
+        if code != 200:
+            ok = False
+    return ok
+
+
 def get_extracted_source_ids() -> set[str]:
     """Return source IDs that already have a vault extract .txt file."""
     extracted = set()
@@ -229,6 +274,39 @@ def extract_pdf_text(url: str) -> str | None:
         return None
 
 
+# S207 — EDB pages wrap their content in the same seven chrome lines. BeautifulSoup
+# drops <nav>/<header>/<footer>, but EDB emits these inside the content column, so they
+# survive extraction and land in chunk text the user reads: a search hit on 資優課程
+# was showing "跳至主要內容 / 主要內容" before its first real sentence, and every
+# section ended in "頁首 / © 2022. 教育局版權所有 / 重要告示 / 私隱政策 / 網頁指南".
+# Whole-line exact matches only — never a substring — so a sentence that happens to
+# contain one of these words is untouched.
+WEB_CHROME_LINES = {
+    "跳至主要內容", "主要內容", "頁首", "重要告示", "私隱政策", "網頁指南",
+    "Skip to main content", "Main content", "Back to top",
+    "Important Notices", "Privacy Policy", "Sitemap",
+}
+WEB_CHROME_RE = re.compile(r'^©\s*\d{4}[.。]?\s*(教育局版權所有|Education Bureau.*)$', re.IGNORECASE)
+
+
+def strip_web_chrome(text: str) -> tuple[str, list[str]]:
+    """Drop EDB navigation / footer boilerplate. Returns (cleaned, removed_lines).
+
+    The removed lines are returned rather than logged away: re-ingesting a source
+    changes every chunk id, so the reviewer has to be able to prove the diff is
+    boilerplate and nothing else (S206 zero-content-drift gate).
+    """
+    kept, removed = [], []
+    for line in text.splitlines():
+        probe = line.strip()
+        if probe in WEB_CHROME_LINES or WEB_CHROME_RE.match(probe):
+            removed.append(probe)
+        else:
+            kept.append(line)
+    cleaned = re.sub(r"\n{3,}", "\n\n", "\n".join(kept)).strip()
+    return cleaned, removed
+
+
 def extract_html_text(url: str) -> str | None:
     """Fetch HTML page and extract main content text."""
     if not BS4_AVAILABLE:
@@ -242,6 +320,14 @@ def extract_html_text(url: str) -> str | None:
     except Exception as e:
         print(f"  ❌ Fetch failed: {e}")
         return None
+
+    # S207 — edb.gov.hk serves `Content-Type: text/html` with NO charset, so requests
+    # falls back to ISO-8859-1 while the document declares UTF-8 in its own <meta>.
+    # resp.text then mojibakes every Chinese character, and the extract is stored that
+    # way: g20 and g25 were live in Supabase as "å­¸æ ¡æ´»å..." — unsearchable and
+    # unreadable. Trust the sniffed encoding whenever the header did not really say.
+    if not resp.encoding or resp.encoding.lower() in ("iso-8859-1", "latin-1", "ascii"):
+        resp.encoding = resp.apparent_encoding or "utf-8"
 
     soup = BeautifulSoup(resp.text, "lxml")
 
@@ -270,6 +356,10 @@ def extract_html_text(url: str) -> str | None:
 
     # Collapse runs of 3+ blank lines
     text = re.sub(r"\n{3,}", "\n\n", text)
+
+    text, chrome = strip_web_chrome(text)
+    if chrome:
+        print(f"  🧹 Dropped {len(chrome)} navigation/footer lines")
 
     if len(text.strip()) < 200:
         print(f"  ⚠️  Very little text extracted from HTML ({len(text)} chars)")
@@ -401,9 +491,13 @@ def build_chunks_from_vault_file(extract_path: Path) -> list[dict]:
     # searchChannelB.ts) returns undefined and the UI can no longer point at a page —
     # measured on staff_est_pri: 4 of 81 chunks carried a page, 77 did not.
     # No-op (byte-identical, same text_hash) for sources whose extract has no markers.
-    texts = carry_pages(
-        chunk_text(body, max_chars=source_override(sid, "chunk_max_chars", CHUNK_MAX_CHARS))
-    )
+    raw_texts = chunk_text(body, max_chars=source_override(sid, "chunk_max_chars", CHUNK_MAX_CHARS))
+    texts = carry_pages(raw_texts)
+    # S207 — resolve each chunk to the sub-page it came from. Read off the PRE-carry
+    # chunks: carry_pages() prefixes `=== Page N ===`, which changes nothing here
+    # (carry_sections ignores page labels) but keeps the two rules independent.
+    section_urls = source_section_urls(sid)
+    sections = carry_sections(raw_texts) if section_urls else [None] * len(raw_texts)
     # Apply cap. CHUNK_CAP keeps one huge source from dominating the corpus, but it drops
     # the TAIL, so on a long reference document it silently discards the appendices — where
     # the Codes of Aid keep their staff establishment schedules. A source may raise its own
@@ -414,9 +508,10 @@ def build_chunks_from_vault_file(extract_path: Path) -> list[dict]:
     if len(texts) > cap:
         print(f"  ✂️  Capped at {cap} chunks (was {len(texts)})")
         texts = texts[:cap]
+        sections = sections[:cap]
 
     chunks = []
-    for text in texts:
+    for text, section in zip(texts, sections):
         h = text_hash(text)
         chunks.append({
             "id": f"vault_{sid}_{h}",
@@ -424,7 +519,9 @@ def build_chunks_from_vault_file(extract_path: Path) -> list[dict]:
             "text": text,
             "source_id": sid,
             "title": title,
-            "url": url,
+            # Unmapped section (or none carried yet) falls back to the header URL —
+            # a chunk never loses a working link by opting a source in.
+            "url": section_urls.get(section or "", url),
             "topic": topic,
             "content_type": "vault_extract",
             "fact_type": fact_type,
@@ -593,8 +690,14 @@ def run_fetch(sources_to_process: list[dict], dry_run: bool) -> list[Path]:
         elif stype == "html":
             body_text = extract_html_text(url)
 
-        if not body_text or len(body_text.strip()) < 200:
-            print(f"  ❌ Insufficient text extracted, skipping")
+        # S207 — the 200-char floor assumes a document page. A link-hub landing page
+        # (g20, g25) is legitimately short, and the floor used to be cleared only by
+        # accident: mojibake inflates each Chinese character into three latin-1 ones,
+        # so the BROKEN extract passed and the corrected one fails. Per-source
+        # `min_extract_chars` lets a known hub opt down; every other source keeps 200.
+        floor = source_override(sid, "min_extract_chars", 200)
+        if not body_text or len(body_text.strip()) < floor:
+            print(f"  ❌ Insufficient text extracted ({len((body_text or '').strip())} < {floor}), skipping")
             failed += 1
         else:
             path = write_vault_extract(source, body_text)
@@ -635,6 +738,15 @@ def run_embed(sources_to_embed: list[dict], dry_run: bool, api_key: str) -> None
             continue
 
         print(f"\n[{i}/{len(sources_to_embed)}] {sid}")
+
+        # S207 — fail closed on the section-URL map BEFORE spending embeddings or
+        # touching Supabase. A dead per-chunk URL is silent: no monitor reads it.
+        section_urls = source_section_urls(sid)
+        if section_urls:
+            print(f"  🔗 Verifying {len(section_urls)} section URLs…")
+            if not verify_section_urls(sid, section_urls):
+                print(f"  ⛔ {sid} skipped — section URL verification failed")
+                continue
 
         # Build chunks from ALL extract files for this source
         all_chunks: list[dict] = []
