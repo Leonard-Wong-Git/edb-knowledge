@@ -35,9 +35,9 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
-## 2026-08-19 Session 208 — 五個月里程碑回顧 + 三張分享圖（純溝通交付，零 code / 零資料改動）
+## 2026-08-20 Session 208 — 五個月里程碑回顧 + 三張分享圖（純溝通交付，零 code / 零資料改動）
 
-- **ID:** Claude_20260819_S208
+- **ID:** Claude_20260820_0826
 - **Summary:** Leonard 準備對外分享，要一份「由最初痛點到今日」嘅里程碑回顧，再要出圖。全 session **零 code / 零資料 / 零 Supabase / 零對外合約改動**；起手五項探針全綠（served v3.3.0 / Render `/health` warm 455 / HEAD==origin/main `2421fb5` / chunk 17,473 / 無頁碼 451）。
 - **① 挖歷史範圍：** `git log` 578 commit（2026-03-17 首 commit）+ SESSION_LOG S1–S207（含 `dev/archive/SESSION_LOG_2026_Q1~Q3.md` 共 14,196 行，Q1 最早條目 2026-03-09 早過 repo 首 commit）+ `PROJECT_MASTER_SPEC` §A/§B/§F + `PROJECT_DECISIONS` + `CODEBASE_CONTEXT`。
 - **② 敘事定調（回顧檔嘅骨幹）：** 起點唔係知識庫，係「EDB 通告分析系統」需求文件，同日轉調（冇知識庫嘅分析冇根據）→ 六階段：人手審核庫 / 雙通道＋向量搜尋（600 字元、overlap 60、810 片段、US$0.002）/ 資料質素治理（48% 重複、1,001→792→455）/ **★★ S119 轉捩點**（Leonard 實測五條 query 裁定原文搜尋贏、同日定「頁數可追溯」為北極星；診斷出 113 份 extract 只有 39 份帶頁標記）/ 功能爆發後收斂（S151 拆走成個 admin surface −1,176 行）/ 量度＋回頭執頁碼（S206 1,859→451、S207 指章）。
@@ -79,7 +79,7 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 (Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
 
-Current state (S208, 2026-08-19): 平台 v3.3.0; Supabase 17,473 chunks; source_registry 268;
+Current state (S208, 2026-08-20): 平台 v3.3.0; Supabase 17,473 chunks; source_registry 268;
 GUIDELINES_REGISTRY 177; 凍結合約 _meta 2.3.0 / facts 455 / guidelines.json 2.6.1 / 158 全部零接觸。
 S208 = 純溝通交付, 零 code / 零資料 / 零 Supabase / 零對外合約改動: 挖 578 commit + S1–S207 出
 dev/PROJECT_MILESTONES_REVIEW.md (五個月里程碑回顧: 六階段 / 數字弧線 / 功能生死簿 / 11 條紀律),

@@ -24,7 +24,7 @@
 
 ## Current Baseline
 
-> **🆕 S208（2026-08-19）—— 純溝通交付：五個月里程碑回顧 + 三張分享圖（零 code / 零資料改動）：** HEAD==origin/main；**Supabase 17,473 / `source_registry` 268 / `GUIDELINES_REGISTRY` 177 / 平台 v3.3.0 / 凍結合約（`_meta` 2.3.0 · facts 455 · `guidelines.json` 2.6.1 · 158）全部零接觸**，開工五項探針（served v3.3.0、Render `/health` warm 455、HEAD==origin/main、chunk=17,473、無頁碼=451）**全綠、逐項實測**。① Leonard 要準備對外分享，要一份由最初痛點講到今日嘅里程碑回顧。挖咗 **578 個 commit + S1–S207**（含 `dev/archive/SESSION_LOG_2026_Q1~Q3.md` 共 14,196 行）+ PMS + PROJECT_DECISIONS，出 `dev/PROJECT_MILESTONES_REVIEW.md`（六階段敘事 / 數字弧線 / 功能生死簿 / 11 條紀律）。② 敘事定調：**核心轉捩點係 S119 —— Leonard 親手實測五條 query 後裁定「原文搜尋贏、人手事實庫係雜訊」，同日定「頁數可追溯」為北極星**；跟住診斷出頁碼根本冇入語料（113 份 extract 只有 39 份帶標記），兩步救到今日 97.4%。③ 出 `dev/INFOGRAPHIC_PROMPT.md` 三條自足 prompt（A 長圖 / B 16:9 / C 三個反直覺發現），**指定輸出 PNG、繁中、書面語**，並寫明唔好用純圖像生成模型（中文密集文字會出豆腐字）。④ Leonard 再要 PNG，三張全部本地 headless Chrome render 完成，存 `dev/design/`。⑤ **QC 揪出並更正自己兩個數**：登記來源起點（唔係「8 份底稿」，registry 係 S48 先建）、公開分頁起點（唔係 4，S74 鎖定架構係 6 個 tab）。⑥ **一個要記住嘅環境事實**：本機**冇 PingFang**，繁中靠 `STHeiti` / `Songti TC` 兜底；換機重出圖前必須先確認字體，否則出咗豆腐字先發現。⑦ 本 session **零 OP 推進** —— Open Priorities ①–⑥ 原封不動，唔好誤讀成有進展。
+> **🆕 S208（2026-08-20）—— 純溝通交付：五個月里程碑回顧 + 三張分享圖（零 code / 零資料改動）：** HEAD==origin/main；**Supabase 17,473 / `source_registry` 268 / `GUIDELINES_REGISTRY` 177 / 平台 v3.3.0 / 凍結合約（`_meta` 2.3.0 · facts 455 · `guidelines.json` 2.6.1 · 158）全部零接觸**，開工五項探針（served v3.3.0、Render `/health` warm 455、HEAD==origin/main、chunk=17,473、無頁碼=451）**全綠、逐項實測**。① Leonard 要準備對外分享，要一份由最初痛點講到今日嘅里程碑回顧。挖咗 **578 個 commit + S1–S207**（含 `dev/archive/SESSION_LOG_2026_Q1~Q3.md` 共 14,196 行）+ PMS + PROJECT_DECISIONS，出 `dev/PROJECT_MILESTONES_REVIEW.md`（六階段敘事 / 數字弧線 / 功能生死簿 / 11 條紀律）。② 敘事定調：**核心轉捩點係 S119 —— Leonard 親手實測五條 query 後裁定「原文搜尋贏、人手事實庫係雜訊」，同日定「頁數可追溯」為北極星**；跟住診斷出頁碼根本冇入語料（113 份 extract 只有 39 份帶標記），兩步救到今日 97.4%。③ 出 `dev/INFOGRAPHIC_PROMPT.md` 三條自足 prompt（A 長圖 / B 16:9 / C 三個反直覺發現），**指定輸出 PNG、繁中、書面語**，並寫明唔好用純圖像生成模型（中文密集文字會出豆腐字）。④ Leonard 再要 PNG，三張全部本地 headless Chrome render 完成，存 `dev/design/`。⑤ **QC 揪出並更正自己兩個數**：登記來源起點（唔係「8 份底稿」，registry 係 S48 先建）、公開分頁起點（唔係 4，S74 鎖定架構係 6 個 tab）。⑥ **一個要記住嘅環境事實**：本機**冇 PingFang**，繁中靠 `STHeiti` / `Songti TC` 兜底；換機重出圖前必須先確認字體，否則出咗豆腐字先發現。⑦ 本 session **零 OP 推進** —— Open Priorities ①–⑥ 原封不動，唔好誤讀成有進展。
 
 > **🆕 S207（2026-08-19）—— 指章唔係指頁：per-chunk 子頁 URL + g14/g17 三缺陷 + 兩個源解亂碼：** HEAD==origin/main @ `3dc9952`（`a7ad697` 管道／資料 + `3dc9952` 後端顯示）；**Supabase 17,473 不變**（91 刪 91 入）、`source_registry` **268 不變**、`GUIDELINES_REGISTRY` **177 不變**、平台 **v3.3.0 不變**、凍結合約零接觸（`_meta` 2.3.0 / facts 455 / `guidelines.json` 2.6.1 / 158）。① **OP① 完成（g14 + g17）：** `wiki_chunks.url` 本身就係 per-chunk 欄位 —— 只係入庫時全部填同一個 landing 頁，所以修法**前端／後端／schema 一律唔使改**。新 `carry_sections()`（`build_wiki_index.py`，同 `carry_pages` 同一契約、無標記源全 None = 完全 no-op）+ `source_registry.json` `section_urls` opt-in map。**g14 76 條 → 10 個子頁；g17 13 條 → 6 個目標（3 子頁 + 3 附件 PDF，後者仲保住 `#page=N`，live 實見 `page=3`）。** ② **交接講少咗：** 交接寫「只有 g14 有真 slug」，實測 g17 頭 3 個標記亦係真子頁（喺 `whole-school-approach-to-guidance-discipline/`，唔喺 registry `url_primary` 之下），故 g17 6/6 都指得到。③ **Fail-closed 閘第一次跑就捉到自己個錯**（3 條附件 PDF 漏 `/attachment` 前綴 → 404）；per-chunk URL 冇任何監察讀，冇呢個閘就會靜靜哋入庫。④ **兩個 regex 陷阱：**(a) chunker overlap 用空格接尾巴 → 標記甩行錨 → 行錨 regex **靜靜哋只認到全文第一個標記**；(b) 放寬行錨後，兩個相鄰頁碼標記夾住正文 → 讀成章節名，全庫 **847 個幻影 label / 135 源**。正解係**兩步（先剷頁碼、再認段落）**，同一次序喺 `cleanChunkText` 亦係 load-bearing。⑤ **OP② 三缺陷全清：** title 計劃→課程（**只有 vault extract 一份錯，三個公開鏡像本來就啱**）、22 條標記外洩喺 `cleanChunkText` 一次過修（覆蓋全庫 past+future、零 chunk id 成本）、91 行 EDB nav/footer chrome 由新 `strip_web_chrome()` 剷走。⑥ **額外揪出 g20/g25 生產庫亂碼：** EDB 唔出 charset → requests 跌返 ISO-8859-1；**個 200 字守門一直放行佢哋，正正因為亂碼撐大咗字元數**。已加 `min_extract_chars` override。g25 而家喺「幼稚園售賣教育用品收費服務指引」score **0.753** 命中（以前完全搜唔到）。⑦ **eval：** 30 SAME / 2 RANK_SHIFT / **1 SET_ADDED（`kg_admission` 多咗 g25）** / 0 regression；1 條 error 係 Supabase `57014` 暫時性 timeout，live 重試 3 次回傳同 baseline 一致。
 
@@ -242,7 +242,7 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## Open Priorities
 
-> **🔜 S208（2026-08-19）重生檢查：本 session 係純溝通交付（里程碑回顧 + 分享圖），零 OP 推進。逐項覆核後 ①–⑥ 全部仍然未完成、排序不變、內容不變，故整份保留 —— 呢個係「核完之後決定不變」，唔係冇重生。掃過 S208 記錄亦冇新增待辦項。**（S207 當時：舊 ①② 完成移除、舊 ③④⑤⑥⑦ 上移為 ①②③④⑤、新增 ⑥。）
+> **🔜 S208（2026-08-20）重生檢查：本 session 係純溝通交付（里程碑回顧 + 分享圖），零 OP 推進。逐項覆核後 ①–⑥ 全部仍然未完成、排序不變、內容不變，故整份保留 —— 呢個係「核完之後決定不變」，唔係冇重生。掃過 S208 記錄亦冇新增待辦項。**（S207 當時：舊 ①② 完成移除、舊 ③④⑤⑥⑦ 上移為 ①②③④⑤、新增 ⑥。）
 
 ① **【原 ③，根因已重新定位，必須重出 PLAN】檢索「可見 ≠ 見到啱嗰段」。** S206 live 重現後**唔可以再照原方案做**：交接寫嘅兩個修法（改 spotlight 條件／擴 synthesis 窗）實測都修唔到 `staff_est_pri` 呢個 case —— 正確資料行 exact cosine **0.6049 排源內 14/81**，而源內最高 0.6537 係**零數據嘅表頭行**（擴窗只會加入其他來源；改 spotlight 只會把表頭行插上 lead slot）。真正卡住嘅係「12 班」呢個數字喺 embedding 上贏唔到腳註同兄弟行（7/8/10/11 班）。另實測 `detectQueryCategory` 對自然口語（「12班小學有幾多個學位教師」「幾多班幾多老師」）**兩條都 `null`**，S204 加嘅「編制」route 唔 fire。**注意 playbook `embedding-cosine-overfire-lexical-gate` 明寫「短 query retrieval ranking 唔好硬 gate」→ 排除硬 lexical gate，要做只能做 soft re-rank。**
 
@@ -276,8 +276,8 @@ source_registry → same vault PDFs → ai_extract.py
 - **雲端 OCR 引擎選項**（image-PDF ingestion 升級線，S180 評估）：Google Vision `DOCUMENT_TEXT_DETECTION`（逐字信心 + bounding box、每月 1,000 單位永久免費 + ~$1.50/1,000、要綁卡開 billing）／Mistral OCR（Markdown+表格、~$2/1,000）——比現用 `gpt-4o` 圖像 OCR「draft 質」可能更準更平，且 bbox 可餵返 grid 重建。命中 image-PDF 質素問題（如 DEBP 主藍圖 ~16 圖像頁）先評估：**真檔實測 + 開 Google billing**（ingestion 處理公開文件、無未成年私隱顧慮；後端已存在故唔需要 brief 嗰套 serverless key-proxy）。詳見 playbook inbox 提案 `2026-06-24-edb-knowledge-cloud-ocr-engine-options.md` + `doc-extract-method-ladder` 卡。出處：Leonard 一份 OCR 收費版 brief（2026-06，已核實價）。
 
 ## Last Session Record
-1. UTC date: 2026-08-19
-2. Session ID: Claude_20260819_S208 — S208。純溝通交付 session（read-only 分析 + 新文件），零 code / 資料 / Supabase / 對外合約改動。
+1. UTC date: 2026-08-20
+2. Session ID: Claude_20260820_0826 — S208。純溝通交付 session（read-only 分析 + 新文件），零 code / 資料 / Supabase / 對外合約改動。
 3. Completed:
    - ✅ **`dev/PROJECT_MILESTONES_REVIEW.md`**（新）—— 由 2026-03-09 原始痛點到今日嘅里程碑回顧：六階段敘事、數字弧線、**功能生死簿（加咗又刪咗）**、11 條紀律、一條由頭到尾嘅線。挖 578 commit + S1–S207 + 三個季度封存 log。
    - ✅ **`dev/INFOGRAPHIC_PROMPT.md`**（新，後按 Leonard 要求整份重寫）—— 三條自足 prompt，**指定輸出 PNG、繁體中文、書面語**，內含全部數字，收圖 agent 唔使查任何嘢；明寫唔好用純圖像生成模型。
@@ -285,7 +285,7 @@ source_registry → same vault PDFs → ai_extract.py
    - ✅ **DOC_SYNC row 26 兌現**：`CODEBASE_CONTEXT.md` Directory Map 加 5 條（2 個 md + 3 組 html/png）+ 重出圖方法 + 字體注意 + AI Maintenance Log S208。
 4. QC：所有 load-bearing 數字**逐個對返源**（`git rev-list --count`=578；chunk 弧線末端 17,473 = live 探針；97.4% = (17473−451)/17473 實算 97.42%；600/60 切片參數由 `build_wiki_index.py:59-60` 讀出；4 個公開 tab 由 `app.html` `FEATURE_TABS` 讀出；5 個監察由 `.github/workflows/` 實 list）。三張 PNG 逐張開圖肉眼檢查：零切字、零豆腐字、零爆版。`git status` 證零 code / 資料檔改動。
 5. 未完成：Open Priorities ①–⑥ 全部原封未動（本 session 零 OP 推進）；Backlog 不變。
-6. 關鍵教訓：(a) **「報一個數之前打開實例親眼睇」呢條紀律，喺寫回顧時一樣中** —— 我兩個起點數字（登記來源 8、公開分頁 4）都係憑印象寫，對源之後兩個都錯。(b) **出中文圖要先驗字體**：本機冇 PingFang，繁中靠 STHeiti 兜底；唔驗就會出咗豆腐字先發現。(c) 中途 `milestones_infographic.png` 一度喺磁碟消失（生成後、下一步之前），重出即解決 —— 交付圖檔前要 `ls` 實證存在，唔好靠「我頭先生成過」。
+6. 關鍵教訓：(a) **「報一個數之前打開實例親眼睇」呢條紀律，喺寫回顧時一樣中** —— 我兩個起點數字（登記來源 8、公開分頁 4）都係憑印象寫，對源之後兩個都錯。(b) **出中文圖要先驗字體**：本機冇 PingFang，繁中靠 STHeiti 兜底；唔驗就會出咗豆腐字先發現。(c) 中途 `milestones_infographic.png` 一度喺磁碟消失（生成後、下一步之前），重出即解決 —— 交付圖檔前要 `ls` 實證存在，唔好靠「我頭先生成過」。 (d) **同一 session 第三次憑印象出錯**：收工成份文件寫咗 `2026-08-19`，但 `date -u` 實測係 **2026-08-20**（本機喺 BST，唔係 HKT）—— 我跟住 S207 個日期抄落嚟。Leonard 問「未 commit 去 playbook？」時順手發現並全部修正。**日期同數字一樣，係要查唔係要記。**
 7. commits：見本次 closeout commit（純文件 + 圖）。
 
 ## Previous Session Record (S207)
@@ -685,11 +685,11 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## State Reconciliation Check
 
-- **Reconciled at:** 2026-08-19 (S208 closeout — Leonard「做埋 B C，然後收工」)
+- **Reconciled at:** 2026-08-20 (S208 closeout — Leonard「做埋 B C，然後收工」)
 - **S208 state sections rewritten or confirmed current:** `Current Baseline`（prepend S208 段：交付物、敘事定調、兩個自我更正、字體環境事實、明寫零 OP 推進；S207 及更早段原文保留）；`Open Priorities`（**逐項覆核後決定整份不變**，banner 已重寫講明係「核完決定不變」而非跳過重生）；`Last Session Record`（S208 全新；S207 整段降為 `Previous Session Record (S207)`，內容一字未改，只改咗其中一句已完成事項嘅 stale 描述，見下）；`Next Session Opening Message`（整段重生）。`Architecture Decisions` / `User Environment` / `Mandatory Start Checklist` / `Regression Notes` / `Backlog` / `Supabase Technical Notes` 逐段核過，**確認 current、無需要改**（本 session 零 code / 資料改動，佢哋本來就冇受影響）。
 - **S208 lifecycle check:** 對得上。`Completed This Session` 全部係新文件 + 新圖，**冇一項出現喺 NEXT**；`Next Priorities` ①–⑥ **冇一項喺 Completed 出現過**（本 session 冇掂過任何 OP）。`Risks` 零新增（純文件交付、無 live surface）。**主動修正一項 lifecycle 殘留**：S207 記錄第 5 點原寫「SESSION_LOG 已過 400 行門檻…留待收工做」，但該歸檔其實 S207 收工已完成（現 215 行 / 2 entry，`--check` = trigger=False，S208 起手實跑覆核），已改為完成式 —— 免下個 agent 當佢係未做嘅待辦。同一句 stale 描述亦已由開場白清走。
 - **S208 persistence routing checked:** 是。當前狀態→handoff `Current Baseline` + `Last Session Record`；session trace / QC 證據 / 數字對源→`SESSION_LOG.md` S208 entry；**檔案地圖 + 可重用操作規程**→`CODEBASE_CONTEXT.md` Directory Map（5 條新項目 **連埋三張圖嘅重出指令同字體注意**，唔淨係列檔名）+ AI Maintenance Log；交付物本身→`dev/PROJECT_MILESTONES_REVIEW.md` / `dev/INFOGRAPHIC_PROMPT.md` / `dev/design/*`。**冇一項只留喺 handoff 或 log。** `PROJECT_DECISIONS.md` **不觸發**：本 session 冇新架構決策、冇 trade-off，只係把已有歷史重述成對外材料。
-- **S208 stale snapshots left:** 無。**主動記低本 session 自己報錯咗兩個數**：回顧檔初稿寫「登記來源 8 份底稿」（實情 registry S48 先建，正確係 120→151→244→268）同「公開分頁 4 → 8 → 4」（實情起點係 6，S74 鎖定架構已有 6 個 tab），兩個都係憑印象寫、對源之後更正，兩份檔已改、殘留檢查 clean。呢兩個錯**唔靜靜哋改走**，寫入 `Last Session Record` 教訓 (a)。
+- **S208 stale snapshots left:** 無。**收工後修正一項自己嘅錯**：S208 全份文件原本寫 UTC 日期 `2026-08-19`（跟 S207 抄），`date -u` 實測係 `2026-08-20`（本機 BST）；handoff / log / CODEBASE_CONTEXT / 開場白 / `START_NEXT_SESSION_PROMPT.txt` / 回顧圖 A 嘅「今日狀態」全部已改，Session ID 一併由 `Claude_20260819_S208` 正規化為 `Claude_20260820_0826`（合 §12 格式）。S207 及更早嘅 `2026-08-19` **冇郁**，嗰個係真嘅。**主動記低本 session 自己報錯咗兩個數**：回顧檔初稿寫「登記來源 8 份底稿」（實情 registry S48 先建，正確係 120→151→244→268）同「公開分頁 4 → 8 → 4」（實情起點係 6，S74 鎖定架構已有 6 個 tab），兩個都係憑印象寫、對源之後更正，兩份檔已改、殘留檢查 clean。呢兩個錯**唔靜靜哋改走**，寫入 `Last Session Record` 教訓 (a)。
 - **S208 opening message matches current state:** 是。整段重生並逐項對過：state header＝S208 / Supabase 17,473 / registry 268 / GUIDELINES_REGISTRY 177 / v3.3.0 / 凍結合約四個值 —— 全部同 `Current Baseline` 及開工探針一致；NEXT ①–⑥ 同 `Open Priorities` 逐條對；stale 嘅「收工待辦：log 歸檔」一句已清走。`START_NEXT_SESSION_PROMPT.txt` 由本 fenced block 重生並跑 mirror check。
 - **S208 sync status:** DOC_SYNC **row 26「Knowledge operating architecture / planning doc」命中並兌現**（`CODEBASE_CONTEXT.md` Directory Map ✓ + AI Maintenance Log ✓；`SESSION_HANDOFF` priorities / risks **N/A** —— 冇 follow-up work 改變；`SESSION_LOG` task entry ✓）。**唔命中嘅 row 明確記低：** row 44「New user-facing feature」唔命中（零 backend endpoint、零前端 surface）；row 37 / 39 / 42 / 43（檢索、閘、eval、judge）一律唔命中（零 code 改動）。**凍結合約、`PLATFORM_VERSION`、Supabase、Render、GitHub Pages 全部零接觸**，故無 display-sync、無 redeploy。
 - **舊記錄（S207 closeout）：**
@@ -856,7 +856,7 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 (Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
 
-Current state (S208, 2026-08-19): 平台 v3.3.0; Supabase 17,473 chunks; source_registry 268;
+Current state (S208, 2026-08-20): 平台 v3.3.0; Supabase 17,473 chunks; source_registry 268;
 GUIDELINES_REGISTRY 177; 凍結合約 _meta 2.3.0 / facts 455 / guidelines.json 2.6.1 / 158 全部零接觸。
 S208 = 純溝通交付, 零 code / 零資料 / 零 Supabase / 零對外合約改動: 挖 578 commit + S1–S207 出
 dev/PROJECT_MILESTONES_REVIEW.md (五個月里程碑回顧: 六階段 / 數字弧線 / 功能生死簿 / 11 條紀律),
