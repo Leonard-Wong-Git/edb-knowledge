@@ -286,7 +286,8 @@ source_registry → same vault PDFs → ai_extract.py
 4. QC：所有 load-bearing 數字**逐個對返源**（`git rev-list --count`=578；chunk 弧線末端 17,473 = live 探針；97.4% = (17473−451)/17473 實算 97.42%；600/60 切片參數由 `build_wiki_index.py:59-60` 讀出；4 個公開 tab 由 `app.html` `FEATURE_TABS` 讀出；5 個監察由 `.github/workflows/` 實 list）。三張 PNG 逐張開圖肉眼檢查：零切字、零豆腐字、零爆版。`git status` 證零 code / 資料檔改動。
 5. 未完成：Open Priorities ①–⑥ 全部原封未動（本 session 零 OP 推進）；Backlog 不變。
 6. 關鍵教訓：(a) **「報一個數之前打開實例親眼睇」呢條紀律，喺寫回顧時一樣中** —— 我兩個起點數字（登記來源 8、公開分頁 4）都係憑印象寫，對源之後兩個都錯。(b) **出中文圖要先驗字體**：本機冇 PingFang，繁中靠 STHeiti 兜底；唔驗就會出咗豆腐字先發現。(c) 中途 `milestones_infographic.png` 一度喺磁碟消失（生成後、下一步之前），重出即解決 —— 交付圖檔前要 `ls` 實證存在，唔好靠「我頭先生成過」。 (d) **同一 session 第三次憑印象出錯**：收工成份文件寫咗 `2026-08-19`，但 `date -u` 實測係 **2026-08-20**（本機喺 BST，唔係 HKT）—— 我跟住 S207 個日期抄落嚟。Leonard 問「未 commit 去 playbook？」時順手發現並全部修正。**日期同數字一樣，係要查唔係要記。**
-7. commits：見本次 closeout commit（純文件 + 圖）。
+7. commits：`052c646`（交付物 + closeout）→ `7c7c5f5`（日期更正）→ 本 entry。Playbook：`d96dc25`（S207 欠低嘅 4 份）→ `cbfa060`（S208 提案 + usage）→ `250e206`（merge librarian）全部已 push。
+8. 🔴 **順手揪出 S207 留底從未 commit**（檔寫咗、冇 `git add`，但收工紀錄寫「交咗」）—— 已補交。**§14 留底要 commit + push 先算數；收工前實查 `git status`，唔好靠「我寫咗個檔」。**
 
 ## Previous Session Record (S207)
 1. UTC date: 2026-08-19

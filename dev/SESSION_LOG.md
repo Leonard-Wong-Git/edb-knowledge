@@ -70,6 +70,11 @@ dev/DOC_SYNC_REGISTRY.md
 - **Sync:** DOC_SYNC **row 26「Knowledge operating architecture / planning doc」命中並兌現**（Directory Map ✓ / AI Maintenance Log ✓ / handoff priorities N/A —— 冇 follow-up work 改變 / 本 log entry ✓）。**唔命中：** row 44（無 endpoint、無前端 surface）、row 37/39/42/43（零 code 改動）。凍結合約 / `PLATFORM_VERSION` / Supabase / Render / Pages 全部零接觸 → 無 display-sync、無 redeploy。`PROJECT_DECISIONS.md` 不觸發（無新架構決策，只係把既有歷史重述成對外材料）。
 - **Pending:** Open Priorities ①–⑥ 原封不動（本 session 零 OP 推進）。Backlog 不變。
 - **Risks:** 無新增。⚠️ 回顧檔同三條 prompt 內嘅數字係 **2026-08-19 快照**；日後入庫會令 chunk / registry 數字過時，改字要 `PROJECT_MILESTONES_REVIEW.md` + `INFOGRAPHIC_PROMPT.md` + 三個 HTML 一齊改（三處都寫死咗數字）。
+- **Playbook 留底（§14，Leonard 追問「未 commit 去 playbook？」後補做）:**
+  - 交 `inbox/2026-08-20-policychecker-cjk-infographic-render-yourself.md` —— 中文密集資訊圖唔好交俾 image agent、自己 HTML → headless 截圖，連三個實測坑（字體堆疊要驗 / 長圖 auto-crop / 固定高度 `overflow:hidden` 要驗底部）。狀態老實標 **building-block**（一部機、一個 session、一個 OS）。
+  - **查重命中現有卡 `conventions/system-mechanism-infographic-prompt.md`** —— 嗰張講「點寫 prompt 交俾 design/image agent」，五條硬規則我照跟；但佢**通篇假設交俾 image agent**，而 CJK 密集文字場景實測會爆。按 §3b「整合先於新增」，提案明寫**請 librarian 併入嗰張卡而唔好開新平行卡**，並指出呢個張力。`usage/policychecker.log.md` +1 行 lookup。
+  - 🔴 **順手發現 S207 嘅留底其實從未 commit**：4 份 proposal 檔寫咗落 disk 就冇 `git add`，但 S207 收工紀錄同 handoff 都寫「Playbook inbox 交咗 4 份 proposal」。已一併 commit（`d96dc25`）。**教訓：寫咗檔 ≠ 交咗；§14 留底要 commit + push 先算數，收工要實查 `git status`。**
+  - 本地仲有 **8 個其他 project 嘅 commit 一直未 push**（小學科學科 usage ×5 + inbox ×1、edb-circular inbox ×1），遠端有 **2 個 librarian commit 未 pull**（已處理 5 份 P6Sci 提案、出咗 4 張新卡）。`git merge-tree` 先驗零衝突，行 merge（非 rebase，唔重寫其他 session 嘅 commit）後全部 push。playbook HEAD == origin/main、tree 乾淨。
 - **Log maintenance:** `session_log_maintenance.py --check` = **trigger=False**（215 行 / 2 entry，加本 entry 後仍 <400 行、最舊 entry 2026-08-18 <30 日）→ no-op，無 archive。順帶覆核：S207 記錄第 5 點寫住「log 已過 400 行、留待收工做」係 **stale**（該歸檔 S207 收工已完成），已喺 handoff 同開場白清走。
 
 ### Next Session Handoff Prompt (Verbatim)
