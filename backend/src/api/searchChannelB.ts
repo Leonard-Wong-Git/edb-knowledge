@@ -366,6 +366,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "faq_edbc19011", "edbc19011", "ppt_grad_pri_policy", "ppt_grad_pri_faq",
     "edbc00030",                 // 教育局通告第30/2000號
     "coa_pri_e", "coa_ss_e",     // 資助則例 (英文版本 — EDB 無中文版; 載非教學人員編制條款)
+    "edbcm135_2026",              // (auto) Option A watcher ingest
   ],
 
   /**
@@ -1114,6 +1115,7 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   "edbc19011",            // 12 chunks
   "faq_edbc19011",        // 17 chunks
   "edbcm099_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
+  "edbcm135_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   // ack:spotlight:end
 ];
 
