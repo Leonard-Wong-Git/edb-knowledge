@@ -242,6 +242,7 @@ const SOURCE_SETS: Record<string, string[]> = {
   placement: [
     "edbc18_2019_sspa", "stims_guide_2025", "s4_placement_2026",
     "role_facts_general",
+    "edbcm099_2026",              // (auto) Option A watcher ingest
   ],
   conduct: [
     "g05",
@@ -1112,6 +1113,7 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   "ppt_grad_pri_policy",  // 7 chunks
   "edbc19011",            // 12 chunks
   "faq_edbc19011",        // 17 chunks
+  "edbcm099_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   // ack:spotlight:end
 ];
 

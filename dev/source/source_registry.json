@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-08-18",
+    "updated": "2026-08-21",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -7417,6 +7417,26 @@
       "supersedes": null,
       "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 ⚠️ 只有英文版（同上）。 chunk_cap=800（預設 300 會截走文件尾段；S204 實核被丟嗰半含 APPENDIX 標題 + 11 條 clerical/文書人員內容，即非教學人員編制條款。只放寬本源，其餘源不變）。 S206 repage：本源 chunk 已全部帶 `=== Page N ===`（頁碼由 backend `extractDominantPage` 喺 chunk 文字度 read-time 解析，唔係 DB 欄位）。成因係 `expand_vault.py` 兩層都甩頁碼：抽 PDF 時冇寫標記、切 chunk 時冇 carry。兩層已修（commit 98dfbf8 + 5fa7343）。日後 refresh 照跑 `--fetch --force` + `--embed --force` 即可，頁碼會自動帶返；refresh 前後應核 markers==pages。",
       "chunk_cap": 800
+    },
+    {
+      "source_id": "edbcm099_2026",
+      "title": "中學學位分配辦法 學校網的安排",
+      "title_en": null,
+      "title_short": "中學學位分配辦法 學校網的安排",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26099C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26099C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "finance"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-08-21",
+      "supersedes": null,
+      "notes": "(auto, Option A executor) EDBCM099/2026. route=placement, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
     }
   ]
 }
