@@ -200,6 +200,24 @@ def run_self_test() -> int:
     check("enumeration: preserves existing noise label",
           mixed[0]["likely_noise"] == "filename-pattern" and n_mixed == 30)
 
+    # first-seen ledger (S209) — the report must say what is NEW, not re-announce
+    # a backlog that only grows.
+    recs = [{"url": "https://e/old.pdf"}, {"url": "https://e/fresh.pdf"}]
+    ledger = mark_first_seen(recs, {"https://e/old.pdf": "2026-01-01"}, "2026-08-24")
+    check("first_seen: a url already in the ledger keeps its original date",
+          recs[0]["first_seen"] == "2026-01-01" and recs[0]["is_new"] is False)
+    check("first_seen: an unseen url is stamped today and marked new",
+          recs[1]["first_seen"] == "2026-08-24" and recs[1]["is_new"] is True)
+    check("first_seen: the returned ledger covers exactly this crawl",
+          set(ledger) == {"https://e/old.pdf", "https://e/fresh.pdf"})
+    gone = mark_first_seen([{"url": "https://e/fresh.pdf"}],
+                           {"https://e/old.pdf": "2026-01-01",
+                            "https://e/fresh.pdf": "2026-08-01"}, "2026-08-24")
+    check("first_seen: a candidate that left the crawl is pruned from the ledger",
+          "https://e/old.pdf" not in gone)
+    check("first_seen: a missing ledger file makes everything new",
+          load_seen(None) == {} and load_seen("/nonexistent/path.json") == {})
+
     print(f"\nSelf-test: {'ALL PASS' if f == 0 else f'{f} FAIL'}")
     return 1 if f else 0
 
@@ -247,6 +265,38 @@ def render_ledger(by_page: Dict[str, List[Dict]], today: str, pages: int,
     return "\n".join(lines) + "\n"
 
 
+def load_seen(path: Optional[str]) -> Dict[str, str]:
+    """url → first-seen date. Missing / unreadable ledger = everything is new."""
+    if not path or not Path(path).exists():
+        return {}
+    try:
+        return json.loads(Path(path).read_text(encoding="utf-8")).get("first_seen", {})
+    except Exception:                                        # noqa: BLE001
+        return {}
+
+
+def mark_first_seen(records: List[Dict], seen: Dict[str, str], today: str) -> Dict[str, str]:
+    """Stamp each record with `first_seen` / `is_new` and return the updated ledger.
+
+    Why this exists (S209): the crawl was stateless, so every run re-announced the
+    whole backlog — 238 documents sitting on EDB index pages that are not in the
+    registry, most of which never will be. A number that only grows stops being a
+    signal. What is worth a person's attention is what appeared since last time.
+
+    The ledger is pruned to the current crawl: a candidate that has been ingested
+    (so it is now in the registry and no longer a candidate) or has vanished
+    upstream drops out, and if it ever comes back it is correctly new again.
+    """
+    updated: Dict[str, str] = {}
+    for rec in records:
+        url = rec["url"]
+        first = seen.get(url)
+        rec["first_seen"] = first or today
+        rec["is_new"] = first is None
+        updated[url] = rec["first_seen"]
+    return updated
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--self-test", action="store_true", help="Offline logic assertions and exit")
@@ -255,6 +305,9 @@ def main():
     ap.add_argument("--limit", type=int, default=0, help="Crawl only the first N watch pages")
     ap.add_argument("--changes-out", default="discovered_sources.json")
     ap.add_argument("--ledger", default=None)
+    ap.add_argument("--seen-ledger", dest="seen_ledger", default=None,
+                    help="JSON file recording when each candidate was first seen, so the "
+                         "report can say what is NEW rather than re-listing the backlog")
     args = ap.parse_args()
 
     if args.self_test:
@@ -320,6 +373,18 @@ def main():
     new_count = len(new_records)
     likely_real = [r for r in new_records if not r["likely_noise"]]
 
+    seen_before = load_seen(args.seen_ledger)
+    updated_seen = mark_first_seen(new_records, seen_before, today)
+    first_time = [r for r in likely_real if r["is_new"]]
+    if args.seen_ledger:
+        try:
+            Path(args.seen_ledger).write_text(
+                json.dumps({"updated_at": today, "first_seen": updated_seen},
+                           ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
+            print(f"🗂  Seen ledger: {args.seen_ledger} ({len(updated_seen)} tracked)")
+        except Exception as e:                               # noqa: BLE001
+            print(f"  ⚠️ Could not write seen ledger: {e}")
+
     report = {
         "generated_at": today,
         "watch_pages": len(watch),
@@ -328,6 +393,9 @@ def main():
         "likely_real": len(likely_real),
         "js_suspect_pages": js_suspect,
         "page_errors": errors,
+        "first_time": len(first_time),
+        "backlog": len(likely_real) - len(first_time),
+        "seen_ledger_tracked": len(seen_before),
         "candidates": new_records,
     }
     try:
@@ -349,6 +417,9 @@ def main():
     print(f"  Watch pages:     {len(watch)}")
     print(f"  New candidates:  {new_count}  (likely-real: {len(likely_real)}, "
           f"flagged-noise: {new_count - len(likely_real)})")
+    if args.seen_ledger:
+        print(f"  First seen now:  {len(first_time)}  "
+              f"(backlog carried over: {len(likely_real) - len(first_time)})")
     print(f"  js_suspect:      {js_suspect}")
     print(f"  Page errors:     {errors}")
 

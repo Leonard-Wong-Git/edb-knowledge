@@ -104,6 +104,8 @@
 - `dev/source/check_expiry.py` — **S209 NEW，第 6 監察**：問其餘五個監察問唔到嗰條問題 ——「呢份嘢仲應唔應該留喺庫入面？」（其餘五個問：上游有冇變／連結通唔通／有冇漏咗／係咪嗰份文件／有冇新通告）。`--check` 只報告；`--purge` 要明確 source 清單，而且**逐個核**：唔係 `lifecycle: ephemeral` 又過咗 `expires_on` 就拒絕，所以剔錯／分類器出錯都刪唔到一份指引。已清走嘅源（chunks=0）自動由待辦名單跌落「已清走」計數，唔會永遠掛住。`--self-test` **22 條**、`--prove-assertions` 用 no-op 規則證會紅（13 條）、`--classify` 只提案唔寫。
 - `dev/source/execute_ingest.py` — 入庫時 `plan_registry_entry()` 順手 stamp `lifecycle` / `expires_on` / `expiry_basis` / `covers_period`（S209）；另 `live_total_count()` 令公開片段數由 Supabase 讀返而唔係流水帳累加。
 - ops repo `.github/workflows/expiry-issue.yml` — **S209 NEW**：每週二 11:00 UTC 掃一次，出「🗑 待清走過期資料」issue（剔一剔即清），同入庫批准用同一個 surface、同一個私有 repo（清走同批准一樣係 curation 決定）。清完自動重新對齊公開片段數並 commit 返 main repo。
+- `dev/source/discovery_seen.json` — **S209 NEW**：discovery 嘅 first-seen 帳（url → 首次見到嘅日期）。以前個 crawl 係 stateless，所以每次都重報成個 backlog（238 份喺 EDB index 頁但唔喺 registry 嘅文件，大部分永遠唔會入庫）—— 一個淨係會升嘅數字就唔再係訊號。而家 issue 只報「今次先出現」嗰啲，backlog 收摺成一句 + artifact。`discover_sources.py --seen-ledger PATH` 寫，workflow 每週 commit 返（`contents: write` 只為呢個檔；registry 依然唔會被 discovery 寫）。**partial crawl（`--limit`）唔會 persist**，因為佢會剷走冇掃過嗰啲。
+- **兩個監察 issue 而家會自己閂**（S209）：`served_url_check.yml` 同 `discover_check.yml` 以前 clean run 會 early-return，令 issue 永遠開住兼掛住舊清單（Issue #6 由 8 月頭掛到今日）。而家 clean run 留言報平安＋閂咗，壞返會自己開返。**呢個同「待批清單收摺」、「已清走唔再上待辦」係同一條原則：任何要人做決定嘅表面都必須有出口，唔可以淨係入唔可以出。**
 - ⚠️ **一句要記住嘅更正**：`check_served_urls.py` **從來冇讀過 registry `url_primary`** —— 佢由 S172 出世就係掃 `wiki_chunks.url`（per-chunk 欄）。S207 喺 `verify_section_urls` docstring 寫錯咗，錯嘅講法再流入 handoff Open Priority ⑥ 同 DOC_SYNC row 41，三處 S209 已更正。per-chunk deep link **一入庫就有每週一 11:00 UTC 嘅監察覆蓋**（S209 實測：CI run #11 掃 299 條 distinct URL，16/16 section URL 逐條 200）。
 
 ## Key Entry Points

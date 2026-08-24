@@ -13,7 +13,7 @@ on:
         type: string
 
 permissions:
-  contents: read       # read-only: discovery never writes the registry
+  contents: write      # the seen-ledger only; discovery still never writes the registry
   issues: write        # open/update the "new EDB documents discovered" issue
 
 jobs:
@@ -44,8 +44,24 @@ jobs:
           echo "Running: discover_sources.py --check $ARG"
           python3 dev/source/discover_sources.py --check $ARG \
             --changes-out discovered_sources.json \
-            --ledger discovered_sources.md 2>&1 | tee discover_output.txt
+            --ledger discovered_sources.md \
+            --seen-ledger dev/source/discovery_seen.json 2>&1 | tee discover_output.txt
           exit ${PIPESTATUS[0]}
+
+      - name: Commit the seen-ledger
+        # This file is what lets the next run say "3 new" instead of re-announcing
+        # a backlog that has been sitting there for months. A partial crawl would
+        # prune candidates it never looked at, so --limit runs never persist it.
+        if: (github.event.inputs.limit || '0') == '0'
+        run: |
+          if git diff --quiet dev/source/discovery_seen.json; then
+            echo "seen-ledger unchanged"; exit 0
+          fi
+          git config user.name "discovery-bot[bot]"
+          git config user.email "discovery-bot@users.noreply.github.com"
+          git add dev/source/discovery_seen.json
+          git commit -q -m "chore(discovery): update the first-seen ledger"
+          git pull --rebase --autostash origin main && git push
 
       - name: Upload discovery report
         if: always()
@@ -70,33 +86,55 @@ jobs:
             } catch (e) { core.info('No discovery report: ' + e); return; }
 
             const real = (r.candidates || []).filter(c => !c.likely_noise);
-            if (real.length < 1) {
-              core.info('No likely-real new documents; not touching issue.');
+            // S209: report what APPEARED, not the standing inventory. The backlog of
+            // documents sitting on EDB index pages but not in the registry only grows —
+            // most will never be ingested — so re-announcing all of it every week turned
+            // the alert into wallpaper. `is_new` comes from the seen-ledger.
+            const fresh = real.filter(c => c.is_new);
+            const label = 'new-source-discovery';
+            const title = '🆕 Discovery: new EDB documents pending triage';
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: label,
+            });
+            if (fresh.length < 1) {
+              // Nothing new. Close it rather than leave a stale list open for ever; it
+              // reopens by itself the week something actually appears.
+              if (existing.data.length) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: existing.data[0].number,
+                  body: `✅ Run #${context.runNumber} (${r.generated_at}): nothing new on the watched index pages. Standing backlog: ${real.length} untriaged candidate(s) — see the run artifact. Closing; it reopens when something new appears.`,
+                });
+                await github.rest.issues.update({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: existing.data[0].number, state: 'closed',
+                });
+                core.info('Closed #' + existing.data[0].number + ' — nothing new.');
+              } else {
+                core.info('Nothing new; no open issue to close.');
+              }
               return;
             }
-            const top = real.slice(0, 20).map(c => {
+            const top = fresh.slice(0, 20).map(c => {
               const land = (c.landing_page || '').split('/').slice(-2, -1)[0] || '';
               return `- \`${c.filename}\`${c.basename_known_elsewhere ? ' _(basename seen elsewhere — likely dup)_' : ''}  \n  ${c.url}  \n  _from: ${land}_`;
             }).join('\n');
+            const backlog = real.length - fresh.length;
             const body = [
-              `🆕 **${real.length}** likely-new EDB document(s) discovered on watched index pages `,
+              `🆕 **${fresh.length}** newly-appeared EDB document(s) on watched index pages `,
               `(run #${context.runNumber}, ${r.generated_at}; ${r.new_candidates} raw candidates, `,
               `${r.js_suspect_pages} JS-suspect pages, ${r.page_errors} page errors).`,
               '',
-              '> **Triage only** — these are doc links found on known EDB index pages but NOT in '
+              '> **Triage only** — doc links found on known EDB index pages but NOT in '
               + '`source_registry.json`. Many will be dups / old versions / chapter-splits. '
               + 'Vet before any ingest (manual gate, per `FRESHNESS_GUIDE.md`).',
               '',
               top,
               '',
-              real.length > 20 ? `…and ${real.length - 20} more — see run artifact \`discovery-report-${context.runNumber}\` (discovered_sources.md).` : '',
+              fresh.length > 20 ? `…and ${fresh.length - 20} more new — see run artifact \`discovery-report-${context.runNumber}\`.` : '',
+              backlog > 0 ? `\n<details><summary>📦 Standing backlog: ${backlog} candidate(s) first seen on an earlier run — not repeated here</summary>\n\nFull list in the run artifact, and every first-seen date in \`dev/source/discovery_seen.json\`.\n</details>` : '',
             ].join('\n');
-            const title = '🆕 Discovery: new EDB documents pending triage';
-            const label = 'new-source-discovery';
             try {
-              const existing = await github.rest.issues.listForRepo({
-                owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: label,
-              });
               if (existing.data.length) {
                 await github.rest.issues.update({
                   owner: context.repo.owner, repo: context.repo.repo,
