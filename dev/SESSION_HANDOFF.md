@@ -237,12 +237,15 @@ source_registry → same vault PDFs → ai_extract.py
    - **FAIL-A（真 product regression）role-bucket `finance_distinct=false`**：S111 dedup（792→455，2026-05-16）把跨角色重複摺入 `all_roles`，令 `finance.all_roles`=83 條/2832 字；`knowledgeSelector` 排序 all_roles 行先→砍 600 字，頭 ~14 條 all_roles 已蓋爆 budget，**subject_head/panel_chair 角色專屬 finance 事實永遠注入唔到** → Circular System 對該兩角色嘅 finance 注入自 2026-05-16 起退化成「只通用、無角色專屬」。無 budget 時 distinct=True（角色拆分本身冇壞）。**未修**（涉 dedup/budget/排序設計決定，待 Leonard 排）。
    - **FAIL-B（瑣碎 doc-debt）schema consistency**：`backend/scripts/semanticRegression.ts:292` 硬斷言 `version === "1.3.1"`，實際 knowledge=2.3.0 / guidelines=2.2.0。stale 測試斷言，無行為影響。**未修**。
 4. `npm run check`（typecheck）✅ / `npm run build` ✅（S113 實測，未變）。
+5. **✅ S209 實測定案（唔使再查）：`check_served_urls.py` 監察嘅係 `wiki_chunks.url`，唔係 registry `url_primary`。** `fetch_served_urls()` = `SELECT url, source_id FROM wiki_chunks` 全表分頁，CI `limit=0` 全掃。所以**任何 per-chunk URL（含 S207 嘅 section deep link）一入庫即受每週一 11:00 UTC 監察**。證據四重：(a) live 逐源比對 g14 10 + g17 6 = **16/16** 真係喺 `wiki_chunks.url`；(b) CI run #11（2026-08-24 11:18 UTC）17,478 rows → **299 distinct URL 全測**，295 OK / 4 broken / 0 error，broken 冇一條係 g14/g17；(c) 本地 `--verbose` 全掃複現同一組數，16 條逐條印 HTTP 200；(d) distinct URL 08-17 **284** → 08-24 **299**，新 deep link 自動入集。紅測：唔存在嘅 `chapter-seven.html` → 404 → broken → 歸屬 g14。**錯誤源頭已清**：S207 `verify_section_urls` docstring、handoff OP⑥、DOC_SYNC row 41 三處。
+6. **⚠️ S209 記錄：監察報住 4 條真 404 冇人跟。** `edb_pnet_annex_jul2025`、`eoebg_rates_2026` 最遲 2026-08-03 起壞；`blnst_test_candidate_notes`、`blnst_test_notes_nondeg` 最遲 2026-08-10 起壞。GitHub Issue #6 開住。用戶撳落去係真 404。**監察系統正常做嘢，係下游冇接手** —— re-anchor 係人手閘，要 Leonard 逐條批。同 S195 嗰兩條一樣嘅家族。
+7. **✅ S209 新機制：`refetch_blocked`（registry 欄位）+ `expand_vault.run_fetch()` 下載前 fail closed。** 覆蓋 `expand_vault --fetch` 一條路；`dev/vault/process_signals.py` 亦寫 vault extract，但佢只處理通告 feed 嘅新 PDF signal，砌唔到現有 `section_urls` 源，故唔需要同一道閘。`test_carry_rules.py` 17→30 斷言（含結構不變式：有 `section_urls` 必有 `refetch_blocked`），`--prove-assertions` 8→16。
 
 ---
 
 ## Open Priorities
 
-> **🔜 S208（2026-08-20）重生檢查：本 session 係純溝通交付（里程碑回顧 + 分享圖），零 OP 推進。逐項覆核後 ①–⑥ 全部仍然未完成、排序不變、內容不變，故整份保留 —— 呢個係「核完之後決定不變」，唔係冇重生。掃過 S208 記錄亦冇新增待辦項。**（S207 當時：舊 ①② 完成移除、舊 ③④⑤⑥⑦ 上移為 ①②③④⑤、新增 ⑥。）
+> **🔜 S209（2026-08-24）重生檢查：⑥ 已結案並移除，餘下 ①–⑤ 逐項覆核後不變、排序不變、編號不變。** ⑥ **唔係做完，係前提本身錯** —— 佢寫住「`check_served_urls.py` 只讀 registry `url_primary`」，而該監察由 S172 出世起就只掃 `wiki_chunks.url`（per-chunk 欄），89 條 deep link 一入庫已受每週監察。四重實測見 `Regression / Verification Notes` 第 5 條。⑥ 第二句嗰個**真**缺口（`--fetch` 得散文擋）已於 S209 補上機制閘（registry `refetch_blocked` + `run_fetch` fail-closed + 30 條斷言）。S208 當時：純溝通交付，零 OP 推進。
 
 ① **【原 ③，根因已重新定位，必須重出 PLAN】檢索「可見 ≠ 見到啱嗰段」。** S206 live 重現後**唔可以再照原方案做**：交接寫嘅兩個修法（改 spotlight 條件／擴 synthesis 窗）實測都修唔到 `staff_est_pri` 呢個 case —— 正確資料行 exact cosine **0.6049 排源內 14/81**，而源內最高 0.6537 係**零數據嘅表頭行**（擴窗只會加入其他來源；改 spotlight 只會把表頭行插上 lead slot）。真正卡住嘅係「12 班」呢個數字喺 embedding 上贏唔到腳註同兄弟行（7/8/10/11 班）。另實測 `detectQueryCategory` 對自然口語（「12班小學有幾多個學位教師」「幾多班幾多老師」）**兩條都 `null`**，S204 加嘅「編制」route 唔 fire。**注意 playbook `embedding-cosine-overfire-lexical-gate` 明寫「短 query retrieval ranking 唔好硬 gate」→ 排除硬 lexical gate，要做只能做 soft re-rank。**
 
@@ -253,8 +256,6 @@ source_registry → same vault PDFs → ai_extract.py
 ④ **【資料正確性，等機制】特殊學校編制表恢復。** `staff_est_sp_sch_pri` status=held_back、chunk 0 條。恢復條件：合成前有「資料對象 vs 問題對象」核對機制。恢復步驟同驗證方法已寫入 registry notes。
 
 ⑤ **【產品方向，Leonard 提】表格 / 註解 content_kind 分類。** 全庫掃描：~600–900 條（4–6%）結構化資料被文字化壓平、150 條目錄雜訊。方向已定為**指路唔係砌表**（前端零改動）。S206 修好「指路」嘅頁碼基礎、S207 修好網頁源嘅指章基礎，呢項剩返 `content_kind` 標註同「查具體數值嘅問題至少要有一條 `table_row` 入合成窗」—— 同 ① 係同一個根。
-
-⑥ **【S207 新開，監察缺口】per-chunk deep link 冇任何監察覆蓋。** 而家有 **89 條 chunk（g14 76 + g17 13）帶住自己嗰條子頁／附件 URL**，但 `check_served_urls.py` 只讀 registry 嘅 `url_primary` —— 呢 89 條壞咗**冇任何嘢會發現**，要等用戶撳落去。入庫時嘅 fail-closed HEAD 閘只保護「入庫嗰一刻」，唔保護日後 churn。做法建議：`check_served_urls.py` 加一段掃 registry 所有 `section_urls` 值（16 條 URL，成本極低），撞 404 就照現有 freshness 流程報。**同一句要記住嘅相關風險：** `g14`/`g17` 嘅 extract **唔准 `--fetch`**（S146 用一個已經唔存在嘅多頁 crawler 砌，現行 `extract_html_text` 只抓一頁，一 refetch 就剷走其餘 section）；而家淨係靠 registry notes 擋，唔係機制擋。
 
 **剩餘 451 條無頁碼嘅分類（S206 實測，S207 更新）：** 162 條 footnote **url 本身已帶 `#page=`（已經 work，唔算缺陷）**；109 條 `approved_fact`（Channel A 鏡像，url 全空，冇文件可指 —— 屬 Backlog Channel A Option 2，唔係頁碼範疇）；41 條統計類（xlsx／純數字）；95 條 5 個 HTML 源 —— **S207 之後其中 86 條已有子頁／附件 deep link**（g14 76 + g17 10；另 g17 3 條本來就有頁碼所以唔喺呢 451 之內），剩 9 條指返 landing 頁（g04 7 條標記係中文標題唔係 slug、g20/g25 各 1 條係 link-hub 頁本身）；44 條 footnote 冇錨（40 條 url 係 PDF 可人手補、4 條網頁唔得）。**真缺陷由 139 → 53 條**（44 footnote + 9 landing-only）。
 

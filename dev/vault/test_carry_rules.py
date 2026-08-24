@@ -1,21 +1,29 @@
 #!/usr/bin/env python3
 """
-Self-test for the two chunk-carry rules shared by both ingestion pipelines.
+Self-test for the chunk-carry rules and the refetch guard that protects them.
 
 S206 lifted `carry_pages` out of build_wiki_index so expand_vault could reuse the
 RULE without sharing the chunker; S207 added `carry_sections` on the same contract.
 Both are load-bearing: a regression silently costs every re-ingested chunk its
 "頁 N ↗" anchor or its section URL, and nothing else in the pipeline would notice.
 
+S209 added `refetch_block_reason`: carrying a section URL is worth nothing if a
+single `--fetch` can throw the multi-page extract away. The guard is asserted
+here rather than beside the fetch code because the invariant it protects is the
+same one the carry rules protect.
+
 Usage:
   python3 dev/vault/test_carry_rules.py --self-test
   python3 dev/vault/test_carry_rules.py --prove-assertions   # break the impl, expect failures
 """
+import contextlib
+import io
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_wiki_index as bwi  # noqa: E402
+import expand_vault as ev  # noqa: E402
 
 FAILS: list[str] = []
 
@@ -72,6 +80,65 @@ def run_section_tests(carry_sections) -> None:
           len(carry_sections(["a", "=== s ===", "b", "c"])) == 4)
 
 
+def run_refetch_guard_tests(block_reason) -> None:
+    """The registry field, the fail-closed reading of it, and the fetch loop."""
+    print("refetch guard:")
+    check("no `refetch_blocked` key → re-fetch allowed",
+          block_reason({"source_id": "x"}) is None)
+    check("explicit false → re-fetch allowed (opt-out is writable)",
+          block_reason({"source_id": "x", "refetch_blocked": False}) is None)
+    check("a reason string is returned, trimmed",
+          block_reason({"refetch_blocked": "  crawled  "}) == "crawled")
+    check("key present but unreadable (True) still blocks — fail closed",
+          bool(block_reason({"refetch_blocked": True})))
+
+    # Registry invariant: the guard must cover every source that carries section
+    # URLs, not just the two known today. A future multi-page crawl added without
+    # the field fails here instead of silently at the next --fetch.
+    registry = ev.load_registry()
+    carriers = [s for s in registry if s.get("section_urls")]
+    check("registry still has section-URL carriers to protect", len(carriers) >= 2)
+    unguarded = [s["source_id"] for s in carriers if not block_reason(s)]
+    check(f"every section_urls source is refetch-blocked (unguarded: {unguarded or 'none'})",
+          not unguarded)
+    for sid in ("g14", "g17"):
+        row = next((s for s in registry if s.get("source_id") == sid), None)
+        check(f"{sid} is refetch-blocked", bool(row) and bool(block_reason(row)))
+
+    # End-to-end: the fetch loop refuses BEFORE the download, and says so. Dry-run
+    # keeps this offline — the guard sits ahead of the dry-run short-circuit, so a
+    # blocked source prints the lock and an ordinary one does not.
+    blocked_src = {"source_id": "fake_blocked", "source_type": "html",
+                   "url_primary": "https://example.invalid/x.html", "title": "t",
+                   "refetch_blocked": "crawled over ten pages"}
+    plain_src = dict(blocked_src)
+    del plain_src["refetch_blocked"]
+    plain_src["source_id"] = "fake_plain"
+
+    def fetch_output(src) -> str:
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            ev.run_fetch([src], dry_run=True)
+        return buf.getvalue()
+
+    out_blocked, out_plain = fetch_output(blocked_src), fetch_output(plain_src)
+    check("run_fetch refuses a blocked source and names the reason",
+          "refetch blocked" in out_blocked and "crawled over ten pages" in out_blocked)
+    check("a blocked source never reaches the dry-run/download branch",
+          "[dry-run] skipped" not in out_blocked)
+    check("an ordinary source is untouched by the guard",
+          "[dry-run] skipped" in out_plain and "refetch blocked" not in out_plain)
+    check("the summary counts it as blocked, not as skipped or failed",
+          "1 blocked," in out_blocked and "0 blocked," in out_plain)
+
+    # The override exists and is the ONLY way through.
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        ev.run_fetch([blocked_src], dry_run=True, allow_blocked=True)
+    check("--allow-blocked-refetch lets a blocked source through",
+          "[dry-run] skipped" in buf.getvalue())
+
+
 def main() -> int:
     prove = "--prove-assertions" in sys.argv
     if prove:
@@ -79,18 +146,22 @@ def main() -> int:
         # suite proves nothing unless it can also go red (S206 discipline).
         carry_pages = lambda chunks: list(chunks)                      # noqa: E731
         carry_sections = lambda chunks: [None] * len(chunks)           # noqa: E731
+        block_reason = lambda source: None                             # noqa: E731
+        ev.refetch_block_reason = block_reason   # run_fetch resolves it by name
         print("PROVE MODE — implementations replaced with no-ops; failures are the point.\n")
     else:
         carry_pages, carry_sections = bwi.carry_pages, bwi.carry_sections
+        block_reason = ev.refetch_block_reason
 
     run_page_tests(carry_pages)
     run_section_tests(carry_sections)
+    run_refetch_guard_tests(block_reason)
 
     print()
     if prove:
-        ok = len(FAILS) >= 7
+        ok = len(FAILS) >= 16
         print(f"{'ALL PASS' if ok else 'BROKEN'} — {len(FAILS)} assertions fired against the no-op "
-              f"implementations (expected ≥ 6).")
+              f"implementations (expected ≥ 16: 8 carry rules + 8 refetch guard).")
         return 0 if ok else 1
     if FAILS:
         print(f"{len(FAILS)} FAILED: " + "; ".join(FAILS))

@@ -822,7 +822,8 @@
         "identification-and-selection-procedures": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/guidelines-on-school-based-gifted-development-programmes/identification-and-selection-procedures.html",
         "kla-exemplar": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/guidelines-on-school-based-gifted-development-programmes/kla-exemplar.html",
         "appendices": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/guidelines-on-school-based-gifted-development-programmes/appendices.html"
-      }
+      },
+      "refetch_blocked": "multi-page crawl extract — the current single-page extract_html_text would replace every section with the landing page and kill the section_urls deep links (S207; mechanism-guarded S209)"
     },
     {
       "source_id": "g11",
@@ -1038,7 +1039,8 @@
         "general principles for searching students and their belongings at school_chi": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/principles-guidelines/searching-students-their-belongings-at-school/general%20principles%20for%20searching%20students%20and%20their%20belongings%20at%20school_chi.pdf",
         "principles and procedures for searching a students belongings_chi": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/principles-guidelines/searching-students-their-belongings-at-school/principles%20and%20procedures%20for%20searching%20a%20students%20belongings_chi.pdf",
         "principles and procedures for searching a students body_chi": "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/principles-guidelines/searching-students-their-belongings-at-school/principles%20and%20procedures%20for%20searching%20a%20students%20body_chi.pdf"
-      }
+      },
+      "refetch_blocked": "multi-page crawl extract — the current single-page extract_html_text would replace every section with the landing page and kill the section_urls deep links (S207; mechanism-guarded S209)"
     },
     {
       "source_id": "g18",

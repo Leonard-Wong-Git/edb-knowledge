@@ -179,12 +179,43 @@ def source_section_urls(source_id: str) -> dict[str, str]:
     return {}
 
 
+def refetch_block_reason(source: dict) -> str | None:
+    """Why this source must never be re-fetched, or None when a re-fetch is safe.
+
+    Opt-in via the registry's `refetch_blocked` field (a reason string; absent =
+    allowed). The case it exists for: a vault extract built by a MULTI-PAGE crawl
+    cannot be rebuilt by the current single-page `extract_html_text`. Re-fetching
+    g14 replaces ten `=== section ===` blocks with the landing page alone, and
+    every per-chunk section URL that carries (see `source_section_urls`) dies with
+    it — silently, because a landing page clears the 200-char floor. S207 guarded
+    this with a prose note in the registry, which stops nobody from running
+    `--fetch --source-type html`. This is the mechanism that does.
+
+    Pure: takes the registry row, touches nothing. Paired invariant, asserted in
+    `test_carry_rules.py`: a source with `section_urls` must also be blocked.
+    """
+    if "refetch_blocked" not in source:
+        return None
+    reason = source["refetch_blocked"]
+    if reason is False or reason is None:          # explicit opt-out, written on purpose
+        return None
+    if isinstance(reason, str) and reason.strip():
+        return reason.strip()
+    # Key present but unreadable (True, 0, {}) — someone meant something. Fail
+    # closed rather than guess: the cost of a wrong "allow" is an unrebuildable
+    # extract, the cost of a wrong "block" is one explicit flag.
+    return "blocked by registry (no reason recorded)"
+
+
 def verify_section_urls(source_id: str, mapping: dict[str, str]) -> bool:
     """HEAD every URL in a section map. Fail closed — one bad URL blocks the source.
 
-    Called before embedding, never after: a 404 written into wiki_chunks.url is
-    invisible until a user clicks it, and the served-url monitor only checks the
-    registry's own url_primary, not per-chunk URLs.
+    Called before embedding, never after. The weekly served-url monitor
+    (`check_served_urls.py`) does cover these URLs — it reads `wiki_chunks.url`,
+    the per-chunk column, so a section URL is tested like any other served link
+    (verified S209: 16/16 in the run's own output). This gate is still the right
+    place: it costs one HEAD to never ingest a 404, versus up to seven days of
+    users clicking one while the monitor waits for Monday.
     """
     ok = True
     for label, url in sorted(mapping.items()):
@@ -632,7 +663,8 @@ def update_wiki_index(new_chunks_by_source: dict[str, list[dict]]) -> None:
 
 # ── Main pipeline ─────────────────────────────────────────────────────────────
 
-def run_fetch(sources_to_process: list[dict], dry_run: bool) -> list[Path]:
+def run_fetch(sources_to_process: list[dict], dry_run: bool,
+              allow_blocked: bool = False) -> list[Path]:
     """Phase 1: Download + extract text, write vault .txt files."""
     print(f"\n{'═'*60}")
     print(f"Phase 1 — FETCH ({len(sources_to_process)} sources)")
@@ -646,6 +678,7 @@ def run_fetch(sources_to_process: list[dict], dry_run: bool) -> list[Path]:
 
     created: list[Path] = []
     skipped = 0
+    blocked = 0
     failed = 0
 
     for i, source in enumerate(sources_to_process, 1):
@@ -657,6 +690,16 @@ def run_fetch(sources_to_process: list[dict], dry_run: bool) -> list[Path]:
         print(f"\n[{i}/{len(sources_to_process)}] {sid} ({stype})")
         print(f"  {title}")
         print(f"  {url[:80]}")
+
+        # Fail closed BEFORE the download: a blocked source is one whose extract
+        # this script cannot rebuild, so "try it and see" already destroyed it.
+        block = refetch_block_reason(source)
+        if block and not allow_blocked:
+            print(f"  🔒 refetch blocked — {block}")
+            print("     override: --allow-blocked-refetch (only with a crawler that "
+                  "rebuilds every section)")
+            blocked += 1
+            continue
 
         if dry_run:
             print("  [dry-run] skipped")
@@ -709,7 +752,8 @@ def run_fetch(sources_to_process: list[dict], dry_run: bool) -> list[Path]:
             time.sleep(DOWNLOAD_DELAY)
 
     print(f"\n{'─'*60}")
-    print(f"Fetch complete: {len(created)} created, {skipped} skipped, {failed} failed")
+    print(f"Fetch complete: {len(created)} created, {skipped} skipped, "
+          f"{blocked} blocked, {failed} failed")
     return created
 
 
@@ -826,6 +870,10 @@ def main():
     parser.add_argument("--sources", help="Comma-separated list of source_ids to process")
     parser.add_argument("--limit", type=int, help="Limit number of sources to process")
     parser.add_argument("--force", action="store_true", help="Re-extract even if vault file already exists")
+    parser.add_argument("--allow-blocked-refetch", dest="allow_blocked_refetch",
+                        action="store_true",
+                        help="Re-fetch sources the registry marks `refetch_blocked` "
+                             "(destroys multi-page crawl extracts — see refetch_block_reason)")
 
     args = parser.parse_args()
 
@@ -889,7 +937,7 @@ def main():
     if args.dry_run:
         print("\n[dry-run] No downloads or API calls made.")
         if args.fetch and 'to_fetch' in dir():
-            run_fetch(to_fetch, dry_run=True)
+            run_fetch(to_fetch, dry_run=True, allow_blocked=args.allow_blocked_refetch)
         if args.embed and 'to_embed' in dir():
             api_key = ""
             run_embed(to_embed, dry_run=True, api_key=api_key)
@@ -898,7 +946,7 @@ def main():
     api_key = load_openai_key() if args.embed else ""
 
     if args.fetch:
-        run_fetch(to_fetch, dry_run=False)
+        run_fetch(to_fetch, dry_run=False, allow_blocked=args.allow_blocked_refetch)
         # After fetching, re-check what's now extracted for the embed phase
         already_extracted = get_extracted_source_ids()
 
