@@ -86,8 +86,27 @@ jobs:
             } catch (e) { core.info('No served-URL report: ' + e); return; }
 
             const broken = r.broken_urls || [];
+            const label = 'served-url-broken';
             if (broken.length < 1) {
-              core.info('No broken served URLs; not touching issue.');
+              // S209: a fixed issue used to stay open for ever showing a stale list,
+              // so the alert surface only ever grew. Close it out instead.
+              const open = await github.rest.issues.listForRepo({
+                owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: label,
+              });
+              if (open.data.length) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: open.data[0].number,
+                  body: `✅ Run #${context.runNumber} (${r.generated_at}): all ${r.checked} served URLs resolve. Closing; it reopens automatically if any break again.`,
+                });
+                await github.rest.issues.update({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: open.data[0].number, state: 'closed',
+                });
+                core.info('Closed #' + open.data[0].number + ' — nothing broken.');
+              } else {
+                core.info('No broken served URLs; nothing open to close.');
+              }
               return;
             }
             const rows = broken.slice(0, 30).map(b => {
@@ -121,7 +140,6 @@ jobs:
               errs.length ? `\n**Could-not-test (${errs.length}, transient 5xx/timeout/429 — not counted as broken):**\n${errRows}` + (errs.length > 15 ? `\n…and ${errs.length - 15} more (see artifact).` : '') : '',
             ].join('\n');
             const title = '🔴 Served-URL: broken links in the store pending fix';
-            const label = 'served-url-broken';
             try {
               const existing = await github.rest.issues.listForRepo({
                 owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: label,
