@@ -344,7 +344,10 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g11",               // 擬定校曆表指引
     "sag_2025_11",       // School Administration Guide (HR sections)
     // S142 EDB-sweep §1 — staffing/appointment/BLNST policy
-    "edbc13_2022_blnst", "edbcm141_2025_blnst", "blnst_test_notes_nondeg", "blnst_test_candidate_notes",
+    "edbc13_2022_blnst", "edbcm141_2025_blnst",
+    // S209: blnst_test_notes_nondeg + blnst_test_candidate_notes removed — the
+    // 2026-06-07 sitting notes expired and EDB withdrew the whole notes family.
+    // The circular and the circular memo above carry the durable BLNST rules.
     "embc5_2005_appointment", "edbc14_2023_student_protect", "staff_medical_health",
     "job_sharing_guide", "surplus_teacher_arr_2026", "private_sch_employment_notes",
     "supply_teacher_guide", "long_service_payment_guide",  // S142 §2: 代課教師指引 + 遣散費長服金指引

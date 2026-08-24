@@ -65,6 +65,8 @@ STAGING_DIR = REPO_ROOT / "dev" / "source" / "ingest_packages"
 OPS_DIR = REPO_ROOT / "dev" / "source" / "ops"
 APPROVALS_DIR = OPS_DIR / "approvals"
 REGISTRY_PATH = REPO_ROOT / "dev" / "source" / "source_registry.json"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from lifecycle import classify as classify_lifecycle  # noqa: E402
 KNOWLEDGE_PATH = REPO_ROOT / "knowledge.json"
 UPDATE_LOG_PATH = REPO_ROOT / "update_log.json"
 ROUTE_FILE = REPO_ROOT / "backend" / "src" / "api" / "searchChannelB.ts"
@@ -183,6 +185,12 @@ def plan_registry_entry(pkg: Dict, eff: Dict) -> Dict:
     url = pkg.get("pdf_url", "")
     year = (pkg.get("circular_number") or "").split("/")[-1] or None
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    # S209: stamp how long this material stays true. A briefing session or a
+    # competition stops being useful the day its deadline passes, and nothing
+    # else in the pipeline notices — the classifier reads the tier and the
+    # already-extracted deadlines and fails toward "keep". See lifecycle.py and
+    # the weekly sweep in check_expiry.py.
+    life = classify_lifecycle(pkg)
     return {
         "source_id": sid,
         "title": pkg.get("title"),
@@ -200,6 +208,10 @@ def plan_registry_entry(pkg: Dict, eff: Dict) -> Dict:
         "last_checked_at": today,
         "supersedes": None,
         "related_source_ids": [],
+        "lifecycle": life["lifecycle"],
+        "expires_on": life["expires_on"],
+        "expiry_basis": life["expiry_basis"],
+        "covers_period": life["covers_period"],
         "notes": f"(auto, Option A executor) {pkg.get('circular_number')}. route={eff['route']}, "
                  f"Tier {eff['tier']}. watcher→prepare→approve→execute. Channel B vault_extract.",
     }

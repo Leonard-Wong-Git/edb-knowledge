@@ -5430,18 +5430,21 @@
         "hr"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2024-2026",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 2p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 2p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin. | S209(2026-08-24): RETIRED — 2026-06-07 場次文件，報名 2026-04-30 已截、場次已過；EDB 已將整個 per-session notes 家族落架（Notes_ND* / Guidance Notes_ND* / FAQ_ND* 全部 404）。刻意唔 re-point 去 QA_BLNST_Apr26_tc.pdf（另一份文件，指過去＝S194 ict_sss_2021 那種 200-但-錯檔）。Supabase chunks 已刪；BLNST 覆蓋由 edbc13_2022_blnst + edbcm141_2025_blnst 承接。",
       "freshness_metadata": {
         "last_modified": "Thu, 16 Apr 2026 08:57:07 GMT",
         "content_length": "283380",
         "etag": "\"80b3aa07fcddc1:0\"",
         "content_hash": "5cc4aeb5fbcd526ef4a78ae27c09bac445b3091e23fd542b641844e742434b7a",
         "hash_checked_at": "2026-06-04"
-      }
+      },
+      "lifecycle": "ephemeral",
+      "expires_on": "2026-06-07",
+      "expiry_basis": "test sitting date (application closed 2026-04-30)"
     },
     {
       "source_id": "blnst_test_candidate_notes",
@@ -5457,18 +5460,21 @@
         "hr"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2024-2026",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin.",
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=hr_admin), egress-verified (HTTP200, 4p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.hr_admin. | S209(2026-08-24): RETIRED — 2026-06-07 場次文件，報名 2026-04-30 已截、場次已過；EDB 已將整個 per-session notes 家族落架（Notes_ND* / Guidance Notes_ND* / FAQ_ND* 全部 404）。刻意唔 re-point 去 QA_BLNST_Apr26_tc.pdf（另一份文件，指過去＝S194 ict_sss_2021 那種 200-但-錯檔）。Supabase chunks 已刪；BLNST 覆蓋由 edbc13_2022_blnst + edbcm141_2025_blnst 承接。",
       "freshness_metadata": {
         "last_modified": "Tue, 26 May 2026 09:21:30 GMT",
         "content_length": "499567",
         "etag": "\"0c9349f1ecdc1:0\"",
         "content_hash": "4acc38c60bba363d638f43b948c3948962fa606cbd0185d8af9b7d256c3e6308",
         "hash_checked_at": "2026-06-04"
-      }
+      },
+      "lifecycle": "ephemeral",
+      "expires_on": "2026-06-07",
+      "expiry_basis": "test sitting date (application closed 2026-04-30)"
     },
     {
       "source_id": "tdtf_report_2019",

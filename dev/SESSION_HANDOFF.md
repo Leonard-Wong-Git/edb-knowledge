@@ -239,6 +239,8 @@ source_registry → same vault PDFs → ai_extract.py
 4. `npm run check`（typecheck）✅ / `npm run build` ✅（S113 實測，未變）。
 5. **✅ S209 實測定案（唔使再查）：`check_served_urls.py` 監察嘅係 `wiki_chunks.url`，唔係 registry `url_primary`。** `fetch_served_urls()` = `SELECT url, source_id FROM wiki_chunks` 全表分頁，CI `limit=0` 全掃。所以**任何 per-chunk URL（含 S207 嘅 section deep link）一入庫即受每週一 11:00 UTC 監察**。證據四重：(a) live 逐源比對 g14 10 + g17 6 = **16/16** 真係喺 `wiki_chunks.url`；(b) CI run #11（2026-08-24 11:18 UTC）17,478 rows → **299 distinct URL 全測**，295 OK / 4 broken / 0 error，broken 冇一條係 g14/g17；(c) 本地 `--verbose` 全掃複現同一組數，16 條逐條印 HTTP 200；(d) distinct URL 08-17 **284** → 08-24 **299**，新 deep link 自動入集。紅測：唔存在嘅 `chapter-seven.html` → 404 → broken → 歸屬 g14。**錯誤源頭已清**：S207 `verify_section_urls` docstring、handoff OP⑥、DOC_SYNC row 41 三處。
 6. **⚠️ S209 記錄：監察報住 4 條真 404 冇人跟。** `edb_pnet_annex_jul2025`、`eoebg_rates_2026` 最遲 2026-08-03 起壞；`blnst_test_candidate_notes`、`blnst_test_notes_nondeg` 最遲 2026-08-10 起壞。GitHub Issue #6 開住。用戶撳落去係真 404。**監察系統正常做嘢，係下游冇接手** —— re-anchor 係人手閘，要 Leonard 逐條批。同 S195 嗰兩條一樣嘅家族。
+8. **✅ S209 實測定案：公開片段數以前係流水帳，唔係真數。** `execute_ingest.current_chunk_total()` 由 `knowledge.json` 讀個數再加自己嗰筆 delta 寫返七個鏡像檔 —— 純加法、從來冇對過 Supabase，所以歷史上任何一次少計都永久帶落去（實測長期少 1）。已改為入庫後 `live_total_count()` 由 store 讀真數，舊數只留低做「要替換嗰串字」同 fallback，唔夾會出 CI annotation。**改動後唔好再靠加減推算片段數** —— 清走 chunk 之後一律行 `live_display_sync(current_chunk_total(), live_total_count())`。
+9. **✅ S209：4 條 404 已清（Leonard 批）。** 兩條純 URL churn re-point（`eoebg_rates_2026`、`edb_pnet_annex_jul2025`，四個引用數字逐個對返新 PDF 先寫）；兩條 `blnst_test_*` 共 13 chunks 係 2026-06-07 場次文件、EDB 整個 notes 家族落架 → 退役刪除，registry status=deprecated。**刻意冇指去 `QA_BLNST_Apr26_tc.pdf`**（另一份文件；200-但-錯檔比 404 更難捉，見 S194 `ict_sss_2021`）。BLNST 覆蓋由 `edbc13_2022_blnst` + `edbcm141_2025_blnst` 承接，backend SOURCE_SET 已清走死 id。
 7. **✅ S209 新機制：`refetch_blocked`（registry 欄位）+ `expand_vault.run_fetch()` 下載前 fail closed。** 覆蓋 `expand_vault --fetch` 一條路；`dev/vault/process_signals.py` 亦寫 vault extract，但佢只處理通告 feed 嘅新 PDF signal，砌唔到現有 `section_urls` 源，故唔需要同一道閘。`test_carry_rules.py` 17→30 斷言（含結構不變式：有 `section_urls` 必有 `refetch_blocked`），`--prove-assertions` 8→16。
 
 ---
@@ -263,7 +265,7 @@ source_registry → same vault PDFs → ai_extract.py
 ## Backlog（次優先序，視 OP 完成情況流轉）
 
 **S204 新增／流轉：**
-- **時限性資料標示**（Leonard 提）：如「國民教育活動規劃年曆（2026/27）」。定案方向＝**標示而唔係刪**（舊學年文件仍是當年依據）。做法：registry 加 `time_bound` + `covers_period`；加第 6 監察，每年檢查 landing page 有冇新學年版；UI 顯示 `現行` / `已過期・未見更新` / `已有新版`。
+- ~~**時限性資料標示**~~ → **S209 已建，定案細分咗**（Leonard 2026-08-24 補充）：S204 原本寫「標示而唔係刪」，而家分兩類 —— **年度版本文件**（費率表、校曆、年曆）舊版仍是當年依據 → 照舊 `dated_edition`**標示唔刪**；**一次性事件文件**（簡介會／培訓／比賽／獎項提名／測試場次／報名截止）過咗零參考價值 → `ephemeral` **到期清走**。已落地：`dev/source/lifecycle.py` 分類（入庫時 stamp 四個 registry 欄位）+ `dev/source/check_expiry.py` 第 6 監察 + ops `expiry-issue.yml` 每週二剔一剔清走。**仲未做**：(a) UI 顯示 `現行 / 已過期 / 已有新版` 標示（前端零改動至今）；(b) 271 個舊源冇 `lifecycle` 標，`check_expiry.py --classify` 可出提案但未 backfill；(c) 「每年檢查 landing page 有冇新學年版」呢半邊仍未做。
 - **公眾提交表單**（Leonard 提）：Phase 1 = Google Form + 平台加一粒「意見／報錯」掣（零代碼，先驗證有冇人用）；Phase 2 = 站內表單 → 現有 Render 後端 → Supabase 新表（要處理防濫發、唔收非必要個人資料）。
 - **範本下載恢復**：`policy_templates.json`（106 檔／15 範疇）未隨知識庫更新，S204 已用 `window.FEATURE_TABS.templates=false` 收起。重新生成 manifest 後把 flag 揼返 true 即復原（面板 code 原封未動）。
 - **真亂碼未量度**：S204 掃描時偵測器分唔清長 URL／底線填充，故**冇報數**。`gifted_ge_series` 確有真 CID 亂碼實例（playbook `pdf-extraction-mojibake-triage`）。要做要另寫準確偵測。
