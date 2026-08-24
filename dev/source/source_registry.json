@@ -1197,7 +1197,11 @@
         "etag": "\"803cd52df8d8db1:0\"",
         "content_hash": "d10014c683b15ed10f6914f85647054cd26eb9829cdb84cb82ea0f241877167d",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "durable document type (指引) — never swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "stat_edb_figures",
@@ -2397,7 +2401,11 @@
         "etag": "\"80bbe9411d3fdb1:0\"",
         "content_hash": "9f62b77072c4c17f49f51aa94df70878ad54a3c176c5733fdb99bb7dc512c3d8",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2024/25 — marked, not swept",
+      "covers_period": "2024/25"
     },
     {
       "source_id": "edbc13_2025_pri_science",
@@ -2428,7 +2436,11 @@
         "etag": "\"8068976eae3db1:0\"",
         "content_hash": "897f237fa616514de309637766f1e45444a5b48d63a90149a68efe53af207215",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "durable document type (指引) — never swept",
+      "covers_period": "2025/26"
     },
     {
       "source_id": "pri_science_cert_course_list",
@@ -3294,7 +3306,11 @@
         "etag": "\"0d829433518da1:0\"",
         "content_hash": "d5a63ce80376103148a8e36eca605cebfb9778aa1603a1c93d7b4e47e16b8b31",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2022/23 — marked, not swept",
+      "covers_period": "2022/23"
     },
     {
       "source_id": "hmsc_sss_2007_2015",
@@ -3472,7 +3488,11 @@
         "cs_curr"
       ],
       "notes": "(S194) url_primary 由 edcity `CS_CAG_S4-6_Chi_2021.pdf` 更正為 EDB 官方 `ICT_C&A Guide_c_final.pdf`（120 頁，封面「資訊及通訊科技 課程及評估指引 (中四至中六) 二零二一年 由2022/23學年中四級開始適用」逐字對得上本 entry 標題）。舊 URL 實際 serve 公民與社會發展科指引，已另立 `cgss_sss_2021`；原掛喺本 id 的 81 條公社科 chunks 已遷去該 id，本 id 由 S194 起載真 ICT 2021 正文（116 chunks）。freshness_metadata 清空待週跑監察重新 baseline（S170 re-seed 先例）。高中資訊及通訊科技課程及評估指引（2021；2022/23 起實施）。",
-      "freshness_metadata": null
+      "freshness_metadata": null,
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2022/23 — marked, not swept",
+      "covers_period": "2022/23"
     },
     {
       "source_id": "cgss_sss_2021",
@@ -3494,7 +3514,11 @@
       "supersedes": null,
       "parent_source_id": null,
       "related_source_ids": [],
-      "notes": "(S194) 本 entry 修正一個長期 mislabel：呢份文件原本掛喺 `ict_sss_2021` 之下，標題寫《資訊及通訊科技 (中四至中六) 2021》——`CS_CAG` 被當成 Computer Science，實際係 Citizenship and Social development。封面（公民與社會發展科 課程及評估指引）＋目錄（「一國兩制」下的香港／改革開放以來的國家／互聯相依的當代世界／內地考察）核實。Supabase 原 81 chunks 由 S194 起改掛本 source_id，chunk 文字逐字不變（hash set 比對 81/81 相同）。vault 原文由 extract_ict_sss_2021_repaged.txt 搬過來。"
+      "notes": "(S194) 本 entry 修正一個長期 mislabel：呢份文件原本掛喺 `ict_sss_2021` 之下，標題寫《資訊及通訊科技 (中四至中六) 2021》——`CS_CAG` 被當成 Computer Science，實際係 Citizenship and Social development。封面（公民與社會發展科 課程及評估指引）＋目錄（「一國兩制」下的香港／改革開放以來的國家／互聯相依的當代世界／內地考察）核實。Supabase 原 81 chunks 由 S194 起改掛本 source_id，chunk 文字逐字不變（hash set 比對 81/81 相同）。vault 原文由 extract_ict_sss_2021_repaged.txt 搬過來。",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "durable document type (指引) — never swept",
+      "covers_period": "2021/22"
     },
     {
       "source_id": "chi_hist_jss_2019",
@@ -4955,7 +4979,11 @@
         "etag": "\"801ef94590dbdc1:0\"",
         "content_hash": "ca13d1c3c451a6d85fdd11ac072a06ea735f17e516e16faa0ee7ecebbdcbed49",
         "hash_checked_at": "2026-06-04"
-      }
+      },
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2027/28 — marked, not swept",
+      "covers_period": "2027/28"
     },
     {
       "source_id": "edbc14_2024_spms",
@@ -5117,7 +5145,11 @@
         "etag": "\"80ceec103f1edc1:0\"",
         "content_hash": "4a3d5211df915908f369bf0534b576ebdac596a9c1abbba731c5404766495c23",
         "hash_checked_at": "2026-06-04"
-      }
+      },
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2025/26 — marked, not swept",
+      "covers_period": "2025/26"
     },
     {
       "source_id": "fire_service_installation",
@@ -5825,7 +5857,11 @@
         "etag": "\"804e14097a7dc1:0\"",
         "content_hash": "e867d5da54f1d52f4e316e46b9acf2672904ca19035d1ce285bcd9d2fbf27c59",
         "hash_checked_at": "2026-06-05"
-      }
+      },
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "edbc18_2019_sspa",
@@ -6119,7 +6155,11 @@
         "etag": "\"804884b2b5d6db1:0\"",
         "content_hash": "74a988bfac09ff718d4caaf671d928dbaee64e0715b1cd82270a6930b346c406",
         "hash_checked_at": "2026-06-15"
-      }
+      },
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "kg_admin_guide",
@@ -6540,7 +6580,11 @@
         "last_modified": "Mon, 08 Jun 2026 08:37:43 GMT",
         "content_length": "479137",
         "etag": "\"52e1511322f7dc1:0\""
-      }
+      },
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2027/28 — marked, not swept",
+      "covers_period": "2027/28"
     },
     {
       "source_id": "edbcm060_2026",
@@ -6567,7 +6611,11 @@
         "last_modified": "Fri, 26 Jun 2026 03:49:38 GMT",
         "content_length": "3048234",
         "etag": "\"78709d01e5dd1:0\""
-      }
+      },
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2025/26 — marked, not swept",
+      "covers_period": "2025/26"
     },
     {
       "source_id": "edbcm088_2026",
@@ -6621,7 +6669,11 @@
         "last_modified": "Thu, 11 Jun 2026 03:49:41 GMT",
         "content_length": "269863",
         "etag": "\"c6af335555f9dc1:0\""
-      }
+      },
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "edbc010_2026",
@@ -6729,7 +6781,11 @@
         "last_modified": "Mon, 22 Jun 2026 09:40:03 GMT",
         "content_length": "389014",
         "etag": "\"dfb83d1a2b2dd1:0\""
-      }
+      },
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "edbcm089_2026",
@@ -6756,7 +6812,11 @@
         "last_modified": "Fri, 12 Jun 2026 04:47:59 GMT",
         "content_length": "562646",
         "etag": "\"28513a526fadc1:0\""
-      }
+      },
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "edbcm073_2026",
@@ -6783,7 +6843,11 @@
         "last_modified": "Fri, 12 Jun 2026 01:31:39 GMT",
         "content_length": "503264",
         "etag": "\"58bba337bfadc1:0\""
-      }
+      },
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "edbc011_2026",
@@ -6837,7 +6901,11 @@
         "last_modified": "Thu, 18 Jun 2026 01:45:44 GMT",
         "content_length": "340176",
         "etag": "\"2e58b12dc4fedc1:0\""
-      }
+      },
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "edbcm107_2026",
@@ -6891,7 +6959,11 @@
         "last_modified": "Tue, 02 Jun 2026 08:33:06 GMT",
         "content_length": "645971",
         "etag": "\"7496536f6af2dc1:0\""
-      }
+      },
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "edbc007_2026",
@@ -6951,7 +7023,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-07-08",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM076/2026. route=value_education, Tier 3. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM076/2026. route=value_education, Tier 3. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "edbc013_2026",
@@ -6991,7 +7067,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-07-17",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM094/2026. route=hr_admin, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM094/2026. route=hr_admin, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "edbcm113_2026",
@@ -7061,7 +7141,11 @@
       "related_source_ids": [
         "g18"
       ],
-      "notes": "S195: sibling of g18 (供學校) on the same EDB school-bus page. g18 covers the school's own obligations; this one covers a party the school has to supervise or advise, so questions like 「跟車保母有咩要求」 previously had nothing to answer from. Text-layer PDF, cover verified to name this audience per FRESHNESS_GUIDE §1a."
+      "notes": "S195: sibling of g18 (供學校) on the same EDB school-bus page. g18 covers the school's own obligations; this one covers a party the school has to supervise or advise, so questions like 「跟車保母有咩要求」 previously had nothing to answer from. Text-layer PDF, cover verified to name this audience per FRESHNESS_GUIDE §1a.",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "durable document type (指引) — never swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "sch_bus_escorts_2026",
@@ -7084,7 +7168,11 @@
       "related_source_ids": [
         "g18"
       ],
-      "notes": "S195: sibling of g18 (供學校) on the same EDB school-bus page. g18 covers the school's own obligations; this one covers a party the school has to supervise or advise, so questions like 「跟車保母有咩要求」 previously had nothing to answer from. Text-layer PDF, cover verified to name this audience per FRESHNESS_GUIDE §1a."
+      "notes": "S195: sibling of g18 (供學校) on the same EDB school-bus page. g18 covers the school's own obligations; this one covers a party the school has to supervise or advise, so questions like 「跟車保母有咩要求」 previously had nothing to answer from. Text-layer PDF, cover verified to name this audience per FRESHNESS_GUIDE §1a.",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "durable document type (指引) — never swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "sch_bus_operators_2026",
@@ -7107,7 +7195,11 @@
       "related_source_ids": [
         "g18"
       ],
-      "notes": "S195: sibling of g18 (供學校) on the same EDB school-bus page. g18 covers the school's own obligations; this one covers a party the school has to supervise or advise, so questions like 「跟車保母有咩要求」 previously had nothing to answer from. Text-layer PDF, cover verified to name this audience per FRESHNESS_GUIDE §1a."
+      "notes": "S195: sibling of g18 (供學校) on the same EDB school-bus page. g18 covers the school's own obligations; this one covers a party the school has to supervise or advise, so questions like 「跟車保母有咩要求」 previously had nothing to answer from. Text-layer PDF, cover verified to name this audience per FRESHNESS_GUIDE §1a.",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "durable document type (指引) — never swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "sch_bus_parents_2026",
@@ -7130,7 +7222,11 @@
       "related_source_ids": [
         "g18"
       ],
-      "notes": "S195: sibling of g18 (供學校) on the same EDB school-bus page. g18 covers the school's own obligations; this one covers a party the school has to supervise or advise, so questions like 「跟車保母有咩要求」 previously had nothing to answer from. Text-layer PDF, cover verified to name this audience per FRESHNESS_GUIDE §1a."
+      "notes": "S195: sibling of g18 (供學校) on the same EDB school-bus page. g18 covers the school's own obligations; this one covers a party the school has to supervise or advise, so questions like 「跟車保母有咩要求」 previously had nothing to answer from. Text-layer PDF, cover verified to name this audience per FRESHNESS_GUIDE §1a.",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "durable document type (指引) — never swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "sch_bus_students_2026",
@@ -7153,7 +7249,11 @@
       "related_source_ids": [
         "g18"
       ],
-      "notes": "S195: sibling of g18 (供學校) on the same EDB school-bus page. g18 covers the school's own obligations; this one covers a party the school has to supervise or advise, so questions like 「跟車保母有咩要求」 previously had nothing to answer from. Text-layer PDF, cover verified to name this audience per FRESHNESS_GUIDE §1a."
+      "notes": "S195: sibling of g18 (供學校) on the same EDB school-bus page. g18 covers the school's own obligations; this one covers a party the school has to supervise or advise, so questions like 「跟車保母有咩要求」 previously had nothing to answer from. Text-layer PDF, cover verified to name this audience per FRESHNESS_GUIDE §1a.",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "durable document type (指引) — never swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "va_safety_sec",
@@ -7196,7 +7296,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-08-18",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM116/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM116/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "staff_est_pri",

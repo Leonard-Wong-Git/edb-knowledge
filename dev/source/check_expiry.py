@@ -198,7 +198,14 @@ def run_self_test(classify, is_expired) -> int:
     check("its covered period is recorded", r["covers_period"] == "2026/27")
     r = classify(pkg("教師專業發展課程簡介會", tier=3))
     check("an occasion with NO extractable date is kept, not guessed at",
-          r["lifecycle"] == "reference" and r["expires_on"] is None)
+          r["lifecycle"] != "ephemeral" and r["expires_on"] is None)
+    r = classify(pkg("資訊及通訊科技 (中四至中六) (於2022/23學年實施並在2025年及以後的香港中學文憑考試生效)",
+                     deadlines=["2026-01-01"]))
+    check("HKDSE named in a curriculum document is not an occasion "
+          "(S209 backfill false positive)", r["lifecycle"] != "ephemeral")
+    r = classify(pkg("「我的行動承諾」（2026/27）", tier=3))
+    check("a dateless occasion that names a school year is a dated_edition",
+          r["lifecycle"] == "dated_edition" and r["covers_period"] == "2026/27")
     r = classify(pkg("小學數學科課程配套資料"))
     check("an ordinary document is reference", r["lifecycle"] == "reference")
     r = classify(pkg("學與教材料 (二零二六年八月)", tier=1, deadlines=["2026-01-01"]))
@@ -330,7 +337,33 @@ def do_classify(args) -> int:
         Path(args.changes_out).write_text(json.dumps(proposals, ensure_ascii=False, indent=2),
                                           encoding="utf-8")
         print(f"\n📄 Proposals: {args.changes_out}")
-    print("\n(report only — nothing written to the registry)")
+    if not args.apply:
+        print("\n(report only — re-run with --apply to write these to the registry)")
+        return 0
+
+    # Backfill is write-once and additive: it only ever fills a field that is
+    # absent, and it can only ever write `reference` / `dated_edition`. A
+    # registry row carries no tier and no extracted deadlines, so this path
+    # cannot produce `ephemeral` — asserted rather than assumed, because the
+    # difference between the two is the difference between marking and deleting.
+    doc = load_registry()
+    by_id = {x["source_id"]: x for x in doc["sources"]}
+    written = 0
+    for prop in proposals:
+        assert prop["lifecycle"] != "ephemeral", (
+            f"backfill proposed ephemeral for {prop['source_id']} — refusing; "
+            "an expiry must come from an ingest package with real deadlines")
+        row = by_id[prop["source_id"]]
+        if row.get("lifecycle"):
+            continue
+        row["lifecycle"] = prop["lifecycle"]
+        row["expires_on"] = None
+        row["expiry_basis"] = prop["expiry_basis"]
+        row["covers_period"] = prop["covers_period"]
+        written += 1
+    save_registry(doc)
+    print(f"\n✅ wrote lifecycle fields to {written} registry entries "
+          f"(expires_on left null — nothing backfilled becomes sweepable)")
     return 0
 
 

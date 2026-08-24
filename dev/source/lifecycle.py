@@ -54,7 +54,10 @@ GRACE_DAYS = 30
 EPHEMERAL_WORDS = [
     "簡介會", "講座", "研討會", "工作坊", "培訓班", "培訓計劃", "訓練計劃",
     "比賽", "選拔", "提名", "獎勵計劃", "報名", "截止", "名額",
-    "測試", "考試", "測驗", "考生須知", "申請人須知",
+    # 「測試」/「測驗」name a sitting; bare 「考試」does not — HKDSE is a standing
+    # institution, and every senior-secondary curriculum document mentions it.
+    # Caught on the S209 backfill: 「香港中學文憑考試」 in two curriculum guides.
+    "測試", "測驗", "考生須知", "申請人須知",
     "交流計劃", "參觀", "巡迴展覽", "開放日", "頒獎",
 ]
 
@@ -135,8 +138,9 @@ def classify(pkg: Dict) -> Dict:
 
     if is_event and not deadlines:
         # Looks like an occasion but carries no date. Never guess an expiry from
-        # prose — flag it for a human instead of inventing one.
-        result["lifecycle"] = "reference"
+        # prose — invent nothing. If it names a school year it is at least a
+        # dated edition; either way it is kept.
+        result["lifecycle"] = "dated_edition" if year else "reference"
         result["expiry_basis"] = ("looks one-off but carries no extractable date — "
                                   "kept; set expires_on by hand if it should expire")
         return result
