@@ -199,6 +199,11 @@ const SOURCE_SETS: Record<string, string[]> = {
     // the framework itself, so an 「人工智能初探」query has real content to answer from.
     "iit_ai_framework_2026",
     "edbcm152_2026",              // (auto) Option A watcher ingest
+    // S209 — 學校資訊保安建議措施 (g28): 5 EDBCM circulars on cyber security plus the two
+    // HKPF Zoom advisories. Nearest existing route; the keyword regex below still has no
+    // security terms, so a bare 「資訊保安」query does not route here yet — that is a
+    // retrieval change and needs its own before/after eval.
+    "g28",
   ],
   /**
    * S194 — 公民與社會發展科 (cgss route). Its corpus reached the index by accident: the
@@ -1125,6 +1130,12 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   "edbcm108_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbc014_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbcm152_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
+  // S209 — 學校資訊保安建議措施. Registered since the seed import, ingested only now
+  // (40 chunks from 7 documents on its hub). Measured immediately after ingest: it
+  // did not appear for 「學校資訊保安」, 「學校網絡安全」 or 「Zoom 保安設定」 — its own
+  // subject — because no route lists it and a fresh small source loses the global
+  // ANN window. Prune once it surfaces without the overlay.
+  "g28",
   // ack:spotlight:end
 ];
 

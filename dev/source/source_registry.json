@@ -1108,14 +1108,28 @@
       "version_label": "2019",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "Seeded from existing guidelines.json public artifact.",
+      "notes": "Seeded from existing guidelines.json public artifact. | S209(2026-08-24): ingested 7 of the 41 documents on the hub — 5 EDBCM circulars (84/2022, 71/2019, 164/2018, 101/2018, 92/2018) and the two HKPF Zoom advisories. 學校網絡安全小貼士 is image-only (one 2480x3508 JPEG, no text layer) and needs OCR — left out rather than ingested blank. The other 33 are 31 seminar decks from 2018–2020 events (one-off occasions) plus 2 third-party cybersecurity.hk leaflets, and are deliberately NOT ingested: they would dilute retrieval without answering what a school should do today. All 41 probed live, zero 404s. Page numbers restart per document so #page=N means the page of THAT pdf (the bug g17 has). ⚠️ do not --fetch.",
       "freshness_metadata": {
         "last_modified": "Tue, 28 Apr 2026 10:08:03 GMT",
         "content_length": "22310",
         "etag": "\"80c365e6f6d6dc1:0\"",
         "content_hash": "a1682fb740b7c6e4d7a293085652cf779f0031ef7367d054b34da621d73ff4ef",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "section_urls": {
+        "edbcm084_2022": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/CM/2022/EDBCM22084C.pdf",
+        "edbcm071_2019": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/CM/EDBCM19071C-BuildaSecureCyberspace2019.pdf",
+        "edbcm164_2018": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/CM/EDBCM18164C-CyberSecurityCampaign-SmartDevicesSecurity.pdf",
+        "edbcm101_2018": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/CM/EDBCM1012018C-BuildSecureCyberSpace.pdf",
+        "edbcm092_2018": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/CM/EDBCM2018092C-Antibotnet.pdf",
+        "zoom_desktop_hkpf": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/ZoomDataSecurityIncidents/ZOOM-Desktop-suggestion.pdf",
+        "zoom_mobile_hkpf": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/ZoomDataSecurityIncidents/ZOOM-Mobile-suggestion.pdf"
+      },
+      "refetch_blocked": "multi-document hub extract built by dev/_s209_build_g28.py — the generic single-page extract_html_text would replace all 8 documents with the landing page and kill every section_urls deep link (S209)",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "standing information-security guidance — never swept",
+      "covers_period": null
     },
     {
       "source_id": "g24",

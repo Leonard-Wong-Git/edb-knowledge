@@ -47,6 +47,24 @@ def run_page_tests(carry_pages) -> None:
           == "=== Page 4 ===\ntail")
     check("output length always equals input length",
           len(carry_pages(["a", "=== Page 1 ===", "b", "c"])) == 4)
+    # S209 — a page number belongs to one document. In a multi-document extract a
+    # chunk can open the next section before that document's first page marker;
+    # inheriting the previous document's page cited a page past the end of the
+    # file (g28: a 1-page circular was handed page 2, a 3-page one page 8).
+    check("a chunk that opens a new section does not inherit the previous page",
+          carry_pages(["=== Page 8 ===\ntail of doc A", "=== doc_b ===\nintro"])[1]
+          == "=== doc_b ===\nintro")
+    check("the reset persists until the new document's own page marker",
+          carry_pages(["=== Page 8 ===\nA", "=== doc_b ===\nintro", "more intro"])[2]
+          == "more intro")
+    check("the new document's own page marker resumes carrying",
+          carry_pages(["=== Page 8 ===\nA", "=== doc_b ===\n=== Page 1 ===\nx", "y"])[2]
+          == "=== Page 1 ===\ny")
+    check("a page marker alone never counts as opening a section",
+          carry_pages(["=== Page 3 ===\na", "b"])[1] == "=== Page 3 ===\nb")
+    check("two page markers on one line do not fake a section boundary",
+          carry_pages(["=== Page 5 === 6 (Blank Page) === Page 6 ===", "tail"])[1]
+          == "=== Page 6 ===\ntail")
 
 
 def run_section_tests(carry_sections) -> None:
@@ -131,6 +149,22 @@ def run_refetch_guard_tests(block_reason) -> None:
     check("the summary counts it as blocked, not as skipped or failed",
           "1 blocked," in out_blocked and "0 blocked," in out_plain)
 
+    # S209 — a multi-document extract must be cut at its section markers BEFORE
+    # sizing, or a chunk holds the tail of one PDF and the head of the next: it is
+    # assigned the new document's URL while its text still carries the previous
+    # document's page marker, which the backend parses at read time. carry_pages
+    # cannot fix that — the stale page is inside the text.
+    body = "front\n=== doc_a ===\n=== Page 1 ===\nA\n=== doc_b ===\n=== Page 1 ===\nB"
+    parts = ev.split_on_section_markers(body)
+    check("split: front-matter, then one part per document",
+          len(parts) == 3 and parts[1].strip().startswith("=== doc_a ==="))
+    check("split: every document part carries its own section marker",
+          all(p.strip().startswith("=== doc_") for p in parts[1:]))
+    check("split: a body with no section markers stays one part",
+          ev.split_on_section_markers("plain\n=== Page 2 ===\nx") == ["plain\n=== Page 2 ===\nx"])
+    check("split: two page markers on one line are not a section boundary",
+          len(ev.split_on_section_markers("=== Page 5 === 6 (Blank) === Page 6 ===\nx")) == 1)
+
     # The override exists and is the ONLY way through.
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
@@ -159,9 +193,9 @@ def main() -> int:
 
     print()
     if prove:
-        ok = len(FAILS) >= 16
+        ok = len(FAILS) >= 19
         print(f"{'ALL PASS' if ok else 'BROKEN'} — {len(FAILS)} assertions fired against the no-op "
-              f"implementations (expected ≥ 16: 8 carry rules + 8 refetch guard).")
+              f"implementations (expected ≥ 19: 11 carry rules + 8 refetch guard).")
         return 0 if ok else 1
     if FAILS:
         print(f"{len(FAILS)} FAILED: " + "; ".join(FAILS))

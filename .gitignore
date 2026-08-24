@@ -77,3 +77,7 @@ dev/source/ops/
 # run JSON ~4MB each) and fully reproducible from the tool. Findings live in
 # dev/source/CHANNEL_A_COVERAGE_FINDINGS.md.
 dev/source/coverage_runs/
+
+# S209 — source PDFs cached by dev/_s209_build_g28.py. 11MB of files that are one
+# HEAD away on edb.gov.hk; the extract they produce is what the repo needs to keep.
+dev/vault/*/_pdf/

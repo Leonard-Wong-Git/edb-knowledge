@@ -502,6 +502,35 @@ def extract_vault_body(text: str) -> str:
     return "\n".join(body).strip()
 
 
+def split_on_section_markers(body: str) -> list[str]:
+    """Cut a multi-document extract at its `=== label ===` markers.
+
+    Each returned part starts with its own section marker, so a chunk built from
+    it can only ever belong to one document. Page markers are stripped from
+    consideration first (the same two-step read carry_sections uses), otherwise
+    `=== Page 5 === 6 === Page 6 ===` would split the body mid-page.
+
+    Text before the first section marker is returned as its own leading part, so
+    front-matter is neither lost nor attached to the first document.
+    """
+    from build_wiki_index import PAGE_MARKER_RE, SECTION_MARKER_RE, _PAGE_LABEL_RE
+    cuts = []
+    for m in SECTION_MARKER_RE.finditer(body):
+        label = m.group(1).strip()
+        if not label or _PAGE_LABEL_RE.match(label):
+            continue                                    # a page marker, not a section
+        cuts.append(m.start())
+    if not cuts:
+        return [body]
+    parts = []
+    if cuts[0] > 0:
+        parts.append(body[:cuts[0]])
+    for i, start in enumerate(cuts):
+        end = cuts[i + 1] if i + 1 < len(cuts) else len(body)
+        parts.append(body[start:end])
+    return [p for p in parts if p.strip()]
+
+
 def build_chunks_from_vault_file(extract_path: Path) -> list[dict]:
     """Build chunk dicts from a vault extract .txt file (no embeddings yet)."""
     raw = extract_path.read_text(encoding="utf-8")
@@ -522,7 +551,21 @@ def build_chunks_from_vault_file(extract_path: Path) -> list[dict]:
     # searchChannelB.ts) returns undefined and the UI can no longer point at a page —
     # measured on staff_est_pri: 4 of 81 chunks carried a page, 77 did not.
     # No-op (byte-identical, same text_hash) for sources whose extract has no markers.
-    raw_texts = chunk_text(body, max_chars=source_override(sid, "chunk_max_chars", CHUNK_MAX_CHARS))
+    max_chars = source_override(sid, "chunk_max_chars", CHUNK_MAX_CHARS)
+    # S209 — a multi-document extract must not produce a chunk that straddles two
+    # documents. Chunking the body as one string let a chunk hold the tail of one
+    # PDF and the head of the next: carry_sections gives it the section it ENDS in
+    # (the new document) while its text still carries the previous document's
+    # `=== Page N ===`, and the backend parses that page at read time. g28 shipped
+    # a 1-page circular citing page 2 and a 3-page one citing page 8 that way.
+    # Splitting at the section markers first makes the straddle impossible; sizing
+    # inside each section is unchanged, so a single-document source is untouched.
+    if source_section_urls(sid):
+        raw_texts = []
+        for part in split_on_section_markers(body):
+            raw_texts.extend(chunk_text(part, max_chars=max_chars))
+    else:
+        raw_texts = chunk_text(body, max_chars=max_chars)
     texts = carry_pages(raw_texts)
     # S207 — resolve each chunk to the sub-page it came from. Read off the PRE-carry
     # chunks: carry_pages() prefixes `=== Page N ===`, which changes nothing here

@@ -181,6 +181,17 @@ def carry_sections(chunks: list[str]) -> list[str | None]:
     return out
 
 
+def _opens_section(chunk: str) -> bool:
+    """True when the chunk carries a real `=== label ===` section marker.
+
+    Same two-step read as carry_sections(): strip page markers first, so
+    `=== Page 5 === 6 === Page 6 ===` cannot present the body text between two
+    page markers as a section name.
+    """
+    labels = [lab.strip() for lab in SECTION_MARKER_RE.findall(PAGE_MARKER_RE.sub("\n", chunk))]
+    return any(lab and not _PAGE_LABEL_RE.match(lab) for lab in labels)
+
+
 def carry_pages(chunks: list[str]) -> list[str]:
     """
     S206: the page-carry rule itself, lifted out of chunk_text_with_page_carry so
@@ -201,7 +212,18 @@ def carry_pages(chunks: list[str]) -> list[str]:
         if found:
             current_page = found[-1]            # carry the page this chunk ends on
             out.append(ch)                       # already resolvable — unchanged
-        elif current_page is not None:
+            continue
+        # S209: a page number belongs to ONE document. In a multi-document extract
+        # (g14/g17/g28: a section marker per source PDF) a chunk can open a new
+        # section and end before that document's first `=== Page 1 ===`. Carrying
+        # the previous document's page there produced anchors past the end of the
+        # file being cited — g28's EDBCM071 (1 page) was handed page 2, and its
+        # EDBCM092 (3 pages) page 8, both inherited from the document above.
+        # Crossing a section boundary with no page of its own means "page unknown",
+        # which the UI already handles by omitting the anchor.
+        if _opens_section(ch):
+            current_page = None
+        if current_page is not None:
             out.append(f"=== Page {current_page} ===\n{ch}")
         else:
             out.append(ch)                       # before first marker — unchanged
