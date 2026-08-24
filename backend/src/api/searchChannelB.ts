@@ -416,6 +416,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g16", "g17",
     "sag_2025_11",
     "role_facts_student", "role_facts_general",
+    "edbcm108_2026",              // (auto) Option A watcher ingest
   ],
 
   /**
@@ -1116,6 +1117,7 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   "faq_edbc19011",        // 17 chunks
   "edbcm099_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbcm135_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
+  "edbcm108_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   // ack:spotlight:end
 ];
 
