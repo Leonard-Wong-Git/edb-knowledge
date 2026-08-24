@@ -198,6 +198,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     // edbcm113_2026 is only the announcing circular (3 chunks = cover + summary); this is
     // the framework itself, so an 「人工智能初探」query has real content to answer from.
     "iit_ai_framework_2026",
+    "edbcm152_2026",              // (auto) Option A watcher ingest
   ],
   /**
    * S194 — 公民與社會發展科 (cgss route). Its corpus reached the index by accident: the
@@ -1120,6 +1121,7 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   "edbcm135_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbcm108_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbc014_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
+  "edbcm152_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   // ack:spotlight:end
 ];
 

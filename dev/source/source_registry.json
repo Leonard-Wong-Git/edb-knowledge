@@ -7497,6 +7497,26 @@
       "last_checked_at": "2026-08-24",
       "supersedes": null,
       "notes": "(auto, Option A executor) EDBC014/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+    },
+    {
+      "source_id": "edbcm152_2026",
+      "title": "科學教育學習領域： 更新高中科學科目課程及評估架構（諮詢稿）",
+      "title_en": null,
+      "title_short": "科學教育學習領域： 更新高中科學科目課程及評估架",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26152C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26152C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-08-24",
+      "supersedes": null,
+      "notes": "(auto, Option A executor) EDBCM152/2026. route=digital_education, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract."
     }
   ]
 }
