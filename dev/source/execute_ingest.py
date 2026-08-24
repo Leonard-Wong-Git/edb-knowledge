@@ -342,8 +342,16 @@ def current_chunk_total() -> Optional[int]:
 
 
 def plan_display_sync(new_chunks: int) -> Dict:
+    # `before` is the needle: the string these files actually contain today.
+    # `after` is anchored on the store, not on `before + delta`, so a display that
+    # has drifted is corrected by this run instead of carried forward (S209).
     before = current_chunk_total()
-    after = (before + new_chunks) if before is not None else None
+    live_before = live_total_count()
+    drift = (before - live_before) if (before is not None and live_before is not None) else None
+    if live_before is not None:
+        after = live_before + new_chunks
+    else:
+        after = (before + new_chunks) if before is not None else None
     targets = []
     for rel, fmt in DISPLAY_SYNC_TARGETS:
         p = REPO_ROOT / rel
@@ -354,7 +362,8 @@ def plan_display_sync(new_chunks: int) -> Dict:
             hits = p.read_text(encoding="utf-8", errors="ignore").count(b_str)
         targets.append({"file": rel, "fmt": fmt, "sub": f"{b_str} -> {a_str}", "occurrences": hits,
                         "exists": p.exists()})
-    return {"before": before, "after": after, "delta": new_chunks, "targets": targets}
+    return {"before": before, "after": after, "delta": new_chunks, "targets": targets,
+            "live_before": live_before, "display_drift": drift}
 
 
 def plan_commit_message(pkg: Dict, eff: Dict, chunks: int, after: Optional[int]) -> str:
@@ -502,6 +511,33 @@ def live_source_count(source_id: str) -> Optional[int]:
                                   "Range-Unit": "items", "Range": "0-0", "Prefer": "count=exact"},
                          timeout=40)
         cr = r.headers.get("content-range", "")          # e.g. "0-0/6" or "*/0"
+        return int(cr.split("/")[-1]) if "/" in cr else None
+    except Exception:
+        return None
+
+
+def live_total_count() -> Optional[int]:
+    """Authoritative TOTAL chunk count in Supabase — the number the platform claims.
+
+    Why this exists (S209): the displayed total used to be a pure running tally
+    (`knowledge.json` stat + this run's delta), seeded once and never re-anchored.
+    A single historical discrepancy therefore became permanent: the published
+    figure sat exactly 1 below the store for months, and every ingest carried the
+    error forward because it only ever added to the previous claim. Reading the
+    store makes the number right by construction — the tally is kept only as the
+    substitution needle (the string that is actually present in the mirror files)
+    and as the fallback when the count query fails.
+    """
+    import requests
+    svc = _read_secret("SUPABASE_SERVICE_KEY")
+    if not svc:
+        return None
+    try:
+        r = requests.get(f"{SUPABASE_URL}/rest/v1/{WIKI_TABLE}?select=id",
+                         headers={"apikey": svc, "Authorization": f"Bearer {svc}",
+                                  "Range-Unit": "items", "Range": "0-0", "Prefer": "count=exact"},
+                         timeout=40)
+        cr = r.headers.get("content-range", "")          # e.g. "0-0/17494"
         return int(cr.split("/")[-1]) if "/" in cr else None
     except Exception:
         return None
@@ -827,7 +863,19 @@ def exec_live(source_id: str) -> int:
             if actual is None:
                 actual = plan_chunks(pkg).get("chunks", 0)
             st["chunks"] = actual
-            st["after_total"] = (st["before_total"] + actual) if st["before_total"] is not None else None
+            # Anchor on the store, not on the previous claim (S209): a total built by
+            # repeated addition can never recover from a single bad summand.
+            live_total = live_total_count()
+            if live_total is not None:
+                st["after_total"] = live_total
+                expected = (st["before_total"] + actual) if st["before_total"] is not None else None
+                if expected is not None and expected != live_total:
+                    _annotate("warning", f"display total drift corrected: running tally said "
+                                    f"{expected:,}, Supabase says {live_total:,} "
+                                    f"({live_total - expected:+d})")
+            else:
+                st["after_total"] = ((st["before_total"] + actual)
+                                     if st["before_total"] is not None else None)
             _mark(st, "3_ingest", chunks=actual, **r)
             save_state(st)
             print(f"  [3] ingest OK (+{actual} chunks)")
