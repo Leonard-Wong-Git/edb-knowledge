@@ -7643,6 +7643,33 @@
       "last_checked_at": "2026-08-24",
       "supersedes": null,
       "notes": "(auto, Option A executor) EDBCM152/2026. route=digital_education, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract."
+    },
+    {
+      "source_id": "pcpd_cloud_computing",
+      "title": "雲端運算指引資料（個人資料私隱專員公署）",
+      "title_en": "Information Leaflet: Cloud Computing (PCPD)",
+      "title_short": "雲端運算指引資料",
+      "url_landing": "https://www.pcpd.org.hk/tc_chi/resources_centre/publications/guidance/guidance.html",
+      "url_primary": "https://www.pcpd.org.hk/tc_chi/resources_centre/publications/files/IL_cloud_c.pdf",
+      "source_type": "pdf",
+      "authority": "pcpd",
+      "spine": false,
+      "topic_tags": [
+        "it"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2025-01",
+      "last_checked_at": "2026-08-24",
+      "supersedes": null,
+      "related_source_ids": [
+        "g28"
+      ],
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "standing guidance under the PDPO — never swept",
+      "covers_period": null,
+      "notes": "S209(2026-08-24): added on Leonard's instruction after a live search for 「學校使用雲端服務指引」 returned senior-secondary ICT curriculum pages. EDB publishes no cloud-service guidance at all — g28's 8 substantive documents contain 「雲」/「cloud」 zero times, and the EDB information-security page zero times. This PCPD leaflet (2025-01, 13pp) is the nearest authoritative document: it states which PDPO requirements apply when an organisation adopts cloud computing (DPP 2(3), 3, 4 and s.65(2)). It is NOT school-specific — 「學校」/「教育」 appear zero times — but a school is a data user under the Ordinance, so it governs. First registry entry with authority != 'edb', though NOT the first non-EDB material: 8 non-EDB domains already serve 208 chunks (ICAC 78, EdCity 81, CHP 14, Cap 279 via ILO 11, EMSD 7, Audit 4, WFSFAA 2+11) — the authority field has simply never recorded it. Nothing reads the field (grep: written in 3 ingest scripts, consumed nowhere), so this is a labelling correction, not a behaviour change. OGCIO/DPO ISPG-SM04 Practice Guide for Cloud Computing Security was considered and NOT ingested: its PDF URL redirects to a JS-gated page that curl cannot retrieve, and it addresses government bureaux/departments, which aided schools are not."
     }
   ]
 }
