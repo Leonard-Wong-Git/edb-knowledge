@@ -1130,12 +1130,17 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   "edbcm108_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbc014_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbcm152_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
-  // S209 — 學校資訊保安建議措施. Registered since the seed import, ingested only now
-  // (40 chunks from 7 documents on its hub). Measured immediately after ingest: it
-  // did not appear for 「學校資訊保安」, 「學校網絡安全」 or 「Zoom 保安設定」 — its own
-  // subject — because no route lists it and a fresh small source loses the global
-  // ANN window. Prune once it surfaces without the overlay.
-  "g28",
+  // S209 — g28 was added here and REMOVED the same session, before deploying.
+  // The first probe used broad phrasings (「學校資訊保安」/「學校網絡安全」) and found
+  // nothing, which looked like the fresh-small-source problem the overlay exists
+  // for. Probing the whole-index pool at top_k=40/min_score=0.1 on the source's
+  // ACTUAL content told a different story: 「Zoom 保安設定及使用建議」 puts g28 at
+  // rank 0 @0.628 and 「殭屍網絡」 at rank 1 @0.396 — reachable on plain ANN with no
+  // route and no overlay. The broad phrasings return nothing because g28 holds no
+  // general statement of measures to return (see its registry notes), not because
+  // retrieval cannot see it. An overlay entry would have cost an exact-cosine pass
+  // on every query to fix a problem that does not exist. Same trap as the S195
+  // prune, in the opposite direction: the phrasing you choose decides the answer.
   // ack:spotlight:end
 ];
 
