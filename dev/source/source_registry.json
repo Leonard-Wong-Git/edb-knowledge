@@ -7690,6 +7690,35 @@
       "last_checked_at": "2026-08-26",
       "supersedes": null,
       "notes": "(auto, Option A executor) EDBCM156/2026. route=digital_education, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+    },
+    {
+      "source_id": "debp_leaflet",
+      "title": "中小學數字教育發展藍圖（三摺頁小冊子）",
+      "title_en": "DEBP Three-fold Leaflet",
+      "title_short": "DEBP三摺頁",
+      "url_landing": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/debp.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/DEBP/DEBP_3-foldLeaflet(TC).pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "it"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026-06",
+      "last_checked_at": "2026-08-26",
+      "supersedes": null,
+      "related_source_ids": [
+        "debp_blueprint",
+        "debp_exec_summary",
+        "edbcm156_2026"
+      ],
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "summary of a standing policy document — never swept. The time-risk here is SUPERSESSION (a v2 leaflet replacing v1 at the same URL), which check_freshness catches via content_hash, not check_expiry.",
+      "covers_period": null,
+      "notes": "S210(2026-08-26): ingested on Leonard's instruction, found by auditing the 10 online resources cited by EDBCM156/2026 — 4 of the 10 were already ingested and monitored, 6 were not. 30MB, 2 pages, 149 images, text layer present (1,479 chars; Tavily's independent extract agreed at 1,476). CAVEAT — this is an INFOGRAPHIC: the text layer is a run of graphic labels in layout order, not sentences, so a retrieved chunk reads as fragments rather than prose. Same family as the 學校網絡安全小貼士 JPEG that S209 deliberately left out, except this one is not blank. Largely a condensation of debp_blueprint, which is already ingested: 「十大策略」 is already served by 9 debp_blueprint chunks. It does carry 「四大發展重點」, which returned 0 chunks store-wide before this ingest."
     }
   ]
 }
