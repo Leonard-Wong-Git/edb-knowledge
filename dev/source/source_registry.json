@@ -7719,6 +7719,26 @@
       "expiry_basis": "summary of a standing policy document — never swept. The time-risk here is SUPERSESSION (a v2 leaflet replacing v1 at the same URL), which check_freshness catches via content_hash, not check_expiry.",
       "covers_period": null,
       "notes": "S210(2026-08-26): ingested on Leonard's instruction, found by auditing the 10 online resources cited by EDBCM156/2026 — 4 of the 10 were already ingested and monitored, 6 were not. 30MB, 2 pages, 149 images, text layer present (1,479 chars; Tavily's independent extract agreed at 1,476). CAVEAT — this is an INFOGRAPHIC: the text layer is a run of graphic labels in layout order, not sentences, so a retrieved chunk reads as fragments rather than prose. Same family as the 學校網絡安全小貼士 JPEG that S209 deliberately left out, except this one is not blank. Largely a condensation of debp_blueprint, which is already ingested: 「十大策略」 is already served by 9 debp_blueprint chunks. It does carry 「四大發展重點」, which returned 0 chunks store-wide before this ingest."
+    },
+    {
+      "source_id": "edbc015_2026",
+      "title": "直接資助計劃學校（直資學校） 徵收罰款及費用事宜",
+      "title_en": null,
+      "title_short": "直接資助計劃學校（直資學校） 徵收罰款及費用事宜",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26015C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26015C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "finance"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-08-26",
+      "supersedes": null,
+      "notes": "(auto, Option A executor) EDBC015/2026. route=finance, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
     }
   ]
 }

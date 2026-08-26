@@ -338,6 +338,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     // these two are the primary / special school editions ingested in S204. They are also
     // listed under hr_admin because the staffing schedules they carry answer HR queries.
     "coa_pri_e", "coa_ss_e",
+    "edbc015_2026",              // (auto) Option A watcher ingest
   ],
 
   /**
@@ -1143,6 +1144,7 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   // on every query to fix a problem that does not exist. Same trap as the S195
   // prune, in the opposite direction: the phrasing you choose decides the answer.
   "edbcm156_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
+  "edbc015_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   // ack:spotlight:end
 ];
 
