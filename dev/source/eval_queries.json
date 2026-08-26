@@ -273,6 +273,28 @@
     "role_facts_hr"
    ],
    "note": "S197 — same shape: who arranges escorting teachers and emergency contact for activities."
+  },
+  {
+   "id": "cyber_campaign",
+   "query": "網絡安全運動",
+   "expect_any": [
+    "g28"
+   ],
+   "note": "S210 — g28 真實內容詞（網罪科網絡安全運動通函）。live 實測 rank 0–2 @0.573。紀律 #13：用該源真實內容嘅 query，唔用形容佢嘅講法。"
+  },
+  {
+   "id": "cloud_privacy",
+   "query": "雲端運算 私隱",
+   "expect_any": [
+    "pcpd_cloud_computing"
+   ],
+   "note": "S210 — registry 第一個 authority!=edb 嘅源（PCPD 雲端運算指引，PDPO 保障資料原則）。live 實測 rank 0–2 @0.688。"
+  },
+  {
+   "id": "info_security_broad",
+   "query": "學校資訊保安",
+   "expect_any": [],
+   "note": "S210 RECORD_ONLY — 闊 query，S209 定案返 SAG/role_facts_it/g24 係啱嘅（g28 hub 係時序公告板，冇「建議措施」文件）。OP⑦ route regex 改動嘅 before/after 就睇呢條。"
   }
  ]
 }

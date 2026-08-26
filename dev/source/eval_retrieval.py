@@ -32,7 +32,11 @@ Usage (from repo root):
 Exit codes: 0 = ok / no regression, 1 = regression or run error.
 `--compare` treats only SET_LOST and VERDICT_REGRESSED as failures; rank shifts
 and newly added sources are reported but do not fail (a new source entering the
-top_k is the normal, intended effect of an ingest).
+top_k is the normal, intended effect of an ingest). S210: the *other half* of
+that same event -- the tail the entrant evicts -- is DISPLACED, also reported
+and also non-failing. Scoring the entrance benign but the eviction blocking
+made the gate fire on every run following an ingest, and the Option A pipeline
+now ingests daily; a gate that is red every morning is a gate nobody reads.
 """
 from __future__ import annotations
 
@@ -93,6 +97,27 @@ def verdict_for(result_sids: list[str], expect_any: list[str],
     return "FAIL", None
 
 
+def _is_displacement(b_sids: list[str], a_sids: list[str],
+                     added: list[str]) -> bool:
+    """True when every lost source was evicted from the tail by a new entrant.
+
+    At a fixed top_k, a source entering the list necessarily pushes the same
+    number of entries off the bottom. compare_runs already treats the entrance
+    as benign (SET_ADDED); calling the eviction it causes a blocking failure
+    scores one event twice, in opposite directions.
+
+    Only the tail may be evicted. `cut` is the number of slots that survive N
+    insertions, so a loss from at or below it is arithmetic and a loss from
+    above it is a real drop that stays SET_LOST. A short after-list is also a
+    real drop: fewer results came back than went in, so nothing was displaced.
+    """
+    if not added or len(a_sids) < len(b_sids):
+        return False
+    cut = len(b_sids) - len(added)
+    lost_positions = [i for i, sid in enumerate(b_sids) if sid not in a_sids]
+    return bool(lost_positions) and all(i >= cut for i in lost_positions)
+
+
 def compare_runs(before: dict, after: dict) -> dict:
     """Diff two run files. Pure — takes parsed dicts, returns a report dict."""
     tie_map = build_tie_map(before.get("tie_aliases") or [])
@@ -122,7 +147,10 @@ def compare_runs(before: dict, after: dict) -> dict:
         elif b["verdict"] == "FAIL" and a["verdict"] == "PASS":
             status = "VERDICT_FIXED"
         elif lost:
-            status = "SET_LOST"
+            # S210 — a tail eviction caused by a new entrant is the arithmetic
+            # consequence of an ingest, not a retrieval loss. See
+            # _is_displacement() for why this is not scored as a failure.
+            status = "DISPLACED" if _is_displacement(b_sids, a_sids, added) else "SET_LOST"
         elif added:
             status = "SET_ADDED"
         elif b_sids != a_sids:
@@ -304,6 +332,27 @@ def self_test() -> int:
     check("a newly surfaced source = SET_ADDED and does NOT fail",
           rep["rows"][0]["status"] == "SET_ADDED" and rep["failures"] == 0)
 
+    # S210 DISPLACED — and, per discipline #11, proof the gate still goes red.
+    rep = compare_runs(mk("b", [row("q1", ["a", "b", "c", "tail"])]),
+                       mk("a", [row("q1", ["a", "new", "b", "c"])]))
+    check("tail eviction by a new entrant = DISPLACED and does NOT fail",
+          rep["rows"][0]["status"] == "DISPLACED" and rep["failures"] == 0)
+
+    rep = compare_runs(mk("b", [row("q1", ["a", "gone", "c", "d"])]),
+                       mk("a", [row("q1", ["a", "new", "c", "d"])]))
+    check("a loss from ABOVE the cut line stays SET_LOST and FAILS",
+          rep["rows"][0]["status"] == "SET_LOST" and rep["failures"] == 1)
+
+    rep = compare_runs(mk("b", [row("q1", ["a", "b", "c", "tail"])]),
+                       mk("a", [row("q1", ["a", "new", "b"])]))
+    check("a shorter after-list is a real drop, not displacement",
+          rep["rows"][0]["status"] == "SET_LOST" and rep["failures"] == 1)
+
+    rep = compare_runs(mk("b", [row("q1", ["a", "b", "t1", "t2"])]),
+                       mk("a", [row("q1", ["n1", "n2", "a", "b"])]))
+    check("two entrants evict exactly two tail slots = DISPLACED",
+          rep["rows"][0]["status"] == "DISPLACED" and rep["failures"] == 0)
+
     rep = compare_runs(mk("b", [row("q1", ["a"], "PASS")]),
                        mk("a", [row("q1", ["a"], "FAIL")]))
     check("PASS→FAIL = VERDICT_REGRESSED and FAILS",
@@ -347,7 +396,7 @@ def self_test() -> int:
 
 def print_compare(rep: dict) -> None:
     order = ["VERDICT_REGRESSED", "SET_LOST", "ERROR", "VERDICT_FIXED",
-             "SET_ADDED", "RANK_SHIFT", "SCORE_MOVED", "SAME",
+             "DISPLACED", "SET_ADDED", "RANK_SHIFT", "SCORE_MOVED", "SAME",
              "ONLY_IN_ONE_RUN"]
     by_status: dict[str, list[dict]] = {}
     for r in rep["rows"]:
