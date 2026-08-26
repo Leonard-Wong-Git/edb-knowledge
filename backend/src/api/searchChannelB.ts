@@ -563,6 +563,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "ict_sss_2007_2015",  // superseded by the 2021 edition → SUPERSEDED_IDS penalty applies
     "edbcm116_2026",              // (auto) Option A watcher ingest
     "edbc014_2026",              // (auto) Option A watcher ingest
+    "edbcm138_2026",              // (auto) Option A watcher ingest
   ],
   /*
    * Kindergarten administration / operation — 幼稚園行政手冊 + 學前機構辦學手冊 (S160).
@@ -1145,6 +1146,7 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   // prune, in the opposite direction: the phrasing you choose decides the answer.
   "edbcm156_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbc015_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
+  "edbcm138_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   // ack:spotlight:end
 ];
 
