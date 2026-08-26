@@ -560,9 +560,19 @@ def build_chunks_from_vault_file(extract_path: Path) -> list[dict]:
     # a 1-page circular citing page 2 and a 3-page one citing page 8 that way.
     # Splitting at the section markers first makes the straddle impossible; sizing
     # inside each section is unchanged, so a single-document source is untouched.
-    if source_section_urls(sid):
+    # S210 — the gate is the EXTRACT, not the registry. S209 gated this on
+    # source_section_urls(sid), but straddling is a property of the text: any
+    # extract carrying `=== label ===` markers can produce a chunk spanning two
+    # of them, whether or not the registry happens to declare per-section URLs.
+    # Two live sources sat outside the guard for that reason -- gifted_policy_docs
+    # (a PDF followed by `=== introduction ===` / `=== detail ===` web sections,
+    # with one chunk holding the tail of page 8 and the head of the web text) and
+    # g04. split_on_section_markers() returns a single part when the body has no
+    # non-page marker, so this stays byte-identical for every other source.
+    parts = split_on_section_markers(body)
+    if len(parts) > 1:
         raw_texts = []
-        for part in split_on_section_markers(body):
+        for part in parts:
             raw_texts.extend(chunk_text(part, max_chars=max_chars))
     else:
         raw_texts = chunk_text(body, max_chars=max_chars)
