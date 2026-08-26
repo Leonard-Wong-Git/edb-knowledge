@@ -24,6 +24,8 @@
 
 ## Current Baseline
 
+> **🆕 S210（2026-08-26）—— 補返 S209 欠嘅 eval，證實零退步；順手發現量度佢嘅閘本身壞咗：** HEAD==origin/main；**Supabase 17,568 → 17,576**（開工先 `--ff-only` 收咗隔夜 Option A 入庫 `edbcm156_2026` +17，再 +4 g04 重切、+4 三摺頁）；`source_registry` 275 → **276**；`GUIDELINES_REGISTRY` **177 不變**；平台 **v3.3.0 不變**；**凍結合約（`_meta` 2.3.0 · facts 455 · `guidelines.json` 2.6.1 · 158）全部零接觸**。起手探針 5/5 綠（served 3.3.0 / `/health` warm 455 / HEAD 對齊 / count=exact / 無頁碼數）。① **OP⑥ 結案 —— 補跑咗，零退步。** S209 動過切 chunk 邏輯同加咗兩個源但冇跑 eval；今次補跑對 `2026-08-19_s207_after.json`，PASS=23/FAIL=0/errors=0。compare 報 5 blocking，**逐條拆完冇一條係退步**：1 條 ERROR 錯喺**基線檔**（S207 嗰次 `nonlocal` 撞 Supabase 57014 timeout，0 個源；今次答得正常），4 條 SET_LOST 全部係自動管道新入庫嘅通函擠入 top_k=8、撞跌最尾位（掉低嗰個 before 排 [7]/[7]/[7]/[6]，verdict 一個都冇變）。② **量度嘅閘本身壞咗，已修。** harness 當「新源入 top_k」無害（SET_ADDED 非 blocking）但當同一件事撞跌尾位係 blocking —— 固定 top_k 之下呢係一件事嘅兩個講法。Option A 每日入庫兼自己 push，即係**呢個閘由今日起會朝朝紅**（紀律 #14 嗰種必然變牆紙嘅閘）。新增 `DISPLACED`：有新入者 + 掉低嗰啲全部喺 cut line 以下 + after 唔短過 before 先降級，否則照 SET_LOST。③ **開工探針 +10 無頁碼 = S209 修好嘢，唔係退步。** 461 條入面新增嗰 10 條全部係 `gifted_policy_docs`；用 S207 版 vs S209 版 `carry_pages` 跑同一份 extract 對證，**10 條全部由「Page 8」變 None**。嗰份 PDF 得 8 頁，而 10 條入面 9 條係 extract 尾嘅網頁段落（`=== introduction === / === detail ===`，本身冇頁碼），舊邏輯一路 carry 落去 = 叫用戶揭第 8 頁搵一段網頁文字。**交接寫嘅「10/23 有缺陷等修」要反轉理解。** ④ **`split_on_section_markers` 個 gate 由 registry 改為 extract 判。** S209 gate 喺 `source_section_urls(sid)`，但橫跨係文字嘅屬性 —— 有 `=== label ===` 就跨得，同 registry 有冇 per-section URL 無關。兩個源一直喺閘外：`gifted_policy_docs`（一條 chunk 揸住 page 8 尾 + `=== introduction ===` 頭）同 `g04`。261 個 vault 源逐個對 chunk 內容 hash：**259 byte 級 no-op**，只有 g04（7→11）同 gifted（23→23）變；重入後**跨界 chunk g04 5→0、gifted 2→0**（live 實查）。⑤ **eval 集補咗保安／雲端三條**（34→37）：`cyber_campaign`「網絡安全運動」→g28 rank 0–2、`cloud_privacy`「雲端運算 私隱」→pcpd rank 0–2、`info_security_broad`「學校資訊保安」RECORD_ONLY（OP⑥ 撬點）。**三條全部入檔前 live 實測過先寫 `expect_any`。** 之前 34 條**一條都冇掂過** S209 兩個新源。⑥ **三摺頁入咗庫但贏唔到**（Leonard 指示入）：4 chunks。「創新型終身學習者」rank 6 → 搜得到、**唔係 route 擋**；但「四大發展重點」（**全庫只有佢一條**有呢詞）**rank=None**，輸畀無關課程文件 @0.538。成因係佢係資訊圖，chunk 係三十幾個互不相連嘅圖標籤，撐唔起 embedding 方向。caveat 已寫死入 registry notes。**唔建議加入 `digital_education` SOURCE_SET**（入咗只會同更強兼已 routed 嘅 `debp_blueprint` 爭位）。⑦ **全 session 檢索淨影響**（`baseline37 → after_leaflet`）：SET_LOST 1 / SET_ADDED 1 / RANK_SHIFT 2 / SCORE_MOVED 1 / SAME 32。唯一 blocking 係 `pay_adjust` 掉低 `edbcm135_2026`（尾位）—— **成因係 g04 切細後多佔一個 top-k 位，係切細嘅真實代價，唔係雜訊**（verdict 仍 PASS，等緊嘅 `edbcm094_2026` 仍 rank 1）。呢條**冇被 DISPLACED 吸收**，因為 g04 本身已喺 before 名單、`added` 係空 —— 呢個邊界係**刻意保留**：SET_LOST 意思係「本來搵到嘅源而家完全搵唔到」，呢個情況確實係。
+
 > **🆕 S209（2026-08-24）—— 只入唔出嘅清單、一個永久偏差、四條死連結，同兩個新源：** HEAD==origin/main；**Supabase 17,473 → 17,551**；`source_registry` 268 → **274**（+3 Option A 自動入庫、+`pcpd_cloud_computing`，另 g28 由空殼變 40 chunks）；`GUIDELINES_REGISTRY` 177 不變；平台 **v3.3.0** 不變；**凍結合約（`_meta` 2.3.0 · facts 455 · `guidelines.json` 2.6.1 · 158）全部零接觸**。① **OP⑥ 結案 —— 前提本身錯**：`check_served_urls.py` 由 S172 出世就只掃 `wiki_chunks.url`，per-chunk deep link 一入庫已受每週監察（四重實測 + 紅測，見 Regression 第 5 條）。真缺口係 `--fetch` 得散文擋 → 已補 `refetch_blocked` 機制閘。② **第 6 監察上線**：`lifecycle.py` 三分類（reference 永不掃 / dated_edition 標示唔刪，即 S204 定案 / ephemeral 到期清走）+ `check_expiry.py` + ops `expiry-issue.yml` 剔一剔清走。③ **公開片段數以前係流水帳唔係真數**（純加法、從來冇對過 store，長期少 1）→ 改為由 Supabase 讀真總數。④ **4 條 404 清晒**：2 條 re-point、2 條（13 chunks）過期試場文件退役。⑤ **兩個新源**：`g28` 學校資訊保安 40 chunks（7/41 份文件）、`pcpd_cloud_computing` PCPD 雲端運算指引 26 chunks（registry 第一個 `authority != edb`）。⑥ **實測定案：EDB 冇「學校使用雲端服務指引」** —— g28 八份實質文件「雲」/「cloud」共 0 次，EDB 資訊保安頁亦 0 次。⑦ **三個自己整出嚟嘅錯已修並記低**（chunk 跨文件污染頁碼、報咗個估返嚟嘅 URL 嘅 404、用闊 phrasing 誤判要加 spotlight）。⚠️ **本 session 未行 `eval_retrieval.py` before→after** —— 動咗切 chunk 邏輯同加咗兩個源，按紀律 #5 呢個係已知欠賬。
 
 > **🔙 S208（2026-08-20）—— 純溝通交付：五個月里程碑回顧 + 三張分享圖（零 code / 零資料改動）：** HEAD==origin/main；**Supabase 17,473 / `source_registry` 268 / `GUIDELINES_REGISTRY` 177 / 平台 v3.3.0 / 凍結合約（`_meta` 2.3.0 · facts 455 · `guidelines.json` 2.6.1 · 158）全部零接觸**，開工五項探針（served v3.3.0、Render `/health` warm 455、HEAD==origin/main、chunk=17,473、無頁碼=451）**全綠、逐項實測**。① Leonard 要準備對外分享，要一份由最初痛點講到今日嘅里程碑回顧。挖咗 **578 個 commit + S1–S207**（含 `dev/archive/SESSION_LOG_2026_Q1~Q3.md` 共 14,196 行）+ PMS + PROJECT_DECISIONS，出 `dev/PROJECT_MILESTONES_REVIEW.md`（六階段敘事 / 數字弧線 / 功能生死簿 / 11 條紀律）。② 敘事定調：**核心轉捩點係 S119 —— Leonard 親手實測五條 query 後裁定「原文搜尋贏、人手事實庫係雜訊」，同日定「頁數可追溯」為北極星**；跟住診斷出頁碼根本冇入語料（113 份 extract 只有 39 份帶標記），兩步救到今日 97.4%。③ 出 `dev/INFOGRAPHIC_PROMPT.md` 三條自足 prompt（A 長圖 / B 16:9 / C 三個反直覺發現），**指定輸出 PNG、繁中、書面語**，並寫明唔好用純圖像生成模型（中文密集文字會出豆腐字）。④ Leonard 再要 PNG，三張全部本地 headless Chrome render 完成，存 `dev/design/`。⑤ **QC 揪出並更正自己兩個數**：登記來源起點（唔係「8 份底稿」，registry 係 S48 先建）、公開分頁起點（唔係 4，S74 鎖定架構係 6 個 tab）。⑥ **一個要記住嘅環境事實**：本機**冇 PingFang**，繁中靠 `STHeiti` / `Songti TC` 兜底；換機重出圖前必須先確認字體，否則出咗豆腐字先發現。⑦ 本 session **零 OP 推進** —— Open Priorities ①–⑥ 原封不動，唔好誤讀成有進展。
@@ -253,7 +255,7 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## Open Priorities
 
-> **🔜 S209（2026-08-24）重生：⑥ 上個 session 已結案移除；本 session 新開 ⑥⑦。①–⑤ 逐項覆核後內容不變、排序不變。** 本 session 動嘅係 404 清理、生命週期機制同兩個新源，冇推進 ①–⑤ 任何一項。
+> **🔜 S210（2026-08-26）重生：S209 嘅 ⑥（補 eval 基線）已結案移除；舊 ⑦ 升做 ⑥。①–⑤ 逐項覆核後內容不變、排序不變。** 本 session 做嘅係補 eval、修量度工具、修切 chunk gate、入一個源，冇推進 ①–⑤ 任何一項。**⑥ 而家有現成 before**：`2026-08-26_s210_after_leaflet.json`（37 條，PASS=25/FAIL=0/errors=0），入面 `info_security_broad`「學校資訊保安」就係佢嘅撬點 —— 改 regex 前唔使再跑一次 baseline。
 
 ① **【根因已重新定位，必須重出 PLAN】檢索「可見 ≠ 見到啱嗰段」。** S206 live 重現後**唔可以再照原方案做**：交接寫嘅兩個修法（改 spotlight 條件／擴 synthesis 窗）實測都修唔到 `staff_est_pri` —— 正確資料行 exact cosine **0.6049 排源內 14/81**，源內最高 0.6537 係**零數據嘅表頭行**。真正卡住嘅係「12 班」呢個數字喺 embedding 上贏唔到腳註同兄弟行。另實測 `detectQueryCategory` 對自然口語（「12班小學有幾多個學位教師」）**返 null**，S204 加嘅「編制」route 唔 fire。**playbook `embedding-cosine-overfire-lexical-gate` 明寫短 query 唔好硬 gate → 只能做 soft re-rank。**
 
@@ -265,15 +267,14 @@ source_registry → same vault PDFs → ai_extract.py
 
 ⑤ **【產品方向，Leonard 提】表格 / 註解 content_kind 分類。** 全庫掃描：~600–900 條（4–6%）結構化資料被文字化壓平、150 條目錄雜訊。方向已定為**指路唔係砌表**（前端零改動）。S206 修好頁碼基礎、S207 修好網頁源指章基礎，剩返 `content_kind` 標註同「查具體數值嘅問題至少要有一條 `table_row` 入合成窗」—— 同 ① 同一個根。
 
-⑥ **【S209 新開，已知欠賬】本 session 動咗檢索但未行 eval。** 加咗兩個新源（g28 40 chunks、PCPD 26 chunks）、改咗多文件源嘅切 chunk 邏輯（`split_on_section_markers`）、`carry_pages` 唔再跨 section。按紀律 #5「任何檢索改動一律 eval before→after 對為準」，**呢個 before→after 未跑過**。下個 session 開頭補跑一次基線；如果有 regression，最可疑係切法改動（但 blast radius 已實測只影響 `gifted_policy_docs` 一個既有源，已一併重入）。
-
-⑦ **【S209 新開，細但明確】`digital_education` route regex 冇保安／雲端字眼。** g28 同 PCPD 兩個新源都靠純 ANN 到位（實測 rank 0–1，所以**冇加 spotlight**），但一條「資訊保安」「雲端」類 query 唔會 route 去 `digital_education`，所以攞唔到該 SOURCE_SET 嘅集中檢索。改 regex 係檢索改動 → 要同 ⑥ 一齊做，先有 baseline 再改。
+⑥ **【S209 開，S210 已備好 baseline】`digital_education` route regex 冇保安／雲端字眼。** g28 同 PCPD 兩個源純 ANN 到位（S209 實測 rank 0–1，所以冇加 spotlight），但一條「資訊保安」「雲端」類 query 唔會 route 去 `digital_education`，攞唔到該 SOURCE_SET 嘅集中檢索。**S210 已補齊前置**：eval 集加咗三條保安／雲端 query，`info_security_broad`（RECORD_ONLY）專門用嚟量呢個改動 —— 現況佢返 `sag_2025_11` / `role_facts_it` / `g24`，**g28 唔喺內**。改完對 `2026-08-26_s210_after_leaflet.json` 就見到分別。⚠️ 注意 S209 定案：「學校資訊保安」呢條闊 query 返 SAG 而唔係 g28 **本身係啱嘅**（g28 個 hub 係時序公告板，冇「建議措施」文件），所以改 regex 嘅目標唔係要 g28 贏呢條，而係令該 SOURCE_SET 對真正嘅保安／雲端提問可達。
 
 **剩餘 451 條無頁碼嘅分類（S206 實測，S207 更新）：** 162 條 footnote **url 本身已帶 `#page=`（已經 work，唔算缺陷）**；109 條 `approved_fact`（Channel A 鏡像，url 全空，冇文件可指 —— 屬 Backlog Channel A Option 2，唔係頁碼範疇）；41 條統計類（xlsx／純數字）；95 條 5 個 HTML 源 —— **S207 之後其中 86 條已有子頁／附件 deep link**（g14 76 + g17 10；另 g17 3 條本來就有頁碼所以唔喺呢 451 之內），剩 9 條指返 landing 頁（g04 7 條標記係中文標題唔係 slug、g20/g25 各 1 條係 link-hub 頁本身）；44 條 footnote 冇錨（40 條 url 係 PDF 可人手補、4 條網頁唔得）。**真缺陷由 139 → 53 條**（44 footnote + 9 landing-only）。
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 
 **S204 新增／流轉：**
+- **【S210 新增，Leonard 2026-08-26 拍板】正文連結零監察 —— 開新監察嘅正確落點。** 起因係 Leonard 問「課程專頁使唔使 monitoring」。**定案：課程專頁唔監察** —— 只得 2 條、逐學期換（`debp-pdp.html` 課程表、教城 EdAcademy），監察掛上去週週報「有變」，正正係紀律 #14 嗰種必然變牆紙嘅閘；而耐用嗰半邊（每三年 30 小時培訓／每年 50,000 名額）已經喺 EDBCM156 同《藍圖》入面入咗庫兼受監察。**真缺口喺另一邊**：全庫 17,568 條 chunk 掃過 —— anchor URL（`wiki_chunks.url`，受每週一監察）**420** 條；寫喺 chunk **正文**入面嘅 URL 形狀字串 **3,011** 條；兩者只重疊 **6** 條 → **3,005 條零監察**。頭幾個 host：`www.edb.gov.hk` 733、`applications.edb.gov.hk` 74、`www.hkedcity.net` 45、`bit.ly` 18。用戶喺答案入面撳嘅連結，絕大部分冇任何嘢睇住。**⚠️ 3,005 係上限唔係實數**：PDF 換行會把一條 URL 斬成幾段殘缺字串（S210 喺 EDBCM156 就要人手重組先攞到真 URL），要真數必須先對全庫做同一套重組 —— 呢個重組本身就係呢件工嘅第一步。監察機制上 `check_served_urls.py` 只 `select=url,source_id`，**從來唔讀 chunk 正文**，所以呢個缺口係結構性、唔係漏咗跑。
 - ~~**時限性資料標示**~~ → **S209 已建，定案細分咗**（Leonard 2026-08-24 補充）：S204 原本寫「標示而唔係刪」，而家分兩類 —— **年度版本文件**（費率表、校曆、年曆）舊版仍是當年依據 → 照舊 `dated_edition`**標示唔刪**；**一次性事件文件**（簡介會／培訓／比賽／獎項提名／測試場次／報名截止）過咗零參考價值 → `ephemeral` **到期清走**。已落地：`dev/source/lifecycle.py` 分類（入庫時 stamp 四個 registry 欄位）+ `dev/source/check_expiry.py` 第 6 監察 + ops `expiry-issue.yml` 每週二剔一剔清走。**仲未做**：(a) UI 顯示 `現行 / 已過期 / 已有新版` 標示（前端零改動至今）；(b) 271 個舊源冇 `lifecycle` 標，`check_expiry.py --classify` 可出提案但未 backfill；(c) 「每年檢查 landing page 有冇新學年版」呢半邊仍未做。
 - **公眾提交表單**（Leonard 提）：Phase 1 = Google Form + 平台加一粒「意見／報錯」掣（零代碼，先驗證有冇人用）；Phase 2 = 站內表單 → 現有 Render 後端 → Supabase 新表（要處理防濫發、唔收非必要個人資料）。
 - **範本下載恢復**：`policy_templates.json`（106 檔／15 範疇）未隨知識庫更新，S204 已用 `window.FEATURE_TABS.templates=false` 收起。重新生成 manifest 後把 flag 揼返 true 即復原（面板 code 原封未動）。
@@ -288,6 +289,20 @@ source_registry → same vault PDFs → ai_extract.py
 - **雲端 OCR 引擎選項**（image-PDF ingestion 升級線，S180 評估）：Google Vision `DOCUMENT_TEXT_DETECTION`（逐字信心 + bounding box、每月 1,000 單位永久免費 + ~$1.50/1,000、要綁卡開 billing）／Mistral OCR（Markdown+表格、~$2/1,000）——比現用 `gpt-4o` 圖像 OCR「draft 質」可能更準更平，且 bbox 可餵返 grid 重建。命中 image-PDF 質素問題（如 DEBP 主藍圖 ~16 圖像頁）先評估：**真檔實測 + 開 Google billing**（ingestion 處理公開文件、無未成年私隱顧慮；後端已存在故唔需要 brief 嗰套 serverless key-proxy）。詳見 playbook inbox 提案 `2026-06-24-edb-knowledge-cloud-ocr-engine-options.md` + `doc-extract-method-ladder` 卡。出處：Leonard 一份 OCR 收費版 brief（2026-06，已核實價）。
 
 ## Last Session Record
+
+1. UTC date: 2026-08-26
+2. Session ID: Claude_20260826_0748 — S210。由 OP⑥ 補 eval 開始；查完發現量度佢嘅閘同交接對 gifted 嘅描述都要更正。Leonard 中途下多兩張單（EDBCM156 網上資源盤點、三摺頁入庫）。
+3. Completed:
+   - ✅ **OP⑥ 結案** —— 補跑 eval 對 S207 基線，**零退步**。compare 報 5 blocking 逐條拆完：1 條錯喺基線檔（S207 自己撞 Supabase timeout），4 條係自動管道新通函擠掉尾位、verdict 全部冇變。
+   - ✅ **修 compare 個閘（新 `DISPLACED`）** —— 固定 top_k 之下「新源入」同「尾位跌出」係同一件事，舊邏輯一個放行一個叫停。Option A 每日入庫 → 呢個閘本來會朝朝紅。加 4 條 self-test，其中兩條專證**佢仲會紅**（cut line 以上跌出、after 短過 before）。blocking 5 → 1。
+   - ✅ **eval 集 34 → 37** —— 補保安／雲端三條，**入檔前逐條 live 實測先寫 `expect_any`**。之前 34 條一條都冇掂過 S209 兩個新源，即係 OP⑥ 嘅原定 baseline 對 OP⑦ 係空白。
+   - ✅ **`split_on_section_markers` gate 由 registry 改為 extract 判** —— 261 源掃描 **259 byte 級 no-op**，只 g04（7→11）同 `gifted_policy_docs`（23→23）變。重入後跨界 chunk **g04 5→0、gifted 2→0**（live 實查）。
+   - ✅ **三摺頁入庫**（Leonard 指示）—— 4 chunks。**搜得到但贏唔到**：獨有詞「四大發展重點」rank=None，因為資訊圖 chunk 係散裝標籤。caveat 寫入 registry notes。
+   - ✅ **EDBCM156/2026 網上資源盤點** —— 用 Tavily 抓咗以前抓唔到嘅 EDB／教城頁。10 條引用資源，**4 條已入庫兼受監察，6 條兩樣都冇**。URL 喺 PDF 入面被換行斬開，逐條由原文重組（冇估）。
+   - ✅ **正文連結缺口量度 + Leonard 拍板入 Backlog** —— anchor URL 420 條受監察 vs 正文引用 3,011 條，重疊只有 6 條 → **3,005 條零監察**。定案：課程專頁唔監察（2 條、逐學期換、耐用資訊已在庫），力氣放喺正文連結。
+   - ✅ **補 DOC_SYNC 缺失 row** —— 「切 chunk 邏輯改動」全 registry 零命中；S209 做嘅正正係呢類改動當時冇加 row。已補，驗證方法寫明「全 vault blast radius 掃描要報 no-op 幾多，唔可以只報變咗嗰啲」。
+
+## Previous Session Record (S209)
 
 1. UTC date: 2026-08-24
 2. Session ID: Claude_20260824_1848 — S209。由 OP⑥ 起，Leonard 連下四張單，再加 g28 入庫同雲端資料研究。10 個 commit（另 ops repo 2 個）。
@@ -715,6 +730,15 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## State Reconciliation Check
 
+- **Reconciled at:** 2026-08-26 (S210 closeout — Leonard「a」= commit + push 然後收工)
+- **S210 state sections rewritten or confirmed current:** `Current Baseline`（prepend S210 段：⑦ 項，含探針、OP⑥ 結案、DISPLACED、無頁碼 +10 之反轉、split gate、eval 集擴充、三摺頁、全 session 淨影響）；`Open Priorities`（**舊 ⑥ 結案移除、舊 ⑦ 升做 ⑥ 並補寫「已備好 baseline」**，①–⑤ 逐項覆核內容不變）；`Backlog`（新增正文連結一條，Leonard 拍板）；`Last Session Record` 重生為 S210、S209 降做 `Previous Session Record (S209)`；`Next Session Opening Message` 整段重生。
+- **S210 lifecycle check:** 對得上。`Completed` 九項冇一項留喺 `Open Priorities`：OP⑥ 已結案移除；DISPLACED / split gate / eval 集擴充 / 三摺頁 / DOC_SYNC row 全部係本 session 完成並驗證，唔係待辦。**唯一由 completed 流去待辦嘅係正文連結**，佢明確降級做 Backlog（Leonard 拍板唔喺本 session 開），唔係未完成嘅 OP。`pay_adjust` 掉低一個尾位源**唔升做 OP** —— verdict 冇變、成因已查實（g04 切細多佔一位），記喺 Current Baseline ⑦ 同 Risks 做監察項。
+- **S210 persistence routing checked:** 是。當前狀態→handoff `Current Baseline` + `Last Session Record`；session trace／逐條 compare 拆解／自己犯嘅錯→`SESSION_LOG.md`；**可重用程序知識→ `DOC_SYNC_CHECKLIST.md` 新 row（切 chunk 邏輯）**，唔淨止留喺 log；環境事實（PDF 管道要 python3.13）→`CODEBASE_CONTEXT.md`；對照 baseline→`dev/source/eval_runs/` 四個檔保留。
+- **S210 stale snapshots left:** 無。**同時更正兩項交接寫錯嘅嘢**：(a)「`gifted_policy_docs` 10/23 chunks 有缺陷等修」實情反轉（係修好之後如實變無頁碼，old-vs-new `carry_pages` 對證 10/10）；(b)「S209 可能有 regression」實測零退步。**另補記一項 S209 收工漏做**：S209 冇寫 `State Reconciliation Check` block（AGENTS §4 步驟 6 要求），本段係 S208 之後第一段。
+- **S210 opening message matches current state:** 是。逐項對過：Supabase 17,576 / registry 276 / GUIDELINES_REGISTRY 177 / 平台 v3.3.0 / 凍結合約零接觸 / eval 37 條 PASS=25 FAIL=0 errors=0 / 下一步指向 OP⑥ route regex 且講明 before 檔名。
+- **S210 sync status:** DOC_SYNC **row 43「檢索 eval harness 改動」命中並兌現**（query set 變動連理由入 log、eval_runs 保留對照、before→after 一對齊全）；**row 37「Channel-B vault source backfill」命中並兌現**（registry entry + 可達性實測 + 鏡像片段數 `live_display_sync`）；**新增一 row「切 chunk 邏輯改動」**（原本全 registry 零命中，觸發 anti-pattern guard）。`CODEBASE_CONTEXT.md` 唔逐個列 vault 源目錄，故三摺頁目錄不需入 Directory Map。
+- **舊記錄（S208 closeout）：**
+
 - **Reconciled at:** 2026-08-20 (S208 closeout — Leonard「做埋 B C，然後收工」)
 - **S208 state sections rewritten or confirmed current:** `Current Baseline`（prepend S208 段：交付物、敘事定調、兩個自我更正、字體環境事實、明寫零 OP 推進；S207 及更早段原文保留）；`Open Priorities`（**逐項覆核後決定整份不變**，banner 已重寫講明係「核完決定不變」而非跳過重生）；`Last Session Record`（S208 全新；S207 整段降為 `Previous Session Record (S207)`，內容一字未改，只改咗其中一句已完成事項嘅 stale 描述，見下）；`Next Session Opening Message`（整段重生）。`Architecture Decisions` / `User Environment` / `Mandatory Start Checklist` / `Regression Notes` / `Backlog` / `Supabase Technical Notes` 逐段核過，**確認 current、無需要改**（本 session 零 code / 資料改動，佢哋本來就冇受影響）。
 - **S208 lifecycle check:** 對得上。`Completed This Session` 全部係新文件 + 新圖，**冇一項出現喺 NEXT**；`Next Priorities` ①–⑥ **冇一項喺 Completed 出現過**（本 session 冇掂過任何 OP）。`Risks` 零新增（純文件交付、無 live surface）。**主動修正一項 lifecycle 殘留**：S207 記錄第 5 點原寫「SESSION_LOG 已過 400 行門檻…留待收工做」，但該歸檔其實 S207 收工已完成（現 215 行 / 2 entry，`--check` = trigger=False，S208 起手實跑覆核），已改為完成式 —— 免下個 agent 當佢係未做嘅待辦。同一句 stale 描述亦已由開場白清走。
@@ -886,73 +910,84 @@ Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
 (Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
 
-Current state (S209, 2026-08-24): 平台 v3.3.0; Supabase 17,551 chunks; source_registry 274;
+Current state (S210, 2026-08-26): 平台 v3.3.0; Supabase 17,576 chunks; source_registry 276;
 GUIDELINES_REGISTRY 177; 凍結合約 _meta 2.3.0 / facts 455 / guidelines.json 2.6.1 / 158 全部零接觸。
-S209 = OP⑥ 結案 + 四張新單 + 兩個新源。片段數 17,473 → 17,551。
-自動化 active: 6 源監察 (discover / freshness / served-url / 封面核對 / 通告 watcher / **expiry 新**)
-+ Option A 自動入庫管道 (edb-knowledge-ops, 每日跑; 會自行 push main)。開工時本地可能落後 origin/main ——
-tree 乾淨 + 0 本地 commit 先 git pull --ff-only; 有本地 commit 就 rebase。
+無頁碼 chunk 465 (S209 收工 461; +4 全部係 g04 重切, 佢係 HTML 源本身冇頁碼)。
+S210 = 補 S209 欠低嘅 eval (零退步) + 修量度嘅閘 + 修切 chunk gate + 入一個源。
+自動化 active: 6 源監察 + Option A 自動入庫管道 (edb-knowledge-ops, 每日跑; 會自行 push main)。
+開工時本地大機會落後 origin/main —— tree 乾淨 + 0 本地 commit 先 git pull --ff-only; 有本地 commit 就 rebase。
 
-⚠️⚠️ 第一件事 (S209 欠低): **補跑 eval_retrieval before→after 基線**。S209 動咗檢索但冇跑 eval ——
-  加咗兩個源 (g28 40 chunks / pcpd_cloud_computing 26 chunks)、改咗多文件源切 chunk 邏輯
-  (split_on_section_markers)、carry_pages 唔再跨 section。紀律 #5 明寫「任何檢索改動一律 eval 對為準」。
-  blast radius 已實測只影響 gifted_policy_docs 一個既有源 (已重入), 但 before→after 未跑過。
-  python3 dev/source/eval_retrieval.py --run --label s210_baseline --out dev/source/eval_runs/<date>_s210.json
-
-✅ S209 查實 (唔使再查):
-  1. check_served_urls.py 監察嘅係 wiki_chunks.url (per-chunk 欄), **從來唔係 registry url_primary**。
-     所有 per-chunk deep link 一入庫即受每週一 11:00 UTC 監察。S207 docstring 寫錯, 已三處更正。
-  2. 公開片段數以前係流水帳 (knowledge.json 讀個數 + delta), 唔係真數 —— 已改為由 Supabase 讀。
-     **清走 chunk 之後一律行 live_display_sync(current_chunk_total(), live_total_count()), 唔好自己減。**
-  3. EDB 冇「學校使用雲端服務指引」。g28 八份實質文件「雲」/cloud 共 0 次; EDB 資訊保安頁亦 0 次。
-     最接近 = PCPD 雲端運算指引 (已入庫 pcpd_cloud_computing, 26 chunks, live rank 0)。
-  4. 非-EDB 來源唔係先例: 庫入面已有 8 個域 208 chunks (ICAC 78 / EdCity 81 / CHP 14 / Cap279 11 / 其他)。
-     但 registry authority 欄位 273/274 寫死 edb —— 資料債, 唔影響行為 (grep: 三處寫, 零處讀)。
-  5. g28 個 hub 標題係「學校資訊保安建議措施」但內容係時序公告板, 冇「建議措施」文件。
-     所以闊 query「學校資訊保安」返 SAG/role_facts_it/g19 而唔係 g28 **係啱嘅**。同 S194 ict_sss_2021 家族。
+✅ S210 查實 (唔使再查):
+  1. **S209 冇整跌檢索。** 補跑 eval 對 s207_after: PASS=23/FAIL=0/errors=0。compare 嗰 5 條 blocking
+     逐條拆完冇一條係退步 (1 條錯喺基線檔自己, 4 條係新通函擠掉尾位、verdict 全冇變)。
+  2. **無頁碼 +10 係修好嘢, 唔係壞咗。** 全部係 gifted_policy_docs; 用 S207 版 vs S209 版 carry_pages
+     跑同一份 extract 對證, 10 條全部由「Page 8」變 None。嗰份 PDF 得 8 頁, 而 9/10 係網頁段落。
+     **交接舊寫「gifted 10/23 有缺陷等修」要反轉理解。**
+  3. **三摺頁 (debp_leaflet) 入咗庫但贏唔到。** 「創新型終身學習者」rank 6 = 搜得到、唔係 route 擋;
+     但獨有詞「四大發展重點」rank=None。成因: 資訊圖 chunk = 三十幾個散裝圖標籤, 撐唔起 embedding。
+     **唔建議加入 digital_education SOURCE_SET** (只會同更強兼已 routed 嘅 debp_blueprint 爭位)。
+  4. **EDBCM156/2026 引用嘅 10 條網上資源, 4 條已入庫兼受監察, 6 條兩樣都冇。** 課程專頁 (EDB debp-pdp /
+     教城 EdAcademy) **Leonard 拍板唔監察** (2 條、逐學期換、耐用嗰半邊已在庫)。
+  5. **PDF 管道要 python3.13, 唔係 default python3。** 本機 default 係 homebrew 3.14, 冇 PyMuPDF;
+     python3.13 先有 (1.27.2.3)。expand_vault --fetch 撞 PDF 會 ModuleNotFoundError: fitz。
 
 🧭 紀律 (真金白銀學返嚟, 仍然生效):
-  1. 判斷 judge/synthesis 行為前, 先去 Render dashboard 確認 OPENAI_MODEL (env.ts fallback 唔係實設)。
+  1. 判斷 judge/synthesis 行為前, 先去 Render dashboard 確認 OPENAI_MODEL。
   2. negative result 落結論前先問「如果目標訊號存在, 呢個工具顯唔顯示到?」
-  3. 報一個數之前打開數字背後至少一個實例親眼睇。(S209 再中: 我 probe 咗個由截斷 href 估返嚟嘅 URL, 報咗個唔存在嘅 404。)
+     (S210 再中: Tavily 抽返嚟頭 700 字元全係導覽, 我一度當 debp-pdp / 教城兩頁「冇實質內容」;
+      真內容喺尾段。EDB / 教城個 nav 極長, 睇頭唔睇尾必錯。)
+  3. 報一個數之前打開數字背後至少一個實例親眼睇。
   4. 剷任何嘢前分清「有可引用替代品」同「唯一來源」。
   5. 任何檢索改動一律 eval before→after 對為準; 任何 synthesis-gate 改動一律 live before→after 對為準。
   6. judge 係 LLM、非決定性 → 任何 verdict 要重複 run (≥3) 先落結論。
-  7. 入庫 ≠ 可達。SOURCE_SET / TOPIC_KEYWORDS / SPOTLIGHT / route expansion 四層每層都要實測。
-  8. 交接寫低嘅選項框架本身可以係錯。(S209 主線: OP⑥ 個前提由 S207 一句 docstring 流出去, 三處抄咗。)
+     (S210 用同一招處理 Supabase 57014 timeout: 重試 3 次全綠 → 判定偶發, 唔當退步。)
+  7. 入庫 ≠ 可達。**S210 加多一層: 可達 ≠ 贏得到。** 三摺頁搜得到但獨有詞都攞唔到佢出嚟。
+  8. 交接寫低嘅選項框架本身可以係錯 (S210 主線: 兩項交接描述被實測推翻)。
   9. 「應該冇」唔係「冇」。10. 報 population 數字要即刻拆類。11. 守門要證明佢會紅。
   12. 交付一個檔案之前 ls 實證佢存在。
-  13. (S209 新增) **揀嘅 phrasing 決定得出嘅答案。** 用闊 query 搵唔到就當「ANN 餓死」→ 加咗 spotlight;
-      用內容專屬 query 一試就 rank 0, 同一 session 移走。同 S195 spotlight prune 同一陷阱、相反方向。
-      要判斷「可達性」, 必須用該源**真實內容**嘅 query, 唔係你形容佢嘅講法。
-  14. (S209 新增) **任何要人做決定嘅表面都要有出口。** 只入唔出嘅清單一定變牆紙, 跟住真訊號會被埋葬 ——
-      Issue #6 由 8/3 起準確列住 4 條真 404 冇人跟, 因為佢混喺幾百項噪音入面。一 session 內四個實例。
+  13. 揀嘅 phrasing 決定得出嘅答案 —— 判斷可達性要用該源**真實內容**嘅 query。
+  14. 任何要人做決定嘅表面都要有出口; 只入唔出嘅清單一定變牆紙。
+  15. (S210 新增) **量度工具本身要受同一套懷疑。** compare 個閘當「新源入 top_k」無害但當「同一件事
+      撞跌尾位」係 blocking —— 固定 top_k 下係一件事嘅兩個講法。Option A 每日入庫, 呢個閘本來會朝朝紅,
+      跟住冇人再睇。改一個閘之前先問「佢會唔會日日紅」。
 
 🛠 常用指令:
   python3 dev/source/eval_retrieval.py --self-test ; --run --label X --out dev/source/eval_runs/<date>_X.json
+  python3 dev/source/eval_retrieval.py --compare <before.json> <after.json>
   python3 dev/source/check_expiry.py --self-test ; --check ; --purge --sources <id> --apply
   python3 dev/vault/test_carry_rules.py --self-test ; --prove-assertions
-  python3 dev/vault/expand_vault.py --embed --force --sources <id>     # 重入 (先驗 section URL, fail closed)
-  python3 dev/source/check_served_urls.py --check                      # ~300 URL, 約 5 分鐘
+  python3.13 dev/vault/expand_vault.py --fetch --sources <id>       # PDF 抽取一定要 3.13 (fitz)
+  python3.13 dev/vault/expand_vault.py --embed --force --sources <id>  # 重入 (先 --dry-run 睇 blast radius)
+  python3 dev/source/check_served_urls.py --check                   # ~300 URL, 約 5 分鐘
   python3 docs/qa/session_log_maintenance.py --check
   cd backend && npm run check && npm run build
+  # 動過 chunk 之後一定要行 (唔好自己加減):
+  python3 -c "import sys;sys.path.insert(0,'dev/source');import execute_ingest as e;e.live_display_sync(e.current_chunk_total(),e.live_total_count())"
 
-🔜 NEXT (Open Priorities ①–⑦ 詳見 handoff):
-  ⑥ 補 eval 基線 (**最優先, 係 S209 欠賬**) → ⑦ digital_education route regex 加保安/雲端字眼 (要 ⑥ 先做)
+🔜 NEXT (Open Priorities ①–⑥ 詳見 handoff):
+  ⑥ digital_education route regex 加保安/雲端字眼 (**最順手, before 已備好** =
+     dev/source/eval_runs/2026-08-26_s210_after_leaflet.json, 睇 info_security_broad 條)
   → ② 補 chunk-層儀器 → ① 檢索「可見 ≠ 見到啱嗰段」(必須重出 PLAN)
   ③ GUIDELINES_REGISTRY 落後 + registry-drift 監察 (Leonard 明確要求, 一半要佢落判)
-  ④ 特殊學校編制表恢復 (等「資料對象 vs 問題對象」核對機制)  ⑤ 表格/註解 content_kind (同 ① 同一個根)
-  Backlog: 學校網絡安全小貼士純圖像待 OCR; registry authority 欄位資料債; 拆 backend channel-a 半邊;
-  時限性資料 UI 標示 (現行/已過期/已有新版, 前端至今零改動); 公眾提交表單; 範本 manifest;
-  承 S203 (judge 對象移植 / Channel A Option 2 / PUBLISH_PAT / 總帳 / g24-sag 合併)。
+  ④ 特殊學校編制表恢復  ⑤ 表格/註解 content_kind (同 ① 同一個根)
+  Backlog 頭位: **正文連結 3,005 條零監察** (Leonard 2026-08-26 拍板; 第一步係全庫 URL 重組,
+  唔係開監察 —— 3,005 係上限唔係實數, PDF 換行會斬斷一條 URL 變幾段)。
+  其餘 Backlog: 學校網絡安全小貼士純圖像待 OCR; registry authority 欄位資料債; 拆 backend channel-a 半邊;
+  時限性資料 UI 標示; 公眾提交表單; 範本 manifest; 承 S203 五項。
+
+⚠️ 一項要留意 (唔使急住修): pay_adjust 條 query 掉低咗 edbcm135_2026 (尾位), 成因係 g04 由 7 條
+  切細成 11 條之後多佔一個 top-k 位。verdict 仍 PASS。呢個係切細嘅真實代價 —— 如果之後再有源
+  切細, 留意同一效應會唔會累積。
 
 Post-startup first action: 跑起手探針 —— served app.html PLATFORM_VERSION (應為 3.3.0) + Render /health
-warm 455 (第一杯可能冷啟動 warm=false, 要再叫一次) + Draft HEAD==origin/main + Supabase count=exact
-(S209 收工時 17,551, 但自動管道每日入庫會加) + 無頁碼 chunk 數 (查法 text=not.like.*Page%20*%3D%3D%3D*)
+warm 455 (第一杯可能冷啟動, 要再叫一次; endpoint 係 https://edb-knowledge.onrender.com/health)
++ Draft HEAD==origin/main + Supabase count=exact (S210 收工 17,576, 自動管道每日入庫會加)
++ 無頁碼 chunk 數 (查法 text=not.like.*Page%20*%3D%3D%3D*, S210 收工 465)
 —— 然後向 Leonard 報告當前狀態同建議下一步。
 
 所有路徑含空格, 終端機指令必須用雙引號包住。改任何嘢之前, 先報告當前狀態同建議下一步。
 ```
+
 
 ## Session Close Checklist (每次 session 結束必須執行)
 ```bash
