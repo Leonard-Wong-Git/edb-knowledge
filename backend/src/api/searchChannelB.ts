@@ -204,6 +204,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     // security terms, so a bare 「資訊保安」query does not route here yet — that is a
     // retrieval change and needs its own before/after eval.
     "g28",
+    "edbcm156_2026",              // (auto) Option A watcher ingest
   ],
   /**
    * S194 — 公民與社會發展科 (cgss route). Its corpus reached the index by accident: the
@@ -1141,6 +1142,7 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   // retrieval cannot see it. An overlay entry would have cost an exact-cosine pass
   // on every query to fix a problem that does not exist. Same trap as the S195
   // prune, in the opposite direction: the phrasing you choose decides the answer.
+  "edbcm156_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   // ack:spotlight:end
 ];
 
