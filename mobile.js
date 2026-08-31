@@ -12,10 +12,18 @@
 (function () {
   'use strict';
 
-  // ── 1. Mobile detection (CSS-aligned: ≤640px viewport OR mobile UA) ──
+  // ── 1. Mobile detection (viewport only — must match mobile.css) ──
+  // S211: the comment above used to read "CSS-aligned", but the two gates did not agree.
+  // Every rule in mobile.css lives inside `@media (max-width: 640px)`, while this file also
+  // activated on a mobile UA at any width. On an iPad, an Android tablet, or a phone in
+  // landscape (>640px + mobile UA) the shell was therefore built and then never styled:
+  // 362px of unstyled markup sat above #root and pushed the real app down the page.
+  // Width is now the single gate, so a shell is only ever built where its stylesheet applies;
+  // wider mobile-UA devices get the responsive desktop layout, which is usable as-is.
+  // The `@media (min-width: 641px)` guard at the end of mobile.css backs this up for any
+  // shell that was already built before a resize crossed the breakpoint.
   const MOBILE_QUERY = window.matchMedia('(max-width: 640px)');
-  const UA_IS_MOBILE = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const isMobile = () => MOBILE_QUERY.matches || UA_IS_MOBILE;
+  const isMobile = () => MOBILE_QUERY.matches;
 
   // No-op on desktop
   if (!isMobile()) {

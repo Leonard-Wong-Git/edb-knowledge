@@ -743,8 +743,8 @@ body {
  */
 window.FEATURE_TABS = { about: true, qa: true, annotate: true, templates: false, guidelines: true };
 </script>
-<link rel="stylesheet" href="mobile.css?v=3.3.0">
-<script src="mobile.js?v=3.3.0" defer></script>
+<link rel="stylesheet" href="mobile.css?v=3.3.1">
+<script src="mobile.js?v=3.3.1" defer></script>
 </head>
 <body>
 <div id="root"></div>
@@ -2038,10 +2038,14 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // is frozen and consumed by the downstream Circular System). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + 文件標註（就地標註）+ 範本下載 + 合規清單修訂，跨 15 個合規範疇。
-const PLATFORM_VERSION = '3.3.0';
+const PLATFORM_VERSION = '3.3.1';
 // S204 — tab switches; defined in a plain <script> in <head> so mobile.js can read them
 // at its DOMContentLoaded init, which runs BEFORE this Babel script compiles.
 const FEATURE_TABS = window.FEATURE_TABS;
+
+// S211 — 使用手冊標題同導覽開場白以前各自寫死「五大功能」，收起一個 tab 之後就變成數錯數。
+// 兩處而家都由實際渲染到嘅項目數推出嚟，用呢個表轉中文數字。
+const CN_NUM = ['零', '一', '兩', '三', '四', '五', '六', '七', '八', '九'];
 
 function PlatformIntroPanel({ stats }) {
   // S204 — cumulative search count. It belongs beside the corpus stats: this is the tab a
@@ -2180,6 +2184,31 @@ function PlatformIntroPanel({ stats }) {
     */
   ].filter((c) => !c.view || FEATURE_TABS[c.view] !== false);   // S204 — withdrawn tabs drop their card
 
+  // S211 — 使用手冊條目同上面個標題數字出自同一條 list，收起一個 tab 之後標題唔會再多數一個。
+  const manualItems = [
+          { view:'qa', icon:'🔍', title:'政策搜尋', steps:[
+            '喺「🔍 政策搜尋」輸入關鍵字或問題（例：校車安全、教師年假、法團校董會）。',
+            '系統喺 EDB 指引與通告做語義檢索，整理答案並列出來源；可撳來源頁碼直接跳去官方 PDF。',
+            '貼士：短關鍵字（1–3 個詞）通常已夠；想收窄就逐步加詞。',
+          ]},
+          { view:'annotate', icon:'📝', title:'文件標註(beta)', steps:[
+            '喺「📝 文件標註」上載學校政策文件（Word .docx 最佳，亦支援 PDF 或直接貼上文字）。',
+            '揀本校校類，範疇可「自動偵測」或自選（最多 3 個），然後撳「開始標註」。',
+            '系統比對 EDB 指引與合規清單，列出「就地標示」與「建議補充」。',
+            '撳「⬇️ 下載 Word（乾淨成品版）」：原文保持乾淨，AI 建議融入正文（標示「（建議補充）」、無螢光、可直接編輯），說明與官方出處集中文末附錄。Word 上載會保留原有標題／編號／格式。',
+            '另可撳「📋 下載改動摘要」一覽改咗甚麼。',
+            '私隱：原始檔不會上載，只有抽取的文字會傳送作比對，過程不儲存；請勿包含敏感個人資料。',
+          ]},
+          { view:'templates', icon:'📋', title:'範本下載(beta)', steps:[
+            '喺「📋 範本下載」按合規範疇瀏覽，再按校類（小學／中學／特殊學校／幼稚園）篩選。',
+            '撳下載即取得 Word 政策範本，可作起草藍本。',
+          ]},
+          { view:'guidelines', icon:'📚', title:'EDB 指引文件庫', steps:[
+            '喺「📚 EDB指引」按範疇與年份瀏覽 EDB 官方指引。',
+            '可即時預覽，或撳連結跳去官方原文 PDF。',
+          ]},
+  ].filter((f) => !f.view || FEATURE_TABS[f.view] !== false);
+
   const steps = [
     { n: '1', icon: '💬', title: '自然語言提問', desc: '以中文直接輸入問題，無需記住文件編號或精確關鍵詞。' },
     { n: '2', icon: '⚡', title: '向量語義檢索', desc: `預計算 embedding 索引即時找出最相關的 EDB 文件段落，覆蓋 ${sourcesCount} 份來源。` },
@@ -2223,7 +2252,10 @@ function PlatformIntroPanel({ stats }) {
       </div>
 
       {/* ── Stat strip ── */}
-      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(180px,1fr))',gap:'10px',marginBottom:'40px'}}>
+      {/* S211 — 舊寫法 auto-fill + minmax(180px) 由容器闊度倒推排幾多格：960px 容器只夠 4 格，
+          第 5 格（累計查詢次數）就跌落第二行。改為照實際格數開軌，格數 4 定 5 都一定同一行；
+          minmax(0,1fr) 係唔俾長內容（17,593）撐爆條軌。手機 ≤640px 由 mobile shell 接管，唔行呢段。 */}
+      <div style={{display:'grid',gridTemplateColumns:`repeat(${statItems.length},minmax(0,1fr))`,gap:'10px',marginBottom:'40px'}}>
         {statItems.map(({num,label,sub}) => (
           <div key={label} style={{textAlign:'center',padding:'18px 12px',background:'var(--cd-warm)',borderRadius:'var(--r-md)',border:'1px solid var(--border)'}}>
             <div style={{fontSize:'1.8rem',fontWeight:900,color:'var(--charcoal)',letterSpacing:'-0.02em',lineHeight:1}}>{num}</div>
@@ -2376,32 +2408,10 @@ function PlatformIntroPanel({ stats }) {
       <div style={{marginTop:'40px'}}>
         <div style={{textAlign:'center',marginBottom:'20px'}}>
           <p style={{fontSize:'0.7rem',fontWeight:700,color:'var(--mocha)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'4px'}}>使用手冊</p>
-          <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,color:'var(--charcoal)'}}>五大功能 · 點樣用</h2>
+          <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,color:'var(--charcoal)'}}>{CN_NUM[manualItems.length] || manualItems.length}大功能 · 點樣用</h2>
           <p style={{fontSize:'var(--text-sm)',color:'var(--mid)',marginTop:'6px'}}>撳開每一項睇詳細步驟。隨時可喺右上角「🎓 使用教學」重溫導覽。</p>
         </div>
-        {[
-          { view:'qa', icon:'🔍', title:'政策搜尋', steps:[
-            '喺「🔍 政策搜尋」輸入關鍵字或問題（例：校車安全、教師年假、法團校董會）。',
-            '系統喺 EDB 指引與通告做語義檢索，整理答案並列出來源；可撳來源頁碼直接跳去官方 PDF。',
-            '貼士：短關鍵字（1–3 個詞）通常已夠；想收窄就逐步加詞。',
-          ]},
-          { view:'annotate', icon:'📝', title:'文件標註(beta)', steps:[
-            '喺「📝 文件標註」上載學校政策文件（Word .docx 最佳，亦支援 PDF 或直接貼上文字）。',
-            '揀本校校類，範疇可「自動偵測」或自選（最多 3 個），然後撳「開始標註」。',
-            '系統比對 EDB 指引與合規清單，列出「就地標示」與「建議補充」。',
-            '撳「⬇️ 下載 Word（乾淨成品版）」：原文保持乾淨，AI 建議融入正文（標示「（建議補充）」、無螢光、可直接編輯），說明與官方出處集中文末附錄。Word 上載會保留原有標題／編號／格式。',
-            '另可撳「📋 下載改動摘要」一覽改咗甚麼。',
-            '私隱：原始檔不會上載，只有抽取的文字會傳送作比對，過程不儲存；請勿包含敏感個人資料。',
-          ]},
-          { view:'templates', icon:'📋', title:'範本下載(beta)', steps:[
-            '喺「📋 範本下載」按合規範疇瀏覽，再按校類（小學／中學／特殊學校／幼稚園）篩選。',
-            '撳下載即取得 Word 政策範本，可作起草藍本。',
-          ]},
-          { view:'guidelines', icon:'📚', title:'EDB 指引文件庫', steps:[
-            '喺「📚 EDB指引」按範疇與年份瀏覽 EDB 官方指引。',
-            '可即時預覽，或撳連結跳去官方原文 PDF。',
-          ]},
-        ].filter((f) => !f.view || FEATURE_TABS[f.view] !== false).map((f) => (
+        {manualItems.map((f) => (
           <details key={f.title} style={{background:'var(--paper)',border:'1px solid var(--border)',borderRadius:'var(--r-md)',padding:'4px 16px',marginBottom:'8px'}}>
             <summary style={{cursor:'pointer',fontSize:'var(--text-base)',fontWeight:700,color:'var(--charcoal)',padding:'10px 0',listStyle:'none'}}>
               {f.icon}　{f.title}
@@ -3748,6 +3758,18 @@ const TOUR_STEPS = [
 // S204 — drop tour steps whose destination tab is withdrawn, otherwise the tour offers a
 // button that navigates nowhere. Steps with no cta (the welcome / closing cards) always stay.
 ].filter((step) => !step.cta || window.FEATURE_TABS?.[step.cta.view] !== false);
+
+// S211 — 開場白以前寫死「五大功能」兼點名「下載政策範本」，所以 S204 收起範本下載之後，導覽第一頁
+// 仍然數五個、仍然應承一個平台已經冇咗嘅功能。而家由過濾後仲喺度嘅功能步驟數返出嚟（尾頁指去
+// 平台介紹，唔當一個功能），下次再收起或者恢復任何 tab 都唔使人手改呢句。
+{
+  const tourFeatures = TOUR_STEPS.filter((s) => s.cta && s.cta.view !== 'about');
+  const welcome = TOUR_STEPS[0];
+  if (welcome && !welcome.cta) {
+    welcome.body = '呢個平台幫學校快速查閱教育局（EDB）政策指引，並處理學校政策文件。一分鐘導覽，帶你睇下'
+      + (CN_NUM[tourFeatures.length] || tourFeatures.length) + '大功能點用。';
+  }
+}
 
 function Onboarding({ open, onClose, onGoto }) {
   const [step, setStep] = useState(0);

@@ -846,3 +846,18 @@
   }
 
 }
+
+/* ── S211 desktop-width guard — MUST stay outside the @media (max-width: 640px) block ──
+   Everything above is scoped to ≤640px, so above that width the mobile shell has no styles
+   at all: it renders as plain unstyled blocks at the top of <body> and pushes #root down.
+   mobile.js no longer builds a shell above 640px, but a shell built before a resize crossed
+   the breakpoint stays in the DOM (the resize handler drops the body flags, it does not tear
+   the markup down). This guard makes that leftover invisible instead of load-bearing.
+   Every element mobile.js injects at body level is listed here — keep the list complete:
+   .m-shell (app / guidelines / templates shells), .m-tabbar, .m-tour, .m-role-picker. */
+@media (min-width: 641px) {
+  .m-shell,
+  .m-tabbar,
+  .m-tour,
+  .m-role-picker { display: none !important; }
+}
