@@ -6,6 +6,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [介面調整] — 2026-08-31 — 收起「EDB 通告分析系統 簡介」（S211）
+
+> 平台版本維持 **v3.3.0**（`PLATFORM_VERSION` 不變）；凍結合約零接觸（`knowledge.json` `_meta.version` **2.3.0**、facts **455**、`guidelines.json` **2.6.1 / 158**）。純前端呈現改動，不涉後端、資料管道或知識庫內容。
+
+### Removed
+- **收起「EDB 通告分析系統 簡介」卡**（Leonard 指示）。兩個呈現面同時隱藏：`app.html` 平台介紹「平台核心功能」的 channel 卡（`channels` 陣列該項 comment 掉），以及 `index.html` 首頁核心功能區的同名 `feature-card`（加 `style="display:none"`，跟 2026-08-18 S204 收起「範本下載」的同一慣例）。首頁「進入 EDB 通告分析系統」外部入口連結隨該卡一併不再顯示——此為全站最後一個指向該外部系統的使用者入口，`README.md` 原本已載明「通告分析入口為休眠狀態（backend route 保留、前端入口已移除）」，本次改動後該描述與實況一致。
+- 兩處均為**可還原隱藏**，原始標記完整保留在檔案內並附還原方法註釋；backend route 及知識管道不受影響。
+
+---
+
 ## [內容新增＋檢索修正] — 2026-08-18 — 人手編制文件群入庫、頁碼歸屬修正（S204）
 
 > 平台版本 **v3.2.2 → v3.3.0**。凍結合約零接觸：`knowledge.json` `_meta.version` **2.3.0**、facts **455**、`guidelines.json` **2.6.1 / 158**。Supabase **16,070 → 17,472**；`source_registry.json` 257 → **268**；`GUIDELINES_REGISTRY` 166 → **177**；`_meta.stats.sources` 120 → **288**（積壓漂移，本次按 Supabase distinct source_id 扣除 7 個 `role_facts_*` 偽來源後校正）。

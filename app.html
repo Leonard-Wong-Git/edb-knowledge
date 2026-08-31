@@ -2164,6 +2164,9 @@ function PlatformIntroPanel({ stats }) {
       badge: '快速查閱',
       dark: false,
     },
+    /* S211 (2026-08-31, Leonard 指示) —— 「EDB 通告分析系統 簡介」卡收起。
+       index.html 嗰張同名 feature-card 同一個 change 一齊隱藏（跟 S204 慣例）。
+       恢復：刪走本 block 嘅開 / 閉 comment 標記即可。
     {
       icon: '📄',
       title: 'EDB 通告分析系統 簡介',
@@ -2174,6 +2177,7 @@ function PlatformIntroPanel({ stats }) {
       // externalLink retired S154 (Leonard: link 暫時失效；此欄位本身從未被 channels.map render — dead data，comment 掉防將來誤接)。
       // 恢復用: 'https://leonard-wong-git.github.io/EDB-AI-Circular-System/'
     },
+    */
   ].filter((c) => !c.view || FEATURE_TABS[c.view] !== false);   // S204 — withdrawn tabs drop their card
 
   const steps = [
