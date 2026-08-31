@@ -339,6 +339,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     // listed under hr_admin because the staffing schedules they carry answer HR queries.
     "coa_pri_e", "coa_ss_e",
     "edbc015_2026",              // (auto) Option A watcher ingest
+    "edbcm144_2026",              // (auto) Option A watcher ingest
   ],
 
   /**
@@ -1147,6 +1148,7 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   "edbcm156_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbc015_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbcm138_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
+  "edbcm144_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   // ack:spotlight:end
 ];
 
