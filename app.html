@@ -743,8 +743,8 @@ body {
  */
 window.FEATURE_TABS = { about: true, qa: true, annotate: true, templates: false, guidelines: true };
 </script>
-<link rel="stylesheet" href="mobile.css?v=3.3.1">
-<script src="mobile.js?v=3.3.1" defer></script>
+<link rel="stylesheet" href="mobile.css?v=3.3.2">
+<script src="mobile.js?v=3.3.2" defer></script>
 </head>
 <body>
 <div id="root"></div>
@@ -2038,7 +2038,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // is frozen and consumed by the downstream Circular System). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + 文件標註（就地標註）+ 範本下載 + 合規清單修訂，跨 15 個合規範疇。
-const PLATFORM_VERSION = '3.3.1';
+const PLATFORM_VERSION = '3.3.2';
 // S204 — tab switches; defined in a plain <script> in <head> so mobile.js can read them
 // at its DOMContentLoaded init, which runs BEFORE this Babel script compiles.
 const FEATURE_TABS = window.FEATURE_TABS;

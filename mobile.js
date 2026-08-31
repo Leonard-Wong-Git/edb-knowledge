@@ -73,9 +73,22 @@
     try { localStorage.setItem(MOBILE_TOUR_FLAG, '1'); } catch (_) {}
   }
 
-  // S175 — 4-step first-visit onboarding tour (mobile-specific features)
+  // S211 — 手機導覽開場白以前寫死「四個主要功能」，同 app.html 個「五大功能」一樣係人手數字：
+  // S204 收起「範本下載」之後底欄實際得三個入口，而入面真正算功能嗰啲更加少。改為數返底欄過濾
+  // 後會出嘅功能入口（「平台介紹」係簡介版面，唔當一個功能）。window.FEATURE_TABS 由 <head> 嘅
+  // 普通 script 設定，喺呢個 defer script 執行前已經有；index.html / app.html 兩頁都有齊。
+  const CN_NUM = ['零', '一', '兩', '三', '四', '五', '六', '七', '八', '九'];
+  const FEATURE_TAB_FLAGS = ['qa', 'guidelines', 'templates'];
+  function mobileFeatureCount() {
+    const flags = window.FEATURE_TABS;
+    if (!flags) return FEATURE_TAB_FLAGS.length;   // same fail-open stance as buildTabBar()
+    return FEATURE_TAB_FLAGS.filter(function (f) { return flags[f] !== false; }).length;
+  }
+
+  // S175 — first-visit onboarding tour (mobile-specific features)
   const MOBILE_TOUR_STEPS = [
-    { icon: '👋', title: '歡迎使用香港學校政策搜尋平台', body: '快速查找 EDB 教育政策，附來源頁碼，直跳官方原文 PDF。四個主要功能讓你告別翻文件。' },
+    { icon: '👋', title: '歡迎使用香港學校政策搜尋平台', body: '快速查找 EDB 教育政策，附來源頁碼，直跳官方原文 PDF。'
+        + (CN_NUM[mobileFeatureCount()] || mobileFeatureCount()) + '個主要功能讓你告別翻文件。' },
     { icon: '🔍', title: '政策搜尋', body: '輸入 1–3 個關鍵字（例如「教師病假」「採購 5 萬」），AI 即時比對 EDB 官方指引，附來源頁碼，可直跳 PDF 對應頁。' },
     { icon: '📚', title: '指引文件庫', body: '分類整理嘅 EDB 官方指引文件——課程、財務、SEN、幼稚園等。點下方「📚 指引文件」打開。' },
     { icon: '✅', title: '準備好了！', body: '接下來請選擇你嘅崗位角色，系統會根據角色精準篩選最相關嘅政策事實。' },

@@ -181,4 +181,4 @@ KNOWLEDGE_PATH=../../../dev/knowledge/role_facts.json
 
 ---
 
-*最後更新：2026-06-25 | 平台 v3.3.1（知識資料合約 knowledge.json 維持凍結 v2.3.0）| 維護：leonard-wong-git*
+*最後更新：2026-06-25 | 平台 v3.3.2（知識資料合約 knowledge.json 維持凍結 v2.3.0）| 維護：leonard-wong-git*
