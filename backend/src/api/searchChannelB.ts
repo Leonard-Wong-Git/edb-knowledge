@@ -343,6 +343,38 @@ const SOURCE_SETS: Record<string, string[]> = {
   ],
 
   /**
+   * Teacher entry qualifications — 入職資歷／師資訓練／學位教師入職條件 (S211).
+   *
+   * Split from hr_admin for the same reason staffing was (S204): the route exists to carry
+   * a different QUERY_EXPANSION, not a different source list. Measured on
+   * 「只修讀中學師資資格是否可以在小學任常額職位」 against the live corpus, ranking the two
+   * chunks that actually state the rule (faq_edbc19011 答14 「資助小學的新入職教師必須持有本地
+   * 學士學位（或同等學歷）及小學師資訓練」 / sag_2025_11 「入職資助小學擔任編制內助理小學學位
+   * 教師(APSM)…必須…已完成小學師資訓練」):
+   *     no route at all (today)   FAQ #10 (0.585)   SAG #63 (0.533)  → neither reaches the
+   *                                                                   top-5 synthesis window,
+   *                                                                   so the S177 judge
+   *                                                                   correctly declined
+   *     hr_admin expansion        FAQ  —           SAG  —            → OUT of the top 80; the
+   *                                                                   leave/salary vocabulary
+   *                                                                   (假期 批假 病假 168日)
+   *                                                                   drags the vector into
+   *                                                                   g04/SAG leave appendices
+   *     this route's expansion    FAQ  #1 (0.709)  SAG  #9 (0.641)
+   * The middle row is the point: hr_admin is the intuitive home for an 入職 question and is
+   * measurably the worst of the three. Do not fold this back into it.
+   */
+  teacher_qualification: [
+    "sag_2025_11",                                  // 《資助則例》入職條款 + 師資訓練學歷審核
+    "faq_edbc19011", "edbc19011",                   // 學位化通告 + 常見問題（答14 = 直接答案）
+    "ppt_grad_pri_policy", "ppt_grad_pri_faq",      // 學位化政策概要 / 常見問題分析
+    "edbc00030",                                    // 教育局通告第30/2000號
+    "coa_pri_e", "coa_ss_e",                        // 資助則例（英文版；EDB 無中文版）
+    "roles_functions_pri", "psm_sgt",               // 學位教師職級角色 / 輔導教師出任 PSM
+    "embc5_2005_appointment",                       // 聘任
+  ],
+
+  /**
    * HR / Leave / Professional conduct — 假期, 批假, 薪酬, 操守
    * Include SAG (it has meaningful HR sections); exclude pure curriculum guides.
    */
@@ -589,6 +621,18 @@ const SOURCE_SETS: Record<string, string[]> = {
 /** Keyword patterns for each category (Traditional Chinese). */
 const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // PLAN-1b selective routes (S118) — first-match precedence; keep first.
+  // S211 — teacher entry qualifications. Placed FIRST, ahead of cpd, because cpd owns 師訓
+  // and a question like 「中學師訓可唔可以教小學常額」 is about entry eligibility, not
+  // professional development. Tokens are pre-service qualification nouns only (師資訓練／
+  // 師資資格／入職資歷／APSM／檢定教員…), none of which appear in a real CPD, staffing,
+  // curriculum or leave query, so nothing downstream is diverted — verified by the routing
+  // regression in dev/source/route_regression.py.
+  // NOTE 常額 is deliberately NOT a bare token: 常額教席 belongs to hr_admin and 常額編制
+  // to staffing. Only the qualification-shaped phrasings are claimed here.
+  // NOTE bare 師訓 stays with cpd. Only the compounds that can only mean pre-service
+  // training ([中小]學師訓 / 師訓資歷 / 師訓學歷) are claimed, so 「師訓時數」-style CPD
+  // questions are untouched while 「中學師訓可唔可以教小學」 reaches this route.
+  teacher_qualification: /師資訓練|師資資格|師資學歷|[中小]學師訓|師訓資歷|師訓學歷|入職資歷|入職條件|入職資格|教師資歷|檢定教員|准用教員|助理小學學位教師|\bAPSM\b|學位教師入職/i,
   cpd: /CPD|持續專業發展|教師專業發展|教師培訓|專業發展計劃|專業階梯|師訓/,
   kg_admission: /幼稚園收生|幼稚園.{0,3}收生|幼稚園.{0,3}入學|幼稚園.{0,3}報名|K1.{0,3}收生|幼稚園.{0,3}申請入學|幼稚園.{0,6}學費|學費.{0,4}涵蓋|售賣物品|代辦費/,
   // S142 §5 — primary/secondary placement (after kg_admission so 幼稚園 stays there).
@@ -713,6 +757,11 @@ const QUERY_EXPANSIONS: Record<string, string> = {
   // (same rationale as the qa_inspection expansion exception).
   school_governance: "法團校董會 學校管理委員會 校董會 校董 校監 辦學團體 校本管理 法團校董會的成立與運作 Incorporated Management Committee School Management Committee",
   finance:    "採購程序 財政限額 報價 招標 採購指引",
+  // S211 — the target documents' own register. 小學實習課程／中學實習課程 is what lifts the
+  // SAG clause (it is the sentence that distinguishes primary from secondary training, i.e.
+  // the actual answer); dropping that pair costs SAG the top 80 entirely (measured).
+  teacher_qualification:
+    "小學師資訓練 學位教師入職條件 資助則例 助理小學學位教師 APSM 本地學士學位 新入職教師 核准編制內 小學實習課程 中學實習課程 師資訓練學歷 確認受聘人資歷",
   hr_admin:   "教職員假期 批假 薪酬 操守 病假 首年 168日 上限 醫生證明 教師註冊 聘任",
   activity:   "全方位學習津貼 活動",
   // S142: safety + gov_admin intentionally have NO expansion. Their SOURCE_SETS span
