@@ -35,6 +35,31 @@ dev/DOC_SYNC_REGISTRY.md
 
 <!-- ack:log-entry:start -->
 
+## 2026-09-01 Session 211 — 一條答唔到嘅查詢，拆出四層獨立缺陷
+
+- **ID:** Claude_20260901（S211）。跨午夜：2026-08-31 20:58 → 2026-09-01 10:12（本機 BST）。
+- **Summary:** 由「收起通告分析卡」開始，中途 Leonard 貼咗一條真實查詢「只修讀中學師資資格是否可以在小學任常額職位」同 Google AI Overview 對照。平台拒答。拆落去發現係四層獨立缺陷疊埋，而每一層「最順理成章」嘅修法都被實測否決。
+- **Changed:** `app.html` / `index.html` / `q.html` / `t-purchase.html` / `mobile.js` / `mobile.css` / `README.md` / `K1_API_SPEC.md` / 三個 JSON 鏡像；`backend/src/api/searchChannelB.ts` / `backend/src/lib/wikiRepository.ts` / `backend/src/server.ts` / `backend/src/config/env.ts`；`dev/vault/expand_vault.py`；`dev/source/source_registry.json`；新增 `dev/source/route_regression.mjs` / `vault_lead_delta.mjs` / `cache_drift.mjs`；`dev/source/JUDGE_PROMPT_FINDINGS.md` §5–§7；`dev/DOC_SYNC_CHECKLIST.md` row「Tab withdraw / restore」重整。Supabase `staff_est_pri` 81 → 85（全庫 17,593 → 17,597）。
+- **Done:**
+  - 前端五項，平台 v3.3.0 → v3.3.2（收卡 / 平板版面錯位 / 統計列 / 三處寫死數字 / 五句散文）。
+  - `/health` 加 `commit` + `started_at`。
+  - 判斷閘改用獨立模型 `gpt-4.1-mini`（`JUDGE_MODEL`，程式預設）。
+  - 檢索四層：`teacher_qualification` 路由、bypass 改讀 `results[forcedLeads]`、合成器字數由目標改上限、`chunk_overlap` 覆寫 ＋ `searchEstablishmentRows()` 詞彙層 overlay。
+  - 內容準確性：編制答案預設只出全日制（Leonard 指出資助及官立小學已無半日制）。
+  - 防漂移：`app.html` 分頁開關註釋第 8、9 項；DOC_SYNC row 重整。
+- **QC:** `tsc --noEmit` / `npm run build` 全部 exit 0；`route_regression.mjs` 33/33 PASS，並以改前版本跑同一套作 baseline，證實無舊 query 改路由；`vault_lead_delta.mjs` 確定性證實 bypass 改動只影響 3 個 case 且全部 `want=能`、21 個 `want=否` 一個都無受影響；判斷閘換 model 對凍結集主集 31/33 打平、無新增 false answer、連 bare-noun 33/35 對 31/35；四個過度觸發 case 實測歸零；每次 push 後以 `/health` 嘅 `commit` 確認部署落地再驗真站。 **檢索 eval before→after 已跑**（DOC_SYNC row 43／51 要求）：對 `2026-08-26_s210_after_leaflet.json`，`2026-09-01_s211_after.json` 為 **PASS=25 / FAIL=0 / errors=0（與基線一致）、SAME 36 / 37、blocking failures 0**。唯一非 SAME 係 `sef` 一條 DISPLACED：尾位（第 8）嘅 `debp_blueprint` 被 `edbc015_2026` 擠走，而後者係 S210 之後 Option A 管道自動入庫嘅通函，**與本 session 四層改動無關**——正正係 S210 建立 DISPLACED 分類要吸收嘅情況。
+- **本 session 自己犯咗而值得記低嘅錯：**
+  1. **用 exact substring 搵原文，撞正 PDF 換行**（「新 入職教師」中間有換行），一度報「冇入 top-80」，實情係第 1 位。負面結果落結論前要問儀器顯唔顯示到。
+  2. **分頁攞 81 行寫成 `limit=60`**，兩次請求其中一次回 error object，而我 `rows += b` 把 dict 嘅 key 當成 row 加咗入去，備份檔一度有 85 個元素。加咗 assert 逐項核 `isinstance(dict)` 同對權威 `count=exact` 先重做。
+  3. **一度判斷「Render 部署失敗」並寫成報告請 Leonard 介入**，實情只係慢，而它喺報告寫到一半時上線。直接成因係服務無 version endpoint——已補。
+  4. **兩次 full-pipeline run 分別喺 GN02 同 GN03 見到 false answer，一度當成回歸**，實情兩個 case 都唔喺改動影響範圍內，純 LLM 雜訊。改為寫確定性量度腳本先落結論。
+  5. **「重新切片就係修法」講早咗一步**：做完發現答案變成由鄰近班數內插，隨即逐 byte 還原生產資料，確認詞彙層 overlay 之後先再重入。
+  6. **`searchEstablishmentRows` 同 `staffing` 路由第一版都過度觸發**：「小一派位第 1 班點分」被塞八段編制表。實測到先收窄。
+- **Evidence disposition:** 檢索／判斷閘嘅可重用結論已 promoted 入 `dev/source/JUDGE_PROMPT_FINDINGS.md` §5–§7（判斷提示唔係槓桿、凍結 cache 已漂移、班數查詢真兇）；三個量度工具已 indexed in `dev/PROJECT_INDEX.md`；架構取捨已 promoted to `dev/PROJECT_DECISIONS.md`；其餘逐條 compare 拆解同自己犯嘅錯 kept as recent trace evidence。
+- **Sync:** DOC_SYNC row 37（vault source backfill）、row 43（eval harness）、row 51（切 chunk 邏輯）三行命中；「Tab withdraw / restore」一行重整為 A/B/C/D 四組並加入 grep 驗證步驟。公開片段數七個鏡像已同步 17,593 → 17,597。
+- **Pending:** 見 Open Priorities。⚠️ `coa_pri_e` / `coa_ss_e` 亦載編制條款，未逐一檢查有無同類「答錯班數」問題。
+- **Log maintenance:** 無觸發。本檔 4 個 session entry（N=4 < 11）、行數未逾 1500；`PROJECT_DECISIONS.md` 觸發條件 (c)（多選項架構取捨連理由）已兌現，本 session 已 append。
+
 ## 2026-08-26 Session 210 — 補返欠低嘅 eval，然後發現量度佢嘅閘本身壞咗
 
 - **ID:** Claude_20260826_0748

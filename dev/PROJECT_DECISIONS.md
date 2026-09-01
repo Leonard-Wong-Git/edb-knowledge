@@ -7,6 +7,33 @@
 
 ## Architecture Choices
 
+### ADR-00X — 具體數值查詢：詞彙層檢索，而非再調相似度門檻（S211）
+- **Date**: 2026-09-01（S211）
+- **Status**: IMPLEMENTED + LIVE（單源特例；一般化屬 Open Priority ④）
+- **Context**: 「12 班小學有幾多個學位教師」一類查詢，答案逐字載於 `staff_est_pri`，但平台答出**確定而錯誤**嘅數字（「不設副校長、學位教師 2 名、合計 10 名」；正確為副校長 1 名、學位教師 5 名、合計 21 名）。系統取咗同一張表另一行，冠以「12 班」之名，且毫無保留語氣。該表 36 行近乎相同，班數係索引欄。
+- **Options considered**:
+  - A：收緊 `VAULT_LEAD_SCORE`（0.70）→ ❌ **實測否決**。全語料只有四個 case 觸發 bypass；要擋走 D02（0.7428）就必然連 `teacher_qualification` 目標題（0.7093）同 GN11（0.7221）一併擋走，而該兩題判斷閘被問到時答錯。S195 早已寫「no choice of number is safe」，S211 量到具體代價。
+  - B：改寫判斷提示 → ❌ **實測否決**。五個版本（加資格適用性規則／改開場問法／重排規則次序／明寫「資料唔會逐個唔符合嘅情況寫一次」）喺凍結驗收集全部與 shipped 一模一樣：31/33、12/12、19/21、同樣兩個 false answer。連 `gpt-4o` 都拒答。
+  - C：只重新切片（`chunk_overlap=0`，一行一片段）→ ❌ **實測否決**。半行開頭由 74/81 降至 2/85，但正確嗰行仍然排唔上（該行對自身問題 cosine 只 0.5923），合成器改為由 6、7、8 班嘅數值**內插**——由「確定而錯」變成「有自認嘅錯」，兩者皆不可接受。生產寫入已逐 byte 還原。
+  - D：擴闊合成視窗至「五格主搜尋 ＋ 強制置頂嗰幾格」→ ❌ **實測否決**。答案片段確實入咗窗，判斷閘仍然拒答，而**拒答係啱嘅**（片段由半行開始，同一段兩個不同嘅「學位教師」人數）。零實測得益，卻令每次判斷同合成多食兩段內容，故撤回，只留註釋。
+  - **E（採用）：逐行切片 ＋ 一條不經相似度嘅詞彙層查詢。** `chunk_overlap=0` 令每行自足；`searchEstablishmentRows()` 以「N 班的教學人員編制」作字面比對，命中即強制置前。**冇門檻可調**——該字串要麼喺片段入面，要麼唔喺。
+- **Decision driver**: 班數係文件自身嘅索引欄，而稠密向量對唔到精確數字。凡係「同一份文件用一個鍵索引多行、每行只差幾個數字」嘅資料，相似度排序結構上分唔開；判斷閘亦分唔開（每一行喺佢眼中都係同一語域嘅完整句子，正是 S195 所述限制）。故槓桿唔喺任何一個分數，而喺「用文件自己嘅索引欄做字面鍵」。
+- **Implementation**: `backend/src/lib/wikiRepository.ts` `searchEstablishmentRows()`；`backend/src/api/searchChannelB.ts` 第三個 overlay pass（觸發條件跟隨 `staffing` 路由，不另寫一次判斷）；`dev/vault/expand_vault.py` `chunk_overlap` 覆寫（接受 0，故另設 `source_override_allow_zero`）；`ESTABLISHMENT_SOURCE_IDS` 獨立於 `SOURCE_SETS.staffing`——字面比對只可以觸及「N 班的教學人員編制」確實代表一行表格資料嘅文本。
+- **Evidence chain**: 逐層實測（路由 null → 加路由後仍拒答 → bypass 被強制置頂片段遮蔽 → 判斷提示改五版無效 → 換 `gpt-4o` 無效 → 打開原文發現片段由半行開始、判斷閘拒得啱 → 切乾淨後改為內插 → 加詞彙層先答啱）。最終真站實測：12 班得全日制 5 名學位教師、助理 14 名、合計 21 名，與原文逐字相符；24 班得 3 名副校長。過度觸發已收窄（「小一派位第 1 班點分」「中一 5 班嘅課程指引」「24 班學校要幾多間課室」所取得嘅 `staff_est_pri` 片段皆為 0）。
+- **Uncertainty / 未做**: 一般化未做（Open Priority ④）；`coa_pri_e` / `coa_ss_e` 亦載編制條款，未逐一檢查有無同類問題；`staff_est_sp_sch_pri`（held_back）按「教學人員總數」而非班數索引，字面鍵要重新設計先可套用。
+
+### ADR-00Y — 判斷閘與合成器分用不同模型（S211）
+- **Date**: 2026-09-01（S211）
+- **Status**: IMPLEMENTED + LIVE
+- **Context**: 判斷閘（`RELEVANCE_JUDGE_PROMPT`）與合成器共用 `OPENAI_MODEL`（Render 設為 `gpt-4o-mini`）。判斷閘對「資料列明要求、問題問某資格符唔符合」呢類一步推論一律拒答，五個提示改寫版本皆無法扭轉。
+- **Options considered**:
+  - A：改寫提示 → ❌ 見上一則 ADR，凍結集零變化。
+  - B：把 `OPENAI_MODEL` 整個換成 `gpt-4.1-mini` → ⚠️ 合成品質從未量度，而合成器係貴嗰邊（約 1,900 input ＋ 300 output tokens），全換約為現時 2.7 倍成本，且無實測依據。
+  - **C（採用）：判斷閘用獨立 `JUDGE_MODEL`（程式預設 `gpt-4.1-mini`），合成器維持 `OPENAI_MODEL`。**
+- **Decision driver**: 凍結驗收集實測——主集 31/33 打平、answer half 12/12 打平、decline half 19/21 打平且**為完全相同嘅兩個 false answer（D01、GN10），無新增虛答**；連 bare-noun 兩題計則 33/35 對 31/35，即 `S01` 與 `S02` 由誤拒轉為正確作答。判斷閘每次呼叫實測約 1,910 input tokens、1 output token，故改動每條查詢約增 US$0.0005（每月一千條查詢約 US$0.48）。程式預設而非 Render 環境變數，故無須改動部署設定。
+- **Evidence chain**: 先以單一 query 見到 `gpt-4.1-mini` 準啲 → 明確指出「憑單一 case 揀 model 正是驗收集開頭警告嗰種 overfit」→ Leonard 指示照做 → 跑完整凍結集先落實。**注意**：該凍結集嘅 chunk cache 為 2026-07-31 版，已對 9/35 條漂移（`cache_drift.mjs`），故此結論對嗰 9 條而言係量緊一個舊狀態。
+- **Uncertainty / 未做**: 合成器模型未量度；凍結 cache 未 refresh（需逐條重讀原文核 label）。
+
 ### ADR-001 — Channel B Downstream Integration Model (Q4 Phase 2)
 - **Date**: 2026-06-05 (S144 model decision; S145 build + verified live)
 - **Status**: IMPLEMENTED + LIVE
