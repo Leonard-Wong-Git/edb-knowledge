@@ -8,7 +8,9 @@
 <meta name="apple-mobile-web-app-title" content="香港學校政策搜尋平台">
 <meta name="application-name" content="香港學校政策搜尋平台">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="description" content="PolicyChecker · 政策核對：為香港學校管理人員提供 EDB 政策語義搜尋、文件標註、政策範本下載，頁頁可追溯…">
+<!-- S211 — 呢句會出喺搜尋引擎摘要，所以佢跟 FEATURE_TABS 走：收起或恢復一個 tab 要同步改
+     （原文列住「政策範本下載」，而該 tab 由 S204 起已收起）。見 DOC_SYNC_CHECKLIST「Tab withdraw / restore」。 -->
+<meta name="description" content="PolicyChecker · 政策核對：為香港學校管理人員提供 EDB 政策語義搜尋、文件標註、EDB 官方指引文件庫，頁頁可追溯…">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -317,9 +319,10 @@ a{color:inherit;text-decoration:none}
       香港學校政策搜尋平台
       <em>搜尋 EDB 政策，毋須逐頁翻查通告</em>
     </h1>
+    <!-- S211 — 同 app.html 平台介紹個 hero 一樣，呢句列緊平台提供咩，跟 FEATURE_TABS 走。 -->
     <p class="hero-desc">
       語義搜尋 <span data-stat="chunks">17,593</span> 個 EDB 原文知識片段，
-      上載學校文件即時比對指引與合規清單，並下載 15 個範疇的政策範本。
+      上載學校文件即時比對指引與合規清單，並附原始出處直達官方 PDF。
     </p>
     <div class="hero-actions">
       <a class="btn-primary" href="app.html">

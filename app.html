@@ -17,7 +17,9 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="zh_HK">
 <meta property="og:title" content="香港學校政策搜尋平台">
-<meta property="og:description" content="EDB 政策語義搜尋 · 文件標註 · 範本下載 · 指引文件庫">
+<!-- S211 — og/twitter description 會出喺分享卡，同樣列緊平台功能：跟 FEATURE_TABS 走。
+     原文列住「範本下載」，該 tab 由 S204 收起。見本檔 head 分頁開關註釋第 8 項。 -->
+<meta property="og:description" content="EDB 政策語義搜尋 · 文件標註 · 指引文件庫">
 <meta property="og:url" content="https://policychecker.wongfu.net/app.html">
 <meta property="og:image" content="https://policychecker.wongfu.net/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -25,7 +27,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="香港學校政策搜尋平台">
-<meta name="twitter:description" content="EDB 政策語義搜尋 · 文件標註 · 範本下載 · 指引文件庫">
+<meta name="twitter:description" content="EDB 政策語義搜尋 · 文件標註 · 指引文件庫">
 <meta name="twitter:image" content="https://policychecker.wongfu.net/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -732,10 +734,24 @@ body {
  *   7. index.html feature card             — NOT flag-driven (static HTML, no React): hidden
  *                                            by an inline style with a comment pointing here.
  *                                            Restoring a tab means deleting that style too.
+ *   8. Prose that names the features        — NOT flag-driven, and it is the surface that
+ *      · app.html  平台介紹 hero 段            actually rotted: S204 withdrew 範本下載 on
+ *      · index.html .hero-desc                2026-08-18 and all four of these kept promising
+ *      · index.html <meta description>        it until S211 on 2026-08-31. A withdrawn tab is
+ *      · README 功能表                        not withdrawn until no sentence still offers it.
+ *   9. Feature COUNTS                       — were hardcoded in three places ("五大功能 · 點樣用",
+ *                                            TOUR_STEPS welcome, mobile.js MOBILE_TOUR_STEPS
+ *                                            welcome) and all three miscounted after S204.
+ *                                            S211 derives them; do not write a number back in.
  *
  * ── WHEN RESTORING ──────────────────────────────────────────────────────────────────────
- *   Flip the flag, delete the index.html inline style (item 7), drop the "(beta)" suffix if
- *   the feature is out of beta, and re-check the DOC_SYNC row "Tab withdraw / restore".
+ *   Flip the flag, delete the index.html inline style (item 7), re-read every sentence in
+ *   item 8 (grep the feature's own words across app.html + index.html + README — the counts
+ *   in item 9 look after themselves), drop the "(beta)" suffix if the feature is out of beta,
+ *   and re-check the DOC_SYNC row "Tab withdraw / restore".
+ *   If this edit also touches mobile.css / mobile.js, bump PLATFORM_VERSION: both are cached
+ *   under ?v=<version> from four HTML files, so shipping without a bump leaves returning
+ *   visitors on the old copies (S211 hit exactly this and nearly shipped a no-op).
  *
  * templates: withdrawn 2026-08-18 — policy_templates.json is a generated manifest that has
  * not been regenerated alongside the corpus, so the list on show was going stale. Restore
@@ -2246,8 +2262,12 @@ function PlatformIntroPanel({ stats }) {
         <h1 style={{fontSize:'clamp(1.9rem,5vw,3rem)',fontWeight:900,color:'var(--charcoal)',letterSpacing:'-0.025em',lineHeight:1.15,marginBottom:'16px'}}>
           查找教育局各項<em style={{color:'var(--mocha)',fontStyle:'normal'}}>有根有據</em>的政策答案
         </h1>
+        {/* S211 — 呢句列緊平台提供咩，所以佢跟 FEATURE_TABS 走：收起或恢復一個 tab 就要同步改。
+            原文尾句「並下載 15 個範疇的政策範本」喺 S204 收起範本下載之後應承咗一個㩒唔到嘅功能，
+            由 2026-08-18 一直留到 2026-08-31 先發現。改動任何 tab flag 時，連同 index.html 個
+            hero-desc 同 meta description 一齊睇（見 DOC_SYNC_CHECKLIST「Tab withdraw / restore」）。 */}
         <p style={{fontSize:'var(--text-base)',color:'var(--mid)',maxWidth:'480px',margin:'0 auto',lineHeight:1.7}}>
-          由政策搜尋到文件標註——以自然語言查詢教育局政策、通告及指引；上載學校文件即時比對指引與合規清單；並下載 15 個範疇的政策範本。
+          由政策搜尋到文件標註——以自然語言查詢教育局政策、通告及指引；上載學校文件即時比對指引與合規清單，並附原始出處。
         </p>
       </div>
 
