@@ -140,6 +140,17 @@ def load_registry() -> list[dict]:
         return json.load(f)["sources"]
 
 
+def source_override_allow_zero(source_id: str, key: str, default: int) -> int:
+    """Same as source_override but accepts 0 (S211 — chunk_overlap=0 is meaningful)."""
+    for src in load_registry():
+        if src.get("source_id") == source_id:
+            val = src.get(key)
+            if isinstance(val, int) and val >= 0:
+                return val
+            break
+    return default
+
+
 def source_override(source_id: str, key: str, default: int) -> int:
     """Per-source integer override from source_registry.json, else the global default.
 
@@ -150,6 +161,20 @@ def source_override(source_id: str, key: str, default: int) -> int:
                         dilute the one the query is about (measured on staff_est_pri:
                         「12班小學有幾多個學位教師」 scores 0.521 against a 6-row chunk and
                         0.590 against the single row).
+    `chunk_overlap`   — S211: on a row-per-line table, `chunk_max_chars` ALONE cannot give
+                        you one row per chunk, and staff_est_pri is the proof. It was set
+                        to 160 in S204 for exactly that purpose, yet the live chunks came
+                        out at a 194-char median and 74 of 81 began mid-row, because the
+                        60-char overlap prepends the tail of the previous chunk and an
+                        establishment row is ~98 chars. Every chunk therefore opened with
+                        an orphan row carrying no class-count header — two different
+                        「學位教師」 counts in one chunk, so the S177 judge correctly declined
+                        「12 班小學有幾多個學位教師」 (it forbids substituting a near-but-
+                        different number). Overlap earns its keep on prose, where a
+                        sentence split across chunks loses its subject; on a table whose
+                        every row is self-contained it only manufactures ambiguity. Set it
+                        to 0 for such sources. Accepts 0, so this override is read with an
+                        `is not None` test rather than the truthiness `> 0` used above.
     """
     for src in load_registry():
         if src.get("source_id") == source_id:
@@ -552,6 +577,7 @@ def build_chunks_from_vault_file(extract_path: Path) -> list[dict]:
     # measured on staff_est_pri: 4 of 81 chunks carried a page, 77 did not.
     # No-op (byte-identical, same text_hash) for sources whose extract has no markers.
     max_chars = source_override(sid, "chunk_max_chars", CHUNK_MAX_CHARS)
+    overlap = source_override_allow_zero(sid, "chunk_overlap", CHUNK_OVERLAP)
     # S209 — a multi-document extract must not produce a chunk that straddles two
     # documents. Chunking the body as one string let a chunk hold the tail of one
     # PDF and the head of the next: carry_sections gives it the section it ENDS in
@@ -573,9 +599,9 @@ def build_chunks_from_vault_file(extract_path: Path) -> list[dict]:
     if len(parts) > 1:
         raw_texts = []
         for part in parts:
-            raw_texts.extend(chunk_text(part, max_chars=max_chars))
+            raw_texts.extend(chunk_text(part, max_chars=max_chars, overlap=overlap))
     else:
-        raw_texts = chunk_text(body, max_chars=max_chars)
+        raw_texts = chunk_text(body, max_chars=max_chars, overlap=overlap)
     texts = carry_pages(raw_texts)
     # S207 — resolve each chunk to the sub-page it came from. Read off the PRE-carry
     # chunks: carry_pages() prefixes `=== Page N ===`, which changes nothing here
