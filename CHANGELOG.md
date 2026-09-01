@@ -6,6 +6,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [可觀測性] — 2026-09-01 — `/health` 加入建置識別（S211）
+
+> 平台版本維持 **v3.3.2**（純後端）。
+
+### Added
+- **`/health` 回報 `commit` 與 `started_at`。** 此前無法從外部得知 Render 上正在服務的是哪一個 build：Render 不會把部署狀態送到 GitHub（commit statuses 為 0 條，deployments 只有 github-pages），而此端點也不報版本。後果實際發生過兩次——S200 只能請 Leonard 開 dashboard 確認；S211 花了約 50 分鐘判斷部署失敗並已寫成報告請人介入，實情只是慢，而它在報告寫到一半時就上線了。`commit` 取自 Render 自行注入的 `RENDER_GIT_COMMIT`（取前 7 位），本機無此變數時回報 `local`；`started_at` 用以分辨「重啟」與「重新部署」。
+
+---
+
 ## [檢索修正] — 2026-09-01 — 修好被強制置頂片段遮蔽的判斷閘豁免（S211）
 
 > 平台版本維持 **v3.3.2**（純後端）。凍結合約零接觸；語料未動。接上一則：新增路由把答案拉進了合成視窗，但問題仍然答不出來，本則是餘下那一半。

@@ -28,6 +28,8 @@ import { createLlmClient } from "./lib/llmClient.js";
 import type { AnalyzeCircularRequest } from "./types/knowledge.js";
 
 const PORT = getPort();
+/** S211 — process start time, so a restart is distinguishable from a redeploy. */
+const STARTED_AT = new Date().toISOString();
 const CORS_ORIGINS = getCorsOrigins();
 
 // Body-size cap for the search routes (S187 audit). Queries are short; this
@@ -181,6 +183,14 @@ const server = createServer(async (req, res) => {
       ok: true,
       service: "edb-knowledge-platform-backend",
       cache_a: { warm: isCacheWarm(), size: getCacheSize() },
+      // S211 — which build is actually serving. Nothing outside Render could tell before:
+      // Render posts no deployment status to GitHub and this endpoint reported no version,
+      // so "did my push land?" could only be answered by opening the dashboard (S200 hit
+      // this, and S211 spent ~50 minutes concluding a deploy had failed when it was merely
+      // slow — it landed while the report saying otherwise was being written).
+      // RENDER_GIT_COMMIT is injected by Render itself; locally it is absent, hence "local".
+      commit: (process.env.RENDER_GIT_COMMIT || "local").slice(0, 7),
+      started_at: STARTED_AT,
     }));
     return;
   }
