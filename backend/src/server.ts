@@ -21,7 +21,7 @@ import { searchChannelB, type SearchChannelBRequest } from "./api/searchChannelB
 import { PROBE_HEADER, readUsageTotals, recordSearch } from "./lib/usageCounter.js";
 import { searchCombined, type SearchCombinedRequest } from "./api/searchCombined.js";
 import { handleChunks, handleManifest } from "./api/channelBSync.js";
-import { getCorsOrigins, getPort } from "./config/env.js";
+import { getCorsOrigins, getPort, getJudgeModel } from "./config/env.js";
 import { createEmbeddingClient } from "./lib/embeddingClient.js";
 import { getCacheSize, initFactEmbeddingCache, isCacheWarm } from "./lib/factEmbeddingCache.js";
 import { createLlmClient } from "./lib/llmClient.js";
@@ -158,6 +158,8 @@ function readJsonBody<T>(
 // Instantiate clients once at startup (not per-request) so that the
 // embedding client's module-level anchor cache is shared across requests.
 const llmClient = createLlmClient();
+// S211 — judge on its own model (see getJudgeModel in config/env.ts for the measurement).
+const judgeLlmClient = createLlmClient({ model: getJudgeModel() });
 const embeddingClient = createEmbeddingClient();
 
 // Warm up the Channel A fact embedding cache in the background.
@@ -375,7 +377,7 @@ const server = createServer(async (req, res) => {
   if (req.method === "POST" && req.url === "/api/search/channel-b") {
     try {
       const input = await readJsonBody<SearchChannelBRequest>(req, SEARCH_MAX_BYTES);
-      const result = await searchChannelB(input, embeddingClient, llmClient);
+      const result = await searchChannelB(input, embeddingClient, llmClient, judgeLlmClient);
       recordSearch(Boolean(req.headers[PROBE_HEADER]));
 
       setCorsHeaders(req, res);

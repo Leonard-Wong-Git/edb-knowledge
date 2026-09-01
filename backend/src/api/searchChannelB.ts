@@ -880,7 +880,9 @@ async function synthesizeAnswer(
   results: ChannelBResult[],
   llmFn: LlmFn,
   /** How many front slots the overlays forced (S211 — see the vault-lead test below). */
-  forcedLeads = 0
+  forcedLeads = 0,
+  /** S211 — the judge runs on its own model (see getJudgeModel). Falls back to llmFn. */
+  judgeFn: LlmFn = llmFn
 ): Promise<string> {
   // S211 — 窗口一度擴闊為「五格主搜尋 ＋ 強制置頂嗰幾格」，理由係兩個註腳 forced lead 一插，
   // 主搜尋就只剩三格。方向合理，但實測落去冇一個 case 因此變好：佢本來要修嘅
@@ -952,7 +954,7 @@ async function synthesizeAnswer(
   const trustedVaultLead =
     mainLead.content_type === "vault_extract" && mainLead.score >= VAULT_LEAD_SCORE;
   if (!trustedVaultLead) {
-    const canAnswer = await judgeCanAnswer(query, chunkText, llmFn);
+    const canAnswer = await judgeCanAnswer(query, chunkText, judgeFn);
     if (!canAnswer) return SYNTHESIS_DECLINE;
   }
 
@@ -1307,7 +1309,9 @@ function applySupersedePenalty<T extends { source_id: string; score: number }>(r
 export async function searchChannelB(
   request: SearchChannelBRequest,
   embedFn: EmbedFn,
-  llmFn?: LlmFn
+  llmFn?: LlmFn,
+  /** S211 — optional separate model for the relevance judge; defaults to llmFn. */
+  judgeFn?: LlmFn
 ): Promise<SearchChannelBResponse> {
   const {
     query,
@@ -1493,7 +1497,7 @@ export async function searchChannelB(
   // LLM synthesis
   let synthesis: string | undefined;
   if (doSynthesize && llmFn && results.length > 0) {
-    synthesis = await synthesizeAnswer(query, results, llmFn, forcedLeads);
+    synthesis = await synthesizeAnswer(query, results, llmFn, forcedLeads, judgeFn ?? llmFn);
   }
 
   return {

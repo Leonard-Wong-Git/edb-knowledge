@@ -1,5 +1,6 @@
 const DEFAULT_OPENAI_MODEL = "gpt-4.1-nano";
 const DEFAULT_PORT = 8787;
+const DEFAULT_JUDGE_MODEL = "gpt-4.1-mini";
 const DEFAULT_CORS_ORIGIN = "https://leonard-wong-git.github.io,https://policychecker.wongfu.net";
 const DEFAULT_KNOWLEDGE_PATH_SETTING = "../../../role_facts.json";
 
@@ -35,6 +36,26 @@ export function getOpenAIApiKey(): string {
 export function getOpenAIModel(): string {
   const value = process.env.OPENAI_MODEL?.trim();
   return value || DEFAULT_OPENAI_MODEL;
+}
+
+/**
+ * S211 — the relevance judge runs on its own model, separate from OPENAI_MODEL.
+ *
+ * Measured on the frozen acceptance set (dev/source/judge_acceptance.py, 2026-09-01),
+ * gpt-4.1-mini against the shipped gpt-4o-mini: primary 31/33 on both, answer half 12/12
+ * on both, decline half 19/21 on both with THE SAME two false answers (D01, GN10) — no new
+ * confabulation — and 33/35 vs 31/35 once the bare-noun cases are counted, i.e. it fixes
+ * S01 and S02. It also answers the S211 qualification query that no rewrite of the prompt
+ * could get gpt-4o-mini to accept.
+ *
+ * Split rather than switching OPENAI_MODEL because synthesis quality was NOT measured here
+ * and the judge is the cheap call: ~1,910 input tokens and one output token, so the whole
+ * change costs about US$0.0005 per query (US$0.48/month at a thousand queries). Moving
+ * synthesis too would nearly triple its cost on no evidence.
+ */
+export function getJudgeModel(): string {
+  const value = process.env.JUDGE_MODEL?.trim();
+  return value || DEFAULT_JUDGE_MODEL;
 }
 
 export function getPort(): number {
