@@ -687,7 +687,11 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // must FOLLOW finance so 資助則例 keeps routing to finance (which owns that term and
   // now also carries coa_pri_e / coa_ss_e). Deliberately specific: a bare 編制 would
   // capture 課程編制 and steal curriculum queries.
-  staffing: /人員編制|教學人員編制|核准編制|教師編制|主任編制|編制表|主任級|學位化|學位教師職系|班師比/,
+  // S211 — +「N 班」。「12 班小學有幾多個學位教師」係 S204 入庫人手編制時想答嘅問法，但
+  // 一直路由唔到：staffing 認「學位教師職系」而唔認裸「學位教師」，而加裸詞會由 staffing
+  // 偷走 hr_admin 嘅薪酬問法（staffing 排喺 hr_admin 前，且冇 expansion）。改為認「數字＋班」
+  // —— 呢個組合喺編制問題以外幾乎唔會出現，班數正正係編制表嘅索引欄。
+  staffing: /人員編制|教學人員編制|核准編制|教師編制|主任編制|編制表|主任級|學位化|學位教師職系|班師比|[0-9０-９]{1,2}\s*班/,
   hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金|語文能力要求|語文基準|語文能力評核|基準試|準英語教師|英語教師獎學金/,
   // NOTE: 資助則例 is deliberately absent here — TOPIC_KEYWORDS.finance already
   // owns it and is evaluated first, so a copy in hr_admin would be dead weight.
@@ -807,8 +811,19 @@ function expandQuery(query: string, category: string): string {
 // Synthesis
 // ---------------------------------------------------------------------------
 
+// S211 — 「約250字」原本係字數目標，而目標會逼出填充。判斷閘唔係次次攔得住：D02_bus_fare
+// （「校巴車費可以收幾多」）嘅 lead 係 0.7428 嘅 vault 片段，過咗 VAULT_LEAD_SCORE 所以直接
+// bypass 咗 judge；合成器其實答啱咗開頭——「校巴的收費標準並沒有具體明示」——跟住為咗夠 250
+// 字，用安全帶同跟車保母砌多三百字。收緊 VAULT_LEAD_SCORE 唔係出路：實測全部只有 4 個 case
+// 會 bypass，而要用門檻擋走 D02（0.7428）就一定連 S211 目標題（0.7093）同 GN11（0.7221）
+// 一齊擋走，而嗰兩題 judge 被問到時答錯（見 JUDGE_PROMPT_FINDINGS S211 §3）。所以改字數規則：
+// 上限而非目標，並明寫「冇載明就講明冇」，令答唔到嗰陣個答案短而誠實，而唔係長而空。
 const SYNTHESIS_PROMPT = `你是香港學校管治的政策顧問。以下是從教育局政策文件中檢索到的相關資料。
-請根據這些資料，用繁體中文綜合分析並回答問題，緊扣資料重點，約250字（上限300字），不需列出來源編號。
+請根據這些資料，用繁體中文綜合分析並回答問題，緊扣資料重點，上限300字，不需列出來源編號。
+
+字數係上限，唔係目標。如果資料冇載明問題問嗰個具體事項（銀碼／期限／上限／比例／條件／資格），
+就直接講明資料未有載明，並簡述資料實際講咗啲咩，一兩句就夠——唔好用同一主題嘅其他內容填字數。
+資料答得到就照答，唔使刻意縮短。
 
 問題：{QUERY}
 
@@ -867,10 +882,16 @@ async function synthesizeAnswer(
   /** How many front slots the overlays forced (S211 — see the vault-lead test below). */
   forcedLeads = 0
 ): Promise<string> {
-  const top5 = results.slice(0, 5);
-  if (top5.length === 0) return "找不到相關政策。";
+  // S211 — 窗口一度擴闊為「五格主搜尋 ＋ 強制置頂嗰幾格」，理由係兩個註腳 forced lead 一插，
+  // 主搜尋就只剩三格。方向合理，但實測落去冇一個 case 因此變好：佢本來要修嘅
+  // 「12 班小學有幾多個學位教師」，答案片段入咗窗之後 judge 仍然拒答，而拒答係啱嘅——
+  // staff_est_pri 81 個片段有 74 個由半行開始（前一行冇班數標頭），所以嗰段同時載住兩個唔同嘅
+  // 「學位教師」人數。真正要修嘅係切片邊界（見 JUDGE_PROMPT_FINDINGS S211 §5）。
+  // 冇實測得益就唔應該令每次 judge 同 synthesis 多食兩段內容，故此撤回，只留紀錄。
+  const window = results.slice(0, 5);
+  if (window.length === 0) return "找不到相關政策。";
 
-  const chunkText = top5
+  const chunkText = window
     .map((r, i) => `[${i + 1}] ${r.text}`)
     .join("\n\n");
 
@@ -909,7 +930,7 @@ async function synthesizeAnswer(
   //
   // The overlays above force up to two curated footnotes (FOOTNOTE_LEAD_SCORE 0.45 + 2
   // informative bigrams) and one spotlight source into the front slots, and that is
-  // deliberate. The unintended side effect is here: `top5[0]` then names a forced lead, so
+  // deliberate. The unintended side effect is here: slot 0 then names a forced lead, so
   // a vault_extract that cleared the measured 0.70 bar loses the bypass it qualified for
   // and the judge is asked to rule on text that already answers the question.
   // Measured on 「只修讀中學師資資格是否可以在小學任常額職位」: faq_edbc19011 leads the main
@@ -920,14 +941,14 @@ async function synthesizeAnswer(
   //
   // `results[forcedLeads]` is precisely the chunk slot 0 held before the overlays ran
   // (`rest` is score-sorted), so where nothing was forced this is byte-identical to the old
-  // `top5[0]` test. What it does NOT do is scan the window: an earlier draft used
-  // `top5.some(...)` and measured a new false answer on GN02_nonteach_maternity —
+  // slot-0 test. What it does NOT do is scan the window: an earlier draft scanned every
+  // chunk in the window and measured a new false answer on GN02_nonteach_maternity —
   // 「學校非教學人員產假有幾多日」, where the main-search lead is a 0.782 footnote and the
   // 0.744 vault_extract in the window is the SAG leave appendix, i.e. the right register
   // and not the answer. That is the S177 class, so the window scan was withdrawn.
   // The 0.70 bar is untouched: S183's "≥0.70 is a direct topical match" is a property of
   // the chunk, and this restores WHICH chunk the property is read off.
-  const mainLead = results[forcedLeads] ?? top5[0];
+  const mainLead = results[forcedLeads] ?? window[0];
   const trustedVaultLead =
     mainLead.content_type === "vault_extract" && mainLead.score >= VAULT_LEAD_SCORE;
   if (!trustedVaultLead) {
