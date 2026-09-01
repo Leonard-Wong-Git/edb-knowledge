@@ -6,7 +6,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [檢索修正] — 2026-08-31 — 教師入職資歷查詢新增專屬路由（S211）
+## [檢索修正] — 2026-09-01 — 教師入職資歷查詢新增專屬路由（S211）
 
 > 平台版本維持 **v3.3.2**（純後端檢索改動）。凍結合約零接觸。Supabase 語料未動——本次不是入庫，答案本來就在庫內。
 
@@ -21,7 +21,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [文案修正＋防漂移] — 2026-08-31 — 清走仍在應承已收起功能的散文（S211）
+## [文案修正＋防漂移] — 2026-09-01 — 清走仍在應承已收起功能的散文（S211）
 
 > 平台版本維持 **v3.3.2**（`PLATFORM_VERSION` 不變）；本次只改 HTML 文案與文件，未動 `mobile.css` / `mobile.js`，故不需推進快取鍵。凍結合約零接觸。
 
