@@ -863,7 +863,9 @@ async function judgeCanAnswer(query: string, chunkText: string, llmFn: LlmFn): P
 async function synthesizeAnswer(
   query: string,
   results: ChannelBResult[],
-  llmFn: LlmFn
+  llmFn: LlmFn,
+  /** How many front slots the overlays forced (S211 — see the vault-lead test below). */
+  forcedLeads = 0
 ): Promise<string> {
   const top5 = results.slice(0, 5);
   if (top5.length === 0) return "找不到相關政策。";
@@ -903,9 +905,31 @@ async function synthesizeAnswer(
   // wrong; they are unchanged by this change (no regression) and wait on a hardened judge.
   // The footnote forced lead slot (S174/S196 ranking) is unchanged — footnotes still reach
   // the synthesis window; they simply no longer skip the judge once there.
-  const lead = top5[0];
+  // S211 — test the lead the MAIN SEARCH would have had, not whatever sits in slot 0.
+  //
+  // The overlays above force up to two curated footnotes (FOOTNOTE_LEAD_SCORE 0.45 + 2
+  // informative bigrams) and one spotlight source into the front slots, and that is
+  // deliberate. The unintended side effect is here: `top5[0]` then names a forced lead, so
+  // a vault_extract that cleared the measured 0.70 bar loses the bypass it qualified for
+  // and the judge is asked to rule on text that already answers the question.
+  // Measured on 「只修讀中學師資資格是否可以在小學任常額職位」: faq_edbc19011 leads the main
+  // search at 0.709 and states the rule verbatim (「資助小學的新入職教師必須持有本地學士學位
+  // （或同等學歷）及小學師資訓練」), while two footnotes at 0.506 and 0.502 — 小學科學科學歷
+  // 豁免 and 過剩教師定義, neither about entry qualifications — held slots 1 and 2. The judge
+  // declined, and five prompt rewrites plus gpt-4o could not talk it out of that.
+  //
+  // `results[forcedLeads]` is precisely the chunk slot 0 held before the overlays ran
+  // (`rest` is score-sorted), so where nothing was forced this is byte-identical to the old
+  // `top5[0]` test. What it does NOT do is scan the window: an earlier draft used
+  // `top5.some(...)` and measured a new false answer on GN02_nonteach_maternity —
+  // 「學校非教學人員產假有幾多日」, where the main-search lead is a 0.782 footnote and the
+  // 0.744 vault_extract in the window is the SAG leave appendix, i.e. the right register
+  // and not the answer. That is the S177 class, so the window scan was withdrawn.
+  // The 0.70 bar is untouched: S183's "≥0.70 is a direct topical match" is a property of
+  // the chunk, and this restores WHICH chunk the property is read off.
+  const mainLead = results[forcedLeads] ?? top5[0];
   const trustedVaultLead =
-    lead.content_type === "vault_extract" && lead.score >= VAULT_LEAD_SCORE;
+    mainLead.content_type === "vault_extract" && mainLead.score >= VAULT_LEAD_SCORE;
   if (!trustedVaultLead) {
     const canAnswer = await judgeCanAnswer(query, chunkText, llmFn);
     if (!canAnswer) return SYNTHESIS_DECLINE;
@@ -1448,7 +1472,7 @@ export async function searchChannelB(
   // LLM synthesis
   let synthesis: string | undefined;
   if (doSynthesize && llmFn && results.length > 0) {
-    synthesis = await synthesizeAnswer(query, results, llmFn);
+    synthesis = await synthesizeAnswer(query, results, llmFn, forcedLeads);
   }
 
   return {
