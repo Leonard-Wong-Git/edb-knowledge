@@ -1519,10 +1519,25 @@ export async function searchChannelB(
         ESTABLISHMENT_SOURCE_IDS
       );
       const seenIds = new Set(results.map((r) => r.id));
+      // S211 — 全日制 unless the question asks for 半日制.
+      //
+      // EDB still publishes both tables in this document (全日制 on pages 1-2, 半日制 from
+      // page 3, both「由 2022/23 學年起生效」), so the rows stay in the corpus and remain
+      // retrievable by asking for them. What changed is which one leads: whole-day is the
+      // operative arrangement for aided and government primary schools (Leonard,
+      // 2026-09-01; EDB's own 小學全日制 page describes whole-day as the policy and counts
+      // 400-odd whole-day primary schools). Returning both side by side read as two live
+      // options — 「全日制 5 名／半日制 4 名」 — which invites a school to size an
+      // establishment against an arrangement it does not run. The half-day figures are
+      // still correct as published; they are just not the answer to an unqualified question.
+      const wantsHalfDay = /半日制|半日/.test(query);
       const estLead = estRaw
         .map(toChannelBResult)
         .filter(retiredMirrorFilter)
-        .filter((r) => !seenIds.has(r.id));
+        .filter((r) => !seenIds.has(r.id))
+        .filter((r) =>
+          wantsHalfDay ? r.text.includes("半日制") : !r.text.includes("半日制")
+        );
       if (estLead.length > 0) {
         results = [
           ...results.slice(0, forcedLeads),
