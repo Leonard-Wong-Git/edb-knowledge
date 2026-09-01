@@ -324,3 +324,61 @@ offline — no deploy is needed to iterate, and that is the reason this could be
 all. Fetch top-5 per query via `POST /api/search/channel-b` with `synthesize:false`, store
 `{query, want, chunks}`, then call `createLlmClient()` from `backend/src/lib/llmClient.ts`
 with the candidate prompt and count verdicts starting with 能.
+
+
+---
+
+## S211（2026-09-01）—— 凍結 cache 已漂移；判斷提示唔係可動嘅槓桿
+
+起因：「只修讀中學師資資格是否可以在小學任常額職位」拒答，但答案逐字載喺語料入面。修法最終落喺
+檢索同排名（見 CHANGELOG S211 兩則），過程中順手量到幾件同呢份文件有關嘅事，記低免得下次由零開始。
+
+### 1. 判斷提示唔係槓桿（五個版本 + 換 model 都試過）
+
+對住呢條 query 逐個試：加「資格適用性」規則（資料列明條件、問題問某資格符唔符合＝能）、改寫開場
+問法（「有冇直接回答」→「夠唔夠判斷到答案」）、把新規則排喺否定規則之前、明寫「資料唔會逐個唔符合
+嘅情況寫一次」。**五個版本喺凍結集全部同 shipped 一模一樣：PRIMARY 31/33、answer half 12/12、
+decline half 19/21、同樣兩個 false answer（D01、GN10）**——零回歸，亦零收益。
+
+之後單獨試 model：`gpt-4o-mini` 同 `gpt-4o` 對呢條 query 都答「否」；`gpt-4.1-mini` 用 shipped
+prompt 答「能」，`gpt-4.1` 要用改寫版先答「能」。**不足以據此換 model**：單一 case 揀 model 正正
+係本文件開頭警告嗰種 overfit，而且換 production model 會同時影響 synthesis 同成本。
+
+結論：呢類「資料列明要求、問題問某資格符唔符合」嘅一步推論，`gpt-4o-mini` 唔會做，改措辭改唔到。
+真正修好呢條 query 嘅係排名（vault-lead bypass 被強制置頂片段遮蔽），唔係 judge。
+
+### 2. 凍結 cache 已經漂移（`dev/source/cache_drift.mjs`）
+
+cache 檔期 2026-07-31。今日對 35 個 case 重跑檢索比對 top-5：
+
+- **26/35 完全相同，9 個有漂移**
+- 最嚴重係 `D00_s177_frozen_post`（S177 旗艦案）——**只剩 1/5 重疊**；`A02_cap279_education_ordin` 2/5
+
+即係對呢 9 個 case 嚟講，harness 量緊嘅係一個唔再存在嘅檢索狀態。**未動過個 cache**：按本文件同
+cases 檔嘅紀律，refresh 之後每個 label 都要重新開返段原文核，唔可以順手 `--fetch` 就當數。
+
+### 3. 四個 decline-half case 喺今日語料會被答（本次改動之前已經係咁）
+
+本機各跑 6 次（`want` 全部係「否」）：
+
+| case | 6 次答咗幾多次 | mainLead | 機制 |
+|---|---|---|---|
+| `D02_bus_fare` | 6 | `vault_extract` **0.7428** | 過咗 0.70，bypass 觸發，judge 根本冇被問 |
+| `D00_s177_frozen_post` | 6 | `vault_extract` 0.6989 | 差 0.0011 唔夠 bar → 行 judge → judge 答「能」 |
+| `D01_student_sickleave` | 6 | `vault_extract` 0.6903 | 同上 |
+| `D07_tuckshop_rent` | 4 | `footnote_curated` 0.4976 | 行 judge，判斷本身唔穩定 |
+
+已用 `dev/source/vault_lead_delta.mjs` 確定性核實：S211 嘅 bypass 改動**一個都冇掂到呢四個**
+（只掂到 3 個 `want=能` 嘅 case）。即係呢四個屬既有行為，唔係本次造成。
+
+D02 值得留意但唔屬「作數」那一類：佢答案開頭就寫住「校巴的收費標準並沒有具體明示」，然後砌三百字
+講安全帶同跟車保母——答非所問，但冇捏造銀碼。真正該修嘅係 0.70 呢條 bar 分唔開「搵啱咗文件」同
+「搵到同一語域嘅文件」（S195 已經寫過同一句），而收緊佢會用真答案嚟換，屬需要 Leonard 拍板嘅取捨。
+
+### 4. 覆蓋層係 best-effort，靜靜失敗會改變結果
+
+真站量 D00 嗰陣撞到一次 top-5 完全冇強制置頂片段（純按分數排），下一刻再問又有返。註腳／spotlight
+兩個 pass 都包住 `try/catch`（設計上「永不令搜尋失敗」），所以偶發失敗係無聲嘅，而嗰一次就令 D00
+由「答」變「拒」。檢索本身係 deterministic（同一 query 連跑 4 次 top-5 完全一致），所以真站見到嘅
+波動要歸因於呢度，唔好當成 ANN 抽樣。
+
