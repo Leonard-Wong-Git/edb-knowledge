@@ -373,6 +373,48 @@ export async function searchSpotlightSources(
     .slice(0, topN);
 }
 
+/**
+ * S211 — lexical lookup for establishment-table rows keyed by class count.
+ *
+ * Why a lexical pass rather than another cosine one: on the staff establishment tables the
+ * class count IS the index column, and a dense embedding cannot align on it. The 36 rows of
+ * staff_est_pri are near-identical sentences differing by a handful of digits, so they sit
+ * within a few hundredths of each other and the row the question is about does not surface —
+ * 「12 班小學有幾多個學位教師」 scores 0.5923 against its own row while neighbouring rows and
+ * the surrounding notes score 0.61-0.67. Measured before this pass existed, the platform
+ * answered that question with 校長1／不設副校長／學位教師2／助理7／合計10; the row says
+ * 校長1／副校長1／學位教師5／助理14／合計21. It picked a different row and labelled it 12 classes.
+ *
+ * No threshold and no ranking here on purpose. `N 班的教學人員編制` either appears in a chunk
+ * or it does not; there is nothing to tune, and that is the point — this is the one lookup in
+ * the pipeline that does not go through a similarity score. Two rows match a given N (全日制
+ * and 半日制), which is the honest answer to a query that does not say which.
+ *
+ * Best-effort: the caller wraps it, and a failure leaves the normal result set untouched.
+ */
+export async function searchEstablishmentRows(
+  classCount: number,
+  sourceIds: string[]
+): Promise<WikiSearchResult[]> {
+  if (sourceIds.length === 0 || !Number.isInteger(classCount) || classCount <= 0) return [];
+  // The extracted rows read 「核准開辦 12 班的教學人員編制：…」 — the space after the digits is
+  // present in the vault text, so match on the phrase rather than on the bare number, which
+  // would also hit 「12至17班」 ranges and page numbers.
+  const needle = `%${classCount} 班的教學人員編制%`;
+  const url =
+    `${getSupabaseUrl()}/rest/v1/wiki_chunks?source_id=in.(${encodeURIComponent(sourceIds.join(","))})` +
+    `&text=ilike.${encodeURIComponent(needle)}` +
+    `&select=id,hash,text,source_id,title,url,topic,content_type,fact_type,role,school_level,reference_year` +
+    `&limit=8`;
+  const anonKey = getSupabaseAnonKey();
+  const resp = await fetch(url, { headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` } });
+  if (!resp.ok) throw new Error(`establishment overlay load ${resp.status}`);
+  const rows = (await resp.json()) as WikiChunk[];
+  // A lexical hit is an exact match on the row the question names, so it is scored 1: it is
+  // not competing with the cosine results, it is answering the question they cannot reach.
+  return rows.map((chunk) => ({ chunk, score: 1, channel: "B" as const }));
+}
+
 export function invalidateWikiCache(): void {
   _footnoteCache = null;
   _spotlightCache = null;

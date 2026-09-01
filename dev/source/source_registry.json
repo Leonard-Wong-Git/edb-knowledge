@@ -7334,8 +7334,9 @@
       "version_label": "2022/23起",
       "last_checked_at": "2026-08-18",
       "supersedes": null,
-      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 表格文件：vault extract 由 dev/vault/extract_table_rows.py 座標重建（72 行，算術自檢 0 失敗），非 expand_vault --fetch 預設抽取。refresh 時必須重跑該腳本，唔可以直接 --fetch --force。 chunk_max_chars=160：一行一 chunk（600 字會塞 ~6 行，令查詢命中嗰行被溝淡；實測 0.521→0.590）。 S206 repage：chunk 已全部帶 `=== Page N ===`（page-carry 已入 `expand_vault.py`，commit 98dfbf8）。⚠️ 本源 extract 由 `extract_table_rows.py` 出，refresh 時仍然唔可以 `--fetch --force`，要重跑該腳本再 `--embed --force`。",
-      "chunk_max_chars": 160
+      "notes": "S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 表格文件：vault extract 由 dev/vault/extract_table_rows.py 座標重建（72 行，算術自檢 0 失敗），非 expand_vault --fetch 預設抽取。refresh 時必須重跑該腳本，唔可以直接 --fetch --force。 chunk_max_chars=160：一行一 chunk（600 字會塞 ~6 行，令查詢命中嗰行被溝淡；實測 0.521→0.590）。 S206 repage：chunk 已全部帶 `=== Page N ===`（page-carry 已入 `expand_vault.py`，commit 98dfbf8）。⚠️ 本源 extract 由 `extract_table_rows.py` 出，refresh 時仍然唔可以 `--fetch --force`，要重跑該腳本再 `--embed --force`。 S211 重新切片 + 數字層檢索：chunk_max_chars=160 單獨救唔到——overlap=60 令每 chunk 由上一段尾 60 字開始，而每行約 98 字，故 81 個 chunk 有 74 個由半行（無班數標頭）開始。設 chunk_overlap=0 + chunk_max_chars=110 ＝ 一行一 chunk。但單靠切片仍然答唔啱：36 條近乎一樣嘅行 dense embedding 分唔開「12 班」同「7 班」，該行單獨 cosine 只 0.5923，排唔到前面，合成器改為由鄰近班數內插。故同時加 searchEstablishmentRows() 詞彙層 overlay（配 ESTABLISHMENT_SOURCE_IDS，match「N 班的教學人員編制」），兩者缺一不可。",
+      "chunk_max_chars": 110,
+      "chunk_overlap": 0
     },
     {
       "source_id": "staff_est_sp_sch_pri",

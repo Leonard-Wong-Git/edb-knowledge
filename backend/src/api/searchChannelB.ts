@@ -17,6 +17,7 @@ import {
   searchWiki,
   searchFootnotes,
   searchSpotlightSources,
+  searchEstablishmentRows,
   footnoteInformativeBigrams,
   type WikiContentType,
   type WikiSearchResult,
@@ -160,6 +161,13 @@ export function failedChannelBResponse(query: string): SearchChannelBResponse {
  * Solution: detect the query category from keywords and restrict the search
  * to the most relevant source documents.
  */
+/**
+ * S211 — sources whose text is an establishment table indexed by class count. Kept as its
+ * own list rather than reusing SOURCE_SETS.staffing: the lexical pass must only reach text
+ * where 「N 班的教學人員編制」 means a table row, not prose that happens to mention a class count.
+ */
+const ESTABLISHMENT_SOURCE_IDS = ["staff_est_pri"];
+
 const SOURCE_SETS: Record<string, string[]> = {
   // S183 — 價值觀教育課程架構 (value_education route). EDB 4 key tasks 之一。
   // VE_CF_2026 正式版 (93 chunks, S183 入庫) + 配套 EDBC 3/2026 (edbc003_2026, prior 6 chunks)
@@ -687,11 +695,15 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // must FOLLOW finance so 資助則例 keeps routing to finance (which owns that term and
   // now also carries coa_pri_e / coa_ss_e). Deliberately specific: a bare 編制 would
   // capture 課程編制 and steal curriculum queries.
-  // S211 — +「N 班」。「12 班小學有幾多個學位教師」係 S204 入庫人手編制時想答嘅問法，但
-  // 一直路由唔到：staffing 認「學位教師職系」而唔認裸「學位教師」，而加裸詞會由 staffing
-  // 偷走 hr_admin 嘅薪酬問法（staffing 排喺 hr_admin 前，且冇 expansion）。改為認「數字＋班」
-  // —— 呢個組合喺編制問題以外幾乎唔會出現，班數正正係編制表嘅索引欄。
-  staffing: /人員編制|教學人員編制|核准編制|教師編制|主任編制|編制表|主任級|學位化|學位教師職系|班師比|[0-9０-９]{1,2}\s*班/,
+  // S211 — +「N 班」＋人事字眼。「12 班小學有幾多個學位教師」係 S204 入庫人手編制時想答嘅
+  // 問法，但一直路由唔到：staffing 認「學位教師職系」而唔認裸「學位教師」，而加裸詞會由
+  // staffing 偷走 hr_admin 嘅薪酬問法（staffing 排喺 hr_admin 前，且冇 expansion）。班數正正
+  // 係編制表嘅索引欄，所以認「數字＋班」——但單靠佢過寬：實測「小一派位第 1 班點分」同
+  // 「中一 5 班嘅課程指引」都會被搶過嚟，答案變咗講教學人員編制。故此用兩個 lookahead 要求
+  // 「數字＋班」同人事字眼同時出現；兩個都係零寬，喺 .test() 逐位掃描下等同「句中兩者皆有」。
+  // 實測：12 班／24 班副校長 → staffing；小一派位第 1 班、中一 5 班課程指引、24 班學校要幾多
+  // 間課室 → 唔匹配，照舊各歸各路。
+  staffing: /人員編制|教學人員編制|核准編制|教師編制|主任編制|編制表|主任級|學位化|學位教師職系|班師比|(?=[\s\S]*[0-9０-９]{1,2}\s*班)(?=[\s\S]*(?:教師|教員|教學人員|編制|校長|副校長|主任|人手))/,
   hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金|語文能力要求|語文基準|語文能力評核|基準試|準英語教師|英語教師獎學金/,
   // NOTE: 資助則例 is deliberately absent here — TOPIC_KEYWORDS.finance already
   // owns it and is evaluated first, so a copy in hr_admin would be dead weight.
@@ -1479,6 +1491,49 @@ export async function searchChannelB(
     }
   } catch {
     // a spotlight-pass failure must never break the main search
+  }
+
+  // S211 — establishment-row pass. The one lookup in this pipeline that is lexical rather
+  // than a similarity score, because the thing it matches on is not a similarity: on the
+  // staff establishment tables the class count IS the index column, and 36 near-identical
+  // rows differing by a few digits all sit within a few hundredths of each other. Measured
+  // before this existed, 「12 班小學有幾多個學位教師」 returned 校長1／不設副校長／學位教師2／
+  // 助理7／合計10 with no hedge; the row reads 校長1／副校長1／學位教師5／助理14／合計21. The
+  // pipeline had picked a different row of the same table and labelled it 12 classes, and
+  // neither the judge nor a tighter bar can catch that — to both of them every row of that
+  // table reads the same (the limit S195 named). Re-chunking alone does not fix it either:
+  // one row per chunk was measured and the right row still did not rank; the synthesizer
+  // then interpolated from the 6-, 7- and 8-class rows instead.
+  // Fires only when the query names a class count, matches on 「N 班的教學人員編制」 so it
+  // cannot hit a 「12至17班」 range or a page number, and forces the hits to the front. Two
+  // rows match a given N (全日制 and 半日制) — the honest answer when the query says neither.
+  // Best-effort: never fails search.
+  // 觸發條件跟 staffing 路由走，唔喺呢度另寫一次（AGENTS §3b：一條規則一個定義）。單靠
+  // 「數字＋班」過寬——實測「小一派位第 1 班點分」會被塞入八段編制表，答案變咗講教學人員編制。
+  const classCountMatch =
+    detectedCategory === "staffing" ? query.match(/([0-9０-９]{1,2})\s*班/) : null;
+  if (classCountMatch) {
+    try {
+      const estRaw = await searchEstablishmentRows(
+        Number(classCountMatch[1].replace(/[０-９]/g, (d) => String(d.charCodeAt(0) - 0xff10))),
+        ESTABLISHMENT_SOURCE_IDS
+      );
+      const seenIds = new Set(results.map((r) => r.id));
+      const estLead = estRaw
+        .map(toChannelBResult)
+        .filter(retiredMirrorFilter)
+        .filter((r) => !seenIds.has(r.id));
+      if (estLead.length > 0) {
+        results = [
+          ...results.slice(0, forcedLeads),
+          ...estLead,
+          ...results.slice(forcedLeads),
+        ];
+        forcedLeads += estLead.length;
+      }
+    } catch {
+      // an establishment-pass failure must never break the main search
+    }
   }
 
   // Filter out statistical facts unless explicitly requested:
