@@ -142,7 +142,9 @@ CHECK_GROUP = {
     "BACKEND_HEALTH": "infra", "FREEZE_CONTRACT": "infra",
     "MIRROR_CONSISTENCY": "infra",
     "ANCHOR_URL_PRESENT": "pointing", "SOURCE_TITLE_REAL": "pointing",
-    "PAGE_ANCHORED": "pointing", "REGISTRY_DRIFT": "pointing",
+    "PAGE_ANCHORED": "pointing",
+    "REGISTRY_ZOMBIE": "pointing", "REGISTRY_UNMANAGED": "pointing",
+    "REGISTRY_PHANTOM": "pointing", "REGISTRY_UNLISTED": "pointing",
     "NO_DUPLICATE_CHUNKS": "chunk", "NO_TOC_NOISE": "chunk",
     "BODY_LENGTH_FLOOR": "chunk", "MOJIBAKE": "chunk",
     "NO_MIDCLAUSE_START": "cutting", "TABLE_ROW_INTEGRITY": "cutting",
@@ -267,7 +269,10 @@ def check_duplicates(chunks: list[dict]) -> dict:
         "沒有兩個來源載住逐字相同的片段",
         "ERROR", status,
         f"重複組 {phrase} · 多出的副本 {extra} 條 · "
-        f"重複全部跨來源（同一來源內 0 組），即問題出在登記了兩次的文件，不是切片器",
+        f"重複全部跨來源（同一來源內 0 組），即問題出在登記了兩次的文件，不是切片器。"
+        f"⚠️ 此數是下限：只捉逐字相同的片段。同一份 PDF 分兩次抽取會切出不同邊界，"
+        f"雜湊就不同 —— kgecg_2017 與 g29 是同一份《幼稚園教育課程指引（2017）》，"
+        f"108 對 107 條，逐字相同 0 條，本檢查完全看不見",
         [f"{' ↔ '.join(k)}：{n} 組" for k, n in pairs.most_common()], len(groups))
 
 
@@ -413,21 +418,55 @@ def check_freeze_contract(knowledge: dict, guidelines: dict) -> dict:
         bad, len(bad))
 
 
-def check_registry_drift(registry: list[dict], guideline_ids: int,
-                         serving: set[str]) -> dict:
-    """Open Priority ② — the browse list lags the corpus, with no monitor."""
-    live = [s for s in registry
-            if (s.get("status") or "").lower() not in ("deprecated", "retired", "held_back")]
-    gap = len(live) - guideline_ids
-    unlisted = sorted(s["source_id"] for s in live
-                      if s["source_id"] in serving)[:0]  # placeholder, see detail
-    return mk_check(
-        "REGISTRY_DRIFT", "「指引文件庫」瀏覽清單追得上已入庫來源", "WARN",
-        "PASS" if gap <= 0 else "FAIL",
-        f"registry 非退役來源 {len(live)} 個 · 前端 GUIDELINES_REGISTRY {guideline_ids} 項 · "
-        f"落差 {gap}。Option A 自動入庫管道更新 Supabase 與片段數，但從不觸及 "
-        f"GUIDELINES_REGISTRY，所以搜尋得到的文件可能在「📚EDB指引」瀏覽不到",
-        unlisted, max(gap, 0))
+def check_registry_drift(chunks: list[dict]) -> list[dict]:
+    """Open Priority ② — three lists that must agree and do not.
+
+    Replaces an earlier version here that compared COUNTS (273 registry vs 177
+    browsable = "gap 96"). That number was meaningless: the drift runs in four
+    directions and they net against each other, so the single figure hid both
+    the 42 browse entries that serve nothing and the 14 sources no registry
+    tracks. Delegated to check_registry_drift.py so there is one definition.
+    """
+    import check_registry_drift as drift_mod
+
+    serving = collections.Counter(c["source_id"] for c in chunks)
+    kinds: dict[str, str] = {}
+    for c in chunks:
+        kinds.setdefault(c["source_id"], c.get("content_type") or "")
+    reg = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    sources = reg["sources"] if isinstance(reg, dict) and "sources" in reg else reg
+    live, dead = drift_mod.registry_ids(sources)
+    listed = {g["id"] for g in drift_mod.parse_guidelines_registry(
+        (REPO_ROOT / "app.html").read_text(encoding="utf-8", errors="replace"))}
+    d = drift_mod.classify(dict(serving), kinds, live, dead, listed)
+
+    titles = {}
+    for c in chunks:
+        titles.setdefault(c["source_id"], c.get("title") or "")
+    for src in sources:
+        sid = src.get("source_id") or src.get("id")
+        if sid and src.get("title"):
+            titles[sid] = src["title"]
+
+    out = []
+    ids = ["REGISTRY_ZOMBIE", "REGISTRY_UNMANAGED",
+           "REGISTRY_PHANTOM", "REGISTRY_UNLISTED"]
+    for cid, cls in zip(ids, ("ZOMBIE", "UNMANAGED", "PHANTOM", "UNLISTED")):
+        members = d[cls]
+        n_chunks = sum(serving.get(s, 0) for s in members)
+        extra = {
+            "ZOMBIE": "已有人決定它應該停止服務，而它沒有停 —— 四類之中唯一不需要任何人再做決定的",
+            "UNMANAGED": "新鮮度、到期、封面標題三個監察全部以 registry 為鍵，所以這些來源不受任何監察",
+            "PHANTOM": "用戶可以瀏覽到，但搜尋答不出，因為庫內一條片段都沒有",
+            "UNLISTED": "要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
+        }[cls]
+        out.append(mk_check(
+            cid, drift_mod.LABEL[cls], drift_mod.SEVERITY[cls],
+            "PASS" if not members else "FAIL",
+            f"{len(members)} 個來源 / {n_chunks} 條片段 · {extra}",
+            [f"{s}（{serving.get(s, 0)} 條）{titles.get(s, '')[:26]}" for s in members],
+            len(members)))
+    return out
 
 
 def check_backend(health: dict | None) -> list[dict]:
@@ -586,7 +625,7 @@ def build_report(chunks: list[dict], health: dict | None, registry: list[dict],
     # D. 質素是否可量度
     checks += check_eval_latest(run)
     checks.append(route_regression())
-    checks.append(check_registry_drift(registry, guideline_count or 0, serving))
+    checks += check_registry_drift(chunks)
     checks.append(mk_check(
         "MOJIBAKE", "沒有真亂碼（CID 字型未內嵌）", "WARN", "NOT_MEASURED",
         "未有準確偵測器。S204 掃描時分不清長 URL、底線填充與真亂碼，故從未報數；"

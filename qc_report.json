@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-02T18:14:28Z",
-  "overallStatus": "WARN",
+  "generatedAt": "2026-09-02T18:20:52Z",
+  "overallStatus": "ERROR",
   "counts": {
     "chunks": 17597,
-    "PASS": 6,
+    "PASS": 7,
     "BLOCKER": 0,
-    "ERROR": 0,
-    "WARN": 8,
+    "ERROR": 2,
+    "WARN": 9,
     "INFO": 1,
-    "NOT_MEASURED": 2
+    "NOT_MEASURED": 1
   },
   "version": "v3.3.2",
   "corpus": {
@@ -159,7 +159,7 @@
       "severity": "ERROR",
       "status": "WARN",
       "group": "chunk",
-      "detail": "重複組 956 · 與基準 956 相同（未惡化，但仍在服務中） · 多出的副本 980 條 · 重複全部跨來源（同一來源內 0 組），即問題出在登記了兩次的文件，不是切片器",
+      "detail": "重複組 956 · 與基準 956 相同（未惡化，但仍在服務中） · 多出的副本 980 條 · 重複全部跨來源（同一來源內 0 組），即問題出在登記了兩次的文件，不是切片器。⚠️ 此數是下限：只捉逐字相同的片段。同一份 PDF 分兩次抽取會切出不同邊界，雜湊就不同 —— kgecg_2017 與 g29 是同一份《幼稚園教育課程指引（2017）》，108 對 107 條，逐字相同 0 條，本檢查完全看不見",
       "offenders": [
         "eng_sss_guide_2021 ↔ g33：421 組",
         "g24 ↔ sag_2025_11：377 組",
@@ -272,7 +272,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "measurable",
-      "detail": "2026-09-02 16:00 UTC · PASS=25 FAIL=0 RECORD_ONLY=12 errors=0 · 共 37 條 query",
+      "detail": "2026-09-02 18:10 UTC · PASS=27 FAIL=0 RECORD_ONLY=12 errors=0 · 共 39 條 query",
       "offenders": [],
       "offender_total": 0
     },
@@ -280,9 +280,9 @@
       "id": "EVAL_CHUNK_LAYER",
       "label": "檢索評測的片段層斷言（S212 新增）",
       "severity": "ERROR",
-      "status": "NOT_MEASURED",
+      "status": "PASS",
       "group": "measurable",
-      "detail": "最近一次 run 由 S212 之前的 harness 產生，未記錄片段身分",
+      "detail": "chunk PASS=2 FAIL=0 · 斷言用文字簽名而非 chunk id（id 是 text 的 md5，每次重切都會變）",
       "offenders": [],
       "offender_total": 0
     },
@@ -297,14 +297,85 @@
       "offender_total": 0
     },
     {
-      "id": "REGISTRY_DRIFT",
-      "label": "「指引文件庫」瀏覽清單追得上已入庫來源",
+      "id": "REGISTRY_ZOMBIE",
+      "label": "登記為已退役，但仍在服務片段",
+      "severity": "ERROR",
+      "status": "FAIL",
+      "group": "pointing",
+      "detail": "1 個來源 / 108 條片段 · 已有人決定它應該停止服務，而它沒有停 —— 四類之中唯一不需要任何人再做決定的",
+      "offenders": [
+        "kgecg_2017（108 條）幼稚園教育課程指引（2017）"
+      ],
+      "offender_total": 1
+    },
+    {
+      "id": "REGISTRY_UNMANAGED",
+      "label": "庫內有片段，但 source_registry 從未登記",
+      "severity": "ERROR",
+      "status": "FAIL",
+      "group": "pointing",
+      "detail": "14 個來源 / 530 條片段 · 新鮮度、到期、封面標題三個監察全部以 registry 為鍵，所以這些來源不受任何監察",
+      "offenders": [
+        "stat_enrolment_2014（56 條）stat_enrolment_2014",
+        "stat_enrolment_2015（56 條）stat_enrolment_2015",
+        "stat_enrolment_2012（55 條）stat_enrolment_2012",
+        "stat_enrolment_2013（55 條）stat_enrolment_2013",
+        "stat_enrolment_2020（35 條）stat_enrolment_2020",
+        "stat_enrolment_2016（34 條）stat_enrolment_2016",
+        "stat_enrolment_2017（34 條）stat_enrolment_2017",
+        "stat_enrolment_2018（34 條）stat_enrolment_2018",
+        "stat_enrolment_2019（34 條）stat_enrolment_2019",
+        "stat_enrolment_2021（34 條）stat_enrolment_2021",
+        "stat_enrolment_2022（34 條）stat_enrolment_2022",
+        "stat_enrolment_2024（34 條）stat_enrolment_2024"
+      ],
+      "offender_total": 14
+    },
+    {
+      "id": "REGISTRY_PHANTOM",
+      "label": "瀏覽清單有，但庫內零片段",
       "severity": "WARN",
       "status": "FAIL",
       "group": "pointing",
-      "detail": "registry 非退役來源 273 個 · 前端 GUIDELINES_REGISTRY 177 項 · 落差 96。Option A 自動入庫管道更新 Supabase 與片段數，但從不觸及 GUIDELINES_REGISTRY，所以搜尋得到的文件可能在「📚EDB指引」瀏覽不到",
-      "offenders": [],
-      "offender_total": 96
+      "detail": "42 個來源 / 0 條片段 · 用戶可以瀏覽到，但搜尋答不出，因為庫內一條片段都沒有",
+      "offenders": [
+        "apl_ca_guide_2017（0 條）",
+        "arts_curr_docs（0 條）藝術教育學習領域課程文件",
+        "chi_pri_lo_2023（0 條）",
+        "chi_sec_lo_2021（0 條）",
+        "cle_kla_guide_2017（0 條）",
+        "cs_curr（0 條）電腦科課程資源（EDB EdCity）",
+        "curr_renewal_guides（0 條）課程更新指引及文件總覽",
+        "g08（0 條）《中國語文教育學習領域課程指引（小一至中六）》(20",
+        "g12（0 條）數學教育學習領域課程指引（小一至中三）(2002)",
+        "g27（0 條）小學數學課程指引（2000）",
+        "g30（0 條）小學人文科課程及評估指引（試行版）(2023)",
+        "g31（0 條）英國語文教育課程指引（小一至小六）(2025)"
+      ],
+      "offender_total": 42
+    },
+    {
+      "id": "REGISTRY_UNLISTED",
+      "label": "搜尋得到，但「📚EDB指引」瀏覽不到",
+      "severity": "WARN",
+      "status": "FAIL",
+      "group": "pointing",
+      "detail": "110 個來源 / 2585 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
+      "offenders": [
+        "gifted_ge_series（346 條）資優教育系列：全民資優教育＋校本學生才能庫＋學術英才",
+        "kg_admin_guide_2026（221 條）幼稚園行政手冊（2026年5月）",
+        "kg_operation_manual_2026（220 條）學前機構辦學手冊（2026年5月，第4.3版）",
+        "sch_activities_guide（106 條）學校活動指引：戶外活動＋境外遊學團",
+        "imc_establishment_operation（100 條）法團校董會的成立與運作（校本管理手冊2014）",
+        "crisis_mgmt_handbook（94 條）學校危機處理（手冊）",
+        "values_edu_framework_2026（93 條）《價值觀教育課程架構》（2026）",
+        "cgss_sss_2021（81 條）公民與社會發展科 課程及評估指引 (中四至中六) 二",
+        "icac_school_governance（78 條）防貪錦囊：學校管治與內部監控 (ICAC)",
+        "edbcm060_2026（68 條）教育局通函第60/2026號 —— 幼稚園提交202",
+        "tdtf_report_2019（62 條）教師專業發展專責小組報告 (2019年3月)",
+        "imc_election_guides（58 條）法團校董會校董選舉指引（家長／教師／校友校董・委任五"
+      ],
+      "offender_total": 110
     },
     {
       "id": "MOJIBAKE",

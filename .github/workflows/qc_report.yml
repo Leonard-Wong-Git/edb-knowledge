@@ -1,0 +1,103 @@
+name: Knowledge-base QC Report
+
+# Regenerates qc_report.json + the unlisted status page's data, then commits it
+# so https://policychecker.wongfu.net/status-07cc7942c0.html shows a live number
+# instead of whatever was true the day a human last ran it by hand.
+#
+# WHY THIS COMMITS TO main, unlike the other five monitors: those detect and
+# open an Issue, because their output is a queue for a person. This one IS the
+# page — its only delivery mechanism is a file served by GitHub Pages, so a
+# read-only run would produce nothing anybody sees. It writes exactly one file.
+#
+# The page computes staleness from generatedAt in the READER'S browser, so if
+# this workflow stops, the page turns red on its own rather than quietly showing
+# an old green. That is deliberate: a status page that cannot report its own
+# death is worse than no status page.
+#
+# ── ONE-TIME SETUP ──────────────────────────────────────────────────────────
+# Requires repo secret `SUPABASE_ANON_KEY` (read-only anon key — the service key
+# is NOT needed and must not be used here). Same secret the served-URL monitor
+# already uses.
+
+on:
+  schedule:
+    # Daily at 12:00 UTC, after the Monday monitor block (09:00/10:00/11:00) so
+    # a Monday run reflects that morning's findings rather than racing them.
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write      # commits qc_report.json only
+
+concurrency:
+  group: qc-report
+  cancel-in-progress: false
+
+jobs:
+  qc-report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Self-tests first, and they gate the run. Several of them exist purely to
+      # prove the gates still go RED (a count above baseline fails; equality
+      # warns rather than passes; NOT_MEASURED never counts as green). A report
+      # produced by an instrument that cannot fail is not evidence.
+      - name: Self-test (offline logic)
+        run: |
+          python3 dev/source/qc_report.py --self-test
+          python3 dev/source/check_registry_drift.py --self-test
+
+      - name: Route regression
+        run: node dev/source/route_regression.mjs
+
+      - name: Generate QC report
+        env:
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: python3 dev/source/qc_report.py --check
+
+      - name: Registry drift ledger
+        env:
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        # Exits 1 when a retired source is still serving. That is a real defect,
+        # but it must not stop the report from being published — the report is
+        # how anyone finds out about it.
+        continue-on-error: true
+        run: python3 dev/source/check_registry_drift.py --check
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add qc_report.json dev/source/registry_drift.md
+          if git diff --cached --quiet; then
+            echo "no change"
+            exit 0
+          fi
+          STATUS=$(python3 -c "import json;print(json.load(open('qc_report.json'))['overallStatus'])")
+          git commit -m "qc: regenerate knowledge-base QC report (${STATUS})"
+          git push origin HEAD:main
+
+      - name: Summary
+        if: always()
+        run: |
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          d = json.load(open("qc_report.json"))
+          print(f"## QC — {d['overallStatus']}  ({d['counts']['chunks']:,} chunks)\n")
+          print("| | 檢查 | 詳情 |")
+          print("|---|---|---|")
+          mark = {"PASS": "✅", "FAIL": "❌", "WARN": "⚠️",
+                  "NOT_MEASURED": "❔", "INFO": "ℹ️"}
+          for c in d["checks"]:
+              det = c["detail"].replace("|", "｜")[:150]
+              print(f"| {mark.get(c['status'], '?')} | `{c['id']}` | {det} |")
+          PY
