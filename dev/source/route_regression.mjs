@@ -68,6 +68,23 @@ const CASES = [
   ["體罰學生點處理",                              "conduct"],
   ["校園欺凌強制舉報",                            "student_support"],
   ["STEAM 教育推行",                              "steam"],
+  // ── S212 新路由：資訊保安 / 雲端私隱 ───────────────────────────────────
+  ["網絡安全運動",                                "info_security"],
+  ["雲端運算 私隱",                               "info_security"],
+  ["Zoom 保安設定",                               "info_security"],
+  ["學校收到勒索軟件點算",                        "info_security"],
+  ["雲端服務儲存學生資料要注意咩",                "info_security"],
+  // ── S212 必須唔可以被 info_security 偷走（負面案例）───────────────────
+  // S209 定案：呢條闊 query 返 SAG / role_facts_it / g24 係啱嘅，g28 冇「建議措施」文件
+  // 答得到佢。所以 info_security 蓄意唔認裸「資訊保安」，呢條必須維持唔路由。
+  ["學校資訊保安",                                null],
+  ["校園安全風險評估",                            "safety"],
+  ["實驗室安全指引",                              "safety"],
+  ["安全管理委員會職責",                          "safety"],
+  ["校車保母安全要求",                            "school_bus"],
+  ["數字教育發展藍圖",                            "digital_education"],
+  ["資訊科技教育推行",                            "digital_education"],
+  ["學生個人資料保存幾耐",                        null],
 ];
 
 let bad = 0;

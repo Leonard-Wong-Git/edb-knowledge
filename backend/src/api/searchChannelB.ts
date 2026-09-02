@@ -182,6 +182,34 @@ const SOURCE_SETS: Record<string, string[]> = {
     "sec_curr_guide_2017_booklet_6a",
     "edbcm076_2026",              // (auto) Option A watcher ingest
   ],
+  /**
+   * S212 — information security / cloud privacy (info_security route).
+   *
+   * Split OUT of digital_education rather than folded into it, on a measurement:
+   * that route's QUERY_EXPANSIONS entry is 21 DEBP/AI terms long, and appending it
+   * to a security query erases the query. Measured live on the shipped build with
+   * enable_topic_filter:false, raw vs raw+expansion:
+   *   「網絡安全運動」   g28  rank 0 (0.5728)  ->  ABSENT  (window all DEBP @0.72-0.74)
+   *   「雲端運算 私隱」  pcpd rank 0 (0.6876)  ->  ABSENT  (window all DEBP @0.69-0.72)
+   * Routing these into digital_education would therefore have made both WORSE, not
+   * better, which is the opposite of what the priority that asked for it assumed.
+   * This route carries NO expansion, for the same reason safety/gov_admin carry none.
+   *
+   * ⚠️ CORPUS CAVEAT — read before trusting this route. 40 of g28's chunks were read
+   * one by one (S212): only 10 carry actionable advice (the two HKPF Zoom advisories —
+   * meeting passwords, disable join-before-host, restrict screen sharing). The other
+   * ~29 are five 2018-2022 EDBCM circulars announcing a cyber-security POSTER
+   * distribution and a video-design CONTEST: prizes, entry forms, a 2018-07-27
+   * submission deadline, a judging panel. That is the `ephemeral` class S209 defined,
+   * but g28 is stamped `lifecycle: reference` because lifecycle is stamped PER SOURCE
+   * and g28 is a 7-document hub whose documents do not share a lifecycle. So this
+   * SOURCE_SET is ~44% expired event noise until that data is dealt with, and the
+   * route's ceiling is set by the corpus, not by the routing.
+   */
+  info_security: [
+    "g28",
+    "pcpd_cloud_computing",
+  ],
   // S171 — DEBP 中小學數字教育發展藍圖 / AI 素養 (digital_education route). 6 sources
   // ingested 2026-06-17 (209 chunks, topic=it). Cohesive digital-education corpus; routed
   // before curriculum so 數字教育/AI 素養/發展藍圖 queries reach it not generic 課程 search.
@@ -663,6 +691,17 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // appear on no other registry source, so nothing else is diverted. Kept before
   // curriculum so the subject corpus is not diluted by generic 課程 search.
   cgss: /公民與社會發展|公民與社會|公社科|\bCGSS\b|一國兩制|內地考察/i,
+  // S212 — info_security. Placed BEFORE digital_education so 「網絡安全」/「雲端」 reach the
+  // security corpus instead of falling through to the DEBP/AI route (whose expansion
+  // erases them — see SOURCE_SETS.info_security for the measurement).
+  //
+  // Deliberately NOT claimed: bare 資訊保安 / 保安 / 安全 / 私隱. S209 established that the
+  // broad query 「學校資訊保安」 correctly returns SAG + role_facts_it + g24 — g28 holds no
+  // 「建議措施」 document to answer it with — so claiming that phrasing would hard-filter a
+  // query AWAY from the sources that actually answer it. The tokens here name a specific
+  // threat, a specific product, or the cloud, which is the only class this corpus serves.
+  // Bare 安全 would also collide with safety (校園安全/實驗室安全) and school_bus.
+  info_security: /網絡安全|網絡保安|網絡罪案|網罪科|網絡威脅|勒索軟件|釣魚電郵|釣魚網站|殭屍網絡|惡意軟件|電腦病毒|防毒軟件|保安漏洞|資料外洩|個人資料私隱|私隱條例|私隱專員|雲端運算|雲端服務|雲端儲存|雲端供應商|\bZoom\b|視像會議/i,
   // S183 — digital_education promoted before finance (same reason as value_education):
   // 「智啟學教 撥款」/「AI 撥款」get stolen by finance「撥款」. digital_education
   // keywords (數字教育/AI/智啟學教/etc.) are narrow + unique — finance broad queries
