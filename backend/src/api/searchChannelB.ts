@@ -582,8 +582,14 @@ const SOURCE_SETS: Record<string, string[]> = {
    * Exclude SAG (minimal curriculum content, adds noise).
    */
   curriculum: [
-    // S195: kgecg_2017 removed — it duplicated g29 (same document) and had 0 chunks in the
-    // store, so it was a dead allowlist reference. g29 above carries all 107 chunks.
+    // S195: kgecg_2017 removed from this allowlist — it duplicated g29 (same document).
+    // ⚠️ S212 CORRECTION: the "0 chunks in the store" half of this note was never true, and
+    // is not true now. kgecg_2017 is registered `status: deprecated` and is still serving
+    // 108 chunks; only the registry row and this allowlist were updated in S195, the store
+    // was not. Measured S212: the two are the same 2017 KG curriculum guide under two EDB
+    // filenames (TC_KGECG_2017.pdf vs KGECG-TC-2017.pdf), mutually 89% content-covered,
+    // so g29's 107 chunks do carry the content — but the other 108 are still reachable
+    // through the global ANN pass, which no allowlist edit can prevent.
     "eng_pri_guide_2025",
     "ph_pri_guide_2025",
     "pri_science_guide_2025",
@@ -644,7 +650,8 @@ const SOURCE_SETS: Record<string, string[]> = {
     "kg_admin_guide_2026",       // S160: 幼稚園行政手冊（2026年5月）
     "kg_operation_manual_2026",  // S160: 學前機構辦學手冊（2026年5月，第4.3版）
     "kg_admin_guide",            // S152: 幼稚園學費涵蓋 / 售賣物品指引
-    // S195: kgecg_2017 removed here too — duplicate of g29, 0 chunks (see curriculum route).
+    // S195: kgecg_2017 removed here too — duplicate of g29 (see the curriculum route above,
+    // including the S212 correction: it is NOT 0 chunks, it is 108 still being served).
     "g25",                       // 幼稚園相關指引及須知
     "g29",                       // 幼稚園教育課程指引（2017）
     "g26",                       // 2026/27 幼稚園收生安排指引
