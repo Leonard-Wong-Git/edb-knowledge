@@ -166,6 +166,7 @@ npm run dev                   # 啟動於 http://localhost:8787
 ```
 OPENAI_API_KEY=sk-...
 OPENAI_MODEL=gpt-4.1-nano
+JUDGE_MODEL=gpt-4.1-mini
 PORT=8787
 CORS_ORIGIN=https://leonard-wong-git.github.io
 KNOWLEDGE_PATH=../../../dev/knowledge/role_facts.json

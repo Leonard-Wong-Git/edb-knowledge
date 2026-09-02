@@ -1,6 +1,7 @@
 Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
-(Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
+(Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; the full table lives in
+ INDEX_TABLE.md - grep it on trigger, open a card only on a hit, then log one usage line.)
 
 Current state (S211, 2026-09-01): 平台 v3.3.2; Supabase 17,597 chunks; source_registry 279;
 GUIDELINES_REGISTRY 177; 凍結合約 _meta 2.3.0 / facts 455 / guidelines.json 2.6.1 / 158 全部零接觸。

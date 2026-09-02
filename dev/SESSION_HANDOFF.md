@@ -164,7 +164,7 @@
 3. Read `dev/CODEBASE_CONTEXT.md`
 4. Read `dev/PROJECT_MASTER_SPEC.md` (long-term spec + cross-agent handoff knowledge: goals, architected systems, proven methods, failure lessons, locked decisions)
 4b. Read `dev/HANDOFF_PACKAGE.md` (Session 110+ — clean verified-state snapshot built by empirical check, not paraphrase; sits above the §1 read set as the trusted current-state map)
-4c. **Lazy-query 共用經驗庫 Playbook**（S138 接駁、AGENTS.md §1 第 5 步 + §14）：開工只讀 `…/Leonard's playbook/playbook/INDEX.md`（地圖），撞到 task 關鍵字命中 INDEX trigger 先開對應卡；唔好讀晒所有卡。
+4c. **Lazy-query 共用經驗庫 Playbook**（S138 接駁、AGENTS.md §1 第 5 步 + §14）：開工只讀 `…/Leonard's playbook/playbook/INDEX.md`（細入口，**冇全表**）；撞到 task 就 `grep -i "<關鍵字>" …/playbook/INDEX_TABLE.md` 配 trigger，配到先開對應卡；唔好讀晒所有卡。**S212：pointer 已升 v2，用完一張卡要喺該庫 `usage/policychecker.log.md` 檔尾 append 一行。**
 5. Confirm environment: backend needs `OPENAI_API_KEY` in `backend/.env`
 
 ---
@@ -941,7 +941,8 @@ Continuity rule: this file carries current state and next action. `dev/SESSION_L
 ```text
 Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
-(Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; open a card only on trigger.)
+(Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; the full table lives in
+ INDEX_TABLE.md - grep it on trigger, open a card only on a hit, then log one usage line.)
 
 Current state (S211, 2026-09-01): 平台 v3.3.2; Supabase 17,597 chunks; source_registry 279;
 GUIDELINES_REGISTRY 177; 凍結合約 _meta 2.3.0 / facts 455 / guidelines.json 2.6.1 / 158 全部零接觸。

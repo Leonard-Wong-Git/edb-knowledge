@@ -27,6 +27,7 @@
 ```bash
 OPENAI_API_KEY=your_openai_api_key
 OPENAI_MODEL=gpt-4.1-nano
+JUDGE_MODEL=gpt-4.1-mini
 PORT=8787
 CORS_ORIGIN=https://leonard-wong-git.github.io
 KNOWLEDGE_PATH=../../../role_facts.json
@@ -81,7 +82,8 @@ Response:
 
 ## Notes
 
-- 預設 LLM model 是 `gpt-4.1-nano`
+- 合成用 LLM model 預設 `gpt-4.1-nano`（`OPENAI_MODEL` 覆寫）
+- **S211：相關性判斷閘（relevance judge）行自己一個 model，預設 `gpt-4.1-mini`（`JUDGE_MODEL` 覆寫），與 `OPENAI_MODEL` 分開。** 見 `src/config/env.ts` `getJudgeModel()` 的量度紀錄；改判斷閘行為前先確認是哪一個變數。
 - topic detection 目前使用 embedding-based semantic routing
 - 若知識檔 schema 有變動，先對齊 `K1_KNOWLEDGE_INTERFACE_SPEC.md`
 - 目前後端 bridge layer 同時支援舊 `department_head` 與新 `subject_head` / `panel_chair`

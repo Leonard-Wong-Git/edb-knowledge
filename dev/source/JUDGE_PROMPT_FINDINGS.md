@@ -55,6 +55,29 @@ a user asking 「學生請病假要唔要交醫生紙」 still gets the staff ru
 because that path skips the judge. That is unchanged by this ship and remains the top open
 defect for the coupled bypass work.
 
+## ⚠️ S211 (2026-09-01) — READ BEFORE THE S199 BANNER: the judge has its own model variable now
+
+**Everything below dated before 2026-09-01 measured the judge on `OPENAI_MODEL`. It no longer runs there.**
+`backend/src/config/env.ts` `getJudgeModel()` reads **`JUDGE_MODEL`**, defaulting to **`gpt-4.1-mini`**
+in code; `server.ts:162` builds a second LLM client from it. `OPENAI_MODEL` now governs synthesis only.
+
+Three consequences for reading this file:
+
+1. **The "nothing outside Render can read it" problem is gone for the judge.** The code default IS
+   what production runs, because Render sets no `JUDGE_MODEL` entry. It still applies to synthesis.
+2. **Every score in the tables below is a measurement of the OLD configuration** (`gpt-4o-mini`).
+   They remain valid as prompt-vs-prompt comparisons on a fixed model; they are no longer statements
+   about what production does today.
+3. **The S211 baseline on `gpt-4.1-mini`** (frozen acceptance set, same prompt): primary 31/33,
+   answer half 12/12, decline half 19/21 with THE SAME two false answers (`D01`, `GN10`) — no new
+   confabulation — and 33/35 vs 31/35 once bare-noun cases are counted. See §1 of the S211 section
+   below and the docstring on `getJudgeModel()`, which carries the cost arithmetic for the split.
+
+Discipline #1 in the handoff exists because of this: **before judging judge behaviour, confirm which
+variable you are talking about.**
+
+---
+
 ## ⚠️ S199 — READ THIS FIRST: the model below matters more than any prompt in this file
 
 **Production does not run the model this file's earlier findings were measured on.**

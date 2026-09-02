@@ -116,7 +116,8 @@ Render Dashboard → `edb-knowledge` service → **Environment**:
 | `OPENAI_API_KEY` | Yes | platform.openai.com → API keys | Used for query embeddings + LLM synthesis. Mark as secret. |
 | `SUPABASE_URL` | Yes (Channel B) | Supabase → Project Settings → Data API → **Project URL** | `https://<ref>.supabase.co` |
 | `SUPABASE_ANON_KEY` | Yes (Channel B) | Supabase → Project Settings → **API Keys → `anon` / `public`** | **Name must be EXACTLY `SUPABASE_ANON_KEY`.** Use the **anon** key here — NOT service_role. |
-| `OPENAI_MODEL` | No | — | Defaults to `gpt-4.1-nano`. |
+| `OPENAI_MODEL` | No | — | Synthesis model. Defaults to `gpt-4.1-nano`. |
+| `JUDGE_MODEL` | No | — | **S211 — relevance judge runs on its OWN model, separate from `OPENAI_MODEL`.** Defaults to `gpt-4.1-mini`; Render needs no entry unless overriding. |
 | `CORS_ORIGIN` | No | — | Leave **unset** → safe default `https://leonard-wong-git.github.io`. **Never `*`.** |
 | `KNOWLEDGE_PATH` | No | — | Defaults to `../../../role_facts.json`. |
 | `PORT` | No | — | Leave unset; Render injects it, the code reads it. |

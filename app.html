@@ -2274,7 +2274,7 @@ function PlatformIntroPanel({ stats }) {
       {/* ── Stat strip ── */}
       {/* S211 — 舊寫法 auto-fill + minmax(180px) 由容器闊度倒推排幾多格：960px 容器只夠 4 格，
           第 5 格（累計查詢次數）就跌落第二行。改為照實際格數開軌，格數 4 定 5 都一定同一行；
-          minmax(0,1fr) 係唔俾長內容（17,593）撐爆條軌。手機 ≤640px 由 mobile shell 接管，唔行呢段。 */}
+          minmax(0,1fr) 係唔俾長內容（例如片段總數嗰串數字）撐爆條軌。手機 ≤640px 由 mobile shell 接管，唔行呢段。 */}
       <div style={{display:'grid',gridTemplateColumns:`repeat(${statItems.length},minmax(0,1fr))`,gap:'10px',marginBottom:'40px'}}>
         {statItems.map(({num,label,sub}) => (
           <div key={label} style={{textAlign:'center',padding:'18px 12px',background:'var(--cd-warm)',borderRadius:'var(--r-md)',border:'1px solid var(--border)'}}>
