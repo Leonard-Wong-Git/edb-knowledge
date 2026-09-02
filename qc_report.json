@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-02T18:20:52Z",
+  "generatedAt": "2026-09-02T18:26:56Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17597,
     "PASS": 7,
     "BLOCKER": 0,
     "ERROR": 2,
-    "WARN": 9,
+    "WARN": 10,
     "INFO": 1,
-    "NOT_MEASURED": 1
+    "NOT_MEASURED": 0
   },
   "version": "v3.3.2",
   "corpus": {
@@ -379,13 +379,17 @@
     },
     {
       "id": "MOJIBAKE",
-      "label": "沒有真亂碼（CID 字型未內嵌）",
-      "severity": "WARN",
-      "status": "NOT_MEASURED",
+      "label": "沒有不可讀片段（兩個亂碼家族）",
+      "severity": "ERROR",
+      "status": "WARN",
       "group": "chunk",
-      "detail": "未有準確偵測器。S204 掃描時分不清長 URL、底線填充與真亂碼，故從未報數；`gifted_ge_series` 確有真 CID 實例。此項刻意不報 0——未量度不等於沒有",
-      "offenders": [],
-      "offender_total": 0
+      "detail": "223 · 與基準 223 相同（未惡化，但仍在服務中） · 家族分佈 {'latin_cid': 70, 'cjk_misdecode': 153} · `phys_sss_2007_2015` 有 165/182 條不可讀。URL 回 200、雜湊不變、封面標題對得上，所以現有三個監察全部看不見",
+      "offenders": [
+        "phys_sss_2007_2015：165/182（91%）",
+        "gifted_ge_series：52/346（15%）",
+        "apl_curr_docs：6/147（4%）"
+      ],
+      "offender_total": 223
     }
   ]
 }

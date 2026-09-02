@@ -76,6 +76,7 @@ BASELINE = {
     # stat_kg. Recounted over the whole store before this file was trusted.
     "title_equals_slug": 658,
     "short_body": 3,
+    "mojibake": 223,
 }
 
 _WS = re.compile(r"\s+")
@@ -85,6 +86,19 @@ _PAGE_MARKER = re.compile(r"===\s*Page\s*(\d+)\s*===", re.I)
 # of something the previous chunk ended with.
 _MIDCLAUSE = re.compile(r"^[）)」』、。，；：%】\]…·\-–—]|^\d{1,3}[名個條班元]")
 _TOC_LEADER = re.compile(r"(\.{4,}\s*\d+|…{2,}\s*\d+)")
+# Mojibake comes in TWO families and one detector cannot see both. Measured S212.
+#   family 1 — CID glyph ids rendered as Latin-Extended / IPA / Greek. Looks like
+#              「ƙŒȕ¸ǷǳȣƟĴ」.
+#   family 2 — a Big5→UTF-8 misdecode landing in rare/extension CJK and stray
+#              scripts. Looks like 「䓇ᶵ⎴䘬冰嵋冯傥≃」 — still CJK, so any check
+#              that asks "is this Chinese?" passes it.
+# U+00AD is NOT in family 1: the first version included it, and the control run
+# showed it is an ordinary bullet marker in clean EDB prose, carrying every false
+# positive on its own.
+_MOJI_LATIN = re.compile(r"[\u0180-\u024f\u02b0-\u02ff\u0370-\u03ff\u0250-\u02af]")
+_CJK_COMMON = re.compile(r"[\u4e00-\u9fff]")
+_CJK_RARE = re.compile(r"[\u3400-\u4dbf\U00020000-\U0002ffff\u1000-\u109f"
+                       r"\u0a80-\u0aff\u2e80-\u2eff]")
 
 
 # ---------------------------------------------------------------------------
@@ -119,6 +133,25 @@ def page_anchored(chunk: dict) -> bool:
     if _PAGE_MARKER.search(chunk.get("text") or ""):
         return True
     return "#page=" in (chunk.get("url") or "")
+
+
+def mojibake_family(text: str) -> str | None:
+    """Which mojibake family this chunk's body belongs to, if any.
+
+    Family 2 is judged on the RATIO of rare-to-common CJK rather than on a raw
+    count, because a legitimate document uses a rare glyph now and then; a
+    misdecoded one is rare glyphs almost all the way down.
+    """
+    b = body_of(text)
+    if len(b) < 40:
+        return None
+    latin = len(_MOJI_LATIN.findall(b))
+    if latin >= 8 and latin / len(b) >= 0.05:
+        return "latin_cid"
+    rare = len(_CJK_RARE.findall(b))
+    if rare >= 10 and rare > len(_CJK_COMMON.findall(b)) * 0.5:
+        return "cjk_misdecode"
+    return None
 
 
 def duplicate_groups(chunks: list[dict]) -> dict[str, list[dict]]:
@@ -313,6 +346,31 @@ def check_short_body(chunks: list[dict]) -> dict:
         f"{phrase} · 逐條讀過：現存者全部是表格標題行（例如「全日制資助小學教學人員編制"
         f"（由 2022/23 學年起生效）」），屬正常，不是斷句",
         [f"{c['source_id']}：{body_of(c.get('text'))[:40]}" for c in bad], len(bad))
+
+
+def check_mojibake(chunks: list[dict]) -> dict:
+    """Unreadable chunks. Was NOT_MEASURED until S212 built a detector.
+
+    No existing monitor can see this class: the URL returns 200 (check_served_urls),
+    the registry bytes are unchanged (check_freshness), and the COVER text still
+    matches the title (check_source_titles reads the cover, not the body). A source
+    can therefore serve nothing but garbage while every light stays green — and one
+    does.
+    """
+    hits = [(c, mojibake_family(c.get("text"))) for c in chunks]
+    bad = [(c, f) for c, f in hits if f]
+    status, phrase = baseline_status(len(bad), "mojibake")
+    fams = collections.Counter(f for _, f in bad)
+    by_src = collections.Counter(c["source_id"] for c, _ in bad)
+    total = collections.Counter(c["source_id"] for c in chunks)
+    return mk_check(
+        "MOJIBAKE", "沒有不可讀片段（兩個亂碼家族）", "ERROR", status,
+        f"{phrase} · 家族分佈 {dict(fams)} · "
+        f"`phys_sss_2007_2015` 有 {by_src.get('phys_sss_2007_2015', 0)}/"
+        f"{total.get('phys_sss_2007_2015', 0)} 條不可讀。"
+        f"URL 回 200、雜湊不變、封面標題對得上，所以現有三個監察全部看不見",
+        [f"{s}：{n}/{total[s]}（{100 * n / total[s]:.0f}%）"
+         for s, n in by_src.most_common()], len(bad))
 
 
 def check_page_span(chunks: list[dict]) -> dict:
@@ -626,10 +684,7 @@ def build_report(chunks: list[dict], health: dict | None, registry: list[dict],
     checks += check_eval_latest(run)
     checks.append(route_regression())
     checks += check_registry_drift(chunks)
-    checks.append(mk_check(
-        "MOJIBAKE", "沒有真亂碼（CID 字型未內嵌）", "WARN", "NOT_MEASURED",
-        "未有準確偵測器。S204 掃描時分不清長 URL、底線填充與真亂碼，故從未報數；"
-        "`gifted_ge_series` 確有真 CID 實例。此項刻意不報 0——未量度不等於沒有"))
+    checks.append(check_mojibake(chunks))
 
     by_src = collections.Counter(c["source_id"] for c in chunks)
     return {
@@ -690,6 +745,24 @@ def self_test() -> int:
           page_anchored({"text": "x", "url": "https://e.gov/a.pdf#page=7"}))
     check("no page anchor at all",
           not page_anchored({"text": "x", "url": "https://e.gov/a.pdf"}))
+
+    check("family 1 detected (Latin-range CID glyph ids)",
+          mojibake_family("ƙŒȕ¸ǷǳȣƟĴŏŹƭĎĪÅĄƭĎ¸ŵȕȣƟĴěï¸ǷǳȣƟĴƚĊĥȼě¼·ųǕéƌāȶËĴƵ")
+          == "latin_cid")
+    check("family 2 detected (rare/extension CJK misdecode)",
+          mojibake_family(
+              "嬘柴ᶲἄ㶙ℍ妶婾炻᷎栗䣢ṾᾹ怷廗⍲忋屓⛘䳬䷼堐忼シ⾝䘬傥≃ˤ⬠㟉⎗⍫教㭷⸜侫娎娎⌟炻"
+              "ẍḮ妋侫娎䘬⼊⺷娎柴䘬㶙㶢䦳⹎ˤ㟉㛔姽㟠⛐℔攳姽㟠ᷕ炻㟉㛔姽㟠㗗㊯⛐⬠㟉忚埴炻"
+              "᷎䓙ả㔁侩ⷓ姽↮䘬姽㟠ˤ⮵㕤䈑䎮䥹Ἦ婒炻㟉㛔姽㟠䘬ᷣ天䎮⾝㗗天㍸ὃ㚱㓰䘬⛆")
+          == "cjk_misdecode")
+    check("clean Traditional Chinese prose is NOT flagged",
+          mojibake_family("學校應每年進行問卷調查，以促進學校進行以實證為本的自評，"
+                          "並按學生的能力決定是否採用學生問卷，詳情請參閱有關指引。") is None)
+    check("a soft hyphen used as a bullet is NOT mojibake (the first version's bug)",
+          mojibake_family("與職場相關的情境透過提供以下資料和經驗，拓闊學生的視野："
+                          "\u00ad專業／行業／工業群\u00ad環球及本地前景，讓學生掌握所選學習範疇") is None)
+    check("a short chunk is not judged at all",
+          mojibake_family("ƙŒȕ¸Ƿǳ") is None)
 
     dup = duplicate_groups([{"hash": "a", "source_id": "s1"},
                             {"hash": "a", "source_id": "s2"},
