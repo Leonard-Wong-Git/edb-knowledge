@@ -92,24 +92,70 @@ def parse_guidelines_registry(app_html: str) -> list[dict]:
     return [{"id": m} for m in re.findall(r"\bid:\s*[\"']([^\"']+)[\"']", block)]
 
 
+def series_parents(sources: list[dict]) -> dict[str, list[str]]:
+    """{parent_source_id: [expected shard ids]} for entries modelled as a series.
+
+    S212 — the first version of this file reported the 13 stat_enrolment_YYYY ids
+    as UNMANAGED and stat_enrolment_report as PHANTOM, i.e. 14 separate defects.
+    Reading the registry entry instead of assuming showed one deliberate design:
+    `stat_enrolment_report` carries `url_primary_pattern` with a {YYYY} slot and
+    `years_extracted: [2012..2024]`, and the store shards it one source_id per
+    year. Nothing is missing; the parent and the shards are simply keyed
+    differently, and no code reconciles them.
+
+    That is still a defect — just a different one, and it belongs to the
+    monitors, not the registry. check_freshness / check_expiry /
+    check_source_titles all read `url_primary` and none of them reads
+    `url_primary_pattern` or `years_extracted` (verified S212 by grep), so the
+    parent has no URL for them to fetch and the shards have no registry row to
+    key off. SERIES_UNMONITORED reports exactly that, instead of 14 rows that
+    each name the wrong thing.
+    """
+    out: dict[str, list[str]] = {}
+    for s in sources:
+        sid = s.get("source_id") or s.get("id")
+        years = s.get("years_extracted") or []
+        pattern = s.get("url_primary_pattern")
+        if not sid or not (years and pattern):
+            continue
+        stem = sid[:-len("_report")] if sid.endswith("_report") else sid
+        out[sid] = [f"{stem}_{y}" for y in years]
+    return out
+
+
 def classify(serving: dict[str, int], serving_kinds: dict[str, str],
-             live: set[str], dead: set[str], listed: set[str]) -> dict:
-    """The four drift classes. Pure — takes counts, returns id lists."""
+             live: set[str], dead: set[str], listed: set[str],
+             series: dict[str, list[str]] | None = None) -> dict:
+    """The five drift classes. Pure — takes counts, returns id lists."""
+    series = series or {}
+    shard_of = {shard: parent for parent, shards in series.items()
+                for shard in shards}
+    # A parent whose shards ARE serving is not a phantom, and its shards are not
+    # unmanaged. Both are the same fact, so both are lifted out and reported once.
+    sharded = sorted(p for p, shards in series.items()
+                     if any(serving.get(sh, 0) for sh in shards))
+
     unlisted = sorted((sid for sid in serving
                        if sid in live and sid not in listed),
                       key=lambda s: -serving[s])
-    phantom = sorted(sid for sid in listed if serving.get(sid, 0) == 0)
+    phantom = sorted(sid for sid in listed
+                     if serving.get(sid, 0) == 0 and sid not in sharded)
     unmanaged = sorted((sid for sid in serving
                         if sid not in live and sid not in dead
+                        and sid not in shard_of
                         and serving_kinds.get(sid) not in BY_DESIGN_KINDS),
                        key=lambda s: -serving[s])
     zombie = sorted((sid for sid in serving if sid in dead),
                     key=lambda s: -serving[s])
     return {"UNLISTED": unlisted, "PHANTOM": phantom,
-            "UNMANAGED": unmanaged, "ZOMBIE": zombie}
+            "UNMANAGED": unmanaged, "ZOMBIE": zombie,
+            "SERIES_UNMONITORED": sharded}
 
 
 SEVERITY = {
+    # The shards serve users but sit outside freshness / expiry / title-parity,
+    # because those three read `url_primary` and this entry only has a pattern.
+    "SERIES_UNMONITORED": "ERROR",
     # A retired source still answering users is the only one that is wrong on
     # its own terms: someone already decided it should stop, and it did not.
     "ZOMBIE": "ERROR",
@@ -122,6 +168,7 @@ SEVERITY = {
 }
 
 LABEL = {
+    "SERIES_UNMONITORED": "登記為年度系列，但三個 registry 監察都讀不到它的分年檔",
     "UNLISTED": "搜尋得到，但「📚EDB指引」瀏覽不到",
     "PHANTOM": "瀏覽清單有，但庫內零片段",
     "UNMANAGED": "庫內有片段，但 source_registry 從未登記",
@@ -134,8 +181,8 @@ def render_ledger(drift: dict, serving: dict[str, int],
     """Human triage list. UNLISTED is a decision queue, so it carries titles."""
     out = [f"# 登記／庫存／瀏覽清單 漂移帳（{generated_at}）", "",
            "由 `dev/source/check_registry_drift.py --check` 產生，請勿手改。", ""]
-    for cls in ("ZOMBIE", "UNMANAGED", "PHANTOM", "UNLISTED"):
-        ids = drift[cls]
+    for cls in ("ZOMBIE", "SERIES_UNMONITORED", "UNMANAGED", "PHANTOM", "UNLISTED"):
+        ids = drift.get(cls, [])
         out.append(f"## {cls} — {LABEL[cls]}（{len(ids)}）")
         out.append("")
         if not ids:
@@ -184,6 +231,34 @@ def self_test() -> int:
     kinds = {"a": "vault_extract", "b": "vault_extract", "z": "vault_extract",
              "m": "vault_extract", "fn": "footnote_curated"}
     d = classify(serving, kinds, live={"a", "b"}, dead={"z"}, listed={"a", "ghost"})
+    sp = series_parents([
+        {"source_id": "stat_enrolment_report", "years_extracted": [2012, 2013],
+         "url_primary_pattern": "https://e/Enrol_{YYYY}.pdf"},
+        {"source_id": "plain", "url_primary": "https://e/x.pdf"},
+    ])
+    check("series parent expands to its shard ids",
+          sp == {"stat_enrolment_report": ["stat_enrolment_2012",
+                                           "stat_enrolment_2013"]})
+    check("an ordinary entry is not treated as a series", "plain" not in sp)
+
+    ser_serving = {"stat_enrolment_2012": 55, "stat_enrolment_2013": 55, "orphan": 2}
+    ser_kinds = {k: "vault_extract" for k in ser_serving}
+    ds = classify(ser_serving, ser_kinds, live=set(), dead=set(),
+                  listed={"stat_enrolment_report"}, series=sp)
+    check("serving shards are NOT reported as unmanaged",
+          ds["UNMANAGED"] == ["orphan"])
+    check("a series parent with serving shards is NOT a phantom",
+          ds["PHANTOM"] == [])
+    check("the series is reported once, as its own class",
+          ds["SERIES_UNMONITORED"] == ["stat_enrolment_report"])
+    # THE GATE MUST STILL GO RED: a series whose shards serve nothing is a real
+    # phantom, and must not be excused by being a series.
+    dead_series = classify({"other": 1}, {"other": "vault_extract"}, {"other"},
+                           set(), {"stat_enrolment_report"}, series=sp)
+    check("a series with NO serving shards stays a phantom",
+          dead_series["PHANTOM"] == ["stat_enrolment_report"]
+          and dead_series["SERIES_UNMONITORED"] == [])
+
     check("UNLISTED = live + serving + not browsable", d["UNLISTED"] == ["b"])
     check("PHANTOM = browsable + zero chunks", d["PHANTOM"] == ["ghost"])
     check("ZOMBIE = retired + still serving", d["ZOMBIE"] == ["z"])
@@ -203,7 +278,8 @@ def self_test() -> int:
     check("ledger carries titles for the decision queue", "測試標題" in led)
     check("a pipe in a title cannot break the table row",
           "｜" in render_ledger({"ZOMBIE": ["z"], "UNMANAGED": [], "PHANTOM": [],
-                                 "UNLISTED": []}, {"z": 1}, {"z": "a|b"}, "x"))
+                                 "UNLISTED": [], "SERIES_UNMONITORED": []},
+                                {"z": 1}, {"z": "a|b"}, "x"))
 
     print(f"\n{'ALL PASS' if not fails else f'{len(fails)} FAILED: {fails}'}")
     return 0 if not fails else 1
@@ -247,14 +323,15 @@ def main() -> int:
     listed = {g["id"] for g in parse_guidelines_registry(
         APP.read_text(encoding="utf-8", errors="replace"))}
 
-    drift = classify(dict(serving), kinds, live, dead, listed)
+    drift = classify(dict(serving), kinds, live, dead, listed,
+                     series_parents(sources))
     stamp = time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime())
     Path(args.ledger).write_text(
         render_ledger(drift, dict(serving), titles, stamp), encoding="utf-8")
 
     print(f"registry live={len(live)} retired={len(dead)} · "
           f"GUIDELINES_REGISTRY={len(listed)} · serving ids={len(serving)}")
-    for cls in ("ZOMBIE", "UNMANAGED", "PHANTOM", "UNLISTED"):
+    for cls in ("ZOMBIE", "SERIES_UNMONITORED", "UNMANAGED", "PHANTOM", "UNLISTED"):
         ids = drift[cls]
         n = sum(serving.get(s, 0) for s in ids)
         print(f"  [{SEVERITY[cls]:<5}] {cls:<9} {len(ids):4d} 個來源 / {n:5d} 片段  "

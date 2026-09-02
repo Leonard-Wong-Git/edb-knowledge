@@ -48,6 +48,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent.parent  # …/Draft
 REGISTRY = REPO_ROOT / "dev" / "source" / "source_registry.json"
 EVAL_RUNS = REPO_ROOT / "dev" / "source" / "eval_runs"
 DEFAULT_OUT = REPO_ROOT / "qc_report.json"
+GATE_FILE = REPO_ROOT / "dev" / "source" / "release_gate.json"
 HEALTH_URL = "https://edb-knowledge.onrender.com/health"
 SUPABASE_URL = "https://youkcekbrbywuqjxgibe.supabase.co"
 
@@ -178,6 +179,7 @@ CHECK_GROUP = {
     "PAGE_ANCHORED": "pointing",
     "REGISTRY_ZOMBIE": "pointing", "REGISTRY_UNMANAGED": "pointing",
     "REGISTRY_PHANTOM": "pointing", "REGISTRY_UNLISTED": "pointing",
+    "REGISTRY_SERIES": "pointing",
     "NO_DUPLICATE_CHUNKS": "chunk", "NO_TOC_NOISE": "chunk",
     "BODY_LENGTH_FLOOR": "chunk", "MOJIBAKE": "chunk",
     "NO_MIDCLAUSE_START": "cutting", "TABLE_ROW_INTEGRITY": "cutting",
@@ -496,7 +498,8 @@ def check_registry_drift(chunks: list[dict]) -> list[dict]:
     live, dead = drift_mod.registry_ids(sources)
     listed = {g["id"] for g in drift_mod.parse_guidelines_registry(
         (REPO_ROOT / "app.html").read_text(encoding="utf-8", errors="replace"))}
-    d = drift_mod.classify(dict(serving), kinds, live, dead, listed)
+    d = drift_mod.classify(dict(serving), kinds, live, dead, listed,
+                           drift_mod.series_parents(sources))
 
     titles = {}
     for c in chunks:
@@ -507,9 +510,10 @@ def check_registry_drift(chunks: list[dict]) -> list[dict]:
             titles[sid] = src["title"]
 
     out = []
-    ids = ["REGISTRY_ZOMBIE", "REGISTRY_UNMANAGED",
+    ids = ["REGISTRY_ZOMBIE", "REGISTRY_SERIES", "REGISTRY_UNMANAGED",
            "REGISTRY_PHANTOM", "REGISTRY_UNLISTED"]
-    for cid, cls in zip(ids, ("ZOMBIE", "UNMANAGED", "PHANTOM", "UNLISTED")):
+    for cid, cls in zip(ids, ("ZOMBIE", "SERIES_UNMONITORED", "UNMANAGED",
+                              "PHANTOM", "UNLISTED")):
         members = d[cls]
         n_chunks = sum(serving.get(s, 0) for s in members)
         extra = {
@@ -517,6 +521,11 @@ def check_registry_drift(chunks: list[dict]) -> list[dict]:
             "UNMANAGED": "新鮮度、到期、封面標題三個監察全部以 registry 為鍵，所以這些來源不受任何監察",
             "PHANTOM": "用戶可以瀏覽到，但搜尋答不出，因為庫內一條片段都沒有",
             "UNLISTED": "要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
+            "SERIES_UNMONITORED":
+                "registry 用 url_primary_pattern + years_extracted 描述整個年度系列，"
+                "但 check_freshness / check_expiry / check_source_titles 三者只讀 "
+                "url_primary，全部不展開年份 —— 所以 13 個分年檔（528 條片段、13 條實測 200 的 URL）"
+                "不受任何 registry 監察。缺陷在監察，不在登記",
         }[cls]
         out.append(mk_check(
             cid, drift_mod.LABEL[cls], drift_mod.SEVERITY[cls],
@@ -703,8 +712,102 @@ def build_report(chunks: list[dict], health: dict | None, registry: list[dict],
                                 for s, n in by_src.most_common(8)],
         },
         "groups": GROUPS,
+        "releaseGate": build_release_gate(
+            checks,
+            json.loads(GATE_FILE.read_text(encoding="utf-8")) if GATE_FILE.exists() else {},
+            time.strftime("%Y-%m-%d", time.gmtime())),
         "checks": checks,
     }
+
+
+def build_release_gate(checks: list[dict], cfg: dict, today: str) -> dict:
+    """封版閘 — S212. Whether this state may be released, and why not.
+
+    Three rules, and all three exist because a gate that can only pass is
+    decoration:
+
+    1. An unwaived WARN is NOT_MET. The default is to block. A standing defect
+       becomes acceptable only when a person writes down who owns it, why, and
+       until when — and the waiver expires on its own date, so nobody has to
+       remember to revisit it.
+    2. A manual criterion with no dated attestation is NOT_MET, never absent.
+       The things a machine cannot check (does the answer match the PDF, does
+       the tablet layout hold, does the uploaded file stay in the browser) are
+       exactly the things that break; leaving them off the list would make the
+       gate greener than the product.
+    3. NOT_MEASURED is NOT_MET. Not measuring something is not evidence that it
+       is fine.
+    """
+    by_id = {c["id"]: c for c in checks}
+    auto = cfg.get("auto_criteria", {})
+    waived = {w["check_id"]: w for w in cfg.get("standing_waivers", [])}
+    crit: list[dict] = []
+
+    def add(cid, label, kind, ok, detail):
+        crit.append({"id": cid, "label": label, "kind": kind,
+                     "status": "MET" if ok else "NOT_MET", "detail": detail})
+
+    blockers = [c["id"] for c in checks
+                if c["severity"] == "BLOCKER" and c["status"] not in ("PASS", "INFO")]
+    if auto.get("no_blocker"):
+        add("NO_BLOCKER", "沒有攔截級未通過項", "auto", not blockers,
+            "、".join(blockers) if blockers else "0 項")
+
+    errs = [c["id"] for c in checks
+            if c["severity"] == "ERROR" and c["status"] == "FAIL"]
+    if auto.get("no_error_fail"):
+        add("NO_ERROR_FAIL", "沒有錯誤級 FAIL", "auto", not errs,
+            "、".join(errs) if errs else "0 項")
+
+    unmeasured = [c["id"] for c in checks if c["status"] == "NOT_MEASURED"]
+    if auto.get("no_unmeasured"):
+        add("NO_UNMEASURED", "沒有未量度項（或已明確列為 out-of-scope）", "auto",
+            not unmeasured, "、".join(unmeasured) if unmeasured else "0 項")
+
+    for cid in auto.get("must_pass", []):
+        c = by_id.get(cid)
+        add(f"PASS_{cid}", f"{cid} 必須 PASS", "auto",
+            bool(c) and c["status"] == "PASS",
+            c["status"] if c else "此檢查不存在")
+
+    # Standing WARNs: waived (with an unexpired date) or blocking.
+    warns = [c for c in checks if c["status"] == "WARN"]
+    unwaived, expired = [], []
+    for c in warns:
+        w = waived.get(c["id"])
+        if not w:
+            unwaived.append(c["id"])
+        elif str(w.get("accept_until", "")) < today:
+            expired.append(f"{c['id']}（{w.get('owner')} 的接受期 {w.get('accept_until')} 已過）")
+    add("WARNS_OWNED", "每個 standing WARN 都有 owner、理由、接受期限", "auto",
+        not unwaived and not expired,
+        f"未有 waiver {len(unwaived)} 項"
+        + (f"：{'、'.join(unwaived[:6])}" if unwaived else "")
+        + (f"；已過期 {len(expired)} 項：{'、'.join(expired)}" if expired else ""))
+
+    for m in cfg.get("manual_checks", []):
+        rec = m.get("verified_at")
+        if not rec:
+            add(m["id"], m["label"], "manual", False, "從未記錄人手驗證")
+            continue
+        age_ok = rec >= _days_ago(today, int(m.get("max_age_days", 30)))
+        add(m["id"], m["label"], "manual", age_ok,
+            f"{rec} 由 {m.get('verified_by', '?')} 驗證"
+            + ("" if age_ok else f"，已超過 {m.get('max_age_days')} 日有效期"))
+
+    unmet = [c for c in crit if c["status"] == "NOT_MET"]
+    return {
+        "status": "PASS" if not unmet else "FAIL",
+        "summary": f"{len(crit) - len(unmet)}/{len(crit)} 項達標",
+        "blocking": [c["id"] for c in unmet],
+        "criteria": crit,
+    }
+
+
+def _days_ago(today: str, days: int) -> str:
+    import datetime
+    d = datetime.date.fromisoformat(today) - datetime.timedelta(days=days)
+    return d.isoformat()
 
 
 def platform_version() -> str:
@@ -820,6 +923,53 @@ def self_test() -> int:
     got = check_eval_latest(old_run)
     check("a pre-S212 run reports the chunk layer as NOT_MEASURED",
           got[0]["status"] == "PASS" and got[1]["status"] == "NOT_MEASURED")
+
+    # ---- release gate ----------------------------------------------------
+    def ck(cid, sev, st):
+        return mk_check(cid, cid, sev, st, "d")
+
+    green = [ck("FREEZE_CONTRACT", "BLOCKER", "PASS"), ck("EVAL_LATEST", "ERROR", "PASS")]
+    cfg = {"auto_criteria": {"no_blocker": True, "no_error_fail": True,
+                             "no_unmeasured": True,
+                             "must_pass": ["FREEZE_CONTRACT", "EVAL_LATEST"]},
+           "standing_waivers": [], "manual_checks": []}
+    g = build_release_gate(green, cfg, "2026-09-02")
+    check("a clean state with no manual checks passes the gate", g["status"] == "PASS")
+
+    g = build_release_gate(green + [ck("X", "BLOCKER", "FAIL")], cfg, "2026-09-02")
+    check("a BLOCKER fails the gate", g["status"] == "FAIL" and "NO_BLOCKER" in g["blocking"])
+
+    g = build_release_gate(green + [ck("Y", "ERROR", "NOT_MEASURED")], cfg, "2026-09-02")
+    check("NOT_MEASURED fails the gate (not measuring is not evidence)",
+          "NO_UNMEASURED" in g["blocking"])
+
+    # AN UNWAIVED WARN MUST BLOCK — the default is to stop, not to wave through.
+    g = build_release_gate(green + [ck("W", "WARN", "WARN")], cfg, "2026-09-02")
+    check("an unwaived standing WARN blocks", "WARNS_OWNED" in g["blocking"])
+
+    cfg_w = dict(cfg, standing_waivers=[{"check_id": "W", "owner": "Leonard",
+                                         "reason": "r", "accept_until": "2026-12-31"}])
+    g = build_release_gate(green + [ck("W", "WARN", "WARN")], cfg_w, "2026-09-02")
+    check("a WARN with a live waiver does not block", g["status"] == "PASS")
+
+    g = build_release_gate(green + [ck("W", "WARN", "WARN")], cfg_w, "2027-01-01")
+    check("the same waiver blocks again once its accept_until has passed",
+          "WARNS_OWNED" in g["blocking"])
+
+    cfg_m = dict(cfg, manual_checks=[{"id": "M", "label": "m", "max_age_days": 14}])
+    g = build_release_gate(green, cfg_m, "2026-09-02")
+    check("a manual check never verified is NOT_MET, not absent",
+          "M" in g["blocking"] and any(c["id"] == "M" for c in g["criteria"]))
+
+    cfg_m2 = dict(cfg, manual_checks=[{"id": "M", "label": "m", "max_age_days": 14,
+                                       "verified_at": "2026-09-01",
+                                       "verified_by": "Leonard"}])
+    check("a fresh manual attestation is MET",
+          build_release_gate(green, cfg_m2, "2026-09-02")["status"] == "PASS")
+    check("a stale manual attestation blocks again",
+          "M" in build_release_gate(green, cfg_m2, "2026-10-01")["blocking"])
+    check("the shipped gate config parses and declares manual checks",
+          len(json.loads(GATE_FILE.read_text(encoding="utf-8"))["manual_checks"]) >= 6)
 
     print(f"\n{'ALL PASS' if not fails else f'{len(fails)} FAILED: {fails}'}")
     return 0 if not fails else 1

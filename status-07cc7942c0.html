@@ -37,6 +37,11 @@ h2{font-size:15px;margin:0 0 14px;letter-spacing:.02em}
 .gname{font-size:13px;font-weight:700;color:var(--muted);margin:20px 0 8px;
   padding-bottom:5px;border-bottom:1px solid var(--line)}
 .gname:first-of-type{margin-top:0}
+.gatehead{font-size:15px;font-weight:700;margin-bottom:10px}
+.gc{display:grid;grid-template-columns:64px 84px 1fr;gap:10px;padding:8px 0;
+  border-bottom:1px dashed var(--line);align-items:start;font-size:13px}
+.gc:last-child{border-bottom:0}
+.kind{font-size:11px;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
 .chk{display:grid;grid-template-columns:78px 1fr;gap:12px;padding:11px 0;
   border-bottom:1px dashed var(--line);align-items:start}
 .chk:last-child{border-bottom:0}
@@ -88,6 +93,9 @@ a{color:var(--info)}
   <div id="banner" class="banner s-warn"><div class="big">⏳</div>
     <div><div class="t">載入中…</div><div class="d">正在讀取 qc_report.json</div></div></div>
 
+  <div class="card"><h2>🚦 封版閘（release gate）<span class="sub" style="font-weight:400">
+    — 未達標即不應封版；標準見 dev/source/release_gate.json</span></h2>
+    <div id="gate">載入中…</div></div>
   <div class="card"><h2>📊 資料狀態</h2><div id="corpus" class="grid"></div></div>
   <div class="card"><h2>✅ 檢查結果</h2><div id="counts" class="grid"></div></div>
   <div class="card"><h2>🔍 完整檢查清單</h2><div id="checks">載入中…</div></div>
@@ -207,6 +215,25 @@ function render(d){
   document.getElementById('counts').innerHTML =
     stat(n.PASS || 0, '通過') + stat(n.BLOCKER || 0, '攔截') + stat(n.ERROR || 0, '錯誤') +
     stat(n.WARN || 0, '注意') + stat(n.INFO || 0, '記錄') + stat(n.NOT_MEASURED || 0, '未量度');
+
+  var g = d.releaseGate;
+  if (g) {
+    var head = (g.status === 'PASS')
+      ? '<div class="gatehead" style="color:var(--ok)">✅ 可封版 — ' + h(g.summary) + '</div>'
+      : '<div class="gatehead" style="color:var(--err)">🚫 未可封版 — ' + h(g.summary) +
+        '（' + h(g.blocking.length) + ' 項阻擋）</div>';
+    document.getElementById('gate').innerHTML = head + (g.criteria || []).map(function(c){
+      var met = c.status === 'MET';
+      return '<div class="gc"><div><span class="pill ' + (met ? 'p-ok' : 'p-err') + '">' +
+        (met ? '達標' : '未達標') + '</span></div>' +
+        '<div class="kind">' + h(c.kind === 'manual' ? '人手驗證' : '自動') + '</div>' +
+        '<div><strong>' + h(c.label) + '</strong> <span class="cid">' + h(c.id) + '</span>' +
+        '<div class="cdetail">' + h(c.detail) + '</div></div></div>';
+    }).join('');
+  } else {
+    document.getElementById('gate').textContent =
+      '此報告由未有封版閘的版本產生。';
+  }
 
   var groups = d.groups || {};
   var order = Object.keys(groups);

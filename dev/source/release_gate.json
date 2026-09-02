@@ -1,0 +1,64 @@
+{
+  "_comment": [
+    "S212 — 封版標準（release gate）。qc_report.py 讀此檔判斷可否封版。",
+    "兩件事在此檔決定，兩件都必須由人寫，工具不會自己填：",
+    "  standing_waivers — 接受某個 WARN 繼續存在。必須有 owner、reason、accept_until。",
+    "                     過了 accept_until 該 waiver 自動失效，閘立即轉紅。",
+    "                     沒有 waiver 的 WARN 一律當 NOT_MET —— 預設是擋，不是放行。",
+    "  manual_checks    — 機器量不到、必須有人親手驗過的項目。每項要有 verified_at",
+    "                     同 verified_by；超過 max_age_days 即當未驗。",
+    "刻意全部留空起步：現時本平台按此標準並未達到封版條件，閘應該如實講出來，",
+    "而不是由我替 Leonard 填幾個 owner 令它變綠。"
+  ],
+  "auto_criteria": {
+    "no_blocker": true,
+    "no_error_fail": true,
+    "no_unmeasured": true,
+    "must_pass": [
+      "EVAL_LATEST",
+      "EVAL_CHUNK_LAYER",
+      "ROUTE_REGRESSION",
+      "FREEZE_CONTRACT",
+      "MIRROR_CONSISTENCY"
+    ]
+  },
+  "standing_waivers": [],
+  "manual_checks": [
+    {
+      "id": "CORE_SEARCH_CASES",
+      "label": "核心搜尋案例逐條人手覆核",
+      "how": "跑 eval_retrieval --run，逐條打開答案讀原文，確認答案指向的段落真的答到該問題",
+      "max_age_days": 14
+    },
+    {
+      "id": "ANSWER_FACT_SPOTCHECK",
+      "label": "答案事實 spot-check（對回原文）",
+      "how": "抽至少 10 條真實查詢，逐條把答案中的數字／日期／條文對回 PDF 原文",
+      "max_age_days": 14
+    },
+    {
+      "id": "DOC_ANNOTATION_FLOW",
+      "label": "文件標註流程（上載 → 分析 → 下載標註版）",
+      "how": "以真實 docx 及 PDF 各一份走完整流程，確認標註位置正確、下載檔可開",
+      "max_age_days": 30
+    },
+    {
+      "id": "MOBILE_DESKTOP_SPLIT",
+      "label": "mobile／desktop 分流",
+      "how": "≤640px、平板橫放、桌面三種闊度各開一次；S211 的兩道閘條件不一致就是在平板上炸的",
+      "max_age_days": 30
+    },
+    {
+      "id": "PRIVACY_UPLOAD_BEHAVIOUR",
+      "label": "私隱與上載檔案行為",
+      "how": "確認上載的原檔不離開瀏覽器（文件分析為 client-side 抽取），並確認沒有非必要個人資料被送往後端",
+      "max_age_days": 30
+    },
+    {
+      "id": "COLD_START_AND_ERRORS",
+      "label": "冷啟動及錯誤狀態",
+      "how": "Render 免費層冷啟動約 50 秒；確認等待狀態、逾時、Channel B 降級三種畫面都有交代，不是空白",
+      "max_age_days": 30
+    }
+  ]
+}

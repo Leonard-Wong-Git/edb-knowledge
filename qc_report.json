@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-02T18:26:56Z",
+  "generatedAt": "2026-09-02T18:37:27Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17597,
     "PASS": 7,
     "BLOCKER": 0,
-    "ERROR": 2,
+    "ERROR": 3,
     "WARN": 10,
     "INFO": 1,
     "NOT_MEASURED": 0
@@ -58,6 +58,127 @@
     "chunk": "片段是否合乎標準",
     "cutting": "有沒有切得太碎或太粗",
     "measurable": "質素是否可量度"
+  },
+  "releaseGate": {
+    "status": "FAIL",
+    "summary": "7/15 項達標",
+    "blocking": [
+      "NO_ERROR_FAIL",
+      "WARNS_OWNED",
+      "CORE_SEARCH_CASES",
+      "ANSWER_FACT_SPOTCHECK",
+      "DOC_ANNOTATION_FLOW",
+      "MOBILE_DESKTOP_SPLIT",
+      "PRIVACY_UPLOAD_BEHAVIOUR",
+      "COLD_START_AND_ERRORS"
+    ],
+    "criteria": [
+      {
+        "id": "NO_BLOCKER",
+        "label": "沒有攔截級未通過項",
+        "kind": "auto",
+        "status": "MET",
+        "detail": "0 項"
+      },
+      {
+        "id": "NO_ERROR_FAIL",
+        "label": "沒有錯誤級 FAIL",
+        "kind": "auto",
+        "status": "NOT_MET",
+        "detail": "REGISTRY_ZOMBIE、REGISTRY_SERIES、REGISTRY_UNMANAGED"
+      },
+      {
+        "id": "NO_UNMEASURED",
+        "label": "沒有未量度項（或已明確列為 out-of-scope）",
+        "kind": "auto",
+        "status": "MET",
+        "detail": "0 項"
+      },
+      {
+        "id": "PASS_EVAL_LATEST",
+        "label": "EVAL_LATEST 必須 PASS",
+        "kind": "auto",
+        "status": "MET",
+        "detail": "PASS"
+      },
+      {
+        "id": "PASS_EVAL_CHUNK_LAYER",
+        "label": "EVAL_CHUNK_LAYER 必須 PASS",
+        "kind": "auto",
+        "status": "MET",
+        "detail": "PASS"
+      },
+      {
+        "id": "PASS_ROUTE_REGRESSION",
+        "label": "ROUTE_REGRESSION 必須 PASS",
+        "kind": "auto",
+        "status": "MET",
+        "detail": "PASS"
+      },
+      {
+        "id": "PASS_FREEZE_CONTRACT",
+        "label": "FREEZE_CONTRACT 必須 PASS",
+        "kind": "auto",
+        "status": "MET",
+        "detail": "PASS"
+      },
+      {
+        "id": "PASS_MIRROR_CONSISTENCY",
+        "label": "MIRROR_CONSISTENCY 必須 PASS",
+        "kind": "auto",
+        "status": "MET",
+        "detail": "PASS"
+      },
+      {
+        "id": "WARNS_OWNED",
+        "label": "每個 standing WARN 都有 owner、理由、接受期限",
+        "kind": "auto",
+        "status": "NOT_MET",
+        "detail": "未有 waiver 8 項：ANCHOR_URL_PRESENT、SOURCE_TITLE_REAL、PAGE_ANCHORED、NO_DUPLICATE_CHUNKS、NO_TOC_NOISE、BODY_LENGTH_FLOOR"
+      },
+      {
+        "id": "CORE_SEARCH_CASES",
+        "label": "核心搜尋案例逐條人手覆核",
+        "kind": "manual",
+        "status": "NOT_MET",
+        "detail": "從未記錄人手驗證"
+      },
+      {
+        "id": "ANSWER_FACT_SPOTCHECK",
+        "label": "答案事實 spot-check（對回原文）",
+        "kind": "manual",
+        "status": "NOT_MET",
+        "detail": "從未記錄人手驗證"
+      },
+      {
+        "id": "DOC_ANNOTATION_FLOW",
+        "label": "文件標註流程（上載 → 分析 → 下載標註版）",
+        "kind": "manual",
+        "status": "NOT_MET",
+        "detail": "從未記錄人手驗證"
+      },
+      {
+        "id": "MOBILE_DESKTOP_SPLIT",
+        "label": "mobile／desktop 分流",
+        "kind": "manual",
+        "status": "NOT_MET",
+        "detail": "從未記錄人手驗證"
+      },
+      {
+        "id": "PRIVACY_UPLOAD_BEHAVIOUR",
+        "label": "私隱與上載檔案行為",
+        "kind": "manual",
+        "status": "NOT_MET",
+        "detail": "從未記錄人手驗證"
+      },
+      {
+        "id": "COLD_START_AND_ERRORS",
+        "label": "冷啟動及錯誤狀態",
+        "kind": "manual",
+        "status": "NOT_MET",
+        "detail": "從未記錄人手驗證"
+      }
+    ]
   },
   "checks": [
     {
@@ -309,27 +430,28 @@
       "offender_total": 1
     },
     {
+      "id": "REGISTRY_SERIES",
+      "label": "登記為年度系列，但三個 registry 監察都讀不到它的分年檔",
+      "severity": "ERROR",
+      "status": "FAIL",
+      "group": "pointing",
+      "detail": "1 個來源 / 0 條片段 · registry 用 url_primary_pattern + years_extracted 描述整個年度系列，但 check_freshness / check_expiry / check_source_titles 三者只讀 url_primary，全部不展開年份 —— 所以 13 個分年檔（528 條片段、13 條實測 200 的 URL）不受任何 registry 監察。缺陷在監察，不在登記",
+      "offenders": [
+        "stat_enrolment_report（0 條）學生人數統計報告書（年度系列）"
+      ],
+      "offender_total": 1
+    },
+    {
       "id": "REGISTRY_UNMANAGED",
       "label": "庫內有片段，但 source_registry 從未登記",
       "severity": "ERROR",
       "status": "FAIL",
       "group": "pointing",
-      "detail": "14 個來源 / 530 條片段 · 新鮮度、到期、封面標題三個監察全部以 registry 為鍵，所以這些來源不受任何監察",
+      "detail": "1 個來源 / 2 條片段 · 新鮮度、到期、封面標題三個監察全部以 registry 為鍵，所以這些來源不受任何監察",
       "offenders": [
-        "stat_enrolment_2014（56 條）stat_enrolment_2014",
-        "stat_enrolment_2015（56 條）stat_enrolment_2015",
-        "stat_enrolment_2012（55 條）stat_enrolment_2012",
-        "stat_enrolment_2013（55 條）stat_enrolment_2013",
-        "stat_enrolment_2020（35 條）stat_enrolment_2020",
-        "stat_enrolment_2016（34 條）stat_enrolment_2016",
-        "stat_enrolment_2017（34 條）stat_enrolment_2017",
-        "stat_enrolment_2018（34 條）stat_enrolment_2018",
-        "stat_enrolment_2019（34 條）stat_enrolment_2019",
-        "stat_enrolment_2021（34 條）stat_enrolment_2021",
-        "stat_enrolment_2022（34 條）stat_enrolment_2022",
-        "stat_enrolment_2024（34 條）stat_enrolment_2024"
+        "stat_integrated（2 條）stat_integrated"
       ],
-      "offender_total": 14
+      "offender_total": 1
     },
     {
       "id": "REGISTRY_PHANTOM",
@@ -337,7 +459,7 @@
       "severity": "WARN",
       "status": "FAIL",
       "group": "pointing",
-      "detail": "42 個來源 / 0 條片段 · 用戶可以瀏覽到，但搜尋答不出，因為庫內一條片段都沒有",
+      "detail": "41 個來源 / 0 條片段 · 用戶可以瀏覽到，但搜尋答不出，因為庫內一條片段都沒有",
       "offenders": [
         "apl_ca_guide_2017（0 條）",
         "arts_curr_docs（0 條）藝術教育學習領域課程文件",
@@ -352,7 +474,7 @@
         "g30（0 條）小學人文科課程及評估指引（試行版）(2023)",
         "g31（0 條）英國語文教育課程指引（小一至小六）(2025)"
       ],
-      "offender_total": 42
+      "offender_total": 41
     },
     {
       "id": "REGISTRY_UNLISTED",
