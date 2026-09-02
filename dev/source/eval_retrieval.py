@@ -43,6 +43,7 @@ from __future__ import annotations
 import argparse
 import http.client
 import json
+import re
 import statistics
 import sys
 import time
@@ -60,6 +61,7 @@ DEFAULT_PACE_S = 7.0
 REQUEST_TIMEOUT_S = 120  # Render free tier cold-starts at ~50s
 MAX_ATTEMPTS = 4
 SCORE_EPSILON = 0.002  # below this, a score move is noise, not a change
+DEFAULT_CHUNK_WITHIN = 5  # S212 — a chunk assertion asks about the synthesis window
 
 # ---------------------------------------------------------------------------
 # pure helpers (offline-testable — no network, no clock)
@@ -83,6 +85,48 @@ def build_tie_map(tie_aliases: list[list[str]]) -> dict[str, str]:
 
 def canon(source_id: str, tie_map: dict[str, str]) -> str:
     return tie_map.get(source_id, source_id)
+
+
+def squeeze(text: str) -> str:
+    """Strip ALL whitespace. Required, not cosmetic.
+
+    S211 spent part of a session concluding a passage was absent from the top 80
+    because the exact substring search missed 「新 入職教師」 — the PDF text layer
+    had a line break inside the phrase, and the passage was in fact at rank 1. Any
+    matcher that reads chunk text and does not do this is measuring the extractor's
+    line wrapping, not retrieval.
+    """
+    return re.sub(r"\s+", "", text or "")
+
+
+def chunk_verdict_for(results: list[dict], expect_text_any: list[str],
+                      within: int = DEFAULT_CHUNK_WITHIN) -> tuple[str, int | None]:
+    """(verdict, rank of the first result whose TEXT carries a wanted signature).
+
+    S212 — the chunk-layer assertion the harness was missing. Asserts on a text
+    signature rather than the chunk id, deliberately, and against the priority's
+    own suggested wording ("assert the chunk id enters the top five"):
+
+      chunk ids are `vault_<sid>_<md5(text)[:12]>` (dev/vault/expand_vault.py:502,
+      627), i.e. derived from the chunk's own text. Every re-chunk mints new ids
+      for the whole source. S211 re-chunked staff_est_pri with chunk_overlap=0, so
+      an id assertion written the day before would have gone red on the very fix it
+      was built to protect. An instrument that cries wolf on every ingest is the
+      wallpaper failure of discipline #14.
+
+    A text signature also fails in exactly the case worth catching: if re-chunking
+    splits a table row so the signature no longer sits inside one chunk, the answer
+    passage no longer exists as a retrievable unit — which is the S211 defect
+    ("片段由半行開始") stated as a testable condition.
+    """
+    if not expect_text_any:
+        return "RECORD_ONLY", None
+    wanted = [squeeze(w) for w in expect_text_any]
+    for i, r in enumerate(results[:within]):
+        hay = squeeze(r.get("text", ""))
+        if any(w and w in hay for w in wanted):
+            return "PASS", i
+    return "FAIL", None
 
 
 def verdict_for(result_sids: list[str], expect_any: list[str],
@@ -161,13 +205,35 @@ def compare_runs(before: dict, after: dict) -> dict:
             )
             status = "SAME" if moved <= SCORE_EPSILON else "SCORE_MOVED"
 
-        if status in ("VERDICT_REGRESSED", "SET_LOST"):
+        # S212 — the chunk layer is judged INDEPENDENTLY of the source layer, and
+        # on purpose. A query can be SAME at source level while the passage that
+        # actually answers it drops out of the window: same documents, different
+        # chunks. That is the exact blind spot the source-level assertions had, so
+        # folding this into `status` would re-create it.
+        bc, ac = b.get("chunk_verdict"), a.get("chunk_verdict")
+        if bc == "PASS" and ac == "FAIL":
+            chunk_status = "CHUNK_REGRESSED"
+        elif bc == "FAIL" and ac == "PASS":
+            chunk_status = "CHUNK_FIXED"
+        elif bc == "PASS" and ac == "PASS" and \
+                b.get("rank_of_expected_chunk") != a.get("rank_of_expected_chunk"):
+            chunk_status = "CHUNK_RANK_SHIFT"
+        elif bc is None and ac is None:
+            chunk_status = "CHUNK_UNRECORDED"  # run file predates S212
+        else:
+            chunk_status = "CHUNK_SAME"
+
+        if status in ("VERDICT_REGRESSED", "SET_LOST") or \
+                chunk_status == "CHUNK_REGRESSED":
             failures += 1
         rows.append({
             "id": qid, "status": status,
             "before": b_sids, "after": a_sids,
             "lost": lost, "added": added,
             "before_verdict": b["verdict"], "after_verdict": a["verdict"],
+            "chunk_status": chunk_status,
+            "before_chunk_rank": b.get("rank_of_expected_chunk"),
+            "after_chunk_rank": a.get("rank_of_expected_chunk"),
         })
 
     return {"rows": rows, "failures": failures,
@@ -248,29 +314,45 @@ def run_set(endpoint: str, top_k: int, pace: float, limit: int | None,
         results = resp.get("results") or []
         sids = [r["source_id"] for r in results]
         verdict, rank = verdict_for(sids, q["expect_any"], tie_map)
+        # S212 — chunk layer. chunk_ids are recorded for EVERY query, asserted or
+        # not: source-level rows cannot answer "did the right passage enter the
+        # window", and a run file without them cannot be re-asked that question
+        # later. Recording is cheap; re-running the whole set is not.
+        expect_text = q.get("expect_text_any") or []
+        within = int(q.get("chunk_within", DEFAULT_CHUNK_WITHIN))
+        c_verdict, c_rank = chunk_verdict_for(results, expect_text, within)
         out_rows.append({
             "id": q["id"], "query": q["query"], "note": q["note"],
             "expect_any": q["expect_any"],
             "verdict": verdict, "rank_of_expected": rank,
             "source_ids": sids,
+            "chunk_ids": [r.get("id") for r in results],
+            "expect_text_any": expect_text,
+            "chunk_within": within,
+            "chunk_verdict": c_verdict, "rank_of_expected_chunk": c_rank,
             "scores": [round(float(r["score"]), 4) for r in results],
             "content_types": [r.get("content_type") for r in results],
             "pages": [r.get("page") for r in results],
             "total": resp.get("total", len(results)),
         })
         flag = {"PASS": "✅", "FAIL": "❌", "RECORD_ONLY": "·"}[verdict]
+        cflag = {"PASS": " chunk✅", "FAIL": " chunk❌", "RECORD_ONLY": ""}[c_verdict]
         top = f"{sids[0]}@{results[0]['score']:.3f}" if results else "(0 results)"
-        print(f"  [{i}/{len(queries)}] {flag} {q['id']:<16} rank={rank} top={top}")
+        print(f"  [{i}/{len(queries)}] {flag} {q['id']:<16} rank={rank} top={top}{cflag}")
 
     counts = {v: sum(1 for r in out_rows if r.get("verdict") == v)
               for v in ("PASS", "FAIL", "RECORD_ONLY")}
+    chunk_counts = {f"chunk_{v}": sum(1 for r in out_rows
+                                      if r.get("chunk_verdict") == v)
+                    for v in ("PASS", "FAIL")}
     return {
         "label": label,
         "endpoint": endpoint,
         "top_k": top_k,
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "tie_aliases": tie_aliases,
-        "summary": {**counts, "errors": errors, "queries": len(out_rows)},
+        "summary": {**counts, **chunk_counts,
+                    "errors": errors, "queries": len(out_rows)},
         "results": out_rows,
     }
 
@@ -303,6 +385,35 @@ def self_test() -> int:
           verdict_for(["x"], [], {}) == ("RECORD_ONLY", None))
     check("tie alias satisfies expectation via the other id",
           verdict_for(["sag_2025_11"], ["g24"], tie_map) == ("PASS", 0))
+
+    # ---- S212 chunk layer ------------------------------------------------
+    def cr(text):
+        return {"id": "x", "text": text}
+
+    check("squeeze strips the PDF line break that fooled S211",
+          squeeze("新 入\n職 教師") == "新入職教師")
+    check("chunk PASS at rank 0",
+          chunk_verdict_for([cr("開辦12班的教學人員編制")], ["開辦12班的教學人員編制"])
+          == ("PASS", 0))
+    check("chunk signature matches THROUGH extractor whitespace (the real case)",
+          chunk_verdict_for([cr("核准開辦12 班的教學\n人員編制：校長1 名")],
+                            ["開辦12班的教學人員編制"]) == ("PASS", 0))
+    check("chunk FAIL when the signature is absent",
+          chunk_verdict_for([cr("完全無關嘅內容")], ["開辦12班"]) == ("FAIL", None))
+    check("empty expect_text_any = RECORD_ONLY",
+          chunk_verdict_for([cr("任何嘢")], []) == ("RECORD_ONLY", None))
+    # PROVES THE GATE GOES RED: present, but outside the window it is asked about.
+    check("chunk FAIL when present only BELOW the window (window is enforced)",
+          chunk_verdict_for([cr("a"), cr("b"), cr("c"), cr("d"), cr("e"),
+                             cr("開辦12班的教學人員編制")], ["開辦12班"], within=5)
+          == ("FAIL", None))
+    check("same chunk INSIDE a widened window passes (the window is the only reason)",
+          chunk_verdict_for([cr("a"), cr("b"), cr("c"), cr("d"), cr("e"),
+                             cr("開辦12班的教學人員編制")], ["開辦12班"], within=6)
+          == ("PASS", 5))
+    check("a wrong-row signature does NOT satisfy a right-row assertion",
+          chunk_verdict_for([cr("核准開辦24 班的教學人員編制")],
+                            ["開辦12班的教學人員編制"]) == ("FAIL", None))
 
     def mk(label, rows):
         return {"label": label, "tie_aliases": [["g24", "sag_2025_11"]], "results": rows}
@@ -378,12 +489,45 @@ def self_test() -> int:
     check("an errored query FAILS the compare (never read as empty)",
           rep["rows"][0]["status"] == "ERROR" and rep["failures"] == 1)
 
+    def crow(qid, sids, cverdict, crank, verdict="PASS"):
+        return {"id": qid, "source_ids": sids, "verdict": verdict,
+                "scores": [0.7] * len(sids),
+                "chunk_verdict": cverdict, "rank_of_expected_chunk": crank}
+
+    # THE WHOLE POINT: identical sources, and the right passage still fell out.
+    rep = compare_runs(mk("b", [crow("q1", ["a", "b"], "PASS", 0)]),
+                       mk("a", [crow("q1", ["a", "b"], "FAIL", None)]))
+    check("chunk regression FAILS even when the source list is identical",
+          rep["rows"][0]["status"] == "SAME"
+          and rep["rows"][0]["chunk_status"] == "CHUNK_REGRESSED"
+          and rep["failures"] == 1)
+
+    rep = compare_runs(mk("b", [crow("q1", ["a"], "FAIL", None)]),
+                       mk("a", [crow("q1", ["a"], "PASS", 0)]))
+    check("chunk fix is reported and does NOT fail",
+          rep["rows"][0]["chunk_status"] == "CHUNK_FIXED" and rep["failures"] == 0)
+
+    rep = compare_runs(mk("b", [crow("q1", ["a"], "PASS", 0)]),
+                       mk("a", [crow("q1", ["a"], "PASS", 3)]))
+    check("chunk rank move is reported and does NOT fail",
+          rep["rows"][0]["chunk_status"] == "CHUNK_RANK_SHIFT"
+          and rep["failures"] == 0)
+
+    rep = compare_runs(mk("b", [row("q1", ["a"])]), mk("a", [row("q1", ["a"])]))
+    check("a pre-S212 run file compares as CHUNK_UNRECORDED, not as a pass",
+          rep["rows"][0]["chunk_status"] == "CHUNK_UNRECORDED")
+
     queries, aliases = load_query_set()
     check("query set loads and is non-trivial", len(queries) >= 20)
     check("every query has id/query/expect_any/note",
           all(all(k in q for k in ("id", "query", "expect_any", "note")) for q in queries))
     check("query ids are unique", len({q["id"] for q in queries}) == len(queries))
     check("tie aliases declared in the query file", aliases == [["g24", "sag_2025_11"]])
+    chunk_qs = [q for q in queries if q.get("expect_text_any")]
+    check(f"at least one chunk-layer assertion exists (S212); found {len(chunk_qs)}",
+          len(chunk_qs) >= 1)
+    check("every chunk assertion also names the source it must come from",
+          all(q.get("expect_any") for q in chunk_qs))
     short = [q["id"] for q in queries if len(q["query"]) > 14]
     check(f"queries stay short (S183 rule 4); long ones: {short}", not short)
 
@@ -426,6 +570,23 @@ def print_compare(rep: dict) -> None:
                 print(f"  • {r['id']}: {' '.join(bits) or 'order changed'}")
                 print(f"      before {r['before']}")
                 print(f"      after  {r['after']}")
+    # S212 — chunk layer printed as its own block. A CHUNK_REGRESSED row may sit
+    # under SAME above (same sources, different passage), so it must be visible
+    # here or the one thing the source layer could not see stays invisible.
+    chunk_order = ["CHUNK_REGRESSED", "CHUNK_FIXED", "CHUNK_RANK_SHIFT"]
+    by_chunk: dict[str, list[dict]] = {}
+    for r in rep["rows"]:
+        cs = r.get("chunk_status")
+        if cs in chunk_order:
+            by_chunk.setdefault(cs, []).append(r)
+    if by_chunk:
+        print("\n--- chunk layer (S212) ---")
+        for cs in chunk_order:
+            for r in by_chunk.get(cs, []):
+                print(f"  {cs}  {r['id']}: "
+                      f"rank {r.get('before_chunk_rank')} → {r.get('after_chunk_rank')}"
+                      f"  (source status: {r['status']})")
+
     print(f"\nblocking failures: {rep['failures']}")
 
 

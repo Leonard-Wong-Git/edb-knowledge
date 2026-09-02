@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>知識庫品質檢查 — EDB K1 知識平台</title>
+<style>
+:root{
+  --bg:#faf8f4; --card:#fff; --ink:#22201d; --muted:#6b6560; --line:#e6e0d8;
+  --ok:#1f7a4d; --okbg:#e8f5ee; --warn:#8a5a00; --warnbg:#fdf3e0;
+  --err:#a52626; --errbg:#fceceb; --info:#2a5d8f; --infobg:#eaf1f8;
+  --unk:#5b5560; --unkbg:#f0eef2;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.65 -apple-system,BlinkMacSystemFont,"Noto Sans HK","PingFang HK","Helvetica Neue",sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 72px}
+h1{font-size:24px;margin:0 0 6px}
+.sub{color:var(--muted);font-size:13px;margin-bottom:26px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:20px 22px;margin-bottom:18px}
+h2{font-size:15px;margin:0 0 14px;letter-spacing:.02em}
+.banner{display:flex;align-items:center;gap:14px;border-radius:12px;padding:18px 22px;
+  margin-bottom:18px;border:1px solid transparent}
+.banner .big{font-size:30px;line-height:1}
+.banner .t{font-weight:700;font-size:17px}
+.banner .d{font-size:13px;opacity:.85}
+.s-ok{background:var(--okbg);border-color:#bfe3cf;color:var(--ok)}
+.s-warn{background:var(--warnbg);border-color:#f0d9a8;color:var(--warn)}
+.s-err{background:var(--errbg);border-color:#f0c4c1;color:var(--err)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.stat{background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:12px 14px}
+.stat .n{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+.stat .l{font-size:12px;color:var(--muted);margin-top:2px}
+.gname{font-size:13px;font-weight:700;color:var(--muted);margin:20px 0 8px;
+  padding-bottom:5px;border-bottom:1px solid var(--line)}
+.gname:first-of-type{margin-top:0}
+.chk{display:grid;grid-template-columns:78px 1fr;gap:12px;padding:11px 0;
+  border-bottom:1px dashed var(--line);align-items:start}
+.chk:last-child{border-bottom:0}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;
+  border-radius:99px;text-align:center;white-space:nowrap}
+.p-ok{background:var(--okbg);color:var(--ok)}
+.p-warn{background:var(--warnbg);color:var(--warn)}
+.p-err{background:var(--errbg);color:var(--err)}
+.p-info{background:var(--infobg);color:var(--info)}
+.p-unk{background:var(--unkbg);color:var(--unk)}
+.clabel{font-weight:600}
+.cid{font-size:11px;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.cdetail{font-size:13px;color:#443f3a;margin-top:3px}
+.offs{margin-top:6px;font-size:12px;color:var(--muted)}
+.offs code{background:var(--bg);border:1px solid var(--line);border-radius:5px;
+  padding:1px 6px;margin:2px 4px 2px 0;display:inline-block;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.cmd{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--line)}
+.cmd:last-child{border-bottom:0}
+.cmd .txt{flex:1;min-width:0}
+.cmd .lbl{font-weight:600;font-size:14px}
+.cmd .desc{font-size:12px;color:var(--muted);margin:2px 0 6px}
+.cmd code{display:block;white-space:pre-wrap;word-break:break-all;background:var(--bg);
+  border:1px solid var(--line);border-radius:7px;padding:9px 11px;font-size:12px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+button{font:inherit;font-size:12px;padding:6px 13px;border:1px solid var(--line);
+  background:var(--card);border-radius:7px;cursor:pointer;white-space:nowrap}
+button:hover{background:var(--bg)}
+button.danger{border-color:#e8bdba;color:var(--err)}
+pre.raw{background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:14px;
+  overflow:auto;max-height:340px;font-size:12px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+a{color:var(--info)}
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(14px);
+  background:#22201d;color:#fff;padding:9px 17px;border-radius:9px;font-size:13px;
+  opacity:0;pointer-events:none;transition:.18s}
+#toast.on{opacity:1;transform:translateX(-50%)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🏥 知識庫品質檢查</h1>
+  <div class="sub">
+    EDB K1 知識平台 · policychecker.wongfu.net · 每次執行 <code>qc_report.py --check</code> 時重新產生 ·
+    不與主站互連，僅供管理者及 AI agent 查閱。<br>
+    <strong>新鮮度由你的瀏覽器即時計算</strong>，即使整條管線已經停止、本頁不再更新，下方仍會轉為紅色。
+  </div>
+
+  <div id="banner" class="banner s-warn"><div class="big">⏳</div>
+    <div><div class="t">載入中…</div><div class="d">正在讀取 qc_report.json</div></div></div>
+
+  <div class="card"><h2>📊 資料狀態</h2><div id="corpus" class="grid"></div></div>
+  <div class="card"><h2>✅ 檢查結果</h2><div id="counts" class="grid"></div></div>
+  <div class="card"><h2>🔍 完整檢查清單</h2><div id="checks">載入中…</div></div>
+  <div class="card"><h2>🛠️ 運維指令<span class="sub" style="font-weight:400"> — 點擊複製</span></h2>
+    <div id="cmds"></div></div>
+  <div class="card"><h2>⚙️ 機器可讀狀態<span class="sub" style="font-weight:400"> — 供 AI agent 讀取</span></h2>
+    <div class="sub">同樣內容可直接抓取：<a href="qc_report.json">policychecker.wongfu.net/qc_report.json</a></div>
+    <pre class="raw" id="raw">載入中…</pre></div>
+</div>
+<div id="toast"></div>
+
+<script>
+'use strict';
+var REPO = 'Leonard-Wong-Git/edb-knowledge';
+// qc_report.py 由人手或 CI 觸發，不是每小時排程。36 小時 = 已經一日半沒有量度過；
+// 72 小時 = 這一頁講緊嘅嘢同今日嘅知識庫已經無關。
+var WARN_H = 36, ERR_H = 72;
+
+function h(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+// 以瀏覽器時鐘計算，而非產生時寫死的數字 —— 管線停止之後本頁不再更新，此值仍會繼續增長。
+function ago(iso){var t=Date.parse(iso);return isNaN(t)?null:(Date.now()-t)/36e5;}
+function fmtAge(x){
+  if(x==null) return '無法解析';
+  if(x<1) return Math.round(x*60)+' 分鐘前';
+  if(x<48) return x.toFixed(1)+' 小時前';
+  return (x/24).toFixed(1)+' 日前';
+}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('on');
+  setTimeout(function(){t.classList.remove('on');},1600);}
+function copy(text){
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(function(){toast('已複製到剪貼簿');},
+      function(){toast('複製失敗，請手動選取');});
+  } else { toast('此環境不支援自動複製，請手動選取'); }
+}
+
+var PILL = {PASS:['p-ok','通過'], FAIL:['p-err','未通過'], WARN:['p-warn','注意'],
+            INFO:['p-info','記錄'], NOT_MEASURED:['p-unk','未量度']};
+
+var COMMANDS = [
+  {l:'重新產生本報告', d:'直接對線上 Supabase 與 /health 量度，不依賴任何快取。',
+   c:'cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && \\\n' +
+     'set -a && . backend/.env && set +a && \\\n' +
+     'python3 dev/source/qc_report.py --check'},
+  {l:'先自我測試再產生', d:'自我測試包含幾條「刻意證明閘會紅」的斷言；先綠才信下面的數。',
+   c:'cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && \\\n' +
+     'python3 dev/source/qc_report.py --self-test'},
+  {l:'跑檢索評測並與上一次對比', d:'任何檢索改動都必須 before→after 對比為準。',
+   c:'cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && \\\n' +
+     'python3 dev/source/eval_retrieval.py --run --out dev/source/eval_runs/$(date +%F)_run.json && \\\n' +
+     'python3 dev/source/eval_retrieval.py --compare <上一次>.json dev/source/eval_runs/$(date +%F)_run.json'},
+  {l:'路由回歸測試', d:'改過 TOPIC_KEYWORDS 之後必跑；退出碼 1 代表有 query 改了路由。',
+   c:'cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && \\\n' +
+     'node dev/source/route_regression.mjs'},
+  {l:'確認線上服務中的 build', d:'commit 是服務中那一個 build 的 SHA 前七位。部署慢過你以為。',
+   c:'curl -s https://edb-knowledge.onrender.com/health'},
+  {l:'查看六個排程監察的執行紀錄', d:'新鮮度、發現、服務中連結、封面標題、到期、新通告。',
+   c:'gh run list --repo ' + REPO + ' --limit 15'},
+  {l:'⚠️ 由歷史版本還原凍結契約', d:'FREEZE_CONTRACT 轉紅時使用。四個值有下游系統依賴。', danger:true,
+   c:'cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && \\\n' +
+     'git log --oneline -20 -- knowledge.json guidelines.json\n' +
+     '# 選定 <SHA> 之後：\n' +
+     'git checkout <SHA> -- knowledge.json guidelines.json'}
+];
+
+function renderCommands(){
+  document.getElementById('cmds').innerHTML = COMMANDS.map(function(x,i){
+    return '<div class="cmd"><div class="txt"><div class="lbl">' + h(x.l) + '</div>' +
+      '<div class="desc">' + h(x.d) + '</div><code>' + h(x.c) + '</code></div>' +
+      '<button class="' + (x.danger ? 'danger' : '') + '" data-i="' + i + '">複製</button></div>';
+  }).join('');
+  var bs = document.querySelectorAll('#cmds button');
+  for (var i = 0; i < bs.length; i++) {
+    bs[i].addEventListener('click', function(e){
+      copy(COMMANDS[+e.currentTarget.getAttribute('data-i')].c);
+    });
+  }
+}
+
+function stat(n, l){
+  return '<div class="stat"><div class="n">' + h(n) + '</div><div class="l">' + h(l) + '</div></div>';
+}
+
+function render(d){
+  var age = ago(d.generatedAt);
+  var stale = age == null || age >= ERR_H ? 'err' : (age >= WARN_H ? 'warn' : 'ok');
+  var worst = d.overallStatus;
+  var cls, icon, title, desc;
+  if (stale === 'err') {
+    cls = 's-err'; icon = '🛑'; title = '本頁資料已經過期';
+    desc = '最後一次量度：' + fmtAge(age) + '（超過 ' + ERR_H + ' 小時）。下面每一個數都可能已經不成立。';
+  } else if (worst === 'BLOCKER' || worst === 'ERROR') {
+    cls = 's-err'; icon = '🛑'; title = worst === 'BLOCKER' ? '有攔截級問題' : '有錯誤級問題';
+    desc = '最後一次量度：' + fmtAge(age);
+  } else if (worst === 'WARN' || stale === 'warn') {
+    cls = 's-warn'; icon = '⚠️'; title = stale === 'warn' ? '量度已隔一段時間' : '有須要注意的項目';
+    desc = '最後一次量度：' + fmtAge(age);
+  } else {
+    cls = 's-ok'; icon = '✅'; title = '全部檢查通過';
+    desc = '最後一次量度：' + fmtAge(age);
+  }
+  document.getElementById('banner').className = 'banner ' + cls;
+  document.getElementById('banner').innerHTML =
+    '<div class="big">' + icon + '</div><div><div class="t">' + h(title) + '</div>' +
+    '<div class="d">' + h(desc) + ' · 平台 ' + h(d.version) + '</div></div>';
+
+  var c = d.corpus || {};
+  document.getElementById('corpus').innerHTML =
+    stat((c.chunks || 0).toLocaleString(), '知識片段') +
+    stat(c.sources_serving, '服務中來源') +
+    stat(c.sources_registered, '已登記來源') +
+    stat(c.guidelines_listed, '指引庫瀏覽項') +
+    stat(c.distinct_urls, '不重複連結');
+
+  var n = d.counts || {};
+  document.getElementById('counts').innerHTML =
+    stat(n.PASS || 0, '通過') + stat(n.BLOCKER || 0, '攔截') + stat(n.ERROR || 0, '錯誤') +
+    stat(n.WARN || 0, '注意') + stat(n.INFO || 0, '記錄') + stat(n.NOT_MEASURED || 0, '未量度');
+
+  var groups = d.groups || {};
+  var order = Object.keys(groups);
+  var html = '';
+  for (var gi = 0; gi < order.length; gi++) {
+    var g = order[gi];
+    var rows = (d.checks || []).filter(function(x){ return x.group === g; });
+    if (!rows.length) continue;
+    html += '<div class="gname">' + h(groups[g]) + '</div>';
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i], p = PILL[r.status] || ['p-unk', r.status];
+      var offs = '';
+      if (r.offenders && r.offenders.length) {
+        offs = '<div class="offs">' + r.offenders.map(function(o){
+          return '<code>' + h(o) + '</code>'; }).join('');
+        if (r.offender_total > r.offenders.length) {
+          offs += '<span>…共 ' + h(r.offender_total) + ' 項</span>';
+        }
+        offs += '</div>';
+      }
+      html += '<div class="chk"><div><span class="pill ' + p[0] + '">' + h(p[1]) + '</span></div>' +
+        '<div><div class="clabel">' + h(r.label) + ' <span class="cid">' + h(r.id) + '</span></div>' +
+        '<div class="cdetail">' + h(r.detail) + '</div>' + offs + '</div></div>';
+    }
+  }
+  document.getElementById('checks').innerHTML = html || '（沒有檢查項目）';
+  document.getElementById('raw').textContent = JSON.stringify(d, null, 2);
+}
+
+renderCommands();
+fetch('qc_report.json', {cache: 'no-store'}).then(function(r){
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  return r.json();
+}).then(render).catch(function(e){
+  document.getElementById('banner').className = 'banner s-err';
+  document.getElementById('banner').innerHTML =
+    '<div class="big">🛑</div><div><div class="t">讀不到 qc_report.json</div>' +
+    '<div class="d">' + h(String(e)) + '　—— 這本身就是一個訊號：報告從未產生，或者部署沒有落地。</div></div>';
+  document.getElementById('checks').textContent = '無法載入。';
+  document.getElementById('raw').textContent = String(e);
+});
+</script>
+</body>
+</html>
