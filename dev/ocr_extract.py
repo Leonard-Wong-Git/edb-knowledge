@@ -47,6 +47,30 @@ BACKEND_ENV = REPO_ROOT / "backend" / ".env"
 UA = {"User-Agent": "Mozilla/5.0"}
 OPENAI_URL = "https://api.openai.com/v1/chat/completions"
 FAIL_MARK = "〔OCR失敗〕"
+BLANK_MARK = "〔空白頁〕"
+# S212 — a vision model asked to transcribe a BLANK page does not error; it answers
+# with a refusal sentence ("抱歉，我無法協助識別或轉錄該圖像中的文字。"), and that
+# sentence used to be written into the vault as if it were the page's content. Found on
+# phys_sss_2007_2015 page 2, which is genuinely blank (rendered and looked at). Two
+# reasons this matters beyond one page: the sentence gets chunked, embedded and served
+# as a passage of an EDB curriculum guide, and `--resume` only re-tries 〔OCR失敗〕, so a
+# refusal would never be retried either. Marked as blank instead — short output only, so
+# a real page that merely mentions 抱歉 is not discarded.
+# Two signals, not one. A bare 抱歉 anywhere is NOT enough: 「學生如對評估安排感到抱歉
+# 或有疑問…」 is ordinary guide prose and was misclassified by the first version of this
+# rule. A refusal either OPENS with the apology, or states inability explicitly.
+_REFUSAL_OPENER = re.compile(r"^[\s\"'“”「」]*(抱歉|對不起|很抱歉|"
+                             r"I'm sorry|I am sorry|Sorry)", re.I)
+_REFUSAL_INABILITY = re.compile(
+    r"(無法協助|無法識別|無法轉錄|不能協助|沒有辦法協助|"
+    r"I cannot|I can't|I am unable|unable to (?:assist|help|process|transcribe))", re.I)
+
+
+def looks_like_refusal(text: str) -> bool:
+    t = (text or "").strip()
+    if not t or len(t) > 80:
+        return False
+    return bool(_REFUSAL_OPENER.match(t)) or bool(_REFUSAL_INABILITY.search(t))
 
 OCR_SYSTEM = (
     "You are a precise OCR engine for scanned Traditional-Chinese (Hong Kong) "
@@ -259,7 +283,15 @@ def main():
     res = ocr_many(api_key, rendered, args.model, args.concurrency)
 
     order = [pg for pg, _ in rendered]
-    pages = {pg: (res.get(pg) or FAIL_MARK) for pg in order}
+    pages = {}
+    for pg in order:
+        t = res.get(pg)
+        if t is None:
+            pages[pg] = FAIL_MARK
+        elif looks_like_refusal(t):
+            pages[pg] = BLANK_MARK
+        else:
+            pages[pg] = t
     cjk, fffd, failed = stats_of(pages, order)
     if cjk == 0:
         sys.exit(f"ERROR [{args.id}]: OCR produced no usable CJK text")
