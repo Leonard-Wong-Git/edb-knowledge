@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T15:33:04Z",
+  "generatedAt": "2026-09-03T17:16:59Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17597,
@@ -134,7 +134,7 @@
         "label": "每個 standing WARN 都有 owner、理由、接受期限",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "未有 waiver 8 項：ANCHOR_URL_PRESENT、SOURCE_TITLE_REAL、PAGE_ANCHORED、NO_DUPLICATE_CHUNKS、NO_TOC_NOISE、BODY_LENGTH_FLOOR"
+        "detail": "未有 waiver 8 項：ANCHOR_URL_PRESENT、SOURCE_TITLE_REAL、PAGE_ANCHORED、NO_DUPLICATE_CHUNKS、NO_TOC_NOISE、BODY_LENGTH_FLOOR、NO_MIDCLAUSE_START、MOJIBAKE"
       },
       {
         "id": "CORE_SEARCH_CASES",
@@ -187,7 +187,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=f513a18 · 啟動於 2026-09-03T15:32:56.031Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=f513a18 · 啟動於 2026-09-03T17:16:53.152Z · Channel A 快取 455 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -435,7 +435,7 @@
       "severity": "ERROR",
       "status": "FAIL",
       "group": "pointing",
-      "detail": "1 個來源 / 0 條片段 · registry 用 url_primary_pattern + years_extracted 描述整個年度系列，但 check_freshness / check_expiry / check_source_titles 三者只讀 url_primary，全部不展開年份 —— 所以 13 個分年檔（528 條片段、13 條實測 200 的 URL）不受任何 registry 監察。缺陷在監察，不在登記",
+      "detail": "1 個來源 / 0 條片段 · registry 用 url_primary_pattern + years_extracted 描述整個年度系列，但 check_freshness / check_expiry / check_source_titles 三者只讀 url_primary，全部不展開年份 —— 所以 13 個分年檔（528 條片段，13 條 URL 實測全部回 HTTP 200）不受任何 registry 監察。缺陷在監察，不在登記",
       "offenders": [
         "stat_enrolment_report（0 條）學生人數統計報告書（年度系列）"
       ],

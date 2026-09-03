@@ -524,7 +524,7 @@ def check_registry_drift(chunks: list[dict]) -> list[dict]:
             "SERIES_UNMONITORED":
                 "registry 用 url_primary_pattern + years_extracted 描述整個年度系列，"
                 "但 check_freshness / check_expiry / check_source_titles 三者只讀 "
-                "url_primary，全部不展開年份 —— 所以 13 個分年檔（528 條片段、13 條實測 200 的 URL）"
+                "url_primary，全部不展開年份 —— 所以 13 個分年檔（528 條片段，13 條 URL 實測全部回 HTTP 200）"
                 "不受任何 registry 監察。缺陷在監察，不在登記",
         }[cls]
         out.append(mk_check(
@@ -781,8 +781,12 @@ def build_release_gate(checks: list[dict], cfg: dict, today: str) -> dict:
             expired.append(f"{c['id']}（{w.get('owner')} 的接受期 {w.get('accept_until')} 已過）")
     add("WARNS_OWNED", "每個 standing WARN 都有 owner、理由、接受期限", "auto",
         not unwaived and not expired,
+        # S212 — list them ALL. The first version cut the list at six with no
+        # ellipsis, so the live page read "未有 waiver 8 項" above six names and
+        # silently dropped NO_MIDCLAUSE_START and MOJIBAKE. A count that does not
+        # match the list under it teaches the reader to distrust both.
         f"未有 waiver {len(unwaived)} 項"
-        + (f"：{'、'.join(unwaived[:6])}" if unwaived else "")
+        + (f"：{'、'.join(unwaived)}" if unwaived else "")
         + (f"；已過期 {len(expired)} 項：{'、'.join(expired)}" if expired else ""))
 
     for m in cfg.get("manual_checks", []):
