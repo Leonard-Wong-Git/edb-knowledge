@@ -50,6 +50,7 @@ EVAL_RUNS = REPO_ROOT / "dev" / "source" / "eval_runs"
 DEFAULT_OUT = REPO_ROOT / "qc_report.json"
 GATE_FILE = REPO_ROOT / "dev" / "source" / "release_gate.json"
 HEALTH_URL = "https://edb-knowledge.onrender.com/health"
+SEARCH_URL = "https://edb-knowledge.onrender.com/api/search/channel-b"
 SUPABASE_URL = "https://youkcekbrbywuqjxgibe.supabase.co"
 
 SEVERITY_ORDER = ["BLOCKER", "ERROR", "WARN", "INFO"]
@@ -77,7 +78,12 @@ BASELINE = {
     # stat_kg. Recounted over the whole store before this file was trusted.
     "title_equals_slug": 658,
     "short_body": 3,
-    "mojibake": 223,
+    # RATCHET. 223 when first measured; 58 after phys_sss_2007_2015 was
+    # re-extracted by OCR (S212). A baseline must be lowered whenever the count
+    # drops, or the check would stay green through a regression all the way back
+    # up to the old number — the defect it was built to catch.
+    # Remaining: gifted_ge_series 52/346, apl_curr_docs 6/147.
+    "mojibake": 58,
 }
 
 _WS = re.compile(r"\s+")
@@ -173,7 +179,8 @@ GROUPS = {
     "measurable": "質素是否可量度",
 }
 CHECK_GROUP = {
-    "BACKEND_HEALTH": "infra", "FREEZE_CONTRACT": "infra",
+    "BACKEND_HEALTH": "infra", "SEARCH_PIPELINE_LIVE": "infra",
+    "FREEZE_CONTRACT": "infra",
     "MIRROR_CONSISTENCY": "infra",
     "ANCHOR_URL_PRESENT": "pointing", "SOURCE_TITLE_REAL": "pointing",
     "PAGE_ANCHORED": "pointing",
@@ -536,6 +543,35 @@ def check_registry_drift(chunks: list[dict]) -> list[dict]:
     return out
 
 
+def check_search_live(probe: dict | None) -> dict:
+    """Does a real query still come back with passages? S212.
+
+    /health answers ok:true off the Channel A cache and touches neither the
+    embedding provider nor Supabase — so on 2026-09-03 it reported healthy while
+    every search on the site returned 429 "You have no credits remaining": a query
+    has to be embedded at request time, and the account had been drained by this
+    same session's 150-page OCR run. A health check that cannot go red is not a
+    health check (discipline #11).
+
+    Probes the production endpoint rather than the provider directly, so it tests
+    the path a user actually takes — key, quota, embedding, Supabase RPC and the
+    route filter, in one call.
+    """
+    label = "真實查詢仍然答得到（不是只看 /health）"
+    if probe is None:
+        return mk_check("SEARCH_PIPELINE_LIVE", label, "BLOCKER", "FAIL",
+                        "探測查詢無回應")
+    if probe.get("error"):
+        return mk_check("SEARCH_PIPELINE_LIVE", label, "BLOCKER", "FAIL",
+                        f"端點回錯誤：{str(probe['error'])[:150]}。"
+                        f"⚠️ 這種情況下 /health 仍然報 ok:true——它只驗 Channel A 快取")
+    n = len(probe.get("results") or [])
+    return mk_check("SEARCH_PIPELINE_LIVE", label, "BLOCKER",
+                    "PASS" if n else "FAIL",
+                    f"探測查詢回傳 {n} 條片段 · 一次過驗到 key、額度、embedding、"
+                    f"Supabase RPC 同路由過濾")
+
+
 def check_backend(health: dict | None) -> list[dict]:
     if health is None:
         return [mk_check("BACKEND_HEALTH", "後端服務可達", "BLOCKER",
@@ -668,13 +704,15 @@ def route_regression() -> dict:
 # ---------------------------------------------------------------------------
 
 
-def build_report(chunks: list[dict], health: dict | None, registry: list[dict],
+def build_report(chunks: list[dict], health: dict | None,
+                 search_probe: dict | None, registry: list[dict],
                  knowledge: dict, guidelines: dict, guideline_count: int | None,
                  run: dict | None) -> dict:
     live_total = len(chunks)
     serving = {c["source_id"] for c in chunks}
     checks: list[dict] = []
     checks += check_backend(health)
+    checks.append(check_search_live(search_probe))
     checks.append(check_freeze_contract(knowledge, guidelines))
     checks.append(check_mirrors(live_total, read_mirrors(live_total)))
     # A. 政策是否指得清楚
@@ -853,6 +891,21 @@ def self_test() -> int:
     check("no page anchor at all",
           not page_anchored({"text": "x", "url": "https://e.gov/a.pdf"}))
 
+    # THE GATE MUST GO RED. This is the check whose absence let a total search
+    # outage sit behind a green /health for as long as nobody typed a query.
+    check("a 429 from the endpoint FAILS the live-search check",
+          check_search_live({"error": "429 You have no credits remaining"})["status"]
+          == "FAIL")
+    check("an empty result set FAILS it too (200 is not the same as answering)",
+          check_search_live({"results": []})["status"] == "FAIL")
+    check("no response at all FAILS it",
+          check_search_live(None)["status"] == "FAIL")
+    check("a normal answer passes",
+          check_search_live({"results": [{"source_id": "a"}, {"source_id": "b"}]})["status"]
+          == "PASS")
+    check("it is a BLOCKER, so it stops a release on its own",
+          check_search_live({"results": []})["severity"] == "BLOCKER")
+
     check("family 1 detected (Latin-range CID glyph ids)",
           mojibake_family("ƙŒȕ¸ǷǳȣƟĴŏŹƭĎĪÅĄƭĎ¸ŵȕȣƟĴěï¸ǷǳȣƟĴƚĊĥȼě¼·ųǕéƌāȶËĴƵ")
           == "latin_cid")
@@ -1005,12 +1058,31 @@ def main() -> int:
         print(f"  /health unreachable: {e}", file=sys.stderr)
         health = None
 
+    try:
+        req = urllib.request.Request(
+            SEARCH_URL,
+            data=json.dumps({"query": "教師病假", "top_k": 3,
+                             "synthesize": False}).encode("utf-8"),
+            headers={"Content-Type": "application/json", "x-probe": "1"},
+            method="POST")
+        with urllib.request.urlopen(req, timeout=120) as r:
+            search_probe = json.loads(r.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        try:
+            search_probe = json.loads(e.read().decode("utf-8"))
+        except (ValueError, OSError):
+            search_probe = {"error": f"HTTP {e.code}"}
+    except (OSError, ValueError) as e:
+        print(f"  search probe failed: {e}", file=sys.stderr)
+        search_probe = {"error": str(e)}
+
     reg = json.loads(REGISTRY.read_text(encoding="utf-8"))
     registry = reg["sources"] if isinstance(reg, dict) and "sources" in reg else reg
     knowledge = json.loads((REPO_ROOT / "knowledge.json").read_text(encoding="utf-8"))
     guidelines = json.loads((REPO_ROOT / "guidelines.json").read_text(encoding="utf-8"))
 
-    rep = build_report(chunks, health, registry, knowledge, guidelines,
+    rep = build_report(chunks, health, search_probe, registry, knowledge,
+                       guidelines,
                        guidelines_registry_count(), latest_eval_run())
     Path(args.out).write_text(json.dumps(rep, ensure_ascii=False, indent=2) + "\n",
                               encoding="utf-8")

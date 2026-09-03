@@ -1,0 +1,2509 @@
+{
+ "label": "2026-09-03 17:27 UTC",
+ "endpoint": "https://edb-knowledge.onrender.com/api/search/channel-b",
+ "top_k": 8,
+ "generated_at": "2026-09-03T17:34:17Z",
+ "tie_aliases": [
+  [
+   "g24",
+   "sag_2025_11"
+  ]
+ ],
+ "summary": {
+  "PASS": 27,
+  "FAIL": 0,
+  "RECORD_ONLY": 12,
+  "chunk_PASS": 2,
+  "chunk_FAIL": 0,
+  "errors": 0,
+  "queries": 39
+ },
+ "results": [
+  {
+   "id": "mpf",
+   "query": "公積金 MPF",
+   "note": "S178 MPF 漏答修復 + tie pair",
+   "expect_any": [
+    "g24",
+    "sag_2025_11"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "sag_2025_11",
+    "coa_ss_e",
+    "long_service_payment_guide",
+    "edb_net_package_pdf",
+    "long_service_payment_guide",
+    "edbcm060_2026",
+    "coa_pri_e",
+    "trg_imc_2023"
+   ],
+   "chunk_ids": [
+    "vault_sag_2025_11_63293a9f5089c483",
+    "vault_coa_ss_e_cc08c29ab7ff",
+    "vault_long_service_payment_guide_b45c186668ff6ae7",
+    "footnote_fn_net_legacy_gratuity_15",
+    "vault_long_service_payment_guide_dbd86e38f3ea3992",
+    "vault_edbcm060_2026_39a6b697dfec8c9e",
+    "vault_coa_pri_e_00ad459bc351",
+    "footnote_fn_trg_freeze_mpf"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.507,
+    0.481,
+    0.4754,
+    0.4691,
+    0.4672,
+    0.4666,
+    0.4578,
+    0.4563
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "footnote_curated"
+   ],
+   "pages": [
+    201,
+    29,
+    4,
+    null,
+    5,
+    18,
+    100,
+    null
+   ],
+   "total": 8
+  },
+  {
+   "id": "gifted",
+   "query": "資優教育課程",
+   "note": "gifted route",
+   "expect_any": [
+    "g14",
+    "gifted_policy_docs",
+    "g13",
+    "sec_curr_guide_2017_booklet_6a"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 2,
+   "source_ids": [
+    "gifted_tp_resource_kit",
+    "g06",
+    "gifted_policy_docs",
+    "g06",
+    "gifted_policy_docs",
+    "gifted_tp_resource_kit",
+    "g14",
+    "gifted_ge_series"
+   ],
+   "chunk_ids": [
+    "vault_gifted_tp_resource_kit_af87c0d01b9a1257",
+    "vault_g06_8a30f594554c400a",
+    "vault_gifted_policy_docs_4b5cc73e2b3d",
+    "vault_g06_f0463fdd55f3c30d",
+    "vault_gifted_policy_docs_e273f17a831d",
+    "vault_gifted_tp_resource_kit_a00660a3e9a8b640",
+    "vault_g14_46e847cdb246",
+    "vault_gifted_ge_series_604ca8f4e7491b34"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.7441,
+    0.7336,
+    0.7317,
+    0.7303,
+    0.7288,
+    0.7169,
+    0.7164,
+    0.7149
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    16,
+    141,
+    8,
+    140,
+    6,
+    3,
+    null,
+    1
+   ],
+   "total": 8
+  },
+  {
+   "id": "sef",
+   "query": "學校效率津貼",
+   "note": "S184 digital_education route, 防被 finance「津貼」偷",
+   "expect_any": [
+    "edbc008_2026"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 3,
+   "source_ids": [
+    "eoebg_rates_2026",
+    "sag_2025_11",
+    "edbc015_2026",
+    "edbc008_2026",
+    "edbc008_2026",
+    "edbcm_221_2025_smart_teaching",
+    "edbcm156_2026",
+    "edbc011_2026"
+   ],
+   "chunk_ids": [
+    "footnote_fn_dlg_incentive_cease",
+    "footnote_fn_sag_apx_fees_fines_table",
+    "vault_edbc015_2026_eb9068b4c34eacef",
+    "vault_edbc008_2026_e38d83844e460f44",
+    "vault_edbc008_2026_de2f9bf3eaaa7cd6",
+    "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
+    "vault_edbcm156_2026_132cd3b8d24e2185",
+    "vault_edbc011_2026_bfe00500718b5859"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.5614,
+    0.5611,
+    0.61,
+    0.72,
+    0.7196,
+    0.7134,
+    0.7101,
+    0.7065
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    3,
+    2,
+    1,
+    1,
+    4,
+    2
+   ],
+   "total": 8
+  },
+  {
+   "id": "values_edu",
+   "query": "價值觀教育",
+   "note": "S183 supersede penalty：2026 正式版要壓過 2021 試行版（id 由 registry 核實，handoff 簡寫 VE_CF_2026 唔係真 id）",
+   "expect_any": [
+    "values_edu_framework_2026"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "values_edu_framework_2026",
+    "values_edu_framework_2026",
+    "values_edu_framework_2026",
+    "values_edu_framework_2021_trial",
+    "values_edu_framework_2021_trial",
+    "values_edu_framework_2021_trial",
+    "edbcm183_2023_values_edu",
+    "edbcm183_2023_values_edu"
+   ],
+   "chunk_ids": [
+    "vault_values_edu_framework_2026_0da67efbea4da2d2",
+    "vault_values_edu_framework_2026_df0efb3ce07c145a",
+    "vault_values_edu_framework_2026_22332abbfe013e23",
+    "vault_values_edu_framework_2021_trial_9b2d3e17380391d0",
+    "vault_values_edu_framework_2021_trial_56fa6bfa2de7c83c",
+    "vault_values_edu_framework_2021_trial_d1df90b3883483af",
+    "vault_edbcm183_2023_values_edu_f4f724f8b8de4e6f",
+    "vault_edbcm183_2023_values_edu_a252f1f35bc142c6"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.7527,
+    0.7504,
+    0.7472,
+    0.7444,
+    0.7303,
+    0.7045,
+    0.6908,
+    0.6893
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    17,
+    34,
+    18,
+    18,
+    11,
+    11,
+    8,
+    1
+   ],
+   "total": 8
+  },
+  {
+   "id": "values_12",
+   "query": "12 首要價值觀",
+   "note": "S183 短 query",
+   "expect_any": [
+    "values_edu_framework_2026"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "values_edu_framework_2026",
+    "values_edu_framework_2026",
+    "values_edu_framework_2026",
+    "values_edu_framework_2021_trial",
+    "values_edu_framework_2021_trial",
+    "edbcm183_2023_values_edu",
+    "edbcm183_2023_values_edu",
+    "edbcm183_2023_values_edu"
+   ],
+   "chunk_ids": [
+    "vault_values_edu_framework_2026_df0efb3ce07c145a",
+    "vault_values_edu_framework_2026_147998d138b6a2cc",
+    "vault_values_edu_framework_2026_48da671c12945a93",
+    "vault_values_edu_framework_2021_trial_56fa6bfa2de7c83c",
+    "vault_values_edu_framework_2021_trial_9b2d3e17380391d0",
+    "vault_edbcm183_2023_values_edu_4f579d400ca759c7",
+    "vault_edbcm183_2023_values_edu_f4f724f8b8de4e6f",
+    "vault_edbcm183_2023_values_edu_a252f1f35bc142c6"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.7492,
+    0.7466,
+    0.7293,
+    0.6945,
+    0.6936,
+    0.6783,
+    0.6753,
+    0.6732
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    34,
+    31,
+    29,
+    11,
+    18,
+    4,
+    8,
+    1
+   ],
+   "total": 8
+  },
+  {
+   "id": "smart_teaching",
+   "query": "智啟學教",
+   "note": "S183 digital_education 提到 finance 之上",
+   "expect_any": [
+    "edbcm_221_2025_smart_teaching"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 1,
+   "source_ids": [
+    "debp_blueprint",
+    "edbcm_221_2025_smart_teaching",
+    "edbcm156_2026",
+    "debp_blueprint",
+    "edbcm107_2026",
+    "edbcm156_2026",
+    "debp_exec_summary",
+    "debp_blueprint"
+   ],
+   "chunk_ids": [
+    "vault_debp_blueprint_a823845b1c1e876f",
+    "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
+    "vault_edbcm156_2026_132cd3b8d24e2185",
+    "vault_debp_blueprint_ea1a2e1821e0d433",
+    "vault_edbcm107_2026_c4df7bf07cbdea4f",
+    "vault_edbcm156_2026_c2d745f77e8d7038",
+    "vault_debp_exec_summary_aafddb892b407262",
+    "vault_debp_blueprint_f4a27dc0f1002962"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.7869,
+    0.7737,
+    0.742,
+    0.7359,
+    0.7353,
+    0.7351,
+    0.735,
+    0.7324
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    9,
+    1,
+    4,
+    28,
+    8,
+    5,
+    2,
+    24
+   ],
+   "total": 8
+  },
+  {
+   "id": "teacher_reg",
+   "query": "教師註冊",
+   "note": "S181 footnote 13 條；record-only（多源合理）",
+   "expect_any": [],
+   "verdict": "RECORD_ONLY",
+   "rank_of_expected": null,
+   "source_ids": [
+    "cap279_education_ordinance",
+    "edb-guidelines-tpc-2022",
+    "sag_2025_11",
+    "sag_2025_11",
+    "g04",
+    "sag_2025_11",
+    "g04",
+    "edbc14_2023_student_protect"
+   ],
+   "chunk_ids": [
+    "footnote_fn_cap279_s47_cancel_register",
+    "footnote_fn_tpc_2022_representation_14d",
+    "footnote_fn_sag_apx_sick_leave_28_48_168",
+    "footnote_fn_sag_sick_leave",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_7da8bf2e5d3112f5",
+    "vault_g04_5a60fb781f6f",
+    "vault_edbc14_2023_student_protect_654e1f2c68b62e77"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.603,
+    0.5902,
+    0.7483,
+    0.7332,
+    0.7133,
+    0.7002,
+    0.6096,
+    0.6063
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    224,
+    null,
+    6
+   ],
+   "total": 8
+  },
+  {
+   "id": "substitute",
+   "query": "代課教師 批准",
+   "note": "S174 footnote 修正 hallucination（30日→6個月）",
+   "expect_any": [],
+   "verdict": "RECORD_ONLY",
+   "rank_of_expected": null,
+   "source_ids": [
+    "supply_teacher_guide",
+    "sag_2025_11",
+    "g04",
+    "sag_2025_11",
+    "sag_2025_11",
+    "supply_teacher_guide",
+    "edbc00030",
+    "g04"
+   ],
+   "chunk_ids": [
+    "footnote_fn_supply_approval",
+    "footnote_fn_sag_sick_leave",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_7da8bf2e5d3112f5",
+    "vault_sag_2025_11_621a43b3aae2a0e2",
+    "vault_supply_teacher_guide_dcbdce2e3ff6cfb3",
+    "vault_edbc00030_29618c7a4673",
+    "vault_g04_5a60fb781f6f"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.543,
+    0.7325,
+    0.7228,
+    0.7074,
+    0.6925,
+    0.6375,
+    0.6194,
+    0.6146
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    null,
+    224,
+    225,
+    5,
+    17,
+    null
+   ],
+   "total": 8
+  },
+  {
+   "id": "school_rent",
+   "query": "出租校舍 租金",
+   "note": "S178 tips #27（40% 入政府帳）",
+   "expect_any": [],
+   "verdict": "RECORD_ONLY",
+   "rank_of_expected": null,
+   "source_ids": [
+    "subvention_tips",
+    "kg_admin_guide_2026",
+    "sag_2025_11",
+    "ac_grant_2026",
+    "sag_2025_11",
+    "eoebg_rates_2026",
+    "sag_2025_11",
+    "cfeg_guide_2026"
+   ],
+   "chunk_ids": [
+    "footnote_fn_tips_rental_40pct",
+    "footnote_fn_kgadmin_utilrate",
+    "vault_sag_2025_11_8eade44a4f76ffa9",
+    "footnote_fn_ac_rates_2627",
+    "vault_sag_2025_11_929732807e713978",
+    "footnote_fn_boarding_fee_deduct",
+    "vault_sag_2025_11_a15883e9dd903eb8",
+    "footnote_fn_cfeg_rates_2627"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.6639,
+    0.4854,
+    0.5931,
+    0.5184,
+    0.5173,
+    0.5146,
+    0.4916,
+    0.4637
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "footnote_curated",
+    "vault_extract",
+    "footnote_curated",
+    "vault_extract",
+    "footnote_curated"
+   ],
+   "pages": [
+    null,
+    null,
+    242,
+    null,
+    242,
+    null,
+    144,
+    null
+   ],
+   "total": 8
+  },
+  {
+   "id": "procurement",
+   "query": "採購 不得拆單",
+   "note": "S178 tips #28（12 個月累計 $50k/$200k）",
+   "expect_any": [],
+   "verdict": "RECORD_ONLY",
+   "rank_of_expected": null,
+   "source_ids": [
+    "g01",
+    "g01",
+    "g01",
+    "role_facts_finance",
+    "fin_mgmt_notes_aided",
+    "g02",
+    "subvention_tips"
+   ],
+   "chunk_ids": [
+    "vault_g01_526fe089b707001e",
+    "vault_g01_166ade0c624040d1",
+    "vault_g01_7c2b5af7e98a2f1a",
+    "fact_role_facts_finance_87e70e8725a91d98",
+    "vault_fin_mgmt_notes_aided_7e84bb9e69b8f8e0",
+    "vault_g02_6e9b68d2288469a1",
+    "footnote_fn_tips_no_split_order"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.6902,
+    0.6781,
+    0.6546,
+    0.6168,
+    0.6139,
+    0.5556,
+    0.4424
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "approved_fact",
+    "vault_extract",
+    "vault_extract",
+    "footnote_curated"
+   ],
+   "pages": [
+    4,
+    5,
+    12,
+    null,
+    1,
+    13,
+    null
+   ],
+   "total": 7
+  },
+  {
+   "id": "imc",
+   "query": "SMC IMC",
+   "note": "S166 英文縮寫 retrieval 修復（ids 由 registry 核實）",
+   "expect_any": [
+    "smc_constitution_sample",
+    "imc_establishment_operation",
+    "imc_governance_supplements",
+    "imc_briefing_qa",
+    "g30",
+    "g31",
+    "coa_imc_1_19",
+    "g02"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 1,
+   "source_ids": [
+    "edbc_8_2025_net_enhancement",
+    "imc_establishment_operation",
+    "imc_establishment_operation",
+    "imc_establishment_operation",
+    "imc_governance_supplements",
+    "g02",
+    "imc_governance_supplements",
+    "imc_governance_supplements"
+   ],
+   "chunk_ids": [
+    "footnote_fn_net_imc_smc_oversight",
+    "vault_imc_establishment_operation_3900d762ffc52824",
+    "vault_imc_establishment_operation_e6fa3453dcd8c3d9",
+    "footnote_fn_imc_60pct",
+    "vault_imc_governance_supplements_cf1cc47d2301e498",
+    "vault_g02_9c012ae5a82b9a77",
+    "vault_imc_governance_supplements_dbc4b86ab2a36b99",
+    "vault_imc_governance_supplements_1919592e3ff2d0ef"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.5085,
+    0.6041,
+    0.5554,
+    0.5447,
+    0.5383,
+    0.532,
+    0.5194,
+    0.5181
+   ],
+   "content_types": [
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    3,
+    4,
+    null,
+    21,
+    3,
+    9,
+    22
+   ],
+   "total": 8
+  },
+  {
+   "id": "kg_admission",
+   "query": "幼稚園收生",
+   "note": "kg_admission route",
+   "expect_any": [],
+   "verdict": "RECORD_ONLY",
+   "rank_of_expected": null,
+   "source_ids": [
+    "k1_admission_2627",
+    "k1_admission_2627",
+    "k1_admission_2627",
+    "edbcm080_2026",
+    "g25",
+    "g26",
+    "edbcm080_2026",
+    "g26"
+   ],
+   "chunk_ids": [
+    "footnote_fn_k1_appfee",
+    "footnote_fn_k1_regfee",
+    "vault_k1_admission_2627_bce254dce1978b99",
+    "vault_edbcm080_2026_b643924590eb88dd",
+    "vault_g25_a3d58093313d",
+    "vault_g26_ed814e330ee43595",
+    "vault_edbcm080_2026_d0fad42b57d019f7",
+    "vault_g26_977d336da59f4b1e"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.5243,
+    0.5106,
+    0.7376,
+    0.733,
+    0.698,
+    0.6959,
+    0.6911,
+    0.6869
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    15,
+    6,
+    null,
+    2,
+    3,
+    3
+   ],
+   "total": 8
+  },
+  {
+   "id": "sen_exam",
+   "query": "特殊教育需要 考試安排",
+   "note": "S141 SEN backfill",
+   "expect_any": [
+    "sen_exam_arrangements_2025"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "sen_exam_arrangements_2025",
+    "g19",
+    "g19",
+    "g06",
+    "sen_exam_arrangements_2025",
+    "sen_exam_arrangements_2025",
+    "g19",
+    "role_facts_student"
+   ],
+   "chunk_ids": [
+    "vault_sen_exam_arrangements_2025_ce6f039be10d103f",
+    "vault_g19_1bcd00d93612e161",
+    "vault_g19_710b48540bec2358",
+    "vault_g06_d848109f501c4993",
+    "vault_sen_exam_arrangements_2025_3b30beadb82b23a1",
+    "vault_sen_exam_arrangements_2025_4ea3d4e6dd007d47",
+    "vault_g19_d73bd97402db688d",
+    "fact_role_facts_student_421a569cbd31d284"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.741,
+    0.7109,
+    0.707,
+    0.7023,
+    0.6915,
+    0.6881,
+    0.6843,
+    0.6832
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "approved_fact"
+   ],
+   "pages": [
+    8,
+    12,
+    9,
+    137,
+    4,
+    43,
+    56,
+    null
+   ],
+   "total": 8
+  },
+  {
+   "id": "pay_adjust",
+   "query": "教職員薪酬調整",
+   "note": "S193 spotlight（原本連自己標題都搵唔到）；刻意用最短 phrasing",
+   "expect_any": [
+    "edbcm094_2026"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 1,
+   "source_ids": [
+    "sag_2025_11",
+    "edbcm094_2026",
+    "sag_2025_11",
+    "sag_2025_11",
+    "job_sharing_guide",
+    "supply_teacher_guide",
+    "g04",
+    "g04"
+   ],
+   "chunk_ids": [
+    "footnote_fn_sag_apx_sick_leave_28_48_168",
+    "vault_edbcm094_2026_97fec5e1ee04e91e",
+    "footnote_fn_sag_sick_leave",
+    "vault_sag_2025_11_621a43b3aae2a0e2",
+    "vault_job_sharing_guide_a8ab796eb2c2b76f",
+    "vault_supply_teacher_guide_dcbdce2e3ff6cfb3",
+    "vault_g04_638c01bf30ac",
+    "vault_g04_5a60fb781f6f"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.4736,
+    0.6897,
+    0.7151,
+    0.6982,
+    0.6134,
+    0.5991,
+    0.5937,
+    0.5929
+   ],
+   "content_types": [
+    "footnote_curated",
+    "vault_extract",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    1,
+    null,
+    225,
+    4,
+    5,
+    null,
+    null
+   ],
+   "total": 8
+  },
+  {
+   "id": "net_scholar",
+   "query": "準英語教師獎學金",
+   "note": "S193 spotlight（S186 monitor 已修好）",
+   "expect_any": [
+    "edbcm066_2026"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "edbcm066_2026",
+    "sag_2025_11",
+    "g04",
+    "sag_2025_11",
+    "sag_2025_11",
+    "job_sharing_guide",
+    "g04",
+    "edbc00030"
+   ],
+   "chunk_ids": [
+    "vault_edbcm066_2026_51c9b5da1d0eae86",
+    "footnote_fn_sag_sick_leave",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_7da8bf2e5d3112f5",
+    "vault_sag_2025_11_621a43b3aae2a0e2",
+    "vault_job_sharing_guide_a8ab796eb2c2b76f",
+    "vault_g04_5a60fb781f6f",
+    "vault_edbc00030_29618c7a4673"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.696,
+    0.7306,
+    0.7264,
+    0.6985,
+    0.6792,
+    0.6086,
+    0.6045,
+    0.594
+   ],
+   "content_types": [
+    "vault_extract",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    4,
+    null,
+    null,
+    224,
+    225,
+    4,
+    null,
+    17
+   ],
+   "total": 8
+  },
+  {
+   "id": "ai_intro",
+   "query": "人工智能初探",
+   "note": "S193 miss（通函 chunk 對此 phrasing 只 0.46）→ S194 入庫框架正文後 rank 0 @0.628。正文係正解，通函保留為次要可接受目標",
+   "expect_any": [
+    "iit_ai_framework_2026",
+    "edbcm113_2026"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "iit_ai_framework_2026",
+    "debp_blueprint",
+    "edbcm107_2026",
+    "edbcm_221_2025_smart_teaching",
+    "debp_exec_summary",
+    "edbcm156_2026",
+    "debp_blueprint",
+    "debp_blueprint"
+   ],
+   "chunk_ids": [
+    "vault_iit_ai_framework_2026_06a2de017b9e72e2",
+    "vault_debp_blueprint_a823845b1c1e876f",
+    "vault_edbcm107_2026_bc0fe4e2172afe98",
+    "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
+    "vault_debp_exec_summary_aafddb892b407262",
+    "vault_edbcm156_2026_c2d745f77e8d7038",
+    "vault_debp_blueprint_b3d3bcff7d1166a0",
+    "vault_debp_blueprint_f4a27dc0f1002962"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.6281,
+    0.784,
+    0.7442,
+    0.7442,
+    0.74,
+    0.7385,
+    0.7356,
+    0.7249
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    2,
+    9,
+    6,
+    1,
+    2,
+    5,
+    13,
+    24
+   ],
+   "total": 8
+  },
+  {
+   "id": "elearning_fund",
+   "query": "電子學習撥款",
+   "note": "edbcm073_2026 已知 miss 0.458 = 設計邊界；record-only 監察",
+   "expect_any": [],
+   "verdict": "RECORD_ONLY",
+   "rank_of_expected": null,
+   "source_ids": [
+    "edbcm_221_2025_smart_teaching",
+    "edbcm156_2026",
+    "edbcm_221_2025_smart_teaching",
+    "debp_blueprint",
+    "edbc008_2026",
+    "debp_blueprint",
+    "debp_exec_summary",
+    "debp_blueprint"
+   ],
+   "chunk_ids": [
+    "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
+    "vault_edbcm156_2026_132cd3b8d24e2185",
+    "vault_edbcm_221_2025_smart_teaching_92859bc1e5f95dfa",
+    "vault_debp_blueprint_39b37d455c0b41b7",
+    "vault_edbc008_2026_e38d83844e460f44",
+    "vault_debp_blueprint_87297b244bcb4bfe",
+    "vault_debp_exec_summary_aafddb892b407262",
+    "vault_debp_blueprint_2f8920e901ee53f4"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.7337,
+    0.722,
+    0.7139,
+    0.7042,
+    0.7013,
+    0.6977,
+    0.6963,
+    0.6939
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    1,
+    4,
+    2,
+    16,
+    2,
+    11,
+    2,
+    16
+   ],
+   "total": 8
+  },
+  {
+   "id": "ict_guide",
+   "query": "資訊及通訊科技 課程指引",
+   "note": "本 session 修 mislabel 前：只有 2015 版有真 ICT 內容",
+   "expect_any": [
+    "ict_sss_2021",
+    "ict_sss_2007_2015"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "ict_sss_2021",
+    "ict_sss_2021",
+    "ict_sss_2021",
+    "ict_sss_2007_2015",
+    "g13",
+    "gs_pri_guide_2017",
+    "ict_sss_2007_2015",
+    "ict_sss_2007_2015"
+   ],
+   "chunk_ids": [
+    "vault_ict_sss_2021_814404d068645d64",
+    "vault_ict_sss_2021_85b95f597fc3df40",
+    "vault_ict_sss_2021_9530a8ade14a81cc",
+    "vault_ict_sss_2007_2015_97fa5b7386b85bbb",
+    "vault_g13_d9b864df2358510e",
+    "vault_gs_pri_guide_2017_fe3d986148fe408e",
+    "vault_ict_sss_2007_2015_41ae606db7ec0301",
+    "vault_ict_sss_2007_2015_7c3b09ce372d8f05"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.6242,
+    0.6214,
+    0.607,
+    0.5849,
+    0.579,
+    0.5738,
+    0.5523,
+    0.5509
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    11,
+    14,
+    65,
+    10,
+    478,
+    7,
+    9,
+    87
+   ],
+   "total": 8
+  },
+  {
+   "id": "cgss",
+   "query": "公民與社會發展科",
+   "note": "record-only；本 session 前公社科內容錯掛 ict_sss_2021 之下",
+   "expect_any": [],
+   "verdict": "RECORD_ONLY",
+   "rank_of_expected": null,
+   "source_ids": [
+    "cgss_sss_2021",
+    "cgss_sss_2021",
+    "cgss_sss_2021",
+    "ces_jss_2024",
+    "ces_jss_2024",
+    "ces_jss_2024"
+   ],
+   "chunk_ids": [
+    "vault_cgss_sss_2021_127999dec3ad3140",
+    "vault_cgss_sss_2021_327c25b5476def04",
+    "vault_cgss_sss_2021_944757d937a09ae6",
+    "vault_ces_jss_2024_53add43f2726db56",
+    "vault_ces_jss_2024_5dad63d60c10b4fd",
+    "vault_ces_jss_2024_fd1ec5cf62ba8380"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.7735,
+    0.6949,
+    0.6877,
+    0.6826,
+    0.6358,
+    0.6356
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    11,
+    10,
+    19,
+    23,
+    69,
+    16
+   ],
+   "total": 6
+  },
+  {
+   "id": "cgss_topic",
+   "query": "一國兩制 課程",
+   "note": "record-only；同上，用另一 phrasing 探公社科內容",
+   "expect_any": [],
+   "verdict": "RECORD_ONLY",
+   "rank_of_expected": null,
+   "source_ids": [
+    "cgss_sss_2021",
+    "cgss_sss_2021",
+    "cgss_sss_2021",
+    "ces_jss_2024",
+    "ces_jss_2024",
+    "ces_jss_2024",
+    "EDBCM_79_2025_TC",
+    "EDBCM_79_2025_TC"
+   ],
+   "chunk_ids": [
+    "vault_cgss_sss_2021_127999dec3ad3140",
+    "vault_cgss_sss_2021_327c25b5476def04",
+    "vault_cgss_sss_2021_944757d937a09ae6",
+    "vault_ces_jss_2024_53add43f2726db56",
+    "vault_ces_jss_2024_e8c50400930e086e",
+    "vault_ces_jss_2024_db1c8388f2c55958",
+    "footnote_fn_ncs_sbp_60hr_min",
+    "footnote_fn_ncs_sbp_26360_class"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.7859,
+    0.6955,
+    0.6791,
+    0.6736,
+    0.6242,
+    0.6222,
+    0.468,
+    0.4486
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "footnote_curated",
+    "footnote_curated"
+   ],
+   "pages": [
+    11,
+    10,
+    19,
+    23,
+    13,
+    47,
+    null,
+    null
+   ],
+   "total": 8
+  },
+  {
+   "id": "nonlocal",
+   "query": "非本地兒童入學",
+   "note": "S192-193 管道自動入庫源",
+   "expect_any": [
+    "edbc013_2026"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 1,
+   "source_ids": [
+    "k1_admission_2627",
+    "edbc013_2026",
+    "edbcm080_2026",
+    "k1_admission_2627",
+    "cap279_education_ordinance",
+    "AUD_e76ch02",
+    "cap279_education_ordinance",
+    "EDBCM_79_2025_TC"
+   ],
+   "chunk_ids": [
+    "footnote_fn_k1_eligibility",
+    "vault_edbc013_2026_b4dbe80c3c39db63",
+    "vault_edbcm080_2026_68156ea630fae5ec",
+    "footnote_fn_k1_appfee",
+    "footnote_fn_cap279_s14_refuse_grounds",
+    "footnote_fn_ncs_kg_5tier_201920",
+    "footnote_fn_cap279_s10_school_must_register",
+    "footnote_fn_ncs_sbp_60hr_min"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.4628,
+    0.6186,
+    0.5943,
+    0.4805,
+    0.4715,
+    0.4579,
+    0.452,
+    0.4518
+   ],
+   "content_types": [
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "footnote_curated",
+    "footnote_curated",
+    "footnote_curated",
+    "footnote_curated",
+    "footnote_curated"
+   ],
+   "pages": [
+    null,
+    1,
+    2,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "total": 8
+  },
+  {
+   "id": "my_pledge",
+   "query": "我的行動承諾",
+   "note": "S192-193 管道自動入庫源",
+   "expect_any": [
+    "edbcm076_2026"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "edbcm076_2026",
+    "edbcm076_2026",
+    "ph_pri_guide_2025",
+    "values_edu_framework_2021_trial",
+    "religious_edu_jss_2024",
+    "edbcm076_2026",
+    "kg_admin_guide_2026",
+    "g06"
+   ],
+   "chunk_ids": [
+    "vault_edbcm076_2026_12fc356c14f81287",
+    "vault_edbcm076_2026_ff25d41e355333b1",
+    "vault_ph_pri_guide_2025_79928293abd0bac4",
+    "vault_values_edu_framework_2021_trial_ebfc0b551cde8466",
+    "vault_religious_edu_jss_2024_50240e04658e8b0e",
+    "vault_edbcm076_2026_994571e0a830771f",
+    "vault_kg_admin_guide_2026_a6b989ff0dcca6cd",
+    "vault_g06_569e728f5f816f91"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.5032,
+    0.4973,
+    0.4604,
+    0.4552,
+    0.4196,
+    0.4195,
+    0.4169,
+    0.4139
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    2,
+    3,
+    40,
+    68,
+    48,
+    1,
+    143,
+    13
+   ],
+   "total": 8
+  },
+  {
+   "id": "home_school",
+   "query": "家校合作活動整合津貼",
+   "note": "S186 activity route 提到 finance 之上，防「津貼」被偷",
+   "expect_any": [
+    "edbcm070_2026",
+    "edbcm060_2026"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 1,
+   "source_ids": [
+    "role_facts_activity",
+    "edbcm070_2026",
+    "g03",
+    "edbc009_2026",
+    "edbc009_2026",
+    "g03",
+    "edbc007_2026",
+    "g03"
+   ],
+   "chunk_ids": [
+    "fact_role_facts_activity_6fddddde0d050005",
+    "vault_edbcm070_2026_6c111921f13957a9",
+    "vault_g03_5ef9f1c8942f71f2",
+    "vault_edbc009_2026_9e9faf82884d4a23",
+    "vault_edbc009_2026_de656fd0295e6bb4",
+    "vault_g03_77a7bcb85065372f",
+    "vault_edbc007_2026_ff2fd30fd47a1e42",
+    "vault_g03_38ff57cad1b0a045"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.6947,
+    0.6794,
+    0.672,
+    0.6406,
+    0.634,
+    0.6326,
+    0.6204,
+    0.6107
+   ],
+   "content_types": [
+    "approved_fact",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    3,
+    1,
+    3,
+    3,
+    4,
+    15,
+    5
+   ],
+   "total": 8
+  },
+  {
+   "id": "school_safety",
+   "query": "校舍安全 EMSD",
+   "note": "S181 footnote 13 條",
+   "expect_any": [],
+   "verdict": "RECORD_ONLY",
+   "rank_of_expected": null,
+   "source_ids": [
+    "sag_2025_11",
+    "edbc_12_2026_fire_installations",
+    "sag_2025_11",
+    "edbc22_2024_student_safety",
+    "sag_2025_11",
+    "sag_2025_11",
+    "edbc22_2024_student_safety",
+    "edbc14_2024_spms"
+   ],
+   "chunk_ids": [
+    "footnote_fn_sag_parapet",
+    "footnote_fn_edbc12_2026_fire_annual",
+    "vault_sag_2025_11_9286fe5651771d92",
+    "footnote_fn_edbc22_2024_checklist_framing",
+    "vault_sag_2025_11_8c02e2efa2fcaf60",
+    "vault_sag_2025_11_7a7edda298e2f9e1",
+    "footnote_fn_edbc22_2024_checklist_30nov",
+    "footnote_fn_edbc14_2024_cap279a_s5"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.4825,
+    0.4501,
+    0.5017,
+    0.4985,
+    0.4943,
+    0.4935,
+    0.4846,
+    0.44
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "footnote_curated",
+    "footnote_curated"
+   ],
+   "pages": [
+    null,
+    null,
+    247,
+    null,
+    57,
+    105,
+    null,
+    null
+   ],
+   "total": 8
+  },
+  {
+   "id": "ncs",
+   "query": "非華語學生 支援",
+   "note": "S181 footnote 18 條",
+   "expect_any": [],
+   "verdict": "RECORD_ONLY",
+   "rank_of_expected": null,
+   "source_ids": [
+    "EDBC_8_2020_E",
+    "EDBC_8_2020_E",
+    "g13",
+    "g13",
+    "sag_2025_11",
+    "sag_2025_11",
+    "sag_2025_11",
+    "g13"
+   ],
+   "chunk_ids": [
+    "footnote_fn_ncs_ambit_coordinator",
+    "footnote_fn_ncs_definition_home_language",
+    "vault_g13_d8740106277378a4",
+    "vault_g13_e99e0c503ea27c16",
+    "vault_sag_2025_11_54b95834ebe91911",
+    "vault_sag_2025_11_4409e04cc0ceaf8d",
+    "vault_sag_2025_11_b087c089cb21e013",
+    "vault_g13_3917af95de6d2361"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.5252,
+    0.4587,
+    0.6118,
+    0.607,
+    0.6057,
+    0.5853,
+    0.5623,
+    0.5528
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    237,
+    236,
+    91,
+    91,
+    89,
+    204
+   ],
+   "total": 8
+  },
+  {
+   "id": "bus_escort",
+   "query": "跟車保母",
+   "note": "S195: bare-noun short query for a source that had no coverage before this session",
+   "expect_any": [
+    "sch_bus_escorts_2026"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "sch_bus_escorts_2026",
+    "sch_bus_operators_2026",
+    "sch_bus_drivers_2026",
+    "sch_bus_parents_2026",
+    "sch_bus_escorts_2026",
+    "sch_bus_students_2026",
+    "g18",
+    "sch_bus_drivers_2026"
+   ],
+   "chunk_ids": [
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+    "vault_sch_bus_operators_2026_091b41a86b342008",
+    "vault_sch_bus_drivers_2026_c9710348e6909d79",
+    "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+    "vault_sch_bus_escorts_2026_3ef9c0ac897bae8e",
+    "vault_sch_bus_students_2026_d86dfd1266f4ed72",
+    "vault_g18_ba03811c1c48f797",
+    "vault_sch_bus_drivers_2026_901050e0b0657fe8"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.7896,
+    0.7853,
+    0.7585,
+    0.7497,
+    0.7497,
+    0.7421,
+    0.7303,
+    0.727
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "total": 8
+  },
+  {
+   "id": "bus_driver",
+   "query": "校巴司機 安全",
+   "note": "S195: school-bus siblings; either audience-specific guide is a correct hit",
+   "expect_any": [
+    "sch_bus_drivers_2026",
+    "sch_bus_operators_2026"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "sch_bus_drivers_2026",
+    "sch_bus_parents_2026",
+    "sch_bus_escorts_2026",
+    "g18",
+    "sch_bus_drivers_2026",
+    "sch_bus_operators_2026",
+    "g18",
+    "sch_bus_drivers_2026"
+   ],
+   "chunk_ids": [
+    "vault_sch_bus_drivers_2026_c9710348e6909d79",
+    "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+    "vault_g18_1696a94590f2d252",
+    "vault_sch_bus_drivers_2026_901050e0b0657fe8",
+    "vault_sch_bus_operators_2026_1f4f280cc236eb42",
+    "vault_g18_1e14759e2084c65d",
+    "vault_sch_bus_drivers_2026_6f8077cec6ef2312"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.7853,
+    0.7807,
+    0.7772,
+    0.766,
+    0.7371,
+    0.719,
+    0.7174,
+    0.7151
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    1,
+    1,
+    1,
+    3,
+    1,
+    5,
+    5,
+    6
+   ],
+   "total": 8
+  },
+  {
+   "id": "bus_school",
+   "query": "學童乘搭校車 學校須知",
+   "note": "S195: g18 refreshed to the 2026/27 edition — guards against the old edition creeping back",
+   "expect_any": [
+    "g18"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 4,
+   "source_ids": [
+    "sch_bus_escorts_2026",
+    "sch_bus_operators_2026",
+    "sch_bus_parents_2026",
+    "sch_bus_students_2026",
+    "g18",
+    "sch_bus_drivers_2026",
+    "g18",
+    "sch_bus_drivers_2026"
+   ],
+   "chunk_ids": [
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+    "vault_sch_bus_operators_2026_091b41a86b342008",
+    "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+    "vault_sch_bus_students_2026_d86dfd1266f4ed72",
+    "vault_g18_29e132822cd66f61",
+    "vault_sch_bus_drivers_2026_901050e0b0657fe8",
+    "vault_g18_ba03811c1c48f797",
+    "vault_sch_bus_drivers_2026_c9710348e6909d79"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.7864,
+    0.7735,
+    0.772,
+    0.7683,
+    0.76,
+    0.7539,
+    0.7511,
+    0.7471
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "total": 8
+  },
+  {
+   "id": "va_safety_sec",
+   "query": "陶藝 入窯 燒窯 安全",
+   "note": "S195: content unique to the secondary VA guide, which was mis-attributed to the primary one until this session",
+   "expect_any": [
+    "va_safety_sec"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 1,
+   "source_ids": [
+    "g21",
+    "va_safety_sec",
+    "va_safety_sec",
+    "va_safety_sec",
+    "g22",
+    "g21",
+    "kg_operation_manual_2026",
+    "g22"
+   ],
+   "chunk_ids": [
+    "footnote_fn_g21_astm",
+    "vault_va_safety_sec_5625a679de18fa52",
+    "vault_va_safety_sec_e71fbb8b71933b8f",
+    "vault_va_safety_sec_c2d2fbb5f79c853b",
+    "vault_g22_777a2337dcef85ed",
+    "vault_g21_2ee7a578ba0f4be3",
+    "vault_kg_operation_manual_2026_d252e2a770582267",
+    "vault_g22_83651f60abf9da30"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.4597,
+    0.6692,
+    0.619,
+    0.5746,
+    0.5157,
+    0.5131,
+    0.4828,
+    0.4721
+   ],
+   "content_types": [
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    16,
+    1,
+    8,
+    18,
+    15,
+    1,
+    9
+   ],
+   "total": 8
+  },
+  {
+   "id": "va_safety_pri",
+   "query": "視覺藝術室 小學 安全",
+   "note": "S195: the two VA guides are near-identical in register; either is acceptable, the split is what matters",
+   "expect_any": [
+    "g21",
+    "va_safety_sec"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "g21",
+    "va_safety_sec",
+    "va_p1_s6_2024",
+    "g21",
+    "g21",
+    "g21",
+    "va_safety_sec",
+    "va_sss_2015"
+   ],
+   "chunk_ids": [
+    "footnote_fn_g21_astm",
+    "vault_va_safety_sec_3be08f62fb75023e",
+    "vault_va_p1_s6_2024_9aaf52a105a854c7",
+    "vault_g21_a54fdd27e6a0b776",
+    "vault_g21_f6e9c6c4d38d9414",
+    "vault_g21_c719c4944942f37f",
+    "vault_va_safety_sec_b3be963931ff36fb",
+    "vault_va_sss_2015_bb5083385930f8f3"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.5178,
+    0.7573,
+    0.7175,
+    0.7173,
+    0.6968,
+    0.6843,
+    0.6828,
+    0.6796
+   ],
+   "content_types": [
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    6,
+    39,
+    5,
+    6,
+    7,
+    7,
+    65
+   ],
+   "total": 8
+  },
+  {
+   "id": "senco_role",
+   "query": "特殊教育統籌主任 職責",
+   "note": "S197 — pinned to role_facts_hr on the assumption the mirror carried this; the baseline run disproved it (role_facts_hr not in top 8). g19《全校參與模式融合教育運作指南》p.13/p.57 is what actually serves it, so the corpus already covers SENCO duties and the mirror is NOT load-bearing here.",
+   "expect_any": [
+    "g19"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 2,
+   "source_ids": [
+    "tdtf_report_2019",
+    "sag_2025_11",
+    "g19",
+    "g19",
+    "g19",
+    "role_facts_student",
+    "sen_exam_arrangements_2025",
+    "role_facts_student"
+   ],
+   "chunk_ids": [
+    "footnote_fn_tdtf_senco",
+    "footnote_fn_sag_surplus_redeploy",
+    "vault_g19_1bcd00d93612e161",
+    "vault_g19_d73bd97402db688d",
+    "vault_g19_5209939fe426d76b",
+    "fact_role_facts_student_421a569cbd31d284",
+    "vault_sen_exam_arrangements_2025_ce6f039be10d103f",
+    "fact_role_facts_student_b6887901324f71b3"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.6166,
+    0.4933,
+    0.7458,
+    0.7341,
+    0.7183,
+    0.716,
+    0.7075,
+    0.7028
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "approved_fact",
+    "vault_extract",
+    "approved_fact"
+   ],
+   "pages": [
+    null,
+    null,
+    12,
+    56,
+    6,
+    null,
+    8,
+    null
+   ],
+   "total": 8
+  },
+  {
+   "id": "curr_coord_role",
+   "query": "課程統籌主任 職責",
+   "note": "S197 — RECORD_ONLY on purpose. Neither the mirror nor any corpus source answers 'who coordinates the curriculum' well: the baseline returns tdtf_report_2019 (a SENCO promotion-rank footnote) at rank 0 and g19 SEN material below it. Asserting any of those would enshrine a bad answer as correct; recording the ranking keeps the gap visible without manufacturing a green light.",
+   "expect_any": [],
+   "verdict": "RECORD_ONLY",
+   "rank_of_expected": null,
+   "source_ids": [
+    "tdtf_report_2019",
+    "g19",
+    "g19",
+    "g06",
+    "g19",
+    "sen_exam_arrangements_2025",
+    "g06",
+    "role_facts_student"
+   ],
+   "chunk_ids": [
+    "footnote_fn_tdtf_senco",
+    "vault_g19_1bcd00d93612e161",
+    "vault_g19_5209939fe426d76b",
+    "vault_g06_d848109f501c4993",
+    "vault_g19_710b48540bec2358",
+    "vault_sen_exam_arrangements_2025_ce6f039be10d103f",
+    "vault_g06_529aad2561716c65",
+    "fact_role_facts_student_421a569cbd31d284"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.4619,
+    0.7345,
+    0.7139,
+    0.712,
+    0.7092,
+    0.6955,
+    0.6914,
+    0.6888
+   ],
+   "content_types": [
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "approved_fact"
+   ],
+   "pages": [
+    null,
+    12,
+    6,
+    137,
+    9,
+    8,
+    134,
+    null
+   ],
+   "total": 8
+  },
+  {
+   "id": "discipline_role",
+   "query": "訓導主任 社工",
+   "note": "S197 — same shape: who coordinates school social workers and case follow-up.",
+   "expect_any": [
+    "role_facts_hr"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "role_facts_hr",
+    "role_facts_student",
+    "g16",
+    "role_facts_it",
+    "role_facts_hr",
+    "g16",
+    "g16",
+    "role_facts_activity"
+   ],
+   "chunk_ids": [
+    "fact_role_facts_hr_03d42641e0e1a1c0",
+    "fact_role_facts_student_335b9e0296bc8b24",
+    "vault_g16_29accaaf66e8a9f7",
+    "fact_role_facts_it_f689ce2a004e90b4",
+    "fact_role_facts_hr_82b2e033e157af11",
+    "vault_g16_50932de9f4f1bf0f",
+    "vault_g16_9186c8bfe6fae748",
+    "fact_role_facts_activity_a7870b2b2b2d33a6"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.6645,
+    0.599,
+    0.5903,
+    0.5813,
+    0.5745,
+    0.5722,
+    0.5597,
+    0.5503
+   ],
+   "content_types": [
+    "approved_fact",
+    "approved_fact",
+    "vault_extract",
+    "approved_fact",
+    "approved_fact",
+    "vault_extract",
+    "vault_extract",
+    "approved_fact"
+   ],
+   "pages": [
+    null,
+    null,
+    17,
+    null,
+    null,
+    40,
+    15,
+    null
+   ],
+   "total": 8
+  },
+  {
+   "id": "activity_role",
+   "query": "活動主任 職責",
+   "note": "S197 — same shape: who arranges escorting teachers and emergency contact for activities.",
+   "expect_any": [
+    "role_facts_hr"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "role_facts_hr",
+    "role_facts_activity",
+    "role_facts_activity",
+    "role_facts_activity",
+    "role_facts_hr",
+    "role_facts_finance",
+    "g19",
+    "kg_admin_guide_2026"
+   ],
+   "chunk_ids": [
+    "fact_role_facts_hr_460eacb68fd9330e",
+    "fact_role_facts_activity_12f22c76d226ed8b",
+    "fact_role_facts_activity_c34276b5d3d60276",
+    "fact_role_facts_activity_a73b3ba08e4e7e85",
+    "fact_role_facts_hr_03d42641e0e1a1c0",
+    "fact_role_facts_finance_135c24213d199302",
+    "vault_g19_5f65565cc3433074",
+    "vault_kg_admin_guide_2026_b3ddbeeb1e9c7019"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.6704,
+    0.6694,
+    0.6074,
+    0.5843,
+    0.566,
+    0.5607,
+    0.5494,
+    0.5448
+   ],
+   "content_types": [
+    "approved_fact",
+    "approved_fact",
+    "approved_fact",
+    "approved_fact",
+    "approved_fact",
+    "approved_fact",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    55,
+    112
+   ],
+   "total": 8
+  },
+  {
+   "id": "cyber_campaign",
+   "query": "網絡安全運動",
+   "note": "S210 — g28 真實內容詞（網罪科網絡安全運動通函）。live 實測 rank 0–2 @0.573。紀律 #13：用該源真實內容嘅 query，唔用形容佢嘅講法。",
+   "expect_any": [
+    "g28"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "g28",
+    "g28",
+    "g28",
+    "pcpd_cloud_computing",
+    "pcpd_cloud_computing"
+   ],
+   "chunk_ids": [
+    "vault_g28_9edafe5e1251",
+    "vault_g28_a8b9f7fcb61d",
+    "vault_g28_f763bc77f399",
+    "vault_pcpd_cloud_computing_08f641e6ff2b",
+    "vault_pcpd_cloud_computing_748e0229dec9"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.5728,
+    0.5705,
+    0.5688,
+    0.439,
+    0.4022
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    1,
+    1,
+    1,
+    10,
+    12
+   ],
+   "total": 5
+  },
+  {
+   "id": "cloud_privacy",
+   "query": "雲端運算 私隱",
+   "note": "S210 — registry 第一個 authority!=edb 嘅源（PCPD 雲端運算指引，PDPO 保障資料原則）。live 實測 rank 0–2 @0.688。",
+   "expect_any": [
+    "pcpd_cloud_computing"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "pcpd_cloud_computing",
+    "pcpd_cloud_computing",
+    "pcpd_cloud_computing",
+    "g28",
+    "g28",
+    "g28"
+   ],
+   "chunk_ids": [
+    "vault_pcpd_cloud_computing_b1bb735772df",
+    "vault_pcpd_cloud_computing_4470028b8b5a",
+    "vault_pcpd_cloud_computing_ddc8a76f74df",
+    "vault_g28_b9af1f1a0b79",
+    "vault_g28_7b7155790bd5",
+    "vault_g28_8c5556416094"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.6876,
+    0.6714,
+    0.6611,
+    0.4604,
+    0.3784,
+    0.3705
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    4,
+    1,
+    3,
+    3,
+    12,
+    1
+   ],
+   "total": 6
+  },
+  {
+   "id": "info_security_broad",
+   "query": "學校資訊保安",
+   "note": "S210 RECORD_ONLY — 闊 query，S209 定案返 SAG/role_facts_it/g24 係啱嘅（g28 hub 係時序公告板，冇「建議措施」文件）。OP⑦ route regex 改動嘅 before/after 就睇呢條。",
+   "expect_any": [],
+   "verdict": "RECORD_ONLY",
+   "rank_of_expected": null,
+   "source_ids": [
+    "sag_2025_11",
+    "role_facts_it",
+    "role_facts_it",
+    "role_facts_it",
+    "g24",
+    "sag_2025_11",
+    "safety_mgmt_committee",
+    "role_facts_student"
+   ],
+   "chunk_ids": [
+    "vault_sag_2025_11_faa4346093cf028a",
+    "fact_role_facts_it_2fed624cec34655e",
+    "fact_role_facts_it_3aff760beb1814f3",
+    "fact_role_facts_it_ed9e826b505c7902",
+    "vault_g24_c4f1bc43da617852",
+    "vault_sag_2025_11_7a7edda298e2f9e1",
+    "vault_safety_mgmt_committee_1f71c07fcce31e7a",
+    "fact_role_facts_student_d8331341587aa16a"
+   ],
+   "expect_text_any": [],
+   "chunk_within": 5,
+   "chunk_verdict": "RECORD_ONLY",
+   "rank_of_expected_chunk": null,
+   "scores": [
+    0.6393,
+    0.6366,
+    0.6273,
+    0.6234,
+    0.5991,
+    0.57,
+    0.5591,
+    0.5556
+   ],
+   "content_types": [
+    "vault_extract",
+    "approved_fact",
+    "approved_fact",
+    "approved_fact",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "approved_fact"
+   ],
+   "pages": [
+    244,
+    null,
+    null,
+    null,
+    104,
+    105,
+    5,
+    null
+   ],
+   "total": 8
+  },
+  {
+   "id": "staffing_row_12",
+   "query": "12班小學編制",
+   "note": "S212 staffing_row_probe — 交接 OP① 要求嘅 chunk 層斷言。source 層答唔到「見唔見到啱嗰行」：staff_est_pri 有 85 條近乎相同嘅編制句，任何一條都令 source 層 PASS。斷言用文字簽名而非 chunk id：id 係 text 嘅 md5，S211 逐行重切時全部改過，用 id 就會喺自己嘅修正上面紅。簽名要求「全日制」——S211 定案編制答案預設只出全日制（資助及官立小學已無半日制），所以半日制同班數行入窗都算 FAIL。",
+   "expect_any": [
+    "staff_est_pri"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "staff_est_pri",
+    "staff_est_pri",
+    "staff_est_pri",
+    "sag_2025_11",
+    "ceg_calc_2026",
+    "kg_operation_manual_2026",
+    "sch_activities_guide"
+   ],
+   "chunk_ids": [
+    "vault_staff_est_pri_226ee0c1b5fa",
+    "vault_staff_est_pri_5162a2901898",
+    "vault_staff_est_pri_9b97ea43d291",
+    "vault_sag_2025_11_a1042d65f77b1d47",
+    "footnote_fn_ceg_bisessional",
+    "footnote_fn_kgop_teacher_onduty",
+    "footnote_fn_activities_sen"
+   ],
+   "expect_text_any": [
+    "全日制資助小學核准開辦12班的教學人員編制"
+   ],
+   "chunk_within": 5,
+   "chunk_verdict": "PASS",
+   "rank_of_expected_chunk": 2,
+   "scores": [
+    0.5784,
+    0.513,
+    0.5081,
+    0.4879,
+    0.4504,
+    0.4401,
+    0.4265
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "footnote_curated",
+    "footnote_curated",
+    "footnote_curated"
+   ],
+   "pages": [
+    3,
+    1,
+    1,
+    56,
+    null,
+    null,
+    null
+   ],
+   "total": 7
+  },
+  {
+   "id": "staffing_row_24",
+   "query": "24班小學編制",
+   "note": "S212 staffing_row_probe 第二條。單一班數過得到唔證明係按班數查——12 班嗰條可以靠 searchEstablishmentRows() 以外嘅任何理由中。兩條唔同班數同時要求各自嗰行，先分得出「查得啱」同「撞啱」。",
+   "expect_any": [
+    "staff_est_pri"
+   ],
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "source_ids": [
+    "staff_est_pri",
+    "staff_est_pri",
+    "staff_est_pri",
+    "sag_2025_11",
+    "kg_operation_manual_2026",
+    "ceg_calc_2026",
+    "kg_operation_manual_2026",
+    "ceg_calc_2026"
+   ],
+   "chunk_ids": [
+    "vault_staff_est_pri_226ee0c1b5fa",
+    "vault_staff_est_pri_907b0265de2f",
+    "vault_staff_est_pri_58f262551ffa",
+    "vault_sag_2025_11_f94a9be590caeebe",
+    "footnote_fn_kgop_teacher_onduty",
+    "footnote_fn_ceg_bisessional",
+    "footnote_fn_kgop_classroom",
+    "footnote_fn_ceg_rates_2627"
+   ],
+   "expect_text_any": [
+    "全日制資助小學核准開辦24班的教學人員編制"
+   ],
+   "chunk_within": 5,
+   "chunk_verdict": "PASS",
+   "rank_of_expected_chunk": 2,
+   "scores": [
+    0.5758,
+    0.5327,
+    0.5288,
+    0.5198,
+    0.4581,
+    0.4579,
+    0.453,
+    0.4525
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "footnote_curated",
+    "footnote_curated",
+    "footnote_curated",
+    "footnote_curated"
+   ],
+   "pages": [
+    3,
+    1,
+    1,
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   "total": 8
+  }
+ ]
+}

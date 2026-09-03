@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-09-03T17:16:59Z",
+  "generatedAt": "2026-09-03T17:37:26Z",
   "overallStatus": "ERROR",
   "counts": {
-    "chunks": 17597,
-    "PASS": 7,
+    "chunks": 17602,
+    "PASS": 8,
     "BLOCKER": 0,
-    "ERROR": 3,
-    "WARN": 10,
+    "ERROR": 4,
+    "WARN": 9,
     "INFO": 1,
     "NOT_MEASURED": 0
   },
   "version": "v3.3.2",
   "corpus": {
-    "chunks": 17597,
+    "chunks": 17602,
     "sources_serving": 305,
     "sources_registered": 279,
     "guidelines_listed": 177,
@@ -85,7 +85,7 @@
         "label": "沒有錯誤級 FAIL",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "REGISTRY_ZOMBIE、REGISTRY_SERIES、REGISTRY_UNMANAGED"
+        "detail": "NO_MIDCLAUSE_START、REGISTRY_ZOMBIE、REGISTRY_SERIES、REGISTRY_UNMANAGED"
       },
       {
         "id": "NO_UNMEASURED",
@@ -134,7 +134,7 @@
         "label": "每個 standing WARN 都有 owner、理由、接受期限",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "未有 waiver 8 項：ANCHOR_URL_PRESENT、SOURCE_TITLE_REAL、PAGE_ANCHORED、NO_DUPLICATE_CHUNKS、NO_TOC_NOISE、BODY_LENGTH_FLOOR、NO_MIDCLAUSE_START、MOJIBAKE"
+        "detail": "未有 waiver 7 項：ANCHOR_URL_PRESENT、SOURCE_TITLE_REAL、PAGE_ANCHORED、NO_DUPLICATE_CHUNKS、NO_TOC_NOISE、BODY_LENGTH_FLOOR、MOJIBAKE"
       },
       {
         "id": "CORE_SEARCH_CASES",
@@ -192,6 +192,16 @@
       "offender_total": 0
     },
     {
+      "id": "SEARCH_PIPELINE_LIVE",
+      "label": "真實查詢仍然答得到（不是只看 /health）",
+      "severity": "BLOCKER",
+      "status": "PASS",
+      "group": "infra",
+      "detail": "探測查詢回傳 3 條片段 · 一次過驗到 key、額度、embedding、Supabase RPC 同路由過濾",
+      "offenders": [],
+      "offender_total": 0
+    },
+    {
       "id": "FREEZE_CONTRACT",
       "label": "凍結的對外契約零接觸",
       "severity": "BLOCKER",
@@ -207,7 +217,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "infra",
-      "detail": "資料庫真數 17597 · 已核對 7 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "detail": "資料庫真數 17602 · 已核對 7 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
       "offenders": [],
       "offender_total": 0
     },
@@ -335,9 +345,9 @@
       "id": "NO_MIDCLAUSE_START",
       "label": "切得不會太碎：片段不是由半句開始",
       "severity": "ERROR",
-      "status": "WARN",
+      "status": "FAIL",
       "group": "cutting",
-      "detail": "835 · 與基準 835 相同（未惡化，但仍在服務中） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
+      "detail": "842 · 高於基準 835（+7） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
       "offenders": [
         "g06（34 條）",
         "g13（34 條）",
@@ -352,7 +362,7 @@
         "va_sss_2015（14 條）",
         "edbcm060_2026（13 條）"
       ],
-      "offender_total": 835
+      "offender_total": 842
     },
     {
       "id": "TABLE_ROW_INTEGRITY",
@@ -370,7 +380,7 @@
       "severity": "INFO",
       "status": "INFO",
       "group": "cutting",
-      "detail": "1984 條（11.3%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
+      "detail": "1986 條（11.3%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
       "offenders": [
         "g13（105 條）",
         "g07（80 條）",
@@ -385,7 +395,7 @@
         "gifted_ge_series（36 條）",
         "ma_sss_cag_2017（36 條）"
       ],
-      "offender_total": 1984
+      "offender_total": 1986
     },
     {
       "id": "EVAL_LATEST",
@@ -393,7 +403,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "measurable",
-      "detail": "2026-09-02 18:10 UTC · PASS=27 FAIL=0 RECORD_ONLY=12 errors=0 · 共 39 條 query",
+      "detail": "2026-09-03 17:27 UTC · PASS=27 FAIL=0 RECORD_ONLY=12 errors=0 · 共 39 條 query",
       "offenders": [],
       "offender_total": 0
     },
@@ -413,7 +423,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "measurable",
-      "detail": "46/46 PASS",
+      "detail": "已知缺口（唔計入 PASS/FAIL，S211 前後行為一樣）：",
       "offenders": [],
       "offender_total": 0
     },
@@ -505,13 +515,12 @@
       "severity": "ERROR",
       "status": "WARN",
       "group": "chunk",
-      "detail": "223 · 與基準 223 相同（未惡化，但仍在服務中） · 家族分佈 {'latin_cid': 70, 'cjk_misdecode': 153} · `phys_sss_2007_2015` 有 165/182 條不可讀。URL 回 200、雜湊不變、封面標題對得上，所以現有三個監察全部看不見",
+      "detail": "58 · 與基準 58 相同（未惡化，但仍在服務中） · 家族分佈 {'latin_cid': 55, 'cjk_misdecode': 3} · `phys_sss_2007_2015` 有 0/187 條不可讀。URL 回 200、雜湊不變、封面標題對得上，所以現有三個監察全部看不見",
       "offenders": [
-        "phys_sss_2007_2015：165/182（91%）",
         "gifted_ge_series：52/346（15%）",
         "apl_curr_docs：6/147（4%）"
       ],
-      "offender_total": 223
+      "offender_total": 58
     }
   ]
 }

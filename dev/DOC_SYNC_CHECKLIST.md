@@ -52,6 +52,8 @@
 
 | **品質檢查／封版閘改動**（S212 建：`dev/source/qc_report.py` 的檢查或基準值 `BASELINE`、`dev/source/release_gate.json` 的 waiver 或人手項目、`dev/source/check_registry_drift.py` 的分類） | `qc_report.py --self-test`（**改基準值必同時改斷言**：「等於基準報 WARN」「高於基準報 FAIL」兩條是這套的骨幹）；`check_registry_drift.py --self-test`；**改完必須重跑 `--check` 並 commit `qc_report.json`**——頁面是靜態檔，不重生就等於改了邏輯而公開面仍是舊數；`dev/PROJECT_INDEX.md` Local QC Commands 的 Last verified；`.github/workflows/qc_report.yml` 若加了新的前置自檢要一併加；`SESSION_LOG.md` task entry | **先證閘會紅**：新加的檢查要有一條刻意觸發 FAIL 的斷言，否則分不出「沒有缺陷」與「檢查壞了」；**放寬基準值須逐條讀過實例**（S212 實測：一個數字密度偵測器返 701 條，剛好落在 S204 估算的 600–900 範圍內，但逐條讀是四樣不同的東西，所以該數沒有被採用）；**新檢查不得預設報 0**——量不到要報 `NOT_MEASURED`，而 `NOT_MEASURED` 在封版閘等於未達標；線上 `qc_report.json` 與本機 `--check` 輸出須一致（Pages 部署有延遲，核實再落結論）|
 
+| **重抽既有來源並重入庫**（原檔沒變、只是抽取方式改變：文字層 → OCR、或切片參數改變。S212 建，起因 `phys_sss_2007_2015`） | 舊 chunk id 由文字雜湊而來，抽取方式一改就全部不同，**upsert 不會蓋掉舊的，只會兩套並存**，所以必須先刪後入；`dev/source/source_registry.json` 記 `extract_method` 同品質限制（OCR 為草稿質素，要寫明已量到的錯誤類別，不要只寫「OCR」）；七個鏡像行 `live_display_sync(current_chunk_total(), live_total_count())`；`SESSION_LOG.md` 記 before→after 片段數 | **⚠️ 先驗「入得到」，再刪舊的。** S212 在此翻船：刪走 182 條之後才發現 OpenAI 額度已被同一 session 的 150 頁 OCR 耗盡，embedding 算不出，該來源在庫內變成 0 條，而**生產全站搜尋同時 429**（查詢要即時算 embedding）。刪除前必須先做一次真實的 embedding 呼叫確認供應商可用兼有額度；**任何會大量呼叫外部 API 的步驟（OCR／批次 embedding），事前要估算並講出用量，不可以把單頁探針的成本當成全份的成本**；入庫後逐項核實：片段數、亂碼數（`qc_report.mojibake_family`）、頁碼覆蓋是否等於原檔頁數、每條片段有無 url；檢索 eval before→after 一對|
+
 ## Anti-pattern: No Matching Row
 
 If your change has no matching row above:

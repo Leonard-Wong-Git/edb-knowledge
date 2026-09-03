@@ -2637,17 +2637,18 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2007-2015-11",
-      "last_checked_at": "2026-06-15",
+      "last_checked_at": "2026-09-03",
       "supersedes": null,
       "parent_source_id": "sci_curr_docs",
-      "notes": "高中物理課程及評估指引（2007，2015年11月更新）。PDF 直連已回填。",
+      "notes": "高中物理課程及評估指引（2007，2015年11月更新）。PDF 直連已回填。 | S212(2026-09-03) OCR 重抽：原 PDF 的 ToUnicode CMap 壞掉，任何文字層抽取器都得出同一堆 CID 亂碼（pdftotext 實測與舊 extract 逐字相同），庫內 165/182 條不可讀，而 URL 回 200、位元組自 2015 未變、封面標題對得上，故 check_served_urls / check_freshness / check_source_titles 三者全綠。改用 dev/ocr_extract.py（gpt-4o vision，150 頁）重抽 → 187 chunks，亂碼 0、頁碼 1–150 全覆蓋。⚠️ OCR 草稿質素、page-resolvable（同 g38 / mce_framework_2008 的 S147 先例）；已量到的錯誤類別＝術語級誤字，逐頁對照原圖實測：p.27「普適氣體定律」→「普通」、「查證」→「查察」；p.20「貫徹」→「實徵」、「樂意」→「樂於」，約每頁 1–2 個詞（≈0.5%）。引用本源的具體字眼前請對回原文。📌 舊 extract 只有 149 頁：文字層抽取跳過了真空白的 PDF 第 2 頁，故舊庫內每個 Page 標記由第 2 頁起都比實際少 1，「頁 N ↗」一直指早一頁——本次重抽已修正。真空白頁 4 版（2、14、111、128），逐版渲染確認。",
       "freshness_metadata": {
         "last_modified": "Tue, 01 Dec 2015 02:23:28 GMT",
         "content_length": "1620112",
         "etag": "\"0907643df2bd11:0\"",
         "content_hash": "613f053a4c10d7b8314b5c3d5083e8affccd39232c4589b74f98f88d486a2af0",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "extract_method": "ocr_vision_gpt4o"
     },
     {
       "source_id": "moral_civic_curr",
