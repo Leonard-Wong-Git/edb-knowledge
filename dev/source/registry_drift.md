@@ -1,4 +1,4 @@
-# 登記／庫存／瀏覽清單 漂移帳（2026-09-02 18:20 UTC）
+# 登記／庫存／瀏覽清單 漂移帳（2026-09-03 15:33 UTC）
 
 由 `dev/source/check_registry_drift.py --check` 產生，請勿手改。
 
@@ -8,26 +8,19 @@
 |---:|---|---|
 | 108 | `kgecg_2017` | 幼稚園教育課程指引（2017） |
 
-## UNMANAGED — 庫內有片段，但 source_registry 從未登記（14）
+## SERIES_UNMONITORED — 登記為年度系列，但三個 registry 監察都讀不到它的分年檔（1）
 
 | 片段 | source_id | 標題 |
 |---:|---|---|
-| 56 | `stat_enrolment_2014` | stat_enrolment_2014 |
-| 56 | `stat_enrolment_2015` | stat_enrolment_2015 |
-| 55 | `stat_enrolment_2012` | stat_enrolment_2012 |
-| 55 | `stat_enrolment_2013` | stat_enrolment_2013 |
-| 35 | `stat_enrolment_2020` | stat_enrolment_2020 |
-| 34 | `stat_enrolment_2016` | stat_enrolment_2016 |
-| 34 | `stat_enrolment_2017` | stat_enrolment_2017 |
-| 34 | `stat_enrolment_2018` | stat_enrolment_2018 |
-| 34 | `stat_enrolment_2019` | stat_enrolment_2019 |
-| 34 | `stat_enrolment_2021` | stat_enrolment_2021 |
-| 34 | `stat_enrolment_2022` | stat_enrolment_2022 |
-| 34 | `stat_enrolment_2024` | stat_enrolment_2024 |
-| 33 | `stat_enrolment_2023` | stat_enrolment_2023 |
+| 0 | `stat_enrolment_report` | 學生人數統計報告書（年度系列） |
+
+## UNMANAGED — 庫內有片段，但 source_registry 從未登記（1）
+
+| 片段 | source_id | 標題 |
+|---:|---|---|
 | 2 | `stat_integrated` | stat_integrated |
 
-## PHANTOM — 瀏覽清單有，但庫內零片段（42）
+## PHANTOM — 瀏覽清單有，但庫內零片段（41）
 
 | 片段 | source_id | 標題 |
 |---:|---|---|
@@ -70,7 +63,6 @@
 | 0 | `sen_curr_area` | 特殊教育需要課程發展 |
 | 0 | `sspf_general_info_2023` |  |
 | 0 | `staff_est_sp_sch_pri` | 資助特殊學校小學部教學人員編制 |
-| 0 | `stat_enrolment_report` | 學生人數統計報告書（年度系列） |
 | 0 | `steam_edu` | STEAM 教育 |
 | 0 | `tech_curr_docs` | 科技教育學習領域課程文件 |
 
