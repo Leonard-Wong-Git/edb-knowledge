@@ -7,6 +7,30 @@
 
 ## Architecture Choices
 
+### ADR-00Y — 壞掉的文字層：OCR 重抽，而非算術還原（S212）
+- **Date**: 2026-09-03（S212）
+- **Status**: IMPLEMENTED + LIVE（`phys_sss_2007_2015`，187 chunks）
+- **Context**: 該源 165/182 條片段係不可讀嘅 CID 亂碼，而三個現有監察全部綠燈 —— URL 回 200、位元組自 2015 未變、封面標題對得上。文字層抽取救唔到：`pdftotext` 抽出同舊 extract **逐字相同**嘅亂碼，因為 PDF 本身嘅 ToUnicode CMap 壞咗。
+- **Options considered**:
+  - **A. 算術還原（否決）** —— 亂碼係三個字族嘅固定偏移（`+0x3058` 主 CJK、`+0x2D1E` CJK 標點、`+0x8E51` 全形標點），可還原 **98.4%**，讀落完全通順，而且零成本、零 API 呼叫。**否決理由**：與 OCR 交叉核對封面頁，「二零一五年十一月」被還原成八個似是而非嘅漢字 —— 其他字體子集嘅字偏移後碰巧落喺合法漢字區。剩低嗰 1.6% **唔係明顯壞，係靜靜錯**，屬 S194 `ict_sss_2021`「200-但-錯檔比 404 更難捉」同一類。**98.4% 係陷阱數字。**
+  - **B. 退役刪除（否決）** —— 該源係唯一嘅高中物理課程及評估指引，冇可引用替代品（對比 `kgecg_2017` 有 `g29` 頂上）。紀律 #4。
+  - **C. OCR 重抽（採用）** —— `dev/ocr_extract.py` 本來就係為呢個 failure mode 而建（docstring 明文寫 CID-mojibake，先例 g38 / S147）。
+- **Decision**: C。150 頁、69,397 中文字、0 個 U+FFFD、0 失敗頁、亂碼 0。
+- **Trade accepted, and measured rather than asserted**: OCR 係**草稿質素**，錯法係**術語級誤字**。逐頁對照渲染原圖：p.27「普適氣體定律」→「普通」、「查證」→「查察」；p.20「貫徹」→「實徵」、「樂意」→「樂於」，約每頁 1–2 個（≈0.5%）。**呢個正正係否決 A 嗰個失敗模式**，只係程度有別：算術還原出「澳瀈」（明顯亂碼），OCR 出「普通」（真詞、讀落順口、更難發現）。取捨係 **0.5% 錯字 vs 91% 讀不到**，跟 S147 為 `g38` 同 `mce_framework_2008` 定落嘅先例。registry notes 已記錄具體錯誤類別，唔係只寫「OCR」。
+- **Unforeseen wins**: 舊 extract 得 149 頁（PDF 150）—— 文字層抽取跳過咗真空白嘅第 2 頁，故舊庫內每個頁碼標記由第 2 頁起都比實際少 1，「頁 N ↗」一直指早一頁。重抽已修正。
+- **Cost**: 150 頁 `gpt-4o` vision。**呢一步耗盡咗 OpenAI 額度並令生產全站搜尋 429 約半小時** —— 見 Insights。
+
+### ADR-00Z — 新語料唔夠可達時：獨立路由，而非折入既有路由（S212）
+- **Date**: 2026-09-03（S212）
+- **Status**: IMPLEMENTED + LIVE（`info_security` = `g28` + `pcpd_cloud_computing`）
+- **Context**: 交接 OP⑤ 寫「加保安／雲端字眼落 `digital_education` regex」。
+- **Options considered**:
+  - **A. 折入 `digital_education`（否決）** —— 該路由嘅 `QUERY_EXPANSIONS` 有 21 個 DEBP／AI 詞。實測（同一 build、關掉路由過濾、raw 對 raw+expansion）：「網絡安全運動」`g28` rank 0 @0.5728 → **完全消失**；「雲端運算 私隱」`pcpd` rank 0 @0.6876 → **完全消失**，兩次個窗都被 DEBP 片段 @0.69–0.74 佔滿。**擴充把 query 本身蓋過** —— 照交接寫法做會令目標 query 變差，方向啱結論反。
+  - **B. 獨立路由、不設 expansion（採用）** —— 同 `safety` / `gov_admin` 一樣嘅處理（S142 已定 EXCEPTION 準則）。
+- **Decision**: B。刻意**唔認裸「資訊保安」**：S209 已定案該闊 query 返 SAG／`role_facts_it` 係啱嘅，認咗就會把佢硬過濾去答唔到佢嘅來源。
+- **Evidence**: eval 顯示兩條 SET_LOST，逐條讀過 —— 掉走嘅係 `ph_pri_guide_2025`（小學人文科）、`ict_sss_2021`（ICT 科課程）等**錯科目雜訊**，屬刻意收窄。**冇為此加豁免分類** —— 喺同一個 session 內把紅燈教成綠燈去襯自己嘅改動，正正係唔應該做嘅事。
+- **Ceiling is the corpus, not the routing**: 逐條讀晒 `g28` 40 條片段，只有 10 條有可用建議（兩份警方 Zoom 指引），其餘 29 條係 2018–2022 五份通函講海報派發同一個短片設計比賽（獎品、報名表、2018-07-27 截止）。佢被標 `lifecycle: reference`，因為 lifecycle 係**逐來源**標，而 `g28` 係七份文件嘅 hub —— 七份文件嘅壽命根本唔一樣。
+
 ### ADR-00X — 具體數值查詢：詞彙層檢索，而非再調相似度門檻（S211）
 - **Date**: 2026-09-01（S211）
 - **Status**: IMPLEMENTED + LIVE（單源特例；一般化屬 Open Priority ④）
@@ -90,6 +114,23 @@ This file does not store raw build / upload / QC evidence, current next actions,
 (empty)
 
 ## Insights & Learnings
+
+### S212 — 一個永遠唔會紅嘅健康檢查，代價係全站停機半個鐘冇人知
+- **Date**: 2026-09-03（S212）
+- **What happened**: 為咗重抽 `phys_sss_2007_2015`，我先刪走佢 182 條舊片段，之後先發現 OpenAI 額度已經被同一 session 嗰 150 頁 OCR 耗盡 —— embedding 算唔到，該源變 0 條；更要緊嘅係**生產全站搜尋同時 429**，因為查詢要即時算 embedding。
+- **Why nobody would have noticed**: `/health` 由頭到尾報 `ok:true`。佢只檢查 Channel A 快取，**唔掂 embedding 供應商，亦唔掂 Supabase**。要有人真係打一條查詢先發現得到。
+- **Two root causes, and they are different**:
+  1. **次序錯**：應該先驗「入得到」再刪舊嘅。我讀過 `cb3_deprecate_stale.py` 嗰套 DELETE→count verify，但從來冇問「入唔到會點」。
+  2. **成本冇重新估算**：單頁探針嗰時我寫過「cost: trivial」，跳去 150 頁時直接沿用嗰個判斷，冇估算亦冇查餘額。**單頁探針嘅成本唔係全份嘅成本。**
+- **What it became**: DOC_SYNC row 54（重抽既有來源並重入庫）第一條要求就係「刪之前先用一次真實 embedding 呼叫證明入得到」，第二條係「大量外部 API 步驟事前要估算並講出用量」。另 `qc_report` 新增 `SEARCH_PIPELINE_LIVE`（BLOCKER）：直接打生產查詢端點，429／回 200 但零結果／無回應都要紅，五條 self-test 有四條專證佢會紅。
+- **The transferable lesson**: 紀律 #11「守門要證明佢會紅」本來已經寫咗，但只應用喺**新建**嘅守門上。`/health` 係舊嘢、一直綠、冇人懷疑過 —— **一個從來未紅過嘅健康檢查，同一個壞咗嘅健康檢查，喺輸出上完全一樣。** 舊守門同新守門一樣要證明佢會紅。
+
+### S212 — 呈現層嘅缺陷，self-test 結構上捉唔到
+- **Date**: 2026-09-03（S212）
+- **What happened**: 封版閘喺公開頁面寫「未有 waiver **8** 項」，下面只列出 **6** 個名（`unwaived[:6]` 截斷，冇省略號）。係 Leonard 打開頁面睇出嚟嘅。
+- **Why the tests were green**: `qc_report --self-test` 有 40 幾條斷言，驗閘嘅邏輯（會唔會紅、waiver 過期會唔會擋、`NOT_MEASURED` 算唔算未達標），**但冇一條驗「顯示出嚟嘅數同顯示出嚟嘅清單是否一致」**。self-test 驗計算，唔驗呈現。
+- **Why it matters more on a status page than elsewhere**: 一個數字同佢下面嘅清單對唔上，讀者會**連兩個都唔再信**。對一張以「可信」為唯一價值嘅頁嚟講，呢種缺陷比顯示唔到更差。
+- **The transferable lesson**: 凡有人眼會讀嘅輸出（狀態頁、報告、答案），**渲染完之後要有人真係睇一次**。自動化測試覆蓋唔到「睇落唔對路」呢個判斷。
 
 ### S198 (2026-07-30) — 一個工具嘅沉默唔係證據：落結論之前要先問「佢結構上量唔量得到？」
 
