@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-04T15:30:42Z",
+  "generatedAt": "2026-09-05T14:19:11Z",
   "overallStatus": "ERROR",
   "counts": {
-    "chunks": 17602,
+    "chunks": 17610,
     "PASS": 8,
     "BLOCKER": 0,
     "ERROR": 4,
@@ -12,11 +12,11 @@
   },
   "version": "v3.3.2",
   "corpus": {
-    "chunks": 17602,
-    "sources_serving": 305,
-    "sources_registered": 279,
+    "chunks": 17610,
+    "sources_serving": 307,
+    "sources_registered": 281,
     "guidelines_listed": 177,
-    "distinct_urls": 313,
+    "distinct_urls": 315,
     "largest_sources": [
       {
         "source_id": "coa_ss_e",
@@ -187,7 +187,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=f513a18 · 啟動於 2026-09-04T15:02:02.489Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=4a25a15 · 啟動於 2026-09-05T14:18:47.741Z · Channel A 快取 455 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -217,7 +217,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "infra",
-      "detail": "資料庫真數 17602 · 已核對 7 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "detail": "資料庫真數 17610 · 已核對 7 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
       "offenders": [],
       "offender_total": 0
     },
@@ -347,7 +347,7 @@
       "severity": "ERROR",
       "status": "FAIL",
       "group": "cutting",
-      "detail": "842 · 高於基準 835（+7） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
+      "detail": "843 · 高於基準 835（+8） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
       "offenders": [
         "g06（34 條）",
         "g13（34 條）",
@@ -362,7 +362,7 @@
         "va_sss_2015（14 條）",
         "edbcm060_2026（13 條）"
       ],
-      "offender_total": 842
+      "offender_total": 843
     },
     {
       "id": "TABLE_ROW_INTEGRITY",
@@ -380,7 +380,7 @@
       "severity": "INFO",
       "status": "INFO",
       "group": "cutting",
-      "detail": "1986 條（11.3%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
+      "detail": "1988 條（11.3%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
       "offenders": [
         "g13（105 條）",
         "g07（80 條）",
@@ -395,7 +395,7 @@
         "gifted_ge_series（36 條）",
         "ma_sss_cag_2017（36 條）"
       ],
-      "offender_total": 1986
+      "offender_total": 1988
     },
     {
       "id": "EVAL_LATEST",
@@ -492,7 +492,7 @@
       "severity": "WARN",
       "status": "FAIL",
       "group": "pointing",
-      "detail": "110 個來源 / 2585 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
+      "detail": "112 個來源 / 2593 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
       "offenders": [
         "gifted_ge_series（346 條）資優教育系列：全民資優教育＋校本學生才能庫＋學術英才",
         "kg_admin_guide_2026（221 條）幼稚園行政手冊（2026年5月）",
@@ -507,7 +507,7 @@
         "tdtf_report_2019（62 條）教師專業發展專責小組報告 (2019年3月)",
         "imc_election_guides（58 條）法團校董會校董選舉指引（家長／教師／校友校董・委任五"
       ],
-      "offender_total": 110
+      "offender_total": 112
     },
     {
       "id": "MOJIBAKE",
