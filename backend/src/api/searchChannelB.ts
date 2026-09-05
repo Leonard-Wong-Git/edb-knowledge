@@ -352,6 +352,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "sdp_guide",                    // 如何編寫學校發展計劃 (IMC service-contract)
     "smc_constitution_sample",      // S168: SMC 學校管理委員會章程樣本 (補 SMC 內容 gap, corpus 一直 IMC-heavy)
     "role_facts_general",
+    "edbc016_2026",              // (auto) Option A watcher ingest
   ],
 
   /**
@@ -1303,6 +1304,7 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   "edbc015_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbcm138_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbcm144_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
+  "edbc016_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   // ack:spotlight:end
 ];
 
