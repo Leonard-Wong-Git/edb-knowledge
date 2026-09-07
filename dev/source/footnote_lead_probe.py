@@ -251,6 +251,31 @@ def leads_of(resp: dict) -> list[dict]:
     return (resp.get("results") or [])[:2]
 
 
+def window_of(resp: dict) -> list[dict]:
+    """S214 Gate 2A1 — the full top-8 window, compact.
+
+    `leads_of` only ever looked at the front two slots because that was all the
+    S196 lead/no-lead question needed. Gate 2A1's offline replay (comparing
+    CURRENT production ordering against the PROPOSED score-then-guarantee
+    ordering, `dev/_s214_rank_model.py`) needs the WHOLE window: without every
+    id/source_id/content_type/score, the replay cannot tell a qualifying
+    footnote that lost on score from one that never qualified, and cannot
+    reconstruct what CURRENT actually returned to compare against.
+
+    Kept in whatever order the response already returned (index 0 = first
+    result) — this is a passive recorder, not a reordering.
+    """
+    return [
+        {
+            "id": r.get("id"),
+            "source_id": r.get("source_id"),
+            "content_type": r.get("content_type"),
+            "score": round(r.get("score", 0), 4) if isinstance(r.get("score"), (int, float)) else None,
+        }
+        for r in (resp.get("results") or [])
+    ]
+
+
 # ---------------------------------------------------------------------------
 # Run
 # ---------------------------------------------------------------------------
@@ -287,6 +312,10 @@ def run(endpoint: str, sample_every: int, pace: float, limit: int | None) -> dic
             # A positive passes when SOME curated footnote leads. Requiring the exact
             # source_id would fail on near-duplicate footnotes that answer equally well.
             "kept": bool(lead),
+            # S214 Gate 2A1 — full top-8 window for the offline CURRENT-vs-PROPOSED
+            # replay. Additive: every field above is unchanged, so any consumer
+            # reading only the old fields sees the same data as before.
+            "window": window_of(resp),
         })
         time.sleep(pace)
 
@@ -314,6 +343,7 @@ def run(endpoint: str, sample_every: int, pace: float, limit: int | None) -> dic
             "lead_score": round(lead.get("score", 0), 4) if lead else None,
             "lead_overlap": overlap(q, lead.get("text", ""), informative) if lead else None,
             "kept": bool(lead),
+            "window": window_of(resp),
         })
         time.sleep(pace)
 
@@ -380,6 +410,24 @@ def self_test() -> int:
           extract_question("x" * 80 + "？yes") == ("x" * 80 + "？")[:40])
     check("leads_of takes two", len(leads_of({"results": [1, 2, 3]})) == 2)
     check("leads_of empty", leads_of({}) == [])
+
+    # S214 Gate 2A1
+    sample_resp = {"results": [
+        {"id": "a", "source_id": "sA", "content_type": "footnote_curated", "score": 0.501234},
+        {"id": "b", "source_id": "sB", "content_type": "vault_extract", "score": 1},
+    ]}
+    w = window_of(sample_resp)
+    check("window_of keeps every result, in order",
+          [r["id"] for r in w] == ["a", "b"])
+    check("window_of carries id/source_id/content_type/score",
+          w[0] == {"id": "a", "source_id": "sA", "content_type": "footnote_curated",
+                   "score": 0.5012})
+    check("window_of rounds score to 4dp same as lead_score",
+          w[1]["score"] == 1)
+    check("window_of empty response yields empty window", window_of({}) == [])
+    check("window_of tolerates a missing score",
+          window_of({"results": [{"id": "x", "source_id": "s", "content_type": "c"}]})
+          == [{"id": "x", "source_id": "s", "content_type": "c", "score": None}])
 
     # Conservation: every query from the audited source set must be accounted for.
     missing, unknown = partition_gaps(SOURCE_SET_S196_AUDIT, PLAUSIBLE_GAP, ANSWERABLE_CONTROLS)

@@ -1,0 +1,1418 @@
+[
+ {
+  "id": "act_eca_min_hours_na",
+  "domain": "activity_value_education",
+  "query": "課外活動 最低時數",
+  "query_kind": "no_answer",
+  "intent": "問學生每年課外活動／全方位學習的最低時數；教育局並無訂立硬性時數下限，《學校活動指引》只規範安全、師生比例及風險管理",
+  "answerable": false,
+  "expected_source_any": [],
+  "expected_passage_signature": [],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "method": "absence check over the corpus",
+   "phrase": "課外活動的最低時數",
+   "matches": 0,
+   "note": "庫內零命中"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "act_kayak_ratio",
+  "domain": "activity_value_education",
+  "query": "獨木舟 師生比",
+  "query_kind": "plain",
+  "intent": "查獨木舟活動的建議師生（合資格人士對參加者）比例",
+  "answerable": true,
+  "expected_source_any": [
+   "sch_activities_guide"
+  ],
+  "expected_passage_signature": [
+   "獨木舟1名持有有效資格人士:8名參加者(如參加者的年齡介乎8至12歲,比例為1:6)參加獨"
+  ],
+  "expected_page": 64,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_sch_activities_guide_09974d0021897d15",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "獨木舟",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "sch_activities_guide"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "act_liberal_studies_confusable",
+  "domain": "activity_value_education",
+  "query": "通識",
+  "query_kind": "confusable",
+  "intent": "用舊科名「通識」查詢；現行高中核心科目為「公民與社會發展科」，兩者易混淆",
+  "answerable": true,
+  "expected_source_any": [
+   "cgss_sss_2021"
+  ],
+  "expected_passage_signature": [
+   "公民與社會發展科以一系列當代課題為中心。在學與教方面,教師應按課題需要和課時,"
+  ],
+  "expected_page": 37,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_cgss_sss_2021_0cf3978fa55fb176",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "公民與社會發展科以一系列當代課題為中",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "cgss_sss_2021"
+   ],
+   "note": "「通識教育科」已由「公民與社會發展科」取代"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "act_lpe_primary_values",
+  "domain": "activity_value_education",
+  "query": "小學 生涯規劃",
+  "query_kind": "plain",
+  "intent": "查小學生涯規劃教育培養的正面價值觀",
+  "answerable": true,
+  "expected_source_any": [
+   "lpe_framework_primary"
+  ],
+  "expected_passage_signature": [
+   "培養他們正面的價值觀(包括「堅毅」、「責任感」、「承擔精神」、「誠信」)"
+  ],
+  "expected_page": 9,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_lpe_framework_primary_5f7ae3e2f9871ff7",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "培養他們正面的價值觀",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "lpe_framework_primary"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "act_lwl_grant_uses",
+  "domain": "activity_value_education",
+  "query": "全方位學習津貼",
+  "query_kind": "plain",
+  "intent": "查全方位學習津貼可運用的項目",
+  "answerable": true,
+  "expected_source_any": [
+   "g03"
+  ],
+  "expected_passage_signature": [
+   "位學習所需的設備(包括相關設備的維修保養)、消耗品、學習資源(註:"
+  ],
+  "expected_page": 2,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_g03_13cf64eb6f793451",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "消耗品",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "g03"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "act_national_edu_calendar",
+  "domain": "activity_value_education",
+  "query": "國民教育年曆",
+  "query_kind": "plain",
+  "intent": "查國民教育活動規劃年曆的用途",
+  "answerable": true,
+  "expected_source_any": [
+   "edbcm116_2026"
+  ],
+  "expected_passage_signature": [
+   "在新學年繼續全面規劃適切的校本國民教育學習活動,在重要日子配合"
+  ],
+  "expected_page": 1,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbcm116_2026_9353df0d6ce04aab",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "在新學年繼續全面規劃適切的校本國民教",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "edbcm116_2026"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "act_national_edu_confusable",
+  "domain": "activity_value_education",
+  "query": "國民教育",
+  "query_kind": "confusable",
+  "intent": "查「國民教育」的定位；與價值觀教育、國家安全教育、德育及公民教育範圍重疊易混淆",
+  "answerable": true,
+  "expected_source_any": [
+   "edbcm116_2026"
+  ],
+  "expected_passage_signature": [
+   "國民教育是學校課程不可或缺的部分,亦是價值觀教育的重要一環,培養"
+  ],
+  "expected_page": 1,
+  "acceptable_alternatives": [
+   "nat_sec_edu",
+   "values_edu_framework_2026"
+  ],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbcm116_2026_94ed1ac98e132caf",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "國民教育是學校課程不可或缺的部分",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "edbcm116_2026"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "act_outdoor_risk_assessment",
+  "domain": "activity_value_education",
+  "query": "戶外活動 風險評估",
+  "query_kind": "plain",
+  "intent": "查舉辦戶外／水上活動前的風險評估要求及表格出處",
+  "answerable": true,
+  "expected_source_any": [
+   "sch_activities_guide"
+  ],
+  "expected_passage_signature": [
+   "作出風險評估(風險評估表的樣本,可參閱附錄XII);校方負責"
+  ],
+  "expected_page": 39,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_sch_activities_guide_0fea61dbf83452b2",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "作出風險評估",
+   "matches_in_corpus": 2,
+   "sources_sharing_signature": [
+    "sch_activities_guide"
+   ],
+   "note": "簽名於 sch_activities_guide 兩個片段命中"
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "act_priority_values_five_confusable",
+  "domain": "activity_value_education",
+  "query": "首要價值觀",
+  "query_kind": "confusable",
+  "intent": "查首要培育的價值觀；數目歷年由 5 個增至現時的十多個，與 edbcm183（12 個一圖盡覽）易混淆",
+  "answerable": true,
+  "expected_source_any": [
+   "values_edu_framework_2026"
+  ],
+  "expected_passage_signature": [
+   "同時提出五個首要培育學生的價值觀和態度(首要價值觀),包括「堅毅」、「尊重他人"
+  ],
+  "expected_page": 11,
+  "acceptable_alternatives": [
+   "edbcm183_2023_values_edu",
+   "values_edu_framework_2021_trial"
+  ],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_values_edu_framework_2026_9ac0acf3b877158b",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "同時提出五個首要培育學生的價值觀和態",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "values_edu_framework_2026"
+   ],
+   "note": "此片段描述 2001 年的五個；現行已增補"
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "act_priority_values_twelve_list",
+  "domain": "activity_value_education",
+  "query": "價值觀 清單",
+  "query_kind": "plain",
+  "intent": "查優化後首要價值觀和態度的完整項目（一圖盡覽）",
+  "answerable": true,
+  "expected_source_any": [
+   "edbcm183_2023_values_edu"
+  ],
+  "expected_passage_signature": [
+   "首要價值觀和態度一圖盡覽堅毅圖檔/拍照道具尊重他人圖檔/拍照道具"
+  ],
+  "expected_page": 18,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbcm183_2023_values_edu_281ff98e98d674b0",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "首要價值觀和態度一圖盡覽",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "edbcm183_2023_values_edu"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "cpd_blnst_test",
+  "domain": "cpd_teacher_qualification",
+  "query": "BLNST",
+  "query_kind": "english",
+  "intent": "查《基本法及香港國安法》測試（BLNST）的及格效力",
+  "answerable": true,
+  "expected_source_any": [
+   "edbc13_2022_blnst"
+  ],
+  "expected_passage_signature": [
+   "如教師於學位程度的測試取得及格成績,日後將不需再次應考同等或更低程度的"
+  ],
+  "expected_page": 3,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbc13_2022_blnst_18fe18a29753a31d",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "如教師於學位程度的測試取得及格成績",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "edbc13_2022_blnst"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "cpd_conduct_registration",
+  "domain": "cpd_teacher_qualification",
+  "query": "操守指引",
+  "query_kind": "plain",
+  "intent": "查教師專業操守指引與教師註冊要求的關係",
+  "answerable": true,
+  "expected_source_any": [
+   "g05"
+  ],
+  "expected_passage_signature": [
+   "法例第279章《教育條例》,教師必須註冊為「檢定教員」或「准用教員"
+  ],
+  "expected_page": 3,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_g05_1825f74f4ce01095",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "教師必須註冊為",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "g05"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "cpd_cpd_hours_150",
+  "domain": "cpd_teacher_qualification",
+  "query": "進修時數",
+  "query_kind": "plain",
+  "intent": "查教師每三年周期的持續專業發展時數「軟指標」",
+  "answerable": true,
+  "expected_source_any": [
+   "tdtf_report_2019"
+  ],
+  "expected_passage_signature": [
+   "。每三年周期內參與不少於150小時持續專業發展活動的「軟指標」合適。現時"
+  ],
+  "expected_page": 15,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_tdtf_report_2019_1bd3a14ce290fbe6",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "150",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "tdtf_report_2019"
+   ],
+   "note": "軟指標，非法定硬性規定"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "cpd_graduatisation_supply",
+  "domain": "cpd_teacher_qualification",
+  "query": "學位化 代課",
+  "query_kind": "plain",
+  "intent": "查教師職位全面學位化後，代課教師的聳任薪酬安排",
+  "answerable": true,
+  "expected_source_any": [
+   "faq_edbc19011"
+  ],
+  "expected_passage_signature": [
+   "已具備擔任學位教師的資歷,學校應以學位教師的日薪/月薪聘任代課教師。合約教師問22在"
+  ],
+  "expected_page": 12,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_faq_edbc19011_00f4bfd88f25",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "已具備擔任學位教師的資歷",
+   "matches_in_corpus": 2,
+   "sources_sharing_signature": [
+    "faq_edbc19011"
+   ],
+   "note": "簽名於同一 source 內出現 2 次，其餘來源無"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "cpd_induction_period_na",
+  "domain": "cpd_teacher_qualification",
+  "query": "新入職教師 啟導期",
+  "query_kind": "no_answer",
+  "intent": "問新入職教師的「啟導期」有多長；教育局透過教師專業階梯為新入職教師提供核心培訓課程，但並無就校本啟導／師友計劃訂立固定的啟導期時長，庫內無此規定",
+  "answerable": false,
+  "expected_source_any": [],
+  "expected_passage_signature": [],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "method": "absence check over the corpus",
+   "phrase": "啟導期",
+   "matches": 0,
+   "note": "庫內零命中"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "cpd_kiddie_teacher_reg",
+  "domain": "cpd_teacher_qualification",
+  "query": "檢定教員",
+  "query_kind": "plain",
+  "intent": "查檢定教員／準用教員的批核權責",
+  "answerable": true,
+  "expected_source_any": [
+   "g05"
+  ],
+  "expected_passage_signature": [
+   "《教育條例》賦權常任秘書長,批准或拒絕「檢定教員」或「准用教員」的申請;已註冊教師如涉"
+  ],
+  "expected_page": 23,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_g05_16dd373bdb1222c4",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "賦權常任秘書長",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "g05"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "cpd_ladder_purpose",
+  "domain": "cpd_teacher_qualification",
+  "query": "專業階梯",
+  "query_kind": "confusable",
+  "intent": "查教師專業階梯的定位；同一詞在專責小組報告與學校行政手冊框架不同，易混淆",
+  "answerable": true,
+  "expected_source_any": [
+   "tdtf_report_2019"
+  ],
+  "expected_passage_signature": [
+   "主流意見同意教師專業階梯用於促進個人專業成長,而不是作為評核表現或升遷的工具"
+  ],
+  "expected_page": 15,
+  "acceptable_alternatives": [
+   "g24",
+   "sag_2025_11",
+   "g06"
+  ],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_tdtf_report_2019_1bd3a14ce290fbe6",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "主流意見同意教師專業階梯",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "tdtf_report_2019"
+   ],
+   "note": "g24 與 sag_2025_11 為學校行政手冊同一文件重複收錄"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "cpd_mainland_promotion_tour",
+  "domain": "cpd_teacher_qualification",
+  "query": "晉升 內地團",
+  "query_kind": "plain",
+  "intent": "查公營學校教師實任晉升的內地學習團要求",
+  "answerable": true,
+  "expected_source_any": [
+   "g24",
+   "sag_2025_11"
+  ],
+  "expected_passage_signature": [
+   "所有實任晉升更高職級的公營學校教師,必須在其實任晉升的首兩年內,參加由教育"
+  ],
+  "expected_page": 188,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_g24_82967332a7e28669",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "所有實任晉升更高職級的公營學校教師",
+   "matches_in_corpus": 2,
+   "sources_sharing_signature": [
+    "g24",
+    "sag_2025_11"
+   ],
+   "note": "g24 與 sag_2025_11 為學校行政手冊同一文件重複收錄，簽名兩者皆命中"
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "cpd_reg_typo",
+  "domain": "cpd_teacher_qualification",
+  "query": "教師註測",
+  "query_kind": "typo",
+  "intent": "查教師註冊機構（查詢輸入了錯別字「註測」）",
+  "answerable": true,
+  "expected_source_any": [
+   "g05"
+  ],
+  "expected_passage_signature": [
+   "教育局負責教師的法定註冊工作,監管教師的專業資格和操守。就每"
+  ],
+  "expected_page": 23,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_g05_16dd373bdb1222c4",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "教育局負責教師的法定註冊",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "g05"
+   ],
+   "note": "query 為「教師註冊」的錯別字"
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "cpd_t_standard",
+  "domain": "cpd_teacher_qualification",
+  "query": "T-標準+",
+  "query_kind": "abbrev",
+  "intent": "查 T-標準+ 是甚麼",
+  "answerable": true,
+  "expected_source_any": [
+   "tdtf_report_2019"
+  ],
+  "expected_passage_signature": [
+   "標準+」則是以學生教育需要為中心而設計的教師和校長專業標準參照,展現"
+  ],
+  "expected_page": 11,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_tdtf_report_2019_30ea8f85081c5e7c",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "則是以學生教育需要為中心",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "tdtf_report_2019"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "dig_ai_literacy_stages",
+  "domain": "digital_education",
+  "query": "AI素養",
+  "query_kind": "abbrev",
+  "intent": "查中小學人工智能素養學習架構各學習階段重點",
+  "answerable": true,
+  "expected_source_any": [
+   "debp_ai_literacy_framework"
+  ],
+  "expected_passage_signature": [
+   "初小階段着重感知與體驗,透過生活例子和體驗式活動,初步認識人工智能及其用途。•高小階段"
+  ],
+  "expected_page": 9,
+  "acceptable_alternatives": [
+   "debp_blueprint"
+  ],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_debp_ai_literacy_framework_308ad49a7729be23",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "初小階段着重感知與體驗",
+   "matches_in_corpus": 2,
+   "sources_sharing_signature": [
+    "debp_ai_literacy_framework",
+    "debp_blueprint"
+   ],
+   "note": "藍圖正文亦引用同一段"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "dig_byod_mandatory_na",
+  "domain": "info_security",
+  "query": "BYOD 強制",
+  "query_kind": "no_answer",
+  "intent": "問學校是否必須推行 BYOD（自攜裝置）；教育局權威政策文件並無此強制規定，相關說法僅見於非官方整理資料",
+  "answerable": false,
+  "expected_source_any": [],
+  "expected_passage_signature": [],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [
+   "role_facts_it"
+  ],
+  "verified_by": {
+   "method": "absence check over the corpus",
+   "phrase": "強制推行自攜裝置",
+   "matches": 0,
+   "note": "較廣的『自攜裝置』只命中非權威role_facts_it，故列作forbidden；權威文件沒有強制推行規定"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "dig_cloud_privacy_pcpd",
+  "domain": "info_security",
+  "query": "雲端 個人資料",
+  "query_kind": "plain",
+  "intent": "查把個人資料交由雲端服務供應商處理時的告知責任（資料來源為個人資料私隱專員公署，非教育局）",
+  "answerable": true,
+  "expected_source_any": [
+   "pcpd_cloud_computing"
+  ],
+  "expected_passage_signature": [
+   "通知客戶他們會把個人資料的儲存及╱或處理外判予雲端服務供應商,其個人資"
+  ],
+  "expected_page": 9,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_pcpd_cloud_computing_04a62bec6390",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "通知客戶他們會把個人資料的儲存",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "pcpd_cloud_computing"
+   ],
+   "note": "PCPD 文件，非教育局"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "dig_debp_abbrev",
+  "domain": "digital_education",
+  "query": "DEBP",
+  "query_kind": "english",
+  "intent": "查《中小學數字教育發展藍圖》（DEBP）的目標",
+  "answerable": true,
+  "expected_source_any": [
+   "debp_blueprint"
+  ],
+  "expected_passage_signature": [
+   "建設安全、高效、普及公平的數字教育基建,並發展符合本地課程指引的優"
+  ],
+  "expected_page": 5,
+  "acceptable_alternatives": [
+   "debp_exec_summary"
+  ],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_debp_blueprint_052c6c7fb4a79024",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "建設安全、高效、普及公平的數字教育基",
+   "matches_in_corpus": 3,
+   "sources_sharing_signature": [
+    "debp_blueprint",
+    "debp_exec_summary"
+   ],
+   "note": "行政摘要 debp_exec_summary 亦載相同文字"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "dig_edb_cloud_guideline_na",
+  "domain": "info_security",
+  "query": "學校雲端服務指引",
+  "query_kind": "no_answer",
+  "intent": "問教育局的「學校使用雲端服務指引」；教育局並無發布此指引，資訊保安中心的實質文件全文無「雲」／cloud 內容，最接近的權威為個人資料私隱專員公署《雲端運算指引資料》（非教育局文件）",
+  "answerable": false,
+  "expected_source_any": [],
+  "expected_passage_signature": [],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "method": "absence check over the corpus",
+   "phrase": "學校使用雲端服務指引",
+   "matches": 0,
+   "note": "庫內零命中"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "dig_elearning_confusable",
+  "domain": "digital_education",
+  "query": "電子學習",
+  "query_kind": "confusable",
+  "intent": "查「電子學習」；同時涉及優質教育基金設備撥款通函與《數字教育發展藍圖》政策，兩者對象與內容不同易混淆",
+  "answerable": true,
+  "expected_source_any": [
+   "edbcm073_2026"
+  ],
+  "expected_passage_signature": [
+   "學校須於2027年4月底或以前完成所有採購程序,並於2026/27學年內付款。(ii"
+  ],
+  "expected_page": 7,
+  "acceptable_alternatives": [
+   "debp_blueprint"
+  ],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbcm073_2026_248ba156ec4c9076",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "學校須於2027",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "edbcm073_2026"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "dig_elearning_device_grant",
+  "domain": "digital_education",
+  "query": "電子學習 撥款",
+  "query_kind": "plain",
+  "intent": "查優質教育基金電子學習撥款計劃的設備價格上限與赤字處理",
+  "answerable": true,
+  "expected_source_any": [
+   "edbcm073_2026"
+  ],
+  "expected_passage_signature": [
+   "如學校有需要為個別學生提供價格高於撥款金額上限的設備而出現赤字"
+  ],
+  "expected_page": 5,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbcm073_2026_3fc11a866069e27d",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "如學校有需要為個別學生提供價格高於撥",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "edbcm073_2026"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "dig_genai_primary_students",
+  "domain": "digital_education",
+  "query": "小學生 生成式AI",
+  "query_kind": "plain",
+  "intent": "查高小學生使用生成式人工智能工具的規範",
+  "answerable": true,
+  "expected_source_any": [
+   "debp_ai_teaching_guide"
+  ],
+  "expected_passage_signature": [
+   "縱然是高小學生,仍尚未能獨立判斷內容的真確性,原則上應在教師或監護人指導下"
+  ],
+  "expected_page": 7,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_debp_ai_teaching_guide_fb66752fae40a52b",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "縱然是高小學生",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "debp_ai_teaching_guide"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "dig_online_meeting_security",
+  "domain": "info_security",
+  "query": "網課 保安",
+  "query_kind": "plain",
+  "intent": "查視像會議（Zoom）的保安設定建議",
+  "answerable": true,
+  "expected_source_any": [
+   "g28"
+  ],
+  "expected_passage_signature": [
+   "碼停用「允許在主持人進入10會議前加入」選項11使用等候室功能12刪除ZOOM"
+  ],
+  "expected_page": 1,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_g28_3a2a95e4b36a",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "使用等候室功能",
+   "matches_in_corpus": 2,
+   "sources_sharing_signature": [
+    "g28"
+   ],
+   "note": "g28 為 Zoom 保安建議文件；簽名於 g28 兩個片段命中"
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "dig_teacher_digital_cpd_hours",
+  "domain": "digital_education",
+  "query": "數字教育 培訓時數",
+  "query_kind": "plain",
+  "intent": "查教師三年 150 小時持續專業發展周期內數字教育培訓的時數要求",
+  "answerable": true,
+  "expected_source_any": [
+   "edbcm156_2026"
+  ],
+  "expected_passage_signature": [
+   "教師於每三年150小時的持續專業發展週期內,需完成不少於30小時有關數字"
+  ],
+  "expected_page": 8,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbcm156_2026_61d31a46542160dd",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "需完成不少於30小時有關數字",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "edbcm156_2026"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "qa_annual_sse_data",
+  "domain": "qa_inspection",
+  "query": "周年自評 數據",
+  "query_kind": "plain",
+  "intent": "查 2023／24 學年起周年自評每年須蒐集的數據",
+  "answerable": true,
+  "expected_source_any": [
+   "edbc15_2022_accountability"
+  ],
+  "expected_passage_signature": [
+   "24學年起,學校進行周年自評時,須每年蒐集學校表現評量(見附件一)數據,當中包括持份者"
+  ],
+  "expected_page": 6,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbc15_2022_accountability_c8288d0a2be64ba8",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "學校進行周年自評時",
+   "matches_in_corpus": 2,
+   "sources_sharing_signature": [
+    "edbc15_2022_accountability"
+   ],
+   "note": "簽名於同一 source（edbc15）2 個片段出現"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "qa_dev_cycle_data",
+  "domain": "qa_inspection",
+  "query": "發展周期",
+  "query_kind": "plain",
+  "intent": "查學校在發展周期結束時須向教育局呈交甚麼",
+  "answerable": true,
+  "expected_source_any": [
+   "edbc15_2022_accountability"
+  ],
+  "expected_passage_signature": [
+   "在發展周期結束時,向教育局呈交附件一的學校表現評量數據。2小學教"
+  ],
+  "expected_page": 3,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbc15_2022_accountability_759dacc856463202",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "在發展周期結束時",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "edbc15_2022_accountability"
+   ],
+   "note": "簽名於同一 source（edbc15）多個片段出現，其餘來源無"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "qa_esr_abbrev",
+  "domain": "qa_inspection",
+  "query": "ESR",
+  "query_kind": "english",
+  "intent": "查校外評核（ESR／外評）在質素保證架構中的角色",
+  "answerable": true,
+  "expected_source_any": [
+   "edbc15_2022_accountability"
+  ],
+  "expected_passage_signature": [
+   "質素保證分部通過校外評核(外評)和重點視學,核實學校自評成效,並"
+  ],
+  "expected_page": 1,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbc15_2022_accountability_616b5662c13bdd7d",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "質素保證分部通過校外評核",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "edbc15_2022_accountability"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "qa_esr_no_fixed_cycle",
+  "domain": "qa_inspection",
+  "query": "校外評核是否固定週期進行",
+  "query_kind": "natural_sentence",
+  "intent": "問校外評核是否按固定周期進行",
+  "answerable": true,
+  "expected_source_any": [
+   "edbc15_2022_accountability"
+  ],
+  "expected_passage_signature": [
+   "5/16學年起,外評不再受固定的周期限制等。由"
+  ],
+  "expected_page": 1,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbc15_2022_accountability_616b5662c13bdd7d",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "外評不再受固定",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "edbc15_2022_accountability"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "qa_inspection_confusable",
+  "domain": "qa_inspection",
+  "query": "視學",
+  "query_kind": "confusable",
+  "intent": "查「視學」；涵蓋校外評核、重點視學、課程探訪及數字教育視學，跨質素保證與數字教育文件易混淆",
+  "answerable": true,
+  "expected_source_any": [
+   "edbc15_2022_accountability"
+  ],
+  "expected_passage_signature": [
+   "訂定和落實學校發展計劃,以及跟進學校就外評及重點視學建議的改善措施"
+  ],
+  "expected_page": 1,
+  "acceptable_alternatives": [
+   "debp_blueprint",
+   "perf_indicators_2022"
+  ],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbc15_2022_accountability_616b5662c13bdd7d",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "以及跟進學校就外評及重點視學建議的改",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "edbc15_2022_accountability"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "qa_keypoint_questions",
+  "domain": "qa_inspection",
+  "query": "要點問題",
+  "query_kind": "plain",
+  "intent": "查表現指標的「要點問題」用途",
+  "answerable": true,
+  "expected_source_any": [
+   "perf_indicators_2022"
+  ],
+  "expected_passage_signature": [
+   "每個表現指標設有一組「要點問題」,為學校人員提供檢視該指標範圍學校工作的方向"
+  ],
+  "expected_page": 6,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_perf_indicators_2022_3f70e312eb2fbd00",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "每個表現指標設有一組「要點問題」",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "perf_indicators_2022"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "qa_kg_pi_na",
+  "domain": "qa_inspection",
+  "query": "幼稚園 表現指標",
+  "query_kind": "no_answer",
+  "intent": "問幼稚園的學校表現指標；《香港學校表現指標》（2022）訂明只適用於中學、小學及特殊學校，庫內無幼稚園專用學校表現指標文件",
+  "answerable": false,
+  "expected_source_any": [],
+  "expected_passage_signature": [],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "method": "absence check over the corpus",
+   "phrase": "幼稚園表現指標",
+   "matches": 0,
+   "note": "庫內零命中"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "qa_pi_four_domains",
+  "domain": "qa_inspection",
+  "query": "表現指標 範疇",
+  "query_kind": "plain",
+  "intent": "查香港學校表現指標的範疇結構",
+  "answerable": true,
+  "expected_source_any": [
+   "perf_indicators_2022"
+  ],
+  "expected_passage_signature": [
+   "學生表現」的兩個指標範圍為中心,外層包括「學與教」和「校風及學生支援」"
+  ],
+  "expected_page": 8,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_perf_indicators_2022_3adbf22e346213ce",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "兩個指標範圍為中心",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "perf_indicators_2022"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "qa_sdp_accountability",
+  "domain": "qa_inspection",
+  "query": "學校發展計劃",
+  "query_kind": "plain",
+  "intent": "查學校發展計劃作為問責工具的內容要求",
+  "answerable": true,
+  "expected_source_any": [
+   "sdp_guide"
+  ],
+  "expected_passage_signature": [
+   "學校發展計劃是問責工具之一,須列出學校的長遠及周年發展目標。該等目標須"
+  ],
+  "expected_page": 2,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_sdp_guide_cc470b141f88cbd1",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "學校發展計劃是問責工具之一",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "sdp_guide"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "qa_stakeholder_survey",
+  "domain": "qa_inspection",
+  "query": "持份者問卷",
+  "query_kind": "plain",
+  "intent": "查學校自評如何運用持份者問卷數據",
+  "answerable": true,
+  "expected_source_any": [
+   "perf_indicators_2022"
+  ],
+  "expected_passage_signature": [
+   "察,以及從持份者問卷、情意及社交表現評估套件等所得的資料和數據,識別學生在成長支援方面的各項"
+  ],
+  "expected_page": 25,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_perf_indicators_2022_28da053a5495c540",
+   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
+   "anchor": "從持份者問卷、情意及社交表現評估套件",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "perf_indicators_2022"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "dig_school_plan_2627",
+  "domain": "digital_education",
+  "query": "學校何時須把數字教育納入發展計劃",
+  "query_kind": "natural_sentence",
+  "intent": "查學校把數字教育納入學校發展計劃或周年計劃的學年要求",
+  "answerable": true,
+  "expected_source_any": [
+   "edbcm156_2026"
+  ],
+  "expected_passage_signature": [
+   "學校須於2026/27學年，將數字教育納入學校發展計劃及/或學校周年計劃"
+  ],
+  "expected_page": 1,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbcm156_2026_2ec76dd7cb2516a0",
+   "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
+   "anchor": "將數字教育納入學校發展計劃",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "edbcm156_2026"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "dig_ai_ethics_training",
+  "domain": "digital_education",
+  "query": "教師人工智能基礎培訓包括哪些倫理內容",
+  "query_kind": "natural_sentence",
+  "intent": "查人工智能基礎培訓涵蓋的倫理、權限、監督、私隱及安全內容",
+  "answerable": true,
+  "expected_source_any": [
+   "edbcm156_2026"
+  ],
+  "expected_passage_signature": [
+   "認識人工智能倫理原則、角色權限界定、人為監督與決策責任、數據私隱與安全保障"
+  ],
+  "expected_page": 12,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbcm156_2026_42dc1d2bcc326c58",
+   "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
+   "anchor": "人工智能倫理原則",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "edbcm156_2026"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "dig_ai_fact_check_privacy",
+  "domain": "digital_education",
+  "query": "學生使用人工智能時如何核實資料",
+  "query_kind": "natural_sentence",
+  "intent": "查學生使用人工智能工具時進行事實查證的要求",
+  "answerable": true,
+  "expected_source_any": [
+   "debp_ai_literacy_framework"
+  ],
+  "expected_passage_signature": [
+   "學生須意識到人工智能工具可能生成或與事實不符的資料"
+  ],
+  "expected_page": 13,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_debp_ai_literacy_framework_037b29a15ee0e912",
+   "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
+   "anchor": "人工智能工具可能生成或與事實不符的資料",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "debp_ai_literacy_framework"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "dig_deepfake_literacy",
+  "domain": "digital_education",
+  "query": "學生應如何面對人工智能深偽內容",
+  "query_kind": "natural_sentence",
+  "intent": "查人工智能素養示例對深偽技術風險及查證態度的要求",
+  "answerable": true,
+  "expected_source_any": [
+   "debp_ailf_example"
+  ],
+  "expected_passage_signature": [
+   "認識人工智能深偽技術會對社會及他人造成傷害"
+  ],
+  "expected_page": 14,
+  "acceptable_alternatives": [
+   "debp_blueprint"
+  ],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_debp_ailf_example_b799fe054fca82e4",
+   "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
+   "anchor": "人工智能深偽技術",
+   "matches_in_corpus": 2,
+   "sources_sharing_signature": [
+    "debp_ailf_example",
+    "debp_blueprint"
+   ],
+   "note": "藍圖正文亦收錄同一示例"
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "sec_cloud_shared_responsibility",
+  "domain": "info_security",
+  "query": "雲端資料保安由誰負責",
+  "query_kind": "natural_sentence",
+  "intent": "查資料使用者與雲端服務供應商的共同保安責任",
+  "answerable": true,
+  "expected_source_any": [
+   "pcpd_cloud_computing"
+  ],
+  "expected_passage_signature": [
+   "資料使用者和雲端服務供應商一同承擔保護雲端環境內數據安全的責任"
+  ],
+  "expected_page": 3,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_pcpd_cloud_computing_ddc8a76f74df",
+   "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
+   "anchor": "一同承擔保護雲端環境內數據安全的責任",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "pcpd_cloud_computing"
+   ],
+   "note": "PCPD文件，非教育局文件"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "sec_cloud_encryption",
+  "domain": "info_security",
+  "query": "雲端個人資料傳輸是否需要加密",
+  "query_kind": "natural_sentence",
+  "intent": "查雲端個人資料在傳輸過程中的加密建議",
+  "answerable": true,
+  "expected_source_any": [
+   "pcpd_cloud_computing"
+  ],
+  "expected_passage_signature": [
+   "個人資料應在傳輸過程中加密，防止遭竊聽或中間人攻擊"
+  ],
+  "expected_page": 4,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_pcpd_cloud_computing_425aa9162e4a",
+   "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
+   "anchor": "傳輸過程中加密",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "pcpd_cloud_computing"
+   ],
+   "note": "PCPD文件，非教育局文件"
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "sec_cloud_mfa",
+  "domain": "info_security",
+  "query": "雲端特權帳戶應否啟用多重身份認證",
+  "query_kind": "natural_sentence",
+  "intent": "查雲端帳戶，尤其特權帳戶的多重身份認證建議",
+  "answerable": true,
+  "expected_source_any": [
+   "pcpd_cloud_computing"
+  ],
+  "expected_passage_signature": [
+   "應考慮盡量為帳戶（尤其是特權帳戶）啟用多重身份認證功能"
+  ],
+  "expected_page": 5,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_pcpd_cloud_computing_aeb1a637e5c4",
+   "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
+   "anchor": "特權帳戶",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "pcpd_cloud_computing"
+   ],
+   "note": "PCPD文件，非教育局文件"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "sec_cloud_audit_logs",
+  "domain": "info_security",
+  "query": "使用雲端服務是否需要保留審計記錄",
+  "query_kind": "natural_sentence",
+  "intent": "查資料使用者保留及檢視雲端服務審計追蹤記錄的責任",
+  "answerable": true,
+  "expected_source_any": [
+   "pcpd_cloud_computing"
+  ],
+  "expected_passage_signature": [
+   "資料使用者應保留雲端服務供應商提供的審計追蹤記錄"
+  ],
+  "expected_page": 4,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_pcpd_cloud_computing_b1bb735772df",
+   "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
+   "anchor": "審計追蹤記錄",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "pcpd_cloud_computing"
+   ],
+   "note": "PCPD文件，非教育局文件"
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "sec_cloud_cross_border",
+  "domain": "info_security",
+  "query": "個人資料可否轉移到境外雲端伺服器",
+  "query_kind": "natural_sentence",
+  "intent": "查個人資料轉移至香港境外雲端伺服器時仍須遵守的私隱責任",
+  "answerable": true,
+  "expected_source_any": [
+   "pcpd_cloud_computing"
+  ],
+  "expected_passage_signature": [
+   "如資料使用者擬將個人資料轉移至香港境外的雲端伺服器"
+  ],
+  "expected_page": 7,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_pcpd_cloud_computing_51cd6612ee4b",
+   "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
+   "anchor": "香港境外的雲端伺服器",
+   "matches_in_corpus": 1,
+   "sources_sharing_signature": [
+    "pcpd_cloud_computing"
+   ],
+   "note": "PCPD文件，非教育局文件"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "sec_cloud_breach_notification",
+  "domain": "info_security",
+  "query": "雲端資料外洩應通知哪些人士",
+  "query_kind": "natural_sentence",
+  "intent": "查雲端服務合約對資料外洩事故通報的安排",
+  "answerable": true,
+  "expected_source_any": [
+   "pcpd_cloud_computing"
+  ],
+  "expected_passage_signature": [
+   "向私隱專員公署及受影響的資料當事人作出資料外洩事故通報"
+  ],
+  "expected_page": 9,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_pcpd_cloud_computing_04a62bec6390",
+   "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
+   "anchor": "資料外洩事故通報",
+   "matches_in_corpus": 2,
+   "sources_sharing_signature": [
+    "pcpd_cloud_computing"
+   ],
+   "note": "同一來源的重疊chunk命中；PCPD文件，非教育局文件"
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "sec_meeting_link_private",
+  "domain": "info_security",
+  "query": "網上會議連結應否公開分享",
+  "query_kind": "natural_sentence",
+  "intent": "查視像會議連結的安全分享方式",
+  "answerable": true,
+  "expected_source_any": [
+   "g28"
+  ],
+  "expected_passage_signature": [
+   "將會議連結私下分享給與會者（例如通過電子郵件），確保會議鏈結不被公開"
+  ],
+  "expected_page": 4,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_g28_e211aa26f049",
+   "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
+   "anchor": "會議鏈結不被公開",
+   "matches_in_corpus": 2,
+   "sources_sharing_signature": [
+    "g28"
+   ],
+   "note": "同一來源的重疊chunk命中"
+  },
+  "split": "held_out"
+ }
+]

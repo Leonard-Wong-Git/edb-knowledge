@@ -1,0 +1,1214 @@
+[
+ {
+  "id": "staff_fullday_12",
+  "domain": "staffing",
+  "query": "12班小學 學位教師",
+  "query_kind": "plain",
+  "intent": "查全日制資助小學 12 班的小學學位教師編制人數",
+  "answerable": true,
+  "expected_source_any": [
+   "staff_est_pri"
+  ],
+  "expected_passage_signature": [
+   "全日制資助小學核准開辦12班的教學人員編制:校長1名(二級小學校長)"
+  ],
+  "expected_page": 1,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [
+   "staff_est_sp_sch_pri"
+  ],
+  "verified_by": {
+   "chunk_id": "vault_staff_est_pri_9b97ea43d291",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "全日制資助小學核准開辦 12 班的教學人員編制",
+   "chunks_with_anchor_in_source": 1,
+   "sources_sharing_signature": [
+    "staff_est_pri"
+   ],
+   "note": "平台曾就此題答錯（答 12，正確為 5）。半日制同題是 4，故必須分流。"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "staff_halfday_12",
+  "domain": "staffing",
+  "query": "半日制小學 12班 編制",
+  "query_kind": "confusable",
+  "intent": "查半日制 12 班編制，須與全日制表分流",
+  "answerable": true,
+  "expected_source_any": [
+   "staff_est_pri"
+  ],
+  "expected_passage_signature": [
+   "半日制資助小學核准開辦12班的教學人員編制:校長1名(二級小學校長)"
+  ],
+  "expected_page": 3,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_staff_est_pri_28bdfae6c8c1",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "半日制資助小學核准開辦 12 班的教學人員編制",
+   "chunks_with_anchor_in_source": 1,
+   "sources_sharing_signature": [
+    "staff_est_pri"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "staff_fullday_24",
+  "domain": "staffing",
+  "query": "24班小學編制",
+  "query_kind": "plain",
+  "intent": "查全日制 24 班教學人員編制",
+  "answerable": true,
+  "expected_source_any": [
+   "staff_est_pri"
+  ],
+  "expected_passage_signature": [
+   "全日制資助小學核准開辦24班的教學人員編制:校長1名(一級小學校長)"
+  ],
+  "expected_page": 1,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_staff_est_pri_58f262551ffa",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "全日制資助小學核准開辦 24 班的教學人員編制",
+   "chunks_with_anchor_in_source": 1,
+   "sources_sharing_signature": [
+    "staff_est_pri"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "staff_halfday_24",
+  "domain": "staffing",
+  "query": "半日制 24 班 教師人數",
+  "query_kind": "confusable",
+  "intent": "查半日制 24 班編制",
+  "answerable": true,
+  "expected_source_any": [
+   "staff_est_pri"
+  ],
+  "expected_passage_signature": [
+   "半日制資助小學核准開辦24班的教學人員編制:校長1名(一級小學校長)"
+  ],
+  "expected_page": 3,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_staff_est_pri_1046c25a4fdf",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "半日制資助小學核准開辦 24 班的教學人員編制",
+   "chunks_with_anchor_in_source": 1,
+   "sources_sharing_signature": [
+    "staff_est_pri"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "staff_head_ratio_full",
+  "domain": "staffing",
+  "query": "主任級教師 比例",
+  "query_kind": "plain",
+  "intent": "查全日制小學主任級教師職位的計算基礎",
+  "answerable": true,
+  "expected_source_any": [
+   "staff_est_pri"
+  ],
+  "expected_passage_signature": [
+   "改善為每3.2名教師設1個主任級教師職位。"
+  ],
+  "expected_page": 1,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_staff_est_pri_74e63d4061b9",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "改善為每3.2 名教師設1",
+   "chunks_with_anchor_in_source": 1,
+   "sources_sharing_signature": [
+    "staff_est_pri"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "staff_head_ratio_half",
+  "domain": "staffing",
+  "query": "半日制 主任級教師 幾多個",
+  "query_kind": "confusable",
+  "intent": "查半日制小學主任級教師比例（與全日制 3.2 不同）",
+  "answerable": true,
+  "expected_source_any": [
+   "staff_est_pri"
+  ],
+  "expected_passage_signature": [
+   "改善為每4名教師設1個主任級教師職位。"
+  ],
+  "expected_page": 3,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_staff_est_pri_499b798646ba",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "改善為每4 名教師設1",
+   "chunks_with_anchor_in_source": 1,
+   "sources_sharing_signature": [
+    "staff_est_pri"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "staff_deputy_24",
+  "domain": "staffing",
+  "query": "副校長 幾多個",
+  "query_kind": "natural_sentence",
+  "intent": "查 24 班或以上普通小學的副校長職位數目",
+  "answerable": true,
+  "expected_source_any": [
+   "staff_est_pri"
+  ],
+  "expected_passage_signature": [
+   "核准開辦24班或以上的普通小學,三個小學學位教師職位獲提升至高級小學"
+  ],
+  "expected_page": 1,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_staff_est_pri_12b99b26c8a4",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "核准開辦24班或以上的普通小學",
+   "chunks_with_anchor_in_source": 2,
+   "sources_sharing_signature": [
+    "staff_est_pri"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "staff_sp_school",
+  "domain": "staffing",
+  "query": "特殊學校 教學人員編制表",
+  "query_kind": "no_answer",
+  "intent": "特殊學校編制表 staff_est_sp_sch_pri 為 held_back、庫內零片段；平台曾據錯表答錯班數，故此題必須答不到而非亂答",
+  "answerable": false,
+  "expected_source_any": [],
+  "expected_passage_signature": [],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "method": "absence check over the corpus",
+   "phrase": "特殊學校核准開辦",
+   "matches": 0,
+   "note": "庫內零命中，故此題確實答不到"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "staff_grad_ratio",
+  "domain": "staffing",
+  "query": "學位教師比例",
+  "query_kind": "plain",
+  "intent": "查資助小學學位教師職級的編制安排",
+  "answerable": true,
+  "expected_source_any": [
+   "staff_est_pri"
+  ],
+  "expected_passage_signature": [
+   "小學學位教師職位獲提升至高級小學學位教師職級,作為副校長的職位;在核"
+  ],
+  "expected_page": 1,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_staff_est_pri_0383b4ec9a35",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "小學學位教師職位獲提升至高級小學學位教師職級",
+   "chunks_with_anchor_in_source": 4,
+   "sources_sharing_signature": [
+    "staff_est_pri"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "staff_supply",
+  "domain": "staffing",
+  "query": "代課老師 點請",
+  "query_kind": "natural_sentence",
+  "intent": "查代課教師聘任安排",
+  "answerable": true,
+  "expected_source_any": [
+   "supply_teacher_guide"
+  ],
+  "expected_passage_signature": [
+   "代課教師的指引》:受僱擔任編制內教席或受僱不少於6個月,其聘用須由學"
+  ],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "footnote_fn_supply_approval",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "代課教師",
+   "chunks_with_anchor_in_source": 15,
+   "sources_sharing_signature": [
+    "supply_teacher_guide"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "hr_mpf",
+  "domain": "hr_admin",
+  "query": "公積金 MPF",
+  "query_kind": "english",
+  "intent": "查資助學校公積金／強積金安排",
+  "answerable": true,
+  "expected_source_any": [
+   "edbc00030"
+  ],
+  "expected_passage_signature": [
+   "公積金組/教育津貼組,以便修訂有關人員的薪金資料。此外,校監亦須另備"
+  ],
+  "expected_page": 1,
+  "acceptable_alternatives": [
+   "g24",
+   "sag_2025_11"
+  ],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbc00030_0372fc3a4c07",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "公積金",
+   "chunks_with_anchor_in_source": 20,
+   "sources_sharing_signature": [
+    "edbc00030"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "hr_lsp",
+  "domain": "hr_admin",
+  "query": "長期服務金 點計",
+  "query_kind": "natural_sentence",
+  "intent": "查長期服務金計算方法",
+  "answerable": true,
+  "expected_source_any": [
+   "long_service_payment_guide"
+  ],
+  "expected_passage_signature": [
+   "長期服務金嘅賠償點計(按比例)?《發放遣散費及長期服務金的指引》:未"
+  ],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "footnote_fn_lsp_calc",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "長期服務金",
+   "chunks_with_anchor_in_source": 11,
+   "sources_sharing_signature": [
+    "long_service_payment_guide"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "hr_maternity",
+  "domain": "hr_admin",
+  "query": "產假",
+  "query_kind": "plain",
+  "intent": "查教職員產假安排",
+  "answerable": true,
+  "expected_source_any": [
+   "kg_admin_guide_2026"
+  ],
+  "expected_passage_signature": [
+   "產假的代職人員津貼、代課教師津貼等),幼稚園須在每年向教育局提交經審"
+  ],
+  "expected_page": 66,
+  "acceptable_alternatives": [
+   "g24",
+   "sag_2025_11"
+  ],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_kg_admin_guide_2026_00adf7dbb8cf6b33",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "產假",
+   "chunks_with_anchor_in_source": 14,
+   "sources_sharing_signature": [
+    "kg_admin_guide_2026"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "hr_jobshare",
+  "domain": "hr_admin",
+  "query": "兩個老師分一個教席",
+  "query_kind": "natural_sentence",
+  "intent": "用戶口語描述共享教職。文件自身術語是「共享教職」，用戶不會這樣打字，正是語意檢索該處理的落差",
+  "answerable": true,
+  "expected_source_any": [
+   "job_sharing_guide"
+  ],
+  "expected_passage_signature": [
+   "共享教職和受僱於核准編制以外的職位教師擔任核准編制以外職位所累積的認"
+  ],
+  "expected_page": 5,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_job_sharing_guide_26db1702c86e5c80",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "共享教職",
+   "chunks_with_anchor_in_source": 6,
+   "sources_sharing_signature": [
+    "job_sharing_guide"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "hr_lang_req",
+  "domain": "hr_admin",
+  "query": "哪些英文科教師必須達到語文能力要求，哪些教師不適用？",
+  "query_kind": "natural_sentence",
+  "intent": "查英文科教師語文能力要求的適用對象及不適用類別",
+  "answerable": true,
+  "expected_source_any": [
+   "edbcm088_2026"
+  ],
+  "expected_passage_signature": [
+   "此政策適用於所有資助學校的英文／普通話科常額教師"
+  ],
+  "expected_page": 1,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbcm088_2026_08c4fd8b7c8d8a1f",
+   "method": "S214 source extract cross-check + dominant_page",
+   "anchor": "此政策適用於所有資助學校",
+   "chunks_with_anchor_in_source": 5,
+   "sources_sharing_signature": [
+    "edbcm088_2026"
+   ],
+   "note": "query 不再加入未明示的普通話科必答事項；signature 改為實質適用對象條文"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "hr_pay_adjust_kg",
+  "domain": "hr_admin",
+  "query": "幼稚園 薪酬調整",
+  "query_kind": "confusable",
+  "intent": "幼稚園帳目中的薪酬調整，與公營學校薪酬調整不同",
+  "answerable": true,
+  "expected_source_any": [
+   "edbcm060_2026"
+  ],
+  "expected_passage_signature": [
+   "薪酬調整,在公平和合理的基礎上,設立適當而明確的機制,亦應提高透明度"
+  ],
+  "expected_page": 3,
+  "acceptable_alternatives": [
+   "kg_admin_guide_2026"
+  ],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbcm060_2026_431d836aa7e95d67",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "薪酬調整",
+   "chunks_with_anchor_in_source": 1,
+   "sources_sharing_signature": [
+    "edbcm060_2026",
+    "kg_admin_guide_2026"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "hr_severance",
+  "domain": "hr_admin",
+  "query": "遣散費",
+  "query_kind": "plain",
+  "intent": "查發放遣散費指引",
+  "answerable": true,
+  "expected_source_any": [
+   "long_service_payment_guide"
+  ],
+  "expected_passage_signature": [
+   "遣散費/長期服務金嘅賠償點計(按比例)?《發放遣散費及長期服務金的指"
+  ],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "footnote_fn_lsp_calc",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "遣散費",
+   "chunks_with_anchor_in_source": 12,
+   "sources_sharing_signature": [
+    "long_service_payment_guide"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "hr_teacher_reg_fee",
+  "domain": "hr_admin",
+  "query": "教師註冊費用幾錢",
+  "query_kind": "no_answer",
+  "intent": "教師註冊並無收費條文入庫；此題應答不到而非引用無關註冊條文",
+  "answerable": false,
+  "expected_source_any": [],
+  "expected_passage_signature": [],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "method": "absence check over the corpus",
+   "phrase": "教師註冊費用",
+   "matches": 0,
+   "note": "庫內零命中，故此題確實答不到"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "hr_ncs_allowance",
+  "domain": "hr_admin",
+  "query": "非華語 教師 額外編制",
+  "query_kind": "confusable",
+  "intent": "非華語支援撥款與教學人員編制屬不同文件，易混淆",
+  "answerable": true,
+  "expected_source_any": [
+   "EDBC_8_2020_E"
+  ],
+  "expected_passage_signature": [
+   "非華語學生都有額外津貼嗎?《EDBC8/2020》§3(註):Sta"
+  ],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [
+   "staff_est_pri"
+  ],
+  "verified_by": {
+   "chunk_id": "footnote_fn_ncs_2tier_small_school",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "非華語",
+   "chunks_with_anchor_in_source": 5,
+   "sources_sharing_signature": [
+    "EDBC_8_2020_E"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "hr_appraisal",
+  "domain": "hr_admin",
+  "query": "教師評核",
+  "query_kind": "plain",
+  "intent": "查教師表現評核相關指引",
+  "answerable": true,
+  "expected_source_any": [
+   "sag_2025_11"
+  ],
+  "expected_passage_signature": [
+   "評核方面:f.職員或其好友的子女或親屬申請入學,職員親自面試,並建議"
+  ],
+  "expected_page": null,
+  "acceptable_alternatives": [
+   "g24"
+  ],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "footnote_fn_sag_apx_coi_10_examples",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "評核",
+   "chunks_with_anchor_in_source": 24,
+   "sources_sharing_signature": [
+    "sag_2025_11"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "fin_seg",
+  "domain": "finance",
+  "query": "學校效率津貼",
+  "query_kind": "plain",
+  "intent": "查學校效率津貼的用途與申請",
+  "answerable": true,
+  "expected_source_any": [
+   "edbc008_2026"
+  ],
+  "expected_passage_signature": [
+   "學校效率津貼」及/或其他額外津貼(包括但不限於「整合代課教師津貼」、"
+  ],
+  "expected_page": 10,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbc008_2026_1dc053097a55362f",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "學校效率津貼",
+   "chunks_with_anchor_in_source": 11,
+   "sources_sharing_signature": [
+    "edbc008_2026"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "fin_home_school",
+  "domain": "finance",
+  "query": "家校合作津貼",
+  "query_kind": "plain",
+  "intent": "查家校合作活動整合津貼（2026/27 起三類資助合併）",
+  "answerable": true,
+  "expected_source_any": [
+   "edbc009_2026"
+  ],
+  "expected_passage_signature": [
+   "家校合作活動整合津貼[註:本通告應交─(i)各公營學校(包括官立、資"
+  ],
+  "expected_page": 1,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbc009_2026_164abcad98f23548",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "家校合作活動整合津貼",
+   "chunks_with_anchor_in_source": 3,
+   "sources_sharing_signature": [
+    "edbc009_2026"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "fin_lwl",
+  "domain": "finance",
+  "query": "全方位學習津貼 可以買咩",
+  "query_kind": "natural_sentence",
+  "intent": "查全方位學習津貼的可用範圍",
+  "answerable": true,
+  "expected_source_any": [
+   "g03"
+  ],
+  "expected_passage_signature": [
+   "全方位學習津貼運用指引(2024年9月)3•運用部分津貼購買或發展推"
+  ],
+  "expected_page": 3,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_g03_110e1410239cb803",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "全方位學習津貼",
+   "chunks_with_anchor_in_source": 6,
+   "sources_sharing_signature": [
+    "g03"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "fin_ac_grant",
+  "domain": "finance",
+  "query": "空調津貼 計算",
+  "query_kind": "plain",
+  "intent": "查空調津貼不同場地的等值計算公式",
+  "answerable": true,
+  "expected_source_any": [
+   "ac_grant_2026"
+  ],
+  "expected_passage_signature": [
+   "空調津貼點計算唔同場地的資助額?採等值公式:學生活動中心(SAC)="
+  ],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "footnote_fn_ac_equiv_formula",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "空調",
+   "chunks_with_anchor_in_source": 4,
+   "sources_sharing_signature": [
+    "ac_grant_2026"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "fin_ceg",
+  "domain": "finance",
+  "query": "CEG 點計",
+  "query_kind": "english",
+  "intent": "查學校發展津貼（CEG）計算方法",
+  "answerable": true,
+  "expected_source_any": [
+   "ceg_calc_2026"
+  ],
+  "expected_passage_signature": [
+   "學校發展津貼(CEG)點計算?總班數達25班或以上的雙課制小學,每節"
+  ],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "footnote_fn_ceg_bisessional",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "學校發展津貼",
+   "chunks_with_anchor_in_source": 5,
+   "sources_sharing_signature": [
+    "ceg_calc_2026"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "fin_eoebg",
+  "domain": "finance",
+  "query": "EOEBG",
+  "query_kind": "english",
+  "intent": "查擴大營辦津貼使用指引",
+  "answerable": true,
+  "expected_source_any": [
+   "eoebg_guide_2026"
+  ],
+  "expected_passage_signature": [
+   "擴大營辦津貼(EOEBG)新校撥款公式同A/B值(2026/27)?"
+  ],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "footnote_fn_eoebg_ab_2627",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "擴大營辦津貼",
+   "chunks_with_anchor_in_source": 2,
+   "sources_sharing_signature": [
+    "eoebg_guide_2026"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "fin_procure_split",
+  "domain": "finance",
+  "query": "採購 不得拆單",
+  "query_kind": "plain",
+  "intent": "查採購程序中禁止化整為零的規定",
+  "answerable": true,
+  "expected_source_any": [
+   "g01"
+  ],
+  "expected_passage_signature": [
+   "採購(預算幾千蚊以下),如果學校無副校長,邊個係批核人員?《資助學校"
+  ],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "footnote_fn_g01_approver",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "採購",
+   "chunks_with_anchor_in_source": 21,
+   "sources_sharing_signature": [
+    "g01"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "fin_major_repair",
+  "domain": "finance",
+  "query": "大規模修葺",
+  "query_kind": "plain",
+  "intent": "查大規模修葺工程津貼",
+  "answerable": true,
+  "expected_source_any": [
+   "edbcm_major_repairs_grant"
+  ],
+  "expected_passage_signature": [
+   "修葺/改建工程遞交網上申請指引有關2027-28財政年度預算的考慮事"
+  ],
+  "expected_page": 2,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbcm_major_repairs_grant_448dbf8287a6c7a2",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "修葺",
+   "chunks_with_anchor_in_source": 5,
+   "sources_sharing_signature": [
+    "edbcm_major_repairs_grant"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "fin_dls",
+  "domain": "finance",
+  "query": "多元學習津貼",
+  "query_kind": "plain",
+  "intent": "查高中學生多元學習津貼",
+  "answerable": true,
+  "expected_source_any": [
+   "edbcm089_2026"
+  ],
+  "expected_passage_signature": [
+   "多元學習津貼」專頁(https://www.edb.gov.hk/t"
+  ],
+  "expected_page": 5,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbcm089_2026_233d2984cace7909",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "多元學習津貼",
+   "chunks_with_anchor_in_source": 13,
+   "sources_sharing_signature": [
+    "edbcm089_2026"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "fin_crypto",
+  "domain": "finance",
+  "query": "學校可唔可以買虛擬貨幣",
+  "query_kind": "no_answer",
+  "intent": "庫內並無任何虛擬貨幣／加密資產投資條文；此題應答不到",
+  "answerable": false,
+  "expected_source_any": [],
+  "expected_passage_signature": [],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "method": "absence check over the corpus",
+   "phrase": "虛擬貨幣",
+   "matches": 0,
+   "note": "庫內零命中，故此題確實答不到"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "fin_sci_grant",
+  "domain": "finance",
+  "query": "小學科學科 一筆過津貼",
+  "query_kind": "plain",
+  "intent": "查支援開設小學科學科的一筆過津貼",
+  "answerable": true,
+  "expected_source_any": [
+   "edbcm57_2024_pri_science"
+  ],
+  "expected_passage_signature": [
+   "小學科學科津貼」運用計劃及報告)上載至學校網頁。支援開設小學科學科的"
+  ],
+  "expected_page": 3,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_edbcm57_2024_pri_science_34aa700bf1f04009",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "小學科學科",
+   "chunks_with_anchor_in_source": 8,
+   "sources_sharing_signature": [
+    "edbcm57_2024_pri_science"
+   ],
+   "note": ""
+  },
+  "split": "dev"
+ },
+ {
+  "id": "fin_kg_relocation",
+  "domain": "finance",
+  "query": "幼稚園 搬遷津貼",
+  "query_kind": "confusable",
+  "intent": "幼稚園搬遷津貼屬幼稚園教育計劃，非公營學校津貼",
+  "answerable": true,
+  "expected_source_any": [
+   "edbcm144_2026"
+  ],
+  "expected_passage_signature": [
+   "搬遷津貼的申請。學校印鑑"
+  ],
+  "expected_page": 6,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [
+   "edbc008_2026"
+  ],
+  "verified_by": {
+   "chunk_id": "vault_edbcm144_2026_047f86d6037260a7",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "搬遷津貼",
+   "chunks_with_anchor_in_source": 4,
+   "sources_sharing_signature": [
+    "edbcm144_2026"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "gov_imc_60pct",
+  "domain": "school_governance",
+  "query": "辦學團體校董可佔法團校董會校董人數上限多少？",
+  "query_kind": "natural_sentence",
+  "intent": "查辦學團體校董佔法團校董會校董人數上限的比例",
+  "answerable": true,
+  "expected_source_any": [
+   "imc_establishment_operation"
+  ],
+  "expected_passage_signature": [
+   "辦學團體校董的人數不得超過法團校董會的章程所規定的校董人數上限的60%"
+  ],
+  "expected_page": 4,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_imc_establishment_operation_1c25d85dde883f87",
+   "method": "S214 fresh retrieval + source extract cross-check",
+   "anchor": "上限的60%",
+   "chunks_with_anchor_in_source": 4,
+   "sources_sharing_signature": [
+    "imc_establishment_operation"
+   ],
+   "note": "S214 fresh retrieval 證實正文第4頁直接載有60%上限；替代校董規則另列獨立案例"
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "gov_imc_alternate_excluded_v2",
+  "domain": "school_governance",
+  "query": "計算辦學團體校董人數上限時，替代校董是否計算在內？",
+  "query_kind": "natural_sentence",
+  "intent": "查法團校董會計算辦學團體校董人數上限時如何處理替代校董",
+  "answerable": true,
+  "expected_source_any": [
+   "imc_establishment_operation"
+  ],
+  "expected_passage_signature": [
+   "計算辦學團體校董人數上限時，所有替代校董不計算在內"
+  ],
+  "expected_page": 21,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_imc_establishment_operation_8321060a76efdfea",
+   "method": "S214 saved vault evidence + source extract cross-check",
+   "anchor": "所有替代校董不計算在內",
+   "chunks_with_anchor_in_source": 1,
+   "sources_sharing_signature": [
+    "imc_establishment_operation"
+   ],
+   "note": "由原 gov_imc_60pct 隱藏的第二個驗收事項拆出"
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "gov_imc_pta",
+  "domain": "school_governance",
+  "query": "家長校董 點選",
+  "query_kind": "natural_sentence",
+  "intent": "查家長校董選舉與認可家長教師會的條件",
+  "answerable": true,
+  "expected_source_any": [
+   "imc_election_guides"
+  ],
+  "expected_passage_signature": [
+   "家長教師會(PTA)選代表/幹事入法團校董會(家長校董)有咩條件、邊"
+  ],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "footnote_fn_imc_election_pta",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "家長教師會",
+   "chunks_with_anchor_in_source": 8,
+   "sources_sharing_signature": [
+    "imc_election_guides"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "gov_imc_setup",
+  "domain": "school_governance",
+  "query": "法團校董會 成立",
+  "query_kind": "plain",
+  "intent": "查法團校董會成立程序",
+  "answerable": true,
+  "expected_source_any": [
+   "imc_establishment_operation"
+  ],
+  "expected_passage_signature": [
+   "法團校董會「辦學團體校董」60%人數上限時,替代校董計唔計?《法團校"
+  ],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "footnote_fn_imc_60pct",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "法團校董會",
+   "chunks_with_anchor_in_source": 88,
+   "sources_sharing_signature": [
+    "imc_establishment_operation"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "gov_imc_abbrev",
+  "domain": "school_governance",
+  "query": "IMC",
+  "query_kind": "abbrev",
+  "intent": "用英文縮寫查法團校董會",
+  "answerable": true,
+  "expected_source_any": [
+   "imc_establishment_operation"
+  ],
+  "expected_passage_signature": [
+   "法團校董會「辦學團體校董」60%人數上限時,替代校董計唔計?《法團校"
+  ],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "footnote_fn_imc_60pct",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "法團校董會",
+   "chunks_with_anchor_in_source": 88,
+   "sources_sharing_signature": [
+    "imc_establishment_operation"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "gov_coa_imc",
+  "domain": "school_governance",
+  "query": "資助則例 法團校董會版本",
+  "query_kind": "confusable",
+  "intent": "設有法團校董會的資助學校適用版本，與一般資助則例不同",
+  "answerable": true,
+  "expected_source_any": [
+   "coa_imc_1_19"
+  ],
+  "expected_passage_signature": [
+   "資助則例》(法團校董會版)幾時開始適用/生效?資助則例(法團校董會學"
+  ],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "footnote_fn_coa_imc_apply",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "資助則例",
+   "chunks_with_anchor_in_source": 36,
+   "sources_sharing_signature": [
+    "coa_imc_1_19"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "gov_fin_mgmt",
+  "domain": "school_governance",
+  "query": "校董會 財務管理",
+  "query_kind": "plain",
+  "intent": "查設有法團校董會的資助學校財務管理指引",
+  "answerable": true,
+  "expected_source_any": [
+   "g02"
+  ],
+  "expected_passage_signature": [
+   "財務管理指引(二零二五年九月)54.4.5在策劃階段,學校須訂定表現"
+  ],
+  "expected_page": 6,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_g02_06f89f71ade0b571",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "財務管理",
+   "chunks_with_anchor_in_source": 20,
+   "sources_sharing_signature": [
+    "g02"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "gov_icac",
+  "domain": "school_governance",
+  "query": "防貪 學校",
+  "query_kind": "plain",
+  "intent": "查學校管治的防貪／操守要求",
+  "answerable": true,
+  "expected_source_any": [
+   "icac_school_governance"
+  ],
+  "expected_passage_signature": [
+   "貪污等指控,亦會損害職員的誠信和削弱其所作決策的公信力,最終損害本校"
+  ],
+  "expected_page": 65,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_icac_school_governance_00525e8dbac8e2e2",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "貪污",
+   "chunks_with_anchor_in_source": 16,
+   "sources_sharing_signature": [
+    "icac_school_governance"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "gov_sdp",
+  "domain": "school_governance",
+  "query": "學校發展計劃 點寫",
+  "query_kind": "natural_sentence",
+  "intent": "查如何編寫學校發展計劃",
+  "answerable": true,
+  "expected_source_any": [
+   "sdp_guide"
+  ],
+  "expected_passage_signature": [
+   "學校發展計劃格式並無規範。主要元素1.學生學業及學業以外的目標2.其"
+  ],
+  "expected_page": 2,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_sdp_guide_750475c731037cf6",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "學校發展計劃",
+   "chunks_with_anchor_in_source": 4,
+   "sources_sharing_signature": [
+    "sdp_guide"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "gov_imc_quorum",
+  "domain": "school_governance",
+  "query": "校董會會議 法定人數",
+  "query_kind": "plain",
+  "intent": "查法團校董會會議的法定人數要求",
+  "answerable": true,
+  "expected_source_any": [
+   "imc_governance_supplements"
+  ],
+  "expected_passage_signature": [
+   "會議;負責書面通知常任秘書長有關校董、校長及教員的停任、教員的聘任、"
+  ],
+  "expected_page": 1,
+  "acceptable_alternatives": [
+   "imc_establishment_operation"
+  ],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_imc_governance_supplements_0736ffbe99a6f5b6",
+   "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+   "anchor": "會議",
+   "chunks_with_anchor_in_source": 11,
+   "sources_sharing_signature": [
+    "imc_establishment_operation",
+    "imc_governance_supplements"
+   ],
+   "note": ""
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "gov_board_pay",
+  "domain": "school_governance",
+  "query": "校董有冇人工",
+  "query_kind": "no_answer",
+  "intent": "庫內並無校董薪酬條文（校董為義務職）；此題應答不到而非引用教職員薪酬表",
+  "answerable": false,
+  "expected_source_any": [],
+  "expected_passage_signature": [],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "method": "absence check over the corpus",
+   "phrase": "校董薪酬",
+   "matches": 0,
+   "note": "庫內零命中，故此題確實答不到"
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "hr_overtime",
+  "domain": "hr_admin",
+  "query": "教師超時工作 補水",
+  "query_kind": "no_answer",
+  "intent": "庫內並無教師超時工作津貼條文；此題應答不到，而非引用其他津貼條文充數",
+  "answerable": false,
+  "expected_source_any": [],
+  "expected_passage_signature": [],
+  "expected_page": null,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "method": "absence check over the corpus",
+   "phrase": "超時工作津貼",
+   "matches": 0,
+   "note": "庫內零命中，故此題確實答不到"
+  },
+  "split": "held_out"
+ }
+]

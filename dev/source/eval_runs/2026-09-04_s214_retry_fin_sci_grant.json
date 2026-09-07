@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-09-04T15:55:20.427972+00:00",
+  "attempt": 2,
+  "original_error": "Supabase statement timeout returned as HTTP 400",
+  "id": "fin_sci_grant",
+  "query": "小學科學科 一筆過津貼",
+  "source_ids": [
+    "sag_2025_11",
+    "g04",
+    "sag_2025_11",
+    "sag_2025_11",
+    "edbc00030",
+    "g04",
+    "edbc00030",
+    "job_sharing_guide"
+  ],
+  "chunk_ids": [
+    "footnote_fn_sag_sick_leave",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_7da8bf2e5d3112f5",
+    "vault_sag_2025_11_621a43b3aae2a0e2",
+    "vault_edbc00030_29618c7a4673",
+    "vault_g04_5a60fb781f6f",
+    "vault_edbc00030_c86ba60f7dcc",
+    "vault_job_sharing_guide_a8ab796eb2c2b76f"
+  ],
+  "scores": [
+    0.7309,
+    0.7072,
+    0.7061,
+    0.6917,
+    0.6287,
+    0.6222,
+    0.6155,
+    0.6136
+  ],
+  "verdict": "FAIL",
+  "rank_of_expected": null,
+  "rank_of_expected_chunk": null,
+  "chunk_verdict": "FAIL",
+  "forbidden_hits": [],
+  "top_score": 0.7309
+}

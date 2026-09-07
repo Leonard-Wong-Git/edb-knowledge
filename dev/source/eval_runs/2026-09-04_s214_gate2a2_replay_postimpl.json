@@ -1,0 +1,714 @@
+{
+  "label": "S214 Gate 2A1b offline replay — CURRENT vs BROAD-SCORE-SORT (rejected) vs EXACT-ONLY",
+  "parallel_184": {
+    "run_path": "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft/dev/source/eval_runs/2026-09-04_s214_gold_expanded_resolved.json",
+    "gold_path": "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft/dev/_s213_gold_all.json",
+    "n_rows_total": 184,
+    "n_rows_with_gold": 184,
+    "n_answerable_scored": 164,
+    "fidelity": {
+      "reproduced": 180,
+      "mismatched": 4,
+      "mismatches": [
+        {
+          "id": "fin_seg",
+          "recorded": [
+            "footnote_fn_dlg_incentive_cease",
+            "footnote_fn_sag_apx_fees_fines_table",
+            "vault_edbc015_2026_eb9068b4c34eacef",
+            "vault_edbc008_2026_e38d83844e460f44",
+            "vault_edbc008_2026_de2f9bf3eaaa7cd6",
+            "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
+            "vault_edbcm156_2026_132cd3b8d24e2185",
+            "vault_edbc011_2026_bfe00500718b5859"
+          ],
+          "model": [
+            "footnote_fn_dlg_incentive_cease",
+            "footnote_fn_sag_apx_fees_fines_table",
+            "vault_edbc008_2026_e38d83844e460f44",
+            "vault_edbc008_2026_de2f9bf3eaaa7cd6",
+            "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
+            "vault_edbcm156_2026_132cd3b8d24e2185",
+            "vault_edbc011_2026_bfe00500718b5859",
+            "vault_edbc015_2026_eb9068b4c34eacef"
+          ]
+        },
+        {
+          "id": "sen_responsible_role",
+          "recorded": [
+            "vault_g19_1bcd00d93612e161",
+            "vault_g19_710b48540bec2358",
+            "vault_sen_exam_arrangements_2025_ce6f039be10d103f",
+            "fact_role_facts_student_421a569cbd31d284",
+            "vault_g19_5209939fe426d76b",
+            "vault_g06_d848109f501c4993",
+            "vault_g06_2da9fce2e6359b3a",
+            "fact_role_facts_student_b6887901324f71b3"
+          ],
+          "model": [
+            "vault_g19_1bcd00d93612e161",
+            "vault_g19_710b48540bec2358",
+            "vault_sen_exam_arrangements_2025_ce6f039be10d103f",
+            "fact_role_facts_student_421a569cbd31d284",
+            "vault_g19_5209939fe426d76b",
+            "vault_g06_2da9fce2e6359b3a",
+            "vault_g06_d848109f501c4993",
+            "fact_role_facts_student_b6887901324f71b3"
+          ]
+        },
+        {
+          "id": "kg_kg_abbrev",
+          "recorded": [
+            "vault_kg_admin_guide_2026_019f07926df9f2cf",
+            "vault_edbcm060_2026_837322018ee388ac",
+            "vault_kg_admin_guide_2026_1315b45922679fc0",
+            "vault_edbcm060_2026_9d30f8391cd7866d",
+            "vault_kg_admin_guide_2026_cad319933dc147cd",
+            "vault_edbcm060_2026_b43af11765594b21",
+            "vault_coa_pri_e_f3df86182a86",
+            "vault_g03_c378e06c7e350873"
+          ],
+          "model": [
+            "vault_kg_admin_guide_2026_019f07926df9f2cf",
+            "vault_edbcm060_2026_837322018ee388ac",
+            "vault_kg_admin_guide_2026_1315b45922679fc0",
+            "vault_edbcm060_2026_9d30f8391cd7866d",
+            "vault_kg_admin_guide_2026_cad319933dc147cd",
+            "vault_coa_pri_e_f3df86182a86",
+            "vault_edbcm060_2026_b43af11765594b21",
+            "vault_g03_c378e06c7e350873"
+          ]
+        },
+        {
+          "id": "dig_genai_primary_students",
+          "recorded": [
+            "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
+            "vault_debp_exec_summary_aafddb892b407262",
+            "vault_edbcm107_2026_c4df7bf07cbdea4f",
+            "vault_debp_blueprint_ea1a2e1821e0d433",
+            "vault_edbc011_2026_bfe00500718b5859",
+            "vault_edbcm156_2026_132cd3b8d24e2185",
+            "vault_debp_blueprint_87297b244bcb4bfe",
+            "vault_edbcm107_2026_bc0fe4e2172afe98"
+          ],
+          "model": [
+            "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
+            "vault_debp_exec_summary_aafddb892b407262",
+            "vault_debp_blueprint_ea1a2e1821e0d433",
+            "vault_edbcm107_2026_c4df7bf07cbdea4f",
+            "vault_edbc011_2026_bfe00500718b5859",
+            "vault_edbcm156_2026_132cd3b8d24e2185",
+            "vault_debp_blueprint_87297b244bcb4bfe",
+            "vault_edbcm107_2026_bc0fe4e2172afe98"
+          ]
+        }
+      ]
+    },
+    "exact_score1_rows": 3,
+    "exact_score1_summary": {
+      "broad_score_sort": {
+        "moved_to_lower_index": 3,
+        "unchanged_index": 0,
+        "moved_to_higher_index": 0
+      },
+      "exact_only": {
+        "moved_to_lower_index": 3,
+        "unchanged_index": 0,
+        "moved_to_higher_index": 0
+      }
+    },
+    "exact_score1_detail": [
+      {
+        "id": "staff_fullday_12",
+        "current": 2,
+        "broad_score_sort": 0,
+        "exact_only": 0
+      },
+      {
+        "id": "staff_halfday_12",
+        "current": 2,
+        "broad_score_sort": 0,
+        "exact_only": 0
+      },
+      {
+        "id": "staff_halfday_24",
+        "current": 1,
+        "broad_score_sort": 0,
+        "exact_only": 0
+      }
+    ],
+    "metrics": {
+      "current": {
+        "source_recall@1": 0.4024390243902439,
+        "source_recall@3": 0.5914634146341463,
+        "source_recall@5": 0.6707317073170732,
+        "source_recall@8": 0.7317073170731707,
+        "source_mrr": 0.5111353077816493,
+        "chunk_recall@1": 0.17073170731707318,
+        "chunk_recall@3": 0.2865853658536585,
+        "chunk_recall@5": 0.31097560975609756,
+        "chunk_mrr": 0.2291158536585366,
+        "forbidden@1": 1,
+        "forbidden@top3": 4
+      },
+      "broad_score_sort": {
+        "source_recall@1": 0.4573170731707317,
+        "source_recall@3": 0.5792682926829268,
+        "source_recall@5": 0.6707317073170732,
+        "source_recall@8": 0.7317073170731707,
+        "source_mrr": 0.5379645760743322,
+        "chunk_recall@1": 0.1524390243902439,
+        "chunk_recall@3": 0.2621951219512195,
+        "chunk_recall@5": 0.31097560975609756,
+        "chunk_mrr": 0.21427845528455283,
+        "forbidden@1": 2,
+        "forbidden@top3": 3
+      },
+      "exact_only": {
+        "source_recall@1": 0.42073170731707316,
+        "source_recall@3": 0.5914634146341463,
+        "source_recall@5": 0.6707317073170732,
+        "source_recall@8": 0.7317073170731707,
+        "source_mrr": 0.5223141695702671,
+        "chunk_recall@1": 0.18902439024390244,
+        "chunk_recall@3": 0.2865853658536585,
+        "chunk_recall@5": 0.31097560975609756,
+        "chunk_mrr": 0.24029471544715447,
+        "forbidden@1": 1,
+        "forbidden@top3": 4
+      }
+    },
+    "named_regression_check": {
+      "hr_lsp": {
+        "current": 0,
+        "broad_score_sort": 3,
+        "exact_only": 0,
+        "broad_score_sort_worse_than_current": true,
+        "exact_only_worse_than_current": false
+      },
+      "hr_severance": {
+        "current": 0,
+        "broad_score_sort": 4,
+        "exact_only": 0,
+        "broad_score_sort_worse_than_current": true,
+        "exact_only_worse_than_current": false
+      },
+      "fin_ac_grant": {
+        "current": 0,
+        "broad_score_sort": 3,
+        "exact_only": 0,
+        "broad_score_sort_worse_than_current": true,
+        "exact_only_worse_than_current": false
+      },
+      "gov_imc_60pct": {
+        "current": 0,
+        "broad_score_sort": 1,
+        "exact_only": 0,
+        "broad_score_sort_worse_than_current": true,
+        "exact_only_worse_than_current": false
+      },
+      "gov_imc_pta": {
+        "current": 0,
+        "broad_score_sort": 4,
+        "exact_only": 0,
+        "broad_score_sort_worse_than_current": true,
+        "exact_only_worse_than_current": false
+      },
+      "gov_coa_imc": {
+        "current": 0,
+        "broad_score_sort": 3,
+        "exact_only": 0,
+        "broad_score_sort_worse_than_current": true,
+        "exact_only_worse_than_current": false
+      },
+      "kg_subsidy_eligibility": {
+        "current": 0,
+        "broad_score_sort": 3,
+        "exact_only": 0,
+        "broad_score_sort_worse_than_current": true,
+        "exact_only_worse_than_current": false
+      }
+    }
+  },
+  "establishment_queries_individually": [
+    {
+      "id": "staff_fullday_12",
+      "query": "12班小學 學位教師",
+      "current_establishment_index": 2,
+      "broad_score_sort_establishment_index": 0,
+      "exact_only_establishment_index": 0,
+      "current_order": [
+        "footnote_fn_kgop_teacher_onduty",
+        "footnote_fn_sag_rank_conversion",
+        "vault_staff_est_pri_9b97ea43d291",
+        "vault_ppt_grad_pri_policy_4871f4f5b31a",
+        "vault_edbc00030_1d91739669d3",
+        "vault_edbc19011_e75b5afcd7e7",
+        "vault_ppt_grad_pri_faq_72fdda030d43",
+        "vault_edbc00030_ac97a2688ed6"
+      ],
+      "broad_score_sort_order": [
+        "vault_staff_est_pri_9b97ea43d291",
+        "vault_ppt_grad_pri_policy_4871f4f5b31a",
+        "vault_edbc00030_1d91739669d3",
+        "footnote_fn_kgop_teacher_onduty",
+        "footnote_fn_sag_rank_conversion",
+        "vault_edbc19011_e75b5afcd7e7",
+        "vault_ppt_grad_pri_faq_72fdda030d43",
+        "vault_edbc00030_ac97a2688ed6"
+      ],
+      "exact_only_order": [
+        "vault_staff_est_pri_9b97ea43d291",
+        "footnote_fn_kgop_teacher_onduty",
+        "footnote_fn_sag_rank_conversion",
+        "vault_ppt_grad_pri_policy_4871f4f5b31a",
+        "vault_edbc00030_1d91739669d3",
+        "vault_edbc19011_e75b5afcd7e7",
+        "vault_ppt_grad_pri_faq_72fdda030d43",
+        "vault_edbc00030_ac97a2688ed6"
+      ]
+    },
+    {
+      "id": "staff_halfday_12",
+      "query": "半日制小學 12班 編制",
+      "current_establishment_index": 2,
+      "broad_score_sort_establishment_index": 0,
+      "exact_only_establishment_index": 0,
+      "current_order": [
+        "footnote_fn_g11_schooldays",
+        "footnote_fn_ceg_bisessional",
+        "vault_staff_est_pri_28bdfae6c8c1",
+        "vault_staff_est_pri_226ee0c1b5fa",
+        "vault_staff_est_pri_98a799f4b04e",
+        "vault_staff_est_pri_ee0d23a43583",
+        "vault_sag_2025_11_f94a9be590caeebe",
+        "vault_sag_2025_11_f979327b7e834b83"
+      ],
+      "broad_score_sort_order": [
+        "vault_staff_est_pri_28bdfae6c8c1",
+        "vault_staff_est_pri_226ee0c1b5fa",
+        "vault_staff_est_pri_98a799f4b04e",
+        "footnote_fn_g11_schooldays",
+        "footnote_fn_ceg_bisessional",
+        "vault_staff_est_pri_ee0d23a43583",
+        "vault_sag_2025_11_f94a9be590caeebe",
+        "vault_sag_2025_11_f979327b7e834b83"
+      ],
+      "exact_only_order": [
+        "vault_staff_est_pri_28bdfae6c8c1",
+        "footnote_fn_g11_schooldays",
+        "footnote_fn_ceg_bisessional",
+        "vault_staff_est_pri_226ee0c1b5fa",
+        "vault_staff_est_pri_98a799f4b04e",
+        "vault_staff_est_pri_ee0d23a43583",
+        "vault_sag_2025_11_f94a9be590caeebe",
+        "vault_sag_2025_11_f979327b7e834b83"
+      ]
+    },
+    {
+      "id": "staff_halfday_24",
+      "query": "半日制 24 班 教師人數",
+      "current_establishment_index": 1,
+      "broad_score_sort_establishment_index": 0,
+      "exact_only_establishment_index": 0,
+      "current_order": [
+        "footnote_fn_kgop_classroom",
+        "vault_staff_est_pri_1046c25a4fdf",
+        "vault_staff_est_pri_41869c1e6076",
+        "vault_staff_est_pri_9dde98e20c77",
+        "vault_staff_est_pri_3d6e461905c8",
+        "vault_surplus_teacher_arr_2026_ab393c3f923a61f6",
+        "footnote_fn_kgop_teacher_onduty",
+        "vault_surplus_teacher_arr_2026_17a57437662d8921"
+      ],
+      "broad_score_sort_order": [
+        "vault_staff_est_pri_1046c25a4fdf",
+        "vault_staff_est_pri_41869c1e6076",
+        "vault_staff_est_pri_9dde98e20c77",
+        "vault_staff_est_pri_3d6e461905c8",
+        "footnote_fn_kgop_classroom",
+        "vault_surplus_teacher_arr_2026_ab393c3f923a61f6",
+        "footnote_fn_kgop_teacher_onduty",
+        "vault_surplus_teacher_arr_2026_17a57437662d8921"
+      ],
+      "exact_only_order": [
+        "vault_staff_est_pri_1046c25a4fdf",
+        "footnote_fn_kgop_classroom",
+        "vault_staff_est_pri_41869c1e6076",
+        "vault_staff_est_pri_9dde98e20c77",
+        "vault_staff_est_pri_3d6e461905c8",
+        "vault_surplus_teacher_arr_2026_ab393c3f923a61f6",
+        "footnote_fn_kgop_teacher_onduty",
+        "vault_surplus_teacher_arr_2026_17a57437662d8921"
+      ]
+    }
+  ],
+  "nested_nine_questions": {
+    "run_path": "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft/dev/source/eval_runs/2026-09-04_s214_user_nine_questions.json",
+    "n_queries": 9,
+    "n_skipped_no_content_type": 0,
+    "n_computable": 9,
+    "source_recall_note": "NOT_COMPUTABLE — this artifact carries no gold expected-source labels (it is a live probe, not an eval-harness run)",
+    "per_query": [
+      {
+        "id": "edu_genai_privacy_ip",
+        "computable": true,
+        "current_reproduces_recorded": true,
+        "current_order": [
+          "footnote_fn_pdpo_dar_40days",
+          "footnote_fn_pdpo_minor_access",
+          "vault_edbcm156_2026_e2872535160c092a",
+          "footnote_fn_sag_apx_teacher_misconduct_proc"
+        ],
+        "broad_score_sort_order": [
+          "vault_edbcm156_2026_e2872535160c092a",
+          "footnote_fn_pdpo_dar_40days",
+          "footnote_fn_pdpo_minor_access",
+          "footnote_fn_sag_apx_teacher_misconduct_proc"
+        ],
+        "exact_only_order": [
+          "footnote_fn_pdpo_dar_40days",
+          "footnote_fn_pdpo_minor_access",
+          "vault_edbcm156_2026_e2872535160c092a",
+          "footnote_fn_sag_apx_teacher_misconduct_proc"
+        ],
+        "exact_score1_index_current": null,
+        "exact_score1_index_broad_score_sort": null,
+        "exact_score1_index_exact_only": null
+      },
+      {
+        "id": "edu_teacher_conduct",
+        "computable": true,
+        "current_reproduces_recorded": true,
+        "current_order": [
+          "footnote_fn_sag_apx_teacher_misconduct_proc",
+          "footnote_fn_tpc_2022_sanction_ladder",
+          "vault_sag_2025_11_c6d8c9a5f9067ffd",
+          "vault_g05_dd14165f42f16392",
+          "vault_g05_17dd90eaa0c1eecf",
+          "vault_sag_2025_11_d02819d2d9a41d46",
+          "vault_sag_2025_11_105e14e760d6e3bd",
+          "vault_g05_5b8666d5be5a8d1a"
+        ],
+        "broad_score_sort_order": [
+          "vault_sag_2025_11_c6d8c9a5f9067ffd",
+          "vault_g05_dd14165f42f16392",
+          "vault_g05_17dd90eaa0c1eecf",
+          "footnote_fn_sag_apx_teacher_misconduct_proc",
+          "footnote_fn_tpc_2022_sanction_ladder",
+          "vault_sag_2025_11_d02819d2d9a41d46",
+          "vault_sag_2025_11_105e14e760d6e3bd",
+          "vault_g05_5b8666d5be5a8d1a"
+        ],
+        "exact_only_order": [
+          "footnote_fn_sag_apx_teacher_misconduct_proc",
+          "footnote_fn_tpc_2022_sanction_ladder",
+          "vault_sag_2025_11_c6d8c9a5f9067ffd",
+          "vault_g05_dd14165f42f16392",
+          "vault_g05_17dd90eaa0c1eecf",
+          "vault_sag_2025_11_d02819d2d9a41d46",
+          "vault_sag_2025_11_105e14e760d6e3bd",
+          "vault_g05_5b8666d5be5a8d1a"
+        ],
+        "exact_score1_index_current": null,
+        "exact_score1_index_broad_score_sort": null,
+        "exact_score1_index_exact_only": null
+      },
+      {
+        "id": "edu_sen_lsg_outsource",
+        "computable": true,
+        "current_reproduces_recorded": false,
+        "current_order": [
+          "footnote_fn_ncs_sbp_26360_class",
+          "footnote_fn_edbc14_2024_thresholds",
+          "vault_sag_2025_11_c32cff17dce484a2",
+          "vault_sag_2025_11_314cbba7a1032847",
+          "vault_edbc015_2026_d21c39f7f546d25f",
+          "vault_sag_2025_11_2d475c6b182e57a0",
+          "footnote_fn_sag_apx_non_std_fee_7cond",
+          "footnote_fn_sag_apx_fees_fines_table"
+        ],
+        "broad_score_sort_order": [
+          "vault_sag_2025_11_c32cff17dce484a2",
+          "vault_sag_2025_11_314cbba7a1032847",
+          "vault_edbc015_2026_d21c39f7f546d25f",
+          "footnote_fn_ncs_sbp_26360_class",
+          "footnote_fn_edbc14_2024_thresholds",
+          "vault_sag_2025_11_2d475c6b182e57a0",
+          "footnote_fn_sag_apx_non_std_fee_7cond",
+          "footnote_fn_sag_apx_fees_fines_table"
+        ],
+        "exact_only_order": [
+          "footnote_fn_ncs_sbp_26360_class",
+          "footnote_fn_edbc14_2024_thresholds",
+          "vault_sag_2025_11_c32cff17dce484a2",
+          "vault_sag_2025_11_314cbba7a1032847",
+          "vault_edbc015_2026_d21c39f7f546d25f",
+          "vault_sag_2025_11_2d475c6b182e57a0",
+          "footnote_fn_sag_apx_non_std_fee_7cond",
+          "footnote_fn_sag_apx_fees_fines_table"
+        ],
+        "exact_score1_index_current": null,
+        "exact_score1_index_broad_score_sort": null,
+        "exact_score1_index_exact_only": null
+      },
+      {
+        "id": "parent_bullying_timeline",
+        "computable": true,
+        "current_reproduces_recorded": true,
+        "current_order": [
+          "footnote_fn_complaint_stages",
+          "footnote_fn_sag_apx_teacher_misconduct_proc",
+          "vault_edbcm108_2026_6fcd68ec8f4fe46c",
+          "vault_sag_2025_11_6e345f695399395c",
+          "vault_sag_2025_11_cc7d3e169056db4f",
+          "vault_edbc15_2025_child_abuse_488c278f7908043b",
+          "vault_sag_2025_11_ea849c24f20dbe58",
+          "vault_edbc15_2025_child_abuse_ce188553794f1acb"
+        ],
+        "broad_score_sort_order": [
+          "vault_sag_2025_11_6e345f695399395c",
+          "vault_sag_2025_11_cc7d3e169056db4f",
+          "vault_edbcm108_2026_6fcd68ec8f4fe46c",
+          "footnote_fn_complaint_stages",
+          "footnote_fn_sag_apx_teacher_misconduct_proc",
+          "vault_edbc15_2025_child_abuse_488c278f7908043b",
+          "vault_sag_2025_11_ea849c24f20dbe58",
+          "vault_edbc15_2025_child_abuse_ce188553794f1acb"
+        ],
+        "exact_only_order": [
+          "footnote_fn_complaint_stages",
+          "footnote_fn_sag_apx_teacher_misconduct_proc",
+          "vault_edbcm108_2026_6fcd68ec8f4fe46c",
+          "vault_sag_2025_11_6e345f695399395c",
+          "vault_sag_2025_11_cc7d3e169056db4f",
+          "vault_edbc15_2025_child_abuse_488c278f7908043b",
+          "vault_sag_2025_11_ea849c24f20dbe58",
+          "vault_edbc15_2025_child_abuse_ce188553794f1acb"
+        ],
+        "exact_score1_index_current": null,
+        "exact_score1_index_broad_score_sort": null,
+        "exact_score1_index_exact_only": null
+      },
+      {
+        "id": "parent_4rs_homework",
+        "computable": true,
+        "current_reproduces_recorded": true,
+        "current_order": [
+          "footnote_fn_mh_4rs_charter",
+          "footnote_fn_ncs_sbp_questionnaire_30nov",
+          "footnote_fn_sag_apx_sick_leave_28_48_168",
+          "vault_sag_2025_11_7da8bf2e5d3112f5",
+          "vault_g04_638c01bf30ac",
+          "vault_g11_80ed7ffa1fed39bd",
+          "vault_sag_2025_11_621a43b3aae2a0e2",
+          "vault_g04_997df7efd474"
+        ],
+        "broad_score_sort_order": [
+          "footnote_fn_sag_apx_sick_leave_28_48_168",
+          "vault_sag_2025_11_7da8bf2e5d3112f5",
+          "vault_g04_638c01bf30ac",
+          "footnote_fn_mh_4rs_charter",
+          "footnote_fn_ncs_sbp_questionnaire_30nov",
+          "vault_g11_80ed7ffa1fed39bd",
+          "vault_sag_2025_11_621a43b3aae2a0e2",
+          "vault_g04_997df7efd474"
+        ],
+        "exact_only_order": [
+          "footnote_fn_mh_4rs_charter",
+          "footnote_fn_ncs_sbp_questionnaire_30nov",
+          "footnote_fn_sag_apx_sick_leave_28_48_168",
+          "vault_sag_2025_11_7da8bf2e5d3112f5",
+          "vault_g04_638c01bf30ac",
+          "vault_g11_80ed7ffa1fed39bd",
+          "vault_sag_2025_11_621a43b3aae2a0e2",
+          "vault_g04_997df7efd474"
+        ],
+        "exact_score1_index_current": null,
+        "exact_score1_index_broad_score_sort": null,
+        "exact_score1_index_exact_only": null
+      },
+      {
+        "id": "parent_fees_refund",
+        "computable": true,
+        "current_reproduces_recorded": true,
+        "current_order": [
+          "footnote_fn_sag_apx_fees_fines_table",
+          "footnote_fn_sag_apx_non_std_fee_7cond",
+          "vault_edbc015_2026_f00a47aaad63c7b5",
+          "vault_g03_c89d1d30ec063704",
+          "vault_g03_5ef9f1c8942f71f2",
+          "vault_g03_110e1410239cb803",
+          "vault_edbc009_2026_bfcddda057abc906",
+          "vault_edbc007_2026_5471ff1e981c11db"
+        ],
+        "broad_score_sort_order": [
+          "vault_edbc015_2026_f00a47aaad63c7b5",
+          "vault_g03_c89d1d30ec063704",
+          "vault_g03_5ef9f1c8942f71f2",
+          "footnote_fn_sag_apx_fees_fines_table",
+          "footnote_fn_sag_apx_non_std_fee_7cond",
+          "vault_g03_110e1410239cb803",
+          "vault_edbc009_2026_bfcddda057abc906",
+          "vault_edbc007_2026_5471ff1e981c11db"
+        ],
+        "exact_only_order": [
+          "footnote_fn_sag_apx_fees_fines_table",
+          "footnote_fn_sag_apx_non_std_fee_7cond",
+          "vault_edbc015_2026_f00a47aaad63c7b5",
+          "vault_g03_c89d1d30ec063704",
+          "vault_g03_5ef9f1c8942f71f2",
+          "vault_g03_110e1410239cb803",
+          "vault_edbc009_2026_bfcddda057abc906",
+          "vault_edbc007_2026_5471ff1e981c11db"
+        ],
+        "exact_score1_index_current": null,
+        "exact_score1_index_broad_score_sort": null,
+        "exact_score1_index_exact_only": null
+      },
+      {
+        "id": "press_mental_health_3tier",
+        "computable": true,
+        "current_reproduces_recorded": true,
+        "current_order": [
+          "footnote_fn_mh_referral_consent",
+          "footnote_fn_mh_three_tier",
+          "vault_g19_dd63cd18ad830d45",
+          "vault_g24_a1042d65f77b1d47",
+          "vault_g19_0de8e84f80a4e85a",
+          "vault_g24_2560b3b447d38436",
+          "vault_sag_2025_11_ff1efdb9bb10cebc",
+          "vault_g19_01baf42cf0bfe1ca"
+        ],
+        "broad_score_sort_order": [
+          "footnote_fn_mh_referral_consent",
+          "footnote_fn_mh_three_tier",
+          "vault_g19_dd63cd18ad830d45",
+          "vault_g24_a1042d65f77b1d47",
+          "vault_g19_0de8e84f80a4e85a",
+          "vault_g24_2560b3b447d38436",
+          "vault_sag_2025_11_ff1efdb9bb10cebc",
+          "vault_g19_01baf42cf0bfe1ca"
+        ],
+        "exact_only_order": [
+          "footnote_fn_mh_referral_consent",
+          "footnote_fn_mh_three_tier",
+          "vault_g19_dd63cd18ad830d45",
+          "vault_g24_a1042d65f77b1d47",
+          "vault_g19_0de8e84f80a4e85a",
+          "vault_g24_2560b3b447d38436",
+          "vault_sag_2025_11_ff1efdb9bb10cebc",
+          "vault_g19_01baf42cf0bfe1ca"
+        ],
+        "exact_score1_index_current": null,
+        "exact_score1_index_broad_score_sort": null,
+        "exact_score1_index_exact_only": null
+      },
+      {
+        "id": "press_teacher_deregistration",
+        "computable": true,
+        "current_reproduces_recorded": true,
+        "current_order": [
+          "footnote_fn_cap279_s47_cancel_register",
+          "footnote_fn_sag_apx_teacher_misconduct_proc",
+          "vault_g05_7dc02352ea5b6d94",
+          "vault_edbc14_2023_student_protect_654e1f2c68b62e77",
+          "vault_g05_4a40ab0d888c5c91",
+          "vault_sag_2025_11_693265882bd0dcb9",
+          "vault_sag_2025_11_7fe40c4de9000669",
+          "vault_edbc14_2023_student_protect_86a46de676f369db"
+        ],
+        "broad_score_sort_order": [
+          "vault_g05_7dc02352ea5b6d94",
+          "vault_edbc14_2023_student_protect_654e1f2c68b62e77",
+          "vault_g05_4a40ab0d888c5c91",
+          "footnote_fn_cap279_s47_cancel_register",
+          "footnote_fn_sag_apx_teacher_misconduct_proc",
+          "vault_sag_2025_11_693265882bd0dcb9",
+          "vault_sag_2025_11_7fe40c4de9000669",
+          "vault_edbc14_2023_student_protect_86a46de676f369db"
+        ],
+        "exact_only_order": [
+          "footnote_fn_cap279_s47_cancel_register",
+          "footnote_fn_sag_apx_teacher_misconduct_proc",
+          "vault_g05_7dc02352ea5b6d94",
+          "vault_edbc14_2023_student_protect_654e1f2c68b62e77",
+          "vault_g05_4a40ab0d888c5c91",
+          "vault_sag_2025_11_693265882bd0dcb9",
+          "vault_sag_2025_11_7fe40c4de9000669",
+          "vault_edbc14_2023_student_protect_86a46de676f369db"
+        ],
+        "exact_score1_index_current": null,
+        "exact_score1_index_broad_score_sort": null,
+        "exact_score1_index_exact_only": null
+      },
+      {
+        "id": "press_national_edu_inspection",
+        "computable": true,
+        "current_reproduces_recorded": true,
+        "current_order": [
+          "footnote_fn_ncs_sbp_questionnaire_30nov",
+          "footnote_fn_sag_apx_non_std_fee_7cond",
+          "vault_music_p1_s6_2024_5ac238c8984f414e",
+          "vault_pri_curr_guide_2024_2cc6f320a13f23d5",
+          "vault_phys_sss_2007_2015_6986b5c979377f45",
+          "vault_chi_edu_curr_docs_b6f13092bc306a19",
+          "vault_pri_curr_guide_2024_531acd8bea7cbf59",
+          "vault_chi_edu_curr_docs_d07c193ad4d589c8"
+        ],
+        "broad_score_sort_order": [
+          "vault_music_p1_s6_2024_5ac238c8984f414e",
+          "vault_pri_curr_guide_2024_2cc6f320a13f23d5",
+          "vault_phys_sss_2007_2015_6986b5c979377f45",
+          "footnote_fn_ncs_sbp_questionnaire_30nov",
+          "footnote_fn_sag_apx_non_std_fee_7cond",
+          "vault_chi_edu_curr_docs_b6f13092bc306a19",
+          "vault_pri_curr_guide_2024_531acd8bea7cbf59",
+          "vault_chi_edu_curr_docs_d07c193ad4d589c8"
+        ],
+        "exact_only_order": [
+          "footnote_fn_ncs_sbp_questionnaire_30nov",
+          "footnote_fn_sag_apx_non_std_fee_7cond",
+          "vault_music_p1_s6_2024_5ac238c8984f414e",
+          "vault_pri_curr_guide_2024_2cc6f320a13f23d5",
+          "vault_phys_sss_2007_2015_6986b5c979377f45",
+          "vault_chi_edu_curr_docs_b6f13092bc306a19",
+          "vault_pri_curr_guide_2024_531acd8bea7cbf59",
+          "vault_chi_edu_curr_docs_d07c193ad4d589c8"
+        ],
+        "exact_score1_index_current": null,
+        "exact_score1_index_broad_score_sort": null,
+        "exact_score1_index_exact_only": null
+      }
+    ]
+  },
+  "nested_atomic_followups": {
+    "run_path": "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft/dev/source/eval_runs/2026-09-04_s214_user_nine_atomic_followups.json",
+    "n_queries": 4,
+    "n_skipped_no_content_type": 4,
+    "n_computable": 0,
+    "source_recall_note": "NOT_COMPUTABLE — this artifact carries no gold expected-source labels (it is a live probe, not an eval-harness run)",
+    "per_query": [
+      {
+        "id": "atomic_bullying_days",
+        "computable": false,
+        "reason": "content_type missing from this artifact's schema — footnote vs vault_extract vs establishment cannot be told apart, so overlay roles cannot be recovered"
+      },
+      {
+        "id": "atomic_holiday_homework",
+        "computable": false,
+        "reason": "content_type missing from this artifact's schema — footnote vs vault_extract vs establishment cannot be told apart, so overlay roles cannot be recovered"
+      },
+      {
+        "id": "atomic_nonstandard_fee",
+        "computable": false,
+        "reason": "content_type missing from this artifact's schema — footnote vs vault_extract vs establishment cannot be told apart, so overlay roles cannot be recovered"
+      },
+      {
+        "id": "atomic_third_tier",
+        "computable": false,
+        "reason": "content_type missing from this artifact's schema — footnote vs vault_extract vs establishment cannot be told apart, so overlay roles cannot be recovered"
+      }
+    ]
+  }
+}

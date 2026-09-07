@@ -1,0 +1,1244 @@
+{
+  "model": "text-embedding-3-small",
+  "modelCalls": 6,
+  "trace": [
+    {
+      "case": "hr_lsp:before",
+      "path": "/rest/v1/rpc/match_wiki_chunks",
+      "status": 200,
+      "ms": 5818
+    },
+    {
+      "case": "hr_lsp:before",
+      "path": "/rest/v1/wiki_chunks",
+      "status": 200,
+      "ms": 2819
+    },
+    {
+      "case": "hr_lsp:before",
+      "path": "/rest/v1/wiki_chunks",
+      "status": 200,
+      "ms": 981
+    },
+    {
+      "case": "hr_lsp:after",
+      "path": "/rest/v1/rpc/match_wiki_chunks",
+      "status": 200,
+      "ms": 2273
+    },
+    {
+      "case": "hr_lsp:after",
+      "path": "/rest/v1/rpc/match_wiki_chunks_routed",
+      "status": 200,
+      "ms": 2415,
+      "rows": [
+        {
+          "id": "footnote_fn_sag_apx_sick_leave_28_48_168",
+          "score": 0.721
+        },
+        {
+          "id": "footnote_fn_sag_sick_leave",
+          "score": 0.704
+        },
+        {
+          "id": "vault_g04_997df7efd474",
+          "score": 0.6796
+        },
+        {
+          "id": "vault_sag_2025_11_7da8bf2e5d3112f5",
+          "score": 0.6726
+        },
+        {
+          "id": "vault_sag_2025_11_621a43b3aae2a0e2",
+          "score": 0.6581
+        },
+        {
+          "id": "vault_sag_2025_11_d38da1a24861445a",
+          "score": 0.6564
+        },
+        {
+          "id": "footnote_fn_sag_tb_leave",
+          "score": 0.6449
+        },
+        {
+          "id": "vault_sag_2025_11_89613258c691eb1e",
+          "score": 0.6304
+        },
+        {
+          "id": "vault_sag_2025_11_b544f655577a4dc3",
+          "score": 0.6191
+        },
+        {
+          "id": "vault_sag_2025_11_1d28accd3df14253",
+          "score": 0.6173
+        },
+        {
+          "id": "footnote_fn_sag_annual_urgent_leave",
+          "score": 0.6158
+        },
+        {
+          "id": "footnote_fn_sag_apx_maternity_14_40_4",
+          "score": 0.6138
+        },
+        {
+          "id": "vault_sag_2025_11_34cd007549e88c52",
+          "score": 0.6007
+        },
+        {
+          "id": "vault_sag_2025_11_d5d826aec441f87e",
+          "score": 0.6006
+        },
+        {
+          "id": "vault_edbc00030_29618c7a4673",
+          "score": 0.5785
+        },
+        {
+          "id": "vault_long_service_payment_guide_e674f25c9d9ceadc",
+          "score": 0.5755
+        },
+        {
+          "id": "vault_sag_2025_11_11f2686455f093a0",
+          "score": 0.5749
+        },
+        {
+          "id": "vault_sag_2025_11_d3ac67ec62521aa2",
+          "score": 0.5743
+        },
+        {
+          "id": "vault_job_sharing_guide_a8ab796eb2c2b76f",
+          "score": 0.5678
+        },
+        {
+          "id": "vault_g04_5a60fb781f6f",
+          "score": 0.5658
+        },
+        {
+          "id": "vault_sag_2025_11_1da37b190d6eb00a",
+          "score": 0.5649
+        },
+        {
+          "id": "vault_g04_2d6cd63fe2e4",
+          "score": 0.5627
+        },
+        {
+          "id": "footnote_fn_sag_paternity_maternity",
+          "score": 0.5624
+        },
+        {
+          "id": "vault_sag_2025_11_88213a8c47fc8604",
+          "score": 0.5615
+        },
+        {
+          "id": "vault_sag_2025_11_63293a9f5089c483",
+          "score": 0.5615
+        },
+        {
+          "id": "vault_sag_2025_11_2d4e1d1c14b4d870",
+          "score": 0.5614
+        },
+        {
+          "id": "vault_edbc00030_c86ba60f7dcc",
+          "score": 0.5608
+        },
+        {
+          "id": "vault_coa_ss_e_6875672315f2",
+          "score": 0.5577
+        },
+        {
+          "id": "vault_embc5_2005_appointment_98460f4f788cb57f",
+          "score": 0.5576
+        },
+        {
+          "id": "vault_sag_2025_11_939fe884d018c8ca",
+          "score": 0.5503
+        },
+        {
+          "id": "vault_g04_7690d7b98a0a",
+          "score": 0.5477
+        },
+        {
+          "id": "vault_g04_638c01bf30ac",
+          "score": 0.5462
+        },
+        {
+          "id": "vault_supply_teacher_guide_dcbdce2e3ff6cfb3",
+          "score": 0.5452
+        },
+        {
+          "id": "vault_sag_2025_11_7fe40c4de9000669",
+          "score": 0.5445
+        },
+        {
+          "id": "vault_g04_1418e714aba7",
+          "score": 0.5442
+        },
+        {
+          "id": "footnote_fn_sag_increment",
+          "score": 0.5425
+        },
+        {
+          "id": "vault_sag_2025_11_c14cbc24daae237e",
+          "score": 0.5423
+        },
+        {
+          "id": "vault_edbc00030_90433a31d86d",
+          "score": 0.5416
+        },
+        {
+          "id": "vault_long_service_payment_guide_be00561b578814bf",
+          "score": 0.5405
+        },
+        {
+          "id": "vault_sag_2025_11_71f4699a0f067eeb",
+          "score": 0.5404
+        }
+      ]
+    },
+    {
+      "case": "sen_special_school_curriculum:before",
+      "path": "/rest/v1/rpc/match_wiki_chunks",
+      "status": 200,
+      "ms": 4683
+    },
+    {
+      "case": "sen_special_school_curriculum:after",
+      "path": "/rest/v1/rpc/match_wiki_chunks",
+      "status": 200,
+      "ms": 618
+    },
+    {
+      "case": "sen_special_school_curriculum:after",
+      "path": "/rest/v1/rpc/match_wiki_chunks_routed",
+      "status": 500,
+      "ms": 8620,
+      "rows": {
+        "code": "57014",
+        "details": null,
+        "hint": null,
+        "message": "canceling statement due to statement timeout"
+      }
+    },
+    {
+      "case": "sen_special_school_curriculum:after",
+      "path": "/rest/v1/rpc/match_wiki_chunks_routed",
+      "status": 200,
+      "ms": 7156,
+      "rows": [
+        {
+          "id": "vault_g06_ddb8cc42eb48c6a7",
+          "score": 0.7511
+        },
+        {
+          "id": "vault_g19_710b48540bec2358",
+          "score": 0.7287
+        },
+        {
+          "id": "vault_sen_exam_arrangements_2025_129b4cfe7bb77a8c",
+          "score": 0.7233
+        },
+        {
+          "id": "vault_g06_d848109f501c4993",
+          "score": 0.7173
+        },
+        {
+          "id": "vault_g19_5209939fe426d76b",
+          "score": 0.7141
+        },
+        {
+          "id": "vault_g19_e1fd18f8fda2cc85",
+          "score": 0.7136
+        },
+        {
+          "id": "vault_g19_1bcd00d93612e161",
+          "score": 0.7051
+        },
+        {
+          "id": "vault_sen_exam_arrangements_2025_ce6f039be10d103f",
+          "score": 0.7014
+        },
+        {
+          "id": "vault_g19_e7e247229e2eb29a",
+          "score": 0.701
+        },
+        {
+          "id": "fact_role_facts_student_d229ded34dd8703c",
+          "score": 0.6982
+        },
+        {
+          "id": "vault_g06_7cc6d3273e9be61b",
+          "score": 0.6973
+        },
+        {
+          "id": "vault_g06_529aad2561716c65",
+          "score": 0.6963
+        },
+        {
+          "id": "vault_g19_5bcdcc851ec03620",
+          "score": 0.6949
+        },
+        {
+          "id": "vault_g19_01baf42cf0bfe1ca",
+          "score": 0.6941
+        },
+        {
+          "id": "vault_g06_2da9fce2e6359b3a",
+          "score": 0.6849
+        },
+        {
+          "id": "vault_g19_b5b182d190a52a97",
+          "score": 0.6837
+        },
+        {
+          "id": "vault_g10_450576d0c9d52a18",
+          "score": 0.6831
+        },
+        {
+          "id": "vault_sag_2025_11_38160b8cf9bc6cd9",
+          "score": 0.6824
+        },
+        {
+          "id": "vault_g19_dc75ed406cde8949",
+          "score": 0.6785
+        },
+        {
+          "id": "vault_sen_exam_arrangements_2025_4ea3d4e6dd007d47",
+          "score": 0.6756
+        },
+        {
+          "id": "vault_g10_6455c2049c3e3e64",
+          "score": 0.6751
+        },
+        {
+          "id": "vault_g10_13fe7766a15495dc",
+          "score": 0.673
+        },
+        {
+          "id": "fact_role_facts_student_421a569cbd31d284",
+          "score": 0.6728
+        },
+        {
+          "id": "vault_g19_170504963e344fe8",
+          "score": 0.6727
+        },
+        {
+          "id": "vault_sen_exam_arrangements_2025_3b30beadb82b23a1",
+          "score": 0.6723
+        },
+        {
+          "id": "vault_sen_exam_arrangements_2025_a101d4ef1c0fa88c",
+          "score": 0.672
+        },
+        {
+          "id": "vault_g19_bf917315b40ebef3",
+          "score": 0.6652
+        },
+        {
+          "id": "vault_g10_b3429c2c06e102bb",
+          "score": 0.6644
+        },
+        {
+          "id": "vault_cgss_2024_5364af6d13bafb18",
+          "score": 0.6643
+        },
+        {
+          "id": "vault_g10_9dced1f71531c272",
+          "score": 0.6637
+        },
+        {
+          "id": "vault_sen_exam_arrangements_2025_4cfbb181e8924e62",
+          "score": 0.6631
+        },
+        {
+          "id": "vault_g19_d73bd97402db688d",
+          "score": 0.6597
+        },
+        {
+          "id": "vault_g10_d94145e2012b07c3",
+          "score": 0.6597
+        },
+        {
+          "id": "vault_g19_4b6c7293241e98b6",
+          "score": 0.6579
+        },
+        {
+          "id": "vault_g19_23c9a7c63babb636",
+          "score": 0.6574
+        },
+        {
+          "id": "vault_g10_fbafd8f301d19571",
+          "score": 0.6534
+        },
+        {
+          "id": "vault_g19_f57e61ae5fbf9376",
+          "score": 0.6534
+        },
+        {
+          "id": "vault_sen_exam_arrangements_2025_cfe46ba33a6cdc8e",
+          "score": 0.6531
+        },
+        {
+          "id": "vault_g06_bb16b04ec1b7b4bc",
+          "score": 0.6528
+        },
+        {
+          "id": "vault_g10_09c7bf283e45f680",
+          "score": 0.6522
+        }
+      ]
+    },
+    {
+      "case": "ss_ncs_history_adapted_outline_v2:before",
+      "path": "/rest/v1/rpc/match_wiki_chunks",
+      "status": 200,
+      "ms": 4627
+    },
+    {
+      "case": "ss_ncs_history_adapted_outline_v2:after",
+      "path": "/rest/v1/rpc/match_wiki_chunks",
+      "status": 200,
+      "ms": 3259
+    },
+    {
+      "case": "ss_ncs_history_adapted_outline_v2:after",
+      "path": "/rest/v1/rpc/match_wiki_chunks_routed",
+      "status": 200,
+      "ms": 2923,
+      "rows": [
+        {
+          "id": "vault_chi_hist_jss_ncs_2019_c90f359ec6dfca87",
+          "score": 0.5898
+        },
+        {
+          "id": "vault_chi_hist_jss_ncs_2019_618e9e0f8fdf13df",
+          "score": 0.5894
+        },
+        {
+          "id": "vault_chi_hist_jss_ncs_2019_da5427059e6d2388",
+          "score": 0.5731
+        },
+        {
+          "id": "vault_chi_hist_jss_2019_e820a4c3fef52bf3",
+          "score": 0.5667
+        },
+        {
+          "id": "vault_chi_hist_jss_ncs_2019_f86d81fbccc82030",
+          "score": 0.5639
+        },
+        {
+          "id": "vault_chi_hist_jss_2019_27bfbd8755ddd66b",
+          "score": 0.5565
+        },
+        {
+          "id": "vault_chi_hist_jss_2019_89290f28a35465bd",
+          "score": 0.5551
+        },
+        {
+          "id": "vault_history_jss_2019_b8e591b453936714",
+          "score": 0.5434
+        },
+        {
+          "id": "vault_chi_hist_jss_2019_01f387a8905bb334",
+          "score": 0.5376
+        },
+        {
+          "id": "vault_chi_hist_jss_ncs_2019_aea59f764f66376f",
+          "score": 0.5359
+        },
+        {
+          "id": "vault_chi_hist_jss_2019_e61ad10c47040d74",
+          "score": 0.5328
+        },
+        {
+          "id": "vault_chi_hist_jss_2019_5d492c1b5f7e6fc6",
+          "score": 0.5318
+        },
+        {
+          "id": "vault_chi_hist_jss_2019_a9b18038c4251429",
+          "score": 0.5317
+        },
+        {
+          "id": "vault_chi_hist_jss_2019_1831e6c312a97941",
+          "score": 0.5316
+        },
+        {
+          "id": "vault_chi_hist_jss_ncs_2019_7a8b2ea5b47606e8",
+          "score": 0.5314
+        },
+        {
+          "id": "vault_chi_hist_jss_2019_7e1a75546873ade9",
+          "score": 0.5273
+        },
+        {
+          "id": "vault_chi_hist_jss_2019_805928fd42d09f67",
+          "score": 0.5251
+        },
+        {
+          "id": "vault_chi_hist_jss_ncs_2019_240f0f4041e4c6df",
+          "score": 0.5243
+        },
+        {
+          "id": "vault_chi_hist_jss_ncs_2019_415b168a2b5688bb",
+          "score": 0.5236
+        },
+        {
+          "id": "vault_chi_hist_jss_ncs_2019_3eaf62f279c6c420",
+          "score": 0.5185
+        },
+        {
+          "id": "vault_chi_hist_jss_ncs_2019_d90c3b2282effadb",
+          "score": 0.5172
+        },
+        {
+          "id": "vault_chi_hist_jss_2019_e915ac852c159762",
+          "score": 0.5156
+        },
+        {
+          "id": "vault_history_sss_2007_2015_d7debf5b1e770f5d",
+          "score": 0.5153
+        },
+        {
+          "id": "vault_history_jss_2019_2964cc8d3ccb6df4",
+          "score": 0.5116
+        },
+        {
+          "id": "vault_chi_hist_jss_2019_848ab4219b8cb601",
+          "score": 0.511
+        },
+        {
+          "id": "vault_history_jss_2019_cf5091d9c36dcdbd",
+          "score": 0.5107
+        },
+        {
+          "id": "vault_history_jss_2019_fe38ca2f06ea9583",
+          "score": 0.5099
+        },
+        {
+          "id": "vault_chi_hist_jss_2019_237260c0053a0acc",
+          "score": 0.5094
+        },
+        {
+          "id": "vault_history_jss_2019_6503cfa9468ce76f",
+          "score": 0.5086
+        },
+        {
+          "id": "vault_chi_hist_jss_2019_0c429b1634ab12ad",
+          "score": 0.5081
+        },
+        {
+          "id": "vault_chi_hist_jss_2019_a20b42c20b9f9746",
+          "score": 0.5074
+        },
+        {
+          "id": "vault_history_sss_2007_2015_8509fb96a13059a8",
+          "score": 0.5071
+        },
+        {
+          "id": "vault_history_jss_2019_8d8610eed9b90862",
+          "score": 0.5047
+        },
+        {
+          "id": "vault_g13_e4e8c3aa3176ebd8",
+          "score": 0.504
+        },
+        {
+          "id": "vault_history_jss_2019_3529f767ed77e222",
+          "score": 0.504
+        },
+        {
+          "id": "vault_chi_hist_jss_2019_f0558f0dfb9d9b25",
+          "score": 0.503
+        },
+        {
+          "id": "vault_history_jss_2019_3a6bc2adb75d2e06",
+          "score": 0.5012
+        },
+        {
+          "id": "vault_gs_pri_guide_2017_9a908daa0beef1d5",
+          "score": 0.501
+        },
+        {
+          "id": "vault_history_sss_2007_2015_d80e4f2c4cfe40f1",
+          "score": 0.5008
+        },
+        {
+          "id": "vault_history_jss_2019_b73ad8344dc537eb",
+          "score": 0.4999
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "id": "hr_lsp",
+      "query": "長期服務金 點計",
+      "before": {
+        "query": "長期服務金 點計",
+        "channel": "B",
+        "total": 8,
+        "results": [
+          {
+            "id": "footnote_fn_lsp_calc",
+            "text": "員工服務年資做唔夠一年，遣散費／長期服務金嘅賠償點計（按比例）？《發放遣散費及長期服務金的指引》：未足1年嘅服務年期按比例計算——完整服務年數加未足一年部分（剩餘天數按情況除以365或366天）；利益餘額＝公積金/職業退休計劃僱主供款既有利益–「剔除款項」。",
+            "title": "發放遣散費及長期服務金的指引(2025)",
+            "source_id": "long_service_payment_guide",
+            "url": "https://www.edb.gov.hk/attachment/tc/teacher/appointments-related/severance-payment/long service payment homepage_c (updated_052025).pdf#page=6",
+            "topic": "hr",
+            "content_type": "footnote_curated",
+            "fact_type": "policy",
+            "score": 0.6502504740160808,
+            "channel": "B"
+          },
+          {
+            "id": "footnote_fn_eoebg_surplus_12m",
+            "text": "擴大營辦津貼（EOEBG）的盈餘可以保留幾多？盈餘保留上限為12個月撥款額（扣除已預留作遣散費／長期服務金的承擔額）；超出上限須經教育局常任秘書長批准方可保留。",
+            "title": "擴大營辦津貼（EOEBG）使用指引",
+            "source_id": "eoebg_guide_2026",
+            "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_e.pdf",
+            "topic": "general",
+            "content_type": "footnote_curated",
+            "fact_type": "policy",
+            "score": 0.48055721295206294,
+            "channel": "B"
+          },
+          {
+            "id": "footnote_fn_sag_sick_leave",
+            "text": "資助學校教師同非教學人員有幾多病假？可以累積幾多日？《學校行政手冊》附錄9 假期：月薪教學人員首年受聘享有28天病假，其後每服務滿一年可享全年共48天病假，有薪病假最高可累積至168天；病假最少以半天為放取單位，申請病假超逾兩天必須出示有效的醫生證明書。按連續性合約受聘的非教學專責人員／實驗室技術員／學校行政主任，聘用首12個月內每服務滿一個月可享2天病假、其後每滿一個月可享4天病假，有薪病假最高可累積至120天。",
+            "title": "學校行政手冊",
+            "source_id": "sag_2025_11",
+            "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf#page=224",
+            "topic": "general",
+            "content_type": "footnote_curated",
+            "fact_type": "policy",
+            "score": 0.704,
+            "channel": "B"
+          },
+          {
+            "id": "vault_sag_2025_11_7da8bf2e5d3112f5",
+            "text": "較資料需用的時間為長。2 1 5附錄9資助學校員工可享有的假期教學人員（註A）非教學人員專責人員（註B）／實驗室技術員／學校行政主任非專責人員（註C）學校須根據《資助則例》和《僱傭條例》的規定批假給教學人員、專責人員、實驗室技術員及學校行政主任。學校如有任何疑問，可向所屬的區域教育服務處或勞工處查詢。學校須根據《資助則例》和《僱傭條例》的規定批假給非教學的非專責人員。學校如有任何疑問，可向所屬的區域教育服務處或勞工處查詢。【病假】1.月薪教學及非教學人員教學人員（註A）非教學人員專責人員（註B）／實驗室技術員／學校行政主任非專責人員（註C）a.首年受聘時享有28 天病假，其後每服務滿一年，可享有全年共48 天病假b.有薪病假最高可累積至168 天c.全職或兼職的月薪常額或臨時教師，享有同等的病假d.在享有的整段有薪病假期內，可支取全薪e.僱員的積存病假一旦用罄，可獲批無薪病假（註H）f.病假最少以半天為放取的單位g.僱員如申請病假超逾兩天，必須出示有效的醫生證明書（註F）h.教學人員（註A）如中斷服務超逾一年，會喪失積存的病假（由2006 年9 月1 日生效）i.專責人員（註B）／實驗室技術員／學校行政主任如中斷服務超逾45 天，會喪失積存的病假a. 根據連續性合約（註D）受聘的僱員，在聘用期首12 個月內，每服務滿一個月，便可享有2 天病假；",
+            "page": 224,
+            "title": "學校行政手冊（2025年11月版）",
+            "source_id": "sag_2025_11",
+            "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf",
+            "topic": "finance,hr,student,general",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.6726,
+            "channel": "B"
+          },
+          {
+            "id": "vault_sag_2025_11_621a43b3aae2a0e2",
+            "text": "天，會喪失積存的病假a. 根據連續性合約（註D）受聘的僱員，在聘用期首12 個月內，每服務滿一個月，便可享有2 天病假；其後每服務滿一個月，便可享有4 天病假b. 有薪病假最高可累積至120 天（註E）c. 以薪金津貼支薪的僱員，在享有的整段有薪病假期內，可支取全薪；其他僱員則按《僱傭條例》的規定處理d. 僱員的積存病假一旦用罄，可獲批無薪病假e. 申請病假者必須出示有效的醫生證明書f. 僱員申請的病假如超逾第一類（註E）積存假期，或須出示駐院的註冊醫生、註冊中醫或註冊牙醫簽發的醫生證明書2 1 62.日薪代職人員教學人員（註A）非教學人員專責人員（如適用）（註B）／實驗室技術員非專責人員（註C）a.根據連續性合約受僱的日薪代職人員，可按照《僱傭條例》獲發病假津貼b.申請病假者應出示有效的醫生證明書【女性僱員的產假】（根據教育局通告第16/2018 號，如資助學校核准編制內的教職員或以教育局其他津貼（即現金津貼）支薪的合約教職員在緊接放取產假前已連續服務滿40 個星期，而提供的證明文件上註明的實際分娩日期或預產日期為2019 年1 月1 日或之後，學校須給予有關教職員14 個星期的有薪產假。）教學人員（註A）非教學人員專責人員（註B）／實驗室技術員／學校行政主任非專責人員（註C）a.除非另有規定，否則放取產假事宜須按照《僱傭條例》的條文辦理b.",
+            "page": 225,
+            "title": "學校行政手冊（2025年11月版）",
+            "source_id": "sag_2025_11",
+            "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf",
+            "topic": "finance,hr,student,general",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.6581,
+            "channel": "B"
+          },
+          {
+            "id": "vault_edbc00030_29618c7a4673",
+            "text": "日期不具追溯效力。\n2 資助中學、特殊中學或設有中小學部的特殊學校中學部的全職常額首席學位教師／高級學位教師／學位教師或高級助理教席倘獲推薦及批准署任較高職級的一級校長／二級校長／首席學位教師／高級學位教師或首席助理教席職位並擔任專責職務，而其合資格署任期達30個曆日或以上，可獲發放署任津貼。 \n3 如署任人員連續休假超過3個工作天影響其合資格署任期的計算及／或涉及署任津貼的扣減 (包括休假日及當中的公眾假期和星期日)，學校須填寫署任安\n排﹝署任教師休假/缺勤超逾連續3天以上須調整署任津貼的通知﹞表格通知本局調整署任津貼。\n4 在2019/20學年起，在教師職位學位化政策全面推行的情況下，如學校安排由基本職級的學位教師因行政方便而署任短暫缺勤的晉升職級非學位教師，在署\n任職位達30個曆日或以上的情況下，該學位教師的署任津貼率是署任職位(即相應的晉升職級學位教師職位)起薪與署任教師實任職位薪金的差額的90%。\n5 有關詳情可參閱教育局通告第8/2004號及相關的資助則例。\n6 在2019/20學年起，在教師職位學位化政策全面推行下，資助學校核准編制内的所有教席均為學位教師職位，換句話説，非學位教師職系内不應該有任何因\n晉升職缺／懸空晉升職位的署任安排。\n7 教育局將會對每份署任申請作出編制預先核查。如有關署任教師於委任日已超逾該校的核准教學人員編制，在釐清該署任安排是否符合編制人數之前，該\n薪金津貼將不會發放給學校。\n只供教育局公積金組填寫\n收件日期\n工序\n簽署\n日期\n工序\n簽署\n日期\nEDBSGS資料輸入",
+            "page": 17,
+            "title": "教育局通告第30/2000號",
+            "source_id": "edbc00030",
+            "url": "https://applications.edb.gov.hk/circular/upload/edbc/EDBC00030C.pdf",
+            "topic": "hr",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5785,
+            "channel": "B"
+          },
+          {
+            "id": "vault_long_service_payment_guide_e674f25c9d9ceadc",
+            "text": "長期服務金的款額。校監簽署：校監姓名：聯絡人姓名：聯絡電話：日期：請在適當的方格內加上 √ 號。+請刪去不適用者。%如僱員的僱傭合約是以代通知金的方式終止，「有關日期」則指有關工資計至該日為止的日期。至於其他情況，請參閱《僱傭條例》（第57 章）第2 條對「有關日期」的定義。@若僱員因健康理由而辭職，須提交由註冊醫生或註冊中醫按照勞工處處長指明的格式發出的特定證明書，證明該僱員永久不適宜擔任現時的工作。^僱員可選擇以最後12個月的平均工資計算遣散費或長期服務金。▲未足1年的服務年期則按比例計算。一般而言， 服務年資的計算方法為：首先計算自受僱開始日起的完整服務年數，然後加上未足一年的部分，即從最後一個完整服務年度結束至計算期結束的剩餘天數，並按適用情況除以365 或366 天。& 「剔除款項」 = 最終每月平均有關入息（以《強制性公積金計劃條例》（第485 章）附表3 所規定的每月最高有關入息水平為限）x 5%x 12 x 於補助/津貼學校公積金 / 獲強積金豁免的職業退休計劃內的服務年資。*利益餘額 = 補助/津貼學校公積金計劃 / 獲強積金豁免的職業退休計劃內僱主供項的既有利益 – 「剔除款項」。#根據《補助/津貼學校公積金規則》第13 條，一般情況下，如供款人的供款無間年資超過5年、6年、7年、8年、9年及10 年，供款人",
+            "page": 4,
+            "title": "發放遣散費及長期服務金的指引 (2025年5月)",
+            "source_id": "long_service_payment_guide",
+            "url": "https://www.edb.gov.hk/attachment/tc/teacher/appointments-related/severance-payment/long service payment homepage_c (updated_052025).pdf",
+            "topic": "hr",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5755,
+            "channel": "B"
+          },
+          {
+            "id": "vault_job_sharing_guide_a8ab796eb2c2b76f",
+            "text": "學年資相等於三年的供款年資，而四年0 . 6 部分教席的教學年資則相等於四年的供款年資。d ) 可享有的假期( i )按連續性合約受聘的部分教席教師，如在同一所學校連續任教四星期或以上，而每星期任教時數不少於1 8 小時，則可享有與全職教師相同的假期，例如在受聘後可享有十四星期的全薪產假及共2 8 天的全薪病假。如繼續任教，每滿一年可獲4 8 天病假。全薪病假最多可累積1 6 8 天。( i i )舉例說，一名只在上午授課的全日制學校部分教席教師，如獲醫生建議給予2 8 天病假，由二零零八年二月一日至二月二十八日，則該名教師可享有這段期間的有薪病假。( i i i ) 假如這位部分教席教師只在星期一、三、五授課，而在其他工作天則擔任非經常性專責工作，他/ 她仍然享有上述期間的2 8 天有薪病假。e ) 處理超額/ 過剩教師的安排( i )資助學校應善用共享教職的安排以吸納超額/ 過剩教師（包括學生輔導教師）及過剩實驗室技術員。( i i )如學校以共享教職以處理超額/ 過剩教師或過剩實驗室技術員的情況，學校應在確定超額/ 過剩的教職員前，徵詢有關教師及/ 或實驗室技術員的意見，訂出共享教職的計劃及共享教職的模式。( i i i ) 學校在採取本指引的措施以吸納有關的超額/ 過剩教職員時，應同時參考和遵循現行適用於資助中、小學的處理超",
+            "page": 4,
+            "title": "資助學校處理共享教職指引",
+            "source_id": "job_sharing_guide",
+            "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/guidelines(web)-job_sharing_c.pdf",
+            "topic": "hr",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5678,
+            "channel": "B"
+          }
+        ]
+      },
+      "beforeMs": 14238,
+      "after": {
+        "query": "長期服務金 點計",
+        "channel": "B",
+        "total": 8,
+        "results": [
+          {
+            "id": "footnote_fn_lsp_calc",
+            "text": "員工服務年資做唔夠一年，遣散費／長期服務金嘅賠償點計（按比例）？《發放遣散費及長期服務金的指引》：未足1年嘅服務年期按比例計算——完整服務年數加未足一年部分（剩餘天數按情況除以365或366天）；利益餘額＝公積金/職業退休計劃僱主供款既有利益–「剔除款項」。",
+            "title": "發放遣散費及長期服務金的指引(2025)",
+            "source_id": "long_service_payment_guide",
+            "url": "https://www.edb.gov.hk/attachment/tc/teacher/appointments-related/severance-payment/long service payment homepage_c (updated_052025).pdf#page=6",
+            "topic": "hr",
+            "content_type": "footnote_curated",
+            "fact_type": "policy",
+            "score": 0.6502504740160808,
+            "channel": "B"
+          },
+          {
+            "id": "footnote_fn_eoebg_surplus_12m",
+            "text": "擴大營辦津貼（EOEBG）的盈餘可以保留幾多？盈餘保留上限為12個月撥款額（扣除已預留作遣散費／長期服務金的承擔額）；超出上限須經教育局常任秘書長批准方可保留。",
+            "title": "擴大營辦津貼（EOEBG）使用指引",
+            "source_id": "eoebg_guide_2026",
+            "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_e.pdf",
+            "topic": "general",
+            "content_type": "footnote_curated",
+            "fact_type": "policy",
+            "score": 0.48055721295206294,
+            "channel": "B"
+          },
+          {
+            "id": "footnote_fn_sag_apx_sick_leave_28_48_168",
+            "text": "月薪教職員病假規則？28日／48日／168日？《學校行政手冊》Ch7 附錄9（註）：資助學校員工可享有的假期— 月薪教學及非教學人員病假：a.首年受聘時享有28天病假，其後每服務滿一年，可享有全年共48天病假；b.有薪病假最高可累積至168天；c.全職或兼職的月薪常額或臨時教師，享有同等的病假；d.在享有的整段有薪病假期內，可支取全薪；e.僱員的積存病假一旦用罄，可獲批無薪病假；f.病假最少以半天為放取的單位；g.僱員如申請病假超逾兩天，必須出示有效的醫生證明書；h.教學人員如中斷服務超逾一年，會喪失積存的病假（由2006年9月1日生效）；i.專責人員／實驗室技術員／學校行政主任如中斷服務超逾45天，會喪失積存的病假。",
+            "title": "學校行政手冊",
+            "source_id": "sag_2025_11",
+            "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf#page=215",
+            "topic": "general",
+            "content_type": "footnote_curated",
+            "fact_type": "policy",
+            "score": 0.721,
+            "channel": "B"
+          },
+          {
+            "id": "footnote_fn_sag_sick_leave",
+            "text": "資助學校教師同非教學人員有幾多病假？可以累積幾多日？《學校行政手冊》附錄9 假期：月薪教學人員首年受聘享有28天病假，其後每服務滿一年可享全年共48天病假，有薪病假最高可累積至168天；病假最少以半天為放取單位，申請病假超逾兩天必須出示有效的醫生證明書。按連續性合約受聘的非教學專責人員／實驗室技術員／學校行政主任，聘用首12個月內每服務滿一個月可享2天病假、其後每滿一個月可享4天病假，有薪病假最高可累積至120天。",
+            "title": "學校行政手冊",
+            "source_id": "sag_2025_11",
+            "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf#page=224",
+            "topic": "general",
+            "content_type": "footnote_curated",
+            "fact_type": "policy",
+            "score": 0.704,
+            "channel": "B"
+          },
+          {
+            "id": "vault_g04_997df7efd474",
+            "text": "常額教師在資助學校服務的首年，可享有28天有薪病假。其後每服務滿一年，可享有全年共48天有薪病假。有薪病假最高可累積至168天。全職或兼職的月薪常額或臨時教師，亦享有同等的有薪病假。然而，教師如中斷服務超逾一年，將會喪失積存的有薪病假。\n\n積存病假額超過120天時，學校需按月更新教師的積存病假額，以記入服務每滿一個月累積4天的有薪病假。\n\n常額教師如申請病假超逾兩天，必須出示有效的醫生證明書。有效的醫生證明書是指由註冊西醫、註冊中醫或註冊牙醫簽發的醫生證明書。教師應按醫生證明書放取病假；同時，學校亦須按照有關醫生證明書所列的日期悉數扣減有薪病假額。\n\n當常額教師在放取有薪病假期間遇上法定假日，學校不需要將與法定假日重疊的病假日數從有關教師的積存有薪病假額中扣除。然而，當常額教師在放取無薪病假期間遇上法定假日，在計算教師的無薪病假日數時，法定假日須計算在內。\n\n常額教師在放取無薪病假期間仍可累積有薪病假，但該等有薪病假須待教師無薪病假完結後方可使用。\n\n若常額教師在學年結束前離職，如有薪病假為預支性質，學校需要按比例計算教師任職期間可享有的有薪病假日數。",
+            "title": "教職員批假指引（資助學校）",
+            "source_id": "g04",
+            "url": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/guideline-granting-leave/index.html",
+            "topic": "hr",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.6796,
+            "channel": "B"
+          },
+          {
+            "id": "vault_sag_2025_11_7da8bf2e5d3112f5",
+            "text": "較資料需用的時間為長。2 1 5附錄9資助學校員工可享有的假期教學人員（註A）非教學人員專責人員（註B）／實驗室技術員／學校行政主任非專責人員（註C）學校須根據《資助則例》和《僱傭條例》的規定批假給教學人員、專責人員、實驗室技術員及學校行政主任。學校如有任何疑問，可向所屬的區域教育服務處或勞工處查詢。學校須根據《資助則例》和《僱傭條例》的規定批假給非教學的非專責人員。學校如有任何疑問，可向所屬的區域教育服務處或勞工處查詢。【病假】1.月薪教學及非教學人員教學人員（註A）非教學人員專責人員（註B）／實驗室技術員／學校行政主任非專責人員（註C）a.首年受聘時享有28 天病假，其後每服務滿一年，可享有全年共48 天病假b.有薪病假最高可累積至168 天c.全職或兼職的月薪常額或臨時教師，享有同等的病假d.在享有的整段有薪病假期內，可支取全薪e.僱員的積存病假一旦用罄，可獲批無薪病假（註H）f.病假最少以半天為放取的單位g.僱員如申請病假超逾兩天，必須出示有效的醫生證明書（註F）h.教學人員（註A）如中斷服務超逾一年，會喪失積存的病假（由2006 年9 月1 日生效）i.專責人員（註B）／實驗室技術員／學校行政主任如中斷服務超逾45 天，會喪失積存的病假a. 根據連續性合約（註D）受聘的僱員，在聘用期首12 個月內，每服務滿一個月，便可享有2 天病假；",
+            "page": 224,
+            "title": "學校行政手冊（2025年11月版）",
+            "source_id": "sag_2025_11",
+            "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf",
+            "topic": "finance,hr,student,general",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.6726,
+            "channel": "B"
+          },
+          {
+            "id": "vault_edbc00030_29618c7a4673",
+            "text": "日期不具追溯效力。\n2 資助中學、特殊中學或設有中小學部的特殊學校中學部的全職常額首席學位教師／高級學位教師／學位教師或高級助理教席倘獲推薦及批准署任較高職級的一級校長／二級校長／首席學位教師／高級學位教師或首席助理教席職位並擔任專責職務，而其合資格署任期達30個曆日或以上，可獲發放署任津貼。 \n3 如署任人員連續休假超過3個工作天影響其合資格署任期的計算及／或涉及署任津貼的扣減 (包括休假日及當中的公眾假期和星期日)，學校須填寫署任安\n排﹝署任教師休假/缺勤超逾連續3天以上須調整署任津貼的通知﹞表格通知本局調整署任津貼。\n4 在2019/20學年起，在教師職位學位化政策全面推行的情況下，如學校安排由基本職級的學位教師因行政方便而署任短暫缺勤的晉升職級非學位教師，在署\n任職位達30個曆日或以上的情況下，該學位教師的署任津貼率是署任職位(即相應的晉升職級學位教師職位)起薪與署任教師實任職位薪金的差額的90%。\n5 有關詳情可參閱教育局通告第8/2004號及相關的資助則例。\n6 在2019/20學年起，在教師職位學位化政策全面推行下，資助學校核准編制内的所有教席均為學位教師職位，換句話説，非學位教師職系内不應該有任何因\n晉升職缺／懸空晉升職位的署任安排。\n7 教育局將會對每份署任申請作出編制預先核查。如有關署任教師於委任日已超逾該校的核准教學人員編制，在釐清該署任安排是否符合編制人數之前，該\n薪金津貼將不會發放給學校。\n只供教育局公積金組填寫\n收件日期\n工序\n簽署\n日期\n工序\n簽署\n日期\nEDBSGS資料輸入",
+            "page": 17,
+            "title": "教育局通告第30/2000號",
+            "source_id": "edbc00030",
+            "url": "https://applications.edb.gov.hk/circular/upload/edbc/EDBC00030C.pdf",
+            "topic": "hr",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5785,
+            "channel": "B"
+          },
+          {
+            "id": "vault_long_service_payment_guide_e674f25c9d9ceadc",
+            "text": "長期服務金的款額。校監簽署：校監姓名：聯絡人姓名：聯絡電話：日期：請在適當的方格內加上 √ 號。+請刪去不適用者。%如僱員的僱傭合約是以代通知金的方式終止，「有關日期」則指有關工資計至該日為止的日期。至於其他情況，請參閱《僱傭條例》（第57 章）第2 條對「有關日期」的定義。@若僱員因健康理由而辭職，須提交由註冊醫生或註冊中醫按照勞工處處長指明的格式發出的特定證明書，證明該僱員永久不適宜擔任現時的工作。^僱員可選擇以最後12個月的平均工資計算遣散費或長期服務金。▲未足1年的服務年期則按比例計算。一般而言， 服務年資的計算方法為：首先計算自受僱開始日起的完整服務年數，然後加上未足一年的部分，即從最後一個完整服務年度結束至計算期結束的剩餘天數，並按適用情況除以365 或366 天。& 「剔除款項」 = 最終每月平均有關入息（以《強制性公積金計劃條例》（第485 章）附表3 所規定的每月最高有關入息水平為限）x 5%x 12 x 於補助/津貼學校公積金 / 獲強積金豁免的職業退休計劃內的服務年資。*利益餘額 = 補助/津貼學校公積金計劃 / 獲強積金豁免的職業退休計劃內僱主供項的既有利益 – 「剔除款項」。#根據《補助/津貼學校公積金規則》第13 條，一般情況下，如供款人的供款無間年資超過5年、6年、7年、8年、9年及10 年，供款人",
+            "page": 4,
+            "title": "發放遣散費及長期服務金的指引 (2025年5月)",
+            "source_id": "long_service_payment_guide",
+            "url": "https://www.edb.gov.hk/attachment/tc/teacher/appointments-related/severance-payment/long service payment homepage_c (updated_052025).pdf",
+            "topic": "hr",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5755,
+            "channel": "B"
+          }
+        ]
+      },
+      "afterMs": 4700
+    },
+    {
+      "id": "sen_special_school_curriculum",
+      "query": "特殊學校 課程 調適",
+      "before": {
+        "query": "特殊學校 課程 調適",
+        "channel": "B",
+        "total": 8,
+        "results": [
+          {
+            "id": "footnote_fn_ncs_special_school_matrix",
+            "text": "特殊學校收非華語學生點分津貼？《Audit Report No.76 Ch.2》§2.2(c)（註）：Special schools admitting 1 to 5 NCS students. These schools might apply for a grant of $50,000 per year on a need basis for organising after-school support programmes in learning the Chinese language for their NCS students;\nSpecial schools admitting 6 to 9 NCS students with NCS students taking an ordinary school curriculum. A grant of $650,000 is provided per year to each school;\nSpecial schools admitting 10 or more NCS students with NCS students taking an ordinary school curriculum. Same as ordinary primary and secondary schools offering local curriculum and admitting 10 or more NCS students, the amount of grant is determined by the 5-tiered funding mechanism;\nSpecial schools admitting 6 or more NCS students without any NCS students taking an ordinary school curriculum. A grant of $650,000 is provided per year to each school.",
+            "title": "Audit Report No.76 Ch.2 Education Support Measures for NCS Students",
+            "source_id": "AUD_e76ch02",
+            "url": "https://www.aud.gov.hk/pdf_e/e76ch02.pdf#page=10",
+            "topic": "general",
+            "content_type": "footnote_curated",
+            "fact_type": "policy",
+            "score": 0.49977934459779183,
+            "channel": "B"
+          },
+          {
+            "id": "footnote_fn_activities_sen",
+            "text": "《學校活動指引》附錄XV 境外遊學團(註2)：一般每名領隊不宜帶領多於10名學生(1:10)；惟特殊學校的人手比例，須參考《戶外活動指引》附錄X〈有特殊教育需要學童參加戶外活動的教職員/照顧者與學生比例〉作適切安排(可緊至1:1)。",
+            "title": "學校活動指引(戶外活動/境外遊學團)",
+            "source_id": "sch_activities_guide",
+            "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf#page=75",
+            "topic": "activity",
+            "content_type": "footnote_curated",
+            "fact_type": "policy",
+            "score": 0.4871731109523788,
+            "channel": "B"
+          },
+          {
+            "id": "vault_g19_710b48540bec2358",
+            "text": "安排，讓學生有公平的機會展示其學習成效。2.1 共融政策教育局採用「雙軌制」推行特殊教育，有較嚴重或多重殘疾的學生，教育局會根據專業人士的評估和建議，在家長的同意下，轉介他們入讀特殊學校，以便接受加強支援服務；其他有特殊教育需要的學生，則會入讀普通學校。現時，普通學校學生的特殊教育需要主要分為九類，包括智力發展障礙、自閉症、注意力不足／過度活躍症、精神病、特殊學習困難、肢體傷殘、視覺障礙、聽力障礙及言語障礙。教育局鼓勵普通學校推行「全校參與」模式融合教育，秉持「及早識別」、「及早支援」、「全校參與」、「家校合作」和「跨界別協作」五個基本原則，在文化、政策和措施三方面互相配合，並成立學生支援組，推動所有教師採用三層支援模式照顧有特殊教育需要的學生，從而幫助他們克服限制和困難，使學生達到能力可及的學習水平，並促進他4們在成長階段發展潛能，逐步成為獨立、有適應能力和自學能力的人，迎接人生挑戰。詳情請參閱「全校參與模式融合教育便覽」。2.2 共融措施學校在制定校本的共融措施時，可參考《照顧學生個別差異 ~ 共融校園指標》，以提高學校照顧學生個別差異的能力，使所有學生都能接受優質教育。《照顧學生個別差異 ~ 共融校園指標》是一套協助學校發展的工具，功能包括：• 協助學校在自我評估及學校發展過程中訂立目標和可觀察的準則；",
+            "page": 9,
+            "title": "《全校參與模式融合教育運作指南》",
+            "source_id": "g19",
+            "url": "https://sense.edb.gov.hk/uploads/page/integrated_education/landing/ie_guide_ch.pdf",
+            "topic": "student",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.7287,
+            "channel": "B"
+          },
+          {
+            "id": "vault_g06_d848109f501c4993",
+            "text": "，在課堂上為有需要的學生提供即時額外支援。協作教學的教節可按學習內容及學生的需要作規劃，如﹕選擇某一科目、某一單元進行。輔助學習工具：為學生提供適當的輔助學習工具，以消除／減少因特殊教育需要而帶來的障礙，例如：為聽力障礙學生提供助聽器、無線傳輸系統；為視覺障礙學生提供放大鏡、弱視輔助工具；為有特殊學習困難的學生提供較大格的練習簿；為有自閉症、言語障礙或智力障礙的學生提供圖卡、提示卡等。特別課業安排：根據學生的能力和特殊教育需要，調整課業的數量、要求及完成時間，並安排適當的額外支援，減輕他們完成課業的負擔和焦慮，例如：容許有特殊學習困難的學生以顏色筆標示、圈出答案，又或在答案上加上底線以代替書寫文字。提升學生學習技巧：教導學生閱讀、記憶、計劃及組織資料( 例如：找出重點、關鍵詞彙等) 策略，以及時間管理和答題技巧等。4小學教育課程指引4-30推行個別學習計劃：由專業人士及學生支援組的成員，共同為個別學生訂立具針對性的「個別學習計劃」。計劃大致有以下類別：以行為或社交適應為主的個別行為管理計劃；以提升學科學習能力為主的個別學習計劃；幫助學生適應常規，提升自理能力的個別支援計劃。有關照顧有特殊教育需要學生的課程調適、原則、策略、學與教策略、課業安排、評估，以及「個別學習計劃」等詳細內容和建議，可參閱《全校參與模式―融合教育運作指南》(2020)：",
+            "page": 137,
+            "title": "《小學教育課程指引》完整版（2024）",
+            "source_id": "g06",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide/PECG%202024_full.pdf",
+            "topic": "curriculum",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.7173,
+            "channel": "B"
+          },
+          {
+            "id": "vault_g19_1bcd00d93612e161",
+            "text": "措施。例如：校內各持份者策劃執行與監察評估學校領導層• 訂定「全校參與」模式融合教育校本政策• 把照顧特殊教育需要的重點發展工作納入學校發展計劃和學校周年計劃，發展共融的校園文化• 有計劃地安排教職員的融合教育持續專業發展• 檢視資源運用及評估工作成效特殊教育需要統籌主任（統籌主任）• 按學生的特殊教育需要和參考自評數據，擬訂包含開支預算的統籌主任融合教育行動計劃，規劃合宜的策略和措施協助校長和副校長推行融合教育的工作，加強協作，例如：• 帶領學生支援組，舉行定期會議，成員包括特殊教育需要支援老師（如適用）、校本言語治療師等• 利用甄別工具及早識別學生的學習或適應困難和支援需要• 安排支援服務• 檢討各項支援措施的成效• 根據評估結果修訂有關措施及資源調配7校內各持份者策劃執行與監察評估• 監察有關的資源運用• 制訂學生支援紀錄冊• 安排課程及評估調適• 推動多元化教學• 訂定成功準則• 安排教職員持續進修• 加強家校溝通和協作教師• 為個別學生訂定成功準則• 推行課程調適• 推行多元化教學• 培養學習技巧和習慣• 根據成功準則量度學生的進展• 按需要作出修訂學校亦應制定融合教育工作計劃，並把如何運用「學習支援津貼」、「有特殊教育需要非華語學生支援津貼」等額外資源，以及為這些學生提供的支援，納入學校恆常的自評機制內。8",
+            "page": 12,
+            "title": "《全校參與模式融合教育運作指南》",
+            "source_id": "g19",
+            "url": "https://sense.edb.gov.hk/uploads/page/integrated_education/landing/ie_guide_ch.pdf",
+            "topic": "student",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.7051,
+            "channel": "B"
+          },
+          {
+            "id": "vault_sen_exam_arrangements_2025_ce6f039be10d103f",
+            "text": "及專心作答。能夠妥善分配時間完成作答。跟從監考教師的指示。有疑難時懂得向監考教師求助。有關特別考試安排的學校措施制訂校本支援政策，並把校內考試特別安排列入學校政策文件之內；訂定支援學生名單╱支援記錄冊，調配資源以落實各項安排，並定期檢討有關政策。學校在制訂校本的特別考試安排政策時，學生支援組、考試事務組及科任教師應參與其中，使政策及措施能落實於日常運作中。學校應促進不同持份者同持份者，包括教師、家長及學生認識有關課題，以便順利落實有關政策。例如：▪透過校務會議或教師發展日，為教師安排合適的培訓，讓教師認識特別考試安排的理念、原則和有關的措施，並達成共識。▪透過不同的渠道，例如學校網頁、家長通訊、講座和家長教師會的活動，同的渠道，例如學校網頁、家長通訊、講座和家長教師會的活動，讓所有家長，包括有特殊教育需要學生的家長和其他學生的家長，了解有關安排。8▪促進所有學生對特殊教育需要的認識和接納，以減低標籤效應和誤解，減少有特殊教育需要學生接受特別考試安排的顧慮。學校應安排足夠人手以實施各項特別考試安排，包括準備工作如與校內外有關專業人士及家長聯絡、有關的文件整理、臨場監考的人手、場地和設施安排等。學校應訂定適當程序決定個別學生所需要的特別考試安排，例如▪學生支援組召開個案會議，邀請學生家長、校內專業人士和任教該生的教師出席。▪",
+            "page": 8,
+            "title": "《為有特殊教育需要學生提供校內考試特別安排》(2025)",
+            "source_id": "sen_exam_arrangements_2025",
+            "url": "https://sense.edb.gov.hk/uploads/page/integrated-education/guidelines/sea_guide_c.pdf",
+            "topic": "student",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.7014,
+            "channel": "B"
+          },
+          {
+            "id": "vault_g06_7cc6d3273e9be61b",
+            "text": "人。一般而言，有較嚴重或多重殘疾的學生會入讀特殊學校，以便接受加強支援服務；而其他有特殊教育需要的學生則會入讀普通學校。現時，普通學校的特殊教育需要主要分為九類，包括特殊學習困難、智障、自閉症、注意力不足／過度活躍症、肢體傷殘、視障、聽障、言語障礙及精神病。4.4.1 提升教師團隊照顧有特殊教育需要學生的專業能力由於每個有特殊教育需要的學生在能力、環境要求和適應情況均不同，所以他們需要的支援也有不同的種類和程度。學校應按他們的具體情況，採用適切的學與教策略及支援措施，幫助他們克服限制和困難，使學生達到能力可及的學習水平。此外，學校應讓有特殊教育需要的學生享有與其他學生相同的學習經歷和參與學習的機會，對他們在學術、社交及情意各方面的發展也持合理的期望。教師可參加相關的專業培訓課程及參閱相關文獻或資料，了解學生的特殊教育需要，並調整教學設計以消除學習障礙。為提升教師照顧特殊教育需要學生的專業能力，學校應參照融合教育教師專業發展架構[ 可參閱分章三：持續專業發展與學習型組織]，有系統地安排教師接受培訓，從而協助他們掌握照顧有特殊教育需要學生的專業能力，提升學校推行融合教育的成效。4.4.2 營造共融文化普通學校推行全校參與模式融合教育，秉持「及早識別」、「及早支援」、「全校參與」、「家校合作」和「跨界別協作」五個基本原則，有助教師與學生正確認識和接納個別差異，",
+            "page": 133,
+            "title": "《小學教育課程指引》完整版（2024）",
+            "source_id": "g06",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide/PECG%202024_full.pdf",
+            "topic": "curriculum",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.6973,
+            "channel": "B"
+          },
+          {
+            "id": "vault_g06_529aad2561716c65",
+            "text": "及早識別」、「及早支援」、「全校參與」、「家校合作」和「跨界別協作」五個基本原則，有助教師與學生正確認識和接納個別差異，培養學生互相尊重、關懷互助的態度。全校參與模式營造的共融文化，可有效支援有特殊教育需要學生在學習、行為、社交、情緒方面的不同成長需要。同時，所有學生均可以在和諧關愛的氛圍中健康成長。有關詳情可參考《全校參與模式―融合教育運作指南》(2020)及《照顧學生個別差異―共融校園指標》(2008)。4小學教育課程指引4-26《全校參與模式―融合教育運作指南》(2020)：https://sense.edb.gov.hk/uploads/page/integrated_education/landing/ie_guide_ch.pdf《照顧學生個別差異―共融校園指標》(2008)：https://sense.edb.gov.hk/uploads/page/integrated-education/guidelines/indicators-082008_tc.pdf反思問題學校採取了哪些措施來營造共融文化？學校有否把照顧學生的特殊教育需要納入學校周年計劃的關注事項？有甚麼具體計劃及檢討方法？學校進行課程調適的時候，面對甚麼挑戰？又有何策略？教師之間是否定期進行專業交流，分享教學及支援學生的經驗？4.4.3 課程調適",
+            "page": 134,
+            "title": "《小學教育課程指引》完整版（2024）",
+            "source_id": "g06",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide/PECG%202024_full.pdf",
+            "topic": "curriculum",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.6963,
+            "channel": "B"
+          }
+        ]
+      },
+      "beforeMs": 5756,
+      "after": {
+        "query": "特殊學校 課程 調適",
+        "channel": "B",
+        "total": 8,
+        "results": [
+          {
+            "id": "footnote_fn_ncs_special_school_matrix",
+            "text": "特殊學校收非華語學生點分津貼？《Audit Report No.76 Ch.2》§2.2(c)（註）：Special schools admitting 1 to 5 NCS students. These schools might apply for a grant of $50,000 per year on a need basis for organising after-school support programmes in learning the Chinese language for their NCS students;\nSpecial schools admitting 6 to 9 NCS students with NCS students taking an ordinary school curriculum. A grant of $650,000 is provided per year to each school;\nSpecial schools admitting 10 or more NCS students with NCS students taking an ordinary school curriculum. Same as ordinary primary and secondary schools offering local curriculum and admitting 10 or more NCS students, the amount of grant is determined by the 5-tiered funding mechanism;\nSpecial schools admitting 6 or more NCS students without any NCS students taking an ordinary school curriculum. A grant of $650,000 is provided per year to each school.",
+            "title": "Audit Report No.76 Ch.2 Education Support Measures for NCS Students",
+            "source_id": "AUD_e76ch02",
+            "url": "https://www.aud.gov.hk/pdf_e/e76ch02.pdf#page=10",
+            "topic": "general",
+            "content_type": "footnote_curated",
+            "fact_type": "policy",
+            "score": 0.49977934459779183,
+            "channel": "B"
+          },
+          {
+            "id": "footnote_fn_activities_sen",
+            "text": "《學校活動指引》附錄XV 境外遊學團(註2)：一般每名領隊不宜帶領多於10名學生(1:10)；惟特殊學校的人手比例，須參考《戶外活動指引》附錄X〈有特殊教育需要學童參加戶外活動的教職員/照顧者與學生比例〉作適切安排(可緊至1:1)。",
+            "title": "學校活動指引(戶外活動/境外遊學團)",
+            "source_id": "sch_activities_guide",
+            "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf#page=75",
+            "topic": "activity",
+            "content_type": "footnote_curated",
+            "fact_type": "policy",
+            "score": 0.4871731109523788,
+            "channel": "B"
+          },
+          {
+            "id": "vault_g06_ddb8cc42eb48c6a7",
+            "text": "估模式，並緊扣學習目標，例如：設計不同的答題方式，以評估學生的思維或能力，而非評估其書寫能力；默書採用加分制，激發學生積極學習；利用學生學習歷程檔案，反映他們在不同領域的表現和能力，肯定他們的努力。合宜的評估調適，應能幫助有特殊教育需要的學生在評估過程中移除障礙，學校可：召開學生支援組會議，以訂定全校的評估調適準則考慮學生的學習困難，酌情評分，使其能得到公平的評估作出彈性的評估安排提供輔導教學，訓練學生答題的技巧對於修讀一般主流學校課程的有特殊教育需要學生，他們的測考方式應與其他學生盡量相同，但學校可能需要作出一些特別的安排，例如：延長考試時間和安排特別座位等。詳情可參考《為有特殊教育需要學生提供校內考試特別安排》(2024)：https://sense.edb.gov.hk/uploads/page/integrated-education/guidelines/sea_guide_c.pdf除測考以外，個別學習計劃亦能讓教師、家長及學生本人，定期檢視學生學習、行為、社交、情緒等方面的進程，可因應學生表現微調支援方法及提供適時的協助，以達到支援目的。4.4.6 加強學習支援學校應有系統地制定學習支援政策和措施，以推動全體教職員積極配合，更有效地照顧學生的特殊教育需要。支援學生的專責團隊：成員可包括：學校領導、特殊教育需要統籌主任、課程統籌主任、",
+            "page": 136,
+            "title": "《小學教育課程指引》完整版（2024）",
+            "source_id": "g06",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide/PECG%202024_full.pdf",
+            "topic": "curriculum",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.7511,
+            "channel": "B"
+          },
+          {
+            "id": "vault_g19_710b48540bec2358",
+            "text": "安排，讓學生有公平的機會展示其學習成效。2.1 共融政策教育局採用「雙軌制」推行特殊教育，有較嚴重或多重殘疾的學生，教育局會根據專業人士的評估和建議，在家長的同意下，轉介他們入讀特殊學校，以便接受加強支援服務；其他有特殊教育需要的學生，則會入讀普通學校。現時，普通學校學生的特殊教育需要主要分為九類，包括智力發展障礙、自閉症、注意力不足／過度活躍症、精神病、特殊學習困難、肢體傷殘、視覺障礙、聽力障礙及言語障礙。教育局鼓勵普通學校推行「全校參與」模式融合教育，秉持「及早識別」、「及早支援」、「全校參與」、「家校合作」和「跨界別協作」五個基本原則，在文化、政策和措施三方面互相配合，並成立學生支援組，推動所有教師採用三層支援模式照顧有特殊教育需要的學生，從而幫助他們克服限制和困難，使學生達到能力可及的學習水平，並促進他4們在成長階段發展潛能，逐步成為獨立、有適應能力和自學能力的人，迎接人生挑戰。詳情請參閱「全校參與模式融合教育便覽」。2.2 共融措施學校在制定校本的共融措施時，可參考《照顧學生個別差異 ~ 共融校園指標》，以提高學校照顧學生個別差異的能力，使所有學生都能接受優質教育。《照顧學生個別差異 ~ 共融校園指標》是一套協助學校發展的工具，功能包括：• 協助學校在自我評估及學校發展過程中訂立目標和可觀察的準則；",
+            "page": 9,
+            "title": "《全校參與模式融合教育運作指南》",
+            "source_id": "g19",
+            "url": "https://sense.edb.gov.hk/uploads/page/integrated_education/landing/ie_guide_ch.pdf",
+            "topic": "student",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.7287,
+            "channel": "B"
+          },
+          {
+            "id": "vault_sen_exam_arrangements_2025_129b4cfe7bb77a8c",
+            "text": "當程序決定個別學生所需要的特別考試安排，例如▪學生支援組召開個案會議，邀請學生家長、校內專業人士和任教該生的教師出席。▪視乎考試的目的及性質，參考有關報告及意見後作出決定，包括:•專業人士的建議╱評估報告╱醫生證明書；•班主任或科任教師的觀察和建議；•家長的意見；及•學生的意見。▪把有關決定記錄及存檔，並通知學生及其家長。▪若個別學生所獲的特別考試安排未必適用於公開考試，學校應讓學生及其家長清晰了解有關情況。學校應持續檢視個別學生的特別考試安排：▪從多方面檢視特別考試安排的成效，例如:•由監考教師觀察學生的作答情況；•搜集教師、家長和學生的意見；及•檢視學生的學業成績╱學習動機有否改善。▪因應學生在不同時段同時段的實際需要而檢視調適的方法和安排。例如：一名需要安排讀卷的小一學生，在升讀高年級讀字能力有所進步後未必有同樣的需要；又如一名有讀寫困難的學生在小學階段可以在限時內完成試卷，但在升讀中學後因為要處理的文字資料大量增加而需延長考試時間。學生轉校時之資料傳遞對於轉校或由小學升讀中學的學生，學校應在取得家長書面同意後，把評估報告及學校曾為學生提供支援和評估調適的紀錄送交新校。9四、評估調適為有特殊教育需要的學生安排評估調適，是指在評估時為他們作出一些特別安排，使他們在考試過程中有公平的機會展示他們的學習成果。原則",
+            "page": 9,
+            "title": "《為有特殊教育需要學生提供校內考試特別安排》(2025)",
+            "source_id": "sen_exam_arrangements_2025",
+            "url": "https://sense.edb.gov.hk/uploads/page/integrated-education/guidelines/sea_guide_c.pdf",
+            "topic": "student",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.7233,
+            "channel": "B"
+          },
+          {
+            "id": "vault_g06_d848109f501c4993",
+            "text": "，在課堂上為有需要的學生提供即時額外支援。協作教學的教節可按學習內容及學生的需要作規劃，如﹕選擇某一科目、某一單元進行。輔助學習工具：為學生提供適當的輔助學習工具，以消除／減少因特殊教育需要而帶來的障礙，例如：為聽力障礙學生提供助聽器、無線傳輸系統；為視覺障礙學生提供放大鏡、弱視輔助工具；為有特殊學習困難的學生提供較大格的練習簿；為有自閉症、言語障礙或智力障礙的學生提供圖卡、提示卡等。特別課業安排：根據學生的能力和特殊教育需要，調整課業的數量、要求及完成時間，並安排適當的額外支援，減輕他們完成課業的負擔和焦慮，例如：容許有特殊學習困難的學生以顏色筆標示、圈出答案，又或在答案上加上底線以代替書寫文字。提升學生學習技巧：教導學生閱讀、記憶、計劃及組織資料( 例如：找出重點、關鍵詞彙等) 策略，以及時間管理和答題技巧等。4小學教育課程指引4-30推行個別學習計劃：由專業人士及學生支援組的成員，共同為個別學生訂立具針對性的「個別學習計劃」。計劃大致有以下類別：以行為或社交適應為主的個別行為管理計劃；以提升學科學習能力為主的個別學習計劃；幫助學生適應常規，提升自理能力的個別支援計劃。有關照顧有特殊教育需要學生的課程調適、原則、策略、學與教策略、課業安排、評估，以及「個別學習計劃」等詳細內容和建議，可參閱《全校參與模式―融合教育運作指南》(2020)：",
+            "page": 137,
+            "title": "《小學教育課程指引》完整版（2024）",
+            "source_id": "g06",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide/PECG%202024_full.pdf",
+            "topic": "curriculum",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.7173,
+            "channel": "B"
+          },
+          {
+            "id": "vault_g19_5209939fe426d76b",
+            "text": "有特殊教育需要學生的生涯規劃7710.2.1 小學階段7710.2.2 中學階段7810.3 學生資料的處理81 v引言在現行的融合教育政策下，學校以「全校參與」模式，秉持「及早識別」、「及早支援」、「全校參與」、「家校合作」和「跨界別協作」五個基本原則，照顧有特殊教育需要的學生。同時，學校採用「三層支援模式」，為不同程度有特殊教育需要的學生，提供適切的支援。融合教育建基於「平等機會、因材施教」的精神，在學校適當的支援和輔助下，有特殊教育需要的學生均可跨越學習障礙，發展潛能，與其他學生一起投入學校的生活。教育局一直與學校群策群力，秉持「一切從心開始」的信念，在政策、措施和文化三方面，支援有特殊教育需要的學生。學校所有持份者，包括教職員、專業人員、家長及學生都需要參與推行融合教育，讓學生懂得理解、接納和尊重學生的多樣性，在日常生活以關懷、友愛和包容的態度與人相處，建立正面的價值觀，促進社會的和諧共融。教育局編製《全校參與模式融合教育運作指南》，目的是向全港的普通學校提供指導原則和切實可行的方法，協助學校因應學生的特殊教育需要，提供優質的教育服務，共同締造共融的校園。學校、家長及公眾亦可透過教育局的「融情‧ 特教」（SENSE ）網站（https://sense.edb.gov.hk/），獲取有關融合教育及特殊教育的最新資",
+            "page": 6,
+            "title": "《全校參與模式融合教育運作指南》",
+            "source_id": "g19",
+            "url": "https://sense.edb.gov.hk/uploads/page/integrated_education/landing/ie_guide_ch.pdf",
+            "topic": "student",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.7141,
+            "channel": "B"
+          },
+          {
+            "id": "vault_g19_e1fd18f8fda2cc85",
+            "text": "程後的學習進度等，而讓他們在校內考試接受一些未必能在呈分試或公開考試得到的特別安排。若學校作出這些安排，應讓家長及學生了解原因，並釐清有關安排未必適用於呈分試或公開考試。此外，學校應在學生參加這些考試前，把校內考試調適的方式逐步調節至合乎呈分試或公開考試所提供的安排，讓學生適應。有關為不同特殊教育需要類別學生提供特別考試安排的詳細資料，請參考「為有特殊教育需要學生提供校內考試特別安排」指引及「常見問題：有關為有特殊教育需要的學生提供特別考試安排」。7.3 公開考試學校應留意香港考試及評核局（考評局）發出的信件，在有關公開考試的指定期限前為學生向考評局申請考試特別安排。在申請時，學校必須附有有關專業意見的證明文件，包括近期由衞生署、醫院管理局、教育局、註冊醫生或專業人士（例如聽力學家、言語治療師或教育／臨床心理學家等）簽發的診斷／評估報告，並注意其有效期，以證明考生的特殊教育需要和所需的特別考試安排。若學校曾在校內考試為學生作特別安排，學校須提供有關資料。詳情請參閱考評局有關「為特殊需要考生提供服務」的網頁。7.4 校本評估調適政策持續檢視• 學校應適時為有特殊教育需要的學生檢視他們的進展及特別考試安排需要，以便因應學生的需要而調節安排。例如一名學生在小一時曾需要他人朗讀試卷的題目，並不表示他升讀較高年級時仍有此需要；及61",
+            "page": 66,
+            "title": "《全校參與模式融合教育運作指南》",
+            "source_id": "g19",
+            "url": "https://sense.edb.gov.hk/uploads/page/integrated_education/landing/ie_guide_ch.pdf",
+            "topic": "student",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.7136,
+            "channel": "B"
+          }
+        ]
+      },
+      "afterMs": 16666
+    },
+    {
+      "id": "ss_ncs_history_adapted_outline_v2",
+      "query": "非華語學生適用的調適初中中國歷史課程大綱，對蒙古崛起及擴張提出甚麼建議學習內容？",
+      "before": {
+        "query": "非華語學生適用的調適初中中國歷史課程大綱，對蒙古崛起及擴張提出甚麼建議學習內容？",
+        "channel": "B",
+        "total": 8,
+        "results": [
+          {
+            "id": "vault_chi_hist_jss_ncs_2019_c90f359ec6dfca87",
+            "text": "度的內容、作用（如鞏固統治）及其與春秋戰國局面形成的關係。 春秋戰國時期的兼併戰爭、厲行變法（如商鞅變法）與百家爭鳴。早期中國的發展概況1.夏、商、周至春秋戰國期間早期中國的發展概況中國文化的起源與民族演進1.中國多元一體文化4的起源（如仰韶、良渚文化）及中華民族的演進歷程。2.延伸部分：人物個案研習：了解該人物的重要事蹟及與其時代的關係。建議人物：孔子1 這是於2018 年5 月公布並將於2020/21 學年在全港中一開始實施的課程。2 本大綱根據2018 年5 月公布課程大綱而進行調適的課程，供任教非華語學生的教師參考使用。內容的份量較原來的修訂課程大綱為輕，為教師提供更多空間以運用不同的教學策略照顧非華語學生的學習需要；故此教師應能根據課時完成教授建議的概覽式課題及重點課題，而表中的內容僅屬因應非華語學生學習需要而作出的建議，教師仍可按校情而專業決定教授內容的份量、重點及教學方法。3 用紅色方格標示的是重點課題內容，教師可較詳細教授。4 對一些非華語學生可能較難理解的中國歷史常用詞彙，教師可考慮改寫，如「多元一體文化」或可改寫為「多個具特色但又統一的文化」；至於其他詞彙如發現非華語生有理解的困難，也可修改為他們較容易明白的用語。5修訂初中中國歷史課程大綱課題修訂初中中國歷史課程大綱1預期學習內容適合非華語學生的修訂初中中國歷史課程大綱2時期",
+            "page": 4,
+            "title": "調適中國歷史科課程大綱 (中一至中三) (2019) (非華語學生適用)",
+            "source_id": "chi_hist_jss_ncs_2019",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/references-and-resources/chinese-history/Adapted_Framework_r.pdf",
+            "topic": "curriculum",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5898,
+            "channel": "B"
+          },
+          {
+            "id": "vault_chi_hist_jss_ncs_2019_da5427059e6d2388",
+            "text": "===5修訂初中中國歷史課程大綱課題修訂初中中國歷史課程大綱1預期學習內容適合非華語學生的修訂初中中國歷史課程大綱2時期概覽式課題重點課題延伸部分*：人物個案研習：了解該人物的重要事蹟及與其時代的關係。建議人物：孔子5、勾踐、蘇秦、荊軻備註︰概覽式課題︰可從地域上簡單說明夏、商、周三個不同部族的活動範圍、遷移擴展及生活特點，如商人重視祭祀、周人擅長農業等；教師應提及在不同地域生活及發展的各個聚落及部族，都是中華民族的重要組成部分。這些部族歷經夏、商、周三代，逐漸發展及融合，擴大了華夏文化的內涵。教師可利用地圖簡單解釋周室進行分封的目的，以及後來在春秋戰國時期兼併及諸侯國逐漸減少的情況。春秋戰國期間，諸侯國兼併相爭，慢慢趨向一統；而封建制度逐漸崩壞，發展出中央集權的國家形態。【對非華語學生而言，五等爵的內容較難理解，教師可毋需講述。】重點課題︰中國疆土遼闊，不同的地域孕育出各式的文化。人們的生活因應各自的地理條件而創造出獨特的文化。這些文化雖各有特色，但卻相互依存、统一而不能分割，構成了中國文化多元一體的特徵。教師可利用地圖、都城的考古發掘說明中國在各地出現的文化（如仰韶、良渚）特色，以及它們展現的早期國家形態，如設置都城、有專職官員等。5 綠色方格標示的是可列為重點課題的延伸部分內容，教師可利用來提升非華語學生學習中國歷史的興趣。6",
+            "page": 5,
+            "title": "調適中國歷史科課程大綱 (中一至中三) (2019) (非華語學生適用)",
+            "source_id": "chi_hist_jss_ncs_2019",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/references-and-resources/chinese-history/Adapted_Framework_r.pdf",
+            "topic": "curriculum",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5731,
+            "channel": "B"
+          },
+          {
+            "id": "vault_chi_hist_jss_2019_e820a4c3fef52bf3",
+            "text": ". 透過研習史事與採取不同的探究方法，培養學習中國歷史的興趣。5 第二章課程架構本章旨在為學生在初中階段須掌握之重要中國歷史知識、技能、價值觀和態度提供指引。學校和教師在規劃中國歷史課程的實施，以及安排適切的學、教、評活動時，須以本課程架構為依歸。2.1 課程設計原則本課程是根據課程發展議會編訂的《基礎教育課程指引——各盡所能．發揮所長（ 小一至小六）》（ 2014）、《中學教育課程指引》（ 2017）、《小學常識科課程指引（ 小一至小六）》（ 2017）， 以及《個人、社會及人文教育學習領域課程指引（ 小一至中六）》（ 2017 ）， 發展出以下的設計原則： 建基於小學常識科小學常識科課程包含「學習範疇四：社會與公民」及「學習範疇五：國民身份認同與中華文化」的學習內容。因此，學生不僅對國家的重大史事、文化特色及相關歷史人物已有認識，亦對香港的歷史和發展有所了解；但中華民族歷史源遠流長，初中階段學生應有系統地認識國家的歷史。本課程以初中學生應該掌握的內容為基礎，系統地設計課程，使學生能更全面認識中國歷史的整體發展，深化與鞏固在小學階段學到的歷史知識、提升其思維能",
+            "page": 8,
+            "title": "中國歷史科課程指引（中一至中三）(2019)",
+            "source_id": "chi_hist_jss_2019",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/CHist_Curr_Guide_S1-3_Chi_final.pdf",
+            "topic": "curriculum/general",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5667,
+            "channel": "B"
+          },
+          {
+            "id": "vault_chi_hist_jss_ncs_2019_f86d81fbccc82030",
+            "text": "=35.有關建議的學習活動，可同時參看模擬教學進度表及教學設計舉隅。教育局將會發展更多不同示例供教師參考，詳情可瀏覽有關個人、社會及人文教育組網頁：https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/reference-and-resources/index.html [個人、社會及人文教育 – 教學資源  初中中國歷史科（非華語學生適用）]；6.本大綱供所有錄取非華語學生的學校進行試教、分享經驗，並向我們提供建議。基於學校的成功經驗及所發展的範例，我們會持續優化課綱；7.為方便教師參照原來的課綱，本課綱將沿用有關詞彙；但教師可因應非華語學生的需要而改用或修訂有關的用語。4修訂初中中國歷史課程大綱課題修訂初中中國歷史課程大綱1預期學習內容適合非華語學生的修訂初中中國歷史課程大綱2時期概覽式課題重點課題史前至夏商周：中華民族的起源與早期國家的形成(10)1. 中華民族與早期國家的起源（最多3 節）2. 西周的封建（最多3節）3. 春秋戰國時期的變局（最多4 節） 中國多元一體文化的起源（如仰韶、良渚文化）及中華民族的演進歷程。3 夏、商、周三代的興替概況。 封建制度的內容、作用（如鞏固統治）及其與春秋戰國局面形成的關係。 春秋戰國時期的兼併戰爭、厲行變法（如商鞅變法）與百家爭鳴。",
+            "page": 3,
+            "title": "調適中國歷史科課程大綱 (中一至中三) (2019) (非華語學生適用)",
+            "source_id": "chi_hist_jss_ncs_2019",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/references-and-resources/chinese-history/Adapted_Framework_r.pdf",
+            "topic": "curriculum",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5639,
+            "channel": "B"
+          },
+          {
+            "id": "vault_chi_hist_jss_2019_27bfbd8755ddd66b",
+            "text": "段對中國歷史的發展面貌有整全的認識。本課程的設計以時間為經，歷史發展特點為緯，建議教師按課程的編排以組織教學次序，幫助學生掌握中國歷史發展的脈絡， 並鞏固「時間、延續與轉變」的觀念。本課程亦重視透過不同的方法，讓學生理解及整理歷史資料，並以求真持平的態度分析及評價不同的史事，從而培養他們客觀分析與評價史事的能力。可供學生研習的資料類型多元化，包括圖片、畫冊、檔案、奏疏、日記、紀錄片段、電影、漫畫、書籍等。教師應按學校的情況、學生的能力和需要， 蒐集、剪裁及編排合適的資料， 勾劃重點，指導學生研習資料。學生亦須透過反覆學習，才能掌握及有效應用不同的研習技能。教師可按學生的特性，建立研習歷史技能的架構，有策略及循序漸進地讓學生掌握理解、辨識、分析、比較、印證、詮釋、論述、評論等不同的歷史研習技能，提升學生研習歷史的能力和興趣。3.4 課程統籌3.4.1 了解課程及學習情境教師在制訂學校的中國歷史課程時，應對本課程的理念、宗旨和學習目標了解透徹， 亦須參考課程發展議會編訂的《個人、社會及人",
+            "page": 29,
+            "title": "中國歷史科課程指引（中一至中三）(2019)",
+            "source_id": "chi_hist_jss_2019",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/CHist_Curr_Guide_S1-3_Chi_final.pdf",
+            "topic": "curriculum/general",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5565,
+            "channel": "B"
+          },
+          {
+            "id": "vault_chi_hist_jss_2019_89290f28a35465bd",
+            "text": "資源，利用實地及實物進行學習，以獲取合用的資料研習歷史；6. 照顧學生的不同需要、興趣、能力及學習風格，並能為不同能力的學生帶來足夠的挑戰；7. 評估和學與教的設計要互相配合，以促進學、教、評互動的學習成效；8. 兼顧完成初中後不再修讀中國歷史科的學生，以及將會在高中繼續修讀中國歷史科的學生的需要。3.2 課程規劃策略教師在規劃如何實施本課程時，須考慮學生的已有知識、本課程與其他初中人文科目的協作，並盡量利用本課程的靈活設計，來規劃一個配合學生需要的課程。教師可參考下列的課程規劃策略：3.2.1 小學與初中的銜接中國歷史及中華文化是小學及初中基礎教育的必須學習內容。在小學常識科課程內「社會與公民」及「國民身份認同與中華文化」學習範疇中，與中國歷史相關的核心學習元素如下： 我的祖國：國旗、國徽、國歌、首都、重要城巿（例如：西安）及一些重要的國家日子 中華民族的起源（例如：上古傳說、大禹治水、從李鄭屋漢墓看漢文化） 對中國歷史影響深遠的人物和故事（例如：秦始皇與萬里長城、張騫與絲綢之路、鄭和與海上絲路、詹天佑與中國鐵路、孫中山與辛亥革命） 中國的自然地理位置、地理特徵及版圖",
+            "page": 23,
+            "title": "中國歷史科課程指引（中一至中三）(2019)",
+            "source_id": "chi_hist_jss_2019",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/CHist_Curr_Guide_S1-3_Chi_final.pdf",
+            "topic": "curriculum/general",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5551,
+            "channel": "B"
+          },
+          {
+            "id": "vault_history_jss_2019_b8e591b453936714",
+            "text": "具興趣的學生作進一步深化和延展學習。(詳見圖2.2)圖2.2 課題的組成延伸部分基礎部分9為協助教師於課堂上採用探究式學習，每個課題均設置一個探究問題和相關的建議導入問題。探究問題是研習有關課題的方向，而建議導入問題則為教師提供意念，在設計課堂教學時引導學生以探究式學習歷史。教師亦可運用其他方式，協助學生探究每個課題，並按學生的興趣、能力及學習需要，以其專業判斷設計教學流程。(詳見圖2.3)探究問題建議導入問題建議導入問題建議導入問題課題圖2.3以探究式方法學習歷史102.4內容大綱以下為歷史科課程(中一至中三)12 個建議課題的課程大綱。每個大綱均附有引言，說明該課題的背景、理念，以及基礎部分的學習重點和延伸部分的處理。此外，附錄一(頁86 至97)為「預期學習內容」，以闡明各課題的深度和焦點。中一級古代世界 (史前時期至14 世紀)：區域文明的誕生與交流課題1：人類的需要：古與今人類的活動源於人的不同基本需要，並累積而成為文明。本課題希望讓學生對人類文明的起源，以及古代主要文明有概括認識。完成本課題後，學生能初步掌握基本的歷史時序概念和分期，以及歷史資料的分類，並運用該等概念理解：a) 人類如何從石器時代演進至古文明：從運用火和製作簡單石器、從捕獵野獸和採摘野果，進而學會生產糧食，懂得農耕",
+            "page": 17,
+            "title": "歷史科課程指引（中一至中三）2019",
+            "source_id": "history_jss_2019",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Hist_Curr_Guide_S1-3_Chi_final_10072019.pdf",
+            "topic": "curriculum",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5434,
+            "channel": "B"
+          },
+          {
+            "id": "vault_history_sss_2007_2015_d7debf5b1e770f5d",
+            "text": "探究式學習，培養自主學習和終身學習的能力；(f)與評估配合，同步發展。除此以外，本課程的設計也特別依據以下的原則：(g)本課程將集中在二十世紀的主要發展，因為二十世紀歷史與學生的日常生活關係密切，更能激勵學生自己進行探究。(h)本課程以主題式方法編寫，學生透過當中的兩個主題，能廣泛地從政治、社會、經濟及文化背景方面認識二十世紀的歷史，培養全球視野，了解自己、社會及整個世界的發展。主題式研習既涵蓋了世界歷史較闊的範圍，也能平衡課程的深度與廣度，學生有較大的空間去發展明辨性思考技能及探究式學習。82.2 課程架構及組織(由2015/16 學年的中四級開始實施；於2018 年香港中學文憑考試生效)32.2.1 課程內容引言：現代世界的孕育教學要點說明甲. 西方優勢的基礎乙. 西方的擴張及殖民帝國的形成丙. 亞洲對西方擴張的反應丁. 邁向國際協作學生須概括地了解西方科技的發展、知識的開發及政治革命如何奠定西方優勢的基礎，並能解釋該基礎如何導致西方國家自十六世紀開始在地理及經濟上的擴張，並在十九世紀建立殖民帝國。學生須描述殖民主義的影響，以及亞洲人民對西方勢力入侵及統治的反應，從而理解二十世紀亞洲的現代化與蛻變的背景。同時，通過觀察十九世紀西方主要強國的關係，特別是他們之間衝突的起源及談判與協作的努力，學生應更能了解二十世紀世界的衝突與合作的背景知識。",
+            "page": 16,
+            "title": "歷史課程及評估指引 (中四至中六) 2007 (2015年11月更新)",
+            "source_id": "history_sss_2007_2015",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Hist_C&A_Guide_c_20180109.pdf",
+            "topic": "curriculum",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5153,
+            "channel": "B"
+          }
+        ]
+      },
+      "beforeMs": 5081,
+      "after": {
+        "query": "非華語學生適用的調適初中中國歷史課程大綱，對蒙古崛起及擴張提出甚麼建議學習內容？",
+        "channel": "B",
+        "total": 8,
+        "results": [
+          {
+            "id": "vault_chi_hist_jss_ncs_2019_c90f359ec6dfca87",
+            "text": "度的內容、作用（如鞏固統治）及其與春秋戰國局面形成的關係。 春秋戰國時期的兼併戰爭、厲行變法（如商鞅變法）與百家爭鳴。早期中國的發展概況1.夏、商、周至春秋戰國期間早期中國的發展概況中國文化的起源與民族演進1.中國多元一體文化4的起源（如仰韶、良渚文化）及中華民族的演進歷程。2.延伸部分：人物個案研習：了解該人物的重要事蹟及與其時代的關係。建議人物：孔子1 這是於2018 年5 月公布並將於2020/21 學年在全港中一開始實施的課程。2 本大綱根據2018 年5 月公布課程大綱而進行調適的課程，供任教非華語學生的教師參考使用。內容的份量較原來的修訂課程大綱為輕，為教師提供更多空間以運用不同的教學策略照顧非華語學生的學習需要；故此教師應能根據課時完成教授建議的概覽式課題及重點課題，而表中的內容僅屬因應非華語學生學習需要而作出的建議，教師仍可按校情而專業決定教授內容的份量、重點及教學方法。3 用紅色方格標示的是重點課題內容，教師可較詳細教授。4 對一些非華語學生可能較難理解的中國歷史常用詞彙，教師可考慮改寫，如「多元一體文化」或可改寫為「多個具特色但又統一的文化」；至於其他詞彙如發現非華語生有理解的困難，也可修改為他們較容易明白的用語。5修訂初中中國歷史課程大綱課題修訂初中中國歷史課程大綱1預期學習內容適合非華語學生的修訂初中中國歷史課程大綱2時期",
+            "page": 4,
+            "title": "調適中國歷史科課程大綱 (中一至中三) (2019) (非華語學生適用)",
+            "source_id": "chi_hist_jss_ncs_2019",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/references-and-resources/chinese-history/Adapted_Framework_r.pdf",
+            "topic": "curriculum",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5898,
+            "channel": "B"
+          },
+          {
+            "id": "vault_chi_hist_jss_ncs_2019_618e9e0f8fdf13df",
+            "text": "族的生活特色與地理分佈，以及此時期進入中原的大概。徙入中原後，邊疆民族與原先的漢人在衝突中逐漸融合，互相學習對方的文化。教師可利用時間線及地圖簡單說明「三國兩晉南北朝」是中國歷史上最長的分裂時期。教師可簡單說明北方混亂導致人口南遷的史實以及開發南方經濟的大概，如農業的莊園經濟、開拓海上貿易等。漢人的大量南遷，促成了南方經濟的發展，中國的經濟重心開始南移。重點課題︰非華語學生對不同民族融合及文化交流的課題可能較感興趣。教師可透過孝文帝漢化運動的措施，如遷都、改漢姓、禁胡服、禁胡語等，簡單說明這些措施怎樣促進胡漢間的融合，及對雙方的影響。另一個最能體現胡漢文化融合的例子是石窟藝術。石窟的各種雕像、壁畫、文獻等，均反映了中外交化交流及相互影響的痕跡。教師可利用雲岡石窟、莫高窟等的圖像，讓非華語學生從視覺加以對比，說明魏晉南北朝期間中外文化交流的現象。教師可選取赤壁之戰說明三國兩晉南北朝期間所採用武備的特色及戰爭的形態，以提升非華語學生學習中國歷史的興趣。7 紅色虛線方格標示的是選教課題，教師可因應非華語學生的興趣而決定教授哪個課題；若課時容許，可考慮教授多於一個課題。12修訂初中中國歷史課程大綱課題修訂初中中國歷史課程大綱預期學習內容適合非華語學生的修訂初中中國歷史課程大綱時期概覽式課題重點課題隋唐：隋唐的統一、發展與開放的社會(16)",
+            "page": 11,
+            "title": "調適中國歷史科課程大綱 (中一至中三) (2019) (非華語學生適用)",
+            "source_id": "chi_hist_jss_ncs_2019",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/references-and-resources/chinese-history/Adapted_Framework_r.pdf",
+            "topic": "curriculum",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5894,
+            "channel": "B"
+          },
+          {
+            "id": "vault_chi_hist_jss_ncs_2019_da5427059e6d2388",
+            "text": "===5修訂初中中國歷史課程大綱課題修訂初中中國歷史課程大綱1預期學習內容適合非華語學生的修訂初中中國歷史課程大綱2時期概覽式課題重點課題延伸部分*：人物個案研習：了解該人物的重要事蹟及與其時代的關係。建議人物：孔子5、勾踐、蘇秦、荊軻備註︰概覽式課題︰可從地域上簡單說明夏、商、周三個不同部族的活動範圍、遷移擴展及生活特點，如商人重視祭祀、周人擅長農業等；教師應提及在不同地域生活及發展的各個聚落及部族，都是中華民族的重要組成部分。這些部族歷經夏、商、周三代，逐漸發展及融合，擴大了華夏文化的內涵。教師可利用地圖簡單解釋周室進行分封的目的，以及後來在春秋戰國時期兼併及諸侯國逐漸減少的情況。春秋戰國期間，諸侯國兼併相爭，慢慢趨向一統；而封建制度逐漸崩壞，發展出中央集權的國家形態。【對非華語學生而言，五等爵的內容較難理解，教師可毋需講述。】重點課題︰中國疆土遼闊，不同的地域孕育出各式的文化。人們的生活因應各自的地理條件而創造出獨特的文化。這些文化雖各有特色，但卻相互依存、统一而不能分割，構成了中國文化多元一體的特徵。教師可利用地圖、都城的考古發掘說明中國在各地出現的文化（如仰韶、良渚）特色，以及它們展現的早期國家形態，如設置都城、有專職官員等。5 綠色方格標示的是可列為重點課題的延伸部分內容，教師可利用來提升非華語學生學習中國歷史的興趣。6",
+            "page": 5,
+            "title": "調適中國歷史科課程大綱 (中一至中三) (2019) (非華語學生適用)",
+            "source_id": "chi_hist_jss_ncs_2019",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/references-and-resources/chinese-history/Adapted_Framework_r.pdf",
+            "topic": "curriculum",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5731,
+            "channel": "B"
+          },
+          {
+            "id": "vault_chi_hist_jss_2019_e820a4c3fef52bf3",
+            "text": ". 透過研習史事與採取不同的探究方法，培養學習中國歷史的興趣。5 第二章課程架構本章旨在為學生在初中階段須掌握之重要中國歷史知識、技能、價值觀和態度提供指引。學校和教師在規劃中國歷史課程的實施，以及安排適切的學、教、評活動時，須以本課程架構為依歸。2.1 課程設計原則本課程是根據課程發展議會編訂的《基礎教育課程指引——各盡所能．發揮所長（ 小一至小六）》（ 2014）、《中學教育課程指引》（ 2017）、《小學常識科課程指引（ 小一至小六）》（ 2017）， 以及《個人、社會及人文教育學習領域課程指引（ 小一至中六）》（ 2017 ）， 發展出以下的設計原則： 建基於小學常識科小學常識科課程包含「學習範疇四：社會與公民」及「學習範疇五：國民身份認同與中華文化」的學習內容。因此，學生不僅對國家的重大史事、文化特色及相關歷史人物已有認識，亦對香港的歷史和發展有所了解；但中華民族歷史源遠流長，初中階段學生應有系統地認識國家的歷史。本課程以初中學生應該掌握的內容為基礎，系統地設計課程，使學生能更全面認識中國歷史的整體發展，深化與鞏固在小學階段學到的歷史知識、提升其思維能",
+            "page": 8,
+            "title": "中國歷史科課程指引（中一至中三）(2019)",
+            "source_id": "chi_hist_jss_2019",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/CHist_Curr_Guide_S1-3_Chi_final.pdf",
+            "topic": "curriculum/general",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5667,
+            "channel": "B"
+          },
+          {
+            "id": "vault_chi_hist_jss_2019_27bfbd8755ddd66b",
+            "text": "段對中國歷史的發展面貌有整全的認識。本課程的設計以時間為經，歷史發展特點為緯，建議教師按課程的編排以組織教學次序，幫助學生掌握中國歷史發展的脈絡， 並鞏固「時間、延續與轉變」的觀念。本課程亦重視透過不同的方法，讓學生理解及整理歷史資料，並以求真持平的態度分析及評價不同的史事，從而培養他們客觀分析與評價史事的能力。可供學生研習的資料類型多元化，包括圖片、畫冊、檔案、奏疏、日記、紀錄片段、電影、漫畫、書籍等。教師應按學校的情況、學生的能力和需要， 蒐集、剪裁及編排合適的資料， 勾劃重點，指導學生研習資料。學生亦須透過反覆學習，才能掌握及有效應用不同的研習技能。教師可按學生的特性，建立研習歷史技能的架構，有策略及循序漸進地讓學生掌握理解、辨識、分析、比較、印證、詮釋、論述、評論等不同的歷史研習技能，提升學生研習歷史的能力和興趣。3.4 課程統籌3.4.1 了解課程及學習情境教師在制訂學校的中國歷史課程時，應對本課程的理念、宗旨和學習目標了解透徹， 亦須參考課程發展議會編訂的《個人、社會及人",
+            "page": 29,
+            "title": "中國歷史科課程指引（中一至中三）(2019)",
+            "source_id": "chi_hist_jss_2019",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/CHist_Curr_Guide_S1-3_Chi_final.pdf",
+            "topic": "curriculum/general",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5565,
+            "channel": "B"
+          },
+          {
+            "id": "vault_chi_hist_jss_2019_89290f28a35465bd",
+            "text": "資源，利用實地及實物進行學習，以獲取合用的資料研習歷史；6. 照顧學生的不同需要、興趣、能力及學習風格，並能為不同能力的學生帶來足夠的挑戰；7. 評估和學與教的設計要互相配合，以促進學、教、評互動的學習成效；8. 兼顧完成初中後不再修讀中國歷史科的學生，以及將會在高中繼續修讀中國歷史科的學生的需要。3.2 課程規劃策略教師在規劃如何實施本課程時，須考慮學生的已有知識、本課程與其他初中人文科目的協作，並盡量利用本課程的靈活設計，來規劃一個配合學生需要的課程。教師可參考下列的課程規劃策略：3.2.1 小學與初中的銜接中國歷史及中華文化是小學及初中基礎教育的必須學習內容。在小學常識科課程內「社會與公民」及「國民身份認同與中華文化」學習範疇中，與中國歷史相關的核心學習元素如下： 我的祖國：國旗、國徽、國歌、首都、重要城巿（例如：西安）及一些重要的國家日子 中華民族的起源（例如：上古傳說、大禹治水、從李鄭屋漢墓看漢文化） 對中國歷史影響深遠的人物和故事（例如：秦始皇與萬里長城、張騫與絲綢之路、鄭和與海上絲路、詹天佑與中國鐵路、孫中山與辛亥革命） 中國的自然地理位置、地理特徵及版圖",
+            "page": 23,
+            "title": "中國歷史科課程指引（中一至中三）(2019)",
+            "source_id": "chi_hist_jss_2019",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/CHist_Curr_Guide_S1-3_Chi_final.pdf",
+            "topic": "curriculum/general",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5551,
+            "channel": "B"
+          },
+          {
+            "id": "vault_history_jss_2019_b8e591b453936714",
+            "text": "具興趣的學生作進一步深化和延展學習。(詳見圖2.2)圖2.2 課題的組成延伸部分基礎部分9為協助教師於課堂上採用探究式學習，每個課題均設置一個探究問題和相關的建議導入問題。探究問題是研習有關課題的方向，而建議導入問題則為教師提供意念，在設計課堂教學時引導學生以探究式學習歷史。教師亦可運用其他方式，協助學生探究每個課題，並按學生的興趣、能力及學習需要，以其專業判斷設計教學流程。(詳見圖2.3)探究問題建議導入問題建議導入問題建議導入問題課題圖2.3以探究式方法學習歷史102.4內容大綱以下為歷史科課程(中一至中三)12 個建議課題的課程大綱。每個大綱均附有引言，說明該課題的背景、理念，以及基礎部分的學習重點和延伸部分的處理。此外，附錄一(頁86 至97)為「預期學習內容」，以闡明各課題的深度和焦點。中一級古代世界 (史前時期至14 世紀)：區域文明的誕生與交流課題1：人類的需要：古與今人類的活動源於人的不同基本需要，並累積而成為文明。本課題希望讓學生對人類文明的起源，以及古代主要文明有概括認識。完成本課題後，學生能初步掌握基本的歷史時序概念和分期，以及歷史資料的分類，並運用該等概念理解：a) 人類如何從石器時代演進至古文明：從運用火和製作簡單石器、從捕獵野獸和採摘野果，進而學會生產糧食，懂得農耕",
+            "page": 17,
+            "title": "歷史科課程指引（中一至中三）2019",
+            "source_id": "history_jss_2019",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Hist_Curr_Guide_S1-3_Chi_final_10072019.pdf",
+            "topic": "curriculum",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5434,
+            "channel": "B"
+          },
+          {
+            "id": "vault_history_sss_2007_2015_d7debf5b1e770f5d",
+            "text": "探究式學習，培養自主學習和終身學習的能力；(f)與評估配合，同步發展。除此以外，本課程的設計也特別依據以下的原則：(g)本課程將集中在二十世紀的主要發展，因為二十世紀歷史與學生的日常生活關係密切，更能激勵學生自己進行探究。(h)本課程以主題式方法編寫，學生透過當中的兩個主題，能廣泛地從政治、社會、經濟及文化背景方面認識二十世紀的歷史，培養全球視野，了解自己、社會及整個世界的發展。主題式研習既涵蓋了世界歷史較闊的範圍，也能平衡課程的深度與廣度，學生有較大的空間去發展明辨性思考技能及探究式學習。82.2 課程架構及組織(由2015/16 學年的中四級開始實施；於2018 年香港中學文憑考試生效)32.2.1 課程內容引言：現代世界的孕育教學要點說明甲. 西方優勢的基礎乙. 西方的擴張及殖民帝國的形成丙. 亞洲對西方擴張的反應丁. 邁向國際協作學生須概括地了解西方科技的發展、知識的開發及政治革命如何奠定西方優勢的基礎，並能解釋該基礎如何導致西方國家自十六世紀開始在地理及經濟上的擴張，並在十九世紀建立殖民帝國。學生須描述殖民主義的影響，以及亞洲人民對西方勢力入侵及統治的反應，從而理解二十世紀亞洲的現代化與蛻變的背景。同時，通過觀察十九世紀西方主要強國的關係，特別是他們之間衝突的起源及談判與協作的努力，學生應更能了解二十世紀世界的衝突與合作的背景知識。",
+            "page": 16,
+            "title": "歷史課程及評估指引 (中四至中六) 2007 (2015年11月更新)",
+            "source_id": "history_sss_2007_2015",
+            "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/Hist_C&A_Guide_c_20180109.pdf",
+            "topic": "curriculum",
+            "content_type": "vault_extract",
+            "fact_type": "policy",
+            "score": 0.5153,
+            "channel": "B"
+          }
+        ]
+      },
+      "afterMs": 6198
+    }
+  ]
+}

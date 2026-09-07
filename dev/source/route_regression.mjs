@@ -21,6 +21,13 @@ const body = src.slice(src.indexOf("{", start) + 1, end)
   .split("\n").filter((l) => !l.trim().startsWith("//")).join("\n");
 const TOPIC_KEYWORDS = eval("({" + body + "})");
 
+const setsStart = src.indexOf("const SOURCE_SETS");
+if (setsStart < 0) { console.error("找不到 SOURCE_SETS"); process.exit(2); }
+const setsEnd = src.indexOf("\n};", setsStart);
+const setsBody = src.slice(src.indexOf("{", setsStart) + 1, setsEnd)
+  .split("\n").filter((l) => !l.trim().startsWith("//")).join("\n");
+const SOURCE_SETS = eval("({" + setsBody + "})");
+
 const detect = (q) => {
   for (const [k, re] of Object.entries(TOPIC_KEYWORDS)) if (re.test(q)) return k;
   return null;
@@ -95,6 +102,10 @@ const CASES = [
   ["學生個人資料保存幾耐",                        null],
 ];
 
+const SOURCE_MEMBERSHIP = [
+  ["curriculum", "chi_hist_jss_ncs_2019", "非華語初中中國歷史調適大綱必須可由課程路由取得"],
+];
+
 let bad = 0;
 for (const [q, want] of CASES) {
   const got = detect(q);
@@ -103,6 +114,12 @@ for (const [q, want] of CASES) {
   console.log(`${ok ? "PASS" : "FAIL"}  ${String(got)}${ok ? "" : `  (預期 ${want})`}  ← ${q}`);
 }
 console.log(`\n${CASES.length - bad}/${CASES.length} PASS`);
+
+for (const [route, sourceId, why] of SOURCE_MEMBERSHIP) {
+  const ok = SOURCE_SETS[route]?.includes(sourceId) === true;
+  if (!ok) bad++;
+  console.log(`${ok ? "PASS" : "FAIL"}  ${route} includes ${sourceId}  ← ${why}`);
+}
 
 if (KNOWN_GAPS.length) {
   console.log("\n已知缺口（唔計入 PASS/FAIL，S211 前後行為一樣）：");

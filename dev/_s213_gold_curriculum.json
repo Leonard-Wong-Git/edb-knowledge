@@ -1,0 +1,935 @@
+[
+  {
+    "id": "cur_arts_guide_2002_missing",
+    "domain": "curriculum",
+    "query": "藝術教育學習領域課程指引 2002 版",
+    "query_kind": "no_answer",
+    "intent": "g37 曾標示為 2002 年版藝術教育學習領域課程指引，實際 chunk 為 2017 年版內容（與 arts_kla_guide_2017 near-identical），庫內無 2002 年版可引用",
+    "answerable": false,
+    "expected_source_any": [],
+    "expected_passage_signature": [],
+    "expected_page": null,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [
+      "g37"
+    ],
+    "verified_by": {
+      "chunk_id": "vault_g37_01850fee439dcd1f",
+      "method": "dev/_s213_corpus.py find",
+      "note": "find 顯示 g37 chunk 為 2017 年版藝術教育指引；掛錯年份來源列 forbidden"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "cur_eight_kla",
+    "domain": "curriculum",
+    "query": "八個學習領域",
+    "query_kind": "plain",
+    "intent": "查本港學校課程劃分為哪八個學習領域",
+    "answerable": true,
+    "expected_source_any": [
+      "g07"
+    ],
+    "expected_passage_signature": [
+      "全面、均衡及連貫的課程，並獲得各種基要的學習經歷。本港學校課程劃分為八個學習領域"
+    ],
+    "expected_page": 403,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g07_1065f9efc247154f",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "cur_eng_guide_2007_missing",
+    "domain": "curriculum",
+    "query": "英國語文教育課程指引 中一至中六 2007",
+    "query_kind": "no_answer",
+    "intent": "g33 標題雖涉 2007 年版《英國語文教育課程指引（中一至中六）》，但其全部 chunk 實為 2021 年版《英國語文課程及評估指引（中四至中六）》內容，庫內無 2007 年中一至中六版可引用",
+    "answerable": false,
+    "expected_source_any": [],
+    "expected_passage_signature": [],
+    "expected_page": null,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [
+      "g33"
+    ],
+    "verified_by": {
+      "chunk_id": "vault_g33_00a30fe61c173b81",
+      "method": "dev/_s213_corpus.py find",
+      "note": "show/find 顯示 g33 chunk 為 2021 英文指引英文正文，與標題年份不符；掛錯標題來源列 forbidden"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "cur_four_key_project_stages",
+    "domain": "curriculum",
+    "query": "專題研習 三個階段",
+    "query_kind": "plain",
+    "intent": "查專題研習（四個關鍵項目之一）分哪三個實施階段",
+    "answerable": true,
+    "expected_source_any": [
+      "g07"
+    ],
+    "expected_passage_signature": [
+      "專題研習可以分三個階段進行－開始構思的預備階段、進行探究的實施階段"
+    ],
+    "expected_page": 156,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g07_073756f79ba0f715",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "cur_generic_skills_categories",
+    "domain": "curriculum",
+    "query": "共通能力 三個類別",
+    "query_kind": "plain",
+    "intent": "查九種共通能力如何分為三個類別",
+    "answerable": true,
+    "expected_source_any": [
+      "apl_curr_docs"
+    ],
+    "expected_passage_signature": [
+      "九種共通能力可分為三個類別，包括：「基礎能力」：溝通能力、數學能力、運用資訊科技能力"
+    ],
+    "expected_page": 7,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_apl_curr_docs_aee73be2c319d497",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "cur_kg_free_play_time",
+    "domain": "curriculum",
+    "query": "幼稚園 自由遊戲 時間",
+    "query_kind": "confusable",
+    "intent": "查半日制及全日制幼稚園每天須安排的自由遊戲時間；易與已退役重複本 kgecg_2017 混淆",
+    "answerable": true,
+    "expected_source_any": [
+      "g29"
+    ],
+    "expected_passage_signature": [
+      "半日制及全日制幼稚園，應每天分別安排不少於30及50分鐘時間，讓幼兒參與自由遊戲"
+    ],
+    "expected_page": 50,
+    "acceptable_alternatives": [
+      "kg_admin_guide_2026"
+    ],
+    "forbidden_evidence": [
+      "kgecg_2017"
+    ],
+    "verified_by": {
+      "chunk_id": "vault_g29_430271c68dccde06",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名同時見於 kgecg_2017（已退役重複本，列 forbidden）及幼稚園行政手冊（列 acceptable）；正本為 g29"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "cur_moral_civic_values",
+    "domain": "curriculum",
+    "query": "德育及公民教育 責任感",
+    "query_kind": "plain",
+    "intent": "查德育及公民教育下培養學生責任感的取向",
+    "answerable": true,
+    "expected_source_any": [
+      "g07"
+    ],
+    "expected_passage_signature": [
+      "便能培養他們關心別人福祉、樂於助人和主動承擔責任的生活態度"
+    ],
+    "expected_page": 85,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g07_024a9164a778e448",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "cur_primary_lesson_time",
+    "domain": "curriculum",
+    "query": "小學各科要佔幾多課時",
+    "query_kind": "natural_sentence",
+    "intent": "查小學各學習領域／科目佔總課時的百分比",
+    "answerable": true,
+    "expected_source_any": [
+      "g06"
+    ],
+    "expected_passage_signature": [
+      "中國語文教育不少於23%英國語文教育不少於16%數學教育不少於11%"
+    ],
+    "expected_page": 67,
+    "acceptable_alternatives": [
+      "pri_curr_guide_2024"
+    ],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g06_4dd6644ecc4f3e48",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名亦見於 pri_curr_guide_2024（同一課時分配表，列 acceptable）；完整版為 g06"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "cur_secondary_central_curriculum",
+    "domain": "curriculum",
+    "query": "中學 八個學習領域",
+    "query_kind": "confusable",
+    "intent": "查中學中央課程的組成；「八個學習領域」字眼同見於基礎教育（小學）課程指引 g07，須以中學指引 g13 為準",
+    "answerable": true,
+    "expected_source_any": [
+      "g13"
+    ],
+    "expected_passage_signature": [
+      "中央課程包括學校課程整體目標、七個學習宗旨、五種基要學習經歷"
+    ],
+    "expected_page": 6,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [
+      "g07"
+    ],
+    "verified_by": {
+      "chunk_id": "vault_g13_426c6c86bb7af638",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "cur_steam_primary",
+    "domain": "curriculum",
+    "query": "小學 STEAM 教育",
+    "query_kind": "plain",
+    "intent": "查小學課程如何推展 STEM／STEAM 教育",
+    "answerable": true,
+    "expected_source_any": [
+      "g06"
+    ],
+    "expected_passage_signature": [
+      "不少學校在規劃及組織STEM 相關學習活動時，更融入藝術教育／人文精神的學習元素"
+    ],
+    "expected_page": 12,
+    "acceptable_alternatives": [
+      "pri_curr_guide_2024"
+    ],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g06_577f547876ea4d18",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名亦見於 pri_curr_guide_2024（列 acceptable）；完整版為 g06"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "gifted_2e_support",
+    "domain": "gifted",
+    "query": "雙重特殊資優學生 支援",
+    "query_kind": "plain",
+    "intent": "查支援雙重特殊資優及潛能未展資優學生的策略資料出處",
+    "answerable": true,
+    "expected_source_any": [
+      "g06"
+    ],
+    "expected_passage_signature": [
+      "有關支援雙重特殊資優學生、潛能未展資優學生的情意及學習需要的策略的詳細資料"
+    ],
+    "expected_page": 145,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g06_1d62e016f1e59c17",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "gifted_fund_injection",
+    "domain": "gifted",
+    "query": "資優教育基金 注資幾多",
+    "query_kind": "plain",
+    "intent": "查資優教育基金的成立年份及累計注資額",
+    "answerable": true,
+    "expected_source_any": [
+      "g06"
+    ],
+    "expected_passage_signature": [
+      "資優教育基金（基金），至今共向基金注資16 億元"
+    ],
+    "expected_page": 153,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g06_23b6c9c569ba9d43",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "gifted_identify_talent",
+    "domain": "gifted",
+    "query": "點樣識別資優學生",
+    "query_kind": "natural_sentence",
+    "intent": "查學校如何以多元化準則、渠道及工具識別學生的才能",
+    "answerable": true,
+    "expected_source_any": [
+      "gifted_ge_series"
+    ],
+    "expected_passage_signature": [
+      "善用多元化準則、渠道及工具以識別學生的才能"
+    ],
+    "expected_page": 2,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_gifted_ge_series_962f17e88a0e5d5c",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "gifted_no_academy_iq",
+    "domain": "gifted",
+    "query": "資優教育學苑 收生 智商分數要求",
+    "query_kind": "no_answer",
+    "intent": "庫內資優教育系列與課程指引強調識別資優須多元化、智力評估非唯一工具，並無列出香港資優教育學苑收生的智商分數門檻",
+    "answerable": false,
+    "expected_source_any": [],
+    "expected_passage_signature": [],
+    "expected_page": null,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g14_f0fb70d1bc3d",
+      "method": "dev/_s213_corpus.py find",
+      "note": "find「智商」「甄選」等未見資優教育學苑收生 IQ 分數門檻；g14 明言智力測驗只屬辨別方法之一"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "gifted_osalp",
+    "domain": "gifted",
+    "query": "OSALP 係咩",
+    "query_kind": "english",
+    "intent": "查校外進階學習課程（OSALP）由誰提供、資助來源及對象",
+    "answerable": true,
+    "expected_source_any": [
+      "g06"
+    ],
+    "expected_passage_signature": [
+      "專上院校、非政府機構及科技企業等可向基金申請資助，為資優學生提供校外進階學習課程"
+    ],
+    "expected_page": 153,
+    "acceptable_alternatives": [
+      "gifted_osalp_compendium",
+      "gifted_tp_resource_kit"
+    ],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g06_23b6c9c569ba9d43",
+      "method": "dev/_s213_corpus.py find",
+      "note": "OSALP 匯編（gifted_osalp_compendium）及資源套亦述同一計劃，列 acceptable；此定義句正本為 g06"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "gifted_pullout_programme",
+    "domain": "gifted",
+    "query": "資優 抽離式課程",
+    "query_kind": "plain",
+    "intent": "查校本資優培育可透過全班式、小組或抽離式方式推行",
+    "answerable": true,
+    "expected_source_any": [
+      "g14"
+    ],
+    "expected_passage_signature": [
+      "須因應學生旳情況適當地處理輔導工作，可透過全班式、小組形式或抽離式活動進行"
+    ],
+    "expected_page": null,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g14_02b296f4b280",
+      "method": "dev/_s213_corpus.py find",
+      "note": "g14 為 HTML 來源，chunk 無 === Page N === 標記，故 expected_page 為 null；簽名含原文錯字「旳」逐字保留"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "gifted_talent_pool",
+    "domain": "gifted",
+    "query": "校本學生人才庫",
+    "query_kind": "plain",
+    "intent": "查建立校本學生人才庫可運用的工具",
+    "answerable": true,
+    "expected_source_any": [
+      "gifted_ge_series"
+    ],
+    "expected_passage_signature": [
+      "建立校本學生人才庫(可運用網上校管系統「人才資料庫」模組，試算表及其他網上平台等)"
+    ],
+    "expected_page": 2,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_gifted_ge_series_962f17e88a0e5d5c",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "gifted_three_tier_confusable",
+    "domain": "gifted",
+    "query": "三層架構",
+    "query_kind": "confusable",
+    "intent": "資優教育「三層架構推行模式」易與融合教育「三層支援模式」（g19）混淆；查詢單用「三層架構」時應以資優文件為準",
+    "answerable": true,
+    "expected_source_any": [
+      "gifted_ge_series"
+    ],
+    "expected_passage_signature": [
+      "以資優教育「三層架構推行模式」照顧雙重特殊資優學生的例子"
+    ],
+    "expected_page": 75,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [
+      "g19"
+    ],
+    "verified_by": {
+      "chunk_id": "vault_gifted_ge_series_8c447efa23714571",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "gifted_tier3_outside_support",
+    "domain": "gifted",
+    "query": "資優 第三層 校外支援",
+    "query_kind": "plain",
+    "intent": "查資優教育三層架構下第三層為特別資優學生提供校外支援",
+    "answerable": true,
+    "expected_source_any": [
+      "gifted_ge_series"
+    ],
+    "expected_passage_signature": [
+      "根據資優教育「三層架構推行模式」，為特別資優"
+    ],
+    "expected_page": 31,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_gifted_ge_series_8ac476499ec8bf94",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名在 gifted_ge_series 內出現兩次（p31 與 p83），同一來源故 acceptable_alternatives 留空；expected_page 取自 verified_by chunk（p31）"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "gifted_tier_model_2000",
+    "domain": "gifted",
+    "query": "資優叁層推行模式",
+    "query_kind": "typo",
+    "intent": "查香港資優教育三層推行模式的來源；查詢把「三」誤寫成「叁」",
+    "answerable": true,
+    "expected_source_any": [
+      "g14"
+    ],
+    "expected_passage_signature": [
+      "根據教育署在二零零零年擬定的資優教育的三層推行模式"
+    ],
+    "expected_page": null,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g14_35407136cc3c",
+      "method": "dev/_s213_corpus.py find",
+      "note": "g14 為 HTML 來源無頁碼標記，expected_page 為 null"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "sen_autism_extra_training",
+    "domain": "sen",
+    "query": "自閉症學生需要甚麼訓練",
+    "query_kind": "natural_sentence",
+    "intent": "查有自閉症學生需要的額外訓練及其目的",
+    "answerable": true,
+    "expected_source_any": [
+      "g19"
+    ],
+    "expected_passage_signature": [
+      "有自閉症的學生需要額外的訓練，才能掌握一般學生透過觀察或自然發展的技巧和能力"
+    ],
+    "expected_page": 25,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g19_0396aa491d22a5ae",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "sen_dyslexia_tier1",
+    "domain": "sen",
+    "query": "讀寫障礙 第一層支援",
+    "query_kind": "plain",
+    "intent": "查讀寫困難（讀寫障礙）學生的第一層支援措施",
+    "answerable": true,
+    "expected_source_any": [
+      "g19"
+    ],
+    "expected_passage_signature": [
+      "學校可透過結合《香港初小中文分層支援教學模式（資源綜合版）》的讀寫課程於校本課程"
+    ],
+    "expected_page": 35,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g19_0c529ce537c27755",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "sen_iep_intellectual",
+    "domain": "sen",
+    "query": "智障學生 個別學習計劃",
+    "query_kind": "plain",
+    "intent": "查為有智障學生訂立個別學習計劃的依據",
+    "answerable": true,
+    "expected_source_any": [
+      "g19"
+    ],
+    "expected_passage_signature": [
+      "應為他們訂立「個別學習計劃」，計劃需建基於有系統的需要評估結果"
+    ],
+    "expected_page": 21,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g19_03ee249579d0e8f0",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "sen_iep_meeting_attendees",
+    "domain": "sen",
+    "query": "個別學習計畫 會議 邊個要出席",
+    "query_kind": "typo",
+    "intent": "查個別學習計劃會議（例會）的出席者；查詢誤把「計劃」寫成「計畫」",
+    "answerable": true,
+    "expected_source_any": [
+      "g19"
+    ],
+    "expected_passage_signature": [
+      "按需要出席相關會議，例如每年的例會或「個別學習計劃」會議"
+    ],
+    "expected_page": 54,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g19_14f2070b3b8209b6",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "sen_lst_grant",
+    "domain": "sen",
+    "query": "學習支援津貼",
+    "query_kind": "plain",
+    "intent": "查學習支援津貼推廣至公營普通中小學以取代舊有計劃",
+    "answerable": true,
+    "expected_source_any": [
+      "g19"
+    ],
+    "expected_passage_signature": [
+      "把「學習支援津貼」推廣至所有公營普通中、小學，以替代「加輔計劃」及「融合教育計劃」"
+    ],
+    "expected_page": 7,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g19_0fd16b8f670cef51",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "sen_responsible_role",
+    "domain": "sen",
+    "query": "SEN 邊個負責統籌",
+    "query_kind": "abbrev",
+    "intent": "查校內誰負責統籌特殊教育需要（SEN）支援工作；容許以責任角色（統籌主任／學生支援組）作答",
+    "answerable": true,
+    "expected_source_any": [
+      "g19"
+    ],
+    "expected_passage_signature": [
+      "利用甄別工具及早識別學生的學習或適應困難和支援需要"
+    ],
+    "expected_page": 12,
+    "acceptable_alternatives": [
+      "role_facts_student"
+    ],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g19_1bcd00d93612e161",
+      "method": "dev/_s213_corpus.py find",
+      "note": "SEN 主題查詢容許以責任角色事實作答，role_facts_student 列 acceptable（見領域備註）"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "sen_senco_duties",
+    "domain": "sen",
+    "query": "SENCO 職責",
+    "query_kind": "abbrev",
+    "intent": "查特殊教育需要統籌主任（SENCO）帶領學生支援組的職責",
+    "answerable": true,
+    "expected_source_any": [
+      "g19"
+    ],
+    "expected_passage_signature": [
+      "帶領學生支援組，舉行定期會議，成員包括特殊教育需要支援老師"
+    ],
+    "expected_page": 12,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g19_1bcd00d93612e161",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "sen_senco_teacher_post",
+    "domain": "sen",
+    "query": "特殊教育需要統籌主任 幾時開始設立",
+    "query_kind": "natural_sentence",
+    "intent": "查教育局何時起分階段為每所公營普通中小學增設學位教師教席以擔任統籌主任",
+    "answerable": true,
+    "expected_source_any": [
+      "g19"
+    ],
+    "expected_passage_signature": [
+      "教育局由2017/18 學年起在三年內分階段於每一所公營普通中、小學增設一個學位教師教席"
+    ],
+    "expected_page": 7,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g19_0fd16b8f670cef51",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "sen_special_school_curriculum",
+    "domain": "sen",
+    "query": "特殊學校 課程 調適",
+    "query_kind": "confusable",
+    "intent": "查特殊學校如何在普通學校課程與調適課程之間作選擇；易與普通學校融合教育指南 g19 混淆",
+    "answerable": true,
+    "expected_source_any": [
+      "g10"
+    ],
+    "expected_passage_signature": [
+      "決定學校採用：普通學校課程；或為有特殊教育需要（如智障）學生而調適的課程"
+    ],
+    "expected_page": 37,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [
+      "g19"
+    ],
+    "verified_by": {
+      "chunk_id": "vault_g10_03f549afe5986780",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "held_out"
+  },
+  {
+    "id": "sen_wsa_integrated_edu",
+    "domain": "sen",
+    "query": "全校參與 融合教育",
+    "query_kind": "plain",
+    "intent": "查所有普通學校須推行「全校參與」模式融合教育以照顧學習差異",
+    "answerable": true,
+    "expected_source_any": [
+      "g19"
+    ],
+    "expected_passage_signature": [
+      "所有普通學校須推行「全校參與」模式的融合教育，以便有效地照顧學習差異"
+    ],
+    "expected_page": 7,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g19_0fd16b8f670cef51",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "held_out"
+  },
+  {
+    "id": "ss_discipline_org_1996",
+    "domain": "student_support",
+    "query": "學生訓育組 幾時成立",
+    "query_kind": "plain",
+    "intent": "查教育署學生訓育組的成立年份及職能",
+    "answerable": true,
+    "expected_source_any": [
+      "g16"
+    ],
+    "expected_passage_signature": [
+      "學生訓育組於一九九六年成立，目標是就學生的紀律事宜向學校提供支援"
+    ],
+    "expected_page": 7,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g16_1a3e9afef438e47e",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "held_out"
+  },
+  {
+    "id": "ss_discipline_style_democratic",
+    "domain": "student_support",
+    "query": "訓育 民主型教師",
+    "query_kind": "confusable",
+    "intent": "查《學生訓育工作指引》民主型教師的特徵；此自評問卷內容只在訓育工作指引 g16，易與訓育及輔導理念指引 g17 混淆",
+    "answerable": true,
+    "expected_source_any": [
+      "g16"
+    ],
+    "expected_passage_signature": [
+      "如果你在這類型的得分最高，你會相信自由的重要"
+    ],
+    "expected_page": 29,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [
+      "g17"
+    ],
+    "verified_by": {
+      "chunk_id": "vault_g16_08c270ad206f6b8b",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "held_out"
+  },
+  {
+    "id": "ss_guidance_discipline_blend",
+    "domain": "student_support",
+    "query": "訓育 輔導 融合",
+    "query_kind": "plain",
+    "intent": "查揉合訓育及輔導的成功因素",
+    "answerable": true,
+    "expected_source_any": [
+      "g17"
+    ],
+    "expected_passage_signature": [
+      "學校的決策層刻意將訓育及輔導的元素融合到校內不同的教育範疇中"
+    ],
+    "expected_page": null,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g17_24ebf8866584",
+      "method": "dev/_s213_corpus.py find",
+      "note": "g17 為 HTML 來源，chunk 無頁碼標記，expected_page 為 null"
+    },
+    "split": "held_out"
+  },
+  {
+    "id": "ss_harmony_hotline",
+    "domain": "student_support",
+    "query": "和諧校園 一站式熱線",
+    "query_kind": "plain",
+    "intent": "查「和諧校園：一站式熱線及輔導服務」的提供機構及對象",
+    "answerable": true,
+    "expected_source_any": [
+      "edbcm108_2026"
+    ],
+    "expected_passage_signature": [
+      "教育局委託香港青年協會於2026/27 學年提供「和諧校園：一站式熱線及輔導服務」"
+    ],
+    "expected_page": 3,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_edbcm108_2026_9ed0be41f11585cb",
+      "method": "dev/_s213_corpus.py find",
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+    },
+    "split": "held_out"
+  },
+  {
+    "id": "ss_ncs_chinese_framework_progress_v2",
+    "domain": "student_support",
+    "query": "中國語文課程第二語言學習架構如何描述非華語學生的學習進程及四個學習範疇？",
+    "query_kind": "natural_sentence",
+    "intent": "查第二語言學習架構的循序漸進學習進程，以及閱讀、寫作、聆聽、說話四個範疇",
+    "answerable": true,
+    "expected_source_any": [
+      "chi_edu_curr_docs"
+    ],
+    "expected_passage_signature": [
+      "本學習領域另提供「中國語文課程第二語言學習架構」，讓教師按需要調適中文課程，由淺入深，幫助非華語學生透過小步子的方式學習"
+    ],
+    "expected_page": 30,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [
+      "g09"
+    ],
+    "verified_by": {
+      "chunk_id": "vault_chi_edu_curr_docs_6737a40d371df164",
+      "method": "S214 saved evidence + source extract cross-check",
+      "note": "第二批 artifact 第30頁片段直接描述學習進程及四個範疇；舊無答案案例已移至 dev/source/gold_deprecated_s214.json"
+    },
+    "split": "held_out"
+  },
+  {
+    "id": "ss_ncs_fee_remission_missing",
+    "domain": "student_support",
+    "query": "非華語學生 學費減免 金額",
+    "query_kind": "no_answer",
+    "intent": "庫內非華語學生財務支援文件只有《教育局通函第79/2025號》的暑期銜接課程每班津貼額，無非華語學生學費減免／書簿津貼金額條文",
+    "answerable": false,
+    "expected_source_any": [],
+    "expected_passage_signature": [],
+    "expected_page": null,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "footnote_fn_ncs_sbp_26360_class",
+      "method": "dev/_s213_corpus.py find",
+      "note": "find「非華語學生 學費減免」「非華語 書簿津貼」均 0 命中；EDBCM_79/2025 只涉暑期銜接課程津貼"
+    },
+    "split": "held_out"
+  },
+  {
+    "id": "ss_ncs_history_adapted_outline_v2",
+    "domain": "student_support",
+    "query": "非華語學生適用的調適初中中國歷史課程大綱，對蒙古崛起及擴張提出甚麼建議學習內容？",
+    "query_kind": "natural_sentence",
+    "intent": "查專為非華語學生調適的初中中國歷史課程大綱中，有關蒙古崛起及擴張的具體建議學習內容",
+    "answerable": true,
+    "expected_source_any": [
+      "chi_hist_jss_ncs_2019"
+    ],
+    "expected_passage_signature": [
+      "教師可透過成吉思汗的故事及地圖，簡單敘述蒙古人的崛起及擴張，最終形成龐大帝國的經過"
+    ],
+    "expected_page": 17,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [
+      "chi_hist_jss_2019"
+    ],
+    "verified_by": {
+      "chunk_id": "vault_chi_hist_jss_ncs_2019_1559ca891a76b1cd",
+      "method": "dev/_s213_corpus.py find",
+      "note": "查詢已收窄至專門調適大綱的具體學習內容；一般指引只足以回答調適原則。舊案例已移至 dev/source/gold_deprecated_s214.json"
+    },
+    "split": "held_out"
+  },
+  {
+    "id": "ss_ncs_summer_bridging_grant",
+    "domain": "student_support",
+    "query": "NCS 暑期銜接課程 每班津貼",
+    "query_kind": "english",
+    "intent": "查非華語（NCS）學生暑期銜接課程 2025 年的每班津貼額",
+    "answerable": true,
+    "expected_source_any": [
+      "EDBCM_79_2025_TC"
+    ],
+    "expected_passage_signature": [
+      "2025 年的津貼額為每班 26,360 元"
+    ],
+    "expected_page": null,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "footnote_fn_ncs_sbp_26360_class",
+      "method": "dev/_s213_corpus.py find",
+      "note": "來源為通函註腳問答 chunk，無 === Page N === 標記，expected_page 為 null"
+    },
+    "split": "held_out"
+  },
+  {
+    "id": "ss_wsa_1990_ecr4",
+    "domain": "student_support",
+    "query": "全校參與訓輔 幾時引入",
+    "query_kind": "natural_sentence",
+    "intent": "查「全校參與」訓育及輔導概念的引入時間與文件依據",
+    "answerable": true,
+    "expected_source_any": [
+      "g17"
+    ],
+    "expected_passage_signature": [
+      "自一九九零年教育統籌委員會第四號報告書建議引入「全校參與」"
+    ],
+    "expected_page": null,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g17_3cc4d28e9177",
+      "method": "dev/_s213_corpus.py find",
+      "note": "g17 為 HTML 來源，chunk 無頁碼標記，expected_page 為 null"
+    },
+    "split": "held_out"
+  },
+  {
+    "id": "ss_xunfu_abbrev",
+    "domain": "student_support",
+    "query": "訓輔 工作重點",
+    "query_kind": "abbrev",
+    "intent": "查全校參與模式下各層面訓輔工作重點的建立；查詢用簡稱「訓輔」",
+    "answerable": true,
+    "expected_source_any": [
+      "g17"
+    ],
+    "expected_passage_signature": [
+      "並在學校、級、班及學生個人層面上，訂定相關的訓輔工作重點"
+    ],
+    "expected_page": null,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g17_3cc4d28e9177",
+      "method": "dev/_s213_corpus.py find",
+      "note": "g17 為 HTML 來源，chunk 無頁碼標記，expected_page 為 null"
+    },
+    "split": "held_out"
+  }
+]

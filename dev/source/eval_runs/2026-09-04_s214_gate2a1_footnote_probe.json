@@ -1,0 +1,2531 @@
+{
+  "endpoint": "https://edb-knowledge.onrender.com/api/search/channel-b",
+  "informative_bigrams": 7828,
+  "footnote_corpus": 206,
+  "summary": {
+    "positive_total": 30,
+    "positive_with_lead": 30,
+    "negative_total": 13,
+    "negative_with_lead": 5,
+    "errors": 0,
+    "positive_overlap_min": 3,
+    "positive_overlap_median": 10.0,
+    "negative_overlap_max": 5
+  },
+  "rows": [
+    {
+      "class": "positive",
+      "query": "雙課制（上下午校）資助小學的學校發展津貼（CEG）點計算？",
+      "want_source": "ceg_calc_2026",
+      "lead_source": "ceg_calc_2026",
+      "lead_score": 0.9097,
+      "lead_overlap": 18,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_ceg_bisessional",
+          "source_id": "ceg_calc_2026",
+          "content_type": "footnote_curated",
+          "score": 0.9097
+        },
+        {
+          "id": "footnote_fn_ceg_both_levels",
+          "source_id": "ceg_calc_2026",
+          "content_type": "footnote_curated",
+          "score": 0.7241
+        },
+        {
+          "id": "footnote_fn_ceg_rates_2627",
+          "source_id": "ceg_calc_2026",
+          "content_type": "footnote_curated",
+          "score": 0.6857
+        },
+        {
+          "id": "footnote_fn_sag_sick_leave",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.6444
+        },
+        {
+          "id": "vault_sag_2025_11_89613258c691eb1e",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6435
+        },
+        {
+          "id": "footnote_fn_ceg_no_tutorial",
+          "source_id": "ceg_calc_2026",
+          "content_type": "footnote_curated",
+          "score": 0.6358
+        },
+        {
+          "id": "vault_sag_2025_11_7da8bf2e5d3112f5",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6264
+        },
+        {
+          "id": "vault_job_sharing_guide_a8ab796eb2c2b76f",
+          "source_id": "job_sharing_guide",
+          "content_type": "vault_extract",
+          "score": 0.6243
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "擴大營辦津貼（EOEBG）新校撥款公式同A／B值（2026/27）？",
+      "want_source": "eoebg_guide_2026",
+      "lead_source": "eoebg_guide_2026",
+      "lead_score": 0.8914,
+      "lead_overlap": 12,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_eoebg_ab_2627",
+          "source_id": "eoebg_guide_2026",
+          "content_type": "footnote_curated",
+          "score": 0.8914
+        },
+        {
+          "id": "footnote_fn_oebg_surplus_12m",
+          "source_id": "oebg_guide_2026",
+          "content_type": "footnote_curated",
+          "score": 0.6337
+        },
+        {
+          "id": "footnote_fn_ncs_5tier_table_2019",
+          "source_id": "EDBC_8_2020_E",
+          "content_type": "footnote_curated",
+          "score": 0.6087
+        },
+        {
+          "id": "footnote_fn_eoebg_meal_cap",
+          "source_id": "eoebg_guide_2026",
+          "content_type": "footnote_curated",
+          "score": 0.606
+        },
+        {
+          "id": "footnote_fn_edbc14_2024_thresholds",
+          "source_id": "edbc14_2024_spms",
+          "content_type": "footnote_curated",
+          "score": 0.6022
+        },
+        {
+          "id": "footnote_fn_eoebg_surplus_12m",
+          "source_id": "eoebg_guide_2026",
+          "content_type": "footnote_curated",
+          "score": 0.6019
+        },
+        {
+          "id": "fact_role_facts_finance_39de947622ea87f1",
+          "source_id": "role_facts_finance",
+          "content_type": "approved_fact",
+          "score": 0.5706
+        },
+        {
+          "id": "vault_g01_172acf984f54ad30",
+          "source_id": "g01",
+          "content_type": "vault_extract",
+          "score": 0.5581
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "空調津貼最多資助幾多個學生活動中心（SAC）？",
+      "want_source": "ac_grant_2026",
+      "lead_source": "ac_grant_2026",
+      "lead_score": 0.8974,
+      "lead_overlap": 15,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_ac_sac_cap",
+          "source_id": "ac_grant_2026",
+          "content_type": "footnote_curated",
+          "score": 0.8974
+        },
+        {
+          "id": "footnote_fn_ac_equiv_formula",
+          "source_id": "ac_grant_2026",
+          "content_type": "footnote_curated",
+          "score": 0.7607
+        },
+        {
+          "id": "footnote_fn_ac_rates_2627",
+          "source_id": "ac_grant_2026",
+          "content_type": "footnote_curated",
+          "score": 0.6514
+        },
+        {
+          "id": "footnote_fn_sag_apx_sick_leave_28_48_168",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.6499
+        },
+        {
+          "id": "vault_sag_2025_11_7da8bf2e5d3112f5",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6145
+        },
+        {
+          "id": "footnote_fn_sag_tb_leave",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.6133
+        },
+        {
+          "id": "footnote_fn_ac_special_room_cap",
+          "source_id": "ac_grant_2026",
+          "content_type": "footnote_curated",
+          "score": 0.6064
+        },
+        {
+          "id": "vault_job_sharing_guide_a8ab796eb2c2b76f",
+          "source_id": "job_sharing_guide",
+          "content_type": "vault_extract",
+          "score": 0.5742
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "在職非學位教師改編入學位教師職系（改編職系）要點做？",
+      "want_source": "sag_2025_11",
+      "lead_source": "sag_2025_11",
+      "lead_score": 0.7824,
+      "lead_overlap": 17,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_sag_rank_conversion",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.7824
+        },
+        {
+          "id": "vault_ppt_grad_pri_policy_ccf42ba9c1fc",
+          "source_id": "ppt_grad_pri_policy",
+          "content_type": "vault_extract",
+          "score": 0.7275
+        },
+        {
+          "id": "vault_ppt_grad_pri_policy_a95f676fbd9c",
+          "source_id": "ppt_grad_pri_policy",
+          "content_type": "vault_extract",
+          "score": 0.7122
+        },
+        {
+          "id": "vault_faq_edbc19011_d1aad2d768d8",
+          "source_id": "faq_edbc19011",
+          "content_type": "vault_extract",
+          "score": 0.7073
+        },
+        {
+          "id": "vault_edbc19011_ff21d4a10dae",
+          "source_id": "edbc19011",
+          "content_type": "vault_extract",
+          "score": 0.6969
+        },
+        {
+          "id": "vault_edbc19011_da284a5f55aa",
+          "source_id": "edbc19011",
+          "content_type": "vault_extract",
+          "score": 0.6872
+        },
+        {
+          "id": "vault_faq_edbc19011_2aa890b6de97",
+          "source_id": "faq_edbc19011",
+          "content_type": "vault_extract",
+          "score": 0.687
+        },
+        {
+          "id": "vault_ppt_grad_pri_policy_5170868db930",
+          "source_id": "ppt_grad_pri_policy",
+          "content_type": "vault_extract",
+          "score": 0.666
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "學校舉辦戶外活動嘅建議師生比例（一名領隊／教師對幾多學生）係幾多？",
+      "want_source": "sch_activities_guide",
+      "lead_source": "sch_activities_guide",
+      "lead_score": 0.871,
+      "lead_overlap": 26,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_activities_ratios",
+          "source_id": "sch_activities_guide",
+          "content_type": "footnote_curated",
+          "score": 0.871
+        },
+        {
+          "id": "footnote_fn_activities_sen",
+          "source_id": "sch_activities_guide",
+          "content_type": "footnote_curated",
+          "score": 0.7457
+        },
+        {
+          "id": "vault_sch_activities_guide_1bab11ecbf8211ed",
+          "source_id": "sch_activities_guide",
+          "content_type": "vault_extract",
+          "score": 0.7611
+        },
+        {
+          "id": "vault_g03_77a7bcb85065372f",
+          "source_id": "g03",
+          "content_type": "vault_extract",
+          "score": 0.64
+        },
+        {
+          "id": "vault_g03_c89d1d30ec063704",
+          "source_id": "g03",
+          "content_type": "vault_extract",
+          "score": 0.6162
+        },
+        {
+          "id": "fact_role_facts_activity_6fddddde0d050005",
+          "source_id": "role_facts_activity",
+          "content_type": "approved_fact",
+          "score": 0.6032
+        },
+        {
+          "id": "fact_role_facts_activity_12f22c76d226ed8b",
+          "source_id": "role_facts_activity",
+          "content_type": "approved_fact",
+          "score": 0.581
+        },
+        {
+          "id": "vault_g03_a3176995b59e7bd1",
+          "source_id": "g03",
+          "content_type": "vault_extract",
+          "score": 0.5719
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "學校經三層應急機制轉介學生，要唔要家長同意？",
+      "want_source": "edbcm215_2025_mental_health",
+      "lead_source": "edbcm215_2025_mental_health",
+      "lead_score": 0.7301,
+      "lead_overlap": 18,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_mh_referral_consent",
+          "source_id": "edbcm215_2025_mental_health",
+          "content_type": "footnote_curated",
+          "score": 0.7301
+        },
+        {
+          "id": "footnote_fn_mh_three_tier",
+          "source_id": "edbcm215_2025_mental_health",
+          "content_type": "footnote_curated",
+          "score": 0.5069
+        },
+        {
+          "id": "vault_g24_ff1efdb9bb10cebc",
+          "source_id": "g24",
+          "content_type": "vault_extract",
+          "score": 0.5608
+        },
+        {
+          "id": "vault_g19_9eb5b5269f71a9a3",
+          "source_id": "g19",
+          "content_type": "vault_extract",
+          "score": 0.5421
+        },
+        {
+          "id": "vault_g19_472d4fe126959262",
+          "source_id": "g19",
+          "content_type": "vault_extract",
+          "score": 0.5243
+        },
+        {
+          "id": "vault_g19_0de8e84f80a4e85a",
+          "source_id": "g19",
+          "content_type": "vault_extract",
+          "score": 0.5155
+        },
+        {
+          "id": "vault_g06_41d7333b4feab54d",
+          "source_id": "g06",
+          "content_type": "vault_extract",
+          "score": 0.503
+        },
+        {
+          "id": "vault_crisis_mgmt_handbook_5793bea72ede8452",
+          "source_id": "crisis_mgmt_handbook",
+          "content_type": "vault_extract",
+          "score": 0.4911
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "點解會拒絕教師註冊？",
+      "want_source": "cap279_education_ordinance",
+      "lead_source": "cap279_education_ordinance",
+      "lead_score": 0.7496,
+      "lead_overlap": 8,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_cap279_s46_refuse_register",
+          "source_id": "cap279_education_ordinance",
+          "content_type": "footnote_curated",
+          "score": 0.7496
+        },
+        {
+          "id": "footnote_fn_cap279_s47_cancel_register",
+          "source_id": "cap279_education_ordinance",
+          "content_type": "footnote_curated",
+          "score": 0.6326
+        },
+        {
+          "id": "footnote_fn_tpc_2022_representation_14d",
+          "source_id": "edb-guidelines-tpc-2022",
+          "content_type": "footnote_curated",
+          "score": 0.6274
+        },
+        {
+          "id": "vault_sag_2025_11_7da8bf2e5d3112f5",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6254
+        },
+        {
+          "id": "vault_sag_2025_11_621a43b3aae2a0e2",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6157
+        },
+        {
+          "id": "vault_edbc14_2023_student_protect_654e1f2c68b62e77",
+          "source_id": "edbc14_2023_student_protect",
+          "content_type": "vault_extract",
+          "score": 0.6044
+        },
+        {
+          "id": "vault_sag_2025_11_88213a8c47fc8604",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.599
+        },
+        {
+          "id": "vault_edbc14_2023_student_protect_86a46de676f369db",
+          "source_id": "edbc14_2023_student_protect",
+          "content_type": "vault_extract",
+          "score": 0.5932
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "代課准用教員最低學歷要求係咩？",
+      "want_source": "supply_teacher_guide",
+      "lead_source": "supply_teacher_guide",
+      "lead_score": 0.7748,
+      "lead_overlap": 13,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_supply_pt_min_qual",
+          "source_id": "supply_teacher_guide",
+          "content_type": "footnote_curated",
+          "score": 0.7748
+        },
+        {
+          "id": "footnote_fn_prisci_exempt",
+          "source_id": "edbcm58_2024_pri_science",
+          "content_type": "footnote_curated",
+          "score": 0.5081
+        },
+        {
+          "id": "vault_faq_edbc19011_6c0004bed9ba",
+          "source_id": "faq_edbc19011",
+          "content_type": "vault_extract",
+          "score": 0.6252
+        },
+        {
+          "id": "vault_ppt_grad_pri_faq_72fdda030d43",
+          "source_id": "ppt_grad_pri_faq",
+          "content_type": "vault_extract",
+          "score": 0.6211
+        },
+        {
+          "id": "vault_ppt_grad_pri_faq_c219eba046cf",
+          "source_id": "ppt_grad_pri_faq",
+          "content_type": "vault_extract",
+          "score": 0.6053
+        },
+        {
+          "id": "vault_sag_2025_11_4ee4a87b58f45c35",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.5882
+        },
+        {
+          "id": "vault_ppt_grad_pri_policy_36553cb7eb1c",
+          "source_id": "ppt_grad_pri_policy",
+          "content_type": "vault_extract",
+          "score": 0.5873
+        },
+        {
+          "id": "vault_roles_functions_pri_9f677d48a9a8",
+          "source_id": "roles_functions_pri",
+          "content_type": "vault_extract",
+          "score": 0.5804
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "DSS 學校嘅政府資助點計？",
+      "want_source": "edb_dss_overview_25_26",
+      "lead_source": "edb_dss_overview_25_26",
+      "lead_score": 0.7468,
+      "lead_overlap": 7,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_dss_unit_subsidy_233",
+          "source_id": "edb_dss_overview_25_26",
+          "content_type": "footnote_curated",
+          "score": 0.7468
+        },
+        {
+          "id": "footnote_fn_edbc10_2012_exemption_3yr",
+          "source_id": "edbc_10_2012_fee_remission",
+          "content_type": "footnote_curated",
+          "score": 0.6861
+        },
+        {
+          "id": "footnote_fn_dss_s4_unit_cost_basis",
+          "source_id": "edb_ss_section4_dss_subsidy",
+          "content_type": "footnote_curated",
+          "score": 0.7327
+        },
+        {
+          "id": "footnote_fn_edbc10_2012_fr_baseline",
+          "source_id": "edbc_10_2012_fee_remission",
+          "content_type": "footnote_curated",
+          "score": 0.6855
+        },
+        {
+          "id": "footnote_fn_dss_fee_remission_10pct_50c",
+          "source_id": "edb_dss_overview_25_26",
+          "content_type": "footnote_curated",
+          "score": 0.6658
+        },
+        {
+          "id": "footnote_fn_edbc10_2012_smc_imc_transparency",
+          "source_id": "edbc_10_2012_fee_remission",
+          "content_type": "footnote_curated",
+          "score": 0.6568
+        },
+        {
+          "id": "footnote_fn_dss_quality_5yr_review",
+          "source_id": "edb_dss_overview_25_26",
+          "content_type": "footnote_curated",
+          "score": 0.6166
+        },
+        {
+          "id": "footnote_fn_ncs_composite_additional_enrichment",
+          "source_id": "EDBC_4_2026_E",
+          "content_type": "footnote_curated",
+          "score": 0.5697
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "DSS 中學津貼點計？",
+      "want_source": "edb_ss_section4_dss_subsidy",
+      "lead_source": "edb_ss_section4_dss_subsidy",
+      "lead_score": 0.7504,
+      "lead_overlap": 4,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_dss_s4_unit_cost_basis",
+          "source_id": "edb_ss_section4_dss_subsidy",
+          "content_type": "footnote_curated",
+          "score": 0.7504
+        },
+        {
+          "id": "footnote_fn_dss_fee_remission_10pct_50c",
+          "source_id": "edb_dss_overview_25_26",
+          "content_type": "footnote_curated",
+          "score": 0.651
+        },
+        {
+          "id": "footnote_fn_sag_sick_leave",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.6412
+        },
+        {
+          "id": "vault_sag_2025_11_89613258c691eb1e",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6299
+        },
+        {
+          "id": "vault_g04_997df7efd474",
+          "source_id": "g04",
+          "content_type": "vault_extract",
+          "score": 0.6284
+        },
+        {
+          "id": "vault_sag_2025_11_621a43b3aae2a0e2",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6181
+        },
+        {
+          "id": "footnote_fn_dss_unit_subsidy_233",
+          "source_id": "edb_dss_overview_25_26",
+          "content_type": "footnote_curated",
+          "score": 0.616
+        },
+        {
+          "id": "footnote_fn_edbc10_2012_fr_baseline",
+          "source_id": "edbc_10_2012_fee_remission",
+          "content_type": "footnote_curated",
+          "score": 0.6104
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "非華語學生津貼可以用喺咩？",
+      "want_source": "EDBC_8_2020_E",
+      "lead_source": "EDBC_8_2020_E",
+      "lead_score": 0.5894,
+      "lead_overlap": 10,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_ncs_ambit_coordinator",
+          "source_id": "EDBC_8_2020_E",
+          "content_type": "footnote_curated",
+          "score": 0.5894
+        },
+        {
+          "id": "footnote_fn_ncs_sbp_26360_class",
+          "source_id": "EDBCM_79_2025_TC",
+          "content_type": "footnote_curated",
+          "score": 0.5742
+        },
+        {
+          "id": "footnote_fn_sag_sick_leave",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.6862
+        },
+        {
+          "id": "vault_sag_2025_11_621a43b3aae2a0e2",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.658
+        },
+        {
+          "id": "vault_sag_2025_11_7da8bf2e5d3112f5",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6515
+        },
+        {
+          "id": "vault_g04_997df7efd474",
+          "source_id": "g04",
+          "content_type": "vault_extract",
+          "score": 0.6493
+        },
+        {
+          "id": "vault_supply_teacher_guide_73bf843f8cee791e",
+          "source_id": "supply_teacher_guide",
+          "content_type": "vault_extract",
+          "score": 0.581
+        },
+        {
+          "id": "vault_job_sharing_guide_a8ab796eb2c2b76f",
+          "source_id": "job_sharing_guide",
+          "content_type": "vault_extract",
+          "score": 0.5782
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "EV71 確診學校點處理？",
+      "want_source": "chp_prev_cd_schools_2025nov",
+      "lead_source": "chp_prev_cd_schools_2025nov",
+      "lead_score": 0.6594,
+      "lead_overlap": 5,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_chp_hfmd_ev71_2wk",
+          "source_id": "chp_prev_cd_schools_2025nov",
+          "content_type": "footnote_curated",
+          "score": 0.6594
+        },
+        {
+          "id": "vault_g24_a2adf9ba36ee4294",
+          "source_id": "g24",
+          "content_type": "vault_extract",
+          "score": 0.475
+        },
+        {
+          "id": "vault_sch_activities_guide_eb27c1f8e36bca02",
+          "source_id": "sch_activities_guide",
+          "content_type": "vault_extract",
+          "score": 0.4551
+        },
+        {
+          "id": "footnote_fn_chp_ceno_contact",
+          "source_id": "chp_prev_cd_schools_2025nov",
+          "content_type": "footnote_curated",
+          "score": 0.4551
+        },
+        {
+          "id": "vault_sag_2025_11_ae147693c8c6c59b",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.4475
+        },
+        {
+          "id": "vault_g24_9f83241cf1301225",
+          "source_id": "g24",
+          "content_type": "vault_extract",
+          "score": 0.4442
+        },
+        {
+          "id": "vault_sen_exam_arrangements_2025_cfe46ba33a6cdc8e",
+          "source_id": "sen_exam_arrangements_2025",
+          "content_type": "vault_extract",
+          "score": 0.4393
+        },
+        {
+          "id": "vault_g19_e1fd18f8fda2cc85",
+          "source_id": "g19",
+          "content_type": "vault_extract",
+          "score": 0.4379
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "邊啲傳染病要法定通報？",
+      "want_source": "chp_prev_cd_schools_2025nov",
+      "lead_source": "chp_prev_cd_schools_2025nov",
+      "lead_score": 0.7575,
+      "lead_overlap": 9,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_chp_notifiable_diseases_list",
+          "source_id": "chp_prev_cd_schools_2025nov",
+          "content_type": "footnote_curated",
+          "score": 0.7575
+        },
+        {
+          "id": "footnote_fn_chp_ceno_contact",
+          "source_id": "chp_prev_cd_schools_2025nov",
+          "content_type": "footnote_curated",
+          "score": 0.6119
+        },
+        {
+          "id": "vault_kg_operation_manual_2026_79db0e3224c2e315",
+          "source_id": "kg_operation_manual_2026",
+          "content_type": "vault_extract",
+          "score": 0.637
+        },
+        {
+          "id": "footnote_fn_chp_form_routing",
+          "source_id": "chp_notification_form_2025oct",
+          "content_type": "footnote_curated",
+          "score": 0.5823
+        },
+        {
+          "id": "footnote_fn_chp_outbreak_def_3rti_2hfmd",
+          "source_id": "chp_prev_cd_schools_2025nov",
+          "content_type": "footnote_curated",
+          "score": 0.4882
+        },
+        {
+          "id": "vault_g24_9f83241cf1301225",
+          "source_id": "g24",
+          "content_type": "vault_extract",
+          "score": 0.4749
+        },
+        {
+          "id": "vault_geog_jss_b3343f1dd27e52ad",
+          "source_id": "geog_jss",
+          "content_type": "vault_extract",
+          "score": 0.4601
+        },
+        {
+          "id": "vault_bio_sss_2007_2015_21fa0601e69bdb5d",
+          "source_id": "bio_sss_2007_2015",
+          "content_type": "vault_extract",
+          "score": 0.4569
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "書簿津貼申請截止日期係幾時？",
+      "want_source": "wfsfaa_sfaa_household_app_guidance_2526",
+      "lead_source": "wfsfaa_sfaa_household_app_guidance_2526",
+      "lead_score": 0.6436,
+      "lead_overlap": 11,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_sfaa_ta_deadline_31oct",
+          "source_id": "wfsfaa_sfaa_household_app_guidance_2526",
+          "content_type": "footnote_curated",
+          "score": 0.6436
+        },
+        {
+          "id": "footnote_fn_sfaa_overpayment_suspend",
+          "source_id": "wfsfaa_sfaa_household_app_guidance_2526",
+          "content_type": "footnote_curated",
+          "score": 0.5004
+        },
+        {
+          "id": "footnote_fn_sag_sick_leave",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.6632
+        },
+        {
+          "id": "vault_sag_2025_11_621a43b3aae2a0e2",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6422
+        },
+        {
+          "id": "vault_sag_2025_11_89613258c691eb1e",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6376
+        },
+        {
+          "id": "vault_g04_5a60fb781f6f",
+          "source_id": "g04",
+          "content_type": "vault_extract",
+          "score": 0.5976
+        },
+        {
+          "id": "vault_edbc00030_29618c7a4673",
+          "source_id": "edbc00030",
+          "content_type": "vault_extract",
+          "score": 0.5959
+        },
+        {
+          "id": "vault_edbc00030_593704734e32",
+          "source_id": "edbc00030",
+          "content_type": "vault_extract",
+          "score": 0.5925
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "DSS fee remission reserve 過剩 點處理？",
+      "want_source": "edbc_10_2012_fee_remission",
+      "lead_source": "edbc_10_2012_fee_remission",
+      "lead_score": 0.7877,
+      "lead_overlap": 4,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_edbc10_2012_reserve_excess",
+          "source_id": "edbc_10_2012_fee_remission",
+          "content_type": "footnote_curated",
+          "score": 0.7877
+        },
+        {
+          "id": "footnote_fn_edbc10_2012_reserve_halfyr",
+          "source_id": "edbc_10_2012_fee_remission",
+          "content_type": "footnote_curated",
+          "score": 0.7112
+        },
+        {
+          "id": "footnote_fn_dss_fee_remission_10pct_50c",
+          "source_id": "edb_dss_overview_25_26",
+          "content_type": "footnote_curated",
+          "score": 0.6589
+        },
+        {
+          "id": "footnote_fn_edbc10_2012_exemption_3yr",
+          "source_id": "edbc_10_2012_fee_remission",
+          "content_type": "footnote_curated",
+          "score": 0.6329
+        },
+        {
+          "id": "footnote_fn_edbc10_2012_fr_baseline",
+          "source_id": "edbc_10_2012_fee_remission",
+          "content_type": "footnote_curated",
+          "score": 0.6272
+        },
+        {
+          "id": "footnote_fn_edbc10_2012_smc_imc_transparency",
+          "source_id": "edbc_10_2012_fee_remission",
+          "content_type": "footnote_curated",
+          "score": 0.6255
+        },
+        {
+          "id": "footnote_fn_dss_unit_subsidy_233",
+          "source_id": "edb_dss_overview_25_26",
+          "content_type": "footnote_curated",
+          "score": 0.5229
+        },
+        {
+          "id": "footnote_fn_dss_s4_unit_cost_basis",
+          "source_id": "edb_ss_section4_dss_subsidy",
+          "content_type": "footnote_curated",
+          "score": 0.5126
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "NET Grant 剩餘款項點處理？",
+      "want_source": "edb_point_to_note_net_grant_202627",
+      "lead_source": "edb_point_to_note_net_grant_202627",
+      "lead_score": 0.7614,
+      "lead_overlap": 6,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_net_surplus_30pct",
+          "source_id": "edb_point_to_note_net_grant_202627",
+          "content_type": "footnote_curated",
+          "score": 0.7614
+        },
+        {
+          "id": "footnote_fn_ncs_surplus_1yr_cap",
+          "source_id": "EDBC_8_2020_E",
+          "content_type": "footnote_curated",
+          "score": 0.5282
+        },
+        {
+          "id": "footnote_fn_ncs_sen_12mo_cap",
+          "source_id": "EDBC_9_2019_E",
+          "content_type": "footnote_curated",
+          "score": 0.5826
+        },
+        {
+          "id": "footnote_fn_net_grant_900k_1m",
+          "source_id": "edbc_8_2025_net_enhancement",
+          "content_type": "footnote_curated",
+          "score": 0.5634
+        },
+        {
+          "id": "footnote_fn_net_grant_min_1nat",
+          "source_id": "edb_point_to_note_net_grant_202627",
+          "content_type": "footnote_curated",
+          "score": 0.559
+        },
+        {
+          "id": "vault_edbcm073_2026_a8154d3eb659dedd",
+          "source_id": "edbcm073_2026",
+          "content_type": "vault_extract",
+          "score": 0.5433
+        },
+        {
+          "id": "vault_edbcm060_2026_f111a85f4608f1c2",
+          "source_id": "edbcm060_2026",
+          "content_type": "vault_extract",
+          "score": 0.5368
+        },
+        {
+          "id": "vault_coa_pri_e_f1f316bc3e92",
+          "source_id": "coa_pri_e",
+          "content_type": "vault_extract",
+          "score": 0.5352
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "NET 重複津貼點處理？",
+      "want_source": "edbc_8_2009_fringe_benefits",
+      "lead_source": "edbc_8_2009_fringe_benefits",
+      "lead_score": 0.5378,
+      "lead_overlap": 5,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_net_double_benefit",
+          "source_id": "edbc_8_2009_fringe_benefits",
+          "content_type": "footnote_curated",
+          "score": 0.5378
+        },
+        {
+          "id": "vault_sag_2025_11_621a43b3aae2a0e2",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6704
+        },
+        {
+          "id": "vault_sag_2025_11_89613258c691eb1e",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.66
+        },
+        {
+          "id": "vault_sag_2025_11_7da8bf2e5d3112f5",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6547
+        },
+        {
+          "id": "vault_g04_997df7efd474",
+          "source_id": "g04",
+          "content_type": "vault_extract",
+          "score": 0.6523
+        },
+        {
+          "id": "vault_g04_5a60fb781f6f",
+          "source_id": "g04",
+          "content_type": "vault_extract",
+          "score": 0.5983
+        },
+        {
+          "id": "vault_edbc00030_29618c7a4673",
+          "source_id": "edbc00030",
+          "content_type": "vault_extract",
+          "score": 0.5905
+        },
+        {
+          "id": "vault_edbc00030_c86ba60f7dcc",
+          "source_id": "edbc00030",
+          "content_type": "vault_extract",
+          "score": 0.5886
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "校舍保養係邊個負責？",
+      "want_source": "edbc14_2024_spms",
+      "lead_source": "edbc14_2024_spms",
+      "lead_score": 0.7422,
+      "lead_overlap": 8,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_edbc14_2024_cap279a_s5",
+          "source_id": "edbc14_2024_spms",
+          "content_type": "footnote_curated",
+          "score": 0.7422
+        },
+        {
+          "id": "vault_sag_2025_11_76233d07f63e5d69",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.5832
+        },
+        {
+          "id": "vault_sag_2025_11_a0b2539e2b5cd7f6",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.5627
+        },
+        {
+          "id": "vault_sag_2025_11_c6d3660aba1e9d48",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.5353
+        },
+        {
+          "id": "vault_major_repairs_proc_nonestate_72f71c902d551ec0",
+          "source_id": "major_repairs_proc_nonestate",
+          "content_type": "vault_extract",
+          "score": 0.4917
+        },
+        {
+          "id": "footnote_fn_sag_apx_dorm_3day_report",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.4777
+        },
+        {
+          "id": "vault_bip_insurance_notes_2025_c2ba5b5ef62a6496",
+          "source_id": "bip_insurance_notes_2025",
+          "content_type": "vault_extract",
+          "score": 0.4749
+        },
+        {
+          "id": "footnote_fn_sag_apx_cash_300m_10k",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.4464
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "升降機負責人定義（EMSD 官方 one-liner）？",
+      "want_source": "emsd_le_ordinance_landing_tc",
+      "lead_source": "emsd_le_ordinance_landing_tc",
+      "lead_score": 0.862,
+      "lead_overlap": 9,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_emsd_landing_rp_oneliner",
+          "source_id": "emsd_le_ordinance_landing_tc",
+          "content_type": "footnote_curated",
+          "score": 0.862
+        },
+        {
+          "id": "footnote_fn_emsd_rp_duty_12_13",
+          "source_id": "emsd_presentation_duties_rps",
+          "content_type": "footnote_curated",
+          "score": 0.7932
+        },
+        {
+          "id": "footnote_fn_emsd_rp_definition",
+          "source_id": "emsd_presentation_duties_rps",
+          "content_type": "footnote_curated",
+          "score": 0.7529
+        },
+        {
+          "id": "footnote_fn_emsd_serious_incident_24hr",
+          "source_id": "emsd_presentation_duties_rps",
+          "content_type": "footnote_curated",
+          "score": 0.6997
+        },
+        {
+          "id": "footnote_fn_emsd_lift_annual_frequency",
+          "source_id": "emsd_presentation_duties_rps",
+          "content_type": "footnote_curated",
+          "score": 0.667
+        },
+        {
+          "id": "footnote_fn_emsd_use_permit_display",
+          "source_id": "emsd_presentation_duties_rps",
+          "content_type": "footnote_curated",
+          "score": 0.6313
+        },
+        {
+          "id": "vault_safety_mgmt_committee_27c4367efbb5b10b",
+          "source_id": "safety_mgmt_committee",
+          "content_type": "vault_extract",
+          "score": 0.4358
+        },
+        {
+          "id": "vault_sag_2025_11_f4fea12d9a45b8c6",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.41
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "非標準項目收費 7 個條件（毋須事先批准）？",
+      "want_source": "sag_2025_11",
+      "lead_source": "sag_2025_11",
+      "lead_score": 0.7446,
+      "lead_overlap": 15,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_sag_apx_non_std_fee_7cond",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.7446
+        },
+        {
+          "id": "footnote_fn_sag_apx_fees_fines_table",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.4668
+        },
+        {
+          "id": "vault_coa_ss_e_8d388f4a4dca",
+          "source_id": "coa_ss_e",
+          "content_type": "vault_extract",
+          "score": 0.5313
+        },
+        {
+          "id": "vault_g24_d6cf601b1be12e97",
+          "source_id": "g24",
+          "content_type": "vault_extract",
+          "score": 0.5273
+        },
+        {
+          "id": "vault_g24_183cba493a5822d1",
+          "source_id": "g24",
+          "content_type": "vault_extract",
+          "score": 0.5249
+        },
+        {
+          "id": "vault_icac_school_governance_83adf92ab988ecd8",
+          "source_id": "icac_school_governance",
+          "content_type": "vault_extract",
+          "score": 0.5243
+        },
+        {
+          "id": "vault_icac_school_governance_3b0ff046987d2898",
+          "source_id": "icac_school_governance",
+          "content_type": "vault_extract",
+          "score": 0.5224
+        },
+        {
+          "id": "vault_coa_pri_e_673a16a842ac",
+          "source_id": "coa_pri_e",
+          "content_type": "vault_extract",
+          "score": 0.521
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "學校代收費用係咪一定要逐筆即時開正式收據（official receipt）？",
+      "want_source": "sag_2025_11",
+      "lead_source": "sag_2025_11",
+      "lead_score": 0.8114,
+      "lead_overlap": 18,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_sag_receipt",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.8114
+        },
+        {
+          "id": "footnote_fn_sag_apx_fees_fines_table",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.5824
+        },
+        {
+          "id": "vault_g01_526fe089b707001e",
+          "source_id": "g01",
+          "content_type": "vault_extract",
+          "score": 0.6593
+        },
+        {
+          "id": "vault_fin_mgmt_notes_aided_6bd8d6b33a19d3b2",
+          "source_id": "fin_mgmt_notes_aided",
+          "content_type": "vault_extract",
+          "score": 0.6514
+        },
+        {
+          "id": "vault_g01_7c2b5af7e98a2f1a",
+          "source_id": "g01",
+          "content_type": "vault_extract",
+          "score": 0.6366
+        },
+        {
+          "id": "vault_g01_166ade0c624040d1",
+          "source_id": "g01",
+          "content_type": "vault_extract",
+          "score": 0.6315
+        },
+        {
+          "id": "vault_fin_mgmt_notes_aided_7e84bb9e69b8f8e0",
+          "source_id": "fin_mgmt_notes_aided",
+          "content_type": "vault_extract",
+          "score": 0.6135
+        },
+        {
+          "id": "vault_g02_6e9b68d2288469a1",
+          "source_id": "g02",
+          "content_type": "vault_extract",
+          "score": 0.6079
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "法團校董會學校自己做生意／經營業務（例如小賣部）賺到嘅錢可以點用？",
+      "want_source": "imc_establishment_operation",
+      "lead_source": "imc_establishment_operation",
+      "lead_score": 0.8338,
+      "lead_overlap": 27,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_imc_99b",
+          "source_id": "imc_establishment_operation",
+          "content_type": "footnote_curated",
+          "score": 0.8338
+        },
+        {
+          "id": "footnote_fn_imc_tax_exempt_s88",
+          "source_id": "imc_establishment_operation",
+          "content_type": "footnote_curated",
+          "score": 0.604
+        },
+        {
+          "id": "vault_g02_244bab9f4ec724c5",
+          "source_id": "g02",
+          "content_type": "vault_extract",
+          "score": 0.78
+        },
+        {
+          "id": "vault_imc_briefing_qa_b6ac0458f6897905",
+          "source_id": "imc_briefing_qa",
+          "content_type": "vault_extract",
+          "score": 0.732
+        },
+        {
+          "id": "vault_imc_governance_supplements_0736ffbe99a6f5b6",
+          "source_id": "imc_governance_supplements",
+          "content_type": "vault_extract",
+          "score": 0.7042
+        },
+        {
+          "id": "vault_imc_governance_supplements_19f3c1707aed46b9",
+          "source_id": "imc_governance_supplements",
+          "content_type": "vault_extract",
+          "score": 0.7002
+        },
+        {
+          "id": "vault_imc_establishment_operation_5abb291a1d697f06",
+          "source_id": "imc_establishment_operation",
+          "content_type": "vault_extract",
+          "score": 0.6979
+        },
+        {
+          "id": "vault_imc_briefing_qa_bf8b311991393b19",
+          "source_id": "imc_briefing_qa",
+          "content_type": "vault_extract",
+          "score": 0.6967
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "代課教師離職／走咗一段時間之後再請，要唔要重新查案底（刑事定罪紀錄）？",
+      "want_source": "supply_teacher_guide",
+      "lead_source": "supply_teacher_guide",
+      "lead_score": 0.8091,
+      "lead_overlap": 29,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_supply_oneyear",
+          "source_id": "supply_teacher_guide",
+          "content_type": "footnote_curated",
+          "score": 0.8091
+        },
+        {
+          "id": "footnote_fn_sag_apx_teacher_misconduct_proc",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.5795
+        },
+        {
+          "id": "vault_supply_teacher_guide_dcbdce2e3ff6cfb3",
+          "source_id": "supply_teacher_guide",
+          "content_type": "vault_extract",
+          "score": 0.678
+        },
+        {
+          "id": "vault_supply_teacher_guide_3e0e6985fb38d2fd",
+          "source_id": "supply_teacher_guide",
+          "content_type": "vault_extract",
+          "score": 0.6737
+        },
+        {
+          "id": "vault_edbc14_2023_student_protect_654e1f2c68b62e77",
+          "source_id": "edbc14_2023_student_protect",
+          "content_type": "vault_extract",
+          "score": 0.6585
+        },
+        {
+          "id": "vault_sag_2025_11_7da8bf2e5d3112f5",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6582
+        },
+        {
+          "id": "vault_edbc14_2023_student_protect_91e779f01aeafaa6",
+          "source_id": "edbc14_2023_student_protect",
+          "content_type": "vault_extract",
+          "score": 0.6507
+        },
+        {
+          "id": "vault_g04_5a60fb781f6f",
+          "source_id": "g04",
+          "content_type": "vault_extract",
+          "score": 0.6443
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "成立咗法團校董會之後跟邊套則例？",
+      "want_source": "coa_imc_1_19",
+      "lead_source": "coa_imc_1_19",
+      "lead_score": 0.7149,
+      "lead_overlap": 14,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_coa_imc_apply",
+          "source_id": "coa_imc_1_19",
+          "content_type": "footnote_curated",
+          "score": 0.7149
+        },
+        {
+          "id": "footnote_fn_imc_tax_exempt_s88",
+          "source_id": "imc_establishment_operation",
+          "content_type": "footnote_curated",
+          "score": 0.579
+        },
+        {
+          "id": "vault_imc_briefing_qa_b6ac0458f6897905",
+          "source_id": "imc_briefing_qa",
+          "content_type": "vault_extract",
+          "score": 0.737
+        },
+        {
+          "id": "vault_imc_briefing_qa_30fe3d08cc7b6267",
+          "source_id": "imc_briefing_qa",
+          "content_type": "vault_extract",
+          "score": 0.7281
+        },
+        {
+          "id": "vault_imc_establishment_operation_a1fd7e792c5fdf94",
+          "source_id": "imc_establishment_operation",
+          "content_type": "vault_extract",
+          "score": 0.7001
+        },
+        {
+          "id": "vault_imc_briefing_qa_471d4c1fbb62e9c0",
+          "source_id": "imc_briefing_qa",
+          "content_type": "vault_extract",
+          "score": 0.6812
+        },
+        {
+          "id": "vault_imc_governance_supplements_5203579dd227734e",
+          "source_id": "imc_governance_supplements",
+          "content_type": "vault_extract",
+          "score": 0.6786
+        },
+        {
+          "id": "vault_imc_establishment_operation_736f8129b51d8677",
+          "source_id": "imc_establishment_operation",
+          "content_type": "vault_extract",
+          "score": 0.6679
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "幾多 percent 學生病要停課？",
+      "want_source": "chp_prev_cd_schools_2025nov",
+      "lead_source": "chp_prev_cd_schools_2025nov",
+      "lead_score": 0.6906,
+      "lead_overlap": 7,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_chp_class_closure_ili_20pct",
+          "source_id": "chp_prev_cd_schools_2025nov",
+          "content_type": "footnote_curated",
+          "score": 0.6906
+        },
+        {
+          "id": "footnote_fn_chp_sick_leave_diseases",
+          "source_id": "chp_prev_cd_schools_2025nov",
+          "content_type": "footnote_curated",
+          "score": 0.4858
+        },
+        {
+          "id": "vault_g24_8109aef5161801fa",
+          "source_id": "g24",
+          "content_type": "vault_extract",
+          "score": 0.5072
+        },
+        {
+          "id": "vault_g24_9f83241cf1301225",
+          "source_id": "g24",
+          "content_type": "vault_extract",
+          "score": 0.4996
+        },
+        {
+          "id": "vault_g24_0df10f40af049d6c",
+          "source_id": "g24",
+          "content_type": "vault_extract",
+          "score": 0.4943
+        },
+        {
+          "id": "vault_g23_4bbbde24e6869dde",
+          "source_id": "g23",
+          "content_type": "vault_extract",
+          "score": 0.4931
+        },
+        {
+          "id": "vault_edbc_tropical_cyclone_day_3326b0451ce894e3",
+          "source_id": "edbc_tropical_cyclone_day",
+          "content_type": "vault_extract",
+          "score": 0.4899
+        },
+        {
+          "id": "vault_edbc_tropical_cyclone_night_d85129b48637a5d0",
+          "source_id": "edbc_tropical_cyclone_night",
+          "content_type": "vault_extract",
+          "score": 0.4891
+        }
+      ]
+    },
+    {
+      "class": "positive",
+      "query": "員工檔案資料保存期 1 年 / 2 年 / 7 年？",
+      "want_source": "sag_2025_11",
+      "lead_source": "sag_2025_11",
+      "lead_score": 0.7435,
+      "lead_overlap": 10,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_sag_apx_staff_record_retention",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.7435
+        },
+        {
+          "id": "vault_g24_08b170bdee5c7899",
+          "source_id": "g24",
+          "content_type": "vault_extract",
+          "score": 0.5984
+        },
+        {
+          "id": "vault_g24_b1f352c157ed8c25",
+          "source_id": "g24",
+          "content_type": "vault_extract",
+          "score": 0.5384
+        },
+        {
+          "id": "vault_edbcm094_2026_bc8730e264bc606d",
+          "source_id": "edbcm094_2026",
+          "content_type": "vault_extract",
+          "score": 0.5288
+        },
+        {
+          "id": "vault_g04_5a60fb781f6f",
+          "source_id": "g04",
+          "content_type": "vault_extract",
+          "score": 0.4775
+        },
+        {
+          "id": "vault_kg_admin_guide_2026_1a2c40a0ea0fd135",
+          "source_id": "kg_admin_guide_2026",
+          "content_type": "vault_extract",
+          "score": 0.4492
+        },
+        {
+          "id": "footnote_fn_sag_apx_sick_leave_28_48_168",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.4314
+        },
+        {
+          "id": "vault_edbc00030_aeb3e7ce1cfd",
+          "source_id": "edbc00030",
+          "content_type": "vault_extract",
+          "score": 0.4282
+        }
+      ]
+    },
+    {
+      "class": "plausible_gap",
+      "query": "校長退休金點樣計",
+      "lead_source": null,
+      "lead_score": null,
+      "lead_overlap": null,
+      "kept": false,
+      "window": [
+        {
+          "id": "vault_sag_2025_11_d3ac67ec62521aa2",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.5462
+        },
+        {
+          "id": "vault_g24_6b7d34eeb4ac603d",
+          "source_id": "g24",
+          "content_type": "vault_extract",
+          "score": 0.5121
+        },
+        {
+          "id": "vault_sag_2025_11_2d4e1d1c14b4d870",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.5086
+        },
+        {
+          "id": "vault_long_service_payment_guide_dbd86e38f3ea3992",
+          "source_id": "long_service_payment_guide",
+          "content_type": "vault_extract",
+          "score": 0.4889
+        },
+        {
+          "id": "footnote_fn_lsp_calc",
+          "source_id": "long_service_payment_guide",
+          "content_type": "footnote_curated",
+          "score": 0.4813
+        },
+        {
+          "id": "vault_long_service_payment_guide_25e1299977b0dc33",
+          "source_id": "long_service_payment_guide",
+          "content_type": "vault_extract",
+          "score": 0.4778
+        },
+        {
+          "id": "vault_kg_admin_guide_2026_1e619ba1f349c446",
+          "source_id": "kg_admin_guide_2026",
+          "content_type": "vault_extract",
+          "score": 0.474
+        },
+        {
+          "id": "vault_edbcm060_2026_f111a85f4608f1c2",
+          "source_id": "edbcm060_2026",
+          "content_type": "vault_extract",
+          "score": 0.4732
+        }
+      ]
+    },
+    {
+      "class": "plausible_gap",
+      "query": "學校泳池水質檢測標準係咩",
+      "lead_source": null,
+      "lead_score": null,
+      "lead_overlap": null,
+      "kept": false,
+      "window": [
+        {
+          "id": "vault_g23_d7fa5ab7ad5aacf5",
+          "source_id": "g23",
+          "content_type": "vault_extract",
+          "score": 0.5447
+        },
+        {
+          "id": "vault_g23_485e3742cac8b0da",
+          "source_id": "g23",
+          "content_type": "vault_extract",
+          "score": 0.5189
+        },
+        {
+          "id": "vault_g23_ffb32e321fdcbe80",
+          "source_id": "g23",
+          "content_type": "vault_extract",
+          "score": 0.5076
+        },
+        {
+          "id": "vault_g20_4795cdca5dce",
+          "source_id": "g20",
+          "content_type": "vault_extract",
+          "score": 0.4306
+        },
+        {
+          "id": "vault_eng_lit_guide_2023_38e2b1f7fcee4b49",
+          "source_id": "eng_lit_guide_2023",
+          "content_type": "vault_extract",
+          "score": 0.4219
+        },
+        {
+          "id": "vault_sch_activities_guide_5780a50abd0c1dff",
+          "source_id": "sch_activities_guide",
+          "content_type": "vault_extract",
+          "score": 0.4168
+        },
+        {
+          "id": "footnote_fn_chp_bleach_dilution",
+          "source_id": "chp_prev_cd_schools_2025nov",
+          "content_type": "footnote_curated",
+          "score": 0.4135
+        },
+        {
+          "id": "vault_g07_6aa76c7ca2ddd5a9",
+          "source_id": "g07",
+          "content_type": "vault_extract",
+          "score": 0.4115
+        }
+      ]
+    },
+    {
+      "class": "plausible_gap",
+      "query": "校巴司機最低工資係幾多",
+      "lead_source": null,
+      "lead_score": null,
+      "lead_overlap": null,
+      "kept": false,
+      "window": [
+        {
+          "id": "vault_sch_bus_drivers_2026_c9710348e6909d79",
+          "source_id": "sch_bus_drivers_2026",
+          "content_type": "vault_extract",
+          "score": 0.7001
+        },
+        {
+          "id": "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+          "source_id": "sch_bus_parents_2026",
+          "content_type": "vault_extract",
+          "score": 0.6897
+        },
+        {
+          "id": "vault_g18_1e14759e2084c65d",
+          "source_id": "g18",
+          "content_type": "vault_extract",
+          "score": 0.682
+        },
+        {
+          "id": "vault_sch_bus_operators_2026_1f4f280cc236eb42",
+          "source_id": "sch_bus_operators_2026",
+          "content_type": "vault_extract",
+          "score": 0.6777
+        },
+        {
+          "id": "vault_sch_bus_parents_2026_39825d85c03f9636",
+          "source_id": "sch_bus_parents_2026",
+          "content_type": "vault_extract",
+          "score": 0.67
+        },
+        {
+          "id": "vault_sch_bus_drivers_2026_6f8077cec6ef2312",
+          "source_id": "sch_bus_drivers_2026",
+          "content_type": "vault_extract",
+          "score": 0.6626
+        },
+        {
+          "id": "vault_sch_bus_parents_2026_a737e4d6a29ad3b4",
+          "source_id": "sch_bus_parents_2026",
+          "content_type": "vault_extract",
+          "score": 0.6103
+        }
+      ]
+    },
+    {
+      "class": "plausible_gap",
+      "query": "學生喺校內可以用手機幾耐",
+      "lead_source": null,
+      "lead_score": null,
+      "lead_overlap": null,
+      "kept": false,
+      "window": [
+        {
+          "id": "vault_sag_2025_11_faa4346093cf028a",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.4455
+        },
+        {
+          "id": "vault_g23_da23df82a30d1732",
+          "source_id": "g23",
+          "content_type": "vault_extract",
+          "score": 0.4449
+        },
+        {
+          "id": "vault_gifted_ge_series_c9b4e0a4e2032e8c",
+          "source_id": "gifted_ge_series",
+          "content_type": "vault_extract",
+          "score": 0.4432
+        },
+        {
+          "id": "vault_sag_2025_11_8c02e2efa2fcaf60",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.4428
+        },
+        {
+          "id": "vault_edbcm073_2026_94ddfc63ac35f290",
+          "source_id": "edbcm073_2026",
+          "content_type": "vault_extract",
+          "score": 0.4416
+        },
+        {
+          "id": "vault_g16_902f067a469d4ebe",
+          "source_id": "g16",
+          "content_type": "vault_extract",
+          "score": 0.4352
+        },
+        {
+          "id": "vault_gifted_ge_series_ef7e9bcb74ecf2f0",
+          "source_id": "gifted_ge_series",
+          "content_type": "vault_extract",
+          "score": 0.4322
+        },
+        {
+          "id": "vault_sen_exam_arrangements_2025_f85ad781a6653c43",
+          "source_id": "sen_exam_arrangements_2025",
+          "content_type": "vault_extract",
+          "score": 0.4309
+        }
+      ]
+    },
+    {
+      "class": "plausible_gap",
+      "query": "課室冷氣應該調到幾多度",
+      "lead_source": null,
+      "lead_score": null,
+      "lead_overlap": null,
+      "kept": false,
+      "window": [
+        {
+          "id": "vault_lab_prep_room_aircon_02ce57c0eacf2d57",
+          "source_id": "lab_prep_room_aircon",
+          "content_type": "vault_extract",
+          "score": 0.5012
+        },
+        {
+          "id": "vault_lab_prep_room_aircon_a95ede0dcd18141e",
+          "source_id": "lab_prep_room_aircon",
+          "content_type": "vault_extract",
+          "score": 0.4912
+        },
+        {
+          "id": "vault_lab_prep_room_aircon_1ee6d676af929d6f",
+          "source_id": "lab_prep_room_aircon",
+          "content_type": "vault_extract",
+          "score": 0.4812
+        },
+        {
+          "id": "footnote_fn_ac_special_room_cap",
+          "source_id": "ac_grant_2026",
+          "content_type": "footnote_curated",
+          "score": 0.4769
+        },
+        {
+          "id": "footnote_fn_ac_rates_2627",
+          "source_id": "ac_grant_2026",
+          "content_type": "footnote_curated",
+          "score": 0.4639
+        },
+        {
+          "id": "footnote_fn_ac_equiv_formula",
+          "source_id": "ac_grant_2026",
+          "content_type": "footnote_curated",
+          "score": 0.4407
+        },
+        {
+          "id": "vault_edbcm_major_repairs_grant_448dbf8287a6c7a2",
+          "source_id": "edbcm_major_repairs_grant",
+          "content_type": "vault_extract",
+          "score": 0.4285
+        },
+        {
+          "id": "vault_sch_activities_guide_12196f7f9b21f313",
+          "source_id": "sch_activities_guide",
+          "content_type": "vault_extract",
+          "score": 0.4245
+        }
+      ]
+    },
+    {
+      "class": "plausible_gap",
+      "query": "教師每年可以請幾多日大假",
+      "lead_source": "sag_2025_11",
+      "lead_score": 0.6005,
+      "lead_overlap": 5,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_sag_sick_leave",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.6005
+        },
+        {
+          "id": "footnote_fn_sag_apx_sick_leave_28_48_168",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.5663
+        },
+        {
+          "id": "vault_g11_a05f64ae624ebcbd",
+          "source_id": "g11",
+          "content_type": "vault_extract",
+          "score": 0.6127
+        },
+        {
+          "id": "footnote_fn_sag_annual_urgent_leave",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.6115
+        },
+        {
+          "id": "vault_g04_997df7efd474",
+          "source_id": "g04",
+          "content_type": "vault_extract",
+          "score": 0.5937
+        },
+        {
+          "id": "vault_sag_2025_11_7da8bf2e5d3112f5",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.5825
+        },
+        {
+          "id": "vault_g11_063f92a3d73caa64",
+          "source_id": "g11",
+          "content_type": "vault_extract",
+          "score": 0.5818
+        },
+        {
+          "id": "vault_job_sharing_guide_a8ab796eb2c2b76f",
+          "source_id": "job_sharing_guide",
+          "content_type": "vault_extract",
+          "score": 0.5779
+        }
+      ]
+    },
+    {
+      "class": "plausible_gap",
+      "query": "學校每堂補習費可以收幾多",
+      "lead_source": "ceg_calc_2026",
+      "lead_score": 0.5206,
+      "lead_overlap": 2,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_ceg_no_tutorial",
+          "source_id": "ceg_calc_2026",
+          "content_type": "footnote_curated",
+          "score": 0.5206
+        },
+        {
+          "id": "vault_edbc015_2026_f00a47aaad63c7b5",
+          "source_id": "edbc015_2026",
+          "content_type": "vault_extract",
+          "score": 0.5879
+        },
+        {
+          "id": "footnote_fn_sag_apx_fees_fines_table",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.567
+        },
+        {
+          "id": "vault_sag_2025_11_314cbba7a1032847",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.5653
+        },
+        {
+          "id": "vault_sag_2025_11_a15883e9dd903eb8",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.555
+        },
+        {
+          "id": "fact_role_facts_hr_af3dec0c2fd6f9da",
+          "source_id": "role_facts_hr",
+          "content_type": "approved_fact",
+          "score": 0.5544
+        },
+        {
+          "id": "vault_edbc015_2026_f49102e6ba7f7d22",
+          "source_id": "edbc015_2026",
+          "content_type": "vault_extract",
+          "score": 0.5507
+        },
+        {
+          "id": "vault_edbc015_2026_eb9068b4c34eacef",
+          "source_id": "edbc015_2026",
+          "content_type": "vault_extract",
+          "score": 0.5471
+        }
+      ]
+    },
+    {
+      "class": "plausible_gap",
+      "query": "解僱教師要俾幾多個月遣散費",
+      "lead_source": "long_service_payment_guide",
+      "lead_score": 0.5585,
+      "lead_overlap": 2,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_lsp_calc",
+          "source_id": "long_service_payment_guide",
+          "content_type": "footnote_curated",
+          "score": 0.5585
+        },
+        {
+          "id": "footnote_fn_sag_sick_leave",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.4811
+        },
+        {
+          "id": "footnote_fn_sag_apx_sick_leave_28_48_168",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.6967
+        },
+        {
+          "id": "vault_g04_997df7efd474",
+          "source_id": "g04",
+          "content_type": "vault_extract",
+          "score": 0.6942
+        },
+        {
+          "id": "vault_sag_2025_11_7da8bf2e5d3112f5",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6501
+        },
+        {
+          "id": "vault_sag_2025_11_621a43b3aae2a0e2",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6218
+        },
+        {
+          "id": "vault_supply_teacher_guide_dcbdce2e3ff6cfb3",
+          "source_id": "supply_teacher_guide",
+          "content_type": "vault_extract",
+          "score": 0.5791
+        },
+        {
+          "id": "vault_g04_638c01bf30ac",
+          "source_id": "g04",
+          "content_type": "vault_extract",
+          "score": 0.5759
+        }
+      ]
+    },
+    {
+      "class": "plausible_gap",
+      "query": "學校可唔可以借錢俾教職員",
+      "lead_source": "ceg_calc_2026",
+      "lead_score": 0.5806,
+      "lead_overlap": 3,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_ceg_no_tutorial",
+          "source_id": "ceg_calc_2026",
+          "content_type": "footnote_curated",
+          "score": 0.5806
+        },
+        {
+          "id": "vault_icac_school_governance_05bccfbed977d5be",
+          "source_id": "icac_school_governance",
+          "content_type": "vault_extract",
+          "score": 0.6153
+        },
+        {
+          "id": "vault_edbcm089_2026_e02eb370b5c1f285",
+          "source_id": "edbcm089_2026",
+          "content_type": "vault_extract",
+          "score": 0.5739
+        },
+        {
+          "id": "vault_sag_2025_11_a83feb63f07b72ae",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.573
+        },
+        {
+          "id": "vault_kg_admin_guide_2026_282ea08ba4739020",
+          "source_id": "kg_admin_guide_2026",
+          "content_type": "vault_extract",
+          "score": 0.571
+        },
+        {
+          "id": "vault_g24_9d9d6451687dcd20",
+          "source_id": "g24",
+          "content_type": "vault_extract",
+          "score": 0.5693
+        },
+        {
+          "id": "vault_icac_school_governance_86fce12915ae4093",
+          "source_id": "icac_school_governance",
+          "content_type": "vault_extract",
+          "score": 0.5689
+        },
+        {
+          "id": "vault_kg_operation_manual_2026_f986828df773a13b",
+          "source_id": "kg_operation_manual_2026",
+          "content_type": "vault_extract",
+          "score": 0.5688
+        }
+      ]
+    },
+    {
+      "class": "plausible_gap",
+      "query": "教師評核幾多分先算合格",
+      "lead_source": "icac_school_governance",
+      "lead_score": 0.5058,
+      "lead_overlap": 2,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_icac_appraisal",
+          "source_id": "icac_school_governance",
+          "content_type": "footnote_curated",
+          "score": 0.5058
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_b6f13092bc306a19",
+          "source_id": "chi_edu_curr_docs",
+          "content_type": "vault_extract",
+          "score": 0.662
+        },
+        {
+          "id": "vault_phys_sss_2007_2015_358d7136775b4166",
+          "source_id": "phys_sss_2007_2015",
+          "content_type": "vault_extract",
+          "score": 0.6591
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_6f88fb12eecc489e",
+          "source_id": "chi_edu_curr_docs",
+          "content_type": "vault_extract",
+          "score": 0.6535
+        },
+        {
+          "id": "vault_ict_sss_2021_56acde258ea49030",
+          "source_id": "ict_sss_2021",
+          "content_type": "vault_extract",
+          "score": 0.644
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_a761731143286b29",
+          "source_id": "chi_edu_curr_docs",
+          "content_type": "vault_extract",
+          "score": 0.6334
+        },
+        {
+          "id": "vault_history_jss_2019_338b8db50c5f9dcd",
+          "source_id": "history_jss_2019",
+          "content_type": "vault_extract",
+          "score": 0.6333
+        },
+        {
+          "id": "vault_phys_sss_2007_2015_6986b5c979377f45",
+          "source_id": "phys_sss_2007_2015",
+          "content_type": "vault_extract",
+          "score": 0.6311
+        }
+      ]
+    },
+    {
+      "class": "s196",
+      "query": "校巴營辦商責任",
+      "lead_source": null,
+      "lead_score": null,
+      "lead_overlap": null,
+      "kept": false,
+      "window": [
+        {
+          "id": "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+          "source_id": "sch_bus_parents_2026",
+          "content_type": "vault_extract",
+          "score": 0.7725
+        },
+        {
+          "id": "vault_sch_bus_drivers_2026_c9710348e6909d79",
+          "source_id": "sch_bus_drivers_2026",
+          "content_type": "vault_extract",
+          "score": 0.755
+        },
+        {
+          "id": "vault_g18_1696a94590f2d252",
+          "source_id": "g18",
+          "content_type": "vault_extract",
+          "score": 0.7543
+        },
+        {
+          "id": "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+          "source_id": "sch_bus_escorts_2026",
+          "content_type": "vault_extract",
+          "score": 0.7497
+        },
+        {
+          "id": "vault_g18_1e14759e2084c65d",
+          "source_id": "g18",
+          "content_type": "vault_extract",
+          "score": 0.7244
+        },
+        {
+          "id": "vault_sch_bus_parents_2026_d4b15e4381a93712",
+          "source_id": "sch_bus_parents_2026",
+          "content_type": "vault_extract",
+          "score": 0.7211
+        },
+        {
+          "id": "vault_sch_bus_parents_2026_39825d85c03f9636",
+          "source_id": "sch_bus_parents_2026",
+          "content_type": "vault_extract",
+          "score": 0.717
+        },
+        {
+          "id": "vault_sch_bus_operators_2026_1f4f280cc236eb42",
+          "source_id": "sch_bus_operators_2026",
+          "content_type": "vault_extract",
+          "score": 0.714
+        }
+      ]
+    },
+    {
+      "class": "s196",
+      "query": "校車營辦商",
+      "lead_source": null,
+      "lead_score": null,
+      "lead_overlap": null,
+      "kept": false,
+      "window": [
+        {
+          "id": "vault_sch_bus_operators_2026_091b41a86b342008",
+          "source_id": "sch_bus_operators_2026",
+          "content_type": "vault_extract",
+          "score": 0.7734
+        },
+        {
+          "id": "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+          "source_id": "sch_bus_escorts_2026",
+          "content_type": "vault_extract",
+          "score": 0.7634
+        },
+        {
+          "id": "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+          "source_id": "sch_bus_parents_2026",
+          "content_type": "vault_extract",
+          "score": 0.7619
+        },
+        {
+          "id": "vault_sch_bus_operators_2026_fb9a7e011373f8dc",
+          "source_id": "sch_bus_operators_2026",
+          "content_type": "vault_extract",
+          "score": 0.7494
+        },
+        {
+          "id": "vault_g18_ba03811c1c48f797",
+          "source_id": "g18",
+          "content_type": "vault_extract",
+          "score": 0.7377
+        },
+        {
+          "id": "vault_g18_1696a94590f2d252",
+          "source_id": "g18",
+          "content_type": "vault_extract",
+          "score": 0.7356
+        },
+        {
+          "id": "vault_sch_bus_drivers_2026_901050e0b0657fe8",
+          "source_id": "sch_bus_drivers_2026",
+          "content_type": "vault_extract",
+          "score": 0.7339
+        },
+        {
+          "id": "vault_sch_bus_drivers_2026_c9710348e6909d79",
+          "source_id": "sch_bus_drivers_2026",
+          "content_type": "vault_extract",
+          "score": 0.733
+        }
+      ]
+    },
+    {
+      "class": "s196",
+      "query": "校巴營辦商有咩責任",
+      "lead_source": null,
+      "lead_score": null,
+      "lead_overlap": null,
+      "kept": false,
+      "window": [
+        {
+          "id": "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+          "source_id": "sch_bus_parents_2026",
+          "content_type": "vault_extract",
+          "score": 0.7775
+        },
+        {
+          "id": "vault_g18_1696a94590f2d252",
+          "source_id": "g18",
+          "content_type": "vault_extract",
+          "score": 0.7619
+        },
+        {
+          "id": "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+          "source_id": "sch_bus_escorts_2026",
+          "content_type": "vault_extract",
+          "score": 0.7518
+        },
+        {
+          "id": "vault_sch_bus_drivers_2026_c9710348e6909d79",
+          "source_id": "sch_bus_drivers_2026",
+          "content_type": "vault_extract",
+          "score": 0.7518
+        },
+        {
+          "id": "vault_sch_bus_parents_2026_d4b15e4381a93712",
+          "source_id": "sch_bus_parents_2026",
+          "content_type": "vault_extract",
+          "score": 0.7412
+        },
+        {
+          "id": "vault_g18_1e14759e2084c65d",
+          "source_id": "g18",
+          "content_type": "vault_extract",
+          "score": 0.7284
+        },
+        {
+          "id": "vault_sch_bus_parents_2026_39825d85c03f9636",
+          "source_id": "sch_bus_parents_2026",
+          "content_type": "vault_extract",
+          "score": 0.7205
+        },
+        {
+          "id": "vault_sch_bus_drivers_2026_6f8077cec6ef2312",
+          "source_id": "sch_bus_drivers_2026",
+          "content_type": "vault_extract",
+          "score": 0.7178
+        }
+      ]
+    },
+    {
+      "class": "answerable",
+      "query": "幼稚園每班最多可以收幾多個學生",
+      "lead_source": "kg_operation_manual_2026",
+      "lead_score": 0.7213,
+      "lead_overlap": 10,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_kgop_classroom",
+          "source_id": "kg_operation_manual_2026",
+          "content_type": "footnote_curated",
+          "score": 0.7213
+        },
+        {
+          "id": "footnote_fn_kgop_teacher_onduty",
+          "source_id": "kg_operation_manual_2026",
+          "content_type": "footnote_curated",
+          "score": 0.6795
+        },
+        {
+          "id": "vault_g25_a3d58093313d",
+          "source_id": "g25",
+          "content_type": "vault_extract",
+          "score": 0.6059
+        },
+        {
+          "id": "footnote_fn_kgadmin_rent_sept",
+          "source_id": "kg_admin_guide_2026",
+          "content_type": "footnote_curated",
+          "score": 0.5787
+        },
+        {
+          "id": "vault_g29_9c80adb0c6d025c6",
+          "source_id": "g29",
+          "content_type": "vault_extract",
+          "score": 0.5738
+        },
+        {
+          "id": "vault_g29_54a276c794731206",
+          "source_id": "g29",
+          "content_type": "vault_extract",
+          "score": 0.568
+        },
+        {
+          "id": "footnote_fn_kgadmin_utilrate",
+          "source_id": "kg_admin_guide_2026",
+          "content_type": "footnote_curated",
+          "score": 0.567
+        },
+        {
+          "id": "footnote_fn_k1_appfee",
+          "source_id": "k1_admission_2627",
+          "content_type": "footnote_curated",
+          "score": 0.5604
+        }
+      ]
+    },
+    {
+      "class": "answerable",
+      "query": "老師病假連續請幾耐先要交醫生紙",
+      "lead_source": "sag_2025_11",
+      "lead_score": 0.5622,
+      "lead_overlap": 3,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_sag_sick_leave",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.5622
+        },
+        {
+          "id": "footnote_fn_sag_apx_sick_leave_28_48_168",
+          "source_id": "sag_2025_11",
+          "content_type": "footnote_curated",
+          "score": 0.5546
+        },
+        {
+          "id": "vault_g04_997df7efd474",
+          "source_id": "g04",
+          "content_type": "vault_extract",
+          "score": 0.7003
+        },
+        {
+          "id": "vault_sag_2025_11_7da8bf2e5d3112f5",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6942
+        },
+        {
+          "id": "vault_sag_2025_11_621a43b3aae2a0e2",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6747
+        },
+        {
+          "id": "vault_sag_2025_11_89613258c691eb1e",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6271
+        },
+        {
+          "id": "vault_g04_5a60fb781f6f",
+          "source_id": "g04",
+          "content_type": "vault_extract",
+          "score": 0.6048
+        },
+        {
+          "id": "vault_coa_pri_e_cedfb19513c8",
+          "source_id": "coa_pri_e",
+          "content_type": "vault_extract",
+          "score": 0.5799
+        }
+      ]
+    },
+    {
+      "class": "answerable",
+      "query": "校服供應商招標要幾多間報價",
+      "lead_source": "subvention_tips",
+      "lead_score": 0.6007,
+      "lead_overlap": 6,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_procurement_thresholds",
+          "source_id": "subvention_tips",
+          "content_type": "footnote_curated",
+          "score": 0.6007
+        },
+        {
+          "id": "footnote_fn_tips_no_split_order",
+          "source_id": "subvention_tips",
+          "content_type": "footnote_curated",
+          "score": 0.5539
+        },
+        {
+          "id": "vault_g01_3b7e2621d8d62537",
+          "source_id": "g01",
+          "content_type": "vault_extract",
+          "score": 0.683
+        },
+        {
+          "id": "vault_g01_526fe089b707001e",
+          "source_id": "g01",
+          "content_type": "vault_extract",
+          "score": 0.6829
+        },
+        {
+          "id": "vault_g01_2ca2079492a0d9ae",
+          "source_id": "g01",
+          "content_type": "vault_extract",
+          "score": 0.6665
+        },
+        {
+          "id": "vault_fin_mgmt_notes_aided_7e84bb9e69b8f8e0",
+          "source_id": "fin_mgmt_notes_aided",
+          "content_type": "vault_extract",
+          "score": 0.6465
+        },
+        {
+          "id": "fact_role_facts_finance_c5647d6426b3892e",
+          "source_id": "role_facts_finance",
+          "content_type": "approved_fact",
+          "score": 0.5726
+        },
+        {
+          "id": "vault_g02_6e9b68d2288469a1",
+          "source_id": "g02",
+          "content_type": "vault_extract",
+          "score": 0.5555
+        }
+      ]
+    },
+    {
+      "class": "answerable",
+      "query": "體罰投訴要幾多日內處理完",
+      "lead_source": "sch_complaint_guide_2023",
+      "lead_score": 0.5883,
+      "lead_overlap": 4,
+      "kept": true,
+      "window": [
+        {
+          "id": "footnote_fn_complaint_stages",
+          "source_id": "sch_complaint_guide_2023",
+          "content_type": "footnote_curated",
+          "score": 0.5883
+        },
+        {
+          "id": "footnote_fn_complaint_review_board",
+          "source_id": "sch_complaint_guide_2023",
+          "content_type": "footnote_curated",
+          "score": 0.5237
+        },
+        {
+          "id": "vault_sag_2025_11_d02819d2d9a41d46",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6839
+        },
+        {
+          "id": "vault_sag_2025_11_c6d8c9a5f9067ffd",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6741
+        },
+        {
+          "id": "vault_g05_a4af4731d6653134",
+          "source_id": "g05",
+          "content_type": "vault_extract",
+          "score": 0.6415
+        },
+        {
+          "id": "vault_g05_dd14165f42f16392",
+          "source_id": "g05",
+          "content_type": "vault_extract",
+          "score": 0.6409
+        },
+        {
+          "id": "vault_g05_7dc02352ea5b6d94",
+          "source_id": "g05",
+          "content_type": "vault_extract",
+          "score": 0.6288
+        },
+        {
+          "id": "vault_sag_2025_11_d967ee8392528fb6",
+          "source_id": "sag_2025_11",
+          "content_type": "vault_extract",
+          "score": 0.6122
+        }
+      ]
+    }
+  ]
+}

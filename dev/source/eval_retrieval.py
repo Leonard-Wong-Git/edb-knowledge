@@ -47,6 +47,7 @@ import re
 import statistics
 import sys
 import time
+import unicodedata
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -99,6 +100,31 @@ def squeeze(text: str) -> str:
     return re.sub(r"\s+", "", text or "")
 
 
+def fold(text: str) -> str:
+    """NFKC-normalise. Required, not cosmetic — same class of defect as squeeze().
+
+    S213 measured 868 of 17,602 chunks (4.93%, 112 sources, 110 distinct variant
+    characters) carrying CJK COMPATIBILITY IDEOGRAPHS: 理 U+F9E4 where the corpus
+    elsewhere has 理 U+7406. The two are visually identical and semantically the
+    same character, but they are different code points, so a byte-wise substring
+    test misses. A signature written by reading the PDF (or typed by a curator)
+    lands on the unified code point; the extracted chunk may carry the
+    compatibility one. Without folding, correct retrieval is scored FAIL.
+
+    S214 quantified the blast radius on the 162-item gold set: of the 41 items
+    whose answer passage was actually retrieved, 14 (34%) carry a compatibility
+    ideograph in the signature. Those 14 were passing only because the S213
+    runner folded; this canonical harness did not, so it would have called them
+    FAIL — a false alarm rate of one in three on the layer the release gate reads.
+
+    NFKC is safe in the direction that matters: it maps a compatibility ideograph
+    onto its unified twin, but never merges two DISTINCT han characters. The
+    negative self-tests below pin that down, because a matcher that over-merges
+    would silently turn wrong-row answers into passes.
+    """
+    return unicodedata.normalize("NFKC", text or "")
+
+
 def chunk_verdict_for(results: list[dict], expect_text_any: list[str],
                       within: int = DEFAULT_CHUNK_WITHIN) -> tuple[str, int | None]:
     """(verdict, rank of the first result whose TEXT carries a wanted signature).
@@ -121,9 +147,14 @@ def chunk_verdict_for(results: list[dict], expect_text_any: list[str],
     """
     if not expect_text_any:
         return "RECORD_ONLY", None
-    wanted = [squeeze(w) for w in expect_text_any]
+    # S214: fold BEFORE squeeze, on both sides. Order is not load-bearing here
+    # (Python's \s already matches U+3000, so squeeze-then-fold would give the
+    # same answer); fold-first is chosen only so the folded form is what gets
+    # whitespace-stripped, which is the order the S213 runner used and the order
+    # the gold-set numbers were measured under.
+    wanted = [squeeze(fold(w)) for w in expect_text_any]
     for i, r in enumerate(results[:within]):
-        hay = squeeze(r.get("text", ""))
+        hay = squeeze(fold(r.get("text", "")))
         if any(w and w in hay for w in wanted):
             return "PASS", i
     return "FAIL", None
@@ -414,6 +445,58 @@ def self_test() -> int:
     check("a wrong-row signature does NOT satisfy a right-row assertion",
           chunk_verdict_for([cr("核准開辦24 班的教學人員編制")],
                             ["開辦12班的教學人員編制"]) == ("FAIL", None))
+
+    # ---- S214 NFKC layer -------------------------------------------------
+    # POSITIVE: the compatibility code point must hit. U+F9E4 is CJK
+    # COMPATIBILITY IDEOGRAPH-F9E4, whose NFKC form is U+7406. Both are pinned
+    # by CODE POINT via chr(), never by a literal: a literal is silently
+    # normalised in transit by editors, git filters and agent tooling (this file
+    # lost one that way while being written), and the test would then compare a
+    # character against itself and pass without testing anything. The first
+    # assertion below exists to catch exactly that collapse.
+    COMPAT_LI = chr(0xF9E4)   # pinned by code point, not by literal. was: "理"          # 理 (compatibility)
+    UNIFIED_LI = chr(0x7406)  # pinned by code point, not by literal. was: "理"         # 理 (unified)
+    check("the two 理 are genuinely different code points (test is not vacuous)",
+          COMPAT_LI != UNIFIED_LI)
+    check("NFKC folds the compatibility ideograph onto the unified one",
+          fold(COMPAT_LI) == UNIFIED_LI)
+    check("chunk PASS when the CHUNK carries the compatibility code point",
+          chunk_verdict_for([cr("課程管" + COMPAT_LI + "的原則")],
+                            ["課程管" + UNIFIED_LI + "的原則"]) == ("PASS", 0))
+    check("chunk PASS when the SIGNATURE carries the compatibility code point",
+          chunk_verdict_for([cr("課程管" + UNIFIED_LI + "的原則")],
+                            ["課程管" + COMPAT_LI + "的原則"]) == ("PASS", 0))
+    check("pre-S214 byte-wise matching would have MISSED it (defect is real)",
+          squeeze("課程管" + COMPAT_LI + "的原則").find(
+              squeeze("課程管" + UNIFIED_LI + "的原則")) == -1)
+    check("full-width ideographic space is removed by fold+squeeze",
+          chunk_verdict_for([cr("開辦12　班的教學人員編制")],
+                            ["開辦12班的教學人員編制"]) == ("PASS", 0))
+
+    # NEGATIVE: folding must not merge DISTINCT han characters. If it did, every
+    # wrong-row assertion above would start passing and the harness would go
+    # quietly blind. Each pair below is visually or semantically close.
+    for a, b in (("理", "玖"),   # 理 vs 玖
+                 ("大", "太"),   # 大 vs 太
+                 ("本", "术"),   # 本 vs 术
+                 ("土", "士")):  # 土 vs 士
+        check(f"fold does NOT merge {a} and {b}", fold(a) != fold(b))
+    check("a near-miss han character still FAILS after folding",
+          chunk_verdict_for([cr("課程管玖的原則")],
+                            ["課程管" + UNIFIED_LI + "的原則"]) == ("FAIL", None))
+    check("folding does not rescue the wrong-row case (24 班 vs 12 班)",
+          chunk_verdict_for([cr("核准開辦24 班的教學人員編制")],
+                            ["開辦12班的教學人員編制"]) == ("FAIL", None))
+    check("folding does not widen the window",
+          chunk_verdict_for([cr("a"), cr("b"), cr("c"), cr("d"), cr("e"),
+                             cr("課程管" + COMPAT_LI + "的原則")],
+                            ["課程管" + UNIFIED_LI + "的原則"], within=5)
+          == ("FAIL", None))
+    # The source layer matches source_ids, which are ASCII slugs. It must be
+    # untouched by this change; this pins that no folding leaked into it.
+    check("source layer verdict is unchanged by the chunk-layer fix",
+          verdict_for(["g24", "staff_est_pri"], ["staff_est_pri"], tie_map)
+          == ("PASS", 1))
 
     def mk(label, rows):
         return {"label": label, "tie_aliases": [["g24", "sag_2025_11"]], "results": rows}

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "ss_ncs_chinese_framework_missing",
+    "deprecated_on": "2026-09-06",
+    "deprecated_reason": "舊標籤只核對錯置的 g09，未計及 chi_edu_curr_docs 第20、28、30頁已直接提供答案。",
+    "replacement_id": "ss_ncs_chinese_framework_progress_v2",
+    "original": {
+      "domain": "student_support",
+      "query": "中國語文 第二語言學習架構 學習進程",
+      "query_kind": "no_answer",
+      "intent": "g09 標題為《中國語文課程第二語言學習架構（非華語節錄 p43-48）》，但其 10 條 chunk 實為中國語文教育學習領域科組領導職責內容，不含第二語言學習進程架構",
+      "answerable": false,
+      "expected_source_any": [],
+      "expected_passage_signature": [],
+      "expected_page": null,
+      "acceptable_alternatives": [],
+      "forbidden_evidence": ["g09"],
+      "verified_by": {
+        "chunk_id": "vault_g09_2784bfe400629b01",
+        "method": "dev/_s213_corpus.py find",
+        "note": "find「非華語」「第二語言」「學習架構」在 g09 均 0 命中；show 顯示 g09 chunk 為科主任／課程統籌職責文字"
+      },
+      "split": "held_out"
+    }
+  },
+  {
+    "id": "ss_ncs_history_adapted",
+    "deprecated_on": "2026-09-06",
+    "deprecated_reason": "查詢過闊，卻把可直接回答一般調適原則的 chi_hist_jss_2019 列為禁引來源。",
+    "replacement_id": "ss_ncs_history_adapted_outline_v2",
+    "original": {
+      "domain": "student_support",
+      "query": "非華語學生 中國歷史 課程",
+      "query_kind": "confusable",
+      "intent": "查適合非華語學生的調適初中中國歷史課程大綱；易與一般初中中史課程指引 chi_hist_jss_2019 混淆",
+      "answerable": true,
+      "expected_source_any": ["chi_hist_jss_ncs_2019"],
+      "expected_passage_signature": ["教師可透過成吉思汗的故事及地圖，簡單敘述蒙古人的崛起及擴張，最終形成龐大帝國的經過"],
+      "expected_page": 17,
+      "acceptable_alternatives": [],
+      "forbidden_evidence": ["chi_hist_jss_2019"],
+      "verified_by": {
+        "chunk_id": "vault_chi_hist_jss_ncs_2019_1559ca891a76b1cd",
+        "method": "dev/_s213_corpus.py find",
+        "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+      },
+      "split": "held_out"
+    }
+  }
+]
