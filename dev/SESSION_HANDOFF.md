@@ -24,6 +24,36 @@
 
 ## Current Baseline
 
+> **2026-09-07 啟動離線覆核更正：** 已找到 `2026-09-07_s214_route_first_focused.json`，其 trace 記錄新 RPC 成功及三題 before／after，故下文「RPC 未安裝／未跑 focused」已不能當作現況。現在 live 定義、安裝授權及生產 flag 未驗，不得直接重做 DDL。三題仍缺完整目標答案；特殊學校曾 57014，after 整題 16.7 秒。下一步先離線查 query expansion／排名，不立即擴大至 185 題付費批次。詳見 `dev/_s214_route_first_focused_review.md`。
+
+> **🆕 S214 Codex continuation（2026-09-05 至 09-06，本機候選）—— grounded synthesis 已實作但預設關閉。** 新增 strict Structured Outputs、逐項 claim、NFKC／空白正規化逐字引文核對、輸出衞生閘、獨立 judge 與 fail-closed 路徑；`FEATURE_EXACT_WINDOW_NARROW=0`、`FEATURE_GROUNDED_SYNTHESIS=0`。生產及 probe 現共用先篩一手文件再取五格的 `selectPrimaryEvidence()`；離線回歸 **48/48 PASS**，typecheck／build／route regression 46/46／排序模型均通過。semantic regression 唯一 FAIL 是既有 `guidelines 2.5.0` 測試常數與權威 2.6.1 的漂移，與本次 helper 無關。兩批 40 題 acceptance 其後證實有 18／40 題受舊 harness 選窗次序影響，故不可直接作 release 判決；候選維持 FAIL。未 commit、未 push、未 deploy。
+>
+> **外部模型操作邊界：** Claude 只可用 Claude Code CLI 的 Plan 額度，不得使用 API key／SDK。Codex 已按兩次明確批准完成兩批固定 40 題 OpenAI probe；第二批使用 54/80 次 HTTP 嘗試，批准已隨該批結束，不可挪用餘額。任何新批次仍須先列明服務、模型、案例範圍及最高 HTTP 次數，再取得 Leonard 明確批准；目前只執行離線工作。
+>
+> **S214 grounded acceptance V3：候選仍為 FAIL，不可啟用。** 修正選窗後已按 Leonard 明確批准重驗受影響 18 題，OpenAI Responses API 實錄 **25／36 次 HTTP**（18 draft＋7 judge，`maxRetries=0`）。不可答題 **9／9 全部棄權、0 個錯答**；可答題 **6／9 作答、3／9 棄權**。人工覆核為 4 個完整 PASS、2 個安全但不完整、3 個棄權／證據不足；未再出現 audience 錯答、OCR 重複或截斷。這證明安全性有改善，但完整性仍未達 release 標準。下一 gate 是為兩條新 NCS replacement 及 `gov_imc_60pct`、`hr_lsp`、`sen_special_school_curriculum` 建立新鮮檢索證據，再針對 `hr_lang_req`、`saf_disease_notification` 的完整性做回歸。完整證據見 `dev/_s214_grounded_acceptance_report.md`、`dev/_s214_grounded_v3_review.md`、`dev/_s214_gold_abstention_review.md` 及 V3 artifact。
+>
+> **S214 五題 fresh retrieval：2 PASS／1 PARTIAL／2 FAIL。** 中文第二語言框架及校董 60% 一手原文進首 5；長期服務金只有部分註釋；特殊學校 `g10` 及非華語中史目標未進首 8。查實 `chi_hist_jss_ncs_2019` 已入庫但漏 `SOURCE_SETS.curriculum`，已作最小 allowlist 修正並加回歸；候選單題驗證令來源升至 rank 0／1／3，但目標第 17 頁片段仍未進首 8，故只修好 Source Recall，Chunk Recall 仍 FAIL。`g10` 已在正確 route，未作猜測式 spotlight。另更正 `gov_imc_60pct` gold 的錯亂 signature、頁碼 21→4 及 chunk id。沒有 commit、push、deploy 或 Supabase 寫入。
+>
+> **S214 Phase B route-first 候選已備，預設關閉，尚未 live 驗證。** 離線反例支持「SQL 先按 route allowlist 過濾，再精確向量排序」，不支持 lexical 單獨主排名。已新增獨立 `match_wiki_chunks_routed`、`searchWikiRoutedExact` 及 `FEATURE_ROUTE_FIRST_SEARCH=0`；舊 RPC 不變，失敗回退舊 ANN，共用 embedding，並有三次限定 `57014` 重試。Claude Code CLI 唯讀覆核為 PASS-with-flags、無 code blocker；本地 typecheck／build／grounded 48/48／route 46/46／retry mock／diff check 全綠。**RPC 未安裝、未跑 live 185 題 before／after，因此不得聲稱檢索已提升，產品 verdict 仍 FAIL。** 下一步需 Leonard 明確批准 Supabase schema 寫入後才可安裝及驗證；不得自行 deploy。
+
+> **🆕 S214（2026-09-04 → 09-05，跨午夜）—— Phase 1.1 完成、Gate 1 根因定案、Gate 2A1 測試基建落成，並已改動一個生產檔但未提交未部署。** 起手探針全綠：`app.html` 200 ／ `PLATFORM_VERSION 3.3.2`；Supabase **17,602** 不變；`source_registry` 279 不變；`guidelines.json` `_meta` 2.6.1 不變；凍結合約零接觸。`HEAD == origin/main == 05ea10e`，**本節零 commit、零 push、零 deploy、零 Supabase 寫入、零重切語料**。
+>
+> 🔴 **最重要一項：`backend/src/api/searchChannelB.ts` 有未提交改動（+31 −21），已通過 `npm run check`，但未跑 184 題 live 套件、未部署。** 線上仍行舊 build（`/health` commit `f513a18`）。這是本交接最高風險項，下一節開工必須先處置，見 Open Priorities ①。
+>
+> **① Phase 1.1 五項全部完成**（詳見 `dev/_s214_phase_1_1_report.md`）：A canonical 評測器 NFKC 修正（self-test ALL PASS；39 條 live run PASS 27／FAIL 0／errors 0，與 S213 凍結基線比對無 blocking failure）；B 棄權機制實測（19 條無答案題 13 條標準棄權，19 條正向對照 2 條誤拒答）；C forbidden 實際影響（4/4 進首五格，**僅 1/4 可證答案實際採用並造成對象混淆**）；D 排序反事實（**全域 score sort 有害，已否決**）；E Gold Set 補至 **184 條全通過 validator**。
+>
+> **② Gate 1 根因定案（唯讀）**：`searchChannelB.ts:1495` 的 `[...lead, ...rest]` 無條件前置註腳 lead，資格只看絕對門檻（0.45 ＋ 2 bigram），**從不與被壓者比分**。設計意圖（`:1146` 寫明「reaches the synthesis window (top-5)」＝成員資格）與實作（index 0 ＝位置）不符，此落差即根因。實證：**全 162 題僅 3 條有 exact 1.0，三條全部被 0.48–0.52 的註腳壓住**，其中兩條壓在頂的是《幼稚園營運手冊》而問題問小學編制。九題探針 8/9 出現高分被壓，合成窗平均 **2.22/5 格（44%）** 由 overlay 佔據。
+>
+> **③ Gate 2A1 測試基建落成**：`dev/_s214_rank_model.py`（CURRENT／PROPOSED 純模型 ＋ T1–T14，**41 條斷言 ALL PASS**）、`dev/_s214_gate2a1_replay.py`（離線 replay）、`dev/source/footnote_lead_probe.py` 擴充為記錄完整 top-8 `window`（self-test PASS）。43 條 live probe 已跑完（**正向 30/30 保住 lead**，errors 0）。**fidelity 由 174/184 升至 180/184** —— 修好一個我自己的判別 bug：spotlight 偵測原本只看來源是否在 `SPOTLIGHT_SOURCE_IDS`，但 `staff_est_pri`／`edbcm116_2026` 本身憑分數就攞第一，令 184 條之中誤判 6 條並靜靜丟失一個 chunk；改為必須同時違反分數次序後修正。
+>
+> **④ 餘下 4 條 fidelity 不一致，成因已查清、未修**：3 條係**分數完全相同**（如兩個 0.7284），生產的 tie 次序不是 id 升序，而模型用 id 升序（為 T2 決定性）——**生產真正的 tie 規則未查證，不得憑猜**；1 條 `fin_seg` 係 `edbc015_2026` 排在 5 個更高分項目之前，與 Gate 1 揪到的 `edu_sen_lsg_outsource` **同一來源、同一病徵，仍未解釋**。
+>
+> **⑤ Gate 2A2／2A2b 已改生產程式碼**（證據見 `dev/_s214_gate2a2_implementation_report.md`）：落地 EXACT-ONLY 變體後，Codex 用 local backend 跑 `staff_fullday_24` 做行為 QC 揪出真缺陷 —— exact chunk 已由 ANN 在 rank 2 出現，舊 `seenIds` 過濾把 score=1 版本篩走，令合成答案講「大約40」而 exact 那行明文寫住 40。修正三處：dedup 方向對調、`mainSearchLead` 在 overlay 前明確擷取（`undefined` 時 fail closed）、`forcedLeads` 只用於插入定位不再用於 judge bypass。
+>
+> ⚠️ **本節有部分回合已不在 agent 上下文內（機器休眠 ＋ context 壓縮），檔案逐行歸屬無法可靠重建。** 以磁碟上兩份報告為權威記錄，不要憑 mtime 推論作者。
+
+> **🔙 S213（2026-09-04）—— 為檢索準確度建可信基線；順帶揪出 658 條代號標題的單一根因。零生產寫入、零 deploy、零重切。** HEAD==origin/main @ `05ea10e`；**Supabase 17,602 不變**；`source_registry` 279 不變；`GUIDELINES_REGISTRY` 177 不變；平台 v3.3.2 不變；凍結合約零接觸（`_meta` 2.3.0 · facts 455 · `guidelines.json` 2.6.1 · 158）。⚠️ **工作區有未提交改動，開工先按下方分類處理，勿混合提交、勿還原。** **① 舊 eval 的「PASS 27/39」用準確度語言講就是 Source Recall@8 = 1.000，而且恆真** —— `verdict_for()` 在預期來源出現於窗內任何位置就判 PASS，rank 0 與 rank 7 同分，39 條之中 12 條完全無斷言、37 條對段落零斷言。它是回歸偵測器，不是準確度量度。**② 新建 162 條 gold set 量出真實水平：Source Recall@1/@3/@5/@8 = 0.364/0.552/0.636/0.706（MRR 0.474）；Chunk Recall@1/@3/@5 = 0.119/0.245/0.273（MRR 0.184）。143 條可答題之中 42 條在 8 格內完全搵唔到正確來源。** dev 0.340／held-out 0.419（@1），未見過擬合。**③ OP⑦ 根因查實，不是「要跑一次 UPDATE」**：`dev/vault/build_wiki_index.py:267-268` 的靜默 fallback —— extract 缺 `# title:` 就拿 source_id 頂替、缺 `# url:` 就留空。集合相等已證（庫內代號標題 19 個 source_id ／ extract 缺 header 19 個 ／ 交集 19 ／ 兩邊獨有各 0），同一行代碼同時製造 `SOURCE_TITLE_REAL`(658) 與 `ANCHOR_URL_PRESENT` 的無連結片段。**源頭已封死**（19 個 extract 補回 header，逐檔斷言正文位元組不變故 hash 不動；守門改 fail loud 並證明會紅），**生產庫 658 條未動**。**④ 兩個新語料缺陷**：CJK 相容表意文字 868 條 chunk（4.93%／112 源／110 個變體字，例：理 U+F9E4 而非 U+7406）—— **現行 `eval_retrieval.chunk_verdict_for` 無 NFKC folding，目標段落落在這 868 條時正確檢索會被判 FAIL**；header 剝除正則吃掉正文 `# ` 開頭行，16 個來源、33 行真正消失（實例：`g24` 一行強制舉報懷疑虐兒的交叉引用）。**⑤ 60/162 結果不是分數遞減排列，該 60 條位 0 全部是 `footnote_curated`**，該組 Recall@1 0.308、其餘 0.396 —— **此為相關性，未證因果**。**⑥ 產品 verdict = FAIL（Chunk Recall@5 = 0.273）；工具 verdict = Phase 1 完成。兩項必須分開講。** QC Governor 暫不批准直接改生產，NEXT 為 Phase 1.1 A–E。
+
 > **🆕 S212（2026-09-03）—— 由三個文檔漂移開始，交付咗一張公開品質檢查頁；期間自己整停咗生產搜尋。** HEAD==origin/main；**Supabase 17,597 → 17,602**（`phys_sss_2007_2015` 182→0→187，OCR 重抽）；`source_registry` 279 不變；`GUIDELINES_REGISTRY` 177 不變；平台 v3.3.2 不變；凍結合約零接觸（`_meta` 2.3.0 · facts 455 · `guidelines.json` 2.6.1 · 158）。**① 新交付：公開品質檢查頁 `https://policychecker.wongfu.net/status-07cc7942c0.html`**（不設任何入站連結，同通告系統嗰張同一契約）＋ `qc_report.json` ＋ `.github/workflows/qc_report.yml`（每日 12:00 UTC 自己重生兼 commit）。21 項檢查按四條問題分組：政策指唔指得清楚／片段合唔合標準／有冇切得太碎或太粗／質素量唔量得到。**門檻用基準值不用零，而且等於基準報 WARN 不報 PASS** —— 仍在服務中嘅缺陷唔係綠燈。**② 封版閘（`dev/source/release_gate.json`）**：未有 waiver 嘅 WARN 一律 NOT_MET（預設係擋，waiver 要 owner／reason／`accept_until`，過期自動失效）；六項人手檢查冇日期簽核係 NOT_MET 唔係「不存在」；`NOT_MEASURED` 等於 NOT_MET。**出廠 7/15 FAIL，係真實狀態，我冇替 Leonard 填 owner 令佢變綠。** **③ 第一次跑就揪出四件從未量化過嘅事**：658 條片段以內部代號做標題（用戶喺答案見到 `stat_enrolment_2014`）；956 組逐字重複／多出 980 條（**全部跨來源、同源內 0，即問題喺登記兩次，唔喺切片器**）；835 條由半句開始；130 條全無連結。**④ `phys_sss_2007_2015` 由 165/182 不可讀變 187 條亂碼 0**：原 PDF 嘅 ToUnicode CMap 壞咗，`pdftotext` 抽出同樣亂碼，所以**重抽文字層冇用**；亂碼可以純算術還原（三個固定偏移、98.4%）但**冇採用** —— 交叉核對見到「二零一五年十一月」被還原成八個似是而非嘅漢字，即靜靜錯。改用 `dev/ocr_extract.py`（S147 為此 failure mode 而建）。順帶修好舊 extract 漏咗真空白第 2 頁、導致之後每個頁碼標記都少 1。**⑤ 我整停咗生產搜尋約半小時**：先刪 182 條，之後先發現額度被同一 session 嘅 150 頁 OCR 耗盡，全站查詢 429，而 `/health` 由頭到尾報 `ok:true`（佢只驗 Channel A 快取）。已變成兩道閘：DOC_SYNC row 54「先驗入得到再刪」，同 `qc_report` 新增 `SEARCH_PIPELINE_LIVE`（BLOCKER，直接打生產查詢端點，429／零結果／無回應都要紅）。
 
 > **🆕 S210（2026-08-26）—— 補返 S209 欠嘅 eval，證實零退步；順手發現量度佢嘅閘本身壞咗：** HEAD==origin/main；**Supabase 17,568 → 17,576**（開工先 `--ff-only` 收咗隔夜 Option A 入庫 `edbcm156_2026` +17，再 +4 g04 重切、+4 三摺頁）；`source_registry` 275 → **276**；`GUIDELINES_REGISTRY` **177 不變**；平台 **v3.3.0 不變**；**凍結合約（`_meta` 2.3.0 · facts 455 · `guidelines.json` 2.6.1 · 158）全部零接觸**。起手探針 5/5 綠（served 3.3.0 / `/health` warm 455 / HEAD 對齊 / count=exact / 無頁碼數）。① **OP⑥ 結案 —— 補跑咗，零退步。** S209 動過切 chunk 邏輯同加咗兩個源但冇跑 eval；今次補跑對 `2026-08-19_s207_after.json`，PASS=23/FAIL=0/errors=0。compare 報 5 blocking，**逐條拆完冇一條係退步**：1 條 ERROR 錯喺**基線檔**（S207 嗰次 `nonlocal` 撞 Supabase 57014 timeout，0 個源；今次答得正常），4 條 SET_LOST 全部係自動管道新入庫嘅通函擠入 top_k=8、撞跌最尾位（掉低嗰個 before 排 [7]/[7]/[7]/[6]，verdict 一個都冇變）。② **量度嘅閘本身壞咗，已修。** harness 當「新源入 top_k」無害（SET_ADDED 非 blocking）但當同一件事撞跌尾位係 blocking —— 固定 top_k 之下呢係一件事嘅兩個講法。Option A 每日入庫兼自己 push，即係**呢個閘由今日起會朝朝紅**（紀律 #14 嗰種必然變牆紙嘅閘）。新增 `DISPLACED`：有新入者 + 掉低嗰啲全部喺 cut line 以下 + after 唔短過 before 先降級，否則照 SET_LOST。③ **開工探針 +10 無頁碼 = S209 修好嘢，唔係退步。** 461 條入面新增嗰 10 條全部係 `gifted_policy_docs`；用 S207 版 vs S209 版 `carry_pages` 跑同一份 extract 對證，**10 條全部由「Page 8」變 None**。嗰份 PDF 得 8 頁，而 10 條入面 9 條係 extract 尾嘅網頁段落（`=== introduction === / === detail ===`，本身冇頁碼），舊邏輯一路 carry 落去 = 叫用戶揭第 8 頁搵一段網頁文字。**交接寫嘅「10/23 有缺陷等修」要反轉理解。** ④ **`split_on_section_markers` 個 gate 由 registry 改為 extract 判。** S209 gate 喺 `source_section_urls(sid)`，但橫跨係文字嘅屬性 —— 有 `=== label ===` 就跨得，同 registry 有冇 per-section URL 無關。兩個源一直喺閘外：`gifted_policy_docs`（一條 chunk 揸住 page 8 尾 + `=== introduction ===` 頭）同 `g04`。261 個 vault 源逐個對 chunk 內容 hash：**259 byte 級 no-op**，只有 g04（7→11）同 gifted（23→23）變；重入後**跨界 chunk g04 5→0、gifted 2→0**（live 實查）。⑤ **eval 集補咗保安／雲端三條**（34→37）：`cyber_campaign`「網絡安全運動」→g28 rank 0–2、`cloud_privacy`「雲端運算 私隱」→pcpd rank 0–2、`info_security_broad`「學校資訊保安」RECORD_ONLY（OP⑥ 撬點）。**三條全部入檔前 live 實測過先寫 `expect_any`。** 之前 34 條**一條都冇掂過** S209 兩個新源。⑥ **三摺頁入咗庫但贏唔到**（Leonard 指示入）：4 chunks。「創新型終身學習者」rank 6 → 搜得到、**唔係 route 擋**；但「四大發展重點」（**全庫只有佢一條**有呢詞）**rank=None**，輸畀無關課程文件 @0.538。成因係佢係資訊圖，chunk 係三十幾個互不相連嘅圖標籤，撐唔起 embedding 方向。caveat 已寫死入 registry notes。**唔建議加入 `digital_education` SOURCE_SET**（入咗只會同更強兼已 routed 嘅 `debp_blueprint` 爭位）。⑦ **全 session 檢索淨影響**（`baseline37 → after_leaflet`）：SET_LOST 1 / SET_ADDED 1 / RANK_SHIFT 2 / SCORE_MOVED 1 / SAME 32。唯一 blocking 係 `pay_adjust` 掉低 `edbcm135_2026`（尾位）—— **成因係 g04 切細後多佔一個 top-k 位，係切細嘅真實代價，唔係雜訊**（verdict 仍 PASS，等緊嘅 `edbcm094_2026` 仍 rank 1）。呢條**冇被 DISPLACED 吸收**，因為 g04 本身已喺 before 名單、`added` 係空 —— 呢個邊界係**刻意保留**：SET_LOST 意思係「本來搵到嘅源而家完全搵唔到」，呢個情況確實係。
@@ -257,25 +287,43 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## Open Priorities
 
-> **🔜 S212（2026-09-03）重生：舊 ①（eval 片段層）、②（登記漂移監察半邊）、⑤（保安路由）已結案移除；舊 ③④ 保留並改寫。新增五項，全部有 S212 實測證據，唔係推測。** 現時全部可見狀態同數字，一律以品質檢查頁為準：`https://policychecker.wongfu.net/status-07cc7942c0.html`（機器可讀 `/qc_report.json`）。
+> **🔜 S214（2026-09-05）重生。Phase 1.1 A–E 全部完成，已從清單移除。** 新 ①–③ 為 S214 產生的未了項，④ 起承接 S213 未動項目（原編號在括號內註明）。
 
-① **【封版閘擋住，要 Leonard 決定】八個 standing WARN 未有 waiver。** `ANCHOR_URL_PRESENT`(130)、`SOURCE_TITLE_REAL`(658)、`PAGE_ANCHORED`(179)、`NO_DUPLICATE_CHUNKS`(956 組)、`NO_TOC_NOISE`(147)、`BODY_LENGTH_FLOOR`(3)、`NO_MIDCLAUSE_START`(835)、`MOJIBAKE`(58)。每個要 owner／理由／`accept_until`（寫入 `dev/source/release_gate.json`，過期自動失效），或者當「要修」。S212 建議：前四項當要修（用戶可見或有替代方案），`NO_MIDCLAUSE_START`／`PAGE_ANCHORED`／`NO_TOC_NOISE`／`BODY_LENGTH_FLOOR` 批 waiver（結構性、成本高）。**六項人手檢查亦全部未簽核**（核心搜尋案例、答案事實 spot-check、文件標註流程、mobile/desktop 分流、私隱與上載行為、冷啟動及錯誤狀態）。
+① 🔴 **【最高優先】S214 grounded synthesis V3 仍為 FAIL；Phase B route-first 候選已備但未安裝。** `FEATURE_ROUTE_FIRST_SEARCH=0`；獨立 exact RPC、fail-open fallback、共用 embedding 及 `57014` 重試已通過本地與 Claude Code 唯讀覆核。下一 gate 是經 Leonard 明確批准後安裝 Supabase schema，先跑三題 focused retrieval，再跑 active gold 185 題 before／after及效能量度；未通過不得啟用。`hr_lsp` 跨頁第 4 頁錯判第 3 頁屬獨立 Phase B2，檢索改善不可冒充頁碼已修好。另須為 `hr_lang_req` 與 `saf_disease_notification` 建立完整性回歸。任何新外部呼叫或雲端寫入須另取批准；完成前不得 commit／push／deploy。
 
-② **【已證可刪，卡喺權限】`kgecg_2017` 108 條 ZOMBIE。** S195 已標 deprecated（`g29` 嘅重複登記），registry 改咗、store 冇改，一直服務到今日。S212 實測：兩者互相覆蓋 89%，覆蓋唔到嘅兩邊都只係英文參考書目切界差異，兩者皆無亂碼 —— **刪 108 條唔會失去任何唯一來源**。實測傷害：per-source 配額被繞過（每源上限 8 格中 3 格，登記兩次即拿到 6 格），「小朋友適應新環境」實測 6/8 格係同一份文件。**⚠️ 只發生喺唔路由嘅查詢**（`curriculum` regex 含幼稚園／幼兒／K1，用咗嗰啲字反而安全）。刪除工具 `dev/cb3_deprecate_stale.py` 被 auto mode 分類器擋住，要 Leonard 自己跑或加權限規則。
+② **【S214 新增，未修】餘下 4 條 fidelity 不一致。** 3 條係分數完全相同而生產 tie 次序非 id 升序 —— **要查生產真正的 tie 規則（很可能是 Postgres RPC 回傳次序 ＋ V8 stable sort），未查證前不得在模型內憑猜對齊**。1 條 `fin_seg`：`edbc015_2026` 排在 5 個更高分項目之前，與 `edu_sen_lsg_outsource` 同源同病徵，**兩次獨立出現，仍未解釋**，值得專門追一次。
 
-③ **【S212 新發現，比「重複」嚴重】兩對重複登記其實係掛錯文件標題。** 瀏覽清單同一份文件出現兩次，而且兩個標題講緊唔同文件：`eng_sss_guide_2021`《英國語文課程及評估指引（中四至中六）（2021）》vs `g33`《英國語文教育課程指引（中一至中六）(2007)》，421 條**逐字相同**、同一條 URL、內容年份 2021 → **`g33` 標題錯，2007 版根本唔喺庫入面**；`arts_kla_guide_2017`（2017・小一至中六）vs `g37`（2002・小一至中三），115 條相同、`g37` 嘅 URL 係 `AE_KLACG__Chi___2017.pdf` → **`g37` 標題錯，2002 版唔喺庫入面**。**所以呢兩對唔可以當「刪重複」處理** —— 要修嘅係「瀏覽清單應承咗兩份文件、實際只有一份」。屬 S194 `ict_sss_2021` 同一類，而 S195 嘅 `title_baseline.json` 冇捉到。`g24` ↔ `sag_2025_11`（377 相同、g24 六條獨有全部被 sag 全文覆蓋、sag 喺 10 處 SOURCE_SETS）標題相同，屬單純重複，跟交接原有嘅 PLAN 做。
+③ **【S214 新增，未做】本修正不減少合成窗佔用率。** 實測 overlay 平均佔 **2.22/5 格（44%）**，Gate 2A1 的排序修正只改次序與 exact 優先，**未改變「這些項目是否值得佔窗」**。S196 實測 negative 15 條之中 **7 條仍取得註腳 lead**，且正負 `lead_score` 分佈重疊（正向下限 0.6061 vs 負向上限 0.7213）——**純提高門檻在數學上不可行**。此屬 P0 audience 閘範圍，見 `dev/_s214_phase_1_1_report.md` §7。
 
-④ **【S212 記錄，未修】`TOPIC_KEYWORDS.safety` 認裸「氣體」。** 任何氣體相關嘅物理／化學課程查詢都被硬過濾去校園安全語料。實測「普適氣體定律」路由去 `safety`，`phys_sss_2007_2015` 完全攞唔到；關掉路由過濾即返到 2/6。已入 `route_regression.mjs` KNOWN_GAPS。改 regex 係檢索改動，要有自己嘅 eval before→after。
+④ **【S213 ⑥ 遺留，全部未動】** (a) 七個 standing WARN 未有 waiver ＋ 六項人手檢查未簽核；**waiver 只覆蓋 WARN 不覆蓋 FAIL**。(b) `kgecg_2017` 108 條 ZOMBIE 已證可刪，工具被分類器擋住。(c) `g33`／`g37` 瀏覽清單掛錯文件標題，**且 `app.html` 的條目不可刪**（刪任何一條會令 `guidelines.json` count 由 158 跌至 157，`FREEZE_CONTRACT` 即時 FAIL）。(d) `TOPIC_KEYWORDS.safety` 認裸「氣體」。(e) 特殊學校編制表恢復。(f) `content_kind` 框架重新定義。(g) 六個現有監察未接入狀態頁。
 
-⑤ **【承 S211，前置條件仍在】特殊學校編制表恢復（`staff_est_sp_sch_pri`，status=held_back、0 條）。** S212 查實：該表 48 行、按**教學人員總數 1–48** 索引（S204 記錄正確），字面鍵應為「教學人員總數為 N 名」。**交接未寫嘅一件事：該 source_id 現時仍然喺 `SOURCE_SETS.staffing` 入面** —— 一入庫班數問題就即刻見到佢，正正係 S204 嗰個失敗模式。恢復必須連做：移出 `staffing`、另開 `special_school_staffing` 路由排喺 `staffing` 之前、`searchEstablishmentRows` 加總數鍵，再以「12班小學有幾多個學位教師」×3 runs 驗收。
+⑤ **【S213 ⑤ 遺留】658 條代號標題根因已封死，生產庫未改。** `dev/_s213_title_backfill.py` dry-run 已跑（542 條，UPDATE 非 DELETE，舊值就是 source_id，可完全回退），**執行被 auto mode 分類器擋住，要 Leonard 自己跑**。
 
-⑥ **【承 S211，框架要重新定義】表格／註解 `content_kind` 分類。** S212 試過量：數字密度返 701 條，剛好落喺 S204 估算嘅 600–900 範圍，**但逐條讀係四樣唔同嘅嘢**（真表格行、無點引線嘅目錄、參考書目、本身係好句子嘅統計散文）；再細分之後把策展註腳誤判成目錄、把散文誤判成表格行。**該數冇寫入任何地方。** 建議把目標由「標註 chunk 種類」改為「查具體數值嘅問題，窗內必須有一條字面命中嘅資料行」——即把 `searchEstablishmentRows()` 一般化成「以文件自身索引欄作字面鍵」，該做法已有實證會 work，分類法冇。
-
-⑦ **【S212 新發現】658 條片段以內部代號做標題。** 用戶喺答案見到「stat_enrolment_2014」當文件名。其中 116 條屬 `arts_kla_guide_2017`（做完 ③ 自然消失），其餘約 542 條係年度統計系列，標題應由父項 `stat_enrolment_report` 帶落去。要 Supabase UPDATE，屬生產寫入。
-
-⑧ **【S212 建議】唔好再開第七個監察，先把現有六個接入狀態頁。** `qc_report.py` 而家冇讀 `check_served_urls`／`check_freshness`／`check_source_titles`／`check_expiry`／`discover_sources` 嘅輸出，佢哋各自開自己嘅 GitHub Issue。接入之後狀態頁先係單一介面，亦先對得住紀律 #14。
+⑥ **【S213 ⑧ 遺留，未修】** header 剝除正則 `^(# .+\n)+` 用了 `MULTILINE`，吃掉正文中以 `# ` 開頭的註腳行：16 個來源、33 行、涉 2,212 條 chunk（12.6%）。修正要重入庫，embedding 成本約 US$0.02，須有自己的 eval before→after。
 
 **⚠️ 承 S211 未做：** `coa_pri_e` / `coa_ss_e` 亦載編制條款，未逐一檢查有無同類「答錯班數」問題。
+
+<details><summary>🔙 S213（2026-09-04）舊 Open Priorities（Phase 1.1 已完成，存檔備查）</summary>
+
+> **🔙 S213（2026-09-04）重生。** 舊 ①（waiver）②（kgecg 刪除）③（掛錯標題）④（safety 認裸氣體）⑤（特殊學校編制表）⑥（content_kind）⑧（監察接入狀態頁）全部**未動**，降為 ⑥ 統一承接；舊 ⑦（658 條代號標題）根因已查實、源頭已封死、生產庫未改，改列 ⑤。**①–④ 為 Codex QC Governor 指定的 Phase 1.1，做完停下等 Leonard 批准，不得 deploy／寫 Supabase／重切語料。**
+
+① **【Phase 1.1 A＋E　量度器修正與 gold set 補足】** A：把 NFKC folding 加入 `dev/source/eval_retrieval.py` 的 chunk matching，加 self-test 證明相容碼位會命中、不同漢字不會誤命中，再重跑 39 條 baseline 確認 verdict／rank／查詢集無非預期變化（**不改生產搜尋邏輯**）。E：`kg_admission`(4)／`kg_operation`(5)／`digital_education`(6)／`info_security`(2) 各補至 ≥10 條、每類 ≥8 條可答，保持 dev／held-out 分離，新 label 須過 corpus／signature／source／page／NFKC 驗證。工具已備：`dev/_s213_corpus.py`、`_s213_validate_gold.py`。
+
+② **【Phase 1.1 B　驗證現有棄權機制】** 19 條 no-answer 題以 **`synthesize:true`** 執行，另配 ≥19 條可答題做 positive control。每題分類為：正確拒答／正確作答／有依據但答非所問／無依據作答／技術錯誤。須記錄 judge 結果、有無觸發 `trustedVaultLead` bypass、實際 synthesis、採用的前五個 chunk。**不可用「返回了搜尋結果」代替「系統作出了答案」。批量呼叫外部模型前先報預計次數、token 與成本（紀律 #17）。**
+
+③ **【Phase 1.1 C　驗證 forbidden source 的實際影響】** 四條 `forbidden_hits` 查詢以 `synthesize:true` 執行，分四類報告：(1) 只在原始結果出現；(2) 進入 synthesis window；(3) 答案實際採用其內容；(4) 答案因對象混淆而錯誤。**只有第 3、4 類才可稱為「答案引用」或「答錯」。** 四條為 `sen_special_school_curriculum`、`ss_ncs_history_adapted`、`bus_guide_audience_confusable`、`kg_sccc_ratio_confusable`。
+
+④ **【Phase 1.1 D　排序反事實測試，不改生產】** 比較三種策略：現行 forced-footnote 排序／結構化 exact match 優先再合資格 footnote 再原排序／全域 score sort（**僅作反例**）。每種報 Source Recall、Chunk Recall、MRR、forbidden exposure，以及原有 footnote positive control 的損失。**不得只以 Recall@1 選方案；Chunk Recall@3／@5 與錯答風險優先。** ⚠️ Codex 實測純 score 重排 Source Recall@1 升至約 0.420 但 Chunk Recall@5 反跌至約 0.245，**該數由 Codex 提供，S213 未獨立複核**。
+
+⑤ **【根因已封死，生產庫未改】** 658 條代號標題 + 130 條無連結片段同源於 `build_wiki_index.py:267-268`。`dev/_s213_title_backfill.py` dry-run 已跑（542 條，UPDATE 非 DELETE，舊值就是 source_id，可完全回退），**執行被 auto mode 分類器擋住，要 Leonard 自己跑**。順帶：`stat_integrated` 那 2 條同時是 `REGISTRY_UNMANAGED` 的唯一成因。
+
+⑥ **【S212 遺留，全部未動】** (a) 七個 standing WARN 未有 waiver ＋ 六項人手檢查未簽核；**waiver 只覆蓋 WARN 不覆蓋 FAIL**，`NO_ERROR_FAIL` 由 `NO_MIDCLAUSE_START`／`REGISTRY_ZOMBIE`／`REGISTRY_SERIES`／`REGISTRY_UNMANAGED` 四項造成，其中三項可由 ⑤ 與刪 `kgecg_2017` 清掉。(b) `kgecg_2017` 108 條 ZOMBIE 已證可刪，工具被分類器擋住。(c) `g33`／`g37` 瀏覽清單掛錯文件標題（實為 2021／2017 版），**且 `app.html` 的條目不可刪** —— 刪任何一條會令 `guidelines.json` count 由 158 跌至 157，`FREEZE_CONTRACT` 即時 FAIL（下游 EDB 通告系統依賴此值）。(d) `TOPIC_KEYWORDS.safety` 認裸「氣體」。(e) 特殊學校編制表恢復（須先移出 `SOURCE_SETS.staffing`）。(f) `content_kind` 框架重新定義。(g) 六個現有監察未接入狀態頁。
+
+⑧ **【S213 新增，未修】** header 剝除正則 `^(# .+\n)+` 用了 `MULTILINE`，吃掉正文中以 `# ` 開頭的註腳行：16 個來源、33 行、涉 2,212 條 chunk（12.6%）。修正要重入庫，embedding 成本約 US$0.02，但須有自己的 eval before→after。受影響最多的正是 `coa_ss_e`(707) 與 `coa_pri_e`(494) —— 即交接一直掛住「亦載編制條款，未逐一檢查」那兩個。
+
+**⚠️ 承 S211 未做：** `coa_pri_e` / `coa_ss_e` 亦載編制條款，未逐一檢查有無同類「答錯班數」問題。
+
+</details>
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 
@@ -295,6 +343,36 @@ source_registry → same vault PDFs → ai_extract.py
 - **雲端 OCR 引擎選項**（image-PDF ingestion 升級線，S180 評估）：Google Vision `DOCUMENT_TEXT_DETECTION`（逐字信心 + bounding box、每月 1,000 單位永久免費 + ~$1.50/1,000、要綁卡開 billing）／Mistral OCR（Markdown+表格、~$2/1,000）——比現用 `gpt-4o` 圖像 OCR「draft 質」可能更準更平，且 bbox 可餵返 grid 重建。命中 image-PDF 質素問題（如 DEBP 主藍圖 ~16 圖像頁）先評估：**真檔實測 + 開 Google billing**（ingestion 處理公開文件、無未成年私隱顧慮；後端已存在故唔需要 brief 嗰套 serverless key-proxy）。詳見 playbook inbox 提案 `2026-06-24-edb-knowledge-cloud-ocr-engine-options.md` + `doc-extract-method-ladder` 卡。出處：Leonard 一份 OCR 收費版 brief（2026-06，已核實價）。
 
 ## Last Session Record
+
+1. UTC date: 2026-09-04 → 2026-09-06（跨午夜；中途機器休眠一次）
+2. Session ID: `Claude_20260904_1204` — S214。由「開工」起，Codex 以 QC Governor 身分逐 gate 下單：Phase 1.1 → Gate 1 根因分析（唯讀，兩輪 QC 退回修訂）→ Gate 2A1 測試基建 → Gate 2A2／2A2b 生產實作 → grounded synthesis 兩批 40 題 acceptance → 選窗修正、gold 重審及 18 題 V3 重驗。
+3. Completed:
+   - ✅ **Phase 1.1 A–E 全部完成**，證據見 `dev/_s214_phase_1_1_report.md`。A 的 NFKC 修正落在 `dev/source/eval_retrieval.py`（新增 `fold()`、`chunk_verdict_for` 兩邊 fold，`verdict_for` source 層一字未改），self-test ALL PASS。
+   - ✅ **Gate 1 根因定案**（唯讀，零檔案改動）：`searchChannelB.ts:1495` 無條件前置；意圖（top-5 成員資格）與實作（index 0）不符即根因。經 Codex 兩輪 QC 修訂：位移數字改用 index-0 定義重算、承認註腳正控集**存在**（`footnote_lead_probe.py` ＋ `2026-07-28_s196_fnlead_final.json`，先前寫「不存在」係錯，已收回）、演算法改為 membership 與 order 徹底分離、T4 改為不斷言「永不 index 0」、收回「Source@8 必須不變」的過度宣稱。
+   - ✅ **Gate 2A1 測試基建**：`dev/_s214_rank_model.py`（T1–T14，41 條斷言 ALL PASS）、`dev/_s214_gate2a1_replay.py`、`footnote_lead_probe.py` 擴充 `window_of()`（self-test PASS）、43 條 live probe 跑完（正向 30/30）。修好 fidelity 兩個缺陷：全跳過不得回 exit 0（改為 `NO_EVIDENCE`=2）、spotlight 判別須同時違反分數次序（fidelity 174→180/184）。
+   - ✅ **Gate 2A2／2A2b 生產實作**：`backend/src/api/searchChannelB.ts` 三處改動，`npm run check` 通過。證據見 `dev/_s214_gate2a2_implementation_report.md`。
+   - ✅ **Grounded synthesis 兩批 40 題 acceptance 已執行並保存原始 artifact；其後驗出 harness blocker。** 第一批揭示 audience、核心子類別及策展證據資格問題；方案 A 及離線防線落地後，第二批以 54 次可核證 HTTP 嘗試完成。其後棄權成因覆核確認 probe 先取五格才移除策展摘要，令 18／40 題證據窗少於生產應有的一手文件；兩批 artifact 已降格為 harness-confounded，不可直接作 release 判決。現由生產及 probe 共用 `selectPrimaryEvidence()`；離線回歸 48/48、typecheck、build、diff check、路由回歸 46/46 全綠；semantic regression 唯一 FAIL 是既有版本常數漂移，與本改動無關。外部模型 verdict 維持 FAIL，等待修正後重驗。
+   - ✅ **修正後 18 題 V3 已按批次批准完成。** OpenAI Responses API 實錄 25／36 次 HTTP（18 draft＋7 judge，`maxRetries=0`）；不可答題 9／9 棄權、可答題 6／9 作答。人工覆核：4 完整、2 安全但不完整、3 棄權／證據不足；沒有 audience 錯答、OCR 重複或截斷。候選仍為 FAIL，詳見 `dev/_s214_grounded_v3_review.md`。
+4. Not done / 未做：兩條新 NCS replacement 及 `gov_imc_60pct`、`hr_lsp`、`sen_special_school_curriculum` 的新鮮 retrieval fixture；`hr_lang_req`、`saf_disease_notification` 完整性回歸；完整 185 條 corpus revalidation及獨立 agent 第二輪覆核；重複穩定性驗收；**歷史 184 題 live 套件未跑**；生產改動未 commit／未 push／未部署；4 條 fidelity 不一致未修（3 條 tie 規則未查證、1 條 `edbc015_2026` 未解釋）；合成窗佔用率未改善；S213 遺留 ④⑤⑥ 全部未動。
+5. ⚠️ **本節有部分回合已不在 agent 上下文內**（機器休眠 ＋ context 壓縮）。磁碟上的 S214 報告及不可變 artifact 為權威記錄；**不要憑檔案 mtime 推論作者**。
+6. ⚠️ **零 Supabase 寫入、零重入庫、零 commit／push／deploy。** 唯一觸碰的生產檔是 `searchChannelB.ts`，仍在工作區未提交。
+
+## Previous Session Record (S213)
+
+1. UTC date: 2026-09-04
+2. Session ID: Claude_20260904_1125 — S213。由「開工」起，Leonard 中途轉單三次：install playbook → 全做 OP → Codex 的 Phase 0／1 檢索基線 brief；最後以「先收工」結束，Phase 1.1 留給下一節。
+3. Completed:
+   - ✅ **Playbook pointer v2 → v3**（`AGENTS.md` §14；該檔在 `.gitignore`，只存在於本機，換機要重裝）。
+   - ✅ **OP⑦ 根因查實並封死源頭**：`build_wiki_index.py:267-268` 靜默 fallback；集合相等已證（19＝19，交集 19，兩邊獨有各 0）；19 個 extract 補回 header（正文位元組不變式逐檔斷言）；守門改 fail loud 並證明會紅。**生產庫 658 條未動。**
+   - ✅ **Phase 0 凍結基線**：39 條 legacy 集重跑，PASS=27／FAIL=0／RECORD_ONLY=12／chunk PASS=2／errors=0，與 `qc_report` 的 `EVAL_LATEST` 逐項一致。查詢集 SHA-256 `a2634349...c52bd0d`。
+   - ✅ **Phase 1 gold set 162 條**（18 範疇、143 可答＋19 無答案、dev 114／held-out 48），全部經 `_s213_validate_gold.py` 獨立重驗，隔離 1 條。
+   - ✅ **五支新量度工具**：`_s213_corpus.py`（含 `dominant_page` 與 `clean_for_match` 兩個後端移植）、`_s213_eval_metrics.py`、`_s213_run_gold.py`、`_s213_validate_gold.py`、`_s213_build_gold_staffing.py`。self-test 合共 54 條全綠。
+   - ✅ **量到真實水平**：Source Recall@1 0.364／@5 0.636／@8 0.706；Chunk Recall@5 0.273。
+4. Not done / 未做：Phase 1.1 A–E 全部未開始；542 條標題回填未執行（被分類器擋住）；`kgecg_2017` 108 條未刪；七個 standing WARN 未有 waiver；六項人手檢查未簽核；header 正則吃註腳（33 行）未修。
+5. ⚠️ **本節零生產寫入、零 deploy、零重切語料、零 commit。** 工作區 20 個已改檔 ＋ 15 個新檔待分類提交，分類見 Open Priorities 上方與開工訊息。
+6. ⚠️ **兩項越界結論已自我更正**：(a) 「系統沒有棄權能力」—— 實際是 `synthesize:false` 之下觀察不到棄權層；(b) `forbidden_hits` 寫成「引用」—— 它只證明出現在結果窗。
+
+## Previous Session Record (S212)
 
 1. UTC date: 2026-09-03
 2. Session ID: Claude_20260903 — S212。由「開工」起做三個文檔漂移，Leonard 中途下多兩張單（品質檢查頁、Codex 覆檢五點），最後修好一個 91% 不可讀嘅來源。
@@ -775,6 +853,32 @@ source_registry → same vault PDFs → ai_extract.py
 
 ## State Reconciliation Check
 
+- **2026-09-06 S214 V3 reconciliation:** 已把修正後 18 題實測寫回 `Current Baseline`、`Open Priorities`、`Last Session Record`、`Next Session Opening Message`、`SESSION_LOG.md`、`PROJECT_INDEX.md`、`_s214_grounded_acceptance_report.md` 及 `_s214_grounded_v3_review.md`。所有位置一致記錄：25／36 次 HTTP；不可答題 9／9 棄權、可答題 6／9 作答；人工覆核 4 完整、2 安全但不完整、3 棄權／證據不足；無 audience 錯答、OCR 重複或截斷；release verdict 仍為 FAIL。已完成的「18 題重驗」不再列作下一步；下一 gate 改為五條新鮮 retrieval fixture及兩條完整性回歸。兩個 feature flags 維持 `0`；沒有 commit、push、deploy 或 Supabase 寫入。
+
+- **2026-09-06 S214 fresh retrieval reconciliation:** 五題 fixture 已完成並落盤，結果 2 PASS／1 PARTIAL／2 FAIL。`chi_hist_jss_ncs_2019` 漏 route allowlist及 `gov_imc_60pct` gold 標籤錯誤已作最小修正；候選中史單題驗證顯示 Source Recall 恢復但目標 Chunk Recall 仍失敗。`g10` 排序缺口與 `hr_lsp` 公式不完整保留為未解。下一步改為兩條 completeness 回歸及 `g10`／中史 NCS／`hr_lsp` 可泛化修法。零 Supabase 寫入、零 commit、零 push、零 deploy。
+
+- **2026-09-06 S214 continuation reconciliation:** 已把第二批 40 題 post-fix acceptance、兩道離線輸出衞生閘、probe 選窗 blocker 及 Leonard 批准的 gold 修訂寫回 `Current Baseline`、`Open Priorities`、`Last Session Record`、`Next Session Opening Message`、`SESSION_LOG.md`、`PROJECT_INDEX.md`、`CODEBASE_CONTEXT.md`、`_s214_grounded_acceptance_report.md` 及 `_s214_gold_abstention_review.md`。所有位置一致記錄：兩批舊 artifact 受 18／40 題 harness 偏差影響，不可直接作 release 判決；生產及 probe 共用 `selectPrimaryEvidence()`，回歸 48/48；active gold 184→185，兩條舊 NCS 已保存至 deprecated audit，七條新／修訂標籤最小 cache 驗證 7/7；兩個 feature flags 維持 `0`；下一 gate 是另取 API 批次批准後重跑 18 題、建立兩條新 NCS retrieval fixture及獨立覆核。沒有新外部 API 呼叫；沒有 commit、push、deploy 或 Supabase 寫入。
+
+- **Reconciled at:** 2026-09-05（S214 closeout — Leonard「收工」）。
+- **S214 state sections rewritten or confirmed current:** `Current Baseline`（**prepend S214 五項** ＋ 頂置紅旗未提交生產改動；S213 段降為 🔙 歷史，內容一字未改）；`Open Priorities`（**整組重生為 ①–⑥**：① 未提交生產改動列為最高優先並附三選項與驗證閘，② 4 條 fidelity 不一致，③ 合成窗佔用率未改善，④⑤⑥ 承接 S213 遺留並註明原編號；舊 S213 段整段收入 `<details>` 摺疊存檔，零刪減）；`Last Session Record`（重生為 S214，S213 降為 `Previous Session Record (S213)`，內容一字未改）；`Next Session Opening Message`（整段重生，紅旗置頂 ＋ 已完成四項 ＋ 未解決兩項 ＋ `Post-startup first action`）；本段。`Architecture Decisions` / `Regression / Verification Notes` / `Backlog` / `User Environment` / `Mandatory Start Checklist` / `Supabase Technical Notes` 逐段讀過，**本節未改動其所述事實，確認仍然 current，不改**。
+- **S214 lifecycle conflicts resolved:** 是。Phase 1.1 A–E 已完成，**已從 Open Priorities 移除**，不再以未了項身分留在清單（S213 段的 ①–④ 隨舊段落一併摺疊存檔）。反向檢查：`searchChannelB.ts` 未提交改動同時出現在 `Current Baseline`（紅旗）、`Open Priorities ①`、`Last Session Record` 第 4 項、`Next Session Opening Message`（紅旗＋首要動作）——四處**一致描述為「已改、已通過 typecheck、未跑 184 live、未部署」**，無一處寫成已完成或已驗證。
+- **S214 stale snapshots left:** 無。S213 段已明確標為 🔙 歷史；舊 Open Priorities 收入 `<details>` 並註明「Phase 1.1 已完成，存檔備查」。
+- **S214 persistence routing checked:** 是。當前狀態與下一步 → `SESSION_HANDOFF.md`；本節逐條證據與指令 → `SESSION_LOG.md`；工具檔案地圖 → `PROJECT_INDEX.md`；兩份詳細技術報告留在 `dev/_s214_phase_1_1_report.md` 與 `dev/_s214_gate2a2_implementation_report.md`（交接只留指標，不複製內容）。
+- **S214 opening message matches current state:** 是。`START_NEXT_SESSION_PROMPT.txt` 由該 block 重生並做 mirror check（見下 Sync）。
+- **⚠️ S214 歸屬限制（必須保留）：** 本節有部分回合已不在 agent 上下文內（機器休眠 ＋ context 壓縮），**檔案逐行歸屬無法可靠重建**。磁碟上兩份 S214 報告為權威記錄，**不得憑檔案 mtime 推論作者**。
+
+- **Reconciled at:** 2026-09-04（S213 closeout — Leonard「先收工」，並要求把 Codex 的 Phase 1.1 brief 一併寫入）
+- **S213 state sections rewritten or confirmed current:** `Current Baseline`（prepend S213 六項：舊 eval 的 PASS 恆真、gold set 量到的真實水平、OP⑦ 根因、兩個新語料缺陷、註腳置頂之相關性、產品與工具兩個 verdict）；`Open Priorities`（**整組重生**：①–④ 為 Codex 指定的 Phase 1.1 A–E，⑤ 為根因已封死但生產庫未改，⑥ 統一承接 S212 七項未動遺留，⑧ 為 S213 新增的 header 正則吃註腳）；`Last Session Record`（重生為 S213，S212 降為 `Previous Session Record (S212)`，內容一字未改）；`Next Session Opening Message`（整段重生，含未提交改動的三類分類與 Phase 1.1 全文）。`Architecture Decisions` / `Regression Notes` / `Backlog` / `User Environment` / `Supabase Technical Notes` 逐段讀過，內容仍然成立，不改。
+- **S213 lifecycle check:** 對得上。`Completed` 各項無一項留在 `Open Priorities`：Playbook v3、Phase 0 凍結基線、gold set 162 條、五支量度工具、extract header 修復與 fail-loud 守門，全部是本節完成並驗證，不是待辦。**反方向亦對過**：新 ①–④ 全部是 Codex 覆核後指定而本節未開始的；⑤⑥⑧ 全部是量到而未修的。**兩項刻意不升做 OP**：(a) 舊 harness 的 `verdict_for` 語意本身（它作為回歸偵測器是稱職的，要修的是「不可讀成準確度」這個理解，已寫入 Current Baseline）；(b) `text_hash` 是 sha256[:16] 而 `eval_retrieval` 註釋寫 md5[:12]（純註釋錯，已記入開工訊息「S213 查實」，不值得開一條 OP）。
+- **S213 persistence routing checked:** 是。當前狀態 → handoff `Current Baseline` + `Last Session Record`；逐條量度、自己犯的六個錯、工具 self-test 結果 → `SESSION_LOG.md`；量度工具、gold set、新 QC 指令 → `dev/PROJECT_INDEX.md`（本次 append）；三條可重用紀律（#19 報血緣範圍前先逐條實測／#20 量度工具本身要先驗／#21 關掉了某一層就不可以講該層的能力）→ 開工訊息紀律段；未提交改動的三類分類 → 開工訊息 ⛔ 段，因為它是下一節第一件要做的事。**沒有把可重用紀律只留在 handoff 或 log。**
+- **S213 stale snapshots left:** 無。**同時更正本節自己一度講錯的四項**：(a) 報 header 正則吃掉 55 行／23 源／3,714 條，實測係 33 行／16 源／2,212 條，而我舉的頭號例子 `staff_est_pri` 根本沒受影響；(b) 「系統沒有棄權能力」是 `synthesize:false` 之下的越界結論；(c) `forbidden_hits` 寫成「引用」，它只證明出現在結果窗；(d) 一度把註腳置頂與 Recall@1 較低講成代價已量到，那是相關性不是因果。**另更正 Codex brief 的一項前提**：它寫「S213 Gold Set 使用 synthesize」，實測 `eval_retrieval.py:251` 寫死 `"synthesize": False`，gold run 從未用過 synthesize —— 但它的結論仍然成立，只是理由相反。
+- **S213 opening message matches current state:** 是。逐項對過：平台 v3.3.2（本節零前端改動）／Supabase 17,602（本節零寫入）／registry 279／GUIDELINES_REGISTRY 177／凍結合約零接觸／HEAD == origin/main @ `05ea10e`（0/0）／工作區 20 個已改檔 ＋ 15 個新檔，與 `git status` 逐行對過／兩個 eval run 檔存在且 errors=0。
+- **S213 sync status:** 本節零生產改動、零對外數字變動，`qc_report` 四個數（17,602／658／130／842）未變，故 **DOC_SYNC 無新行命中**。row 43（檢索 eval harness）**未命中** —— 本節新建的是平行工具，未改 `eval_retrieval.py`；下一節 Phase 1.1 A 會改它，屆時 row 43 必然命中。
+- **S213 log maintenance:** 無觸發。`session_log_maintenance.py --check` 實跑報 `trigger=False`、`line_count=162`、`entry_count=2`（門檻 400 行）。`PROJECT_DECISIONS.md` 觸發條件 (c) 成立但**刻意延後**：三種排序策略的取捨要有反事實量度才寫得成 ADR，那正是 Phase 1.1 D 的交付，本節寫只會寫成推測。
+- **⚠️ S213 未完成而下個 session 必須知：** (a) 四項生產寫入仍卡在同一道權限閘（auto mode 分類器擋住 `cb3_deprecate_stale.py` 與 `_s213_title_backfill.py --execute`），要 Leonard 自己跑或加 Bash 權限規則；(b) 工作區 35 個檔待分類提交，**A／B 兩類不可混合提交**；(c) Phase 1.1 B、C 需要 `synthesize:true` 的批量外部模型呼叫，**動手前先報次數、token 與成本**。 (d) **`doctor` 現時報 `status: failed`，唯一原因是 `dev/rules/closeout.md` 不存在 —— 這是既有版本漂移，不是 S213 造成**：該檔在 git 歷史從未存在、`RULE_PACKS.md` 沒有引用它，已安裝 template 是 0.3.29 而 doctor 跑的是 v0.3.64。本節改動過的每個治理檔都報 `ok`。要清掉它得跑 `upgrade`，**那是獨立決定，不在收工範圍**。
+
+- **舊記錄（S212 closeout）：**
+
 - **Reconciled at:** 2026-09-03（S212 closeout — Leonard「全做，收工」）
 - **S212 state sections rewritten or confirmed current:** `Current Baseline`（整段換成 S212 五項：狀態頁／封版閘／首次量度四個發現／phys 重抽／自己造成嘅停機）；`Open Priorities`（**整組重生為 8 項**，舊 ①②⑤ 結案移除，舊 ③④ 改寫為新 ⑤⑥，新增 ①②③④⑦⑧）；`Last Session Record`（換成 S212，S211 降格為 `Previous Session Record (S211)`）；`Next Session Opening Message`（整段重寫，紀律加至 18 條）。`Architecture Decisions` / `Regression Notes` / `Backlog` / `Supabase Technical Notes` 逐段讀過，內容仍然成立，不改。
 - **S212 lifecycle check:** 對得上。`Completed` 各項無一項留在 `Open Priorities`：舊 ①（eval 片段層）已建並現場證綠，結案；舊 ②（登記漂移監察）監察半邊已建，**但人手策展佇列半邊仍未做，故改寫為新 ③ 並補上 S212 新發現嘅標題錯掛**；舊 ⑤（保安路由）已 ship 並 eval 過，結案。反方向亦對過：新 ①②③④⑦⑧ 全部係 S212 量到而未修嘅，不是把已完成工作當成待辦。
@@ -973,69 +1077,76 @@ Continuity rule: this file carries current state and next action. `dev/SESSION_L
 ```text
 Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
-(Playbook lazy: read only "Leonard's playbook/playbook/INDEX.md"; the full table lives in
- INDEX_TABLE.md - grep it on trigger, open a card only on a hit, then log one usage line.)
+(Playbook lazy: 只讀 "Leonard's playbook/playbook/INDEX.md"；全表在 INDEX_TABLE.md，撞到才 grep，配到才開卡，用完補一行 usage。)
 
-Current state (S212, 2026-09-03): 平台 v3.3.2; Supabase 17,602 chunks; source_registry 279;
-GUIDELINES_REGISTRY 177; 凍結合約 _meta 2.3.0 / facts 455 / guidelines.json 2.6.1 / 158 全部零接觸。
-自動化 active: 6 源監察 + Option A 自動入庫管道 + 🆕 每日品質檢查 (qc_report.yml, 12:00 UTC, 會自行 push main)。
-開工時本地大機會落後 origin/main —— tree 乾淨 + 0 本地 commit 先 git pull --ff-only; 有本地 commit 就 rebase。
+Current state (S214, 2026-09-04 → 09-06): 平台 v3.3.2；Supabase 17,602；source_registry 279；
+guidelines.json _meta 2.6.1；凍結合約零接觸。HEAD == origin/main == 05ea10e。
+本節零 commit、零 push、零 deploy、零 Supabase 寫入、零重切語料。
 
-🆕 開工第一件事改咗 (S212): 唔使再靠人手查全庫狀態，開呢一頁就見到全部
-   https://policychecker.wongfu.net/status-07cc7942c0.html  (機器可讀: /qc_report.json)
-   21 項檢查 + 封版閘。現時 overall=ERROR、閘 7/15 FAIL。
-   本機重生: set -a && . backend/.env && set +a && python3 dev/source/qc_report.py --check
+🔴 最高優先：grounded synthesis 兩批 40 題 acceptance 仍為 FAIL，兩個 feature flags 維持 0。
+   第二批實錄 54 次 HTTP 嘗試（40 draft＋14 judge，maxRetries=0）；其後棄權成因覆核發現
+   probe 先取五格才移除策展摘要，與生產次序不一致，18/40 題證據窗受影響；
+   舊兩批 artifact 均標示為 harness-confounded，不可直接作 release 判決。
+   生產及 probe 現共用 selectPrimaryEvidence()；回歸 48/48、typecheck、build、diff check 全綠。
+   Leonard 已批准並完成 gold 修訂：active 184→185；舊 NCS 保存至 deprecated audit，七條驗證 7/7。
+   修正後受影響 18 題 V3 已完成：25/36 次 HTTP；不可答題 9/9 棄權、可答題 6/9 作答；
+   人工覆核為 4 完整、2 安全但不完整、3 棄權／證據不足，無 audience 錯答、OCR 重複或截斷。
+   五題 fresh retrieval 已完成：2 PASS／1 PARTIAL／2 FAIL；已修中史 NCS 漏 route allowlist及
+   gov_imc_60pct gold 標籤。候選驗證顯示中史來源已升至 rank 0／1／3，但目標片段仍未入首 8。
+   下一步是補兩條完整性回歸，並為 g10／中史 NCS 段落召回及 hr_lsp 公式缺口設計可泛化修法。
+   詳見 dev/_s214_grounded_acceptance_report.md、dev/_s214_grounded_v3_review.md、
+   dev/_s214_gold_abstention_review.md 與 V3 artifact。
+   三個 Codex 子代理第二輪覆核因額度上限未能執行；不可寫成已獨立覆核。
+   任何新外部模型測試都要重新取得 Leonard 明確批准；先前批准餘額不可挪用。
 
-✅ S212 查實 (唔使再查):
-  1. **重抽文字層救唔到 CID 亂碼。** phys_sss_2007_2015 嘅 PDF ToUnicode CMap 壞咗，pdftotext 抽出
-     同舊 extract 逐字相同嘅亂碼。要用 dev/ocr_extract.py (S147 為此 failure mode 而建)。
-  2. **亂碼算術還原係陷阱。** 三個固定偏移 (+0x3058 / +0x2D1E / +0x8E51) 可還原 98.4%、讀落通順,
-     但交叉核對見到「二零一五年十一月」變成八個似是而非嘅漢字 —— 剩低嗰 1.6% 唔係明顯壞,
-     係靜靜錯。用嚟做交叉核對可以, 唔可以當修法。
-  3. **OCR 係草稿質素, 錯法係術語級誤字。** 逐頁對照原圖: 普適→普通、查證→查察、貫徹→實徵、
-     樂意→樂於, 約每頁 1-2 個 (≈0.5%)。引用具體字眼前對回原文。
-  4. **judge 同 synthesis 用兩個 model** (OPENAI_MODEL 合成 / JUDGE_MODEL 判斷閘, 後者程式預設
-     gpt-4.1-mini)。S211 拆咗但七處文檔冇跟, S212 已補齊。
-  5. **/health 報 ok:true 唔代表搜尋活。** 佢只驗 Channel A 快取。要驗真嘅睇
-     qc_report 嘅 SEARCH_PIPELINE_LIVE, 或者直接打一條查詢。
+🔴 並行紅旗：backend/src/api/searchChannelB.ts 有未提交生產改動（+31 −21）：
+   `npm run check` 已通過，但 **184 題 live 套件未跑、未部署**；線上仍行 f513a18。
+   這個改動會改變每一條查詢的結果次序，**未驗證前不得 push**。
+   三個選項要 Leonard 拍板：(a) 跑齊驗證再 commit+push；(b) git stash 收起；(c) 還原。
+   驗證閘（見 dev/_s214_phase_2a1_gate2a1_report.md）：
+     Chunk@3／@5 不得下降 · forbidden@1 不得上升 · 註腳正控跌出 top-5 須為 0
+     · 標準棄權 ≥13/19 · 誤拒答 ≤2/19
 
-🧭 紀律 (真金白銀學返嚟, 仍然生效):
-  1. 判斷 judge/synthesis 行為前, 先確認係邊個 model 變數。
-  2. negative result 落結論前先問「如果目標訊號存在, 呢個工具顯唔顯示到?」
-     (S212 再中: 測 kgecg_2017 有冇搶格位, 頭五條 query 全部 0, 但嗰五條全部路由走咗,
-      係硬過濾擋住, 唔係佢贏唔到。關掉過濾先見到真相。)
-  3. 報一個數之前打開數字背後至少一個實例親眼睇。
-     (S212: 數字密度偵測器返 701 條, 啱啱好落喺 S204 估算範圍, 但逐條讀係四樣唔同嘅嘢。)
-  4. 剷任何嘢前分清「有可引用替代品」同「唯一來源」。
-  5. 任何檢索改動一律 eval before→after 對為準; synthesis-gate 改動一律 live before→after。
-  6. judge 係 LLM、非決定性 → verdict 要重複 run (≥3); 更好係搵個確定性量度。
-  7. 入庫 ≠ 可達; 可達 ≠ 贏得到; 贏得到 ≠ 答得啱。
-  8. 交接寫低嘅選項框架本身可以係錯。(S212 三次: 「加保安字眼落 digital_education」會令目標
-     query 變差; 「斷言 chunk id」會喺自己嘅修正上面紅; 「14 個 unmanaged 要分流」其實係
-     一個 series 父項數咗 14 次。)
-  9. 「應該冇」唔係「冇」。10. 報 population 數字要即刻拆類。
-  11. **守門要證明佢會紅。** (S212 代價示範: /health 永遠唔會紅, 結果全站搜尋死咗半個鐘冇人知。)
-  12. 交付一個檔案之前 ls 實證佢存在。 13. 揀嘅 phrasing 決定得出嘅答案。
-  14. 任何要人做決定嘅表面都要有出口; 只入唔出嘅清單一定變牆紙。
-  15. 改完一樣嘢, grep 該功能自己嘅字眼掃全站散文、meta、分享卡、README。
-  16. 改 mobile.css / mobile.js 必須同時推 PLATFORM_VERSION。
-  17. **S212 新增: 刪之前先驗「入得到」。** 先刪 182 條、後發現額度耗盡 = 該源 0 條 + 全站 429。
-      任何會大量呼叫外部 API 嘅步驟 (OCR / 批次 embedding) 事前要估算並講出用量,
-      唔可以把單頁探針嘅成本當成全份嘅成本。見 DOC_SYNC row 54。
-  18. **S212 新增: 呈現層要有人眼睇。** 封版閘喺公開頁寫「8 項」而下面只列 6 個名 (截斷冇省略號),
-      係 Leonard 睇頁面睇出嚟, 冇任何 self-test 捉到。self-test 驗邏輯, 唔驗呈現。
+✅ S214 已完成（證據在兩份報告，不必重推）：
+   1. Phase 1.1 A–E 全部完成 → dev/_s214_phase_1_1_report.md
+      A NFKC 修正（self-test ALL PASS；39 條 live PASS 27／FAIL 0／errors 0）
+      B 棄權實測（19 條無答案題 13 條標準棄權；正向對照 2/19 誤拒答）
+      C forbidden（4/4 進首五格，但**只有 1/4** 可證答案實際採用並造成對象混淆）
+      D 排序反事實 → **全域 score sort 有害，已否決**
+      E Gold Set 補至 184 條全通過 validator
+   2. Gate 1 根因定案（唯讀）：searchChannelB.ts:1495 的 [...lead, ...rest] 無條件前置，
+      lead 資格只看絕對門檻（0.45 ＋ 2 bigram），**從不與被壓者比分**。
+      :1146 註釋寫明意圖係「reaches the synthesis window (top-5)」＝成員資格，
+      實作卻給 index 0 ＝位置 —— 呢個落差就係根因。
+      實證：全 162 題只有 3 條有 exact 1.0，**三條全部被 0.48–0.52 的註腳壓住**。
+   3. Gate 2A1 測試基建 → dev/_s214_rank_model.py（T1–T14，41 條斷言 ALL PASS）
+      · dev/_s214_gate2a1_replay.py · footnote_lead_probe.py 加 window_of() 記錄完整 top-8
+      · 43 條 live probe 跑完（正向 30/30 保住 lead，errors 0）
+      · fidelity 174/184 → **180/184**（修好 spotlight 誤判：只看來源在 SPOTLIGHT_SOURCE_IDS
+        會令憑分數攞第一的 staff_est_pri／edbcm116_2026 被誤當強制插入並靜靜丟失一個 chunk）
+   4. Gate 2A2／2A2b 生產實作 → dev/_s214_gate2a2_implementation_report.md
+      Codex local 行為 QC 揪出真缺陷：exact chunk 已由 ANN 在 rank 2 出現，
+      舊 seenIds 過濾把 score=1 版本篩走，令答案講「大約40」而 exact 那行明文寫住 40。
+      修正：dedup 方向對調 · mainSearchLead 在 overlay 前明確擷取（undefined 時 fail closed）
+      · forcedLeads 只用於插入定位，不再用於 judge bypass。
 
-NEXT (見 Open Priorities 全文, 已重生為 8 項):
-  ① 八個 standing WARN 要 Leonard 批 waiver 或當要修 + 六項人手檢查未簽核 (封版閘現時因此 FAIL)。
-  ② kgecg_2017 108 條已證可刪, 但 cb3_deprecate_stale.py 被 auto mode 分類器擋住, 要 Leonard 跑。
-  ③ ⚠️ eng_sss_guide_2021/g33 同 arts_kla_guide_2017/g37 唔係單純重複 —— 兩個 g-series 標題
-     掛錯文件 (2007 英文指引、2002 藝術指引根本唔喺庫入面), 唔可以當刪重複處理。
-  ④ TOPIC_KEYWORDS.safety 認裸「氣體」, 偷走氣體相關嘅課程查詢 (已入 KNOWN_GAPS)。
-  ⑤ 特殊學校編制表恢復 —— 注意佢仍然喺 SOURCE_SETS.staffing 入面, 要先移走。
-  ⑥ content_kind 框架要重新定義, 唔好再用分類器路線。
-  ⑦ 658 條片段以內部代號做標題。 ⑧ 六個現有監察未接入狀態頁。
+⚠️ 未解決（不要當已解決）：
+   · grounded synthesis 已完成單次 V3 外部模型批次，但仍未通過正向完整性及重複穩定性驗收；
+     五條新鮮 retrieval fixture及兩條完整性回歸尚未完成。
+   · 4 條 fidelity 不一致：3 條係分數完全相同而生產 tie 次序非 id 升序
+     （**生產真正的 tie 規則未查證，不得憑猜對齊**）；1 條 fin_seg 的 edbc015_2026
+     排在 5 個更高分項目之前，同 edu_sen_lsg_outsource 同源同病徵，兩次獨立出現仍未解釋。
+   · 合成窗佔用率未改善：overlay 平均佔 2.22/5 格（44%）。本次排序修正只改次序，
+     **未處理「這些項目是否值得佔窗」**。S196 實測 negative 15 條之中 7 條仍取得註腳 lead，
+     且正負 lead_score 分佈重疊（正向下限 0.6061 vs 負向上限 0.7213）
+     → **純提高門檻在數學上不可行**，屬 P0 audience 閘範圍。
 
-⚠️ 未做而應該知: coa_pri_e / coa_ss_e 亦載編制條款, 未逐一檢查有無同類「答錯班數」問題。
+⚠️ 本節有部分回合已不在 agent 上下文內（機器休眠 ＋ context 壓縮）。
+   磁碟上的 S214 報告及不可變 artifact 為權威記錄；**不要憑檔案 mtime 推論作者**。
+
+Post-startup first action: 先做起手探針（app.html PLATFORM_VERSION + Render /health
++ HEAD==origin/main + Supabase count），再讀 grounded acceptance report，先處理 gold/rubric 重審與棄權成因分類。
+同時向 Leonard 保留報告 searchChannelB.ts 未提交排序改動的三個選項；不得自行 push、還原或啟用 flags。
 ```
 
 ## Session Close Checklist (每次 session 結束必須執行)

@@ -34,6 +34,181 @@ dev/DOC_SYNC_REGISTRY.md
 ---
 
 <!-- ack:log-entry:start -->
+## 2026-09-07 — 接續啟動與 route-first artifact 離線覆核
+
+- **Done:** 核對已保存三題 before／after、active gold signature 及 RPC trace；發現「未安裝」交接與 artifact 不一致，沒有重新安裝。
+- **QC:** NFKC／空白正規化比對：hr_lsp 舊策展 signature 兩邊位於 1；另外兩題兩邊均缺指定 signature。完整公式 chunk 兩邊缺席。新 RPC 三次 200、一次 57014 後成功；此為既有 artifact，非本輪 live 呼叫。
+- **Evidence disposition:** `dev/_s214_route_first_focused_review.md` 保存覆核；handoff 加入現況限定，index 登記報告。
+- **Sync:** 無產品程式修改；DOC_SYNC_REGISTRY 新檔映射已更新 index；無公開文件或外部同步需要。
+- **Boundary:** 本輪零外部 API／DDL／commit／push／deploy。HEAD 與本地 origin/main 同為 05ea10e，未 fetch，不能代表遠端即時狀態。
+- **Persistence:** Lightweight checkpoint；不重生啟動提示，不作 full closeout。
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
+## 2026-09-05 Session 214 — Phase 1.1 收官、排序根因定案、測試基建落成，並改了一個未提交的生產檔
+
+- **Codex continuation checkpoint（2026-09-05 至 09-06）：** 在既有排序候選上新增 feature-flagged grounded synthesis（`groundedSynthesis.ts`）、strict Structured Outputs 支援及離線回歸／模型 probe。兩個 flags 預設關閉；零 commit、零 push、零 deploy、零 Supabase 寫入。第一批固定 40 題錄得 56 個成功模型輸出（40 draft／16 judge），但 SDK 預設重試未關閉，HTTP 嘗試總數不可核證；分組實數為 19 條不可答、21 條可答，分別 17/19 棄權及 13/21 作答。人工覆核裁定候選 FAIL：兩個 audience blocker、核心子類別遺漏、正控誤拒答、4 個答案只由策展 footnote 支持、gold label 漂移。其後離線新增 `applicable` 閘、唯一引文跨片段重綁、來源標記防仿冒及 `maxRetries:0`／attempt 落盤；Leonard 批准方案 A，grounded synthesis 現只准 `vault_extract` 支持最終答案。Leonard 再批准第二批同範圍最多 80 次 HTTP 嘗試；post-fix artifact 實錄 `attempted_api_calls=54`，等於 40 draft＋14 judge。兩個 audience blocker已棄權、12 班題已答對，但 OCR 四重複詞進入答案，以及 `qa_esr_no_fixed_cycle` 截斷兼離題句獲 judge 接納，故外部模型 verdict 仍 FAIL。其後加入兩道 judge 前的保守輸出衞生閘：80 字以上 prose claim 必須完整收句；2–16 字元片語連續重複至少三次即拒絕。新增三項回歸後 `regression:grounded` 47/47；第二批全 40 題 artifact 離線重播只有兩個目標 blocker 轉為棄權，其餘 38 題逐字不變；typecheck、build、`git diff --check`、路由回歸 46/46 全綠。semantic regression 為 24 PASS、1 PASS-with-notes、1 FAIL；唯一 FAIL 是既有測試仍預期 `guidelines 2.5.0`，權威值已為 2.6.1，與本次 helper 改動無關，故未順手修改。三個 Codex 子代理第二輪覆核均因額度上限未能執行，沒有修改或外部呼叫，不能列作獨立 QC 完成。報告=`dev/_s214_grounded_acceptance_report.md`；artifacts=`2026-09-05_s214_grounded_synthesis_probe_acceptance_v1.json`、`acceptance_v2.json`。操作邊界：Claude 只用 CLI Plan 額度；Codex 每批外部 API 呼叫均須先取得 Leonard 明確批准。
+- **Codex gold／棄權覆核（2026-09-06）：** 發現模型 probe 當時先 `.slice(0,5)` 才移除策展摘要，與生產「先篩 `vault_extract`，再取五格」不一致，18／40 題證據窗受影響；至少 `hr_lsp`、`hr_lang_req` 的正確來源因此被排除。舊兩批 artifact 降格為 harness-confounded，不可直接作 release 判決。已新增共用 `selectPrimaryEvidence()` 並由生產及 probe 使用，生產行為不變；新增選窗回歸後 `regression:grounded` 48/48，typecheck、build、diff check 全綠。另完成兩條 NCS label 重審、四條 rubric drift 及逐層棄權分類，見 `dev/_s214_gold_abstention_review.md`。probe 新增 `--acceptance-affected`（18 題、最多 36 次 HTTP）及 evidence-window fingerprint；無批准參數的 preflight 如期在建立模型 client 前停止。本步沒有外部 API 呼叫、commit、push、deploy 或 Supabase 寫入。
+- **Leonard 批准 gold 修訂（2026-09-06）：** 兩條舊 NCS 從 active set 移出並完整保存於 `dev/source/gold_deprecated_s214.json`；新增 `ss_ncs_chinese_framework_progress_v2` 及 `ss_ncs_history_adapted_outline_v2`。`gov_imc_60pct` 收窄至 60% 上限，另拆 `gov_imc_alternate_excluded_v2`；`hr_lang_req`、`plc_central_alloc_confusable`、`saf_disease_notification` 改為 query 與一手 passage 完全對齊。Active gold 184→185，ID 185/185 唯一；七條新／修訂標籤以保存 evidence＋本地 extract 的最小 cache 驗證 7/7，gold validator／runner／metrics self-test 全綠。原全庫 cache 路徑已失效，未擅自連接 Supabase，故完整 185 條 corpus revalidation 尚待新唯讀 snapshot。probe 18 題模式改讀 active gold query 並記錄 evidence 原始 query；舊 40 題 mode 遇 deprecated fixture 會 fail closed。本步零外部 API、零 commit、零 push、零 deploy、零 Supabase 寫入。
+- **Leonard 批准 V3 批次（2026-09-06）：** 以 OpenAI Responses API 跑 `--acceptance-affected` 18 題，draft=`gpt-4.1-nano`、judge=`gpt-4.1-mini`、`maxRetries=0`，實錄 `attempted_api_calls=25`（18 draft＋7 judge；批准上限 36）。不可答題 9／9 全部棄權、0 錯答；可答題 6／9 作答、3／9 棄權。人工覆核為 4 個完整 PASS、2 個安全但不完整、3 個棄權／證據不足；未再出現 audience 錯答、OCR 重複或截斷。`gov_imc_60pct` 因 gold query 已改但保存 evidence 仍來自舊 query，V3 對該新 rubric 不具判決力；`hr_lsp` 與 `sen_special_school_curriculum` 的目標 passage 未進五格。Verdict 維持 FAIL；下一步是五條新鮮 retrieval fixture及兩條完整性回歸。Artifact=`dev/source/eval_runs/2026-09-05_s214_grounded_synthesis_probe_acceptance_v3_windowfix.json`；人工覆核=`dev/_s214_grounded_v3_review.md`。本步零 Supabase 寫入、零 commit、零 push、零 deploy。
+- **Leonard 批准五題 fresh retrieval（2026-09-06）：** 固定 5 次 Render `synthesize:false`，無重試；後端每題使用 `text-embedding-3-small` 並唯讀查 Supabase。結果 2 PASS／1 PARTIAL／2 FAIL：中文第二語言框架及校董 60% 正文入首 5；長期服務金一手片段有部分註釋但欠完整基本公式；特殊學校 `g10` 及非華語中史目標來源未入首 8。根因覆核發現 `chi_hist_jss_ncs_2019` 已入庫但漏 `SOURCE_SETS.curriculum`，已作最小 allowlist 修正並加來源成員斷言；`g10` 已在正確 route，未猜測加入 spotlight。另更正 `gov_imc_60pct` gold 的錯亂 signature、頁碼 21→4 及 chunk id。QC：route 46/46 + 成員斷言 PASS、grounded 48/48、typecheck、gold self-test、JSON parse、diff check 全綠。Artifact=`dev/source/eval_runs/2026-09-06_s214_fresh_retrieval_5.json`。本步零 Supabase 寫入、零 commit、零 push、零 deploy。
+- **Leonard 批准候選中史 route 單題驗證（2026-09-06）：** 第一次本機請求因 `.env` 缺 `SUPABASE_URL`／`SUPABASE_ANON_KEY`，在任何 OpenAI／Supabase 調用前 fail closed，不能判分；其後按既有唯讀 fallback，以本機 service key 配合已登記 Supabase URL 完成同一批准範圍內的一次 `synthesize:false` 查詢。allowlist 修正令 `chi_hist_jss_ncs_2019` 由首 8 缺席升至 rank 0／1／3，但蒙古崛起第 17 頁目標片段仍未進首 8：Source Recall 修好，Chunk Recall 仍 FAIL。Artifact=`dev/source/eval_runs/2026-09-06_s214_ncs_history_candidate.json`。沒有重試、synthesis、Supabase 寫入、commit、push 或 deploy。
+- **長期服務金離線根因（2026-09-06）：** 完整公式並非語料缺失；它在 `vault_long_service_payment_guide_ab49f971fc3d2752`，但 fresh retrieval 未取回。該 chunk 橫跨第 3／4 頁，公式實際在第 4 頁，現行 `dominant_page()` 卻判第 3 頁。嘗試把 `hr_lsp` gold 由策展摘要改指一手公式時，validator 正確揭示這個 mismatch；為免用錯誤第 3 頁換取綠燈，已撤回 gold 改動並記錄 schema 缺口：未來須分開 source-truth page 與 observed product page。這項與 `g10`／中史 NCS 一同歸類為長篇／表格式文件 chunk-boundary／ranking blocker。
+- **Phase B route-first 候選（2026-09-07）：** 離線二／三字元 IDF 反例證實，路由內排名可把中史目標升至 rank 0、長期服務金兩個公式升至 rank 0／4，亦可把足以回答的 `g10` 相鄰片段升至 rank 1；但 gold 指定 `g10` chunk 因同詞片段大量同分只到 rank 12，故 lexical 不可單獨作主排名。已新增預設關閉的 `FEATURE_ROUTE_FIRST_SEARCH`、獨立 `match_wiki_chunks_routed` exact RPC 及 fail-open fallback；不 overload 舊 RPC，共用 query embedding，補回三次限定 `57014` 重試。Claude Code CLI Plan session 唯讀覆核為 PASS-with-flags、無 blocker；本地 typecheck、build、grounded 48/48、route 46/46、retry mock、diff check 全通過。RPC 未安裝，未做 live 185 題 before／after，產品 verdict 仍 FAIL；零 Supabase 寫入、commit、push、deploy。
+- **ID:** `Claude_20260904_1204`（S214），2026-09-04 → 09-05 跨午夜，中途機器休眠一次。Codex 以 QC Governor 身分逐 gate 下單。
+- **Summary:** 四個 gate：Phase 1.1（五項全完成）→ Gate 1 根因分析（唯讀，經兩輪 QC 退回修訂）→ Gate 2A1 測試基建 → Gate 2A2／2A2b 生產實作。**零 commit、零 push、零 deploy、零 Supabase 寫入、零重切語料。**
+- **Changed:**
+  - 生產（**未提交**）：`backend/src/api/searchChannelB.ts`（+31 −21，三處：`mainSearchLead` 在 overlay 前明確擷取、establishment dedup 方向對調、establishment 插入位置改前置）
+  - 評測工具：`dev/source/eval_retrieval.py`（NFKC `fold()` ＋ 14 條 self-test）、`dev/source/footnote_lead_probe.py`（`window_of()` 記錄完整 top-8 ＋ 5 條 self-test，舊欄位零改動）
+  - 新增：`dev/_s214_rank_model.py`、`dev/_s214_gate2a1_replay.py`、`dev/_s214_phase_1_1_report.md`、`dev/_s214_phase_2a1_gate2a1_report.md`、`dev/_s214_gate2a2_implementation_report.md`、`dev/_s214_inspect_fields.py`、`dev/_s214_nfkc_diff.py`
+  - 新 artifacts：`2026-09-04_s214_gate2a1_footnote_probe.json`、`_gate2a1b_replay.json`、`_gate2a2_replay_postimpl.json`、`2026-09-05_s214_gate2a2_local39.json`
+- **Done:**
+  - **Phase 1.1 A–E 全部完成**。C 項的關鍵修正：`forbidden_hits` 4/4 進首五格，但**只有 1/4** 可證答案實際採用並造成對象混淆 —— 不可再把曝光寫成「答案引用」。D 項**否決全域 score sort**（Source@1 升但 Chunk@5 由 0.273 跌至 0.245，且把 `g19` 禁用來源推上榜首）。
+  - **Gate 1 根因定案**：`searchChannelB.ts:1495` `[...lead, ...rest]` 無條件前置；lead 資格只看絕對門檻（0.45 ＋ 2 bigram），從不與被壓者比分。`:1146` 註釋寫明意圖是 top-5 **成員資格**，實作卻給 **index 0**（位置）——此落差即根因。
+  - **Gate 2A1**：`_s214_rank_model.py` T1–T14 **41 條斷言 ALL PASS**；43 條 live probe 跑完（正向 30/30，errors 0）；fidelity **174/184 → 180/184**。
+  - **Gate 2A2b**：Codex local 行為 QC 用 `staff_fullday_24` 揪出真缺陷並修好，`npm run check` 通過。
+- **Fix Record:**
+  - **問題**：fidelity 檢查在「全部跳過」時回 exit 0，讀成「檢查過冇事」，但其實一條都冇驗到。**修**：改為三態，`NO_EVIDENCE`=2 / `FAIL`=1 / `PASS`=0。**驗**：184 題檔實測回 exit 2。
+  - **問題**：`classify_recorded` 的 spotlight 判別只看來源是否在 `SPOTLIGHT_SOURCE_IDS`，但 `staff_est_pri`／`edbcm116_2026` 本身憑分數就攞第一 → 184 條之中誤判 6 條，每條靜靜丟失一個 chunk。**根因**：set 成員資格 ≠ 強制插入。**修**：必須同時違反分數次序（後面有更高分項目）才判定為 spotlight。**驗**：fidelity 174→180/184，並加兩條專門斷言（正例／反例各一）。
+  - **問題**：我在 Gate 1 寫「註腳正控集不存在」。**實際存在**（`footnote_lead_probe.py` ＋ `2026-07-28_s196_fnlead_final.json`，26/26 正向保住 lead）。**已收回並更正。**
+- **QC:** `eval_retrieval.py --self-test` ALL PASS · `_s214_rank_model.py --self-test` 41 條 ALL PASS · `footnote_lead_probe.py --self-test` PASS · `backend` `npm run check` 通過 · 起手探針全綠（app.html 200／3.3.2、Supabase 17,602、registry 279、guidelines 2.6.1、HEAD==origin/main 05ea10e）。
+- **Evidence disposition:** 詳細技術證據 absorbed into `dev/_s214_phase_1_1_report.md`、`dev/_s214_phase_2a1_gate2a1_report.md`、`dev/_s214_gate2a2_implementation_report.md`；交接只留指標，不複製內容。
+- **Sync:** `dev/SESSION_HANDOFF.md`（Current Baseline / Open Priorities / Last Session Record / Next Session Opening Message / State Reconciliation Check 全部重生）、本檔、`START_NEXT_SESSION_PROMPT.txt`（由 opening message 重生 ＋ mirror check）。`DOC_SYNC_REGISTRY.md`：本節未改動對外行為或公開文案（生產改動未部署），**無新增 sync 義務**。
+- **Pending:** 184 題 live 套件未跑；生產改動未 commit／未 push／未部署；4 條 fidelity 不一致未修；合成窗佔用率（44%）未處理；S213 遺留 ④⑤⑥ 全部未動。
+- **Risks:** 🔴 **工作區有一個未提交的生產檔改動，會改變每一條查詢的結果次序。** 已通過 typecheck 但未跑 live 套件。下一節開工必須先向 Leonard 報三個選項（驗證後 push／stash／還原），不得自行決定。⚠️ 本節部分回合已不在 agent 上下文內，**檔案逐行歸屬無法可靠重建**，以兩份報告為準，不要憑 mtime 推論作者。
+- **Log maintenance:** no-op —— 本檔 4 條 entry、288 行，未達 §4a 觸發條件（>400 行 或 最舊 entry >30 日），亦未達 core §4.11 的 N≥11／1500 行門檻。
+
+### Next Session Handoff Prompt (Verbatim)
+
+見 `dev/SESSION_HANDOFF.md` 的 `Next Session Opening Message` fenced block；`START_NEXT_SESSION_PROMPT.txt` 為其逐字鏡像（本節 closeout 已做 mirror check）。
+
+## 2026-09-04 Session 213 — 為檢索準確度建可信基線；順帶揪出 658 條代號標題的根因
+
+- **ID:** Claude_20260904_1125（S213）。由「開工」起，Leonard 中途轉單三次：install playbook → 全做 OP → Codex 的 Phase 0／1 檢索基線 brief。
+- **Summary:** 交付一套可信的檢索準確度量度能力，並第一次量到真實水平。舊 eval 的「PASS 27/39」用準確度語言講就是 Source Recall@8 = 1.000，而且是恆真的。新建 162 條 gold set 量出 Source Recall@1 = 0.364、Chunk Recall@5 = 0.273。**零生產寫入、零 deploy、零重切語料。**
+- **Changed:**
+  - 新（Phase 1 量度工具，不改生產）：`dev/_s213_corpus.py`、`_s213_eval_metrics.py`、`_s213_run_gold.py`、`_s213_validate_gold.py`、`_s213_build_gold_staffing.py`、`_s213_recon.py`；gold set 五個 JSON（`_s213_gold_all.json` 162 條）；兩個 eval run（`2026-09-03_s213_phase0_baseline.json`、`2026-09-04_s213_gold_baseline.json`）
+  - 改（Phase 2 候選修正，未 deploy 未入庫）：`dev/vault/build_wiki_index.py`（缺 `# title:` 由靜默 fallback 改為 fail loud）、19 個 vault extract 補回 `# title:`／`# url:` header、`dev/_s213_fix_extract_headers.py`、`dev/_s213_title_backfill.py`（542 條標題回填，dry-run 已跑，**未執行**）
+  - `AGENTS.md` §14 playbook pointer v2 → v3（該檔在 `.gitignore`，只存在於本機）
+- **Done:**
+  - **OP⑦ 根因查實。** 交接寫「658 條片段以內部代號做標題，要 Supabase UPDATE」—— 那是症狀。真因是 `dev/vault/build_wiki_index.py:267-268` 的靜默 fallback：extract 缺 `# title:` 就拿 source_id 頂替、缺 `# url:` 就留空。**集合相等證明：庫內帶代號標題的 source_id 19 個、extract 缺 title header 的 19 個、交集 19、兩邊獨有各 0。** 同一行代碼同時製造 `SOURCE_TITLE_REAL`(658) 與 `ANCHOR_URL_PRESENT` 的無連結片段，兩個檢查一直當成兩件事。
+  - **源頭已封死**：19 個 extract 補回 header（逐檔斷言正文位元組不變，故 chunk hash 不動、毋須重新 embedding）；守門改為 fail loud 並**證明會紅**（造假檔觸發、逃生門 `ALLOW_UNTITLED_EXTRACT=1` 亦驗過）。現時 265 個來源乾淨載入，源頭代號標題 0、缺連結 0。生產庫 658 條未動。
+  - **Phase 0 凍結基線**：39 條 legacy 集重跑，PASS=27／FAIL=0／RECORD_ONLY=12／chunk PASS=2／errors=0，與 `qc_report` 的 `EVAL_LATEST` 逐項一致。
+  - **Phase 1 gold set 162 條**：18 個政策範疇（14 個 ≥10 條）、143 可答＋19 無答案、錯字／簡稱／英文／自然句 39、易混淆 25、dev 114／held-out 48。每條標籤由語料現場抽出，經 `_s213_validate_gold.py` 獨立重驗（chunk 存在、簽名真在清洗後正文、頁碼等於 `dominant_page`、無答案題反向證明零命中）。
+  - **`wiki_chunks` 無 `page` 欄** —— 頁碼是查詢時由 `=== Page N ===` 標記推導。已逐行移植 `extractDominantPage`（`searchChannelB.ts:1054`）並對四種語意驗證。
+- **關鍵數字（`_s213_eval_metrics.py`，162 條 gold set，top_k=8，`synthesize:false`）:**
+  - Source Recall@1／@3／@5／@8 = 0.364／0.552／0.636／0.706；MRR 0.474
+  - Chunk Recall@1／@3／@5 = 0.119／0.245／0.273；MRR 0.184
+  - 143 條可答題之中 **42 條在 8 格內完全搵唔到正確來源**
+  - dev 0.340 ／ held-out 0.419（@1）—— held-out 略高，未見過擬合
+  - 22 條查詢有單一來源佔窗一半或以上（最多 5 格）；逐字重複格位 0
+  - 60/162 結果不是分數遞減排列，該 60 條位 0 全部是 `footnote_curated`
+- **語料層兩個新缺陷（已量、未修）:**
+  1. **CJK 相容表意文字 868 條 chunk（4.93%）、112 個來源、110 個不同變體字**（例：理 U+F9E4 而非 U+7406）。肉眼相同、位元組不同。**現行 `eval_retrieval.chunk_verdict_for` 只用 `squeeze()` 比對、無 NFKC folding，所以目標段落落在這 868 條之中時，正確檢索會被判 FAIL。** S213 全套工具比對前已 fold。
+  2. **header 剝除正則吃掉正文的 `# ` 開頭行**：16 個來源、33 行真正消失（涉 2,212 條 chunk）。實例：`g24` 一行強制舉報懷疑虐兒的交叉引用。
+- **本 session 自己犯咗而值得記低的錯：**
+  1. **未實測就報血緣範圍。** 我掃出「23 個檔正文有 `# ` 行」就推論全部被刪、報 55 行／3,714 條／21.1%。逐條實測後真數是 16 個來源／33 行／2,212 條，而我舉的頭號例子 `staff_est_pri` 恰恰**沒有**受影響（它走 `extract_table_rows.py`，不經那個正則）。
+  2. **工具兩個缺陷會污染整個 gold set**，而且 agent 已在用：`find`／`show`／`signature` 一律印 `page=None`（讀了不存在的欄）；`signature` 由原始文字切片，`--start 0` 會切出 `===Page1===`，而後端回傳前會剝走標記 —— 這種簽名永遠對不上正確答案。已修並通知 agent 重驗。
+  3. **只 fold 了一邊。** 加 NFKC 後通過率由 83/83 崩到 43/123；乾草堆 fold 了、針沒有。
+  4. **標記檢查過度觸發。** 寫 `"=" in s` 想擋 `=== Page N ===`，結果擋了空調津貼公式「（SAC）＝1個課室率」的全形等號（NFKC 後變 ASCII）。改認 `===` 與 `Page\d`。
+  5. **越界結論：「系統沒有棄權能力」。** 我用 `synthesize:false` 跑，`judgeCanAnswer`／`SYNTHESIS_DECLINE`（`searchChannelB.ts:917/924/1016`）由頭到尾冇行過。應該寫「本次量度觀察不到棄權層」。
+  6. **`forbidden_hits` 我寫成「引用」。** 它只證明禁用來源出現在結果窗，未證明答案採用其內容。
+- **QC:** 全部 self-test 綠 —— `_s213_eval_metrics` 12/12（覆蓋 brief 要求的六種必須能顯示的失敗）、`_s213_run_gold` 7/7、`_s213_validate_gold` 9/9、`_s213_build_gold_staffing` 10/10、`_s213_fix_extract_headers` 6/6、`_s213_title_backfill` 10/10。gold set 驗證 162/163 通過、隔離 1（`dig_byod_mandatory_na` 聲稱無答案但「自攜裝置」有 1 條命中）。兩次 live run 共 201 條查詢、errors=0。
+- **Evidence disposition:** 量度工具與 gold set 待 indexed in `dev/PROJECT_INDEX.md`；兩個語料層缺陷與五項 Codex 更正 absorbed into handoff；其餘 kept as recent trace evidence。
+- **Sync:** 本節零生產改動，`qc_report` 數字未變（17,602／658／130／842）。DOC_SYNC 未命中新行。
+- **Pending:** Codex 的 Phase 1.1 A–E，見 Open Priorities。
+- **Log maintenance:** `session_log_maintenance.py --check` 報 `trigger=False`（162 行／2 個 entry，門檻 400）。無 op。`PROJECT_DECISIONS.md` 觸發條件 (c) 成立（多選項架構取捨：全域 score sort vs 結構化 exact-match 優先 vs 現行 forced-footnote），已於下一節列為待辦而非本節寫入，因為三者的反事實量度是 Phase 1.1 D 的交付。
+
+### Next Session Handoff Prompt (Verbatim)
+
+📋 Next session: agent-managed startup content below
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+(Playbook lazy: 只讀 "Leonard's playbook/playbook/INDEX.md"；全表在 INDEX_TABLE.md，撞到才 grep，配到才開卡，用完補一行 usage。)
+
+Current state (S213, 2026-09-04): 平台 v3.3.2；Supabase 17,602；source_registry 279；
+GUIDELINES_REGISTRY 177；凍結合約 _meta 2.3.0 / facts 455 / guidelines.json 2.6.1 / 158 全部零接觸。
+S213 零生產寫入、零 deploy、零重切。HEAD == origin/main，但**工作區有未提交改動，開工先分類再決定**。
+
+⛔ 未提交改動的分類（Codex 要求，勿混合提交、勿還原）：
+  A. Phase 1 量度工具（不改生產，可獨立提交）：
+     dev/_s213_corpus.py / _s213_eval_metrics.py / _s213_run_gold.py / _s213_validate_gold.py
+     dev/_s213_build_gold_staffing.py / _s213_recon.py
+     dev/_s213_gold_{all,staffing,curriculum,kg_safety,cpd_digital}.json
+     dev/source/eval_runs/2026-09-0{3,4}_s213_*.json
+  B. Phase 2 候選修正（改了行為，未 deploy、未入庫，**先等批准**）：
+     dev/vault/build_wiki_index.py（缺 title header 由靜默 fallback 改為 fail loud）
+     19 個 vault extract 補 header + dev/_s213_fix_extract_headers.py
+     dev/_s213_title_backfill.py（542 條標題回填，dry-run 跑過，**未執行**）
+  C. 他人工作：無。Codex brief 講 dev/DOC_SYNC_CHECKLIST.md 與 dev/PROJECT_INDEX.md 有未提交
+     修改 —— 實測兩者乾淨，該前提不成立。
+
+📊 S213 量到的真實水平（162 條 gold set，top_k=8，synthesize:false）：
+   Source Recall@1/@3/@5/@8 = 0.364 / 0.552 / 0.636 / 0.706；MRR 0.474
+   Chunk  Recall@1/@3/@5    = 0.119 / 0.245 / 0.273；MRR 0.184
+   143 條可答題之中 42 條在 8 格內完全搵唔到正確來源。
+   舊 39 條集的「PASS 27/39」＝ Source Recall@8 = 1.000，而且恆真（FAIL=0 的定義就是如此）。
+
+🔴 產品 verdict：FAIL（Chunk Recall@5 = 0.273）。工具 verdict：Phase 1 完成。
+   兩項要分開講，不可合併成一句。
+
+⚠️ Codex QC 五項更正（已接受，但第 1 項的前提我實測係錯的）：
+  1. Codex 話「S213 Gold Set 使用 synthesize」—— **不成立**。eval_retrieval.py:251 寫死
+     "synthesize": False，gold run 冇用過 synthesize。但佢個結論仍然啱，只係理由相反：
+     正因為關咗，judgeCanAnswer / SYNTHESIS_DECLINE / trustedVaultLead
+     (searchChannelB.ts:917/924/1012/1016) 由頭到尾冇行過，所以觀察不到棄權層。
+     我原本寫「系統沒有棄權能力」係越界，應為「本次量度觀察不到棄權層」。
+  2. forbidden_hits 只證明禁用來源出現在結果窗，非「答案引用」。要 synthesize 才講得到。
+  3. 60 條註腳置頂與 Recall@1 較低（0.308 vs 0.396）係相關性，不是因果。
+  4. S213 runner 已做 NFKC，故 gold set 指標有效；缺陷在 canonical eval_retrieval.py。
+  5. 樣本不足的不只 info_security(2)：kg_admission(4)、kg_operation(5)、
+     digital_education(6) 同樣少於十條。
+
+🚫 QC Governor 裁示：暫不批准直接按 A → C → B 改生產。**禁止**以全域 score sort 作修法 ——
+   Codex 實測純 score 重排 Source Recall@1 升至約 0.420，但 Chunk Recall@5 反跌至約 0.245。
+   （此數由 Codex 提供，S213 未獨立複核。）
+
+NEXT = Phase 1.1「量度修正與決策證據」，做完停下等 Leonard 批准，不得 deploy／寫 Supabase／重切：
+  A. 把 NFKC folding 加入 dev/source/eval_retrieval.py 的 chunk matching；加 self-test 證明
+     相容碼位會命中、不同漢字不會誤命中；重跑 39 條 baseline 確認 verdict／rank／查詢集無非預期變化。
+  B. 驗證現有棄權機制：19 條 no-answer 題以 synthesize 執行，另配 ≥19 條可答題做 positive control；
+     每題分類為 正確拒答／正確作答／有依據但答非所問／無依據作答／技術錯誤；記錄 judge 結果、
+     有無觸發 trustedVaultLead bypass、實際 synthesis、採用的前五個 chunk。
+     **批量呼叫外部模型前先報預計次數、token 同成本**（紀律 #17）。
+  C. 驗證 forbidden source 實際影響：四條查詢以 synthesize 執行，分四類報告
+     （只在原始結果／進入 synthesis window／答案實際採用／因對象混淆而答錯），
+     只有第 3、4 類先可以叫「引用」或「答錯」。
+  D. 排序反事實測試（**不改生產**）：現行 forced-footnote vs 結構化 exact-match 優先再合資格
+     footnote 再原排序 vs 全域 score sort（僅作反例）。每種報 Source Recall、Chunk Recall、MRR、
+     forbidden exposure，以及原有 footnote positive control 的損失。
+     **不得只以 Recall@1 選方案；Chunk Recall@3/@5 同錯答風險優先。**
+  E. 補 gold set：kg_admission、kg_operation、digital_education、info_security 各補至 ≥10 條
+     （每類 ≥8 條可答），保持 dev/held-out 分離，新 label 須過 corpus／signature／source／page／NFKC 驗證。
+
+✅ S213 查實（不必再查）：
+  1. wiki_chunks **沒有 page 欄**；頁碼由 === Page N === 標記在查詢時推導
+     （extractDominantPage，searchChannelB.ts:1054，已移植入 _s213_corpus.dominant_page）。
+  2. chunk id = vault_<sid>_<hash>，hash 由 text 決定（build_wiki_index.text_hash 係 sha256[:16]；
+     eval_retrieval 註釋寫 md5[:12]，該註釋係錯的）。故改 title 不動 id、不廢 embedding。
+  3. 後端 cleanChunkText 回傳前剝走 === Page N === 同 === section ===，簽名含標記者永遠對不上。
+  4. build_wiki_index.py:267-268 的靜默 fallback 係 658 條代號標題 + 無連結片段的單一根因；
+     集合相等已證（19 = 19，交集 19，兩邊獨有各 0）。
+  5. 語料含 868 條 CJK 相容表意文字 chunk（4.93%／112 源／110 個變體字）。
+  6. header 剝除正則吃掉正文 `# ` 開頭行：16 個來源、33 行真正消失（非我先前推論的 55 行）。
+
+🧭 紀律（S212 十八條仍然生效，S213 新增三條）：
+  19. **報血緣範圍前先逐條實測，唔好由「符合模式」推論。**（S213：我報 23 源／55 行／3,714 條，
+      實測係 16 源／33 行／2,212 條，而頭號例子根本冇受影響。）
+  20. **量度工具本身要先驗。**（S213：find/show/signature 一律印 page=None，因為讀了不存在的欄；
+      agent 已經在用。工具錯會靜靜污染全部標籤。）
+  21. **關掉了某一層就不可以講該層的能力。**（S213：synthesize:false 之下講「系統沒有棄權能力」。）
+```
+
+---
 
 ## 2026-09-03 Session 212 — 由文檔漂移開始，變成建一張品質檢查頁；期間自己整停咗生產搜尋
 
