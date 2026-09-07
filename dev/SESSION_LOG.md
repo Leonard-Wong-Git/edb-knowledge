@@ -34,6 +34,109 @@ dev/DOC_SYNC_REGISTRY.md
 ---
 
 <!-- ack:log-entry:start -->
+## 2026-09-07 Session 215 — 起手探針揪出四項漂移，收妥 Codex 兩節工作；中途一條錯誤的回退指令造成資料損失
+
+- **ID:** `Claude_20260907_1400` — S215
+- **Summary:** 由「開工」起做起手探針，發現交接四項數字全部過時（成因是 Option A watcher bot 09-05 自行推送兩次入庫，非人手）。盤點 Codex 交低的 97 個髒路徑並分批 commit。中途 Claude 交出一條附帶錯誤保證的回退指令，Leonard 執行後造成資料損失，其後逐項救援並驗證。
+- **Changed:** 五個本地 commit（全部未 push）——`05854d5` 19 個 extract 補回 title/url header（正文位元組不變）· `3f31905` 評測工具＋30 個 eval_runs artifact＋active gold 185 · `8d90e56` S214 七份報告 · `5f7ce6e` 治理文檔 · `744a8dc` S214 候選全套（11 檔 +968 −26，三個 flag 全 `0`）。收工另寫 `SESSION_HANDOFF.md`、`SESSION_LOG.md`、`START_NEXT_SESSION_PROMPT.txt`。
+- **Done:**
+  1. **四項漂移實測更正**：Supabase 17,602→**17,610**（唯讀 count）；`source_registry` 279→**281**（`qc_report.json`）；線上部署 `f513a18`→**`4a25a15`**（Render `/health`）；`HEAD==origin/main` `05ea10e`→**`463434c`**（`git fetch` 後）。
+  2. **推翻交接「RPC 未安裝」**：以零列探針（`source_ids=[]`，不觸發 per-row vector cast）呼叫 `match_wiki_chunks_routed` 得 `200 []`，四參數簽名相符 → **已裝**。同時證實線上 build 對它引用次數 0，且 PostgREST 讀不到函式本體，故安裝者、授權、與 repo SQL 是否相同三者皆無法核實。
+  3. **揪出 merge 次序陷阱**：機械人 09-05 把 `edbc016_2026`／`edbcm141_2026` 加入 `SOURCE_SETS` 與 `SPOTLIGHT_SOURCE_IDS`，而 Codex 本地 `searchChannelB.ts` 對兩者引用次數為 0。只取任何一邊都會令 8 條片段跌出 route allowlist —— 與 `chi_hist_jss_ncs_2019` 同一病。故 rebase 必須先於驗證。
+  4. **範圍修正**：原擬 step 1 收 89 項，查證 `groundedSynthesis.ts` 依賴新加的 `LlmJsonSchema` 後改為 85 項，全部 `backend/` 押後 —— 否則 typecheck 即紅、`package.json` 註冊的 `regression:grounded` 在乾淨 checkout 上會失敗。
+  5. **`reset --hard` 事故救援**（見 Fix Record）。
+- **Fix Record（本節事故）：**
+  - **成因：** Claude 交出的回退指令 `git reset --hard origin/main && git stash pop` 附了「不會刪走那 60 個未追蹤檔」這句保證。該句是錯的：那些檔已入 commit、變成 tracked，`reset --hard` 會一併刪除；同時亦還原六個從未 commit 亦未 stash 的 backend 檔。
+  - **損失：** 55 個 dev 側檔案由磁碟消失；`llmClient.ts`／`wikiRepository.ts`／`schema.sql`／`package.json`／`.env.example`／`backend/README.md` 六個檔的 Codex 改動被還原。
+  - **救援：** 四個 commit 以 `git merge --ff-only 5f7ce6e` 救回（刻意**不用** `reset --hard`，以保住工作區改動）；`llmClient.ts`／`package.json`／`.env.example` 依本對話完整 diff 逐字還原；`schema.sql` 由倖存的未追蹤檔 `backend/supabase/s214_route_first_candidate.sql` 還原，diffstat 38 + 與原記錄吻合；`wikiRepository.ts` 由 gitignored 因而未被刪的 `backend/dist/lib/wikiRepository.js` 反建。
+  - **等同性證明：** 反建的 TypeScript 重新編譯後，`wikiRepository.js` 與 `llmClient.js` 均與倖存 dist **逐位元組一致**（首次比對揪出一處差異：原版 `options` 為必填參數，修正後一致）。行為等同已證；源碼排版與 `queryVec` 註釋是新寫，非 Codex 原文，diffstat 因此由 97 變 107 行。
+  - **未救回：** `backend/README.md` 5 行 flag 說明，無任何備份來源，**沒有杜撰補回**。
+  - **通則已入長期記憶：** 交回退指令前先分三類數（commit 內／stash 內／只在工作區），明寫會永久失去甚麼，不寫「不會刪走」這種未經逐項驗證的正面保證。
+- **QC:** `npm run check` exit 0 · `npm run build` exit 0 · `regression:grounded` **48/48** · `route_regression` **46/46**（含來源成員斷言）· `_s214_rank_model --self-test` ALL PASS · `eval_retrieval --self-test` ALL PASS · `_s213_validate_gold --self-test` ALL PASS · `footnote_lead_probe --self-test` PASS · active gold **185** · 工作區乾淨。事故期間 `regression:grounded` 曾為 47 PASS + 1 FAIL，成因是最後一項斷言讀被 stash 的 `searchChannelB.ts`，復原後回復 48/48。**未跑：185 題 live 套件。**
+- **Evidence disposition:** 事故經過與逐項救援證據留在本條 log；當前狀態入 `SESSION_HANDOFF.md`；S212–S214 舊基線與舊 Open Priorities 全文移入 handoff `## Detail Archive`（程式化驗證逐字保留，87,154 ＋ 4,679 字元）；回退指令教訓入 Claude 長期記憶，並已交 playbook inbox 提案 `inbox/2026-09-07-policychecker-rollback-command-blast-radius.md`（該庫本地 commit `68683d8`，未 push；grep `INDEX_TABLE.md` 的 rollback／reset --hard／回退／undo 零命中，故開新提案而非補現有卡）。
+- **Sync:** `qc_report.json` 由 CI 每日重生，本節未碰；`DOC_SYNC_REGISTRY` 無新映射需求（本節未新增受監察表面）；`PROJECT_INDEX.md` 的 S214 檔案映射由 `5f7ce6e` 帶入，本節未再新增檔案。
+- **Pending:** 五個 commit 未 push（去向待 Leonard 決定）· 185 題 live 套件未跑 · 三題 chunk recall 未查 · 4 條 fidelity 不一致未修 · 合成窗佔用率未改善 · `backend/README.md` 5 行未補 · S212／S213 遺留全部未動。
+- **Risks:** ① 本地領先遠端五個 commit，時間越長分歧越大，而 Option A watcher bot 會繼續自行推送。② `match_wiki_chunks_routed` 已在 live schema 但無安裝記錄，屬未登記的 schema 改動。③ `wikiRepository.ts` 為反建版本，行為等同已證但源碼非原文。④ `qc_report.json` overall ERROR 未處理。
+- **Boundary:** 零 push、零 deploy、零 DDL、零 Supabase 寫入、零重切語料、零外部模型呼叫。唯一網絡動作：三個唯讀探針（HTTP GET ×2、Supabase count ×1）、一次 `git fetch`、一次 `git pull --ff-only`。
+- **Log maintenance:** `python3 docs/qa/session_log_maintenance.py --check` 回報 `trigger=False`（`line_count=337`、`entry_count=5`，未達 400 行／30 日兩個閘），故本節不執行歸檔。⚠️ 寫入本條目後檔案為 **440 行**，已越過 400 行閘 —— **下一次收工的 §4a 檢查會觸發**，屆時須先跑 `--apply` 歸檔再寫新條目。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+(Playbook lazy：只讀 "Leonard's playbook/playbook/INDEX.md"；全表在 INDEX_TABLE.md，撞到才 grep，配到才開卡，用完補一行 usage。)
+
+Current state (S215, 2026-09-07)：平台 v3.3.2；Supabase 17,610；source_registry 281；
+guidelines.json _meta 2.6.1；knowledge.json 2.3.0 · facts 455；凍結合約零接觸。
+origin/main = 463434c；本地 HEAD 領先五個 commit，全部未 push；線上部署 = 4a25a15。
+本節零 push、零 deploy、零 DDL、零 Supabase 寫入、零重切語料。
+
+🔴 最高優先：五個本地 commit 未 push，去向要 Leonard 決定。
+   744a8dc  S214 候選全套（grounded synthesis + route-first），三個 flag 全部 0，
+            產品 verdict 仍為 FAIL，185 題 live before／after 未跑
+            —— 未驗證前不得啟用任何 flag、不得部署。
+   5f7ce6e  治理文檔（handoff / log / index / master spec / codebase context / 啟動提示）
+   8d90e56  S214 七份報告
+   3f31905  評測工具 + 30 個 eval_runs artifact + active gold 185
+   05854d5  19 個 extract 補回 title/url header，正文位元組不變
+   後四個全部不改檢索行為。
+
+⚠️ S215 事故必讀（同類錯誤不要重犯）：
+   Claude 交出的回退指令附了「不會刪走未追蹤檔」這句錯誤保證，Leonard 據此執行，
+   git reset --hard 刪走已 commit 的 55 個檔，並還原六個從未 commit 亦未 stash 的 backend 檔。
+   已復原：四個 commit 用 merge --ff-only 救回（非 reset，故工作區改動保住）；
+   llmClient.ts / package.json / .env.example 逐字還原；
+   schema.sql 由倖存的 s214_route_first_candidate.sql 還原（38 +，與原記錄吻合）；
+   wikiRepository.ts 由 gitignored 的 backend/dist 反建 —— 重新編譯後與倖存 dist 逐位元組一致，
+   即行為等同已證，但源碼排版與 queryVec 註釋是新寫的，不是 Codex 原文。
+   救唔返：backend/README.md 5 行 flag 說明，無備份，沒有杜撰補回。
+   通則：交回退指令前先分三類數（commit 內／stash 內／只在工作區），明寫會永久失去甚麼。
+
+✅ S215 已確立的事實（不必再查）：
+   1. match_wiki_chunks_routed 已裝於 live Supabase —— 零列探針（source_ids=[]，不觸發
+      per-row vector cast）回 200 []，四參數簽名相符。但 PostgREST 讀不到函式本體，
+      「已裝」不等於「與 repo SQL 相同」；安裝者與授權無記錄；線上 build 引用次數 0。
+      任何 DDL 前仍須先確認 live 定義，不得憑此重做安裝。
+   2. searchChannelB.ts 已完成兩邊合併並驗證：機械人 09-05 加入的 edbc016_2026 /
+      edbcm141_2026（SOURCE_SETS + SPOTLIGHT）與 Codex 的 route-first wiring 並存，
+      零衝突標記，route_regression 46/46 含來源成員斷言。只取任何一邊都會令 8 條片段
+      跌出 route allowlist —— 與 chi_hist_jss_ncs_2019 同一病。
+   3. 交接數字漂移的成因是 Option A watcher bot，不是人手改動：09-05 兩次自動入庫
+      （edbc016_2026 +6、edbcm141_2026 +2），Render 見 main 有新 commit 即自動部署。
+      那五個 remote commit 不含後端程式碼實質改動，線上檢索行為等同 S214 所述的舊 build。
+   4. qc_report.json（CI 2026-09-06）overall ERROR：6 FAIL 之中 5 條屬既有 registry 家族
+      （ZOMBIE / PHANTOM / SERIES / UNMANAGED / UNLISTED）；NO_MIDCLAUSE_START 843（基準 835），
+      09-03 已經是 842，兩條新入庫片段只帶來 +1，不是新缺陷類別。
+
+⚠️ 未解決（不要當已解決）：
+   · 三題 chunk recall：hr_lsp 完整公式跨第 3／4 頁而 dominant_page() 判第 3 頁；
+     sen_special_school_curriculum 的 g10 與中史 NCS 目標片段均未入首 8。
+     已證目標 chunk 根本不在新 RPC 原始 40 項之內，故根因不在後處理，
+     下一步是離線查 query expansion 與向量排名。
+   · 4 條 fidelity 不一致：3 條分數完全相同而生產 tie 次序非 id 升序（真正 tie 規則
+     未查證，不得憑猜對齊）；1 條 fin_seg 的 edbc015_2026 未解釋。
+   · 合成窗 overlay 平均佔 2.22/5 格（44%），正負 lead_score 分佈重疊，
+     純提高門檻在數學上不可行。
+   · backend/README.md 5 行未補。
+   · S212／S213 遺留全部未動：658 代號標題 backfill（dry-run 已跑，執行被分類器擋住，
+     須 Leonard 自己跑）、kgecg_2017 108 條 ZOMBIE、header 剝除正則吃掉 33 行正文
+     （涉 2,212 條 chunk，修正要重入庫）、七個 standing WARN 無 waiver。
+
+QC status（S215 收工實測）：npm check exit 0 · npm build exit 0 · regression:grounded 48/48
+   · route_regression 46/46 · _s214_rank_model ALL PASS · eval_retrieval ALL PASS
+   · _s213_validate_gold ALL PASS · active gold 185 · 工作區乾淨。
+   未跑：185 題 live 套件。
+
+Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION + Render /health
++ git fetch 後比對 HEAD／origin/main + Supabase live count），再向 Leonard 報告五個未 push
+commit 的去向建議。未得明確批准，不得 push、不得部署、不得啟用任何 flag、不得執行 DDL、
+不得作任何外部模型批次。如無新指示，行離線工作：追三題的 query expansion 與目標片段位置。
+```
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
 ## 2026-09-07 — 接續啟動與 route-first artifact 離線覆核
 
 - **Done:** 核對已保存三題 before／after、active gold signature 及 RPC trace；發現「未安裝」交接與 artifact 不一致，沒有重新安裝。

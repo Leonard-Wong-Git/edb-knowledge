@@ -1,54 +1,69 @@
 Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
 dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
-(Playbook lazy: 只讀 "Leonard's playbook/playbook/INDEX.md"；全表在 INDEX_TABLE.md，撞到才 grep，配到才開卡，用完補一行 usage。)
+(Playbook lazy：只讀 "Leonard's playbook/playbook/INDEX.md"；全表在 INDEX_TABLE.md，撞到才 grep，配到才開卡，用完補一行 usage。)
 
-Current state (S214, 2026-09-04 → 09-05): 平台 v3.3.2；Supabase 17,602；source_registry 279；
-guidelines.json _meta 2.6.1；凍結合約零接觸。HEAD == origin/main == 05ea10e。
-本節零 commit、零 push、零 deploy、零 Supabase 寫入、零重切語料。
+Current state (S215, 2026-09-07)：平台 v3.3.2；Supabase 17,610；source_registry 281；
+guidelines.json _meta 2.6.1；knowledge.json 2.3.0 · facts 455；凍結合約零接觸。
+origin/main = 463434c；本地 HEAD 領先五個 commit，全部未 push；線上部署 = 4a25a15。
+本節零 push、零 deploy、零 DDL、零 Supabase 寫入、零重切語料。
 
-🔴 開工第一件事 —— backend/src/api/searchChannelB.ts 有未提交生產改動（+31 −21）：
-   `npm run check` 已通過，但 **184 題 live 套件未跑、未部署**；線上仍行 f513a18。
-   這個改動會改變每一條查詢的結果次序，**未驗證前不得 push**。
-   三個選項要 Leonard 拍板：(a) 跑齊驗證再 commit+push；(b) git stash 收起；(c) 還原。
-   驗證閘（見 dev/_s214_phase_2a1_gate2a1_report.md）：
-     Chunk@3／@5 不得下降 · forbidden@1 不得上升 · 註腳正控跌出 top-5 須為 0
-     · 標準棄權 ≥13/19 · 誤拒答 ≤2/19
+🔴 最高優先：五個本地 commit 未 push，去向要 Leonard 決定。
+   744a8dc  S214 候選全套（grounded synthesis + route-first），三個 flag 全部 0，
+            產品 verdict 仍為 FAIL，185 題 live before／after 未跑
+            —— 未驗證前不得啟用任何 flag、不得部署。
+   5f7ce6e  治理文檔（handoff / log / index / master spec / codebase context / 啟動提示）
+   8d90e56  S214 七份報告
+   3f31905  評測工具 + 30 個 eval_runs artifact + active gold 185
+   05854d5  19 個 extract 補回 title/url header，正文位元組不變
+   後四個全部不改檢索行為。
 
-✅ S214 已完成（證據在兩份報告，不必重推）：
-   1. Phase 1.1 A–E 全部完成 → dev/_s214_phase_1_1_report.md
-      A NFKC 修正（self-test ALL PASS；39 條 live PASS 27／FAIL 0／errors 0）
-      B 棄權實測（19 條無答案題 13 條標準棄權；正向對照 2/19 誤拒答）
-      C forbidden（4/4 進首五格，但**只有 1/4** 可證答案實際採用並造成對象混淆）
-      D 排序反事實 → **全域 score sort 有害，已否決**
-      E Gold Set 補至 184 條全通過 validator
-   2. Gate 1 根因定案（唯讀）：searchChannelB.ts:1495 的 [...lead, ...rest] 無條件前置，
-      lead 資格只看絕對門檻（0.45 ＋ 2 bigram），**從不與被壓者比分**。
-      :1146 註釋寫明意圖係「reaches the synthesis window (top-5)」＝成員資格，
-      實作卻給 index 0 ＝位置 —— 呢個落差就係根因。
-      實證：全 162 題只有 3 條有 exact 1.0，**三條全部被 0.48–0.52 的註腳壓住**。
-   3. Gate 2A1 測試基建 → dev/_s214_rank_model.py（T1–T14，41 條斷言 ALL PASS）
-      · dev/_s214_gate2a1_replay.py · footnote_lead_probe.py 加 window_of() 記錄完整 top-8
-      · 43 條 live probe 跑完（正向 30/30 保住 lead，errors 0）
-      · fidelity 174/184 → **180/184**（修好 spotlight 誤判：只看來源在 SPOTLIGHT_SOURCE_IDS
-        會令憑分數攞第一的 staff_est_pri／edbcm116_2026 被誤當強制插入並靜靜丟失一個 chunk）
-   4. Gate 2A2／2A2b 生產實作 → dev/_s214_gate2a2_implementation_report.md
-      Codex local 行為 QC 揪出真缺陷：exact chunk 已由 ANN 在 rank 2 出現，
-      舊 seenIds 過濾把 score=1 版本篩走，令答案講「大約40」而 exact 那行明文寫住 40。
-      修正：dedup 方向對調 · mainSearchLead 在 overlay 前明確擷取（undefined 時 fail closed）
-      · forcedLeads 只用於插入定位，不再用於 judge bypass。
+⚠️ S215 事故必讀（同類錯誤不要重犯）：
+   Claude 交出的回退指令附了「不會刪走未追蹤檔」這句錯誤保證，Leonard 據此執行，
+   git reset --hard 刪走已 commit 的 55 個檔，並還原六個從未 commit 亦未 stash 的 backend 檔。
+   已復原：四個 commit 用 merge --ff-only 救回（非 reset，故工作區改動保住）；
+   llmClient.ts / package.json / .env.example 逐字還原；
+   schema.sql 由倖存的 s214_route_first_candidate.sql 還原（38 +，與原記錄吻合）；
+   wikiRepository.ts 由 gitignored 的 backend/dist 反建 —— 重新編譯後與倖存 dist 逐位元組一致，
+   即行為等同已證，但源碼排版與 queryVec 註釋是新寫的，不是 Codex 原文。
+   救唔返：backend/README.md 5 行 flag 說明，無備份，沒有杜撰補回。
+   通則：交回退指令前先分三類數（commit 內／stash 內／只在工作區），明寫會永久失去甚麼。
+
+✅ S215 已確立的事實（不必再查）：
+   1. match_wiki_chunks_routed 已裝於 live Supabase —— 零列探針（source_ids=[]，不觸發
+      per-row vector cast）回 200 []，四參數簽名相符。但 PostgREST 讀不到函式本體，
+      「已裝」不等於「與 repo SQL 相同」；安裝者與授權無記錄；線上 build 引用次數 0。
+      任何 DDL 前仍須先確認 live 定義，不得憑此重做安裝。
+   2. searchChannelB.ts 已完成兩邊合併並驗證：機械人 09-05 加入的 edbc016_2026 /
+      edbcm141_2026（SOURCE_SETS + SPOTLIGHT）與 Codex 的 route-first wiring 並存，
+      零衝突標記，route_regression 46/46 含來源成員斷言。只取任何一邊都會令 8 條片段
+      跌出 route allowlist —— 與 chi_hist_jss_ncs_2019 同一病。
+   3. 交接數字漂移的成因是 Option A watcher bot，不是人手改動：09-05 兩次自動入庫
+      （edbc016_2026 +6、edbcm141_2026 +2），Render 見 main 有新 commit 即自動部署。
+      那五個 remote commit 不含後端程式碼實質改動，線上檢索行為等同 S214 所述的舊 build。
+   4. qc_report.json（CI 2026-09-06）overall ERROR：6 FAIL 之中 5 條屬既有 registry 家族
+      （ZOMBIE / PHANTOM / SERIES / UNMANAGED / UNLISTED）；NO_MIDCLAUSE_START 843（基準 835），
+      09-03 已經是 842，兩條新入庫片段只帶來 +1，不是新缺陷類別。
 
 ⚠️ 未解決（不要當已解決）：
-   · 4 條 fidelity 不一致：3 條係分數完全相同而生產 tie 次序非 id 升序
-     （**生產真正的 tie 規則未查證，不得憑猜對齊**）；1 條 fin_seg 的 edbc015_2026
-     排在 5 個更高分項目之前，同 edu_sen_lsg_outsource 同源同病徵，兩次獨立出現仍未解釋。
-   · 合成窗佔用率未改善：overlay 平均佔 2.22/5 格（44%）。本次排序修正只改次序，
-     **未處理「這些項目是否值得佔窗」**。S196 實測 negative 15 條之中 7 條仍取得註腳 lead，
-     且正負 lead_score 分佈重疊（正向下限 0.6061 vs 負向上限 0.7213）
-     → **純提高門檻在數學上不可行**，屬 P0 audience 閘範圍。
+   · 三題 chunk recall：hr_lsp 完整公式跨第 3／4 頁而 dominant_page() 判第 3 頁；
+     sen_special_school_curriculum 的 g10 與中史 NCS 目標片段均未入首 8。
+     已證目標 chunk 根本不在新 RPC 原始 40 項之內，故根因不在後處理，
+     下一步是離線查 query expansion 與向量排名。
+   · 4 條 fidelity 不一致：3 條分數完全相同而生產 tie 次序非 id 升序（真正 tie 規則
+     未查證，不得憑猜對齊）；1 條 fin_seg 的 edbc015_2026 未解釋。
+   · 合成窗 overlay 平均佔 2.22/5 格（44%），正負 lead_score 分佈重疊，
+     純提高門檻在數學上不可行。
+   · backend/README.md 5 行未補。
+   · S212／S213 遺留全部未動：658 代號標題 backfill（dry-run 已跑，執行被分類器擋住，
+     須 Leonard 自己跑）、kgecg_2017 108 條 ZOMBIE、header 剝除正則吃掉 33 行正文
+     （涉 2,212 條 chunk，修正要重入庫）、七個 standing WARN 無 waiver。
 
-⚠️ 本節有部分回合已不在 agent 上下文內（機器休眠 ＋ context 壓縮）。
-   磁碟上兩份 S214 報告為權威記錄；**不要憑檔案 mtime 推論作者**。
+QC status（S215 收工實測）：npm check exit 0 · npm build exit 0 · regression:grounded 48/48
+   · route_regression 46/46 · _s214_rank_model ALL PASS · eval_retrieval ALL PASS
+   · _s213_validate_gold ALL PASS · active gold 185 · 工作區乾淨。
+   未跑：185 題 live 套件。
 
-Post-startup first action: 先做起手探針（app.html PLATFORM_VERSION + Render /health
-+ HEAD==origin/main + Supabase count），再向 Leonard 報告 searchChannelB.ts 未提交改動
-的三個選項，等佢揀，唔好自己決定 push 定還原。
+Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION + Render /health
++ git fetch 後比對 HEAD／origin/main + Supabase live count），再向 Leonard 報告五個未 push
+commit 的去向建議。未得明確批准，不得 push、不得部署、不得啟用任何 flag、不得執行 DDL、
+不得作任何外部模型批次。如無新指示，行離線工作：追三題的 query expansion 與目標片段位置。
