@@ -15,6 +15,7 @@ import { isSupabaseConfigured } from "../config/env.js";
 import type { EmbedFn } from "../lib/embeddingClient.js";
 import {
   searchWiki,
+  searchWikiRoutedExact,
   searchFootnotes,
   searchSpotlightSources,
   searchEstablishmentRows,
@@ -23,6 +24,8 @@ import {
   type WikiSearchResult,
 } from "../lib/wikiRepository.js";
 import { overlapWith, queryInformativeBigrams } from "../lib/textBigrams.js";
+import { selectPrimaryEvidence, synthesizeGroundedAnswer } from "../lib/groundedSynthesis.js";
+import type { LlmJsonSchema } from "../lib/llmClient.js";
 import type { TopicId } from "../types/knowledge.js";
 import { TOPIC_IDS } from "../types/knowledge.js";
 
@@ -30,7 +33,7 @@ import { TOPIC_IDS } from "../types/knowledge.js";
 // Types
 // ---------------------------------------------------------------------------
 
-export type LlmFn = (prompt: string) => Promise<string>;
+export type LlmFn = (prompt: string, format?: LlmJsonSchema) => Promise<string>;
 
 /**
  * Why Channel B is degraded.
@@ -597,6 +600,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "ma_kla_guide_2017",
     "pri_curr_guide_2024",
     "chi_hist_jss_2019",
+    "chi_hist_jss_ncs_2019", // S214: adapted NCS outline was ingested but absent from this routed allowlist
     "history_jss_2019",  // S135: 西史/世界歷史初中課程指引（中一至中三）2019 — backfilled (§E.12 URL re-discovery); without this, curriculum-category history queries mis-route to chi_hist (中史)
     "history_sss_2007_2015",  // S135 Phase 3a tail: 西史高中歷史課程及評估指引（中四至中六）— pre-existing allowlist gap, added for parity with chi_hist + 初中
     "music_p1_s6_2024",
@@ -939,8 +943,12 @@ async function synthesizeAnswer(
   query: string,
   results: ChannelBResult[],
   llmFn: LlmFn,
-  /** How many front slots the overlays forced (S211 — see the vault-lead test below). */
-  forcedLeads = 0,
+  /** S214 Gate 2A2b — the main-search lead, captured before any overlay ran.
+   *  `undefined` (empty or fully statistically-filtered main search) fails
+   *  closed to the judge below. */
+  mainSearchLead: ChannelBResult | undefined,
+  /** Gate 2C-1 — set only by the lexical-exact establishment route. */
+  exactSynthesisSourceIds: ReadonlySet<string> | undefined,
   /** S211 — the judge runs on its own model (see getJudgeModel). Falls back to llmFn. */
   judgeFn: LlmFn = llmFn
 ): Promise<string> {
@@ -950,8 +958,28 @@ async function synthesizeAnswer(
   // staff_est_pri 81 個片段有 74 個由半行開始（前一行冇班數標頭），所以嗰段同時載住兩個唔同嘅
   // 「學位教師」人數。真正要修嘅係切片邊界（見 JUDGE_PROMPT_FINDINGS S211 §5）。
   // 冇實測得益就唔應該令每次 judge 同 synthesis 多食兩段內容，故此撤回，只留紀錄。
-  const window = results.slice(0, 5);
+  const defaultWindow = results.slice(0, 5);
+  const narrowedWindow =
+    process.env.FEATURE_EXACT_WINDOW_NARROW === "1" && exactSynthesisSourceIds
+      ? defaultWindow.filter((r) => exactSynthesisSourceIds.has(r.source_id))
+      : [];
+  // A stale or inconsistent scope signal must not turn a valid result set into
+  // an empty synthesis window. The signal is currently emitted only with estLead.
+  const window = narrowedWindow.length > 0 ? narrowedWindow : defaultWindow;
   if (window.length === 0) return "找不到相關政策。";
+
+  if (process.env.FEATURE_GROUNDED_SYNTHESIS === "1") {
+    // S214 evidence policy A — curated summaries remain useful retrieval
+    // hints, but only verbatim EDB document extracts may support a rendered
+    // grounded claim. If no primary evidence reaches the window, abstain.
+    const groundedPool =
+      process.env.FEATURE_EXACT_WINDOW_NARROW === "1" && exactSynthesisSourceIds
+        ? results.filter((result) => exactSynthesisSourceIds.has(result.source_id))
+        : results;
+    const primaryEvidence = selectPrimaryEvidence(groundedPool);
+    if (!primaryEvidence.length) return SYNTHESIS_DECLINE;
+    return synthesizeGroundedAnswer(query, primaryEvidence, llmFn, judgeFn, SYNTHESIS_DECLINE);
+  }
 
   const chunkText = window
     .map((r, i) => `[${i + 1}] ${r.text}`)
@@ -1001,18 +1029,19 @@ async function synthesizeAnswer(
   // 豁免 and 過剩教師定義, neither about entry qualifications — held slots 1 and 2. The judge
   // declined, and five prompt rewrites plus gpt-4o could not talk it out of that.
   //
-  // `results[forcedLeads]` is precisely the chunk slot 0 held before the overlays ran
-  // (`rest` is score-sorted), so where nothing was forced this is byte-identical to the old
-  // slot-0 test. What it does NOT do is scan the window: an earlier draft scanned every
-  // chunk in the window and measured a new false answer on GN02_nonteach_maternity —
-  // 「學校非教學人員產假有幾多日」, where the main-search lead is a 0.782 footnote and the
-  // 0.744 vault_extract in the window is the SAG leave appendix, i.e. the right register
-  // and not the answer. That is the S177 class, so the window scan was withdrawn.
-  // The 0.70 bar is untouched: S183's "≥0.70 is a direct topical match" is a property of
-  // the chunk, and this restores WHICH chunk the property is read off.
-  const mainLead = results[forcedLeads] ?? window[0];
+  // S214 Gate 2A2b — `mainSearchLead` is passed in from before any overlay ran
+  // (was `results[forcedLeads]`, an index into the POST-overlay list; that
+  // broke when Gate 2A2b lets an establishment row replace the main-search
+  // lead itself, not just prepend). What this does NOT do is scan the window:
+  // an earlier draft scanned every chunk in the window and measured a new
+  // false answer on GN02_nonteach_maternity — 「學校非教學人員產假有幾多日」,
+  // where the lead is a 0.782 footnote and the 0.744 vault_extract in the
+  // window is the SAG leave appendix, i.e. the right register and not the
+  // answer (the S177 class). The 0.70 bar itself is untouched.
   const trustedVaultLead =
-    mainLead.content_type === "vault_extract" && mainLead.score >= VAULT_LEAD_SCORE;
+    !!mainSearchLead &&
+    mainSearchLead.content_type === "vault_extract" &&
+    mainSearchLead.score >= VAULT_LEAD_SCORE;
   if (!trustedVaultLead) {
     const canAnswer = await judgeCanAnswer(query, chunkText, judgeFn);
     if (!canAnswer) return SYNTHESIS_DECLINE;
@@ -1423,14 +1452,36 @@ export async function searchChannelB(
   const maxPerSource =
     sourceIds && sourceIds.length <= 1 ? undefined : Math.max(2, Math.ceil(top_k / 3));
 
-  const rawResults = await searchWiki(embeddingQuery, embedFn, {
+  const embeddingQueryVec = await embedFn(embeddingQuery);
+  let rawResults = await searchWiki(embeddingQuery, embedFn, {
     minScore: effectiveMinScore,
     topK: top_k,
+    queryVec: embeddingQueryVec,
     ...(topic ? { topic } : {}),
     ...(content_type ? { contentType: content_type } : {}),
     ...(sourceIds ? { sourceIds } : {}),
     ...(maxPerSource ? { maxPerSource } : {}),
   });
+
+  // S214 Phase B candidate: filter to the detected route before exact vector ranking.
+  // The separately named RPC avoids the historical PostgREST overload failure. This is
+  // opt-in and best-effort until the full gold before/after gate passes.
+  if (process.env.FEATURE_ROUTE_FIRST_SEARCH === "1" && sourceIds) {
+    try {
+      const routedResults = await searchWikiRoutedExact(embeddingQuery, embedFn, {
+        minScore: effectiveMinScore,
+        topK: top_k,
+        queryVec: embeddingQueryVec,
+        ...(topic ? { topic } : {}),
+        ...(content_type ? { contentType: content_type } : {}),
+        sourceIds,
+        ...(maxPerSource ? { maxPerSource } : {}),
+      });
+      if (routedResults.length > 0) rawResults = routedResults;
+    } catch {
+      // Candidate failure must not degrade the established Channel B path.
+    }
+  }
 
   let results = rawResults.map(toChannelBResult).filter(retiredMirrorFilter);
 
@@ -1439,6 +1490,13 @@ export async function searchChannelB(
   // are topically relevant. Run after mapping, before any lead detection.
   applySupersedePenalty(results);
   results.sort((a, b) => b.score - a.score);
+
+  // S214 Gate 2A2b — captured before any overlay touches `results`, so the
+  // judge-bypass test always reads the true main-search lead, not whichever
+  // overlay ends up in the forced prefix.
+  const mainSearchLead = results.find(
+    (r) => include_statistical || (r.content_type !== "stat_fact" && !r.source_id.startsWith("stat_"))
+  );
 
   // S193 — one raw-query embedding shared by both route-independent overlay passes below.
   // Net embedding calls are unchanged: the footnote pass used to compute this itself.
@@ -1452,6 +1510,7 @@ export async function searchChannelB(
   // Slots reserved at the front of `results` by an overlay lead, so a later overlay
   // inserts behind them instead of displacing them.
   let forcedLeads = 0;
+  let exactSynthesisSourceIds: ReadonlySet<string> | undefined;
 
   // S174 — route-independent footnote pass (see FOOTNOTE_MIN_SCORE above). Exact cosine
   // over the curated footnote overlay (bypasses routing AND ivfflat recall). Uses the RAW
@@ -1568,7 +1627,6 @@ export async function searchChannelB(
         Number(classCountMatch[1].replace(/[０-９]/g, (d) => String(d.charCodeAt(0) - 0xff10))),
         ESTABLISHMENT_SOURCE_IDS
       );
-      const seenIds = new Set(results.map((r) => r.id));
       // S211 — 全日制 unless the question asks for 半日制.
       //
       // EDB still publishes both tables in this document (全日制 on pages 1-2, 半日制 from
@@ -1584,16 +1642,24 @@ export async function searchChannelB(
       const estLead = estRaw
         .map(toChannelBResult)
         .filter(retiredMirrorFilter)
-        .filter((r) => !seenIds.has(r.id))
         .filter((r) =>
           wantsHalfDay ? r.text.includes("半日制") : !r.text.includes("半日制")
         );
+      // S214 Gate 2A2b — estLead always wins, even when ANN already surfaced
+      // the same chunk id lower down (a prior `!seenIds.has` filter dropped
+      // estLead in that case, so the exact score-1 row never got promoted).
+      // S214 Gate 2A2b (2nd pass) — drop EVERY other ESTABLISHMENT_SOURCE_IDS
+      // row too, not just the duplicate id: on this table, a 12-/14-class row
+      // sitting beside the exact 24-class row is conflicting evidence, not
+      // context (S211's class-row ambiguity, at the synthesis layer instead
+      // of the retrieval layer). Other sources are untouched.
       if (estLead.length > 0) {
+        const estSourceIds = new Set(ESTABLISHMENT_SOURCE_IDS);
         results = [
-          ...results.slice(0, forcedLeads),
           ...estLead,
-          ...results.slice(forcedLeads),
+          ...results.filter((r) => !estSourceIds.has(r.source_id)),
         ];
+        exactSynthesisSourceIds = estSourceIds;
         forcedLeads += estLead.length;
       }
     } catch {
@@ -1617,7 +1683,14 @@ export async function searchChannelB(
   // LLM synthesis
   let synthesis: string | undefined;
   if (doSynthesize && llmFn && results.length > 0) {
-    synthesis = await synthesizeAnswer(query, results, llmFn, forcedLeads, judgeFn ?? llmFn);
+    synthesis = await synthesizeAnswer(
+      query,
+      results,
+      llmFn,
+      mainSearchLead,
+      exactSynthesisSourceIds,
+      judgeFn ?? llmFn
+    );
   }
 
   return {

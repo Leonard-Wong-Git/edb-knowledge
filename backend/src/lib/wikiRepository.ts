@@ -100,6 +100,11 @@ export interface WikiSearchOptions {
    * Default: undefined (no per-source limit).
    */
   maxPerSource?: number;
+  /**
+   * Pre-computed query embedding. When supplied the search skips embedFn, so a
+   * caller running more than one search for the same query pays for one embedding.
+   */
+  queryVec?: number[];
 }
 
 // ---------------------------------------------------------------------------
@@ -115,13 +120,13 @@ export async function searchWiki(
   embedFn: EmbedFn,
   options: WikiSearchOptions = {}
 ): Promise<WikiSearchResult[]> {
-  const { topK, minScore = 0.1, topic, contentType, sourceIds, maxPerSource } = options;
+  const { topK, minScore = 0.1, topic, contentType, sourceIds, maxPerSource, queryVec } = options;
 
-  const queryVec = await embedFn(query);
+  const resolvedQueryVec = queryVec ?? (await embedFn(query));
 
   // pgvector text format: "[x,x,x,...]"
   // Use toFixed(8) to avoid scientific notation (e.g. 1e-7) which pgvector may reject
-  const embeddingStr = `[${queryVec.map((v) => v.toFixed(8)).join(",")}]`;
+  const embeddingStr = `[${resolvedQueryVec.map((v) => v.toFixed(8)).join(",")}]`;
 
   const supabaseUrl = getSupabaseUrl();
   const supabaseKey = getSupabaseAnonKey();
@@ -214,6 +219,102 @@ export async function searchWiki(
     finalRows = gated;
   } else {
     finalRows = deduped;
+  }
+
+  return finalRows.map(({ score, ...chunk }) => ({
+    chunk: chunk as WikiChunk,
+    score,
+    channel: "B" as const,
+  }));
+}
+
+/**
+ * Exact vector search after applying a route source allowlist in SQL.
+ *
+ * This is deliberately a separately named RPC, not an overload of match_wiki_chunks:
+ * PostgREST cannot safely disambiguate the historical overloads. The caller keeps this
+ * path behind a feature flag and falls back to searchWiki if the RPC is unavailable.
+ */
+export async function searchWikiRoutedExact(
+  query: string,
+  embedFn: EmbedFn,
+  options: WikiSearchOptions
+): Promise<WikiSearchResult[]> {
+  const {
+    topK,
+    minScore = 0.1,
+    topic,
+    contentType,
+    sourceIds,
+    maxPerSource,
+    queryVec,
+  } = options;
+
+  if (!sourceIds || sourceIds.length === 0) return [];
+
+  const resolvedQueryVec = queryVec ?? (await embedFn(query));
+  const embeddingStr = `[${resolvedQueryVec.map((v) => v.toFixed(8)).join(",")}]`;
+
+  const overFetchEnabled = !!(maxPerSource && maxPerSource > 0 && topK !== undefined);
+  const fetchCount = overFetchEnabled ? topK! * 5 : topK;
+
+  const rpcUrl = `${getSupabaseUrl()}/rest/v1/rpc/match_wiki_chunks_routed`;
+  const anonKey = getSupabaseAnonKey();
+
+  let rawText = "";
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    const resp = await fetch(rpcUrl, {
+      method: "POST",
+      headers: {
+        apikey: anonKey,
+        Authorization: `Bearer ${anonKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query_embedding: embeddingStr,
+        source_ids: sourceIds,
+        match_threshold: minScore,
+        match_count: fetchCount,
+      }),
+    });
+
+    rawText = await resp.text();
+    if (resp.ok) break;
+
+    const isStatementTimeout = resp.status >= 500 && rawText.includes("57014");
+    if (!isStatementTimeout || attempt >= 3) {
+      throw new Error(`Supabase routed RPC error ${resp.status}: ${rawText}`);
+    }
+    await new Promise((resolve) => setTimeout(resolve, 250 * attempt));
+  }
+
+  let rows = JSON.parse(rawText) as (WikiChunk & { score: number })[];
+
+  if (topic) rows = rows.filter((r) => r.topic === topic);
+  if (contentType) rows = rows.filter((r) => r.content_type === contentType);
+
+  const seen = new Set<string>();
+  const deduped: (WikiChunk & { score: number })[] = [];
+  for (const row of rows) {
+    const key = row.text.slice(0, 80);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    deduped.push(row);
+  }
+
+  let finalRows = deduped;
+  if (overFetchEnabled) {
+    const sourceCounts = new Map<string, number>();
+    const gated: (WikiChunk & { score: number })[] = [];
+    for (const row of deduped) {
+      const canonical = canonicalSource(row.source_id);
+      const count = sourceCounts.get(canonical) ?? 0;
+      if (count >= maxPerSource!) continue;
+      sourceCounts.set(canonical, count + 1);
+      gated.push(row);
+      if (gated.length >= topK!) break;
+    }
+    finalRows = gated;
   }
 
   return finalRows.map(({ score, ...chunk }) => ({
