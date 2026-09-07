@@ -3,9 +3,6 @@
 <!-- Markers below have no dedicated local section yet; the next closeout should give each one a home. -->
 <!-- ack:section:durable-anchors -->
 <!-- ack:section:closeout-reconciled-state -->
-<!-- ack:field:first-use-guidance-state -->
-5. First-use guidance state: not_applicable — added by upgrade; prior use state is preserved and onboarding is not reactivated.
-
 <!-- ack:section:task-understanding-summary -->
 <!-- ack:section:active-objective -->
 <!-- ack:section:sync-status -->
@@ -23,23 +20,19 @@
 5. **（已移至 `## Validation / QC`）** S215 收工 QC 實測結果。
 6. S212–S214 的完整基線敘述與舊 Open Priorities 全文已移至下方 `## Detail Archive (S212–S214)`，**一字未刪**。
 
+<!-- ack:section:workspace-identity -->
 
 <!-- ack:section:validation-qc -->
 ## Validation / QC
 
 QC（S215 收工實測）：`npm check`／`build` exit 0 · `regression:grounded` **48/48** · `route_regression` **46/46** · rank model／`eval_retrieval`／gold validator ALL PASS · active gold **185** · 工作區乾淨。`qc_report.json`（CI 09-06）overall **ERROR**，6 FAIL 之中 5 條屬既有 registry 家族。
 
-**S216（治理升級節）**：`agent-handoff-kit doctor --root .` **status: passed，53/53**（v0.3.66；工具／項目記錄／npm latest 三向對齊）。本節**零程式碼改動**，故上面 S215 的產品側 QC 數值（`regression:grounded` 48/48、`route_regression` 46/46、active gold 185）**未重跑亦未失效** —— 它們綁定的 commit 與檔案未變。`qc_report.json` overall **ERROR** 未處理，狀態同 S215。 `closeout-status` 的 lifecycle 與 sufficiency 兩道語意閘**已通過**；整體仍報 `blocked`，唯一原因是 push 未獲授權（見 `## Risks / Blockers` 第 1 項）。
-
 <!-- ack:section:risks-blockers -->
 ## Risks / Blockers
 
-1. 受阻 —— **本地與遠端分歧未收斂。** `origin/main` = **`463434c`**；本地 HEAD = **本節 S216 closeout commit**（`git log -1` 取確實 hash），**領先七個 commit，全部未 push**（S216 收工前實測 0/6，加本節 closeout commit 後為 7）。**觸發條件：** 等 Leonard 決定去向並授權 push。線上部署 = **`4a25a15`**（Render `/health`）。七個之中 `744a8dc` 是 S214 候選全套（三個 flag 全 `0`、產品 verdict FAIL、185 題 live 套件未跑），**未驗證前不得啟用任何 flag、不得部署**；其餘六個不改檢索行為。S215 交接寫「五個」是漏計 S215 自己的 closeout commit `6cb80c6`。舊記的 `f513a18`、`05ea10e`、17,602、279 已全部過時，成因是 Option A watcher bot 於 09-05 自行推送兩次入庫。
+1. `origin/main` = **`463434c`**；本地 HEAD **領先五個 commit，全部未 push**；線上部署 = **`4a25a15`**（Render `/health`）。交接舊記的 `f513a18`、`05ea10e`、17,602、279 已全部過時，成因是 Option A watcher bot 於 09-05 自行推送兩次入庫。
 2. `match_wiki_chunks_routed` **已裝於 live Supabase**（S215 零列探針，四參數簽名相符）。PostgREST 讀不到函式本體，故「已裝」不等於「與 repo SQL 相同」；安裝者與授權無記錄；線上 build 引用次數 0。任何 DDL 前仍須先確認 live 定義。
-3. 只監察 —— **【S216】治理檔已本地提交為本節 S216 closeout commit（58 個路徑，含升級備份目錄），未 push。** **原因：** Leonard 明示本節只做本地 commit、不 push；push 的決定併入上面第 1 項。本 commit 零程式碼改動、零檢索行為改動。
-4. 只監察 —— **【S216 新增】`AGENTS.md`／`CLAUDE.md`／`GEMINI.md` 三個檔在 `.gitignore` 內且從未 tracked**（`git check-ignore` 實測）。**原因：** 這是本 repo 長期的 ignore 政策，除非 Leonard 改變該政策否則持續成立，本節不提議改動。**影響：** 本次升級改寫了 `AGENTS.md` 的 managed core 與 `GEMINI.md` 全文，這些改動只存在於磁碟、不在版本控制內。**更要留意：** `.gitignore` 的 `AGENTS.md` 規則無前置斜線，會在任何深度命中 —— 連 `dev/governance_migrations/<timestamp>/backup/AGENTS.md` 這份升級前備份都被 ignore（S216 `git check-ignore -v` 實測命中 `.gitignore:9`）。**結論：升級前的 `AGENTS.md` 全世界只剩磁碟上那一份，git 內沒有任何副本，刪咗就無得還原。**
 
-<!-- ack:section:workspace-identity -->
 ## User Environment (Always Reference Before Giving Shell Commands)
 - **Repo path**: `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft` (relocated 2026-05-16 Session 109; path contains a space — quote it)
 - **Correct cd**: `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"`
@@ -147,9 +140,7 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:next-priorities -->
 ## Open Priorities
 
-**Recommended next step:** 先決定六個未 push commit ＋ 17 個未提交治理檔的去向（見 `## Risks / Blockers` 第 1、3 項）。**理由**：這是唯一一件會隨時間惡化的事 —— Option A watcher bot 會繼續自行推送到 `origin/main`，本地與遠端每多一日分歧就多一分，而其餘各項（③④⑤）全部是離線可做、不會因等待而變差的技術債。這一步需要 Leonard 決定，AI 不得自行 push。
-
-受阻 —— **【最高優先，原 ①】七個本地 commit 的去向。** **觸發條件：** 等 Leonard 明示授權 push，AI 不得自行執行。`744a8dc` 是 S214 候選全套，三個 flag 全 `0`、產品 verdict FAIL、185 題 live 套件未跑 —— 未驗證前不得啟用任何 flag、不得部署。其餘六個（本節 S216 closeout commit ／`6cb80c6`／`5f7ce6e`／`8d90e56`／`3f31905`／`05854d5`）不改檢索行為。**S216 已完成的只是把交接記載的「五個」更正為「六個」、再加本節 closeout commit 成為七個這件量度，未觸及去向決定本身。**
+① 🔴 **【最高優先】五個本地 commit 未 push，去向待 Leonard 決定。** `744a8dc` 是 S214 候選全套，三個 flag 全 `0`、產品 verdict FAIL、185 題 live 套件未跑 —— 未驗證前不得啟用任何 flag、不得部署。其餘四個（`05854d5`／`3f31905`／`8d90e56`／`5f7ce6e`）不改檢索行為。
 
 ② **【S215 新增，未補】`backend/README.md` 遺失 5 行 flag 說明。** S215 `reset --hard` 事故所致，無任何備份來源；**沒有杜撰補回**。補寫的話須在 commit message 明寫是重寫非還原。
 
@@ -158,10 +149,6 @@ source_registry → same vault PDFs → ai_extract.py
 ④ **【S214 遺留，未修】4 條 fidelity 不一致 ＋ 合成窗佔用率。** 3 條分數完全相同而生產 tie 次序非 id 升序（**真正 tie 規則未查證，不得憑猜**）；1 條 `fin_seg` 的 `edbc015_2026` 未解釋。overlay 平均佔 **2.22/5 格**（44%），純提高門檻在數學上不可行。
 
 ⑤ **【S212／S213 遺留，全部未動】** 658 代號標題 backfill（`dev/_s213_title_backfill.py` dry-run 已跑，執行被分類器擋住，須 Leonard 自己跑）· `kgecg_2017` 108 條 ZOMBIE · header 剝除正則吃掉 33 行正文（涉 2,212 條 chunk，修正要重入庫）· 七個 standing WARN 無 waiver ＋ 六項人手檢查未簽核 · `g33`／`g37` 標題錯掛 · `TOPIC_KEYWORDS.safety` 認裸「氣體」· 六個監察未接入狀態頁。**全文見下方 Detail Archive。**
-
-⑥ **【S216 新增，部分已修】交接檔仍有 8 個 `ack` marker 未有專屬章節。** `durable-anchors`／`closeout-reconciled-state`／`task-understanding-summary`／`active-objective`／`sync-status` 五個 section marker，加 `user-intent`／`task-essence`／`success-criteria` 三個 field marker，現時集中放在檔頂並附註釋說明。**不影響 `doctor` 與 `closeout-status`**（前者只檢查 marker 存在，後者只讀四節加開場白），但這些章節對下個 agent 而言機械上讀不到。**已修的一半**：`completed-this-session` 原本會一路抽到 `## State Reconciliation Check`（涵蓋所有 `Previous Session Record` 與 `Detail Archive`），令 `closeout-status` 把 S215 的完成項當成本節完成項來做 lifecycle 比對而報 blocked；S216 在 `## Previous Session Record (S215)` 之前加了一個本地邊界 marker `ack:section:session-history`，抽取長度由 164,616 字元收窄至 2,133 字元，只涵蓋本節記錄。
-
-⑦ **【S216 新增，blocked】`dev/DOC_SYNC_CHECKLIST.md` 的 INIT.md 鏡像規則已失效。** row「Governance rule change (AGENTS.md)」與「New governance file added to install」要求同步 `INIT.md` FILE 1 mirror，但 `INIT.md`（1,036 行，2026-05-10）鏡像的是 package 化之前的 AGENTS.md 結構（§4a／§5a／§11a），v0.3.66 核心根本沒有這些章節。**本節不執行該同步**，因為要先決定 `INIT.md` 是否已退役 —— 這是 Leonard 的決定，不是機械同步。
 
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
@@ -183,25 +170,6 @@ source_registry → same vault PDFs → ai_extract.py
 
 <!-- ack:section:completed-this-session -->
 ## Last Session Record
-
-1. UTC date: 2026-09-07
-2. Session ID: `Claude_20260907_1900` — S216。由 Leonard 一句「讀取安裝說明頁，在這個資料夾安裝或升級 Agent Handoff Kit」起，做 Kit v0.3.29 → v0.3.66 升級，**零程式碼、零檢索、零產品改動**。
-3. Completed:
-   - ✅ **升級完成並驗收**：`Draft/` 由 **v0.3.29 → v0.3.66**，`doctor` **status: passed 53/53**，工具／項目記錄／npm latest 三向對齊。create 1 / merge 14 / skip 8 / **conflict 0**。
-   - ✅ **解開四層 conflict**（首次 `upgrade --yes` 因 conflict 全數拒寫，零檔案改動）：`GEMINI.md` 舊 stub 換官方 bridge（原檔零本地自訂）· `SESSION_LOG.md` 換官方頭部而 440 行歷史**逐位元組驗證一致** · `communication.md` 改為「官方 v0.3.66 本體 ＋ 本地附錄」，S196 六條 claim discipline 全保留並把交叉引用同步改為 L1–L5 · `SESSION_HANDOFF.md` 21 個 `ack:` marker 由檔頂目錄搬到各自章節。
-   - ✅ **查出並修好一個隱形治理 bug**：`lifecycle-conflicts-resolved` 這個 field marker 因 marker 疊在檔頂目錄，`fieldValueAfterMarker()` 向下抓到 `## User Environment` 的 Repo path 當值 —— 該 check 一直靠垃圾值「通過」。
-   - ✅ **新建 `## Validation / QC` 與 `## Risks / Blockers` 兩節**：內容由 `Current Baseline` 第 2、4、5 項搬入，原位留指針，零重複、零杜撰（gate 要求這兩節機械可讀，而本檔原本沒有）。
-   - ✅ **揪出並還原一次工具造成的資料損失**：`upgrade` 把 `## Next Session Opening Message` 整段換成官方通用開場白，`START_NEXT_SESSION_PROMPT.txt` 由 70 行變 4 行，S215 那 **65 行專案狀態**（六個 commit 明細、事故必讀、四項已確立事實、未解決清單、`Post-startup first action`）在兩個 live 檔同時消失。已由 CLI 備份取回並接在官方合約句之後重建，mirror 重生，`doctor` 仍 53/53。
-   - ✅ **逐檔核實無內容損失**：比對 npm 上的 v0.3.29／v0.3.30／v0.3.32／v0.3.43 原檔，證實 `onboarding.md`／`integrations.md`／`knowledge.md`／`safety.md`／`writing.md`／`agent-governance.md` 六個 pack **與其綁定的官方版本逐字相同、零本地自訂**，故換新版沒有失去專案內容；`release.md` 消失行數 0。
-   - ✅ **起手數字更正**：本地領先 `origin/main` **六個** commit，非交接記載的五個（漏計 S215 自己的 closeout commit `6cb80c6`）。
-   - ✅ **治理檔已本地提交**：本節 S216 closeout commit（58 個路徑，指定檔案逐個 `git add`，未用 `-A`）。按 Leonard 明示，**只 commit 不 push**。
-4. Not done / 未做：本節只做治理升級，**產品側零推進**。未完成與未動的項目一律見 `## Open Priorities` ①–⑦ 與 `## Risks / Blockers`，不在此重複列舉（避免同一事實有兩個出處）。
-5. ⚠️ **零 push、零 deploy、零 DDL、零 Supabase 寫入、零程式碼改動、零產品行為改動。** 本節唯一的網絡動作是讀取安裝說明頁一次、`npm view`／`npm pack` 取官方 package 五次。
-6. ⚠️ **`AGENTS.md`／`CLAUDE.md`／`GEMINI.md` 的升級改動不在版本控制內**（三個檔 gitignored 且從未 tracked），唯一還原點是 `dev/governance_migrations/2026-09-07T18-23-33-046Z-*/backup/`。
-
-<!-- 本地邊界 marker：令 completed-this-session 的抽取範圍止於本節記錄，唔會讀落歷史 session 記錄 -->
-<!-- ack:section:session-history -->
-## Previous Session Record (S215)
 
 1. UTC date: 2026-09-07
 2. Session ID: `Claude_20260907_1400` — S215。由「開工」起，做起手探針覆核 → 盤點 Codex 交低的 97 個髒路徑 → 分批 commit → 遇上 `reset --hard` 事故 → 逐項救援與驗證 → 收工。
@@ -937,45 +905,21 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:state-reconciliation-check -->
 ## State Reconciliation Check
 
-- **2026-09-07 S216 closeout reconciliation（Agent Handoff Kit v0.3.29 → v0.3.66 升級節）：**
-
-<!-- ack:field:state-sections-rewritten-or-confirmed -->
-- **State sections rewritten or confirmed current:** **重寫**：`Risks / Blockers`（第 1 項由「五個 commit」更正為**六個**並補 HEAD `6cb80c6`；新增第 3、4 項）· `Validation / QC`（補 S216 doctor 53/53，並明寫 S215 產品側數值未失效及理由）· `Open Priorities`（①更正為六個 commit ＋ 17 個治理檔；換走 upgrade 佔位的 Recommended next step；新增 ⑥⑦）· `Last Session Record`（重生為 S216，舊者降為 `Previous Session Record (S215)`，內容一字未改）· `Next Session Opening Message`。**結構性修正**：孤兒 `workspace-identity` 這個 section marker marker 搬到 `## User Environment` 之前（它原本被我上一步插入的兩節隔開，抽取結果為空）。**逐段讀過確認仍然 current、不改**：`Current Baseline`、`Architecture Decisions`、`Regression / Verification Notes`、`Backlog`、`Mandatory Start Checklist`、`Supabase Technical Notes`、`Detail Archive`、所有 `Previous Session Record`。
-
-<!-- ack:field:lifecycle-conflicts-resolved -->
-- **Lifecycle conflicts resolved:** 是，逐項對過五節。(a) **數字衝突已消**：`Open Priorities ①`、`Risks / Blockers 1`、`Last Session Record 3`、開場白四處現時一致寫**六個 commit**，S215 遺留的「五個」已全數更正並註明成因。(b) **本節完成項無一項留在待辦**：升級、四層 conflict 解決、marker 修正、65 行還原、逐檔無損失核實，全部只在 `Completed This Session`，未出現在 `Next Priorities` 或 `Risks / Blockers`。(c) **反方向亦對過**：新增的 ⑥（8 個無家 marker）與 ⑦（INIT.md 鏡像失效）都是本節**量到而未修**的，⑦ 明確標為 **blocked** 並寫明解封條件（要先決定 INIT.md 是否退役）。(d) **刻意不升做 OP 的一項**：`completed-this-session` 抽取範圍過闊，屬本檔結構副產品、不影響任何 check，已記在 ⑥ 內文而非另開一條。
-
-<!-- ack:field:persistence-routing-checked -->
-- **Persistence routing checked:** 是。當前狀態、風險、建議下一步 → 本 handoff；升級逐步經過、conflict 逐個判斷依據、還原證據 → `SESSION_LOG.md`；Kit 版本／新增檔案／QC 指令／workspace identity → `PROJECT_INDEX.md`；本節觸及的 sync 義務與 blocked 理由 → `DOC_SYNC_REGISTRY.md`；開場白 → 只由 handoff 的 fenced block 生成 `START_NEXT_SESSION_PROMPT.txt`，**未複製入 log**。**未寫 `PROJECT_DECISIONS.md`**：本節是工具升級，非架構取捨；但「upgrade 會靜靜取代開場白」這一點屬跨 session 可重用教訓，已寫入下面的 opening message 與 log，若日後再遇同類事件應升為 decision 條目。
-
-<!-- ack:field:stale-snapshots-left -->
-- **Stale snapshots left:** 無。**本節更正了兩項既有記載**：(a) S215 交接的「領先五個 commit」實測為六個；(b) `dev/PROJECT_INDEX.md` `Workspace Identity` 的 branch/commit 仍停在 S213 的 `05ea10e`、未提交摘要仍停在 S213 的 35 個檔，兩者皆已按實測更新。
-
-<!-- ack:field:closeout-outcome -->
-- Closeout outcome: blocked — 治理寫入與讀回全部成功（`doctor` 53/53、prompt mirror 一致、`closeout-status` 的 lifecycle 與 sufficiency 閘皆過），本節治理檔亦已本地提交（S216 closeout commit）。**唯一未達 `complete` 的原因**：本項目 `## Session Close Checklist` 的收工持久化包含 `git push origin main`，而 Leonard 本節明示只做本地 commit、不 push。
-
-<!-- ack:field:project-required-persistence -->
-- Project-required persistence: blocked — **確切邊界**：commit 已完成（S216 closeout commit）；**push 未獲授權**，七個本地 commit 仍未上 `origin/main`，去向待 Leonard 決定。另 `dev/DOC_SYNC_CHECKLIST.md` 的 INIT.md 鏡像同步亦為 blocked，解封條件是先決定 `INIT.md` 是否已退役（OP ⑦）。
-
-<!-- ack:field:recommended-next-step-explicit -->
-- Recommended next step is explicit and reasoned: 是 —— `Open Priorities` 開首一句寫明單一建議動作（決定六個 commit ＋ 17 個治理檔的去向）及理由（只有它會隨時間惡化，因為 watcher bot 會繼續推送到 `origin/main`），並註明需 Leonard 決定、AI 不得自行 push。
-
-<!-- ack:field:next-ai-can-continue -->
-- Next AI can continue: yes — 見上面 `## Handoff Sufficiency Check` 的 `Answer` 與 `Reconstruction evidence` 兩行；下一步、前置條件、邊界與未讀缺口全部在本檔可讀，毋須翻舊 log。
-
-<!-- ack:field:opening-message-matches-current-state -->
-- **Opening message matches current state:** 是。逐項對過：六個未 push commit ＋ 17 個未提交治理檔、Kit v0.3.66 且 doctor 53/53、三個 flag 全 `0` 與 verdict FAIL 不變、`backend/README.md` 5 行仍未補、`AGENTS.md` 等三檔不在版本控制內 —— 五項在開場白與本檔各節一致。`START_NEXT_SESSION_PROMPT.txt` 由本檔唯一的 fenced block 重生並經 `doctor` prompt mirror check 讀回。
-
 - **2026-09-07 S215 closeout reconciliation:**
 
+<!-- ack:field:state-sections-rewritten-or-confirmed -->
 - **State sections rewritten or confirmed current:** `Current Baseline` 整節重寫為 6 行當前狀態（舊 87,154 字元全文逐字移入 `## Detail Archive (S212–S214)`，程式化驗證 `in` 為 True）；`Open Priorities` 整組重生為 ①–⑤（舊 4,679 字元全文同樣移入 Detail Archive，零刪減）；`Last Session Record` 重生為 S215，舊者降為 `Previous Session Record (S214)`，內容一字未改；`Next Session Opening Message` 重寫並同步至 `SESSION_LOG.md` 與 `START_NEXT_SESSION_PROMPT.txt`。
 
+<!-- ack:field:lifecycle-conflicts-resolved -->
 - **Lifecycle conflicts resolved:** S214 的「未提交生產改動三選一」已完成（選項 a 的 commit 半邊，push 半邊未做），故從 Open Priorities 移除，改列為「五個 commit 未 push」；「RPC 未安裝」已由實測推翻，改列為「已裝但來歷不明」。
 
+<!-- ack:field:persistence-routing-checked -->
 - **Persistence routing checked:** 當前狀態→handoff；事故經過與逐項救援證據→SESSION_LOG；回退指令教訓→Claude 長期記憶＋playbook inbox 提案；檔案映射→PROJECT_INDEX。
 
+<!-- ack:field:stale-snapshots-left -->
 - **Stale snapshots left:** 無。
 
+<!-- ack:field:opening-message-matches-current-state -->
 - **Opening message matches current state:** 是（五個 commit 未 push、三個 flag 全 0、verdict FAIL、README 5 行遺失，四項皆一致）。
 
 - **2026-09-06 S214 V3 reconciliation:** 已把修正後 18 題實測寫回 `Current Baseline`、`Open Priorities`、`Last Session Record`、`Next Session Opening Message`、`SESSION_LOG.md`、`PROJECT_INDEX.md`、`_s214_grounded_acceptance_report.md` 及 `_s214_grounded_v3_review.md`。所有位置一致記錄：25／36 次 HTTP；不可答題 9／9 棄權、可答題 6／9 作答；人工覆核 4 完整、2 安全但不完整、3 棄權／證據不足；無 audience 錯答、OCR 重複或截斷；release verdict 仍為 FAIL。已完成的「18 題重驗」不再列作下一步；下一 gate 改為五條新鮮 retrieval fixture及兩條完整性回歸。兩個 feature flags 維持 `0`；沒有 commit、push、deploy 或 Supabase 寫入。
@@ -1181,19 +1125,12 @@ source_registry → same vault PDFs → ai_extract.py
 
 `SESSION_LOG.md` carries recent evidence. do not create an archive directory by default. The next AI can continue from `AGENTS.md`, this handoff, `dev/PROJECT_INDEX.md`, and needed rule packs without searching old log history. See `dev/DOC_SYNC_REGISTRY.md`.
 
-Lifecycle consistency rule: compare `Completed This Session`, `Validation / QC`, `Next Priorities`, `Risks / Blockers`, and `Next Session Opening Message`. A completed or verified item must not remain as an unresolved next priority, active risk, or startup instruction unless it is explicitly reclassified as monitor-only, follow-up scope, blocked, or reopened with the missing evidence or trigger condition stated.
-Persistence routing rule: one-time delivery instructions, historical validation evidence, old hashes, old version facts, and incident notes must stay in trace evidence unless they still affect the next action.
-Recommended next-step rule: `Next Priorities` must name the single recommended next action and a short reason before listing additional options, unless the next action is blocked or genuinely requires a user decision.
-
 <!-- ack:section:handoff-sufficiency-check -->
 ## Handoff Sufficiency Check
 
 Can the next AI continue from `AGENTS.md`, this handoff, `dev/PROJECT_INDEX.md`, and needed rule packs without searching old log history?
 
-Answer: yes — S216 closeout 覆核。下一個 agent 淨睇本檔可以知道：**當前數字**（Supabase **17,610** / `source_registry` **281** / 平台 **v3.3.2** / 凍結合約四值 / `origin/main` `463434c` / 本地 HEAD `6cb80c6` 領先**六個** commit 未 push / 17 個治理檔未提交 / 線上部署 `4a25a15` / Kit **v0.3.66** doctor 53/53）；**點核實**（開場白的 `Post-startup first action` 四項探針，連 `git fetch` 後比對這一步都寫明，S215 正是靠它揪出四項漂移，S216 靠它揪出第五項）；**做緊乜**（`Open Priorities` 開首一句寫明單一建議動作與理由，之後 ①–⑦ 每項寫明前置條件與已被否定的舊方案）；**唔准做乜**（未得批准不得 push／commit／deploy／啟用 flag／執行 DDL／跑外部模型批次；任何 DDL 前先確認 live 函式定義）。
-
-Reconstruction evidence: 只用本檔重建下一步 —— **父目標與消費者**見 `## Architecture Decisions (Locked)` 與 `## Open Priorities` 開首（父：EDB K1 知識平台的檢索準確度；消費者：Leonard 與平台用戶）；**本步與父目標的關係**見 `## Open Priorities` ①（S216 是治理升級節，不推進檢索準確度，只解除 S213 記錄的 `doctor failed` 阻塞並令交接檔機械可讀）；**確切續接點**見 `## Last Session Record` 第 4 項與 `## Risks / Blockers` 第 1、3 項（六個 commit ＋ 17 個治理檔待決定去向）；**餘下驗收**見 `## Validation / QC`（S215 產品側數值仍綁定未變的 commit，185 題 live 套件仍未跑）；**必讀來源與新鮮度**見 `## Mandatory Start Checklist` 與 `## Next Task Required Reading`，另 `## Risks / Blockers` 第 2 項寫明 `match_wiki_chunks_routed` 的 live 定義**每次 DDL 前都要重新確認**，不可沿用本檔記載。**未讀缺口**：185 題 live 套件、`INIT.md` 全文（OP ⑦ blocked 的判斷前提）。
-
+Answer: Yes（S215 closeout 覆核）。下一個 agent 淨睇本檔可以知道：**當前數字**（Supabase **17,610** / `source_registry` **281** / 平台 **v3.3.2** / 凍結合約四值 / `origin/main` `463434c` / 線上部署 `4a25a15` / 本地領先五個 commit 未 push）；**點核實**（`Post-startup first action` 四項探針，連 `git fetch` 後比對這一步都寫明，因為 S215 正是靠它揪出四項漂移）；**做緊乜**（Open Priorities ①–⑤，每項都寫明前置條件同已被否定的舊方案）；**唔准做乜**（未得批准不得 push／deploy／啟用 flag／執行 DDL／跑外部模型批次；任何 DDL 前先確認 live 函式定義）。**S215 新增三段「查實咗、唔使再查」事實**：`match_wiki_chunks_routed` 已裝但來歷不明、`searchChannelB.ts` 兩邊合併已完成並驗證、交接數字漂移源自 Option A watcher bot 而非人手 —— 三段都在開場白內，防止下個 session 重新考古。S212–S214 的舊基線與舊 Open Priorities 全文移入 `## Detail Archive`，本檔仍然自足，**不需要翻 `dev/archive/`**。
 
 **⚠️ S215 新增治理缺口（未修）**：`backend/README.md` 5 行 flag 說明永久遺失，無備份、沒有杜撰補回；補寫時須在 commit message 明寫是重寫非還原。
 
@@ -1209,66 +1146,75 @@ Continuity rule: this file carries current state and next action. `dev/SESSION_L
 📋 Next session: agent-managed startup content below
 
 ```text
-Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft. Read AGENTS.md, then dev/SESSION_HANDOFF.md. Trust the handoff over this generated mirror.
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+(Playbook lazy：只讀 "Leonard's playbook/playbook/INDEX.md"；全表在 INDEX_TABLE.md，撞到才 grep，配到才開卡，用完補一行 usage。)
 
-If the root does not match the handoff, stop and ask for confirmation. Do not read dev/SESSION_LOG.md during ordinary startup. Read dev/PROJECT_INDEX.md, dev/RULE_PACKS.md, dev/DOC_SYNC_REGISTRY.md, and task packs only when the current task requires them.
+Current state (S215, 2026-09-07)：平台 v3.3.2；Supabase 17,610；source_registry 281；
+guidelines.json _meta 2.6.1；knowledge.json 2.3.0 · facts 455；凍結合約零接觸。
+origin/main = 463434c；本地 HEAD 領先五個 commit，全部未 push；線上部署 = 4a25a15。
+本節零 push、零 deploy、零 DDL、零 Supabase 寫入、零重切語料。
 
-Resume the current objective. A plain `Start Agent Handoff` / `開工` with no same-message task or explicit long-run instruction only authorizes minimum state recovery, one optional display-only current-thread title update when safely supported, the startup card, the current objective/risk/recommended next action, and then the end of the turn. It does not authorize task-specific reads, research, plans, protocols, preflight, file searches, sub-agents, QA, packaging, project-file writes, network access, other external actions, or opt-out execution wording. First-use exception: when this handoff says `First-use guidance state: eligible`, the current objective is empty / `TBD`, and there is no same-message concrete task, load onboarding and include a short first-use welcome plus the most relevant guided choices in the same response instead of ending status-only. A concrete objective found only in this handoff is not authority to complete the objective. A same-message task may begin normally; an explicit instruction such as `開工，繼續做到下一個 blocker` or `開工，繼續完成目前目標` may continue under the normal task and safety rules. Upgrade never resets consumed / not_applicable first-use state back to eligible.
-
---- 專案狀態（S216, 2026-09-07）---
-
-Current state：平台 v3.3.2；Supabase 17,610；source_registry 281；guidelines.json _meta 2.6.1；
-knowledge.json 2.3.0 · facts 455；凍結合約零接觸。Agent Handoff Kit v0.3.66（doctor 53/53 passed）。
-origin/main = 463434c；本地 HEAD = S216 closeout commit（git log -1 取確實 hash），
-領先七個 commit，全部未 push；線上部署 = 4a25a15。
-
-🔴 最高優先：七個未 push commit，去向要 Leonard 決定。
+🔴 最高優先：五個本地 commit 未 push，去向要 Leonard 決定。
    744a8dc  S214 候選全套（grounded synthesis + route-first），三個 flag 全部 0，
             產品 verdict 仍為 FAIL，185 題 live before／after 未跑
             —— 未驗證前不得啟用任何 flag、不得部署。
-   6cb80c6  S215 closeout 治理持久化
-   5f7ce6e  S213/S214 治理狀態
+   5f7ce6e  治理文檔（handoff / log / index / master spec / codebase context / 啟動提示）
    8d90e56  S214 七份報告
-   3f31905  評測工具 + eval_runs artifact + gold
+   3f31905  評測工具 + 30 個 eval_runs artifact + active gold 185
    05854d5  19 個 extract 補回 title/url header，正文位元組不變
-   HEAD     S216 closeout：Kit 升至 v0.3.66 ＋ 交接檔機械可讀化（58 個路徑）
-   後六個全部不改檢索行為。
-   ⚠️ S215 交接寫「五個 commit」是漏計 S215 自己的 closeout commit，S216 已更正為六個。
+   後四個全部不改檢索行為。
 
-⚠️ S216 教訓（同類錯誤不要重犯）：
-   agent-handoff-kit upgrade 會把 ## Next Session Opening Message 整段換成官方通用開場白，
-   並同時覆寫 START_NEXT_SESSION_PROMPT.txt —— S215 那 65 行專案狀態在兩個 live 檔同時消失。
-   已由 dev/governance_migrations/<timestamp>/backup/ 取回並重建。
-   通則：跑完 upgrade 一定要 diff 備份與現檔，不可只信 doctor passed —— doctor 檢查結構，不檢查內容。
-   同一原理：AGENTS.md / CLAUDE.md / GEMINI.md 三個檔 gitignored 且從未 tracked，
-   它們的升級改動不在版本控制內，唯一還原點就是上述 backup 目錄。
+⚠️ S215 事故必讀（同類錯誤不要重犯）：
+   Claude 交出的回退指令附了「不會刪走未追蹤檔」這句錯誤保證，Leonard 據此執行，
+   git reset --hard 刪走已 commit 的 55 個檔，並還原六個從未 commit 亦未 stash 的 backend 檔。
+   已復原：四個 commit 用 merge --ff-only 救回（非 reset，故工作區改動保住）；
+   llmClient.ts / package.json / .env.example 逐字還原；
+   schema.sql 由倖存的 s214_route_first_candidate.sql 還原（38 +，與原記錄吻合）；
+   wikiRepository.ts 由 gitignored 的 backend/dist 反建 —— 重新編譯後與倖存 dist 逐位元組一致，
+   即行為等同已證，但源碼排版與 queryVec 註釋是新寫的，不是 Codex 原文。
+   救唔返：backend/README.md 5 行 flag 說明，無備份，沒有杜撰補回。
+   通則：交回退指令前先分三類數（commit 內／stash 內／只在工作區），明寫會永久失去甚麼。
 
-✅ S216 已確立的事實（不必再查）：
-   1. onboarding.md / integrations.md / knowledge.md / safety.md / writing.md / agent-governance.md
-      六個 pack 與其綁定的官方版本逐字相同、零本地自訂 —— 升級換新版沒有失去專案內容（已逐檔比對
-      npm 上的 v0.3.29 / v0.3.30 / v0.3.32 / v0.3.43 原檔）。release.md 消失行數 0。
-   2. communication.md 的 S196 六條 claim discipline 全部保留，現以「官方本體 + 本地附錄」結構存放，
-      規則編號由 3/6/7/8/9/10 改為 L1–L6，交叉引用已同步。
-   3. SESSION_LOG.md 440 行歷史逐位元組驗證一致，只換了官方頭部。
-   4. 根目錄 /Claude-edb-knowledge 另有一份 v0.3.24 的舊 Kit，按 Leonard 選擇零接觸。
-      它與 Draft/ 是兩份獨立安裝，日後容易撞混。
+✅ S215 已確立的事實（不必再查）：
+   1. match_wiki_chunks_routed 已裝於 live Supabase —— 零列探針（source_ids=[]，不觸發
+      per-row vector cast）回 200 []，四參數簽名相符。但 PostgREST 讀不到函式本體，
+      「已裝」不等於「與 repo SQL 相同」；安裝者與授權無記錄；線上 build 引用次數 0。
+      任何 DDL 前仍須先確認 live 定義，不得憑此重做安裝。
+   2. searchChannelB.ts 已完成兩邊合併並驗證：機械人 09-05 加入的 edbc016_2026 /
+      edbcm141_2026（SOURCE_SETS + SPOTLIGHT）與 Codex 的 route-first wiring 並存，
+      零衝突標記，route_regression 46/46 含來源成員斷言。只取任何一邊都會令 8 條片段
+      跌出 route allowlist —— 與 chi_hist_jss_ncs_2019 同一病。
+   3. 交接數字漂移的成因是 Option A watcher bot，不是人手改動：09-05 兩次自動入庫
+      （edbc016_2026 +6、edbcm141_2026 +2），Render 見 main 有新 commit 即自動部署。
+      那五個 remote commit 不含後端程式碼實質改動，線上檢索行為等同 S214 所述的舊 build。
+   4. qc_report.json（CI 2026-09-06）overall ERROR：6 FAIL 之中 5 條屬既有 registry 家族
+      （ZOMBIE / PHANTOM / SERIES / UNMANAGED / UNLISTED）；NO_MIDCLAUSE_START 843（基準 835），
+      09-03 已經是 842，兩條新入庫片段只帶來 +1，不是新缺陷類別。
 
 ⚠️ 未解決（不要當已解決）：
-   · 交接檔仍有 8 個 ack marker 未有專屬章節（OP ⑥），doctor 不受影響但機械上讀不到。
-   · dev/DOC_SYNC_CHECKLIST.md 的 INIT.md 鏡像規則已失效（OP ⑦，blocked）——
-     INIT.md 鏡像的是 package 化之前的 AGENTS.md 結構，要先決定它是否退役。
-   · backend/README.md 5 行仍未補（S215 遺失，無備份，不得杜撰）。
-   · 三題 chunk recall、4 條 fidelity 不一致、合成窗佔用率、S212／S213 全部遺留 —— 一項未動。
+   · 三題 chunk recall：hr_lsp 完整公式跨第 3／4 頁而 dominant_page() 判第 3 頁；
+     sen_special_school_curriculum 的 g10 與中史 NCS 目標片段均未入首 8。
+     已證目標 chunk 根本不在新 RPC 原始 40 項之內，故根因不在後處理，
+     下一步是離線查 query expansion 與向量排名。
+   · 4 條 fidelity 不一致：3 條分數完全相同而生產 tie 次序非 id 升序（真正 tie 規則
+     未查證，不得憑猜對齊）；1 條 fin_seg 的 edbc015_2026 未解釋。
+   · 合成窗 overlay 平均佔 2.22/5 格（44%），正負 lead_score 分佈重疊，
+     純提高門檻在數學上不可行。
+   · backend/README.md 5 行未補。
+   · S212／S213 遺留全部未動：658 代號標題 backfill（dry-run 已跑，執行被分類器擋住，
+     須 Leonard 自己跑）、kgecg_2017 108 條 ZOMBIE、header 剝除正則吃掉 33 行正文
+     （涉 2,212 條 chunk，修正要重入庫）、七個 standing WARN 無 waiver。
 
-QC status：agent-handoff-kit doctor status passed 53/53（S216 實測）。
-   S215 產品側數值未重跑亦未失效（綁定的 commit 與檔案未變）：npm check / build exit 0 ·
-   regression:grounded 48/48 · route_regression 46/46 · active gold 185。
-   未跑：185 題 live 套件。qc_report.json overall ERROR 未處理。
+QC status（S215 收工實測）：npm check exit 0 · npm build exit 0 · regression:grounded 48/48
+   · route_regression 46/46 · _s214_rank_model ALL PASS · eval_retrieval ALL PASS
+   · _s213_validate_gold ALL PASS · active gold 185 · 工作區乾淨。
+   未跑：185 題 live 套件。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION + Render /health
-+ git fetch 後比對 HEAD／origin/main + Supabase live count），再向 Leonard 報告七個未 push commit
-的去向建議。未得明確批准，不得 commit、不得 push、不得部署、不得啟用任何 flag、
-不得執行 DDL、不得作任何外部模型批次。如無新指示，行離線工作：追三題的 query expansion 與目標片段位置。
++ git fetch 後比對 HEAD／origin/main + Supabase live count），再向 Leonard 報告五個未 push
+commit 的去向建議。未得明確批准，不得 push、不得部署、不得啟用任何 flag、不得執行 DDL、
+不得作任何外部模型批次。如無新指示，行離線工作：追三題的 query expansion 與目標片段位置。
 ```
 
 ## Session Close Checklist (每次 session 結束必須執行)

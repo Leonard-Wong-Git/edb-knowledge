@@ -1,0 +1,153 @@
+{
+  "id": "2026-09-07T18-23-33-046Z-f28843fd-c7a4-4941-bef4-e70e2225aac7",
+  "command": "upgrade",
+  "mode": "upgrade-existing",
+  "attemptedVersion": "0.3.66",
+  "committedVersion": "0.3.66",
+  "plannedSkips": 8,
+  "host": "MBA-13.local",
+  "pid": 12029,
+  "state": "committed",
+  "createdAt": "2026-09-07T18:23:33.054Z",
+  "entries": [
+    {
+      "targetRel": "AGENTS.md",
+      "existed": true,
+      "beforeHash": "24792c60e90b69d54e46d59b09b2380da0f8512164832f0f507944522ecf69eb",
+      "afterHash": "3e7e1c4edfd52b5d6a4ad6f5cde04bf4299f4e9197eb59a308b3f0d124986846",
+      "backupRel": "dev/governance_migrations/2026-09-07T18-23-33-046Z-f28843fd-c7a4-4941-bef4-e70e2225aac7/backup/AGENTS.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.3.29 managed core with an explicit newline transform; preserve every surrounding byte"
+    },
+    {
+      "targetRel": "dev/SESSION_HANDOFF.md",
+      "existed": true,
+      "beforeHash": "ad521739dee49ac66b277847ae2906af8dce0a1a23a524abc72896c61e979809",
+      "afterHash": "0797e4f493368c2fb1f4af93ea97ed92ead9420751cb9e59a19716f4005005d6",
+      "backupRel": "dev/governance_migrations/2026-09-07T18-23-33-046Z-f28843fd-c7a4-4941-bef4-e70e2225aac7/backup/dev/SESSION_HANDOFF.md",
+      "committed": true,
+      "reason": "update handoff lifecycle/startup contracts while preserving current project state"
+    },
+    {
+      "targetRel": "dev/PROJECT_INDEX.md",
+      "existed": true,
+      "beforeHash": "e11fb3341765c7cceb9289644330ac5a005d1638f76f41ab1939cdf64d762715",
+      "afterHash": "68d7c1167184034775ae9b0ef28cae890ef6e172185174a72294fb66c7a62b4f",
+      "backupRel": "dev/governance_migrations/2026-09-07T18-23-33-046Z-f28843fd-c7a4-4941-bef4-e70e2225aac7/backup/dev/PROJECT_INDEX.md",
+      "committed": true,
+      "reason": "insert the missing Installed Integrations and Tool Operation References H2 sections while preserving all existing project content"
+    },
+    {
+      "targetRel": "dev/DOC_SYNC_REGISTRY.md",
+      "existed": true,
+      "beforeHash": "7400abf937a392fbc80b7bcb4ead1c21a665c1ee9e4b773ef80faedeb365cec0",
+      "afterHash": "56807afee836d3ce19cabb1d020ef37168880a405b5eb8c6d7347e25e94c36e6",
+      "backupRel": "dev/governance_migrations/2026-09-07T18-23-33-046Z-f28843fd-c7a4-4941-bef4-e70e2225aac7/backup/dev/DOC_SYNC_REGISTRY.md",
+      "committed": true,
+      "reason": "replace raw-exact official historical dev/DOC_SYNC_REGISTRY.md with the current Kit file"
+    },
+    {
+      "targetRel": "dev/RULE_PACKS.md",
+      "existed": true,
+      "beforeHash": "ce9c631a3bdd464329a26ba834502b354c56053cf4745a718b59a13e9fae0170",
+      "afterHash": "83c6e1ae2a4cdcfdfc5c1bfcd125bb371ccb7a8fbb345e1fdf90b3287b9b478c",
+      "backupRel": "dev/governance_migrations/2026-09-07T18-23-33-046Z-f28843fd-c7a4-4941-bef4-e70e2225aac7/backup/dev/RULE_PACKS.md",
+      "committed": true,
+      "reason": "update marker-identified official routing rows while preserving every unmarked local row"
+    },
+    {
+      "targetRel": "dev/PROJECT_DECISIONS.md",
+      "existed": true,
+      "beforeHash": "0d1b465611cc6364bed826fbc96563ab9e5760de4ca468fa6b1891c268c3d06f",
+      "afterHash": "1ee16c034fa4f036e6d3383ca3f207410b5b2200fc5a2f7cdc670888d1668a2e",
+      "backupRel": "dev/governance_migrations/2026-09-07T18-23-33-046Z-f28843fd-c7a4-4941-bef4-e70e2225aac7/backup/dev/PROJECT_DECISIONS.md",
+      "committed": true,
+      "reason": "restore PROJECT_DECISIONS onboarding preamble before ## Evolution Timeline"
+    },
+    {
+      "targetRel": "dev/rules/safety.md",
+      "existed": true,
+      "beforeHash": "823f41894873edfffe734a9b70f16f18fad3a770c68daf8a81e7ad41deb89022",
+      "afterHash": "ec1081b67f8e85302ca6d9e27c0f65adee98ad9f3df4ed19e1d861b22baceff9",
+      "backupRel": "dev/governance_migrations/2026-09-07T18-23-33-046Z-f28843fd-c7a4-4941-bef4-e70e2225aac7/backup/dev/rules/safety.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.3.30 dev/rules/safety.md rule body with an explicit newline transform; preserve local appendix bytes"
+    },
+    {
+      "targetRel": "dev/rules/writing.md",
+      "existed": true,
+      "beforeHash": "4212a6cf8d86332247c79b7e103df7ee08f37e59d28a0a5202df121cc52a7919",
+      "afterHash": "106376ae5c4eb703cab471efe2b285e1b0de5e35c2460977731fec2662c24593",
+      "backupRel": "dev/governance_migrations/2026-09-07T18-23-33-046Z-f28843fd-c7a4-4941-bef4-e70e2225aac7/backup/dev/rules/writing.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.3.29 dev/rules/writing.md rule body with an explicit newline transform; preserve local appendix bytes"
+    },
+    {
+      "targetRel": "dev/rules/agent-governance.md",
+      "existed": true,
+      "beforeHash": "447df3a17a33c3ab397ba3a38f099150835403625b17b99bd64192a67f704203",
+      "afterHash": "b36a1782d81476545769727e002248e2e6bbfd507e6a66941cc6c3d16ee60a16",
+      "backupRel": "dev/governance_migrations/2026-09-07T18-23-33-046Z-f28843fd-c7a4-4941-bef4-e70e2225aac7/backup/dev/rules/agent-governance.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.3.29 dev/rules/agent-governance.md rule body with an explicit newline transform; preserve local appendix bytes"
+    },
+    {
+      "targetRel": "dev/rules/release.md",
+      "existed": true,
+      "beforeHash": "30ee60802efde189845caba562b0736afb5f67a2ef5e222513024216a7425895",
+      "afterHash": "cb01295a69be627564307bb8475f1a6e6438fae79d910ef3e318e7fcb8ced8a7",
+      "backupRel": "dev/governance_migrations/2026-09-07T18-23-33-046Z-f28843fd-c7a4-4941-bef4-e70e2225aac7/backup/dev/rules/release.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.3.43 dev/rules/release.md rule body with an explicit newline transform; preserve local appendix bytes"
+    },
+    {
+      "targetRel": "dev/rules/knowledge.md",
+      "existed": true,
+      "beforeHash": "57e40fa54f1524c27bdd3f0416970a559892ebe02a1cf7716fba4edc065610c4",
+      "afterHash": "a492c514168b96186f86589610d931400ca5dad3c9c6d53e1639913bd681324f",
+      "backupRel": "dev/governance_migrations/2026-09-07T18-23-33-046Z-f28843fd-c7a4-4941-bef4-e70e2225aac7/backup/dev/rules/knowledge.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.3.32 dev/rules/knowledge.md rule body with an explicit newline transform; preserve local appendix bytes"
+    },
+    {
+      "targetRel": "dev/rules/closeout.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "183a8b17d7bca51627843ca6cb840cb8b4583df0516ab7ace344fcd33d3f71a5",
+      "backupRel": null,
+      "committed": true,
+      "reason": "create"
+    },
+    {
+      "targetRel": "dev/rules/onboarding.md",
+      "existed": true,
+      "beforeHash": "140826448e462b9131e7907364102d02d54c0abd04542fc548d2da91f3a4d0aa",
+      "afterHash": "ee658b4dd6ae64f7428dc0d69795a039c2bc14b0ca0c42c48afb35538a1ff7ad",
+      "backupRel": "dev/governance_migrations/2026-09-07T18-23-33-046Z-f28843fd-c7a4-4941-bef4-e70e2225aac7/backup/dev/rules/onboarding.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.3.32 dev/rules/onboarding.md rule body with an explicit newline transform; preserve local appendix bytes"
+    },
+    {
+      "targetRel": "dev/rules/integrations.md",
+      "existed": true,
+      "beforeHash": "503f8d8c9e5fd3d4ddfc746ef6e9e20fb16a5cc729101ddc1c0834170aa1e82b",
+      "afterHash": "7e51039d57c7c424dbb2c74f9c5ac022193346354593ffa4979008112a2bf8ef",
+      "backupRel": "dev/governance_migrations/2026-09-07T18-23-33-046Z-f28843fd-c7a4-4941-bef4-e70e2225aac7/backup/dev/rules/integrations.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.3.32 dev/rules/integrations.md rule body with an explicit newline transform; preserve local appendix bytes"
+    },
+    {
+      "targetRel": "START_NEXT_SESSION_PROMPT.txt",
+      "existed": true,
+      "beforeHash": "7b3cc59d0aa88399e47f4802369bd1cb36e634aa1ced1103d02fca2734663fdd",
+      "afterHash": "53816d7d2197e7d256f858a694336d5e9bb4ccff12863081e583fe3c546b9d71",
+      "backupRel": "dev/governance_migrations/2026-09-07T18-23-33-046Z-f28843fd-c7a4-4941-bef4-e70e2225aac7/backup/START_NEXT_SESSION_PROMPT.txt",
+      "committed": true,
+      "reason": "regenerated from authoritative handoff opening message"
+    }
+  ],
+  "formalUserRules": null,
+  "runtimeReadback": null,
+  "archiveMigrations": [],
+  "committedAt": "2026-09-07T18:23:34.001Z"
+}

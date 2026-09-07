@@ -6,7 +6,7 @@ Purpose: give a stateless AI a compact map of the project before it reads or edi
 
 | Field | Value | Last verified |
 |---|---|---|
-| Agent Handoff Kit template version | 0.3.66 | package prototype |
+| Agent Handoff Kit template version | 0.3.29 | package prototype |
 | Runtime | TBD | TBD |
 | Framework | TBD | TBD |
 | Package manager | TBD | TBD |
@@ -118,17 +118,6 @@ Reachable means the source can be found. It does not mean the source has been re
 | 持久化參考檔（mirror） | TBD（譬如 Drive folder「Project Reference/」） | 防本機 disk failure / 跨裝置 access | 用戶手動同步；AI 唔自動 push |
 | Working draft | TBD（譬如 本機 `~/project/output/`） | AI 寫 task output | AI 直接 read + write 本機 |
 
-## Tool Operation References
-
-Use this section for project-local runbooks or verified procedures for runtime-controlled tools such as browser validation, screenshots, DevTools, Playwright, crawlers, notebooks, desktop app automation, MCP/plugin helpers, or raw CLI/SDK operations.
-
-Do not store credential values or machine-private paths here. Local machine-only references may be listed only when the project explicitly depends on them, and the scope / limits must say they are not portable.
-
-| Tool / operation | Reference path or URL | Required before | Source and version/date | Scope and known limits | Last verified |
-|---|---|---|---|---|---|
-| TBD | TBD | TBD | TBD | TBD | TBD |
-| Local HTML / app browser validation | TBD, for example project runbook or official browser-tool docs | Before validating local HTML, static app, generated guide, screenshot, click flow, or visual QA | TBD, include source and date | Prefer short-lived loopback localhost service when `file://` is blocked; record click/text/screenshot evidence and cleanup result; do not mutate user browser profiles or extension state | TBD |
-
 ## Local QC Commands
 
 | Check | Command | Run before | Last verified |
@@ -148,10 +137,7 @@ Do not store credential values or machine-private paths here. Local machine-only
 | 註腳 lead probe 自檢 | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && python3 dev/source/footnote_lead_probe.py --self-test` | 改註腳 lead 邏輯前後 | 2026-09-05 (S214) — PASS |
 | Grounded synthesis 離線回歸 | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft/backend" && npm run regression:grounded` | 改合成、引文核證、棄權或 Structured Outputs | 2026-09-06 (S214) — 48/48 PASS；生產與 probe 共用先篩一手文件、再取五格的 selector |
 | Gold set 量度工具自檢 | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && for f in _s213_eval_metrics _s213_run_gold _s213_validate_gold _s213_build_gold_staffing _s213_fix_extract_headers _s213_title_backfill; do python3 dev/$f.py --self-test; done` | 改任何量度邏輯 | 2026-09-04 (S213) — 54 條全部 PASS |
-| Agent Handoff Kit doctor | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && npx --yes @adamchanadam/agent-handoff-kit@latest doctor --root .` | closeout / governance changes | 2026-09-07 (S216) — passed 53/53 @ v0.3.66 |
-| Agent Handoff Kit closeout-status | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && npx --yes @adamchanadam/agent-handoff-kit@latest closeout-status --root .` | **v0.3.66 新增**：closeout 的語意閘，內含一次正式 doctor 讀回；nonzero 即 closeout blocked | 2026-09-07 (S216) |
-| Agent Handoff Kit workspace-health | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && npx --yes @adamchanadam/agent-handoff-kit@latest workspace-health --root .` | **v0.3.66 新增**：唯讀 git 探針（root / branch / commit / worktree / 未提交） | 2026-09-07 (S216) |
-| Agent Handoff Kit upgrade（預演） | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && npx --yes @adamchanadam/agent-handoff-kit@latest upgrade --dry-run --root .` | 升級前必跑；有 conflict 時 `--yes` 會**全數拒寫**（全有或全無），須先逐個人手合併 | 2026-09-07 (S216) |
+| Agent Handoff Kit doctor | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && npx --yes @adamchanadam/agent-handoff-kit@latest doctor --root .` | closeout / governance changes | 2026-06-22 (S176) — passed 48/48 |
 | Project governance check | 見 `AGENTS.md` `<INSTRUCTIONS>` §3 (PLAN→READ→CHANGE→QC→PERSIST) + §4 closeout | closeout / durable file changes | 2026-06-22 (S176) |
 
 ## Workspace Identity
@@ -162,12 +148,10 @@ Record this at closeout so the next AI can detect wrong-root or workspace drift.
 |---|---|---|
 | Expected project root | `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft`（唯一目標；頂層 umbrella 只重定向至此） | 2026-06-22 (S176) |
 | Git root | 同 project root（repo `Leonard-Wong-Git/edb-knowledge`；勿 set private） | 2026-06-22 (S176) |
-| Branch / commit | `main` @ `6cb80c6`；**領先 `origin/main` (`463434c`) 六個 commit，全部未 push**（S216 `git rev-list --left-right --count` 實測 0/6）。S213 記的 `05ea10e` 已過時。 | 2026-09-07 (S216) |
+| Branch / commit | `main` == `origin/main` @ `05ea10e`（S213 收工時 0/0，本節零 commit） | 2026-09-04 (S213) |
 | Worktree or parallel workspace | 無 | 2026-06-22 (S176) |
-| Uncommitted change summary | ⚠️ **S216 收工時 17 個檔未提交，全部為 Agent Handoff Kit v0.3.66 升級產物，零程式碼改動**：15 個 modified（`START_NEXT_SESSION_PROMPT.txt`、`dev/` 六個治理檔、`dev/rules/` 八個 pack）＋ 2 個 untracked（`dev/rules/closeout.md`、`dev/governance_migrations/2026-09-07T18-23-33-046Z-*/`）。S213 記的 35 個檔已於 S215 分批 commit，該記載已過時。 | 2026-09-07 (S216) |
+| Uncommitted change summary | ⚠️ **S213 收工時有 35 個檔未提交，分三類，勿混合提交**：A 量度工具（`dev/_s213_*.py`、5 個 gold JSON、2 個 eval run）可獨立提交；B Phase 2 候選修正（`dev/vault/build_wiki_index.py` fail-loud 守門、19 個 extract header）**未 deploy、未入庫，等批准**；C 他人工作＝無。另 `dev/source/coverage_runs/` 係 gitignored | 2026-09-04 (S213) |
 | 治理檔 git 狀態 | ⚠️ `dev/SESSION_HANDOFF.md`／`dev/SESSION_LOG.md`／`START_NEXT_SESSION_PROMPT.txt` 雖列於 `.gitignore` 但**實際已 tracked**（早於 ignore 規則 commit；git 唔會 untrack 已追蹤檔）→ 每次收工照常 commit（見 S173–S175 closeout commits） | 2026-06-22 (S176) |
-| Kit 檔案版本控制缺口 | ⚠️ **S216 實測**：`AGENTS.md`／`CLAUDE.md`／`GEMINI.md` 三檔在 `.gitignore` 且**從未 tracked**（`git check-ignore -q` + `git ls-files --error-unmatch` 雙向實測）→ 升級對它們的改寫**不在版本控制內**，唯一還原點是 `dev/governance_migrations/<timestamp>/backup/` | 2026-09-07 (S216) |
-| 平行安裝 | ⚠️ 專案根目錄 `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/` 另有一份 **v0.3.24** 的獨立 Agent Handoff Kit（6 月起停滯，非 git repo）。**它不是本 repo 的一部分**，S216 按 Leonard 選擇零接觸。兩份版本不同，易撞混。 | 2026-09-07 (S216) |
 
 ## Change Hotspots
 

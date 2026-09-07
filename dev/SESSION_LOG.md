@@ -1,37 +1,65 @@
 # Session Log
 
-<!-- Archives: dev/archive/ — entries moved when >400 lines or oldest entry >30 days -->
-
 <!-- ack:section:session-log-preamble -->
+
+> **Handoff role**: This log is the trace-back / audit trail layer. Handoff capability rests on `dev/SESSION_HANDOFF.md`. The next AI session can continue by reading `AGENTS.md` + `dev/SESSION_HANDOFF.md` + `dev/PROJECT_INDEX.md` + needed rule packs; reading this log is not required for continuity. Each closeout must run the maintenance trigger check per `AGENTS.md` `## Closeout And Handoff` step 11 (R-010 SESSION_LOG handoff-role discipline): N=1–3 keep full, N=4–10 may short-index after absorbed-source check when triggered, N=11+ archive into `dev/SESSION_LOG_archive/`.
+
 Add new session entries at the top. Record what actually happened in the session; do not copy old completed work forward as new work.
 
-Entries are kept, summarized, or archived — not current state. Do not remove validation evidence. Use latest opening message from most recent entry.
+This log carries recent evidence, not current state. Put the current objective, next action, risks, and workspace identity in `dev/SESSION_HANDOFF.md`.
+
+Keep recent entries concise. If older entries no longer affect the next action and the maintenance trigger check says cleanup is due, reduce them to short dated indexes that point to the durable source of truth. Archive long error output, validation detail, or research trails only when triggered; do not create an archive directory by default.
+
+Before closeout, record whether older log detail was kept, summarized, or archived, and whether the maintenance trigger check was no-op, triggered, or backstop-driven. Do not remove validation evidence or unresolved risks. The full opening message never belongs in this log.
 
 <!-- ack:section:session-log-entry-template -->
+
 ## Entry Template
 
-- **ID:**
-- **Summary:**
-- **Changed:**
-- **Done:**
-- **QC:**
+````markdown
+<!-- ack:log-entry:start -->
+## <YYYY-MM-DD> — <short session title>
+
+- **ID:** <agent_or_session_id>
+- **Summary:** <one sentence>
+- **Changed:** <files changed, or none>
+- **Done:** <work completed this session>
+- **QC:** <checks run and results, or why not run>
 - **Evidence disposition:** <one-time only / kept as recent trace evidence / absorbed into handoff / indexed in PROJECT_INDEX / promoted to PROJECT_DECISIONS / promoted to rule pack>
-- **Sync:**
-- **Pending:**
-- **Risks:**
-- **Log maintenance:**
-
-### Next Session Opening Message
-
-📋 Next session: agent-managed startup content below
-
-```text
-Read AGENTS.md first, then follow its §1 startup sequence:
-Read in order: dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md → dev/PROJECT_MASTER_SPEC.md
-dev/DOC_SYNC_REGISTRY.md
-```
+- **Sync:** <doc/external sync status>
+- **Pending:** <next work>
+- **Risks:** <known risks or none>
+- **Log maintenance:** <trigger check result; full maintenance action if triggered, otherwise no-op reason>
+- **Opening-message mirror:** <regenerated and verified / blocked; full text omitted by design>
+<!-- ack:log-entry:end -->
+````
 
 ---
+
+<!-- ack:log-entry:start -->
+## 2026-09-07 Session 216 — Agent Handoff Kit v0.3.29 → v0.3.66 升級；四層 conflict 逐層解開，並揪回工具靜靜刪走的 65 行狀態
+
+- **ID:** `Claude_20260907_1900` — S216
+- **Summary:** Leonard 要求依官方安裝說明頁升級本資料夾的 Agent Handoff Kit。實際做的是：辨清兩份獨立安裝、逐層解開四批 conflict、修好一個一直靠垃圾值通過的隱形 check，以及發現並還原 `upgrade` 本身造成的 65 行狀態損失。**零程式碼、零檢索、零產品改動。**
+- **Changed:** `AGENTS.md`（managed core）· `GEMINI.md`（全文換官方 bridge）· `dev/SESSION_HANDOFF.md` · `dev/SESSION_LOG.md` · `dev/PROJECT_INDEX.md` · `dev/PROJECT_DECISIONS.md` · `dev/RULE_PACKS.md` · `dev/DOC_SYNC_REGISTRY.md` · `dev/rules/` 八個 pack · 新增 `dev/rules/closeout.md` · 新增 `dev/governance_migrations/2026-09-07T18-23-33-046Z-f28843fd-c7a4-4941-bef4-e70e2225aac7/` · `START_NEXT_SESSION_PROMPT.txt`。**已本地提交為 本節 S216 closeout commit（58 個路徑，指定檔案逐個 `git add`，未用 `-A`）；按 Leonard 明示只 commit 不 push。**
+- **Done:**
+  1. **先分清兩份安裝再落手**：專案根目錄有一份 v0.3.24（6 月停滯），`Draft/` 有一份 v0.3.29（live）。兩份都各自有 conflict。按 Leonard 選擇**只升 `Draft/`**，根目錄零接觸。落手前另做一份完整 tarball 備份（此 repo 的 `AGENTS.md` 等三檔不在 git 內，無 git 還原網）。
+  2. **第一次 `upgrade --yes` 全數拒寫**：3 個 conflict 令它一個檔案都不寫（全有或全無），零改動。逐個查明：`GEMINI.md` 是 3 行舊 stub 零本地自訂 → 直接換官方版；`SESSION_LOG.md` 缺官方要求的 ```` ```markdown ```` Entry Template 圍欄 → 只換第 1–35 行頭部，440 行歷史**以 `diff` 逐位元組驗證一致**；`communication.md` 把官方本體原地改寫故 CLI 判不到 → 改為「官方 v0.3.66 本體 ＋ `## Local Appendix`」，S196 六條 claim discipline 全保留、規則編號 3/6/7/8/9/10 → L1–L6、L6 內「run rules 3, 6, 7, 8 and 9」同步改為 L1–L5。
+  3. **第二層：`SESSION_HANDOFF.md` acceptance gate**。**沒有靠猜** —— 直接讀 CLI 原始碼 `bin/agent-handoff-kit.mjs:372` 與 `extractSectionText()`，確認 gate 只要求 `completed-this-session`／`validation-qc`／`next-priorities`／`risks-blockers` 四節加開場白非空。用 CLI 自己的函式寫探針實測，四節全部 `len=0`。**根因**：21 個 `ack:` marker 全部疊在檔頂第 3–23 行當目錄用，而 `extractSectionText` 是「由 marker 之後讀到**下一個** `ack:section:` 為止」，一行疊一行 → 全部抽出空字串。
+  4. **修正**：marker 搬到各自章節；新建 `## Validation / QC` 與 `## Risks / Blockers`（本檔原本沒有這兩節），內容由 `Current Baseline` 第 2、4、5 項**搬**入、原位留指針，零重複零杜撰。搬完以 `diff`（濾走 marker 與空行）證實 1,220 行入面**只有預期那幾行改動**，其餘一字不動。
+  5. **順手修好一個隱形 bug**：`lifecycle-conflicts-resolved` 這個 field marker 因疊在檔頂，`fieldValueAfterMarker()` 向下抓到 `## User Environment` 的 **Repo path** 當值 —— 該 check 一直靠垃圾值「通過」。收工時再犯同一原理的變種（在 log 散文入面寫出 marker 全名會被 `indexOf` 先抓到），已全檔掃描並改寫成不連續寫法，掃描結果 0 collision。
+  6. **第三層：發現工具自己造成的資料損失**。`upgrade` 成功後 `doctor` 報 53/53 passed，但比對備份發現它把 `## Next Session Opening Message` **整段換成官方通用開場白**，並同時把 `START_NEXT_SESSION_PROMPT.txt` 由 70 行覆寫成 4 行 —— S215 那 **65 行**專案狀態（六個 commit 明細、`reset --hard` 事故必讀、四項已確立事實、未解決清單、`Post-startup first action`）在兩個 live 檔同時消失。由 CLI 備份取回，接在官方合約句之後重建，mirror 重生，`doctor` 仍 53/53。
+  7. **逐檔核實無內容損失**：由 npm 取回 v0.3.29／v0.3.30／v0.3.32／v0.3.43 原檔逐一 `diff`，證實 `onboarding.md`／`integrations.md`／`knowledge.md`／`safety.md`／`writing.md`／`agent-governance.md` 六個 pack **與其綁定的官方版本逐字相同、零本地自訂**（`onboarding.md` 由 394 行縮到 241 行是官方改版，非專案內容流失）；`release.md` 消失行數 0；`RULE_PACKS.md` 少的一行被三行更細緻的官方 routing 列取代。
+  8. **起手數字更正**：`git rev-list --left-right --count` 實測本地領先 `origin/main` **六個** commit，非交接記載的五個 —— 漏計的是 S215 自己的 closeout commit `6cb80c6`。四處記載已同步更正。
+- **QC:** `agent-handoff-kit closeout-status --root .` —— lifecycle 與 sufficiency 兩道語意閘**通過**，整體報 `blocked`，唯一原因是 push 未獲授權（非治理狀態問題）。`agent-handoff-kit doctor --root .` **status: passed，53/53**（v0.3.66；工具／項目記錄／npm latest 三向對齊；prompt mirror 一致）。`upgrade` 自身報告 create 1 / merge 14 / skip 8 / **conflict 0**。gate 探針五項全 PASS。內容保全審計：逐檔比對升級前備份，所有「消失行」均已歸因為官方改版或本節刻意改動。**本節零程式碼改動，故 S215 產品側 QC（`regression:grounded` 48/48、`route_regression` 46/46、active gold 185）未重跑 —— 它們綁定的 commit 與檔案未變。**
+- **Evidence disposition:** 升級逐步經過、conflict 逐個判斷依據、還原證據留在本條 log；當前狀態、六個 commit 與 17 個未提交檔、兩條新 OP 入 `SESSION_HANDOFF.md`；Kit 版本／新增檔／QC 指令／workspace identity 入 `PROJECT_INDEX.md`；本節 sync 義務與 blocked 理由入 `DOC_SYNC_REGISTRY.md`。「upgrade 會靜靜取代開場白、doctor 不會發現」屬跨 session 可重用教訓，已寫入開場白 ⚠️ 段；未升 `PROJECT_DECISIONS.md`，因本節是工具升級而非架構取捨。
+- **Sync:** `dev/DOC_SYNC_REGISTRY.md` —— Governance rule change / Closeout-startup contract change / Workspace identity change / New file or directory 四行狀態已記於該檔 `## Session Sync Status`。`dev/DOC_SYNC_CHECKLIST.md` row「Governance rule change (AGENTS.md)」與「New governance file added to install」**blocked**：兩者要求同步 `INIT.md` FILE 1 mirror，但 `INIT.md`（1,036 行，2026-05-10）鏡像的是 package 化之前的 AGENTS.md 結構（§4a／§5a／§11a），v0.3.66 核心沒有這些章節 —— 要先決定 `INIT.md` 是否退役，已開為 OP ⑦。
+- **Pending:** 七個本地 commit 未 push（待 Leonard 決定；本節 closeout commit 為其中之一）· 交接檔 8 個 marker 未有專屬章節（OP ⑥）· `INIT.md` 鏡像 blocked（OP ⑦）· 根目錄 v0.3.24 舊 Kit 未處理 · S212–S215 全部產品側遺留一項未動。
+- **Risks:** ① 本地領先遠端七個 commit，而 Option A watcher bot 會繼續自行推送到 `origin/main`，時間越長分歧越大。② `AGENTS.md`／`CLAUDE.md`／`GEMINI.md` gitignored 且從未 tracked，本次升級對它們的改動不在版本控制內，唯一還原點是 `dev/governance_migrations/` 的備份目錄 —— 而 `.gitignore` 的 `AGENTS.md` 規則無前置斜線會在任何深度命中，**連該備份目錄內的 `AGENTS.md` 都被 ignore**（`git check-ignore -v` 實測命中 `.gitignore:9`），故升級前的 `AGENTS.md` 全世界只剩磁碟上一份。③ 根目錄與 `Draft/` 兩份獨立 Kit 安裝版本不同（v0.3.24 vs v0.3.66），日後容易撞混。④ `qc_report.json` overall ERROR 未處理（同 S215）。
+- **Log maintenance:** 無觸發。主 log 實數 **6 條** entry、**443 行**（門檻：11 條或 1500 行），`dev/SESSION_LOG_archive/` 不存在故 N≥11 歸檔規則未啟用；`PROJECT_DECISIONS.md` 觸發條件 (b) 不成立（交接檔無 ≥30 條的 decisions-like 章節）、(c) 判為不成立（工具升級非架構取捨）。10-closeout backstop：主 log 6 條加 `dev/archive/` 三個季度檔，**確切 closeout 數無法可靠判定**，故按規則保守處理 —— 本節不做全量維護，並在此記明下一節應重新評估 backstop 是否到期。
+- **Opening-message mirror:** 已重生並驗證 —— 由 `SESSION_HANDOFF.md` 唯一的 fenced block 生成 58 行，經 `doctor` prompt mirror check 讀回報 ok；全文按契約不複製入本 log。
+<!-- ack:log-entry:end -->
+
 
 <!-- ack:log-entry:start -->
 ## 2026-09-07 Session 215 — 起手探針揪出四項漂移，收妥 Codex 兩節工作；中途一條錯誤的回退指令造成資料損失
