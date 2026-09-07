@@ -27,6 +27,22 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-09-07 — S217（七個積壓 commit push 上主線並部署）
+
+| Row touched | Status | Note |
+|---|---|---|
+| Release | `confirmed` | `42b1441..612e13e` push 至 `origin/main`；Render push-to-main 自動部署，`/health` 實測 `commit=612e13e`、`started_at` 19:26:49Z、`cache_a.warm` 455。推之前過齊 §3c 機器驗證閘（check 0 / build 0 / grounded 48-48 / route 46-46）。 |
+| Workspace identity change | `confirmed` | `dev/PROJECT_INDEX.md` `## Workspace Identity` 的 Branch / commit 與 Uncommitted change summary 已按 S217 實測更新（`612e13e`，分歧 0/0）。 |
+| Closeout/startup contract change | `confirmed` | `dev/SESSION_HANDOFF.md` 四節狀態重寫 ＋ `Last Session Record` 重生為 S217（S216 降級原文保留）；`START_NEXT_SESSION_PROMPT.txt` 由 fenced block 重生，mirror 逐位元組相等。原內容的頭號紅旗已成事實錯誤，故屬內容修正而非「為令 doctor 收聲而重生」。 |
+| Public behavior change | `confirmed` | **本節初判 `not_applicable` 是錯的，Leonard 追問後逐個 hunk 核對已更正。** 本節雖零程式碼改動，但 push 令 S213/S214 的既有 commit 上生產：`searchChannelB.ts` 的 **establishment 路徑改動沒有任何 flag 保護、已生效**（觸發條件：staffing 路由 ＋ query 含「N 班」）。`regression:grounded` 那條斷言的範圍**只是合成 prompt**，不覆蓋整個系統，不足以支撐「零行為改動」。其餘執行碼已逐個 hunk 確認零行為改動。詳見 `dev/SESSION_HANDOFF.md` `## Current Baseline` 第 4 項與 `dev/SESSION_LOG.md` S217 第 8 點。 |
+| Governance rule change | `not_applicable` | `AGENTS.md` 與 rule pack 本節未動。 |
+| API or SDK behavior change | `not_applicable` | 無端點增減、無簽名改動。 |
+| New file or directory | `not_applicable` | 無新檔。 |
+
+**registry 補 row（`dev/DOC_SYNC_CHECKLIST.md`）**：本節改動類別「既有 commit 上主線並觸發部署（零程式碼改動）」在該檔無任何 row 匹配，按其 Anti-pattern guard **已先補 row 再繼續**，未靜靜略過。
+
+**沿用 S216 的 blocked 項**：`INIT.md` FILE 1 mirror 仍然 blocked（OP ⑦），本節未觸及、狀態不變。
+
 ### 2026-09-07 — S216（Agent Handoff Kit v0.3.29 → v0.3.66 升級）
 
 | Row touched | Status | Note |

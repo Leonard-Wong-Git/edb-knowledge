@@ -162,9 +162,9 @@ Record this at closeout so the next AI can detect wrong-root or workspace drift.
 |---|---|---|
 | Expected project root | `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft`（唯一目標；頂層 umbrella 只重定向至此） | 2026-06-22 (S176) |
 | Git root | 同 project root（repo `Leonard-Wong-Git/edb-knowledge`；勿 set private） | 2026-06-22 (S176) |
-| Branch / commit | `main` @ `6cb80c6`；**領先 `origin/main` (`463434c`) 六個 commit，全部未 push**（S216 `git rev-list --left-right --count` 實測 0/6）。S213 記的 `05ea10e` 已過時。 | 2026-09-07 (S216) |
+| Branch / commit | `main` @ **`612e13e`**；**`HEAD == origin/main`，分歧 0/0**（S217 `git rev-list --left-right --count` 實測）。線上部署亦為 `612e13e`（Render `/health`）。S216 記的 `6cb80c6` / `463434c` 已過時。 | 2026-09-07 (S217) |
 | Worktree or parallel workspace | 無 | 2026-06-22 (S176) |
-| Uncommitted change summary | ⚠️ **S216 收工時 17 個檔未提交，全部為 Agent Handoff Kit v0.3.66 升級產物，零程式碼改動**：15 個 modified（`START_NEXT_SESSION_PROMPT.txt`、`dev/` 六個治理檔、`dev/rules/` 八個 pack）＋ 2 個 untracked（`dev/rules/closeout.md`、`dev/governance_migrations/2026-09-07T18-23-33-046Z-*/`）。S213 記的 35 個檔已於 S215 分批 commit，該記載已過時。 | 2026-09-07 (S216) |
+| Uncommitted change summary | S216 那 17 個治理檔已隨 S217 的 push 上主線，該記載已結清。**S217 收工前未提交者**：`dev/SESSION_HANDOFF.md`、`dev/SESSION_LOG.md`、`dev/PROJECT_INDEX.md`、`dev/DOC_SYNC_CHECKLIST.md`、`dev/DOC_SYNC_REGISTRY.md`、`START_NEXT_SESSION_PROMPT.txt` —— 全部為本節 PERSIST 產物，零程式碼改動。 | 2026-09-07 (S217) |
 | 治理檔 git 狀態 | ⚠️ `dev/SESSION_HANDOFF.md`／`dev/SESSION_LOG.md`／`START_NEXT_SESSION_PROMPT.txt` 雖列於 `.gitignore` 但**實際已 tracked**（早於 ignore 規則 commit；git 唔會 untrack 已追蹤檔）→ 每次收工照常 commit（見 S173–S175 closeout commits） | 2026-06-22 (S176) |
 | Kit 檔案版本控制缺口 | ⚠️ **S216 實測**：`AGENTS.md`／`CLAUDE.md`／`GEMINI.md` 三檔在 `.gitignore` 且**從未 tracked**（`git check-ignore -q` + `git ls-files --error-unmatch` 雙向實測）→ 升級對它們的改寫**不在版本控制內**，唯一還原點是 `dev/governance_migrations/<timestamp>/backup/` | 2026-09-07 (S216) |
 | 平行安裝 | ⚠️ 專案根目錄 `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/` 另有一份 **v0.3.24** 的獨立 Agent Handoff Kit（6 月起停滯，非 git repo）。**它不是本 repo 的一部分**，S216 按 Leonard 選擇零接觸。兩份版本不同，易撞混。 | 2026-09-07 (S216) |

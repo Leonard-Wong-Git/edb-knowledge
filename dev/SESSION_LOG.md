@@ -37,6 +37,32 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 ---
 
 <!-- ack:log-entry:start -->
+## 2026-09-07 Session 217 — 遠端又走前一步；rebase 保全逐位元組驗證後，四節 session 的未 push 狀態一次結清並部署
+
+- **ID:** `Claude_20260907_1930` — S217
+- **Summary:** 由「開工」起手探針揪出 `origin/main` 已被 bot 推前兩個 commit，本地由「領先七個」變成真分歧。Leonard 自行 rebase，Claude 逐位元組驗證保全、過齊 §3c 機器驗證閘，然後按 Leonard 選項 1 push 並觸發部署，最後在生產側實測三個端點。**零程式碼改動** —— 本節未寫過一行 `backend/` 或 `app.html`。
+- **Changed:** 無程式碼改動。持久化：`dev/SESSION_HANDOFF.md`（`Current Baseline` 第 1–3 項／`Validation / QC` 新增 S217 段／`Risks / Blockers` 第 1、3 項／`Open Priorities` Recommended next step 與 ① 結案／`Last Session Record` 重生為 S217，S216 降級原文保留／`Next Session Opening Message` 重生）· `dev/SESSION_LOG.md`（本條）· `START_NEXT_SESSION_PROMPT.txt`（由 fenced block 重生，58 行，mirror 逐位元組相等）。
+- **Done:**
+  1. **起手探針五項**：平台 v3.3.2、Render `/health` `4a25a15` warm 455、Supabase 17,610、`source_registry` 281 全部相符。**唯一漂移**：`origin/main` `463434c` → **`42b1441`**，兩個 bot commit（`de030b7` discovery ledger、`42b1441` QC 報告重生，只碰三個資料檔）。本地變成 **7 ahead / 2 behind**，直接 push 會被拒。
+  2. **先量後做**：實測 merge-base `463434c` 起計，本地七個 commit 與 bot 觸及的三個檔零重疊 → rebase 屬機械操作。據此建議 rebase，Leonard 自行執行。
+  3. **rebase 保全逐位元組驗證**（不是「看落無事」）：`git diff 463434c 1378b53` 與 `git diff 42b1441 612e13e` 兩個 patch set **105,683 行／150 個檔完全相同**；`merge-base --is-ancestor 42b1441 HEAD` 確認兩個 bot commit 在祖先鏈。作者名由 rebase 正規化為 `leonard-wong-git`。
+  4. **§3c 機器驗證閘（推之前）全綠**：`npm run check` exit 0 · `npm run build` exit 0（未弄髒工作區）· `regression:grounded` **48/48 ALL PASS** · `route_regression` **46/46 PASS**（兩個已知 `safety` 認裸「氣體」缺口不計入，行為同 S211 前後一樣）。
+  5. **Push ＋ 部署**：Leonard 明示選項 1。`42b1441..612e13e` push 成功，分歧歸零。背景輪詢 Render，第三次（19:27:03Z）讀到 `commit=612e13e`、`started_at` 19:26:49Z、`cache_a.warm=true size=455`。
+  6. **生產側煙霧測試**：`channel-a` 教師專業操守 → 50 條 · `channel-b` 幼稚園收生 → 8 條（top1 `k1_admission_2627` 0.738）· `combined` → total 58（a 50 + b 8）＋ synthesis 395 字。
+  7. **一次 0 結果已定性**：部署後首個 `採購程序` 請求回 0 條，隨後連跑 5 次全部 8 條、shape 一致。發生在實例剛重啟後的首個請求，屬 S118 已記錄的 probes=8 冷啟動／間歇族，**不是本次部署引入**。但當時 response body 未保存，**成因未能確證**，只能排除「新 regression」這一項。
+  8. **【Leonard 追問後補做】逐檔行為核對，推翻了我自己上一輪的講法。** 我原本說「flag 全 0 即行為不變」—— 那句**只對合成 prompt 成立**（`regression:grounded` 那條斷言的範圍），不覆蓋整個系統。以 `git diff 4a25a15 612e13e -- backend/src app.html` 逐個 hunk 讀過後：**`searchChannelB.ts` 的 establishment 路徑改動沒有任何 flag 保護，已在生產生效**。三處差異：(a) `estLead` 移除 `!seenIds.has(r.id)` 過濾；(b) 插入方式改為置頂並濾走整個 establishment 來源的其他列；(c) `trustedVaultLead` 判斷來源由 `results[forcedLeads]`（overlay 後）改為 `mainSearchLead`（overlay 前）。其餘執行碼逐個 hunk 確認零行為改動。**觸發範圍生產實測為窄**（staffing 路由 ＋「N 班」）：「小一派位第1班點分」未被塞入、「教師編制點計」正常；受影響的「12班小學有幾多個學位教師」回 學位教師 5／副校長 1／助理 14／合計 21，與 S211 記載的正確列相符（S211 錯答為 學位教師 2／助理 7／合計 10）。**但這是 1 條事後觀察，不是 before／after 對照**，舊碼已不在生產環境無法跑對照組。
+- **QC:** 見上第 4、6、8 點。`agent-handoff-kit doctor` 本節未重跑（S216 實測 53/53，本節零治理結構改動）。**未跑：185 題 live 套件** —— 這是啟用任何 flag 的唯一閘，未動。`qc_report.json` overall **ERROR** 未處理，狀態同 S215／S216。
+- **Evidence disposition:** rebase 保全驗證數字、機器閘結果、部署輪詢時序、煙霧測試逐條 → 留在本條 log 作 trace 證據；當前 HEAD／部署 commit／flag 狀態／① 結案 → 入 `SESSION_HANDOFF.md`。「遠端會自己走前，開工探針必須 `git fetch` 後比對而非讀交接記載的 hash」屬跨 session 可重用教訓，已寫入開場白 ⚠️ 段。未升 `PROJECT_DECISIONS.md` —— 本節無架構取捨。
+- **Doc Sync: registry updated** —— `dev/DOC_SYNC_CHECKLIST.md` 新增一行「既有 commit 上主線並觸發部署（本身零程式碼改動；S217 建）」。原因：本節的改動類別（push 積壓 commit ＋ 觸發部署，零程式碼改動）在 registry 內無任何 row 匹配，按該檔 Anti-pattern guard 必須先補 row 再繼續，不得靜靜略過。
+- **Sync:** `dev/CODEBASE_CONTEXT.md` **不需更新**（技術棧、目錄、build 指令、External Services、Key Decisions 本節皆未變）。`dev/PROJECT_INDEX.md` **不需更新**（無新檔、無新指令）。`START_NEXT_SESSION_PROMPT.txt` 已重生並 mirror check 通過 —— 因為原內容的頭號紅旗（七個未 push commit）已成事實錯誤，不屬「為了令 doctor 收聲而重生」。
+- **Pending:** 185 題 live 套件未跑（啟用 flag 的閘）· `backend/README.md` 5 行未補 · 交接檔 8 個 marker 未有專屬章節（OP ⑥）· `INIT.md` 鏡像 blocked（OP ⑦）· 根目錄 v0.3.24 舊 Kit 未處理 · S212–S215 產品側遺留一項未動。
+- **Risks:** ① **S214 候選碼已在生產環境，而且「flag 全 off」並不等於零行為改動** —— establishment 路徑無 flag 保護、已生效（見第 8 點）。單一 case 實測正確，但 184 條未量，`searchChannelB.ts` 那 +968 行從未經 185 題 live 驗證 —— **已部署 ≠ 已驗證**。② Option A watcher bot 會繼續自行推送，下次開工大機會又落後，先 rebase 再處理。③ `AGENTS.md`／`CLAUDE.md`／`GEMINI.md` gitignored 且從未 tracked，S216 升級改動仍不在版本控制內，唯一還原點是 `dev/governance_migrations/` 備份目錄（該目錄內的 `AGENTS.md` 同樣被 ignore）。
+- **Log maintenance:** 無觸發。寫入本條後主 log **7 條** entry（門檻 11 條）、約 470 行（門檻 1500 行）；`dev/SESSION_LOG_archive/` 不存在。`PROJECT_DECISIONS.md` 觸發條件 (b) 不成立（交接檔無 ≥30 條 decisions-like 章節）、(c) 不成立（push 決定屬既有 OP ① 的執行，非新架構取捨）。10-closeout backstop 沿用 S216 的保守判定，未到。
+- **Opening-message mirror:** 已重生並驗證 —— 由 `SESSION_HANDOFF.md` 唯一的 fenced block 生成 58 行，讀回逐位元組相等；全文按契約不複製入本 log。
+<!-- ack:log-entry:end -->
+
+
+<!-- ack:log-entry:start -->
 ## 2026-09-07 Session 216 — Agent Handoff Kit v0.3.29 → v0.3.66 升級；四層 conflict 逐層解開，並揪回工具靜靜刪走的 65 行狀態
 
 - **ID:** `Claude_20260907_1900` — S216

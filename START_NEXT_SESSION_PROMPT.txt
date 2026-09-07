@@ -4,57 +4,72 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 
 Resume the current objective. A plain `Start Agent Handoff` / `開工` with no same-message task or explicit long-run instruction only authorizes minimum state recovery, one optional display-only current-thread title update when safely supported, the startup card, the current objective/risk/recommended next action, and then the end of the turn. It does not authorize task-specific reads, research, plans, protocols, preflight, file searches, sub-agents, QA, packaging, project-file writes, network access, other external actions, or opt-out execution wording. First-use exception: when this handoff says `First-use guidance state: eligible`, the current objective is empty / `TBD`, and there is no same-message concrete task, load onboarding and include a short first-use welcome plus the most relevant guided choices in the same response instead of ending status-only. A concrete objective found only in this handoff is not authority to complete the objective. A same-message task may begin normally; an explicit instruction such as `開工，繼續做到下一個 blocker` or `開工，繼續完成目前目標` may continue under the normal task and safety rules. Upgrade never resets consumed / not_applicable first-use state back to eligible.
 
---- 專案狀態（S216, 2026-09-07）---
+--- 專案狀態（S217, 2026-09-07）---
 
 Current state：平台 v3.3.2；Supabase 17,610；source_registry 281；guidelines.json _meta 2.6.1；
 knowledge.json 2.3.0 · facts 455；凍結合約零接觸。Agent Handoff Kit v0.3.66（doctor 53/53 passed）。
-origin/main = 463434c；本地 HEAD = S216 closeout commit（git log -1 取確實 hash），
-領先七個 commit，全部未 push；線上部署 = 4a25a15。
+HEAD == origin/main == 612e13e，分歧 0/0，工作區乾淨；
+線上部署 = 612e13e（Render /health，started_at 2026-09-07T19:26:49Z，cache_a warm 455）。
 
-🔴 最高優先：七個未 push commit，去向要 Leonard 決定。
-   744a8dc  S214 候選全套（grounded synthesis + route-first），三個 flag 全部 0，
-            產品 verdict 仍為 FAIL，185 題 live before／after 未跑
-            —— 未驗證前不得啟用任何 flag、不得部署。
-   6cb80c6  S215 closeout 治理持久化
-   5f7ce6e  S213/S214 治理狀態
-   8d90e56  S214 七份報告
-   3f31905  評測工具 + eval_runs artifact + gold
-   05854d5  19 個 extract 補回 title/url header，正文位元組不變
-   HEAD     S216 closeout：Kit 升至 v0.3.66 ＋ 交接檔機械可讀化（58 個路徑）
-   後六個全部不改檢索行為。
-   ⚠️ S215 交接寫「五個 commit」是漏計 S215 自己的 closeout commit，S216 已更正為六個。
+✅ S217 已結清（不要再當成待辦）：
+   S214 起累積四節 session 的七個未 push commit，已全數 push 並完成部署。
+   Leonard 選項 1 —— 連 backend 一齊推、接受觸發 Render 自動部署。
+   rebase 保全已逐位元組驗證：舊 463434c..1378b53 與新 42b1441..HEAD 兩個 patch set
+   105,683 行／150 個檔完全相同，兩個 bot commit 在祖先鏈。
 
-⚠️ S216 教訓（同類錯誤不要重犯）：
-   agent-handoff-kit upgrade 會把 ## Next Session Opening Message 整段換成官方通用開場白，
-   並同時覆寫 START_NEXT_SESSION_PROMPT.txt —— S215 那 65 行專案狀態在兩個 live 檔同時消失。
-   已由 dev/governance_migrations/<timestamp>/backup/ 取回並重建。
-   通則：跑完 upgrade 一定要 diff 備份與現檔，不可只信 doctor passed —— doctor 檢查結構，不檢查內容。
-   同一原理：AGENTS.md / CLAUDE.md / GEMINI.md 三個檔 gitignored 且從未 tracked，
-   它們的升級改動不在版本控制內，唯一還原點就是上述 backup 目錄。
+🔴 最高優先（未變，push 沒有解決它）：S214 候選現已在生產環境，但三個 flag 仍全部 off
+   （FEATURE_EXACT_WINDOW_NARROW／FEATURE_GROUNDED_SYNTHESIS／FEATURE_ROUTE_FIRST_SEARCH，
+   Render 未設環境變數）。產品 verdict 仍為 FAIL，185 題 live before／after 仍未跑。
+   **已部署 ≠ 已啟用。啟用任何 flag 之前必須先跑 185 題，且需 Leonard 另行批准外部模型批次。**
 
-✅ S216 已確立的事實（不必再查）：
-   1. onboarding.md / integrations.md / knowledge.md / safety.md / writing.md / agent-governance.md
-      六個 pack 與其綁定的官方版本逐字相同、零本地自訂 —— 升級換新版沒有失去專案內容（已逐檔比對
-      npm 上的 v0.3.29 / v0.3.30 / v0.3.32 / v0.3.43 原檔）。release.md 消失行數 0。
-   2. communication.md 的 S196 六條 claim discipline 全部保留，現以「官方本體 + 本地附錄」結構存放，
-      規則編號由 3/6/7/8/9/10 改為 L1–L6，交叉引用已同步。
-   3. SESSION_LOG.md 440 行歷史逐位元組驗證一致，只換了官方頭部。
-   4. 根目錄 /Claude-edb-knowledge 另有一份 v0.3.24 的舊 Kit，按 Leonard 選擇零接觸。
-      它與 Draft/ 是兩份獨立安裝，日後容易撞混。
+🔴🔴 S217 查出的陷阱（下一個 agent 一定要知）：「三個 flag 全 off」≠「零行為改動」。
+   S214 的 establishment 路徑改動 **沒有任何 flag 保護**，push 之後已在生產生效。
+   觸發條件窄：detectedCategory === "staffing" 且 query 含「N 班」（1–2 位數），
+   ESTABLISHMENT_SOURCE_IDS 現時只有 staff_est_pri。三處差異：
+     (a) estLead 移除了 !seenIds.has(r.id) 過濾 —— ANN 已撈到同一 chunk 時精確列仍會置頂；
+     (b) 插入方式改為置頂並濾走【整個】establishment 來源的其他列，同表其他班數不再並存；
+     (c) trustedVaultLead 的判斷來源由 results[forcedLeads]（overlay 後）
+         改為 mainSearchLead（overlay 前）—— 技術上覆蓋所有合成呼叫。
+   其餘執行碼已逐個 hunk 核實零行為改動（llmClient 新參數 optional、groundedSynthesis 全新檔、
+   wikiRepository 的 queryVec optional／searchWikiRoutedExact 受 flag、合成窗受 flag 並有 fallback）。
+   **通則：不要憑「flag 全 0」推斷零行為改動 —— 要 git diff 逐個 hunk 找無 flag 保護的路徑。**
+
+⚠️ S217 教訓：遠端會自己走前，等得越耐分歧越大。
+   S216 收工到 S217 開工之間，Option A watcher bot 又推了兩個 commit，
+   令原本可 fast-forward 的狀態變成真分歧、push 直接被拒。
+   通則：開工探針一定要 git fetch 後比對，不能只讀交接記載的 origin/main hash。
+   好消息是 bot 只碰 dev/source/discovery_seen.json、dev/source/registry_drift.md、qc_report.json
+   三個資料檔，與人手 commit 幾乎不會重疊，rebase 通常是機械操作 —— 但每次仍要實測確認。
+
+✅ S217 已確立的事實（不必再查）：
+   1. regression:grounded 有一條斷言 both synthesis flags off preserve the legacy synthesis
+      prompt exactly —— 「flag 全 0 即行為不變」已由機器驗證，不再只是讀碼推斷。
+   2. 部署後生產側三個端點實測正常：channel-a 50 條／channel-b 8 條／combined 58 條＋synthesis。
+   3. 部署後首個請求曾回 0 條，隨後 5/5 正常。屬 S118 probes=8 冷啟動／間歇族，
+      **不是本次部署引入的新問題**；但當時的 response body 沒有保存，成因未能確證。
+   4. establishment 路徑的觸發範圍已生產實測為窄：「小一派位第1班點分」（有「班」但不走 staffing）
+      未被編制表塞入；「教師編制點計」（走 staffing 但無班數）正常。
+      受影響那條「12班小學有幾多個學位教師」實測回 學位教師 5／副校長 1／助理 14／合計 21，
+      與 S211 註解記載的正確一行相符（S211 量到的錯答是 學位教師 2／助理 7／合計 10）。
+      **但這是 1 條事後觀察，不是 before／after 對照** —— 舊碼已不在生產環境，無法跑對照組。
 
 ⚠️ 未解決（不要當已解決）：
-   · 交接檔仍有 8 個 ack marker 未有專屬章節（OP ⑥），doctor 不受影響但機械上讀不到。
-   · dev/DOC_SYNC_CHECKLIST.md 的 INIT.md 鏡像規則已失效（OP ⑦，blocked）——
-     INIT.md 鏡像的是 package 化之前的 AGENTS.md 結構，要先決定它是否退役。
+   · 185 題 live 套件未跑 —— 這是啟用 flag 的唯一閘。
    · backend/README.md 5 行仍未補（S215 遺失，無備份，不得杜撰）。
+   · 交接檔仍有 8 個 ack marker 未有專屬章節（OP ⑥）。
+   · dev/DOC_SYNC_CHECKLIST.md 的 INIT.md 鏡像規則已失效（OP ⑦，blocked）。
    · 三題 chunk recall、4 條 fidelity 不一致、合成窗佔用率、S212／S213 全部遺留 —— 一項未動。
+   · qc_report.json overall ERROR 未處理。
+   · AGENTS.md／CLAUDE.md／GEMINI.md 三檔 gitignored 且從未 tracked，S216 升級改動不在版本控制內，
+     唯一還原點是 dev/governance_migrations/2026-09-07T18-23-33-046Z-*/backup/，該目錄內的
+     AGENTS.md 連同樣被 .gitignore 命中，刪了無得還原。
 
-QC status：agent-handoff-kit doctor status passed 53/53（S216 實測）。
-   S215 產品側數值未重跑亦未失效（綁定的 commit 與檔案未變）：npm check / build exit 0 ·
-   regression:grounded 48/48 · route_regression 46/46 · active gold 185。
+QC status：S217 推之前實測 —— npm check 0 · npm build 0 · regression:grounded 48/48 ·
+   route_regression 46/46 · 工作區乾淨。agent-handoff-kit doctor 53/53（S216 實測，本節未重跑）。
    未跑：185 題 live 套件。qc_report.json overall ERROR 未處理。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION + Render /health
-+ git fetch 後比對 HEAD／origin/main + Supabase live count），再向 Leonard 報告七個未 push commit
-的去向建議。未得明確批准，不得 commit、不得 push、不得部署、不得啟用任何 flag、
-不得執行 DDL、不得作任何外部模型批次。如無新指示，行離線工作：追三題的 query expansion 與目標片段位置。
++ git fetch 後比對 HEAD／origin/main + Supabase live count）。若又落後於 origin/main，
+先 rebase（實測零衝突再做）。之後如無新指示，行離線工作：補 backend/README.md 5 行，
+或追三題 chunk recall 的 query expansion 與目標片段位置。
+未得明確批准，不得啟用任何 flag、不得執行 DDL、不得作任何外部模型批次。
