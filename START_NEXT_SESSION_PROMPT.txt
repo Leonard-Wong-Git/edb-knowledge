@@ -47,7 +47,12 @@ HEAD == origin/main == 612e13e，分歧 0/0，工作區乾淨；
    2. 部署後生產側三個端點實測正常：channel-a 50 條／channel-b 8 條／combined 58 條＋synthesis。
    3. 部署後首個請求曾回 0 條，隨後 5/5 正常。屬 S118 probes=8 冷啟動／間歇族，
       **不是本次部署引入的新問題**；但當時的 response body 沒有保存，成因未能確證。
-   4. establishment 路徑的觸發範圍已生產實測為窄：「小一派位第1班點分」（有「班」但不走 staffing）
+   4. S217 收工已歸檔 5 條舊 log entry 入 dev/archive/SESSION_LOG_2026_Q3.md（494→197 行，
+      8→3 條），無損已驗證。續做不需翻舊 log —— 需要的事實全部在本交接檔內。
+   5. 72b5adb（治理 commit）未觸發新部署：/health 的 commit 讀 RENDER_GIT_COMMIT（部署時設定），
+      仍報 612e13e，而 started_at 已由 19:26:49 變 19:50:49（服務重啟過）。成因未查證。
+      實務無影響 —— 72b5adb 零執行碼改動，生產跑的碼與 612e13e 那次部署一樣。
+   6. establishment 路徑的觸發範圍已生產實測為窄：「小一派位第1班點分」（有「班」但不走 staffing）
       未被編制表塞入；「教師編制點計」（走 staffing 但無班數）正常。
       受影響那條「12班小學有幾多個學位教師」實測回 學位教師 5／副校長 1／助理 14／合計 21，
       與 S211 註解記載的正確一行相符（S211 量到的錯答是 學位教師 2／助理 7／合計 10）。
@@ -67,6 +72,9 @@ HEAD == origin/main == 612e13e，分歧 0/0，工作區乾淨；
 QC status：S217 推之前實測 —— npm check 0 · npm build 0 · regression:grounded 48/48 ·
    route_regression 46/46 · 工作區乾淨。agent-handoff-kit doctor 53/53（S216 實測，本節未重跑）。
    未跑：185 題 live 套件。qc_report.json overall ERROR 未處理。
+
+Playbook（§14）：S217 已交提案 inbox/2026-09-07-policychecker-flag-gated-not-behavior-neutral.md
+   （pattern，內容即上面 🔴🔴 那條陷阱，寫成方法 A／B／C 對照）。該庫現時 0/0、乾淨。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION + Render /health
 + git fetch 後比對 HEAD／origin/main + Supabase live count）。若又落後於 origin/main，

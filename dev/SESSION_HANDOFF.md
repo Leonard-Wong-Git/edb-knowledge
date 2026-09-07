@@ -35,6 +35,8 @@ QC（S215 收工實測）：`npm check`／`build` exit 0 · `regression:grounded
 
 **S217 追加逐檔行為核對（Leonard 追問「push 之後功能有無變」而做）**：以 `git diff 4a25a15 612e13e -- backend/src app.html` 逐個 hunk 讀過。結論分兩半 —— **無 flag 保護而真的改了生產行為的只有 establishment 路徑一處**（詳見 `## Current Baseline` 第 4 項）；其餘執行碼確認零行為改動。**觸發範圍已生產實測驗證為窄**：「小一派位第1班點分」（有「班」但不走 staffing）→ 未被編制表塞入；「教師編制點計」（走 staffing 但無班數）→ 正常。受影響那一條「12班小學有幾多個學位教師」實測回**學位教師 5／副校長 1／助理 14／合計 21**，與 S211 註解記載的正確一行相符（S211 量到的錯答是「學位教師 2／助理 7／合計 10」），且同表其他班數的列已全部不在結果內。**但這是 1 條事後觀察，不是 before／after 對照** —— 舊碼已不在生產環境，無法在同一環境跑對照組；整體有無副作用仍須 185 題 live 套件，未跑。
 
+**S217 收工**：`session_log_maintenance.py --self-test` **5/5 passed**、`--apply` 歸檔完成並經無損驗證。`agent-handoff-kit doctor` **本節跑不到** —— CLI 不在 PATH、全局與本地 `node_modules` 皆無、npm 上 `agent-handoff-kit` 這個名字 404；改為自行驗證交接檔 29 個 `ack` marker 完整。**此項列為未驗證，不當通過。** 生產 `/health` 收工時實測 `ok:true`、`cache_a.warm` 455、`commit` `612e13e`。
+
 <!-- ack:section:risks-blockers -->
 ## Risks / Blockers
 
@@ -200,6 +202,9 @@ source_registry → same vault PDFs → ai_extract.py
    - ✅ **Push ＋ 部署**：Leonard 明示選項 1（連 backend 一齊推、接受觸發部署）。`42b1441..612e13e` push 成功，分歧歸零；Render 自動部署，`/health` 於第三次輪詢（19:27:03Z）讀到 `commit=612e13e`、`started_at` 19:26:49Z、`cache_a.warm=true size=455`。**S214 起累積四節 session 的未 push 狀態結清。**
    - ✅ **生產側煙霧測試**：`channel-a` 教師專業操守 → 50 條 · `channel-b` 幼稚園收生 → 8 條（top1 `k1_admission_2627` 0.738）· `combined` → total 58（a 50＋b 8）＋ synthesis 395 字。
    - ⚠️ **一次 0 結果已查明不是 regression**：部署後第一個 `採購程序` 請求回 0 條，隨後連跑 5 次全部回 8 條、shape 一致。發生在實例剛重啟（19:26:49Z）後的首個請求，屬 S118 已記錄的 probes=8 free-tier 冷啟動／間歇族。**但我沒有保存那次的 response body，所以無法證明它是 57014 timeout 而非其他** —— 只能說「不是本次部署引入的新問題」，不能說「已確認成因」。
+   - ✅ **Playbook 留底（§14）**：交提案 `inbox/2026-09-07-policychecker-flag-gated-not-behavior-neutral.md`（pattern）。先 grep 全表兩輪並開過 `zero-regression-default-path` 確認方向不同（設計側 vs 驗證側），已註明建議互相引用；`usage/policychecker.log.md` append 一行 `lookup`；零接觸 trunk。順帶清走該庫一個上一 session 遺下未 push 的提案 commit，三個一併推上。
+   - ✅ **收工歸檔（§4a 觸發）**：`--check` 報 494 行 > 400 門檻 → `--self-test` 5/5 → `--apply`：494→197 行、8→3 條 entry、5 條入 `dev/archive/SESSION_LOG_2026_Q3.md`。無損已驗證（8 條標題全部可尋回，抽樣逐字相符）。
+   - ⚠️ **`72b5adb` 未觸發新部署**：`/health` 的 `commit` 讀 `process.env.RENDER_GIT_COMMIT`（部署時設定），現仍報 `612e13e`，而 `started_at` 由 19:26:49 變 19:50:49 —— **服務重啟過但 `RENDER_GIT_COMMIT` 未更新**。**我沒有查證 Render 的觸發設定，成因未確認。** 實務無影響：`72b5adb` 零執行碼改動。
 4. Not done / 未做：**產品側零推進。** 185 題 live 套件未跑、三個 flag 未啟用（閘未開）、`backend/README.md` 5 行未補、三題 chunk recall／4 條 fidelity／S212–S215 全部遺留一項未動。
 5. ⚠️ **零程式碼改動、零 Supabase 寫入、零 DDL、零 flag 啟用、零外部模型批次。** 本節的寫入動作只有：一次 `git push`、以及本次交接與 log 的持久化。
 
@@ -958,6 +963,23 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:state-reconciliation-check -->
 ## State Reconciliation Check
 
+- **2026-09-07 S217 closeout reconciliation（push ＋ 部署 ＋ 行為核對節）：** 於本次收工當下完成，非沿用舊快照。
+
+<!-- ack:field:state-sections-rewritten-or-confirmed -->
+- **State sections rewritten or confirmed current（S217）：** **重寫**：`Current Baseline`（第 1 項起手探針全部實測；第 2 項 git／部署由 `463434c`／`4a25a15` 更正為 `612e13e`、分歧 0/0；第 3 項改寫；**新增第 4 項**記無 flag 保護的行為改動；為守 §4 六行上限把兩條純指針合併為第 5 項）· `Validation / QC`（新增 S217 機器閘段、追加逐檔行為核對段、收工段）· `Risks / Blockers`（第 1 項由「受阻」改為「已解除，只監察」；第 3 項標已解除）· `Open Priorities`（Recommended next step 重寫；① 結案；**新增 ②'**）· `Last Session Record`（重生為 S217，S216 降為 `Previous Session Record (S216)`，內容一字未改）· `Next Session Opening Message`（重生，新增 🔴🔴 陷阱段）。**逐段讀過確認仍 current、不改**：`Architecture Decisions`、`Regression / Verification Notes`、`Backlog`、`User Environment`、`Mandatory Start Checklist`、`Supabase Technical Notes`、`Detail Archive`、所有 `Previous Session Record`。**無損驗證**：29 個 `ack` marker 一個不少。
+
+<!-- ack:field:lifecycle-conflicts-resolved -->
+- **Lifecycle conflicts resolved（S217）：** 是，逐項對過五節。(a) **已完成項不再以未了項身分留存**：七個 commit 的去向在 `Open Priorities ①` 標「已完成，結案」、`Risks / Blockers 1` 標「已解除，只監察」、`Last Session Record` 記為完成、開場白改為 ✅ 段 —— 四處一致，無一處仍寫成待辦。(b) **未完成項未被誤標完成**：185 題 live 套件在四處一致寫為未跑，且新增 ②' 說明它已由「啟用 flag 的閘」升格為「已生效改動有無副作用的唯一量度」。(c) **反向檢查我自己的錯誤宣稱**：「flag 全 off = 零行為改動」這句已在 `Current Baseline 4`、`Validation / QC`、`Open Priorities ②'`、開場白 🔴🔴 段、`SESSION_LOG` 第 8 點、`DOC_SYNC_REGISTRY`（`not_applicable` → `confirmed`）六處一致更正，無一處留住舊講法。(d) **只監察項有明確理由**：`Risks 1` 保留為監察是因 watcher bot 會繼續推送，非因未解決。
+
+<!-- ack:field:persistence-routing-checked -->
+- **Persistence routing checked（S217）：** 是。當前狀態／風險／建議下一步 → 本 handoff；rebase 保全數字、機器閘結果、部署輪詢時序、逐個 hunk 核對、煙霧測試 → `dev/SESSION_LOG.md` 作 trace 證據；workspace identity（commit／未提交摘要）→ `dev/PROJECT_INDEX.md`；本節 sync 義務與 `Public behavior change` 的更正 → `dev/DOC_SYNC_REGISTRY.md`；新改動類別 → `dev/DOC_SYNC_CHECKLIST.md` 補 row；**可轉移的操作程序 → Playbook 提案**（不只留在 handoff／log，符合「reusable procedure 不可只存於 handoff」）。未升 `PROJECT_DECISIONS.md` —— 本節無架構取捨。
+
+- **Opening message matches current state（S217）：** 是。開場白已重生並含：新 HEAD／部署 commit、✅ 七個 commit 已結清、🔴 flag 閘未開、🔴🔴 無 flag 保護路徑的陷阱與通則、⚠️ 遠端會自己走前的教訓、四項已確立事實、未解決清單。`START_NEXT_SESSION_PROMPT.txt` 由該 fenced block 重生並 **byte-for-byte mirror check PASS**。
+
+- **Sufficiency check（S217）：** 通過。下一個 agent 只讀 `AGENTS.md` ＋ 本 handoff ＋ `dev/PROJECT_INDEX.md` 即可續做：起手探針四項、rebase 流程、七個 commit 已結清、下一道閘是 185 題、以及最重要的「flag 全 off ≠ 零行為改動」陷阱，全部在 handoff 內，**不需翻舊 log 歷史**（本節已歸檔 5 條舊 entry，故此項特別核過）。
+
+- **未驗證項（S217，明確標示不當通過）：** `agent-handoff-kit doctor` 本節跑不到（CLI 不在 PATH，npm 名稱 404），改為自行驗證 29 個 `ack` marker 完整；`72b5adb` 未觸發新部署的成因未查證（`RENDER_GIT_COMMIT` 仍報 `612e13e` 而 `started_at` 已更新）。
+
 - **2026-09-07 S216 closeout reconciliation（Agent Handoff Kit v0.3.29 → v0.3.66 升級節）：**
 
 <!-- ack:field:state-sections-rewritten-or-confirmed -->
@@ -1279,7 +1301,12 @@ HEAD == origin/main == 612e13e，分歧 0/0，工作區乾淨；
    2. 部署後生產側三個端點實測正常：channel-a 50 條／channel-b 8 條／combined 58 條＋synthesis。
    3. 部署後首個請求曾回 0 條，隨後 5/5 正常。屬 S118 probes=8 冷啟動／間歇族，
       **不是本次部署引入的新問題**；但當時的 response body 沒有保存，成因未能確證。
-   4. establishment 路徑的觸發範圍已生產實測為窄：「小一派位第1班點分」（有「班」但不走 staffing）
+   4. S217 收工已歸檔 5 條舊 log entry 入 dev/archive/SESSION_LOG_2026_Q3.md（494→197 行，
+      8→3 條），無損已驗證。續做不需翻舊 log —— 需要的事實全部在本交接檔內。
+   5. 72b5adb（治理 commit）未觸發新部署：/health 的 commit 讀 RENDER_GIT_COMMIT（部署時設定），
+      仍報 612e13e，而 started_at 已由 19:26:49 變 19:50:49（服務重啟過）。成因未查證。
+      實務無影響 —— 72b5adb 零執行碼改動，生產跑的碼與 612e13e 那次部署一樣。
+   6. establishment 路徑的觸發範圍已生產實測為窄：「小一派位第1班點分」（有「班」但不走 staffing）
       未被編制表塞入；「教師編制點計」（走 staffing 但無班數）正常。
       受影響那條「12班小學有幾多個學位教師」實測回 學位教師 5／副校長 1／助理 14／合計 21，
       與 S211 註解記載的正確一行相符（S211 量到的錯答是 學位教師 2／助理 7／合計 10）。
@@ -1299,6 +1326,9 @@ HEAD == origin/main == 612e13e，分歧 0/0，工作區乾淨；
 QC status：S217 推之前實測 —— npm check 0 · npm build 0 · regression:grounded 48/48 ·
    route_regression 46/46 · 工作區乾淨。agent-handoff-kit doctor 53/53（S216 實測，本節未重跑）。
    未跑：185 題 live 套件。qc_report.json overall ERROR 未處理。
+
+Playbook（§14）：S217 已交提案 inbox/2026-09-07-policychecker-flag-gated-not-behavior-neutral.md
+   （pattern，內容即上面 🔴🔴 那條陷阱，寫成方法 A／B／C 對照）。該庫現時 0/0、乾淨。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION + Render /health
 + git fetch 後比對 HEAD／origin/main + Supabase live count）。若又落後於 origin/main，

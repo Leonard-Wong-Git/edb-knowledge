@@ -39,6 +39,9 @@ Recorded at closeout per the Registry Rule above. Newest first.
 | API or SDK behavior change | `not_applicable` | 無端點增減、無簽名改動。 |
 | New file or directory | `not_applicable` | 無新檔。 |
 
+| Session-log maintenance | `confirmed` | §4a 觸發（494 行 > 400）。`--self-test` 5/5 → `--apply`：494→197 行、8→3 條，5 條入 `dev/archive/SESSION_LOG_2026_Q3.md`。無損已驗證。 |
+| Playbook 提案（§14） | `confirmed` | `inbox/2026-09-07-policychecker-flag-gated-not-behavior-neutral.md` ＋ `usage/policychecker.log.md` 一行 `lookup`。零接觸 trunk，已推上（`b0f69ec..8508a94`）。 |
+
 **registry 補 row（`dev/DOC_SYNC_CHECKLIST.md`）**：本節改動類別「既有 commit 上主線並觸發部署（零程式碼改動）」在該檔無任何 row 匹配，按其 Anti-pattern guard **已先補 row 再繼續**，未靜靜略過。
 
 **沿用 S216 的 blocked 項**：`INIT.md` FILE 1 mirror 仍然 blocked（OP ⑦），本節未觸及、狀態不變。
