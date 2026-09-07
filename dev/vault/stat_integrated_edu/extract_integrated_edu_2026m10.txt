@@ -1,6 +1,8 @@
 # source_id: stat_integrated
 # extracted: 2026m10
 # rows: 31
+# title: 融合教育統計數字
+# url: https://www.edb.gov.hk/attachment/datagovhk/Integrated_Education_TC.xlsx
 
 融合教育
 2020/21至2025/26學年在公營普通中學和小學就讀而有特殊教育需要的學生人數 – 按學校級別及特殊教育需要類別劃分

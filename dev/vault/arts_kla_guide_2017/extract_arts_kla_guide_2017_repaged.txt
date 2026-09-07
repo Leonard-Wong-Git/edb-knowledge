@@ -3,6 +3,8 @@
 # repaged_pages: 106
 # pipeline: repage_pdfs.py (PyMuPDF page-by-page + === Page N === markers)
 # ============================================================
+# title: 藝術教育學習領域課程指引（小一至中六）(2017)
+# url: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/AE_KLACG__Chi___2017.pdf
 
 === Page 1 ===
 學習領域課程指引

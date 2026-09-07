@@ -262,6 +262,24 @@ def load_vault_sources(filter_source: str = None) -> list[dict]:
         # Remove header lines before chunking
         body = re.sub(r"^(# .+\n)+", "", text, flags=re.MULTILINE).strip()
 
+        # S213: these two used to fall back SILENTLY — a missing `# title:`
+        # header put the source_id in the title, and a missing `# url:` left
+        # the chunk with no clickable source. 19 extracts had no title header
+        # and every one of them was serving its own id to users as the document
+        # name (658 chunks). Nothing went red, because a fallback that always
+        # succeeds cannot fail. Discipline #11: a gate has to be able to fire.
+        if "title" not in meta and not os.environ.get("ALLOW_UNTITLED_EXTRACT"):
+            raise SystemExit(
+                f"{txt_file.relative_to(REPO_ROOT)}: missing `# title:` header.\n"
+                f"  Without it the chunk title becomes {source_id!r} and users "
+                f"see the internal code as the document name.\n"
+                f"  Add `# title: <文件名稱>` to the header block. Set "
+                f"ALLOW_UNTITLED_EXTRACT=1 only to reproduce the old behaviour.")
+        if "url" not in meta:
+            print(f"  ⚠️  {txt_file.relative_to(REPO_ROOT)}: no `# url:` header — "
+                  f"every chunk of {source_id} will have no source link",
+                  file=sys.stderr)
+
         sources.append({
             "source_id": source_id,
             "title": meta.get("title", source_id),

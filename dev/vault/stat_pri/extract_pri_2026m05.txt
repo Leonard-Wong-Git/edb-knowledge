@@ -1,6 +1,8 @@
 # source_id: stat_pri
 # extracted: 2026m05
 # rows: 33
+# title: 小學統計數字
+# url: https://www.edb.gov.hk/attachment/tc/about-edb/publication-stat/figures/pri_tc.xlsx
 
 小學教育
 			學年

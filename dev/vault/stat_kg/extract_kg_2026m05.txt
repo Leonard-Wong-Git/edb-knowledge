@@ -1,6 +1,8 @@
 # source_id: stat_kg
 # extracted: 2026m05
 # rows: 35
+# title: 幼稚園統計數字
+# url: https://www.edb.gov.hk/attachment/tc/about-edb/publication-stat/figures/kg_tc.xlsx
 
 幼稚園教育
 			學年
