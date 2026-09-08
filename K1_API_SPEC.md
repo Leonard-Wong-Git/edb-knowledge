@@ -21,8 +21,8 @@ K1 **不分析通告**。Circular System **不儲存事實**。兩者以 JSON AP
 
 | 端點 | URL |
 |------|-----|
-| 事實庫 | `https://leonard-wong-git.github.io/edb-knowledge/knowledge.json` |
-| 指引文件連結庫 | `https://leonard-wong-git.github.io/edb-knowledge/guidelines.json` |
+| 事實庫 | `https://policychecker.wongfu.net/knowledge.json` |
+| 指引文件連結庫 | `https://policychecker.wongfu.net/guidelines.json` |
 
 - 兩個端點均為靜態 JSON，由 GitHub Pages 提供
 - 每次 K1 更新知識並 push，端點自動更新
@@ -41,7 +41,7 @@ K1 **不分析通告**。Circular System **不儲存事實**。兩者以 JSON AP
     "created": "2026-04-04",
     "updated": "2026-05-16",
     "description": "...（455 條已核實事實；2026-05-16 dedup：792 → 455）...",
-    "stats": { "facts": 455, "chunks": 17610, "sources": 288, "guidelines": 158, "topics": 7 }
+    "stats": { "facts": 455, "chunks": 17610, "sources": 300, "guidelines": 158, "topics": 7 }
   },
   "finance": {
     "_label": "財務 / 採購 / 津貼 / 撥款",
@@ -127,16 +127,18 @@ facts = knowledge[topic].get("panel_chair", []) + knowledge[topic].get("all_role
 
 ---
 
-## 6. guidelines.json 格式（S140：39 → 152 全集投影）
+## 6. guidelines.json 格式（全集投影，現為 158 份）
 
-> S140（2026-06-03）：公開端點由 39 精選子集擴為 app 內庫 registry 全集投影 **152** 份（剔 7 統計表 / 1 申請表 / 1 壞連結；含 landing-curate +9 KLA/課程指引全文 PDF + 公積金覆蓋 +4 HR 文件）。schema 不變；篩選方法（按 topic 取 `guidelines[topic]`）不變，只係每桶文件數增加（curriculum 桶 ~25→132、hr 桶 2→6）。建議 Circular System 注入時對大桶通告做數量上限或相關性排序。
+> S140（2026-06-03）：公開端點由 39 精選子集擴為 app 內庫 registry 全集投影（當時 **152** 份）（剔 7 統計表 / 1 申請表 / 1 壞連結；含 landing-curate +9 KLA/課程指引全文 PDF + 公積金覆蓋 +4 HR 文件）。schema 不變；篩選方法（按 topic 取 `guidelines[topic]`）不變，只係每桶文件數增加（curriculum 桶 ~25→132、hr 桶 2→6）。建議 Circular System 注入時對大桶通告做數量上限或相關性排序。
+>
+> **現況（2026-09-08 實測）：`_meta.count` = 158，in-app `GUIDELINES_REGISTRY` = 177。**
 
 ```json
 {
   "_meta": {
     "version": "2.5.0",
     "updated": "2026-06-03",
-    "count": 152
+    "count": 158
   },
   "finance": [
     {

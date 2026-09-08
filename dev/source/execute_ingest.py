@@ -555,6 +555,73 @@ def live_total_count() -> Optional[int]:
         return None
 
 
+SOURCES_SYNC_TARGETS = [
+    ("knowledge.json", r'("sources":\s*)(\d+)'),
+    ("role_facts.json", r'("sources":\s*)(\d+)'),
+    ("dev/knowledge/role_facts.json", r'("sources":\s*)(\d+)'),
+    ("K1_API_SPEC.md", r'("sources":\s*)(\d+)'),
+    ("app.html", r'("sources":\s*)(\d+)'),
+    ("index.html", r'(data-stat="sources">)(\d+)(</span>)'),
+]
+
+
+def live_sources_count() -> Optional[int]:
+    """Authoritative SOURCE count — distinct `source_id` in the store, minus the
+    seven `role_facts_*` pseudo-sources, per the metric definition in CHANGELOG.
+
+    Why this exists (S220): `live_display_sync` only ever synced the CHUNK count.
+    The source count was left to manual edits and drifted for four months — the
+    mirrors held 288 while the store served 300, and `app.html` carried a SECOND,
+    different stale literal (120) on the same screen as the 288. Reading the store
+    makes the number right by construction, exactly as S209 did for chunks.
+
+    Deliberately NOT reusing `live_display_sync`'s bare-string substitution: that
+    replaces EVERY occurrence of the old number in a file, which is safe for a
+    distinctive value like 17610 and unsafe for a 3-digit one like 288. These are
+    keyed replacements instead — the field name must match, not just the digits.
+    """
+    import requests
+    svc = _read_secret("SUPABASE_SERVICE_KEY")
+    if not svc:
+        return None
+    try:
+        seen, offset = set(), 0
+        while offset <= 200000:
+            r = requests.get(f"{SUPABASE_URL}/rest/v1/{WIKI_TABLE}"
+                             f"?select=source_id&limit=1000&offset={offset}",
+                             headers={"apikey": svc, "Authorization": f"Bearer {svc}"},
+                             timeout=40)
+            rows = r.json()
+            if not rows:
+                break
+            seen.update(x["source_id"] for x in rows)
+            offset += 1000
+        if not seen:
+            return None
+        return len(seen) - len([s for s in seen if s.startswith("role_facts_")])
+    except Exception:
+        return None
+
+
+def live_sources_sync(after: int) -> Dict:
+    """Rewrite the source count across the mirrors by KEYED substitution."""
+    import re
+    results = []
+    for rel, pattern in SOURCES_SYNC_TARGETS:
+        p = REPO_ROOT / rel
+        if not p.exists():
+            results.append({"file": rel, "exists": False, "replaced": 0})
+            continue
+        text = p.read_text(encoding="utf-8")
+        rx = re.compile(pattern)
+        found = rx.findall(text)
+        new_text = rx.sub(lambda m: m.group(1) + str(after) + (m.group(3) if m.lastindex and m.lastindex >= 3 else ""), text)
+        if new_text != text:
+            p.write_text(new_text, encoding="utf-8")
+        results.append({"file": rel, "exists": True, "replaced": len(found)})
+    return {"after": after, "targets": results}
+
+
 def _ingest_env() -> Dict[str, str]:
     """os.environ + backend/.env secrets so the ingest subprocess sees the keys."""
     env = dict(os.environ)
@@ -909,6 +976,16 @@ def exec_live(source_id: str) -> int:
             _mark(st, "5_display_sync", **r)
             hit = sum(t["replaced"] for t in r["targets"])
             print(f"  [5] display-sync {st['before_total']}→{st['after_total']} ({hit} replacements)")
+        # 5c source-count sync (S220 — chunks were synced, sources were not)
+        if not _done(st, "5c_sources_sync"):
+            src_total = live_sources_count()
+            if src_total is None:
+                print("  [5c] sources-sync SKIPPED (count query failed) — sync manually")
+            else:
+                r = live_sources_sync(src_total)
+                _mark(st, "5c_sources_sync", **r)
+                hit = sum(t["replaced"] for t in r["targets"])
+                print(f"  [5c] sources-sync →{src_total} ({hit} replacements)")
         # 5b update-log (concise public entry, idempotent by title)
         if not _done(st, "5b_update_log"):
             r = live_append_update_log(pkg)

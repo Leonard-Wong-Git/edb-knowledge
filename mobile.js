@@ -763,9 +763,17 @@
     // normal desktop content on the small screen instead of a blank page.
     let shellBuilt = false;
     try {
-      if (here === 'app.html' && hash === '#templates') {
+      if (here === 'app.html' && hash === '#templates'
+          && (window.FEATURE_TABS ? window.FEATURE_TABS.templates : false)) {
         // 範本下載 = desktop 功能（學校版範本為可編輯 Word 檔，需電腦下載編輯）。
         // mobile 提供「桌面版功能」說明 + desktop 面板截圖示意，不在手機提供下載清單。
+        //
+        // S220 — MUST stay gated on FEATURE_TABS.templates. While the tab is
+        // withdrawn (currently false) this shell told the phone user to "改用桌面
+        // 瀏覽器", where the tab does not exist either: a dead end reachable by
+        // bookmark or shared #templates link. Desktop already falls back to 'qa'
+        // via VALID_VIEWS (app.html App()); mobile now falls through to the same
+        // default shell instead of rendering a page for a feature that is off.
         if (typeof buildTemplatesShell === 'function') {
           buildTemplatesShell();
           shellBuilt = true;

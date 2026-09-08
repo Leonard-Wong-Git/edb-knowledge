@@ -2,7 +2,7 @@
 
 > 香港教育局（EDB）政策知識庫 — 專為學校管理人員而設
 
-[![Platform](https://img.shields.io/badge/platform-v3.3.0-teal)](CHANGELOG.md)
+[![Platform](https://img.shields.io/badge/platform-v3.3.3-teal)](CHANGELOG.md)
 [![Data contract](https://img.shields.io/badge/knowledge.json-v2.3.0%20(frozen)-lightgrey)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![GitHub Pages](https://img.shields.io/badge/Frontend-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/edb-knowledge/app.html)
@@ -14,9 +14,8 @@
 
 | | URL |
 |---|---|
-| **知識平台（主應用）** | https://leonard-wong-git.github.io/edb-knowledge/app.html |
-| **入口頁** | https://leonard-wong-git.github.io/edb-knowledge/ |
-| **Quick Q&A** | https://leonard-wong-git.github.io/edb-knowledge/q.html |
+| **知識平台（主應用）** | https://policychecker.wongfu.net/app.html |
+| **入口頁** | https://policychecker.wongfu.net/ |
 | **後端 API** | https://edb-knowledge.onrender.com |
 
 ---
@@ -25,11 +24,11 @@
 
 | 功能 | 說明 |
 |------|------|
-| ℹ️ **平台介紹** | 平台定位、動態統計（455 已核實事實 / 17,610 知識片段 / 177 指引 / 288 來源，由 `_meta.stats` 動態取）、核心功能說明 |
+| ℹ️ **平台介紹** | 平台定位、動態統計（455 已核實事實 / 17,610 知識片段 / 177 指引 / 300 來源；片段與來源數由 `_meta.stats` 取，指引數由 `GUIDELINES_REGISTRY.length` 即時計）、核心功能說明 |
 | 🔍 **政策搜尋** | Channel-B 語義搜尋：從 17,610 個 EDB 官方原文知識片段檢索，整理回答並附原始文件出處（含頁碼） |
 | 📝 **文件標註** | 上載學校文件（Word/.docx 最佳，或 PDF/貼文字），系統比對 EDB 指引 + 按合規清單檢查缺漏，生成一份**乾淨成品版** Word（S167）：原文保持乾淨可讀、AI 建議融入正文做普通文字（以「（建議補充）」標示、無螢光、可直接編輯、毋須接受修訂），所有建議說明與 EDB 官方出處集中文末附錄；Word/PDF/貼文字皆出。檔案在瀏覽器內抽取及生成，原始檔案不上載。**S161 合併** 舊「文件分析 + 文件修訂」兩 tab 而成（支援本校校類 小/中/特/幼 + 合規範疇 自動偵測／自選） |
 | 📋 ~~**範本下載**~~〔S204 起收起〕 | **暫不對外開放**（`window.FEATURE_TABS.templates = false`；`policy_templates.json` manifest 未隨語料重生，重生後翻 flag 即返）。功能本體：15 範疇學校版政策範本（可編輯 .docx）下載，可按校類（通用/小/中/特/幼）篩選（內部「文件要求清單」不對外列出；S162 +幼稚園營運範疇） |
-| 📚 **指引文件庫** | 161 份官方 EDB 指引（in-app 瀏覽庫；公開 `guidelines.json` 端點為 152 份全集投影），按類別 → 子類別 → 年份三層分組導覽 |
+| 📚 **指引文件庫** | 177 份官方 EDB 指引（in-app 瀏覽庫；公開 `guidelines.json` 端點為 158 份全集投影），按類別 → 子類別 → 年份三層分組導覽 |
 
 > 公眾 app（`app.html`）為 **Channel-B-only 唯讀**，現行 **四 tab**（平台介紹 / 政策搜尋 / 📝 文件標註 / EDB指引）；第五個「範本下載」以 `window.FEATURE_TABS` 收起中（S204），面板 code 原封未動。S151 移除 admin；S161 將 文件分析+文件修訂 合併為「文件標註」、政策範本→範本下載。Channel A 人工策展 / 管理員登入功能已移除；`role_facts.json` / `knowledge.json` 凍結 @455 仍作對外資料契約。
 
@@ -109,12 +108,12 @@ EDB PDF → ai_extract.py → wiki_index.json（向量索引）
 | 項目 | 數量 |
 |------|------|
 | Channel A 已審核事實 | **455 條** |
-| 指引文件庫（in-app 瀏覽） | **161 份** |
-| 來源文件 | **120 份** |
+| 指引文件庫（in-app 瀏覽） | **177 份** |
+| 來源文件 | **300 份**（Supabase distinct `source_id` 307 扣 7 個 `role_facts_*` 偽來源；`source_registry.json` 登記 281） |
 | Channel B 向量索引 | **17,610 chunks**（Supabase pgvector，線上） |
 
 > 註：由 792 條去重整合至 455 條唯一事實（2026-05-16，commit 711f911；可逆日誌 `dev/DEDUP_LOG_2026-05-16.md`）。
-> 註：`161` 為 in-app 指引瀏覽庫（總文件基礎，S140 landing-curate +9 + 公積金 +4）；公開 `guidelines.json` API 端點為其全集投影 **152** 份（S140，剔 9 非文件；由 `dev/build_guidelines.py` 生成）。
+> 註：`177` 為 in-app 指引瀏覽庫（v3.3.0 由 166 升至 177）；公開 `guidelines.json` API 端點為其全集投影 **158** 份。兩者刻意不同，非漂移。
 
 ---
 
@@ -168,8 +167,18 @@ OPENAI_API_KEY=sk-...
 OPENAI_MODEL=gpt-4.1-nano
 JUDGE_MODEL=gpt-4.1-mini
 PORT=8787
-CORS_ORIGIN=https://leonard-wong-git.github.io
-KNOWLEDGE_PATH=../../../dev/knowledge/role_facts.json
+CORS_ORIGIN=https://leonard-wong-git.github.io,https://policychecker.wongfu.net
+KNOWLEDGE_PATH=../../../role_facts.json
+
+# Channel B 必需 —— 缺這兩項，/health 回 {"ok":false,"degraded":true}，搜尋靜默降級
+SUPABASE_URL=https://<project>.supabase.co
+SUPABASE_ANON_KEY=<anon key>
+
+# 選填
+CHANNEL_B_SYNC_KEY=<sync key>          # /api/channel-b/manifest 與 chunks 端點的閘
+FEATURE_ROUTE_FIRST_SEARCH=0           # 三個檢索／合成候選 flag，出廠全 0
+FEATURE_GROUNDED_SYNTHESIS=0           # 判斷式為 === "1"，其他值一律當關閉
+FEATURE_EXACT_WINDOW_NARROW=0          # 各 flag 說明見 backend/README.md
 ```
 
 ---
@@ -182,8 +191,8 @@ KNOWLEDGE_PATH=../../../dev/knowledge/role_facts.json
 
 ## 數據來源
 
-所有事實均來自香港教育局官方文件，包括教育局通告、課程指引、學校行政手冊等 120 份文件。每條事實均附原始文件連結，確保可追溯性。
+所有事實均來自香港教育局官方文件，包括教育局通告、課程指引、學校行政手冊等 300 份文件。每條事實均附原始文件連結，確保可追溯性。
 
 ---
 
-*最後更新：2026-06-25 | 平台 v3.3.2（知識資料合約 knowledge.json 維持凍結 v2.3.0）| 維護：leonard-wong-git*
+*最後更新：2026-09-08 | 平台 v3.3.3（知識資料合約 knowledge.json 維持凍結 v2.3.0）| 維護：leonard-wong-git*

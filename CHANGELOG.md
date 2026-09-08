@@ -6,6 +6,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [文案對正] — 2026-09-08 — 全站數字與功能描述對回實況（S220）
+
+> 平台版本 **v3.3.2 → v3.3.3**（`mobile.js` 有改動，依 `app.html` 的快取規則必須 bump：`mobile.css` / `mobile.js` 由四個 HTML 以 `?v=<version>` 快取，不 bump 會令回訪者停留在舊副本）。凍結合約零接觸（`knowledge.json` `_meta` 2.3.0 · facts 455）。
+
+### Fixed
+- **`sources` 指標四個月漂移，兩個都錯的數字同場出現。** 六個鏡像檔寫住 `288`，而 `app.html` 的平台介紹頁在同一屏另有一個寫死的 `120`，兩者相距約 400 像素。實測 Supabase distinct `source_id` **307**，扣 7 個 `role_facts_*` 偽來源 = **300**（此即 CHANGELOG 為該指標定下的算法）。六處統一為 300，`app.html` 那個 `120` 改為讀 `sourcesCount`。
+- **`index.html` 兩段幻影文案。** 文件標註仍宣傳「原檔就地螢光標示 ⋯ 一鍵套用的建議條文 ⋯ 下載標註版」，但 S167 早已改為「乾淨成品版」（無螢光、可直接編輯、另附改動摘要）；CTA 仍列「分析通告」，該入口已下架。兩段連同兩個 tag 一併對回 `app.html` 的真實輸出。
+- **手機開 `#templates` 是死路。** `mobile.js` 呼叫 `buildTemplatesShell()` 只驗函式是否存在，沒有驗 `FEATURE_TABS.templates`；該旗標現為 `false`，所以手機會砌出範本頁再叫用戶「改用桌面瀏覽器」，而桌面同樣沒有該 tab。現已加閘，與桌面 `VALID_VIEWS` 一致回落預設頁。
+- **README 自相矛盾。** badge 寫 v3.3.0、指引數寫 161／152、來源文件寫 120 份、最後更新寫 2026-06-25，而同一份 README 另一處分別寫住 3.3.2、177、288。全部對正為 v3.3.3／177／158／300／2026-09-08，產品連結改用 canonical 域名。
+- **`K1_API_SPEC.md` 對下游整合者報錯數。** `guidelines.json` `_meta.count` 實為 **158**，spec 寫 152；`sources` 寫 288。均已更正，端點改用 canonical 域名。
+- **`backend/README.md` 補回 S215 事故中失去的 feature flag 說明**（重寫非還原 —— 該 5 行從未進過版本控制）。
+
+### Added
+- **來源數納入自動同步。** `execute_ingest.py` 新增 `live_sources_count()` ＋ `live_sources_sync()`（入庫流程 step 5c）。此前 `live_display_sync()` 只同步片段數，來源數靠人手改故會漂。**刻意不沿用原有的裸數字全檔取代**：那對 `17610` 這種獨特值安全，對 `288` 這種三位數不安全；新函式用具名欄位配對（`"sources": N`、`data-stat="sources">N<`）。
+- **兩個休眠頁加 `noindex`。** `q.html` 與 `t-purchase.html` 為已建但未出街的功能，待核心修好後才開放。它們在導覽上已隱藏，但實測仍有一條活路徑：公開 README ＋ 交予學校 IT 的 `embed-sample.html` → `q.html` → `t-purchase.html`，三頁皆回 HTTP 200 且無 `robots` meta。已加 `noindex,nofollow` 並移除該兩條入站連結；頁面本體一律不動，日後放行只需回退這幾項。**未加 `robots.txt`** —— `Disallow` 會令爬蟲讀不到頁內 `noindex`，兩者互相抵消。
+
+---
+
 ## [可觀測性] — 2026-09-01 — `/health` 加入建置識別（S211）
 
 > 平台版本維持 **v3.3.2**（純後端）。

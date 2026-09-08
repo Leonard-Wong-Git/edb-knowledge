@@ -759,8 +759,8 @@ body {
  */
 window.FEATURE_TABS = { about: true, qa: true, annotate: true, templates: false, guidelines: true };
 </script>
-<link rel="stylesheet" href="mobile.css?v=3.3.2">
-<script src="mobile.js?v=3.3.2" defer></script>
+<link rel="stylesheet" href="mobile.css?v=3.3.3">
+<script src="mobile.js?v=3.3.3" defer></script>
 </head>
 <body>
 <div id="root"></div>
@@ -795,7 +795,7 @@ const INITIAL_DATA = {
     "stats": {
       "facts": 455,
       "chunks": 17610,
-      "sources": 288,
+      "sources": 300,
       "guidelines": 158,
       "topics": 7
     }
@@ -2054,7 +2054,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // is frozen and consumed by the downstream Circular System). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + 文件標註（就地標註）+ 範本下載 + 合規清單修訂，跨 15 個合規範疇。
-const PLATFORM_VERSION = '3.3.2';
+const PLATFORM_VERSION = '3.3.3';
 // S204 — tab switches; defined in a plain <script> in <head> so mobile.js can read them
 // at its DOMContentLoaded init, which runs BEFORE this Babel script compiles.
 const FEATURE_TABS = window.FEATURE_TABS;
@@ -2088,7 +2088,7 @@ function PlatformIntroPanel({ stats }) {
   const factsCount = meta.facts || 455;
   const chunksCount = meta.chunks || 17610;
   const guidelinesCount = GUIDELINES_REGISTRY.length;
-  const sourcesCount = meta.sources || 120;
+  const sourcesCount = meta.sources || 300;
   const platformVersion = PLATFORM_VERSION;
   const statTargets = [
     stats.approvedCount || factsCount,
@@ -2234,7 +2234,7 @@ function PlatformIntroPanel({ stats }) {
   const sourceGroups = [
     { icon: '📗', name: '學校行政手冊（SAG）', meta: '2026年5月 · 跨階段' },
     { icon: '📘', name: '資助則例（Code of Aid）', meta: '2024年 · 跨階段' },
-    { icon: '📑', name: '各 KLA 課程指引', meta: '2015–2025 · 21份' },
+    { icon: '📑', name: '各 KLA 課程指引', meta: '2015–2025 · 多份' },
     { icon: '📄', name: 'EDB 通告及通函', meta: '2020–2025 · 多份' },
     { icon: '📊', name: 'EDB 教育統計', meta: '2024/25 · Excel' },
     { icon: '📋', name: '採購 / 財務指引', meta: '現行版本 · PDF' },
@@ -2403,7 +2403,7 @@ function PlatformIntroPanel({ stats }) {
             <h2 style={{fontSize:'var(--text-xl)',fontWeight:800}}>全部來自 EDB 網站官方文件</h2>
           </div>
           <div style={{textAlign:'right'}}>
-            <div style={{fontSize:'1.6rem',fontWeight:900,color:'var(--cd)',letterSpacing:'-0.02em'}}>120</div>
+            <div style={{fontSize:'1.6rem',fontWeight:900,color:'var(--cd)',letterSpacing:'-0.02em'}}>{sourcesCount.toLocaleString()}</div>
             <div style={{fontSize:'0.72rem',color:'rgba(240,238,233,0.5)',letterSpacing:'0.01em'}}>份已處理來源文件</div>
           </div>
         </div>
