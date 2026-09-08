@@ -17,7 +17,7 @@
 ## Current Baseline
 
 1. 平台 **v3.3.2**；Supabase **17,610**；`source_registry` **281**；`guidelines.json` `_meta` **2.6.1**；`knowledge.json` **2.3.0** · facts **455**；凍結合約零接觸。（**S218 起手探針再次全部實測相符**：served `app.html` PLATFORM_VERSION 3.3.2、Render `/health` `ok:true` warm 455、Supabase live count 17,610、`source_registry.json` 281、`guidelines.json` `_meta` 2.6.1。）
-2. **【S218 更新】git 收斂維持；Render 報的部署 commit 落後屬已知現象，不是漂移。** `HEAD == origin/main == **0f8a7c9**`，分歧 **0/0**，工作區乾淨（S218 `git fetch` 後實測）。`612e13e..0f8a7c9` 只有 S217 自己的兩個 commit（`72b5adb` 推積壓＋更正 flag 說法、`0f8a7c9` S217 收工持久化），**兩者對 `backend/` 與 `app.html` 零檔案改動**（S218 `git diff --name-only 612e13e..HEAD -- backend app.html` = **0**）。Render `/health` 仍報 `commit` `612e13e`（`started_at` 2026-09-08T06:58:08Z，服務今晨重啟過），**故生產跑的執行碼與 `612e13e` 那次部署相同**；`RENDER_GIT_COMMIT` 不隨新 commit 更新的成因仍**未查證**。S217 記的 `612e13e` 為 HEAD 已過時，作為部署 commit 仍準確。
+2. **【S218 更新】git 收斂維持；Render 報的部署 commit 落後屬已知現象，不是漂移。** `HEAD == origin/main == **f3ca973**`（S218 收工 commit，已 push），分歧 **0/0**，工作區乾淨。**判斷準則不是比 hash** —— 治理／持久化 commit 會令 HEAD 不斷前進而生產行為不變；要判斷「線上是否落後」，看 `git diff --name-only <部署commit>..HEAD -- backend app.html` 是否為 **0**。`612e13e..f3ca973` 只有三個純治理／持久化 commit（`72b5adb`、`0f8a7c9` 屬 S217，`f3ca973` 屬 S218 收工），**兩者對 `backend/` 與 `app.html` 零檔案改動**（S218 實測 `git diff --name-only 612e13e..HEAD -- backend app.html` = **0**）。Render `/health` 仍報 `commit` `612e13e`（`started_at` 2026-09-08T06:58:08Z，服務今晨重啟過），**故生產跑的執行碼與 `612e13e` 那次部署相同**；`RENDER_GIT_COMMIT` 不隨新 commit 更新的成因仍**未查證**。S217 記的 `612e13e` 為 HEAD 已過時，作為部署 commit 仍準確。
 3. S214 候選全套現為 commit **`4fc2bab`**（rebase 後，內容與 `744a8dc` 逐位元組相同），**已在生產環境**；`FEATURE_EXACT_WINDOW_NARROW` / `FEATURE_GROUNDED_SYNTHESIS` / `FEATURE_ROUTE_FIRST_SEARCH` 三者在 Render 未設環境變數、**仍全部 off**。**產品 verdict 仍為 FAIL**；185 題 live before／after 仍未跑 —— **啟用任何 flag 的閘未開**。已部署 ≠ 已啟用。
 4. 🔴 **【S217 逐檔核對，重要】「三個 flag 全 off」≠「零行為改動」。** S214 的 establishment 路徑改動**沒有任何 flag 保護**，已在生產生效。觸發條件窄：`detectedCategory === "staffing"` **且** query 含「N 班」（1–2 位數），`ESTABLISHMENT_SOURCE_IDS` 現時只有 `staff_est_pri`。三處實際差異：(a) `estLead` 移除了 `!seenIds.has(r.id)` 過濾 → ANN 已撈到同一 chunk 時，精確列現在仍會置頂；(b) 插入方式由「插在 forced prefix 之後」改為「置頂並濾走**整個** establishment 來源的其他列」→ 同一份編制表其他班數的列不再與正確列並存；(c) `trustedVaultLead` 的判斷來源由 `results[forcedLeads]`（overlay 後）改為 `mainSearchLead`（overlay 前）—— 此項技術上覆蓋所有合成呼叫，但無 overlay 觸發時兩者取同一項。**其餘執行碼確認零行為改動**：`llmClient.ts` 新參數為 optional 且舊呼叫端不傳、`groundedSynthesis.ts` 全新檔只在 flag 開時執行、`wikiRepository.ts` 的 `queryVec` optional／`searchWikiRoutedExact` 受 flag 保護、合成窗收窄受 flag 保護並 fallback 回 `defaultWindow`。
 5. **（指針）** `match_wiki_chunks_routed` 的安裝狀態與來歷限制 → `## Risks / Blockers` 第 2 項；S215 收工 QC 實測結果 → `## Validation / QC`。
@@ -1292,14 +1292,16 @@ Resume the current objective. A plain `Start Agent Handoff` / `開工` with no s
 
 Current state：平台 v3.3.2；Supabase 17,610；source_registry 281；guidelines.json _meta 2.6.1；
 knowledge.json 2.3.0 · facts 455；凍結合約零接觸。Agent Handoff Kit v0.3.66。
-HEAD == origin/main == 0f8a7c9，分歧 0/0，工作區乾淨。
+HEAD == origin/main == f3ca973（S218 收工 commit，已 push），分歧 0/0，工作區乾淨。
 線上部署：Render /health 報 commit 612e13e、cache_a warm 455（started_at 2026-09-08T06:58:08Z）。
 
 ⚠️ 先讀這段，否則會把正常狀態誤判為漂移：
-   /health 報的 612e13e 比 HEAD 的 0f8a7c9 舊，這是【正常】，不是未部署。
-   612e13e..0f8a7c9 只有 S217 自己的兩個治理／持久化 commit（72b5adb、0f8a7c9），
+   /health 報的 612e13e 比 HEAD 舊，這是【正常】，不是未部署。
+   612e13e 之後的 commit 全部是純治理／持久化（S217 的 72b5adb、0f8a7c9，S218 的 f3ca973），
    實測 git diff --name-only 612e13e..HEAD -- backend app.html = 0 個檔，
    即生產跑的執行碼與 612e13e 那次部署完全相同。
+   【判斷準則看 diff，不要比 hash】——每次收工都會多一個治理 commit，HEAD 必然前進，
+   單看 hash 不同會誤判成「未部署」。
    RENDER_GIT_COMMIT 不隨新 commit 更新的成因【仍未查證】——不要當已解，也不要當故障。
 
 🔴 最高優先（未變）：S214 候選已在生產環境，但三個 flag 仍全部 off

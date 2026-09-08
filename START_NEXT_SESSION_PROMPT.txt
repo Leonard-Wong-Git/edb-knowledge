@@ -8,14 +8,16 @@ Resume the current objective. A plain `Start Agent Handoff` / `開工` with no s
 
 Current state：平台 v3.3.2；Supabase 17,610；source_registry 281；guidelines.json _meta 2.6.1；
 knowledge.json 2.3.0 · facts 455；凍結合約零接觸。Agent Handoff Kit v0.3.66。
-HEAD == origin/main == 0f8a7c9，分歧 0/0，工作區乾淨。
+HEAD == origin/main == f3ca973（S218 收工 commit，已 push），分歧 0/0，工作區乾淨。
 線上部署：Render /health 報 commit 612e13e、cache_a warm 455（started_at 2026-09-08T06:58:08Z）。
 
 ⚠️ 先讀這段，否則會把正常狀態誤判為漂移：
-   /health 報的 612e13e 比 HEAD 的 0f8a7c9 舊，這是【正常】，不是未部署。
-   612e13e..0f8a7c9 只有 S217 自己的兩個治理／持久化 commit（72b5adb、0f8a7c9），
+   /health 報的 612e13e 比 HEAD 舊，這是【正常】，不是未部署。
+   612e13e 之後的 commit 全部是純治理／持久化（S217 的 72b5adb、0f8a7c9，S218 的 f3ca973），
    實測 git diff --name-only 612e13e..HEAD -- backend app.html = 0 個檔，
    即生產跑的執行碼與 612e13e 那次部署完全相同。
+   【判斷準則看 diff，不要比 hash】——每次收工都會多一個治理 commit，HEAD 必然前進，
+   單看 hash 不同會誤判成「未部署」。
    RENDER_GIT_COMMIT 不隨新 commit 更新的成因【仍未查證】——不要當已解，也不要當故障。
 
 🔴 最高優先（未變）：S214 候選已在生產環境，但三個 flag 仍全部 off
