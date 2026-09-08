@@ -39,6 +39,34 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 
 <!-- ack:log-entry:start -->
 
+## 2026-09-08 Session 218 — 起手探針五項全綠；HEAD 與 Render 報的 commit 不一致已查明屬正常，並非漂移
+
+- **ID:** `Claude_20260908_0705` — S218
+- **Summary:** 由「開工」起做起手探針，五項全部實測相符。唯一表面漂移（HEAD `0f8a7c9` vs Render `/health` 報 `612e13e`）逐檔核實為**零執行碼差異**，屬 S217 已記載的 `RENDER_GIT_COMMIT` 現象，非未部署。Option A watcher bot 本輪未推，不必 rebase。中段一次純資訊回覆（桌面 vs Claude mobile 的分別）。**零程式碼改動、零 QC 重跑、零 push。**
+- **Changed:** 無程式碼改動。持久化：`dev/SESSION_HANDOFF.md`（`Current Baseline` 1–2／`Validation / QC` 新增 S218 段／`Risks / Blockers` 1／`Open Priorities` 整段重生＋治理兩項原文移入 `Backlog`／`Last Session Record` 重生為 S218，S217 降級原文保留／`Next Session Opening Message` 重生／`State Reconciliation Check` 新增 S218 段）· `dev/PROJECT_INDEX.md`（Branch / commit 列）· `dev/DOC_SYNC_REGISTRY.md`（S218 sync 段）· `dev/SESSION_LOG.md`（本條）· `START_NEXT_SESSION_PROMPT.txt`（由 fenced block 重生）。
+- **Done:**
+  1. **起手探針五項**：served `app.html` **3.3.2**（`curl policychecker.wongfu.net/app.html`）· Render `/health` **`ok:true`／`cache_a.warm` 455／`commit` `612e13e`／`started_at` 2026-09-08T06:58:08Z** · Supabase `wiki_chunks` **17,610**（service key `Prefer: count=exact`，讀 `Content-Range: 0-0/17610`）· `source_registry` **281** · `guidelines.json` `_meta` **2.6.1**。全部與交接相符。
+  2. **表面漂移查明**：`git fetch` 後 `HEAD == origin/main == 0f8a7c9`、分歧 **0/0**、工作區乾淨。交接記的 `612e13e` 是 S217 收工前的 HEAD，之後 S217 自己再推兩個 commit（`72b5adb`、`0f8a7c9`）。**關鍵驗證**：`git diff --name-only 612e13e..HEAD -- backend app.html` = **0 個檔** → Render 雖報舊 commit，生產跑的執行碼與 `612e13e` 那次部署相同。**沒有查 Render 觸發設定，`RENDER_GIT_COMMIT` 不更新的成因仍未確證** —— 只證明了「不影響生產行為」，不等於「已解釋」。
+  3. **bot 本輪未推**：`origin/main` 仍是 S217 收工那個 commit。S217 那次「遠端走前兩個」未重演，不必 rebase。**但 watcher 仍在，紀律不變**：開工一定要 `git fetch` 後比對，不得讀交接記載的 hash 當現況。
+  4. **Playbook pointer 自我檢查**（該庫 `INDEX.md` 要求的 10 秒檢查）：本 project pointer 為 **v3**，最新，無須重裝、無須告知用戶。本節只讀 `INDEX.md`，**未 grep 全表、未開任何卡**，故按該庫規則**不寫 usage 行**（沒有查閱行為就沒有數據可留）。
+  5. **一次純資訊回覆**：Leonard 問「在這裡開 session 然後在 Claude mobile 對話，跟桌面有何分別」。答案核心是「運算一直留在這部 Mac，手機是遙控器兼視窗」，並分「不變／會變」兩邊列出，重點是檔案連結在手機失效、要你親手做的事（Render dashboard、rebase、被分類器擋住的腳本）在手機做不到、以及 Mac 睡著 session 就停。**手機端 UI 細節（Run 掣、批准提示樣式）已明確標示為推斷、未實測**，沒有當事實講。
+  7. **順手修好一個先前遺留的結構缺陷**：`dev/SESSION_LOG.md` 檔尾有一個懸空的 `ack:log-entry` 起始標記（後面無任何內容、無對應結束標記）。以 `git show HEAD:dev/SESSION_LOG.md` 核實**是本節之前已存在**（committed 版本即 5 start／4 end），非本節寫入造成，推測為 S217 `--apply` 歸檔後遺留。已刪去該行並確認後面零內容，現為 **5/5 平衡**（1 個 Entry Template ＋ 4 條 entry）。§4a `--check` 重跑仍 `trigger=False`（222 行／4 條）。
+  6. **收工對齊 root**：Leonard 指出工作目錄跳回頂層 umbrella scaffold（該處 `START_NEXT_SESSION_PROMPT.txt` 有 ⛔ 明示不可在該 root 做事）。已切回 `Draft/` 才開始收工寫入。
+  8. **交接檔標記兩項核對**（因上一項而順帶做）：(a) 我最初把 S218 的三個 reconciliation field 標記寫成 `-s218` 後綴的新名，**寫完自行核對發現與現行慣例不符** —— `git show HEAD:` 實測 committed 版本每個名字已各有 2 份（S217 一份、S216 一份，最新在前，`indexOf` 式讀取自然取最新），故已改回正名、疊在最前，全檔 32 → 35 個標記行，無新名字。(b) **發現一個既有但目前無害的碰撞**：`## Backlog` 治理側段的散文寫出了 `ack:section:` 加 `session-history` 的完整名字，位置在該真標記之前，`indexOf` 式讀取會先中散文那個。**本節刻意不改** —— 該段是我承諾「原文一字不刪移入」的文字，改了就破壞該承諾；且 S216 已查明 gate 只讀 `completed-this-session`／`validation-qc`／`next-priorities`／`risks-blockers` 四節加開場白，`session-history` 不在其中，故目前**無實際影響**。留給下節連同治理側其餘項目一併處理。
+
+- **QC:** **本節零 QC 重跑。** S217 推之前實測的數值仍有效，因為綁定的 commit 與檔案本節一字未改：`npm run check` 0 · `npm run build` 0 · `regression:grounded` 48/48 · `route_regression` 46/46 · active gold 185。**未跑：185 題 live 套件**（啟用 flag 的唯一閘）。**未驗證：`agent-handoff-kit doctor`** —— CLI 仍不在 PATH、全局與本地 `node_modules` 皆無、npm 上該名字 404，狀況同 S217；**列為未驗證，不當通過**。`qc_report.json` overall **ERROR** 未處理，狀態同 S215–S217。§4a `--check` 實測 `trigger=False`（199 行／3 條 entry，未達 400 行或 30 日門檻）。
+- **Evidence disposition:** 探針逐項數值、`git diff --name-only` 的零檔驗證、mobile 問答內容 → 留在本條 log 作 trace 證據；當前 HEAD／部署 commit 的正確解讀、bot 本輪未推、OP 重排 → 入 `dev/SESSION_HANDOFF.md`。「Render `/health` 報的 commit 可以合法地舊過 HEAD，判斷要看 `git diff --name-only` 而非比 hash」屬跨 session 可重用的判讀規則，已寫入開場白 ⚠️ 防誤判段。未升 `dev/PROJECT_DECISIONS.md` —— 本節無架構取捨。
+- **Sync:** `dev/CODEBASE_CONTEXT.md` **不需更新**（技術棧、目錄、build 指令、External Services、Key Decisions 本節皆未變）。`dev/PROJECT_INDEX.md` Branch / commit 列**已更新**。`dev/DOC_SYNC_REGISTRY.md` 已記 S218 七行狀態。**DOC_SYNC Matrix Scan — SKIP（本節 CHANGE 階段零檔案改動；所有寫入均為收工持久化本身）。**
+- **Pending:** 185 題 live 套件未跑（OP ①，啟用 flag 的唯一閘）· `backend/README.md` 5 行未補（OP ②）· 三題 chunk recall（OP ③）· 4 條 fidelity ＋ 合成窗（OP ④）· S212／S213 全部遺留（OP ⑤）· 治理兩項（`ack` marker 專屬章節、`INIT.md` 鏡像 blocked，已移入 Backlog 治理側段）· `qc_report.json` overall ERROR · `agent-handoff-kit doctor` 連續兩節未能執行。
+- **Risks:** ① S214 候選碼在生產且 establishment 路徑**無 flag 保護、已生效**，184 條未量 —— 已部署 ≠ 已驗證（未變）。② Option A watcher bot 仍會自行推送，本輪未推不代表下輪不推。③ `AGENTS.md`／`CLAUDE.md`／`GEMINI.md` gitignored 且從未 tracked，S216 升級改動不在版本控制內。④ **新增觀察**：`agent-handoff-kit` CLI 連續兩節取不到，治理健康度已連續兩節無機器驗證 —— 目前只靠人手核 marker，屬逐節累積的驗證缺口。
+- **Log maintenance:** **無觸發。** 收工前跑 `python3 docs/qa/session_log_maintenance.py --check --session-log dev/SESSION_LOG.md` → `trigger=False line_trigger=False date_trigger=False`（`line_count=199`、`entry_count=3`，門檻為 400 行或最舊條目逾 30 日）。S217 剛做完歸檔，故本節按規則寫一行 no-op 理由，不執行長期維護。
+- **規則衝突（依 §5 記錄）：** 沿用 S216／S217 的取捨 —— 專案 INSTRUCTIONS 層 §4 規則 12–14 要求把開場白逐字寫入本 log，Kit managed core 則寫明開場白全文不屬於本 log。跟 Kit 契約：全文只存 `dev/SESSION_HANDOFF.md` 與 `START_NEXT_SESSION_PROMPT.txt` 兩處，本 log 只記 mirror 已驗證。
+- **Playbook（§14 留底）：** **本節不交提案。** 只做了 pointer 版本自我檢查（v3，最新）。沒有 grep 全表、沒有開卡，故按該庫規則**不寫 usage 行**。本節唯一可能可轉移的教訓（「`/health` 報的 commit 可以合法地舊過 HEAD」）**判為未夠成熟**：只有 S217、S218 兩次觀察且成因未確證，交上去會是一條無根據的卡；待成因查明再考慮。
+- **Opening-message mirror:** 已重生並驗證 —— 由 `SESSION_HANDOFF.md` 唯一的 fenced block 生成，讀回逐位元組相等；全文按契約不複製入本 log。
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-09-07 Session 217 — 遠端又走前一步；rebase 保全逐位元組驗證後，四節 session 的未 push 狀態一次結清並部署
 
 - **ID:** `Claude_20260907_1930` — S217
@@ -195,5 +223,3 @@ commit 的去向建議。未得明確批准，不得 push、不得部署、不�
 ```
 
 <!-- ack:log-entry:end -->
-
-<!-- ack:log-entry:start -->

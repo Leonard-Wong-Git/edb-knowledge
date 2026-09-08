@@ -27,6 +27,18 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-09-08 — S218（起手探針節，零程式碼改動）
+
+| Row touched | Status | Note |
+|---|---|---|
+| Workspace identity change | `confirmed` | `dev/PROJECT_INDEX.md` `## Workspace Identity` Branch / commit 列已由 `612e13e` 更新為 `0f8a7c9`，並註明 Render 報舊 commit 屬正常（零執行碼差異，`git diff --name-only 612e13e..HEAD -- backend app.html` = 0）。 |
+| Closeout/startup contract change | `confirmed` | `dev/SESSION_HANDOFF.md` 五節狀態重寫（`Current Baseline` 1–2、`Validation / QC`、`Risks / Blockers` 1、`Open Priorities` 整段重生、`Last Session Record` 重生為 S218）；治理側兩項原文移入 `## Backlog`；`START_NEXT_SESSION_PROMPT.txt` 由開場白重生並 mirror 驗證。 |
+| Release | `not_applicable` | 本節零 push、零部署、零 flag 啟用。 |
+| Public behavior change | `not_applicable` | 零程式碼改動；生產跑的執行碼與 S217 部署那次相同（已實測 0 個檔差異）。 |
+| Governance rule change | `not_applicable` | `AGENTS.md` 與 rule pack 本節未動。 |
+| API or SDK behavior change | `not_applicable` | 無端點增減、無簽名改動。 |
+| New file or directory | `not_applicable` | 無新檔。 |
+
 ### 2026-09-07 — S217（七個積壓 commit push 上主線並部署）
 
 | Row touched | Status | Note |

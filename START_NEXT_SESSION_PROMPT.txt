@@ -4,80 +4,72 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 
 Resume the current objective. A plain `Start Agent Handoff` / `開工` with no same-message task or explicit long-run instruction only authorizes minimum state recovery, one optional display-only current-thread title update when safely supported, the startup card, the current objective/risk/recommended next action, and then the end of the turn. It does not authorize task-specific reads, research, plans, protocols, preflight, file searches, sub-agents, QA, packaging, project-file writes, network access, other external actions, or opt-out execution wording. First-use exception: when this handoff says `First-use guidance state: eligible`, the current objective is empty / `TBD`, and there is no same-message concrete task, load onboarding and include a short first-use welcome plus the most relevant guided choices in the same response instead of ending status-only. A concrete objective found only in this handoff is not authority to complete the objective. A same-message task may begin normally; an explicit instruction such as `開工，繼續做到下一個 blocker` or `開工，繼續完成目前目標` may continue under the normal task and safety rules. Upgrade never resets consumed / not_applicable first-use state back to eligible.
 
---- 專案狀態（S217, 2026-09-07）---
+--- 專案狀態（S218, 2026-09-08）---
 
 Current state：平台 v3.3.2；Supabase 17,610；source_registry 281；guidelines.json _meta 2.6.1；
-knowledge.json 2.3.0 · facts 455；凍結合約零接觸。Agent Handoff Kit v0.3.66（doctor 53/53 passed）。
-HEAD == origin/main == 612e13e，分歧 0/0，工作區乾淨；
-線上部署 = 612e13e（Render /health，started_at 2026-09-07T19:26:49Z，cache_a warm 455）。
+knowledge.json 2.3.0 · facts 455；凍結合約零接觸。Agent Handoff Kit v0.3.66。
+HEAD == origin/main == 0f8a7c9，分歧 0/0，工作區乾淨。
+線上部署：Render /health 報 commit 612e13e、cache_a warm 455（started_at 2026-09-08T06:58:08Z）。
 
-✅ S217 已結清（不要再當成待辦）：
-   S214 起累積四節 session 的七個未 push commit，已全數 push 並完成部署。
-   Leonard 選項 1 —— 連 backend 一齊推、接受觸發 Render 自動部署。
-   rebase 保全已逐位元組驗證：舊 463434c..1378b53 與新 42b1441..HEAD 兩個 patch set
-   105,683 行／150 個檔完全相同，兩個 bot commit 在祖先鏈。
+⚠️ 先讀這段，否則會把正常狀態誤判為漂移：
+   /health 報的 612e13e 比 HEAD 的 0f8a7c9 舊，這是【正常】，不是未部署。
+   612e13e..0f8a7c9 只有 S217 自己的兩個治理／持久化 commit（72b5adb、0f8a7c9），
+   實測 git diff --name-only 612e13e..HEAD -- backend app.html = 0 個檔，
+   即生產跑的執行碼與 612e13e 那次部署完全相同。
+   RENDER_GIT_COMMIT 不隨新 commit 更新的成因【仍未查證】——不要當已解，也不要當故障。
 
-🔴 最高優先（未變，push 沒有解決它）：S214 候選現已在生產環境，但三個 flag 仍全部 off
+🔴 最高優先（未變）：S214 候選已在生產環境，但三個 flag 仍全部 off
    （FEATURE_EXACT_WINDOW_NARROW／FEATURE_GROUNDED_SYNTHESIS／FEATURE_ROUTE_FIRST_SEARCH，
    Render 未設環境變數）。產品 verdict 仍為 FAIL，185 題 live before／after 仍未跑。
    **已部署 ≠ 已啟用。啟用任何 flag 之前必須先跑 185 題，且需 Leonard 另行批准外部模型批次。**
 
 🔴🔴 S217 查出的陷阱（下一個 agent 一定要知）：「三個 flag 全 off」≠「零行為改動」。
-   S214 的 establishment 路徑改動 **沒有任何 flag 保護**，push 之後已在生產生效。
+   S214 的 establishment 路徑改動 **沒有任何 flag 保護**，已在生產生效。
    觸發條件窄：detectedCategory === "staffing" 且 query 含「N 班」（1–2 位數），
    ESTABLISHMENT_SOURCE_IDS 現時只有 staff_est_pri。三處差異：
      (a) estLead 移除了 !seenIds.has(r.id) 過濾 —— ANN 已撈到同一 chunk 時精確列仍會置頂；
      (b) 插入方式改為置頂並濾走【整個】establishment 來源的其他列，同表其他班數不再並存；
      (c) trustedVaultLead 的判斷來源由 results[forcedLeads]（overlay 後）
          改為 mainSearchLead（overlay 前）—— 技術上覆蓋所有合成呼叫。
-   其餘執行碼已逐個 hunk 核實零行為改動（llmClient 新參數 optional、groundedSynthesis 全新檔、
-   wikiRepository 的 queryVec optional／searchWikiRoutedExact 受 flag、合成窗受 flag 並有 fallback）。
+   其餘執行碼已逐個 hunk 核實零行為改動。
    **通則：不要憑「flag 全 0」推斷零行為改動 —— 要 git diff 逐個 hunk 找無 flag 保護的路徑。**
 
-⚠️ S217 教訓：遠端會自己走前，等得越耐分歧越大。
-   S216 收工到 S217 開工之間，Option A watcher bot 又推了兩個 commit，
-   令原本可 fast-forward 的狀態變成真分歧、push 直接被拒。
-   通則：開工探針一定要 git fetch 後比對，不能只讀交接記載的 origin/main hash。
-   好消息是 bot 只碰 dev/source/discovery_seen.json、dev/source/registry_drift.md、qc_report.json
-   三個資料檔，與人手 commit 幾乎不會重疊，rebase 通常是機械操作 —— 但每次仍要實測確認。
+⚠️ 開工探針紀律（S217 教訓，S218 仍適用）：
+   Option A watcher bot 會自行推 commit 到 origin/main（只碰 discovery_seen.json、
+   registry_drift.md、qc_report.json 三個資料檔）。S217 開工時它推前了兩個，
+   令本地變成真分歧、push 被拒；S218 開工實測它本輪【未推】，不必 rebase。
+   通則不變：一定要 git fetch 後比對，不能讀交接記載的 hash 當現況。
 
-✅ S217 已確立的事實（不必再查）：
+✅ 已確立的事實（不必再查）：
    1. regression:grounded 有一條斷言 both synthesis flags off preserve the legacy synthesis
-      prompt exactly —— 「flag 全 0 即行為不變」已由機器驗證，不再只是讀碼推斷。
-   2. 部署後生產側三個端點實測正常：channel-a 50 條／channel-b 8 條／combined 58 條＋synthesis。
-   3. 部署後首個請求曾回 0 條，隨後 5/5 正常。屬 S118 probes=8 冷啟動／間歇族，
-      **不是本次部署引入的新問題**；但當時的 response body 沒有保存，成因未能確證。
-   4. S217 收工已歸檔 5 條舊 log entry 入 dev/archive/SESSION_LOG_2026_Q3.md（494→197 行，
-      8→3 條），無損已驗證。續做不需翻舊 log —— 需要的事實全部在本交接檔內。
-   5. 72b5adb（治理 commit）未觸發新部署：/health 的 commit 讀 RENDER_GIT_COMMIT（部署時設定），
-      仍報 612e13e，而 started_at 已由 19:26:49 變 19:50:49（服務重啟過）。成因未查證。
-      實務無影響 —— 72b5adb 零執行碼改動，生產跑的碼與 612e13e 那次部署一樣。
-   6. establishment 路徑的觸發範圍已生產實測為窄：「小一派位第1班點分」（有「班」但不走 staffing）
-      未被編制表塞入；「教師編制點計」（走 staffing 但無班數）正常。
-      受影響那條「12班小學有幾多個學位教師」實測回 學位教師 5／副校長 1／助理 14／合計 21，
-      與 S211 註解記載的正確一行相符（S211 量到的錯答是 學位教師 2／助理 7／合計 10）。
-      **但這是 1 條事後觀察，不是 before／after 對照** —— 舊碼已不在生產環境，無法跑對照組。
+      prompt exactly —— 該句只覆蓋合成 prompt，不覆蓋整個系統（見上面 🔴🔴）。
+   2. 生產側三個端點實測正常（S217）：channel-a 50 條／channel-b 8 條／combined 58 條＋synthesis。
+   3. S217 曾見部署後首個請求回 0 條、隨後 5/5 正常，屬 S118 probes=8 冷啟動／間歇族，
+      不是部署引入的新問題；但 response body 未保存，成因未能確證。
+   4. establishment 路徑觸發範圍已生產實測為窄（S217 三個 case）。
+      但那是事後觀察，不是 before／after 對照 —— 舊碼已不在生產，無法跑對照組。
+   5. Playbook pointer 為 v3（最新），S218 已自我檢查，無須重裝。
 
 ⚠️ 未解決（不要當已解決）：
-   · 185 題 live 套件未跑 —— 這是啟用 flag 的唯一閘。
-   · backend/README.md 5 行仍未補（S215 遺失，無備份，不得杜撰）。
-   · 交接檔仍有 8 個 ack marker 未有專屬章節（OP ⑥）。
-   · dev/DOC_SYNC_CHECKLIST.md 的 INIT.md 鏡像規則已失效（OP ⑦，blocked）。
-   · 三題 chunk recall、4 條 fidelity 不一致、合成窗佔用率、S212／S213 全部遺留 —— 一項未動。
+   · 185 題 live 套件未跑 —— 這是啟用 flag 的唯一閘（OP ①）。
+   · backend/README.md 5 行仍未補（OP ②，S215 遺失，無備份，不得杜撰）。
+   · 三題 chunk recall（OP ③）、4 條 fidelity 不一致＋合成窗佔用率（OP ④）、
+     S212／S213 全部遺留（OP ⑤）—— 一項未動。
+   · 治理側兩項已由 Open Priorities 移入 Backlog「治理側」段（原文一字未刪）：
+     交接檔 8 個 ack marker 未有專屬章節、dev/DOC_SYNC_CHECKLIST.md 的 INIT.md 鏡像規則已失效。
    · qc_report.json overall ERROR 未處理。
+   · agent-handoff-kit doctor 連續兩節（S217、S218）跑不到 —— CLI 不在 PATH、
+     全局與本地 node_modules 皆無、npm 上該名字 404。治理健康度【列為未驗證，不當通過】。
    · AGENTS.md／CLAUDE.md／GEMINI.md 三檔 gitignored 且從未 tracked，S216 升級改動不在版本控制內，
      唯一還原點是 dev/governance_migrations/2026-09-07T18-23-33-046Z-*/backup/，該目錄內的
      AGENTS.md 連同樣被 .gitignore 命中，刪了無得還原。
 
-QC status：S217 推之前實測 —— npm check 0 · npm build 0 · regression:grounded 48/48 ·
-   route_regression 46/46 · 工作區乾淨。agent-handoff-kit doctor 53/53（S216 實測，本節未重跑）。
-   未跑：185 題 live 套件。qc_report.json overall ERROR 未處理。
-
-Playbook（§14）：S217 已交提案 inbox/2026-09-07-policychecker-flag-gated-not-behavior-neutral.md
-   （pattern，內容即上面 🔴🔴 那條陷阱，寫成方法 A／B／C 對照）。該庫現時 0/0、乾淨。
+QC status：S218 零程式碼改動、零 QC 重跑。S217 推之前實測的數值仍有效（綁定 commit 與檔案未變）：
+   npm check 0 · npm build 0 · regression:grounded 48/48 · route_regression 46/46 · active gold 185。
+   未跑：185 題 live 套件。未驗證：agent-handoff-kit doctor。qc_report.json overall ERROR 未處理。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION + Render /health
-+ git fetch 後比對 HEAD／origin/main + Supabase live count）。若又落後於 origin/main，
-先 rebase（實測零衝突再做）。之後如無新指示，行離線工作：補 backend/README.md 5 行，
-或追三題 chunk recall 的 query expansion 與目標片段位置。
-未得明確批准，不得啟用任何 flag、不得執行 DDL、不得作任何外部模型批次。
++ git fetch 後比對 HEAD／origin/main + Supabase live count + source_registry）。
+若落後於 origin/main，先實測零衝突再 rebase。之後如無新指示，行離線工作：
+補 backend/README.md 5 行（OP ②），或追三題 chunk recall 的 query expansion 與目標片段位置（OP ③）。
+未得明確批准，不得啟用任何 flag、不得執行 DDL、不得作任何外部模型批次、不得 git push。

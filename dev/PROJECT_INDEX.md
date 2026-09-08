@@ -162,7 +162,7 @@ Record this at closeout so the next AI can detect wrong-root or workspace drift.
 |---|---|---|
 | Expected project root | `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft`（唯一目標；頂層 umbrella 只重定向至此） | 2026-06-22 (S176) |
 | Git root | 同 project root（repo `Leonard-Wong-Git/edb-knowledge`；勿 set private） | 2026-06-22 (S176) |
-| Branch / commit | `main` @ **`612e13e`**；**`HEAD == origin/main`，分歧 0/0**（S217 `git rev-list --left-right --count` 實測）。線上部署亦為 `612e13e`（Render `/health`）。S216 記的 `6cb80c6` / `463434c` 已過時。 | 2026-09-07 (S217) |
+| Branch / commit | `main` @ **`0f8a7c9`**；**`HEAD == origin/main`，分歧 0/0**，工作區乾淨（S218 `git fetch` + `git rev-list --left-right --count` 實測）。線上部署 Render `/health` 報 **`612e13e`**（比 HEAD 舊兩個 commit 屬正常：`612e13e..0f8a7c9` 對 `backend/` 與 `app.html` 零檔案改動，實測 `git diff --name-only` = 0）。S217 記的 `612e13e` 作為 HEAD 已過時，作為部署 commit 仍準確。 | 2026-09-08 (S218) |
 | Worktree or parallel workspace | 無 | 2026-06-22 (S176) |
 | Uncommitted change summary | S216 那 17 個治理檔已隨 S217 的 push 上主線；S217 的 PERSIST 六個檔亦已於 `72b5adb` commit 並 push。**S217 收工前僅餘本次收工寫入**（`dev/SESSION_HANDOFF.md`、`dev/SESSION_LOG.md`、`dev/PROJECT_INDEX.md`、`dev/DOC_SYNC_REGISTRY.md`、`START_NEXT_SESSION_PROMPT.txt`、`dev/archive/SESSION_LOG_2026_Q3.md`），零程式碼改動。 | 2026-09-07 (S217 收工) |
 | 治理檔 git 狀態 | ⚠️ `dev/SESSION_HANDOFF.md`／`dev/SESSION_LOG.md`／`START_NEXT_SESSION_PROMPT.txt` 雖列於 `.gitignore` 但**實際已 tracked**（早於 ignore 規則 commit；git 唔會 untrack 已追蹤檔）→ 每次收工照常 commit（見 S173–S175 closeout commits） | 2026-06-22 (S176) |
