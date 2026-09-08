@@ -1010,6 +1010,24 @@ source_registry → same vault PDFs → ai_extract.py
 - **Lifecycle 一致性檢查（S219）：** 已完成項（185 題閘、introspection、暖機修復）**不再出現**於 Open Priorities 或 Risks；`Risks` 第 2 項由「未核實」改為「已結案」並說明何以結案；新增的三項風險（anon 3 秒、索引未證有效、未解釋的 channel-b 回應）**皆非已完成事項**，屬監察與未解。開場白與本檔狀態一致：兩者同記 HEAD `a246f77`、部署 `3ebd11f`、三個 flag 全 off、OP① 為 HNSW 評估。
 - **機器檢查（S219 已實際執行）：** `npx --yes @adamchanadam/agent-handoff-kit@latest doctor --root .` → **`status: passed`，53 項全部通過**，prompt mirror 與 handoff 一致、憑證分離 ok、SESSION_LOG 接力角色紀律 ok、版本三向對齊 v0.3.66。`closeout-status` 首次執行報 **blocked**，兩個 blocker 皆為本檔自身問題（見下），修正後重跑。人手核對：`ack` marker 41 個、`Open Priorities` 5 項、`Risks` 7 項、`Current Baseline` 6 項，皆在 §4 上限內；開場白為全檔唯一 fenced 區塊。**⚠️ 順帶更正一個延續三節的錯誤**：S217／S218 記的「CLI 取不到」是**查錯名字**（用了未加 scope 的 `agent-handoff-kit`，該名字在 npm 為 404），正確的 `@adamchanadam/agent-handoff-kit` 一直記在 `dev/PROJECT_INDEX.md` 第 155 行。
 
+<!-- ack:field:stale-snapshots-left -->
+- **Stale snapshots left（S219）：** 無殘留，且**本節主動更正了三項既有記載**：(a) S217／S218 記的「`agent-handoff-kit` CLI 取不到」是查錯名字（正確為 `@adamchanadam/agent-handoff-kit`，`dev/PROJECT_INDEX.md:155` 一直記著），`doctor` 實際 53/53 通過；(b) 本節稍早自己寫下的 establishment 靜默失效機制不成立，已更正為「成因未查明」；(c) 本節稍早據錯誤成本模型提出的索引建議已收回，兩個索引明確標記為「無法證明有效」。
+
+<!-- ack:field:closeout-outcome -->
+- Closeout outcome（S219）: complete — 所有必要寫入與讀回皆成功：`doctor` **53/53 `status: passed`**、`START_NEXT_SESSION_PROMPT.txt` 由交接檔唯一 fenced 區塊重生並讀回**逐位元組相等**、`session_log_maintenance.py --check` `trigger=False`、四個 lifecycle blocker 逐個修好後 `closeout-status` 的 lifecycle 讀回轉為健康。
+
+<!-- ack:field:project-required-persistence -->
+- Project-required persistence（S219）: complete — commit 與 push **皆已獲 Leonard 明示授權並完成**：`597b0d8`（量度工具與證據）、`3ebd11f`（overlay 暖機修復與文件）、`a246f77`（部署驗證）、`8bf0c6b`（收工 reconcile）全部已 push，`HEAD == origin/main`，工作區乾淨。生產已部署 `3ebd11f` 並實測 `/health` 與三個端點。
+
+<!-- ack:field:recommended-next-step-explicit -->
+- Recommended next step is explicit and reasoned（S219）: 是 —— `Open Priorities` 開首寫明單一建議動作（評估 ivfflat → HNSW）並附理由（`anon` 只有 3 秒而主搜尋要 2–3 秒，餘裕不足 1.5 倍，是本節所有 `57014` 的共同上游），並明確指示**先做離線評估與召回率重驗方法，不要直接建索引**。
+
+<!-- ack:field:next-ai-can-continue -->
+- Next AI can continue（S219）: yes — 下一個 agent 由 `AGENTS.md` ＋ `dev/SESSION_HANDOFF.md` ＋ 需要時的 `dev/PROJECT_INDEX.md` 即可接手：當前狀態（HEAD／部署 commit／`cache_b`）、為何三個 flag 仍全 off、`anon` 3 秒這個關鍵約束、量度用哪個 key 的紀律、以及 OP① 的第一步，全部在交接檔內，**不需翻舊 log**。
+
+<!-- ack:field:opening-message-matches-current-state -->
+- **Opening message matches current state（S219）：** 是。逐項對過：HEAD `a246f77`、部署 `3ebd11f` 含 `cache_b` 206/267、三個 flag 全 off 且列明不開的理由、`anon` 3 秒、兩個索引未證有效、`channel-b` 一次異常回應未保存 body、OP①–⑤ 與交接檔 `Open Priorities` 完全一致。開場白為全檔唯一 fenced 區塊，mirror 已驗證相等。
+
 - **2026-09-08 S218 closeout reconciliation（起手探針節）：** 於本次收工當下完成，非沿用舊快照。本節**零程式碼改動**，故產品側狀態多數逐段確認 current 而非重寫。
 
 <!-- ack:field:state-sections-rewritten-or-confirmed -->
@@ -1053,22 +1071,22 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:field:persistence-routing-checked -->
 - **Persistence routing checked:** 是。當前狀態、風險、建議下一步 → 本 handoff；升級逐步經過、conflict 逐個判斷依據、還原證據 → `SESSION_LOG.md`；Kit 版本／新增檔案／QC 指令／workspace identity → `PROJECT_INDEX.md`；本節觸及的 sync 義務與 blocked 理由 → `DOC_SYNC_REGISTRY.md`；開場白 → 只由 handoff 的 fenced block 生成 `START_NEXT_SESSION_PROMPT.txt`，**未複製入 log**。**未寫 `PROJECT_DECISIONS.md`**：本節是工具升級，非架構取捨；但「upgrade 會靜靜取代開場白」這一點屬跨 session 可重用教訓，已寫入下面的 opening message 與 log，若日後再遇同類事件應升為 decision 條目。
 
-<!-- ack:field:stale-snapshots-left -->
+<!-- 舊標記已於 S219 移除以維持欄位唯一；下一行的原文一字未刪 -->
 - **Stale snapshots left:** 無。**本節更正了兩項既有記載**：(a) S215 交接的「領先五個 commit」實測為六個；(b) `dev/PROJECT_INDEX.md` `Workspace Identity` 的 branch/commit 仍停在 S213 的 `05ea10e`、未提交摘要仍停在 S213 的 35 個檔，兩者皆已按實測更新。
 
-<!-- ack:field:closeout-outcome -->
+<!-- 舊標記已於 S219 移除以維持欄位唯一；下一行的原文一字未刪 -->
 - Closeout outcome: blocked — 治理寫入與讀回全部成功（`doctor` 53/53、prompt mirror 一致、`closeout-status` 的 lifecycle 與 sufficiency 閘皆過），本節治理檔亦已本地提交（S216 closeout commit）。**唯一未達 `complete` 的原因**：本項目 `## Session Close Checklist` 的收工持久化包含 `git push origin main`，而 Leonard 本節明示只做本地 commit、不 push。
 
-<!-- ack:field:project-required-persistence -->
+<!-- 舊標記已於 S219 移除以維持欄位唯一；下一行的原文一字未刪 -->
 - Project-required persistence: blocked — **確切邊界**：commit 已完成（S216 closeout commit）；**push 未獲授權**，七個本地 commit 仍未上 `origin/main`，去向待 Leonard 決定。另 `dev/DOC_SYNC_CHECKLIST.md` 的 INIT.md 鏡像同步亦為 blocked，解封條件是先決定 `INIT.md` 是否已退役（OP ⑦）。
 
-<!-- ack:field:recommended-next-step-explicit -->
+<!-- 舊標記已於 S219 移除以維持欄位唯一；下一行的原文一字未刪 -->
 - Recommended next step is explicit and reasoned: 是 —— `Open Priorities` 開首一句寫明單一建議動作（決定六個 commit ＋ 17 個治理檔的去向）及理由（只有它會隨時間惡化，因為 watcher bot 會繼續推送到 `origin/main`），並註明需 Leonard 決定、AI 不得自行 push。
 
-<!-- ack:field:next-ai-can-continue -->
+<!-- 舊標記已於 S219 移除以維持欄位唯一；下一行的原文一字未刪 -->
 - Next AI can continue: yes — 見上面 `## Handoff Sufficiency Check` 的 `Answer` 與 `Reconstruction evidence` 兩行；下一步、前置條件、邊界與未讀缺口全部在本檔可讀，毋須翻舊 log。
 
-<!-- ack:field:opening-message-matches-current-state -->
+<!-- 舊標記已於 S219 移除以維持欄位唯一；下一行的原文一字未刪 -->
 - **Opening message matches current state:** 是。逐項對過：六個未 push commit ＋ 17 個未提交治理檔、Kit v0.3.66 且 doctor 53/53、三個 flag 全 `0` 與 verdict FAIL 不變、`backend/README.md` 5 行仍未補、`AGENTS.md` 等三檔不在版本控制內 —— 五項在開場白與本檔各節一致。`START_NEXT_SESSION_PROMPT.txt` 由本檔唯一的 fenced block 重生並經 `doctor` prompt mirror check 讀回。
 
 - **2026-09-07 S215 closeout reconciliation:**
