@@ -1,0 +1,15 @@
+{
+ "label": "S219 route-first before/after, in-process, full active gold",
+ "mode": "in-process searchChannelB (no HTTP server, no rate limiter)",
+ "flag": "FEATURE_ROUTE_FIRST_SEARCH",
+ "embedding_model": "text-embedding-3-small",
+ "gold_file": "../dev/_s213_gold_all.json",
+ "gold_count": 185,
+ "top_k": 8,
+ "started_at": "2026-09-08T08:09:58.245Z",
+ "finished_at": "2026-09-08T08:31:34.155Z",
+ "model_calls": 283,
+ "request_calls": 524,
+ "route_failures": 10,
+ "status": "complete"
+}
