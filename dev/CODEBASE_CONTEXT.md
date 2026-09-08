@@ -210,7 +210,7 @@
   - **Critical invariant**: anon key never writes wiki_chunks (RLS deny + GRANT REVOKE 雙重攔截 by design); future anon-write feature requires §3 HIGH-risk + new policy. Service_role key only in `backend/.env`, never exposed.
   - DDL must be applied via Supabase Dashboard SQL Editor by Leonard (no CLI / psql / DB-url path; no Management API token). Catalog INSPECT (pg_catalog / information_schema) via temp SECURITY DEFINER RPC 3-step ritual (§D.18) — REST default exposes only `public` + `graphql_public`.
 
-### Supabase — route-first exact search RPC (S214 候選 / S215 實測已安裝)
+### Supabase — route-first exact search RPC (S214 候選 / S215 實測已安裝 / S219 本體已核實)
 - Base URL: 同上（`https://youkcekbrbywuqjxgibe.supabase.co`）
 - Version: PostgREST v12；函式 `public.match_wiki_chunks_routed`
 - Auth: anon key（與 `match_wiki_chunks` 相同；DDL 已 grant execute 予 `anon` 與 `authenticated`）
@@ -219,11 +219,11 @@
 - Response path: 與 `match_wiki_chunks` 相同的 TABLE 欄位（`id … score`）
 - Official docs: https://supabase.com/docs/guides/database/functions ; https://postgrest.org/en/stable/references/api/functions.html
 - Doc-reviewed: 2026-09-07 (Claude_20260907_1400)
-- Test-verified: 2026-09-07 (Claude_20260907_1400) — **零列探針**（`source_ids=[]`、`match_count=1`）回 `200 []`，證實函式**已存在於 live schema** 且四參數具名簽名相符。
+- Test-verified: 2026-09-08 (Claude_20260908_0800) — **S219 全本體 introspection**（Leonard 貼 DDL 建臨時 SECURITY DEFINER 函式，抽完即 DROP）：live 本體與 repo SQL **逐句相同**、只有一個 overload、`anon`／`authenticated`／`service_role` 三個角色各有 EXECUTE。取代 S215 的零列探針（`source_ids=[]`、`match_count=1` 回 `200 []`，當時只證得到函式存在與四參數具名簽名相符）。
 - Notes:
-  - ⚠️ **「已裝」不等於「與 repo SQL 相同」。** PostgREST 無法回傳函式本體，故 live 定義是否等同 `backend/supabase/schema.sql` / `s214_route_first_candidate.sql` **未經核實**。安裝者、安裝時間與授權記錄**皆無**。任何 DDL 之前必先按 PMS §D.18 的 SECURITY DEFINER 手法 INSPECT live 定義，不得憑此重做安裝。
+  - ✅ **【S219 結案，取代 S215–S218 那句「已裝但無法核實」】** live 本體已由 SECURITY DEFINER introspection 核實，與 `backend/supabase/schema.sql` / `s214_route_first_candidate.sql` **逐句相同**，且只有一個 overload，故同簽名 `create or replace` 無 PGRST203 風險。**但安裝者、安裝時間與授權記錄仍然皆無** —— 已核實的是「本體內容」，不是「誰在何時裝」。**紀律不變**：任何 DDL 之前仍必先按 PMS §D.18 的 SECURITY DEFINER 手法 INSPECT live 定義，不得憑此記載跳過（`schema.sql` 曾漂移成 `vector` 簽名並釀成 S116 的 PGRST203 生產事故）。
   - 呼叫方 `wikiRepository.searchWikiRoutedExact()` 由 `FEATURE_ROUTE_FIRST_SEARCH` 閘住，預設 `0`；失敗回退舊 ANN 路徑（fail open），並對 `57014` statement timeout 做最多三次限定重試。
-  - **線上部署的 build（`4a25a15`）對此函式引用次數為 0** —— 即函式雖在 schema，生產無任何路徑呼叫它。
+  - **【S220 更正】部署 build 對此函式的引用次數已不再是 0。** 原記載綁定的是 `4a25a15`（`git grep -c` 實測 **0** 命中，當時正確），該 build 早已不在生產。現時部署為 `3ebd11f`，`backend/src` 實測 **3 處**引用（`searchChannelB.ts` 2 ＋ `wikiRepository.ts` 1），HEAD 相同。**即呼叫點已在生產，只是被 `FEATURE_ROUTE_FIRST_SEARCH=0` 閘住不執行 —— 已部署 ≠ 已啟用，不要再以「build 無引用」當作它不可能被呼叫。**
   - S215 記錄：`searchWikiRoutedExact` 的 TypeScript 源碼為**反建版本**（原文於 `reset --hard` 事故中失去），由 `backend/dist` 反建後重新編譯，emit 與倖存 build **逐位元組一致**；行為等同已證，源碼排版非原文。
 
 ### Supabase — usage counter (S204, `backend/src/lib/usageCounter.ts`)
@@ -358,6 +358,7 @@ Project no longer uses MemPalace. Repo-local venv/config + `dev/mempalace_sync.p
 - `2026-04-10 (Codex_20260410_0015)` Backfilled the EdCity direct PDF URL and local evidence for `ict_sss_2021`, then added General Studies (`gs_pri_curr`) and Primary Humanities (`ph_pri_curr`) curriculum entries plus dedicated vault catalogues. This further extends the registry/vault evidence workspace without changing any current public JSON endpoint.
 - `2026-04-10 (Codex_20260410_0017)` Expanded the Primary Science (`pri_science`) family with the official 2025 curriculum-guide PDF link, six circular / memorandum child entries, and two teacher-development documents. Synced the same structure into `dev/vault/science_edu_curr_docs/catalogue.json` and recorded local-file evidence for `PSCG(2025).pdf`.
 - `2026-04-10 (Codex_20260410_0018)` Expanded `moral_civic_curr` with five core child entries for values education / moral and civic education documents and created `dev/vault/moral_civic_curr/catalogue.json`, preserving the same registry/vault pattern without changing any public JSON endpoint.
+- `2026-09-08 (Claude_20260908_1700)` Session 220: **修正本檔 route-first RPC block 兩處已被交接推翻的記載** —— (1) `Test-verified` 與 Notes 首項由 S215 的「本體未經核實」改寫為 S219 SECURITY DEFINER introspection 的實測結果（本體與 repo 逐句相同、單一 overload、三個角色各有 EXECUTE），保留「安裝者與授權無記錄」及 DDL 前必先 INSPECT 的紀律；(2)「線上部署 build 引用次數為 0」以 `git grep -c` 重測更正 —— 該數字綁定的 `4a25a15` 早已不在生產，現時部署 `3ebd11f` 實測 3 處引用，呼叫點已在生產而由 flag 閘住。同節另補回 `backend/README.md` 於 S215 `reset --hard` 事故中失去的 feature flag 說明（**重寫非還原**，該 5 行從未進過版本控制，commit `7ddafc7`）。零程式碼改動。
 - `2026-09-08 (Claude_20260908_0900)` Channel B overlay 改為啟動期背景暖機：`wikiRepository.preloadOverlayCaches()` ＋ `overlayCacheStatus()`、`searchChannelB.warmChannelBOverlays()`、`server.ts` 以不 await 方式呼叫（沿用 `initFactEmbeddingCache` 模式），`/health` 新增 `cache_b: {warm, footnote, spotlight}`。兩個 overlay 載入器加 in-flight 閘，防止暖機與首個請求各發一次同樣的 embedding 載入。同環境 A/B 實測：停用暖機時首個請求 **6,126ms**、其後 2,878／2,880ms；啟用後首個請求 **3,404ms**、其後 2,945／3,833ms —— 首請求罰時約 **3.2 秒已消除**。排序零改動（`regression:grounded` 48/48、`route_regression` 46/46）。
 - `2026-09-08 (Claude_20260908_0800)` 新增 `backend/scripts/routeFirstGold.ts`（in-process 全 gold before／after 量度，不起伺服器故繞開 `server.ts` 10/min 限流；逐次記錄 routed RPC 的 HTTP status，使 `searchChannelB.ts:1481` `catch {}` 造成的靜默退回不再與「flag 無影響」混為一談）與 `dev/_s219_score_before_after.py`（判分沿用 `_s213_run_gold.score_item`，不重寫第二套判分）。兩者皆唯讀，零生產碼改動。
 - `2026-04-10 (Codex_20260410_0020)` Added `backend/scripts/semanticRegression.ts` plus `npm run regression:semantic` to provide a reusable backend semantic regression harness. Offline regression now checks topic routing, role buckets, schema consistency, and real circular retrieval; online regression remains blocked until `OPENAI_API_KEY` is available.
