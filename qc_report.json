@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-07T16:56:42Z",
+  "generatedAt": "2026-09-08T15:44:35Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17610,
-    "PASS": 8,
+    "PASS": 7,
     "BLOCKER": 0,
     "ERROR": 4,
     "WARN": 9,
     "INFO": 1,
-    "NOT_MEASURED": 0
+    "NOT_MEASURED": 1
   },
   "version": "v3.3.2",
   "corpus": {
@@ -61,9 +61,11 @@
   },
   "releaseGate": {
     "status": "FAIL",
-    "summary": "7/15 項達標",
+    "summary": "5/15 項達標",
     "blocking": [
       "NO_ERROR_FAIL",
+      "NO_UNMEASURED",
+      "PASS_EVAL_CHUNK_LAYER",
       "WARNS_OWNED",
       "CORE_SEARCH_CASES",
       "ANSWER_FACT_SPOTCHECK",
@@ -91,8 +93,8 @@
         "id": "NO_UNMEASURED",
         "label": "沒有未量度項（或已明確列為 out-of-scope）",
         "kind": "auto",
-        "status": "MET",
-        "detail": "0 項"
+        "status": "NOT_MET",
+        "detail": "EVAL_CHUNK_LAYER"
       },
       {
         "id": "PASS_EVAL_LATEST",
@@ -105,8 +107,8 @@
         "id": "PASS_EVAL_CHUNK_LAYER",
         "label": "EVAL_CHUNK_LAYER 必須 PASS",
         "kind": "auto",
-        "status": "MET",
-        "detail": "PASS"
+        "status": "NOT_MET",
+        "detail": "NOT_MEASURED"
       },
       {
         "id": "PASS_ROUTE_REGRESSION",
@@ -187,7 +189,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=4a25a15 · 啟動於 2026-09-07T16:56:15.928Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=3ebd11f · 啟動於 2026-09-08T15:44:17.288Z · Channel A 快取 455 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -403,7 +405,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "measurable",
-      "detail": "2026-09-03 17:27 UTC · PASS=27 FAIL=0 RECORD_ONLY=12 errors=0 · 共 39 條 query",
+      "detail": "S219 route-first before/after, in-process, full active gold · PASS=None FAIL=0 RECORD_ONLY=None errors=0 · 共 None 條 query",
       "offenders": [],
       "offender_total": 0
     },
@@ -411,9 +413,9 @@
       "id": "EVAL_CHUNK_LAYER",
       "label": "檢索評測的片段層斷言（S212 新增）",
       "severity": "ERROR",
-      "status": "PASS",
+      "status": "NOT_MEASURED",
       "group": "measurable",
-      "detail": "chunk PASS=2 FAIL=0 · 斷言用文字簽名而非 chunk id（id 是 text 的 md5，每次重切都會變）",
+      "detail": "最近一次 run 由 S212 之前的 harness 產生，未記錄片段身分",
       "offenders": [],
       "offender_total": 0
     },
