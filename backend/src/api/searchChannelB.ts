@@ -16,6 +16,7 @@ import type { EmbedFn } from "../lib/embeddingClient.js";
 import {
   searchWiki,
   searchWikiRoutedExact,
+  preloadOverlayCaches,
   searchFootnotes,
   searchSpotlightSources,
   searchEstablishmentRows,
@@ -1395,6 +1396,16 @@ function applySupersedePenalty<T extends { source_id: string; score: number }>(r
     }
   }
   return results;
+}
+
+/**
+ * S219 — warm the Channel B overlay caches at startup instead of on the first search.
+ *
+ * Lives here rather than in wikiRepository because SPOTLIGHT_SOURCE_IDS is owned by this
+ * module; the repository must not reach up into the API layer for it.
+ */
+export async function warmChannelBOverlays(): Promise<void> {
+  await preloadOverlayCaches(SPOTLIGHT_SOURCE_IDS);
 }
 
 export async function searchChannelB(

@@ -17,13 +17,18 @@ import {
   type AnnotateDocumentRequest,
 } from "./api/annotateDocument.js";
 import { searchChannelA, type SearchChannelARequest } from "./api/searchChannelA.js";
-import { searchChannelB, type SearchChannelBRequest } from "./api/searchChannelB.js";
+import {
+  searchChannelB,
+  warmChannelBOverlays,
+  type SearchChannelBRequest,
+} from "./api/searchChannelB.js";
 import { PROBE_HEADER, readUsageTotals, recordSearch } from "./lib/usageCounter.js";
 import { searchCombined, type SearchCombinedRequest } from "./api/searchCombined.js";
 import { handleChunks, handleManifest } from "./api/channelBSync.js";
 import { getCorsOrigins, getPort, getJudgeModel } from "./config/env.js";
 import { createEmbeddingClient } from "./lib/embeddingClient.js";
 import { getCacheSize, initFactEmbeddingCache, isCacheWarm } from "./lib/factEmbeddingCache.js";
+import { overlayCacheStatus } from "./lib/wikiRepository.js";
 import { createLlmClient } from "./lib/llmClient.js";
 import type { AnalyzeCircularRequest } from "./types/knowledge.js";
 
@@ -169,6 +174,15 @@ initFactEmbeddingCache(embeddingClient).catch((err) => {
   console.error("[startup] Channel A cache init error:", err);
 });
 
+// S219 — same pattern for the Channel B overlays. Both the footnote and spotlight
+// passes load their corpus WITH embeddings on first use (measured 1.66s + 1.79s against
+// live), and the search handler awaits them in sequence — so before this every restart
+// made one unlucky user wait ~3.4s that nobody else pays. Non-blocking: a search arriving
+// mid-warm joins the same in-flight load rather than starting a second one.
+warmChannelBOverlays().catch((err) => {
+  console.error("[startup] Channel B overlay warm error:", err);
+});
+
 const server = createServer(async (req, res) => {
   // Handle CORS preflight requests from the browser
   if (req.method === "OPTIONS") {
@@ -185,6 +199,7 @@ const server = createServer(async (req, res) => {
       ok: true,
       service: "edb-knowledge-platform-backend",
       cache_a: { warm: isCacheWarm(), size: getCacheSize() },
+      cache_b: overlayCacheStatus(),
       // S211 — which build is actually serving. Nothing outside Render could tell before:
       // Render posts no deployment status to GitHub and this endpoint reported no version,
       // so "did my push land?" could only be answered by opening the dashboard (S200 hit

@@ -341,8 +341,22 @@ function parseVec(v: unknown): number[] {
   return [];
 }
 
+/** S219 — in-flight guard. The startup prewarm and a first user request can arrive
+ *  together; without this both issue the same embedding-bearing fetch (206 rows,
+ *  measured ~1.7s) and the cold start pays it twice. Cleared on settle so a failed
+ *  load is retried rather than cached as a rejection. */
+let _footnoteInFlight: Promise<Array<{ chunk: WikiChunk; embedding: number[] }>> | null = null;
+
 async function loadFootnoteChunks(): Promise<Array<{ chunk: WikiChunk; embedding: number[] }>> {
   if (_footnoteCache) return _footnoteCache;
+  if (_footnoteInFlight) return _footnoteInFlight;
+  _footnoteInFlight = fetchFootnoteChunks().finally(() => {
+    _footnoteInFlight = null;
+  });
+  return _footnoteInFlight;
+}
+
+async function fetchFootnoteChunks(): Promise<Array<{ chunk: WikiChunk; embedding: number[] }>> {
   const url =
     `${getSupabaseUrl()}/rest/v1/wiki_chunks?content_type=eq.footnote_curated` +
     `&select=id,hash,text,source_id,title,url,topic,content_type,fact_type,role,school_level,reference_year,embedding`;
@@ -424,11 +438,28 @@ let _spotlightCache: { key: string; rows: Array<{ chunk: WikiChunk; embedding: n
  *  cost and the cold-start payload if the id list is ever left to grow unpruned. */
 const SPOTLIGHT_CHUNK_CAP = 600;
 
+/** S219 — in-flight guard, keyed like the cache so a changed id-set starts a fresh load.
+ *  Same reason as the footnote one: prewarm and first request must not both pay the fetch. */
+let _spotlightInFlight: { key: string; p: Promise<Array<{ chunk: WikiChunk; embedding: number[] }>> } | null =
+  null;
+
 async function loadSpotlightChunks(
   sourceIds: string[]
 ): Promise<Array<{ chunk: WikiChunk; embedding: number[] }>> {
   const key = [...sourceIds].sort().join(",");
   if (_spotlightCache && _spotlightCache.key === key) return _spotlightCache.rows;
+  if (_spotlightInFlight && _spotlightInFlight.key === key) return _spotlightInFlight.p;
+  const p = fetchSpotlightChunks(sourceIds, key).finally(() => {
+    if (_spotlightInFlight && _spotlightInFlight.key === key) _spotlightInFlight = null;
+  });
+  _spotlightInFlight = { key, p };
+  return p;
+}
+
+async function fetchSpotlightChunks(
+  sourceIds: string[],
+  key: string
+): Promise<Array<{ chunk: WikiChunk; embedding: number[] }>> {
   const url =
     `${getSupabaseUrl()}/rest/v1/wiki_chunks?source_id=in.(${encodeURIComponent(sourceIds.join(","))})` +
     `&select=id,hash,text,source_id,title,url,topic,content_type,fact_type,role,school_level,reference_year,embedding` +
@@ -516,9 +547,51 @@ export async function searchEstablishmentRows(
   return rows.map((chunk) => ({ chunk, score: 1, channel: "B" as const }));
 }
 
+/**
+ * S219 — preload both Channel B overlay caches off the request path.
+ *
+ * WHY: `searchFootnotes` and `searchSpotlightSources` each load their whole corpus WITH
+ * embeddings on first use — measured 1.66s (206 rows) and 1.79s (267 rows) against live.
+ * Both are awaited in sequence inside the search handler, so before this the first user
+ * request after every restart paid ~3.4s that no later request pays. Server startup calls
+ * this without awaiting, exactly like `initFactEmbeddingCache`.
+ *
+ * This moves the cost off the user-visible path; it does not reduce it. The cost is the
+ * embedding payload itself (measured ~16ms per row shipped as JSON text), which no index
+ * can help — removing it needs server-side similarity, i.e. a new RPC.
+ *
+ * Best-effort by contract: a failure here must leave the lazy path untouched, so the caller
+ * swallows the rejection and the next search loads normally.
+ */
+export async function preloadOverlayCaches(spotlightSourceIds: string[]): Promise<void> {
+  await Promise.all([
+    // footnoteInformativeBigrams() also forces the footnote corpus, and is itself a
+    // first-use cost (one pass over 206 chunk texts) the first request would otherwise pay.
+    footnoteInformativeBigrams(),
+    spotlightSourceIds.length > 0 ? loadSpotlightChunks(spotlightSourceIds) : Promise.resolve([]),
+  ]);
+}
+
+/** S219 — overlay cache state for /health, mirroring `cache_a`. */
+export function overlayCacheStatus(): {
+  warm: boolean;
+  footnote: number | null;
+  spotlight: number | null;
+} {
+  return {
+    warm: _footnoteCache !== null && _spotlightCache !== null,
+    footnote: _footnoteCache ? _footnoteCache.length : null,
+    spotlight: _spotlightCache ? _spotlightCache.rows.length : null,
+  };
+}
+
 export function invalidateWikiCache(): void {
   _footnoteCache = null;
   _spotlightCache = null;
+  // S219 — an in-flight load started before invalidation would otherwise repopulate
+  // the cache with pre-invalidation rows the moment it settles.
+  _footnoteInFlight = null;
+  _spotlightInFlight = null;
   // S196 — derived from _footnoteCache, so it must not outlive it.
   _footnoteInformativeCache = null;
 }
