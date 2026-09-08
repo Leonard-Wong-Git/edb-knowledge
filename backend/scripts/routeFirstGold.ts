@@ -32,8 +32,14 @@ import { searchChannelB } from '../src/api/searchChannelB.js';
 const SUPABASE_HOST = 'youkcekbrbywuqjxgibe.supabase.co';
 const OPENAI_HOST = 'api.openai.com';
 const GOLD = '../dev/_s213_gold_all.json';
-const OUT = '../dev/source/eval_runs/2026-09-08_s219_route_first_before_after.jsonl';
-const META = '../dev/source/eval_runs/2026-09-08_s219_route_first_before_after.meta.json';
+// S220 — output paths were hardcoded to the S219 filenames, so a re-run silently
+// OVERWROTE the previous session's evidence. Label them instead.
+const labelIdx = process.argv.indexOf('--label');
+const RUN_LABEL = labelIdx > -1 ? process.argv[labelIdx + 1] : 's220';
+const RUN_DATE = new Date().toISOString().slice(0, 10);
+const BASE = `../dev/source/eval_runs/${RUN_DATE}_${RUN_LABEL}_route_first_before_after`;
+const OUT = `${BASE}.jsonl`;
+const META = `${BASE}.meta.json`;
 
 // Budgets sized for 185 items x 2 sides. Exceeding either is a bug, not a slow run.
 // Measured 1-2 embeddings per item (the expanded query is a second distinct string),
@@ -70,6 +76,17 @@ const startedAt = new Date().toISOString();
  */
 let routedCalls: Array<{ status: number | null; ms: number; error?: string }> = [];
 
+/**
+ * S220 — the full-corpus RPC is now the thing the flag is supposed to AVOID, so
+ * it has to be measured too. Before the ordering fix both sides always called it,
+ * which is why S219 only needed the routed side. Recording both lets the run show
+ * (a) that flag ON calls the expensive RPC zero times, and (b) how many individual
+ * calls exceed 3000ms — anon's real statement_timeout. That count is a DIRECT
+ * measure of the production failure rate, replacing S219's projection from an 8s
+ * ceiling, which systematically understates it.
+ */
+let mainCalls: Array<{ status: number | null; ms: number; error?: string }> = [];
+
 const nativeFetch = globalThis.fetch;
 globalThis.fetch = async (input: any, init?: any) => {
   const url = new URL(String(typeof input === 'string' ? input : input.url));
@@ -78,6 +95,7 @@ globalThis.fetch = async (input: any, init?: any) => {
   }
   if (++requestCalls > REQUEST_BUDGET) throw new Error('Request budget exhausted');
   const routed = url.pathname.endsWith('/match_wiki_chunks_routed');
+  const mainRpc = url.pathname.endsWith('/match_wiki_chunks');
   const t0 = performance.now();
   try {
     const response = await nativeFetch(input, {
@@ -98,6 +116,13 @@ globalThis.fetch = async (input: any, init?: any) => {
       }
       routedCalls.push(call);
     }
+    if (mainRpc) {
+      const call: any = { status: response.status, ms: Math.round(performance.now() - t0) };
+      if (response.status !== 200) {
+        try { call.body = (await response.clone().text()).slice(0, 300); } catch { call.body = '<unreadable>'; }
+      }
+      mainCalls.push(call);
+    }
     return response;
   } catch (e) {
     if (routed) {
@@ -106,6 +131,9 @@ globalThis.fetch = async (input: any, init?: any) => {
         ms: Math.round(performance.now() - t0),
         error: String(e),
       });
+    }
+    if (mainRpc) {
+      mainCalls.push({ status: null, ms: Math.round(performance.now() - t0), error: String(e) });
     }
     throw e;
   }
@@ -157,7 +185,9 @@ const writeMeta = (status: string, error?: string) =>
     META,
     JSON.stringify(
       {
-        label: 'S219 route-first before/after, in-process, full active gold',
+        label: `${RUN_LABEL} route-first before/after, in-process, full active gold`,
+        ordering_fix: 'S220 - flag ON now REPLACES the full search instead of running after it',
+        measurement_key: 'SUPABASE_ANON_KEY falls back to SERVICE key: 8s ceiling, NOT anon 3s. Count calls >3000ms for the production figure.',
         mode: 'in-process searchChannelB (no HTTP server, no rate limiter)',
         flag: 'FEATURE_ROUTE_FIRST_SEARCH',
         embedding_model: 'text-embedding-3-small',
@@ -186,6 +216,7 @@ try {
     for (const mode of ['before', 'after'] as const) {
       process.env.FEATURE_ROUTE_FIRST_SEARCH = mode === 'after' ? '1' : '0';
       routedCalls = [];
+      mainCalls = [];
       const t0 = performance.now();
       try {
         const resp = await searchChannelB({ query: g.query, synthesize: false }, embed);
@@ -196,6 +227,7 @@ try {
       }
       row[`${mode}_ms`] = Math.round(performance.now() - t0);
       row[`${mode}_routed_calls`] = routedCalls;
+      row[`${mode}_main_calls`] = mainCalls;
     }
     out.write(JSON.stringify(row) + '\n');
     done++;
