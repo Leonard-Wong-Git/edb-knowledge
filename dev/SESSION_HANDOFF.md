@@ -49,6 +49,8 @@ QC（S215 收工實測）：`npm check`／`build` exit 0 · `regression:grounded
 
 **S219 修復落地：Channel B overlay 改為啟動期背景暖機，首請求罰時約 3.2 秒已消除。** 改動三個檔（`backend/src/lib/wikiRepository.ts`／`backend/src/api/searchChannelB.ts`／`backend/src/server.ts`，共 +100/-1 行），沿用 `initFactEmbeddingCache` 既有的「不 await 背景暖機」模式，並為兩個 overlay 載入器加 **in-flight 閘**（否則暖機與首個請求會各發一次同樣的 embedding 載入，冷啟動成本不減反增）。`/health` 新增 `cache_b: {warm, footnote, spotlight}`。**同環境 A/B 實測**（本機後端連 live Supabase，臨時開關停用暖機後量度，量完即移除該開關）：停用暖機時首個請求 **6,126ms**、其後 2,878／2,880ms；啟用後暖機於啟動 **2.46 秒**完成（`cache_b` 206／267），首個請求 **3,404ms**、其後 2,945／3,833ms。**排序零改動已以回歸證明**：`regression:grounded` **48/48**、`route_regression` **46/46**、`npm run check`／`npm run build` 皆 exit 0。**注意這是把成本移離用戶路徑，不是減少總成本** —— 每次程序啟動仍要付那 3.45 秒，只是付在沒有人等的時候。**未部署、未 push。**
 
+**S219 已 push 並部署（Leonard 批准）。** 兩個 commit：`597b0d8`（量度工具與證據）、`3ebd11f`（overlay 暖機修復與文件）。push 前 `git fetch` 實測 bot 本輪未推、分歧 0/0，不需 rebase。Render 自動部署，第三次輪詢（啟動後約 25 秒）讀到 `commit` **`3ebd11f`**、`started_at` 2026-09-08T10:04:14Z、**`cache_b` `{warm:true, footnote:206, spotlight:267}`** —— 暖機在生產環境確認運作。生產煙霧測試：`channel-a` 50 條 · `channel-b` **連續 4 次全部 total=8**（top1 `k1_admission_2627` 的 `footnote_fn_k1_appfee`）· `combined` 58 條（a 50＋b 8，top1 0.738）。⚠️ **一次未能解釋的觀察**：煙霧測試第一輪的 `channel-b` 回應缺少 `total`／`results` 兩個鍵，**當時未保存 response body，故成因無法證明**（與 S217 同一個錯誤，不當作已解釋）；其後四次全部正常且 shape 一致。**🆕 `RENDER_GIT_COMMIT` 之謎有新證據（仍未定論）**：本次是 S214 以來第一個真正改動 `backend/` 的 push，`/health` 的 `commit` **隨即更新為新 hash**；而 S217／S218 那幾個純文件 commit 則一直停在 `612e13e`。**假說**：Render 只在真正 rebuild 時更新該環境變數，純文件 commit 只造成重啟（`started_at` 會變）而不 rebuild，故沿用舊值。**未查證 Render 的 build filter 設定，不得當作已解。**
+
 <!-- ack:section:risks-blockers -->
 ## Risks / Blockers
 
