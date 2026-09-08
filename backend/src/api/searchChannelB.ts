@@ -1464,34 +1464,53 @@ export async function searchChannelB(
     sourceIds && sourceIds.length <= 1 ? undefined : Math.max(2, Math.ceil(top_k / 3));
 
   const embeddingQueryVec = await embedFn(embeddingQuery);
-  let rawResults = await searchWiki(embeddingQuery, embedFn, {
+  const searchOpts = {
     minScore: effectiveMinScore,
     topK: top_k,
     queryVec: embeddingQueryVec,
     ...(topic ? { topic } : {}),
     ...(content_type ? { contentType: content_type } : {}),
-    ...(sourceIds ? { sourceIds } : {}),
     ...(maxPerSource ? { maxPerSource } : {}),
-  });
+  };
 
-  // S214 Phase B candidate: filter to the detected route before exact vector ranking.
+  // S214 Phase B candidate: filter to the detected route BEFORE exact vector ranking.
   // The separately named RPC avoids the historical PostgREST overload failure. This is
   // opt-in and best-effort until the full gold before/after gate passes.
-  if (process.env.FEATURE_ROUTE_FIRST_SEARCH === "1" && sourceIds) {
+  //
+  // S220 — the ordering here was inverted against its own name and comment. The full
+  // corpus ANN search ran unconditionally FIRST and the routed search ran AFTER it,
+  // overwriting the result: a routed query paid for BOTH and threw the expensive half
+  // away. Measured 2026-09-08: full-corpus match_wiki_chunks 2.96-5.29s versus routed
+  // exact 0.45-1.03s, so the flag ADDED roughly three seconds to ~69% of gold queries
+  // rather than removing them. That, not a system-wide shortage of headroom, is what
+  // S219 measured as an 11.1% failure rate at the 8s service_role ceiling and projected
+  // as 26.4% against anon's real 3s statement_timeout.
+  //
+  // Two invariants this must preserve, in order of importance:
+  //   1. Flag OFF is unchanged. routeFirst is false, rawResults stays empty, and the
+  //      full search runs exactly as before with the same options object.
+  //   2. Fail open. A routed search that throws OR returns nothing falls through to the
+  //      full search, so the candidate path can never leave Channel B worse off.
+  const routeFirst = process.env.FEATURE_ROUTE_FIRST_SEARCH === "1" && !!sourceIds;
+  let rawResults: Awaited<ReturnType<typeof searchWiki>> = [];
+
+  if (routeFirst && sourceIds) {
     try {
-      const routedResults = await searchWikiRoutedExact(embeddingQuery, embedFn, {
-        minScore: effectiveMinScore,
-        topK: top_k,
-        queryVec: embeddingQueryVec,
-        ...(topic ? { topic } : {}),
-        ...(content_type ? { contentType: content_type } : {}),
+      rawResults = await searchWikiRoutedExact(embeddingQuery, embedFn, {
+        ...searchOpts,
         sourceIds,
-        ...(maxPerSource ? { maxPerSource } : {}),
       });
-      if (routedResults.length > 0) rawResults = routedResults;
     } catch {
       // Candidate failure must not degrade the established Channel B path.
+      rawResults = [];
     }
+  }
+
+  if (rawResults.length === 0) {
+    rawResults = await searchWiki(embeddingQuery, embedFn, {
+      ...searchOpts,
+      ...(sourceIds ? { sourceIds } : {}),
+    });
   }
 
   let results = rawResults.map(toChannelBResult).filter(retiredMirrorFilter);
