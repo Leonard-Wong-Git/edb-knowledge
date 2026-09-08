@@ -16,13 +16,12 @@
 <!-- ack:section:current-baseline -->
 ## Current Baseline
 
-1. 平台 **v3.3.2**；Supabase **17,610**；`source_registry` **281**；`guidelines.json` `_meta` **2.6.1**；`knowledge.json` **2.3.0** · facts **455**；凍結合約零接觸。（**S218 起手探針再次全部實測相符**：served `app.html` PLATFORM_VERSION 3.3.2、Render `/health` `ok:true` warm 455、Supabase live count 17,610、`source_registry.json` 281、`guidelines.json` `_meta` 2.6.1。）
-2. **【S218 更新】git 收斂維持；Render 報的部署 commit 落後屬已知現象，不是漂移。** `HEAD == origin/main == **f3ca973**`（S218 收工 commit，已 push），分歧 **0/0**，工作區乾淨。**判斷準則不是比 hash** —— 治理／持久化 commit 會令 HEAD 不斷前進而生產行為不變；要判斷「線上是否落後」，看 `git diff --name-only <部署commit>..HEAD -- backend app.html` 是否為 **0**。`612e13e..f3ca973` 只有三個純治理／持久化 commit（`72b5adb`、`0f8a7c9` 屬 S217，`f3ca973` 屬 S218 收工），**兩者對 `backend/` 與 `app.html` 零檔案改動**（S218 實測 `git diff --name-only 612e13e..HEAD -- backend app.html` = **0**）。Render `/health` 仍報 `commit` `612e13e`（`started_at` 2026-09-08T06:58:08Z，服務今晨重啟過），**故生產跑的執行碼與 `612e13e` 那次部署相同**；`RENDER_GIT_COMMIT` 不隨新 commit 更新的成因仍**未查證**。S217 記的 `612e13e` 為 HEAD 已過時，作為部署 commit 仍準確。
-3. S214 候選全套現為 commit **`4fc2bab`**（rebase 後，內容與 `744a8dc` 逐位元組相同），**已在生產環境**；`FEATURE_EXACT_WINDOW_NARROW` / `FEATURE_GROUNDED_SYNTHESIS` / `FEATURE_ROUTE_FIRST_SEARCH` 三者在 Render 未設環境變數、**仍全部 off**。**產品 verdict 仍為 FAIL**。**【S219 更新】185 題 before／after 已首次跑完**（見 `## Validation / QC` S219 兩段）：`FEATURE_ROUTE_FIRST_SEARCH` 檢索準確度**每個 k 都有淨改善**（Recall@1 71→73、@3 99→103、@5 113→116），四條 PASS→FAIL 全部是 rank 7、在合成窗（前 5）之外故答案層面無影響；**但它的既定目的（修 OP③ 三題）未達成**，且 10/185 付出 routed RPC 失敗延遲，S214 要求的重複穩定性未做。合成側兩個 flag（`FEATURE_GROUNDED_SYNTHESIS`／`FEATURE_EXACT_WINDOW_NARROW`）這套 harness **量不到** —— 它送 `synthesize:false`，兩者只在 `synthesizeAnswer()` 內生效，要另跑 grounded harness（外部模型批次，需另行批准）。**本節仍未啟用任何 flag。已部署 ≠ 已啟用。**
-4. 🔴 **【S217 逐檔核對，重要】「三個 flag 全 off」≠「零行為改動」。** S214 的 establishment 路徑改動**沒有任何 flag 保護**，已在生產生效。觸發條件窄：`detectedCategory === "staffing"` **且** query 含「N 班」（1–2 位數），`ESTABLISHMENT_SOURCE_IDS` 現時只有 `staff_est_pri`。三處實際差異：(a) `estLead` 移除了 `!seenIds.has(r.id)` 過濾 → ANN 已撈到同一 chunk 時，精確列現在仍會置頂；(b) 插入方式由「插在 forced prefix 之後」改為「置頂並濾走**整個** establishment 來源的其他列」→ 同一份編制表其他班數的列不再與正確列並存；(c) `trustedVaultLead` 的判斷來源由 `results[forcedLeads]`（overlay 後）改為 `mainSearchLead`（overlay 前）—— 此項技術上覆蓋所有合成呼叫，但無 overlay 觸發時兩者取同一項。**其餘執行碼確認零行為改動**：`llmClient.ts` 新參數為 optional 且舊呼叫端不傳、`groundedSynthesis.ts` 全新檔只在 flag 開時執行、`wikiRepository.ts` 的 `queryVec` optional／`searchWikiRoutedExact` 受 flag 保護、合成窗收窄受 flag 保護並 fallback 回 `defaultWindow`。
-5. **（指針）** `match_wiki_chunks_routed` 的安裝狀態與來歷限制 → `## Risks / Blockers` 第 2 項；S215 收工 QC 實測結果 → `## Validation / QC`。
+1. 平台 **v3.3.2**；Supabase **17,610**；`source_registry` **281**；`guidelines.json` `_meta` **2.6.1**；`knowledge.json` **2.3.0** · facts **455**；凍結合約零接觸。（S219 起手探針五項全部實測相符。）
+2. **【S219】`HEAD == origin/main == a246f77`**，分歧 **0/0**，工作區乾淨。**生產部署為 `3ebd11f`**（`started_at` 2026-09-08T10:04:14Z，`cache_a` warm 455、**`cache_b` warm 206/267**）。判斷線上是否落後**看 `git diff --name-only <部署commit>..HEAD -- backend app.html` 是否為 0，不要比 hash** —— 治理／持久化 commit 會令 HEAD 不斷前進而生產行為不變。
+3. **【S219 更新】185 題閘已首次跑完，三個 flag 仍全部 off，產品 verdict 仍 FAIL。** `FEATURE_ROUTE_FIRST_SEARCH` 檢索準確度每個 k 皆淨改善（Recall@1 71→73、@3 99→103、@5 113→116），但 **(a)** 它修不到當初為之而建的 OP③ 三題、**(b)** `anon` 角色 `statement_timeout` 實為 **3 秒**，推算生產失敗率 **26.4%** → **不建議啟用**。合成側兩個 flag（`FEATURE_GROUNDED_SYNTHESIS`／`FEATURE_EXACT_WINDOW_NARROW`）該 harness **量不到**（送 `synthesize:false`），要另跑 grounded harness（外部模型批次，需另行批准）。**已部署 ≠ 已啟用。**
+4. 🔴 **【S217 逐檔核對，仍成立】「三個 flag 全 off」≠「零行為改動」。** S214 的 establishment 路徑改動**沒有任何 flag 保護**，已在生產生效。觸發條件窄：`detectedCategory === "staffing"` **且** query 含「N 班」（1–2 位數），`ESTABLISHMENT_SOURCE_IDS` 現時只有 `staff_est_pri`。三處實際差異：(a) `estLead` 移除了 `!seenIds.has(r.id)` 過濾；(b) 置頂並濾走**整個** establishment 來源的其他列；(c) `trustedVaultLead` 判斷來源由 overlay 後改為 overlay 前。其餘執行碼確認零行為改動。
+5. **【S219 新增】成本模型（實測，取代先前「全表掃描很貴」的錯誤假設）**：不碰 `embedding` 欄的全表掃描等同網絡地板（242ms vs 240ms 地板）；帶 `embedding` 則約 **16ms／列**。**成本在逐列處理 embedding，不在掃描。** 故主搜尋 2–3 秒、overlay 1.6–1.8 秒皆由 embedding 造成，索引幫不到。`total_size` 363 MB > `shared_buffers` 224 MB。
 6. S212–S214 的完整基線敘述與舊 Open Priorities 全文已移至下方 `## Detail Archive (S212–S214)`，**一字未刪**。
-
 
 <!-- ack:section:validation-qc -->
 ## Validation / QC
@@ -39,25 +38,24 @@ QC（S215 收工實測）：`npm check`／`build` exit 0 · `regression:grounded
 
 **S218（起手探針節）**：**零程式碼改動、零 QC 重跑。** 本節只做起手探針五項，全部實測：served `app.html` **3.3.2** · Render `/health` **`ok:true` warm 455 commit `612e13e`** · Supabase `wiki_chunks` **17,610**（service key `count=exact`）· `source_registry` **281** · `git fetch` 後 `HEAD == origin/main == 0f8a7c9`、分歧 **0/0**、工作區乾淨。**S217 的產品側 QC 數值（`regression:grounded` 48/48、`route_regression` 46/46、`npm check`／`build` exit 0、active gold 185）本節未重跑，亦未失效** —— 綁定的 commit 與檔案本節一字未改。`agent-handoff-kit doctor` 本節同樣跑不到（CLI 仍不在 PATH，狀況同 S217），**列為未驗證，不當通過**。`qc_report.json` overall **ERROR** 未處理，狀態同 S215–S217。**未跑：185 題 live 套件。**
 
-**S219（185 題閘節 —— 本專案第一次真正跑完這道閘）**：Leonard 批准後跑了兩套 185 題。**(1) 生產側 flags-off**（`dev/source/eval_runs/2026-09-08_s219_gold_prod_flags_off.json`）：PASS **117**／FAIL 43／**ERROR 8**，對 09-04 部署前那套（PASS 120／FAIL 44／ERROR 0）182 條共有題只有 10 條變動。**(2) route-first before／after**（in-process，`..._route_first_before.json`／`..._after.json`，raw 見同名 `.jsonl`）：before PASS 122 → after PASS 123；5 條 FAIL→PASS、4 條 PASS→FAIL。**方法學控制組成立**：56 條「無路由」題（flag 物理上無法生效）全部 before ≡ after，噪音底線 **0**，故每條變化均可歸因於該 flag。**四條「退步」全部是 rank 7 → 消失，而合成窗只取前 5（`searchChannelB.ts:962`），故答案層面影響為零**；五條改善為 None → 0／0／1／4／5。Source Recall@1 71→**73**、@3 99→**103**、@5 113→**116**、@8 122→123。**但 flag 的既定目的未達成** —— OP③ 三題目標片段 chunk rank 開掣前後不變（`hr_lsp` 0→0、另外兩題 None→None）。**路由健康度（after 側）**：routed 119／partial 9／silent-fallback 1／no-route 56，即 **10/185（5.4%）付出了 routed RPC 失敗的額外延遲**。S214 驗收條件中的「重複穩定性至少兩次」本節未做。**結論：本節未啟用任何 flag。**
+**S219（185 題閘 ＋ 根因調查 ＋ 修復落地節）**：本節**唯一改動生產碼的是 overlay 暖機**（三個檔 +100/−1 行），已 push 並部署。完整逐項證據見 `dev/SESSION_LOG.md` S219 條；此處只留結論。
 
-**S219 追加：`57014` statement timeout 是本節最重要的發現，且與三個 flag 全部無關。** 生產側 8 條 ERROR 全屬此碼。三輪定向重跑（每輪 9 題）後分層：**持續壞** `dig_edb_cloud_guideline_na` 3/3、`cur_eight_kla` 3/3；**閃爍** `cur_eng_guide_2007_missing` 2/3；**其餘 5 條在輕負載下 3/3 恢復**，即 Run A 那 8 條有一半是我自己 185 題持續負載所誘發。**`staff_fullday_12` 經重跑 3/3 PASS 且 src rank 0**（09-04 為 rank 2），故先前「疑似被 establishment 改動弄壞」的推測**已推翻**。**【S219 二次更正】當時改提的機制（`searchChannelB.ts:1665` 的 `catch {}` 吞掉 `searchEstablishmentRows()` 超時）亦不成立** —— 後續實測該查詢只需約 338ms（等同網絡地板，服務端執行接近零，因為它不取 `embedding` 欄），以 anon 的 3 秒上限計算不可能是超時。`catch {}` 會靜默吞錯是**程式碼事實**，但它是否為 Run A 那一次失敗的成因**仍未查明**，不得當作已解釋。**未查證**：為何 09-04 同樣 184 題節奏卻 0 error 而今日 8 error（假說為 09-05 bot 入庫後語料變大令帶過濾的向量查詢越過 statement timeout，未證）。
-
-**S219 根因調查：`57014` 的成因已量到，且與語料大小無關。** 直接對 live RPC 實測（繞過後端，54 次 `match_wiki_chunks` 呼叫）：**零超時**，中位 2.4–3.8 秒。由 Run B 的 144 次 routed RPC 儀測反推，**statement timeout = 8 秒**（16 次失敗有 15 次密集落在 8308–9503ms，下限 8308ms）。**兩項結構性發現：** (1) `s214_route_first_candidate.sql` 內 `set local enable_indexscan/bitmapscan = off` 強制全表 seq scan；該段註釋以「route 子集有界（最大約 3,500 條）」為理由，但**限制子集大小並不限制掃描範圍** —— 掃描讀的是全部 17,610 列。實測證實成本不隨子集大小變化：`finance`（34 chunks）458ms、`staffing`（1,415 chunks）560ms、`activity`（54 chunks）8304ms 兩次 57014。(2) **`schema.sql` 只有 ivfflat 向量索引，`source_id` 完全沒有索引** —— 故即使不 disable index scan，`where source_id = any(...)` 一樣只能 seq scan；`wikiRepository.ts:433/506` 那幾條 `source_id=in.(...)` PostgREST 查詢同樣受影響。**主路徑亦無餘裕**：`match_wiki_chunks` 走 ivfflat 索引仍需 2–3.4 秒，對 8 秒上限只有約 2.5 倍餘裕，所以 Run A 的持續負載會產生 8 條超時而輕負載只有 2 條。**⚠️ 以上全部依據 repo SQL，未經 live introspection** —— 依 playbook `inspect-live-infra-before-ddl`（S116 PGRST203 事故），repo schema 是意圖不是現況，任何 DDL 前必須先用 SECURITY DEFINER ritual 抽 live 定義核實。**本節零 DDL。**
-
-**S219 成本模型已實測改正 —— 先前「全表掃描很貴」的假設是錯的，據此提出的兩個索引無法證明有效。** Live introspection（SECURITY DEFINER ritual，抽完即 DROP）核實：**`anon` 角色 `statement_timeout = 3s`**（`authenticated` 8s、`service_role` 無設定取預設 8s）—— 本節所有 in-process 量度都用 service key，即在 8 秒上限之下量度一個實際只有 3 秒上限的系統，故 route-first 的 11.1% 失敗率**低估**，扣除 308ms 網絡開銷後推算 production 為 **26.4%**（未實測，屬推算）。**兩支 `match_wiki_chunks*` 的 live 本體與 repo 逐句相同、各只有一個 overload、`anon` 對表只有 SELECT** → **`## Risks / Blockers` 第 2 項可結案**。索引核實：live 只有 `wiki_chunks_pkey`(btree id) 與 `wiki_chunks_embedding_idx`(ivfflat lists=60)；`vector` 擴充 **0.8.0（HNSW 可用）**、`pg_trgm` **未安裝**；`total_size` **363 MB > shared_buffers 224 MB**。**成本歸屬實測（本節最重要的方法學結果）**：由本機量到網絡地板約 **240ms**；`select=id` 全表掃 17,610 列 **242ms（等於地板，服務端掃描成本近乎零）**；`select=id,embedding` 取 **50 列即 1,042ms**（約 16ms／列）。**結論：成本在「逐列處理 embedding」，不在掃描。** 故 footnote(206 列)／spotlight(267 列) 兩個 overlay 的 1.6–1.8 秒是**傳輸與序列化 embedding**，任何索引都幫不到；establishment 查詢約 338ms 等同地板。**已建的兩個索引（`wiki_chunks_source_id_idx`／`wiki_chunks_content_type_idx`，Leonard 2026-09-08 執行）before/after 對照無法證明有效** —— 對照組（`match_wiki_chunks` RPC，物理上不受索引影響）同時變慢 53%，該輪量度不可信；改用交錯配對設計後，有索引與無索引欄位皆約 250–276ms，差異被網絡地板淹沒。**本機量不到低於約 250ms 的服務端差異，要定論須用 `EXPLAIN (ANALYZE, BUFFERS)`（另一次 SECURITY DEFINER ritual）或由 Render 後端內部計時。** 兩個索引各約 0.5 MB、無害，現予保留但**不得記為已修好任何事**。
-
-**S219 修復落地：Channel B overlay 改為啟動期背景暖機，首請求罰時約 3.2 秒已消除。** 改動三個檔（`backend/src/lib/wikiRepository.ts`／`backend/src/api/searchChannelB.ts`／`backend/src/server.ts`，共 +100/-1 行），沿用 `initFactEmbeddingCache` 既有的「不 await 背景暖機」模式，並為兩個 overlay 載入器加 **in-flight 閘**（否則暖機與首個請求會各發一次同樣的 embedding 載入，冷啟動成本不減反增）。`/health` 新增 `cache_b: {warm, footnote, spotlight}`。**同環境 A/B 實測**（本機後端連 live Supabase，臨時開關停用暖機後量度，量完即移除該開關）：停用暖機時首個請求 **6,126ms**、其後 2,878／2,880ms；啟用後暖機於啟動 **2.46 秒**完成（`cache_b` 206／267），首個請求 **3,404ms**、其後 2,945／3,833ms。**排序零改動已以回歸證明**：`regression:grounded` **48/48**、`route_regression` **46/46**、`npm run check`／`npm run build` 皆 exit 0。**注意這是把成本移離用戶路徑，不是減少總成本** —— 每次程序啟動仍要付那 3.45 秒，只是付在沒有人等的時候。**未部署、未 push。**
-
-**S219 已 push 並部署（Leonard 批准）。** 兩個 commit：`597b0d8`（量度工具與證據）、`3ebd11f`（overlay 暖機修復與文件）。push 前 `git fetch` 實測 bot 本輪未推、分歧 0/0，不需 rebase。Render 自動部署，第三次輪詢（啟動後約 25 秒）讀到 `commit` **`3ebd11f`**、`started_at` 2026-09-08T10:04:14Z、**`cache_b` `{warm:true, footnote:206, spotlight:267}`** —— 暖機在生產環境確認運作。生產煙霧測試：`channel-a` 50 條 · `channel-b` **連續 4 次全部 total=8**（top1 `k1_admission_2627` 的 `footnote_fn_k1_appfee`）· `combined` 58 條（a 50＋b 8，top1 0.738）。⚠️ **一次未能解釋的觀察**：煙霧測試第一輪的 `channel-b` 回應缺少 `total`／`results` 兩個鍵，**當時未保存 response body，故成因無法證明**（與 S217 同一個錯誤，不當作已解釋）；其後四次全部正常且 shape 一致。**🆕 `RENDER_GIT_COMMIT` 之謎有新證據（仍未定論）**：本次是 S214 以來第一個真正改動 `backend/` 的 push，`/health` 的 `commit` **隨即更新為新 hash**；而 S217／S218 那幾個純文件 commit 則一直停在 `612e13e`。**假說**：Render 只在真正 rebuild 時更新該環境變數，純文件 commit 只造成重啟（`started_at` 會變）而不 rebuild，故沿用舊值。**未查證 Render 的 build filter 設定，不得當作已解。**
+- **QC 全綠**：`npm run check` 0 · `npm run build` 0 · `regression:grounded` **48/48** · `route_regression` **46/46**。暖機只改載入時機不改分數，回歸全綠即排序零改動的證明。
+- **185 題閘（首次跑完）**：生產 flags-off PASS **117**／FAIL 43／**ERROR 8**（對 09-04 部署前 PASS 120／FAIL 44／ERROR 0，182 條共有題只有 10 條變動）。route-first before/after：before PASS 122 → after **123**，5 條 FAIL→PASS、4 條 PASS→FAIL（四條全部 rank 7、在合成窗前 5 之外，答案層面無影響）。**56 條無路由題 before ≡ after → 噪音底線 0**，故所有變化可歸因於 flag。
+- **暖機修復實測（同環境 A/B）**：停用暖機首請求 **6,126ms**（其後 2,878／2,880）；啟用後暖機於啟動 2.46 秒完成，首請求 **3,404ms**（其後 2,945／3,833）。生產 `/health` 已見 `cache_b {warm:true, footnote:206, spotlight:267}`。
+- **生產煙霧測試**：`channel-a` 50 · `channel-b` 連續 4 次 total=8 · `combined` 58（a50+b8）。⚠️ 首輪一次 `channel-b` 回應缺 `total`／`results` 兩鍵，**未保存 body，成因無法證明**（與 S217 同一錯誤，不當已解釋）。
+- **`agent-handoff-kit doctor` 本節跑得到，53 項全部通過（`status: passed`），prompt mirror 一致。** **⚠️ 更正一個延續三節的錯誤**：S217／S218 以及本節較早前都以**未加 scope 的 `agent-handoff-kit`** 去找，那個名字在 npm 確實 404；正確名字是 **`@adamchanadam/agent-handoff-kit`**，而 `dev/PROJECT_INDEX.md` 第 155 行**一直記著**。**教訓：宣告一個工具「取不到」之前，先查 PROJECT_INDEX 有沒有記著它的正確叫法。** `qc_report.json` overall ERROR 未處理，狀態同 S215–S218。**未跑：合成側 grounded harness。**
 
 <!-- ack:section:risks-blockers -->
 ## Risks / Blockers
 
-1. **【S217 已解除，只監察】本地與遠端分歧已收斂，七個 commit 已 push 並部署。** Leonard 明示選項 1（連 backend 一齊推、接受觸發部署）。`42b1441..612e13e` push 成功，`HEAD == origin/main`，Render 於 19:26:49Z 起以 `612e13e` 運行。**rebase 保全已驗證**：舊 `463434c..1378b53` 與新 `42b1441..HEAD` 兩個 patch set **105,683 行／150 個檔逐位元組相同**，兩個 bot commit（`de030b7`／`42b1441`）已在祖先鏈。**餘下要監察的**：Option A watcher bot 仍會自行推送，下次開工若再落後，先 rebase 再處理（今次實測本地 commit 與 bot 觸及的三個資料檔零重疊，rebase 屬機械操作）。 **【S218 補】本節開工實測 bot 沒有再推 —— `origin/main` 仍是 S217 收工那個 `0f8a7c9`，不必 rebase。這不代表風險消失：watcher 仍在，只是這一輪沒有觸發。開工探針照樣要 `git fetch` 後比對，不得讀交接記載的 hash 當現況。**
-2. `match_wiki_chunks_routed` **已裝於 live Supabase**（S215 零列探針，四參數簽名相符）。PostgREST 讀不到函式本體，故「已裝」不等於「與 repo SQL 相同」；安裝者與授權無記錄；線上 build 引用次數 0。任何 DDL 前仍須先確認 live 定義。
-3. **【S217 已解除】** S216 那個治理 closeout commit（58 個路徑）已隨本次 push 上主線，不再是「本地提交未 push」。
-4. 只監察 —— **【S216 新增】`AGENTS.md`／`CLAUDE.md`／`GEMINI.md` 三個檔在 `.gitignore` 內且從未 tracked**（`git check-ignore` 實測）。**原因：** 這是本 repo 長期的 ignore 政策，除非 Leonard 改變該政策否則持續成立，本節不提議改動。**影響：** 本次升級改寫了 `AGENTS.md` 的 managed core 與 `GEMINI.md` 全文，這些改動只存在於磁碟、不在版本控制內。**更要留意：** `.gitignore` 的 `AGENTS.md` 規則無前置斜線，會在任何深度命中 —— 連 `dev/governance_migrations/<timestamp>/backup/AGENTS.md` 這份升級前備份都被 ignore（S216 `git check-ignore -v` 實測命中 `.gitignore:9`）。**結論：升級前的 `AGENTS.md` 全世界只剩磁碟上那一份，git 內沒有任何副本，刪咗就無得還原。**
+1. 只監察 —— **【S217 已解除，S219 覆核仍成立】** 本地與遠端分歧已收斂並維持；S216 那個治理 closeout commit 亦早已上主線。**餘下要監察的只有 Option A watcher bot** —— 它仍會自行推 commit 到 `origin/main`（只碰 `discovery_seen.json`／`registry_drift.md`／`qc_report.json` 三個資料檔）。S217 開工那次它推前兩個令 push 被拒；S218、S219 兩節開工與 push 前四次 `git fetch` 皆未見。**紀律不變：開工與 push 前一定要 `git fetch` 後比對，不得讀交接記載的 hash 當現況。**
+2. **【S219 已結案】** `match_wiki_chunks_routed` 的 live 本體經 SECURITY DEFINER introspection 核實與 repo SQL **逐句相同**，`match_wiki_chunks` 亦然；兩者各只有一個 overload，故 `create or replace` 同簽名無 PGRST203 風險。授權亦查清：三個角色各有 EXECUTE，表層 `anon=rm` 即**只有 SELECT、無任何寫入權**。S215–S218 那句「已裝但無法核實」可以退休。
+3. 只監察 —— **【S216 新增】`AGENTS.md`／`CLAUDE.md`／`GEMINI.md` 三個檔在 `.gitignore` 內且從未 tracked**（`git check-ignore` 實測）。**原因：** 這是本 repo 長期的 ignore 政策，除非 Leonard 改變該政策否則持續成立，本節不提議改動。**影響：** 本次升級改寫了 `AGENTS.md` 的 managed core 與 `GEMINI.md` 全文，這些改動只存在於磁碟、不在版本控制內。**更要留意：** `.gitignore` 的 `AGENTS.md` 規則無前置斜線，會在任何深度命中 —— 連 `dev/governance_migrations/<timestamp>/backup/AGENTS.md` 這份升級前備份都被 ignore（S216 `git check-ignore -v` 實測命中 `.gitignore:9`）。**結論：升級前的 `AGENTS.md` 全世界只剩磁碟上那一份，git 內沒有任何副本，刪咗就無得還原。**
+
+4. 只監察 —— **【S219 查明，屬長期環境約束，不是未完成事項】`anon` 角色 `statement_timeout = 3 秒`**（`authenticated` 8s、`service_role` 無設定取預設 8s）。**查證本身已完成**（S219 live introspection）；**持續存在的是約束本身**：後端用 anon key，故生產只有 3 秒，而主搜尋要 2–3 秒。解除它是 `Open Priorities` ① 的工作，不在本項。**本項要監察的是量度紀律**：本專案 in-process 量度慣例為 `SUPABASE_ANON_KEY ||= SUPABASE_SERVICE_KEY`（`routeFirstProbe.ts:8`），即在 8 秒上限下量一個只有 3 秒的系統，**會系統性低估失敗率**（route-first 量到 11.1%，推算生產 26.4%）。**任何本機量度之前先問一句：我用的是哪個 key。**
+5. **【S219 新增，只監察】`wiki_chunks_source_id_idx`／`wiki_chunks_content_type_idx` 兩個索引已建（Leonard 2026-09-08），但 before/after 無法證明有效** —— 首輪對照組（不受索引影響的 `match_wiki_chunks` RPC）同時變慢 53%，該輪不可信；改用交錯配對後有／無索引欄位皆約 250–276ms，差異被本機約 240ms 的網絡地板淹沒。**本機量不到低於約 250ms 的服務端差異**；要定論須 `EXPLAIN (ANALYZE, BUFFERS)` 或由 Render 後端內部計時。兩者各約 0.5 MB、無害，予以保留但**不得記為已修好任何事**。回退：`drop index if exists public.wiki_chunks_source_id_idx;` 及 `..._content_type_idx;`（只刪索引，不動資料與函式）。
+6. **【S219 新增，未解】** 生產煙霧測試首輪一次 `channel-b` 回應缺 `total`／`results` 兩鍵，**未保存 response body 故成因無法證明**；其後連續 4 次正常。與 S217 那次「未保存 body」同一個錯誤 —— **下次遇到異常回應，先存 body 再繼續。**
 
 <!-- ack:section:workspace-identity -->
 ## User Environment (Always Reference Before Giving Shell Commands)
@@ -167,24 +165,25 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:next-priorities -->
 ## Open Priorities
 
-**Recommended next step（S218 重生）：** 補 `backend/README.md` 遺失的 5 行 flag 說明（②），或行離線工作追三題 chunk recall（③）。**理由**：S218 起手探針證實所有狀態量與 S217 收工時一致、bot 本輪未推、無任何會隨時間惡化的事項待處理；餘下各項全部離線可做。**下一道真閘仍是 185 題 live before／after（①）** —— 未跑之前不得啟用任何 feature flag，需 Leonard 另行批准外部模型批次。
+**Recommended next step（S219 重生）：** 評估 **ivfflat → HNSW**（①）。**理由**：S219 實測證明 `anon` 只有 **3 秒** statement timeout，而主搜尋本身要 **2–3 秒** —— 餘裕不足 1.5 倍，這是本節所有 `57014` 的共同上游，也是 route-first 不能開、三條 query 持續失敗、establishment 偶發消失的同一個根。`vector` 擴充已是 **0.8.0**，HNSW 可用。**先做離線評估與召回率重驗，不要直接建索引。**
 
-① 🔴 **【最高優先，S217 定性後未動】185 題 live before／after 未跑，且現在有兩個非跑不可的理由。** (a) 它是啟用三個 flag 的唯一閘；(b) S217 查出 establishment 路徑的改動**無 flag 保護、已在生產生效**，所以它同時是「已生效改動有無副作用」的唯一量度工具 —— 目前只有 1 條事後觀察，184 條未量。**需 Leonard 批准外部模型批次。**
+① 🔴 **【S219 新增，最高優先】主搜尋延遲對 3 秒上限餘裕不足 → 評估 HNSW。** 現況：`match_wiki_chunks` 走 ivfflat（lists=60、probes=8）需 2–3 秒；`total_size` 363 MB > `shared_buffers` 224 MB，熱資料留不住。**建索引前必須先定召回率重驗方法** —— HNSW 的召回率特性與 ivfflat 不同，會影響全部 185 題。屬 DDL，需 Leonard 執行。
 
-② **【S215 新增，未補】`backend/README.md` 遺失 5 行 flag 說明。** S215 `reset --hard` 事故所致，無任何備份來源；**不得杜撰**。補寫時須在 commit message 明寫是重寫非還原。
+② 🔴 **【S219 新增】三條 query 在生產持續回錯。** `dig_edb_cloud_guideline_na`（3/3）、`cur_eight_kla`（3/3）、`cur_eng_guide_2007_missing`（2/3）在輕負載下仍 `57014`。**用戶問這些問題會收到錯誤。** 與 flag 無關，是現行生產行為。①做好後可能自動消失，宜先做①再回頭量。
 
-③ **【S214 遺留，未解】三題 chunk recall。** `hr_lsp` 完整公式跨第 3／4 頁而 `dominant_page()` 判第 3 頁；`sen_special_school_curriculum` 的 `g10` 與中史 NCS 目標片段均未入首 8。已證目標 chunk 不在新 RPC 原始 40 項之內，故根因不在後處理 —— 下一步離線查 query expansion 與向量排名。
+③ **【S215 遺留，未補】`backend/README.md` 遺失 5 行 flag 說明。** `reset --hard` 事故所致，無任何備份來源；**不得杜撰**。補寫時須在 commit message 明寫是重寫非還原。零風險、離線可做。
 
-④ **【S214 遺留，未修】4 條 fidelity 不一致 ＋ 合成窗佔用率。** 3 條分數完全相同而生產 tie 次序非 id 升序（**真正 tie 規則未查證，不得憑猜**）；1 條 `fin_seg` 的 `edbc015_2026` 未解釋。overlay 平均佔 **2.22/5 格**（44%），純提高門檻在數學上不可行。
+④ **【S214 遺留，S219 證實 route-first 修不到】三題 chunk recall。** `hr_lsp` 完整公式跨第 3／4 頁而 `dominant_page()` 判第 3 頁；`sen_special_school_curriculum` 的 `g10` 與中史 NCS 目標片段均未入首 8。**S219 實測：開 `FEATURE_ROUTE_FIRST_SEARCH` 後三題 chunk rank 一模一樣**（0→0、None→None、None→None），故該 flag 不是解方，須另尋路徑（query expansion 與向量排名）。
 
-⑤ **【S212／S213 遺留，全部未動】** 658 代號標題 backfill（`dev/_s213_title_backfill.py` dry-run 已跑，執行被分類器擋住，須 Leonard 自己跑）· `kgecg_2017` 108 條 ZOMBIE · header 剝除正則吃掉 33 行正文（涉 2,212 條 chunk，修正要重入庫）· 七個 standing WARN 無 waiver ＋ 六項人手檢查未簽核 · `g33`／`g37` 標題錯掛 · `TOPIC_KEYWORDS.safety` 認裸「氣體」· 六個監察未接入狀態頁。**全文見下方 Detail Archive。**
+⑤ **【S214／S212／S213 遺留，全部未動】** 4 條 fidelity 不一致 ＋ 合成窗佔用率 44% · 658 代號標題 backfill · `kgecg_2017` 108 條 ZOMBIE · header 剝除正則吃掉 33 行正文 · 七個 standing WARN 無 waiver · `g33`／`g37` 標題錯掛 · `TOPIC_KEYWORDS.safety` 認裸「氣體」· 六個監察未接入狀態頁。**全文見下方 Detail Archive。**
 
-> **S218 合規備註：** 依 `AGENTS.md` §4 交接精簡預算（Open Priorities 上限 5 項），S217 的 ① 已結案故移除（事實已在 `## Current Baseline` 第 2 項），治理側兩項（原 ⑥ `ack` marker、原 ⑦ `INIT.md` 鏡像）**原文一字不刪移入下方 `## Backlog` 的「治理側」段**。本節無任何項目完成，故其餘各項按當前狀態重新排序後覆寫，非複製貼上。
+> **S219 合規備註：** 依 §4 上限 5 項重新排序後**覆寫**，非複製貼上。合成側兩個 flag 的驗收未列入本節，因為它被 ① 擋住 —— 主搜尋餘裕未解決之前，開任何 flag 都是在餘裕不足的系統上加負載。
+
 ## Backlog（次優先序，視 OP 完成情況流轉）
 
 **治理側（S216 新增；S218 由 Open Priorities 原文移入，一字未改）：**
 
-⑥ **【S216 新增，部分已修】交接檔仍有 8 個 `ack` marker 未有專屬章節。** `durable-anchors`／`closeout-reconciled-state`／`task-understanding-summary`／`active-objective`／`sync-status` 五個 section marker，加 `user-intent`／`task-essence`／`success-criteria` 三個 field marker，現時集中放在檔頂並附註釋說明。**不影響 `doctor` 與 `closeout-status`**（前者只檢查 marker 存在，後者只讀四節加開場白），但這些章節對下個 agent 而言機械上讀不到。**已修的一半**：`completed-this-session` 原本會一路抽到 `## State Reconciliation Check`（涵蓋所有 `Previous Session Record` 與 `Detail Archive`），令 `closeout-status` 把 S215 的完成項當成本節完成項來做 lifecycle 比對而報 blocked；S216 在 `## Previous Session Record (S215)` 之前加了一個本地邊界 marker `ack:section:session-history`，抽取長度由 164,616 字元收窄至 2,133 字元，只涵蓋本節記錄。
+⑥ **【S216 提出，S219 修好其中一半】交接檔有 8 個 `ack` marker 未有專屬章節。** `durable-anchors`／`closeout-reconciled-state`／`task-understanding-summary`／`active-objective`／`sync-status` 五個 section marker，加 `user-intent`／`task-essence`／`success-criteria` 三個 field marker，現時集中放在檔頂並附註釋。**不影響 `doctor` 與 `closeout-status`**（前者只檢查 marker 存在，後者只讀四節加開場白），但這些章節對下個 agent 而言機械上讀不到 —— **這半邊仍未做**。（另一半的邊界標記範圍問題已於 S219 修好，不再是待辦；詳見該節 Last Session Record。）
 
 ⑦ **【S216 新增，blocked】`dev/DOC_SYNC_CHECKLIST.md` 的 INIT.md 鏡像規則已失效。** row「Governance rule change (AGENTS.md)」與「New governance file added to install」要求同步 `INIT.md` FILE 1 mirror，但 `INIT.md`（1,036 行，2026-05-10）鏡像的是 package 化之前的 AGENTS.md 結構（§4a／§5a／§11a），v0.3.66 核心根本沒有這些章節。**本節不執行該同步**，因為要先決定 `INIT.md` 是否已退役 —— 這是 Leonard 的決定，不是機械同步。
 
@@ -205,6 +204,24 @@ source_registry → same vault PDFs → ai_extract.py
 
 <!-- ack:section:completed-this-session -->
 ## Last Session Record
+
+1. UTC date: 2026-09-08
+2. Session ID: `Claude_20260908_0800` — S219。由 Leonard 一句「開工」起，其後逐步授權：批准 185 題 live 批次 → 同意 introspection ritual → 同意加兩個索引 → 指示做 overlay 暖機修復 → 批准 commit push → 收工。**本節是 S214 以來第一節真正改動 `backend/` 並部署的 session。**
+3. Completed:
+   - ✅ **185 題閘首次跑完**（由 S214 掛到今日）。新增兩支工具：`backend/scripts/routeFirstGold.ts`、`dev/_s219_score_before_after.py`。**數據與結論見 `## Validation / QC` S219 段與 `## Current Baseline` 第 3 項；逐項證據見 `dev/SESSION_LOG.md` S219 條。**
+   - ✅ **執行 live introspection**（SECURITY DEFINER ritual，Leonard 貼 DDL 建／刪，抽完即 DROP）。**四項核實結果分別歸入 `## Risks / Blockers` 第 2、4 項與 `## Current Baseline` 第 5 項。**
+   - ✅ **實測改正成本模型**，並據此**收回本節稍早自己提出的索引建議**。**數字見 `## Current Baseline` 第 5 項，索引現況見 `## Risks / Blockers` 第 5 項。**
+   - ✅ **overlay 暖機修復已寫、已測、已部署**：三個檔 +100/−1 行，沿用 `initFactEmbeddingCache` 模式，兩個載入器加 in-flight 閘，`/health` 加 `cache_b`。同環境 A/B 與回歸數字見 `## Validation / QC`。
+   - ✅ **commit ＋ push ＋ 部署驗證**：`597b0d8`／`3ebd11f`／`a246f77` 三個 commit 已上主線，Render 部署 `3ebd11f`。
+   - ✅ **修好一個延續三節的治理缺陷**：`ack:section:session-history` 邊界標記由 `Previous Session Record (S215)` 之前**上移至 S218 之前**，令 `completed-this-session` 的抽取範圍真正只涵蓋本節（S216 只修了一半，其後每多一節就多抽一節舊完成項）。
+   - ✅ **Playbook §14 留底**：`throttled-api-not-empty-data`（applied）、`inspect-live-infra-before-ddl`（lookup）兩行已 append。
+4. Not done / 未做：三個 flag 一個都沒開（依本節實測結論，刻意不開）；合成側 grounded harness 未跑；`qc_report.json` overall ERROR 未處理。
+5. ⚠️ **零 Supabase 資料寫入、零重入庫、零 flag 啟用、零外部模型批次。** DDL 由 Leonard 執行三次（introspection 建／刪、兩個索引），皆已核實。外部寫入只有一次 `git push`（三個 commit）＋ 隨之的 Render 自動部署。
+
+<!-- 本地邊界 marker（S219 由 S215 之前上移至此）：令 completed-this-session 的抽取範圍止於本節記錄，不再涵蓋 S216–S218 的舊完成項 -->
+<!-- ack:section:session-history -->
+
+## Previous Session Record (S218)
 
 1. UTC date: 2026-09-08
 2. Session ID: `Claude_20260908_0705` — S218。由 Leonard 一句「開工」起做起手探針；其後 Leonard 問桌面與 Claude mobile 對話有何分別（純資訊回覆）；最後「先對齊正確的 root，然後收工」。**零程式碼改動、零 QC 重跑、零外部寫入。**
@@ -252,8 +269,6 @@ source_registry → same vault PDFs → ai_extract.py
 5. ⚠️ **零 push、零 deploy、零 DDL、零 Supabase 寫入、零程式碼改動、零產品行為改動。** 本節唯一的網絡動作是讀取安裝說明頁一次、`npm view`／`npm pack` 取官方 package 五次。
 6. ⚠️ **`AGENTS.md`／`CLAUDE.md`／`GEMINI.md` 的升級改動不在版本控制內**（三個檔 gitignored 且從未 tracked），唯一還原點是 `dev/governance_migrations/2026-09-07T18-23-33-046Z-*/backup/`。
 
-<!-- 本地邊界 marker：令 completed-this-session 的抽取範圍止於本節記錄，唔會讀落歷史 session 記錄 -->
-<!-- ack:section:session-history -->
 ## Previous Session Record (S215)
 
 1. UTC date: 2026-09-07
@@ -990,6 +1005,11 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:state-reconciliation-check -->
 ## State Reconciliation Check
 
+- **2026-09-08 S219 closeout reconciliation（185 題閘 ＋ 根因調查 ＋ 修復落地節）：** 於 2026-09-08 10:08 UTC 起執行；本節有實質生產碼改動並已部署，故逐節重寫而非確認。**重寫**：`Current Baseline`（第 1–3 項與第 5 項全部重寫：探針歸 S219、HEAD 改 `a246f77`、部署改 `3ebd11f` 並補 `cache_b`、第 3 項改記「閘已跑完＋為何仍不開」、**新增第 5 項成本模型**；第 4、6 項讀過確認仍 current 不改）· `Validation / QC`（本節五段追加文字**收攏為一段**，細節移入 `dev/SESSION_LOG.md` S219 條，S215–S218 各段一字未改）· `Risks / Blockers`（**第 2 項結案**並改寫為 introspection 結果；**新增第 5、6、7 項**，共 7 項達上限）· `Open Priorities`（**整段重生**：S218 的 ① 本節完成故移除，新增 ①② 為本節實測產物，舊 ②③④⑤ 降級並合併，仍為 5 項）· `Last Session Record`（重生為 S219，S218 降為 `Previous Session Record (S218)`，內容一字未改）· `Next Session Opening Message`（重生，新增 🔴🔴「anon 只有 3 秒」段與「先問用哪個 key」的量度紀律）。**逐段讀過確認仍 current、不改**：`Architecture Decisions`、`Regression / Verification Notes`、`Backlog`、`User Environment`、`Mandatory Start Checklist`、`Supabase Technical Notes`、`Detail Archive`、所有 `Previous Session Record`。
+- **Persistence routing checked（S219）：** 當前狀態與下一步 → 本檔；逐項實測數值、A/B 原始數字、三輪重跑分層 → `dev/SESSION_LOG.md`；新工具與指令 → `dev/PROJECT_INDEX.md`；`/health` 欄位與維護紀錄 → `dev/CODEBASE_CONTEXT.md`；**新登記行（啟動期暖機／`/health` 欄位）→ `dev/DOC_SYNC_CHECKLIST.md`**；跨 project 可轉移經驗 → Playbook usage 兩行已 append。**未升 `dev/PROJECT_DECISIONS.md`** —— 本節無多選項架構取捨定案；HNSW vs ivfflat 屬**下一節**要做的取捨，届時才記。
+- **Lifecycle 一致性檢查（S219）：** 已完成項（185 題閘、introspection、暖機修復）**不再出現**於 Open Priorities 或 Risks；`Risks` 第 2 項由「未核實」改為「已結案」並說明何以結案；新增的三項風險（anon 3 秒、索引未證有效、未解釋的 channel-b 回應）**皆非已完成事項**，屬監察與未解。開場白與本檔狀態一致：兩者同記 HEAD `a246f77`、部署 `3ebd11f`、三個 flag 全 off、OP① 為 HNSW 評估。
+- **機器檢查（S219 已實際執行）：** `npx --yes @adamchanadam/agent-handoff-kit@latest doctor --root .` → **`status: passed`，53 項全部通過**，prompt mirror 與 handoff 一致、憑證分離 ok、SESSION_LOG 接力角色紀律 ok、版本三向對齊 v0.3.66。`closeout-status` 首次執行報 **blocked**，兩個 blocker 皆為本檔自身問題（見下），修正後重跑。人手核對：`ack` marker 41 個、`Open Priorities` 5 項、`Risks` 7 項、`Current Baseline` 6 項，皆在 §4 上限內；開場白為全檔唯一 fenced 區塊。**⚠️ 順帶更正一個延續三節的錯誤**：S217／S218 記的「CLI 取不到」是**查錯名字**（用了未加 scope 的 `agent-handoff-kit`，該名字在 npm 為 404），正確的 `@adamchanadam/agent-handoff-kit` 一直記在 `dev/PROJECT_INDEX.md` 第 155 行。
+
 - **2026-09-08 S218 closeout reconciliation（起手探針節）：** 於本次收工當下完成，非沿用舊快照。本節**零程式碼改動**，故產品側狀態多數逐段確認 current 而非重寫。
 
 <!-- ack:field:state-sections-rewritten-or-confirmed -->
@@ -1298,78 +1318,77 @@ Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft. Read
 
 If the root does not match the handoff, stop and ask for confirmation. Do not read dev/SESSION_LOG.md during ordinary startup. Read dev/PROJECT_INDEX.md, dev/RULE_PACKS.md, dev/DOC_SYNC_REGISTRY.md, and task packs only when the current task requires them.
 
-Resume the current objective. A plain `Start Agent Handoff` / `開工` with no same-message task or explicit long-run instruction only authorizes minimum state recovery, one optional display-only current-thread title update when safely supported, the startup card, the current objective/risk/recommended next action, and then the end of the turn. It does not authorize task-specific reads, research, plans, protocols, preflight, file searches, sub-agents, QA, packaging, project-file writes, network access, other external actions, or opt-out execution wording. First-use exception: when this handoff says `First-use guidance state: eligible`, the current objective is empty / `TBD`, and there is no same-message concrete task, load onboarding and include a short first-use welcome plus the most relevant guided choices in the same response instead of ending status-only. A concrete objective found only in this handoff is not authority to complete the objective. A same-message task may begin normally; an explicit instruction such as `開工，繼續做到下一個 blocker` or `開工，繼續完成目前目標` may continue under the normal task and safety rules. Upgrade never resets consumed / not_applicable first-use state back to eligible.
+Resume the current objective. A plain `Start Agent Handoff` / `開工` with no same-message task only authorizes minimum state recovery, the startup card, the current objective/risk/recommended next action, and then the end of the turn. A same-message task may begin normally; an explicit instruction such as `開工，繼續做到下一個 blocker` may continue under the normal task and safety rules.
 
---- 專案狀態（S218, 2026-09-08）---
+--- 專案狀態（S219, 2026-09-08）---
 
 Current state：平台 v3.3.2；Supabase 17,610；source_registry 281；guidelines.json _meta 2.6.1；
 knowledge.json 2.3.0 · facts 455；凍結合約零接觸。Agent Handoff Kit v0.3.66。
-HEAD == origin/main == f3ca973（S218 收工 commit，已 push），分歧 0/0，工作區乾淨。
-線上部署：Render /health 報 commit 612e13e、cache_a warm 455（started_at 2026-09-08T06:58:08Z）。
+HEAD == origin/main == a246f77，分歧 0/0，工作區乾淨。
+線上部署：Render /health 報 commit 3ebd11f、cache_a warm 455、cache_b warm 206/267
+（started_at 2026-09-08T10:04:14Z）。
 
-⚠️ 先讀這段，否則會把正常狀態誤判為漂移：
-   /health 報的 612e13e 比 HEAD 舊，這是【正常】，不是未部署。
-   612e13e 之後的 commit 全部是純治理／持久化（S217 的 72b5adb、0f8a7c9，S218 的 f3ca973），
-   實測 git diff --name-only 612e13e..HEAD -- backend app.html = 0 個檔，
-   即生產跑的執行碼與 612e13e 那次部署完全相同。
-   【判斷準則看 diff，不要比 hash】——每次收工都會多一個治理 commit，HEAD 必然前進，
-   單看 hash 不同會誤判成「未部署」。
-   RENDER_GIT_COMMIT 不隨新 commit 更新的成因【仍未查證】——不要當已解，也不要當故障。
+✅ S219 做完了甚麼（一節之內三件事）：
+   1. 185 題閘首次跑完（由 S214 掛到 S219）。
+   2. Live introspection 核實兩支 RPC，Risks 第 2 項結案。
+   3. overlay 啟動期暖機已部署，冷啟動首請求 6,126ms → 3,404ms。
 
-🔴 最高優先（未變）：S214 候選已在生產環境，但三個 flag 仍全部 off
-   （FEATURE_EXACT_WINDOW_NARROW／FEATURE_GROUNDED_SYNTHESIS／FEATURE_ROUTE_FIRST_SEARCH，
-   Render 未設環境變數）。產品 verdict 仍為 FAIL，185 題 live before／after 仍未跑。
-   **已部署 ≠ 已啟用。啟用任何 flag 之前必須先跑 185 題，且需 Leonard 另行批准外部模型批次。**
+🔴🔴 最重要的一個新事實 —— anon 角色 statement_timeout 只有 3 秒
+   （authenticated 8s、service_role 取預設 8s）。後端用 anon key，所以生產只有 3 秒。
+   而主搜尋 match_wiki_chunks 本身要 2–3 秒 —— 餘裕不足 1.5 倍。
+   【這是本節所有 57014 的共同上游】：route-first 不能開、三條 query 持續失敗、
+   establishment 偶發消失，全部指向同一件事。
+   ⚠️ 連帶紀律：本專案的 in-process 量度慣例是 SUPABASE_ANON_KEY ||= SUPABASE_SERVICE_KEY
+   （見 routeFirstProbe.ts:8），即在 8 秒上限之下量度一個只有 3 秒的系統，
+   會系統性低估失敗率。【任何本機量度，先問一句：我用的是哪個 key。】
 
-🔴🔴 S217 查出的陷阱（下一個 agent 一定要知）：「三個 flag 全 off」≠「零行為改動」。
-   S214 的 establishment 路徑改動 **沒有任何 flag 保護**，已在生產生效。
-   觸發條件窄：detectedCategory === "staffing" 且 query 含「N 班」（1–2 位數），
-   ESTABLISHMENT_SOURCE_IDS 現時只有 staff_est_pri。三處差異：
-     (a) estLead 移除了 !seenIds.has(r.id) 過濾 —— ANN 已撈到同一 chunk 時精確列仍會置頂；
-     (b) 插入方式改為置頂並濾走【整個】establishment 來源的其他列，同表其他班數不再並存；
-     (c) trustedVaultLead 的判斷來源由 results[forcedLeads]（overlay 後）
-         改為 mainSearchLead（overlay 前）—— 技術上覆蓋所有合成呼叫。
-   其餘執行碼已逐個 hunk 核實零行為改動。
-   **通則：不要憑「flag 全 0」推斷零行為改動 —— 要 git diff 逐個 hunk 找無 flag 保護的路徑。**
+🔴 三個 flag 仍然全部 off，且不建議開 FEATURE_ROUTE_FIRST_SEARCH：
+   檢索準確度確有淨改善（Recall@1 71→73、@3 99→103、@5 113→116，
+   四條 PASS→FAIL 全部 rank 7、在合成窗前 5 之外故無影響），
+   但 (a) 它修不到當初為之而建的 OP④ 三題 chunk recall（實測 rank 完全不變）、
+   (b) 推算生產失敗率 26.4%（量到 11.1% 是 8 秒上限下的低估）。
+   合成側兩個 flag（GROUNDED_SYNTHESIS／EXACT_WINDOW_NARROW）那套 harness 量不到
+   —— 它送 synthesize:false，兩者只在 synthesizeAnswer() 內生效，要另跑 grounded
+   harness（外部模型批次，需 Leonard 另行批准）。但它被 OP① 擋住：主搜尋餘裕
+   未解決之前，開任何 flag 都是在餘裕不足的系統上加負載。
 
-⚠️ 開工探針紀律（S217 教訓，S218 仍適用）：
-   Option A watcher bot 會自行推 commit 到 origin/main（只碰 discovery_seen.json、
-   registry_drift.md、qc_report.json 三個資料檔）。S217 開工時它推前了兩個，
-   令本地變成真分歧、push 被拒；S218 開工實測它本輪【未推】，不必 rebase。
-   通則不變：一定要 git fetch 後比對，不能讀交接記載的 hash 當現況。
-
-✅ 已確立的事實（不必再查）：
-   1. regression:grounded 有一條斷言 both synthesis flags off preserve the legacy synthesis
-      prompt exactly —— 該句只覆蓋合成 prompt，不覆蓋整個系統（見上面 🔴🔴）。
-   2. 生產側三個端點實測正常（S217）：channel-a 50 條／channel-b 8 條／combined 58 條＋synthesis。
-   3. S217 曾見部署後首個請求回 0 條、隨後 5/5 正常，屬 S118 probes=8 冷啟動／間歇族，
-      不是部署引入的新問題；但 response body 未保存，成因未能確證。
-   4. establishment 路徑觸發範圍已生產實測為窄（S217 三個 case）。
-      但那是事後觀察，不是 before／after 對照 —— 舊碼已不在生產，無法跑對照組。
-   5. Playbook pointer 為 v3（最新），S218 已自我檢查，無須重裝。
+✅ 已確立、不必再查的事實：
+   1. 兩支 match_wiki_chunks* 的 live 本體與 repo 逐句相同，各只有一個 overload；
+      anon 對 wiki_chunks 只有 SELECT。（S215–S218 那句「已裝但無法核實」已退休。）
+   2. 索引現況：只有 wiki_chunks_pkey(btree id)、wiki_chunks_embedding_idx(ivfflat lists=60)，
+      加上 S219 新建的 source_id / content_type 兩個 btree。vector 擴充 0.8.0（HNSW 可用）、
+      pg_trgm 未安裝。total_size 363 MB > shared_buffers 224 MB。
+   3. 成本模型（實測）：不碰 embedding 欄的全表掃描等同網絡地板（242ms vs 240ms）；
+      帶 embedding 約 16ms／列。【成本在逐列處理 embedding，不在掃描】——
+      所以 overlay 的 1.6–1.8 秒與主搜尋的 2–3 秒都是 embedding 造成，索引幫不到。
+   4. 本機量度解析度只到約 250ms（網絡地板），量不到更小的服務端差異。
+      要定論須 EXPLAIN (ANALYZE, BUFFERS) 或由 Render 後端內部計時。
+   5. RENDER_GIT_COMMIT 之謎有新證據：本節是 S214 以來第一個真正改 backend/ 的 push，
+      /health 的 commit 隨即更新；純文件 commit 則只重啟不 rebuild、沿用舊值。
+      【假說，未查 Render build filter 設定，不得當作已解。】
 
 ⚠️ 未解決（不要當已解決）：
-   · 185 題 live 套件未跑 —— 這是啟用 flag 的唯一閘（OP ①）。
-   · backend/README.md 5 行仍未補（OP ②，S215 遺失，無備份，不得杜撰）。
-   · 三題 chunk recall（OP ③）、4 條 fidelity 不一致＋合成窗佔用率（OP ④）、
-     S212／S213 全部遺留（OP ⑤）—— 一項未動。
-   · 治理側兩項已由 Open Priorities 移入 Backlog「治理側」段（原文一字未刪）：
-     交接檔 8 個 ack marker 未有專屬章節、dev/DOC_SYNC_CHECKLIST.md 的 INIT.md 鏡像規則已失效。
-   · qc_report.json overall ERROR 未處理。
-   · agent-handoff-kit doctor 連續兩節（S217、S218）跑不到 —— CLI 不在 PATH、
-     全局與本地 node_modules 皆無、npm 上該名字 404。治理健康度【列為未驗證，不當通過】。
-   · AGENTS.md／CLAUDE.md／GEMINI.md 三檔 gitignored 且從未 tracked，S216 升級改動不在版本控制內，
-     唯一還原點是 dev/governance_migrations/2026-09-07T18-23-33-046Z-*/backup/，該目錄內的
-     AGENTS.md 連同樣被 .gitignore 命中，刪了無得還原。
+   · OP① HNSW 評估未開始 —— 這是主搜尋 2–3 秒的唯一真槓桿。
+   · OP② 三條 query 在生產持續回 57014：dig_edb_cloud_guideline_na(3/3)、
+     cur_eight_kla(3/3)、cur_eng_guide_2007_missing(2/3)。用戶會收到錯誤。
+   · OP③ backend/README.md 5 行仍未補（S215 遺失，無備份，不得杜撰）。
+   · OP④ 三題 chunk recall、OP⑤ 4 條 fidelity ＋ S212/S213 全部遺留。
+   · S219 新建的兩個索引【無法證明有效】，保留但不得記為修好任何事；
+     首輪 before/after 因對照組同時變慢 53% 而不可信。
+   · 一次 channel-b 回應缺 total/results 兩鍵，未保存 body 故成因無法證明。
+     【下次遇到異常回應，先存 body 再繼續。】
+   · qc_report.json overall ERROR 未處理（S215 起）。
+   · AGENTS.md／CLAUDE.md／GEMINI.md 三檔 gitignored 且從未 tracked。
 
-QC status：S218 零程式碼改動、零 QC 重跑。S217 推之前實測的數值仍有效（綁定 commit 與檔案未變）：
-   npm check 0 · npm build 0 · regression:grounded 48/48 · route_regression 46/46 · active gold 185。
-   未跑：185 題 live 套件。未驗證：agent-handoff-kit doctor。qc_report.json overall ERROR 未處理。
+QC status（S219 實測）：npm check 0 · npm build 0 · regression:grounded 48/48 ·
+   route_regression 46/46 · 暖機同環境 A/B 6,126ms→3,404ms · 生產三端點煙霧測試正常。
+   agent-handoff-kit doctor 53/53 status: passed（正確叫法是 @adamchanadam/agent-handoff-kit，
+   S217/S218 記的「取不到」是查錯名字）。未跑：合成側 grounded harness。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION + Render /health
-+ git fetch 後比對 HEAD／origin/main + Supabase live count + source_registry）。
-若落後於 origin/main，先實測零衝突再 rebase。之後如無新指示，行離線工作：
-補 backend/README.md 5 行（OP ②），或追三題 chunk recall 的 query expansion 與目標片段位置（OP ③）。
+含 cache_b + git fetch 後比對 HEAD／origin/main + Supabase live count + source_registry）。
+之後如無新指示，開始 OP① 的 HNSW 離線評估：先定召回率重驗方法（HNSW 與 ivfflat 召回特性
+不同，會影響全部 185 題），再向 Leonard 提 DDL。不要直接建索引。
 未得明確批准，不得啟用任何 flag、不得執行 DDL、不得作任何外部模型批次、不得 git push。
 ```
 

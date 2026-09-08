@@ -39,6 +39,35 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 
 <!-- ack:log-entry:start -->
 
+## 2026-09-08 Session 219 — 185 題閘首次跑完；查出 anon 只有 3 秒 timeout；overlay 暖機令冷啟動首請求由 6.1 秒降到 3.4 秒並已部署
+
+- **ID:** `Claude_20260908_0800` — S219
+- **Summary:** 由「開工」起，Leonard 逐步授權：批准 185 題 live 批次 → 同意 SECURITY DEFINER introspection → 同意加兩個索引 → 指示做 overlay 暖機修復 → 批准 commit push。**S214 以來第一節真正改動 `backend/` 並部署的 session。** 過程中兩次推翻自己的推論（establishment 靜默失效機制、「全表掃描很貴」的成本模型），兩次都寫回交接檔。
+- **Changed:** 生產碼 `backend/src/lib/wikiRepository.ts`／`backend/src/api/searchChannelB.ts`／`backend/src/server.ts`（共 +100/−1）· 新工具 `backend/scripts/routeFirstGold.ts`、`dev/_s219_score_before_after.py` · 證據 `dev/source/eval_runs/2026-09-08_s219_*`（5 個檔）· 治理 `dev/SESSION_HANDOFF.md`／`dev/PROJECT_INDEX.md`／`dev/CODEBASE_CONTEXT.md`／`dev/DOC_SYNC_CHECKLIST.md`（新增一登記行）／本條 · commit `597b0d8`、`3ebd11f`、`a246f77` 已 push，Render 部署 `3ebd11f`。
+- **Done:**
+  1. **185 題閘（由 S214 掛到今日）首次跑完。** 生產 flags-off：PASS **117**／FAIL 43／**ERROR 8**（09-04 部署前為 PASS 120／FAIL 44／ERROR 0；182 條共有題只有 10 條變動）。route-first before/after（in-process）：before PASS 122 → after **123**，5 條 FAIL→PASS（rank None→0/0/1/4/5）、4 條 PASS→FAIL（**全部 rank 7→None**，在合成窗前 5 之外故答案層面無影響）。Source Recall@1 71→73、@3 99→103、@5 113→116。**方法學控制組：56 條無路由題 before ≡ after，噪音底線 0。** 路由健康度 routed 119／partial 9／silent-fallback 1／no-route 56。
+  2. **ERROR 8 條經三輪定向重跑分層**：持續壞 `dig_edb_cloud_guideline_na`(3/3)、`cur_eight_kla`(3/3)；閃爍 `cur_eng_guide_2007_missing`(2/3)；其餘 5 條輕負載下 3/3 恢復 → **Run A 那 8 條有一半是我自己 185 題持續負載誘發**（playbook `throttled-api-not-empty-data` 的做法，applied）。
+  3. **Live introspection（Leonard 貼 DDL 建／刪，抽完即 DROP）**：兩支 `match_wiki_chunks*` live 本體與 repo **逐句相同**、各只有一個 overload、`anon` 對表只有 SELECT → **交接檔 Risks 第 2 項（掛了 S215–S218 四節）結案**。同時揪出 **`anon` `statement_timeout = 3 秒`**（`authenticated` 8s、`service_role` 取預設 8s）。索引核實只有 pkey ＋ ivfflat(lists=60)；`vector` 0.8.0（HNSW 可用）、`pg_trgm` 未裝；`total_size` 363 MB > `shared_buffers` 224 MB。
+  4. **據 (3) 修正 route-first 失敗率**：所有 in-process 量度用 service key（`routeFirstProbe.ts:8` 的既有慣例），即在 8 秒上限下量一個只有 3 秒的系統。由失敗下限 8308ms 反推網絡開銷 308ms，扣除後推算生產失敗率 **11.1% → 26.4%**（推算，未以 anon key 實測 —— 實測會令四分之一 query 真的失敗）。
+  5. **成本模型實測改正（本節最重要的方法學結果）**：網絡地板約 **240ms**；`select=id` 全表掃 17,610 列 **242ms**（等於地板，服務端掃描近乎零）；`select=id,embedding` 取 50 列 **1,042ms**（約 16ms／列）。→ **成本在逐列處理 embedding，不在掃描。** 據此**收回**自己先前的索引建議。
+  6. **overlay 暖機修復並部署**：沿用 `initFactEmbeddingCache` 的不 await 背景模式；兩個載入器加 **in-flight 閘**（否則暖機與首個請求會各發一次同樣載入，冷啟動不減反增）；`/health` 加 `cache_b {warm, footnote, spotlight}`。**同環境 A/B**（臨時開關停用暖機，量完即移除並驗證 0 殘留）：停用 6,126ms／2,878／2,880；啟用 暖機 2.46 秒完成、3,404ms／2,945／3,833 → **首請求罰時約 3.2 秒消除**。
+  7. **部署驗證**：`/health` 報 `3ebd11f`、`cache_b {warm:true,206,267}`；`channel-a` 50 · `channel-b` 連續 4 次 total=8 · `combined` 58。**`RENDER_GIT_COMMIT` 之謎新證據**：本節是 S214 以來第一個真正改 `backend/` 的 push，`commit` 隨即更新；純文件 commit 則只重啟不 rebuild、沿用舊值（**假說，未查 build filter 設定**）。
+- **Fix Record（兩次自我推翻，均已寫回交接檔）：**
+  - **問題：** 我曾斷言 `staff_fullday_12` 的精確列消失，機制是 `searchEstablishmentRows()` 超時被 `catch {}` 吞掉。**根因：** 未先量該查詢就下機制結論。**實測：** 該查詢僅 338ms（等同網絡地板，因不取 `embedding` 欄），以 anon 3 秒上限不可能超時。**修正：** `catch {}` 會靜默吞錯是程式碼事實，但**是否為 Run A 那次失敗的成因仍未查明**，不得當作已解釋。
+  - **問題：** 我以「全表掃描很貴」為由建議加 `source_id`／`content_type` 索引，Leonard 已執行。**根因：** 把 seq scan 當成成本來源，未先量。**實測：** 不碰 embedding 的全表掃描等同網絡地板。**修正：** 兩個索引**無法證明有效**（首輪 before/after 對照組同時慢 53% 故不可信；交錯配對後差異被地板淹沒），予以保留但明確**不得記為修好任何事**，回退指令已寫入交接檔。
+- **QC:** `npm run check` **0** · `npm run build` **0**（未弄髒工作區）· `regression:grounded` **48/48** · `route_regression` **46/46**（暖機只改載入時機不改分數，回歸全綠即排序零改動之證明）· 暖機同環境 A/B 見上 · 生產三端點煙霧測試正常。**未跑：合成側 grounded harness**（被 OP① 擋住）。**`agent-handoff-kit doctor` 本節跑得到：`status: passed`，53 項全部通過**（prompt mirror 一致、憑證分離 ok、版本三向對齊 v0.3.66）。**⚠️ 更正延續三節的錯誤**：S217／S218 及本節較早前都用**未加 scope 的 `agent-handoff-kit`** 去找（該名字 npm 404），正確是 **`@adamchanadam/agent-handoff-kit`**，而 `dev/PROJECT_INDEX.md:155` 一直記著。**教訓（§8 codify）：宣告任何工具「取不到」之前，先查 `PROJECT_INDEX` 有沒有記著正確叫法** —— 這是本專案 §G.2 verify-don't-trust 的同一族錯誤，只是方向相反：不是信了舊文檔，是**沒讀**現有文檔。`closeout-status` 首次報 blocked（兩個 blocker 皆為交接檔自身問題：一是上述已被更正的錯誤陳述，二是合規備註被讀成 carry-forward），修正後重跑。`qc_report.json` overall ERROR 未處理。
+- **Evidence disposition:** 逐項實測數值、三輪重跑分層、A/B 原始數字、routed RPC 儀測 → 本條 log ＋ `dev/source/eval_runs/2026-09-08_s219_*`（raw JSONL 3.8 MB 刻意保留，因它是 routed RPC 儀測的唯一載體）；當前狀態、判斷與下一步 → `dev/SESSION_HANDOFF.md`；新工具與指令 → `dev/PROJECT_INDEX.md`；`/health` 欄位 → `dev/CODEBASE_CONTEXT.md`；新登記行 → `dev/DOC_SYNC_CHECKLIST.md`。**未升 `dev/PROJECT_DECISIONS.md`** —— HNSW vs ivfflat 的取捨屬下一節要做的決定，届時才記。
+- **Sync:** `dev/CODEBASE_CONTEXT.md` **已更新**（`/health` 新欄位、兩支新工具、AI Maintenance Log）。`dev/PROJECT_INDEX.md` **已更新**（工具行、QC 指令行、Branch/commit 列）。`dev/DOC_SYNC_CHECKLIST.md` **新增一行**（啟動期暖機／`/health` 欄位；原本無任何行涵蓋此類改動，依 §3 反模式守則先補行再列出）。`dev/DOC_SYNC_REGISTRY.md` 已記 S219。**DOC_SYNC Matrix Scan — 已於回應中輸出**（row 43 檢索 eval harness ✓、row 57 準確度量度 ✓、新登記行 ✓ Row added、row 39 synthesis 前置閘 N/A 因零門檻改動且以兩個回歸證明）。
+- **Pending:** OP① HNSW 評估（主搜尋 2–3 秒對 anon 3 秒上限，唯一真槓桿）· OP② 三條持續 `57014` 的 query（用戶會收到錯誤）· OP③ `backend/README.md` 5 行 · OP④ 三題 chunk recall（route-first 實測修不到）· OP⑤ 4 條 fidelity ＋ S212/S213 遺留 · 合成側 grounded harness（需另行批准，且被 OP① 擋住）· `qc_report.json` overall ERROR 未處理。
+- **Risks:** ① **`anon` 只有 3 秒 timeout，而主搜尋要 2–3 秒** —— 餘裕不足 1.5 倍，是本節所有 `57014` 的共同上游。② 本專案 in-process 量度慣例用 service key（8 秒），**會系統性低估失敗率**，日後量度先問用哪個 key。③ 新建兩個索引無法證明有效，保留但不得記為已修。④ 一次 `channel-b` 異常回應未保存 body，成因無法證明（與 S217 同一錯誤）。⑤ Option A watcher bot 仍會自行推送（本節開工與 push 前兩次 fetch 皆未見）。⑥ `AGENTS.md`／`CLAUDE.md`／`GEMINI.md` gitignored 且從未 tracked。
+- **Log maintenance:** **無觸發。** 收工前跑 `python3 docs/qa/session_log_maintenance.py --check --session-log dev/SESSION_LOG.md` → `trigger=False line_trigger=False date_trigger=False`（`line_count=226`、`entry_count=4`，門檻 400 行或最舊條目逾 30 日）。按規則寫一行 no-op 理由，不執行長期維護。
+- **規則衝突（依 §5 記錄）：** 沿用 S216–S218 的取捨 —— 專案 INSTRUCTIONS 層 §4 規則 12–14 要求把開場白逐字寫入本 log，Kit managed core 則寫明開場白全文不屬於本 log。跟 Kit 契約：全文只存 `dev/SESSION_HANDOFF.md` 與 `START_NEXT_SESSION_PROMPT.txt` 兩處，本 log 只記 mirror 已驗證。
+- **Playbook（§14 留底）：** 開了兩張卡並已 append usage 兩行 —— `throttled-api-not-empty-data`（**applied**：8 條 ERROR 先分層重跑排除 throttle，證實一半是自身負載誘發）、`inspect-live-infra-before-ddl`（**lookup**：據它在未做 live introspection 前不出任何 DDL 建議）。**本節不交新提案**：最可轉移的教訓（「量度用的角色權限會決定你量到的上限」）只有這一節一次觀察，未夠成熟。
+- **Opening-message mirror:** 已重生並驗證逐位元組相等；全文按契約不複製入本 log。
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-09-08 Session 218 — 起手探針五項全綠；HEAD 與 Render 報的 commit 不一致已查明屬正常，並非漂移
 
 - **ID:** `Claude_20260908_0705` — S218

@@ -2,76 +2,75 @@ Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft. Read
 
 If the root does not match the handoff, stop and ask for confirmation. Do not read dev/SESSION_LOG.md during ordinary startup. Read dev/PROJECT_INDEX.md, dev/RULE_PACKS.md, dev/DOC_SYNC_REGISTRY.md, and task packs only when the current task requires them.
 
-Resume the current objective. A plain `Start Agent Handoff` / `開工` with no same-message task or explicit long-run instruction only authorizes minimum state recovery, one optional display-only current-thread title update when safely supported, the startup card, the current objective/risk/recommended next action, and then the end of the turn. It does not authorize task-specific reads, research, plans, protocols, preflight, file searches, sub-agents, QA, packaging, project-file writes, network access, other external actions, or opt-out execution wording. First-use exception: when this handoff says `First-use guidance state: eligible`, the current objective is empty / `TBD`, and there is no same-message concrete task, load onboarding and include a short first-use welcome plus the most relevant guided choices in the same response instead of ending status-only. A concrete objective found only in this handoff is not authority to complete the objective. A same-message task may begin normally; an explicit instruction such as `開工，繼續做到下一個 blocker` or `開工，繼續完成目前目標` may continue under the normal task and safety rules. Upgrade never resets consumed / not_applicable first-use state back to eligible.
+Resume the current objective. A plain `Start Agent Handoff` / `開工` with no same-message task only authorizes minimum state recovery, the startup card, the current objective/risk/recommended next action, and then the end of the turn. A same-message task may begin normally; an explicit instruction such as `開工，繼續做到下一個 blocker` may continue under the normal task and safety rules.
 
---- 專案狀態（S218, 2026-09-08）---
+--- 專案狀態（S219, 2026-09-08）---
 
 Current state：平台 v3.3.2；Supabase 17,610；source_registry 281；guidelines.json _meta 2.6.1；
 knowledge.json 2.3.0 · facts 455；凍結合約零接觸。Agent Handoff Kit v0.3.66。
-HEAD == origin/main == f3ca973（S218 收工 commit，已 push），分歧 0/0，工作區乾淨。
-線上部署：Render /health 報 commit 612e13e、cache_a warm 455（started_at 2026-09-08T06:58:08Z）。
+HEAD == origin/main == a246f77，分歧 0/0，工作區乾淨。
+線上部署：Render /health 報 commit 3ebd11f、cache_a warm 455、cache_b warm 206/267
+（started_at 2026-09-08T10:04:14Z）。
 
-⚠️ 先讀這段，否則會把正常狀態誤判為漂移：
-   /health 報的 612e13e 比 HEAD 舊，這是【正常】，不是未部署。
-   612e13e 之後的 commit 全部是純治理／持久化（S217 的 72b5adb、0f8a7c9，S218 的 f3ca973），
-   實測 git diff --name-only 612e13e..HEAD -- backend app.html = 0 個檔，
-   即生產跑的執行碼與 612e13e 那次部署完全相同。
-   【判斷準則看 diff，不要比 hash】——每次收工都會多一個治理 commit，HEAD 必然前進，
-   單看 hash 不同會誤判成「未部署」。
-   RENDER_GIT_COMMIT 不隨新 commit 更新的成因【仍未查證】——不要當已解，也不要當故障。
+✅ S219 做完了甚麼（一節之內三件事）：
+   1. 185 題閘首次跑完（由 S214 掛到 S219）。
+   2. Live introspection 核實兩支 RPC，Risks 第 2 項結案。
+   3. overlay 啟動期暖機已部署，冷啟動首請求 6,126ms → 3,404ms。
 
-🔴 最高優先（未變）：S214 候選已在生產環境，但三個 flag 仍全部 off
-   （FEATURE_EXACT_WINDOW_NARROW／FEATURE_GROUNDED_SYNTHESIS／FEATURE_ROUTE_FIRST_SEARCH，
-   Render 未設環境變數）。產品 verdict 仍為 FAIL，185 題 live before／after 仍未跑。
-   **已部署 ≠ 已啟用。啟用任何 flag 之前必須先跑 185 題，且需 Leonard 另行批准外部模型批次。**
+🔴🔴 最重要的一個新事實 —— anon 角色 statement_timeout 只有 3 秒
+   （authenticated 8s、service_role 取預設 8s）。後端用 anon key，所以生產只有 3 秒。
+   而主搜尋 match_wiki_chunks 本身要 2–3 秒 —— 餘裕不足 1.5 倍。
+   【這是本節所有 57014 的共同上游】：route-first 不能開、三條 query 持續失敗、
+   establishment 偶發消失，全部指向同一件事。
+   ⚠️ 連帶紀律：本專案的 in-process 量度慣例是 SUPABASE_ANON_KEY ||= SUPABASE_SERVICE_KEY
+   （見 routeFirstProbe.ts:8），即在 8 秒上限之下量度一個只有 3 秒的系統，
+   會系統性低估失敗率。【任何本機量度，先問一句：我用的是哪個 key。】
 
-🔴🔴 S217 查出的陷阱（下一個 agent 一定要知）：「三個 flag 全 off」≠「零行為改動」。
-   S214 的 establishment 路徑改動 **沒有任何 flag 保護**，已在生產生效。
-   觸發條件窄：detectedCategory === "staffing" 且 query 含「N 班」（1–2 位數），
-   ESTABLISHMENT_SOURCE_IDS 現時只有 staff_est_pri。三處差異：
-     (a) estLead 移除了 !seenIds.has(r.id) 過濾 —— ANN 已撈到同一 chunk 時精確列仍會置頂；
-     (b) 插入方式改為置頂並濾走【整個】establishment 來源的其他列，同表其他班數不再並存；
-     (c) trustedVaultLead 的判斷來源由 results[forcedLeads]（overlay 後）
-         改為 mainSearchLead（overlay 前）—— 技術上覆蓋所有合成呼叫。
-   其餘執行碼已逐個 hunk 核實零行為改動。
-   **通則：不要憑「flag 全 0」推斷零行為改動 —— 要 git diff 逐個 hunk 找無 flag 保護的路徑。**
+🔴 三個 flag 仍然全部 off，且不建議開 FEATURE_ROUTE_FIRST_SEARCH：
+   檢索準確度確有淨改善（Recall@1 71→73、@3 99→103、@5 113→116，
+   四條 PASS→FAIL 全部 rank 7、在合成窗前 5 之外故無影響），
+   但 (a) 它修不到當初為之而建的 OP④ 三題 chunk recall（實測 rank 完全不變）、
+   (b) 推算生產失敗率 26.4%（量到 11.1% 是 8 秒上限下的低估）。
+   合成側兩個 flag（GROUNDED_SYNTHESIS／EXACT_WINDOW_NARROW）那套 harness 量不到
+   —— 它送 synthesize:false，兩者只在 synthesizeAnswer() 內生效，要另跑 grounded
+   harness（外部模型批次，需 Leonard 另行批准）。但它被 OP① 擋住：主搜尋餘裕
+   未解決之前，開任何 flag 都是在餘裕不足的系統上加負載。
 
-⚠️ 開工探針紀律（S217 教訓，S218 仍適用）：
-   Option A watcher bot 會自行推 commit 到 origin/main（只碰 discovery_seen.json、
-   registry_drift.md、qc_report.json 三個資料檔）。S217 開工時它推前了兩個，
-   令本地變成真分歧、push 被拒；S218 開工實測它本輪【未推】，不必 rebase。
-   通則不變：一定要 git fetch 後比對，不能讀交接記載的 hash 當現況。
-
-✅ 已確立的事實（不必再查）：
-   1. regression:grounded 有一條斷言 both synthesis flags off preserve the legacy synthesis
-      prompt exactly —— 該句只覆蓋合成 prompt，不覆蓋整個系統（見上面 🔴🔴）。
-   2. 生產側三個端點實測正常（S217）：channel-a 50 條／channel-b 8 條／combined 58 條＋synthesis。
-   3. S217 曾見部署後首個請求回 0 條、隨後 5/5 正常，屬 S118 probes=8 冷啟動／間歇族，
-      不是部署引入的新問題；但 response body 未保存，成因未能確證。
-   4. establishment 路徑觸發範圍已生產實測為窄（S217 三個 case）。
-      但那是事後觀察，不是 before／after 對照 —— 舊碼已不在生產，無法跑對照組。
-   5. Playbook pointer 為 v3（最新），S218 已自我檢查，無須重裝。
+✅ 已確立、不必再查的事實：
+   1. 兩支 match_wiki_chunks* 的 live 本體與 repo 逐句相同，各只有一個 overload；
+      anon 對 wiki_chunks 只有 SELECT。（S215–S218 那句「已裝但無法核實」已退休。）
+   2. 索引現況：只有 wiki_chunks_pkey(btree id)、wiki_chunks_embedding_idx(ivfflat lists=60)，
+      加上 S219 新建的 source_id / content_type 兩個 btree。vector 擴充 0.8.0（HNSW 可用）、
+      pg_trgm 未安裝。total_size 363 MB > shared_buffers 224 MB。
+   3. 成本模型（實測）：不碰 embedding 欄的全表掃描等同網絡地板（242ms vs 240ms）；
+      帶 embedding 約 16ms／列。【成本在逐列處理 embedding，不在掃描】——
+      所以 overlay 的 1.6–1.8 秒與主搜尋的 2–3 秒都是 embedding 造成，索引幫不到。
+   4. 本機量度解析度只到約 250ms（網絡地板），量不到更小的服務端差異。
+      要定論須 EXPLAIN (ANALYZE, BUFFERS) 或由 Render 後端內部計時。
+   5. RENDER_GIT_COMMIT 之謎有新證據：本節是 S214 以來第一個真正改 backend/ 的 push，
+      /health 的 commit 隨即更新；純文件 commit 則只重啟不 rebuild、沿用舊值。
+      【假說，未查 Render build filter 設定，不得當作已解。】
 
 ⚠️ 未解決（不要當已解決）：
-   · 185 題 live 套件未跑 —— 這是啟用 flag 的唯一閘（OP ①）。
-   · backend/README.md 5 行仍未補（OP ②，S215 遺失，無備份，不得杜撰）。
-   · 三題 chunk recall（OP ③）、4 條 fidelity 不一致＋合成窗佔用率（OP ④）、
-     S212／S213 全部遺留（OP ⑤）—— 一項未動。
-   · 治理側兩項已由 Open Priorities 移入 Backlog「治理側」段（原文一字未刪）：
-     交接檔 8 個 ack marker 未有專屬章節、dev/DOC_SYNC_CHECKLIST.md 的 INIT.md 鏡像規則已失效。
-   · qc_report.json overall ERROR 未處理。
-   · agent-handoff-kit doctor 連續兩節（S217、S218）跑不到 —— CLI 不在 PATH、
-     全局與本地 node_modules 皆無、npm 上該名字 404。治理健康度【列為未驗證，不當通過】。
-   · AGENTS.md／CLAUDE.md／GEMINI.md 三檔 gitignored 且從未 tracked，S216 升級改動不在版本控制內，
-     唯一還原點是 dev/governance_migrations/2026-09-07T18-23-33-046Z-*/backup/，該目錄內的
-     AGENTS.md 連同樣被 .gitignore 命中，刪了無得還原。
+   · OP① HNSW 評估未開始 —— 這是主搜尋 2–3 秒的唯一真槓桿。
+   · OP② 三條 query 在生產持續回 57014：dig_edb_cloud_guideline_na(3/3)、
+     cur_eight_kla(3/3)、cur_eng_guide_2007_missing(2/3)。用戶會收到錯誤。
+   · OP③ backend/README.md 5 行仍未補（S215 遺失，無備份，不得杜撰）。
+   · OP④ 三題 chunk recall、OP⑤ 4 條 fidelity ＋ S212/S213 全部遺留。
+   · S219 新建的兩個索引【無法證明有效】，保留但不得記為修好任何事；
+     首輪 before/after 因對照組同時變慢 53% 而不可信。
+   · 一次 channel-b 回應缺 total/results 兩鍵，未保存 body 故成因無法證明。
+     【下次遇到異常回應，先存 body 再繼續。】
+   · qc_report.json overall ERROR 未處理（S215 起）。
+   · AGENTS.md／CLAUDE.md／GEMINI.md 三檔 gitignored 且從未 tracked。
 
-QC status：S218 零程式碼改動、零 QC 重跑。S217 推之前實測的數值仍有效（綁定 commit 與檔案未變）：
-   npm check 0 · npm build 0 · regression:grounded 48/48 · route_regression 46/46 · active gold 185。
-   未跑：185 題 live 套件。未驗證：agent-handoff-kit doctor。qc_report.json overall ERROR 未處理。
+QC status（S219 實測）：npm check 0 · npm build 0 · regression:grounded 48/48 ·
+   route_regression 46/46 · 暖機同環境 A/B 6,126ms→3,404ms · 生產三端點煙霧測試正常。
+   agent-handoff-kit doctor 53/53 status: passed（正確叫法是 @adamchanadam/agent-handoff-kit，
+   S217/S218 記的「取不到」是查錯名字）。未跑：合成側 grounded harness。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION + Render /health
-+ git fetch 後比對 HEAD／origin/main + Supabase live count + source_registry）。
-若落後於 origin/main，先實測零衝突再 rebase。之後如無新指示，行離線工作：
-補 backend/README.md 5 行（OP ②），或追三題 chunk recall 的 query expansion 與目標片段位置（OP ③）。
+含 cache_b + git fetch 後比對 HEAD／origin/main + Supabase live count + source_registry）。
+之後如無新指示，開始 OP① 的 HNSW 離線評估：先定召回率重驗方法（HNSW 與 ivfflat 召回特性
+不同，會影響全部 185 題），再向 Leonard 提 DDL。不要直接建索引。
 未得明確批准，不得啟用任何 flag、不得執行 DDL、不得作任何外部模型批次、不得 git push。

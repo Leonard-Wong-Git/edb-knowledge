@@ -71,3 +71,15 @@ Recorded at closeout per the Registry Rule above. Newest first.
 | Release | `not_applicable` | 未 commit、未 push、未部署。 |
 
 **跨檔 blocked 項（`dev/DOC_SYNC_CHECKLIST.md`）**：row「Governance rule change (AGENTS.md)」與「New governance file added to install」要求同步 `INIT.md` FILE 1 mirror，狀態 **`blocked`**。理由：`INIT.md`（1,036 行，2026-05-10）鏡像的是 package 化之前的 AGENTS.md 結構（§4a／§5a／§11a），Agent Handoff Kit v0.3.66 核心沒有這些章節，機械同步會產生錯誤鏡像。解封條件：先決定 `INIT.md` 是否已退役。已開為 `dev/SESSION_HANDOFF.md` `Open Priorities` ⑦。
+
+## S219 — 2026-09-08（185 題閘 ／ 根因調查 ／ overlay 暖機修復）
+
+- `dev/SESSION_HANDOFF.md` — ✅ 已同步（Current Baseline 1–3、5 重寫；Validation 收攏為一段；Risks 第 2 項結案＋新增 5–7；Open Priorities 整段重生；Last Session Record 重生為 S219；開場白重生；State Reconciliation 加四段）
+- `dev/SESSION_LOG.md` — ✅ 已同步（S219 條，含兩次自我推翻的 Fix Record）
+- `dev/PROJECT_INDEX.md` — ✅ 已同步（新工具行、QC 指令行、Branch/commit、Uncommitted）
+- `dev/CODEBASE_CONTEXT.md` — ✅ 已同步（`/health` 新增 `cache_b`、兩支新工具、AI Maintenance Log 兩條）
+- `dev/DOC_SYNC_CHECKLIST.md` — ✅ **新增一登記行**（後端啟動期快取暖機／`/health` 狀態欄新增；原本無任何行涵蓋此類改動，依 §3 反模式守則先補行）
+- `START_NEXT_SESSION_PROMPT.txt` — ✅ 由交接檔唯一 fenced 區塊重生並驗證逐位元組相等
+- `backend/README.md` — ⚠ Skipped：本節未改 flag 行為；遺失的 5 行 flag 說明仍是 OP③，不在本節範圍
+- Playbook usage — ✅ 兩行已 append（`throttled-api-not-empty-data` applied、`inspect-live-infra-before-ddl` lookup）
+
