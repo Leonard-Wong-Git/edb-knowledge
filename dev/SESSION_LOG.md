@@ -39,6 +39,36 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 
 <!-- ack:log-entry:start -->
 
+## 2026-09-09 Session 220 — route-first 的碼與名字相反：它疊加而非取代全庫搜尋；修正後 OP② 在生產由 9 次 5 敗變 0 敗
+
+- **ID:** `Claude_20260909_0700` — S220
+- **Summary:** 由頂層 dormant root「開工」redirect 入 Draft。Leonard 逐步授權：收 watcher commit → 補 OP③ → 全修文案 → 開始 OP① → 批 185 題 live 批次 → 揀「先修重試再開 flag」→ 在 Render 開 `FEATURE_ROUTE_FIRST_SEARCH=1`。**本節推翻了 S219 兩個結論，兩個都有實測支撐。**
+- **Changed:** 8 個 commit 全部已推（`7ddafc7` `f8eabf0` `5cb1ec7` `e4090dc` `bda6ae8` `9072af1` `172c3cd` `6cbb49c`）。生產碼 `backend/src/api/searchChannelB.ts`、`backend/src/lib/wikiRepository.ts`。工具 `backend/scripts/routeFirstGold.ts`（改良）、`_s220_retryBudget.ts`、`dev/_s220_latency_verdict.py`（新）。文案 `README.md` `K1_API_SPEC.md` `CHANGELOG.md` `app.html` `index.html` `q.html` `t-purchase.html` `embed-sample.html` `mobile.js` `knowledge.json` `role_facts.json` `dev/knowledge/role_facts.json` `backend/README.md` `dev/source/execute_ingest.py`。平台 **v3.3.2 → v3.3.3**。
+- **Done:**
+  1. **推翻 S219「索引幫不到」。** 該結論源自 `select=id,embedding` 取 50 列 = 1,042ms → 16ms/列。實測每列回應 **19.3 KB**（50 列共 965 KB），那是 JSON 出口頻寬，不是伺服器運算。決定性一測：RPC 只回 **942 位元組**仍要 **3.37 秒**，與回 50 列的 3.41 秒相同 → 成本在伺服器端搜尋，索引直接相關。
+  2. **揪出 route-first 的碼與名字相反。** `searchWiki` 在 1467 行無條件 await，無任何 branch 跳得過；routed 在其後跑並覆蓋結果 → flag 開啟時命中路由的查詢付雙倍代價、丟棄貴那半。**這才是 S219 那 26.4% 的成因**，不是「系統餘裕不足」。已修為 routed 取代、失敗才回落。
+  3. **185 題閘重跑（Leonard 批准 live 批次）。** 185/185、errors=0。正確性與 S219 完全相同（FAIL→PASS 5、PASS→FAIL 4、淨 +1）——**證明次序修正不改檢索結果，只是不再白做**。
+  4. **重試由次數制改為 6,000ms 時間預算。** 57014 代表已耗盡 `statement_timeout`，再試兩次等於再等兩個上限；gold 跑實測一題 8,842＋9,183＋8,316ms ≈ 27 秒。冷啟動閃斷的重試保留。兩個重複迴圈合併為 `postRpcWithRetry()`。
+  5. **OP② 在生產解決。** 同三條題、同端點、前後皆在生產量：**9 次 5 敗 → 9 次 0 敗**，`cur_eight_kla` 由 3/3 敗變 3/3 過。設對照組（兩條無路由題）排除「整體變暖」：它們仍在 2.7–3.9 秒，有路由題已降至 1.4–2.2 秒。
+  6. **全站文案對正**（Leonard 指示「留意適時更新」）：`sources` 六個鏡像寫 288、`app.html` 同屏另有寫死的 120，實查 distinct `source_id` 307 扣 7 個 `role_facts_*` = **300**；`index.html` 兩段幻影文案（S167 已移除的螢光標註、已下架的通告分析）；手機 `#templates` 死路加閘；README 四處自相矛盾；`K1_API_SPEC` 對下游報 152 而端點實為 158。另 `execute_ingest.py` 加 `live_sources_count()`＋step 5c 防再漂（**用具名欄位配對，不沿用裸數字全檔取代** —— 對 17610 安全，對 288 不安全）。
+  7. **兩個休眠頁封路。** `q.html`／`t-purchase.html` 是已建未出街的功能。實測仍有活路徑：公開 README ＋ 交予學校 IT 的 `embed-sample.html` → `q.html` → `t-purchase.html`，三頁皆 200 且無 robots meta。已加 `noindex,nofollow` 並移除兩條入站連結，頁面本體不動。**刻意不加 `robots.txt`** —— `Disallow` 會令爬蟲讀不到 `noindex`，兩者互相抵消，且公開檔會替刻意不設連結的 status 頁賣廣告。
+  8. **OP③ 補回** `backend/README.md` 遺失的 flag 說明。先查證不可還原（README 最後 commit `cd4c10e` 早於引入 flag 的 S214，`git log -S"FEATURE_"` 零結果），改為**由碼重寫**並在 commit message 明寫非還原。
+- **Fix Record（自我推翻一次）：**
+  - **問題：** 我由「40 列 0.5 秒 vs 全庫 3.1 秒」推出「每列約 1.1 毫秒」的成本模型。**根因：** 樣本只有兩點就外推線性關係。**實測反證：** curriculum 3,618 列只需 0.82 秒，而 cpd 939 列要 2.8–6.4 秒。**修正：** 該模型已撤回，成本不隨路由列數線性縮放；cpd 的抖動成因未查明，不編機制。
+- **QC:** `npm run check` 0 · `build` 0 · `regression:grounded` **48/48** · `route_regression` **46/46**（含 flags-off 不變式閘）· `_s220_retryBudget.ts` **4/4**（離線 stub，零網絡）· `_s219_score_before_after.py --self-test` **6/6**。部署後生產實測 12 項全通過（`/health` commit＋暖機、三端點、noindex、入站連結、sources=300、幻影文案、mobile 閘、版本與快取鍵）。**未跑：Recall@k**（工具需要已刪除的舊 scratchpad 語料快取，重負載後不宜再拉語料；**未量，亦未沿用 S219 數字**）。
+- **Evidence disposition:** 四份存 `dev/source/eval_runs/`：`2026-09-08_s220_route_first_before_after.jsonl`＋`.meta.json`、`_before.json`／`_after.json`、`2026-09-09_s220_op2_preflag_production.json`、`2026-09-09_s220_op2_postflag_production.json`。**兩份生產檔含全部回應 body（含失敗）** —— S217／S219 各有一次「未存 body 故成因無法證明」，本節不重複。
+- **Sync:** `CODEBASE_CONTEXT.md` 已更新（route-first RPC block 的啟用狀態、次序、重試預算；另修正 S215 兩處已被交接推翻的記載 —— 本體「未經核實」已由 S219 introspection 結案、部署 build 引用次數由 `4a25a15` 的 0 更正為 `3ebd11f` 的 3）＋ AI Maintenance Log 兩條。`CHANGELOG.md` 加 v3.3.3 條目。
+- **Pending:** OP① HNSW 未開始（**先決條件：Leonard 跑 `pg_available_extension_versions` 唯讀查詢**）· cpd 路由抖動未查明 · `qc_report.json` overall ERROR 未處理 · 41 個指引 chunks=0 · registry 281 vs 服務 300 的差額未對帳 · `app.html` KLA「多份」待 Leonard 定義精確數。
+- **Risks:** 🔴 **CVE-2026-3172 影響 pgvector 0.6.0–0.8.1（本專案 0.8.0），觸發條件正是以 parallel worker 建立／重建 HNSW 索引** —— 未確認可升級前不得建 HNSW。⚠️ 本機量度比 Render 慢約 1.5–2 秒（實測：生產端到端做更多事只需 3.07–3.96s，而本機裸 RPC 已 3.31–3.88s），**故 S220 gold 跑的 35.1%／18.4% 是上限值，不可當生產數**。⚠️ 路由的 p90 尾部（8,335ms）比全庫（3,782ms）更差。
+- **Log maintenance:** **no-op。** 本檔 5 條 → 加本條 6 條，255 行；未達 N≥11 或 1500 行任一硬觸發，S217 剛做過全面維護、10 次 backstop 亦未到。
+- **規則衝突（依 §5 記錄）：** 沿用 S216–S219 的取捨 —— 專案 INSTRUCTIONS 層 §4 規則 12–14 要求把開場白逐字寫入本 log，本檔前言（Kit managed core）則明寫「The full opening message never belongs in this log」。取較可驗證且不製造第二個真相源的一方：只寫 mirror 行，全文留在交接檔。 **本節另撞到同一家族的第二處衝突**：§4 規則 5 要求開場白逐字使用「§1 startup sequence: … → dev/SESSION_LOG.md → …」模板，而 Kit managed core 的 anchor 要求開場白必須含「Do not read dev/SESSION_LOG.md during ordinary startup」—— 兩句語意直接相反。我起初寫了 §4 模板，`doctor` 隨即報 anchor 缺失（35 項檢查 1 項不過）。**取 Kit 一方**（機器可驗證，且與 S216–S219 的既有開場白一致），衝突記於此。
+- **Playbook（§14 留底）：** **本節未 grep 全表、未開任何卡，故按該庫規則不寫 usage 行。** 但產生了兩條夠成熟可轉移的教訓，已備妥提案待交（見交接檔 Pending）：(a)「量到出口頻寬，卻用來論斷伺服器端成本」這個量度陷阱；(b)「當失敗本身就是逾時，重試預算應該用時間而非次數」。
+- **Opening-message mirror:** 已重生並驗證 —— 由 `SESSION_HANDOFF.md` 唯一的 fenced block 生成，讀回逐位元組相等；全文按契約不複製入本 log。
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-09-08 Session 219 — 185 題閘首次跑完；查出 anon 只有 3 秒 timeout；overlay 暖機令冷啟動首請求由 6.1 秒降到 3.4 秒並已部署
 
 - **ID:** `Claude_20260908_0800` — S219

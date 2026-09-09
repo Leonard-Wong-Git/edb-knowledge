@@ -1,76 +1,69 @@
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft. Read AGENTS.md, then dev/SESSION_HANDOFF.md. Trust the handoff over this generated mirror.
 
-If the root does not match the handoff, stop and ask for confirmation. Do not read dev/SESSION_LOG.md during ordinary startup. Read dev/PROJECT_INDEX.md, dev/RULE_PACKS.md, dev/DOC_SYNC_REGISTRY.md, and task packs only when the current task requires them.
+If the root does not match the handoff, stop and ask for confirmation. Do not read dev/SESSION_LOG.md during ordinary startup. Read dev/PROJECT_INDEX.md, dev/RULE_PACKS.md, dev/DOC_SYNC_REGISTRY.md, dev/CODEBASE_CONTEXT.md, dev/PROJECT_MASTER_SPEC.md, and task packs only when the current task requires them.
+所有路徑含空格，終端機指令必須用雙引號包住。
 
-Resume the current objective. A plain `Start Agent Handoff` / `開工` with no same-message task only authorizes minimum state recovery, the startup card, the current objective/risk/recommended next action, and then the end of the turn. A same-message task may begin normally; an explicit instruction such as `開工，繼續做到下一個 blocker` may continue under the normal task and safety rules.
+一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
+報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S219, 2026-09-08）---
+--- 專案狀態（S220, 2026-09-09）---
 
-Current state：平台 v3.3.2；Supabase 17,610；source_registry 281；guidelines.json _meta 2.6.1；
-knowledge.json 2.3.0 · facts 455；凍結合約零接觸。Agent Handoff Kit v0.3.66。
-HEAD == origin/main == a246f77，分歧 0/0，工作區乾淨。
-線上部署：Render /health 報 commit 3ebd11f、cache_a warm 455、cache_b warm 206/267
-（started_at 2026-09-08T10:04:14Z）。
+平台 v3.3.3；Supabase 17,610；source_registry 登記 281（實際服務 distinct source_id 307，
+扣 7 個 role_facts_* = 公開指標 300）；凍結合約零接觸（knowledge.json _meta 2.3.0 · facts 455 ·
+guidelines.json 2.6.1）。Agent Handoff Kit v0.3.66。
+HEAD == origin/main == 6cbb49c，分歧 0/0，工作區乾淨。生產部署 9072af1。
 
-✅ S219 做完了甚麼（一節之內三件事）：
-   1. 185 題閘首次跑完（由 S214 掛到 S219）。
-   2. Live introspection 核實兩支 RPC，Risks 第 2 項結案。
-   3. overlay 啟動期暖機已部署，冷啟動首請求 6,126ms → 3,404ms。
+🟢 S220 做完了甚麼（三件）：
+   1. 揪出 FEATURE_ROUTE_FIRST_SEARCH 的碼與名字相反 —— searchWiki 無條件先跑，routed
+      在其後覆蓋，令命中路由的查詢付雙倍代價並丟棄貴那半。已修為「routed 取代、失敗才回落」。
+   2. 185 題閘重跑（Leonard 批准 live 批次）：正確性與 S219 完全相同（淨 +1），
+      證明次序修正不改檢索結果，只是不再白做。
+   3. 57014 重試由「最多三次」改為 6,000ms 時間預算 —— 逾時代表額度已用盡，
+      再試兩次等於再等兩個上限（實測一題 8,842+9,183+8,316ms ≈ 27 秒）。
 
-🔴🔴 最重要的一個新事實 —— anon 角色 statement_timeout 只有 3 秒
-   （authenticated 8s、service_role 取預設 8s）。後端用 anon key，所以生產只有 3 秒。
-   而主搜尋 match_wiki_chunks 本身要 2–3 秒 —— 餘裕不足 1.5 倍。
-   【這是本節所有 57014 的共同上游】：route-first 不能開、三條 query 持續失敗、
-   establishment 偶發消失，全部指向同一件事。
-   ⚠️ 連帶紀律：本專案的 in-process 量度慣例是 SUPABASE_ANON_KEY ||= SUPABASE_SERVICE_KEY
-   （見 routeFirstProbe.ts:8），即在 8 秒上限之下量度一個只有 3 秒的系統，
-   會系統性低估失敗率。【任何本機量度，先問一句：我用的是哪個 key。】
+🟢 OP② 已解決，且 flag 已在生產啟用：
+   Leonard 於 Render 設 FEATURE_ROUTE_FIRST_SEARCH=1（2026-09-09T07:28Z 重啟）。
+   同三條題、同端點、前後皆在生產量：9 次 5 敗 → 9 次 0 敗；cur_eight_kla 由 3/3 敗變 3/3 過。
+   已設無路由對照組排除「整體變暖」：對照組仍 2.7–3.9 秒，有路由題已降至 1.4–2.2 秒。
+   回退零成本：刪該環境變數或設 0 後重啟，不需回退任何 commit。
 
-🔴 三個 flag 仍然全部 off，且不建議開 FEATURE_ROUTE_FIRST_SEARCH：
-   檢索準確度確有淨改善（Recall@1 71→73、@3 99→103、@5 113→116，
-   四條 PASS→FAIL 全部 rank 7、在合成窗前 5 之外故無影響），
-   但 (a) 它修不到當初為之而建的 OP④ 三題 chunk recall（實測 rank 完全不變）、
-   (b) 推算生產失敗率 26.4%（量到 11.1% 是 8 秒上限下的低估）。
-   合成側兩個 flag（GROUNDED_SYNTHESIS／EXACT_WINDOW_NARROW）那套 harness 量不到
-   —— 它送 synthesize:false，兩者只在 synthesizeAnswer() 內生效，要另跑 grounded
-   harness（外部模型批次，需 Leonard 另行批准）。但它被 OP① 擋住：主搜尋餘裕
-   未解決之前，開任何 flag 都是在餘裕不足的系統上加負載。
+🔴 推翻了 S219 一個載重結論 —— 「索引幫不到」不成立。
+   該結論源自 select=id,embedding 取 50 列 = 1,042ms → 16ms/列。實測每列回應 19.3 KB，
+   那是 JSON 出口頻寬。決定性一測：RPC 只回 942 位元組仍要 3.37 秒，與回 50 列的 3.41 秒相同。
+   → 成本在伺服器端搜尋，索引直接相關。OP① 因此仍然成立。
 
-✅ 已確立、不必再查的事實：
-   1. 兩支 match_wiki_chunks* 的 live 本體與 repo 逐句相同，各只有一個 overload；
-      anon 對 wiki_chunks 只有 SELECT。（S215–S218 那句「已裝但無法核實」已退休。）
-   2. 索引現況：只有 wiki_chunks_pkey(btree id)、wiki_chunks_embedding_idx(ivfflat lists=60)，
-      加上 S219 新建的 source_id / content_type 兩個 btree。vector 擴充 0.8.0（HNSW 可用）、
-      pg_trgm 未安裝。total_size 363 MB > shared_buffers 224 MB。
-   3. 成本模型（實測）：不碰 embedding 欄的全表掃描等同網絡地板（242ms vs 240ms）；
-      帶 embedding 約 16ms／列。【成本在逐列處理 embedding，不在掃描】——
-      所以 overlay 的 1.6–1.8 秒與主搜尋的 2–3 秒都是 embedding 造成，索引幫不到。
-   4. 本機量度解析度只到約 250ms（網絡地板），量不到更小的服務端差異。
-      要定論須 EXPLAIN (ANALYZE, BUFFERS) 或由 Render 後端內部計時。
-   5. RENDER_GIT_COMMIT 之謎有新證據：本節是 S214 以來第一個真正改 backend/ 的 push，
-      /health 的 commit 隨即更新；純文件 commit 則只重啟不 rebuild、沿用舊值。
-      【假說，未查 Render build filter 設定，不得當作已解。】
+🔴 但 HNSW 現時被 CVE 擋住（這是下一步的第一件事）：
+   CVE-2026-3172 影響 pgvector 0.6.0–0.8.1（本專案 0.8.0），觸發條件正是「以 parallel worker
+   建立或重建 HNSW 索引」。0.8.3/0.8.4 另修 HNSW vacuum 索引損毀 —— 現行 IVFFlat 碰不到那兩類。
+   先跑這句唯讀查詢（Leonard 執行）：
+       select * from pg_available_extension_versions where name = 'vector';
+   ≥0.8.4 → 可談 HNSW；只有 0.8.0 → HNSW 押後。
+
+⚠️ 量度紀律（兩條，違反會得出錯的結論）：
+   1. 本機比 Render 慢約 1.5–2 秒（實測：生產端到端做更多事只需 3.07–3.96s，
+      本機裸 RPC 已 3.31–3.88s）。S220 gold 跑的「3 秒上限失敗率 35.1%/18.4%」是上限值，
+      排序有效、絕對值不可搬去生產。
+   2. anon statement_timeout 只有 3 秒；in-process 慣例 SUPABASE_ANON_KEY ||= SERVICE_KEY
+      （routeFirstProbe.ts:8）會在 8 秒上限下量一個 3 秒系統，系統性低估失敗率。
+      【任何本機量度，先問一句：我用的是哪個 key。】
 
 ⚠️ 未解決（不要當已解決）：
-   · OP① HNSW 評估未開始 —— 這是主搜尋 2–3 秒的唯一真槓桿。
-   · OP② 三條 query 在生產持續回 57014：dig_edb_cloud_guideline_na(3/3)、
-     cur_eight_kla(3/3)、cur_eng_guide_2007_missing(2/3)。用戶會收到錯誤。
-   · OP③ backend/README.md 5 行仍未補（S215 遺失，無備份，不得杜撰）。
-   · OP④ 三題 chunk recall、OP⑤ 4 條 fidelity ＋ S212/S213 全部遺留。
-   · S219 新建的兩個索引【無法證明有效】，保留但不得記為修好任何事；
-     首輪 before/after 因對照組同時變慢 53% 而不可信。
-   · 一次 channel-b 回應缺 total/results 兩鍵，未保存 body 故成因無法證明。
-     【下次遇到異常回應，先存 body 再繼續。】
+   · OP① HNSW 未開始，被上面的版本閘擋住。
+   · 56 條無路由題仍全額付全庫代價（中位 2,636ms / p90 3,782ms）—— route-first 幫不到它們。
+   · 路由的 p90 尾部 8,335ms 比全庫 3,782ms 更差：典型查詢快 4 倍，壞情況更壞。
+   · cpd 路由抖動未查明：939 列要 2.8–6.4 秒，而 3,618 列的 curriculum 只需 0.85 秒以下。
+   · Recall@k 本次未量（工具需要已刪除的舊 scratchpad 語料快取），亦未沿用 S219 數字。
    · qc_report.json overall ERROR 未處理（S215 起）。
-   · AGENTS.md／CLAUDE.md／GEMINI.md 三檔 gitignored 且從未 tracked。
+   · 41 個可瀏覽指引 chunks=0 —— 「177 份」實際搜尋不到約 23%。
+   · registry 281 vs 實際服務 300，差額未對帳。
+   · AGENTS.md／CLAUDE.md／GEMINI.md 三檔 gitignored 且從未 tracked，git 內無任何副本。
 
-QC status（S219 實測）：npm check 0 · npm build 0 · regression:grounded 48/48 ·
-   route_regression 46/46 · 暖機同環境 A/B 6,126ms→3,404ms · 生產三端點煙霧測試正常。
-   agent-handoff-kit doctor 53/53 status: passed（正確叫法是 @adamchanadam/agent-handoff-kit，
-   S217/S218 記的「取不到」是查錯名字）。未跑：合成側 grounded harness。
+QC status（S220 實測）：npm check 0 · build 0 · regression:grounded 48/48 ·
+   route_regression 46/46（含 flags-off 不變式閘）· _s220_retryBudget.ts 4/4（離線）·
+   部署後生產 12 項全通過。未跑：Recall@k、合成側 grounded harness。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION + Render /health
-含 cache_b + git fetch 後比對 HEAD／origin/main + Supabase live count + source_registry）。
-之後如無新指示，開始 OP① 的 HNSW 離線評估：先定召回率重驗方法（HNSW 與 ivfflat 召回特性
-不同，會影響全部 185 題），再向 Leonard 提 DDL。不要直接建索引。
-未得明確批准，不得啟用任何 flag、不得執行 DDL、不得作任何外部模型批次、不得 git push。
+含 cache_b + git fetch 後比對 HEAD/origin/main + Supabase live count + source_registry），
+並額外確認 Render 仍有 FEATURE_ROUTE_FIRST_SEARCH=1。之後如無新指示，向 Leonard 要版本閘
+那句唯讀查詢的結果，據此決定 OP① 做不做。
+未得明確批准，不得改任何 flag、不得執行 DDL、不得作外部模型批次、不得 git push。

@@ -83,3 +83,16 @@ Recorded at closeout per the Registry Rule above. Newest first.
 - `backend/README.md` — ⚠ Skipped：本節未改 flag 行為；遺失的 5 行 flag 說明仍是 OP③，不在本節範圍
 - Playbook usage — ✅ 兩行已 append（`throttled-api-not-empty-data` applied、`inspect-live-infra-before-ddl` lookup）
 
+## S220 — 2026-09-09（route-first 次序修正 ／ 重試時間預算 ／ 全站文案對正 ／ OP② 生產解決）
+
+- `dev/SESSION_HANDOFF.md` — ✅ 已同步（Current Baseline 全重寫；Validation 收攏為 S220 一段；Risks 重生 7 項；Open Priorities 依 §4 重生 5 項並移除兩項已完成；Workspace Identity 加生產 flag 狀態；開場白重生。無損檢查：H2 標題與 ack marker 與改前完全一致）
+- `dev/SESSION_LOG.md` — ✅ 已同步（S220 條，含一次自我推翻的 Fix Record）
+- `dev/PROJECT_INDEX.md` — ✅ 已同步（`routeFirstGold.ts` 行註明 S220 改良、新增兩支工具行）
+- `dev/CODEBASE_CONTEXT.md` — ✅ 已同步（route-first RPC block：啟用狀態＋次序＋重試預算；另修正 S215 兩處已被交接推翻的記載；AI Maintenance Log 兩條）
+- `START_NEXT_SESSION_PROMPT.txt` — ✅ 由交接檔唯一 fenced 區塊重生（71 行）並讀回驗證逐位元組相等
+- `backend/README.md` — ✅ **OP③ 已完成**（S215 事故中失去的 flag 說明已由碼重寫；先查證 git 內無任何副本，commit message 明寫非還原）
+- `CHANGELOG.md` — ✅ 新增 v3.3.3 條目
+- 公開文案（`README.md` / `K1_API_SPEC.md` / `app.html` / `index.html` / `q.html` / `t-purchase.html` / `embed-sample.html` / `mobile.js` / 三個 JSON 鏡像）— ✅ 已同步（`sources` 288／120 → 300、指引 161／152 → 177／158、badge 3.3.0 → 3.3.3、幻影文案、休眠頁 noindex、八個快取鍵）
+- `dev/source/execute_ingest.py` — ✅ **新增 `sources` 自動同步**（step 5c）；此前 display-sync 只同步片段數，來源數靠人手改故漂了四個月
+- Playbook usage — ⚠ **不適用**：本節未 grep 全表、未開任何卡，按該庫規則不寫 usage 行。兩條可轉移教訓已備妥提案待交（見交接檔 Pending）
+
