@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T15:44:35Z",
+  "generatedAt": "2026-09-09T15:39:24Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17610,
@@ -10,7 +10,7 @@
     "INFO": 1,
     "NOT_MEASURED": 1
   },
-  "version": "v3.3.2",
+  "version": "v3.3.3",
   "corpus": {
     "chunks": 17610,
     "sources_serving": 307,
@@ -189,7 +189,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=3ebd11f · 啟動於 2026-09-08T15:44:17.288Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=9072af1 · 啟動於 2026-09-09T15:39:15.447Z · Channel A 快取 0 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -405,7 +405,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "measurable",
-      "detail": "S219 route-first before/after, in-process, full active gold · PASS=None FAIL=0 RECORD_ONLY=None errors=0 · 共 None 條 query",
+      "detail": "S220 OP2 pre-flag production baseline - the three persistently failing gold queries · PASS=None FAIL=0 RECORD_ONLY=None errors=0 · 共 None 條 query",
       "offenders": [],
       "offender_total": 0
     },
