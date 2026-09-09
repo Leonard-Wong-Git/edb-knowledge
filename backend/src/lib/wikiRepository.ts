@@ -115,6 +115,72 @@ export interface WikiSearchOptions {
  * Search Channel B using pgvector cosine similarity.
  * Calls match_wiki_chunks via direct fetch to Supabase REST API.
  */
+/**
+ * Total wall-clock budget for one RPC's retries, across all attempts.
+ *
+ * WHY A TIME BUDGET AND NOT AN ATTEMPT COUNT (S220)
+ *   Both RPC call sites retried 57014 up to three times on an attempt COUNT with no
+ *   regard for how long each attempt took. But a 57014 means the statement hit the
+ *   server's statement_timeout — so a failing attempt costs the FULL ceiling, and
+ *   three of them cost three ceilings while the user waits. Measured in the S220 gold
+ *   run, one routed query spent 8842 + 9183 + 8316ms before its third attempt
+ *   succeeded: roughly 27 seconds for a search whose own budget is 3 seconds
+ *   (anon statement_timeout, verified S219).
+ *
+ *   The retry's documented purpose still holds and is preserved: a cold-start blip
+ *   where the first attempt times out and the next one succeeds quickly. That case
+ *   stays inside the budget (3s failure + a fast success). What the budget removes is
+ *   retrying a query that has ALREADY consumed its whole allowance — there is nothing
+ *   left to retry into, so a second and third full-ceiling wait buys the user nothing
+ *   and costs them everything.
+ *
+ *   6000ms = two 3s ceilings. It permits exactly one retry after a full-ceiling
+ *   timeout, and still permits all three attempts when the failures come back fast
+ *   (a non-timeout transient), which is the case the count was protecting.
+ */
+const RPC_RETRY_DEADLINE_MS = 6000;
+const RPC_MAX_ATTEMPTS = 3;
+
+/**
+ * POST a pgvector RPC, retrying 57014 statement timeouts within the deadline above.
+ * Shared by both call sites: the logic was duplicated byte-for-byte apart from the
+ * URL, the body and the error label, so the S220 budget fix would otherwise have had
+ * to be written twice and would have drifted.
+ */
+async function postRpcWithRetry(
+  rpcUrl: string,
+  key: string,
+  body: unknown,
+  errorLabel: string
+): Promise<string> {
+  const startedAt = Date.now();
+  let rawText = "";
+  for (let attempt = 1; attempt <= RPC_MAX_ATTEMPTS; attempt++) {
+    const resp = await fetch(rpcUrl, {
+      method: "POST",
+      headers: {
+        apikey: key,
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    rawText = await resp.text();
+    if (resp.ok) return rawText;
+
+    // Any non-57014 error fails fast — retrying won't help.
+    const isStatementTimeout = resp.status >= 500 && rawText.includes("57014");
+    const budgetSpent = Date.now() - startedAt >= RPC_RETRY_DEADLINE_MS;
+    if (!isStatementTimeout || attempt >= RPC_MAX_ATTEMPTS || budgetSpent) {
+      throw new Error(`${errorLabel} ${resp.status}: ${rawText}`);
+    }
+    // brief linear backoff before retrying the RPC (250ms, 500ms)
+    await new Promise((resolve) => setTimeout(resolve, 250 * attempt));
+  }
+  return rawText;
+}
+
 export async function searchWiki(
   query: string,
   embedFn: EmbedFn,
@@ -149,33 +215,10 @@ export async function searchWiki(
 
   // Supabase free-tier pgvector (ivfflat probes=8) intermittently returns a
   // 57014 "statement timeout" — most often on the first query after the DB has
-  // been idle. It is transient: an immediate retry almost always succeeds
-  // (empirically 3/3). Retry it here transparently (the embedding above is
-  // reused, not recomputed) so a cold-start blip never surfaces as a failed
-  // search to the user. Any non-57014 error fails fast — retrying won't help.
-  const MAX_ATTEMPTS = 3;
-  let rawText = "";
-  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-    const resp = await fetch(rpcUrl, {
-      method: "POST",
-      headers: {
-        apikey: supabaseKey,
-        Authorization: `Bearer ${supabaseKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-
-    rawText = await resp.text();
-    if (resp.ok) break;
-
-    const isStatementTimeout = resp.status >= 500 && rawText.includes("57014");
-    if (!isStatementTimeout || attempt >= MAX_ATTEMPTS) {
-      throw new Error(`Supabase RPC error ${resp.status}: ${rawText}`);
-    }
-    // brief linear backoff before retrying the RPC (250ms, 500ms)
-    await new Promise((resolve) => setTimeout(resolve, 250 * attempt));
-  }
+  // been idle. Retried transparently (the embedding above is reused, not
+  // recomputed) so a cold-start blip never surfaces as a failed search, but
+  // bounded by a TIME budget — see RPC_RETRY_DEADLINE_MS.
+  const rawText = await postRpcWithRetry(rpcUrl, supabaseKey, body, "Supabase RPC error");
 
   const rows = JSON.parse(rawText) as Array<WikiChunk & { score: number }>;
 
@@ -261,32 +304,17 @@ export async function searchWikiRoutedExact(
   const rpcUrl = `${getSupabaseUrl()}/rest/v1/rpc/match_wiki_chunks_routed`;
   const anonKey = getSupabaseAnonKey();
 
-  let rawText = "";
-  for (let attempt = 1; attempt <= 3; attempt++) {
-    const resp = await fetch(rpcUrl, {
-      method: "POST",
-      headers: {
-        apikey: anonKey,
-        Authorization: `Bearer ${anonKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        query_embedding: embeddingStr,
-        source_ids: sourceIds,
-        match_threshold: minScore,
-        match_count: fetchCount,
-      }),
-    });
-
-    rawText = await resp.text();
-    if (resp.ok) break;
-
-    const isStatementTimeout = resp.status >= 500 && rawText.includes("57014");
-    if (!isStatementTimeout || attempt >= 3) {
-      throw new Error(`Supabase routed RPC error ${resp.status}: ${rawText}`);
-    }
-    await new Promise((resolve) => setTimeout(resolve, 250 * attempt));
-  }
+  const rawText = await postRpcWithRetry(
+    rpcUrl,
+    anonKey,
+    {
+      query_embedding: embeddingStr,
+      source_ids: sourceIds,
+      match_threshold: minScore,
+      match_count: fetchCount,
+    },
+    "Supabase routed RPC error"
+  );
 
   let rows = JSON.parse(rawText) as (WikiChunk & { score: number })[];
 
