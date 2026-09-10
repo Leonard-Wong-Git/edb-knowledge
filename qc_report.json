@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T15:39:24Z",
+  "generatedAt": "2026-09-10T15:35:09Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17610,
@@ -189,7 +189,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=9072af1 · 啟動於 2026-09-09T15:39:15.447Z · Channel A 快取 0 條",
+      "detail": "ok=True · commit=9072af1 · 啟動於 2026-09-10T15:34:57.665Z · Channel A 快取 455 條",
       "offenders": [],
       "offender_total": 0
     },
