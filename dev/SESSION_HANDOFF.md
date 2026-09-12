@@ -18,13 +18,20 @@
 
 1. 平台 **v3.3.3**（S220 bump，因 `mobile.js` 有改動；凍結合約零接觸 —— `knowledge.json` `_meta` 2.3.0 · facts 455 · `guidelines.json` 2.6.1）。
 2. Supabase **17,610** chunks；`source_registry` 登記 **281**，但實際服務 distinct `source_id` **307**（扣 7 個 `role_facts_*` 偽來源 = 公開指標 **300**）。此差額未對帳，見 Open Priorities。
-3. **【S220】`HEAD == origin/main == 6cbb49c`**，分歧 0/0，工作區乾淨。生產部署 `9072af1`。**判斷線上是否落後看 `git diff --name-only <部署commit>..HEAD -- backend app.html` 是否為 0，不要比 hash。**
+3. **【S221 收工】`HEAD == origin/main`**（S221 收工 commit 除外）。生產部署 `9072af1`；本節**零 `backend/src` 改動**，線上執行碼未變。**判斷線上是否落後看 `git diff --name-only <部署commit>..HEAD -- backend app.html` 是否為 0，不要比 hash；開工前必先 `git fetch` 再比對。**（S220 收工那個治理 commit 當時只 commit 未 push，S221 開工由 Leonard rebase 到三個 watcher bot commit 之上並推出，成為 `a88d709`。）
 4. 🟢 **`FEATURE_ROUTE_FIRST_SEARCH` 已在生產啟用**（Leonard 於 Render 設 `=1`，2026-09-09T07:28Z 重啟）。另兩個合成側 flag 仍 `0`。回退零成本：刪該環境變數或設 `0` 後重啟，不需回退任何 commit。
-5. **OP② 已解決**：三條持續失敗題在生產由 9 次 5 敗 → **9 次 0 敗**，`cur_eight_kla` 由 3/3 敗變 3/3 過。已設無路由對照組排除「整體變暖」。
+5. **【S221】`match_wiki_chunks_routed` 的查詢計劃已修（DDL 已套用生產庫）**：刪 `set local enable_bitmapscan = off` 後，routed 搜尋由掃全表 17,610 列改為經 `wiki_chunks_source_id_idx` 只取命中列，buffer 觸碰降至 **12.9%**；回傳列與分數逐條不變。回滾段見 `## Supabase Technical Notes`。**S220 的 OP② 生產解決仍然成立**（三條題 9 次 5 敗 → 9 次 0 敗），詳見 `dev/SESSION_LOG.md` S220 條。
 6. S212–S214 的完整基線敘述與舊 Open Priorities 全文仍在下方 `## Detail Archive (S212–S214)`，一字未刪。
 
 <!-- ack:section:validation-qc -->
 ## Validation / QC
+
+**S221（2026-09-12）** —— 逐項證據見 `dev/SESSION_LOG.md` S221 條。
+
+- **正確性閘（本節新工具 `backend/scripts/_s221_routedBaseline.ts`）**：DDL 前後各跑一次、**重用同一批查詢向量**，7 條題逐條比對 → **6/6 原本成功的 id 與 score 完全相同**，第 7 條（cpd「專業階梯」）由 **HTTP 500／0 列 → 200／40 列**，0 problems。
+- **機器閘**：`npm run check` 0 · `route_regression` **46/46** · `regression:grounded` **48/48**。
+- **生產實測**：`/api/search/channel-b` 三條 cpd 題各 3 次 = **9/9 全部 `ok`／8 結果**，1.48–2.42 秒（**首次 24.6 秒是 Render 冷啟動，不是查詢延遲**）。
+- **未做（不要當已做）**：同批查詢的生產前後對照 —— 前值取自 S220 記錄（2.81／6.10／6.41 秒），非同一批題、非同一時段，故「快了多少」只有指示性。185 題 gold 未重跑，故 Risks 3 的 p90 仍是舊計劃下的數字。Recall@k 與合成側 grounded harness 狀態同 S220；`qc_report.json` overall ERROR 未處理（S215 起）。
 
 **S220（2026-09-09）** —— 完整逐項證據見 `dev/SESSION_LOG.md` S220 條，此處只留結論。
 
@@ -37,10 +44,10 @@
 <!-- ack:section:risks-blockers -->
 ## Risks / Blockers
 
-1. 🔴 **【S220 新增，OP① 的封鎖項】CVE-2026-3172 影響 pgvector 0.6.0–0.8.1，0.8.2 修正；本專案為 0.8.0。觸發條件正是「以 parallel worker 建立或重建 HNSW 索引」** —— 即 OP① 本來要交的那道 DDL。另 0.8.3／0.8.4 修正 HNSW vacuum 的索引損毀，那兩類問題現行 IVFFlat 完全碰不到。**未先跑 `select * from pg_available_extension_versions where name='vector';` 確認可升級之前，不得建 HNSW。**
+1. 🔴 **【S221 改寫；S220 原文的定性只對一半】HNSW 的封鎖項不是 CVE，是兩個無法繞過的 vacuum 修正。** 版本閘已跑（S221 實測）：Supabase 提供的 `vector` 版本清單最高只到 **0.8.0**，而 0.8.0 正是已安裝那個（`installed: true`），故 `alter extension vector update;` 無任何可升目標。三個相關修正全部在我們之上 —— **0.8.2**：Fixed buffer overflow with parallel HNSW index build（＝CVE-2026-3172，CVSS 8.1），**這一項有官方緩解**，建索引前 `set max_parallel_maintenance_workers = 0;` 即避開觸發條件；**0.8.3**：Fixed possible index corruption with HNSW vacuuming；**0.8.4**：Fixed `hnsw graph not repaired` error with HNSW vacuuming ＋ vacuuming 期間 insert 出錯。**後兩項關不掉**（autovacuum 必然會跑），且是索引建成之後長期存在的風險，不是建索引那一刻的風險。**結論：在升級之前不得建 HNSW；但不要再以為「繞過 parallel 就可以做」。** 解封只有一條路：Supabase Dashboard → Settings → General 發起軟件／基建升級（只有 Leonard 做得到；另 2026-08-05 起 Supabase 已棄用「建立／更新擴充時指定版本號」）。現行 IVFFlat 完全碰不到上述三類問題。來源：pgvector CHANGELOG 0.8.2／0.8.3／0.8.4、NVD CVE-2026-3172、Supabase Extensions 文件（S221 逐項核實）。
 2. ⚠️ **【S220 新增】本機量度比 Render 慢約 1.5–2 秒。** 實測：生產端到端（含兩程網絡＋OpenAI embedding＋overlay）只需 3.07–3.96s，而本機一支裸 RPC 已 3.31–3.88s。**故 S220 gold 跑的「3 秒上限失敗率 35.1%／18.4%」是上限值，兩者之間的排序有效，絕對值不可搬去生產。**
-3. ⚠️ **【S220 新增】路由的尾部比全庫更差。** gold 跑：routed 中位 639ms／p90 **8,335ms**；全庫中位 2,636ms／p90 3,782ms。route-first 令典型查詢快約 4 倍，卻令壞情況更壞。56 條無路由題仍全額付全庫代價 —— 那正是 OP① 要處理的部分。
-4. ⚠️ **【S220 新增，未查明】`cpd` 路由抖動。** 939 列的 cpd 三跑 2.81／6.10／6.41 秒，而 3,618 列的 curriculum 穩定在 0.85 秒以下。回應大小相若（68–80 KB），非出口問題。**成因未查明，不編機制。**
+3. ⚠️ **【S220 量度，S221 標記為可能已過時】路由的尾部比全庫更差。** gold 跑：routed 中位 639ms／p90 **8,335ms**；全庫中位 2,636ms／p90 3,782ms。**但該次量度是在舊計劃之下做的**（routed 每查詢掃全表 17,610 列），而該計劃已於 S221 修正。**這個 p90 未重量，不可當現況** —— 要更新必須重跑 185 題 gold。「56 條無路由題仍全額付全庫代價」一項不受影響，仍然成立。
+4. 只監察 —— **實例層的冷熱落差 58–90 倍，成因未查明。** 同一句唯讀查詢第一次 916ms／2,259ms，第二三次 10ms／39ms。`EXPLAIN` 報 `read=0`（頁面已在共享緩衝區）照計不應如此，疑似受管平台的 CPU 爆發額度，**無證據，不編機制**。用戶感到的忽快忽慢現時主要來自這一項，屬平台層，改碼幫不到。**任何兩組查詢的比較都必須交錯重量三輪以上**，否則會把冷熱差異誤讀成結構差異。（本節已結案的那半邊見 `## Current Baseline` 5 與 `## Validation / QC` S221 段，不再列為風險。）
 5. 只監察 —— Option A watcher bot 仍會自行推 commit 到 `origin/main`（只碰 `discovery_seen.json`／`registry_drift.md`／`qc_report.json`）。S220 開工就撞到一次（`2544ed9`）。**紀律不變：開工與 push 前一定要 `git fetch` 後比對，不得讀交接記載的 hash 當現況。**
 6. 只監察 —— **`anon` 角色 `statement_timeout = 3 秒`**（`authenticated` 8s、`service_role` 8s）。後端用 anon key，故生產只有 3 秒。**量度紀律：本專案 in-process 慣例為 `SUPABASE_ANON_KEY ||= SUPABASE_SERVICE_KEY`（`routeFirstProbe.ts:8`），即在 8 秒上限下量一個只有 3 秒的系統，會系統性低估失敗率。任何本機量度之前先問一句：我用的是哪個 key。**
 7. 只監察 —— `AGENTS.md`／`CLAUDE.md`／`GEMINI.md` 三檔在 `.gitignore` 內且從未 tracked；`.gitignore` 的 `AGENTS.md` 規則無前置斜線，會在任何深度命中，連升級前備份都被 ignore。**這三個檔 git 內沒有任何副本。**
@@ -51,7 +58,7 @@
 - **Correct cd**: `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"`
 - **Python script invocation**: 一律由 repo root 起，例如 `cd "…/Draft" && python3 dev/vault/extract_candidates.py ...`
 - **Backend**: `cd "…/Draft/backend" && npm run dev`
-- **Git state（S220 收工）**: `HEAD == origin/main == 6cbb49c`，分歧 0/0，工作區乾淨（收工 commit 除外）。生產部署 `9072af1`。
+- **Git state（S221 開工實測）**: `HEAD == origin/main == a88d709`，分歧 0/0，工作區乾淨。生產部署 `9072af1`。
 - **Production flag state**: `FEATURE_ROUTE_FIRST_SEARCH=1` 於 Render 環境變數（S220 啟用）。另兩個合成側 flag 未設定＝關閉。**Render 環境變數只有 Leonard 改得到，AI 改不到。**
 
 <!-- ack:section:next-task-required-reading -->
@@ -155,18 +162,20 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:next-priorities -->
 ## Open Priorities
 
-**Recommended next step（S220 重生）：** **先跑版本閘，再決定 OP① 做不做。** OP② 已在生產解決，主搜尋餘裕仍是唯一未解的結構問題，但 HNSW 現時被 CVE 擋住 —— 一句唯讀查詢就能解除或確認這個封鎖，成本最低而影響最大。
+**Recommended next step（S221 收工重生）：** **拿一個 Supabase 平台升級的決定。** cpd 那條結構性問題本節已修並驗證完畢；索引方向（①②）是餘下唯一未推進的結構性方向，而它整條被 pgvector 版本擋住，解封只有平台升級一途，屬你的決定。若暫不升級，次選是 ③ 重跑 185 題 gold（成本低、可更新兩個已過時的數字）。
 
-① 🔴 **【S220 改寫，最高優先，你執行】跑版本閘，解除 OP② 之後餘下的 HNSW 封鎖。** `select * from pg_available_extension_versions where name='vector';`（唯讀）。有 **≥0.8.4** → 先 `alter extension vector update;` 再評估 HNSW；最高只有 **0.8.0** → **HNSW 押後**（CVE-2026-3172 的觸發條件正是建 HNSW 索引，見 Risks 1）。
+① 🔴 **【S221 改寫，待你拍板】Supabase 平台升級的去留 —— HNSW 唯一的解封路徑。** 版本閘已跑：可用 `vector` 最高 0.8.0 ＝ 已安裝，升無可升。封鎖項是 0.8.3／0.8.4 那兩個 HNSW vacuum 修正（關不掉），**不是 CVE**（CVE 有官方緩解），見 Risks 1。要推進 ② 必須先有升級的影響評估（停機、IVFFlat 是否需重建、回退路徑）與你的決定。**這是平台動作，不是唯讀查詢。**
 
-② 🔴 **【S219 遺留，S220 重新定位】主搜尋延遲對 3 秒上限餘裕不足。** 56 條無路由題仍全額付全庫代價（中位 2,636ms／p90 3,782ms），route-first 幫不到它們。S220 已證成本在伺服器端搜尋而非出口頻寬，故索引**確實**相關（S219 的「索引幫不到」已推翻）。建索引前必先定召回率重驗方法 —— 官方無 `ef_search`↔`probes` 換算，只能與精確搜尋對照。屬 DDL，需你執行，且被 ① 擋住。
+② 🔴 **【S219 遺留】56 條無路由題仍全額付全庫代價。** 中位 2,636ms／p90 3,782ms，route-first 幫不到它們；S220 已證成本在伺服器端搜尋而非出口頻寬。建索引前必先定召回率重驗方法 —— 官方無 `ef_search`↔`probes` 換算，只能與精確搜尋對照。屬 DDL，需你執行，且被 ① 擋住。
 
-③ **【S220 新增】`cpd` 路由抖動未查明。** 見 Risks 4。flag 已啟用，這條抖動現時直接影響用戶。宜先量再推機制。
+③ **【S221 新增】重跑 185 題 gold，更新兩個已過時的數字。** Risks 3 的 routed p90（8,335ms）與 S220 的失敗率，都是在 S221 修正之前的計劃下量的。工具現成（`backend/scripts/routeFirstGold.ts`），需你批准 live 批次。**做完才知道那條改動對尾部延遲的真實影響** —— 本節只證了工作量降至 12.9%，沒有量過整體分佈。
 
-④ **【S214 遺留，S219／S220 兩次證實 route-first 修不到】三題 chunk recall。** `hr_lsp` 完整公式跨第 3／4 頁而 `dominant_page()` 判第 3 頁；`sen_special_school_curriculum` 的 `g10` 與中史 NCS 目標片段均未入首 8。須另尋路徑（query expansion 與向量排名）。
+④ **【S214 遺留，route-first 修不到】三題 chunk recall。** `hr_lsp` 完整公式跨第 3／4 頁而 `dominant_page()` 判第 3 頁；`sen_special_school_curriculum` 的 `g10` 與中史 NCS 目標片段均未入首 8。須另尋路徑（query expansion 與向量排名）。
 
 ⑤ **【累積遺留】** `qc_report.json` overall ERROR（S215 起）· 41 個可瀏覽指引 chunks=0（「177 份」實際搜尋不到約 23%）· `source_registry` 281 vs 服務 300 未對帳 · `app.html` KLA「多份」待定義精確數 · 4 條 fidelity 不一致 ＋ 658 代號標題 ＋ 七個 standing WARN 無 waiver 等，**全文見下方 Detail Archive**。
 
+> **S221 合規備註：** 依 §4 上限 5 項**重生後覆寫**，非複製貼上。本節完成的 OP③（cpd 路由抖動）**已移除**；S221 中途曾兩次改寫 ①③，收工再依實際狀態重排。新增 ③（重跑 gold）為本節產生的待辦；舊 ④⑤ 順延。
+>
 > **S220 合規備註：** 依 §4 上限 5 項重新排序後**覆寫**，非複製貼上。S219 的 ①（HNSW）降級為 ②並改寫理由（成本模型已推翻）；S219 的 ②（三條 query 持續回錯）**已完成，移除**；S219 的 ③（`backend/README.md`）**已完成，移除**；新增版本閘與 cpd 抖動兩項。
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
@@ -195,6 +204,31 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:completed-this-session -->
 ## Last Session Record
 
+1. UTC date: 2026-09-12
+2. Session ID: `Claude_20260912_0655` — S221。由頂層 dormant root 一句「開工」redirect 入 Draft。Leonard 逐步授權：批准 rebase＋push（他自己在 Terminal 執行）→ 貼版本閘查詢結果 → 指示先修交接再做 OP③ → 逐段執行 `explain` 量度 → 貼 APPLY DDL → 指示續查殘餘差異 → 收工。
+3. Completed:
+   - ✅ **版本閘跑完，並改正了交接對 HNSW 封鎖項的定性。** 可用 `vector` 最高 0.8.0 ＝ 已安裝。**擋住的不是 CVE**（0.8.2 修，官方緩解為建索引前 `set max_parallel_maintenance_workers = 0`），是 0.8.3／0.8.4 那兩個關不掉的 HNSW vacuum 修正。全文見 `## Risks / Blockers` 1 與 `## Open Priorities` ①。
+   - ✅ **查明並修好 cpd 路由慢的真因。** planner 對 cpd 把距離運算排在 `source_id` 過濾之前，令 939 列的類別為全部 17,610 列算距離。修法＝刪 `match_wiki_chunks_routed` 的 `set local enable_bitmapscan = off`（Leonard 執行 DDL）。**連帶發現 S219 加的 `wiki_chunks_source_id_idx` 一直被那句封死，從未被用過。** 數據與回滾段見 `## Supabase Technical Notes`。
+   - ✅ **正確性閘先立後驗**（新工具 `backend/scripts/_s221_routedBaseline.ts`）：改前記低 7 條題的 routed 回傳，改後**重用同一批向量**再跑，6/6 逐條相同、第 7 條由 500 變 200。數字見 `## Validation / QC`。
+   - ✅ **推翻了本節稍早自己提出的一個假差異**（「某類別每列特別貴」）—— 重複量度證明那是量度時機造成，不是兩批資料的分別。餘下未查明的一項已歸入 `## Risks / Blockers`，數字見 `dev/SESSION_LOG.md` S221 條第 6 項。
+   - ✅ **git 分歧清理**：S220 收工 commit 只 commit 未 push，遠端另有三個 watcher bot commit；Leonard 在 Terminal 執行 rebase＋push 成為 `a88d709`。**push 不是 AI 做的。**
+   - ✅ **Playbook §14 留底**：`inspect-live-infra-before-ddl` 一行 usage（applied）；另交一份新提案 `inbox/2026-09-12-policychecker-guc-disable-kills-filter-index.md`（為求 exact 而關索引，關得太闊會連過濾用的 btree 一齊封死 ＋ 冷熱交錯重量的判別法）。
+4. Carry-forward：本節未完成的事項**一律不在此列舉**，全部歸入 `## Open Priorities`（①–⑤）與 `## Validation / QC` S221 段的「未做」四項，以免同一件事同時以「本節記錄」與「待辦」兩個生命週期狀態出現。
+5. ⚠️ **零 `backend/src` 改動、零前端改動、零 Supabase 資料寫入、零重入庫、零 flag 改動。** 唯一的生產寫入是 Leonard 執行的一句 `create or replace function`（計劃設定，不動邏輯、不動資料），回滾段已備。
+
+<!-- 本地邊界 marker（S221 由 S218 之前下移至此）：令 completed-this-session 的抽取範圍只涵蓋 S221 -->
+<!-- ack:section:session-history -->
+
+## Previous Session Record (S220)
+
+1. UTC date: 2026-09-09
+2. Session ID: `Claude_20260909_0700` — S220。**本段由 S221 收工時依 `dev/SESSION_LOG.md` S220 條補寫** —— S220 closeout 當時未把自己的記錄寫入本檔，令 `Last Session Record` 停留在 S219 一節。
+3. Completed（撮要，逐項證據見 log S220 條）：揪出 route-first 的碼與名字相反（疊加而非取代全庫搜尋）並修正；185 題閘重跑，正確性與 S219 完全相同（淨 +1）；57014 重試由次數制改為 6,000ms 時間預算；**OP② 在生產解決**（三條題 9 次 5 敗 → 0 敗），Leonard 在 Render 設 `FEATURE_ROUTE_FIRST_SEARCH=1`；推翻 S219「索引幫不到」的成本模型；全站文案對正；兩個休眠頁加 noindex。平台 v3.3.2 → **v3.3.3**。
+4. Not done：三個 flag 之中兩個合成側仍關；Recall@k 未量；`qc_report.json` overall ERROR 未處理。
+5. ⚠️ 八個 commit 已推；**但收工那個治理 commit 未推**，由 S221 開工清理。
+
+## Previous Session Record (S219)
+
 1. UTC date: 2026-09-08
 2. Session ID: `Claude_20260908_0800` — S219。由 Leonard 一句「開工」起，其後逐步授權：批准 185 題 live 批次 → 同意 introspection ritual → 同意加兩個索引 → 指示做 overlay 暖機修復 → 批准 commit push → 收工。**本節是 S214 以來第一節真正改動 `backend/` 並部署的 session。**
 3. Completed:
@@ -207,9 +241,6 @@ source_registry → same vault PDFs → ai_extract.py
    - ✅ **Playbook §14 留底**：`throttled-api-not-empty-data`（applied）、`inspect-live-infra-before-ddl`（lookup）兩行已 append。
 4. Not done / 未做：三個 flag 一個都沒開（依本節實測結論，刻意不開）；合成側 grounded harness 未跑；`qc_report.json` overall ERROR 未處理。
 5. ⚠️ **零 Supabase 資料寫入、零重入庫、零 flag 啟用、零外部模型批次。** DDL 由 Leonard 執行三次（introspection 建／刪、兩個索引），皆已核實。外部寫入只有一次 `git push`（三個 commit）＋ 隨之的 Render 自動部署。
-
-<!-- 本地邊界 marker（S219 由 S215 之前上移至此）：令 completed-this-session 的抽取範圍止於本節記錄，不再涵蓋 S216–S218 的舊完成項 -->
-<!-- ack:section:session-history -->
 
 ## Previous Session Record (S218)
 
@@ -995,6 +1026,12 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:state-reconciliation-check -->
 ## State Reconciliation Check
 
+- **2026-09-12 S221 closeout reconciliation（版本閘定性改正 ／ routed 計劃修正 ／ 抖動成因結案）：** 於 2026-09-12 07:3x UTC 執行。**重寫**：`Current Baseline` 第 3、5 項（git 事實；第 5 項由 S220 的 OP② 換為 S221 的計劃修正，OP② 結論以指標形式保留）· `Validation / QC`（新增 S221 段於最前，S220 段一字未改）· `Risks / Blockers` 第 1、3、4 項（1 改為「封鎖項不是 CVE」；3 標記為舊計劃下的量度、可能過時；4 由「未查明」改為「主因已修＋誤判已排除＋餘一項屬平台層」）· `Open Priorities`（依 §4 重生為 5 項，**移除本節完成的 OP③**，新增「重跑 185 題 gold」）· `Supabase Technical Notes`（新增 S221 block 連 ROLLBACK）· `Next Session Opening Message`（重生）· `Last Session Record`（重生為 S221）。**修好一個 S220 遺留的治理缺陷**：S220 closeout 未寫自己的 `Last Session Record`，令該節停留在 S219；本節依 log 補寫 `Previous Session Record (S220)`，並把 `ack:section:session-history` 邊界標記由 S218 之前**下移至 S221 之後**，令 `completed-this-session` 只涵蓋本節。**逐段讀過確認仍 current、不改**：`Architecture Decisions`、`Regression / Verification Notes`、`Backlog`、`Mandatory Start Checklist`、`Detail Archive`、S219 及更早的所有 `Previous Session Record`。
+- **Persistence routing checked（S221）：** 當前狀態與下一步 → 本檔；逐項實測數值、EXPLAIN 讀數、交錯重量三輪原始數字 → `dev/SESSION_LOG.md` S221 條；改前改後逐條 id／score 與查詢向量 → `dev/source/eval_runs/2026-09-12_s221_routed_before.json`／`_after.json`／`_vectors.json`；同步義務 → `dev/DOC_SYNC_CHECKLIST.md`（本節依其 anti-pattern 規則**新增一行**：外部平台事實重驗推翻既有判斷）；**可轉移的規程知識已交 Playbook 提案**（`inbox/2026-09-12-policychecker-guc-disable-kills-filter-index.md`），未只留在本檔。`dev/CODEBASE_CONTEXT.md` **未改** —— pgvector 版本與 RPC 的 planner 設定不屬其 External Services 已登記項目。
+- **Lifecycle 一致性檢查（S221）：** 本節完成項（版本閘、cpd 計劃修正、正確性閘、抖動成因結案）**不再出現**於 `Open Priorities`；OP③ 已移除。仍在 `Risks` 的項目全部標明「只監察」或附觸發條件（1 附解封路徑＝平台升級；3 附「須重跑 gold 才可更新」；4 附「成因未查明，不編機制」）。**已修好的東西不留在待辦，未量過的東西不寫成已量。**
+- **Stale snapshots left（S221）：** 無新增殘留，且**本節主動更正了兩處既有記載**：(a) Risks 1 的「CVE 擋住 HNSW」定性只對一半，已改寫；(b) `Last Session Record` 停留在 S219（S220 closeout 遺漏），已補回。`Detail Archive (S212–S214)` 為明確標註的歷史段落，非當前狀態。
+- **Closeout outcome（S221）:** 見本節末尾的機器檢查記錄。
+
 - **2026-09-09 S220 closeout reconciliation（route-first 次序修正 ／ 重試時間預算 ／ 文案對正 ／ OP② 生產解決）：** 重寫或逐段確認了 `Current Baseline`（全段重寫：v3.3.3、flag 已啟用、OP② 已解決）、`Validation / QC`（整段換為 S220，明記未跑 Recall@k 及原因）、`Risks / Blockers`（重生 7 項：CVE 封鎖、本機量度偏差、路由尾部、cpd 抖動為新增；watcher／anon timeout／gitignore 三項續留）、`Open Priorities`（依 §4 重生為 5 項，**移除已完成的 S219 ②③**）、`Workspace Identity`（加生產 flag 狀態與「Render 環境變數 AI 改不到」）、`Next Session Opening Message`（重生）。`Durable Anchors`／`Task Understanding Summary`／`Active Objective`／`Sync Status` 逐段核過，確認 current。**無損驗證**：改前改後 H2 標題與 `ack` marker 逐一 diff，完全一致，僅段內內容被覆寫（1434 → 1421 行）。
 - **Persistence routing checked（S220）：** 當前狀態與下一步 → 本檔；逐項實測數值、RPC 耗時、before/after 原始數據與回應 body → `dev/SESSION_LOG.md` S220 條＋ `dev/source/eval_runs/` 四份證據檔；工具與指令地圖 → `dev/PROJECT_INDEX.md`；同步義務 → `dev/DOC_SYNC_REGISTRY.md` S220 區塊；外部服務事實（route-first 啟用狀態、重試預算）→ `dev/CODEBASE_CONTEXT.md` ＋ AI Maintenance Log 兩條。**可轉移的規程知識**（量度陷阱、重試預算原則）已標記為待交 Playbook 提案，未只留在本檔。
 - **Lifecycle 一致性檢查（S220）：** 已完成項（route-first 次序、185 題閘、重試預算、OP②、OP③、文案對正、休眠頁封路）**不再出現**於 `Open Priorities`；S219 的 OP②（三條 query 持續回錯）與 OP③（`backend/README.md`）已驗證完成並移除。仍在 `Risks` 的項目全部標明「只監察」或附觸發條件（CVE 封鎖附解除方法＝跑版本閘；cpd 抖動附「成因未查明，不編機制」）。**已啟用的 flag 不再列為待辦，改列為 Baseline 狀態＋零成本回退方法。**
@@ -1310,10 +1347,9 @@ Recommended next-step rule: `Next Priorities` must name the single recommended n
 
 Can the next AI continue from `AGENTS.md`, this handoff, `dev/PROJECT_INDEX.md`, and needed rule packs without searching old log history?
 
-Answer: yes — S216 closeout 覆核。下一個 agent 淨睇本檔可以知道：**當前數字**（Supabase **17,610** / `source_registry` **281** / 平台 **v3.3.2** / 凍結合約四值 / `origin/main` `463434c` / 本地 HEAD `6cb80c6` 領先**六個** commit 未 push / 17 個治理檔未提交 / 線上部署 `4a25a15` / Kit **v0.3.66** doctor 53/53）；**點核實**（開場白的 `Post-startup first action` 四項探針，連 `git fetch` 後比對這一步都寫明，S215 正是靠它揪出四項漂移，S216 靠它揪出第五項）；**做緊乜**（`Open Priorities` 開首一句寫明單一建議動作與理由，之後 ①–⑦ 每項寫明前置條件與已被否定的舊方案）；**唔准做乜**（未得批准不得 push／commit／deploy／啟用 flag／執行 DDL／跑外部模型批次；任何 DDL 前先確認 live 函式定義）。
+Answer: yes — S221 closeout 覆核。下一個 agent 淨睇本檔可以知道：**當前數字**（Supabase **17,610** / `source_registry` 登記 **281** vs 服務 **300** / 平台 **v3.3.3** / 凍結合約三值 / 生產部署 `9072af1` / `FEATURE_ROUTE_FIRST_SEARCH=1` 已啟用 / Kit **v0.3.66**）；**點核實**（開場白的 `Post-startup first action` 四項探針，連「`git fetch` 後比對、不要信本檔記的 hash」這一步都寫明 —— S217／S218／S221 三節都是靠它揪出漂移）；**做緊乜**（`Open Priorities` 開首一句寫明單一建議動作與理由，①–⑤ 每項寫明前置條件與已被否定的舊方案）；**唔准做乜**（未得批准不得 push／commit／deploy／改 flag／執行 DDL／跑外部模型批次；任何 DDL 前先 `pg_get_functiondef` 確認 live 定義 —— S221 正是靠這一步才發現那兩句 planner 設定）。
 
-Reconstruction evidence: 只用本檔重建下一步 —— **父目標與消費者**見 `## Architecture Decisions (Locked)` 與 `## Open Priorities` 開首（父：EDB K1 知識平台的檢索準確度；消費者：Leonard 與平台用戶）；**本步與父目標的關係**見 `## Open Priorities` ①（S216 是治理升級節，不推進檢索準確度，只解除 S213 記錄的 `doctor failed` 阻塞並令交接檔機械可讀）；**確切續接點**見 `## Last Session Record` 第 4 項與 `## Risks / Blockers` 第 1、3 項（六個 commit ＋ 17 個治理檔待決定去向）；**餘下驗收**見 `## Validation / QC`（S215 產品側數值仍綁定未變的 commit，185 題 live 套件仍未跑）；**必讀來源與新鮮度**見 `## Mandatory Start Checklist` 與 `## Next Task Required Reading`，另 `## Risks / Blockers` 第 2 項寫明 `match_wiki_chunks_routed` 的 live 定義**每次 DDL 前都要重新確認**，不可沿用本檔記載。**未讀缺口**：185 題 live 套件、`INIT.md` 全文（OP ⑦ blocked 的判斷前提）。
-
+Reconstruction evidence: 只用本檔重建下一步 —— **父目標與消費者**見 `## Architecture Decisions (Locked)` 與 `## Open Priorities` 開首（父：EDB K1 知識平台的檢索準確度與延遲；消費者：Leonard 與平台用戶）；**本步與父目標的關係**見 `## Open Priorities` ①②（索引方向被平台版本擋住，等一個升級決定）；**確切續接點**見 `## Last Session Record` 第 4 項（185 題 gold 未重跑、平台升級未評估）；**餘下驗收**見 `## Validation / QC` S221 段的「未做」四項；**必讀來源與新鮮度**見 `## Mandatory Start Checklist`，另 `## Supabase Technical Notes` 寫明 `match_wiki_chunks_routed` 的 live 定義**每次 DDL 前都要重新確認**，不可沿用本檔記載。**未讀缺口**：185 題 live 套件、`INIT.md` 全文（Backlog ⑦ blocked 的判斷前提）、Supabase 平台升級的官方文件（OP① 要做評估時必讀）。
 
 **⚠️ S215 新增治理缺口（未修）**：`backend/README.md` 5 行 flag 說明永久遺失，無備份、沒有杜撰補回；補寫時須在 commit message 明寫是重寫非還原。
 
@@ -1339,66 +1375,58 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S220, 2026-09-09）---
+--- 專案狀態（S221, 2026-09-12）---
 
 平台 v3.3.3；Supabase 17,610；source_registry 登記 281（實際服務 distinct source_id 307，
 扣 7 個 role_facts_* = 公開指標 300）；凍結合約零接觸（knowledge.json _meta 2.3.0 · facts 455 ·
-guidelines.json 2.6.1）。Agent Handoff Kit v0.3.66。
-HEAD == origin/main == 6cbb49c，分歧 0/0，工作區乾淨。生產部署 9072af1。
+guidelines.json 2.6.1）。Agent Handoff Kit v0.3.66。生產部署 9072af1。
+FEATURE_ROUTE_FIRST_SEARCH=1 已在 Render 啟用（S220 起）。
+git：開工必先 fetch 再比對，不要信這裡記的 hash（watcher bot 會自行推 commit）。
 
-🟢 S220 做完了甚麼（三件）：
-   1. 揪出 FEATURE_ROUTE_FIRST_SEARCH 的碼與名字相反 —— searchWiki 無條件先跑，routed
-      在其後覆蓋，令命中路由的查詢付雙倍代價並丟棄貴那半。已修為「routed 取代、失敗才回落」。
-   2. 185 題閘重跑（Leonard 批准 live 批次）：正確性與 S219 完全相同（淨 +1），
-      證明次序修正不改檢索結果，只是不再白做。
-   3. 57014 重試由「最多三次」改為 6,000ms 時間預算 —— 逾時代表額度已用盡，
-      再試兩次等於再等兩個上限（實測一題 8,842+9,183+8,316ms ≈ 27 秒）。
+🟢 S221 做完了甚麼（三件）：
+   1. 版本閘跑完 —— Supabase 可用 pgvector 最高 0.8.0 ＝ 已安裝，升無可升。
+      並改正了封鎖項的定性：擋住 HNSW 的不是 CVE-2026-3172（0.8.2 修，官方緩解為建索引前
+      set max_parallel_maintenance_workers = 0），而是 0.8.3／0.8.4 那兩個 HNSW vacuum
+      修正 —— autovacuum 必然會跑，關不掉。解封只有 Supabase 平台升級一條路。
+   2. 查明並修好 cpd 路由慢的真因：planner 把昂貴的距離運算排在便宜的 source_id 過濾之前，
+      令 939 列的類別要為全部 17,610 列算距離。修法＝刪 match_wiki_chunks_routed 的
+      set local enable_bitmapscan = off（Leonard 執行 DDL）。工作量降至 12.9%。
+      連帶：S219 加的 wiki_chunks_source_id_idx 一直被那句封死，此前從未被用過。
+   3. 排除了「cpd 每列貴 20 倍」這個自己提出的假結構差異 —— 交錯重量三輪證實那是冷熱兩個
+      狀態的比較（暖狀態每列 0.0096ms 對 0.0102ms，差 6%）。
 
-🟢 OP② 已解決，且 flag 已在生產啟用：
-   Leonard 於 Render 設 FEATURE_ROUTE_FIRST_SEARCH=1（2026-09-09T07:28Z 重啟）。
-   同三條題、同端點、前後皆在生產量：9 次 5 敗 → 9 次 0 敗；cur_eight_kla 由 3/3 敗變 3/3 過。
-   已設無路由對照組排除「整體變暖」：對照組仍 2.7–3.9 秒，有路由題已降至 1.4–2.2 秒。
-   回退零成本：刪該環境變數或設 0 後重啟，不需回退任何 commit。
+✅ 這條 DDL 的正確性已閘過，不必重驗：
+   改前改後各跑一次、重用同一批查詢向量，7 條題逐條比對 → 6/6 原本成功的 id 與 score
+   完全相同，第 7 條（cpd 專業階梯）由 HTTP 500／0 列 → 200／40 列。
+   route_regression 46/46 · regression:grounded 48/48 · 生產 9/9 全通過（1.48–2.42 秒）。
+   回滾段在 handoff 的 Supabase Technical Notes，一貼即還原。
 
-🔴 推翻了 S219 一個載重結論 —— 「索引幫不到」不成立。
-   該結論源自 select=id,embedding 取 50 列 = 1,042ms → 16ms/列。實測每列回應 19.3 KB，
-   那是 JSON 出口頻寬。決定性一測：RPC 只回 942 位元組仍要 3.37 秒，與回 50 列的 3.41 秒相同。
-   → 成本在伺服器端搜尋，索引直接相關。OP① 因此仍然成立。
+⚠️ 兩個數字已過時，不要沿用：
+   1. Risks 3 的 routed p90 8,335ms —— 那是在舊計劃（每查詢掃全表）之下量的，未重量。
+   2. S220 的失敗率同理。要更新兩者都須重跑 185 題 gold（工具現成，需 Leonard 批 live 批次）。
 
-🔴 但 HNSW 現時被 CVE 擋住（這是下一步的第一件事）：
-   CVE-2026-3172 影響 pgvector 0.6.0–0.8.1（本專案 0.8.0），觸發條件正是「以 parallel worker
-   建立或重建 HNSW 索引」。0.8.3/0.8.4 另修 HNSW vacuum 索引損毀 —— 現行 IVFFlat 碰不到那兩類。
-   先跑這句唯讀查詢（Leonard 執行）：
-       select * from pg_available_extension_versions where name = 'vector';
-   ≥0.8.4 → 可談 HNSW；只有 0.8.0 → HNSW 押後。
-
-⚠️ 量度紀律（兩條，違反會得出錯的結論）：
-   1. 本機比 Render 慢約 1.5–2 秒（實測：生產端到端做更多事只需 3.07–3.96s，
-      本機裸 RPC 已 3.31–3.88s）。S220 gold 跑的「3 秒上限失敗率 35.1%/18.4%」是上限值，
-      排序有效、絕對值不可搬去生產。
+⚠️ 量度紀律（三條，違反會得出錯的結論）：
+   1. 本機比 Render 慢約 1.5–2 秒；本機數字只可用來排序，絕對值不可搬去生產。
    2. anon statement_timeout 只有 3 秒；in-process 慣例 SUPABASE_ANON_KEY ||= SERVICE_KEY
-      （routeFirstProbe.ts:8）會在 8 秒上限下量一個 3 秒系統，系統性低估失敗率。
+      （routeFirstProbe.ts:8）會在 8 秒上限下量一個 3 秒系統。backend/.env 沒有 anon key。
       【任何本機量度，先問一句：我用的是哪個 key。】
+   3. 冷熱狀態差 58–90 倍，會蓋過一切結構差異。要比較兩組查詢必須交錯重量三輪以上；
+      EXPLAIN 報 read=0 不代表就會快（S221 實測第一次仍慢幾十倍，成因未查明）。
 
 ⚠️ 未解決（不要當已解決）：
-   · OP① HNSW 未開始，被上面的版本閘擋住。
-   · 56 條無路由題仍全額付全庫代價（中位 2,636ms / p90 3,782ms）—— route-first 幫不到它們。
-   · 路由的 p90 尾部 8,335ms 比全庫 3,782ms 更差：典型查詢快 4 倍，壞情況更壞。
-   · cpd 路由抖動未查明：939 列要 2.8–6.4 秒，而 3,618 列的 curriculum 只需 0.85 秒以下。
-   · Recall@k 本次未量（工具需要已刪除的舊 scratchpad 語料快取），亦未沿用 S219 數字。
+   · OP① Supabase 平台升級未評估、未決定 —— 這是 HNSW 唯一的解封路徑，屬 Leonard 的決定。
+   · 56 條無路由題仍全額付全庫代價（中位 2,636ms / p90 3,782ms）。
+   · 實例第一次／之後相差 58–90 倍，成因未查明，屬平台層，改碼幫不到。
+   · 三題 chunk recall（hr_lsp、sen_special_school_curriculum、中史 NCS）。
    · qc_report.json overall ERROR 未處理（S215 起）。
    · 41 個可瀏覽指引 chunks=0 —— 「177 份」實際搜尋不到約 23%。
    · registry 281 vs 實際服務 300，差額未對帳。
    · AGENTS.md／CLAUDE.md／GEMINI.md 三檔 gitignored 且從未 tracked，git 內無任何副本。
 
-QC status（S220 實測）：npm check 0 · build 0 · regression:grounded 48/48 ·
-   route_regression 46/46（含 flags-off 不變式閘）· _s220_retryBudget.ts 4/4（離線）·
-   部署後生產 12 項全通過。未跑：Recall@k、合成側 grounded harness。
-
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION + Render /health
-含 cache_b + git fetch 後比對 HEAD/origin/main + Supabase live count + source_registry），
-並額外確認 Render 仍有 FEATURE_ROUTE_FIRST_SEARCH=1。之後如無新指示，向 Leonard 要版本閘
-那句唯讀查詢的結果，據此決定 OP① 做不做。
+含 cache_b + git fetch 後比對 HEAD/origin/main + Supabase live count），並確認 Render 仍有
+FEATURE_ROUTE_FIRST_SEARCH=1。之後如無新指示，向 Leonard 要 OP① 的決定：Supabase 平台
+升級做不做；若他暫不決定，次選是提議 OP③ 重跑 185 題 gold 以更新兩個已過時的數字。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得作外部模型批次、不得 git push。
 ```
 
@@ -1421,6 +1449,7 @@ git add <指定治理/文檔檔> && git commit -m "session close: <描述>" && g
   - ✅ **S117 FIXED** (was S116 promote-blocker): `searchCombined.ts` `.catch` now returns `failedChannelBResponse` → combined surfaces `channel_b_status:"error"` + `CHANNEL_B_ERROR_REASON`, distinct from genuine unconfigured (`channel_b_status:"unconfigured"` + 未配置). Real Channel B failures now visible to monitoring/eval via the `channel_b_status` discriminator (no more fake "未配置" masking). Genuine-unconfigured path (`searchChannelB.ts` `isSupabaseConfigured()` guard) unchanged. Dedicated `/api/search/channel-b` still recommended for live-grade (no route-level catch — methodology unchanged). Deploy: Render auto-deploys on push to main.
   - 🔴 **S118: free-tier probes=8 intermittent statement-timeout** — live-verify saw 2/5 RPC calls return HTTP 400 / Supabase `57014` "canceling statement due to statement timeout" at probes=8 (succeeded on retry; one was cold-start, one intermittent ~60s after a healthy call). Production-availability risk independent of retrieval correctness; post-S117 it correctly surfaces as `channel_b_status:"error"` (not fake "未配置"). Open Priority — options: lower probes / app-level retry / paid tier. probes=8-live itself still NOT independently introspected (audit-flagged; read-only `pg_get_functiondef`/`proconfig` SQL prepared, not yet run).
   - **S118: Channel B routing +4 dedicated selective routes** (`searchChannelB.ts` `TOPIC_KEYWORDS`/`SOURCE_SETS`/`QUERY_EXPANSIONS`, first-match before `finance`): cpd, kg_admission, conduct, steam (PLAN-1b promote; fixed cutoff unchanged; SAG in cpd/conduct bounded by per-source quota cap=3 → §E.3-safe). Stage-2 adaptive combo abandoned (non-viable; do not revive).
+- **S221 `match_wiki_chunks_routed` 計劃修正（DDL 已由 Leonard 套用，2026-09-12）**：原函式開頭同時 `set local enable_indexscan = off` 與 `set local enable_bitmapscan = off`，令 S219 加的 `wiki_chunks_source_id_idx`（btree）完全用不到，planner 對 cpd 的計劃先為 17,610 列算餘弦距離才篩 `source_id`（135,502 buffer hits）。**已刪 `enable_bitmapscan` 那一行**；`enable_indexscan = off` 保留，因為它才是封住 ivfflat、保住 exact 語義的那一句（ivfflat 是 ordering-only，bitmap 形態下用不著）。實測改後走 `Bitmap Index Scan on wiki_chunks_source_id_idx`，939 列／17,433 hits。**ROLLBACK = 把 `set local enable_bitmapscan = off;` 加回原位並重新 `create or replace`（同簽章＝替換，不會產生第二個 overload）。** 正確性證據見 `dev/source/eval_runs/2026-09-12_s221_routed_before.json` 與 `_after.json`，比對工具 `backend/scripts/_s221_routedBaseline.ts --compare`。
 - Permissions: anon role needs BOTH `GRANT USAGE ON SCHEMA public` AND `GRANT SELECT ON wiki_chunks TO anon`
 - Upload: `SUPABASE_SERVICE_KEY` (service_role) required for insert; anon key for read-only search
 - Conflict resolution: `Prefer: return=minimal` (NOT merge-duplicates); dedup by ID before batching

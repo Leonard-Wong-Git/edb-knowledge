@@ -1,0 +1,1207 @@
+{
+  "mode": "before",
+  "capturedAt": "2026-09-12T07:19:49.007Z",
+  "modelCalls": 14,
+  "cases": [
+    {
+      "id": "cpd_ladder_purpose",
+      "query": "專業階梯",
+      "category": "cpd",
+      "status": 500,
+      "ms": 9494,
+      "sourceIds": [
+        "sag_2025_11",
+        "g06",
+        "circ_edbc24017",
+        "tdtf_report_2019",
+        "role_facts_hr",
+        "role_facts_curriculum",
+        "role_facts_general"
+      ]
+    },
+    {
+      "id": "dig_elearning_device_grant",
+      "query": "電子學習 撥款",
+      "category": "finance",
+      "status": 200,
+      "ms": 4329,
+      "sourceIds": [
+        "g01",
+        "g02",
+        "coa_imc_1_19",
+        "fin_mgmt_notes_aided",
+        "bank_choice_notes",
+        "edbcm089_2026",
+        "role_facts_finance",
+        "role_facts_general",
+        "edbcm096_2026",
+        "coa_pri_e",
+        "coa_ss_e",
+        "edbc015_2026",
+        "edbcm144_2026"
+      ],
+      "rows": [
+        {
+          "id": "vault_g01_526fe089b707001e",
+          "score": 0.6402
+        },
+        {
+          "id": "vault_g01_166ade0c624040d1",
+          "score": 0.6338
+        },
+        {
+          "id": "vault_g01_7c2b5af7e98a2f1a",
+          "score": 0.6206
+        },
+        {
+          "id": "vault_g01_33d170dfd3409080",
+          "score": 0.5945
+        },
+        {
+          "id": "fact_role_facts_finance_21b8a570fa6bec3a",
+          "score": 0.5917
+        },
+        {
+          "id": "vault_fin_mgmt_notes_aided_7e84bb9e69b8f8e0",
+          "score": 0.5858
+        },
+        {
+          "id": "vault_g01_3b7e2621d8d62537",
+          "score": 0.5793
+        },
+        {
+          "id": "vault_g01_2ca2079492a0d9ae",
+          "score": 0.5586
+        },
+        {
+          "id": "vault_g01_217297c4315dccbb",
+          "score": 0.5571
+        },
+        {
+          "id": "vault_g01_7cf8d26383fc8012",
+          "score": 0.556
+        },
+        {
+          "id": "vault_g01_077991488c603a40",
+          "score": 0.5531
+        },
+        {
+          "id": "vault_g01_3b140d471647f8b6",
+          "score": 0.553
+        },
+        {
+          "id": "vault_g02_6e9b68d2288469a1",
+          "score": 0.5516
+        },
+        {
+          "id": "vault_g01_172acf984f54ad30",
+          "score": 0.5509
+        },
+        {
+          "id": "fact_role_facts_finance_768d15096affc3a7",
+          "score": 0.5458
+        },
+        {
+          "id": "vault_g01_a911ebfe5a8b21dc",
+          "score": 0.5308
+        },
+        {
+          "id": "vault_g01_28efe83ce8aad214",
+          "score": 0.5241
+        },
+        {
+          "id": "fact_role_facts_finance_87e70e8725a91d98",
+          "score": 0.5172
+        },
+        {
+          "id": "footnote_fn_g01_approver",
+          "score": 0.5141
+        },
+        {
+          "id": "vault_g01_0c6da5568d9ed61c",
+          "score": 0.5107
+        },
+        {
+          "id": "vault_g01_59ad251f2722c954",
+          "score": 0.5062
+        },
+        {
+          "id": "vault_fin_mgmt_notes_aided_6bd8d6b33a19d3b2",
+          "score": 0.5044
+        },
+        {
+          "id": "fact_role_facts_finance_c4e2b16a009ec04f",
+          "score": 0.4998
+        },
+        {
+          "id": "fact_role_facts_finance_fac9ee472cca2e26",
+          "score": 0.4972
+        },
+        {
+          "id": "footnote_fn_g01_delegate",
+          "score": 0.493
+        },
+        {
+          "id": "fact_role_facts_finance_c5647d6426b3892e",
+          "score": 0.4889
+        },
+        {
+          "id": "vault_fin_mgmt_notes_aided_7e3f28d6f7b8b329",
+          "score": 0.4832
+        },
+        {
+          "id": "vault_g01_beb079204b7575a9",
+          "score": 0.4822
+        },
+        {
+          "id": "vault_coa_ss_e_c4c20051b119",
+          "score": 0.4821
+        },
+        {
+          "id": "vault_g01_158b10fdcbc541d1",
+          "score": 0.4807
+        },
+        {
+          "id": "vault_coa_pri_e_ea467e2add67",
+          "score": 0.4751
+        },
+        {
+          "id": "fact_role_facts_finance_d246d658fd61c096",
+          "score": 0.4739
+        },
+        {
+          "id": "fact_role_facts_finance_9f6730da2db184b1",
+          "score": 0.4717
+        },
+        {
+          "id": "vault_edbc015_2026_d21c39f7f546d25f",
+          "score": 0.4647
+        },
+        {
+          "id": "vault_edbc015_2026_53ee2218ac53e375",
+          "score": 0.4623
+        },
+        {
+          "id": "vault_g02_ace3c74909c8f790",
+          "score": 0.4612
+        },
+        {
+          "id": "vault_g02_5d8434ceee3d7462",
+          "score": 0.4609
+        },
+        {
+          "id": "vault_g01_99c9835b64eb8b2f",
+          "score": 0.4603
+        },
+        {
+          "id": "fact_role_facts_finance_9d0b50d2e8e79bf9",
+          "score": 0.4602
+        },
+        {
+          "id": "vault_coa_imc_1_19_39be891c52c1e13f",
+          "score": 0.4566
+        }
+      ]
+    },
+    {
+      "id": "cur_arts_guide_2002_missing",
+      "query": "藝術教育學習領域課程指引 2002 版",
+      "category": "curriculum",
+      "status": 200,
+      "ms": 3632,
+      "sourceIds": [
+        "eng_pri_guide_2025",
+        "ph_pri_guide_2025",
+        "pri_science_guide_2025",
+        "ma_kla_guide_2017",
+        "pri_curr_guide_2024",
+        "chi_hist_jss_2019",
+        "chi_hist_jss_ncs_2019",
+        "history_jss_2019",
+        "history_sss_2007_2015",
+        "music_p1_s6_2024",
+        "g38",
+        "gs_pri_guide_2017",
+        "va_p1_s6_2024",
+        "chi_jss_guide_2023",
+        "chi_pri_guide_2023",
+        "pe_kla_2017",
+        "role_facts_curriculum",
+        "edbc18_2023_pri_science",
+        "edbc20_2023_ph_pri",
+        "edbc9_2024_ph_pri",
+        "edbc12_2025_ph_pri",
+        "edbc197_2024_ph_pri",
+        "edbc13_2025_pri_science",
+        "edbc002_2026",
+        "edbc003_2026",
+        "edbc005_2026",
+        "edbc010_2026",
+        "circ_edbc24017",
+        "mce_framework_2008",
+        "phys_sss_2007_2015",
+        "chi_edu_curr_docs",
+        "g13",
+        "g29",
+        "g25",
+        "g26",
+        "stat_kg",
+        "edbc013_2026",
+        "ict_sss_2021",
+        "ict_sss_2007_2015",
+        "edbcm116_2026",
+        "edbc014_2026",
+        "edbcm138_2026",
+        "edbcm141_2026"
+      ],
+      "rows": [
+        {
+          "id": "vault_music_p1_s6_2024_5ac238c8984f414e",
+          "score": 0.7023
+        },
+        {
+          "id": "vault_va_p1_s6_2024_e498fdfaa30f666c",
+          "score": 0.69
+        },
+        {
+          "id": "vault_va_p1_s6_2024_5e14fa0cd934dd7b",
+          "score": 0.6713
+        },
+        {
+          "id": "vault_va_p1_s6_2024_0da1541d26c6aa0b",
+          "score": 0.6704
+        },
+        {
+          "id": "vault_va_p1_s6_2024_d58801db2e2bea74",
+          "score": 0.6572
+        },
+        {
+          "id": "vault_va_p1_s6_2024_c61a7b27851e08ff",
+          "score": 0.6555
+        },
+        {
+          "id": "vault_va_p1_s6_2024_aa074bcc26b9c9c4",
+          "score": 0.6524
+        },
+        {
+          "id": "vault_va_p1_s6_2024_de4dca61a008999d",
+          "score": 0.6494
+        },
+        {
+          "id": "vault_va_p1_s6_2024_1377fb8436ad9c2c",
+          "score": 0.6488
+        },
+        {
+          "id": "vault_va_p1_s6_2024_ebe7870a3eb8a703",
+          "score": 0.6486
+        },
+        {
+          "id": "vault_va_p1_s6_2024_f600c0a1fc358bd5",
+          "score": 0.6474
+        },
+        {
+          "id": "vault_g38_4ae0aeba9b22c9da",
+          "score": 0.6453
+        },
+        {
+          "id": "vault_va_p1_s6_2024_bd88e50d3927fa53",
+          "score": 0.6445
+        },
+        {
+          "id": "vault_va_p1_s6_2024_d9c23275906aae2b",
+          "score": 0.6436
+        },
+        {
+          "id": "vault_g38_71f45b285f2a8025",
+          "score": 0.6423
+        },
+        {
+          "id": "vault_va_p1_s6_2024_4a2ccc615308649f",
+          "score": 0.6363
+        },
+        {
+          "id": "vault_va_p1_s6_2024_8a4da29c283db9e8",
+          "score": 0.6324
+        },
+        {
+          "id": "vault_ma_kla_guide_2017_7e37dfaa1dd77c05",
+          "score": 0.6319
+        },
+        {
+          "id": "vault_va_p1_s6_2024_80b1f6b646c8cf44",
+          "score": 0.6294
+        },
+        {
+          "id": "vault_va_p1_s6_2024_a9e62444ae3c022a",
+          "score": 0.6286
+        },
+        {
+          "id": "vault_va_p1_s6_2024_244693fbed9712b8",
+          "score": 0.6283
+        },
+        {
+          "id": "vault_g38_6607526c6bd72ea5",
+          "score": 0.6253
+        },
+        {
+          "id": "vault_pe_kla_2017_ee534cc8fc29881f",
+          "score": 0.6217
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_e6a8fa5f5a617d04",
+          "score": 0.6202
+        },
+        {
+          "id": "vault_va_p1_s6_2024_27c28dbd3d88aa6f",
+          "score": 0.6196
+        },
+        {
+          "id": "vault_g38_bf9188b642ebd82f",
+          "score": 0.618
+        },
+        {
+          "id": "vault_pe_kla_2017_f06b4bed1351ef9f",
+          "score": 0.6179
+        },
+        {
+          "id": "vault_va_p1_s6_2024_431e1dfd359ac3c0",
+          "score": 0.6177
+        },
+        {
+          "id": "vault_pe_kla_2017_d49d38eb41fb4a14",
+          "score": 0.6162
+        },
+        {
+          "id": "vault_pe_kla_2017_1420a8eefd9d51f4",
+          "score": 0.6157
+        },
+        {
+          "id": "vault_pe_kla_2017_20b79b31a24e02b2",
+          "score": 0.6151
+        },
+        {
+          "id": "vault_pri_curr_guide_2024_531acd8bea7cbf59",
+          "score": 0.6144
+        },
+        {
+          "id": "vault_ma_kla_guide_2017_68550c96459d6996",
+          "score": 0.6138
+        },
+        {
+          "id": "vault_va_p1_s6_2024_025bb1d1e0655125",
+          "score": 0.6135
+        },
+        {
+          "id": "vault_g38_723e358d884bbaa1",
+          "score": 0.6125
+        },
+        {
+          "id": "vault_g38_f1675977a47dab23",
+          "score": 0.6124
+        },
+        {
+          "id": "vault_va_p1_s6_2024_26ae589954c61e07",
+          "score": 0.6105
+        },
+        {
+          "id": "vault_va_p1_s6_2024_a11f076c38f7653b",
+          "score": 0.6085
+        },
+        {
+          "id": "vault_ma_kla_guide_2017_8c39ba1bc7a08b67",
+          "score": 0.6073
+        },
+        {
+          "id": "vault_g38_19c4015bdebd38e7",
+          "score": 0.6071
+        }
+      ]
+    },
+    {
+      "id": "cur_eight_kla",
+      "query": "八個學習領域",
+      "category": "curriculum",
+      "status": 200,
+      "ms": 959,
+      "sourceIds": [
+        "eng_pri_guide_2025",
+        "ph_pri_guide_2025",
+        "pri_science_guide_2025",
+        "ma_kla_guide_2017",
+        "pri_curr_guide_2024",
+        "chi_hist_jss_2019",
+        "chi_hist_jss_ncs_2019",
+        "history_jss_2019",
+        "history_sss_2007_2015",
+        "music_p1_s6_2024",
+        "g38",
+        "gs_pri_guide_2017",
+        "va_p1_s6_2024",
+        "chi_jss_guide_2023",
+        "chi_pri_guide_2023",
+        "pe_kla_2017",
+        "role_facts_curriculum",
+        "edbc18_2023_pri_science",
+        "edbc20_2023_ph_pri",
+        "edbc9_2024_ph_pri",
+        "edbc12_2025_ph_pri",
+        "edbc197_2024_ph_pri",
+        "edbc13_2025_pri_science",
+        "edbc002_2026",
+        "edbc003_2026",
+        "edbc005_2026",
+        "edbc010_2026",
+        "circ_edbc24017",
+        "mce_framework_2008",
+        "phys_sss_2007_2015",
+        "chi_edu_curr_docs",
+        "g13",
+        "g29",
+        "g25",
+        "g26",
+        "stat_kg",
+        "edbc013_2026",
+        "ict_sss_2021",
+        "ict_sss_2007_2015",
+        "edbcm116_2026",
+        "edbc014_2026",
+        "edbcm138_2026",
+        "edbcm141_2026"
+      ],
+      "rows": [
+        {
+          "id": "fact_role_facts_curriculum_272099379a4e36c8",
+          "score": 0.6674
+        },
+        {
+          "id": "vault_pe_kla_2017_1420a8eefd9d51f4",
+          "score": 0.6555
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_ab2f902bf64da9cf",
+          "score": 0.6391
+        },
+        {
+          "id": "vault_ma_kla_guide_2017_7e37dfaa1dd77c05",
+          "score": 0.6375
+        },
+        {
+          "id": "vault_pe_kla_2017_f06b4bed1351ef9f",
+          "score": 0.6356
+        },
+        {
+          "id": "vault_ma_kla_guide_2017_8c39ba1bc7a08b67",
+          "score": 0.6264
+        },
+        {
+          "id": "vault_g13_94a7723fc9b2f5fd",
+          "score": 0.6179
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_e6a8fa5f5a617d04",
+          "score": 0.6173
+        },
+        {
+          "id": "vault_gs_pri_guide_2017_21bdf892802c31b2",
+          "score": 0.6109
+        },
+        {
+          "id": "vault_g38_bf9188b642ebd82f",
+          "score": 0.6084
+        },
+        {
+          "id": "vault_gs_pri_guide_2017_cedcabca1de032be",
+          "score": 0.6067
+        },
+        {
+          "id": "vault_ma_kla_guide_2017_462dd1f03fd76cc9",
+          "score": 0.6047
+        },
+        {
+          "id": "vault_pri_curr_guide_2024_605d4dffddd147eb",
+          "score": 0.6007
+        },
+        {
+          "id": "vault_ph_pri_guide_2025_e87730cf9fd51e1b",
+          "score": 0.6004
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_81a292e340364c86",
+          "score": 0.5985
+        },
+        {
+          "id": "vault_ma_kla_guide_2017_fe0a8d962794e876",
+          "score": 0.5978
+        },
+        {
+          "id": "vault_g13_5803633380dba9eb",
+          "score": 0.5977
+        },
+        {
+          "id": "vault_gs_pri_guide_2017_fe3d986148fe408e",
+          "score": 0.5974
+        },
+        {
+          "id": "vault_pri_curr_guide_2024_7a7944dd0d0c93c5",
+          "score": 0.5953
+        },
+        {
+          "id": "vault_g13_44b6c2ad16c376de",
+          "score": 0.5947
+        },
+        {
+          "id": "vault_gs_pri_guide_2017_cb2d54f14ab8bbdd",
+          "score": 0.5939
+        },
+        {
+          "id": "vault_g13_e72a4722cd6a4577",
+          "score": 0.5934
+        },
+        {
+          "id": "vault_g13_4fc70918a1c1a25a",
+          "score": 0.5926
+        },
+        {
+          "id": "vault_pri_science_guide_2025_fa05b3c6a8331779",
+          "score": 0.591
+        },
+        {
+          "id": "vault_g13_d825568d08d24a17",
+          "score": 0.5906
+        },
+        {
+          "id": "vault_ma_kla_guide_2017_601aba793369f2a9",
+          "score": 0.5888
+        },
+        {
+          "id": "vault_music_p1_s6_2024_5ac238c8984f414e",
+          "score": 0.5887
+        },
+        {
+          "id": "vault_pe_kla_2017_20b79b31a24e02b2",
+          "score": 0.5886
+        },
+        {
+          "id": "vault_pri_science_guide_2025_6f7f818645730f96",
+          "score": 0.5866
+        },
+        {
+          "id": "vault_ma_kla_guide_2017_68550c96459d6996",
+          "score": 0.5858
+        },
+        {
+          "id": "vault_phys_sss_2007_2015_358d7136775b4166",
+          "score": 0.5848
+        },
+        {
+          "id": "vault_g13_426c6c86bb7af638",
+          "score": 0.5843
+        },
+        {
+          "id": "vault_phys_sss_2007_2015_f119c16fdc74fb89",
+          "score": 0.5834
+        },
+        {
+          "id": "vault_history_sss_2007_2015_bdaeae122df17771",
+          "score": 0.5831
+        },
+        {
+          "id": "vault_g13_ec49c66d3b5c96d6",
+          "score": 0.583
+        },
+        {
+          "id": "vault_g13_53a80a369f394297",
+          "score": 0.5826
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_90e5c2d72dfbc74b",
+          "score": 0.5824
+        },
+        {
+          "id": "vault_g13_dc5eb4adb6108a8a",
+          "score": 0.5817
+        },
+        {
+          "id": "vault_circ_edbc24017_7ed71fbbd48226b1",
+          "score": 0.5791
+        },
+        {
+          "id": "vault_pri_curr_guide_2024_b07f97c047b19fcf",
+          "score": 0.5789
+        }
+      ]
+    },
+    {
+      "id": "cur_eng_guide_2007_missing",
+      "query": "英國語文教育課程指引 中一至中六 2007",
+      "category": "curriculum",
+      "status": 200,
+      "ms": 663,
+      "sourceIds": [
+        "eng_pri_guide_2025",
+        "ph_pri_guide_2025",
+        "pri_science_guide_2025",
+        "ma_kla_guide_2017",
+        "pri_curr_guide_2024",
+        "chi_hist_jss_2019",
+        "chi_hist_jss_ncs_2019",
+        "history_jss_2019",
+        "history_sss_2007_2015",
+        "music_p1_s6_2024",
+        "g38",
+        "gs_pri_guide_2017",
+        "va_p1_s6_2024",
+        "chi_jss_guide_2023",
+        "chi_pri_guide_2023",
+        "pe_kla_2017",
+        "role_facts_curriculum",
+        "edbc18_2023_pri_science",
+        "edbc20_2023_ph_pri",
+        "edbc9_2024_ph_pri",
+        "edbc12_2025_ph_pri",
+        "edbc197_2024_ph_pri",
+        "edbc13_2025_pri_science",
+        "edbc002_2026",
+        "edbc003_2026",
+        "edbc005_2026",
+        "edbc010_2026",
+        "circ_edbc24017",
+        "mce_framework_2008",
+        "phys_sss_2007_2015",
+        "chi_edu_curr_docs",
+        "g13",
+        "g29",
+        "g25",
+        "g26",
+        "stat_kg",
+        "edbc013_2026",
+        "ict_sss_2021",
+        "ict_sss_2007_2015",
+        "edbcm116_2026",
+        "edbc014_2026",
+        "edbcm138_2026",
+        "edbcm141_2026"
+      ],
+      "rows": [
+        {
+          "id": "vault_chi_pri_guide_2023_22e45130961362b8",
+          "score": 0.6742
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_c6b682ef1c20a7b8",
+          "score": 0.6539
+        },
+        {
+          "id": "vault_chi_jss_guide_2023_4928c9cd7367698c",
+          "score": 0.6474
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_e6a8fa5f5a617d04",
+          "score": 0.6444
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_d07c193ad4d589c8",
+          "score": 0.6319
+        },
+        {
+          "id": "vault_music_p1_s6_2024_5ac238c8984f414e",
+          "score": 0.6217
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_90e5c2d72dfbc74b",
+          "score": 0.6211
+        },
+        {
+          "id": "vault_g13_265f4339c4f1cdc6",
+          "score": 0.6208
+        },
+        {
+          "id": "vault_g13_0503c9a4bbe3019d",
+          "score": 0.6175
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_60df59da768f9830",
+          "score": 0.6159
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_38aba07dc4030a86",
+          "score": 0.6132
+        },
+        {
+          "id": "vault_g13_4fc70918a1c1a25a",
+          "score": 0.6111
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_879bff2cb5e66af1",
+          "score": 0.6069
+        },
+        {
+          "id": "vault_chi_jss_guide_2023_0cf409e73a71b745",
+          "score": 0.6061
+        },
+        {
+          "id": "vault_eng_pri_guide_2025_83c7ce4274623d96",
+          "score": 0.6059
+        },
+        {
+          "id": "vault_pri_curr_guide_2024_531acd8bea7cbf59",
+          "score": 0.6054
+        },
+        {
+          "id": "vault_pe_kla_2017_d49d38eb41fb4a14",
+          "score": 0.6047
+        },
+        {
+          "id": "vault_pe_kla_2017_ee534cc8fc29881f",
+          "score": 0.6039
+        },
+        {
+          "id": "vault_pri_science_guide_2025_6f7f818645730f96",
+          "score": 0.6027
+        },
+        {
+          "id": "vault_eng_pri_guide_2025_9e59312d2f6b16ce",
+          "score": 0.6024
+        },
+        {
+          "id": "vault_phys_sss_2007_2015_f119c16fdc74fb89",
+          "score": 0.6006
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_4867ee2b1f76ce50",
+          "score": 0.6
+        },
+        {
+          "id": "vault_pe_kla_2017_1420a8eefd9d51f4",
+          "score": 0.5992
+        },
+        {
+          "id": "vault_g13_4218169bd70911b3",
+          "score": 0.5983
+        },
+        {
+          "id": "vault_g13_9442f933a32e8d68",
+          "score": 0.5979
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_3b4b6884073f5e88",
+          "score": 0.5976
+        },
+        {
+          "id": "vault_ict_sss_2021_feb475cf6e5191d5",
+          "score": 0.5974
+        },
+        {
+          "id": "vault_g13_426c6c86bb7af638",
+          "score": 0.5972
+        },
+        {
+          "id": "vault_chi_jss_guide_2023_40811c4a3b418180",
+          "score": 0.5967
+        },
+        {
+          "id": "vault_chi_pri_guide_2023_01aff4b07ed33632",
+          "score": 0.5953
+        },
+        {
+          "id": "vault_g13_2b5959bc5287666a",
+          "score": 0.5944
+        },
+        {
+          "id": "vault_history_jss_2019_562980d82cabf9a9",
+          "score": 0.594
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_636adb7881babdca",
+          "score": 0.5939
+        },
+        {
+          "id": "vault_g13_c4209b691cdf2ceb",
+          "score": 0.5936
+        },
+        {
+          "id": "vault_pri_curr_guide_2024_74d8799ea7359128",
+          "score": 0.5934
+        },
+        {
+          "id": "vault_ma_kla_guide_2017_601aba793369f2a9",
+          "score": 0.592
+        },
+        {
+          "id": "vault_g13_db2d91deca7d6f5f",
+          "score": 0.5913
+        },
+        {
+          "id": "vault_g13_05219596b01e0e99",
+          "score": 0.5912
+        },
+        {
+          "id": "vault_chi_edu_curr_docs_ab2f902bf64da9cf",
+          "score": 0.5905
+        },
+        {
+          "id": "vault_edbc13_2025_pri_science_9cdcbd29fbba46c8",
+          "score": 0.5899
+        }
+      ]
+    },
+    {
+      "id": "kg_admission_scope",
+      "query": "幼稚園收生安排",
+      "category": "kg_admission",
+      "status": 200,
+      "ms": 702,
+      "sourceIds": [
+        "g26",
+        "g25",
+        "k1_admission_2627",
+        "kg_admin_guide",
+        "edbcm080_2026",
+        "role_facts_general"
+      ],
+      "rows": [
+        {
+          "id": "vault_k1_admission_2627_bce254dce1978b99",
+          "score": 0.7447
+        },
+        {
+          "id": "vault_edbcm080_2026_b643924590eb88dd",
+          "score": 0.7383
+        },
+        {
+          "id": "vault_edbcm080_2026_93a91f0494719160",
+          "score": 0.7383
+        },
+        {
+          "id": "vault_k1_admission_2627_3b6a85a2293b6d97",
+          "score": 0.738
+        },
+        {
+          "id": "vault_g26_b02f985dfc09505d",
+          "score": 0.7316
+        },
+        {
+          "id": "vault_k1_admission_2627_0a36fa046c73be08",
+          "score": 0.7295
+        },
+        {
+          "id": "vault_k1_admission_2627_4dfff7775d179ac2",
+          "score": 0.7211
+        },
+        {
+          "id": "footnote_fn_k1_regfee",
+          "score": 0.7199
+        },
+        {
+          "id": "vault_g26_c4f350e82445f405",
+          "score": 0.7172
+        },
+        {
+          "id": "vault_g26_fcdf197b50930a5b",
+          "score": 0.7164
+        },
+        {
+          "id": "vault_k1_admission_2627_2bf8812cb2a05605",
+          "score": 0.7099
+        },
+        {
+          "id": "vault_k1_admission_2627_421c157af5c2ffe8",
+          "score": 0.709
+        },
+        {
+          "id": "vault_edbcm080_2026_f47b08e72b6ded60",
+          "score": 0.7061
+        },
+        {
+          "id": "footnote_fn_k1_appfee",
+          "score": 0.7061
+        },
+        {
+          "id": "vault_g26_a1ad244445ef21d4",
+          "score": 0.7058
+        },
+        {
+          "id": "vault_k1_admission_2627_24a38093fc59902c",
+          "score": 0.7026
+        },
+        {
+          "id": "vault_k1_admission_2627_525fd2e95507212c",
+          "score": 0.7004
+        },
+        {
+          "id": "vault_g26_ed814e330ee43595",
+          "score": 0.6998
+        },
+        {
+          "id": "vault_k1_admission_2627_06f08e6e86c9e6a5",
+          "score": 0.6987
+        },
+        {
+          "id": "vault_k1_admission_2627_5cc1f5bc9ad087ce",
+          "score": 0.6974
+        },
+        {
+          "id": "vault_g25_a3d58093313d",
+          "score": 0.6952
+        },
+        {
+          "id": "vault_edbcm080_2026_681050e42fdb1aad",
+          "score": 0.6942
+        },
+        {
+          "id": "vault_edbcm080_2026_64787554dcbb9fb2",
+          "score": 0.6939
+        },
+        {
+          "id": "vault_k1_admission_2627_cbc50a8a9bbda4c2",
+          "score": 0.6923
+        },
+        {
+          "id": "vault_edbcm080_2026_5f4d2bfebcf88f95",
+          "score": 0.6879
+        },
+        {
+          "id": "vault_edbcm080_2026_fdbf09b978a785fc",
+          "score": 0.6859
+        },
+        {
+          "id": "vault_k1_admission_2627_4b8616b31c806e7e",
+          "score": 0.6855
+        },
+        {
+          "id": "vault_edbcm080_2026_d0fad42b57d019f7",
+          "score": 0.6851
+        },
+        {
+          "id": "vault_k1_admission_2627_30037734cb77975b",
+          "score": 0.6847
+        },
+        {
+          "id": "vault_g26_977d336da59f4b1e",
+          "score": 0.684
+        },
+        {
+          "id": "vault_edbcm080_2026_68156ea630fae5ec",
+          "score": 0.6828
+        },
+        {
+          "id": "vault_edbcm080_2026_92a4b22fa1d147d1",
+          "score": 0.6771
+        },
+        {
+          "id": "vault_g26_06fdddb878ef11fe",
+          "score": 0.6762
+        },
+        {
+          "id": "vault_k1_admission_2627_975aadb9eb7bd7d7",
+          "score": 0.6747
+        },
+        {
+          "id": "vault_k1_admission_2627_aefcaf8ca0df46a8",
+          "score": 0.6718
+        },
+        {
+          "id": "vault_k1_admission_2627_4105d852bc0db290",
+          "score": 0.6694
+        },
+        {
+          "id": "vault_g26_d401ea30b744e08b",
+          "score": 0.6675
+        },
+        {
+          "id": "vault_g26_74d4e9ac6c9317f1",
+          "score": 0.6673
+        },
+        {
+          "id": "vault_g26_72db84fa503e0ed0",
+          "score": 0.6646
+        },
+        {
+          "id": "vault_k1_admission_2627_bc5ff4cd417882e8",
+          "score": 0.6628
+        }
+      ]
+    },
+    {
+      "id": "gov_imc_60pct",
+      "query": "辦學團體校董可佔法團校董會校董人數上限多少？",
+      "category": "school_governance",
+      "status": 200,
+      "ms": 852,
+      "sourceIds": [
+        "imc_establishment_operation",
+        "imc_briefing_qa",
+        "imc_governance_supplements",
+        "imc_election_guides",
+        "g02",
+        "coa_imc_1_19",
+        "sdp_guide",
+        "smc_constitution_sample",
+        "role_facts_general",
+        "edbc016_2026"
+      ],
+      "rows": [
+        {
+          "id": "vault_imc_briefing_qa_30fe3d08cc7b6267",
+          "score": 0.7089
+        },
+        {
+          "id": "footnote_fn_imc_60pct",
+          "score": 0.7053
+        },
+        {
+          "id": "vault_imc_establishment_operation_1c25d85dde883f87",
+          "score": 0.7035
+        },
+        {
+          "id": "vault_imc_briefing_qa_147520bbb186aad7",
+          "score": 0.6997
+        },
+        {
+          "id": "vault_imc_establishment_operation_ad9d8f74d990b40b",
+          "score": 0.6918
+        },
+        {
+          "id": "vault_imc_governance_supplements_330ba88fe82107ba",
+          "score": 0.6904
+        },
+        {
+          "id": "vault_imc_briefing_qa_6fd65c5be34f9a92",
+          "score": 0.6904
+        },
+        {
+          "id": "vault_imc_establishment_operation_8321060a76efdfea",
+          "score": 0.69
+        },
+        {
+          "id": "vault_imc_briefing_qa_b6ac0458f6897905",
+          "score": 0.6893
+        },
+        {
+          "id": "vault_imc_briefing_qa_471d4c1fbb62e9c0",
+          "score": 0.6862
+        },
+        {
+          "id": "vault_imc_election_guides_0304eddbfec9d97a",
+          "score": 0.6749
+        },
+        {
+          "id": "vault_imc_establishment_operation_a1fd7e792c5fdf94",
+          "score": 0.672
+        },
+        {
+          "id": "vault_imc_establishment_operation_53dfdc8c57accbfe",
+          "score": 0.6719
+        },
+        {
+          "id": "vault_imc_establishment_operation_3900d762ffc52824",
+          "score": 0.6712
+        },
+        {
+          "id": "vault_imc_establishment_operation_e6fa3453dcd8c3d9",
+          "score": 0.6695
+        },
+        {
+          "id": "vault_imc_establishment_operation_eccb48c1dc6db181",
+          "score": 0.6688
+        },
+        {
+          "id": "vault_imc_establishment_operation_99404d60c91661e2",
+          "score": 0.6677
+        },
+        {
+          "id": "vault_imc_briefing_qa_3d5e0d1d38e45cd2",
+          "score": 0.6639
+        },
+        {
+          "id": "vault_imc_establishment_operation_e66eff7e80fe4675",
+          "score": 0.6614
+        },
+        {
+          "id": "vault_imc_governance_supplements_5203579dd227734e",
+          "score": 0.6575
+        },
+        {
+          "id": "vault_imc_establishment_operation_736f8129b51d8677",
+          "score": 0.656
+        },
+        {
+          "id": "vault_imc_governance_supplements_e4ff2c5877510782",
+          "score": 0.6551
+        },
+        {
+          "id": "vault_g02_244bab9f4ec724c5",
+          "score": 0.6519
+        },
+        {
+          "id": "vault_imc_election_guides_b01db84c6affc125",
+          "score": 0.6514
+        },
+        {
+          "id": "vault_imc_governance_supplements_498a7dc6c682d2ca",
+          "score": 0.6492
+        },
+        {
+          "id": "vault_imc_briefing_qa_76252c50617c140b",
+          "score": 0.6483
+        },
+        {
+          "id": "vault_imc_establishment_operation_4ec0467ebef454a3",
+          "score": 0.6471
+        },
+        {
+          "id": "vault_imc_establishment_operation_5c9cabfcf3f62e55",
+          "score": 0.6458
+        },
+        {
+          "id": "vault_coa_imc_1_19_516b583e6a672b44",
+          "score": 0.6454
+        },
+        {
+          "id": "vault_imc_establishment_operation_bb08be669c62086a",
+          "score": 0.6446
+        },
+        {
+          "id": "vault_imc_briefing_qa_6cbe1c9b90a2d3bf",
+          "score": 0.643
+        },
+        {
+          "id": "vault_imc_establishment_operation_e15231827e3b495e",
+          "score": 0.6379
+        },
+        {
+          "id": "vault_imc_establishment_operation_3b2f6c3e9b42b7a9",
+          "score": 0.6378
+        },
+        {
+          "id": "vault_imc_establishment_operation_8a27df842b5df7b5",
+          "score": 0.6376
+        },
+        {
+          "id": "vault_imc_election_guides_054d0c40d1062d65",
+          "score": 0.637
+        },
+        {
+          "id": "vault_imc_governance_supplements_0736ffbe99a6f5b6",
+          "score": 0.6367
+        },
+        {
+          "id": "vault_imc_establishment_operation_d4e09d3726b469b5",
+          "score": 0.6287
+        },
+        {
+          "id": "vault_imc_establishment_operation_65d74913bf97f024",
+          "score": 0.6276
+        },
+        {
+          "id": "vault_imc_governance_supplements_dbc4b86ab2a36b99",
+          "score": 0.6264
+        },
+        {
+          "id": "vault_imc_establishment_operation_5abb291a1d697f06",
+          "score": 0.6263
+        }
+      ]
+    }
+  ]
+}

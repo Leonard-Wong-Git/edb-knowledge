@@ -39,6 +39,30 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 
 <!-- ack:log-entry:start -->
 
+## 2026-09-12 Session 221 — cpd 路由慢的成因是查詢計劃把過濾次序倒轉；刪一行 GUC 令 S219 那個索引首次真的被用上
+
+- **ID:** `Claude_20260912_0655` — S221
+- **Summary:** 由頂層 dormant root「開工」redirect 入 Draft。跑起手探針揪出 S220 收工 commit 未 push（Leonard 自行 rebase＋push）；跑版本閘後**改寫了 HNSW 的封鎖理由**；然後查 cpd 抖動，用 `explain (analyze, buffers)` 找出真因並由 Leonard 套用一行 DDL 修正。
+- **Changed:** `dev/SESSION_HANDOFF.md`（Risks 1／4、OP ①③、Recommended next step、Current Baseline git 事實、開場白段落、Supabase Technical Notes 加 S221 block）· `dev/DOC_SYNC_CHECKLIST.md`（新增一行：外部平台事實重驗推翻既有判斷）· 新工具 `backend/scripts/_s221_routedBaseline.ts`。**零 `backend/src` 改動、零前端改動、零 git push。** 唯一外部寫入是 Leonard 在 Supabase 執行的一句 `create or replace function`。
+- **Done:**
+  1. **版本閘（OP①）跑完：Supabase 提供的 `vector` 版本最高只到 0.8.0 ＝ 已安裝版本，升無可升。** 並**改正了交接對這件事的定性**：擋住 HNSW 的不是 CVE-2026-3172（0.8.2 修，官方緩解為建索引前 `set max_parallel_maintenance_workers = 0`），而是 **0.8.3／0.8.4 那兩個 HNSW vacuum 修正 —— 關不掉**（autovacuum 必然會跑）。解封只有 Supabase 平台升級一條路。來源：pgvector CHANGELOG、NVD、Supabase Extensions 文件。
+  2. **查明 cpd 抖動主因。** `explain (analyze, buffers)` 對照兩個 allowlist：curriculum 的 Filter 先 `source_id` 後距離（3,615 列／81,619 buffer hits／131ms）；**cpd 的 Filter 次序倒轉**，先為全部 17,610 列算距離（135,502 hits／9,639ms、重跑 5,475ms）。同一句放行 bitmap 之後走 `Bitmap Index Scan on wiki_chunks_source_id_idx`（939 列／17,433 hits／681ms）。**工作量降至 12.9%（buffer hits，確定性數字）；時間欄同一計劃三跑差近倍，屬實例負載，不作為結論依據。**
+  3. **DDL 已套用（Leonard 執行）**：刪 `match_wiki_chunks_routed` 內的 `set local enable_bitmapscan = off`。連帶意義 —— S219 加的 `wiki_chunks_source_id_idx` 一直被那句封死，此前從未被用過。
+  4. **正確性閘先立後驗（新工具 `_s221_routedBaseline.ts`）**：改前記低 7 條題的 routed RPC 回傳（id＋score），改後重用**同一批向量**再跑一次逐條比對。結果 **6/6 原本成功的完全相同**，第 7 條（cpd「專業階梯」）由 **HTTP 500／0 列 → 200／40 列**。
+  5. **實測坐實了一個此前只是推斷的事**：改之前那條 cpd 題在本機 8 秒上限之下就已經逾時回 500，`catch` 吞掉後靜靜回落全庫搜尋 —— 即 cpd 這條路由在生產形同虛設，用戶不會察覺。
+  6. **排除了自己提出的「cpd 每列貴 20 倍」。** 交錯重量三輪（A 只揀資料／B 揀+計算，兩個 allowlist 交替）：暖狀態每列 cpd **0.0096ms**、curriculum **0.0102ms**，總時間隨列數線性（×3.85 列 → ×3.9 時間）。**那 681ms 對 131ms 是冷熱兩個狀態的比較，不是兩批資料的差異。** 真正在飄的是實例：同一句第一次 916／2,259ms，第二三次 10／39ms，差 58–90 倍；**成因未查明**（EXPLAIN 報 `read=0`，頁面已在記憶體，照計不應如此；疑似免費方案 CPU 爆發額度，無證據）。附帶：暖狀態下 routed 查詢真實成本只有 10–39ms，用戶等的 1.5–2.4 秒主要在 embedding 與網絡。
+- **QC:** `npm run check` 0 · `_s221_routedBaseline.ts --compare` **6/6 identical ＋ 1 was-failing-now-ok ＋ 0 problems** · `route_regression` **46/46** · `regression:grounded` **48/48** · 生產 `/api/search/channel-b` 三條 cpd 題各 3 次共 9 次全部 `ok`／8 結果（1.48–2.42 秒；**首次 24.6 秒是 Render 冷啟動，不是查詢延遲**）。**未做：同批查詢的生產前後對照**（前值取自 S220 記錄的 2.81／6.10／6.41 秒，非同一批、非同一時段），故「快了多少」只有指示性。
+- **Evidence disposition:** `dev/source/eval_runs/2026-09-12_s221_routed_before.json`／`_after.json`／`_vectors.json`（向量快取，供日後同基準重跑）。
+- **Sync:** 交接檔 Risks 1／4、OP ①③、Supabase Technical Notes 已同步；`DOC_SYNC_CHECKLIST.md` 依其 anti-pattern 規則補了缺失的一行。`CODEBASE_CONTEXT.md` **N/A** —— pgvector 版本與 RPC 計劃設定不屬其 External Services 已登記項目（如日後要登記，應與 Supabase block 一併處理）。
+- **Pending:** OP① 平台升級待 Leonard 決定 · Risks 4 餘下那截（cpd 每列仍比 curriculum 慢約 20 倍）未查明 · 三題 chunk recall · `qc_report.json` overall ERROR · 41 個指引 chunks=0 · registry 281 vs 服務 300。
+- **Risks:** ⚠️ 本次 DDL 只在生產庫套用，**沒有 staging 對照**；回滾段已備在交接檔 Supabase Technical Notes。⚠️ 本機量度仍在 8 秒上限之下進行（`.env` 沒有 `SUPABASE_ANON_KEY`），故本節所有本機時間**不可當生產數**。
+- **Log maintenance:** **no-op。** 本檔 6 條 → 加本條 7 條；未達 N≥11 或 1500 行任一硬觸發，10 次 backstop 亦未到。
+- **Playbook（§14 留底）:** 本節未 grep 全表、未開任何卡，按該庫規則不寫 usage 行。**產生一條夠成熟可轉移的教訓待提案**：「為求 exact 而關索引時，`enable_indexscan` 與 `enable_bitmapscan` 一齊關會連過濾用的 btree 都封死 —— 只關前者即可擋住 ordering-only 的向量索引。」
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-09-09 Session 220 — route-first 的碼與名字相反：它疊加而非取代全庫搜尋；修正後 OP② 在生產由 9 次 5 敗變 0 敗
 
 - **ID:** `Claude_20260909_0700` — S220
