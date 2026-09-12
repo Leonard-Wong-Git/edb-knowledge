@@ -57,7 +57,9 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 - **Pending:** OP① 平台升級待 Leonard 決定 · Risks 4 餘下那截（cpd 每列仍比 curriculum 慢約 20 倍）未查明 · 三題 chunk recall · `qc_report.json` overall ERROR · 41 個指引 chunks=0 · registry 281 vs 服務 300。
 - **Risks:** ⚠️ 本次 DDL 只在生產庫套用，**沒有 staging 對照**；回滾段已備在交接檔 Supabase Technical Notes。⚠️ 本機量度仍在 8 秒上限之下進行（`.env` 沒有 `SUPABASE_ANON_KEY`），故本節所有本機時間**不可當生產數**。
 - **Log maintenance:** **no-op。** 本檔 6 條 → 加本條 7 條；未達 N≥11 或 1500 行任一硬觸發，10 次 backstop 亦未到。
-- **Playbook（§14 留底）:** 本節未 grep 全表、未開任何卡，按該庫規則不寫 usage 行。**產生一條夠成熟可轉移的教訓待提案**：「為求 exact 而關索引時，`enable_indexscan` 與 `enable_bitmapscan` 一齊關會連過濾用的 btree 都封死 —— 只關前者即可擋住 ordering-only 的向量索引。」
+- **Playbook（§14 留底）:** 收工時 grep 全表，配到 `inspect-live-infra-before-ddl`（本節確有照做：改 DDL 前先 `pg_get_functiondef` 抽 live 定義），已 append usage 一行（applied）。另交提案 `inbox/2026-09-12-policychecker-guc-disable-kills-filter-index.md`：為求 exact 而關索引，關得太闊會連過濾用的 btree 一齊封死；附冷熱交錯重量的判別法。兩者已 commit 並 push 至該庫。
+- **Opening-message mirror:** 已重生並驗證 —— 由 `SESSION_HANDOFF.md` 唯一的 fenced block 生成 `START_NEXT_SESSION_PROMPT.txt`（62 行 / 5,070 bytes），讀回逐位元組相等；全文按 Kit 契約不複製入本 log（沿用 S216–S220 對 §4 規則 12–14 與 Kit core 衝突的既定取捨）。
+- **機器閘（收工實跑）:** `doctor` **53/53 status: passed** · `closeout-status` **status: complete**（首三次報 blocked，皆因本節記錄與 Open Priorities／Risks 有重複措辭令 lifecycle 讀回判為「已完成又仍待辦」；逐次收窄措辭後轉綠，內容未刪）· `session_log_maintenance.py --check` `trigger=False`。
 
 <!-- ack:log-entry:end -->
 
