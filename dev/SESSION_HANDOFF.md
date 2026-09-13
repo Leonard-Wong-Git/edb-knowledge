@@ -240,6 +240,12 @@ source_registry → same vault PDFs → ai_extract.py
 
 6. **【S222】`g37` 標籤錯配已修（v3.3.4）。** 瀏覽清單與 registry 都寫住「（小一至中三）(2002)／HTML」，但 `url_primary` 一直指向 `AE_KLACG__Chi___2017.pdf`、116 條片段全是 2017 年版內容 —— 瀏覽講 2002，搜尋答 2017。依 Leonard 裁示保 `g37`、改描述；重複的 `arts_kla_guide_2017` 瀏覽條目與短名對照已移除，registry 標 `deprecated`（其 116 條片段**未清走**，見 Open Priorities 開首）。in-app 瀏覽庫 177 → 176。瀏覽器實測 176 條、零重複 id、藝術組只餘一條指向該 PDF。完整理據見 `CHANGELOG.md` v3.3.4。
 
+7. **【S222，Leonard 指示】監察的兩個結構性弱點已補：自動補跑 ＋ 看門狗。** 起因是 SAG —— EDB 在**同一個 URL 原地換檔**，`check_freshness` 有偵測到 content-hash 改變，但（a）報告只講「變咗」，唔講「由邊版變去邊版」；（b）失敗一次就要等下星期。查證後發現弱點比想像深：GitHub **唔會補跑錯過或失敗的排程**，`schedule` 會被高負載延遲甚至跳過，而本 repo 是 **PUBLIC** —— 官方行為是 60 日無 repository 活動就自動停用排程，七個監察共用這個單點。
+   · **新增 `dev/source/check_monitor_health.py` ＋ `.github/workflows/monitor_watchdog.yml`（每日 06:00 UTC）**：由 **GitHub Actions run 歷史**（ground truth，非自寫台帳，因為台帳要由可能已經崩潰的那次 run 自己寫，而且七個 workflow 會互相爭 commit）判斷每個監察「最後一次成功」是幾時；**過咗週期就自動 dispatch 補跑**（一晚失敗只蝕一日，唔使等足一星期，亦唔使你手動撳）；**靜超過兩個週期或連續失敗才開 Issue**，回復準時自動關閉。零改動現有七個 workflow。
+   · **本工具自己揪出過自己一個 bug**：`_token()` 有 guard 但漏咗 `return`，送出 `Bearer None` 全部 401，而當時的設計會把「讀唔到」摺成「從未成功」→ 一份**假全紅**報告，同假全綠是同一個缺陷的兩面。已加第三種狀態「判斷不到」，並補上斷言。實跑（唯讀）：五個準時、`pgvector` 從未成功（正確，今日先加）。
+   · **誠實範圍**：看門狗跑在同一套排程機器上，救唔到「七個一齊死」；它買到的是**互相監察**，偵測窗由一星期收窄到一日。這一句寫死在它每次出聲的輸出裡面，唔會被當成保證。
+   · **規則已入 `dev/DOC_SYNC_CHECKLIST.md` 三行**：上游原地換版要點做（含「片段 `title` 才是真相，不是 registry」同「必須設對照組，跨抽取器比對無效」）、標籤與內容不一致要點修、新增排程監察要同步 `check_monitor_health.py` 的 `WORKFLOWS` 表。
+
 <!-- 本地邊界 marker（S221 由 S218 之前下移至此）：令 completed-this-session 的抽取範圍只涵蓋 S221 -->
 <!-- ack:section:session-history -->
 

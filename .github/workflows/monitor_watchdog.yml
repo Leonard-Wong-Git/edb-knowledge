@@ -1,0 +1,170 @@
+name: Daily Monitor Watchdog
+
+# Watches the WATCHERS. Six monitors guard EDB documents and links, and every
+# one of them is a cron — an arrangement with three silent-death modes that no
+# individual monitor can report, because a check cannot tell you it never ran:
+#
+#   1. GitHub does not retry a missed or failed schedule. One bad night — an
+#      expired secret, a rate limit, EDB down — used to cost a whole week of
+#      coverage, silently.
+#   2. `schedule` is delayed under load and can be skipped outright.
+#   3. This repository is PUBLIC, and GitHub disables scheduled workflows in a
+#      public repository after 60 days with no repository activity.
+#
+# This job runs DAILY and does two things:
+#   * catch-up — any monitor past its cadence is dispatched now, so a lost run
+#     costs a day instead of a week. Nobody has to start it by hand.
+#   * alarm — a monitor that has been quiet for more than two cadences, or has
+#     failed repeatedly, gets ONE Issue opened or updated.
+#
+# 紀律 #14: silent in the steady state. All monitors on time = no Issue, no
+# noise, exit 0. It also refuses to guess: when the API cannot be read it says
+# "判斷不到" rather than reporting every monitor as dead, because a false alarm
+# and a false all-clear are the same defect pointed in opposite directions.
+#
+# It cannot save itself. A watchdog on the same machinery dies with it; the
+# honest scope is cross-monitoring, and the report says so every time it speaks.
+
+on:
+  schedule:
+    # Daily at 06:00 UTC — ahead of every monitored cron (09:00 the earliest),
+    # so a monitor that missed yesterday is dispatched before today's window.
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    inputs:
+      dispatch_due:
+        description: "Also start monitors that are past their cadence"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+permissions:
+  actions: write       # read run history; dispatch a monitor that is overdue
+  issues: write        # open/update the single "monitors have gone quiet" issue
+  contents: read
+
+concurrency:
+  group: monitor-watchdog
+  cancel-in-progress: false
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Self-test (offline logic, fixtures only)
+        run: python3 dev/source/check_monitor_health.py --self-test
+
+      - name: Prove the rules can go red
+        run: python3 dev/source/check_monitor_health.py --prove-assertions
+
+      - name: Check monitor health, and start what is due
+        id: health
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -o pipefail
+          FLAGS="--check --json-out monitor_health.json"
+          if [ "${{ github.event_name }}" = "schedule" ] || \
+             [ "${{ inputs.dispatch_due }}" = "true" ]; then
+            FLAGS="$FLAGS --dispatch"
+          fi
+          python3 dev/source/check_monitor_health.py $FLAGS | tee health.txt
+          echo "code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+        # Non-zero = a monitor is quiet, failing, or unreadable, i.e. the
+        # MONITORING is broken — which by this project's convention (S126) is
+        # the only class allowed to fail a run. Findings never do.
+        continue-on-error: true
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: monitor-health
+          path: |
+            monitor_health.json
+            health.txt
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Open / update / close the watchdog issue
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let r, text = '';
+            try {
+              r = JSON.parse(fs.readFileSync('monitor_health.json', 'utf8'));
+              text = fs.readFileSync('health.txt', 'utf8');
+            } catch (e) {
+              core.warning('No health report to route: ' + e);
+              return;
+            }
+            const owner = context.repo.owner, repo = context.repo.repo;
+            const LABEL = 'monitor-watchdog';
+            const title = '🫀 監察本身出事了 — 有監察靜咗或連續失敗';
+
+            const existing = await github.rest.issues.listForRepo({
+              owner, repo, state: 'open', labels: LABEL, per_page: 1,
+            });
+
+            if (!r.speaks) {
+              // Steady state says nothing, and closes yesterday's alarm so the
+              // issue list never keeps a resolved problem on display.
+              if (existing.data.length) {
+                await github.rest.issues.createComment({
+                  owner, repo, issue_number: existing.data[0].number,
+                  body: '✅ 全部監察已回復準時，自動關閉。\n\n```\n' + text + '\n```',
+                });
+                await github.rest.issues.update({
+                  owner, repo, issue_number: existing.data[0].number, state: 'closed',
+                });
+              }
+              core.info('All monitors on time; nothing to report.');
+              return;
+            }
+
+            const dispatched = (r.dispatched || []);
+            const body = [
+              text.trim(),
+              '',
+              dispatched.length
+                ? '🔁 本次已自動補跑：' + dispatched.join('、')
+                : '（本次沒有可補跑的監察。）',
+              '',
+              '---',
+              '這個 Issue 由每日看門狗維護：全部監察回復準時就會自動關閉，',
+              '不需要人手清理。要自己跑一次：Actions → Daily Monitor Watchdog → Run workflow。',
+            ].join('\n');
+
+            if (existing.data.length) {
+              await github.rest.issues.update({
+                owner, repo, issue_number: existing.data[0].number, title, body,
+              });
+              core.info('Updated issue #' + existing.data[0].number);
+            } else {
+              await github.rest.issues.create({
+                owner, repo, title, body, labels: [LABEL],
+              });
+              core.info('Opened watchdog issue');
+            }
+
+      - name: Fail the run if the monitoring is broken
+        if: steps.health.outputs.code != '0'
+        run: |
+          echo "監察健康檢查回報有問題（exit ${{ steps.health.outputs.code }}）。"
+          echo "詳情見上面的 Issue 與 artifact。"
+          exit 1
