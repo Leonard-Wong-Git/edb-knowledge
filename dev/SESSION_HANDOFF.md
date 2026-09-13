@@ -51,7 +51,14 @@
 5. 只監察 —— Option A watcher bot 仍會自行推 commit 到 `origin/main`（只碰 `discovery_seen.json`／`registry_drift.md`／`qc_report.json`）。S220 開工就撞到一次（`2544ed9`）。**紀律不變：開工與 push 前一定要 `git fetch` 後比對，不得讀交接記載的 hash 當現況。**
 6. 只監察 —— **`anon` 角色 `statement_timeout = 3 秒`**（`authenticated` 8s、`service_role` 8s）。後端用 anon key，故生產只有 3 秒。**量度紀律：本專案 in-process 慣例為 `SUPABASE_ANON_KEY ||= SUPABASE_SERVICE_KEY`（`routeFirstProbe.ts:8`），即在 8 秒上限下量一個只有 3 秒的系統，會系統性低估失敗率。任何本機量度之前先問一句：我用的是哪個 key。**
 7. 只監察 —— `AGENTS.md`／`CLAUDE.md`／`GEMINI.md` 三檔在 `.gitignore` 內且從未 tracked；`.gitignore` 的 `AGENTS.md` 規則無前置斜線，會在任何深度命中，連升級前備份都被 ignore。**這三個檔 git 內沒有任何副本。**
-8. ✅ **【S222 發現並已修】`g37` 的標籤講錯年份，同一份文件上榜兩次。** `app.html:1600` 與 registry 都寫住「藝術教育學習領域課程指引（小一至**中三**）(**2002**)」，但 `url_primary` 一直指向 `AE_KLACG__Chi___2017.pdf`，116 條片段全部是 2017 年版內容（「中六」×11）—— **瀏覽清單講 2002，搜尋答的是 2017**（S194 `ict_sss_2021` 那個「200-但-錯檔」家族）。Leonard 選了「保 `g37`、改描述」：`app.html` 與 `source_registry` 兩處已對正為 2017 版，重複的 `arts_kla_guide_2017` 瀏覽條目與短名對照已移除（in-app 瀏覽庫 **177 → 176**），平台 **v3.3.3 → v3.3.4**。瀏覽器實測：`GUIDELINES_REGISTRY.length` 176、零重複 id、tab 顯示「📚 EDB指引 (176)」、藝術組只餘一條指向該 PDF。**餘下未做：`arts_kla_guide_2017` 那 116 條片段未清走**（生產寫入，見下）。**另：`guidelines.json`（公開端點 158 份）仍同時列住 `g37` 與 `arts_kla_guide_2017`，且 `g37` 那條同樣寫住 2002 —— 依凍結合約零接觸未改，屬已知刻意分歧，要改須你另行批准。**
+8. 🔴 **【S222 新發現，未修】g37 不是孤例 —— 瀏覽清單的標籤錯配是一個家族，要一次過定政策。** 把 176 條瀏覽條目逐條對照它們片段實際攜帶的標題與連結，26 條對不上；扣除良性的那些（瀏覽連 landing page、片段連深層 PDF，屬設計；書名號等排版差異），餘下真錯配至少 6 條：
+   · `g36` 標「科學教育學習領域課程指引（小一至**中三**）(**2002**)」，片段是**（小一至中六）（2017）**＋`SEKLACG_CHI_2017.pdf`（179 條）—— **與 g37 完全同形**。
+   · `g33` 標「英國語文教育課程指引（中一至中六）(2007)」，片段是「英文課程及評估指引（中四至中六）**2021**」（421 條）。
+   · `g22` 標 2021，片段是 **2010** 年那本安全手冊（59 條）。
+   · `chi_edu_curr_docs`／`apl_curr_docs`／`nat_sec_edu` 三個「課程文件」hub，片段其實是具體的 2017／2017／2025 指引。
+   · `ict_sss_2021` 瀏覽連 `CS_CAG_S4-6_Chi_2021.pdf`、片段連 `ICT_C&A Guide_c_final.pdf` —— 即 `check_source_titles.py` docstring 記載的 S194「200-但-錯檔」原案，**至今未在 `app.html` 修好**。
+   **這個家族還連帶製造假缺口**：`sci_kla_guide_2017`／`cle_kla_guide_2017`／`apl_ca_guide_2017`／`pshe_kla_guide_2017` 四條「0 片段」的 phantom，其內容其實已經分別由 `g36`／`chi_edu_curr_docs`／`apl_curr_docs`／`g35` 服務。**逐條修之前先定政策：同一份文件應該由 g 系列 id 還是描述性 id 承載？** S222 已按 Leonard 對藝術那一對的裁示（保有正確片段那個、移除重複瀏覽條目）修好 g37，同樣裁示可套用到整個家族，但涉及 5–6 對，值得一次過決定而非逐次問。
+   · **同族小項**：`format` 與連結對不上 —— `g30` 標 PDF 但連結是 `index.html`；`pri_science_cert_application_form` 標 DOCX 但連結是 `.html`。順手可修。
 
 <!-- ack:section:workspace-identity -->
 ## User Environment (Always Reference Before Giving Shell Commands)
@@ -173,17 +180,17 @@ source_registry → same vault PDFs → ai_extract.py
    · `arts_kla_guide_2017`（116 條）**確認可刪** —— 內容 **99.9%** 已在 `g37`，115/116 條片段文本逐條相同，刪走只失 0.1%。而且它是代號標題兼無連結的那一份，`g37` 那份標題與連結都正確。
    · `kgecg_2017`（108 條）**收回刪除建議** —— 兩者是同一份文件的**兩個不同 EDB 版式**（`TC_KGECG_2017.pdf` vs `KGECG-TC-2017.pdf`），各自標題連結俱全，但**互相只覆蓋約 84.5%**：刪走 `kgecg_2017` 會失去 **15.5%** 全庫他處沒有的文字（`g29` 亦有 15.4% 是它獨有）。S212 註釋「89% 互相覆蓋」數量級正確，但由此推出「重複，刪得」是錯的結論。正確做法是由較乾淨的來源重新入庫一次再退役另一份（registry 註釋自己寫明 `TC_KGECG_2017.pdf` 抽得較乾淨），不是直接刪。
 
-① ⏸️ **【S222 改寫：由「待你拍板」降為「等上游」】Supabase 平台升級解不到 HNSW —— 現階段沒有可拍的板。** S221 記載「解封只有平台升級一條路」，上半截今日核實為錯：**Supabase 的建置本身最高只打包到 `vector` 0.8.2**（`supabase/postgres` `nix/ext/versions.json` 的 `vector` 條目，2026-09-13 實查；0.8.2 由 PR #2158 於 2026-05-22 加入，之後三個多月無動靜，亦無 0.8.3+ 的 PR 排隊）。而封鎖項是 **0.8.3／0.8.4** 那兩個關不掉的 HNSW vacuum 修正，**即是升到頂都仍然封住**。0.8.2 只修 CVE-2026-3172，而該項本來就有官方緩解，且 0.8.1／0.8.2 的內容全部與我們的 IVFFlat 路徑無關 —— **今日升級買不到任何可量度的改善，只換來一次生產停機。**
+① 🔴 **【S222 新發現，最高影響】《學校行政手冊》服務緊 2025年11月版，但對外聲稱 2026年5月版。** 這是本專案的 primary operations spine：`sag_2025_11`（409 條）與 `g24`（383 條）合共 **792 條片段**，**兩者的片段標題全部是「學校行政手冊（2025年11月版）」**，而 `source_registry` 兩條都寫 `title=學校行政手冊（2026年5月版）`／`version_label=2026-05`，`app.html` 瀏覽清單亦然。EDB 是在同一個 URL（`SAG_C_markup.pdf`／`sag_c.pdf`）原地換檔，所以有人見到新版就改了登記，**但從來沒有重新入庫**。用戶問行政手冊的問題，拿到的是上一版內容，而介面告訴他這是 2026年5月版。`check_freshness` 其實一直有報這兩個來源 `content-hash` 改變 —— 監察有出聲，下游沒有人接。**修法是重新抓取＋重新入庫該兩個來源**（生產寫入，需你批；亦要先決定 792 條分兩個 id 是否仍要保留兩份）。
+
+② ⏸️ **【S222 改寫：由「待你拍板」降為「等上游」】Supabase 平台升級解不到 HNSW —— 現階段沒有可拍的板。** S221 記載「解封只有平台升級一條路」，上半截今日核實為錯：**Supabase 的建置本身最高只打包到 `vector` 0.8.2**（`supabase/postgres` `nix/ext/versions.json` 的 `vector` 條目，2026-09-13 實查；0.8.2 由 PR #2158 於 2026-05-22 加入，之後三個多月無動靜，亦無 0.8.3+ 的 PR 排隊）。而封鎖項是 **0.8.3／0.8.4** 那兩個關不掉的 HNSW vacuum 修正，**即是升到頂都仍然封住**。0.8.2 只修 CVE-2026-3172，而該項本來就有官方緩解，且 0.8.1／0.8.2 的內容全部與我們的 IVFFlat 路徑無關 —— **今日升級買不到任何可量度的改善，只換來一次生產停機。**
    · **兩個「最高版本」不是同一回事，不要再混淆**：S221 量到的 0.8.0 是 `pg_available_extension_versions`，即**我們這台實例**現時提供的（滯後指標）；0.8.2 是 Supabase **建置**已打包的（領先指標）。兩者之間的差距要靠 General Settings 的軟件升級或**重啟伺服器**去追（官方原文：「Software upgrades can also be initiated by restarting your server」），**不需要做那個重的 `pg_upgrade`**。
    · **解封條件已改為機器監察，不再佔用你的決策位**：`dev/source/check_pgvector_release.py`（每週一 14:00 UTC）盯住那個 `versions.json`，只在出現 ≥0.8.4 時才開 Issue 出聲；仍是 0.8.2 就靜默。**它響之前，這一項不需要你做任何事。** 屆時才需要升級影響評估（停機、IVFFlat 是否需重建、回退路徑）。
 
-② 🔴 **【S219 遺留】56 條無路由題仍全額付全庫代價。** 中位 2,636ms／p90 3,782ms，route-first 幫不到它們；S220 已證成本在伺服器端搜尋而非出口頻寬。建索引前必先定召回率重驗方法 —— 官方無 `ef_search`↔`probes` 換算，只能與精確搜尋對照。屬 DDL，需你執行，且被 ① 擋住。
+③ 🔴 **【S219 遺留】56 條無路由題仍全額付全庫代價。** 中位 2,636ms／p90 3,782ms，route-first 幫不到它們；S220 已證成本在伺服器端搜尋而非出口頻寬。建索引前必先定召回率重驗方法 —— 官方無 `ef_search`↔`probes` 換算，只能與精確搜尋對照。屬 DDL，需你執行，且被 ① 擋住。
 
-③ **【S221 新增】重跑 185 題 gold，更新兩個已過時的數字。** Risks 3 的 routed p90（8,335ms）與 S220 的失敗率，都是在 S221 修正之前的計劃下量的。工具現成（`backend/scripts/routeFirstGold.ts`），需你批准 live 批次。**做完才知道那條改動對尾部延遲的真實影響** —— 本節只證了工作量降至 12.9%，沒有量過整體分佈。
+④ **【S221 新增】重跑 185 題 gold，更新兩個已過時的數字。** Risks 3 的 routed p90（8,335ms）與 S220 的失敗率，都是在 S221 修正之前的計劃下量的。工具現成（`backend/scripts/routeFirstGold.ts`），需你批准 live 批次。**做完才知道那條改動對尾部延遲的真實影響** —— 本節只證了工作量降至 12.9%，沒有量過整體分佈。
 
-④ **【S214 遺留，route-first 修不到】三題 chunk recall。** `hr_lsp` 完整公式跨第 3／4 頁而 `dominant_page()` 判第 3 頁；`sen_special_school_curriculum` 的 `g10` 與中史 NCS 目標片段均未入首 8。須另尋路徑（query expansion 與向量排名）。
-
-⑤ **【累積遺留】** `qc_report.json` overall ERROR（S215 起）· 41 個可瀏覽指引 chunks=0（「177 份」實際搜尋不到約 23%）· `source_registry` 281 vs 服務 300 未對帳 · `app.html` KLA「多份」待定義精確數 · 4 條 fidelity 不一致 ＋ 658 代號標題 ＋ 七個 standing WARN 無 waiver 等，**全文見下方 Detail Archive**。
+⑤ **【累積遺留】** 三題 chunk recall（S214 遺留，route-first 修不到）： `hr_lsp` 完整公式跨第 3／4 頁而 `dominant_page()` 判第 3 頁；`sen_special_school_curriculum` 的 `g10` 與中史 NCS 目標片段均未入首 8。須另尋路徑（query expansion 與向量排名）。 · `qc_report.json` overall ERROR（S215 起）· 41 個可瀏覽指引 chunks=0 —— **S222 已拆類，「搜尋不到 23%」這個講法作廢**：當中 7 個是 HTML 索引／專頁（本來就無正文可切）、2 個 registry 已退役、13 個瀏覽得到但 registry 從未登記、**而至少 4 個根本不是缺口 —— 它們的內容早已入庫，只是掛在另一個 id 之下**（`sci_kla_guide_2017`→`g36` 179 條、`cle_kla_guide_2017`→`chi_edu_curr_docs` 157 條、`apl_ca_guide_2017`→`apl_curr_docs` 147 條、`pshe_kla_guide_2017`→`g35` 187 條）。真缺口逐條實測 HTTP 200、可即抓，但要先做下面 Risks 9 那個決定· `source_registry` 281 vs 服務 300 未對帳 · `app.html` KLA「多份」待定義精確數 · 4 條 fidelity 不一致 ＋ 658 代號標題 ＋ 七個 standing WARN 無 waiver 等，**全文見下方 Detail Archive**。
 
 > **S221 合規備註：** 依 §4 上限 5 項**重生後覆寫**，非複製貼上。本節完成的 OP③（cpd 路由抖動）**已移除**；S221 中途曾兩次改寫 ①③，收工再依實際狀態重排。新增 ③（重跑 gold）為本節產生的待辦；舊 ④⑤ 順延。
 >
@@ -226,6 +233,8 @@ source_registry → same vault PDFs → ai_extract.py
    - ✅ **Playbook §14 留底**：`inspect-live-infra-before-ddl` 一行 usage（applied）；另交一份新提案 `inbox/2026-09-12-policychecker-guc-disable-kills-filter-index.md`（為求 exact 而關索引，關得太闊會連過濾用的 btree 一齊封死 ＋ 冷熱交錯重量的判別法）。
 4. Carry-forward：本節未完成的事項**一律不在此列舉**，全部歸入 `## Open Priorities`（①–⑤）與 `## Validation / QC` S221 段的「未做」四項，以免同一件事同時以「本節記錄」與「待辦」兩個生命週期狀態出現。
 5. ⚠️ **零 `backend/src` 改動、零前端改動、零 Supabase 資料寫入、零重入庫、零 flag 改動。** 唯一的生產寫入是 Leonard 執行的一句 `create or replace function`（計劃設定，不動邏輯、不動資料），回滾段已備。
+
+6. **【S222】`g37` 標籤錯配已修（v3.3.4）。** 瀏覽清單與 registry 都寫住「（小一至中三）(2002)／HTML」，但 `url_primary` 一直指向 `AE_KLACG__Chi___2017.pdf`、116 條片段全是 2017 年版內容 —— 瀏覽講 2002，搜尋答 2017。依 Leonard 裁示保 `g37`、改描述；重複的 `arts_kla_guide_2017` 瀏覽條目與短名對照已移除，registry 標 `deprecated`（其 116 條片段**未清走**，見 Open Priorities 開首）。in-app 瀏覽庫 177 → 176。瀏覽器實測 176 條、零重複 id、藝術組只餘一條指向該 PDF。完整理據見 `CHANGELOG.md` v3.3.4。
 
 <!-- 本地邊界 marker（S221 由 S218 之前下移至此）：令 completed-this-session 的抽取範圍只涵蓋 S221 -->
 <!-- ack:section:session-history -->
