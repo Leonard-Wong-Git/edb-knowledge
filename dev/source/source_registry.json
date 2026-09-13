@@ -7861,6 +7861,26 @@
       "last_checked_at": "2026-09-13",
       "supersedes": null,
       "notes": "(auto, Option A executor) EDBCM167/2026. route=student_support, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+    },
+    {
+      "source_id": "edbcm124_2026",
+      "title": "「非主修歷史的初中中國歷史科教師專業發展」計劃（2026/27學年）",
+      "title_en": null,
+      "title_short": "「非主修歷史的初中中國歷史科教師專業發展」計劃（",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26124C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26124C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-09-13",
+      "supersedes": null,
+      "notes": "(auto, Option A executor) EDBCM124/2026. route=curriculum, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract."
     }
   ]
 }
