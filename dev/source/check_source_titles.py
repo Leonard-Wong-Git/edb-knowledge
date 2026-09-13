@@ -67,6 +67,9 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import registry_series as rs  # noqa: E402
+
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent  # …/Draft
 REGISTRY = REPO_ROOT / "dev" / "source" / "source_registry.json"
 
@@ -260,11 +263,20 @@ def severity(cov: float) -> str:
 
 def select_sources(sources: list[dict], only: list[str] | None,
                    limit: int | None) -> tuple[list[dict], list[dict]]:
-    """→ (to_check, skipped). Skipped rows carry a reason and are reported."""
+    """→ (to_check, skipped). Skipped rows carry a reason and are reported.
+
+    An annual-series row (`url_primary_pattern` + `years_extracted`) is expanded
+    to one row per year first, keyed by the shard id the store already uses
+    (`stat_enrolment_2012`), so each year's cover is judged on its own and the
+    baseline can say which year moved. Every other row is passed through by
+    identity — same object, same skip reasons. S216.
+    """
     to_check, skipped = [], []
-    for src in sources:
+    for src in rs.expand_sources(sources):
         sid = src.get("source_id")
-        if only and sid not in only:
+        # `--only` accepts either the shard id or the registry parent's id, so
+        # `--only stat_enrolment_report` still means "the whole series".
+        if only and sid not in only and rs.parent_id(src) not in only:
             continue
         if (src.get("status") or "") == "deprecated":
             skipped.append({"source_id": sid, "status": "skipped",
@@ -624,6 +636,51 @@ def self_test() -> int:
           len(select_sources(sources, ["ict_sss_2021"], None)[0]) == 1)
     check("error budget matches the sibling monitors",
           error_budget(200) == 10 and error_budget(20) == 5)
+
+    # --- annual series (S216) ------------------------------------------------
+    # A row with url_primary_pattern + years_extracted stands for one PDF per
+    # year. Before S216 it was skipped as "no http url_primary" and its 13 live
+    # covers were judged by nobody.
+    series = [{"source_id": "stat_enrolment_report", "source_type": "pdf",
+               "status": "verified", "title": "學生人數統計報告書（年度系列）",
+               "url_primary_pattern": "https://e/Enrol_{YYYY}.pdf",
+               "years_extracted": [2012, 2013]},
+              {"source_id": "plain", "source_type": "pdf", "status": "verified",
+               "url_primary": "https://e/x.pdf"}]
+    got, skip = select_sources(series, None, None)
+    check("a series row is checked once per year, keyed by the store's shard id",
+          [r["source_id"] for r in got] == ["stat_enrolment_2012",
+                                            "stat_enrolment_2013", "plain"])
+    check("each year is checked at its own expanded url",
+          [r["url_primary"] for r in got[:2]] == ["https://e/Enrol_2012.pdf",
+                                                  "https://e/Enrol_2013.pdf"])
+    check("a series row is no longer skipped for having no url_primary",
+          not any("url_primary" in (s.get("reason") or "") for s in skip))
+    check("an ordinary row is still passed through untouched", got[2] is series[1])
+    check("--only takes the parent id and means the whole series",
+          [r["source_id"] for r in
+           select_sources(series, ["stat_enrolment_report"], None)[0]]
+          == ["stat_enrolment_2012", "stat_enrolment_2013"])
+    check("--only takes one shard id and means that year alone",
+          [r["source_id"] for r in
+           select_sources(series, ["stat_enrolment_2013"], None)[0]]
+          == ["stat_enrolment_2013"])
+    check("a series row with no years is not expanded into anything",
+          select_sources([{"source_id": "half", "source_type": "pdf",
+                           "status": "verified",
+                           "url_primary_pattern": "https://e/{YYYY}.pdf"}],
+                         None, None)[0] == [])
+
+    reg_series = [s for s in sources if rs.shard_ids(s)]
+    live_to_check, _ = select_sources(sources, None, None)
+    shards = [r for r in live_to_check if rs.is_shard(r)]
+    print(f"     [annual series] {len(reg_series)} registry row(s) → "
+          f"{len(shards)} per-year pdf checks "
+          f"({len(to_check)} → {len(live_to_check)} total)")
+    check("the registry's annual series is now inside the title-parity monitor",
+          len(shards) == sum(len(rs.shard_ids(s)) for s in reg_series) > 0)
+    check("every expanded shard carries an http pdf url",
+          all((r.get("url_primary") or "").startswith("http") for r in shards))
 
     print(f"\n{'ALL PASS' if not fails else f'{len(fails)} FAILED: {fails}'}")
     return 0 if not fails else 1

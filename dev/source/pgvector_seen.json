@@ -1,0 +1,28 @@
+{
+  "_semantics": "Rewritten ONLY when the version list or the verdict changes, so the weekly job produces no commit in the steady state. `last_change_at` is therefore the date the ANSWER last moved, not the date it was last checked — run history lives in the workflow, not in this file.",
+  "last_change_at": "2026-09-13",
+  "source_url": "https://raw.githubusercontent.com/supabase/postgres/develop/nix/ext/versions.json",
+  "extension_key": "vector",
+  "hnsw_safe_min_version": "0.8.4",
+  "last_verdict": "UNCHANGED",
+  "versions": [
+    "0.4.0",
+    "0.5.1",
+    "0.6.0",
+    "0.6.2",
+    "0.7.0",
+    "0.7.4",
+    "0.8.0",
+    "0.8.2"
+  ],
+  "first_seen": {
+    "0.4.0": "2026-09-13",
+    "0.5.1": "2026-09-13",
+    "0.6.0": "2026-09-13",
+    "0.6.2": "2026-09-13",
+    "0.7.0": "2026-09-13",
+    "0.7.4": "2026-09-13",
+    "0.8.0": "2026-09-13",
+    "0.8.2": "2026-09-13"
+  }
+}

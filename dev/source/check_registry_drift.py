@@ -39,6 +39,11 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from registry_series import (  # noqa: E402  — one definition, not two
+    series_parents, monitorable_parents,
+)
+
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 REGISTRY = REPO_ROOT / "dev" / "source" / "source_registry.json"
 APP = REPO_ROOT / "app.html"
@@ -92,54 +97,54 @@ def parse_guidelines_registry(app_html: str) -> list[dict]:
     return [{"id": m} for m in re.findall(r"\bid:\s*[\"']([^\"']+)[\"']", block)]
 
 
-def series_parents(sources: list[dict]) -> dict[str, list[str]]:
-    """{parent_source_id: [expected shard ids]} for entries modelled as a series.
-
-    S212 — the first version of this file reported the 13 stat_enrolment_YYYY ids
-    as UNMANAGED and stat_enrolment_report as PHANTOM, i.e. 14 separate defects.
-    Reading the registry entry instead of assuming showed one deliberate design:
-    `stat_enrolment_report` carries `url_primary_pattern` with a {YYYY} slot and
-    `years_extracted: [2012..2024]`, and the store shards it one source_id per
-    year. Nothing is missing; the parent and the shards are simply keyed
-    differently, and no code reconciles them.
-
-    That is still a defect — just a different one, and it belongs to the
-    monitors, not the registry. check_freshness / check_expiry /
-    check_source_titles all read `url_primary` and none of them reads
-    `url_primary_pattern` or `years_extracted` (verified S212 by grep), so the
-    parent has no URL for them to fetch and the shards have no registry row to
-    key off. SERIES_UNMONITORED reports exactly that, instead of 14 rows that
-    each name the wrong thing.
-    """
-    out: dict[str, list[str]] = {}
-    for s in sources:
-        sid = s.get("source_id") or s.get("id")
-        years = s.get("years_extracted") or []
-        pattern = s.get("url_primary_pattern")
-        if not sid or not (years and pattern):
-            continue
-        stem = sid[:-len("_report")] if sid.endswith("_report") else sid
-        out[sid] = [f"{stem}_{y}" for y in years]
-    return out
+# `series_parents()` lives in `registry_series.py` and is imported above.
+#
+# S212 — the first version of this file reported the 13 stat_enrolment_YYYY ids
+# as UNMANAGED and stat_enrolment_report as PHANTOM, i.e. 14 separate defects.
+# Reading the registry entry instead of assuming showed one deliberate design:
+# `stat_enrolment_report` carries `url_primary_pattern` with a {YYYY} slot and
+# `years_extracted: [2012..2024]`, and the store shards it one source_id per
+# year. Nothing is missing; the parent and the shards are simply keyed
+# differently, and no code reconciled them.
+#
+# S216 — the same expansion is now what check_freshness and check_source_titles
+# monitor the series by, so the id derivation moved into `registry_series.py`
+# rather than being copied a second and third time. This monitor keeps asking
+# its own question (is the parent still unmonitored?) off the shared answer.
 
 
 def classify(serving: dict[str, int], serving_kinds: dict[str, str],
              live: set[str], dead: set[str], listed: set[str],
-             series: dict[str, list[str]] | None = None) -> dict:
+             series: dict[str, list[str]] | None = None,
+             series_monitored: set[str] | None = None) -> dict:
     """The five drift classes. Pure — takes counts, returns id lists."""
     series = series or {}
+    monitored = series_monitored or set()
     shard_of = {shard: parent for parent, shards in series.items()
                 for shard in shards}
     # A parent whose shards ARE serving is not a phantom, and its shards are not
-    # unmanaged. Both are the same fact, so both are lifted out and reported once.
-    sharded = sorted(p for p, shards in series.items()
-                     if any(serving.get(sh, 0) for sh in shards))
+    # unmanaged. That is one fact about the STORE and it never stops being true.
+    serving_series = sorted(p for p, shards in series.items()
+                            if any(serving.get(sh, 0) for sh in shards))
+
+    # Whether those shards are REACHED by the URL-keyed monitors is a second,
+    # independent fact, and only that one is a defect.
+    #
+    # S222: these two used to be the same list, which was harmless while no
+    # monitor could expand a series — but S216 taught all three to expand, and
+    # an ERROR that cannot be cleared by fixing the thing it names is the
+    # wallpaper this project keeps having to remove (紀律 #14). Splitting them
+    # also keeps the S212 fix intact: the parent stays out of PHANTOM on the
+    # strength of its serving shards, not on the strength of being broken.
+    sharded = [p for p in serving_series if p not in monitored]
 
     unlisted = sorted((sid for sid in serving
                        if sid in live and sid not in listed),
                       key=lambda s: -serving[s])
+    # `serving_series`, not `sharded`: a parent stays out of PHANTOM because its
+    # shards serve, which stays true after the monitoring defect is fixed.
     phantom = sorted(sid for sid in listed
-                     if serving.get(sid, 0) == 0 and sid not in sharded)
+                     if serving.get(sid, 0) == 0 and sid not in serving_series)
     unmanaged = sorted((sid for sid in serving
                         if sid not in live and sid not in dead
                         and sid not in shard_of
@@ -251,6 +256,24 @@ def self_test() -> int:
           ds["PHANTOM"] == [])
     check("the series is reported once, as its own class",
           ds["SERIES_UNMONITORED"] == ["stat_enrolment_report"])
+    # S222 — the class must clear when the defect is fixed, and only then.
+    # Both directions are asserted because a check that cannot go green is as
+    # useless as one that cannot go red: the first buries the real signal under
+    # a permanent ERROR, the second never fires at all.
+    ds_fixed = classify(ser_serving, ser_kinds, live=set(), dead=set(),
+                        listed={"stat_enrolment_report"}, series=sp,
+                        series_monitored={"stat_enrolment_report"})
+    check("a series the monitors CAN now expand is no longer reported",
+          ds_fixed["SERIES_UNMONITORED"] == [])
+    check("…and clearing it does not push the parent back into PHANTOM",
+          ds_fixed["PHANTOM"] == [])
+    check("…nor does it orphan the shards into UNMANAGED",
+          ds_fixed["UNMANAGED"] == ["orphan"])
+    # And the live registry must actually reach the green state, or the fix is
+    # only true in fixtures.
+    check("the real registry's annual series is monitorable today",
+          monitorable_parents(json.loads(REGISTRY.read_text(encoding="utf-8"))
+                              ["sources"]) == {"stat_enrolment_report"})
     # THE GATE MUST STILL GO RED: a series whose shards serve nothing is a real
     # phantom, and must not be excused by being a series.
     dead_series = classify({"other": 1}, {"other": "vault_extract"}, {"other"},
@@ -324,7 +347,8 @@ def main() -> int:
         APP.read_text(encoding="utf-8", errors="replace"))}
 
     drift = classify(dict(serving), kinds, live, dead, listed,
-                     series_parents(sources))
+                     series_parents(sources),
+                     monitorable_parents(sources))
     stamp = time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime())
     Path(args.ledger).write_text(
         render_ledger(drift, dict(serving), titles, stamp), encoding="utf-8")

@@ -27,6 +27,14 @@ guideline, and neither can a bug in the classifier.
 Deletion is genuinely irreversible in this corpus: chunk ids are content hashes,
 so a purged source can only come back through a full re-ingest.
 
+Annual series (S216). This monitor reads no URL at all, so unlike its siblings it
+has nothing to expand — the `url_primary_pattern` gap never reached it. What it
+did get wrong is the counting: a series parent (`stat_enrolment_report`) serves
+0 chunks under its own id and 528 under the 13 per-year ids the store keys on,
+so an expired parent would read as "already cleaned up" and a `--purge` of it
+would delete nothing while reporting success. `total_chunks` sums the shards and
+`series_refusal` makes `--purge` fail closed on a series parent.
+
 Usage (from repo root):
   python3 dev/source/check_expiry.py --self-test          # offline, no network
   python3 dev/source/check_expiry.py --prove-assertions   # prove the tests go red
@@ -52,6 +60,7 @@ import requests
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import lifecycle as lc  # noqa: E402
+import registry_series as rs  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 REGISTRY_PATH = REPO_ROOT / "dev" / "source" / "source_registry.json"
@@ -97,6 +106,47 @@ def chunk_count(source_id: str, key: str) -> Optional[int]:
         return int(cr.split("/")[-1]) if "/" in cr else None
     except Exception:                                        # noqa: BLE001
         return None
+
+
+# ── annual series ────────────────────────────────────────────────────────────
+# This monitor never reads a URL — it works off the registry's lifecycle fields
+# and a per-source_id chunk count — so there is no `url_primary` here to expand
+# (S216, verified by grep). What it does get wrong about an annual series is
+# ARITHMETIC: `stat_enrolment_report` serves 0 chunks under its own id and 528
+# under the 13 per-year ids the store actually keys on. Both functions below are
+# pure; the counter and the id expansion are injected so `--prove-assertions`
+# can knock them out and watch the assertions go red.
+
+def total_chunks(src: Dict, count, shard_ids_fn=None) -> Optional[int]:
+    """Chunks a registry row is responsible for, series included.
+
+    An ordinary row is one count, exactly as before. A series row is the sum
+    over its shards — because asking Supabase for `stat_enrolment_report`
+    returns 0 and reads as "already cleaned up" while 528 chunks are live.
+    """
+    ids = (shard_ids_fn or rs.shard_ids)(src)
+    if not ids:
+        return count(src["source_id"])
+    counts = [count(i) for i in ids]
+    known = [c for c in counts if c is not None]
+    return sum(known) if known else None
+
+
+def series_refusal(src: Dict, shard_ids_fn=None) -> Optional[str]:
+    """Why `--purge` must never act on an annual-series parent, or None.
+
+    `DELETE ?source_id=eq.stat_enrolment_report` matches nothing, the post-delete
+    count comes back 0, and the run reports success while marking the parent
+    deprecated — leaving 528 orphaned chunks that only `check_registry_drift`
+    would ever notice, as ZOMBIE. Fail closed instead: a shard is not a registry
+    row, so there is nothing here a human can safely tick.
+    """
+    ids = (shard_ids_fn or rs.shard_ids)(src)
+    if not ids:
+        return None
+    return (f"annual series — chunks live under {len(ids)} per-year ids "
+            f"({ids[0]}…{ids[-1]}), not under this one; purging the parent would "
+            "delete nothing and still mark it deprecated")
 
 
 # ── pure selection ───────────────────────────────────────────────────────────
@@ -166,7 +216,7 @@ def check(label: str, cond: bool) -> None:
         FAILS.append(label)
 
 
-def run_self_test(classify, is_expired) -> int:
+def run_self_test(classify, is_expired, shard_ids) -> int:
     TODAY = date(2026, 8, 24)
 
     def pkg(title, tier=None, deadlines=()):
@@ -242,6 +292,27 @@ def run_self_test(classify, is_expired) -> int:
     check("expiring_soon warns ahead without selecting the already-expired",
           [s["source_id"] for s in expiring_soon(sources, 30, TODAY)] == ["soon"])
 
+    print("annual series — the arithmetic, not the URLs:")
+    series = {"source_id": "stat_enrolment_report",
+              "url_primary_pattern": "https://e/Enrol_{YYYY}.pdf",
+              "years_extracted": [2012, 2013]}
+    plain = {"source_id": "g29", "url_primary": "https://e/g29.pdf"}
+    store = {"stat_enrolment_report": 0, "stat_enrolment_2012": 55,
+             "stat_enrolment_2013": 55, "g29": 7}
+    check("a series row stands for one store id per year",
+          shard_ids(series) == ["stat_enrolment_2012", "stat_enrolment_2013"])
+    check("an ordinary row stands for itself alone", shard_ids(plain) == [])
+    check("a series parent's chunk total is the sum of its shards, not its own 0",
+          total_chunks(series, store.get, shard_ids) == 110)
+    check("an ordinary row's chunk count is unchanged",
+          total_chunks(plain, store.get, shard_ids) == 7)
+    check("an unreachable count stays None instead of reading as 0",
+          total_chunks(plain, lambda _sid: None, shard_ids) is None)
+    check("--purge refuses an annual-series parent (deleting it deletes nothing)",
+          (series_refusal(series, shard_ids) or "").startswith("annual series"))
+    check("--purge is not disturbed for an ordinary source",
+          series_refusal(plain, shard_ids) is None)
+
     print("registry reality check:")
     reg = load_registry()["sources"]
     marked = [s for s in reg if s.get("lifecycle")]
@@ -249,6 +320,14 @@ def run_self_test(classify, is_expired) -> int:
     bad = [s["source_id"] for s in reg
            if s.get("lifecycle") == "ephemeral" and not s.get("expires_on")]
     check(f"no ephemeral source lacks an expires_on (offenders: {bad or 'none'})", not bad)
+    shards = {s["source_id"]: shard_ids(s) for s in reg if shard_ids(s)}
+    check(f"the registry's annual series expand to their store ids "
+          f"({sum(len(v) for v in shards.values())} shard(s) over "
+          f"{len(shards)} row(s))",
+          bool(shards) and all(
+              len(ids) == len(next(s for s in reg if s["source_id"] == sid)
+                              ["years_extracted"])
+              for sid, ids in shards.items()))
 
     print()
     if FAILS:
@@ -267,7 +346,7 @@ def do_check(args) -> int:
     expired = [dict(s) for s in expired_entries(sources, today)]
     soon = [dict(s) for s in expiring_soon(sources, args.within, today)]
     for e in expired:
-        e["chunks"] = chunk_count(e["source_id"], key)
+        e["chunks"] = total_chunks(e, lambda sid: chunk_count(sid, key))
 
     # An expired source whose chunks are already gone is DONE, not pending. It
     # stays in the registry as the record of what was removed, but it must not
@@ -385,6 +464,8 @@ def do_purge(args) -> int:
         s = by_id.get(sid)
         if s is None:
             refused.append((sid, "not in registry"))
+        elif series_refusal(s):
+            refused.append((sid, series_refusal(s)))
         elif s.get("lifecycle") != "ephemeral":
             refused.append((sid, f"lifecycle={s.get('lifecycle') or 'unset'}, not ephemeral"))
         elif not lc.is_expired(s, today):
@@ -453,13 +534,14 @@ def main() -> int:
         classify = lambda p: {"lifecycle": "reference", "expires_on": None,      # noqa: E731
                               "expiry_basis": None, "covers_period": None}
         is_expired = lambda e, t=None: True                                      # noqa: E731
-        run_self_test(classify, is_expired)
-        ok = len(FAILS) >= 13
+        shard_ids = lambda src: []                                               # noqa: E731
+        run_self_test(classify, is_expired, shard_ids)
+        ok = len(FAILS) >= 17
         print(f"\n{'ALL PASS' if ok else 'BROKEN'} — {len(FAILS)} assertions fired against the "
-              f"no-op rules (expected ≥ 13).")
+              f"no-op rules (expected ≥ 17).")
         return 0 if ok else 1
     if args.self_test:
-        return run_self_test(lc.classify, lc.is_expired)
+        return run_self_test(lc.classify, lc.is_expired, rs.shard_ids)
     if args.check:
         return do_check(args)
     if args.classify:

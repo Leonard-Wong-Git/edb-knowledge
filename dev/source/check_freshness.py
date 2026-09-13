@@ -12,6 +12,14 @@ Two-tier change detection (S139 hybrid upgrade):
      content hash is AUTHORITATIVE: it suppresses HEAD false-positives (EDB
      redirect / re-export churn) and confirms true content changes.
 
+Annual series (S216): a registry row that carries `url_primary_pattern` +
+`years_extracted` instead of `url_primary` stands for one document per year
+(`stat_enrolment_report` → 13 PDFs). `registry_series.expand_sources` turns it
+into one monitored row per year before the loop, so those URLs are checked like
+any other; their baselines live in the parent's `freshness_metadata_years`
+(year → the same five fields), because one `content_hash` cannot describe 13
+files. Rows that are not a series are passed through unchanged, by identity.
+
 content_hash shares the same lifecycle as the other freshness_metadata fields:
 it is seeded / refreshed only on a write-sync (non-dry-run). Scheduled dry-runs
 detect drift against the last synced baseline and never persist, so they stay
@@ -39,6 +47,9 @@ import argparse
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import registry_series as rs  # noqa: E402
 
 # Constants
 REGISTRY_PATH = Path("dev/source/source_registry.json")
@@ -205,6 +216,72 @@ def run_self_test() -> int:
     else:
         print("  [FAIL] render_ledger(one) malformed"); failures += 1
 
+    # --- annual series (S216) — which URLs the loop gets to see ---------------
+    def assert_(name: str, cond: bool) -> None:
+        nonlocal failures
+        print(f"  [{'PASS' if cond else 'FAIL'}] {name}")
+        if not cond:
+            failures += 1
+
+    plain = {"source_id": "g29", "url_primary": "https://e/g29.pdf",
+             "freshness_metadata": {"content_hash": "a" * 64}}
+    series = {"source_id": "stat_enrolment_report",
+              "url_primary_pattern": "https://e/Enrol_{YYYY}.pdf",
+              "years_extracted": [2012, 2013],
+              "freshness_metadata_years": {"2012": {"content_hash": "b" * 64}}}
+
+    assert_("an ordinary row is passed through by identity (no copy, no change)",
+            rs.monitor_rows(plain) == [plain] and rs.monitor_rows(plain)[0] is plain)
+    rows = rs.monitor_rows(series)
+    assert_("a series row expands to one row per year",
+            [r["source_id"] for r in rows] == ["stat_enrolment_2012",
+                                               "stat_enrolment_2013"])
+    assert_("each year gets its own url from the pattern",
+            [r["url_primary"] for r in rows] == ["https://e/Enrol_2012.pdf",
+                                                 "https://e/Enrol_2013.pdf"])
+    assert_("a year with a stored baseline sees it; a year without sees none",
+            rows[0]["freshness_metadata"] == {"content_hash": "b" * 64}
+            and rows[1]["freshness_metadata"] is None)
+
+    # Writeback: the ordinary path must stay literally the two assignments it
+    # was, and a series year must land on the PARENT — the derived row is a copy
+    # and anything written to it would be dropped on the floor.
+    p = dict(plain)
+    rs.record_freshness(p, "2026-09-13", {"content_hash": "c" * 64})
+    assert_("an ordinary row's result is written to the row itself, as before",
+            p["freshness_metadata"] == {"content_hash": "c" * 64}
+            and p["last_checked_at"] == "2026-09-13")
+    rs.record_freshness(rows[1], "2026-09-13", {"content_hash": "d" * 64})
+    assert_("a series year's result is written to the parent, not lost on the copy",
+            series["freshness_metadata_years"]["2013"] == {"content_hash": "d" * 64}
+            and series["last_checked_at"] == "2026-09-13")
+    assert_("writing one year does not disturb another year's baseline",
+            series["freshness_metadata_years"]["2012"] == {"content_hash": "b" * 64})
+    assert_("a series parent grows no scalar freshness_metadata",
+            "freshness_metadata" not in series)
+
+    # Registry reality — the invariant that keeps `expand_url` honest. A pattern
+    # with no {YYYY} slot would expand to N identical URLs instead of failing,
+    # so the structural check lives here rather than in the expansion.
+    reg = json.loads((Path(__file__).resolve().parent / "source_registry.json")
+                     .read_text(encoding="utf-8"))
+    reg_sources = reg["sources"] if isinstance(reg, dict) else reg
+    patterned = [s for s in reg_sources if s.get("url_primary_pattern")]
+    assert_(f"every url_primary_pattern in the registry carries {rs.YEAR_SLOT} "
+            f"({len(patterned)} row(s))",
+            bool(patterned) and all(rs.YEAR_SLOT in s["url_primary_pattern"]
+                                    for s in patterned))
+    expanded = rs.expand_sources(reg_sources)
+    gained = len(expanded) - len(reg_sources)
+    print(f"     [registry] {len(reg_sources)} rows → {len(expanded)} monitored "
+          f"(+{gained} from {len(patterned)} annual series)")
+    assert_("the registry's annual series now yields http urls to check",
+            all((r.get("url_primary") or "").startswith("http")
+                for r in expanded if rs.is_shard(r)) and gained > 0)
+    assert_("no registry row is dropped by the expansion",
+            {rs.parent_id(r) for r in expanded}
+            >= {s["source_id"] for s in reg_sources})
+
     print(f"\nSelf-test: {'ALL PASS' if failures == 0 else f'{failures} FAIL'}")
     return 1 if failures else 0
 
@@ -240,11 +317,18 @@ def main():
     failed_records: List[Dict[str, str]] = []
     changed_records: List[Dict] = []
 
-    print(f"🔍 Checking freshness for {len(sources)} sources...")
+    # An annual-series row becomes one row per year here; every other row is
+    # passed through by identity, so the loop below is unchanged for them.
+    monitored = rs.expand_sources(sources)
+
+    gained = len(monitored) - len(sources)
+    print(f"🔍 Checking freshness for {len(monitored)} sources..."
+          + (f" ({len(sources)} registry rows, +{gained} annual-series years)"
+             if gained else ""))
     print(f"📅 Today: {today}  | mode: {'dry-run' if args.dry_run else 'write-sync'}")
     print("-" * 60)
 
-    for src in sources:
+    for src in monitored:
         # Filter: verified + public + has primary URL
         if not (src.get("status") == "verified" and
                 src.get("access_mode") == "public" and
@@ -313,15 +397,17 @@ def main():
             cheap_changed, old_hash, new_hash, hash_state == "computed"
         )
 
-        # Update record (persisted only when not dry-run)
-        src["last_checked_at"] = today
-        src["freshness_metadata"] = {
+        # Update record (persisted only when not dry-run). For an ordinary row
+        # this is the same two assignments it always was; for a series year it
+        # lands in the parent's year-keyed store instead of overwriting a single
+        # scalar thirteen times.
+        rs.record_freshness(src, today, {
             "last_modified": last_mod,
             "content_length": cont_len,
             "etag": etag,
             "content_hash": new_hash,
             "hash_checked_at": today if hash_state == "computed" else meta.get("hash_checked_at"),
-        }
+        })
 
         if changed:
             changes_detected += 1

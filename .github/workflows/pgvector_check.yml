@@ -1,0 +1,222 @@
+name: Weekly pgvector Packaging Watch
+
+# Watches whether Supabase has packaged pgvector >= 0.8.4 — the version that
+# finally carries BOTH unavoidable HNSW vacuum fixes (0.8.3 index corruption,
+# 0.8.4 "hnsw graph not repaired" + insert errors during vacuuming). Until then
+# HNSW stays blocked, and no decision here can unblock it.
+#
+# 紀律 #14: this job is SILENT in its steady state. It opens an Issue only when
+# the answer actually changes (>= 0.8.4 packaged) or when the monitor has gone
+# blind (upstream file moved / `vector` key gone / JSON shape changed). A version
+# landing below the threshold is recorded in the committed state file and the run
+# artifact, and says nothing — nobody can act on 0.8.3.
+
+on:
+  schedule:
+    # Every Monday at 14:00 UTC. 09:00 freshness / 10:00 discovery /
+    # 11:00 served-urls are taken, and 12:00 is the daily qc_report.
+    - cron: "0 14 * * 1"
+  workflow_dispatch:
+    inputs:
+      write_state:
+        description: "Commit the last-seen state file if it changed"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+permissions:
+  contents: write      # the last-seen state file only; nothing else is written
+  issues: write        # open/close the "HNSW unblocked" / "watch broken" issue
+
+jobs:
+  pgvector-watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Self-test (offline logic, fixtures only)
+        run: python3 dev/source/check_pgvector_release.py --self-test
+
+      - name: Prove the assertions can go red
+        run: python3 dev/source/check_pgvector_release.py --prove-assertions
+
+      - name: Check upstream packaging manifest
+        id: watch
+        run: |
+          WRITE="${{ github.event.inputs.write_state || 'true' }}"
+          ARG=""
+          if [ "$WRITE" = "false" ]; then ARG="--no-state"; fi
+          python3 dev/source/check_pgvector_release.py --check $ARG \
+            --changes-out pgvector_watch.json 2>&1 | tee pgvector_output.txt
+          exit ${PIPESTATUS[0]}
+
+      - name: Commit the last-seen state
+        # Only reached when the check exited 0, i.e. the run actually SAW the
+        # version list. A blind run never writes state, so a moved upstream file
+        # cannot silently erase the baseline it is compared against.
+        if: success() && (github.event.inputs.write_state || 'true') == 'true'
+        run: |
+          if git diff --quiet dev/source/pgvector_seen.json; then
+            echo "state unchanged"; exit 0
+          fi
+          git config user.name "pgvector-watch[bot]"
+          git config user.email "pgvector-watch@users.noreply.github.com"
+          git add dev/source/pgvector_seen.json
+          git commit -q -m "chore(pgvector-watch): update the last-seen version list"
+          git pull --rebase --autostash origin main && git push
+
+      - name: Upload run report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pgvector-watch-${{ github.run_number }}
+          path: |
+            pgvector_output.txt
+            pgvector_watch.json
+          retention-days: 90
+
+      - name: Route the verdict (Issue only when it is actionable)
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let r;
+            try {
+              r = JSON.parse(fs.readFileSync('pgvector_watch.json', 'utf8'));
+            } catch (e) {
+              core.warning('No run report to route: ' + e);
+              return;
+            }
+            const owner = context.repo.owner, repo = context.repo.repo;
+            const UNBLOCKED_LABEL = 'pgvector-hnsw-unblocked';
+            const BROKEN_LABEL    = 'pgvector-watch-broken';
+
+            const openIssues = async (label) => (await github.rest.issues.listForRepo({
+              owner, repo, state: 'open', labels: label })).data;
+
+            const upsert = async (label, title, body) => {
+              const open = await openIssues(label);
+              if (open.length) {
+                await github.rest.issues.update({
+                  owner, repo, issue_number: open[0].number, title, body });
+                core.info('Updated #' + open[0].number);
+              } else {
+                await github.rest.issues.create({
+                  owner, repo, title, body, labels: [label] });
+                core.info('Created ' + label + ' issue.');
+              }
+            };
+
+            const closeWith = async (label, comment) => {
+              for (const iss of await openIssues(label)) {
+                await github.rest.issues.createComment({
+                  owner, repo, issue_number: iss.number, body: comment });
+                await github.rest.issues.update({
+                  owner, repo, issue_number: iss.number, state: 'closed' });
+                core.info('Closed #' + iss.number);
+              }
+            };
+
+            const v = r.verdict;
+            core.info(`verdict=${v} speaks=${r.speaks} opens_issue=${r.opens_issue}`);
+            core.summary.addRaw(
+              `**${v}** — ${r.label}\n\nupstream: \`${(r.current||[]).join(', ') || '—'}\``);
+            await core.summary.write();
+
+            if (v === 'UNBLOCKED') {
+              // The one loud moment this monitor exists for. It speaks ONCE:
+              // the state file now records the qualifying version, so next
+              // week's verdict is UNCHANGED and silent. The exit is a human
+              // closing this issue after acting.
+              await upsert(UNBLOCKED_LABEL,
+                '🎉 pgvector >= 0.8.4 is packaged — the HNSW block has lifted',
+                [
+                  `Supabase's extension manifest now offers **${r.newly_unblocking.join(', ')}**`,
+                  `(run #${context.runNumber}, ${r.generated_at}).`,
+                  '',
+                  `- Source: ${r.source_url} → key \`${r.extension_key}\``,
+                  `- Full list now: \`${(r.current || []).join(', ')}\``,
+                  `- Threshold: \`>= ${r.threshold}\` — 0.8.3 fixed possible index corruption`,
+                  '  with HNSW vacuuming; 0.8.4 fixed the `hnsw graph not repaired` error and',
+                  '  insert errors during vacuuming. Neither could be configured away, because',
+                  '  PostgreSQL runs anti-wraparound autovacuum even with `autovacuum_enabled = false`.',
+                  '',
+                  '**Packaged is not installed.** This manifest is the leading indicator: it says the',
+                  'build *can* carry that version, not that this project\'s instance already offers it.',
+                  'Confirm on the instance before planning anything:',
+                  '',
+                  '```sql',
+                  "select * from pg_available_extension_versions where name = 'vector';",
+                  '```',
+                  '',
+                  'Then the HNSW evaluation can start — offline recall re-verification first,',
+                  'per the standing instruction not to build the index straight away.',
+                  '',
+                  '_Closing this issue is the exit. The watcher has already recorded the version and',
+                  'will not re-announce it._',
+                ].join('\n'));
+              // A previously-broken watcher that is now reading fine again.
+              await closeWith(BROKEN_LABEL,
+                `✅ Run #${context.runNumber}: the manifest is readable again.`);
+              return;
+            }
+
+            if (v === 'SCHEMA_CHANGED') {
+              // Structural, permanent, and silently fatal if ignored: a watcher
+              // that cannot see its subject manufactures a false "still blocked"
+              // every week for ever. The job is already red; this is the surface
+              // that survives an unread failure email.
+              await upsert(BROKEN_LABEL,
+                '🛠 pgvector watch is blind — the upstream manifest changed shape',
+                [
+                  `\`check_pgvector_release.py\` could not read the version list (run #${context.runNumber}, ${r.generated_at}).`,
+                  '',
+                  `> ${r.reason}`,
+                  '',
+                  `- Watching: ${r.source_url}`,
+                  `- Expected key: \`${r.extension_key}\``,
+                  '',
+                  'That URL is a third-party path on a `develop` branch, so this was expected to',
+                  'happen eventually. Find where the manifest moved to, then update `VERSIONS_URL`',
+                  '/ `EXTENSION_KEY` in `dev/source/check_pgvector_release.py` and re-run',
+                  '`--self-test`. The last-seen baseline in `dev/source/pgvector_seen.json` was',
+                  'deliberately NOT overwritten by this run.',
+                  '',
+                  '_Until this is fixed, "HNSW is still blocked" is an assumption, not a measurement._',
+                ].join('\n'));
+              return;
+            }
+
+            if (v === 'FETCH_FAILED') {
+              // Transient. The red scheduled run is the notice; next week is the
+              // retry. Opening an issue for a 503 is exactly the wallpaper 紀律
+              // #14 forbids.
+              core.warning('Transient fetch failure: ' + r.reason);
+              return;
+            }
+
+            // UNCHANGED / CHANGED / BASELINE — the steady state. Say nothing.
+            // A version landing below the threshold (0.8.3) is real movement but
+            // not actionable movement; its record is the committed diff on
+            // dev/source/pgvector_seen.json plus this run's artifact.
+            if (v === 'CHANGED') {
+              core.info('Recorded (no notification): added=' +
+                (r.added || []).join(',') + ' removed=' + (r.removed || []).join(','));
+            }
+            await closeWith(BROKEN_LABEL,
+              `✅ Run #${context.runNumber}: the manifest is readable again.`);
