@@ -586,6 +586,7 @@ const SOURCE_SETS: Record<string, string[]> = {
    * Curriculum / Teaching — 課程, 科目, 教學, 評估, CPD
    * Exclude SAG (minimal curriculum content, adds noise).
    */
+    "edbcm136_2026",              // (auto) Option A watcher ingest
   curriculum: [
     // S195: kgecg_2017 removed from this allowlist — it duplicated g29 (same document).
     // ⚠️ S212 CORRECTION: the "0 chunks in the store" half of this note was never true, and
@@ -1337,6 +1338,7 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   "edbcm144_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbc016_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbcm141_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
+  "edbcm136_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   // ack:spotlight:end
 ];
 
