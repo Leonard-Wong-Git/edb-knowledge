@@ -51,6 +51,7 @@
 5. 只監察 —— Option A watcher bot 仍會自行推 commit 到 `origin/main`（只碰 `discovery_seen.json`／`registry_drift.md`／`qc_report.json`）。S220 開工就撞到一次（`2544ed9`）。**紀律不變：開工與 push 前一定要 `git fetch` 後比對，不得讀交接記載的 hash 當現況。**
 6. 只監察 —— **`anon` 角色 `statement_timeout = 3 秒`**（`authenticated` 8s、`service_role` 8s）。後端用 anon key，故生產只有 3 秒。**量度紀律：本專案 in-process 慣例為 `SUPABASE_ANON_KEY ||= SUPABASE_SERVICE_KEY`（`routeFirstProbe.ts:8`），即在 8 秒上限下量一個只有 3 秒的系統，會系統性低估失敗率。任何本機量度之前先問一句：我用的是哪個 key。**
 7. 只監察 —— `AGENTS.md`／`CLAUDE.md`／`GEMINI.md` 三檔在 `.gitignore` 內且從未 tracked；`.gitignore` 的 `AGENTS.md` 規則無前置斜線，會在任何深度命中，連升級前備份都被 ignore。**這三個檔 git 內沒有任何副本。**
+8. ⚠️ **【S222 新發現，未修】`g37` 的瀏覽條目與它實際服務的內容對不上。** `app.html:1600` 寫「藝術教育學習領域課程指引（小一至**中三**）(**2002**)」、format HTML、連結指向 arts-edu 索引頁；但它那 116 條片段的 title 是「藝術教育學習領域課程指引（**2017**）」、url 指向 `AE_KLACG__Chi___2017.pdf`，文本提及「中六」11 次。**即瀏覽清單講 2002，搜尋答的是 2017。** 屬 S194 `ict_sss_2021` 那個「200-但-錯檔」家族。同一屏另有 `app.html:1720` 的 `arts_kla_guide_2017` 條目（2017 PDF，描述才是準確的那個）—— 所以用戶現時在「📚EDB指引」見到同一份文件上榜兩次，其中一個標籤是錯的。**清走 `arts_kla_guide_2017` 的片段之前要先決定保留哪一個瀏覽條目**，否則會留下一個零片段的 PHANTOM。
 
 <!-- ack:section:workspace-identity -->
 ## User Environment (Always Reference Before Giving Shell Commands)
@@ -162,7 +163,10 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:next-priorities -->
 ## Open Priorities
 
-**Recommended next step（S222 重生）：** **批出兩個生產寫入，或明確押後。** S221 交給你的那個「升不升級」決定，S222 核實後**取消了** —— 升到頂只有 0.8.2，解不到 HNSW，現已改為機器監察（見 ①），不再需要你的決定。取而代之，S222 驗完兩項待批的生產寫入：**甲** 542 條代號標題＋40 條無連結的 metadata 修復（UPDATE，自測 15/15、18 條 URL 實測 200、下游回歸已檢）；**乙** 224 條重複片段清走（DELETE，`kgecg_2017`≈`g29`、`arts_kla_guide_2017`＝`g37` 逐位元組重複）。甲是純改善且可逆，乙不可逆需你點頭。兩者都做完，餘下次選才是 ③ 重跑 185 題 gold。
+**Recommended next step（S222 重生）：** **批出兩個生產寫入，或明確押後。** S221 交給你的那個「升不升級」決定，S222 核實後**取消了** —— 升到頂只有 0.8.2，解不到 HNSW，現已改為機器監察（見 ①），不再需要你的決定。取而代之，S222 驗完待批的生產寫入：**甲** 542 條代號標題＋40 條無連結的 metadata 修復（UPDATE，自測 15/15、18 條 URL 實測 200、下游回歸已檢）—— 已驗完待執行，**AI 跑不到**（auto mode 分類器擋住 `--execute`，與 S213 同一道閘），須由你在終端機執行。
+**乙（重複片段）S222 實測後一分為二，原本的「224 條」講法作廢：**
+   · `arts_kla_guide_2017`（116 條）**確認可刪** —— 內容 **99.9%** 已在 `g37`，115/116 條片段文本逐條相同，刪走只失 0.1%。而且它是代號標題兼無連結的那一份，`g37` 那份標題與連結都正確。
+   · `kgecg_2017`（108 條）**收回刪除建議** —— 兩者是同一份文件的**兩個不同 EDB 版式**（`TC_KGECG_2017.pdf` vs `KGECG-TC-2017.pdf`），各自標題連結俱全，但**互相只覆蓋約 84.5%**：刪走 `kgecg_2017` 會失去 **15.5%** 全庫他處沒有的文字（`g29` 亦有 15.4% 是它獨有）。S212 註釋「89% 互相覆蓋」數量級正確，但由此推出「重複，刪得」是錯的結論。正確做法是由較乾淨的來源重新入庫一次再退役另一份（registry 註釋自己寫明 `TC_KGECG_2017.pdf` 抽得較乾淨），不是直接刪。
 
 ① ⏸️ **【S222 改寫：由「待你拍板」降為「等上游」】Supabase 平台升級解不到 HNSW —— 現階段沒有可拍的板。** S221 記載「解封只有平台升級一條路」，上半截今日核實為錯：**Supabase 的建置本身最高只打包到 `vector` 0.8.2**（`supabase/postgres` `nix/ext/versions.json` 的 `vector` 條目，2026-09-13 實查；0.8.2 由 PR #2158 於 2026-05-22 加入，之後三個多月無動靜，亦無 0.8.3+ 的 PR 排隊）。而封鎖項是 **0.8.3／0.8.4** 那兩個關不掉的 HNSW vacuum 修正，**即是升到頂都仍然封住**。0.8.2 只修 CVE-2026-3172，而該項本來就有官方緩解，且 0.8.1／0.8.2 的內容全部與我們的 IVFFlat 路徑無關 —— **今日升級買不到任何可量度的改善，只換來一次生產停機。**
    · **兩個「最高版本」不是同一回事，不要再混淆**：S221 量到的 0.8.0 是 `pg_available_extension_versions`，即**我們這台實例**現時提供的（滯後指標）；0.8.2 是 Supabase **建置**已打包的（領先指標）。兩者之間的差距要靠 General Settings 的軟件升級或**重啟伺服器**去追（官方原文：「Software upgrades can also be initiated by restarting your server」），**不需要做那個重的 `pg_upgrade`**。
