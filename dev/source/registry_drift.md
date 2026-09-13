@@ -1,11 +1,12 @@
-# 登記／庫存／瀏覽清單 漂移帳（2026-09-13 18:17 UTC）
+# 登記／庫存／瀏覽清單 漂移帳（2026-09-13 18:42 UTC）
 
 由 `dev/source/check_registry_drift.py --check` 產生，請勿手改。
 
-## ZOMBIE — 登記為已退役，但仍在服務片段（1）
+## ZOMBIE — 登記為已退役，但仍在服務片段（2）
 
 | 片段 | source_id | 標題 |
 |---:|---|---|
+| 116 | `arts_kla_guide_2017` | 藝術教育學習領域課程指引（小一至中六）(2017) |
 | 108 | `kgecg_2017` | 幼稚園教育課程指引（2017） |
 
 ## SERIES_UNMONITORED — 登記為年度系列，但三個 registry 監察都讀不到它的分年檔（0）
@@ -16,7 +17,7 @@
 
 | 片段 | source_id | 標題 |
 |---:|---|---|
-| 2 | `stat_integrated` | stat_integrated |
+| 2 | `stat_integrated` | 融合教育統計數字 |
 
 ## PHANTOM — 瀏覽清單有，但庫內零片段（41）
 

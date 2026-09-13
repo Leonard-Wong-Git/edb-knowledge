@@ -52,9 +52,13 @@ VAULT = REPO_ROOT / "dev" / "vault"
 REGISTRY = REPO_ROOT / "dev" / "source" / "source_registry.json"
 SUPABASE_URL = "https://youkcekbrbywuqjxgibe.supabase.co"
 
-# `arts_kla_guide_2017` is a byte-duplicate of `g37` and is slated for deletion
-# in the same session. Re-titling rows we are about to drop would be work that
-# argues with itself, so it is excluded unless explicitly asked for.
+# `arts_kla_guide_2017` is a redundant second ingest of the SAME 2017 PDF that
+# `g37` serves, and is slated for deletion. Re-titling rows we are about to drop
+# would be work that argues with itself, so it is excluded unless explicitly asked
+# for. S222 measured the claim rather than repeating it: 115 of the 116 chunk
+# texts are byte-identical to g37's and 99.9% of its text is inside g37, the one
+# exception being an acknowledgements name list. "byte-duplicate" was close enough
+# to be worth checking and not close enough to be true.
 SLATED_FOR_DELETION = {"arts_kla_guide_2017"}
 
 # The Channel A mirror carries curated facts, not documents, so it has no
@@ -428,7 +432,7 @@ def main() -> int:
         print(f"\n依設計略過 {len(skipped)} 個來源："
               + "、".join(skipped[:6]) + ("…" if len(skipped) > 6 else ""))
         print("  role_facts_*＝Channel A 鏡像，本來就無上游連結；"
-              "arts_kla_guide_2017＝g37 的逐位元組重複，待刪不待改名。")
+              "arts_kla_guide_2017＝g37 同一份 2017 PDF 的第二次入庫（99.9% 重疊），待刪不待改名。")
     if not args.execute:
         print("\n確認影響面無誤後，加 --execute 執行。")
     return 0

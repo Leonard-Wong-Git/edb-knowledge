@@ -51,7 +51,7 @@
 5. 只監察 —— Option A watcher bot 仍會自行推 commit 到 `origin/main`（只碰 `discovery_seen.json`／`registry_drift.md`／`qc_report.json`）。S220 開工就撞到一次（`2544ed9`）。**紀律不變：開工與 push 前一定要 `git fetch` 後比對，不得讀交接記載的 hash 當現況。**
 6. 只監察 —— **`anon` 角色 `statement_timeout = 3 秒`**（`authenticated` 8s、`service_role` 8s）。後端用 anon key，故生產只有 3 秒。**量度紀律：本專案 in-process 慣例為 `SUPABASE_ANON_KEY ||= SUPABASE_SERVICE_KEY`（`routeFirstProbe.ts:8`），即在 8 秒上限下量一個只有 3 秒的系統，會系統性低估失敗率。任何本機量度之前先問一句：我用的是哪個 key。**
 7. 只監察 —— `AGENTS.md`／`CLAUDE.md`／`GEMINI.md` 三檔在 `.gitignore` 內且從未 tracked；`.gitignore` 的 `AGENTS.md` 規則無前置斜線，會在任何深度命中，連升級前備份都被 ignore。**這三個檔 git 內沒有任何副本。**
-8. ⚠️ **【S222 新發現，未修】`g37` 的瀏覽條目與它實際服務的內容對不上。** `app.html:1600` 寫「藝術教育學習領域課程指引（小一至**中三**）(**2002**)」、format HTML、連結指向 arts-edu 索引頁；但它那 116 條片段的 title 是「藝術教育學習領域課程指引（**2017**）」、url 指向 `AE_KLACG__Chi___2017.pdf`，文本提及「中六」11 次。**即瀏覽清單講 2002，搜尋答的是 2017。** 屬 S194 `ict_sss_2021` 那個「200-但-錯檔」家族。同一屏另有 `app.html:1720` 的 `arts_kla_guide_2017` 條目（2017 PDF，描述才是準確的那個）—— 所以用戶現時在「📚EDB指引」見到同一份文件上榜兩次，其中一個標籤是錯的。**清走 `arts_kla_guide_2017` 的片段之前要先決定保留哪一個瀏覽條目**，否則會留下一個零片段的 PHANTOM。
+8. ✅ **【S222 發現並已修】`g37` 的標籤講錯年份，同一份文件上榜兩次。** `app.html:1600` 與 registry 都寫住「藝術教育學習領域課程指引（小一至**中三**）(**2002**)」，但 `url_primary` 一直指向 `AE_KLACG__Chi___2017.pdf`，116 條片段全部是 2017 年版內容（「中六」×11）—— **瀏覽清單講 2002，搜尋答的是 2017**（S194 `ict_sss_2021` 那個「200-但-錯檔」家族）。Leonard 選了「保 `g37`、改描述」：`app.html` 與 `source_registry` 兩處已對正為 2017 版，重複的 `arts_kla_guide_2017` 瀏覽條目與短名對照已移除（in-app 瀏覽庫 **177 → 176**），平台 **v3.3.3 → v3.3.4**。瀏覽器實測：`GUIDELINES_REGISTRY.length` 176、零重複 id、tab 顯示「📚 EDB指引 (176)」、藝術組只餘一條指向該 PDF。**餘下未做：`arts_kla_guide_2017` 那 116 條片段未清走**（生產寫入，見下）。**另：`guidelines.json`（公開端點 158 份）仍同時列住 `g37` 與 `arts_kla_guide_2017`，且 `g37` 那條同樣寫住 2002 —— 依凍結合約零接觸未改，屬已知刻意分歧，要改須你另行批准。**
 
 <!-- ack:section:workspace-identity -->
 ## User Environment (Always Reference Before Giving Shell Commands)
@@ -164,6 +164,11 @@ source_registry → same vault PDFs → ai_extract.py
 ## Open Priorities
 
 **Recommended next step（S222 重生）：** **批出兩個生產寫入，或明確押後。** S221 交給你的那個「升不升級」決定，S222 核實後**取消了** —— 升到頂只有 0.8.2，解不到 HNSW，現已改為機器監察（見 ①），不再需要你的決定。取而代之，S222 驗完待批的生產寫入：**甲** 542 條代號標題＋40 條無連結的 metadata 修復（UPDATE，自測 15/15、18 條 URL 實測 200、下游回歸已檢）—— 已驗完待執行，**AI 跑不到**（auto mode 分類器擋住 `--execute`，與 S213 同一道閘），須由你在終端機執行。
+**兩個生產寫入 S222 全部未執行 —— 不是未驗，是 AI 跑不到。** `--execute`、`check_expiry --purge`、`cb3_deprecate_stale` 三條路都被 Claude Code 的 auto mode 分類器擋住（與 S213 同一道閘）。已驗完、待你在終端機執行：
+   · 甲：`python3 dev/_s213_title_backfill.py --execute`
+   · 乙：`python3 dev/cb3_deprecate_stale.py --only arts_kla_guide_2017 --execute`（該工具會先把刪除前逐條計數寫入 `dev/init_backup/<ts>/`；另 S222 已另存完整 row dump 於 `dev/source/eval_runs/2026-09-13_s222_duplicate_rows_predelete.json`）
+   · 做完甲之後 `ZOMBIE` 應剩 `kgecg_2017` 一個、`UNMANAGED` 應由 `stat_integrated` 清零。
+
 **乙（重複片段）S222 實測後一分為二，原本的「224 條」講法作廢：**
    · `arts_kla_guide_2017`（116 條）**確認可刪** —— 內容 **99.9%** 已在 `g37`，115/116 條片段文本逐條相同，刪走只失 0.1%。而且它是代號標題兼無連結的那一份，`g37` 那份標題與連結都正確。
    · `kgecg_2017`（108 條）**收回刪除建議** —— 兩者是同一份文件的**兩個不同 EDB 版式**（`TC_KGECG_2017.pdf` vs `KGECG-TC-2017.pdf`），各自標題連結俱全，但**互相只覆蓋約 84.5%**：刪走 `kgecg_2017` 會失去 **15.5%** 全庫他處沒有的文字（`g29` 亦有 15.4% 是它獨有）。S212 註釋「89% 互相覆蓋」數量級正確，但由此推出「重複，刪得」是錯的結論。正確做法是由較乾淨的來源重新入庫一次再退役另一份（registry 註釋自己寫明 `TC_KGECG_2017.pdf` 抽得較乾淨），不是直接刪。

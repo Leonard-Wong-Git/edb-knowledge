@@ -706,7 +706,7 @@
     },
     {
       "source_id": "g37",
-      "title": "藝術教育學習領域課程指引（小一至中三）(2002)",
+      "title": "藝術教育學習領域課程指引（小一至中六）(2017)",
       "title_en": null,
       "title_short": "藝術教育課程指引",
       "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/arts-edu/index.html",
@@ -719,10 +719,10 @@
       ],
       "access_mode": "public",
       "status": "verified",
-      "version_label": "2002",
-      "last_checked_at": "2026-06-15",
+      "version_label": "2017",
+      "last_checked_at": "2026-09-13",
       "supersedes": null,
-      "notes": "Seeded from existing guidelines.json public artifact. | S146(2026-06-06): ingested to Channel B vector store (vault/g37)",
+      "notes": "Seeded from existing guidelines.json public artifact. | S146(2026-06-06): ingested to Channel B vector store (vault/g37) | S222: title and version_label corrected from 「（小一至中三）(2002)」 to the 2017 edition. They never matched what this row actually serves — `url_primary` has pointed at AE_KLACG__Chi___2017.pdf all along and all 116 chunks carry 2017 text (「中六」×11). The stale 2002 label reached users through app.html's browse list, which advertised a 2002 HTML guide while the search answered from the 2017 PDF. The corpus holds no 2002 edition (S213 gold case cur_arts_guide_2002_missing), so nothing is lost by the rename. `url_landing` deliberately still points at the arts-edu index page, which is where the document is published.",
       "freshness_metadata": {
         "last_modified": "Tue, 21 Apr 2026 01:22:34 GMT",
         "content_length": "5506950",
@@ -4160,19 +4160,22 @@
         "curriculum"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2017",
-      "last_checked_at": "2026-06-15",
+      "last_checked_at": "2026-09-13",
       "supersedes": "g37",
       "parent_source_id": "arts_curr_docs",
-      "notes": "藝術教育 KLA 總綱（小一至中六）2017。EDB PDF 直連已記錄；用戶亦提供本地副本 `/Users/leonard/Desktop/AE_KLACG__Chi___2017.pdf` 供核對。現由 vault/arts_edu_curr_docs/catalogue.json 追蹤（doc_id: arts_kla_guide_2017）。",
+      "notes": "藝術教育 KLA 總綱（小一至中六）2017。EDB PDF 直連已記錄；用戶亦提供本地副本 `/Users/leonard/Desktop/AE_KLACG__Chi___2017.pdf` 供核對。現由 vault/arts_edu_curr_docs/catalogue.json 追蹤（doc_id: arts_kla_guide_2017）。 | S222 DEPRECATED as a redundant second ingest of the same 2017 PDF: 115 of its 116 chunk texts are byte-identical to g37's, and a shingle comparison puts 99.9% of its text inside g37 (the one chunk that differs is an acknowledgements name list). g37 already carries the correct title and the AE_KLACG__Chi___2017.pdf link, while this copy served a code title and no link at all. app.html's browse entry for this id was removed in the same change and g37's entry — which still described the 2002 HTML guide it no longer serves — was corrected to the 2017 PDF. Chunks are NOT yet dropped; that is a separate production write. Note the corpus contains no 2002 edition at all (S213 gold case cur_arts_guide_2002_missing), so this correction does not hide one. guidelines.json still lists BOTH ids and is untouched under the frozen-contract rule — see SESSION_HANDOFF.",
       "freshness_metadata": {
         "last_modified": "Tue, 21 Apr 2026 01:22:34 GMT",
         "content_length": "5506950",
         "etag": "\"0e9c1542dd1dc1:0\"",
         "content_hash": "ea40022c2082076d5ba00edfe7c41f503f574da6154ef01ddbe3dd08405a2f5c",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "related_source_ids": [
+        "g37"
+      ]
     },
     {
       "source_id": "music_p1_s6_2024",
