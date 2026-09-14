@@ -21,7 +21,8 @@ The live steps it plans / (later) performs, mirroring the manual S186 pipeline:
   4b. spotlight      register "<id>" in SPOTLIGHT_SOURCE_IDS (route-independent exact-cosine
                      pass) so a small new source is retrievable at all — see S193
   5. display-sync    bump _meta.stats.chunks across the display-sync touch points
-  6. commit          git commit + push (-> Render redeploy + Pages redeploy)
+  6. commit          git commit -> PR -> auto-merge once `build-gate` is green
+                     (S224: never a direct push to main; -> Render + Pages redeploy)
 
 SAFETY / SCOPE:
   - --dry-run writes only execution_plan.json (staging, gitignored) + a console
@@ -46,6 +47,7 @@ Usage (from repo root):
     python3 dev/source/execute_ingest.py --package edbc007_2026 --live          # Phase 3 real ingest
 """
 import argparse
+import ast
 import json
 import os
 import re
@@ -830,6 +832,89 @@ def live_append_update_log(pkg: Dict) -> Dict:
     return {"appended": True, "title": title}
 
 
+# ── step 6: land the commit through a pull request, never straight to main ───
+# S224: this step used to be `git push origin HEAD:main`. That is the exact door the
+# 2026-09-13 breakage walked through — an unattended ingest edited searchChannelB.ts,
+# pushed it to main, main stopped compiling for ~16 hours, and Render quietly kept
+# serving the previous build with /health still answering ok:true. The Backend Build
+# Gate can only DETECT that after the fact; to BLOCK it the commit has to face the
+# gate BEFORE it is on main. So the executor opens a PR and lets auto-merge land it
+# once `build-gate` is green. A red gate leaves the PR open and this step fails loudly
+# instead of poisoning main.
+#
+# ⚠️ Step 3 has already INSERTed into Supabase by the time we get here. So a PR that
+# never merges leaves the database ahead of the repo: the chunks are live and
+# retrievable, but source_registry.json / the route patch / the display counts are
+# not on main. That is recoverable (the ops workflow's registry guard skips a source
+# that is already registered, and a re-run resumes from the journal), but it must be
+# read as a split state, not as "the ingest failed".
+
+INGEST_BRANCH_PREFIX = "ingest/"
+PR_MERGE_TIMEOUT_S = 900          # 15 min — gate is ~3-4 min, the rest is Actions queueing
+PR_POLL_INTERVAL_S = 15
+
+
+def ingest_branch_name(source_id: str) -> str:
+    """The PR branch for one source. Refuses anything git would mangle or that could
+    escape the ingest/ namespace (a source_id reaches here from a package file)."""
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", source_id or ""):
+        raise ValueError(f"unsafe source_id for a branch name: {source_id!r}")
+    return f"{INGEST_BRANCH_PREFIX}{source_id}"
+
+
+def plan_pr_body(pkg: Dict, eff: Dict, chunks: int, after: Optional[int]) -> str:
+    sid = pkg["source_id"]
+    total = f" → **{after:,}** total" if after is not None else ""
+    return "\n".join([
+        f"Automated Option A ingest of `{sid}` ({pkg.get('circular_number')}).",
+        "",
+        f"- chunks added: **+{chunks}**{total}",
+        f"- route: `{eff['route']}` · topic: `{eff['topic']}` · tier: T{eff['tier']}",
+        "",
+        "Opened by `execute_ingest.py` step 6, set to auto-merge once `build-gate` passes.",
+        "If that check goes red this PR stays open on purpose — that is the whole reason",
+        "the executor stopped pushing straight to `main` (S224).",
+    ])
+
+
+def _git(*args: str, check: bool = True) -> subprocess.CompletedProcess:
+    return subprocess.run(["git", *args], cwd=str(REPO_ROOT),
+                          capture_output=True, text=True, check=check)
+
+
+def _gh(*args: str, check: bool = True) -> subprocess.CompletedProcess:
+    r = subprocess.run(["gh", *args], cwd=str(REPO_ROOT), capture_output=True, text=True)
+    if check and r.returncode != 0:
+        raise RuntimeError(f"gh {' '.join(args[:2])} failed (rc={r.returncode}): "
+                           f"{(r.stderr or r.stdout)[-400:]}")
+    return r
+
+
+def _await_pr_merge(number: int, url: str) -> Dict:
+    """Block until the gate lets the PR land. A red gate must never look like success."""
+    deadline = time.monotonic() + PR_MERGE_TIMEOUT_S
+    last = ""
+    while time.monotonic() < deadline:
+        r = _gh("pr", "view", str(number), "--json", "state,mergeCommit,mergeStateStatus", check=False)
+        if r.returncode == 0 and r.stdout.strip():
+            info = json.loads(r.stdout)
+            state = info.get("state")
+            last = info.get("mergeStateStatus") or state or ""
+            if state == "MERGED":
+                oid = ((info.get("mergeCommit") or {}).get("oid") or "")[:7]
+                return {"commit": oid, "status": last}
+            if state == "CLOSED":
+                raise RuntimeError(f"PR #{number} was closed without merging — {url}")
+        time.sleep(PR_POLL_INTERVAL_S)
+    raise RuntimeError(
+        f"PR #{number} did not merge within {PR_MERGE_TIMEOUT_S // 60} min "
+        f"(last merge state: {last or 'unknown'}) — {url}\n"
+        f"   The Supabase INSERT already landed; only the commit is unmerged, so the\n"
+        f"   database is ahead of main. Read the Backend Build Gate on that PR before\n"
+        f"   re-running — a red gate here means the ingest wrote code that breaks main."
+    )
+
+
 def live_commit_push(pkg: Dict, eff: Dict, chunks: int, after: Optional[int]) -> Dict:
     sid = pkg["source_id"]
     paths = list(LIVE_COMMIT_PATHS) + ["update_log.json", f"dev/vault/{sid}/"] + [rel for rel, _ in DISPLAY_SYNC_TARGETS]
@@ -839,15 +924,41 @@ def live_commit_push(pkg: Dict, eff: Dict, chunks: int, after: Optional[int]) ->
                             cwd=str(REPO_ROOT), capture_output=True, text=True).stdout.strip()
     if not staged:
         return {"committed": False, "reason": "nothing staged (already committed?)"}
+
     msg = plan_commit_message(pkg, eff, chunks, after)
     subprocess.run(["git", "commit", "-q", "-m", msg], cwd=str(REPO_ROOT), check=True)
-    head = subprocess.run(["git", "rev-parse", "--short", "HEAD"],
-                          cwd=str(REPO_ROOT), capture_output=True, text=True).stdout.strip()
-    push = subprocess.run(["git", "push", "origin", "HEAD:main"],
-                          cwd=str(REPO_ROOT), capture_output=True, text=True)
+    head = _git("rev-parse", "--short", "HEAD").stdout.strip()
+
+    branch = ingest_branch_name(sid)
+    # Learn the remote ref first so --force-with-lease is a real lease: a leftover
+    # branch from our own failed attempt is ours to replace; anything unexpected
+    # stops the run instead of being clobbered.
+    _git("fetch", "origin", f"refs/heads/{branch}:refs/remotes/origin/{branch}", check=False)
+    push = _git("push", "--force-with-lease", "origin", f"HEAD:refs/heads/{branch}", check=False)
     if push.returncode != 0:
-        raise RuntimeError(f"git push failed (commit {head} is local):\n{push.stderr[-400:]}")
-    return {"committed": True, "commit": head, "files": staged.splitlines()}
+        raise RuntimeError(f"push to {branch} failed (commit {head} is local only):\n"
+                           f"{(push.stderr or push.stdout)[-400:]}")
+
+    # Reuse an open PR from an earlier attempt rather than opening a second one.
+    number = url = None
+    view = _gh("pr", "view", branch, "--json", "number,url,state", check=False)
+    if view.returncode == 0 and view.stdout.strip():
+        info = json.loads(view.stdout)
+        if info.get("state") == "OPEN":
+            number, url = info["number"], info["url"]
+
+    if number is None:
+        created = _gh("pr", "create", "--base", "main", "--head", branch,
+                      "--title", msg, "--body", plan_pr_body(pkg, eff, chunks, after))
+        url = (created.stdout or "").strip().splitlines()[-1]
+        number = int(url.rstrip("/").rsplit("/", 1)[-1])
+
+    _gh("pr", "merge", str(number), "--auto", "--squash")
+    merged = _await_pr_merge(number, url)
+
+    return {"committed": True, "commit": merged["commit"] or head, "local_commit": head,
+            "branch": branch, "pr": number, "pr_url": url, "merged": True,
+            "files": staged.splitlines()}
 
 
 def post_deploy_smoke(pkg: Dict) -> Dict:
@@ -1028,7 +1139,8 @@ def exec_live(source_id: str) -> int:
         if not _done(st, "6_commit"):
             r = live_commit_push(pkg, eff, st["chunks"] or 0, st["after_total"])
             _mark(st, "6_commit", **r)
-            print(f"  [6] commit {'pushed ' + r.get('commit', '') if r['committed'] else r.get('reason')}")
+            print("  [6] commit " + (f"PR #{r['pr']} merged as {r['commit']}"
+                                 if r["committed"] else r.get("reason", "")))
     except Exception as exc:
         last = next((k for k in ("1_copy", "2_registry", "3_ingest", "4_route", "5_display_sync", "6_commit")
                      if not _done(st, k)), "?")
@@ -1127,6 +1239,39 @@ def self_test() -> int:
            cur.get("end", 0) - cur.get("start", 0) > 60)
     else:
         ok("live file: present", False)
+
+    # ── S224: step 6 must land through a PR, never straight to main ──────────
+    # The 16-hour breakage was an unattended push to main. If a future edit puts
+    # `git push origin HEAD:main` back, these go red before it ships.
+    src = Path(__file__).read_text(encoding="utf-8")
+    fn = next((n for n in ast.walk(ast.parse(src))
+               if isinstance(n, ast.FunctionDef) and n.name == "live_commit_push"), None)
+    ok("step 6: live_commit_push exists", fn is not None)
+    lits = [n.value for n in ast.walk(fn) if isinstance(n, ast.Constant) and isinstance(n.value, str)] if fn else []
+    ok("step 6: does not push to main (HEAD:main gone from the code)",
+       bool(lits) and not any("HEAD:main" in v or "refs/heads/main" in v for v in lits))
+    ok("step 6: pushes to the ingest/ branch namespace",
+       any(v == INGEST_BRANCH_PREFIX or "refs/heads/" in v for v in lits))
+    ok("step 6: opens a pull request", "pr" in lits and "create" in lits)
+    ok("step 6: asks for auto-merge", "--auto" in lits)
+    ok("step 6: waits for the merge instead of assuming it",
+       any(isinstance(n, ast.Call) and getattr(n.func, "id", "") == "_await_pr_merge"
+           for n in ast.walk(fn)) if fn else False)
+
+    # Branch naming: a source_id reaches this from a package file, so it is input.
+    ok("branch name: normal id", ingest_branch_name("edbc007_2026") == "ingest/edbc007_2026")
+    ok("branch name: dots and dashes allowed", ingest_branch_name("sag-2025.11") == "ingest/sag-2025.11")
+    for bad in ("../../main", "a b", "", "-x", "a/b", "x;y"):
+        try:
+            ingest_branch_name(bad)
+            rejected = False
+        except ValueError:
+            rejected = True
+        ok(f"branch name: refuses {bad!r}", rejected)
+
+    # The merge wait must have a finite deadline — an unbounded poll would hang the
+    # daily job and look like a hung ingest rather than a red gate.
+    ok("merge wait: bounded", isinstance(PR_MERGE_TIMEOUT_S, int) and 60 <= PR_MERGE_TIMEOUT_S <= 3600)
 
     for name, passed in checks:
         print(f"  {'PASS' if passed else 'FAIL'}  {name}")

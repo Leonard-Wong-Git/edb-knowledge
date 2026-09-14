@@ -9,24 +9,27 @@ name: Backend Build Gate
 # while /health still answered ok:true. The frontend is on GitHub Pages and was fine,
 # so there was no user-visible symptom to notice either.
 #
-# ⚠️ LIMIT — this gate DETECTS, it does not BLOCK. It runs after the push has landed.
-# Making it block requires branch protection on main with this job as a required check,
-# which only the repo owner can configure. Until that is set, a broken main is caught
-# in minutes instead of hours, not prevented.
+# ⚠️ DO NOT ADD `paths:` FILTERS BACK TO THE TRIGGERS (S224).
+# This job is meant to be a REQUIRED status check on main. GitHub only accepts a
+# required check that reports success / skipped / neutral for the commit in question.
+# A `paths:`-filtered workflow does not report anything at all on a commit that misses
+# the filter — the check sits pending forever and the push is blocked permanently.
+# So the workflow triggers on EVERY push and PR, and the path scoping happens in the
+# first step instead: an irrelevant commit still reports a green `build-gate` in a few
+# seconds, having skipped npm ci / typecheck / build / regression. Same CI cost as a
+# path filter, without the pending-forever trap.
+#
+# The scope step fails TOWARD running the build: if it cannot prove a commit is
+# irrelevant (compare API error, truncated file list, no usable base) it builds.
 #
 # 紀律 #14: silent in its steady state. A green run says nothing (it only closes a
-# previously-opened breakage issue). Only a red build speaks.
+# previously-opened breakage issue). Only a red build speaks. A scope-skipped run
+# proves nothing about whether main compiles, so it never closes that issue either.
 
 on:
   push:
     branches: [main]
-    paths:
-      - "backend/**"
-      - "dev/source/execute_ingest.py"
-      - ".github/workflows/backend_build_check.yml"
   pull_request:
-    paths:
-      - "backend/**"
   workflow_dispatch:
 
 permissions:
@@ -39,10 +42,56 @@ jobs:
     timeout-minutes: 15
 
     steps:
+      - name: Scope — can this commit affect the backend build?
+        id: scope
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Paths that can change the answer to "does main compile?".
+            // route_regression.mjs is here because this job runs it (S224: it was
+            // missing from the old paths: filter, so breaking the harness itself
+            // would not have run the gate).
+            const WATCHED = [
+              /^backend\//,
+              /^dev\/source\/execute_ingest\.py$/,
+              /^dev\/source\/route_regression\.mjs$/,
+              /^\.github\/workflows\/backend_build_check\.yml$/,
+            ];
+            const build = (why) => { core.setOutput('relevant', 'true');  core.info('BUILD — ' + why); };
+            const skip  = (why) => { core.setOutput('relevant', 'false'); core.info('SKIP — ' + why); };
+
+            if (context.eventName === 'workflow_dispatch') return build('manual run');
+
+            const ZERO = '0'.repeat(40);
+            const pr = context.payload.pull_request;
+            const base = pr ? pr.base.sha : context.payload.before;
+            const head = pr ? pr.head.sha : context.sha;
+            if (!base || base === ZERO) return build('no usable base commit to compare against');
+
+            try {
+              const cmp = await github.rest.repos.compareCommitsWithBasehead({
+                owner: context.repo.owner, repo: context.repo.repo,
+                basehead: `${base}...${head}`,
+              });
+              const files = cmp.data.files || [];
+              // The compare API caps its file list at 300. A truncated list cannot
+              // prove a commit is irrelevant, so treat it as relevant.
+              if (files.length >= 300) return build('compare file list truncated at 300');
+
+              const names = files.flatMap(f => [f.filename, f.previous_filename].filter(Boolean));
+              const hits = names.filter(n => WATCHED.some(re => re.test(n)));
+              if (hits.length) return build(`${hits.length} watched path(s): ` + hits.slice(0, 10).join(', '));
+              return skip(`${files.length} file(s) changed, none of them watched`);
+            } catch (e) {
+              return build(`compare failed (${e.message})`);
+            }
+
       - name: Checkout repo
+        if: steps.scope.outputs.relevant == 'true'
         uses: actions/checkout@v4
 
       - name: Set up Node
+        if: steps.scope.outputs.relevant == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "22"
@@ -50,37 +99,52 @@ jobs:
           cache-dependency-path: backend/package-lock.json
 
       - name: Set up Python
+        if: steps.scope.outputs.relevant == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
       - name: Install backend dependencies
+        if: steps.scope.outputs.relevant == 'true'
         working-directory: backend
         run: npm ci
 
       - name: Typecheck
+        if: steps.scope.outputs.relevant == 'true'
         working-directory: backend
         run: npm run check
 
       - name: Build
+        if: steps.scope.outputs.relevant == 'true'
         working-directory: backend
         run: npm run build
 
       - name: Route regression (TOPIC_KEYWORDS / SOURCE_SETS evaluated from the real source)
+        if: steps.scope.outputs.relevant == 'true'
         run: node dev/source/route_regression.mjs
 
       - name: Ingest route-patcher self-test (the locator that caused this gate to exist)
+        if: steps.scope.outputs.relevant == 'true'
         run: python3 dev/source/execute_ingest.py --self-test
 
       - name: Route the verdict (Issue only when main is actually broken)
         if: always()
         uses: actions/github-script@v7
+        env:
+          RELEVANT: ${{ steps.scope.outputs.relevant }}
         with:
           script: |
             const owner = context.repo.owner, repo = context.repo.repo;
             const LABEL = 'backend-build-broken';
             const failed = '${{ job.status }}' === 'failure';
             const runUrl = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
+
+            // A scope-skipped run never compiled anything. It must not open an issue,
+            // and — more importantly — it must not CLOSE an open one by looking green.
+            if (process.env.RELEVANT !== 'true') {
+              core.info('Scope skipped this commit — no build ran, so no issue routing.');
+              return;
+            }
 
             // Pull requests get the red check itself; an issue would be noise.
             if (context.eventName === 'pull_request') {
