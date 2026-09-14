@@ -1,0 +1,147 @@
+name: Backend Build Gate
+
+# Why this exists (S223): the Option A watcher pushes straight to main and edits
+# backend/src/api/searchChannelB.ts on every unattended ingest. Until now NO workflow
+# ran a typecheck, so on 2026-09-13 the watcher wrote two bare strings into an object
+# literal (three commits: e2b53f0 / 183b7a8 / 9e5f28c) and main stopped compiling for
+# ~16 hours. Nothing went red, because nothing was watching: Render simply failed its
+# build and kept serving the last good one (5765c43), which froze every backend deploy
+# while /health still answered ok:true. The frontend is on GitHub Pages and was fine,
+# so there was no user-visible symptom to notice either.
+#
+# ⚠️ LIMIT — this gate DETECTS, it does not BLOCK. It runs after the push has landed.
+# Making it block requires branch protection on main with this job as a required check,
+# which only the repo owner can configure. Until that is set, a broken main is caught
+# in minutes instead of hours, not prevented.
+#
+# 紀律 #14: silent in its steady state. A green run says nothing (it only closes a
+# previously-opened breakage issue). Only a red build speaks.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "backend/**"
+      - "dev/source/execute_ingest.py"
+      - ".github/workflows/backend_build_check.yml"
+  pull_request:
+    paths:
+      - "backend/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write        # open/close the "main does not compile" issue
+
+jobs:
+  build-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm ci
+
+      - name: Typecheck
+        working-directory: backend
+        run: npm run check
+
+      - name: Build
+        working-directory: backend
+        run: npm run build
+
+      - name: Route regression (TOPIC_KEYWORDS / SOURCE_SETS evaluated from the real source)
+        run: node dev/source/route_regression.mjs
+
+      - name: Ingest route-patcher self-test (the locator that caused this gate to exist)
+        run: python3 dev/source/execute_ingest.py --self-test
+
+      - name: Route the verdict (Issue only when main is actually broken)
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner, repo = context.repo.repo;
+            const LABEL = 'backend-build-broken';
+            const failed = '${{ job.status }}' === 'failure';
+            const runUrl = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
+
+            // Pull requests get the red check itself; an issue would be noise.
+            if (context.eventName === 'pull_request') {
+              core.info(`PR run, status=${failed ? 'failure' : 'success'} — no issue routing.`);
+              return;
+            }
+
+            const openIssues = async () => (await github.rest.issues.listForRepo({
+              owner, repo, state: 'open', labels: LABEL })).data;
+
+            if (failed) {
+              const body = [
+                `\`main\` does not build at \`${context.sha.slice(0, 7)}\`.`,
+                '',
+                `- Run: ${runUrl}`,
+                `- Pushed by: \`${context.actor}\``,
+                '',
+                '**What this means right now:** Render builds from `main`. A failed build does not',
+                'take production down — it keeps serving the last build that succeeded, and `/health`',
+                'keeps answering `ok:true` with that older `commit`. So the symptom is not an outage,',
+                'it is a **frozen deploy**: nothing merged after this point can reach production.',
+                '',
+                'Check what production is actually running:',
+                '',
+                '```bash',
+                'curl -s https://edb-knowledge.onrender.com/health',
+                '```',
+                '',
+                'and compare the executable code, not the hash:',
+                '',
+                '```bash',
+                'git diff --name-only <that commit>..HEAD -- backend app.html',
+                '```',
+                '',
+                '**If the failing commit came from the Option A watcher**, the edit it made to',
+                '`searchChannelB.ts` is the first place to look — that is the exact failure this',
+                'gate was built for (see the header comment in the workflow file).',
+                '',
+                '_This issue closes itself once a run on `main` goes green._',
+              ].join('\n');
+              const open = await openIssues();
+              if (open.length) {
+                await github.rest.issues.update({
+                  owner, repo, issue_number: open[0].number,
+                  title: `🔴 main does not compile (${context.sha.slice(0, 7)})`, body });
+                core.info('Updated #' + open[0].number);
+              } else {
+                await github.rest.issues.create({
+                  owner, repo, title: `🔴 main does not compile (${context.sha.slice(0, 7)})`,
+                  body, labels: [LABEL] });
+                core.info('Opened the breakage issue.');
+              }
+              return;
+            }
+
+            // Green: say nothing, but give any open breakage issue its exit.
+            for (const iss of await openIssues()) {
+              await github.rest.issues.createComment({
+                owner, repo, issue_number: iss.number,
+                body: `✅ \`main\` builds again at \`${context.sha.slice(0, 7)}\` — ${runUrl}` });
+              await github.rest.issues.update({
+                owner, repo, issue_number: iss.number, state: 'closed' });
+              core.info('Closed #' + iss.number);
+            }

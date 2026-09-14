@@ -245,26 +245,53 @@ def plan_chunks(pkg: Dict) -> Dict:
     }
 
 
+def locate_route_block(lines: List[str], route: str) -> Dict:
+    """Find the [start, end] line indices (0-based) of the SOURCE_SETS[<route>] array.
+
+    ⚠️ S223 — this used to scan only `start + 60` lines for a line merely CONTAINING "]",
+    and when it found none it left `end = start`. Nothing failed; the caller happily
+    inserted at `start`, i.e. BEFORE the `<route>: [` line, putting bare strings into an
+    object literal. `curriculum` had grown to 61 lines, one past the window, so three
+    watcher ingests (e2b53f0 / 183b7a8 / 9e5f28c, 2026-09-13) each wrote a syntax error
+    to main. It did not compile for ~16 hours and Render kept serving the last good
+    build, which silently froze every backend deploy. Same family as the S222 title
+    backfill: a tool that disarms itself instead of failing loudly.
+
+    Two changes: the close bracket must be a line that is ONLY a close bracket at the
+    route key's own indent (a comment containing "]" can no longer end the array), and
+    there is no line budget — not finding it is an error, never a degraded answer.
+    """
+    start = None
+    key_indent = 0
+    for i, ln in enumerate(lines):
+        m = re.match(rf"(\s*){re.escape(route)}:\s*\[", ln)
+        if m:
+            start, key_indent = i, len(m.group(1))
+            break
+    if start is None:
+        return {"found": False}
+    close_re = re.compile(rf"^\s{{{key_indent}}}\],?\s*$")
+    for j in range(start + 1, len(lines)):
+        if close_re.match(lines[j]):
+            return {"found": True, "start": start, "end": j}
+    return {"found": True, "error": f"SOURCE_SETS.{route} opens at line {start + 1} but its "
+                                    f"closing bracket was never found — refusing to guess an "
+                                    f"insertion point."}
+
+
 def plan_route_patch(route: str, source_id: str) -> Dict:
     """Locate SOURCE_SETS[<route>] in searchChannelB.ts and preview the insertion."""
     if not ROUTE_FILE.exists():
         return {"error": f"route file missing: {ROUTE_FILE}"}
     lines = ROUTE_FILE.read_text(encoding="utf-8").splitlines()
-    start = None
-    for i, ln in enumerate(lines):
-        if re.match(rf"\s*{re.escape(route)}:\s*\[", ln):
-            start = i
-            break
-    if start is None:
+    loc = locate_route_block(lines, route)
+    if not loc["found"]:
         return {"route": route, "found": False,
                 "note": f"route '{route}' not yet a SOURCE_SET — live executor would CREATE the block "
                         f"(needs human review: a new route also needs TOPIC_KEYWORDS + smoke test)."}
-    # find array close
-    end = start
-    for j in range(start, min(start + 60, len(lines))):
-        if "]" in lines[j] and j > start:
-            end = j
-            break
+    if loc.get("error"):
+        return {"error": loc["error"]}
+    start, end = loc["start"], loc["end"]
     already = any(f'"{source_id}"' in lines[k] for k in range(start, end + 1))
     insert_line = f'    "{source_id}",              // (auto) Option A watcher ingest'
     return {
@@ -741,6 +768,12 @@ def live_route_patch(route: str, sid: str) -> Dict:
         return {"patched": False, "reason": "already present", "route": route}
     lines = ROUTE_FILE.read_text(encoding="utf-8").splitlines(keepends=True)
     insert_idx = rp["insert_at_line"] - 1                       # 1-based → 0-based (the closing-bracket line)
+    # S223 structural invariant: we insert ABOVE the closing bracket, so the line we are
+    # pushing down must BE that bracket. When the planner used to degrade to end=start this
+    # landed on the `<route>: [` line instead and produced bare strings in an object literal.
+    if not re.match(r"^\s*\],?\s*$", lines[insert_idx]):
+        raise RuntimeError(f"refusing to patch SOURCE_SETS.{route}: line {rp['insert_at_line']} is "
+                           f"{lines[insert_idx].rstrip()!r}, not the array's closing bracket")
     lines.insert(insert_idx, rp["insert_text"] + "\n")
     ROUTE_FILE.write_text("".join(lines), encoding="utf-8")
     return {"patched": True, "route": route, "block_lines": rp["block_lines"]}
@@ -1023,6 +1056,85 @@ def exec_live(source_id: str) -> int:
     return 0
 
 
+def self_test() -> int:
+    """Assertions for the route-block locator (S223).
+
+    The bug this guards against was invisible: the planner returned a plausible-looking
+    plan, the executor wrote it, and the damage only showed up as a TypeScript syntax
+    error on main. So the cases below assert the failure modes, not just the happy path.
+    """
+    checks = []
+
+    def ok(name: str, cond: bool):
+        checks.append((name, bool(cond)))
+
+    short = [
+        "const SOURCE_SETS = {",
+        "  finance: [",
+        '    "g02",',
+        "  ],",
+        "};",
+    ]
+    loc = locate_route_block(short, "finance")
+    ok("short array: found", loc["found"] and not loc.get("error"))
+    ok("short array: start is the key line", loc.get("start") == 1)
+    ok("short array: end is the closing bracket", loc.get("end") == 3)
+
+    # The regression itself: an array longer than the old 60-line budget.
+    long_arr = ["const SOURCE_SETS = {", "  curriculum: ["]
+    long_arr += [f'    "src_{i}",' for i in range(90)]
+    long_arr += ["  ],", "  other: [", '    "x",', "  ],", "};"]
+    loc = locate_route_block(long_arr, "curriculum")
+    ok("91-line array: found without a line budget", loc["found"] and not loc.get("error"))
+    ok("91-line array: end is its OWN closing bracket", loc.get("end") == 92)
+    ok("91-line array: end line really is a bracket", long_arr[loc["end"]].strip() == "],")
+
+    # A comment carrying "]" must not be mistaken for the end of the array.
+    with_comment = [
+        "const SOURCE_SETS = {",
+        "  safety: [",
+        "    // see [S195] for why g21 is here",
+        '    "g21",',
+        "  ],",
+        "};",
+    ]
+    loc = locate_route_block(with_comment, "safety")
+    ok("comment containing ]: not treated as the close", loc.get("end") == 4)
+
+    # No closing bracket at all → an error, never a degraded answer.
+    truncated = ["const SOURCE_SETS = {", "  broken: [", '    "a",']
+    loc = locate_route_block(truncated, "broken")
+    ok("unterminated array: fails loud", loc["found"] and bool(loc.get("error")))
+    ok("unterminated array: offers no insertion point", "end" not in loc)
+
+    # An unknown route is 'not found', which the caller turns into a refusal to auto-create.
+    loc = locate_route_block(short, "nonexistent")
+    ok("unknown route: found=False", loc["found"] is False)
+
+    # Live file: every route must resolve, and every insertion point must be a bracket.
+    if ROUTE_FILE.exists():
+        lines = ROUTE_FILE.read_text(encoding="utf-8").splitlines()
+        routes = [m.group(1) for m in re.finditer(r"^  ([a-z_]+):\s*\[", "\n".join(lines), re.M)]
+        ok("live file: routes discovered", len(routes) >= 20)
+        bad = []
+        for r in routes:
+            loc = locate_route_block(lines, r)
+            if not loc["found"] or loc.get("error") or not re.match(r"^\s*\],?\s*$", lines[loc["end"]]):
+                bad.append(r)
+        ok(f"live file: all {len(routes)} routes end on a real bracket", not bad)
+        cur = locate_route_block(lines, "curriculum")
+        ok("live file: curriculum still exceeds the old 60-line budget",
+           cur.get("end", 0) - cur.get("start", 0) > 60)
+    else:
+        ok("live file: present", False)
+
+    for name, passed in checks:
+        print(f"  {'PASS' if passed else 'FAIL'}  {name}")
+    failed = [n for n, p in checks if not p]
+    print(f"\n{len(checks) - len(failed)}/{len(checks)} " + ("ALL PASS" if not failed else "FAILED"))
+    return 1 if failed else 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Executor for the Option A automated-ingest pipeline "
                                              "(dry-run plan in Phase 2; live ingest in Phase 3).")
@@ -1031,7 +1143,11 @@ def main() -> int:
     ap.add_argument("--init-approval", action="store_true", help="write a pending approval record for --package and exit")
     ap.add_argument("--dry-run", action="store_true", help="produce the execution plan without any live writes")
     ap.add_argument("--live", action="store_true", help="PERFORM the live ingest (needs approval + secrets); Phase 3")
+    ap.add_argument("--self-test", action="store_true", help="assert the route-block locator and exit")
     args = ap.parse_args()
+
+    if args.self_test:
+        return self_test()
 
     if args.dry_run and args.live:
         ap.error("--dry-run and --live are mutually exclusive")
