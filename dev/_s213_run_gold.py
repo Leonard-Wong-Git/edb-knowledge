@@ -194,6 +194,10 @@ def main() -> int:
         "endpoint": args.endpoint, "top_k": args.top_k,
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "gold_file": str(args.gold), "gold_count": len(gold),
+        # S223: g24 was retired into sag_2025_11 (the 2026年8月版 re-ingest left one
+        # cutting of the manual). This pair is KEPT so gold rows that still expect g24
+        # keep resolving — removing it would turn historical expectations into failures
+        # for a reason that has nothing to do with retrieval quality.
         "tie_aliases": [["g24", "sag_2025_11"]],
         "summary": {"queries": len(gold), "errors": errors,
                     "PASS": sum(1 for r in rows if r.get("verdict") == "PASS"),

@@ -6,6 +6,28 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [學校行政手冊換版並合併] — 2026-09-14 — 上游出了 2026年8月版；同一份手冊不再掛兩個 id（S223）
+
+> 平台版本 **v3.3.6 → v3.3.7**（`app.html` 有改動）。**凍結合約 `guidelines.json` 由 2.6.1 bump 至 2.6.2**（Leonard 拍板一併同步）；`knowledge.json` `_meta` 仍 **2.3.0**、`facts` 仍 **455**。
+
+### Changed
+- **《學校行政手冊》改由 2026年8月版入庫。** 上游兩個 rendering（`SAG_C_markup.pdf`／`sag_c.pdf`）封面都寫「2026 年8 月版」、都是 **275 頁**（舊 270 頁），`Last-Modified` 2026-09-07。用專案 canonical chunker 切出 **387 條**，逐條 page-resolvable。此前庫內服務的是 2025年11月版的切法。
+- **`g24` 退役，合併入 `sag_2025_11`。** 兩者是同一份手冊的兩個 EDB rendering。S102 曾以「同一份文件兩種切割方式」為由決定不刪，改用後端 alias 軟 dedup；**重新入庫只會產生一種切法，那個前提不再成立**，故 Leonard 拍板合併。全庫 `sag_2025_11` 409 ＋ `g24` 383 = **792 條** → **387 條**。
+  - `SOURCE_ALIASES` 的 `g24 → sag_2025_11` **刻意保留**：它經 `channelBSync.ts` 輸出給下游 de-dup manifest，留住可令仍持有 g24 引用的整合者繼續解析得到；對一個已無片段的 id 做 alias，對配額閘是 no-op。
+  - eval gold 的 `tie_aliases` 同樣保留，否則歷史期望會因為一個與檢索質素無關的理由而變成失敗。
+- **chunk 的連結由 landing page 改為 PDF 本身**（`SAG_C_markup.pdf`）。舊 `sag_2025_11` 指向索引頁，跳不到頁；`g24` 本來就指向 PDF，合併後若沿用 landing 會**失去跳頁能力**，故向 g24 看齊。
+
+### Fixed
+- **`guidelines.json` 公開端點對正 in-app 標籤，158 → 151 份。** 以 `app.html` 的 `GUIDELINES_REGISTRY` 為真源逐條對齊：**移除 7 條**（`g24` 已退役，另 6 條是 S222 已在 app 內清走的「同一份文件掛兩個 id」重複條目：`g31`／`sci_kla_guide_2017`／`arts_kla_guide_2017`／`cle_kla_guide_2017`／`pshe_kla_guide_2017`／`apl_ca_guide_2017`），**同步 32 個欄位**（含 S222 已修好但公開端點一直未跟的 `g37`／`g36`／`g33`／`g22`／`nat_sec_edu` 與兩個 hub 標籤）。這清走交接 Risks 6 記住的那個分歧 —— 此前下游整合者見到的仍是 S222 已修好的那個錯。
+- in-app 瀏覽庫 **171 → 170 份**。
+
+### Note
+- **`source_id` 不追版次。** `sag_2025_11` 這個 id 現時服務 2026年8月版；讀版次一律看 `title` 與 `version_label`，不要讀 id。registry 註釋已寫死這一句。
+- 片段總數的顯示同步**留待生產寫入落地後**由 `live_total_count()` 讀真數再跑，不用加減推算（S209 規矩）。
+- Embedding 成本：387 條約 **US$0.001–0.004**（`text-embedding-3-small`）。
+
+---
+
 ## [對數收尾] — 2026-09-14 — 片段數多報 116 條，版本 badge 落後兩版（S223）
 
 > 平台版本 **v3.3.5 → v3.3.6**（`app.html` 有改動）。凍結合約零接觸（`knowledge.json` `_meta` 仍 2.3.0 · facts 455 · `guidelines.json` 2.6.1）。

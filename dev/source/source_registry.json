@@ -80,7 +80,7 @@
   "sources": [
     {
       "source_id": "sag_2025_11",
-      "title": "學校行政手冊（2026年5月版）",
+      "title": "學校行政手冊（2026年8月版）",
       "title_en": "School Administration Guide",
       "title_short": "SAG",
       "url_landing": "https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html",
@@ -96,10 +96,10 @@
       ],
       "access_mode": "public",
       "status": "verified",
-      "version_label": "2026-05",
+      "version_label": "2026-08",
       "last_checked_at": "2026-06-24",
       "supersedes": null,
-      "notes": "Primary operations spine. Seeded from the agreed LLM-wiki plan and existing repo documentation.",
+      "notes": "Primary operations spine. S223: re-ingested from the 2026年8月版 (275pp) and absorbed g24, which served the same manual under the other EDB rendering. The source_id is historical — it does NOT track the edition; read title / version_label for that.",
       "freshness_metadata": {
         "last_modified": "Wed, 20 May 2026 03:07:34 GMT",
         "content_length": "8391841",
@@ -1145,11 +1145,11 @@
         "general"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2026-05",
       "last_checked_at": "2026-06-24",
       "supersedes": null,
-      "notes": "Seeded from existing guidelines.json public artifact.",
+      "notes": "S223: retired into sag_2025_11. Same 學校行政手冊, other EDB rendering (sag_c.pdf vs SAG_C_markup.pdf); measured identical under the canonical chunker (both 388 chunks from the 2026年8月版). The S102 'two cutting methods' rationale for keeping both ended when the re-ingest left one cutting method. 383 chunks deleted from the store.",
       "freshness_metadata": {
         "last_modified": "Wed, 20 May 2026 03:07:34 GMT",
         "content_length": "8380019",

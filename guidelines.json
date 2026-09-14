@@ -1,14 +1,14 @@
 {
   "_meta": {
-    "version": "2.6.1",
-    "updated": "2026-07-27",
-    "count": 158,
+    "version": "2.6.2",
+    "updated": "2026-09-14",
+    "count": 151,
     "description": "EDB 指引文件連結庫 — app 內庫指引/通告全集（已剔統計數據表/申請表/壞連結），供 EDB 通告智能分析系統按通告主題提取參考文件連結。每項只含標題、簡稱、URL、年份、格式。"
   },
   "finance": [
     {
       "id": "sag_2025_11",
-      "title": "學校行政手冊（2026年5月版）",
+      "title": "學校行政手冊（2026年8月版）",
       "titleShort": "SAG",
       "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf",
       "year": "2026",
@@ -137,15 +137,6 @@
       "level": "小學"
     },
     {
-      "id": "g31",
-      "title": "英國語文教育課程指引（小一至小六）(2025)",
-      "titleShort": "英文課程指引(小學)",
-      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/eng-edu/curriculum-documents.html",
-      "year": "2025",
-      "format": "PDF",
-      "level": "小學"
-    },
-    {
       "id": "g27",
       "title": "小學數學課程指引（2000）",
       "titleShort": "小學數學課程指引",
@@ -174,10 +165,10 @@
     },
     {
       "id": "g33",
-      "title": "英國語文教育課程指引（中一至中六）(2007)",
-      "titleShort": "英文課程指引(中學)",
+      "title": "英文課程及評估指引（中四至中六）(2021)",
+      "titleShort": "高中英文指引2021",
       "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/eng-edu/curriculum-documents.html",
-      "year": "2007",
+      "year": "2021",
       "format": "PDF",
       "level": "中學"
     },
@@ -187,7 +178,7 @@
       "titleShort": "特殊學校課程指引",
       "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/special-educational-needs/curriculum_guide_for_special_schools/index.html",
       "year": "2024",
-      "format": "HTML",
+      "format": "INDEX",
       "level": "特殊"
     },
     {
@@ -246,20 +237,20 @@
     },
     {
       "id": "g36",
-      "title": "科學教育學習領域課程指引（小一至中三）(2002)",
-      "titleShort": "科學課程指引",
-      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/science-edu/index.html",
-      "year": "2002",
-      "format": "HTML",
+      "title": "科學教育學習領域課程指引（小一至中六）(2017)",
+      "titleShort": "科學KLA指引2017",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/SEKLACG_CHI_2017.pdf",
+      "year": "2017",
+      "format": "PDF",
       "level": "跨階段"
     },
     {
       "id": "g37",
-      "title": "藝術教育學習領域課程指引（小一至中三）(2002)",
-      "titleShort": "藝術教育課程指引",
-      "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/arts-edu/index.html",
-      "year": "2002",
-      "format": "HTML",
+      "title": "藝術教育學習領域課程指引（小一至中六）(2017)",
+      "titleShort": "藝術KLA指引2017",
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/AE_KLACG__Chi___2017.pdf",
+      "year": "2017",
+      "format": "PDF",
       "level": "跨階段"
     },
     {
@@ -309,10 +300,10 @@
     },
     {
       "id": "g22",
-      "title": "科技教育 – 安全指引",
+      "title": "科技教育 – 安全指引（中學科技與生活／家政科教學安全手冊，2010）",
       "titleShort": "科技安全指引",
       "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/resources/safety.html",
-      "year": "2021",
+      "year": "2010",
       "format": "PDF",
       "level": "跨階段"
     },
@@ -354,11 +345,11 @@
     },
     {
       "id": "chi_edu_curr_docs",
-      "title": "中國語文教育學習領域課程文件",
-      "titleShort": "中文教育課程文件",
+      "title": "《中國語文教育學習領域課程指引（小一至中六）》(2017)",
+      "titleShort": "中文教育KLA指引2017",
       "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/chi-edu/curriculum-documents.html",
-      "year": "2024",
-      "format": "HTML",
+      "year": "2017",
+      "format": "PDF",
       "level": "跨階段"
     },
     {
@@ -417,12 +408,12 @@
     },
     {
       "id": "apl_curr_docs",
-      "title": "應用學習課程文件",
-      "titleShort": "應用學習課程文件",
+      "title": "應用學習課程及評估指引（高中課程）(2017)",
+      "titleShort": "應用學習課程指引2017",
       "url": "https://www.edb.gov.hk/tc/curriculum-development/cross-kla-studies/applied-learning/curriculum-documents/index.html",
-      "year": "2024",
-      "format": "HTML",
-      "level": "跨階段"
+      "year": "2017",
+      "format": "PDF",
+      "level": "中學"
     },
     {
       "id": "cs_curr",
@@ -525,11 +516,11 @@
     },
     {
       "id": "nat_sec_edu",
-      "title": "國家安全教育課程資源",
-      "titleShort": "國家安全教育",
+      "title": "國家安全教育課程框架（2025）",
+      "titleShort": "國安教育課程框架",
       "url": "https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/national-security-education/index.html",
-      "year": "2024",
-      "format": "HTML",
+      "year": "2025",
+      "format": "PDF",
       "level": "跨階段"
     },
     {
@@ -549,15 +540,6 @@
       "year": "2025",
       "format": "HTML",
       "level": "小學"
-    },
-    {
-      "id": "sci_kla_guide_2017",
-      "title": "科學教育學習領域課程指引（小一至中六）(2017)",
-      "titleShort": "科學KLA指引2017",
-      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/SEKLACG_CHI_2017.pdf",
-      "year": "2017",
-      "format": "PDF",
-      "level": "跨階段"
     },
     {
       "id": "pri_science_guide_2025",
@@ -1118,15 +1100,6 @@
       "level": "中學"
     },
     {
-      "id": "arts_kla_guide_2017",
-      "title": "藝術教育學習領域課程指引（小一至中六）(2017)",
-      "titleShort": "藝術KLA指引2017",
-      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/AE_KLACG__Chi___2017.pdf",
-      "year": "2017",
-      "format": "PDF",
-      "level": "跨階段"
-    },
-    {
       "id": "music_p1_s6_2024",
       "title": "《音樂科課程指引（小一至中六）》（2024）",
       "titleShort": "音樂科指引2024",
@@ -1208,15 +1181,6 @@
       "level": "中學"
     },
     {
-      "id": "cle_kla_guide_2017",
-      "title": "《中國語文教育學習領域課程指引（小一至中六）》(2017)",
-      "titleShort": "中文教育KLA指引2017",
-      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/CLEKLAG_2017_for_upload_final_R77.pdf",
-      "year": "2017",
-      "format": "PDF",
-      "level": "跨階段"
-    },
-    {
       "id": "chi_pri_lo_2023",
       "title": "《小學中國語文建議學習重點》(2023年修訂)",
       "titleShort": "小學中文建議學習重點",
@@ -1244,15 +1208,6 @@
       "level": "跨階段"
     },
     {
-      "id": "pshe_kla_guide_2017",
-      "title": "《個人、社會及人文教育學習領域課程指引（小一至中六）》(2017)",
-      "titleShort": "個社人文KLA指引2017",
-      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/pshe/PSHE_KLACG_P1-S6_Chi_2017.pdf",
-      "year": "2017",
-      "format": "PDF",
-      "level": "跨階段"
-    },
-    {
       "id": "ma_pri_content_2017",
       "title": "小學數學科學習內容（數學教育學習領域課程指引補充文件）(2017)",
       "titleShort": "小學數學學習內容2017",
@@ -1275,15 +1230,6 @@
       "title": "高中數學科學習內容（數學教育學習領域課程指引補充文件）(2017)",
       "titleShort": "高中數學學習內容2017",
       "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/ssmc2017_tc.pdf",
-      "year": "2017",
-      "format": "PDF",
-      "level": "中學"
-    },
-    {
-      "id": "apl_ca_guide_2017",
-      "title": "應用學習課程及評估指引（高中課程）(2017)",
-      "titleShort": "應用學習課程指引2017",
-      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/applied-learning/ref-and-resources/ApL%20C&A%20Guide%20C%202017.pdf",
       "year": "2017",
       "format": "PDF",
       "level": "中學"
@@ -1316,7 +1262,7 @@
       "titleShort": "訓育工作指引",
       "url": "https://www.edb.gov.hk/tc/teacher/student-guidance-discipline-services/principles-guidelines/guidelines-on-student-discipline/index.html",
       "year": "2017",
-      "format": "HTML",
+      "format": "INDEX",
       "level": "跨階段"
     },
     {
@@ -1354,7 +1300,7 @@
       "titleShort": "IT保安建議措施",
       "url": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/information-security-in-school.html",
       "year": "2019",
-      "format": "HTML",
+      "format": "INDEX",
       "level": "跨階段"
     },
     {
@@ -1413,15 +1359,6 @@
     }
   ],
   "general": [
-    {
-      "id": "g24",
-      "title": "學校行政手冊（2026年5月版）",
-      "titleShort": "學校行政手冊",
-      "url": "https://www.edb.gov.hk/tc/sch-admin/regulations/sch-admin-guide/index.html",
-      "year": "2026",
-      "format": "PDF",
-      "level": "跨階段"
-    },
     {
       "id": "g25",
       "title": "幼稚園相關指引及須知",

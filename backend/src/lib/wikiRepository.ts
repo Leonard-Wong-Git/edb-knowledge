@@ -54,18 +54,23 @@ export interface WikiSearchResult {
 /**
  * Maps redundant source_id values to their canonical equivalent.
  *
- * Background: 學校行政手冊（2025 年 11 月版）was ingested twice into Supabase:
+ * Background: 學校行政手冊 was ingested twice into Supabase:
  *   - sag_2025_11 (Session 76, pdftotext partial extract Ch1/3/6/7, 415 chunks)
  *   - g24         (Session 98, PyMuPDF whole-doc fetch incl. cover/TOC, 300 chunks)
  *
- * Hash overlap is 0% because the chunking strategies differ, but content
- * semantics overlap heavily. Treating them as separate source_ids in the
+ * Hash overlap was 0% because the chunking strategies differed, but content
+ * semantics overlapped heavily. Treating them as separate source_ids in the
  * per-source quota gate would let one document occupy double the quota
  * (3 + 3 = 6 slots when cap=3), defeating the diversity goal.
  *
- * The alias map below collapses redundant ingestions to a single canonical
- * source_id for quota counting only — chunks remain stored under their
- * original source_id and are returned unchanged in results.
+ * ⚠️ S223 — g24 no longer exists in the store. The 2026年8月版 re-ingest produced
+ * ONE cutting of the manual under sag_2025_11 (387 chunks) and g24's 383 chunks
+ * were deleted, which is what ended the "two cutting methods" rationale S102 gave
+ * for keeping both. The entry below is KEPT deliberately: it is exported to the
+ * Channel B sync manifest (channelBSync.ts → spec §3 source_aliases), so any
+ * downstream integrator still holding a g24 reference keeps resolving it to the
+ * canonical id. Aliasing an id that no longer returns chunks is a no-op for the
+ * quota gate, so this costs nothing and only helps callers that are behind.
  */
 // Exported so the Channel B sync manifest endpoint (channelBSync.ts) can surface
 // the same alias map to downstream for de-dup (spec §1 caveat 2 / §3 source_aliases).

@@ -9,7 +9,7 @@
       "facts": 455,
       "chunks": 17517,
       "sources": 303,
-      "guidelines": 158,
+      "guidelines": 151,
       "topics": 7
     }
   },
@@ -691,7 +691,6 @@
       "edbc20_2023_ph_pri",
       "g03",
       "g11",
-      "g24",
       "sag_2025_11"
     ],
     "_label": "通用（後備）",
