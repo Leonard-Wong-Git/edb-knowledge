@@ -418,18 +418,24 @@ def check_table_rows(chunks: list[dict]) -> dict:
 
 
 def check_eval_latest(run: dict | None) -> list[dict]:
-    if run is None:
+    # S225 — absent data must read as NOT_MEASURED, never as a pass. The chunk
+    # layer below already did this (`if "chunk_FAIL" in s`); the source layer
+    # defaulted the counts to 0 and so passed on nothing. Both halves now agree.
+    if not is_gold_eval(run):
+        why = "找不到 eval run 檔" if run is None else (
+            f"最近的 eval_runs 檔不是檢索評測（summary 缺 {'/'.join(EVAL_GOLD_KEYS)}）")
         return [mk_check("EVAL_LATEST", "最近一次檢索評測", "ERROR",
-                         "NOT_MEASURED", "找不到 eval run 檔"),
+                         "NOT_MEASURED", why),
                 mk_check("EVAL_CHUNK_LAYER", "檢索評測的片段層斷言", "ERROR",
-                         "NOT_MEASURED", "找不到 eval run 檔")]
-    s = run.get("summary", {})
+                         "NOT_MEASURED", why)]
+    s = run["summary"]
     fail, err = s.get("FAIL", 0), s.get("errors", 0)
     out = [mk_check(
         "EVAL_LATEST", "最近一次檢索評測（來源層）", "ERROR",
         "PASS" if fail == 0 and err == 0 else "FAIL",
         f"{run.get('label')} · PASS={s.get('PASS')} FAIL={fail} "
-        f"RECORD_ONLY={s.get('RECORD_ONLY')} errors={err} · 共 {s.get('queries')} 條 query")]
+        f"RECORD_ONLY={s.get('RECORD_ONLY')} errors={err} · 共 {s.get('queries')} 條 query"
+        f" · 量度自 {run.get('_source_file', '（來源檔未記錄）')}")]
     if "chunk_FAIL" in s:
         cf = s.get("chunk_FAIL", 0)
         out.append(mk_check(
@@ -679,11 +685,39 @@ def guidelines_registry_count() -> int | None:
     return app.count('id:', start, j) or None
 
 
+# S225 — the keys a retrieval-gold run records. `eval_runs/` also holds one-off
+# analyses (content overlaps, vector dumps, edition deltas) and harness outputs
+# with a differently-shaped `summary`; neither describes retrieval quality.
+# Before S225 the selector was `sorted(glob("*.json"))[-1]` with no filter, so on
+# 2026-09-14 it picked an S223 content-overlap file that has no `summary` at all,
+# and check_eval_latest()'s `.get("FAIL", 0)` default then turned "measured
+# nothing" into PASS. The gate reported a clean retrieval eval that never ran.
+EVAL_GOLD_KEYS = ("PASS", "FAIL", "queries")
+
+
+def is_gold_eval(run: object) -> bool:
+    """True only for a run whose summary carries the source-layer gold counts."""
+    if not isinstance(run, dict):
+        return False
+    s = run.get("summary")
+    return isinstance(s, dict) and all(k in s for k in EVAL_GOLD_KEYS)
+
+
 def latest_eval_run() -> dict | None:
-    runs = sorted(EVAL_RUNS.glob("*.json"))
-    if not runs:
-        return None
-    return json.loads(runs[-1].read_text(encoding="utf-8"))
+    """Newest file in eval_runs/ that is actually a retrieval-gold run.
+
+    Newest by filename, which is the directory's dated naming convention; files
+    that are not gold runs are skipped rather than silently reported on.
+    """
+    for path in sorted(EVAL_RUNS.glob("*.json"), reverse=True):
+        try:
+            run = json.loads(path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+        if is_gold_eval(run):
+            run["_source_file"] = path.name
+            return run
+    return None
 
 
 def route_regression() -> dict:
@@ -992,6 +1026,31 @@ def self_test() -> int:
     got = check_eval_latest(old_run)
     check("a pre-S212 run reports the chunk layer as NOT_MEASURED",
           got[0]["status"] == "PASS" and got[1]["status"] == "NOT_MEASURED")
+
+    # ---- S225: measuring nothing must never read as a pass ----------------
+    # The 2026-09-14 false green in full: a one-off analysis file with no
+    # `summary` was selected as "the latest eval" and scored PASS on absent
+    # counts defaulting to 0. Both halves of the check now refuse it.
+    overlap = {"measured_at": "2026-09-14", "session": "S223", "subject": "overlap",
+               "verdict": "x"}
+    check("an eval_runs file with no summary is NOT_MEASURED, not PASS",
+          all(c["status"] == "NOT_MEASURED" for c in check_eval_latest(overlap)))
+    wrong_shape = {"label": "abstention harness",
+                   "summary": {"cases": 22, "errors": 0, "correct_abstentions": 10}}
+    check("a summary without the gold counts is NOT_MEASURED, not PASS",
+          all(c["status"] == "NOT_MEASURED" for c in check_eval_latest(wrong_shape)))
+    check("is_gold_eval accepts only the source-layer gold shape",
+          is_gold_eval(old_run) and not is_gold_eval(overlap)
+          and not is_gold_eval(wrong_shape) and not is_gold_eval(None))
+    red_run = {"label": "gold with failures",
+               "summary": {"PASS": 141, "FAIL": 44, "errors": 0, "queries": 185}}
+    check("a real gold run with failures still reports FAIL",
+          check_eval_latest(red_run)[0]["status"] == "FAIL")
+    check("the detail names the file the numbers came from",
+          "量度自" in check_eval_latest(dict(old_run, _source_file="x.json"))[0]["detail"])
+    picked = latest_eval_run()
+    check("the live selector returns a gold run or nothing — never an analysis file",
+          picked is None or is_gold_eval(picked))
 
     # ---- release gate ----------------------------------------------------
     def ck(cid, sev, st):

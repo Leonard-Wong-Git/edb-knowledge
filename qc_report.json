@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-14T14:07:26Z",
+  "generatedAt": "2026-09-14T20:40:49Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17004,
-    "PASS": 13,
+    "PASS": 12,
     "BLOCKER": 0,
-    "ERROR": 2,
+    "ERROR": 3,
     "WARN": 5,
     "INFO": 1,
     "NOT_MEASURED": 1
@@ -61,10 +61,11 @@
   },
   "releaseGate": {
     "status": "FAIL",
-    "summary": "5/15 項達標",
+    "summary": "4/15 項達標",
     "blocking": [
       "NO_ERROR_FAIL",
       "NO_UNMEASURED",
+      "PASS_EVAL_LATEST",
       "PASS_EVAL_CHUNK_LAYER",
       "WARNS_OWNED",
       "CORE_SEARCH_CASES",
@@ -87,7 +88,7 @@
         "label": "沒有錯誤級 FAIL",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "REGISTRY_SERIES、REGISTRY_UNMANAGED"
+        "detail": "EVAL_LATEST、REGISTRY_SERIES、REGISTRY_UNMANAGED"
       },
       {
         "id": "NO_UNMEASURED",
@@ -100,8 +101,8 @@
         "id": "PASS_EVAL_LATEST",
         "label": "EVAL_LATEST 必須 PASS",
         "kind": "auto",
-        "status": "MET",
-        "detail": "PASS"
+        "status": "NOT_MET",
+        "detail": "FAIL"
       },
       {
         "id": "PASS_EVAL_CHUNK_LAYER",
@@ -189,7 +190,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=e9d14be · 啟動於 2026-09-14T13:56:15.165Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=e9d14be · 啟動於 2026-09-14T20:39:25.028Z · Channel A 快取 455 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -382,9 +383,9 @@
       "id": "EVAL_LATEST",
       "label": "最近一次檢索評測（來源層）",
       "severity": "ERROR",
-      "status": "PASS",
+      "status": "FAIL",
       "group": "measurable",
-      "detail": "None · PASS=None FAIL=0 RECORD_ONLY=None errors=0 · 共 None 條 query",
+      "detail": "S219 route-first before (in-process, FEATURE_ROUTE_FIRST_SEARCH=0) · PASS=122 FAIL=44 RECORD_ONLY=None errors=0 · 共 185 條 query · 量度自 2026-09-08_s220_route_first_before.json",
       "offenders": [],
       "offender_total": 0
     },
