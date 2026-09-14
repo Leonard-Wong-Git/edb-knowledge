@@ -19,6 +19,7 @@
 | New governance file added to install | §5a backup list in AGENTS.md; INIT.md ROOT SAFETY CHECK backup list; INIT.md FILE 1 §5a | grep check |
 | Session-log maintenance utility added/changed | AGENTS.md §4a mechanism enforcement; INIT.md FILE 7 + FILE 1 §4a + §5a backup list; README*.md safeguards section; docs/qa/run_checks.sh | script self-test + grep |
 | New project doc added | This file — add a row for the new doc's update triggers | row presence check |
+| `backend/src` LLM 呼叫、旗標、判官閘或護欄改動 | `dev/AUDIT.md` 對應章節（現況表／護欄表／落差）須覆核，失效即更新或標作廢 | manual review |
 | Governance bootstrap / INIT execution | SESSION_HANDOFF.md Last Session Record; SESSION_LOG.md task entry + handoff prompt | manual review |
 | Product behavior / tuning change | SESSION_HANDOFF.md baseline, priorities, risks if affected; SESSION_LOG.md task entry + QC evidence | manual review |
 | Product version / release milestone change (user-facing `PLATFORM_VERSION`; **decoupled from frozen data contract since S163**) | app.html `PLATFORM_VERSION` constant; README badge + footer; CHANGELOG new section; SESSION_HANDOFF.md baseline/priorities; SESSION_LOG.md task entry; CODEBASE_CONTEXT.md AI Maintenance Log. **Do NOT bump frozen `knowledge.json` / `role_facts.json` `_meta.version`** (data contract stays 2.3.0; downstream Circular System contract unchanged) | headless app.html boot shows new version + no stale old version in render |
