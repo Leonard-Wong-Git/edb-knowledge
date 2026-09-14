@@ -83,6 +83,22 @@ Recorded at closeout per the Registry Rule above. Newest first.
 - `backend/README.md` — ⚠ Skipped：本節未改 flag 行為；遺失的 5 行 flag 說明仍是 OP③，不在本節範圍
 - Playbook usage — ✅ 兩行已 append（`throttled-api-not-empty-data` applied、`inspect-live-infra-before-ddl` lookup）
 
+## S222 — 2026-09-13／14（標籤錯配家族 ／ 監察看門狗 ／ 兩個生產寫入 ／ 三次自我推翻）
+
+- `dev/SESSION_HANDOFF.md` — ✅ 已同步（Current Baseline 六行全重寫；Validation 新增 S222 段含「未做」六項；Risks **由 11 收斂為 7**；Open Priorities 重生並取消 S221 的 ①；Last Session Record 重生為 S222，**S221 原文由 git 取回完整下移**；Workspace Identity git 快照；開場白重生。無損檢查：42 個 ack marker 與改前一致）
+- `dev/SESSION_LOG.md` — ✅ 已同步（S222 條，含三次自我推翻的 Fix Record 與證據處置）
+- `dev/PROJECT_INDEX.md` — ✅ 已同步（Directory Map 加 `registry_series.py`／`check_pgvector_release.py`／`check_monitor_health.py` 三行；Local QC Commands 加三條自測）
+- `dev/DOC_SYNC_CHECKLIST.md` — ✅ **新增三登記行**（上游 EDB 文件原地換版怎樣驗、標籤與它實際服務的內容不一致怎樣修、新增排程監察要同步 `check_monitor_health.py` 的 `WORKFLOWS` 表）。依反模式守則：前兩類本節撞到時登記冊無任何行涵蓋，先補行再處理
+- `CHANGELOG.md` — ✅ 新增兩條（v3.3.4 g37 標籤／重複條目、v3.3.5 家族一次過修完）
+- `README.md` — ✅ 已同步（in-app 指引數四處 177 → 171，含解釋 171 vs 158 差異的註腳）
+- `app.html` — ✅ 已同步（PLATFORM_VERSION 3.3.3 → 3.3.5；GUIDELINES_REGISTRY 六條改標籤、六條移除；短名對照同步清理）
+- `dev/source/source_registry.json` — ✅ 已同步（八條：六條標籤改正、`arts_kla_guide_2017` 與 `g31` 標 deprecated，全部附 S222 證據註釋）
+- `guidelines.json`（公開端點，158 份）— ⚠ **Skipped（刻意）**：它同樣帶住 `g37` 舊標籤與 `arts_kla_guide_2017` 重複，但在**凍結合約**（`_meta` 2.6.1）之內，動它要 bump 凍結版本。已列入交接 Risks 6 待 Leonard 決定
+- `dev/CODEBASE_CONTEXT.md` — ⚠ **not_applicable**：本節零 tech stack／build／External Services 改動；新增的是監察腳本，已入 `PROJECT_INDEX.md`（依 §0a 分層，監察屬治理側工具而非 External Services 事實）
+- `START_NEXT_SESSION_PROMPT.txt` — ✅ 由交接檔唯一 fenced 區塊重生（49 行 / 4,427 bytes）並讀回驗證逐位元組相等
+- `backend/README.md` / `backend/src` — ⚠ not_applicable：本節零後端改動
+- Playbook — ✅ 兩行 usage（`freshness-monitor-test-served-url` lookup、`cloud-routine-vs-local-task` applied）＋ 新提案 `inbox/2026-09-13-policychecker-watchdog-for-cron-monitors.md`，已 commit 並 push（`3d41612`）
+
 ## S220 — 2026-09-09（route-first 次序修正 ／ 重試時間預算 ／ 全站文案對正 ／ OP② 生產解決）
 
 - `dev/SESSION_HANDOFF.md` — ✅ 已同步（Current Baseline 全重寫；Validation 收攏為 S220 一段；Risks 重生 7 項；Open Priorities 依 §4 重生 5 項並移除兩項已完成；Workspace Identity 加生產 flag 狀態；開場白重生。無損檢查：H2 標題與 ack marker 與改前完全一致）

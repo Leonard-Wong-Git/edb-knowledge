@@ -19,6 +19,36 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 
 ````markdown
 <!-- ack:log-entry:start -->
+
+## 2026-09-13/14 Session 222 — 標籤講錯它服務的內容，是一個家族；監察偵測到了卻沒有人接，是另一個
+
+- **ID:** `Claude_20260913_1330` — S222
+- **Summary:** 由頂層 dormant root「開工」redirect 入 Draft。Leonard 反覆「全做」推進：先答 Supabase 升級問題（核實後**取消**了 S221 交下來的那個決定），再由 `qc_report.json` 四個 ERROR 追出兩條主線 —— 瀏覽清單標籤錯配家族、監察排程的靜默死亡。兩個生產寫入由 Leonard 在終端機執行（分類器擋住 AI 的寫入路徑）。
+- **Changed:** 平台 **v3.3.3 → v3.3.5**。新檔 `dev/source/registry_series.py`、`check_pgvector_release.py`＋`pgvector_seen.json`、`check_monitor_health.py`、`.github/workflows/pgvector_check.yml`＋`monitor_watchdog.yml`。改 `app.html`、`README.md`、`CHANGELOG.md`、`source_registry.json`、`_s213_title_backfill.py`、`cb3_deprecate_stale.py`、四個 `check_*.py`、`DOC_SYNC_CHECKLIST.md`、`PROJECT_INDEX.md`。commits `06daf7f` → `4623fbb` → `2ffba87` → `87c9c01` → `c8a2de3` → `fa13901`（全部已 push）。
+- **Done:**
+  1. **推翻了 S221 交下來的 OP①。** Supabase 的建置最高只打包到 pgvector **0.8.2**（`nix/ext/versions.json`，PR #2158，2026-05-22 之後三個多月無動靜），而封鎖 HNSW 的是 0.8.3／0.8.4。**升到頂都仍然封住** —— 那個決定無板可拍，改為機器監察。順帶分清兩個「最高版本」：0.8.0 是實例提供的（滯後），0.8.2 是建置打包的（領先）。
+  2. **`_s213_title_backfill.py` 的 planner 由「讀成因」改為「讀損害」。** 它靠「找缺 header 的抽取檔」砌計劃；S213 補好 header 之後它就找到 0 個 —— **修復工具在損害仍然存在時靜靜解除了自己的武裝**。Leonard 執行後：代號標題 **658 → 0**、無連結 **265 → 109**（剩餘全是 role_facts_* Channel A 鏡像，依設計無連結）。
+  3. **標籤錯配是一個家族，不是 g37 一個。** 176 條瀏覽條目逐條對照片段實際攜帶的標題／連結，26 條對不上；扣除良性的（瀏覽連 landing page、片段連深層 PDF，屬設計）後按同一裁示處理：六條標籤改正（`g36` 與 g37 完全同形、`g33`、`g22`、`nat_sec_edu`、兩個 hub），五條零片段重複條目移除。瀏覽庫 **177 → 171**。
+  4. **清走 `arts_kla_guide_2017` 116 條**（Leonard 執行）。實測 115/116 條片段文本與 `g37` 逐條相同、內容 99.9% 重疊。全庫 17,633 → **17,517**，`g37` 116 條未受影響。
+  5. **528 條片段脫離監察黑洞。** `registry_series.py` 令四個監察展開年度系列；`check_freshness` 檢查量 271 → 284。連帶修好 `SERIES_UNMONITORED` 這一類「無條件報 ERROR」的設計 —— 缺陷修好之後它本來會永遠亮紅。
+  6. **監察排程的三個靜默死亡模式**（官方文件核實）：GitHub 不補跑錯過或失敗的排程、`schedule` 高負載會延遲或跳過、**PUBLIC repo 60 日無活動排程自動停用**。新增每日看門狗：由 Actions run 歷史判斷「最後一次成功」，過週期自動補跑，靜兩個週期才出聲。零改動現有七個 workflow。
+- **Fix Record（自我推翻三次）：**
+  - **「SAG 有人改了登記卻忘記入庫」** —— 錯。CHANGELOG 加實測證實：上一節評估過 2026年5月版唯一實質改動，用一條 footnote 精準覆蓋而不重入整本，是合理決定。**已完整撤回據此所作的改動。** 真正的漂移是下一版（2026年8月版）。
+  - **「41 個可瀏覽指引搜尋不到 = 23% 缺口」** —— 作廢。至少 4 個根本不是缺口，內容早已入庫，只是掛在另一個 id 之下。
+  - **「跨抽取器量得 20.8% delta」** —— 假數。舊 extract 出自 PyMuPDF、我用 pdftotext，閱讀次序差異造成大量假差異。改用同一抽取器並設對照組（舊對舊 0 miss）後為 11.9%／12.9%。
+  - **看門狗第一次跑就揪出自己一個 bug**：`_token()` 有 guard 但漏了 `return`，送出 `Bearer None` 全部 401，而當時設計會把「讀唔到」摺成「從未成功」→ **假全紅**，同假全綠是同一缺陷的兩面。已加第三種狀態並補斷言。
+- **QC:** 六個監察自測全 `ALL PASS`（含 `check_expiry` 18 條、`check_pgvector_release` 24 條、`check_monitor_health` 11 條 prove-assertions）· `_s213_title_backfill --self-test` 15/15 · 七個 workflow YAML 全部解析通過 · **瀏覽器實測** `app.html`：171 條、零重複 id、tab 顯示「📚 EDB指引 (171)」、零 console error · 18 條要寫入的 URL 逐條 HTTP 200 · 刪除後逐項對數（116→0、g37 未動、全庫 −116、代號標題 0）。
+- **Evidence disposition:** `dev/source/eval_runs/2026-09-13_s222_duplicate_rows_predelete.json`（刪除前完整 row dump）· `2026-09-13_s222_sag_edition_delta.json`（版次 delta，含對照組數字與 400 條新版獨有片段樣本）· `dev/init_backup/20260914_063210_UTC/`（cb3 工具自己寫的刪除前計數）。
+- **Sync:** `DOC_SYNC_CHECKLIST.md` 加三行（上游原地換版、標籤與內容不一致、新增排程監察要同步 cadence 表）· `PROJECT_INDEX.md` 加三個新檔與三條自測 · `CHANGELOG.md` 兩條（v3.3.4／v3.3.5）· `README.md` 指引數 177 → 171 · `guidelines.json` **刻意未動**（凍結合約，見交接 Risks）。
+- **Pending:** SAG 重新入庫（Leonard 指示下一輪做）· `kgecg_2017` 由哪一版重新入庫（下一輪）· `qc_report.json` overall ERROR · 36 個 PHANTOM · registry 281 vs 服務 300。
+- **Risks:** ⚠️ 看門狗跑在同一套排程機器上，救不到「七個一齊死」；買到的是互相監察，偵測窗由一星期收窄到一日 —— 這句寫死在它每次出聲的輸出裡。⚠️ `.claude/settings.local.json` 已加 Bash 權限規則（Leonard 執行），dry-run 通過但 `--execute` 仍被分類器擋 —— 刪資料那一類清不到，屬預期。
+- **Log maintenance:** **no-op。** 本檔 7 條 → 加本條 8 條、311 行；未達 N≥11 或 1500 行任一硬觸發。10 次 backstop：S217 做過全面維護，其後 S218–S222 共 5 次，未到。
+- **Playbook（§14 留底）:** 兩行 usage（`freshness-monitor-test-served-url` lookup、`cloud-routine-vs-local-task` applied）＋ 新提案 `inbox/2026-09-13-policychecker-watchdog-for-cron-monitors.md`（「檢查報告不了自己從未運行」）。已 commit 並 push（`3d41612`）。
+- **Opening-message mirror:** 見交接檔 `Next Session Opening Message`；本 log 依 Kit 契約不複製全文，只記驗證結果。
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
 ## <YYYY-MM-DD> — <short session title>
 
 - **ID:** <agent_or_session_id>
