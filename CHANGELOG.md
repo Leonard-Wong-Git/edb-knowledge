@@ -6,6 +6,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [對數收尾] — 2026-09-14 — 片段數多報 116 條，版本 badge 落後兩版（S223）
+
+> 平台版本 **v3.3.5 → v3.3.6**（`app.html` 有改動）。凍結合約零接觸（`knowledge.json` `_meta` 仍 2.3.0 · facts 455 · `guidelines.json` 2.6.1）。
+
+### Fixed
+- **公開片段數由 17,633 改回真數 17,517。** S222 清走 `arts_kla_guide_2017` 那 116 條重複片段之後，七個顯示鏡像沒有跟住走，所以由 2026-09-13 起，用戶在平台見到的片段數一直比庫內真有的多 116 條。同步七個檔共 14 處（`knowledge.json`／兩個 `role_facts.json`／`K1_API_SPEC.md`／`app.html` ×3／`index.html` ×3／`README.md` ×4）。只動 `_meta.stats.chunks` 這個數字，版本、`facts` 455、`guidelines` 158 一律未碰 —— 與歷次入庫的 display-sync 同一慣例。
+- **README 版本 badge 由 v3.3.3 補到 v3.3.6。** S222 連 bump 兩次（v3.3.4、v3.3.5）都沒有掃到這一格。
+
+### Note
+- 兩項都是同一種病：**改完庫存／版本，沒有掃埋下游顯示**。S209 已經立過規矩「清走 chunk 之後一律行 `live_display_sync(current_chunk_total(), live_total_count())`」，S222 清片段那一步漏了跑。
+- 這一輪由 `execute_ingest --dry-run` 的 `[5] display-sync` 預覽揪出來 —— 它印的 `before` 是鏡像檔記住的數，`after` 是由 store 讀的真數，兩者對不上就是漂移。**這行預覽可以當成一個現成的對數探針。**
+
+---
+
 ## [瀏覽清單對正 II] — 2026-09-13 — g37 不是孤例：五對「同一份文件掛兩個 id」，六條標籤講錯它服務的內容（S222）
 
 > 平台版本 **v3.3.4 → v3.3.5**（`app.html` 有改動）。凍結合約零接觸。
