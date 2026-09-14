@@ -20,6 +20,35 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 ````markdown
 <!-- ack:log-entry:start -->
 
+## 2026-09-14 Session 223 — 部署已經死了十六小時而沒有任何徵狀；那個「刪了會失去 15%」的數字，是排版量出來的
+
+- **ID:** `Claude_20260914_0650` — S223
+- **Summary:** 由頂層 dormant root「開工」redirect 入 Draft。起手探針按交接紀律「比檔不比 hash」，揪出 `main` 不編譯、Render 部署凍結 16 小時。Leonard 一句「全做」後連做三項；中途兩次以 `AskUserQuestion` 取得拍板（`g24` 去留、`guidelines.json` 是否 bump；`kgecg_2017` 是否清走）。**本節 AI 直接執行三次生產寫入**，推翻交接「分類器會擋住」的記載。
+- **Changed:** 平台 **v3.3.5 → v3.3.8**（三次 bump）。新檔 `.github/workflows/backend_build_check.yml`、`dev/source/eval_runs/2026-09-14_s223_kgecg_g29_overlap.json`。改 `backend/src/api/searchChannelB.ts`（兩行位置）、`dev/source/execute_ingest.py`（locator 重寫 ＋ `--self-test`）、`backend/src/lib/wikiRepository.ts`（註釋）、`dev/_s213_run_gold.py`（註釋）、`dev/vault/sag_2025_11/extract_sag_2025_11_repaged.txt`（重抽）、`source_registry.json`、`guidelines.json`、`knowledge.json`／兩個 `role_facts.json`、`app.html`、`index.html`、`README.md`、`K1_API_SPEC.md`、`CHANGELOG.md`。commits `2dee4fb` → `7ab96bb` → `aeca54c` → `8deea11` → `e9d14be` → `abeba8a`（全部已 push）。
+- **Done:**
+  1. **部署管道解封。** `main` 由 2026-09-13 15:30 UTC 起不編譯（`e2b53f0`／`183b7a8`／`9e5f28c` 三個 watcher ingest commit），Render 建置失敗後繼續服務 `5765c43`，`/health` 照報 `ok:true`。**症狀不是停機，是部署凍結** —— 前端在 Pages 上完全正常，沒有用戶可見徵狀，所以 S222 收工時看不出來。
+  2. **根因封死。** `plan_route_patch` 只掃 `start+60` 行找**含**「]」的行，找不到就把 `end` 留在 `start` —— `curriculum` 長到 61 行剛好越界。**修復工具交出一份看似正常的計劃，指向 route key 自己**，與 S222 那個 title backfill 同一家族。現在閉合括號必須整行只有括號且在 key 的縮排層級，無行數預算，找不到即報錯；executor 加結構不變式。`--self-test` 13 條，**紅測 6/13 FAILED**（含一條會即時掃真實檔案的斷言）。
+  3. **新增 `Backend Build Gate`**（首跑通過）。此前八個 workflow **無一個跑 typecheck**，所以機械人可以把不編譯的 main 推上去而無人出聲。老實記住它偵測不阻擋。
+  4. **OP①：《學校行政手冊》換 2026年8月版並合併 `g24`。** 上游 2026-09-07 原地換版，275 頁（舊 270）。用專案自己的 `repage_pdfs.py` 重抽 → **387 條**全部 page-resolvable。**連結由 landing page 改為 PDF** —— `g24` 本來才是指向 PDF 那個，沿用 landing 會**失去**跳頁而非保留甚麼。792 → 387。`guidelines.json` 以 `app.html` registry 為真源逐條對齊：移除 7 條、同步 32 個欄位，158 → **151**，bump **2.6.2**。
+  5. **OP②：清走 `kgecg_2017` 108 條**，`g29` 107 條承接。**唯一的 ZOMBIE 由 1 歸 0。**
+  6. **順手掃下游**：公開片段數多報 116 條（S222 清片段後沒跑 display-sync，用戶由 09-13 起一直見到 17,633）· README badge 停在 v3.3.3（S222 連 bump 兩次都沒掃到）。
+- **Fix Record（推翻一個交接結論，並自我更正一次）：**
+  - **「`kgecg_2017` 刪了會失去約 15% 內容」—— 假數。** S222 比較的是**兩批 live chunk**，出自不同管道（`g29` page-carried、`kgecg_2017` 無 page marker）與不同切割邊界，**量到的是管道不是文件**。同一抽取器＋對照組（自己對自己 0 miss）重量：兩份都 108 頁、`U+FFFD` 都 0、字元差 0.9%；落差**對稱**（11.7%／11.3%）；383 個落差視窗拆半後 88.5% 有一半在對方文件內、3.7% 兩半都在，**真正獨有 0.91%**，而那 30 條全是目錄與章節簡介的接合文字。**判別法**：落差對稱＝次序噪音。
+  - **自我更正：曾在生產寫入之前就把預期的 17,112 寫入 README 與 `K1_API_SPEC.md`。** 這正是 S209 禁止的「靠加減推算」。已即時還原，等寫入落地後由 `live_total_count()` 讀真數再同步。
+  - **`ingest_one_source.py` 在 792 條已經刪走之後才因缺 `openai` 失敗**，那一刻《學校行政手冊》在庫內是 0 條。成因是預設 `python3`（homebrew 3.14）沒有 `fitz` 亦沒有 `openai`。已入交接 Risks 6 與 `User Environment`。
+- **QC:** `npm run check` 0 · `npm run build` 0 · `route_regression` **46/46** ＋成員斷言 · 五個 JSON 全部解析 · `execute_ingest --self-test` 13/13（紅測 6/13 FAILED 如預期）· `check_registry_drift --self-test` ALL PASS · `check_monitor_health --self-test` ALL PASS · 九個 workflow YAML 全部解析 · **生產寫入逐項對數**（409→0→387 / 383→0 / 108→0 / g29 107 未動 / 全庫 17,517→17,112→17,004）· **生產端到端五條查詢**（命中新版獨有的 8.4.4 國家安全章節 p.253；`g24`／`kgecg_2017` 零出現）· **瀏覽器實測三輪**（最終 v3.3.8 / 170 條 / 17,004 / 零過期數字 / 零 console error）。
+- **Evidence disposition:** `dev/source/eval_runs/2026-09-14_s223_kgecg_g29_overlap.json`（方法、對照組、視窗拆半分解）· `dev/init_backup/20260914_081342_UTC/`（SAG＋g24 刪除前計數）· `dev/init_backup/20260914_082948_UTC/`（kgecg 刪除前計數）。
+- **Sync:** `CHANGELOG.md` 三條（v3.3.6／v3.3.7／v3.3.8）· `README.md` badge ＋ 四處數字 · `K1_API_SPEC.md` 四處 · `PROJECT_INDEX.md` 新檔與自測 · `DOC_SYNC_REGISTRY.md` 本節 row。
+- **Pending:** branch protection（只有 Leonard 做得到）· 185 題 gold 未重跑，且 SAG 換版**沒有做 eval before→after**（舊語料已被覆寫，before 取不到）· `finance` 路由拿不到手冊 · `qc_report.json` overall ERROR · 36 個 PHANTOM · `stat_integrated` id 錯配。
+- **Risks:** ⚠️ watcher bot 可以推出不編譯的 main，而新閘偵測不阻擋。⚠️ **「生產寫入會被分類器擋住」已證實過時** —— 安全邊界由機械閘變成「要先取得明示批准」這條紀律，兩者強度不同。⚠️ 預設 `python3` 缺依賴。
+- **Log maintenance:** **no-op。** 本檔 8 條 → 加本條 9 條；未達 N≥11 或 1500 行任一硬觸發。10 次 backstop：S217 做過全面維護，其後 S218–S223 共 6 次，未到。
+- **Playbook（§14 留底）:** 見本節 usage 行。
+- **Opening-message mirror:** 見交接檔 `Next Session Opening Message`；本 log 依 Kit 契約不複製全文，只記驗證結果。
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-09-13/14 Session 222 — 標籤講錯它服務的內容，是一個家族；監察偵測到了卻沒有人接，是另一個
 
 - **ID:** `Claude_20260913_1330` — S222

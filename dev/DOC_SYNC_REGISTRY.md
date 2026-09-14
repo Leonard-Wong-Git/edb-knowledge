@@ -83,6 +83,24 @@ Recorded at closeout per the Registry Rule above. Newest first.
 - `backend/README.md` — ⚠ Skipped：本節未改 flag 行為；遺失的 5 行 flag 說明仍是 OP③，不在本節範圍
 - Playbook usage — ✅ 兩行已 append（`throttled-api-not-empty-data` applied、`inspect-live-infra-before-ddl` lookup）
 
+## S223 — 2026-09-14（部署管道解封 ／ SAG 換版合併 ／ kgecg 去重 ／ 推翻一個交接結論）
+
+- `dev/SESSION_HANDOFF.md` — ✅ 已同步（`Current Baseline` 六行全重寫；`Validation / QC` 新增 S223 段；`Risks` 仍 7 項但第 2／4／7 項改寫、移除已解決的 `guidelines.json` 分歧、新增 python 環境分裂；`Open Priorities` 依 §4 重生 5 項；`User Environment` 加 python 三揀二與生產寫入權限更正；`Last Session Record` 重生為 S223，S222 原文完整下移；開場白重生。**無損檢查：42 個 `ack` marker 改前改後一致**）
+- `dev/SESSION_LOG.md` — ✅ 已同步（S223 條，含一次推翻交接結論與一次自我更正的 Fix Record）
+- `dev/PROJECT_INDEX.md` — ✅ 已同步（Directory Map 加 `backend_build_check.yml` 與 kgecg 覆蓋率證據檔兩行；Local QC Commands 加 route-patch locator 自測一條）
+- `CHANGELOG.md` — ✅ 新增三條（v3.3.6 對數收尾、v3.3.7 手冊換版並合併、v3.3.8 KG 指引去重）
+- `guidelines.json`（公開端點）— ✅ **不再 Skipped**：S222 列為 Risks 6 的分歧本節清掉了。以 `app.html` 的 `GUIDELINES_REGISTRY` 為真源逐條對齊，移除 7 條、同步 32 個欄位，158 → **151**，`_meta` **2.6.1 → 2.6.2**（Leonard 拍板）
+- `knowledge.json` / `role_facts.json` / `dev/knowledge/role_facts.json` — ✅ 已同步（`_meta.stats.chunks` 兩次由 `live_total_count()` 讀真數後改；`_meta.stats.guidelines` 158 → 151；`_source_refs` 移除 `g24`。**`_meta.version` 2.3.0 與 `facts` 455 未動**）
+- `app.html` — ✅ 已同步（PLATFORM_VERSION 3.3.5 → 3.3.8；`g24` 瀏覽條目移除、短名對照清理、`_source_refs` 清 `g24`；`sag_2025_11` 標題改 2026年8月版；片段數三處）
+- `README.md` / `index.html` / `K1_API_SPEC.md` — ✅ 已同步（badge v3.3.3 → v3.3.8〔S222 漏了兩版〕、片段數、指引數 171 → 170、公開端點 158 → 151，含更新後的差異註腳）
+- `dev/source/source_registry.json` — ✅ 已同步（`sag_2025_11` 換版 ＋「id 不追版次」註釋；`g24` 標 deprecated；`kgecg_2017` 與 `g29` 註釋寫入 S223 完整量度，並明寫 `kgecg_2017` **不要重新入庫**及其 checklist 用途）
+- `dev/vault/sag_2025_11/extract_sag_2025_11_repaged.txt` — ✅ 已重抽（`repage_pdfs.py --write`，275 頁 275 markers）。⚠️ **驅動器沒有備份舊檔**（`PILOT_LEGACY` 指向一個已改名的舊檔案，legacy 計 0），舊 2025-11 版 extract 只存在於 git 歷史（`aeca54c` 之前）與本節 scratchpad
+- `dev/CODEBASE_CONTEXT.md` — ⚠ **not_applicable**：本節零 tech stack／build／External Services 事實改動。⚠️ 但 **python 環境分裂**（預設 `python3` 無 `fitz`／`openai`）已寫入交接 `User Environment` 與 Risks 6 —— 若日後判斷它屬 Product/System 層，應由此檔承載
+- `dev/DOC_SYNC_CHECKLIST.md` — ⚠ **not_applicable**：S222 剛加的三行已涵蓋本節兩類改動（上游原地換版、標籤與內容不一致）；本節無新類別需要登記
+- `START_NEXT_SESSION_PROMPT.txt` — ✅ 由交接檔唯一 fenced 區塊重生並讀回驗證
+- `backend/src` — ✅ 已同步（`searchChannelB.ts` 兩行位置修正；`wikiRepository.ts` alias 註釋改寫並**明寫為何刻意保留** `g24` alias）
+- Playbook — ✅ 見本節 usage 行
+
 ## S222 — 2026-09-13／14（標籤錯配家族 ／ 監察看門狗 ／ 兩個生產寫入 ／ 三次自我推翻）
 
 - `dev/SESSION_HANDOFF.md` — ✅ 已同步（Current Baseline 六行全重寫；Validation 新增 S222 段含「未做」六項；Risks **由 11 收斂為 7**；Open Priorities 重生並取消 S221 的 ①；Last Session Record 重生為 S222，**S221 原文由 git 取回完整下移**；Workspace Identity git 快照；開場白重生。無損檢查：42 個 ack marker 與改前一致）

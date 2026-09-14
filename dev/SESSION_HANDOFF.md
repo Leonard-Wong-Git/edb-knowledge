@@ -16,15 +16,25 @@
 <!-- ack:section:current-baseline -->
 ## Current Baseline
 
-1. 平台 **v3.3.5**（S222 兩次 bump，皆因 `app.html` 有改動；凍結合約零接觸 —— `knowledge.json` `_meta` 2.3.0 · facts 455 · `guidelines.json` 2.6.1）。
-2. Supabase **17,517** chunks（S222 清走 `arts_kla_guide_2017` 116 條重複；此前上游 Option A 管道入了三份通函令總數一度為 17,633）。in-app 瀏覽庫 **171** 份（S222 由 177 移除 6 條「同一份文件掛兩個 id」的重複條目）；`guidelines.json` 公開端點仍 **158**，兩者刻意不同。
-3. **全庫代號標題 658 → 0、無連結 265 → 109**（剩餘全是 `role_facts_*` Channel A 鏡像，依設計無上游連結）。S213 建的修復工具由 Leonard 執行；其 planner 已由「讀成因」改為「讀損害」。
-4. **`HEAD == origin/main`**（S222 收工 commit 除外）。本節**零 `backend/src` 改動**，線上執行碼未變。**判斷線上是否落後看 `git diff --name-only <部署commit>..HEAD -- backend app.html` 是否為 0，不要比 hash；開工前必先 `git fetch` 再比對。**
-5. 🟢 **`FEATURE_ROUTE_FIRST_SEARCH` 已在生產啟用**（Leonard 於 Render 設 `=1`，2026-09-09）。另兩個合成側 flag 仍 `0`。回退零成本：刪該環境變數或設 `0` 後重啟，不需回退任何 commit。**`/health` 不報 flag，程式碼亦無診斷出口，只有 Render dashboard 看得到。**
-6. **監察現有七個 ＋ 一個每日看門狗**（S222）。看門狗由 GitHub Actions run 歷史判斷各監察「最後一次成功」，過週期自動補跑、靜兩個週期才出聲。S212–S214 的完整基線敘述與舊 Open Priorities 全文仍在下方 `## Detail Archive (S212–S214)`，一字未刪。
+1. 平台 **v3.3.8**（S223 三次 bump，皆因 `app.html` 有改動）。**`guidelines.json` 凍結合約已 bump 至 2.6.2**（Leonard 拍板）；`knowledge.json` `_meta` 仍 **2.3.0** · facts **455**。
+2. Supabase **17,004** chunks（S223 兩次生產寫入：SAG 換版合併 −792 ＋387，`kgecg_2017` 去重 −108）。in-app 瀏覽庫 **170** 份（退役 `g24`）；`guidelines.json` 公開端點 **151** 份（由 158 對正 in-app 標籤，移除 7 條、同步 32 個欄位）。兩者仍刻意不同。
+3. 🟢 **`ZOMBIE` 由 1 歸 0**（`check_registry_drift --check` 實測）。餘下 `UNMANAGED` 1 個／2 片段（`stat_integrated` id 錯配）· `PHANTOM` 36 · `UNLISTED` 115。
+4. **`HEAD == origin/main == abeba8a`**（本收工 commit 除外）。**Render 部署管道 S223 之前已死了約 16 小時** —— watcher bot 寫壞 `searchChannelB.ts` 令 main 不編譯，Render 靜靜繼續服務舊 build。已修並加 `Backend Build Gate`。**判斷線上是否落後仍然看 `git diff --name-only <部署commit>..HEAD -- backend` 是否為 0，不要比 hash**（`app.html` 由 Pages 服務，出現在 diff 內不代表 Render 落後）。
+5. 🟢 **`FEATURE_ROUTE_FIRST_SEARCH` 仍在生產啟用**（Render 環境變數，2026-09-09 起）。另兩個合成側 flag 仍 `0`。**`/health` 不報 flag，只有 Render dashboard 看得到。**
+6. **監察現有八個 workflow ＋ 一個每日看門狗**（S223 新增 `backend_build_check.yml`，push 觸發、無 schedule，故不計入看門狗的 cadence 契約 —— `check_monitor_health --self-test` 實測仍報「覆蓋所有排程 workflow（6 個）」ALL PASS）。
 
 <!-- ack:section:validation-qc -->
 ## Validation / QC
+
+**S223（2026-09-14）** —— 逐項證據見 `dev/SESSION_LOG.md` S223 條。
+
+- **機器閘**：`npm run check` 0 · `npm run build` 0 · `route_regression` **46/46 PASS** ＋ `chi_hist_jss_ncs_2019` 成員斷言 PASS · 五個 JSON 全部解析 · `execute_ingest --self-test` **13/13** · `check_registry_drift --self-test` ALL PASS · `check_monitor_health --self-test` ALL PASS · 九個 workflow YAML 全部解析。
+- **紅測（證明斷言會轉紅）**：把舊 locator 掛回去再跑 `execute_ingest --self-test` → **6/13 FAILED**，其中包括「live file: all 23 routes end on a real bracket」這條會即時偵測真實檔案的斷言。
+- **生產寫入逐項對數**（兩次，皆由本節 AI 直接執行）：`sag_2025_11` 409 → 0 → **387**；`g24` 383 → **0**；`kgecg_2017` 108 → **0**；`g29` **107 未受影響**；全庫 17,517 → 17,112 → **17,004**（兩次差額分別為 −405 與 −108，與計劃完全相符）。顯示數字一律由 `live_total_count()` 讀真數再同步，未用加減推算。
+- **生產端到端實測**：`/api/search/channel-b` 五條查詢全部 `ok` —— 命中 2026年8月版**新增**的「8.4.4 涉及危害國家安全的行為和活動」（p.253, score 0.654）、封面「2026 年8 月版」(p.3)、僱傭合約條文 (p.198/199)；`g24` 與 `kgecg_2017` 皆**不再出現在任何結果**；`g29` 正常承接幼稚園指引（p.44 score 0.717）。
+- **瀏覽器實測**（三輪，每次 push 後都做）：載入線上 `app.html` —— 最終 `PLATFORM_VERSION` **3.3.8**、`GUIDELINES_REGISTRY.length` **170**、零重複 id、`g24`／`kgecg_2017` 皆不在瀏覽清單、片段數顯示 **17,004**、**零過期數字殘留**、**零 console error**。
+- **量度方法設對照組**：`kgecg_2017` vs `g29` 的覆蓋率用同一抽取器 ＋ 自己對自己 0 miss 的對照組，再把落差視窗拆半分辨「次序」與「真缺失」。證據 `dev/source/eval_runs/2026-09-14_s223_kgecg_g29_overlap.json`。
+- **未做（不要當已做）**：185 題 gold **未重跑**（Risks 3 的 p90 仍是舊計劃下的數字）· Recall@k 未量 · `regression:semantic`／`regression:grounded` 本節**未跑**（本節零檢索邏輯改動，但這不等於已驗證）· 合成側 grounded harness 狀態同 S220 · `qc_report.json` overall ERROR 未處理（S215 起）· **SAG 換版後未做 eval before→after**（S203 PLAN 有這一步，本節跳過了：舊語料已被覆寫，before 基線取不到）· 看門狗與 pgvector 監察仍未經歷真實排程觸發。
 
 **S222（2026-09-13/14）** —— 逐項證據見 `dev/SESSION_LOG.md` S222 條。
 
@@ -54,21 +64,23 @@
 ## Risks / Blockers
 
 1. 🔴 **【S221 改寫；S220 原文的定性只對一半】HNSW 的封鎖項不是 CVE，是兩個無法繞過的 vacuum 修正。** 版本閘已跑（S221 實測）：Supabase 提供的 `vector` 版本清單最高只到 **0.8.0**，而 0.8.0 正是已安裝那個（`installed: true`），故 `alter extension vector update;` 無任何可升目標。三個相關修正全部在我們之上 —— **0.8.2**：Fixed buffer overflow with parallel HNSW index build（＝CVE-2026-3172，CVSS 8.1），**這一項有官方緩解**，建索引前 `set max_parallel_maintenance_workers = 0;` 即避開觸發條件；**0.8.3**：Fixed possible index corruption with HNSW vacuuming；**0.8.4**：Fixed `hnsw graph not repaired` error with HNSW vacuuming ＋ vacuuming 期間 insert 出錯。**後兩項關不掉**（autovacuum 必然會跑），且是索引建成之後長期存在的風險，不是建索引那一刻的風險。**結論：在升級之前不得建 HNSW；但不要再以為「繞過 parallel 就可以做」。** **【S222 修正 S221 的下半截】升級現時亦解不到** —— Supabase 的建置最高只打包到 **0.8.2**，即使升到頂，0.8.3／0.8.4 那兩個修正仍然拿不到。解封的先決條件已由「Leonard 決定升不升」改為「上游打包 ≥0.8.4」，現由 `dev/source/check_pgvector_release.py` 每週監察，出現才出聲；**在它響之前這一項無事可做**，詳見 Open Priorities ①。（附帶事實：2026-08-05 起 Supabase 已棄用「建立／更新擴充時指定版本號」—— 版本子句會被忽略並只發 warning，一律安裝該映像的 default 版本。）現行 IVFFlat 完全碰不到上述三類問題。來源：pgvector CHANGELOG 0.8.2／0.8.3／0.8.4、NVD CVE-2026-3172、Supabase Extensions 與 Upgrading 文件、`supabase/postgres` `nix/ext/versions.json`＋PR #2158、PostgreSQL Routine Vacuuming（wraparound autovacuum 即使 `autovacuum_enabled = false` 仍會跑）—— S221 逐項核實，S222 補上打包上限一項。
-2. ⚠️ **量度紀律三條 —— 違反其中任何一條都會得出錯的結論。** (a) **本機比 Render 慢約 1.5–2 秒**（生產端到端做更多事只需 3.07–3.96s，本機一支裸 RPC 已 3.31–3.88s）—— 本機數字只可用來排序，絕對值不可搬去生產。 (b) **`anon` 角色 `statement_timeout` 只有 3 秒**（`authenticated`／`service_role` 8s），而後端用 anon key；本專案 in-process 慣例 `SUPABASE_ANON_KEY ||= SUPABASE_SERVICE_KEY`（`routeFirstProbe.ts:8`）會在 8 秒上限下量一個 3 秒的系統，系統性低估失敗率。**任何本機量度之前先問：我用的是哪個 key。** (c) **Risks 3 那個 routed p90（8,335ms）與 S220 的失敗率已過時** —— 都是在 S221 修正之前的計劃（每查詢掃全表）之下量的，未重量，要更新須重跑 185 題 gold（Open Priorities ④）。 **S222 補一條同族教訓**：比較兩份文件時**必須用同一個抽取器並設對照組**（自己對自己 = 0 miss）—— 跨抽取器比對會因閱讀次序差異產生大量假差異，本節就先量出過一個 20.8% 的假數。
+2. ⚠️ **量度紀律三條 —— 違反其中任何一條都會得出錯的結論。** (a) **本機比 Render 慢約 1.5–2 秒**（生產端到端做更多事只需 3.07–3.96s，本機一支裸 RPC 已 3.31–3.88s）—— 本機數字只可用來排序，絕對值不可搬去生產。 (b) **`anon` 角色 `statement_timeout` 只有 3 秒**（`authenticated`／`service_role` 8s），而後端用 anon key；本專案 in-process 慣例 `SUPABASE_ANON_KEY ||= SUPABASE_SERVICE_KEY`（`routeFirstProbe.ts:8`）會在 8 秒上限下量一個 3 秒的系統，系統性低估失敗率。**任何本機量度之前先問：我用的是哪個 key。** (c) **Risks 3 那個 routed p90（8,335ms）與 S220 的失敗率已過時** —— 都是在 S221 修正之前的計劃（每查詢掃全表）之下量的，未重量，要更新須重跑 185 題 gold（Open Priorities ④）。 **S222 補一條同族教訓**：比較兩份文件時**必須用同一個抽取器並設對照組**（自己對自己 = 0 miss）—— 跨抽取器比對會因閱讀次序差異產生大量假差異，本節就先量出過一個 20.8% 的假數。 **S223 再補一條同族教訓**：比較**兩批已入庫片段**比跨抽取器更危險 —— 那等於同時比較了抽取器、切割邊界與閱讀次序三樣東西。`kgecg_2017`／`g29` 那個「只覆蓋 84.5%」就是這樣量出來的，重量後真正獨有只有 **0.91%**。**判別法**：落差若在兩個方向上**對稱**，那是次序噪音不是內容差異；再把落差視窗拆半，一半在對方文件內就是接合處產物。
 3. 只監察 —— **實例層的冷熱落差 58–90 倍，成因未查明。** 同一句唯讀查詢第一次 916ms／2,259ms，第二三次 10ms／39ms。`EXPLAIN` 報 `read=0`（頁面已在共享緩衝區）照計不應如此，疑似受管平台的 CPU 爆發額度，**無證據，不編機制**。用戶感到的忽快忽慢現時主要來自這一項，屬平台層，改碼幫不到。**任何兩組查詢的比較都必須交錯重量三輪以上**，否則會把冷熱差異誤讀成結構差異。（本節已結案的那半邊見 `## Current Baseline` 5 與 `## Validation / QC` S221 段，不再列為風險。）
-4. 只監察 —— Option A watcher bot 仍會自行推 commit 到 `origin/main`（只碰 `discovery_seen.json`／`registry_drift.md`／`qc_report.json`）。S220 開工就撞到一次（`2544ed9`）。**紀律不變：開工與 push 前一定要 `git fetch` 後比對，不得讀交接記載的 hash 當現況。**
+4. 🔴 **【S223 升級；S220 原文低估了它】Option A watcher bot 不只會自行推 commit，它可以推出一個不編譯的 `main`。** 2026-09-13 三個連續 ingest commit（`e2b53f0`／`183b7a8`／`9e5f28c`）把兩條 allowlist 條目寫在 `curriculum: [` 之外，`main` **約 16 小時不編譯**，Render 建置失敗後繼續服務上一個成功 build（`5765c43`），`/health` 照報 `ok:true`，**所以症狀不是停機而是部署凍結**，前端在 Pages 上完全正常，沒有任何用戶可見徵狀。planner 根因已封死（見下 Open Priorities 註），並新增 `Backend Build Gate`。**但那個閘偵測，不阻擋** —— 它跑在 push 落地之後；要真正擋住需要在 GitHub 開 branch protection 並把該 job 設為 required check，**只有 Leonard 做得到**。**紀律不變：開工與 push 前一定要 `git fetch` 後比對，不得讀交接記載的 hash 當現況。**
 5. 只監察 —— `AGENTS.md`／`CLAUDE.md`／`GEMINI.md` 三檔在 `.gitignore` 內且從未 tracked；`.gitignore` 的 `AGENTS.md` 規則無前置斜線，會在任何深度命中，連升級前備份都被 ignore。**這三個檔 git 內沒有任何副本。**
-6. ⚠️ **【S222 新發現，未修】`guidelines.json` 公開端點仍帶住舊標籤與重複。** 它（158 份）同時列住 `g37` 與 `arts_kla_guide_2017`，而 `g37` 那條一樣寫住「（小一至中三）(2002)」—— 即**下游整合者今日仍然見到 S222 已在 app 內修好的那個錯**。它在**凍結合約**（`_meta` 2.6.1）之內，S222 零接觸。要不要同步是你的決定，動它就要 bump 凍結合約版本。
-7. ⚠️ **【S222】看門狗救不到「七個一齊死」。** 它跑在同一套 GitHub Actions 排程機器上。官方行為：錯過或失敗的排程**不會補跑**、`schedule` 高負載會延遲或跳過、**PUBLIC repo 60 日無活動排程自動停用**。它買到的是**互相監察**（邊個仲跑得郁就報其餘的沉默）＋ 偵測窗由一星期收窄到一日；這句寫死在它每次出聲的輸出裡。另：看門狗與 pgvector 監察**尚未經歷一次真實排程觸發**，只做過手動實跑。 只監察 —— **`.claude/settings.local.json` 的 Bash 權限規則只清到一半。** dry-run 通得過，但 `--execute`／`--purge` 仍被 auto mode 分類器擋（刪資料屬要人手清的一類）。**生產寫入仍然要 Leonard 在終端機跑**，除非另加 `autoMode` 規則 —— S222 判斷不值得為此放寬「刪資料」整類。
+6. ⚠️ **【S223 新發現】本機 python 環境分裂，專案腳本的 `python3` 未必跑得動。** PATH 第一個是 homebrew **3.14**，它**沒有 PyMuPDF（`fitz`）亦沒有 `openai`**；有齊依賴的是 `/usr/local/bin/python3`（openai 2.26）與 `/usr/bin/python3`。`dev/ingest_one_source.py` 本節第一次跑就因此直接失敗（`ERROR: openai not installed`）—— **而它是在 792 條片段已經刪走之後才失敗的**，即那一刻《學校行政手冊》在庫內是 0 條。**凡涉及抽取（`repage_pdfs.py`／`fetch_extract.py`）或入庫（`ingest_one_source.py`）的指令，一律明寫 `/usr/local/bin/python3`，不要寫 `python3`。** 更好的做法是先跑一次 `--dry-run` 確認依賴齊全再做破壞性步驟。
+7. ⚠️ **【S222；S223 更正其下半截】看門狗救不到「七個一齊死」。** 它跑在同一套 GitHub Actions 排程機器上。官方行為：錯過或失敗的排程**不會補跑**、`schedule` 高負載會延遲或跳過、**PUBLIC repo 60 日無活動排程自動停用**。它買到的是**互相監察**＋偵測窗由一星期收窄到一日；這句寫死在它每次出聲的輸出裡。看門狗與 pgvector 監察**仍未經歷一次真實排程觸發**。**【S223 更正】「生產寫入仍然要 Leonard 在終端機跑」這句已經過時** —— 本節 AI 直接執行了 `cb3_deprecate_stale --execute` 兩次（共刪 900 條）與 `ingest_one_source` 一次（入 387 條），全部通過，無被分類器擋。**所以生產刪除現時是 AI 做得到的**，安全邊界由「跑唔到」變成「要先取得 Leonard 明示批准」，兩者強度不同，寫計劃時不要再假設有一道機械閘兜底。
 
 <!-- ack:section:workspace-identity -->
 ## User Environment (Always Reference Before Giving Shell Commands)
 - **Repo path**: `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft`（路徑含空格 —— 終端機指令必須用雙引號包住）
 - **Correct cd**: `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"`
+- 🔴 **Python：有三個，只有兩個跑得動本專案的抽取／入庫腳本。** 預設 `python3` = homebrew **3.14**，**無 `fitz`、無 `openai`**；`/usr/local/bin/python3`（openai 2.26 ＋ fitz ＋ requests）與 `/usr/bin/python3` 才齊。**抽取與入庫一律明寫 `/usr/local/bin/python3`**；純標準庫的監察腳本（`check_*.py`／`execute_ingest.py --self-test`／`build_wiki_index`）用 `python3` 沒問題。詳見 Risks 6。
 - **Python script invocation**: 一律由 repo root 起，例如 `cd "…/Draft" && python3 dev/vault/extract_candidates.py ...`
 - **Backend**: `cd "…/Draft/backend" && npm run dev`
-- **Git state（S222 收工實測）**: `HEAD == origin/main == fa13901`（本收工 commit 除外），branch `main`，worktree 只有一個（無平行工作區）。未 commit 改動：只有 `dev/source/registry_drift.md`（監察 `--check` 每次會重寫的生成檔）。**生產部署 commit 未於本節重驗** —— 本節零 `backend/src` 改動，線上執行碼未變；下節開工照 Current Baseline 4 的比檔方法核。
-- **Production flag state**: `FEATURE_ROUTE_FIRST_SEARCH=1` 於 Render 環境變數（S220 啟用）。另兩個合成側 flag 未設定＝關閉。**Render 環境變數只有 Leonard 改得到，AI 改不到；`/health` 亦不報 flag，程式碼無診斷出口。**
+- **Git state（S223 收工實測）**: `HEAD == origin/main == abeba8a`（本收工 commit 除外），branch `main`，worktree 只有一個（無平行工作區）。未 commit 改動：只有 `dev/source/registry_drift.md`（監察 `--check` 每次會重寫的生成檔）。**Render 部署 commit 為 `e9d14be`；`git diff --name-only e9d14be..HEAD -- backend` 為空，即線上執行碼與 HEAD 一致**（其後的 `abeba8a` 只改 `app.html` 與文件，由 Pages 服務）。
+- **Production flag state**: `FEATURE_ROUTE_FIRST_SEARCH=1` 於 Render 環境變數（S220 啟用）。另兩個合成側 flag 未設定＝關閉。**Render 環境變數只有 Leonard 改得到，AI 改不到；`/health` 亦不報 flag。**
+- **生產寫入權限（S223 更正）**: AI **跑得到** `cb3_deprecate_stale --execute` 與 `ingest_one_source`（本節實跑三次全部通過）。**擋住破壞性寫入的已經不是機械閘，而是「要先取得 Leonard 明示批准」這條紀律。**
 
 <!-- ack:section:next-task-required-reading -->
 ## Mandatory Start Checklist
@@ -171,23 +183,19 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:next-priorities -->
 ## Open Priorities
 
-**Recommended next step（S222 收工重生）：** **做 ①，再做 ②** —— Leonard 收工時明確指示「下一輪做 1 2」。①《學校行政手冊》重新入庫是唯一一項會改變用戶今日拿到的答案的工作（含已生效的僱傭法定條文）；②`kgecg_2017` 是同一類決定的較小版本，兩者都屬「由哪一版重新入庫」。**兩項都需要你批准 embedding 成本與 live 批次。**
+**Recommended next step（S223 收工重生）：** **做 ①** —— 它是唯一一項只有 Leonard 做得到、而且會把一整類事故封死的工作，五分鐘之內完成。之後 ② 與 ③ 是本節欠下的量度債，做完才有資格說「檢索沒有退步」。
 
-① 🔴 **《學校行政手冊》重新入庫 —— 上游已出 2026年8月版，語料覆蓋到 2026年5月為止。** 本專案的 primary operations spine：`sag_2025_11`（409 條）＋ `g24`（383 條）= **792 條片段**。
-   · **不要重複 S222 犯過的誤判**：2026年5月 這個標籤**站得住** —— 上一節評估過該版唯一實質改動（§3.7.3 與性有關的問題），用 `footnote_fn_sag_sexual_abuse_referral` 一條片段精準覆蓋而不重入整本（S222 實測該片段仍在庫）。**不是疏忽。**
-   · **真正的漂移是下一版**：兩個 URL（`SAG_C_markup.pdf`／`sag_c.pdf`，不同 rendering、同一版次）封面都寫「2026 年 8 月 版」，275 頁（舊 270 頁）。
-   · **delta 已量，方法有對照組**：PyMuPDF 抽新版對 vault extract 逐 40 字視窗比對，對照組（舊對舊）**0 miss** → 方法成立。舊版內容 **11.9%** 在新版找不到、新版內容 **12.9%** 在舊版找不到；抽樣約三分一是目錄點引線因多 5 頁而位移的噪音，其餘是實質內容 ——《2025年僱傭（修訂）條例》（2026年1月18日起適用）、通函第63/2026號、新增 8.4.4「涉及危害國家安全的行為」等。**扣除噪音仍有約 8–9% 實質改動。** 證據：`dev/source/eval_runs/2026-09-13_s222_sag_edition_delta.json`。
-   · **順帶要決定 id 合併**：S203 曾實測 `g24` **零獨有內容**、與 sag 重疊 377，合併 PLAN 早已備妥等 GO（見 Backlog「承 S203 未完 ⑧」）。**重入庫正是執行合併的自然時機**，一次過由 792 條收斂成一份，而不是入多一次重複。
+① 🔴 **在 GitHub 開 branch protection，把 `Backend Build Gate` 設為 required status check。** S223 加的那個閘**偵測，不阻擋** —— 它跑在 push 落地之後，所以 watcher bot 仍然推得到一個不編譯的 `main`，只是現在幾分鐘內會開 Issue 而不是靜靜死 16 小時。**AI 做不到這一步，只有 repo owner 設定得到。** 設定位置：GitHub repo → Settings → Branches → Add rule for `main` → Require status checks to pass → 揀 `build-gate`。⚠️ 順帶決定：watcher bot 是否要獲豁免（否則它的自動 commit 會被擋住，管道會停）—— 建議**不豁免**，讓它撞閘，因為它正是要防的那一個。
 
-② 🔴 **`kgecg_2017`（108 條）由哪一版重新入庫。** 它與 `g29`（107 條）是同一份《幼稚園教育課程指引（2017）》的**兩個不同 EDB 版式**（`TC_KGECG_2017.pdf` vs `KGECG-TC-2017.pdf`），各自標題連結俱全。**S222 實測：逐條片段文本 0 條相同，內容互相只覆蓋約 84.5%** —— 直接刪任何一份都會失去約 15% 全庫他處沒有的文字。**S222 已收回「刪 `kgecg_2017`」這個建議。** registry 註釋寫明 `TC_KGECG_2017.pdf`（即 `kgecg_2017` 那份）抽得較乾淨。它是目前唯一的 `ZOMBIE`（registry 已標 deprecated、店內仍服務 108 條）。
+② 🔴 **重跑 185 題 gold，更新兩個已過時的數字。** Risks 3 的 routed p90（8,335ms）與 S220 的失敗率都是 S221 修正之前量的。工具現成（`backend/scripts/routeFirstGold.ts`），需批准 live 批次。**S223 令這一項更急**：本節換了 SAG 的整份語料（792 → 387 條，切法與連結都變了），而**沒有做 eval before→after**（S203 PLAN 原有這一步，跳過的原因是舊語料已被覆寫、before 基線取不到）。所以「SAG 換版沒有令檢索退步」目前**只有零散抽樣支持，沒有量度支持**。
 
-③ **【S219 遺留】56 條無路由題仍全額付全庫代價。** 中位 2,636ms／p90 3,782ms，route-first 幫不到它們。索引方向被 pgvector 版本擋住 —— **現已改為機器監察**（`check_pgvector_release.py`，每週一 14:00 UTC），出現 ≥0.8.4 才開 Issue。**在它響之前這一項無事可做。**
+③ **`finance` 路由拿不到《學校行政手冊》。** 手冊第 6 章正是「學校財務」，但 `sag_2025_11` 不在 `finance` 的 `SOURCE_SET` 內（S223 實測：它在 cpd／conduct／sen／teacher_qualification／hr_admin／staffing／student_support／qa_inspection／gov_admin／safety 十條路由，唯獨不在 finance）。**這是既有狀態、非 S223 造成**（合併前 `sag` 與 `g24` 都不在，零退步），故本節沒有擅自改 —— 改 allowlist 屬檢索改動，紀律要求先跑 eval before→after，與 ② 一併做最有效率。
 
-④ **【S221 遺留】重跑 185 題 gold，更新兩個已過時的數字。** Risks 3 的 routed p90（8,335ms）與 S220 的失敗率，都是在 S221 修正之前的計劃下量的。工具現成（`backend/scripts/routeFirstGold.ts`），需批准 live 批次。
+④ **【累積遺留】** `qc_report.json` overall ERROR（S215 起）· **36 個** PHANTOM（拆類見 Detail Archive：7 個 HTML 索引／專頁、2 個已退役、13 個 registry 從未登記；14 條真缺口可即抓，但要先定 id 政策）· `stat_integrated` **2 條 UNMANAGED**（vault extract 在 `stat_integrated_edu/` 卻宣告 `source_id: stat_integrated`，屬 id 錯配；現時是 `check_registry_drift` 僅餘的 ERROR）· 三題 chunk recall（S214 遺留，route-first 修不到）· `source_registry` 276 live vs 服務 307 未對帳 · 4 條 fidelity 不一致 ＋ 七個 standing WARN 無 waiver。
 
-⑤ **【累積遺留】** `qc_report.json` overall ERROR（S215 起）· **36 個** PHANTOM（S222 由 41 降下來，並已拆類：7 個 HTML 索引／專頁、2 個已退役、13 個瀏覽得到但 registry 從未登記；14 條真缺口逐條實測 HTTP 200、可即抓，但要先定 id 政策否則會入多一批重複）· `stat_integrated` 2 條 UNMANAGED（vault extract 在 `stat_integrated_edu/` 卻宣告 `source_id: stat_integrated`，屬 id 錯配）· 三題 chunk recall（S214 遺留，route-first 修不到）· `source_registry` 281 vs 服務 300 未對帳 · 4 條 fidelity 不一致 ＋ 七個 standing WARN 無 waiver 等，**全文見下方 Detail Archive**。
+⑤ **【S219 遺留】56 條無路由題仍全額付全庫代價。** 中位 2,636ms／p90 3,782ms。索引方向被 pgvector 版本擋住，**已改為機器監察**（`check_pgvector_release.py`，每週一 14:00 UTC，出現 ≥0.8.4 才開 Issue）。**在它響之前這一項無事可做。**
 
-> **S222 合規備註：** 依 §4 上限 5 項**重生後覆寫**，非複製貼上。**移除**：S221 的 ①（Supabase 升級決定 —— 核實後取消，無板可拍，降為 ③ 內的監察）。**新增**：① SAG 重新入庫、② `kgecg_2017` 版本決定（皆為本節產生、Leonard 指定下一輪做）。舊 ②③ 順延為 ③④；⑤ 累積遺留就本節實測更新數字並拆類。
+> **S223 合規備註：** 依 §4 上限 5 項**重生後覆寫**，非複製貼上。**移除**：S222 的 ①（SAG 重新入庫 —— 本節完成）與 ②（`kgecg_2017` 版本決定 —— 本節完成，並推翻了 S222 的「不可刪」結論）。**新增**：① branch protection（本節產生、只有 Leonard 做得到）、③ `finance` 路由缺口（本節實測發現）。舊 ④（185 題 gold）升為 ②並補上本節欠下的 eval 債；舊 ⑤ 拆為 ④，舊 ③ 降為 ⑤。
 
 ## Backlog（次優先序，視 OP 完成情況流轉）
 
@@ -214,6 +222,22 @@ source_registry → same vault PDFs → ai_extract.py
 
 <!-- ack:section:completed-this-session -->
 ## Last Session Record
+
+1. UTC date: 2026-09-14
+2. Session ID: `Claude_20260914_0650` — S223。由頂層 dormant root「開工」redirect 入 Draft。起手探針揪出一項交接未載的生產事故，Leonard 一句「全做」後連做三項，中途兩次以 `AskUserQuestion` 取得拍板。**本節 AI 直接執行了三次生產寫入**（此前交接以為分類器會擋住）。
+3. Completed:
+   - ✅ **後端部署管道解封。** `main` 由 2026-09-13 15:30 UTC 起**不編譯**約 16 小時，Render 靜靜服務舊 build（`5765c43`）。成因：Option A watcher 把兩條 allowlist 條目寫在 `curriculum: [` 之外。修法是純搬移，位元組數不變。
+   - ✅ **根因封死。** `plan_route_patch` 只掃 `start+60` 行找**含**「]」的行，找不到就把 `end` 留在 `start`，交出一份指向 route key 自己的計劃。現在閉合括號必須是「整行只有括號、在 key 的縮排層級」，**沒有行數預算，找不到就報錯**；executor 另加結構不變式斷言。`--self-test` 13 條，**紅測證明 7 條在舊 locator 下轉紅**。
+   - ✅ **新增 `Backend Build Gate`**（首跑通過）。此前**八個 workflow 無一個跑 typecheck**。老實記住它的極限：偵測不阻擋，要阻擋需 branch protection（→ Open Priorities ①）。
+   - ✅ **OP① 完成：《學校行政手冊》換 2026年8月版並合併 `g24`。** 275 頁 → **387 條**全部 page-resolvable；連結由 landing page 改為 PDF（**沿用 landing 會失去跳頁**，因為 `g24` 本來才是指向 PDF 那個）。792 → 387。`guidelines.json` 158 → **151** 並 bump **2.6.2**，以 `app.html` 的 registry 為真源逐條對齊（移除 7 條、同步 32 個欄位），清掉交接 Risks 6 那個分歧。
+   - ✅ **OP② 完成，但答案不是「揀邊一版」。** 清走 `kgecg_2017` 108 條，`g29` 107 條承接，**唯一的 ZOMBIE 由 1 歸 0**。
+   - ✅ **順手掃下游，補回 S222 漏掉的兩項**：公開片段數多報 116 條（S222 清片段後沒跑 display-sync，用戶由 09-13 起見到的一直是 17,633）· README 版本 badge 停在 v3.3.3。平台 v3.3.5 → **v3.3.8**（三次 bump）。
+4. **本節推翻了一個交接結論，證據是 S222 沒有的**：S222 量得 `kgecg_2017`／`g29`「互相只覆蓋 84.5%」而收回刪除建議 —— 但那次比較的是**兩批 live chunk**，出自不同管道（一個 page-carried、一個無 page marker）與不同切割邊界，**量到的是管道不是文件**。同一抽取器＋對照組（0 miss）重量：兩份都 108 頁、`U+FFFD` 都 0、字元差 0.9%，落差**對稱**（11.7%／11.3%），拆半後 88.5% 是接合處產物，**真正獨有 0.91%**。
+5. **本節自我更正一次**：曾在生產寫入之前就把預期的 17,112 寫入 README 與 `K1_API_SPEC.md`。這正是 S209 立過規矩禁止的「靠加減推算」—— 已即時還原，等寫入落地後由 `live_total_count()` 讀真數再同步。
+6. Carry-forward：未完成事項**一律不在此列舉**，全部歸入 `## Open Priorities` ①–⑤ 與 `## Validation / QC` S223 段的「未做」七項。
+7. ⚠️ **三次生產寫入全部由 AI 執行**（刪 792、刪 108、入 387），交接原本記載的「分類器會擋住」**已證實過時**。零 Supabase DDL、零 flag 改動、零 `backend/src` 邏輯改動（只改 `wikiRepository.ts` 一段註釋與 `searchChannelB.ts` 兩行位置）。
+
+## Previous Session Record (S222)
 
 1. UTC date: 2026-09-13／14
 2. Session ID: `Claude_20260913_1330` — S222。由頂層 dormant root「開工」redirect 入 Draft。Leonard 反覆「全做」推進；兩個生產寫入由他在終端機執行（分類器擋住 AI 的寫入路徑）。
@@ -1061,6 +1085,7 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:state-reconciliation-check -->
 ## State Reconciliation Check
 
+- **2026-09-14 S223 closeout reconciliation（部署管道解封 ／ SAG 換版合併 ／ kgecg 去重 ／ 推翻一個交接結論）：** 於 2026-09-14 08:5x UTC 執行。**重寫**：`Current Baseline`（六行全部重寫：v3.3.8、chunks 17,004、瀏覽庫 170、guidelines 151／2.6.2、ZOMBIE 歸零、部署凍結事故、監察八＋一）· `Validation / QC`（新增 S223 段於最前，含紅測與「未做」七項；S222 及更早各段一字未改）· `Risks / Blockers`（仍 7 項：第 2 項補上「比較兩批已入庫片段更危險」與對稱性判別法；第 4 項由「bot 會自行推 commit」**升級**為「bot 可以推出不編譯的 main」並記入 16 小時部署凍結；**移除**已解決的 `guidelines.json` 分歧項；**新增**第 6 項 python 環境分裂；第 7 項**更正**其下半截 —— 「分類器會擋住 AI 的生產寫入」已證實過時）· `Open Priorities`（依 §4 重生為 5 項：**移除**本節完成的 SAG 重入庫與 `kgecg_2017` 決定，**新增** branch protection 與 finance 路由缺口）· `User Environment`（新增 python 三揀二一條、生產寫入權限更正、git／部署快照）· `Last Session Record`（重生為 S223；**S222 原文完整下移為 `Previous Session Record (S222)`，一字未改**）· `Next Session Opening Message`（重生，新增 🔴 部署凍結段與「落差對稱＝次序噪音」的判別法）· 本段。**逐段讀過確認仍 current、不改**：`Architecture Decisions`、`Regression / Verification Notes`、`Backlog`、`Mandatory Start Checklist`、`Supabase Technical Notes`、`Detail Archive`、所有更早的 `Previous Session Record`。**無損驗證**：`ack` marker 數目改前改後一致。
 - **2026-09-14 S222 closeout reconciliation（標籤錯配家族 ／ 監察看門狗 ／ 兩次自我推翻）：** 重寫或確認的章節 —— **重寫**：`Current Baseline`（六行全部重寫：平台 v3.3.5、chunks 17,517、瀏覽庫 171、代號標題歸零、監察七＋一）· `Validation / QC`（新增 S222 段，含「未做」六項）· `Risks / Blockers`（**由 11 項收斂為 7 項**：移除已修的 g37 家族項〔內容已入 CHANGELOG v3.3.4／v3.3.5 與 Last Session Record〕，把三條量度紀律合併為第 2 項並補上 S222 的「同一抽取器＋對照組」教訓，新增 `guidelines.json` 凍結合約分歧與看門狗極限兩項）· `Open Priorities`（重生：S221 的 ① 取消，新增 SAG 重入庫與 kgecg_2017 兩項，其餘順延）· `Last Session Record`（重生為 S222；**S221 原文由 git 取回，完整下移為 `Previous Session Record (S221)`，一字未改**）· `User Environment` git 快照與 flag 說明 · `Next Session Opening Message`。**逐段讀過確認仍 current、不改**：`Architecture Decisions`、`Regression / Verification Notes`、`Backlog`、`Mandatory Start Checklist`、`Supabase Technical Notes`、`Detail Archive`、所有更早的 `Previous Session Record`。**無損驗證**：42 個 `ack` marker 一個不少。
 - **Persistence routing checked（S222）：** 當前狀態與下一步 → 本檔 · 逐項實測數值、三次自我推翻的證據鏈、機器閘輸出 → `dev/SESSION_LOG.md` S222 條 · 三個新檔與三條自測命令 → `dev/PROJECT_INDEX.md` · **可重用的操作規則 → `dev/DOC_SYNC_CHECKLIST.md` 三行**（上游原地換版怎樣驗、標籤與內容不一致怎樣修、新增排程監察要同步 cadence 表）—— 這一項刻意不留在 handoff／log，因為它是下一次撞到同類情況時要查的程序，不是本節狀態 · 可轉移經驗 → Playbook `inbox/2026-09-13-policychecker-watchdog-for-cron-monitors.md` · 刪除前 row dump 與版次 delta → `dev/source/eval_runs/`。
 - **Lifecycle 一致性檢查（S222）：** 逐節對照 `Completed This Session`／`Validation / QC`／`Next Priorities`／`Risks / Blockers`／開場白五處。本節完成項（代號標題歸零、標籤家族修完、116 條清走、528 條入監察、看門狗）**全部已從 Open Priorities 與 Risks 移除**，不再以「待辦」身分出現。**刻意保留為未解決**：`guidelines.json` 分歧（Risks 6，需你批准動凍結合約）· 看門狗未經真實排程觸發（Risks 7，monitor-only，要等下週一）· 權限規則只清一半（Risks 7 併入，屬已知邊界非缺陷）· SAG 與 kgecg_2017（Open Priorities ①②，**Leonard 明確指示下一輪做**，故列為首兩項而非風險）。
@@ -1419,47 +1444,58 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S222, 2026-09-14）---
+--- 專案狀態（S223, 2026-09-14）---
 
-平台 v3.3.5；Supabase 17,517 chunks；in-app 瀏覽庫 171 份（guidelines.json 公開端點仍 158，
-刻意不同）；凍結合約零接觸（knowledge.json _meta 2.3.0 · facts 455 · guidelines.json 2.6.1）。
+平台 v3.3.8；Supabase 17,004 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點 151 份
+（S223 由 158 對正 in-app 標籤並 bump 至 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。
 Agent Handoff Kit v0.3.66。FEATURE_ROUTE_FIRST_SEARCH=1 已在 Render 啟用（S220 起）。
-git：開工必先 fetch 再比對，不要信這裡記的 hash（Option A 入庫管道與 watcher bot 都會自行推 commit）。
+git：開工必先 fetch 再比對，不要信這裡記的 hash。
 
-🟢 S222 做完了甚麼（六件，都不用重做）：
-   1. 取消了 S221 交下來的「Supabase 升不升級」決定 —— 建置最高只打包 pgvector 0.8.2，
-      而封鎖 HNSW 的是 0.8.3／0.8.4，升到頂都仍然封住。改為機器監察，出現 ≥0.8.4 才出聲。
-   2. 全庫代號標題 658 → 0、無連結 265 → 109（剩餘全是 role_facts_* Channel A 鏡像，
-      依設計無上游連結）。先修好修復工具本身：它的 planner 讀「成因」，成因修好後就找到 0 個，
-      在損害仍然存在時解除了自己的武裝；已改為讀損害。
-   3. 標籤錯配家族一次過修完：六條標籤改正、六條「同一份文件掛兩個 id」的重複瀏覽條目移除。
-      瀏覽庫 177 → 171，PHANTOM 41 → 36。
-   4. 清走 arts_kla_guide_2017 的 116 條重複片段（99.9% 與 g37 重疊）。全庫 → 17,517。
-   5. 528 條片段脫離監察黑洞（registry_series.py，四個監察共用一個展開答案）。
-   6. 新增每日看門狗：監察過了週期自動補跑，靜兩個週期才開 Issue。不用人手啟動。
+🔴 S223 起手探針揪出一件交接完全沒有記載的事，請先讀懂它再做任何計劃：
+   main 由 2026-09-13 15:30 UTC 起【不編譯】約 16 小時。Option A watcher 把兩條 allowlist
+   條目寫在 curriculum: [ 之外，Render 建置失敗後【繼續服務上一個成功 build】，/health 照樣
+   回 ok:true，前端在 Pages 上完全正常 —— 所以症狀不是停機，是【部署凍結】，沒有任何用戶
+   可見徵狀。已修，並加了 Backend Build Gate（此前八個 workflow 無一個跑 typecheck）。
+   ⚠️ 那個閘【偵測，不阻擋】：它跑在 push 落地之後。要真正擋住要開 branch protection，
+   只有 Leonard 做得到 —— 這就是 Open Priorities ①。
 
-⚠️ S222 自我推翻過三次，結論已寫入文件，不要再走回頭路：
-   · SAG 那個 2026年5月 標籤【不是】疏忽 —— 上一節評估過該版唯一實質改動，用一條 footnote
-     精準覆蓋而不重入整本。真正的漂移是下一版（2026年8月版）。
-   · 「41 個可瀏覽指引搜尋不到 = 23% 缺口」【作廢】—— 至少 4 個根本不是缺口，
-     內容早已入庫，只是掛在另一個 id 之下。
-   · 比較兩份文件【必須用同一個抽取器並設對照組】—— 跨抽取器比對本節量出過一個 20.8% 的假數。
+🟢 S223 做完了甚麼（四件，都不用重做）：
+   1. 部署管道解封 + planner 根因封死（--self-test 13 條，紅測證明 7 條在舊邏輯下轉紅）。
+   2. 《學校行政手冊》換 2026年8月版並合併 g24：275 頁 → 387 條，792 → 387，
+      連結由 landing page 改為 PDF（沿用 landing 會【失去】跳頁，因為 g24 才是指向 PDF 那個）。
+   3. 清走 kgecg_2017 108 條，g29 107 條承接 —— 唯一的 ZOMBIE 由 1 歸 0。
+   4. 補回 S222 漏掉的下游：公開片段數多報 116 條、README badge 落後兩版。
+
+⚠️ S223 推翻了一個交接結論，不要走回頭路：
+   S222 量得 kgecg_2017／g29「互相只覆蓋 84.5%、刪任何一份都會失去 15%」——【那是假數】。
+   它比較的是兩批 live chunk，出自不同管道與不同切割邊界，量到的是管道不是文件。
+   同一抽取器＋對照組（自己對自己 0 miss）重量：兩份都 108 頁、U+FFFD 都 0、字元差 0.9%，
+   落差【對稱】（11.7%／11.3%），拆半後 88.5% 是接合處產物，真正獨有 0.91%。
+   👉 判別法記住：落差若在兩個方向上對稱，那是次序噪音，不是內容差異。
+   證據：dev/source/eval_runs/2026-09-14_s223_kgecg_g29_overlap.json
+
+⚠️ 兩條已過時的記載，S223 已更正：
+   · 「生產寫入要 Leonard 在終端機跑，分類器會擋住 AI」——【不再成立】。本節 AI 直接跑了
+     cb3_deprecate_stale --execute 兩次（刪 900 條）與 ingest_one_source 一次（入 387 條）。
+     擋住破壞性寫入的已經不是機械閘，而是「先取得 Leonard 明示批准」這條紀律。
+   · 預設 python3（homebrew 3.14）【沒有 fitz 亦沒有 openai】。抽取與入庫一律明寫
+     /usr/local/bin/python3。本節就是在 792 條已刪走之後才撞到這個錯，那一刻手冊在庫內是 0 條。
 
 ⚠️ 未解決（不要當已解決）：
-   · guidelines.json 公開端點仍帶住已在 app 內修好的舊標籤與重複；它在凍結合約內，未動。
-   · 看門狗與 pgvector 監察尚未經歷一次真實排程觸發，只做過手動實跑。
-   · Bash 權限規則只清到一半：dry-run 通得過，--execute／--purge 仍被分類器擋，
-     生產寫入仍要 Leonard 在終端機跑。
-   · 56 條無路由題仍全額付全庫代價 · 185 題 gold 未重跑 · qc_report.json overall ERROR
-     · 36 個 PHANTOM · stat_integrated 2 條 id 錯配 · registry 281 vs 服務 300 未對帳。
+   · 185 題 gold 未重跑，而 S223 換了 SAG 整份語料卻【沒有做 eval before→after】
+     （舊語料已被覆寫，before 基線取不到）——「沒有退步」目前只有抽樣支持，沒有量度支持。
+   · finance 路由拿不到《學校行政手冊》（它第 6 章正是學校財務）。既有狀態、非 S223 造成，
+     改 allowlist 屬檢索改動，要與 gold 重跑一併做。
+   · qc_report.json overall ERROR · 36 個 PHANTOM · stat_integrated 2 條 id 錯配
+     （現時 check_registry_drift 僅餘的 ERROR）· registry 276 live vs 服務 307 未對帳
+   · 看門狗與 pgvector 監察仍未經歷一次真實排程觸發。
 
-Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.5 + Render
-/health 含 cache_b + git fetch 後比對 HEAD/origin/main + Supabase live count 應為 17,517）。
-之後直接做 Open Priorities ① 與 ② —— Leonard 於 S222 收工時明確指示「下一輪做 1 2」：
-① 《學校行政手冊》由 2026年8月版重新入庫（delta 已量完、證據在 eval_runs，順帶執行 g24／sag
-合併，S203 的 PLAN 已備妥）；② 決定 kgecg_2017 與 g29 由哪一版重新入庫（兩者各有約 15% 獨有
-內容，直接刪任何一份都會失去內容）。兩項都要先向他確認 embedding 成本與 live 批次。
-未得明確批准，不得改任何 flag、不得執行 DDL、不得作外部模型批次、不得 git push。
+Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.8 +
+Render /health 含 cache_b + git fetch 後比對 HEAD/origin/main + Supabase live count 應為
+17,004 + check_registry_drift --check 的 ZOMBIE 應為 0）。之後直接做 Open Priorities ①
+（branch protection，只有 Leonard 做得到，五分鐘），再與他商量 ② 的 live 批次。
+未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次、
+不得 git push。
 ```
 
 ## Session Close Checklist (每次 session 結束必須執行)
