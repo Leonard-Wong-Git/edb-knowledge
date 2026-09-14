@@ -42,11 +42,31 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 BACKUP_ROOT = REPO_ROOT / "dev" / "init_backup"
 
 
+# S222: the sibling scripts (`_s213_title_backfill.py`, `check_expiry.py`,
+# `check_served_urls.py`) all fall back to `backend/.env`, and one of them also
+# carries the project URL as a constant. This one required both from the shell
+# and said only "Missing env var", so every run needed an env prefix nobody
+# remembered — friction on the one script whose job is deleting things, which is
+# the worst place to make people improvise a command line.
+SUPABASE_URL_DEFAULT = "https://youkcekbrbywuqjxgibe.supabase.co"
+BACKEND_ENV = REPO_ROOT / "backend" / ".env"
+
+
 def _env(name: str) -> str:
     v = os.environ.get(name)
-    if not v:
-        raise SystemExit(f"Missing env var: {name}")
-    return v
+    if v:
+        return v
+    if BACKEND_ENV.exists():
+        for line in BACKEND_ENV.read_text(encoding="utf-8").splitlines():
+            if line.startswith(f"{name}="):
+                v = line.split("=", 1)[1].strip()
+                if v:
+                    return v
+    if name == "SUPABASE_URL":
+        return SUPABASE_URL_DEFAULT
+    raise SystemExit(
+        f"Missing {name}: not in the environment and not in "
+        f"{BACKEND_ENV.relative_to(REPO_ROOT)}")
 
 
 def _request(method: str, url: str, headers: dict, data: Optional[bytes] = None) -> Tuple[int, bytes]:
