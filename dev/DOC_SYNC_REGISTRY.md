@@ -83,6 +83,24 @@ Recorded at closeout per the Registry Rule above. Newest first.
 - `backend/README.md` — ⚠ Skipped：本節未改 flag 行為；遺失的 5 行 flag 說明仍是 OP③，不在本節範圍
 - Playbook usage — ✅ 兩行已 append（`throttled-api-not-empty-data` applied、`inspect-live-infra-before-ddl` lookup）
 
+## S224 — 2026-09-14（閘由偵測變阻擋 ／ 入庫改行 PR ／ 四條監察搬去 deploy key ／ 修好一個假 BLOCKER）
+
+命中 DOC_SYNC_CHECKLIST **row 29**（Option A 自動入庫管道改動）、**row 36**（Monitoring / CI workflow change，含「必須記錄新 CI secret 依賴」）、**row 55**（封版閘基準值改動）、以及**本節新增的凍結契約 row**。
+
+- `dev/SESSION_HANDOFF.md` — ✅ 已同步（`Current Baseline` 第 4／6 點；`Validation / QC` 新增 S224 段；`Risks` 第 4 條由 🔴 降為 ⚠️ 並把新的 deploy key 風險併入其第 ① 點以守住 §4 上限 7；`User Environment` 新增 **Push 邊界**一段；`Open Priorities` 依 §4 重生 5 項；`Last Session Record` 重生為 S224，S223 原文完整下移；`Handoff Sufficiency Check` 重生並**順手消除兩行重複的 `Reconstruction evidence`**；開場白重生）
+- `dev/SESSION_LOG.md` — ✅ 已同步（S224 條）＋ **結構修復**：S223 與 S222 原本被困在 Entry Template 的 ````markdown fence 內，已提出 fence 外、次序不變、零內容改動
+- `dev/archive/SESSION_LOG_2026_Q3.md` — ✅ **§4a 觸發後歸檔**（S219–S215 五條，主檔 402 → 187 行；逐條對帳 10/10 剛好一份）
+- `START_NEXT_SESSION_PROMPT.txt` — ✅ 由開場白唯一 fenced block 重生，**五個錨點全通過**（marker 唯一／fence 唯一／log 內無全文副本／正規化相等／byte-for-byte，4,924 bytes / 62 行）
+- `dev/PROJECT_INDEX.md` — ✅ 已同步（`backend_build_check.yml` 那一 row 改寫，載明**不得加回 `paths:`** 的理由與 deploy key 機制）
+- `dev/CODEBASE_CONTEXT.md` — ✅ 已同步（Option A 步驟 6 新形態；**新 CI secret 依賴 `LEDGER_DEPLOY_KEY` ＋ `MAIN_REPO_PAT` 需 Contents:RW **及** Pull requests:RW**；AI Maintenance Log 兩條）
+- `dev/DOC_SYNC_CHECKLIST.md` — ✅ **新增「凍結對外契約四個值改動」row** —— 這是 `FREEZE_CONTRACT` 假 BLOCKER 的根因：本來沒有任何 row 指向 `qc_report.py` 的 `want` 字典
+- `qc_report.json` — ✅ 重跑 `--check` 並 commit（row 55 要求：不重生等於改了邏輯而公開面仍是舊數）。BLOCKER 1 → 0
+- `dev/source/ops/README.md` ＋ `APPROVALS_FORMAT.md` — **not_applicable**：`dev/source/ops/` 是 gitignored，該 secrets 契約改為寫入 ops repo `edb-knowledge-ops` 的 `executor.yml` 註釋（commit `5e27d2d`）
+- `check_monitor_health.py` 的 `WORKFLOWS` 表 — **not_applicable**：`backend_build_check.yml` 無 schedule，不計入 cadence 契約；`--self-test` ALL PASS 確認表仍一致
+- `README.md` ／ `CHANGELOG.md` ／ `app.html` ／ `PLATFORM_VERSION` — **not_applicable**：本節零用戶可見行為改動、零前端改動、零版本 bump
+- Supabase ／ `source_registry.json` ／ 凍結 JSON 三檔 — **not_applicable**：零寫入、零接觸（`knowledge.json` 仍 2.3.0／455）
+- ⚠️ **未同步（已知，留給下一節）**：`dev/CODEBASE_CONTEXT.md` 的 AI Maintenance Log **S211–S223 十三節從未補條目**（本節補了 S224 兩條）；repo root 那個 tracked 的 0-byte `main` 檔案未清（已向 Leonard 報告，未獲指示）
+
 ## S223 — 2026-09-14（部署管道解封 ／ SAG 換版合併 ／ kgecg 去重 ／ 推翻一個交接結論）
 
 - `dev/SESSION_HANDOFF.md` — ✅ 已同步（`Current Baseline` 六行全重寫；`Validation / QC` 新增 S223 段；`Risks` 仍 7 項但第 2／4／7 項改寫、移除已解決的 `guidelines.json` 分歧、新增 python 環境分裂；`Open Priorities` 依 §4 重生 5 項；`User Environment` 加 python 三揀二與生產寫入權限更正；`Last Session Record` 重生為 S223，S222 原文完整下移；開場白重生。**無損檢查：42 個 `ack` marker 改前改後一致**）
