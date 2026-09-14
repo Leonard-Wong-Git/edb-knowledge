@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-09-13T15:22:47Z",
-  "overallStatus": "ERROR",
+  "generatedAt": "2026-09-14T13:56:25Z",
+  "overallStatus": "BLOCKER",
   "counts": {
-    "chunks": 17610,
-    "PASS": 7,
-    "BLOCKER": 0,
-    "ERROR": 4,
-    "WARN": 9,
+    "chunks": 17004,
+    "PASS": 12,
+    "BLOCKER": 1,
+    "ERROR": 2,
+    "WARN": 5,
     "INFO": 1,
     "NOT_MEASURED": 1
   },
-  "version": "v3.3.3",
+  "version": "v3.3.8",
   "corpus": {
-    "chunks": 17610,
+    "chunks": 17004,
     "sources_serving": 307,
-    "sources_registered": 281,
-    "guidelines_listed": 177,
-    "distinct_urls": 315,
+    "sources_registered": 284,
+    "guidelines_listed": 170,
+    "distinct_urls": 321,
     "largest_sources": [
       {
         "source_id": "coa_ss_e",
@@ -61,11 +61,13 @@
   },
   "releaseGate": {
     "status": "FAIL",
-    "summary": "5/15 項達標",
+    "summary": "3/15 項達標",
     "blocking": [
+      "NO_BLOCKER",
       "NO_ERROR_FAIL",
       "NO_UNMEASURED",
       "PASS_EVAL_CHUNK_LAYER",
+      "PASS_FREEZE_CONTRACT",
       "WARNS_OWNED",
       "CORE_SEARCH_CASES",
       "ANSWER_FACT_SPOTCHECK",
@@ -79,15 +81,15 @@
         "id": "NO_BLOCKER",
         "label": "沒有攔截級未通過項",
         "kind": "auto",
-        "status": "MET",
-        "detail": "0 項"
+        "status": "NOT_MET",
+        "detail": "FREEZE_CONTRACT"
       },
       {
         "id": "NO_ERROR_FAIL",
         "label": "沒有錯誤級 FAIL",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "NO_MIDCLAUSE_START、REGISTRY_ZOMBIE、REGISTRY_SERIES、REGISTRY_UNMANAGED"
+        "detail": "REGISTRY_SERIES、REGISTRY_UNMANAGED"
       },
       {
         "id": "NO_UNMEASURED",
@@ -121,8 +123,8 @@
         "id": "PASS_FREEZE_CONTRACT",
         "label": "FREEZE_CONTRACT 必須 PASS",
         "kind": "auto",
-        "status": "MET",
-        "detail": "PASS"
+        "status": "NOT_MET",
+        "detail": "FAIL"
       },
       {
         "id": "PASS_MIRROR_CONSISTENCY",
@@ -136,7 +138,7 @@
         "label": "每個 standing WARN 都有 owner、理由、接受期限",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "未有 waiver 7 項：ANCHOR_URL_PRESENT、SOURCE_TITLE_REAL、PAGE_ANCHORED、NO_DUPLICATE_CHUNKS、NO_TOC_NOISE、BODY_LENGTH_FLOOR、MOJIBAKE"
+        "detail": "未有 waiver 2 項：BODY_LENGTH_FLOOR、MOJIBAKE"
       },
       {
         "id": "CORE_SEARCH_CASES",
@@ -189,7 +191,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=5765c43 · 啟動於 2026-09-13T15:22:38.238Z · Channel A 快取 0 條",
+      "detail": "ok=True · commit=e9d14be · 啟動於 2026-09-14T13:56:15.165Z · Channel A 快取 455 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -207,11 +209,14 @@
       "id": "FREEZE_CONTRACT",
       "label": "凍結的對外契約零接觸",
       "severity": "BLOCKER",
-      "status": "PASS",
+      "status": "FAIL",
       "group": "infra",
-      "detail": "knowledge.json _meta 2.3.0 · 事實 455 條 · guidelines.json _meta 2.6.1 · 指引 158 項。下游 EDB 通告系統依賴這四個值；改動須另行協調",
-      "offenders": [],
-      "offender_total": 0
+      "detail": "knowledge.json _meta 2.3.0 · 事實 455 條 · guidelines.json _meta 2.6.2 · 指引 151 項。下游 EDB 通告系統依賴這四個值；改動須另行協調",
+      "offenders": [
+        "guidelines_version：預期 2.6.1，實際 2.6.2",
+        "guidelines_count：預期 158，實際 151"
+      ],
+      "offender_total": 2
     },
     {
       "id": "MIRROR_CONSISTENCY",
@@ -219,7 +224,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "infra",
-      "detail": "資料庫真數 17610 · 已核對 7 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "detail": "資料庫真數 17004 · 已核對 7 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
       "offenders": [],
       "offender_total": 0
     },
@@ -227,49 +232,29 @@
       "id": "ANCHOR_URL_PRESENT",
       "label": "每條片段都有可點擊的來源連結（Channel A 鏡像除外）",
       "severity": "ERROR",
-      "status": "WARN",
+      "status": "PASS",
       "group": "pointing",
-      "detail": "130 · 與基準 130 相同（未惡化，但仍在服務中） · 無連結片段來自 6 個來源",
-      "offenders": [
-        "arts_kla_guide_2017（116 條）",
-        "stat_kg（3 條）",
-        "stat_pri（3 條）",
-        "stat_sec（3 條）",
-        "stat_special（3 條）",
-        "stat_integrated（2 條）"
-      ],
-      "offender_total": 130
+      "detail": "0 · 低於基準 130（−130，已改善） · 無連結片段來自 0 個來源",
+      "offenders": [],
+      "offender_total": 0
     },
     {
       "id": "SOURCE_TITLE_REAL",
       "label": "片段標題是文件名稱，不是內部代號",
       "severity": "ERROR",
-      "status": "WARN",
+      "status": "PASS",
       "group": "pointing",
-      "detail": "658 · 與基準 658 相同（未惡化，但仍在服務中） · 用戶會在答案中看見原始代號而非文件名",
-      "offenders": [
-        "arts_kla_guide_2017（116 條）",
-        "stat_enrolment_2014（56 條）",
-        "stat_enrolment_2015（56 條）",
-        "stat_enrolment_2012（55 條）",
-        "stat_enrolment_2013（55 條）",
-        "stat_enrolment_2020（35 條）",
-        "stat_enrolment_2016（34 條）",
-        "stat_enrolment_2017（34 條）",
-        "stat_enrolment_2018（34 條）",
-        "stat_enrolment_2019（34 條）",
-        "stat_enrolment_2021（34 條）",
-        "stat_enrolment_2022（34 條）"
-      ],
-      "offender_total": 658
+      "detail": "0 · 低於基準 658（−658，已改善） · 用戶會在答案中看見原始代號而非文件名",
+      "offenders": [],
+      "offender_total": 0
     },
     {
       "id": "PAGE_ANCHORED",
       "label": "片段可指向頁數或章節（有 Page 標記或 #page= 連結）",
       "severity": "WARN",
-      "status": "WARN",
+      "status": "FAIL",
       "group": "pointing",
-      "detail": "179 · 與基準 179 相同（未惡化，但仍在服務中） · 這些片段只能把用戶帶到文件首頁",
+      "detail": "180 · 高於基準 179（+1） · 這些片段只能把用戶帶到文件首頁",
       "offenders": [
         "g14（76 條）",
         "g04（11 條）",
@@ -284,19 +269,17 @@
         "sch_complaint_guide_2023（3 條）",
         "subvention_tips（3 條）"
       ],
-      "offender_total": 179
+      "offender_total": 180
     },
     {
       "id": "NO_DUPLICATE_CHUNKS",
       "label": "沒有兩個來源載住逐字相同的片段",
       "severity": "ERROR",
-      "status": "WARN",
+      "status": "PASS",
       "group": "chunk",
-      "detail": "重複組 956 · 與基準 956 相同（未惡化，但仍在服務中） · 多出的副本 980 條 · 重複全部跨來源（同一來源內 0 組），即問題出在登記了兩次的文件，不是切片器。⚠️ 此數是下限：只捉逐字相同的片段。同一份 PDF 分兩次抽取會切出不同邊界，雜湊就不同 —— kgecg_2017 與 g29 是同一份《幼稚園教育課程指引（2017）》，108 對 107 條，逐字相同 0 條，本檢查完全看不見",
+      "detail": "重複組 464 · 低於基準 956（−492，已改善） · 多出的副本 488 條 · 重複全部跨來源（同一來源內 0 組），即問題出在登記了兩次的文件，不是切片器。⚠️ 此數是下限：只捉逐字相同的片段。同一份 PDF 分兩次抽取會切出不同邊界，雜湊就不同 —— kgecg_2017 與 g29 是同一份《幼稚園教育課程指引（2017）》，108 對 107 條，逐字相同 0 條，本檢查完全看不見",
       "offenders": [
         "eng_sss_guide_2021 ↔ g33：421 組",
-        "g24 ↔ sag_2025_11：377 組",
-        "arts_kla_guide_2017 ↔ g37：115 組",
         "econ_sss_supp_2015 ↔ econ_sss_supp_2025：9 組",
         "stat_enrolment_2016 ↔ stat_enrolment_2017：7 組",
         "stat_enrolment_2018 ↔ stat_enrolment_2019：6 組",
@@ -305,19 +288,20 @@
         "bafs_sss_2007_2015 ↔ bafs_sss_2007_2020：2 組",
         "stat_enrolment_2012 ↔ stat_enrolment_2013 ↔ stat_enrolment_2014 ↔ stat_enrolment_2015 ↔ stat_enrolment_2016 ↔ stat_enrolment_2017 ↔ stat_enrolment_2018 ↔ stat_enrolment_2019 ↔ stat_enrolment_2020 ↔ stat_enrolment_2021 ↔ stat_enrolment_2022 ↔ stat_enrolment_2023 ↔ stat_enrolment_2024：2 組",
         "stat_enrolment_2013 ↔ stat_enrolment_2014 ↔ stat_enrolment_2015：2 組",
-        "ethics_relig_sss_2007_2019 ↔ ethics_relig_sss_2024：1 組"
+        "ethics_relig_sss_2007_2019 ↔ ethics_relig_sss_2024：1 組",
+        "stat_enrolment_2014 ↔ stat_enrolment_2015：1 組",
+        "stat_enrolment_2020 ↔ stat_enrolment_2021：1 組"
       ],
-      "offender_total": 956
+      "offender_total": 464
     },
     {
       "id": "NO_TOC_NOISE",
       "label": "沒有純目錄片段（三個或以上「……頁碼」）",
       "severity": "WARN",
-      "status": "WARN",
+      "status": "PASS",
       "group": "chunk",
-      "detail": "147 · 與基準 147 相同（未惡化，但仍在服務中） · 目錄片段答不到任何問題，只會佔住合成窗",
+      "detail": "102 · 低於基準 147（−45，已改善） · 目錄片段答不到任何問題，只會佔住合成窗",
       "offenders": [
-        "g24（45 條）",
         "sag_2025_11（45 條）",
         "kg_admin_guide_2026（34 條）",
         "g13（8 條）",
@@ -327,7 +311,7 @@
         "debp_ai_literacy_framework（1 條）",
         "debp_ai_teaching_guide（1 條）"
       ],
-      "offender_total": 147
+      "offender_total": 102
     },
     {
       "id": "BODY_LENGTH_FLOOR",
@@ -347,24 +331,24 @@
       "id": "NO_MIDCLAUSE_START",
       "label": "切得不會太碎：片段不是由半句開始",
       "severity": "ERROR",
-      "status": "FAIL",
+      "status": "PASS",
       "group": "cutting",
-      "detail": "843 · 高於基準 835（+8） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
+      "detail": "783 · 低於基準 835（−52，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
       "offenders": [
         "g06（34 條）",
         "g13（34 條）",
         "ph_pri_guide_2025（30 條）",
         "g07（29 條）",
-        "g24（27 條）",
-        "sag_2025_11（27 條）",
         "gifted_ge_series（16 條）",
         "tech_kla_guide_2017（16 條）",
         "chi_jss_guide_2023（14 條）",
         "kg_operation_manual_2026（14 條）",
         "va_sss_2015（14 條）",
-        "edbcm060_2026（13 條）"
+        "edbcm060_2026（13 條）",
+        "sag_2025_11（13 條）",
+        "g35（12 條）"
       ],
-      "offender_total": 843
+      "offender_total": 783
     },
     {
       "id": "TABLE_ROW_INTEGRITY",
@@ -382,7 +366,7 @@
       "severity": "INFO",
       "status": "INFO",
       "group": "cutting",
-      "detail": "1988 條（11.3%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
+      "detail": "1910 條（11.2%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
       "offenders": [
         "g13（105 條）",
         "g07（80 條）",
@@ -391,13 +375,13 @@
         "g06（50 條）",
         "ict_sss_2007_2015（43 條）",
         "ph_pri_guide_2025（40 條）",
-        "g24（37 條）",
-        "sag_2025_11（37 條）",
         "g35（36 條）",
         "gifted_ge_series（36 條）",
-        "ma_sss_cag_2017（36 條）"
+        "ma_sss_cag_2017（36 條）",
+        "chi_hist_sss_2007_2015（34 條）",
+        "icac_school_governance（32 條）"
       ],
-      "offender_total": 1988
+      "offender_total": 1910
     },
     {
       "id": "EVAL_LATEST",
@@ -433,13 +417,11 @@
       "id": "REGISTRY_ZOMBIE",
       "label": "登記為已退役，但仍在服務片段",
       "severity": "ERROR",
-      "status": "FAIL",
+      "status": "PASS",
       "group": "pointing",
-      "detail": "1 個來源 / 108 條片段 · 已有人決定它應該停止服務，而它沒有停 —— 四類之中唯一不需要任何人再做決定的",
-      "offenders": [
-        "kgecg_2017（108 條）幼稚園教育課程指引（2017）"
-      ],
-      "offender_total": 1
+      "detail": "0 個來源 / 0 條片段 · 已有人決定它應該停止服務，而它沒有停 —— 四類之中唯一不需要任何人再做決定的",
+      "offenders": [],
+      "offender_total": 0
     },
     {
       "id": "REGISTRY_SERIES",
@@ -461,7 +443,7 @@
       "group": "pointing",
       "detail": "1 個來源 / 2 條片段 · 新鮮度、到期、封面標題三個監察全部以 registry 為鍵，所以這些來源不受任何監察",
       "offenders": [
-        "stat_integrated（2 條）stat_integrated"
+        "stat_integrated（2 條）融合教育統計數字"
       ],
       "offender_total": 1
     },
@@ -471,22 +453,22 @@
       "severity": "WARN",
       "status": "FAIL",
       "group": "pointing",
-      "detail": "41 個來源 / 0 條片段 · 用戶可以瀏覽到，但搜尋答不出，因為庫內一條片段都沒有",
+      "detail": "36 個來源 / 0 條片段 · 用戶可以瀏覽到，但搜尋答不出，因為庫內一條片段都沒有",
       "offenders": [
-        "apl_ca_guide_2017（0 條）",
         "arts_curr_docs（0 條）藝術教育學習領域課程文件",
         "chi_pri_lo_2023（0 條）",
         "chi_sec_lo_2021（0 條）",
-        "cle_kla_guide_2017（0 條）",
         "cs_curr（0 條）電腦科課程資源（EDB EdCity）",
         "curr_renewal_guides（0 條）課程更新指引及文件總覽",
         "g08（0 條）《中國語文教育學習領域課程指引（小一至中六）》(20",
         "g12（0 條）數學教育學習領域課程指引（小一至中三）(2002)",
         "g27（0 條）小學數學課程指引（2000）",
         "g30（0 條）小學人文科課程及評估指引（試行版）(2023)",
-        "g31（0 條）英國語文教育課程指引（小一至小六）(2025)"
+        "g32（0 條）初中人文學科課程及評估指引（中一至中三）(2024)",
+        "g34（0 條）普通話科課程指引（小一至中三）(2000)",
+        "g39（0 條）科技教育學習領域課程指引（小一至中三）(2002)"
       ],
-      "offender_total": 41
+      "offender_total": 36
     },
     {
       "id": "REGISTRY_UNLISTED",
@@ -494,7 +476,7 @@
       "severity": "WARN",
       "status": "FAIL",
       "group": "pointing",
-      "detail": "112 個來源 / 2593 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
+      "detail": "115 個來源 / 2616 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
       "offenders": [
         "gifted_ge_series（346 條）資優教育系列：全民資優教育＋校本學生才能庫＋學術英才",
         "kg_admin_guide_2026（221 條）幼稚園行政手冊（2026年5月）",
@@ -509,7 +491,7 @@
         "tdtf_report_2019（62 條）教師專業發展專責小組報告 (2019年3月)",
         "imc_election_guides（58 條）法團校董會校董選舉指引（家長／教師／校友校董・委任五"
       ],
-      "offender_total": 112
+      "offender_total": 115
     },
     {
       "id": "MOJIBAKE",
