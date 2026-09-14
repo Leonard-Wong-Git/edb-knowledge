@@ -64,6 +64,7 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 - **Pending:** 185 題 gold 未重跑（OP①）· `finance` 路由缺口（OP②）· 封版閘仍非綠，四類（OP③）· **入庫 PR 路徑未經一次真實入庫驗證**（當日 approval queue 空）· 看門狗與 pgvector 監察仍未經真實排程觸發。
 - **Risks:** ⚠️ 四條 ledger workflow 經 `DeployKey` 永久繞過該閘 —— 現時只寫 JSON、不碰 `backend/`，但那是「現時的碼」而非機制保證。⚠️ 新增一把沒有到期日的長期憑證 `LEDGER_DEPLOY_KEY`，等同可直接寫 `main` 的萬能匙。⚠️ 三項外部設定改動不在 git 內（auto-merge／delete-branch 兩個 toggle、deploy key `id=163258294`、repo secret），換機或重裝要記得。
 - **Log maintenance:** **triggered（寫入後）＋ 記錄一個規則衝突。** 寫本條之前 `--check` 為 `trigger=False`（370 行 / 9 entries）；**本條寫入後升至 402 行，越過 §4a 的 400 行門檻**，`--check` 轉 `trigger=True line_trigger=True`。依 §4a「腳本是執行閘、不得靠判斷」執行 `--apply`：**402 → 187 行、10 → 5 條、5 條（S219–S215）移入 `dev/archive/SESSION_LOG_2026_Q3.md`**。逐條對帳 10/10 剛好一份，零重複零遺失；工具 `--self-test` 5/5。
+  **⚠️ 歸檔工具有一個持續的 off-by-one（本節發現，非本節造成）：** `--apply` 在條目邊界切走內容後，會在**來源檔尾留下一個孤懸的 `ack:log-entry:start`**，並把多一個 `end` 帶進歸檔檔。實測：主檔歸檔前 10/10 平衡 → 歸檔後 **7/6**；歸檔檔歸檔前就已經 **13/16（差 3）** → 之後 **17/21（差 4）**，即這個缺陷在**先前每次歸檔都發生過**，不是今次才有。本節已修好主檔那一個（啟動會讀）；歸檔檔那 4 個留下未動 —— §4a 硬規則第 2 條明寫 `dev/archive/` 不在啟動必讀清單內，在收工時去改一個 1,931 行的歷史檔屬範圍蔓延。**工具本身未修**，已列入交接待辦。
   **⚠️ 規則衝突（依 AGENTS.md §5 記錄）：** 本專案 §4a 寫「>400 行即觸發、存 `dev/archive/`」，而 Kit closeout pack 寫「≥11 條或 >1500 行才觸發、存 `dev/SESSION_LOG_archive/`」—— 兩者門檻與目的地都不同。**取 §4a**：它有機械閘腳本、`dev/archive/` 已有 Q1／Q2／Q3 三個既有檔（即本專案既有慣例），且歸檔是移動非刪除，較可驗證。
   **⚠️ 同一衝突的第二面：** `--apply` 回報 `latest entry prompt block ok=False`，因為它按 §4 第 12 條期望本條含 `### Next Session Handoff Prompt (Verbatim)` 全文；而 **Kit closeout pack 明文禁止**把開場白全文複製到本檔（單一真源）。**取 Kit**：本專案在 S192–S193 正正因為 handoff 與 START 各寫一份而出現過 drift，三份副本只會重演。故該 `ok=False` 是**刻意的已知分歧，不是失敗**；exit code 為 0，非 §4a 第 4 條的停止條件。
 - **Playbook（§14 留底）:** 見該庫 `usage/policychecker.log.md` 本日兩行。
@@ -185,5 +186,3 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 - **Opening-message mirror:** 已重生並驗證 —— 由 `SESSION_HANDOFF.md` 唯一的 fenced block 生成，讀回逐位元組相等；全文按契約不複製入本 log。
 
 <!-- ack:log-entry:end -->
-
-<!-- ack:log-entry:start -->

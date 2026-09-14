@@ -205,7 +205,7 @@ source_registry → same vault PDFs → ai_extract.py
 
 ③ **封版閘離綠色還有四類東西**（S224 修好了 `FREEZE_CONTRACT`，BLOCKER 1 → 0，但 `overallStatus` 仍是 ERROR）。按「做得到」排序：(a) **`EVAL_CHUNK_LAYER` 未量度** —— 做完 ① 就自然有；(b) **兩個 ERROR** `REGISTRY_SERIES`（1 個來源 `stat_enrolment_report`，13 個分年檔／528 條片段不受任何 registry 監察）與 `REGISTRY_UNMANAGED`（`stat_integrated` 2 條，id 錯配）；(c) **兩個 WARN 沒有 waiver** `BODY_LENGTH_FLOOR`、`MOJIBAKE` —— 兩者都已逐條讀過並判定可接受，只欠在 `release_gate.json` 寫下 owner／理由／接受期限；(d) **六項人手驗證從未記錄**（核心搜尋案例、答案事實 spot-check、文件標註流程、mobile/desktop 分流、私隱與上載、冷啟動與錯誤狀態）。
 
-④ **【累積遺留】** **36 個** PHANTOM（拆類見 Detail Archive：7 個 HTML 索引／專頁、2 個已退役、13 個 registry 從未登記；14 條真缺口可即抓，但要先定 id 政策）· **115 個** UNLISTED／2,616 條片段（人手策展佇列，不能自動修）· 三題 chunk recall（S214 遺留，route-first 修不到）· `source_registry` 276 live vs 服務 307 未對帳 · 4 條 fidelity 不一致。
+④ **【累積遺留】** **36 個** PHANTOM（拆類見 Detail Archive：7 個 HTML 索引／專頁、2 個已退役、13 個 registry 從未登記；14 條真缺口可即抓，但要先定 id 政策）· **115 個** UNLISTED／2,616 條片段（人手策展佇列，不能自動修）· 三題 chunk recall（S214 遺留，route-first 修不到）· `source_registry` 276 live vs 服務 307 未對帳 · 4 條 fidelity 不一致 · **【S224 新增】`docs/qa/session_log_maintenance.py` 有一個持續的 off-by-one** —— `--apply` 會在來源檔尾留下孤懸的 `ack:log-entry:start`，並把多一個 `end` 帶進歸檔檔（實測：主檔 10/10 → 7/6；歸檔檔**歸檔前就已經 13/16**，即先前每次歸檔都發生過）。S224 已修好主檔那一個，**工具本身與歸檔檔那 4 個孤懸 `end` 未修**（後者不在啟動必讀清單內）。
 
 ⑤ **【S219 遺留】56 條無路由題仍全額付全庫代價。** 中位 2,636ms／p90 3,782ms。索引方向被 pgvector 版本擋住（Risks 1），**已改為機器監察**（`check_pgvector_release.py`，每週一 14:00 UTC，出現 ≥0.8.4 才開 Issue）。**在它響之前這一項無事可做。**
 
