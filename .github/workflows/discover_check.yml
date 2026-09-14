@@ -22,8 +22,16 @@ jobs:
     timeout-minutes: 30
 
     steps:
+      # S224: pushes over SSH with a write deploy key, not GITHUB_TOKEN. The main
+      # ruleset requires the build-gate check, which no direct push can ever satisfy
+      # (the check only runs after the push lands). Deploy keys are the one bypass
+      # actor a user-owned repo can use — the built-in GitHub Actions app is refused
+      # with "must be part of the ruleset source or owner organization". This ledger
+      # commit touches no backend code, so it is bypass-safe by construction.
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ secrets.LEDGER_DEPLOY_KEY }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
