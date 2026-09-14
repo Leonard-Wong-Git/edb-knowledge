@@ -19,12 +19,22 @@
 1. 平台 **v3.3.8**（S223 三次 bump，皆因 `app.html` 有改動）。**`guidelines.json` 凍結合約已 bump 至 2.6.2**（Leonard 拍板）；`knowledge.json` `_meta` 仍 **2.3.0** · facts **455**。
 2. Supabase **17,004** chunks（S223 兩次生產寫入：SAG 換版合併 −792 ＋387，`kgecg_2017` 去重 −108）。in-app 瀏覽庫 **170** 份（退役 `g24`）；`guidelines.json` 公開端點 **151** 份（由 158 對正 in-app 標籤，移除 7 條、同步 32 個欄位）。兩者仍刻意不同。
 3. 🟢 **`ZOMBIE` 由 1 歸 0**（`check_registry_drift --check` 實測）。餘下 `UNMANAGED` 1 個／2 片段（`stat_integrated` id 錯配）· `PHANTOM` 36 · `UNLISTED` 115。
-4. **`HEAD == origin/main == 3359f94`**（本收工 commit 除外）。🔴 **`main` 由 S224 起受 ruleset 保護**（`main build gate`, id 23311105）—— 直接 push 會被拒，一切改動必須經 PR；唯一 bypass 係 `DeployKey`。原文。**Render 部署管道 S223 之前已死了約 16 小時** —— watcher bot 寫壞 `searchChannelB.ts` 令 main 不編譯，Render 靜靜繼續服務舊 build。已修並加 `Backend Build Gate`。**判斷線上是否落後仍然看 `git diff --name-only <部署commit>..HEAD -- backend` 是否為 0，不要比 hash**（`app.html` 由 Pages 服務，出現在 diff 內不代表 Render 落後）。
+4. **`HEAD == origin/main == 40ae3cf`**（S225 squash-merge PR #14；本收工 commit 除外）。🔴 **`main` 由 S224 起受 ruleset 保護**（`main build gate`, id 23311105）—— 直接 push 會被拒，一切改動必須經 PR；唯一 bypass 係 `DeployKey`。原文。**Render 部署管道 S223 之前已死了約 16 小時** —— watcher bot 寫壞 `searchChannelB.ts` 令 main 不編譯，Render 靜靜繼續服務舊 build。已修並加 `Backend Build Gate`。**判斷線上是否落後仍然看 `git diff --name-only <部署commit>..HEAD -- backend` 是否為 0，不要比 hash**（`app.html` 由 Pages 服務，出現在 diff 內不代表 Render 落後）。
 5. 🟢 **`FEATURE_ROUTE_FIRST_SEARCH` 仍在生產啟用**（Render 環境變數，2026-09-09 起）。另兩個合成側 flag 仍 `0`。**`/health` 不報 flag，只有 Render dashboard 看得到。**
 6. **監察現有八個 workflow ＋ 一個每日看門狗**（`backend_build_check.yml` push 觸發、無 schedule，故不計入看門狗的 cadence 契約 —— `check_monitor_health --self-test` 實測仍報「覆蓋所有排程 workflow（6 個）」ALL PASS）。**S224：四條會 commit ledger 的監察（`discover_check`／`freshness_check`／`pgvector_check`／`qc_report`）改為經 write deploy key 以 SSH 推**，因為 required check 會擋死一切直接 push，而個人帳戶 repo **不能**豁免內建 GitHub Actions。
 
 <!-- ack:section:validation-qc -->
 ## Validation / QC
+
+**S225（2026-09-14）** —— 逐項證據見 `dev/SESSION_LOG.md` S225 條。
+
+- **機器閘**：`qc_report.py --self-test` ALL PASS（本節新增五條斷言）· `route_regression` **46/46** · `check_registry_drift --self-test` ALL PASS · PR #14 `build-gate` pass、`mergeable=CLEAN`。
+- **紅測兩次，各自準確轉紅且不波及其他**：(a) 把判分打回 `.get("FAIL", 0)` 默認 → 「無 summary」與「summary 形狀不對」兩條轉紅，其餘一條都沒受影響；(b) 把選檔打回不過濾的 `sorted()[-1]` → 只有「live 選檔」那條轉紅。兩次紅測後皆以 `shasum -a 256` 核實檔案已還原至修補版。
+- **封版閘前後對照**（重跑 `--check` 實測）：`EVAL_LATEST` **PASS → FAIL**（量度自 `2026-09-08_s220_route_first_before.json`，`FAIL 44/185`）· PASS **13 → 12** · ERROR **2 → 3** · releaseGate **5/15 → 4/15** · `PASS_EVAL_LATEST` **MET → NOT_MET** · **其餘二十項檢查零變動** · `overallStatus` 兩邊都是 `ERROR`。
+- **起手探針 6/6 綠**：served `app.html` **3.3.8** · `/health` ok、commit `e9d14be` · `git diff --name-only e9d14be..origin/main -- backend` **為空** · Supabase **17,004**（service key `count=exact` 實讀）· `ZOMBIE` **0** · 本機落後 1 個 commit（`discovery-bot` ledger）已 fast-forward。
+- **新證據（交接檔此前記為未發生）**：`discover_check` 與 `freshness_check` 已各自經歷**一次真實排程觸發**（`gh run list` 顯示 `event: schedule` 且 success，09-14 16:01／15:44 UTC），其中 discover 經 deploy key 推出 ledger commit `c48fcc5`，該 push 上的 `build-gate` 報綠。**看門狗與 pgvector 監察仍未經歷真實排程觸發。**
+- **架構盤點覆核**：兩個讀碼 agent ＋ 一個獨立覆核 agent ＋ 一個流程監察 agent。覆核組十項數字化主張逐條重讀原碼全部 CONFIRMED，並揪出兩處主線遺漏（判官的 `trustedVaultLead` 常態繞過、輸入淨化整類未提），已補入 `dev/AUDIT.md`。
+- **未做（不要當已做）**：185 題 gold **未重跑** · Recall@k 工具仍不可執行（語料快取指向已消失的 scratchpad）· `regression:semantic`／`regression:grounded` 本節**未跑** · 生產旗標與模型值仍無法由外部核實 · 七條前端未呼叫的端點是否死碼未查 · `agent-handoff-kit` CLI 未安裝，`closeout-status` 語義閘**未能執行**。
 
 **S224（2026-09-14）** —— 逐項證據見 `dev/SESSION_LOG.md` S224 條。
 
@@ -93,7 +103,7 @@
 - 🔴 **Python：有三個，只有兩個跑得動本專案的抽取／入庫腳本。** 預設 `python3` = homebrew **3.14**，**無 `fitz`、無 `openai`**；`/usr/local/bin/python3`（openai 2.26 ＋ fitz ＋ requests）與 `/usr/bin/python3` 才齊。**抽取與入庫一律明寫 `/usr/local/bin/python3`**；純標準庫的監察腳本（`check_*.py`／`execute_ingest.py --self-test`／`build_wiki_index`）用 `python3` 沒問題。詳見 Risks 6。
 - **Python script invocation**: 一律由 repo root 起，例如 `cd "…/Draft" && python3 dev/vault/extract_candidates.py ...`
 - **Backend**: `cd "…/Draft/backend" && npm run dev`
-- **Git state（S224 收工實測）**: `HEAD == origin/main == abeba8a`（本收工 commit 除外），branch `main`，worktree 只有一個（無平行工作區）。未 commit 改動：只有 `dev/source/registry_drift.md`（監察 `--check` 每次會重寫的生成檔）。**Render 部署 commit 仍為 `e9d14be`；`git diff --name-only e9d14be..HEAD -- backend` 為空，即線上執行碼與 HEAD 一致**（其後的 commit 只改 workflow、`dev/*` 與 `qc_report.json`，不含 `backend/`）。
+- **Git state（S225 收工實測）**: `HEAD == origin/main == 40ae3cf`（S225 squash-merge PR #14；本收工 commit 除外），branch `main`，worktree 只有一個（無平行工作區）。未 commit 改動：無。**Render 部署 commit 仍為 `e9d14be`；`git diff --name-only e9d14be..origin/main -- backend` 為空，即線上執行碼與 HEAD 一致**（其後的 commit 只改 workflow、`dev/*`、`qc_report.py` 與 `qc_report.json`，不含 `backend/src`）。⚠️ 本機仍有一條舊分支 `claude/hopeful-gates-0efe44`（1 個 commit 未入 `main`，v1.5.0 年代），S225 未動它，待 Leonard 決定刪或保留。
 - **Production flag state**: `FEATURE_ROUTE_FIRST_SEARCH=1` 於 Render 環境變數（S220 啟用）。另兩個合成側 flag 未設定＝關閉。**Render 環境變數只有 Leonard 改得到，AI 改不到；`/health` 亦不報 flag。**
 - 🔴 **Push 邊界（S224 新增）**：`main` 受 ruleset 保護，**直接 `git push origin main` 會被拒**。一切改動走 PR：`git checkout -b <topic>/<name>` → `git push -u origin HEAD` → `gh pr create --base main --fill` → `gh pr merge --auto --squash`。⚠️ 分支若與 `main` 同一個 commit，`gh pr create` 會失敗並留下一條空分支（S224 中過兩次）——**開分支前先確認真的有未推的 commit**。合併用 squash，所以事後 `git branch -d` 會報「not fully merged」；要刪本機分支請先用「分支 tip vs 它的 squash commit 樹比對＝0 個檔案差異」核實，再用 `-D`。
 - **生產寫入權限（S223 更正）**: AI **跑得到** `cb3_deprecate_stale --execute` 與 `ingest_one_source`（本節實跑三次全部通過）。**擋住破壞性寫入的已經不是機械閘，而是「要先取得 Leonard 明示批准」這條紀律。**
@@ -199,13 +209,13 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:next-priorities -->
 ## Open Priorities
 
-**Recommended next step（S224 收工重生）：** **做 ①** —— 它是唯一擋住「檢索有沒有退步」這個問題的東西，而那筆債已經欠了兩節。工具現成，只差一次 live 批次批准。
+**Recommended next step（S225 收工重生）：** **做 ①** —— 它是唯一擋住「檢索有沒有退步」這個問題的東西，而那筆債已經欠了兩節。工具現成，只差一次 live 批次批准。
 
 ① 🔴 **重跑 185 題 gold，還清兩節欠下的量度債。** Risks 3 的 routed p90（8,335ms）與 S220 的失敗率都是 S221 修正之前量的，已過時。更要緊的是 **S223 換了 SAG 整份語料（792 → 387 條，切法與連結都變了）而沒有做 eval before→after**（S203 PLAN 原有這一步，跳過的原因是舊語料已被覆寫、before 基線取不到）。所以「SAG 換版沒有令檢索退步」**只有零散抽樣支持，沒有量度支持**。工具：`backend/scripts/routeFirstGold.ts`。**需 Leonard 批准 live 批次。** 做完順帶解決 ②。
 
 ② **`finance` 路由拿不到《學校行政手冊》。** 手冊第 6 章正是「學校財務」，但 `sag_2025_11` 不在 `finance` 的 `SOURCE_SET` 內（S223 實測：它在另外十條路由）。**既有狀態、非 S223 造成**（合併前 `sag` 與 `g24` 都不在，零退步）。改 allowlist 屬檢索改動，紀律要求先跑 eval before→after，**與 ① 一併做最有效率**。
 
-③ **封版閘離綠色還有四類東西**（S224 修好了 `FREEZE_CONTRACT`，BLOCKER 1 → 0，但 `overallStatus` 仍是 ERROR）。按「做得到」排序：(a) **`EVAL_CHUNK_LAYER` 未量度** —— 做完 ① 就自然有；(b) **兩個 ERROR** `REGISTRY_SERIES`（1 個來源 `stat_enrolment_report`，13 個分年檔／528 條片段不受任何 registry 監察）與 `REGISTRY_UNMANAGED`（`stat_integrated` 2 條，id 錯配）；(c) **兩個 WARN 沒有 waiver** `BODY_LENGTH_FLOOR`、`MOJIBAKE` —— 兩者都已逐條讀過並判定可接受，只欠在 `release_gate.json` 寫下 owner／理由／接受期限；(d) **六項人手驗證從未記錄**（核心搜尋案例、答案事實 spot-check、文件標註流程、mobile/desktop 分流、私隱與上載、冷啟動與錯誤狀態）。
+③ **封版閘離綠色還有四類東西**（S224 修好 `FREEZE_CONTRACT`，BLOCKER 1 → 0；**S225 修好 `EVAL_LATEST` 假綠，該格由假 PASS 轉為誠實的 FAIL，releaseGate 5/15 → 4/15**——分母沒變，只是少了一項不真的達標。`overallStatus` 仍是 ERROR）。**注意：(a) 與 `EVAL_LATEST` 現在都只能靠 ① 清走，改 `qc_report.py` 已經無用。** 按「做得到」排序：(a) **`EVAL_CHUNK_LAYER` 未量度** —— 做完 ① 就自然有；(b) **兩個 ERROR** `REGISTRY_SERIES`（1 個來源 `stat_enrolment_report`，13 個分年檔／528 條片段不受任何 registry 監察）與 `REGISTRY_UNMANAGED`（`stat_integrated` 2 條，id 錯配）；(c) **兩個 WARN 沒有 waiver** `BODY_LENGTH_FLOOR`、`MOJIBAKE` —— 兩者都已逐條讀過並判定可接受，只欠在 `release_gate.json` 寫下 owner／理由／接受期限；(d) **六項人手驗證從未記錄**（核心搜尋案例、答案事實 spot-check、文件標註流程、mobile/desktop 分流、私隱與上載、冷啟動與錯誤狀態）。
 
 ④ **【累積遺留】** **36 個** PHANTOM（拆類見 Detail Archive：7 個 HTML 索引／專頁、2 個已退役、13 個 registry 從未登記；14 條真缺口可即抓，但要先定 id 政策）· **115 個** UNLISTED／2,616 條片段（人手策展佇列，不能自動修）· 三題 chunk recall（S214 遺留，route-first 修不到）· `source_registry` 276 live vs 服務 307 未對帳 · 4 條 fidelity 不一致 · **【S224 新增】`docs/qa/session_log_maintenance.py` 有一個持續的 off-by-one** —— `--apply` 會在來源檔尾留下孤懸的 `ack:log-entry:start`，並把多一個 `end` 帶進歸檔檔（實測：主檔 10/10 → 7/6；歸檔檔**歸檔前就已經 13/16**，即先前每次歸檔都發生過）。S224 已修好主檔那一個，**工具本身與歸檔檔那 4 個孤懸 `end` 未修**（後者不在啟動必讀清單內）。
 
@@ -238,6 +248,21 @@ source_registry → same vault PDFs → ai_extract.py
 
 <!-- ack:section:completed-this-session -->
 ## Last Session Record
+
+1. UTC date: 2026-09-14
+2. Session ID: `Claude_20260914_2030` — S225。由「開工」起手，起手探針 6/6 綠、零漂移；其後 Leonard 叫 `/ai-agent-patterns`，做完整 AI agent 架構盤點，再修好盤點揪出的一項封版閘假綠。**零 Supabase 寫入、零 `backend/src` 改動、零 flag 改動。**
+3. Completed:
+   - ✅ **完成 AI agent 架構盤點，產出 `dev/AUDIT.md`（239 行）。** 判定：全系統停在層 0 與層 1，**零工具呼叫**（全後端 `tools`／`tool_choice` grep 零命中），模型在任何一處都沒有揀工具或決定下一步的權力。**「可簡化」那一類落差是空的** —— 反模式十二條在架構層面一條都不中。問題全部在護欄與量度。
+   - ✅ **修好 `EVAL_LATEST` 假綠並已合併（PR #14 → `40ae3cf`）。** 詳見 `## Risks / Blockers` 第 8 項。修法是把判分的上半截對齊同函式下半截早已寫對的做法；新增五條斷言並以兩次針對性注入證明會轉紅。
+   - ✅ **把盤點接入治理**：`dev/AUDIT.md` 登記入 `PROJECT_INDEX.md` Directory Map 並註明它是凍結於 2026-09-14 的一次性評估、非 current state；`DOC_SYNC_CHECKLIST.md` 新增一條觸發（`backend/src` 的 LLM 呼叫／旗標／判官閘／護欄一改動即須覆核 AUDIT.md）；`PROJECT_INDEX.md` Local QC Commands 三行 Last verified 更新。
+4. **本節修的是機制，不只是症狀** —— 但方向與 S224 相反：S224 發現的是「沒有規則指向那四個值」，本節發現的是**規則早就存在而沒被遵守**（`DOC_SYNC_CHECKLIST.md` 第 56 行白紙黑字寫著「新檢查不得預設報 0——量不到要報 `NOT_MEASURED`」）。所以本節**沒有新增任何治理規則**，只在三處記下這件事。
+5. **本節有兩項發現是主線自己漏了、由獨立覆核 agent 揪出**：(a) 判官除了 fail-open，還有一條 `trustedVaultLead` 常態繞過（分數 ≥ 0.70 的 vault lead 連判官都不會叫）；(b) 整份報告原本一句都沒提輸入淨化。兩項都已補入 `dev/AUDIT.md`，並在該檔附錄逐項列明哪些判斷由主線親自核過、哪些只有子代理查過。
+6. **本節攔截了自己一次疏忽**：更新 `PROJECT_INDEX.md` 的 Last verified 時，用按 `|` 切格的做法把原本那三格的結果摘要一併洗走。已補回，並逐欄核實表格結構未損（分隔數 5→5、指令欄與觸發欄逐字元相同）。
+7. **合併途中撞過一次衝突並已解決**：每日 `qc_report.yml` cron 在分支開出後把重生的 `qc_report.json` 推上 main（`4528751`）。`qc_report.json` 是生成檔，**以取 main 版本再用修補版重新生成**解決，不手動合併。過程中捨棄了本機 `dev/source/registry_drift.md`（三個版本唯一差異是標題時間戳，漂移數字逐項相同，零數據損失）。
+8. Carry-forward：未完成事項**一律不在此列舉**，全部歸入 `## Open Priorities` ①–⑤ 與 `## Validation / QC` S225 段的「未做」六項。
+9. ⚠️ **本節無任何外部設定改動**（無 repo 設定、無 deploy key、無 secret、無 Render 改動）。
+
+## Previous Session Record (S224)
 
 1. UTC date: 2026-09-14
 2. Session ID: `Claude_20260914_1313` — S224。由頂層 dormant root「開工」redirect 入 Draft。起手探針 6/6 綠、零漂移。Leonard 由 branch 選單見到兩條舊 `claude/*` 分支起問，一路推進到把 S223 交下來的 OP① 完整做完。**零 Supabase 寫入、零 `backend/src` 邏輯改動、零 flag 改動。**
@@ -1115,6 +1140,13 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:state-reconciliation-check -->
 ## State Reconciliation Check
 
+- **2026-09-14 S225 closeout reconciliation（架構盤點 ／ 修好封版閘一項假綠）：** 於 2026-09-14 20:5x UTC 重寫或確認：`Current Baseline` 4（commit → `40ae3cf`）· `Validation / QC`（新增 S225 段）· `Risks / Blockers` 8（本節新增後即改寫為已修）· `Open Priorities` ③（加註 `EVAL_LATEST` 已修、只能靠 ① 清走）＋ Recommended next step 重生 · `User Environment` Git state · `Last Session Record`（S224 降為 Previous）。其餘章節本節未觸及且其當前意義未被證偽，按 cold-zone 規則**保留原位元組不作修飾性重寫**。
+- **Persistence routing checked（S225）：** 當前狀態、下一步、Git 狀態、活躍風險 → 本檔 · 逐項實測數字、紅測方法、合併衝突處理經過 → `dev/SESSION_LOG.md` S225 條 · 新文件登記與 QC 指令 Last verified → `dev/PROJECT_INDEX.md` · 新增同步觸發 → `dev/DOC_SYNC_CHECKLIST.md` · 一次性架構評估全文 → `dev/AUDIT.md`（已在 index 註明非 current state）。**未促升 `PROJECT_DECISIONS.md`**：本次缺陷屬既有規則未被遵守，非新決策、非規則缺失，未達促升門檻。
+- **Lifecycle 一致性檢查（S225）：** 逐節對照五個章節。本節完成項（架構盤點、`EVAL_LATEST` 修補）**不留在** `Next Priorities` 作未解決項；Risks 8 由 🔴 改寫為 🟢 已修並明確記下**餘下**（該格現為誠實的 FAIL，只能靠 OP① 清走）。OP① 未動，且本節為它增加了一個新理由，故仍為 Recommended next step —— 這是「未完成而保留」，非「已完成仍掛住」。
+- **Stale snapshots left（S225）：** 無新增殘留。**本節主動更正了一處既有記載**：`Validation / QC` 歷來記「看門狗與 pgvector 監察仍未經歷真實排程觸發」，本節以 `gh run list` 實測證明 `discover_check` 與 `freshness_check` 已各自經歷一次真實排程觸發，故在 S225 段寫明只餘看門狗與 pgvector 兩條未經歷，未改寫舊段落原文。
+- **Closeout outcome（S225）: `complete`（內容與 Git 持久化），惟機器語義閘未能執行。** 精確邊界：`agent-handoff-kit` CLI 本機未安裝（`which` 與全域 bin 搜尋皆零命中，npm registry 亦無此套件），故 `closeout-status` 與 bundled `doctor` **無法執行**，本次收工以人手逐項讀回代替：五個章節逐節對照、`START_NEXT_SESSION_PROMPT.txt` 與開場白區塊逐字元比對、marker 計數核實。**這與 S222 記錄的是同一個既有限制，非本節造成。**
+- **Project-required persistence（S225）: `complete`** —— 本節改動已全部落 `origin/main`：squash commit `40ae3cf`（PR #14，`build-gate` pass）。本收工的交接／日誌改動為本次收工 commit，另行推送。
+
 - **2026-09-14 S224 closeout reconciliation（閘由偵測變阻擋 ／ 入庫改行 PR ／ 修好一個假 BLOCKER）：** 重寫或確認的章節 —— `Current Baseline` 第 4、6 點（新 HEAD `3359f94`、`main` 受 ruleset 保護、四條 ledger 改走 deploy key；第 1、2、3、5 點實測仍準確，**刻意保留原位元組不改**）；`Validation / QC` prepend S224 段；`Risks / Blockers` 第 4 條由 🔴 降為 ⚠️ 並改寫成「兩層機制 ＋ 三件仍要小心的事」，新的 deploy key 風險**併入該條第 ① 點而非另開一條**（避免超出 §4 上限 7 並保持同一主題連貫）；`User Environment` 更新 Git 狀態並**新增 Push 邊界一段**；`Open Priorities` **整份重生**（S223 的 ① 已完成故移除，舊 ② ③ 升為 ① ②，`qc_report` overall ERROR 具體化為新 ③ 並拆成四類可執行項）；`Last Session Record` 由 S223 重寫為 S224（S223 降級為 `Previous Session Record (S223)`，no-loss）；`Handoff Sufficiency Check` 與 `Next Session Opening Message` 重生；本段。
 - **Persistence routing checked（S224）：** 當前狀態、下一步、push 邊界、風險 → 本檔 · 逐項實測數字、三次紅測的注入內容與結果、兩次「我的指令害人」的成因 → `dev/SESSION_LOG.md` S224 條 · 閘的 `paths:` 禁令與四條 ledger 的 deploy key 機制 → `dev/PROJECT_INDEX.md`（該 workflow row，因為那是「不得再犯」的可重用規則，不是 session 狀態）· 凍結契約四個值的同步義務 → **`dev/DOC_SYNC_CHECKLIST.md` 新 row**（根因所在）· Option A 步驟表與 secrets 契約 → `dev/CODEBASE_CONTEXT.md` Directory Map ＋ AI Maintenance Log ＋ ops repo `executor.yml` 註釋。**沒有把可重用規則只寫在 handoff／log。**
 - **Lifecycle 一致性檢查（S224）：** 逐節對照五個章節。S223 的 OP①（branch protection）已完成 → 已由 `Open Priorities` 移除，且 `Risks` 第 4 條同步由 🔴 降為 ⚠️ 並寫明它靠哪兩層機制維持，**不再以「要開 branch protection」作為 startup 指示**。`FREEZE_CONTRACT` 由 FAIL 轉 PASS → `Open Priorities` 舊 ④ 的「`qc_report.json` overall ERROR」不再原樣保留，改為具體的新 ③ 並明寫**封版閘仍然不是綠**（重新分類為 follow-up scope 而非已解決）。**入庫 PR 路徑未經真實入庫驗證**一項在 `Validation / QC`「未做」、`Risks` 第 4 條 ③、開場白三處一致標示為未驗證。無已完成項殘留為未解 next priority／active risk／startup 指示。
@@ -1452,7 +1484,7 @@ Recommended next-step rule: `Next Priorities` must name the single recommended n
 
 Can the next AI continue from `AGENTS.md`, this handoff, `dev/PROJECT_INDEX.md`, and needed rule packs without searching old log history?
 
-Answer: yes — S224 closeout 覆核。下一個 agent 淨睇本檔可以知道：**當前數字**（Supabase **17,004** / in-app 瀏覽庫 **170** / `guidelines.json` 端點 **151**（`_meta` 2.6.2）/ `knowledge.json` 仍 2.3.0 · facts 455 / 平台 **v3.3.8** / `FEATURE_ROUTE_FIRST_SEARCH=1` / Kit v0.3.66）；**點核實**（開場白 `Post-startup first action` 五項探針，連「`git fetch` 後比對、不要信本檔記的 hash」「比檔不比 hash 才知線上落後沒有」都寫明）；**做緊乜**（`Open Priorities` 開首指名 ① 為唯一建議下一步並寫明理由，五項各自寫明前置條件與工具路徑）；**唔准做乜**（`User Environment` 的 Push 邊界寫明 `main` 已受保護、一切改動走 PR，以及未得明示批准不得改 flag／執行 DDL／寫入生產片段／跑外部模型批次）；**唔好走回頭路**（本檔四處明寫不得再犯的事 —— `backend_build_check.yml` 不得加回 `paths:`、個人帳戶 repo 不能豁免 GitHub Actions、`GITHUB_TOKEN` 開的 PR 其 run require approval、S223 那個「84.5% 覆蓋率」是假數）。
+Answer: yes — S225 closeout 覆核。**下一步與 S224 交下來的完全相同（OP① 重跑 185 題 gold），本節沒有改變方向，只是為它加了一個新理由**：封版閘的 `EVAL_LATEST` 現在誠實地紅，而它只能靠重跑清走。續 S224 覆核：下一個 agent 淨睇本檔可以知道：**當前數字**（Supabase **17,004** / in-app 瀏覽庫 **170** / `guidelines.json` 端點 **151**（`_meta` 2.6.2）/ `knowledge.json` 仍 2.3.0 · facts 455 / 平台 **v3.3.8** / `FEATURE_ROUTE_FIRST_SEARCH=1` / Kit v0.3.66）；**點核實**（開場白 `Post-startup first action` 五項探針，連「`git fetch` 後比對、不要信本檔記的 hash」「比檔不比 hash 才知線上落後沒有」都寫明）；**做緊乜**（`Open Priorities` 開首指名 ① 為唯一建議下一步並寫明理由，五項各自寫明前置條件與工具路徑）；**唔准做乜**（`User Environment` 的 Push 邊界寫明 `main` 已受保護、一切改動走 PR，以及未得明示批准不得改 flag／執行 DDL／寫入生產片段／跑外部模型批次）；**唔好走回頭路**（本檔四處明寫不得再犯的事 —— `backend_build_check.yml` 不得加回 `paths:`、個人帳戶 repo 不能豁免 GitHub Actions、`GITHUB_TOKEN` 開的 PR 其 run require approval、S223 那個「84.5% 覆蓋率」是假數）。
 
 Reconstruction evidence: 只用本檔重建下一步 —— **父目標與消費者**見 `## Architecture Decisions (Locked)` 與 `## Open Priorities` 開首（父：EDB K1 知識平台的檢索準確度與答案時效；消費者：Leonard 與平台用戶）；**本步與父目標的關係**見 `## Open Priorities` ①（S223 換掉 SAG 整份語料而沒有 eval before→after，所以「檢索沒有退步」目前只有抽樣支持 —— 這直接關乎用戶今日拿到的答案對不對）；**確切續接點**見 `## Open Priorities` ① 第三句（工具 `backend/scripts/routeFirstGold.ts` 現成，未做的是取得 live 批次批准並執行）與 ②（`finance` 路由缺口已實測定位，改 allowlist 要與 ① 同一個 eval 窗口內做）；**餘下驗收**見 `## Validation / QC` S224 段的「未做」七項；**必讀來源與新鮮度**見 `## Mandatory Start Checklist`，另 `## Supabase Technical Notes` 寫明 `match_wiki_chunks_routed` 的 live 定義**每次 DDL 前都要重新確認**，不可沿用本檔記載；**本節新增的機制約束**見 `## User Environment` Push 邊界與 `## Risks / Blockers` 第 4 條。**未讀缺口**：185 題 live 套件（做 ① 時必讀）· `release_gate.json` 的 waiver 格式（做 ③(c) 時必讀）· `INIT.md` 全文（Backlog ⑦ blocked 的判斷前提）· **Option A 真實入庫在新 PR 路徑下的行為**（S224 當日 approval queue 空，該路徑只在文件與 backend commit 上驗過）。
 
@@ -1482,53 +1514,53 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S224, 2026-09-14）---
+--- 專案狀態（S225, 2026-09-14）---
 
 平台 v3.3.8；Supabase 17,004 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點 151 份
 （_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.3.66。
 FEATURE_ROUTE_FIRST_SEARCH=1 已在 Render 啟用（S220 起）。
 git：開工必先 fetch 再比對，不要信這裡記的 hash。
 
-🔴 最重要的一個改變：main 已經受保護，你不能直接 push。
-   ruleset「main build gate」(id 23311105) 生效中：Restrict deletions + Block force pushes
-   + Require a pull request (0 批准) + Required status check「build-gate」。
+🔴 main 受保護，不能直接 push（ruleset「main build gate」id 23311105）。
    一切改動走 PR：
      git checkout -b <topic>/<name> → git push -u origin HEAD
-     → gh pr create --base main --fill → gh pr merge --auto --squash
+     → gh pr create --base main --fill → gh pr merge --squash --delete-branch
    ⚠️ 分支若與 main 同一個 commit，gh pr create 會失敗並留下一條空分支（S224 中過兩次）
       —— 開分支前先確認真的有未推的 commit。
-   ⚠️ 合併用 squash，所以事後 git branch -d 會報「not fully merged」。要刪本機分支，
-      先用「分支 tip vs 它的 squash commit 樹比對 = 0 個檔案差異」核實，再用 -D。
+   ⚠️ 【S225 新增】每日 qc_report cron 會自己推 qc_report.json 落 main，所以分支開耐咗
+      就會撞衝突。qc_report.json 是生成檔：取 main 那一份，再用你改好的碼重跑
+      --check 重新生成，不要手動合併。
 
-🟢 S224 做完了甚麼（都不用重做）：
-   1. build-gate 由「偵測」變成「阻擋」。已實測：推空 commit 落 main 被拒。
-   2. Option A 入庫改為開 PR → auto-merge，不再直接推 main。self-test 13 → 28 條。
-   3. 四條 ledger 監察（discover/freshness/pgvector/qc_report）改經 write deploy key 推。
-   4. 修好 FREEZE_CONTRACT 那個假 BLOCKER（BLOCKER 1 → 0）。
+🟢 S225 做完了甚麼（都不用重做）：
+   1. AI agent 架構盤點完成，見 dev/AUDIT.md（239 行，已登記入 PROJECT_INDEX）。
+      結論：架構本身乾淨 —— 全系統停在層 0／層 1、零工具呼叫、反模式十二條在架構層面
+      一條都不中；「可簡化」那一類落差是空的。問題全在護欄與量度。
+   2. 修好封版閘 EVAL_LATEST 假綠（PR #14 → 40ae3cf）。該格由假 PASS 轉為誠實的 FAIL，
+      releaseGate 5/15 → 4/15。**這不是退步**：分母沒變，只是少了一項不真的達標。
 
-🔴 三條「不得再犯」，理由都寫在碼或文件裡，動手前先讀：
-   · backend_build_check.yml 不得加回 paths: 過濾。required status check 要求該 commit
-     報 success/skipped/neutral，而 paths: 過濾的 workflow 對不命中的 commit【甚麼都不報】，
-     該 check 會永遠 pending 並【永久擋死那次 push】。理由寫在該檔頭部。
-   · 個人帳戶 repo【不能】把內建 GitHub Actions 設為 ruleset bypass actor
-     （GitHub 422：Actor GitHub Actions integration must be part of the ruleset source
-     or owner organization）。這就是為甚麼要用 deploy key。
-   · 由 GITHUB_TOKEN 開的 PR，其 workflow run【require approval】，auto-merge 會卡死。
-     所以「把四條 ledger 改成開 PR」這條路行不通。
+🔴 三條「不得再犯」（S224 起，理由寫在碼或文件內，動手前先讀）：
+   · backend_build_check.yml 不得加回 paths: 過濾（會令 required check 永遠 pending）。
+   · 個人帳戶 repo 不能把內建 GitHub Actions 設為 ruleset bypass actor（GitHub 422）。
+   · 由 GITHUB_TOKEN 開的 PR，其 workflow run require approval，auto-merge 會卡死。
 
 ⚠️ 未解決（不要當已解決）：
-   · 185 題 gold 未重跑，而 S223 換了 SAG 整份語料卻【沒有做 eval before→after】
-     ——「沒有退步」目前只有抽樣支持，沒有量度支持。這是 Open Priorities ①。
-   · finance 路由拿不到《學校行政手冊》（第 6 章正是學校財務）。既有狀態、非 S223 造成。
-   · 封版閘【仍然不是綠】：BLOCKER 歸 0 了，但 overallStatus 仍是 ERROR
-     —— 兩個 ERROR、兩個 WARN 無 waiver、六項人手驗證從未記錄、EVAL_CHUNK_LAYER 未量度。
-   · 入庫 PR 路徑【未經一次真實入庫驗證】—— S224 當日 approval queue 是空的，
-     build-gate 只在文件與 backend commit 上驗過，未在 Option A 自己開的 PR 上驗過。
-   · 看門狗與 pgvector 監察仍未經歷一次真實排程觸發。
+   · 185 題 gold 未重跑 —— 這是 Open Priorities ①，而且現在多一個理由：
+     EVAL_LATEST 那一格只能靠重跑清走，改 qc_report.py 已經無用。
+   · 封版閘仍然不是綠：overallStatus ERROR、兩個 ERROR、兩個 WARN 無 waiver、
+     六項人手驗證從未記錄、EVAL_CHUNK_LAYER 未量度。
+   · 判官閘有兩條「不會行」的路徑：fail-open（API 失敗即照答，無標記無計數）
+     與 trustedVaultLead 常態繞過（分數 ≥0.70 的 vault lead 連判官都不叫）。
+     詳見 dev/AUDIT.md 乙③ —— 要改要先有 ① 的 before→after。
+   · 生產實際行甚麼模型、甚麼 flag，無法由碼或 /health 得知（最後人手確認 2026-07-30）。
+     AUDIT.md 建議次序第 2 項就是令 /health 報出來，它是其餘所有量度的前提。
+   · finance 路由拿不到《學校行政手冊》。既有狀態、非 S223 造成。
+   · 入庫 PR 路徑未經一次真實入庫驗證；看門狗與 pgvector 監察未經真實排程觸發
+     （discover 與 freshness 兩條已經歷過，S225 實測）。
 
 ⚠️ 不在 git 內的外部設定（換機或重裝要記得）：
    repo 開了 allow_auto_merge + delete_branch_on_merge；deploy key id=163258294；
    repo secret LEDGER_DEPLOY_KEY；ops repo edb-knowledge-ops 的 executor.yml 有 GH_TOKEN。
+   agent-handoff-kit CLI 本機未安裝，所以 doctor / closeout-status 跑不到，收工靠人手讀回。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.8 +
 Render /health + git fetch 後比對 HEAD/origin/main + Supabase live count 應為 17,004 +

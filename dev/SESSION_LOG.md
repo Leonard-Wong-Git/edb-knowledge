@@ -39,6 +39,30 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 
 <!-- ack:log-entry:start -->
 
+## 2026-09-14 Session 225 — 封版閘上寫著 PASS 的那一格，量度的是一份不是評測的檔案
+
+- **ID:** `Claude_20260914_2030` — S225
+- **Summary:** 用 `ai-agent-patterns` 做完整 AI agent 架構盤點，結論是架構本身乾淨（全系統停在層 0／層 1、零工具呼叫、反模式十二條架構層面一條都不中），問題全在護欄與量度；盤點過程揪出並修好封版閘一項假綠。**零 Supabase 寫入、零 `backend/src` 改動、零 flag 改動。**
+- **Changed:** `dev/source/qc_report.py`（新增 `is_gold_eval()`＋選檔過濾＋判分守衛＋五條斷言，+68/−9）· `qc_report.json`（重生）· `dev/AUDIT.md`（新增 239 行）· `dev/PROJECT_INDEX.md`（登記 AUDIT.md＋三行 Last verified）· `dev/DOC_SYNC_CHECKLIST.md`（新增一條觸發）· `dev/SESSION_HANDOFF.md`（Risks 新增第 8 項）。合併為 squash commit `40ae3cf`（PR #14）。
+- **Done:**
+  - **架構盤點（`dev/AUDIT.md`）**：七條 flow 逐條判模式；核實全後端 `tools`／`tool_choice` 零命中，模型在任何一處都沒有揀工具或決定下一步的權力；判定「可簡化的落差為無」。護欄逐項盤點，缺的是 token 預算、LLM 時鐘上限、追蹤記錄、成本記帳、輸入淨化。
+  - **修好 `EVAL_LATEST` 假綠**：`latest_eval_run()` 原為不過濾的 `sorted(glob("*.json"))[-1]`，09-14 揀中一份沒有 `summary` 的 S223 內容重疊分析；`check_eval_latest()` 的 `.get("FAIL", 0)` 令缺欄位恆真 → PASS。修法是對齊同函式下半截 `EVAL_CHUNK_LAYER` 早已寫對的 `if "chunk_FAIL" in s`。
+  - **量度基準的可信度問題入帳**：生產實際模型不可由碼或 `/health` 得知（最後人手確認 2026-07-30，其後 S211 才分拆 `JUDGE_MODEL`），判官 prompt V3 驗收集是在 `gpt-4o-mini` 上量的。
+  - **起手探針 6/6 綠**：served `app.html` 3.3.8 · `/health` ok commit `e9d14be` · `git diff e9d14be..origin/main -- backend` 為空 · Supabase 17,004 · ZOMBIE 0 · 本機落後 1 個 commit（`discovery-bot` ledger）已 ff。
+- **QC:** `qc_report.py --self-test` **ALL PASS**（新增五條斷言）· **紅測兩次各自準確轉紅且不波及其他**（打回 `.get("FAIL", 0)` → 兩條絕對值斷言轉紅；打回不過濾 `sorted()[-1]` → 只有選檔那條轉紅；兩次後皆以 `shasum -a 256` 核實還原）· `route_regression` **46/46** · `check_registry_drift --self-test` ALL PASS · 重跑 `--check` 前後對照：`EVAL_LATEST` PASS → **FAIL**、PASS 13 → 12、ERROR 2 → 3、releaseGate 5/15 → **4/15**、`PASS_EVAL_LATEST` MET → NOT_MET，**其餘二十項檢查零變動**、`overallStatus` 兩邊都是 ERROR · PR #14 `build-gate` pass、`mergeable=CLEAN`。
+- **未做（不要當已做）**：185 題 gold 仍未重跑 · Recall@k 仍不可執行 · `regression:semantic`／`regression:grounded` 本節未跑 · 生產旗標與模型值仍無法由外部核實 · 七條前端未呼叫的端點是否死碼未查。
+- **Evidence disposition:** 盤點結論 indexed in PROJECT_INDEX（`dev/AUDIT.md` 有 Directory Map row ＋ DOC_SYNC 觸發條件）；假綠一項 absorbed into handoff（`## Risks / Blockers` 第 8 項）；紅測與前後對照數字 kept as recent trace evidence（本條）。未達 PROJECT_DECISIONS 促升門檻 —— 本次缺陷是既有規則（`DOC_SYNC_CHECKLIST.md` row 56「新檢查不得預設報 0」）沒被遵守，非規則缺失，故未新增治理規則。
+- **Sync:** `DOC_SYNC_CHECKLIST.md` row 56（品質檢查／封版閘改動）逐項 **confirmed**：`--self-test` 已跑、先證閘會紅已做、重跑 `--check` 並 commit `qc_report.json` 已做、`PROJECT_INDEX.md` Local QC Commands 三行 Last verified 已更新、`qc_report.yml` 無新增前置自檢故 **not_applicable**。新增 row（`backend/src` LLM／旗標／判官閘／護欄改動 → 覆核 `AUDIT.md`）**confirmed**。
+- **Pending:** Open Priorities ① 重跑 185 題 gold —— 現在多一個理由：`EVAL_LATEST` 那一格已經誠實地紅，要它轉綠只能靠重跑，不能靠再改 `qc_report.py`。
+- **Risks:** 本機仍有一條舊分支 `claude/hopeful-gates-0efe44`（1 個 commit 未入 main，v1.5.0 年代），**本節未動它**，待 Leonard 決定。`agent-handoff-kit` CLI 本機未安裝，故 `closeout-status` 語義閘**未能執行**，本次收工以人手逐項讀回代替（見下）。
+- **Log maintenance:** **no-op。** 本檔 9 條 → 加本條 10 條；未達 N≥11 或 1500 行（現 188 行）任一硬觸發。10 次 backstop：S217 做過全面維護，本節為其後第 8 次，未到界。
+- **Opening-message mirror:** regenerated and verified（逐字元比對通過；全文按設計不抄入本檔）。
+<!-- ack:log-entry:end -->
+
+---
+
+<!-- ack:log-entry:start -->
+
 ## 2026-09-14 Session 224 — 把那道閘設成必過的正常做法，會反過來擋死整個 repo；而封版閘紅了一日，紅的是一件沒有發生過的事
 
 - **ID:** `Claude_20260914_1313` — S224

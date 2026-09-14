@@ -6,53 +6,53 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S224, 2026-09-14）---
+--- 專案狀態（S225, 2026-09-14）---
 
 平台 v3.3.8；Supabase 17,004 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點 151 份
 （_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.3.66。
 FEATURE_ROUTE_FIRST_SEARCH=1 已在 Render 啟用（S220 起）。
 git：開工必先 fetch 再比對，不要信這裡記的 hash。
 
-🔴 最重要的一個改變：main 已經受保護，你不能直接 push。
-   ruleset「main build gate」(id 23311105) 生效中：Restrict deletions + Block force pushes
-   + Require a pull request (0 批准) + Required status check「build-gate」。
+🔴 main 受保護，不能直接 push（ruleset「main build gate」id 23311105）。
    一切改動走 PR：
      git checkout -b <topic>/<name> → git push -u origin HEAD
-     → gh pr create --base main --fill → gh pr merge --auto --squash
+     → gh pr create --base main --fill → gh pr merge --squash --delete-branch
    ⚠️ 分支若與 main 同一個 commit，gh pr create 會失敗並留下一條空分支（S224 中過兩次）
       —— 開分支前先確認真的有未推的 commit。
-   ⚠️ 合併用 squash，所以事後 git branch -d 會報「not fully merged」。要刪本機分支，
-      先用「分支 tip vs 它的 squash commit 樹比對 = 0 個檔案差異」核實，再用 -D。
+   ⚠️ 【S225 新增】每日 qc_report cron 會自己推 qc_report.json 落 main，所以分支開耐咗
+      就會撞衝突。qc_report.json 是生成檔：取 main 那一份，再用你改好的碼重跑
+      --check 重新生成，不要手動合併。
 
-🟢 S224 做完了甚麼（都不用重做）：
-   1. build-gate 由「偵測」變成「阻擋」。已實測：推空 commit 落 main 被拒。
-   2. Option A 入庫改為開 PR → auto-merge，不再直接推 main。self-test 13 → 28 條。
-   3. 四條 ledger 監察（discover/freshness/pgvector/qc_report）改經 write deploy key 推。
-   4. 修好 FREEZE_CONTRACT 那個假 BLOCKER（BLOCKER 1 → 0）。
+🟢 S225 做完了甚麼（都不用重做）：
+   1. AI agent 架構盤點完成，見 dev/AUDIT.md（239 行，已登記入 PROJECT_INDEX）。
+      結論：架構本身乾淨 —— 全系統停在層 0／層 1、零工具呼叫、反模式十二條在架構層面
+      一條都不中；「可簡化」那一類落差是空的。問題全在護欄與量度。
+   2. 修好封版閘 EVAL_LATEST 假綠（PR #14 → 40ae3cf）。該格由假 PASS 轉為誠實的 FAIL，
+      releaseGate 5/15 → 4/15。**這不是退步**：分母沒變，只是少了一項不真的達標。
 
-🔴 三條「不得再犯」，理由都寫在碼或文件裡，動手前先讀：
-   · backend_build_check.yml 不得加回 paths: 過濾。required status check 要求該 commit
-     報 success/skipped/neutral，而 paths: 過濾的 workflow 對不命中的 commit【甚麼都不報】，
-     該 check 會永遠 pending 並【永久擋死那次 push】。理由寫在該檔頭部。
-   · 個人帳戶 repo【不能】把內建 GitHub Actions 設為 ruleset bypass actor
-     （GitHub 422：Actor GitHub Actions integration must be part of the ruleset source
-     or owner organization）。這就是為甚麼要用 deploy key。
-   · 由 GITHUB_TOKEN 開的 PR，其 workflow run【require approval】，auto-merge 會卡死。
-     所以「把四條 ledger 改成開 PR」這條路行不通。
+🔴 三條「不得再犯」（S224 起，理由寫在碼或文件內，動手前先讀）：
+   · backend_build_check.yml 不得加回 paths: 過濾（會令 required check 永遠 pending）。
+   · 個人帳戶 repo 不能把內建 GitHub Actions 設為 ruleset bypass actor（GitHub 422）。
+   · 由 GITHUB_TOKEN 開的 PR，其 workflow run require approval，auto-merge 會卡死。
 
 ⚠️ 未解決（不要當已解決）：
-   · 185 題 gold 未重跑，而 S223 換了 SAG 整份語料卻【沒有做 eval before→after】
-     ——「沒有退步」目前只有抽樣支持，沒有量度支持。這是 Open Priorities ①。
-   · finance 路由拿不到《學校行政手冊》（第 6 章正是學校財務）。既有狀態、非 S223 造成。
-   · 封版閘【仍然不是綠】：BLOCKER 歸 0 了，但 overallStatus 仍是 ERROR
-     —— 兩個 ERROR、兩個 WARN 無 waiver、六項人手驗證從未記錄、EVAL_CHUNK_LAYER 未量度。
-   · 入庫 PR 路徑【未經一次真實入庫驗證】—— S224 當日 approval queue 是空的，
-     build-gate 只在文件與 backend commit 上驗過，未在 Option A 自己開的 PR 上驗過。
-   · 看門狗與 pgvector 監察仍未經歷一次真實排程觸發。
+   · 185 題 gold 未重跑 —— 這是 Open Priorities ①，而且現在多一個理由：
+     EVAL_LATEST 那一格只能靠重跑清走，改 qc_report.py 已經無用。
+   · 封版閘仍然不是綠：overallStatus ERROR、兩個 ERROR、兩個 WARN 無 waiver、
+     六項人手驗證從未記錄、EVAL_CHUNK_LAYER 未量度。
+   · 判官閘有兩條「不會行」的路徑：fail-open（API 失敗即照答，無標記無計數）
+     與 trustedVaultLead 常態繞過（分數 ≥0.70 的 vault lead 連判官都不叫）。
+     詳見 dev/AUDIT.md 乙③ —— 要改要先有 ① 的 before→after。
+   · 生產實際行甚麼模型、甚麼 flag，無法由碼或 /health 得知（最後人手確認 2026-07-30）。
+     AUDIT.md 建議次序第 2 項就是令 /health 報出來，它是其餘所有量度的前提。
+   · finance 路由拿不到《學校行政手冊》。既有狀態、非 S223 造成。
+   · 入庫 PR 路徑未經一次真實入庫驗證；看門狗與 pgvector 監察未經真實排程觸發
+     （discover 與 freshness 兩條已經歷過，S225 實測）。
 
 ⚠️ 不在 git 內的外部設定（換機或重裝要記得）：
    repo 開了 allow_auto_merge + delete_branch_on_merge；deploy key id=163258294；
    repo secret LEDGER_DEPLOY_KEY；ops repo edb-knowledge-ops 的 executor.yml 有 GH_TOKEN。
+   agent-handoff-kit CLI 本機未安裝，所以 doctor / closeout-status 跑不到，收工靠人手讀回。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.8 +
 Render /health + git fetch 後比對 HEAD/origin/main + Supabase live count 應為 17,004 +
