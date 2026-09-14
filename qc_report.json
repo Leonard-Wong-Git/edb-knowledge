@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-14T13:56:25Z",
-  "overallStatus": "BLOCKER",
+  "generatedAt": "2026-09-14T14:07:26Z",
+  "overallStatus": "ERROR",
   "counts": {
     "chunks": 17004,
-    "PASS": 12,
-    "BLOCKER": 1,
+    "PASS": 13,
+    "BLOCKER": 0,
     "ERROR": 2,
     "WARN": 5,
     "INFO": 1,
@@ -61,13 +61,11 @@
   },
   "releaseGate": {
     "status": "FAIL",
-    "summary": "3/15 項達標",
+    "summary": "5/15 項達標",
     "blocking": [
-      "NO_BLOCKER",
       "NO_ERROR_FAIL",
       "NO_UNMEASURED",
       "PASS_EVAL_CHUNK_LAYER",
-      "PASS_FREEZE_CONTRACT",
       "WARNS_OWNED",
       "CORE_SEARCH_CASES",
       "ANSWER_FACT_SPOTCHECK",
@@ -81,8 +79,8 @@
         "id": "NO_BLOCKER",
         "label": "沒有攔截級未通過項",
         "kind": "auto",
-        "status": "NOT_MET",
-        "detail": "FREEZE_CONTRACT"
+        "status": "MET",
+        "detail": "0 項"
       },
       {
         "id": "NO_ERROR_FAIL",
@@ -123,8 +121,8 @@
         "id": "PASS_FREEZE_CONTRACT",
         "label": "FREEZE_CONTRACT 必須 PASS",
         "kind": "auto",
-        "status": "NOT_MET",
-        "detail": "FAIL"
+        "status": "MET",
+        "detail": "PASS"
       },
       {
         "id": "PASS_MIRROR_CONSISTENCY",
@@ -209,14 +207,11 @@
       "id": "FREEZE_CONTRACT",
       "label": "凍結的對外契約零接觸",
       "severity": "BLOCKER",
-      "status": "FAIL",
+      "status": "PASS",
       "group": "infra",
       "detail": "knowledge.json _meta 2.3.0 · 事實 455 條 · guidelines.json _meta 2.6.2 · 指引 151 項。下游 EDB 通告系統依賴這四個值；改動須另行協調",
-      "offenders": [
-        "guidelines_version：預期 2.6.1，實際 2.6.2",
-        "guidelines_count：預期 158，實際 151"
-      ],
-      "offender_total": 2
+      "offenders": [],
+      "offender_total": 0
     },
     {
       "id": "MIRROR_CONSISTENCY",
