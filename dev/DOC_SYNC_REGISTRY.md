@@ -83,6 +83,22 @@ Recorded at closeout per the Registry Rule above. Newest first.
 - `backend/README.md` — ⚠ Skipped：本節未改 flag 行為；遺失的 5 行 flag 說明仍是 OP③，不在本節範圍
 - Playbook usage — ✅ 兩行已 append（`throttled-api-not-empty-data` applied、`inspect-live-infra-before-ddl` lookup）
 
+## S225 — 2026-09-14（AI agent 架構盤點 ／ 修好封版閘一項假綠）
+
+命中 DOC_SYNC_CHECKLIST **row 21**（New project doc added）與 **row 56**（品質檢查／封版閘改動）。row 56 的五項要求逐項對帳如下。
+
+- `dev/source/qc_report.py` — ✅ 改動本身（`is_gold_eval()` ＋ 選檔過濾 ＋ 判分守衛 ＋ 五條斷言）。**未動任何 `BASELINE` 值**，故 row 56 的「改基準值必同時改斷言」一項 `not_applicable`。
+- `qc_report.py --self-test` — ✅ `confirmed`，ALL PASS。**「先證閘會紅」已做**：兩次針對性注入，(a) 打回 `.get("FAIL", 0)` → 兩條絕對值斷言轉紅；(b) 打回不過濾 `sorted()[-1]` → 只有選檔那條轉紅；兩次後皆以 `shasum -a 256` 核實還原。
+- `qc_report.json` — ✅ `confirmed`，已重跑 `--check` 並 commit（row 56 明文要求：靜態頁不重生等於改了邏輯而公開面仍是舊數）。合併途中每日 cron 亦推過一次，以「取 main 版本再用修補版重新生成」解決，未手動合併生成檔。
+- `dev/source/check_registry_drift.py --self-test` — ✅ `confirmed`，ALL PASS。
+- `dev/PROJECT_INDEX.md` Local QC Commands `Last verified` — ✅ `confirmed`，三行更新為 2026-09-14（S225），並附本次實測結果摘要。⚠️ 更新過程中一度把原有結果摘要洗走，已補回並逐欄核實表格結構未損。
+- `.github/workflows/qc_report.yml` — `not_applicable`，本節無新增前置自檢。
+- `dev/AUDIT.md` — ✅ `confirmed`（row 21）。已登記入 `dev/PROJECT_INDEX.md` Directory Map，分類為**一次性凍結評估、非 current state**；並在 `dev/DOC_SYNC_CHECKLIST.md` 新增其更新觸發（`backend/src` 的 LLM 呼叫／旗標／判官閘／護欄改動即須覆核）。
+- `dev/SESSION_HANDOFF.md` — ✅ 已同步（`Current Baseline` 4；`Validation / QC` 新增 S225 段；`Risks` 第 8 項；`Open Priorities` ③ 與 Recommended next step；`User Environment` Git state；`Last Session Record` 轉 S225）。
+- `dev/SESSION_LOG.md` — ✅ 已同步（S225 條）。
+- `START_NEXT_SESSION_PROMPT.txt` — ✅ 由開場白區塊重生並逐字元讀回核實（fenced block 全檔唯一）。
+- 外部同步 — `not_applicable`：本節零 Supabase 寫入、零公開契約改動（`knowledge.json`／`guidelines.json`／`K1_API_SPEC.md` 一個字都沒動）、零 Render 設定改動。
+
 ## S224 — 2026-09-14（閘由偵測變阻擋 ／ 入庫改行 PR ／ 四條監察搬去 deploy key ／ 修好一個假 BLOCKER）
 
 命中 DOC_SYNC_CHECKLIST **row 29**（Option A 自動入庫管道改動）、**row 36**（Monitoring / CI workflow change，含「必須記錄新 CI secret 依賴」）、**row 55**（封版閘基準值改動）、以及**本節新增的凍結契約 row**。

@@ -175,9 +175,9 @@ Record this at closeout so the next AI can detect wrong-root or workspace drift.
 |---|---|---|
 | Expected project root | `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft`（唯一目標；頂層 umbrella 只重定向至此） | 2026-06-22 (S176) |
 | Git root | 同 project root（repo `Leonard-Wong-Git/edb-knowledge`；勿 set private） | 2026-06-22 (S176) |
-| Branch / commit | `main` @ **`6cbb49c`**；**`HEAD == origin/main`，分歧 0/0**，工作區乾淨（S220 收工前 `git fetch` 實測）。**生產部署 `9072af1`** —— 判斷線上是否落後看 `git diff --name-only <部署commit>..HEAD -- backend app.html` 是否為 0，不要比 hash。 |
+| Branch / commit | `main` @ **`40ae3cf`**（S225 squash-merge PR #14）；**`HEAD == origin/main`，分歧 0/0**，工作區乾淨。判斷線上 backend 有無落後要**比檔不比 hash**：`git diff --name-only <部署commit>..HEAD -- backend` 是否為 0。⚠️ 本機另有舊分支 `claude/hopeful-gates-0efe44`（1 個 commit 未入 main，v1.5.0 年代），S225 未動 | 2026-09-14（S225） |
 | Worktree or parallel workspace | 無 | 2026-06-22 (S176) |
-| Uncommitted change summary | 無。S220 的 8 個 commit（`7ddafc7` 起至 `6cbb49c`）全部已推；收工文件另成一 commit。**生產 flag 狀態：`FEATURE_ROUTE_FIRST_SEARCH=1` 已於 Render 環境變數啟用（2026-09-09），該處只有 Leonard 改得到。** |
+| Uncommitted change summary | 無。S225 改動已合入 `40ae3cf`；生成檔 `dev/source/registry_drift.md` 與 main 一致。**`FEATURE_ROUTE_FIRST_SEARCH=1` 已於 Render 環境變數啟用（2026-09-09），該處只有 Leonard 改得到。** | 2026-09-14（S225） |
 | 治理檔 git 狀態 | ⚠️ `dev/SESSION_HANDOFF.md`／`dev/SESSION_LOG.md`／`START_NEXT_SESSION_PROMPT.txt` 雖列於 `.gitignore` 但**實際已 tracked**（早於 ignore 規則 commit；git 唔會 untrack 已追蹤檔）→ 每次收工照常 commit（見 S173–S175 closeout commits） | 2026-06-22 (S176) |
 | Kit 檔案版本控制缺口 | ⚠️ **S216 實測**：`AGENTS.md`／`CLAUDE.md`／`GEMINI.md` 三檔在 `.gitignore` 且**從未 tracked**（`git check-ignore -q` + `git ls-files --error-unmatch` 雙向實測）→ 升級對它們的改寫**不在版本控制內**，唯一還原點是 `dev/governance_migrations/<timestamp>/backup/` | 2026-09-07 (S216) |
 | 平行安裝 | ⚠️ 專案根目錄 `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/` 另有一份 **v0.3.24** 的獨立 Agent Handoff Kit（6 月起停滯，非 git repo）。**它不是本 repo 的一部分**，S216 按 Leonard 選擇零接觸。兩份版本不同，易撞混。 | 2026-09-07 (S216) |
