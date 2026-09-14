@@ -1,0 +1,57 @@
+{
+  "measured_at": "2026-09-14",
+  "session": "S223",
+  "subject": "kgecg_2017 vs g29 — are they really 84.5% mutually covered?",
+  "verdict": "NO. S222's 15% figure is an artifact. Genuinely unique content is 0.91%.",
+  "why_s222_got_it_wrong": "S222 compared the two ids' LIVE CHUNK TEXTS. Those chunks came from different pipelines (g29 via repage_pdfs page-carry, kgecg_2017 via fetch_extract with no page markers) and different chunk boundaries, so '0 chunks textually identical' measures the pipelines, not the documents. This is the same trap S222 itself identified on the SAG side (the discarded 20.8% cross-extractor figure) — the control-group discipline was applied there but not here.",
+  "method": {
+    "extractor": "PyMuPDF for both (same extractor)",
+    "normalisation": "strip page markers, whitespace and all digits (page/section numbers are layout)",
+    "probe": "30-char sliding windows, stride 15, CJK-dense only",
+    "control": "each document against itself — 0 misses, method sound",
+    "decomposition": "each missing window split in half; halves found separately in the other document prove ordering, not absence"
+  },
+  "upstream": {
+    "g29": {
+      "file": "KGECG-TC-2017.pdf",
+      "pages": 108,
+      "chars": 58587,
+      "cjk": 39537,
+      "u_fffd": 0,
+      "chunks_under_canonical_chunker": 107
+    },
+    "kgecg_2017": {
+      "file": "TC_KGECG_2017.pdf",
+      "pages": 108,
+      "chars": 59132,
+      "cjk": 39856,
+      "u_fffd": 0,
+      "chunks_under_canonical_chunker": 108
+    }
+  },
+  "live_store": {
+    "g29": 107,
+    "kgecg_2017": 108
+  },
+  "window_scan": {
+    "kgecg_not_in_g29": {
+      "n": 383,
+      "of": 3282,
+      "pct": 11.7
+    },
+    "g29_not_in_kgecg": {
+      "n": 368,
+      "of": 3243,
+      "pct": 11.3
+    },
+    "symmetry_note": "near-identical in both directions — the signature of ordering noise, not of one document carrying extra content"
+  },
+  "decomposition_of_the_383": {
+    "both_halves_present_pure_ordering": 14,
+    "one_half_present_join_artifact": 339,
+    "neither_half_present_real": 30,
+    "genuinely_unique_share_of_document_pct": 0.91,
+    "nature_of_the_30": "table-of-contents and chapter-intro join text plus one residual page marker — layout artifacts, not policy content"
+  },
+  "consequence": "kgecg_2017's 108 chunks can be cleared; g29's 107 carry the guide. This reverses S222's withdrawal of the delete recommendation, on evidence S222 did not have."
+}

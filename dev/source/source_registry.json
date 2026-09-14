@@ -257,7 +257,7 @@
       "version_label": "2017",
       "last_checked_at": "2026-07-27",
       "supersedes": null,
-      "notes": "Seeded from existing guidelines.json public artifact. | S195: holds the ingested chunks for this guide; the duplicate registration kgecg_2017 is deprecated.",
+      "notes": "Seeded from existing guidelines.json public artifact. | S195: holds the ingested chunks for this guide; the duplicate registration kgecg_2017 is deprecated. | S223: kgecg_2017's 108 chunks were cleared after a controlled re-measurement showed the two renderings are the same document (0.91% genuinely unique, all layout). These 107 chunks are now the only copy of the 2017 KG curriculum guide in the store.",
       "freshness_metadata": {
         "last_modified": "Wed, 04 Oct 2017 06:58:21 GMT",
         "content_length": "12481467",
@@ -6031,7 +6031,7 @@
       "version_label": "2024-2026",
       "last_checked_at": "2026-07-27",
       "supersedes": null,
-      "notes": "S152 (2026-06-09): Discovery-crawl found (未登記新 EDB 文件). Ingested to Channel B (108 chunks, text-layer fetch_extract). In SOURCE_SETS. | S195 DEPRECATED as a duplicate registration: g29 registers the same 《幼稚園教育課程指引（2017）》 and carries all 107 chunks; this entry has 0 chunks in the store and was a dead reference in SOURCE_SETS.curriculum and .kg_admin. The two URLs are different renderings of the SAME document — both 108 pages, aligned at offset 0, and the pages that differ do so only through text-layer artefacts (e.g. a running header extracted twice; sampled page similarity 0.996), not content. Kept for traceability. Note for any future re-ingest: this file (TC_KGECG_2017.pdf) extracts marginally cleaner than g29's (KGECG-TC-2017.pdf).",
+      "notes": "S223 CLEARED: 108 chunks deleted; g29 carries this guide. S222 had withdrawn the delete on a measured 84.5% mutual coverage — that figure is an artifact: it compared two ids' LIVE CHUNKS, which came from different pipelines (g29 page-carried, this one fetch_extract with no page markers) and different chunk boundaries. Re-measured with ONE extractor and a control group (self-vs-self = 0 miss): both renderings are 108 pages, U+FFFD 0, 0.9% apart in characters; window misses are SYMMETRIC (11.7% / 11.3%) which is the signature of reading-order noise, and decomposing them shows 88.5% are half-present join artifacts. Genuinely unique content: 0.91%, all of it table-of-contents and chapter-intro join text. Evidence: dev/source/eval_runs/2026-09-14_s223_kgecg_g29_overlap.json. DO NOT re-ingest: the id still appears in checklists_bundle.json (47 items) purely as a title/url label — TC_KGECG_2017.pdf is still HTTP 200 and has the same pagination as g29's rendering, so those checklist links keep working without this id serving chunks.",
       "freshness_metadata": {
         "last_modified": "Fri, 09 Mar 2018 02:20:44 GMT",
         "content_length": "13203317",
