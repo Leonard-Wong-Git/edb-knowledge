@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-15T10:59:53Z",
+  "generatedAt": "2026-09-15T15:58:43Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17004,
@@ -189,7 +189,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=9fe1fbf · 啟動於 2026-09-15T10:59:44.969Z · Channel A 快取 0 條",
+      "detail": "ok=True · commit=1d92450 · 啟動於 2026-09-15T15:58:32.587Z · Channel A 快取 0 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -384,7 +384,7 @@
       "severity": "ERROR",
       "status": "FAIL",
       "group": "measurable",
-      "detail": "S213 Phase 1 gold-set run · PASS=121 FAIL=44 RECORD_ONLY=19 errors=1 · 共 185 條 query · 量度自 2026-09-15_s226_prod_gold.json · 生產端點；⚠️ 另有更新的非生產 run（2026-09-15_s226rerank_w010_before.json）未被採用",
+      "detail": "S213 Phase 1 gold-set run · PASS=121 FAIL=44 RECORD_ONLY=19 errors=1 · 共 185 條 query · 量度自 2026-09-15_s226_prod_gold.json · 生產端點；⚠️ 另有更新的非生產 run（2026-09-15_s226routefix_route_first_before.json）未被採用",
       "offenders": [],
       "offender_total": 0
     },
