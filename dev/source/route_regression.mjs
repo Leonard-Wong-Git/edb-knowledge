@@ -64,6 +64,10 @@ const CASES = [
   ["教師病假幾多日要交醫生紙",                    "hr_admin"],
   ["教師年假有幾多日",                            "hr_admin"],
   ["常額教席點樣聘任",                            "hr_admin"],
+  ["教師評核",                                    "hr_admin"],   // S226 修好（前為 curriculum —— 它認裸「評核」）
+  ["考績",                                        "hr_admin"],   // S226
+  ["教師表現管理",                                "hr_admin"],   // S226
+  ["中國語文課程及評估指引",                      "curriculum"], // S226 對照組：curriculum 的「評核／評估」未被搶走
   ["採購超過 5 萬元程序",                         "finance"],
   ["資助則例邊條講校董會經費",                    "school_governance"], // 校董會 先於 finance，設計如此
   ["SEN 統籌主任職責",                            "sen"],
