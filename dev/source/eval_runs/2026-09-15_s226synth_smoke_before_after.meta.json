@@ -1,0 +1,24 @@
+{
+ "label": "s226synth_smoke: before=shipped configuration vs after=FEATURE_LEXICAL_RERANK=1",
+ "knobs": {
+  "FEATURE_LEXICAL_RERANK": "1"
+ },
+ "synthesize": true,
+ "subset_ids": [
+  "cpd_conduct_registration",
+  "cpd_cpd_hours_150"
+ ],
+ "invariant": "every knob is off/unset on the before side and deleted between items; MAX_PER_SOURCE parser asserted at startup",
+ "measurement_key": "SUPABASE_ANON_KEY falls back to SERVICE key: 8s ceiling, NOT anon 3s",
+ "mode": "in-process searchChannelB, FEATURE_ROUTE_FIRST_SEARCH=1 on both sides",
+ "embedding_model": "text-embedding-3-small",
+ "gold_file": "../dev/_s213_gold_all.json",
+ "gold_count": 2,
+ "top_k": 8,
+ "started_at": "2026-09-15T11:02:57.326Z",
+ "finished_at": "2026-09-15T11:03:42.870Z",
+ "model_calls": 2,
+ "request_calls": 6,
+ "changed_windows": 2,
+ "status": "complete"
+}

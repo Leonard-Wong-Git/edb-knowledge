@@ -32,6 +32,8 @@
  */
 import fs from 'node:fs';
 import { searchChannelB, capFromEnv } from '../src/api/searchChannelB.js';
+import { createLlmClient } from '../src/lib/llmClient.js';
+import { getJudgeModel } from '../src/config/env.js';
 
 const SUPABASE_HOST = 'youkcekbrbywuqjxgibe.supabase.co';
 const OPENAI_HOST = 'api.openai.com';
@@ -72,6 +74,16 @@ const labelIdx = process.argv.indexOf('--label');
 const RUN_LABEL = labelIdx > -1 ? process.argv[labelIdx + 1] : 's226knob';
 const limitArg = process.argv.indexOf('--limit');
 const limit = limitArg > -1 ? Number(process.argv[limitArg + 1]) : undefined;
+const idsArg = process.argv.indexOf('--ids');
+const onlyIds = idsArg > -1
+  ? new Set(process.argv[idsArg + 1].split(',').map((x) => x.trim()).filter(Boolean))
+  : undefined;
+// --synthesize turns the answer path on. Off by default because every other knob
+// here is scored on retrieval alone and synthesis costs two LLM calls per side per
+// item; when it IS on, run a SUBSET: an item whose primary evidence is identical on
+// both sides feeds the synthesiser the same input, so any difference in its answer
+// is model nondeterminism, not the knob. Measuring those items buys noise.
+const SYNTHESIZE = process.argv.includes('--synthesize');
 
 const RUN_DATE = new Date().toISOString().slice(0, 10);
 const BASE = `../dev/source/eval_runs/${RUN_DATE}_${RUN_LABEL}_before_after`;
@@ -98,6 +110,12 @@ globalThis.fetch = async (input: any, init?: any) => {
   if (++requestCalls > REQUEST_BUDGET) throw new Error('Request budget exhausted');
   return nativeFetch(input, { ...(init ?? {}), signal: AbortSignal.timeout(30000) });
 };
+
+// Built exactly the way server.ts builds them — default model for synthesis, the
+// judge model for the judge — so this measures the deployed configuration rather
+// than a second wiring that happens to live in a script.
+const llm = SYNTHESIZE ? createLlmClient() : undefined;
+const judge = SYNTHESIZE ? createLlmClient({ model: getJudgeModel() }) : undefined;
 
 const cache = new Map<string, number[]>();
 async function embed(text: string): Promise<number[]> {
@@ -134,7 +152,11 @@ function pick(response: any) {
 }
 
 const gold = JSON.parse(fs.readFileSync(GOLD, 'utf8')) as any[];
-const items = limit ? gold.slice(0, limit) : gold;
+const selected = onlyIds ? gold.filter((g: any) => onlyIds.has(g.id)) : gold;
+if (onlyIds && selected.length !== onlyIds.size) {
+  throw new Error(`--ids named ${onlyIds.size} items but ${selected.length} matched the gold set`);
+}
+const items = limit ? selected.slice(0, limit) : selected;
 const out = fs.createWriteStream(OUT, { flags: 'w' });
 const startedAt = new Date().toISOString();
 let done = 0, errors = 0, changed = 0;
@@ -143,6 +165,8 @@ const writeMeta = (status: string, error?: string) =>
   fs.writeFileSync(META, JSON.stringify({
     label: `${RUN_LABEL}: before=shipped configuration vs after=${KNOBS.map(([k, v]) => `${k}=${v}`).join(' ')}`,
     knobs: Object.fromEntries(KNOBS),
+    synthesize: SYNTHESIZE,
+    ...(onlyIds ? { subset_ids: [...onlyIds] } : {}),
     invariant: 'every knob is off/unset on the before side and deleted between items; MAX_PER_SOURCE parser asserted at startup',
     measurement_key: 'SUPABASE_ANON_KEY falls back to SERVICE key: 8s ceiling, NOT anon 3s',
     mode: 'in-process searchChannelB, FEATURE_ROUTE_FIRST_SEARCH=1 on both sides',
@@ -160,7 +184,24 @@ try {
       else for (const [k] of KNOBS) delete process.env[k];
       const t0 = performance.now();
       try {
-        row[mode] = pick(await searchChannelB({ query: g.query, synthesize: false }, embed));
+        const resp = await searchChannelB(
+          { query: g.query, synthesize: SYNTHESIZE },
+          embed,
+          llm,
+          judge
+        );
+        row[mode] = pick(resp);
+        if (SYNTHESIZE) {
+          // `synthesis`, not `answer` — SearchChannelBResponse names it that, and the
+          // first attempt read a key that does not exist and recorded empty strings
+          // for two items that had in fact been synthesised. The LLM calls also do
+          // not pass through the fetch wrapper above (the OpenAI SDK brings its own
+          // `sdkFetch`), so the request budget does not cover them and an empty
+          // capture looks exactly like "synthesis never ran".
+          row[`${mode}_synthesis`] = (resp as any)?.synthesis ?? null;
+          row[`${mode}_reason`] = (resp as any)?.reason ?? null;
+          row[`${mode}_degraded`] = (resp as any)?.degraded ?? false;
+        }
       } catch (e) {
         row[mode] = { error: String(e) };
         errors++;

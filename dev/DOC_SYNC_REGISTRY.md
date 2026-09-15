@@ -124,6 +124,15 @@ Recorded at closeout per the Registry Rule above. Newest first.
 - `dev/_s226_fix_unmanaged_source.py` — ✅ 新增並登記；**未執行**（生產寫入被分類器擋，待 Leonard 跑）。
 - **生產旗標** — `not_applicable`：三個 knob 一律沒有在 Render 設值。出貨與否須另行決定；若出貨，`FEATURE_LEXICAL_RERANK` 須連同新的 before→after 與 waiver 紀錄一併處理。
 - **未同步（刻意）** — 新發現的路由缺陷（`評核` → curriculum）未修、未加入 `route_regression.mjs` 的已知缺口清單：它不在本輪授權範圍，且修它屬檢索改動、要另一對 before→after。已記入 HANDOFF 第六批與 Open Priorities。
+- **【第七批，`評核` 路由修正】** 命中 **row 44**（`TOPIC_KEYWORDS` 改動＝檢索改動，必須一對 before→after）。
+- `backend/src/api/searchChannelB.ts` — ✅ `hr_admin` 正則補 `教師評核|員工考績|考績|教師表現管理|表現管理`；**刻意不動 `curriculum` 的裸「評核」**（那是「課程及評估指引」詞彙的入口，拆掉會換一個方向的缺陷）。理由與實測寫在該處註釋。
+- `dev/source/route_regression.mjs` — ✅ 新增 4 條（3 條人事側 ＋ **1 條對照組**「中國語文課程及評估指引」→ curriculum）。46/46 → **50/50 PASS**。
+- **before→after 一對** — 見第七批量度；`before` 直接用同日的 `2026-09-15_s226_route_first_after.json`（同語料、同日、同旗標側），不必另跑一次 before。
+- **【第八批，合成側 A/B】** 命中 **row 41**（Synthesis 前置閘／判官閘相關改動 —— 「改呢類閘唔可以只靠 eval」）。本節沒有改任何閘的常數，但量度了一個**會改變窗口內容**的旗標對合成的影響，正是該 row 要求的那類證據。
+- `backend/scripts/_s226_knobAB.ts` — ✅ 新增 `--ids` 與 `--synthesize`；llm／judge client 依 `server.ts` 同一方式建立。**修過一個擷取錯誤**：回應的欄位是 `synthesis` 而非 `answer`，而 OpenAI SDK 用自己的 `sdkFetch`、不經請求計數器，所以「空答案＋請求數沒升」看起來像合成從未執行。陷阱已寫入碼內註釋。
+- `dev/source/eval_runs/2026-09-15_s226synth_*` — ✅ 38 題一對（含逐題 before/after 答案全文）。
+- **結論（寫入 HANDOFF 第七批）** — 🔴 **出貨建議已收回**：檢索指標 +6／+7，但答案層面混合，逐對讀出 2–3 條退化。**`FEATURE_LEXICAL_RERANK` 不應在 Render 啟用，直至有答案層面評分器。**
+- **row 41 未滿足的部分** — `blocked`：該 row 要求 `footnote_lead_probe.py` 一對 before→after 與（涉 vault 門檻時）`judge_probe.py`。本節**未跑這兩支** —— 但已從 A/B 原始檔算出 lead 換人 2 題、判官常態繞過翻轉 **0** 題（權重 0.05），作為影響半徑的下限證據。若要啟用旗標，這兩支仍須補跑。
 - `dev/SESSION_LOG.md` — `pending`：留待收工寫入（AGENTS.md §4 要求 log 條目在 closeout 寫）。
 - `START_NEXT_SESSION_PROMPT.txt` — `pending`：同上，收工由開場白區塊重生。
 - 外部同步 — `not_applicable`：零 Supabase 寫入、零 DDL、零公開契約改動（`knowledge.json`／`guidelines.json` 未動，`FREEZE_CONTRACT` 仍 PASS）、零 Render 設定改動、零 flag 改動。外部呼叫只有 `text-embedding-3-small` 283 次與 185 次唯讀生產搜尋。
