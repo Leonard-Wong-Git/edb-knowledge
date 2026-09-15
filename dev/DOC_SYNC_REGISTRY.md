@@ -109,6 +109,12 @@ Recorded at closeout per the Registry Rule above. Newest first.
 - `dev/source/check_registry_drift.py` — **未改**：它一直有傳該參數，數字一直是對的。兩邊分歧的成因在閘那邊。
 - `qc_report.json` — ✅ 第三次重跑 `--check` 並 commit：PASS 12 → 13、ERROR 4 → 3、`REGISTRY_SERIES` FAIL → PASS。
 - `dev/source/source_registry.json` — **未改**。`REGISTRY_UNMANAGED` 的修法是生產寫入（把 2 行 chunk 的 `source_id` 由 `stat_integrated` 改為 `stat_integrated_edu`），**未得 Leonard 明示批准，本節不做**；亦刻意不用「替 `stat_integrated` 另開一個 registry 條目」這條路，因為那等於為同一份文件登記兩次（正是 `g33`／`eng_sss_guide_2021` 那種重複登記缺陷）。
+- **【第五批，per-source 配額 A/B】** 命中 DOC_SYNC_CHECKLIST **row 44**（檢索改動必須有一對 before→after run 作證據）。**注意：本節沒有改任何檢索行為** —— 加的是一個未設即等於現行公式的量度旗標，所以 row 44 要求的 before→after 已附（`2026-09-15_s226cap8_{before,after}.json`），而生產行為零改動。
+- `backend/src/api/searchChannelB.ts` — ✅ 新增 `capFromEnv()`（exported，供 harness 斷言）＋ `MAX_PER_SOURCE` 覆寫。**未設即原公式**，harness 啟動時先斷言這一點才開始花費。`npx tsc --noEmit` exit 0。
+- `backend/scripts/_s226_capAB.ts` — ✅ 新增，已登記入 `dev/PROJECT_INDEX.md` Local QC Commands。與 `routeFirstGold.ts` 同一套安全性質（host allowlist、embedding 與 request 預算、逐題落盤）。
+- `dev/source/eval_runs/2026-09-15_s226cap8_*` — ✅ before／after 一對 ＋ 原始 jsonl ＋ meta。
+- `dev/PROJECT_INDEX.md` — ✅ 新增一行 Local QC Commands（配額 A/B）＋ `backend/` 那行補登 `MAX_PER_SOURCE` 旗標與「生產刻意不設」的理由。
+- **生產旗標** — `not_applicable`：**沒有在 Render 設任何值**，亦不建議設（實測一換一）。若將來要設，須連同新的 before→after 一併記錄。
 - `dev/SESSION_LOG.md` — `pending`：留待收工寫入（AGENTS.md §4 要求 log 條目在 closeout 寫）。
 - `START_NEXT_SESSION_PROMPT.txt` — `pending`：同上，收工由開場白區塊重生。
 - 外部同步 — `not_applicable`：零 Supabase 寫入、零 DDL、零公開契約改動（`knowledge.json`／`guidelines.json` 未動，`FREEZE_CONTRACT` 仍 PASS）、零 Render 設定改動、零 flag 改動。外部呼叫只有 `text-embedding-3-small` 283 次與 185 次唯讀生產搜尋。

@@ -870,6 +870,18 @@ const QUERY_EXPANSIONS: Record<string, string> = {
   cgss: "公民與社會發展科 課程及評估指引 一國兩制 下的香港 改革開放以來的國家 互聯相依的當代世界 內地考察 專題研習 香港特別行政區 國家安全 當代世界 公民身份",
 };
 
+/**
+ * S226 — read MAX_PER_SOURCE, or undefined when it is absent or not a positive
+ * integer. Exported so the measurement harness asserts the parse rather than
+ * trusting it: the whole value of this knob is that unset means "unchanged".
+ */
+export function capFromEnv(raw: string | undefined): number | undefined {
+  if (raw === undefined || raw.trim() === "") return undefined;
+  if (!/^\d+$/.test(raw.trim())) return undefined;
+  const n = Number(raw.trim());
+  return Number.isInteger(n) && n > 0 ? n : undefined;
+}
+
 function expandQuery(query: string, category: string): string {
   const expansion = QUERY_EXPANSIONS[category];
   return expansion ? `${query} ${expansion}` : query;
@@ -1466,8 +1478,25 @@ export async function searchChannelB(
   // dominant source like SAG (415 chunks) can't monopolize results and crowd
   // out smaller, more relevant guides like g04 (7 chunks) or g29 (132 chunks).
   // Disabled when narrowing to a single source (no diversity needed there).
+  //
+  // S226 — MAX_PER_SOURCE exists to MEASURE this cap, not to change it. Unset (the
+  // production state) reproduces the formula above exactly, so the default path is
+  // byte-identical; `capFromEnv` returns undefined for anything that is not a
+  // positive integer, because a typo silently widening the quota on the deployed
+  // service is worse than the typo being ignored.
+  //
+  // Why it was needed: the S226 chunk-layer diagnosis measured 16 of 61
+  // right-document-wrong-passage items where the answering chunk out-scored the
+  // 8th returned chunk while its source already held exactly 3 slots — in the top
+  // 8 by score, outside its own source's top 3, dropped by this cap. The quota is
+  // applied client-side in `wikiRepository.ts`, so there is no way to A/B it from
+  // outside the process, and re-implementing the post-filter chain in a probe
+  // would have been a port of ranking logic.
+  const capOverride = capFromEnv(process.env.MAX_PER_SOURCE);
   const maxPerSource =
-    sourceIds && sourceIds.length <= 1 ? undefined : Math.max(2, Math.ceil(top_k / 3));
+    sourceIds && sourceIds.length <= 1
+      ? undefined
+      : capOverride ?? Math.max(2, Math.ceil(top_k / 3));
 
   const embeddingQueryVec = await embedFn(embeddingQuery);
   const searchOpts = {
