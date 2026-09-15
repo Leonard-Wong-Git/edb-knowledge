@@ -36,7 +36,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _s213_run_gold import score_item  # noqa: E402
+from _s213_run_gold import score_item, summarize  # noqa: E402
 
 
 def route_state(calls: list[dict]) -> str:
@@ -104,6 +104,34 @@ def self_test() -> int:
     check("side 帶 error 時原樣保留，不當作 FAIL",
           verdict_of(build_row({"id": "x", "query": "q"}, {"error": "boom"},
                                gold_item)) == "ERROR")
+
+    # S226 — the chunk half of the summary. Added because EVAL_CHUNK_LAYER read
+    # NOT_MEASURED on every 185-item run: the gate keys on `chunk_FAIL` and no
+    # harness wrote it.
+    sample = [
+        {"id": "a", "verdict": "PASS", "chunk_verdict": "PASS"},
+        {"id": "b", "verdict": "FAIL", "chunk_verdict": "FAIL"},
+        {"id": "c", "verdict": "RECORD_ONLY", "chunk_verdict": "RECORD_ONLY"},
+        {"id": "d", "error": "boom"},
+    ]
+    s = summarize(sample)
+    check("summary 帶 qc_report 判分所需的 chunk_FAIL 鍵（缺它 = NOT_MEASURED）",
+          "chunk_FAIL" in s)
+    check("來源層四類守恆：PASS+FAIL+RECORD_ONLY+errors == queries",
+          s["PASS"] + s["FAIL"] + s["RECORD_ONLY"] + s["errors"] == s["queries"])
+    check("片段層四類守恆：chunk 三類 + errors == queries",
+          s["chunk_PASS"] + s["chunk_FAIL"] + s["chunk_RECORD_ONLY"]
+          + s["errors"] == s["queries"])
+    check("無斷言的題目只入 chunk_RECORD_ONLY，不得抬高 chunk_PASS 的分母",
+          s["chunk_RECORD_ONLY"] == 1 and s["chunk_PASS"] == 1
+          and s["chunk_FAIL"] == 1)
+    # 證明它會紅：把 chunk_verdict 由 FAIL 改成缺席，chunk_FAIL 必須跟着跌到 0，
+    # 即這條斷言真的綁住那個欄位，而不是恆真。
+    broken = [dict(r) for r in sample]
+    broken[1].pop("chunk_verdict")
+    check("斷言綁住實際欄位：移走一條 chunk_verdict=FAIL 後 chunk_FAIL 由 1 變 0",
+          summarize(broken)["chunk_FAIL"] == 0
+          and summarize(sample)["chunk_FAIL"] == 1)
     print(f"\n{'ALL PASS' if not fails else f'{len(fails)} FAILED'}")
     return 1 if fails else 0
 
@@ -150,12 +178,7 @@ def main() -> int:
             "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "gold_file": str(args.gold), "gold_count": len(rows[side]),
             "tie_aliases": [["g24", "sag_2025_11"]],
-            "summary": {
-                "queries": len(rows[side]),
-                "errors": sum(1 for r in rows[side] if r.get("error")),
-                "PASS": sum(1 for r in rows[side] if r.get("verdict") == "PASS"),
-                "FAIL": sum(1 for r in rows[side] if r.get("verdict") == "FAIL"),
-            },
+            "summary": summarize(rows[side]),
             "results": rows[side],
         }, ensure_ascii=False, indent=1), encoding="utf-8")
         written.append(out)

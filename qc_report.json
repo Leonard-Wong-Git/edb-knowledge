@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-14T20:51:57Z",
+  "generatedAt": "2026-09-15T07:53:24Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17004,
     "PASS": 12,
     "BLOCKER": 0,
-    "ERROR": 3,
+    "ERROR": 4,
     "WARN": 5,
     "INFO": 1,
-    "NOT_MEASURED": 1
+    "NOT_MEASURED": 0
   },
   "version": "v3.3.8",
   "corpus": {
@@ -61,10 +61,9 @@
   },
   "releaseGate": {
     "status": "FAIL",
-    "summary": "4/15 項達標",
+    "summary": "5/15 項達標",
     "blocking": [
       "NO_ERROR_FAIL",
-      "NO_UNMEASURED",
       "PASS_EVAL_LATEST",
       "PASS_EVAL_CHUNK_LAYER",
       "WARNS_OWNED",
@@ -88,14 +87,14 @@
         "label": "沒有錯誤級 FAIL",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "EVAL_LATEST、REGISTRY_SERIES、REGISTRY_UNMANAGED"
+        "detail": "EVAL_LATEST、EVAL_CHUNK_LAYER、REGISTRY_SERIES、REGISTRY_UNMANAGED"
       },
       {
         "id": "NO_UNMEASURED",
         "label": "沒有未量度項（或已明確列為 out-of-scope）",
         "kind": "auto",
-        "status": "NOT_MET",
-        "detail": "EVAL_CHUNK_LAYER"
+        "status": "MET",
+        "detail": "0 項"
       },
       {
         "id": "PASS_EVAL_LATEST",
@@ -109,7 +108,7 @@
         "label": "EVAL_CHUNK_LAYER 必須 PASS",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "NOT_MEASURED"
+        "detail": "FAIL"
       },
       {
         "id": "PASS_ROUTE_REGRESSION",
@@ -190,7 +189,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=e9d14be · 啟動於 2026-09-14T20:39:25.028Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=e9d14be · 啟動於 2026-09-15T07:20:43.911Z · Channel A 快取 455 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -385,7 +384,7 @@
       "severity": "ERROR",
       "status": "FAIL",
       "group": "measurable",
-      "detail": "S219 route-first before (in-process, FEATURE_ROUTE_FIRST_SEARCH=0) · PASS=122 FAIL=44 RECORD_ONLY=None errors=0 · 共 185 條 query · 量度自 2026-09-08_s220_route_first_before.json",
+      "detail": "S219 route-first before (in-process, FEATURE_ROUTE_FIRST_SEARCH=0) · PASS=119 FAIL=47 RECORD_ONLY=19 errors=0 · 共 185 條 query · 量度自 2026-09-15_s226_route_first_before.json",
       "offenders": [],
       "offender_total": 0
     },
@@ -393,9 +392,9 @@
       "id": "EVAL_CHUNK_LAYER",
       "label": "檢索評測的片段層斷言（S212 新增）",
       "severity": "ERROR",
-      "status": "NOT_MEASURED",
+      "status": "FAIL",
       "group": "measurable",
-      "detail": "最近一次 run 由 S212 之前的 harness 產生，未記錄片段身分",
+      "detail": "chunk PASS=54 FAIL=112 · 斷言用文字簽名而非 chunk id（id 是 text 的 md5，每次重切都會變）",
       "offenders": [],
       "offender_total": 0
     },

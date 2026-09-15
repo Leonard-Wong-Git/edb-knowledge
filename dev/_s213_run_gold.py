@@ -135,6 +135,39 @@ def self_test() -> int:
     return 1 if fails else 0
 
 
+def summarize(rows: list[dict]) -> dict:
+    """Source-layer AND chunk-layer counts for one run. Single-sourced here, next
+    to `score_item`, and imported by `_s219_score_before_after.py`.
+
+    WHY THE CHUNK HALF EXISTS (S226): `qc_report.check_eval_latest()` reports
+    EVAL_CHUNK_LAYER only when the run summary carries `chunk_FAIL`
+    (`if "chunk_FAIL" in s`). Neither 185-item harness wrote that key — this
+    file wrote four source-layer counts and the before/after scorer wrote the
+    same four — so the gate's chunk cell read NOT_MEASURED however many times
+    the gold set was re-run, while `score_item` had been returning
+    `chunk_verdict` per item all along. The data was there; the aggregation was
+    not.
+
+    Items asserting no passage signature score RECORD_ONLY at the chunk layer
+    and stay in their own bucket, never folded into PASS or FAIL: a denominator
+    that swallows queries asserting nothing reports a rate for something it did
+    not measure — the false-green shape S225 removed from the source layer.
+    """
+    def n(pred) -> int:
+        return sum(1 for r in rows if pred(r))
+
+    return {
+        "queries": len(rows),
+        "errors": n(lambda r: r.get("error")),
+        "PASS": n(lambda r: r.get("verdict") == "PASS"),
+        "FAIL": n(lambda r: r.get("verdict") == "FAIL"),
+        "RECORD_ONLY": n(lambda r: r.get("verdict") == "RECORD_ONLY"),
+        "chunk_PASS": n(lambda r: r.get("chunk_verdict") == "PASS"),
+        "chunk_FAIL": n(lambda r: r.get("chunk_verdict") == "FAIL"),
+        "chunk_RECORD_ONLY": n(lambda r: r.get("chunk_verdict") == "RECORD_ONLY"),
+    }
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--gold", type=Path, default=Path("dev/_s213_gold_all.json"))
@@ -199,9 +232,7 @@ def main() -> int:
         # keep resolving — removing it would turn historical expectations into failures
         # for a reason that has nothing to do with retrieval quality.
         "tie_aliases": [["g24", "sag_2025_11"]],
-        "summary": {"queries": len(gold), "errors": errors,
-                    "PASS": sum(1 for r in rows if r.get("verdict") == "PASS"),
-                    "FAIL": sum(1 for r in rows if r.get("verdict") == "FAIL")},
+        "summary": {**summarize(rows), "errors": errors},
         "results": rows,
     }
     args.out.parent.mkdir(parents=True, exist_ok=True)
