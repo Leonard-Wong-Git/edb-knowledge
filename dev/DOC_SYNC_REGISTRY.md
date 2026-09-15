@@ -83,6 +83,36 @@ Recorded at closeout per the Registry Rule above. Newest first.
 - `backend/README.md` — ⚠ Skipped：本節未改 flag 行為；遺失的 5 行 flag 說明仍是 OP③，不在本節範圍
 - Playbook usage — ✅ 兩行已 append（`throttled-api-not-empty-data` applied、`inspect-live-infra-before-ddl` lookup）
 
+## S226 — 2026-09-15（185 題 gold 重跑 ／ 片段層第一次量到 ／ 生產旗標行為核實）
+
+命中 DOC_SYNC_CHECKLIST **row 60**（檢索準確度量度改動 —— 改了 `_s213_run_gold.py` 的匯總定義）與 **row 56**（品質檢查／封版閘改動 —— 該匯總令 `EVAL_CHUNK_LAYER` 由 `NOT_MEASURED` 轉為有數）。**未命中 row 44**（檢索 eval harness 改動）：`eval_retrieval.py`／`eval_queries.json` 一個字都沒動，query set 與 `expect_any` 斷言零改動。**未命中任何檢索改動 row**：`SOURCE_SETS`／`TOPIC_KEYWORDS`／`QUERY_EXPANSIONS`／門檻／spotlight 全部未改，`backend/src` 零改動。
+
+- `dev/_s213_run_gold.py` — ✅ 改動本身（新增 `summarize()`，放在 `score_item` 旁邊作單一來源；本檔 run 的 `summary` 改為用它）。**未改任何判分規則**：`score_item`、NFKC fold、簽名比對逐字未動，故 row 60 的「改比對規則必同時改兩處」`not_applicable`。
+- `dev/_s219_score_before_after.py` — ✅ 改為 `from _s213_run_gold import score_item, summarize`，刪去本地重複定義（33 行），新增 5 條斷言。
+- `--self-test` 兩支 — ✅ `confirmed`，皆 ALL PASS（11 條／7 條）。**「先證它會紅」已做**：注入 `chunk_FAIL` 硬寫 0（即 S225 修掉的同族缺陷）→ 3 條轉紅；還原後 `shasum -a 256` 前後相同（`c1e3f57f…`）。
+- `dev/_s213_gold_all.json` 標籤 — **未改**，故 row 60 的「改標籤必重跑 `_s213_validate_gold.py`」`not_applicable`。⚠️ 但**另有一項 `blocked`**：gold 標籤自 S223 SAG 換版後從未重新核實，`_s213_validate_gold.py` 要語料快取而預設路徑指向已消失的 scratchpad；5 條以 `g24` 為預期或替代來源者（`cpd_mainland_promotion_tour` 的 `verified_by.chunk_id` 指向已刪語料）現時無法對活語料重驗。判分本身走 source_id 與段落簽名、不靠該 chunk id，故不影響本節數字，但標籤新鮮度算**未驗**。
+- `qc_report.json` — ✅ `confirmed`，已重跑 `--check` 並 commit（row 56 明文要求：靜態頁不重生等於改了邏輯而公開面仍是舊數）。逐行 diff 只有 12 加 13 減：`NOT_MEASURED` 1 → 0、`NO_UNMEASURED` NOT_MET → MET、`EVAL_CHUNK_LAYER` NOT_MEASURED → FAIL、releaseGate 4/15 → 5/15，其餘檢查零變動。
+- `dev/source/qc_report.py` — **未改**。row 56 的「改基準值必同時改斷言」`not_applicable`。⚠️ **一項已知缺陷刻意未修**：`latest_eval_run()` 的選檔永遠揀旗標關閉側（見 HANDOFF Risks 9、Open Priorities ③(e)），因為「哪一份 run 代表生產」屬 release policy，須 Leonard 拍板；三個選項已寫入該處。
+- `dev/PROJECT_INDEX.md` — ✅ `confirmed`。Local QC Commands 四行 `Last verified` 更新為 2026-09-15（S226）並附實測摘要；**新增一行**登記「生產 gold 實測」指令。更新後逐行核實表格分隔符數目未變（5 → 5，四行皆同），避免 S225 那個洗走原格內容的手法。
+- `dev/SESSION_HANDOFF.md` — ✅ 已同步（`Current Baseline` 5 與**新增第 7 項**檢索準確度基線；`Validation / QC` 新增 S226 段；`Risks` 2(c) 結案改寫 ＋ **新增第 9 項**；`Open Priorities` ①②③ 與 Recommended next step 重寫）。marker 數目前後皆 35，H2 數目前後皆 67。
+- **【第二批，Leonard 重建語料快取並拍板選項 A 之後】**
+- `dev/_s213_gold_all.json` — ✅ 改了**一條**標籤（`cpd_mainland_promotion_tour`：`verified_by.chunk_id` 重錨、`expected_page` 188 → 191、note 寫明理由；簽名與 `expected_source_any` 一字未改）。**row 60 要求的重跑已做**：`_s213_validate_gold.py` 由 183/185 變 **184/185**。並已實證重錨對判分零影響（重跑計分器後兩側 summary 逐項相同，唯一 diff 是時間戳，已還原）。
+- `hr_appraisal` — `blocked`（刻意）：錨點失效之外，**該題簽名講收生／學生表現評核的利益衝突，與 query「教師評核」的 intent 不符**，已開原文讀過兩個帶該段的片段。依 row 60「不通過即隔離，不可靜靜修好」維持隔離，等 Leonard 決定重寫 query 抑或換簽名。
+- `dev/_s213_corpus.py` — ✅ `DEFAULT_CACHE` 由某一節 scratchpad 的絕對路徑改為 repo 內 `dev/source/.store_cache.json`，`S213_STORE_CACHE` 仍可覆寫，重建指令寫在常數旁邊。**這是 gold 標籤兩節沒重驗的機械根因。**
+- `.gitignore` — ✅ 新增 `dev/source/.store_cache.json`（28MB 生成檔，等同語料副本，不得入 git）。已 `git check-ignore -v` 核實命中。
+- `dev/source/qc_report.py` — ✅ 選檔改為優先生產端點（Leonard 拍板 **選項 A**）：新增 `measures_production()` 與 `eval_source_kind()`，`latest_eval_run()` 改為分流並回報所選檔是否生產、以及有無更新的 run 未被採用。**未動任何 `BASELINE` 值**，故 row 56 該項 `not_applicable`。新增 **7** 條斷言，紅測（選檔打回 `runs[0]`）準確轉紅，還原後 `shasum -a 256` 相同。
+- `qc_report.json` — ✅ 已再重跑 `--check` 並 commit。`EVAL_LATEST` 現量度自 `2026-09-15_s226_prod_gold.json`（生產）：PASS 121／FAIL 44／errors 1；`EVAL_CHUNK_LAYER` 由 54/112 變 58/107。**閘計分零變動**（5/15、ERROR 4、`NOT_MEASURED` 0、overall ERROR）。
+- `dev/PROJECT_INDEX.md` — ✅ 再更新四行 `Last verified`（`--check`、標籤重驗、準確度量度、工具自檢），逐行核實分隔符數目仍為 5。
+- 六支工具自測 — ✅ `confirmed`，全部 ALL PASS。本節共新增 **12** 條斷言、做過 **2** 次紅測。
+- **【第三批，③(b) 兩個 registry ERROR】** 命中 row 56。
+- `dev/source/qc_report.py` — ✅ `check_registry_drift()` 補傳第七個參數 `monitorable_parents(sources)`。**未動 `BASELINE`**，該項 `not_applicable`。新增 **2** 條斷言（盯呼叫點 ＋ 確認該集合非空），紅測（再次漏傳）準確轉紅，還原後 `shasum -a 256` 相同。
+- `dev/source/check_registry_drift.py` — **未改**：它一直有傳該參數，數字一直是對的。兩邊分歧的成因在閘那邊。
+- `qc_report.json` — ✅ 第三次重跑 `--check` 並 commit：PASS 12 → 13、ERROR 4 → 3、`REGISTRY_SERIES` FAIL → PASS。
+- `dev/source/source_registry.json` — **未改**。`REGISTRY_UNMANAGED` 的修法是生產寫入（把 2 行 chunk 的 `source_id` 由 `stat_integrated` 改為 `stat_integrated_edu`），**未得 Leonard 明示批准，本節不做**；亦刻意不用「替 `stat_integrated` 另開一個 registry 條目」這條路，因為那等於為同一份文件登記兩次（正是 `g33`／`eng_sss_guide_2021` 那種重複登記缺陷）。
+- `dev/SESSION_LOG.md` — `pending`：留待收工寫入（AGENTS.md §4 要求 log 條目在 closeout 寫）。
+- `START_NEXT_SESSION_PROMPT.txt` — `pending`：同上，收工由開場白區塊重生。
+- 外部同步 — `not_applicable`：零 Supabase 寫入、零 DDL、零公開契約改動（`knowledge.json`／`guidelines.json` 未動，`FREEZE_CONTRACT` 仍 PASS）、零 Render 設定改動、零 flag 改動。外部呼叫只有 `text-embedding-3-small` 283 次與 185 次唯讀生產搜尋。
+
 ## S225 — 2026-09-14（AI agent 架構盤點 ／ 修好封版閘一項假綠）
 
 命中 DOC_SYNC_CHECKLIST **row 21**（New project doc added）與 **row 56**（品質檢查／封版閘改動）。row 56 的五項要求逐項對帳如下。

@@ -81,3 +81,7 @@ dev/source/coverage_runs/
 # S209 — source PDFs cached by dev/_s209_build_g28.py. 11MB of files that are one
 # HEAD away on edb.gov.hk; the extract they produce is what the repo needs to keep.
 dev/vault/*/_pdf/
+
+# S226 — generated corpus snapshot for the gold/metrics tools (28MB, rebuildable
+# with dev/_s213_recon.py --cache). Never commit: it is a copy of the store.
+dev/source/.store_cache.json

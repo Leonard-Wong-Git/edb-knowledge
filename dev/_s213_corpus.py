@@ -31,11 +31,17 @@ import unicodedata
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+# S226 — the default used to be an absolute path inside one session's scratchpad
+# directory. That directory is deleted when the session ends, so every tool that
+# depends on this cache (`_s213_eval_metrics.py`, `_s213_validate_gold.py`) was
+# guaranteed to break in the next session, and did: S226 found the gold labels
+# had not been re-validated since the S223 corpus swap partly because the
+# validator could not run at all. The default now lives in the repo, is
+# gitignored (28MB of generated rows), and `S213_STORE_CACHE` still overrides.
+# Rebuild: set -a && . backend/.env && set +a &&
+#          python3 dev/_s213_recon.py --cache dev/source/.store_cache.json
 DEFAULT_CACHE = Path(os.environ.get(
-    "S213_STORE_CACHE",
-    "/private/tmp/claude-501/-Users-leonard-Downloads-Claude-Project-"
-    "Claude-edb-knowledge/dd80ac3a-1ae0-4b24-8758-1a3f23ce6d2a/scratchpad/"
-    "store_s213.json"))
+    "S213_STORE_CACHE", str(REPO_ROOT / "dev" / "source" / ".store_cache.json")))
 
 
 def squeeze(s: str) -> str:

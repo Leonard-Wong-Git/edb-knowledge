@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-14T20:51:57Z",
+  "generatedAt": "2026-09-15T08:47:38Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17004,
-    "PASS": 12,
+    "PASS": 13,
     "BLOCKER": 0,
     "ERROR": 3,
     "WARN": 5,
     "INFO": 1,
-    "NOT_MEASURED": 1
+    "NOT_MEASURED": 0
   },
   "version": "v3.3.8",
   "corpus": {
@@ -61,10 +61,9 @@
   },
   "releaseGate": {
     "status": "FAIL",
-    "summary": "4/15 項達標",
+    "summary": "5/15 項達標",
     "blocking": [
       "NO_ERROR_FAIL",
-      "NO_UNMEASURED",
       "PASS_EVAL_LATEST",
       "PASS_EVAL_CHUNK_LAYER",
       "WARNS_OWNED",
@@ -88,14 +87,14 @@
         "label": "沒有錯誤級 FAIL",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "EVAL_LATEST、REGISTRY_SERIES、REGISTRY_UNMANAGED"
+        "detail": "EVAL_LATEST、EVAL_CHUNK_LAYER、REGISTRY_UNMANAGED"
       },
       {
         "id": "NO_UNMEASURED",
         "label": "沒有未量度項（或已明確列為 out-of-scope）",
         "kind": "auto",
-        "status": "NOT_MET",
-        "detail": "EVAL_CHUNK_LAYER"
+        "status": "MET",
+        "detail": "0 項"
       },
       {
         "id": "PASS_EVAL_LATEST",
@@ -109,7 +108,7 @@
         "label": "EVAL_CHUNK_LAYER 必須 PASS",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "NOT_MEASURED"
+        "detail": "FAIL"
       },
       {
         "id": "PASS_ROUTE_REGRESSION",
@@ -190,7 +189,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=e9d14be · 啟動於 2026-09-14T20:39:25.028Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=e9d14be · 啟動於 2026-09-15T08:47:23.310Z · Channel A 快取 455 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -385,7 +384,7 @@
       "severity": "ERROR",
       "status": "FAIL",
       "group": "measurable",
-      "detail": "S219 route-first before (in-process, FEATURE_ROUTE_FIRST_SEARCH=0) · PASS=122 FAIL=44 RECORD_ONLY=None errors=0 · 共 185 條 query · 量度自 2026-09-08_s220_route_first_before.json",
+      "detail": "S213 Phase 1 gold-set run · PASS=121 FAIL=44 RECORD_ONLY=19 errors=1 · 共 185 條 query · 量度自 2026-09-15_s226_prod_gold.json · 生產端點；⚠️ 另有更新的非生產 run（2026-09-15_s226_route_first_before.json）未被採用",
       "offenders": [],
       "offender_total": 0
     },
@@ -393,9 +392,9 @@
       "id": "EVAL_CHUNK_LAYER",
       "label": "檢索評測的片段層斷言（S212 新增）",
       "severity": "ERROR",
-      "status": "NOT_MEASURED",
+      "status": "FAIL",
       "group": "measurable",
-      "detail": "最近一次 run 由 S212 之前的 harness 產生，未記錄片段身分",
+      "detail": "chunk PASS=58 FAIL=107 · 斷言用文字簽名而非 chunk id（id 是 text 的 md5，每次重切都會變）",
       "offenders": [],
       "offender_total": 0
     },
@@ -423,13 +422,11 @@
       "id": "REGISTRY_SERIES",
       "label": "登記為年度系列，但三個 registry 監察都讀不到它的分年檔",
       "severity": "ERROR",
-      "status": "FAIL",
+      "status": "PASS",
       "group": "pointing",
-      "detail": "1 個來源 / 0 條片段 · registry 用 url_primary_pattern + years_extracted 描述整個年度系列，但 check_freshness / check_expiry / check_source_titles 三者只讀 url_primary，全部不展開年份 —— 所以 13 個分年檔（528 條片段，13 條 URL 實測全部回 HTTP 200）不受任何 registry 監察。缺陷在監察，不在登記",
-      "offenders": [
-        "stat_enrolment_report（0 條）學生人數統計報告書（年度系列）"
-      ],
-      "offender_total": 1
+      "detail": "0 個來源 / 0 條片段 · registry 用 url_primary_pattern + years_extracted 描述整個年度系列，但 check_freshness / check_expiry / check_source_titles 三者只讀 url_primary，全部不展開年份 —— 所以 13 個分年檔（528 條片段，13 條 URL 實測全部回 HTTP 200）不受任何 registry 監察。缺陷在監察，不在登記",
+      "offenders": [],
+      "offender_total": 0
     },
     {
       "id": "REGISTRY_UNMANAGED",

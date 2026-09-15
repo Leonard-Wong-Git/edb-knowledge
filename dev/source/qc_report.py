@@ -417,6 +417,16 @@ def check_table_rows(chunks: list[dict]) -> dict:
         "PASS" if ok else "FAIL", detail, multi, len(multi))
 
 
+def eval_source_kind(run: dict) -> str:
+    """One clause saying whether the reported numbers are served or lab numbers."""
+    if not run.get("_measures_production", measures_production(run)):
+        return "⚠️ 本機 in-process，非生產端點（生產可能另有旗標與逾時上限）"
+    stale = run.get("_newer_run_available")
+    if stale:
+        return f"生產端點；⚠️ 另有更新的非生產 run（{stale}）未被採用"
+    return "生產端點"
+
+
 def check_eval_latest(run: dict | None) -> list[dict]:
     # S225 — absent data must read as NOT_MEASURED, never as a pass. The chunk
     # layer below already did this (`if "chunk_FAIL" in s`); the source layer
@@ -435,7 +445,8 @@ def check_eval_latest(run: dict | None) -> list[dict]:
         "PASS" if fail == 0 and err == 0 else "FAIL",
         f"{run.get('label')} · PASS={s.get('PASS')} FAIL={fail} "
         f"RECORD_ONLY={s.get('RECORD_ONLY')} errors={err} · 共 {s.get('queries')} 條 query"
-        f" · 量度自 {run.get('_source_file', '（來源檔未記錄）')}")]
+        f" · 量度自 {run.get('_source_file', '（來源檔未記錄）')}"
+        f" · {eval_source_kind(run)}")]
     if "chunk_FAIL" in s:
         cf = s.get("chunk_FAIL", 0)
         out.append(mk_check(
@@ -516,8 +527,17 @@ def check_registry_drift(chunks: list[dict]) -> list[dict]:
     live, dead = drift_mod.registry_ids(sources)
     listed = {g["id"] for g in drift_mod.parse_guidelines_registry(
         (REPO_ROOT / "app.html").read_text(encoding="utf-8", errors="replace"))}
+    # S226 — the seventh argument was missing here, and its default is an empty
+    # set, so EVERY serving series parent came back as SERIES_UNMONITORED and
+    # the gate carried a standing ERROR for a defect S216/S222 had already
+    # fixed. `check_registry_drift.py --check` passed it and reported 0 while
+    # this wrapper reported 1 on the same corpus; the disagreement was the bug,
+    # not a difference of definition. Verified before changing: the parent's 13
+    # years expand to 13 distinct http URLs and all 13 shard ids serve chunks
+    # (528 in total), so the monitors do reach them.
     d = drift_mod.classify(dict(serving), kinds, live, dead, listed,
-                           drift_mod.series_parents(sources))
+                           drift_mod.series_parents(sources),
+                           drift_mod.monitorable_parents(sources))
 
     titles = {}
     for c in chunks:
@@ -703,21 +723,56 @@ def is_gold_eval(run: object) -> bool:
     return isinstance(s, dict) and all(k in s for k in EVAL_GOLD_KEYS)
 
 
+def measures_production(run: dict) -> bool:
+    """True when the run was scored against the deployed service, not in-process.
+
+    `endpoint` already separates the two harnesses: `_s213_run_gold.py` records
+    the URL it queried, `_s219_score_before_after.py` records the literal
+    "in-process searchChannelB". A localhost URL is a local server, not
+    production, so the host has to be remote as well.
+    """
+    ep = str(run.get("endpoint") or "")
+    if not ep.startswith(("http://", "https://")):
+        return False
+    return not any(h in ep for h in ("localhost", "127.0.0.1", "0.0.0.0", "[::1]"))
+
+
 def latest_eval_run() -> dict | None:
-    """Newest file in eval_runs/ that is actually a retrieval-gold run.
+    """Newest gold run, preferring one measured against the deployed service.
 
     Newest by filename, which is the directory's dated naming convention; files
     that are not gold runs are skipped rather than silently reported on.
+
+    S226 — preferring production is the whole point of this function, and the
+    plain newest-first rule got it backwards. A flag gate writes its two sides
+    as `<date>_<label>_..._before.json` and `..._after.json`, and under
+    `reverse=True` "before" sorts AFTER "after", so the gate reported the
+    flag-OFF lab side: a configuration production does not run. It said so in
+    its own detail line for six days (`FEATURE_ROUTE_FIRST_SEARCH=0`) and
+    nothing keyed on the difference.
+
+    An in-process run is still reported when no production run exists — but
+    flagged, because a lab number and a served number are not the same claim.
+    Both the chosen run and the newest of any kind are returned so the caller
+    can say when the production figure is the older of the two.
     """
+    runs: list[tuple[str, dict]] = []
     for path in sorted(EVAL_RUNS.glob("*.json"), reverse=True):
         try:
             run = json.loads(path.read_text(encoding="utf-8"))
         except (json.JSONDecodeError, OSError):
             continue
         if is_gold_eval(run):
-            run["_source_file"] = path.name
-            return run
-    return None
+            runs.append((path.name, run))
+    if not runs:
+        return None
+    prod = [(n, r) for n, r in runs if measures_production(r)]
+    name, chosen = (prod or runs)[0]
+    chosen["_source_file"] = name
+    chosen["_measures_production"] = bool(prod)
+    # Only meaningful when a production run was chosen over a newer lab run.
+    chosen["_newer_run_available"] = runs[0][0] if (prod and runs[0][0] != name) else None
+    return chosen
 
 
 def route_regression() -> dict:
@@ -1051,6 +1106,90 @@ def self_test() -> int:
     picked = latest_eval_run()
     check("the live selector returns a gold run or nothing — never an analysis file",
           picked is None or is_gold_eval(picked))
+
+    # ---- S226: the gate must ASK whether a series is monitorable -----------
+    # Dropping the argument does not fail loudly; it silently reclassifies every
+    # year-series parent as unmonitored, which is how an ERROR outlived its
+    # defect. This asserts the call site, because there is nothing in the
+    # returned numbers that distinguishes "no series" from "argument omitted".
+    import check_registry_drift as _drift
+    _reg = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    _srcs = _reg["sources"] if isinstance(_reg, dict) and "sources" in _reg else _reg
+    _real, _seen = _drift.classify, {}
+
+    def _spy(*a, **kw):
+        _seen["args"], _seen["kw"] = a, kw
+        return _real(*a, **kw)
+
+    _drift.classify = _spy
+    try:
+        check_registry_drift([{"source_id": "probe", "content_type": "vault_extract",
+                               "title": "probe"}])
+    finally:
+        _drift.classify = _real
+    _passed = (_seen.get("args", ()) + (_seen.get("kw", {}).get("series_monitored"),))
+    check("閘把「哪些年度系列已受監察」傳落 classify（漏傳 = 每個系列都被誤報為未受監察）",
+          len(_seen.get("args", ())) >= 7
+          and _passed[6] == _drift.monitorable_parents(_srcs))
+    check("而那個集合非空 —— 否則斷言只是在比較兩個空集",
+          bool(_drift.monitorable_parents(_srcs)))
+
+    # ---- S226: the gate must report the SERVED configuration ---------------
+    # Six days of detail lines said FEATURE_ROUTE_FIRST_SEARCH=0 while
+    # production ran it on: `..._before.json` sorts after `..._after.json`
+    # under reverse(), so newest-first picked the lab's flag-OFF side.
+    gold_summary = {"PASS": 121, "FAIL": 44, "errors": 0, "queries": 185}
+    prod_run = {"label": "prod", "endpoint": "https://edb-knowledge.onrender.com/api/search/channel-b",
+                "summary": gold_summary}
+    lab_run = {"label": "lab", "endpoint": "in-process searchChannelB",
+               "summary": gold_summary}
+    local_run = {"label": "local server", "endpoint": "http://127.0.0.1:8787/api/search/channel-b",
+                 "summary": gold_summary}
+    check("生產端點的 run 認得出，in-process 的認不出",
+          measures_production(prod_run) and not measures_production(lab_run))
+    check("localhost 是本機伺服器，不是生產",
+          not measures_production(local_run))
+    check("detail 分得出生產與實驗室：實驗室那句必須帶警告",
+          eval_source_kind(prod_run) == "生產端點"
+          and "非生產端點" in eval_source_kind(lab_run))
+    check("採用了較舊的生產 run 時，detail 要說出有更新的 run 未被採用",
+          "未被採用" in eval_source_kind(
+              dict(prod_run, _measures_production=True,
+                   _newer_run_available="2026-09-15_lab_after.json")))
+    check("只有實驗室 run 時仍然報數，但標明非生產（不得靜靜當成生產）",
+          check_eval_latest(dict(lab_run, _source_file="x.json",
+                                 _measures_production=False))[0]["status"] == "FAIL"
+          and "非生產端點" in check_eval_latest(
+              dict(lab_run, _source_file="x.json",
+                   _measures_production=False))[0]["detail"])
+    # 證它會紅：用一個臨時目錄擺兩份同日 run，before/after 命名，加一份生產 run，
+    # 看選檔揀不揀生產那一份 —— 打回 sorted()[0] 就會揀 `before`。
+    import tempfile
+    global EVAL_RUNS
+    _saved = EVAL_RUNS
+    try:
+        with tempfile.TemporaryDirectory() as td:
+            d = Path(td)
+            (d / "2026-09-15_x_route_first_before.json").write_text(
+                json.dumps(dict(lab_run, label="lab before")), encoding="utf-8")
+            (d / "2026-09-15_x_route_first_after.json").write_text(
+                json.dumps(dict(lab_run, label="lab after")), encoding="utf-8")
+            (d / "2026-09-15_x_prod_gold.json").write_text(
+                json.dumps(prod_run), encoding="utf-8")
+            EVAL_RUNS = d
+            got = latest_eval_run()
+            check("同日三份 run 之中，選檔揀生產那一份（不是排序最後的 before）",
+                  got is not None and got["label"] == "prod"
+                  and got["_source_file"] == "2026-09-15_x_prod_gold.json"
+                  and got["_measures_production"] is True
+                  and got["_newer_run_available"] == "2026-09-15_x_route_first_before.json")
+            (d / "2026-09-15_x_prod_gold.json").unlink()
+            got2 = latest_eval_run()
+            check("生產 run 不存在時退回最新的實驗室 run，並標記為非生產",
+                  got2 is not None and got2["_measures_production"] is False
+                  and got2["_source_file"] == "2026-09-15_x_route_first_before.json")
+    finally:
+        EVAL_RUNS = _saved
 
     # ---- release gate ----------------------------------------------------
     def ck(cid, sev, st):
