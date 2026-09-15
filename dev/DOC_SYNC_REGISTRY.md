@@ -133,7 +133,12 @@ Recorded at closeout per the Registry Rule above. Newest first.
 - `dev/source/eval_runs/2026-09-15_s226synth_*` — ✅ 38 題一對（含逐題 before/after 答案全文）。
 - **結論（寫入 HANDOFF 第七批）** — 🔴 **出貨建議已收回**：檢索指標 +6／+7，但答案層面混合，逐對讀出 2–3 條退化。**`FEATURE_LEXICAL_RERANK` 不應在 Render 啟用，直至有答案層面評分器。**
 - **row 41 未滿足的部分** — `blocked`：該 row 要求 `footnote_lead_probe.py` 一對 before→after 與（涉 vault 門檻時）`judge_probe.py`。本節**未跑這兩支** —— 但已從 A/B 原始檔算出 lead 換人 2 題、判官常態繞過翻轉 **0** 題（權重 0.05），作為影響半徑的下限證據。若要啟用旗標，這兩支仍須補跑。
-- `dev/SESSION_LOG.md` — `pending`：留待收工寫入（AGENTS.md §4 要求 log 條目在 closeout 寫）。
+- `dev/SESSION_LOG.md` — ✅ `confirmed`，S226 條已寫入（含四條 Fix Record、consolidation、log maintenance no-op 理由、evidence disposition、prompt mirror 結果、boundary）。
+- `START_NEXT_SESSION_PROMPT.txt` — ✅ `confirmed`，由交接檔唯一 fenced `text` 區塊重生並讀回**逐位元組相等**（78 行，sha256 `7a92bd31…`）。
+- `dev/PROJECT_INDEX.md` workspace-health 行 — ✅ `confirmed`，更正「CLI 本機未安裝」的長期記載（S226 經 `npx` 實測可跑）。
+- **機器閘** — ✅ `confirmed`：`closeout-status` 第一次報 `blocked` 並指出 lifecycle 配對，依其指示重生 Open Priorities 後重跑。**這是本節唯一由機器閘捉到的錯。**
+- `dev/CODEBASE_CONTEXT.md` — `not_applicable`：技術棧、目錄、build 指令、External Services、Key Decisions 本節皆未變（新增的是量度 knob 與腳本，已登記入 `PROJECT_INDEX.md`）。
+- **Playbook 提案** — `pending`：本節有兩項可轉移經驗值得交（「重排不可用候選集做 DF 語料」「檢索指標與答案質素之間還有一層」），但依該庫規則只在經驗夠穩定時才交；重排未出貨，故留待下節決定出貨與否再交。
 - `START_NEXT_SESSION_PROMPT.txt` — `pending`：同上，收工由開場白區塊重生。
 - 外部同步 — `not_applicable`：零 Supabase 寫入、零 DDL、零公開契約改動（`knowledge.json`／`guidelines.json` 未動，`FREEZE_CONTRACT` 仍 PASS）、零 Render 設定改動、零 flag 改動。外部呼叫只有 `text-embedding-3-small` 283 次與 185 次唯讀生產搜尋。
 
