@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-15T08:47:38Z",
+  "generatedAt": "2026-09-15T10:59:53Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17004,
-    "PASS": 13,
+    "PASS": 14,
     "BLOCKER": 0,
-    "ERROR": 3,
+    "ERROR": 2,
     "WARN": 5,
     "INFO": 1,
     "NOT_MEASURED": 0
@@ -13,7 +13,7 @@
   "version": "v3.3.8",
   "corpus": {
     "chunks": 17004,
-    "sources_serving": 307,
+    "sources_serving": 306,
     "sources_registered": 284,
     "guidelines_listed": 170,
     "distinct_urls": 321,
@@ -87,7 +87,7 @@
         "label": "沒有錯誤級 FAIL",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "EVAL_LATEST、EVAL_CHUNK_LAYER、REGISTRY_UNMANAGED"
+        "detail": "EVAL_LATEST、EVAL_CHUNK_LAYER"
       },
       {
         "id": "NO_UNMEASURED",
@@ -189,7 +189,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=e9d14be · 啟動於 2026-09-15T08:47:23.310Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=9fe1fbf · 啟動於 2026-09-15T10:59:44.969Z · Channel A 快取 0 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -384,7 +384,7 @@
       "severity": "ERROR",
       "status": "FAIL",
       "group": "measurable",
-      "detail": "S213 Phase 1 gold-set run · PASS=121 FAIL=44 RECORD_ONLY=19 errors=1 · 共 185 條 query · 量度自 2026-09-15_s226_prod_gold.json · 生產端點；⚠️ 另有更新的非生產 run（2026-09-15_s226_route_first_before.json）未被採用",
+      "detail": "S213 Phase 1 gold-set run · PASS=121 FAIL=44 RECORD_ONLY=19 errors=1 · 共 185 條 query · 量度自 2026-09-15_s226_prod_gold.json · 生產端點；⚠️ 另有更新的非生產 run（2026-09-15_s226rerank_w010_before.json）未被採用",
       "offenders": [],
       "offender_total": 0
     },
@@ -432,13 +432,11 @@
       "id": "REGISTRY_UNMANAGED",
       "label": "庫內有片段，但 source_registry 從未登記",
       "severity": "ERROR",
-      "status": "FAIL",
+      "status": "PASS",
       "group": "pointing",
-      "detail": "1 個來源 / 2 條片段 · 新鮮度、到期、封面標題三個監察全部以 registry 為鍵，所以這些來源不受任何監察",
-      "offenders": [
-        "stat_integrated（2 條）融合教育統計數字"
-      ],
-      "offender_total": 1
+      "detail": "0 個來源 / 0 條片段 · 新鮮度、到期、封面標題三個監察全部以 registry 為鍵，所以這些來源不受任何監察",
+      "offenders": [],
+      "offender_total": 0
     },
     {
       "id": "REGISTRY_PHANTOM",

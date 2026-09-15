@@ -2,7 +2,7 @@
  "label": "S219 route-first before (in-process, FEATURE_ROUTE_FIRST_SEARCH=0)",
  "endpoint": "in-process searchChannelB",
  "top_k": 8,
- "generated_at": "2026-09-15T10:06:03Z",
+ "generated_at": "2026-09-15T10:54:09Z",
  "gold_file": "dev/_s213_gold_all.json",
  "gold_count": 185,
  "tie_aliases": [
@@ -14,11 +14,11 @@
  "summary": {
   "queries": 185,
   "errors": 0,
-  "PASS": 119,
-  "FAIL": 47,
+  "PASS": 122,
+  "FAIL": 44,
   "RECORD_ONLY": 19,
-  "chunk_PASS": 54,
-  "chunk_FAIL": 112,
+  "chunk_PASS": 58,
+  "chunk_FAIL": 108,
   "chunk_RECORD_ONLY": 19
  },
  "results": [
@@ -36,27 +36,27 @@
     "g03",
     "g03",
     "sch_activities_guide",
-    "role_facts_activity"
+    "sch_activities_guide"
    ],
    "chunk_ids": [
     "footnote_fn_activities_ratios",
     "footnote_fn_activities_sen",
     "fact_role_facts_activity_6fddddde0d050005",
+    "vault_g03_c89d1d30ec063704",
     "vault_g03_77a7bcb85065372f",
-    "vault_g03_5ef9f1c8942f71f2",
-    "vault_g03_8d5465ab423947ec",
-    "vault_sch_activities_guide_ca582e3c92f7fa84",
-    "fact_role_facts_activity_12f22c76d226ed8b"
+    "vault_g03_110e1410239cb803",
+    "vault_sch_activities_guide_ba21a6458ef5d2c1",
+    "vault_sch_activities_guide_ca582e3c92f7fa84"
    ],
    "scores": [
     0.5824,
     0.5672,
     0.6659,
+    0.631,
     0.6208,
-    0.5921,
-    0.5842,
-    0.5724,
-    0.5678
+    0.606,
+    0.5823,
+    0.5724
    ],
    "content_types": [
     "footnote_curated",
@@ -66,17 +66,17 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "approved_fact"
+    "vault_extract"
    ],
    "pages": [
     null,
     null,
     null,
     4,
-    1,
-    2,
-    89,
-    null
+    4,
+    3,
+    75,
+    89
    ],
    "total": 8,
    "verdict": "RECORD_ONLY",
@@ -117,13 +117,13 @@
     "vault_g38_85c828474cdc5d74"
    ],
    "scores": [
-    0.4834,
-    0.5357,
-    0.4501,
-    0.4464,
+    0.4832,
+    0.5355,
+    0.4502,
+    0.4463,
     0.3998,
-    0.382,
-    0.3816,
+    0.3817,
+    0.3811,
     0.3771
    ],
    "content_types": [
@@ -152,7 +152,7 @@
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.5357
+   "top_score": 0.5355
   },
   {
    "id": "act_liberal_studies_confusable",
@@ -240,7 +240,7 @@
     "lpe_framework_primary",
     "edbc015_2021_lpe",
     "sag_2025_11",
-    "ceg_calc_2026"
+    "sag_2025_11"
    ],
    "chunk_ids": [
     "vault_lpe_framework_primary_b2c896726e9af6eb",
@@ -250,7 +250,7 @@
     "vault_lpe_framework_primary_987868b279531f52",
     "vault_edbc015_2021_lpe_2b5f38ac1497b4a9",
     "vault_sag_2025_11_2a6ec2cf2467a89a",
-    "footnote_fn_ceg_plan_clawback"
+    "vault_sag_2025_11_f867296a9fb4dd2b"
    ],
    "scores": [
     0.7228,
@@ -260,7 +260,7 @@
     0.6682,
     0.6209,
     0.5891,
-    0.4447
+    0.5523
    ],
    "content_types": [
     "vault_extract",
@@ -270,7 +270,7 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "footnote_curated"
+    "vault_extract"
    ],
    "pages": [
     2,
@@ -280,7 +280,7 @@
     3,
     2,
     87,
-    null
+    136
    ],
    "total": 8,
    "verdict": "PASS",
@@ -314,9 +314,9 @@
     "footnote_fn_lwl_sister_floor",
     "footnote_fn_dlg_incentive_cease",
     "fact_role_facts_activity_6fddddde0d050005",
+    "vault_g03_974b1078dad37f12",
     "vault_g03_110e1410239cb803",
     "vault_g03_c89d1d30ec063704",
-    "vault_g03_77a7bcb85065372f",
     "vault_edbc007_2026_ff2fd30fd47a1e42",
     "vault_edbc009_2026_ee401098cbddeadf"
    ],
@@ -324,9 +324,9 @@
     0.6483,
     0.4997,
     0.7695,
+    0.6561,
     0.6367,
     0.6242,
-    0.5714,
     0.5487,
     0.5443
    ],
@@ -344,8 +344,8 @@
     null,
     null,
     null,
+    1,
     3,
-    4,
     4,
     15,
     2
@@ -716,27 +716,27 @@
     "edbc00030",
     "g04",
     "edbc00030",
-    "coa_pri_e"
+    "g04"
    ],
    "chunk_ids": [
     "vault_sag_2025_11_a1bf01e7cdf07272",
     "vault_g04_997df7efd474",
     "vault_sag_2025_11_b91bef25da03b856",
-    "vault_sag_2025_11_8ca01fea4a2517d4",
+    "vault_sag_2025_11_63f35908e9b949e7",
     "vault_edbc00030_29618c7a4673",
     "vault_g04_5a60fb781f6f",
     "vault_edbc00030_c86ba60f7dcc",
-    "vault_coa_pri_e_cedfb19513c8"
+    "vault_g04_2d6cd63fe2e4"
    ],
    "scores": [
     0.6224,
     0.6217,
     0.6191,
-    0.5965,
+    0.6133,
     0.5687,
     0.5643,
     0.5617,
-    0.5292
+    0.5462
    ],
    "content_types": [
     "vault_extract",
@@ -752,11 +752,11 @@
     229,
     null,
     228,
-    233,
+    230,
     17,
     null,
     12,
-    90
+    null
    ],
    "total": 8,
    "verdict": "FAIL",
@@ -914,27 +914,57 @@
    ],
    "source_ids": [
     "edbc00030",
-    "edbc00030"
+    "sag_2025_11",
+    "edbc00030",
+    "edbc00030",
+    "edbc19011",
+    "sag_2025_11",
+    "faq_edbc19011",
+    "faq_edbc19011"
    ],
    "chunk_ids": [
     "vault_edbc00030_a4fb20e5f550",
-    "vault_edbc00030_2d7266f07643"
+    "vault_sag_2025_11_327ed4f1edf16ff9",
+    "vault_edbc00030_2d7266f07643",
+    "vault_edbc00030_55474fed1652",
+    "vault_edbc19011_9d0c23d76c98",
+    "vault_sag_2025_11_2dc5c20fa692ee1e",
+    "vault_faq_edbc19011_22ac8c742c6e",
+    "vault_faq_edbc19011_c0125030d9b4"
    ],
    "scores": [
     0.5059,
-    0.4722
+    0.4801,
+    0.4722,
+    0.4656,
+    0.4578,
+    0.4516,
+    0.45,
+    0.4494
    ],
    "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
     "vault_extract",
     "vault_extract"
    ],
    "pages": [
     22,
-    9
+    4,
+    9,
+    14,
+    1,
+    26,
+    3,
+    1
    ],
-   "total": 2,
-   "verdict": "FAIL",
-   "rank_of_expected": null,
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 6,
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
@@ -953,8 +983,8 @@
     "sag_2025_11",
     "supply_teacher_guide",
     "edbc00030",
-    "edbc00030",
-    "g04"
+    "g04",
+    "edbc00030"
    ],
    "chunk_ids": [
     "vault_g04_997df7efd474",
@@ -963,8 +993,8 @@
     "vault_sag_2025_11_ac9e6e7b4099399d",
     "vault_supply_teacher_guide_dcbdce2e3ff6cfb3",
     "vault_edbc00030_29618c7a4673",
-    "vault_edbc00030_c86ba60f7dcc",
-    "vault_g04_5a60fb781f6f"
+    "vault_g04_638c01bf30ac",
+    "vault_edbc00030_c86ba60f7dcc"
    ],
    "scores": [
     0.6672,
@@ -973,8 +1003,8 @@
     0.6193,
     0.597,
     0.596,
-    0.584,
-    0.5749
+    0.5862,
+    0.584
    ],
    "content_types": [
     "vault_extract",
@@ -993,8 +1023,8 @@
     233,
     5,
     17,
-    12,
-    null
+    null,
+    12
    ],
    "total": 8,
    "verdict": "RECORD_ONLY",
@@ -1018,31 +1048,31 @@
     "cap279_education_ordinance",
     "surplus_teacher_arr_2026",
     "faq_edbc19011",
-    "ppt_grad_pri_faq",
-    "edbc00030",
-    "edbc00030",
+    "sag_2025_11",
     "ppt_grad_pri_policy",
-    "edbc19011"
+    "faq_edbc19011",
+    "ppt_grad_pri_policy",
+    "ppt_grad_pri_faq"
    ],
    "chunk_ids": [
     "footnote_fn_cap279_s46_refuse_register",
     "footnote_fn_surplus_def",
+    "vault_faq_edbc19011_357803e17b2f",
+    "vault_sag_2025_11_a8d887133148a9dc",
+    "vault_ppt_grad_pri_policy_3dac5c7e375a",
     "vault_faq_edbc19011_6c0004bed9ba",
-    "vault_ppt_grad_pri_faq_c219eba046cf",
-    "vault_edbc00030_4752ddd29cbb",
-    "vault_edbc00030_a4fb20e5f550",
-    "vault_ppt_grad_pri_policy_36553cb7eb1c",
-    "vault_edbc19011_e75b5afcd7e7"
+    "vault_ppt_grad_pri_policy_5170868db930",
+    "vault_ppt_grad_pri_faq_c219eba046cf"
    ],
    "scores": [
     0.4733,
     0.4591,
+    0.6781,
+    0.6748,
+    0.6732,
     0.6596,
-    0.6458,
-    0.6262,
-    0.62,
-    0.6166,
-    0.6116
+    0.6536,
+    0.6458
    ],
    "content_types": [
     "footnote_curated",
@@ -1058,10 +1088,10 @@
     null,
     null,
     7,
+    183,
+    5,
     7,
-    27,
-    22,
-    17,
+    9,
     7
    ],
    "total": 8,
@@ -1070,7 +1100,7 @@
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.6596
+   "top_score": 0.6781
   },
   {
    "id": "cpd_ladder_purpose",
@@ -1088,29 +1118,29 @@
     "tdtf_report_2019",
     "tdtf_report_2019",
     "tdtf_report_2019",
-    "role_facts_hr",
     "g06",
+    "role_facts_hr",
     "g06"
    ],
    "chunk_ids": [
     "vault_sag_2025_11_a67b4be55a598d38",
     "vault_sag_2025_11_4b2e5b88f12d98be",
+    "vault_tdtf_report_2019_f65f880ac2b9ef3f",
     "vault_tdtf_report_2019_67c71c81c86f2d31",
     "vault_tdtf_report_2019_3d06725705c8df34",
-    "vault_tdtf_report_2019_da18982adece8bf3",
+    "vault_g06_87f962b5ae986ce8",
     "fact_role_facts_hr_c414730a61c22a23",
-    "vault_g06_0b1dd3c0f7e5e779",
-    "vault_g06_9937a78938299b9d"
+    "vault_g06_0b1dd3c0f7e5e779"
    ],
    "scores": [
     0.7829,
     0.7799,
+    0.7416,
     0.6952,
     0.6917,
-    0.6452,
+    0.6884,
     0.6385,
-    0.6311,
-    0.618
+    0.6311
    ],
    "content_types": [
     "vault_extract",
@@ -1118,19 +1148,19 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "approved_fact",
     "vault_extract",
+    "approved_fact",
     "vault_extract"
    ],
    "pages": [
     206,
     206,
+    21,
     9,
     61,
-    23,
+    90,
     null,
-    105,
-    86
+    105
    ],
    "total": 8,
    "verdict": "PASS",
@@ -1356,34 +1386,34 @@
     "初小階段着重感知與體驗,透過生活例子和體驗式活動,初步認識人工智能及其用途。•高小階段"
    ],
    "source_ids": [
+    "debp_blueprint",
     "edbcm_221_2025_smart_teaching",
+    "edbcm156_2026",
     "debp_exec_summary",
-    "edbcm107_2026",
     "debp_blueprint",
-    "edbcm107_2026",
     "debp_blueprint",
-    "edbc011_2026",
-    "edbcm156_2026"
+    "edbcm156_2026",
+    "edbcm107_2026"
    ],
    "chunk_ids": [
+    "vault_debp_blueprint_a823845b1c1e876f",
     "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
+    "vault_edbcm156_2026_61d31a46542160dd",
     "vault_debp_exec_summary_aafddb892b407262",
-    "vault_edbcm107_2026_bc0fe4e2172afe98",
-    "vault_debp_blueprint_ea1a2e1821e0d433",
-    "vault_edbcm107_2026_c4df7bf07cbdea4f",
-    "vault_debp_blueprint_87297b244bcb4bfe",
-    "vault_edbc011_2026_bfe00500718b5859",
-    "vault_edbcm156_2026_132cd3b8d24e2185"
+    "vault_debp_blueprint_b3d3bcff7d1166a0",
+    "vault_debp_blueprint_2f2bb8c963e6f802",
+    "vault_edbcm156_2026_c2d745f77e8d7038",
+    "vault_edbcm107_2026_bc0fe4e2172afe98"
    ],
    "scores": [
+    0.7792,
     0.7419,
+    0.7276,
     0.7262,
-    0.7186,
-    0.7175,
-    0.7155,
-    0.7125,
-    0.7119,
-    0.7106
+    0.7262,
+    0.7237,
+    0.7232,
+    0.7186
    ],
    "content_types": [
     "vault_extract",
@@ -1396,22 +1426,22 @@
     "vault_extract"
    ],
    "pages": [
+    9,
     1,
-    2,
-    6,
-    28,
     8,
-    11,
     2,
-    4
+    13,
+    13,
+    5,
+    6
    ],
    "total": 8,
    "verdict": "PASS",
-   "rank_of_expected": 3,
+   "rank_of_expected": 0,
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.7419
+   "top_score": 0.7792
   },
   {
    "id": "dig_byod_mandatory_na",
@@ -1562,9 +1592,9 @@
     "edbcm_221_2025_smart_teaching",
     "edbc011_2026",
     "debp_blueprint",
+    "debp_blueprint",
     "edbcm107_2026",
     "edbcm156_2026",
-    "debp_blueprint",
     "debp_exec_summary"
    ],
    "chunk_ids": [
@@ -1572,9 +1602,9 @@
     "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
     "vault_edbc011_2026_bfe00500718b5859",
     "vault_debp_blueprint_2f8920e901ee53f4",
+    "vault_debp_blueprint_ea1a2e1821e0d433",
     "vault_edbcm107_2026_6f833f0640effe41",
     "vault_edbcm156_2026_132cd3b8d24e2185",
-    "vault_debp_blueprint_f4a27dc0f1002962",
     "vault_debp_exec_summary_aafddb892b407262"
    ],
    "scores": [
@@ -1582,9 +1612,9 @@
     0.7306,
     0.7149,
     0.7131,
+    0.7107,
     0.7104,
     0.7087,
-    0.7046,
     0.7043
    ],
    "content_types": [
@@ -1602,9 +1632,9 @@
     1,
     2,
     16,
+    28,
     2,
     4,
-    24,
     2
    ],
    "total": 8,
@@ -1624,19 +1654,31 @@
    "source_ids": [
     "pcpd_cloud_computing",
     "pcpd_cloud_computing",
-    "pcpd_cloud_computing"
+    "pcpd_cloud_computing",
+    "g28",
+    "g28",
+    "g28"
    ],
    "chunk_ids": [
     "vault_pcpd_cloud_computing_b1bb735772df",
     "vault_pcpd_cloud_computing_8c5adc931c9c",
-    "vault_pcpd_cloud_computing_4470028b8b5a"
+    "vault_pcpd_cloud_computing_4470028b8b5a",
+    "vault_g28_f96b8a0e5d5f",
+    "vault_g28_97fef4b64635",
+    "vault_g28_f763bc77f399"
    ],
    "scores": [
     0.5527,
     0.549,
-    0.5206
+    0.5206,
+    0.4039,
+    0.3978,
+    0.3907
    ],
    "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
     "vault_extract",
     "vault_extract",
     "vault_extract"
@@ -1644,9 +1686,12 @@
    "pages": [
     4,
     3,
+    1,
+    1,
+    12,
     1
    ],
-   "total": 3,
+   "total": 6,
    "verdict": "RECORD_ONLY",
    "rank_of_expected": null,
    "rank_of_expected_chunk": null,
@@ -1742,16 +1787,16 @@
    ],
    "chunk_ids": [
     "vault_g01_526fe089b707001e",
+    "vault_g01_166ade0c624040d1",
     "vault_g01_7c2b5af7e98a2f1a",
-    "vault_g01_33d170dfd3409080",
     "vault_fin_mgmt_notes_aided_7e84bb9e69b8f8e0",
     "vault_g02_6e9b68d2288469a1",
     "fact_role_facts_finance_87e70e8725a91d98"
    ],
    "scores": [
     0.6402,
+    0.6338,
     0.6206,
-    0.5945,
     0.5858,
     0.5516,
     0.5172
@@ -1766,8 +1811,8 @@
    ],
    "pages": [
     4,
+    5,
     12,
-    2,
     1,
     13,
     null
@@ -1791,34 +1836,34 @@
     "縱然是高小學生,仍尚未能獨立判斷內容的真確性,原則上應在教師或監護人指導下"
    ],
    "source_ids": [
+    "debp_blueprint",
     "edbcm_221_2025_smart_teaching",
     "debp_exec_summary",
-    "edbcm107_2026",
     "debp_blueprint",
-    "edbc011_2026",
+    "debp_blueprint",
     "edbcm156_2026",
-    "debp_blueprint",
-    "edbcm107_2026"
+    "edbcm107_2026",
+    "edbc011_2026"
    ],
    "chunk_ids": [
+    "vault_debp_blueprint_a823845b1c1e876f",
     "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
     "vault_debp_exec_summary_aafddb892b407262",
+    "vault_debp_blueprint_1f58f6ce85727c19",
+    "vault_debp_blueprint_f4a27dc0f1002962",
+    "vault_edbcm156_2026_c2d745f77e8d7038",
     "vault_edbcm107_2026_c4df7bf07cbdea4f",
-    "vault_debp_blueprint_ea1a2e1821e0d433",
-    "vault_edbc011_2026_bfe00500718b5859",
-    "vault_edbcm156_2026_132cd3b8d24e2185",
-    "vault_debp_blueprint_87297b244bcb4bfe",
-    "vault_edbcm107_2026_bc0fe4e2172afe98"
+    "vault_edbc011_2026_bfe00500718b5859"
    ],
    "scores": [
+    0.7785,
     0.7449,
     0.732,
+    0.7314,
+    0.7311,
+    0.7293,
     0.7284,
-    0.7284,
-    0.7221,
-    0.7164,
-    0.7145,
-    0.711
+    0.7221
    ],
    "content_types": [
     "vault_extract",
@@ -1831,14 +1876,14 @@
     "vault_extract"
    ],
    "pages": [
+    9,
     1,
     2,
+    10,
+    24,
+    5,
     8,
-    28,
-    2,
-    4,
-    11,
-    6
+    2
    ],
    "total": 8,
    "verdict": "FAIL",
@@ -1846,7 +1891,7 @@
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.7449
+   "top_score": 0.7785
   },
   {
    "id": "dig_online_meeting_security",
@@ -2215,8 +2260,8 @@
     "vault_edbc15_2022_accountability_c8288d0a2be64ba8",
     "vault_sag_2025_11_b2cfeef6cd6dbcfc",
     "vault_sse_tools_2025_86af54f638d8d093",
-    "vault_sse_tools_2025_9ebb7c1708a2ef37",
-    "vault_sse_tools_2025_c7f5cd4875940019"
+    "vault_sse_tools_2025_2678835095f1908d",
+    "vault_sse_tools_2025_9ebb7c1708a2ef37"
    ],
    "scores": [
     0.6488,
@@ -2225,8 +2270,8 @@
     0.6357,
     0.6283,
     0.6247,
-    0.6123,
-    0.5952
+    0.6156,
+    0.6123
    ],
    "content_types": [
     "vault_extract",
@@ -2245,8 +2290,8 @@
     6,
     137,
     4,
-    3,
-    9
+    1,
+    3
    ],
    "total": 8,
    "verdict": "PASS",
@@ -2269,32 +2314,32 @@
    "source_ids": [
     "perf_indicators_2022",
     "edbc15_2022_accountability",
-    "sse_tools_2025",
-    "edbc15_2022_accountability",
-    "sse_tools_2025",
-    "edbc15_2022_accountability",
     "perf_indicators_2022",
-    "sag_2025_11"
+    "sse_tools_2025",
+    "perf_indicators_2022",
+    "edbc15_2022_accountability",
+    "sse_tools_2025",
+    "sse_tools_2025"
    ],
    "chunk_ids": [
     "vault_perf_indicators_2022_e2bc634d22c3cad1",
     "vault_edbc15_2022_accountability_8644b924acecf7a4",
+    "vault_perf_indicators_2022_70c9c56916342203",
     "vault_sse_tools_2025_86af54f638d8d093",
+    "vault_perf_indicators_2022_4e6d083d45ef0096",
     "vault_edbc15_2022_accountability_c8288d0a2be64ba8",
-    "vault_sse_tools_2025_9ebb7c1708a2ef37",
-    "vault_edbc15_2022_accountability_0805556a9f258c7d",
-    "vault_perf_indicators_2022_5467165602676430",
-    "vault_sag_2025_11_b2cfeef6cd6dbcfc"
+    "vault_sse_tools_2025_2678835095f1908d",
+    "vault_sse_tools_2025_9ebb7c1708a2ef37"
    ],
    "scores": [
     0.7026,
     0.6752,
+    0.6749,
     0.6718,
+    0.6709,
     0.664,
-    0.6495,
-    0.6462,
-    0.6382,
-    0.6359
+    0.6574,
+    0.6495
    ],
    "content_types": [
     "vault_extract",
@@ -2309,12 +2354,12 @@
    "pages": [
     12,
     5,
+    11,
     4,
-    6,
-    3,
     5,
-    3,
-    137
+    6,
+    1,
+    3
    ],
    "total": 8,
    "verdict": "PASS",
@@ -2404,9 +2449,9 @@
     "perf_indicators_2022",
     "perf_indicators_2022",
     "edbc15_2022_accountability",
+    "sse_tools_2025",
     "edbc15_2022_accountability",
-    "edbc15_2022_accountability",
-    "sse_tools_2025"
+    "edbc15_2022_accountability"
    ],
    "chunk_ids": [
     "footnote_fn_k1_appfee",
@@ -2414,9 +2459,9 @@
     "vault_perf_indicators_2022_5467165602676430",
     "vault_perf_indicators_2022_3f70e312eb2fbd00",
     "vault_edbc15_2022_accountability_8644b924acecf7a4",
+    "vault_sse_tools_2025_2678835095f1908d",
     "vault_edbc15_2022_accountability_0805556a9f258c7d",
-    "vault_edbc15_2022_accountability_c8288d0a2be64ba8",
-    "vault_sse_tools_2025_9ebb7c1708a2ef37"
+    "vault_edbc15_2022_accountability_c8288d0a2be64ba8"
    ],
    "scores": [
     0.4557,
@@ -2424,9 +2469,9 @@
     0.6955,
     0.6893,
     0.66,
+    0.6483,
     0.6365,
-    0.6328,
-    0.6252
+    0.6328
    ],
    "content_types": [
     "footnote_curated",
@@ -2444,9 +2489,9 @@
     3,
     6,
     5,
+    1,
     5,
-    6,
-    3
+    6
    ],
    "total": 8,
    "verdict": "RECORD_ONLY",
@@ -2473,28 +2518,28 @@
     "edbc15_2022_accountability",
     "sse_tools_2025",
     "sse_tools_2025",
-    "edbc15_2022_accountability",
-    "sse_tools_2025"
+    "sse_tools_2025",
+    "edbc15_2022_accountability"
    ],
    "chunk_ids": [
     "vault_perf_indicators_2022_3f70e312eb2fbd00",
     "vault_perf_indicators_2022_70c9c56916342203",
-    "vault_perf_indicators_2022_513539abae82a70e",
+    "vault_perf_indicators_2022_e2bc634d22c3cad1",
     "vault_edbc15_2022_accountability_8644b924acecf7a4",
     "vault_sse_tools_2025_9ebb7c1708a2ef37",
     "vault_sse_tools_2025_86af54f638d8d093",
-    "vault_edbc15_2022_accountability_0805556a9f258c7d",
-    "vault_sse_tools_2025_aebe901c09f1d6b3"
+    "vault_sse_tools_2025_2678835095f1908d",
+    "vault_edbc15_2022_accountability_0805556a9f258c7d"
    ],
    "scores": [
     0.7387,
     0.7381,
-    0.7145,
+    0.7194,
     0.6445,
     0.64,
     0.6381,
-    0.6299,
-    0.6139
+    0.6361,
+    0.6299
    ],
    "content_types": [
     "vault_extract",
@@ -2509,11 +2554,11 @@
    "pages": [
     6,
     11,
-    4,
+    12,
     5,
     3,
     4,
-    5,
+    1,
     5
    ],
    "total": 8,
@@ -2537,32 +2582,32 @@
    "source_ids": [
     "ceg_calc_2026",
     "ceg_calc_2026",
-    "sdp_guide",
-    "sdp_guide",
-    "sdp_guide",
     "sag_2025_11",
+    "sdp_guide",
+    "sdp_guide",
+    "sdp_guide",
     "sag_2025_11",
     "sag_2025_11"
    ],
    "chunk_ids": [
     "footnote_fn_ceg_plan_clawback",
     "footnote_fn_ceg_rates_2627",
+    "vault_sag_2025_11_f867296a9fb4dd2b",
     "vault_sdp_guide_cc470b141f88cbd1",
     "vault_sdp_guide_d8d789989ee7e265",
     "vault_sdp_guide_750475c731037cf6",
     "vault_sag_2025_11_d37909316ed08701",
-    "vault_sag_2025_11_adaf6551d375327b",
-    "vault_sag_2025_11_f4ae465a82840548"
+    "vault_sag_2025_11_4d51163099411c29"
    ],
    "scores": [
     0.5642,
     0.455,
+    0.6802,
     0.6747,
     0.651,
     0.6443,
     0.6362,
-    0.6069,
-    0.5688
+    0.6208
    ],
    "content_types": [
     "footnote_curated",
@@ -2577,20 +2622,20 @@
    "pages": [
     null,
     null,
+    136,
     2,
     1,
     2,
     135,
-    133,
-    123
+    134
    ],
    "total": 8,
    "verdict": "PASS",
-   "rank_of_expected": 2,
-   "rank_of_expected_chunk": 2,
+   "rank_of_expected": 3,
+   "rank_of_expected_chunk": 3,
    "chunk_verdict": "PASS",
    "forbidden_hits": [],
-   "top_score": 0.6747
+   "top_score": 0.6802
   },
   {
    "id": "qa_stakeholder_survey",
@@ -2677,8 +2722,8 @@
     "edbcm156_2026",
     "debp_exec_summary",
     "debp_exec_summary",
-    "edbc011_2026",
-    "debp_blueprint"
+    "debp_blueprint",
+    "edbc011_2026"
    ],
    "chunk_ids": [
     "footnote_fn_ceg_plan_clawback",
@@ -2687,8 +2732,8 @@
     "vault_edbcm156_2026_132cd3b8d24e2185",
     "vault_debp_exec_summary_aafddb892b407262",
     "vault_debp_exec_summary_6aea5c82eb01bd38",
-    "vault_edbc011_2026_bfe00500718b5859",
-    "vault_debp_blueprint_39b37d455c0b41b7"
+    "vault_debp_blueprint_1f58f6ce85727c19",
+    "vault_edbc011_2026_bfe00500718b5859"
    ],
    "scores": [
     0.5395,
@@ -2697,8 +2742,8 @@
     0.772,
     0.7705,
     0.7577,
-    0.7544,
-    0.7532
+    0.7569,
+    0.7544
    ],
    "content_types": [
     "footnote_curated",
@@ -2717,8 +2762,8 @@
     4,
     2,
     1,
-    2,
-    16
+    10,
+    2
    ],
    "total": 8,
    "verdict": "PASS",
@@ -2760,12 +2805,12 @@
    ],
    "scores": [
     0.6567,
-    0.795,
+    0.7949,
     0.7611,
-    0.7562,
-    0.7524,
-    0.7522,
-    0.7511,
+    0.7561,
+    0.7523,
+    0.7521,
+    0.751,
     0.7498
    ],
    "content_types": [
@@ -2794,7 +2839,7 @@
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.795
+   "top_score": 0.7949
   },
   {
    "id": "dig_ai_fact_check_privacy",
@@ -2881,8 +2926,8 @@
     "edbcm107_2026",
     "edbcm107_2026",
     "debp_exec_summary",
-    "edbcm_221_2025_smart_teaching",
-    "debp_blueprint"
+    "debp_blueprint",
+    "edbcm_221_2025_smart_teaching"
    ],
    "chunk_ids": [
     "vault_iit_ai_framework_2026_9502e0a928750d5a",
@@ -2891,8 +2936,8 @@
     "vault_edbcm107_2026_c4df7bf07cbdea4f",
     "vault_edbcm107_2026_bc0fe4e2172afe98",
     "vault_debp_exec_summary_aafddb892b407262",
-    "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
-    "vault_debp_blueprint_b3d3bcff7d1166a0"
+    "vault_debp_blueprint_1f58f6ce85727c19",
+    "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6"
    ],
    "scores": [
     0.6727,
@@ -2901,8 +2946,8 @@
     0.759,
     0.7582,
     0.758,
-    0.7564,
-    0.7535
+    0.7569,
+    0.7564
    ],
    "content_types": [
     "vault_extract",
@@ -2921,8 +2966,8 @@
     8,
     6,
     2,
-    1,
-    13
+    10,
+    1
    ],
    "total": 8,
    "verdict": "PASS",
@@ -3150,21 +3195,29 @@
     "pcpd_cloud_computing",
     "pcpd_cloud_computing",
     "pcpd_cloud_computing",
+    "g28",
+    "g28",
     "g28"
    ],
    "chunk_ids": [
     "vault_pcpd_cloud_computing_b1bb735772df",
+    "vault_pcpd_cloud_computing_f4ddf75b5cb7",
     "vault_pcpd_cloud_computing_aeb1a637e5c4",
-    "vault_pcpd_cloud_computing_86ac2afef047",
-    "vault_g28_b9af1f1a0b79"
+    "vault_g28_b9af1f1a0b79",
+    "vault_g28_d344fc4ef8bd",
+    "vault_g28_3a2a95e4b36a"
    ],
    "scores": [
     0.6044,
+    0.551,
     0.5502,
-    0.5401,
-    0.4077
+    0.4077,
+    0.3457,
+    0.3396
    ],
    "content_types": [
+    "vault_extract",
+    "vault_extract",
     "vault_extract",
     "vault_extract",
     "vault_extract",
@@ -3172,11 +3225,13 @@
    ],
    "pages": [
     4,
+    6,
     5,
-    5,
-    3
+    3,
+    4,
+    1
    ],
-   "total": 4,
+   "total": 6,
    "verdict": "PASS",
    "rank_of_expected": 0,
    "rank_of_expected_chunk": 0,
@@ -3264,26 +3319,30 @@
    ],
    "source_ids": [
     "pcpd_cloud_computing",
-    "g28",
     "pcpd_cloud_computing",
+    "pcpd_cloud_computing",
+    "g28",
     "g28",
     "g28"
    ],
    "chunk_ids": [
+    "vault_pcpd_cloud_computing_236a6799dab4",
     "vault_pcpd_cloud_computing_04a62bec6390",
-    "vault_g28_b2e764dc45b5",
-    "vault_pcpd_cloud_computing_02b58c3d78df",
-    "vault_g28_df9ea2c7f610",
-    "vault_g28_97fef4b64635"
+    "vault_pcpd_cloud_computing_86ac2afef047",
+    "vault_g28_f96b8a0e5d5f",
+    "vault_g28_23e988ebf513",
+    "vault_g28_e211aa26f049"
    ],
    "scores": [
+    0.5758,
     0.5728,
-    0.4129,
-    0.4076,
-    0.4061,
-    0.3996
+    0.559,
+    0.4702,
+    0.4334,
+    0.4332
    ],
    "content_types": [
+    "vault_extract",
     "vault_extract",
     "vault_extract",
     "vault_extract",
@@ -3292,18 +3351,19 @@
    ],
    "pages": [
     9,
+    9,
+    5,
     1,
-    3,
     1,
-    12
+    4
    ],
-   "total": 5,
+   "total": 6,
    "verdict": "PASS",
    "rank_of_expected": 0,
    "rank_of_expected_chunk": 0,
    "chunk_verdict": "PASS",
    "forbidden_hits": [],
-   "top_score": 0.5728
+   "top_score": 0.5758
   },
   {
    "id": "sec_meeting_link_private",
@@ -3387,7 +3447,7 @@
     "g38",
     "g38",
     "ma_kla_guide_2017",
-    "EDBCM_79_2025_TC"
+    "g38"
    ],
    "chunk_ids": [
     "vault_music_p1_s6_2024_5ac238c8984f414e",
@@ -3397,7 +3457,7 @@
     "vault_g38_4ae0aeba9b22c9da",
     "vault_g38_71f45b285f2a8025",
     "vault_ma_kla_guide_2017_7e37dfaa1dd77c05",
-    "footnote_fn_ncs_sbp_questionnaire_30nov"
+    "vault_g38_6607526c6bd72ea5"
    ],
    "scores": [
     0.7023,
@@ -3407,7 +3467,7 @@
     0.6453,
     0.6423,
     0.6319,
-    0.4311
+    0.6253
    ],
    "content_types": [
     "vault_extract",
@@ -3417,7 +3477,7 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "footnote_curated"
+    "vault_extract"
    ],
    "pages": [
     5,
@@ -3427,7 +3487,7 @@
     2,
     27,
     15,
-    null
+    28
    ],
    "total": 8,
    "verdict": "RECORD_ONLY",
@@ -3454,8 +3514,7 @@
     "pe_kla_2017",
     "ma_kla_guide_2017",
     "g13",
-    "chi_edu_curr_docs",
-    "gs_pri_guide_2017"
+    "chi_edu_curr_docs"
    ],
    "chunk_ids": [
     "vault_pe_kla_2017_1420a8eefd9d51f4",
@@ -3464,8 +3523,7 @@
     "vault_pe_kla_2017_f06b4bed1351ef9f",
     "vault_ma_kla_guide_2017_8c39ba1bc7a08b67",
     "vault_g13_94a7723fc9b2f5fd",
-    "vault_chi_edu_curr_docs_e6a8fa5f5a617d04",
-    "vault_gs_pri_guide_2017_21bdf892802c31b2"
+    "vault_chi_edu_curr_docs_e6a8fa5f5a617d04"
    ],
    "scores": [
     0.6555,
@@ -3474,11 +3532,9 @@
     0.6356,
     0.6264,
     0.6179,
-    0.6173,
-    0.6109
+    0.6173
    ],
    "content_types": [
-    "vault_extract",
     "vault_extract",
     "vault_extract",
     "vault_extract",
@@ -3494,10 +3550,9 @@
     15,
     8,
     247,
-    23,
-    7
+    23
    ],
-   "total": 8,
+   "total": 7,
    "verdict": "FAIL",
    "rank_of_expected": null,
    "rank_of_expected_chunk": null,
@@ -3722,8 +3777,8 @@
     "g29",
     "pri_curr_guide_2024",
     "pri_curr_guide_2024",
-    "g25",
-    "pri_curr_guide_2024"
+    "pri_curr_guide_2024",
+    "g25"
    ],
    "chunk_ids": [
     "footnote_fn_kgop_classroom",
@@ -3732,8 +3787,8 @@
     "vault_g29_6daf89f8180d06b5",
     "vault_pri_curr_guide_2024_40dd27a903439426",
     "vault_pri_curr_guide_2024_417adbf0a361de83",
-    "vault_g25_a3d58093313d",
-    "vault_pri_curr_guide_2024_531acd8bea7cbf59"
+    "vault_pri_curr_guide_2024_2f3695e53dd43b52",
+    "vault_g25_a3d58093313d"
    ],
    "scores": [
     0.4655,
@@ -3742,8 +3797,8 @@
     0.6129,
     0.5988,
     0.5822,
-    0.5779,
-    0.5663
+    0.5814,
+    0.5779
    ],
    "content_types": [
     "footnote_curated",
@@ -3762,8 +3817,8 @@
     97,
     45,
     72,
-    null,
-    10
+    74,
+    null
    ],
    "total": 8,
    "verdict": "PASS",
@@ -3926,8 +3981,7 @@
     "ma_kla_guide_2017",
     "chi_edu_curr_docs",
     "ma_kla_guide_2017",
-    "phys_sss_2007_2015",
-    "g13"
+    "phys_sss_2007_2015"
    ],
    "chunk_ids": [
     "vault_pe_kla_2017_f06b4bed1351ef9f",
@@ -3936,8 +3990,7 @@
     "vault_ma_kla_guide_2017_7e37dfaa1dd77c05",
     "vault_chi_edu_curr_docs_e6a8fa5f5a617d04",
     "vault_ma_kla_guide_2017_8c39ba1bc7a08b67",
-    "vault_phys_sss_2007_2015_f119c16fdc74fb89",
-    "vault_g13_94a7723fc9b2f5fd"
+    "vault_phys_sss_2007_2015_f119c16fdc74fb89"
    ],
    "scores": [
     0.6439,
@@ -3946,11 +3999,9 @@
     0.6239,
     0.6235,
     0.6188,
-    0.6129,
-    0.6114
+    0.6129
    ],
    "content_types": [
-    "vault_extract",
     "vault_extract",
     "vault_extract",
     "vault_extract",
@@ -3966,12 +4017,11 @@
     15,
     23,
     8,
-    82,
-    247
+    82
    ],
-   "total": 8,
-   "verdict": "PASS",
-   "rank_of_expected": 7,
+   "total": 7,
+   "verdict": "FAIL",
+   "rank_of_expected": null,
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
@@ -4058,32 +4108,32 @@
    "source_ids": [
     "AUD_e76ch02",
     "g06",
+    "gifted_ge_series",
     "gifted_policy_docs",
     "gifted_ge_series",
     "gifted_tp_resource_kit",
     "gifted_tp_resource_kit",
-    "gifted_policy_docs",
     "gifted_ge_series"
    ],
    "chunk_ids": [
     "footnote_fn_ncs_special_school_matrix",
     "vault_g06_8a30f594554c400a",
+    "vault_gifted_ge_series_8ac476499ec8bf94",
     "vault_gifted_policy_docs_4b5cc73e2b3d",
     "vault_gifted_ge_series_4b5df4476f2eec6b",
     "vault_gifted_tp_resource_kit_af87c0d01b9a1257",
     "vault_gifted_tp_resource_kit_ee28c953a6e3cc98",
-    "vault_gifted_policy_docs_e273f17a831d",
-    "vault_gifted_ge_series_604ca8f4e7491b34"
+    "vault_gifted_ge_series_c9e20f3b6ef46925"
    ],
    "scores": [
     0.4639,
     0.751,
+    0.7479,
     0.7457,
     0.7421,
     0.7332,
     0.7284,
-    0.7241,
-    0.7229
+    0.7267
    ],
    "content_types": [
     "footnote_curated",
@@ -4098,12 +4148,12 @@
    "pages": [
     null,
     141,
+    31,
     8,
     74,
     16,
     7,
-    6,
-    1
+    83
    ],
    "total": 8,
    "verdict": "PASS",
@@ -4126,32 +4176,32 @@
    "source_ids": [
     "cfeg_guide_2026",
     "eoebg_guide_2026",
-    "gifted_policy_docs",
-    "g14",
-    "g14",
     "gifted_tp_resource_kit",
-    "g14",
-    "gifted_ge_series"
+    "gifted_policy_docs",
+    "g06",
+    "gifted_policy_docs",
+    "g06",
+    "g14"
    ],
    "chunk_ids": [
     "footnote_fn_cfeg_surplus_5x",
     "footnote_fn_eoebg_surplus_12m",
+    "vault_gifted_tp_resource_kit_af87c0d01b9a1257",
     "vault_gifted_policy_docs_4b5cc73e2b3d",
-    "vault_g14_46e847cdb246",
-    "vault_g14_16ee24f36de4",
-    "vault_gifted_tp_resource_kit_57aa1e6a752eb429",
-    "vault_g14_ab75b41047cb",
-    "vault_gifted_ge_series_4b5df4476f2eec6b"
+    "vault_g06_f0463fdd55f3c30d",
+    "vault_gifted_policy_docs_e273f17a831d",
+    "vault_g06_8a30f594554c400a",
+    "vault_g14_46e847cdb246"
    ],
    "scores": [
     0.479,
     0.4573,
+    0.7187,
     0.7172,
-    0.7053,
-    0.6968,
-    0.6857,
-    0.6855,
-    0.6808
+    0.7128,
+    0.7082,
+    0.7072,
+    0.7053
    ],
    "content_types": [
     "footnote_curated",
@@ -4166,20 +4216,20 @@
    "pages": [
     null,
     null,
+    16,
     8,
-    null,
-    null,
-    25,
-    null,
-    74
+    140,
+    6,
+    141,
+    null
    ],
    "total": 8,
-   "verdict": "FAIL",
-   "rank_of_expected": null,
+   "verdict": "PASS",
+   "rank_of_expected": 4,
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.7172
+   "top_score": 0.7187
   },
   {
    "id": "gifted_identify_talent",
@@ -5009,29 +5059,29 @@
     "g04",
     "sag_2025_11",
     "g04",
+    "g04",
     "edbc00030",
-    "job_sharing_guide",
-    "edbc00030"
+    "job_sharing_guide"
    ],
    "chunk_ids": [
     "vault_sag_2025_11_b91bef25da03b856",
     "vault_sag_2025_11_a1bf01e7cdf07272",
     "vault_g04_997df7efd474",
     "vault_sag_2025_11_4ee562d7f8902f9a",
+    "vault_g04_2d6cd63fe2e4",
     "vault_g04_5a60fb781f6f",
     "vault_edbc00030_29618c7a4673",
-    "vault_job_sharing_guide_a8ab796eb2c2b76f",
-    "vault_edbc00030_c86ba60f7dcc"
+    "vault_job_sharing_guide_a8ab796eb2c2b76f"
    ],
    "scores": [
     0.7212,
     0.714,
     0.7093,
     0.6866,
+    0.6441,
     0.6259,
     0.6137,
-    0.6128,
-    0.605
+    0.6128
    ],
    "content_types": [
     "vault_extract",
@@ -5049,9 +5099,9 @@
     null,
     233,
     null,
+    null,
     17,
-    4,
-    12
+    4
    ],
    "total": 8,
    "verdict": "FAIL",
@@ -5072,62 +5122,62 @@
     "利用甄別工具及早識別學生的學習或適應困難和支援需要"
    ],
    "source_ids": [
+    "g06",
     "g19",
+    "role_facts_student",
     "g19",
     "sen_exam_arrangements_2025",
     "role_facts_student",
     "g19",
-    "g06",
-    "g06",
-    "role_facts_student"
+    "g06"
    ],
    "chunk_ids": [
+    "vault_g06_ddb8cc42eb48c6a7",
     "vault_g19_1bcd00d93612e161",
+    "fact_role_facts_student_d229ded34dd8703c",
     "vault_g19_710b48540bec2358",
     "vault_sen_exam_arrangements_2025_ce6f039be10d103f",
     "fact_role_facts_student_421a569cbd31d284",
     "vault_g19_5209939fe426d76b",
-    "vault_g06_d848109f501c4993",
-    "vault_g06_2da9fce2e6359b3a",
-    "fact_role_facts_student_b6887901324f71b3"
+    "vault_g06_d848109f501c4993"
    ],
    "scores": [
+    0.7623,
     0.7367,
+    0.7283,
     0.7211,
     0.7207,
     0.7143,
     0.7141,
-    0.7044,
-    0.7044,
-    0.6904
+    0.7044
    ],
    "content_types": [
-    "vault_extract",
     "vault_extract",
     "vault_extract",
     "approved_fact",
     "vault_extract",
     "vault_extract",
+    "approved_fact",
     "vault_extract",
-    "approved_fact"
+    "vault_extract"
    ],
    "pages": [
+    136,
     12,
+    null,
     9,
     8,
     null,
     6,
-    137,
-    137,
-    null
+    137
    ],
    "total": 8,
    "verdict": "PASS",
-   "rank_of_expected": 0,
-   "rank_of_expected_chunk": 0,
+   "rank_of_expected": 1,
+   "rank_of_expected_chunk": 1,
    "chunk_verdict": "PASS",
    "forbidden_hits": [],
-   "top_score": 0.7367
+   "top_score": 0.7623
   },
   {
    "id": "sen_senco_duties",
@@ -5140,62 +5190,62 @@
     "帶領學生支援組，舉行定期會議，成員包括特殊教育需要支援老師"
    ],
    "source_ids": [
+    "g06",
+    "role_facts_student",
     "g19",
     "g19",
     "g19",
     "g06",
     "sen_exam_arrangements_2025",
-    "role_facts_student",
-    "role_facts_student",
-    "sag_2025_11"
+    "g06"
    ],
    "chunk_ids": [
+    "vault_g06_ddb8cc42eb48c6a7",
+    "fact_role_facts_student_d229ded34dd8703c",
     "vault_g19_1bcd00d93612e161",
     "vault_g19_5209939fe426d76b",
     "vault_g19_710b48540bec2358",
     "vault_g06_d848109f501c4993",
     "vault_sen_exam_arrangements_2025_ce6f039be10d103f",
-    "fact_role_facts_student_421a569cbd31d284",
-    "fact_role_facts_student_f8ede7615eebd38e",
-    "vault_sag_2025_11_7ee315e970474e8b"
+    "vault_g06_2da9fce2e6359b3a"
    ],
    "scores": [
+    0.7332,
+    0.7228,
     0.7089,
     0.7024,
     0.7022,
     0.6988,
     0.6898,
-    0.6843,
-    0.6771,
-    0.672
+    0.6868
    ],
    "content_types": [
     "vault_extract",
-    "vault_extract",
-    "vault_extract",
-    "vault_extract",
-    "vault_extract",
     "approved_fact",
-    "approved_fact",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
     "vault_extract"
    ],
    "pages": [
+    136,
+    null,
     12,
     6,
     9,
     137,
     8,
-    null,
-    null,
-    90
+    137
    ],
    "total": 8,
    "verdict": "PASS",
-   "rank_of_expected": 0,
-   "rank_of_expected_chunk": 0,
+   "rank_of_expected": 2,
+   "rank_of_expected_chunk": 2,
    "chunk_verdict": "PASS",
    "forbidden_hits": [],
-   "top_score": 0.7089
+   "top_score": 0.7332
   },
   {
    "id": "sen_senco_teacher_post",
@@ -5213,9 +5263,9 @@
     "g19",
     "g19",
     "g19",
+    "g06",
     "role_facts_student",
-    "sen_exam_arrangements_2025",
-    "g06"
+    "sen_exam_arrangements_2025"
    ],
    "chunk_ids": [
     "footnote_fn_tdtf_senco",
@@ -5223,9 +5273,9 @@
     "vault_g19_1bcd00d93612e161",
     "vault_g19_d73bd97402db688d",
     "vault_g19_5209939fe426d76b",
+    "vault_g06_ddb8cc42eb48c6a7",
     "fact_role_facts_student_421a569cbd31d284",
-    "vault_sen_exam_arrangements_2025_ce6f039be10d103f",
-    "vault_g06_2da9fce2e6359b3a"
+    "vault_sen_exam_arrangements_2025_ce6f039be10d103f"
    ],
    "scores": [
     0.5572,
@@ -5233,9 +5283,9 @@
     0.7525,
     0.7363,
     0.7208,
+    0.7197,
     0.7102,
-    0.7005,
-    0.6912
+    0.7005
    ],
    "content_types": [
     "footnote_curated",
@@ -5243,8 +5293,8 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "approved_fact",
     "vault_extract",
+    "approved_fact",
     "vault_extract"
    ],
    "pages": [
@@ -5253,9 +5303,9 @@
     12,
     56,
     6,
+    136,
     null,
-    8,
-    137
+    8
    ],
    "total": 8,
    "verdict": "PASS",
@@ -5278,32 +5328,32 @@
    "source_ids": [
     "AUD_e76ch02",
     "sch_activities_guide",
-    "g19",
     "g06",
     "g19",
     "sen_exam_arrangements_2025",
     "g06",
-    "g06"
+    "g19",
+    "g19"
    ],
    "chunk_ids": [
     "footnote_fn_ncs_special_school_matrix",
     "footnote_fn_activities_sen",
+    "vault_g06_ddb8cc42eb48c6a7",
     "vault_g19_710b48540bec2358",
+    "vault_sen_exam_arrangements_2025_129b4cfe7bb77a8c",
     "vault_g06_d848109f501c4993",
-    "vault_g19_1bcd00d93612e161",
-    "vault_sen_exam_arrangements_2025_ce6f039be10d103f",
-    "vault_g06_7cc6d3273e9be61b",
-    "vault_g06_529aad2561716c65"
+    "vault_g19_5209939fe426d76b",
+    "vault_g19_e1fd18f8fda2cc85"
    ],
    "scores": [
     0.4998,
     0.4872,
+    0.7511,
     0.7287,
+    0.7233,
     0.7173,
-    0.7051,
-    0.7014,
-    0.6973,
-    0.6963
+    0.7141,
+    0.7136
    ],
    "content_types": [
     "footnote_curated",
@@ -5318,12 +5368,12 @@
    "pages": [
     null,
     null,
+    136,
+    9,
     9,
     137,
-    12,
-    8,
-    133,
-    134
+    6,
+    66
    ],
    "total": 8,
    "verdict": "FAIL",
@@ -5333,7 +5383,7 @@
    "forbidden_hits": [
     "g19"
    ],
-   "top_score": 0.7287
+   "top_score": 0.7511
   },
   {
    "id": "sen_wsa_integrated_edu",
@@ -5348,32 +5398,32 @@
    "source_ids": [
     "g19",
     "g19",
-    "g06",
     "g19",
     "g06",
-    "sag_2025_11",
     "g06",
-    "sen_exam_arrangements_2025"
+    "g06",
+    "sag_2025_11",
+    "role_facts_student"
    ],
    "chunk_ids": [
+    "vault_g19_5209939fe426d76b",
     "vault_g19_1bcd00d93612e161",
     "vault_g19_710b48540bec2358",
     "vault_g06_529aad2561716c65",
-    "vault_g19_38b24a217fc5a071",
+    "vault_g06_ddb8cc42eb48c6a7",
     "vault_g06_d848109f501c4993",
     "vault_sag_2025_11_7ee315e970474e8b",
-    "vault_g06_7cc6d3273e9be61b",
-    "vault_sen_exam_arrangements_2025_ce6f039be10d103f"
+    "fact_role_facts_student_d229ded34dd8703c"
    ],
    "scores": [
+    0.7396,
     0.7357,
     0.7344,
     0.7207,
-    0.7041,
+    0.715,
     0.6879,
     0.6865,
-    0.6809,
-    0.6785
+    0.68
    ],
    "content_types": [
     "vault_extract",
@@ -5383,17 +5433,17 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "vault_extract"
+    "approved_fact"
    ],
    "pages": [
+    6,
     12,
     9,
     134,
-    2,
+    136,
     137,
     90,
-    133,
-    8
+    null
    ],
    "total": 8,
    "verdict": "PASS",
@@ -5401,7 +5451,7 @@
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.7357
+   "top_score": 0.7396
   },
   {
    "id": "ss_discipline_org_1996",
@@ -5416,32 +5466,32 @@
    "source_ids": [
     "g16",
     "g16",
+    "g17",
+    "g17",
     "g16",
     "edbc18_2008_harmonious",
-    "lpe_framework_primary",
-    "lpe_framework_primary",
     "g17",
-    "lpe_framework_primary"
+    "role_facts_student"
    ],
    "chunk_ids": [
     "vault_g16_fafd9a4c682f38d2",
+    "vault_g16_6117aba72c17a889",
+    "vault_g17_f2213b6fc8fa",
+    "vault_g17_95b846afb15a",
     "vault_g16_3623a895e022c238",
-    "vault_g16_9d1136865236629c",
     "vault_edbc18_2008_harmonious_262a548dc986ead9",
-    "vault_lpe_framework_primary_ea045c871c0bee97",
-    "vault_lpe_framework_primary_19be8493188b6914",
-    "vault_g17_e64090fda3ae",
-    "vault_lpe_framework_primary_63856348d87dadcd"
+    "vault_g17_a0318b2de7a1",
+    "fact_role_facts_student_335b9e0296bc8b24"
    ],
    "scores": [
     0.5506,
+    0.5488,
+    0.507,
+    0.5067,
     0.5064,
-    0.4749,
     0.4644,
-    0.4576,
-    0.4476,
-    0.442,
-    0.4317
+    0.4643,
+    0.4578
    ],
    "content_types": [
     "vault_extract",
@@ -5451,17 +5501,17 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "vault_extract"
+    "approved_fact"
    ],
    "pages": [
     4,
-    6,
-    78,
-    1,
-    6,
-    7,
+    35,
     null,
-    15
+    null,
+    6,
+    1,
+    null,
+    null
    ],
    "total": 8,
    "verdict": "PASS",
@@ -5484,35 +5534,62 @@
    "source_ids": [
     "g16",
     "g16",
-    "g16"
+    "g16",
+    "sag_2025_11",
+    "g17",
+    "sag_2025_11",
+    "role_facts_student",
+    "g17"
    ],
    "chunk_ids": [
+    "vault_g16_498a8bb435acc6f4",
     "vault_g16_941a56959cba0050",
     "vault_g16_08c270ad206f6b8b",
-    "vault_g16_f36ae17af5f5ad35"
+    "vault_sag_2025_11_4765c7135a7afbef",
+    "vault_g17_95b846afb15a",
+    "vault_sag_2025_11_18db1540a61296f9",
+    "fact_role_facts_student_66c801705d047386",
+    "vault_g17_3cc4d28e9177"
    ],
    "scores": [
+    0.6016,
     0.5672,
     0.5634,
-    0.5238
+    0.4999,
+    0.4896,
+    0.4823,
+    0.4712,
+    0.4679
    ],
    "content_types": [
     "vault_extract",
     "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "approved_fact",
     "vault_extract"
    ],
    "pages": [
+    34,
     31,
     29,
-    26
+    4,
+    null,
+    184,
+    null,
+    null
    ],
-   "total": 3,
+   "total": 8,
    "verdict": "PASS",
    "rank_of_expected": 0,
-   "rank_of_expected_chunk": 1,
+   "rank_of_expected_chunk": 2,
    "chunk_verdict": "PASS",
-   "forbidden_hits": [],
-   "top_score": 0.5672
+   "forbidden_hits": [
+    "g17"
+   ],
+   "top_score": 0.6016
   },
   {
    "id": "ss_guidance_discipline_blend",
@@ -5525,30 +5602,38 @@
     "學校的決策層刻意將訓育及輔導的元素融合到校內不同的教育範疇中"
    ],
    "source_ids": [
+    "role_facts_student",
     "g16",
     "g17",
-    "g17",
+    "g16",
     "g17",
     "g16",
+    "g17",
     "role_facts_student"
    ],
    "chunk_ids": [
+    "fact_role_facts_student_335b9e0296bc8b24",
     "vault_g16_712cbf7e2dd73c55",
     "vault_g17_24ebf8866584",
+    "vault_g16_892c3285373023c5",
     "vault_g17_74bbffc99eed",
+    "vault_g16_4d3e1a9af2695da0",
     "vault_g17_84faefea48ee",
-    "vault_g16_bc76ed8b55c970ab",
     "fact_role_facts_student_92338bb0b468e388"
    ],
    "scores": [
+    0.5773,
     0.5598,
     0.5516,
+    0.5515,
     0.5452,
+    0.5441,
     0.544,
-    0.5182,
     0.5105
    ],
    "content_types": [
+    "approved_fact",
+    "vault_extract",
     "vault_extract",
     "vault_extract",
     "vault_extract",
@@ -5557,20 +5642,22 @@
     "approved_fact"
    ],
    "pages": [
+    null,
     64,
     null,
+    41,
     null,
+    42,
     null,
-    38,
     null
    ],
-   "total": 6,
+   "total": 8,
    "verdict": "PASS",
-   "rank_of_expected": 1,
-   "rank_of_expected_chunk": 1,
+   "rank_of_expected": 2,
+   "rank_of_expected_chunk": 2,
    "chunk_verdict": "PASS",
    "forbidden_hits": [],
-   "top_score": 0.5598
+   "top_score": 0.5773
   },
   {
    "id": "ss_harmony_hotline",
@@ -5584,61 +5671,61 @@
    ],
    "source_ids": [
     "edbcm108_2026",
+    "edbcm108_2026",
+    "edbcm108_2026",
     "crisis_mgmt_handbook",
-    "sag_2025_11",
-    "role_facts_student",
-    "sag_2025_11",
-    "sag_2025_11",
-    "g16",
-    "crisis_mgmt_handbook"
+    "edbc18_2008_harmonious",
+    "crisis_mgmt_handbook",
+    "crisis_mgmt_handbook",
+    "sag_2025_11"
    ],
    "chunk_ids": [
+    "vault_edbcm108_2026_dabda42246dafb48",
     "vault_edbcm108_2026_6fcd68ec8f4fe46c",
-    "vault_crisis_mgmt_handbook_230ca1725a3df51b",
-    "vault_sag_2025_11_869957202dfa7d07",
-    "fact_role_facts_student_69919b1790de8b4d",
-    "vault_sag_2025_11_72e9a8a0a554d879",
-    "vault_sag_2025_11_e2ed27318b83e452",
-    "vault_g16_32507691acc4ebae",
-    "vault_crisis_mgmt_handbook_481ac03c877a534f"
+    "vault_edbcm108_2026_9ed0be41f11585cb",
+    "vault_crisis_mgmt_handbook_284ee7a4712aa249",
+    "vault_edbc18_2008_harmonious_262a548dc986ead9",
+    "vault_crisis_mgmt_handbook_652be208ce31a43c",
+    "vault_crisis_mgmt_handbook_8e718fa2685b92d0",
+    "vault_sag_2025_11_b87c01c873ba7b22"
    ],
    "scores": [
+    0.548,
     0.5433,
-    0.4234,
-    0.4216,
-    0.4143,
-    0.4116,
-    0.4056,
-    0.3984,
-    0.3968
+    0.515,
+    0.4706,
+    0.4697,
+    0.4685,
+    0.4472,
+    0.4347
    ],
    "content_types": [
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "approved_fact",
+    "vault_extract",
     "vault_extract",
     "vault_extract",
     "vault_extract",
     "vault_extract"
    ],
    "pages": [
+    2,
     1,
-    37,
-    132,
-    null,
-    107,
-    128,
-    102,
-    46
+    3,
+    65,
+    1,
+    66,
+    33,
+    82
    ],
    "total": 8,
    "verdict": "PASS",
    "rank_of_expected": 0,
-   "rank_of_expected_chunk": null,
-   "chunk_verdict": "FAIL",
+   "rank_of_expected_chunk": 2,
+   "chunk_verdict": "PASS",
    "forbidden_hits": [],
-   "top_score": 0.5433
+   "top_score": 0.548
   },
   {
    "id": "ss_ncs_chinese_framework_progress_v2",
@@ -5785,8 +5872,8 @@
    "source_ids": [
     "chi_hist_jss_ncs_2019",
     "chi_hist_jss_ncs_2019",
-    "chi_hist_jss_2019",
     "chi_hist_jss_ncs_2019",
+    "chi_hist_jss_2019",
     "chi_hist_jss_2019",
     "chi_hist_jss_2019",
     "history_jss_2019",
@@ -5794,9 +5881,9 @@
    ],
    "chunk_ids": [
     "vault_chi_hist_jss_ncs_2019_c90f359ec6dfca87",
+    "vault_chi_hist_jss_ncs_2019_618e9e0f8fdf13df",
     "vault_chi_hist_jss_ncs_2019_da5427059e6d2388",
     "vault_chi_hist_jss_2019_e820a4c3fef52bf3",
-    "vault_chi_hist_jss_ncs_2019_f86d81fbccc82030",
     "vault_chi_hist_jss_2019_27bfbd8755ddd66b",
     "vault_chi_hist_jss_2019_89290f28a35465bd",
     "vault_history_jss_2019_b8e591b453936714",
@@ -5804,9 +5891,9 @@
    ],
    "scores": [
     0.5898,
+    0.5894,
     0.5731,
     0.5667,
-    0.5639,
     0.5565,
     0.5551,
     0.5434,
@@ -5824,9 +5911,9 @@
    ],
    "pages": [
     4,
+    11,
     5,
     8,
-    3,
     29,
     23,
     17,
@@ -5860,7 +5947,7 @@
     "sag_2025_11",
     "sag_2025_11",
     "g04",
-    "job_sharing_guide"
+    "g04"
    ],
    "chunk_ids": [
     "footnote_fn_ncs_sbp_26360_class",
@@ -5868,9 +5955,9 @@
     "vault_g04_997df7efd474",
     "vault_sag_2025_11_b91bef25da03b856",
     "vault_sag_2025_11_a1bf01e7cdf07272",
-    "vault_sag_2025_11_24bfce599b6adf34",
-    "vault_g04_5a60fb781f6f",
-    "vault_job_sharing_guide_a8ab796eb2c2b76f"
+    "vault_sag_2025_11_4ee562d7f8902f9a",
+    "vault_g04_2d6cd63fe2e4",
+    "vault_g04_638c01bf30ac"
    ],
    "scores": [
     0.69,
@@ -5878,9 +5965,9 @@
     0.6739,
     0.6703,
     0.6533,
-    0.6327,
-    0.5951,
-    0.5935
+    0.6406,
+    0.6058,
+    0.6009
    ],
    "content_types": [
     "footnote_curated",
@@ -5898,9 +5985,9 @@
     null,
     228,
     229,
-    235,
+    233,
     null,
-    4
+    null
    ],
    "total": 8,
    "verdict": "PASS",
@@ -5921,34 +6008,34 @@
     "自一九九零年教育統籌委員會第四號報告書建議引入「全校參與」"
    ],
    "source_ids": [
+    "g06",
     "g19",
     "g19",
     "g19",
     "g06",
     "g06",
     "sen_exam_arrangements_2025",
-    "g06",
-    "sag_2025_11"
+    "role_facts_student"
    ],
    "chunk_ids": [
+    "vault_g06_ddb8cc42eb48c6a7",
     "vault_g19_1bcd00d93612e161",
     "vault_g19_710b48540bec2358",
     "vault_g19_5209939fe426d76b",
     "vault_g06_d848109f501c4993",
     "vault_g06_529aad2561716c65",
     "vault_sen_exam_arrangements_2025_ce6f039be10d103f",
-    "vault_g06_7cc6d3273e9be61b",
-    "vault_sag_2025_11_7ee315e970474e8b"
+    "fact_role_facts_student_d229ded34dd8703c"
    ],
    "scores": [
+    0.7598,
     0.7571,
     0.7499,
     0.7468,
     0.7313,
     0.7285,
     0.7181,
-    0.7083,
-    0.7047
+    0.7079
    ],
    "content_types": [
     "vault_extract",
@@ -5958,17 +6045,17 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "vault_extract"
+    "approved_fact"
    ],
    "pages": [
+    136,
     12,
     9,
     6,
     137,
     134,
     8,
-    133,
-    90
+    null
    ],
    "total": 8,
    "verdict": "FAIL",
@@ -5976,7 +6063,7 @@
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.7571
+   "top_score": 0.7598
   },
   {
    "id": "ss_xunfu_abbrev",
@@ -6057,34 +6144,34 @@
     "假如車輛在預定時間前到達接載地點，除非所有乘搭該車輛的學童均已就座，否則不應提前離去"
    ],
    "source_ids": [
+    "sch_bus_escorts_2026",
     "sch_bus_parents_2026",
     "sch_bus_operators_2026",
     "sch_bus_students_2026",
     "g18",
     "sch_bus_operators_2026",
     "sch_bus_drivers_2026",
-    "g18",
-    "g18"
+    "sch_bus_operators_2026"
    ],
    "chunk_ids": [
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
     "vault_sch_bus_parents_2026_f5c47a090cf744b6",
     "vault_sch_bus_operators_2026_091b41a86b342008",
     "vault_sch_bus_students_2026_d86dfd1266f4ed72",
     "vault_g18_ba03811c1c48f797",
     "vault_sch_bus_operators_2026_fb9a7e011373f8dc",
     "vault_sch_bus_drivers_2026_c9710348e6909d79",
-    "vault_g18_29e132822cd66f61",
-    "vault_g18_54ecf87a1a01e3ba"
+    "vault_sch_bus_operators_2026_8a8f92a4092ce837"
    ],
    "scores": [
+    0.7599,
     0.7568,
     0.7548,
     0.7448,
     0.7381,
     0.7351,
     0.7336,
-    0.7291,
-    0.7151
+    0.7317
    ],
    "content_types": [
     "vault_extract",
@@ -6101,18 +6188,18 @@
     1,
     1,
     1,
-    3,
     1,
+    3,
     1,
     2
    ],
    "total": 8,
    "verdict": "PASS",
-   "rank_of_expected": 5,
+   "rank_of_expected": 6,
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.7568
+   "top_score": 0.7599
   },
   {
    "id": "bus_emergency_reaction",
@@ -6127,32 +6214,32 @@
    "source_ids": [
     "sch_bus_operators_2026",
     "sch_bus_escorts_2026",
+    "sch_bus_operators_2026",
     "sch_bus_parents_2026",
     "sch_bus_students_2026",
     "sch_bus_drivers_2026",
-    "g18",
     "g18",
     "sch_bus_operators_2026"
    ],
    "chunk_ids": [
     "vault_sch_bus_operators_2026_091b41a86b342008",
     "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+    "vault_sch_bus_operators_2026_152b81b37a6ab881",
     "vault_sch_bus_parents_2026_f5c47a090cf744b6",
     "vault_sch_bus_students_2026_d86dfd1266f4ed72",
     "vault_sch_bus_drivers_2026_c9710348e6909d79",
     "vault_g18_29e132822cd66f61",
-    "vault_g18_ba03811c1c48f797",
-    "vault_sch_bus_operators_2026_fb9a7e011373f8dc"
+    "vault_sch_bus_operators_2026_be44d3a8d9513c6d"
    ],
    "scores": [
     0.7601,
     0.755,
+    0.7485,
     0.7481,
     0.7438,
     0.7415,
     0.738,
-    0.73,
-    0.7279
+    0.7309
    ],
    "content_types": [
     "vault_extract",
@@ -6167,12 +6254,12 @@
    "pages": [
     1,
     1,
+    4,
     1,
     1,
     1,
     1,
-    1,
-    3
+    1
    ],
    "total": 8,
    "verdict": "PASS",
@@ -6197,30 +6284,30 @@
     "sch_bus_operators_2026",
     "sch_bus_drivers_2026",
     "sch_bus_escorts_2026",
+    "sch_bus_operators_2026",
     "sch_bus_students_2026",
     "sch_bus_drivers_2026",
-    "sch_bus_parents_2026",
-    "g18"
+    "sch_bus_parents_2026"
    ],
    "chunk_ids": [
     "vault_sch_bus_escorts_2026_e8194c92d641abfb",
     "vault_sch_bus_operators_2026_091b41a86b342008",
     "vault_sch_bus_drivers_2026_c9710348e6909d79",
     "vault_sch_bus_escorts_2026_3ef9c0ac897bae8e",
+    "vault_sch_bus_operators_2026_8a8f92a4092ce837",
     "vault_sch_bus_students_2026_d86dfd1266f4ed72",
     "vault_sch_bus_drivers_2026_901050e0b0657fe8",
-    "vault_sch_bus_parents_2026_f5c47a090cf744b6",
-    "vault_g18_29e132822cd66f61"
+    "vault_sch_bus_parents_2026_f5c47a090cf744b6"
    ],
    "scores": [
     0.8026,
     0.7884,
     0.7672,
     0.762,
+    0.7503,
     0.7483,
     0.7472,
-    0.7432,
-    0.7399
+    0.7432
    ],
    "content_types": [
     "vault_extract",
@@ -6237,7 +6324,7 @@
     1,
     1,
     1,
-    1,
+    2,
     1,
     1,
     1
@@ -6266,9 +6353,9 @@
     "sch_bus_students_2026",
     "sch_bus_operators_2026",
     "g18",
+    "sch_bus_operators_2026",
     "g18",
-    "sch_bus_drivers_2026",
-    "g18"
+    "sch_bus_drivers_2026"
    ],
    "chunk_ids": [
     "vault_sch_bus_parents_2026_f5c47a090cf744b6",
@@ -6276,9 +6363,9 @@
     "vault_sch_bus_students_2026_d86dfd1266f4ed72",
     "vault_sch_bus_operators_2026_091b41a86b342008",
     "vault_g18_ba03811c1c48f797",
+    "vault_sch_bus_operators_2026_152b81b37a6ab881",
     "vault_g18_1696a94590f2d252",
-    "vault_sch_bus_drivers_2026_c9710348e6909d79",
-    "vault_g18_29e132822cd66f61"
+    "vault_sch_bus_drivers_2026_c9710348e6909d79"
    ],
    "scores": [
     0.7619,
@@ -6286,9 +6373,9 @@
     0.7398,
     0.7378,
     0.7341,
+    0.7339,
     0.7273,
-    0.7227,
-    0.7173
+    0.7227
    ],
    "content_types": [
     "vault_extract",
@@ -6306,8 +6393,8 @@
     1,
     1,
     1,
+    4,
     3,
-    1,
     1
    ],
    "total": 8,
@@ -6329,34 +6416,34 @@
     "跟車保母應保存一份經常更新的乘車學童名單，以便在行車前核對學童人數"
    ],
    "source_ids": [
+    "sch_bus_escorts_2026",
     "sch_bus_operators_2026",
     "sch_bus_drivers_2026",
     "sch_bus_parents_2026",
     "sch_bus_escorts_2026",
     "sch_bus_students_2026",
-    "g18",
-    "g18",
-    "sch_bus_operators_2026"
+    "sch_bus_operators_2026",
+    "g18"
    ],
    "chunk_ids": [
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
     "vault_sch_bus_operators_2026_091b41a86b342008",
     "vault_sch_bus_drivers_2026_c9710348e6909d79",
     "vault_sch_bus_parents_2026_f5c47a090cf744b6",
     "vault_sch_bus_escorts_2026_3ef9c0ac897bae8e",
     "vault_sch_bus_students_2026_d86dfd1266f4ed72",
-    "vault_g18_29e132822cd66f61",
-    "vault_g18_ba03811c1c48f797",
-    "vault_sch_bus_operators_2026_be44d3a8d9513c6d"
+    "vault_sch_bus_operators_2026_8a8f92a4092ce837",
+    "vault_g18_29e132822cd66f61"
    ],
    "scores": [
+    0.7973,
     0.7947,
     0.7583,
     0.7488,
     0.7466,
     0.7452,
-    0.7385,
-    0.7337,
-    0.7313
+    0.742,
+    0.7385
    ],
    "content_types": [
     "vault_extract",
@@ -6375,16 +6462,16 @@
     1,
     1,
     1,
-    1,
+    2,
     1
    ],
    "total": 8,
    "verdict": "PASS",
-   "rank_of_expected": 3,
-   "rank_of_expected_chunk": null,
-   "chunk_verdict": "FAIL",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": 0,
+   "chunk_verdict": "PASS",
    "forbidden_hits": [],
-   "top_score": 0.7947
+   "top_score": 0.7973
   },
   {
    "id": "bus_escort_typo",
@@ -6399,32 +6486,32 @@
    "source_ids": [
     "sch_bus_students_2026",
     "sch_bus_parents_2026",
+    "sch_bus_escorts_2026",
     "g18",
     "sch_bus_operators_2026",
     "sch_bus_operators_2026",
-    "sch_bus_drivers_2026",
     "sch_bus_operators_2026",
-    "g18"
+    "sch_bus_drivers_2026"
    ],
    "chunk_ids": [
     "vault_sch_bus_students_2026_d86dfd1266f4ed72",
     "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
     "vault_g18_ba03811c1c48f797",
     "vault_sch_bus_operators_2026_091b41a86b342008",
+    "vault_sch_bus_operators_2026_8a8f92a4092ce837",
     "vault_sch_bus_operators_2026_fb9a7e011373f8dc",
-    "vault_sch_bus_drivers_2026_c9710348e6909d79",
-    "vault_sch_bus_operators_2026_be44d3a8d9513c6d",
-    "vault_g18_29e132822cd66f61"
+    "vault_sch_bus_drivers_2026_c9710348e6909d79"
    ],
    "scores": [
     0.7794,
     0.7753,
+    0.7678,
     0.7614,
     0.7535,
+    0.7496,
     0.7495,
-    0.7481,
-    0.7382,
-    0.734
+    0.7481
    ],
    "content_types": [
     "vault_extract",
@@ -6441,9 +6528,9 @@
     1,
     1,
     1,
+    1,
+    2,
     3,
-    1,
-    1,
     1
    ],
    "total": 8,
@@ -6466,34 +6553,34 @@
     "司機應知道滅火器的位置和使用方法，並應定期檢查滅火器所顯示的容量不少於最低水平"
    ],
    "source_ids": [
+    "sch_bus_operators_2026",
+    "sch_bus_escorts_2026",
     "sch_bus_escorts_2026",
     "sch_bus_parents_2026",
-    "sch_bus_drivers_2026",
     "sch_bus_operators_2026",
+    "sch_bus_students_2026",
     "sch_bus_drivers_2026",
-    "g18",
-    "sch_bus_operators_2026",
-    "sch_bus_parents_2026"
+    "g18"
    ],
    "chunk_ids": [
+    "vault_sch_bus_operators_2026_152b81b37a6ab881",
     "vault_sch_bus_escorts_2026_d3ae75b65a12d735",
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
     "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+    "vault_sch_bus_operators_2026_091b41a86b342008",
+    "vault_sch_bus_students_2026_d86dfd1266f4ed72",
     "vault_sch_bus_drivers_2026_c9710348e6909d79",
-    "vault_sch_bus_operators_2026_be44d3a8d9513c6d",
-    "vault_sch_bus_drivers_2026_8eeb20d1e1b6ecec",
-    "vault_g18_1e14759e2084c65d",
-    "vault_sch_bus_operators_2026_1f4f280cc236eb42",
-    "vault_sch_bus_parents_2026_39825d85c03f9636"
+    "vault_g18_ba03811c1c48f797"
    ],
    "scores": [
+    0.752,
     0.713,
+    0.7126,
     0.7095,
+    0.7095,
+    0.7091,
     0.7021,
-    0.6956,
-    0.6724,
-    0.662,
-    0.6535,
-    0.6481
+    0.6998
    ],
    "content_types": [
     "vault_extract",
@@ -6506,22 +6593,22 @@
     "vault_extract"
    ],
    "pages": [
+    4,
     2,
     1,
     1,
     1,
-    3,
-    5,
-    5,
-    4
+    1,
+    1,
+    1
    ],
    "total": 8,
    "verdict": "PASS",
-   "rank_of_expected": 0,
+   "rank_of_expected": 1,
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.713
+   "top_score": 0.752
   },
   {
    "id": "bus_fee_noans",
@@ -6530,34 +6617,34 @@
    "expect_any": [],
    "expect_text_any": [],
    "source_ids": [
+    "sch_bus_escorts_2026",
     "sch_bus_operators_2026",
     "sch_bus_parents_2026",
-    "sch_bus_drivers_2026",
-    "g18",
     "sch_bus_operators_2026",
     "g18",
-    "sch_bus_students_2026",
-    "g18"
+    "sch_bus_drivers_2026",
+    "sch_bus_operators_2026",
+    "sch_bus_drivers_2026"
    ],
    "chunk_ids": [
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
     "vault_sch_bus_operators_2026_091b41a86b342008",
     "vault_sch_bus_parents_2026_f5c47a090cf744b6",
-    "vault_sch_bus_drivers_2026_c9710348e6909d79",
-    "vault_g18_ba03811c1c48f797",
-    "vault_sch_bus_operators_2026_fb9a7e011373f8dc",
-    "vault_g18_54ecf87a1a01e3ba",
-    "vault_sch_bus_students_2026_d86dfd1266f4ed72",
-    "vault_g18_29e132822cd66f61"
+    "vault_sch_bus_operators_2026_8a8f92a4092ce837",
+    "vault_g18_1696a94590f2d252",
+    "vault_sch_bus_drivers_2026_901050e0b0657fe8",
+    "vault_sch_bus_operators_2026_be44d3a8d9513c6d",
+    "vault_sch_bus_drivers_2026_c9710348e6909d79"
    ],
    "scores": [
+    0.7575,
     0.7479,
     0.7456,
-    0.7183,
-    0.717,
-    0.7132,
-    0.7101,
-    0.7075,
-    0.7057
+    0.7452,
+    0.7342,
+    0.7216,
+    0.7196,
+    0.7183
    ],
    "content_types": [
     "vault_extract",
@@ -6573,9 +6660,9 @@
     1,
     1,
     1,
-    1,
-    3,
     2,
+    3,
+    1,
     1,
     1
    ],
@@ -6585,7 +6672,7 @@
    "rank_of_expected_chunk": null,
    "chunk_verdict": "RECORD_ONLY",
    "forbidden_hits": [],
-   "top_score": 0.7479
+   "top_score": 0.7575
   },
   {
    "id": "bus_guide_audience_confusable",
@@ -6603,8 +6690,8 @@
     "sch_bus_students_2026",
     "sch_bus_operators_2026",
     "g18",
+    "sch_bus_operators_2026",
     "sch_bus_drivers_2026",
-    "g18",
     "g18"
    ],
    "chunk_ids": [
@@ -6613,19 +6700,19 @@
     "vault_sch_bus_students_2026_d86dfd1266f4ed72",
     "vault_sch_bus_operators_2026_091b41a86b342008",
     "vault_g18_1696a94590f2d252",
+    "vault_sch_bus_operators_2026_8a8f92a4092ce837",
     "vault_sch_bus_drivers_2026_c9710348e6909d79",
-    "vault_g18_29e132822cd66f61",
-    "vault_g18_ba03811c1c48f797"
+    "vault_g18_29e132822cd66f61"
    ],
    "scores": [
-    0.7497,
-    0.7432,
-    0.7292,
-    0.7259,
-    0.7204,
-    0.712,
-    0.7094,
-    0.708
+    0.7498,
+    0.7431,
+    0.7295,
+    0.7258,
+    0.7206,
+    0.7152,
+    0.7122,
+    0.7097
    ],
    "content_types": [
     "vault_extract",
@@ -6643,7 +6730,7 @@
     1,
     1,
     3,
-    1,
+    2,
     1,
     1
    ],
@@ -6657,7 +6744,7 @@
     "sch_bus_escorts_2026",
     "sch_bus_operators_2026"
    ],
-   "top_score": 0.7497
+   "top_score": 0.7498
   },
   {
    "id": "bus_seatbelt_rule",
@@ -6676,8 +6763,8 @@
     "sch_bus_operators_2026",
     "sch_bus_drivers_2026",
     "g18",
-    "sch_bus_drivers_2026",
-    "g18"
+    "sch_bus_operators_2026",
+    "sch_bus_operators_2026"
    ],
    "chunk_ids": [
     "vault_sch_bus_escorts_2026_e8194c92d641abfb",
@@ -6686,8 +6773,8 @@
     "vault_sch_bus_operators_2026_091b41a86b342008",
     "vault_sch_bus_drivers_2026_c9710348e6909d79",
     "vault_g18_1696a94590f2d252",
-    "vault_sch_bus_drivers_2026_901050e0b0657fe8",
-    "vault_g18_29e132822cd66f61"
+    "vault_sch_bus_operators_2026_8a8f92a4092ce837",
+    "vault_sch_bus_operators_2026_be44d3a8d9513c6d"
    ],
    "scores": [
     0.7956,
@@ -6696,8 +6783,8 @@
     0.7764,
     0.7693,
     0.7666,
-    0.7554,
-    0.7523
+    0.7644,
+    0.758
    ],
    "content_types": [
     "vault_extract",
@@ -6716,7 +6803,7 @@
     1,
     1,
     3,
-    1,
+    2,
     1
    ],
    "total": 8,
@@ -6742,30 +6829,30 @@
     "k1_admission_2627",
     "k1_admission_2627",
     "edbcm080_2026",
-    "k1_admission_2627",
     "edbcm080_2026",
+    "k1_admission_2627",
     "g26",
-    "g25"
+    "k1_admission_2627"
    ],
    "chunk_ids": [
     "footnote_fn_kgop_classroom",
     "footnote_fn_k1_regfee",
     "vault_k1_admission_2627_bce254dce1978b99",
     "vault_edbcm080_2026_b643924590eb88dd",
-    "vault_k1_admission_2627_4dfff7775d179ac2",
-    "vault_edbcm080_2026_f47b08e72b6ded60",
-    "vault_g26_ed814e330ee43595",
-    "vault_g25_a3d58093313d"
+    "vault_edbcm080_2026_93a91f0494719160",
+    "vault_k1_admission_2627_3b6a85a2293b6d97",
+    "vault_g26_b02f985dfc09505d",
+    "vault_k1_admission_2627_0a36fa046c73be08"
    ],
    "scores": [
     0.5367,
     0.5214,
     0.7447,
     0.7383,
-    0.7211,
-    0.7061,
-    0.6998,
-    0.6952
+    0.7383,
+    0.738,
+    0.7316,
+    0.7295
    ],
    "content_types": [
     "footnote_curated",
@@ -6782,10 +6869,10 @@
     null,
     15,
     6,
-    2,
-    2,
-    2,
-    null
+    7,
+    7,
+    10,
+    6
    ],
    "total": 8,
    "verdict": "PASS",
@@ -6874,30 +6961,30 @@
     "wfsfaa_sfaa_household_app_guidance_2526",
     "g25",
     "g29",
+    "g29",
     "pri_science_guide_2025",
-    "wfsfaa_sfaa_household_app_guidance_2526",
-    "phys_sss_2007_2015",
-    "kg_admin_guide_2026"
+    "g26",
+    "g29"
    ],
    "chunk_ids": [
     "footnote_fn_kgadmin_rent_sept",
     "footnote_fn_sfaa_kg_3tier_afi",
     "vault_g25_a3d58093313d",
     "vault_g29_430271c68dccde06",
+    "vault_g29_33c14df3cc141a08",
     "vault_pri_science_guide_2025_c0789e0065e45be1",
-    "footnote_fn_sfaa_kg_payment_flow",
-    "vault_phys_sss_2007_2015_90a0ddcc1493d3dd",
-    "footnote_fn_kgadmin_utilrate"
+    "vault_g26_fcdf197b50930a5b",
+    "vault_g29_074d14170e153397"
    ],
    "scores": [
     0.4814,
     0.4798,
     0.5954,
     0.4905,
+    0.4867,
     0.4864,
-    0.4682,
-    0.4672,
-    0.4527
+    0.4798,
+    0.4774
    ],
    "content_types": [
     "footnote_curated",
@@ -6905,19 +6992,19 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "footnote_curated",
     "vault_extract",
-    "footnote_curated"
+    "vault_extract",
+    "vault_extract"
    ],
    "pages": [
     null,
     null,
     null,
     50,
+    17,
     36,
-    null,
-    66,
-    null
+    5,
+    14
    ],
    "total": 8,
    "verdict": "RECORD_ONLY",
@@ -7012,7 +7099,7 @@
     "k1_admission_2627",
     "k1_admission_2627",
     "edbcm080_2026",
-    "g25",
+    "edbcm080_2026",
     "g26"
    ],
    "chunk_ids": [
@@ -7021,9 +7108,9 @@
     "vault_g26_fcdf197b50930a5b",
     "vault_k1_admission_2627_421c157af5c2ffe8",
     "vault_k1_admission_2627_bce254dce1978b99",
+    "vault_edbcm080_2026_93a91f0494719160",
     "vault_edbcm080_2026_d0fad42b57d019f7",
-    "vault_g25_a3d58093313d",
-    "vault_g26_977d336da59f4b1e"
+    "vault_g26_06fdddb878ef11fe"
    ],
    "scores": [
     0.5966,
@@ -7031,9 +7118,9 @@
     0.7282,
     0.7185,
     0.7165,
+    0.7061,
     0.6923,
-    0.6884,
-    0.6796
+    0.6913
    ],
    "content_types": [
     "footnote_curated",
@@ -7051,9 +7138,9 @@
     5,
     4,
     15,
+    7,
     3,
-    null,
-    3
+    4
    ],
    "total": 8,
    "verdict": "FAIL",
@@ -7146,50 +7233,50 @@
     "k1_admission_2627",
     "g25",
     "g26",
+    "g26",
     "wfsfaa_sfaa_household_app_guidance_2526",
     "kg_admin_guide_2026",
-    "g26",
-    "kg_admin_guide_2026"
+    "g26"
    ],
    "chunk_ids": [
     "footnote_fn_k1_appfee",
     "footnote_fn_k1_regfee",
     "vault_g25_a3d58093313d",
     "vault_g26_fcdf197b50930a5b",
+    "vault_g26_06fdddb878ef11fe",
     "footnote_fn_sfaa_kg_3tier_afi",
     "footnote_fn_kgadmin_rent_sept",
-    "vault_g26_977d336da59f4b1e",
-    "footnote_fn_kgadmin_utilrate"
+    "vault_g26_44db8986039aa36d"
    ],
    "scores": [
     0.6828,
     0.68,
     0.7494,
     0.6647,
+    0.6319,
     0.6134,
     0.6038,
-    0.5906,
-    0.5569
+    0.5945
    ],
    "content_types": [
     "footnote_curated",
     "footnote_curated",
     "vault_extract",
     "vault_extract",
-    "footnote_curated",
-    "footnote_curated",
     "vault_extract",
-    "footnote_curated"
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract"
    ],
    "pages": [
     null,
     null,
     null,
     5,
+    4,
     null,
     null,
-    3,
-    null
+    4
    ],
    "total": 8,
    "verdict": "PASS",
@@ -7292,7 +7379,7 @@
     "footnote_fn_kgadmin_utilrate",
     "vault_g29_0f84ad6fe5d49d38",
     "vault_g29_9c80adb0c6d025c6",
-    "vault_g29_54a276c794731206",
+    "vault_g29_33c14df3cc141a08",
     "vault_chi_jss_guide_2023_df775ae5478ce444",
     "vault_ma_kla_guide_2017_ea88bb03cf16ac37",
     "vault_ma_kla_guide_2017_3ae0e133b819b999"
@@ -7302,7 +7389,7 @@
     0.4951,
     0.6302,
     0.6092,
-    0.5999,
+    0.6084,
     0.5644,
     0.5611,
     0.5609
@@ -7322,7 +7409,7 @@
     null,
     5,
     26,
-    47,
+    17,
     33,
     30,
     59
@@ -7354,28 +7441,28 @@
     "g29",
     "g29",
     "g29",
-    "g26",
-    "sch_activities_guide"
+    "circ_edbc24017",
+    "g26"
    ],
    "chunk_ids": [
     "footnote_fn_kgop_teacher_onduty",
     "footnote_fn_kgop_classroom",
     "footnote_fn_kgop_ratio",
+    "vault_g29_33c14df3cc141a08",
     "vault_g29_54a276c794731206",
-    "vault_g29_9c80adb0c6d025c6",
-    "vault_g29_198bc44fde04c2b1",
-    "vault_g26_74d4e9ac6c9317f1",
-    "footnote_fn_activities_ratios"
+    "vault_g29_1ee76b091a74e873",
+    "vault_circ_edbc24017_79349b01fd0007bc",
+    "vault_g26_74d4e9ac6c9317f1"
    ],
    "scores": [
     0.6624,
     0.6079,
     0.6538,
+    0.6354,
     0.6288,
-    0.6075,
-    0.6027,
-    0.5824,
-    0.5404
+    0.6145,
+    0.5904,
+    0.5824
    ],
    "content_types": [
     "footnote_curated",
@@ -7385,17 +7472,17 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "footnote_curated"
+    "vault_extract"
    ],
    "pages": [
     null,
     null,
     null,
+    17,
     47,
-    26,
-    20,
-    1,
-    null
+    16,
+    6,
+    1
    ],
    "total": 8,
    "verdict": "FAIL",
@@ -7422,23 +7509,26 @@
     "s4_placement_2026",
     "s4_placement_2026",
     "edbcm099_2026",
+    "edbcm099_2026",
     "s4_placement_2026"
    ],
    "chunk_ids": [
     "vault_edbc18_2019_sspa_3331438d0f96468d",
+    "vault_edbc18_2019_sspa_3b30e72da47a7657",
     "vault_edbc18_2019_sspa_a834639ccb482892",
-    "vault_edbc18_2019_sspa_6ad636090cee57f4",
     "vault_s4_placement_2026_351c0e6adbf059f4",
     "vault_s4_placement_2026_c1d06e5d10fa82e5",
+    "vault_edbcm099_2026_2bd5b67097b2d0a5",
     "vault_edbcm099_2026_7878606719c0a30f",
     "vault_s4_placement_2026_96e14fb11a520810"
    ],
    "scores": [
     0.6427,
+    0.5882,
     0.5826,
-    0.5551,
     0.4938,
     0.483,
+    0.4547,
     0.453,
     0.424
    ],
@@ -7449,18 +7539,20 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
+    "vault_extract",
     "vault_extract"
    ],
    "pages": [
     1,
+    4,
     6,
     2,
     2,
-    2,
+    1,
     1,
     2
    ],
-   "total": 7,
+   "total": 8,
    "verdict": "PASS",
    "rank_of_expected": 0,
    "rank_of_expected_chunk": 0,
@@ -7620,29 +7712,29 @@
     "edbc18_2019_sspa",
     "edbc18_2019_sspa",
     "edbcm099_2026",
-    "s4_placement_2026",
+    "edbcm099_2026",
     "s4_placement_2026",
     "s4_placement_2026"
    ],
    "chunk_ids": [
     "footnote_fn_ac_special_room_cap",
     "vault_edbc18_2019_sspa_3331438d0f96468d",
-    "vault_edbc18_2019_sspa_fb982747ec4965ca",
-    "vault_edbc18_2019_sspa_c63be100d214d8e7",
+    "vault_edbc18_2019_sspa_a834639ccb482892",
+    "vault_edbc18_2019_sspa_d5882e322feaed1d",
     "vault_edbcm099_2026_7878606719c0a30f",
+    "vault_edbcm099_2026_2bd5b67097b2d0a5",
     "vault_s4_placement_2026_351c0e6adbf059f4",
-    "vault_s4_placement_2026_c1d06e5d10fa82e5",
-    "vault_s4_placement_2026_96e14fb11a520810"
+    "vault_s4_placement_2026_c1d06e5d10fa82e5"
    ],
    "scores": [
     0.4716,
     0.6515,
-    0.569,
-    0.5519,
+    0.6031,
+    0.5904,
     0.5387,
+    0.5314,
     0.5226,
-    0.4949,
-    0.4789
+    0.4949
    ],
    "content_types": [
     "footnote_curated",
@@ -7657,10 +7749,10 @@
    "pages": [
     null,
     1,
-    2,
-    8,
+    6,
+    11,
     1,
-    2,
+    1,
     2,
     2
    ],
@@ -7749,35 +7841,60 @@
    "source_ids": [
     "edbc18_2019_sspa",
     "edbc18_2019_sspa",
+    "edbc18_2019_sspa",
+    "edbcm099_2026",
+    "edbcm099_2026",
+    "s4_placement_2026",
+    "s4_placement_2026",
     "kg_operation_manual_2026"
    ],
    "chunk_ids": [
+    "vault_edbc18_2019_sspa_3331438d0f96468d",
+    "vault_edbc18_2019_sspa_e24f8aedbeac687f",
     "vault_edbc18_2019_sspa_a834639ccb482892",
-    "vault_edbc18_2019_sspa_6ad636090cee57f4",
+    "vault_edbcm099_2026_2bd5b67097b2d0a5",
+    "vault_edbcm099_2026_7878606719c0a30f",
+    "vault_s4_placement_2026_351c0e6adbf059f4",
+    "vault_s4_placement_2026_c1d06e5d10fa82e5",
     "footnote_fn_kgop_ratio"
    ],
    "scores": [
+    0.5511,
+    0.5397,
     0.5321,
-    0.4983,
+    0.5205,
+    0.4608,
+    0.4603,
+    0.455,
     0.4304
    ],
    "content_types": [
     "vault_extract",
     "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
     "footnote_curated"
    ],
    "pages": [
+    1,
+    4,
     6,
+    1,
+    1,
+    2,
     2,
     null
    ],
-   "total": 3,
+   "total": 8,
    "verdict": "RECORD_ONLY",
    "rank_of_expected": null,
    "rank_of_expected_chunk": null,
    "chunk_verdict": "RECORD_ONLY",
    "forbidden_hits": [],
-   "top_score": 0.5321
+   "top_score": 0.5511
   },
   {
    "id": "plc_poa_points_noans",
@@ -7787,32 +7904,36 @@
    "expect_text_any": [],
    "source_ids": [
     "edbc18_2019_sspa",
-    "edbcm099_2026",
-    "edbc18_2019_sspa",
     "edbc18_2019_sspa",
     "edbcm099_2026",
+    "edbc18_2019_sspa",
+    "edbcm099_2026",
+    "s4_placement_2026",
     "s4_placement_2026",
     "s4_placement_2026"
    ],
    "chunk_ids": [
     "vault_edbc18_2019_sspa_c63be100d214d8e7",
+    "vault_edbc18_2019_sspa_a834639ccb482892",
     "vault_edbcm099_2026_2bd5b67097b2d0a5",
     "vault_edbc18_2019_sspa_e24f8aedbeac687f",
-    "vault_edbc18_2019_sspa_3331438d0f96468d",
     "vault_edbcm099_2026_7878606719c0a30f",
     "vault_s4_placement_2026_351c0e6adbf059f4",
-    "vault_s4_placement_2026_c1d06e5d10fa82e5"
+    "vault_s4_placement_2026_c1d06e5d10fa82e5",
+    "vault_s4_placement_2026_96e14fb11a520810"
    ],
    "scores": [
     0.4809,
+    0.4776,
     0.4682,
     0.4637,
-    0.4631,
     0.4278,
     0.4181,
-    0.4099
+    0.4099,
+    0.3833
    ],
    "content_types": [
+    "vault_extract",
     "vault_extract",
     "vault_extract",
     "vault_extract",
@@ -7823,14 +7944,15 @@
    ],
    "pages": [
     8,
+    6,
     1,
     4,
     1,
-    1,
+    2,
     2,
     2
    ],
-   "total": 7,
+   "total": 8,
    "verdict": "RECORD_ONLY",
    "rank_of_expected": null,
    "rank_of_expected_chunk": null,
@@ -7855,6 +7977,7 @@
     "edbc18_2019_sspa",
     "edbc18_2019_sspa",
     "edbc18_2019_sspa",
+    "edbcm099_2026",
     "edbcm099_2026"
    ],
    "chunk_ids": [
@@ -7864,7 +7987,8 @@
     "vault_edbc18_2019_sspa_a834639ccb482892",
     "vault_edbc18_2019_sspa_e24f8aedbeac687f",
     "vault_edbc18_2019_sspa_c63be100d214d8e7",
-    "vault_edbcm099_2026_7878606719c0a30f"
+    "vault_edbcm099_2026_7878606719c0a30f",
+    "vault_edbcm099_2026_2bd5b67097b2d0a5"
    ],
    "scores": [
     0.6466,
@@ -7873,9 +7997,11 @@
     0.5293,
     0.5283,
     0.5274,
-    0.4874
+    0.4874,
+    0.4646
    ],
    "content_types": [
+    "vault_extract",
     "vault_extract",
     "vault_extract",
     "vault_extract",
@@ -7891,9 +8017,10 @@
     6,
     4,
     8,
+    1,
     1
    ],
-   "total": 7,
+   "total": 8,
    "verdict": "PASS",
    "rank_of_expected": 0,
    "rank_of_expected_chunk": 0,
@@ -8113,33 +8240,33 @@
    ],
    "source_ids": [
     "edbcm215_2025_mental_health",
-    "crisis_mgmt_handbook",
-    "crisis_mgmt_handbook",
-    "crisis_mgmt_handbook",
-    "kg_crisis_mgmt",
     "sag_2025_11",
-    "g16",
+    "crisis_mgmt_handbook",
+    "crisis_mgmt_handbook",
+    "sag_2025_11",
+    "crisis_mgmt_handbook",
+    "role_facts_student",
     "kg_crisis_mgmt"
    ],
    "chunk_ids": [
     "footnote_fn_mh_referral_consent",
+    "vault_sag_2025_11_d621dc20fe1c4f90",
+    "vault_crisis_mgmt_handbook_12493330f8055213",
     "vault_crisis_mgmt_handbook_f2bde3bebbf19dc9",
+    "vault_sag_2025_11_770bb2324193c83e",
     "vault_crisis_mgmt_handbook_58b29bbffa38cf67",
-    "vault_crisis_mgmt_handbook_113aba545da2d50b",
-    "vault_kg_crisis_mgmt_6e0804eda8ebe918",
-    "vault_sag_2025_11_aacef786d66fa45e",
-    "vault_g16_1aae082e28e2da08",
-    "vault_kg_crisis_mgmt_b3d30fac65a0f3bb"
+    "fact_role_facts_student_378c722c3982d468",
+    "vault_kg_crisis_mgmt_c8b58b857579d66c"
    ],
    "scores": [
     0.507,
+    0.7117,
+    0.7081,
     0.7032,
+    0.6968,
     0.6911,
-    0.6824,
-    0.6247,
-    0.5746,
-    0.5729,
-    0.5622
+    0.6584,
+    0.6387
    ],
    "content_types": [
     "footnote_curated",
@@ -8148,26 +8275,26 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "vault_extract",
+    "approved_fact",
     "vault_extract"
    ],
    "pages": [
     null,
+    253,
+    7,
     2,
+    253,
     16,
-    11,
-    3,
-    77,
-    51,
-    27
+    null,
+    11
    ],
    "total": 8,
    "verdict": "PASS",
-   "rank_of_expected": 1,
+   "rank_of_expected": 2,
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.7032
+   "top_score": 0.7117
   },
   {
    "id": "saf_disease_notification",
@@ -8184,42 +8311,52 @@
     "chp_prev_cd_schools_2025nov",
     "chp_prev_cd_schools_2025nov",
     "chp_prev_cd_schools_2025nov",
-    "chp_prev_cd_schools_2025nov",
-    "chp_prev_cd_schools_2025nov"
+    "pri_science_guide_2025",
+    "g25",
+    "pri_science_guide_2025",
+    "g29"
    ],
    "chunk_ids": [
     "footnote_fn_chp_form_routing",
     "footnote_fn_chp_ceno_contact",
     "footnote_fn_chp_notifiable_diseases_list",
     "footnote_fn_chp_outbreak_def_3rti_2hfmd",
-    "footnote_fn_chp_bed_spacing_1m",
-    "footnote_fn_chp_rti_fever_2day"
+    "vault_pri_science_guide_2025_63dd0f5c0aadc48d",
+    "vault_g25_a3d58093313d",
+    "vault_pri_science_guide_2025_7fe5421949c22cd1",
+    "vault_g29_9c2b6a90d6e9d24e"
    ],
    "scores": [
     0.7759,
     0.6692,
     0.6394,
     0.5863,
-    0.499,
-    0.4783
+    0.5498,
+    0.527,
+    0.5229,
+    0.5154
    ],
    "content_types": [
     "footnote_curated",
     "footnote_curated",
     "footnote_curated",
     "footnote_curated",
-    "footnote_curated",
-    "footnote_curated"
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
    ],
    "pages": [
     null,
     null,
     null,
     null,
+    28,
     null,
-    null
+    28,
+    8
    ],
-   "total": 6,
+   "total": 8,
    "verdict": "FAIL",
    "rank_of_expected": null,
    "rank_of_expected_chunk": null,
@@ -8241,37 +8378,37 @@
     "edbc_12_2026_fire_installations",
     "edbc_12_2026_fire_installations",
     "fire_service_installation",
+    "safety_mgmt_committee",
     "g22",
-    "edbc012_2026",
-    "edbc_12_2026_fire_installations",
     "g22",
-    "safety_mgmt_committee"
+    "sag_2025_11",
+    "fire_service_installation"
    ],
    "chunk_ids": [
     "footnote_fn_edbc12_2026_fire_annual",
     "footnote_fn_edbc12_2026_24hr_notify",
     "vault_fire_service_installation_442b74431cd3ca49",
+    "vault_safety_mgmt_committee_3bf362db95d465db",
+    "vault_g22_3f916a2882430b98",
     "footnote_fn_g22_inspectfreq",
-    "vault_edbc012_2026_2f0cde53c402cbc8",
-    "footnote_fn_edbc12_2026_fs251_repair",
-    "vault_g22_433c68276cfb71b3",
-    "vault_safety_mgmt_committee_1d9bb828b1c63464"
+    "vault_sag_2025_11_5616073982bae28f",
+    "vault_fire_service_installation_c298beaeb6a34e2a"
    ],
    "scores": [
     0.7443,
     0.5525,
     0.5916,
+    0.5742,
+    0.5442,
     0.5415,
-    0.4931,
-    0.4871,
-    0.4842,
-    0.4831
+    0.507,
+    0.4985
    ],
    "content_types": [
     "footnote_curated",
     "footnote_curated",
     "vault_extract",
-    "footnote_curated",
+    "vault_extract",
     "vault_extract",
     "footnote_curated",
     "vault_extract",
@@ -8281,11 +8418,11 @@
     null,
     null,
     1,
+    11,
+    16,
     null,
-    1,
-    null,
-    17,
-    6
+    246,
+    1
    ],
    "total": 8,
    "verdict": "PASS",
@@ -8307,26 +8444,38 @@
    ],
    "source_ids": [
     "sag_2025_11",
-    "sag_2025_11",
     "g22",
     "g22",
-    "edbc_tropical_cyclone_day"
+    "gas_odour_measures",
+    "lab_prep_room_aircon",
+    "lab_prep_room_aircon",
+    "g22",
+    "lab_prep_room_aircon"
    ],
    "chunk_ids": [
     "vault_sag_2025_11_83787e05b4de9976",
-    "vault_sag_2025_11_d826d1d79f863e11",
-    "vault_g22_c6da242026d11d69",
-    "vault_g22_4260b5dd4b9a9bc4",
-    "vault_edbc_tropical_cyclone_day_b8da30944f1c801a"
+    "vault_g22_f7de0d8cc002e20c",
+    "vault_g22_a334039999cbc081",
+    "vault_gas_odour_measures_03073608a5f6874c",
+    "vault_lab_prep_room_aircon_1ee6d676af929d6f",
+    "vault_lab_prep_room_aircon_a95ede0dcd18141e",
+    "vault_g22_f0df36b6b393f815",
+    "vault_lab_prep_room_aircon_02ce57c0eacf2d57"
    ],
    "scores": [
     0.3882,
-    0.3012,
-    0.2966,
-    0.2931,
-    0.2808
+    0.3756,
+    0.3737,
+    0.3697,
+    0.3688,
+    0.3643,
+    0.3602,
+    0.3487
    ],
    "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
     "vault_extract",
     "vault_extract",
     "vault_extract",
@@ -8335,17 +8484,22 @@
    ],
    "pages": [
     9,
-    6,
-    50,
-    45,
-    3
+    35,
+    36,
+    1,
+    1,
+    1,
+    25,
+    2
    ],
-   "total": 5,
+   "total": 8,
    "verdict": "FAIL",
    "rank_of_expected": null,
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
-   "forbidden_hits": [],
+   "forbidden_hits": [
+    "gas_odour_measures"
+   ],
    "top_score": 0.3882
   },
   {
@@ -8359,62 +8513,62 @@
     "的學生，由課室帶往護理室或其他可用作臨時護理室的適當房間。倘若感到不"
    ],
    "source_ids": [
+    "gas_odour_measures",
+    "g22",
     "g22",
     "chp_prev_cd_schools_2025nov",
-    "chp_prev_cd_schools_2025nov",
-    "chp_prev_cd_schools_2025nov",
-    "lab_prep_room_aircon",
-    "lab_prep_room_aircon",
     "g22",
-    "g22"
+    "chp_prev_cd_schools_2025nov",
+    "gas_odour_measures",
+    "chp_prev_cd_schools_2025nov"
    ],
    "chunk_ids": [
+    "vault_gas_odour_measures_03073608a5f6874c",
     "vault_g22_febcc6c6cb424d2c",
+    "vault_g22_a334039999cbc081",
     "footnote_fn_chp_bleach_dilution",
+    "vault_g22_fc790547beb224a5",
     "footnote_fn_chp_outbreak_disinfect",
-    "footnote_fn_chp_age_2day_rule",
-    "vault_lab_prep_room_aircon_02ce57c0eacf2d57",
-    "vault_lab_prep_room_aircon_1ee6d676af929d6f",
-    "vault_g22_f7de0d8cc002e20c",
-    "vault_g22_4a27103fa691d914"
+    "vault_gas_odour_measures_6deb1b478547f987",
+    "footnote_fn_chp_age_2day_rule"
    ],
    "scores": [
+    0.5906,
     0.513,
+    0.5098,
     0.5006,
-    0.4889,
-    0.4562,
-    0.4548,
-    0.4481,
-    0.4335,
-    0.4285
+    0.4916,
+    0.4888,
+    0.4857,
+    0.4561
    ],
    "content_types": [
     "vault_extract",
-    "footnote_curated",
-    "footnote_curated",
-    "footnote_curated",
     "vault_extract",
     "vault_extract",
+    "footnote_curated",
     "vault_extract",
-    "vault_extract"
+    "footnote_curated",
+    "vault_extract",
+    "footnote_curated"
    ],
    "pages": [
-    37,
-    null,
-    null,
-    null,
-    2,
     1,
-    35,
-    30
+    37,
+    36,
+    null,
+    30,
+    null,
+    1,
+    null
    ],
    "total": 8,
-   "verdict": "FAIL",
-   "rank_of_expected": null,
-   "rank_of_expected_chunk": null,
-   "chunk_verdict": "FAIL",
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": 0,
+   "chunk_verdict": "PASS",
    "forbidden_hits": [],
-   "top_score": 0.513
+   "top_score": 0.5906
   },
   {
    "id": "saf_kg_crisis_team",
@@ -8432,29 +8586,29 @@
     "kg_crisis_mgmt",
     "kg_crisis_mgmt",
     "kg_crisis_mgmt",
+    "sag_2025_11",
     "crisis_mgmt_handbook",
-    "crisis_mgmt_handbook",
-    "edbc15_2025_child_abuse"
+    "sag_2025_11"
    ],
    "chunk_ids": [
     "footnote_fn_chp_form_routing",
     "footnote_fn_chp_bed_spacing_1m",
     "vault_kg_crisis_mgmt_4f089457bd029e74",
+    "vault_kg_crisis_mgmt_d4d6e617a51e9432",
     "vault_kg_crisis_mgmt_c8b58b857579d66c",
-    "vault_kg_crisis_mgmt_a289695586516c50",
-    "vault_crisis_mgmt_handbook_58b29bbffa38cf67",
-    "vault_crisis_mgmt_handbook_7f531c57211e3621",
-    "vault_edbc15_2025_child_abuse_4395f951c100f1f4"
+    "vault_sag_2025_11_770bb2324193c83e",
+    "vault_crisis_mgmt_handbook_704e6cd0e553eda8",
+    "vault_sag_2025_11_d621dc20fe1c4f90"
    ],
    "scores": [
     0.4918,
     0.4714,
-    0.7105,
+    0.7104,
+    0.6998,
     0.6825,
-    0.6799,
-    0.5515,
-    0.5513,
-    0.5472
+    0.5853,
+    0.5847,
+    0.5765
    ],
    "content_types": [
     "footnote_curated",
@@ -8470,11 +8624,11 @@
     null,
     null,
     10,
+    4,
     11,
-    5,
-    16,
-    15,
-    2
+    253,
+    3,
+    253
    ],
    "total": 8,
    "verdict": "PASS",
@@ -8482,7 +8636,7 @@
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.7105
+   "top_score": 0.7104
   },
   {
    "id": "saf_lab_annual_review",
@@ -8498,31 +8652,31 @@
     "g22",
     "edbc_12_2026_fire_installations",
     "g22",
+    "g22",
+    "g22",
     "sag_2025_11",
-    "g22",
-    "g22",
-    "g21",
-    "safety_mgmt_committee"
+    "sag_2025_11",
+    "lab_prep_room_aircon"
    ],
    "chunk_ids": [
     "footnote_fn_g22_inspectfreq",
     "footnote_fn_edbc12_2026_fire_annual",
+    "vault_g22_81ed7057cb6b2a67",
     "vault_g22_568a6ec38d91b353",
+    "vault_g22_92a14c020d52287c",
     "vault_sag_2025_11_dfe5fa065520a683",
-    "vault_g22_bd50892269e2137a",
-    "vault_g22_bd23e82ba7fc0b93",
-    "vault_g21_3f3cba9a5f5bb32a",
-    "vault_safety_mgmt_committee_27c4367efbb5b10b"
+    "vault_sag_2025_11_b644b34908650cb2",
+    "vault_lab_prep_room_aircon_02ce57c0eacf2d57"
    ],
    "scores": [
     0.5278,
     0.5097,
+    0.6953,
     0.675,
+    0.6421,
     0.6276,
-    0.6141,
-    0.6001,
-    0.5539,
-    0.5439
+    0.5981,
+    0.5731
    ],
    "content_types": [
     "footnote_curated",
@@ -8538,11 +8692,11 @@
     null,
     null,
     49,
+    49,
+    15,
     100,
-    32,
-    14,
-    1,
-    12
+    101,
+    2
    ],
    "total": 8,
    "verdict": "PASS",
@@ -8550,7 +8704,7 @@
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.675
+   "top_score": 0.6953
   },
   {
    "id": "saf_pe_gymnastics",
@@ -8631,62 +8785,62 @@
     "委員會須於一九九九年九月十日或以前成立，並由校長或副校長擔任主席"
    ],
    "source_ids": [
-    "sag_2025_11",
-    "sag_2025_11",
-    "sag_2025_11",
-    "role_facts_general",
+    "safety_mgmt_committee",
+    "safety_mgmt_committee",
     "g22",
-    "role_facts_general",
+    "g22",
+    "sag_2025_11",
     "edbc22_2024_student_safety",
-    "edbc22_2024_student_safety"
+    "sag_2025_11",
+    "sag_2025_11"
    ],
    "chunk_ids": [
+    "vault_safety_mgmt_committee_97d36892f07f61a1",
+    "vault_safety_mgmt_committee_549bb9da44ae95f6",
+    "vault_g22_672d9ad939864c1b",
+    "vault_g22_9a09256723e46dd9",
     "vault_sag_2025_11_d621dc20fe1c4f90",
-    "vault_sag_2025_11_72e9a8a0a554d879",
-    "vault_sag_2025_11_b1ba8609e4b77c24",
-    "fact_role_facts_general_50dca64c827c47e9",
-    "vault_g22_bd23e82ba7fc0b93",
-    "fact_role_facts_general_71e750078a5f291c",
-    "footnote_fn_edbc22_2024_checklist_30nov",
-    "footnote_fn_edbc22_2024_checklist_framing"
+    "vault_edbc22_2024_student_safety_41f623309a18f28c",
+    "vault_sag_2025_11_84b056d69e1dc77d",
+    "vault_sag_2025_11_770bb2324193c83e"
    ],
    "scores": [
+    0.6479,
+    0.5997,
+    0.597,
+    0.5409,
     0.5328,
-    0.5256,
-    0.4939,
-    0.4931,
-    0.4781,
-    0.4712,
-    0.4682,
-    0.4658
+    0.53,
+    0.5284,
+    0.5278
    ],
    "content_types": [
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "approved_fact",
     "vault_extract",
-    "approved_fact",
-    "footnote_curated",
-    "footnote_curated"
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
    ],
    "pages": [
+    1,
+    2,
+    48,
+    47,
     253,
-    107,
-    9,
-    null,
-    14,
-    null,
-    null,
-    null
+    2,
+    105,
+    253
    ],
    "total": 8,
-   "verdict": "FAIL",
-   "rank_of_expected": null,
-   "rank_of_expected_chunk": null,
-   "chunk_verdict": "FAIL",
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": 0,
+   "chunk_verdict": "PASS",
    "forbidden_hits": [],
-   "top_score": 0.5328
+   "top_score": 0.6479
   },
   {
    "id": "kg_application_fee_cap",
@@ -8701,52 +8855,52 @@
    "source_ids": [
     "k1_admission_2627",
     "k1_admission_2627",
+    "g25",
     "g26",
     "g26",
-    "wfsfaa_sfaa_household_app_guidance_2526",
-    "wfsfaa_sfaa_household_app_guidance_2526",
-    "subvention_tips",
-    "k1_admission_2627"
+    "role_facts_curriculum",
+    "ict_sss_2021",
+    "edbcm136_2026"
    ],
    "chunk_ids": [
     "footnote_fn_k1_appfee",
     "footnote_fn_k1_regfee",
+    "vault_g25_a3d58093313d",
     "vault_g26_fcdf197b50930a5b",
-    "vault_g26_06fdddb878ef11fe",
-    "footnote_fn_sfaa_afi_primarysec_2024_25",
-    "footnote_fn_sfaa_kg_3tier_afi",
-    "footnote_fn_procurement_thresholds",
-    "footnote_fn_k1_eligibility"
+    "vault_g26_090e33897af86350",
+    "fact_role_facts_curriculum_d47145f99ed8e847",
+    "vault_ict_sss_2021_8069aa581f217f1d",
+    "vault_edbcm136_2026_0bda2d31db7ce557"
    ],
    "scores": [
     0.6415,
     0.5836,
+    0.5063,
     0.4932,
-    0.4502,
-    0.4486,
-    0.4405,
-    0.4284,
-    0.4202
+    0.4902,
+    0.4751,
+    0.4701,
+    0.4626
    ],
    "content_types": [
     "footnote_curated",
     "footnote_curated",
     "vault_extract",
     "vault_extract",
-    "footnote_curated",
-    "footnote_curated",
-    "footnote_curated",
-    "footnote_curated"
+    "vault_extract",
+    "approved_fact",
+    "vault_extract",
+    "vault_extract"
    ],
    "pages": [
     null,
     null,
+    null,
     5,
-    4,
+    10,
     null,
-    null,
-    null,
-    null
+    105,
+    4
    ],
    "total": 8,
    "verdict": "PASS",
@@ -8783,18 +8937,18 @@
     "vault_kg_admin_guide_2026_382aff46308c0d74",
     "vault_edbcm060_2026_ebff8c15d6e8660c",
     "vault_kg_admin_guide_2026_1cf920fbc11b2e4c",
-    "vault_kg_operation_manual_2026_a4c07755b27f6df7",
-    "vault_kg_operation_manual_2026_3e28e78927a7a510"
+    "vault_kg_operation_manual_2026_b143b279fa90f4c8",
+    "vault_kg_operation_manual_2026_a4c07755b27f6df7"
    ],
    "scores": [
-    0.6527,
+    0.6526,
     0.5173,
     0.6861,
     0.6742,
     0.6628,
     0.6608,
-    0.6395,
-    0.6236
+    0.641,
+    0.6395
    ],
    "content_types": [
     "footnote_curated",
@@ -8813,8 +8967,8 @@
     138,
     1,
     55,
-    155,
-    67
+    78,
+    155
    ],
    "total": 8,
    "verdict": "PASS",
@@ -8838,31 +8992,31 @@
     "k1_admission_2627",
     "k1_admission_2627",
     "g26",
+    "g26",
+    "g26",
     "g25",
-    "g26",
-    "g26",
-    "k1_admission_2627",
-    "wfsfaa_sfaa_household_app_guidance_2526"
+    "g29",
+    "g29"
    ],
    "chunk_ids": [
     "footnote_fn_k1_appfee",
     "footnote_fn_k1_regfee",
+    "vault_g26_a9583bd424b86fbe",
     "vault_g26_ed814e330ee43595",
+    "vault_g26_a1ad244445ef21d4",
     "vault_g25_a3d58093313d",
-    "vault_g26_090e33897af86350",
-    "vault_g26_72db84fa503e0ed0",
-    "footnote_fn_k1_eligibility",
-    "footnote_fn_sfaa_kg_3tier_afi"
+    "vault_g29_9c2b6a90d6e9d24e",
+    "vault_g29_074d14170e153397"
    ],
    "scores": [
     0.6783,
     0.6233,
+    0.6897,
     0.6618,
+    0.6242,
     0.6116,
-    0.6071,
-    0.5945,
-    0.5658,
-    0.5599
+    0.5745,
+    0.568
    ],
    "content_types": [
     "footnote_curated",
@@ -8871,18 +9025,18 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "footnote_curated",
-    "footnote_curated"
+    "vault_extract",
+    "vault_extract"
    ],
    "pages": [
     null,
     null,
+    1,
     2,
+    3,
     null,
-    10,
-    5,
-    null,
-    null
+    8,
+    14
    ],
    "total": 8,
    "verdict": "PASS",
@@ -8890,7 +9044,7 @@
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.6783386608877722
+   "top_score": 0.6897
   },
   {
    "id": "kg_result_notification_date",
@@ -8908,9 +9062,9 @@
     "chi_edu_curr_docs",
     "pe_kla_2017",
     "edbcm136_2026",
+    "ict_sss_2021",
     "g13",
-    "circ_edbc24017",
-    "role_facts_curriculum"
+    "circ_edbc24017"
    ],
    "chunk_ids": [
     "vault_pri_curr_guide_2024_1b189ccba0a10216",
@@ -8918,9 +9072,9 @@
     "vault_chi_edu_curr_docs_ab2f902bf64da9cf",
     "vault_pe_kla_2017_1420a8eefd9d51f4",
     "vault_edbcm136_2026_560e862f32bdbe19",
+    "vault_ict_sss_2021_8069aa581f217f1d",
     "vault_g13_4fc70918a1c1a25a",
-    "vault_circ_edbc24017_2c633466a5241d32",
-    "fact_role_facts_curriculum_d47145f99ed8e847"
+    "vault_circ_edbc24017_2c633466a5241d32"
    ],
    "scores": [
     0.4984,
@@ -8928,9 +9082,9 @@
     0.4913,
     0.4898,
     0.488,
+    0.4866,
     0.4765,
-    0.4765,
-    0.4763
+    0.4765
    ],
    "content_types": [
     "vault_extract",
@@ -8940,7 +9094,7 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "approved_fact"
+    "vault_extract"
    ],
    "pages": [
     5,
@@ -8948,9 +9102,9 @@
     1,
     3,
     11,
+    105,
     4,
-    1,
-    null
+    1
    ],
    "total": 8,
    "verdict": "FAIL",
@@ -8976,8 +9130,8 @@
     "g26",
     "g29",
     "g26",
-    "g26",
     "g29",
+    "g26",
     "g29"
    ],
    "chunk_ids": [
@@ -8986,9 +9140,9 @@
     "vault_g26_72db84fa503e0ed0",
     "vault_g29_9c2b6a90d6e9d24e",
     "vault_g26_fcdf197b50930a5b",
+    "vault_g29_86c24032eb6be09e",
     "vault_g26_74d4e9ac6c9317f1",
-    "vault_g29_074d14170e153397",
-    "vault_g29_3e5e3fe100dedda8"
+    "vault_g29_074d14170e153397"
    ],
    "scores": [
     0.52,
@@ -8996,9 +9150,9 @@
     0.6374,
     0.5866,
     0.5717,
+    0.5701,
     0.5657,
-    0.5613,
-    0.5562
+    0.5613
    ],
    "content_types": [
     "footnote_curated",
@@ -9016,9 +9170,9 @@
     5,
     8,
     5,
+    6,
     1,
-    14,
-    99
+    14
    ],
    "total": 8,
    "verdict": "PASS",
@@ -9113,7 +9267,7 @@
     "kg_admin_guide_2026",
     "kg_admin_guide_2026",
     "g29",
-    "k1_admission_2627",
+    "g29",
     "k1_admission_2627"
    ],
    "chunk_ids": [
@@ -9122,9 +9276,9 @@
     "vault_g25_a3d58093313d",
     "footnote_fn_kgadmin_rent_sept",
     "footnote_fn_kgadmin_utilrate",
+    "vault_g29_33c14df3cc141a08",
     "vault_g29_9c80adb0c6d025c6",
-    "footnote_fn_k1_appfee",
-    "footnote_fn_k1_regfee"
+    "footnote_fn_k1_appfee"
    ],
    "scores": [
     0.7527,
@@ -9132,9 +9286,9 @@
     0.6198,
     0.5994,
     0.5952,
+    0.5947,
     0.5866,
-    0.5858,
-    0.585
+    0.5858
    ],
    "content_types": [
     "footnote_curated",
@@ -9143,7 +9297,7 @@
     "footnote_curated",
     "footnote_curated",
     "vault_extract",
-    "footnote_curated",
+    "vault_extract",
     "footnote_curated"
    ],
    "pages": [
@@ -9152,8 +9306,8 @@
     null,
     null,
     null,
+    17,
     26,
-    null,
     null
    ],
    "total": 8,
@@ -9181,8 +9335,8 @@
     "g29",
     "g29",
     "g29",
-    "kg_operation_manual_2026",
-    "sch_activities_guide"
+    "circ_edbc24017",
+    "circ_edbc24017"
    ],
    "chunk_ids": [
     "footnote_fn_kgop_teacher_onduty",
@@ -9190,9 +9344,9 @@
     "vault_staff_est_pri_226ee0c1b5fa",
     "vault_g29_54a276c794731206",
     "vault_g29_628be73818360c19",
-    "vault_g29_9c80adb0c6d025c6",
-    "footnote_fn_kgop_ratio",
-    "footnote_fn_activities_ratios"
+    "vault_g29_33c14df3cc141a08",
+    "vault_circ_edbc24017_7c917df7357f7148",
+    "vault_circ_edbc24017_79349b01fd0007bc"
    ],
    "scores": [
     0.8293,
@@ -9200,9 +9354,9 @@
     0.6011,
     0.634,
     0.6185,
-    0.61,
-    0.5432,
-    0.5072
+    0.6128,
+    0.6072,
+    0.6052
    ],
    "content_types": [
     "footnote_curated",
@@ -9211,8 +9365,8 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "footnote_curated",
-    "footnote_curated"
+    "vault_extract",
+    "vault_extract"
    ],
    "pages": [
     null,
@@ -9220,9 +9374,9 @@
     3,
     47,
     54,
-    26,
-    null,
-    null
+    17,
+    6,
+    6
    ],
    "total": 8,
    "verdict": "PASS",
@@ -9245,32 +9399,32 @@
    "source_ids": [
     "kg_admin_guide_2026",
     "k1_admission_2627",
+    "g26",
     "g25",
     "g26",
     "g26",
-    "g26",
     "g29",
-    "k1_admission_2627"
+    "g29"
    ],
    "chunk_ids": [
     "footnote_fn_kgadmin_asset",
     "footnote_fn_k1_regfee",
+    "vault_g26_06fdddb878ef11fe",
     "vault_g25_a3d58093313d",
+    "vault_g26_44db8986039aa36d",
     "vault_g26_977d336da59f4b1e",
-    "vault_g26_a5f9baf049bfc72b",
-    "vault_g26_d401ea30b744e08b",
-    "vault_g29_b68ca97cc816653c",
-    "footnote_fn_k1_appfee"
+    "vault_g29_074d14170e153397",
+    "vault_g29_b68ca97cc816653c"
    ],
    "scores": [
     0.7114,
     0.4871,
+    0.6035,
     0.593,
+    0.5541,
     0.5355,
-    0.5342,
-    0.5204,
-    0.5072,
-    0.4726
+    0.515,
+    0.5072
    ],
    "content_types": [
     "footnote_curated",
@@ -9280,17 +9434,17 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "footnote_curated"
+    "vault_extract"
    ],
    "pages": [
     null,
     null,
+    4,
     null,
+    4,
     3,
-    11,
-    3,
-    62,
-    null
+    14,
+    62
    ],
    "total": 8,
    "verdict": "PASS",
@@ -9315,6 +9469,7 @@
     "kg_admin_guide_2026",
     "g25",
     "kg_operation_manual_2026",
+    "g26",
     "wfsfaa_sfaa_household_app_guidance_2526",
     "k1_admission_2627",
     "AUD_e76ch02"
@@ -9324,6 +9479,7 @@
     "footnote_fn_kgadmin_utilrate",
     "vault_g25_a3d58093313d",
     "footnote_fn_kgop_classroom",
+    "vault_g26_fcdf197b50930a5b",
     "footnote_fn_sfaa_kg_3tier_afi",
     "footnote_fn_k1_regfee",
     "footnote_fn_ncs_kg_5tier_201920"
@@ -9333,6 +9489,7 @@
     0.6552,
     0.6266,
     0.6009,
+    0.585,
     0.5823,
     0.5579,
     0.5539
@@ -9342,6 +9499,7 @@
     "footnote_curated",
     "vault_extract",
     "footnote_curated",
+    "vault_extract",
     "footnote_curated",
     "footnote_curated",
     "footnote_curated"
@@ -9351,11 +9509,12 @@
     null,
     null,
     null,
+    5,
     null,
     null,
     null
    ],
-   "total": 7,
+   "total": 8,
    "verdict": "PASS",
    "rank_of_expected": 0,
    "rank_of_expected_chunk": 0,
@@ -9377,31 +9536,31 @@
     "staff_est_pri",
     "kg_operation_manual_2026",
     "edbcm58_2024_pri_science",
-    "ppt_grad_pri_policy",
     "edbc00030",
+    "roles_functions_pri",
+    "ppt_grad_pri_policy",
     "edbc19011",
-    "ppt_grad_pri_faq",
     "edbc00030"
    ],
    "chunk_ids": [
     "vault_staff_est_pri_9b97ea43d291",
     "footnote_fn_kgop_teacher_onduty",
     "footnote_fn_prisci_exempt",
-    "vault_ppt_grad_pri_policy_4871f4f5b31a",
-    "vault_edbc00030_1d91739669d3",
-    "vault_edbc19011_e75b5afcd7e7",
-    "vault_ppt_grad_pri_faq_72fdda030d43",
-    "vault_edbc00030_ac97a2688ed6"
+    "vault_edbc00030_55474fed1652",
+    "vault_roles_functions_pri_9f677d48a9a8",
+    "vault_ppt_grad_pri_policy_3dac5c7e375a",
+    "vault_edbc19011_73f91e04060b",
+    "vault_edbc00030_de237641e852"
    ],
    "scores": [
     1.0,
     0.5043,
     0.4564,
-    0.561,
-    0.5602,
-    0.5568,
-    0.5562,
-    0.5546
+    0.6015,
+    0.5995,
+    0.5865,
+    0.5849,
+    0.5644
    ],
    "content_types": [
     "vault_extract",
@@ -9417,11 +9576,11 @@
     1,
     null,
     null,
+    14,
+    1,
+    5,
     2,
-    23,
-    7,
-    12,
-    28
+    15
    ],
    "total": 8,
    "verdict": "PASS",
@@ -9457,7 +9616,7 @@
     "footnote_fn_ceg_bisessional",
     "vault_sag_2025_11_f94a9be590caeebe",
     "vault_sag_2025_11_a5e04b02f12de4f1",
-    "vault_sag_2025_11_7194bba1e9b2c471",
+    "vault_sag_2025_11_b99f3a317b9124e3",
     "footnote_fn_kgop_classroom",
     "footnote_fn_ncs_sbp_60hr_min"
    ],
@@ -9467,7 +9626,7 @@
     0.4983,
     0.552,
     0.5483,
-    0.5389,
+    0.5398,
     0.4785,
     0.4709
    ],
@@ -9487,7 +9646,7 @@
     null,
     4,
     45,
-    48,
+    47,
     null,
     null
    ],
@@ -9581,53 +9740,48 @@
     "staff_est_pri",
     "kg_operation_manual_2026",
     "surplus_teacher_arr_2026",
-    "surplus_teacher_arr_2026",
     "kg_operation_manual_2026",
-    "sag_2025_11",
-    "surplus_teacher_arr_2026",
-    "edbc00030"
+    "cap279_education_ordinance",
+    "sch_activities_guide",
+    "EDBCM_79_2025_TC"
    ],
    "chunk_ids": [
     "vault_staff_est_pri_1046c25a4fdf",
     "footnote_fn_kgop_classroom",
     "footnote_fn_surplus_def",
-    "vault_surplus_teacher_arr_2026_ab393c3f923a61f6",
     "footnote_fn_kgop_teacher_onduty",
-    "vault_sag_2025_11_d84a1b08e7fd779f",
-    "vault_surplus_teacher_arr_2026_17a57437662d8921",
-    "vault_edbc00030_2a4b5c00d92c"
+    "footnote_fn_cap279_s48_permit_when",
+    "footnote_fn_activities_ratios",
+    "footnote_fn_ncs_sbp_60hr_min"
    ],
    "scores": [
     1.0,
     0.4792,
     0.4582,
-    0.5312,
     0.5201,
-    0.519,
-    0.5189,
-    0.5112
+    0.4654,
+    0.4622,
+    0.4531
    ],
    "content_types": [
     "vault_extract",
     "footnote_curated",
     "footnote_curated",
-    "vault_extract",
     "footnote_curated",
-    "vault_extract",
-    "vault_extract",
-    "vault_extract"
+    "footnote_curated",
+    "footnote_curated",
+    "footnote_curated"
    ],
    "pages": [
     3,
     null,
     null,
-    5,
     null,
-    186,
-    2,
-    14
+    null,
+    null,
+    null
    ],
-   "total": 8,
+   "total": 7,
    "verdict": "PASS",
    "rank_of_expected": 0,
    "rank_of_expected_chunk": 0,
@@ -9649,31 +9803,31 @@
     "staff_est_pri",
     "staff_est_pri",
     "staff_est_pri",
-    "edbc00030",
-    "coa_pri_e",
     "sag_2025_11",
-    "coa_ss_e",
-    "sag_2025_11"
+    "edbc00030",
+    "sag_2025_11",
+    "sag_2025_11",
+    "ppt_grad_pri_faq"
    ],
    "chunk_ids": [
     "vault_staff_est_pri_8e5c691de863",
     "vault_staff_est_pri_74e63d4061b9",
     "vault_staff_est_pri_499b798646ba",
+    "vault_sag_2025_11_6f53442630337d63",
     "vault_edbc00030_c4f2656ebb7b",
-    "vault_coa_pri_e_f201741590dd",
-    "vault_sag_2025_11_ab694a809d314096",
-    "vault_coa_ss_e_0dbdd998b258",
-    "vault_sag_2025_11_d84a1b08e7fd779f"
+    "vault_sag_2025_11_2a7ea894b6f3e3c7",
+    "vault_sag_2025_11_d574719860e11b00",
+    "vault_ppt_grad_pri_faq_72fdda030d43"
    ],
    "scores": [
     0.6059,
     0.5834,
     0.5512,
+    0.5401,
     0.5396,
-    0.498,
-    0.4974,
-    0.4943,
-    0.4891
+    0.5341,
+    0.5083,
+    0.5027
    ],
    "content_types": [
     "vault_extract",
@@ -9689,11 +9843,11 @@
     3,
     1,
     3,
+    4,
     17,
-    33,
     198,
-    43,
-    186
+    199,
+    12
    ],
    "total": 8,
    "verdict": "PASS",
@@ -9848,52 +10002,52 @@
    "source_ids": [
     "surplus_teacher_arr_2026",
     "sch_activities_guide",
-    "role_facts_hr",
-    "staff_est_pri",
-    "staff_est_pri",
-    "staff_est_pri",
     "edbc00030",
-    "edbc00030"
+    "staff_est_pri",
+    "staff_est_pri",
+    "role_facts_hr",
+    "edbc00030",
+    "staff_est_pri"
    ],
    "chunk_ids": [
     "footnote_fn_surplus_def",
     "footnote_fn_activities_sen",
+    "vault_edbc00030_83930458ed4e",
+    "vault_staff_est_pri_cbecc2fe1667",
+    "vault_staff_est_pri_7a4bbef9bb19",
     "fact_role_facts_hr_82b2e033e157af11",
-    "vault_staff_est_pri_98a799f4b04e",
-    "vault_staff_est_pri_dae8c9d0c996",
-    "vault_staff_est_pri_ee0d23a43583",
-    "vault_edbc00030_c8dd6ed478ae",
-    "vault_edbc00030_f55e1c5162fd"
+    "vault_edbc00030_2a4b5c00d92c",
+    "vault_staff_est_pri_960088549e02"
    ],
    "scores": [
     0.5843,
     0.5337,
+    0.6484,
+    0.6304,
+    0.6255,
     0.618,
-    0.5977,
-    0.5959,
-    0.5935,
-    0.5921,
-    0.5915
+    0.6163,
+    0.6161
    ],
    "content_types": [
     "footnote_curated",
     "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
     "approved_fact",
-    "vault_extract",
-    "vault_extract",
-    "vault_extract",
     "vault_extract",
     "vault_extract"
    ],
    "pages": [
     null,
     null,
+    8,
+    3,
+    1,
     null,
-    3,
-    3,
-    3,
-    22,
-    15
+    14,
+    3
    ],
    "total": 8,
    "verdict": "RECORD_ONLY",
@@ -9901,7 +10055,7 @@
    "rank_of_expected_chunk": null,
    "chunk_verdict": "RECORD_ONLY",
    "forbidden_hits": [],
-   "top_score": 0.618
+   "top_score": 0.6484
   },
   {
    "id": "staff_grad_ratio",
@@ -10120,32 +10274,32 @@
    "source_ids": [
     "long_service_payment_guide",
     "eoebg_guide_2026",
+    "g04",
     "sag_2025_11",
     "sag_2025_11",
     "sag_2025_11",
     "edbc00030",
-    "long_service_payment_guide",
-    "job_sharing_guide"
+    "long_service_payment_guide"
    ],
    "chunk_ids": [
     "footnote_fn_lsp_calc",
     "footnote_fn_eoebg_surplus_12m",
+    "vault_g04_997df7efd474",
     "vault_sag_2025_11_b91bef25da03b856",
     "vault_sag_2025_11_a1bf01e7cdf07272",
     "vault_sag_2025_11_8ca01fea4a2517d4",
     "vault_edbc00030_29618c7a4673",
-    "vault_long_service_payment_guide_e674f25c9d9ceadc",
-    "vault_job_sharing_guide_a8ab796eb2c2b76f"
+    "vault_long_service_payment_guide_e674f25c9d9ceadc"
    ],
    "scores": [
     0.6503,
     0.4806,
+    0.6796,
     0.6733,
     0.6591,
     0.6423,
     0.5785,
-    0.5755,
-    0.5678
+    0.5755
    ],
    "content_types": [
     "footnote_curated",
@@ -10160,11 +10314,11 @@
    "pages": [
     null,
     null,
+    null,
     228,
     229,
     233,
     17,
-    4,
     4
    ],
    "total": 8,
@@ -10173,7 +10327,7 @@
    "rank_of_expected_chunk": 0,
    "chunk_verdict": "PASS",
    "forbidden_hits": [],
-   "top_score": 0.6733
+   "top_score": 0.6796
   },
   {
    "id": "hr_maternity",
@@ -10191,28 +10345,28 @@
     "sag_2025_11",
     "sag_2025_11",
     "g04",
-    "edbc14_2023_student_protect",
     "g04",
+    "edbc14_2023_student_protect",
     "edbc00030"
    ],
    "chunk_ids": [
     "vault_sag_2025_11_b91bef25da03b856",
     "vault_g04_997df7efd474",
     "vault_sag_2025_11_a1bf01e7cdf07272",
-    "vault_sag_2025_11_ac9e6e7b4099399d",
+    "vault_sag_2025_11_ddd12598121eea78",
     "vault_g04_5a60fb781f6f",
+    "vault_g04_2d6cd63fe2e4",
     "vault_edbc14_2023_student_protect_654e1f2c68b62e77",
-    "vault_g04_78f94fd4044d",
     "vault_edbc00030_29618c7a4673"
    ],
    "scores": [
     0.7077,
     0.7052,
     0.6988,
-    0.6504,
+    0.6692,
     0.6154,
+    0.613,
     0.5861,
-    0.5857,
     0.5854
    ],
    "content_types": [
@@ -10229,10 +10383,10 @@
     228,
     null,
     229,
-    233,
+    230,
+    null,
     null,
     6,
-    null,
     17
    ],
    "total": 8,
@@ -10254,34 +10408,34 @@
     "共享教職和受僱於核准編制以外的職位教師擔任核准編制以外職位所累積的認"
    ],
    "source_ids": [
+    "g04",
     "sag_2025_11",
     "sag_2025_11",
     "sag_2025_11",
     "job_sharing_guide",
     "g04",
     "edbc00030",
-    "g04",
-    "supply_teacher_guide"
+    "g04"
    ],
    "chunk_ids": [
+    "vault_g04_997df7efd474",
     "vault_sag_2025_11_b91bef25da03b856",
     "vault_sag_2025_11_a1bf01e7cdf07272",
     "vault_sag_2025_11_6a7f706998baa294",
     "vault_job_sharing_guide_a8ab796eb2c2b76f",
     "vault_g04_5a60fb781f6f",
     "vault_edbc00030_29618c7a4673",
-    "vault_g04_638c01bf30ac",
-    "vault_supply_teacher_guide_dcbdce2e3ff6cfb3"
+    "vault_g04_638c01bf30ac"
    ],
    "scores": [
+    0.6994,
     0.6776,
     0.6543,
     0.6285,
     0.6146,
     0.5983,
     0.5938,
-    0.5913,
-    0.5909
+    0.5913
    ],
    "content_types": [
     "vault_extract",
@@ -10294,22 +10448,22 @@
     "vault_extract"
    ],
    "pages": [
+    null,
     228,
     229,
     212,
     4,
     null,
     17,
-    null,
-    5
+    null
    ],
    "total": 8,
    "verdict": "PASS",
-   "rank_of_expected": 3,
+   "rank_of_expected": 4,
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.6776
+   "top_score": 0.6994
   },
   {
    "id": "hr_lang_req",
@@ -10396,8 +10550,8 @@
     "g04",
     "sag_2025_11",
     "sag_2025_11",
-    "job_sharing_guide",
-    "g04"
+    "edbc00030",
+    "job_sharing_guide"
    ],
    "chunk_ids": [
     "footnote_fn_ncs_kg_5tier_201920",
@@ -10405,9 +10559,9 @@
     "vault_sag_2025_11_a1bf01e7cdf07272",
     "vault_g04_997df7efd474",
     "vault_sag_2025_11_b91bef25da03b856",
-    "vault_sag_2025_11_ddd12598121eea78",
-    "vault_job_sharing_guide_a8ab796eb2c2b76f",
-    "vault_g04_5a60fb781f6f"
+    "vault_sag_2025_11_ac9e6e7b4099399d",
+    "vault_edbc00030_29618c7a4673",
+    "vault_job_sharing_guide_a8ab796eb2c2b76f"
    ],
    "scores": [
     0.5772,
@@ -10415,9 +10569,9 @@
     0.6759,
     0.6697,
     0.6682,
-    0.6401,
-    0.5814,
-    0.5778
+    0.6612,
+    0.5841,
+    0.5814
    ],
    "content_types": [
     "footnote_curated",
@@ -10435,9 +10589,9 @@
     229,
     null,
     228,
-    230,
-    4,
-    null
+    233,
+    17,
+    4
    ],
    "total": 8,
    "verdict": "FAIL",
@@ -10464,8 +10618,8 @@
     "sag_2025_11",
     "sag_2025_11",
     "g04",
-    "edbc00030",
-    "job_sharing_guide"
+    "g04",
+    "edbc00030"
    ],
    "chunk_ids": [
     "footnote_fn_lsp_calc",
@@ -10474,8 +10628,8 @@
     "vault_sag_2025_11_a1bf01e7cdf07272",
     "vault_sag_2025_11_ac9e6e7b4099399d",
     "vault_g04_5a60fb781f6f",
-    "vault_edbc00030_29618c7a4673",
-    "vault_job_sharing_guide_a8ab796eb2c2b76f"
+    "vault_g04_2d6cd63fe2e4",
+    "vault_edbc00030_29618c7a4673"
    ],
    "scores": [
     0.5904,
@@ -10484,8 +10638,8 @@
     0.6824,
     0.6449,
     0.6191,
-    0.5967,
-    0.5965
+    0.6061,
+    0.5967
    ],
    "content_types": [
     "footnote_curated",
@@ -10504,8 +10658,8 @@
     229,
     233,
     null,
-    17,
-    4
+    null,
+    17
    ],
    "total": 8,
    "verdict": "PASS",
@@ -10528,8 +10682,8 @@
     "sag_2025_11",
     "sag_2025_11",
     "sag_2025_11",
-    "job_sharing_guide",
-    "edbc14_2023_student_protect"
+    "edbc00030",
+    "job_sharing_guide"
    ],
    "chunk_ids": [
     "footnote_fn_cap279_s47_cancel_register",
@@ -10537,9 +10691,9 @@
     "vault_g04_997df7efd474",
     "vault_sag_2025_11_b91bef25da03b856",
     "vault_sag_2025_11_a1bf01e7cdf07272",
-    "vault_sag_2025_11_8ca01fea4a2517d4",
-    "vault_job_sharing_guide_a8ab796eb2c2b76f",
-    "vault_edbc14_2023_student_protect_654e1f2c68b62e77"
+    "vault_sag_2025_11_e5504f4008f9a0a6",
+    "vault_edbc00030_29618c7a4673",
+    "vault_job_sharing_guide_a8ab796eb2c2b76f"
    ],
    "scores": [
     0.5223,
@@ -10547,9 +10701,9 @@
     0.6947,
     0.6573,
     0.6299,
-    0.5956,
-    0.5878,
-    0.5787
+    0.6042,
+    0.5962,
+    0.5878
    ],
    "content_types": [
     "footnote_curated",
@@ -10567,9 +10721,9 @@
     null,
     228,
     229,
-    233,
-    4,
-    6
+    197,
+    17,
+    4
    ],
    "total": 8,
    "verdict": "RECORD_ONLY",
@@ -10666,7 +10820,7 @@
     "role_facts_curriculum",
     "ict_sss_2021",
     "g29",
-    "ph_pri_guide_2025",
+    "music_p1_s6_2024",
     "ict_sss_2007_2015"
    ],
    "chunk_ids": [
@@ -10676,7 +10830,7 @@
     "fact_role_facts_curriculum_d47145f99ed8e847",
     "vault_ict_sss_2021_56acde258ea49030",
     "vault_g29_0f84ad6fe5d49d38",
-    "vault_ph_pri_guide_2025_2898136e59ce7803",
+    "vault_music_p1_s6_2024_5ac238c8984f414e",
     "vault_ict_sss_2007_2015_d153f502897e8188"
    ],
    "scores": [
@@ -10686,7 +10840,7 @@
     0.643,
     0.6425,
     0.6242,
-    0.6229,
+    0.6233,
     0.5821
    ],
    "content_types": [
@@ -10706,7 +10860,7 @@
     null,
     110,
     5,
-    6,
+    5,
     109
    ],
    "total": 8,
@@ -10731,31 +10885,31 @@
     "eoebg_rates_2026",
     "ceg_calc_2026",
     "edbc015_2026",
+    "debp_blueprint",
     "edbc008_2026",
     "edbc008_2026",
     "edbcm_221_2025_smart_teaching",
-    "edbcm156_2026",
-    "edbc011_2026"
+    "edbcm156_2026"
    ],
    "chunk_ids": [
     "footnote_fn_dlg_incentive_cease",
     "footnote_fn_ceg_rates_2627",
     "vault_edbc015_2026_eb9068b4c34eacef",
+    "vault_debp_blueprint_a823845b1c1e876f",
     "vault_edbc008_2026_e38d83844e460f44",
     "vault_edbc008_2026_de2f9bf3eaaa7cd6",
     "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
-    "vault_edbcm156_2026_132cd3b8d24e2185",
-    "vault_edbc011_2026_bfe00500718b5859"
+    "vault_edbcm156_2026_132cd3b8d24e2185"
    ],
    "scores": [
     0.5615,
     0.5571,
     0.61,
+    0.7511,
     0.7198,
     0.7195,
     0.7126,
-    0.7098,
-    0.7055
+    0.7098
    ],
    "content_types": [
     "footnote_curated",
@@ -10771,19 +10925,19 @@
     null,
     null,
     3,
+    9,
     2,
     1,
     1,
-    4,
-    2
+    4
    ],
    "total": 8,
    "verdict": "PASS",
-   "rank_of_expected": 3,
+   "rank_of_expected": 4,
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.7198
+   "top_score": 0.7511
   },
   {
    "id": "fin_home_school",
@@ -10799,31 +10953,31 @@
     "edbc016_2026",
     "role_facts_activity",
     "g03",
-    "edbc007_2026",
-    "edbc009_2026",
     "g03",
-    "edbc007_2026",
-    "eoebg_rates_2026"
+    "g03",
+    "edbc009_2026",
+    "edbcm070_2026",
+    "edbc007_2026"
    ],
    "chunk_ids": [
     "vault_edbc016_2026_c76c8a7c4ca0b98f",
     "fact_role_facts_activity_6fddddde0d050005",
-    "vault_g03_77a7bcb85065372f",
-    "vault_edbc007_2026_ff2fd30fd47a1e42",
-    "vault_edbc009_2026_9e9faf82884d4a23",
-    "vault_g03_38ff57cad1b0a045",
-    "vault_edbc007_2026_b5f1acd5c8085096",
-    "footnote_fn_lwl_sister_floor"
+    "vault_g03_5ef9f1c8942f71f2",
+    "vault_g03_c89d1d30ec063704",
+    "vault_g03_110e1410239cb803",
+    "vault_edbc009_2026_ee401098cbddeadf",
+    "vault_edbcm070_2026_6c111921f13957a9",
+    "vault_edbc007_2026_ff2fd30fd47a1e42"
    ],
    "scores": [
     0.6243,
     0.7166,
-    0.661,
-    0.6589,
-    0.6355,
-    0.6297,
-    0.6056,
-    0.6051
+    0.7044,
+    0.6989,
+    0.6887,
+    0.6776,
+    0.6636,
+    0.6589
    ],
    "content_types": [
     "vault_extract",
@@ -10833,21 +10987,21 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "footnote_curated"
+    "vault_extract"
    ],
    "pages": [
     1,
     null,
+    1,
     4,
-    15,
     3,
-    5,
-    4,
-    null
+    2,
+    3,
+    15
    ],
    "total": 8,
    "verdict": "PASS",
-   "rank_of_expected": 4,
+   "rank_of_expected": 5,
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
@@ -10871,27 +11025,27 @@
     "g03",
     "edbc007_2026",
     "edbcm070_2026",
-    "edbc009_2026"
+    "edbc007_2026"
    ],
    "chunk_ids": [
     "footnote_fn_lwl_sister_floor",
     "fact_role_facts_activity_6fddddde0d050005",
     "vault_g03_110e1410239cb803",
+    "vault_g03_974b1078dad37f12",
     "vault_g03_c89d1d30ec063704",
-    "vault_g03_38ff57cad1b0a045",
     "vault_edbc007_2026_ff2fd30fd47a1e42",
     "vault_edbcm070_2026_dcf35b4afca0b09e",
-    "vault_edbc009_2026_ee401098cbddeadf"
+    "vault_edbc007_2026_5471ff1e981c11db"
    ],
    "scores": [
     0.6067,
     0.6981,
     0.6171,
+    0.5954,
     0.5514,
-    0.5203,
     0.5166,
     0.5003,
-    0.4858
+    0.4965
    ],
    "content_types": [
     "footnote_curated",
@@ -10907,11 +11061,11 @@
     null,
     null,
     3,
+    1,
     4,
-    5,
     15,
     4,
-    2
+    4
    ],
    "total": 8,
    "verdict": "PASS",
@@ -11201,32 +11355,32 @@
    "source_ids": [
     "edbc14_2024_spms",
     "sag_2025_11",
+    "emergency_repairs_guide",
     "edbc14_2024_spms",
     "sag_2025_11",
     "emergency_repairs_guide",
     "edbc14_2024_spms",
-    "major_repairs_proc_nonestate",
-    "major_repairs_proc_estate"
+    "major_repairs_proc_nonestate"
    ],
    "chunk_ids": [
     "footnote_fn_edbc14_2024_thresholds",
     "vault_sag_2025_11_57a61f09d479aa5b",
+    "vault_emergency_repairs_guide_003e7f2fda96f856",
     "vault_edbc14_2024_spms_5365c504f53bb418",
     "vault_sag_2025_11_7d5c8efc766a0f2d",
     "vault_emergency_repairs_guide_6d1593a5dcec2d4b",
     "vault_edbc14_2024_spms_58a3abd456dd559e",
-    "vault_major_repairs_proc_nonestate_c58bc2a3c7721231",
-    "vault_major_repairs_proc_estate_6b5b3281b4d06a50"
+    "vault_major_repairs_proc_nonestate_c58bc2a3c7721231"
    ],
    "scores": [
     0.4929,
     0.5909,
+    0.5396,
     0.5395,
     0.5245,
     0.5205,
     0.5198,
-    0.5117,
-    0.5008
+    0.5117
    ],
    "content_types": [
     "footnote_curated",
@@ -11242,10 +11396,10 @@
     null,
     9,
     2,
+    2,
     254,
     3,
     2,
-    3,
     3
    ],
    "total": 8,
@@ -11270,31 +11424,31 @@
     "eoebg_rates_2026",
     "eoebg_rates_2026",
     "g01",
-    "g02",
     "g01",
-    "edbcm089_2026",
-    "edbcm089_2026",
-    "g01"
+    "g01",
+    "g02",
+    "fin_mgmt_notes_aided",
+    "edbcm089_2026"
    ],
    "chunk_ids": [
     "footnote_fn_dlg_incentive_cease",
     "footnote_fn_lwl_sister_floor",
-    "vault_g01_33d170dfd3409080",
+    "vault_g01_526fe089b707001e",
+    "vault_g01_7c2b5af7e98a2f1a",
+    "vault_g01_166ade0c624040d1",
     "vault_g02_6e9b68d2288469a1",
-    "vault_g01_217297c4315dccbb",
-    "vault_edbcm089_2026_e02eb370b5c1f285",
-    "vault_edbcm089_2026_c53c9e01278d72a3",
-    "vault_g01_077991488c603a40"
+    "vault_fin_mgmt_notes_aided_7e84bb9e69b8f8e0",
+    "vault_edbcm089_2026_e02eb370b5c1f285"
    ],
    "scores": [
     0.5851,
     0.5474,
-    0.6321,
+    0.6524,
+    0.6414,
+    0.6394,
     0.5869,
-    0.583,
-    0.5696,
-    0.55,
-    0.5492
+    0.5804,
+    0.5696
    ],
    "content_types": [
     "footnote_curated",
@@ -11309,20 +11463,20 @@
    "pages": [
     null,
     null,
-    2,
-    13,
+    4,
     12,
-    9,
-    2,
-    6
+    5,
+    13,
+    1,
+    9
    ],
    "total": 8,
    "verdict": "PASS",
-   "rank_of_expected": 5,
+   "rank_of_expected": 7,
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.6321
+   "top_score": 0.6524
   },
   {
    "id": "fin_crypto",
@@ -11405,8 +11559,8 @@
     "sag_2025_11",
     "edbc00030",
     "g04",
-    "edbc00030",
-    "job_sharing_guide"
+    "g04",
+    "edbc00030"
    ],
    "chunk_ids": [
     "vault_g04_997df7efd474",
@@ -11415,8 +11569,8 @@
     "vault_sag_2025_11_4ee562d7f8902f9a",
     "vault_edbc00030_29618c7a4673",
     "vault_g04_5a60fb781f6f",
-    "vault_edbc00030_c86ba60f7dcc",
-    "vault_job_sharing_guide_a8ab796eb2c2b76f"
+    "vault_g04_638c01bf30ac",
+    "vault_edbc00030_c86ba60f7dcc"
    ],
    "scores": [
     0.7061,
@@ -11425,8 +11579,8 @@
     0.6641,
     0.6292,
     0.6207,
-    0.6159,
-    0.6132
+    0.6205,
+    0.6159
    ],
    "content_types": [
     "vault_extract",
@@ -11445,8 +11599,8 @@
     233,
     17,
     null,
-    12,
-    4
+    null,
+    12
    ],
    "total": 8,
    "verdict": "FAIL",
@@ -11483,7 +11637,7 @@
     "vault_sag_2025_11_b91bef25da03b856",
     "vault_sag_2025_11_a1bf01e7cdf07272",
     "vault_g04_997df7efd474",
-    "vault_sag_2025_11_63f35908e9b949e7",
+    "vault_sag_2025_11_ac9e6e7b4099399d",
     "vault_g04_5a60fb781f6f"
    ],
    "scores": [
@@ -11493,7 +11647,7 @@
     0.675,
     0.6714,
     0.6646,
-    0.6301,
+    0.6492,
     0.5981
    ],
    "content_types": [
@@ -11513,7 +11667,7 @@
     228,
     229,
     null,
-    230,
+    233,
     null
    ],
    "total": 8,
@@ -11541,8 +11695,8 @@
     "imc_establishment_operation",
     "imc_briefing_qa",
     "imc_establishment_operation",
-    "imc_briefing_qa",
-    "imc_election_guides"
+    "imc_governance_supplements",
+    "imc_briefing_qa"
    ],
    "chunk_ids": [
     "footnote_fn_imc_60pct",
@@ -11551,8 +11705,8 @@
     "vault_imc_establishment_operation_1c25d85dde883f87",
     "vault_imc_briefing_qa_147520bbb186aad7",
     "vault_imc_establishment_operation_ad9d8f74d990b40b",
-    "vault_imc_briefing_qa_6fd65c5be34f9a92",
-    "vault_imc_election_guides_0304eddbfec9d97a"
+    "vault_imc_governance_supplements_330ba88fe82107ba",
+    "vault_imc_briefing_qa_6fd65c5be34f9a92"
    ],
    "scores": [
     0.6981,
@@ -11562,7 +11716,7 @@
     0.6997,
     0.6918,
     0.6904,
-    0.6749
+    0.6904
    ],
    "content_types": [
     "footnote_curated",
@@ -11581,8 +11735,8 @@
     4,
     3,
     30,
-    3,
-    34
+    14,
+    3
    ],
    "total": 8,
    "verdict": "PASS",
@@ -11608,9 +11762,9 @@
     "imc_establishment_operation",
     "imc_establishment_operation",
     "imc_governance_supplements",
+    "imc_governance_supplements",
     "imc_briefing_qa",
-    "imc_briefing_qa",
-    "imc_governance_supplements"
+    "imc_briefing_qa"
    ],
    "chunk_ids": [
     "footnote_fn_imc_60pct",
@@ -11618,9 +11772,9 @@
     "vault_imc_establishment_operation_1c25d85dde883f87",
     "vault_imc_establishment_operation_ad9d8f74d990b40b",
     "vault_imc_governance_supplements_330ba88fe82107ba",
-    "vault_imc_briefing_qa_30fe3d08cc7b6267",
-    "vault_imc_briefing_qa_471d4c1fbb62e9c0",
-    "vault_imc_governance_supplements_5203579dd227734e"
+    "vault_imc_governance_supplements_ef03ee28edd5fb47",
+    "vault_imc_briefing_qa_147520bbb186aad7",
+    "vault_imc_briefing_qa_3d5e0d1d38e45cd2"
    ],
    "scores": [
     0.7968,
@@ -11628,9 +11782,9 @@
     0.7107,
     0.704,
     0.702,
-    0.6593,
-    0.6561,
-    0.6427
+    0.6963,
+    0.6954,
+    0.6842
    ],
    "content_types": [
     "footnote_curated",
@@ -11648,9 +11802,9 @@
     4,
     30,
     14,
-    1,
-    2,
-    12
+    14,
+    3,
+    14
    ],
    "total": 8,
    "verdict": "PASS",
@@ -11673,32 +11827,32 @@
    "source_ids": [
     "imc_election_guides",
     "imc_briefing_qa",
-    "imc_governance_supplements",
     "imc_establishment_operation",
-    "coa_imc_1_19",
-    "imc_election_guides",
+    "imc_governance_supplements",
+    "imc_briefing_qa",
+    "imc_establishment_operation",
     "imc_governance_supplements",
     "imc_establishment_operation"
    ],
    "chunk_ids": [
     "footnote_fn_imc_election_pta",
     "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_establishment_operation_e66eff7e80fe4675",
     "vault_imc_governance_supplements_5203579dd227734e",
-    "vault_imc_establishment_operation_a1fd7e792c5fdf94",
-    "vault_coa_imc_1_19_516b583e6a672b44",
-    "vault_imc_election_guides_0304eddbfec9d97a",
-    "vault_imc_governance_supplements_498a7dc6c682d2ca",
-    "vault_imc_establishment_operation_8a27df842b5df7b5"
+    "vault_imc_briefing_qa_b6ac0458f6897905",
+    "vault_imc_establishment_operation_3900d762ffc52824",
+    "vault_imc_governance_supplements_e4ff2c5877510782",
+    "vault_imc_establishment_operation_a1fd7e792c5fdf94"
    ],
    "scores": [
     0.4745,
     0.7043,
+    0.6852,
     0.6801,
-    0.653,
-    0.6512,
-    0.6497,
-    0.6495,
-    0.6429
+    0.6637,
+    0.6584,
+    0.6541,
+    0.653
    ],
    "content_types": [
     "footnote_curated",
@@ -11713,12 +11867,12 @@
    "pages": [
     null,
     1,
+    22,
     12,
-    6,
-    11,
-    34,
+    1,
+    3,
     19,
-    7
+    6
    ],
    "total": 8,
    "verdict": "PASS",
@@ -11743,30 +11897,30 @@
     "imc_establishment_operation",
     "imc_briefing_qa",
     "imc_establishment_operation",
-    "imc_establishment_operation",
     "imc_briefing_qa",
+    "imc_governance_supplements",
     "imc_establishment_operation",
-    "imc_governance_supplements"
+    "imc_establishment_operation"
    ],
    "chunk_ids": [
     "footnote_fn_imc_tax_exempt_s88",
     "footnote_fn_imc_60pct",
     "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_establishment_operation_e66eff7e80fe4675",
+    "vault_imc_briefing_qa_b6ac0458f6897905",
+    "vault_imc_governance_supplements_5203579dd227734e",
     "vault_imc_establishment_operation_a1fd7e792c5fdf94",
-    "vault_imc_establishment_operation_3900d762ffc52824",
-    "vault_imc_briefing_qa_471d4c1fbb62e9c0",
-    "vault_imc_establishment_operation_736f8129b51d8677",
-    "vault_imc_governance_supplements_0736ffbe99a6f5b6"
+    "vault_imc_establishment_operation_3900d762ffc52824"
    ],
    "scores": [
     0.6184,
     0.5744,
     0.7686,
+    0.7471,
+    0.7385,
+    0.7301,
     0.7281,
-    0.7252,
-    0.71,
-    0.6973,
-    0.6873
+    0.7252
    ],
    "content_types": [
     "footnote_curated",
@@ -11782,11 +11936,11 @@
     null,
     null,
     1,
+    22,
+    1,
+    12,
     6,
-    3,
-    2,
-    6,
-    1
+    3
    ],
    "total": 8,
    "verdict": "PASS",
@@ -11808,33 +11962,33 @@
    ],
    "source_ids": [
     "edbc_8_2025_net_enhancement",
+    "imc_establishment_operation",
+    "imc_briefing_qa",
+    "imc_briefing_qa",
+    "imc_establishment_operation",
     "imc_governance_supplements",
-    "g02",
-    "smc_constitution_sample",
-    "imc_governance_supplements",
-    "coa_imc_1_19",
-    "imc_governance_supplements",
-    "g02"
+    "imc_establishment_operation",
+    "imc_governance_supplements"
    ],
    "chunk_ids": [
     "footnote_fn_net_imc_smc_oversight",
+    "vault_imc_establishment_operation_e66eff7e80fe4675",
+    "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_briefing_qa_b6ac0458f6897905",
+    "vault_imc_establishment_operation_9d6e3d26df37c8f5",
     "vault_imc_governance_supplements_5203579dd227734e",
-    "vault_g02_6a3a333dcf0a177e",
-    "vault_smc_constitution_sample_78b1641818f181b5",
-    "vault_imc_governance_supplements_498a7dc6c682d2ca",
-    "vault_coa_imc_1_19_516b583e6a672b44",
-    "vault_imc_governance_supplements_330ba88fe82107ba",
-    "vault_g02_0fcd2765957c9099"
+    "vault_imc_establishment_operation_a1fd7e792c5fdf94",
+    "vault_imc_governance_supplements_e4ff2c5877510782"
    ],
    "scores": [
     0.4726,
+    0.6706,
+    0.6604,
+    0.6297,
+    0.6291,
     0.6151,
-    0.5794,
-    0.5779,
-    0.5765,
-    0.573,
-    0.5692,
-    0.5611
+    0.6071,
+    0.5923
    ],
    "content_types": [
     "footnote_curated",
@@ -11848,21 +12002,21 @@
    ],
    "pages": [
     null,
-    12,
-    3,
+    22,
     1,
-    19,
-    11,
-    14,
-    10
+    1,
+    23,
+    12,
+    6,
+    19
    ],
    "total": 8,
-   "verdict": "FAIL",
-   "rank_of_expected": null,
+   "verdict": "PASS",
+   "rank_of_expected": 1,
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
-   "top_score": 0.6151
+   "top_score": 0.6706
   },
   {
    "id": "gov_coa_imc",
@@ -11881,7 +12035,7 @@
     "imc_briefing_qa",
     "imc_briefing_qa",
     "imc_establishment_operation",
-    "imc_briefing_qa",
+    "imc_establishment_operation",
     "imc_establishment_operation"
    ],
    "chunk_ids": [
@@ -11890,19 +12044,19 @@
     "vault_edbc016_2026_07d6d4a61b75641f",
     "vault_imc_briefing_qa_b6ac0458f6897905",
     "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_establishment_operation_e66eff7e80fe4675",
     "vault_imc_establishment_operation_a1fd7e792c5fdf94",
-    "vault_imc_briefing_qa_471d4c1fbb62e9c0",
-    "vault_imc_establishment_operation_e6fa3453dcd8c3d9"
+    "vault_imc_establishment_operation_3900d762ffc52824"
    ],
    "scores": [
     0.6737,
     0.618,
-    0.6317,
+    0.6318,
     0.7475,
     0.7397,
+    0.725,
     0.7152,
-    0.6855,
-    0.6806
+    0.7119
    ],
    "content_types": [
     "footnote_curated",
@@ -11920,9 +12074,9 @@
     2,
     1,
     1,
+    22,
     6,
-    2,
-    4
+    3
    ],
    "total": 8,
    "verdict": "PASS",
@@ -11948,29 +12102,29 @@
     "imc_briefing_qa",
     "imc_governance_supplements",
     "imc_establishment_operation",
+    "imc_briefing_qa",
     "imc_establishment_operation",
-    "imc_governance_supplements",
-    "g02"
+    "imc_establishment_operation"
    ],
    "chunk_ids": [
     "footnote_fn_imc_99b",
     "footnote_fn_imc_60pct",
     "vault_imc_briefing_qa_30fe3d08cc7b6267",
     "vault_imc_governance_supplements_5203579dd227734e",
+    "vault_imc_establishment_operation_e66eff7e80fe4675",
+    "vault_imc_briefing_qa_b6ac0458f6897905",
     "vault_imc_establishment_operation_a1fd7e792c5fdf94",
-    "vault_imc_establishment_operation_3900d762ffc52824",
-    "vault_imc_governance_supplements_498a7dc6c682d2ca",
-    "vault_g02_6a3a333dcf0a177e"
+    "vault_imc_establishment_operation_3900d762ffc52824"
    ],
    "scores": [
     0.5445,
     0.509,
     0.7222,
     0.6977,
+    0.693,
+    0.6821,
     0.6676,
-    0.666,
-    0.6553,
-    0.649
+    0.666
    ],
    "content_types": [
     "footnote_curated",
@@ -11987,14 +12141,14 @@
     null,
     1,
     12,
+    22,
+    1,
     6,
-    3,
-    19,
     3
    ],
    "total": 8,
-   "verdict": "PASS",
-   "rank_of_expected": 7,
+   "verdict": "FAIL",
+   "rank_of_expected": null,
    "rank_of_expected_chunk": null,
    "chunk_verdict": "FAIL",
    "forbidden_hits": [],
@@ -12013,26 +12167,32 @@
    "source_ids": [
     "icac_school_governance",
     "icac_school_governance",
+    "icac_school_governance",
     "sag_2025_11",
     "sag_2025_11",
     "sag_2025_11",
-    "imc_establishment_operation"
+    "imc_establishment_operation",
+    "sch_extension_guide"
    ],
    "chunk_ids": [
     "footnote_fn_icac_coi",
     "footnote_fn_icac_bidrig",
+    "vault_icac_school_governance_24250f7009162843",
     "vault_sag_2025_11_d5b7f809bd800319",
     "vault_sag_2025_11_f4706480e8463f1e",
-    "vault_sag_2025_11_4df50ed13bec4830",
-    "footnote_fn_imc_99b"
+    "vault_sag_2025_11_8b7fd6153d12714c",
+    "footnote_fn_imc_99b",
+    "vault_sch_extension_guide_d6751390986f6c99"
    ],
    "scores": [
     0.5135,
     0.465,
+    0.5025,
     0.4875,
     0.478,
-    0.4442,
-    0.4409
+    0.4557,
+    0.4409,
+    0.4225
    ],
    "content_types": [
     "footnote_curated",
@@ -12040,17 +12200,21 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "footnote_curated"
+    "vault_extract",
+    "footnote_curated",
+    "vault_extract"
    ],
    "pages": [
     null,
     null,
+    2,
     249,
     83,
-    158,
-    null
+    159,
+    null,
+    3
    ],
-   "total": 6,
+   "total": 8,
    "verdict": "PASS",
    "rank_of_expected": 0,
    "rank_of_expected_chunk": null,
@@ -12070,33 +12234,33 @@
    ],
    "source_ids": [
     "ceg_calc_2026",
+    "sag_2025_11",
     "sdp_guide",
     "sdp_guide",
     "sdp_guide",
     "sag_2025_11",
     "sag_2025_11",
-    "sag_2025_11",
-    "edb_point_to_note_net_grant_202627"
+    "role_facts_general"
    ],
    "chunk_ids": [
     "footnote_fn_ceg_plan_clawback",
+    "vault_sag_2025_11_f867296a9fb4dd2b",
     "vault_sdp_guide_cc470b141f88cbd1",
     "vault_sdp_guide_d8d789989ee7e265",
     "vault_sdp_guide_750475c731037cf6",
     "vault_sag_2025_11_d37909316ed08701",
-    "vault_sag_2025_11_adaf6551d375327b",
-    "vault_sag_2025_11_f4ae465a82840548",
-    "footnote_fn_net_grant_school_plan"
+    "vault_sag_2025_11_8e3e563927dc9d00",
+    "fact_role_facts_general_01ad4655ffce86ff"
    ],
    "scores": [
     0.5582,
+    0.6869,
     0.6735,
     0.6592,
     0.6557,
     0.6522,
-    0.6172,
-    0.5586,
-    0.4938
+    0.6278,
+    0.543
    ],
    "content_types": [
     "footnote_curated",
@@ -12106,25 +12270,25 @@
     "vault_extract",
     "vault_extract",
     "vault_extract",
-    "footnote_curated"
+    "approved_fact"
    ],
    "pages": [
     null,
+    136,
     2,
     1,
     2,
     135,
-    133,
-    123,
+    6,
     null
    ],
    "total": 8,
    "verdict": "PASS",
-   "rank_of_expected": 1,
-   "rank_of_expected_chunk": 3,
+   "rank_of_expected": 2,
+   "rank_of_expected_chunk": 4,
    "chunk_verdict": "PASS",
    "forbidden_hits": [],
-   "top_score": 0.6735
+   "top_score": 0.6869
   },
   {
    "id": "gov_imc_quorum",
@@ -12141,30 +12305,30 @@
     "trg_imc_2023",
     "imc_briefing_qa",
     "imc_establishment_operation",
+    "imc_governance_supplements",
     "imc_establishment_operation",
     "imc_briefing_qa",
-    "imc_establishment_operation",
-    "imc_election_guides"
+    "imc_establishment_operation"
    ],
    "chunk_ids": [
     "footnote_fn_imc_60pct",
     "footnote_fn_trg_freeze_ceiling",
     "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_establishment_operation_e66eff7e80fe4675",
+    "vault_imc_governance_supplements_5203579dd227734e",
     "vault_imc_establishment_operation_3900d762ffc52824",
-    "vault_imc_establishment_operation_a1fd7e792c5fdf94",
-    "vault_imc_briefing_qa_471d4c1fbb62e9c0",
-    "vault_imc_establishment_operation_8321060a76efdfea",
-    "vault_imc_election_guides_0304eddbfec9d97a"
+    "vault_imc_briefing_qa_b6ac0458f6897905",
+    "vault_imc_establishment_operation_a1fd7e792c5fdf94"
    ],
    "scores": [
     0.5935,
     0.5298,
     0.7317,
+    0.7139,
+    0.7057,
     0.6989,
-    0.6887,
-    0.6843,
-    0.6621,
-    0.6587
+    0.6988,
+    0.6887
    ],
    "content_types": [
     "footnote_curated",
@@ -12180,11 +12344,11 @@
     null,
     null,
     1,
+    22,
+    12,
     3,
-    6,
-    2,
-    21,
-    34
+    1,
+    6
    ],
    "total": 8,
    "verdict": "PASS",
@@ -12203,32 +12367,32 @@
    "source_ids": [
     "imc_briefing_qa",
     "imc_establishment_operation",
-    "imc_briefing_qa",
-    "imc_election_guides",
-    "imc_establishment_operation",
-    "imc_establishment_operation",
     "imc_governance_supplements",
-    "imc_governance_supplements"
+    "imc_briefing_qa",
+    "imc_establishment_operation",
+    "imc_establishment_operation",
+    "imc_briefing_qa",
+    "imc_election_guides"
    ],
    "chunk_ids": [
     "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_establishment_operation_e66eff7e80fe4675",
+    "vault_imc_governance_supplements_5203579dd227734e",
+    "vault_imc_briefing_qa_b6ac0458f6897905",
     "vault_imc_establishment_operation_a1fd7e792c5fdf94",
+    "vault_imc_establishment_operation_3900d762ffc52824",
     "vault_imc_briefing_qa_471d4c1fbb62e9c0",
-    "vault_imc_election_guides_0304eddbfec9d97a",
-    "vault_imc_establishment_operation_8321060a76efdfea",
-    "vault_imc_establishment_operation_8a27df842b5df7b5",
-    "vault_imc_governance_supplements_0736ffbe99a6f5b6",
-    "vault_imc_governance_supplements_cf1cc47d2301e498"
+    "vault_imc_election_guides_0304eddbfec9d97a"
    ],
    "scores": [
     0.7023,
+    0.6881,
+    0.6817,
+    0.6747,
     0.6615,
+    0.6547,
     0.6447,
-    0.6442,
-    0.6366,
-    0.6353,
-    0.6268,
-    0.618
+    0.6442
    ],
    "content_types": [
     "vault_extract",
@@ -12242,13 +12406,13 @@
    ],
    "pages": [
     1,
-    6,
-    2,
-    34,
-    21,
-    7,
+    22,
+    12,
     1,
-    21
+    6,
+    3,
+    2,
+    34
    ],
    "total": 8,
    "verdict": "RECORD_ONLY",

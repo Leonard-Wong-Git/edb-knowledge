@@ -2,7 +2,7 @@
  "label": "S219 route-first after (in-process, FEATURE_ROUTE_FIRST_SEARCH=1)",
  "endpoint": "in-process searchChannelB",
  "top_k": 8,
- "generated_at": "2026-09-15T09:48:31Z",
+ "generated_at": "2026-09-15T10:06:04Z",
  "gold_file": "dev/_s213_gold_all.json",
  "gold_count": 185,
  "tie_aliases": [
@@ -10837,7 +10837,7 @@
     "sag_2025_11"
    ],
    "expect_text_any": [
-    "評核方面:f.職員或其好友的子女或親屬申請入學,職員親自面試,並建議"
+    "並應與受核人進行考績會晤,討論其考績報告的內容"
    ],
    "source_ids": [
     "phys_sss_2007_2015",

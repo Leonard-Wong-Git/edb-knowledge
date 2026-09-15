@@ -7,7 +7,7 @@
 
 import type { EmbedFn } from "./embeddingClient.js";
 import { getSupabaseAnonKey, getSupabaseUrl } from "../config/env.js";
-import { informativeBigrams } from "./textBigrams.js";
+import { cjkBigrams, informativeBigrams, overlapWith } from "./textBigrams.js";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -86,6 +86,92 @@ function canonicalSource(id: string): string {
   return SOURCE_ALIASES[id] ?? id;
 }
 
+/**
+ * S226 — quota families, for MEASUREMENT of a second kind of crowding.
+ *
+ * DELIBERATELY NOT `SOURCE_ALIASES`. That map is exported to the Channel B sync
+ * manifest as `source_aliases` (spec §3), where it means "these ids are the same
+ * document, de-duplicate them". The five school-bus guides are NOT the same
+ * document: the 2026/27 safety guide is issued separately to drivers, escorts,
+ * operators, parents and students, and the gold set expects a SPECIFIC one
+ * (`bus_guide_audience_confusable` exists precisely because they are confusable).
+ * Telling downstream they are aliases would publish a false claim.
+ *
+ * What they are is one FAMILY competing for the same window: measured 2026-09-15
+ * over the 185-item gold set, `sch_bus_*` took 7 or 8 of 8 slots on nine bus
+ * questions and 69 window slots in total, while the per-source quota (3) never
+ * bound because each audience version is its own source_id. `values_edu_*`
+ * (2021 trial + 2026 final) took 21 slots, `chi_hist_*` (regular + NCS-adapted)
+ * 6 — and that last one is a forbidden-citation violation in the gold set.
+ *
+ * Only consulted when FAMILY_QUOTA=1, which is a measurement flag, not a change.
+ */
+export const QUOTA_FAMILIES: Record<string, string> = {
+  sch_bus_drivers_2026: "fam_sch_bus",
+  sch_bus_escorts_2026: "fam_sch_bus",
+  sch_bus_operators_2026: "fam_sch_bus",
+  sch_bus_parents_2026: "fam_sch_bus",
+  sch_bus_students_2026: "fam_sch_bus",
+  values_edu_framework_2021_trial: "fam_values_edu",
+  values_edu_framework_2026: "fam_values_edu",
+  chi_hist_jss_2019: "fam_chi_hist",
+  chi_hist_jss_ncs_2019: "fam_chi_hist",
+};
+
+/** The bucket the quota gate counts against. FAMILY_QUOTA=1 widens it to the family. */
+function quotaBucket(id: string): string {
+  const canonical = canonicalSource(id);
+  if (process.env.FAMILY_QUOTA !== "1") return canonical;
+  return QUOTA_FAMILIES[canonical] ?? canonical;
+}
+
+/**
+ * S226 — lexical re-rank of the already-over-fetched candidates. MEASUREMENT flag.
+ *
+ * Why here rather than a bigger quota: the chunk-layer diagnosis measured that the
+ * chunk which answers is usually not its own source's top three BY COSINE, and
+ * widening the quota to 8 traded 4 source-layer passes for 5 chunk-layer ones — a
+ * swap, not a gain. The candidate pool is already 40 rows deep (`topK * 5`
+ * whenever a quota is active), so re-ordering it costs no extra database work.
+ *
+ * The cosine is NOT overwritten: the blend decides ORDER only, and the `score` the
+ * caller sees is untouched, so nothing downstream that thresholds on it
+ * (VAULT_LEAD_SCORE, the judge gate, the footnote lead) changes meaning. Off by
+ * default; `LEXICAL_RERANK_WEIGHT` is read only when the flag is on.
+ */
+const RERANK_DEFAULT_WEIGHT = 0.05;
+
+function rerankLexical<T extends { text: string; score: number }>(
+  rows: T[],
+  query: string
+): T[] {
+  if (process.env.FEATURE_LEXICAL_RERANK !== "1" || rows.length === 0) return rows;
+  const raw = Number(process.env.LEXICAL_RERANK_WEIGHT);
+  const weight = Number.isFinite(raw) && raw > 0 ? raw : RERANK_DEFAULT_WEIGHT;
+  // NOT informativeBigrams() here, and the first attempt at this function shows why.
+  // It used the candidate set as the document-frequency corpus, which is what the
+  // footnote lead does with the footnote corpus — but these candidates all come
+  // from the sources the route already selected, so the user's own words are
+  // COMMON among them and got dropped as stopwords. Measured: the flag changed
+  // nothing at all on a 3-item smoke run, because qBigrams came back empty.
+  // Inside an already-narrowed candidate pool, "this chunk literally contains what
+  // the user typed" is the signal, not the noise.
+  const qBigrams = new Set(cjkBigrams(query));
+  if (qBigrams.size === 0) return rows;
+  return rows
+    .map((row, i) => ({
+      row,
+      i,
+      // Normalised to [0,1] so the weight means the same thing for a 2-character
+      // query and a full sentence; the median cosine gap to the 8th slot was
+      // 0.0163, so a 0.05 ceiling can reorder without swamping the embedding.
+      blend: row.score + weight * (overlapWith(qBigrams, row.text) / qBigrams.size),
+    }))
+    // Stable: ties keep the cosine order they arrived in.
+    .sort((a, b) => b.blend - a.blend || a.i - b.i)
+    .map((x) => x.row);
+}
+
 // ---------------------------------------------------------------------------
 // Search options
 // ---------------------------------------------------------------------------
@@ -110,6 +196,20 @@ export interface WikiSearchOptions {
    * caller running more than one search for the same query pays for one embedding.
    */
   queryVec?: number[];
+  /**
+   * S226 — the RAW user query, for lexical re-ranking only (FEATURE_LEXICAL_RERANK).
+   *
+   * The `query` argument these functions receive is `expandQuery(query, category)`,
+   * i.e. the user's words plus up to 21 route vocabulary terms. Those terms are
+   * right for the embedding — they align it with the target documents' wording —
+   * and wrong for lexical overlap, where they would reward every chunk that talks
+   * about the route's topic instead of the chunk that answers the question. The
+   * S226 diagnosis measured the failure concentrated in SHORT raw queries
+   * (`plain`, 1-3 tokens: FAIL 24/77 against 6/43 for natural sentences), so the
+   * re-rank scores against what the user actually typed. Falls back to the
+   * expanded query when the caller does not supply this.
+   */
+  rerankQuery?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -191,7 +291,8 @@ export async function searchWiki(
   embedFn: EmbedFn,
   options: WikiSearchOptions = {}
 ): Promise<WikiSearchResult[]> {
-  const { topK, minScore = 0.1, topic, contentType, sourceIds, maxPerSource, queryVec } = options;
+  const { topK, minScore = 0.1, topic, contentType, sourceIds, maxPerSource, queryVec,
+          rerankQuery } = options;
 
   const resolvedQueryVec = queryVec ?? (await embedFn(query));
 
@@ -250,14 +351,18 @@ export async function searchWiki(
   // Walks score-DESC list and skips any chunk from a source that already hit cap.
   // Uses canonicalSource() so redundant ingestions of the same document
   // (e.g. g24 + sag_2025_11) share one quota bucket.
+  // S226 — measurement flag, off by default: re-order candidates before the quota
+  // gate walks them. See rerankLexical().
+  const ordered = rerankLexical(deduped, rerankQuery ?? query);
+
   let finalRows: typeof deduped;
   if (overFetchEnabled) {
     const sourceCounts = new Map<string, number>();
     const gated: typeof deduped = [];
     const cap = maxPerSource as number;
     const limit = topK as number;
-    for (const row of deduped) {
-      const canonical = canonicalSource(row.source_id);
+    for (const row of ordered) {
+      const canonical = quotaBucket(row.source_id);
       const count = sourceCounts.get(canonical) ?? 0;
       if (count >= cap) continue;
       sourceCounts.set(canonical, count + 1);
@@ -266,7 +371,7 @@ export async function searchWiki(
     }
     finalRows = gated;
   } else {
-    finalRows = deduped;
+    finalRows = ordered;
   }
 
   return finalRows.map(({ score, ...chunk }) => ({
@@ -296,6 +401,7 @@ export async function searchWikiRoutedExact(
     sourceIds,
     maxPerSource,
     queryVec,
+    rerankQuery,
   } = options;
 
   if (!sourceIds || sourceIds.length === 0) return [];
@@ -335,12 +441,19 @@ export async function searchWikiRoutedExact(
     deduped.push(row);
   }
 
-  let finalRows = deduped;
+  // S226 — the routed path is the one production takes (FEATURE_ROUTE_FIRST_SEARCH
+  // has been on since 2026-09-09, verified behaviourally 184/184 on 2026-09-15), so
+  // both measurement flags have to reach here too or the A/B measures a path nobody
+  // runs. Same defaults: unset FEATURE_LEXICAL_RERANK and unset FAMILY_QUOTA leave
+  // this loop byte-identical to what it was.
+  const ordered = rerankLexical(deduped, rerankQuery ?? query);
+
+  let finalRows = ordered;
   if (overFetchEnabled) {
     const sourceCounts = new Map<string, number>();
     const gated: (WikiChunk & { score: number })[] = [];
-    for (const row of deduped) {
-      const canonical = canonicalSource(row.source_id);
+    for (const row of ordered) {
+      const canonical = quotaBucket(row.source_id);
       const count = sourceCounts.get(canonical) ?? 0;
       if (count >= maxPerSource!) continue;
       sourceCounts.set(canonical, count + 1);

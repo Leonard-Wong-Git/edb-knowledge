@@ -760,7 +760,15 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // 實測：12 班／24 班副校長 → staffing；小一派位第 1 班、中一 5 班課程指引、24 班學校要幾多
   // 間課室 → 唔匹配，照舊各歸各路。
   staffing: /人員編制|教學人員編制|核准編制|教師編制|主任編制|編制表|主任級|學位化|學位教師職系|班師比|(?=[\s\S]*[0-9０-９]{1,2}\s*班)(?=[\s\S]*(?:教師|教員|教學人員|編制|校長|副校長|主任|人手))/,
-  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金|語文能力要求|語文基準|語文能力評核|基準試|準英語教師|英語教師獎學金/,
+  // S226 — +教師評核/員工考績/考績/教師表現管理/表現管理. MUST stay here rather than in
+  // curriculum: `curriculum` below owns the bare token 評核 (for 課程及評估指引 vocabulary),
+  // and hr_admin is evaluated first, so without these a personnel query lands in the
+  // curriculum corpus. Measured 2026-09-15: detectQueryCategory("教師評核") returned
+  // `curriculum`, whose SOURCE_SET has no SAG in it, so the gold item hr_appraisal came
+  // back with physics, Chinese-language and IT curriculum guides and could never reach
+  // the answer — SAG §7.7 員工考績 (p.208) is in hr_admin's set. Same defect family as
+  // `safety` owning bare 氣體 and stealing 氣體定律 (route_regression known gaps).
+  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金|語文能力要求|語文基準|語文能力評核|基準試|準英語教師|英語教師獎學金|教師評核|員工考績|考績|教師表現管理|表現管理/,
   // NOTE: 資助則例 is deliberately absent here — TOPIC_KEYWORDS.finance already
   // owns it and is evaluated first, so a copy in hr_admin would be dead weight.
   // coa_pri_e / coa_ss_e are reachable because they sit in BOTH SOURCE_SETS.
@@ -1503,6 +1511,10 @@ export async function searchChannelB(
     minScore: effectiveMinScore,
     topK: top_k,
     queryVec: embeddingQueryVec,
+    // S226 — the raw query, used only by the lexical re-rank measurement flag.
+    // `embeddingQuery` below may carry up to 21 route vocabulary terms, which is
+    // what the embedding wants and the opposite of what word overlap wants.
+    rerankQuery: query,
     ...(topic ? { topic } : {}),
     ...(content_type ? { contentType: content_type } : {}),
     ...(maxPerSource ? { maxPerSource } : {}),

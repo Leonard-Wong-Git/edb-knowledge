@@ -1,4 +1,4 @@
-# 登記／庫存／瀏覽清單 漂移帳（2026-09-14 17:20 UTC）
+# 登記／庫存／瀏覽清單 漂移帳（2026-09-15 10:59 UTC）
 
 由 `dev/source/check_registry_drift.py --check` 產生，請勿手改。
 
@@ -10,11 +10,9 @@
 
 （無）
 
-## UNMANAGED — 庫內有片段，但 source_registry 從未登記（1）
+## UNMANAGED — 庫內有片段，但 source_registry 從未登記（0）
 
-| 片段 | source_id | 標題 |
-|---:|---|---|
-| 2 | `stat_integrated` | 融合教育統計數字 |
+（無）
 
 ## PHANTOM — 瀏覽清單有，但庫內零片段（36）
 
