@@ -6,57 +6,73 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S225, 2026-09-14）---
+--- 專案狀態（S226, 2026-09-15）---
 
 平台 v3.3.8；Supabase 17,004 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點 151 份
 （_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.3.66。
-FEATURE_ROUTE_FIRST_SEARCH=1 已在 Render 啟用（S220 起）。
+FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用（S226 已用行為探針核實：185 題生產 run 與本機
+旗標開啟側 184/184 逐條同判）。
 git：開工必先 fetch 再比對，不要信這裡記的 hash。
 
-🔴 main 受保護，不能直接 push（ruleset「main build gate」id 23311105）。
-   一切改動走 PR：
-     git checkout -b <topic>/<name> → git push -u origin HEAD
-     → gh pr create --base main --fill → gh pr merge --squash --delete-branch
-   ⚠️ 分支若與 main 同一個 commit，gh pr create 會失敗並留下一條空分支（S224 中過兩次）
-      —— 開分支前先確認真的有未推的 commit。
-   ⚠️ 【S225 新增】每日 qc_report cron 會自己推 qc_report.json 落 main，所以分支開耐咗
-      就會撞衝突。qc_report.json 是生成檔：取 main 那一份，再用你改好的碼重跑
-      --check 重新生成，不要手動合併。
+🟢 S226 做完了甚麼（都不用重做）：
+   1. 185 題 gold 已重跑，OP① 那筆量度債還清。**片段層第一次量到**：生產 Chunk Recall@5
+      0.345 / Source Recall@1 0.442 / MRR 0.540 與 0.255；64 題拿對文件卻拿錯段落。
+   2. SAG 換版結案 —— 生產配置側只有 1 條退步（hr_mpf），而它的舊 PASS 本來靠已退役的
+      g24 撐住，內容仍在庫。不是丟內容，是短查詢排序。
+   3. 答案鑰匙首次 185/185 零隔離（重錨 1 條、改寫 1 條），語料快取預設路徑已修好 ——
+      那個預設本來指向會消失的 scratchpad，是驗證器兩節跑不動的機械根因。
+   4. 封版閘 ERROR 4 → 2、PASS 12 → 14。四項修正：EVAL_CHUNK_LAYER 由假 NOT_MEASURED
+      變有數、選檔改為優先生產端點、REGISTRY_SERIES 假 ERROR（閘漏傳第七個參數）、
+      REGISTRY_UNMANAGED（Leonard 執行 2 行生產 UPDATE）。
+   5. 修好 `評核` 路由缺陷：hr_admin 補詞、不動 curriculum 裸 token；回歸 50/50 含對照組。
+   6. 三個檢索 knob 已實測，結論見下。
 
-🟢 S225 做完了甚麼（都不用重做）：
-   1. AI agent 架構盤點完成，見 dev/AUDIT.md（239 行，已登記入 PROJECT_INDEX）。
-      結論：架構本身乾淨 —— 全系統停在層 0／層 1、零工具呼叫、反模式十二條在架構層面
-      一條都不中；「可簡化」那一類落差是空的。問題全在護欄與量度。
-   2. 修好封版閘 EVAL_LATEST 假綠（PR #14 → 40ae3cf）。該格由假 PASS 轉為誠實的 FAIL，
-      releaseGate 5/15 → 4/15。**這不是退步**：分母沒變，只是少了一項不真的達標。
+🔴 三個 knob 一律不要在 Render 啟用（實測理由）：
+   · MAX_PER_SOURCE=8：來源層 −4 換片段層 +5，一換一。
+   · FAMILY_QUOTA=1：來源層 −1、片段層不變，不成立。
+   · FEATURE_LEXICAL_RERANK=1：**唯一兩層同時改善**（來源層 +7、片段層 +6、零退步，
+     權重三點劑量曲線且片段層在 0.05 停滯），但合成側 A/B 顯示答案層面混合，
+     有 2–3 條可指名退化（hr_maternity 自相矛盾最清楚）。**出貨前必須先有答案層面
+     評分器** —— 這正是 Open Priorities ①。
 
-🔴 三條「不得再犯」（S224 起，理由寫在碼或文件內，動手前先讀）：
+⚠️ 未部署（不是未完成）：Render 仍執行 e9d14be，而 backend/src 已有改動。三個 knob 預設
+   關閉所以部署不會改變行為，但 `評核` 路由修正**不是旗標、會即時生效**（它的 before→after
+   已跑，blocking failures 0）。下次部署前知道這一點就夠，不必特別處理。
+
+⚠️ 量度紀律（違反任何一條都會得出錯的結論，S226 全部實證過）：
+   · 本機比 Render 快慢不可搬：A/B harness 的 before/after 是同題一前一後跑，
+     第二次享受快取，所以 after 側必然較快。**那不是改動令系統變快。**
+   · 本機用 service key（8 秒上限）量一個 anon 3 秒的系統，系統性低估失敗率 ——
+     S226 實測低估幅度為 1 題（生產 1/185 撞 57014，本機 0/185）。
+   · repository 收到的 query 是 expandQuery() 展開後的字串，不是用戶原話。
+   · 詞面重排不可用候選集自己做 DF 語料 —— 候選全來自路由已選來源，用戶打的字在
+     裡面很常見，會被當成 stopword 濾走（第一版就是這樣，smoke 3/3 零改動）。
+
+🔴 不得再犯（S224 起，理由寫在碼或文件內，動手前先讀）：
    · backend_build_check.yml 不得加回 paths: 過濾（會令 required check 永遠 pending）。
    · 個人帳戶 repo 不能把內建 GitHub Actions 設為 ruleset bypass actor（GitHub 422）。
    · 由 GITHUB_TOKEN 開的 PR，其 workflow run require approval，auto-merge 會卡死。
+   · main 受保護：一切改動走 PR（gh pr create → gh pr merge --squash）。gh 內部會呼叫
+     git，所以 git 壞了 gh 也會壞；用 -R owner/repo 可繞過 repo 解析。
 
 ⚠️ 未解決（不要當已解決）：
-   · 185 題 gold 未重跑 —— 這是 Open Priorities ①，而且現在多一個理由：
-     EVAL_LATEST 那一格只能靠重跑清走，改 qc_report.py 已經無用。
-   · 封版閘仍然不是綠：overallStatus ERROR、兩個 ERROR、兩個 WARN 無 waiver、
-     六項人手驗證從未記錄、EVAL_CHUNK_LAYER 未量度。
-   · 判官閘有兩條「不會行」的路徑：fail-open（API 失敗即照答，無標記無計數）
-     與 trustedVaultLead 常態繞過（分數 ≥0.70 的 vault lead 連判官都不叫）。
-     詳見 dev/AUDIT.md 乙③ —— 要改要先有 ① 的 before→after。
-   · 生產實際行甚麼模型、甚麼 flag，無法由碼或 /health 得知（最後人手確認 2026-07-30）。
-     AUDIT.md 建議次序第 2 項就是令 /health 報出來，它是其餘所有量度的前提。
-   · finance 路由拿不到《學校行政手冊》。既有狀態、非 S223 造成。
-   · 入庫 PR 路徑未經一次真實入庫驗證；看門狗與 pgvector 監察未經真實排程觸發
-     （discover 與 freshness 兩條已經歷過，S225 實測）。
+   · 答案層面評分器不存在 —— 所有檢索改善的出貨閘（Open Priorities ①）。
+   · 片段層 0.345 本體（②）。已排除：不是切片問題、調配額是死路。
+   · 封版閘兩個 ERROR 只能靠改善檢索清走；兩個 WARN 未有 waiver；六項人手驗證從未記錄。
+   · 1 條 CONFIDENT_WRONG（分數 0.7575 > 棄權門檻 0.75）＋ 8 條查詢引用 gold 明令禁引的
+     來源，全部是「同一指引的不同對象／學級版本」。
+   · sch_bus 五個對象版本吃掉 69 個窗格 —— 共用配額已證不成立，要處理的是那五份文件
+     該不該各自入庫與瀏覽（產品決定）。
+   · footnote_lead_probe.py 與 judge_probe.py 未跑（DOC_SYNC row 41 要求，啟用重排前要補）。
 
 ⚠️ 不在 git 內的外部設定（換機或重裝要記得）：
    repo 開了 allow_auto_merge + delete_branch_on_merge；deploy key id=163258294；
    repo secret LEDGER_DEPLOY_KEY；ops repo edb-knowledge-ops 的 executor.yml 有 GH_TOKEN。
-   agent-handoff-kit CLI 本機未安裝，所以 doctor / closeout-status 跑不到，收工靠人手讀回。
+   語料快取 dev/source/.store_cache.json 是 28MB 生成檔、已 gitignore，換機要重建：
+   set -a && . backend/.env && set +a && python3 dev/_s213_recon.py --cache dev/source/.store_cache.json
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.8 +
 Render /health + git fetch 後比對 HEAD/origin/main + Supabase live count 應為 17,004 +
-check_registry_drift --check 的 ZOMBIE 應為 0）。判斷線上 backend 有沒有落後要
-【比檔不比 hash】：git diff --name-only <部署commit>..HEAD -- backend 為空即一致。
-之後與 Leonard 商量 Open Priorities ①（185 題 gold 重跑）的 live 批次批准。
+check_registry_drift --check 的 ZOMBIE 與 UNMANAGED 都應為 0）。判斷線上 backend 有沒有
+落後要【比檔不比 hash】。之後與 Leonard 商量 Open Priorities ①（答案層面評分器）的做法。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次。

@@ -39,6 +39,39 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 
 <!-- ack:log-entry:start -->
 
+## 2026-09-15 Session 226 — 每上一層量度，結論就被推翻一次；最後一層說不要出貨
+
+- **ID:** `Claude_20260915_0650` — S226
+- **Summary:** 還清 OP① 的 185 題 gold 量度債，**片段層首次量到**（生產 Chunk Recall@5 0.345），並把「為甚麼」一路追到底：不是切片問題、調配額是死路、詞面重排兩層同時改善 —— 然後合成側 A/B 顯示答案層面混合、有可指名退化，**出貨建議收回**。同節修好四處假綠／假紅與一個路由缺陷。AI 側零 Supabase 寫入、零 flag 啟用；唯一生產寫入由 Leonard 執行。
+- **Changed:** `backend/src/lib/wikiRepository.ts`（`QUOTA_FAMILIES`＋`quotaBucket()`＋`rerankLexical()`＋`rerankQuery`，兩條路徑同步）· `backend/src/api/searchChannelB.ts`（`capFromEnv()`＋`MAX_PER_SOURCE`、`rerankQuery` 傳原查詢、`hr_admin` 補 `評核` 家族詞彙）· `backend/scripts/_s226_knobAB.ts`（由 `_s226_capAB.ts` 一般化：`--set`／`--ids`／`--synthesize`）· `backend/scripts/_s226_captureQueryVec.ts`（新）· `dev/_s213_run_gold.py`（`summarize()` 單一來源）· `dev/_s219_score_before_after.py`（import 共用）· `dev/_s213_corpus.py`（快取預設路徑）· `dev/_s213_gold_all.json`（2 條標籤）· `dev/_s226_fix_unmanaged_source.py`（新）· `dev/source/qc_report.py`（選檔優先生產端點＋補傳 `series_monitored`）· `dev/source/route_regression.mjs`（+4 案例）· `.gitignore`· `qc_report.json`· `dev/source/registry_drift.md`· `dev/source/eval_runs/2026-09-15_*`（11 組）。三個 PR：#16 `e08b7d9`、#17 `9fe1fbf`、#18 `1d92450`。
+- **Done:**
+  - **185 題 gold 三種跑法**：本機 in-process 兩側（12.4 分鐘、errors 0、**routeFailures 0**，S220 是 9）· 生產端點（32 分鐘、errors **1** 撞 `57014`）· 三個 knob A/B。**routed p90 2,498ms**（S220 是 8,335ms）、超過 8 秒的 RPC 0（S220 是 18）。
+  - **生產旗標行為核實**：生產與本機旗標開啟側 **184/184 逐條同判**（含兩側判法相反的 7 題），與關閉側差 7 題。這是第一次可以不靠 dashboard 記憶確認 `FEATURE_ROUTE_FIRST_SEARCH`。
+  - **`hr_mpf` 逐項查清**：09-08 的 PASS 靠已退役的 `g24`（0.5098 第一位）撐住；主要預期來源 `edbc00030` 兩次都不在前八；新版 SAG 有 23 條含「公積金」、`edbc00030` 70 條其中 1 條帶 gold 簽名。**不是丟內容。**
+  - **答案鑰匙 183 → 185/185**：`cpd_mainland_promotion_tour` 純機械重錨（簽名一字未改、全庫唯一命中、頁碼 188 → 191）· `hr_appraisal` **改寫**（原簽名講收生利益衝突，答不到自己的 query「教師評核」；新簽名取自 SAG §7.7 員工考績 p.208）。重跑計分器實證 verdict 逐項不變。
+  - **片段層診斷**：63 題逐題查答案段落位置 —— `NO_CHUNK_HAS_IT` **0**（不是切片問題）、`SOURCE_CROWDED` **61**、`SOURCE_ABSENT` 2、`TARGET_RETRIEVED` 0。其中 **16 條**目標片段餘弦高過第 8 名而其來源已佔滿 3 格（`maxPerSource`），最極端 `sec_cloud_shared_responsibility` 目標 0.5756 vs 第 8 名 0.3781。全 61 題 gap 中位 **0.0163**。
+  - **零移植的量度基礎設施**：排序向量不是原查詢（後端嵌入 `expandQuery`，`QUERY_EXPANSIONS` 是 module-private），故寫 `_s226_captureQueryVec.ts` 由後端交出它嵌入了甚麼。**對照組攔下第一次嘗試**：用原查詢重算已回傳片段的餘弦，17/61 對不上（最大差 0.19）；改用展開向量並收窄到 vault 片段後中位差 0.00005，餘 2 題未解釋已點名。**副產品**：`footnote_` overlay 的分數對得上原查詢、vault 結果對得上展開版 —— 兩條路徑由兩個向量排序，這一點不在任何文件內。
+  - **三個 knob**：`MAX_PER_SOURCE=8` 來源層 122→118／片段層 58→63（一換一）· `FAMILY_QUOTA=1` 122→121／片段層不變（不成立）· `FEATURE_LEXICAL_RERANK=1` 三點劑量曲線 122→126／129／132、片段層 58→61／64／64，**全部零退步**，片段層在權重 0.05 停滯而擾動與判官繞過翻轉隨權重上升（0／0／1）→ **拐點 0.05**。
+  - **合成側 A/B（38 題，證據集真的有變者）**：30/38 答案有變 · **零新棄權** · 1 條由棄權轉作答。**兩個自動代理都失效**：gold 簽名代理 38 題全空；我自寫的數字流失篩查誤報 `fin_ac_grant`（after 其實有 `$8,384`，只是 `$` 前綴無「元」字）。逐對讀 7 對：明確變差 1（`hr_maternity` 自相矛盾）、可疑 1（`cpd_conduct_registration` 由誠實棄權變離題作答）、數字攪混 1（`dig_teacher_digital_cpd_hours`）、相等或更好 3–4。**結論：出貨建議收回。**
+  - **四處閘的修正**：`EVAL_CHUNK_LAYER` 由假 `NOT_MEASURED` 變有數（成因是兩支 185 題 harness 都沒把片段層數字寫入 `summary`，而 `chunk_verdict` 一直算了出來）· `EVAL_LATEST` 選檔改為優先生產端點（Leonard 拍板選項 A）· `REGISTRY_SERIES` 假 ERROR（`qc_report` 漏傳 `classify()` 第七個參數，而 `check_registry_drift.py` 一直有傳 —— **兩邊數字不同本身就是 bug**）· `REGISTRY_UNMANAGED`（Leonard 執行 2 行 `source_id` UPDATE，守恆 0/7/17,004 已核實）。封版閘 PASS 12 → **14**、ERROR 4 → **2**。
+  - **`評核` 路由修正**：`curriculum` 擁有裸 token「評核」而 `hr_admin` 只有「語文能力評核」，於是「教師評核」掉進沒有 SAG 的課程語料。在 `hr_admin` 補詞、不動 curriculum；回歸 46/46 → **50/50**（第四條是對照組）；before→after **blocking failures 0**、`VERDICT_FIXED` 1。
+- **Fix Record:**
+  - **Problem:** `EVAL_CHUNK_LAYER` 長期 `NOT_MEASURED`，交接檔記載「重跑 gold 就自然有」。**Root Cause:** 閘判分在 `if "chunk_FAIL" in s`，而 `_s213_run_gold.py` 與 `_s219_score_before_after.py` 都只寫四個來源層數字；每題的 `chunk_verdict` 一直算了出來、從未匯總。**Fix:** `summarize()` 併入 `_s213_run_gold.py`（`score_item` 旁邊）單一來源化，兩支共用。**Verification:** 5 條新斷言（含兩條守恆）；注入「`chunk_FAIL` 硬寫 0」→ 3 條轉紅；還原後 `shasum -a 256` 相同。
+  - **Problem:** 起手時兩個工具對年度系列報不同數字（drift 報 0、封版閘報 1），當時記為「未核」。**Root Cause:** 那個分歧本身就是 bug —— `classify()` 的 `series_monitored` 預設空集，`qc_report` 只傳六個參數。**Fix:** 補傳 `monitorable_parents(sources)`。**Verification:** 改前先核實監察真的讀得到（13 個年份 → 13 條不同 http URL、13 個分片全部在服務、528 條片段）；新增 2 條斷言（一條盯呼叫點，因為回傳數字分不出「沒有系列」與「漏傳參數」）；注入再次漏傳 → 準確轉紅。
+  - **Problem:** 詞面重排第一版完全沒有效果（smoke 3/3 零改動）。**Root Cause:** 照 footnote lead 的做法用候選集自己做 DF 語料，但候選全來自路由已選的來源，用戶打的字在裡面很常見 → 被當成 stopword 濾走。**Fix:** 直接用查詢 bigram 並按查詢長度正規化。**Verification:** 再 smoke 5 題見 1 題改變；全量 185 題兩層同時改善。**教訓已寫入碼內註釋**，免得下一位再照那套做一次。
+  - **Problem:** 合成側 A/B 第一次回傳空答案，且請求數沒升，看起來像合成從未執行。**Root Cause:** 回應欄位是 `synthesis` 而非 `answer`；而 OpenAI SDK 自帶 `sdkFetch`，不經 harness 的請求計數器。**Fix:** 改讀 `synthesis`，並在碼內註明計數器不覆蓋 LLM 呼叫。**Verification:** 重跑 smoke 見到兩側答案全文。
+- **Consolidation:** `_s226_capAB.ts` 一般化為 `_s226_knobAB.ts`（`git mv`），三個 knob 與合成側共用同一支 A/B harness，避免每個 knob 一支腳本各自漂移。`summarize()` 亦由兩份合為一份。
+- **Log maintenance:** `session_log_maintenance.py --check` → `trigger=False`（212 行／6 條，門檻 400 行或 30 日）。Kit 側門檻（≥11 條或 >1500 行）亦未觸發。10-closeout backstop：本檔 6 條 ＋ 無 archive 目錄，未到。**no-op，原因：規模未達任何觸發條件。** `PROJECT_DECISIONS.md` 未促升 —— 三個 knob 的取捨已用實測數字結案；若下節決定出貨重排，那才是多選項架構取捨。
+- **Evidence disposition:** 逐題原始擷取、答案全文、查詢向量 → `dev/source/eval_runs/2026-09-15_*`（11 組，已 commit）· 語料快取 28MB 已 gitignore 並在碼內寫明重建指令 · 分析腳本（延遲、片段診斷、分數差距、合成比較）留在 scratchpad，未入 repo（一次性）。
+- **Prompt mirror:** 由交接檔唯一 fenced `text` 區塊重生並讀回，**逐位元組相等**（78 行，sha256 `7a92bd31…`）。
+- **Boundary:** AI 側零 Supabase 寫入、零 DDL、零 Render 設定改動、零 flag 啟用。生產寫入（2 行 UPDATE）由 Leonard 自己執行 —— `gh pr merge` 與該次寫入都曾被 auto mode 分類器擋（`Merge Without Review`／`Modify Shared Resources`），未繞過。**Render 仍執行 `e9d14be`，`backend/src` 已有改動未部署。**
+
+<!-- ack:log-entry:end -->
+
+---
+
+<!-- ack:log-entry:start -->
+
 ## 2026-09-14 Session 225 — 封版閘上寫著 PASS 的那一格，量度的是一份不是評測的檔案
 
 - **ID:** `Claude_20260914_2030` — S225
