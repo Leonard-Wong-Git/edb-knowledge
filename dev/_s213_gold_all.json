@@ -4104,22 +4104,22 @@
    "sag_2025_11"
   ],
   "expected_passage_signature": [
-   "評核方面:f.職員或其好友的子女或親屬申請入學,職員親自面試,並建議"
+   "並應與受核人進行考績會晤,討論其考績報告的內容"
   ],
-  "expected_page": null,
+  "expected_page": 208,
   "acceptable_alternatives": [
    "g24"
   ],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "footnote_fn_sag_apx_coi_10_examples",
+   "chunk_id": "vault_sag_2025_11_a40e4ed7605169ac",
    "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
-   "anchor": "評核",
-   "chunks_with_anchor_in_source": 24,
+   "anchor": "考績",
+   "chunks_with_anchor_in_source": 10,
    "sources_sharing_signature": [
     "sag_2025_11"
    ],
-   "note": ""
+   "note": "S226 改寫：本題原本量錯東西。原簽名「評核方面:f.職員或其好友的子女或親屬申請入學…」講的是**收生／學生表現評核的利益衝突例子**（已開原文讀過：SAG p.237 與 icac_school_governance p.76 都帶這段），答不到 query「教師評核」與 intent「查教師表現評核相關指引」；而原錨 footnote_fn_sag_apx_coi_10_examples 亦隨 S223 換版消失，該簽名的冒號來自已消失的 footnote overlay 排版（活語料是「收生/學生表現評核方面f.」無冒號）。新簽名取自 SAG §7.7「員工考績」（p.208），全庫唯一命中，內容是考績會晤與考績報告 —— 這才是「教師評核」該答的東西。原簽名那段落是另一個題目的材料（收生利益衝突），未建為 gold 題，以免在同一次改動裡同時改變題集大小。"
   },
   "split": "dev"
  },

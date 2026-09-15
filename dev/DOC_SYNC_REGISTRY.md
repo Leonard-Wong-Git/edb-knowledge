@@ -115,6 +115,15 @@ Recorded at closeout per the Registry Rule above. Newest first.
 - `dev/source/eval_runs/2026-09-15_s226cap8_*` — ✅ before／after 一對 ＋ 原始 jsonl ＋ meta。
 - `dev/PROJECT_INDEX.md` — ✅ 新增一行 Local QC Commands（配額 A/B）＋ `backend/` 那行補登 `MAX_PER_SOURCE` 旗標與「生產刻意不設」的理由。
 - **生產旗標** — `not_applicable`：**沒有在 Render 設任何值**，亦不建議設（實測一換一）。若將來要設，須連同新的 before→after 一併記錄。
+- **【第六批，Leonard「全做」授權的四項】** 命中 **row 44**（檢索改動必須有一對 before→after）與 **row 60**（檢索準確度量度改動／gold 標籤）。
+- `dev/_s213_gold_all.json` — ✅ 改寫 `hr_appraisal`（新簽名取自 SAG §7.7 員工考績 p.208，全庫唯一命中；原簽名講的是收生利益衝突，答不到自己的 query）。**row 60 的重跑已做**：`_s213_validate_gold.py` **185/185，零隔離**（首次）。四個既有 run 已用新標籤重跑計分器，verdict 逐項不變（唯一 diff 是時間戳與 run 檔內回echo 的簽名字串）。
+- `backend/src/lib/wikiRepository.ts` — ✅ 新增 `QUOTA_FAMILIES` ＋ `quotaBucket()` ＋ `rerankLexical()`，兩條路徑（`searchWiki` 與 `searchWikiRoutedExact`）同步套用。**兩個 knob 未設即原行為**。**刻意不動 `SOURCE_ALIASES`** —— 它輸出到 Channel B sync manifest 的 `source_aliases`，語義是「同一份文件」，而校車五版不是。
+- `backend/src/api/searchChannelB.ts` — ✅ 新增 `rerankQuery`（傳原查詢）。理由寫在 `WikiSearchOptions` 該欄註釋。
+- `backend/scripts/_s226_knobAB.ts` — ✅ 由 `_s226_capAB.ts` 一般化（`git mv`）：`--set KEY=VALUE` 可重複、啟動時斷言每個 knob 在 before 側未設、逐題之間清掉。已登記入 `PROJECT_INDEX.md`。
+- `dev/source/eval_runs/2026-09-15_s226{rerank,family}_*` — ✅ 兩對 before/after ＋ 原始 jsonl ＋ meta（row 44 的證據）。
+- `dev/_s226_fix_unmanaged_source.py` — ✅ 新增並登記；**未執行**（生產寫入被分類器擋，待 Leonard 跑）。
+- **生產旗標** — `not_applicable`：三個 knob 一律沒有在 Render 設值。出貨與否須另行決定；若出貨，`FEATURE_LEXICAL_RERANK` 須連同新的 before→after 與 waiver 紀錄一併處理。
+- **未同步（刻意）** — 新發現的路由缺陷（`評核` → curriculum）未修、未加入 `route_regression.mjs` 的已知缺口清單：它不在本輪授權範圍，且修它屬檢索改動、要另一對 before→after。已記入 HANDOFF 第六批與 Open Priorities。
 - `dev/SESSION_LOG.md` — `pending`：留待收工寫入（AGENTS.md §4 要求 log 條目在 closeout 寫）。
 - `START_NEXT_SESSION_PROMPT.txt` — `pending`：同上，收工由開場白區塊重生。
 - 外部同步 — `not_applicable`：零 Supabase 寫入、零 DDL、零公開契約改動（`knowledge.json`／`guidelines.json` 未動，`FREEZE_CONTRACT` 仍 PASS）、零 Render 設定改動、零 flag 改動。外部呼叫只有 `text-embedding-3-small` 283 次與 185 次唯讀生產搜尋。

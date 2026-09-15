@@ -1,0 +1,19 @@
+{
+ "label": "s226family: before=shipped configuration vs after=FAMILY_QUOTA=1",
+ "knobs": {
+  "FAMILY_QUOTA": "1"
+ },
+ "invariant": "every knob is off/unset on the before side and deleted between items; MAX_PER_SOURCE parser asserted at startup",
+ "measurement_key": "SUPABASE_ANON_KEY falls back to SERVICE key: 8s ceiling, NOT anon 3s",
+ "mode": "in-process searchChannelB, FEATURE_ROUTE_FIRST_SEARCH=1 on both sides",
+ "embedding_model": "text-embedding-3-small",
+ "gold_file": "../dev/_s213_gold_all.json",
+ "gold_count": 185,
+ "top_k": 8,
+ "started_at": "2026-09-15T10:23:55.161Z",
+ "finished_at": "2026-09-15T10:33:35.279Z",
+ "model_calls": 283,
+ "request_calls": 380,
+ "changed_windows": 15,
+ "status": "complete"
+}

@@ -1503,6 +1503,10 @@ export async function searchChannelB(
     minScore: effectiveMinScore,
     topK: top_k,
     queryVec: embeddingQueryVec,
+    // S226 — the raw query, used only by the lexical re-rank measurement flag.
+    // `embeddingQuery` below may carry up to 21 route vocabulary terms, which is
+    // what the embedding wants and the opposite of what word overlap wants.
+    rerankQuery: query,
     ...(topic ? { topic } : {}),
     ...(content_type ? { contentType: content_type } : {}),
     ...(maxPerSource ? { maxPerSource } : {}),
