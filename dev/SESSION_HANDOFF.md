@@ -57,6 +57,13 @@
   - **其餘題目差距很小**：全 61 題 gap（第 8 名 − 目標）中位 **0.0163**，`< 0.01` 有 26 題、`< 0.05` 有 45 題、`< 0.10` 有 58 題。**即「加大取樣再重排」這條路在數學上夠得著**，不需要換模型。
   - **4 題上限解釋不到**（目標高過第 8 名但來源未佔滿 3 格，其中 3 題是 `k1_admission_2627`）—— **成因未查明，不編機制**。一個未驗的可能：overlay（`footnote_`／`fact_`）片段佔用窗格，令我比較的「第 8 名」其實是 overlay 的分數而非第 8 條 vault 片段。
   - **量度方法本身的三道關**（這一段的數字若無這三道關則不可信）：(1) **零移植** —— 排序向量不是原查詢（後端嵌入 `expandQuery(query, category)`），而 `QUERY_EXPANSIONS` 是 module-private，所以寫了 `backend/scripts/_s226_captureQueryVec.ts` 由後端自己交出它嵌入了甚麼字串與向量，不在 Python 重寫排序邏輯；(2) **對照組先行** —— 重算「已回傳片段」的餘弦與 run 記錄的分數比對，第一次用原查詢 **17/61 對不上（最大差 0.19）**，正是未記錄的 query expansion 的徵狀；改用後端交出的展開向量後，只用 top1 為 vault 片段的 37 題驗，中位差 **0.00005**，**餘 2 題未解釋已逐個點名**；(3) **overlay 與 vault 是兩條路徑** —— 實測每題後端都嵌入兩條字串（展開版在前、原查詢在後），而 `footnote_` overlay 的分數對得上**原查詢**、vault 結果對得上**展開版**；61 題之中 24 題的 top1 是 `footnote_` overlay。**這三件事都不在任何文件內，是本節量出來的。**
+- **第五批（per-source 上限 A/B：實測結論是「調上限係死路」）**：
+  - **做法**：`searchChannelB.ts` 加 `MAX_PER_SOURCE` env 覆寫（**未設＝現行公式 `Math.max(2, ceil(top_k/3))`，即生產零改動**；`capFromEnv` 對空值／`0`／`-1`／`3.5`／`eight` 一律回 `undefined`，寧可忽略打錯也不可在生產靜靜放寬配額）。新 harness `backend/scripts/_s226_capAB.ts` 在花任何 token 之前先斷言這條 invariant。兩側都 `FEATURE_ROUTE_FIRST_SEARCH=1`（＝生產狀態），同一次 embedding 餵兩側，185/185、errors 0、107 條窗口有變。
+  - **harness 自我核對通過**：A/B 的 before 側（PASS 122／FAIL 44／chunk 58／108）**與同日早上獨立跑的 in-process 旗標開啟側逐項相同**，即這支新 harness 重現得到既有結果。
+  - 🔴 **結論：上限 3 → 8 是一換一，不是改善。** 來源層 PASS **122 → 118**（−4，四條退步、零條修好）；片段層 chunk_PASS **58 → 63**（+5）、chunk_FAIL 108 → 103。**兩層方向相反，所以「放大上限」不應該出貨。**
+  - **機制在四條退步上看得一清二楚**：預期來源本來坐在第 7–8 位，上限放寬後被一個強勢來源擠走 —— `cpd_graduatisation_supply`（`edbc00030` 由 3 格變 **6** 格，`faq_edbc19011` 被擠出）、`hr_jobshare`（`sag_2025_11` 3 → **7**）、`fin_dls`（`g01` 3 → **6**）、`fin_eoebg`（`coa_ss_e` 3 → 4）。反過來，片段層修好那批正是靠同源多佔格拿到答案段落：`dig_cloud_privacy_pcpd`（`pcpd_cloud_computing` 佔 **8/8**）、`qa_pi_four_domains`（`perf_indicators_2022` **8/8**）。
+  - 🟢 **所以真正的槓桿不是格位分配，是同一來源內部的排序。** 答案段落往往**不是它自己來源按餘弦計的前三**；而 `wikiRepository.ts:208` 在配額生效時**已經 over-fetch `topK * 5 = 40` 條**。即：重排的候選池現成存在、零額外資料庫成本，而調配額只是在兩層之間左手交右手。**下一步應該做 re-rank（例如查詢詞面重疊或 cross-encoder），不是再試別的上限值。**
+  - ⚠️ **讀這份 run 檔時要知道一個 harness 假象**：計分器印出「路由健康度 no-route 185」是因為 `_s226_capAB.ts` **沒有記錄 routed RPC 的呼叫**（`routeFirstGold.ts` 才有），計分器見欄位為空就當作沒有路由。**不代表 route-first 沒有生效** —— 兩側都明確設了 `FEATURE_ROUTE_FIRST_SEARCH=1`。
 - **未做（不要當已做）**：**`hr_appraisal` 的 gold 標籤待 Leonard 決定重寫方向**（維持隔離，見上）· 19 條無答案題有 1 條 `CONFIDENT_WRONG`（分數 0.7575 超過棄權門檻 0.75）、另有 **8 條查詢引用了明令禁引的來源** —— 兩者都是護欄問題，本節只量到、未修 · `regression:semantic`／`regression:grounded` 未跑 · 六項人手驗證仍未記錄 · 兩個 registry ERROR 未修（`REGISTRY_SERIES`／`REGISTRY_UNMANAGED`）· **片段層 0.345（@5）本身就是最大缺口，本節只量到、未動任何切片或排序邏輯** · `agent-handoff-kit` CLI 未安裝，`closeout-status` 語義閘未能執行 · **PR #16 仍未合併**（`gh pr merge` 被 auto mode 分類器擋，要 Leonard 自己按）。
 
 **S225（2026-09-14）** —— 逐項證據見 `dev/SESSION_LOG.md` S225 條。
@@ -244,7 +251,7 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:next-priorities -->
 ## Open Priorities
 
-**Recommended next step（S226 收工重生）：** **改 `maxPerSource` 並量前後** —— 片段層診斷已把機制收窄到一行碼：`searchChannelB.ts:1468` 的每來源 3 格上限，把 16/61 題的答案片段剔走（它們以分數論入得了前八）。**建議做法**：加一個 env 旗標（預設維持現行行為，即 flag OFF 零改動，與 route-first 同一套紀律），令 `maxPerSource` 可調或改為「先保住每個來源分數最高那一條，再填多樣性」，然後用 `routeFirstGold.ts` 跑一對 before→after。**before 基線是今日的，現成可比**；拖過下一次語料變動就要再付一次重跑成本。**改 `backend/src` 須 Leonard 同意**（該檔案有 S223 前科）。
+**Recommended next step（S226 收工重生）：** **做同一來源內部的 re-rank** —— 片段層的槓桿已經由量度收窄到這一點：答案段落通常不是它自己來源按餘弦計的前三，而 `wikiRepository.ts:208` 在配額生效時已經 over-fetch **40** 條候選，所以重排**零額外資料庫成本**。**不要再試別的上限值** —— S226 實測 3 → 8 是來源層 −4 換片段層 +5 的一換一（見 `## Validation / QC` S226 第五批）。先做最便宜的一版（查詢詞面／bigram 重疊重排 40 條候選，`textBigrams.ts` 已有現成工具），用 `_s226_capAB.ts` 同一套 A/B 量前後；before 基線是今日的、現成可比。**改 `backend/src` 須 Leonard 同意。**
 
 ① 🟢 **【S226 完成，含 Leonard 同節批准的兩項延伸】185 題 gold 已重跑、標籤已重驗、完整指標已跑得動。** 數字見 `## Current Baseline` 7 與 `## Validation / QC` S226 段。結論四句：(a) **旗標值得開**——來源層 119 → 122、片段層 chunk_PASS 54 → 58、routed p90 由 S220 的 8,335ms 降至 2,498ms、路由失敗由 9 條降至 0；(b) **SAG 換版沒有丟內容**——生產配置側只有 1 條 verdict 退步（`hr_mpf`），且該條舊 PASS 本來就靠已退役的 `g24` 撐住，內容仍在庫內；(c) **答案鑰匙自 S213 之後第一次重驗**——184/185 通過，機械原因（語料快取預設路徑指向已消失的 scratchpad）已修；(d) **真缺口在片段層與護欄**——Chunk Recall@5 **0.345**、64 題拿對文件拿錯段落、`plain`（1–3 詞）題 FAIL 24/77、1 條 `CONFIDENT_WRONG`、**8 條查詢引用禁引來源**。**餘下（都不是重跑能解決的）**：① -1 `hr_appraisal` 標籤要 Leonard 決定重寫方向（intent 與簽名不符，維持隔離）；① -2 那 1 條 `CONFIDENT_WRONG` 與 8 條禁引違規未修，屬護欄與判官閘範圍而非檢索；① -3 片段層本身 → 已升為 Recommended next step。
 
