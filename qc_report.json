@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-15T07:53:24Z",
+  "generatedAt": "2026-09-15T08:28:56Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17004,
@@ -189,7 +189,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=e9d14be · 啟動於 2026-09-15T07:20:43.911Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=e9d14be · 啟動於 2026-09-15T08:28:42.766Z · Channel A 快取 455 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -384,7 +384,7 @@
       "severity": "ERROR",
       "status": "FAIL",
       "group": "measurable",
-      "detail": "S219 route-first before (in-process, FEATURE_ROUTE_FIRST_SEARCH=0) · PASS=119 FAIL=47 RECORD_ONLY=19 errors=0 · 共 185 條 query · 量度自 2026-09-15_s226_route_first_before.json",
+      "detail": "S213 Phase 1 gold-set run · PASS=121 FAIL=44 RECORD_ONLY=19 errors=1 · 共 185 條 query · 量度自 2026-09-15_s226_prod_gold.json · 生產端點；⚠️ 另有更新的非生產 run（2026-09-15_s226_route_first_before.json）未被採用",
       "offenders": [],
       "offender_total": 0
     },
@@ -394,7 +394,7 @@
       "severity": "ERROR",
       "status": "FAIL",
       "group": "measurable",
-      "detail": "chunk PASS=54 FAIL=112 · 斷言用文字簽名而非 chunk id（id 是 text 的 md5，每次重切都會變）",
+      "detail": "chunk PASS=58 FAIL=107 · 斷言用文字簽名而非 chunk id（id 是 text 的 md5，每次重切都會變）",
       "offenders": [],
       "offender_total": 0
     },

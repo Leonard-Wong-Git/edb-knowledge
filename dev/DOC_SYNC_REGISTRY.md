@@ -95,6 +95,15 @@ Recorded at closeout per the Registry Rule above. Newest first.
 - `dev/source/qc_report.py` — **未改**。row 56 的「改基準值必同時改斷言」`not_applicable`。⚠️ **一項已知缺陷刻意未修**：`latest_eval_run()` 的選檔永遠揀旗標關閉側（見 HANDOFF Risks 9、Open Priorities ③(e)），因為「哪一份 run 代表生產」屬 release policy，須 Leonard 拍板；三個選項已寫入該處。
 - `dev/PROJECT_INDEX.md` — ✅ `confirmed`。Local QC Commands 四行 `Last verified` 更新為 2026-09-15（S226）並附實測摘要；**新增一行**登記「生產 gold 實測」指令。更新後逐行核實表格分隔符數目未變（5 → 5，四行皆同），避免 S225 那個洗走原格內容的手法。
 - `dev/SESSION_HANDOFF.md` — ✅ 已同步（`Current Baseline` 5 與**新增第 7 項**檢索準確度基線；`Validation / QC` 新增 S226 段；`Risks` 2(c) 結案改寫 ＋ **新增第 9 項**；`Open Priorities` ①②③ 與 Recommended next step 重寫）。marker 數目前後皆 35，H2 數目前後皆 67。
+- **【第二批，Leonard 重建語料快取並拍板選項 A 之後】**
+- `dev/_s213_gold_all.json` — ✅ 改了**一條**標籤（`cpd_mainland_promotion_tour`：`verified_by.chunk_id` 重錨、`expected_page` 188 → 191、note 寫明理由；簽名與 `expected_source_any` 一字未改）。**row 60 要求的重跑已做**：`_s213_validate_gold.py` 由 183/185 變 **184/185**。並已實證重錨對判分零影響（重跑計分器後兩側 summary 逐項相同，唯一 diff 是時間戳，已還原）。
+- `hr_appraisal` — `blocked`（刻意）：錨點失效之外，**該題簽名講收生／學生表現評核的利益衝突，與 query「教師評核」的 intent 不符**，已開原文讀過兩個帶該段的片段。依 row 60「不通過即隔離，不可靜靜修好」維持隔離，等 Leonard 決定重寫 query 抑或換簽名。
+- `dev/_s213_corpus.py` — ✅ `DEFAULT_CACHE` 由某一節 scratchpad 的絕對路徑改為 repo 內 `dev/source/.store_cache.json`，`S213_STORE_CACHE` 仍可覆寫，重建指令寫在常數旁邊。**這是 gold 標籤兩節沒重驗的機械根因。**
+- `.gitignore` — ✅ 新增 `dev/source/.store_cache.json`（28MB 生成檔，等同語料副本，不得入 git）。已 `git check-ignore -v` 核實命中。
+- `dev/source/qc_report.py` — ✅ 選檔改為優先生產端點（Leonard 拍板 **選項 A**）：新增 `measures_production()` 與 `eval_source_kind()`，`latest_eval_run()` 改為分流並回報所選檔是否生產、以及有無更新的 run 未被採用。**未動任何 `BASELINE` 值**，故 row 56 該項 `not_applicable`。新增 **7** 條斷言，紅測（選檔打回 `runs[0]`）準確轉紅，還原後 `shasum -a 256` 相同。
+- `qc_report.json` — ✅ 已再重跑 `--check` 並 commit。`EVAL_LATEST` 現量度自 `2026-09-15_s226_prod_gold.json`（生產）：PASS 121／FAIL 44／errors 1；`EVAL_CHUNK_LAYER` 由 54/112 變 58/107。**閘計分零變動**（5/15、ERROR 4、`NOT_MEASURED` 0、overall ERROR）。
+- `dev/PROJECT_INDEX.md` — ✅ 再更新四行 `Last verified`（`--check`、標籤重驗、準確度量度、工具自檢），逐行核實分隔符數目仍為 5。
+- 六支工具自測 — ✅ `confirmed`，全部 ALL PASS。本節共新增 **12** 條斷言、做過 **2** 次紅測。
 - `dev/SESSION_LOG.md` — `pending`：留待收工寫入（AGENTS.md §4 要求 log 條目在 closeout 寫）。
 - `START_NEXT_SESSION_PROMPT.txt` — `pending`：同上，收工由開場白區塊重生。
 - 外部同步 — `not_applicable`：零 Supabase 寫入、零 DDL、零公開契約改動（`knowledge.json`／`guidelines.json` 未動，`FREEZE_CONTRACT` 仍 PASS）、零 Render 設定改動、零 flag 改動。外部呼叫只有 `text-embedding-3-small` 283 次與 185 次唯讀生產搜尋。

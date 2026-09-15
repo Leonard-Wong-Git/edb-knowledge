@@ -483,11 +483,11 @@
   "expected_passage_signature": [
    "所有實任晉升更高職級的公營學校教師,必須在其實任晉升的首兩年內,參加由教育"
   ],
-  "expected_page": 188,
+  "expected_page": 191,
   "acceptable_alternatives": [],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_g24_82967332a7e28669",
+   "chunk_id": "vault_sag_2025_11_7442089094f5d8aa",
    "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
    "anchor": "所有實任晉升更高職級的公營學校教師",
    "matches_in_corpus": 2,
@@ -495,7 +495,7 @@
     "g24",
     "sag_2025_11"
    ],
-   "note": "g24 與 sag_2025_11 為學校行政手冊同一文件重複收錄，簽名兩者皆命中"
+   "note": "S226 重錨：原錨 vault_g24_82967332a7e28669 隨 S223 g24 退役而消失。簽名一字未改，在活語料中全庫唯一命中此片段；頁碼由 188 改為 191，因為新版（2026年8月版）是另一份 PDF。expected_source_any 保留 g24，因為它是歷史預期值、現時 0 條片段、對判分無影響（sag_2025_11 已在同一清單內）。"
   },
   "split": "held_out"
  },
