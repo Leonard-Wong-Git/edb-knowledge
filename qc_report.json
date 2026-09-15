@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-15T08:28:56Z",
+  "generatedAt": "2026-09-15T08:47:38Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17004,
-    "PASS": 12,
+    "PASS": 13,
     "BLOCKER": 0,
-    "ERROR": 4,
+    "ERROR": 3,
     "WARN": 5,
     "INFO": 1,
     "NOT_MEASURED": 0
@@ -87,7 +87,7 @@
         "label": "沒有錯誤級 FAIL",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "EVAL_LATEST、EVAL_CHUNK_LAYER、REGISTRY_SERIES、REGISTRY_UNMANAGED"
+        "detail": "EVAL_LATEST、EVAL_CHUNK_LAYER、REGISTRY_UNMANAGED"
       },
       {
         "id": "NO_UNMEASURED",
@@ -189,7 +189,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=e9d14be · 啟動於 2026-09-15T08:28:42.766Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=e9d14be · 啟動於 2026-09-15T08:47:23.310Z · Channel A 快取 455 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -422,13 +422,11 @@
       "id": "REGISTRY_SERIES",
       "label": "登記為年度系列，但三個 registry 監察都讀不到它的分年檔",
       "severity": "ERROR",
-      "status": "FAIL",
+      "status": "PASS",
       "group": "pointing",
-      "detail": "1 個來源 / 0 條片段 · registry 用 url_primary_pattern + years_extracted 描述整個年度系列，但 check_freshness / check_expiry / check_source_titles 三者只讀 url_primary，全部不展開年份 —— 所以 13 個分年檔（528 條片段，13 條 URL 實測全部回 HTTP 200）不受任何 registry 監察。缺陷在監察，不在登記",
-      "offenders": [
-        "stat_enrolment_report（0 條）學生人數統計報告書（年度系列）"
-      ],
-      "offender_total": 1
+      "detail": "0 個來源 / 0 條片段 · registry 用 url_primary_pattern + years_extracted 描述整個年度系列，但 check_freshness / check_expiry / check_source_titles 三者只讀 url_primary，全部不展開年份 —— 所以 13 個分年檔（528 條片段，13 條 URL 實測全部回 HTTP 200）不受任何 registry 監察。缺陷在監察，不在登記",
+      "offenders": [],
+      "offender_total": 0
     },
     {
       "id": "REGISTRY_UNMANAGED",

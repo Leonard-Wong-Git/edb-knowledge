@@ -104,6 +104,11 @@ Recorded at closeout per the Registry Rule above. Newest first.
 - `qc_report.json` — ✅ 已再重跑 `--check` 並 commit。`EVAL_LATEST` 現量度自 `2026-09-15_s226_prod_gold.json`（生產）：PASS 121／FAIL 44／errors 1；`EVAL_CHUNK_LAYER` 由 54/112 變 58/107。**閘計分零變動**（5/15、ERROR 4、`NOT_MEASURED` 0、overall ERROR）。
 - `dev/PROJECT_INDEX.md` — ✅ 再更新四行 `Last verified`（`--check`、標籤重驗、準確度量度、工具自檢），逐行核實分隔符數目仍為 5。
 - 六支工具自測 — ✅ `confirmed`，全部 ALL PASS。本節共新增 **12** 條斷言、做過 **2** 次紅測。
+- **【第三批，③(b) 兩個 registry ERROR】** 命中 row 56。
+- `dev/source/qc_report.py` — ✅ `check_registry_drift()` 補傳第七個參數 `monitorable_parents(sources)`。**未動 `BASELINE`**，該項 `not_applicable`。新增 **2** 條斷言（盯呼叫點 ＋ 確認該集合非空），紅測（再次漏傳）準確轉紅，還原後 `shasum -a 256` 相同。
+- `dev/source/check_registry_drift.py` — **未改**：它一直有傳該參數，數字一直是對的。兩邊分歧的成因在閘那邊。
+- `qc_report.json` — ✅ 第三次重跑 `--check` 並 commit：PASS 12 → 13、ERROR 4 → 3、`REGISTRY_SERIES` FAIL → PASS。
+- `dev/source/source_registry.json` — **未改**。`REGISTRY_UNMANAGED` 的修法是生產寫入（把 2 行 chunk 的 `source_id` 由 `stat_integrated` 改為 `stat_integrated_edu`），**未得 Leonard 明示批准，本節不做**；亦刻意不用「替 `stat_integrated` 另開一個 registry 條目」這條路，因為那等於為同一份文件登記兩次（正是 `g33`／`eng_sss_guide_2021` 那種重複登記缺陷）。
 - `dev/SESSION_LOG.md` — `pending`：留待收工寫入（AGENTS.md §4 要求 log 條目在 closeout 寫）。
 - `START_NEXT_SESSION_PROMPT.txt` — `pending`：同上，收工由開場白區塊重生。
 - 外部同步 — `not_applicable`：零 Supabase 寫入、零 DDL、零公開契約改動（`knowledge.json`／`guidelines.json` 未動，`FREEZE_CONTRACT` 仍 PASS）、零 Render 設定改動、零 flag 改動。外部呼叫只有 `text-embedding-3-small` 283 次與 185 次唯讀生產搜尋。

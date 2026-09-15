@@ -527,8 +527,17 @@ def check_registry_drift(chunks: list[dict]) -> list[dict]:
     live, dead = drift_mod.registry_ids(sources)
     listed = {g["id"] for g in drift_mod.parse_guidelines_registry(
         (REPO_ROOT / "app.html").read_text(encoding="utf-8", errors="replace"))}
+    # S226 — the seventh argument was missing here, and its default is an empty
+    # set, so EVERY serving series parent came back as SERIES_UNMONITORED and
+    # the gate carried a standing ERROR for a defect S216/S222 had already
+    # fixed. `check_registry_drift.py --check` passed it and reported 0 while
+    # this wrapper reported 1 on the same corpus; the disagreement was the bug,
+    # not a difference of definition. Verified before changing: the parent's 13
+    # years expand to 13 distinct http URLs and all 13 shard ids serve chunks
+    # (528 in total), so the monitors do reach them.
     d = drift_mod.classify(dict(serving), kinds, live, dead, listed,
-                           drift_mod.series_parents(sources))
+                           drift_mod.series_parents(sources),
+                           drift_mod.monitorable_parents(sources))
 
     titles = {}
     for c in chunks:
@@ -1097,6 +1106,33 @@ def self_test() -> int:
     picked = latest_eval_run()
     check("the live selector returns a gold run or nothing — never an analysis file",
           picked is None or is_gold_eval(picked))
+
+    # ---- S226: the gate must ASK whether a series is monitorable -----------
+    # Dropping the argument does not fail loudly; it silently reclassifies every
+    # year-series parent as unmonitored, which is how an ERROR outlived its
+    # defect. This asserts the call site, because there is nothing in the
+    # returned numbers that distinguishes "no series" from "argument omitted".
+    import check_registry_drift as _drift
+    _reg = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    _srcs = _reg["sources"] if isinstance(_reg, dict) and "sources" in _reg else _reg
+    _real, _seen = _drift.classify, {}
+
+    def _spy(*a, **kw):
+        _seen["args"], _seen["kw"] = a, kw
+        return _real(*a, **kw)
+
+    _drift.classify = _spy
+    try:
+        check_registry_drift([{"source_id": "probe", "content_type": "vault_extract",
+                               "title": "probe"}])
+    finally:
+        _drift.classify = _real
+    _passed = (_seen.get("args", ()) + (_seen.get("kw", {}).get("series_monitored"),))
+    check("閘把「哪些年度系列已受監察」傳落 classify（漏傳 = 每個系列都被誤報為未受監察）",
+          len(_seen.get("args", ())) >= 7
+          and _passed[6] == _drift.monitorable_parents(_srcs))
+    check("而那個集合非空 —— 否則斷言只是在比較兩個空集",
+          bool(_drift.monitorable_parents(_srcs)))
 
     # ---- S226: the gate must report the SERVED configuration ---------------
     # Six days of detail lines said FEATURE_ROUTE_FIRST_SEARCH=0 while
