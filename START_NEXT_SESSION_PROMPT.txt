@@ -6,64 +6,53 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S226, 2026-09-15）---
+--- 專案狀態（S227, 2026-09-16）---
 
 平台 v3.3.8；Supabase 17,004 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點 151 份
 （_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.3.66。
 FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用（S226 已用行為探針核實：185 題生產 run 與本機
-旗標開啟側 184/184 逐條同判）。
+旗標開啟側 184/184 逐條同判）。另三個量度 knob 生產一律未設＝關閉，且都不應啟用。
 git：開工必先 fetch 再比對，不要信這裡記的 hash。
+線上 backend 有沒有落後【比檔不比 hash】：git diff --name-only <部署commit>..HEAD -- backend
 
-🟢 S226 做完了甚麼（都不用重做）：
-   1. 185 題 gold 已重跑，OP① 那筆量度債還清。**片段層第一次量到**：生產 Chunk Recall@5
-      0.345 / Source Recall@1 0.442 / MRR 0.540 與 0.255；64 題拿對文件卻拿錯段落。
-   2. SAG 換版結案 —— 生產配置側只有 1 條退步（hr_mpf），而它的舊 PASS 本來靠已退役的
-      g24 撐住，內容仍在庫。不是丟內容，是短查詢排序。
-   3. 答案鑰匙首次 185/185 零隔離（重錨 1 條、改寫 1 條），語料快取預設路徑已修好 ——
-      那個預設本來指向會消失的 scratchpad，是驗證器兩節跑不動的機械根因。
-   4. 封版閘 ERROR 4 → 2、PASS 12 → 14。四項修正：EVAL_CHUNK_LAYER 由假 NOT_MEASURED
-      變有數、選檔改為優先生產端點、REGISTRY_SERIES 假 ERROR（閘漏傳第七個參數）、
-      REGISTRY_UNMANAGED（Leonard 執行 2 行生產 UPDATE）。
-   5. 修好 `評核` 路由缺陷：hr_admin 補詞、不動 curriculum 裸 token；回歸 50/50 含對照組。
-   6. 三個檢索 knob 已實測，結論見下。
-
-🔴 三個 knob 一律不要在 Render 啟用（實測理由）：
-   · MAX_PER_SOURCE=8：來源層 −4 換片段層 +5，一換一。
-   · FAMILY_QUOTA=1：來源層 −1、片段層不變，不成立。
-   · FEATURE_LEXICAL_RERANK=1：**唯一兩層同時改善**（來源層 +7、片段層 +6、零退步，
-     權重三點劑量曲線且片段層在 0.05 停滯），但合成側 A/B 顯示答案層面混合，
-     有 2–3 條可指名退化（hr_maternity 自相矛盾最清楚）。**出貨前必須先有答案層面
-     評分器** —— 這正是 Open Priorities ①。
-
-⚠️ 未部署（不是未完成）：Render 仍執行 e9d14be，而 backend/src 已有改動。三個 knob 預設
-   關閉所以部署不會改變行為，但 `評核` 路由修正**不是旗標、會即時生效**（它的 before→after
-   已跑，blocking failures 0）。下次部署前知道這一點就夠，不必特別處理。
-
-⚠️ 量度紀律（違反任何一條都會得出錯的結論，S226 全部實證過）：
-   · 本機比 Render 快慢不可搬：A/B harness 的 before/after 是同題一前一後跑，
-     第二次享受快取，所以 after 側必然較快。**那不是改動令系統變快。**
-   · 本機用 service key（8 秒上限）量一個 anon 3 秒的系統，系統性低估失敗率 ——
-     S226 實測低估幅度為 1 題（生產 1/185 撞 57014，本機 0/185）。
-   · repository 收到的 query 是 expandQuery() 展開後的字串，不是用戶原話。
-   · 詞面重排不可用候選集自己做 DF 語料 —— 候選全來自路由已選來源，用戶打的字在
-     裡面很常見，會被當成 stopword 濾走（第一版就是這樣，smoke 3/3 零改動）。
-
-🔴 不得再犯（S224 起，理由寫在碼或文件內，動手前先讀）：
-   · backend_build_check.yml 不得加回 paths: 過濾（會令 required check 永遠 pending）。
-   · 個人帳戶 repo 不能把內建 GitHub Actions 設為 ruleset bypass actor（GitHub 422）。
-   · 由 GITHUB_TOKEN 開的 PR，其 workflow run require approval，auto-merge 會卡死。
-   · main 受保護：一切改動走 PR（gh pr create → gh pr merge --squash）。gh 內部會呼叫
-     git，所以 git 壞了 gh 也會壞；用 -R owner/repo 可繞過 repo 解析。
+🟢 S227 做完了甚麼（都不用重做）：
+   1. 答案層 rubric 判官已交付 —— backend/scripts/_s227_rubricJudge.ts（OP① 完成）。
+      pairwise、每題兩個次序各判一次、判讀門檻寫死在碼內；67 條 self-test、七次紅測。
+   2. FEATURE_LEXICAL_RERANK 已判定【不出貨】：38 題 net −1（門檻 8），25 題答案毫無差別。
+      穩健性先算過：6 條須人手覆核題全算對手贏也只到 +5，翻不了盤。
+   3. 判官本身要先驗才可信 —— 三輪校準證明 gpt-4.1-mini 是壞尺（14 次判決 11 次揀先出現
+      那一個、TIE 零次），gpt-4.1 才把位置偏誤歸零。用它必須 JUDGE_MODEL=gpt-4.1。
+   4. staff_appraisal 路由已拆出並上生產（PR #20 → 7be4404）。S226 的「評核」修正只醫好
+      一半：路由改了，但 hr_admin 的 QUERY_EXPANSIONS 是假期詞彙，把答案段落由第 1 推到
+      第 9。拆出後不設展開詞，生產實測答案段落（SAG §7.7 p.208）入窗第 5、八格全部考績
+      來源、一條假期都沒有。
+   5. 新工具 dev/source/route_blast_radius.mjs —— 改路由必跑，掃 185 條 gold query 對照
+      任一 git ref，補上 route_regression.mjs（54 條人手案例）覆蓋不到的範圍。
+   6. 「查詢展開拉偏」已證不是系統性問題（本節自行收回該提議）：37 條有展開的題目中，
+      展開幫 29、害 8，中位 +0.0838，只有 1 條因展開跌出窗。不要去改展開機制本身。
 
 ⚠️ 未解決（不要當已解決）：
-   · 答案層面評分器不存在 —— 所有檢索改善的出貨閘（Open Priorities ①）。
-   · 片段層 0.345 本體（②）。已排除：不是切片問題、調配額是死路。
+   · 片段層 recall@8 0.349 本體（OP②）。已排除四條路：不是切片問題、調配額是死路、
+     詞面重排答案層無得益、改展開機制本身。未試只剩：cross-encoder 重排、按查詢長度
+     自適應（plain 1–3 詞題 FAIL 24/77 vs natural_sentence 6/43）。
+   · OP⑩ hr_admin 的「津貼」token 搶走 kg_relocation_grant（「幼稚園搬遷津貼」），與
+     S227 修好的那條同族。動它前必須先量 blast radius，會牽動 hr_ncs_allowance 等題。
    · 封版閘兩個 ERROR 只能靠改善檢索清走；兩個 WARN 未有 waiver；六項人手驗證從未記錄。
    · 1 條 CONFIDENT_WRONG（分數 0.7575 > 棄權門檻 0.75）＋ 8 條查詢引用 gold 明令禁引的
      來源，全部是「同一指引的不同對象／學級版本」。
    · sch_bus 五個對象版本吃掉 69 個窗格 —— 共用配額已證不成立，要處理的是那五份文件
      該不該各自入庫與瀏覽（產品決定）。
-   · footnote_lead_probe.py 與 judge_probe.py 未跑（DOC_SYNC row 41 要求，啟用重排前要補）。
+   · footnote_lead_probe.py 與 judge_probe.py 未跑（DOC_SYNC row 要求，啟用重排前要補）。
+   · backend/scripts/*.ts 十二支工具不在 npm run check 覆蓋範圍（tsconfig include 只有
+     src/**）—— 要單獨指檔才真正 typecheck。Backlog ⑨。
+
+⚠️ 量度紀律（違反其中任何一條都會得出錯的結論）：
+   · 用 _s226_captureQueryVec.ts 做前後對照，必須由外面設 FEATURE_ROUTE_FIRST_SEARCH=1，
+     否則量的是生產不執行的配置（S227 中過一次，量到的窗完全不同）。
+   · 本機比 Render 慢 1.5–2 秒；anon 角色 statement_timeout 只有 3 秒而 service key 是 8 秒，
+     本機 in-process 慣例會 fallback 到 service key，系統性低估失敗率。
+   · 實例層冷熱落差 58–90 倍，任何兩組查詢的比較都要交錯重量三輪以上。
+   · 判官在準則 3（數字）兩個方向都出過錯，凡依賴該準則的判決自動標 needs_human_review。
 
 ⚠️ 不在 git 內的外部設定（換機或重裝要記得）：
    repo 開了 allow_auto_merge + delete_branch_on_merge；deploy key id=163258294；
@@ -72,7 +61,8 @@ git：開工必先 fetch 再比對，不要信這裡記的 hash。
    set -a && . backend/.env && set +a && python3 dev/_s213_recon.py --cache dev/source/.store_cache.json
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.8 +
-Render /health + git fetch 後比對 HEAD/origin/main + Supabase live count 應為 17,004 +
-check_registry_drift --check 的 ZOMBIE 與 UNMANAGED 都應為 0）。判斷線上 backend 有沒有
-落後要【比檔不比 hash】。之後與 Leonard 商量 Open Priorities ①（答案層面評分器）的做法。
+Render /health 應報 commit 7be4404 + git fetch 後比對 HEAD/origin/main + Supabase live count
+應為 17,004 + check_registry_drift --check 的 ZOMBIE 應為 0）。判斷線上 backend 有沒有落後
+要【比檔不比 hash】。之後就 OP② 剩下的兩條未試方向（cross-encoder 重排、按查詢長度自適應）
+向 Leonard 提一個帶成本估算的建議 —— 判準已經有，量完答案層再決定出不出貨。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次。

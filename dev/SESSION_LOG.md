@@ -39,6 +39,71 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 
 <!-- ack:log-entry:start -->
 
+## 2026-09-16 Session 227 — 建了一把答案層的尺，第一件事是用它否決一個候選；第二件是它照出路由只醫好一半
+
+- **ID:** `Claude_20260916_1520` — S227
+- **Summary:** 交付 OP① 的答案層 rubric 判官，用它判定 `FEATURE_LEXICAL_RERANK` **不出貨**（38 題 net −1／門檻 8）；再由一條 gold 題追出 S226 的 `評核` 路由只醫好一半（路由改了、展開詞沒改），拆出 `staff_appraisal` 路由並**已上生產核實**。
+- **Changed:** `backend/src/api/searchChannelB.ts`（`TOPIC_KEYWORDS.staff_appraisal` ＋ `SOURCE_SETS.staff_appraisal`，並由 `hr_admin` 移走 S226 那五個詞）· `backend/scripts/_s227_rubricJudge.ts`（新）· `dev/source/route_blast_radius.mjs`（新）· `dev/source/route_regression.mjs`（三條改道 ＋ 四條對照組）· `dev/SESSION_HANDOFF.md` · `dev/DOC_SYNC_CHECKLIST.md`（兩個新 row）· `dev/source/eval_runs/2026-09-15_s227{cal,cal2,cal3,full}_rubric_judge.json`（新）
+- **Done:**
+  - **答案層判官（OP①）**：pairwise、每題兩個次序各判一次、判讀門檻寫死在碼內。67 條 self-test、**七次紅測**全部準確轉紅且逐次 `shasum` 還原核對。
+  - **判官校準三輪，模型才是變數**：`gpt-4.1-mini` 原版 14 次判決 **11 次揀先出現那一個**、TIE 零次（表面 3/7，實為位置偏誤）；加 per-answer 評分後偏誤翻到第二位、跌至 1/7；換 `gpt-4.1` 後 `always_first`／`always_second`／`INCONSISTENT` **全部歸零**，5/7。
+  - **`FEATURE_LEXICAL_RERANK` 判定不出貨**：38 題、60 次呼叫，兩側皆棄權 8（與 S226 記載對上）· TIE 17 · 偏 before 7 · 偏 after 5 · **net −1**。穩健性先算才下結論：6 條須人手覆核題全算 after 完勝也只到 +5。
+  - **`staff_appraisal` 路由拆出**：成因是 `hr_admin` 的假期展開詞把「教師評核」變成假期查詢，實測把答案段落由**第 1 推到第 9**（裸 0.5884／加展開 0.4881／第 8 名 0.6088）。照 `staffing` 先例拆出且**不設展開詞**。
+  - **PR #20 已合併（`7be4404`）並已部署核實**：生產打「教師評核」，答案段落（SAG §7.7 p.208）**入窗第 5**，八格全部考績來源、一條假期都沒有；生產分數與本機預測逐位吻合。
+  - **新工具 `route_blast_radius.mjs`**：改路由時掃全部 185 條 gold query 對照任一 git ref，補上 `route_regression.mjs`（54 條人手案例）覆蓋不到的範圍。8 條 self-test ＋ 一次紅測。
+- **Fix Record:**
+  - **Problem:** 「教師評核」在生產回傳八條假期段落。**Root Cause:** S226 把五個詞加進 `hr_admin` 修好了路由，但沒處理該路由的 `QUERY_EXPANSIONS`（假期詞彙），排序向量因而變成假期查詢。**Fix:** 拆 `staff_appraisal` 獨立路由、不設展開。**Verification:** 生產實測答案段落入窗第 5。
+  - **Problem:** 第一次量 after 時窗完全不同（`sag_2025_11` 整份消失、只回傳 6 條）。**Root Cause:** `_s226_captureQueryVec.ts` **不設 `FEATURE_ROUTE_FIRST_SEARCH`**，量到的是生產不執行的配置。**Fix:** 由外面設該變數重量；已寫入 `dev/DOC_SYNC_CHECKLIST.md` 新 row。**Verification:** 重量後與生產逐位吻合。
+  - **Problem:** 以為找到 ② 的第三條方向（查詢展開拉偏）。**Root Cause:** 由一個案例推論通例。**Fix:** 量 63 題 —— 37 條有展開者，展開幫 29、害 8，中位 `+0.0838`，只有 1 條因展開跌出窗。**Verification:** 本節自行收回該提議，寫入 OP② 作第四條排除方向。
+- **QC:** `npm run check` 0 · `npm run build` 0 · `route_regression` **50 → 54**（新增四條對照組）· 紅測（新路由加裸「評核」）準確轉紅 4 條、其餘 50 條零波及、還原後 hash 一致 · `route_blast_radius` 185 條掃出**只有 1 條**改路由（正是目標）· `_s227_rubricJudge --self-test` 67 條 ALL PASS · `route_blast_radius --self-test` 8 條 ALL PASS · PR #20 `build-gate` SUCCESS、`mergeable CLEAN` · 部署後 `/health` commit `7be4404` ＋ 生產行為實測。
+- **Evidence disposition:** 判官三輪校準與全跑的逐題證據留在四份 `eval_runs/*_rubric_judge.json`（已 commit）；展開效應的 63 題明細留在 scratchpad，關鍵數字已抄入 `dev/SESSION_HANDOFF.md`；操作紀律已升為 `dev/DOC_SYNC_CHECKLIST.md` 兩個新 row。
+- **Sync:** `dev/DOC_SYNC_CHECKLIST.md` 新增「檢索路由改動」與「答案層評分改動」兩 row（原本兩層都無 row，依 anti-pattern guard 先補 row 再做）· `dev/SESSION_HANDOFF.md` 已更新 · `CODEBASE_CONTEXT.md` **不需改**（技術棧／目錄／build 指令／外部服務／Key Decisions 均無變）。
+- **Pending:** OP② 片段層召回率（未試：cross-encoder 重排、按查詢長度自適應）· OP⑩ `hr_admin` 的「津貼」token 搶走 `kg_relocation_grant`（同族、已定位未修）· OP③ 封版閘餘下兩個 ERROR。
+- **Risks:** 判官在準則 3（數字）兩個方向都出過錯，凡依賴該準則的判決一律標 `needs_human_review` · 判官跨次跑有變異（同一校準集 5/7 與 4/7）· `backend/scripts/*.ts` 十二支工具不在 `npm run check` 覆蓋範圍（Backlog ⑨）。
+- **Log maintenance:** `session_log_maintenance.py --check` 報 `trigger=False`（245 行、7 條 entry，兩個門檻都未到）→ no-op，未做歸檔。
+- **Opening-message mirror:** 已生成，與下方 Verbatim 區塊一致。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Read AGENTS.md first (governance SSOT), then follow its §1 startup sequence:
+dev/SESSION_HANDOFF.md → dev/SESSION_LOG.md → dev/CODEBASE_CONTEXT.md (if exists) → dev/PROJECT_MASTER_SPEC.md (if exists)
+
+目前目標：Open Priorities ② —— 把片段層召回率拉高（生產 chunk recall@8 0.349，約三分之二情況拿對文件、拿錯段落）。
+
+進度狀態：S227 已交付答案層 rubric 判官（OP① 完成），所以任何檢索候選現在都可以先量答案層再決定出不出貨。
+四條方向已排除，不要重試：重新切片、調 per-source 配額、詞面重排 FEATURE_LEXICAL_RERANK（S227 量得 net −1）、
+改查詢展開機制本身（S227 量得展開整體是幫忙的：37 條有展開題目中幫 29 害 8，中位 +0.0838）。
+未試方向只剩兩條：cross-encoder 重排、按查詢長度自適應（plain 1–3 詞題 FAIL 24/77 vs natural_sentence 6/43）。
+
+待辦（優先序）：② 片段層召回率 → ⑩ hr_admin 的「津貼」token 搶走 kg_relocation_grant（同族、已定位未修，動它前必須先量 blast radius）
+→ ③ 封版閘餘下兩個 ERROR（只能靠 ②改善檢索清走）→ ④ 累積遺留 → ⑤ 56 條無路由題（被 pgvector 版本擋住，監察中）。
+
+本節改動的關鍵檔案：
+- backend/src/api/searchChannelB.ts — 新增 staff_appraisal 路由與 SOURCE_SET（不設 QUERY_EXPANSIONS），並由 hr_admin 移走 S226 那五個詞
+- backend/scripts/_s227_rubricJudge.ts（新）— 答案層 pairwise rubric 判官
+- dev/source/route_blast_radius.mjs（新）— 改路由必跑，掃 185 條 gold query 對照任一 git ref
+- dev/source/route_regression.mjs — 三條改道 ＋ 四條對照組（50 → 54）
+- dev/DOC_SYNC_CHECKLIST.md — 新增「檢索路由改動」與「答案層評分改動」兩個 row
+
+已知風險 / 注意事項：
+- 用 _s227_rubricJudge 必須 JUDGE_MODEL=gpt-4.1；gpt-4.1-mini 實測是壞尺（14 次判決 11 次揀先出現那一個）。
+- 該判官在準則 3（數字與登記段落不符）兩個方向都出過錯，凡依賴該準則的判決自動標 needs_human_review，須人手覆核。
+- 用 _s226_captureQueryVec.ts 做前後對照，必須由外面設 FEATURE_ROUTE_FIRST_SEARCH=1，否則量的是生產不執行的配置（S227 中過一次）。
+- 改 TOPIC_KEYWORDS 必須同時跑 route_regression.mjs 與 route_blast_radius.mjs，並加對照組證明沒有搶走鄰居路由。
+- backend/scripts/*.ts 十二支工具不在 npm run check 覆蓋範圍（tsconfig include 只有 src/**），要單獨指檔才真正 typecheck。
+
+驗證狀態：本節全綠 —— check 0 · build 0 · route_regression 54/54 · blast radius 1 條（正是目標）· 兩支新工具 self-test 67 條與 8 條全 PASS ·
+PR #20 build-gate SUCCESS 並已 squash-merge（7be4404）· 生產 /health commit 7be4404 · 生產行為實測「教師評核」答案段落入窗第 5、八格全部考績來源。
+
+Post-startup first action: 跑起手探針核實 live 狀態（served app.html PLATFORM_VERSION ＋ Render /health ＋
+git diff --name-only <部署commit>..HEAD -- backend 是否為空 ＋ Supabase chunk count），然後就 ② 的兩條未試方向向 Leonard 提一個帶成本估算的建議。
+```
+
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-09-15 Session 226 — 每上一層量度，結論就被推翻一次；最後一層說不要出貨
 
 - **ID:** `Claude_20260915_0650` — S226
