@@ -1,0 +1,263 @@
+{
+ "label": "S227 pairwise rubric judge (calibration against the seven hand-read pairs)",
+ "generated_at": "2026-09-15T12:59:00.791Z",
+ "judge_model": "gpt-4.1-mini",
+ "source_run": "../dev/source/eval_runs/2026-09-15_s226synth_before_after.jsonl",
+ "source_run_sha256": "d8b4a4753f70bfd77fd58bdfceb2431f30fea9226823b3e9d4ddba4873daa17b",
+ "gold_file": "../dev/_s213_gold_all.json",
+ "mode": "replay of saved answer texts; no retrieval, no Supabase, no embeddings",
+ "position_bias_control": "each item judged twice with the sides swapped; agreement required for a winner",
+ "approved_max_calls": 14,
+ "attempted_api_calls": 14,
+ "items": [
+  {
+   "id": "cpd_conduct_registration",
+   "query": "操守指引",
+   "domain": "cpd_teacher_qualification",
+   "combined": "INCONSISTENT",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2,
+     5,
+     6
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案1未實質回答提問意圖且文字不完整，答案2內容豐富且具體，符合查詢需求，故更佳。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     5
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案1偏離提問意圖，未說明教師專業操守指引與教師註冊要求的關係，且多為片段敘述，文句不完整；答案2雖無明確資料，但明確回應無法找到相關答案，較符合提問意圖。",
+    "resolved": "BEFORE"
+   },
+   "human_verdict": "BEFORE",
+   "agrees_with_human": false
+  },
+  {
+   "id": "dig_teacher_digital_cpd_hours",
+   "query": "數字教育 培訓時數",
+   "domain": "digital_education",
+   "combined": "BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2中提及三年培訓要求30至150小時，與登記段落所述「不少於30小時」存在數字衝突，屬嚴重錯誤，故答案1較佳。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     3,
+     5
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1未明確與登記段落一致，錯誤表示時數範圍30至150小時及未明確指出30小時要求，亦出現截斷句狀況；答案2精確對應原文段落且內容完整故較佳。",
+    "resolved": "BEFORE"
+   },
+   "human_verdict": "BEFORE",
+   "agrees_with_human": true
+  },
+  {
+   "id": "bus_escort_list",
+   "query": "跟車保母 學童名單",
+   "domain": "school_bus",
+   "combined": "INCONSISTENT",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 5,
+    "reason": "答案1在文句表達上有輕微瑕疵，如「乘童」疑為錯字且語句稍嫌不夠完整，而答案2整體語句較為流暢完整，故答案2較佳。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 5,
+    "reason": "答案1中有些句子冗長且部分措辭不夠簡潔，存在文句完整可發布的缺陷；答案2語句較為完整且表述清楚，因此答案2較佳。",
+    "resolved": "BEFORE"
+   },
+   "human_verdict": "AFTER",
+   "agrees_with_human": false
+  },
+  {
+   "id": "staff_grad_ratio",
+   "query": "學位教師比例",
+   "domain": "staffing",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2提及「資料未有載明教師的具體比例」，與查詢中政策已全面提升到100%不符，屬嚴重錯誤；答案1無此缺陷，故答案1較佳。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩則答案均正確回答了查詢的提問意圖，且未違反評分準則中列出的任何條件，故難以判斷優劣。",
+    "resolved": "TIE"
+   },
+   "human_verdict": "AFTER",
+   "agrees_with_human": false
+  },
+  {
+   "id": "hr_maternity",
+   "query": "產假",
+   "domain": "hr_admin",
+   "combined": "INCONSISTENT",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     1
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 1,
+    "reason": "答案1未能明確區分產假規定是否適用於幼稚園，違反了適用對象規定，而答案2明確指出適用於資助學校教職員，符合查詢意圖，因此答案2較佳。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     5,
+     6
+    ],
+    "answer_2_flaws": [
+     5
+    ],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 6,
+    "reason": "兩答案均在文句完整性稍有缺失，且均未詳盡說明產假資格條件細節，但答案2所述內容較齊備且更具體，對產假期間、證明要求及學校記錄要求有較完整描述，符合較佳標準。",
+    "resolved": "BEFORE"
+   },
+   "human_verdict": "BEFORE",
+   "agrees_with_human": false
+  },
+  {
+   "id": "hr_jobshare",
+   "query": "兩個老師分一個教席",
+   "domain": "hr_admin",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案2雖然語意正確，但未直接回答提問意圖，內容較為籠統；答案1則切題且具體解釋假期安排，符合提問。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未違反評分準則中規定的重點條件，且內容皆符合提問意圖並與登記段落一致，故難以明顯區分優劣。",
+    "resolved": "TIE"
+   },
+   "human_verdict": "AFTER",
+   "agrees_with_human": false
+  },
+  {
+   "id": "fin_ac_grant",
+   "query": "空調津貼 計算",
+   "domain": "finance",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2的資助額數字與答案1不一致，且與鑰匙段落資助額明顯衝突，違反了準則3，因此答案1較佳。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆正確使用等值公式，資料具體且一致，且皆無嚴重錯誤或矛盾，符合查詢意圖且表達完整，故難以區分優劣。",
+    "resolved": "TIE"
+   },
+   "human_verdict": "AFTER",
+   "agrees_with_human": false
+  }
+ ],
+ "summary": {
+  "items": 7,
+  "BEFORE": 1,
+  "AFTER": 0,
+  "TIE": 0,
+  "WEAK_BEFORE": 3,
+  "WEAK_AFTER": 0,
+  "INCONSISTENT": 3,
+  "TIE_IDENTICAL": 0,
+  "TIE_BOTH_DECLINED": 0,
+  "api_calls": 14,
+  "judge_health": {
+   "judged": 7,
+   "always_first": 0,
+   "always_second": 3,
+   "raw_calls": 14,
+   "raw_tie_calls": 3
+  },
+  "calibration_items": 7,
+  "calibration_agree": 1,
+  "calibration_disagree": [
+   "cpd_conduct_registration: judge=INCONSISTENT human=BEFORE",
+   "bus_escort_list: judge=INCONSISTENT human=AFTER",
+   "staff_grad_ratio: judge=WEAK_BEFORE human=AFTER",
+   "hr_maternity: judge=INCONSISTENT human=BEFORE",
+   "hr_jobshare: judge=WEAK_BEFORE human=AFTER",
+   "fin_ac_grant: judge=WEAK_BEFORE human=AFTER"
+  ]
+ },
+ "status": "complete"
+}

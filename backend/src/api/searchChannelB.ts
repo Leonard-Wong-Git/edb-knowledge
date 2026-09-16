@@ -476,6 +476,31 @@ const SOURCE_SETS: Record<string, string[]> = {
   ],
 
   /**
+   * Staff appraisal — 員工考績 / 表現評核 (S227). See TOPIC_KEYWORDS.staff_appraisal for
+   * why this is a route of its own rather than part of hr_admin.
+   *
+   * Membership taken from the corpus rather than guessed — counted 2026-09-16 over all
+   * 17,004 chunks: 考績 appears in sag_2025_11 (10), supply_teacher_guide (4),
+   * perf_indicators_2022 (3), edbc00030 (3); 評核人 in icac_school_governance (2),
+   * supply_teacher_guide (2), sag_2025_11 (2); 受核人 only in sag_2025_11 (2).
+   *
+   * DELIBERATELY EXCLUDED: g13 / bafs_sss_* / cgss_sss_* / ict_sss_2021 also contain
+   * 教師評核 or 員工考績, but as SUBJECT-CURRICULUM vocabulary (assessment of students,
+   * or 員工考績 as a BAFS accounting topic). Including them would rebuild the very
+   * curriculum contamination S226 removed.
+   *
+   * No QUERY_EXPANSIONS entry — the set is cohesive enough that the query's own terms
+   * suffice, and an expansion is what broke this route in the first place.
+   */
+  staff_appraisal: [
+    "sag_2025_11",             // §7.7 員工考績 — 考績周期 / 評核人 / 受核人 / 考績會晤 (p.208)
+    "supply_teacher_guide",    // 代課教師的工作表現評核
+    "icac_school_governance",  // 防貪錦囊 附錄十一 — 員工年度表現評核評分指引
+    "perf_indicators_2022",    // 表現指標
+    "edbc00030",               // 教育局通告第30/2000號 — 考績與職級
+  ],
+
+  /**
    * Activity grants — 全方位學習津貼, 課外活動
    */
   activity: [
@@ -760,15 +785,34 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // 實測：12 班／24 班副校長 → staffing；小一派位第 1 班、中一 5 班課程指引、24 班學校要幾多
   // 間課室 → 唔匹配，照舊各歸各路。
   staffing: /人員編制|教學人員編制|核准編制|教師編制|主任編制|編制表|主任級|學位化|學位教師職系|班師比|(?=[\s\S]*[0-9０-９]{1,2}\s*班)(?=[\s\S]*(?:教師|教員|教學人員|編制|校長|副校長|主任|人手))/,
-  // S226 — +教師評核/員工考績/考績/教師表現管理/表現管理. MUST stay here rather than in
-  // curriculum: `curriculum` below owns the bare token 評核 (for 課程及評估指引 vocabulary),
-  // and hr_admin is evaluated first, so without these a personnel query lands in the
-  // curriculum corpus. Measured 2026-09-15: detectQueryCategory("教師評核") returned
-  // `curriculum`, whose SOURCE_SET has no SAG in it, so the gold item hr_appraisal came
-  // back with physics, Chinese-language and IT curriculum guides and could never reach
-  // the answer — SAG §7.7 員工考績 (p.208) is in hr_admin's set. Same defect family as
-  // `safety` owning bare 氣體 and stealing 氣體定律 (route_regression known gaps).
-  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金|語文能力要求|語文基準|語文能力評核|基準試|準英語教師|英語教師獎學金|教師評核|員工考績|考績|教師表現管理|表現管理/,
+  /**
+   * Staff appraisal — 員工考績 / 教師表現評核 (S227).
+   *
+   * S226 put these five terms in hr_admin, which fixed HALF the defect: the query
+   * stopped landing in `curriculum` (whose SOURCE_SET has no SAG, so hr_appraisal came
+   * back with physics and IT curriculum guides). But hr_admin's QUERY_EXPANSIONS entry
+   * is leave vocabulary — 教職員假期 批假 病假 首年 168日 醫生證明 — so the ranking vector
+   * for 「教師評核」 became a LEAVE query and returned eight leave passages.
+   *
+   * Measured 2026-09-16 against the live corpus, same nine chunks both ways: the
+   * answering passage (SAG §7.7 員工考績 p.208, vault_sag_2025_11_a40e4ed7605169ac)
+   * scores 0.4881 with the hr_admin expansion appended — 9th, below an 8th place of
+   * 0.6088 — and 0.5884 on the bare query, where it ranks FIRST and every leave
+   * passage drops to 0.33–0.40. The expansion was not merely failing to help; it was
+   * moving the answer from 1st to 9th.
+   *
+   * Split out rather than folded in, and with NO expansion entry — exactly the
+   * `staffing` precedent above, which was split from hr_admin for this same reason and
+   * measured the same shape of loss (0.816 raw → 0.616 expanded).
+   *
+   * MUST precede hr_admin (which owns 語文能力評核 and the leave vocabulary) and
+   * curriculum (which owns the bare token 評核). The pattern deliberately does NOT
+   * include a bare 評核: qa_inspection owns 校外評核 and hr_admin owns 語文能力評核, and
+   * this route is evaluated before both. Same defect family as `safety` owning bare
+   * 氣體 and stealing 氣體定律 (route_regression known gaps).
+   */
+  staff_appraisal: /教師評核|員工考績|考績|教師表現管理|表現管理|評核人|受核人|年度表現評核|員工表現評核|職員表現評核/,
+  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金|語文能力要求|語文基準|語文能力評核|基準試|準英語教師|英語教師獎學金/,
   // NOTE: 資助則例 is deliberately absent here — TOPIC_KEYWORDS.finance already
   // owns it and is evaluated first, so a copy in hr_admin would be dead weight.
   // coa_pri_e / coa_ss_e are reachable because they sit in BOTH SOURCE_SETS.
