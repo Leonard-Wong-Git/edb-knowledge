@@ -61,7 +61,8 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 - **Pending:** 先決定信哪個讀法再動手 —— (i) 兩個絕對分數閘吃掉得益 → 重校門檻（OP②(c)）；(ii) 這個量級堆不出 8 分淨值 → 重新審視判官門檻是否適用。**在兩者之一有結論之前不要再跑展開側 A/B。**
 - **Risks:** 三個 `EXPANSION_*` 旗標生產一律未設，未設 = 現狀，所以合併本身不改變生產行為；`kg_admin` 路由改動**不是旗標、合併後會即時生效**，影響面已量（185 條只 2 條改路由、off-gold 只影響含「幼稚園」的查詢）。
 - **Log maintenance:** 觸發檢查 —— 主 log 目前 N < 11 條且未逾 1500 行，`## Confirmed Decisions` 類章節未達 30 條，本節無跨節累積模式需要即時寫入 `PROJECT_DECISIONS.md`；距離上次全面維護未滿 10 次收工。**結論：no-op**，不做長期維護。
-- **Opening-message mirror:** 已重新產生並讀回核對（見下）。
+- **Opening-message mirror:** 已由 `dev/SESSION_HANDOFF.md` 的 fenced 區塊重新產生 `START_NEXT_SESSION_PROMPT.txt`，並讀回逐字核對相同（76 行）。⚠️ **順帶修好 S227 的反向操作**：S227 只更新了鏡像檔、沒回寫交接檔區塊，令該區塊停在 S226 內容，而交接檔自己寫明「兩者不符以本區塊為準」—— 本節先由鏡像回寫，再按收工契約第 9 步的正常方向重新產生。
+- **PR:** [#22](https://github.com/Leonard-Wong-Git/edb-knowledge/pull/22)（分支 `s228/expansion-knobs`，rebase 落 `8b630e3` 之上 —— 該 commit 是排程監察 `qc_report` 在本節中途自行推的帳本更新，零 `backend/` 改動）。**未合併**：合併會觸發 Render auto-deploy 並令 `kg_admin` 路由改動即時生效，依交接檔「`gh pr merge` 在 Leonard 明示授權下可執行」，等 Leonard 拍板。
 <!-- ack:log-entry:end -->
 
 <!-- ack:log-entry:start -->

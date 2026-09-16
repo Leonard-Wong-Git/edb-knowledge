@@ -409,7 +409,7 @@ source_registry → same vault PDFs → ai_extract.py
 ## Last Session Record
 
 1. UTC date: 2026-09-16
-2. Session ID: `Claude_20260916_1610` — S228。由「開工」起手，Leonard 一句「全做」授權我的建議清單（OP②「按查詢長度自適應」＋ OP⑩ ＋ 兩項交接檔漂移修正 ＋ cross-encoder 成本評估）。**尚未開 PR、尚未合併。**
+2. Session ID: `Claude_20260916_1610` — S228。由「開工」起手，Leonard 一句「全做」授權我的建議清單（OP②「按查詢長度自適應」＋ OP⑩ ＋ 兩項交接檔漂移修正 ＋ cross-encoder 成本評估）。**PR [#22](https://github.com/Leonard-Wong-Git/edb-knowledge/pull/22) 已開、未合併** —— 合併會觸發 Render auto-deploy 並令 `kg_admin` 路由改動即時生效，依既有邊界要 Leonard 明示授權才執行 `gh pr merge`。
 3. Completed（撮要，逐項證據見 `dev/SESSION_LOG.md` S228 條與 `## Validation / QC` S228 四批）：
    - ✅ **把「展開詞不論查詢多短都原文照貼」變成可量度的機制**：三個旗標（`EXPANSION_MIN_QUERY_CHARS`／`EXPANSION_BALANCE`／`EXPANSION_REPEAT_CAP`），生產一律未設＝改動前逐位元組相同。六個 arm × 185 題 × 生產配置，劑量曲線最佳為 `floor=8`＋`balance=.5`：片段層 **+7**、來源層 +3、**零退步**；七次重跑的片段層噪音是 **0**。
    - ✅ **但答案層判官判 `NO_MEASURABLE_GAIN`（net_after +3.5／門檻 8），而且原因已查明**：`floor` 把展開詞整段拿走，最高分中位跌 **0.1296**，令題目跌穿 `VAULT_LEAD_SCORE` 0.70 與 `SPOTLIGHT_LEAD_SCORE` 0.60，答案層棄權由 8 升到 15（10 條可答）。**`balance` 那一半完全不壓分（跌穿 0.60 者 0 條）。**
