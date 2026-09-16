@@ -1,0 +1,196 @@
+{
+ "label": "S227 pairwise rubric judge (calibration against the seven hand-read pairs)",
+ "generated_at": "2026-09-15T12:53:45.069Z",
+ "judge_model": "gpt-4.1-mini",
+ "source_run": "../dev/source/eval_runs/2026-09-15_s226synth_before_after.jsonl",
+ "source_run_sha256": "d8b4a4753f70bfd77fd58bdfceb2431f30fea9226823b3e9d4ddba4873daa17b",
+ "gold_file": "../dev/_s213_gold_all.json",
+ "mode": "replay of saved answer texts; no retrieval, no Supabase, no embeddings",
+ "position_bias_control": "each item judged twice with the sides swapped; agreement required for a winner",
+ "approved_max_calls": 14,
+ "attempted_api_calls": 14,
+ "items": [
+  {
+   "id": "cpd_conduct_registration",
+   "query": "操守指引",
+   "domain": "cpd_teacher_qualification",
+   "combined": "INCONSISTENT",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案1雖然未提供具體資訊，但明確指出未找到相關資料，符合回答提問意圖，答案2雖詳盡描述操守指引內容，但偏離教師專業操守指引與教師註冊要求的關係，因此答案1較好。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案1雖未直接指出教師註冊要求，但對操守指引內容有具體說明，較符合提問意圖，優於答案2的回覆「暫時未能找到可直接回答此問題的明確資料」，故依準則2判斷答案1較佳。",
+    "resolved": "AFTER"
+   },
+   "human_verdict": "BEFORE",
+   "agrees_with_human": false
+  },
+  {
+   "id": "dig_teacher_digital_cpd_hours",
+   "query": "數字教育 培訓時數",
+   "domain": "digital_education",
+   "combined": "BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案1準確指出三年內數字教育相關培訓要求不少於30小時，符合登記段落內容；答案2提及30至150小時及課時上限不存在與登記段落不符，屬嚴重錯誤，依據準則3判斷答案1較佳。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案2精確回應持續三年30小時的數字教育培訓時數要求，與登記段落內容一致，未如答案1指出的存在30至150小時的偏差，符合準則3關於與登記段落一致的要求。",
+    "resolved": "BEFORE"
+   },
+   "human_verdict": "BEFORE",
+   "agrees_with_human": true
+  },
+  {
+   "id": "bus_escort_list",
+   "query": "跟車保母 學童名單",
+   "domain": "school_bus",
+   "combined": "INCONSISTENT",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案1較直接切中查詢主題，明確指出跟車保母須保存並經常更新乘車學童名單以便行車前核對學童人數，貼合提問意圖。答案2雖詳盡但涉及多項額外資訊，未能集中回答核對名單責任，稍顯離題，依準則2判定答案1較佳。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案1內容較聚焦於查詢意圖，明確說明跟車保母需經常更新學童名單並於行車前核對，符合提問要求，且敘述詳盡；答案2雖補充更多規定，部分細節不完全於答案鑰匙段落中，但與查詢意圖較偏離，依評分準則2判定答案1較佳。",
+    "resolved": "AFTER"
+   },
+   "human_verdict": "AFTER",
+   "agrees_with_human": false
+  },
+  {
+   "id": "staff_grad_ratio",
+   "query": "學位教師比例",
+   "domain": "staffing",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 6,
+    "reason": "答案2在相同條件下提供了較具體且更齊備的職級劃分資訊，涵蓋了高級、普通及助理學位教師的角色，符合評分準則第6點，故較佳。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 5,
+    "reason": "答案2部分句子結構較不完整，如「鼓勵未持本地學士學位的教師早日取得資格」表述不夠具體完整，較不適合發布，故根據文句完整性準則得出答案1較佳。",
+    "resolved": "AFTER"
+   },
+   "human_verdict": "AFTER",
+   "agrees_with_human": true
+  },
+  {
+   "id": "hr_maternity",
+   "query": "產假",
+   "domain": "hr_admin",
+   "combined": "BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案1較具體詳盡地回應提問意圖，清楚說明產假適用對象及相關條件，與登記段落無衝突；答案2雖然內容正確，但表述較為籠統，未能充分回答提問意圖，故依準則2判定答案1較佳。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 6,
+    "reason": "答案2提供了較齊備且具體的細節，如具體日期限制、假期處理方式及相關行政要求，較符合評分準則中資料齊備性的重要性（準則6）。相較之下，答案1缺乏部分細節，故答案2較佳。",
+    "resolved": "BEFORE"
+   },
+   "human_verdict": "BEFORE",
+   "agrees_with_human": true
+  },
+  {
+   "id": "hr_jobshare",
+   "query": "兩個老師分一個教席",
+   "domain": "hr_admin",
+   "combined": "INCONSISTENT",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案1較直接回應用戶關於兩個老師分一個教席的假期與病假權益的具體安排，切題且詳盡；答案2偏重討論政策文件缺乏明確規定，較為籠統，未能具體答覆提問意圖，依評分準則第2條判定答案1優於答案2。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案1較切題明確回應查詢意圖，指出共享教職為彈性安排且需教師同意，符合用戶詢問兩人分一教席的核心；答案2雖詳述假期福利，卻偏重假期細節，較離題，依評分準則第2點判定回答提問意圖之完整性差異。",
+    "resolved": "AFTER"
+   },
+   "human_verdict": "AFTER",
+   "agrees_with_human": false
+  },
+  {
+   "id": "fin_ac_grant",
+   "query": "空調津貼 計算",
+   "domain": "finance",
+   "combined": "INCONSISTENT",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2中標準禮堂的資助額數字與答案1及鑰匙段落不一致，為嚴重錯誤；答案1的數字與登記段落相符且敘述完整，故答案1較佳。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 5,
+    "reason": "答案1的文句較完整且流暢，未見口語語句或句子截斷，符合準則5；而答案2部分句子表達較口語化，略顯不夠完整，因此答案1較優。",
+    "resolved": "AFTER"
+   },
+   "human_verdict": "AFTER",
+   "agrees_with_human": false
+  }
+ ],
+ "summary": {
+  "items": 7,
+  "BEFORE": 2,
+  "AFTER": 1,
+  "TIE": 0,
+  "WEAK_BEFORE": 0,
+  "WEAK_AFTER": 0,
+  "INCONSISTENT": 4,
+  "TIE_IDENTICAL": 0,
+  "TIE_BOTH_DECLINED": 0,
+  "api_calls": 14,
+  "calibration_items": 7,
+  "calibration_agree": 3,
+  "calibration_disagree": [
+   "cpd_conduct_registration: judge=INCONSISTENT human=BEFORE",
+   "bus_escort_list: judge=INCONSISTENT human=AFTER",
+   "hr_jobshare: judge=INCONSISTENT human=AFTER",
+   "fin_ac_grant: judge=INCONSISTENT human=AFTER"
+  ]
+ },
+ "status": "complete"
+}

@@ -64,9 +64,19 @@ const CASES = [
   ["教師病假幾多日要交醫生紙",                    "hr_admin"],
   ["教師年假有幾多日",                            "hr_admin"],
   ["常額教席點樣聘任",                            "hr_admin"],
-  ["教師評核",                                    "hr_admin"],   // S226 修好（前為 curriculum —— 它認裸「評核」）
-  ["考績",                                        "hr_admin"],   // S226
-  ["教師表現管理",                                "hr_admin"],   // S226
+  // S227 改道：S226 把這三條由 curriculum 救去 hr_admin，只醫好一半 —— hr_admin 的
+  // QUERY_EXPANSIONS 是假期詞彙，實測把答案段落（SAG §7.7 員工考績 p.208）由第 1 名
+  // 推去第 9 名（裸查詢 0.5884 → 加展開後 0.4881，而第 8 名 0.6088）。故拆 staff_appraisal
+  // 獨立路由且不設展開，與 staffing 當年由 hr_admin 拆出的理由相同。
+  ["教師評核",                                    "staff_appraisal"], // S227（S226 為 hr_admin，再前為 curriculum）
+  ["考績",                                        "staff_appraisal"], // S227
+  ["教師表現管理",                                "staff_appraisal"], // S227
+  // S227 對照組 —— 新路由排在 hr_admin 與 curriculum 之前，故必須證明它沒有搶走鄰居。
+  // 三條都含「評核」或人事字眼，但都不屬考績。
+  ["語文能力評核要求",                            "hr_admin"],        // hr_admin 自己的「評核」
+  ["教師請病假要唔要醫生紙",                      "hr_admin"],        // 假期查詢不受影響
+  ["校外評核週期",                                "qa_inspection"],   // qa_inspection 擁有「校外評核」
+  ["課程及評估指引點樣評核學生",                  "curriculum"],      // curriculum 仍擁有裸「評核」
   ["中國語文課程及評估指引",                      "curriculum"], // S226 對照組：curriculum 的「評核／評估」未被搶走
   ["採購超過 5 萬元程序",                         "finance"],
   ["資助則例邊條講校董會經費",                    "school_governance"], // 校董會 先於 finance，設計如此
