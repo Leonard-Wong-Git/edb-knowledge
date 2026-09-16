@@ -7,9 +7,10 @@
   "scripts": {
     "dev": "tsx --env-file=.env src/server.ts",
     "build": "tsc -p tsconfig.json",
-    "check": "tsc -p tsconfig.json --noEmit",
+    "check": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.scripts.json",
     "regression:semantic": "tsx scripts/semanticRegression.ts",
-    "regression:grounded": "tsx scripts/groundedSynthesisRegression.ts"
+    "regression:grounded": "tsx scripts/groundedSynthesisRegression.ts",
+    "check:scripts": "tsc -p tsconfig.scripts.json"
   },
   "engines": {
     "node": "22.x"

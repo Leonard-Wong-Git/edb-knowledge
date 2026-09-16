@@ -1,0 +1,527 @@
+{
+ "label": "S227 pairwise rubric judge",
+ "generated_at": "2026-09-16T17:19:36.673Z",
+ "judge_model": "gpt-4.1",
+ "source_run": "../dev/source/eval_runs/2026-09-16_s228synth_rest_before_after.jsonl",
+ "source_run_sha256": "324f775fa74844a34cc5a21ab6f1cd66325cba6d17529e148f3edbe7f62b0b35",
+ "gold_file": "../dev/_s213_gold_all.json",
+ "mode": "replay of saved answer texts; no retrieval, no Supabase, no embeddings",
+ "position_bias_control": "each item judged twice with the sides swapped; agreement required for a winner",
+ "approved_max_calls": 40,
+ "attempted_api_calls": 30,
+ "items": [
+  {
+   "id": "fin_home_school",
+   "query": "家校合作津貼",
+   "domain": "finance",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2,
+     6
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案1未有正面回應查詢意圖，而答案2直接具體地回應問題且內容豐富，依據第2條準則，答案2較佳。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案1直接回應了查詢意圖，提供學年、金額及政策細節，切題且完整；答案2則未作答，違反第二條準則。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "fin_ac_grant",
+   "query": "空調津貼 計算",
+   "domain": "finance",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 6,
+    "reason": "答案2涵蓋不同場地的補助上限規定，且資料更全面；答案1缺少特別室和SAC的限額等細節，故答案2較佳。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [
+     5,
+     6
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 6,
+    "reason": "兩個答案同樣有表述問題，但答案1對資助上限和不同場地的限制交代較完整，資料較為齊備和具體，故依第6條判答案1較優。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false,
+   "human_verdict": "AFTER",
+   "agrees_with_human": true
+  },
+  {
+   "id": "fin_procure_split",
+   "query": "採購 不得拆單",
+   "domain": "finance",
+   "combined": "BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案1有直接回應並解釋「不得拆單」的政策，而答案2則未能正面回答提問意圖，因此答案1較佳。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案1未能切題直接回答提問意圖，而答案2則有明確回應『採購不得拆單』相關規定，切合問意。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "fin_dls",
+   "query": "多元學習津貼",
+   "domain": "finance",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 6,
+    "reason": "答案 2 資料較齊全且具體，涵蓋更多會計安排與操作細節，依據第六準則勝出。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [
+     3,
+     5
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2對於上限、最低金額等條件的描述與資料庫段落出現矛盾，屬於嚴重錯誤；答案1雖然結尾略顯拗口，但未出現關鍵數字或條件錯誤。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "fin_sci_grant",
+   "query": "小學科學科 一筆過津貼",
+   "domain": "finance",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩者均未能明確回答提問意圖，皆只表達未找着資料，且未有多餘錯誤，故評為TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案同樣未能直接提供相關一筆過津貼的資料，且均屬離題，故依準則判為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "fin_kg_relocation",
+   "query": "幼稚園 搬遷津貼",
+   "domain": "finance",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未明確違反高順位準則，且皆未就津貼金額等細節提供明確資訊，欠缺準則三的具體細節，故判TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 6,
+    "reason": "兩者皆未明確依據登記段落資料，然答案2比答案1詳細列舉了申請程序與截止日期，內容較具體完善。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "gov_imc_60pct",
+   "query": "辦學團體校董可佔法團校董會校董人數上限多少？",
+   "domain": "school_governance",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均正確回應辦學團體校董不得超過校董會人數上限的60%，與鑰匙一致，無明顯違反任何評分準則之處。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 5,
+    "reason": "兩個答案皆切題且內容正確，但答案2語句更完整流暢，答案1有表達不清及部分句讀斷裂之處，故以第5條準則分勝負。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "gov_imc_alternate_excluded_v2",
+   "query": "計算辦學團體校董人數上限時，替代校董是否計算在內？",
+   "domain": "school_governance",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均準確回答查詢，內容皆依據資料庫記錄，無違反任何評分準則，故評為 TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均切題、與登記段落資料一致，且無自相矛盾或文句問題，皆清楚說明替代校董不計算在辦學團體校董人數上限內，故判為TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "gov_imc_pta",
+   "query": "家長校董 點選",
+   "domain": "school_governance",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2,
+     6
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案1未有回應家長校董選舉與認可家教會的具體條件，且內容未完全切合提問意圖，違反第2項準則，答案2則針對性回應且內容完整。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     3,
+     6
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2以「未披露具體的資格限制或選舉程序細節」與登記段落的明確資料不符，屬條件3之嚴重缺陷。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "gov_imc_setup",
+   "query": "法團校董會 成立",
+   "domain": "school_governance",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [
+     5
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆為完整且切合查詢的摘要，但皆出現句式瑣碎、不夠流暢的問題，在其他準則上則表現相若，故評為TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [
+     5
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆文句稍有瑕疵（如表述稍嫌繁複或不夠精煉），但並未在高順位準則上出現缺陷，整體切題且內容基本一致，故判TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "gov_imc_abbrev",
+   "query": "IMC",
+   "domain": "school_governance",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案一未有明確回應提問重點（IMC作為法團校董會的英文縮寫及相關成員人數規定），而答案二直接切題並詳述替代校董計算規則，較為貼切地回應了提問意圖。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2指稱IMC（校董會）由已獲教育局批准設立，未有明確提及「法團校董會」的正確英文縮寫且與原段一緊密相關的校董人數60%條文內容未納入，與鑰匙段落不一致，違反第三條，屬較嚴重。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "gov_coa_imc",
+   "query": "資助則例 法團校董會版本",
+   "domain": "school_governance",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [
+     5
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆文句稍嫌累贅或不夠精練，但無涉及前述較高順位準則的違誤，內容切題且符合登記段落。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆切題且無明顯錯誤，內容充實且無重大遺漏，亦未違反任何判分準則，故判為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "gov_fin_mgmt",
+   "query": "校董會 財務管理",
+   "domain": "school_governance",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆使用與登記段落不一致或添加過多未經登記支持的內容，並未在高順位準則上明顯勝出，因此評為平手。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未直接根據鑰匙內容具體列出財務管理指引（如表現指標），同是未緊貼指定條款，但無一方在高順位準則上較佳，故判TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "gov_imc_quorum",
+   "query": "校董會會議 法定人數",
+   "domain": "school_governance",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆確實回答了查詢意圖、內容與資料鍵一致，並無事實錯誤或自相矛盾之處，皆屬完整且切題之回應。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     5,
+     6
+    ],
+    "answer_2_flaws": [
+     5,
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均切題，亦都同樣指出法團校董會的法定人數未有明確規定，僅細節及組織表達略有不同，故評為TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "gov_board_pay",
+   "query": "校董有冇人工",
+   "domain": "school_governance",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案2明確表示資料未能回應問題，符合提問意圖和答案鑰匙指示；答案1則嘗試從其他方向回答，偏離了提問意圖。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案2雖然內容詳盡，但已開始推論和補充資料，未能如答案1般簡單直接指出查無相關資料，違反了第二條準則。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false
+  }
+ ],
+ "summary": {
+  "items": 15,
+  "BEFORE": 1,
+  "AFTER": 6,
+  "TIE": 6,
+  "WEAK_BEFORE": 2,
+  "WEAK_AFTER": 0,
+  "INCONSISTENT": 0,
+  "TIE_IDENTICAL": 0,
+  "TIE_BOTH_DECLINED": 0,
+  "api_calls": 30,
+  "judge_health": {
+   "judged": 15,
+   "always_first": 0,
+   "always_second": 0,
+   "raw_calls": 30,
+   "raw_tie_calls": 14
+  },
+  "needs_human_review": [
+   "fin_dls",
+   "gov_imc_pta",
+   "gov_imc_abbrev"
+  ],
+  "decision": {
+   "counted": 12,
+   "excluded_for_review": 3,
+   "after_points": 3,
+   "before_points": 2,
+   "net_after": 1,
+   "ship_threshold": 8,
+   "verdict": "NO_MEASURABLE_GAIN"
+  },
+  "calibration_items": 1,
+  "calibration_agree": 1,
+  "calibration_disagree": []
+ },
+ "status": "complete"
+}

@@ -18,14 +18,61 @@
 
 1. 平台 **v3.3.8**（S223 三次 bump，皆因 `app.html` 有改動）。**`guidelines.json` 凍結合約已 bump 至 2.6.2**（Leonard 拍板）；`knowledge.json` `_meta` 仍 **2.3.0** · facts **455**。
 2. Supabase **17,004** chunks（S223 兩次生產寫入：SAG 換版合併 −792 ＋387，`kgecg_2017` 去重 −108）。in-app 瀏覽庫 **170** 份（退役 `g24`）；`guidelines.json` 公開端點 **151** 份（由 158 對正 in-app 標籤，移除 7 條、同步 32 個欄位）。兩者仍刻意不同。
-3. 🟢 **`ZOMBIE` 由 1 歸 0**（`check_registry_drift --check` 實測）。餘下 `UNMANAGED` 1 個／2 片段（`stat_integrated` id 錯配）· `PHANTOM` 36 · `UNLISTED` 115。
-4. **`HEAD == origin/main == 1d92450`**（S226 三個 PR 全部 squash-merge：#16 → `e08b7d9`、#17 → `9fe1fbf`、#18 → `1d92450`；本收工 commit 除外）。🔴 **`main` 由 S224 起受 ruleset 保護**（`main build gate`, id 23311105）—— 直接 push 會被拒，一切改動必須經 PR；唯一 bypass 係 `DeployKey`。**判斷線上是否落後看 `git diff --name-only <部署commit>..HEAD -- backend` 是否為 0，不要比 hash。**🟢 **【S227 收工實測】線上執行碼 == `HEAD` == `7be4404`**（PR #20 合併後 Render auto-deploy，`/health` 實查，`started_at 2026-09-16T15:13 UTC`）。S226 那三個預設關閉的 knob、`評核` 路由修正、S227 的 `staff_appraisal` 路由**全部已在生產**並經行為核實。**教訓：部署狀態會在收工之後自行改變，讀這一行之前先打一次 `/health`，不要比 hash 以外就信這行字。**`gh pr merge` 在 Leonard 明示授權下可執行；`gh` 需要 `-R owner/repo` 才能在 git 受阻時工作。
-5. 🟢 **`FEATURE_ROUTE_FIRST_SEARCH` 仍在生產啟用**（Render 環境變數，2026-09-09 起）。另兩個合成側 flag 仍 `0`。**`/health` 不報 flag，只有 Render dashboard 看得到** —— 但 **S226 起有了行為探針**：185 題生產 run 與本機旗標開啟側 **184/184 逐條同判**（含兩側判法相反的那 7 題，生產全部站在開啟側），與關閉側則有 7 題不同。**即這個 flag 的生產狀態現時可以由行為核實，不必靠 dashboard 記憶。**工具：`_s213_run_gold.py`（生產端點）對 `routeFirstGold.ts`（本機兩側）。另兩個合成側 flag 仍無同類探針。**S226 新增三個量度 knob，生產一律未設**：`MAX_PER_SOURCE`（未設＝現行公式）、`FEATURE_LEXICAL_RERANK` ＋ `LEXICAL_RERANK_WEIGHT`（未設＝關閉，預設權重 0.05）、`FAMILY_QUOTA`（未設＝關閉）。**三者都不應在 Render 啟用**：前者實測一換一、後者實測不成立、重排卡在 Open Priorities ①。
+3. 🟢 **`ZOMBIE` 與 `UNMANAGED` 皆為 0**（S228 開工 `check_registry_drift --check` 實測；`SERIES_UNMONITORED` 亦為 0）。`UNMANAGED` 那 1 個／2 片段（`stat_integrated` id 錯配）已由 S226 那兩行生產 `UPDATE` 修好，本行原文一直未同步，S228 更正。餘下 `PHANTOM` 36 · `UNLISTED` 115／2,616 片段。
+4. **【S228 收工實測，2026-09-16】`origin/main` 為 `8b630e3`** —— 該 commit 不是人手推的，是排程監察 `qc_report` 經 write deploy key 推的帳本更新（只動 `qc_report.json` 與 `dev/source/registry_drift.md`，**零 `backend/` 改動**）。本節的改動走 PR（分支 `s228/expansion-knobs`），**本收工 commit 除外**。🔴 **`main` 由 S224 起受 ruleset 保護**（`main build gate`, id 23311105）—— 直接 push 會被拒，一切改動必須經 PR；唯一 bypass 係 `DeployKey`。**判斷線上是否落後看 `git diff --name-only <部署commit>..HEAD -- backend` 是否為 0，不要比 hash。**🟡 **【S228 收工實測】線上執行碼為 `7be4404`（S227 那個），而本節合併後 `backend/src/api/searchChannelB.ts` 會有改動 —— 即合併即會觸發 Render auto-deploy，而那次部署會令 `kg_admin` 路由改動即時生效**（三個 `EXPANSION_*` 旗標未設，不會改變行為）。**教訓：部署狀態會在收工之後自行改變，讀這一行之前先打一次 `/health`。**`gh pr merge` 在 Leonard 明示授權下可執行；`gh` 需要 `-R owner/repo` 才能在 git 受阻時工作。
+5. 🟢 **`FEATURE_ROUTE_FIRST_SEARCH` 仍在生產啟用**（Render 環境變數，2026-09-09 起）。另兩個合成側 flag 仍 `0`。**`/health` 不報 flag，只有 Render dashboard 看得到** —— 但 **S226 起有了行為探針**：185 題生產 run 與本機旗標開啟側 **184/184 逐條同判**（含兩側判法相反的那 7 題，生產全部站在開啟側），與關閉側則有 7 題不同。**即這個 flag 的生產狀態現時可以由行為核實，不必靠 dashboard 記憶。**工具：`_s213_run_gold.py`（生產端點）對 `routeFirstGold.ts`（本機兩側）。另兩個合成側 flag 仍無同類探針。**S226 新增三個量度 knob，生產一律未設**：`MAX_PER_SOURCE`（未設＝現行公式）、`FEATURE_LEXICAL_RERANK` ＋ `LEXICAL_RERANK_WEIGHT`（未設＝關閉，預設權重 0.05）、`FAMILY_QUOTA`（未設＝關閉）。**三者都不應在 Render 啟用**：前者實測一換一、後者實測不成立、重排經 S227 判官實測答案層 net −1，判定不出貨。 **S228 再新增三個，生產同樣未設**：`EXPANSION_MIN_QUERY_CHARS`（未設＝照舊原文照貼展開詞）、`EXPANSION_BALANCE`（未設＝用戶查詢只出現一次）、`EXPANSION_REPEAT_CAP`（未設＝8）。**這三個與前三個不同：檢索兩層都實測有得益且零退步**（`floor=8`＋`balance=.5`：片段層 +7、來源層 +3，而七次重跑的片段層噪音是 0）。出貨與否見 `## Open Priorities` ①。**三個都是 Render 環境變數，改完重啟即生效，回退不需要重新部署。**
 6. **監察現有八個 workflow ＋ 一個每日看門狗**（`backend_build_check.yml` push 觸發、無 schedule，故不計入看門狗的 cadence 契約 —— `check_monitor_health --self-test` 實測仍報「覆蓋所有排程 workflow（6 個）」ALL PASS）。**S224：四條會 commit ledger 的監察（`discover_check`／`freshness_check`／`pgvector_check`／`qc_report`）改為經 write deploy key 以 SSH 推**，因為 required check 會擋死一切直接 push，而個人帳戶 repo **不能**豁免內建 GitHub Actions。
-7. **檢索準確度基線（S226 實測，2026-09-15）** —— 此項本來不存在，所以這些數字過去散落在 Risks 與 Open Priorities 裡各自變陳舊。**生產**（185 題 gold 打 `https://edb-knowledge.onrender.com/api/search/channel-b`）：來源層 **PASS 121／FAIL 44／RECORD_ONLY 19**、**errors 1**（`sen_iep_intellectual`，Supabase `57014` statement timeout）；片段層 **chunk_PASS 58／chunk_FAIL 107**（166 題有段落簽名，recall@8 **0.349**）。**本機 in-process 旗標開啟側**：PASS 122／FAIL 44、errors 0、chunk 58／108。**旗標關閉側**：PASS 119／FAIL 47、chunk 54／112。**兩層都要看**：來源層答「有沒有拿對文件」，片段層答「有沒有拿到答得到的那一段」——現時 **64 題是拿對文件、拿錯段落**，所以只看來源層會高估三分之二。檔案：`dev/source/eval_runs/2026-09-15_s226_prod_gold.json`（生產）、`..._s226_route_first_{before,after}.json`（本機兩側）、`..._s226_route_first_before_after.jsonl`（原始擷取，含逐個 RPC 的狀態與毫秒）。**完整指標（生產，`_s213_eval_metrics.py`，S226 首次跑得動）**：Source Recall **@1 0.442／@3 0.618／@5 0.691／@8 0.733**、Chunk Recall **@1 0.200／@3 0.309／@5 0.345**、MRR source **0.540**／chunk **0.255**；佔位——單一來源最多佔 **5/8** 格、**15** 條查詢有一個來源佔半數以上、逐字重複格位 0；無答案題——`WEAK_ANSWER` 18、**`CONFIDENT_WRONG` 1**；**禁引違規 8 條查詢**；最弱範疇 @1——gifted **0.111**、curriculum **0.125**、digital_education 0.200、cpd 與 school_bus 各 0.222。（S213 舊值 R@1 0.364／Chunk R@5 0.273 是 **162 題**的 gold 數，題集與語料都已改，**不可直接比**。）
+7. **檢索準確度基線（S226 實測，2026-09-15）** —— 此項本來不存在，所以這些數字過去散落在 Risks 與 Open Priorities 裡各自變陳舊。**生產**（185 題 gold 打 `https://edb-knowledge.onrender.com/api/search/channel-b`）：來源層 **PASS 121／FAIL 44／RECORD_ONLY 19**、**errors 1**（`sen_iep_intellectual`，Supabase `57014` statement timeout）；片段層 **chunk_PASS 58／chunk_FAIL 107**（166 題有段落簽名，recall@8 **0.349**）。**本機 in-process 旗標開啟側**：PASS 122／FAIL 44、errors 0、chunk 58／108。**旗標關閉側**：PASS 119／FAIL 47、chunk 54／112。**兩層都要看**：來源層答「有沒有拿對文件」，片段層答「有沒有拿到答得到的那一段」——現時 **64 題是拿對文件、拿錯段落**，所以只看來源層會高估三分之二。檔案：`dev/source/eval_runs/2026-09-15_s226_prod_gold.json`（生產）、`..._s226_route_first_{before,after}.json`（本機兩側）、`..._s226_route_first_before_after.jsonl`（原始擷取，含逐個 RPC 的狀態與毫秒）。**完整指標（生產，`_s213_eval_metrics.py`，S226 首次跑得動）**：Source Recall **@1 0.442／@3 0.618／@5 0.691／@8 0.733**、Chunk Recall **@1 0.200／@3 0.309／@5 0.345**、MRR source **0.540**／chunk **0.255**；佔位——單一來源最多佔 **5/8** 格、**15** 條查詢有一個來源佔半數以上、逐字重複格位 0；無答案題——`WEAK_ANSWER` 18、**`CONFIDENT_WRONG` 1**；**禁引違規 8 條查詢**；最弱範疇 @1——gifted **0.111**、curriculum **0.125**、digital_education 0.200、cpd 與 school_bus 各 0.222。（S213 舊值 R@1 0.364／Chunk R@5 0.273 是 **162 題**的 gold 數，題集與語料都已改，**不可直接比**。） **【S228 補一個本機基線與一個噪音底線】** 本節在 S227 的 `staff_appraisal` 修正 ＋ 本節 OP⑩ 路由修正之上，同一配置連跑七次本機 in-process（生產配置 `FEATURE_ROUTE_FIRST_SEARCH=1`）：來源層 `PASS` **123** 六次、122 一次；片段層 `chunk_PASS` **七次全部 59**。**即片段層的重跑噪音是 0、來源層是 ±1** —— 以後任何「改善 1 條」的來源層結論都在噪音之內，不可單憑一次跑下判斷。（此本機數與 Current Baseline 上半的生產數不可直接比：本機用 service key 的 8 秒上限量一個 anon 3 秒的系統，見 Risks 2。）
 
 <!-- ack:section:validation-qc -->
 ## Validation / QC
+
+**S228（2026-09-16）** —— 按查詢長度自適應的展開機制（OP②）＋ 幼稚園搬遷津貼路由（OP⑩）＋ `backend/scripts/` 首個型別閘（Backlog ⑨）。**零 Supabase 寫入、零 DDL、零 Render 設定改動、零 flag 啟用、零部署**；外部呼叫逐項報數：`text-embedding-3-small` **2,691** 次（七個 arm 2,186 ＋ 上限探針 253 ＋ 兩次合成 A/B 的 252）、合成側 `gpt-4.1-nano` 起草與 `gpt-4.1-mini` 相關性判斷（160 條題目 × 兩側，不經 embedding 計數器）、判官 `gpt-4.1` **合共 313 次**（合併配置 154 ＋ 校準 14 ＋ balance 配置 145），全部經 `--approved-max-calls` 閘。
+
+**第一批 —— OP⑩：交接檔記載的病因是錯的。** 交接檔寫「裸查詢 0.5919 高過第 8 名 0.5879，加展開後跌到 0.4994」，據此把它列為展開詞問題。**把展開完全關掉（`EXPANSION_MIN_QUERY_CHARS=10`）重量，答案段落仍然入不到窗。**真因是 `edbcm144_2026` 不在任何該查詢到達得到的 `SOURCE_SET` —— 它只靠 spotlight overlay 露面，而 `SPOTLIGHT_MAX_LEADS = 1`，那唯一一格被 p.2 片段佔了。修法因此是兩處而非一處：`kg_admin` 由尾二提前到 `kg_admission` 之後（它每個 token 都要求「幼稚園／學前機構／辦學手冊／幼教計劃」，咬不到非幼稚園查詢）、補「幼稚園＋津貼／搬遷」兩個 token、`edbcm144_2026` 加入 `SOURCE_SETS.kg_admin`。**blast radius：185 條 gold 只有 2 條改路由**（`kg_relocation_grant`、`fin_kg_relocation`，兩條都是目標），`route_regression` **63/63 PASS**（新增 9 條：2 條改道 ＋ 7 條對照組，其中「學校搬遷津貼」仍歸 `hr_admin`，守住「不認裸搬遷津貼」這條線），改碼前紅測準確紅 3 條。第三條走 `kg_admin` 的 gold（`kg_subsidy_eligibility`）實測 PASS@0 零變動。
+
+**但這兩條 gold 的片段層判決仍是 FAIL，而且不應再當成路由問題。** 逐條量過該通函全部 8 片段對查詢的餘弦：兩個答案段落在**它自己那份文件內**排第 6（0.5919）與第 5（0.5943），前三名是 0.7111／0.6868／0.6659，而每源配額是 3。修路由之後窗由「SAG 假期段落 ＋ 1 條 KG 片段」變成「3 條該通函片段 ＋ 幼稚園行政手冊」——實質改善，但 gold 量不到。**這兩條已改屬 OP④ 的配額家族。**
+
+**第二批 —— OP②：機制、劑量曲線與噪音底線。** `expandQuery()` 一直把展開詞原文照貼，不論查詢多短，於是用戶自己的字在被 embed 的字串裡佔比隨查詢變短而下降。本專案已經為同一個機制付過三次帳（`staffing` 0.816→0.616、`staff_appraisal` 0.5884→0.4881、本節的 `kg_relocation_grant` 0.5919→0.4994），每次都是「拆一條新路由出來、不設展開」逐條醫。兩個旋鈕（生產一律未設，未設 = 逐位元組等同改動前）：`EXPANSION_MIN_QUERY_CHARS` 短於 N 個碼位就不貼展開詞；`EXPANSION_BALANCE` 保留展開詞，改為重複用戶查詢令它佔至少 φ 的字數比例（`repeatsForBalance()` 解 `rQ/(rQ+E) ≥ b`，上下限 `[1, EXPANSION_REPEAT_CAP]`，預設 cap 8）。
+
+六個 arm、每個 185 題、生產配置 `FEATURE_ROUTE_FIRST_SEARCH=1` 兩側都開，判分一律交回 `_s219_score_before_after.py`（NFKC fold 單一來源）：
+
+| arm | 窗口有改 | 來源層 Δ | 片段層 Δ | 逐條改善／退步 |
+|---|---|---|---|---|
+| `floor=6` | 10 | ±0 | **+1** | 1↑ / 0↓ |
+| `floor=8` | 26 | +1 | **+5** | 5↑ / 0↓ |
+| `floor=10` | 51 | +4 | **+5** | 6↑ / **1↓** |
+| `balance=.35` | 71 | +1 | **+2** | 2↑ / 0↓ |
+| `balance=.5` | 79 | +3 | **+4** | 4↑ / 0↓ |
+| **`floor=8` ＋ `balance=.5`** | 81 | **+3** | **+7** | **7↑ / 0↓** |
+
+**噪音底線是量出來的，不是估的**：七個獨立 before 側（同一配置、七次重跑）片段層 `chunk_PASS` **全部 59**，來源層 123／123／123／123／123／122／123。**即片段層的重跑噪音為 0、來源層為 ±1**，所以片段層 +7 遠在噪音之外，而 `floor=6` 的 +1 只勉強站得住。`floor=10` 出現 1 條退步，是劑量曲線的轉角，不應再往上調。
+
+**改善集中在短查詢**，與機制預測一致：合併 arm 的 10 條改善裡，`plain`（1–3 詞）佔 5、`abbrev` 1、`natural_sentence` 1，另 3 條是來源層。逐條：`act_lwl_grant_uses`（全方位學習津貼）· `gifted_2e_support`（雙重特殊資優學生 支援）· `bus_driver_punctual`（校車司機 守時）· `kg_fullday_priority`（全日制幼稚園收生優先考慮哪些家庭）· `fin_home_school`（家校合作津貼）· `fin_dls`（多元學習津貼）· `gov_imc_abbrev`（IMC）片段層轉 PASS；`cur_secondary_central_curriculum`· `gifted_tier3_outside_support`· `kg_teacher_pupil_ratio` 來源層轉 PASS。**零退步**。
+
+**實際影響面（由 artifact 逐條量，不是推算）**：185 條之中 **88 條**路由本來就無展開詞、完全不受影響；**26 條**短查詢被 floor 擋走展開；**71 條**保留展開並重新配重，其中 **17 條**重複次數觸及 cap=8，因而達不到 50% 目標（實際佔比中位 50%、最低 31%、最高 75%）。**cap 會頂住的是展開詞最長那幾條路由**（`digital_education` 152 字、`value_education` 130、`sen` 118）。
+
+**量度過程中修好一個會導致錯誤結論的儀測缺陷**：harness 第一版以 last-write-wins 記錄「送去 embed 的字串」，而 `searchChannelB` 每側 embed 兩次（展開後查詢＋spotlight 用的裸查詢），於是每個 arm 都被記成 `arm-noop`。若照那個輸出下判斷，結論會是「機制沒有用」，實情是「機制沒被看見」。現已改為逐條記錄全部字串，並已把同一儀測移植回 `_s226_knobAB.ts`（連同 `knob_changed_embedded_input` 統計），另在 `DOC_SYNC_CHECKLIST.md` 新增「查詢展開機制改動」row 第 ④ 條寫死這條要求。
+
+**第三批 —— 答案層判官：合併配置判定不出貨，而且找到了原因。** 合成 A/B 用 `_s226_knobAB.ts --set EXPANSION_MIN_QUERY_CHARS=8 --set EXPANSION_BALANCE=0.5 --synthesize`，81 條窗口有改的題目、兩側各合成一次（`gpt-4.1-nano` 起草、`gpt-4.1-mini` 相關性判斷）；判官 `_s227_rubricJudge.ts`、`JUDGE_MODEL=gpt-4.1`、每題兩個次序各判一次。**先校準才用**：同一校準集 4/7（S227 為 5/7，屬交接檔已記載的跨次變異），位置偏誤兩項皆 0。
+
+**判決（81 條，兩批合併 —— 第一批跑到 66 條撞 `gpt-4.1` 的 30,000 TPM 上限而中止，餘 15 條另跑，合共 154 次呼叫）**：TIE 33 · AFTER 14 · WEAK_BEFORE 13 · WEAK_AFTER 11 · BEFORE 3 · 兩側棄權 5 · INCONSISTENT 2。`judge_health` 由逐條重算：judged 76 · `always_first` **1** · `always_second` **1**（對稱且可忽略）。計分：counted 59、須人手覆核而剔除 **22**、after **9.0** 分、before **5.5** 分、**`net_after` +3.5**，門檻 8 → **`NO_MEASURABLE_GAIN`**。門檻是碼內寫死的，跑之前已定，未改。
+
+🔴 **棄權數 before 8 → after 15，而且 10 條是可答的題目。** 其中 `bus_driver_punctual`、`fin_home_school` 的**片段層明明由 FAIL 轉 PASS**，`kg_teacher_pupil_ratio`、`cur_secondary_central_curriculum` 的**來源層明明轉 PASS**，答案卻變成棄權。
+
+🟢 **原因已量到，不是排序變差，是絕對分數被壓低而觸發下游以絕對分數設的閘。** 展開詞會把查詢向量拉近「長篇主題段落」，所以它一直在**抬高絕對相似度**，同時扭曲相對排序。拆開兩個旗標看（只計旗標真的改動了被 embed 字串那些題目）：**被 `floor` 整段拿走展開詞的 26 條 —— 平均 −0.1563、中位 −0.1296、四分位 −0.1980／−0.0673、最差 −0.5467，26 條之中 24 條下跌；只被 `balance` 重新配重的 57 條 —— 平均 −0.0042、中位 −0.0021、四分位 −0.0147／+0.0052、最差 −0.0426。****即 `balance` 也會壓分，但幅度比 `floor` 細約三十倍，而且從未足以跌穿 0.60。**（另有 14 條路由有展開詞、查詢又不短，但 `balance` 算出重複次數 = 1，字串不變、分數不動；把這 14 條算進去會令中位變成 0.0000，那是稀釋出來的數字，不要那樣報。） 最高分跌穿門檻的條數（`VAULT_LEAD_SCORE` 0.70 合成 bypass／`SPOTLIGHT_LEAD_SCORE` 0.60 overlay 放行）：`floor=6` 7／9 · `floor=8` 15／17 · `floor=10` 28／27 · `balance=.35` 4／**0** · `balance=.5` 6／**0** · 合併 17／17。**即 `floor` 是壓分的那一個，`balance` 完全不壓分。**跌穿 0.70 的題目不再 bypass，改由相關性判斷處理，於是棄權。
+
+**這一項是本節最可搬走的教訓**：`VAULT_LEAD_SCORE`／`SPOTLIGHT_LEAD_SCORE`／`min_score` 全部是在「有展開詞」的分數尺上校出來的，所以**任何動搖絕對分數的檢索改動，都必須連同下游門檻一起重新校**，否則檢索層的得益會在合成閘被吃掉，而兩層檢索指標都不會顯示這件事。
+
+**第五批 —— `balance` 單獨配置也判不出貨，所以展開側兩個候選都已量完並關閉。** 合成 A/B 用 `--set EXPANSION_BALANCE=0.5 --synthesize`，79 條窗口有改的題目；判官分四段跑（27＋27＋16＋9 —— 第三段又撞 30k TPM，餘 9 條補跑），合共 **145** 次呼叫。**判決**：TIE 43 · WEAK_AFTER 12 · WEAK_BEFORE 10 · 兩側棄權 7 · AFTER 4 · BEFORE 2 · INCONSISTENT 1。counted 64、剔除 15、after **5.0** 分、before **3.5** 分、**`net_after` +1.5**，門檻 8 → **`NO_MEASURABLE_GAIN`**。`judge_health`：judged 72 · `always_first` 1 · `always_second` 0。棄權數 before 8 → after **11**（合併配置是 15），其中 3 條可答的題目失去答案、1 條可答的取回答案、1 條**不可答**的題目正確地轉為棄權。
+
+**所以兩個展開側候選都已量完並判定不出貨**，而且 `balance` 的 `net_after`（+1.5）比合併配置（+3.5）更低 —— 兩者都遠低於門檻，**不要把這個高低差當成訊號**，那在判官的跨次變異之內。
+
+🔴 **本節最後的定性（兩個讀法並存，不要只取其一）。** 檢索層的得益是真的（+4 至 +7、零退步、噪音 0），但它沒有在答案層兌現。**讀法 (i)**：被兩個以絕對分數設的常數閘吃掉 —— 棄權上升與 0.70 跌穿數都量得到，而且 `floor` 與 `balance` 的壓分幅度差三十倍、對應的棄權升幅也是 7 對 3，方向一致。**讀法 (ii)**：這個量級的改動本來就堆不出 8 分淨值 —— 79 條之中判官判 **43 條 TIE**，即大部分題目的答案在判官眼中根本無分別，而門檻 8 是 S227 為一個「來源層 +7／片段層 +6」的候選定下的。**削弱 (i) 的證據**：`balance` 幾乎不動分數尺（跌穿 0.60 者 0 條）卻仍然只有 +1.5。**削弱 (ii) 的證據**：兩個配置都有可指名的棄權退步，那不是「無分別」而是「變差」。所以 `## Open Priorities` ② 新增未試方向 (c)（重校門檻），同時把「門檻 8 是否適用於這個量級」列為要先決定的事。**在兩者之一有結論之前，不要再跑展開側的 A/B** —— 會重複本節的結果。
+
+**第四批 —— cross-encoder 重排的上限（OP② 餘下方向的成本評估）。** `backend/scripts/_s228_rerankCeiling.ts` 擷取每題兩個窗（生產 top_8 與寬池 top_40 —— 後者正是 `searchWikiRoutedExact` 已經在做的 over-fetch，`fetchCount = topK*5`，即重排可以插進去而不必再檢索一次），判分交回 `_s213_run_gold.score_item`（`dev/_s228_ceiling_report.py`，TS 側不判分）。**166 條有答案簽名的題目：已入窗 59 · 重排最多救得到 42 · 寬池都沒有、救不到 65。**按類型看，`plain` 77 條之中救得到 27 條，是最大的一塊。
+
+**所以 cross-encoder 的天花板是 +42（片段層 59 → 101 為上限），而 65 條（39%）不論多好的重排都救不到 —— 那 65 條要動的是候選生成（索引／路由／切法），不是重排。**「救得到」是雙重上限：入池只是必要條件，而且寬池的每源配額比生產鬆（`max(2, ceil(k/3))`），兩個誤差都指向樂觀，這是上限該有的方向。
 
 **S227（2026-09-15）** —— 答案層判官（Open Priorities ① 交付物）。**零 Supabase 讀寫、零 `backend/src` 改動、零 flag 改動、零部署**；唯一外部呼叫是判官模型，全部經 `--approved-max-calls` 閘，四批共 **74** 次。
 
@@ -174,7 +221,7 @@
 <!-- ack:section:risks-blockers -->
 ## Risks / Blockers
 
-1. 🔴 **【S221 改寫；S220 原文的定性只對一半】HNSW 的封鎖項不是 CVE，是兩個無法繞過的 vacuum 修正。** 版本閘已跑（S221 實測）：Supabase 提供的 `vector` 版本清單最高只到 **0.8.0**，而 0.8.0 正是已安裝那個（`installed: true`），故 `alter extension vector update;` 無任何可升目標。三個相關修正全部在我們之上 —— **0.8.2**：Fixed buffer overflow with parallel HNSW index build（＝CVE-2026-3172，CVSS 8.1），**這一項有官方緩解**，建索引前 `set max_parallel_maintenance_workers = 0;` 即避開觸發條件；**0.8.3**：Fixed possible index corruption with HNSW vacuuming；**0.8.4**：Fixed `hnsw graph not repaired` error with HNSW vacuuming ＋ vacuuming 期間 insert 出錯。**後兩項關不掉**（autovacuum 必然會跑），且是索引建成之後長期存在的風險，不是建索引那一刻的風險。**結論：在升級之前不得建 HNSW；但不要再以為「繞過 parallel 就可以做」。** **【S222 修正 S221 的下半截】升級現時亦解不到** —— Supabase 的建置最高只打包到 **0.8.2**，即使升到頂，0.8.3／0.8.4 那兩個修正仍然拿不到。解封的先決條件已由「Leonard 決定升不升」改為「上游打包 ≥0.8.4」，現由 `dev/source/check_pgvector_release.py` 每週監察，出現才出聲；**在它響之前這一項無事可做**，詳見 Open Priorities ①。（附帶事實：2026-08-05 起 Supabase 已棄用「建立／更新擴充時指定版本號」—— 版本子句會被忽略並只發 warning，一律安裝該映像的 default 版本。）現行 IVFFlat 完全碰不到上述三類問題。來源：pgvector CHANGELOG 0.8.2／0.8.3／0.8.4、NVD CVE-2026-3172、Supabase Extensions 與 Upgrading 文件、`supabase/postgres` `nix/ext/versions.json`＋PR #2158、PostgreSQL Routine Vacuuming（wraparound autovacuum 即使 `autovacuum_enabled = false` 仍會跑）—— S221 逐項核實，S222 補上打包上限一項。
+1. 🔴 **【S221 改寫；S220 原文的定性只對一半】HNSW 的封鎖項不是 CVE，是兩個無法繞過的 vacuum 修正。** 版本閘已跑（S221 實測）：Supabase 提供的 `vector` 版本清單最高只到 **0.8.0**，而 0.8.0 正是已安裝那個（`installed: true`），故 `alter extension vector update;` 無任何可升目標。三個相關修正全部在我們之上 —— **0.8.2**：Fixed buffer overflow with parallel HNSW index build（＝CVE-2026-3172，CVSS 8.1），**這一項有官方緩解**，建索引前 `set max_parallel_maintenance_workers = 0;` 即避開觸發條件；**0.8.3**：Fixed possible index corruption with HNSW vacuuming；**0.8.4**：Fixed `hnsw graph not repaired` error with HNSW vacuuming ＋ vacuuming 期間 insert 出錯。**後兩項關不掉**（autovacuum 必然會跑），且是索引建成之後長期存在的風險，不是建索引那一刻的風險。**結論：在升級之前不得建 HNSW；但不要再以為「繞過 parallel 就可以做」。** **【S222 修正 S221 的下半截】升級現時亦解不到** —— Supabase 的建置最高只打包到 **0.8.2**，即使升到頂，0.8.3／0.8.4 那兩個修正仍然拿不到。解封的先決條件已由「Leonard 決定升不升」改為「上游打包 ≥0.8.4」，現由 `dev/source/check_pgvector_release.py` 每週監察，出現才出聲；**在它響之前這一項無事可做**，詳見 Open Priorities ⑤。⚠️ S228 更正：原文指向 ①，而 ① 已於 S227 完成並移除。（附帶事實：2026-08-05 起 Supabase 已棄用「建立／更新擴充時指定版本號」—— 版本子句會被忽略並只發 warning，一律安裝該映像的 default 版本。）現行 IVFFlat 完全碰不到上述三類問題。來源：pgvector CHANGELOG 0.8.2／0.8.3／0.8.4、NVD CVE-2026-3172、Supabase Extensions 與 Upgrading 文件、`supabase/postgres` `nix/ext/versions.json`＋PR #2158、PostgreSQL Routine Vacuuming（wraparound autovacuum 即使 `autovacuum_enabled = false` 仍會跑）—— S221 逐項核實，S222 補上打包上限一項。
 2. ⚠️ **量度紀律三條 —— 違反其中任何一條都會得出錯的結論。** (a) **本機比 Render 慢約 1.5–2 秒**（生產端到端做更多事只需 3.07–3.96s，本機一支裸 RPC 已 3.31–3.88s）—— 本機數字只可用來排序，絕對值不可搬去生產。 (b) **`anon` 角色 `statement_timeout` 只有 3 秒**（`authenticated`／`service_role` 8s），而後端用 anon key；本專案 in-process 慣例 `SUPABASE_ANON_KEY ||= SUPABASE_SERVICE_KEY`（`routeFirstProbe.ts:8`）會在 8 秒上限下量一個 3 秒的系統，系統性低估失敗率。**任何本機量度之前先問：我用的是哪個 key。** (c) **【S226 重量，此項已結案，但結論要連同新數字一起讀】** 舊記載的 routed p90 **8,335ms** 與 S220 的失敗率確實已過時；S226 重跑 185 題實測：routed p90 **2,498ms**、route failures **0**、超過 8 秒的 RPC **0**（S220 分別是 8,335ms／9／18）。**但 (a) 與 (b) 兩條紀律照舊生效**：這批數字仍然是本機、仍然用 service key 的 8 秒上限量一個 anon 3 秒的系統，而同日的生產 run 出了 **1** 條 `57014` statement timeout（本機 0 條）—— **低估的方向與幅度都已量到，不要把本機的「零失敗」搬去生產。** **S222 補一條同族教訓**：比較兩份文件時**必須用同一個抽取器並設對照組**（自己對自己 = 0 miss）—— 跨抽取器比對會因閱讀次序差異產生大量假差異，本節就先量出過一個 20.8% 的假數。 **S223 再補一條同族教訓**：比較**兩批已入庫片段**比跨抽取器更危險 —— 那等於同時比較了抽取器、切割邊界與閱讀次序三樣東西。`kgecg_2017`／`g29` 那個「只覆蓋 84.5%」就是這樣量出來的，重量後真正獨有只有 **0.91%**。**判別法**：落差若在兩個方向上**對稱**，那是次序噪音不是內容差異；再把落差視窗拆半，一半在對方文件內就是接合處產物。
 3. 只監察 —— **實例層的冷熱落差 58–90 倍，成因未查明。** 同一句唯讀查詢第一次 916ms／2,259ms，第二三次 10ms／39ms。`EXPLAIN` 報 `read=0`（頁面已在共享緩衝區）照計不應如此，疑似受管平台的 CPU 爆發額度，**無證據，不編機制**。用戶感到的忽快忽慢現時主要來自這一項，屬平台層，改碼幫不到。**任何兩組查詢的比較都必須交錯重量三輪以上**，否則會把冷熱差異誤讀成結構差異。（本節已結案的那半邊見 `## Current Baseline` 5 與 `## Validation / QC` S221 段，不再列為風險。）
 4. ⚠️ **【S224 降級：已由 🔴 收窄】Option A watcher bot 曾經推出一個不編譯的 `main`；那條路已經封死，但封死它的是兩層新機制，兩層都要維持。** (a) **碼層**：`execute_ingest.py` 步驟 6 改為推 `ingest/<source_id>` 分支 → 開 PR → auto-merge，不再直接推 `main`；`--self-test` 有一條 `ast` 結構斷言守住（紅測實證會轉紅）。(b) **設定層**：`main` 受 ruleset 保護，`build-gate` 為 required check（推空 commit 實測被拒）。**仍然要小心的三件事**：① 四條 ledger workflow 經 `DeployKey` 永久繞過該閘 —— 它們現時只寫 JSON、不碰 `backend/`，但這是「現時的碼」而非機制保證。**那把鑰匙 `LEDGER_DEPLOY_KEY`（ed25519，`id=163258294`，`read_only=false`，沒有到期日）等同一把可以直接寫 `main` 的萬能匙**；私鑰全程未印出、本機檔案已刪，只存在於 repo 加密 secret。輪換：產生新 key → `gh repo deploy-key add --allow-write` → `gh secret set LEDGER_DEPLOY_KEY` → 刪舊 deploy key；四條 workflow 不需改動（只讀 secret 名）；② `backend_build_check.yml` **不得加回 `paths:` 過濾**（會令 required check 永遠 pending 並擋死所有 push，理由寫在該檔頭部）；③ **入庫 PR 路徑未經一次真實入庫驗證**（S224 當日 approval queue 空）。**紀律不變：開工與 push 前一定要 `git fetch` 後比對，不得讀交接記載的 hash 當現況。** 以下為 S223 原文記錄： 2026-09-13 三個連續 ingest commit（`e2b53f0`／`183b7a8`／`9e5f28c`）把兩條 allowlist 條目寫在 `curriculum: [` 之外，`main` **約 16 小時不編譯**，Render 建置失敗後繼續服務上一個成功 build（`5765c43`），`/health` 照報 `ok:true`，**所以症狀不是停機而是部署凍結**，前端在 Pages 上完全正常，沒有任何用戶可見徵狀。planner 根因已封死（見下 Open Priorities 註），並新增 `Backend Build Gate`。**但那個閘偵測，不阻擋** —— 它跑在 push 落地之後；要真正擋住需要在 GitHub 開 branch protection 並把該 job 設為 required check，**只有 Leonard 做得到**。**紀律不變：開工與 push 前一定要 `git fetch` 後比對，不得讀交接記載的 hash 當現況。**
@@ -182,7 +229,7 @@
 6. ⚠️ **【S223 新發現】本機 python 環境分裂，專案腳本的 `python3` 未必跑得動。** PATH 第一個是 homebrew **3.14**，它**沒有 PyMuPDF（`fitz`）亦沒有 `openai`**；有齊依賴的是 `/usr/local/bin/python3`（openai 2.26）與 `/usr/bin/python3`。`dev/ingest_one_source.py` 本節第一次跑就因此直接失敗（`ERROR: openai not installed`）—— **而它是在 792 條片段已經刪走之後才失敗的**，即那一刻《學校行政手冊》在庫內是 0 條。**凡涉及抽取（`repage_pdfs.py`／`fetch_extract.py`）或入庫（`ingest_one_source.py`）的指令，一律明寫 `/usr/local/bin/python3`，不要寫 `python3`。** 更好的做法是先跑一次 `--dry-run` 確認依賴齊全再做破壞性步驟。
 7. ⚠️ **【S222；S223 更正其下半截】看門狗救不到「七個一齊死」。** 它跑在同一套 GitHub Actions 排程機器上。官方行為：錯過或失敗的排程**不會補跑**、`schedule` 高負載會延遲或跳過、**PUBLIC repo 60 日無活動排程自動停用**。它買到的是**互相監察**＋偵測窗由一星期收窄到一日；這句寫死在它每次出聲的輸出裡。看門狗與 pgvector 監察**仍未經歷一次真實排程觸發**。**【S223 更正】「生產寫入仍然要 Leonard 在終端機跑」這句已經過時** —— 本節 AI 直接執行了 `cb3_deprecate_stale --execute` 兩次（共刪 900 條）與 `ingest_one_source` 一次（入 387 條），全部通過，無被分類器擋。**所以生產刪除現時是 AI 做得到的**，安全邊界由「跑唔到」變成「要先取得 Leonard 明示批准」，兩者強度不同，寫計劃時不要再假設有一道機械閘兜底。
 
-8. 🟢 **【S225 發現並修好】封版閘的 `EVAL_LATEST` 假綠已收掉，但收掉之後那一格是紅的。** 舊行為：`latest_eval_run()`（`qc_report.py`）是 `sorted(glob("*.json"))[-1]`，不過濾揀中的是不是一次檢索評測；`check_eval_latest()` 再用 `s.get("FAIL", 0)` / `s.get("errors", 0)`，欄位不存在即當 0，於是「零失敗」恆真 → PASS。09-14 當日揀中 `2026-09-14_s223_kgecg_g29_overlap.json`（無 `summary` 欄），detail 逐字是 `None · PASS=None FAIL=0 … 共 None 條 query`。**修法**：新增 `is_gold_eval()`（要求 summary 具備 `PASS`／`FAIL`／`queries`），選檔改為由新到舊揀第一份合資格者，判分缺數據一律 `NOT_MEASURED`——即對齊同函式下半截 `EVAL_CHUNK_LAYER` 早已寫對的做法；detail 加印「量度自 <檔名>」令陳舊看得見。**實測**：`--self-test` ALL PASS（新增五條斷言），兩次針對性注入各自準確轉紅且不波及其他；重跑 `--check` 後 PASS 13 → 12、ERROR 2 → 3、releaseGate 5/15 → **4/15**，`PASS_EVAL_LATEST` 由 `MET` 轉 `NOT_MET`，其餘二十項檢查**零變動**。**餘下**：該格現時報 `FAIL`，量度自 2026-09-08 的 gold run（`FAIL 44/185`，且是旗標關閉的 before 基線）——**要令它轉綠只能靠 Open Priorities ① 重跑 185 題**，不是靠再改 `qc_report.py`。根因備註：`DOC_SYNC_CHECKLIST.md` 第 56 行早已寫明「新檢查不得預設報 0——量不到要報 `NOT_MEASURED`」，即這是既有規則沒被遵守，不是規則缺失。完整分析見 `dev/AUDIT.md` 乙①。
+8. 🟢 **【S225 發現並修好】封版閘的 `EVAL_LATEST` 假綠已收掉，但收掉之後那一格是紅的。** 舊行為：`latest_eval_run()`（`qc_report.py`）是 `sorted(glob("*.json"))[-1]`，不過濾揀中的是不是一次檢索評測；`check_eval_latest()` 再用 `s.get("FAIL", 0)` / `s.get("errors", 0)`，欄位不存在即當 0，於是「零失敗」恆真 → PASS。09-14 當日揀中 `2026-09-14_s223_kgecg_g29_overlap.json`（無 `summary` 欄），detail 逐字是 `None · PASS=None FAIL=0 … 共 None 條 query`。**修法**：新增 `is_gold_eval()`（要求 summary 具備 `PASS`／`FAIL`／`queries`），選檔改為由新到舊揀第一份合資格者，判分缺數據一律 `NOT_MEASURED`——即對齊同函式下半截 `EVAL_CHUNK_LAYER` 早已寫對的做法；detail 加印「量度自 <檔名>」令陳舊看得見。**實測**：`--self-test` ALL PASS（新增五條斷言），兩次針對性注入各自準確轉紅且不波及其他；重跑 `--check` 後 PASS 13 → 12、ERROR 2 → 3、releaseGate 5/15 → **4/15**，`PASS_EVAL_LATEST` 由 `MET` 轉 `NOT_MET`，其餘二十項檢查**零變動**。**餘下**：該格現時報 `FAIL`，量度自 2026-09-08 的 gold run（`FAIL 44/185`，且是旗標關閉的 before 基線）——**要令它轉綠只能靠改善檢索（現為 Open Priorities ②），不是靠再改 `qc_report.py`。**⚠️ **S228 更正**：原文寫「靠 ① 重跑 185 題」，但 ① 已於 S227 完成並移除，而且 S226 早已重跑過 gold —— 重跑本身不會令它轉綠，要轉綠必須真的把 FAIL 數壓下去。根因備註：`DOC_SYNC_CHECKLIST.md` 第 56 行早已寫明「新檢查不得預設報 0——量不到要報 `NOT_MEASURED`」，即這是既有規則沒被遵守，不是規則缺失。完整分析見 `dev/AUDIT.md` 乙①。
 
 9. 🔴 **【S226 發現】封版閘那一格在報生產不執行的配置 —— 選檔永遠揀旗標關閉側。** `latest_eval_run()`（`qc_report.py:706`）是 `sorted(EVAL_RUNS.glob("*.json"), reverse=True)`，而同一日的 `..._before.json` 與 `..._after.json` 反向排序時 `b` 在 `a` 之後，**所以永遠揀 `before`**。現時 detail 逐字為「S219 route-first before (in-process, FEATURE_ROUTE_FIRST_SEARCH=0) · PASS=119 FAIL=47 … 量度自 `2026-09-15_s226_route_first_before.json`」，而 S226 已用行為探針核實生產行的是**開啟**側（184/184 逐條同判，見 Current Baseline 5）。**🟢 已修（Leonard 同節拍板選項 A）**：新增 `measures_production()`（`endpoint` 以 http(s) 開頭且非 localhost）與 `eval_source_kind()`；`latest_eval_run()` 在合格 gold run 中優先揀生產那一份，並在 detail 明寫「生產端點」或「非生產端點」，另列出未被採用的較新 run。**閘現時報 PASS 121／FAIL 44／errors 1（生產）**，不再報實驗室的旗標關閉側。7 條新斷言全綠，紅測（選檔打回 `runs[0]`）準確轉紅。**當初沒有逕自改的理由仍然成立並已記錄**：`/health` 不報 flag，「哪一份 run 代表生產」是個假設；選項 A 之所以可接受，是因為它不假設旗標值，只假設「打生產端點的 run 反映生產」，而這個假設由 S226 的行為探針（184/184）獨立支持。**同一節另一項已修**：`EVAL_CHUNK_LAYER` 長期 `NOT_MEASURED` 的原因不是沒重跑 gold，而是**兩支 185 題 harness 都沒有把片段層數字寫入 `summary`**（判分在 `check_eval_latest()` 的 `if "chunk_FAIL" in s`），每題的 `chunk_verdict` 其實一直算了出來、只是從未匯總；S226 把 `summarize()` 單一來源化後該格已有數（現報 FAIL）。**所以交接檔原本寫「做完 ① 就自然有」是錯的**，那是工具缺口，不是量度債。
 
@@ -193,7 +240,7 @@
 - 🔴 **Python：有三個，只有兩個跑得動本專案的抽取／入庫腳本。** 預設 `python3` = homebrew **3.14**，**無 `fitz`、無 `openai`**；`/usr/local/bin/python3`（openai 2.26 ＋ fitz ＋ requests）與 `/usr/bin/python3` 才齊。**抽取與入庫一律明寫 `/usr/local/bin/python3`**；純標準庫的監察腳本（`check_*.py`／`execute_ingest.py --self-test`／`build_wiki_index`）用 `python3` 沒問題。詳見 Risks 6。
 - **Python script invocation**: 一律由 repo root 起，例如 `cd "…/Draft" && python3 dev/vault/extract_candidates.py ...`
 - **Backend**: `cd "…/Draft/backend" && npm run dev`
-- **Git state（S226 收工實測，2026-09-15 11:1x UTC）**: `HEAD == origin/main == 1d92450`，branch **`main`**，worktree 只有一個（無平行工作區）。未 commit 改動：無（本收工 commit 除外）。**三個 PR 已合併並刪分支**（本機分支刪除前逐條核實與 `main` 零檔案差異）。**Render 部署 commit（S227 實測，2026-09-15 13:39 UTC）為 `1d92450`**，`git diff --name-only 1d92450..HEAD -- backend` **為空** —— 即**線上執行碼已等於 HEAD**（HEAD 之後只有文件改動）。S226 記載的「落後於 `e9d14be`」已由 Render auto-deploy 消化，該節收工後自行發生。**Render 免費層會 spin down，冷啟動時 `/health` 的 `cache_a.warm` 會是 false 並在背景暖機，不要當成故障。**⚠️ 本機仍有舊分支 `claude/hopeful-gates-0efe44`（1 個 commit 未入 `main`，v1.5.0 年代），S226 未動它。⚠️ **`gh` 曾因 Xcode 授權失效而全部失敗**（它內部呼叫 git）；Leonard 跑 `sudo xcodebuild -license` 後復原。
+- **Git state（S228 收工實測，2026-09-16 17:3x UTC）**: 本節開工時 `HEAD == origin/main == ab00835`；收工前重新 `git fetch` 發現 `origin/main` 已前進至 **`8b630e3`** —— 排程監察 `qc_report` 自行推的帳本更新（只動 `qc_report.json` 與 `dev/source/registry_drift.md`，零 `backend/` 改動）。**這正是「開工與 push 前一定要先 fetch 再比對」那條紀律的實例：本節中途它自己動了。**branch **`main`**，worktree 只有一個（無平行工作區）。本節改動經分支 `s228/expansion-knobs` 走 PR。**Render 部署 commit（S228 收工實測）為 `7be4404`**（`started_at 2026-09-16T17:32 UTC`）；本節合併後 `backend/` 會有改動，故合併即觸發 auto-deploy。**Render 免費層會 spin down，冷啟動時 `/health` 的 `cache_a.warm` 會是 false 並在背景暖機，不要當成故障。**⚠️ 本機仍有舊分支 `claude/hopeful-gates-0efe44`（1 個 commit 未入 `main`，v1.5.0 年代），S226–S228 均未動它。⚠️ **`gh` 曾因 Xcode 授權失效而全部失敗**（它內部呼叫 git）；Leonard 跑 `sudo xcodebuild -license` 後復原。
 - **Production flag state**: `FEATURE_ROUTE_FIRST_SEARCH=1` 於 Render 環境變數（S220 啟用）。另兩個合成側 flag 未設定＝關閉。**Render 環境變數只有 Leonard 改得到，AI 改不到；`/health` 亦不報 flag。**
 - 🔴 **Push 邊界（S224 新增）**：`main` 受 ruleset 保護，**直接 `git push origin main` 會被拒**。一切改動走 PR：`git checkout -b <topic>/<name>` → `git push -u origin HEAD` → `gh pr create --base main --fill` → `gh pr merge --auto --squash`。⚠️ 分支若與 `main` 同一個 commit，`gh pr create` 會失敗並留下一條空分支（S224 中過兩次）——**開分支前先確認真的有未推的 commit**。合併用 squash，所以事後 `git branch -d` 會報「not fully merged」；要刪本機分支請先用「分支 tip vs 它的 squash commit 樹比對＝0 個檔案差異」核實，再用 `-D`。
 - **生產寫入權限（S223 更正）**: AI **跑得到** `cb3_deprecate_stale --execute` 與 `ingest_one_source`（本節實跑三次全部通過）。**擋住破壞性寫入的已經不是機械閘，而是「要先取得 Leonard 明示批准」這條紀律。**
@@ -299,15 +346,35 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:next-priorities -->
 ## Open Priorities
 
-**Recommended next step（S227 收工重生）：** **做 ②，而且判準已經有。** 理由一句：OP① 的判官本節已交付並實跑完整輪，`FEATURE_LEXICAL_RERANK` 亦已用它判定不出貨，所以缺口回到片段層本體，未試方向只剩 cross-encoder 重排與按查詢長度自適應。**生命週期分類（明示）**：**①（rubric 判官）本節完成並已移除**；② 本節新增兩條排除方向；**⑩ 本節新開**；③④⑤ 本節未動、內容未變。
+**Recommended next step（S228 收工重生）：** **做 ②(c) —— 先把兩個以絕對分數設的常數閘重新校，再回頭量檢索改動。**理由一句：本節把「展開詞不論查詢多短都原文照貼」這個機制本身變成可量度旗標，**檢索兩層都拿到實質得益**（合併配置片段層 +7、零退步，而七次重跑的噪音是 0），但**兩個配置的答案層判官都判 `NO_MEASURABLE_GAIN`**（合併 +3.5、balance 單獨 +1.5，門檻 8）。**兩個並存的解釋都有證據，下一節要先決定信哪一個**：(i) 下游兩個絕對分數閘吃掉一部分得益 —— 拿走或稀釋展開詞會壓低絕對分數，令題目跌穿 `VAULT_LEAD_SCORE = 0.70` 與 `SPOTLIGHT_LEAD_SCORE = 0.6`，答案改由合成閘棄權（棄權由 8 升到 11–15，其中 3–10 條是可答的題目）；(ii) 這個量級的改動本來就堆不出 8 分淨值 —— 79 條之中判官判 43 條 TIE。**(i) 指向重校門檻（②(c)），(ii) 指向重新審視門檻 8 是否適用於這個量級**，兩者的下一步不同。**生命週期分類（明示）**：**① 已於 S227 完成並移除**；**② 本節新增三條排除方向（floor、合併配置、balance 單獨），未試方向為 (b) cross-encoder（上限已量）與 (c) 門檻重校（本節新開）**；**⑩ 本節修好路由並重新定性，餘下部分併入 ④**；**Backlog ⑨ 本節完成**；③④⑤ 本節未動、內容未變。
 
-② 🔴 **把片段層召回率拉高（缺口本體，未動；基線數值見 `## Current Baseline` 7）。** **三條已排除的方向不必重試**：重新切片、調配額（依據見 `## Validation / QC` S226 第四、五批）、**詞面重排 `FEATURE_LEXICAL_RERANK`（S227 新增排除：檢索兩層都報喜，但答案層 38 題 net −1、25 題毫無差別，判讀 `NO_MEASURABLE_GAIN`）**。**未試方向**：cross-encoder 重排、按查詢長度自適應（`plain` 1–3 詞題 FAIL 24/77 vs `natural_sentence` 6/43）。**次序約束已解除，判準現成**：用 `backend/scripts/_s227_rubricJudge.ts` 量任何候選的答案層再決定出貨。⚠️ **用它之前要知的三件事**：(a) **判官模型必須是 `gpt-4.1`**（`JUDGE_MODEL=gpt-4.1` 覆寫），`gpt-4.1-mini` 實測是壞尺、14 次判決 11 次揀先出現那一個；(b) 凡判決依賴準則 3（數字與登記段落不符）者自動標 `needs_human_review`，因為判官會自行推算金額關係並算錯；(c) 跨次跑有變異（同一校準集 5/7 與 4/7），單題結論不可當定論，要看整體分佈與 `judge_health`。**⚠️ 第四條已排除（S227 實測）**：「查詢展開拉偏」不是系統性問題 —— 37 條有展開的題目中，展開令答案分數上升 29 條、下降 8 條，中位 `+0.0838`，只有 1 條因展開而跌出窗。**不要改展開機制本身**；個別路由錯配另計（見 ⑩）。
+② 🔴 **把片段層召回率拉高（缺口本體；基線與本節新數字見 `## Current Baseline` 7 與 `## Validation / QC` S228）。**
 
-⑩ **【S227 新增，已定位未修】`hr_admin` 的「津貼」token 搶走幼稚園搬遷津貼查詢。** `kg_relocation_grant`（query「幼稚園搬遷津貼」、應走 `edbcm144_2026`）因為含「津貼」而命中 `hr_admin`，被假期展開拉走：裸查詢 **0.5919** 高過第 8 名 0.5879，加展開後跌到 **0.4994** —— 與 S227 修好的 `hr_appraisal` 同族。**未修的原因**：動「津貼」會牽動 `hr_ncs_allowance` 等現時 PASS 的題，必須先量 blast radius 再改，照 `dev/DOC_SYNC_CHECKLIST.md`「檢索路由改動」row 的四項要求做。
+**S228 之後，已排除的方向增至七條**，前四條照舊（重新切片、調配額、詞面重排、改展開機制本身），新增三條：**(5) `EXPANSION_MIN_QUERY_CHARS`（floor）不出貨** —— 檢索兩層都改善（`floor=8` 片段層 +5、零退步），但它把展開詞整段拿走，**最高分中位跌 0.1296**，令 15–28 條題目跌穿 `VAULT_LEAD_SCORE` 0.70、17–27 條跌穿 `SPOTLIGHT_LEAD_SCORE` 0.60，答案層棄權由 8 升到 15（其中 10 條可答），判官 `net_after` +3.5／門檻 8 → `NO_MEASURABLE_GAIN`。**(6) 合併配置（floor ＋ balance）同樣不出貨**，理由同上（`net_after` +3.5）。**(7) `EXPANSION_BALANCE` 單獨啟用亦不出貨** —— 它幾乎不壓分（幅度只有 `floor` 的三十分之一、跌穿 0.60 者 0 條），檢索層 +4／+3、零退步，但答案層 `net_after` 只有 **+1.5**，棄權仍由 8 升到 11。⚠️ **這一條同時削弱了「全部怪門檻」這個讀法**：連幾乎不動分數尺的版本都只有 +1.5。所以本節的證據支持兩個並存的讀法，不要只取其一 —— **(i)** 下游兩個絕對分數閘確實吃掉了一部分得益（棄權上升、0.70 跌穿數可量）；**(ii)** 這個量級的檢索改動（片段層 +4 至 +7）本來就很難在 79–81 條的pairwise 判官上堆出 8 分淨值 —— 79 條之中判官判 **43 條 TIE**，即大部分題目的答案在它眼中根本無分別。**下一節要先決定信哪一個，因為兩者的下一步不同**：(i) 指向重校門檻，(ii) 指向「門檻 8 對這個量級的改動是否合適」，而後者屬 `dev/DOC_SYNC_CHECKLIST.md`「答案層評分改動」row ——**改門檻必須在跑之前決定並記低改前改後與理由，不可看完數字才改**。
+
+**展開側兩個候選 S228 已全部量完並關閉；未試方向現時是 (b) 與 (c)，兩條都已有量過的成本或明確的先決條件：**
+
+  **(a) ~~`EXPANSION_BALANCE` 單獨啟用~~ —— 🔴 S228 已量完並判定不出貨，此路已封。** 檢索層 +4 片段／+3 來源、零退步，壓分幅度只有 `floor` 的三十分之一（真正被重新配重的 57 條：平均 −0.0042、中位 −0.0021、最差 −0.0426），跌穿 0.60 的題目 0 條、跌穿 0.70 只 6 條 —— 但答案層判官 79 條、145 次呼叫，**`net_after` +1.5／門檻 8 → `NO_MEASURABLE_GAIN`**，棄權由 8 升到 11（3 條可答的失去答案）。**不要在未做 (c) 之前重跑這一個**。
+
+  **(b) cross-encoder 重排 —— 上限已量到。** 166 條有簽名的題目中，**重排最多救得到 42 條**（片段層 59 → 101 為絕對上限），而 **65 條（39%）連寬池 top-40 都沒有，任何重排都救不到**。寬池就是現有的 over-fetch（`fetchCount = topK*5`），所以重排可以插進現有流程而不必再檢索一次；每條查詢要評 40 個候選，現時 routed p90 是 2,498ms，延遲預算要先算。⚠️ **具體模型／供應商未選，且按 AGENTS §0b 不得憑記憶寫 API** —— 動手前要先查官方文件並把端點、參數、回應路徑寫入 `dev/CODEBASE_CONTEXT.md` External Services。
+
+  **(c) 【S228 新開】把下游的絕對分數門檻重新校，然後把 (a)／(b) 再量一次 —— 這是本節的發現直接指出來的方向。** 檢索層的得益是真的（合併配置片段層 +7、零退步、噪音底線 0），被吃掉的地方是 `VAULT_LEAD_SCORE = 0.70`（`searchChannelB.ts:1422`，合成 bypass）與 `SPOTLIGHT_LEAD_SCORE = 0.6`（`:1473`，overlay 放行）—— **兩個都是常數，都是在「查詢帶展開詞」的分數尺上校出來的**。兩條可走的路：①**重新校常數**（要先量出新尺上的等效分位，不可拍腦袋改數）；②**改為相對門檻**（例如取窗內分數的分位數而非絕對值），那樣任何動搖分數尺的改動都不會再撞這道閘 —— 但這是改合成閘的行為，屬另一個 row，要自己的 before→after。⚠️ **不要在未量門檻之前再跑一次展開側的 A/B**：結果會跟 S228 一樣，兩層檢索報喜、答案層被閘吃掉。
+
+**那 65 條救不到的題目是另一件事**：它們要動的是候選生成（索引／路由／切法），不是重排。這是 ⑤ 與 ④ 的地盤。
+
+**出貨閘不變**：用 `backend/scripts/_s227_rubricJudge.ts` 量答案層再決定。⚠️ 用它之前要知的三件事：(a) 判官模型必須 `JUDGE_MODEL=gpt-4.1`；(b) 依賴準則 3（數字）的判決自動標 `needs_human_review`（S228 有 22/81 條落入此類，比例不低，報結論時要連這個數一齊講）；(c) 跨次跑有變異（同一校準集 5/7 與 4/7），單題結論不可當定論。
+
+🔴 **S228 新增的一條硬紀律（所有檢索改動都適用）**：`VAULT_LEAD_SCORE` 0.70、`SPOTLIGHT_LEAD_SCORE` 0.60、`min_score` 全部是在「查詢帶展開詞」的分數尺上校出來的。**任何會動搖絕對分數的檢索改動，都必須連同這些門檻一起重新校**，否則檢索兩層都報喜而答案層變差 —— 而兩層檢索指標都不會顯示這件事。S228 就是這樣把一個 +7 的改動量成不出貨。
+
+⑩ 🟢 **【S227 提出，S228 修好並重新定性】`hr_admin` 的「津貼」token 搶走幼稚園搬遷津貼查詢 —— 路由部分已修，但交接檔原本記載的病因是錯的。**
+
+原記載說這是展開詞問題（裸查詢 0.5919 高過第 8 名 0.5879，加展開後跌到 0.4994）。S228 把展開完全關掉重量，**答案段落仍然入不到窗** —— 真正的閘是 `edbcm144_2026` 不在任何該查詢到達得到的 `SOURCE_SET`，只靠 spotlight overlay 露面，而 `SPOTLIGHT_MAX_LEADS = 1`，那唯一一格被 p.2 片段佔了。**已修**：`kg_admin` 由尾二提前到 `kg_admission` 之後、補「幼稚園＋津貼／搬遷」兩個 token、`edbcm144_2026` 入 `SOURCE_SETS.kg_admin`。blast radius 185 條只有 2 條改路由（皆為目標）、`route_regression` 63/63、第三條走 `kg_admin` 的 gold 零變動、off-gold 的 `幼稚園財務管理` 實窗核實已轉為幼稚園財務語料而 `學校財務管理` 不受影響。
+
+**餘下的部分已改屬 ④ 的配額家族，不要再當成路由問題**：那兩條 gold 的答案段落在**它自己那份 8 片段文件內**排第 6（0.5919）與第 5（0.5943），而前三名是 0.7111／0.6868／0.6659、每源配額是 3。換言之路由修好之後窗由「SAG 假期段落 ＋ 1 條 KG 片段」變成「3 條該通函片段 ＋ 幼稚園行政手冊」，是實質改善，但 gold 量不到，而任何路由或展開調校都救不了它 —— 要動的是配額或重排。
 
 ③ **封版閘 5/15，餘下兩個 ERROR 都是檢索問題而非閘的問題。** `EVAL_LATEST`（生產 FAIL 44/185）與 `EVAL_CHUNK_LAYER`（chunk FAIL 107）**只能靠 ①② 改善檢索來清走**，改閘無用。另外：兩個 WARN 未有 waiver（`BODY_LENGTH_FLOOR` 3、`MOJIBAKE` 58 —— 兩者都已逐條讀過判定可接受，只欠在 `release_gate.json` 寫 owner／理由／接受期限）· 六項人手驗證從未記錄（核心搜尋案例、答案事實 spot-check、文件標註流程、mobile/desktop 分流、私隱與上載、冷啟動與錯誤狀態）。
 
-④ **【累積遺留】** 兩個護欄缺陷（1 條 `CONFIDENT_WRONG` 分數 0.7575 超過棄權門檻 0.75；**8 條查詢引用 gold 明令禁引的來源**，全部是「同一指引的不同對象／學級版本」）· `sch_bus` 五個對象版本吃掉 69 個窗格（**共用配額已證不成立**，要處理的是那五份文件該不該各自入庫與瀏覽 —— 產品決定）· `finance` 拿不到《學校行政手冊》與 `school_governance` 拿不到 `g02`（同一個病：路由集合缺跨範疇來源；要先寫 gold 題）· 36 個 PHANTOM · 115 個 UNLISTED／2,616 片段 · `docs/qa/session_log_maintenance.py` off-by-one（工具本身與歸檔檔 4 個孤懸 `end` 未修）· `source_registry` 276 live vs 服務 306 未對帳。
+④ **【累積遺留；S228 併入兩條新成員】** **新成員**：`kg_relocation_grant` 與 `fin_kg_relocation` —— 路由已修好（見 ⑩），但答案段落在**它自己那份 8 片段文件內**排第 6（0.5919）與第 5（0.5943），而每源配額是 3、前三名是 0.7111／0.6868／0.6659，**所以這兩條是配額問題不是路由問題**。⚠️ 加大 `MAX_PER_SOURCE` 已於 S226 實測是一換一（來源層 −4 換片段層 +5），不要當成現成解。**原有**：兩個護欄缺陷（1 條 `CONFIDENT_WRONG` 分數 0.7575 超過棄權門檻 0.75；**8 條查詢引用 gold 明令禁引的來源**，全部是「同一指引的不同對象／學級版本」）· `sch_bus` 五個對象版本吃掉 69 個窗格（**共用配額已證不成立**，要處理的是那五份文件該不該各自入庫與瀏覽 —— 產品決定）· `finance` 拿不到《學校行政手冊》與 `school_governance` 拿不到 `g02`（同一個病：路由集合缺跨範疇來源；要先寫 gold 題）· 36 個 PHANTOM · 115 個 UNLISTED／2,616 片段 · `docs/qa/session_log_maintenance.py` off-by-one（工具本身與歸檔檔 4 個孤懸 `end` 未修）· `source_registry` 276 live vs 服務 306 未對帳。
 
 ⑤ **【S219 遺留，機器監察中】56 條無路由題仍全額付全庫代價。** 索引方向被 pgvector 版本擋住（Risks 1），已改為 `check_pgvector_release.py` 每週一監察，**出現 ≥0.8.4 才出聲；在它響之前這一項無事可做。**
 
@@ -315,7 +382,7 @@ source_registry → same vault PDFs → ai_extract.py
 
 **治理側（S216 新增；S218 由 Open Priorities 原文移入，一字未改）：**
 
-⑨ **【S227 新增】`backend/scripts/*.ts` 十二支工具從來不在 `npm run check` 覆蓋範圍內。** `backend/tsconfig.json` 的 `include` 只有 `src/**/*.ts`，所以 `npx tsc -p` 對 `scripts/` 完全不生效 —— S227 第一次跑 typecheck 報「零錯」其實是空過，要 `npx tsc --noEmit --strict … scripts/<檔>.ts` 單獨指檔才真正檢查。**涉及**：`routeFirstGold.ts`／`_s226_knobAB.ts`／`_s227_rubricJudge.ts` 等量度工具，即「用來判斷生產好壞的那批碼」自己無型別閘。**修法選項**：(a) 加 `tsconfig.scripts.json` 並在 `npm run check` 串埋；(b) 把 `scripts/**` 併入現有 `include`（要先確認不會因 `rootDir: src` 而爆 outDir 錯）。**未做，因為它會改動 build 設定，屬另一件事。**
+⑨ 🟢 **【S227 提出，S228 已修】`backend/scripts/*.ts` 從來不在 `npm run check` 覆蓋範圍內。** 成因：`backend/tsconfig.json` 的 `include` 只有 `src/**/*.ts`，所以 `npx tsc -p` 對 `scripts/` 完全不生效，S227 第一次跑 typecheck 報「零錯」其實是空過。**修法採選項 (a)**：新增 `backend/tsconfig.scripts.json`（`extends` 主檔、`noEmit: true`、`rootDir: "."`，避開 `rootDir: src` 會爆的 outDir 錯），`npm run check` 改為串跑兩個 project，另留 `npm run check:scripts` 單獨用。**順帶修好四個一直潛伏的型別錯**：`groundedSynthesisProbe.ts` 的 filter callback 把元素型別窄成單一欄位（連帶令整段無法定型）、`groundedSynthesisRegression.ts` 在 `EvidenceChunk` 上讀它沒有宣告的 `id`／`content_type`（那兩個欄位執行期確實存在，因為判的是「揀中邊條」而非合成本身，故以測試自己的形狀讀取，不為遷就測試而放寬生產介面）。**紅測**：在 `scripts/` 注入一個型別錯，閘準確轉紅 1 條；還原後 exit 0。`regression:grounded` 48/48 PASS。
 
 ⑧ **【S226 新增】`closeout-status` 的 lifecycle 配對規則與本專案的交接密度衝突。** 實況：本節連跑 8 次，前三次各捉到一件真事（已完成項留在未了清單、三項過時的「未做」、§4 合規備註放錯段），**其後每次都指向另一對「依合約必須同時出現」的段落** —— 「量到但未修」的事實必須同時在 `Validation / QC`（證據）與 `Open Priorities`（下一步），最後一次甚至指向 S219 起的 cold zone（Risks 2）。**選項**：(a) 與上游確認該配對規則是否應排除 cold zone 與證據段；(b) 在本專案定義「必然重疊」白名單；(c) 接受它在本專案長期回報 blocked，並以 `Closeout outcome` 逐次記錄邊界（本節採此法）。**不應採用的做法**：靠改寫文字去通過它 —— 那會把交接檔改壞。
 
@@ -340,6 +407,22 @@ source_registry → same vault PDFs → ai_extract.py
 
 <!-- ack:section:completed-this-session -->
 ## Last Session Record
+
+1. UTC date: 2026-09-16
+2. Session ID: `Claude_20260916_1610` — S228。由「開工」起手，Leonard 一句「全做」授權我的建議清單（OP②「按查詢長度自適應」＋ OP⑩ ＋ 兩項交接檔漂移修正 ＋ cross-encoder 成本評估）。**尚未開 PR、尚未合併。**
+3. Completed（撮要，逐項證據見 `dev/SESSION_LOG.md` S228 條與 `## Validation / QC` S228 四批）：
+   - ✅ **把「展開詞不論查詢多短都原文照貼」變成可量度的機制**：三個旗標（`EXPANSION_MIN_QUERY_CHARS`／`EXPANSION_BALANCE`／`EXPANSION_REPEAT_CAP`），生產一律未設＝改動前逐位元組相同。六個 arm × 185 題 × 生產配置，劑量曲線最佳為 `floor=8`＋`balance=.5`：片段層 **+7**、來源層 +3、**零退步**；七次重跑的片段層噪音是 **0**。
+   - ✅ **但答案層判官判 `NO_MEASURABLE_GAIN`（net_after +3.5／門檻 8），而且原因已查明**：`floor` 把展開詞整段拿走，最高分中位跌 **0.1296**，令題目跌穿 `VAULT_LEAD_SCORE` 0.70 與 `SPOTLIGHT_LEAD_SCORE` 0.60，答案層棄權由 8 升到 15（10 條可答）。**`balance` 那一半完全不壓分（跌穿 0.60 者 0 條）。**
+   - ✅ **OP⑩ 路由已修，並推翻交接檔對它的診斷**：不是展開詞問題，是 `edbcm144_2026` 不在任何可達的 `SOURCE_SET`、只靠 `SPOTLIGHT_MAX_LEADS = 1` 那一格露面。`kg_admin` 提前 ＋ 補兩個 token ＋ 入 set；blast radius 185 條只 2 條改路由、`route_regression` 63/63。**餘下部分是配額問題，已併入 OP④。**
+   - ✅ **cross-encoder 上限已量**：166 條有簽名的題目中，重排**最多**救得到 42 條，而 **65 條（39%）連寬池 top-40 都沒有**，任何重排都救不到。
+   - ✅ **Backlog ⑨ 完成**：`backend/tsconfig.scripts.json` ＋ `npm run check` 串兩個 project，修好四個潛伏型別錯，紅測準確轉紅。
+   - ✅ **兩項交接檔漂移修好**：`## Current Baseline` 3 的 `UNMANAGED` 由 1 更正為 0；`## Next Session Opening Message` 區塊由 S226 舊文回寫為 S227 內容（S227 收工只更新了鏡像檔、沒回寫源頭，而本檔自己寫明「以本區塊為準」）。
+   - ✅ **工具收斂**：`_s228_expansionAB.ts` 建立後實證 `_s226_knobAB.ts --set` 可完全取代，已退役並把斷言搬入 knobAB 的開跑前不變式；`capFromEnv` 與 `minQueryCharsFromEnv` 兩份逐字相同的解析規則抽成一個 `positiveIntFromEnv`。
+4. **本節零 Supabase 寫入、零 DDL、零 Render 設定改動、零 flag 啟用、零部署。**唯一的生產碼改動是 `kg_admin` 路由與 `SOURCE_SETS.kg_admin`（合併後會由 Render auto-deploy 上線），以及三個預設關閉的旗標。
+5. **展開側兩個候選都已量完並判定不出貨**：合併配置 `net_after` +3.5、`balance` 單獨 +1.5，門檻 8。**所以本節沒有任何檢索改動出貨**，唯一上生產的是 `kg_admin` 路由（非旗標，合併後即時生效）。未完成的是「下一步信哪個讀法」——重校門檻（②(c)）還是重新審視門檻 8 —— 詳見 `## Open Priorities` ②。
+6. Carry-forward：未完成事項一律不在此列舉，全部歸入 `## Open Priorities`。
+
+## Previous Session Record (S227)
 
 1. UTC date: 2026-09-16
 2. Session ID: `Claude_20260916_1520` — S227。由「開工」起手，Leonard 逐步授權：「1」（做 OP①）→ 自行跑校準 → 「go」→「suggest」→「OK」→「B，全做」→「全做，收工」。**PR #20 已合併（`7be4404`）並已部署生產核實。**
@@ -1266,6 +1349,13 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:state-reconciliation-check -->
 ## State Reconciliation Check
 
+- **2026-09-16 S228 closeout reconciliation（展開機制旗標 ／ OP⑩ 路由 ／ 判官兩輪 ／ Backlog ⑨）：** 於 2026-09-16 收工時重寫或明確確認：`Current Baseline`（3 更正 `UNMANAGED`、5 加入三個新旗標、7 加入本機基線與噪音底線；4 的 Git 狀態見下）· `Validation / QC`（新增 S228 五批）· `Open Priorities`（Recommended next step、②、④、⑩ 全部重寫；⑨ 標記完成）· `User Environment`（Git 狀態）· `Next Session Opening Message`（整段重寫並已讀回核對）。**未動且內容未變**：`Risks / Blockers` 1–7、9（只修正兩處指向已移除的 ① 的交叉引用）· `Architecture Decisions` · `Regression / Verification Notes` · S227 及以前的 Previous Session Record。
+- **Persistence routing checked（S228）：** 當前狀態、下一步、兩個讀法、活躍風險 → 本檔 · 六個 arm 與四段判官的逐條證據 → `dev/source/eval_runs/2026-09-16_s228*` ＋ `dev/SESSION_LOG.md` S228 條 · 新工具與 QC 指令 → `dev/PROJECT_INDEX.md` · 可重用的操作紀律（harness 必須逐條記低 embed 字串；結論要兩層都報並附逐條 migration）→ `dev/DOC_SYNC_CHECKLIST.md` 新 row · 本節十列同步狀態 → `dev/DOC_SYNC_REGISTRY.md`。**沒有把一次性交付細節寫進當前狀態段。**
+- **Lifecycle 一致性檢查（S228）：** 逐節對照五個章節。本節完成項（OP⑩ 路由、Backlog ⑨、兩項漂移修正）**不留在**未了清單；本節**判定不出貨**的三個配置寫入 ② 的「已排除」而非「待做」；`Next Session Opening Message` 的下一步（先決定信哪個讀法）與 `Open Priorities` 的 Recommended next step 逐字一致。**未完成項只有一項**（決定讀法後才動手），已同時出現在三處且措辭一致。
+- **S227 的三處遺漏，本節一併修好並記錄**（不是本節造成的，但下一節不應再踩）：(1) `Next Session Opening Message` 區塊仍是 S226 內容，而 S227 只更新了鏡像檔 —— 方向與收工契約第 9 步相反，本節由鏡像回寫後再按正常方向重新產生；(2) `Current Baseline` 3 的 `UNMANAGED` 早已由 S226 修好但該行未同步；(3) **S227 從未寫過本節（`State Reconciliation Check`）的條目**。
+- **Stale snapshots left（S228）：** 無新增殘留。`Current Baseline` 4 與 `User Environment` 的 Git／部署狀態記的是本收工 commit 之前的實測值，並已按既有慣例註明「本收工 commit 除外」。
+- **Closeout outcome（S228）:** 內容側寫入與讀回全部完成；`Next Session Opening Message` 與 `START_NEXT_SESSION_PROMPT.txt` 已逐字核對相同。`closeout-status` 這道機器閘在本專案的交接密度下會持續回報 lifecycle 配對（Backlog ⑧ 已記，S226 定案為接受並逐次記錄邊界），本節沿用該處理。
+
 - **2026-09-15 S226 closeout reconciliation（185 題 gold 重跑 ／ 片段層首次量到 ／ 三個 knob ／ 兩處假 ERROR）：** 於 2026-09-15 11:1x UTC 執行。**重寫**：`Current Baseline` 4（HEAD → `1d92450`，並新增「`backend/src` 有改動未部署、其中路由修正不是旗標」一段）與 5（三個新 knob 一律未設及其理由）· **新增 `Current Baseline` 7**（檢索準確度基線 —— 此項本來不存在，所以這些數字過去散落各處各自變陳舊）· `Validation / QC` 新增 S226 七批 · `Risks / Blockers` 2(c) 結案改寫 ＋ **新增第 9 項**（選檔揀錯側，同節即修）· `Open Priorities` **整份重生**（依 §4 上限 5 項覆寫而非複製貼上：**移除** S225 的 ①（185 題 gold 重跑，本節完成）與 ②（`finance` 路由，已改判並降級併入新 ④，因為現有 gold 證不到收益、須先寫題）；**升格** rubric 判官為新 ①、片段層召回率為新 ②；**降級合併** 舊 ③ 的 registry 兩項已完成故新 ③ 只餘真正未解的三類。合規備註本來寫在 `Open Priorities` 段尾，本節移入本段 —— 「本節移除了哪些已完成項」屬 reconciliation 記錄，放在未了清單裡會令機器 lifecycle 閘把它讀成 carry-forward）· `User Environment` Git state 與生產寫入邊界 · `Last Session Record` 重生為 S226（S225 原文完整降級為 `Previous Session Record (S225)`，一字未改）· `Handoff Sufficiency Check` 兩行 · `Next Session Opening Message` 重生 · 本段。**逐段讀過確認仍 current、不改**（cold zone 保留原位元組）：`Architecture Decisions`、`Regression / Verification Notes`、`Backlog`、`Mandatory Start Checklist`、`Supabase Technical Notes`、`Detail Archive`、S224 及更早的所有 `Previous Session Record`。**順帶修好一個復發的治理缺陷**：`ack:section:session-history` 邊界標記又漂到 S221 之前，令 `completed-this-session` 涵蓋 S225–S222 四節（S221 修過一次，其後每節多抽一節）；已搬到 S226 記錄之後，實測該範圍內 H2 數 = 1。**無損驗證**：`ack` marker 35 個改前改後一致。
 - **Persistence routing checked（S226）：** 當前狀態、下一步、三個 knob 不應啟用的理由、活躍風險、Git 與部署落差 → 本檔 · 逐項實測數字、三次自我推翻的證據鏈、兩個自動代理失效的經過 → `dev/SESSION_LOG.md` S226 條 · 新工具與量度指令（生產 gold、knob A/B）＋ 四行 `Last verified` → `dev/PROJECT_INDEX.md` · 八批同步狀態逐項分類 → `dev/DOC_SYNC_REGISTRY.md` · 逐題原始擷取與答案全文 → `dev/source/eval_runs/2026-09-15_*`（11 組檔案）· 可重用的量度紀律（重排不可用候選集做 DF 語料、repository 收到的是展開後查詢、A/B harness 的延遲數字不可用）→ **寫在碼內註釋與 `PROJECT_INDEX` 該行**，不只留在 handoff／log。**未促升 `PROJECT_DECISIONS.md`**：本節三個 knob 的取捨已用實測數字結案並記入 Open Priorities ①②，未形成須跨節保存的新架構決策；若下節決定出貨重排，那才是多選項架構取捨，届時才記。
 - **Lifecycle 一致性檢查（S226）：** 逐節對照五個章節，**並由機器閘捉到一次錯誤後修正**：初稿把已完成的 OP①（185 題 gold 重跑）留在 `Next Priorities` 標「🟢 完成」，`closeout-status` 報 `blocked` 並指出 `Resolved [Validation / QC]` 與 `Carry-forward [Next Priorities]` 配對；已依 §4 整份重生 Open Priorities，完成項全部移出、只留在 `Last Session Record` 與 `Validation / QC`。其餘對照：本節完成的四項（gold 重跑、標籤重驗、兩處假 ERROR、路由修正）不留在未了清單 · Risks 9 由新增即改寫為已修 · **未完成而保留**者為答案層面評分器（新 ①）、片段層本體（新 ②）、封版閘餘下三類（新 ③）、累積遺留（④）、pgvector 監察中（⑤）—— 全部是真未解，非已完成仍掛住。
@@ -1640,6 +1730,8 @@ This fenced block is the authoritative agent-managed startup content. At closeou
 
 📋 Next session: agent-managed startup content below
 
+
+
 ```text
 Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft. Read AGENTS.md, then dev/SESSION_HANDOFF.md. Trust the handoff over this generated mirror.
 
@@ -1649,64 +1741,61 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S226, 2026-09-15）---
+--- 專案狀態（S228, 2026-09-16）---
 
 平台 v3.3.8；Supabase 17,004 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點 151 份
 （_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.3.66。
-FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用（S226 已用行為探針核實：185 題生產 run 與本機
-旗標開啟側 184/184 逐條同判）。
+FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用（S226 行為探針核實：184/184 逐條同判）。
+六個量度旗標（S226 三個 + S228 三個）生產一律未設；未設 = 逐位元組等同改動前。
 git：開工必先 fetch 再比對，不要信這裡記的 hash。
+線上 backend 有沒有落後【比檔不比 hash】：git diff --name-only <部署commit>..HEAD -- backend
 
-🟢 S226 做完了甚麼（都不用重做）：
-   1. 185 題 gold 已重跑，OP① 那筆量度債還清。**片段層第一次量到**：生產 Chunk Recall@5
-      0.345 / Source Recall@1 0.442 / MRR 0.540 與 0.255；64 題拿對文件卻拿錯段落。
-   2. SAG 換版結案 —— 生產配置側只有 1 條退步（hr_mpf），而它的舊 PASS 本來靠已退役的
-      g24 撐住，內容仍在庫。不是丟內容，是短查詢排序。
-   3. 答案鑰匙首次 185/185 零隔離（重錨 1 條、改寫 1 條），語料快取預設路徑已修好 ——
-      那個預設本來指向會消失的 scratchpad，是驗證器兩節跑不動的機械根因。
-   4. 封版閘 ERROR 4 → 2、PASS 12 → 14。四項修正：EVAL_CHUNK_LAYER 由假 NOT_MEASURED
-      變有數、選檔改為優先生產端點、REGISTRY_SERIES 假 ERROR（閘漏傳第七個參數）、
-      REGISTRY_UNMANAGED（Leonard 執行 2 行生產 UPDATE）。
-   5. 修好 `評核` 路由缺陷：hr_admin 補詞、不動 curriculum 裸 token；回歸 50/50 含對照組。
-   6. 三個檢索 knob 已實測，結論見下。
+🟢 S228 做完了甚麼（都不用重做）：
+   1. 把「展開詞不論查詢多短都原文照貼」變成三個旗標：EXPANSION_MIN_QUERY_CHARS（floor）、
+      EXPANSION_BALANCE（重複用戶查詢去配重）、EXPANSION_REPEAT_CAP（預設 8）。
+   2. 六個 arm × 185 題 × 生產配置的劑量曲線：floor 6/8/10 → 片段層 +1/+5/+5；
+      balance .35/.5 → +2/+4；合併 floor=8+balance=.5 → +7、零退步。
+      噪音底線量了七次：七個獨立 before 側的 chunk_PASS 全部 59（來源層 ±1）。
+   3. 🔴 但兩個配置的答案層判官都判 NO_MEASURABLE_GAIN：合併 net_after +3.5、
+      balance 單獨 +1.5（門檻 8）。所以展開側兩個候選都已量完並關閉，本節零檢索改動出貨。
+      壓分幅度：floor 那 26 條中位 −0.1296、最差 −0.5467；balance 那 57 條中位 −0.0021、
+      最差 −0.0426（差約三十倍）。棄權：合併 8→15、balance 8→11。
+   4. OP⑩ 路由已修，並推翻交接檔對它的診斷：不是展開詞問題，是 edbcm144_2026 不在任何
+      可達的 SOURCE_SET、只靠 spotlight 那一格（SPOTLIGHT_MAX_LEADS=1）露面。
+      餘下部分是每源配額問題，已併入 OP④，不要再當路由問題。
+   5. cross-encoder 上限已量：166 條有簽名者，重排最多救 42 條、65 條（39%）連寬池
+      top-40 都沒有，任何重排都救不到。
+   6. Backlog ⑨ 完成：backend/scripts/*.ts 首次納入型別閘（tsconfig.scripts.json）。
 
-🔴 三個 knob 一律不要在 Render 啟用（實測理由）：
-   · MAX_PER_SOURCE=8：來源層 −4 換片段層 +5，一換一。
-   · FAMILY_QUOTA=1：來源層 −1、片段層不變，不成立。
-   · FEATURE_LEXICAL_RERANK=1：**唯一兩層同時改善**（來源層 +7、片段層 +6、零退步，
-     權重三點劑量曲線且片段層在 0.05 停滯），但合成側 A/B 顯示答案層面混合，
-     有 2–3 條可指名退化（hr_maternity 自相矛盾最清楚）。**出貨前必須先有答案層面
-     評分器** —— 這正是 Open Priorities ①。
+🔴 S228 立的一條硬紀律（所有檢索改動都適用）：
+   VAULT_LEAD_SCORE 0.70、SPOTLIGHT_LEAD_SCORE 0.60、min_score 全部是在「查詢帶展開詞」
+   的分數尺上校出來的。任何會動搖絕對分數的檢索改動，必須連同這些門檻一起重新校，
+   否則檢索兩層都報喜而答案層變差 —— 而兩層檢索指標都不會顯示這件事。
 
-⚠️ 未部署（不是未完成）：Render 仍執行 e9d14be，而 backend/src 已有改動。三個 knob 預設
-   關閉所以部署不會改變行為，但 `評核` 路由修正**不是旗標、會即時生效**（它的 before→after
-   已跑，blocking failures 0）。下次部署前知道這一點就夠，不必特別處理。
-
-⚠️ 量度紀律（違反任何一條都會得出錯的結論，S226 全部實證過）：
-   · 本機比 Render 快慢不可搬：A/B harness 的 before/after 是同題一前一後跑，
-     第二次享受快取，所以 after 側必然較快。**那不是改動令系統變快。**
-   · 本機用 service key（8 秒上限）量一個 anon 3 秒的系統，系統性低估失敗率 ——
-     S226 實測低估幅度為 1 題（生產 1/185 撞 57014，本機 0/185）。
-   · repository 收到的 query 是 expandQuery() 展開後的字串，不是用戶原話。
-   · 詞面重排不可用候選集自己做 DF 語料 —— 候選全來自路由已選來源，用戶打的字在
-     裡面很常見，會被當成 stopword 濾走（第一版就是這樣，smoke 3/3 零改動）。
-
-🔴 不得再犯（S224 起，理由寫在碼或文件內，動手前先讀）：
-   · backend_build_check.yml 不得加回 paths: 過濾（會令 required check 永遠 pending）。
-   · 個人帳戶 repo 不能把內建 GitHub Actions 設為 ruleset bypass actor（GitHub 422）。
-   · 由 GITHUB_TOKEN 開的 PR，其 workflow run require approval，auto-merge 會卡死。
-   · main 受保護：一切改動走 PR（gh pr create → gh pr merge --squash）。gh 內部會呼叫
-     git，所以 git 壞了 gh 也會壞；用 -R owner/repo 可繞過 repo 解析。
+⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
+   · harness 必須逐條記低送去 embed 的【所有】字串 —— searchChannelB 每側 embed 兩次
+     （展開後查詢＋spotlight 用的裸查詢），last-write-wins 會把每個 arm 記成 no-op。
+   · 判官必須 JUDGE_MODEL=gpt-4.1（mini 是壞尺），且要分批跑：gpt-4.1 有 30,000 TPM
+     上限，S228 一次過跑 81 條在第 66 條中止。
+   · 判官依賴準則 3（數字）的判決自動標 needs_human_review，S228 有 22/81 條落入此類，
+     報結論必須連這個數一齊講。
+   · 本機比 Render 慢 1.5–2 秒；anon statement_timeout 3 秒而 service key 是 8 秒，
+     本機 in-process 慣例會 fallback 到 service key，系統性低估失敗率。
+   · 實例層冷熱落差 58–90 倍，任何兩組查詢的比較都要交錯重量三輪以上。
 
 ⚠️ 未解決（不要當已解決）：
-   · 答案層面評分器不存在 —— 所有檢索改善的出貨閘（Open Priorities ①）。
-   · 片段層 0.345 本體（②）。已排除：不是切片問題、調配額是死路。
+   · 片段層本體（OP②）。已排除六條路：切片、配額、詞面重排、改展開機制本身、
+     floor、floor+balance 合併。未試只剩兩條，兩條都已量出成本／上限：
+     (b) cross-encoder 重排 —— 上限 +42、65 條救不到、每查詢要評 40 個候選；
+     (c) 【S228 新開】先重校 VAULT_LEAD_SCORE 0.70 / SPOTLIGHT_LEAD_SCORE 0.6 兩個常數，
+         或改為相對門檻，再回頭量檢索改動。
+   · 【要先決定的一件事】判官門檻 8 是 S227 為「來源層 +7／片段層 +6」的候選定下的。
+     S228 的證據支持兩個並存讀法：(i) 兩個絕對分數閘吃掉得益（棄權升、0.70 跌穿可量）；
+     (ii) 這個量級本來就堆不出 8 分（79 條之中 43 條 TIE）。兩者下一步不同，先決定信哪個。
    · 封版閘兩個 ERROR 只能靠改善檢索清走；兩個 WARN 未有 waiver；六項人手驗證從未記錄。
-   · 1 條 CONFIDENT_WRONG（分數 0.7575 > 棄權門檻 0.75）＋ 8 條查詢引用 gold 明令禁引的
-     來源，全部是「同一指引的不同對象／學級版本」。
-   · sch_bus 五個對象版本吃掉 69 個窗格 —— 共用配額已證不成立，要處理的是那五份文件
-     該不該各自入庫與瀏覽（產品決定）。
-   · footnote_lead_probe.py 與 judge_probe.py 未跑（DOC_SYNC row 41 要求，啟用重排前要補）。
+   · 1 條 CONFIDENT_WRONG（0.7575 > 棄權門檻 0.75）＋ 8 條查詢引用 gold 明令禁引的來源。
+   · sch_bus 五個對象版本吃掉 69 個窗格（產品決定）。
+   · footnote_lead_probe.py 與 judge_probe.py 未跑（DOC_SYNC row 要求）。
 
 ⚠️ 不在 git 內的外部設定（換機或重裝要記得）：
    repo 開了 allow_auto_merge + delete_branch_on_merge；deploy key id=163258294；
@@ -1716,8 +1805,9 @@ git：開工必先 fetch 再比對，不要信這裡記的 hash。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.8 +
 Render /health + git fetch 後比對 HEAD/origin/main + Supabase live count 應為 17,004 +
-check_registry_drift --check 的 ZOMBIE 與 UNMANAGED 都應為 0）。判斷線上 backend 有沒有
-落後要【比檔不比 hash】。之後與 Leonard 商量 Open Priorities ①（答案層面評分器）的做法。
+check_registry_drift --check 的 ZOMBIE／UNMANAGED／SERIES_UNMONITORED 都應為 0）。
+判斷線上 backend 有沒有落後要【比檔不比 hash】。之後做 Open Priorities ②：先決定信哪個讀法
+（重校門檻 (c) 定重新審視門檻 8），再動手。不要在此之前重跑展開側的 A/B。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次。
 ```
 

@@ -5,6 +5,20 @@ import { selectPrimaryEvidence, synthesizeGroundedAnswer } from "../src/lib/grou
 import { createLlmClient } from "../src/lib/llmClient.js";
 import { getJudgeModel, getOpenAIModel } from "../src/config/env.js";
 
+/**
+ * S228 — one retrieved row as the baseline JSON stores it. `EvidenceChunk` (the
+ * synthesiser's input contract) omits `id` / `content_type`; the probe needs both
+ * for its evidence-window fingerprint, which is what makes two runs comparable.
+ */
+type ProbeEvidence = {
+  id: string;
+  source_id: string;
+  content_type: string;
+  text: string;
+  title: string;
+  page?: number;
+};
+
 const nine = process.argv.includes("--nine");
 const acceptance = process.argv.includes("--acceptance");
 const affectedAcceptance = process.argv.includes("--acceptance-affected");
@@ -94,10 +108,16 @@ for (let repetition = 1; repetition <= report.repetitions; repetition++) {
     const query = gold?.query ?? original.query;
     // Production evidence policy A: curated summaries may retrieve, but
     // only verbatim EDB extracts may support a rendered answer.
-    const evidence = selectPrimaryEvidence(original.results
-      .filter((r: { source_id: string }) => !id.startsWith("staff_") || r.source_id === "staff_est_pri"));
+    // S228 — the filter callback used to be annotated `{ source_id: string }`,
+    // which narrowed the element type to that one field and made the rest of this
+    // block untypeable. The rows are read straight out of the baseline JSON, so
+    // the shape is declared once, here, and the fingerprint below reads it.
+    const evidence = selectPrimaryEvidence(
+      (original.results as ProbeEvidence[])
+        .filter((r) => !id.startsWith("staff_") || r.source_id === "staff_est_pri")
+    );
     const evidenceWindowFingerprint = createHash("sha256")
-      .update(JSON.stringify(evidence.map((item: { id: string; source_id: string; content_type: string; text: string }) =>
+      .update(JSON.stringify(evidence.map((item) =>
         ({ id: item.id, source_id: item.source_id, content_type: item.content_type, text: item.text }))))
       .digest("hex");
     const calls: { stage: string; output: string }[] = [];
