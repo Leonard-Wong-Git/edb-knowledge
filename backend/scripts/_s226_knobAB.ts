@@ -31,7 +31,14 @@
  *       --set FAMILY_QUOTA=1 --label s226family
  */
 import fs from 'node:fs';
-import { searchChannelB, capFromEnv } from '../src/api/searchChannelB.js';
+import {
+  searchChannelB,
+  capFromEnv,
+  minQueryCharsFromEnv,
+  balanceFromEnv,
+  repeatCapFromEnv,
+  repeatsForBalance,
+} from '../src/api/searchChannelB.js';
 import { createLlmClient } from '../src/lib/llmClient.js';
 import { getJudgeModel } from '../src/config/env.js';
 
@@ -52,6 +59,41 @@ if (capFromEnv('8') !== 8 || capFromEnv(' 4 ') !== 4) {
   throw new Error('capFromEnv must read a positive integer');
 }
 process.stdout.write('invariant OK: MAX_PER_SOURCE unset / malformed => production formula\n');
+
+// S228 — the expansion knobs, same contract, asserted here rather than in a second
+// harness. `_s228_expansionAB.ts` was written first and then retired: `--set
+// EXPANSION_MIN_QUERY_CHARS=8 --set EXPANSION_BALANCE=0.5` reproduces its input
+// byte-for-byte (verified on three items, 2026-09-16), so one harness is enough and
+// two would be two definitions of the same A/B (AGENTS §3b).
+for (const bad of [undefined, '', '  ', '0', '-1', '8x', 'eight']) {
+  if (minQueryCharsFromEnv(bad as any) !== undefined) {
+    throw new Error(`minQueryCharsFromEnv must ignore ${JSON.stringify(bad)}`);
+  }
+}
+if (minQueryCharsFromEnv('8') !== 8) throw new Error('EXPANSION_MIN_QUERY_CHARS must read a positive integer');
+for (const bad of [undefined, '', '1.5', '0', '1', '-0.5', 'half']) {
+  if (balanceFromEnv(bad as any) !== undefined) {
+    throw new Error(`balanceFromEnv must ignore ${JSON.stringify(bad)}`);
+  }
+}
+if (balanceFromEnv('.35') !== 0.35 || balanceFromEnv('0.5') !== 0.5) {
+  throw new Error('EXPANSION_BALANCE must accept a decimal in (0,1)');
+}
+if (repeatCapFromEnv(undefined) !== 8 || repeatCapFromEnv('3') !== 3) {
+  throw new Error('EXPANSION_REPEAT_CAP must default to 8 and be overridable');
+}
+// r * Q / (r * Q + E) >= b, clamped to [1, cap]. Q=7, E=40, b=0.5 -> 40/7 -> 6.
+if (repeatsForBalance(7, 40, 0.5, 8) !== 6) throw new Error('repeatsForBalance arithmetic');
+if (repeatsForBalance(2, 40, 0.5, 4) !== 4) throw new Error('repeatsForBalance must respect the cap');
+if (repeatsForBalance(40, 40, 0.3, 8) !== 1) throw new Error('a long query needs no repetition');
+if (repeatsForBalance(0, 40, 0.5, 8) !== 1 || repeatsForBalance(7, 0, 0.5, 8) !== 1) {
+  throw new Error('repeatsForBalance must not divide by zero');
+}
+// Proves the assertion is bound to `balance` rather than being always true.
+if (!(repeatsForBalance(7, 40, 0.35, 8) < repeatsForBalance(7, 40, 0.5, 8))) {
+  throw new Error('a lower balance must need fewer repetitions');
+}
+process.stdout.write('invariant OK: EXPANSION_* unset / malformed => pre-S228 expansion string\n');
 
 // --set KEY=VALUE, repeatable. These are applied to the AFTER side only, and
 // deleted again before the next item, so the before side is always the shipped
@@ -118,7 +160,21 @@ const llm = SYNTHESIZE ? createLlmClient() : undefined;
 const judge = SYNTHESIZE ? createLlmClient({ model: getJudgeModel() }) : undefined;
 
 const cache = new Map<string, number[]>();
+/**
+ * S228 — every string handed to the embedder for the side currently running.
+ *
+ * WHY. A knob that changes the EMBEDDED STRING (the EXPANSION_* family) is invisible
+ * in the window alone: an arm that silently failed to apply and an arm that applied
+ * but changed nothing both print `same`. S228's first harness recorded only the last
+ * string and reported every arm as a no-op — `searchChannelB` embeds the expanded
+ * query for the routed search and then the bare query again for the spotlight pass,
+ * so last-write-wins captured the bare query on both sides. Recording all of them
+ * makes "the knob actually changed the input" checkable instead of assumed.
+ */
+let embeddedStrings: string[] = [];
+
 async function embed(text: string): Promise<number[]> {
+  embeddedStrings.push(text);
   const hit = cache.get(text);
   if (hit) return hit;
   if (modelCalls >= EMBED_BUDGET) throw new Error('Embedding budget exhausted');
@@ -160,6 +216,8 @@ const items = limit ? selected.slice(0, limit) : selected;
 const out = fs.createWriteStream(OUT, { flags: 'w' });
 const startedAt = new Date().toISOString();
 let done = 0, errors = 0, changed = 0;
+// S228 — items where the knob changed the string that was embedded.
+let inputChanged = 0;
 
 const writeMeta = (status: string, error?: string) =>
   fs.writeFileSync(META, JSON.stringify({
@@ -173,6 +231,7 @@ const writeMeta = (status: string, error?: string) =>
     embedding_model: 'text-embedding-3-small', gold_file: GOLD, gold_count: items.length,
     top_k: 8, started_at: startedAt, finished_at: new Date().toISOString(),
     model_calls: modelCalls, request_calls: requestCalls, changed_windows: changed,
+    knob_changed_embedded_input: inputChanged,
     status, ...(error ? { error } : {}),
   }, null, 1));
 
@@ -182,6 +241,7 @@ try {
     for (const mode of ['before', 'after'] as const) {
       if (mode === 'after') for (const [k, v] of KNOBS) process.env[k] = v;
       else for (const [k] of KNOBS) delete process.env[k];
+      embeddedStrings = [];
       const t0 = performance.now();
       try {
         const resp = await searchChannelB(
@@ -207,12 +267,19 @@ try {
         errors++;
       }
       row[`${mode}_ms`] = Math.round(performance.now() - t0);
+      row[`${mode}_embedded`] = [...embeddedStrings];
     }
     for (const [k] of KNOBS) delete process.env[k];
     out.write(JSON.stringify(row) + '\n');
     done++;
     const diff = JSON.stringify((row.before?.results ?? []).map((r: any) => r.id)) !==
                  JSON.stringify((row.after?.results ?? []).map((r: any) => r.id));
+    // S228 — separate from `diff`: whether the knob changed the embedded input at all.
+    // An all-noop run means the knob never fired, which is a bug in the run rather
+    // than evidence about the knob.
+    if (JSON.stringify(row.before_embedded) !== JSON.stringify(row.after_embedded)) {
+      inputChanged++;
+    }
     if (diff) changed++;
     process.stdout.write(`[${done}/${items.length}] ${g.id.padEnd(32)} ${diff ? 'DIFF' : 'same'}\n`);
     writeMeta('running');

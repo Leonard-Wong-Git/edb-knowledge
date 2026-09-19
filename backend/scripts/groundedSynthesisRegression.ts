@@ -230,6 +230,13 @@ const results = [
   { ...chunks[0], id: "other", source_id: "other", score: 1, content_type: "vault_extract" },
   { ...chunks[0], id: "exact", score: 1, content_type: "vault_extract" },
 ];
+/**
+ * S228 — what a retrieved row looks like on the wire. `EvidenceChunk` is the
+ * synthesiser's input contract and deliberately omits these two fields; the
+ * regression asserts on them because selection, not synthesis, is what it gates.
+ */
+type RetrievedEvidence = EvidenceChunk & { id: string; content_type: string };
+
 function production(env: Record<string, string>, handler: typeof synthesizeGroundedAnswer) {
   const ctx = vm.createContext({
     process: { env }, selectPrimaryEvidence, synthesizeGroundedAnswer: handler,
@@ -264,7 +271,12 @@ await test("grounded synthesis passes only primary document extracts", async () 
   const f = production({ FEATURE_GROUNDED_SYNTHESIS: "1" },
     async (_q, evidence) => {
       assert.equal(evidence.length, 1);
-      assert.equal(evidence[0].id, "primary");
+      // S228 — the rows the pipeline actually passes carry retrieval metadata
+      // (`id`, `content_type`) that `EvidenceChunk` does not declare, because the
+      // synthesiser never reads it. The assertion is about which row was selected,
+      // so it reads through the fixture's own shape rather than widening the
+      // production interface to satisfy a test.
+      assert.equal((evidence as RetrievedEvidence[])[0].id, "primary");
       return "verified";
     });
   assert.equal(await f("Q", mixed, async () => "", mixed[1], undefined), "verified");
@@ -286,7 +298,8 @@ await test("grounded evidence refills five primary slots below curated leads", a
   const f = production({ FEATURE_GROUNDED_SYNTHESIS: "1" },
     async (_q, evidence) => {
       assert.equal(evidence.length, 5);
-      assert.ok(evidence.every((item) => item.content_type === "vault_extract"));
+      assert.ok((evidence as RetrievedEvidence[])
+        .every((item) => item.content_type === "vault_extract"));
       return "verified";
     });
   assert.equal(await f("Q", mixed, async () => "", mixed[2], undefined), "verified");

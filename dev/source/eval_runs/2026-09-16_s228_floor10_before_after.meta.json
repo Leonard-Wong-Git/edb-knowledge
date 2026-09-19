@@ -1,0 +1,22 @@
+{
+ "label": "s228_floor10 — expansion A/B, in-process, full active gold",
+ "arm": "floor=10",
+ "arm_parsed": {
+  "floor": "10"
+ },
+ "production_config": "FEATURE_ROUTE_FIRST_SEARCH=1 on BOTH sides (S226 behavioural probe: 184/184)",
+ "before_side": "EXPANSION_* all unset = production string, byte-identical to pre-S228",
+ "measurement_key": "SUPABASE_ANON_KEY falls back to SERVICE key: 8s ceiling, NOT anon 3s.",
+ "latency_caveat": "before/after run back-to-back on the same query; the second side benefits from cache. Latency here is NOT evidence of a speed change.",
+ "mode": "in-process searchChannelB (no HTTP server, no rate limiter)",
+ "embedding_model": "text-embedding-3-small",
+ "gold_file": "../dev/_s213_gold_all.json",
+ "gold_count": 185,
+ "top_k": 8,
+ "started_at": "2026-09-16T16:48:29.546Z",
+ "finished_at": "2026-09-16T16:58:06.348Z",
+ "model_calls": 282,
+ "request_calls": 380,
+ "route_failures": 0,
+ "status": "complete"
+}

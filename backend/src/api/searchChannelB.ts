@@ -692,6 +692,13 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g26",                       // 2026/27 幼稚園收生安排指引
     "stat_kg",                   // 幼稚園統計數字
     "edbcm060_2026",             // S186: 通函60/2026 — 幼稚園提交2025/26經審核周年帳目 (KG 財務合規)
+    // S228 (OP-10): 通函144/2026 — 幼稚園教育計劃搬遷津貼. Reachable before this only
+    // through the spotlight overlay, which admits ONE chunk per query
+    // (SPOTLIGHT_MAX_LEADS), and that slot went to the p.2 chunk — so the two gold
+    // items asking about p.3 and p.6 could never be answered however the query was
+    // routed or expanded. Listing it here lets its chunks compete for the normal
+    // per-source quota. Asserted by SOURCE_MEMBERSHIP in dev/source/route_regression.mjs.
+    "edbcm144_2026",
     "role_facts_general",
   ],
 };
@@ -713,6 +720,36 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   teacher_qualification: /師資訓練|師資資格|師資學歷|[中小]學師訓|師訓資歷|師訓學歷|入職資歷|入職條件|入職資格|教師資歷|檢定教員|准用教員|助理小學學位教師|\bAPSM\b|學位教師入職/i,
   cpd: /CPD|持續專業發展|教師專業發展|教師培訓|專業發展計劃|專業階梯|師訓/,
   kg_admission: /幼稚園收生|幼稚園.{0,3}收生|幼稚園.{0,3}入學|幼稚園.{0,3}報名|K1.{0,3}收生|幼稚園.{0,3}申請入學|幼稚園.{0,6}學費|學費.{0,4}涵蓋|售賣物品|代辦費/,
+  // S160: KG administration/operation — MUST precede curriculum (which matches bare 幼稚園).
+  // S163 P2: +營運/運作/營運手冊 + 學前機構辦學手冊 health/record operation terms so the
+  // natural query「幼稚園營運 手冊 健康紀錄」routes here (was falling through to curriculum →
+  // g26 收生指引 only). None of these match the earlier kg_admission regex (收生/入學/學費),
+  // so kg_admission queries are unaffected.
+  //
+  // S228 (OP-10) — MOVED here from second-to-last, and widened with 幼稚園+津貼/搬遷.
+  //
+  // WHY THE MOVE. Every token in this pattern already requires 幼稚園 / 學前機構 /
+  // 辦學手冊 / 幼教計劃, so the route can only ever claim a kindergarten question —
+  // but sitting below hr_admin, finance and gov_admin meant any kindergarten question
+  // that also carried a generic noun was taken by whichever broad route matched first.
+  // 「幼稚園搬遷津貼」went to hr_admin on the bare token 津貼, the same shape of defect
+  // as S227's 評核 and S204's 編制. Measured blast radius over all 185 gold queries:
+  // 2 change route (kg_relocation_grant, fin_kg_relocation), both intended. Off-gold,
+  // 「幼稚園財務管理」moves finance → kg_admin, which is the KG financial-management
+  // corpus answering a KG financial-management question; that one is intended too.
+  //
+  // WHY THE MOVE IS NOT ENOUGH ON ITS OWN. The handoff recorded this as an expansion
+  // problem (bare query 0.5919 vs 8th place 0.5879). Measured with the expansion turned
+  // off entirely, the answering passage still never entered the window: edbcm144_2026
+  // was not in ANY route's SOURCE_SET reachable from this query, so it appeared only
+  // through the spotlight overlay — and SPOTLIGHT_MAX_LEADS is 1, a single slot already
+  // taken by the p.2 chunk. The source is therefore added to SOURCE_SETS.kg_admin above;
+  // routing alone would have moved the query and changed nothing.
+  //
+  // Deliberately NOT claimed: a bare 搬遷津貼. A school relocation grant is not a
+  // kindergarten question, and the control case 「學校搬遷津貼」 in
+  // dev/source/route_regression.mjs holds that line.
+  kg_admin: /幼稚園行政|幼稚園.{0,4}行政|辦學手冊|營運手冊|學前機構|幼稚園.{0,4}辦學|幼稚園.{0,4}營辦|幼稚園.{0,4}營運|幼稚園.{0,4}運作|開辦幼稚園|幼稚園牌照|幼稚園.{0,4}人事|幼稚園.{0,4}財務|幼稚園.{0,4}管理|幼稚園.{0,4}質素|幼稚園.{0,4}健康紀錄|幼稚園.{0,4}健康記錄|幼稚園教育計劃|幼教計劃|免費優質幼稚園|幼稚園.{0,4}周年|幼稚園.{0,4}津貼|幼稚園.{0,4}搬遷/,
   // S142 §5 — primary/secondary placement (after kg_admission so 幼稚園 stays there).
   placement: /中學學位分配|學位分配辦法|中一派位|中四學位|小一派位|統一派位|自行分配學位|跨境學童|學生資料管理系統|STIMS|收生實況調查/,
   conduct: /體罰|施行體罰|羞辱學生|虐待學生|教師操守|專業操守|教師專業操守/,
@@ -837,12 +874,6 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // S150 — 資優教育. MUST precede `curriculum` (資優教育課程 contains 課程). Gifted-specific
   // terms; 資賦 catches 資賦優異, 資優 catches 資優教育/校本資優/資優學生.
   gifted: /資優|資賦|天才教育|拔尖保底|gifted/i,
-  // S160: KG administration/operation — MUST precede curriculum (which matches bare 幼稚園).
-  // S163 P2: +營運/運作/營運手冊 + 學前機構辦學手冊 health/record operation terms so the
-  // natural query「幼稚園營運 手冊 健康紀錄」routes here (was falling through to curriculum →
-  // g26 收生指引 only). None of these match the earlier kg_admission regex (收生/入學/學費),
-  // so kg_admission queries are unaffected.
-  kg_admin: /幼稚園行政|幼稚園.{0,4}行政|辦學手冊|營運手冊|學前機構|幼稚園.{0,4}辦學|幼稚園.{0,4}營辦|幼稚園.{0,4}營運|幼稚園.{0,4}運作|開辦幼稚園|幼稚園牌照|幼稚園.{0,4}人事|幼稚園.{0,4}財務|幼稚園.{0,4}管理|幼稚園.{0,4}質素|幼稚園.{0,4}健康紀錄|幼稚園.{0,4}健康記錄|幼稚園教育計劃|幼教計劃|免費優質幼稚園|幼稚園.{0,4}周年/,
   curriculum: /課程|科目|教學|學習目標|評估|教材|課程發展|學習領域|教師發展|CPD|專業發展|英文科|中文科|數學科|數學建模|常識科|科學科|體育科|音樂科|視藝科|小學課程|中學課程|課程指引|學習成果|評核|幼稚園|幼兒|學前|K1|K2|K3|遊戲學習/,
 };
 
@@ -923,20 +954,119 @@ const QUERY_EXPANSIONS: Record<string, string> = {
 };
 
 /**
- * S226 — read MAX_PER_SOURCE, or undefined when it is absent or not a positive
- * integer. Exported so the measurement harness asserts the parse rather than
- * trusting it: the whole value of this knob is that unset means "unchanged".
+ * S228 — the one parse every integer measurement knob in this file shares:
+ * a positive integer, or undefined for absent / blank / malformed.
+ *
+ * WHY ONE FUNCTION. `capFromEnv` (S226) and `minQueryCharsFromEnv` (S228) mean
+ * opposite things — a ceiling on chunks per source, a floor on query length —
+ * but the rule for reading them is identical, and the rule is the load-bearing
+ * part: a typo must be IGNORED so that an unset-by-default knob can never widen
+ * itself on the deployed service through a fat-fingered Render variable. Two
+ * copies of that rule would be two places for it to drift (AGENTS §3b).
  */
-export function capFromEnv(raw: string | undefined): number | undefined {
+function positiveIntFromEnv(raw: string | undefined): number | undefined {
   if (raw === undefined || raw.trim() === "") return undefined;
   if (!/^\d+$/.test(raw.trim())) return undefined;
   const n = Number(raw.trim());
   return Number.isInteger(n) && n > 0 ? n : undefined;
 }
 
+/**
+ * S226 — read MAX_PER_SOURCE, or undefined when it is absent or not a positive
+ * integer. Exported so the measurement harness asserts the parse rather than
+ * trusting it: the whole value of this knob is that unset means "unchanged".
+ */
+export function capFromEnv(raw: string | undefined): number | undefined {
+  return positiveIntFromEnv(raw);
+}
+
+/**
+ * S228 — EXPANSION_MIN_QUERY_CHARS: below this many code points, skip the
+ * expansion entirely. Unset / non-positive-integer returns undefined, which is
+ * the production state and reproduces the pre-S228 string byte-for-byte.
+ */
+export function minQueryCharsFromEnv(raw: string | undefined): number | undefined {
+  return positiveIntFromEnv(raw);
+}
+
+/**
+ * S228 — EXPANSION_BALANCE: the minimum share of the embedded string's code
+ * points that must come from the user's own query, achieved by repeating the
+ * query rather than by truncating the expansion.
+ *
+ * Accepts a decimal strictly between 0 and 1. Unset, unparseable, or out of
+ * range returns undefined = the production state (one copy of the query).
+ */
+export function balanceFromEnv(raw: string | undefined): number | undefined {
+  if (raw === undefined || raw.trim() === "") return undefined;
+  if (!/^0?\.\d+$/.test(raw.trim())) return undefined;
+  const n = Number(raw.trim());
+  return Number.isFinite(n) && n > 0 && n < 1 ? n : undefined;
+}
+
+/** S228 — EXPANSION_REPEAT_CAP, default 8. Same parse contract as the others. */
+export function repeatCapFromEnv(raw: string | undefined): number {
+  return positiveIntFromEnv(raw) ?? 8;
+}
+
+/**
+ * S228 — how many times the query is repeated to reach `balance`.
+ *
+ * Pure and exported so the arithmetic is asserted directly instead of being
+ * inferred from ranking output. Solving `rQ / (rQ + E) >= b` for r gives
+ * `r >= b/(1-b) * E/Q`; the result is clamped to [1, cap] so the knob can never
+ * drop the query and can never emit an unbounded string.
+ */
+export function repeatsForBalance(
+  queryChars: number,
+  expansionChars: number,
+  balance: number,
+  cap: number
+): number {
+  if (queryChars <= 0 || expansionChars <= 0) return 1;
+  const needed = Math.ceil((balance / (1 - balance)) * (expansionChars / queryChars));
+  return Math.min(Math.max(needed, 1), cap);
+}
+
+/**
+ * S228 — query expansion, now length-aware.
+ *
+ * WHY. The expansion is appended verbatim regardless of how long the query is,
+ * so the user's own terms are a shrinking fraction of the embedded string as the
+ * query gets shorter. Three independent measurements in this file record the
+ * same failure — `staffing` 0.816 raw -> 0.616 expanded (S204/S211),
+ * `staff_appraisal` 0.5884 -> 0.4881 (S227), `kg_relocation_grant` 0.5919 ->
+ * 0.4994 (S227 OP-10) — and each was previously fixed one route at a time by
+ * splitting the route out and giving it no expansion. That treats the symptom:
+ * the ratio is the mechanism, and it bites every short query on every expanding
+ * route, not only the three that happened to be measured.
+ *
+ * The production gold set is 77 `plain` (1-3 token) queries against 43
+ * `natural_sentence` ones, and the production run splits 24/77 source-layer FAIL
+ * against 6/43 — the same asymmetry from the other end.
+ *
+ * Both knobs are unset in production, and unset is byte-identical to the
+ * pre-S228 behaviour. They exist to be measured, exactly as MAX_PER_SOURCE does.
+ */
 function expandQuery(query: string, category: string): string {
   const expansion = QUERY_EXPANSIONS[category];
-  return expansion ? `${query} ${expansion}` : query;
+  if (!expansion) return query;
+
+  const queryChars = [...query].length;
+
+  const floor = minQueryCharsFromEnv(process.env.EXPANSION_MIN_QUERY_CHARS);
+  if (floor !== undefined && queryChars < floor) return query;
+
+  const balance = balanceFromEnv(process.env.EXPANSION_BALANCE);
+  if (balance === undefined) return `${query} ${expansion}`;
+
+  const repeats = repeatsForBalance(
+    queryChars,
+    [...expansion].length,
+    balance,
+    repeatCapFromEnv(process.env.EXPANSION_REPEAT_CAP)
+  );
+  return `${Array(repeats).fill(query).join(" ")} ${expansion}`;
 }
 
 // ---------------------------------------------------------------------------

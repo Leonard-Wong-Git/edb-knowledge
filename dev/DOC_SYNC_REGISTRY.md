@@ -27,6 +27,21 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-09-16 — S228（展開機制旗標 ＋ 幼稚園搬遷津貼路由 ＋ scripts 型別閘）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| New file or directory | `confirmed` | `backend/tsconfig.scripts.json`、`backend/scripts/_s228_rerankCeiling.ts`、`dev/_s228_ceiling_report.py` 已入 `dev/PROJECT_INDEX.md`（QC 指令行）。`backend/scripts/_s228_expansionAB.ts` 一度建立後**已退役**（`_s226_knobAB.ts --set` 逐位元組複製得到同一輸入，實證三條），索引行已改寫指向 knobAB |
+| Generated Markdown or durable artifact | `confirmed` | `dev/source/eval_runs/2026-09-16_s228_*`（六個 arm 各 4 檔）、`_s228synth*`、`_s228cal/_s228full/_s228rest_rubric_judge.json`、`_s228ceiling.json` 全部歸類為**保留的近期證據**（判官與上限數字會被下一節引用）；煙霧測試與等價性驗證的臨時 artifact 已刪 |
+| Stack or command change | `confirmed` | `backend/package.json` 的 `check` 改為串跑兩個 tsconfig，另加 `check:scripts`；`dev/PROJECT_INDEX.md` Local QC Commands 已更新（路由回歸 63/63、展開旗標不變式、上限探針與報告自檢、scripts 型別閘）|
+| Public behavior change | `not_applicable` | 三個 `EXPANSION_*` 旗標生產一律未設，未設 = 改動前逐位元組相同；`kg_admin` 路由改動只影響含「幼稚園」的查詢，前端與對外契約零改動 |
+| API or SDK behavior change | `not_applicable` | 無外部 API 端點改動；本節唯一外部呼叫是既有的 embedding 與合成／判官模型 |
+| Governance rule change | `confirmed` | `dev/DOC_SYNC_CHECKLIST.md` 新增「查詢展開機制改動」row（六項要求，含「harness 必須逐條記低送去 embed 的所有字串」與「結論要兩層都報並附逐條 migration」）|
+| Workspace identity change | `confirmed` | `dev/SESSION_HANDOFF.md` `## User Environment` 已記本節收工的 HEAD／branch／worktree／未 commit 狀態 |
+| 檢索路由改動（CHECKLIST row） | `confirmed` | `route_regression` 63/63（新增 9 條：2 正向 ＋ 7 對照組）· 改碼前紅測準確紅 3 條 · blast radius 185 條只 2 條改路由 · 生產配置 `FEATURE_ROUTE_FIRST_SEARCH=1` 實測 |
+| 查詢展開機制改動（CHECKLIST 新 row） | `confirmed` | `_s226_knobAB.ts` 開跑前兩行 `invariant OK` · 六個 arm 劑量曲線 ＋ 七次重跑噪音底線 · 兩層數字與逐條 migration 已記入 `## Validation / QC` |
+| 答案層評分改動（CHECKLIST row） | `not_applicable` | 未改判官的 rubric、門檻、校準集或模型；只是使用它。判決連同 `judge_health` 與 `needs_human_review` 一併記錄 |
+
 ### 2026-09-08 — S218（起手探針節，零程式碼改動）
 
 | Row touched | Status | Note |

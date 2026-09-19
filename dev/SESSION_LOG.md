@@ -39,6 +39,34 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 
 <!-- ack:log-entry:start -->
 
+## 2026-09-16 Session 228 — 把三次逐條醫過的機制量了一次；兩層檢索都改善，答案層卻變差，原因是分數尺被動了
+
+- **ID:** `Claude_20260916_1610` — S228
+- **Summary:** 將「展開詞不論查詢多短都原文照貼」變成三個預設關閉的旗標並跑出劑量曲線（最佳配置片段層 **+7**、零退步、重跑噪音 0），但**兩個配置的答案層判官都判 `NO_MEASURABLE_GAIN`**（合併 +3.5、balance 單獨 +1.5／門檻 8），因此**本節零檢索改動出貨**；追出兩個並存的解釋（絕對分數閘吃掉得益／這個量級堆不出 8 分）並各自記下支持與削弱它的證據；同節修好 OP⑩ 路由並推翻交接檔對它的診斷，量出 cross-encoder 的上限（最多救 42 條、65 條救不到），並清掉 Backlog ⑨。
+- **Changed:** `backend/src/api/searchChannelB.ts`（三個 `EXPANSION_*` 旗標 ＋ `repeatsForBalance()` ＋ `positiveIntFromEnv()` 去重；`TOPIC_KEYWORDS.kg_admin` 提前並加兩個 token；`SOURCE_SETS.kg_admin` 加 `edbcm144_2026`）· `backend/tsconfig.scripts.json`（新）· `backend/package.json`（`check` 串兩個 project ＋ `check:scripts`）· `backend/scripts/_s226_knobAB.ts`（`EXPANSION_*` 不變式 ＋ 逐條記低 embed 字串 ＋ `knob_changed_embedded_input`）· `backend/scripts/_s228_rerankCeiling.ts`（新）· `backend/scripts/groundedSynthesis{Probe,Regression}.ts`（型別）· `dev/_s228_ceiling_report.py`（新）· `dev/source/route_regression.mjs`（9 條新案例 ＋ 1 條 `SOURCE_MEMBERSHIP`）· `dev/DOC_SYNC_CHECKLIST.md`（新 row）· `dev/DOC_SYNC_REGISTRY.md` · `dev/PROJECT_INDEX.md` · `dev/SESSION_HANDOFF.md` · `dev/source/eval_runs/2026-09-16_s228*`（新，六個 arm ＋ 合成 ＋ 判官三份 ＋ 上限一份）
+- **Done:**
+  - **機制旗標化**：`EXPANSION_MIN_QUERY_CHARS`（短於 N 個碼位不貼展開詞）、`EXPANSION_BALANCE`（保留展開詞，重複用戶查詢令它佔至少 φ 字數比例）、`EXPANSION_REPEAT_CAP`（預設 8）。三者未設 = 改動前逐位元組相同，解析契約照搬 `capFromEnv`（打錯字必須被忽略，不得靜靜放寬）。
+  - **劑量曲線（六個 arm × 185 題 × 生產配置）**：`floor` 6/8/10 → 片段層 +1/+5/+5（10 開始出現 1 條退步）；`balance` .35/.5 → +2/+4；合併 `floor=8`＋`balance=.5` → **+7、零退步**。**噪音底線量了七次**：同一配置七個獨立 before 側，片段層 `chunk_PASS` 全部 59、來源層 123 六次 122 一次。
+  - **答案層（兩個配置都量了，都判不出貨）**：合併配置 81 條、154 次呼叫 → `net_after` **+3.5**（judged 76、`always_first` 1、`always_second` 1、剔除 22）；`balance` 單獨 79 條、145 次呼叫 → `net_after` **+1.5**（judged 72、`always_first` 1、`always_second` 0、剔除 15、TIE 43）。門檻 8 → 兩者皆 `NO_MEASURABLE_GAIN`。判官因 30k TPM 上限中止兩次（第 66 條、第 16 條），餘數各自補跑，合共四段。棄權：合併 8→15、balance 8→11。
+  - **OP⑩**：交接檔記載的病因（展開詞壓低答案分數）**實測不成立** —— 展開全關掉答案段落仍入不到窗。真因是 `edbcm144_2026` 只靠 spotlight overlay 露面而 `SPOTLIGHT_MAX_LEADS = 1`。修法：`kg_admin` 由尾二提前到 `kg_admission` 之後、補「幼稚園＋津貼／搬遷」、`edbcm144_2026` 入 set。
+  - **cross-encoder 成本評估**：新工具擷取每題 top_8 與 top_40 兩個窗（後者正是現有 over-fetch），判分交回 Python 共用判分器。166 條有簽名者：已入窗 59 · 重排最多救 42 · 救不到 65（39%）。
+  - **Backlog ⑨**：`backend/scripts/*.ts` 首次納入型別閘，順帶修好四個潛伏錯。
+- **Fix Record:**
+  - **Problem:** 六個 arm 全部報 `arm-noop`，看似「機制沒生效」。**Root Cause:** harness 以 last-write-wins 記錄送去 embed 的字串，而 `searchChannelB` 每側 embed 兩次（展開後查詢 ＋ spotlight 用的裸查詢）。**Fix:** 逐條記錄全部字串，並移植回 `_s226_knobAB.ts`。**Verification:** 重跑後畫面顯示 `幼稚園搬遷津貼` 被重複 6 次再接展開詞；`knob_changed_embedded_input` 81/81。
+  - **Problem:** 交接檔把 OP⑩ 記為展開詞問題。**Root Cause:** 原分析用的是舊路由下的全域窗第 8 名作對照，而那個窗當時塞滿無關的 SAG 段落。**Fix:** 逐條量該通函全部 8 片段對查詢的餘弦。**Verification:** 答案段落在自己文件內排第 6／第 5，而配額是 3 —— 屬配額家族，已重新歸入 OP④。
+  - **Problem:** 兩層檢索指標都報喜，答案層卻多了 7 次棄權。**Root Cause:** `floor` 令最高分中位跌 0.1296，題目跌穿 `VAULT_LEAD_SCORE` 0.70 而不再 bypass 合成閘。**Fix:** 未修 —— 這是「要不要出貨」的證據，不是 bug。**Verification:** 拆開兩個旗標量，`floor` 那 26 條中位 −0.1296、`balance` 那 71 條中位 ±0.0000；跌穿 0.60 的條數 `floor` 9/17/27 vs `balance` 0/0。
+- **QC:** `npm run check` 0（現含 `tsconfig.scripts.json`）· `npm run build` 0 · `route_regression` **63/63** ＋ 2 條 `SOURCE_MEMBERSHIP`（改碼前紅測準確紅 3 條）· `route_blast_radius HEAD` 185 條只 2 條改路由 · `regression:grounded` 48/48 · `_s226_knobAB.ts` 開跑前兩行 `invariant OK` · `_s228_rerankCeiling --self-test` 4 條 · `_s228_ceiling_report --self-test` 7 條 · scripts 型別閘紅測準確轉紅 1 條 · 判官先校準（4/7，位置偏誤 0）才使用。
+- **Evidence disposition:** 六個 arm 的原始擷取與判分、合成 A/B、判官三份 artifact、上限探針一份，全部保留為近期證據（下一節會引用）；劑量曲線、噪音底線、門檻跌穿表與上限數字已抄入 `dev/SESSION_HANDOFF.md` `## Validation / QC`；「動搖絕對分數必須連同下游門檻一起重新校」已升為 `## Open Priorities` ② 的硬紀律；「harness 必須逐條記低送去 embed 的字串」已升為 `dev/DOC_SYNC_CHECKLIST.md` 新 row 第 ④ 條。煙霧測試與等價性驗證的臨時 artifact 已刪。
+- **Sync:** `dev/DOC_SYNC_CHECKLIST.md` 新增「查詢展開機制改動」row（依 anti-pattern guard 先補 row 再做）· `dev/DOC_SYNC_REGISTRY.md` 已記本節十列狀態 · `dev/PROJECT_INDEX.md` Local QC Commands 已更新 · `dev/CODEBASE_CONTEXT.md` **不需改**（技術棧／目錄／build 指令／外部服務／Key Decisions 均無變；新增的 `tsconfig.scripts.json` 屬 `npm run check` 的內部串接，已記在 PROJECT_INDEX）。
+- **Pending:** 先決定信哪個讀法再動手 —— (i) 兩個絕對分數閘吃掉得益 → 重校門檻（OP②(c)）；(ii) 這個量級堆不出 8 分淨值 → 重新審視判官門檻是否適用。**在兩者之一有結論之前不要再跑展開側 A/B。**
+- **Risks:** 三個 `EXPANSION_*` 旗標生產一律未設，未設 = 現狀，所以合併本身不改變生產行為；`kg_admin` 路由改動**不是旗標、合併後會即時生效**，影響面已量（185 條只 2 條改路由、off-gold 只影響含「幼稚園」的查詢）。
+- **Log maintenance:** 觸發檢查 —— 主 log 目前 N < 11 條且未逾 1500 行，`## Confirmed Decisions` 類章節未達 30 條，本節無跨節累積模式需要即時寫入 `PROJECT_DECISIONS.md`；距離上次全面維護未滿 10 次收工。**結論：no-op**，不做長期維護。
+- **Opening-message mirror:** 已由 `dev/SESSION_HANDOFF.md` 的 fenced 區塊重新產生 `START_NEXT_SESSION_PROMPT.txt`，並讀回逐字核對相同（76 行）。⚠️ **順帶修好 S227 的反向操作**：S227 只更新了鏡像檔、沒回寫交接檔區塊，令該區塊停在 S226 內容，而交接檔自己寫明「兩者不符以本區塊為準」—— 本節先由鏡像回寫，再按收工契約第 9 步的正常方向重新產生。
+- **PR:** [#22](https://github.com/Leonard-Wong-Git/edb-knowledge/pull/22)（分支 `s228/expansion-knobs`，rebase 落 `8b630e3` 之上 —— 該 commit 是排程監察 `qc_report` 在本節中途自行推的帳本更新，零 `backend/` 改動）。**未合併**：合併會觸發 Render auto-deploy 並令 `kg_admin` 路由改動即時生效，依交接檔「`gh pr merge` 在 Leonard 明示授權下可執行」，等 Leonard 拍板。
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-09-16 Session 227 — 建了一把答案層的尺，第一件事是用它否決一個候選；第二件是它照出路由只醫好一半
 
 - **ID:** `Claude_20260916_1520` — S227
