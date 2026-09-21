@@ -1,0 +1,283 @@
+{
+  "summary": {
+    "measure": "whole synthesis window (top 5)",
+    "bypassed_before": 5,
+    "real_gap_overlap": [
+      0
+    ],
+    "legitimate_overlap": [
+      null,
+      0.16666666666666666,
+      0.3333333333333333,
+      1
+    ],
+    "unjudgeable_legitimate": 1,
+    "separates_among_judgeable": true
+  },
+  "rows": [
+    {
+      "query": "米線湯底煮法食譜",
+      "klass": "A",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.3909,
+      "bare": 0.3909074160380412,
+      "query_bigrams": 0,
+      "overlap": 0,
+      "overlap_fraction": null
+    },
+    {
+      "query": "英超足球聯賽賽程表",
+      "klass": "A",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.3181,
+      "bare": 0.31807129291570524,
+      "query_bigrams": 0,
+      "overlap": 0,
+      "overlap_fraction": null
+    },
+    {
+      "query": "比特幣今年價格走勢",
+      "klass": "A",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.418,
+      "bare": 0.41799915266905296,
+      "query_bigrams": 0,
+      "overlap": 0,
+      "overlap_fraction": null
+    },
+    {
+      "query": "人工智能初探",
+      "klass": "C",
+      "bypass_before": true,
+      "verdict": "CONTROL_LOST",
+      "applied": 0.7842,
+      "bare": 0.4002433090517444,
+      "query_bigrams": 0,
+      "overlap": 0,
+      "overlap_fraction": null
+    },
+    {
+      "query": "台灣高鐵時刻表同票價",
+      "klass": "A",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.3021,
+      "bare": 0.30211657384468277,
+      "query_bigrams": 1,
+      "overlap": 0,
+      "overlap_fraction": 0
+    },
+    {
+      "query": "iPhone 換電池保養價錢",
+      "klass": "A",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.2887,
+      "bare": 0.288694075599685,
+      "query_bigrams": 1,
+      "overlap": 0,
+      "overlap_fraction": 0
+    },
+    {
+      "query": "學校泳池水質檢測標準係咩",
+      "klass": "B",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.5447,
+      "bare": 0.5447434427863893,
+      "query_bigrams": 2,
+      "overlap": 0,
+      "overlap_fraction": 0
+    },
+    {
+      "query": "校巴司機最低工資係幾多",
+      "klass": "B",
+      "bypass_before": true,
+      "verdict": "ADVERSARIAL_GATED",
+      "applied": 0.7098,
+      "bare": 0.3203032263452114,
+      "query_bigrams": 3,
+      "overlap": 0,
+      "overlap_fraction": 0
+    },
+    {
+      "query": "老師病假連續請幾耐先要交醫生紙",
+      "klass": "B",
+      "bypass_before": true,
+      "verdict": "VIOLATES_PREREGISTERED",
+      "applied": 0.7003,
+      "bare": 0.5390598945822972,
+      "query_bigrams": 6,
+      "overlap": 1,
+      "overlap_fraction": 0.16666666666666666
+    },
+    {
+      "query": "教師每年可以請幾多日大假",
+      "klass": "B",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.6126,
+      "bare": 0.6125678660102256,
+      "query_bigrams": 7,
+      "overlap": 2,
+      "overlap_fraction": 0.2857142857142857
+    },
+    {
+      "query": "課室冷氣應該調到幾多度",
+      "klass": "B",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.5013,
+      "bare": 0.501334623958322,
+      "query_bigrams": 3,
+      "overlap": 1,
+      "overlap_fraction": 0.3333333333333333
+    },
+    {
+      "query": "跟車保母有咩要求",
+      "klass": "C",
+      "bypass_before": true,
+      "verdict": "CONTROL_LOST",
+      "applied": 0.7932,
+      "bare": 0.507982156664573,
+      "query_bigrams": 3,
+      "overlap": 1,
+      "overlap_fraction": 0.3333333333333333
+    },
+    {
+      "query": "解僱教師要俾幾多個月遣散費",
+      "klass": "B",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.6942,
+      "bare": 0.5217604295768747,
+      "query_bigrams": 7,
+      "overlap": 4,
+      "overlap_fraction": 0.5714285714285714
+    },
+    {
+      "query": "體罰投訴要幾多日內處理完",
+      "klass": "B",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.6886,
+      "bare": 0.40571132460737513,
+      "query_bigrams": 7,
+      "overlap": 4,
+      "overlap_fraction": 0.5714285714285714
+    },
+    {
+      "query": "學生喺校內可以用手機幾耐",
+      "klass": "B",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.4453,
+      "bare": 0.44528378603415447,
+      "query_bigrams": 5,
+      "overlap": 3,
+      "overlap_fraction": 0.6
+    },
+    {
+      "query": "學校每堂補習費可以收幾多",
+      "klass": "B",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.5879,
+      "bare": 0.5878720804338243,
+      "query_bigrams": 5,
+      "overlap": 3,
+      "overlap_fraction": 0.6
+    },
+    {
+      "query": "校長退休金點樣計",
+      "klass": "B",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.5463,
+      "bare": 0.5463218000793916,
+      "query_bigrams": 3,
+      "overlap": 2,
+      "overlap_fraction": 0.6666666666666666
+    },
+    {
+      "query": "教師評核幾多分先算合格",
+      "klass": "B",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.5642,
+      "bare": 0.5642094681614125,
+      "query_bigrams": 4,
+      "overlap": 3,
+      "overlap_fraction": 0.75
+    },
+    {
+      "query": "幼稚園每班最多可以收幾多個學生",
+      "klass": "B",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.6059,
+      "bare": 0.5306761963811517,
+      "query_bigrams": 13,
+      "overlap": 12,
+      "overlap_fraction": 0.9230769230769231
+    },
+    {
+      "query": "香港股票市場今日收市指數",
+      "klass": "A",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.4155,
+      "bare": 0.4154963473077123,
+      "query_bigrams": 1,
+      "overlap": 1,
+      "overlap_fraction": 1
+    },
+    {
+      "query": "學校可唔可以借錢俾教職員",
+      "klass": "B",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.6153,
+      "bare": 0.6152623580263139,
+      "query_bigrams": 6,
+      "overlap": 6,
+      "overlap_fraction": 1
+    },
+    {
+      "query": "校服供應商招標要幾多間報價",
+      "klass": "B",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.6973,
+      "bare": 0.5424207520657252,
+      "query_bigrams": 6,
+      "overlap": 6,
+      "overlap_fraction": 1
+    },
+    {
+      "query": "資訊及通訊科技 課程指引",
+      "klass": "C",
+      "bypass_before": false,
+      "verdict": "UNCHANGED",
+      "applied": 0.6785,
+      "bare": 0.6069381016301469,
+      "query_bigrams": 6,
+      "overlap": 6,
+      "overlap_fraction": 1
+    },
+    {
+      "query": "校巴司機安全指引",
+      "klass": "C",
+      "bypass_before": true,
+      "verdict": "CONTROL_LOST",
+      "applied": 0.7771,
+      "bare": 0.5787910273818587,
+      "query_bigrams": 3,
+      "overlap": 3,
+      "overlap_fraction": 1
+    }
+  ]
+}
