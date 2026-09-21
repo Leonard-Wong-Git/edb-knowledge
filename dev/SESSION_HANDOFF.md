@@ -434,6 +434,8 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:completed-this-session -->
 ## Last Session Record
 
+> ⚠️ **本節（S230，2026-09-21）尚未收工，所以下面仍是 S228 的記錄。** 本節已完成的三件事與其證據**不在此節**，而在 `## Current Baseline` 4（git／部署現況）、`## Validation / QC` S230 四批、`## Open Priorities`（Recommended next step 與 ② 已重生）與 `dev/SESSION_LOG.md` S229 補寫條目。另：S229 從未收工，缺口已記於 `## State Reconciliation Check` 首條。本節開的 PR 為 [#23](https://github.com/Leonard-Wong-Git/edb-knowledge/pull/23)（build-gate pass，未合併 —— 合併會觸發 Render auto-deploy，而候選旗標預設關閉故行為不變）。收工時本節記錄會覆寫此節，S228 記錄下移。
+
 1. UTC date: 2026-09-16
 2. Session ID: `Claude_20260916_1610` — S228。由「開工」起手，Leonard 一句「全做」授權我的建議清單（OP②「按查詢長度自適應」＋ OP⑩ ＋ 兩項交接檔漂移修正 ＋ cross-encoder 成本評估）。**PR [#22](https://github.com/Leonard-Wong-Git/edb-knowledge/pull/22) 已開、未合併** —— 合併會觸發 Render auto-deploy 並令 `kg_admin` 路由改動即時生效，依既有邊界要 Leonard 明示授權才執行 `gh pr merge`。
 3. Completed（撮要，逐項證據見 `dev/SESSION_LOG.md` S228 條與 `## Validation / QC` S228 四批）：
