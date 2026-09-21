@@ -1,0 +1,253 @@
+{
+ "label": "S229 — VAULT_LEAD_SCORE calibration-scale vs applied-scale offset",
+ "instrument": "production searchChannelB + judge_probe.py whole-index method",
+ "calibration_set": "dev/source/judge_probe.py CLASS_A/B/C, verbatim",
+ "embedding_model": "text-embedding-3-small",
+ "measurement_key": "SUPABASE_ANON_KEY falls back to SERVICE key: 8s ceiling, not anon 3s",
+ "synthesize": false,
+ "model_calls": 34,
+ "request_calls": 50,
+ "finished_at": "2026-09-21T11:38:15.107Z",
+ "rows": [
+  {
+   "class": "A off-domain",
+   "query": "香港股票市場今日收市指數",
+   "category": null,
+   "routed": false,
+   "expanded": null,
+   "scale_A_bare_whole_index": 0.4155,
+   "scale_B_bare_routed": 0.4155,
+   "scale_C_expanded_routed": 0.4155
+  },
+  {
+   "class": "A off-domain",
+   "query": "米線湯底煮法食譜",
+   "category": null,
+   "routed": false,
+   "expanded": null,
+   "scale_A_bare_whole_index": 0.3909,
+   "scale_B_bare_routed": 0.3909,
+   "scale_C_expanded_routed": 0.3909
+  },
+  {
+   "class": "A off-domain",
+   "query": "英超足球聯賽賽程表",
+   "category": null,
+   "routed": false,
+   "expanded": null,
+   "scale_A_bare_whole_index": 0.3181,
+   "scale_B_bare_routed": 0.3181,
+   "scale_C_expanded_routed": 0.3181
+  },
+  {
+   "class": "A off-domain",
+   "query": "比特幣今年價格走勢",
+   "category": null,
+   "routed": false,
+   "expanded": null,
+   "scale_A_bare_whole_index": 0.418,
+   "scale_B_bare_routed": 0.418,
+   "scale_C_expanded_routed": 0.418
+  },
+  {
+   "class": "A off-domain",
+   "query": "台灣高鐵時刻表同票價",
+   "category": null,
+   "routed": false,
+   "expanded": null,
+   "scale_A_bare_whole_index": 0.3021,
+   "scale_B_bare_routed": 0.3021,
+   "scale_C_expanded_routed": 0.3021
+  },
+  {
+   "class": "A off-domain",
+   "query": "iPhone 換電池保養價錢",
+   "category": null,
+   "routed": false,
+   "expanded": null,
+   "scale_A_bare_whole_index": 0.2887,
+   "scale_B_bare_routed": 0.2887,
+   "scale_C_expanded_routed": 0.2887
+  },
+  {
+   "class": "B plausible-gap",
+   "query": "教師每年可以請幾多日大假",
+   "category": null,
+   "routed": false,
+   "expanded": null,
+   "scale_A_bare_whole_index": 0.6126,
+   "scale_B_bare_routed": 0.6126,
+   "scale_C_expanded_routed": 0.6126
+  },
+  {
+   "class": "B plausible-gap",
+   "query": "校長退休金點樣計",
+   "category": null,
+   "routed": false,
+   "expanded": null,
+   "scale_A_bare_whole_index": 0.5463,
+   "scale_B_bare_routed": 0.5463,
+   "scale_C_expanded_routed": 0.5463
+  },
+  {
+   "class": "B plausible-gap",
+   "query": "解僱教師要俾幾多個月遣散費",
+   "category": "hr_admin",
+   "routed": true,
+   "expanded": "解僱教師要俾幾多個月遣散費 教職員假期 批假 薪酬 操守 病假 首年 168日 上限 醫生證明 教師註冊 聘任",
+   "scale_A_bare_whole_index": 0.563,
+   "scale_B_bare_routed": 0.563,
+   "scale_C_expanded_routed": 0.6942
+  },
+  {
+   "class": "B plausible-gap",
+   "query": "幼稚園每班最多可以收幾多個學生",
+   "category": "curriculum",
+   "routed": true,
+   "expanded": "幼稚園每班最多可以收幾多個學生 課程指引 教學 學習目標",
+   "scale_A_bare_whole_index": 0.6321,
+   "scale_B_bare_routed": 0.5911,
+   "scale_C_expanded_routed": 0.6059
+  },
+  {
+   "class": "B plausible-gap",
+   "query": "學校泳池水質檢測標準係咩",
+   "category": null,
+   "routed": false,
+   "expanded": null,
+   "scale_A_bare_whole_index": 0.5447,
+   "scale_B_bare_routed": 0.5447,
+   "scale_C_expanded_routed": 0.5447
+  },
+  {
+   "class": "B plausible-gap",
+   "query": "老師病假連續請幾耐先要交醫生紙",
+   "category": "hr_admin",
+   "routed": true,
+   "expanded": "老師病假連續請幾耐先要交醫生紙 教職員假期 批假 薪酬 操守 病假 首年 168日 上限 醫生證明 教師註冊 聘任",
+   "scale_A_bare_whole_index": 0.4964,
+   "scale_B_bare_routed": 0.5585,
+   "scale_C_expanded_routed": 0.7003
+  },
+  {
+   "class": "B plausible-gap",
+   "query": "學校可唔可以借錢俾教職員",
+   "category": null,
+   "routed": false,
+   "expanded": null,
+   "scale_A_bare_whole_index": 0.6153,
+   "scale_B_bare_routed": 0.6153,
+   "scale_C_expanded_routed": 0.6153
+  },
+  {
+   "class": "B plausible-gap",
+   "query": "校巴司機最低工資係幾多",
+   "category": "school_bus",
+   "routed": true,
+   "expanded": "校巴司機最低工資係幾多 學童乘搭學生服務車輛的安全指引 學生服務車輛 校車 校巴 保姆車 學童 座位 安全帶 緊急出口 上車 下車 接載 客運營業證",
+   "scale_A_bare_whole_index": 0.4539,
+   "scale_B_bare_routed": 0.3872,
+   "scale_C_expanded_routed": 0.7098
+  },
+  {
+   "class": "B plausible-gap",
+   "query": "學生喺校內可以用手機幾耐",
+   "category": null,
+   "routed": false,
+   "expanded": null,
+   "scale_A_bare_whole_index": 0.4453,
+   "scale_B_bare_routed": 0.4453,
+   "scale_C_expanded_routed": 0.4453
+  },
+  {
+   "class": "B plausible-gap",
+   "query": "教師評核幾多分先算合格",
+   "category": "staff_appraisal",
+   "routed": true,
+   "expanded": null,
+   "scale_A_bare_whole_index": 0.5835,
+   "scale_B_bare_routed": 0.5642,
+   "scale_C_expanded_routed": 0.5642
+  },
+  {
+   "class": "B plausible-gap",
+   "query": "學校每堂補習費可以收幾多",
+   "category": null,
+   "routed": false,
+   "expanded": null,
+   "scale_A_bare_whole_index": 0.5879,
+   "scale_B_bare_routed": 0.5879,
+   "scale_C_expanded_routed": 0.5879
+  },
+  {
+   "class": "B plausible-gap",
+   "query": "校服供應商招標要幾多間報價",
+   "category": "finance",
+   "routed": true,
+   "expanded": "校服供應商招標要幾多間報價 採購程序 財政限額 報價 招標 採購指引",
+   "scale_A_bare_whole_index": 0.6144,
+   "scale_B_bare_routed": 0.6144,
+   "scale_C_expanded_routed": 0.6973
+  },
+  {
+   "class": "B plausible-gap",
+   "query": "體罰投訴要幾多日內處理完",
+   "category": "conduct",
+   "routed": true,
+   "expanded": "體罰投訴要幾多日內處理完 教師專業操守指引 教育規例第58條 教員不得向學生施行體罰 操守 學生保護",
+   "scale_A_bare_whole_index": 0.5349,
+   "scale_B_bare_routed": 0.5349,
+   "scale_C_expanded_routed": 0.6886
+  },
+  {
+   "class": "B plausible-gap",
+   "query": "課室冷氣應該調到幾多度",
+   "category": null,
+   "routed": false,
+   "expanded": null,
+   "scale_A_bare_whole_index": 0.5013,
+   "scale_B_bare_routed": 0.5013,
+   "scale_C_expanded_routed": 0.5013
+  },
+  {
+   "class": "C positive control",
+   "query": "人工智能初探",
+   "category": "digital_education",
+   "routed": true,
+   "expanded": "人工智能初探 中小學數字教育發展藍圖 人工智能素養 AI素養學習架構 在教學上運用人工智能 生成式人工智能 數字素養 數字教育 資訊科技教育 電子學習 智啟學教 AI賦能教育 50萬撥款 數字教育策略發展督導委員會 學與教效能 學校效率津貼 效率津貼 教育數字化轉型 提升學校效率 智慧校園 行政效率 整合代課教師津貼",
+   "scale_A_bare_whole_index": 0.6281,
+   "scale_B_bare_routed": 0.6281,
+   "scale_C_expanded_routed": 0.6280953938150383
+  },
+  {
+   "class": "C positive control",
+   "query": "資訊及通訊科技 課程指引",
+   "category": "curriculum",
+   "routed": true,
+   "expanded": "資訊及通訊科技 課程指引 課程指引 教學 學習目標",
+   "scale_A_bare_whole_index": 0.6457,
+   "scale_B_bare_routed": 0.6098,
+   "scale_C_expanded_routed": 0.6785
+  },
+  {
+   "class": "C positive control",
+   "query": "跟車保母有咩要求",
+   "category": "school_bus",
+   "routed": true,
+   "expanded": "跟車保母有咩要求 學童乘搭學生服務車輛的安全指引 學生服務車輛 校車 校巴 保姆車 學童 座位 安全帶 緊急出口 上車 下車 接載 客運營業證",
+   "scale_A_bare_whole_index": 0.6243,
+   "scale_B_bare_routed": 0.6243,
+   "scale_C_expanded_routed": 0.7932
+  },
+  {
+   "class": "C positive control",
+   "query": "校巴司機安全指引",
+   "category": "school_bus",
+   "routed": true,
+   "expanded": "校巴司機安全指引 學童乘搭學生服務車輛的安全指引 學生服務車輛 校車 校巴 保姆車 學童 座位 安全帶 緊急出口 上車 下車 接載 客運營業證",
+   "scale_A_bare_whole_index": 0.6241,
+   "scale_B_bare_routed": 0.6241,
+   "scale_C_expanded_routed": 0.7771
+  }
+ ]
+}

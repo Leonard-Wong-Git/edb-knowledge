@@ -27,6 +27,18 @@
 <!-- ack:section:validation-qc -->
 ## Validation / QC
 
+**S230（2026-09-21）預先定案 —— vault 合成閘換訊號（寫在跑任何一個數之前）。** 依 `dev/DOC_SYNC_CHECKLIST.md`「Synthesis 前置閘改動」row 與「答案層評分改動」row ④：判讀標準必須在量度之前定下，不可看完數字才定。
+
+1. **改甚麼**：`searchChannelB.ts` 的 `trustedVaultLead` 現時讀 `mainSearchLead.score`，那個分數來自「展開後查詢 ＋ 路由收窄」的搜尋；而 `VAULT_LEAD_SCORE = 0.70` 是 `dev/source/judge_probe.py` 用「裸查詢 ＋ 全庫」校出來的（S195B）。改為讀**同一片段對裸查詢向量的餘弦**，即把閘放回它被校準的那把尺上。
+2. **不改甚麼（明示）**：**`0.70` 這個數字一個位都不動**。本節不重校任何常數 —— S229 已證重校方向不成立（兩個分佈在應用尺上重疊擴大十倍），而共用經驗庫寫明兩分佈重疊時調 threshold 是死路。同樣不動 `content_type === "vault_extract"` 這個前置條件、不動 `SPOTLIGHT_LEAD_SCORE`／兩個 `FOOTNOTE_*`（它們本來就吃裸查詢向量，S229 已證展開側動不到它們）。
+3. **旗標與預設**：新增 `FEATURE_VAULT_GATE_RAWVEC`，**未設＝現行行為逐位元組相同**，解析契約照搬 `capFromEnv`（打錯字必須被忽略，不得靜靜改變閘的行為）。
+4. **失效方向**：量不到（`rawVec` 缺、REST 失敗、片段找不到、向量維度不合）一律**不 bypass**，即走判官。⚠️ 這與 row 41 第 (d) 條的字面「維持舊行為」不同，理由明示：該條要防的是「量不到就靜靜放寬一道閘」；走判官比舊行為與新行為都**更緊**，方向上滿足該條的用意。此偏離在本節記錄，不作靜默處理。
+5. **主指標（本改動的目的就是這個）**：`judge_probe.py` 那 24 條校準 query 的 **bypass 正確率** —— CLASS_B（語料無答案的敵意題）**不應** bypass、正控**應該**保住 bypass。改前應用尺上有 2 條 CLASS_B ≥ 0.70（S229 實測，本節先獨立重跑覆核）。**接受條件**：兩條之中，S229 已逐條開窗核實為真缺口的「校巴司機最低工資係幾多」必須轉為走判官；已核實為探針標錯的「老師病假連續請幾耐先要交醫生紙」**保住 bypass 才算正確**（它的 bypass 本來就是對的）。
+6. **副指標**：`_s227_rubricJudge.ts` 答案層 before→after（`JUDGE_MODEL=gpt-4.1`、分批跑），連同 `judge_health` 與 `needs_human_review` 一齊報，**不可只報淨數**。**出貨閘沿用門檻 8** —— 本節不改這個門檻（改它要另一次先定案，見 OP②(ii)）。
+7. **檢索層預期**：**零變動**。本改動只動合成閘，不動檢索，所以來源層與片段層應該逐條相同；若有任何一條不同，即代表改動洩漏到檢索路徑，屬實作缺陷而非結果。
+8. **必跑驗收**：`npm run check` ＋ `npm run build` ＋ `regression:grounded` ＋ `route_regression` ＋ 新探針 `--self-test`（含一條證明它會紅的斷言）＋ row 41 要求的 `footnote_lead_probe.py --run` 一對 before→after（positive control 零損失）。
+9. **不在本節範圍**：`judge_probe.py` 那條錯標籤（S229 已用 `g04` 原文證明「老師病假」不屬 CLASS_B）**只記錄不改**，因為它是人手答案鑰匙；要改須另立一次定案並記下改前改後與理由（照 `CALIBRATION` 同一條紀律）。
+
 **S228（2026-09-16）** —— 按查詢長度自適應的展開機制（OP②）＋ 幼稚園搬遷津貼路由（OP⑩）＋ `backend/scripts/` 首個型別閘（Backlog ⑨）。**零 Supabase 寫入、零 DDL、零 Render 設定改動、零 flag 啟用、零部署**；外部呼叫逐項報數：`text-embedding-3-small` **2,691** 次（七個 arm 2,186 ＋ 上限探針 253 ＋ 兩次合成 A/B 的 252）、合成側 `gpt-4.1-nano` 起草與 `gpt-4.1-mini` 相關性判斷（160 條題目 × 兩側，不經 embedding 計數器）、判官 `gpt-4.1` **合共 313 次**（合併配置 154 ＋ 校準 14 ＋ balance 配置 145），全部經 `--approved-max-calls` 閘。
 
 **第一批 —— OP⑩：交接檔記載的病因是錯的。** 交接檔寫「裸查詢 0.5919 高過第 8 名 0.5879，加展開後跌到 0.4994」，據此把它列為展開詞問題。**把展開完全關掉（`EXPANSION_MIN_QUERY_CHARS=10`）重量，答案段落仍然入不到窗。**真因是 `edbcm144_2026` 不在任何該查詢到達得到的 `SOURCE_SET` —— 它只靠 spotlight overlay 露面，而 `SPOTLIGHT_MAX_LEADS = 1`，那唯一一格被 p.2 片段佔了。修法因此是兩處而非一處：`kg_admin` 由尾二提前到 `kg_admission` 之後（它每個 token 都要求「幼稚園／學前機構／辦學手冊／幼教計劃」，咬不到非幼稚園查詢）、補「幼稚園＋津貼／搬遷」兩個 token、`edbcm144_2026` 加入 `SOURCE_SETS.kg_admin`。**blast radius：185 條 gold 只有 2 條改路由**（`kg_relocation_grant`、`fin_kg_relocation`，兩條都是目標），`route_regression` **63/63 PASS**（新增 9 條：2 條改道 ＋ 7 條對照組，其中「學校搬遷津貼」仍歸 `hr_admin`，守住「不認裸搬遷津貼」這條線），改碼前紅測準確紅 3 條。第三條走 `kg_admin` 的 gold（`kg_subsidy_eligibility`）實測 PASS@0 零變動。
