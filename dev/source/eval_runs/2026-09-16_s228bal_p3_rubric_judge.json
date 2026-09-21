@@ -1,0 +1,483 @@
+{
+ "label": "S227 pairwise rubric judge",
+ "generated_at": "2026-09-16T17:38:52.780Z",
+ "judge_model": "gpt-4.1",
+ "source_run": "../dev/source/eval_runs/2026-09-16_s228synthbal_p3_before_after.jsonl",
+ "source_run_sha256": "39631bf8641e34648a82f6dc3b18c0384790114b439c05f0fd2d78aa0d298a40",
+ "gold_file": "../dev/_s213_gold_all.json",
+ "mode": "replay of saved answer texts; no retrieval, no Supabase, no embeddings",
+ "position_bias_control": "each item judged twice with the sides swapped; agreement required for a winner",
+ "approved_max_calls": 60,
+ "attempted_api_calls": 29,
+ "items": [
+  {
+   "id": "kg_application_fee_cap",
+   "query": "K1 報名費上限",
+   "domain": "kg_admission",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆正確無誤，內容皆完全符合提問及登記段落，沒有違反任何評分準則。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1未有標明註冊費數字屬於2026/27學年，與鑰匙段落未完全一致，屬較次；答案2於所有細節與鑰匙段落完全吻合。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "kg_subsidy_eligibility",
+   "query": "哪些兒童合資格獲幼稚園教育計劃資助",
+   "domain": "kg_admission",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 6,
+    "reason": "答案2比答案1更具體提及持有註冊證、年級範圍及資助條件，資料較齊備。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 6,
+    "reason": "兩個答案在關鍵資格描述方面一致，但答案2加入幼稚園本身的財務帳目要求、課程質素等資訊並未回應問題重點，答題焦點較分散，因此答案1較佳。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "kg_fullday_priority",
+   "query": "全日制幼稚園收生優先考慮哪些家庭",
+   "domain": "kg_admission",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩者皆切題、適用及與鑰匙一致，缺陷均只在資料未極盡詳盡，資訊豐富度相近，故為TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆切題，內容亦符合鑰匙段落，且無明顯違反高順位準則之處，唯在資料完整性上略有補充，但並無明顯優劣之分，故評為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "hr_lsp",
+   "query": "長期服務金 點計",
+   "domain": "hr_admin",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 5,
+    "reason": "答案1文句末段偏口語且結構較鬆散，不如答案2條理清晰、用語正式，因此在可發布性上答案2較佳。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [
+     5
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩答皆未違反高順位準則，且皆有文句冗長及結構稍嫌重覆等缺陷，整體層級相同，故應判 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "hr_maternity",
+   "query": "產假",
+   "domain": "hr_admin",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均依據資料庫資訊答出產假安排，並對資格、假期期限等描述基本準確，但都未有提供關於“代職人員津貼、代課教師津貼”等細節，與登記段落不完全相符，因此在準則3有同樣程度的缺陷，故評為TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1有關男教職員侍產假放取期間的描述不正確，與答案鑰匙不符，答案2則準確依據資料。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": true,
+   "human_verdict": "BEFORE",
+   "agrees_with_human": true
+  },
+  {
+   "id": "hr_jobshare",
+   "query": "兩個老師分一個教席",
+   "domain": "hr_admin",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案都未違反任何評分準則：答案1內容切題並未與註冊段落矛盾，答案2如實表達查無明確資料，均可接受。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2引述了與登記段落不一致的條款，例如假期、工時及假期安排等細節未見於註記段落，因此違反準則3，較之答案1為次。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true,
+   "human_verdict": "AFTER",
+   "agrees_with_human": true
+  },
+  {
+   "id": "hr_lang_req",
+   "query": "哪些英文科教師必須達到語文能力要求，哪些教師不適用？",
+   "domain": "hr_admin",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均誤加詳情，與登記段落不符，且錯誤程度相若，無一方在更高順位準則上勝出。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案都包含與答案鑰匙段落不一致的資訊，例如涉及直資、私立、英基及國際學校適用性等資料來源並不明確，導致兩者都未完全準確反映資助學校常額教師才須達標的政策，故判 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "hr_pay_adjust_kg",
+   "query": "幼稚園 薪酬調整",
+   "domain": "hr_admin",
+   "combined": "TIE_BOTH_DECLINED",
+   "calls": 0,
+   "needs_human_review": false
+  },
+  {
+   "id": "hr_severance",
+   "query": "遣散費",
+   "domain": "hr_admin",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 5,
+    "reason": "答案1前後部分語句略為不完整及有冗餘語句，而答案2語句更完整清楚。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案同樣針對計算方法有說明，均未提供額外更詳備的資料，完整性與具體程度相若，未見一方明顯優勝。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "hr_teacher_reg_fee",
+   "query": "教師註冊費用幾錢",
+   "domain": "hr_admin",
+   "combined": "TIE_BOTH_DECLINED",
+   "calls": 0,
+   "needs_human_review": false
+  },
+  {
+   "id": "fin_seg",
+   "query": "學校效率津貼",
+   "domain": "finance",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆準確涵蓋用途、彈性及申請限制，內容同樣切題且無明顯嚴重錯誤，資料齊備程度相若，因此評為平手。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [
+     5
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆完整覆蓋查詢所需內容，無涉及適用對象錯誤、離題、資料不符或自相矛盾，文句上僅略顯冗長但可發布，資訊豐富度亦相近，難分高下。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "fin_home_school",
+   "query": "家校合作津貼",
+   "domain": "finance",
+   "combined": "INCONSISTENT",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2提出與資料登記段落不符的金額和細節，屬第三條嚴重錯誤；答案1雖未直接回答查詢意圖，但不違規，故勝出。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案2雖然誠實表述找不到資料，但未能回應提問重心（家校合作活動整合津貼及其合併安排），離題，違反準則2；答案1則直接切題並正面作答，因此勝出。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "fin_ac_grant",
+   "query": "空調津貼 計算",
+   "domain": "finance",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [
+     5
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆為完整可發布、內容一致且切題，只在文句上略有資訊重複，並無高順位準則差異，判TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [
+     5
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均以完整簡潔方式回答問題，且所有重點內容一致，僅在句式細節上有些微不同，皆未違反高順位準則，因此判定為TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false,
+   "human_verdict": "AFTER",
+   "agrees_with_human": false
+  },
+  {
+   "id": "fin_procure_split",
+   "query": "採購 不得拆單",
+   "domain": "finance",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均切題且內容、立場與要點一致，均無較高順位準則的缺陷，無明顯高下之分。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案同樣切題且無明顯違反任何評分準則，皆有充分回應查詢意圖，故評為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "fin_dls",
+   "query": "多元學習津貼",
+   "domain": "finance",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩者均有與登記段落不符的描述，尤其對上限與最低額的描述皆有出入，其他準則並未呈現顯著優劣。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [
+     5
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆為資料描述層面屬於完整，僅部分句子結構稍嫌繁複或略有語病，於內容正確性、切題程度及與登記段落的一致性方面表現相若，故判為TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "fin_sci_grant",
+   "query": "小學科學科 一筆過津貼",
+   "domain": "finance",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩者皆明確指出查無相關一筆過津貼資料，均未脫離提問意圖範疇，缺陷同級。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案2直接明確說明查無一筆過津貼相關內容，完全切合提問意圖；答案1僅表示未能找到資料，未有實質回應意圖。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": false
+  }
+ ],
+ "summary": {},
+ "status": "aborted",
+ "error": "Error: 429 Rate limit reached for gpt-4.1 in organization org-CB3x7CFZzaAzOaZP7IG42GOd on tokens per min (TPM): Limit 30000, Used 28798, Requested 1276. Please try again in 148ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+}

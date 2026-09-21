@@ -114,10 +114,28 @@ const CASES = [
   ["數字教育發展藍圖",                            "digital_education"],
   ["資訊科技教育推行",                            "digital_education"],
   ["學生個人資料保存幾耐",                        null],
+  // ── S228（OP⑩）：幼稚園津貼／搬遷查詢要去 kg_admin，唔好被 hr_admin 嘅「津貼」搶走 ──
+  // 成因同 S227 嘅 staff_appraisal 同族：hr_admin 認裸「津貼」，而佢排喺 kg_admin 之前。
+  // 修法係把 kg_admin 由尾二提前到 kg_admission 之後（佢每個 token 都要求「幼稚園／
+  // 學前機構／辦學手冊／幼教計劃」，唔會咬到非幼稚園查詢），再補「幼稚園＋津貼／搬遷」。
+  ["幼稚園搬遷津貼",                              "kg_admin"],  // S228（前為 hr_admin）
+  ["幼稚園 搬遷津貼",                             "kg_admin"],  // S228（前為 hr_admin）
+  // ── S228 對照組 —— 證明提前 kg_admin 冇搶走鄰居，尤其係其他「津貼」家族 ──────────
+  ["學校搬遷津貼",                                "hr_admin"],        // 冇「幼稚園」= 唔關 kg_admin 事（蓄意唔認裸「搬遷津貼」）
+  ["教師津貼點計",                                "hr_admin"],        // hr_admin 自己嘅「津貼」
+  ["多元學習津貼",                                "finance"],         // finance 擁有呢個詞
+  ["學校效率津貼",                                "digital_education"], // S184 提前，唔可以被 kg_admin 影響
+  ["家校合作活動整合津貼",                        "activity"],        // S186 提前
+  ["幼稚園收生安排",                              "kg_admission"],    // kg_admission 仍排喺 kg_admin 之前
+  ["幼稚園危機處理",                              "student_support"], // 提前後仍歸學生支援（kg_admin 冇「危機」token）
 ];
 
 const SOURCE_MEMBERSHIP = [
   ["curriculum", "chi_hist_jss_ncs_2019", "非華語初中中國歷史調適大綱必須可由課程路由取得"],
+  // S228 — 路由改對咗但語料唔喺個 set 入面，等於冇改：edbcm144_2026 本來只靠 spotlight
+  // overlay 露面，而 overlay 每次查詢最多只放行 1 條片段（SPOTLIGHT_MAX_LEADS），
+  // 所以答案段落（p.3 / p.6）永遠入唔到窗。入 set 之後先有 MAX_PER_SOURCE 個名額競爭。
+  ["kg_admin", "edbcm144_2026", "幼稚園搬遷津貼通函必須可由 kg_admin 路由取得，唔可以淨靠 spotlight 一格"],
 ];
 
 let bad = 0;

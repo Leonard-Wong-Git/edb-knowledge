@@ -1,0 +1,2003 @@
+{
+ "label": "S227 pairwise rubric judge",
+ "generated_at": "2026-09-16T17:14:59.903Z",
+ "judge_model": "gpt-4.1",
+ "source_run": "../dev/source/eval_runs/2026-09-16_s228synth_before_after.jsonl",
+ "source_run_sha256": "3fcc86bdb3666b129fdb7fb89eb674e0d29816f42037cab6924cc314e3641e34",
+ "gold_file": "../dev/_s213_gold_all.json",
+ "mode": "replay of saved answer texts; no retrieval, no Supabase, no embeddings",
+ "position_bias_control": "each item judged twice with the sides swapped; agreement required for a winner",
+ "approved_max_calls": 170,
+ "attempted_api_calls": 124,
+ "items": [
+  {
+   "id": "act_lwl_grant_uses",
+   "query": "全方位學習津貼",
+   "domain": "activity_value_education",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1對於多元學習津貼額外獎勵金的描述與細節與登記段落有不一致，答案2則更完整吻合資料庫內容，故以第3準則定勝負。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [
+     5
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆文句略嫌冗長或結構稍散，但切題且內容大致一致，無明顯高順位準則之優劣。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "act_outdoor_risk_assessment",
+   "query": "戶外活動 風險評估",
+   "domain": "activity_value_education",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未明確指出風險評估表格樣本的具體出處（如附錄XII），與登記段落不符，違反第3條，但缺陷同級，無一方在較高順位的準則勝出，因此評為 TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩者均未有明確提供風險評估表格的具體出處，且皆偏離原文只簡述一般要求，故在主要準則上難分高下。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "act_priority_values_five_confusable",
+   "query": "首要價值觀",
+   "domain": "activity_value_education",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未有直接回應現時「首要價值觀」的指定數目和明細，亦無法分辨有無引用錯誤年數或混淆對象，因而均屬離題，故評為 TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩者皆未有正面列出現行五個首要價值觀，且與鑰匙段落不符，均未能切中提問意圖，故為TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "cpd_blnst_test",
+   "query": "BLNST",
+   "domain": "cpd_teacher_qualification",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未能切題直接說明BLNST的及格效力，僅提供相關背景資訊或坦白找不到，但同樣未答核心提問，故屬同級缺失。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案 2 坦白指出找不到答案，符合查詢鍵指標及評分準則；而答案 1 離題且未直接回應及格效力，也不符登記段落。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "cpd_induction_period_na",
+   "query": "新入職教師 啟導期",
+   "domain": "cpd_teacher_qualification",
+   "combined": "TIE_BOTH_DECLINED",
+   "calls": 0,
+   "needs_human_review": false
+  },
+  {
+   "id": "cpd_kiddie_teacher_reg",
+   "query": "檢定教員",
+   "domain": "cpd_teacher_qualification",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案都未有正面回答批核權責，內容均離題，以第二條準則同等缺陷，無一方在高順位準則上勝出，應判TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2提及註冊年齡上限及特殊過剩教師界定等，與登記段落不符，屬於條件上的資訊錯誤，較為嚴重。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "cpd_ladder_purpose",
+   "query": "專業階梯",
+   "domain": "cpd_teacher_qualification",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均有回應專業階梯內容，但皆未明確區分報告與行政手冊間之差異，未完全切合提問意圖，因此同屬二條缺陷。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2將專業階梯與升遷、職位學位化和薪酬調整直接連結，明顯與登記段落「不是作為評核表現或升遷工具」相違；答案1雖未明確凸顯「非升遷工具」但無直接違背，故答案1較佳。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "dig_ai_literacy_stages",
+   "query": "AI素養",
+   "domain": "digital_education",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2對各學習階段的重點歸納未能與登記段落一致，答中AI素養理念但沒針對查詢具體各級重點，較嚴重違反第3條準則。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未具體列明各學習階段的重點內容，主要泛論政策方向和AI素養理念，未有直接回應提問意圖，亦未與登記段落具體對應，故為同級。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "dig_debp_abbrev",
+   "query": "DEBP",
+   "domain": "digital_education",
+   "combined": "BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案2未能直接回應查詢意圖，屬離題，違反第2條準則；答案1則能切題作答。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案1未有回答提問意圖，未說明DEBP目標；答案2雖細節部分或與原文不完全一致，但整體仍有回應提問重點，切題性勝出。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "dig_elearning_device_grant",
+   "query": "電子學習 撥款",
+   "domain": "digital_education",
+   "combined": "TIE_BOTH_DECLINED",
+   "calls": 0,
+   "needs_human_review": false
+  },
+  {
+   "id": "dig_genai_primary_students",
+   "query": "小學生 生成式AI",
+   "domain": "digital_education",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未明確指出高小學生應在指導下使用生成式AI，未能完全與鑰匙段落一致，缺陷屬同一準則且嚴重程度相若，因此判為TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案1未切合問及生成式AI使用規範，且與鑰匙段落「應在教師或監護人指導下」不符，而答案2明確指出現時未有相關規範，回應更切題。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "dig_teacher_digital_cpd_hours",
+   "query": "數字教育 培訓時數",
+   "domain": "digital_education",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆正確指出培訓時數要求，內容等效，僅細節補充略有差異，未違反任何較高順位準則。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案1開首表示數字教育培訓時數未明確載明，與題目查詢明確要求的「30小時」離題，不如答案2直接切合並完整回應提問要求，屬第2條準則之分野。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": false,
+   "human_verdict": "BEFORE",
+   "agrees_with_human": true
+  },
+  {
+   "id": "qa_esr_no_fixed_cycle",
+   "query": "校外評核是否固定週期進行",
+   "domain": "qa_inspection",
+   "combined": "TIE_BOTH_DECLINED",
+   "calls": 0,
+   "needs_human_review": false
+  },
+  {
+   "id": "qa_inspection_confusable",
+   "query": "視學",
+   "domain": "qa_inspection",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案2雖無實質內容，但坦誠表示找不到資料，依評分準則優於偏離提問意圖且內容與登記段落不符的答案1。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2雖然較詳盡，但內容有部分與登記段落不符，並未聚焦於校外評核及重點視學的跟進建議，違反準則3；而答案1雖未能正面回答，但未出現與登記段落衝突。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "qa_kg_pi_na",
+   "query": "幼稚園 表現指標",
+   "domain": "qa_inspection",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     1
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 1,
+    "reason": "答案1錯誤地將《學校表現指標》的制度細節直接套用在幼稚園，錯誤當成幼稚園的規定，違反適用對象準則；而答案2如實指出幼稚園無明確指標，故較佳。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     1,
+     2
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 1,
+    "reason": "答案2將中小學適用的《香港學校表現指標》誤作幼稚園的規定，違反第1條；答案1雖未明確拒答，仍較切題，故勝出。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "qa_pi_four_domains",
+   "query": "表現指標 範疇",
+   "domain": "qa_inspection",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1的範疇與登記段落不一致，加入『學生支援』及缺少『校風』，而答案2範疇描述精確，切合鑰匙內容，故答案2較佳。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未依據登記段落具體指出『學生表現』為中心層，外層包括『學與教』及『校風及學生支援』，皆屬於與登記段落不一致，因此同樣違反第三條，無高下之分。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "dig_school_plan_2627",
+   "query": "學校何時須把數字教育納入發展計劃",
+   "domain": "digital_education",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 6,
+    "reason": "兩者均錯誤地將2025/26至2027/28學年作為納入要求，與原文「2026/27學年」不符，但答案1描述較精確，對政策過程較清晰，資料較具體。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未能準確陳述將數字教育納入發展計劃的學年要求，均與登記原文段落的期限有出入，缺陷屬同一條且程度相若。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "dig_ai_ethics_training",
+   "query": "教師人工智能基礎培訓包括哪些倫理內容",
+   "domain": "digital_education",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未明確涵蓋登記段落內的「角色權限界定」、「人為監督與決策責任」、「數據私隱與安全保障」等要點，皆在準則三失分，未見其它差異。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未明確提及“角色權限界定”、“人為監督與決策責任”和“數據私隱與安全保障”，在與答案鑰匙登記段落一致性（準則3）上程度相若，未有一方於較高順位標準上明顯優勝。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "dig_ai_fact_check_privacy",
+   "query": "學生使用人工智能時如何核實資料",
+   "domain": "digital_education",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未有明確指出有關資料確切核實要求及程序，且內容大致一致，未出現其他準則上的明顯優劣。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均切題，均無明顯錯誤或遺漏，內容同樣涵蓋批判性、教師指導及AI生成內容的辨識重點，無一方在評分準則上佔優。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "dig_deepfake_literacy",
+   "query": "學生應如何面對人工智能深偽內容",
+   "domain": "digital_education",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆緊扣提問意圖及答案鑰匙，內容切題且未見明顯違反任何評分準則，故判為同級。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1未有明確提及『認識人工智能深偽技術會對社會及他人造成傷害』，與登記段落不一致；答案2更貼合鑰匙要求。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "cur_eight_kla",
+   "query": "八個學習領域",
+   "domain": "curriculum",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案2明確列出八個學習領域，切題且直接回應查詢，而答案1未有真正回答提問意圖。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案2未真正回應查詢意圖，內容未列出八個學習領域，嚴重違反第二條準則。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "cur_kg_free_play_time",
+   "query": "幼稚園 自由遊戲 時間",
+   "domain": "curriculum",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆正確說明半日制和全日制幼稚園的自由遊戲時間，內容切題且無明顯錯漏，均無違反任何評分準則。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均準確無誤地依據資料鍵內容，且內容皆切題、數字正確、表達清晰，無違反任何評分準則，故應判為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "cur_moral_civic_values",
+   "query": "德育及公民教育 責任感",
+   "domain": "curriculum",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆切題並符合登記段落內容，均無明顯違反任何評分準則，故判為TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均切合提問意圖、內容與登記段落一致，亦無自相矛盾或其他明顯缺陷，故評為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "cur_secondary_central_curriculum",
+   "query": "中學 八個學習領域",
+   "domain": "curriculum",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案1未能緊扣題意，內容偏離『中學中央課程組成』，且八個學習領域的分類與官方指引不符，故違反第2及第3條準則；答案2誠實指出資料未能直接回答，較能正確作答，依據第二條判答案2較佳。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2將「八個學習領域」內容錯誤混合，有明顯與登記段落衝突（如將中學中央課程的內容混淆、細項錯置），屬第3條嚴重錯誤；答案1雖未切題，但無明顯事實錯誤，較佳。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "cur_steam_primary",
+   "query": "小學 STEAM 教育",
+   "domain": "curriculum",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2提及『配合國家科技戰略』等屬於創新或延伸內容，與登記段落不符，而答案1內容更忠於鑰匙，兩者在其他準則上表現相近，故依據第3條判ANSWER_1較佳。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆完整反映登記段落並切題說明小學STEAM教育，無明顯偏離準則之處，內容齊備且適用對象正確，評核標準下難分高下。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "gifted_2e_support",
+   "query": "雙重特殊資優學生 支援",
+   "domain": "gifted",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆切題，明確回應雙重特殊資優學生相關支援策略，內容亦無明顯錯誤或嚴重缺陷，故評為TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均切合問意、資料一致且無明顯缺陷，均有概括雙重特殊資優學生的支援措施及整體策略，難以區分高下。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "gifted_fund_injection",
+   "query": "資優教育基金 注資幾多",
+   "domain": "gifted",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未正確回應查詢意圖，且與資料庫的具體數字不符，違反準則2及3，故評為同級。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆錯誤地指出找不到資料，與登記段落的內容矛盾，且均未正確回答提問意圖，缺陷同級。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "gifted_identify_talent",
+   "query": "點樣識別資優學生",
+   "domain": "gifted",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均切題，與登記段落內容一致，未見高順位準則違反，細節亦皆充分，無明顯優劣。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均能切題並忠實反映多元化準則、渠道及工具識別資優學生的要旨，內容完整且無嚴重錯誤，故判 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "gifted_no_academy_iq",
+   "query": "資優教育學苑 收生 智商分數要求",
+   "domain": "gifted",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩則答案均未坦白表示找不到資料，僅以一般性描述迴避提問意圖，屬於同樣的離題（第2條）問題，故評為 TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩則答案均準確表達無明確智商分數門檻，內文皆切合提問意圖且未違反任何評分準則，故判定為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "gifted_pullout_programme",
+   "query": "資優 抽離式課程",
+   "domain": "gifted",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1有提及『資料未明確規定資費或最高人數上限』，此細節並非登記段落所載，與資料不一致；答案2則全程切合並無違背登記內容，因此勝出。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均與登記段落大致一致，雖均有部分資訊未在登記段落出現，但未出現決定性衝突，故屬同級。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "gifted_tier3_outside_support",
+   "query": "資優 第三層 校外支援",
+   "domain": "gifted",
+   "combined": "BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案2誤將第三層支援主要描述為醫療精神健康相關，偏離實際提問意圖及登記內容，與教育局第三層（即校外資優培訓）不符。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1提出『醫管局的精神科專科門診』及『高風險學生』內容，與登記段落無關，與鍵詞不符，錯誤描述實質內容，嚴重背離答案鑰匙；答案2主旨較為切合資優校外支援的描述。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "gifted_tier_model_2000",
+   "query": "資優叁層推行模式",
+   "domain": "gifted",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆完整、切題，資訊均與登記段落一致，並無違反任何評分準則，故判定為 TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1在第三層描述時，未明確指出「約1,000宗個案」的細節，與登記段落不完全一致；答案2則完全貼合原段落，故勝出。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "sen_lst_grant",
+   "query": "學習支援津貼",
+   "domain": "sen",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案 1 雖然內容較多，但離題未直接回應學習支援津貼相關政策，只詳述假期規定，違反準則 2；答案 2 正確坦言找不到資料，較為切題。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未有明確回答提問意圖，僅表達無法取得相關「學習支援津貼」推廣詳情的資料，均屬離題，無一較優。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "sen_responsible_role",
+   "query": "SEN 邊個負責統籌",
+   "domain": "sen",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [
+     5
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆回答了誰負責統籌SEN支援，內容完整且切題，僅文句略長和累贅，未見其他高順位問題，故判TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆準確回應提問意圖，內容完整並覆蓋責任角色及支援架構，均無明顯缺陷，故評為同級。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "sen_senco_duties",
+   "query": "SENCO 職責",
+   "domain": "sen",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案都在細節描述上擴展超出答案鑰匙記載的具體職責，與登記段落未能完全一致，缺陷同級，無法以更高順位標準分出高下，因此判為 TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案內容均正確涵蓋SENCO帶領學生支援組及相關職責，與答案鑰匙及評分準則一致，未見任何違規或明顯優劣，因此判為TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "sen_senco_teacher_post",
+   "query": "特殊教育需要統籌主任 幾時開始設立",
+   "domain": "sen",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆偏離提問意圖（應回答2017/18學年的設立，實際回答為2019/20），且與登記段落起始學年不符，缺陷相同，故評為TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案的答題時間均與登記段落（2017/18學年起設立）不符，皆違反第3條準則，無一方於較高順位準則上勝出。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "sen_special_school_curriculum",
+   "query": "特殊學校 課程 調適",
+   "domain": "sen",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案內容均未明確回應特殊學校在普通學校課程與調適課程之間如何作選擇，皆未針對核心提問意圖作出直接解釋，故屬同級缺漏。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均偏重描述課程調適及支援措施，未明確解答特殊學校如何選擇普通學校課程或調適課程，皆未切中提問意圖，缺陷程度同級。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "sen_wsa_integrated_edu",
+   "query": "全校參與 融合教育",
+   "domain": "sen",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案都直接回答了所有普通學校須推行「全校參與」融合教育的政策內容，說明完整且切題，未見違反任何評分準則，因此判為 TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆準確回應提問意圖，與登記段落內容一致，表達完整，且均未違反任何評分準則，故評為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "ss_ncs_summer_bridging_grant",
+   "query": "NCS 暑期銜接課程 每班津貼",
+   "domain": "student_support",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2寫有『相應的後備安排以應對停課情況』，該內容並非答案鑰匙範圍，其餘規定與鑰匙有細微出入，與登記段落一致性不如答案1。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆正確引用津貼金額，內容皆涵蓋必要細節，僅在補充細節的豐富程度略有不同，但未構成較高排順位準則上的明顯優勢，因此判為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "ss_wsa_1990_ecr4",
+   "query": "全校參與訓輔 幾時引入",
+   "domain": "student_support",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未依據登記段落直接指出1990年的文件依據，皆違反準則3，無其他明顯優劣之分，故為TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未能與登記段落的具體文件依據（一九九零年教育統籌委員會第四號報告書）一致，均有在關鍵年份及文件來源上與標準答案不符的問題，因此屬同級缺漏。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "bus_driver_punctual",
+   "query": "校車司機 守時",
+   "domain": "school_bus",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案2雖然未有具體資料，但坦白表示找不到，完全符合提問意圖與評分要求，優於內容雖多但未直接回應意圖且未忠於原文的答案1。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案2雖然內容較多，但未有直接回應提問意圖（如提前到站不得提前離去的規定），且與答案鑰匙不符，因此答案1較佳。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "bus_emergency_reaction",
+   "query": "校車發生意外時應該怎樣做",
+   "domain": "school_bus",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩者皆未完全依據登記段落內容作答，皆有補充或延伸資料，未見明顯與鑰匙登記段落衝突之處，且其他準則表現相若。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均涵蓋了協助學童保持鎮靜、通知家長及有關部門、協助疏散及處理緊急事故等核心要點，皆切題且與登記段落一致，未見明顯違反任何一項準則。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "bus_escort_age",
+   "query": "跟車保母 年齡要求",
+   "domain": "school_bus",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案都正確明確地載列年屆21歲及體格良好，內容皆切題，無違反任何評分準則，無法以任何準則分勝負。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均能正確、完整及一致地覆蓋跟車保母年齡與體格要求，無明顯錯誤或離題，故評為TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "bus_escort_english",
+   "query": "school bus escort duties",
+   "domain": "school_bus",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均完整回答提問意圖，內容與登記段落一致，沒有出現適用對象錯誤、離題、數據衝突、自相矛盾或語句不完整的情況，資訊充分且具體，故評為TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1提到許多登記段落未有明示的營辦商義務及設施設備，與原文段落不全一致，答案2則較忠於登記段落內容。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "bus_escort_list",
+   "query": "跟車保母 學童名單",
+   "domain": "school_bus",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均完整、切題、與登記段落一致，只是在資料細節和表述豐富度上互有側重，但並無高順位準則的明顯優劣，因此評為 TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆準確回答題目意圖，內容切題且無違反任何評分準則，故判為並列。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false,
+   "human_verdict": "AFTER",
+   "agrees_with_human": false
+  },
+  {
+   "id": "bus_escort_typo",
+   "query": "校車安全帶 拒絕佩戴",
+   "domain": "school_bus",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩者皆無明顯錯誤，僅在資料齊備及細節略有不同，但無一方在較高順位準則上勝出，故判 TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均切題且與資料一致，僅在資料齊備性及細節表述上略有差異，未構成分勝負因素。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "bus_extinguisher_confusable",
+   "query": "校車滅火器 誰要識用",
+   "domain": "school_bus",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆能針對提問意圖，指出司機及跟車保母皆須知曉滅火器的用法與位置，內容皆無嚴重錯誤，且切合登記段落。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案都在與登記段落的一致性上有缺陷，均將跟車保母列為需檢查滅火器容量的人員，與答案鑰匙不符，其他準則亦未出現高低分野，故評為TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "bus_fee_noans",
+   "query": "校車服務 每月收費標準",
+   "domain": "school_bus",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均依指引誠實指出資料未有校車收費標準，內容完整且無明顯缺陷，評分準則下無高下之分。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均正確表示資料未載明校車每月收費標準，內容切題並無明顯缺陷，故同級。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "bus_guide_audience_confusable",
+   "query": "校車安全指引 哪一份是給學校",
+   "domain": "school_bus",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案都未有明確指出指引編號或唯一標識（如g18），內容皆屬概述性，未違反較高順位準則，故評為TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案2在切題性方面優於答案1，能夠明確回應提問意圖指出指引對象及具體內容；答案1則偏重描述政策管理層面，未有對應到查詢對象混淆的背景。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "bus_seatbelt_rule",
+   "query": "校車 安全帶 規定",
+   "domain": "school_bus",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未有明確回應查詢關於『跟車保母就開車前佩戴安全帶的責任』，只著重於學童與乘客佩戴安全帶的規定，因此在回答意圖上同樣不足，屬於同級缺陷。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     6
+    ],
+    "answer_2_flaws": [
+     2,
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未直接回答跟車保母於開車前協助學童佩戴安全帶的責任，資訊雖多但失焦，且均未明確聚焦於提問意圖，故判為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "kg_admission_scope",
+   "query": "幼稚園收生安排",
+   "domain": "kg_admission",
+   "combined": "INCONSISTENT",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2將全日班午睡課室最高人數誤寫為20人，與登記段落不符，屬於嚴重錯誤，故答案1較佳。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 6,
+    "reason": "兩者皆未明確指出只適用於『參加幼稚園教育計劃』的幼稚園，但答案2還包括了一些非登記原文提及且可能有誤的細節（如半日班貯物室面積），答案1較為精簡且對準主題，資料準確性稍勝。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "kg_halfday_no_fee",
+   "query": "參加計劃的幼稚園可以收半日制學費嗎",
+   "domain": "kg_operation",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未完全符合登記段落，均誤導性地暗示半日制學費可收，實則政策明訂不可收，未有一方在其他準則上明顯優勝，故評為 TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆與原文段落「不應就半日制服務收取學費」不符，皆未能切確表達政策要求，認為理論上可收但無據，皆違反準則3，缺陷同級，判TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "kg_relocation_grant",
+   "query": "幼稚園搬遷津貼",
+   "domain": "kg_operation",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未明確回應未按期遷入新校舍須全數退回津貼之後果，皆有偏離提問意圖的問題，其他方面無明顯高下。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未有就提問意圖（搬遷未按期遷入新校舍的後果）直接作答，只是泛談資格和申請流程，故均違反第2條準則，無一方勝出。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "kg_sccc_ratio_confusable",
+   "query": "幼兒中心人手比例",
+   "domain": "kg_operation",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案都正確指出1:14比例僅適用於註冊的特殊幼兒中心，無錯配政策規定、離題、數據出錯或自相矛盾，內容皆切合提問意圖，故判TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [
+     5
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩者均文句冗長、有部分用語不夠精煉，但核心資訊正確、無明顯內容或適用對象錯誤，整體依據相同且無決定性高順位瑕疵，故評為TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "kg_teacher_pupil_ratio",
+   "query": "幼稚園師生比例",
+   "domain": "kg_operation",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1提供的師生比例與答案鑰匙登記的原文段落（1:11）不一致，屬於嚴重錯誤；答案2雖然未提供具體比例，但未出現任何明顯錯誤，因此較佳。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2提及1:14的師生比例，與登記段落1:11有衝突，屬於嚴重錯誤。答案1雖未直接回答，但並未提供錯誤資料，故勝出。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "kg_application_fee_cap",
+   "query": "K1 報名費上限",
+   "domain": "kg_admission",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩者皆完整切題地回答報名費及註冊費上限，內容僅有敘述細節差異，未在高順位準則上分出高下。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 6,
+    "reason": "兩者對主題和資料均表述正確，唯答案2額外補充「多元溝通協助」內容，與查詢無關，屬冗贅，故依第6條由答案1勝出。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "kg_subsidy_eligibility",
+   "query": "哪些兒童合資格獲幼稚園教育計劃資助",
+   "domain": "kg_admission",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1稱『無任何逗留限制』，與原段『不附帶逗留條件的有效香港居留許可』描述有異，準則3下不如答案2。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均有補充與登記段落無關的資料（如資助計劃細節與目標），但均已完全交代合資格兒童的居留條件，且缺陷相同與答案鑰匙一致。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "kg_fullday_priority",
+   "query": "全日制幼稚園收生優先考慮哪些家庭",
+   "domain": "kg_admission",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆準確涵蓋優先考慮的家庭類別，內容具體且無出現高順位準則缺陷，僅詳略不同，評分準則下須判TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均切合正確對象、完整回應提問意圖，主要內容與登記段落一致，未出現實質缺陷，故評為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "hr_lsp",
+   "query": "長期服務金 點計",
+   "domain": "hr_admin",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 5,
+    "reason": "答案1有文句不完整之處，如『計算利益餘額（公積金或退休計劃供款的淨利益）』與查詢主旨無直接關係，略顯累贅，且句式較為散亂；而答案2語句較為精煉完整，易於理解。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆切題且無出現與登記段落衝突或嚴重錯誤，內容完整且均無明顯重點遺漏，僅細節略有不同，故難以根據較高順位準則分出高下。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "hr_maternity",
+   "query": "產假",
+   "domain": "hr_admin",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     1
+    ],
+    "answer_2_flaws": [
+     1
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆將中小學教職員之產假規定混用於查詢對象（幼稚園），皆違反適用對象準則，故評為TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3,
+     4
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 4,
+    "reason": "答案2先稱資料沒有載明具體條件，卻又給出相關具體說明，出現自相矛盾，屬較嚴重缺陷。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false,
+   "human_verdict": "BEFORE",
+   "agrees_with_human": false
+  },
+  {
+   "id": "hr_jobshare",
+   "query": "兩個老師分一個教席",
+   "domain": "hr_admin",
+   "combined": "INCONSISTENT",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案 2 雖未能提供具體資料，但誠實表示資料庫中找不到直接答案，符合題意。答案 1 雖豐富，然主觀推斷過多且未能切中提問意圖。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案1未有直接切題，只表示找不到資料；答案2雖未完備，但已嘗試回應查詢意圖，較為切合用戶需要。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": false,
+   "human_verdict": "AFTER",
+   "agrees_with_human": false
+  },
+  {
+   "id": "hr_lang_req",
+   "query": "哪些英文科教師必須達到語文能力要求，哪些教師不適用？",
+   "domain": "hr_admin",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1將語文能力要求適用對象誤擴至官立、直資及部分私立學校常額教師，與鑰匙不符。答案2與資料庫更為一致，未越界。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案都不完全與登記段落一致，對不適用對象有不必要的延伸和細節，且均未有明確錯誤超越對方，因此評為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "hr_pay_adjust_kg",
+   "query": "幼稚園 薪酬調整",
+   "domain": "hr_admin",
+   "combined": "TIE_BOTH_DECLINED",
+   "calls": 0,
+   "needs_human_review": false
+  },
+  {
+   "id": "hr_severance",
+   "query": "遣散費",
+   "domain": "hr_admin",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 6,
+    "reason": "兩者皆未違反高順位準則，但答案2內容較為詳盡，涵蓋金額上限及豁免條件，細節明確，依第6條資料齊備性勝出。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3,
+     6
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 6,
+    "reason": "兩個答案在數字、上限等細節表述與登記段落一致性方面皆有瑕疵，但答案1於細節完整性（準則6）相對較佳，回應更具體而周全。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "hr_teacher_reg_fee",
+   "query": "教師註冊費用幾錢",
+   "domain": "hr_admin",
+   "combined": "TIE_BOTH_DECLINED",
+   "calls": 0,
+   "needs_human_review": false
+  },
+  {
+   "id": "fin_seg",
+   "query": "學校效率津貼",
+   "domain": "finance",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案 1 的內容有與登記段落不符之處，如「凍結最多10%的核准教員編制」和新增數碼轉型等資訊並未見於資料庫；答案 2 內容則與已知規定一致，故依第三條準則判勝。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2內部分資料（推出年份、津貼用途、申請方式等）與登記段落不符，屬於嚴重錯誤；答案1資料雖略不及，但無重大違規。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  }
+ ],
+ "summary": {},
+ "status": "aborted",
+ "error": "Error: 429 Rate limit reached for gpt-4.1 in organization org-CB3x7CFZzaAzOaZP7IG42GOd on tokens per min (TPM): Limit 30000, Used 28937, Requested 1094. Please try again in 62ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+}

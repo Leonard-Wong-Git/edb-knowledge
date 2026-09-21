@@ -1,0 +1,16 @@
+{
+  // S228 (Backlog 9) — `tsconfig.json` includes only `src/**/*.ts`, so `npm run check`
+  // never looked at `backend/scripts/`. Twelve measurement tools — the code that decides
+  // whether a retrieval change ships — had no type gate at all, and S227's "zero errors"
+  // typecheck of a new script was an empty pass.
+  //
+  // A separate file rather than widening the main `include`: `tsconfig.json` sets
+  // `rootDir: src` / `outDir: dist` for the build, and scripts are never built, only run
+  // through tsx. Extending with `noEmit` keeps the build output untouched.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": "."
+  },
+  "include": ["scripts/**/*.ts", "src/**/*.ts"]
+}
