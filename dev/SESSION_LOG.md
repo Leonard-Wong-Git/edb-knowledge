@@ -39,6 +39,31 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 
 <!-- ack:log-entry:start -->
 
+## 2026-09-20 Session 229 — 那個門檻不是被展開詞抬高了，是由頭到尾校錯了尺
+
+> ⚠️ **本條由 S230（2026-09-21）補寫。** S229 當日改了 `dev/SESSION_HANDOFF.md` 與 `dev/PROJECT_INDEX.md`、建了兩支探針，但**從未收工**：沒有本條目、沒有 `State Reconciliation Check` 條目、`Last Session Record` 仍停在 S228、開場白區塊與 `START_NEXT_SESSION_PROMPT.txt` 亦仍是 S228 版本，四項改動全部未 commit。本條的事實來源是 S229 留下的實物（交接檔 `## Open Priorities` ② 的 S229 段落、`dev/PROJECT_INDEX.md` 兩列新登記、`backend/scripts/_s229_{scaleOffset,leadDetail}.ts`），**不是憑記憶重構**；S229 沒有把任何一次 run 的原始輸出存檔，所以下列數字在本條寫成時只有交接檔一個來源，S230 已重跑 `_s229_scaleOffset.ts` 獨立覆核（結果見 S230 條）。
+
+- **ID:** `Claude_20260920_xxxx` — S229（實際時分不可考，S229 未記）
+- **Summary:** 追 S228 交下來的 OP②(c)「重校 `VAULT_LEAD_SCORE` 0.70」，結果把這條路本身否決了 —— 0.70 不是被展開詞抬高了要調回低，而是**校準尺與應用尺根本是兩把尺**：定這個數的 `dev/source/judge_probe.py` embed 裸查詢兼打全庫，而 0.70 套用在「展開後 ＋ 路由收窄」的 `mainSearchLead.score` 上。185 條 gold 之中 97 條是路由題，兩尺不同。
+- **Changed:** `backend/scripts/_s229_scaleOffset.ts`（新）· `backend/scripts/_s229_leadDetail.ts`（新）· `dev/SESSION_HANDOFF.md`（`## Open Priorities` ② 加入 S229 段落並更正 S228 那條硬紀律的適用範圍）· `dev/PROJECT_INDEX.md`（兩列新登記）。**四項皆未 commit，由 S230 接手。**
+- **Done:**
+  - **三把尺同批量度**（`_s229_scaleOffset.ts`，用生產 `searchChannelB`、零重寫、`FEATURE_ROUTE_FIRST_SEARCH=1`）：**A 裸＋全庫**（＝校準尺）／**B 裸＋路由**／**C 展開＋路由**（＝應用尺），對象是 `judge_probe.py` 當初定門檻那 24 條校準 query。**儀器自我驗證通過**：A 重現 S195 原數（CLASS_B 上限 0.6321 對 0.632、CLASS_C 下限 0.6241 對 0.624）。
+  - **歸因分離**：路由本身**不抬分**（A→B 為 0 至 −0.067），抬分的是展開（B→C 最多 **+0.3226**）。兩個分佈的重疊由 **0.0080 擴大到 0.0817，大十倍**；CLASS_B 敵意題在應用尺上有 **2 條 ≥ 0.70**，即合成閘被跳過。
+  - **逐條開窗核實**（`_s229_leadDetail.ts`，判 bypass 有無真的觸發，因為 `scaleOffset` 量的是窗內最高分 vault_extract 而閘測的是 `mainSearchLead`，過 0.70 是必要非充分條件）：**「校巴司機最低工資係幾多」@ 0.7098 是真缺口** —— 窗內四個來源共 31 片段，`工資`／`薪` 命中 0，全庫 `最低工資` 只有 10 條且全部是經濟／通識科課程文件，判官被跳過而合成器手上零工資內容，正是 0.70 當初要擋的 S177 那一類。**「老師病假連續請幾耐先要交醫生紙」@ 0.7003 則是探針標錯** —— `g04` 原文有「常額教師如申請病假超逾兩天，必須出示有效的醫生證明書」，領先那一片就是答案片段，bypass 觸發是正確行為；`judge_probe.py` 把它列入 CLASS_B（語料無答案）是錯的。
+  - **更正 S228 立的硬紀律的適用範圍**：只有 `VAULT_LEAD_SCORE` 與 `min_score` 吃「展開後＋路由收窄」向量；`SPOTLIGHT_LEAD_SCORE` 與兩個 `FOOTNOTE_*` 門檻看的是裸查詢向量（`searchChannelB.ts:1756` 的 `rawVec`），**任何展開側改動都動不到它們**。證據：S228 十個 arm 共 1,667 筆 before／after 記錄，裸查詢字串兩側逐筆同一個，0 筆例外。
+- **Fix Record:**
+  - **Problem:** S228 交下來的 OP②(c) 叫下一節「重校 0.70」。**Root Cause:** S228 從分數分佈推斷門檻被展開詞抬高，但沒有查這個數當初是用哪把尺校出來的。**Fix:** 不重校 —— 改為換訊號（把閘放回它被校準的那把尺）。**Verification:** 三把尺實測，A 重現 S195 原數，路由不抬分、展開抬分，兩分佈在應用尺上重疊大十倍；共用經驗庫 `self-authored-probe-false-confidence` 卡尾段寫明「兩分佈重疊時調 threshold 係死路，要換訊號或換判斷器」。
+- **QC:** `_s229_scaleOffset.ts` 的自我驗證（A 尺重現 S195 兩個邊界值）· `_s229_leadDetail.ts` 逐條開窗覆核兩條過線題。**未跑** `npm run check`／`route_regression`（本節零生產碼改動，但亦未記錄此判斷）。
+- **Evidence disposition:** ⚠️ **原始 run 輸出未存檔** —— S229 的數字當時只存在於交接檔 `## Open Priorities` ② 的散文內。S230 已重跑並把 artifact 存入 `dev/source/eval_runs/`，此後以該檔為準。兩支探針的存在理由與用法已登記在 `dev/PROJECT_INDEX.md`。
+- **Sync:** ⚠️ **S229 未做** —— `dev/DOC_SYNC_REGISTRY.md` 無 S229 列，`dev/DOC_SYNC_CHECKLIST.md`「Synthesis 前置閘改動」row 要求的 `judge_probe.py` 驗收亦未跑（S229 自己指出該工具現況跑出來的是校準尺的數，要先修）。由 S230 補。
+- **Pending:** 換訊號的具體做法（S229 提出、未實作、未量）：`rawVec` 已為每條查詢 embed 好，把 vault 閘改為測「領先片段對裸查詢向量的 cosine」，即把閘放回被校準的那把尺上。屬 `dev/DOC_SYNC_CHECKLIST.md` 自己一個 row，要先定案再量 before→after。
+- **Risks:** 本節零生產碼改動、零 Supabase 寫入、零部署。真正的風險是它留下的**半落地狀態**：交接檔內容已更新而敘事層（Last Session Record／開場白／鏡像檔）仍是 S228，下一個 agent 會讀到互相矛盾的兩段。已由 S230 收乾。
+- **Log maintenance:** 補寫，不觸發維護檢查（由 S230 在本節收工時一併執行）。
+- **Opening-message mirror:** ⚠️ S229 未產生；S230 收工時重新產生。
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-09-16 Session 228 — 把三次逐條醫過的機制量了一次；兩層檢索都改善，答案層卻變差，原因是分數尺被動了
 
 - **ID:** `Claude_20260916_1610` — S228
