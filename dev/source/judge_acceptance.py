@@ -84,6 +84,27 @@ ENDPOINT = "https://edb-knowledge.onrender.com/api/search/channel-b"
 # OpenAI API will not say which model a key is being used with. So it cannot be probed —
 # it has to be re-confirmed in the dashboard whenever a measurement is going to be quoted
 # as production behaviour. Override here via JUDGE_MODEL env var when testing another.
+#
+# 🔴 S230 (2026-09-22) — THE NOTE ABOVE IS STALE, AND SO IS EVERY JUDGE NUMBER THIS HARNESS
+# HAS PRODUCED SINCE S211. It describes `OPENAI_MODEL`, the ANSWER model, confirmed in the
+# dashboard on 2026-07-30 — before S211 split the relevance judge onto its own model. Since
+# S211 production sends the judge to `getJudgeModel()` = `JUDGE_MODEL || "gpt-4.1-mini"`
+# (backend/src/config/env.ts), while this default keeps measuring gpt-4o-mini. Those are
+# different models, so the acceptance evidence has not described the judge that runs for
+# several sessions.
+#
+# Measured, 6 completions, 2026-09-22 (backend/scripts/_s230_judgeModelProbe.ts), on prompts
+# captured from production itself:
+#   D01_student_sickleave (decline half, must stay 否)  gpt-4.1-mini → 能  gpt-4.1 → 否
+#   S01_ai_intro_bare_noun (answer half, want 能)       gpt-4.1-mini → 能  gpt-4.1 → 否
+# So the code-default judge produces a FALSE ANSWER on D01, which row 46 of
+# dev/DOC_SYNC_CHECKLIST.md treats as a ship blocker, and the stricter model trades it for a
+# lost answer. Neither fixes 「家長校董 點選」, the one case S230 set out to fix.
+#
+# The default below is NOT changed: past runs are labelled by it and rewriting it would
+# silently restate what they measured. Pass JUDGE_MODEL explicitly for any run that will be
+# quoted, and read the real value from the Render dashboard first — as the note above says,
+# nothing outside Render can see it.
 JUDGE_MODEL = os.environ.get("JUDGE_MODEL", "gpt-4o-mini")
 
 # Verbatim copy of RELEVANCE_JUDGE_PROMPT (searchChannelB.ts). Kept as a literal rather
@@ -303,6 +324,10 @@ def cmd_score(prompt_path: str | None, out_path: str | None, pace: float, label:
     secondary = score_cases(cases, verdicts, scope="all")
     print("\n" + "=" * 68)
     print(f"prompt: {label}   model: {JUDGE_MODEL}")
+    if "JUDGE_MODEL" not in os.environ:
+        print("  \u26a0 JUDGE_MODEL not set: this run measures gpt-4o-mini, which is NOT the")
+        print("    judge production runs (env.ts default is gpt-4.1-mini since S211). Set")
+        print("    JUDGE_MODEL explicitly, after reading the real value in the Render dashboard.")
     print(f"PRIMARY      {summary['correct']}/{summary['n']}")
     print(f"  answer half  {summary['answer_half']['correct']}/{summary['answer_half']['n']}"
           f"   (false declines: {len(summary['false_declines'])})")
