@@ -422,7 +422,9 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:next-priorities -->
 ## Open Priorities
 
-**Recommended next step（S230 收工重生）：** **用 `gpt-4.1-mini` 跑一次 `dev/source/judge_acceptance.py`（35 條凍結集，35 次外部呼叫），把 S211 那組只存在於 `CHANGELOG.md` 散文的判官基線補回 artifact。** 理由一句：本節把 vault bypass 候選量到「條件性可出貨」（`FALSE_BYPASS` 4/5 轉正確拒答、被攔的 `SOUND` 11/12 判官照樣答），出貨唯一未清的障礙是**判官會拒答明明答得到的段落**（`家長校董 點選` 兩個模型都判否），而要改判官就必須先有有效基線 —— 而 `dev/source/judge_runs/` 現時有 13 個 `gpt-4o-mini`、2 個 `gpt-4.1-nano`、**零個 `gpt-4.1-mini`**。⚠️ **跑之前兩件事**：(i) 必須明示 `JUDGE_MODEL=gpt-4.1-mini`，否則該 harness 預設 `gpt-4o-mini` 會量錯舊配置（已加執行期警告）；(ii) 依 `dev/DOC_SYNC_CHECKLIST.md` row 46，`--check-parity`（離線）與 `--plumbing-check` 必跑，且 false answer 與 accuracy 要分開報。**之後才談**修那條判官錯判或啟用旗標 —— 次序不可倒轉，因為候選會令判官對多 52 條查詢變成承重件。**生命週期分類（明示）**：**② 本節新增五條排除方向並把候選推到「條件性可出貨」，剩餘障礙已由「找訊號」轉為「判官弱點」**；**③④⑤ 本節未動、內容未變**；**S228 的 PR #22 與本節的 PR #23 已合併並部署核實**；**PR [#26](https://github.com/Leonard-Wong-Git/edb-knowledge/pull/26) 未合併，本節的交接狀態在 `s230/prereqs` 分支上**。
+**Recommended next step（S230 收工重生）：** **用 `JUDGE_MODEL=gpt-4.1-mini` 跑一次 `dev/source/judge_acceptance.py` 的 35 條凍結集，把判官基線補回 artifact（35 次外部呼叫，需 Leonard 批准該批次）。** 理由一句：`dev/source/judge_runs/` 現時有 13 個 `gpt-4o-mini`、2 個 `gpt-4.1-nano`、**零個 `gpt-4.1-mini`**，而任何判官改動都要先有有效基線可比。⚠️ 跑之前：必須明示 `JUDGE_MODEL`（該 harness 預設 `gpt-4o-mini`，會量錯舊配置，已加執行期警告）；依 `dev/DOC_SYNC_CHECKLIST.md` row 46，`--check-parity` 與 `--plumbing-check` 必跑，false answer 與 accuracy 分開報。
+
+**次序（不可倒轉）**：補基線 → 才談改判官 → 才談啟用 `FEATURE_VAULT_GATE_RAWVEC`。原因見 `## Validation / QC` S230 第六至八批：候選會令判官對多 52 條查詢變成承重件。**本節的量度結論、已排除方向與已收回的斷言，全部只在 `## Validation / QC` 與 `## Last Session Record`，不在本節重述。**
 
 ② 🔴 **把片段層召回率拉高（缺口本體；基線與本節新數字見 `## Current Baseline` 7 與 `## Validation / QC` S228）。**
 
@@ -496,14 +498,14 @@ source_registry → same vault PDFs → ai_extract.py
 2. Session ID: `Claude_20260921_1100` — S230。由「開工」起手，Leonard 逐步授權：合併 S228 的 PR → 收乾 S229 → 定案並量度「換訊號」候選 → 補完四項出貨先決條件 → 「改好後再啟用」。
 3. Completed（撮要，逐批證據見 `## Validation / QC` S230 八批與 `dev/SESSION_LOG.md` S230 條）：
    - ✅ **S229 收乾**：它從未收工（無 log 條目、`Last Session Record` 停在 S228、四項改動未 commit）。已補寫其 log 條目並明示是補寫，並重跑 `_s229_scaleOffset.ts` 獨立覆核它沒存過的數字（A 尺 CLASS_B 上限 0.6321／CLASS_C 下限 0.6241 逐項重現 S195 原數）。
-   - ✅ **兩個 PR 合併並部署核實**：#22（S228，`2e803ec`）與 #23（本節候選與量度，`2678ea2`）。S228 的 `kg_admin` 路由修正已行為核實在生產生效。
+   - ✅ **PR #22 與 PR #23 已合併並部署核實**：#22（S228，`2e803ec`）與 #23（本節候選與量度，`2678ea2`）。S228 的 `kg_admin` 路由修正已行為核實在生產生效。**此項只涵蓋這兩個 PR；本節收工新開的 PR #26 屬另一回事，其合併是一道授權邊界而非待辦工作，見第 5 點與 `## User Environment` Git state。**
    - ✅ **候選 `FEATURE_VAULT_GATE_RAWVEC`（預設關閉）**：把 vault judge-bypass 改為讀同一片段對裸查詢向量的餘弦，`0.70` 一個位不動；第二版按延遲實測改為**疊加**而非取代。
    - ✅ **量度規模改寫**：這道 bypass 的真實作用面是 **59/185（31.9%）**，不是 24 條校準集顯示的 5 條。按 gold 真值：`FALSE_BYPASS` 5／`WRONG_PASSAGE` 39／`SOUND` 15（已用本專案 NFKC 口徑改正）。
    - ✅ **判官接手測試**（Leonard 批准 59 次，實用 53 次，errors 0）：`FALSE_BYPASS` 4/5 轉為正確拒答、被攔的 `SOUND` 11/12 判官照樣答 —— **預先定案全部達標**，候選由「不出貨」改為「條件性可出貨」。
    - ✅ **四項先決條件全部處理**：`footnote_lead_probe` 已跑（正控 26/27，並證明本候選動不到它的觀測量）· `judge_probe.py` 改為講清角色、`DOC_SYNC_CHECKLIST` row 41 驗收工具改指新探針 · 14 條拒答與 2 條新開 bypass 逐條讀窗 · 延遲實測（中位 288ms／p90 639ms）。
    - ✅ **三次自我更正**（兩次自造工具出錯、一次來源次序倒轉），逐項見 `dev/SESSION_LOG.md` S230 條的 Fix Record。
 4. **本節零 Supabase 寫入、零 DDL、零 flag 啟用、零凍結合約改動、平台版本零改動。**兩次部署都只是合併既有 PR 觸發的 auto-deploy。
-5. **未完成**：候選仍未啟用 —— 卡在「判官拒答明明答得到的段落」這個有前科的弱點（`家長校董 點選` 兩個模型都判否；S211 記錄五次改寫提示加 `gpt-4o` 皆失敗）。下一步見 `## Open Priorities` 的 Recommended next step。
+5. **未完成（唯一一項）**：候選仍未啟用 —— 卡在「判官拒答明明答得到的段落」這個有前科的弱點（`家長校董 點選` 兩個模型都判否；S211 記錄五次改寫提示加 `gpt-4o` 皆失敗）。下一步見 `## Open Priorities` 的 Recommended next step。
 6. Carry-forward：未完成事項一律不在此列舉，全部歸入 `## Open Priorities`。
 
 ## Previous Session Record (S229)
@@ -1462,7 +1464,7 @@ source_registry → same vault PDFs → ai_extract.py
 - **Persistence routing checked（S230）：** 當前狀態、下一步、活躍風險、工作區身分 → 本檔 · 八批量度的逐條證據 → `dev/source/eval_runs/2026-09-2{1,2}_s230_*` 七份 ＋ `dev/source/2026-09-22_s230_footnote_lead.json` ＋ `dev/SESSION_LOG.md` S230 條 · 六支探針與一支分析器的用法與存在理由 → `dev/PROJECT_INDEX.md` · 「判官驗收工具由 `judge_probe.py` 改為新兩支」這條可重用要求 → `dev/DOC_SYNC_CHECKLIST.md` row 41 · 本節十二列同步狀態 → `dev/DOC_SYNC_REGISTRY.md`。**沒有把一次性交付細節寫進當前狀態段**；三次自我更正的完整成因寫在 log 的 Fix Record，當前狀態段只留結論與收回標記。
 - **Lifecycle 一致性檢查（S230）：** 逐節對照五個章節。本節完成項（S229 收乾、兩個 PR 合併部署、四項先決條件、候選收緊）**不留在**未了清單；**判定不出貨的兩個候選規則**（rawvec 取代式、詞面零重疊）寫入 ② 的「已排除」而非「待做」；`Next Session Opening Message` 的下一步（先補判官基線 artifact）與 `Open Priorities` 的 Recommended next step 逐字一致。**未完成項只有一項**（判官弱點未解，故旗標未啟用），已同時出現在 `Last Session Record` 5、`Open Priorities` 與開場白三處且措辭一致。**Risks 首條的三項收回斷言明確標記為收回而非刪除**，因為曾據它們要求 Leonard 行動。
 - **Stale snapshots left（S230）：** 無新增殘留。`User Environment` 的 Git state 記的是本收工 commit 之前的 `workspace-health` 實測值，並已註明 PR #26 未合併這一點對下一節的影響。
-- **Closeout outcome（S230）:** 內容側寫入與讀回全部完成。⚠️ **`closeout-status` 在本專案持續回報 lifecycle 配對**（Backlog ⑧ 已記，S226 定案為接受並逐次記錄邊界），本節沿用該處理並在下方記錄其實際輸出。**Project-required persistence**：commit 與 push 已完成（分支 `s230/prereqs`）；**PR #26 的合併未獲授權，故該項為 `blocked`，邊界已寫入 Git state 與開場白。**
+- **Closeout outcome（S230）: `blocked`（照實記錄，不改寫成完成）。** 內容側寫入與讀回全部完成：`dev/SESSION_HANDOFF.md`／`dev/SESSION_LOG.md`／`dev/PROJECT_INDEX.md`／`dev/DOC_SYNC_REGISTRY.md` 已寫並 commit，`START_NEXT_SESSION_PROMPT.txt` 由唯一 fenced 區塊重生並讀回逐位元組相同（78 行 / 6,760 bytes，檔內全文僅一份）。`closeout-status` 連跑三次，三次皆 `blocked` 且**每次指向另一對「依合約必須同時出現」的段落**：(1) `Completed` 的「兩個 PR 合併」對 `Next Priorities`；(2) 同一對（已把 PR 範圍寫清、並把 #26 明確歸為授權邊界而非待辦）；(3) `Validation / QC` 第四批對 `Next Priorities` —— 兩段依合約都必須提及 `judge_acceptance`（一段是證據、一段是下一步）。**這正是 Backlog ⑧ 記載的現象，S226 已定案採選項 (c)：接受它在本專案的交接密度下長期回報 blocked，並逐次記錄邊界。**本節沿用，並記下兩次配對確實促成了真實改善（PR 範圍寫清；`Next Priorities` 依契約收窄為一個動作加一句理由）。**不應採用的做法仍然不採用**：靠刪減證據段去通過它。**Project-required persistence**：commit 與 push 已完成（分支 `s230/prereqs`）；**PR #26 的合併未獲授權，故該項為 `blocked`**，邊界已寫入 `## User Environment` Git state、開場白與 `dev/DOC_SYNC_REGISTRY.md`。
 
 - **2026-09-21 S230 補記 S229 的缺口（S229 從未收工）：** S229（2026-09-20）改了本檔 `## Open Priorities` ② 與 `dev/PROJECT_INDEX.md`、建了 `backend/scripts/_s229_{scaleOffset,leadDetail}.ts`，但**沒有寫 `dev/SESSION_LOG.md` 條目、沒有寫本節條目、`Last Session Record` 停在 S228、`Next Session Opening Message` 與 `START_NEXT_SESSION_PROMPT.txt` 亦停在 S228，四項改動全部未 commit**。後果：下一個 agent 會同時讀到「S228 叫你重校門檻」與「S229 已證重校不成立」兩段互相矛盾的內容（S230 開工實測正是如此）。**S230 已補**：`dev/SESSION_LOG.md` 新增 S229 條目（明示是補寫，事實來源是 S229 留下的實物而非記憶）、重跑 `_s229_scaleOffset.ts` 獨立覆核其數字並存檔（S229 沒有存過原始輸出）、四項改動併入本節 PR。`Last Session Record`／開場白／鏡像檔由本節收工時一併重寫。
 - **2026-09-16 S228 closeout reconciliation（展開機制旗標 ／ OP⑩ 路由 ／ 判官兩輪 ／ Backlog ⑨）：** 於 2026-09-16 收工時重寫或明確確認：`Current Baseline`（3 更正 `UNMANAGED`、5 加入三個新旗標、7 加入本機基線與噪音底線；4 的 Git 狀態見下）· `Validation / QC`（新增 S228 五批）· `Open Priorities`（Recommended next step、②、④、⑩ 全部重寫；⑨ 標記完成）· `User Environment`（Git 狀態）· `Next Session Opening Message`（整段重寫並已讀回核對）。**未動且內容未變**：`Risks / Blockers` 1–7、9（只修正兩處指向已移除的 ① 的交叉引用）· `Architecture Decisions` · `Regression / Verification Notes` · S227 及以前的 Previous Session Record。
