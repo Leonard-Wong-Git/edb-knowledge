@@ -27,6 +27,23 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-09-21 — S230（S229 補寫收乾 ＋ PR #22 合併部署 ＋ vault 閘換訊號候選，判定不出貨）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| New file or directory | `confirmed` | `backend/scripts/_s230_gateSignalAB.ts`、`backend/scripts/_s230_leadOverlap.ts`、`backend/scripts/_s230_bypassCensus.ts`，另 S229 留下的 `_s229_scaleOffset.ts`／`_s229_leadDetail.ts` 本節首次入 git。四支全部已登記 `dev/PROJECT_INDEX.md` Local QC Commands |
+| Generated Markdown or durable artifact | `confirmed` | `dev/source/eval_runs/2026-09-21_s230_{gate_signal_ab,scale_offset_replay,lead_overlap,window_overlap}.json` 四份 ＋ `2026-09-22_s230_bypass_census.json`（185 題真實人口，是這一節唯一足以驗收任何 bypass 閘的證據），保留為近期證據（S229 沒有存過原始輸出，本節的 replay 就是為了補這一點） |
+| Stack or command change | `not_applicable` | 無 build／依賴／指令改動；`npm run check` 未改 |
+| Public behavior change | `not_applicable` | `FEATURE_VAULT_GATE_RAWVEC` 生產未設，未設＝改動前行為相同，且**判定不出貨、不應在 Render 啟用**。本節唯一到生產的行為改變來自合併 S228 的 PR #22（`kg_admin` 路由），該改動的驗收屬 S228 |
+| API or SDK behavior change | `not_applicable` | 無外部 API 端點改動。新增的 `bareCosineForChunk()` 用的是 `wiki_chunks` REST select，與兩個 overlay loader 同一形狀 |
+| Governance rule change | `not_applicable` | 未改 `AGENTS.md`、未加新 row；本節依既有 row 41（Synthesis 前置閘改動）與 row 67（答案層評分改動）執行，並在 `## Validation / QC` 明示一處刻意偏離 row 41(d) 的理由（量不到時走判官而非維持舊行為，方向上更緊） |
+| Workspace identity change | `confirmed` | `dev/SESSION_HANDOFF.md` `## Current Baseline` 4 已重寫：`origin/main` 與線上執行碼同為 `2e803ec`，遠端分支 `s228/expansion-knobs` 已被 GitHub 自動刪除 |
+| `dev/source/judge_probe.py` | ⚠ `blocked` | row 41 要求 vault 門檻改動須跑此工具，但 S229 已證它不行生產路徑（embed 裸查詢＋全庫），照現狀跑只會報校準尺的數。**本節不改它** —— 它是人手答案鑰匙，要改須另立定案（另見它把「老師病假」誤標 CLASS_B 一事，S229 已用 `g04` 原文證明） |
+| `dev/source/footnote_lead_probe.py` | ⚠ `pending` | `--self-test` PASS；row 41(a) 要求的生產 before→after **本節不跑**：旗標不在生產、footnote lead slot 未改、且候選判定不出貨。任何出貨決定之前必須補跑 |
+| `dev/CODEBASE_CONTEXT.md` | ⚠ `not_applicable` | 零 tech stack／目錄／build／External Services／Key Decisions 改動。`bareCosineForChunk()` 屬既有 Supabase REST 用法，不構成新 External Service |
+| `START_NEXT_SESSION_PROMPT.txt` | ⚠ `pending` | 本節未收工（Leonard 授權的是三件工，不是收工）。依核心 Persistence Gate 走 lightweight checkpoint：只寫當前狀態與證據，不重生鏡像檔 |
+| Playbook | ⚠ `pending` | 本節套用了 `self-authored-probe-false-confidence` 的判斷（S229 已開卡）與「兩分佈重疊時調 threshold 係死路」那一條；usage 行與可能的提案留待收工一併處理 |
+
 ### 2026-09-16 — S228（展開機制旗標 ＋ 幼稚園搬遷津貼路由 ＋ scripts 型別閘）
 
 | Row | 狀態 | 備註 |

@@ -21,6 +21,7 @@ import {
   searchSpotlightSources,
   searchEstablishmentRows,
   footnoteInformativeBigrams,
+  bareCosineForChunk,
   type WikiContentType,
   type WikiSearchResult,
 } from "../lib/wikiRepository.js";
@@ -1148,7 +1149,11 @@ async function synthesizeAnswer(
   /** Gate 2C-1 — set only by the lexical-exact establishment route. */
   exactSynthesisSourceIds: ReadonlySet<string> | undefined,
   /** S211 — the judge runs on its own model (see getJudgeModel). Falls back to llmFn. */
-  judgeFn: LlmFn = llmFn
+  judgeFn: LlmFn = llmFn,
+  /** S230 — the BARE query vector the handler already embedded for the two overlay
+   *  passes. Read only by FEATURE_VAULT_GATE_RAWVEC below; `undefined` (the embedding
+   *  failed) means the new gate cannot measure and therefore does not bypass. */
+  rawVec?: number[]
 ): Promise<string> {
   // S211 — 窗口一度擴闊為「五格主搜尋 ＋ 強制置頂嗰幾格」，理由係兩個註腳 forced lead 一插，
   // 主搜尋就只剩三格。方向合理，但實測落去冇一個 case 因此變好：佢本來要修嘅
@@ -1236,10 +1241,41 @@ async function synthesizeAnswer(
   // where the lead is a 0.782 footnote and the 0.744 vault_extract in the
   // window is the SAG leave appendix, i.e. the right register and not the
   // answer (the S177 class). The 0.70 bar itself is untouched.
-  const trustedVaultLead =
-    !!mainSearchLead &&
-    mainSearchLead.content_type === "vault_extract" &&
-    mainSearchLead.score >= VAULT_LEAD_SCORE;
+  //
+  // S230 — CANDIDATE, default off: read the bar on the scale it was calibrated on.
+  // `mainSearchLead.score` comes from a search over `expandQuery(...)` narrowed to the
+  // routed SOURCE_SET; 0.70 was set by `dev/source/judge_probe.py`, which embeds the BARE
+  // query over the WHOLE index. S229 measured the offset on the 24 queries that set the
+  // bar: routing does not lift scores (0 to -0.067), expansion lifts them by up to
+  // +0.3226, and the adversarial/control overlap widens from 0.0080 to 0.0817 — so on the
+  // applied scale two CLASS_B adversarial queries reach 0.70 and skip the judge. One of
+  // them, 「校巴司機最低工資係幾多」 at 0.7098, was opened chunk by chunk: 31 chunks across
+  // four sources in the window, zero hits for 工資 or 薪, i.e. exactly the S177 class this
+  // gate exists to stop. This reads the same chunk's cosine against the bare vector
+  // instead. The 0.70 constant is NOT touched: S229 showed the two distributions overlap
+  // MORE on the applied scale, and re-picking a number on a scale that mixes two signals
+  // is the dead end the shared playbook names; the fix is the signal, not the number.
+  //
+  // Fail direction: not measurable (no rawVec, REST failure, chunk gone, empty vector)
+  // means no bypass, so the judge runs. That is deliberately NOT "keep the old
+  // behaviour" as DOC_SYNC_CHECKLIST row 41 (d) words it — running the judge is TIGHTER
+  // than both the old and the new path, so it serves that clause's purpose (a measurement
+  // failure must never silently loosen a gate) rather than its letter.
+  const vaultLeadCandidate =
+    !!mainSearchLead && mainSearchLead.content_type === "vault_extract";
+  let trustedVaultLead =
+    vaultLeadCandidate && mainSearchLead!.score >= VAULT_LEAD_SCORE;
+  if (vaultLeadCandidate && process.env.FEATURE_VAULT_GATE_RAWVEC === "1") {
+    trustedVaultLead = false;
+    if (rawVec && rawVec.length > 0) {
+      try {
+        const bareLeadScore = await bareCosineForChunk(mainSearchLead!.id, rawVec);
+        trustedVaultLead = bareLeadScore !== undefined && bareLeadScore >= VAULT_LEAD_SCORE;
+      } catch {
+        trustedVaultLead = false;
+      }
+    }
+  }
   if (!trustedVaultLead) {
     const canAnswer = await judgeCanAnswer(query, chunkText, judgeFn);
     if (!canAnswer) return SYNTHESIS_DECLINE;
@@ -1940,7 +1976,8 @@ export async function searchChannelB(
       llmFn,
       mainSearchLead,
       exactSynthesisSourceIds,
-      judgeFn ?? llmFn
+      judgeFn ?? llmFn,
+      rawVec
     );
   }
 

@@ -652,6 +652,60 @@ export async function searchSpotlightSources(
 }
 
 /**
+ * S230 — the cosine of ONE chunk against a caller-supplied vector, read back from the
+ * store rather than inferred from a ranking.
+ *
+ * WHY THIS EXISTS. `VAULT_LEAD_SCORE = 0.70` (searchChannelB.ts) was calibrated by
+ * `dev/source/judge_probe.py`, which embeds the BARE query and queries the WHOLE index.
+ * Production applies that same number to `mainSearchLead.score`, which comes from a
+ * search over `expandQuery(...)` narrowed to the routed SOURCE_SET. S229 measured the
+ * gap on the 24 queries the bar was set with: routing does not lift scores (0 to -0.067)
+ * but expansion lifts them by up to +0.3226, and the adversarial/control overlap widens
+ * from 0.0080 to 0.0817. So the gate reads a scale its number was never set on.
+ *
+ * This returns the value the gate should be reading: cosine(bare query vector, the lead
+ * chunk). Cosine is pairwise, so the number does not depend on what else the index holds
+ * or on which SOURCE_SET was searched — reading the chunk's own embedding back gives
+ * exactly the score `judge_probe.py`'s whole-index RPC would report for that chunk.
+ * `_s230_bareCosineCheck.ts` asserts that equality against the live RPC rather than
+ * asking the reader to trust the argument.
+ *
+ * Why not a second RPC: `match_wiki_chunks_routed` would answer the same question, but
+ * through client-side dedup (first 80 chars), lexical re-rank and the per-source quota —
+ * a ranking pipeline, where what is needed is one pairwise number. One row by primary
+ * key, the same `select=...,embedding` shape the two overlay loaders already use, is
+ * both cheaper and free of those interactions.
+ *
+ * Returns `undefined` when the chunk is gone or carries no usable vector. Throws on a
+ * transport / HTTP failure. The gate treats both as "not measured" and runs the judge.
+ */
+export async function bareCosineForChunk(
+  chunkId: string,
+  queryVec: number[]
+): Promise<number | undefined> {
+  if (!chunkId || queryVec.length === 0) return undefined;
+  const url =
+    `${getSupabaseUrl()}/rest/v1/wiki_chunks?id=eq.${encodeURIComponent(chunkId)}` +
+    `&select=embedding&limit=1`;
+  const anonKey = getSupabaseAnonKey();
+  const resp = await fetch(url, { headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` } });
+  if (!resp.ok) throw new Error(`lead embedding load ${resp.status}`);
+  const rows = (await resp.json()) as Array<{ embedding: unknown }>;
+  if (rows.length === 0) return undefined;
+  const vec = parseVec(rows[0].embedding);
+  if (vec.length === 0) return undefined;
+  // Rounded to 4dp because the calibration scale is rounded to 4dp: `match_wiki_chunks`
+  // returns `round((1 - (embedding <=> query_embedding))::numeric, 4)::float`
+  // (dev/supabase_setup.sql:69), so every score the 0.70 bar was set against had already
+  // been through this rounding. Verified against live on 2026-09-21: for all 40 rows the
+  // whole-index RPC returned for one bare query, the local cosine rounded to 4dp equals
+  // the RPC score exactly (0/40 mismatches; unrounded, all 40 differ by up to 5.0e-05).
+  // Without this, a chunk whose true cosine is 0.69996 would clear the bar server-side
+  // and fail here — a boundary disagreement with the very scale this is restoring.
+  return Math.round(cosine(queryVec, vec) * 1e4) / 1e4;
+}
+
+/**
  * S211 — lexical lookup for establishment-table rows keyed by class count.
  *
  * Why a lexical pass rather than another cosine one: on the staff establishment tables the
