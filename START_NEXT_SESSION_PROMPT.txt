@@ -6,71 +6,73 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S228, 2026-09-16）---
+--- 專案狀態（S230, 2026-09-22）---
 
-平台 v3.3.8；Supabase 17,004 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點 151 份
-（_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.3.66。
-FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用（S226 行為探針核實：184/184 逐條同判）。
-六個量度旗標（S226 三個 + S228 三個）生產一律未設；未設 = 逐位元組等同改動前。
-git：開工必先 fetch 再比對，不要信這裡記的 hash。
-線上 backend 有沒有落後【比檔不比 hash】：git diff --name-only <部署commit>..HEAD -- backend
+平台 v3.3.8（本節零改動）；Supabase 17,004 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點
+151 份（_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.3.66。
+FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用。七個量度旗標（S226 三個 + S228 三個 + S230 一個）
+生產一律未設；未設 = 逐位元組等同改動前。
 
-🟢 S228 做完了甚麼（都不用重做）：
-   1. 把「展開詞不論查詢多短都原文照貼」變成三個旗標：EXPANSION_MIN_QUERY_CHARS（floor）、
-      EXPANSION_BALANCE（重複用戶查詢去配重）、EXPANSION_REPEAT_CAP（預設 8）。
-   2. 六個 arm × 185 題 × 生產配置的劑量曲線：floor 6/8/10 → 片段層 +1/+5/+5；
-      balance .35/.5 → +2/+4；合併 floor=8+balance=.5 → +7、零退步。
-      噪音底線量了七次：七個獨立 before 側的 chunk_PASS 全部 59（來源層 ±1）。
-   3. 🔴 但兩個配置的答案層判官都判 NO_MEASURABLE_GAIN：合併 net_after +3.5、
-      balance 單獨 +1.5（門檻 8）。所以展開側兩個候選都已量完並關閉，本節零檢索改動出貨。
-      壓分幅度：floor 那 26 條中位 −0.1296、最差 −0.5467；balance 那 57 條中位 −0.0021、
-      最差 −0.0426（差約三十倍）。棄權：合併 8→15、balance 8→11。
-   4. OP⑩ 路由已修，並推翻交接檔對它的診斷：不是展開詞問題，是 edbcm144_2026 不在任何
-      可達的 SOURCE_SET、只靠 spotlight 那一格（SPOTLIGHT_MAX_LEADS=1）露面。
-      餘下部分是每源配額問題，已併入 OP④，不要再當路由問題。
-   5. cross-encoder 上限已量：166 條有簽名者，重排最多救 42 條、65 條（39%）連寬池
-      top-40 都沒有，任何重排都救不到。
-   6. Backlog ⑨ 完成：backend/scripts/*.ts 首次納入型別閘（tsconfig.scripts.json）。
+🔴 開工第一件事：git fetch 後確認在哪個分支。
+   本節（S230）的交接狀態在分支 s230/prereqs 上，PR #26 未合併 —— 只讀 main 會看到 S228 的舊狀態。
+   要合併 #26 需要 Leonard 授權（main 受 ruleset 保護，一切改動走 PR）。
+   線上執行碼為 2678ea2（2026-09-22T08:06 UTC）；origin/main 為 b36b1a6。
+   判斷線上有沒有落後【比檔不比 hash】：git diff --name-only <部署commit>..origin/main -- backend
 
-🔴 S228 立的一條硬紀律（所有檢索改動都適用）：
-   VAULT_LEAD_SCORE 0.70、SPOTLIGHT_LEAD_SCORE 0.60、min_score 全部是在「查詢帶展開詞」
-   的分數尺上校出來的。任何會動搖絕對分數的檢索改動，必須連同這些門檻一起重新校，
-   否則檢索兩層都報喜而答案層變差 —— 而兩層檢索指標都不會顯示這件事。
+🟢 S230 做完了甚麼（都不用重做）：
+   1. S229 收乾。S229 改過交接檔卻從未收工（無 log 條目、Last Session Record 停在 S228、
+      四項改動未 commit、沒存過任何 run 輸出）。已補寫並獨立覆核它的數字。
+   2. 合併並部署核實兩個 PR：#22（S228）與 #23（本節候選與量度）。S228 的 kg_admin 路由
+      修正已行為核實在生產生效。
+   3. 建了候選 FEATURE_VAULT_GATE_RAWVEC（預設關閉）：vault judge-bypass 改為讀同一片段對
+      裸查詢向量的餘弦，0.70 一個位不動；按延遲實測改為【疊加】而非取代舊閘。
+   4. 量出這道 bypass 的真實規模：59/185（31.9%）條 gold 查詢今日跳過判官，不是 5 條。
+      按 gold 真值：FALSE_BYPASS 5 / WRONG_PASSAGE 39 / SOUND 15。
+   5. 判官接手測試（Leonard 批准 59 次、實用 53 次、errors 0）：FALSE_BYPASS 4/5 轉為正確
+      拒答、被攔的 SOUND 11/12 判官照樣答 —— 預先定案全部達標，候選＝條件性可出貨。
+   6. 四項出貨先決條件全部處理完（footnote_lead_probe 已跑、judge_probe 角色講清、
+      14 條拒答與 2 條新開 bypass 逐條讀窗、延遲實測）。
 
-⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
-   · harness 必須逐條記低送去 embed 的【所有】字串 —— searchChannelB 每側 embed 兩次
-     （展開後查詢＋spotlight 用的裸查詢），last-write-wins 會把每個 arm 記成 no-op。
-   · 判官必須 JUDGE_MODEL=gpt-4.1（mini 是壞尺），且要分批跑：gpt-4.1 有 30,000 TPM
-     上限，S228 一次過跑 81 條在第 66 條中止。
-   · 判官依賴準則 3（數字）的判決自動標 needs_human_review，S228 有 22/81 條落入此類，
-     報結論必須連這個數一齊講。
-   · 本機比 Render 慢 1.5–2 秒；anon statement_timeout 3 秒而 service key 是 8 秒，
-     本機 in-process 慣例會 fallback 到 service key，系統性低估失敗率。
-   · 實例層冷熱落差 58–90 倍，任何兩組查詢的比較都要交錯重量三輪以上。
+🚀 下一步（唯一第一順位）：
+   用 JUDGE_MODEL=gpt-4.1-mini 跑一次 dev/source/judge_acceptance.py（35 條凍結集，
+   35 次外部呼叫），把 S211 那組只存在於 CHANGELOG 散文的判官基線補回 artifact。
+   judge_runs/ 現時有 13 個 gpt-4o-mini、2 個 gpt-4.1-nano、零個 gpt-4.1-mini。
+   ⚠️ 必須明示 JUDGE_MODEL，否則該 harness 預設 gpt-4o-mini 會量錯舊配置（已加執行期警告）。
+   ⚠️ 依 DOC_SYNC_CHECKLIST row 46：--check-parity（離線）與 --plumbing-check 必跑，
+      false answer 與 accuracy 要分開報。
+   之後才談修判官錯判或啟用旗標 —— 次序不可倒轉，因為候選會令判官對多 52 條查詢變成承重件。
+
+⚠️ S230 收回過三項斷言，不要再照舊文行事：
+   曾斷定「判官驗收自 S211 起量錯模型」、「D01 假答案是未報缺陷」、「要去 Render 查
+   JUDGE_MODEL」—— 三項皆錯。CODEBASE_CONTEXT.md 記載 S211 已把判官分拆到自己的 JUDGE_MODEL、
+   Render 不需條目、程式預設就是在跑的那個；CHANGELOG.md 記載 S211 確實用凍結集量過
+   gpt-4.1-mini（主集 31/33 打平、相同的兩個 false answer、無新增虛答）。
+   成因：只讀了檔內註釋（§2 第 5 級來源）就下結論，沒查 CODEBASE_CONTEXT.md（第 3 級）。
+   紀律：宣告任何「新缺陷」之前，先查 PROJECT_INDEX 與 CODEBASE_CONTEXT 有沒有記著。
 
 ⚠️ 未解決（不要當已解決）：
-   · 片段層本體（OP②）。已排除六條路：切片、配額、詞面重排、改展開機制本身、
-     floor、floor+balance 合併。未試只剩兩條，兩條都已量出成本／上限：
-     (b) cross-encoder 重排 —— 上限 +42、65 條救不到、每查詢要評 40 個候選；
-     (c) 【S228 新開】先重校 VAULT_LEAD_SCORE 0.70 / SPOTLIGHT_LEAD_SCORE 0.6 兩個常數，
-         或改為相對門檻，再回頭量檢索改動。
-   · 【要先決定的一件事】判官門檻 8 是 S227 為「來源層 +7／片段層 +6」的候選定下的。
-     S228 的證據支持兩個並存讀法：(i) 兩個絕對分數閘吃掉得益（棄權升、0.70 跌穿可量）；
-     (ii) 這個量級本來就堆不出 8 分（79 條之中 43 條 TIE）。兩者下一步不同，先決定信哪個。
+   · 候選未啟用，卡在判官會拒答明明答得到的段落（家長校董 點選 兩個模型都判否；
+     S211 記錄五次改寫提示加 gpt-4o 皆失敗）。殘留代價：1 條 SOUND 拒答（距「≥2 即不出貨」
+     只差一條）、1 條 FALSE_BYPASS 判官仍判能、延遲每查詢中位 +288ms（僅 31% 查詢）。
+   · 片段層本體（OP②）。已排除九條路，最新三條是 rawvec 取代式、片段層詞面、全窗詞面。
    · 封版閘兩個 ERROR 只能靠改善檢索清走；兩個 WARN 未有 waiver；六項人手驗證從未記錄。
-   · 1 條 CONFIDENT_WRONG（0.7575 > 棄權門檻 0.75）＋ 8 條查詢引用 gold 明令禁引的來源。
-   · sch_bus 五個對象版本吃掉 69 個窗格（產品決定）。
-   · footnote_lead_probe.py 與 judge_probe.py 未跑（DOC_SYNC row 要求）。
+   · 8 條查詢引用 gold 明令禁引的來源；sch_bus 五個對象版本吃掉 69 個窗格（產品決定）。
+   · 待核實：S200 那個 decline-half override 的理由是「D01 是 footnote-bypass 案例，判官
+     從不服務它」，但 S201 已移除 footnote bypass —— 若如此該前提已失效。
 
-⚠️ 不在 git 內的外部設定（換機或重裝要記得）：
-   repo 開了 allow_auto_merge + delete_branch_on_merge；deploy key id=163258294；
-   repo secret LEDGER_DEPLOY_KEY；ops repo edb-knowledge-ops 的 executor.yml 有 GH_TOKEN。
-   語料快取 dev/source/.store_cache.json 是 28MB 生成檔、已 gitignore，換機要重建：
-   set -a && . backend/.env && set +a && python3 dev/_s213_recon.py --cache dev/source/.store_cache.json
+⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
+   · 用 stub 判官量出來的是「失去捷徑」，不是「失去答案」—— S230 三批結論都因此讀錯一次。
+     任何答案層結論必須用真判官量。
+   · 比對 gold signature 一律用本專案口徑 squeeze(fold(s))（NFKC＋刪空白）；用原文子字串
+     在全 gold 會漏掉 25 條命中。
+   · 探針的外部呼叫一律包在 try/catch 並加重試 —— 一個 embedding 逾時就足以令整個 run
+     零輸出（S230 中過一次）。
+   · 判官必須分開記 judge_error：judgeCanAnswer 在拋錯時 return true，一次失敗長得像一次「能」。
+   · 本機比 Render 慢 1.5–2 秒；anon statement_timeout 3 秒而 service key 是 8 秒。
+   · 實例層冷熱落差 58–90 倍，任何兩組查詢的比較都要交錯重量三輪以上。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.8 +
-Render /health + git fetch 後比對 HEAD/origin/main + Supabase live count 應為 17,004 +
+Render /health + git fetch 後比對分支與 origin/main + Supabase live count 應為 17,004 +
 check_registry_drift --check 的 ZOMBIE／UNMANAGED／SERIES_UNMONITORED 都應為 0）。
-判斷線上 backend 有沒有落後要【比檔不比 hash】。之後做 Open Priorities ②：先決定信哪個讀法
-（重校門檻 (c) 定重新審視門檻 8），再動手。不要在此之前重跑展開側的 A/B。
+之後先處理 PR #26 的合併授權，再做上面那個第一順位。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次。
