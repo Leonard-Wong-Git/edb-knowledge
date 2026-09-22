@@ -85,26 +85,32 @@ ENDPOINT = "https://edb-knowledge.onrender.com/api/search/channel-b"
 # it has to be re-confirmed in the dashboard whenever a measurement is going to be quoted
 # as production behaviour. Override here via JUDGE_MODEL env var when testing another.
 #
-# 🔴 S230 (2026-09-22) — THE NOTE ABOVE IS STALE, AND SO IS EVERY JUDGE NUMBER THIS HARNESS
-# HAS PRODUCED SINCE S211. It describes `OPENAI_MODEL`, the ANSWER model, confirmed in the
-# dashboard on 2026-07-30 — before S211 split the relevance judge onto its own model. Since
-# S211 production sends the judge to `getJudgeModel()` = `JUDGE_MODEL || "gpt-4.1-mini"`
-# (backend/src/config/env.ts), while this default keeps measuring gpt-4o-mini. Those are
-# different models, so the acceptance evidence has not described the judge that runs for
-# several sessions.
+# ⚠️ S230 (2026-09-22) — THE PARAGRAPH ABOVE DESCRIBES THE PRE-S211 SETUP. It is about
+# `OPENAI_MODEL`, the ANSWER model, confirmed in the dashboard on 2026-07-30. S211 gave the
+# relevance judge its own variable: production runs `getJudgeModel()` =
+# `JUDGE_MODEL || "gpt-4.1-mini"` (backend/src/config/env.ts), Render needs no entry, and
+# dev/CODEBASE_CONTEXT.md records that the "cannot be read from outside" problem is therefore
+# GONE for the judge — the code default IS what runs unless someone overrides it.
 #
-# Measured, 6 completions, 2026-09-22 (backend/scripts/_s230_judgeModelProbe.ts), on prompts
-# captured from production itself:
-#   D01_student_sickleave (decline half, must stay 否)  gpt-4.1-mini → 能  gpt-4.1 → 否
-#   S01_ai_intro_bare_noun (answer half, want 能)       gpt-4.1-mini → 能  gpt-4.1 → 否
-# So the code-default judge produces a FALSE ANSWER on D01, which row 46 of
-# dev/DOC_SYNC_CHECKLIST.md treats as a ship blocker, and the stricter model trades it for a
-# lost answer. Neither fixes 「家長校董 點選」, the one case S230 set out to fix.
+# So the default below is no longer the judge production runs. A run that forgets to set
+# JUDGE_MODEL measures the OLD configuration; the print in run_prompt() now says so out loud.
 #
-# The default below is NOT changed: past runs are labelled by it and rewriting it would
-# silently restate what they measured. Pass JUDGE_MODEL explicitly for any run that will be
-# quoted, and read the real value from the Render dashboard first — as the note above says,
-# nothing outside Render can see it.
+# It is NOT changed, for two reasons: past runs in dev/source/judge_runs/ are labelled by it,
+# and rewriting it would silently restate what they measured.
+#
+# S211 did run the frozen set on gpt-4.1-mini and the comparison is recorded in CHANGELOG.md
+# (main 31/33 tie, answer half 12/12 tie, decline half 19/21 tie, the SAME two false answers
+# D01 and GN10, no new ones). But no artifact for it exists here — this directory holds 13
+# gpt-4o-mini runs and 2 gpt-4.1-nano runs and nothing on gpt-4.1-mini. Re-running it and
+# committing the artifact is the outstanding job, so the baseline stops living in prose.
+#
+# One model-sensitivity data point, 6 completions on prompts captured from production
+# (backend/scripts/_s230_judgeModelProbe.ts): on D01_student_sickleave, which must stay 否,
+# gpt-4.1-mini answers 能 and gpt-4.1 declines correctly; on S01_ai_intro_bare_noun, which
+# wants 能, they are the other way round. D01 is a KNOWN false answer on both models, accepted
+# in S200 under a recorded decline-half override — it is not a new defect. ⚠️ That override's
+# stated reason was that D01 is a footnote-bypass case the judge never serves live, and S201
+# removed the footnote bypass; whether the premise still holds is unverified.
 JUDGE_MODEL = os.environ.get("JUDGE_MODEL", "gpt-4o-mini")
 
 # Verbatim copy of RELEVANCE_JUDGE_PROMPT (searchChannelB.ts). Kept as a literal rather
