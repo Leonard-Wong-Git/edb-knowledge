@@ -1261,11 +1261,28 @@ async function synthesizeAnswer(
   // behaviour" as DOC_SYNC_CHECKLIST row 41 (d) words it — running the judge is TIGHTER
   // than both the old and the new path, so it serves that clause's purpose (a measurement
   // failure must never silently loosen a gate) rather than its letter.
+  //
+  // S230, second iteration — the flag ADDS a second test, it does not replace the first.
+  // The first draft replaced `mainSearchLead.score >= VAULT_LEAD_SCORE` with the bare-vector
+  // test, and measuring that on 185 gold queries found two costs that this conjunction
+  // removes outright:
+  //   - it CREATED two bypasses (小學 STEAM 教育 0.6983 -> 0.7079, 幼稚園可以限制派發K1申請表
+  //     數目嗎 0.6897 -> 0.7253), because routing slightly LOWERS scores, so a few queries
+  //     sit higher on the bare scale than on the applied one. Requiring both bars means the
+  //     candidate can only ever remove a bypass, never open one.
+  //   - the read-back ran whenever the lead was a vault_extract, which the census measured
+  //     as 168 of 185 queries (91%). Gating it on the applied bar first drops that to the
+  //     59 that bypass today (32%). Measured cost of the read against live: median 288ms,
+  //     p90 639ms, worst 1204ms over 36 interleaved samples — not negligible next to a
+  //     routed p90 of 2,498ms and anon's 3s statement_timeout.
+  // Nothing measured changes meaning: the judge-takeover run made exactly 53 calls for the
+  // 59 bypassing queries, i.e. the 6 that clear both bars are the same 6 that keep the
+  // bypass here.
   const vaultLeadCandidate =
     !!mainSearchLead && mainSearchLead.content_type === "vault_extract";
   let trustedVaultLead =
     vaultLeadCandidate && mainSearchLead!.score >= VAULT_LEAD_SCORE;
-  if (vaultLeadCandidate && process.env.FEATURE_VAULT_GATE_RAWVEC === "1") {
+  if (trustedVaultLead && process.env.FEATURE_VAULT_GATE_RAWVEC === "1") {
     trustedVaultLead = false;
     if (rawVec && rawVec.length > 0) {
       try {
