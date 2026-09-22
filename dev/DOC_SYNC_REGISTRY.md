@@ -31,8 +31,8 @@ Recorded at closeout per the Registry Rule above. Newest first.
 
 | Row | 狀態 | 備註 |
 |---|---|---|
-| New file or directory | `confirmed` | `backend/scripts/_s230_gateSignalAB.ts`、`backend/scripts/_s230_leadOverlap.ts`，另 S229 留下的 `_s229_scaleOffset.ts`／`_s229_leadDetail.ts` 本節首次入 git。四支全部已登記 `dev/PROJECT_INDEX.md` Local QC Commands |
-| Generated Markdown or durable artifact | `confirmed` | `dev/source/eval_runs/2026-09-21_s230_{gate_signal_ab,scale_offset_replay,lead_overlap,window_overlap}.json` 四份，保留為近期證據（S229 沒有存過原始輸出，本節的 replay 就是為了補這一點） |
+| New file or directory | `confirmed` | `backend/scripts/_s230_gateSignalAB.ts`、`backend/scripts/_s230_leadOverlap.ts`、`backend/scripts/_s230_bypassCensus.ts`，另 S229 留下的 `_s229_scaleOffset.ts`／`_s229_leadDetail.ts` 本節首次入 git。四支全部已登記 `dev/PROJECT_INDEX.md` Local QC Commands |
+| Generated Markdown or durable artifact | `confirmed` | `dev/source/eval_runs/2026-09-21_s230_{gate_signal_ab,scale_offset_replay,lead_overlap,window_overlap}.json` 四份 ＋ `2026-09-22_s230_bypass_census.json`（185 題真實人口，是這一節唯一足以驗收任何 bypass 閘的證據），保留為近期證據（S229 沒有存過原始輸出，本節的 replay 就是為了補這一點） |
 | Stack or command change | `not_applicable` | 無 build／依賴／指令改動；`npm run check` 未改 |
 | Public behavior change | `not_applicable` | `FEATURE_VAULT_GATE_RAWVEC` 生產未設，未設＝改動前行為相同，且**判定不出貨、不應在 Render 啟用**。本節唯一到生產的行為改變來自合併 S228 的 PR #22（`kg_admin` 路由），該改動的驗收屬 S228 |
 | API or SDK behavior change | `not_applicable` | 無外部 API 端點改動。新增的 `bareCosineForChunk()` 用的是 `wiki_chunks` REST select，與兩個 overlay loader 同一形狀 |
