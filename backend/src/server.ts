@@ -111,10 +111,21 @@ function getClientIp(req: import("node:http").IncomingMessage): string {
   return req.socket?.remoteAddress ?? "unknown";
 }
 
+// S231 — a backend running on a developer's machine also answers a local static preview
+// (python http.server, any port). Before this, only the production origins were echoed,
+// so every call from a local preview was CORS-blocked whichever backend it pointed at, and
+// `CORS_ORIGIN=*` in a local .env did not help: it is compared as a literal string.
+// Off Render only — RENDER_GIT_COMMIT is injected by Render (the same signal /health
+// reports), so the production allow-list never widens.
+const ALLOW_LOCAL_ORIGINS = !process.env.RENDER_GIT_COMMIT;
+const LOCAL_ORIGIN_RE = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
+
 function setCorsHeaders(req: IncomingMessage, res: ServerResponse): void {
   const requestOrigin = req.headers.origin;
   const allowed =
-    typeof requestOrigin === "string" && CORS_ORIGINS.includes(requestOrigin)
+    typeof requestOrigin === "string" &&
+    (CORS_ORIGINS.includes(requestOrigin) ||
+      (ALLOW_LOCAL_ORIGINS && LOCAL_ORIGIN_RE.test(requestOrigin)))
       ? requestOrigin
       : CORS_ORIGINS[0];
   res.setHeader("Access-Control-Allow-Origin", allowed);
