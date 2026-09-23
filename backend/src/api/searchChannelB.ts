@@ -675,6 +675,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbcm141_2026",              // (auto) Option A watcher ingest
     "edbcm136_2026",              // (auto) Option A watcher ingest
     "edbcm124_2026",              // (auto) Option A watcher ingest
+    "edbcm155_2026",              // (auto) Option A watcher ingest
   ],
   /*
    * Kindergarten administration / operation — 幼稚園行政手冊 + 學前機構辦學手冊 (S160).
@@ -1573,6 +1574,7 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   "edbcm136_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbcm167_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbcm124_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
+  "edbcm155_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   // ack:spotlight:end
 ];
 
