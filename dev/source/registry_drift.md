@@ -1,4 +1,4 @@
-# 登記／庫存／瀏覽清單 漂移帳（2026-09-22 16:01 UTC）
+# 登記／庫存／瀏覽清單 漂移帳（2026-09-23 15:52 UTC）
 
 由 `dev/source/check_registry_drift.py --check` 產生，請勿手改。
 
@@ -55,7 +55,7 @@
 | 0 | `steam_edu` | STEAM 教育 |
 | 0 | `tech_curr_docs` | 科技教育學習領域課程文件 |
 
-## UNLISTED — 搜尋得到，但「📚EDB指引」瀏覽不到（115）
+## UNLISTED — 搜尋得到，但「📚EDB指引」瀏覽不到（116）
 
 | 片段 | source_id | 標題 |
 |---:|---|---|
@@ -167,6 +167,7 @@
 | 2 | `edbc18_2008_harmonious` | 教育局通告第18/2008號 締造和諧校園 |
 | 2 | `edbcm135_2026` | 調整代課教師及代職人員的日薪率 |
 | 2 | `edbcm141_2026` | 教育局通告的檢討 |
+| 2 | `edbcm155_2026` | 開辦非正規課程私立學校的 學校資料 |
 | 2 | `fire_service_installation` | 消防裝置及設備指引 |
 | 2 | `gas_odour_measures` | 校內出現氣體異味時應採取措施的指引 |
 | 2 | `hsp_framework` | 健康校園政策架構 |
