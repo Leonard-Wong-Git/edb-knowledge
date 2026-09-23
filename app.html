@@ -2046,10 +2046,33 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // is frozen and consumed by the downstream Circular System). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + 文件標註（就地標註）+ 範本下載 + 合規清單修訂，跨 15 個合規範疇。
-const PLATFORM_VERSION = '3.3.8';
+const PLATFORM_VERSION = '3.3.9';
 // S204 — tab switches; defined in a plain <script> in <head> so mobile.js can read them
 // at its DOMContentLoaded init, which runs BEFORE this Babel script compiles.
 const FEATURE_TABS = window.FEATURE_TABS;
+
+// S231 — the backend origin, defined once. It used to be spelt out four times (one inline
+// literal and three constants, one of them never read), and only the 文件標註 copies switched
+// to the local backend on localhost, so a local preview searched production. mobile.js keeps
+// its own copy because it also runs on index.html / q.html / t-purchase.html, which do not
+// load this script.
+const BACKEND_URL = (typeof location !== 'undefined' && location.hostname === 'localhost')
+  ? 'http://localhost:8787' : 'https://edb-knowledge.onrender.com';
+
+// S231 — /api/stats/usage is read by both the 平台介紹 and 政策搜尋 panels. Share one request
+// per page load instead of each panel fetching on every mount; a failed read is not cached,
+// so the next mount retries (Render's free tier can be cold on the first call).
+let usageTotalPromise = null;
+function fetchUsageTotal() {
+  if (!usageTotalPromise) {
+    usageTotalPromise = fetch(`${BACKEND_URL}/api/stats/usage`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => (d && d.ok ? d.total : null))
+      .catch(() => null)
+      .then((total) => { if (total === null) usageTotalPromise = null; return total; });
+  }
+  return usageTotalPromise;
+}
 
 // S211 — 使用手冊標題同導覽開場白以前各自寫死「五大功能」，收起一個 tab 之後就變成數錯數。
 // 兩處而家都由實際渲染到嘅項目數推出嚟，用呢個表轉中文數字。
@@ -2067,10 +2090,7 @@ function PlatformIntroPanel({ stats }) {
 
   React.useEffect(() => {
     let cancelled = false;
-    fetch('https://edb-knowledge.onrender.com/api/stats/usage')
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => { if (!cancelled && d && d.ok) setUsageTotal(d.total); })
-      .catch(() => {});
+    fetchUsageTotal().then((total) => { if (!cancelled && total !== null) setUsageTotal(total); });
     return () => { cancelled = true; };
   }, []);
 
@@ -2564,14 +2584,10 @@ function QAPanel({ data, setPreviewDoc }) {
   const [isLoading, setIsLoading] = useState(false);
   const [backendError, setBackendError] = useState(null);
 
-  const BACKEND_URL = 'https://edb-knowledge.onrender.com';
-
   useEffect(() => {
     let cancelled = false;
-    fetch(`${BACKEND_URL}/api/stats/usage`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => { if (!cancelled && d && d.ok) setUsageTotal(d.total); })
-      .catch(() => {});   // counter is decoration; never surface its failure to the user
+    // counter is decoration; never surface its failure to the user
+    fetchUsageTotal().then((total) => { if (!cancelled && total !== null) setUsageTotal(total); });
     return () => { cancelled = true; };
   }, []);
   const TOPIC_LABELS = {
@@ -3038,8 +3054,6 @@ function TemplatesPanel() {
 }
 
 // ── 文件修訂 (checklist gap analysis: upload → 按 checklist 比對 → 補回 → 下載) ──
-const REVISE_BACKEND_URL = (typeof location !== 'undefined' && location.hostname === 'localhost')
-  ? 'http://localhost:8787' : 'https://edb-knowledge.onrender.com';
 const REVISE_SCHOOL_OPTS = [
   { v: '', label: '不限（一般比對）' },
   { v: 'primary', label: '小學' },
@@ -3057,8 +3071,6 @@ const REVISE_STATUS_META = {
 // Upload a .docx → match EDB guidelines per paragraph + scan compliance-checklist
 // gaps → return the ORIGINAL file with in-place yellow highlights + Word comments
 // (format preserved) plus a "建議補充" appendix for items not locatable in the text.
-const ANNOTATE_BACKEND_URL = (typeof location !== 'undefined' && location.hostname === 'localhost')
-  ? 'http://localhost:8787' : 'https://edb-knowledge.onrender.com';
 const ANNOTATE_SCHOOL_LABELS = { primary: '小學', secondary: '中學', special: '特殊學校', kindergarten: '幼稚園' };
 
 // XML-escape for text injected into the docx parts.
@@ -3110,7 +3122,7 @@ function AnnotatePanel() {
 
   useEffect(() => {
     let alive = true;
-    fetch(`${ANNOTATE_BACKEND_URL}/api/checklist-domains`)
+    fetch(`${BACKEND_URL}/api/checklist-domains`)
       .then((r) => r.json())
       .then((d) => { if (alive && Array.isArray(d.domains)) setDomains(d.domains); })
       .catch(() => {});
@@ -3195,7 +3207,7 @@ function AnnotatePanel() {
         ...(schoolType ? { school_type: schoolType } : {}),
         ...(!autoMode && selDomains.length ? { domains: selDomains } : {}),
       };
-      const resp = await fetch(`${ANNOTATE_BACKEND_URL}/api/annotate-document`, {
+      const resp = await fetch(`${BACKEND_URL}/api/annotate-document`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
       });
       const json = await resp.json().catch(() => null);
