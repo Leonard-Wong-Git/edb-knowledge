@@ -35,7 +35,7 @@
 4. **GN10 病因（`synthesize:false` 實測）**：窗內頭三格是三條幼稚園 footnote（每班最少一名教師當值、每班不超過 30 人、1:14 只限特殊幼兒中心），真正的比例只在 vault 片段而該查詢被路由到 `g29`，一條都取不回 —— 合成器只能拼出「1:30／1:14」。
 5. **修法（#34）**：新增 `footnote_fn_kg_teacher_pupil_ratio`（`kg_admin_guide_2026`），腳本 `dev/ingest_s232_kg_ratio_footnote.py`（`--self-test` 不寫入／`--execute`）。embed 格式以 `footnote_fn_kgop_ratio` 的已存向量鎖定（text＋空格＋keywords，cos **1.0000**）。INSPECT before/after：總數 17,006 → **17,007**、footnote 180 → **181**。顯示片段數已同步七個檔案，平台版本不變。
 6. **驗收（生產，Render 重啟後）**：窗口 —— GN10 原句、「幼稚園師生比例」、「幼稚園教育計劃 師生比例 1:11」新 footnote **排第 0**；「師生比例」「幼稚園一班要幾多個老師」排第 1；對照題「幼兒中心人手比例」1:14 footnote 仍排第 0、新 footnote 排第 1。`synthesize:true` **兩次都答 1:11（由 1:15 提升、校長不計算在內）**，不再出現「1:30」或把 1:14 套到幼稚園；第二次並明言 1:14 只適用於特殊幼兒中心。`footnote_lead_probe`：before 26/27 正控、4/13 負控 → after **26/27、4/13**，**失去 lead 的正控 0**、errors 0。artifact：`dev/source/2026-09-24_s232_footnote_lead_{before,after}.json`、`..._s232_gn10_window_after.json`、`..._s232_gn10_synth_after.json`。
-7. ⚠️ **預期中的量度副作用（未跑 gold 核實）**：gold `kg_sccc_ratio_confusable`（幼兒中心人手比例）把 `kg_admin_guide_2026` 列為禁引，新 footnote 現排該題第 1 格，**禁引違規預計 +1**（內容上它寫明 1:14 只限特殊幼兒中心，答案層應無害）；`kg_teacher_pupil_ratio` 來源層預計由 FAIL 轉 PASS，片段層簽名不在 footnote 內故仍 FAIL。下次重跑 185 題 gold 時逐條核對。
+7. **未做**：185 題 gold 本節沒有重跑，footnote 對量度的影響未核實 —— 已列為 `## Open Priorities` 的下一步，兩條待核對的題目寫在該處。
 8. **本修法只修 GN10 這一題**，對「合成器把不同對象的數字拼在一起」這一類（D01／FT06）沒有結構作用 —— 路線乙仍然未做。
 
 
@@ -1887,9 +1887,9 @@ Recommended next-step rule: `Next Priorities` must name the single recommended n
 
 Can the next AI continue from `AGENTS.md`, this handoff, `dev/PROJECT_INDEX.md`, and needed rule packs without searching old log history?
 
-Answer: yes — S232 closeout 覆核。S231 留下的第一順位（GN10 路線選擇）本節已選甲並在生產完成；新的第一順位是**重跑 185 題 gold**（核實 footnote 的預期副作用、令基線描述 17,007 片段的生產），之後才開路線乙。下一個 agent 只讀 `AGENTS.md` ＋ 本檔即可續做：現況數字與 footnote 快取重新載入的做法（`## Current Baseline` 2、4）、GN10 已修而這一類未修（`## Risks / Blockers` 1）、兩條預期副作用與驗收 artifact（`## Validation / QC` S232 第 6–7 點）、下一步與次序（`## Open Priorities`），以及合併只能由 Leonard 在網頁做這條邊界（`## User Environment`）。**不需翻 `dev/SESSION_LOG.md`。**
+Answer: yes — S232 closeout 覆核。S231 留下的第一順位（GN10 路線選擇）本節已選甲並在生產完成；新的第一順位是**重跑 185 題 gold**（核實 footnote 的預期副作用、令基線描述 17,007 片段的生產），之後才開路線乙。下一個 agent 只讀 `AGENTS.md` ＋ 本檔即可續做：現況數字與 footnote 快取重新載入的做法（`## Current Baseline` 2、4）、GN10 已修而這一類未修（`## Risks / Blockers` 1）、驗收 artifact（`## Validation / QC` S232 第 6 點）與兩條預期副作用（`## Open Priorities`）、下一步與次序（`## Open Priorities`），以及合併只能由 Leonard 在網頁做這條邊界（`## User Environment`）。**不需翻 `dev/SESSION_LOG.md`。**
 
-Reconstruction evidence: 只用本檔重建下一步 —— **父目標與消費者**見 `## Architecture Decisions (Locked)` 與 `## Open Priorities` 開首（父：EDB K1 知識平台的檢索準確度與答案可信度；消費者：Leonard 與平台用戶）；**本步與父目標的關係**見 `## Open Priorities` Recommended next step（S232 往生產加了一條 footnote，S226 基線已不描述生產，路線乙的量度需要乾淨的基線）；**確切續做點**見同處（生產端點跑 `_s213_run_gold.py`，零 LLM 呼叫）與 `dev/PROJECT_INDEX.md` 的 gold 指令列；**剩餘驗收**見 `## Validation / QC` S232 第 7 點（`kg_sccc_ratio_confusable` 禁引、`kg_teacher_pupil_ratio` 來源層）與 `## Current Baseline` 7（S226 基線 PASS 121／chunk_PASS 58，比較時要按噪音底線讀）；**必需來源與新鮮度**見 `## Current Baseline` 2、4（2026-09-24 實測）與 `## Risks / Blockers` 1–3；**閱讀範圍與未讀缺口**見 `## Validation / QC` S232 第 2 點（警報 @mention 未經真實觸發驗證）與第 1 點（push 電郵設定無 API 可核實）。
+Reconstruction evidence: 只用本檔重建下一步 —— **父目標與消費者**見 `## Architecture Decisions (Locked)` 與 `## Open Priorities` 開首（父：EDB K1 知識平台的檢索準確度與答案可信度；消費者：Leonard 與平台用戶）；**本步與父目標的關係**見 `## Open Priorities` Recommended next step（S232 往生產加了一條 footnote，S226 基線已不描述生產，路線乙的量度需要乾淨的基線）；**確切續做點**見同處（生產端點跑 `_s213_run_gold.py`，零 LLM 呼叫）與 `dev/PROJECT_INDEX.md` 的 gold 指令列；**剩餘驗收**見 `## Open Priorities` Recommended next step（`kg_sccc_ratio_confusable` 禁引、`kg_teacher_pupil_ratio` 來源層）與 `## Current Baseline` 7（S226 基線 PASS 121／chunk_PASS 58，比較時要按噪音底線讀）；**必需來源與新鮮度**見 `## Current Baseline` 2、4（2026-09-24 實測）與 `## Risks / Blockers` 1–3；**閱讀範圍與未讀缺口**見 `## Validation / QC` S232 第 2 點（警報 @mention 未經真實觸發驗證）與第 1 點（push 電郵設定無 API 可核實）。
 
 **🟢 S230 的分支邊界已結案（S231）**：PR #26 已由 Leonard 合併，S230 與 S231 的交接狀態都在 `main`。本節收工 PR 同樣要 Leonard 在網頁合併；**開工第一件事照舊是 `git fetch` 後確認分支與 `origin/main`**。
 
