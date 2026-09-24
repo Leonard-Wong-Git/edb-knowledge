@@ -1102,8 +1102,12 @@ const SYNTHESIS_PROMPT = `你是香港學校管治的政策顧問。以下是從
 // read to the model as a global confidence question and collapsed to a near-constant 否 — on
 // gpt-4o-mini (production) it declined 3/11 answerable cases whose answer was verbatim in the
 // chunks. V3 scores answer-half 11/11 / decline-half 10/11 on the frozen acceptance set
-// (primary 21/22, gpt-4o-mini). Residual decline miss D01 is a footnote-bypass case the judge
-// never serves in production (NEXT ④). See dev/source/JUDGE_PROMPT_FINDINGS.md; verify with
+// (primary 21/22, gpt-4o-mini). Residual decline miss D01 was then a footnote-bypass case the
+// judge never served; S201 removed that bypass, so D01 and GN10 now both reach the judge and
+// both stay misses (subject/scope transplants — see the S201 note at the judge gate below).
+// S231 live check: GN10 「幼稚園每班師生比例係幾多」 answered 1 of 2 runs with "1:30 … 1:14"
+// (class-size cap and the SCCC-only ratio, transplanted); D01 answered 2/2 but the synthesizer
+// said the student rule is not stated. See dev/source/JUDGE_PROMPT_FINDINGS.md; verify with
 // dev/source/judge_acceptance.py (--self-test asserts this body matches SHIPPED_PROMPT).
 const RELEVANCE_JUDGE_PROMPT = `判斷下面「資料」有冇直接回答「問題」。
 
