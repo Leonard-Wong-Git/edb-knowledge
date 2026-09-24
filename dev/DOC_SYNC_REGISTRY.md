@@ -27,6 +27,24 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-09-24 — S231（入口與路由盤點 ＋ v3.3.9 入口整理 ＋ 本機 CORS ＋ 判官基線 artifact ＋ GN10 生產實測）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| Product version / release milestone change | `confirmed` | `app.html` `PLATFORM_VERSION` 3.3.8 → 3.3.9 · README 標章 · `CHANGELOG.md` 新增〔入口整理〕條。**手改，未用 `bump_version.py`**（其 `--dry-run` 會改寫三個凍結合約）。生產 served 3.3.9 已實測 |
+| Public behavior change | `confirmed` | 生產用戶可見行為不變：用量數字改為每次載入請求一次（兩分頁共用）；本機預覽改連 `localhost:8787`。後端 CORS 只在非 Render 環境放寬，生產實測未變 |
+| New file or directory | `confirmed` | `dev/source/judge_runs/2026-09-24_s231_shipped_41mini.json`（既有目錄內新增 run 檔，目錄已在 `dev/PROJECT_INDEX.md`）。刪除 root 0-byte `main` |
+| Stack or command change | `not_applicable` | 無 build／依賴／指令改動 |
+| 外部模型批次 | `confirmed` | Leonard 批准「做判官驗收基線」：`gpt-4.1-mini` 凍結集 35 次 ＋ `--plumbing-check` 2 次；另 Leonard 同意「查」D01 前提：生產搜尋 4 次（帶 `x-probe`） |
+| Anti-confab judge prompt 改動（row 46） | `not_applicable` | prompt 本體零改動（#31 只改註釋，`--check-parity` 通過）。本節只補基線，row 46 全套工具已照跑並分開報 false answer |
+| `dev/source/JUDGE_PROMPT_FINDINGS.md` | `confirmed` | 新增 S231 節（基線數字、前置檢查、限制） |
+| `dev/CODEBASE_CONTEXT.md` | `confirmed` | `app.html` 條目註明舊常數已合併為 `BACKEND_URL`（`mobile.js` 保留自己一份）。其餘零 stack／目錄／External Services 改動 |
+| `dev/CHECKLIST_REVISE_FEATURE.md` | `not_applicable` | 內含 `REVISE_BACKEND_URL` 的 S160 功能設計記錄，屬歷史文件，刻意不改 |
+| Workspace identity change | `confirmed` | `dev/SESSION_HANDOFF.md` `## Current Baseline` 4 與 `## User Environment` Git state 已重寫：`origin/main` = 線上執行碼 = `f712172` |
+| Governance rule change | `not_applicable` | 未改 `AGENTS.md`、未加新 row。log 維護兩套標準的衝突仍未解，已在交接記錄 |
+| `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並讀回逐位元組核對 |
+| Playbook | ⚠ `not_applicable` | 本節未開 playbook 卡 |
+
 ### 2026-09-21 — S230（S229 補寫收乾 ＋ PR #22 合併部署 ＋ vault 閘換訊號候選，判定不出貨）
 
 | Row | 狀態 | 備註 |
