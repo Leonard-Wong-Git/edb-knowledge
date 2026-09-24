@@ -469,3 +469,12 @@ S211 §5 話重新切片係修法。**實測之後推翻咗：切片唔係槓桿
 **詞彙／數字層檢索**（班數係表嘅索引欄，dense 向量處理唔到精確數字對位）。收緊判斷閘唔係出路：
 呢類答案喺閘眼中同真答案冇分別。
 
+
+## S231（2026-09-24）—— 補回 S211 的 gpt-4.1-mini 基線 artifact
+
+S211 用凍結集量過 `gpt-4.1-mini`，但只把數字寫進 CHANGELOG，沒有存 run 檔；`judge_runs/` 此前有 13 個 gpt-4o-mini、2 個 gpt-4.1-nano、零個 gpt-4.1-mini。本節以相同 cache（`chunks_cache.json`，2026-07-31）與線上 prompt 重跑一次，存為 `judge_runs/2026-09-24_s231_shipped_41mini.json`。
+
+- 前置：`--self-test` 0 failure；`--check-parity` 逐字相同；`--plumbing-check` 兩個對照皆得「能」。
+- 結果（`JUDGE_MODEL=gpt-4.1-mini` 明示設定）：主集 **31/33**；answer half **12/12**（false decline 0）；decline half **19/21**，**false answer 2 條：`D01_student_sickleave`、`GN10_kg_class_ratio`**；連 bare-noun 兩題 **33/35**。`D00_s177_frozen_post` 判「否」。
+- 與 S211 CHANGELOG 所記逐項相同（31/33、12/12、19/21、同樣是 D01 與 GN10）。
+- 限制：只跑一次，未作 r2／r3 重複量度；輸入是凍結 cache，按上面 S211 §2，它已與今日語料漂移 —— 這是判官在固定輸入上的基線，不代表今日檢索下的端到端表現。
