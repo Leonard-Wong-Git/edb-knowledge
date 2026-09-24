@@ -6,73 +6,60 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S230, 2026-09-22）---
+--- 專案狀態（S231, 2026-09-24）---
 
-平台 v3.3.8（本節零改動）；Supabase 17,004 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點
-151 份（_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.3.66。
+平台 v3.3.9；Supabase 17,006 chunks（+2 為自動入庫 #27）；in-app 瀏覽庫 170 份；guidelines.json
+公開端點 151 份（_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.3.66。
 FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用。七個量度旗標（S226 三個 + S228 三個 + S230 一個）
 生產一律未設；未設 = 逐位元組等同改動前。
 
-🔴 開工第一件事：git fetch 後確認在哪個分支。
-   本節（S230）的交接狀態在分支 s230/prereqs 上，PR #26 未合併 —— 只讀 main 會看到 S228 的舊狀態。
-   要合併 #26 需要 Leonard 授權（main 受 ruleset 保護，一切改動走 PR）。
-   線上執行碼為 2678ea2（2026-09-22T08:06 UTC）；origin/main 為 b36b1a6。
+🔴 開工第一件事：git fetch 後確認分支與 origin/main。
+   收工時 origin/main = 線上執行碼 = f712172；S231 收工 PR（s231/closeout）待 Leonard 合併。
    判斷線上有沒有落後【比檔不比 hash】：git diff --name-only <部署commit>..origin/main -- backend
+   ⚠️ AI 的 gh pr merge 會被 auto mode 權限閘擋下 —— 合併由 Leonard 在 GitHub 網頁按 Squash and merge。
 
-🟢 S230 做完了甚麼（都不用重做）：
-   1. S229 收乾。S229 改過交接檔卻從未收工（無 log 條目、Last Session Record 停在 S228、
-      四項改動未 commit、沒存過任何 run 輸出）。已補寫並獨立覆核它的數字。
-   2. 合併並部署核實兩個 PR：#22（S228）與 #23（本節候選與量度）。S228 的 kg_admin 路由
-      修正已行為核實在生產生效。
-   3. 建了候選 FEATURE_VAULT_GATE_RAWVEC（預設關閉）：vault judge-bypass 改為讀同一片段對
-      裸查詢向量的餘弦，0.70 一個位不動；按延遲實測改為【疊加】而非取代舊閘。
-   4. 量出這道 bypass 的真實規模：59/185（31.9%）條 gold 查詢今日跳過判官，不是 5 條。
-      按 gold 真值：FALSE_BYPASS 5 / WRONG_PASSAGE 39 / SOUND 15。
-   5. 判官接手測試（Leonard 批准 59 次、實用 53 次、errors 0）：FALSE_BYPASS 4/5 轉為正確
-      拒答、被攔的 SOUND 11/12 判官照樣答 —— 預先定案全部達標，候選＝條件性可出貨。
-   6. 四項出貨先決條件全部處理完（footnote_lead_probe 已跑、judge_probe 角色講清、
-      14 條拒答與 2 條新開 bypass 逐條讀窗、延遲實測）。
+🟢 S231 做完了甚麼（都不用重做）：
+   1. 盤點入口與路由：無重複登記、無衝突路徑、無第二份網站副本。
+   2. 入口整理上線（#28，v3.3.9）：app.html 後端網址合一、用量請求共用、刪 0-byte main、休眠頁註釋。
+   3. 本機 CORS（#29）：只在非 Render 環境放行 localhost；生產實測未放寬。
+   4. 判官基線補回（#30）：gpt-4.1-mini 凍結集 31/33、12/12、19/21（false answer D01、GN10），
+      與 S211 所記逐項相同。artifact 在 dev/source/judge_runs/2026-09-24_s231_shipped_41mini.json。
+   5. S200「判官從不服務 D01」前提已失效；舊註釋由 #31 更正。
+   6. S230 的 PR #26 已合併。
 
-🚀 下一步（唯一第一順位）：
-   用 JUDGE_MODEL=gpt-4.1-mini 跑一次 dev/source/judge_acceptance.py（35 條凍結集，
-   35 次外部呼叫），把 S211 那組只存在於 CHANGELOG 散文的判官基線補回 artifact。
-   judge_runs/ 現時有 13 個 gpt-4o-mini、2 個 gpt-4.1-nano、零個 gpt-4.1-mini。
-   ⚠️ 必須明示 JUDGE_MODEL，否則該 harness 預設 gpt-4o-mini 會量錯舊配置（已加執行期警告）。
-   ⚠️ 依 DOC_SYNC_CHECKLIST row 46：--check-parity（離線）與 --plumbing-check 必跑，
-      false answer 與 accuracy 要分開報。
-   之後才談修判官錯判或啟用旗標 —— 次序不可倒轉，因為候選會令判官對多 52 條查詢變成承重件。
+🔴 本節新確認的生產缺陷：
+   「幼稚園每班師生比例係幾多」（GN10）兩次中一次答「基本師生比例至少為1:30、某些情況可達1:14」
+   —— 班額上限被當成比例、特殊幼兒中心的比例被套到普通幼稚園。另一次正確拒答（非決定性）。
+   D01「學生請病假要唔要交醫生紙」兩次都沒有錯置。
 
-⚠️ S230 收回過三項斷言，不要再照舊文行事：
-   曾斷定「判官驗收自 S211 起量錯模型」、「D01 假答案是未報缺陷」、「要去 Render 查
-   JUDGE_MODEL」—— 三項皆錯。CODEBASE_CONTEXT.md 記載 S211 已把判官分拆到自己的 JUDGE_MODEL、
-   Render 不需條目、程式預設就是在跑的那個；CHANGELOG.md 記載 S211 確實用凍結集量過
-   gpt-4.1-mini（主集 31/33 打平、相同的兩個 false answer、無新增虛答）。
-   成因：只讀了檔內註釋（§2 第 5 級來源）就下結論，沒查 CODEBASE_CONTEXT.md（第 3 級）。
-   紀律：宣告任何「新缺陷」之前，先查 PROJECT_INDEX 與 CODEBASE_CONTEXT 有沒有記著。
+🚀 下一步（唯一第一順位）：由 Leonard 選定 GN10 型錯置的處理路線，再動手：
+   (甲) 內容層個案修：補一條 curated footnote（普通幼稚園無規定師生比例、只有班額上限；
+        1:14 只屬特殊幼兒中心），走 footnote 入庫流程並用 footnote_lead_probe 驗收。
+   (乙) 結構修：設計 S202 reframe 的「非提示式對象核對機制」，先離線設計、用 D01／GN10／FT06 量。
+   換判官模型與改提示都已證修不了（S202、S211、S230），不要再走。
+   次序：處理錯置 → 才談啟用 FEATURE_VAULT_GATE_RAWVEC（它會令判官多承重 52 條查詢）。
+   治理側：log 維護兩套觸發標準（AGENTS.md §4a 對 Kit 核心 ≥11 條）仍待整合。
 
 ⚠️ 未解決（不要當已解決）：
-   · 候選未啟用，卡在判官會拒答明明答得到的段落（家長校董 點選 兩個模型都判否；
-     S211 記錄五次改寫提示加 gpt-4o 皆失敗）。殘留代價：1 條 SOUND 拒答（距「≥2 即不出貨」
-     只差一條）、1 條 FALSE_BYPASS 判官仍判能、延遲每查詢中位 +288ms（僅 31% 查詢）。
-   · 片段層本體（OP②）。已排除九條路，最新三條是 rawvec 取代式、片段層詞面、全窗詞面。
+   · 候選旗標未啟用；判官仍會拒答明明答得到的段落（家長校董 點選）。
+   · 片段層本體（OP②）。已排除九條路。
    · 封版閘兩個 ERROR 只能靠改善檢索清走；兩個 WARN 未有 waiver；六項人手驗證從未記錄。
-   · 8 條查詢引用 gold 明令禁引的來源；sch_bus 五個對象版本吃掉 69 個窗格（產品決定）。
-   · 待核實：S200 那個 decline-half override 的理由是「D01 是 footnote-bypass 案例，判官
-     從不服務它」，但 S201 已移除 footnote bypass —— 若如此該前提已失效。
+   · 入口盤點四項產品決定未動：平台介紹兩條路、手機無文件標註入口、舊 hash 轉址、
+     三條退役但仍公開的後端路由（其中兩條會呼叫 LLM）。見 Open Priorities ③。
+   · 本機 backend/.env 缺 SUPABASE_URL，本機 Channel B 搜尋仍會失敗。
 
 ⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
-   · 用 stub 判官量出來的是「失去捷徑」，不是「失去答案」—— S230 三批結論都因此讀錯一次。
-     任何答案層結論必須用真判官量。
-   · 比對 gold signature 一律用本專案口徑 squeeze(fold(s))（NFKC＋刪空白）；用原文子字串
-     在全 gold 會漏掉 25 條命中。
-   · 探針的外部呼叫一律包在 try/catch 並加重試 —— 一個 embedding 逾時就足以令整個 run
-     零輸出（S230 中過一次）。
-   · 判官必須分開記 judge_error：judgeCanAnswer 在拋錯時 return true，一次失敗長得像一次「能」。
+   · 用 stub 判官量出來的是「失去捷徑」，不是「失去答案」；答案層結論必須用真判官量。
+   · judge_acceptance.py 必須明示 JUDGE_MODEL（預設 gpt-4o-mini 是舊配置）。
+   · 比對 gold signature 一律用 squeeze(fold(s))（NFKC＋刪空白）。
+   · 探針的外部呼叫一律包在 try/catch 並加重試；判官必須分開記 judge_error。
    · 本機比 Render 慢 1.5–2 秒；anon statement_timeout 3 秒而 service key 是 8 秒。
    · 實例層冷熱落差 58–90 倍，任何兩組查詢的比較都要交錯重量三輪以上。
+   · 宣告任何「新缺陷」之前，先查 PROJECT_INDEX 與 CODEBASE_CONTEXT 有沒有記著。
+   · 升版只手改 PLATFORM_VERSION＋README＋CHANGELOG；bump_version.py 會改寫凍結合約。
 
-Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.8 +
-Render /health + git fetch 後比對分支與 origin/main + Supabase live count 應為 17,004 +
+Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.9 +
+Render /health + git fetch 後比對分支與 origin/main + Supabase live count 應為 17,006（自動入庫可令其上升）+
 check_registry_drift --check 的 ZOMBIE／UNMANAGED／SERIES_UNMONITORED 都應為 0）。
-之後先處理 PR #26 的合併授權，再做上面那個第一順位。
+之後報告並請 Leonard 選定甲／乙路線。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次。
