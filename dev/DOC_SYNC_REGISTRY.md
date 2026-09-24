@@ -27,6 +27,24 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-09-24 — S232（GitHub 電郵收窄 ＋ 警報 @mention ＋ GN10 curated footnote 入庫）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| 生產 Supabase 寫入 | `confirmed` | Leonard 批准（「全做」）。`footnote_fn_kg_teacher_pupil_ratio` 1 行，INSPECT before/after：17,006 → 17,007、footnote_curated 180 → 181。回退＝刪該 id 一行 |
+| Chunk count display-sync | `confirmed` | 七檔 17,006 → 17,007（`app.html`、`index.html`、`README.md`、`K1_API_SPEC.md`、`knowledge.json`／`role_facts.json`／`dev/knowledge/role_facts.json` 的 `chunks` 欄），做法同 #27；凍結合約版本零改動 |
+| Product version / release milestone change | `not_applicable` | 只同步片段數，`PLATFORM_VERSION` 維持 3.3.9；`CHANGELOG.md` 新增〔幼稚園師生比例〕條 |
+| Public behavior change | `confirmed` | GN10 類查詢的答案由錯置改為 1:11；生產 `synthesize:true` 兩次實測 |
+| Footnote cache reload | `confirmed` | Render 休眠後重啟 17:37:51Z，`/health` `cache_b.footnote` 181 |
+| CI workflow change | `confirmed` | `monitor_watchdog.yml`／`backend_build_check.yml` 警報正文加 @mention；YAML 解析與 `node --check` 通過、build gate 綠。**未經真實警報觸發** |
+| New file or directory | `confirmed` | `dev/ingest_s232_kg_ratio_footnote.py`（已登記 `dev/PROJECT_INDEX.md`）· `dev/source/2026-09-24_s232_*.json` 四份（既有目錄） |
+| 外部模型批次 | `confirmed` | embedding 約 12 次 · 生產 `synthesize:false` 約 86 次（`x-probe`）· 生產 `synthesize:true` 2 次（Leonard 批准） |
+| GitHub 帳戶／repo 通知設定 | `unverified` | 由 Leonard 在網頁改；帳戶設定有截圖，repo push 電郵設定無 API 可讀 |
+| Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4 與 `## User Environment` Git state 已重寫：`origin/main` `ef53da8`、線上 `f712172` |
+| Governance rule change | `not_applicable` | 未改 `AGENTS.md`、未加新 row。log 維護兩套標準的衝突仍未解 |
+| `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並讀回核對 |
+| Playbook | ⚠ `not_applicable` | 本節未開 playbook 卡 |
+
 ### 2026-09-24 — S231（入口與路由盤點 ＋ v3.3.9 入口整理 ＋ 本機 CORS ＋ 判官基線 artifact ＋ GN10 生產實測）
 
 | Row | 狀態 | 備註 |

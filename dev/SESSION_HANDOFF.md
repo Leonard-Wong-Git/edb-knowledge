@@ -315,7 +315,7 @@
 <!-- ack:section:risks-blockers -->
 ## Risks / Blockers
 
-1. 🔴 **【S231 生產實測】GN10 型「對象／範圍錯置」在生產真實出現，而且非決定性。** 「幼稚園每班師生比例係幾多」兩次中一次答「基本師生比例至少為1:30、某些情況可達1:14」（班額上限被當成比例、特殊幼兒中心的比例被套到普通幼稚園），另一次正確拒答。**換判官模型與改提示都已證修不了**（S202 V4a／V4b 七次 run、S211 五版提示加換模型、S230 兩模型對照），S202 已把它 reframe 為「非提示式對象核對機制」。⚠️ **啟用 `FEATURE_VAULT_GATE_RAWVEC` 會令判官多承重 52 條查詢，這類錯置的曝光面只會增加** —— 所以旗標仍不應啟用。（原 S230 本條記的 harness 檔頭過時與 `gpt-4.1-mini` artifact 缺口：前者 S230 已在檔內標明並加執行期警告，後者 **S231 已補**，見 `## Validation / QC` S231 第 4 點；S230 收回的三項斷言維持收回。）
+1. 🔴 **【S232 改寫】GN10 這一題已在生產修好，但「對象／範圍錯置」這一類仍在。** S231 生產實測「幼稚園每班師生比例係幾多」一次答「至少1:30、某些情況可達1:14」。S232 查明病因是**檢索窗內沒有真正的比例**（只有三條相鄰 footnote：每班一名教師當值、每班不超過 30 人、1:14 只限特殊幼兒中心），已補 curated footnote `footnote_fn_kg_teacher_pupil_ratio`，生產 `synthesize:true` 兩次都答 1:11（見 `## Validation / QC` S232）。**但這只遮蓋了 GN10 一題**：D01、FT06 同類錯置的結構成因（合成器把不同對象的數字拼在一起）未處理。**換判官模型與改提示都已證修不了**（S202、S211、S230），S202 已把它 reframe 為「非提示式對象核對機制」。⚠️ **啟用 `FEATURE_VAULT_GATE_RAWVEC` 會令判官多承重 52 條查詢** —— 旗標仍不應啟用。⚠️ 以後量度這一類時，GN10 已被 footnote 遮蓋，不能再當未修的樣本。
 
 1. 🔴 **【S221 改寫；S220 原文的定性只對一半】HNSW 的封鎖項不是 CVE，是兩個無法繞過的 vacuum 修正。** 版本閘已跑（S221 實測）：Supabase 提供的 `vector` 版本清單最高只到 **0.8.0**，而 0.8.0 正是已安裝那個（`installed: true`），故 `alter extension vector update;` 無任何可升目標。三個相關修正全部在我們之上 —— **0.8.2**：Fixed buffer overflow with parallel HNSW index build（＝CVE-2026-3172，CVSS 8.1），**這一項有官方緩解**，建索引前 `set max_parallel_maintenance_workers = 0;` 即避開觸發條件；**0.8.3**：Fixed possible index corruption with HNSW vacuuming；**0.8.4**：Fixed `hnsw graph not repaired` error with HNSW vacuuming ＋ vacuuming 期間 insert 出錯。**後兩項關不掉**（autovacuum 必然會跑），且是索引建成之後長期存在的風險，不是建索引那一刻的風險。**結論：在升級之前不得建 HNSW；但不要再以為「繞過 parallel 就可以做」。** **【S222 修正 S221 的下半截】升級現時亦解不到** —— Supabase 的建置最高只打包到 **0.8.2**，即使升到頂，0.8.3／0.8.4 那兩個修正仍然拿不到。解封的先決條件已由「Leonard 決定升不升」改為「上游打包 ≥0.8.4」，現由 `dev/source/check_pgvector_release.py` 每週監察，出現才出聲；**在它響之前這一項無事可做**，詳見 Open Priorities ⑤。⚠️ S228 更正：原文指向 ①，而 ① 已於 S227 完成並移除。（附帶事實：2026-08-05 起 Supabase 已棄用「建立／更新擴充時指定版本號」—— 版本子句會被忽略並只發 warning，一律安裝該映像的 default 版本。）現行 IVFFlat 完全碰不到上述三類問題。來源：pgvector CHANGELOG 0.8.2／0.8.3／0.8.4、NVD CVE-2026-3172、Supabase Extensions 與 Upgrading 文件、`supabase/postgres` `nix/ext/versions.json`＋PR #2158、PostgreSQL Routine Vacuuming（wraparound autovacuum 即使 `autovacuum_enabled = false` 仍會跑）—— S221 逐項核實，S222 補上打包上限一項。
 2. ⚠️ **量度紀律三條 —— 違反其中任何一條都會得出錯的結論。** (a) **本機比 Render 慢約 1.5–2 秒**（生產端到端做更多事只需 3.07–3.96s，本機一支裸 RPC 已 3.31–3.88s）—— 本機數字只可用來排序，絕對值不可搬去生產。 (b) **`anon` 角色 `statement_timeout` 只有 3 秒**（`authenticated`／`service_role` 8s），而後端用 anon key；本專案 in-process 慣例 `SUPABASE_ANON_KEY ||= SUPABASE_SERVICE_KEY`（`routeFirstProbe.ts:8`）會在 8 秒上限下量一個 3 秒的系統，系統性低估失敗率。**任何本機量度之前先問：我用的是哪個 key。** (c) **【S226 重量，此項已結案，但結論要連同新數字一起讀】** 舊記載的 routed p90 **8,335ms** 與 S220 的失敗率確實已過時；S226 重跑 185 題實測：routed p90 **2,498ms**、route failures **0**、超過 8 秒的 RPC **0**（S220 分別是 8,335ms／9／18）。**但 (a) 與 (b) 兩條紀律照舊生效**：這批數字仍然是本機、仍然用 service key 的 8 秒上限量一個 anon 3 秒的系統，而同日的生產 run 出了 **1** 條 `57014` statement timeout（本機 0 條）—— **低估的方向與幅度都已量到，不要把本機的「零失敗」搬去生產。** **S222 補一條同族教訓**：比較兩份文件時**必須用同一個抽取器並設對照組**（自己對自己 = 0 miss）—— 跨抽取器比對會因閱讀次序差異產生大量假差異，本節就先量出過一個 20.8% 的假數。 **S223 再補一條同族教訓**：比較**兩批已入庫片段**比跨抽取器更危險 —— 那等於同時比較了抽取器、切割邊界與閱讀次序三樣東西。`kgecg_2017`／`g29` 那個「只覆蓋 84.5%」就是這樣量出來的，重量後真正獨有只有 **0.91%**。**判別法**：落差若在兩個方向上**對稱**，那是次序噪音不是內容差異；再把落差視窗拆半，一半在對方文件內就是接合處產物。
@@ -333,10 +333,10 @@
 ## User Environment (Always Reference Before Giving Shell Commands)
 - **Repo path**: `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft`（路徑含空格 —— 終端機指令必須用雙引號包住）
 - **Correct cd**: `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"`
-- 🔴 **Python：有三個，只有兩個跑得動本專案的抽取／入庫腳本。** 預設 `python3` = homebrew **3.14**，**無 `fitz`、無 `openai`**；`/usr/local/bin/python3`（openai 2.26 ＋ fitz ＋ requests）與 `/usr/bin/python3` 才齊。**抽取與入庫一律明寫 `/usr/local/bin/python3`**；純標準庫的監察腳本（`check_*.py`／`execute_ingest.py --self-test`／`build_wiki_index`）用 `python3` 沒問題。詳見 Risks 6。
+- 🔴 **Python：有三個，只有兩個跑得動本專案的抽取／入庫腳本。** 預設 `python3` = homebrew **3.14**，**無 `fitz`、無 `openai`**；`/usr/local/bin/python3`（openai 2.26 ＋ fitz ＋ requests）與 `/usr/bin/python3` 才齊。**抽取與入庫一律明寫 `/usr/local/bin/python3`**；純標準庫的監察腳本（`check_*.py`／`execute_ingest.py --self-test`／`build_wiki_index`）用 `python3` 沒問題。詳見 Risks 6。 **S232 補**：`python3.13` 亦有 `openai`＋`requests`，`dev/ingest_s232_kg_ratio_footnote.py` 與 `footnote_lead_probe.py` 以它實跑通過。
 - **Python script invocation**: 一律由 repo root 起，例如 `cd "…/Draft" && python3 dev/vault/extract_candidates.py ...`
 - **Backend**: `cd "…/Draft/backend" && npm run dev`
-- **Git state（S231 收工實測，2026-09-24）**: root 與 git root 皆為 `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft` · 收工分支 **`s231/closeout`**（由 `main` `f712172` 開出，收工 PR 待 Leonard 合併）· worktrees **1**（無平行工作區）。`origin/main` = **`f712172`** = 線上執行碼（`/health` 實讀）。本機殘留已合併的 squash 分支：`s228/expansion-knobs`、`s230/{judge-takeover,prereqs,vault-gate-signal}`、`s231/{entry-cleanup,judge-baseline,judge-comment,local-cors}` —— 可刪，刪前照下文「tip 對 squash commit 樹比對＝0 差異」核實；另舊分支 `claude/hopeful-gates-0efe44`（v1.5.0 年代）照舊未動。🔴 **`main` 受 ruleset 保護**（`main build gate`, id 23311105），一切改動走 PR。⚠️ **AI 的 `gh pr merge` 會被 Claude Code auto mode 權限閘擋下**（S231 實測），合併由 Leonard 在 GitHub 網頁按「Squash and merge」。⚠️ **Render 免費層會 spin down**，冷啟動時 `/health` 的 `cache_a.warm` 是 false 並在背景暖機，不要當成故障。
+- **Git state（S232 收工實測，2026-09-24）**: root 與 git root 皆為 `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft` · 收工分支 **`s232/handoff`**（由 `main` `ef53da8` 開出，即 PR #35，待 Leonard 合併）· worktrees **1**（無平行工作區）。`origin/main` = **`ef53da8`**；線上執行碼 **`f712172`**（`backend/` 零落後）。S232 已刪本機 `s231/closeout`、`s232/alarm-mentions`、`s232/kg-ratio-footnote`（三者皆已 squash 合併）。仍殘留更早的已合併 squash 分支：`s228/expansion-knobs`、`s230/{judge-takeover,prereqs,vault-gate-signal}`、`s231/{entry-cleanup,judge-baseline,judge-comment,local-cors}` —— 可刪，刪前照下文「tip 對 squash commit 樹比對」核實。
 - **Production flag state**: `FEATURE_ROUTE_FIRST_SEARCH=1` 於 Render 環境變數（S220 啟用）。另兩個合成側 flag 未設定＝關閉。**Render 環境變數只有 Leonard 改得到，AI 改不到；`/health` 亦不報 flag。**
 - 🔴 **Push 邊界（S224 新增）**：`main` 受 ruleset 保護，**直接 `git push origin main` 會被拒**。一切改動走 PR：`git checkout -b <topic>/<name>` → `git push -u origin HEAD` → `gh pr create --base main --fill` → `gh pr merge --auto --squash`。⚠️ 分支若與 `main` 同一個 commit，`gh pr create` 會失敗並留下一條空分支（S224 中過兩次）——**開分支前先確認真的有未推的 commit**。合併用 squash，所以事後 `git branch -d` 會報「not fully merged」；要刪本機分支請先用「分支 tip vs 它的 squash commit 樹比對＝0 個檔案差異」核實，再用 `-D`。
 - **生產寫入權限（S223 更正）**: AI **跑得到** `cb3_deprecate_stale --execute` 與 `ingest_one_source`（本節實跑三次全部通過）。**擋住破壞性寫入的已經不是機械閘，而是「要先取得 Leonard 明示批准」這條紀律。**
@@ -442,9 +442,9 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:next-priorities -->
 ## Open Priorities
 
-**Recommended next step（S232 重寫）：** GN10 已以路線甲在生產修好（見 `## Validation / QC` S232）。**下一步由 Leonard 選**：(乙) **結構修** —— 設計 S202 reframe 的「非提示式對象核對機制」，先離線設計、用 D01／FT06 量（GN10 已被 footnote 遮蓋，量度時要把它當已修項或另找同類題），零生產改動；或先重跑 185 題 gold，核實 S232 第 7 點的兩條預期變化。⚠️ 換判官模型與改提示都已證修不了這一類（S202、S211、S230），不要再走。
+**Recommended next step（S232 收工重生）：** **重跑 185 題 gold（生產端點，`_s213_run_gold.py`，零 LLM 呼叫）**，核實 S232 footnote 的兩條預期變化（`kg_sccc_ratio_confusable` 禁引 +1、`kg_teacher_pupil_ratio` 來源層 FAIL→PASS），並把 `EVAL_LATEST` 更新到 17,007 片段的語料。理由：S232 往生產加了一條會領先多條查詢的 footnote，現有基線（S226）已不描述生產；先量清楚才開路線乙，否則乙的量度會混入 footnote 的效應。**之後的主線是路線乙**（S202 reframe 的非提示式對象核對機制，先離線設計、用 D01／FT06 量，零生產改動）。⚠️ 換判官模型與改提示都已證修不了這一類（S202、S211、S230），不要再走。
 
-**次序（不可倒轉）**：~~補基線~~（S231 完成）→ **處理錯置（上面甲／乙）** → 才談啟用 `FEATURE_VAULT_GATE_RAWVEC`。原因見 `## Validation / QC` S230 第六至八批：候選會令判官對多 52 條查詢變成承重件。**治理側第一件維護工作（S230 留下、S231 未做）**：log 維護兩套觸發標準（`AGENTS.md` §4a 的 >400 行／>30 日 對 Kit 核心的 ≥11 條）要整合為單一定義，見 `## State Reconciliation Check` S230「Pack 衝突」。
+**次序（不可倒轉）**：~~補基線~~（S231 完成）→ ~~GN10 個案修（甲）~~（S232 完成）→ **重跑 gold → 結構修（乙）** → 才談啟用 `FEATURE_VAULT_GATE_RAWVEC`。原因見 `## Validation / QC` S230 第六至八批：候選會令判官對多 52 條查詢變成承重件。**治理側第一件維護工作（S230 留下、S231／S232 未做）**：log 維護兩套觸發標準（`AGENTS.md` §4a 的 >400 行／>30 日 對 Kit 核心的 ≥11 條）要整合為單一定義，見 `## State Reconciliation Check` S230「Pack 衝突」。
 
 ② 🔴 **把片段層召回率拉高（缺口本體；基線與本節新數字見 `## Current Baseline` 7 與 `## Validation / QC` S228）。**
 
@@ -514,6 +514,21 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:completed-this-session -->
 ## Last Session Record
 
+1. UTC date: 2026-09-24
+2. Session ID: S232。由頂層 dormant root「開工」redirect 入 Draft，起手探針全綠、零漂移。Leonard 逐步指示：GitHub 電郵太多 → 只留「待批准入庫候選」與最重要的電郵 → 警報 @mention（「OK」）→ GN10 走路線甲 → 寫入生產與兩次合成（「全做」）→ 收工。
+3. Completed（撮要，逐項證據見 `## Validation / QC` S232 與 `dev/SESSION_LOG.md` S232 條）：
+   - ✅ **GitHub 電郵收窄**：查明主要來源是 repository 層 push 電郵；Leonard 已改帳戶通知設定並清空四個 repo 的 push 電郵。
+   - ✅ **警報 @mention（#33）**：看門狗與 build gate 開 issue 時會 @Leonard。
+   - ✅ **GN10 路線甲上線（#34）**：攔下 S231 寫錯的 footnote 前提；以庫內原文寫成新 footnote 並寫入生產（17,006 → 17,007）；生產兩次合成都答 1:11；`footnote_lead_probe` 正控零損失。
+   - ✅ **S231 收工 PR #32 已合併**（Leonard 親自按網頁）。
+4. **本節 Supabase 寫入 1 行**（Leonard 批准，INSPECT before/after）；零 DDL、零 flag 改動、零 `backend/` 改動、零凍結合約改動；平台版本不變（v3.3.9）。#32、#33、#34 皆由 Leonard 在 GitHub 網頁合併。
+5. Carry-forward：未完成事項一律不在此列舉，全部歸入 `## Open Priorities`。
+
+<!-- 本地邊界 marker（S232 由 S231 之前上移至此）：令 completed-this-session 的抽取範圍只涵蓋 S232 -->
+<!-- ack:section:session-history -->
+
+## Previous Session Record (S231)
+
 1. UTC date: 2026-09-23／24（跨兩日）
 2. Session ID: S231。由「開工」起手，Leonard 逐步指示：盤點「入口和路由」→ 做第 1–4 項 → 同意（含本機 CORS）→ 做判官驗收基線 → 查 D01 前提 → 改那行過時註釋 → 收工。
 3. Completed（撮要，逐項證據見 `## Validation / QC` S231 與 `dev/SESSION_LOG.md` S231 條）：
@@ -526,8 +541,6 @@ source_registry → same vault PDFs → ai_extract.py
 4. **本節零 Supabase 寫入、零 DDL、零 flag 改動、零凍結合約改動**；平台版本 v3.3.8 → **v3.3.9**。五個 PR 皆由 Leonard 在 GitHub 網頁合併（AI 的 `gh pr merge` 被權限閘擋下）。
 5. Carry-forward：未完成事項一律不在此列舉，全部歸入 `## Open Priorities`。
 
-<!-- 本地邊界 marker（S231 由 S225 之前上移至此）：令 completed-this-session 的抽取範圍只涵蓋 S231 -->
-<!-- ack:section:session-history -->
 
 ## Previous Session Record (S230)
 
@@ -1495,6 +1508,10 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:state-reconciliation-check -->
 ## State Reconciliation Check
 
+- **2026-09-24 S232 closeout reconciliation（GitHub 電郵 ／ 警報 @mention ／ GN10 footnote 上線）：** 於 2026-09-24 收工時重寫或明確確認：`Current Baseline` 2（17,007 與其來源）、4（`origin/main` `ef53da8`、線上 `f712172`、footnote 快取重新載入的做法）· `Validation / QC`（新增 S232 八點於最前，S231 各點一字未改）· `Risks / Blockers` 1（改寫為「GN10 已修、這一類仍在」）· `User Environment` Git state 與 Python 一行補註 · `Open Priorities`（Recommended next step 與「次序」重寫）· `Last Session Record`（S232；S231 原文改題為 `Previous Session Record (S231)` 一字未改）· `Handoff Sufficiency Check` · `Next Session Opening Message`（整段重寫）。**逐段讀過確認仍 current、不改**：`Current Baseline` 1、3、5、6、7 · `Risks / Blockers` 2–9 · `Architecture Decisions` · `Regression / Verification Notes` · `Backlog` · `Mandatory Start Checklist`。`ack:section:session-history` 邊界已移到 S232 記錄之後，範圍內 H2 只有 `Last Session Record` 一個。
+- **Persistence routing checked（S232）：** 當前狀態、下一步、活躍風險、工作區身分 → 本檔 · 入庫與驗收的逐條證據 → `dev/source/2026-09-24_s232_*.json` 四份 ＋ `dev/SESSION_LOG.md` S232 條 · 用戶可見說明 → `CHANGELOG.md` 〔幼稚園師生比例〕條 · 新入庫腳本 → `dev/PROJECT_INDEX.md` · 本節同步狀態 → `dev/DOC_SYNC_REGISTRY.md`。「footnote 入庫後要令 Render 重啟、以 `/health` `cache_b.footnote` 核實」屬可重用操作知識，寫入 `Current Baseline` 4 與 `dev/FOOTNOTE_INGEST_LOOP.md` 已記的「footnote cache 要 restart」一致，未另立規則。**未升 `dev/PROJECT_DECISIONS.md`**：本節無架構取捨；「交接檔寫下的內容前提須先對原文」屬既有紀律（memory `feedback_verify_dont_trust_docs`）。
+- **Lifecycle 一致性檢查（S232）：** 本節完成項（電郵、#33、GN10 footnote、#32 合併）**不留在**未了清單；「GN10 個案修（甲）」在 `Open Priorities` 次序中劃線標完成；`Risks / Blockers` 1 改寫為未解的「這一類」而非已修的 GN10；`Next Session Opening Message` 的下一步與 `Open Priorities` Recommended next step 一致（重跑 185 題 gold，之後路線乙）。未完成的 log 維護整合同時出現在 `Open Priorities` 與開場白。
+- **Stale snapshots left（S232）：** 無新增殘留。`Current Baseline` 4 與 `User Environment` 的 Git 狀態記的是本收工 PR 之前的實測值（`ef53da8`），收工 PR 本身只改治理文件與 artifact。
 - **2026-09-24 S231 closeout reconciliation（入口盤點與整理 ／ 本機 CORS ／ 判官基線 ／ GN10 生產實測 ／ 五個 PR 合併）：** 於 2026-09-24 收工時重寫或明確確認：`Current Baseline` 1（v3.3.9 與「不可用 `bump_version.py`」）、2（17,006 與其來源）、4（整段改寫為 S231 部署與合併現況）· `Validation / QC`（新增 S231 五點於最前，S230 各批一字未改）· `Risks / Blockers` 1（改寫為 GN10 生產錯置；原 S230 內容的已解部分註明去向）· `User Environment` Git state · `Open Priorities`（Recommended next step 與「次序」重寫；③ 追加入口盤點四項產品決定）· `Last Session Record`（S231；S230 原文改題為 `Previous Session Record (S230)` 一字未改）· `Handoff Sufficiency Check` · `Next Session Opening Message`（整段重寫）。**逐段讀過確認仍 current、不改**：`Current Baseline` 3、5、6、7 · `Risks / Blockers` 2–9 · `Architecture Decisions` · `Regression / Verification Notes` · `Backlog` · `Mandatory Start Checklist`。**修好復發的治理缺陷**：`ack:section:session-history` 邊界又漂到 S225 之前，令 `completed-this-session` 涵蓋 S230–S226 五節；已上移至 S231 記錄之後。**無損驗證**：`ack` marker 數改前改後一致。
 - **Persistence routing checked（S231）：** 當前狀態、下一步、活躍風險、工作區身分 → 本檔 · 判官 run 的逐條證據 → `dev/source/judge_runs/2026-09-24_s231_shipped_41mini.json` ＋ `dev/source/JUDGE_PROMPT_FINDINGS.md` S231 節 · 入口整理與 CORS 的用戶可見說明 → `CHANGELOG.md` v3.3.9 條 · 舊常數的去向 → `dev/CODEBASE_CONTEXT.md` · 本節同步狀態 → `dev/DOC_SYNC_REGISTRY.md` · 逐步經過 → `dev/SESSION_LOG.md` S231 條。「升版不可用 `bump_version.py`」屬可重用操作知識，寫入 `Current Baseline` 1（本專案既有慣例把版本規則放此處），未另立規則。
 - **Lifecycle 一致性檢查（S231）：** 本節完成項（盤點、#28／#29／#30／#31、#26 合併、前提核實）**不留在**未了清單；「補判官基線」由 `Open Priorities` 次序中劃線標完成；S230 開場白的「待核實 S200 前提」已結案並改寫為 Risks 1 的生產實測風險；`Next Session Opening Message` 的下一步與 `Open Priorities` Recommended next step 一致（決定甲／乙路線）。未完成兩項（錯置路線、log 維護整合）同時出現在 `Last Session Record` 5、`Open Priorities` 與開場白。
@@ -1870,9 +1887,9 @@ Recommended next-step rule: `Next Priorities` must name the single recommended n
 
 Can the next AI continue from `AGENTS.md`, this handoff, `dev/PROJECT_INDEX.md`, and needed rule packs without searching old log history?
 
-Answer: yes — S231 closeout 覆核。S230 留下的第一順位（補判官基線）本節已完成並與 S211 所記逐項相同；新的第一順位是**由 Leonard 在甲（curated footnote 個案修）與乙（非提示式對象核對機制）之間選定 GN10 型錯置的處理路線**，因為 GN10 已在生產實測出錯、而提示與模型兩條路都已證修不了。下一個 agent 只讀 `AGENTS.md` ＋ 本檔即可續做：現況數字（`## Current Baseline`）、錯置的具體例子與出現頻率（`## Risks / Blockers` 1、`## Validation / QC` S231 第 5 點）、為何旗標仍不可啟用（同上）、兩條路線的成本與驗收工具（`## Open Priorities`），以及合併只能由 Leonard 在網頁做這條邊界（`## User Environment`）。**不需翻 `dev/SESSION_LOG.md`。**
+Answer: yes — S232 closeout 覆核。S231 留下的第一順位（GN10 路線選擇）本節已選甲並在生產完成；新的第一順位是**重跑 185 題 gold**（核實 footnote 的預期副作用、令基線描述 17,007 片段的生產），之後才開路線乙。下一個 agent 只讀 `AGENTS.md` ＋ 本檔即可續做：現況數字與 footnote 快取重新載入的做法（`## Current Baseline` 2、4）、GN10 已修而這一類未修（`## Risks / Blockers` 1）、兩條預期副作用與驗收 artifact（`## Validation / QC` S232 第 6–7 點）、下一步與次序（`## Open Priorities`），以及合併只能由 Leonard 在網頁做這條邊界（`## User Environment`）。**不需翻 `dev/SESSION_LOG.md`。**
 
-Reconstruction evidence: 只用本檔重建下一步 —— **父目標與消費者**見 `## Architecture Decisions (Locked)` 與 `## Open Priorities` 開首（父：EDB K1 知識平台的檢索準確度與答案可信度；消費者：Leonard 與平台用戶）；**本步與父目標的關係**見 `## Open Priorities` ② 與 `## Validation / QC` S230 第六批（vault bypass 今日在 59/185 查詢上跳過判官，其中 5 條語料本來答不到 —— 這是答案可信度的直接缺口）；**確切續做點**見 `## Open Priorities` 的 Recommended next step（`JUDGE_MODEL=gpt-4.1-mini` 跑 `dev/source/judge_acceptance.py` 35 條，含 `--check-parity` 與 `--plumbing-check`）；**剩餘驗收**見 `## Validation / QC` S230 第六批第 5–8 點（1 條 `SOUND` 拒答距紅線一條、1 條 `FALSE_BYPASS` 判官仍判能、延遲 +288ms 中位）與 `dev/DOC_SYNC_CHECKLIST.md` row 46；**必需來源與新鮮度**見 `## Current Baseline` 4（部署與 git 現況，2026-09-22 實測）、7（檢索基線）與 `## Risks / Blockers` 1–3（判官基線 artifact 缺口、量度紀律三條、實例層冷熱落差）；**閱讀範圍與未讀缺口**見 `## Validation / QC` S230 第八批第 5 點（`judge_runs/` 零個 `gpt-4.1-mini` artifact）與 `## Open Priorities` ③（六項人手驗證從未記錄）。
+Reconstruction evidence: 只用本檔重建下一步 —— **父目標與消費者**見 `## Architecture Decisions (Locked)` 與 `## Open Priorities` 開首（父：EDB K1 知識平台的檢索準確度與答案可信度；消費者：Leonard 與平台用戶）；**本步與父目標的關係**見 `## Open Priorities` Recommended next step（S232 往生產加了一條 footnote，S226 基線已不描述生產，路線乙的量度需要乾淨的基線）；**確切續做點**見同處（生產端點跑 `_s213_run_gold.py`，零 LLM 呼叫）與 `dev/PROJECT_INDEX.md` 的 gold 指令列；**剩餘驗收**見 `## Validation / QC` S232 第 7 點（`kg_sccc_ratio_confusable` 禁引、`kg_teacher_pupil_ratio` 來源層）與 `## Current Baseline` 7（S226 基線 PASS 121／chunk_PASS 58，比較時要按噪音底線讀）；**必需來源與新鮮度**見 `## Current Baseline` 2、4（2026-09-24 實測）與 `## Risks / Blockers` 1–3；**閱讀範圍與未讀缺口**見 `## Validation / QC` S232 第 2 點（警報 @mention 未經真實觸發驗證）與第 1 點（push 電郵設定無 API 可核實）。
 
 **🟢 S230 的分支邊界已結案（S231）**：PR #26 已由 Leonard 合併，S230 與 S231 的交接狀態都在 `main`。本節收工 PR 同樣要 Leonard 在網頁合併；**開工第一件事照舊是 `git fetch` 後確認分支與 `origin/main`**。
 
@@ -1904,46 +1921,42 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S231, 2026-09-24）---
+--- 專案狀態（S232, 2026-09-24）---
 
-平台 v3.3.9；Supabase 17,006 chunks（+2 為自動入庫 #27）；in-app 瀏覽庫 170 份；guidelines.json
-公開端點 151 份（_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.3.66。
-FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用。七個量度旗標（S226 三個 + S228 三個 + S230 一個）
-生產一律未設；未設 = 逐位元組等同改動前。
+平台 v3.3.9；Supabase 17,007 chunks（+1 為 S232 curated footnote）；in-app 瀏覽庫 170 份；
+guidelines.json 公開端點 151 份（_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。
+Agent Handoff Kit v0.3.66。FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用。七個量度旗標
+（S226 三個 + S228 三個 + S230 一個）生產一律未設；未設 = 逐位元組等同改動前。
 
 🔴 開工第一件事：git fetch 後確認分支與 origin/main。
-   收工時 origin/main = 線上執行碼 = f712172；S231 收工 PR（s231/closeout）待 Leonard 合併。
+   收工時 origin/main = ef53da8，線上執行碼 = f712172（backend/ 零落後）；
+   S232 收工 PR #35（s232/handoff）待 Leonard 合併。
    判斷線上有沒有落後【比檔不比 hash】：git diff --name-only <部署commit>..origin/main -- backend
    ⚠️ AI 的 gh pr merge 會被 auto mode 權限閘擋下 —— 合併由 Leonard 在 GitHub 網頁按 Squash and merge。
 
-🟢 S231 做完了甚麼（都不用重做）：
-   1. 盤點入口與路由：無重複登記、無衝突路徑、無第二份網站副本。
-   2. 入口整理上線（#28，v3.3.9）：app.html 後端網址合一、用量請求共用、刪 0-byte main、休眠頁註釋。
-   3. 本機 CORS（#29）：只在非 Render 環境放行 localhost；生產實測未放寬。
-   4. 判官基線補回（#30）：gpt-4.1-mini 凍結集 31/33、12/12、19/21（false answer D01、GN10），
-      與 S211 所記逐項相同。artifact 在 dev/source/judge_runs/2026-09-24_s231_shipped_41mini.json。
-   5. S200「判官從不服務 D01」前提已失效；舊註釋由 #31 更正。
-   6. S230 的 PR #26 已合併。
+🟢 S232 做完了甚麼（都不用重做）：
+   1. GitHub 電郵收窄：Leonard 已改帳戶通知設定並清空四個 repo 的 push 電郵。
+   2. 警報 @mention（#33）：看門狗與 build gate 開 issue 時會 @Leonard（未經真實警報驗證）。
+   3. GN10 已在生產修好（#34）：新 footnote footnote_fn_kg_teacher_pupil_ratio 寫入生產
+      （17,006 → 17,007）；生產兩次合成都答 1:11；footnote_lead_probe 正控零損失。
+      ⚠️ S231 交接寫的前提「普通幼稚園無規定師生比例」是錯的，原文是 1:15 → 1:11，未寫入。
+   4. S231 收工 PR #32 已合併。
 
-🔴 本節新確認的生產缺陷：
-   「幼稚園每班師生比例係幾多」（GN10）兩次中一次答「基本師生比例至少為1:30、某些情況可達1:14」
-   —— 班額上限被當成比例、特殊幼兒中心的比例被套到普通幼稚園。另一次正確拒答（非決定性）。
-   D01「學生請病假要唔要交醫生紙」兩次都沒有錯置。
-
-🚀 下一步（唯一第一順位）：由 Leonard 選定 GN10 型錯置的處理路線，再動手：
-   (甲) 內容層個案修：補一條 curated footnote（普通幼稚園無規定師生比例、只有班額上限；
-        1:14 只屬特殊幼兒中心），走 footnote 入庫流程並用 footnote_lead_probe 驗收。
-   (乙) 結構修：設計 S202 reframe 的「非提示式對象核對機制」，先離線設計、用 D01／GN10／FT06 量。
+🚀 下一步（唯一第一順位）：重跑 185 題 gold（生產端點 _s213_run_gold.py，零 LLM 呼叫），
+   核實 S232 footnote 的兩條預期變化：kg_sccc_ratio_confusable 禁引 +1、
+   kg_teacher_pupil_ratio 來源層 FAIL → PASS；並令基線描述 17,007 片段的生產。
+   之後的主線：路線乙 —— S202 reframe 的非提示式對象核對機制，先離線設計、
+   用 D01／FT06 量（GN10 已被 footnote 遮蓋，不能再當未修樣本），零生產改動。
    換判官模型與改提示都已證修不了（S202、S211、S230），不要再走。
-   次序：處理錯置 → 才談啟用 FEATURE_VAULT_GATE_RAWVEC（它會令判官多承重 52 條查詢）。
+   次序：gold → 乙 → 才談啟用 FEATURE_VAULT_GATE_RAWVEC（它會令判官多承重 52 條查詢）。
    治理側：log 維護兩套觸發標準（AGENTS.md §4a 對 Kit 核心 ≥11 條）仍待整合。
 
 ⚠️ 未解決（不要當已解決）：
+   · 對象／範圍錯置這一類（D01、FT06）未修；GN10 只是個案遮蓋。
    · 候選旗標未啟用；判官仍會拒答明明答得到的段落（家長校董 點選）。
    · 片段層本體（OP②）。已排除九條路。
    · 封版閘兩個 ERROR 只能靠改善檢索清走；兩個 WARN 未有 waiver；六項人手驗證從未記錄。
-   · 入口盤點四項產品決定未動：平台介紹兩條路、手機無文件標註入口、舊 hash 轉址、
-     三條退役但仍公開的後端路由（其中兩條會呼叫 LLM）。見 Open Priorities ③。
+   · 入口盤點四項產品決定未動（Open Priorities ③）。
    · 本機 backend/.env 缺 SUPABASE_URL，本機 Channel B 搜尋仍會失敗。
 
 ⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
@@ -1954,12 +1967,15 @@ FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用。七個量度旗標（S226 三�
    · 本機比 Render 慢 1.5–2 秒；anon statement_timeout 3 秒而 service key 是 8 秒。
    · 實例層冷熱落差 58–90 倍，任何兩組查詢的比較都要交錯重量三輪以上。
    · 宣告任何「新缺陷」之前，先查 PROJECT_INDEX 與 CODEBASE_CONTEXT 有沒有記著。
+   · 寫入任何內容（footnote、事實）之前，先對庫內原文；交接檔寫下的內容前提也要核實。
+   · footnote 入庫後生產要重啟才載入：以 /health 的 cache_b.footnote 數目核實。
    · 升版只手改 PLATFORM_VERSION＋README＋CHANGELOG；bump_version.py 會改寫凍結合約。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.9 +
-Render /health + git fetch 後比對分支與 origin/main + Supabase live count 應為 17,006（自動入庫可令其上升）+
+Render /health（cache_b.footnote 應為 181）+ git fetch 後比對分支與 origin/main +
+Supabase live count 應為 17,007（自動入庫可令其上升）+
 check_registry_drift --check 的 ZOMBIE／UNMANAGED／SERIES_UNMONITORED 都應為 0）。
-之後報告並請 Leonard 選定甲／乙路線。
+之後報告並建議重跑 185 題 gold。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次。
 ```
 

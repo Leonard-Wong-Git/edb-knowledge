@@ -6,46 +6,42 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S231, 2026-09-24）---
+--- 專案狀態（S232, 2026-09-24）---
 
-平台 v3.3.9；Supabase 17,006 chunks（+2 為自動入庫 #27）；in-app 瀏覽庫 170 份；guidelines.json
-公開端點 151 份（_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.3.66。
-FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用。七個量度旗標（S226 三個 + S228 三個 + S230 一個）
-生產一律未設；未設 = 逐位元組等同改動前。
+平台 v3.3.9；Supabase 17,007 chunks（+1 為 S232 curated footnote）；in-app 瀏覽庫 170 份；
+guidelines.json 公開端點 151 份（_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。
+Agent Handoff Kit v0.3.66。FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用。七個量度旗標
+（S226 三個 + S228 三個 + S230 一個）生產一律未設；未設 = 逐位元組等同改動前。
 
 🔴 開工第一件事：git fetch 後確認分支與 origin/main。
-   收工時 origin/main = 線上執行碼 = f712172；S231 收工 PR（s231/closeout）待 Leonard 合併。
+   收工時 origin/main = ef53da8，線上執行碼 = f712172（backend/ 零落後）；
+   S232 收工 PR #35（s232/handoff）待 Leonard 合併。
    判斷線上有沒有落後【比檔不比 hash】：git diff --name-only <部署commit>..origin/main -- backend
    ⚠️ AI 的 gh pr merge 會被 auto mode 權限閘擋下 —— 合併由 Leonard 在 GitHub 網頁按 Squash and merge。
 
-🟢 S231 做完了甚麼（都不用重做）：
-   1. 盤點入口與路由：無重複登記、無衝突路徑、無第二份網站副本。
-   2. 入口整理上線（#28，v3.3.9）：app.html 後端網址合一、用量請求共用、刪 0-byte main、休眠頁註釋。
-   3. 本機 CORS（#29）：只在非 Render 環境放行 localhost；生產實測未放寬。
-   4. 判官基線補回（#30）：gpt-4.1-mini 凍結集 31/33、12/12、19/21（false answer D01、GN10），
-      與 S211 所記逐項相同。artifact 在 dev/source/judge_runs/2026-09-24_s231_shipped_41mini.json。
-   5. S200「判官從不服務 D01」前提已失效；舊註釋由 #31 更正。
-   6. S230 的 PR #26 已合併。
+🟢 S232 做完了甚麼（都不用重做）：
+   1. GitHub 電郵收窄：Leonard 已改帳戶通知設定並清空四個 repo 的 push 電郵。
+   2. 警報 @mention（#33）：看門狗與 build gate 開 issue 時會 @Leonard（未經真實警報驗證）。
+   3. GN10 已在生產修好（#34）：新 footnote footnote_fn_kg_teacher_pupil_ratio 寫入生產
+      （17,006 → 17,007）；生產兩次合成都答 1:11；footnote_lead_probe 正控零損失。
+      ⚠️ S231 交接寫的前提「普通幼稚園無規定師生比例」是錯的，原文是 1:15 → 1:11，未寫入。
+   4. S231 收工 PR #32 已合併。
 
-🔴 本節新確認的生產缺陷：
-   「幼稚園每班師生比例係幾多」（GN10）兩次中一次答「基本師生比例至少為1:30、某些情況可達1:14」
-   —— 班額上限被當成比例、特殊幼兒中心的比例被套到普通幼稚園。另一次正確拒答（非決定性）。
-   D01「學生請病假要唔要交醫生紙」兩次都沒有錯置。
-
-🚀 下一步（唯一第一順位）：由 Leonard 選定 GN10 型錯置的處理路線，再動手：
-   (甲) 內容層個案修：補一條 curated footnote（普通幼稚園無規定師生比例、只有班額上限；
-        1:14 只屬特殊幼兒中心），走 footnote 入庫流程並用 footnote_lead_probe 驗收。
-   (乙) 結構修：設計 S202 reframe 的「非提示式對象核對機制」，先離線設計、用 D01／GN10／FT06 量。
+🚀 下一步（唯一第一順位）：重跑 185 題 gold（生產端點 _s213_run_gold.py，零 LLM 呼叫），
+   核實 S232 footnote 的兩條預期變化：kg_sccc_ratio_confusable 禁引 +1、
+   kg_teacher_pupil_ratio 來源層 FAIL → PASS；並令基線描述 17,007 片段的生產。
+   之後的主線：路線乙 —— S202 reframe 的非提示式對象核對機制，先離線設計、
+   用 D01／FT06 量（GN10 已被 footnote 遮蓋，不能再當未修樣本），零生產改動。
    換判官模型與改提示都已證修不了（S202、S211、S230），不要再走。
-   次序：處理錯置 → 才談啟用 FEATURE_VAULT_GATE_RAWVEC（它會令判官多承重 52 條查詢）。
+   次序：gold → 乙 → 才談啟用 FEATURE_VAULT_GATE_RAWVEC（它會令判官多承重 52 條查詢）。
    治理側：log 維護兩套觸發標準（AGENTS.md §4a 對 Kit 核心 ≥11 條）仍待整合。
 
 ⚠️ 未解決（不要當已解決）：
+   · 對象／範圍錯置這一類（D01、FT06）未修；GN10 只是個案遮蓋。
    · 候選旗標未啟用；判官仍會拒答明明答得到的段落（家長校董 點選）。
    · 片段層本體（OP②）。已排除九條路。
    · 封版閘兩個 ERROR 只能靠改善檢索清走；兩個 WARN 未有 waiver；六項人手驗證從未記錄。
-   · 入口盤點四項產品決定未動：平台介紹兩條路、手機無文件標註入口、舊 hash 轉址、
-     三條退役但仍公開的後端路由（其中兩條會呼叫 LLM）。見 Open Priorities ③。
+   · 入口盤點四項產品決定未動（Open Priorities ③）。
    · 本機 backend/.env 缺 SUPABASE_URL，本機 Channel B 搜尋仍會失敗。
 
 ⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
@@ -56,10 +52,13 @@ FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用。七個量度旗標（S226 三�
    · 本機比 Render 慢 1.5–2 秒；anon statement_timeout 3 秒而 service key 是 8 秒。
    · 實例層冷熱落差 58–90 倍，任何兩組查詢的比較都要交錯重量三輪以上。
    · 宣告任何「新缺陷」之前，先查 PROJECT_INDEX 與 CODEBASE_CONTEXT 有沒有記著。
+   · 寫入任何內容（footnote、事實）之前，先對庫內原文；交接檔寫下的內容前提也要核實。
+   · footnote 入庫後生產要重啟才載入：以 /health 的 cache_b.footnote 數目核實。
    · 升版只手改 PLATFORM_VERSION＋README＋CHANGELOG；bump_version.py 會改寫凍結合約。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.9 +
-Render /health + git fetch 後比對分支與 origin/main + Supabase live count 應為 17,006（自動入庫可令其上升）+
+Render /health（cache_b.footnote 應為 181）+ git fetch 後比對分支與 origin/main +
+Supabase live count 應為 17,007（自動入庫可令其上升）+
 check_registry_drift --check 的 ZOMBIE／UNMANAGED／SERIES_UNMONITORED 都應為 0）。
-之後報告並請 Leonard 選定甲／乙路線。
+之後報告並建議重跑 185 題 gold。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次。
