@@ -92,6 +92,15 @@ function selfTest(): number {
   ok('answerable without signature is wrong passage', bypassVerdict(true, false) === 'WRONG_PASSAGE');
   ok('no signature to check reports UNKNOWN', bypassVerdict(true, null) === 'UNKNOWN');
 
+  ok('NFKC folds full-width brackets onto half-width',
+    norm('家長教師會（PTA）') === norm('家長教師會(PTA)'));
+  ok('whitespace is squeezed out on both sides', norm('a b\n c') === 'abc');
+  // RED-TEST ASSERTION — the first run of this probe compared raw substrings and scored
+  // 家長校董 點選 as WRONG_PASSAGE although its answer sat verbatim in slot 0. If norm() ever
+  // stops folding, this pair diverges again and the label counts silently shift.
+  ok('the bracket case that was misclassified now matches',
+    norm('家長教師會（PTA）選代表／幹事入法團校董會（家長校董）有咩條件')
+      .includes(norm('家長教師會(PTA)選代表/幹事入法團校董會(家長校董)有咩條件')));
   ok('zero overlap blocks when the query is judgeable', zeroOverlapWouldBlock(3, 0) === true);
   ok('some overlap does not block', zeroOverlapWouldBlock(3, 1) === false);
   // RED-TEST ASSERTION — the rule must NOT block a query it cannot judge. 人工智能初探 has
@@ -154,6 +163,27 @@ async function embed(text: string): Promise<number[]> {
   return v;
 }
 
+/**
+ * The project's single text comparison, ported exactly: `squeeze(fold(s))` from
+ * dev/_s213_corpus.py — NFKC fold, then remove ALL whitespace.
+ *
+ * WHY IT MATTERS HERE, measured not assumed. The first version of this probe compared raw
+ * substrings, and that misclassified real hits two ways: `家長校董 點選` has its answer
+ * verbatim in slot 0 but the gold signature writes 家長教師會(PTA) with half-width brackets
+ * while the chunk has （PTA） full-width, and `小學 STEAM 教育` has its signature split across
+ * a chunk boundary. NFKC fixes the first class; 868 chunks also carry CJK compatibility
+ * ideographs (理 as U+F9E4), which is why the project folds everywhere.
+ *
+ * One deliberate difference from `match_rank` in dev/_s213_run_gold.py: that scans the whole
+ * result list, because it answers "did retrieval find the passage at all". This scans the
+ * TOP FIVE only, because the question here is what the judge was shown — `defaultWindow` is
+ * `results.slice(0, 5)` in searchChannelB.ts. The two numbers answer different questions and
+ * must not be compared.
+ */
+export function norm(s: string): string {
+  return (s ?? '').normalize('NFKC').replace(/\s+/g, '');
+}
+
 function cosine4(a: number[], b: number[]): number {
   let dot = 0, na = 0, nb = 0;
   const n = Math.min(a.length, b.length);
@@ -167,9 +197,25 @@ const out = process.argv.find((a) => a.endsWith('.json') && !a.startsWith('--'))
 const limitArg = process.argv.indexOf('--limit');
 const limit = limitArg > 0 ? Number(process.argv[limitArg + 1]) : undefined;
 
+/**
+ * One retry on a transient failure. The first re-run of this census died on its very first
+ * call with an unhandled TimeoutError and wrote no artifact at all: the footnote corpus load
+ * is a large embedding-bearing payload and another probe was hitting Supabase at the time.
+ * A 185-item read-only census must not be lost to one slow response.
+ */
+async function withRetry<T>(what: string, fn: () => Promise<T>): Promise<T> {
+  try {
+    return await fn();
+  } catch (e) {
+    console.log(`  retrying ${what} after ${String(e).slice(0, 80)}`);
+    await new Promise((r) => setTimeout(r, 3000));
+    return await fn();
+  }
+}
+
 const gold = JSON.parse(fs.readFileSync('../dev/_s213_gold_all.json', 'utf8')) as Gold[];
 const cases = limit ? gold.slice(0, limit) : gold;
-const stop = await footnoteInformativeBigrams();
+const stop = await withRetry('footnote corpus load', () => footnoteInformativeBigrams());
 process.env.FEATURE_VAULT_GATE_RAWVEC = '1';
 
 const rows: any[] = [];
@@ -183,7 +229,8 @@ for (const g of cases) {
 
   let resp: any;
   try {
-    resp = await searchChannelB({ query: g.query, synthesize: true }, embed, llmFn, judgeFn);
+    resp = await withRetry(g.id, () =>
+      searchChannelB({ query: g.query, synthesize: true }, embed, llmFn, judgeFn));
   } catch (e) {
     rows.push({ id: g.id, query: g.query, error: String(e).slice(0, 160) });
     console.log(`[${n}/${cases.length}] ERROR ${g.id}: ${String(e).slice(0, 80)}`);
@@ -196,7 +243,15 @@ for (const g of cases) {
   const lead = gateRead as { id: string; embedding: number[] } | null;
   const appliedRow = lead ? rs.find((r) => r.id === lead.id) : undefined;
   const applied = appliedRow ? appliedRow.score : null;
-  const bare = lead && lead.embedding.length ? cosine4(await embed(g.query), lead.embedding) : null;
+  // Outside the try in the first version, which is exactly how one timeout killed the run.
+  let bare: number | null = null;
+  if (lead && lead.embedding.length) {
+    try {
+      bare = cosine4(await withRetry(`${g.id} bare embed`, () => embed(g.query)), lead.embedding);
+    } catch (e) {
+      console.log(`[${n}/${cases.length}] bare-cosine unavailable for ${g.id}: ${String(e).slice(0, 60)}`);
+    }
+  }
 
   const bypassBefore = !!lead && applied !== null && applied >= VAULT_BAR;
   const bypassAfter = judgeCalls === 0;
@@ -205,7 +260,13 @@ for (const g of cases) {
   const overlap = overlapWith(bigrams, windowText);
 
   const sigs = g.expected_passage_signature ?? [];
+  const normWindow = norm(windowText);
   const signatureInWindow = !g.answerable || sigs.length === 0
+    ? null
+    : sigs.some((sig) => normWindow.includes(norm(sig)));
+  // Recorded so the raw-substring result stays visible beside the folded one: the gap between
+  // them IS the measurement error the first run made, and it should not vanish silently.
+  const signatureInWindowRaw = !g.answerable || sigs.length === 0
     ? null
     : sigs.some((sig) => windowText.includes(sig));
   const expectedSourceInWindow = (g.expected_source_any ?? []).length === 0
@@ -224,6 +285,7 @@ for (const g of cases) {
     query_bigrams: bigrams.size, window_overlap: overlap,
     zero_overlap_would_block: zeroOverlapWouldBlock(bigrams.size, overlap),
     signature_in_window: signatureInWindow,
+    signature_in_window_raw_substring: signatureInWindowRaw,
     expected_source_in_window: expectedSourceInWindow,
     forbidden_source_in_window: forbiddenInWindow,
     bypass_verdict: bypassBefore ? bypassVerdict(g.answerable, signatureInWindow) : null,

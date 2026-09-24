@@ -43,7 +43,14 @@ Recorded at closeout per the Registry Rule above. Newest first.
 | `dev/source/footnote_lead_probe.py` | ⚠ `pending` | `--self-test` PASS；row 41(a) 要求的生產 before→after **本節不跑**：旗標不在生產、footnote lead slot 未改、且候選判定不出貨。任何出貨決定之前必須補跑 |
 | `dev/CODEBASE_CONTEXT.md` | ⚠ `not_applicable` | 零 tech stack／目錄／build／External Services／Key Decisions 改動。`bareCosineForChunk()` 屬既有 Supabase REST 用法，不構成新 External Service |
 | `START_NEXT_SESSION_PROMPT.txt` | ⚠ `pending` | 本節未收工（Leonard 授權的是三件工，不是收工）。依核心 Persistence Gate 走 lightweight checkpoint：只寫當前狀態與證據，不重生鏡像檔 |
-| Playbook | ⚠ `pending` | 本節套用了 `self-authored-probe-false-confidence` 的判斷（S229 已開卡）與「兩分佈重疊時調 threshold 係死路」那一條；usage 行與可能的提案留待收工一併處理 |
+| Playbook | ⚠ `pending` | 本節套用了 `self-authored-probe-false-confidence` 的判斷（S229 已開卡）與「兩分佈重疊時調 threshold 係死路」那一條。**usage 行與提案本節未交** —— 按該庫規則，本節未 grep 全表亦未開新卡（是沿用 S229 已開的判斷），而三條可轉移教訓（stub 判官量到的是失去捷徑不是失去答案／比對文本必用專案單一口徑／宣告新缺陷前先查 PROJECT_INDEX 與 CODEBASE_CONTEXT）夠成熟但需要一份提案檔，留待下節 |
+| `dev/source/judge_probe.py` | ✅ `confirmed`（角色已改，非重寫） | 檔頭寫入「只擁有 CLASS_A/B/C 案例集這個角色、不得用它驗收 bypass 條件改動」，並指向 `_s230_bypassCensus.ts` ＋ `_s230_judgeTakeover.ts`；已知錯標（`老師病假`）標示而不移動並附理由與數字影響。`dev/DOC_SYNC_CHECKLIST.md` row 41 驗收工具欄同步改寫 |
+| `dev/source/judge_acceptance.py` | ✅ `confirmed`（零行為、零預設改動） | 檔頭標明過時段落描述 S211 之前的情況並保留原文；加執行期警告（未設 `JUDGE_MODEL` 即量錯舊配置）；記下 `judge_runs/` 零個 `gpt-4.1-mini` artifact 這個缺口。`--self-test` 0 failure |
+| 外部模型批次（第二次） | ✅ `confirmed` | 判官模型敏感度診斷：OpenAI、`gpt-4.1-mini` 與 `gpt-4.1`、**6 次呼叫**（碼內硬上限），提示由生產產生。結論已記入 `## Validation / QC` S230 第八批，其中三項斷言**已收回** |
+| `dev/PROJECT_INDEX.md` | ✅ `confirmed` | Local QC Commands 新增七列（六支 TS 探針 ＋ 一支 Python 分析器），每列寫明存在理由、上限與已知陷阱 |
+| `dev/SESSION_LOG.md` | ✅ `confirmed` | 新增 S230 條（含四條 Fix Record：stub 判官讀錯、NFKC 口徑、探針崩潰、來源次序倒轉）＋ 補寫 S229 條 |
+| `START_NEXT_SESSION_PROMPT.txt` | ✅ `confirmed` | 由交接檔唯一 fenced 區塊重生（78 行 / 6,760 bytes）並讀回逐位元組相同；檔內全文僅一份 |
+| PR #26 合併 | ⚠ `blocked` | 本節交接狀態（含 `dev/SESSION_HANDOFF.md`）在分支 `s230/prereqs` 上。`main` 受 ruleset 保護，合併需 Leonard 授權 —— **未獲授權，故此項為 blocked**，邊界已寫入 `## User Environment` Git state 與開場白 |
 
 ### 2026-09-16 — S228（展開機制旗標 ＋ 幼稚園搬遷津貼路由 ＋ scripts 型別閘）
 

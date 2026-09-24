@@ -84,6 +84,33 @@ ENDPOINT = "https://edb-knowledge.onrender.com/api/search/channel-b"
 # OpenAI API will not say which model a key is being used with. So it cannot be probed —
 # it has to be re-confirmed in the dashboard whenever a measurement is going to be quoted
 # as production behaviour. Override here via JUDGE_MODEL env var when testing another.
+#
+# ⚠️ S230 (2026-09-22) — THE PARAGRAPH ABOVE DESCRIBES THE PRE-S211 SETUP. It is about
+# `OPENAI_MODEL`, the ANSWER model, confirmed in the dashboard on 2026-07-30. S211 gave the
+# relevance judge its own variable: production runs `getJudgeModel()` =
+# `JUDGE_MODEL || "gpt-4.1-mini"` (backend/src/config/env.ts), Render needs no entry, and
+# dev/CODEBASE_CONTEXT.md records that the "cannot be read from outside" problem is therefore
+# GONE for the judge — the code default IS what runs unless someone overrides it.
+#
+# So the default below is no longer the judge production runs. A run that forgets to set
+# JUDGE_MODEL measures the OLD configuration; the print in run_prompt() now says so out loud.
+#
+# It is NOT changed, for two reasons: past runs in dev/source/judge_runs/ are labelled by it,
+# and rewriting it would silently restate what they measured.
+#
+# S211 did run the frozen set on gpt-4.1-mini and the comparison is recorded in CHANGELOG.md
+# (main 31/33 tie, answer half 12/12 tie, decline half 19/21 tie, the SAME two false answers
+# D01 and GN10, no new ones). But no artifact for it exists here — this directory holds 13
+# gpt-4o-mini runs and 2 gpt-4.1-nano runs and nothing on gpt-4.1-mini. Re-running it and
+# committing the artifact is the outstanding job, so the baseline stops living in prose.
+#
+# One model-sensitivity data point, 6 completions on prompts captured from production
+# (backend/scripts/_s230_judgeModelProbe.ts): on D01_student_sickleave, which must stay 否,
+# gpt-4.1-mini answers 能 and gpt-4.1 declines correctly; on S01_ai_intro_bare_noun, which
+# wants 能, they are the other way round. D01 is a KNOWN false answer on both models, accepted
+# in S200 under a recorded decline-half override — it is not a new defect. ⚠️ That override's
+# stated reason was that D01 is a footnote-bypass case the judge never serves live, and S201
+# removed the footnote bypass; whether the premise still holds is unverified.
 JUDGE_MODEL = os.environ.get("JUDGE_MODEL", "gpt-4o-mini")
 
 # Verbatim copy of RELEVANCE_JUDGE_PROMPT (searchChannelB.ts). Kept as a literal rather
@@ -303,6 +330,10 @@ def cmd_score(prompt_path: str | None, out_path: str | None, pace: float, label:
     secondary = score_cases(cases, verdicts, scope="all")
     print("\n" + "=" * 68)
     print(f"prompt: {label}   model: {JUDGE_MODEL}")
+    if "JUDGE_MODEL" not in os.environ:
+        print("  \u26a0 JUDGE_MODEL not set: this run measures gpt-4o-mini, which is NOT the")
+        print("    judge production runs (env.ts default is gpt-4.1-mini since S211). Set")
+        print("    JUDGE_MODEL explicitly, after reading the real value in the Render dashboard.")
     print(f"PRIMARY      {summary['correct']}/{summary['n']}")
     print(f"  answer half  {summary['answer_half']['correct']}/{summary['answer_half']['n']}"
           f"   (false declines: {len(summary['false_declines'])})")

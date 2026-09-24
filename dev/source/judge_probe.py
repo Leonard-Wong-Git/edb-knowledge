@@ -37,6 +37,44 @@ import urllib.request
 
 RPC = "https://youkcekbrbywuqjxgibe.supabase.co/rest/v1/rpc/match_wiki_chunks"
 
+# ---------------------------------------------------------------------------
+# WHAT THIS PROBE MEASURES, AND WHAT IT DOES NOT (S229 measured, S230 replayed)
+# ---------------------------------------------------------------------------
+# `top_vault()` below embeds the BARE query and searches the WHOLE index. That is the scale
+# `VAULT_LEAD_SCORE = 0.70` was set on (S195B), and it is NOT the scale production applies it
+# to: the gate reads `mainSearchLead.score`, which comes from a search over
+# `expandQuery(query, category)` narrowed to the routed SOURCE_SET.
+#
+# Measured on these same 24 queries (backend/scripts/_s229_scaleOffset.ts; replayed
+# independently 2026-09-21, dev/source/eval_runs/2026-09-21_s230_scale_offset_replay.json):
+# routing does not lift scores (0 to -0.067) but expansion lifts them by up to +0.3226, and
+# the adversarial/control overlap widens from 0.0080 to 0.0817 — ten times. 97 of the 185 gold
+# items are routed, so for those two the two scales genuinely differ; the other 88 coincide.
+#
+# So DO NOT use this probe to accept or reject a change to the judge-bypass CONDITION. It
+# cannot see the gate's actual input. The tools that do, both running the production path with
+# gold ground truth, are:
+#   backend/scripts/_s230_bypassCensus.ts   who bypasses today, and whether gold says each
+#                                           bypass is sound, wrong-passage, or outright false
+#   backend/scripts/_s230_judgeTakeover.ts  what the real judge does with the ones a candidate
+#                                           gate hands back to it
+# This probe keeps one durable job: it owns the CLASS_A/B/C case set below, which those two
+# tools reuse verbatim as an answer key.
+#
+# KNOWN MISLABEL, left in place deliberately. 「老師病假連續請幾耐先要交醫生紙」 sits in CLASS_B
+# ("the specific answer is NOT in the corpus"), and that is wrong: g04 states 「常額教師如申請
+# 病假超逾兩天，必須出示有效的醫生證明書」, and S229 opened the window to confirm the leading
+# chunk IS that passage, so the bypass firing on it is correct behaviour. It is NOT moved,
+# because this list is an answer key and the recorded S195 statistics are read off it: on the
+# calibration scale that query scores 0.4964, so reclassifying it to CLASS_C would drop the
+# recorded control minimum from 0.6241 to 0.4964 and widen the published overlap further. That
+# is a decision to take deliberately with the numbers restated, not a silent edit. Until then
+# the probe prints it as a known mislabel so no future reader inherits the error.
+MISLABELLED = {
+    "老師病假連續請幾耐先要交醫生紙":
+        "g04 answers it (常額教師…病假超逾兩天…醫生證明書); belongs in CLASS_C. See header.",
+}
+
 CLASS_A = [
     "香港股票市場今日收市指數",
     "米線湯底煮法食譜",
@@ -111,6 +149,12 @@ def main() -> int:
             print(f"  {s if s is not None else '  —  '}  {q[:26]:28} → {sid} · {title}")
         results[label] = scores
         print(f"  max={max(scores)}  median={statistics.median(scores)}  n={len(scores)}")
+
+    if MISLABELLED:
+        print("\n" + "=" * 66)
+        print("KNOWN MISLABEL — these are printed, not silently counted; see the header:")
+        for q, why in MISLABELLED.items():
+            print(f"  {q}\n    {why}")
 
     adv = results["A off-domain"] + results["B plausible-gap"]
     ctrl = results["C positive control"]
