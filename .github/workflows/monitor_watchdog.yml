@@ -139,6 +139,11 @@ jobs:
 
             const dispatched = (r.dispatched || []);
             const body = [
+              // @mention so this alarm still reaches Leonard now that "Watching" e-mail
+              // is off (S232; same pattern as served_url_check.yml, S191). Only the
+              // create below notifies — later silent body updates do not re-ping.
+              '@Leonard-Wong-Git',
+              '',
               text.trim(),
               '',
               dispatched.length
