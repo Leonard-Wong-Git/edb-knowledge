@@ -6,6 +6,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [入口整理] — 2026-09-23 — 後端網址只寫一次，休眠頁註釋對正實況（S231）
+
+> 平台版本 **v3.3.8 → v3.3.9**（`app.html` 有改動）。凍結合約零接觸（`knowledge.json` `_meta` 2.3.0 · facts 455 · `guidelines.json` 2.6.2）。生產環境的用戶可見行為不變。
+
+### Changed
+- **`app.html` 的後端網址由四處合為一個 `BACKEND_URL`。** 此前一處直接寫死網址，另有三個常數，其中 `REVISE_BACKEND_URL` 自 S161 合併文件標註後已無人讀取。只有文件標註那兩份會在 `localhost` 改連本機 backend，搜尋與用量計數則連生產，兩者方向不一。**現在本機預覽一律連 `localhost:8787`**，生產網域不受影響。⚠️ 實測：不論改動前後，本機預覽（`localhost:8095`）的請求都會被 CORS 擋下 —— backend 只回傳兩個生產網域的 `Access-Control-Allow-Origin`，`.env` 的 `CORS_ORIGIN=*` 只是一個字面值，不會放行任何網域。本次沒有改 CORS。`mobile.js` 保留自己一份，因為它同時服務 `index.html`／`q.html`／`t-purchase.html`，讀不到 `app.html` 的常數。
+- **累計查詢次數改為每次載入只請求一次。** 平台介紹與政策搜尋兩個分頁原本各自寫一份相同的請求，每次切換分頁都重新請求。現由 `fetchUsageTotal()` 共用；請求失敗不會被快取，下次打開分頁會重試。
+
+### Fixed
+- **刪除 repo 根目錄一個 0 byte 的 `main` 檔案**（誤建，無任何引用）。
+- **`q.html`／`t-purchase.html` 的休眠註釋**原稱「移除 robots meta 及 robots.txt 對應規則即可重新公開」，但本站刻意沒有 `robots.txt`（理由見 S220〔文案對正〕條目：`Disallow` 會令爬蟲讀不到頁內 `noindex`）。註釋改為如實說明 meta 是唯一的收錄閘。
+
+---
+
 ## [幼稚園課程指引去重] — 2026-09-14 — 那個「刪了會失去 15% 內容」的數字，是排版量出來的（S223）
 
 > 平台版本 **v3.3.7 → v3.3.8**（`app.html` 有改動）。凍結合約零接觸（`knowledge.json` `_meta` 2.3.0 · facts 455 · `guidelines.json` 2.6.2）。
