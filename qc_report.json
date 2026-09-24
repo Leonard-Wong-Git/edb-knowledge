@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T15:51:25Z",
+  "generatedAt": "2026-09-24T16:13:18Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17006,
@@ -10,7 +10,7 @@
     "INFO": 1,
     "NOT_MEASURED": 0
   },
-  "version": "v3.3.8",
+  "version": "v3.3.9",
   "corpus": {
     "chunks": 17006,
     "sources_serving": 307,
@@ -189,7 +189,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=4a983bd · 啟動於 2026-09-23T15:51:12.487Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=f712172 · 啟動於 2026-09-24T16:13:05.729Z · Channel A 快取 455 條",
       "offenders": [],
       "offender_total": 0
     },
