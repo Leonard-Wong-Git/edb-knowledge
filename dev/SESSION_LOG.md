@@ -39,6 +39,29 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 
 <!-- ack:log-entry:start -->
 
+## 2026-09-24 Session 232 — GitHub 電郵收窄；GN10 以 footnote 修好，但交接寫下的 footnote 前提本身是錯的
+
+- **ID:** S232
+- **Summary:** 由頂層 root「開工」redirect 入 Draft，起手探針全綠。Leonard 逐步指示：GitHub 電郵太多 → 只留批准候選與最重要電郵 → 警報 @mention → GN10 走路線甲 → 寫入生產與兩次合成（「全做」）→ 收工。#32、#33、#34 由 Leonard 在網頁合併；收工 PR #35。
+- **Changed:** `.github/workflows/monitor_watchdog.yml`／`backend_build_check.yml`（@mention）· 新 `dev/ingest_s232_kg_ratio_footnote.py` · `CHANGELOG.md` · 片段數同步七檔（`app.html`、`index.html`、`README.md`、`K1_API_SPEC.md`、`knowledge.json`、`role_facts.json`、`dev/knowledge/role_facts.json`）· `dev/source/2026-09-24_s232_*.json` 四份 · 治理文件。**生產 Supabase +1 行**。
+- **Done:**
+  - **電郵**：查明大宗來源是 repo 層 push 電郵（每次 push 一封，無 webhook、無 API 可讀）；Leonard 改帳戶設定（Watching 關電郵、Actions 只報失敗等）並清空四個 repo 的 push 電郵。
+  - **#33**：看門狗與 build gate 的警報 issue 加 @mention（照 S191 做法）。
+  - **GN10**：`synthesize:false` 看生產窗 —— 三條相鄰 footnote 在頂、真正比例的 vault 片段因路由到 `g29` 而取不回。對庫內原文寫新 footnote（1:15 → 1:11；通告 26/2003 每 15 名一名當值），INSPECT before/after 寫入（17,006 → 17,007、footnote 180 → 181）。等 Render 休眠重啟後驗收。
+- **Fix Record:**
+  - **Problem:** S231 交接為路線甲寫下的 footnote 內容是「普通幼稚園無規定師生比例、只有班額上限」。**Root Cause:** 該前提寫入交接時未對原文。**Fix:** 動手前逐條查 `kg_admin_guide_2026`／`kg_operation_manual_2026` 片段，發現原文相反，改以原文為準並在交接記錄。**Verification:** 新 footnote 每句都能在庫內片段找到對應原文。
+  - **Problem:** 入庫後生產不會自動載入新 footnote。**Root Cause:** `_footnoteCache` 無 TTL，合併 PR 不會重新部署（三個 PR 都不動 `backend/`）。**Fix:** 21 分鐘不發請求讓免費方案休眠。**Verification:** `/health` `started_at` 17:37:51Z、`cache_b.footnote` 181。
+- **QC:** 兩個 workflow YAML 可解析、內嵌腳本 `node --check` 通過、build gate 綠 · 入庫腳本 `--self-test`（embed 格式 cos 1.0000）· 生產窗口 6 條查詢（新 footnote 在 3 條排第 0、3 條排第 1）· `synthesize:true` 2 次皆答 1:11 · `footnote_lead_probe` before 26/27・4/13 → after 26/27・4/13，失去 lead 0、errors 0 · `footnote_lead_probe --self-test` PASS。**未跑**：185 題 gold（已列為下一步）。
+- **Evidence disposition:** 四份 artifact 入 repo 為本修法的驗收證據；結論摘入交接 `## Validation / QC` S232；入庫腳本登記入 `dev/PROJECT_INDEX.md`。
+- **Sync:** `dev/DOC_SYNC_REGISTRY.md` S232 列 · 片段數七檔已同步 · 凍結合約零接觸 · 平台版本不變。
+- **Pending:** 重跑 185 題 gold → 路線乙；log 維護兩套標準整合；收工 PR #35 待合併。
+- **Risks:** 對象錯置這一類（D01／FT06）未修；gold 預計禁引 +1；警報 @mention 未經真實觸發驗證。
+- **Log maintenance:** 寫入本條後主 log 為 5 條；`docs/qa/session_log_maintenance.py --check` 報 `line_count=169`、`entry_count=5`、`trigger=False`（§4a 不觸發；Kit 核心 ≥11 條亦未達）。`## Confirmed Decisions` 類章節未達 30 條；距上次全面維護未滿 10 次收工；本節無架構取捨需寫入 `PROJECT_DECISIONS.md`。
+- **Opening-message mirror:** 由交接檔唯一 fenced 區塊重生並讀回，內容相等（64 行／5,345 bytes）；全文依設計不入 log。
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-09-24 Session 231 — 「入口和路由」沒有重複，但有三個分支；補回的判官基線與 S211 逐項相同，而那條「判官從不服務」的前提早已失效，實測到的是 GN10 在生產答錯
 
 - **ID:** S231（跨 09-23／09-24 兩日）
