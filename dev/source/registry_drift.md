@@ -1,4 +1,4 @@
-# 登記／庫存／瀏覽清單 漂移帳（2026-09-24 16:13 UTC）
+# 登記／庫存／瀏覽清單 漂移帳（2026-09-25 16:13 UTC）
 
 由 `dev/source/check_registry_drift.py --check` 產生，請勿手改。
 
@@ -60,7 +60,7 @@
 | 片段 | source_id | 標題 |
 |---:|---|---|
 | 346 | `gifted_ge_series` | 資優教育系列：全民資優教育＋校本學生才能庫＋學術英才教育單元 |
-| 221 | `kg_admin_guide_2026` | 幼稚園行政手冊（2026年5月） |
+| 222 | `kg_admin_guide_2026` | 幼稚園行政手冊（2026年5月） |
 | 220 | `kg_operation_manual_2026` | 學前機構辦學手冊（2026年5月，第4.3版） |
 | 106 | `sch_activities_guide` | 學校活動指引：戶外活動＋境外遊學團 |
 | 100 | `imc_establishment_operation` | 法團校董會的成立與運作（校本管理手冊2014） |

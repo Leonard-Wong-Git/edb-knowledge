@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-24T16:13:18Z",
+  "generatedAt": "2026-09-25T16:13:25Z",
   "overallStatus": "ERROR",
   "counts": {
-    "chunks": 17006,
+    "chunks": 17007,
     "PASS": 14,
     "BLOCKER": 0,
     "ERROR": 2,
@@ -12,7 +12,7 @@
   },
   "version": "v3.3.9",
   "corpus": {
-    "chunks": 17006,
+    "chunks": 17007,
     "sources_serving": 307,
     "sources_registered": 285,
     "guidelines_listed": 170,
@@ -189,7 +189,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=f712172 · 啟動於 2026-09-24T16:13:05.729Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=f712172 · 啟動於 2026-09-25T16:13:16.674Z · Channel A 快取 0 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -219,7 +219,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "infra",
-      "detail": "資料庫真數 17006 · 已核對 7 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "detail": "資料庫真數 17007 · 已核對 7 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
       "offenders": [],
       "offender_total": 0
     },
@@ -467,10 +467,10 @@
       "severity": "WARN",
       "status": "FAIL",
       "group": "pointing",
-      "detail": "116 個來源 / 2618 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
+      "detail": "116 個來源 / 2619 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
       "offenders": [
         "gifted_ge_series（346 條）資優教育系列：全民資優教育＋校本學生才能庫＋學術英才",
-        "kg_admin_guide_2026（221 條）幼稚園行政手冊（2026年5月）",
+        "kg_admin_guide_2026（222 條）幼稚園行政手冊（2026年5月）",
         "kg_operation_manual_2026（220 條）學前機構辦學手冊（2026年5月，第4.3版）",
         "sch_activities_guide（106 條）學校活動指引：戶外活動＋境外遊學團",
         "imc_establishment_operation（100 條）法團校董會的成立與運作（校本管理手冊2014）",
