@@ -18,11 +18,14 @@ import {
 } from "./api/annotateDocument.js";
 import { searchChannelA, type SearchChannelARequest } from "./api/searchChannelA.js";
 import {
+  detectQueryCategory,
   searchChannelB,
+  SYNTHESIS_DECLINE,
   warmChannelBOverlays,
   type SearchChannelBRequest,
 } from "./api/searchChannelB.js";
 import { PROBE_HEADER, readUsageTotals, recordSearch } from "./lib/usageCounter.js";
+import { isLogId, logSearch, newLogId, parseClient, recordFeedback } from "./lib/searchLog.js";
 import { searchCombined, type SearchCombinedRequest } from "./api/searchCombined.js";
 import { handleChunks, handleManifest } from "./api/channelBSync.js";
 import { getCorsOrigins, getPort, getJudgeModel } from "./config/env.js";
@@ -67,6 +70,11 @@ setInterval(() => {
     if (fresh.length === 0) ipWindows.delete(ip);
     else ipWindows.set(ip, fresh);
   }
+  for (const [ip, timestamps] of feedbackWindows) {
+    const fresh = timestamps.filter(t => t > cutoff);
+    if (fresh.length === 0) feedbackWindows.delete(ip);
+    else feedbackWindows.set(ip, fresh);
+  }
 }, 5 * 60_000);
 
 function checkRateLimit(ip: string): { allowed: boolean; retryAfterSec: number } {
@@ -93,6 +101,24 @@ function checkGlobalLimit(): { allowed: boolean; retryAfterSec: number } {
     return { allowed: false, retryAfterSec };
   }
   globalWindow.push(now);
+  return { allowed: true, retryAfterSec: 0 };
+}
+
+// S233 — separate, looser per-IP window for the feedback route (see its handler).
+const FEEDBACK_MAX_BYTES = 1_024;
+const FEEDBACK_RATE_LIMIT = 30;
+const feedbackWindows = new Map<string, number[]>();
+
+function checkFeedbackLimit(ip: string): { allowed: boolean; retryAfterSec: number } {
+  const now = Date.now();
+  const cutoff = now - RATE_WINDOW_MS;
+  const timestamps = (feedbackWindows.get(ip) ?? []).filter(t => t > cutoff);
+  if (timestamps.length >= FEEDBACK_RATE_LIMIT) {
+    const retryAfterSec = Math.ceil((Math.min(...timestamps) + RATE_WINDOW_MS - now) / 1000);
+    return { allowed: false, retryAfterSec };
+  }
+  timestamps.push(now);
+  feedbackWindows.set(ip, timestamps);
   return { allowed: true, retryAfterSec: 0 };
 }
 
@@ -267,6 +293,40 @@ const server = createServer(async (req, res) => {
     return;
   }
 
+  // ── S233: 👍/👎 on one answer ────────────────────────────────────────────
+  // Before the shared POST limiter on purpose: that limiter is the 10/min search budget and
+  // the OpenAI denial-of-wallet ceiling, and a rating click must not spend a user's search.
+  // This route costs one cheap RPC, only touches a row whose unguessable UUID the caller
+  // already holds, and has its own per-IP cap.
+  if (req.method === "POST" && req.url === "/api/search/feedback") {
+    setCorsHeaders(req, res);
+    const fb = checkFeedbackLimit(getClientIp(req));
+    if (!fb.allowed) {
+      res.setHeader("Retry-After", String(fb.retryAfterSec));
+      res.writeHead(429, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ ok: false, error: "請求過於頻繁，請稍後再試。" }));
+      return;
+    }
+    try {
+      const body = await readJsonBody<{ log_id?: unknown; rating?: unknown }>(req, FEEDBACK_MAX_BYTES);
+      const rating = body.rating === 1 || body.rating === -1 ? body.rating : null;
+      if (!isLogId(body.log_id) || rating === null) {
+        res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
+        res.end(JSON.stringify({ ok: false, error: "log_id 或 rating 無效。" }));
+        return;
+      }
+      const updated = await recordFeedback(body.log_id, rating);
+      res.writeHead(updated ? 200 : 404, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ ok: updated }));
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+      const status = message === "PAYLOAD_TOO_LARGE" ? 413 : 502;
+      res.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ ok: false, error: "評分未能記錄。" }));
+    }
+    return;
+  }
+
   // ── Rate limiting (all POST endpoints) ───────────────────────────────────
   if (req.method === "POST") {
     const ip = getClientIp(req);
@@ -402,13 +462,31 @@ const server = createServer(async (req, res) => {
   // ── Channel B search (LLM-wiki index, all results) ────────────────────────
   if (req.method === "POST" && req.url === "/api/search/channel-b") {
     try {
-      const input = await readJsonBody<SearchChannelBRequest>(req, SEARCH_MAX_BYTES);
+      const startedAt = Date.now();
+      const input = await readJsonBody<SearchChannelBRequest & { client?: unknown }>(req, SEARCH_MAX_BYTES);
       const result = await searchChannelB(input, embeddingClient, llmClient, judgeLlmClient);
-      recordSearch(Boolean(req.headers[PROBE_HEADER]));
+      const isProbe = Boolean(req.headers[PROBE_HEADER]);
+      recordSearch(isProbe);
+
+      // S233 — log real searches only; probes get no log_id, so there is nothing to rate.
+      let logId: string | undefined;
+      if (!isProbe) {
+        logId = newLogId();
+        logSearch({
+          id: logId,
+          query: input.query,
+          client: parseClient(input.client),
+          // Same pure function the handler uses; null when routing is off or unmatched.
+          route: input.enable_topic_filter === false ? null : detectQueryCategory(input.query),
+          declined: result.synthesis === SYNTHESIS_DECLINE,
+          latencyMs: Date.now() - startedAt,
+          response: result,
+        });
+      }
 
       setCorsHeaders(req, res);
       res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify(result));
+      res.end(JSON.stringify(logId ? { ...result, log_id: logId } : result));
       return;
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";

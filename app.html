@@ -2046,7 +2046,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // is frozen and consumed by the downstream Circular System). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + 文件標註（就地標註）+ 範本下載 + 合規清單修訂，跨 15 個合規範疇。
-const PLATFORM_VERSION = '3.3.9';
+const PLATFORM_VERSION = '3.3.10';
 // S204 — tab switches; defined in a plain <script> in <head> so mobile.js can read them
 // at its DOMContentLoaded init, which runs BEFORE this Babel script compiles.
 const FEATURE_TABS = window.FEATURE_TABS;
@@ -2580,6 +2580,10 @@ function QAPanel({ data, setPreviewDoc }) {
   const [usageTotal, setUsageTotal] = useState(null);
   const [results, setResults] = useState([]);
   const [synthesis, setSynthesis] = useState(null);
+  // S233 — id of this search in the backend search log (absent when logging is off), and
+  // the user's 👍 (1) / 👎 (-1) on the answer. Rating is the only UI this adds.
+  const [logId, setLogId] = useState(null);
+  const [feedback, setFeedback] = useState(null);
   const [searched, setSearched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [backendError, setBackendError] = useState(null);
@@ -2599,11 +2603,13 @@ function QAPanel({ data, setPreviewDoc }) {
   const runChannelB = useCallback(async (q) => {
     const resp = await fetch(`${BACKEND_URL}/api/search/channel-b`, {
       method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ query: q, min_score: 0.15, top_k: 8 })
+      body: JSON.stringify({ query: q, min_score: 0.15, top_k: 8, client: 'desktop' })
     });
     if (!resp.ok) throw Object.assign(new Error(`HTTP ${resp.status}`), { status: resp.status });
     const json = await resp.json();
     setSynthesis(json.synthesis || null);
+    setLogId(json.log_id || null);
+    setFeedback(null);
     return (json.results || []).map(r => ({
       topicId: r.topic || 'general', roleId: r.role || 'all_roles',
       fact: r.text, index: 0,
@@ -2637,7 +2643,23 @@ function QAPanel({ data, setPreviewDoc }) {
     }
   }, [query, runChannelB]);
 
-  const handleClear = () => { setQuery(''); setResults([]); setSynthesis(null); setSearched(false); setBackendError(null); };
+  const handleClear = () => { setQuery(''); setResults([]); setSynthesis(null); setLogId(null); setFeedback(null); setSearched(false); setBackendError(null); };
+
+  // S233 — optimistic: show the choice at once, roll back only if the backend refuses it.
+  const sendFeedback = useCallback(async (rating) => {
+    if (!logId || feedback === rating) return;
+    const previous = feedback;
+    setFeedback(rating);
+    try {
+      const resp = await fetch(`${BACKEND_URL}/api/search/feedback`, {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ log_id: logId, rating })
+      });
+      if (!resp.ok) setFeedback(previous);
+    } catch {
+      setFeedback(previous);
+    }
+  }, [logId, feedback]);
 
   const getChannelBadge = (ch, ct) => {
     if (ct === 'approved_fact') return { bg: 'var(--edb-wash)', color: 'var(--edb)', label: '已核實' };
@@ -2830,7 +2852,18 @@ function QAPanel({ data, setPreviewDoc }) {
                 </span>
               </div>
               <p style={{fontSize:'var(--text-sm)',color:'var(--ink)',lineHeight:1.7,margin:0}}>{synthesis}</p>
-              <div style={{display:'flex',justifyContent:'flex-end',marginTop:'12px',paddingTop:'10px',borderTop:'1px solid #C4A88240'}}>
+              <div style={{display:'flex',justifyContent:'flex-end',alignItems:'center',gap:'12px',flexWrap:'wrap',marginTop:'12px',paddingTop:'10px',borderTop:'1px solid #C4A88240'}}>
+                {logId && (
+                  <div style={{display:'inline-flex',alignItems:'center',gap:'6px',marginRight:'auto',fontSize:'var(--text-xs)',color:'var(--edb)'}}>
+                    <span>{feedback ? '謝謝你的評分' : '這個回答有幫助嗎？'}</span>
+                    {[[1,'👍','有幫助'],[-1,'👎','沒有幫助']].map(([v,icon,label]) => (
+                      <button key={v} onClick={() => sendFeedback(v)} title={label} aria-label={label} aria-pressed={feedback === v}
+                              style={{background: feedback === v ? 'var(--line-2)' : 'transparent',border:'1px solid #C4A88255',borderRadius:'8px',padding:'4px 8px',fontSize:'14px',lineHeight:1,cursor:'pointer',opacity: feedback && feedback !== v ? 0.45 : 1}}>
+                        {icon}
+                      </button>
+                    ))}
+                  </div>
+                )}
                 <button onClick={handleShareWhatsApp}
                         title="將綜合答案 + 引用來源分享至 WhatsApp"
                         style={{display:'inline-flex',alignItems:'center',gap:'6px',background:'#25D366',color:'#fff',border:'none',padding:'7px 14px',borderRadius:'8px',fontSize:'13px',fontWeight:600,cursor:'pointer'}}>

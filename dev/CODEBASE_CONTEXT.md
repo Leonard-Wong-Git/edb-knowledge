@@ -242,6 +242,21 @@
   - Counts **searches, not visits** — no cookie, no visitor identity. Cloudflare Web Analytics (S154, on index/q/app) still covers visits but keeps only a short rolling window, which is why this exists.
   - `x-probe` header ⇒ served but not counted. `eval_retrieval.py` fires 34 live queries per run; `judge_acceptance.py` and `footnote_lead_probe.py` more. All three send the header.
 
+### Supabase — search log + answer feedback (S233, `backend/src/lib/searchLog.ts`)
+- Base URL: `${SUPABASE_URL}/rest/v1/rpc/{log_search,record_search_feedback}` (same project and anon key as the usage counter)
+- Version: PostgREST v12
+- Auth: **anon key** — both functions `SECURITY DEFINER` with `EXECUTE` granted to `anon`; table `public.search_log` has RLS ENABLED and **no policy** (anon can neither read nor write it directly). Reading is service_role only.
+- Required params: `log_search` → `p_id uuid, p_query text, p_client text, p_route text, p_declined boolean, p_degraded boolean, p_synthesis text, p_results jsonb, p_total integer, p_latency_ms integer`; `record_search_feedback` → `p_id uuid, p_rating smallint` (1 or −1)
+- Forbidden params: none
+- Response path: `log_search` → empty body; `record_search_feedback` → bare JSON boolean (true = a row ≤24h old was updated)
+- Official docs: https://supabase.com/docs/guides/database/functions ; https://postgrest.org/en/stable/references/api/stored_procedures.html
+- Doc-reviewed: 2026-09-28 (S233)
+- Test-verified: **not yet** — DDL (`backend/supabase/s233_search_log.sql`) not applied at time of writing. Verified locally only: logging failure leaves the search response intact (warn line only); probe requests get no `log_id`; feedback validation 400 / RPC failure 502; UI rollback on refusal. Production write path to be verified after DDL + deploy.
+- Notes:
+  - 180-day purge runs inside `log_search` on every insert (no pg_cron dependency). Field caps in the function: query 500, synthesis 4,000, results ≤64 KB JSON array.
+  - Pre-apply name check 2026-09-28: `search_log` → PGRST205, both RPCs → PGRST202 (new objects, no overload risk).
+  - Design, decisions and limits (low traffic: ~5 searches/day since 2026-08-18): `dev/SEARCH_LOG_DESIGN.md`.
+
 ### Supabase PostgREST table-read — Channel B sync endpoints (Q4 Phase 2, S145, `backend/src/api/channelBSync.ts`)
 - Base URL: `${SUPABASE_URL}/rest/v1` (ANON key — same project/key as the RPC above; NOT service_role)
 - Auth: `apikey: <anon>` + `Authorization: Bearer <anon>` (RLS `wiki_chunks_anon_read` SELECT-only suffices, S121)

@@ -6,6 +6,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [搜尋記錄與回答評分] — 2026-09-28 — 每次真實搜尋留底 180 日，回答下可按 👍／👎（S233）
+
+> 平台版本 **v3.3.9 → v3.3.10**（`app.html` 有改動）。凍結合約零接觸（`knowledge.json` `_meta` 2.3.0 · facts 455 · `guidelines.json` 2.6.2）。搜尋邏輯零改動。
+
+### Added
+- **搜尋記錄 `public.search_log`。** 每次真實的 Channel B 搜尋記下查詢原文、路由類別、有否拒答、回答全文、結果窗（連片段全文）、耗時，保留 180 日後自動刪除。不記 IP、cookie 或任何身份資料；帶 `x-probe` 的自家測試流量不記。用途是以真實用戶的問法補充 gold 題集、找出內容缺口與路由錯配，並令單一請求事後可以重現（`dev/AUDIT.md` ⑤）。設計與定案見 `dev/SEARCH_LOG_DESIGN.md`，DDL 見 `backend/supabase/s233_search_log.sql`。
+- **回答評分。** 桌面與手機的「整理答案」下加「這個回答有幫助嗎？👍 👎」，這是本次唯一的介面改動。按下即時顯示，後端拒絕時還原。新端點 `POST /api/search/feedback`（`{log_id, rating}`，只接受 24 小時內的記錄），有獨立的每 IP 限額，不佔用每分鐘 10 次的搜尋額度。
+- **`POST /api/search/channel-b` 回應新增 `log_id`**（加欄位，現有呼叫方不受影響；探針請求不附）。請求可帶可選欄位 `client`（`desktop`／`mobile`）。
+
+### Notes
+- 記錄與評分都經 `SECURITY DEFINER` 函數寫入，資料表開 RLS 而不設 policy，做法與 S204 用量計數器相同。記錄失敗只會寫一行警告，不影響搜尋。
+
+---
+
 ## [幼稚園師生比例] — 2026-09-24 — 補回真正的比例，不再把班額和特殊幼兒中心比例拼成答案（S232）
 
 > 平台版本不變（只同步片段數）。凍結合約零接觸（`knowledge.json` `_meta` 2.3.0 · facts 455 · `guidelines.json` 2.6.2）。

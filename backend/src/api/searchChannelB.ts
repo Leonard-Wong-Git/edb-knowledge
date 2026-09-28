@@ -1124,7 +1124,8 @@ const RELEVANCE_JUDGE_PROMPT = `判斷下面「資料」有冇直接回答「問
 資料：
 {CHUNKS}`;
 
-const SYNTHESIS_DECLINE =
+// S233 — exported so the search log can record "declined" without reaching into this handler.
+export const SYNTHESIS_DECLINE =
   "根據檢索到的教育局文件，暫時未能找到可直接回答此問題的明確資料。下方為主題相關的原始文件，或可參考；亦可嘗試以其他關鍵詞重新搜尋。";
 
 /** S177 — conservative binary relevance gate. Returns true only when the judge is confident

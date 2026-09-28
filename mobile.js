@@ -440,7 +440,7 @@
       const resp = await fetch(BACKEND_URL + '/api/search/channel-b', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: query, top_k: 8, min_score: 0.15, synthesize: true }),
+        body: JSON.stringify({ query: query, top_k: 8, min_score: 0.15, synthesize: true, client: 'mobile' }),
         signal: ctrl.signal,
       });
       clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(killTimer);
@@ -479,7 +479,15 @@
       html += '<div style="margin:0 0 4px;padding:16px;background:var(--m-edb-wash);border-radius:var(--m-r-md);border-left:3px solid var(--m-edb-deep)">'
            +   '<div style="font-size:11px;font-weight:700;color:var(--m-edb-deep);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px">整理答案</div>'
            +   '<div style="font-size:14px;line-height:1.6;color:var(--m-text-primary)">' + escapeHTML(data.synthesis) + '</div>'
-           +   '<div style="display:flex;justify-content:flex-end;margin-top:12px;padding-top:10px;border-top:1px solid rgba(0,0,0,0.06)">'
+           +   '<div style="display:flex;justify-content:flex-end;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid rgba(0,0,0,0.06)">'
+           // S233 — 👍/👎 on the answer; only when the backend logged this search (log_id).
+           +     (data.log_id
+                   ? '<div id="m-feedback" style="display:inline-flex;align-items:center;gap:6px;margin-right:auto;font-size:12px;color:var(--m-text-muted)">'
+                   +   '<span id="m-feedback-label">這個回答有幫助嗎？</span>'
+                   +   '<button type="button" class="m-feedback-btn" data-rating="1" aria-label="有幫助" aria-pressed="false" style="background:transparent;border:1px solid rgba(0,0,0,0.12);border-radius:99px;padding:6px 10px;font-size:15px;line-height:1;cursor:pointer">👍</button>'
+                   +   '<button type="button" class="m-feedback-btn" data-rating="-1" aria-label="沒有幫助" aria-pressed="false" style="background:transparent;border:1px solid rgba(0,0,0,0.12);border-radius:99px;padding:6px 10px;font-size:15px;line-height:1;cursor:pointer">👎</button>'
+                   + '</div>'
+                   : '')
            +     '<button id="m-share-wa-btn" type="button" aria-label="分享至 WhatsApp" '
            +       'style="display:inline-flex;align-items:center;gap:6px;background:#25D366;color:#fff;border:none;padding:8px 16px;border-radius:99px;font-size:13px;font-weight:700;cursor:pointer">'
            +       '📤 分享至 WhatsApp'
@@ -507,6 +515,41 @@
     if (shareBtn) {
       shareBtn.addEventListener('click', () => {
         shareToWhatsApp(buildShareText(query, data.synthesis, results));
+      });
+    }
+
+    // S233 — wire 👍/👎. Optimistic: show the choice at once, roll back if the backend refuses.
+    const fbBox = document.getElementById('m-feedback');
+    if (fbBox && data.log_id) {
+      let current = null;
+      const btns = fbBox.querySelectorAll('.m-feedback-btn');
+      const paint = () => {
+        btns.forEach(b => {
+          const on = Number(b.dataset.rating) === current;
+          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+          b.style.background = on ? 'var(--m-edb-wash)' : 'transparent';
+          b.style.opacity = current !== null && !on ? '0.45' : '1';
+        });
+        const label = document.getElementById('m-feedback-label');
+        if (label) label.textContent = current !== null ? '謝謝你的評分' : '這個回答有幫助嗎？';
+      };
+      btns.forEach(b => {
+        b.addEventListener('click', async () => {
+          const rating = Number(b.dataset.rating);
+          if (rating === current) return;
+          const previous = current;
+          current = rating; paint();
+          try {
+            const r = await fetch(BACKEND_URL + '/api/search/feedback', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ log_id: data.log_id, rating: rating }),
+            });
+            if (!r.ok) { current = previous; paint(); }
+          } catch (e) {
+            current = previous; paint();
+          }
+        });
       });
     }
 
