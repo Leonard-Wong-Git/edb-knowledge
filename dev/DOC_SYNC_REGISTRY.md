@@ -27,6 +27,24 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-09-28 — S233（搜尋記錄與回答評分 v3.3.10 ＋ 185 題 gold 生產重跑）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| Supabase DDL | `confirmed` | Leonard 在 SQL Editor 執行 `backend/supabase/s233_search_log.sql`（刪註解版）。事前核實三個名稱不存在（PGRST205／PGRST202）；事後外部探針見 `/search_log` 與兩個 RPC |
+| External API / service change | `confirmed` | `dev/CODEBASE_CONTEXT.md` 新增 search log 區塊；Test-verified 2026-09-28 生產實測 |
+| New user-facing feature | `confirmed` | README 功能表與端點表、`dev/PROJECT_INDEX.md`、`CHANGELOG.md`；`K1_API_SPEC.md` 不涵蓋 Channel B 端點 → `not_applicable` |
+| Product version / release milestone change | `confirmed` | `PLATFORM_VERSION` 3.3.10、README 標章與頁尾、CHANGELOG；凍結合約零接觸。`index.html` 頁尾 v3.3.3 屬既有漂移，`pending`（Open Priorities ③） |
+| Mobile shell scope | `not_applicable` | 只在既有答案卡內加按鈕，無新入口或畫面 |
+| Public behavior change | `confirmed` | 回應加 `log_id`（加欄位）；新端點 `POST /api/search/feedback` |
+| Deploy | `confirmed` | #36 合併後 Render 部署，`/health` `4140e9c` |
+| 外部模型批次 | `confirmed` | 生產 `synthesize:true` 1 次（驗收）· 生產 `synthesize:false` 189 次（`x-probe`）· 本機 2 次 |
+| Eval run | `confirmed` | `dev/source/eval_runs/2026-09-28_s233_prod_gold.json` 入 repo，`EVAL_LATEST` 自動採用 |
+| Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4 與 `## User Environment` Git state 已重寫 |
+| Governance rule change | `not_applicable` | 未改 `AGENTS.md`、未加新 row |
+| `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並核對 |
+| Playbook | ⚠ `not_applicable` | 本節未開 playbook 卡 |
+
 ### 2026-09-24 — S232（GitHub 電郵收窄 ＋ 警報 @mention ＋ GN10 curated footnote 入庫）
 
 | Row | 狀態 | 備註 |

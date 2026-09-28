@@ -39,6 +39,32 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 
 <!-- ack:log-entry:start -->
 
+## 2026-09-28 Session 233 — 搜尋記錄與回答評分上線；185 題 gold 生產重跑
+
+- **ID:** S233（Claude_20260928_1700）
+- **Summary:** 由頂層 root「開工」轉入 Draft，起手探針全綠。Leonard 提出研究記錄用戶搜尋作改進數據庫 → 五項定案 → 寫代碼（#36）→ Leonard 執行 DDL 並合併 → 生產驗收 → 重跑 gold → 收工。
+- **Changed:** 新 `backend/src/lib/searchLog.ts`、`backend/supabase/s233_search_log.sql`、`dev/SEARCH_LOG_DESIGN.md` · `backend/src/server.ts`（記錄、`log_id`、評分端點）· `backend/src/api/searchChannelB.ts`（只 export `SYNTHESIS_DECLINE`）· `app.html`／`mobile.js`（👍／👎、`client` 欄位、v3.3.10）· `README.md`／`CHANGELOG.md` · `dev/CODEBASE_CONTEXT.md`／`dev/PROJECT_INDEX.md` · `dev/source/eval_runs/2026-09-28_s233_prod_gold.json` · 治理文件。**生產 Supabase：DDL 1 次**（新表＋兩個函數，Leonard 執行）。
+- **Done:**
+  - **調查**：現況只有每日計數（`usage_daily`），無查詢內容；`dev/AUDIT.md` ⑤ 早已列「無查詢記錄」。網站「過程不儲存」只針對文件標註。
+  - **定案（Leonard）**：180 日、存回答全文、做評分、不過濾查詢（「不會發生」）、不加收集說明（「無私隱成份」）。
+  - **#36**：照 S204 計數器模式（anon 只有函數 EXECUTE、表 RLS 無 policy）；fire-and-forget；評分端點放在共用限流之前、自設每 IP 30 次／分鐘。
+  - **生產驗收**：`/health` `4140e9c`；1 次真實搜尋寫入一行（連 8 格片段全文）、評分成功；另有真實用戶「退休手續」（desktop）寫入。
+  - **gold**：見交接 `## Current Baseline` 7 與 `## Validation / QC` S233。
+- **Fix Record:**
+  - **Problem:** 以 `pbcopy` 把 DDL 抄到剪貼簿，Leonard 貼上時是空的。**Root Cause:** 工具環境寫不進用戶剪貼簿（`pbpaste` 讀回 0 行），第一次沒有讀回就告訴用戶已抄好。**Fix:** 改為在對話內直接給 SQL。**Verification:** Leonard 執行後「Success. No rows returned」，外部探針見表與兩個函數。只記錄，不升為規則。
+- **QC:** `npm run build`／`check` 通過 · 本機：無 Supabase 時搜尋照常、`x-probe` 無 `log_id`、評分 400／502、CORS preflight · 前端模擬測試（桌面＋手機、失敗還原、版本 3.3.10、無新 console 錯誤）· build gate 綠 · 生產寫入與評分實測 · `_s213_run_gold.py --self-test` ALL PASS · gold 185 題 ＋ 4 條重跑 · `_s213_eval_metrics.py --self-test` ALL PASS。
+- **Evidence disposition:** gold run 入 repo（`EVAL_LATEST` 自動採用）；四條重跑與合併計算只在 scratchpad，結果寫入交接 `## Current Baseline` 7；設計與定案入 `dev/SEARCH_LOG_DESIGN.md`；API 事實入 `dev/CODEBASE_CONTEXT.md`。
+- **Sync:** `dev/DOC_SYNC_REGISTRY.md` S233 列。
+- **Pending:** 路線乙；`search_log` 讀取工具（資料累積後）；`index.html` 頁尾版本號；log 維護兩套標準整合。
+- **Risks:** 錯置這一類未修；gold 逾時 1 → 4 條；footnote 溢出到 `hr_pay_adjust_kg`（只監察）。
+- **Log maintenance:** 寫入前 `session_log_maintenance.py --check` 報 `line_count=169`、`entry_count=5`、`trigger=False`；寫入後 6 條，Kit 核心 ≥11 條亦未達。`## Confirmed Decisions` 類章節未達 30 條；距上次全面維護未滿 10 次收工。本節的架構取捨（沿用 S204 SECURITY DEFINER 模式、清除寫在函數內不靠 pg_cron）已記於 `dev/SEARCH_LOG_DESIGN.md`，不另寫 `PROJECT_DECISIONS.md`。
+- **Opening-message mirror:** 由交接檔唯一 fenced 區塊重生，並以同一抽取方法對 HEAD 舊版核實格式相同（62 行）；全文依設計不入 log。
+<!-- ack:log-entry:end -->
+
+---
+
+<!-- ack:log-entry:start -->
+
 ## 2026-09-24 Session 232 — GitHub 電郵收窄；GN10 以 footnote 修好，但交接寫下的 footnote 前提本身是錯的
 
 - **ID:** S232

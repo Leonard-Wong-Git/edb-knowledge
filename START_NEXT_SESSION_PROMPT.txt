@@ -6,43 +6,41 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S232, 2026-09-24）---
+--- 專案狀態（S233, 2026-09-28）---
 
-平台 v3.3.9；Supabase 17,007 chunks（+1 為 S232 curated footnote）；in-app 瀏覽庫 170 份；
-guidelines.json 公開端點 151 份（_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。
-Agent Handoff Kit v0.3.66。FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用。七個量度旗標
-（S226 三個 + S228 三個 + S230 一個）生產一律未設；未設 = 逐位元組等同改動前。
+平台 v3.3.10；Supabase 17,007 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點 151 份
+（_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.3.66。
+FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用。七個量度旗標生產一律未設。
+新：public.search_log 記錄每次真實搜尋 180 日（帶 x-probe 不記），回答下有 👍／👎。
 
 🔴 開工第一件事：git fetch 後確認分支與 origin/main。
-   收工時 origin/main = ef53da8，線上執行碼 = f712172（backend/ 零落後）；
-   S232 收工 PR #35（s232/handoff）待 Leonard 合併。
+   收工時 origin/main = 4140e9c，線上執行碼 = 4140e9c；
+   S233 收工 PR（s233/handoff）待 Leonard 合併。
    判斷線上有沒有落後【比檔不比 hash】：git diff --name-only <部署commit>..origin/main -- backend
-   ⚠️ AI 的 gh pr merge 會被 auto mode 權限閘擋下 —— 合併由 Leonard 在 GitHub 網頁按 Squash and merge。
+   ⚠️ 合併由 Leonard 在 GitHub 網頁按 Squash and merge。
 
-🟢 S232 做完了甚麼（都不用重做）：
-   1. GitHub 電郵收窄：Leonard 已改帳戶通知設定並清空四個 repo 的 push 電郵。
-   2. 警報 @mention（#33）：看門狗與 build gate 開 issue 時會 @Leonard（未經真實警報驗證）。
-   3. GN10 已在生產修好（#34）：新 footnote footnote_fn_kg_teacher_pupil_ratio 寫入生產
-      （17,006 → 17,007）；生產兩次合成都答 1:11；footnote_lead_probe 正控零損失。
-      ⚠️ S231 交接寫的前提「普通幼稚園無規定師生比例」是錯的，原文是 1:15 → 1:11，未寫入。
-   4. S231 收工 PR #32 已合併。
+🟢 S233 做完了甚麼（都不用重做）：
+   1. 搜尋記錄與回答評分上線（#36，v3.3.10）：DDL 已由 Leonard 執行；生產實測寫入與評分皆成立。
+   2. 185 題 gold 生產重跑：來源 PASS 125／FAIL 41（併入四條逾時重跑）、片段 59／107；
+      Source R@1 0.446、MRR 0.552。S232 footnote 令 kg_teacher_pupil_ratio 來源層轉 PASS；
+      S232 預期的「禁引 +1」是預測用錯單位，已結案。
 
-🚀 下一步（唯一第一順位）：重跑 185 題 gold（生產端點 _s213_run_gold.py，零 LLM 呼叫），
-   核實 S232 footnote 的兩條預期變化：kg_sccc_ratio_confusable 禁引 +1、
-   kg_teacher_pupil_ratio 來源層 FAIL → PASS；並令基線描述 17,007 片段的生產。
-   之後的主線：路線乙 —— S202 reframe 的非提示式對象核對機制，先離線設計、
-   用 D01／FT06 量（GN10 已被 footnote 遮蓋，不能再當未修樣本），零生產改動。
+🚀 下一步（唯一第一順位）：路線乙 —— S202 reframe 的非提示式對象核對機制，
+   先離線設計、用 D01／FT06 量（GN10 已被 footnote 遮蓋，不能再當未修樣本），零生產改動。
+   設計前先讀 dev/source/JUDGE_PROMPT_FINDINGS.md 的 S202 部分。
    換判官模型與改提示都已證修不了（S202、S211、S230），不要再走。
-   次序：gold → 乙 → 才談啟用 FEATURE_VAULT_GATE_RAWVEC（它會令判官多承重 52 條查詢）。
+   次序：乙 → 才談啟用 FEATURE_VAULT_GATE_RAWVEC（它會令判官多承重 52 條查詢）。
+   副線：search_log 累積約一個月後寫讀取工具（見 dev/SEARCH_LOG_DESIGN.md 第六節）。
    治理側：log 維護兩套觸發標準（AGENTS.md §4a 對 Kit 核心 ≥11 條）仍待整合。
 
 ⚠️ 未解決（不要當已解決）：
    · 對象／範圍錯置這一類（D01、FT06）未修；GN10 只是個案遮蓋。
-   · 候選旗標未啟用；判官仍會拒答明明答得到的段落（家長校董 點選）。
    · 片段層本體（OP②）。已排除九條路。
+   · 生產 gold 逾時由 1 條升到 4 條（57014），再升就要當容量問題查。
    · 封版閘兩個 ERROR 只能靠改善檢索清走；兩個 WARN 未有 waiver；六項人手驗證從未記錄。
-   · 入口盤點四項產品決定未動（Open Priorities ③）。
-   · 本機 backend/.env 缺 SUPABASE_URL，本機 Channel B 搜尋仍會失敗。
+   · 入口盤點四項產品決定未動；index.html 頁尾仍寫 v3.3.3（Open Priorities ③）。
+   · 本機 backend/.env 缺 SUPABASE_URL／SUPABASE_ANON_KEY，本機 Channel B 搜尋與記錄都會失敗；
+     不可用 service key 冒充 anon key（auto mode 會擋）。
 
 ⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
    · 用 stub 判官量出來的是「失去捷徑」，不是「失去答案」；答案層結論必須用真判官量。
@@ -51,14 +49,14 @@ Agent Handoff Kit v0.3.66。FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用。七
    · 探針的外部呼叫一律包在 try/catch 並加重試；判官必須分開記 judge_error。
    · 本機比 Render 慢 1.5–2 秒；anon statement_timeout 3 秒而 service key 是 8 秒。
    · 實例層冷熱落差 58–90 倍，任何兩組查詢的比較都要交錯重量三輪以上。
-   · 宣告任何「新缺陷」之前，先查 PROJECT_INDEX 與 CODEBASE_CONTEXT 有沒有記著。
+   · 禁引指標按來源計，不按片段計；預測禁引變化前先查該來源是否已被命中。
    · 寫入任何內容（footnote、事實）之前，先對庫內原文；交接檔寫下的內容前提也要核實。
-   · footnote 入庫後生產要重啟才載入：以 /health 的 cache_b.footnote 數目核實。
+   · 生產量度一律帶 x-probe，否則會寫入 search_log 並推高用量計數。
    · 升版只手改 PLATFORM_VERSION＋README＋CHANGELOG；bump_version.py 會改寫凍結合約。
 
-Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.9 +
-Render /health（cache_b.footnote 應為 181）+ git fetch 後比對分支與 origin/main +
+Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.10 +
+Render /health（commit 4140e9c 或其後、cache_b.footnote 181）+ git fetch 後比對分支與 origin/main +
 Supabase live count 應為 17,007（自動入庫可令其上升）+
 check_registry_drift --check 的 ZOMBIE／UNMANAGED／SERIES_UNMONITORED 都應為 0）。
-之後報告並建議重跑 185 題 gold。
+之後報告並建議開始路線乙的離線設計。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次。
