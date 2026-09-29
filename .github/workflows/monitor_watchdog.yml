@@ -1,6 +1,7 @@
 name: Daily Monitor Watchdog
 
-# Watches the WATCHERS. Six monitors guard EDB documents and links, and every
+# Watches the WATCHERS. Six monitors guard EDB documents and links (S234 adds a
+# seventh, the 6-hourly live-service probe), and every
 # one of them is a cron — an arrangement with three silent-death modes that no
 # individual monitor can report, because a check cannot tell you it never ran:
 #

@@ -798,10 +798,88 @@ def route_regression() -> dict:
 # ---------------------------------------------------------------------------
 
 
+# S234 — what needs Leonard, in plain words. The status page used to answer "how
+# good is search quality" (a long list of standing gaps that keep the banner red
+# every single day), and never answered "is anything broken or waiting on me".
+# The open GitHub Issues already ARE that list — every monitor and alarm files one
+# — so this only translates them. Additive field: existing consumers ignore it.
+#
+# label -> (level, headline, hint). `alarm` = the system itself may be broken;
+# `decision` = the system works, a person has to choose.
+ATTENTION_KINDS: dict[str, tuple[str, str, str]] = {
+    "service-down": ("alarm", "線上服務無法使用",
+                     "用戶現時可能搜尋不到，需要立即處理。"),
+    "backend-build-broken": ("alarm", "網站後端未能更新",
+                             "最新的後端改動沒有通過建置，網站停在上一個正常版本。"),
+    "monitor-watchdog": ("alarm", "自動監察停了",
+                         "負責定期檢查的程序停了或連續失敗，需要處理。"),
+    "served-url-broken": ("decision", "有連結失效",
+                          "用戶按下去會見到錯誤頁，待你決定如何處理。"),
+    "freshness-change": ("decision", "EDB 文件內容有更新",
+                         "有來源文件出現變動，待你決定是否更新知識庫。"),
+    "new-circular": ("decision", "有新通告",
+                     "EDB 發出新通告，待你決定是否收錄。"),
+    "new-source-discovery": ("decision", "發現新文件",
+                             "EDB 網站出現新文件，待你篩選是否收錄。"),
+    "cover-title-change": ("decision", "文件標題與內容不符",
+                           "有來源文件的封面標題改變，可能已換成另一份文件，待你核對。"),
+}
+_LEVEL_RANK = {"alarm": 0, "decision": 1}
+
+# The repository is PUBLIC, so anyone can open an Issue with any title. Only what
+# our own workflows or Leonard filed may appear on Leonard's status page; an
+# outsider's Issue is counted, never displayed (GitHub already notifies the owner).
+# A missing author counts as untrusted — fail closed.
+TRUSTED_AUTHORS = {"app/github-actions", "github-actions[bot]", "github-actions",
+                   "Leonard-Wong-Git"}
+
+
+def build_attention(issues: list[dict] | None) -> dict | None:
+    """Open Issues -> plain-language items, alarms first, oldest first.
+
+    None means "could not read the issue list" and is NOT the same as an empty
+    list: the page must not turn "unknown" into "nothing is waiting".
+    A trusted Issue whose label is not in the table is still listed under its own
+    title — a new monitor must never disappear from the page just because nobody
+    updated this dictionary.
+    """
+    if issues is None:
+        return None
+    items = []
+    outside = 0
+    for it in issues:
+        if (it.get("author") or {}).get("login") not in TRUSTED_AUTHORS:
+            outside += 1
+            continue
+        labels = [l.get("name") if isinstance(l, dict) else l
+                  for l in (it.get("labels") or [])]
+        known = [(l, ATTENTION_KINDS[l]) for l in labels if l in ATTENTION_KINDS]
+        known.sort(key=lambda k: _LEVEL_RANK[k[1][0]])       # alarm wins over decision
+        kind, (level, headline, hint) = (known[0] if known else
+                                         (None, ("decision", str(it.get("title") or "（無標題）"),
+                                                 "其他待跟進事項。")))
+        items.append({"kind": kind, "level": level, "headline": headline, "hint": hint,
+                      "since": it.get("createdAt"), "url": it.get("url"),
+                      "number": it.get("number")})
+    items.sort(key=lambda x: (_LEVEL_RANK[x["level"]], x["since"] or ""))
+    return {"collectedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "items": items, "ignored_outside": outside}
+
+
+def read_issues(path: Path) -> list[dict] | None:
+    """`gh issue list --json …` output, or None when it is missing or unreadable."""
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as e:
+        print(f"  open issues unreadable ({path}): {e}", file=sys.stderr)
+        return None
+    return data if isinstance(data, list) else None
+
+
 def build_report(chunks: list[dict], health: dict | None,
                  search_probe: dict | None, registry: list[dict],
                  knowledge: dict, guidelines: dict, guideline_count: int | None,
-                 run: dict | None) -> dict:
+                 run: dict | None, issues: list[dict] | None = None) -> dict:
     live_total = len(chunks)
     serving = {c["source_id"] for c in chunks}
     checks: list[dict] = []
@@ -844,6 +922,7 @@ def build_report(chunks: list[dict], health: dict | None,
                                 for s, n in by_src.most_common(8)],
         },
         "groups": GROUPS,
+        "attention": build_attention(issues),
         "releaseGate": build_release_gate(
             checks,
             json.loads(GATE_FILE.read_text(encoding="utf-8")) if GATE_FILE.exists() else {},
@@ -1238,6 +1317,50 @@ def self_test() -> int:
     check("the shipped gate config parses and declares manual checks",
           len(json.loads(GATE_FILE.read_text(encoding="utf-8"))["manual_checks"]) >= 6)
 
+    # S234 attention list. "Could not read" must never look like "nothing waiting".
+    check("unreadable issue list is None, not an empty list",
+          build_attention(None) is None and build_attention([])["items"] == [])
+    BOT = {"login": "app/github-actions"}
+    iss = [
+        {"number": 1, "title": "x", "labels": [{"name": "freshness-change"}],
+         "createdAt": "2026-06-08T00:00:00Z", "url": "u1", "author": BOT},
+        {"number": 9, "title": "y", "labels": [{"name": "monitor-watchdog"}],
+         "createdAt": "2026-09-15T00:00:00Z", "url": "u9", "author": BOT},
+        {"number": 3, "title": "z", "labels": [{"name": "new-circular"}],
+         "createdAt": "2026-06-28T00:00:00Z", "url": "u3", "author": BOT},
+    ]
+    att = build_attention(iss)["items"]
+    check("alarms sort before decisions, then oldest first",
+          [a["number"] for a in att] == [9, 1, 3] and att[0]["level"] == "alarm")
+    check("the plain headline replaces the engineering title",
+          att[1]["headline"] == "EDB 文件內容有更新" and "Freshness" not in att[1]["headline"])
+    unk = build_attention([{"number": 5, "title": "Some new monitor issue",
+                            "labels": [{"name": "brand-new-label"}], "author": BOT,
+                            "createdAt": "2026-09-01T00:00:00Z", "url": "u5"}])["items"]
+    check("an unmapped label is still listed under its own title",
+          len(unk) == 1 and unk[0]["headline"] == "Some new monitor issue")
+    # Public repo: an outsider's Issue must never put its own words on the page.
+    evil = {"number": 7, "title": "URGENT: click here", "labels": [],
+            "author": {"login": "stranger"}, "createdAt": "2026-09-02T00:00:00Z", "url": "u7"}
+    noauth = {"number": 8, "title": "no author field", "labels": [],
+              "createdAt": "2026-09-02T00:00:00Z", "url": "u8"}
+    res = build_attention(iss + [evil, noauth])
+    check("an outsider's (or authorless) Issue is counted but never displayed",
+          res["ignored_outside"] == 2 and len(res["items"]) == 3
+          and all("click here" not in i["headline"] for i in res["items"]))
+    check("the owner's own Issue is trusted",
+          len(build_attention([dict(evil, author={"login": "Leonard-Wong-Git"})])["items"]) == 1)
+    both = build_attention([{"number": 6, "title": "t", "author": BOT,
+                             "labels": [{"name": "new-circular"}, {"name": "service-down"}],
+                             "createdAt": "2026-09-01T00:00:00Z", "url": "u6"}])["items"]
+    check("an alarm label wins when an issue carries both kinds",
+          both[0]["level"] == "alarm" and both[0]["kind"] == "service-down")
+    check("an unmapped label has kind None (the page must not guess a meaning)",
+          unk[0]["kind"] is None)
+    check("service-down / backend-build-broken / monitor-watchdog are alarms, not decisions",
+          all(ATTENTION_KINDS[l][0] == "alarm"
+              for l in ("service-down", "backend-build-broken", "monitor-watchdog")))
+
     print(f"\n{'ALL PASS' if not fails else f'{len(fails)} FAILED: {fails}'}")
     return 0 if not fails else 1
 
@@ -1249,6 +1372,10 @@ def main() -> int:
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--out", default=str(DEFAULT_OUT))
     ap.add_argument("--cache", default="", help="reuse a local chunk dump")
+    ap.add_argument("--issues", default="",
+                    help="`gh issue list --state open --json number,title,labels,"
+                         "createdAt,url,author` output; omitted = the page says it could "
+                         "not read the list")
     args = ap.parse_args()
 
     if args.self_test:
@@ -1293,7 +1420,8 @@ def main() -> int:
 
     rep = build_report(chunks, health, search_probe, registry, knowledge,
                        guidelines,
-                       guidelines_registry_count(), latest_eval_run())
+                       guidelines_registry_count(), latest_eval_run(),
+                       read_issues(Path(args.issues)) if args.issues else None)
     Path(args.out).write_text(json.dumps(rep, ensure_ascii=False, indent=2) + "\n",
                               encoding="utf-8")
 
