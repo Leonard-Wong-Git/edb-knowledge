@@ -39,6 +39,32 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 
 <!-- ack:log-entry:start -->
 
+## 2026-09-29 Session 234 — 白話狀態頁、線上服務探測、搜尋記錄本機報告
+
+- **ID:** S234（Claude_20260929_0955）
+- **Summary:** 由頂層 root「開工」轉入 Draft，起手探針全綠。Leonard 對分支與合併的困擾 → 選「每 session 一個 PR」→ 要求狀態頁簡潔、少工程字眼、維持運作並在需要時匯報 →「照做」→ 頁面上線後補上搜尋記錄的顯示需求 → 選本機報告（C）並「全做」。
+- **Changed:** 新 `.github/workflows/live_probe.yml`、`dev/source/live_probe.py`、`dev/source/status_page_test.mjs`、`dev/search_log_report.py` · `status-07cc7942c0.html`（重寫前台，舊內容收入「技術詳情」）· `dev/source/qc_report.py`（`attention` 欄位）· `dev/source/check_monitor_health.py`（登記 `live_probe`）· `.github/workflows/qc_report.yml`、`monitor_watchdog.yml`（註釋）· 治理文件（`PROJECT_INDEX`、`DOC_SYNC_CHECKLIST`／`REGISTRY`、`CODEBASE_CONTEXT`、`PROJECT_DECISIONS` ADR-00W、`SEARCH_LOG_DESIGN` 第八節）。**生產：Supabase 零寫入零 DDL、零 flag、`backend/` 零改動。**
+- **Done:**
+  - **調查**：舊頁面橫額因檢索質素常設缺口天天紅；21 項檢查、封版閘、代號與複製指令佔滿版面；`backend_build_check` 只在 push／PR 時跑、看門狗只管監察有否跑，**沒有任何東西在服務當機時通知 Leonard**。
+  - **#38**：狀態頁前台（一句話橫額、「需要你處理」、「運作概況」）、`attention` 欄位、`live_probe`；Leonard 在網頁合併 #37、#38。
+  - **合併後驗收**：手動觸發 `live_probe` 與每日 QC 各一次（Leonard「全做」批准），均 success；探測 `up=True`、無 issue；QC 的 `Collect open items` 成功、線上 JSON 帶 4 項 `attention`，頁面實看正常。
+  - **搜尋記錄本機報告**：Leonard 想在頁面看到用戶搜尋內容；指出 repo 與頁面公開，給 A／B／C 三案，Leonard 選 C。持久規則寫入 `dev/SEARCH_LOG_DESIGN.md` 第八節。
+- **Fix Record:**
+  - **Problem:** 我為 `qc_report.py` 寫的最後兩條斷言不會轉紅（一條的條件恆為真、一條寫了 `or True`）。**Root Cause:** 想「順手」加一條覆蓋，沒有問「這條斷言能不能失敗」。**Fix:** 自查時發現並刪除，改為只保留能失敗的斷言。**Verification:** 之後每個新測試都做了破壞測試（探測自檢的「永遠正常」取代、頁面測試的三種破壞、報告工具的「注入第二個請求」），均轉紅。只記錄，不升為規則（`DOC_SYNC_CHECKLIST` 第 56 列已寫明此紀律）。
+  - **Problem:** `search_log_report.py` 的「唯讀」斷言第一次跑就失敗。**Root Cause:** 斷言用的搜尋字串同時出現在斷言本身，被算成第二處網絡請求。**Fix:** 把字串拆開寫。**Verification:** 通過，且注入第二個帶 body 的請求後轉紅 2 條。
+- **QC:** `live_probe --self-test` 8 條 ＋ 「永遠正常」取代後 6 條轉紅 · `qc_report --self-test` ALL PASS（+9）· `check_monitor_health` `--self-test` 7 個 ＋ `--prove-assertions` 11 條轉紅 · `status_page_test.mjs` 24 項 ＋ 三種破壞轉紅 · `search_log_report --self-test` 23 條 · Issue 開／更新／關以模擬 GitHub API 跑五個情境（含建標籤 403 仍開警報）· 真實探測與真實報告各一次 · 桌面與手機實看（375 寬無橫向溢出）· build gate 綠。**未做：真實當機演練**（服務正常，只在模擬下驗過開 Issue 路徑）。
+- **Evidence disposition:** 一次性 scratchpad 檔（模擬 harness、變異版本）不保留；持久結論入 `dev/SEARCH_LOG_DESIGN.md` 第八節與 `PROJECT_DECISIONS.md` ADR-00W；指令入 `PROJECT_INDEX.md`。
+- **Sync:** `dev/DOC_SYNC_REGISTRY.md` S234 節。
+- **Pending:** 路線乙；`live_probe` 首次排程觸發與真實當機路徑；頁面「待決定」四項事項（自 2026-06-08 起）；`search_log` 累積後再加「路由分佈」與「gold 候選」；log 維護兩套觸發標準整合（承 S230）。
+- **Risks:** AI 開的 PR 不能由 AI 合併（分類器擋，Leonard 未加 `permissions.allow` 規則）；`search_log` 內容一旦進公開檔案不可回收。
+- **Log maintenance:** 寫入前 `session_log_maintenance.py --check` 報 `line_count=195`、`entry_count=6`、`trigger=False`；寫入後 7 條，Kit 核心 ≥11 條未達。`## Confirmed Decisions` 類章節未達 30 條。全面維護的 10 次收工 backstop：沿用 S233 的「未滿」判斷，本節未重新計數。本節有一項架構取捨（狀態頁橫額脫鉤、搜尋內容不上公開頁面），已寫入 `PROJECT_DECISIONS.md` ADR-00W。
+- **Opening-message mirror:** 由交接檔唯一 fenced 區塊重生並核對；全文依設計不入 log。
+<!-- ack:log-entry:end -->
+
+---
+
+<!-- ack:log-entry:start -->
+
 ## 2026-09-28 Session 233 — 搜尋記錄與回答評分上線；185 題 gold 生產重跑
 
 - **ID:** S233（Claude_20260928_1700）
