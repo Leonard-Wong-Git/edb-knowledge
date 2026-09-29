@@ -28,6 +28,7 @@ on:
 
 permissions:
   contents: write      # commits qc_report.json only
+  issues: read         # S234: lists open Issues so the page can say what waits on a person
 
 concurrency:
   group: qc-report
@@ -67,10 +68,30 @@ jobs:
       - name: Route regression
         run: node dev/source/route_regression.mjs
 
+      # S234: the status page's one-sentence banner and its two defences on data from
+      # a public repo (escaping, link allow-list). If a page edit breaks them this
+      # goes red before the page is regenerated with the broken logic.
+      - name: Status page logic test
+        run: node dev/source/status_page_test.mjs
+
+      # S234: the status page leads with "is anything broken or waiting on me", and
+      # every monitor and alarm already files an Issue. If this step fails the file
+      # is simply absent, the report carries `attention: null`, and the page says it
+      # could not read the list — it never shows "nothing waiting" for "unknown".
+      # Not committed: the commit step below adds named files only.
+      - name: Collect open items
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh issue list --state open --limit 100 --json number,title,labels,createdAt,url,author > open_issues.json
+
       - name: Generate QC report
         env:
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-        run: python3 dev/source/qc_report.py --check
+        run: |
+          ISSUES=""
+          if [ -s open_issues.json ]; then ISSUES="--issues open_issues.json"; fi
+          python3 dev/source/qc_report.py --check $ISSUES
 
       - name: Registry drift ledger
         env:

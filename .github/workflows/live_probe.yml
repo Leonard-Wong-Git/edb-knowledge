@@ -1,0 +1,139 @@
+name: Live Service Probe
+
+# Is the running service actually answering users? Before this, nothing looked at
+# the live backend between the daily QC report runs, and the QC report only
+# repaints a page. An outage waited until somebody opened the status page.
+#
+# Every 6 hours this probes /health AND one real search (see
+# dev/source/live_probe.py for why both, and for the retry that stops a sleeping
+# Render instance from raising a false alarm). It says nothing while the service
+# is up. When it is down for two attempts in a row it opens ONE Issue and
+# @mentions Leonard; when the service is back it closes that Issue itself.
+#
+# 紀律 #14 (same as the watchdog): silent in the steady state, one alarm per
+# problem, resolves itself. Later runs while still down update the Issue body
+# silently — an edit does not notify — so a long outage is one ping, not one per run.
+#
+# A down service is a FINDING, not a broken instrument, so it does not fail the
+# run (project convention S126). Only a crashed probe fails it, and the daily
+# Monitor Watchdog then reports that as a monitor gone quiet — the probe is
+# registered in dev/source/check_monitor_health.py for that reason.
+
+on:
+  schedule:
+    # 00:23 / 06:23 / 12:23 / 18:23 UTC. Off the hour on purpose — the top of the
+    # hour is when scheduled runs are most likely to be delayed or skipped.
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write        # open / update / close the single "service down" issue
+  contents: read
+
+concurrency:
+  group: live-probe
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    # Worst case: 2 attempts x (75s health + 100s search) + a 120s wait ≈ 8 minutes.
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # The self-test includes a proof that its assertions go RED when the rule is
+      # replaced by "always up" — a probe that cannot fail is not a probe.
+      - name: Self-test (offline logic)
+        run: python3 dev/source/live_probe.py --self-test
+
+      - name: Probe the live service
+        run: python3 dev/source/live_probe.py --check --json-out live_probe.json
+
+      - name: Open / update / close the service-down issue
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let r;
+            try {
+              r = JSON.parse(fs.readFileSync('live_probe.json', 'utf8'));
+            } catch (e) {
+              core.warning('No probe result to route: ' + e);
+              return;
+            }
+            const owner = context.repo.owner, repo = context.repo.repo;
+            const LABEL = 'service-down';
+            const title = '🚨 線上服務無法使用 — 用戶現時可能搜尋不到';
+
+            // Best effort only: the label is cosmetic and the alarm must go out
+            // regardless. GitHub's docs list 422 as the validation failure but do not
+            // say which status "already exists" returns, so no error here is fatal.
+            try {
+              await github.rest.issues.createLabel({
+                owner, repo, name: LABEL, color: 'b60205',
+                description: '線上服務探測連續失敗（由 Live Service Probe 維護）',
+              });
+            } catch (e) {
+              if (e.status !== 422) core.warning('Could not create label ' + LABEL + ': ' + e);
+            }
+
+            const existing = await github.rest.issues.listForRepo({
+              owner, repo, state: 'open', labels: LABEL, per_page: 1,
+            });
+
+            if (r.up) {
+              // Steady state says nothing, and closes an alarm that has resolved.
+              if (existing.data.length) {
+                await github.rest.issues.createComment({
+                  owner, repo, issue_number: existing.data[0].number,
+                  body: '✅ 線上服務已回復正常（' + r.checkedAt + '），自動關閉。',
+                });
+                await github.rest.issues.update({
+                  owner, repo, issue_number: existing.data[0].number, state: 'closed',
+                });
+              }
+              core.info('Service is up; nothing to report.');
+              return;
+            }
+
+            const h = r.health, s = r.search;
+            const body = [
+              // @mention so this reaches Leonard now that "Watching" e-mail is off
+              // (S232). Only the create below notifies; later body updates do not.
+              '@Leonard-Wong-Git',
+              '',
+              '網站的搜尋服務現時無法正常使用，用戶可能搜尋不到結果。',
+              '',
+              '- 檢查時間：' + r.checkedAt + '（已試 ' + r.attempts + ' 次，均失敗）',
+              '- 網站後端：' + (h.ok ? '正常' : '無回應或出錯' + (h.error ? '（' + h.error + '）' : '')),
+              '- 搜尋功能：' + (s.ok ? '正常' : '出錯' + (s.error ? '（' + s.error + '）' : '，沒有回傳任何結果')),
+              '',
+              '**建議先做：**',
+              '1. 打開 Render dashboard，看服務是否已停止或最近一次部署失敗。',
+              '2. 若網站後端正常、只有搜尋出錯，先查 OpenAI 額度與 Supabase 狀態。' +
+                '2026-09-03 曾因額度用盡令全站搜尋失敗，當時 `/health` 仍然顯示正常。',
+              '',
+              '---',
+              '這個 Issue 由自動探測維護（每 6 小時一次）：服務回復後會自動關閉，不需要人手清理。',
+              '要自己跑一次：Actions → Live Service Probe → Run workflow。',
+            ].join('\n');
+
+            if (existing.data.length) {
+              await github.rest.issues.update({
+                owner, repo, issue_number: existing.data[0].number, title, body,
+              });
+              core.info('Updated issue #' + existing.data[0].number);
+            } else {
+              await github.rest.issues.create({
+                owner, repo, title, body, labels: [LABEL],
+              });
+              core.info('Opened service-down issue');
+            }

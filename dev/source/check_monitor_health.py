@@ -82,6 +82,9 @@ WORKFLOWS: Dict[str, tuple] = {
     "pgvector":          ("pgvector_check.yml",     7),
     "qc_report":         ("qc_report.yml",          1),
     "source_titles":     ("title_check.yml",       31),
+    # S234: runs every 6 hours; the cadence is 1 because the unit here is days.
+    # It is never "due" in practice — only "overdue" (quiet > 2 days) can fire.
+    "live_probe":        ("live_probe.yml",         1),
 }
 CADENCE_DAYS: Dict[str, int] = {k: v[1] for k, v in WORKFLOWS.items()}
 
@@ -442,7 +445,7 @@ def _run_self_test(is_due_fn=is_due, is_overdue_fn=is_overdue,
     wf = REPO_ROOT / ".github" / "workflows"
     files = {p.stem for p in wf.glob("*.yml")} if wf.exists() else set()
     expected = {"freshness_check", "discover_check", "served_url_check",
-                "pgvector_check", "qc_report", "title_check"}
+                "pgvector_check", "qc_report", "title_check", "live_probe"}
     check(f"CADENCE_DAYS 覆蓋所有排程 workflow（{len(CADENCE_DAYS)} 個）",
           not files or expected.issubset(files))
 

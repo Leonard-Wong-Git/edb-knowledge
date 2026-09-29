@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>知識庫品質檢查 — EDB K1 知識平台</title>
+<title>系統狀態 — EDB K1 知識平台</title>
 <style>
 :root{
   --bg:#faf8f4; --card:#fff; --ink:#22201d; --muted:#6b6560; --line:#e6e0d8;
@@ -79,45 +79,67 @@ a{color:var(--info)}
   background:#22201d;color:#fff;padding:9px 17px;border-radius:9px;font-size:13px;
   opacity:0;pointer-events:none;transition:.18s}
 #toast.on{opacity:1;transform:translateX(-50%)}
+/* S234 — plain-language front page; everything above this line is the old detail view */
+.s-info{background:var(--infobg);border-color:#c3d6ea;color:var(--info)}
+.item,.op{display:grid;grid-template-columns:78px 1fr;gap:12px;padding:11px 0;
+  border-bottom:1px dashed var(--line);align-items:start}
+.item:last-child,.op:last-child{border-bottom:0}
+.ih,.oh{font-weight:600}
+.ihint{font-size:13px;color:#443f3a;margin-top:2px}
+.imeta{font-size:12px;color:var(--muted);margin-top:4px}
+.empty{font-size:14px;color:var(--muted);padding:6px 0}
+.note{font-size:13px;color:var(--muted);margin:0 2px 18px}
+.stats{font-size:12px;color:var(--muted);margin-top:12px}
+details.tech{margin-top:6px}
+details.tech > summary{cursor:pointer;font-weight:600;font-size:14px;padding:12px 4px;color:var(--muted)}
+details.tech > summary:hover{color:var(--ink)}
+details.tech[open] > summary{margin-bottom:8px}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>🏥 知識庫品質檢查</h1>
-  <div class="sub">
-    EDB K1 知識平台 · policychecker.wongfu.net · 每次執行 <code>qc_report.py --check</code> 時重新產生 ·
-    不與主站互連，僅供管理者及 AI agent 查閱。<br>
-    <strong>新鮮度由你的瀏覽器即時計算</strong>，即使整條管線已經停止、本頁不再更新，下方仍會轉為紅色。
-  </div>
+  <h1>系統狀態</h1>
+  <div class="sub">EDB K1 知識平台 · policychecker.wongfu.net · 每日自動檢查一次 · 僅供管理者查閱</div>
 
   <div id="banner" class="banner s-warn"><div class="big">⏳</div>
-    <div><div class="t">載入中…</div><div class="d">正在讀取 qc_report.json</div></div></div>
+    <div><div class="t">載入中…</div><div class="d">正在讀取最新檢查結果</div></div></div>
 
-  <div class="card"><h2>🚦 封版閘（release gate）<span class="sub" style="font-weight:400">
-    — 未達標即不應封版；標準見 dev/source/release_gate.json</span></h2>
-    <div id="gate">載入中…</div></div>
-  <div class="card"><h2>📊 資料狀態</h2><div id="corpus" class="grid"></div></div>
-  <div class="card"><h2>✅ 檢查結果</h2><div id="counts" class="grid"></div></div>
-  <div class="card"><h2>🔍 完整檢查清單</h2><div id="checks">載入中…</div></div>
-  <div class="card"><h2>🛠️ 運維指令<span class="sub" style="font-weight:400"> — 點擊複製</span></h2>
-    <div id="cmds"></div></div>
-  <div class="card"><h2>⚙️ 機器可讀狀態<span class="sub" style="font-weight:400"> — 供 AI agent 讀取</span></h2>
-    <div class="sub">同樣內容可直接抓取：<a href="qc_report.json">policychecker.wongfu.net/qc_report.json</a></div>
-    <pre class="raw" id="raw">載入中…</pre></div>
+  <div class="card"><h2>需要你處理</h2><div id="attnList">載入中…</div></div>
+  <div class="card"><h2>運作概況</h2><div id="ops">載入中…</div><div id="opsStats" class="stats"></div></div>
+
+  <p class="note">本頁每日更新一次。如有嚴重問題（例如服務無法使用），系統會自動發出通知給你，不需要留意本頁。
+    搜尋質素的已知缺口與改善進度，收在下方「技術詳情」。</p>
+
+  <details class="tech">
+    <summary>技術詳情（給技術人員及 AI agent）</summary>
+    <div class="sub">
+      每次執行 <code>qc_report.py --check</code> 時重新產生 · 不與主站互連。<br>
+      <strong>新鮮度由你的瀏覽器即時計算</strong>，即使整條管線已經停止、本頁不再更新，上方橫額仍會轉為紅色。
+    </div>
+    <div class="card"><h2>🚦 封版閘（release gate）<span class="sub" style="font-weight:400">
+      — 未達標即不應封版；標準見 dev/source/release_gate.json</span></h2>
+      <div id="gate">載入中…</div></div>
+    <div class="card"><h2>📊 資料狀態</h2><div id="corpus" class="grid"></div></div>
+    <div class="card"><h2>✅ 檢查結果</h2><div id="counts" class="grid"></div></div>
+    <div class="card"><h2>🔍 完整檢查清單</h2><div id="checks">載入中…</div></div>
+    <div class="card"><h2>🛠️ 運維指令<span class="sub" style="font-weight:400"> — 點擊複製</span></h2>
+      <div id="cmds"></div></div>
+    <div class="card"><h2>⚙️ 機器可讀狀態<span class="sub" style="font-weight:400"> — 供 AI agent 讀取</span></h2>
+      <div class="sub">同樣內容可直接抓取：<a href="qc_report.json">policychecker.wongfu.net/qc_report.json</a></div>
+      <pre class="raw" id="raw">載入中…</pre></div>
+  </details>
 </div>
 <div id="toast"></div>
 
 <script>
 'use strict';
 var REPO = 'Leonard-Wong-Git/edb-knowledge';
-// qc_report.py 由人手或 CI 觸發，不是每小時排程。36 小時 = 已經一日半沒有量度過；
-// 72 小時 = 這一頁講緊嘅嘢同今日嘅知識庫已經無關。
+// qc_report.py 由排程或人手觸發，每日一次。36 小時 = 已經一日半沒有量度過；
+// 72 小時 = 這一頁所講的內容與今日的知識庫已經無關。
 var WARN_H = 36, ERR_H = 72;
 
 function h(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
-// 以瀏覽器時鐘計算，而非產生時寫死的數字 —— 管線停止之後本頁不再更新，此值仍會繼續增長。
-function ago(iso){var t=Date.parse(iso);return isNaN(t)?null:(Date.now()-t)/36e5;}
 function fmtAge(x){
   if(x==null) return '無法解析';
   if(x<1) return Math.round(x*60)+' 分鐘前';
@@ -153,7 +175,7 @@ var COMMANDS = [
      'node dev/source/route_regression.mjs'},
   {l:'確認線上服務中的 build', d:'commit 是服務中那一個 build 的 SHA 前七位。部署慢過你以為。',
    c:'curl -s https://edb-knowledge.onrender.com/health'},
-  {l:'查看六個排程監察的執行紀錄', d:'新鮮度、發現、服務中連結、封面標題、到期、新通告。',
+  {l:'查看排程監察與線上探測的執行紀錄', d:'新鮮度、發現、服務中連結、封面標題、到期、新通告，以及每 6 小時一次的線上探測。',
    c:'gh run list --repo ' + REPO + ' --limit 15'},
   {l:'⚠️ 由歷史版本還原凍結契約', d:'FREEZE_CONTRACT 轉紅時使用。四個值有下游系統依賴。', danger:true,
    c:'cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && \\\n' +
@@ -180,28 +202,116 @@ function stat(n, l){
   return '<div class="stat"><div class="n">' + h(n) + '</div><div class="l">' + h(l) + '</div></div>';
 }
 
-function render(d){
-  var age = ago(d.generatedAt);
-  var stale = age == null || age >= ERR_H ? 'err' : (age >= WARN_H ? 'warn' : 'ok');
-  var worst = d.overallStatus;
-  var cls, icon, title, desc;
-  if (stale === 'err') {
-    cls = 's-err'; icon = '🛑'; title = '本頁資料已經過期';
-    desc = '最後一次量度：' + fmtAge(age) + '（超過 ' + ERR_H + ' 小時）。下面每一個數都可能已經不成立。';
-  } else if (worst === 'BLOCKER' || worst === 'ERROR') {
-    cls = 's-err'; icon = '🛑'; title = worst === 'BLOCKER' ? '有攔截級問題' : '有錯誤級問題';
-    desc = '最後一次量度：' + fmtAge(age);
-  } else if (worst === 'WARN' || stale === 'warn') {
-    cls = 's-warn'; icon = '⚠️'; title = stale === 'warn' ? '量度已隔一段時間' : '有須要注意的項目';
-    desc = '最後一次量度：' + fmtAge(age);
-  } else {
-    cls = 's-ok'; icon = '✅'; title = '全部檢查通過';
-    desc = '最後一次量度：' + fmtAge(age);
+// ── S234 front page ────────────────────────────────────────────────────────
+var INFRA = [
+  ['BACKEND_HEALTH', '網站後端', '網站的伺服器有回應'],
+  ['SEARCH_PIPELINE_LIVE', '搜尋功能', '用真實問題試搜一次，有結果傳回'],
+  ['FREEZE_CONTRACT', '對外資料格式', '提供給其他系統的資料沒有被意外改動'],
+  ['MIRROR_CONSISTENCY', '資料一致性', '網站各處顯示的資料數目一致']
+];
+
+// One sentence for the top of the page. Pure, so it can be tested without a DOM.
+// Search-quality debts (the long list under 技術詳情) deliberately do NOT colour it:
+// they are standing gaps, and a banner that is red every day cannot say which day broke.
+function summarize(d, now){
+  // 以瀏覽器時鐘計算，而非產生時寫死的數字 —— 管線停止之後本頁不再更新，此值仍會繼續增長。
+  var t = d.generatedAt ? Date.parse(d.generatedAt) : NaN;
+  var age = isNaN(t) ? null : (now - t) / 36e5;
+  var last = '最近一次檢查：' + fmtAge(age);
+  var infraBad = (d.checks || []).filter(function(c){
+    return c.group === 'infra' && c.status === 'FAIL'; });
+  var items = d.attention && d.attention.items ? d.attention.items : null;
+  var alarms = (items || []).filter(function(i){ return i.level === 'alarm'; });
+  var waits = (items || []).filter(function(i){ return i.level !== 'alarm'; });
+  if (age == null || age >= ERR_H) {
+    return {level:'err', icon:'🛑', title:'本頁資料已經過期',
+            desc:'已超過 3 日沒有更新，自動檢查可能已經停止，下面的內容未必反映現況。'};
   }
-  document.getElementById('banner').className = 'banner ' + cls;
+  if (infraBad.length || alarms.length) {
+    return {level:'err', icon:'🛑', title:'系統可能出了問題',
+            desc:'請盡快查看下面標示「緊急」或「異常」的項目。' + last};
+  }
+  if (age >= WARN_H) {
+    return {level:'warn', icon:'⚠️', title:'資料已有一段時間沒有更新',
+            desc:last + '。系統未必有問題，但建議留意。'};
+  }
+  if (waits.length) {
+    return {level:'info', icon:'✅', title:'系統運作正常',
+            desc:'有 ' + waits.length + ' 項事項等你決定。' + last};
+  }
+  return {level:'ok', icon:'✅', title:'系統運作正常',
+          desc:last + (items === null ? '（待辦事項這次未能讀取）' : '')};
+}
+
+// A link is only followed when it points into this repository's own pages.
+function safeUrl(u){
+  return (typeof u === 'string' && u.indexOf('https://github.com/' + REPO + '/') === 0) ? u : null;
+}
+
+function renderAttention(d, now){
+  var att = d.attention, box = document.getElementById('attnList');
+  // "could not read" must never read as "nothing waiting"
+  if (!att || !att.items) {
+    box.innerHTML = '<div class="empty">這次未能讀取待辦事項清單，這不代表沒有事項。</div>';
+    return;
+  }
+  if (!att.items.length) {
+    box.innerHTML = '<div class="empty">目前沒有需要你處理的事項。</div>';
+    return;
+  }
+  var html = att.items.map(function(it){
+    var alarm = it.level === 'alarm', u = safeUrl(it.url);
+    var days = Math.floor((now - Date.parse(it.since)) / 864e5);
+    var when = isNaN(days) ? '' : (days < 1 ? '今日出現' : (alarm ? '自 ' + days + ' 日前起' : '已等待 ' + days + ' 日'));
+    return '<div class="item"><div><span class="pill ' + (alarm ? 'p-err' : 'p-info') + '">' +
+      (alarm ? '緊急' : '待決定') + '</span></div><div><div class="ih">' + h(it.headline) + '</div>' +
+      '<div class="ihint">' + h(it.hint) + '</div><div class="imeta">' + h(when) +
+      (u ? ' · <a href="' + h(u) + '" target="_blank" rel="noopener">查看詳情</a>' : '') +
+      '</div></div></div>';
+  }).join('');
+  if (att.ignored_outside > 0) {
+    html += '<div class="imeta">另有 ' + h(att.ignored_outside) + ' 則非系統建立的 GitHub 事項，未在此顯示。</div>';
+  }
+  box.innerHTML = html;
+}
+
+function opRow(name, caption, pill, detail){
+  return '<div class="op"><div><span class="pill ' + pill[0] + '">' + h(pill[1]) + '</span></div>' +
+    '<div><div class="oh">' + h(name) + '</div><div class="ihint">' + h(caption) + '</div>' +
+    (detail ? '<div class="imeta">' + h(detail) + '</div>' : '') + '</div></div>';
+}
+
+function renderOps(d){
+  var by = {}, rows = [];
+  (d.checks || []).forEach(function(c){ by[c.id] = c; });
+  INFRA.forEach(function(x){
+    var c = by[x[0]], pill = ['p-unk', '未量度'], detail = '';
+    if (c && c.status === 'PASS') pill = ['p-ok', '正常'];
+    else if (c && c.status === 'FAIL') { pill = ['p-err', '異常']; detail = c.detail; }
+    else if (c) detail = c.detail;
+    rows.push(opRow(x[1], x[2], pill, detail));
+  });
+  var items = d.attention && d.attention.items ? d.attention.items : null;
+  var wd = ['p-ok', '準時運作'];
+  if (!items) wd = ['p-unk', '未能讀取'];
+  else if (items.some(function(i){ return i.kind === 'monitor-watchdog'; })) wd = ['p-err', '有監察停了'];
+  rows.push(opRow('自動監察', '定期檢查文件更新、連結和新通告的程序有準時運作', wd, ''));
+  document.getElementById('ops').innerHTML = rows.join('');
+  var c2 = d.corpus || {};
+  document.getElementById('opsStats').textContent =
+    '知識片段 ' + (c2.chunks || 0).toLocaleString() + ' · 來源文件 ' + (c2.sources_serving || 0) +
+    ' · 平台版本 ' + (d.version || '未知');
+}
+
+function render(d){
+  var now = Date.now();
+  var sm = summarize(d, now);
+  document.getElementById('banner').className = 'banner s-' + sm.level;
   document.getElementById('banner').innerHTML =
-    '<div class="big">' + icon + '</div><div><div class="t">' + h(title) + '</div>' +
-    '<div class="d">' + h(desc) + ' · 平台 ' + h(d.version) + '</div></div>';
+    '<div class="big">' + sm.icon + '</div><div><div class="t">' + h(sm.title) + '</div>' +
+    '<div class="d">' + h(sm.desc) + '</div></div>';
+  renderAttention(d, now);
+  renderOps(d);
 
   var c = d.corpus || {};
   document.getElementById('corpus').innerHTML =
@@ -270,8 +380,11 @@ fetch('qc_report.json', {cache: 'no-store'}).then(function(r){
 }).then(render).catch(function(e){
   document.getElementById('banner').className = 'banner s-err';
   document.getElementById('banner').innerHTML =
-    '<div class="big">🛑</div><div><div class="t">讀不到 qc_report.json</div>' +
-    '<div class="d">' + h(String(e)) + '　—— 這本身就是一個訊號：報告從未產生，或者部署沒有落地。</div></div>';
+    '<div class="big">🛑</div><div><div class="t">讀不到系統狀態資料</div>' +
+    '<div class="d">檢查結果檔案無法讀取，這本身就是一個訊號：檢查從未產生，或者網站部署沒有落地。（技術訊息：' +
+    h(String(e)) + '）</div></div>';
+  document.getElementById('attnList').textContent = '無法載入。';
+  document.getElementById('ops').textContent = '無法載入。';
   document.getElementById('checks').textContent = '無法載入。';
   document.getElementById('raw').textContent = String(e);
 });
