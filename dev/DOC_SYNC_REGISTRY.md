@@ -27,6 +27,25 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-09-29 — S234（白話狀態頁 ＋ 線上服務探測 ＋ 搜尋記錄本機報告）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| 新增或改動任何排程監察（CHECKLIST 第 68 列） | `confirmed` | `live_probe` 已登記入 `check_monitor_health.py` `WORKFLOWS` 與自我測試的 `expected`；`--self-test` 7 個 ALL PASS、`--prove-assertions` 11 條轉紅。該列本身加了 `ATTENTION_KINDS` 一項（整合進既有列，未新增規則） |
+| 品質檢查／封版閘改動（第 56 列） | `confirmed` | `qc_report.py --self-test` ALL PASS（`attention` 九條新斷言）。「必須重跑 `--check` 並 commit」：由 `workflow_dispatch` 重生，機械人 commit `90fed59`，線上 `qc_report.json` 帶 4 項 `attention`。`qc_report.yml` 新增 `issues: read` 與「Status page logic test」步驟 |
+| Monitoring / CI workflow change（第 37 列） | `confirmed` | `FRESHNESS_GUIDE.md` 只講兩個文件監察，線上探測不屬該類 → `not_applicable`；`CODEBASE_CONTEXT.md` Directory Map 不列 workflow → `not_applicable`，維護紀錄已加一條 |
+| External API / service change | `confirmed`（部分未核實） | 無新外部服務。GitHub `issues.createLabel` 已對官方文件核對端點與參數；「標籤已存在回傳哪個狀態碼」與「`issues: write` 是否涵蓋標籤」文件未寫明，故建標籤為盡力而為、不擋警報 |
+| New file or directory | `confirmed` | `dev/PROJECT_INDEX.md` 加 `live_probe`、`status_page_test.mjs`、`search_log_report.py` 三列與兩列驗證指令；看門狗列註明共 7 個 |
+| Public behavior change | `confirmed` | 狀態頁 `status-07cc7942c0.html` 改版並已上線核實（桌面、手機、過渡狀態、有資料狀態）；`qc_report.json` 加 additive 欄位。README／CHANGELOG 屬產品文件，本頁為管理者專用 → `not_applicable` |
+| Product version / release milestone change | `not_applicable` | 平台仍 v3.3.10；`backend/` 零改動，線上仍 `4140e9c` |
+| Deploy | `confirmed` | Pages 部署兩次（#38、機械人 QC commit）均 success；Render 無須部署 |
+| 外部模型批次 | `confirmed` | 無 LLM 呼叫。`text-embedding-3-small` 約 4 次（每次探測搜尋一次：本機 1、探測 workflow 1、QC 本機 1、QC workflow 1）；`synthesize:true` 0 |
+| Supabase 寫入／DDL | `confirmed` | 零寫入、零 DDL；`search_log` 以 service key 唯讀 2 次 |
+| Governance rule change | `not_applicable` | 未改 `AGENTS.md`；新增持久規則「搜尋內容不得進公開檔案」入 `dev/SEARCH_LOG_DESIGN.md` 第八節（唯一定義處）與 `PROJECT_DECISIONS.md` ADR-00W |
+| Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4 與 `## User Environment` Git state／Push 邊界已重寫（AI 不能合併） |
+| `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並核對 |
+| Playbook | ⚠ `not_applicable` | 本節未 grep 全表、未開任何卡，按該庫規則不寫 usage 行。可轉移教訓候選（未交提案）：「橫額若綁著常設缺口就天天紅，分辨不出哪日出事」、「公開 repo 的 Issue 標題不可原樣顯示在自己的頁面」 |
+
 ### 2026-09-28 — S233（搜尋記錄與回答評分 v3.3.10 ＋ 185 題 gold 生產重跑）
 
 | Row | 狀態 | 備註 |
