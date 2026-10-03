@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T17:08:36Z",
+  "generatedAt": "2026-10-03T15:28:52Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17007,
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-10-02T17:08:36Z",
+    "collectedAt": "2026-10-03T15:28:52Z",
     "items": [
       {
         "kind": "freshness-change",
@@ -231,7 +231,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=4140e9c · 啟動於 2026-10-02T17:08:24.113Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=4140e9c · 啟動於 2026-10-03T15:28:43.099Z · Channel A 快取 0 條",
       "offenders": [],
       "offender_total": 0
     },
