@@ -1577,7 +1577,7 @@ source_registry → same vault PDFs → ai_extract.py
 - **Persistence routing checked（S235）：** 當前狀態、下一步、活躍風險、工作區身分 → 本檔 · 路線乙的設計、數字、限制與否決理由 → `dev/source/SUBJECT_CHECK_DESIGN.md`（唯一定義處）· FT06 改標與判官事實 → `dev/source/JUDGE_PROMPT_FINDINGS.md` S235 節與題集檔內 `label_note` · 擴題紀律（讀全文）→ `dev/source/judge_acceptance.py` 規則 4 · 新檔與題集 → `dev/PROJECT_INDEX.md` · 同步狀態 → `dev/DOC_SYNC_REGISTRY.md` · 量度取捨（v1 留、v2 否決）→ `dev/PROJECT_DECISIONS.md` · 逐步經過 → `dev/SESSION_LOG.md` S235 條。
 - **Lifecycle 一致性檢查（S235）：** 本節完成項（入庫補救、#41／#42 合併、Kit 升級、乙的離線設計與量度、⑪(a)(b)）不留在未了清單：次序中「乙的離線設計」劃線、⑪ 只保留未驗的 (c)。新的未了項（v1 實作、⑫ executor 衝突）皆非本節已完成事項。`Next Session Opening Message` 的下一步與 `Open Priorities` Recommended next step 一致（v1 實作，旗標關閉）。
 - **Stale snapshots left（S235）：** 無新增殘留。`Current Baseline` 4 與 `User Environment` Git state 記的是本收工 PR 之前的實測值（`e6015f3`）；本收工 PR 不改 `backend/`，合併後不會觸發新部署。狀態頁「待決定」中失效連結 15 條為 2026-10-05 的數字。
-- **Closeout outcome（S235）**：見本節最後寫入的收工結果（commit、push、開 PR 與 `closeout-status` 讀回之後補記）。
+- **Closeout outcome（S235）: `complete`** —— 內容側寫入與讀回完成：`START_NEXT_SESSION_PROMPT.txt` 由唯一 fenced 區塊重生並讀回相等（抽取方法先對 HEAD 舊版核實，只差 Kit 升級時去掉的檔尾換行）；`session_log_maintenance.py --check` `trigger=False`；`workspace-health` 已跑；`closeout-status` 讀回見收工回覆。**Project-required persistence（S235）: `complete`** —— 收工 commit `c4d7bed`（及本欄補記 commit）已推上 `s235/route-b-closeout`，PR #43 已開並綁定；**合併由 Leonard 在網頁執行**（AI 合併會被分類器擋），合併後毋須部署（不改 `backend/`）。
 
 - **2026-09-29 S234 closeout reconciliation（白話狀態頁 ／ 線上服務探測 ／ 搜尋記錄本機報告）：** 於 2026-09-29 收工時重寫或明確確認：`Current Baseline` 4（`origin/main` `90fed59`、線上仍 `4140e9c`、AI 不能合併 PR）、6（加 `live_probe`）· `Validation / QC`（新增 S234 八點於最前，S233 各點一字未改）· `User Environment` Git state 與 Push 邊界（AI 不能合併、每 session 一個 PR）· `Open Priorities`（副線改寫、新增 ⑪；Recommended next step 仍為路線乙）· `Last Session Record`（S234；S233 原文改題為 `Previous Session Record (S233)` 一字未改）· `Handoff Sufficiency Check` · `Next Session Opening Message`。**逐段讀過確認仍 current、不改**：`Current Baseline` 1、2、3、5、7 · `Risks / Blockers` 1–9（S234 無新增或解除的風險；「AI 不能合併」屬流程邊界，已放 `User Environment`）· `Architecture Decisions` · `Regression / Verification Notes` · `Backlog` · `Mandatory Start Checklist`。`ack:section:session-history` 邊界沿用，範圍內 H2 只有 `Last Session Record` 一個。
 - **Persistence routing checked（S234）：** 當前狀態、下一步、活躍風險、工作區身分 → 本檔 · 持久規則「搜尋內容不得公開」→ `dev/SEARCH_LOG_DESIGN.md` 第八節（唯一定義處），取捨記錄 → `dev/PROJECT_DECISIONS.md` ADR-00W · 新檔與指令 → `dev/PROJECT_INDEX.md` · 監察登記 → `check_monitor_health.py` `WORKFLOWS` 與 `dev/DOC_SYNC_CHECKLIST.md` 第 68 列 · 外部服務事實與驗證狀態 → `dev/CODEBASE_CONTEXT.md` 維護紀錄 · 逐步經過與 Fix Record → `dev/SESSION_LOG.md` S234 條 · 同步狀態 → `dev/DOC_SYNC_REGISTRY.md` S234 節 · 一次性 scratchpad 檔（模擬 harness、變異版本）不保留。
@@ -1666,21 +1666,27 @@ source_registry → same vault PDFs → ai_extract.py
 - **機器檢查（S219 已實際執行）：** `npx --yes @adamchanadam/agent-handoff-kit@latest doctor --root .` → **`status: passed`，53 項全部通過**，prompt mirror 與 handoff 一致、憑證分離 ok、SESSION_LOG 接力角色紀律 ok、版本三向對齊 v0.3.66。`closeout-status` 首次執行報 **blocked**，兩個 blocker 皆為本檔自身問題（見下），修正後重跑。人手核對：`ack` marker 41 個、`Open Priorities` 5 項、`Risks` 7 項、`Current Baseline` 6 項，皆在 §4 上限內；開場白為全檔唯一 fenced 區塊。**⚠️ 順帶更正一個延續三節的錯誤**：S217／S218 記的「CLI 取不到」是**查錯名字**（用了未加 scope 的 `agent-handoff-kit`，該名字在 npm 為 404），正確的 `@adamchanadam/agent-handoff-kit` 一直記在 `dev/PROJECT_INDEX.md` 第 155 行。
 
 <!-- ack:field:stale-snapshots-left -->
+- Stale snapshots left (S235): no — Current Baseline 2、4、User Environment Git state 已改為 S235 實測（17,021、e6015f3）；S234 的現況句已由新句取代或移入歷史區；下方 S219 句為歷史紀錄。
 - **Stale snapshots left（S219）：** 無殘留，且**本節主動更正了三項既有記載**：(a) S217／S218 記的「`agent-handoff-kit` CLI 取不到」是查錯名字（正確為 `@adamchanadam/agent-handoff-kit`，`dev/PROJECT_INDEX.md:155` 一直記著），`doctor` 實際 53/53 通過；(b) 本節稍早自己寫下的 establishment 靜默失效機制不成立，已更正為「成因未查明」；(c) 本節稍早據錯誤成本模型提出的索引建議已收回，兩個索引明確標記為「無法證明有效」。
 
 <!-- ack:field:closeout-outcome -->
+- Closeout outcome (S235): complete — 交接、log、PROJECT_INDEX、DOC_SYNC_REGISTRY、PROJECT_DECISIONS 已寫入並讀回；開場鏡像重生且相等；closeout-status 為最終讀回（見 `## State Reconciliation Check` 開首 S235 條）。
 - Closeout outcome（S219）: complete — 所有必要寫入與讀回皆成功：`doctor` **53/53 `status: passed`**、`START_NEXT_SESSION_PROMPT.txt` 由交接檔唯一 fenced 區塊重生並讀回**逐位元組相等**、`session_log_maintenance.py --check` `trigger=False`、四個 lifecycle blocker 逐個修好後 `closeout-status` 的 lifecycle 讀回轉為健康。
 
 <!-- ack:field:project-required-persistence -->
+- Project-required persistence (S235): complete — commit 已推上 `s235/route-b-closeout`，PR #43 已開並綁定；合併由 Leonard 在網頁執行，合併後毋須部署。
 - Project-required persistence（S219）: complete — commit 與 push **皆已獲 Leonard 明示授權並完成**：`597b0d8`（量度工具與證據）、`3ebd11f`（overlay 暖機修復與文件）、`a246f77`（部署驗證）、`8bf0c6b`（收工 reconcile）全部已 push，`HEAD == origin/main`，工作區乾淨。生產已部署 `3ebd11f` 並實測 `/health` 與三個端點。
 
 <!-- ack:field:recommended-next-step-explicit -->
+- Recommended next step is explicit and reasoned (S235): yes — `## Open Priorities` 開首：實作 v1 對象核對（旗標預設關閉）並以五套題重量，理由是 v1 已在離線證明攔到 3／5 條漏判而應答題誤攔 0。
 - Recommended next step is explicit and reasoned（S219）: 是 —— `Open Priorities` 開首寫明單一建議動作（評估 ivfflat → HNSW）並附理由（`anon` 只有 3 秒而主搜尋要 2–3 秒，餘裕不足 1.5 倍，是本節所有 `57014` 的共同上游），並明確指示**先做離線評估與召回率重驗方法，不要直接建索引**。
 
 <!-- ack:field:next-ai-can-continue -->
+- Next AI can continue (S235): yes — 由 `AGENTS.md`、本檔與 `dev/source/SUBJECT_CHECK_DESIGN.md` 即可續做，證據見 `## Handoff Sufficiency Check` 的 Reconstruction evidence。
 - Next AI can continue（S219）: yes — 下一個 agent 由 `AGENTS.md` ＋ `dev/SESSION_HANDOFF.md` ＋ 需要時的 `dev/PROJECT_INDEX.md` 即可接手：當前狀態（HEAD／部署 commit／`cache_b`）、為何三個 flag 仍全 off、`anon` 3 秒這個關鍵約束、量度用哪個 key 的紀律、以及 OP① 的第一步，全部在交接檔內，**不需翻舊 log**。
 
 <!-- ack:field:opening-message-matches-current-state -->
+- Opening message matches current state (S235): yes — 開場訊息記 17,021、e6015f3、Kit v0.4.2、S235 三項完成、下一步為 v1 實作且旗標關閉，與 `## Open Priorities` 及 `## Current Baseline` 一致；鏡像已重生並核對相等。
 - **Opening message matches current state（S219）：** 是。逐項對過：HEAD `a246f77`、部署 `3ebd11f` 含 `cache_b` 206/267、三個 flag 全 off 且列明不開的理由、`anon` 3 秒、兩個索引未證有效、`channel-b` 一次異常回應未保存 body、OP①–⑤ 與交接檔 `Open Priorities` 完全一致。開場白為全檔唯一 fenced 區塊，mirror 已驗證相等。
 
 - **2026-09-08 S218 closeout reconciliation（起手探針節）：** 於本次收工當下完成，非沿用舊快照。本節**零程式碼改動**，故產品側狀態多數逐段確認 current 而非重寫。
