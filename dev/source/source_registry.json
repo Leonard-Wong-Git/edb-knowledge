@@ -7924,6 +7924,26 @@
       "last_checked_at": "2026-10-06",
       "supersedes": null,
       "notes": "(auto, Option A executor) EDBCM134/2026. route=finance, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+    },
+    {
+      "source_id": "edbcm142_2026",
+      "title": "2026/27學年的幼稚園推廣閱讀津貼",
+      "title_en": null,
+      "title_short": "2026/27學年的幼稚園推廣閱讀津貼",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26142C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26142C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "finance"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-10-06",
+      "supersedes": null,
+      "notes": "(auto, Option A executor) EDBCM142/2026. route=finance, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract."
     }
   ]
 }

@@ -383,6 +383,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbc015_2026",              // (auto) Option A watcher ingest
     "edbcm144_2026",              // (auto) Option A watcher ingest
     "edbcm134_2026",              // (auto) Option A watcher ingest
+    "edbcm142_2026",              // (auto) Option A watcher ingest
   ],
 
   /**
@@ -1599,6 +1600,7 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   "edbcm124_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbcm155_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbcm134_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
+  "edbcm142_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   // ack:spotlight:end
 ];
 
