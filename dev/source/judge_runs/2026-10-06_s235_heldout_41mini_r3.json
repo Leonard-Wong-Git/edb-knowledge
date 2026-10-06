@@ -1,0 +1,40 @@
+{
+  "label": "s235_heldout_shipped_41mini_r3",
+  "model": "gpt-4.1-mini",
+  "run_at": "2026-10-06T16:52:34Z",
+  "summary": {
+    "scope": "primary",
+    "n": 12,
+    "correct": 9,
+    "answer_half": {
+      "n": 4,
+      "correct": 3
+    },
+    "decline_half": {
+      "n": 8,
+      "correct": 6
+    },
+    "false_answers": [
+      "HX07_parent_manager_term",
+      "HX09_student_sick_days"
+    ],
+    "false_declines": [
+      "HX08_trainee_teacher_outing"
+    ],
+    "missing": []
+  },
+  "verdicts": {
+    "HX01_supply_teacher_sickleave": "能",
+    "HX02_vp_teaching_periods": "否",
+    "HX03_supervisor_term_limit": "能",
+    "HX04_ta_annual_leave": "否",
+    "HX05_school_social_worker_reg": "否",
+    "HX06_bus_escort_training": "否",
+    "HX07_parent_manager_term": "能",
+    "HX08_trainee_teacher_outing": "否",
+    "HX09_student_sick_days": "能",
+    "HX10_parent_blnst": "否",
+    "HX11_boarding_parent_sickleave": "否",
+    "HX12_net_gratuity": "能"
+  }
+}

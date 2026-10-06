@@ -27,6 +27,24 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-10-06 — S235（入庫補救 ＋ Kit v0.4.2 ＋ 路線乙離線設計與量度）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| 判官驗收集改動（CHECKLIST row 46 族） | `confirmed` | FT06 改標記錄於 `label_note`（讀到的原文逐字）；新題集 SX、HX 各自配獨立緩存，凍結 35 與其緩存未動；`--self-test` 0 failure、`--check-parity` 逐字相同；每批三輪、明示 `JUDGE_MODEL=gpt-4.1-mini` |
+| Synthesis 前置閘改動 | `not_applicable` | 本節只做離線設計，`searchChannelB.ts` 由人手零改動；實作時須按該 row 先定案再量（設計文件第七節） |
+| New file or directory | `confirmed` | `dev/PROJECT_INDEX.md` 加 `subject_check_probe.py`＋`SUBJECT_CHECK_DESIGN.md` 一列、Kit 快捷入口一列；judge harness 列補兩個新題集 |
+| Generated Markdown or durable artifact | `confirmed` | `SUBJECT_CHECK_DESIGN.md` 已登記入 `PROJECT_INDEX`，`JUDGE_PROMPT_FINDINGS.md` S235 節與 `PROJECT_DECISIONS.md` ADR-00V 均指向它為唯一定義處 |
+| Governance rule change | `confirmed` | Kit 升級改寫 `AGENTS.md` managed core 與六個 `dev/rules/*`（官方內容，本地附錄保留）；本專案自己的 §0–§14 未改。擴題紀律寫入 harness docstring（非治理檔） |
+| Closeout/startup contract change | `confirmed` | Kit v0.4.2 新增 handoff 接收檢查與命名檢查；交接檔與開場訊息已按新版重寫並以 `closeout-status` 讀回 |
+| Supabase 寫入／DDL | `confirmed` | +14（Option A 入庫兩份，Leonard 在 ops Issue 剔選批准）；零 DDL；`wiki_chunks` service key 唯讀 GET（gold 窗 552 片段、計數） |
+| 外部模型批次 | `confirmed` | 判官 `gpt-4.1-mini` 72 次（SX、HX 各 12 題 ×3，Leonard「全做」批准）；生產搜尋約 40 次全帶 `x-probe`，其中 `synthesize:true` 2 次 |
+| Deploy | `confirmed` | Render 由入庫 PR #42 觸發重新部署至 `e6015f3`，`/health` 實測；本收工 PR 不改 `backend/` |
+| Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4、`## User Environment` Git state 與 `PROJECT_INDEX` Branch / commit 列已更新 |
+| `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並核對 |
+| Product version / release milestone change | `not_applicable` | 平台仍 v3.3.10 |
+| Playbook | `not_applicable` | 本節未 grep 全表、未開任何卡。可轉移教訓候選（未交提案）：「定標只讀預覽等於關鍵字搜尋」、「先凍結規則，再寫驗證題」 |
+
 ### 2026-09-29 — S234（白話狀態頁 ＋ 線上服務探測 ＋ 搜尋記錄本機報告）
 
 | Row | 狀態 | 備註 |

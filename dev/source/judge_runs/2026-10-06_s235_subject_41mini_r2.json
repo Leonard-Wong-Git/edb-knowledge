@@ -1,0 +1,39 @@
+{
+  "label": "s235_subject_shipped_41mini_r2",
+  "model": "gpt-4.1-mini",
+  "run_at": "2026-10-06T11:28:59Z",
+  "summary": {
+    "scope": "primary",
+    "n": 12,
+    "correct": 9,
+    "answer_half": {
+      "n": 2,
+      "correct": 2
+    },
+    "decline_half": {
+      "n": 10,
+      "correct": 7
+    },
+    "false_answers": [
+      "SX01_parent_paternity",
+      "SX03_student_teacher_sickleave",
+      "SX09_parent_volunteer_scrc"
+    ],
+    "false_declines": [],
+    "missing": []
+  },
+  "verdicts": {
+    "SX01_parent_paternity": "能",
+    "SX02_student_mpf": "否",
+    "SX03_student_teacher_sickleave": "能",
+    "SX04_student_lateness": "否",
+    "SX05_director_basic_law_test": "否",
+    "SX06_student_insurance": "能",
+    "SX07_pupil_sick_cert": "否",
+    "SX08_kg_child_sick_cert": "否",
+    "SX09_parent_volunteer_scrc": "能",
+    "SX10_nonteach_increment": "否",
+    "SX11_director_paid_post": "否",
+    "SX12_teacher_sick_cert_control": "能"
+  }
+}

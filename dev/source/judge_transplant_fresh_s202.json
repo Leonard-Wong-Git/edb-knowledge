@@ -14,7 +14,8 @@
       "5. FRESH held-out: --score --cases judge_transplant_fresh_s202.json --cache judge_runs/chunks_cache_fresh_s202.json --prompt judge_prompts/v4a_s202.txt --label v4a-fresh --out judge_runs/2026-08-02_s202_v4a_fresh.json  (repeat for v4b, and for shipped V3 as the baseline on this same fresh set)",
       "6. REGRESSION: --score --prompt judge_prompts/v4a_s202.txt --label v4a-frozen35 --out judge_runs/2026-08-02_s202_v4a_frozen35.json  (repeat v4b; the frozen set uses its own default cases + cache)",
       "7. GATE: answer-half on frozen-35 must stay 12/12; D00_s177_frozen_post must stay 否; false_answers reported apart from accuracy; then decide ship (C)."
-    ]
+    ],
+    "relabel_s235": "FT06 否→能 after re-reading cached passage [3]; S202 fresh scores become V3 10/10 on this set. See SUBJECT_CHECK_DESIGN.md §二."
   },
   "cases": [
     {
@@ -84,16 +85,16 @@
     },
     {
       "id": "FT06_imc_director_salary",
-      "half": "decline",
+      "half": "answer",
       "query": "法團校董會校董有冇薪酬",
-      "want": "否",
+      "want": "能",
       "chunk_mode": "live",
       "transplant_type": "subject (school-manager/director governance vs staff remuneration)",
       "hypothesis": "corpus covers director registration/quota, not director pay; staff pay figures must not transplant onto directors -> 否",
       "origin": "authored S202 fresh",
-      "label_note": "CONFIRMED 否. Passages: IMC business-profit use, 60% sponsoring-body director quota, constitution sample, director composition — none states director remuneration. Answering with staff pay = transplant.",
+      "label_note": "RELABELLED S235 (2026-10-06) 否→能 — original label was wrong. Cached passage [3] (法團校董會章程樣本 §33.1) reads 「法團校董會不得向任何校董提供任何酬勞。除校長、教員校董及替代教員校董外，校董不得在本校內擔任任何受薪職位」, which answers the question (directors serve without remuneration). The S202 judge 能 was correct, not a miss. Source is a SAMPLE constitution, not statute. Independently re-verified by a second agent in S235. | Original S202 note: CONFIRMED 否. Passages: IMC business-profit use, 60% sponsoring-body director quota, constitution sample, director composition — none states director remuneration. Answering with staff pay = transplant.",
       "scope": "primary",
-      "verified_by": "S202 (2026-08-02) — read all 5 cached passages before any judge verdict"
+      "verified_by": "S202 (2026-08-02) — read all 5 cached passages before any judge verdict | S235 re-read passage [3]"
     },
     {
       "id": "FT07_special_school_class_size",

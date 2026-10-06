@@ -47,6 +47,10 @@ extending it:
      written `<question>？<answer>`, so the question was authored by whoever curated the
      fact, not by whoever is tuning the prompt). New decline-half cases must be checked
      by reading the top-5, because a keyword miss is not evidence of absence.
+  4. Read every cached passage IN FULL before labelling — never a truncated preview.
+     S235 found two wrong 否 labels made this way (FT06: the answering clause sat in
+     passage 3; SX09: 「(5)志願工作者」 sat past character 450 of passage 3). A label set
+     from a preview is a label set from a keyword search.
 
 Read-only against production: POSTs the public search endpoint and calls the OpenAI
 Responses API exactly as `llmClient.ts` does. Writes nothing but its own run files.
