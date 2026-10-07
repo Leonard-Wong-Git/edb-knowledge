@@ -1,6 +1,7 @@
 # 路線乙：問題對象核對 —— 離線設計與量度（S235，2026-10-06）
 
-狀態：**只做了離線設計與量度，生產零改動**（沒有改程式、旗標、提示或資料庫）。
+狀態：**S236（2026-10-07）已按第七節實作 v1，旗標 `FEATURE_SUBJECT_CHECK` 預設關閉、生產未設**；開啟與否待 Leonard 決定。
+S235 的離線設計與量度見第一至第六節，S236 實作與重量見第八節。
 量度工具：`dev/source/subject_check_probe.py`（`--self-test`／`--cached`／`--gold`）。
 
 ## 一、要解決的問題
@@ -126,7 +127,7 @@ v2 規則：問題提到具體角色（實習教師、義工、代課、副校�
   2. Leonard 決定是否開啟旗標。
   3. 餘下兩條模式（SX03、HX07）留待 `search_log` 累積真實個案後再評估；不要為它們再調判官提示。
 
-## 七、如將來決定上線的形態（未實施）
+## 七、上線形態（S236 已按此實施，見第八節）
 
 - 位置：`backend/src/api/searchChannelB.ts` 的 `synthesizeAnswer()`，在判官與 vault bypass **之前**執行
   （bypass 路徑也要過這一關，因為它不經判官）。
@@ -134,3 +135,33 @@ v2 規則：問題提到具體角色（實習教師、義工、代課、副校�
   相關規定。」—— 不經模型生成，避免再出現 D01 那種「先答錯、再改口」。
 - 以新旗標（預設關閉）上線，先以 gold 與驗收集重量，再由 Leonard 決定是否開啟。
 - 需同步：`judge_acceptance.py` 驗收流程、`DOC_SYNC_CHECKLIST.md` 相關行、`JUDGE_PROMPT_FINDINGS.md`。
+
+## 八、S236 實作與重量（2026-10-07）
+
+**實作**（全部照第七節，旗標預設關閉）：
+
+- `backend/src/lib/subjectCheck.ts`：`presence_v1_pass` 逐行移植（詞表、遮走「非教學人員」、問題保留空格、窗內 NFKC＋去空白）。
+  v2 不移植。
+- `searchChannelB.ts` `synthesizeAnswer()`：`FEATURE_SUBJECT_CHECK === "1"` 時，在判官與 vault bypass 之前，以五格合成窗核對；
+  不通過即回覆固定句「根據檢索到的教育局文件，未有找到適用於〔缺的人群〕的明確規定；檢索到的資料只提及〔窗內人群〕。……」，
+  不呼叫判官與合成模型。不覆蓋 `FEATURE_GROUNDED_SYNTHESIS` 路徑（生產關閉，另有自己的證據窗）。
+- 新增 `isSynthesisDecline()`，`server.ts` 的 search_log 改用它判定拒答。原本 `=== SYNTHESIS_DECLINE` 會把新拒答句記為「已作答」。
+- 前端與 `app.html` 不需改動：前端不以拒答字串分支。
+
+**驗證**（`backend/scripts/_s236_subjectCheck.ts`，全部零模型呼叫，除 `--smoke`）：
+
+| 檢查 | 結果 |
+|---|---|
+| `--self-test` | 19 項全部通過（含 search_log 拒答判定紅測） |
+| `--parity`：TS 對 Python v1，同一批窗 | 250 題（驗收 35、fresh 10、SX 12、HX 12、gold 181 的 2026-09-28 生產窗）**差異 0**；Python 與 TS 都攔 7 題 |
+| `--live`：生產現行窗重量（2026-10-07，`x-probe`、`synthesize:false`） | 254 題、錯誤 0、帶對象 94；**攔 7 題，全部應拒答；應答題誤攔 0、gold 誤攔 0**。攔下的 7 題與緩存窗相同 |
+| `--smoke`：本機真檢索，旗標開關對照（LLM 4 次，Leonard 批准） | 旗標開：D01、SX01 固定句拒答且 0 次模型呼叫；教師對照題照常作答。旗標關：D01 答出「學生請病假時必須出示有效的醫生證明書」（即今日生產行為） |
+
+攔下的 7 題：D01、D08、SX01、SX07、HX09、HX10、HX11。對結果有改變的只有判官已知漏判的三條（D01、SX01、HX09）；
+其餘四條判官本已拒答，只是改由固定句拒答、省去兩次模型呼叫。運行檔：`eval_runs/2026-10-07_s236_subject_live.json`
+（只存 id、查詢、片段 id 與判定）。
+
+**未變的限制**：第六節全部照舊 —— SX03、HX07 這類「對象詞在窗內以別的語境出現」仍看不到；詞表外職稱與英文未覆蓋。
+
+**開啟前須知**：開啟只需在 Render 設 `FEATURE_SUBJECT_CHECK=1`（Leonard 才改得到）。開啟後可用 `search_log` 的
+`declined` 及回答全文，按固定前綴「根據檢索到的教育局文件，未有找到適用於」篩出由本閘拒答的真實查詢，逐條讀窗檢查是否誤攔。

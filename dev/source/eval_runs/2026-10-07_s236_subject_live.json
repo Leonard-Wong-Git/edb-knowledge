@@ -1,0 +1,4293 @@
+{
+ "_meta": {
+  "session": "S236",
+  "endpoint": "https://edb-knowledge.onrender.com/api/search/channel-b",
+  "request": {
+   "top_k": 10,
+   "synthesize": false,
+   "header": "x-probe: 1"
+  },
+  "window": "results[0:5]，即 synthesizeAnswer 的 defaultWindow",
+  "checker": "backend/src/lib/subjectCheck.ts checkSubjects（v1）",
+  "run_at": "2026-10-07T13:05:26.328Z",
+  "summary": {
+   "total": 254,
+   "errors": 0,
+   "with_subject": 94,
+   "blocked": 7,
+   "blocked_answerable": 0,
+   "blocked_gold": 0
+  }
+ },
+ "results": [
+  {
+   "set": "acceptance",
+   "id": "A00_AUD_e76ch02",
+   "query": "幼稚園收非華語學生點計津貼？",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_ncs_kg_5tier_201920",
+    "footnote_fn_ncs_sbp_26360_class",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_g04_997df7efd474"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "A01_EDBC_9_2019_E",
+   "query": "非華語 SEN 學生額外津貼幾多？",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_ncs_sen_3tier",
+    "footnote_fn_ncs_sbp_26360_class",
+    "vault_sag_2025_11_4ee562d7f8902f9a",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_24bfce599b6adf34"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "A02_cap279_education_ordin",
+   "query": "准用教員離職，個 permit 點？",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_cap279_s52_pt_cancel",
+    "footnote_fn_cap279_s48_permit_when",
+    "vault_faq_edbc19011_357803e17b2f",
+    "vault_faq_edbc19011_6c0004bed9ba",
+    "vault_ppt_grad_pri_faq_c219eba046cf"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "A03_chp_prev_cd_schools_20",
+   "query": "報傳染病打邊個電話？",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_chp_ceno_contact",
+    "footnote_fn_chp_notifiable_diseases_list",
+    "footnote_fn_chp_form_routing",
+    "vault_kg_operation_manual_2026_79db0e3224c2e315",
+    "vault_bio_sss_2007_2015_21fa0601e69bdb5d"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "A04_edb_net_package_pdf",
+   "query": "NET medical insurance 補助上限？",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_net_medical_allowance",
+    "footnote_fn_eoebg_topup_cap",
+    "footnote_fn_net_special_allowance_16859",
+    "footnote_fn_net_passage_5persons",
+    "footnote_fn_net_surplus_30pct"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "A05_edbc_10_2012_fee_remis",
+   "query": "DSS 學費減免合資格標準要點？",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_edbc10_2012_fr_baseline",
+    "footnote_fn_edbc10_2012_reserve_halfyr",
+    "footnote_fn_edbc10_2012_exemption_3yr",
+    "footnote_fn_dss_fee_remission_10pct_50c",
+    "footnote_fn_edbc10_2012_smc_imc_transparency"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "A06_edbcm215_2025_mental_h",
+   "query": "學校點識別同支援有較高自殺風險嘅學生？",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_mh_three_tier",
+    "vault_sag_2025_11_aacef786d66fa45e",
+    "vault_crisis_mgmt_handbook_da5096756a9b25df",
+    "vault_sag_2025_11_3663a0b5f0cee805",
+    "vault_crisis_mgmt_handbook_4ed74f94b7a7f249"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "A07_eoebg_rates_2026",
+   "query": "全方位學習津貼加姊妹學校津貼，每校總額有冇下限？",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_lwl_sister_floor",
+    "fact_role_facts_activity_6fddddde0d050005",
+    "vault_g03_c89d1d30ec063704",
+    "vault_edbc007_2026_ff2fd30fd47a1e42",
+    "vault_g03_5ef9f1c8942f71f2"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "A09_sag_2025_11",
+   "query": "非標準項目收費 7 個條件（毋須事先批准）？",
+   "want": "能",
+   "chunk_ids": [
+    "vault_coa_ss_e_8d388f4a4dca",
+    "vault_sag_2025_11_af4d7b198fc47c62",
+    "vault_sag_2025_11_d6cf601b1be12e97",
+    "vault_sag_2025_11_d3b8a55cdc351c29",
+    "vault_icac_school_governance_83adf92ab988ecd8"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "A10_sch_activities_guide",
+   "query": "官立學校嘅公務員教師喺帶團（境外遊學）執行職務期間受傷／整親，要跟邊套規例呈報？",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_activities_civilservant",
+    "footnote_fn_activities_sen",
+    "vault_g03_c89d1d30ec063704",
+    "vault_sch_activities_guide_4fd73da4a531345d",
+    "fact_role_facts_activity_e517b41d1de20331"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "A11_wfsfaa_sfaa_household_",
+   "query": "調整後家庭入息點計？",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_sfaa_afi_formula",
+    "vault_edbcm060_2026_837f2ebcf742843e",
+    "footnote_fn_net_special_allowance_16859",
+    "vault_edbcm060_2026_837322018ee388ac",
+    "vault_kg_admin_guide_2026_ce160e42d0f97ead"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "GN11_procurement_threshold",
+   "query": "學校採購超過幾多錢要公開招標",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_procurement_thresholds",
+    "footnote_fn_tips_no_split_order",
+    "vault_g01_166ade0c624040d1",
+    "vault_g01_526fe089b707001e",
+    "vault_g01_7c2b5af7e98a2f1a"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "D01_student_sickleave",
+   "query": "學生請病假要唔要交醫生紙",
+   "want": "否",
+   "chunk_ids": [
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_sag_2025_11_63f35908e9b949e7",
+    "vault_sag_2025_11_ac9e6e7b4099399d"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [
+    "STUDENT"
+   ],
+   "pass": false
+  },
+  {
+   "set": "acceptance",
+   "id": "D02_bus_fare",
+   "query": "校巴車費可以收幾多",
+   "want": "否",
+   "chunk_ids": [
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+    "vault_sch_bus_operators_2026_091b41a86b342008",
+    "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+    "vault_g18_1696a94590f2d252",
+    "vault_sch_bus_operators_2026_8a8f92a4092ce837"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "D03_aircon_replace",
+   "query": "學校冷氣機幾耐要換一次",
+   "want": "否",
+   "chunk_ids": [
+    "vault_lab_prep_room_aircon_02ce57c0eacf2d57",
+    "vault_lab_prep_room_aircon_a95ede0dcd18141e",
+    "vault_lab_prep_room_aircon_1ee6d676af929d6f",
+    "footnote_fn_edbc12_2026_fire_annual",
+    "vault_edbcm_major_repairs_grant_5edf37147ed1296a"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "D04_security_licence",
+   "query": "學校請保安員要咩牌照",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_edbc12_2026_fs251_display",
+    "footnote_fn_cap279_s42_teach_must_register",
+    "vault_sag_2025_11_a97bf130470d0730",
+    "vault_sag_2025_11_beb491dfaa12789e",
+    "vault_sch_bus_escorts_2026_d3ae75b65a12d735"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "D05_record_retention",
+   "query": "學生成績表要保存幾多年",
+   "want": "否",
+   "chunk_ids": [
+    "fact_role_facts_finance_2a51edb4a2d555ac",
+    "vault_stims_guide_2025_a8abafeb1e5b5c99",
+    "vault_kg_admin_guide_2026_1a2c40a0ea0fd135",
+    "vault_sag_2025_11_874ba652a29aa3d2",
+    "vault_stims_guide_2025_832a0fc61758c58e"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "D06_teacher_starting_pay",
+   "query": "教師起薪點幾多錢",
+   "want": "否",
+   "chunk_ids": [
+    "vault_coa_imc_1_19_a0167f8ed99d142c",
+    "vault_coa_imc_1_19_c3ca1106110134f9",
+    "vault_kg_admin_guide_2026_282ea08ba4739020",
+    "vault_job_sharing_guide_a8ab796eb2c2b76f",
+    "vault_kg_admin_guide_2026_f34fba7734e7e756"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "D07_tuckshop_rent",
+   "query": "小賣部租金點釐定",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_tips_rental_40pct",
+    "vault_sag_2025_11_d6cf601b1be12e97",
+    "vault_sag_2025_11_86805169146fea74",
+    "vault_icac_school_governance_3b0ff046987d2898",
+    "vault_kg_admin_guide_2026_2ece83b63b97a608"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "D08_lesson_observation",
+   "query": "校長每年要做幾多次課堂視學",
+   "want": "否",
+   "chunk_ids": [
+    "vault_sag_2025_11_b2cfeef6cd6dbcfc",
+    "vault_edbc15_2022_accountability_c8288d0a2be64ba8",
+    "vault_edbc15_2022_accountability_8644b924acecf7a4",
+    "vault_perf_indicators_2022_4e6d083d45ef0096",
+    "vault_perf_indicators_2022_e2bc634d22c3cad1"
+   ],
+   "subjects": [
+    "PRINCIPAL"
+   ],
+   "missing": [
+    "PRINCIPAL"
+   ],
+   "pass": false
+  },
+  {
+   "set": "acceptance",
+   "id": "D09_offdomain_weather",
+   "query": "香港天文台今日氣溫",
+   "want": "否",
+   "chunk_ids": [
+    "vault_g23_9c27a2c69a9a116c",
+    "vault_geog_jss_45510e91e52b729f",
+    "vault_pri_science_guide_2025_cd0f48d28e825bbc",
+    "vault_geog_jss_0d7394b87681a417",
+    "vault_phys_sss_2007_2015_abb1a7ccf71d05d9"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "D10_offdomain_airport",
+   "query": "機場快線頭班車幾點開",
+   "want": "否",
+   "chunk_ids": [
+    "vault_sch_bus_parents_2026_39825d85c03f9636",
+    "vault_g18_1e14759e2084c65d",
+    "vault_sch_bus_operators_2026_478e1d889cce856d",
+    "vault_sch_bus_operators_2026_2c5da9e745965da6",
+    "vault_sch_bus_operators_2026_1f4f280cc236eb42"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "D00_s177_frozen_post",
+   "query": "現在已成立法團校董會學校可以凍結的教席上限是百分之幾？",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_trg_freeze_ceiling",
+    "footnote_fn_imc_60pct",
+    "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_briefing_qa_b6ac0458f6897905",
+    "vault_imc_establishment_operation_a1fd7e792c5fdf94"
+   ],
+   "subjects": [
+    "DIRECTOR"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "GN02_nonteach_maternity",
+   "query": "學校非教學人員產假有幾多日",
+   "want": "否",
+   "chunk_ids": [
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_sag_2025_11_ddd12598121eea78",
+    "vault_sag_2025_11_2ba8f398a24e5126"
+   ],
+   "subjects": [
+    "NONTEACH"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "GN03_electrical_inspection",
+   "query": "學校電力裝置幾耐要檢查一次",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_edbc12_2026_fire_annual",
+    "footnote_fn_g22_inspectfreq",
+    "vault_phys_sss_2007_2015_b399485d71dcda51",
+    "vault_phys_sss_2007_2015_58fc29e380cede7e",
+    "vault_edbc012_2026_2f0cde53c402cbc8"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "GN04_student_healthcheck",
+   "query": "學生健康檢查幾耐做一次",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_g22_inspectfreq",
+    "footnote_fn_edbc12_2026_fire_annual",
+    "vault_sag_2025_11_bab5efaa946f509d",
+    "vault_safety_mgmt_committee_1d9bb828b1c63464",
+    "vault_g23_2b3de0bcc4aa25d2"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "GN05_teacher_lateness_pay",
+   "query": "教師遲到會唔會扣人工",
+   "want": "否",
+   "chunk_ids": [
+    "vault_kg_admin_guide_2026_9199de289d1900e5",
+    "vault_supply_teacher_guide_dcbdce2e3ff6cfb3",
+    "vault_sag_2025_11_2a7ea894b6f3e3c7",
+    "vault_surplus_teacher_arr_2026_3ebd789f5fb627b8",
+    "vault_kg_admin_guide_2026_282ea08ba4739020"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "GN07_school_trip_fee",
+   "query": "學校每次旅行可以收幾多錢",
+   "want": "否",
+   "chunk_ids": [
+    "vault_sch_activities_guide_089602889d89fe5d",
+    "vault_sch_activities_guide_289874cef191962e",
+    "vault_sch_activities_guide_bd23fe68359dfbf1",
+    "vault_sch_activities_guide_96c894a2a6d6c4f7",
+    "vault_g03_a3176995b59e7bd1"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "GN08_typhoon_signal",
+   "query": "香港今日打幾號風球",
+   "want": "否",
+   "chunk_ids": [
+    "vault_g23_9c27a2c69a9a116c",
+    "vault_edbc_tropical_cyclone_day_9838169e863a29c1",
+    "vault_g28_543ae4b658a1",
+    "vault_sag_2025_11_b87c01c873ba7b22",
+    "vault_geog_jss_d71ddcdfe06dd8fa"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "GN09_summer_holiday_date",
+   "query": "全港學校暑假幾時開始",
+   "want": "否",
+   "chunk_ids": [
+    "vault_g11_e9d38490c69bf6ed",
+    "vault_sag_2025_11_7194bba1e9b2c471",
+    "footnote_fn_ncs_sbp_60hr_min",
+    "vault_edbc_tropical_cyclone_day_c69caf8fdcb27bf1",
+    "vault_edbc_tropical_cyclone_day_9838169e863a29c1"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "GN10_kg_class_ratio",
+   "query": "幼稚園每班師生比例係幾多",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_kg_teacher_pupil_ratio",
+    "footnote_fn_kgop_teacher_onduty",
+    "footnote_fn_kgop_classroom",
+    "footnote_fn_kgop_ratio",
+    "vault_g29_54a276c794731206"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "GN13_teacher_max_periods",
+   "query": "教師每星期最多教幾多節堂",
+   "want": "否",
+   "chunk_ids": [
+    "vault_g07_175942f0c4935195",
+    "vault_g07_363a03c43157a9cc",
+    "vault_g06_3227e26c300b25db",
+    "vault_g07_5d0eb554643749b8",
+    "vault_geog_jss_fe9a1b03c077308e"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "GN14_student_casual_leave",
+   "query": "學生可以連續請幾多日事假",
+   "want": "否",
+   "chunk_ids": [
+    "vault_g11_a05f64ae624ebcbd",
+    "vault_sag_2025_11_a5e04b02f12de4f1",
+    "vault_sag_2025_11_7194bba1e9b2c471",
+    "vault_g06_63ecfe0f27ad5102",
+    "vault_pri_curr_guide_2024_9ea9cc7c47914055"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "S01_ai_intro_bare_noun",
+   "query": "人工智能初探",
+   "want": "能",
+   "chunk_ids": [
+    "vault_iit_ai_framework_2026_06a2de017b9e72e2",
+    "vault_debp_blueprint_a823845b1c1e876f",
+    "vault_edbcm107_2026_bc0fe4e2172afe98",
+    "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
+    "vault_debp_exec_summary_aafddb892b407262"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "acceptance",
+   "id": "S02_ict_guide_bare_noun",
+   "query": "資訊及通訊科技 課程指引",
+   "want": "能",
+   "chunk_ids": [
+    "vault_ict_sss_2021_a9c2166736cac0cf",
+    "vault_ict_sss_2021_6b820e21d5796f21",
+    "vault_ict_sss_2021_5d57c700cf603e66",
+    "vault_ict_sss_2021_814404d068645d64",
+    "vault_ict_sss_2007_2015_e97755ed087ea7de"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "fresh_s202",
+   "id": "FT01_janitor_annual_leave",
+   "query": "工友（校工）有薪年假有幾多日",
+   "want": "否",
+   "chunk_ids": [
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_sag_2025_11_8ca01fea4a2517d4",
+    "vault_sag_2025_11_ff0d399c945f8c54"
+   ],
+   "subjects": [
+    "NONTEACH"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "fresh_s202",
+   "id": "FT02_supply_teacher_provident",
+   "query": "代課教師有冇公積金供款",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_trg_freeze_mpf",
+    "footnote_fn_trg_no_freeze_posts",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "fresh_s202",
+   "id": "FT03_student_medical_allowance",
+   "query": "學生可唔可以申請醫療津貼",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_ncs_sbp_26360_class",
+    "footnote_fn_sfaa_residency_eligibility",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_g04_997df7efd474"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "fresh_s202",
+   "id": "FT04_private_indep_poa",
+   "query": "私立獨立學校要唔要參加小一入學統籌辦法",
+   "want": "否",
+   "chunk_ids": [
+    "vault_g19_0de8e84f80a4e85a",
+    "fact_role_facts_curriculum_830e8a0bdd93b32c",
+    "vault_imc_establishment_operation_3fa533f8d5d6cf68",
+    "vault_edbcm080_2026_d0fad42b57d019f7",
+    "vault_edbc18_2019_sspa_d5882e322feaed1d"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "fresh_s202",
+   "id": "FT05_intl_school_fee_cap",
+   "query": "國際學校學費加幅有冇上限",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_lwl_sister_floor",
+    "footnote_fn_eoebg_meal_cap",
+    "vault_edbc015_2026_53ee2218ac53e375",
+    "footnote_fn_ceg_rates_2627",
+    "vault_sag_2025_11_951341ab5713a3aa"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "fresh_s202",
+   "id": "FT06_imc_director_salary",
+   "query": "法團校董會校董有冇薪酬",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_imc_99b",
+    "footnote_fn_imc_60pct",
+    "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_establishment_operation_99404d60c91661e2",
+    "vault_imc_establishment_operation_8321060a76efdfea"
+   ],
+   "subjects": [
+    "DIRECTOR"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "fresh_s202",
+   "id": "FT07_special_school_class_size",
+   "query": "特殊學校每班最多幾多學生",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_activities_sen",
+    "footnote_fn_ac_special_room_cap",
+    "vault_g06_ddb8cc42eb48c6a7",
+    "vault_g19_710b48540bec2358",
+    "vault_g19_5209939fe426d76b"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "fresh_s202",
+   "id": "FT-C1_teacher_sickleave_control",
+   "query": "資助學校教師有薪病假有幾多日",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_supply_oneyear",
+    "footnote_fn_coa_unqualified_teacher",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "fresh_s202",
+   "id": "FT-C2_teacher_maternity_control",
+   "query": "資助學校教師有薪產假有幾多日",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_coa_unqualified_teacher",
+    "footnote_fn_supply_oneyear",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "fresh_s202",
+   "id": "FT-C3_kg_class_size_cap_control",
+   "query": "幼稚園每班最多可以收幾多個學生",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_kgop_classroom",
+    "footnote_fn_kgop_teacher_onduty",
+    "footnote_fn_kg_teacher_pupil_ratio",
+    "vault_g25_a3d58093313d",
+    "footnote_fn_kgadmin_rent_sept"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "sx_s235",
+   "id": "SX01_parent_paternity",
+   "query": "家長可唔可以請侍產假",
+   "want": "否",
+   "chunk_ids": [
+    "vault_sag_2025_11_ddd12598121eea78",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_g04_1418e714aba7",
+    "vault_sag_2025_11_63f35908e9b949e7"
+   ],
+   "subjects": [
+    "PARENT"
+   ],
+   "missing": [
+    "PARENT"
+   ],
+   "pass": false
+  },
+  {
+   "set": "sx_s235",
+   "id": "SX02_student_mpf",
+   "query": "學生有冇強積金",
+   "want": "否",
+   "chunk_ids": [
+    "vault_edbc015_2026_53ee2218ac53e375",
+    "vault_ces_jss_2024_c598b4ef8129f063",
+    "vault_ls_jss_2010_e8f59f9567fd797d",
+    "vault_g02_edc1d6a3f57885d3",
+    "footnote_fn_dlg_incentive_cease"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "sx_s235",
+   "id": "SX03_student_teacher_sickleave",
+   "query": "實習教師有冇病假",
+   "want": "否",
+   "chunk_ids": [
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_sag_2025_11_63f35908e9b949e7",
+    "vault_sag_2025_11_8ca01fea4a2517d4"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "sx_s235",
+   "id": "SX04_student_lateness",
+   "query": "學生遲到點處理",
+   "want": "否",
+   "chunk_ids": [
+    "vault_ict_sss_2021_939ddcef3720b2e1",
+    "vault_ict_sss_2021_c474b397ef819ec1",
+    "vault_g13_b2abf81466138651",
+    "vault_sag_2025_11_f94a9be590caeebe",
+    "vault_ct_programming_pri_2020_9545d39b519c7924"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "sx_s235",
+   "id": "SX05_director_basic_law_test",
+   "query": "校董要唔要考基本法測試",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_supply_blnst_202324",
+    "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_governance_supplements_5203579dd227734e",
+    "vault_imc_establishment_operation_e66eff7e80fe4675",
+    "vault_imc_governance_supplements_e4ff2c5877510782"
+   ],
+   "subjects": [
+    "DIRECTOR"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "sx_s235",
+   "id": "SX06_student_insurance",
+   "query": "學生保險由邊個負責",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_edbc14_2024_cap279a_s5",
+    "vault_sag_2025_11_30dbabc932260eae",
+    "vault_bip_insurance_notes_2025_c2ba5b5ef62a6496",
+    "vault_bip_insurance_notes_2025_2cbab3a4cffe722e",
+    "vault_g03_a3176995b59e7bd1"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "sx_s235",
+   "id": "SX07_pupil_sick_cert",
+   "query": "學童請病假需唔需要醫生證明書",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_prisci_exempt",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_sag_2025_11_ddd12598121eea78"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [
+    "STUDENT"
+   ],
+   "pass": false
+  },
+  {
+   "set": "sx_s235",
+   "id": "SX08_kg_child_sick_cert",
+   "query": "小朋友病咗唔返幼稚園要唔要醫生紙",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_chp_form_routing",
+    "footnote_fn_chp_bed_spacing_1m",
+    "vault_g29_77241ccc6a4de308",
+    "vault_g29_33c14df3cc141a08",
+    "vault_g29_b68ca97cc816653c"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "sx_s235",
+   "id": "SX09_parent_volunteer_scrc",
+   "query": "家長義工要唔要做性罪行定罪紀錄查核",
+   "want": "能",
+   "chunk_ids": [
+    "vault_supply_teacher_guide_d395dbf360f31b7a",
+    "vault_kg_operation_manual_2026_42955dc8529c15f2",
+    "vault_sag_2025_11_3b37c3d45ac49953",
+    "vault_sch_activities_guide_96165cc2fdc1a67f",
+    "vault_sag_2025_11_de9bf41fab2da237"
+   ],
+   "subjects": [
+    "PARENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "sx_s235",
+   "id": "SX10_nonteach_increment",
+   "query": "非教學人員有冇增薪點",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_surplus_def",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_sag_2025_11_8ca01fea4a2517d4"
+   ],
+   "subjects": [
+    "NONTEACH"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "sx_s235",
+   "id": "SX11_director_paid_post",
+   "query": "校董可唔可以喺學校擔任受薪職位",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_imc_99b",
+    "footnote_fn_g01_delegate",
+    "vault_imc_establishment_operation_eccb48c1dc6db181",
+    "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_governance_supplements_5203579dd227734e"
+   ],
+   "subjects": [
+    "DIRECTOR"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "sx_s235",
+   "id": "SX12_teacher_sick_cert_control",
+   "query": "老師請病假要唔要交醫生紙",
+   "want": "能",
+   "chunk_ids": [
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_sag_2025_11_63f35908e9b949e7",
+    "vault_sag_2025_11_6a7f706998baa294"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "hx_s235",
+   "id": "HX01_supply_teacher_sickleave",
+   "query": "代課老師有冇病假",
+   "want": "能",
+   "chunk_ids": [
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_sag_2025_11_63f35908e9b949e7",
+    "vault_sag_2025_11_ddd12598121eea78"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "hx_s235",
+   "id": "HX02_vp_teaching_periods",
+   "query": "副校長每星期要教幾多節",
+   "want": "否",
+   "chunk_ids": [
+    "fact_role_facts_curriculum_ffcbe1c421e6b7a7",
+    "vault_crisis_mgmt_handbook_7b2fbd48121e54a8",
+    "vault_g07_175942f0c4935195",
+    "vault_g07_363a03c43157a9cc",
+    "vault_edbcm107_2026_a49441a9c40840a0"
+   ],
+   "subjects": [
+    "PRINCIPAL"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "hx_s235",
+   "id": "HX03_supervisor_term_limit",
+   "query": "校監有冇任期限制",
+   "want": "能",
+   "chunk_ids": [
+    "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_establishment_operation_eccb48c1dc6db181",
+    "vault_imc_governance_supplements_5203579dd227734e",
+    "vault_imc_establishment_operation_e66eff7e80fe4675",
+    "vault_imc_establishment_operation_a1fd7e792c5fdf94"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "hx_s235",
+   "id": "HX04_ta_annual_leave",
+   "query": "教學助理有冇年假",
+   "want": "否",
+   "chunk_ids": [
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_sag_2025_11_2ba8f398a24e5126",
+    "vault_sag_2025_11_24bfce599b6adf34"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "hx_s235",
+   "id": "HX05_school_social_worker_reg",
+   "query": "學校社工要唔要註冊",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_cap279_s10_school_must_register",
+    "vault_edbc197_2024_ph_pri_e18f9fe30880a16b",
+    "vault_g06_d07164a2cacbf4c4",
+    "vault_edbc197_2024_ph_pri_740e95805cf09b3c",
+    "fact_role_facts_student_d229ded34dd8703c"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "hx_s235",
+   "id": "HX06_bus_escort_training",
+   "query": "校巴保母要接受咩培訓",
+   "want": "否",
+   "chunk_ids": [
+    "vault_sch_bus_operators_2026_091b41a86b342008",
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+    "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+    "vault_sch_bus_drivers_2026_c9710348e6909d79",
+    "vault_sch_bus_operators_2026_8a8f92a4092ce837"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "hx_s235",
+   "id": "HX07_parent_manager_term",
+   "query": "家長校董任期幾耐",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_imc_election_pta",
+    "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_governance_supplements_5203579dd227734e",
+    "vault_imc_establishment_operation_e66eff7e80fe4675",
+    "vault_imc_establishment_operation_eccb48c1dc6db181"
+   ],
+   "subjects": [
+    "PARENT",
+    "DIRECTOR"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "hx_s235",
+   "id": "HX08_trainee_teacher_outing",
+   "query": "實習老師可唔可以單獨帶學生外出活動",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_activities_sen",
+    "footnote_fn_activities_ratios",
+    "fact_role_facts_activity_e517b41d1de20331",
+    "vault_sch_activities_guide_ca582e3c92f7fa84",
+    "vault_g05_dd14165f42f16392"
+   ],
+   "subjects": [
+    "STUDENT",
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "hx_s235",
+   "id": "HX09_student_sick_days",
+   "query": "學生每年可以請幾多日病假",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_chp_sick_leave_diseases",
+    "footnote_fn_eoebg_unpaid_leave",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_a1bf01e7cdf07272"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [
+    "STUDENT"
+   ],
+   "pass": false
+  },
+  {
+   "set": "hx_s235",
+   "id": "HX10_parent_blnst",
+   "query": "家長要唔要通過基本法測試",
+   "want": "否",
+   "chunk_ids": [
+    "footnote_fn_supply_blnst_202324",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_sag_2025_11_ac9e6e7b4099399d"
+   ],
+   "subjects": [
+    "PARENT"
+   ],
+   "missing": [
+    "PARENT"
+   ],
+   "pass": false
+  },
+  {
+   "set": "hx_s235",
+   "id": "HX11_boarding_parent_sickleave",
+   "query": "宿舍家長有冇病假",
+   "want": "否",
+   "chunk_ids": [
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_63f35908e9b949e7",
+    "vault_sag_2025_11_24bfce599b6adf34"
+   ],
+   "subjects": [
+    "PARENT"
+   ],
+   "missing": [
+    "PARENT"
+   ],
+   "pass": false
+  },
+  {
+   "set": "hx_s235",
+   "id": "HX12_net_gratuity",
+   "query": "外籍英語教師有冇約滿酬金",
+   "want": "能",
+   "chunk_ids": [
+    "footnote_fn_net_gratuity_10_15",
+    "footnote_fn_trg_no_freeze_posts",
+    "vault_sag_2025_11_a2e05b4784b25c0f",
+    "vault_edbcm088_2026_c344373d6d5f3a4e",
+    "vault_sag_2025_11_22d97589ac95f431"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "act_eca_min_hours_na",
+   "query": "課外活動 最低時數",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_activities_ratios",
+    "footnote_fn_activities_sen",
+    "fact_role_facts_activity_6fddddde0d050005",
+    "vault_g03_c89d1d30ec063704",
+    "vault_g03_77a7bcb85065372f"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "act_kayak_ratio",
+   "query": "獨木舟 師生比",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_activities_ratios",
+    "vault_sch_activities_guide_f7a9fd9959f0f3b8",
+    "vault_sch_activities_guide_83cebb89a179f973",
+    "vault_sch_activities_guide_b044c92a730691e5",
+    "vault_sch_activities_guide_26dcfa0eaf36ee1d"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "act_liberal_studies_confusable",
+   "query": "通識",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g06_e3a55f35507ead7a",
+    "vault_ph_pri_guide_2025_850bc7b7a6528419",
+    "vault_gifted_ge_series_ddcc5b00a7cd52d7",
+    "vault_values_edu_framework_2026_aa6d86e526f72077",
+    "vault_values_edu_framework_2026_94acb2e7d4fae5ac"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "act_lpe_primary_values",
+   "query": "小學 生涯規劃",
+   "want": "-",
+   "chunk_ids": [
+    "vault_lpe_framework_primary_b2c896726e9af6eb",
+    "vault_lpe_framework_primary_c5fc7e0d56dc7c2b",
+    "vault_edbc015_2021_lpe_6b90cd75232d4b0f",
+    "vault_edbc015_2021_lpe_cd66447f4220f7ef",
+    "vault_lpe_framework_primary_987868b279531f52"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "act_lwl_grant_uses",
+   "query": "全方位學習津貼",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_lwl_sister_floor",
+    "footnote_fn_dlg_incentive_cease",
+    "fact_role_facts_activity_6fddddde0d050005",
+    "vault_g03_974b1078dad37f12",
+    "vault_g03_110e1410239cb803"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "act_national_edu_calendar",
+   "query": "國民教育年曆",
+   "want": "-",
+   "chunk_ids": [
+    "vault_edbcm116_2026_94ed1ac98e132caf",
+    "vault_edbcm116_2026_592228a934962f8c",
+    "vault_edbcm116_2026_dfd0aeab7abfcbd5",
+    "vault_edbcm116_2026_9353df0d6ce04aab",
+    "vault_g13_3402a209527ffbae"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "act_national_edu_confusable",
+   "query": "國民教育",
+   "want": "-",
+   "chunk_ids": [
+    "vault_edbcm116_2026_94ed1ac98e132caf",
+    "vault_edbcm116_2026_9353df0d6ce04aab",
+    "vault_g06_214e53f203bd6358",
+    "vault_pri_curr_guide_2024_68589e8feaf5f9db",
+    "vault_values_edu_framework_2026_9d69bf67616a371d"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "act_outdoor_risk_assessment",
+   "query": "戶外活動 風險評估",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sch_activities_guide_d96b8f6e7b5659da",
+    "fact_role_facts_activity_c5f4bfa1b7d4c0a7",
+    "fact_role_facts_activity_86dd7953c56d95c8",
+    "vault_g03_a3176995b59e7bd1",
+    "fact_role_facts_activity_06707bb0355c981f"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "act_priority_values_five_confusable",
+   "query": "首要價值觀",
+   "want": "-",
+   "chunk_ids": [
+    "vault_values_edu_framework_2026_df0efb3ce07c145a",
+    "vault_values_edu_framework_2026_147998d138b6a2cc",
+    "vault_values_edu_framework_2026_48da671c12945a93",
+    "vault_values_edu_framework_2026_0da67efbea4da2d2",
+    "vault_values_edu_framework_2021_trial_9b2d3e17380391d0"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "act_priority_values_twelve_list",
+   "query": "價值觀 清單",
+   "want": "-",
+   "chunk_ids": [
+    "fact_role_facts_finance_c4e2b16a009ec04f",
+    "vault_g13_f0d7f50eb4b5affa",
+    "vault_values_edu_framework_2026_df0efb3ce07c145a",
+    "vault_values_edu_framework_2026_9c5c5055e3bc32cc",
+    "vault_values_edu_framework_2026_35916559a3a5fa3f"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cpd_blnst_test",
+   "query": "BLNST",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_63f35908e9b949e7",
+    "vault_sag_2025_11_8ca01fea4a2517d4"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cpd_conduct_registration",
+   "query": "操守指引",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sag_2025_11_17f9d99e88061e60",
+    "vault_sch_activities_guide_8bedd12418e092b4",
+    "vault_g16_1a3e9afef438e47e",
+    "fact_role_facts_activity_a7870b2b2b2d33a6",
+    "vault_sch_bus_drivers_2026_3b648738f289f64d"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cpd_cpd_hours_150",
+   "query": "進修時數",
+   "want": "-",
+   "chunk_ids": [
+    "vault_pri_curr_guide_2024_8a1816053db4585b",
+    "vault_ma_sss_diversity_2021_1877405ef1597346",
+    "vault_ict_sss_2021_3d58ba36d60c2fc7",
+    "vault_pri_curr_guide_2024_e0e6c28f3a8f8f45",
+    "vault_g06_3227e26c300b25db"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cpd_graduatisation_supply",
+   "query": "學位化 代課",
+   "want": "-",
+   "chunk_ids": [
+    "vault_edbc00030_a4fb20e5f550",
+    "vault_sag_2025_11_327ed4f1edf16ff9",
+    "vault_edbc00030_2d7266f07643",
+    "vault_edbc00030_55474fed1652",
+    "vault_edbc00030_1d91739669d3"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cpd_induction_period_na",
+   "query": "新入職教師 啟導期",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_sag_2025_11_ac9e6e7b4099399d",
+    "vault_sag_2025_11_63f35908e9b949e7"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cpd_kiddie_teacher_reg",
+   "query": "檢定教員",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_cap279_s46_refuse_register",
+    "footnote_fn_surplus_def",
+    "vault_faq_edbc19011_357803e17b2f",
+    "vault_sag_2025_11_a8d887133148a9dc",
+    "vault_ppt_grad_pri_policy_3dac5c7e375a"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cpd_ladder_purpose",
+   "query": "專業階梯",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sag_2025_11_a67b4be55a598d38",
+    "vault_sag_2025_11_4b2e5b88f12d98be",
+    "vault_tdtf_report_2019_f65f880ac2b9ef3f",
+    "vault_tdtf_report_2019_67c71c81c86f2d31",
+    "vault_tdtf_report_2019_3d06725705c8df34"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cpd_mainland_promotion_tour",
+   "query": "晉升 內地團",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sag_2025_11_7442089094f5d8aa",
+    "vault_coa_imc_1_19_d476f4b5cf0d75a2",
+    "vault_edbc00030_7211bea6c77f",
+    "vault_sag_2025_11_f98314407c1ac840",
+    "vault_tdtf_report_2019_533c740365138172"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cpd_reg_typo",
+   "query": "教師註測",
+   "want": "-",
+   "chunk_ids": [
+    "vault_religious_edu_jss_2024_d8456a201e31c2d8",
+    "vault_geog_sss_2007_2022_ac0a1503756ffe86",
+    "vault_ict_sss_2021_be3b496c5a4c4a2e",
+    "vault_ces_jss_2024_996d5f56f1f1982e",
+    "vault_g35_65de51c903b59208"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cpd_t_standard",
+   "query": "T-標準+",
+   "want": "-",
+   "chunk_ids": [
+    "vault_eng_lit_guide_2023_38e2b1f7fcee4b49",
+    "vault_eng_sss_guide_2021_dbdc425d520bd946",
+    "vault_tdtf_report_2019_a46c11aeb49f2f9f",
+    "vault_eng_sss_guide_2021_0f38fac92ff04abf",
+    "vault_g21_46fa4b48a40b8c8c"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "dig_ai_literacy_stages",
+   "query": "AI素養",
+   "want": "-",
+   "chunk_ids": [
+    "vault_debp_blueprint_a823845b1c1e876f",
+    "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
+    "vault_edbcm156_2026_61d31a46542160dd",
+    "vault_debp_blueprint_b3d3bcff7d1166a0",
+    "vault_debp_exec_summary_aafddb892b407262"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "dig_byod_mandatory_na",
+   "query": "BYOD 強制",
+   "want": "-",
+   "chunk_ids": [
+    "fact_role_facts_it_3fec66f601149dc5",
+    "fact_role_facts_it_af0f47fb9248d6e0",
+    "fact_role_facts_it_2fed624cec34655e",
+    "fact_role_facts_it_f689ce2a004e90b4",
+    "vault_sch_bus_operators_2026_fb9a7e011373f8dc"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "dig_cloud_privacy_pcpd",
+   "query": "雲端 個人資料",
+   "want": "-",
+   "chunk_ids": [
+    "vault_pcpd_cloud_computing_4470028b8b5a",
+    "vault_pcpd_cloud_computing_b1bb735772df",
+    "vault_pcpd_cloud_computing_34e151b4e143",
+    "vault_pcpd_cloud_computing_236a6799dab4",
+    "vault_stims_guide_2025_a6864175a17b4b71"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "dig_debp_abbrev",
+   "query": "DEBP",
+   "want": "-",
+   "chunk_ids": [
+    "vault_debp_blueprint_a823845b1c1e876f",
+    "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
+    "vault_edbc011_2026_bfe00500718b5859",
+    "vault_debp_blueprint_2f8920e901ee53f4",
+    "vault_debp_blueprint_ea1a2e1821e0d433"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "dig_edb_cloud_guideline_na",
+   "query": "學校雲端服務指引",
+   "want": "-",
+   "chunk_ids": [
+    "vault_pcpd_cloud_computing_b1bb735772df",
+    "vault_pcpd_cloud_computing_8c5adc931c9c",
+    "vault_pcpd_cloud_computing_4470028b8b5a",
+    "vault_pcpd_cloud_computing_02b58c3d78df",
+    "vault_g28_f96b8a0e5d5f"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "dig_elearning_confusable",
+   "query": "電子學習",
+   "want": "-",
+   "chunk_ids": [
+    "vault_dat_sss_2007_2015_c6050d3e959b10c0",
+    "vault_phys_sss_2007_2015_cbb7bb2e0530d155",
+    "vault_phys_sss_2007_2015_b399485d71dcda51",
+    "vault_phys_sss_2007_2015_58fc29e380cede7e",
+    "vault_dat_sss_2007_2015_0dc336fd0db35754"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "dig_elearning_device_grant",
+   "query": "電子學習 撥款",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g01_526fe089b707001e",
+    "vault_g01_166ade0c624040d1",
+    "vault_g01_7c2b5af7e98a2f1a",
+    "vault_g01_33d170dfd3409080",
+    "vault_fin_mgmt_notes_aided_7e84bb9e69b8f8e0"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "dig_genai_primary_students",
+   "query": "小學生 生成式AI",
+   "want": "-",
+   "chunk_ids": [
+    "vault_debp_blueprint_a823845b1c1e876f",
+    "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
+    "vault_debp_exec_summary_aafddb892b407262",
+    "vault_debp_blueprint_1f58f6ce85727c19",
+    "vault_debp_blueprint_f4a27dc0f1002962"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "dig_online_meeting_security",
+   "query": "網課 保安",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_edbc14_2024_cap279a_s5",
+    "vault_sag_2025_11_a97bf130470d0730",
+    "vault_sag_2025_11_72e9a8a0a554d879",
+    "vault_sag_2025_11_d5b7f809bd800319",
+    "fact_role_facts_it_3aff760beb1814f3"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "dig_teacher_digital_cpd_hours",
+   "query": "數字教育 培訓時數",
+   "want": "-",
+   "chunk_ids": [
+    "vault_debp_blueprint_a823845b1c1e876f",
+    "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
+    "vault_debp_blueprint_2f2bb8c963e6f802",
+    "vault_debp_blueprint_ea1a2e1821e0d433",
+    "vault_debp_blueprint_f4a27dc0f1002962"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "qa_annual_sse_data",
+   "query": "周年自評 數據",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_icac_appraisal",
+    "fact_role_facts_general_01ad4655ffce86ff",
+    "vault_geog_jss_a2091382af711960",
+    "vault_chi_hist_jss_2019_96bcb34e492d4dab",
+    "vault_religious_edu_jss_2024_6aef71fddc5d525e"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "qa_dev_cycle_data",
+   "query": "發展周期",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g13_3e9a9122fc7231ff",
+    "vault_sag_2025_11_f867296a9fb4dd2b",
+    "vault_g13_7db9695bc23180f9",
+    "vault_g29_2fec07d61c257a9b",
+    "vault_gs_pri_guide_2017_bf9eb4cf5b4b4bf2"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "qa_esr_abbrev",
+   "query": "ESR",
+   "want": "-",
+   "chunk_ids": [
+    "vault_coa_ss_e_a7b6c2035120",
+    "vault_coa_pri_e_4317a96d1eb4",
+    "vault_coa_pri_e_ae0e713fbc02",
+    "vault_coa_ss_e_30c4c8cb99a8",
+    "vault_coa_ss_e_85bff5dc1711"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "qa_esr_no_fixed_cycle",
+   "query": "校外評核是否固定週期進行",
+   "want": "-",
+   "chunk_ids": [
+    "vault_edbc15_2022_accountability_616b5662c13bdd7d",
+    "vault_perf_indicators_2022_e2bc634d22c3cad1",
+    "vault_edbc15_2022_accountability_8644b924acecf7a4",
+    "vault_edbc15_2022_accountability_c8288d0a2be64ba8",
+    "vault_sag_2025_11_b2cfeef6cd6dbcfc"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "qa_inspection_confusable",
+   "query": "視學",
+   "want": "-",
+   "chunk_ids": [
+    "vault_perf_indicators_2022_e2bc634d22c3cad1",
+    "vault_edbc15_2022_accountability_8644b924acecf7a4",
+    "vault_perf_indicators_2022_70c9c56916342203",
+    "vault_sse_tools_2025_86af54f638d8d093",
+    "vault_perf_indicators_2022_4e6d083d45ef0096"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "qa_keypoint_questions",
+   "query": "要點問題",
+   "want": "-",
+   "chunk_ids": [
+    "vault_history_sss_2007_2015_b2f6653678073203",
+    "vault_history_jss_2019_5acdc1e814b28fb1",
+    "vault_religious_edu_jss_2024_b6ad003b450b8a7c",
+    "vault_ls_jss_2010_5421060c3f01d824",
+    "vault_ict_sss_2021_19113d422f021ca9"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "qa_kg_pi_na",
+   "query": "幼稚園 表現指標",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_k1_appfee",
+    "vault_perf_indicators_2022_e2bc634d22c3cad1",
+    "vault_perf_indicators_2022_5467165602676430",
+    "vault_perf_indicators_2022_3f70e312eb2fbd00",
+    "vault_perf_indicators_2022_70c9c56916342203"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "qa_pi_four_domains",
+   "query": "表現指標 範疇",
+   "want": "-",
+   "chunk_ids": [
+    "vault_perf_indicators_2022_3f70e312eb2fbd00",
+    "vault_perf_indicators_2022_70c9c56916342203",
+    "vault_perf_indicators_2022_e2bc634d22c3cad1",
+    "vault_perf_indicators_2022_513539abae82a70e",
+    "vault_edbc15_2022_accountability_8644b924acecf7a4"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "qa_sdp_accountability",
+   "query": "學校發展計劃",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_ceg_plan_clawback",
+    "footnote_fn_ceg_rates_2627",
+    "vault_sag_2025_11_f867296a9fb4dd2b",
+    "vault_sdp_guide_cc470b141f88cbd1",
+    "vault_sdp_guide_d8d789989ee7e265"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "qa_stakeholder_survey",
+   "query": "持份者問卷",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sse_tools_2025_aebe901c09f1d6b3",
+    "vault_sse_tools_2025_a0aa1a7255e6ce13",
+    "vault_kg_admin_guide_2026_589baf64c73d2841",
+    "vault_bafs_sss_2007_2020_ca98648cc6bb6201",
+    "vault_sse_tools_2025_86af54f638d8d093"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "dig_school_plan_2627",
+   "query": "學校何時須把數字教育納入發展計劃",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_ceg_plan_clawback",
+    "vault_debp_blueprint_a823845b1c1e876f",
+    "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6",
+    "vault_edbcm156_2026_132cd3b8d24e2185",
+    "vault_debp_exec_summary_aafddb892b407262"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "dig_ai_ethics_training",
+   "query": "教師人工智能基礎培訓包括哪些倫理內容",
+   "want": "-",
+   "chunk_ids": [
+    "vault_iit_ai_framework_2026_c36dcdba136c034e",
+    "vault_debp_blueprint_a823845b1c1e876f",
+    "vault_edbcm107_2026_c4df7bf07cbdea4f",
+    "vault_edbcm156_2026_c2d745f77e8d7038",
+    "vault_debp_blueprint_b3d3bcff7d1166a0"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "dig_ai_fact_check_privacy",
+   "query": "學生使用人工智能時如何核實資料",
+   "want": "-",
+   "chunk_ids": [
+    "vault_iit_ai_framework_2026_9502e0a928750d5a",
+    "vault_debp_blueprint_a823845b1c1e876f",
+    "vault_edbcm156_2026_c2d745f77e8d7038",
+    "vault_edbcm107_2026_bc0fe4e2172afe98",
+    "vault_edbcm_221_2025_smart_teaching_2fa7c27402b721b6"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "dig_deepfake_literacy",
+   "query": "學生應如何面對人工智能深偽內容",
+   "want": "-",
+   "chunk_ids": [
+    "vault_iit_ai_framework_2026_9502e0a928750d5a",
+    "vault_debp_blueprint_a823845b1c1e876f",
+    "vault_edbcm156_2026_c2d745f77e8d7038",
+    "vault_edbcm107_2026_c4df7bf07cbdea4f",
+    "vault_edbcm107_2026_bc0fe4e2172afe98"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sec_cloud_shared_responsibility",
+   "query": "雲端資料保安由誰負責",
+   "want": "-",
+   "chunk_ids": [
+    "vault_pcpd_cloud_computing_b1bb735772df",
+    "vault_pcpd_cloud_computing_86ac2afef047",
+    "vault_pcpd_cloud_computing_34e151b4e143",
+    "vault_pcpd_cloud_computing_aeb1a637e5c4",
+    "vault_g19_d242d51a058859ed"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sec_cloud_encryption",
+   "query": "雲端個人資料傳輸是否需要加密",
+   "want": "-",
+   "chunk_ids": [
+    "vault_pcpd_cloud_computing_425aa9162e4a",
+    "vault_pcpd_cloud_computing_04a62bec6390",
+    "vault_g19_d242d51a058859ed",
+    "vault_pcpd_cloud_computing_51cd6612ee4b",
+    "vault_pcpd_cloud_computing_a98687c833c6"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sec_cloud_mfa",
+   "query": "雲端特權帳戶應否啟用多重身份認證",
+   "want": "-",
+   "chunk_ids": [
+    "vault_pcpd_cloud_computing_aeb1a637e5c4",
+    "vault_pcpd_cloud_computing_86ac2afef047",
+    "vault_pcpd_cloud_computing_1066b8e72403",
+    "vault_pcpd_cloud_computing_04a62bec6390",
+    "vault_sag_2025_11_2b4c4bf9184fe8b5"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sec_cloud_audit_logs",
+   "query": "使用雲端服務是否需要保留審計記錄",
+   "want": "-",
+   "chunk_ids": [
+    "vault_pcpd_cloud_computing_b1bb735772df",
+    "vault_pcpd_cloud_computing_f4ddf75b5cb7",
+    "vault_pcpd_cloud_computing_aeb1a637e5c4",
+    "vault_pcpd_cloud_computing_425aa9162e4a",
+    "vault_g28_b9af1f1a0b79"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sec_cloud_cross_border",
+   "query": "個人資料可否轉移到境外雲端伺服器",
+   "want": "-",
+   "chunk_ids": [
+    "vault_pcpd_cloud_computing_b1bb735772df",
+    "vault_pcpd_cloud_computing_4470028b8b5a",
+    "vault_pcpd_cloud_computing_51cd6612ee4b",
+    "vault_pcpd_cloud_computing_04a62bec6390",
+    "vault_stims_guide_2025_913cd04b1ebb2696"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sec_cloud_breach_notification",
+   "query": "雲端資料外洩應通知哪些人士",
+   "want": "-",
+   "chunk_ids": [
+    "vault_pcpd_cloud_computing_236a6799dab4",
+    "vault_pcpd_cloud_computing_04a62bec6390",
+    "vault_pcpd_cloud_computing_86ac2afef047",
+    "vault_pcpd_cloud_computing_b1bb735772df",
+    "vault_g28_f96b8a0e5d5f"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sec_meeting_link_private",
+   "query": "網上會議連結應否公開分享",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g28_b9af1f1a0b79",
+    "vault_g28_8c5556416094",
+    "vault_g28_7b7155790bd5",
+    "vault_g28_97fef4b64635",
+    "fact_role_facts_general_157e985d47873442"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cur_arts_guide_2002_missing",
+   "query": "藝術教育學習領域課程指引 2002 版",
+   "want": "-",
+   "chunk_ids": [
+    "vault_music_p1_s6_2024_5ac238c8984f414e",
+    "vault_va_p1_s6_2024_e498fdfaa30f666c",
+    "vault_va_p1_s6_2024_5e14fa0cd934dd7b",
+    "vault_va_p1_s6_2024_0da1541d26c6aa0b",
+    "vault_va_p1_s6_2024_d58801db2e2bea74"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cur_eight_kla",
+   "query": "八個學習領域",
+   "want": "-",
+   "chunk_ids": [
+    "vault_pe_kla_2017_1420a8eefd9d51f4",
+    "vault_chi_edu_curr_docs_ab2f902bf64da9cf",
+    "vault_ma_kla_guide_2017_7e37dfaa1dd77c05",
+    "vault_pe_kla_2017_f06b4bed1351ef9f",
+    "vault_ma_kla_guide_2017_8c39ba1bc7a08b67"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cur_eng_guide_2007_missing",
+   "query": "英國語文教育課程指引 中一至中六 2007",
+   "want": "-",
+   "chunk_ids": [
+    "vault_chi_pri_guide_2023_22e45130961362b8",
+    "vault_chi_edu_curr_docs_c6b682ef1c20a7b8",
+    "vault_chi_jss_guide_2023_4928c9cd7367698c",
+    "vault_chi_edu_curr_docs_e6a8fa5f5a617d04",
+    "vault_chi_edu_curr_docs_d07c193ad4d589c8"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cur_four_key_project_stages",
+   "query": "專題研習 三個階段",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g13_e256e145ac0836e9",
+    "vault_g07_073756f79ba0f715",
+    "vault_g13_0e42b90fa63d1015",
+    "vault_g13_acd784368d037bd7",
+    "vault_bafs_sss_2007_2015_938f98df7e350d19"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cur_generic_skills_categories",
+   "query": "共通能力 三個類別",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g35_ef96558c2ea49a64",
+    "vault_g36_5b192f6935fd9ca0",
+    "vault_g13_fd78c223567561f0",
+    "vault_gs_pri_guide_2017_64e472d99afd73d9",
+    "vault_tech_kla_guide_2017_6a143cb210b9da4b"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cur_kg_free_play_time",
+   "query": "幼稚園 自由遊戲 時間",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_kgop_classroom",
+    "vault_g29_430271c68dccde06",
+    "vault_g29_b595df339c5e9e75",
+    "vault_g29_6daf89f8180d06b5",
+    "vault_g29_9c80adb0c6d025c6"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cur_moral_civic_values",
+   "query": "德育及公民教育 責任感",
+   "want": "-",
+   "chunk_ids": [
+    "vault_values_edu_framework_2026_df0efb3ce07c145a",
+    "vault_values_edu_framework_2026_48da671c12945a93",
+    "vault_values_edu_framework_2026_147998d138b6a2cc",
+    "vault_values_edu_framework_2026_0da67efbea4da2d2",
+    "vault_edbcm076_2026_f017c74d455d232e"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cur_primary_lesson_time",
+   "query": "小學各科要佔幾多課時",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_phpri_time",
+    "vault_pri_science_guide_2025_940430d5c173339f",
+    "vault_g07_7d9ae95c7ac42bb7",
+    "vault_pri_curr_guide_2024_4c7195158144a729",
+    "vault_g13_526b9d5fab1f8f08"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cur_secondary_central_curriculum",
+   "query": "中學 八個學習領域",
+   "want": "-",
+   "chunk_ids": [
+    "vault_pe_kla_2017_f06b4bed1351ef9f",
+    "vault_pe_kla_2017_1420a8eefd9d51f4",
+    "vault_chi_edu_curr_docs_ab2f902bf64da9cf",
+    "vault_ma_kla_guide_2017_7e37dfaa1dd77c05",
+    "vault_chi_edu_curr_docs_e6a8fa5f5a617d04"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "cur_steam_primary",
+   "query": "小學 STEAM 教育",
+   "want": "-",
+   "chunk_ids": [
+    "vault_pri_curr_guide_2024_4995e398ddb91f61",
+    "vault_va_p1_s6_2024_80b1f6b646c8cf44",
+    "vault_pri_curr_guide_2024_005952af9d56123e",
+    "vault_pri_curr_guide_2024_cba27668fd17f645",
+    "vault_pri_science_cert_course_list_86a987ede2713738"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gifted_2e_support",
+   "query": "雙重特殊資優學生 支援",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_ncs_special_school_matrix",
+    "vault_g06_8a30f594554c400a",
+    "vault_gifted_ge_series_8ac476499ec8bf94",
+    "vault_gifted_policy_docs_4b5cc73e2b3d",
+    "vault_gifted_ge_series_4b5df4476f2eec6b"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gifted_fund_injection",
+   "query": "資優教育基金 注資幾多",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_cfeg_surplus_5x",
+    "footnote_fn_eoebg_surplus_12m",
+    "vault_gifted_tp_resource_kit_af87c0d01b9a1257",
+    "vault_gifted_policy_docs_4b5cc73e2b3d",
+    "vault_g06_f0463fdd55f3c30d"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gifted_identify_talent",
+   "query": "點樣識別資優學生",
+   "want": "-",
+   "chunk_ids": [
+    "vault_gifted_tp_resource_kit_af87c0d01b9a1257",
+    "vault_g06_8a30f594554c400a",
+    "vault_gifted_policy_docs_4b5cc73e2b3d",
+    "vault_gifted_policy_docs_e273f17a831d",
+    "vault_gifted_ge_series_604ca8f4e7491b34"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gifted_no_academy_iq",
+   "query": "資優教育學苑 收生 智商分數要求",
+   "want": "-",
+   "chunk_ids": [
+    "vault_gifted_policy_docs_4b5cc73e2b3d",
+    "vault_g06_8a30f594554c400a",
+    "vault_gifted_ge_series_604ca8f4e7491b34",
+    "vault_g06_f0463fdd55f3c30d",
+    "vault_gifted_tp_resource_kit_af87c0d01b9a1257"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gifted_osalp",
+   "query": "OSALP 係咩",
+   "want": "-",
+   "chunk_ids": [
+    "vault_gifted_osalp_compendium_2a1c03a157ecaafc",
+    "fact_role_facts_general_71e750078a5f291c",
+    "vault_g36_1936621bbfa794df",
+    "fact_role_facts_finance_0224b55aff21e232",
+    "vault_coa_ss_e_a7b6c2035120"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gifted_pullout_programme",
+   "query": "資優 抽離式課程",
+   "want": "-",
+   "chunk_ids": [
+    "vault_gifted_policy_docs_e273f17a831d",
+    "vault_g06_8a30f594554c400a",
+    "vault_gifted_tp_resource_kit_af87c0d01b9a1257",
+    "vault_gifted_policy_docs_4b5cc73e2b3d",
+    "vault_gifted_tp_resource_kit_a00660a3e9a8b640"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gifted_talent_pool",
+   "query": "校本學生人才庫",
+   "want": "-",
+   "chunk_ids": [
+    "vault_gifted_tp_resource_kit_834e9cec60129725",
+    "vault_gifted_tp_resource_kit_a6241d7e54ec057d",
+    "vault_gifted_tp_resource_kit_2d2552b811a76217",
+    "vault_gifted_tp_resource_kit_32516e756ff09d20",
+    "vault_gifted_ge_series_604ca8f4e7491b34"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gifted_three_tier_confusable",
+   "query": "三層架構",
+   "want": "-",
+   "chunk_ids": [
+    "vault_ma_sss_cag_2017_c991c267660215a2",
+    "vault_kg_operation_manual_2026_b8cf6ddb923d3639",
+    "vault_kg_operation_manual_2026_75dc33a0c8a6fdda",
+    "vault_kg_operation_manual_2026_7e8c8c7c6c2568f3",
+    "vault_g13_f00757b5d3017fa3"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gifted_tier3_outside_support",
+   "query": "資優 第三層 校外支援",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_mh_three_tier",
+    "vault_g06_8a30f594554c400a",
+    "vault_gifted_policy_docs_e273f17a831d",
+    "vault_gifted_tp_resource_kit_ee28c953a6e3cc98",
+    "vault_gifted_tp_resource_kit_af87c0d01b9a1257"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gifted_tier_model_2000",
+   "query": "資優叁層推行模式",
+   "want": "-",
+   "chunk_ids": [
+    "vault_gifted_tp_resource_kit_af87c0d01b9a1257",
+    "vault_g06_8a30f594554c400a",
+    "vault_gifted_policy_docs_e273f17a831d",
+    "vault_g06_f0463fdd55f3c30d",
+    "vault_gifted_policy_docs_4b5cc73e2b3d"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sen_autism_extra_training",
+   "query": "自閉症學生需要甚麼訓練",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g19_b93f9f9bb1437f4a",
+    "vault_g19_0396aa491d22a5ae",
+    "vault_sen_exam_arrangements_2025_95aaab85199cea9d",
+    "vault_g19_a58c66388101b42a",
+    "vault_gifted_ge_series_05700edb090fdc92"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sen_dyslexia_tier1",
+   "query": "讀寫障礙 第一層支援",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g19_0c529ce537c27755",
+    "vault_g19_8198750b0fd70db6",
+    "vault_g19_9c72e781b9f12219",
+    "vault_g19_442a10e0805b9e81",
+    "vault_gifted_ge_series_6e74629726982654"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sen_iep_intellectual",
+   "query": "智障學生 個別學習計劃",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g19_f323826e84f06055",
+    "vault_g13_374221eb5258a692",
+    "vault_g19_5d91b29e68aa10a9",
+    "vault_g19_7a0b292b7e6d0004",
+    "vault_g19_41030579cd447325"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sen_iep_meeting_attendees",
+   "query": "個別學習計畫 會議 邊個要出席",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g07_762398e0ffd5daf7",
+    "vault_geog_sss_2007_2022_967e372a3c369c45",
+    "vault_pe_sss_2023_6605e79849ec6ab1",
+    "vault_sen_exam_arrangements_2025_1e2f85ccee6ae4f3",
+    "vault_ls_jss_2010_e74ff81da706b366"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sen_lst_grant",
+   "query": "學習支援津貼",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_4ee562d7f8902f9a",
+    "vault_sag_2025_11_63f35908e9b949e7"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sen_responsible_role",
+   "query": "SEN 邊個負責統籌",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g06_ddb8cc42eb48c6a7",
+    "vault_g19_1bcd00d93612e161",
+    "fact_role_facts_student_d229ded34dd8703c",
+    "vault_g19_710b48540bec2358",
+    "vault_sen_exam_arrangements_2025_ce6f039be10d103f"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sen_senco_duties",
+   "query": "SENCO 職責",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g06_ddb8cc42eb48c6a7",
+    "fact_role_facts_student_d229ded34dd8703c",
+    "vault_g19_1bcd00d93612e161",
+    "vault_g19_710b48540bec2358",
+    "vault_g19_5209939fe426d76b"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sen_senco_teacher_post",
+   "query": "特殊教育需要統籌主任 幾時開始設立",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_tdtf_senco",
+    "footnote_fn_cfeg_setup_fund",
+    "vault_g19_1bcd00d93612e161",
+    "vault_g19_d73bd97402db688d",
+    "vault_g19_5209939fe426d76b"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sen_special_school_curriculum",
+   "query": "特殊學校 課程 調適",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_ncs_special_school_matrix",
+    "footnote_fn_activities_sen",
+    "vault_g06_ddb8cc42eb48c6a7",
+    "vault_g19_710b48540bec2358",
+    "vault_sen_exam_arrangements_2025_129b4cfe7bb77a8c"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "sen_wsa_integrated_edu",
+   "query": "全校參與 融合教育",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g19_5209939fe426d76b",
+    "vault_g19_1bcd00d93612e161",
+    "vault_g19_710b48540bec2358",
+    "vault_g06_529aad2561716c65",
+    "vault_g19_e7e247229e2eb29a"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "ss_discipline_org_1996",
+   "query": "學生訓育組 幾時成立",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g16_fafd9a4c682f38d2",
+    "vault_g16_6117aba72c17a889",
+    "vault_g17_f2213b6fc8fa",
+    "vault_g17_95b846afb15a",
+    "vault_g16_3623a895e022c238"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "ss_discipline_style_democratic",
+   "query": "訓育 民主型教師",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g16_498a8bb435acc6f4",
+    "vault_g16_941a56959cba0050",
+    "vault_g16_08c270ad206f6b8b",
+    "vault_g16_2a3a58a6c6c09424",
+    "vault_sag_2025_11_4765c7135a7afbef"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "ss_guidance_discipline_blend",
+   "query": "訓育 輔導 融合",
+   "want": "-",
+   "chunk_ids": [
+    "fact_role_facts_student_335b9e0296bc8b24",
+    "vault_g16_712cbf7e2dd73c55",
+    "vault_g17_24ebf8866584",
+    "vault_g16_892c3285373023c5",
+    "vault_g17_74bbffc99eed"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "ss_harmony_hotline",
+   "query": "和諧校園 一站式熱線",
+   "want": "-",
+   "chunk_ids": [
+    "vault_edbcm108_2026_dabda42246dafb48",
+    "vault_edbcm108_2026_6fcd68ec8f4fe46c",
+    "vault_edbcm108_2026_9ed0be41f11585cb",
+    "vault_edbcm108_2026_3aac7998ded3d0f6",
+    "vault_crisis_mgmt_handbook_284ee7a4712aa249"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "ss_ncs_chinese_framework_progress_v2",
+   "query": "中國語文課程第二語言學習架構如何描述非華語學生的學習進程及四個學習範疇？",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_ncs_definition_home_language",
+    "footnote_fn_ncs_sbp_60hr_min",
+    "vault_chi_edu_curr_docs_6737a40d371df164",
+    "vault_chi_edu_curr_docs_4867ee2b1f76ce50",
+    "vault_chi_edu_curr_docs_c6b682ef1c20a7b8"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "ss_ncs_fee_remission_missing",
+   "query": "非華語學生 學費減免 金額",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_ncs_sbp_26360_class",
+    "footnote_fn_ncs_special_school_matrix",
+    "footnote_fn_boarding_fee_deduct",
+    "vault_sag_2025_11_1bfe15bb2951d745",
+    "vault_edbc015_2026_eb9068b4c34eacef"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "ss_ncs_history_adapted_outline_v2",
+   "query": "非華語學生適用的調適初中中國歷史課程大綱，對蒙古崛起及擴張提出甚麼建議學習內容？",
+   "want": "-",
+   "chunk_ids": [
+    "vault_chi_hist_jss_ncs_2019_c90f359ec6dfca87",
+    "vault_chi_hist_jss_ncs_2019_618e9e0f8fdf13df",
+    "vault_chi_hist_jss_ncs_2019_da5427059e6d2388",
+    "vault_chi_hist_jss_2019_e820a4c3fef52bf3",
+    "vault_chi_hist_jss_ncs_2019_f86d81fbccc82030"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "ss_ncs_summer_bridging_grant",
+   "query": "NCS 暑期銜接課程 每班津貼",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_ncs_sbp_26360_class",
+    "footnote_fn_ncs_sbp_60hr_min",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "ss_wsa_1990_ecr4",
+   "query": "全校參與訓輔 幾時引入",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g06_ddb8cc42eb48c6a7",
+    "vault_g19_1bcd00d93612e161",
+    "vault_g19_710b48540bec2358",
+    "vault_g19_5209939fe426d76b",
+    "vault_g06_d848109f501c4993"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "ss_xunfu_abbrev",
+   "query": "訓輔 工作重點",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g17_a4a4acd0f507",
+    "vault_g16_712cbf7e2dd73c55",
+    "vault_g13_0d9fa9032c4131d7",
+    "vault_g16_a688edcce256b5eb",
+    "vault_g16_79820461a6621cf5"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "bus_driver_punctual",
+   "query": "校車司機 守時",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+    "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+    "vault_sch_bus_operators_2026_091b41a86b342008",
+    "vault_sch_bus_students_2026_d86dfd1266f4ed72",
+    "vault_g18_ba03811c1c48f797"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "bus_emergency_reaction",
+   "query": "校車發生意外時應該怎樣做",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sch_bus_operators_2026_091b41a86b342008",
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+    "vault_sch_bus_operators_2026_152b81b37a6ab881",
+    "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+    "vault_sch_bus_students_2026_d86dfd1266f4ed72"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "bus_escort_age",
+   "query": "跟車保母 年齡要求",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+    "vault_sch_bus_operators_2026_091b41a86b342008",
+    "vault_sch_bus_drivers_2026_c9710348e6909d79",
+    "vault_sch_bus_escorts_2026_3ef9c0ac897bae8e",
+    "vault_sch_bus_operators_2026_8a8f92a4092ce837"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "bus_escort_english",
+   "query": "school bus escort duties",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+    "vault_sch_bus_students_2026_d86dfd1266f4ed72",
+    "vault_sch_bus_operators_2026_091b41a86b342008",
+    "vault_g18_ba03811c1c48f797"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "bus_escort_list",
+   "query": "跟車保母 學童名單",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+    "vault_sch_bus_operators_2026_091b41a86b342008",
+    "vault_sch_bus_drivers_2026_c9710348e6909d79",
+    "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+    "vault_sch_bus_escorts_2026_3ef9c0ac897bae8e"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "bus_escort_typo",
+   "query": "校車安全帶 拒絕佩戴",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sch_bus_students_2026_d86dfd1266f4ed72",
+    "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+    "vault_g18_ba03811c1c48f797",
+    "vault_sch_bus_operators_2026_091b41a86b342008"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "bus_extinguisher_confusable",
+   "query": "校車滅火器 誰要識用",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sch_bus_operators_2026_152b81b37a6ab881",
+    "vault_sch_bus_escorts_2026_d3ae75b65a12d735",
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+    "vault_sch_bus_operators_2026_091b41a86b342008",
+    "vault_sch_bus_parents_2026_f5c47a090cf744b6"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "bus_fee_noans",
+   "query": "校車服務 每月收費標準",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+    "vault_sch_bus_operators_2026_091b41a86b342008",
+    "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+    "vault_sch_bus_operators_2026_8a8f92a4092ce837",
+    "vault_g18_1696a94590f2d252"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "bus_guide_audience_confusable",
+   "query": "校車安全指引 哪一份是給學校",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+    "vault_sch_bus_students_2026_d86dfd1266f4ed72",
+    "vault_sch_bus_operators_2026_091b41a86b342008",
+    "vault_g18_1696a94590f2d252"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "bus_seatbelt_rule",
+   "query": "校車 安全帶 規定",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sch_bus_escorts_2026_e8194c92d641abfb",
+    "vault_sch_bus_parents_2026_f5c47a090cf744b6",
+    "vault_sch_bus_students_2026_d86dfd1266f4ed72",
+    "vault_sch_bus_operators_2026_091b41a86b342008",
+    "vault_sch_bus_drivers_2026_c9710348e6909d79"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_admission_scope",
+   "query": "幼稚園收生安排",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_kgop_classroom",
+    "footnote_fn_k1_regfee",
+    "vault_k1_admission_2627_bce254dce1978b99",
+    "vault_edbcm080_2026_b643924590eb88dd",
+    "vault_edbcm080_2026_93a91f0494719160"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_admission_typo",
+   "query": "幼稚圓收生安排",
+   "want": "-",
+   "chunk_ids": [
+    "vault_k1_admission_2627_4dfff7775d179ac2",
+    "vault_k1_admission_2627_aefcaf8ca0df46a8",
+    "vault_edbcm080_2026_f47b08e72b6ded60",
+    "vault_g26_ed814e330ee43595",
+    "vault_k1_admission_2627_bce254dce1978b99"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_aircon_fee_noans",
+   "query": "幼稚園 冷氣機 電費資助",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_kgadmin_rent_sept",
+    "footnote_fn_sfaa_kg_3tier_afi",
+    "vault_g25_a3d58093313d",
+    "vault_g29_430271c68dccde06",
+    "vault_g29_33c14df3cc141a08"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_audited_accounts",
+   "query": "經審核周年帳目 提交",
+   "want": "-",
+   "chunk_ids": [
+    "vault_kg_admin_guide_2026_589baf64c73d2841",
+    "vault_sag_2025_11_d6cf601b1be12e97",
+    "vault_edbcm060_2026_9207f8243d26b140",
+    "vault_sag_2025_11_70fd5f9153b13d22",
+    "vault_kg_admin_guide_2026_da74ea4228e199fd"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_halfday_no_fee",
+   "query": "參加計劃的幼稚園可以收半日制學費嗎",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_sfaa_kg_3tier_afi",
+    "footnote_fn_k1_regfee",
+    "vault_g26_fcdf197b50930a5b",
+    "vault_k1_admission_2627_421c157af5c2ffe8",
+    "vault_k1_admission_2627_bce254dce1978b99"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_kg_abbrev",
+   "query": "KG 收生",
+   "want": "-",
+   "chunk_ids": [
+    "vault_kg_admin_guide_2026_019f07926df9f2cf",
+    "vault_edbcm060_2026_837322018ee388ac",
+    "vault_kg_admin_guide_2026_1315b45922679fc0",
+    "vault_edbcm060_2026_9d30f8391cd7866d",
+    "vault_kg_admin_guide_2026_cad319933dc147cd"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_reg_fee_cap",
+   "query": "幼稚園註冊費 上限",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_k1_appfee",
+    "footnote_fn_k1_regfee",
+    "vault_g25_a3d58093313d",
+    "vault_g26_fcdf197b50930a5b",
+    "vault_g26_06fdddb878ef11fe"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_relocation_grant",
+   "query": "幼稚園搬遷津貼",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_ncs_kg_5tier_201920",
+    "footnote_fn_sfaa_kg_payment_flow",
+    "vault_edbcm144_2026_e3c0496617c80743",
+    "vault_kg_admin_guide_2026_48d6df4e9f7426c2",
+    "vault_kg_admin_guide_2026_0a5659874144d1e4"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_sccc_ratio_confusable",
+   "query": "幼兒中心人手比例",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_kgop_ratio",
+    "footnote_fn_kg_teacher_pupil_ratio",
+    "vault_g29_0f84ad6fe5d49d38",
+    "vault_g29_9c80adb0c6d025c6",
+    "vault_g29_33c14df3cc141a08"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_teacher_pupil_ratio",
+   "query": "幼稚園師生比例",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_kg_teacher_pupil_ratio",
+    "footnote_fn_kgop_teacher_onduty",
+    "footnote_fn_kgop_ratio",
+    "vault_g29_33c14df3cc141a08",
+    "vault_g29_54a276c794731206"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "plc_central_alloc_confusable",
+   "query": "成功獲自行分配學位的學生，還會否經統一派位獲派其他學位？",
+   "want": "-",
+   "chunk_ids": [
+    "vault_edbc18_2019_sspa_3331438d0f96468d",
+    "vault_edbc18_2019_sspa_3b30e72da47a7657",
+    "vault_edbc18_2019_sspa_a834639ccb482892",
+    "vault_edbc18_2019_sspa_c3bf7f87b5d68022",
+    "vault_s4_placement_2026_351c0e6adbf059f4"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "plc_confirmed_list_confidential",
+   "query": "正取學生名單 保密",
+   "want": "-",
+   "chunk_ids": [
+    "fact_role_facts_general_157e985d47873442",
+    "vault_sag_2025_11_ea88da358ac27e5a",
+    "vault_stims_guide_2025_893d44a127aa6978",
+    "vault_stims_guide_2025_fcbd3a2c74bec04e",
+    "vault_stims_guide_2025_bf1b5a77cf27d294"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "plc_confirmed_notify_timing",
+   "query": "正取學生 通知日期",
+   "want": "-",
+   "chunk_ids": [
+    "vault_edbc18_2019_sspa_c63be100d214d8e7",
+    "vault_edbc18_2019_sspa_fb982747ec4965ca",
+    "vault_edbcm066_2026_bf7909704e9d2903",
+    "vault_edbc18_2019_sspa_e24f8aedbeac687f",
+    "vault_edbc18_2019_sspa_e06221613f4a4c4b"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "plc_das_apply_count",
+   "query": "自行分配學位可以申請多少間中學",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_ac_special_room_cap",
+    "vault_edbc18_2019_sspa_3331438d0f96468d",
+    "vault_edbc18_2019_sspa_a834639ccb482892",
+    "vault_edbc18_2019_sspa_d5882e322feaed1d",
+    "vault_edbc18_2019_sspa_c3bf7f87b5d68022"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "plc_das_typo",
+   "query": "自行分排學位正取生",
+   "want": "-",
+   "chunk_ids": [
+    "vault_edbc18_2019_sspa_3b30e72da47a7657",
+    "vault_edbc18_2019_sspa_3331438d0f96468d",
+    "vault_edbc18_2019_sspa_c3bf7f87b5d68022",
+    "vault_edbc18_2019_sspa_e24f8aedbeac687f",
+    "vault_sag_2025_11_aa4253e09d34742c"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "plc_poa_discretionary_noans",
+   "query": "小一入學 自行分配學位 世襲比例",
+   "want": "-",
+   "chunk_ids": [
+    "vault_edbc18_2019_sspa_3331438d0f96468d",
+    "vault_edbc18_2019_sspa_e24f8aedbeac687f",
+    "vault_edbc18_2019_sspa_a834639ccb482892",
+    "vault_edbcm099_2026_2bd5b67097b2d0a5",
+    "vault_edbc18_2019_sspa_fb982747ec4965ca"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "plc_poa_points_noans",
+   "query": "小一派位 計分辦法",
+   "want": "-",
+   "chunk_ids": [
+    "vault_edbc18_2019_sspa_c63be100d214d8e7",
+    "vault_edbc18_2019_sspa_a834639ccb482892",
+    "vault_edbcm099_2026_2bd5b67097b2d0a5",
+    "vault_edbc18_2019_sspa_e24f8aedbeac687f",
+    "vault_edbc18_2019_sspa_3331438d0f96468d"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "plc_s4_original_school",
+   "query": "中四學位安排",
+   "want": "-",
+   "chunk_ids": [
+    "vault_s4_placement_2026_351c0e6adbf059f4",
+    "vault_s4_placement_2026_c1d06e5d10fa82e5",
+    "vault_s4_placement_2026_96e14fb11a520810",
+    "vault_edbc18_2019_sspa_a834639ccb482892",
+    "vault_edbc18_2019_sspa_e24f8aedbeac687f"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "plc_school_net_count",
+   "query": "中學派位 學校網",
+   "want": "-",
+   "chunk_ids": [
+    "vault_edbc18_2019_sspa_c63be100d214d8e7",
+    "vault_edbc18_2019_sspa_3b30e72da47a7657",
+    "vault_edbc18_2019_sspa_fb982747ec4965ca",
+    "vault_edbc18_2019_sspa_e24f8aedbeac687f",
+    "vault_edbcm099_2026_7878606719c0a30f"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "plc_two_stage",
+   "query": "升中派位階段",
+   "want": "-",
+   "chunk_ids": [
+    "vault_staff_est_pri_0383b4ec9a35",
+    "vault_staff_est_pri_4e28565855e3",
+    "vault_faq_edbc19011_f7b88f8190f0",
+    "vault_coa_ss_e_b84130e16084",
+    "footnote_fn_tdtf_senco"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "saf_chem_waste_noans",
+   "query": "實驗室 化學廢液 棄置承辦商",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g22_bd50892269e2137a",
+    "vault_g22_c6da242026d11d69",
+    "vault_g22_c2631624848d57f3",
+    "vault_chem_sss_2007_2018_2de9d4b5ff4aea84",
+    "vault_g22_497beb7c48e11f9b"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "saf_crisis_coord",
+   "query": "學校危機處理小組",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_mh_referral_consent",
+    "vault_sag_2025_11_d621dc20fe1c4f90",
+    "vault_crisis_mgmt_handbook_12493330f8055213",
+    "vault_crisis_mgmt_handbook_f2bde3bebbf19dc9",
+    "vault_sag_2025_11_770bb2324193c83e"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "saf_disease_notification",
+   "query": "幼稚園或幼兒中心發現傳染病爆發時，須向哪些部門通報？",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_chp_form_routing",
+    "footnote_fn_chp_ceno_contact",
+    "footnote_fn_chp_notifiable_diseases_list",
+    "footnote_fn_chp_outbreak_def_3rti_2hfmd",
+    "vault_pri_science_guide_2025_63dd0f5c0aadc48d"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "saf_fire_annual_check",
+   "query": "消防裝置 多久檢查一次",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_edbc12_2026_fire_annual",
+    "footnote_fn_edbc12_2026_24hr_notify",
+    "vault_fire_service_installation_442b74431cd3ca49",
+    "vault_safety_mgmt_committee_3bf362db95d465db",
+    "vault_g22_3f916a2882430b98"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "saf_gas_law_curriculum_confusable",
+   "query": "普適氣體定律",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sag_2025_11_83787e05b4de9976",
+    "vault_g22_f7de0d8cc002e20c",
+    "vault_g22_a334039999cbc081",
+    "vault_gas_odour_measures_03073608a5f6874c",
+    "vault_lab_prep_room_aircon_1ee6d676af929d6f"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "saf_gas_odour_steps_confusable",
+   "query": "校內氣體異味 處理步驟",
+   "want": "-",
+   "chunk_ids": [
+    "vault_gas_odour_measures_03073608a5f6874c",
+    "vault_g22_febcc6c6cb424d2c",
+    "vault_g22_a334039999cbc081",
+    "footnote_fn_chp_bleach_dilution",
+    "vault_g22_fc790547beb224a5"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "saf_kg_crisis_team",
+   "query": "幼稚園危機處理",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_chp_form_routing",
+    "footnote_fn_chp_bed_spacing_1m",
+    "vault_kg_crisis_mgmt_4f089457bd029e74",
+    "vault_kg_crisis_mgmt_d4d6e617a51e9432",
+    "vault_kg_crisis_mgmt_c8b58b857579d66c"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "saf_lab_annual_review",
+   "query": "實驗室安全 檢查",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_g22_inspectfreq",
+    "footnote_fn_edbc12_2026_fire_annual",
+    "vault_g22_81ed7057cb6b2a67",
+    "vault_g22_568a6ec38d91b353",
+    "vault_g22_92a14c020d52287c"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "saf_pe_gymnastics",
+   "query": "體育堂 安全指引",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g23_8e81d73e320d185e",
+    "vault_g23_2b3de0bcc4aa25d2",
+    "vault_g23_9b7ddedf252bc8ec",
+    "vault_g23_da23df82a30d1732",
+    "vault_sag_2025_11_b644b34908650cb2"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "saf_safety_mgmt_committee",
+   "query": "學校安全管理委員會 成立",
+   "want": "-",
+   "chunk_ids": [
+    "vault_safety_mgmt_committee_97d36892f07f61a1",
+    "vault_safety_mgmt_committee_549bb9da44ae95f6",
+    "vault_g22_672d9ad939864c1b",
+    "vault_g22_9a09256723e46dd9",
+    "vault_sag_2025_11_d621dc20fe1c4f90"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_application_fee_cap",
+   "query": "K1 報名費上限",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_k1_appfee",
+    "footnote_fn_k1_regfee",
+    "vault_g25_a3d58093313d",
+    "vault_g26_fcdf197b50930a5b",
+    "vault_g26_090e33897af86350"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_subsidy_eligibility",
+   "query": "哪些兒童合資格獲幼稚園教育計劃資助",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_k1_eligibility",
+    "footnote_fn_kg_teacher_pupil_ratio",
+    "vault_kg_admin_guide_2026_0a5659874144d1e4",
+    "vault_kg_admin_guide_2026_382aff46308c0d74",
+    "vault_edbcm060_2026_ebff8c15d6e8660c"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_application_form_supply",
+   "query": "幼稚園可以限制派發K1申請表數目嗎",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_k1_appfee",
+    "footnote_fn_k1_regfee",
+    "vault_g26_a9583bd424b86fbe",
+    "vault_g26_ed814e330ee43595",
+    "vault_g26_a1ad244445ef21d4"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_result_notification_date",
+   "query": "2026/27 K1取錄結果何時通知",
+   "want": "-",
+   "chunk_ids": [
+    "vault_pri_curr_guide_2024_1b189ccba0a10216",
+    "fact_role_facts_curriculum_a3f21b11d4f48594",
+    "vault_chi_edu_curr_docs_ab2f902bf64da9cf",
+    "vault_pe_kla_2017_1420a8eefd9d51f4",
+    "vault_edbcm136_2026_560e862f32bdbe19"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_equal_admission_opportunity",
+   "query": "非華語兒童申請幼稚園是否有平等機會",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_ncs_kg_5tier_201920",
+    "footnote_fn_k1_eligibility",
+    "vault_g26_72db84fa503e0ed0",
+    "vault_g29_9c2b6a90d6e9d24e",
+    "vault_g26_fcdf197b50930a5b"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_fullday_priority",
+   "query": "全日制幼稚園收生優先考慮哪些家庭",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_kgop_classroom",
+    "footnote_fn_k1_regfee",
+    "vault_k1_admission_2627_bce254dce1978b99",
+    "vault_k1_admission_2627_24a38093fc59902c",
+    "vault_edbcm080_2026_b643924590eb88dd"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_class_size_limit",
+   "query": "幼稚園每班最多可收多少學生",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_kgop_classroom",
+    "footnote_fn_kgop_teacher_onduty",
+    "footnote_fn_kg_teacher_pupil_ratio",
+    "vault_g25_a3d58093313d",
+    "footnote_fn_kgadmin_rent_sept"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_teacher_on_duty",
+   "query": "幼稚園每班最少多少位教師當值",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_kgop_teacher_onduty",
+    "footnote_fn_kg_teacher_pupil_ratio",
+    "vault_staff_est_pri_226ee0c1b5fa",
+    "footnote_fn_kgop_classroom",
+    "vault_g29_54a276c794731206"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_asset_register_review",
+   "query": "幼稚園固定資產登記冊多久覆核一次",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_kgadmin_asset",
+    "footnote_fn_k1_regfee",
+    "vault_g26_06fdddb878ef11fe",
+    "vault_g25_a3d58093313d",
+    "vault_g26_44db8986039aa36d"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "kg_rent_subsidy_enrolment_month",
+   "query": "幼稚園租金資助按哪一個月學生人數計算",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_kgadmin_rent_sept",
+    "footnote_fn_kgadmin_utilrate",
+    "vault_g25_a3d58093313d",
+    "footnote_fn_kgop_classroom",
+    "vault_g26_fcdf197b50930a5b"
+   ],
+   "subjects": [
+    "STUDENT"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "staff_fullday_12",
+   "query": "12班小學 學位教師",
+   "want": "-",
+   "chunk_ids": [
+    "vault_staff_est_pri_9b97ea43d291",
+    "footnote_fn_kgop_teacher_onduty",
+    "footnote_fn_prisci_exempt",
+    "vault_edbc00030_55474fed1652",
+    "vault_roles_functions_pri_9f677d48a9a8"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "staff_halfday_12",
+   "query": "半日制小學 12班 編制",
+   "want": "-",
+   "chunk_ids": [
+    "vault_staff_est_pri_28bdfae6c8c1",
+    "footnote_fn_g11_schooldays",
+    "footnote_fn_ceg_bisessional",
+    "vault_sag_2025_11_f94a9be590caeebe",
+    "vault_sag_2025_11_a5e04b02f12de4f1"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "staff_fullday_24",
+   "query": "24班小學編制",
+   "want": "-",
+   "chunk_ids": [
+    "vault_staff_est_pri_58f262551ffa",
+    "vault_sag_2025_11_f94a9be590caeebe",
+    "footnote_fn_kgop_teacher_onduty",
+    "footnote_fn_ceg_bisessional",
+    "footnote_fn_kgop_classroom"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "staff_halfday_24",
+   "query": "半日制 24 班 教師人數",
+   "want": "-",
+   "chunk_ids": [
+    "vault_staff_est_pri_1046c25a4fdf",
+    "footnote_fn_kg_teacher_pupil_ratio",
+    "footnote_fn_kgop_classroom",
+    "footnote_fn_kgop_teacher_onduty",
+    "footnote_fn_cap279_s48_permit_when"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "staff_head_ratio_full",
+   "query": "主任級教師 比例",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_kg_teacher_pupil_ratio",
+    "vault_staff_est_pri_8e5c691de863",
+    "vault_staff_est_pri_74e63d4061b9",
+    "vault_staff_est_pri_499b798646ba",
+    "vault_sag_2025_11_6f53442630337d63"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "staff_head_ratio_half",
+   "query": "半日制 主任級教師 幾多個",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_tdtf_senco",
+    "vault_staff_est_pri_8e5c691de863",
+    "vault_staff_est_pri_499b798646ba",
+    "vault_staff_est_pri_74e63d4061b9",
+    "vault_staff_est_pri_226ee0c1b5fa"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "staff_deputy_24",
+   "query": "副校長 幾多個",
+   "want": "-",
+   "chunk_ids": [
+    "fact_role_facts_activity_a73b3ba08e4e7e85",
+    "fact_role_facts_student_92338bb0b468e388",
+    "vault_kg_admin_guide_2026_b3ddbeeb1e9c7019",
+    "vault_sag_2025_11_6f53442630337d63",
+    "vault_cgss_2024_d78829df9c67fdc9"
+   ],
+   "subjects": [
+    "PRINCIPAL"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "staff_sp_school",
+   "query": "特殊學校 教學人員編制表",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_surplus_def",
+    "footnote_fn_activities_sen",
+    "vault_edbc00030_83930458ed4e",
+    "vault_staff_est_pri_cbecc2fe1667",
+    "vault_staff_est_pri_7a4bbef9bb19"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "staff_grad_ratio",
+   "query": "學位教師比例",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_kg_teacher_pupil_ratio",
+    "footnote_fn_kgop_teacher_onduty",
+    "vault_edbc19011_73f91e04060b",
+    "fact_role_facts_activity_3b7e6663ae09fc9c",
+    "vault_ppt_grad_pri_policy_3dac5c7e375a"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "staff_supply",
+   "query": "代課老師 點請",
+   "want": "-",
+   "chunk_ids": [
+    "vault_supply_teacher_guide_416fb76f299f6840",
+    "vault_chi_hist_jss_ncs_2019_2833eb1f7956ae8f",
+    "vault_g06_a76cd0f5f367bad2",
+    "vault_edbc002_2026_c7dc9d574641bacf",
+    "vault_edbc002_2026_2f5b7cf42dec535b"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "hr_mpf",
+   "query": "公積金 MPF",
+   "want": "-",
+   "chunk_ids": [
+    "vault_coa_ss_e_cc08c29ab7ff",
+    "vault_long_service_payment_guide_b45c186668ff6ae7",
+    "footnote_fn_net_legacy_gratuity_15",
+    "vault_long_service_payment_guide_dbd86e38f3ea3992",
+    "vault_edbcm060_2026_39a6b697dfec8c9e"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "hr_lsp",
+   "query": "長期服務金 點計",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_lsp_calc",
+    "footnote_fn_eoebg_surplus_12m",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "hr_maternity",
+   "query": "產假",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_sag_2025_11_ddd12598121eea78",
+    "vault_sag_2025_11_63f35908e9b949e7"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "hr_jobshare",
+   "query": "兩個老師分一個教席",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_sag_2025_11_6a7f706998baa294",
+    "vault_sag_2025_11_63f35908e9b949e7"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "hr_lang_req",
+   "query": "哪些英文科教師必須達到語文能力要求，哪些教師不適用？",
+   "want": "-",
+   "chunk_ids": [
+    "vault_edbcm088_2026_cad80da0f0738a64",
+    "vault_edbcm088_2026_1db897a0848416dc",
+    "vault_sag_2025_11_c439fc361fe26a80",
+    "vault_sag_2025_11_537c3f82ca7f9d40",
+    "vault_edbcm088_2026_08c4fd8b7c8d8a1f"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "hr_pay_adjust_kg",
+   "query": "幼稚園 薪酬調整",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_ncs_kg_5tier_201920",
+    "footnote_fn_kg_teacher_pupil_ratio",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "hr_severance",
+   "query": "遣散費",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_lsp_calc",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_sag_2025_11_ac9e6e7b4099399d"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "hr_teacher_reg_fee",
+   "query": "教師註冊費用幾錢",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_cap279_s47_cancel_register",
+    "footnote_fn_tpc_2022_representation_14d",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "hr_ncs_allowance",
+   "query": "非華語 教師 額外編制",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_surplus_def",
+    "footnote_fn_ncs_ambit_coordinator",
+    "vault_edbc00030_c8dd6ed478ae",
+    "vault_imc_briefing_qa_7d598d8c04905c78",
+    "vault_edbc00030_a4fb20e5f550"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "hr_appraisal",
+   "query": "教師評核",
+   "want": "-",
+   "chunk_ids": [
+    "vault_supply_teacher_guide_db05c9b25ce27ae4",
+    "vault_sag_2025_11_268563511127da45",
+    "vault_sag_2025_11_096f97f1182ad3c3",
+    "vault_perf_indicators_2022_9791ae9366cafcff",
+    "vault_sag_2025_11_a40e4ed7605169ac"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "fin_seg",
+   "query": "學校效率津貼",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_dlg_incentive_cease",
+    "footnote_fn_ceg_rates_2627",
+    "vault_edbc015_2026_eb9068b4c34eacef",
+    "vault_debp_blueprint_a823845b1c1e876f",
+    "vault_edbc008_2026_e38d83844e460f44"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "fin_home_school",
+   "query": "家校合作津貼",
+   "want": "-",
+   "chunk_ids": [
+    "vault_edbc016_2026_c76c8a7c4ca0b98f",
+    "fact_role_facts_activity_6fddddde0d050005",
+    "vault_g03_5ef9f1c8942f71f2",
+    "vault_g03_c89d1d30ec063704",
+    "vault_g03_110e1410239cb803"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "fin_lwl",
+   "query": "全方位學習津貼 可以買咩",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_lwl_sister_floor",
+    "fact_role_facts_activity_6fddddde0d050005",
+    "vault_g03_110e1410239cb803",
+    "vault_g03_974b1078dad37f12",
+    "vault_g03_c89d1d30ec063704"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "fin_ac_grant",
+   "query": "空調津貼 計算",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_ac_equiv_formula",
+    "footnote_fn_ac_rates_2627",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "fin_ceg",
+   "query": "CEG 點計",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_ceg_plan_clawback",
+    "footnote_fn_ceg_bisessional",
+    "vault_ma_kla_guide_2017_e4b5b74e4d4a5d38",
+    "vault_ma_kla_guide_2017_0a571a7667ee9180",
+    "vault_ma_kla_guide_2017_462dd1f03fd76cc9"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "fin_eoebg",
+   "query": "EOEBG",
+   "want": "-",
+   "chunk_ids": [
+    "vault_coa_ss_e_ab2b731fed92",
+    "vault_coa_ss_e_9497a62ddf07",
+    "vault_coa_ss_e_fde9d5eed55e",
+    "vault_coa_pri_e_6fecc8207083",
+    "vault_coa_pri_e_83b8238cc0bb"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "fin_procure_split",
+   "query": "採購 不得拆單",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g01_526fe089b707001e",
+    "vault_g01_166ade0c624040d1",
+    "vault_g01_7c2b5af7e98a2f1a",
+    "vault_g01_33d170dfd3409080",
+    "fact_role_facts_finance_87e70e8725a91d98"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "fin_major_repair",
+   "query": "大規模修葺",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_edbc14_2024_thresholds",
+    "vault_sag_2025_11_57a61f09d479aa5b",
+    "vault_emergency_repairs_guide_003e7f2fda96f856",
+    "vault_edbc14_2024_spms_5365c504f53bb418",
+    "vault_sag_2025_11_7d5c8efc766a0f2d"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "fin_dls",
+   "query": "多元學習津貼",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_dlg_incentive_cease",
+    "footnote_fn_lwl_sister_floor",
+    "vault_g01_526fe089b707001e",
+    "vault_g01_7c2b5af7e98a2f1a",
+    "vault_g01_166ade0c624040d1"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "fin_crypto",
+   "query": "學校可唔可以買虛擬貨幣",
+   "want": "-",
+   "chunk_ids": [
+    "vault_sag_2025_11_ba2fe1ffe6bb3319",
+    "fact_role_facts_finance_c5647d6426b3892e",
+    "vault_econ_sss_2007_2015_abb5d0d0778217cd",
+    "vault_fin_mgmt_notes_aided_6bd8d6b33a19d3b2",
+    "vault_econ_sss_supp_2025_75c13c630593cbae"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "fin_sci_grant",
+   "query": "小學科學科 一筆過津貼",
+   "want": "-",
+   "chunk_ids": [
+    "vault_g04_997df7efd474",
+    "vault_sag_2025_11_b91bef25da03b856",
+    "vault_sag_2025_11_a1bf01e7cdf07272",
+    "vault_sag_2025_11_4ee562d7f8902f9a",
+    "vault_sag_2025_11_63f35908e9b949e7"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "fin_kg_relocation",
+   "query": "幼稚園 搬遷津貼",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_sfaa_kg_payment_flow",
+    "footnote_fn_ncs_kg_5tier_201920",
+    "vault_edbcm144_2026_e3c0496617c80743",
+    "vault_kg_admin_guide_2026_48d6df4e9f7426c2",
+    "vault_kg_admin_guide_2026_0a5659874144d1e4"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gov_imc_60pct",
+   "query": "辦學團體校董可佔法團校董會校董人數上限多少？",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_imc_60pct",
+    "footnote_fn_trg_freeze_ceiling",
+    "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_establishment_operation_1c25d85dde883f87",
+    "vault_imc_briefing_qa_147520bbb186aad7"
+   ],
+   "subjects": [
+    "DIRECTOR"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gov_imc_alternate_excluded_v2",
+   "query": "計算辦學團體校董人數上限時，替代校董是否計算在內？",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_imc_60pct",
+    "footnote_fn_trg_freeze_ceiling",
+    "vault_imc_establishment_operation_1c25d85dde883f87",
+    "vault_imc_establishment_operation_ad9d8f74d990b40b",
+    "vault_imc_governance_supplements_330ba88fe82107ba"
+   ],
+   "subjects": [
+    "DIRECTOR"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gov_imc_pta",
+   "query": "家長校董 點選",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_imc_election_pta",
+    "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_establishment_operation_e66eff7e80fe4675",
+    "vault_imc_governance_supplements_5203579dd227734e",
+    "vault_imc_briefing_qa_b6ac0458f6897905"
+   ],
+   "subjects": [
+    "PARENT",
+    "DIRECTOR"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gov_imc_setup",
+   "query": "法團校董會 成立",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_imc_tax_exempt_s88",
+    "footnote_fn_imc_60pct",
+    "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_establishment_operation_e66eff7e80fe4675",
+    "vault_imc_briefing_qa_b6ac0458f6897905"
+   ],
+   "subjects": [
+    "DIRECTOR"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gov_imc_abbrev",
+   "query": "IMC",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_net_imc_smc_oversight",
+    "vault_imc_establishment_operation_e66eff7e80fe4675",
+    "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_briefing_qa_b6ac0458f6897905",
+    "vault_imc_establishment_operation_9d6e3d26df37c8f5"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gov_coa_imc",
+   "query": "資助則例 法團校董會版本",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_coa_imc_apply",
+    "footnote_fn_imc_tax_exempt_s88",
+    "vault_edbc016_2026_07d6d4a61b75641f",
+    "vault_imc_briefing_qa_b6ac0458f6897905",
+    "vault_imc_briefing_qa_30fe3d08cc7b6267"
+   ],
+   "subjects": [
+    "DIRECTOR"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gov_fin_mgmt",
+   "query": "校董會 財務管理",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_imc_99b",
+    "footnote_fn_imc_60pct",
+    "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_governance_supplements_5203579dd227734e",
+    "vault_imc_establishment_operation_e66eff7e80fe4675"
+   ],
+   "subjects": [
+    "DIRECTOR"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gov_icac",
+   "query": "防貪 學校",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_icac_coi",
+    "footnote_fn_icac_bidrig",
+    "vault_icac_school_governance_24250f7009162843",
+    "vault_sag_2025_11_d5b7f809bd800319",
+    "vault_sag_2025_11_f4706480e8463f1e"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gov_sdp",
+   "query": "學校發展計劃 點寫",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_ceg_plan_clawback",
+    "vault_sag_2025_11_f867296a9fb4dd2b",
+    "vault_sdp_guide_cc470b141f88cbd1",
+    "vault_sdp_guide_d8d789989ee7e265",
+    "vault_sdp_guide_750475c731037cf6"
+   ],
+   "subjects": [],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gov_imc_quorum",
+   "query": "校董會會議 法定人數",
+   "want": "-",
+   "chunk_ids": [
+    "footnote_fn_imc_60pct",
+    "footnote_fn_trg_freeze_ceiling",
+    "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_establishment_operation_e66eff7e80fe4675",
+    "vault_imc_governance_supplements_5203579dd227734e"
+   ],
+   "subjects": [
+    "DIRECTOR"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "gov_board_pay",
+   "query": "校董有冇人工",
+   "want": "-",
+   "chunk_ids": [
+    "vault_imc_briefing_qa_30fe3d08cc7b6267",
+    "vault_imc_establishment_operation_e66eff7e80fe4675",
+    "vault_imc_governance_supplements_5203579dd227734e",
+    "vault_imc_briefing_qa_b6ac0458f6897905",
+    "vault_imc_establishment_operation_a1fd7e792c5fdf94"
+   ],
+   "subjects": [
+    "DIRECTOR"
+   ],
+   "missing": [],
+   "pass": true
+  },
+  {
+   "set": "gold",
+   "id": "hr_overtime",
+   "query": "教師超時工作 補水",
+   "want": "-",
+   "chunk_ids": [
+    "vault_job_sharing_guide_a8ab796eb2c2b76f",
+    "vault_imc_briefing_qa_7d598d8c04905c78",
+    "vault_pri_curr_guide_2024_8a1816053db4585b",
+    "vault_g07_363a03c43157a9cc",
+    "vault_faq_edbc19011_6353cdf8512f"
+   ],
+   "subjects": [
+    "TEACHER"
+   ],
+   "missing": [],
+   "pass": true
+  }
+ ]
+}

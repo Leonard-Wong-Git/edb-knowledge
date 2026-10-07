@@ -19,6 +19,8 @@
     python3 dev/source/subject_check_probe.py --cached          # 驗收集 35 + fresh 10 的緩存窗
     python3 dev/source/subject_check_probe.py --gold dev/source/eval_runs/2026-09-28_s233_prod_gold.json
         # 以 backend/.env 的 service key 唯讀取回各題前五段全文（只 GET，不寫入）
+    python3 dev/source/subject_check_probe.py --export-rows OUT.json [--gold RUN_JSON]
+        # S236：匯出窗與 v1 判定，供 backend/scripts/_s236_subjectParity.ts 逐題比對
 
 本檔不改生產、不呼叫任何模型。設計與結論見 dev/source/SUBJECT_CHECK_DESIGN.md。
 """
@@ -176,6 +178,32 @@ def gold_rows(run_path: str) -> list[dict]:
     return rows
 
 
+SUBJECT_SETS = [("acceptance", "judge_acceptance_cases.json", "judge_runs/chunks_cache.json"),
+                ("fresh_s202", "judge_transplant_fresh_s202.json", "judge_runs/chunks_cache_fresh_s202.json"),
+                ("sx_s235", "judge_subject_s235.json", "judge_runs/chunks_cache_subject_s235.json"),
+                ("hx_s235", "judge_subject_heldout_s235.json", "judge_runs/chunks_cache_subject_heldout_s235.json")]
+
+
+def export_rows(path: str, gold_run: str | None) -> None:
+    """S236：把四套緩存窗（加 gold，如提供）連 v1 判定寫出，供
+    backend/scripts/_s236_subjectParity.ts 逐題比對 TS 移植版。輸出含片段全文，只寫 scratchpad。"""
+    rows = []
+    for name, cases_f, cache_f in SUBJECT_SETS:
+        cases = json.loads((HERE / cases_f).read_text(encoding="utf-8"))["cases"]
+        cache = json.loads((HERE / cache_f).read_text(encoding="utf-8"))
+        rows += [{"set": name, "id": c["id"], "query": c["query"], "want": c["want"],
+                  "texts": _texts(cache.get(c["id"], {}).get("chunks", []))} for c in cases]
+    if gold_run:
+        rows += [{**r, "set": "gold", "want": "-"} for r in gold_rows(gold_run)]
+    for r in rows:
+        subjects = question_subjects(r["query"])
+        r["py_v1"] = {"subjects": subjects,
+                      "missing": [g for g in subjects if not window_mentions(r["texts"], g)]}
+        r["py_v1"]["pass"] = not r["py_v1"]["missing"]
+    pathlib.Path(path).write_text(json.dumps(rows, ensure_ascii=False), encoding="utf-8")
+    print(f"寫出 {len(rows)} 題 → {path}")
+
+
 # ── reports ──────────────────────────────────────────────────────────────────
 def report(rows: list[dict], label: str) -> None:
     subj = [(r, check(r["query"], r["texts"])) for r in rows]
@@ -234,9 +262,13 @@ def main() -> int:
     p.add_argument("--self-test", action="store_true")
     p.add_argument("--cached", action="store_true", help="驗收集與 fresh 集的緩存窗（離線）")
     p.add_argument("--gold", metavar="RUN_JSON", help="gold 運行檔；唯讀取回片段全文")
+    p.add_argument("--export-rows", metavar="OUT_JSON", help="S236：寫出四套緩存窗（＋--gold）連 v1 判定，供 TS 比對")
     a = p.parse_args()
     if a.self_test:
         return self_test()
+    if a.export_rows:
+        export_rows(a.export_rows, a.gold)
+        return 0
     if a.cached:
         report(cached_rows(), "緩存驗收窗")
     if a.gold:

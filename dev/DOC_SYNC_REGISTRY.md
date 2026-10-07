@@ -27,6 +27,22 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-10-07 — S236（路線乙 v1 實作（旗標關閉）＋ Kit v0.4.3 ＋ here.now 舊鏡像刪除）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| Synthesis 前置閘改動 | `confirmed` | 新閘 `FEATURE_SUBJECT_CHECK`（預設關閉）。該 row 已加對象核對的四項驗收；`--self-test`、`--parity`（差異 0）、`--live`（應答誤攔 0）、`--smoke` 全部完成，證據入 `SUBJECT_CHECK_DESIGN.md` 第八節 |
+| `backend/src` LLM 呼叫、旗標、判官閘或護欄改動 | `confirmed` | `dev/AUDIT.md` 1.2 加 S236 補記；判官提示零改動（`judge_acceptance.py --check-parity` 逐字相同） |
+| Grounded synthesis／feature flags 文件 | `confirmed` | `backend/README.md`（四個 flag；順手改正「生產全部 0」的過時句）、`.env.example`、`PROJECT_MASTER_SPEC.md` 環境變數、`CODEBASE_CONTEXT.md` Directory Map |
+| New file or directory | `confirmed` | `PROJECT_INDEX.md` 加 `subjectCheck.ts`＋`_s236_subjectCheck.ts` 一列；`subject_check_probe.py` 加 `--export-rows` |
+| Generated Markdown or durable artifact | `confirmed` | `SUBJECT_CHECK_DESIGN.md` 第八節；`JUDGE_PROMPT_FINDINGS.md` S236 節指向它；運行檔 `eval_runs/2026-10-07_s236_subject_live.json` 不含片段全文 |
+| 後端 CORS 白名單 | `confirmed` | `env.ts` 移除 `tender-garnet-hqbd.here.now`（Leonard 指示刪除該 here.now 站點後的遺留；`jade-nirvana-99hh` 從未在白名單） |
+| Governance rule change | `confirmed` | Kit v0.4.2 → v0.4.3（Draft 與頂層 dormant root 各一次，均先在臨時副本完整演練並逐字比對）；本專案自己的 §0–§14 未改 |
+| 外部模型批次 | `confirmed` | `--smoke` LLM 4 次（Leonard 批准）；生產搜尋 254 次帶 `x-probe`、`synthesize:false`；首次跑因間隔 400ms 撞每 IP 限速，已停並改 7 秒 |
+| Supabase 寫入／DDL | `not_applicable` | 零寫入；service key 唯讀 GET（計數、gold 窗片段） |
+| Deploy | `pending` | PR 合併後 Render 會重新部署；旗標未設，行為應與現時相同。合併後驗收：`/health` commit 換新、D01 線上仍照舊作答（證明旗標未開） |
+| Product version / release milestone change | `not_applicable` | 平台仍 v3.3.10；旗標關閉，用戶不可見 |
+
 ### 2026-10-06 — S235（入庫補救 ＋ Kit v0.4.2 ＋ 路線乙離線設計與量度）
 
 | Row | 狀態 | 備註 |
