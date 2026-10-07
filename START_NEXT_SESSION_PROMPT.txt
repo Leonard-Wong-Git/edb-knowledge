@@ -6,49 +6,50 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S235, 2026-10-06）---
+--- 專案狀態（S236, 2026-10-07）---
 
 平台 v3.3.10；Supabase 17,021 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點 151 份
-（_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.4.2。
-FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用。七個量度旗標生產一律未設。
+（_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.4.3。
+FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用。FEATURE_SUBJECT_CHECK（S236）已部署、未設＝關閉。
+七個量度旗標生產一律未設。
 public.search_log 記錄每次真實搜尋 180 日（帶 x-probe 不記）；dev/search_log_report.py 只在本機讀
-（🔴 搜尋內容不得進任何公開或 git 內的檔案）。live_probe.yml 每 6 小時探測，排程已證正常。
+（🔴 搜尋內容不得進任何公開或 git 內的檔案）。live_probe.yml 每 6 小時探測。
 
 🔴 開工第一件事：git fetch 後確認分支與 origin/main。
-   收工時 origin/main = e6015f3，線上執行碼 = e6015f3；
-   S235 收工 PR（s235/route-b-closeout）待 Leonard 合併（不改 backend，合併後不會重新部署）。
+   收工時 origin/main = f9da565，線上執行碼 = f9da565；
+   S236 收工 PR（s236/closeout）待合併（不改 backend，合併後不會重新部署）。
    判斷線上有沒有落後【比檔不比 hash】：git diff --name-only <部署commit>..origin/main -- backend
-   ⚠️ 合併由 Leonard 在 GitHub 網頁按 Squash and merge：AI 執行 gh pr merge 會被分類器擋下，
-      不要重試或繞過。每 session 盡量只開一個 PR（Leonard 定案）。
+   合併只在 Leonard 明示指示時進行；S236 起 AI 執行 gh pr merge <N> --squash 已兩次成功，
+   若再被分類器擋下，不要重試或繞過。每 session 盡量只開一個 PR（Leonard 定案）。
 
-🟢 S235 做完了甚麼（都不用重做）：
-   1. EDBCM134／142 入庫補救：#41、#42 已合併並部署，兩份都已實測搜得到。
-   2. Agent Handoff Kit v0.3.66 → v0.4.2，doctor 54/54，交接檔零刪除。
-   3. 路線乙的離線設計與三批量度（設計文件 dev/source/SUBJECT_CHECK_DESIGN.md）：
-      FT06 標錯已改標；新題集 judge_subject_s235.json（SX）與未見過的 judge_subject_heldout_s235.json（HX）；
-      生產判官對「對象錯置」已知漏判 5 條（D01、SX01、SX03、HX07、HX09）；
-      v1 presence 檢查攔到 3 條（D01、SX01、HX09），應答題誤攔 0；v2「具體角色詞」已否決。
+🟢 S236 做完了甚麼（都不用重做）：
+   1. 路線乙 v1 對象核對（backend/src/lib/subjectCheck.ts）經 PR #44 合併並部署，旗標預設關閉。
+      位於判官與 vault bypass 之前；不通過即以固定句拒答、零模型呼叫；不覆蓋 grounded 路徑。
+      五套題重量：生產現行窗 254 題攔 7、全部應拒答，應答與 gold 誤攔 0；TS 與 Python 250 題逐題相同。
+      search_log 改用 isSynthesisDecline()，新拒答句會記為拒答。
+   2. Agent Handoff Kit v0.4.2 → v0.4.3（Draft 與頂層 dormant root），doctor passed。
+   3. 兩個 here.now 舊站（jade-nirvana-99hh、tender-garnet-hqbd）已刪除；CORS 白名單同步移除。
 
-🚀 下一步（唯一第一順位）：實作路線乙的 v1 對象核對，旗標預設關閉，然後重量。
-   先讀 SUBJECT_CHECK_DESIGN.md 第五節至第七節，及 searchChannelB.ts 的 synthesizeAnswer() 全文。
-   位置：判官與 vault bypass 之前；grounded 路徑另需一處。不通過時回決定性拒答句，說明資料涉及的對象。
-   新旗標未設時行為必須逐位元組相同。量度：subject_check_probe.py 的 presence_v1_pass，
-   題集 gold 185、凍結 35、S202 fresh、SX、HX；誤攔必須仍為 0。開啟旗標由 Leonard 決定。
-   不要再改判官提示、換判官模型或擴詞表（v2），三者都已證無效。
-   次序：乙 v1 →（Leonard 決定開啟）→ 才談 FEATURE_VAULT_GATE_RAWVEC（它會令判官多承重 52 條查詢）。
+🚀 下一步（唯一第一順位）：問 Leonard 是否在 Render 設 FEATURE_SUBJECT_CHECK=1（只有他改得到）。
+   開啟後的驗收：線上（帶 x-probe）問 D01「學生請病假要唔要交醫生紙」，
+   回答應以「根據檢索到的教育局文件，未有找到適用於學生的明確規定」開頭；
+   其後用 search_log 以該固定前綴篩出真實攔截，逐條讀窗查有沒有誤攔。
+   詳見 dev/source/SUBJECT_CHECK_DESIGN.md 第八節。
+   v1 只捕捉「窗內完全沒有該類人」一種錯置；SX03、HX07 一類仍看不到。
+   不要再改判官提示、換判官模型或擴詞表，都已證無效。
+   次序：Leonard 決定開啟 → 才談 FEATURE_VAULT_GATE_RAWVEC（它會令判官多承重 52 條查詢）。
    副線：Open Priorities ⑫ —— executor 一次批准多份時第二份起的 PR 必然衝突，根治未設計。
    治理側：log 維護兩套觸發標準（AGENTS.md §4a 對 Kit 核心 ≥11 條）仍待整合。
 
 ⚠️ 未解決（不要當已解決）：
-   · 對象錯置這一類：v1 未上線；v1 也攔不到「對象詞在窗內以別的語境出現」的兩條（SX03、HX07）。
+   · 對象錯置這一類：旗標未開前生產照舊放行（S236 合併後 D01 仍借用教職員規則推論學生）。
    · 片段層本體（OP②）。已排除九條路。
    · 生產 gold 逾時由 1 條升到 4 條（57014），再升就要當容量問題查。
    · 封版閘兩個 ERROR 只能靠改善檢索清走；兩個 WARN 未有 waiver；六項人手驗證從未記錄。
    · 入口盤點四項產品決定未動；index.html 頁尾仍寫 v3.3.3（Open Priorities ③）。
    · 本機 backend/.env 缺 SUPABASE_URL／SUPABASE_ANON_KEY，本機 Channel B 搜尋與記錄都會失敗；
-     不可用 service key 冒充 anon key（auto mode 會擋）。
-   · 真實當機路徑未驗（Open Priorities ⑪(c)）；狀態頁「待決定」四項自 2026-06-08 起等 Leonard
-     （其中失效連結 15 條、新文件發現 3 份）。
+     不可用 service key 冒充 anon key（auto mode 會擋）。驗證腳本自行補 SUPABASE_URL。
+   · 真實當機路徑未驗（Open Priorities ⑪(c)）；狀態頁「待決定」四項自 2026-06-08 起等 Leonard。
 
 ⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
    · 定標必須讀每一段的全文，不可只看預覽（S235 因截斷標錯 SX09；FT06 亦同一種錯）。
@@ -63,11 +64,12 @@ public.search_log 記錄每次真實搜尋 180 日（帶 x-probe 不記）；dev
    · 寫入任何內容（footnote、事實）之前，先對庫內原文；交接檔寫下的內容前提也要核實。
    · 生產量度一律帶 x-probe，否則會寫入 search_log 並推高用量計數。
    · 升版只手改 PLATFORM_VERSION＋README＋CHANGELOG；bump_version.py 會改寫凍結合約。
+   · 生產限速每 IP 每分鐘 10 次，x-probe 不豁免；批量打生產至少間隔 7 秒（S236 中過一次）。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.10 +
-Render /health（commit e6015f3 或其後、cache_b.footnote 181）+ git fetch 後比對分支與 origin/main +
+Render /health（commit f9da565 或其後、cache_b.footnote 181）+ git fetch 後比對分支與 origin/main +
 gh run list --workflow live_probe.yml 最近的排程 run 應為 success +
 Supabase live count 應為 17,021（自動入庫可令其上升）+
 check_registry_drift --check 的 ZOMBIE／UNMANAGED／SERIES_UNMONITORED 都應為 0）。
-之後報告並建議開始實作 v1 對象核對（旗標預設關閉）。
+之後報告，並請 Leonard 決定是否開啟 FEATURE_SUBJECT_CHECK。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次。
