@@ -20,7 +20,7 @@ import { searchChannelA, type SearchChannelARequest } from "./api/searchChannelA
 import {
   detectQueryCategory,
   searchChannelB,
-  SYNTHESIS_DECLINE,
+  isSynthesisDecline,
   warmChannelBOverlays,
   type SearchChannelBRequest,
 } from "./api/searchChannelB.js";
@@ -478,7 +478,7 @@ const server = createServer(async (req, res) => {
           client: parseClient(input.client),
           // Same pure function the handler uses; null when routing is off or unmatched.
           route: input.enable_topic_filter === false ? null : detectQueryCategory(input.query),
-          declined: result.synthesis === SYNTHESIS_DECLINE,
+          declined: isSynthesisDecline(result.synthesis),
           latencyMs: Date.now() - startedAt,
           response: result,
         });

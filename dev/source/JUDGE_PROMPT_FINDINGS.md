@@ -487,3 +487,11 @@ S211 用凍結集量過 `gpt-4.1-mini`，但只把數字寫進 CHANGELOG，沒�
 - **新題集 `judge_subject_s235.json`（12 題）**：生產提示、`gpt-4.1-mini`、三輪一致 —— 對象錯置 5 題誤答 3 題
   （SX01、SX03、SX09），內容缺口 5／5、應答 2／2 正確。已知漏判由 D01 一條增至四條。
 - 非提示式核對的設計與量度見 `dev/source/SUBJECT_CHECK_DESIGN.md`；結論仍是「不要再改判官提示」。
+
+## S236（2026-10-07）—— 路線乙 v1 以旗標上線（預設關閉），判官提示不動
+
+- 非提示式核對 v1 已實作為 `backend/src/lib/subjectCheck.ts`，由 `FEATURE_SUBJECT_CHECK` 閘住，在判官與 vault bypass
+  之前執行；不通過即以固定句拒答，判官與合成模型都不會被呼叫。`RELEVANCE_JUDGE_PROMPT` 一字未改
+  （`judge_acceptance.py --check-parity` 逐字相同）。
+- 本機端到端：旗標關閉時 D01 仍答出「學生請病假時必須出示有效的醫生證明書」，即生產判官漏判照舊；旗標開啟後
+  D01、SX01 以固定句拒答。量度與限制見 `dev/source/SUBJECT_CHECK_DESIGN.md` 第八節。

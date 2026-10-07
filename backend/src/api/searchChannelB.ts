@@ -27,6 +27,7 @@ import {
 } from "../lib/wikiRepository.js";
 import { overlapWith, queryInformativeBigrams } from "../lib/textBigrams.js";
 import { selectPrimaryEvidence, synthesizeGroundedAnswer } from "../lib/groundedSynthesis.js";
+import { checkSubjects, SUBJECT_DECLINE_PREFIX, subjectDeclineMessage } from "../lib/subjectCheck.js";
 import type { LlmJsonSchema } from "../lib/llmClient.js";
 import type { TopicId } from "../types/knowledge.js";
 import { TOPIC_IDS } from "../types/knowledge.js";
@@ -1130,6 +1131,13 @@ const RELEVANCE_JUDGE_PROMPT = `判斷下面「資料」有冇直接回答「問
 export const SYNTHESIS_DECLINE =
   "根據檢索到的教育局文件，暫時未能找到可直接回答此問題的明確資料。下方為主題相關的原始文件，或可參考；亦可嘗試以其他關鍵詞重新搜尋。";
 
+/** S236 — every deterministic decline the synthesiser can return. The search log must count
+ *  the subject-check decline as a decline too; an equality test on SYNTHESIS_DECLINE alone
+ *  would silently record it as an answer. */
+export function isSynthesisDecline(synthesis: string | undefined): boolean {
+  return synthesis === SYNTHESIS_DECLINE || !!synthesis?.startsWith(SUBJECT_DECLINE_PREFIX);
+}
+
 /** S177 — conservative binary relevance gate. Returns true only when the judge is confident
  *  the chunks directly answer the query (寧緊莫鬆: 不肯定 → 否 → decline). On a judge技術性
  *  失敗 (API error) it returns true (answer anyway) so a judge outage never silences all
@@ -1195,6 +1203,22 @@ async function synthesizeAnswer(
   const chunkText = window
     .map((r, i) => `[${i + 1}] ${r.text}`)
     .join("\n\n");
+
+  // S236 — 路線乙 v1 subject check, flag-gated (default OFF). Runs BEFORE both the judge and
+  // the vault bypass: the bypass skips the judge, so a check placed after it would let a
+  // bypassing query transplant another group's rule unchecked. If the query names a group of
+  // people (學生／家長／教師／校長／非教學人員／校董) and no chunk in the window mentions that
+  // group at all, the synthesiser could only answer by borrowing another group's rule (D01:
+  // 學生病假 answered from the STAFF sick-leave rule). The decline is a fixed sentence, not
+  // model output. Deterministic string match, zero model calls. S235 offline: catches 3 of
+  // the 5 known judge misses, 0 false blocks on answerable queries; it cannot see a
+  // transplant when the asked-for group appears in the window in another context (SX03,
+  // HX07). Not applied on the FEATURE_GROUNDED_SYNTHESIS path above (off in production),
+  // which builds its own evidence window. See dev/source/SUBJECT_CHECK_DESIGN.md.
+  if (process.env.FEATURE_SUBJECT_CHECK === "1") {
+    const subjectCheck = checkSubjects(query, window.map((r) => r.text));
+    if (!subjectCheck.pass) return subjectDeclineMessage(subjectCheck);
+  }
 
   // S177 — anti-confabulation gate: decline rather than fabricate when chunks don't answer.
   // S183 — EXCEPTION: a vault_extract lead scoring ≥ VAULT_LEAD_SCORE (0.70) bypasses the

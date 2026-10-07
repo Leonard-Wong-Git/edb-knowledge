@@ -35,13 +35,14 @@ KNOWLEDGE_PATH=../../../role_facts.json
 
 ### Feature flags
 
-三個檢索／合成候選功能由環境變數閘住，`backend/.env.example` 出廠全部 `0`。**判斷式一律是 `process.env.X === "1"`，即值必須剛好是字串 `1`；`true`／`yes`／`0` 或未設定一律當關閉。** 三者互相獨立，可單獨開關。
+四個檢索／合成候選功能由環境變數閘住，`backend/.env.example` 出廠全部 `0`。**判斷式一律是 `process.env.X === "1"`，即值必須剛好是字串 `1`；`true`／`yes`／`0` 或未設定一律當關閉。** 四者互相獨立，可單獨開關。
 
 - `FEATURE_ROUTE_FIRST_SEARCH` — 開啟後，在向量精確排名之前先按偵測到的路由過濾來源，走另一支 RPC `searchWikiRoutedExact`（`searchChannelB.ts` 主搜尋段）。**只在路由命中、即 `sourceIds` 有值時才生效**；routed 查詢回零結果或拋錯，一律靜默回退既有 ANN 路徑（fail open），不會令 Channel B 變差。
 - `FEATURE_GROUNDED_SYNTHESIS` — 開啟後，合成改行 grounded 路徑（`synthesizeAnswer()` 內）：只有逐字 EDB 文件節錄可以支撐已呈現的論述，策展摘要只當檢索線索；合成窗內沒有第一手證據就拒答，不降級為推測。
 - `FEATURE_EXACT_WINDOW_NARROW` — 開啟後，把五格合成窗收窄至 lexical-exact 編制路由指明的來源集。**只在該路由發出 `exactSynthesisSourceIds` 時才有效**；收窄後若為空，自動退回預設五格，不會把有效結果集清空。
+- `FEATURE_SUBJECT_CHECK`（S236）— 開啟後，`synthesizeAnswer()` 在判官與 vault bypass **之前**核對問題對象：問題提到某類人（學生／家長／教師／校長／非教學人員／校董），而五格合成窗內完全沒有提到該類人，即回覆固定拒答句（說明缺哪類人、窗內提及哪類人），不呼叫判官與合成模型。純字串比對（`src/lib/subjectCheck.ts`），零模型呼叫。不覆蓋 `FEATURE_GROUNDED_SYNTHESIS` 路徑。設計與量度見 `dev/source/SUBJECT_CHECK_DESIGN.md`。
 
-⚠️ **已部署 ≠ 已啟用**：三個 flag 的碼早已在生產 build 內，但生產環境變數全部 `0`，所以行為未生效。三者當前的實測結論與啟用建議（含為何不建議開 `FEATURE_ROUTE_FIRST_SEARCH`）以 `dev/SESSION_HANDOFF.md` 為準，本檔不複製會漂移的數字。
+⚠️ **已部署 ≠ 已啟用**：上述 flag 的碼都在生產 build 內；除 `FEATURE_ROUTE_FIRST_SEARCH`（2026-09-09 起在 Render 啟用）外，其餘生產環境變數都未設定，即關閉。各 flag 當前的實測結論與啟用建議以 `dev/SESSION_HANDOFF.md` 為準，本檔不複製會漂移的數字。
 
 ## Run
 
