@@ -40,7 +40,10 @@ Recorded at closeout per the Registry Rule above. Newest first.
 | Governance rule change | `confirmed` | Kit v0.4.2 → v0.4.3（Draft 與頂層 dormant root 各一次，均先在臨時副本完整演練並逐字比對）；本專案自己的 §0–§14 未改 |
 | 外部模型批次 | `confirmed` | `--smoke` LLM 4 次（Leonard 批准）；生產搜尋 254 次帶 `x-probe`、`synthesize:false`；首次跑因間隔 400ms 撞每 IP 限速，已停並改 7 秒 |
 | Supabase 寫入／DDL | `not_applicable` | 零寫入；service key 唯讀 GET（計數、gold 窗片段） |
-| Deploy | `pending` | PR 合併後 Render 會重新部署；旗標未設，行為應與現時相同。合併後驗收：`/health` commit 換新、D01 線上仍照舊作答（證明旗標未開） |
+| Deploy | `confirmed` | PR #44 合併（`f9da565`）約 60 秒後 `/health` 換新、`cache_b` 181／306；D01 線上仍經判官作答，證明旗標未開。收工 PR `s236/closeout` 不改 `backend/` |
+| Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4、`## User Environment` Git state 與 `PROJECT_INDEX` Branch / commit 列已更新 |
+| `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並核對相等 |
+| Playbook | `not_applicable` | 本節未 grep 全表、未開任何卡 |
 | Product version / release milestone change | `not_applicable` | 平台仍 v3.3.10；旗標關閉，用戶不可見 |
 
 ### 2026-10-06 — S235（入庫補救 ＋ Kit v0.4.2 ＋ 路線乙離線設計與量度）
