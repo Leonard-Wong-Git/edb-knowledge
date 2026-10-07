@@ -3,7 +3,7 @@
 
 <!-- ack:section:session-log-preamble -->
 
-> **Handoff role**: This log is the trace-back / audit trail layer. Handoff capability rests on `dev/SESSION_HANDOFF.md`. The next AI session can continue by reading `AGENTS.md` + `dev/SESSION_HANDOFF.md` + `dev/PROJECT_INDEX.md` + needed rule packs; reading this log is not required for continuity. Each closeout must run the maintenance trigger check per `AGENTS.md` `## Closeout And Handoff` step 11 (R-010 SESSION_LOG handoff-role discipline): N=1–3 keep full, N=4–10 may short-index after absorbed-source check when triggered, N=11+ archive into `dev/SESSION_LOG_archive/`.
+> **Handoff role**: This log is the trace-back / audit trail layer. Handoff capability rests on `dev/SESSION_HANDOFF.md`. The next AI session can continue by reading `AGENTS.md` + `dev/SESSION_HANDOFF.md` + `dev/PROJECT_INDEX.md` + needed rule packs; reading this log is not required for continuity. Each closeout applies `dev/rules/closeout.md` `## Maintenance Trigger Check`; that owner defines the current thresholds and archive discipline.
 
 Add new session entries at the top. Record what actually happened in the session; do not copy old completed work forward as new work.
 
@@ -34,6 +34,32 @@ Before closeout, record whether older log detail was kept, summarized, or archiv
 - **Opening-message mirror:** <regenerated and verified / blocked; full text omitted by design>
 <!-- ack:log-entry:end -->
 ````
+
+---
+
+<!-- ack:log-entry:start -->
+
+## 2026-10-06 Session 235 — 入庫補救、Kit v0.4.2；路線乙量出「對象錯置」確實會重現，v1 攔一半而零誤攔，v2 在未見過的題目上被否決
+
+- **ID:** S235（Claude_20261006_1030）
+- **Summary:** 由頂層 root「開工」轉入 Draft，起手探針全綠。Leonard 報 GitHub 電郵有問題 → 查出 10-05 晚執行機塞車令兩份入庫批准失效 →「批准，全做」→ 安裝／升級 Kit →「全做」兩次（PR #42、核實 134、擴大樣本、改良與驗證、收工開 PR）。
+- **Changed:** 新 `dev/source/subject_check_probe.py`、`dev/source/SUBJECT_CHECK_DESIGN.md`、`dev/source/judge_subject_s235.json`、`dev/source/judge_subject_heldout_s235.json`、`dev/source/judge_runs/chunks_cache_subject{,_heldout}_s235.json`、`dev/source/judge_runs/2026-10-06_s235_{subject,heldout}_41mini_r{1,2,3}.json` · `dev/source/judge_transplant_fresh_s202.json`（FT06 改標）· `dev/source/judge_acceptance.py`（擴題規則 4，docstring）· `dev/source/JUDGE_PROMPT_FINDINGS.md`（S235 節）· Kit 升級寫入的 `dev/rules/*`、`dev/handoff-kit/`、`.agents/`、`.gemini/`、`dev/governance_migrations/2026-10-06T11-18-20-705Z-…/` · 治理文件。**生產：Supabase +14（Option A 入庫，Leonard 剔選批准）；零 DDL；零 flag；PR #41、#42 自動合併並部署 `e6015f3`。**
+- **Done:**
+  - **GitHub 電郵**：三封失敗通知。Pages 失敗只是回報步驟被取消（建置與部署成功）；ops `option-a-approvals` 兩個工作排隊 15 分鐘零步驟被取消 → Leonard 剔選的 EDBCM134／142 無批准紀錄。另兩封為例行監察 Issue（#7 失效連結 15 條、#40 新文件 3 份）。
+  - **入庫補救**：重跑較後的失敗 run（沿用事件內容）→ 兩份批准 → executor：134 經 #41 合併；142 的 #42 衝突（分支夾帶未壓縮的 134 commit）→ cherry-pick 到最新 main → 強制更新 PR 分支（首次被分類器擋，Leonard「全做」後重試成功）→ 合併 `e6015f3` → 部署後兩份實測搜得到。134 的「NOT retrievable」警告屬誤報。
+  - **Kit v0.3.66 → v0.4.2**：試跑 conflict 源於兩行歷史紀錄引用了「## Next Session Opening Message」字串；改引號後先在臨時副本完整升級並逐行比對，才套用正式資料夾。
+  - **路線乙**：讀 S202 原文 → 線上實測 D01 首句錯置、FT06 正確作答 → 證實 FT06 標錯 → presence／cooccur 原型（cooccur 對 gold 誤攔 9／50，棄用）→ 獨立審核 agent 確認四項數字並指出 D01 被攔屬窗口巧合 → SX 12 題（全文重核後 SX09 改標）→ v2 凍結（sha256 前綴 `6f81ee485a5f3728`）→ HX 12 題（凍結後才寫）→ 判官與 v1／v2 量度 → v2 否決。
+- **Fix Record:**
+  - **Problem:** SX09 第一次標為「否」，實際窗內有答案。**Root Cause:** 讀窗時每段截在約 550 字，漏看第 3 段後半「(5)志願工作者」；與 S202 的 FT06 是同一種錯。**Fix:** 全文關鍵字逐題重核（只有 SX09 需改），HX 改為讀全文後才定標。**Verification:** 重核輸出逐題列出命中位置。**升為規則**（重複發生，且會令量度結論錯）：`judge_acceptance.py` 擴題規則第 4 條。
+  - **Problem:** 合併 PR #42 需要強制推送，第一次被 auto mode 分類器擋下。**Root Cause:** 屬改寫遠端分支歷史，需人批准。**Fix:** 沒有繞路，停下交 Leonard；獲「全做」後重試同一指令成功。不升為規則（`## User Environment` Push 邊界已涵蓋）。
+- **QC:** `subject_check_probe.py --self-test` 全部通過（含 v2 斷言）· `judge_acceptance.py --self-test` 0 failure、`--check-parity` 逐字相同 · 判官 SX、HX 各三輪結果一致 · gold 181 題 v1 誤攔 0 · 獨立審核 agent 重算四項數字全部確認 · Kit `doctor` 54/54、`upgrade` migration committed · #42 build gate 綠 · 部署後線上檢索實測。
+- **Evidence disposition:** 設計、數字與否決理由入 `dev/source/SUBJECT_CHECK_DESIGN.md`（唯一定義處）；題集、緩存與運行檔入 repo 作可重現證據；scratchpad 內的 gold 窗口全文、審核筆記、臨時 worktree 不保留（已移除 `wt142`）；v1／v2 取捨入 `PROJECT_DECISIONS.md`；擴題紀律入 harness 規則 4。
+- **Sync:** `dev/DOC_SYNC_REGISTRY.md` S235 節。
+- **Pending:** v1 實作（旗標預設關閉）並以五套題重量；⑫ executor 多份批准必衝突的根治；⑪(c) 真實當機路徑；狀態頁「待決定」四項；log 維護兩套觸發標準整合（承 S230）。
+- **Risks:** 生產判官仍會對「對象錯置」放行（已知 5 條）；executor 下次一次批准多份時會重演 #42 的衝突。
+- **Log maintenance:** 寫入前 `session_log_maintenance.py --check` 報 `line_count=221`、`entry_count=7`、`trigger=False`；寫入後主 log 有 10 個 Kit 條目，未達 ≥11。`## Confirmed Decisions` 類章節未達 30 條。10 次收工 backstop：最近一次實際維護是 S231 收工（§4a 行數觸發歸檔），之後 S232–S235 共 4 次，未到。本節有一項多選取捨（v1 留、v2 否決），已寫入 `PROJECT_DECISIONS.md`。
+- **Opening-message mirror:** 由交接檔唯一 fenced 區塊重生並核對；全文依設計不入 log。
+<!-- ack:log-entry:end -->
 
 ---
 

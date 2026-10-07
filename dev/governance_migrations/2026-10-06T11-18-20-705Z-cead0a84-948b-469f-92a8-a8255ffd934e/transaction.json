@@ -1,0 +1,505 @@
+{
+  "id": "2026-10-06T11-18-20-705Z-cead0a84-948b-469f-92a8-a8255ffd934e",
+  "command": "upgrade",
+  "mode": "upgrade-existing",
+  "attemptedVersion": "0.4.2",
+  "shortcutInstallContract": 1,
+  "committedVersion": "0.4.2",
+  "plannedSkips": 13,
+  "host": "Mac.powerhub",
+  "pid": 47627,
+  "state": "committed",
+  "createdAt": "2026-10-06T11:18:20.719Z",
+  "entries": [
+    {
+      "targetRel": "AGENTS.md",
+      "existed": true,
+      "beforeHash": "3e7e1c4edfd52b5d6a4ad6f5cde04bf4299f4e9197eb59a308b3f0d124986846",
+      "afterHash": "ed4732b8a2d287c868eb601ace2a1a5d3a7e7ca43e39af80e507238fa3655565",
+      "backupRel": "dev/governance_migrations/2026-10-06T11-18-20-705Z-cead0a84-948b-469f-92a8-a8255ffd934e/backup/AGENTS.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.3.66 managed core with an explicit newline transform; preserve every surrounding byte"
+    },
+    {
+      "targetRel": "dev/SESSION_HANDOFF.md",
+      "existed": true,
+      "beforeHash": "60b4ba28c48d1b9ca7c4bc70d35e81d2789469d826e928f918f9c1ecfb284cb7",
+      "afterHash": "58bbe026bd3d0c7b6098fd50bd2246a6902ddf15439a5cc172e6983b3f4dd0ec",
+      "backupRel": "dev/governance_migrations/2026-10-06T11-18-20-705Z-cead0a84-948b-469f-92a8-a8255ffd934e/backup/dev/SESSION_HANDOFF.md",
+      "committed": true,
+      "reason": "update handoff lifecycle/startup contracts while preserving current project state"
+    },
+    {
+      "targetRel": "dev/SESSION_LOG.md",
+      "existed": true,
+      "beforeHash": "250f2857470218c6573a447ad8c50dc9a698991d34012ac0dd28c488f2e4c11c",
+      "afterHash": "1af3cea0ce2f05c8d75ab2fc979b7d3bd70d3790b467c30f9465dea02a95c1c6",
+      "backupRel": "dev/governance_migrations/2026-10-06T11-18-20-705Z-cead0a84-948b-469f-92a8-a8255ffd934e/backup/dev/SESSION_LOG.md",
+      "committed": true,
+      "reason": "update only the trusted current log preamble/template while preserving every historical trace entry"
+    },
+    {
+      "targetRel": "dev/rules/safety.md",
+      "existed": true,
+      "beforeHash": "ec1081b67f8e85302ca6d9e27c0f65adee98ad9f3df4ed19e1d861b22baceff9",
+      "afterHash": "5a1598aef0a1ec5263b1a6975f3024af30692c267ba125e1aa804d72257fdf9d",
+      "backupRel": "dev/governance_migrations/2026-10-06T11-18-20-705Z-cead0a84-948b-469f-92a8-a8255ffd934e/backup/dev/rules/safety.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.4.1 dev/rules/safety.md rule body with an explicit newline transform; preserve local appendix bytes"
+    },
+    {
+      "targetRel": "dev/rules/agent-governance.md",
+      "existed": true,
+      "beforeHash": "b36a1782d81476545769727e002248e2e6bbfd507e6a66941cc6c3d16ee60a16",
+      "afterHash": "4d0bfc5c2070b4714186d77427493e4f6197a9270aa0883aa6e7a7bfb532254f",
+      "backupRel": "dev/governance_migrations/2026-10-06T11-18-20-705Z-cead0a84-948b-469f-92a8-a8255ffd934e/backup/dev/rules/agent-governance.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.4.1 dev/rules/agent-governance.md rule body with an explicit newline transform; preserve local appendix bytes"
+    },
+    {
+      "targetRel": "dev/rules/knowledge.md",
+      "existed": true,
+      "beforeHash": "a492c514168b96186f86589610d931400ca5dad3c9c6d53e1639913bd681324f",
+      "afterHash": "af47486b4d7060ca92072eebdfc7e0769862e65dc2642516e18650c2a40a33e9",
+      "backupRel": "dev/governance_migrations/2026-10-06T11-18-20-705Z-cead0a84-948b-469f-92a8-a8255ffd934e/backup/dev/rules/knowledge.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.4.1 dev/rules/knowledge.md rule body with an explicit newline transform; preserve local appendix bytes"
+    },
+    {
+      "targetRel": "dev/rules/closeout.md",
+      "existed": true,
+      "beforeHash": "183a8b17d7bca51627843ca6cb840cb8b4583df0516ab7ace344fcd33d3f71a5",
+      "afterHash": "b82c6b407285dad4a706197b74f00c5466df3d816d627b9728acc3fe9c3ebaea",
+      "backupRel": "dev/governance_migrations/2026-10-06T11-18-20-705Z-cead0a84-948b-469f-92a8-a8255ffd934e/backup/dev/rules/closeout.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.3.66 dev/rules/closeout.md rule body with an explicit newline transform; preserve local appendix bytes"
+    },
+    {
+      "targetRel": "dev/rules/onboarding.md",
+      "existed": true,
+      "beforeHash": "ee658b4dd6ae64f7428dc0d69795a039c2bc14b0ca0c42c48afb35538a1ff7ad",
+      "afterHash": "a727cfefa4be5e14170ae10b09c0399f1203f6bfd9f2bdae7e0cfe438cbbd4d7",
+      "backupRel": "dev/governance_migrations/2026-10-06T11-18-20-705Z-cead0a84-948b-469f-92a8-a8255ffd934e/backup/dev/rules/onboarding.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.4.1 dev/rules/onboarding.md rule body with an explicit newline transform; preserve local appendix bytes"
+    },
+    {
+      "targetRel": "dev/rules/integrations.md",
+      "existed": true,
+      "beforeHash": "7e51039d57c7c424dbb2c74f9c5ac022193346354593ffa4979008112a2bf8ef",
+      "afterHash": "994ef946877e868418c02221f1a5d24d501da590694656921b9e1ae962d05a50",
+      "backupRel": "dev/governance_migrations/2026-10-06T11-18-20-705Z-cead0a84-948b-469f-92a8-a8255ffd934e/backup/dev/rules/integrations.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.4.1 dev/rules/integrations.md rule body with an explicit newline transform; preserve local appendix bytes"
+    },
+    {
+      "targetRel": ".claude/skills/handoff-kit-start/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "9e0e4312fe9bc8e6801c5e0ea32026144a10ba364118b61058470aef2cf12cdf",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-start/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "9e0e4312fe9bc8e6801c5e0ea32026144a10ba364118b61058470aef2cf12cdf",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-start/agents/openai.yaml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "a294dd1815bef68434d4fbf93261d5192abdc6f3570e6b6030d19f2bf657a984",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".gemini/commands/handoff-kit-start.toml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "23c0da1953e98d18a1d9a1f725af5174a4e16a2b41fb69f7fd650af1efaf24ce",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".claude/skills/handoff-kit-close/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "46d999d993a282092ad93bb69d2848749d0b448eb71fe7a3394a3caa7e68e8ab",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-close/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "46d999d993a282092ad93bb69d2848749d0b448eb71fe7a3394a3caa7e68e8ab",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-close/agents/openai.yaml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "7ff3064232dfa62d9b0a75c5cc743afb77a1c6986e8c423618cc37cf0031501d",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".gemini/commands/handoff-kit-close.toml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "98898d53857b14d46ba2a19bf06397c2ee221f68e5ff877cf3a4f2ee2cf8142d",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".claude/skills/handoff-kit-progress/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "e78f24c223899febbf9d7eda3291eaed690860bad4afa187c78878a0ff703a06",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-progress/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "e78f24c223899febbf9d7eda3291eaed690860bad4afa187c78878a0ff703a06",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-progress/agents/openai.yaml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "cbb31a137fe249e7ec563ea70759c7bd7792d0b72dd912d38ef25226667902c4",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".gemini/commands/handoff-kit-progress.toml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "d58a7bf6fd08f5740087acb999cab512726ba4a9aa5edc490a0aad37766d3d75",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".claude/skills/handoff-kit-align/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "7a8e1d22043e36dc1c74b8ec262f292e574cdb1f3dce0264370e5134fe52ebba",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-align/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "7a8e1d22043e36dc1c74b8ec262f292e574cdb1f3dce0264370e5134fe52ebba",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-align/agents/openai.yaml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "4001a19fc73b01be44de48b44db2d5c361e38c637a1b4ffa1b215dd5615bca5d",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".gemini/commands/handoff-kit-align.toml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "5077dad5129d5219ceb7cb3c87c09f169c53c062d51edf7b415ca8aba50f7bb0",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".claude/skills/handoff-kit-onboard/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "161f6fc817e0c03ec8093c574d066bf1d5e7716ae47870a9cb8683311f4dd7b7",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-onboard/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "161f6fc817e0c03ec8093c574d066bf1d5e7716ae47870a9cb8683311f4dd7b7",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-onboard/agents/openai.yaml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "5ef6ac65e96d20a71287c5f44abad14dc4f7b91d4fefd5b4ec7f672273917265",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".gemini/commands/handoff-kit-onboard.toml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "915c92a522a9995f201e85521d9f40f6cf499f52988dfac04cf22585f72dfbe7",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".claude/skills/handoff-kit-remember/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "14b6f9906ab816bfe1d02ec5fdb822ad3c3981346040bcf3bcad7ae85fb52ce8",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-remember/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "14b6f9906ab816bfe1d02ec5fdb822ad3c3981346040bcf3bcad7ae85fb52ce8",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-remember/agents/openai.yaml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "9bed15e27ee9725e2a31b57d10687349a5754dcfcae55aca167c763f6f1e0e80",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".gemini/commands/handoff-kit-remember.toml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "c577c8af5430dbc0e1a5b4a2d1f74a19ef279f695572ca8b5de3b4aeb35e7892",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".claude/skills/handoff-kit-check/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "6948d45ff7d95f5dd66930d02dba6b99aadbc51d6e220a32b9a1ffdbe99d7bae",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-check/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "6948d45ff7d95f5dd66930d02dba6b99aadbc51d6e220a32b9a1ffdbe99d7bae",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-check/agents/openai.yaml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "666d4b602e019e06a7dd70742fc459cd2afab2a442bce038c87dfce09d429bb2",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".gemini/commands/handoff-kit-check.toml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "f8985c17fe064f2902e941369b5a761fe27a4ba897a0e88e9cc67d7170ad9136",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".claude/skills/handoff-kit-update/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "573277315136e6773e48d3cca5663124412d9035fcf5aa8a0416bba309febc10",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-update/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "573277315136e6773e48d3cca5663124412d9035fcf5aa8a0416bba309febc10",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-update/agents/openai.yaml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "12177a56d5a3573cb079506de78375f83ccb06f8fa7e1828a3d7c237de82e7bf",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".gemini/commands/handoff-kit-update.toml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "9f27c426bfb584feaf974ad7dd4767d93b958476d7b19d005cde2f189fb2b971",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".claude/skills/handoff-kit-help/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "d3b0d4fe6505b28284d7bc93b6124b5bd84898356b57ff0c217a74e63d00100d",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-help/SKILL.md",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "d3b0d4fe6505b28284d7bc93b6124b5bd84898356b57ff0c217a74e63d00100d",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".agents/skills/handoff-kit-help/agents/openai.yaml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "a87a82d80551abfe32588d6b66b44b21c45aa636ef0392cc886dfb5cc65a609a",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": ".gemini/commands/handoff-kit-help.toml",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "880e88bd61747f82bf54fe274ab00d368374904a102ee34ffe5341c03c513f56",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": "dev/handoff-kit/launch.mjs",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "0a4b0f7263e3dd48e686b3fa6d99e2d000c9c54eede849f9b719fe57e173e63e",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": "dev/handoff-kit/open.mjs",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "f060618c69ac30373121d72a0fdafc6d592d61aad342a92b17cca2bea87e2255",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": "dev/handoff-kit/server.mjs",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "536b32ae27e16852c3cbb80c1124125d3f7a50f7fc2870a7d46d6b8ece112d37",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": "dev/handoff-kit/projection.mjs",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "733cfdc66b3228ff9ad1280409c003612ac77a3cc12169fe7d3d015fa632b18c",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": "dev/handoff-kit/dashboard.mjs",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "b9ea752f00e5b0b92027f5cbfe8e14a4f5cd3af5c076e2d71ded8db58dcddb48",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": "dev/handoff-kit/project-version.mjs",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "9fdee8c290e8fb8a8621430957b484676c6fb2d8ab198576b49b132d48a4e262",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": "dev/handoff-kit/assets.mjs",
+      "existed": false,
+      "beforeHash": null,
+      "afterHash": "165e0ff8d9044dc7b4eebaeb014d6bc6bce1970ca49f4827000b5da7e8afe04f",
+      "backupRel": null,
+      "committed": true,
+      "reason": "required project shortcut"
+    },
+    {
+      "targetRel": "dev/PROJECT_INDEX.md",
+      "existed": true,
+      "beforeHash": "dd946070b6bed7e3760cb4db40ffdded029b796cc25aeb61a14ffd03f3391456",
+      "afterHash": "328c10289d6a1569aee9ce812d4e863b175d5568719a0ce9d4cb4936d4be6311",
+      "backupRel": "dev/governance_migrations/2026-10-06T11-18-20-705Z-cead0a84-948b-469f-92a8-a8255ffd934e/backup/dev/PROJECT_INDEX.md",
+      "committed": true,
+      "reason": "update only the unique real PROJECT_INDEX Stack template-version row while preserving every other PROJECT_INDEX byte"
+    },
+    {
+      "targetRel": "START_NEXT_SESSION_PROMPT.txt",
+      "existed": true,
+      "beforeHash": "ab2ff4f31d44b6879fb39d34e42493ebee17780888afbd701e83dcbabba67bb9",
+      "afterHash": "b7f731cb6466f70f37682e80e7fa1747fd0283db5779ca266e1b87dae5b60d0a",
+      "backupRel": "dev/governance_migrations/2026-10-06T11-18-20-705Z-cead0a84-948b-469f-92a8-a8255ffd934e/backup/START_NEXT_SESSION_PROMPT.txt",
+      "committed": true,
+      "reason": "regenerated from authoritative handoff opening message"
+    }
+  ],
+  "formalUserRules": null,
+  "runtimeReadback": null,
+  "archiveMigrations": [],
+  "committedAt": "2026-10-06T11:18:21.909Z"
+}

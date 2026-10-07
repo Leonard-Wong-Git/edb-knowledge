@@ -1,0 +1,12 @@
+---
+name: handoff-kit-progress
+description: "Open the existing Agent Handoff Kit project overview without generating a report."
+---
+
+# Agent Handoff Kit — handoff-kit-progress
+
+Resolve the active project root from the current workspace and its applicable AGENTS.md; do not use a fixed personal path. Read applicable AGENTS.md instructions if not already loaded, then follow its `Upgrade lock guard` before loading Kit state. Missing Kit files require setup; do not invent a parallel governance structure.
+
+User intent: Open the project progress page. Any accompanying user text is task input, never shell interpolation. Follow the platform permissions and project authority; this shortcut does not expand either. Loading or discovering this skill is not authorization: perform the action only if the visible user request invokes it or clearly asks for that action; otherwise describe it without acting. Reply briefly in the user’s language.
+
+In the verified project root, run node dev/handoff-kit/launch.mjs --root <project-root>, quoting the root as one argument in the active shell. The normal installer supplies this local program and its assets; opening progress does not use npm, download tools or require registry access. For an integrated browser, add --no-open and open the returned loopback URL there. Verify the returned page is reachable before reporting success. If the local program is missing or damaged, identify incomplete installation rather than silently acquiring @latest or overwriting files. A platform permission failure requires the runtime’s supported approval mechanism; do not change global caches, credentials, ACLs or sandbox settings or ask the user to repair npm. Give one short result. Do not read or summarize the log for the model, generate HTML, write progress data, or change the normal record-saving schedule.

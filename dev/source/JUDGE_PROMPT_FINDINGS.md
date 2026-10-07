@@ -478,3 +478,12 @@ S211 用凍結集量過 `gpt-4.1-mini`，但只把數字寫進 CHANGELOG，沒�
 - 結果（`JUDGE_MODEL=gpt-4.1-mini` 明示設定）：主集 **31/33**；answer half **12/12**（false decline 0）；decline half **19/21**，**false answer 2 條：`D01_student_sickleave`、`GN10_kg_class_ratio`**；連 bare-noun 兩題 **33/35**。`D00_s177_frozen_post` 判「否」。
 - 與 S211 CHANGELOG 所記逐項相同（31/33、12/12、19/21、同樣是 D01 與 GN10）。
 - 限制：只跑一次，未作 r2／r3 重複量度；輸入是凍結 cache，按上面 S211 §2，它已與今日語料漂移 —— 這是判官在固定輸入上的基線，不代表今日檢索下的端到端表現。
+
+## S235（2026-10-06）—— FT06 改標；對象錯置一類已重現
+
+- **FT06 標錯**：緩存窗第 3 段（法團校董會章程樣本第 33.1 條）寫明「法團校董會不得向任何校董提供任何酬勞」，
+  S202 判官答「能」是對的。已在 `judge_transplant_fresh_s202.json` 改標為「能」並記錄讀到的原文；S202 fresh 集
+  V3 分數因此由 9/10 變為 10/10。上文 S202 UPDATE 把 FT06 當作漏判的說法作廢。
+- **新題集 `judge_subject_s235.json`（12 題）**：生產提示、`gpt-4.1-mini`、三輪一致 —— 對象錯置 5 題誤答 3 題
+  （SX01、SX03、SX09），內容缺口 5／5、應答 2／2 正確。已知漏判由 D01 一條增至四條。
+- 非提示式核對的設計與量度見 `dev/source/SUBJECT_CHECK_DESIGN.md`；結論仍是「不要再改判官提示」。

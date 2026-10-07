@@ -6,52 +6,55 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S234, 2026-09-29）---
+--- 專案狀態（S235, 2026-10-06）---
 
-平台 v3.3.10；Supabase 17,007 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點 151 份
-（_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.3.66。
+平台 v3.3.10；Supabase 17,021 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點 151 份
+（_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.4.2。
 FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用。七個量度旗標生產一律未設。
-新（S233）：public.search_log 記錄每次真實搜尋 180 日（帶 x-probe 不記），回答下有 👍／👎。
-新（S234）：狀態頁 status-07cc7942c0.html 改為白話前台（橫額不再跟隨檢索質素舊債）；
-live_probe.yml 每 6 小時探測線上服務，兩次失敗才開 service-down Issue 並 @Leonard；
-dev/search_log_report.py 在本機唯讀看用戶搜尋（🔴 搜尋內容不得進任何公開或 git 內的檔案）。
+public.search_log 記錄每次真實搜尋 180 日（帶 x-probe 不記）；dev/search_log_report.py 只在本機讀
+（🔴 搜尋內容不得進任何公開或 git 內的檔案）。live_probe.yml 每 6 小時探測，排程已證正常。
 
 🔴 開工第一件事：git fetch 後確認分支與 origin/main。
-   收工時 origin/main = 90fed59，線上執行碼 = 4140e9c（backend 零改動，屬正常）；
-   S234 收工 PR（s234/closeout）待 Leonard 合併。
+   收工時 origin/main = e6015f3，線上執行碼 = e6015f3；
+   S235 收工 PR（s235/route-b-closeout）待 Leonard 合併（不改 backend，合併後不會重新部署）。
    判斷線上有沒有落後【比檔不比 hash】：git diff --name-only <部署commit>..origin/main -- backend
    ⚠️ 合併由 Leonard 在 GitHub 網頁按 Squash and merge：AI 執行 gh pr merge 會被分類器擋下，
       不要重試或繞過。每 session 盡量只開一個 PR（Leonard 定案）。
 
-🟢 S234 做完了甚麼（都不用重做）：
-   1. 白話狀態頁與線上服務探測上線（#38）；合併後驗收：手動觸發探測與每日 QC 各一次均 success，
-      線上 qc_report.json 帶 4 項 attention，issues: read 權限已證有效。
-   2. dev/search_log_report.py 本機唯讀報告（Leonard 選方案 C；理由與持久規則見 SEARCH_LOG_DESIGN 第八節）。
-   3. #37、#38 已由 Leonard 合併。
+🟢 S235 做完了甚麼（都不用重做）：
+   1. EDBCM134／142 入庫補救：#41、#42 已合併並部署，兩份都已實測搜得到。
+   2. Agent Handoff Kit v0.3.66 → v0.4.2，doctor 54/54，交接檔零刪除。
+   3. 路線乙的離線設計與三批量度（設計文件 dev/source/SUBJECT_CHECK_DESIGN.md）：
+      FT06 標錯已改標；新題集 judge_subject_s235.json（SX）與未見過的 judge_subject_heldout_s235.json（HX）；
+      生產判官對「對象錯置」已知漏判 5 條（D01、SX01、SX03、HX07、HX09）；
+      v1 presence 檢查攔到 3 條（D01、SX01、HX09），應答題誤攔 0；v2「具體角色詞」已否決。
 
-🚀 下一步（唯一第一順位）：路線乙 —— S202 reframe 的非提示式對象核對機制，
-   先離線設計、用 D01／FT06 量（GN10 已被 footnote 遮蓋，不能再當未修樣本），零生產改動。
-   設計前先讀 dev/source/JUDGE_PROMPT_FINDINGS.md 的 S202 部分。
-   換判官模型與改提示都已證修不了（S202、S211、S230），不要再走。
-   次序：乙 → 才談啟用 FEATURE_VAULT_GATE_RAWVEC（它會令判官多承重 52 條查詢）。
-   起手多一項：核對 live_probe 排程首次觸發（Open Priorities ⑪），一次通過就移除該項。
-   副線：search_log 讀取工具最小版已有（dev/search_log_report.py，只在本機讀）；累積一個月後再加路由分佈與 gold 候選。
+🚀 下一步（唯一第一順位）：實作路線乙的 v1 對象核對，旗標預設關閉，然後重量。
+   先讀 SUBJECT_CHECK_DESIGN.md 第五節至第七節，及 searchChannelB.ts 的 synthesizeAnswer() 全文。
+   位置：判官與 vault bypass 之前；grounded 路徑另需一處。不通過時回決定性拒答句，說明資料涉及的對象。
+   新旗標未設時行為必須逐位元組相同。量度：subject_check_probe.py 的 presence_v1_pass，
+   題集 gold 185、凍結 35、S202 fresh、SX、HX；誤攔必須仍為 0。開啟旗標由 Leonard 決定。
+   不要再改判官提示、換判官模型或擴詞表（v2），三者都已證無效。
+   次序：乙 v1 →（Leonard 決定開啟）→ 才談 FEATURE_VAULT_GATE_RAWVEC（它會令判官多承重 52 條查詢）。
+   副線：Open Priorities ⑫ —— executor 一次批准多份時第二份起的 PR 必然衝突，根治未設計。
    治理側：log 維護兩套觸發標準（AGENTS.md §4a 對 Kit 核心 ≥11 條）仍待整合。
 
 ⚠️ 未解決（不要當已解決）：
-   · 對象／範圍錯置這一類（D01、FT06）未修；GN10 只是個案遮蓋。
+   · 對象錯置這一類：v1 未上線；v1 也攔不到「對象詞在窗內以別的語境出現」的兩條（SX03、HX07）。
    · 片段層本體（OP②）。已排除九條路。
    · 生產 gold 逾時由 1 條升到 4 條（57014），再升就要當容量問題查。
    · 封版閘兩個 ERROR 只能靠改善檢索清走；兩個 WARN 未有 waiver；六項人手驗證從未記錄。
    · 入口盤點四項產品決定未動；index.html 頁尾仍寫 v3.3.3（Open Priorities ③）。
    · 本機 backend/.env 缺 SUPABASE_URL／SUPABASE_ANON_KEY，本機 Channel B 搜尋與記錄都會失敗；
      不可用 service key 冒充 anon key（auto mode 會擋）。
-   · 探測排程首次觸發與真實當機路徑未驗（Open Priorities ⑪）；狀態頁「待決定」四項自 2026-06-08 起等 Leonard。
-   · search_log 目前只有 2 行，其中 1 行是 S233 驗收測試；唯一真實查詢（一條與退休安排有關的問題，原文只在本機報告）被拒答且被評 👎，單一樣本不下結論。
+   · 真實當機路徑未驗（Open Priorities ⑪(c)）；狀態頁「待決定」四項自 2026-06-08 起等 Leonard
+     （其中失效連結 15 條、新文件發現 3 份）。
 
 ⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
+   · 定標必須讀每一段的全文，不可只看預覽（S235 因截斷標錯 SX09；FT06 亦同一種錯）。
    · 用 stub 判官量出來的是「失去捷徑」，不是「失去答案」；答案層結論必須用真判官量。
-   · judge_acceptance.py 必須明示 JUDGE_MODEL（預設 gpt-4o-mini 是舊配置）。
+   · judge_acceptance.py 必須明示 JUDGE_MODEL=gpt-4.1-mini（預設 gpt-4o-mini 是舊配置）。
+   · 新規則要先凍結，再用未見過的題目驗證；不可用產生規則的同一批題目證明它。
    · 比對 gold signature 一律用 squeeze(fold(s))（NFKC＋刪空白）。
    · 探針的外部呼叫一律包在 try/catch 並加重試；判官必須分開記 judge_error。
    · 本機比 Render 慢 1.5–2 秒；anon statement_timeout 3 秒而 service key 是 8 秒。
@@ -62,9 +65,9 @@ dev/search_log_report.py 在本機唯讀看用戶搜尋（🔴 搜尋內容不�
    · 升版只手改 PLATFORM_VERSION＋README＋CHANGELOG；bump_version.py 會改寫凍結合約。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.10 +
-Render /health（commit 4140e9c 或其後、cache_b.footnote 181）+ git fetch 後比對分支與 origin/main +
-gh run list --workflow live_probe.yml（應有 2026-09-30 00:23 UTC 起的排程 run 且 success；狀態頁橫額應為運作正常）+
-Supabase live count 應為 17,007（自動入庫可令其上升）+
+Render /health（commit e6015f3 或其後、cache_b.footnote 181）+ git fetch 後比對分支與 origin/main +
+gh run list --workflow live_probe.yml 最近的排程 run 應為 success +
+Supabase live count 應為 17,021（自動入庫可令其上升）+
 check_registry_drift --check 的 ZOMBIE／UNMANAGED／SERIES_UNMONITORED 都應為 0）。
-之後報告並建議開始路線乙的離線設計。
+之後報告並建議開始實作 v1 對象核對（旗標預設關閉）。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次。
