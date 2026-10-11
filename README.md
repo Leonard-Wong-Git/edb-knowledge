@@ -165,7 +165,7 @@ npm run dev                   # 啟動於 http://localhost:8787
 環境變數（`backend/.env`）：
 ```
 OPENAI_API_KEY=sk-...
-OPENAI_MODEL=gpt-4.1-nano
+OPENAI_MODEL=gpt-4o-mini
 JUDGE_MODEL=gpt-4.1-mini
 PORT=8787
 CORS_ORIGIN=https://leonard-wong-git.github.io,https://policychecker.wongfu.net

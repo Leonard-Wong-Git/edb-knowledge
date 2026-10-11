@@ -80,6 +80,11 @@ variable you are talking about.**
 
 ## ⚠️ S199 — READ THIS FIRST: the model below matters more than any prompt in this file
 
+> **S237 update (2026-10-11):** the code default in `env.ts`, `backend/README.md` and
+> `DEPLOY_CHANNEL_B.md` is now `gpt-4o-mini`, matching Render (re-confirmed in the
+> dashboard that day); OpenAI shuts `gpt-4.1-nano` down on 2026-10-23. The paragraph below
+> describes the S199 state.
+
 **Production does not run the model this file's earlier findings were measured on.**
 `env.ts` falls back to `gpt-4.1-nano`, and `backend/README.md` and `DEPLOY_CHANNEL_B.md`
 both show that value — but the Render service sets **`OPENAI_MODEL=gpt-4o-mini`**

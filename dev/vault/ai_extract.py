@@ -207,7 +207,7 @@ def call_openai_b(api_key: str, vault_text: str, meta: dict) -> list[dict]:
         try:
             from openai import OpenAI
             response = client.chat.completions.create(
-                model="gpt-4.1-nano",
+                model="gpt-4o-mini",
                 messages=[
                     {"role": "user", "content": SYSTEM_PROMPT_B + "\n\n" + source_context + chunk}
                 ],
@@ -309,7 +309,7 @@ def load_existing_queue(path: Path) -> dict:
             "schema": "ai_candidate_queue_v1",
             "channel": "B",
             "generated_at": datetime.now(timezone.utc).isoformat(),
-            "model": "gpt-4.1-nano",
+            "model": "gpt-4o-mini",
             "note": "Channel B full-AI analysis. Not for direct role_facts.json injection. Use for comparison and gap analysis against Channel A human-curated queue.",
             "sources_processed": [],
             "total_candidates": 0,
@@ -364,7 +364,7 @@ def main():
             "schema": "ai_candidate_queue_v1",
             "channel": "B",
             "generated_at": datetime.now(timezone.utc).isoformat(),
-            "model": "gpt-4.1-nano",
+            "model": "gpt-4o-mini",
             "note": "Channel B full-AI analysis. Not for direct role_facts.json injection.",
             "sources_processed": [],
             "total_candidates": 0,

@@ -77,6 +77,10 @@ ENDPOINT = "https://edb-knowledge.onrender.com/api/search/channel-b"
 # Mirror of production: `createLlmClient()` uses the Responses API with the model from
 # `getOpenAIModel()` and sets no temperature.
 #
+# S237 (2026-10-11): `env.ts` now defaults to gpt-4o-mini, matching Render (re-confirmed in
+# the dashboard that day), because OpenAI shuts gpt-4.1-nano down on 2026-10-23. The note
+# below records the S199 state, when the two differed.
+#
 # The model is NOT the code default. `env.ts` falls back to gpt-4.1-nano and both
 # backend/README.md and DEPLOY_CHANNEL_B.md show that value, but the Render service sets
 # `OPENAI_MODEL=gpt-4o-mini`, verified by Leonard in the dashboard Environment tab on

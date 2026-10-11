@@ -1,4 +1,7 @@
-const DEFAULT_OPENAI_MODEL = "gpt-4.1-nano";
+// S237 — aligned to production (Render OPENAI_MODEL=gpt-4o-mini, Leonard confirmed in the
+// dashboard 2026-10-11). The previous default, gpt-4.1-nano, is shut down by OpenAI on
+// 2026-10-23, so a missing env var would otherwise leave synthesis silently empty.
+const DEFAULT_OPENAI_MODEL = "gpt-4o-mini";
 const DEFAULT_PORT = 8787;
 const DEFAULT_JUDGE_MODEL = "gpt-4.1-mini";
 const DEFAULT_CORS_ORIGIN = "https://leonard-wong-git.github.io,https://policychecker.wongfu.net";

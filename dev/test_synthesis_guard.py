@@ -22,7 +22,7 @@ import requests
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 BACKEND_ENV = REPO_ROOT / "backend" / ".env"
-MODEL = "gpt-4.1-nano"
+MODEL = "gpt-4o-mini"
 
 
 def api_key():
