@@ -8,7 +8,7 @@
  * Key design decisions:
  *   - Default top_k=8, min_score=0.30 (raised from 0.10 for relevance)
  *   - Statistical facts filtered out by default (include_statistical=false)
- *   - LLM synthesis: top 5 chunks sent to gpt-4.1-nano for a concise answer
+ *   - LLM synthesis: top 5 chunks sent to gpt-4o-mini for a concise answer
  */
 
 import { isSupabaseConfigured } from "../config/env.js";
