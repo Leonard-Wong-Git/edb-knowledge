@@ -6,21 +6,28 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S236, 2026-10-07）---
+--- 專案狀態（S237, 2026-10-11）---
 
 平台 v3.3.10；Supabase 17,021 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點 151 份
 （_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.4.3。
 FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用。FEATURE_SUBJECT_CHECK（S236）已部署、未設＝關閉。
 七個量度旗標生產一律未設。
+合成模型 OPENAI_MODEL=gpt-4o-mini（Render）；碼內預設 S237 起亦為 gpt-4o-mini。判官 gpt-4.1-mini（Render 未設 JUDGE_MODEL）。
 public.search_log 記錄每次真實搜尋 180 日（帶 x-probe 不記）；dev/search_log_report.py 只在本機讀
 （🔴 搜尋內容不得進任何公開或 git 內的檔案）。live_probe.yml 每 6 小時探測。
 
 🔴 開工第一件事：git fetch 後確認分支與 origin/main。
-   收工時 origin/main = f9da565，線上執行碼 = f9da565；
-   S236 收工 PR（s236/closeout）待合併（不改 backend，合併後不會重新部署）。
+   收工時 origin/main = a344504，線上執行碼 = a344504；
+   S237 收工 PR（s237/closeout）待合併，已含未合併的 S236 收工 PR #45 內容（不改 backend，合併後不會重新部署）；
+   #45 因此可關閉，關閉前先問 Leonard。
    判斷線上有沒有落後【比檔不比 hash】：git diff --name-only <部署commit>..origin/main -- backend
-   合併只在 Leonard 明示指示時進行；S236 起 AI 執行 gh pr merge <N> --squash 已兩次成功，
+   合併只在 Leonard 明示指示時進行；S236 起 AI 執行 gh pr merge <N> --squash 已三次成功（#43、#44、#46），
    若再被分類器擋下，不要重試或繞過。每 session 盡量只開一個 PR（Leonard 定案）。
+
+🟢 S237 做完了甚麼（不用重做）：
+   OpenAI 2026-10-23 停用 gpt-4.1-nano 等舊模型：生產不受影響（合成 gpt-4o-mini、判官 gpt-4.1-mini、
+   向量 text-embedding-3-small 皆不在停用名單，官方停用頁 2026-10-11 核對）。PR #46 把碼內預設、文件與
+   四個離線腳本改為 gpt-4o-mini，已合併並部署 a344504，線上合成實測正常。不用再跟進該電郵。
 
 🟢 S236 做完了甚麼（都不用重做）：
    1. 路線乙 v1 對象核對（backend/src/lib/subjectCheck.ts）經 PR #44 合併並部署，旗標預設關閉。
@@ -67,7 +74,7 @@ public.search_log 記錄每次真實搜尋 180 日（帶 x-probe 不記）；dev
    · 生產限速每 IP 每分鐘 10 次，x-probe 不豁免；批量打生產至少間隔 7 秒（S236 中過一次）。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.10 +
-Render /health（commit f9da565 或其後、cache_b.footnote 181）+ git fetch 後比對分支與 origin/main +
+Render /health（commit a344504 或其後、cache_b.footnote 181）+ git fetch 後比對分支與 origin/main +
 gh run list --workflow live_probe.yml 最近的排程 run 應為 success +
 Supabase live count 應為 17,021（自動入庫可令其上升）+
 check_registry_drift --check 的 ZOMBIE／UNMANAGED／SERIES_UNMONITORED 都應為 0）。

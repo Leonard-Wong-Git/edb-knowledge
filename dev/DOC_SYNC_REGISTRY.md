@@ -27,6 +27,21 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-10-11 — S237（OpenAI 舊模型停用核對 ＋ 合成模型碼內預設對齊 gpt-4o-mini）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| External API / service change | `confirmed` | 模型名稱改動（`env.ts` 預設、四個離線腳本）；`CODEBASE_CONTEXT.md` 第 64、184 行與 AI Maintenance Log 已更新；API 端點、參數、回應路徑不變，故 External Services block 毋須改 |
+| `backend/src` LLM 呼叫、旗標、判官閘或護欄改動 | `confirmed` | 只改後備預設常數與註解；生產 `OPENAI_MODEL` 已設 `gpt-4o-mini`，行為不變；判官與提示零改動 |
+| Grounded synthesis／feature flags 文件 | `confirmed` | `.env.example`、`README.md`、`backend/README.md`、`DEPLOY_CHANNEL_B.md`、`PROJECT_MASTER_SPEC.md` 同步；`judge_acceptance.py`、`JUDGE_PROMPT_FINDINGS.md` 加現況註、S199 原文保留 |
+| Deploy | `confirmed` | PR #46 合併（`a344504`）約 60 秒後 `/health` 換新、`cache_b` 181／306；線上合成實測正常。收工 PR `s237/closeout` 不改 `backend/` |
+| Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4、`## User Environment` Git state 與 `PROJECT_INDEX` Branch / commit 列已更新 |
+| `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並核對相等 |
+| 外部模型批次 | `not_applicable` | 只有合併後驗收 1 次線上搜尋（帶 `x-probe`） |
+| Supabase 寫入／DDL | `not_applicable` | 零寫入、零查詢 |
+| Product version / release milestone change | `not_applicable` | 平台仍 v3.3.10；用戶不可見 |
+| Playbook | `not_applicable` | 本節未 grep 全表、未開任何卡 |
+
 ### 2026-10-07 — S236（路線乙 v1 實作（旗標關閉）＋ Kit v0.4.3 ＋ here.now 舊鏡像刪除）
 
 | Row | 狀態 | 備註 |

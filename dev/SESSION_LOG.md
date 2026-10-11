@@ -39,6 +39,28 @@ When current work requires a log entry, record whether relevant older detail was
 
 <!-- ack:log-entry:start -->
 
+## 2026-10-11 Session 237 — OpenAI 舊模型停用通知：生產不受影響，碼內預設對齊 gpt-4o-mini
+
+- **ID:** S237（Claude_20261011_1327）
+- **Summary:** 由頂層 root 起手（Leonard 指出應直接轉 Draft），處理 OpenAI 2026-10-23 停用 `gpt-4.1-nano` 等舊模型的電郵；核實生產不受影響後，按 Leonard「修以上 1 2」對齊碼內預設與離線腳本，PR #46 合併並部署。
+- **Changed:** PR #46（`a344504`）：`backend/src/config/env.ts`（`DEFAULT_OPENAI_MODEL` → `gpt-4o-mini`）、`backend/src/api/searchChannelB.ts`（頂部註解）、`backend/.env.example`、`README.md`、`backend/README.md`、`backend/DEPLOY_CHANNEL_B.md`、`dev/CODEBASE_CONTEXT.md`、`dev/PROJECT_MASTER_SPEC.md`、`dev/vault/{ai_extract,extract_candidates,wiki_search}.py`、`dev/test_synthesis_guard.py`、`dev/source/judge_acceptance.py`（註解）、`dev/source/JUDGE_PROMPT_FINDINGS.md`（現況註）· 收工：交接、本 log、`PROJECT_INDEX.md`、`DOC_SYNC_REGISTRY.md`、`CODEBASE_CONTEXT.md` AI Maintenance Log、`START_NEXT_SESSION_PROMPT.txt`。
+- **Done:**
+  - **影響核對**：官方停用頁（`developers.openai.com/api/docs/deprecations`，2026-10-11 讀；電郵內追蹤連結未點擊）列 `gpt-4.1-nano` 2026-10-23 停用、替代 `gpt-5.6-luna`；`gpt-4o-mini`、`gpt-4.1-mini`、`gpt-4o` 別名、`text-embedding-3-small` 不在名單。全庫 grep 找出生產合成經 `OPENAI_MODEL`（碼內預設 `gpt-4.1-nano`），合成失敗會被吞掉返回空字串。Leonard 截圖核實 Render `OPENAI_MODEL=gpt-4o-mini`、無 `JUDGE_MODEL` → 生產不受影響。
+  - **PR #46**：碼內預設、文件與四個離線腳本改 `gpt-4o-mini`；歷史記錄（CHANGELOG、`_s214_*` 報告、`AUDIT.md`、`PROJECT_MILESTONES_REVIEW.md`、S199 段落）保留原文。Leonard「合併」後 AI 以 `gh pr merge 46 --squash` 合併。
+  - **收工分支**：S236 收工 PR #45 一直未合併；本節收工分支 `s237/closeout` 由 `origin/s236/closeout` 開出再合併 `origin/main`，#45 可關閉（待 Leonard 同意）。
+- **QC:** `npm run check`（src＋scripts）、`npm run build` 通過 · 五個 Python 檔 `py_compile` 通過 · CI `build-gate` pass · 合併後 `/health` 約 60 秒轉 `a344504`、`cache_a` 455、`cache_b` 181／306 · 線上 `channel-b`（`x-probe`）8 條結果、合成 314 字內容正確 · 四個離線腳本未實跑。
+- **Evidence disposition:** 現況（Render 環境變數快照、`a344504`）入交接；停用名單與替代模型只作本節核對，不另立文件（生產不用 nano）；臨時編輯腳本只在 scratchpad。
+- **Sync:** `dev/DOC_SYNC_REGISTRY.md` S237 節。
+- **Pending:** 不變，見交接 `## Open Priorities`（首位仍為 Leonard 決定開 `FEATURE_SUBJECT_CHECK`）；關閉 #45。
+- **Risks:** 無新增。
+- **Log maintenance:** `session_log_maintenance.py --check` 報 `line_count=273`、`entry_count=9`、`trigger=False`；寫入後 Kit 條目 11 個，達 Kit 核心規模提示門檻，本節無實際保存或延續需要，不做歸檔（承 S230 兩套觸發標準待整合）。
+- **Opening-message mirror:** 由交接檔唯一 fenced 區塊重生並核對；全文依設計不入 log。
+<!-- ack:log-entry:end -->
+
+---
+
+<!-- ack:log-entry:start -->
+
 ## 2026-10-07 Session 236 — 路線乙 v1 以旗標上線（預設關閉）、Kit v0.4.3（Draft 與頂層）、刪除兩個 here.now 舊站
 
 - **ID:** S236（Claude_20261007_1130）
