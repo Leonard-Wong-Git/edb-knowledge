@@ -119,7 +119,7 @@ source_registry → 同 vault PDFs → ai_extract.py
 
 ### C.3 後端（`backend/`，TypeScript）
 - 入口 `server.ts`；`api/`（searchChannelA / searchChannelB / searchCombined / analyzeCircular）；`lib/`（embeddingClient / llmClient / knowledgeRepository / wikiRepository）。
-- Embedding：OpenAI `text-embedding-3-small`（固定）。LLM 預設 `gpt-4.1-nano`（`OPENAI_MODEL` 可覆寫，Responses API）。**S211：相關性判斷閘行獨立 model，預設 `gpt-4.1-mini`（`JUDGE_MODEL` 可覆寫），與合成 model 分開 —— 判斷判斷閘行為前先確認是哪一個變數。**
+- Embedding：OpenAI `text-embedding-3-small`（固定）。LLM 預設 `gpt-4o-mini`（`OPENAI_MODEL` 可覆寫，Responses API）。**S211：相關性判斷閘行獨立 model，預設 `gpt-4.1-mini`（`JUDGE_MODEL` 可覆寫），與合成 model 分開 —— 判斷判斷閘行為前先確認是哪一個變數。**
 - 相容橋接：legacy `department_head` 請求會 merge `subject_head` + `panel_chair` + `eo_admin`；新角色 fallback legacy。
 - 回歸測試：`cd backend && npm run regression:semantic`（offline deterministic，測 topic routing / role bucket / schema consistency / real-circular retrieval）。每次改公開契約 doc 後必跑。
 - 環境變數（`backend/.env`）：`OPENAI_API_KEY`、`OPENAI_MODEL`、`JUDGE_MODEL`、`FEATURE_EXACT_WINDOW_NARROW=0`、`FEATURE_GROUNDED_SYNTHESIS=0`、`FEATURE_SUBJECT_CHECK=0`（S236）、`PORT=8787`、`CORS_ORIGIN`、`KNOWLEDGE_PATH`。兩個 S214 feature flags 預設關閉；本地 `file://` dev 需 `CORS_ORIGIN=*`。

@@ -176,7 +176,7 @@ def synthesise(api_key: str, query: str, chunks: list[dict]) -> str:
 
     try:
         response = client.chat.completions.create(
-            model="gpt-4.1-nano",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "user", "content": SYNTHESIS_PROMPT + "\n\n" + user_msg}
             ],
