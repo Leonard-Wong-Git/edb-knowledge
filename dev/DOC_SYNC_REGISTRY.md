@@ -27,6 +27,22 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-10-13 — S238（監察通知修正 ＋ 來源更新 ＋ 失效連結修復）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| 監察 issue 開閂／通知邏輯 | `confirmed` | 五個偵測型監察全部改用 `notify_new_items.js`（S209 紀律：改一個要順手查其餘）；live_probe／看門狗／build gate 原已 @mention 且以開新 issue 示警，不改 |
+| Freshness／入庫流程文件 | `confirmed` | `FRESHNESS_GUIDE.md` 更正「GitHub emails the operator」並寫明新監察必須用 helper |
+| Supabase 寫入 | `confirmed` | 替換、網址更新、退役皆經 Leonard 明示批准；舊資料（含向量）本機備份；生產總數 16,990 |
+| 公開片段數 display-sync | `confirmed` | `live_display_sync` 七個鏡像檔 17,021 → 16,990 |
+| `source_registry.json` | `confirmed` | 網址、標題、`edbcm099_2026` deprecated；`check_registry_drift` 0／0／0；封面核對 11/11 |
+| 清單資料連結 | `confirmed` | `checklists_bundle.json` 與 `dev/checklists/**` 舊網址已換；**舊津貼名稱與「30天」字眼未改**（待 Leonard，見交接 Open Priorities ③） |
+| Deploy | `not_applicable` | 不改 `backend/`；PR #48 合併後不會重新部署 |
+| `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並核對相等 |
+| Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4、`## User Environment` Git state、`PROJECT_INDEX` Branch / commit 列 |
+| `EDBC_9_2019_E` 退役 | `blocked` | Leonard 已批准；auto mode 分類器擋下刪除與備份，未重試 |
+| Playbook | `not_applicable` | 本節未開卡 |
+
 ### 2026-10-11 — S237（OpenAI 舊模型停用核對 ＋ 合成模型碼內預設對齊 gpt-4o-mini）
 
 | Row | 狀態 | 備註 |

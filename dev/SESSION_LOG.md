@@ -39,6 +39,31 @@ When current work requires a log entry, record whether relevant older detail was
 
 <!-- ack:log-entry:start -->
 
+## 2026-10-13 Session 238 — 監察通知修正（新項目才 @Leonard）、三份新版入庫、16 個失效連結修復
+
+- **ID:** S238
+- **Summary:** Leonard 問監察有否偵測到來源更新；查出 freshness 已標 29 項、失效連結 15 條，但四個月無人收到通知。修好通知（新項目才以留言 @Leonard），並按 Leonard 逐項批准更新來源、修復連結（Supabase 17,021 → 16,990）。
+- **Changed:** PR #48（`s238/monitor-notify`）：`.github/scripts/notify_new_items.js`＋`.test.js`、五個監察 workflow、`dev/source/FRESHNESS_GUIDE.md`、`dev/vault/repage_pdfs.py`（`REFRESH_S238`）、七份 vault 抽取檔、`source_registry.json`、`registry_drift.md`、清單資料（`checklists_bundle.json`、`dev/checklists/**`）、五個入庫腳本的網址常數、公開片段數七個鏡像檔 · 合併 `origin/s237/closeout`（S236／S237 收工）· 收工：交接、本 log、`PROJECT_INDEX.md`、`DOC_SYNC_REGISTRY.md`、`START_NEXT_SESSION_PROMPT.txt`。
+- **Done:**
+  - **通知根因**：未 Watch repo（subscription 404）＋監察只 `issues.update`；freshness／新通告／discovery／pgvector 從不 @mention。改為共用 helper：內文保留全清單、隱藏 marker 記已通知 key、新項目以中文 @mention 留言。Leonard 選「GitHub 電郵到 Gmail」「只在有新項目時通知」，並已在帳戶設定勾選 @mention 電郵（第一次截圖是 repo 的 push 電郵頁，已說明不要勾 Active）。Issue #3（退役監察）已關。
+  - **四份 PDF 比對**（代理）：g19 新版、supply 新版、perf 小修訂、sag 純重新匯出；本人以全文 squeeze 抽查關鍵句全部吻合。
+  - **入庫 B**：`repage_pdfs --write`（初次被分類器擋，經 Leonard 多選明示批准後執行）→ dry-run → 匯出 166 段備份 → `cb3_b2 --include-non-page --skip-local --execute`：116→115、36→35、14→14（supply 5 段註腳保留）。
+  - **連結 C1**：9 個來源 Supabase `url` 更新（首輪精確比對漏了帶 `#page=` 的 6 段，改前綴比對補齊，0 殘留）；DSS 註腳改標 2026/27 並重新嵌入；registry、清單、腳本同步。
+  - **連結 C2**：g26、k1（只載 2027/28 FAQ；通函已是 `edbcm080_2026`；3 段註腳逐字核對後改指新通函並重新嵌入）、資優 41→37、自評 10→10；第 279 章 11 段改指 e-Legislation；退役 EDBC_8_2020_E（8）、edbcm099_2026（3，registry `deprecated`）；display-sync 17,021 → 16,990。
+  - **收工基底**：`main` 交接檔停在 S235（#45、#47 未合併），先合併 `origin/s237/closeout`，交接 sha 與 S237 收工版相同後才寫 S238。
+- **QC:** helper 自測 6/6、紅測轉紅；五個 workflow 內嵌 JS `node --check` 全過；封面核對 11/11 ok；受影響 30 條網址 200；drift ZOMBIE／UNMANAGED／SERIES_UNMONITORED 0；生產總數逐步吻合；線上搜尋（x-probe）見新內容。**未做**：通知修正未在 GitHub 實跑（待 10-19 排程）。
+- **Evidence disposition:** 現況與下一步入交接；代理比對報告與下載 PDF 只在 scratchpad（一次性）；Supabase 舊資料備份在本機 `dev/init_backup/20261013_105744_UTC/`（gitignored，不入 git）。
+- **Sync:** `dev/DOC_SYNC_REGISTRY.md` S238 節。
+- **Pending:** ① 退役 `EDBC_9_2019_E`（Leonard 已批准，分類器擋下刪除及唯讀備份，未重試）② 10-19 通知到達 ③ 非華語學生津貼路由與清單舊字眼（待有 token）④ `FEATURE_SUBJECT_CHECK` 決定；⑬ freshness 其餘約 20 項。
+- **Risks:** 通知修正未經真實排程（交接 Risks 10）；freshness 基線不可整體 write-sync。
+- **Log maintenance:** `session_log_maintenance.py --check` 報 `line_count=295`、`entry_count=10`、`trigger=False`；寫入後 Kit 條目 12 個，達 Kit 核心規模提示門檻，本節無實際保存需要，不做歸檔（承 S230 兩套標準待整合）。
+- **Opening-message mirror:** 由交接檔唯一 fenced 區塊重生並核對；全文依設計不入 log。
+<!-- ack:log-entry:end -->
+
+---
+
+<!-- ack:log-entry:start -->
+
 ## 2026-10-11 Session 237 — OpenAI 舊模型停用通知：生產不受影響，碼內預設對齊 gpt-4o-mini
 
 - **ID:** S237（Claude_20261011_1327）
