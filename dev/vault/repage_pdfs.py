@@ -216,9 +216,22 @@ PILOT_OUT = {
     "g10": VAULT_DIR / "g10" / "extract_g10_repaged.txt",
     # S138 SEN data-gap backfill: 《全校參與模式融合教育運作指南》(2026-01)
     "g19": VAULT_DIR / "g19" / "extract_g19_repaged.txt",
+    # (S238 content-refresh entries are appended after this dict — see REFRESH_S238.)
     # S141 SEN-adjacent backfill: 《為有特殊教育需要學生提供校內考試特別安排》(2025-09)
     "sen_exam_arrangements_2025": VAULT_DIR / "sen_exam_arrangements_2025" / "extract_sen_exam_arrangements_2025_repaged.txt",
 }
+
+# S238 freshness content refresh (Leonard approved): upstream published new editions of
+# g19 (2026-09), supply_teacher_guide (2026-07) and perf_indicators_2022 (2026 update).
+# For a REFRESH the "legacy" file is the current repaged extract itself, so its header
+# (title / fact_type / topic_tags / url) carries forward and the old text is backed up to
+# dev/init_backup/<ts>/ before being replaced. (g19's original stub seed extract_g19.txt
+# no longer exists; without this its header would collapse to "# source_id: g19" only.)
+REFRESH_S238 = ["g19", "supply_teacher_guide", "perf_indicators_2022"]
+for _sid in REFRESH_S238:
+    _cur = VAULT_DIR / _sid / f"extract_{_sid}_repaged.txt"
+    PILOT_LEGACY[_sid] = [_cur]
+    PILOT_OUT[_sid] = _cur
 
 
 def fetch_pdf(url: str) -> bytes:
