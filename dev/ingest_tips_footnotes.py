@@ -6,7 +6,7 @@ Same mechanism as forms_ingest.py / ingest_trg_footnote.py: content_type=footnot
 route-independent overlay, embed = text + " " + " ".join(keywords). Both facts verbatim-
 verified against the official EDB source PDF (pymupdf) this session:
   https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/
-    tips-handling-gov-subventions/Tips on handling govt subventions for aided schools_c.pdf
+    tips-handling-gov-subventions/Tips on handling govt subventions for aided schools_c_2026.pdf
   (文件署「教育局 2025年5月」)
   #27 (g)(b 段): 「根據教育局通告第5/2011號，學校若出租校舍，所收取40%的淨租金收入須記入政府津貼帳。」
   #28 (g 段):     「根據教育局通告第4/2013號，…學校只有在12個月內，採購項目的累積價值不超過
@@ -44,7 +44,7 @@ SRC_ID = "subvention_tips"
 SRC_TITLE = "處理政府給予資助學校資助的提示（2025年5月）"
 SRC_URL = (
     "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/"
-    "tips-handling-gov-subventions/Tips%20on%20handling%20govt%20subventions%20for%20aided%20schools_c.pdf"
+    "tips-handling-gov-subventions/Tips%20on%20handling%20govt%20subventions%20for%20aided%20schools_c_2026.pdf"
 )
 
 # (fid, text, keywords, test_query)

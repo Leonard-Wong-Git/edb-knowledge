@@ -51,7 +51,7 @@ SOURCES = [
         "pdf": SCRIPT_DIR / "EDBCM_221_2025.pdf",
         "source_id": "edbcm_221_2025_smart_teaching",
         "title": "教育局通函第221/2025號 —— 「『智』啟學教」撥款計劃（支援中小學善用人工智能提升學與教效能）",
-        "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM25221C.pdf",
+        "url": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/CM/2025/EDBCM25221C.pdf",
         "fact_type": "policy",
         "topic_tags": "it",
         "skip_pages_start": 0,

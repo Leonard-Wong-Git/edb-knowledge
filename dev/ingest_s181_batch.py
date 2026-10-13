@@ -63,7 +63,7 @@ SUPPLY_TEACHER_URL = ("https://www.edb.gov.hk/attachment/en/teacher/appointments
 COA_URL = ("https://www.edb.gov.hk/attachment/en/sch-admin/regulations/codes-of-aid/"
            "code-of-aid-and-related-documents-for-aided-imc-schools/coa_english_1.16.pdf")
 DSS_25_URL = ("https://www.edb.gov.hk/attachment/en/edu-system/primary-secondary/"
-              "applicable-to-primary-secondary/direct-subsidy-scheme/DSS_25-26_e.pdf")
+              "applicable-to-primary-secondary/direct-subsidy-scheme/DSS_26-27_e.pdf")
 DSS_S4_URL = ("https://www.edb.gov.hk/attachment/en/edu-system/primary-secondary/"
               "applicable-to-primary-secondary/direct-subsidy-scheme/index/ss_section4.pdf")
 EDBC10_2012_URL = ("https://www.edb.gov.hk/attachment/en/edu-system/primary-secondary/"

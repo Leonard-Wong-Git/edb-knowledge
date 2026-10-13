@@ -7,7 +7,7 @@
 
 | source_id | 文件 | 連結 |
 |---|---|---|
-| `icac_school_governance` | 《防貪錦囊：學校管治與內部監控 (ICAC)》 | [開啟](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf) |
+| `icac_school_governance` | 《防貪錦囊：學校管治與內部監控 (ICAC)》 | [開啟](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf) |
 | `major_repairs_proc_nonestate` | 《大規模修葺工程的程序（非屋邨資助學校）》 | [開啟](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Procedures for MR- non-estate aided school (Chi)_202507(clean).pdf) |
 | `major_repairs_proc_estate` | 《大規模修葺工程的程序（屋邨資助學校）》 | [開啟](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Procedures for MR- estate aided school (Chi)_202507(clean).pdf) |
 | `emergency_repairs_guide` | 《資助學校緊急修葺申請指導資料》 | [開啟](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Guidance Notes for Submission of Emergency Repairs (ER) Requests by Aided Schools_Chi_202507(clean).pdf) |
@@ -25,31 +25,31 @@
 ### 1. 大規模修葺
 
 - **R-1.1** 學校在委聘工程顧問的合約中，須加入禁止顧問及職員提供或接受利益的防貪條款，以及規定申報利益衝突（包括與任何合約承建商或學校教職員的關係）的條款。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 37 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=37)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 37 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=37)
   - 引文：「禁止工程顧問及其職員在履行合約責任時提供或接受利益的防貪條款（條款範本見附錄九）。」
 - **R-1.2** 維修工程合約應訂明全部工程圓滿完成後發放的工程保證金款額（例如合約金額的10%左右），並設保固期，以及准許工程延期的準則及條件和賠償損失的條款。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 38 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=38)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 38 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=38)
   - 引文：「所有工程圓滿完成後須發放的工程保證金款額（例如合約金額的10%左右）；•保固期3；•准許工程延期的準則及條件4」
 - **R-1.3** 維修工程招標文件中須加入禁止承建商及其員工提供或接受利益的防貪條款，以及反圍標條款，禁止串通投標。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 39 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=39)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 39 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=39)
   - 引文：「禁止承建商及其員工於履行合約責任時提供或接受利益的防貪條款（條款範本見附錄九）;」
 - **R-1.4** 單一招標只適用於特殊情況（如因緊急或安全需要而未能進行投標程序等），並須有理由支持。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 39 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=39)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 39 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=39)
   - 引文：「只適用於特殊情況及需有理由，例如因緊急/安全需要而未能進行投標程序等。」
 - **R-1.5** 項目經理在批准或建議發放中期工程費用前，須確保有關工程項目已圓滿完成，並須按合約條款扣起部分中期費用（如10%）作為工程保證金。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 41 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=41)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 41 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=41)
   - 引文：「目經理在批准/建議發放中期費用前，須確保有關工程項目已圓滿完成。按合約條款扣起部分中期費用（如10%），作為工程保證金。」
 - **R-1.6** 學校須就工程更改訂明批核權限，包括訂明有權批核涉及不同金額的工程更改項目的人員職級；如更改範圍和金額非常龐大，須考慮就有關更改項目重新招標。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 41 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=41)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 41 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=41)
   - 引文：「規定項目經理或顧問須評估建議更改項目的需要及範圍；•規定承建商須按照合約的施工價目表，就建議的工程更改提供報價；」
 - **R-1.7** 對於時間長的工程，學校應規定顧問根據承建商的工程計劃制訂工地監察計劃，列明巡查地盤頻次、巡查項目及人員，並規定顧問為完工後會被掩蓋的工程拍照作質量存證。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 41 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=41)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 41 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=41)
   - 引文：「規定顧問（如有）須根據承建商的工程計劃制訂工地監察計劃，列明巡查地盤頻次、巡查項目及人員等。」
 - **R-1.8** 在發放各項工程付款前，承建商必須修復任何不合符標準或合約規定的項目。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 41 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=41)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 41 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=41)
   - 引文：「在發放各項工程的付款前，承建商必須修復任何不合符標準或合約規定的項目。」
 - **R-1.9** 工程完工時，須規定項目經理或顧問核實所有工程項目均已完成，並與承建商進行最後檢查以制訂工程缺損清單；待保固期內所有缺損修復後，才可發放原先保留的工程保證金。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 42 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=42)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 42 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=42)
   - 引文：「規定項目經理或顧問須核實證明合約內的所有工程項目均已完成。規定項目經理（及如適當的話，校董會委員）或顧問須與承建商一起對工程進行最後檢查，以制訂工程缺損清單方便跟進。」
 - **R-1.10** 學校須負責校舍的保養，並透過校監戶口於每年六月初指定限期前透過SMART系統遞交大規模修葺工程撥款申請。
   - 出處：《大規模修葺工程的程序（非屋邨資助學校）》第 1 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Procedures for MR- non-estate aided school (Chi)_202507(clean).pdf#page=1)
@@ -97,7 +97,7 @@
   - 出處：《資助學校緊急修葺申請指導資料》第 2 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Guidance Notes for Submission of Emergency Repairs (ER) Requests by Aided Schools_Chi_202507(clean).pdf#page=2)
   - 引文：「如選擇「Non-Aided PortionInvolved」，表示學校須承擔部分維修費用。」
 - **R-1.25** 維修工程合約應按合約條款扣起部分中期費用（如10%）作為工程保證金。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 40 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=40)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 40 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=40)
   - 引文：「按合約條款扣起部分中期費用（如10%），作為工程保證金」
 - **R-1.26** 資助學校修葺工程費用門檻為10,000元（2026/27學年），費用不少於此金額方可申請非經常津貼。
   - 出處：《教育局通函 大規模修葺工程津貼（2027-28）》第 1 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/MR 2027-28_Aided_Circular Memorandum_TChi.pdf#page=1)
@@ -142,109 +142,109 @@
 ### 2. 廉政管治
 
 - **R-2.1** 每次校董會會議後須盡快撰備會議記錄，準確記錄校董會的決定（包括各成員不同觀點），並由校董會通過及主席簽署。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 10 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=10)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 10 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=10)
   - 引文：「每次會議後須盡快撰備會議記錄。準確記錄校董會的決定，包括各成員的意見，特別是不同的觀點。」
 - **R-2.2** 學校應在紀律守則中聲明對貪污詐騙採取「零容忍」態度，並訂明校董和職員可接受的象徵性禮物的價值上限及批核程序。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 11 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=11)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 11 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=11)
   - 引文：「聲明學校對貪污詐騙採取「零容忍」的態度。」
 - **R-2.3** 校董和職員須避免及申報任何實際存在或被視為有利益衝突的情況，學校須設立機制記錄及處理所有已申報的利益衝突及相關決定。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 12 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=12)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 12 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=12)
   - 引文：「規定校董和職員須避免及申報任何實質存在或被視為有利益衝突的情況。」
 - **R-2.4** 職員擔任外間工作前，須先取得學校的批准，並確立有關工作不會引起任何利益衝突；如政策容許擔任外間工作，有關職員須每年重新遞交申請。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 13 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=13)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 13 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=13)
   - 引文：「規定職員擔任外間工作前，須先取得學校的批准。如政策容許職員擔任外間工作，在批准申請前應先確立有關工作不會引起任何利益衝突。」
 - **R-2.5** 學校應訂明職員如違反紀律守則，將受紀律處分（包括警告、解僱等），並委派適當職級的人員處理守則查詢。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 13 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=13)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 13 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=13)
   - 引文：「訂明職員如違反紀律守則，將會受到紀律處分，包括警告、解僱等。」
 - **R-2.6** 學校應在廉署協助下，為新聘和現任校董及職員舉辦誠信講座。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 14 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=14)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 14 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=14)
   - 引文：「在廉署的協助下，為新聘和現任校董和職員舉辦誠信講座。」
 - **R-2.7** 學校須委聘獨立核數師定期審查學校活動，包括有否遵守有關法律及監管規定、教育局行政指引，以及學校本身的政策和程序。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 15 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=15)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 15 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=15)
   - 引文：「委聘獨立核數師定期審查學校的活動，包括有否遵守有關的法律及監管規定、教育局的行政指引、學校本身的政策和程序等。」
 - **R-2.8** 如利益衝突情況無可避免，職員應盡快以書面（附件5表格乙）披露一切與其公務有實際、或可能產生、或可被視為有衝突的利益詳情。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 65 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=65)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 65 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=65)
   - 引文：「如利益衝突的情況實屬無可避免，職員應盡快以載於附件5內的表格乙，披露一切與其本身公務有實際、或可能產生、或可被視為有衝突的利益詳情。」
 - **R-2.9** 校董須於受聘後及其後每12個月最少一次作出書面申報，述明有否任何與其校董職責產生或可能產生利益衝突的金錢上或其他個人利益關係。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 48 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=48)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 48 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=48)
   - 引文：「校董須於受聘後及其後每12個月最少一次作出書面申報，述明他有沒有任何與他作為本校校董的職責產生或可能產生利益衝突的金錢上或其他個人利益關係」
 - **R-2.10** 職員不得接受家長或任何與學校有公事往來的人士或機構的貸款，或以下屬作為貸款或租購協議的擔保人；但向持牌銀行或財務機構借貸則不受限制。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 68 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=68)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 68 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=68)
   - 引文：「職員不得接受家長或任何與本校有公事往來的人士或機構的貸款，或由其協助而獲得貸款，或以下屬或職級比其低的人員作為貸款或租購協議的擔保人」
 - **R-2.11** 職員必須確保學校的政策及運作嚴格遵守《教育條例》（第279章）、《教育規例》（第279A章）及教育局發出的通告和建議，並符合專業準則和要求。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 62 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=62)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 62 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=62)
   - 引文：「職員必須確保本校的政策及運作嚴格遵守有關法例規定，並符合專業準則和要求，尤其是香港法例第279章《教育條例》和第279A章《教育規例》、教育局發出的通告和建議」
 - **R-2.12** 如涉及懷疑貪污或其他刑事罪行，學校須向廉政公署或有關執法部門舉報。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 69 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=69)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 69 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=69)
   - 引文：「如涉及懷疑貪污或其他刑事罪行，本校會向廉政公署或有關執法部門舉報。」
 - **R-2.13** 職員如欲接受任何超出學校「劃一許可」範圍的利益，須事先向校董會/法團校董會或指定人員申請書面許可；無法事先批准時，須於接受利益後若干個工作天內附上書面理據申請。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 63 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=63)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 63 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=63)
   - 引文：「如職員欲接受任何不屬於第7段所指的利益，他們應事先以表格甲（範本載於附件2）向校董會／法團校董會或指定人員（例如校監／校長）申請許可。」
 - **R-2.14** 校董應確保提交學校的任何記錄、收據、帳目或其他文件的內容均真確無訛；蓄意使用載有虛假資料的文件欺騙或誤導學校，可能觸犯《防止賄賂條例》第9(3)條。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 49 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=49)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 49 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=49)
   - 引文：「校董應盡力確保提交本校的任何記錄、收據、帳目或其他文件的內容均真確無訛。」
 - **R-2.15** 如校董或其關連公司有意競投學校採購合約，相關校董不得參與或出席其後就採購事宜進行的任何討論或會議，亦不可取得任何與採購事宜相關的資料。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 60 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=60)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 60 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=60)
   - 引文：「已表明有意競投的校董不得參與或出席其後就採購事宜而進行的任何討論或會議，亦不可取得任何與採購事宜相關的資料（以投標者身分取得的資料除外）。」
 - **R-2.16** 校董辭職或退休離校後，須繼續履行保密責任，不得使用其在位時取得的任何機密或專有資料或利用該等資料獲益。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 49 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=49)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 49 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=49)
   - 引文：「校董辭職／退休離校後，須繼續履行保密責任，不得使用其在位時取得的任何機密或專有資料，或利用該等資料獲益。」
 - **R-2.17** 校董不得接受家長或任何與學校有公事往來的人士或機構的貸款，或以職員作為貸款或租購協議的擔保人；但向持牌銀行或財務機構借貸則不受限制。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 50 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=50)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 50 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=50)
   - 引文：「校董不得接受家長或任何與本校有公事往來的人士或機構的貸款，或由其協助而獲得貸款，或以職員作為貸款或租購協議的擔保人；但向持牌銀行或財務機構借貸則不受限制。」
 - **R-2.18** 學校甄選商業活動營辦商時，須設立由家長及教師代表組成的甄選委員會，按預先釐定的評分準則評核建議書，並規定委員會成員申報與參與競投的營辦商的利益衝突。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 25 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=25)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 25 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=25)
   - 引文：「設立由家長及教師代表組成的甄選委員會，按預先釐定的評分準則評核所接獲的建議書。規定甄選委員會成員，包括家長及教師代表，申報與參與競投的營辦商是否有任何利益衝突。」
 - **R-2.19** 學校須設立商業活動監管委員會（成員包括家長及教師代表），監管校內各項商業活動，並定期向學校管理層匯報。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 25 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=25)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 25 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=25)
   - 引文：「設立商業活動監管委員會，成員包括家長及教師代表，監管校內各項商業活動，並定期向學校管理層滙報。」
 - **R-2.20** 校董不得未經校董會／法團校董會許可，索取或接受任何利益作為執行校務的報酬或誘因。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 44 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=44)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 44 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=44)
   - 引文：「任何校董未經學校校董會／法團校董會許可索取或接受任何利益」
 - **R-2.21** 校董如有利益衝突，須按校董會決定暫時避席並退還相關文件，不得發言及參與表決。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 59 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=59)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 59 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=59)
   - 引文：「你須暫時避席，並立即退還較早前交予你有關該事項的文件」
 - **R-2.22** 職員不得向家長、供應商、承辦商或下屬索取或接受任何利益。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 62 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=62)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 62 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=62)
   - 引文：「本校嚴禁職員向家長及任何與本校有公事往來的人士或公司（例如供應商及承辦商）索取或接受任何利益」
 - **R-2.23** 全職職員擔任外間工作（不論長期、兼職或臨時），必須事先取得校董會／法團校董會或指定人員的書面批准。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 67 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=67)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 67 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=67)
   - 引文：「全職員工如希望擔任外間工作，不論屬長期、兼職或臨時性質，均須事先取得校董會」
 - **R-2.24** 職員不得蓄意使用載有虛假資料的文件欺騙學校（否則觸犯《防止賄賂條例》第9(3)條）。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 67 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=67)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 67 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=67)
   - 引文：「職員如蓄意使用載有虛假資料的文件欺騙或誤導本校」
 - **R-2.25** 職員申報利益衝突後，校董會須決定相應措施，所有申報個案及已採取的措施必須妥善記錄。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 66 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=66)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 66 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=66)
   - 引文：「所有申報個案及已採取的措施必須妥善記錄」
 - **R-2.26** 學校須備存資產記錄冊，記錄每項資產的識別代碼、描述、數量、購買日期、位置及持有人姓名。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 23 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=23)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 23 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=23)
   - 引文：「備存資產記錄冊（例如儀器、傢具），記錄每項資產的識別代碼、描述、數量、購買日期」
 - **R-2.27** 家教會政策須禁止委員向與家教會有業務往來的人士或公司索取或收受任何利益。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 79 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=79)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 79 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=79)
   - 引文：「家教會的政策禁止委員向任何與家教會有業務往來的人士或公司（例如供應商、承辦商等）索取或收受任何利益」
 - **R-2.28** 學校必須參考教育局採購指引（通告第15/2007號），按不同財務上限訂明採購方法、程序及審批人員職級。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 17 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=17)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 17 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=17)
   - 引文：「參考教育局發出的採購指引，按不同的財務上限，訂明有關的採購方法、程序及審批人員職級」
 - **R-2.29** 學校應委聘獨立核數師定期審查活動（包括有否遵守法律及監管規定、教育局行政指引、學校本身程序等）。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=16)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 16 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=16)
   - 引文：「委聘獨立核數師定期審查學校的活動，包括有否遵守有關的法律及監管規定」
 
 ### 3. 籌款活動
 
 - **R-3.1** 籌款或接受捐贈/贊助的原則和準則須參考教育局通告第14/2003號，所籌得款項應只用於造福學生的用途上。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 35 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=35)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 35 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=35)
   - 引文：「參考教育局的指引（教育局通告第14/2003號），制訂籌款或接受捐贈/贊助的原則和準則。」
 - **R-3.2** 接受捐贈/贊助不應附帶任何條件，尤其是一些會影響學校公平運作的條件（例如給予捐款人子女報讀該校的優待）。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 35 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=35)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 35 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=35)
   - 引文：「接受捐贈/贊助不應附帶任何條件，尤其是一些會影響學校公平運作的條件，例如給予捐款人子女報讀該校的優待。」
 - **R-3.3** 學校不可向供應商、承辦商、經營學校商業活動的營辦商、與學校有生意往來的人士/公司等索取捐贈；接受任何供應商/承辦商的捐贈/贊助，不應給予有關捐款人較同業人士有利的商業優勢。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 35 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=35)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 35 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=35)
   - 引文：「不可向供應商、承辦商、經營學校商業活動的營辦商、與學校有生意往來的人士/公司等索取捐贈。」
 - **R-3.4** 學校須設立正規機制，讓校董會考慮和批核接受捐贈/贊助，決定前須考慮是否需要承擔任何經常費用（例如獲捐贈儀器所需的維修費用）。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 36 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=36)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 36 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=36)
   - 引文：「設立正規機制，讓校董會考慮和批核接受捐贈/贊助之事。決定接受捐贈/贊助前須考慮是否需要承擔任何經常費用，例如獲捐贈的儀器所需的維修費用。」
 - **R-3.5** 學校須詳細記錄所有接獲捐款/捐贈/贊助的資料（列明價值、目的），刊登在學校年報和網頁內，訂明捐贈/贊助發放的正規程序（包括負責批核的職級），並撰備記錄供校董會和教育局審查。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 36 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=36)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 36 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=36)
   - 引文：「詳細記錄所接獲捐款/捐贈/贊助的資料，列明價值、目的，並將有關資料刊登在學校年報和網頁內。」
 - **R-3.6** 在校舍向學生募捐或徵收費用，必須事先獲教育局常任秘書長書面准許（《教育規例》第66條）。
   - 出處：《學校籌款活動指引》第 1 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-fund-raising/guidelinfundraising_c.pdf#page=1)
@@ -271,22 +271,22 @@
 ### 4. 採購管理
 
 - **R-4.1** 高價值採購的招標文件須包括清楚的產品/服務規格、評估標書準則（含各項準則的比重）、合約條款，以及防止賄賂警告字句和反圍標條文。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 20 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=20)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 20 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=20)
   - 引文：「招標文件須包括：•清楚的產品/服務規格（即必要的規定）；•評估標書準則；如價格並非唯一的考慮因素，應列明各項準則的比重；」
 - **R-4.2** 學校須委派最少由兩人組成的開標小組，在截止遞交標書後立即開啟標書，並指派一名沒有參與評估標書工作的職員保管標書副本。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 20 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=20)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 20 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=20)
   - 引文：「委派最少由兩人組成的開標小組，在截止遞交標書後立即開啟標書。指派一名沒有參與評估標書工作的職員保管標書副本，以便日後有需要時可供查核之用。」
 - **R-4.3** 如屬高價值採購，議價時應指派由最少兩名適當職級的人員組成的議價小組主持，並訂定議價底線，嚴禁在議價過程中更改任何標書中必要的規格。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 21 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=21)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 21 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=21)
   - 引文：「如屬高價值採購，指派由最少兩名適當職級的人員所組成的議價小組主持議價；•記錄議價過程中發生的重要事項；及」
 - **R-4.4** 採購付款程序須訂明批核付款及簽署支票的授權人員職級，並在付款前確保發票已由用家核實及由審批人員加簽。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 22 頁 ⚠️頁碼近似 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=22)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 22 頁 ⚠️頁碼近似 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=22)
   - 引文：「訂明批核付款及簽署支票的授權人員職級。核對購貨單與發票上的貨品詳情及數量。在付款前，確保發票已由用家核實，並由審批人員加簽。」
 - **R-4.5** 學校須設立制度偵察及防止以分拆訂單迴避批核人員審核的行為，並盡可能將物色供應商、評估標書、審批採購申請、認收物品等採購職責交由不同人員執行。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 22 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=22)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 22 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=22)
   - 引文：「設立制度，偵察及防止以分拆訂單迴避批核人員審核的行為（例如就採購模式進行督導檢查）。」
 - **R-4.6** 採購時應盡可能要求投標者以書面形式報價；如接受口頭報價，須將報價單收訖日期、競投者名稱、出價金額及負責職員姓名等資料記錄在案。
-  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 19 頁 — [開啟原文](https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf#page=19)
+  - 出處：《防貪錦囊：學校管治與內部監控 (ICAC)》第 19 頁 — [開啟原文](https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=19)
   - 引文：「盡可能要求投標者以書面形式報價。如接受口頭報價，則應將報價單收訖日期、競投者名稱，出價金額及負責職員姓名等資料記錄在案。」
 
 ### 5. 緊急維修

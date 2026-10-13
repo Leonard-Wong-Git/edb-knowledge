@@ -56,7 +56,7 @@ ACT_URL = ("https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activitie
 CEG_GR_URL = ("https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/"
               "ref-capacity-enhancement-grant/Ground%20Rules%20and%20Procedures_en.pdf")
 CFEG_URL = ("https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/"
-            "ref-e-oebg-cfeg/User%20Guide_CFEG_e.pdf")
+            "ref-e-oebg-cfeg/User%20Guide_CFEG_2026_e.pdf")
 
 # each = dict(fid, source_id, title, topic, url, text, keywords, q)
 F = [
