@@ -7,15 +7,6 @@
   },
   "finance": [
     {
-      "id": "sag_2025_11",
-      "title": "學校行政手冊（2026年8月版）",
-      "titleShort": "SAG",
-      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf",
-      "year": "2026",
-      "format": "PDF",
-      "level": "跨階段"
-    },
-    {
       "id": "coa_imc_1_19",
       "title": "資助則例（設有法團校董會資助學校適用版本）",
       "titleShort": "Code of Aid",
@@ -1288,7 +1279,7 @@
       "title": "融合教育運作指南",
       "titleShort": "融合教育指南",
       "url": "https://www.edb.gov.hk/tc/edu-system/special/support/wsa/index.html",
-      "year": "2024",
+      "year": "2026",
       "format": "HTML",
       "level": "跨階段"
     }
@@ -1298,7 +1289,7 @@
       "id": "g28",
       "title": "學校資訊保安建議措施（2019年9月修訂版）",
       "titleShort": "IT保安建議措施",
-      "url": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/Information-Security/information-security-in-school.html",
+      "url": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/information-security.html",
       "year": "2019",
       "format": "INDEX",
       "level": "跨階段"
@@ -1360,6 +1351,15 @@
   ],
   "general": [
     {
+      "id": "sag_2025_11",
+      "title": "學校行政手冊（2026年8月版）",
+      "titleShort": "學校行政手冊",
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf",
+      "year": "2026",
+      "format": "PDF",
+      "level": "跨階段"
+    },
+    {
       "id": "g25",
       "title": "幼稚園相關指引及須知",
       "titleShort": "幼稚園指引",
@@ -1370,10 +1370,10 @@
     },
     {
       "id": "g26",
-      "title": "2026/27學年幼稚園收生安排指引",
+      "title": "2027/28學年幼稚園收生安排指引",
       "titleShort": "幼稚園收生指引",
-      "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/kindergarten-k1-admission-arrangements/202627%20K1%20Admission%20Arrangements/2026-27_Admission%20Guidelines_TC.pdf",
-      "year": "2025",
+      "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/kindergarten-k1-admission-arrangements/202728%20K1%20Admission%20Arrangements/202728_Admission%20Guidelines_TC.pdf",
+      "year": "2026",
       "format": "PDF",
       "level": "幼稚園"
     }

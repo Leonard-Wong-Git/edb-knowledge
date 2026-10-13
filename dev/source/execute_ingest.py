@@ -810,6 +810,9 @@ def _fmt_circular(num: Optional[str]) -> str:
     return f"教育局{kind}第{m.group(2)}/{m.group(3)}號"
 
 
+UPDATE_LOG_KEEP = 6
+
+
 def live_append_update_log(pkg: Dict) -> Dict:
     """Prepend one concise entry to the public update_log.json (idempotent by title)."""
     if not UPDATE_LOG_PATH.exists():
@@ -827,7 +830,9 @@ def live_append_update_log(pkg: Dict) -> Dict:
     desc = (first[:58] + "…") if len(first) > 60 else (first + "。" if first else title)
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     entries.insert(0, {"date": today, "action": "新增", "title": title, "desc": desc})
-    data["entries"] = entries
+    # S238 (Leonard): the public log keeps only the newest UPDATE_LOG_KEEP entries;
+    # older ones live in git history, not on the page.
+    data["entries"] = entries[:UPDATE_LOG_KEEP]
     UPDATE_LOG_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     return {"appended": True, "title": title}
 
