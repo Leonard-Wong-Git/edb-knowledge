@@ -118,8 +118,6 @@ jobs:
             const s = r.summary || {};
 
             const body = [
-              '@Leonard-Wong-Git',
-              '',
               `📄 **${alerts.length}** cover-title change(s) vs the accepted baseline `,
               `(run #${context.runNumber}; ${s.checked} PDFs checked, `,
               `${s.flagged || 0} flagged in total, ${s.error || 0} could not be read).`,
@@ -146,23 +144,24 @@ jobs:
 
             const title = '📄 Cover-title: sources whose document identity changed';
             const label = 'cover-title-change';
+            // S238: announce NEW alerts in an @mention comment; body edits never notify.
+            const notify = require(`${process.env.GITHUB_WORKSPACE}/.github/scripts/notify_new_items.js`);
+            const ZH = {
+              error: '下載或讀取失敗',
+              newly_flagged: '封面與登記名稱不再相符',
+              new_source_flagged: '新來源的封面與登記名稱不符',
+              coverage_drop: '封面相符程度明顯下降',
+            };
+            const items = alerts.map(a => ({
+              key: `${a.source_id}|${a.reason}`,
+              text: `\`${a.source_id}\` — ${ZH[a.reason] || a.reason}`,
+            }));
             try {
-              const existing = await github.rest.issues.listForRepo({
-                owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: label,
+              await notify({
+                github, context, core, label, title, body, items,
+                headline: n => `需要你決定：${n} 份文件的封面與登記資料對不上`,
+                action: '在 Claude 說「處理封面核對」。AI 會逐份開啟文件核對是否仍是同一份；屬無害的會記入基線不再提示，真有問題的會請你批准修正。',
               });
-              if (existing.data.length) {
-                await github.rest.issues.update({
-                  owner: context.repo.owner, repo: context.repo.repo,
-                  issue_number: existing.data[0].number, title, body,
-                });
-                core.info('Updated issue #' + existing.data[0].number);
-              } else {
-                await github.rest.issues.create({
-                  owner: context.repo.owner, repo: context.repo.repo,
-                  title, body, labels: [label],
-                });
-                core.info('Created cover-title issue.');
-              }
             } catch (e) {
               core.warning('Failed to open/update cover-title issue: ' + (e && e.message));
             }

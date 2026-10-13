@@ -33,9 +33,9 @@ B = "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info"
 SRC = {
     "trg": ("trg_imc_2023", "為設有法團校董會學校而提供的整合代課教師津貼（2023年9月）", B + "/trg/TRG_guidelines_C.pdf"),
     "ceg": ("ceg_calc_2026", "學校發展津貼（CEG）計算方法（2026/27）", B + "/ref-capacity-enhancement-grant/Calculation%20of%20CEG_en.pdf"),
-    "eoebg": ("eoebg_guide_2026", "擴大營辦津貼（EOEBG）使用指引", B + "/ref-e-oebg-cfeg/User%20Guide_EOEBG_e.pdf"),
-    "cfeg": ("cfeg_guide_2026", "綜合家具及設備津貼（CFEG）使用指引", B + "/ref-e-oebg-cfeg/User%20Guide_CFEG_e.pdf"),
-    "oebg": ("oebg_guide_2026", "營辦津貼（OEBG）使用指引", B + "/ref-e-oebg-cfeg/User%20Guide_OEBG_e.pdf"),
+    "eoebg": ("eoebg_guide_2026", "擴大營辦津貼（EOEBG）使用指引", B + "/ref-e-oebg-cfeg/User%20Guide_EOEBG_2026_e.pdf"),
+    "cfeg": ("cfeg_guide_2026", "綜合家具及設備津貼（CFEG）使用指引", B + "/ref-e-oebg-cfeg/User%20Guide_CFEG_2026_e.pdf"),
+    "oebg": ("oebg_guide_2026", "營辦津貼（OEBG）使用指引", B + "/ref-e-oebg-cfeg/User%20Guide_OEBG_2026_e.pdf"),
     "ac": ("ac_grant_2026", "資助學校空調津貼（Air-conditioning Grant）", B + "/ref-e-oebg-cfeg/AC%20Grant%20in%20Aided%20Schools_e.pdf"),
     "tips": ("subvention_tips", "處理政府給予資助學校資助的提示", "https://www.edb.gov.hk/en/sch-admin/fin-management/subsidy-info/tips-handling-gov-subventions/index.html"),
     "rates": ("eoebg_rates_2026", "資助學校津貼費率表（2026/27）", B + "/ref-e-oebg-cfeg/E_Sec_Table%20II_2026_e.pdf"),

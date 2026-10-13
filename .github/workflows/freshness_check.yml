@@ -105,26 +105,22 @@ jobs:
             ].join('\n');
             const title = '🔔 Freshness: EDB source changes pending review';
             const label = 'freshness-change';
+            // S238: body edits never notify, and this issue had no @mention — four
+            // months of changes reached nobody. The shared helper announces NEW
+            // sources in a comment that @mentions Leonard (see the helper header).
+            const notify = require(`${process.env.GITHUB_WORKSPACE}/.github/scripts/notify_new_items.js`);
+            const items = (report.changed_sources || []).map(c => ({
+              key: c.source_id,
+              text: `\`${c.source_id}\` ${c.title || ''}`,
+            }));
             // Notification failure must not mask a successful detection run —
             // warn (not fail) so the operator can still inspect the artifact.
             try {
-              const existing = await github.rest.issues.listForRepo({
-                owner: context.repo.owner, repo: context.repo.repo,
-                state: 'open', labels: label,
+              await notify({
+                github, context, core, label, title, body, items,
+                headline: n => `需要你決定：${n} 個來源的原文有更新`,
+                action: '在 Claude 說「處理 freshness 更新」。AI 會下載新版、與庫內版本逐段比對，列出實質改動並建議是否重新入庫；未經你批准不會寫入任何資料。',
               });
-              if (existing.data.length) {
-                await github.rest.issues.update({
-                  owner: context.repo.owner, repo: context.repo.repo,
-                  issue_number: existing.data[0].number, title, body,
-                });
-                core.info('Updated issue #' + existing.data[0].number);
-              } else {
-                await github.rest.issues.create({
-                  owner: context.repo.owner, repo: context.repo.repo,
-                  title, body, labels: [label],
-                });
-                core.info('Created freshness-change issue.');
-              }
             } catch (e) {
               core.warning('Failed to open/update freshness issue: ' + (e && e.message));
             }

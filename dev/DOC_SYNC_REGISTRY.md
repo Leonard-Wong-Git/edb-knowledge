@@ -27,6 +27,37 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-10-13 — S238（監察通知修正 ＋ 來源更新 ＋ 失效連結修復）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| 監察 issue 開閂／通知邏輯 | `confirmed` | 五個偵測型監察全部改用 `notify_new_items.js`（S209 紀律：改一個要順手查其餘）；live_probe／看門狗／build gate 原已 @mention 且以開新 issue 示警，不改 |
+| Freshness／入庫流程文件 | `confirmed` | `FRESHNESS_GUIDE.md` 更正「GitHub emails the operator」並寫明新監察必須用 helper |
+| Supabase 寫入 | `confirmed` | 替換、網址更新、退役皆經 Leonard 明示批准；舊資料（含向量）本機備份；生產總數 16,990 |
+| 公開片段數 display-sync | `confirmed` | `live_display_sync` 七個鏡像檔 17,021 → 16,990 |
+| `source_registry.json` | `confirmed` | 網址、標題、`edbcm099_2026` deprecated；`check_registry_drift` 0／0／0；封面核對 11/11 |
+| 清單資料連結 | `confirmed` | `checklists_bundle.json` 與 `dev/checklists/**` 舊網址已換；**舊津貼名稱與「30天」字眼未改**（待 Leonard，見交接 Open Priorities ③） |
+| Deploy | `not_applicable` | 不改 `backend/`；PR #48 合併後不會重新部署 |
+| `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並核對相等 |
+| Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4、`## User Environment` Git state、`PROJECT_INDEX` Branch / commit 列 |
+| `EDBC_9_2019_E` 退役 | `blocked` | Leonard 已批准；auto mode 分類器擋下刪除與備份，未重試 |
+| Playbook | `not_applicable` | 本節未開卡 |
+
+### 2026-10-11 — S237（OpenAI 舊模型停用核對 ＋ 合成模型碼內預設對齊 gpt-4o-mini）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| External API / service change | `confirmed` | 模型名稱改動（`env.ts` 預設、四個離線腳本）；`CODEBASE_CONTEXT.md` 第 64、184 行與 AI Maintenance Log 已更新；API 端點、參數、回應路徑不變，故 External Services block 毋須改 |
+| `backend/src` LLM 呼叫、旗標、判官閘或護欄改動 | `confirmed` | 只改後備預設常數與註解；生產 `OPENAI_MODEL` 已設 `gpt-4o-mini`，行為不變；判官與提示零改動 |
+| Grounded synthesis／feature flags 文件 | `confirmed` | `.env.example`、`README.md`、`backend/README.md`、`DEPLOY_CHANNEL_B.md`、`PROJECT_MASTER_SPEC.md` 同步；`judge_acceptance.py`、`JUDGE_PROMPT_FINDINGS.md` 加現況註、S199 原文保留 |
+| Deploy | `confirmed` | PR #46 合併（`a344504`）約 60 秒後 `/health` 換新、`cache_b` 181／306；線上合成實測正常。收工 PR `s237/closeout` 不改 `backend/` |
+| Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4、`## User Environment` Git state 與 `PROJECT_INDEX` Branch / commit 列已更新 |
+| `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並核對相等 |
+| 外部模型批次 | `not_applicable` | 只有合併後驗收 1 次線上搜尋（帶 `x-probe`） |
+| Supabase 寫入／DDL | `not_applicable` | 零寫入、零查詢 |
+| Product version / release milestone change | `not_applicable` | 平台仍 v3.3.10；用戶不可見 |
+| Playbook | `not_applicable` | 本節未 grep 全表、未開任何卡 |
+
 ### 2026-10-07 — S236（路線乙 v1 實作（旗標關閉）＋ Kit v0.4.3 ＋ here.now 舊鏡像刪除）
 
 | Row | 狀態 | 備註 |
@@ -40,7 +71,10 @@ Recorded at closeout per the Registry Rule above. Newest first.
 | Governance rule change | `confirmed` | Kit v0.4.2 → v0.4.3（Draft 與頂層 dormant root 各一次，均先在臨時副本完整演練並逐字比對）；本專案自己的 §0–§14 未改 |
 | 外部模型批次 | `confirmed` | `--smoke` LLM 4 次（Leonard 批准）；生產搜尋 254 次帶 `x-probe`、`synthesize:false`；首次跑因間隔 400ms 撞每 IP 限速，已停並改 7 秒 |
 | Supabase 寫入／DDL | `not_applicable` | 零寫入；service key 唯讀 GET（計數、gold 窗片段） |
-| Deploy | `pending` | PR 合併後 Render 會重新部署；旗標未設，行為應與現時相同。合併後驗收：`/health` commit 換新、D01 線上仍照舊作答（證明旗標未開） |
+| Deploy | `confirmed` | PR #44 合併（`f9da565`）約 60 秒後 `/health` 換新、`cache_b` 181／306；D01 線上仍經判官作答，證明旗標未開。收工 PR `s236/closeout` 不改 `backend/` |
+| Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4、`## User Environment` Git state 與 `PROJECT_INDEX` Branch / commit 列已更新 |
+| `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並核對相等 |
+| Playbook | `not_applicable` | 本節未 grep 全表、未開任何卡 |
 | Product version / release milestone change | `not_applicable` | 平台仍 v3.3.10；旗標關閉，用戶不可見 |
 
 ### 2026-10-06 — S235（入庫補救 ＋ Kit v0.4.2 ＋ 路線乙離線設計與量度）

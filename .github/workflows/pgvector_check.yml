@@ -154,6 +154,12 @@ jobs:
               await upsert(UNBLOCKED_LABEL,
                 '🎉 pgvector >= 0.8.4 is packaged — the HNSW block has lifted',
                 [
+                  // S238: this monitor never @mentioned anyone; Leonard does not watch the
+                  // repo, so an unmentioned issue reaches nobody.
+                  '@Leonard-Wong-Git',
+                  '',
+                  '**需要你決定：pgvector 新版本已可用，HNSW 索引的封鎖已解除。**在 Claude 說「處理 pgvector 解封」。',
+                  '',
                   `Supabase's extension manifest now offers **${r.newly_unblocking.join(', ')}**`,
                   `(run #${context.runNumber}, ${r.generated_at}).`,
                   '',
@@ -192,6 +198,10 @@ jobs:
               await upsert(BROKEN_LABEL,
                 '🛠 pgvector watch is blind — the upstream manifest changed shape',
                 [
+                  '@Leonard-Wong-Git',
+                  '',
+                  '**需要處理：pgvector 監察讀不到上游版本清單，「HNSW 仍被封鎖」暫時無法核實。**在 Claude 說「修 pgvector 監察」。',
+                  '',
                   `\`check_pgvector_release.py\` could not read the version list (run #${context.runNumber}, ${r.generated_at}).`,
                   '',
                   `> ${r.reason}`,

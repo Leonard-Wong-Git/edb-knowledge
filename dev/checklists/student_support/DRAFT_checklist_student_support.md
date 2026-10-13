@@ -7,9 +7,9 @@
 
 | source_id | 文件 | 連結 |
 |---|---|---|
-| `edbc18_2008_harmonious` | 《教育局通告第18/2008號 締造和諧校園》 | [開啟](https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/gd-resources/Harmonious School_TC.pdf) |
+| `edbc18_2008_harmonious` | 《教育局通告第18/2008號 締造和諧校園》 | [開啟](https://applications.edb.gov.hk/circular/upload/EDBC/EDBC08018c.pdf) |
 | `edbc15_2025_child_abuse` | 《教育局通告第15/2025號 處理懷疑虐待兒童及家庭暴力個案》 | [開啟](https://applications.edb.gov.hk/circular/upload/EDBC/EDBC25015C.pdf) |
-| `edbcm83_2020_student_care` | 《教育局通函第83/2020號 關顧學生 重回正軌》 | [開啟](https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/gd-resources/2021/20200902_EDBCM20083C.pdf) |
+| `edbcm83_2020_student_care` | 《教育局通函第83/2020號 關顧學生 重回正軌》 | [開啟](https://www.edb.gov.hk/attachment/tc/teacher/guidance-discipline-services/gd-resources/2021/EDBCM20083C.pdf) |
 | `edbc015_2021_lpe` | 《教育局通告第15/2021號 生涯規劃教育》 | [開啟](https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/projects-services/2122/20210930_EDBC_015_2021_Life_Planning_Education_TC.pdf) |
 | `crisis_mgmt_handbook` | 《學校危機處理（手冊）》 | [開啟](http://www.edb.gov.hk/attachment/tc/student-parents/crisis-management/about-crisis-management/crisistc.pdf) |
 | `kg_crisis_mgmt` | 《幼稚園危機處理 — 危機善後介入及心理支援》 | [開啟](https://www.edb.gov.hk/attachment/tc/student-parents/crisis-management/about-crisis-management/kindergarten/crisistc.pdf) |
@@ -298,7 +298,7 @@
 ### 26. 和諧校園防欺凌
 
 - **R-26.1** 學校必須正視校園欺凌行為並採取積極措施，確保學生在校的安全。
-  - 出處：《教育局通告第18/2008號 締造和諧校園》第 1 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/gd-resources/Harmonious School_TC.pdf#page=1)
+  - 出處：《教育局通告第18/2008號 締造和諧校園》第 1 頁 — [開啟原文](https://applications.edb.gov.hk/circular/upload/EDBC/EDBC08018c.pdf#page=1)
   - 引文：「教育局絕不容忍校園欺凌行為，學校必須正視並採取積極措施確保學生在校的安全。」
 
 ### 27. 保護兒童機制
@@ -394,25 +394,25 @@
 ### 42. 被捕被控學生輔導
 
 - **R-42.1** 有學生被捕或被控的學校，教職員應及早為每位相關學生制定個人化的長期訓輔計劃，加強教導正確價值觀及正面思維，並與家長緊密聯絡。
-  - 出處：《教育局通函第83/2020號 關顧學生 重回正軌》第 2 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/gd-resources/2021/20200902_EDBCM20083C.pdf#page=2)
+  - 出處：《教育局通函第83/2020號 關顧學生 重回正軌》第 2 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/teacher/guidance-discipline-services/gd-resources/2021/EDBCM20083C.pdf#page=2)
   - 引文：「對於有學生被捕或被控的學校，教職員應及早為每位相關的學生制定個人化的長期訓輔計劃，加強教導他們正確的價值觀、正面思維、與人相處應有的態度等，並與家長緊密聯絡。」
 
 ### 43. 學生情緒關顧
 
 - **R-43.1** 學校亦需關顧校內受被捕或被控學生個案影響的其他學生，協助他們處理情緒和理解事件；有需要時應尋求學校社工、校本教育心理學家等專業人員意見。
-  - 出處：《教育局通函第83/2020號 關顧學生 重回正軌》第 2 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/gd-resources/2021/20200902_EDBCM20083C.pdf#page=2)
+  - 出處：《教育局通函第83/2020號 關顧學生 重回正軌》第 2 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/teacher/guidance-discipline-services/gd-resources/2021/EDBCM20083C.pdf#page=2)
   - 引文：「學校亦需關顧校內受被捕或被控學生個案影響的其他學生，協助他們處理情緒和理解事件。如有需要，學校應尋求學校社工、校本教育心理學家等專業人員的意見。」
 
 ### 44. 司法程序中學生輔導
 
 - **R-44.1** 學校在擬訂涉及尚未完結司法程序學生的支援行動計劃時，須提醒負責人員不宜與有關學生討論證供或如何處理訴訟。
-  - 出處：《教育局通函第83/2020號 關顧學生 重回正軌》第 3 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/gd-resources/2021/20200902_EDBCM20083C.pdf#page=3)
+  - 出處：《教育局通函第83/2020號 關顧學生 重回正軌》第 3 頁 ⚠️頁碼近似 — [開啟原文](https://www.edb.gov.hk/attachment/tc/teacher/guidance-discipline-services/gd-resources/2021/EDBCM20083C.pdf#page=3)
   - 引文：「在擬訂支援行動計劃和進行跟進工作時，應考慮有關方案的細節會否影響尚未完結的司法程序，例如不宜與有關學生討論證供或如何處理有關訴訟。」
 
 ### 45. 個人化訓輔計劃
 
 - **R-45.1** 學校應為有需要接受訓育輔導的學生制定及執行個人化跟進方案，了解行為成因，制定跨專業協作支援計劃，並尋求家長配合。
-  - 出處：《教育局通函第83/2020號 關顧學生 重回正軌》第 2 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/gd-resources/2021/20200902_EDBCM20083C.pdf#page=2)
+  - 出處：《教育局通函第83/2020號 關顧學生 重回正軌》第 2 頁 — [開啟原文](https://www.edb.gov.hk/attachment/tc/teacher/guidance-discipline-services/gd-resources/2021/EDBCM20083C.pdf#page=2)
   - 引文：「就為學生制定個人化的跟進方案，我們建議學校了解其行為的成因，制定跨專業協作支援學生的行動計劃，並尋求家長的配合，共同協助學生度過難關」
 
 ### 46. 生涯規劃教育推行
