@@ -1,0 +1,39 @@
+{
+  "_meta": {
+    "title": "來源換版後的下游同步判斷閘（S238）",
+    "note": "state 為 JSON：source（來源名稱與現行版本）、change_note（今次改動摘要，由操作者按比對結果填寫）、downstream（受檢的下游內容原文節錄與所在位置）、evidence（確定性掃描的結果，例如在新版原文中找不到該句）。Jev 只看得見 state；沒有 change_note 或節錄時，答案只是猜測，一律交人手。",
+    "verdicts": [
+      {
+        "name": "下游內容",
+        "label": "必須更新 —— 這段下游內容已與現行版本不符",
+        "else_label": "毋須更新 —— 未見與現行版本不符",
+        "questions": ["stale_edition", "stale_rule", "removed_item"]
+      }
+    ]
+  },
+
+  "stale_edition": {
+    "type": "noul",
+    "instructions": "下游內容標示的版本、年份、學年或發布日期，比 state 所述的現行版本舊。",
+    "criteria": {
+      "true": "下游內容明寫的版本、年份、學年或日期（例如「2026年5月版」「2026/27學年」）早於 source 的現行版本",
+      "false": "下游內容沒有標示版本，或所標示的與現行版本相同，或 state 沒有提供足以判斷的資料"
+    }
+  },
+  "stale_rule": {
+    "type": "noul",
+    "instructions": "下游內容所陳述的規則、數字、名稱或程序，已被 change_note 所述的改動改變。",
+    "criteria": {
+      "true": "change_note 列出的某項改動直接涉及下游內容所講的同一件事，而新版的寫法與下游內容不同（例如津貼名稱已改、日數計法已改、通告編號已換）",
+      "false": "change_note 的改動與下游內容講的不是同一件事，或兩者一致，或 state 沒有 change_note"
+    }
+  },
+  "removed_item": {
+    "type": "noul",
+    "instructions": "下游內容所依據的條文、段落或文件，在現行版本中已被刪除、取代或撤下。",
+    "criteria": {
+      "true": "change_note 明寫該條文、段落或文件已刪除、被取代或撤下，而下游內容仍以它為依據",
+      "false": "change_note 沒有提到刪除或取代該依據，或 state 沒有提供足以判斷的資料"
+    }
+  }
+}

@@ -134,7 +134,10 @@ content `content_hash` (raw-byte SHA-256) and `hash_checked_at`.
   plain-Chinese entry per changed document in `update_log.json`** (the site's
   「資料庫更新日誌」). Only the Option A executor appends that log automatically;
   any manual refresh, replacement, URL fix or retirement must add its own entries
-  (S238 missed this and Leonard caught it). The detector never fetches into the
+  (S238 missed this and Leonard caught it). **Then run
+  `check_downstream_sync.py --sources <ids> --base <commit before the change>`
+  until it reports 0 `MUST_UPDATE`** — it checks the library, checklists, update
+  log and hard-coded citations mechanically (see `DOC_SYNC_CHECKLIST.md`). The detector never fetches into the
   vault, mutates Supabase, or deploys.
 
 ### Notification & ledger (auto)
