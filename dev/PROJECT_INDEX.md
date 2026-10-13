@@ -204,7 +204,7 @@ Record this at closeout so the next AI can detect wrong-root or workspace drift.
 |---|---|---|
 | Expected project root | `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft`（唯一目標；頂層 umbrella 只重定向至此） | 2026-06-22 (S176) |
 | Git root | 同 project root（repo `Leonard-Wong-Git/edb-knowledge`；勿 set private） | 2026-06-22 (S176) |
-| Branch / commit | 收工分支 `s238/monitor-notify`（由 `origin/main` `7b6a68b` 開出，合併了未合併的 `origin/s237/closeout`）；PR #48 由 Leonard 指示 squash 合併，合併後 hash 待下節核實；線上執行碼 `a344504`（#48 不改 `backend/`）。**這是最後核實的快照，現況以 `workspace-health` 或 `git fetch` 為準。** | 2026-10-13 (S238) |
+| Branch / commit | `main` = `a67bd29`（S238 #48／#49／#50 已合併）；收工分支 `s238/closeout-2` 只改治理文件；線上執行碼 `a344504`（三個 PR 皆不改 `backend/`）。**這是最後核實的快照，現況以 `workspace-health` 或 `git fetch` 為準。** | 2026-10-13 (S238) |
 | Worktree or parallel workspace | 無 | 2026-06-22 (S176) |
 | Uncommitted change summary | 無。S225 改動已合入 `40ae3cf`；生成檔 `dev/source/registry_drift.md` 與 main 一致。**`FEATURE_ROUTE_FIRST_SEARCH=1` 已於 Render 環境變數啟用（2026-09-09），該處只有 Leonard 改得到。** | 2026-09-14（S225） |
 | 治理檔 git 狀態 | ⚠️ `dev/SESSION_HANDOFF.md`／`dev/SESSION_LOG.md`／`START_NEXT_SESSION_PROMPT.txt` 雖列於 `.gitignore` 但**實際已 tracked**（早於 ignore 規則 commit；git 唔會 untrack 已追蹤檔）→ 每次收工照常 commit（見 S173–S175 closeout commits） | 2026-06-22 (S176) |

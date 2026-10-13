@@ -41,6 +41,10 @@ Recorded at closeout per the Registry Rule above. Newest first.
 | `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並核對相等 |
 | Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4、`## User Environment` Git state、`PROJECT_INDEX` Branch / commit 列 |
 | `EDBC_9_2019_E` 退役 | `blocked` | Leonard 已批准；auto mode 分類器擋下刪除與備份，未重試 |
+| 指引文件庫（`app.html`＋`guidelines.json`） | `confirmed` | 第二次收工：170 條連結全測，修 `g26`／`g28`／`g19`；行政手冊移「行政」；兩處同步，`_meta` 不變 |
+| 更新日誌 | `confirmed` | 只留最新 6 條（Leonard 定案；`UPDATE_LOG_KEEP=6`） |
+| 下游同步規則 | `confirmed` | `DOC_SYNC_CHECKLIST.md` 新 row、`FRESHNESS_GUIDE.md`、`PROJECT_INDEX.md`；工具 `check_downstream_sync.py` |
+| 清單條文與頁碼 | `pending` | Jev 判 8 條必須更新、49 處頁碼移位；Leonard 指示下一節處理 |
 | Playbook | `not_applicable` | 本節未開卡 |
 
 ### 2026-10-11 — S237（OpenAI 舊模型停用核對 ＋ 合成模型碼內預設對齊 gpt-4o-mini）
