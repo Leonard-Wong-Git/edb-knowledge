@@ -142,20 +142,20 @@ jobs:
               fresh.length > 20 ? `…and ${fresh.length - 20} more new — see run artifact \`discovery-report-${context.runNumber}\`.` : '',
               backlog > 0 ? `\n<details><summary>📦 Standing backlog: ${backlog} candidate(s) first seen on an earlier run — not repeated here</summary>\n\nFull list in the run artifact, and every first-seen date in \`dev/source/discovery_seen.json\`.\n</details>` : '',
             ].join('\n');
+            // S238: announce in an @mention comment (body edits never notify). `fresh`
+            // is already only what appeared this run; the helper's marker also stops a
+            // second announcement while the same issue stays open.
+            const notify = require(`${process.env.GITHUB_WORKSPACE}/.github/scripts/notify_new_items.js`);
+            const items = fresh.map(c => ({
+              key: c.url,
+              text: `\`${c.filename}\`${c.basename_known_elsewhere ? '（檔名在別處見過，可能重複）' : ''}  \n  ${c.url}`,
+            }));
             try {
-              if (existing.data.length) {
-                await github.rest.issues.update({
-                  owner: context.repo.owner, repo: context.repo.repo,
-                  issue_number: existing.data[0].number, title, body,
-                });
-                core.info('Updated issue #' + existing.data[0].number);
-              } else {
-                await github.rest.issues.create({
-                  owner: context.repo.owner, repo: context.repo.repo,
-                  title, body, labels: [label],
-                });
-                core.info('Created discovery issue.');
-              }
+              await notify({
+                github, context, core, label, title, body, items,
+                headline: n => `需要你決定：教育局網站新出現 ${n} 份未入庫的文件`,
+                action: '在 Claude 說「處理新文件」。AI 會逐份判斷是否新文件、舊版或重複，再建議哪些值得入庫；未經你批准不會入庫。',
+              });
             } catch (e) {
               core.warning('Failed to open/update discovery issue: ' + (e && e.message));
             }

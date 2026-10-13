@@ -121,10 +121,6 @@ jobs:
               return `- ${e.reason} — ${e.url}  \n  _source_id(s): ${sids}_`;
             }).join('\n');
             const body = [
-              // @mention so this real-breakage alert still reaches Leonard under a
-              // "Participating and @mentions" watch setting (S191 email-noise reduction).
-              `@Leonard-Wong-Git`,
-              '',
               `🔴 **${broken.length}** broken served URL(s) detected in the vector store `,
               `(run #${context.runNumber}, ${r.generated_at}; ${r.distinct_urls} distinct URLs, `,
               `${r.checked} checked, ${r.errors} could-not-test).`,
@@ -140,23 +136,20 @@ jobs:
               errs.length ? `\n**Could-not-test (${errs.length}, transient 5xx/timeout/429 — not counted as broken):**\n${errRows}` + (errs.length > 15 ? `\n…and ${errs.length - 15} more (see artifact).` : '') : '',
             ].join('\n');
             const title = '🔴 Served-URL: broken links in the store pending fix';
+            // S238: the old body-only @mention fired once when the issue was created;
+            // every later edit was silent. The shared helper announces each NEW broken
+            // link in a comment that @mentions Leonard.
+            const notify = require(`${process.env.GITHUB_WORKSPACE}/.github/scripts/notify_new_items.js`);
+            const items = broken.map(b => ({
+              key: b.url,
+              text: `HTTP ${b.status} — ${(b.source_ids || []).map(s => '`' + s + '`').join('、')}  \n  ${b.url}`,
+            }));
             try {
-              const existing = await github.rest.issues.listForRepo({
-                owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: label,
+              await notify({
+                github, context, core, label, title, body, items,
+                headline: n => `需要你決定：${n} 條用戶會點擊的原文連結已失效`,
+                action: '在 Claude 說「處理失效連結」。AI 會找出每份文件的新網址並核對封面確認是同一份文件，再請你批准更新；未經批准不會改動資料庫。',
               });
-              if (existing.data.length) {
-                await github.rest.issues.update({
-                  owner: context.repo.owner, repo: context.repo.repo,
-                  issue_number: existing.data[0].number, title, body,
-                });
-                core.info('Updated issue #' + existing.data[0].number);
-              } else {
-                await github.rest.issues.create({
-                  owner: context.repo.owner, repo: context.repo.repo,
-                  title, body, labels: [label],
-                });
-                core.info('Created served-url-broken issue.');
-              }
             } catch (e) {
               core.warning('Failed to open/update served-url issue: ' + (e && e.message));
             }

@@ -136,8 +136,20 @@ content `content_hash` (raw-byte SHA-256) and `hash_checked_at`.
 ### Notification & ledger (auto)
 - The weekly GitHub Action writes a machine report (`freshness_changes.json`,
   uploaded as a run artifact) and, when ≥1 content change is detected,
-  **opens / updates a GitHub Issue** labelled `freshness-change` (GitHub emails
-  the operator). The same open issue is reused, not duplicated, until acted on.
+  **opens / updates a GitHub Issue** labelled `freshness-change`. The same open
+  issue is reused, not duplicated, until acted on.
+- **Who gets told, and when (S238 correction).** The old text here said "GitHub
+  emails the operator". It did not: Leonard does not watch the repo, so only an
+  `@mention` in a **new** issue or a **new** comment reaches him, and a body edit
+  never notifies anyone. Issue #1 had no mention and was only ever edited — 29
+  changed sources over four months reached nobody. All detection monitors
+  (freshness, served-URL, cover-title, discovery) now go through
+  `.github/scripts/notify_new_items.js`: the body keeps the full list, a hidden
+  marker records what was already announced, and only **new** items trigger a
+  comment that @mentions Leonard in plain Chinese with the action he needs to take
+  (his chosen policy: notify on new items only, no digest or reminders).
+  Self-test: `node .github/scripts/notify_new_items.test.js`. **Any new monitor
+  that opens an issue must use this helper**, or it will be silent the same way.
 - A manual write-sync also commits `dev/source/freshness_changes.md` — a
   human-readable snapshot of pending re-ingest work that the next AI session
   sees at startup. Detected changes **never** fail the workflow; only errors
