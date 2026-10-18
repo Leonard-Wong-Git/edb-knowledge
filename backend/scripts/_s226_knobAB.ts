@@ -38,6 +38,7 @@ import {
   balanceFromEnv,
   repeatCapFromEnv,
   repeatsForBalance,
+  interleaveRankedLists,
 } from '../src/api/searchChannelB.js';
 import { createLlmClient } from '../src/lib/llmClient.js';
 import { getJudgeModel } from '../src/config/env.js';
@@ -94,6 +95,33 @@ if (!(repeatsForBalance(7, 40, 0.35, 8) < repeatsForBalance(7, 40, 0.5, 8))) {
   throw new Error('a lower balance must need fewer repetitions');
 }
 process.stdout.write('invariant OK: EXPANSION_* unset / malformed => pre-S228 expansion string\n');
+
+// S239 — FEATURE_QUERY_FUSION: the interleaved merge, asserted before any spend.
+{
+  const mk = (id: string, src: string, score: number) => ({ id, source_id: src, text: `t-${id}`, score });
+  const exp = ['a', 'b', 'c', 'd', 'e'].map((x, i) => mk(x, 's1', 0.8 - i * 0.01));
+  // 1. identical lists keep their order (fusion of a list with itself is a no-op).
+  const same = interleaveRankedLists(exp, exp, 5, undefined).map((r) => r.id).join('');
+  if (same !== 'abcde') throw new Error(`self-fusion must preserve order, got ${same}`);
+  // 2. a chunk the raw search ranks first and the expanded search never sees must enter
+  //    the window — the whole point of the flag. Bound to the raw list: proved below.
+  const rawOnly = [mk('z', 's2', 0.6), ...exp];
+  const win = interleaveRankedLists(exp, rawOnly, 3, undefined).map((r) => r.id);
+  if (!win.includes('z')) throw new Error(`raw-only rank-1 chunk must reach a 3-slot window, got ${win}`);
+  if (interleaveRankedLists(exp, exp, 3, undefined).some((r) => r.id === 'z')) {
+    throw new Error('without the raw list there is no z — assertion 2 would be vacuous');
+  }
+  // 3. a raw-only row keeps ITS OWN cosine, never a fused value or the expanded scale.
+  const z = interleaveRankedLists(exp, rawOnly, 3, undefined).find((r) => r.id === 'z')!;
+  if (z.score !== 0.6) throw new Error(`raw-only row must carry its raw cosine, got ${z.score}`);
+  // 4. the per-source quota is applied to the fused order.
+  const quota = interleaveRankedLists(exp, exp, 5, 2).length;
+  if (quota !== 2) throw new Error(`quota 2 over one source must yield 2 rows, got ${quota}`);
+  // 5. duplicated text (the g24/sag pair) is kept once.
+  const dup = [mk('p', 's1', 0.9), { ...mk('q', 's3', 0.89), text: 't-p' }];
+  if (interleaveRankedLists(dup, dup, 5, undefined).length !== 1) throw new Error('text-dup must collapse');
+}
+process.stdout.write('invariant OK: interleaveRankedLists\n');
 
 // --set KEY=VALUE, repeatable. These are applied to the AFTER side only, and
 // deleted again before the next item, so the before side is always the shipped

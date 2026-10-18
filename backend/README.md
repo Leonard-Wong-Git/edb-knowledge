@@ -41,6 +41,7 @@ KNOWLEDGE_PATH=../../../role_facts.json
 - `FEATURE_GROUNDED_SYNTHESIS` — 開啟後，合成改行 grounded 路徑（`synthesizeAnswer()` 內）：只有逐字 EDB 文件節錄可以支撐已呈現的論述，策展摘要只當檢索線索；合成窗內沒有第一手證據就拒答，不降級為推測。
 - `FEATURE_EXACT_WINDOW_NARROW` — 開啟後，把五格合成窗收窄至 lexical-exact 編制路由指明的來源集。**只在該路由發出 `exactSynthesisSourceIds` 時才有效**；收窄後若為空，自動退回預設五格，不會把有效結果集清空。
 - `FEATURE_SUBJECT_CHECK`（S236）— 開啟後，`synthesizeAnswer()` 在判官與 vault bypass **之前**核對問題對象：問題提到某類人（學生／家長／教師／校長／非教學人員／校董），而五格合成窗內完全沒有提到該類人，即回覆固定拒答句（說明缺哪類人、窗內提及哪類人），不呼叫判官與合成模型。純字串比對（`src/lib/subjectCheck.ts`），零模型呼叫。不覆蓋 `FEATURE_GROUNDED_SYNTHESIS` 路徑。設計與量度見 `dev/source/SUBJECT_CHECK_DESIGN.md`。
+- `FEATURE_QUERY_FUSION`（S239）— 開啟後，路由查詢除了照舊以「查詢＋類別展開詞」搜一次，還會以用戶原句在同一路由內並行再搜一次，兩邊結果輪流各取一條組成結果窗（`interleaveRankedLists()`），再套每來源配額。用意是令類別內較窄的題目（例如 `sen` 路由下的「留級」）不再被展開詞蓋過。**只在 `FEATURE_ROUTE_FIRST_SEARCH=1` 且查詢確實有展開詞時生效**；多一次路由 RPC、零額外 embedding（原句向量本來已為 overlay 計算）；任何錯誤都退回單次展開搜尋。每格保留各自的餘弦（只由原句取得的一格帶原句尺分數，較展開尺低），所以判官繞過門檻不會因此放寬。
 
 ⚠️ **已部署 ≠ 已啟用**：上述 flag 的碼都在生產 build 內；除 `FEATURE_ROUTE_FIRST_SEARCH`（2026-09-09 起在 Render 啟用）外，其餘生產環境變數都未設定，即關閉。各 flag 當前的實測結論與啟用建議以 `dev/SESSION_HANDOFF.md` 為準，本檔不複製會漂移的數字。
 

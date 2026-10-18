@@ -30,8 +30,8 @@ const ctx = {
   console,
 };
 vm.createContext(ctx);
-vm.runInContext(script + "\n;this.__t = { summarize, safeUrl, renderAttention, renderOps };", ctx);
-const { summarize, safeUrl, renderAttention, renderOps } = ctx.__t;
+vm.runInContext(script + "\n;this.__t = { summarize, safeUrl, renderAttention, renderOps, staleAgainst };", ctx);
+const { summarize, safeUrl, renderAttention, renderOps, staleAgainst } = ctx.__t;
 
 let fails = 0;
 const check = (name, cond) => {
@@ -91,6 +91,31 @@ check("missing generatedAt → 已過期 (err)",
   summarize(base({ generatedAt: undefined }), NOW).title === "本頁資料已經過期");
 check("staleness outranks a green check list, but an alarm outranks a mere warn",
   summarize(base({ generatedAt: hoursAgo(40), attention: { items: [alarm] } }), NOW).level === "err");
+
+console.log("\nstale against the knowledge base (S239)");
+// 2026-10-13: the page said 17,021 片段 and 系統運作正常 while the knowledge base was
+// already 16,990 — 22 hours old, so the clock rule (36h) never fired.
+const withCorpus = (over = {}) => base({ generatedAt: hoursAgo(22), corpus: { chunks: 17021 }, ...over });
+r = summarize(withCorpus(), NOW, { chunks: 16990, newestLog: "2026-09-29" });
+check("chunk count changed since the check → warn 知識庫已更新 (the 2026-10-13 case)",
+  r.level === "warn" && r.title === "知識庫已更新，本頁尚未重新檢查" && r.desc.includes("16,990"));
+check("same page WITHOUT the live state stays ok — proves the warn above comes from it",
+  summarize(withCorpus(), NOW).level === "ok");
+check("matching count and older log → no stale signal",
+  staleAgainst(withCorpus(), { chunks: 17021, newestLog: "2026-09-27" }) === null);
+check("log dated after the check day → stale even when the count is unchanged",
+  staleAgainst(withCorpus(), { chunks: 17021, newestLog: "2026-09-30" }) !== null);
+// withCorpus() was checked 22h before NOW, i.e. on 2026-09-28.
+check("log dated the same day as the check → not stale (cannot tell order within a day)",
+  staleAgainst(withCorpus(), { chunks: 17021, newestLog: "2026-09-28" }) === null);
+check("unreadable live state (null) → no claim either way",
+  staleAgainst(withCorpus(), null) === null);
+check("live state with no numbers → no claim",
+  staleAgainst(withCorpus(), { chunks: undefined, newestLog: undefined }) === null);
+check("an alarm still outranks a stale page",
+  summarize(withCorpus({ attention: { items: [alarm] } }), NOW, { chunks: 1 }).level === "err");
+check("a 3-day-old page is still 已過期 (err), not merely stale",
+  summarize(withCorpus({ generatedAt: hoursAgo(80) }), NOW, { chunks: 1 }).title === "本頁資料已經過期");
 
 console.log("\nsafeUrl");
 check("an issue link in this repository is followed",
