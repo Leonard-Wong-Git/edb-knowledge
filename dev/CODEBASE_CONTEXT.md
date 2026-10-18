@@ -195,6 +195,14 @@
   - Response path: `choices[0].message.content` (transcribed text)
   - Purpose: OCR scanned/image-only or CID-mojibake EDB PDFs that have no extractable text layer (e.g. `mce_framework_2008` 8-image pages, g38 family) into the canonical vault format for Channel B ingest. Draft quality — traceability preserved via chunk `url`+`=== Page N ===`.
   - Test-verified: 2026-06-07 (Claude_20260607_1336) — `mce_framework_2008` 8 pages OCR'd, U+FFFD=0, ingested +13 chunks, direct RPC retrieval confirmed.
+- **🔴 模型停用（S239 核實）**：官方 2026-10-14 公布，**2027-01-14 停用** `gpt-4o`／`gpt-4o-mini`／`gpt-4.1`／`gpt-4.1-mini`（列明快照 `gpt-4o-2024-08-06`、`-2024-11-20`、`gpt-4o-mini-2024-07-18`、`gpt-4.1-2025-04-14`、`gpt-4.1-mini-2025-04-14`），官方替代 `gpt-6-luna`。即生產合成、相關性判官、答案層量度判官、`ocr_extract.py` 全部受影響。`text-embedding-3-small` 不在停用名單。Official docs: https://developers.openai.com/api/docs/deprecations 。Doc-reviewed: 2026-10-18 (S239)。
+- **遷移候選（S239 讀官方頁，未實測；價錢為 Standard、每百萬 token、輸入／快取輸入／輸出）**：
+  - `gpt-6-luna` $0.10／$0.01／$0.50 · 推理模型，`reasoning.effort` 可為 `none`／`low`／`medium`（預設）／`high`／`xhigh`／`max` · 支援 Responses structured outputs · 未公布停用 · 只有別名、無日期快照。
+  - `gpt-5.6-luna` $0.20／$0.02／$1.20 · 同上推理設定 · 未公布停用。
+  - 對照現用：`gpt-4o-mini` $0.15／$0.075／$0.60；`gpt-4.1-mini` $0.40／$0.10／$1.60。
+  - 不選：`gpt-5-nano`、`gpt-5-mini`（2026-12-11 停用）、`gpt-5.4-nano`（2027-04-01 停用，且較貴）。
+  - ⚠️ **推理 token 按輸出計費，`max_output_tokens` 亦包含推理 token**；預設 `medium` 會加開支與延遲。`llmClient.ts` 現時不傳 `reasoning`，換到推理模型前必須先加 `reasoning: { effort }` 並量度 `none` 是否夠用。Responses 參數名為 `reasoning: { effort: ... }`（Chat Completions 為 `reasoning_effort`）。
+  - Official docs: https://developers.openai.com/api/docs/pricing 、https://developers.openai.com/api/docs/models/gpt-6-luna 、https://developers.openai.com/api/docs/guides/reasoning 。Doc-reviewed: 2026-10-18 (S239)。Test-verified: 未。
 
 ### Supabase (Channel B pgvector)
 - Base URL: `https://<project-ref>.supabase.co` (project ref in `backend/.env`/Render env; live = `youkcekbrbywuqjxgibe`)
