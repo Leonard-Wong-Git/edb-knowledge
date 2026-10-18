@@ -1,0 +1,479 @@
+{
+ "label": "S227 pairwise rubric judge",
+ "generated_at": "2026-10-18T13:58:58.406Z",
+ "judge_model": "gpt-4.1",
+ "source_run": "../dev/source/eval_runs/2026-10-18_s239fusion_synth_before_after.jsonl",
+ "source_run_sha256": "c072ac664e2dbc6d54a7636fbb953a90d29e0d5ddb35f041f752ea359eca0294",
+ "gold_file": "../dev/_s213_gold_all.json",
+ "mode": "replay of saved answer texts; no retrieval, no Supabase, no embeddings",
+ "position_bias_control": "each item judged twice with the sides swapped; agreement required for a winner",
+ "approved_max_calls": 26,
+ "attempted_api_calls": 26,
+ "items": [
+  {
+   "id": "bus_guide_audience_confusable",
+   "query": "校車安全指引 哪一份是給學校",
+   "domain": "school_bus",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均無明確指出g18為學校適用文件，皆未能切中提問意圖，內容均未有正式偏離或嚴重錯誤，故判TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未直接引用鑰匙段落「應為每部校車擬備及經常更新乘車學童名單」之具體內容，僅依政策總則說明學校責任，缺失同級，難分高下。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "kg_admission_scope",
+   "query": "幼稚園收生安排",
+   "domain": "kg_admission",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2於最後一段提及「非計劃的本地幼稚園可以採取多種形式參加K1收生安排」，與登記段落「只適用於參加幼稚園教育計劃的幼稚園」不符，屬關鍵性內容錯誤。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案都未有明確指出K1收生安排只適用於參加幼稚園教育計劃的幼稚園，而且部分內容與登記段落並不完全一致，故難分高下。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "kg_reg_fee_cap",
+   "query": "幼稚園註冊費 上限",
+   "domain": "kg_admission",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆正確反映核准之註冊費上限，內容切題且無出現錯誤，均可完整發布，無明顯高下之分。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆正確回應提問內容，無明顯錯誤或違反評分準則之處，內容亦清晰、切題。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "kg_relocation_grant",
+   "query": "幼稚園搬遷津貼",
+   "domain": "kg_operation",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未回應查詢『未按期遷入新校舍的後果』，且與鑰匙段落不一致，故同屬離題及資料不符，難以分高下。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未有明確指出如未按期遷入新校舍須全數退回津貼的後果，同時對申請條件及金額均未違反關鍵事實，故評為持平。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "kg_application_fee_cap",
+   "query": "K1 報名費上限",
+   "domain": "kg_admission",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案內容均完全切合題目要求，事實無誤且無自相矛盾，亦同時補充註冊費資料，未見明顯優劣。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均完整、切題，內容和鑰匙一致，未出現任何違反準則情況，故為TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "kg_result_notification_date",
+   "query": "2026/27 K1取錄結果何時通知",
+   "domain": "kg_admission",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案1雖詳述，但給出的通知期限與登記段落不符，直接違背第3條；答案2雖未給具體答案，仍符合第2條，只略遜於未能直接回答，此屬較輕缺陷。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2所述的取錄結果通知日期與資料庫內容不符，屬於嚴重錯誤。答案1雖未能直接回答，但無虛假資訊，因此較佳。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "kg_class_size_limit",
+   "query": "幼稚園每班最多可收多少學生",
+   "domain": "kg_operation",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆正確涵蓋學生人數上限、午睡課室限制及教師人數要求，且與登記段落一致，未見違反評分準則之處。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均將午睡課室的容納上限20人與一般班上限30人並列表述，與答案鑰匙（僅載明30人）不符，且其餘內容相近，無一方在較高順位準則上勝出，故判TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "hr_maternity",
+   "query": "產假",
+   "domain": "hr_admin",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     1
+    ],
+    "answer_2_flaws": [
+     1
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆將中小學教師的產假規定套用至查詢對象幼稚園，屬於適用對象錯誤，缺陷同級，無一方於更高順位準則勝出。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     1,
+     3
+    ],
+    "answer_2_flaws": [
+     1,
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案同樣把中小學的產假安排與條件誤用於查詢中的幼稚園，適用對象不符，亦在內容上未與登記段落一致，缺陷程度無顯著差異，故判TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false,
+   "human_verdict": "BEFORE",
+   "agrees_with_human": false
+  },
+  {
+   "id": "hr_jobshare",
+   "query": "兩個老師分一個教席",
+   "domain": "hr_admin",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1對病假天數等具體福利描述與查詢無關且可能與登記段落不一致，而答案2內容與原文段落更為一致。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未能完全根據登記段落內容作答，且無明顯較高順位的缺失，故判為TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": true,
+   "human_verdict": "AFTER",
+   "agrees_with_human": true
+  },
+  {
+   "id": "hr_lang_req",
+   "query": "哪些英文科教師必須達到語文能力要求，哪些教師不適用？",
+   "domain": "hr_admin",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均正確指出常額教師必須符合語文能力要求，而非常額教師不適用，與登記段落基本一致，僅在細節描述與鑰匙不符，無明顯高下。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均與登記段落出現內容不一致之處，但缺陷性質和嚴重性相若，因此判為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "fin_sci_grant",
+   "query": "小學科學科 一筆過津貼",
+   "domain": "finance",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案1大篇幅關於教師病假政策，明顯離題，不直接回應提問意圖，較答案2為劣。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3,
+     5
+    ],
+    "answer_2_flaws": [
+     1,
+     2
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 1,
+    "reason": "答案2誤將中小學教師病假規定當作小學科學科津貼規則，適用對象明顯錯誤，較答案1嚴重。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "gov_imc_60pct",
+   "query": "辦學團體校董可佔法團校董會校董人數上限多少？",
+   "domain": "school_governance",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均準確列出60%的比例及替代校董不計算在內，均無違反任何評分準則，資料正確且切題，故屬同級。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆準確答出60%比例且解釋清晰，均無明顯違反任何評分準則，內容切題且無相互矛盾。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "gov_board_pay",
+   "query": "校董有冇人工",
+   "domain": "school_governance",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未直接坦白表示找不到答案，均嘗試合理推測並補充背景，離題程度相若，故判 TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆已明確表示資料並無校董人工的記載，內容同樣切題且無偏離標準，均僅就資料未記載作答，未見明顯高下。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  }
+ ],
+ "summary": {
+  "items": 13,
+  "BEFORE": 0,
+  "AFTER": 2,
+  "TIE": 9,
+  "WEAK_BEFORE": 1,
+  "WEAK_AFTER": 1,
+  "INCONSISTENT": 0,
+  "TIE_IDENTICAL": 0,
+  "TIE_BOTH_DECLINED": 0,
+  "api_calls": 26,
+  "judge_health": {
+   "judged": 13,
+   "always_first": 0,
+   "always_second": 0,
+   "raw_calls": 26,
+   "raw_tie_calls": 20
+  },
+  "needs_human_review": [
+   "kg_admission_scope",
+   "kg_result_notification_date",
+   "hr_jobshare"
+  ],
+  "decision": {
+   "counted": 10,
+   "excluded_for_review": 3,
+   "after_points": 1,
+   "before_points": 0,
+   "net_after": 1,
+   "ship_threshold": 8,
+   "verdict": "NO_MEASURABLE_GAIN"
+  },
+  "calibration_items": 2,
+  "calibration_agree": 1,
+  "calibration_disagree": [
+   "hr_maternity: judge=TIE human=BEFORE"
+  ]
+ },
+ "status": "complete"
+}
