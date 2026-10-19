@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T15:09:45Z",
+  "generatedAt": "2026-10-19T18:02:20Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 16990,
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-10-18T15:09:45Z",
+    "collectedAt": "2026-10-19T18:02:20Z",
     "items": [
       {
         "kind": "freshness-change",
@@ -72,15 +72,6 @@
         "number": 1
       },
       {
-        "kind": "served-url-broken",
-        "level": "decision",
-        "headline": "有連結失效",
-        "hint": "用戶按下去會見到錯誤頁，待你決定如何處理。",
-        "since": "2026-08-31T17:50:19Z",
-        "url": "https://github.com/Leonard-Wong-Git/edb-knowledge/issues/7",
-        "number": 7
-      },
-      {
         "kind": "cover-title-change",
         "level": "decision",
         "headline": "文件標題與內容不符",
@@ -88,6 +79,15 @@
         "since": "2026-09-01T17:09:36Z",
         "url": "https://github.com/Leonard-Wong-Git/edb-knowledge/issues/8",
         "number": 8
+      },
+      {
+        "kind": "new-source-discovery",
+        "level": "decision",
+        "headline": "發現新文件",
+        "hint": "EDB 網站出現新文件，待你篩選是否收錄。",
+        "since": "2026-10-19T16:41:59Z",
+        "url": "https://github.com/Leonard-Wong-Git/edb-knowledge/issues/54",
+        "number": 54
       }
     ],
     "ignored_outside": 0
@@ -222,7 +222,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=a344504 · 啟動於 2026-10-18T15:09:31.198Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=a344504 · 啟動於 2026-10-19T18:02:11.907Z · Channel A 快取 0 條",
       "offenders": [],
       "offender_total": 0
     },
