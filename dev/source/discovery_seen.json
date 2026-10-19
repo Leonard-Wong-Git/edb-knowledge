@@ -25,6 +25,7 @@
     "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26002C.pdf": "2026-08-24",
     "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26024C.pdf": "2026-08-24",
     "https://applications.edb.gov.hk/circular/upload/EMBC/EMBC03028C.PDF": "2026-08-24",
+    "https://cpas.icac.hk/UPloadImages/InfoFile/cate_43/2018/6913161a-8253-447a-b1e7-439b79641c16.pdf": "2026-10-19",
     "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/IMC_legislation_reminders_2023sep_tc.pdf": "2026-08-24",
     "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/good%20governance%20(chi).pdf": "2026-08-24",
     "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/essential-knowledge-of-sbm/ExistingSupportMeasures_SBM_IMC_2020may_tc.pdf": "2026-08-24",
@@ -299,7 +300,6 @@
     "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/files/AE/Booklet2_Sec.pdf": "2026-08-24",
     "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/files/AE/Booklet3_Pri.pdf": "2026-08-24",
     "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/files/AE/Booklet3_Sec.pdf": "2026-08-24",
-    "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/files/SB%20GE_TP Resource Kit_TC.pdf": "2026-09-21",
     "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/life-wide-learning/resource-and-support/mc01002c.pdf": "2026-08-24",
     "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/preprimary/pre-primaryguide-net_tc.pdf": "2026-08-24",
     "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/20230912 Letter to Pri sch_PECG.pdf": "2026-08-24",
@@ -398,7 +398,7 @@
     "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/2627_YTM_28Aug2026.pdf": "2026-08-31",
     "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/Annex 1_Surplus usage report template_C_202425.xlsx": "2026-09-07",
     "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/Annex_1a_CHI_Application form for Supply Teacher Grant (Middle Leaders)_Sep 2026.docx": "2026-10-12",
-    "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/Annex_Circular Letter to Scheme-KG_Sister KG 2526_Chi.docx": "2026-08-24",
+    "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/Annex_Circular Letter to Scheme-KG_Sister KG 2627_Chi.docx": "2026-10-19",
     "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/Annex_One-off Parent Education Grant_C_Template 1.docx": "2026-08-24",
     "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/Annex_One-off Parent Education Grant_C_Template 2.docx": "2026-08-24",
     "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/Annex_One-off Parent Education Grant_C_Template 3.docx": "2026-08-24",
@@ -412,7 +412,7 @@
     "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/Appendix 3_Salary Payment Receipt of the Supply Teacher_Chi_Oct 2024.docx": "2026-08-24",
     "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/Appendix_1-Recognised_courses_Chi (Updated in Sep 2026)_Final.pdf": "2026-10-12",
     "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/CPD.pdf": "2026-08-24",
-    "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/Circular Letter to Scheme-KG_Sister KG 2526_Chi_clean.pdf": "2026-08-24",
+    "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/Circular Letter to Scheme-KG_Sister KG 2627_Chi_clean.pdf": "2026-10-19",
     "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/Circular Letter_Salary related subsidies_salary ranges_C.pdf": "2026-08-24",
     "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/Circular%2010_Graduation%20Ceremony_PN_clean.doc": "2026-08-24",
     "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/Circular%201_Birthday%20Party_PN.doc": "2026-08-24",
@@ -638,6 +638,8 @@
     "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/review-report/Report-on-KG-review_C_clean.pdf": "2026-08-24",
     "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/schedules_EDBCM2-2026(c).xlsx": "2026-08-24",
     "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/training_activities_tc_2025-26 sy_final.pdf": "2026-08-24",
+    "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/kindergarten-k1-admission-arrangements/202728 K1 Admission Arrangements/2027-28 K1 Admission Arrangements - list of local non-scheme KGs_TC.pdf": "2026-10-19",
+    "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/kindergarten-k1-admission-arrangements/202728 K1 Admission Arrangements/EDBCM80_2026_TC.pdf": "2026-10-19",
     "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/CM/2022/EDBCM22084C.pdf": "2026-08-24",
     "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/CM/2026/EDBCM26107C.pdf": "2026-08-31",
     "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/CM/2026/EDBCM26156C.pdf": "2026-08-31",
@@ -752,5 +754,5 @@
     "https://www.edb.gov.hk/attachment/tc/teacher/student-guidance-discipline-services/principles-guidelines/guidelines-on-student-discipline/preface.pdf": "2026-08-24",
     "https://www.statistics.gov.hk/pub/B10101232019AN19B0100.pdf": "2026-08-24"
   },
-  "updated_at": "2026-10-12"
+  "updated_at": "2026-10-19"
 }
