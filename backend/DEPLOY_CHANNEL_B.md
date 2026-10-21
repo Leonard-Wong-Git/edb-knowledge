@@ -116,8 +116,9 @@ Render Dashboard → `edb-knowledge` service → **Environment**:
 | `OPENAI_API_KEY` | Yes | platform.openai.com → API keys | Used for query embeddings + LLM synthesis. Mark as secret. |
 | `SUPABASE_URL` | Yes (Channel B) | Supabase → Project Settings → Data API → **Project URL** | `https://<ref>.supabase.co` |
 | `SUPABASE_ANON_KEY` | Yes (Channel B) | Supabase → Project Settings → **API Keys → `anon` / `public`** | **Name must be EXACTLY `SUPABASE_ANON_KEY`.** Use the **anon** key here — NOT service_role. |
-| `OPENAI_MODEL` | No | — | Synthesis model. Defaults to `gpt-4o-mini`. |
-| `JUDGE_MODEL` | No | — | **S211 — relevance judge runs on its OWN model, separate from `OPENAI_MODEL`.** Defaults to `gpt-4.1-mini`; Render needs no entry unless overriding. |
+| `OPENAI_MODEL` | No | — | Synthesis model. Defaults to `gpt-6-luna` with reasoning effort `none` (S239; `gpt-4o-mini` shuts down 2027-01-14). If set explicitly, also set `OPENAI_REASONING_EFFORT` for a reasoning model — the effort is only defaulted when the model is. |
+| `OPENAI_REASONING_EFFORT` | No | — | S239. `none`／`low`／`medium`／… for reasoning models only. **Never set it with `gpt-4o-mini`／`gpt-4.1-mini`** (the API rejects it and the failed synthesis is swallowed into an empty answer). |
+| `JUDGE_MODEL` | No | — | **S211 — relevance judge runs on its OWN model, separate from `OPENAI_MODEL`.** Defaults to `gpt-6-luna` with effort `none` (S239; was `gpt-4.1-mini`, shut down 2027-01-14); Render needs no entry unless overriding. `JUDGE_REASONING_EFFORT` follows the same rule as above. |
 | `CORS_ORIGIN` | No | — | Leave **unset** → safe default `https://leonard-wong-git.github.io`. **Never `*`.** |
 | `KNOWLEDGE_PATH` | No | — | Defaults to `../../../role_facts.json`. |
 | `PORT` | No | — | Leave unset; Render injects it, the code reads it. |

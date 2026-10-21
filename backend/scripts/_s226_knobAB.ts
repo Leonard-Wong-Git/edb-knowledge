@@ -41,7 +41,7 @@ import {
   interleaveRankedLists,
 } from '../src/api/searchChannelB.js';
 import { createLlmClient } from '../src/lib/llmClient.js';
-import { getJudgeModel } from '../src/config/env.js';
+import { getJudgeModel, getJudgeReasoningEffort } from '../src/config/env.js';
 
 const SUPABASE_HOST = 'youkcekbrbywuqjxgibe.supabase.co';
 const OPENAI_HOST = 'api.openai.com';
@@ -185,7 +185,10 @@ globalThis.fetch = async (input: any, init?: any) => {
 // judge model for the judge — so this measures the deployed configuration rather
 // than a second wiring that happens to live in a script.
 const llm = SYNTHESIZE ? createLlmClient() : undefined;
-const judge = SYNTHESIZE ? createLlmClient({ model: getJudgeModel() }) : undefined;
+// S239 — mirror server.ts exactly, including the judge's own reasoning effort.
+const judge = SYNTHESIZE
+  ? createLlmClient({ model: getJudgeModel(), reasoningEffort: getJudgeReasoningEffort() })
+  : undefined;
 
 const cache = new Map<string, number[]>();
 /**

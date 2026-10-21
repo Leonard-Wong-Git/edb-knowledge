@@ -26,8 +26,10 @@
 
 ```bash
 OPENAI_API_KEY=your_openai_api_key
-OPENAI_MODEL=gpt-4o-mini
-JUDGE_MODEL=gpt-4.1-mini
+OPENAI_MODEL=gpt-6-luna
+OPENAI_REASONING_EFFORT=none
+JUDGE_MODEL=gpt-6-luna
+JUDGE_REASONING_EFFORT=none
 PORT=8787
 CORS_ORIGIN=https://leonard-wong-git.github.io
 KNOWLEDGE_PATH=../../../role_facts.json
@@ -94,8 +96,8 @@ Response:
 
 ## Notes
 
-- 合成用 LLM model 預設 `gpt-4o-mini`（`OPENAI_MODEL` 覆寫）
-- **S211：相關性判斷閘（relevance judge）行自己一個 model，預設 `gpt-4.1-mini`（`JUDGE_MODEL` 覆寫），與 `OPENAI_MODEL` 分開。** 見 `src/config/env.ts` `getJudgeModel()` 的量度紀錄；改判斷閘行為前先確認是哪一個變數。
+- 合成用 LLM model 預設 `gpt-6-luna`、推理強度 `none`（`OPENAI_MODEL`／`OPENAI_REASONING_EFFORT` 覆寫；S239，因 `gpt-4o-mini` 於 2027-01-14 停用）。**明確設定了模型就不會自動帶推理強度**，舊模型（`gpt-4o-mini`／`gpt-4.1-mini`）不可設推理強度，否則呼叫被拒、合成靜默變空
+- **S211：相關性判斷閘（relevance judge）行自己一個 model，預設 `gpt-6-luna`＋推理強度 `none`（S239；`JUDGE_MODEL`／`JUDGE_REASONING_EFFORT` 覆寫），與 `OPENAI_MODEL` 分開。** 見 `src/config/env.ts` `getJudgeModel()` 的量度紀錄；改判斷閘行為前先確認是哪一個變數。
 - topic detection 目前使用 embedding-based semantic routing
 - 若知識檔 schema 有變動，先對齊 `K1_KNOWLEDGE_INTERFACE_SPEC.md`
 - 目前後端 bridge layer 同時支援舊 `department_head` 與新 `subject_head` / `panel_chair`

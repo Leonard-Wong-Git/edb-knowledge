@@ -182,8 +182,8 @@
 - Purpose: (1) embedding-based semantic topic detection; (2) circular analysis generation
 - Backend usage: `backend/src/lib/embeddingClient.ts` (embeddings), `backend/src/lib/llmClient.ts` (LLM)
 - Embedding model: `text-embedding-3-small` (fixed in embeddingClient.ts)
-- LLM default model (synthesis): `gpt-4o-mini` (configurable via `OPENAI_MODEL` env var)
-- **Judge default model (S211): `gpt-4.1-mini` (configurable via `JUDGE_MODEL` env var) — the relevance judge runs on its OWN model, separate from `OPENAI_MODEL`.** `backend/src/config/env.ts` `getJudgeModel()` is the SSOT and carries the acceptance measurement; `server.ts:162` builds a second LLM client from it.
+- LLM default model (synthesis): `gpt-6-luna` + `reasoning.effort` `none` (S239; configurable via `OPENAI_MODEL`／`OPENAI_REASONING_EFFORT`). Effort is defaulted ONLY when the model is the default — an explicit non-reasoning model gets no `reasoning` field.
+- **Judge default model (S211; S239 → `gpt-6-luna` + effort `none`, via `JUDGE_MODEL`／`JUDGE_REASONING_EFFORT`) — the relevance judge runs on its OWN model, separate from `OPENAI_MODEL`.** `backend/src/config/env.ts` `getJudgeModel()` is the SSOT and carries the acceptance measurement; `server.ts:162` builds a second LLM client from it.
 - Notes:
   - LLM implementation targets the Responses API (`client.responses.create`)
   - Embedding implementation uses standard Embeddings API (`client.embeddings.create`)
@@ -202,7 +202,7 @@
   - 對照現用：`gpt-4o-mini` $0.15／$0.075／$0.60；`gpt-4.1-mini` $0.40／$0.10／$1.60。
   - 不選：`gpt-5-nano`、`gpt-5-mini`（2026-12-11 停用）、`gpt-5.4-nano`（2027-04-01 停用，且較貴）。
   - ⚠️ **推理 token 按輸出計費，`max_output_tokens` 亦包含推理 token**；預設 `medium` 會加開支與延遲。`llmClient.ts` 現時不傳 `reasoning`，換到推理模型前必須先加 `reasoning: { effort }` 並量度 `none` 是否夠用。Responses 參數名為 `reasoning: { effort: ... }`（Chat Completions 為 `reasoning_effort`）。
-  - Official docs: https://developers.openai.com/api/docs/pricing 、https://developers.openai.com/api/docs/models/gpt-6-luna 、https://developers.openai.com/api/docs/guides/reasoning 。Doc-reviewed: 2026-10-18 (S239)。Test-verified: 未。
+  - Official docs: https://developers.openai.com/api/docs/pricing 、https://developers.openai.com/api/docs/models/gpt-6-luna 、https://developers.openai.com/api/docs/guides/reasoning 。Doc-reviewed: 2026-10-18 (S239)。**Test-verified: 2026-10-21 (S239)** — `gpt-6-luna`＋`none`：判官凍結集主集 33/33 ×3、零錯放（`dev/source/judge_runs/2026-10-21_s239_luna_none_r{1,2,3}.json`）；答案層 36 題 A/B 偏舊模型 0 題、偏新 15 題，每次搜尋模型耗時中位 3.4→2.8 秒（`dev/source/eval_runs/2026-10-21_s239model_*`）；Responses API 接受 `reasoning: {effort: "none"}`，零呼叫錯誤。
 
 ### Supabase (Channel B pgvector)
 - Base URL: `https://<project-ref>.supabase.co` (project ref in `backend/.env`/Render env; live = `youkcekbrbywuqjxgibe`)

@@ -1,0 +1,430 @@
+{
+ "label": "S227 pairwise rubric judge",
+ "generated_at": "2026-10-21T09:14:39.087Z",
+ "judge_model": "gpt-4.1",
+ "source_run": "../dev/source/eval_runs/2026-10-21_s239model_before_after.jsonl",
+ "source_run_sha256": "bff2863e7665cb9b901eeb55ee05e828a615ba94832162bf4d41b80fa471ee68",
+ "gold_file": "../dev/_s213_gold_all.json",
+ "mode": "replay of saved answer texts; no retrieval, no Supabase, no embeddings",
+ "position_bias_control": "each item judged twice with the sides swapped; agreement required for a winner",
+ "approved_max_calls": 24,
+ "attempted_api_calls": 24,
+ "items": [
+  {
+   "id": "act_national_edu_calendar",
+   "query": "國民教育年曆",
+   "domain": "activity_value_education",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆明確回應國民教育年曆的用途，內容切題且與登記段落一致，亦無自相矛盾或發佈缺陷，故為同級。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2多加了國民教育年曆未有明列的政策用語與執行細節，與登記段落不一致，故答案1較佳。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "cpd_ladder_purpose",
+   "query": "專業階梯",
+   "domain": "cpd_teacher_qualification",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1聲稱需符合教育局的更新培訓要求，與資料未有載明各階段具體條件的登記段落內容不符，違反一致性原則；答案2則完全與登記段落一致。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均切題，並與鑰匙登記段落一致，只在資訊齊備度上有細微差異，但不足以構成明顯優劣，因此判TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "qa_pi_four_domains",
+   "query": "表現指標 範疇",
+   "domain": "qa_inspection",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1未有正確細分四大範疇下的各個範圍，部份內容不符註冊段落結構；答案2準確列出範疇及範圍，且與答案鑰匙一致。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆在細節如術語處理方式及部分實證應用細節上與登記段落略有出入，但並無高順位準則明顯分野，故屬同級。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "dig_ai_fact_check_privacy",
+   "query": "學生使用人工智能時如何核實資料",
+   "domain": "digital_education",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆具體描述了學生應對人工智能生成內容時的質疑態度及核實重要性，雖內容詳略略有差異，但都無違反較高順位準則，僅資料詳盡度不同，故判為TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆切題、內容完整且符合登記段落，皆明確指出資料未列明具體查證步驟，無明顯違規或高低順位差異。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "sec_cloud_audit_logs",
+   "query": "使用雲端服務是否需要保留審計記錄",
+   "domain": "info_security",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆準確反映資料庫所載規定，內容無嚴重錯誤，均切題、具體且一致，依準則判斷為同級表現。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均切合提問意圖，內容與鑰匙一致，適用對象正確，均無明顯違反任何評分準則。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "cur_primary_lesson_time",
+   "query": "小學各科要佔幾多課時",
+   "domain": "curriculum",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1有部分比例與登記段落不符（如中文、英文、數學的百分比），而答案2的比例與登記段落一致，因此答案2較佳。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     3,
+     6
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2提供的百分比與登記段落不符，違反了第3條準則，屬嚴重錯誤。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "gifted_identify_talent",
+   "query": "點樣識別資優學生",
+   "domain": "gifted",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆能切合提問意圖，內容均完整地涵蓋多元準則、渠道及工具，並無明顯缺陷，因此難分高下。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案同樣切合提問意圖，皆具體列出多元準則、渠道及工具，內容均與鑰匙一致，無明顯違反任何評分準則，故判為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "gifted_three_tier_confusable",
+   "query": "三層架構",
+   "domain": "gifted",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案都沒有就查詢的資優教育「三層架構推行模式」及其提問意圖正確作答，僅泛論三層教學策略結構，皆屬離題，無高下之分。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未明確回應查詢意圖，即未釐清資優教育的「三層架構推行模式」而僅泛談教學支援，均屬離題，無一方在較高順位的準則上勝出。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "sen_special_school_curriculum",
+   "query": "特殊學校 課程 調適",
+   "domain": "sen",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [
+     3,
+     6
+    ],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案1主要重覆一般融合教育課程調適原則，過度偏離提問意圖，而答案2雖較簡略，但能較直接回應特殊學校如何選擇及調適課程。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     6
+    ],
+    "answer_2_flaws": [
+     2,
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未明確回應「選擇普通學校課程與調適課程」的抉擇情境，僅就課程調適概述，且內容齊備程度相若，故為TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "ss_harmony_hotline",
+   "query": "和諧校園 一站式熱線",
+   "domain": "student_support",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案2直接回應了查詢要求，明確指出服務對象為中、小學生及家長；而答案1未有明確說明此點，切題性較弱。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均正確指出提供機構及學年，內容與登記段落未見明顯衝突，缺陷同級，難分高下。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "ss_wsa_1990_ecr4",
+   "query": "全校參與訓輔 幾時引入",
+   "domain": "student_support",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1聲稱引入時間未有載明，但其描述融合教育資料與訓輔主題混淆，且涉及內容未與登記段落一致，相較之下，答案2雖簡短但更貼回答出資料未載明訓輔引入時間的事實，故在準則3下勝出。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案2雖內容較豐富，但偏離查詢重點，未明確回應訓輔引入時間及依據，屬離題；答案1雖未完全精確，然而較為切題。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "bus_escort_list",
+   "query": "跟車保母 學童名單",
+   "domain": "school_bus",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆準確回應提問意圖，內容互為補充，但皆無違反評分準則，故評為TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩者均正確回應查詢重點，內容完整且與登記段落一致，未有明顯違反任何評分準則，故評分為TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false,
+   "human_verdict": "AFTER",
+   "agrees_with_human": false
+  }
+ ],
+ "summary": {
+  "items": 12,
+  "BEFORE": 0,
+  "AFTER": 2,
+  "TIE": 5,
+  "WEAK_BEFORE": 0,
+  "WEAK_AFTER": 5,
+  "INCONSISTENT": 0,
+  "TIE_IDENTICAL": 0,
+  "TIE_BOTH_DECLINED": 0,
+  "api_calls": 24,
+  "judge_health": {
+   "judged": 12,
+   "always_first": 0,
+   "always_second": 0,
+   "raw_calls": 24,
+   "raw_tie_calls": 15
+  },
+  "needs_human_review": [
+   "act_national_edu_calendar",
+   "cpd_ladder_purpose",
+   "qa_pi_four_domains",
+   "cur_primary_lesson_time",
+   "ss_wsa_1990_ecr4"
+  ],
+  "decision": {
+   "counted": 7,
+   "excluded_for_review": 5,
+   "after_points": 1,
+   "before_points": 0,
+   "net_after": 1,
+   "ship_threshold": 8,
+   "verdict": "NO_MEASURABLE_GAIN"
+  },
+  "calibration_items": 1,
+  "calibration_agree": 0,
+  "calibration_disagree": [
+   "bus_escort_list: judge=TIE human=AFTER"
+  ]
+ },
+ "status": "complete"
+}
