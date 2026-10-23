@@ -39,6 +39,25 @@ When current work requires a log entry, record whether relevant older detail was
 
 <!-- ack:log-entry:start -->
 
+## 2026-10-23 Session 240 — npm 依賴漏洞修補（PR #55 合併部署）
+
+- **ID:** S240
+- **Summary:** Leonard 要求「更新 php node 等漏洞」。本機與專案皆無 PHP；Homebrew Node 已是最新安全版。專案 `npm audit` 4 項以 `npm audit fix` 修補，PR #55 經 Leonard 指示 squash 合併，Render 部署 `77de1dd`。
+- **Changed:** PR #55：`backend/package-lock.json`、`dev/checklists/_work/package-lock.json`、`dev/checklists/_work/node_modules/.package-lock.json`、`dev/checklists/_work/node_modules/nanoid/*` · 收工（推上 `s239/query-fusion`，即 PR #53）：交接、本 log、`dev/archive/SESSION_LOG_2026_Q3.md`、`PROJECT_INDEX.md`、`DOC_SYNC_REGISTRY.md`、`START_NEXT_SESSION_PROMPT.txt`。
+- **Done:** backend `ws` 8.20.0→8.22.0、`form-data` 4.0.5→4.0.6、`hasown` 2.0.2→2.0.4、`esbuild` 0.27.4→0.27.2；checklists 工具 `nanoid` 5.1.11→5.1.16。合併後 `/health` 報 `77de1dd`。本機另一個 `/usr/local/bin/node`（24.14.0，無 pkg 收據）在本節 11:36 前後已被移除，非本 session 所刪，無殘留。
+- **QC:** 兩處 `npm audit` 0；`npm ci`、`check`、`build`、`regression:grounded` 48/48、`route_regression` 63/63（與修補前逐字相同）、docx smoke test；build-gate pass；線上 `x-probe` 搜尋 200。
+- **Evidence disposition:** 一次性；結論入交接 `## Validation / QC` S240。
+- **Sync:** `dev/DOC_SYNC_REGISTRY.md` S240 節。
+- **Pending:** 不變，見交接 Open Priorities（S239 ①–⑤）。
+- **Risks:** Render 所用 Node 22.x 小版本未核實；`cache_b` 173／303 對 S237 記錄 181／306 未逐條核對。
+- **Log maintenance:** `--check` 報 date trigger → `--apply`：292→264 行、10→9 條，S230 一條入 `dev/archive/SESSION_LOG_2026_Q3.md`（只搬不刪）；重查 `trigger=False`。工具再次把該條的 `ack:log-entry:start` 留在主檔尾，已移到歸檔檔該條標題前（兩檔各自 +1/+1，主檔既有失衡不動）。`latest entry prompt block ok=False` 為已知分歧（開場白不入 log）。
+- **Opening-message mirror:** 由交接檔唯一 fenced 區塊重生並核對相等；全文不入 log。
+<!-- ack:log-entry:end -->
+
+---
+
+<!-- ack:log-entry:start -->
+
 ## 2026-10-21 Session 239 — SEN 留級答錯的根因（展開詞）、查詢交替合併不出貨、狀態頁按改動重產、OpenAI 模型遷移選型與量度
 
 - **ID:** S239（跨 2026-10-13、10-18、10-21）
@@ -258,35 +277,5 @@ When current work requires a log entry, record whether relevant older detail was
 - **Pending:** Leonard 選定 GN10 型錯置的處理路線（甲：curated footnote 個案修；乙：非提示式對象核對機制）；log 維護兩套標準整合；收工 PR 待合併。
 - **Risks:** GN10 型錯置在生產非決定性出現；判官基線只跑一次，未達 ≥3 runs。
 - **Log maintenance:** 寫入本條後主 log 為 **12 條**。`docs/qa/session_log_maintenance.py --check` 報 **`line_count=418`、`trigger=True`**（§4a 行數閘），故依 §4a 強制執行 `--apply`：**418 → 148 行、12 → 4 條，8 條（S220–S227）搬入 `dev/archive/SESSION_LOG_2026_Q3.md`**（append，未覆寫）。事前備份、事後逐行核對：12 個條目標題全數尋回、非標記內容 **0 行遺失**。**S224 記載的 off-by-one 再次出現**：主檔尾留下一個孤立 `ack:log-entry:start`，已刪（主檔改後 5/5 平衡）；歸檔檔本次 +8/+8，其既有的 4 個失衡照 S224 判斷不動。工具回報 `latest entry prompt block ok=False` —— §4a 硬規則 3 要求最新條目保留開場白全文，而 Kit 核心與本檔頭寫明「開場白全文不屬於 log」，屬同一組並存標準的另一處衝突，本節照 Kit 做法不寫入、記錄於此。重跑 `--check`：`line_count=146`、`trigger=False`。S230 記錄的兩套觸發標準衝突**本節仍未整合**；衝突已在交接 `Open Priorities`「次序」段列為治理側第一件維護工作。`## Confirmed Decisions` 類章節未達 30 條；距上次全面維護未滿 10 次收工；本節無架構取捨需寫入 `PROJECT_DECISIONS.md`。
-- **Opening-message mirror:** 已由 `dev/SESSION_HANDOFF.md` 的 fenced 區塊重新產生 `START_NEXT_SESSION_PROMPT.txt` 並讀回逐字核對。
-<!-- ack:log-entry:end -->
-
-<!-- ack:log-entry:start -->
-
-## 2026-09-22 Session 230 — 用 stub 判官量了三次「失去捷徑」，錯讀成「失去答案」；換真判官之後結論倒轉，然後兩個量度工具自己出錯，最後一個「新缺陷」是我沒讀 CODEBASE_CONTEXT
-
-- **ID:** `Claude_20260921_1100` — S230（跨 09-21／09-22 兩日）
-- **Summary:** 由「開工」起手，Leonard 逐步授權：合併 S228 的 PR → 收乾 S229 遺下的半完成狀態 → 定案並量度 S229 提的「換訊號」候選 → 補完四項出貨先決條件 → 奉命先修判官。淨結果：**候選由「不出貨」翻成「條件性可出貨」再收緊為疊加式設計**，而出貨仍卡在一個有前科的判官弱點。本節三度自我更正，其中兩次是自造的量度工具出錯，一次是來源優先次序倒轉。
-- **Changed:** `backend/src/api/searchChannelB.ts`（`FEATURE_VAULT_GATE_RAWVEC`，預設關閉；第二版改為**疊加**而非取代）· `backend/src/lib/wikiRepository.ts`（`bareCosineForChunk()`，4 位小數對齊校準尺）· `backend/scripts/_s230_{gateSignalAB,leadOverlap,bypassCensus,judgeTakeover,readDeclines,judgeModelProbe}.ts`（新，六支）· `dev/_s230_relabel.py`（新）· `dev/source/judge_probe.py`＋`dev/source/judge_acceptance.py`（只加範圍說明與執行期警告，零行為、零預設改動）· `dev/DOC_SYNC_CHECKLIST.md`（row 41 驗收工具改指新探針）· `dev/SESSION_LOG.md`（補寫 S229 條）· `dev/SESSION_HANDOFF.md` · `dev/PROJECT_INDEX.md` · `dev/DOC_SYNC_REGISTRY.md` · `dev/source/eval_runs/2026-09-2{1,2}_s230_*`（七份）· `dev/source/2026-09-22_s230_footnote_lead.json`
-- **Done:**
-  - **S229 收乾**：它改了交接檔內容卻從未收工（無 log 條目、`Last Session Record` 停在 S228、四項改動未 commit）。補寫 S229 log 條目並明示是補寫、事實來源是它留下的實物；重跑 `_s229_scaleOffset.ts` 獨立覆核其數字（它沒存過原始輸出）—— A 尺 CLASS_B 上限 0.6321／CLASS_C 下限 0.6241 逐項重現 S195 原數。
-  - **兩個 PR 合併並部署核實**：#22（S228，`2e803ec`）與 #23（本節候選與量度，`2678ea2`）。生產行為核實 S228 的 `kg_admin` 路由修正已生效（`幼稚園搬遷津貼` 現由 `edbcm144_2026` @ 0.7111 領先，整窗轉為幼稚園行政語料）。
-  - **候選實作與量度**：把 vault judge-bypass 由讀「展開後＋路由收窄」分數改為讀同一片段對裸查詢向量的餘弦，`0.70` 一個位不動。instrument 先自我驗證：SQL 本身 `round(…,4)`，本機餘弦取 4 位小數後與 RPC **40/40 逐條相同**。
-  - **24 條校準集**：bypass 5→0，只換到一條正確攔截，代價三個正控加一條已核實正確的 bypass —— **按預先定案失敗**。根因結構性：24 條在校準尺上最高只有 0.6457，閘卻設在 0.70，所以「放回校準尺」等於「移除 bypass」。
-  - **185 題 gold 人口普查**（新工具，單 arm 足夠且該推導先對兩 arm 的 24 條逐條驗證 24/24）：真實作用面是 **59/185（31.9%）**。按 gold 真值拆：`FALSE_BYPASS` 5／`WRONG_PASSAGE` 44／`SOUND` 10。並排除兩個候選規則：詞面零重疊只攔 1/59、對五條 `FALSE_BYPASS` 全部失效。
-  - **判官接手測試**（Leonard 明示批准 59 次，實用 53 次，errors 0）：**結論倒轉**。被攔的 `SOUND` 判官照樣答、`FALSE_BYPASS` 4/5 轉為拒答，預先定案全部達標。
-  - **四項出貨先決條件**：`footnote_lead_probe` 已跑（正控 26/27、零 LLM，並證明本候選動不到它的觀測量）· `judge_probe.py` 改為講清角色而非重寫、row 41 驗收工具改指新探針 · 14 條拒答與 2 條新開 bypass 逐條讀窗 · 延遲實測（中位 288ms／p90 639ms）。
-  - **按延遲收緊候選**：旗標由「取代舊閘」改為「疊加」（只在 applied ≥0.70 才做額外讀取）—— 額外讀取由 168 條降至 58（91%→31%），且候選**再也不可能新開 bypass**。全 185 條確認：新開 0、保住 6，與 53 次呼叫吻合。
-- **Fix Record:**
-  - **Problem:** 三批量度都判「不出貨」，理由是候選會令查詢失去 bypass。**Root Cause:** 三支探針都用 stub 判官（刻意如此，為隔離閘），於是量到的是「失去捷徑」而我讀成「失去答案」。**Fix:** 用生產判官模型實測 53 次。**Verification:** 被攔的七條 `SOUND` 判官 7/7 照樣答，其中六條是二三個 token 的短查詢 —— 普查推論的「短查詢誤傷」在答案層並未實現。
-  - **Problem:** `SOUND`／`WRONG_PASSAGE` 的分界（＝預先定案的讀數依據）可能量錯。**Root Cause:** 探針用原文子字串比對，而本專案單一口徑是 `squeeze(fold(s))`（NFKC＋刪空白）；`家長校董 點選` 的答案逐字在第 0 格，只因 gold 寫半形 `(PTA)` 而片段是全形 `（PTA）` 就被判成無答案。**Fix:** 改用本專案口徑並加紅測，用已有判官結果重新推導（零新呼叫）。**Verification:** 5 條由 `WRONG_PASSAGE` 移入 `SOUND`（全 gold 原文比對漏 25 條命中）；預先定案仍全部達標，但 `SOUND` 拒答由 0 變 1，**距「≥2 即不出貨」只差一條**。
-  - **Problem:** 普查重跑整個崩潰、零輸出。**Root Cause:** 取裸查詢向量那個 embedding 呼叫放在 try/catch 之外。**Fix:** 加單次重試並把整條 item 包住。**Verification:** errors 由 2 降至 0，`bypass_before` 兩次都是 59。
-  - **Problem:** 曾把「判官驗收自 S211 起量錯模型／D01 假答案屬未報缺陷／要 Leonard 去 Render 查 `JUDGE_MODEL`」寫成新發現，三項皆錯。**Root Cause:** 只讀了 `judge_acceptance.py` 的檔內註釋（§2 第 5 級來源）就下結論，未查 `dev/CODEBASE_CONTEXT.md`（第 3 級）—— **來源優先次序倒轉**；而該註釋本身確實過時，所以看起來像可信現況。**Fix:** 在 Risks 與 Validation 兩處逐項標明**收回**（不靜靜改掉，因為曾據此要求 Leonard 行動），harness 檔頭改為準確版本。**Verification:** `CHANGELOG.md` 記載 S211 確實用凍結集量過 `gpt-4.1-mini`（主集 31/33 打平、相同的兩個 false answer、無新增虛答）；`CODEBASE_CONTEXT.md` 明文記載 Render 不需條目、程式預設即在跑者。
-- **QC:** `npm run check` 0 · `npm run build` 0 · `regression:grounded` 48/48 · `route_regression` 63/63 · 五支探針 self-test 全綠（每支一條紅測）· `footnote_lead_probe --self-test` PASS · `judge_acceptance --self-test` 0 failure · `session_log_maintenance --check` trigger=False · `workspace-health` verified／dirty:no。**未跑**：`_s227_rubricJudge` 的 gold before→after（主指標已足以判定，花約 150 次呼叫量一個不出貨的候選是浪費，已記錄為刻意略去）；`judge_acceptance` 對 `gpt-4.1-mini` 的一次 run（35 次呼叫，下節第一件事）。
-- **Evidence disposition:** 七份 `eval_runs` artifact ＋ footnote lead 一份保留為近期證據；結論與判讀已抄入 `dev/SESSION_HANDOFF.md` `## Validation / QC` S230 八批；六支探針與一支 Python 分析器已登記 `dev/PROJECT_INDEX.md`；「判官驗收工具由 `judge_probe.py` 改為新兩支」已升為 `dev/DOC_SYNC_CHECKLIST.md` row 41 的常設要求；「來源優先次序倒轉」這條教訓寫在本條 Fix Record 與 Risks 首條，**按 §8b 暫不升為新規則**（§2 已有該規則，是沒遵守而非缺失）。
-- **Sync:** `dev/DOC_SYNC_REGISTRY.md` 已記本節十二列狀態 · `dev/PROJECT_INDEX.md` Local QC Commands 新增七列 · `dev/DOC_SYNC_CHECKLIST.md` row 41 已改寫 · `dev/CODEBASE_CONTEXT.md` **not_applicable**（零 tech stack／目錄／build／External Services／Key Decisions 改動；`bareCosineForChunk()` 沿用既有 Supabase REST 形狀）· `guidelines.json`／`knowledge.json` 凍結合約零接觸 · 平台版本零改動（`app.html` 未改）。
-- **Pending:** 用 `gpt-4.1-mini` 跑一次 `judge_acceptance.py`（35 次呼叫）把 S211 那組只存在於 CHANGELOG 散文的基線補回 artifact；然後才談那條判官錯判或啟用旗標。**PR [#26](https://github.com/Leonard-Wong-Git/edb-knowledge/pull/26) 未合併**，本節的交接狀態在該分支上。
-- **Risks:** 旗標生產未設＝行為不變。候選的殘留代價：1 條 `SOUND` 拒答（成因是判官判錯，距不出貨紅線一條）、1 條 `FALSE_BYPASS` 判官仍判「能」、延遲每查詢中位 +288ms（僅 31% 查詢）。
-- **Log maintenance:** 🔴 **兩套標準衝突，本節照契約記錄而不自行決定。** 寫入本條之後 `session_log_maintenance --check` 報 **`line_count=393 entry_count=11`、`trigger=False`** —— 本專案 `AGENTS.md` §4a 的機械閘（>400 行 或 最舊條目 >30 日）**未觸發**，但 Kit 核心 `dev/rules/closeout.md` 的維護規則寫「主 log 達 **11 條**即觸發歸檔」，**該條已觸發**。兩者的歸檔目標亦不同（§4a：`dev/archive/SESSION_LOG_YYYY_QN.md`，已存在 `SESSION_LOG_2026_Q3.md`；Kit：`dev/SESSION_LOG_archive/archive_<batch>_...` ＋ `INDEX.md`）。**本節不執行歸檔**，理由三項：(1) §4a 明文把該腳本定為執行閘而它報未觸發；(2) 393 行遠低於兩套的行數門檻（400／1500）；(3) 在長 session 末端重組 log 屬結構性改動，且會在兩個並存的歸檔目錄之間造成第三種狀態。**依 `AGENTS.md` §5「若兩個 pack 衝突，取較安全而可驗證的路徑，並在收工記錄該衝突」處理。下一節第一件維護工作：決定本專案採用哪一套（建議把 §4a 的門檻與 Kit 的 11 條規則整合為單一定義，屬 §3b 整合而非疊加）。** `## Confirmed Decisions` 類章節未達 30 條；距上次全面維護未滿 10 次收工。本節一條跨節累積模式（「用 stub 判官量出的結論不可讀成答案層結論」）已寫入本條 Fix Record 與 `dev/SESSION_HANDOFF.md` 的量度紀律，未另立 `PROJECT_DECISIONS.md` 條目。
 - **Opening-message mirror:** 已由 `dev/SESSION_HANDOFF.md` 的 fenced 區塊重新產生 `START_NEXT_SESSION_PROMPT.txt` 並讀回逐字核對。
 <!-- ack:log-entry:end -->

@@ -6,15 +6,17 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S239 收工, 2026-10-21）---
+--- 專案狀態（S240 收工, 2026-10-23）---
 
 平台 v3.3.10；Supabase 16,990 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點 151 份（_meta 2.6.2）；
 knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.4.3。
-origin/main = c4b3a6a（S238 後只有監察機械人 commit）；線上執行碼仍 a344504。
+origin/main = 77de1dd；線上執行碼亦 77de1dd（S240 PR #55 依賴漏洞修補，只換 lock 檔，行為同 a344504）。
 FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用；FEATURE_SUBJECT_CHECK、FEATURE_QUERY_FUSION 未設＝關閉。
 Render：OPENAI_MODEL=gpt-4o-mini、無 JUDGE_MODEL。public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
 
-🔴 PR #53（s239/query-fusion，build-gate 綠、可合併）未合併 —— 開工先 git fetch、gh pr view 53 核實。內容：
+🟢 S240 做完（不用重做）：npm audit 4 項（ws、form-data、esbuild、nanoid）已修並部署，兩處 audit 皆 0；本機無 PHP、Node 已是最新。
+
+🔴 PR #53（s239/query-fusion，build-gate 綠、可合併；含 S239 與 S240 收工文件）未合併 —— 開工先 git fetch、gh pr view 53 核實。內容：
    · 狀態頁：知識庫檔案落 main 或 owner／機械人開關 Issue 即重產；頁面自行比對 knowledge.json 片段數與更新日誌。
    · FEATURE_QUERY_FUSION（預設關）：原句＋展開句交替合併。檢索層片段 59→68，但答案層不出貨
      （net_after +2.5／門檻 8，且 cpd_induction_period_na 由拒答變自信答錯）→ 不要在 Render 啟用。
@@ -53,7 +55,7 @@ Render：OPENAI_MODEL=gpt-4o-mini、無 JUDGE_MODEL。public.search_log 記錄�
    · 抽取與入庫一律用 /usr/local/bin/python3。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.10 + Render /health commit
-（a344504，或 #53 合併後的新 commit）+ git fetch 後比對分支與 origin/main、gh pr view 53 + Supabase live count 應為 16,990
+（77de1dd，或 #53 合併後的新 commit）+ git fetch 後比對分支與 origin/main、gh pr view 53 + Supabase live count 應為 16,990
 + check_registry_drift --check --ledger <scratchpad> 的 ZOMBIE／UNMANAGED／SERIES_UNMONITORED 都應為 0）。
 之後報告，並按 ①(a) 先查官方模型資料。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次、不得合併 PR。

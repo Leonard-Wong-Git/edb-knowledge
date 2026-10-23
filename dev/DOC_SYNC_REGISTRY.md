@@ -27,6 +27,18 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-10-23 — S240（npm 依賴漏洞修補）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| 依賴版本 | `confirmed` | PR #55 只改 lock 檔與 checklists 的 nanoid；`npm audit` 兩處皆 0；本機 check／build／兩組回歸過 |
+| Deploy | `confirmed` | 合併後 Render 部署 `77de1dd`，`/health` 實測 |
+| Agent Handoff Kit 版本 | `pending` | 已出 v0.4.4，`@latest` doctor 報 project shortcuts 失敗；本節收工以 `@0.4.3` 讀回 complete；升級待 Leonard 授權 |
+| Render Node 版本 | `unverified` | `.node-version` 為 22；部署所用小版本 `/health` 不報 |
+| `CODEBASE_CONTEXT.md`／`PROJECT_DECISIONS.md` | `not_applicable` | 無技術棧、指令或取捨改動 |
+| `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並核對相等 |
+| Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4、`## User Environment` Git state、`PROJECT_INDEX` Branch / commit 列 |
+
 ### 2026-10-21 — S239（查詢交替合併 ＋ 狀態頁按改動重產 ＋ OpenAI 模型遷移）
 
 | Row | 狀態 | 備註 |
