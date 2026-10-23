@@ -27,6 +27,33 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-10-23 — S240（npm 依賴漏洞修補）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| 依賴版本 | `confirmed` | PR #55 只改 lock 檔與 checklists 的 nanoid；`npm audit` 兩處皆 0；本機 check／build／兩組回歸過 |
+| Deploy | `confirmed` | 合併後 Render 部署 `77de1dd`，`/health` 實測 |
+| Agent Handoff Kit 版本 | `pending` | 已出 v0.4.4，`@latest` doctor 報 project shortcuts 失敗；本節收工以 `@0.4.3` 讀回 complete；升級待 Leonard 授權 |
+| Render Node 版本 | `unverified` | `.node-version` 為 22；部署所用小版本 `/health` 不報 |
+| `CODEBASE_CONTEXT.md`／`PROJECT_DECISIONS.md` | `not_applicable` | 無技術棧、指令或取捨改動 |
+| `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並核對相等 |
+| Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4、`## User Environment` Git state、`PROJECT_INDEX` Branch / commit 列 |
+
+### 2026-10-21 — S239（查詢交替合併 ＋ 狀態頁按改動重產 ＋ OpenAI 模型遷移）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| 查詢展開／檢索旗標 | `confirmed` | `FEATURE_QUERY_FUSION` 預設關；185 題兩層 before→after 與答案層判官已跑；`backend/README.md`、`.env.example`、`CODEBASE_CONTEXT.md` 記結論「不出貨」 |
+| 答案層評分 | `confirmed` | 門檻 8 跑前已定未改；校準 5/7、位置偏誤 0/0；須人手覆核題剔出並另報穩健性 |
+| 監察／狀態頁 | `confirmed` | `qc_report.yml` 觸發改動、頁面比對邏輯、看門狗 skipped；測試與紅測已跑（S209 紀律：只改 qc_report，其餘監察觸發不受影響） |
+| 外部服務（OpenAI） | `confirmed` | 停用與候選價錢寫入 `CODEBASE_CONTEXT.md` OpenAI 段，Doc-reviewed 2026-10-18、Test-verified 2026-10-21 |
+| 模型預設與環境變數 | `confirmed` | `env.ts`、`.env.example`、`backend/README.md`、`DEPLOY_CHANNEL_B.md`、`README.md` 同步；`judge_acceptance.py` 加 `JUDGE_REASONING_EFFORT` |
+| Render 環境變數 | `pending` | PR #53 合併後由 Leonard 刪除或改 `OPENAI_MODEL`（次序：先合併後改） |
+| Deploy | `pending` | PR #53 改 `backend/`，合併後 Render 自動部署；未合併 |
+| `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並核對相等 |
+| Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4、`## User Environment` Git state、`PROJECT_INDEX` Branch / commit 列 |
+| 離線工具模型（`_s227_rubricJudge.ts` `gpt-4.1`、`ocr_extract.py` `gpt-4o`） | `pending` | 2027-01-14 停用；未選型（交接 Open Priorities ①(c)） |
+
 ### 2026-10-13 — S238（監察通知修正 ＋ 來源更新 ＋ 失效連結修復）
 
 | Row | 狀態 | 備註 |

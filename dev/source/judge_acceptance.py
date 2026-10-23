@@ -120,6 +120,12 @@ ENDPOINT = "https://edb-knowledge.onrender.com/api/search/channel-b"
 # stated reason was that D01 is a footnote-bypass case the judge never serves live, and S201
 # removed the footnote bypass; whether the premise still holds is unverified.
 JUDGE_MODEL = os.environ.get("JUDGE_MODEL", "gpt-4o-mini")
+# S239 — mirrors backend env.ts reasoningEffortFromEnv(): unset or unrecognised sends no
+# `reasoning` field (the non-reasoning models reject it); a recognised value is sent as
+# {"reasoning": {"effort": v}}. Needed to measure gpt-6-luna, which defaults to `medium`.
+_EFFORTS = ("none", "minimal", "low", "medium", "high", "xhigh", "max")
+_effort_raw = (os.environ.get("JUDGE_REASONING_EFFORT") or "").strip().lower()
+JUDGE_REASONING_EFFORT = _effort_raw if _effort_raw in _EFFORTS else None
 
 # Verbatim copy of RELEVANCE_JUDGE_PROMPT (searchChannelB.ts). Kept as a literal rather
 # than parsed out of the TypeScript so that a drift between the two is a visible diff in
@@ -259,7 +265,10 @@ def fetch_chunks(query: str, retries: int = 2) -> list[str]:
 
 def call_judge(prompt: str, api_key: str, retries: int = 2) -> str:
     """Same call shape as llmClient.ts: POST /v1/responses with {model, input}."""
-    body = json.dumps({"model": JUDGE_MODEL, "input": prompt}).encode("utf-8")
+    payload_in = {"model": JUDGE_MODEL, "input": prompt}
+    if JUDGE_REASONING_EFFORT:
+        payload_in["reasoning"] = {"effort": JUDGE_REASONING_EFFORT}
+    body = json.dumps(payload_in).encode("utf-8")
     last = None
     for attempt in range(retries + 1):
         try:
@@ -337,7 +346,7 @@ def cmd_score(prompt_path: str | None, out_path: str | None, pace: float, label:
     summary = score_cases(cases, verdicts, scope="primary")
     secondary = score_cases(cases, verdicts, scope="all")
     print("\n" + "=" * 68)
-    print(f"prompt: {label}   model: {JUDGE_MODEL}")
+    print(f"prompt: {label}   model: {JUDGE_MODEL}   reasoning effort: {JUDGE_REASONING_EFFORT or '(not sent)'}")
     if "JUDGE_MODEL" not in os.environ:
         print("  \u26a0 JUDGE_MODEL not set: this run measures gpt-4o-mini, which is NOT the")
         print("    judge production runs (env.ts default is gpt-4.1-mini since S211). Set")
@@ -358,7 +367,7 @@ def cmd_score(prompt_path: str | None, out_path: str | None, pace: float, label:
     if out_path:
         RUNS_DIR.mkdir(parents=True, exist_ok=True)
         Path(out_path).write_text(json.dumps({
-            "label": label, "model": JUDGE_MODEL,
+            "label": label, "model": JUDGE_MODEL, "reasoning_effort": JUDGE_REASONING_EFFORT,
             "run_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             "summary": summary, "verdicts": raws,
         }, ensure_ascii=False, indent=2), encoding="utf-8")

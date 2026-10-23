@@ -6,90 +6,56 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S238 第二次收工, 2026-10-13）---
+--- 專案狀態（S240 收工, 2026-10-23）---
 
-平台 v3.3.10；Supabase 16,990 chunks（S238 來源更新後實測，公開顯示已同步）；in-app 瀏覽庫 170 份；
-guidelines.json 公開端點 151 份（_meta 2.6.2）；knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.4.3。
-FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用。FEATURE_SUBJECT_CHECK（S236）已部署、未設＝關閉。七個量度旗標生產一律未設。
-合成模型 OPENAI_MODEL=gpt-4o-mini；判官 gpt-4.1-mini。public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
+平台 v3.3.10；Supabase 16,990 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點 151 份（_meta 2.6.2）；
+knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.4.3。
+origin/main = 77de1dd；線上執行碼亦 77de1dd（S240 PR #55 依賴漏洞修補，只換 lock 檔，行為同 a344504）。
+FEATURE_ROUTE_FIRST_SEARCH=1 在 Render 啟用；FEATURE_SUBJECT_CHECK、FEATURE_QUERY_FUSION 未設＝關閉。
+Render：OPENAI_MODEL=gpt-4o-mini、無 JUDGE_MODEL。public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
 
-🔴 開工第一件事：git fetch 後確認分支與 origin/main。
-   S238 收工時 main = a67bd29（#48 e3d130d、#49 513208b、#50 a67bd29 皆已合併）；線上執行碼仍 = a344504（三個 PR 都不改 backend/）。
-   S238 第二次收工 PR（s238/closeout-2，只改治理文件）待合併——開工先核實。
-   #48 已包含未合併的 S236（#45）與 S237（#47）收工內容，#45、#47 可關閉，關閉前先問 Leonard。
-   判斷線上有沒有落後【比檔不比 hash】：git diff --name-only <部署commit>..origin/main -- backend
-   合併只在 Leonard 明示指示時進行；被分類器擋下時不要重試或繞過。每 session 盡量只開一個 PR。
+🟢 S240 做完（不用重做）：npm audit 4 項（ws、form-data、esbuild、nanoid）已修並部署，兩處 audit 皆 0；本機無 PHP、Node 已是最新。
 
-🟢 S238 做完了甚麼（不用重做）：
-   1. 監察通知修正：偵測型監察改為「有新項目才以留言 @Leonard」（.github/scripts/notify_new_items.js）。
-      根因是 Leonard 沒有 Watch repo，而監察只改舊 Issue 內文（GitHub 不就修改發通知）。Leonard 已開 @mention 電郵。Issue #3 已關閉。
-   2. 三份新版重新入庫：g19 融合教育指南 2026年9月版、supply_teacher_guide 2026年7月版、perf_indicators_2022 2026更新。
-      sag_2025_11 判定為純重新匯出（只改 8 個附錄頁腳日期），不入庫。
-   3. 16 個失效連結：9 個改網址；g26／k1_admission_2627 改為 2027/28（k1 只載 FAQ，通函已是 edbcm080_2026）；
-      資優資源冊 2026年9月版、自評工具 2026；第 279 章改指電子版香港法例 /sN；退役 EDBC_8_2020_E 與 edbcm099_2026。
-   舊資料（含向量）全部備份於本機 dev/init_backup/20261013_105744_UTC/（gitignored）。
-   4. 收工後續做（#49、#50）：update_log.json 補記並只留最新 6 條（UPDATE_LOG_KEEP=6）；指引文件庫 170 條全測，
-      修 g26／g28／g19，行政手冊移到「行政」；平台介紹示範問答改用行政手冊附錄9／附錄1 原文（Leonard 閱後確認）。
-   5. 下游同步工具：dev/source/check_downstream_sync.py ＋ Jev 問題集 dev/source/jev/downstream_sync_gate.json；
-      清單來源表已對正。
+🔴 PR #53（s239/query-fusion，build-gate 綠、可合併；含 S239 與 S240 收工文件）未合併 —— 開工先 git fetch、gh pr view 53 核實。內容：
+   · 狀態頁：知識庫檔案落 main 或 owner／機械人開關 Issue 即重產；頁面自行比對 knowledge.json 片段數與更新日誌。
+   · FEATURE_QUERY_FUSION（預設關）：原句＋展開句交替合併。檢索層片段 59→68，但答案層不出貨
+     （net_after +2.5／門檻 8，且 cpd_induction_period_na 由拒答變自信答錯）→ 不要在 Render 啟用。
+   · 合成與判官碼內預設改 gpt-6-luna＋reasoning.effort none（只在模型用碼內預設時才自動帶 effort）。
+   合併後：判官即時轉 gpt-6-luna（Render 無 JUDGE_MODEL）；合成仍 gpt-4o-mini，直至 Leonard 刪除 OPENAI_MODEL
+   （或改 gpt-6-luna 並加 OPENAI_REASONING_EFFORT=none）。次序：先合併、後改 Render。
+   切勿替 gpt-4o-mini／gpt-4.1-mini 設 effort（被拒、合成靜默變空）。
+   合併只在 Leonard 明示時進行；被分類器擋下時不要重試或繞過。#45、#47 仍開著，關閉前先問 Leonard。
 
 🚀 下一步（依次）：
-   ① 退役 EDBC_9_2019_E（2 段 footnote_curated；已被 EDBC 4/2026 取代，連結仍 200 所以監察捉不到）。
-      Leonard S238 已明示批准「退役及備份」，但 auto mode 分類器擋下了刪除與備份。
-      做法：先 select=* 匯出到 dev/init_backup/<ts>/ → DELETE ?source_id=eq.EDBC_9_2019_E →
-      execute_ingest.live_display_sync(current_chunk_total(), live_total_count())（16,990 → 16,988）→ 開 PR。
-      若仍被擋，請 Leonard 調整權限或自行在 Supabase 執行。
-   ② 確認 2026-10-19（週一）監察排程的 @mention 電郵寄到 Gmail；首次會一次列出全部未處理項（含已處理者，屬預期）。
-   ③（待 Leonard 有 token）非華語學生津貼答案：審計報告舊撥款級別仍被引用、新版 g19 未入前列（路由）；
-      清單條文：python3 dev/source/check_downstream_sync.py --sources g19,supply_teacher_guide,g26,k1_admission_2627,
-      gifted_tp_resource_kit,sse_tools_2025 --base 7b6a68b --since 2026-10-13 --notes <改動摘要.json> --jev
-      → 處理 Jev 判必須更新的 8 條與 49 處頁碼移位（改 dev/checklists/_work/*/checklist.json 後跑 gen_checklists_bundle.py）。
-   ④ Leonard 決定是否在 Render 開 FEATURE_SUBJECT_CHECK=1（只有他改得到；詳見 dev/source/SUBJECT_CHECK_DESIGN.md 第八節）。
-   開啟後的驗收：線上（帶 x-probe）問 D01「學生請病假要唔要交醫生紙」，
-   回答應以「根據檢索到的教育局文件，未有找到適用於學生的明確規定」開頭；
-   其後用 search_log 以該固定前綴篩出真實攔截，逐條讀窗查有沒有誤攔。
-   詳見 dev/source/SUBJECT_CHECK_DESIGN.md 第八節。
-   v1 只捕捉「窗內完全沒有該類人」一種錯置；SX03、HX07 一類仍看不到。
-   不要再改判官提示、換判官模型或擴詞表，都已證無效。
-   次序：Leonard 決定開啟 → 才談 FEATURE_VAULT_GATE_RAWVEC（它會令判官多承重 52 條查詢）。
-   副線：Open Priorities ⑬ freshness 其餘約 20 項；⑫ executor 多份批准衝突。
-   治理側：log 維護兩套觸發標準（AGENTS.md §4a 對 Kit 核心 ≥11 條）仍待整合。
-   ⚠️ freshness 基線不可整體 write-sync（check_freshness.py --ledger 會重寫全部 hash，蓋過未處理項）。
-
-⚠️ 未解決（不要當已解決）：
-   · 【S238】通知修正未經真實排程驗證（Risks 10）；EDBC_9_2019_E 未退役（①）。
-   · 對象錯置這一類：旗標未開前生產照舊放行（S236 合併後 D01 仍借用教職員規則推論學生）。
-   · 片段層本體（OP②）。已排除九條路。
-   · 生產 gold 逾時由 1 條升到 4 條（57014），再升就要當容量問題查。
-   · 封版閘兩個 ERROR 只能靠改善檢索清走；兩個 WARN 未有 waiver；六項人手驗證從未記錄。
-   · 入口盤點四項產品決定未動；index.html 頁尾仍寫 v3.3.3（Open Priorities ③）。
-   · 本機 backend/.env 缺 SUPABASE_URL／SUPABASE_ANON_KEY，本機 Channel B 搜尋與記錄都會失敗；
-     不可用 service key 冒充 anon key（auto mode 會擋）。驗證腳本自行補 SUPABASE_URL。
-   · 真實當機路徑未驗（Open Priorities ⑪(c)）；狀態頁「待決定」四項自 2026-06-08 起等 Leonard。
+   ① OpenAI 模型遷移收尾（2027-01-14 停用 gpt-4o／4o-mini／4.1／4.1-mini）。Leonard 定案：下次再做時先檢查應該轉甚麼模型，
+      取向是開支與效能為先、剛夠用就得、不追新（官方建議替代只是候選之一）。
+      (a) 先重讀官方停用頁與價錢頁（網址在 dev/CODEBASE_CONTEXT.md OpenAI 段），確認 gpt-6-luna 是否仍是
+          「最便宜＋未公布停用」、價錢有否變、有否更平的新型號；有變先更新該段再決定。
+      (b) 核實 #53 合併與 Render 改動；改後帶 x-probe 抽幾條線上答案給 Leonard 看（新模型答案約短一半）。
+      (c) 離線兩項選型：答案層量度判官 _s227_rubricJudge.ts（現 JUDGE_MODEL=gpt-4.1；換前必須重跑 7 對校準，
+          位置偏誤須 0）與 dev/ocr_extract.py（gpt-4o vision）。外部呼叫須 Leonard 批准並先報次數。
+      S239 量度（已做，不要重做）：判官凍結集 gpt-6-luna＋none 33/33 ×3 零錯放；答案層 36 題偏舊 0、偏新 15；
+      模型耗時中位 3.4→2.8 秒。工具：backend/scripts/_s239_modelAB.ts、dev/source/judge_acceptance.py。
+   ② 合成窗被無關註腳佔格（S239 新根因）：「SEN學生留級安排」頭兩格是境外遊學團、非華語暑期班；
+      註腳 lead 只要兩個共用二字詞即過。先量 footnote_lead_probe，不可單調門檻。
+   ③ 退役 EDBC_9_2019_E（S238 已批准未做；S239 見它佔「SEN學生留級」頭一格）。先匯出備份再刪，再 live_display_sync。
+   ④ Leonard 確認 Gmail 有否收到 10-19 @mention（機制已運作：Freshness #1 留言、Discovery #54）。
+   ⑤（待 token）非華語津貼路由、清單條文 8 條＋頁碼 49 處（check_downstream_sync.py）。
+   另：FEATURE_SUBJECT_CHECK 仍待 Leonard；新判官已在凍結集正確拒答 D01／GN10，開旗標前先以新判官重量。
 
 ⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
-   · 定標必須讀每一段的全文，不可只看預覽（S235 因截斷標錯 SX09；FT06 亦同一種錯）。
-   · 用 stub 判官量出來的是「失去捷徑」，不是「失去答案」；答案層結論必須用真判官量。
-   · judge_acceptance.py 必須明示 JUDGE_MODEL=gpt-4.1-mini（預設 gpt-4o-mini 是舊配置）。
-   · 新規則要先凍結，再用未見過的題目驗證；不可用產生規則的同一批題目證明它。
-   · 比對 gold signature 一律用 squeeze(fold(s))（NFKC＋刪空白）。
-   · 探針的外部呼叫一律包在 try/catch 並加重試；判官必須分開記 judge_error。
-   · 本機比 Render 慢 1.5–2 秒；anon statement_timeout 3 秒而 service key 是 8 秒。
-   · 實例層冷熱落差 58–90 倍，任何兩組查詢的比較都要交錯重量三輪以上。
-   · 禁引指標按來源計，不按片段計；預測禁引變化前先查該來源是否已被命中。
-   · 寫入任何內容（footnote、事實）之前，先對庫內原文；交接檔寫下的內容前提也要核實。
-   · 生產量度一律帶 x-probe，否則會寫入 search_log 並推高用量計數。
-   · 升版只手改 PLATFORM_VERSION＋README＋CHANGELOG；bump_version.py 會改寫凍結合約。
-   · 生產限速每 IP 每分鐘 10 次，x-probe 不豁免；批量打生產至少間隔 7 秒（S236 中過一次）。
-   · 【S238】換版只替換 vault_extract（cb3_b2_pagecarry_migrate.py --include-non-page --skip-local），保留人手註腳；先匯出舊資料備份。
-   · 【S238 常設規則】任何來源換版／改網址／退役後，收工前 check_downstream_sync.py 的 MUST_UPDATE 必須為 0
-     （涵蓋指引文件庫、清單、更新日誌、硬編碼引用）；更新日誌只留最新 6 條。
-   · 【S238】入庫或改網址前跑封面核對（check_source_titles.py --check --only … --baseline）；網址帶 #page= 時要用前綴比對。
-   · 抽取與入庫一律用 /usr/local/bin/python3（預設 python3 無 fitz／openai）。
+   · 定標必須讀每一段全文；用 stub 判官量的是「失去捷徑」不是「失去答案」；答案層結論必須用真判官量。
+   · 檢索層得益不等於答案層得益（S228、S239 兩次）；改檢索或模型都要量答案層。
+   · 新規則要先凍結，再用未見過的題目驗證；比對 gold signature 一律用 squeeze(fold(s))。
+   · searchChannelB 會吞掉合成失敗成空答案；量模型時要另記呼叫錯誤（_s239_modelAB.ts 已做）。
+   · 推理模型的推理 token 按輸出計費；換模型時同時量開支與延遲。
+   · 生產量度一律帶 x-probe；生產限速每 IP 每分鐘 10 次，批量至少間隔 7 秒；gpt-4.1 判官 30k TPM，要分批。
+   · 本機用 service key（8 秒）量 anon（3 秒）系統，延遲與逾時會低估。
+   · 升版只手改 PLATFORM_VERSION＋README＋CHANGELOG；任何來源換版／改網址／退役後 check_downstream_sync 的 MUST_UPDATE 必須為 0。
+   · 抽取與入庫一律用 /usr/local/bin/python3。
 
-Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.10 +
-Render /health（commit a344504 或其後）+ git fetch 後比對分支與 origin/main（核實 main 為 a67bd29 或其後、收工 PR 已合併）+
-gh run list --workflow live_probe.yml 最近排程應為 success + Supabase live count 應為 16,990（自動入庫可令其上升）+
-check_registry_drift --check 的 ZOMBIE／UNMANAGED／SERIES_UNMONITORED 都應為 0）。
-之後報告，並請 Leonard 決定是否執行 ①。
-未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次。
+Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.10 + Render /health commit
+（77de1dd，或 #53 合併後的新 commit）+ git fetch 後比對分支與 origin/main、gh pr view 53 + Supabase live count 應為 16,990
++ check_registry_drift --check --ledger <scratchpad> 的 ZOMBIE／UNMANAGED／SERIES_UNMONITORED 都應為 0）。
+之後報告，並按 ①(a) 先查官方模型資料。
+未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次、不得合併 PR。

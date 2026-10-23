@@ -53,6 +53,19 @@
 - **Evidence**: eval 顯示兩條 SET_LOST，逐條讀過 —— 掉走嘅係 `ph_pri_guide_2025`（小學人文科）、`ict_sss_2021`（ICT 科課程）等**錯科目雜訊**，屬刻意收窄。**冇為此加豁免分類** —— 喺同一個 session 內把紅燈教成綠燈去襯自己嘅改動，正正係唔應該做嘅事。
 - **Ceiling is the corpus, not the routing**: 逐條讀晒 `g28` 40 條片段，只有 10 條有可用建議（兩份警方 Zoom 指引），其餘 29 條係 2018–2022 五份通函講海報派發同一個短片設計比賽（獎品、報名表、2018-07-27 截止）。佢被標 `lifecycle: reference`，因為 lifecycle 係**逐來源**標，而 `g28` 係七份文件嘅 hub —— 七份文件嘅壽命根本唔一樣。
 
+### ADR-00Z — OpenAI 停用後的合成與判官模型：剛夠用的 `gpt-6-luna`＋effort `none`（S239）
+- **Date**: 2026-10-21（S239）
+- **Status**: IMPLEMENTED in PR #53（未合併）；Render `OPENAI_MODEL` 待 Leonard 改
+- **Context**: OpenAI 2026-10-14 公布 2027-01-14 停用 `gpt-4o-mini`（生產合成）與 `gpt-4.1-mini`（生產判官）。Leonard 取向：開支與效能為先，剛夠用就得，不追新。
+- **Options considered**:
+  - A：照官方建議 `gpt-6-luna`，保留預設推理強度 `medium` → ⚠️ 推理 token 按輸出計費、亦拖慢；判官只答「能／否」，推理可能比答案貴十倍。
+  - B：`gpt-5.6-luna`（$0.20／$1.20）→ ❌ 較貴，無量度理由。
+  - C：`gpt-5-nano`／`gpt-5-mini` → ❌ 2026-12-11 停用。
+  - **D（採用）：`gpt-6-luna`＋`reasoning.effort none`**（$0.10／$0.50，現存最便宜且未公布停用）。
+- **Decision driver**: 判官凍結集 33/33 ×3 零錯放（現用 31/33，D01、GN10 錯放）；答案層 36 題偏舊 0、偏新 15；模型耗時中位 3.4→2.8 秒。`none` 已足夠，故不試 `low`。
+- **Implementation guard**: effort 只在模型用碼內預設時自動帶；明確設定的非推理模型（Render 現設 `gpt-4o-mini`）不帶，否則呼叫被拒而合成靜默變空。SDK 4.104 類型不認新值，以轉型送出而不升 4→7。
+- **Uncertainty / 未做**: 新模型答案約短一半，未經用戶回饋；離線答案層判官（`gpt-4.1`）與 OCR（`gpt-4o`）未選型；價錢與型號可能再變，下次動手前先重讀官方頁。
+
 ### ADR-00X — 具體數值查詢：詞彙層檢索，而非再調相似度門檻（S211）
 - **Date**: 2026-09-01（S211）
 - **Status**: IMPLEMENTED + LIVE（單源特例；一般化屬 Open Priority ④）

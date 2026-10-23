@@ -28,7 +28,7 @@ import { PROBE_HEADER, readUsageTotals, recordSearch } from "./lib/usageCounter.
 import { isLogId, logSearch, newLogId, parseClient, recordFeedback } from "./lib/searchLog.js";
 import { searchCombined, type SearchCombinedRequest } from "./api/searchCombined.js";
 import { handleChunks, handleManifest } from "./api/channelBSync.js";
-import { getCorsOrigins, getPort, getJudgeModel } from "./config/env.js";
+import { getCorsOrigins, getPort, getJudgeModel, getJudgeReasoningEffort } from "./config/env.js";
 import { createEmbeddingClient } from "./lib/embeddingClient.js";
 import { getCacheSize, initFactEmbeddingCache, isCacheWarm } from "./lib/factEmbeddingCache.js";
 import { overlayCacheStatus } from "./lib/wikiRepository.js";
@@ -201,7 +201,10 @@ function readJsonBody<T>(
 // embedding client's module-level anchor cache is shared across requests.
 const llmClient = createLlmClient();
 // S211 — judge on its own model (see getJudgeModel in config/env.ts for the measurement).
-const judgeLlmClient = createLlmClient({ model: getJudgeModel() });
+const judgeLlmClient = createLlmClient({
+  model: getJudgeModel(),
+  reasoningEffort: getJudgeReasoningEffort(),
+});
 const embeddingClient = createEmbeddingClient();
 
 // Warm up the Channel A fact embedding cache in the background.
