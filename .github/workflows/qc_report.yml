@@ -25,6 +25,22 @@ on:
     # a Monday run reflects that morning's findings rather than racing them.
     - cron: "0 12 * * *"
   workflow_dispatch:
+  # S239 — the schedule alone let the page lag the knowledge base by up to a day (on
+  # 2026-10-13 it reported 17,021 片段 for a store that was already 16,990, and its
+  # attention list still carried an Issue that had been closed). Every write to the
+  # knowledge base ends in a display-sync commit that touches one of these files, so a
+  # push that lands one regenerates the page. The commit this workflow makes touches
+  # only qc_report.json and registry_drift.md, neither listed, so it cannot loop.
+  push:
+    branches: [main]
+    paths:
+      - knowledge.json
+      - guidelines.json
+      - update_log.json
+      - dev/source/source_registry.json
+  # The page's 「需要你處理」 list is read from open Issues; opening or closing one changes it.
+  issues:
+    types: [opened, closed, reopened]
 
 permissions:
   contents: write      # commits qc_report.json only
@@ -36,6 +52,13 @@ concurrency:
 
 jobs:
   qc-report:
+    # S239 — the repo is public, so anyone can open an Issue. Only Issues opened by the
+    # owner or a monitor bot may trigger a run (and with it a commit to main); the
+    # payload itself is never read by any step.
+    if: >-
+      github.event_name != 'issues' ||
+      github.event.issue.user.login == github.repository_owner ||
+      github.event.issue.user.login == 'github-actions[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -113,6 +136,9 @@ jobs:
           fi
           STATUS=$(python3 -c "import json;print(json.load(open('qc_report.json'))['overallStatus'])")
           git commit -m "qc: regenerate knowledge-base QC report (${STATUS})"
+          # S239 — event-triggered runs can now land while another commit reaches main;
+          # this commit touches only its own two files, so a rebase cannot conflict.
+          git pull --rebase origin main
           git push origin HEAD:main
 
       - name: Summary

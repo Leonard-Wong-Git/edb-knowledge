@@ -8,7 +8,7 @@
  * Key design decisions:
  *   - Default top_k=8, min_score=0.30 (raised from 0.10 for relevance)
  *   - Statistical facts filtered out by default (include_statistical=false)
- *   - LLM synthesis: top 5 chunks sent to gpt-4o-mini for a concise answer
+ *   - LLM synthesis: top 5 chunks sent to the synthesis model (env.ts getOpenAIModel) for a concise answer
  */
 
 import { isSupabaseConfigured } from "../config/env.js";
@@ -22,6 +22,7 @@ import {
   searchEstablishmentRows,
   footnoteInformativeBigrams,
   bareCosineForChunk,
+  quotaBucket,
   type WikiContentType,
   type WikiSearchResult,
 } from "../lib/wikiRepository.js";
@@ -1687,6 +1688,75 @@ function applySupersedePenalty<T extends { source_id: string; score: number }>(r
 }
 
 /**
+ * S239 — interleaved merge of the expanded-query and raw-query routed searches.
+ * MEASUREMENT FLAG: FEATURE_QUERY_FUSION=1. Unset = the single expanded search, as before.
+ *
+ * WHY. Every routed query is embedded as `query + QUERY_EXPANSIONS[category]`, a fixed
+ * string of up to ~150 characters describing the WHOLE category. When the user asks
+ * about one narrow subject inside that category, the fixed string outweighs it and
+ * pulls the vector toward the category's most common material. Measured 2026-10-13 on
+ * 「SEN學生留級安排」 inside the `sen` route (1,135 chunks): the two passages that
+ * answer it (SAG §3.3.2) rank 1 and 4 against the raw query, and 209 and 88 against the
+ * expanded one — so they never reach the 40-row candidate pool, and no re-rank or quota
+ * change can bring them back. S228 measured the same thing at scale: 65 of 166 gold
+ * items have no answering chunk anywhere in the expanded top-40. That is a candidate-
+ * generation fault, which is why the earlier re-rank and quota experiments (all of which
+ * re-order inside that pool) could not reach it. Splitting one more route per subject
+ * (S227 `staff_appraisal`, `staffing`) fixes one subject at a time.
+ *
+ * WHAT. Both searches run in parallel over the same route. The window is filled by
+ * taking the next row from each list in turn (expanded first), skipping ids and texts
+ * already taken, then applying the per-source quota. Each reading of the question is
+ * therefore guaranteed roughly half the window.
+ *
+ * WHY NOT RRF. Reciprocal-rank fusion was the first draft and was rejected on the
+ * measurement it was meant to fix: a chunk present in BOTH lists at middling ranks
+ * outscores a chunk ranked first in only one, and in that route the two top-40 lists
+ * shared 8 rows — all generic SEN material — so the raw query's rank-1 answer reached
+ * slot 8 for one phrasing and not at all for another. Interleaving put both answering
+ * passages in the window for all three phrasings tried.
+ *
+ * SCORE. Each result keeps a cosine, never a fused value, so every downstream threshold
+ * keeps its meaning: a chunk found by the expanded search keeps its expanded-scale
+ * cosine (the scale VAULT_LEAD_SCORE was calibrated on); a chunk found ONLY by the raw
+ * search carries its raw cosine. Raw cosines run lower than expanded ones (S229), so a
+ * raw-only lead can only fail the judge bypass more often, never pass it more often —
+ * the safe direction. The caller must NOT re-sort by score afterwards (it would undo
+ * the merge).
+ */
+export function interleaveRankedLists<T extends { id: string; source_id: string; text: string; score: number }>(
+  expanded: T[],
+  raw: T[],
+  topK: number,
+  maxPerSource: number | undefined,
+  bucketOf: (sourceId: string) => string = (s) => s
+): T[] {
+  const seenId = new Set<string>();
+  const seenText = new Set<string>();
+  const counts = new Map<string, number>();
+  const out: T[] = [];
+  const n = Math.max(expanded.length, raw.length);
+  for (let i = 0; i < n && out.length < topK; i++) {
+    for (const item of [expanded[i], raw[i]]) {
+      if (!item || out.length >= topK) continue;
+      if (seenId.has(item.id)) continue;
+      seenId.add(item.id);
+      const key = item.text.slice(0, 80);
+      if (seenText.has(key)) continue;
+      seenText.add(key);
+      if (maxPerSource) {
+        const b = bucketOf(item.source_id);
+        const c = counts.get(b) ?? 0;
+        if (c >= maxPerSource) continue;
+        counts.set(b, c + 1);
+      }
+      out.push(item);
+    }
+  }
+  return out;
+}
+
+/**
  * S219 — warm the Channel B overlay caches at startup instead of on the first search.
  *
  * Lives here rather than in wikiRepository because SPOTLIGHT_SOURCE_IDS is owned by this
@@ -1803,7 +1873,40 @@ export async function searchChannelB(
   const routeFirst = process.env.FEATURE_ROUTE_FIRST_SEARCH === "1" && !!sourceIds;
   let rawResults: Awaited<ReturnType<typeof searchWiki>> = [];
 
-  if (routeFirst && sourceIds) {
+  // S239 — see interleaveRankedLists(). Only meaningful when the query was actually expanded;
+  // a route without QUERY_EXPANSIONS embeds the raw query already. Fail direction: any
+  // error in the fused path leaves `fusedResults` undefined and falls through to the
+  // single expanded search below, unchanged.
+  const queryFusion =
+    routeFirst && process.env.FEATURE_QUERY_FUSION === "1" && embeddingQuery !== query;
+  let fusedResults: ChannelBResult[] | undefined;
+  // Hoisted so the fused path's raw embedding is reused by the overlays below; with the
+  // flag unset it is still undefined at the point the overlays compute it, as before.
+  let rawVec: number[] | undefined;
+
+  if (queryFusion && sourceIds) {
+    try {
+      rawVec = await embedFn(query);
+      const poolSize = top_k * 5;
+      const poolOpts = { ...searchOpts, topK: poolSize, maxPerSource: undefined, sourceIds };
+      const [expList, rawList] = await Promise.all([
+        searchWikiRoutedExact(embeddingQuery, embedFn, poolOpts),
+        searchWikiRoutedExact(query, embedFn, { ...poolOpts, queryVec: rawVec }),
+      ]);
+      const prep = (rows: typeof expList) => {
+        const r = rows.map(toChannelBResult).filter(retiredMirrorFilter);
+        applySupersedePenalty(r);
+        return r.sort((a, b) => b.score - a.score);
+      };
+      if (expList.length > 0 || rawList.length > 0) {
+        fusedResults = interleaveRankedLists(prep(expList), prep(rawList), top_k, maxPerSource, quotaBucket);
+      }
+    } catch {
+      fusedResults = undefined;
+    }
+  }
+
+  if (!fusedResults && routeFirst && sourceIds) {
     try {
       rawResults = await searchWikiRoutedExact(embeddingQuery, embedFn, {
         ...searchOpts,
@@ -1815,20 +1918,27 @@ export async function searchChannelB(
     }
   }
 
-  if (rawResults.length === 0) {
+  if (!fusedResults && rawResults.length === 0) {
     rawResults = await searchWiki(embeddingQuery, embedFn, {
       ...searchOpts,
       ...(sourceIds ? { sourceIds } : {}),
     });
   }
 
-  let results = rawResults.map(toChannelBResult).filter(retiredMirrorFilter);
+  let results: ChannelBResult[];
+  if (fusedResults) {
+    // Penalty already applied per list before fusion; re-sorting by score here would
+    // undo the fused order (raw-only rows carry the lower raw-scale cosine).
+    results = fusedResults;
+  } else {
+    results = rawResults.map(toChannelBResult).filter(retiredMirrorFilter);
 
-  // S183 — Apply supersede penalty + re-sort. Old-version chunks (registered in
-  // SUPERSEDED_IDS) get score reduced so the new version ranks first when both
-  // are topically relevant. Run after mapping, before any lead detection.
-  applySupersedePenalty(results);
-  results.sort((a, b) => b.score - a.score);
+    // S183 — Apply supersede penalty + re-sort. Old-version chunks (registered in
+    // SUPERSEDED_IDS) get score reduced so the new version ranks first when both
+    // are topically relevant. Run after mapping, before any lead detection.
+    applySupersedePenalty(results);
+    results.sort((a, b) => b.score - a.score);
+  }
 
   // S214 Gate 2A2b — captured before any overlay touches `results`, so the
   // judge-bypass test always reads the true main-search lead, not whichever
@@ -1839,11 +1949,12 @@ export async function searchChannelB(
 
   // S193 — one raw-query embedding shared by both route-independent overlay passes below.
   // Net embedding calls are unchanged: the footnote pass used to compute this itself.
-  let rawVec: number[] | undefined;
-  try {
-    rawVec = await embedFn(query);
-  } catch {
-    rawVec = undefined; // each overlay falls back to embedding on its own
+  if (!rawVec) {
+    try {
+      rawVec = await embedFn(query);
+    } catch {
+      rawVec = undefined; // each overlay falls back to embedding on its own
+    }
   }
 
   // Slots reserved at the front of `results` by an overlay lead, so a later overlay

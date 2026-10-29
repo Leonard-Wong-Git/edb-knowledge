@@ -1,0 +1,420 @@
+{
+ "label": "S227 pairwise rubric judge",
+ "generated_at": "2026-10-21T09:16:21.193Z",
+ "judge_model": "gpt-4.1",
+ "source_run": "../dev/source/eval_runs/2026-10-21_s239model_before_after.jsonl",
+ "source_run_sha256": "bff2863e7665cb9b901eeb55ee05e828a615ba94832162bf4d41b80fa471ee68",
+ "gold_file": "../dev/_s213_gold_all.json",
+ "mode": "replay of saved answer texts; no retrieval, no Supabase, no embeddings",
+ "position_bias_control": "each item judged twice with the sides swapped; agreement required for a winner",
+ "approved_max_calls": 24,
+ "attempted_api_calls": 24,
+ "items": [
+  {
+   "id": "bus_seatbelt_rule",
+   "query": "校車 安全帶 規定",
+   "domain": "school_bus",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆有部分資訊未完全聚焦於保母於開車前佩戴安全帶的責任，亦未明確強調保母需協助學童佩戴，但皆無高順位缺陷，故判TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2增加了登記原文未提及的「駕駛員需確保學童在車輛停下才上下車」與安全帶有關的行為規限，與原文不符，屬第三條較嚴重缺陷。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "kg_halfday_no_fee",
+   "query": "參加計劃的幼稚園可以收半日制學費嗎",
+   "domain": "kg_operation",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     1,
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1所述內容與答案鑰匙登記段落衝突，因此在準則3上出現嚴重錯誤，答案2雖然未給出直接答案，但無違反上述準則，故較佳。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     6
+    ],
+    "answer_2_flaws": [
+     1,
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 1,
+    "reason": "答案2將半日制註冊費規定誤當成學費政策，並誤述參加計劃幼稚園可收半日制學費，違反第一及第三條準則，屬嚴重錯誤；答案1雖無法答題，但嚴重性較輕。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "kg_teacher_pupil_ratio",
+   "query": "幼稚園師生比例",
+   "domain": "kg_operation",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     5,
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 5,
+    "reason": "答案1在文字上略為冗贅及含有不完整或重複句子，影響可發布性；而答案2文句更精簡完整，因此在第5條準則上較佳。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均準確回答提問，內容與資料庫登記一致，且無自相矛盾或文句缺陷，未見一方較優。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "saf_gas_odour_steps_confusable",
+   "query": "校內氣體異味 處理步驟",
+   "domain": "safety",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案同樣切題、與登記段落一致，且內容具體，均無違反任何評分準則，無法於高順位準則上判出高下，應判 TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆完整回應了安全處理氣體異味問題，無違反任何條款，內容均切題且步驟明確。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "kg_application_fee_cap",
+   "query": "K1 報名費上限",
+   "domain": "kg_admission",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1加入了登記段落未提及的留位費與註冊費上限數字，與登記段落資訊不符，而答案2完全依據登記段落作答，無違規之處。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案2加入了留位費和註冊費的上限，這些資訊並不在答案鑰匙登記段落內，數據出處不符，屬於違反第三條。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "kg_class_size_limit",
+   "query": "幼稚園每班最多可收多少學生",
+   "domain": "kg_operation",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆直接且正確回應提問意圖，內容與資料庫一致，未有違反任何評分準則，故應判爲TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆直接而準確地回應查詢，並與登記段落一致，無明顯缺陷。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "staff_halfday_12",
+   "query": "半日制小學 12班 編制",
+   "domain": "staffing",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 6,
+    "reason": "答案2內容更精簡直接，且已完整列出核准12班編制的教學人員數目，切合提問且資訊齊備；答案1雖有補充說明，但與查詢無關，反使重點不清，依規則第6項，答案2為較佳。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [
+     5,
+     6
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 6,
+    "reason": "兩者皆主要內容正確且一致，但答案2出現與提問無關的額外資訊，簡潔切題的答案1更佳，屬第6條。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "hr_lsp",
+   "query": "長期服務金 點計",
+   "domain": "hr_admin",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1錯誤地省略了應扣除「剔除款項」的指引，與登記段落不符，答案2較為準確。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩者皆僅能重述現有資料且未有違反高順位準則，只在資料具體度上略有差異，未足以構成勝負。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "fin_lwl",
+   "query": "全方位學習津貼 可以買咩",
+   "domain": "finance",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均有齊備但無明顯更具體，皆未違反高順位準則，故判 TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆切題，亦準確反映指引內容，未見規則性錯誤或離題，內容具體且語文通順，故評為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "fin_major_repair",
+   "query": "大規模修葺",
+   "domain": "finance",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案同樣均出現與登記段落不一致的問題（如津貼門檻數字與登記段落不符），無高低之分。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均與登記段落在門檻金額等細節不符，違反第三條，故評為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "gov_imc_60pct",
+   "query": "辦學團體校董可佔法團校董會校董人數上限多少？",
+   "domain": "school_governance",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 6,
+    "reason": "答案2內容齊備且直接切題，答案1雖有背景補充但與答案鑰匙一致的資訊並無顯著增加，反而資訊有所延伸，不如答案2簡明而具體。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 6,
+    "reason": "兩者皆切題且準確，但答案2在資料齊備性外加了建議及政策評論，略為多餘，答案1更直接貼切。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "gov_fin_mgmt",
+   "query": "校董會 財務管理",
+   "domain": "school_governance",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1部分描述（如小賣部經營規定及權力下放細節）與登記段落不符，部分內容未見於標註資料。答案2與資料庫登記段落更為一致。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩者均切題、資料相符，並沒有違反任何一條準則；內容完整，無明顯缺陷，故評為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": true
+  }
+ ],
+ "summary": {
+  "items": 12,
+  "BEFORE": 0,
+  "AFTER": 4,
+  "TIE": 4,
+  "WEAK_BEFORE": 0,
+  "WEAK_AFTER": 4,
+  "INCONSISTENT": 0,
+  "TIE_IDENTICAL": 0,
+  "TIE_BOTH_DECLINED": 0,
+  "api_calls": 24,
+  "judge_health": {
+   "judged": 12,
+   "always_first": 0,
+   "always_second": 0,
+   "raw_calls": 24,
+   "raw_tie_calls": 12
+  },
+  "needs_human_review": [
+   "bus_seatbelt_rule",
+   "kg_halfday_no_fee",
+   "kg_application_fee_cap",
+   "hr_lsp",
+   "gov_fin_mgmt"
+  ],
+  "decision": {
+   "counted": 7,
+   "excluded_for_review": 5,
+   "after_points": 2.5,
+   "before_points": 0,
+   "net_after": 2.5,
+   "ship_threshold": 8,
+   "verdict": "NO_MEASURABLE_GAIN"
+  }
+ },
+ "status": "complete"
+}

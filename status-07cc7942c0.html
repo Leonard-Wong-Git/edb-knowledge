@@ -210,10 +210,29 @@ var INFRA = [
   ['MIRROR_CONSISTENCY', '資料一致性', '網站各處顯示的資料數目一致']
 ];
 
+// S239 — 時間不是唯一的過期訊號。知識庫在檢查之後才被改動（入庫、退役、換網址），
+// 本頁會在 36 小時內照樣顯示「正常」，但所講的已不是現況（2026-10-13 實測：頁面報
+// 17,021 片段而知識庫已是 16,990）。這裏把報告量度時的片段數與網站現時公布的片段數
+// （knowledge.json，入庫流程必定同步）比對，並比對更新日誌最新一條的日期。
+// live 為 null／undefined 代表讀不到，不作任何判斷 —— 讀不到不等於一致。
+function staleAgainst(d, live){
+  if (!live) return null;
+  var reported = d.corpus && typeof d.corpus.chunks === 'number' ? d.corpus.chunks : null;
+  if (typeof live.chunks === 'number' && reported !== null && live.chunks !== reported) {
+    return '知識庫現有 ' + live.chunks.toLocaleString() + ' 個片段，本頁檢查時為 ' +
+           reported.toLocaleString() + ' 個。';
+  }
+  var gen = typeof d.generatedAt === 'string' ? d.generatedAt.slice(0, 10) : '';
+  if (typeof live.newestLog === 'string' && gen && live.newestLog > gen) {
+    return '知識庫於 ' + live.newestLog + ' 有更新，本頁檢查日期為 ' + gen + '。';
+  }
+  return null;
+}
+
 // One sentence for the top of the page. Pure, so it can be tested without a DOM.
 // Search-quality debts (the long list under 技術詳情) deliberately do NOT colour it:
 // they are standing gaps, and a banner that is red every day cannot say which day broke.
-function summarize(d, now){
+function summarize(d, now, live){
   // 以瀏覽器時鐘計算，而非產生時寫死的數字 —— 管線停止之後本頁不再更新，此值仍會繼續增長。
   var t = d.generatedAt ? Date.parse(d.generatedAt) : NaN;
   var age = isNaN(t) ? null : (now - t) / 36e5;
@@ -230,6 +249,11 @@ function summarize(d, now){
   if (infraBad.length || alarms.length) {
     return {level:'err', icon:'🛑', title:'系統可能出了問題',
             desc:'請盡快查看下面標示「緊急」或「異常」的項目。' + last};
+  }
+  var behind = staleAgainst(d, live);
+  if (behind) {
+    return {level:'warn', icon:'⚠️', title:'知識庫已更新，本頁尚未重新檢查',
+            desc:behind + '下面的數字與檢查結果反映更新之前的狀態。' + last};
   }
   if (age >= WARN_H) {
     return {level:'warn', icon:'⚠️', title:'資料已有一段時間沒有更新',
@@ -303,9 +327,9 @@ function renderOps(d){
     ' · 平台版本 ' + (d.version || '未知');
 }
 
-function render(d){
+function render(d, live){
   var now = Date.now();
-  var sm = summarize(d, now);
+  var sm = summarize(d, now, live);
   document.getElementById('banner').className = 'banner s-' + sm.level;
   document.getElementById('banner').innerHTML =
     '<div class="big">' + sm.icon + '</div><div><div class="t">' + h(sm.title) + '</div>' +
@@ -374,10 +398,27 @@ function render(d){
 }
 
 renderCommands();
+// 現況兩項只作比對用；任何一項讀不到都當作「無法比對」，不阻擋報告本身顯示。
+function optionalJson(url){
+  return fetch(url, {cache: 'no-store'}).then(function(r){ return r.ok ? r.json() : null; })
+    .catch(function(){ return null; });
+}
+function liveState(k, u){
+  if (!k && !u) return null;
+  var chunks = k && k._meta && k._meta.stats ? k._meta.stats.chunks : undefined;
+  var newest;
+  ((u && u.entries) || []).forEach(function(e){
+    if (e && typeof e.date === 'string' && (!newest || e.date > newest)) newest = e.date;
+  });
+  return {chunks: chunks, newestLog: newest};
+}
 fetch('qc_report.json', {cache: 'no-store'}).then(function(r){
   if (!r.ok) throw new Error('HTTP ' + r.status);
   return r.json();
-}).then(render).catch(function(e){
+}).then(function(d){
+  return Promise.all([optionalJson('knowledge.json'), optionalJson('update_log.json')])
+    .then(function(x){ render(d, liveState(x[0], x[1])); });
+}).catch(function(e){
   document.getElementById('banner').className = 'banner s-err';
   document.getElementById('banner').innerHTML =
     '<div class="big">🛑</div><div><div class="t">讀不到系統狀態資料</div>' +

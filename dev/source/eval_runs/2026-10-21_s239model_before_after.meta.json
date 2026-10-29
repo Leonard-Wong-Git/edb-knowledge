@@ -1,0 +1,22 @@
+{
+ "label": "s239model",
+ "before": {
+  "synthesis_model": "gpt-4o-mini",
+  "judge_model": "gpt-4.1-mini",
+  "reasoning": "not sent"
+ },
+ "after": {
+  "synthesis_model": "gpt-6-luna",
+  "judge_model": "gpt-6-luna",
+  "reasoning_effort": "none"
+ },
+ "sample": 36,
+ "approved_max_llm_calls": 144,
+ "llm_calls": 99,
+ "embed_calls": 56,
+ "windows_differ": 0,
+ "errors": 0,
+ "mode": "in-process searchChannelB, FEATURE_ROUTE_FIRST_SEARCH=1",
+ "measurement_key": "SUPABASE_ANON_KEY falls back to SERVICE key: 8s ceiling, NOT anon 3s",
+ "finished_at": "2026-10-21T09:14:24.478Z"
+}

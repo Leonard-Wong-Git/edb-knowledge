@@ -119,7 +119,7 @@ export const QUOTA_FAMILIES: Record<string, string> = {
 };
 
 /** The bucket the quota gate counts against. FAMILY_QUOTA=1 widens it to the family. */
-function quotaBucket(id: string): string {
+export function quotaBucket(id: string): string {
   const canonical = canonicalSource(id);
   if (process.env.FAMILY_QUOTA !== "1") return canonical;
   return QUOTA_FAMILIES[canonical] ?? canonical;

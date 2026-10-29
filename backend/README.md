@@ -26,8 +26,10 @@
 
 ```bash
 OPENAI_API_KEY=your_openai_api_key
-OPENAI_MODEL=gpt-4o-mini
-JUDGE_MODEL=gpt-4.1-mini
+OPENAI_MODEL=gpt-6-luna
+OPENAI_REASONING_EFFORT=none
+JUDGE_MODEL=gpt-6-luna
+JUDGE_REASONING_EFFORT=none
 PORT=8787
 CORS_ORIGIN=https://leonard-wong-git.github.io
 KNOWLEDGE_PATH=../../../role_facts.json
@@ -41,6 +43,7 @@ KNOWLEDGE_PATH=../../../role_facts.json
 - `FEATURE_GROUNDED_SYNTHESIS` — 開啟後，合成改行 grounded 路徑（`synthesizeAnswer()` 內）：只有逐字 EDB 文件節錄可以支撐已呈現的論述，策展摘要只當檢索線索；合成窗內沒有第一手證據就拒答，不降級為推測。
 - `FEATURE_EXACT_WINDOW_NARROW` — 開啟後，把五格合成窗收窄至 lexical-exact 編制路由指明的來源集。**只在該路由發出 `exactSynthesisSourceIds` 時才有效**；收窄後若為空，自動退回預設五格，不會把有效結果集清空。
 - `FEATURE_SUBJECT_CHECK`（S236）— 開啟後，`synthesizeAnswer()` 在判官與 vault bypass **之前**核對問題對象：問題提到某類人（學生／家長／教師／校長／非教學人員／校董），而五格合成窗內完全沒有提到該類人，即回覆固定拒答句（說明缺哪類人、窗內提及哪類人），不呼叫判官與合成模型。純字串比對（`src/lib/subjectCheck.ts`），零模型呼叫。不覆蓋 `FEATURE_GROUNDED_SYNTHESIS` 路徑。設計與量度見 `dev/source/SUBJECT_CHECK_DESIGN.md`。
+- `FEATURE_QUERY_FUSION`（S239）— 開啟後，路由查詢除了照舊以「查詢＋類別展開詞」搜一次，還會以用戶原句在同一路由內並行再搜一次，兩邊結果輪流各取一條組成結果窗（`interleaveRankedLists()`），再套每來源配額。用意是令類別內較窄的題目（例如 `sen` 路由下的「留級」）不再被展開詞蓋過。**只在 `FEATURE_ROUTE_FIRST_SEARCH=1` 且查詢確實有展開詞時生效**；多一次路由 RPC、零額外 embedding（原句向量本來已為 overlay 計算）；任何錯誤都退回單次展開搜尋。每格保留各自的餘弦（只由原句取得的一格帶原句尺分數，較展開尺低），所以判官繞過門檻不會因此放寬。**S239 量度結論：檢索層有得益，但答案層未達出貨門檻，且新增一條自信答錯，不應在 Render 啟用**（數字見 `dev/SESSION_HANDOFF.md`）。
 
 ⚠️ **已部署 ≠ 已啟用**：上述 flag 的碼都在生產 build 內；除 `FEATURE_ROUTE_FIRST_SEARCH`（2026-09-09 起在 Render 啟用）外，其餘生產環境變數都未設定，即關閉。各 flag 當前的實測結論與啟用建議以 `dev/SESSION_HANDOFF.md` 為準，本檔不複製會漂移的數字。
 
@@ -93,8 +96,8 @@ Response:
 
 ## Notes
 
-- 合成用 LLM model 預設 `gpt-4o-mini`（`OPENAI_MODEL` 覆寫）
-- **S211：相關性判斷閘（relevance judge）行自己一個 model，預設 `gpt-4.1-mini`（`JUDGE_MODEL` 覆寫），與 `OPENAI_MODEL` 分開。** 見 `src/config/env.ts` `getJudgeModel()` 的量度紀錄；改判斷閘行為前先確認是哪一個變數。
+- 合成用 LLM model 預設 `gpt-6-luna`、推理強度 `none`（`OPENAI_MODEL`／`OPENAI_REASONING_EFFORT` 覆寫；S239，因 `gpt-4o-mini` 於 2027-01-14 停用）。**明確設定了模型就不會自動帶推理強度**，舊模型（`gpt-4o-mini`／`gpt-4.1-mini`）不可設推理強度，否則呼叫被拒、合成靜默變空
+- **S211：相關性判斷閘（relevance judge）行自己一個 model，預設 `gpt-6-luna`＋推理強度 `none`（S239；`JUDGE_MODEL`／`JUDGE_REASONING_EFFORT` 覆寫），與 `OPENAI_MODEL` 分開。** 見 `src/config/env.ts` `getJudgeModel()` 的量度紀錄；改判斷閘行為前先確認是哪一個變數。
 - topic detection 目前使用 embedding-based semantic routing
 - 若知識檔 schema 有變動，先對齊 `K1_KNOWLEDGE_INTERFACE_SPEC.md`
 - 目前後端 bridge layer 同時支援舊 `department_head` 與新 `subject_head` / `panel_chair`

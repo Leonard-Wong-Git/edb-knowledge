@@ -185,6 +185,8 @@ assert.ok(clientFn);
 const requests: Record<string, unknown>[] = [];
 const clientOptions: Record<string, unknown>[] = [];
 let responseStatus = "completed";
+// S239 — what env.ts getOpenAIReasoningEffort() returns for the synthesis client.
+let synthesisEffort: string | undefined;
 class FakeOpenAI {
   constructor(options: Record<string, unknown>) { clientOptions.push(options); }
   responses = { create: async (request: Record<string, unknown>) => {
@@ -192,7 +194,8 @@ class FakeOpenAI {
   } };
 }
 const clientCtx = vm.createContext({ exports: {}, OpenAI: FakeOpenAI,
-  getOpenAIApiKey: () => "test-only", getOpenAIModel: () => "test-model", sdkFetch: undefined });
+  getOpenAIApiKey: () => "test-only", getOpenAIModel: () => "test-model", sdkFetch: undefined,
+  getOpenAIReasoningEffort: () => synthesisEffort });
 vm.runInContext(ts.transpileModule(clientFn.getText(clientAst), {
   compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS },
 }).outputText, clientCtx);
@@ -200,6 +203,20 @@ const client = clientCtx.createLlmClient();
 await test("legacy API request does not add text.format", async () => {
   await client("legacy");
   assert.equal(JSON.stringify(requests.at(-1)), JSON.stringify({ model: "test-model", input: "legacy" }));
+});
+await test("S239: synthesis effort is sent as reasoning.effort when configured", async () => {
+  synthesisEffort = "none";
+  await clientCtx.createLlmClient()("effort");
+  assert.equal(JSON.stringify(requests.at(-1)), JSON.stringify({ model: "test-model", input: "effort", reasoning: { effort: "none" } }));
+  synthesisEffort = undefined;
+});
+await test("S239: an explicit-model client (the judge) never inherits the synthesis effort", async () => {
+  synthesisEffort = "none";
+  await clientCtx.createLlmClient({ model: "judge-model" })("judge");
+  assert.equal(JSON.stringify(requests.at(-1)), JSON.stringify({ model: "judge-model", input: "judge" }));
+  await clientCtx.createLlmClient({ model: "judge-model", reasoningEffort: "low" })("judge2");
+  assert.equal(JSON.stringify((requests.at(-1) as any).reasoning), JSON.stringify({ effort: "low" }));
+  synthesisEffort = undefined;
 });
 await test("probe client can disable SDK retries", async () => {
   clientCtx.createLlmClient({ maxRetries: 0 });

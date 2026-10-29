@@ -247,6 +247,10 @@ def state_from_runs(runs_by_monitor: Dict[str, list]) -> dict:
         for r in runs:
             if r.get("status") != "completed":
                 continue          # queued / in-progress says nothing either way
+            if r.get("conclusion") == "skipped":
+                # S239 — a job-level `if:` declined to run (qc_report ignores Issues
+                # opened by outsiders). Nothing was attempted, so it is not a failure.
+                continue
             if r.get("conclusion") == "success":
                 entry.setdefault("last_success", r.get("updated_at") or r.get("created_at"))
                 break
@@ -406,6 +410,11 @@ def _run_self_test(is_due_fn=is_due, is_overdue_fn=is_overdue,
                                           run("success", ago(2))]})
     check("跑緊嘅 run 唔當成功亦唔當失敗",
           lambda: got3["monitors"]["freshness"]["last_success"] == ago(2))
+    got4 = state_from_runs({"qc_report": [run("skipped", ago(0)), run("skipped", ago(0)),
+                                          run("success", ago(1))]})
+    check("S239：被 if: 跳過的 run 不算失敗（外人開 Issue 觸發）",
+          lambda: int(got4["monitors"]["qc_report"].get("consecutive_failures") or 0) == 0
+          and got4["monitors"]["qc_report"]["last_success"] == ago(1))
     check("完全冇 run 歷史 = 從未成功 = 一定 overdue",
           lambda: is_overdue_fn(state_from_runs({"x": []})["monitors"]["x"], 7, NOW))
 

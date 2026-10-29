@@ -1,0 +1,549 @@
+{
+ "label": "S227 pairwise rubric judge",
+ "generated_at": "2026-10-18T13:55:11.339Z",
+ "judge_model": "gpt-4.1",
+ "source_run": "../dev/source/eval_runs/2026-10-18_s239fusion_synth_before_after.jsonl",
+ "source_run_sha256": "c072ac664e2dbc6d54a7636fbb953a90d29e0d5ddb35f041f752ea359eca0294",
+ "gold_file": "../dev/_s213_gold_all.json",
+ "mode": "replay of saved answer texts; no retrieval, no Supabase, no embeddings",
+ "position_bias_control": "each item judged twice with the sides swapped; agreement required for a winner",
+ "approved_max_calls": 30,
+ "attempted_api_calls": 30,
+ "items": [
+  {
+   "id": "act_outdoor_risk_assessment",
+   "query": "戶外活動 風險評估",
+   "domain": "activity_value_education",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆切題、無明顯錯誤，僅細節描述略有不同，但資訊完整性相若，未有高順位準則差異。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案一指出『資料未明確提及具體的經費、保險金額或其他具體的比例及要求』，與登記段落未有提及經費等具體要求不符，出現內容不一致；答案二則無相關缺漏，故勝出。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "cpd_blnst_test",
+   "query": "BLNST",
+   "domain": "cpd_teacher_qualification",
+   "combined": "BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案二提及政策內容時補充了與登記段落不一致的資訊，屬嚴重錯誤；答案一雖未作答，但較能正確反映找不到答案，勝於內容違背登記的答案。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1憑空加入政策內容，與註冊段落不符，屬嚴重錯誤，答2雖坦言找不到答案但未致明顯虛構，比答1為佳。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "cpd_induction_period_na",
+   "query": "新入職教師 啟導期",
+   "domain": "cpd_teacher_qualification",
+   "combined": "BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案2雖內容詳盡，但未有直接回應查詢的重點，即教育局沒有訂立固定啟導期時長，且其列舉的具體時數與鑰匙要求不符，偏離提問意圖，反而失分。答案1能如實指出暫時未有明確資料，較為切題。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案二依循題目指示於資料庫無內容時坦白無法作答，符合可答性要求；答案一未有資料來源支撐其條文，且提供了與事實庫不一致的具體內容，違反準則二及三。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "cpd_ladder_purpose",
+   "query": "專業階梯",
+   "domain": "cpd_teacher_qualification",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未偏離主流意見，即專業階梯主要用於促進專業成長而非升遷工具，皆未與登記段落矛盾，主要為細節陳述無資料來源，整體表現同級。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆回應了專業階梯的定位，皆未點出專責小組報告與手冊的差異，缺少針對題意重點的澄清，因此同為離題。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "dig_debp_abbrev",
+   "query": "DEBP",
+   "domain": "digital_education",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未能完全與登記段落一致，且同屬違反第三條準則，內容皆有部分自行發揮與藍圖原文不一致，故評為TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未完全按資料庫登記段落內容回答，且都有部分資訊（如目標描述）與登記段落不夠一致，兩者違反規則相同，無明顯高下之分。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "dig_genai_primary_students",
+   "query": "小學生 生成式AI",
+   "domain": "digital_education",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案1未能針對查詢重點（高小學生的使用規範）直接回應，偏離提問意圖，而答案2更為切題。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案2詳述政策推動與規劃但未直接切合提問意圖（高小學生使用規範），而答案1雖有政策描述，部分內容偏離資料庫所載（應在指導下使用）但仍較答案2貼近提問。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "dig_teacher_digital_cpd_hours",
+   "query": "數字教育 培訓時數",
+   "domain": "digital_education",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     5
+    ],
+    "answer_2_flaws": [
+     5
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均正確列出三年內須完成30小時有關數字教育的培訓，並無數字、條件錯誤，唯一小瑕疵為部分句子略顯贅餘或結構繁複，所以判為TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆正確完整地回答了問題，與登記段落一致，亦未有出現自相矛盾、適用對象錯誤或其他明顯缺陷，故判為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false,
+   "human_verdict": "BEFORE",
+   "agrees_with_human": false
+  },
+  {
+   "id": "qa_esr_no_fixed_cycle",
+   "query": "校外評核是否固定週期進行",
+   "domain": "qa_inspection",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案1未能直接回應查詢，且未據實提供資料，而答案2直接明確回答問題，並與登記段落一致。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案1明確並準確回應提問意圖，內容緊貼資料庫資料；答案2則坦白表示找不到資料，未能回答問題，因此答案1較佳。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "qa_pi_four_domains",
+   "query": "表現指標 範疇",
+   "domain": "qa_inspection",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     6
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案都切題，內容涵蓋同樣主要範疇，均未有明顯錯誤或嚴重遺漏，僅在細節敘述與表達方式有所不同，詳盡程度相約，無法分出高下。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案同樣準確、切題，內容豐富且符合答案鑰匙登記段落，無明顯缺陷，不分高下。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "dig_school_plan_2627",
+   "query": "學校何時須把數字教育納入發展計劃",
+   "domain": "digital_education",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未有清楚點明學校於2026/27學年須納入規定，相關年份與要求未有與登記段落一致，缺陷同級。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未有明確列出2026/27學年為把數字教育納入發展計劃的規定學年，與登記段落不一致，故難分高下。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "dig_ai_fact_check_privacy",
+   "query": "學生使用人工智能時如何核實資料",
+   "domain": "digital_education",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆切合查詢主旨——強調學生在使用人工智能時須保持懷疑及進行事實查證——未見在較高順位準則上的分野，均屬完整解答。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未直接點出『學生須意識到人工智能工具可能生成或與事實不符的資料』這一訊息，僅強調查證態度與方法，對鑰匙原文的核心尚屬側面論述，屬同等偏離。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "dig_deepfake_literacy",
+   "query": "學生應如何面對人工智能深偽內容",
+   "domain": "digital_education",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     3
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案2明確指出學生應認識深偽技術對社會造成的傷害，與登記段落一致，而答案1缺乏此重點，失於切合鑰匙登記內容。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 6,
+    "reason": "兩者皆有正面回答查詢意圖，但答案1明確提及認識深偽技術對社會的傷害，與答案鑰匙登記段落更為一致且內容更為具體。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "cur_arts_guide_2002_missing",
+   "query": "藝術教育學習領域課程指引 2002 版",
+   "domain": "curriculum",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未有承認資料庫無相關文件而妄加內容，皆同時違反第 2 與第 3 準則，在高順位準則上無明顯優劣，故判 TIE。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     3
+    ],
+    "answer_2_flaws": [
+     2,
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案同樣未能坦白指出資料庫中沒有2002年版指引資料，並且內容混淆，非根據現有資料來源，故均違反準則2及3，未有高下之分。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  },
+  {
+   "id": "cur_eight_kla",
+   "query": "八個學習領域",
+   "domain": "curriculum",
+   "combined": "WEAK_AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2,
+     6
+    ],
+    "answer_2_flaws": [
+     3
+    ],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案2雖然部分領域名稱表述與官方用語不全一致，但總體更明確列出了八個領域，較能滿足資料數量與登記段落一致性；而答案1完全未列出八個領域名稱，未切中問意，屬更重大的資訊缺漏。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     6
+    ],
+    "answer_2_flaws": [
+     2,
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案皆未有列明八個學習領域的具體名稱，僅作籠統描述，皆未能切題及資料不齊，故同級。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": true
+  },
+  {
+   "id": "cur_kg_free_play_time",
+   "query": "幼稚園 自由遊戲 時間",
+   "domain": "curriculum",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均準確列明半日制及全日制幼稚園的自由遊戲時間要求，亦無違反任何評分準則，且內容同等切題。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均完整準確回應提問意圖，時間要求與資料庫一致，內容無明顯缺陷，資料齊備，故評為 TIE。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false
+  }
+ ],
+ "summary": {
+  "items": 15,
+  "BEFORE": 2,
+  "AFTER": 3,
+  "TIE": 8,
+  "WEAK_BEFORE": 1,
+  "WEAK_AFTER": 1,
+  "INCONSISTENT": 0,
+  "TIE_IDENTICAL": 0,
+  "TIE_BOTH_DECLINED": 0,
+  "api_calls": 30,
+  "judge_health": {
+   "judged": 15,
+   "always_first": 0,
+   "always_second": 0,
+   "raw_calls": 30,
+   "raw_tie_calls": 18
+  },
+  "needs_human_review": [
+   "act_outdoor_risk_assessment",
+   "cpd_blnst_test",
+   "dig_deepfake_literacy",
+   "cur_eight_kla"
+  ],
+  "decision": {
+   "counted": 11,
+   "excluded_for_review": 4,
+   "after_points": 2,
+   "before_points": 1,
+   "net_after": 1,
+   "ship_threshold": 8,
+   "verdict": "NO_MEASURABLE_GAIN"
+  },
+  "calibration_items": 1,
+  "calibration_agree": 0,
+  "calibration_disagree": [
+   "dig_teacher_digital_cpd_hours: judge=TIE human=BEFORE"
+  ]
+ },
+ "status": "complete"
+}
