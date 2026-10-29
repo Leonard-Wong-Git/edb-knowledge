@@ -800,9 +800,16 @@ export async function loadCircularIndex(): Promise<Map<string, string>> {
   if (_circularIndex) return _circularIndex;
   if (_circularInFlight) return _circularInFlight;
   _circularInFlight = (async () => {
+    // Narrowed by source_id prefix BEFORE the text match. The first version matched 檔號
+    // across every vault chunk; under the anon role (3 s statement_timeout) that scan
+    // timed out cold (57014 at 4.2 s, measured S241) and the pass silently did nothing —
+    // the local run used the 8 s service key and never saw it. Every circular in the
+    // index has an edbc / edbcm / circ / embc id (ingest naming), so the prefix filter
+    // loses no entry: 64 → 64, ~1 s cold on anon.
     const url =
       `${getSupabaseUrl()}/rest/v1/wiki_chunks?content_type=eq.vault_extract` +
-      `&text=ilike.${encodeURIComponent("*檔號*")}&select=source_id,text&limit=2000`;
+      `&or=(source_id.like.edbc*,source_id.like.circ*,source_id.like.embc*,source_id.like.EDBC*)` +
+      `&text=like.${encodeURIComponent("*檔號*")}&select=source_id,text&limit=2000`;
     const key = getSupabaseAnonKey();
     const resp = await fetch(url, { headers: { apikey: key, Authorization: `Bearer ${key}` } });
     if (!resp.ok) throw new Error(`circular index load ${resp.status}`);

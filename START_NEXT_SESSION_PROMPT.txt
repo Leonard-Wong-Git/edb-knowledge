@@ -30,7 +30,8 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    合併只在 Leonard 明示時進行；被分類器擋下時不要重試或繞過。#45、#47 仍開著，關閉前先問 Leonard。
 
 🚀 下一步（依次）：
-   ① 開啟通函編號查找：PR 合併部署後，由 Leonard 在 Render 設 FEATURE_CIRCULAR_NUMBER_LOOKUP=1；
+   ① 開啟通函編號查找：#56 已合併（3c77bd4），但對照表在匿名角色下會逾時；要等補丁 PR
+      （s241/circular-index-anon-timeout）合併部署，Leonard 在 Render 設 FEATURE_CIRCULAR_NUMBER_LOOKUP=1 才生效；
       之後在生產重跑 75 份編號查詢（synthesize:false），對照 dev/source/eval_runs/2026-10-29_s241_circular_ab.json，
       再帶 x-probe 抽一兩條 synthesize:true 看答案。
    ② 收錄「教學語言政策」文件：先查證教育局中學教學語言微調政策的官方文件與網址，列出候選，等 Leonard 批准才入庫。

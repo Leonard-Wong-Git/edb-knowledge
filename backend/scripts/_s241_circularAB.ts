@@ -94,7 +94,7 @@ const sum = (side: 'before' | 'after') => ({
 });
 const report = {
   generated_at: new Date().toISOString(),
-  config: 'FEATURE_ROUTE_FIRST_SEARCH=1, synthesize:false, local service key',
+  config: `FEATURE_ROUTE_FIRST_SEARCH=1, synthesize:false, key=${process.env.SUPABASE_ANON_KEY === process.env.SUPABASE_SERVICE_KEY ? 'service' : 'anon'}`,
   index_size: index.size, queries: rows.length, embed_calls: embedCalls,
   gold_queries: gold.length, gold_queries_that_trigger: goldTriggers,
   before: sum('before'), after: sum('after'),
@@ -105,7 +105,8 @@ const report = {
   regressions: rows.filter((r) => r.before !== null && (r.after === null || r.after > r.before)),
   rows,
 };
-const out = `../dev/source/eval_runs/${report.generated_at.slice(0, 10)}_s241_circular_ab.json`;
+const out = `../dev/source/eval_runs/${report.generated_at.slice(0, 10)}_s241_circular_ab${process.env.AB_SUFFIX ?? ''}.json`;
+if (fs.existsSync(out)) throw new Error(`${out} exists; preserve prior evidence (set AB_SUFFIX)`);
 fs.writeFileSync(out, JSON.stringify(report, null, 1) + '\n');
 console.log(JSON.stringify({ ...report, rows: undefined }, null, 1));
 console.log('wrote', out);
