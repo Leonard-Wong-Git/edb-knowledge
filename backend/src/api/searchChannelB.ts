@@ -21,12 +21,14 @@ import {
   searchSpotlightSources,
   searchEstablishmentRows,
   footnoteInformativeBigrams,
+  loadCircularIndex,
   bareCosineForChunk,
   quotaBucket,
   type WikiContentType,
   type WikiSearchResult,
 } from "../lib/wikiRepository.js";
 import { overlapWith, queryInformativeBigrams } from "../lib/textBigrams.js";
+import { parseCircularRef } from "../lib/circularRef.js";
 import { selectPrimaryEvidence, synthesizeGroundedAnswer } from "../lib/groundedSynthesis.js";
 import { checkSubjects, SUBJECT_DECLINE_PREFIX, subjectDeclineMessage } from "../lib/subjectCheck.js";
 import type { LlmJsonSchema } from "../lib/llmClient.js";
@@ -1502,6 +1504,10 @@ const FOOTNOTE_LEAD_SCORE = 0.45;
  * judge prompt), and judge_probe.py remains its acceptance tool.
  */
 const FOOTNOTE_LEAD_MIN_OVERLAP = 2;
+/** S241 — chunks of a circular named by number that go to the front (circular-number pass).
+ *  Two, like the footnote lead: enough for the header plus the passage the query is about,
+ *  and the five-chunk synthesis window still keeps three slots for everything else. */
+const CIRCULAR_MAX_LEADS = 2;
 // S183 — vault_extract lead bypass threshold for judge. ≥0.70 = empirically direct
 // topical match (vault chunks at this cosine reliably answer the query). Below 0.70
 // falls through to judge for confab protection (S177 凍結教席→IMC-60% range was 0.55-0.65).
@@ -2114,6 +2120,37 @@ export async function searchChannelB(
       }
     } catch {
       // an establishment-pass failure must never break the main search
+    }
+  }
+
+  // S241 — circular-number pass (FEATURE_CIRCULAR_NUMBER_LOOKUP, default off). A query that
+  // names a circular by number is asking for that document; the embedding cannot read the
+  // number (2/75 reached the window on production, see lib/circularRef.ts). So the number
+  // is looked up in an index built from each circular's own header, and the best chunks
+  // OF THAT DOCUMENT (exact cosine against the raw query, inside that one source) go first.
+  // Ahead of every other overlay: an explicit document identifier outranks a similarity.
+  // The judge still runs — mainSearchLead was captured before any overlay, so this can
+  // never open a bypass. Unknown number or any failure = no-op.
+  const circularRef =
+    process.env.FEATURE_CIRCULAR_NUMBER_LOOKUP === "1" ? parseCircularRef(query) : null;
+  if (circularRef) {
+    try {
+      const sourceId = (await loadCircularIndex()).get(circularRef);
+      if (sourceId) {
+        const hits = await searchWikiRoutedExact(query, embedFn, {
+          sourceIds: [sourceId],
+          topK: CIRCULAR_MAX_LEADS,
+          queryVec: rawVec,
+        });
+        const circLead = hits.map(toChannelBResult).filter(retiredMirrorFilter);
+        if (circLead.length > 0) {
+          const leadIds = new Set(circLead.map((r) => r.id));
+          results = [...circLead, ...results.filter((r) => !leadIds.has(r.id))];
+          forcedLeads += circLead.length;
+        }
+      }
+    } catch {
+      // a circular-pass failure must never break the main search
     }
   }
 

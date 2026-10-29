@@ -39,6 +39,25 @@ When current work requires a log entry, record whether relevant older detail was
 
 <!-- ack:log-entry:start -->
 
+## 2026-10-29 Session 241 — OpenAI 模型遷移完成、通函編號查找（旗標關）、註腳佔格量完不改、定期更新檢查規則
+
+- **ID:** S241（Claude_20261029_1730）
+- **Summary:** 由頂層 root 起手轉入 Draft。完成 OpenAI 模型遷移（#53 合併、Render 刪 `OPENAI_MODEL`、OCR 與量度判官選型）；原 OP ② 註腳佔格量完判定不是槓桿；按 Leonard 指示寫入定期系統更新檢查規則；讀 Mindsquare 思考紀錄後以真實搜尋紀錄分類 9 條拒答，據此實作通函編號查找（`FEATURE_CIRCULAR_NUMBER_LOOKUP`，預設關）。
+- **Changed:** `backend/src/lib/circularRef.ts`（新）、`backend/src/lib/wikiRepository.ts`（`loadCircularIndex`）、`backend/src/api/searchChannelB.ts`（circular-number pass）、`backend/scripts/circularRefRegression.ts`（新）、`backend/scripts/_s241_circularAB.ts`（新）、`backend/scripts/_s227_rubricJudge.ts`（`--model`／`--effort`、自有預設）、`dev/ocr_extract.py`（`--effort`、預設 `gpt-6-luna`）、`dev/_s241_ocr_ab.py`（新）、`backend/README.md`、`backend/.env.example`、`dev/rules/coding.md`（`## Project Rules` 附錄）、`dev/CODEBASE_CONTEXT.md`、`dev/PROJECT_INDEX.md`、`dev/DOC_SYNC_REGISTRY.md`、交接、本 log、`dev/archive/SESSION_LOG_2026_Q3.md`、`START_NEXT_SESSION_PROMPT.txt`；artifacts `dev/source/2026-10-29_s241_footnote_lead_before.json`、`dev/source/eval_runs/2026-10-29_s241_*`（7 份）。生產：#53 squash 合併部署 `da44e55`；Render 刪除 `OPENAI_MODEL`（Leonard 操作）。Supabase 零寫入、零 DDL。
+- **Done:** 官方頁重讀（無變）· 線上合成轉 `gpt-6-luna` 並抽查 · OCR 8 頁比對與改預設 · 量度判官四個設定校準、Leonard 定案 `gpt-6-luna`＋`low` · `footnote_lead_probe` 生產基線與 185 題擠出分析 · 定期更新檢查規則 · Mindsquare 兩點核對 · 9 條真實拒答分類 · 通函編號查找生產基線、實作與本機 before→after。
+- **QC:** `npm run check`、`npm run build`、`circularRefRegression` 11/11、`regression:grounded` 50/50、`route_regression` 63/63、`execute_ingest --self-test` 28/28、`_s227_rubricJudge --self-test` 67/67、`footnote_lead_probe --self-test` PASS；`dev/rules/coding.md` 官方本體逐位元組相同。數字見交接 `## Validation / QC` S241。
+- **Evidence disposition:** 量度 artifacts 保留為近期證據並在 `PROJECT_INDEX`／`CODEBASE_CONTEXT` 引用；真實搜尋紀錄只在工作區暫存分析，未入 git；規則升格入 `dev/rules/coding.md`。
+- **Sync:** `DOC_SYNC_REGISTRY` 兩列更新（離線工具模型 → `done`；檢索旗標列加 S241）。
+- **Pending:** 見交接 Open Priorities S241 ①–⑤（① 開通函查找旗標並生產重量）。
+- **Risks:** 量度判官有 1 對位置偏誤（只監察）；收工 PR 改 `backend/src`，合併後會重新部署；交接檔約 69 萬位元組，本節只完整讀現況段落，cold zone 未逐字重讀。
+- **Log maintenance:** `--check` 報 date trigger → `--apply`：281→209 行、10→7 條，S233／S232／S231 三條入 `dev/archive/SESSION_LOG_2026_Q3.md`（只搬不刪，已核對三個標題由主檔移入歸檔、歸檔只有追加）；工具同樣把一個 `ack:log-entry:start` 留在主檔尾，已移到歸檔檔該批第一條前；主檔 start／end 8／8 平衡，歸檔檔既有失衡不動。
+- **Opening-message mirror:** 由交接檔唯一 fenced 區塊重生並核對與舊慣例同格式（區塊＋結尾換行）；全文不入 log。
+<!-- ack:log-entry:end -->
+
+---
+
+<!-- ack:log-entry:start -->
+
 ## 2026-10-23 Session 240 — npm 依賴漏洞修補（PR #55 合併部署）
 
 - **ID:** S240
@@ -202,80 +221,4 @@ When current work requires a log entry, record whether relevant older detail was
 - **Risks:** AI 開的 PR 不能由 AI 合併（分類器擋，Leonard 未加 `permissions.allow` 規則）；`search_log` 內容一旦進公開檔案不可回收。
 - **Log maintenance:** 寫入前 `session_log_maintenance.py --check` 報 `line_count=195`、`entry_count=6`、`trigger=False`；寫入後 7 條，Kit 核心 ≥11 條未達。`## Confirmed Decisions` 類章節未達 30 條。全面維護的 10 次收工 backstop：沿用 S233 的「未滿」判斷，本節未重新計數。本節有一項架構取捨（狀態頁橫額脫鉤、搜尋內容不上公開頁面），已寫入 `PROJECT_DECISIONS.md` ADR-00W。
 - **Opening-message mirror:** 由交接檔唯一 fenced 區塊重生並核對；全文依設計不入 log。
-<!-- ack:log-entry:end -->
-
----
-
-<!-- ack:log-entry:start -->
-
-## 2026-09-28 Session 233 — 搜尋記錄與回答評分上線；185 題 gold 生產重跑
-
-- **ID:** S233（Claude_20260928_1700）
-- **Summary:** 由頂層 root「開工」轉入 Draft，起手探針全綠。Leonard 提出研究記錄用戶搜尋作改進數據庫 → 五項定案 → 寫代碼（#36）→ Leonard 執行 DDL 並合併 → 生產驗收 → 重跑 gold → 收工。
-- **Changed:** 新 `backend/src/lib/searchLog.ts`、`backend/supabase/s233_search_log.sql`、`dev/SEARCH_LOG_DESIGN.md` · `backend/src/server.ts`（記錄、`log_id`、評分端點）· `backend/src/api/searchChannelB.ts`（只 export `SYNTHESIS_DECLINE`）· `app.html`／`mobile.js`（👍／👎、`client` 欄位、v3.3.10）· `README.md`／`CHANGELOG.md` · `dev/CODEBASE_CONTEXT.md`／`dev/PROJECT_INDEX.md` · `dev/source/eval_runs/2026-09-28_s233_prod_gold.json` · 治理文件。**生產 Supabase：DDL 1 次**（新表＋兩個函數，Leonard 執行）。
-- **Done:**
-  - **調查**：現況只有每日計數（`usage_daily`），無查詢內容；`dev/AUDIT.md` ⑤ 早已列「無查詢記錄」。網站「過程不儲存」只針對文件標註。
-  - **定案（Leonard）**：180 日、存回答全文、做評分、不過濾查詢（「不會發生」）、不加收集說明（「無私隱成份」）。
-  - **#36**：照 S204 計數器模式（anon 只有函數 EXECUTE、表 RLS 無 policy）；fire-and-forget；評分端點放在共用限流之前、自設每 IP 30 次／分鐘。
-  - **生產驗收**：`/health` `4140e9c`；1 次真實搜尋寫入一行（連 8 格片段全文）、評分成功；另有真實用戶「退休手續」（desktop）寫入。
-  - **gold**：見交接 `## Current Baseline` 7 與 `## Validation / QC` S233。
-- **Fix Record:**
-  - **Problem:** 以 `pbcopy` 把 DDL 抄到剪貼簿，Leonard 貼上時是空的。**Root Cause:** 工具環境寫不進用戶剪貼簿（`pbpaste` 讀回 0 行），第一次沒有讀回就告訴用戶已抄好。**Fix:** 改為在對話內直接給 SQL。**Verification:** Leonard 執行後「Success. No rows returned」，外部探針見表與兩個函數。只記錄，不升為規則。
-- **QC:** `npm run build`／`check` 通過 · 本機：無 Supabase 時搜尋照常、`x-probe` 無 `log_id`、評分 400／502、CORS preflight · 前端模擬測試（桌面＋手機、失敗還原、版本 3.3.10、無新 console 錯誤）· build gate 綠 · 生產寫入與評分實測 · `_s213_run_gold.py --self-test` ALL PASS · gold 185 題 ＋ 4 條重跑 · `_s213_eval_metrics.py --self-test` ALL PASS。
-- **Evidence disposition:** gold run 入 repo（`EVAL_LATEST` 自動採用）；四條重跑與合併計算只在 scratchpad，結果寫入交接 `## Current Baseline` 7；設計與定案入 `dev/SEARCH_LOG_DESIGN.md`；API 事實入 `dev/CODEBASE_CONTEXT.md`。
-- **Sync:** `dev/DOC_SYNC_REGISTRY.md` S233 列。
-- **Pending:** 路線乙；`search_log` 讀取工具（資料累積後）；`index.html` 頁尾版本號；log 維護兩套標準整合。
-- **Risks:** 錯置這一類未修；gold 逾時 1 → 4 條；footnote 溢出到 `hr_pay_adjust_kg`（只監察）。
-- **Log maintenance:** 寫入前 `session_log_maintenance.py --check` 報 `line_count=169`、`entry_count=5`、`trigger=False`；寫入後 6 條，Kit 核心 ≥11 條亦未達。`## Confirmed Decisions` 類章節未達 30 條；距上次全面維護未滿 10 次收工。本節的架構取捨（沿用 S204 SECURITY DEFINER 模式、清除寫在函數內不靠 pg_cron）已記於 `dev/SEARCH_LOG_DESIGN.md`，不另寫 `PROJECT_DECISIONS.md`。
-- **Opening-message mirror:** 由交接檔唯一 fenced 區塊重生，並以同一抽取方法對 HEAD 舊版核實格式相同（62 行）；全文依設計不入 log。
-<!-- ack:log-entry:end -->
-
----
-
-<!-- ack:log-entry:start -->
-
-## 2026-09-24 Session 232 — GitHub 電郵收窄；GN10 以 footnote 修好，但交接寫下的 footnote 前提本身是錯的
-
-- **ID:** S232
-- **Summary:** 由頂層 root「開工」redirect 入 Draft，起手探針全綠。Leonard 逐步指示：GitHub 電郵太多 → 只留批准候選與最重要電郵 → 警報 @mention → GN10 走路線甲 → 寫入生產與兩次合成（「全做」）→ 收工。#32、#33、#34 由 Leonard 在網頁合併；收工 PR #35。
-- **Changed:** `.github/workflows/monitor_watchdog.yml`／`backend_build_check.yml`（@mention）· 新 `dev/ingest_s232_kg_ratio_footnote.py` · `CHANGELOG.md` · 片段數同步七檔（`app.html`、`index.html`、`README.md`、`K1_API_SPEC.md`、`knowledge.json`、`role_facts.json`、`dev/knowledge/role_facts.json`）· `dev/source/2026-09-24_s232_*.json` 四份 · 治理文件。**生產 Supabase +1 行**。
-- **Done:**
-  - **電郵**：查明大宗來源是 repo 層 push 電郵（每次 push 一封，無 webhook、無 API 可讀）；Leonard 改帳戶設定（Watching 關電郵、Actions 只報失敗等）並清空四個 repo 的 push 電郵。
-  - **#33**：看門狗與 build gate 的警報 issue 加 @mention（照 S191 做法）。
-  - **GN10**：`synthesize:false` 看生產窗 —— 三條相鄰 footnote 在頂、真正比例的 vault 片段因路由到 `g29` 而取不回。對庫內原文寫新 footnote（1:15 → 1:11；通告 26/2003 每 15 名一名當值），INSPECT before/after 寫入（17,006 → 17,007、footnote 180 → 181）。等 Render 休眠重啟後驗收。
-- **Fix Record:**
-  - **Problem:** S231 交接為路線甲寫下的 footnote 內容是「普通幼稚園無規定師生比例、只有班額上限」。**Root Cause:** 該前提寫入交接時未對原文。**Fix:** 動手前逐條查 `kg_admin_guide_2026`／`kg_operation_manual_2026` 片段，發現原文相反，改以原文為準並在交接記錄。**Verification:** 新 footnote 每句都能在庫內片段找到對應原文。
-  - **Problem:** 入庫後生產不會自動載入新 footnote。**Root Cause:** `_footnoteCache` 無 TTL，合併 PR 不會重新部署（三個 PR 都不動 `backend/`）。**Fix:** 21 分鐘不發請求讓免費方案休眠。**Verification:** `/health` `started_at` 17:37:51Z、`cache_b.footnote` 181。
-- **QC:** 兩個 workflow YAML 可解析、內嵌腳本 `node --check` 通過、build gate 綠 · 入庫腳本 `--self-test`（embed 格式 cos 1.0000）· 生產窗口 6 條查詢（新 footnote 在 3 條排第 0、3 條排第 1）· `synthesize:true` 2 次皆答 1:11 · `footnote_lead_probe` before 26/27・4/13 → after 26/27・4/13，失去 lead 0、errors 0 · `footnote_lead_probe --self-test` PASS。**未跑**：185 題 gold（已列為下一步）。
-- **Evidence disposition:** 四份 artifact 入 repo 為本修法的驗收證據；結論摘入交接 `## Validation / QC` S232；入庫腳本登記入 `dev/PROJECT_INDEX.md`。
-- **Sync:** `dev/DOC_SYNC_REGISTRY.md` S232 列 · 片段數七檔已同步 · 凍結合約零接觸 · 平台版本不變。
-- **Pending:** 重跑 185 題 gold → 路線乙；log 維護兩套標準整合；收工 PR #35 待合併。
-- **Risks:** 對象錯置這一類（D01／FT06）未修；gold 預計禁引 +1；警報 @mention 未經真實觸發驗證。
-- **Log maintenance:** 寫入本條後主 log 為 5 條；`docs/qa/session_log_maintenance.py --check` 報 `line_count=169`、`entry_count=5`、`trigger=False`（§4a 不觸發；Kit 核心 ≥11 條亦未達）。`## Confirmed Decisions` 類章節未達 30 條；距上次全面維護未滿 10 次收工；本節無架構取捨需寫入 `PROJECT_DECISIONS.md`。
-- **Opening-message mirror:** 由交接檔唯一 fenced 區塊重生並讀回，內容相等（64 行／5,345 bytes）；全文依設計不入 log。
-<!-- ack:log-entry:end -->
-
-<!-- ack:log-entry:start -->
-
-## 2026-09-24 Session 231 — 「入口和路由」沒有重複，但有三個分支；補回的判官基線與 S211 逐項相同，而那條「判官從不服務」的前提早已失效，實測到的是 GN10 在生產答錯
-
-- **ID:** S231（跨 09-23／09-24 兩日）
-- **Summary:** 由「開工」起手，Leonard 逐步指示：盤點「入口和路由」有沒有重複／分支 → 做第 1–4 項 → 同意（含本機 CORS）→ 做判官驗收基線 → 查 D01 前提 → 改過時註釋 → 收工。五個 PR（#26、#28–#31）全部由 Leonard 在 GitHub 網頁合併並部署核實。
-- **Changed:** `app.html`（`BACKEND_URL`、`fetchUsageTotal()`、`PLATFORM_VERSION` 3.3.9）· `q.html`／`t-purchase.html`（註釋）· 刪 root `main` · `README.md` · `CHANGELOG.md` · `backend/src/server.ts`（本機 CORS）· `backend/src/api/searchChannelB.ts`（純註釋）· `dev/source/judge_runs/2026-09-24_s231_shipped_41mini.json`（新）· `dev/source/JUDGE_PROMPT_FINDINGS.md` · `dev/CODEBASE_CONTEXT.md` · `dev/PROJECT_INDEX.md` · `dev/DOC_SYNC_REGISTRY.md` · `dev/SESSION_HANDOFF.md` · `START_NEXT_SESSION_PROMPT.txt`
-- **Done:**
-  - **盤點**：前端六個入口頁、後端 12 條路由集中一個分派器 —— 無重複登記、無衝突、無網站副本。找到的是分支：後端網址寫了五次（一個死常數）、用量請求兩處各寫一份、平台介紹桌面／手機兩條路、手機無文件標註入口、舊 hash 轉址只在桌面、三條介面已退役但仍公開的路由。
-  - **#28**：網址合一、用量共用、刪 `main`、註釋對正；v3.3.9。**#29**：非 Render 環境放行 localhost。**#30**：判官基線 artifact。**#31**：更正 S200 過時註釋。
-  - **判官基線**：`gpt-4.1-mini` 凍結集 31/33、12/12、19/21（D01、GN10）、33/35 —— 與 S211 CHANGELOG 所記逐項相同。
-  - **D01 前提**：程式碼註釋已證 S201 拆了 footnote bypass；生產各跑兩次：D01 無錯置，**GN10 一次答「1:30／1:14」錯置、一次正確拒答**。
-- **Fix Record:**
-  - **Problem:** 以為本機預覽的搜尋「連到生產」，改成連本機會令本機搜尋失效。**Root Cause:** 沒先測 —— 實測改動前後本機預覽連任何後端都被 CORS 擋（後端只回兩個生產網域；`.env` 的 `CORS_ORIGIN=*` 被當字面值比對）。**Fix:** CHANGELOG 照實改寫，另開 #29 修 CORS（只限非 Render）。**Verification:** 本機四個 origin 逐一測；合併後生產對 localhost 仍回生產網域。
-  - **Problem:** `bump_version.py patch` 看似升版工具。**Root Cause:** 它升的是資料合約版本，`--dry-run` 顯示會改 `knowledge.json`／`role_facts.json`／`guidelines.json`。**Fix:** 不用它，手改三處；規則寫入交接 `Current Baseline` 1。**Verification:** 凍結合約 `_meta` 維持 2.3.0／2.6.2。
-  - **Problem:** AI 的 `gh pr merge` 被 auto mode 權限閘擋下。**Fix:** 不繞過，交 Leonard 在網頁合併並逐步說明。**Verification:** 五個 PR 皆 MERGED，served 3.3.9、`/health` `f712172`。
-- **QC:** 本機 1280px 預覽（v3.3.9 編譯、stub 用量 qa→about→qa 只 1 次請求、文件標註請求走 `BACKEND_URL`、主控台只有 CORS 錯誤）· `npm run check` 0（兩次）· `judge_acceptance` `--self-test` 0／`--check-parity` OK／`--plumbing-check` OK · 五個 PR 的 `build-gate` 全綠 · 收工探針：served 3.3.9、`/health` `f712172`、`backend` 零落後、Supabase 17,006、`check_registry_drift` 三項 0。
-- **Evidence disposition:** 判官 run 檔保留為基線；GN10／D01 生產實測的答案原文摘入 `dev/SESSION_HANDOFF.md` `## Validation / QC` S231 第 5 點（原始回應只存於 scratchpad，未入 repo）。入口盤點的四項未決分支升入 `## Open Priorities` ③。
-- **Sync:** `dev/DOC_SYNC_REGISTRY.md` S231 十三列 · `dev/PROJECT_INDEX.md` judge harness 列更正 · `dev/CODEBASE_CONTEXT.md` app.html 條目 · `CHANGELOG.md`／README · 凍結合約零接觸。
-- **Pending:** Leonard 選定 GN10 型錯置的處理路線（甲：curated footnote 個案修；乙：非提示式對象核對機制）；log 維護兩套標準整合；收工 PR 待合併。
-- **Risks:** GN10 型錯置在生產非決定性出現；判官基線只跑一次，未達 ≥3 runs。
-- **Log maintenance:** 寫入本條後主 log 為 **12 條**。`docs/qa/session_log_maintenance.py --check` 報 **`line_count=418`、`trigger=True`**（§4a 行數閘），故依 §4a 強制執行 `--apply`：**418 → 148 行、12 → 4 條，8 條（S220–S227）搬入 `dev/archive/SESSION_LOG_2026_Q3.md`**（append，未覆寫）。事前備份、事後逐行核對：12 個條目標題全數尋回、非標記內容 **0 行遺失**。**S224 記載的 off-by-one 再次出現**：主檔尾留下一個孤立 `ack:log-entry:start`，已刪（主檔改後 5/5 平衡）；歸檔檔本次 +8/+8，其既有的 4 個失衡照 S224 判斷不動。工具回報 `latest entry prompt block ok=False` —— §4a 硬規則 3 要求最新條目保留開場白全文，而 Kit 核心與本檔頭寫明「開場白全文不屬於 log」，屬同一組並存標準的另一處衝突，本節照 Kit 做法不寫入、記錄於此。重跑 `--check`：`line_count=146`、`trigger=False`。S230 記錄的兩套觸發標準衝突**本節仍未整合**；衝突已在交接 `Open Priorities`「次序」段列為治理側第一件維護工作。`## Confirmed Decisions` 類章節未達 30 條；距上次全面維護未滿 10 次收工；本節無架構取捨需寫入 `PROJECT_DECISIONS.md`。
-- **Opening-message mirror:** 已由 `dev/SESSION_HANDOFF.md` 的 fenced 區塊重新產生 `START_NEXT_SESSION_PROMPT.txt` 並讀回逐字核對。
 <!-- ack:log-entry:end -->

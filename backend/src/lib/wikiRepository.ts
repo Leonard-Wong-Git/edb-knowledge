@@ -8,6 +8,7 @@
 import type { EmbedFn } from "./embeddingClient.js";
 import { getSupabaseAnonKey, getSupabaseUrl } from "../config/env.js";
 import { cjkBigrams, informativeBigrams, overlapWith } from "./textBigrams.js";
+import { buildCircularIndex } from "./circularRef.js";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -785,9 +786,40 @@ export function overlayCacheStatus(): {
   };
 }
 
+/**
+ * S241 — circular number → source_id, read from each circular's own page-1 header
+ * (see lib/circularRef.ts for why the header and not the registry title: one registry
+ * title carries the wrong number). One plain REST read of the ~114 vault chunks that
+ * contain 檔號, no embeddings, loaded only when a query names a circular. New ingests are
+ * picked up on the next cache invalidation or restart — no hand-kept list to drift.
+ */
+let _circularIndex: Map<string, string> | null = null;
+let _circularInFlight: Promise<Map<string, string>> | null = null;
+
+export async function loadCircularIndex(): Promise<Map<string, string>> {
+  if (_circularIndex) return _circularIndex;
+  if (_circularInFlight) return _circularInFlight;
+  _circularInFlight = (async () => {
+    const url =
+      `${getSupabaseUrl()}/rest/v1/wiki_chunks?content_type=eq.vault_extract` +
+      `&text=ilike.${encodeURIComponent("*檔號*")}&select=source_id,text&limit=2000`;
+    const key = getSupabaseAnonKey();
+    const resp = await fetch(url, { headers: { apikey: key, Authorization: `Bearer ${key}` } });
+    if (!resp.ok) throw new Error(`circular index load ${resp.status}`);
+    const rows = (await resp.json()) as Array<{ source_id: string; text: string }>;
+    _circularIndex = buildCircularIndex(rows);
+    return _circularIndex;
+  })().finally(() => {
+    _circularInFlight = null;
+  });
+  return _circularInFlight;
+}
+
 export function invalidateWikiCache(): void {
   _footnoteCache = null;
   _spotlightCache = null;
+  _circularIndex = null;
+  _circularInFlight = null;
   // S219 — an in-flight load started before invalidation would otherwise repopulate
   // the cache with pre-invalidation rows the moment it settles.
   _footnoteInFlight = null;
