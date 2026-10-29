@@ -43,7 +43,7 @@ Recorded at closeout per the Registry Rule above. Newest first.
 
 | Row | 狀態 | 備註 |
 |---|---|---|
-| 查詢展開／檢索旗標 | `confirmed` | `FEATURE_QUERY_FUSION` 預設關；185 題兩層 before→after 與答案層判官已跑；`backend/README.md`、`.env.example`、`CODEBASE_CONTEXT.md` 記結論「不出貨」 |
+| 查詢展開／檢索旗標 | `confirmed` | `FEATURE_QUERY_FUSION` 預設關；185 題兩層 before→after 與答案層判官已跑；`backend/README.md`、`.env.example`、`CODEBASE_CONTEXT.md` 記結論「不出貨」；S241 `FEATURE_CIRCULAR_NUMBER_LOOKUP` 預設關，本機 88 條 before→after、185 題零觸發已量，四處（`backend/README.md`、`.env.example`、`CODEBASE_CONTEXT.md`、`PROJECT_INDEX.md`）已記；Render 未啟用 |
 | 答案層評分 | `confirmed` | 門檻 8 跑前已定未改；校準 5/7、位置偏誤 0/0；須人手覆核題剔出並另報穩健性 |
 | 監察／狀態頁 | `confirmed` | `qc_report.yml` 觸發改動、頁面比對邏輯、看門狗 skipped；測試與紅測已跑（S209 紀律：只改 qc_report，其餘監察觸發不受影響） |
 | 外部服務（OpenAI） | `confirmed` | 停用與候選價錢寫入 `CODEBASE_CONTEXT.md` OpenAI 段，Doc-reviewed 2026-10-18、Test-verified 2026-10-21 |
@@ -52,7 +52,7 @@ Recorded at closeout per the Registry Rule above. Newest first.
 | Deploy | `pending` | PR #53 改 `backend/`，合併後 Render 自動部署；未合併 |
 | `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並核對相等 |
 | Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4、`## User Environment` Git state、`PROJECT_INDEX` Branch / commit 列 |
-| 離線工具模型（`_s227_rubricJudge.ts` `gpt-4.1`、`ocr_extract.py` `gpt-4o`） | `pending` | 2027-01-14 停用；未選型（交接 Open Priorities ①(c)） |
+| 離線工具模型（`_s227_rubricJudge.ts` `gpt-4.1`、`ocr_extract.py` `gpt-4o`） | `done` | S241 完成選型，兩者已脫離 2027-01-14 停用型號：`ocr_extract.py` 預設 `gpt-6-luna`＋`none`（實測達標）；`_s227_rubricJudge.ts` 預設 `gpt-6-luna`＋`low`，並不再借用線上相關性判官設定（Leonard 定案，明知校準 5/7 一致但有 1 項位置偏誤、未達「偏誤須 0」門檻；偏誤項會記為 INCONSISTENT 而不出勝方）。校準 artifact `dev/source/eval_runs/2026-10-29_s241cal_*` |
 
 ### 2026-10-13 — S238（監察通知修正 ＋ 來源更新 ＋ 失效連結修復）
 

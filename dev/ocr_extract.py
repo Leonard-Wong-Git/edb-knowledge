@@ -120,10 +120,17 @@ def _retry_wait(resp, attempt: int) -> float:
     return min(8 * attempt, 35)  # exponential-ish fallback
 
 
-def ocr_page(api_key: str, png_b64: str, model: str, retries: int = 6):
+def ocr_page(api_key: str, png_b64: str, model: str, retries: int = 6, effort=None):
     """Return transcribed text, or None after exhausting retries."""
+    # S241 — reasoning models (gpt-6-luna; gpt-4o is retired 2027-01-14) take
+    # `max_completion_tokens` (reasoning tokens count against it) and `reasoning_effort`;
+    # `max_tokens` is deprecated and incompatible with them, and `temperature` is not
+    # documented for them, so it is not sent. Without --effort the request is unchanged.
+    # Chat Completions reference + reasoning guide, Doc-reviewed 2026-10-29 (S241).
+    limits = ({"max_completion_tokens": 4096, "reasoning_effort": effort} if effort
+              else {"temperature": 0, "max_tokens": 4096})
     body = {
-        "model": model, "temperature": 0, "max_tokens": 4096,
+        "model": model, **limits,
         "messages": [
             {"role": "system", "content": OCR_SYSTEM},
             {"role": "user", "content": [
@@ -157,11 +164,11 @@ def ocr_page(api_key: str, png_b64: str, model: str, retries: int = 6):
     return None
 
 
-def ocr_many(api_key, pages, model, concurrency):
+def ocr_many(api_key, pages, model, concurrency, effort=None):
     """pages = [(pageno, png_b64)] → {pageno: text|None}."""
     results = {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, concurrency)) as ex:
-        fut2pg = {ex.submit(ocr_page, api_key, b64, model): pg for pg, b64 in pages}
+        fut2pg = {ex.submit(ocr_page, api_key, b64, model, 6, effort): pg for pg, b64 in pages}
         done = 0
         for fut in concurrent.futures.as_completed(fut2pg):
             results[fut2pg[fut]] = fut.result()
@@ -235,7 +242,15 @@ def main():
     ap.add_argument("--url", action="append", required=True, dest="urls")
     ap.add_argument("--pages", default=None, help="e.g. 1-4 (1-based, inclusive)")
     ap.add_argument("--dpi", type=int, default=200)
-    ap.add_argument("--model", default="gpt-4o")
+    # S241 — default moved off gpt-4o (shut down 2027-01-14). Measured on 8 text-layer
+    # pages scored against their own text (dev/_s241_ocr_ab.py,
+    # dev/source/eval_runs/2026-10-29_s241_ocr_ab.json): gpt-6-luna+none matched or beat
+    # gpt-4o on characters on every page, read every number gpt-4o read (both differ from
+    # the key only in where the page number lands), at ~1/15 of the cost. `low` added
+    # time and tokens for no gain. Old behaviour: --model gpt-4o --effort ""
+    ap.add_argument("--model", default="gpt-6-luna")
+    ap.add_argument("--effort", default="none", choices=["", "none", "low", "medium", "high"],
+                    help='reasoning models only; pass --effort "" for a non-reasoning model such as gpt-4o')
     ap.add_argument("--concurrency", type=int, default=1)
     ap.add_argument("--resume", action="store_true", help="re-OCR only 〔OCR失敗〕 pages in existing extract")
     args = ap.parse_args()
@@ -256,7 +271,7 @@ def main():
         print(f"[{args.id}] resume: re-OCR {len(failed)} failed pages @ {args.dpi}dpi "
               f"(concurrency={args.concurrency})", file=sys.stderr)
         todo = render_specific(args.urls[0], set(failed), args.dpi)
-        res = ocr_many(api_key, todo, args.model, args.concurrency)
+        res = ocr_many(api_key, todo, args.model, args.concurrency, args.effort)
         recovered = 0
         for pno, _ in todo:
             t = res.get(pno)
@@ -280,7 +295,7 @@ def main():
     rendered = render_range(args.urls, lo, hi, args.dpi)
     print(f"[{args.id}] {len(rendered)} pages → OCR (concurrency={args.concurrency}, model={args.model})",
           file=sys.stderr)
-    res = ocr_many(api_key, rendered, args.model, args.concurrency)
+    res = ocr_many(api_key, rendered, args.model, args.concurrency, args.effort)
 
     order = [pg for pg, _ in rendered]
     pages = {}

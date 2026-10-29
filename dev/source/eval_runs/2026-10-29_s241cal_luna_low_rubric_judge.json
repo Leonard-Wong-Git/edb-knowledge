@@ -1,0 +1,300 @@
+{
+ "label": "S227 pairwise rubric judge (calibration against the seven hand-read pairs)",
+ "generated_at": "2026-10-29T19:44:51.873Z",
+ "judge_model": "gpt-6-luna",
+ "judge_reasoning_effort": "low",
+ "source_run": "../dev/source/eval_runs/2026-09-15_s226synth_before_after.jsonl",
+ "source_run_sha256": "d8b4a4753f70bfd77fd58bdfceb2431f30fea9226823b3e9d4ddba4873daa17b",
+ "gold_file": "../dev/_s213_gold_all.json",
+ "mode": "replay of saved answer texts; no retrieval, no Supabase, no embeddings",
+ "position_bias_control": "each item judged twice with the sides swapped; agreement required for a winner",
+ "approved_max_calls": 14,
+ "attempted_api_calls": 14,
+ "items": [
+  {
+   "id": "cpd_conduct_registration",
+   "query": "操守指引",
+   "domain": "cpd_teacher_qualification",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "答案一未回答操守指引與教師註冊要求的關係；答案二雖提供較多內容，卻同樣偏離提問意圖，未交代教師須按《教育條例》註冊的要求。兩者均違反第2條，且沒有較高順位準則上的差異。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "答案一雖談及操守相關內容，卻沒有回答操守指引與教師註冊要求的關係；答案二則表示找不到資料，同樣未能回答本題意圖。兩者均在第2條準則上失分，沒有較高順位的準則可區分優劣。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false,
+   "human_verdict": "BEFORE",
+   "agrees_with_human": false
+  },
+  {
+   "id": "dig_teacher_digital_cpd_hours",
+   "query": "數字教育 培訓時數",
+   "domain": "digital_education",
+   "combined": "BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     3,
+     4
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案1正確指出每三年不少於30小時。答案2把要求寫成「30至150小時」，與登記段落不符，並在後文又稱政策未載明具體課時數，構成自相矛盾；決定差異的是準則3。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3,
+     4
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 3,
+    "reason": "答案1把要求說成「不少於30至150小時」，又稱政策未載明具體課時數，與登記段落的「不少於30小時」不一致且自相矛盾；答案2正確回答每三年不少於30小時，故答案2較佳。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": true,
+   "human_verdict": "BEFORE",
+   "agrees_with_human": true
+  },
+  {
+   "id": "bus_escort_list",
+   "query": "跟車保母 學童名單",
+   "domain": "school_bus",
+   "combined": "INCONSISTENT",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案1較集中回答名單需經常更新及供行車前核對學童人數；答案2另加入名單存放安排、家長接送協調等偏離提問意圖的內容。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案1直接指出名單須經常更新，並在行車前核對；答案2雖提及名單用途，卻未交代行車前核對這項提問核心責任，且篇幅較多用於其他規定。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false,
+   "human_verdict": "AFTER",
+   "agrees_with_human": false
+  },
+  {
+   "id": "staff_grad_ratio",
+   "query": "學位教師比例",
+   "domain": "staffing",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "兩者都未能完整切中資助小學學位教師職級的編制安排；答案2至少提及高級小學學位教師作為副校長職位，與登記段落相關，答案1則主要泛談學位化政策。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "兩者均未切中資助小學學位教師職級編制安排；答案1至少提及高級小學學位教師職級與副校長職位，較答案2更貼近提問意圖，因此依準則2判答案1較佳。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false,
+   "human_verdict": "AFTER",
+   "agrees_with_human": true
+  },
+  {
+   "id": "hr_maternity",
+   "query": "產假",
+   "domain": "hr_admin",
+   "combined": "BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     1,
+     5
+    ],
+    "answer_2_flaws": [
+     1,
+     4,
+     5
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 4,
+    "reason": "兩者均把資料中僅涉及幼稚園津貼及提交資料的段落，套用為資助學校教職員的產假安排，違反準則1。答案2先稱資料沒有載明具體時長，隨即又稱有薪產假最長14星期，構成準則4所指的自相矛盾；答案1未有同樣矛盾，因此答案1較佳。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     1,
+     2,
+     4,
+     5
+    ],
+    "answer_2_flaws": [
+     1,
+     2,
+     3,
+     5
+    ],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 4,
+    "reason": "兩者都未切合答案段落所指的幼稚園津貼安排，且均加入段落未載明的教職員產假細節；答案1先稱資料沒有載明產假時長，隨即又給出14星期，形成較明顯的自相矛盾。答案2雖有未獲段落支持的日期及假期記錄等內容，但沒有同樣直接否定自己所列的產假時長。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": false,
+   "human_verdict": "BEFORE",
+   "agrees_with_human": true
+  },
+  {
+   "id": "hr_jobshare",
+   "query": "兩個老師分一個教席",
+   "domain": "hr_admin",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案1主要轉而談假期、病假福利，沒有切中「兩個老師分一個教席」所指的共享教職。答案2至少辨認並說明共享教職安排，較符合提問意圖。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案一直接回應兩位老師共用一個教席的安排，答案二則轉而討論假期及病假福利，未切中提問意圖。登記段落不足以判定兩者所述的具體福利數字與規定是否相衝突，因此主要差異在準則 2。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false,
+   "human_verdict": "AFTER",
+   "agrees_with_human": true
+  },
+  {
+   "id": "fin_ac_grant",
+   "query": "空調津貼 計算",
+   "domain": "finance",
+   "combined": "AFTER",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     4
+    ],
+    "answer_2_flaws": [],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 4,
+    "reason": "答案1先稱資料未載明具體計算公式細節，隨後卻提供場地等值倍數及按單價計算的方式，前後不一致。答案2直接說明等值換算及計算示例，未見同類矛盾。",
+    "resolved": "AFTER"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     4
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 4,
+    "reason": "答案2先列出各場地的等值倍數，後稱資料未載明具體計算公式細節，前後不一致；答案1沒有同類的自相矛盾。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false,
+   "human_verdict": "AFTER",
+   "agrees_with_human": true
+  }
+ ],
+ "summary": {
+  "items": 7,
+  "BEFORE": 2,
+  "AFTER": 3,
+  "TIE": 1,
+  "WEAK_BEFORE": 0,
+  "WEAK_AFTER": 0,
+  "INCONSISTENT": 1,
+  "TIE_IDENTICAL": 0,
+  "TIE_BOTH_DECLINED": 0,
+  "api_calls": 14,
+  "judge_health": {
+   "judged": 7,
+   "always_first": 1,
+   "always_second": 0,
+   "raw_calls": 14,
+   "raw_tie_calls": 2
+  },
+  "needs_human_review": [
+   "dig_teacher_digital_cpd_hours"
+  ],
+  "decision": {
+   "counted": 6,
+   "excluded_for_review": 1,
+   "after_points": 3,
+   "before_points": 1,
+   "net_after": 2,
+   "ship_threshold": 8,
+   "verdict": "NO_MEASURABLE_GAIN"
+  },
+  "calibration_items": 7,
+  "calibration_agree": 5,
+  "calibration_disagree": [
+   "cpd_conduct_registration: judge=TIE human=BEFORE",
+   "bus_escort_list: judge=INCONSISTENT human=AFTER"
+  ]
+ },
+ "status": "complete"
+}

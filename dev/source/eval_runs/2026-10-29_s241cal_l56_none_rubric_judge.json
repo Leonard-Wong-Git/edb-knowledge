@@ -1,0 +1,383 @@
+{
+ "label": "S227 pairwise rubric judge (calibration against the seven hand-read pairs)",
+ "generated_at": "2026-10-29T19:52:00.225Z",
+ "judge_model": "gpt-5.6-luna",
+ "judge_reasoning_effort": "none",
+ "source_run": "../dev/source/eval_runs/2026-09-15_s226synth_before_after.jsonl",
+ "source_run_sha256": "d8b4a4753f70bfd77fd58bdfceb2431f30fea9226823b3e9d4ddba4873daa17b",
+ "gold_file": "../dev/_s213_gold_all.json",
+ "mode": "replay of saved answer texts; no retrieval, no Supabase, no embeddings",
+ "position_bias_control": "each item judged twice with the sides swapped; agreement required for a winner",
+ "approved_max_calls": 14,
+ "attempted_api_calls": 14,
+ "items": [
+  {
+   "id": "cpd_conduct_registration",
+   "query": "操守指引",
+   "domain": "cpd_teacher_qualification",
+   "combined": "INCONSISTENT",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     1,
+     2
+    ],
+    "answer_2_flaws": [
+     1,
+     2,
+     3,
+     5
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案一雖未提供實質內容，且未切合查詢意圖，但沒有將其他教育範疇的資料冒充教師專業操守指引或註冊要求。答案二內容偏離提問意圖，並混入消防、校外活動等未獲答案鑰匙支持的規定，整體較不切題且文句冗長，故答案一較佳。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     1,
+     2,
+     3,
+     5
+    ],
+    "answer_2_flaws": [
+     2
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 2,
+    "reason": "答案一雖提供不少操守內容，但未切合查詢所問的教師專業操守指引與教師註冊要求的關係，且加入與登記段落無關或可能不當的具體說法。答案二同樣未直接回答，卻沒有聲稱找不到後再提供不相干的詳細內容；按準則二，答案二較佳。",
+    "resolved": "AFTER"
+   },
+   "needs_human_review": false,
+   "human_verdict": "BEFORE",
+   "agrees_with_human": false
+  },
+  {
+   "id": "dig_teacher_digital_cpd_hours",
+   "query": "數字教育 培訓時數",
+   "domain": "digital_education",
+   "combined": "BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [],
+    "answer_2_flaws": [
+     3,
+     4,
+     5
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "答案一準確回答每三年持續專業發展周期內不少於30小時的數字教育培訓要求。答案二把要求錯誤表述為「30至150小時」，又稱未載明具體課時數，與登記段落衝突並自相矛盾。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "answer_2_flaws": [
+     6
+    ],
+    "verdict": "ANSWER_2",
+    "deciding_criterion": 2,
+    "reason": "答案一雖提及30小時，卻寫成「30至150小時」並自相矛盾地稱政策未載明具體課時，未能清楚回答每三年150小時周期內不少於30小時的要求。答案二準確交代每三年周期及不少於30小時，故較切題；其補充的年度名額等資料即使不在登記段落，亦不影響核心答案。",
+    "resolved": "BEFORE"
+   },
+   "needs_human_review": true,
+   "human_verdict": "BEFORE",
+   "agrees_with_human": true
+  },
+  {
+   "id": "bus_escort_list",
+   "query": "跟車保母 學童名單",
+   "domain": "school_bus",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     1,
+     3
+    ],
+    "answer_2_flaws": [
+     1,
+     3
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均切合跟車保母保存及更新學童名單、行車前核對人數的核心要求，但均加入未由登記段落支持的其他規定，且未明確交代適用對象，故缺陷同級。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     2,
+     3,
+     5,
+     6
+    ],
+    "answer_2_flaws": [
+     2,
+     3,
+     5,
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩者均有切題但加入超出登記段落的安全帶、年齡或替更等資料，且部分具體規定可能與題旨無關或造成資料不一致；兩者亦同樣未明確只聚焦於「保存經常更新名單以便行車前核對人數」。在較高順位準則上沒有一方勝出，故判定平手。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false,
+   "human_verdict": "AFTER",
+   "agrees_with_human": false
+  },
+  {
+   "id": "staff_grad_ratio",
+   "query": "學位教師比例",
+   "domain": "staffing",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     1,
+     2,
+     3,
+     6
+    ],
+    "answer_2_flaws": [
+     1,
+     2,
+     3,
+     4,
+     6
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 4,
+    "reason": "兩者均把公營中小學的學位教師比例政策混作本題所問的資助小學編制安排，且與登記段落僅提及小學學位教師職位提升為高級小學學位教師、副校長職位的內容不相符。答案2另先稱資料未載明具體比例，卻又列出各職級角色及比例相關結論，構成內部矛盾，因此答案1較佳。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "answer_2_flaws": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均把資料泛化為公營學校的小學及中學全面學位化，未有切合查詢所指的資助小學學位教師職級編制，且所述數字及職級資料均與登記段落不相符。兩者皆有離題、資料衝突及未能直接回答提問意圖等同等缺陷，沒有較高順位的準則差異。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false,
+   "human_verdict": "AFTER",
+   "agrees_with_human": false
+  },
+  {
+   "id": "hr_maternity",
+   "query": "產假",
+   "domain": "hr_admin",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     1,
+     3,
+     4,
+     5,
+     6
+    ],
+    "answer_2_flaws": [
+     1,
+     3,
+     4,
+     5,
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均把資料不足的登記段落延伸為資助學校教職員的具體產假規定，並各自加入與段落不符或未獲支持的條件；兩者亦同樣出現先稱資料未載明、後提出具體時長或條件的矛盾，且文字有重複及不完整表述，因此沒有較高順位的明顯差異。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     1,
+     3,
+     4,
+     5,
+     6
+    ],
+    "answer_2_flaws": [
+     1,
+     3,
+     4,
+     5,
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩答案均把資料未明確交代的產假規定擴充為具體的14星期、40星期及其他資格條件，且與所提供的登記段落不相符；兩者亦有自相矛盾及不完整、重複表述，沒有一方在較高順位準則上明顯勝出。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false,
+   "human_verdict": "BEFORE",
+   "agrees_with_human": false
+  },
+  {
+   "id": "hr_jobshare",
+   "query": "兩個老師分一個教席",
+   "domain": "hr_admin",
+   "combined": "TIE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "answer_2_flaws": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未能根據登記段落「共享教職和受僱於核准編制以外的職位教師……」準確交代共享教職的適用規定，反而引入假期、病假或超額教師等未見於該段落的內容，並對資料作出不確定或不相干的延伸。兩者均有離題、與登記段落不一致、資料不足及文句表述不完整等問題，沒有較高順位的明顯差異。",
+    "resolved": "TIE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     1,
+     2,
+     3,
+     5
+    ],
+    "answer_2_flaws": [
+     1,
+     2,
+     3,
+     5
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均未明確交代登記段落所涉的共享教職內容，且把焦點延伸至假期、病假及產假等未見於該段落的事項，因而同樣未能切合查詢並可能混淆適用對象；兩者沒有在較高順位準則上形成足以區分的差異。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": false,
+   "human_verdict": "AFTER",
+   "agrees_with_human": false
+  },
+  {
+   "id": "fin_ac_grant",
+   "query": "空調津貼 計算",
+   "domain": "finance",
+   "combined": "WEAK_BEFORE",
+   "calls": 2,
+   "order1": {
+    "shown_first": "BEFORE",
+    "answer_1_flaws": [
+     2,
+     3,
+     4
+    ],
+    "answer_2_flaws": [
+     2,
+     3,
+     4
+    ],
+    "verdict": "ANSWER_1",
+    "deciding_criterion": 3,
+    "reason": "兩者均未完整交代答案鑰匙所示的等值公式，且均在未有依據下補充具體金額並出現資料表述與數字不一致。答案二更明顯加入「小組教學室」及「無禮堂有蓋操場」的具體津貼數字，與其所列等值關係不一致，故答案一相對較佳。",
+    "resolved": "BEFORE"
+   },
+   "order2": {
+    "shown_first": "AFTER",
+    "answer_1_flaws": [
+     3,
+     5
+    ],
+    "answer_2_flaws": [
+     3,
+     5
+    ],
+    "verdict": "TIE",
+    "deciding_criterion": 0,
+    "reason": "兩個答案均提供了登記段落未載明的具體金額及延伸計算內容，且原登記段落本身在「SAC=」後截斷，故所列數字無法由該段落核實，並帶有超出可確認資料的內容。兩者均能切合等值計算意圖，缺陷程度相若，沒有較高順位準則上的明顯差異。",
+    "resolved": "TIE"
+   },
+   "needs_human_review": true,
+   "human_verdict": "AFTER",
+   "agrees_with_human": false
+  }
+ ],
+ "summary": {
+  "items": 7,
+  "BEFORE": 1,
+  "AFTER": 0,
+  "TIE": 3,
+  "WEAK_BEFORE": 2,
+  "WEAK_AFTER": 0,
+  "INCONSISTENT": 1,
+  "TIE_IDENTICAL": 0,
+  "TIE_BOTH_DECLINED": 0,
+  "api_calls": 14,
+  "judge_health": {
+   "judged": 7,
+   "always_first": 1,
+   "always_second": 0,
+   "raw_calls": 14,
+   "raw_tie_calls": 8
+  },
+  "needs_human_review": [
+   "dig_teacher_digital_cpd_hours",
+   "fin_ac_grant"
+  ],
+  "decision": {
+   "counted": 5,
+   "excluded_for_review": 2,
+   "after_points": 0,
+   "before_points": 0.5,
+   "net_after": -0.5,
+   "ship_threshold": 8,
+   "verdict": "NO_MEASURABLE_GAIN"
+  },
+  "calibration_items": 7,
+  "calibration_agree": 1,
+  "calibration_disagree": [
+   "cpd_conduct_registration: judge=INCONSISTENT human=BEFORE",
+   "bus_escort_list: judge=TIE human=AFTER",
+   "staff_grad_ratio: judge=WEAK_BEFORE human=AFTER",
+   "hr_maternity: judge=TIE human=BEFORE",
+   "hr_jobshare: judge=TIE human=AFTER",
+   "fin_ac_grant: judge=WEAK_BEFORE human=AFTER"
+  ]
+ },
+ "status": "complete"
+}

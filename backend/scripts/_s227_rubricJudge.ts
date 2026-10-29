@@ -497,9 +497,23 @@ async function main(): Promise<number> {
   }
 
   const { createLlmClient } = await import('../src/lib/llmClient.js');
-  const { getJudgeModel } = await import('../src/config/env.js');
-  const judgeModel = getJudgeModel();
-  const judge = createLlmClient({ model: judgeModel, maxRetries: 0 });
+  const { reasoningEffortFromEnv } = await import('../src/config/env.js');
+  // S241 — this ruler has its OWN default and no longer borrows the relevance judge's
+  // setting (#53 moving that default to gpt-6-luna had silently moved this ruler too, on
+  // the API's `medium`). gpt-4.1 retires 2027-01-14; Leonard chose gpt-6-luna + `low`
+  // (S241) knowing calibration showed 5/7 agreement (gpt-4.1: 5/7) but ONE position-biased
+  // pair, i.e. it fails the "position bias 0" gate. Accepted because a biased pair
+  // cannot produce a winner here — the two orders disagree, so it is recorded as
+  // INCONSISTENT and excluded — which costs sensitivity, not correctness. Read
+  // `judge_health.always_first` in every artifact. Runs:
+  // dev/source/eval_runs/2026-10-29_s241cal_*_rubric_judge.json.
+  const judgeModel = arg('model') ?? 'gpt-6-luna';
+  const effortArg = arg('effort');
+  const judgeEffort = effortArg === undefined
+    ? (arg('model') === undefined ? 'low' : undefined)
+    : reasoningEffortFromEnv(effortArg);
+  if (effortArg !== undefined && judgeEffort === undefined) throw new Error(`Invalid --effort ${effortArg}`);
+  const judge = createLlmClient({ model: judgeModel, reasoningEffort: judgeEffort, maxRetries: 0 });
 
   const outDir = '../dev/source/eval_runs';
   const runDate = new Date().toISOString().slice(0, 10);
@@ -510,6 +524,7 @@ async function main(): Promise<number> {
     label: `S227 pairwise rubric judge${calibration ? ' (calibration against the seven hand-read pairs)' : ''}`,
     generated_at: new Date().toISOString(),
     judge_model: judgeModel,
+    judge_reasoning_effort: judgeEffort ?? null,
     source_run: runPath,
     source_run_sha256: runSha,
     gold_file: goldPath,
