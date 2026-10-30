@@ -52,6 +52,7 @@ When current work requires a log entry, record whether relevant older detail was
 - **Risks:** 量度判官有 1 對位置偏誤（只監察）；收工 PR 改 `backend/src`，合併後會重新部署；交接檔約 69 萬位元組，本節只完整讀現況段落，cold zone 未逐字重讀。
 - **Log maintenance:** `--check` 報 date trigger → `--apply`：281→209 行、10→7 條，S233／S232／S231 三條入 `dev/archive/SESSION_LOG_2026_Q3.md`（只搬不刪，已核對三個標題由主檔移入歸檔、歸檔只有追加）；工具同樣把一個 `ack:log-entry:start` 留在主檔尾，已移到歸檔檔該批第一條前；主檔 start／end 8／8 平衡，歸檔檔既有失衡不動。
 - **Fix Record（收工後補丁）:** Problem：#56 合併、Leonard 開旗標後生產無效。Root Cause：對照表查詢全表文字掃描，匿名角色 3 秒上限冷啟動逾時（4.2 秒），被 catch 吞掉；本機用 service key（8 秒）量不到。Fix：先按 `source_id` 前綴篩選，暖機預載。Verification：匿名金鑰冷 1.8 秒／熱 0.5 秒、64 份；匿名重跑 88/88 排第 1、零退步；check、build、單元 11/11、grounded 50/50、路由 63/63。教訓與既有量度紀律「本機用 service key 量 anon 系統會低估」相同，已有規則，未另立新規。
+- **Fix Record 2（2026-10-30）:** Problem：#57 部署、旗標加上後仍無效。Root Cause：縮小後的文字掃描在冷資料庫仍 4.4 秒逾時；fail-open 令旗標缺失與載入失敗從外面無法分辨（截圖另核實前一次旗標其實未設）。Fix：按常見命名猜 id 直接查並以標頭核對、完整對照表背景載入與重試、失敗寫日誌、`/health` 報 `cache_b.circular`。Verification：匿名金鑰 resolve 約 1.1–1.7 秒、64 份；88/88 排第 1；單元 12/12、grounded 50/50、路由 63/63、check、build。另：補丁二的 commit 一度誤推上已合併的 `s241/circular-index-anon-timeout` 分支（無 PR，不影響 main），已 cherry-pick 到新分支。
 - **Opening-message mirror:** 由交接檔唯一 fenced 區塊重生並核對與舊慣例同格式（區塊＋結尾換行）；全文不入 log。
 <!-- ack:log-entry:end -->
 

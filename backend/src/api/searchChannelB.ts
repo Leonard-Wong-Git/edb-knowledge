@@ -22,6 +22,7 @@ import {
   searchEstablishmentRows,
   footnoteInformativeBigrams,
   loadCircularIndex,
+  resolveCircularSource,
   bareCosineForChunk,
   quotaBucket,
   type WikiContentType,
@@ -1774,9 +1775,22 @@ export async function warmChannelBOverlays(): Promise<void> {
     // S241 — so the first circular-number query does not pay the index read. A failed
     // warm is not fatal: the pass loads on demand and fails open.
     process.env.FEATURE_CIRCULAR_NUMBER_LOOKUP === "1"
-      ? loadCircularIndex().catch(() => undefined)
+      ? warmCircularIndexWithRetry()
       : Promise.resolve(undefined),
   ]);
+}
+
+/** S241 patch 2 — a cold database can time the index read out at startup; keep trying in
+ *  the background (6 × 30 s) instead of leaving it to the first user's query. */
+async function warmCircularIndexWithRetry(): Promise<void> {
+  for (let attempt = 0; attempt < 6; attempt++) {
+    try {
+      await loadCircularIndex();
+      return;
+    } catch {
+      await new Promise((r) => setTimeout(r, 30_000));
+    }
+  }
 }
 
 export async function searchChannelB(
@@ -2142,7 +2156,7 @@ export async function searchChannelB(
     process.env.FEATURE_CIRCULAR_NUMBER_LOOKUP === "1" ? parseCircularRef(query) : null;
   if (circularRef) {
     try {
-      const sourceId = (await loadCircularIndex()).get(circularRef);
+      const sourceId = await resolveCircularSource(circularRef);
       if (sourceId) {
         const hits = await searchWikiRoutedExact(query, embedFn, {
           sourceIds: [sourceId],
@@ -2156,8 +2170,10 @@ export async function searchChannelB(
           forcedLeads += circLead.length;
         }
       }
-    } catch {
-      // a circular-pass failure must never break the main search
+    } catch (err) {
+      // a circular-pass failure must never break the main search — but it must be
+      // visible: the first deploy failed this way for a day with no trace (S241).
+      console.warn("[circular-pass] failed open:", String(err).slice(0, 160));
     }
   }
 
