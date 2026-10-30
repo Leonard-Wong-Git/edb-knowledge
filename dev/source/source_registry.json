@@ -8059,6 +8059,26 @@
       "last_checked_at": "2026-10-30",
       "supersedes": null,
       "notes": "(auto, Option A executor) EDBCM197/2026. route=finance, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+    },
+    {
+      "source_id": "edbcm198_2026",
+      "title": "非華語學生家長教育活動及資源小冊子",
+      "title_en": null,
+      "title_short": "非華語學生家長教育活動及資源小冊子",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26198C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26198C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "activity"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-10-30",
+      "supersedes": null,
+      "notes": "(auto, Option A executor) EDBCM198/2026. route=curriculum, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract."
     }
   ]
 }
