@@ -18,6 +18,7 @@ Use: `confirmed`, `unverified`, `pending`, `blocked`, `not_applicable`.
 | Closeout/startup contract change | `AGENTS.md`, `dev/SESSION_HANDOFF.md`, `dev/SESSION_LOG.md`, `dev/PROJECT_INDEX.md`, README quick usage | opening message schema + workspace identity present |
 | Workspace identity change | `dev/SESSION_HANDOFF.md`, `dev/PROJECT_INDEX.md` | root/branch/commit/status recorded or marked unverified |
 | Release | release notes, README version, changelog | release pack checklist |
+| 入庫「EDB 指引」類文件（課程框架／指引／手冊／常見問題／單張／配套通告；人手入庫與 Option A 自動入庫皆適用；Leonard S241 定） | `app.html` `GUIDELINES_REGISTRY` 加一條（`id` 用 `source_id`；`category`／`sub_category`／`also_in`／`level`／`year`；新 `sub_category` 同時加入 `SUB_CAT_LABELS` 與 `SUB_CAT_SEQ`）；README 指引數目四處（第 27、31、112 行及第 117 行註腳歷史）；`guidelines.json` 屬凍結合約，不跟加。Option A executor 不會自動加入：核對自動入庫結果的同一 session 內補加 | 收工或宣布入庫完成前：瀏覽器 `window.GUIDELINES_REGISTRY` 含新 id、無重複 id、總數與 README 一致；書庫分頁能見新條目 |
 
 ## Registry Rule
 
