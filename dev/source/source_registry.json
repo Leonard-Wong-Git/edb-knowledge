@@ -4771,9 +4771,9 @@
         "content_hash": "830c118541285e43c545bc900c7edf804633e25abd1790a4bffaf9ac9490cd2b",
         "hash_checked_at": "2026-06-04"
       },
-      "lifecycle": "ephemeral",
-      "expires_on": "2025-10-16",
-      "expiry_basis": "one-off occasion (測試); last deadline 2025-09-16 + 30d grace [S241 backfill: hand-ingested circular matched in the circular feed; tier and deadlines from the feed]",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "Leonard S241 決定保留：載有長期規則（2025/26 起學位程度改為公務員事務局數碼化測試、三個月暫緩期、非學位成績只適用非學位教席、每學年初呈交新聘教師測試資料）。feed 的「截止日」2025-09-16 實為發出日期，標題「測試」令分類器誤判 ephemeral。",
       "covers_period": "2025/26"
     },
     {
@@ -7857,9 +7857,9 @@
       "last_checked_at": "2026-08-26",
       "supersedes": null,
       "notes": "(auto, Option A executor) EDBCM138/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
-      "lifecycle": "ephemeral",
-      "expires_on": "2026-10-25",
-      "expiry_basis": "one-off occasion (培訓計劃); last deadline 2026-09-25 + 30d grace [S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "Leonard S241 決定保留：報名已截止（2026-09-25），但計劃在 2026/27 學年全年進行；學年版本，只作標記，不清除。",
       "covers_period": "2026/27"
     },
     {
