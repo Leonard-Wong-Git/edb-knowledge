@@ -4454,7 +4454,11 @@
         "etag": "\"11135c9ad6b5dc1:0\"",
         "content_hash": "5477541e66f3414cf707b0439114cb4ce419744d4d439b57c09c03f0dca53343",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: hand-ingested circular matched in the circular feed; tier and deadlines from the feed]",
+      "covers_period": null
     },
     {
       "source_id": "edbc003_2026",
@@ -4481,7 +4485,11 @@
         "etag": "\"698af943a3ccdc1:0\"",
         "content_hash": "54430f0acfcfce1cd0d74319e12e1c9d742520bdbfd348d56bf547f74bdb8406",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: hand-ingested circular matched in the circular feed; tier and deadlines from the feed]",
+      "covers_period": null
     },
     {
       "source_id": "edbc008_2026",
@@ -4511,7 +4519,11 @@
         "content_length": "523581",
         "etag": "\"c26e6b9b1f5dd1:0\"",
         "hash_checked_at": "2026-06-26"
-      }
+      },
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: hand-ingested circular matched in the circular feed; tier and deadlines from the feed]",
+      "covers_period": null
     },
     {
       "source_id": "edbc005_2026",
@@ -4538,7 +4550,11 @@
         "etag": "\"315ee367cddc1:0\"",
         "content_hash": "81610ddaabe80e72c3f1aa8d5d2502efb76d2b0d6d893b2a463a8722c7863152",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: hand-ingested circular matched in the circular feed; tier and deadlines from the feed]",
+      "covers_period": null
     },
     {
       "source_id": "sen_exam_arrangements_2025",
@@ -4754,7 +4770,11 @@
         "etag": "\"08cc3ff7327dc1:0\"",
         "content_hash": "830c118541285e43c545bc900c7edf804633e25abd1790a4bffaf9ac9490cd2b",
         "hash_checked_at": "2026-06-04"
-      }
+      },
+      "lifecycle": "ephemeral",
+      "expires_on": "2025-10-16",
+      "expiry_basis": "one-off occasion (測試); last deadline 2025-09-16 + 30d grace [S241 backfill: hand-ingested circular matched in the circular feed; tier and deadlines from the feed]",
+      "covers_period": "2025/26"
     },
     {
       "source_id": "embc5_2005_appointment",
@@ -6544,7 +6564,11 @@
         "debp_blueprint",
         "debp_ailf_example"
       ],
-      "notes": "「『智』啟學教」撥款計劃：支援中小學善用人工智能提升學與教效能。教育局於 2025/1 成立「數字教育策略發展督導委員會」，2025 施政報告 QEF 預留 20 億元推進數字教育；本計劃成功申請學校獲一次過 50 萬元撥款，啟動及推動校本人工智能賦能教育（包括購置／訂閱／租用 AI 軟件／硬件／平台／資源、資助學生參加 AI 素養活動）。承諾要求：將「AI 賦能教育」項目納入學校發展計劃、最少 3 個科目／2 個級別推行 AI 輔助教學、發展 6 個 AI 教學例子、舉辦 3 次公開課／3 次經驗分享會／2 個學生活動。申請截止 2026/2/28、發款 2026/6/30、可跨學年用至 2027/28、財政紀錄保留 7 年。屬 digital_education route。"
+      "notes": "「『智』啟學教」撥款計劃：支援中小學善用人工智能提升學與教效能。教育局於 2025/1 成立「數字教育策略發展督導委員會」，2025 施政報告 QEF 預留 20 億元推進數字教育；本計劃成功申請學校獲一次過 50 萬元撥款，啟動及推動校本人工智能賦能教育（包括購置／訂閱／租用 AI 軟件／硬件／平台／資源、資助學生參加 AI 素養活動）。承諾要求：將「AI 賦能教育」項目納入學校發展計劃、最少 3 個科目／2 個級別推行 AI 輔助教學、發展 6 個 AI 教學例子、舉辦 3 次公開課／3 次經驗分享會／2 個學生活動。申請截止 2026/2/28、發款 2026/6/30、可跨學年用至 2027/28、財政紀錄保留 7 年。屬 digital_education route。",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: hand-ingested circular matched in the circular feed; tier and deadlines from the feed]",
+      "covers_period": null
     },
     {
       "source_id": "debp_ai_examples",
@@ -6660,7 +6684,11 @@
         "last_modified": "Tue, 02 Jun 2026 01:37:18 GMT",
         "content_length": "236491",
         "etag": "\"4a4f265930f2dc1:0\""
-      }
+      },
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: hand-ingested circular matched in the circular feed; tier and deadlines from the feed]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm081_2026",
@@ -6718,7 +6746,11 @@
         "last_modified": "Fri, 12 Jun 2026 03:16:28 GMT",
         "content_length": "214911",
         "etag": "\"44d9b0db19fadc1:0\""
-      }
+      },
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: hand-ingested circular matched in the circular feed; tier and deadlines from the feed]",
+      "covers_period": null
     },
     {
       "source_id": "edbc012_2026",
@@ -6745,7 +6777,11 @@
         "last_modified": "Tue, 23 Jun 2026 01:15:25 GMT",
         "content_length": "211752",
         "etag": "\"90fe81c5ad2dd1:0\""
-      }
+      },
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: hand-ingested circular matched in the circular feed; tier and deadlines from the feed]",
+      "covers_period": null
     },
     {
       "source_id": "edbc009_2026",
@@ -6772,7 +6808,11 @@
         "last_modified": "Mon, 22 Jun 2026 09:15:46 GMT",
         "content_length": "321511",
         "etag": "\"68765cb5272dd1:0\""
-      }
+      },
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: hand-ingested circular matched in the circular feed; tier and deadlines from the feed]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm070_2026",
@@ -6892,7 +6932,11 @@
         "last_modified": "Wed, 17 Jun 2026 01:54:36 GMT",
         "content_length": "346384",
         "etag": "\"856e1340fcfddc1:0\""
-      }
+      },
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: hand-ingested circular matched in the circular feed; tier and deadlines from the feed]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm066_2026",
@@ -6950,7 +6994,11 @@
         "last_modified": "Thu, 18 Jun 2026 04:37:31 GMT",
         "content_length": "385031",
         "etag": "\"c112d52cdcfedc1:0\""
-      }
+      },
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: hand-ingested circular matched in the circular feed; tier and deadlines from the feed]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm095_2026",

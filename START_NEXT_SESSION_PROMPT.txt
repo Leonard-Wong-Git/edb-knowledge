@@ -6,11 +6,11 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S241 收工, 2026-10-29）---
+--- 專案狀態（S241 checkpoint, 2026-10-30）---
 
-平台 v3.3.10；Supabase 16,990 chunks；in-app 瀏覽庫 170 份；guidelines.json 公開端點 151 份（_meta 2.6.2）；
+平台 v3.3.10；Supabase 17,101 chunks（306 來源）；in-app 瀏覽庫 170 份；guidelines.json 公開端點 151 份（_meta 2.6.2）；
 knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.4.3（npm 已有 0.4.4，未升級）。
-origin/main = da44e55（PR #53 已合併）；線上執行碼亦 da44e55。
+S241 PR #53、#56–#60、#64、#65 已合併，線上已部署（開工以 /health commit 核實）。
 Render：已無 OPENAI_MODEL、無 JUDGE_MODEL → 合成與判官皆碼內預設 gpt-6-luna＋reasoning.effort none。
 FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1（2026-10-30 由 Leonard 加上）；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 皆未設＝關閉。
 public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
@@ -23,15 +23,15 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    · 定期系統更新檢查規則：dev/rules/coding.md「## Project Rules」，每 30 日；日期記在 dev/PROJECT_INDEX.md 指令表。
    · 真實拒答 9 條已分類：7 條庫內沒有（5 條是「教學語言政策」）、2 條在庫找不到（通函 134/2026）。
 
-🔴 #56–#58 已合併部署（main f7ac967）；補丁三 PR（分支 s241/circular-topic-ranking）開工先 git fetch、gh pr list 核實。
+🔴 #62、#63 的內容已併入 #64，PR 本身仍開著，待 Leonard 關閉。
    · FEATURE_CIRCULAR_NUMBER_LOOKUP（Render =1，已開）：查詢指明通函／通告編號時，按各通函第 1 頁「檔號…第N/YYYY號」
      標頭對照表取該文件兩段置頂；判官照常。生產驗收：對照表能對應的 62/62 排第 1（改前 0）；185 題零觸發。
    合併只在 Leonard 明示時進行；被分類器擋下時不要重試或繞過。#45、#47 仍開著，關閉前先問 Leonard。
 
 🚀 下一步（依次）：
-   ① 通函編號查找：生產已開並驗收（62/62 排第 1）。補丁三（s241/circular-topic-ranking，文件內選段扣除編號）
-      合併部署後，帶 x-probe 以「教育局通函第134/2026號 推廣閱讀津貼可以用來做甚麼」做一次 synthesize:true，
-      確認不再拒答。可選：對照表補讀登記標題，覆蓋第 1 頁無標頭的 7 份。
+   ① 有效期待決：S241 修好 executor 丟失有效期欄位（#65）並補標 39 份。edbcm138_2026、edbcm141_2025_blnst
+      已過期，由 Leonard 在 expiry-sweep Issue 決定是否清除（計劃全年進行者可不剔）。補丁三已驗收；可選：通函
+      對照表補讀登記標題，覆蓋第 1 頁無標頭的 7 份。新 iit 路由（小學資訊與創新科技科）已上線。
    ② 收錄「教學語言政策」文件：先查證教育局中學教學語言微調政策的官方文件與網址，列出候選，等 Leonard 批准才入庫。
    ③ 定期系統更新檢查餘項：執行環境（本機與 Render）、排程監察、Kit 0.4.4 是否升級（Leonard 決定）。
    ④ 退役 EDBC_9_2019_E（S238 已批准未做）。先匯出備份再刪，再 live_display_sync。
@@ -52,7 +52,7 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    · 抽取與入庫一律用 /usr/local/bin/python3。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.10 + Render /health commit
-（da44e55，或本節 PR 合併後的新 commit）+ git fetch 後比對分支與 origin/main、gh pr list + Supabase live count 應為 16,990
+（應為 main 最新 commit）+ git fetch 後比對分支與 origin/main、gh pr list + Supabase live count 應為 17,101
 + check_registry_drift --check --ledger <scratchpad> 的 ZOMBIE／UNMANAGED／SERIES_UNMONITORED 都應為 0
 + dev/PROJECT_INDEX.md「定期系統更新檢查」一行日期是否已逾 30 日，逾期就在起手卡注意事項提示）。
 之後報告，並按 ① 處理。
