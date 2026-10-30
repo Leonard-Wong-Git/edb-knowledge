@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-30T20:05:19Z",
+  "generatedAt": "2026-10-30T20:14:00Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17101,
@@ -60,27 +60,8 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-10-30T20:05:19Z",
-    "items": [
-      {
-        "kind": "freshness-change",
-        "level": "decision",
-        "headline": "EDB 文件內容有更新",
-        "hint": "有來源文件出現變動，待你決定是否更新知識庫。",
-        "since": "2026-06-08T13:12:33Z",
-        "url": "https://github.com/Leonard-Wong-Git/edb-knowledge/issues/1",
-        "number": 1
-      },
-      {
-        "kind": "cover-title-change",
-        "level": "decision",
-        "headline": "文件標題與內容不符",
-        "hint": "有來源文件的封面標題改變，可能已換成另一份文件，待你核對。",
-        "since": "2026-09-01T17:09:36Z",
-        "url": "https://github.com/Leonard-Wong-Git/edb-knowledge/issues/8",
-        "number": 8
-      }
-    ],
+    "collectedAt": "2026-10-30T20:14:00Z",
+    "items": [],
     "ignored_outside": 0
   },
   "releaseGate": {
