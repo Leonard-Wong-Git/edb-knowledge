@@ -253,6 +253,21 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbcm156_2026",              // (auto) Option A watcher ingest
   ],
   /**
+   * S241 — 小學資訊與創新科技科 (iit route): the 2026年10月 framework (59 chunks) and the
+   * subject leaflet (5 chunks; the rollout years live only there). First tried as members
+   * of digital_education: every IIT query then lost the framework entirely, because that
+   * route's expansion string is DEBP vocabulary and the expanded embedding ranked the
+   * blueprint above it. A route of its own, with no expansion, keeps the subject name as
+   * the query. The AI-strand summary and its circular stay in digital_education as well.
+   */
+  iit: [
+    "iit_curriculum_framework_2026",
+    "iit_leaflet_2026",
+    "iit_ai_framework_2026",
+    "edbcm113_2026",
+    "ct_programming_pri_2020",
+  ],
+  /**
    * S194 — 公民與社會發展科 (cgss route). Its corpus reached the index by accident: the
    * 公社科 C&A guide was stored under `ict_sss_2021` because the filename CS_CAG was read
    * as Computer Science rather than Citizenship and Social development, so 81 chunks of
@@ -727,6 +742,9 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // training ([中小]學師訓 / 師訓資歷 / 師訓學歷) are claimed, so 「師訓時數」-style CPD
   // questions are untouched while 「中學師訓可唔可以教小學」 reaches this route.
   teacher_qualification: /師資訓練|師資資格|師資學歷|[中小]學師訓|師訓資歷|師訓學歷|入職資歷|入職條件|入職資格|教師資歷|檢定教員|准用教員|助理小學學位教師|\bAPSM\b|學位教師入職/i,
+  // S241 — the subject name. Ahead of cpd and curriculum so 「資訊與創新科技科 教師培訓」
+  // and 「…評估」 reach the framework rather than the generic sets.
+  iit: /資訊與創新科技|資創科|\bIIT\b/i,
   cpd: /CPD|持續專業發展|教師專業發展|教師培訓|專業發展計劃|專業階梯|師訓/,
   kg_admission: /幼稚園收生|幼稚園.{0,3}收生|幼稚園.{0,3}入學|幼稚園.{0,3}報名|K1.{0,3}收生|幼稚園.{0,3}申請入學|幼稚園.{0,6}學費|學費.{0,4}涵蓋|售賣物品|代辦費/,
   // S160: KG administration/operation — MUST precede curriculum (which matches bare 幼稚園).
@@ -1633,6 +1651,7 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   "edbcm155_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbcm134_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbcm142_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
+  "iit_leaflet_2026", // S241: 小學資訊與創新科技科單張 (5 chunks; rollout years live only here)
   // ack:spotlight:end
 ];
 

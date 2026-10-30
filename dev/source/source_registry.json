@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-10-06",
+    "updated": "2026-10-30",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -7945,6 +7945,60 @@
       "last_checked_at": "2026-10-06",
       "supersedes": null,
       "notes": "(auto, Option A executor) EDBCM142/2026. route=finance, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract."
+    },
+    {
+      "source_id": "iit_curriculum_framework_2026",
+      "title": "《科技教育學習領域‧小學資訊與創新科技課程框架》（擬定稿）（2026年10月）",
+      "title_en": "Technology Education KLA — Primary Information and Innovation Technology Curriculum Framework (Finalised Draft, October 2026)",
+      "title_short": "小學資訊與創新科技課程框架（擬定稿）",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/primary-iit/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/primary-iit/IIT_Curriculum_Framework.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum",
+        "it"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026-10-finalised-draft",
+      "last_checked_at": "2026-10-30",
+      "supersedes": null,
+      "parent_source_id": "tech_curr_docs",
+      "related_source_ids": [
+        "iit_leaflet_2026",
+        "iit_ai_framework_2026",
+        "edbcm113_2026",
+        "ct_programming_pri_2020"
+      ],
+      "notes": "(S241) 課程發展議會 2026年10月《小學資訊與創新科技課程框架（擬定稿）》全文，48 頁，text-layer 乾淨（U+FFFD 0）。配合教育局通告第17/2026號開設小學資訊與創新科技科。內容：概論（背景、開科緣由、課程理念與宗旨）、課程架構（學習目標、課程重點、各範疇學習重點及建議學與教活動、各級學習重點一覽、課題編排與建議課時分配、跨學科範疇推展）、學與教、評估。iit_ai_framework_2026 只係「人工智能初探」範疇摘要（試行版），本檔為整份框架。由 Leonard 指定入庫。"
+    },
+    {
+      "source_id": "iit_leaflet_2026",
+      "title": "《小學資訊與創新科技科》課程簡介單張（教育局科技教育組，2026年10月）",
+      "title_en": "Primary Information and Innovation Technology — Leaflet (EDB Technology Education Section, October 2026)",
+      "title_short": "小學資訊與創新科技科單張",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/primary-iit/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/primary-iit/IIT_Leaflet.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum",
+        "it"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026-10",
+      "last_checked_at": "2026-10-30",
+      "supersedes": null,
+      "parent_source_id": "tech_curr_docs",
+      "related_source_ids": [
+        "iit_curriculum_framework_2026",
+        "iit_ai_framework_2026"
+      ],
+      "notes": "(S241) 2 頁課程簡介單張。框架正文沒有的內容：推行時間（2026/27 公布框架、2027/28 試行、2028/29 小一及小四正式推行，其後逐年推展；學校亦可小一至小六全面推行）、教師培訓基地、15 小時教師專業培訓證書課程、學習社群、查詢電話。推行時間與各範疇節數是圖表，文字抽取次序錯亂，extract 第 2 頁開首按圖示次序轉錄同一批文字（已對照渲染頁面核實；節數 40/41/41/23/23＝168 與框架第 34 頁一致）。同頁的海報（IIT_Poster.pdf）內容是單張的子集，不另入庫；問卷（EDB_IIT_Survey_Chi.pdf）是通告第17/2026號附件二，隨通告處理。"
     }
   ]
 }
