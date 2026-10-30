@@ -3,7 +3,7 @@
  *   node_modules/.bin/tsx scripts/circularRefRegression.ts
  */
 import assert from "node:assert/strict";
-import { buildCircularIndex, headerCircularKey, parseCircularRef } from "../src/lib/circularRef.js";
+import { buildCircularIndex, candidateSourceIds, headerCircularKey, parseCircularRef } from "../src/lib/circularRef.js";
 
 let count = 0;
 function test(name: string, check: () => void) {
@@ -52,6 +52,14 @@ test("index: ambiguity is dropped, not guessed", () => {
   ]);
   assert.equal(idx.size, 1);
   assert.equal(idx.get("通函|7/2026".replace("/", "|")), "ok");
+});
+
+test("id candidates follow ingest naming, memorandum vs circular", () => {
+  assert.ok(candidateSourceIds("通函|134|2026").includes("edbcm134_2026"));
+  assert.ok(candidateSourceIds("通函|60|2026").includes("edbcm060_2026"));
+  assert.ok(candidateSourceIds("通告|12|2026").includes("edbc012_2026"));
+  assert.ok(candidateSourceIds("通告|4|2026").includes("EDBC_4_2026_E"));
+  assert.ok(!candidateSourceIds("通告|12|2026").some((id) => id.startsWith("edbcm")));
 });
 
 console.log(`ALL PASS (${count})`);

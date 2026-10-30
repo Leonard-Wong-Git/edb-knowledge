@@ -8,7 +8,7 @@
 import type { EmbedFn } from "./embeddingClient.js";
 import { getSupabaseAnonKey, getSupabaseUrl } from "../config/env.js";
 import { cjkBigrams, informativeBigrams, overlapWith } from "./textBigrams.js";
-import { buildCircularIndex } from "./circularRef.js";
+import { buildCircularIndex, candidateSourceIds } from "./circularRef.js";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -778,11 +778,19 @@ export function overlayCacheStatus(): {
   warm: boolean;
   footnote: number | null;
   spotlight: number | null;
+  circular: { enabled: boolean; index: number | null; last_error: string | null };
 } {
   return {
     warm: _footnoteCache !== null && _spotlightCache !== null,
     footnote: _footnoteCache ? _footnoteCache.length : null,
     spotlight: _spotlightCache ? _spotlightCache.rows.length : null,
+    // S241 patch 2 — the circular pass fails open, so without this a missing flag and a
+    // failing index load looked identical from outside (both: old results, no error).
+    circular: {
+      enabled: process.env.FEATURE_CIRCULAR_NUMBER_LOOKUP === "1",
+      index: _circularIndex ? _circularIndex.size : null,
+      last_error: _circularLastError,
+    },
   };
 }
 
@@ -795,6 +803,35 @@ export function overlayCacheStatus(): {
  */
 let _circularIndex: Map<string, string> | null = null;
 let _circularInFlight: Promise<Map<string, string>> | null = null;
+let _circularLastError: string | null = null;
+
+/**
+ * S241 patch 2 — the source a circular number names. Exact-id lookup first (fast and
+ * index-backed, so it survives a cold database), the full header index second. The full
+ * index is also started in the background so names that cannot be guessed resolve once
+ * it is warm. Throws only if both paths fail; the caller fails open.
+ */
+export async function resolveCircularSource(key: string): Promise<string | undefined> {
+  if (_circularIndex) return _circularIndex.get(key);
+  void loadCircularIndex().catch(() => undefined);
+  const ids = candidateSourceIds(key);
+  const url =
+    `${getSupabaseUrl()}/rest/v1/wiki_chunks?content_type=eq.vault_extract` +
+    `&source_id=in.(${encodeURIComponent(ids.join(","))})&select=source_id,text&limit=500`;
+  const anonKey = getSupabaseAnonKey();
+  try {
+    const resp = await fetch(url, { headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` } });
+    if (resp.ok) {
+      const hit = buildCircularIndex((await resp.json()) as Array<{ source_id: string; text: string }>).get(key);
+      if (hit) return hit;
+    } else {
+      _circularLastError = `id lookup ${resp.status}`;
+    }
+  } catch (err) {
+    _circularLastError = `id lookup ${String(err).slice(0, 80)}`;
+  }
+  return (await loadCircularIndex()).get(key);
+}
 
 export async function loadCircularIndex(): Promise<Map<string, string>> {
   if (_circularIndex) return _circularIndex;
@@ -812,9 +849,14 @@ export async function loadCircularIndex(): Promise<Map<string, string>> {
       `&text=like.${encodeURIComponent("*檔號*")}&select=source_id,text&limit=2000`;
     const key = getSupabaseAnonKey();
     const resp = await fetch(url, { headers: { apikey: key, Authorization: `Bearer ${key}` } });
-    if (!resp.ok) throw new Error(`circular index load ${resp.status}`);
+    if (!resp.ok) {
+      // Surfaced on /health; a 500 here is usually 57014 on a cold database.
+      _circularLastError = `index load ${resp.status} ${(await resp.text()).slice(0, 60)}`;
+      throw new Error(_circularLastError);
+    }
     const rows = (await resp.json()) as Array<{ source_id: string; text: string }>;
     _circularIndex = buildCircularIndex(rows);
+    _circularLastError = null;
     return _circularIndex;
   })().finally(() => {
     _circularInFlight = null;
