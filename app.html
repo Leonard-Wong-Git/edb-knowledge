@@ -759,8 +759,9 @@ body {
  */
 window.FEATURE_TABS = { about: true, qa: true, annotate: true, templates: false, guidelines: true };
 </script>
-<link rel="stylesheet" href="mobile.css?v=3.3.3">
-<script src="mobile.js?v=3.3.3" defer></script>
+<link rel="stylesheet" href="mobile.css?v=3.3.11">
+<script src="mobile.js?v=3.3.11" defer></script>
+<script src="feedback.js?v=3.3.11" defer></script>
 </head>
 <body>
 <div id="root"></div>
@@ -2046,7 +2047,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // is frozen and consumed by the downstream Circular System). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + 文件標註（就地標註）+ 範本下載 + 合規清單修訂，跨 15 個合規範疇。
-const PLATFORM_VERSION = '3.3.10';
+const PLATFORM_VERSION = '3.3.11';
 // S204 — tab switches; defined in a plain <script> in <head> so mobile.js can read them
 // at its DOMContentLoaded init, which runs BEFORE this Babel script compiles.
 const FEATURE_TABS = window.FEATURE_TABS;
@@ -2610,6 +2611,7 @@ function QAPanel({ data, setPreviewDoc }) {
     setSynthesis(json.synthesis || null);
     setLogId(json.log_id || null);
     setFeedback(null);
+    if (window.K1Feedback) window.K1Feedback.setLogId(json.log_id || null);
     return (json.results || []).map(r => ({
       topicId: r.topic || 'general', roleId: r.role || 'all_roles',
       fact: r.text, index: 0,
@@ -2643,7 +2645,7 @@ function QAPanel({ data, setPreviewDoc }) {
     }
   }, [query, runChannelB]);
 
-  const handleClear = () => { setQuery(''); setResults([]); setSynthesis(null); setLogId(null); setFeedback(null); setSearched(false); setBackendError(null); };
+  const handleClear = () => { setQuery(''); setResults([]); setSynthesis(null); setLogId(null); setFeedback(null); setSearched(false); setBackendError(null); if (window.K1Feedback) window.K1Feedback.setLogId(null); };
 
   // S233 — optimistic: show the choice at once, roll back only if the backend refuses it.
   const sendFeedback = useCallback(async (rating) => {
@@ -2862,6 +2864,13 @@ function QAPanel({ data, setPreviewDoc }) {
                         {icon}
                       </button>
                     ))}
+                    {/* 👎 → offer the 提供意見 panel (feedback.js) with this search's log_id attached */}
+                    {feedback === -1 && window.K1Feedback && window.K1Feedback.enabled() && (
+                      <button type="button" onClick={() => window.K1Feedback.open({ logId })}
+                              style={{background:'transparent',border:0,padding:'0 0 0 4px',font:'inherit',color:'var(--edb)',textDecoration:'underline',textUnderlineOffset:'2px',cursor:'pointer'}}>
+                        想說明原因？提供意見
+                      </button>
+                    )}
                   </div>
                 )}
                 <button onClick={handleShareWhatsApp}
@@ -4005,6 +4014,12 @@ function App() {
             <span style={{fontWeight:600,color:'rgba(240,238,233,0.75)',fontSize:'0.78rem'}}>政策搜尋平台 {displayVersion}</span>
             <a href="index.html">← 返回首頁</a>
             <a href="https://www.edb.gov.hk" target="_blank" rel="noopener">EDB 教育局網站</a>
+            {window.K1Feedback && window.K1Feedback.enabled() && (
+              <button type="button" data-k1-feedback=""
+                      style={{background:'transparent',border:0,padding:0,font:'inherit',color:'rgba(240,238,233,0.45)',cursor:'pointer'}}>
+                提供意見
+              </button>
+            )}
           </div>
         </div>
       </footer>
