@@ -94,6 +94,9 @@ const CASES = [
   ["數字教育發展藍圖 AI 素養",                    "digital_education"],
   ["資訊與創新科技科 評估",                        "iit"],
   ["小學 IIT 教師培訓",                            "iit"],
+  ["教學語言政策",                                "moi"],
+  ["英中 教師要咩英文資格",                        "moi"],
+  ["高中中文科課程",                              "curriculum"], // S241 對照組：中中 不得觸發 moi
   ["全方位學習津貼點用",                          "activity"],
   ["中一派位統一派位",                            "placement"],
   ["體罰學生點處理",                              "conduct"],
