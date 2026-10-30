@@ -1,0 +1,1576 @@
+{
+ "generated_at": "2026-10-30T11:35:42Z",
+ "endpoint": "production f7ac967, FEATURE_CIRCULAR_NUMBER_LOOKUP=1",
+ "rows": [
+  {
+   "key": "通函|107|2026",
+   "query": "教育局通函第107/2026號",
+   "targets": [
+    "edbcm107_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "error": "HTTP Error 400: Bad Request"
+  },
+  {
+   "key": "通函|108|2026",
+   "query": "教育局通函第108/2026號",
+   "targets": [
+    "edbcm108_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm108_2026",
+    "edbcm108_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|113|2026",
+   "query": "教育局通函第113/2026號",
+   "targets": [
+    "edbcm113_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm113_2026",
+    "edbcm113_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|116|2026",
+   "query": "教育局通函第116/2026號",
+   "targets": [
+    "edbcm116_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm116_2026",
+    "edbcm116_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|124|2026",
+   "query": "教育局通函第124/2026號",
+   "targets": [
+    "edbcm124_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm124_2026",
+    "edbcm124_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|134|2026",
+   "query": "教育局通函第134/2026號",
+   "targets": [
+    "edbcm134_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm134_2026",
+    "edbcm134_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|135|2026",
+   "query": "教育局通函第135/2026號",
+   "targets": [
+    "edbcm135_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm135_2026",
+    "edbcm135_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|138|2026",
+   "query": "教育局通函第138/2026號",
+   "targets": [
+    "edbcm138_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm138_2026",
+    "edbcm138_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|141|2025",
+   "query": "教育局通函第141/2025號",
+   "targets": [
+    "edbcm141_2025_blnst"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm141_2025_blnst",
+    "edbcm141_2025_blnst",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|141|2026",
+   "query": "教育局通函第141/2026號",
+   "targets": [
+    "edbcm141_2026"
+   ],
+   "rank": 2,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm141_2026",
+    "edbcm141_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|142|2026",
+   "query": "教育局通函第142/2026號",
+   "targets": [
+    "edbcm142_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm142_2026",
+    "edbcm142_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|144|2026",
+   "query": "教育局通函第144/2026號",
+   "targets": [
+    "edbcm144_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm144_2026",
+    "edbcm144_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|152|2026",
+   "query": "教育局通函第152/2026號",
+   "targets": [
+    "edbcm152_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm152_2026",
+    "edbcm152_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|155|2026",
+   "query": "教育局通函第155/2026號",
+   "targets": [
+    "edbcm155_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm155_2026",
+    "edbcm155_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|156|2026",
+   "query": "教育局通函第156/2026號",
+   "targets": [
+    "edbcm156_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "edbcm066_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm156_2026",
+    "edbcm156_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|167|2026",
+   "query": "教育局通函第167/2026號",
+   "targets": [
+    "edbcm167_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm167_2026",
+    "edbcm167_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|183|2023",
+   "query": "教育局通函第183/2023號",
+   "targets": [
+    "edbcm183_2023_values_edu"
+   ],
+   "rank": null,
+   "top": [
+    "edbcm215_2025_mental_health",
+    "edbc_12_2026_fire_installations",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm183_2023_values_edu",
+    "edbcm183_2023_values_edu",
+    "edbcm215_2025_mental_health"
+   ]
+  },
+  {
+   "key": "通函|197|2024",
+   "query": "教育局通函第197/2024號",
+   "targets": [
+    "edbc197_2024_ph_pri"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc197_2024_ph_pri",
+    "edbc197_2024_ph_pri",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|221|2025",
+   "query": "教育局通函第221/2025號",
+   "targets": [
+    "edbcm_221_2025_smart_teaching"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm_221_2025_smart_teaching",
+    "edbcm_221_2025_smart_teaching",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|243|2024",
+   "query": "教育局通函第243/2024號",
+   "targets": [
+    "edbcm243_2024_pri_science"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "edbcm070_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm243_2024_pri_science",
+    "edbcm243_2024_pri_science",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|57|2024",
+   "query": "教育局通函第57/2024號",
+   "targets": [
+    "edbcm57_2024_pri_science"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "edbcm088_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm57_2024_pri_science",
+    "edbcm57_2024_pri_science",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|58|2024",
+   "query": "教育局通函第58/2024號",
+   "targets": [
+    "edbcm58_2024_pri_science"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm58_2024_pri_science",
+    "edbcm58_2024_pri_science",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|60|2026",
+   "query": "教育局通函第60/2026號",
+   "targets": [
+    "edbcm060_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "circ_edbc24017"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm060_2026",
+    "edbcm060_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|66|2026",
+   "query": "教育局通函第66/2026號",
+   "targets": [
+    "edbcm066_2026"
+   ],
+   "rank": 7,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm066_2026",
+    "edbcm066_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|67|2026",
+   "query": "教育局通函第67/2026號",
+   "targets": [
+    "edbcm_major_repairs_grant"
+   ],
+   "rank": 7,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm_major_repairs_grant",
+    "edbcm_major_repairs_grant",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|70|2026",
+   "query": "教育局通函第70/2026號",
+   "targets": [
+    "edbcm070_2026"
+   ],
+   "rank": null,
+   "top": [
+    "EDBCM_79_2025_TC",
+    "edbc_12_2026_fire_installations",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "circ_edbc24017"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm070_2026",
+    "edbcm070_2026",
+    "EDBCM_79_2025_TC"
+   ]
+  },
+  {
+   "key": "通函|73|2026",
+   "query": "教育局通函第73/2026號",
+   "targets": [
+    "edbcm073_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "edbcm088_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm073_2026",
+    "edbcm073_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|76|2026",
+   "query": "教育局通函第76/2026號",
+   "targets": [
+    "edbcm076_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm076_2026",
+    "edbcm076_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|80|2026",
+   "query": "教育局通函第80/2026號",
+   "targets": [
+    "edbcm080_2026"
+   ],
+   "rank": null,
+   "top": [
+    "EDBCM_79_2025_TC",
+    "edbc_12_2026_fire_installations",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm080_2026",
+    "edbcm080_2026",
+    "EDBCM_79_2025_TC"
+   ]
+  },
+  {
+   "key": "通函|81|2026",
+   "query": "教育局通函第81/2026號",
+   "targets": [
+    "edbcm081_2026"
+   ],
+   "rank": null,
+   "top": [
+    "EDBCM_79_2025_TC",
+    "edbc_12_2026_fire_installations",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm081_2026",
+    "edbcm081_2026",
+    "EDBCM_79_2025_TC"
+   ]
+  },
+  {
+   "key": "通函|83|2020",
+   "query": "教育局通函第83/2020號",
+   "targets": [
+    "edbcm83_2020_student_care"
+   ],
+   "rank": null,
+   "top": [
+    "EDBCM_79_2025_TC",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "circ_edbc24017"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm83_2020_student_care",
+    "edbcm83_2020_student_care",
+    "EDBCM_79_2025_TC"
+   ]
+  },
+  {
+   "key": "通函|88|2026",
+   "query": "教育局通函第88/2026號",
+   "targets": [
+    "edbcm088_2026"
+   ],
+   "rank": 6,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "edbcm070_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm088_2026",
+    "edbcm088_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|89|2026",
+   "query": "教育局通函第89/2026號",
+   "targets": [
+    "edbcm089_2026"
+   ],
+   "rank": null,
+   "top": [
+    "EDBCM_79_2025_TC",
+    "edbc_12_2026_fire_installations",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm089_2026",
+    "edbcm089_2026",
+    "EDBCM_79_2025_TC"
+   ]
+  },
+  {
+   "key": "通函|95|2026",
+   "query": "教育局通函第95/2026號",
+   "targets": [
+    "edbcm095_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm095_2026",
+    "edbcm095_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|96|2026",
+   "query": "教育局通函第96/2026號",
+   "targets": [
+    "edbcm096_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm096_2026",
+    "edbcm096_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通函|98|2024",
+   "query": "教育局通函第98/2024號",
+   "targets": [
+    "edbcm98_2024_pri_science"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbcm98_2024_pri_science",
+    "edbcm98_2024_pri_science",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|100|2002",
+   "query": "教育局通告第100/2002號",
+   "targets": [
+    "edbc100_2002_healthy_sch"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm141_2026",
+    "kg_admin_guide_2026",
+    "edbc013_2026",
+    "edbc14_2023_student_protect"
+   ],
+   "after": null,
+   "after_top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm141_2026",
+    "kg_admin_guide_2026"
+   ]
+  },
+  {
+   "key": "通告|10|2009",
+   "query": "教育局通告第10/2009號",
+   "targets": [
+    "kg_operation_manual_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "circ_edbc24017",
+    "edbc013_2026"
+   ],
+   "after": null,
+   "after_top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026"
+   ]
+  },
+  {
+   "key": "通告|10|2026",
+   "query": "教育局通告第10/2026號",
+   "targets": [
+    "edbc010_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "edbc013_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc010_2026",
+    "edbc010_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|11|2019",
+   "query": "教育局通告第11/2019號",
+   "targets": [
+    "edbc19011"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "subvention_tips",
+    "edbcm141_2026",
+    "kg_admin_guide_2026",
+    "edbc015_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc19011",
+    "edbc19011",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|11|2026",
+   "query": "教育局通告第11/2026號",
+   "targets": [
+    "edbc011_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "edbc015_2026",
+    "pri_curr_guide_2024"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc011_2026",
+    "edbc011_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|12|2025",
+   "query": "教育局通告第12/2025號",
+   "targets": [
+    "edbc12_2025_ph_pri"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "kg_admin_guide_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc12_2025_ph_pri",
+    "edbc12_2025_ph_pri",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|12|2026",
+   "query": "教育局通告第12/2026號",
+   "targets": [
+    "edbc012_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "edbc015_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc012_2026",
+    "edbc012_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|13|2022",
+   "query": "教育局通告第13/2022號",
+   "targets": [
+    "edbc13_2022_blnst"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "edbc015_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc13_2022_blnst",
+    "edbc13_2022_blnst",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|13|2025",
+   "query": "教育局通告第13/2025號",
+   "targets": [
+    "edbc13_2025_pri_science"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "kg_admin_guide_2026"
+   ],
+   "after": null,
+   "after_top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026"
+   ]
+  },
+  {
+   "key": "通告|13|2026",
+   "query": "教育局通告第13/2026號",
+   "targets": [
+    "edbc013_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "edbc015_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc013_2026",
+    "edbc013_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|14|2023",
+   "query": "教育局通告第14/2023號",
+   "targets": [
+    "edbc14_2023_student_protect"
+   ],
+   "rank": 6,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbc14_2024_spms",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "edbc015_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc14_2023_student_protect",
+    "edbc14_2023_student_protect",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|14|2024",
+   "query": "教育局通告第14/2024號",
+   "targets": [
+    "edbc14_2024_spms"
+   ],
+   "rank": 1,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbc14_2024_spms",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "g06"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc14_2024_spms",
+    "edbc14_2024_spms",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|14|2026",
+   "query": "教育局通告第14/2026號",
+   "targets": [
+    "edbc014_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbc14_2024_spms",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "kg_admin_guide_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc014_2026",
+    "edbc014_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|15|2021",
+   "query": "教育局通告第15/2021號",
+   "targets": [
+    "edbc015_2021_lpe"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "kg_admin_guide_2026",
+    "pri_curr_guide_2024"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc015_2021_lpe",
+    "edbc015_2021_lpe",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|15|2022",
+   "query": "教育局通告第15/2022號",
+   "targets": [
+    "edbc15_2022_accountability"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "kg_admin_guide_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc15_2022_accountability",
+    "edbc15_2022_accountability",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|15|2025",
+   "query": "教育局通告第15/2025號",
+   "targets": [
+    "edbc15_2025_child_abuse"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "kg_admin_guide_2026",
+    "pri_curr_guide_2024"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc15_2025_child_abuse",
+    "edbc15_2025_child_abuse",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|15|2026",
+   "query": "教育局通告第15/2026號",
+   "targets": [
+    "edbc015_2026"
+   ],
+   "rank": 5,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "kg_admin_guide_2026",
+    "pri_curr_guide_2024"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc015_2026",
+    "edbc015_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|16|2026",
+   "query": "教育局通告第16/2026號",
+   "targets": [
+    "edbc016_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "kg_admin_guide_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc016_2026",
+    "edbc016_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|17|2024",
+   "query": "教育局通告第17/2024號",
+   "targets": [
+    "circ_edbc24017"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "g06"
+   ],
+   "after": null,
+   "after_top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026"
+   ]
+  },
+  {
+   "key": "通告|18|2008",
+   "query": "教育局通告第18/2008號",
+   "targets": [
+    "edbc18_2008_harmonious"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "subvention_tips",
+    "edbcm141_2026",
+    "sch_extension_guide",
+    "kg_admin_guide_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc18_2008_harmonious",
+    "edbc18_2008_harmonious",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|18|2019",
+   "query": "教育局通告第18/2019號",
+   "targets": [
+    "edbc18_2019_sspa"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm141_2026",
+    "kg_admin_guide_2026",
+    "pri_curr_guide_2024",
+    "sch_extension_guide"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc18_2019_sspa",
+    "edbc18_2019_sspa",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|18|2023",
+   "query": "教育局通告第18/2023號",
+   "targets": [
+    "edbc18_2023_pri_science"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "kg_admin_guide_2026"
+   ],
+   "after": null,
+   "after_top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026"
+   ]
+  },
+  {
+   "key": "通告|19|2025",
+   "query": "教育局通告第19/2025號",
+   "targets": [
+    "kg_operation_manual_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "kg_admin_guide_2026"
+   ],
+   "after": null,
+   "after_top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026"
+   ]
+  },
+  {
+   "key": "通告|20|2023",
+   "query": "教育局通告第20/2023號",
+   "targets": [
+    "edbc20_2023_ph_pri"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "kg_admin_guide_2026"
+   ],
+   "after": null,
+   "after_top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026"
+   ]
+  },
+  {
+   "key": "通告|22|2024",
+   "query": "教育局通告第22/2024號",
+   "targets": [
+    "edbc22_2024_student_safety"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "edbcm070_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc22_2024_student_safety",
+    "edbc22_2024_student_safety",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|28|2003",
+   "query": "教育局通告第28/2003號",
+   "targets": [
+    "kg_operation_manual_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "kg_admin_guide_2026",
+    "edbc013_2026"
+   ],
+   "after": null,
+   "after_top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026"
+   ]
+  },
+  {
+   "key": "通告|2|2010",
+   "query": "教育局通告第2/2010號",
+   "targets": [
+    "edbc100_2002_healthy_sch"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "kg_admin_guide_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc100_2002_healthy_sch",
+    "edbc100_2002_healthy_sch",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|2|2026",
+   "query": "教育局通告第2/2026號",
+   "targets": [
+    "edbc002_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "edbc015_2026"
+   ],
+   "after": null,
+   "after_top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026"
+   ]
+  },
+  {
+   "key": "通告|30|2000",
+   "query": "教育局通告第30/2000號",
+   "targets": [
+    "edbc00030"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "kg_admin_guide_2026",
+    "edbc013_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc00030",
+    "edbc00030",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|3|2026",
+   "query": "教育局通告第3/2026號",
+   "targets": [
+    "edbc003_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "edbcm215_2025_mental_health",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "kg_admin_guide_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc003_2026",
+    "edbc003_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|5|2005",
+   "query": "教育局通告第5/2005號",
+   "targets": [
+    "embc5_2005_appointment"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "kg_admin_guide_2026",
+    "edbc013_2026"
+   ],
+   "after": null,
+   "after_top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026"
+   ]
+  },
+  {
+   "key": "通告|5|2022",
+   "query": "教育局通告第5/2022號",
+   "targets": [
+    "edbc_tropical_cyclone_day"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "kg_admin_guide_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc_tropical_cyclone_day",
+    "edbc_tropical_cyclone_day",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|5|2026",
+   "query": "教育局通告第5/2026號",
+   "targets": [
+    "edbc005_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "kg_admin_guide_2026"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc005_2026",
+    "edbc005_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|6|2017",
+   "query": "教育局通告第6/2017號",
+   "targets": [
+    "kg_operation_manual_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "kg_admin_guide_2026",
+    "edbc013_2026"
+   ],
+   "after": null,
+   "after_top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026"
+   ]
+  },
+  {
+   "key": "通告|6|2022",
+   "query": "教育局通告第6/2022號",
+   "targets": [
+    "edbc_tropical_cyclone_night"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "edbcm070_2026",
+    "pri_curr_guide_2024"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc_tropical_cyclone_night",
+    "edbc_tropical_cyclone_night",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|7|2026",
+   "query": "教育局通告第7/2026號",
+   "targets": [
+    "edbc007_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "edbc14_2023_student_protect",
+    "pri_curr_guide_2024"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc007_2026",
+    "edbc007_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|8|2026",
+   "query": "教育局通告第8/2026號",
+   "targets": [
+    "edbc008_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "edbcm070_2026",
+    "pri_curr_guide_2024"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc008_2026",
+    "edbc008_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  },
+  {
+   "key": "通告|9|2024",
+   "query": "教育局通告第9/2024號",
+   "targets": [
+    "edbc9_2024_ph_pri"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "pri_curr_guide_2024",
+    "circ_edbc24017"
+   ],
+   "after": null,
+   "after_top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026"
+   ]
+  },
+  {
+   "key": "通告|9|2026",
+   "query": "教育局通告第9/2026號",
+   "targets": [
+    "edbc009_2026"
+   ],
+   "rank": null,
+   "top": [
+    "edbc_12_2026_fire_installations",
+    "EDBCM_79_2025_TC",
+    "edbcm141_2026",
+    "circ_edbc24017",
+    "pri_curr_guide_2024"
+   ],
+   "after": 0,
+   "after_top": [
+    "edbc009_2026",
+    "edbc009_2026",
+    "edbc_12_2026_fire_installations"
+   ]
+  }
+ ]
+}

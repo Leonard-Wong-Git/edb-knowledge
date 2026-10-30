@@ -45,6 +45,27 @@ export function parseCircularRef(query: string): string | null {
   return null;
 }
 
+// The reference as typed, spaces and all, so it can be cut out of the query. Looser than
+// ZH / EN_* on purpose: it only removes text, it never decides whether the pass runs.
+const ZH_SPAN = /(?:教育局\s*)?(?:通函|通告)\s*第?\s*[\d\s]{1,8}\/[\d\s]{4,9}號?/g;
+const EN_SPAN = /(?:EDB\s*)?(?:CM|C|CIRCULAR(?:\s*MEMORANDUM)?)\s*(?:NO\.?\s*)?\d{1,3}\s*\/\s*\d{4}/gi;
+const FILLER = /^[\s，。、,.:：;；?？!！()（）「」《》\-—]+|[\s，。、,.:：;；?？!！()（）「」《》\-—]+$/g;
+
+/**
+ * What the query asks ABOUT the circular, with the reference cut out — or null when the
+ * query is only the reference. S241 production: for 「教育局通函第134/2026號 推廣閱讀津貼可以
+ * 用來做甚麼」 the raw-query vector, dominated by the number, picked the circular's cover page
+ * and its 「詳情請參閱附件」 line; the passage listing the uses never reached the synthesis
+ * window and the answer declined. Ranking inside the document needs the question, not the
+ * identifier the document was already found by.
+ */
+export function circularTopic(query: string): string | null {
+  const rest = (query || "").normalize("NFKC").replace(ZH_SPAN, " ").replace(EN_SPAN, " ")
+    .replace(/\s+/g, " ").replace(FILLER, "");
+  // Two letters or CJK characters at least: 「內容」 is a question, 「的」 is not.
+  return (rest.match(/[\p{L}]/gu) ?? []).length >= 2 ? rest : null;
+}
+
 // A circular's own number sits right after its file reference: 「檔號：…教育局通函第N/YYYY號」.
 // Anchoring on 檔號 and on the first page is what keeps out the documents that merely CITE
 // a circular — the first draft read any header-like number in a chunk's first 300 chars
