@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-10-30T17:31:23Z",
-  "overallStatus": "ERROR",
+  "generatedAt": "2026-10-30T17:58:24Z",
+  "overallStatus": "BLOCKER",
   "counts": {
-    "chunks": 16990,
-    "PASS": 14,
-    "BLOCKER": 0,
-    "ERROR": 2,
+    "chunks": 17068,
+    "PASS": 11,
+    "BLOCKER": 1,
+    "ERROR": 4,
     "WARN": 5,
     "INFO": 1,
     "NOT_MEASURED": 0
   },
   "version": "v3.3.10",
   "corpus": {
-    "chunks": 16990,
-    "sources_serving": 307,
-    "sources_registered": 287,
+    "chunks": 17068,
+    "sources_serving": 310,
+    "sources_registered": 289,
     "guidelines_listed": 170,
-    "distinct_urls": 332,
+    "distinct_urls": 335,
     "largest_sources": [
       {
         "source_id": "coa_ss_e",
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-10-30T17:31:23Z",
+    "collectedAt": "2026-10-30T17:58:24Z",
     "items": [
       {
         "kind": "freshness-change",
@@ -85,11 +85,13 @@
   },
   "releaseGate": {
     "status": "FAIL",
-    "summary": "5/15 項達標",
+    "summary": "3/15 項達標",
     "blocking": [
+      "NO_BLOCKER",
       "NO_ERROR_FAIL",
       "PASS_EVAL_LATEST",
       "PASS_EVAL_CHUNK_LAYER",
+      "PASS_MIRROR_CONSISTENCY",
       "WARNS_OWNED",
       "CORE_SEARCH_CASES",
       "ANSWER_FACT_SPOTCHECK",
@@ -103,15 +105,15 @@
         "id": "NO_BLOCKER",
         "label": "沒有攔截級未通過項",
         "kind": "auto",
-        "status": "MET",
-        "detail": "0 項"
+        "status": "NOT_MET",
+        "detail": "SEARCH_PIPELINE_LIVE"
       },
       {
         "id": "NO_ERROR_FAIL",
         "label": "沒有錯誤級 FAIL",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "EVAL_LATEST、EVAL_CHUNK_LAYER"
+        "detail": "MIRROR_CONSISTENCY、EVAL_LATEST、EVAL_CHUNK_LAYER、REGISTRY_UNMANAGED"
       },
       {
         "id": "NO_UNMEASURED",
@@ -152,8 +154,8 @@
         "id": "PASS_MIRROR_CONSISTENCY",
         "label": "MIRROR_CONSISTENCY 必須 PASS",
         "kind": "auto",
-        "status": "MET",
-        "detail": "PASS"
+        "status": "NOT_MET",
+        "detail": "FAIL"
       },
       {
         "id": "WARNS_OWNED",
@@ -213,7 +215,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=eb9a945 · 啟動於 2026-10-30T17:31:14.466Z · Channel A 快取 0 條",
+      "detail": "ok=True · commit=eb9a945 · 啟動於 2026-10-30T17:57:52.040Z · Channel A 快取 455 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -221,9 +223,9 @@
       "id": "SEARCH_PIPELINE_LIVE",
       "label": "真實查詢仍然答得到（不是只看 /health）",
       "severity": "BLOCKER",
-      "status": "PASS",
+      "status": "FAIL",
       "group": "infra",
-      "detail": "探測查詢回傳 3 條片段 · 一次過驗到 key、額度、embedding、Supabase RPC 同路由過濾",
+      "detail": "端點回錯誤：HTTP 502。⚠️ 這種情況下 /health 仍然報 ok:true——它只驗 Channel A 快取",
       "offenders": [],
       "offender_total": 0
     },
@@ -241,11 +243,19 @@
       "id": "MIRROR_CONSISTENCY",
       "label": "七個對外片段數鏡像與資料庫真數一致",
       "severity": "ERROR",
-      "status": "PASS",
+      "status": "FAIL",
       "group": "infra",
-      "detail": "資料庫真數 16990 · 已核對 7 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
-      "offenders": [],
-      "offender_total": 0
+      "detail": "資料庫真數 17068 · 已核對 7 個鏡像 · 不一致 7 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "offenders": [
+        "app.html：-1",
+        "index.html：-1",
+        "knowledge.json：-1",
+        "role_facts.json：-1",
+        "dev/knowledge/role_facts.json：-1",
+        "README.md：-1",
+        "K1_API_SPEC.md：-1"
+      ],
+      "offender_total": 7
     },
     {
       "id": "ANCHOR_URL_PRESENT",
@@ -352,7 +362,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "cutting",
-      "detail": "795 · 低於基準 835（−40，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
+      "detail": "797 · 低於基準 835（−38，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
       "offenders": [
         "g06（34 條）",
         "g13（34 條）",
@@ -367,7 +377,7 @@
         "sag_2025_11（13 條）",
         "g19（12 條）"
       ],
-      "offender_total": 795
+      "offender_total": 797
     },
     {
       "id": "TABLE_ROW_INTEGRITY",
@@ -385,7 +395,7 @@
       "severity": "INFO",
       "status": "INFO",
       "group": "cutting",
-      "detail": "1914 條（11.3%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
+      "detail": "1922 條（11.3%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
       "offenders": [
         "g13（105 條）",
         "g07（80 條）",
@@ -400,7 +410,7 @@
         "chi_hist_sss_2007_2015（34 條）",
         "icac_school_governance（32 條）"
       ],
-      "offender_total": 1914
+      "offender_total": 1922
     },
     {
       "id": "EVAL_LATEST",
@@ -456,11 +466,13 @@
       "id": "REGISTRY_UNMANAGED",
       "label": "庫內有片段，但 source_registry 從未登記",
       "severity": "ERROR",
-      "status": "PASS",
+      "status": "FAIL",
       "group": "pointing",
-      "detail": "0 個來源 / 0 條片段 · 新鮮度、到期、封面標題三個監察全部以 registry 為鍵，所以這些來源不受任何監察",
-      "offenders": [],
-      "offender_total": 0
+      "detail": "1 個來源 / 14 條片段 · 新鮮度、到期、封面標題三個監察全部以 registry 為鍵，所以這些來源不受任何監察",
+      "offenders": [
+        "edbc017_2026（14 條）開設小學資訊與創新科技科"
+      ],
+      "offender_total": 1
     },
     {
       "id": "REGISTRY_PHANTOM",
@@ -491,7 +503,7 @@
       "severity": "WARN",
       "status": "FAIL",
       "group": "pointing",
-      "detail": "117 個來源 / 2611 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
+      "detail": "119 個來源 / 2675 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
       "offenders": [
         "gifted_ge_series（346 條）資優教育系列：全民資優教育＋校本學生才能庫＋學術英才",
         "kg_admin_guide_2026（222 條）幼稚園行政手冊（2026年5月）",
@@ -504,9 +516,9 @@
         "icac_school_governance（78 條）防貪錦囊：學校管治與內部監控 (ICAC)",
         "edbcm060_2026（68 條）教育局通函第60/2026號 —— 幼稚園提交202",
         "tdtf_report_2019（62 條）教師專業發展專責小組報告 (2019年3月)",
-        "imc_election_guides（58 條）法團校董會校董選舉指引（家長／教師／校友校董・委任五"
+        "iit_curriculum_framework_2026（59 條）《科技教育學習領域‧小學資訊與創新科技課程框架》（擬"
       ],
-      "offender_total": 117
+      "offender_total": 119
     },
     {
       "id": "MOJIBAKE",
