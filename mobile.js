@@ -508,6 +508,14 @@
            +   '<div class="m-result-content">' + escapeHTML(r.text || '') + '</div>'
            + '</button>';
     });
+    // 提供意見 (feedback.js) — one line under the results; carries this search's log_id.
+    if (window.K1Feedback && window.K1Feedback.enabled()) {
+      window.K1Feedback.setLogId(data.log_id || null);
+      html += '<p style="margin:16px 4px 8px;text-align:center;font-size:13px;color:var(--m-text-muted)">有建議或發現問題？'
+           +   '<button type="button" data-k1-feedback="" data-k1-log-id="' + escapeHTML(data.log_id || '') + '" '
+           +     'style="background:transparent;border:0;padding:6px 4px;font:inherit;color:var(--m-edb-deep);text-decoration:underline;text-underline-offset:2px;cursor:pointer">提供意見</button>'
+           + '</p>';
+    }
     list.innerHTML = html;
 
     // Wire WhatsApp share button (only rendered when synthesis present)
