@@ -7001,7 +7001,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-06-29",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBC007/2026. route=activity, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBC007/2026. route=activity, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm096_2026",
@@ -7021,7 +7025,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-06-29",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM096/2026. route=finance, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM096/2026. route=finance, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm076_2026",
@@ -7065,7 +7073,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-07-13",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBC013/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBC013/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm094_2026",
@@ -7109,7 +7121,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-07-26",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM113/2026. route=digital_education, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM113/2026. route=digital_education, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     },
     {
       "source_id": "iit_ai_framework_2026",
@@ -7568,7 +7584,11 @@
       "last_checked_at": "2026-08-21",
       "supersedes": null,
       "notes": "(auto, Option A executor) EDBCM099/2026. route=placement, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
-      "deprecated_reason": "S238: 諮詢通函已從教育局通函資料庫撤下（URL 404，搜尋不到）；3 段片段已從 wiki_chunks 移除，備份於 dev/init_backup/20261013_105744_UTC/s238_c2_supabase_rows/"
+      "deprecated_reason": "S238: 諮詢通函已從教育局通函資料庫撤下（URL 404，搜尋不到）；3 段片段已從 wiki_chunks 移除，備份於 dev/init_backup/20261013_105744_UTC/s238_c2_supabase_rows/",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm135_2026",
@@ -7588,7 +7608,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-08-21",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM135/2026. route=hr_admin, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM135/2026. route=hr_admin, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm108_2026",
@@ -7608,7 +7632,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-08-24",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM108/2026. route=student_support, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM108/2026. route=student_support, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     },
     {
       "source_id": "edbc014_2026",
@@ -7628,7 +7656,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-08-24",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBC014/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBC014/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm152_2026",
@@ -7648,7 +7680,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-08-24",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM152/2026. route=digital_education, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM152/2026. route=digital_education, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "durable document type (評估架構) — never swept [S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     },
     {
       "source_id": "pcpd_cloud_computing",
@@ -7695,7 +7731,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-08-26",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM156/2026. route=digital_education, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM156/2026. route=digital_education, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept [S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "debp_leaflet",
@@ -7744,7 +7784,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-08-26",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBC015/2026. route=finance, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBC015/2026. route=finance, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm138_2026",
@@ -7764,7 +7808,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-08-26",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM138/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM138/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "ephemeral",
+      "expires_on": "2026-10-25",
+      "expiry_basis": "one-off occasion (培訓計劃); last deadline 2026-09-25 + 30d grace [S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "edbcm144_2026",
@@ -7784,7 +7832,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-08-31",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM144/2026. route=finance, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM144/2026. route=finance, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept [S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "edbc016_2026",
@@ -7804,7 +7856,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-09-05",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBC016/2026. route=school_governance, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBC016/2026. route=school_governance, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm141_2026",
@@ -7824,7 +7880,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-09-05",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM141/2026. route=curriculum, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM141/2026. route=curriculum, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm136_2026",
@@ -7844,7 +7904,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-09-13",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM136/2026. route=curriculum, Tier 3. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM136/2026. route=curriculum, Tier 3. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "ephemeral",
+      "expires_on": "2027-07-11",
+      "expiry_basis": "tier-3 event/announcement; last deadline 2027-06-11 + 30d grace [S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "edbcm167_2026",
@@ -7864,7 +7928,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-09-13",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM167/2026. route=student_support, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM167/2026. route=student_support, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept [S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "edbcm124_2026",
@@ -7884,7 +7952,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-09-13",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM124/2026. route=curriculum, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM124/2026. route=curriculum, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept [S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "edbcm155_2026",
@@ -7904,7 +7976,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-09-23",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM155/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM155/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm134_2026",
@@ -7924,7 +8000,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-10-06",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM134/2026. route=finance, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM134/2026. route=finance, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept [S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "edbcm142_2026",
@@ -7944,7 +8024,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-10-06",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM142/2026. route=finance, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM142/2026. route=finance, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "expiry_basis": "school-year edition 2026/27 — marked, not swept [S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": "2026/27"
     },
     {
       "source_id": "iit_curriculum_framework_2026",
@@ -7972,7 +8056,11 @@
         "edbcm113_2026",
         "ct_programming_pri_2020"
       ],
-      "notes": "(S241) 課程發展議會 2026年10月《小學資訊與創新科技課程框架（擬定稿）》全文，48 頁，text-layer 乾淨（U+FFFD 0）。配合教育局通告第17/2026號開設小學資訊與創新科技科。內容：概論（背景、開科緣由、課程理念與宗旨）、課程架構（學習目標、課程重點、各範疇學習重點及建議學與教活動、各級學習重點一覽、課題編排與建議課時分配、跨學科範疇推展）、學與教、評估。iit_ai_framework_2026 只係「人工智能初探」範疇摘要（試行版），本檔為整份框架。由 Leonard 指定入庫。"
+      "notes": "(S241) 課程發展議會 2026年10月《小學資訊與創新科技課程框架（擬定稿）》全文，48 頁，text-layer 乾淨（U+FFFD 0）。配合教育局通告第17/2026號開設小學資訊與創新科技科。內容：概論（背景、開科緣由、課程理念與宗旨）、課程架構（學習目標、課程重點、各範疇學習重點及建議學與教活動、各級學習重點一覽、課題編排與建議課時分配、跨學科範疇推展）、學與教、評估。iit_ai_framework_2026 只係「人工智能初探」範疇摘要（試行版），本檔為整份框架。由 Leonard 指定入庫。",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "擬定稿：定稿公布後以 supersedes 取代，不按日期清除",
+      "covers_period": null
     },
     {
       "source_id": "iit_leaflet_2026",
@@ -7998,7 +8086,11 @@
         "iit_curriculum_framework_2026",
         "iit_ai_framework_2026"
       ],
-      "notes": "(S241) 2 頁課程簡介單張。框架正文沒有的內容：推行時間（2026/27 公布框架、2027/28 試行、2028/29 小一及小四正式推行，其後逐年推展；學校亦可小一至小六全面推行）、教師培訓基地、15 小時教師專業培訓證書課程、學習社群、查詢電話。推行時間與各範疇節數是圖表，文字抽取次序錯亂，extract 第 2 頁開首按圖示次序轉錄同一批文字（已對照渲染頁面核實；節數 40/41/41/23/23＝168 與框架第 34 頁一致）。同頁的海報（IIT_Poster.pdf）內容是單張的子集，不另入庫；問卷（EDB_IIT_Survey_Chi.pdf）是通告第17/2026號附件二，隨通告處理。"
+      "notes": "(S241) 2 頁課程簡介單張。框架正文沒有的內容：推行時間（2026/27 公布框架、2027/28 試行、2028/29 小一及小四正式推行，其後逐年推展；學校亦可小一至小六全面推行）、教師培訓基地、15 小時教師專業培訓證書課程、學習社群、查詢電話。推行時間與各範疇節數是圖表，文字抽取次序錯亂，extract 第 2 頁開首按圖示次序轉錄同一批文字（已對照渲染頁面核實；節數 40/41/41/23/23＝168 與框架第 34 頁一致）。同頁的海報（IIT_Poster.pdf）內容是單張的子集，不另入庫；問卷（EDB_IIT_Survey_Chi.pdf）是通告第17/2026號附件二，隨通告處理。",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "課程推行時間表 2026/27–2028/29，屬長期參考",
+      "covers_period": null
     },
     {
       "source_id": "edbc017_2026",
@@ -8018,7 +8110,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-10-30",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBC017/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBC017/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm186_2026",
@@ -8038,7 +8134,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-10-30",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM186/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM186/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm197_2026",
@@ -8058,7 +8158,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-10-30",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM197/2026. route=finance, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM197/2026. route=finance, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "ephemeral",
+      "expires_on": "2026-12-16",
+      "expiry_basis": "one-off occasion (測試); last deadline 2026-11-16 + 30d grace [S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     },
     {
       "source_id": "edbcm198_2026",
@@ -8078,7 +8182,11 @@
       "version_label": "2026",
       "last_checked_at": "2026-10-30",
       "supersedes": null,
-      "notes": "(auto, Option A executor) EDBCM198/2026. route=curriculum, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract."
+      "notes": "(auto, Option A executor) EDBCM198/2026. route=curriculum, Tier 2. watcher→prepare→approve→execute. Channel B vault_extract.",
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": "[S241 backfill: same classifier, tier from notes, deadlines from the circular feed — the executor had computed this at ingest and dropped it]",
+      "covers_period": null
     }
   ]
 }

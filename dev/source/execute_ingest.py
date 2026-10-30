@@ -727,15 +727,11 @@ def live_registry_append(pkg: Dict, eff: Dict) -> Dict:
     sid = pkg["source_id"]
     if any(s.get("source_id") == sid for s in sources):
         return {"appended": False, "reason": "already in registry", "count": len(sources)}
-    e = plan_registry_entry(pkg, eff)
-    entry = {
-        "source_id": e["source_id"], "title": e["title"], "title_en": None,
-        "title_short": e["title_short"], "url_landing": e["url_landing"],
-        "url_primary": e["url_primary"], "source_type": "pdf", "authority": "edb",
-        "spine": False, "topic_tags": e["topic_tags"], "access_mode": "public",
-        "status": "verified", "version_label": e["version_label"],
-        "last_checked_at": e["last_checked_at"], "supersedes": None, "notes": e["notes"],
-    }
+    # S241: write the planned entry whole. This used to copy fields across by hand and the
+    # copy predated S209, so `lifecycle` / `expires_on` / `expiry_basis` / `covers_period`
+    # were computed for every ingest and never written — 22 auto-ingested sources reached
+    # the registry unmarked, and check_expiry.py could not see a single one of them.
+    entry = plan_registry_entry(pkg, eff)
     sources.append(entry)
     reg["sources"] = sources
     if isinstance(reg.get("_meta"), dict):
@@ -1262,6 +1258,31 @@ def self_test() -> int:
     ok("step 6: waits for the merge instead of assuming it",
        any(isinstance(n, ast.Call) and getattr(n.func, "id", "") == "_await_pr_merge"
            for n in ast.walk(fn)) if fn else False)
+
+    # ── S241: the registry row the executor writes carries the lifecycle stamp ──
+    import tempfile
+    global REGISTRY_PATH
+    saved = REGISTRY_PATH
+    with tempfile.TemporaryDirectory() as tmp:
+        REGISTRY_PATH = Path(tmp) / "source_registry.json"
+        REGISTRY_PATH.write_text(json.dumps({"_meta": {}, "sources": []}), encoding="utf-8")
+        try:
+            live_registry_append(
+                {"source_id": "edbcm999_2026", "title": "某計劃第七輪測試", "pdf_url": "https://e/x.pdf",
+                 "circular_number": "EDBCM999/2026", "proposed": {"tier": 3},
+                 "dashboard_signals": {"deadlines": [{"date": "2026-11-16"}]}},
+                {"topic": "hr", "route": "hr_admin", "tier": 3})
+            row = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))["sources"][0]
+        finally:
+            REGISTRY_PATH = saved
+    planned = plan_registry_entry(
+        {"source_id": "edbcm999_2026", "title": "某計劃第七輪測試", "pdf_url": "https://e/x.pdf",
+         "circular_number": "EDBCM999/2026", "proposed": {"tier": 3},
+         "dashboard_signals": {"deadlines": [{"date": "2026-11-16"}]}},
+        {"topic": "hr", "route": "hr_admin", "tier": 3})
+    ok("registry append: writes every field the plan computes", set(planned) <= set(row))
+    ok("registry append: an ephemeral source is written ephemeral",
+       row.get("lifecycle") == "ephemeral" and row.get("expires_on") == "2026-12-16")
 
     # Branch naming: a source_id reaches this from a package file, so it is input.
     ok("branch name: normal id", ingest_branch_name("edbc007_2026") == "ingest/edbc007_2026")
