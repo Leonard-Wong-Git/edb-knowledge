@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-30T20:14:00Z",
+  "generatedAt": "2026-10-30T20:30:34Z",
   "overallStatus": "ERROR",
   "counts": {
-    "chunks": 17101,
+    "chunks": 17153,
     "PASS": 14,
     "BLOCKER": 0,
     "ERROR": 2,
@@ -12,11 +12,11 @@
   },
   "version": "v3.3.10",
   "corpus": {
-    "chunks": 17101,
-    "sources_serving": 313,
-    "sources_registered": 293,
+    "chunks": 17153,
+    "sources_serving": 317,
+    "sources_registered": 297,
     "guidelines_listed": 170,
-    "distinct_urls": 338,
+    "distinct_urls": 342,
     "largest_sources": [
       {
         "source_id": "coa_ss_e",
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-10-30T20:14:00Z",
+    "collectedAt": "2026-10-30T20:30:34Z",
     "items": [],
     "ignored_outside": 0
   },
@@ -224,7 +224,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "infra",
-      "detail": "資料庫真數 17101 · 已核對 7 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "detail": "資料庫真數 17153 · 已核對 7 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
       "offenders": [],
       "offender_total": 0
     },
@@ -333,7 +333,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "cutting",
-      "detail": "800 · 低於基準 835（−35，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
+      "detail": "805 · 低於基準 835（−30，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
       "offenders": [
         "g06（34 條）",
         "g13（34 條）",
@@ -348,7 +348,7 @@
         "sag_2025_11（13 條）",
         "g19（12 條）"
       ],
-      "offender_total": 800
+      "offender_total": 805
     },
     {
       "id": "TABLE_ROW_INTEGRITY",
@@ -366,7 +366,7 @@
       "severity": "INFO",
       "status": "INFO",
       "group": "cutting",
-      "detail": "1930 條（11.3%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
+      "detail": "1931 條（11.3%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
       "offenders": [
         "g13（105 條）",
         "g07（80 條）",
@@ -381,7 +381,7 @@
         "chi_hist_sss_2007_2015（34 條）",
         "icac_school_governance（32 條）"
       ],
-      "offender_total": 1930
+      "offender_total": 1931
     },
     {
       "id": "EVAL_LATEST",
@@ -472,7 +472,7 @@
       "severity": "WARN",
       "status": "FAIL",
       "group": "pointing",
-      "detail": "123 個來源 / 2722 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
+      "detail": "127 個來源 / 2774 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
       "offenders": [
         "gifted_ge_series（346 條）資優教育系列：全民資優教育＋校本學生才能庫＋學術英才",
         "kg_admin_guide_2026（222 條）幼稚園行政手冊（2026年5月）",
@@ -487,7 +487,7 @@
         "tdtf_report_2019（62 條）教師專業發展專責小組報告 (2019年3月)",
         "iit_curriculum_framework_2026（59 條）《科技教育學習領域‧小學資訊與創新科技課程框架》（擬"
       ],
-      "offender_total": 123
+      "offender_total": 127
     },
     {
       "id": "MOJIBAKE",
