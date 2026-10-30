@@ -1769,7 +1769,14 @@ export function interleaveRankedLists<T extends { id: string; source_id: string;
  * module; the repository must not reach up into the API layer for it.
  */
 export async function warmChannelBOverlays(): Promise<void> {
-  await preloadOverlayCaches(SPOTLIGHT_SOURCE_IDS);
+  await Promise.all([
+    preloadOverlayCaches(SPOTLIGHT_SOURCE_IDS),
+    // S241 — so the first circular-number query does not pay the index read. A failed
+    // warm is not fatal: the pass loads on demand and fails open.
+    process.env.FEATURE_CIRCULAR_NUMBER_LOOKUP === "1"
+      ? loadCircularIndex().catch(() => undefined)
+      : Promise.resolve(undefined),
+  ]);
 }
 
 export async function searchChannelB(
