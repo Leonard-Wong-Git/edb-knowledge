@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T17:50:59Z",
+  "generatedAt": "2026-10-30T17:31:23Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 16990,
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-10-29T17:50:59Z",
+    "collectedAt": "2026-10-30T17:31:23Z",
     "items": [
       {
         "kind": "freshness-change",
@@ -213,7 +213,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=77de1dd · 啟動於 2026-10-29T17:50:45.975Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=eb9a945 · 啟動於 2026-10-30T17:31:14.466Z · Channel A 快取 0 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -408,7 +408,7 @@
       "severity": "ERROR",
       "status": "FAIL",
       "group": "measurable",
-      "detail": "S213 Phase 1 gold-set run · PASS=123 FAIL=39 RECORD_ONLY=19 errors=4 · 共 185 條 query · 量度自 2026-09-28_s233_prod_gold.json · 生產端點",
+      "detail": "S213 Phase 1 gold-set run · PASS=123 FAIL=39 RECORD_ONLY=19 errors=4 · 共 185 條 query · 量度自 2026-09-28_s233_prod_gold.json · 生產端點；⚠️ 另有更新的非生產 run（2026-10-13_s239fusion_before.json）未被採用",
       "offenders": [],
       "offender_total": 0
     },
