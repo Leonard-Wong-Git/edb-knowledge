@@ -8039,6 +8039,26 @@
       "last_checked_at": "2026-10-30",
       "supersedes": null,
       "notes": "(auto, Option A executor) EDBCM186/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
+    },
+    {
+      "source_id": "edbcm197_2026",
+      "title": "「資助教師參加國家語委普通話水平測試」計劃第七輪測試",
+      "title_en": null,
+      "title_short": "「資助教師參加國家語委普通話水平測試」計劃第七輪",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26197C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26197C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-10-30",
+      "supersedes": null,
+      "notes": "(auto, Option A executor) EDBCM197/2026. route=finance, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
     }
   ]
 }
