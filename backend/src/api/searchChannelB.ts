@@ -268,6 +268,20 @@ const SOURCE_SETS: Record<string, string[]> = {
     "ct_programming_pri_2020",
   ],
   /**
+   * S241 — 中學教學語言 (moi route). Four documents, all new to the store: the policy circular
+   * (通告6/2009), the third-cycle arrangements, the 2027/28 school-based plan letter and the
+   * 2026 FAQ. Measured before the route: the bare queries a user types (「教學語言政策」
+   * 「微調中學教學語言」「母語教學」) returned only 中國語文 curriculum guides, which mention
+   * 教學語言 in passing; 4/12 probes found a policy document at all. Five of the nine real
+   * declines in search_log were this topic.
+   */
+  moi: [
+    "edbc006_2009",
+    "moi_3rd_cycle_2021",
+    "moi_plan_2027_28",
+    "moi_faq_2026",
+  ],
+  /**
    * S194 — 公民與社會發展科 (cgss route). Its corpus reached the index by accident: the
    * 公社科 C&A guide was stored under `ict_sss_2021` because the filename CS_CAG was read
    * as Computer Science rather than Citizenship and Social development, so 81 chunks of
@@ -749,6 +763,9 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // S241 — the subject name. Ahead of cpd and curriculum so 「資訊與創新科技科 教師培訓」
   // and 「…評估」 reach the framework rather than the generic sets.
   iit: /資訊與創新科技|資創科|\bIIT\b/i,
+  // S241 — medium of instruction. 英中 is the everyday name for an EMI school; 中中 is left
+  // out on purpose because it is a substring of 「高中中文」.
+  moi: /教學語言|母語教學|微調中學|英語延展教學|英中(?!文)|\bMOI\b|\bEMI\b|\bCMI\b/i,
   cpd: /CPD|持續專業發展|教師專業發展|教師培訓|專業發展計劃|專業階梯|師訓/,
   kg_admission: /幼稚園收生|幼稚園.{0,3}收生|幼稚園.{0,3}入學|幼稚園.{0,3}報名|K1.{0,3}收生|幼稚園.{0,3}申請入學|幼稚園.{0,6}學費|學費.{0,4}涵蓋|售賣物品|代辦費/,
   // S160: KG administration/operation — MUST precede curriculum (which matches bare 幼稚園).
