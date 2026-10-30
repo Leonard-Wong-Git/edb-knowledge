@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-10-30T18:13:30Z",
+  "generatedAt": "2026-10-30T18:52:29Z",
   "overallStatus": "ERROR",
   "counts": {
-    "chunks": 17091,
-    "PASS": 13,
+    "chunks": 17101,
+    "PASS": 14,
     "BLOCKER": 0,
-    "ERROR": 3,
+    "ERROR": 2,
     "WARN": 5,
     "INFO": 1,
     "NOT_MEASURED": 0
   },
   "version": "v3.3.10",
   "corpus": {
-    "chunks": 17091,
-    "sources_serving": 310,
-    "sources_registered": 290,
+    "chunks": 17101,
+    "sources_serving": 313,
+    "sources_registered": 293,
     "guidelines_listed": 170,
-    "distinct_urls": 335,
+    "distinct_urls": 338,
     "largest_sources": [
       {
         "source_id": "coa_ss_e",
@@ -28,7 +28,7 @@
       },
       {
         "source_id": "g13",
-        "chunks": 610
+        "chunks": 587
       },
       {
         "source_id": "coa_pri_e",
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-10-30T18:13:30Z",
+    "collectedAt": "2026-10-30T18:52:29Z",
     "items": [
       {
         "kind": "freshness-change",
@@ -85,12 +85,11 @@
   },
   "releaseGate": {
     "status": "FAIL",
-    "summary": "4/15 項達標",
+    "summary": "5/15 項達標",
     "blocking": [
       "NO_ERROR_FAIL",
       "PASS_EVAL_LATEST",
       "PASS_EVAL_CHUNK_LAYER",
-      "PASS_MIRROR_CONSISTENCY",
       "WARNS_OWNED",
       "CORE_SEARCH_CASES",
       "ANSWER_FACT_SPOTCHECK",
@@ -112,7 +111,7 @@
         "label": "沒有錯誤級 FAIL",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "MIRROR_CONSISTENCY、EVAL_LATEST、EVAL_CHUNK_LAYER"
+        "detail": "EVAL_LATEST、EVAL_CHUNK_LAYER"
       },
       {
         "id": "NO_UNMEASURED",
@@ -153,8 +152,8 @@
         "id": "PASS_MIRROR_CONSISTENCY",
         "label": "MIRROR_CONSISTENCY 必須 PASS",
         "kind": "auto",
-        "status": "NOT_MET",
-        "detail": "FAIL"
+        "status": "MET",
+        "detail": "PASS"
       },
       {
         "id": "WARNS_OWNED",
@@ -214,7 +213,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=d2841e3 · 啟動於 2026-10-30T18:13:08.290Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=cdf7c5c · 啟動於 2026-10-30T18:52:16.420Z · Channel A 快取 455 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -242,19 +241,11 @@
       "id": "MIRROR_CONSISTENCY",
       "label": "七個對外片段數鏡像與資料庫真數一致",
       "severity": "ERROR",
-      "status": "FAIL",
+      "status": "PASS",
       "group": "infra",
-      "detail": "資料庫真數 17091 · 已核對 7 個鏡像 · 不一致 7 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
-      "offenders": [
-        "app.html：-1",
-        "index.html：-1",
-        "knowledge.json：-1",
-        "role_facts.json：-1",
-        "dev/knowledge/role_facts.json：-1",
-        "README.md：-1",
-        "K1_API_SPEC.md：-1"
-      ],
-      "offender_total": 7
+      "detail": "資料庫真數 17101 · 已核對 7 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "offenders": [],
+      "offender_total": 0
     },
     {
       "id": "ANCHOR_URL_PRESENT",
@@ -305,10 +296,9 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "chunk",
-      "detail": "重複組 487 · 低於基準 956（−469，已改善） · 多出的副本 511 條 · 重複全部跨來源（同一來源內 0 組），即問題出在登記了兩次的文件，不是切片器。⚠️ 此數是下限：只捉逐字相同的片段。同一份 PDF 分兩次抽取會切出不同邊界，雜湊就不同 —— kgecg_2017 與 g29 是同一份《幼稚園教育課程指引（2017）》，108 對 107 條，逐字相同 0 條，本檢查完全看不見",
+      "detail": "重複組 464 · 低於基準 956（−492，已改善） · 多出的副本 488 條 · 重複全部跨來源（同一來源內 0 組），即問題出在登記了兩次的文件，不是切片器。⚠️ 此數是下限：只捉逐字相同的片段。同一份 PDF 分兩次抽取會切出不同邊界，雜湊就不同 —— kgecg_2017 與 g29 是同一份《幼稚園教育課程指引（2017）》，108 對 107 條，逐字相同 0 條，本檢查完全看不見",
       "offenders": [
         "eng_sss_guide_2021 ↔ g33：421 組",
-        "g13：23 組",
         "econ_sss_supp_2015 ↔ econ_sss_supp_2025：9 組",
         "stat_enrolment_2016 ↔ stat_enrolment_2017：7 組",
         "stat_enrolment_2018 ↔ stat_enrolment_2019：6 組",
@@ -318,9 +308,10 @@
         "stat_enrolment_2012 ↔ stat_enrolment_2013 ↔ stat_enrolment_2014 ↔ stat_enrolment_2015 ↔ stat_enrolment_2016 ↔ stat_enrolment_2017 ↔ stat_enrolment_2018 ↔ stat_enrolment_2019 ↔ stat_enrolment_2020 ↔ stat_enrolment_2021 ↔ stat_enrolment_2022 ↔ stat_enrolment_2023 ↔ stat_enrolment_2024：2 組",
         "stat_enrolment_2013 ↔ stat_enrolment_2014 ↔ stat_enrolment_2015：2 組",
         "ethics_relig_sss_2007_2019 ↔ ethics_relig_sss_2024：1 組",
-        "stat_enrolment_2014 ↔ stat_enrolment_2015：1 組"
+        "stat_enrolment_2014 ↔ stat_enrolment_2015：1 組",
+        "stat_enrolment_2020 ↔ stat_enrolment_2021：1 組"
       ],
-      "offender_total": 487
+      "offender_total": 464
     },
     {
       "id": "NO_TOC_NOISE",
@@ -361,10 +352,10 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "cutting",
-      "detail": "798 · 低於基準 835（−37，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
+      "detail": "800 · 低於基準 835（−35，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
       "offenders": [
-        "g13（35 條）",
         "g06（34 條）",
+        "g13（34 條）",
         "ph_pri_guide_2025（30 條）",
         "g07（29 條）",
         "gifted_ge_series（16 條）",
@@ -376,7 +367,7 @@
         "sag_2025_11（13 條）",
         "g19（12 條）"
       ],
-      "offender_total": 798
+      "offender_total": 800
     },
     {
       "id": "TABLE_ROW_INTEGRITY",
@@ -394,9 +385,9 @@
       "severity": "INFO",
       "status": "INFO",
       "group": "cutting",
-      "detail": "1924 條（11.3%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
+      "detail": "1930 條（11.3%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
       "offenders": [
-        "g13（107 條）",
+        "g13（105 條）",
         "g07（80 條）",
         "tech_kla_guide_2017（62 條）",
         "g16（55 條）",
@@ -409,7 +400,7 @@
         "chi_hist_sss_2007_2015（34 條）",
         "icac_school_governance（32 條）"
       ],
-      "offender_total": 1924
+      "offender_total": 1930
     },
     {
       "id": "EVAL_LATEST",
@@ -500,7 +491,7 @@
       "severity": "WARN",
       "status": "FAIL",
       "group": "pointing",
-      "detail": "120 個來源 / 2689 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
+      "detail": "123 個來源 / 2722 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
       "offenders": [
         "gifted_ge_series（346 條）資優教育系列：全民資優教育＋校本學生才能庫＋學術英才",
         "kg_admin_guide_2026（222 條）幼稚園行政手冊（2026年5月）",
@@ -515,7 +506,7 @@
         "tdtf_report_2019（62 條）教師專業發展專責小組報告 (2019年3月)",
         "iit_curriculum_framework_2026（59 條）《科技教育學習領域‧小學資訊與創新科技課程框架》（擬"
       ],
-      "offender_total": 120
+      "offender_total": 123
     },
     {
       "id": "MOJIBAKE",
