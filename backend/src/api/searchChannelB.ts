@@ -29,7 +29,7 @@ import {
   type WikiSearchResult,
 } from "../lib/wikiRepository.js";
 import { overlapWith, queryInformativeBigrams } from "../lib/textBigrams.js";
-import { parseCircularRef } from "../lib/circularRef.js";
+import { circularTopic, parseCircularRef } from "../lib/circularRef.js";
 import { selectPrimaryEvidence, synthesizeGroundedAnswer } from "../lib/groundedSynthesis.js";
 import { checkSubjects, SUBJECT_DECLINE_PREFIX, subjectDeclineMessage } from "../lib/subjectCheck.js";
 import type { LlmJsonSchema } from "../lib/llmClient.js";
@@ -2148,7 +2148,8 @@ export async function searchChannelB(
   // names a circular by number is asking for that document; the embedding cannot read the
   // number (2/75 reached the window on production, see lib/circularRef.ts). So the number
   // is looked up in an index built from each circular's own header, and the best chunks
-  // OF THAT DOCUMENT (exact cosine against the raw query, inside that one source) go first.
+  // OF THAT DOCUMENT (exact cosine inside that one source, against the query with the reference
+  // cut out when anything is left) go first.
   // Ahead of every other overlay: an explicit document identifier outranks a similarity.
   // The judge still runs — mainSearchLead was captured before any overlay, so this can
   // never open a bypass. Unknown number or any failure = no-op.
@@ -2158,10 +2159,13 @@ export async function searchChannelB(
     try {
       const sourceId = await resolveCircularSource(circularRef);
       if (sourceId) {
-        const hits = await searchWikiRoutedExact(query, embedFn, {
+        // Inside the document, rank by what the query asks, not by the number it was found
+        // by (lib/circularRef.ts circularTopic). A bare reference keeps the raw vector.
+        const topic = circularTopic(query);
+        const hits = await searchWikiRoutedExact(topic ?? query, embedFn, {
           sourceIds: [sourceId],
           topK: CIRCULAR_MAX_LEADS,
-          queryVec: rawVec,
+          queryVec: topic ? undefined : rawVec,
         });
         const circLead = hits.map(toChannelBResult).filter(retiredMirrorFilter);
         if (circLead.length > 0) {

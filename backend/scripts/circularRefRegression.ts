@@ -3,7 +3,7 @@
  *   node_modules/.bin/tsx scripts/circularRefRegression.ts
  */
 import assert from "node:assert/strict";
-import { buildCircularIndex, candidateSourceIds, headerCircularKey, parseCircularRef } from "../src/lib/circularRef.js";
+import { buildCircularIndex, candidateSourceIds, circularTopic, headerCircularKey, parseCircularRef } from "../src/lib/circularRef.js";
 
 let count = 0;
 function test(name: string, check: () => void) {
@@ -52,6 +52,18 @@ test("index: ambiguity is dropped, not guessed", () => {
   ]);
   assert.equal(idx.size, 1);
   assert.equal(idx.get("通函|7/2026".replace("/", "|")), "ok");
+});
+
+test("topic: the question with the reference cut out", () => {
+  assert.equal(circularTopic("教育局通函第134/2026號 推廣閱讀津貼可以用來做甚麼"), "推廣閱讀津貼可以用來做甚麼");
+  assert.equal(circularTopic("通函 1 3 4 / 2 0 2 6 的申請日期？"), "的申請日期");
+  assert.equal(circularTopic("What does EDBCM 134/2026 say about funding?"), "What does say about funding");
+  assert.equal(circularTopic("EDB Circular Memorandum No. 79/2025 deadline"), "deadline");
+});
+test("topic: a bare reference has none", () => {
+  for (const q of ["教育局通函第134/2026號", "通函134/2026", "EDBCM 134/2026", "通告第2/2026號 的", "EDB Circular No. 17/2024?"]) {
+    assert.equal(circularTopic(q), null, q);
+  }
 });
 
 test("id candidates follow ingest naming, memorandum vs circular", () => {
