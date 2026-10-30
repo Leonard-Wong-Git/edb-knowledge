@@ -61,6 +61,24 @@ export function headerCircularKey(text: string): string | null {
 }
 
 /**
+ * The source_ids a circular is normally ingested under, for an exact-id lookup that does
+ * not depend on scanning chunk text (S241 patch 2: the text scan behind the full index
+ * can exceed the anon role's 3 s statement_timeout when the database is cold; an id
+ * equality read stays well under it). Names with a topic suffix
+ * (`edbcm141_2025_blnst`) are not guessable and still come from the full index.
+ * A guess is only a candidate — the header of the fetched chunk must confirm the number.
+ */
+export function candidateSourceIds(key: string): string[] {
+  const [kind, numStr, yearStr] = key.split("|");
+  const n = Number(numStr);
+  const pad = String(n).padStart(3, "0");
+  const y = yearStr;
+  return kind === "通函"
+    ? [`edbcm${n}_${y}`, `edbcm${pad}_${y}`, `EDBCM_${n}_${y}_TC`, `EDBCM_${n}_${y}_E`]
+    : [`edbc${n}_${y}`, `edbc${pad}_${y}`, `EDBC_${n}_${y}_E`, `EDBC_${n}_${y}_C`];
+}
+
+/**
  * key → source_id. A source that declares two different numbers, or a number declared by
  * two sources, is dropped rather than guessed: a wrong forced lead is worse than none,
  * because the search then answers from the wrong circular with full confidence.
