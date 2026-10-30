@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-30T18:52:29Z",
+  "generatedAt": "2026-10-30T19:05:35Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17101,
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-10-30T18:52:29Z",
+    "collectedAt": "2026-10-30T19:05:35Z",
     "items": [
       {
         "kind": "freshness-change",
