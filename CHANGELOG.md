@@ -13,7 +13,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - **「提供意見」面板（`feedback.js`，四頁共用）。** 五類（回報問題／資料有誤或過時／想加功能／想說聲謝謝／其他）、內容上限 1,200 字，自動附上平台版本、桌面或手機、頁面、瀏覽器及作業系統；剛搜尋過則附該次 `search_log` 的編號（隨機 UUID，不含查詢內容）。按「送出」在新分頁開啟 Google 表單預填網址，用戶在表單按「提交」才送出；本平台不經手、不儲存意見內容。做法同 NetworkChecker 及 playbook 卡 `feedback-google-form-prefill`。
 - **入口：** 平台頁尾、首頁頁尾、手機版搜尋結果下方；桌面版按 👎 後顯示「想說明原因？提供意見」。
-- 表單網址只寫在 `feedback.js` 的 `FORM_URL`；未設定時所有入口自動隱藏。
+- 表單為 Leonard 帳戶內「政策搜尋平台・意見箱」（不收集電郵、不要求登入、已關閉 autosave、新回覆電郵通知）；第四題「電郵」為可選，不預填。表單網址只寫在 `feedback.js` 的 `FORM_URL`；清空即所有入口自動隱藏。
 
 ### Fixed
 - 首頁頁尾版本長期停在 v3.3.3，改為 v3.3.11。

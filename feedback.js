@@ -22,7 +22,8 @@
 (function () {
   'use strict';
 
-  const FORM_URL = '';
+  // Leonard's Google Form「政策搜尋平台・意見箱」(2026-10-30). entry.1324429019 (optional e-mail) is left for the user.
+  const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdvfrq_Ft02VZ0ez1Rcx2c6mZrjAohWcx64gSayjlbdJ6GW9g/viewform?usp=pp_url&entry.93438649=TYPE&entry.638473992=TEXT&entry.821962211=CTX';
 
   const MAX = 1200;
   const TYPES = [
