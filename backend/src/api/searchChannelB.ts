@@ -698,6 +698,7 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbcm136_2026",              // (auto) Option A watcher ingest
     "edbcm124_2026",              // (auto) Option A watcher ingest
     "edbcm155_2026",              // (auto) Option A watcher ingest
+    "edbc017_2026",              // (auto) Option A watcher ingest
   ],
   /*
    * Kindergarten administration / operation — 幼稚園行政手冊 + 學前機構辦學手冊 (S160).
@@ -1652,6 +1653,7 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   "edbcm134_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "edbcm142_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   "iit_leaflet_2026", // S241: 小學資訊與創新科技科單張 (5 chunks; rollout years live only here)
+  "edbc017_2026", // (auto) Option A watcher ingest — prune once it surfaces via ANN
   // ack:spotlight:end
 ];
 
