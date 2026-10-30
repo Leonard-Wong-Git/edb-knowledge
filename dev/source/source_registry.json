@@ -7999,6 +7999,26 @@
         "iit_ai_framework_2026"
       ],
       "notes": "(S241) 2 頁課程簡介單張。框架正文沒有的內容：推行時間（2026/27 公布框架、2027/28 試行、2028/29 小一及小四正式推行，其後逐年推展；學校亦可小一至小六全面推行）、教師培訓基地、15 小時教師專業培訓證書課程、學習社群、查詢電話。推行時間與各範疇節數是圖表，文字抽取次序錯亂，extract 第 2 頁開首按圖示次序轉錄同一批文字（已對照渲染頁面核實；節數 40/41/41/23/23＝168 與框架第 34 頁一致）。同頁的海報（IIT_Poster.pdf）內容是單張的子集，不另入庫；問卷（EDB_IIT_Survey_Chi.pdf）是通告第17/2026號附件二，隨通告處理。"
+    },
+    {
+      "source_id": "edbc017_2026",
+      "title": "開設小學資訊與創新科技科",
+      "title_en": null,
+      "title_short": "開設小學資訊與創新科技科",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26017C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26017C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-10-30",
+      "supersedes": null,
+      "notes": "(auto, Option A executor) EDBC017/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
     }
   ]
 }
