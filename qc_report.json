@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-30T20:30:34Z",
+  "generatedAt": "2026-10-31T16:36:26Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17153,
@@ -10,7 +10,7 @@
     "INFO": 1,
     "NOT_MEASURED": 0
   },
-  "version": "v3.3.10",
+  "version": "v3.3.11",
   "corpus": {
     "chunks": 17153,
     "sources_serving": 317,
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-10-30T20:30:34Z",
+    "collectedAt": "2026-10-31T16:36:26Z",
     "items": [],
     "ignored_outside": 0
   },
@@ -194,7 +194,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=cdf7c5c · 啟動於 2026-10-30T19:58:34.535Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=2eff606 · 啟動於 2026-10-31T16:36:16.108Z · Channel A 快取 0 條",
       "offenders": [],
       "offender_total": 0
     },
