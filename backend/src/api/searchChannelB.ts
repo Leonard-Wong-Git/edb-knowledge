@@ -765,7 +765,10 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   iit: /資訊與創新科技|資創科|\bIIT\b/i,
   // S241 — medium of instruction. 英中 is the everyday name for an EMI school; 中中 is left
   // out on purpose because it is a substring of 「高中中文」.
-  moi: /教學語言|母語教學|微調中學|英語延展教學|英中(?!文)|\bMOI\b|\bEMI\b|\bCMI\b/i,
+  // 「用英語教學」「以英語授課」name the policy without saying 教學語言 (S241 live probe: the
+  // query went to 教育條例). Bare 英語教學 is NOT matched — it is also how people ask about
+  // teaching the English subject.
+  moi: /教學語言|母語教學|微調中學|英語延展教學|英中(?!文)|(?:用|以|採用)(?:英語|英文|中文|母語)(?:教學|授課|教)|(?:英語|英文)授課|\bMOI\b|\bEMI\b|\bCMI\b/i,
   cpd: /CPD|持續專業發展|教師專業發展|教師培訓|專業發展計劃|專業階梯|師訓/,
   kg_admission: /幼稚園收生|幼稚園.{0,3}收生|幼稚園.{0,3}入學|幼稚園.{0,3}報名|K1.{0,3}收生|幼稚園.{0,3}申請入學|幼稚園.{0,6}學費|學費.{0,4}涵蓋|售賣物品|代辦費/,
   // S160: KG administration/operation — MUST precede curriculum (which matches bare 幼稚園).
