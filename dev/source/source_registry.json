@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-10-30",
+    "updated": "2026-11-01",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -4759,7 +4759,7 @@
         "hr"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2024-2026",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
@@ -4774,7 +4774,8 @@
       "lifecycle": "reference",
       "expires_on": null,
       "expiry_basis": "Leonard S241 決定保留：載有長期規則（2025/26 起學位程度改為公務員事務局數碼化測試、三個月暫緩期、非學位成績只適用非學位教席、每學年初呈交新聘教師測試資料）。feed 的「截止日」2025-09-16 實為發出日期，標題「測試」令分類器誤判 ephemeral。",
-      "covers_period": "2025/26"
+      "covers_period": "2025/26",
+      "deprecated_reason": "S242: 教育局已從《基本法及香港國安法》測試專頁撤下（URL 404，2026-11-01 封面核對 Issue #72），由通函第170/2026號（edbcm170_2026_blnst）及問與答 2026年9月版（blnst_faq_2026）取代；S241 保留理由所列長期規則（數碼化學位測試、三個月暫緩期、非學位測試、每學年初呈交資料）在兩份新文件中均有原文。片段已從 wiki_chunks 移除，備份於 dev/init_backup/"
     },
     {
       "source_id": "embc5_2005_appointment",
@@ -5106,11 +5107,11 @@
     },
     {
       "source_id": "sdp_guide",
-      "title": "如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）",
+      "title": "如何編寫「學校發展計劃」（適用於簽訂首份校董會/法團校董會服務合約的資助學校）",
       "title_en": null,
-      "title_short": "如何編寫學校發展計劃（首份校董會/法",
-      "url_landing": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf",
-      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf",
+      "title_short": "如何編寫學校發展計劃（資助學校）",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/sch-management-committee/about-sch-management-committee/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guideline-c-(for%20aided%20schools).pdf",
       "source_type": "pdf",
       "authority": "edb",
       "spine": false,
@@ -5119,17 +5120,10 @@
       ],
       "access_mode": "public",
       "status": "verified",
-      "version_label": "2024-2026",
-      "last_checked_at": "2026-06-15",
+      "version_label": "2026-09",
+      "last_checked_at": "2026-11-01",
       "supersedes": null,
-      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 5p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin.",
-      "freshness_metadata": {
-        "last_modified": "Wed, 24 Jan 2024 05:05:21 GMT",
-        "content_length": "187832",
-        "etag": "\"80be34ee824eda1:0\"",
-        "content_hash": "5c0b6a9d9f81e942883c8d8913fba171fdb3b977671c98afe91ac86e09d0ffe7",
-        "hash_checked_at": "2026-06-04"
-      }
+      "notes": "S142 EDB-coverage sweep §1 (學校行政及管理): full-text policy PDF crawled from sch-admin section, agent-team curated (KEEP, route=gov_admin), egress-verified (HTTP200, 5p, mojibake pre-flight CLEAN), del=0 pure INSERT page-carry. Added to backend SOURCE_SETS.gov_admin. | S242: 2010 版網址 404（封面核對 Issue #72）；教育局改分資助學校版（本條，2026-09-14）與直資學校版（sdp_guide_dss）。id 不追版次，沿用 sdp_guide 指資助學校版；Leonard 批准換版重新入庫。"
     },
     {
       "source_id": "icac_school_governance",
@@ -7177,9 +7171,9 @@
     },
     {
       "source_id": "iit_ai_framework_2026",
-      "title": "《小學資訊與創新科技課程框架》—「人工智能初探」範疇（試行版）",
+      "title": "《小學資訊與創新科技課程框架》人工智能部分（試行版）—教師參考（原稱「人工智能初探」範疇）",
       "title_en": "Primary Information and Innovation Technology Curriculum Framework — Exploring Artificial Intelligence (Trial Version)",
-      "title_short": "人工智能初探範疇（試行版）",
+      "title_short": "人工智能部分（試行版）",
       "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/curriculum-doc/index.html",
       "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/curriculum-doc/IIT_Summary%20on%20AI_TC.pdf",
       "source_type": "pdf",
@@ -7191,8 +7185,8 @@
       ],
       "access_mode": "public",
       "status": "verified",
-      "version_label": "2026-trial",
-      "last_checked_at": "2026-07-26",
+      "version_label": "2026-10",
+      "last_checked_at": "2026-11-01",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
       "related_source_ids": [
@@ -7200,7 +7194,7 @@
         "ct_programming_pri_2020",
         "debp_ai_literacy_framework"
       ],
-      "notes": "(S194) 《小學資訊與創新科技課程框架》「人工智能初探」範疇正文，由「檢視小學階段科技教育專責委員會」擬訂、課程發展議會「科技教育委員會」審閱；EDBCM113/2026 通函公布。通函本身只得 3 chunks（封面＋摘要），本檔才係實質內容（13 頁，text-layer 乾淨）。教師參考文件：學習階段一／二推展、與計算思維及編程的關係、以人為本科技向善六項要求。"
+      "notes": "(S194) 《小學資訊與創新科技課程框架》「人工智能初探」範疇正文，由「檢視小學階段科技教育專責委員會」擬訂、課程發展議會「科技教育委員會」審閱；EDBCM113/2026 通函公布。通函本身只得 3 chunks（封面＋摘要），本檔才係實質內容（13 頁，text-layer 乾淨）。教師參考文件：學習階段一／二推展、與計算思維及編程的關係、以人為本科技向善六項要求。 | S242: 教育局 2026-10-14 以同一網址換新檔（封面改為「教師參考　人工智能部分（試行版）」，13 頁），封面核對相符度 1.0→0.8；Leonard 批准重新入庫。"
     },
     {
       "source_id": "sch_bus_drivers_2026",
@@ -8351,6 +8345,89 @@
         "moi_3rd_cycle_2021",
         "moi_plan_2027_28"
       ]
+    },
+    {
+      "title_en": null,
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "access_mode": "public",
+      "status": "verified",
+      "last_checked_at": "2026-11-01",
+      "supersedes": "edbcm141_2025_blnst",
+      "expires_on": null,
+      "covers_period": "2026/27",
+      "source_id": "edbcm170_2026_blnst",
+      "title": "教育局通函第170/2026號 2026/27學年《基本法及香港國安法》測試安排",
+      "title_short": "通函170/2026 基本法及國安法測試",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/blnst/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/EDBCM_1702026_tc.pdf",
+      "topic_tags": [
+        "hr"
+      ],
+      "version_label": "2026/27",
+      "lifecycle": "dated_edition",
+      "expiry_basis": "學年測試安排通函，年度版本 — 標示不刪",
+      "related_source_ids": [
+        "edbc13_2022_blnst",
+        "blnst_faq_2026"
+      ],
+      "notes": "(S242) 取代通函141/2025（已撤下）。3 頁：學位程度改用公務員事務局數碼化測試、三個月暫緩考試期、非學位程度測試、每學年初經電子化服務入門網站呈交新聘教師測試資料。Leonard 批准入庫。"
+    },
+    {
+      "title_en": null,
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "access_mode": "public",
+      "status": "verified",
+      "last_checked_at": "2026-11-01",
+      "supersedes": null,
+      "expires_on": null,
+      "covers_period": null,
+      "source_id": "blnst_faq_2026",
+      "title": "新聘任教師《基本法及香港國安法》測試要求 問與答（2026年9月）",
+      "title_short": "基本法及國安法測試問與答",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/blnst/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/FAQCM_Sept26_tc.pdf",
+      "topic_tags": [
+        "hr"
+      ],
+      "version_label": "2026-09",
+      "lifecycle": "reference",
+      "expiry_basis": "常見問題，長期參考 — never swept",
+      "related_source_ids": [
+        "edbc13_2022_blnst",
+        "edbcm170_2026_blnst"
+      ],
+      "notes": "(S242) 教育局《基本法及香港國安法》測試專頁問與答（2026年9月版），9 頁。Leonard 批准入庫。"
+    },
+    {
+      "title_en": null,
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "access_mode": "public",
+      "status": "verified",
+      "last_checked_at": "2026-11-01",
+      "supersedes": null,
+      "expires_on": null,
+      "covers_period": null,
+      "source_id": "sdp_guide_dss",
+      "title": "如何編寫「學校發展計劃」（適用於簽訂首份校董會/法團校董會服務合約的直資學校）",
+      "title_short": "如何編寫學校發展計劃（直資學校）",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/sch-management-committee/about-sch-management-committee/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guideline-c-(for%20DSS%20schools).pdf",
+      "topic_tags": [
+        "general"
+      ],
+      "version_label": "2026-09",
+      "lifecycle": "reference",
+      "expiry_basis": "長期指引 — never swept",
+      "related_source_ids": [
+        "sdp_guide"
+      ],
+      "notes": "(S242) 2010 版《如何編寫學校發展計劃》拆分後的直資學校版（2026-09-24），5 頁。Leonard 批准入庫。"
     }
   ]
 }

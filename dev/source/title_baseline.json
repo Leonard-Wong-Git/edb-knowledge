@@ -14,7 +14,8 @@
       "error_budget": 10
     },
     "changelog": [
-      "2026-07-27 S195B: +7 sources (g18, sch_bus_drivers_2026, sch_bus_escorts_2026, sch_bus_operators_2026, sch_bus_parents_2026, sch_bus_students_2026, va_safety_sec), -2 (g31, kgecg_2017); rescan produced 0 alerts against the previous baseline"
+      "2026-07-27 S195B: +7 sources (g18, sch_bus_drivers_2026, sch_bus_escorts_2026, sch_bus_operators_2026, sch_bus_parents_2026, sch_bus_students_2026, va_safety_sec), -2 (g31, kgecg_2017); rescan produced 0 alerts against the previous baseline",
+      "2026-11-01 S242: Issue #72 — edbcm141_2025_blnst retired (404, superseded by edbcm170_2026_blnst + blnst_faq_2026); sdp_guide re-pointed to 2026-09 aided edition + sdp_guide_dss added; iit_ai_framework_2026 re-ingested (upstream replaced 2026-10-14, retitled 人工智能部分); k1_admission_2627 recovered 0.333→0.923. All re-checked ok."
     ]
   },
   "rows": {
@@ -492,12 +493,6 @@
       "matched_field": "title",
       "severity": null
     },
-    "edbcm141_2025_blnst": {
-      "status": "ok",
-      "coverage": 0.882,
-      "matched_field": "title",
-      "severity": null
-    },
     "edbcm183_2023_values_edu": {
       "status": "ok",
       "coverage": 0.933,
@@ -877,10 +872,10 @@
       "severity": null
     },
     "k1_admission_2627": {
-      "status": "flagged",
-      "coverage": 0.333,
-      "matched_field": "title_short",
-      "severity": "review"
+      "status": "ok",
+      "coverage": 0.923,
+      "matched_field": "title",
+      "severity": null
     },
     "kg_admin_guide": {
       "status": "ok",
@@ -1261,6 +1256,24 @@
       "severity": null
     },
     "values_edu_framework_2026": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "edbcm170_2026_blnst": {
+      "status": "ok",
+      "coverage": 0.882,
+      "matched_field": "title",
+      "severity": null
+    },
+    "blnst_faq_2026": {
+      "status": "ok",
+      "coverage": 1.0,
+      "matched_field": "title",
+      "severity": null
+    },
+    "sdp_guide_dss": {
       "status": "ok",
       "coverage": 1.0,
       "matched_field": "title",

@@ -35,11 +35,6 @@
    "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-registration/about-sch-registration/4a_cguide-change sch name_Mar 2026.pdf",
    "chunks": 3
   },
-  "sdp_guide": {
-   "title": "如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）",
-   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf",
-   "chunks": 5
-  },
   "bip_insurance_notes_2025": {
    "title": "學校綜合保險計劃摘要說明 (2025/26 及 2026/27)",
    "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch/sch-safety/BIP_Explanatory_Notes_c 2025.pdf",
@@ -59,6 +54,16 @@
    "title": "資助學校緊急修葺申請指導資料",
    "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/Guidance Notes for Submission of Emergency Repairs (ER) Requests by Aided Schools_Chi_202507(clean).pdf",
    "chunks": 7
+  },
+  "sdp_guide": {
+   "title": "如何編寫「學校發展計劃」（適用於簽訂首份校董會/法團校董會服務合約的資助學校）",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guideline-c-(for%20aided%20schools).pdf",
+   "chunks": 5
+  },
+  "sdp_guide_dss": {
+   "title": "如何編寫「學校發展計劃」（適用於簽訂首份校董會/法團校董會服務合約的直資學校）",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guideline-c-(for%20DSS%20schools).pdf",
+   "chunks": 5
   }
  },
  "n_buckets": 3

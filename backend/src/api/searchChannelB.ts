@@ -388,7 +388,8 @@ const SOURCE_SETS: Record<string, string[]> = {
     "imc_election_guides",          // 家長/教師/校友校董選舉指引 + 委任五步曲
     "g02",                          // 法團校董會財務管理指引 (IMC family)
     "coa_imc_1_19",                 // 資助則例 (IMC version)
-    "sdp_guide",                    // 如何編寫學校發展計劃 (IMC service-contract)
+    "sdp_guide",                    // 如何編寫學校發展計劃 (IMC service-contract) — S242: aided edition
+    "sdp_guide_dss",                // S242: 如何編寫學校發展計劃 — DSS edition
     "smc_constitution_sample",      // S168: SMC 學校管理委員會章程樣本 (補 SMC 內容 gap, corpus 一直 IMC-heavy)
     "role_facts_general",
     "edbc016_2026",              // (auto) Option A watcher ingest
@@ -463,7 +464,8 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g11",               // 擬定校曆表指引
     "sag_2025_11",       // School Administration Guide (HR sections)
     // S142 EDB-sweep §1 — staffing/appointment/BLNST policy
-    "edbc13_2022_blnst", "edbcm141_2025_blnst",
+    // S242: edbcm141_2025_blnst retired (withdrawn upstream) → circular 170/2026 + Sept-2026 FAQ
+    "edbc13_2022_blnst", "edbcm170_2026_blnst", "blnst_faq_2026",
     // S209: blnst_test_notes_nondeg + blnst_test_candidate_notes removed — the
     // 2026-06-07 sitting notes expired and EDB withdrew the whole notes family.
     // The circular and the circular memo above carry the durable BLNST rules.
@@ -592,7 +594,7 @@ const SOURCE_SETS: Record<string, string[]> = {
    */
   gov_admin: [
     "icac_school_governance", "fundraising_guide", "edbcm_major_repairs_grant",
-    "edbc14_2024_spms", "sch_extension_guide", "sch_name_change_guide", "sdp_guide",
+    "edbc14_2024_spms", "sch_extension_guide", "sch_name_change_guide", "sdp_guide", "sdp_guide_dss",
     "bip_insurance_notes_2025", "major_repairs_proc_nonestate", "major_repairs_proc_estate",
     "emergency_repairs_guide",
     "sag_2025_11",
