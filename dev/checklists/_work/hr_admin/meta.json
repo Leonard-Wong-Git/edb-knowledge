@@ -25,11 +25,6 @@
    "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/EDBC13_2022_tc.pdf",
    "chunks": 6
   },
-  "edbcm141_2025_blnst": {
-   "title": "教育局通函第141/2025號 教師《基本法及香港國安法》測試",
-   "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/EDBCM1412025_tc.pdf",
-   "chunks": 5
-  },
   "blnst_test_notes_nondeg": {
    "title": "基本法及香港國安法測試（非學位程度）申請人須知",
    "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/Notes_ND_tc.pdf",
@@ -84,6 +79,11 @@
    "title": "學校曆／一般假期／上課日數計算指引",
    "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/resource-support/guidelines-sch-calendar/General Holidays_2526_C.pdf",
    "chunks": 6
+  },
+  "edbcm170_2026_blnst": {
+   "title": "教育局通函第170/2026號 2026/27學年《基本法及香港國安法》測試安排",
+   "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/EDBCM_1702026_tc.pdf",
+   "chunks": 5
   }
  },
  "n_buckets": 3

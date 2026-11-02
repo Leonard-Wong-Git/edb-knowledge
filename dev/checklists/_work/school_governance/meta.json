@@ -36,8 +36,13 @@
    "chunks": 37
   },
   "sdp_guide": {
-   "title": "如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）",
-   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf",
+   "title": "如何編寫「學校發展計劃」（適用於簽訂首份校董會/法團校董會服務合約的資助學校）",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guideline-c-(for%20aided%20schools).pdf",
+   "chunks": 5
+  },
+  "sdp_guide_dss": {
+   "title": "如何編寫「學校發展計劃」（適用於簽訂首份校董會/法團校董會服務合約的直資學校）",
+   "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guideline-c-(for%20DSS%20schools).pdf",
    "chunks": 5
   }
  },

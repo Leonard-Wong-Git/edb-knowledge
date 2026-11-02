@@ -233,6 +233,16 @@ for _sid in REFRESH_S238:
     PILOT_LEGACY[_sid] = [_cur]
     PILOT_OUT[_sid] = _cur
 
+# S242 cover-title refresh (Leonard approved, Issue #72): sdp_guide now points at the
+# 2026-09 aided-school edition (the 2010 URL is 404); iit_ai_framework_2026 was replaced
+# in place upstream on 2026-10-14. iit had a non-repaged extract, so it moves to _repaged.
+PILOT_LEGACY["sdp_guide"] = [VAULT_DIR / "sdp_guide" / "extract_sdp_guide_repaged.txt"]
+PILOT_OUT["sdp_guide"] = VAULT_DIR / "sdp_guide" / "extract_sdp_guide_repaged.txt"
+PILOT_LEGACY["iit_ai_framework_2026"] = [
+    VAULT_DIR / "iit_ai_framework_2026" / "extract_iit_ai_framework_2026.txt"]
+PILOT_OUT["iit_ai_framework_2026"] = (
+    VAULT_DIR / "iit_ai_framework_2026" / "extract_iit_ai_framework_2026_repaged.txt")
+
 
 def fetch_pdf(url: str) -> bytes:
     """Fetch PDF via urllib; fall back to unverified SSL only if Mac

@@ -20855,10 +20855,6 @@
      "教育局通告第13/2022號 新聘任教師《基本法及香港國安法》測試",
      "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/EDBC13_2022_tc.pdf"
     ],
-    "edbcm141_2025_blnst": [
-     "教育局通函第141/2025號 教師《基本法及香港國安法》測試",
-     "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/EDBCM1412025_tc.pdf"
-    ],
     "edbc14_2023_student_protect": [
      "教育局通告第14/2023號 加強保障學童的措施",
      "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/EDBC_14_2023_TC.pdf"
@@ -20902,6 +20898,10 @@
     "sag_2025_11": [
      "學校行政手冊（2026年8月版）",
      "https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf"
+    ],
+    "edbcm170_2026_blnst": [
+     "教育局通函第170/2026號 2026/27學年《基本法及香港國安法》測試安排",
+     "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/blnst/EDBCM_1702026_tc.pdf"
     ]
    },
    "sections": [
@@ -21561,18 +21561,18 @@
       },
       {
        "req": "《基本法及香港國安法》測試（非學位程度）的及格成績只適用於申請非學位教席；如教師於非學位程度測試取得及格成績而日後取得學位資歷後轉職學位教席，須另行應考學位程度的測試。",
-       "page": 3,
-       "source_id": "edbcm141_2025_blnst"
+       "page": 2,
+       "source_id": "edbcm170_2026_blnst"
       },
       {
        "req": "學校查核《基本法及香港國安法》測試資格時，可接受紙本成績通知書或公務員事務局電子成績證書的列印版本；電子成績證書備有「認證易」二維碼，學校可登入「認證易」網站（www.eproof.gov.hk）驗證其真實性，結果以綠色框「已認證」或紅色框「已被註銷」顯示。",
        "page": 3,
-       "source_id": "edbcm141_2025_blnst"
+       "source_id": "edbcm170_2026_blnst"
       },
       {
        "req": "學校每學年初須透過電子化服務入門網站向教育局呈交所有新聘任教師的《基本法及香港國安法》測試資料。",
        "page": 3,
-       "source_id": "edbcm141_2025_blnst"
+       "source_id": "edbcm170_2026_blnst"
       },
       {
        "req": "由2021/22學年開始，教育局為所有註冊教師每三年進行一次刑事紀錄查核，以防有刑事紀錄的註冊教師出現漏報或隱瞞的情況。",
@@ -26433,8 +26433,8 @@
      "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-registration/about-sch-registration/4a_cguide-change sch name_Mar 2026.pdf"
     ],
     "sdp_guide": [
-     "如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）",
-     "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf"
+     "如何編寫「學校發展計劃」（適用於簽訂首份校董會/法團校董會服務合約的資助學校）",
+     "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guideline-c-(for%20aided%20schools).pdf"
     ],
     "bip_insurance_notes_2025": [
      "學校綜合保險計劃摘要說明 (2025/26 及 2026/27)",
@@ -26443,6 +26443,10 @@
     "sag_2025_11": [
      "學校行政手冊（2026年8月版）",
      "https://www.edb.gov.hk/attachment/tc/sch-admin/regulations/sch-admin-guide/SAG_C_markup.pdf"
+    ],
+    "sdp_guide_dss": [
+     "如何編寫「學校發展計劃」（適用於簽訂首份校董會/法團校董會服務合約的直資學校）",
+     "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guideline-c-(for%20DSS%20schools).pdf"
     ]
    },
    "sections": [
@@ -27383,7 +27387,7 @@
       {
        "req": "學校必須在開辦／參加直資後六個月內呈交學校發展計劃予所屬高級學校發展主任核准。",
        "page": 1,
-       "source_id": "sdp_guide"
+       "source_id": "sdp_guide_dss"
       },
       {
        "req": "學校發展計劃須經校董會／法團校董會批核，並由校監簽署作實。",
@@ -27397,7 +27401,7 @@
       },
       {
        "req": "教育局以學校發展計劃作為評審學校在首份校董會／法團校董會服務合約期內表現的準則。",
-       "page": 2,
+       "page": 1,
        "source_id": "sdp_guide"
       },
       {
@@ -29018,8 +29022,8 @@
      "https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf"
     ],
     "sdp_guide": [
-     "如何編寫學校發展計劃（首份校董會/法團校董會服務合約適用）",
-     "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guidleline-c-2010.10.pdf"
+     "如何編寫「學校發展計劃」（適用於簽訂首份校董會/法團校董會服務合約的資助學校）",
+     "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guideline-c-(for%20aided%20schools).pdf"
     ],
     "imc_governance_supplements": [
      "法團校董會管治補充指引（成立運作第5章・角色責任・會議・法例提醒・良好管治・行為守則）",
@@ -29040,6 +29044,10 @@
     "imc_briefing_qa": [
      "法團校董會簡介會問答（2013）",
      "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/corner-imc-sch/QA%20from_Briefing_30Jan2013.pdf"
+    ],
+    "sdp_guide_dss": [
+     "如何編寫「學校發展計劃」（適用於簽訂首份校董會/法團校董會服務合約的直資學校）",
+     "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-management-committee/about-sch-management-committee/SDP%20guideline-c-(for%20DSS%20schools).pdf"
     ]
    },
    "sections": [
@@ -30715,7 +30723,7 @@
       {
        "req": "經校舍分配獲派校舍的新校及參加直資計劃學校的校董會/法團校董會，均須與教育局簽署服務合約。",
        "page": 1,
-       "source_id": "sdp_guide"
+       "source_id": "sdp_guide_dss"
       },
       {
        "req": "由2010/11學年起，合併學校（指定豁免情況除外）須簽署校董會/法團校董會服務合約。",
@@ -31394,22 +31402,22 @@
       },
       {
        "req": "學校發展計劃的長遠及周年發展目標須經教育局與學校雙方同意，學校有責任確保達致有關目標。",
-       "page": 2,
+       "page": 1,
        "source_id": "sdp_guide"
       },
       {
        "req": "如學校未能達致個別表現指標，校董會須按教育局要求制訂跟進計劃以解決問題或改善情況。",
-       "page": 2,
+       "page": 1,
        "source_id": "sdp_guide"
       },
       {
        "req": "學校修訂學校發展計劃內的目標及指標，必須事先取得教育局的同意。",
        "page": 2,
-       "source_id": "sdp_guide"
+       "source_id": "sdp_guide_dss"
       },
       {
        "req": "學校發展計劃須包括具進展性的周年目標及長遠（三至五年）目標、表現指標及成功準則、評估機制和財政預算。",
-       "page": 3,
+       "page": 2,
        "source_id": "sdp_guide"
       },
       {
@@ -31420,7 +31428,7 @@
       {
        "req": "學校必須在開辦/參加直資後六個月內，呈交學校發展計劃予所屬高級學校發展主任核准。",
        "page": 3,
-       "source_id": "sdp_guide"
+       "source_id": "sdp_guide_dss"
       },
       {
        "req": "核准的學校發展計劃會納入服務合約，日後修改須先獲得高級學校發展主任的書面批准。",
@@ -31469,13 +31477,13 @@
       },
       {
        "req": "學校發展計劃是問責工具之一，須列出學校的長遠及周年發展目標，該等目標須經教育局與學校雙方同意，學校有責任確保達致有關目標。",
-       "page": 2,
+       "page": 1,
        "source_id": "sdp_guide"
       },
       {
        "req": "學校發展計劃的目標如有需要可修訂及改善，但必須事先取得教育局的同意。",
        "page": 2,
-       "source_id": "sdp_guide"
+       "source_id": "sdp_guide_dss"
       }
      ]
     },
