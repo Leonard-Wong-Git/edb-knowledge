@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-02T18:04:14Z",
+  "generatedAt": "2026-11-02T21:11:30Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17170,
@@ -60,8 +60,27 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-02T18:04:14Z",
-    "items": [],
+    "collectedAt": "2026-11-02T21:11:30Z",
+    "items": [
+      {
+        "kind": "freshness-change",
+        "level": "decision",
+        "headline": "EDB 文件內容有更新",
+        "hint": "有來源文件出現變動，待你決定是否更新知識庫。",
+        "since": "2026-11-02T19:21:18Z",
+        "url": "https://github.com/Leonard-Wong-Git/edb-knowledge/issues/77",
+        "number": 77
+      },
+      {
+        "kind": "new-source-discovery",
+        "level": "decision",
+        "headline": "發現新文件",
+        "hint": "EDB 網站出現新文件，待你篩選是否收錄。",
+        "since": "2026-11-02T19:53:15Z",
+        "url": "https://github.com/Leonard-Wong-Git/edb-knowledge/issues/78",
+        "number": 78
+      }
+    ],
     "ignored_outside": 0
   },
   "releaseGate": {
@@ -194,7 +213,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=3ef9ab6 · 啟動於 2026-11-02T18:04:01.095Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=3ef9ab6 · 啟動於 2026-11-02T21:11:18.632Z · Channel A 快取 455 條",
       "offenders": [],
       "offender_total": 0
     },
