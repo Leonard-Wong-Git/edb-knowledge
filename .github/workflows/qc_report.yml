@@ -73,6 +73,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           ssh-key: ${{ secrets.LEDGER_DEPLOY_KEY }}
+          # S242 — the tip of main, not the event's SHA. Queued runs (concurrency below)
+          # otherwise rebuild from the commit that triggered them, behind the report an
+          # earlier run already pushed.
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -136,9 +140,12 @@ jobs:
           fi
           STATUS=$(python3 -c "import json;print(json.load(open('qc_report.json'))['overallStatus'])")
           git commit -m "qc: regenerate knowledge-base QC report (${STATUS})"
-          # S239 — event-triggered runs can now land while another commit reaches main;
-          # this commit touches only its own two files, so a rebase cannot conflict.
-          git pull --rebase origin main
+          # S239 — event-triggered runs can now land while another commit reaches main.
+          # S242 — a rebase CAN conflict: on 2026-11-02 merging #73 (push) and closing
+          # Issue #72 (issues) queued two runs, and the second hit a content conflict in
+          # registry_drift.md against the first run's commit. Both files are fully
+          # regenerated, so this run's copy is the newer one: -X theirs keeps it.
+          git pull --rebase -X theirs origin main
           git push origin HEAD:main
 
       - name: Summary
