@@ -207,7 +207,7 @@ Record this at closeout so the next AI can detect wrong-root or workspace drift.
 |---|---|---|
 | Expected project root | `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft`（唯一目標；頂層 umbrella 只重定向至此） | 2026-06-22 (S176) |
 | Git root | 同 project root（repo `Leonard-Wong-Git/edb-knowledge`；勿 set private） | 2026-06-22 (S176) |
-| Branch / commit | `origin/main` = `da44e55`（S241 合併 PR #53）；線上執行碼 `da44e55`；工作與收工分支 `s241/model-migration-circular`（新 PR，含通函編號查找 `backend/src` 改動與 S241 收工文件）。**這是最後核實的快照，現況以 `workspace-health` 或 `git fetch` 為準。** | 2026-10-29 (S241) |
+| Branch / commit | `origin/main` = `814bd0c`（S242 合併 #73 `aeb6cb7`、#74 `3ef9ab6`、#75 `f7b988c`，其後機械人 QC commit）；線上執行碼 `3ef9ab6`；收工分支 `s242/closeout`（新 PR，只改治理文件）；#70 仍開著（內容已入 `main`）。**這是最後核實的快照，現況以 `workspace-health` 或 `git fetch` 為準。** | 2026-11-02 (S242) |
 | Worktree or parallel workspace | 無 | 2026-06-22 (S176) |
 | Uncommitted change summary | 無。S225 改動已合入 `40ae3cf`；生成檔 `dev/source/registry_drift.md` 與 main 一致。**`FEATURE_ROUTE_FIRST_SEARCH=1` 已於 Render 環境變數啟用（2026-09-09），該處只有 Leonard 改得到。** | 2026-09-14（S225） |
 | 治理檔 git 狀態 | ⚠️ `dev/SESSION_HANDOFF.md`／`dev/SESSION_LOG.md`／`START_NEXT_SESSION_PROMPT.txt` 雖列於 `.gitignore` 但**實際已 tracked**（早於 ignore 規則 commit；git 唔會 untrack 已追蹤檔）→ 每次收工照常 commit（見 S173–S175 closeout commits） | 2026-06-22 (S176) |

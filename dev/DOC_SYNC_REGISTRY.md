@@ -28,6 +28,23 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-11-02 — S242（封面核對三份換版／退役 ＋ `blnst` 路由 ＋ QC 撞車）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| 入庫「EDB 指引」類文件 | `confirmed` | `GUIDELINES_REGISTRY` 加 `blnst_faq_2026`、`sdp_guide`、`sdp_guide_dss`，iit 改標題；README 指引數目四處 181；`edbcm170_2026_blnst` 屬通函，不入指引書庫 |
+| Supabase 寫入 | `confirmed` | −10 +40，Leonard「全部批准」；舊資料連向量備份 `dev/init_backup/20261101_195421_UTC/`；生產 17,170／312 |
+| 公開片段數 display-sync | `confirmed` | `live_display_sync`／`live_sources_sync`：17,153 → 17,170、來源 312；`check_downstream_sync` MUST_UPDATE 0 |
+| `source_registry.json` ／ 封面基線 | `confirmed` | 退役 1、新增 3、換版 2；`title_baseline.json` 6 列更新；`check_source_titles` 6/6 ok |
+| 更新日誌 | `confirmed` | `update_log.json` 2026-11-01 一條（人手入庫須補，見記憶規則） |
+| 清單資料 | `confirmed` | 三個範疇 27 條條文改指新片段；`checklists_bundle.json` 已重產 |
+| 檢索路由（`SOURCE_SETS`／`TOPIC_KEYWORDS`／`QUERY_EXPANSIONS`） | `confirmed` | #73 三個路由集合、#74 新 `blnst`；`route_regression` 79 PASS、`route_blast_radius` 1/185（預期） |
+| 監察／狀態頁 | `confirmed` | `qc_report.yml` checkout `ref: main` ＋ rebase `-X theirs`；手動觸發一次 success；並發情況 `unverified` |
+| Deploy | `confirmed` | Render `aeb6cb7`、`3ef9ab6`，`/health` 實測；#75 不改 `backend/` |
+| `CODEBASE_CONTEXT.md`／`PROJECT_DECISIONS.md` | `not_applicable` | 無技術棧、指令或取捨改動（拆路由沿用 S204／S227 前例） |
+| `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並核對相等 |
+| Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4、`## User Environment` Git state、`PROJECT_INDEX` Branch / commit 列 |
+
 ### 2026-10-23 — S240（npm 依賴漏洞修補）
 
 | Row | 狀態 | 備註 |
