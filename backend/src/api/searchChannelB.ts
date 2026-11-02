@@ -423,6 +423,35 @@ const SOURCE_SETS: Record<string, string[]> = {
   ],
 
   /**
+   * Basic Law and National Security Law Test (BLNST) — 基本法及香港國安法測試 (S242).
+   *
+   * Split from hr_admin for the same reason as staffing (S204) and staff_appraisal (S227):
+   * hr_admin's QUERY_EXPANSIONS entry is leave/salary vocabulary, and it pulls a short
+   * BLNST query into the g04/SAG leave passages. Measured 2026-11-02 on the live corpus,
+   * best-ranked BLNST chunk (blnst_faq_2026 / edbcm170_2026_blnst / edbc13_2022_blnst):
+   *     query                      hr_admin raw   hr_admin expanded   this route expanded
+   *     基本法測試                       1               36                    1
+   *     BLNST                          319              81                    1
+   *     基本法及國家安全法測試             1               18                    1
+   *     教師入職 基本法 國安法 測試          2               18                    1
+   * The expansion below is the documents' own register; it is what makes the bare English
+   * acronym work at all (raw cosine 0.25 → 0.75). Members are the sources that state BLNST
+   * rules (ilike 「基本法*測試」 over wiki_chunks): circulars, FAQ, SAG appointment clauses,
+   * supply-teacher and KG guides, surplus-teacher arrangements, student-protection circular.
+   */
+  blnst: [
+    "edbcm170_2026_blnst",       // 通函170/2026 — 基本法及香港國安法測試
+    "blnst_faq_2026",            // 2026年9月 常見問題
+    "edbc13_2022_blnst",         // 教育局通告第13/2022號
+    "sag_2025_11",               // 學校行政手冊（聘任條款）
+    "supply_teacher_guide",      // 代課教師指引
+    "kg_admin_guide_2026",       // 幼稚園行政手冊（聘任）
+    "surplus_teacher_arr_2026",  // 過剩教師安排
+    "edbc14_2023_student_protect",
+    "role_facts_hr",
+  ],
+
+  /**
    * Teacher entry qualifications — 入職資歷／師資訓練／學位教師入職條件 (S211).
    *
    * Split from hr_admin for the same reason staffing was (S204): the route exists to carry
@@ -750,6 +779,10 @@ const SOURCE_SETS: Record<string, string[]> = {
 /** Keyword patterns for each category (Traditional Chinese). */
 const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // PLAN-1b selective routes (S118) — first-match precedence; keep first.
+  // S242 — BLNST. Placed FIRST: an 「入職」 or 「代課教師」 BLNST question would otherwise be
+  // taken by teacher_qualification / hr_admin and lose the answer to their expansions
+  // (see SOURCE_SETS.blnst). Tokens name the test itself, so nothing else is diverted.
+  blnst: /基本法.{0,10}測試|國安法.{0,4}測試|國家安全法.{0,4}測試|\bBLNST\b/i,
   // S211 — teacher entry qualifications. Placed FIRST, ahead of cpd, because cpd owns 師訓
   // and a question like 「中學師訓可唔可以教小學常額」 is about entry eligibility, not
   // professional development. Tokens are pre-service qualification nouns only (師資訓練／
@@ -902,7 +935,7 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
    * 氣體 and stealing 氣體定律 (route_regression known gaps).
    */
   staff_appraisal: /教師評核|員工考績|考績|教師表現管理|表現管理|評核人|受核人|年度表現評核|員工表現評核|職員表現評核/,
-  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|基本法.{0,4}測試|國安法.{0,4}測試|BLNST|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金|語文能力要求|語文基準|語文能力評核|基準試|準英語教師|英語教師獎學金/,
+  hr_admin: /假期|請假|病假|年假|婚假|侍產假|產假|特別假|補假|批假|薪酬|薪金|薪級|增薪點|津貼|教職員假|教師假|教師操守|專業操守|校曆|學年假|在職培訓日|教師註冊|註冊處|聘任|聘用|招聘|入職|教師資格|教席|常額教席|代課教師|過剩教師|共享教職|體格檢驗|加強保障學童|遣散費|長期服務金|長服金|語文能力要求|語文基準|語文能力評核|基準試|準英語教師|英語教師獎學金/,
   // NOTE: 資助則例 is deliberately absent here — TOPIC_KEYWORDS.finance already
   // owns it and is evaluated first, so a copy in hr_admin would be dead weight.
   // coa_pri_e / coa_ss_e are reachable because they sit in BOTH SOURCE_SETS.
@@ -970,6 +1003,8 @@ const QUERY_EXPANSIONS: Record<string, string> = {
   // the actual answer); dropping that pair costs SAG the top 80 entirely (measured).
   teacher_qualification:
     "小學師資訓練 學位教師入職條件 資助則例 助理小學學位教師 APSM 本地學士學位 新入職教師 核准編制內 小學實習課程 中學實習課程 師資訓練學歷 確認受聘人資歷",
+  // S242 — the circular's own register; see SOURCE_SETS.blnst for the measurement.
+  blnst:      "《基本法》及《香港國安法》測試 基本法及國安法測試 教師 聘任 入職 應考 豁免",
   hr_admin:   "教職員假期 批假 薪酬 操守 病假 首年 168日 上限 醫生證明 教師註冊 聘任",
   activity:   "全方位學習津貼 活動",
   // S142: safety + gov_admin intentionally have NO expansion. Their SOURCE_SETS span
