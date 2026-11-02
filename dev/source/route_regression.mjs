@@ -71,6 +71,13 @@ const CASES = [
   ["教師評核",                                    "staff_appraisal"], // S227（S226 為 hr_admin，再前為 curriculum）
   ["考績",                                        "staff_appraisal"], // S227
   ["教師表現管理",                                "staff_appraisal"], // S227
+  // S242 拆 blnst：hr_admin 的假期展開把短查詢「基本法測試」的答案由第 1 名推到第 36 名，
+  // 「BLNST」更在首 80 以外。新路由排第一，所以「入職」「代課教師」問法也要先到這裏。
+  ["基本法測試",                                  "blnst"],
+  ["BLNST",                                       "blnst"],
+  ["基本法及國家安全法測試",                      "blnst"],
+  ["代課教師要考基本法測試嗎",                    "blnst"],
+  ["教師入職 基本法 國安法 測試",                 "blnst"],
   // S227 對照組 —— 新路由排在 hr_admin 與 curriculum 之前，故必須證明它沒有搶走鄰居。
   // 三條都含「評核」或人事字眼，但都不屬考績。
   ["語文能力評核要求",                            "hr_admin"],        // hr_admin 自己的「評核」
@@ -142,6 +149,8 @@ const SOURCE_MEMBERSHIP = [
   // S228 — 路由改對咗但語料唔喺個 set 入面，等於冇改：edbcm144_2026 本來只靠 spotlight
   // overlay 露面，而 overlay 每次查詢最多只放行 1 條片段（SPOTLIGHT_MAX_LEADS），
   // 所以答案段落（p.3 / p.6）永遠入唔到窗。入 set 之後先有 MAX_PER_SOURCE 個名額競爭。
+  ["blnst", "edbcm170_2026_blnst", "基本法測試通函170/2026 必須可由 blnst 路由取得"],
+  ["blnst", "blnst_faq_2026", "基本法測試常見問題必須可由 blnst 路由取得"],
   ["kg_admin", "edbcm144_2026", "幼稚園搬遷津貼通函必須可由 kg_admin 路由取得，唔可以淨靠 spotlight 一格"],
 ];
 
