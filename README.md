@@ -2,7 +2,7 @@
 
 > 香港教育局（EDB）政策知識庫 — 專為學校管理人員而設
 
-[![Platform](https://img.shields.io/badge/platform-v3.3.15-teal)](CHANGELOG.md)
+[![Platform](https://img.shields.io/badge/platform-v3.3.16-teal)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![GitHub Pages](https://img.shields.io/badge/Frontend-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/edb-knowledge/app.html)
 [![Backend](https://img.shields.io/badge/Backend-Render-46E3B7)](https://edb-knowledge.onrender.com/health)
@@ -25,18 +25,18 @@
 |------|------|
 | ℹ️ **平台介紹** | 平台定位、動態統計（17,179 知識片段 / 182 指引 / 313 來源；片段與來源數由 `_meta.stats` 取，指引數由 `GUIDELINES_REGISTRY.length` 即時計）、核心功能說明 |
 | 🔍 **政策搜尋** | Channel-B 語義搜尋：從 17,179 個 EDB 官方原文知識片段檢索，整理回答並附原始文件出處（含頁碼）；可對回答評分 👍／👎；頁尾及回答下可「提供意見」（經 Google 表單送出） |
-| 📝 ~~**文件標註**~~〔S243 起收起待修〕 | **暫不對外開放**（`window.FEATURE_TABS.annotate = false`；2026-11-03 實測：相關指引幾乎不顯示、欠缺項目按清單次序而非相關度列出、部分符合配錯段落，修好並量度後才重開）。功能本體：上載學校文件（Word/.docx 最佳，或 PDF/貼文字），系統比對 EDB 指引 + 按合規清單檢查缺漏，生成一份**乾淨成品版** Word（S167）：原文保持乾淨可讀、AI 建議融入正文做普通文字（以「（建議補充）」標示、無螢光、可直接編輯、毋須接受修訂），所有建議說明與 EDB 官方出處集中文末附錄；Word/PDF/貼文字皆出。檔案在瀏覽器內抽取及生成，原始檔案不上載。**S161 合併** 舊「文件分析 + 文件修訂」兩 tab 而成（支援本校校類 小/中/特/幼 + 合規範疇 自動偵測／自選） |
+| 📝 ~~**文件標註**~~〔S243 起收起待修〕 | 暫不對外開放（`window.FEATURE_TABS.annotate = false`）。2026-11-03 實測輸出可能誤導，重開條件見 CHANGELOG〔文件標註收起待修〕。後端端點保留。 |
 | 📚 **指引文件庫** | 182 份官方 EDB 指引（in-app 瀏覽庫；公開 `guidelines.json` 端點為 151 份全集投影），按類別 → 子類別 → 年份三層分組導覽 |
 
-> 公眾 app（`app.html`）為 **Channel-B-only 唯讀**，現行 **三 tab**（平台介紹 / 政策搜尋 / EDB指引）；「📝 文件標註」（S243，收起待修）以 `window.FEATURE_TABS` 收起中；「範本下載」及其 109 份 Word 範本已於 S243 刪除，面板 code 原封未動。S151 移除 admin；S161 將 文件分析+文件修訂 合併為「文件標註」、政策範本→範本下載。Channel A 人工策展 / 管理員登入功能已移除；`role_facts.json` / `knowledge.json` 凍結 @455 仍作對外資料契約。
+> 公眾 app（`app.html`）只以附出處的 EDB 原文作答，現行 **三 tab**（平台介紹 / 政策搜尋 / EDB指引）；「📝 文件標註」（S243，收起待修）以 `window.FEATURE_TABS` 收起中。S243 已刪除：「範本下載」分頁及 109 份 Word 範本、休眠頁 `q.html`（快速問答）與 `t-purchase.html`（採購範本起草流程）、手機版「選擇角色」畫面，面板 code 原封未動。S151 移除 admin；S161 將 文件分析+文件修訂 合併為「文件標註」、政策範本→範本下載。Channel A 人工策展 / 管理員登入功能已移除；`role_facts.json` / `knowledge.json` 凍結 @455 仍作對外資料契約。
 
 ### 📱 響應式 / 手機版範圍
 
 `mobile.css` + `mobile.js` 偵測 **視窗闊度 ≤640px** 時啟用手機 shell。**S211 起唔再睇裝置 UA**：`mobile.css` 全份規則都喺 `@media (max-width: 640px)` 之內，舊有「或手機 UA」一閘令 iPad／平板／手機橫放（UA 係手機但闊過 640px）建出一個冇樣式嘅 shell，將真身 app 推低約 362px。闊過 640px 嘅流動裝置現改用響應式桌面版面。
 
-底部導航入口由 `window.FEATURE_TABS` 過濾，現行 **3 個**：🔍 搜尋 / 📚 指引文件 / ℹ️ 平台介紹（📋 範本下載已於 S243 刪除）。首次開啟顯示 **4 步導覽（onboarding tour）**，開場白嘅功能數目由過濾後入口數推算（S211，唔再寫死），再引導選擇崗位角色（`k1_mobile_tour_v1` localStorage gate）。
+底部導航入口由 `window.FEATURE_TABS` 過濾，現行 **3 個**：🔍 搜尋 / 📚 指引文件 / ℹ️ 平台介紹（📋 範本下載已於 S243 刪除）。首次開啟顯示 **3 步導覽（onboarding tour）**（S243 起不再接「選擇角色」畫面），開場白嘅功能數目由過濾後入口數推算（S211，唔再寫死），再引導選擇崗位角色（`k1_mobile_tour_v1` localStorage gate）。
 
-> ⚠️ `mobile.css` / `mobile.js` 喺 4 個 HTML 以 `?v=<PLATFORM_VERSION>` 引用作快取鍵。**改動呢兩個檔必須同時推 `PLATFORM_VERSION`**，否則回頭客會繼續讀快取舊檔（S211 實際撞過，差啲推咗個空氣修正）。
+> ⚠️ `mobile.css` / `mobile.js` / `feedback.js` 喺 `index.html`、`app.html` 以 `?v=<PLATFORM_VERSION>` 引用作快取鍵。**改動呢兩個檔必須同時推 `PLATFORM_VERSION`**，否則回頭客會繼續讀快取舊檔（S211 實際撞過，差啲推咗個空氣修正）。
 
 | 功能 | 手機 | 桌面 |
 |------|:----:|:----:|
@@ -69,7 +69,7 @@
 |---|---|
 | `POST /api/search/channel-b` | 政策搜尋（語義檢索 + LLM 合成）；真實搜尋留底 180 日並回傳 `log_id`（S233） |
 | `POST /api/search/feedback` | 對整理答案評分 👍／👎（`{log_id, rating}`） |
-| `POST /api/analyze-document` · `POST /api/annotate-document` | 文件標註（逐段比對 EDB 指引 / 生成標註成品） |
+| `POST /api/analyze-document` · `POST /api/annotate-document` | 文件標註（逐段比對 EDB 指引 / 生成標註成品）；前端分頁收起中，端點保留 |
 | `POST /api/checklist-revise` · `GET /api/checklist-domains` | 合規清單 gap 檢查 / 清單範疇 |
 | `GET /health` | 健康檢查 |
 
@@ -114,7 +114,6 @@ EDB PDF → dev/vault/<source_id>/extract_*.txt → dev/ingest_one_source.py（�
 edb-knowledge/
 ├── app.html                    # K1 知識平台主應用（React SPA）
 ├── index.html                  # 入口頁
-├── t-purchase.html             # 採購範本流程
 ├── stats.json                  # 公開統計（片段數、來源數；入庫時自動同步）
 ├── guidelines.json             # 指引文件庫（公開 API）
 ├── CHANGELOG.md                # 版本歷史
@@ -127,8 +126,7 @@ edb-knowledge/
 └── dev/
     ├── knowledge/
     │   ├── channel_a_option2_queue.json  # 已退役 455 條的內部處理清單（不公開）
-    │   ├── policy_signals.json # Circular System 政策訊號
-    │   └── candidate_queue.json
+    │   └── policy_signals.json # Circular System 政策訊號（舊）
     ├── vault/                  # PDF 提取腳本
     ├── CODEBASE_CONTEXT.md     # 平台整體架構說明
     ├── CIRCULAR_SYSTEM_INTEGRATION.md  # edb_scraper.py 整合規格
@@ -181,8 +179,8 @@ FEATURE_EXACT_WINDOW_NARROW=0          # 各 flag 說明見 backend/README.md
 
 ## 數據來源
 
-所有事實均來自香港教育局官方文件，包括教育局通告、課程指引、學校行政手冊等 300 份文件。每條事實均附原始文件連結，確保可追溯性。
+所有答案均以香港教育局官方文件原文為依據，包括教育局通告、通函、課程指引、學校行政手冊等 313 份來源，並附原始文件連結與頁碼，確保可追溯。
 
 ---
 
-*最後更新：2026-10-30 | 平台 v3.3.15 | 維護：leonard-wong-git*
+*最後更新：2026-11-03 | 平台 v3.3.16 | 維護：leonard-wong-git*

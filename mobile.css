@@ -5,7 +5,7 @@
  * Reference: Tado app + Pantone Cloud Dancer 2026 + DesignRush
  *            functional storytelling + ui-ux-responsive Part B/C
  *
- * 3 HTML 共用：index.html / app.html / t-purchase.html
+ * 2 HTML 共用：index.html / app.html
  * ============================================================ */
 
 /* ── Activation Guard：所有 mobile-only style 必須包在 media query 內 ── */

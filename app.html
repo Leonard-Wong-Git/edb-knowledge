@@ -766,9 +766,9 @@ body {
  */
 window.FEATURE_TABS = { about: true, qa: true, annotate: false, guidelines: true };
 </script>
-<link rel="stylesheet" href="mobile.css?v=3.3.15">
-<script src="mobile.js?v=3.3.15" defer></script>
-<script src="feedback.js?v=3.3.15" defer></script>
+<link rel="stylesheet" href="mobile.css?v=3.3.16">
+<script src="mobile.js?v=3.3.16" defer></script>
+<script src="feedback.js?v=3.3.16" defer></script>
 </head>
 <body>
 <div id="root"></div>
@@ -1314,7 +1314,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // retired with Channel A in S243). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + 文件標註（就地標註）+ 合規清單修訂，跨 15 個合規範疇（範本下載已於 S243 刪除）。
-const PLATFORM_VERSION = '3.3.15';
+const PLATFORM_VERSION = '3.3.16';
 // S204 — tab switches; defined in a plain <script> in <head> so mobile.js can read them
 // at its DOMContentLoaded init, which runs BEFORE this Babel script compiles.
 const FEATURE_TABS = window.FEATURE_TABS;
@@ -1322,7 +1322,7 @@ const FEATURE_TABS = window.FEATURE_TABS;
 // S231 — the backend origin, defined once. It used to be spelt out four times (one inline
 // literal and three constants, one of them never read), and only the 文件標註 copies switched
 // to the local backend on localhost, so a local preview searched production. mobile.js keeps
-// its own copy because it also runs on index.html / t-purchase.html, which do not
+// its own copy because it also runs on index.html, which does not
 // load this script.
 const BACKEND_URL = (typeof location !== 'undefined' && location.hostname === 'localhost')
   ? 'http://localhost:8787' : 'https://edb-knowledge.onrender.com';
@@ -2952,7 +2952,7 @@ async function buildChangeSummaryDocx(docText, findings, meta) {
 // the header "使用教學" button. Pure client-side; no backend / data-contract contact.
 const TOUR_FLAG = 'k1_tour_done_v1';
 const TOUR_STEPS = [
-  { icon: '👋', title: '歡迎使用香港學校政策搜尋平台', body: '呢個平台幫學校快速查閱教育局（EDB）政策指引、為學校文件做合規標註、亦可下載政策範本。一分鐘導覽，帶你睇下五大功能點用。', cta: null },
+  { icon: '👋', title: '歡迎使用香港學校政策搜尋平台', body: '呢個平台幫學校快速查閱教育局（EDB）政策指引。（本句於載入時按現有功能重寫）', cta: null },
   { icon: '🔍', title: '政策搜尋', body: '輸入關鍵字（例如「校車安全」「法團校董會」），平台會喺 EDB 指引與通告中搵出相關內容，附來源頁碼，可直接跳去官方原文 PDF。', cta: { label: '去政策搜尋', view: 'qa' } },
   { icon: '📝', title: '文件標註', body: '上載學校政策文件（Word 最佳），AI 比對 EDB 指引同合規清單，標出建議，生成一份「乾淨成品版」供你下載編輯——Word 上載會保留原有標題／編號／格式。', cta: { label: '去文件標註', view: 'annotate' } },
   { icon: '📚', title: 'EDB 指引文件庫', body: '分類整理嘅 EDB 官方指引文件，可預覽並跳去官方原文，按範疇與時序排列。', cta: { label: '去指引文件庫', view: 'guidelines' } },

@@ -1,5 +1,5 @@
 /* ============================================================
- * feedback.js — 「提供意見」面板（共用：app.html / index.html / t-purchase.html，桌面與手機）
+ * feedback.js — 「提供意見」面板（共用：app.html / index.html，桌面與手機）
  *
  * Same shape as NetworkChecker's feedback panel and the playbook card
  * `feedback-google-form-prefill`: the page never sends anything itself. "送出" opens the

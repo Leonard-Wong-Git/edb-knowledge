@@ -6,7 +6,7 @@
  *        bottom tab navigation cross-page.
  * Desktop: completely no-op（detection guard）.
  *
- * 3 HTML 共用：index.html / app.html / t-purchase.html（q.html 已於 S243 刪除）
+ * 2 HTML 共用：index.html / app.html（q.html、t-purchase.html 已於 S243 刪除）
  * ============================================================ */
 
 (function () {
@@ -45,26 +45,11 @@
   // Guard: bind the same-document hashchange→reload handler only once.
   let hashReloadBound = false;
 
-  // ── 2. Role definitions (synced with k1 platform schema) ──
-  const ROLES = [
-    { key: 'principal',      label: '校長 / 副校長',     desc: '政策決策、採購審批、財務合規',          color: '#BF360C' },
-    { key: 'panel_chair',    label: '科主任 / 統籌主任', desc: '課程政策、SEN 支援、CPD 要求',          color: '#283593' },
-    { key: 'subject_head',   label: '科主任',            desc: '學科課程及評估安排',                     color: '#1565C0' },
-    { key: 'teacher',        label: '教師',              desc: '請假手續、課時安排、職務責任',          color: '#1B5E20' },
-    { key: 'eo_admin',       label: '行政人員 / EO',     desc: '採購程序、津貼使用、會議記錄',          color: '#4527A0' },
-    { key: 'all_roles',      label: '一般用戶（不指定）', desc: '查閱所有角色適用嘅政策事實',            color: '#5C6A63' },
-  ];
-
-  const ROLE_STORAGE_KEY = 'k1-mobile-role';
+  // ── 2. First-run tour flag ──
+  // S243 — the role picker (校長／科主任／教師…) is gone: it was built for the retired Channel A
+  // fact base, which was bucketed by role. The role never reached the search request, so the
+  // picker's promise to 「根據角色精準篩選」 was false once Channel A stopped serving.
   const MOBILE_TOUR_FLAG = 'k1_mobile_tour_v1';
-
-  function getStoredRole() {
-    try { return localStorage.getItem(ROLE_STORAGE_KEY); }
-    catch (_) { return null; }
-  }
-  function storeRole(key) {
-    try { localStorage.setItem(ROLE_STORAGE_KEY, key); } catch (_) {}
-  }
 
   function getMobileTourDone() {
     try { return !!localStorage.getItem(MOBILE_TOUR_FLAG); } catch (_) { return true; }
@@ -91,7 +76,7 @@
         + (CN_NUM[mobileFeatureCount()] || mobileFeatureCount()) + '個主要功能讓你告別翻文件。' },
     { icon: '🔍', title: '政策搜尋', body: '輸入 1–3 個關鍵字（例如「教師病假」「採購 5 萬」），AI 即時比對 EDB 官方指引，附來源頁碼，可直跳 PDF 對應頁。' },
     { icon: '📚', title: '指引文件庫', body: '分類整理嘅 EDB 官方指引文件——課程、財務、SEN、幼稚園等。點下方「📚 指引文件」打開。' },
-    { icon: '✅', title: '準備好了！', body: '接下來請選擇你嘅崗位角色，系統會根據角色精準篩選最相關嘅政策事實。' },
+    { icon: '✅', title: '準備好了！', body: '所有答案均附 EDB 原文出處與頁碼；重要決定請以教育局官方原文為準。' },
   ];
 
   function showMobileTour(onDone) {
@@ -166,60 +151,6 @@
       placeholderIndex = (placeholderIndex + 1) % PLACEHOLDER_QUERIES.length;
       setAll();
     }, 5000);
-  }
-
-  // ── 4. Build role picker overlay ──
-  function buildRolePickerHTML() {
-    let html = '';
-    html += '<div class="m-role-picker-eyebrow">香港學校政策搜尋平台 · 第一次使用</div>';
-    html += '<h2>請選擇你的角色</h2>';
-    html += '<p style="text-align:center;color:var(--m-text-secondary);font-size:var(--m-text-sm);margin:0 0 var(--m-sp-md)">影響搜尋結果的角色適用標籤；之後可在設定改變</p>';
-    ROLES.forEach(r => {
-      html += '<button class="m-role-option" data-role-key="' + r.key + '" aria-pressed="false">';
-      html += '  <span class="m-role-option-dot" style="background:' + r.color + '"></span>';
-      html += '  <span style="flex:1">';
-      html += '    <span class="m-role-option-name">' + r.label + '</span>';
-      html += '    <span class="m-role-option-desc">' + r.desc + '</span>';
-      html += '  </span>';
-      html += '</button>';
-    });
-    html += '<button class="m-role-picker-cta" disabled>確認選擇</button>';
-    return html;
-  }
-
-  function showRolePicker() {
-    let overlay = document.getElementById('m-role-picker');
-    if (!overlay) {
-      overlay = document.createElement('div');
-      overlay.id = 'm-role-picker';
-      overlay.className = 'm-role-picker';
-      overlay.setAttribute('role', 'dialog');
-      overlay.setAttribute('aria-modal', 'true');
-      overlay.innerHTML = buildRolePickerHTML();
-      document.body.appendChild(overlay);
-    }
-    overlay.setAttribute('aria-hidden', 'false');
-
-    let selected = null;
-    overlay.querySelectorAll('.m-role-option').forEach(btn => {
-      btn.addEventListener('click', () => {
-        overlay.querySelectorAll('.m-role-option').forEach(b => b.setAttribute('aria-pressed', 'false'));
-        btn.setAttribute('aria-pressed', 'true');
-        selected = btn.dataset.roleKey;
-        const cta = overlay.querySelector('.m-role-picker-cta');
-        if (cta) cta.disabled = false;
-      });
-    });
-    const cta = overlay.querySelector('.m-role-picker-cta');
-    if (cta) {
-      cta.addEventListener('click', () => {
-        if (!selected) return;
-        storeRole(selected);
-        overlay.setAttribute('aria-hidden', 'true');
-        // Optional: trigger a custom event for pages that want to react
-        document.dispatchEvent(new CustomEvent('k1-role-selected', { detail: { role: selected } }));
-      });
-    }
   }
 
   // ── 5. Bottom tab bar (3 entries: 搜尋 / 指引文件 / 平台介紹；範本下載 S243 刪除) ──
@@ -821,11 +752,6 @@
           buildIndexShell();
           shellBuilt = true;
         }
-      } else if (here === 't-purchase.html') {
-        if (typeof buildTPurchaseShell === 'function') {
-          buildTPurchaseShell();
-          shellBuilt = true;
-        }
       }
     } catch (err) {
       // A builder existed but threw mid-render. Bail out of the takeover so the
@@ -845,11 +771,9 @@
     // Build tab bar (every page)
     buildTabBar();
 
-    // S175 — First-run sequence: tour (if new) → role picker (if no role set yet)
+    // S175 — first-run tour (S243: the role picker that followed it is removed)
     if (!getMobileTourDone()) {
-      showMobileTour(function () { if (!getStoredRole()) showRolePicker(); });
-    } else if (!getStoredRole()) {
-      showRolePicker();
+      showMobileTour();
     }
 
     // Start placeholder rotation (only if .m-search-input exists on this page)
