@@ -34,7 +34,7 @@
 
 `mobile.css` + `mobile.js` 偵測 **視窗闊度 ≤640px** 時啟用手機 shell。**S211 起唔再睇裝置 UA**：`mobile.css` 全份規則都喺 `@media (max-width: 640px)` 之內，舊有「或手機 UA」一閘令 iPad／平板／手機橫放（UA 係手機但闊過 640px）建出一個冇樣式嘅 shell，將真身 app 推低約 362px。闊過 640px 嘅流動裝置現改用響應式桌面版面。
 
-底部導航入口由 `window.FEATURE_TABS` 過濾，現行 **3 個**：🔍 搜尋 / 📚 指引文件 / ℹ️ 平台介紹（📋 範本下載已於 S243 刪除）。首次開啟顯示 **3 步導覽（onboarding tour）**（S243 起不再接「選擇角色」畫面），開場白嘅功能數目由過濾後入口數推算（S211，唔再寫死），再引導選擇崗位角色（`k1_mobile_tour_v1` localStorage gate）。
+底部導航入口由 `window.FEATURE_TABS` 過濾，現行 **3 個**：🔍 搜尋 / 📚 指引文件 / ℹ️ 平台介紹（📋 範本下載已於 S243 刪除）。首次開啟顯示 **4 步導覽（onboarding tour）**（S243 起不再接「選擇角色」畫面），開場白嘅功能數目由過濾後入口數推算（S211，唔再寫死），再引導選擇崗位角色（`k1_mobile_tour_v1` localStorage gate）。
 
 > ⚠️ `mobile.css` / `mobile.js` / `feedback.js` 喺 `index.html`、`app.html` 以 `?v=<PLATFORM_VERSION>` 引用作快取鍵。**改動呢兩個檔必須同時推 `PLATFORM_VERSION`**，否則回頭客會繼續讀快取舊檔（S211 實際撞過，差啲推咗個空氣修正）。
 

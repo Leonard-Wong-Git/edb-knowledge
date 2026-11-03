@@ -39,6 +39,30 @@ When current work requires a log entry, record whether relevant older detail was
 
 <!-- ack:log-entry:start -->
 
+## 2026-11-03 Session 243 — 新文件 #78 分流與入庫、Channel A（455 條）退役、文件標註收起待修、刪除範本下載與兩個休眠頁
+
+- **ID:** S243（Claude_20261103_0930）
+- **Summary:** 由頂層 root「/handoff-kit-start」轉入 Draft。Leonard 問新文件電郵（#78 二十份含 2017 年）→「逐份判斷」→「批准入庫」→ 問搜尋紀錄拒答原因與 455 條去留 →「做 1 3 …4 刪去」→「用 /jev 核對副本」→ 文件標註實測與 Jev 第二意見 →「收起待修」→「範本 Word 檔刪去」→「t-purchase.html 刪除」→ 每個 PR「CI 綠後合併」（#79–#84）→「收工」。
+- **Changed:** PR #79 入庫 `moi_3rd_cycle_policy_2021`（登記冊、vault、`SOURCE_SETS.moi`＋「化時為科」觸發詞、route_regression、指引書庫 182、更新日誌、公開數字）· #80 Channel A 退役（刪 `knowledge.json`／`role_facts.json`／`q.html`／`K1_KNOWLEDGE_INTERFACE_SPEC.md`、後端 3 條路由與 9 個模組；`approved_fact` 全數停服；新 `stats.json`、`dev/knowledge/channel_a_option2_queue.json`；QC、狀態頁、execute_ingest 改讀 stats.json）· #81 文件標註收起＋Jev 判斷閘 `dev/source/jev/channel_a_match_gate.json` · #82 標註按鈕補開關 · #83 刪範本分頁、109 份 Word、生成腳本 · #84 刪 `t-purchase.html`、手機版選擇角色畫面、README 對齊。
+- **Done:**
+  - **#78 分流**：二十份是監察首次掃描 S241／S242 新增的三個來源頁（教學語言、IIT、基本法測試）而一次過列出；逐份讀全文，只有 2021-04-29 第三周期政策函件值得入庫（庫內 07-06 跟進函寫明須與之一併閱讀），其餘 19 份 Leonard 定「不入」；#78 等監察下週一自動關閉（Leonard 指示）。
+  - **入庫**：Supabase +9（17,170 → 17,179，來源 313）。
+  - **Channel A 退役**：線上 `/api/search/channel-a`、`combined`、`analyze-circular` 回 404；搜尋頭 5 位不再出現無出處副本；首頁與平台介紹不再顯示 455。
+  - **文件標註**：線上實測三個質素問題（相關指引幾乎不顯示、欠缺按清單次序、部分符合配錯段落）；Jev：誤導 0.94、可一輪修好 0.92、使用證據 0.04；Leonard「收起待修」。
+  - **刪除**：範本下載分頁＋109 份 Word＋生成腳本；`t-purchase.html`；手機版「選擇角色」（角色從未傳給搜尋）。
+- **QC:** 每個 PR build-gate 綠後由 Leonard 指示合併；`npm run check`／`build`、route_regression 76/76（＋2 條新斷言）、execute_ingest 30/30、qc_report 與 status_page 自測、checklists_bundle 重生逐字相同；合併後線上核實 /health（20fd4a4）、四條 x-probe 搜尋、桌面與手機分頁、手機導覽四步、404 頁面、console 零錯誤。
+- **Evidence disposition:** 二十份 PDF 與 Jev state 只在 scratchpad；判斷結果寫入交接 `## Validation / QC` S243 與 CHANGELOG；Option 2 規則寫入清單檔 `_meta.rules`。
+- **Sync:** `DOC_SYNC_REGISTRY` 新增「任何入庫／換版／退役 → 核對 Option 2 清單」一列；`DOC_SYNC_CHECKLIST` 凍結合約列改為只餘 guidelines.json；README、CHANGELOG、CODEBASE_CONTEXT、PROJECT_MASTER_SPEC、K1_API_SPEC 已同步。
+- **Pending:** 見交接 Open Priorities（S243 段）：Option 2 第一輪（Jev 判斷閘）、文件標註四項重開條件、拒答原因 DDL 待批、#70 待關閉。
+- **Risks:** 109 條 `approved_fact` 仍在 Supabase（只停服）；`app.html`／`mobile.js` 尚有不再觸發的 approved_fact 顯示程式；dev/vault 舊 Channel A 篩選腳本未刪。
+- **Log maintenance:** `--check` trigger=False（224 行、8 條），不需歸檔。
+- **Opening-message mirror:** 由交接檔唯一 fenced 區塊重生並核對；全文不入 log。
+<!-- ack:log-entry:end -->
+
+---
+
+<!-- ack:log-entry:start -->
+
 ## 2026-11-02 Session 242 — 封面核對 Issue #72 三份換版／退役入庫、拆出 blnst 路由、QC 報告排隊撞車修正
 
 - **ID:** S242（Claude_20261101_1930）

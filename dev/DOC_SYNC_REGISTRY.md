@@ -29,6 +29,24 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-11-03 — S243（#78 入庫 ＋ Channel A 退役 ＋ 文件標註收起 ＋ 刪範本與休眠頁）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| 入庫「EDB 指引」類文件 | `confirmed` | `GUIDELINES_REGISTRY` 加 `moi_3rd_cycle_policy_2021`（兩份第三周期函件標題加日期）；README 指引數目 182；更新日誌一條 |
+| Supabase 寫入 | `confirmed` | +9，Leonard「批准入庫」；生產 17,179／313；109 條 `approved_fact` 只停服未刪 |
+| 公開片段數 display-sync | `confirmed` | 17,170 → 17,179、來源 313；S243 起目標改為 `stats.json`、`app.html`、`index.html`、`README.md`（`knowledge.json`／`role_facts.json`／`K1_API_SPEC.md` 移除） |
+| 任何入庫、換版或退役 → Option 2 清單（S243 新增列） | `confirmed` | 規則在清單 `_meta.rules`，改用 Jev 判斷閘；本節入庫在規則建立前，未跑對照（`pending`，併入下一步 Option 2 第一輪） |
+| 凍結對外契約值改動 | `confirmed` | `knowledge.json` 刪除（Leonard 確認下游不用）；QC `FREEZE_CONTRACT` 只核 `guidelines.json`；`DOC_SYNC_CHECKLIST` 列已改 |
+| Tab withdraw / restore | `confirmed` | 文件標註收起（開關＋文案逐處改；按鈕原未受開關控制，#82 補上）；範本下載刪除（非收起，開關已移除） |
+| 檢索路由 | `confirmed` | `SOURCE_SETS.moi` 加新函件、「化時為科」觸發詞；26 個 `role_facts_*` 由來源組移除；`route_regression` 76/76＋2 斷言 |
+| Product version | `confirmed` | v3.3.11 → v3.3.16（每個前端 PR 一次），README 標章、CHANGELOG、快取字串 |
+| Deploy | `confirmed` | Render `8527cfc`、`20fd4a4`，`/health` 實測；#81–#84 不改 `backend/` |
+| `CODEBASE_CONTEXT.md`／`PROJECT_MASTER_SPEC.md`／`K1_API_SPEC.md`／`backend/README.md` | `confirmed` | 退役項標註或改寫；`K1_KNOWLEDGE_INTERFACE_SPEC.md` 刪除 |
+| `PROJECT_DECISIONS.md` | `not_applicable` | 去留由 Leonard 逐項拍板，理由已記於 CHANGELOG 與交接，無多選架構取捨待記 |
+| `START_NEXT_SESSION_PROMPT.txt` | `confirmed` | 由交接檔唯一 fenced 區塊重生並核對 |
+| Workspace identity change | `confirmed` | 交接 `## Current Baseline` 4、`## User Environment` Git state、`PROJECT_INDEX` Branch / commit 列 |
+
 ### 2026-11-02 — S242（封面核對三份換版／退役 ＋ `blnst` 路由 ＋ QC 撞車）
 
 | Row | 狀態 | 備註 |
