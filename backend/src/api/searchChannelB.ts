@@ -273,10 +273,12 @@ const SOURCE_SETS: Record<string, string[]> = {
    * 2026 FAQ. Measured before the route: the bare queries a user types (「教學語言政策」
    * 「微調中學教學語言」「母語教學」) returned only 中國語文 curriculum guides, which mention
    * 教學語言 in passing; 4/12 probes found a policy document at all. Five of the nine real
-   * declines in search_log were this topic.
+   * declines in search_log were this topic. S243 adds the 2021-04-29 third-cycle policy
+   * letter, which the 07-06 letter says must be read with it (thresholds, 25% cap, 化時為科).
    */
   moi: [
     "edbc006_2009",
+    "moi_3rd_cycle_policy_2021",
     "moi_3rd_cycle_2021",
     "moi_plan_2027_28",
     "moi_faq_2026",
@@ -803,7 +805,7 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // 「用英語教學」「以英語授課」name the policy without saying 教學語言 (S241 live probe: the
   // query went to 教育條例). Bare 英語教學 is NOT matched — it is also how people ask about
   // teaching the English subject.
-  moi: /教學語言|母語教學|微調中學|英語延展教學|英中(?!文)|(?:用|以|採用)(?:英語|英文|中文|母語)(?:教學|授課|教)|(?:英語|英文)授課|\bMOI\b|\bEMI\b|\bCMI\b/i,
+  moi: /教學語言|母語教學|微調中學|英語延展教學|化時為科|英中(?!文)|(?:用|以|採用)(?:英語|英文|中文|母語)(?:教學|授課|教)|(?:英語|英文)授課|\bMOI\b|\bEMI\b|\bCMI\b/i,
   cpd: /CPD|持續專業發展|教師專業發展|教師培訓|專業發展計劃|專業階梯|師訓/,
   kg_admission: /幼稚園收生|幼稚園.{0,3}收生|幼稚園.{0,3}入學|幼稚園.{0,3}報名|K1.{0,3}收生|幼稚園.{0,3}申請入學|幼稚園.{0,6}學費|學費.{0,4}涵蓋|售賣物品|代辦費/,
   // S160: KG administration/operation — MUST precede curriculum (which matches bare 幼稚園).
