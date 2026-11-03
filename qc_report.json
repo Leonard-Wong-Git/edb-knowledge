@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-02T21:11:30Z",
-  "overallStatus": "ERROR",
+  "generatedAt": "2026-11-03T09:52:39Z",
+  "overallStatus": "BLOCKER",
   "counts": {
-    "chunks": 17170,
-    "PASS": 14,
-    "BLOCKER": 0,
+    "chunks": 17179,
+    "PASS": 13,
+    "BLOCKER": 1,
     "ERROR": 2,
     "WARN": 5,
     "INFO": 1,
@@ -12,11 +12,11 @@
   },
   "version": "v3.3.11",
   "corpus": {
-    "chunks": 17170,
-    "sources_serving": 319,
-    "sources_registered": 300,
-    "guidelines_listed": 181,
-    "distinct_urls": 344,
+    "chunks": 17179,
+    "sources_serving": 320,
+    "sources_registered": 301,
+    "guidelines_listed": 182,
+    "distinct_urls": 345,
     "largest_sources": [
       {
         "source_id": "coa_ss_e",
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-02T21:11:30Z",
+    "collectedAt": "2026-11-03T09:52:39Z",
     "items": [
       {
         "kind": "freshness-change",
@@ -85,8 +85,9 @@
   },
   "releaseGate": {
     "status": "FAIL",
-    "summary": "5/15 項達標",
+    "summary": "4/15 項達標",
     "blocking": [
+      "NO_BLOCKER",
       "NO_ERROR_FAIL",
       "PASS_EVAL_LATEST",
       "PASS_EVAL_CHUNK_LAYER",
@@ -103,8 +104,8 @@
         "id": "NO_BLOCKER",
         "label": "沒有攔截級未通過項",
         "kind": "auto",
-        "status": "MET",
-        "detail": "0 項"
+        "status": "NOT_MET",
+        "detail": "SEARCH_PIPELINE_LIVE"
       },
       {
         "id": "NO_ERROR_FAIL",
@@ -213,7 +214,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=3ef9ab6 · 啟動於 2026-11-02T21:11:18.632Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=3ef9ab6 · 啟動於 2026-11-03T09:37:28.695Z · Channel A 快取 455 條",
       "offenders": [],
       "offender_total": 0
     },
@@ -221,9 +222,9 @@
       "id": "SEARCH_PIPELINE_LIVE",
       "label": "真實查詢仍然答得到（不是只看 /health）",
       "severity": "BLOCKER",
-      "status": "PASS",
+      "status": "FAIL",
       "group": "infra",
-      "detail": "探測查詢回傳 3 條片段 · 一次過驗到 key、額度、embedding、Supabase RPC 同路由過濾",
+      "detail": "端點回錯誤：HTTP 502。⚠️ 這種情況下 /health 仍然報 ok:true——它只驗 Channel A 快取",
       "offenders": [],
       "offender_total": 0
     },
@@ -243,7 +244,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "infra",
-      "detail": "資料庫真數 17170 · 已核對 7 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "detail": "資料庫真數 17179 · 已核對 7 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
       "offenders": [],
       "offender_total": 0
     },
@@ -385,7 +386,7 @@
       "severity": "INFO",
       "status": "INFO",
       "group": "cutting",
-      "detail": "1932 條（11.3%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
+      "detail": "1932 條（11.2%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
       "offenders": [
         "g13（105 條）",
         "g07（80 條）",
