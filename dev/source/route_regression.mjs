@@ -106,6 +106,7 @@ const CASES = [
   ["高中中文科課程",                              "curriculum"], // S241 對照組：中中 不得觸發 moi
   ["學校要符合甚麼條件才可以用英語教學",          "moi"],
   ["用英語授課的教師要甚麼英文資格",              "moi"],
+  ["化時為科",                                    "moi"], // S243：第三周期政策函件專有詞，裸查詢原本落 iit
   ["全方位學習津貼點用",                          "activity"],
   ["中一派位統一派位",                            "placement"],
   ["體罰學生點處理",                              "conduct"],
@@ -150,6 +151,7 @@ const SOURCE_MEMBERSHIP = [
   // overlay 露面，而 overlay 每次查詢最多只放行 1 條片段（SPOTLIGHT_MAX_LEADS），
   // 所以答案段落（p.3 / p.6）永遠入唔到窗。入 set 之後先有 MAX_PER_SOURCE 個名額競爭。
   ["blnst", "edbcm170_2026_blnst", "基本法測試通函170/2026 必須可由 blnst 路由取得"],
+  ["moi", "moi_3rd_cycle_policy_2021", "第三周期政策函件（2021-04-29）必須可由 moi 路由取得"],
   ["blnst", "blnst_faq_2026", "基本法測試常見問題必須可由 blnst 路由取得"],
   ["kg_admin", "edbcm144_2026", "幼稚園搬遷津貼通函必須可由 kg_admin 路由取得，唔可以淨靠 spotlight 一格"],
 ];

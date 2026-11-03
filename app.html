@@ -795,8 +795,8 @@ const INITIAL_DATA = {
     "dedup_note": "Session 102 (2026-05-02): Strategy B dedup — removed 209 duplicate role-bucket facts already in all_roles bucket. Backend selector unions all_roles + role buckets so no semantic content lost. | 2026-05-16 (Session: dedup pass): semantic de-dup — Phase 1 consolidated 193 exact cross-bucket duplicate strings into all_roles (removed 275 redundant copies); Phase 2 merged 36 near-duplicate groups into enriched canonical sentences (folded 98 variant occurrences). Fact count 792 -> 455. Backend selector unions all_roles + role bucket so no role lost visibility. Conflicting facts (different dates/subjects/figures) intentionally kept separate. Full reversible merge log: dev/DEDUP_LOG_2026-05-16.md.",
     "stats": {
       "facts": 455,
-      "chunks": 17170,
-      "sources": 312,
+      "chunks": 17179,
+      "sources": 313,
       "guidelines": 158,
       "topics": 7
     }
@@ -1737,7 +1737,8 @@ const GUIDELINES_REGISTRY = [
   { id: 'edbc017_2026', title: '教育局通告第17/2026號 — 開設小學資訊與創新科技科', titleShort: '通告17/2026 開設IIT科', format: 'PDF', category: '課程', also_in: ['數字教育'], sub_category: 'pri_iit', level: '小學', year: '2026', isSpine: false, url: 'https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26017C.pdf' },
   // S241 微調中學教學語言
   { id: 'edbc006_2009', title: '教育局通告第6/2009號「微調中學教學語言」', titleShort: '通告6/2009 微調教學語言', format: 'PDF', category: '課程', also_in: ['行政'], sub_category: 'moi', level: '中學', year: '2009', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-secondary/moi/support-and-resources-for-moi-policy/policy-support-measures/edbc09006c.pdf' },
-  { id: 'moi_3rd_cycle_2021', title: '微調中學教學語言第三周期（2022/23至2027/28學年）的安排', titleShort: '教學語言第三周期安排', format: 'PDF', category: '課程', also_in: ['行政'], sub_category: 'moi', level: '中學', year: '2021', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-secondary/moi/Letter_MOI%203rd%20Cycle%20Arrangements_20210706_Chi.pdf' },
+  { id: 'moi_3rd_cycle_policy_2021', title: '微調中學教學語言第三周期（2022/23至2027/28學年）的安排（2021年4月29日）', titleShort: '教學語言第三周期安排（政策）', format: 'PDF', category: '課程', also_in: ['行政'], sub_category: 'moi', level: '中學', year: '2021', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-secondary/moi/Letter_MOI%203rd%20Cycle%20Arrangements_20210429_Chi.pdf' },
+  { id: 'moi_3rd_cycle_2021', title: '微調中學教學語言第三周期（2022/23至2027/28學年）的安排（2021年7月6日）', titleShort: '教學語言第三周期安排', format: 'PDF', category: '課程', also_in: ['行政'], sub_category: 'moi', level: '中學', year: '2021', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-secondary/moi/Letter_MOI%203rd%20Cycle%20Arrangements_20210706_Chi.pdf' },
   { id: 'moi_plan_2027_28', title: '校本初中教學語言計劃（2027/28學年入讀中一學生的安排）', titleShort: '校本教學語言計劃2027/28', format: 'PDF', category: '課程', also_in: ['行政'], sub_category: 'moi', level: '中學', year: '2026', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-secondary/moi/Letter_MOI%20Plan_202728_Letter_CHI.pdf' },
   { id: 'moi_faq_2026', title: '微調中學教學語言常見問題（2026年4月）', titleShort: '教學語言常見問題', format: 'PDF', category: '課程', also_in: ['行政'], sub_category: 'moi', level: '中學', year: '2026', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-secondary/moi/support-and-resources-for-moi-policy/FAQ_RP_TC_April_2026.pdf' },
   // S242 封面核對換版：基本法及國安法測試問與答（取代已撤下的通函141/2025）、學校發展計劃分資助／直資兩版
@@ -2113,7 +2114,7 @@ function PlatformIntroPanel({ stats }) {
   const meta = stats.metaStats || {};
   // Single-source derived counts/version (literals kept only as || fallback if stats missing)
   const factsCount = meta.facts || 455;
-  const chunksCount = meta.chunks || 17170;
+  const chunksCount = meta.chunks || 17179;
   const guidelinesCount = GUIDELINES_REGISTRY.length;
   const sourcesCount = meta.sources || 300;
   const platformVersion = PLATFORM_VERSION;
@@ -2791,7 +2792,7 @@ function QAPanel({ data, setPreviewDoc }) {
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 k1-search-card">
         <h2 className="text-lg font-bold text-gray-800 mb-1">政策搜尋</h2>
         <p className="text-xs text-gray-400 mb-3">
-          {`來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 17170).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
+          {`來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 17179).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
           {usageTotal !== null && ` · 累計已服務 ${usageTotal.toLocaleString()} 次查詢`}
         </p>
 

@@ -8270,6 +8270,36 @@
       ],
       "access_mode": "public",
       "status": "verified",
+      "last_checked_at": "2026-11-03",
+      "supersedes": null,
+      "source_id": "moi_3rd_cycle_policy_2021",
+      "title": "微調中學教學語言第三周期（2022/23至2027/28學年）的安排（教育局函件，2021年4月29日）",
+      "title_short": "教學語言第三周期安排（政策函件）",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/applicable-to-secondary/moi/Letter_MOI%203rd%20Cycle%20Arrangements_20210429_Chi.pdf",
+      "version_label": "2022/23-2027/28",
+      "lifecycle": "dated_edition",
+      "expires_on": null,
+      "covers_period": "2022/23",
+      "expiry_basis": "第三周期（2022/23至2027/28）安排；第四周期公布後以 supersedes 取代，不按日期清除",
+      "notes": "(S243) 致官立、資助及按位津貼中學函件，5 頁（含附件例子）：第三周期政策正文 —— 三項預設條件、以2020/21學年「中學平均每班人數」27人計85%即22人、英語延展教學活動上限25%、化時為科以兩科為上限、可按整個初中階段分配（合共不多於六次）、專業評審及支援機制。2021-07-06 跟進函（moi_3rd_cycle_2021）須與本函一併閱讀。Discovery Issue #78 發現，Leonard 批准入庫。",
+      "related_source_ids": [
+        "edbc006_2009",
+        "moi_3rd_cycle_2021",
+        "moi_plan_2027_28",
+        "moi_faq_2026"
+      ]
+    },
+    {
+      "title_en": null,
+      "url_landing": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-secondary/moi/fine-tuning-the-moi-for-secondary-schools.html",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
       "last_checked_at": "2026-10-30",
       "supersedes": null,
       "source_id": "moi_3rd_cycle_2021",
@@ -8285,7 +8315,8 @@
       "related_source_ids": [
         "edbc006_2009",
         "moi_plan_2027_28",
-        "moi_faq_2026"
+        "moi_faq_2026",
+        "moi_3rd_cycle_policy_2021"
       ]
     },
     {
