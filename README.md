@@ -2,7 +2,7 @@
 
 > 香港教育局（EDB）政策知識庫 — 專為學校管理人員而設
 
-[![Platform](https://img.shields.io/badge/platform-v3.3.13-teal)](CHANGELOG.md)
+[![Platform](https://img.shields.io/badge/platform-v3.3.14-teal)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![GitHub Pages](https://img.shields.io/badge/Frontend-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/edb-knowledge/app.html)
 [![Backend](https://img.shields.io/badge/Backend-Render-46E3B7)](https://edb-knowledge.onrender.com/health)
@@ -187,4 +187,4 @@ FEATURE_EXACT_WINDOW_NARROW=0          # 各 flag 說明見 backend/README.md
 
 ---
 
-*最後更新：2026-10-30 | 平台 v3.3.13 | 維護：leonard-wong-git*
+*最後更新：2026-10-30 | 平台 v3.3.14 | 維護：leonard-wong-git*

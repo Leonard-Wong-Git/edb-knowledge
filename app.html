@@ -766,9 +766,9 @@ body {
  */
 window.FEATURE_TABS = { about: true, qa: true, annotate: false, templates: false, guidelines: true };
 </script>
-<link rel="stylesheet" href="mobile.css?v=3.3.13">
-<script src="mobile.js?v=3.3.13" defer></script>
-<script src="feedback.js?v=3.3.13" defer></script>
+<link rel="stylesheet" href="mobile.css?v=3.3.14">
+<script src="mobile.js?v=3.3.14" defer></script>
+<script src="feedback.js?v=3.3.14" defer></script>
 </head>
 <body>
 <div id="root"></div>
@@ -1314,7 +1314,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // retired with Channel A in S243). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + 文件標註（就地標註）+ 範本下載 + 合規清單修訂，跨 15 個合規範疇。
-const PLATFORM_VERSION = '3.3.13';
+const PLATFORM_VERSION = '3.3.14';
 // S204 — tab switches; defined in a plain <script> in <head> so mobile.js can read them
 // at its DOMContentLoaded init, which runs BEFORE this Babel script compiles.
 const FEATURE_TABS = window.FEATURE_TABS;
@@ -3217,10 +3217,12 @@ function App() {
                       className={`filter-tab ${viewMode === 'qa' ? 'active-tab' : ''}`} aria-selected={viewMode === 'qa'} role="tab">
                 🔍 政策搜尋
               </button>
+              {FEATURE_TABS.annotate && (
               <button onClick={() => switchView('annotate')}
                       className={`filter-tab ${viewMode === 'annotate' ? 'active-tab' : ''}`} aria-selected={viewMode === 'annotate'} role="tab">
                 📝 文件標註(beta)
               </button>
+              )}
               {FEATURE_TABS.templates && (
               <button onClick={() => switchView('templates')}
                       className={`filter-tab ${viewMode === 'templates' ? 'active-tab' : ''}`} aria-selected={viewMode === 'templates'} role="tab">
