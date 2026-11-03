@@ -753,9 +753,9 @@ body {
  *   under ?v=<version> from four HTML files, so shipping without a bump leaves returning
  *   visitors on the old copies (S211 hit exactly this and nearly shipped a no-op).
  *
- * templates: withdrawn 2026-08-18 — policy_templates.json is a generated manifest that has
- * not been regenerated alongside the corpus, so the list on show was going stale. Restore
- * after re-running dev/checklists/_work/gen_templates_manifest.py.
+ * templates: withdrawn 2026-08-18, then DELETED 2026-11-03 (S243, Leonard: maintaining 109
+ * Word templates was not worth the time) — panel code, policy_templates.json, the Word files
+ * and their generators are gone; there is no flag to flip back.
  *
  * annotate: withdrawn 2026-11-03 (S243, Leonard「收起待修」after a live test + Jev second
  * opinion) — output can mislead: 相關指引 almost never shows (floor 0.62 checked against the
@@ -764,11 +764,11 @@ body {
  * the wrong paragraphs (cosine over-fire). Restore only after all three are fixed AND measured
  * on on-domain / off-domain sample documents, and after annotate usage is being counted.
  */
-window.FEATURE_TABS = { about: true, qa: true, annotate: false, templates: false, guidelines: true };
+window.FEATURE_TABS = { about: true, qa: true, annotate: false, guidelines: true };
 </script>
-<link rel="stylesheet" href="mobile.css?v=3.3.14">
-<script src="mobile.js?v=3.3.14" defer></script>
-<script src="feedback.js?v=3.3.14" defer></script>
+<link rel="stylesheet" href="mobile.css?v=3.3.15">
+<script src="mobile.js?v=3.3.15" defer></script>
+<script src="feedback.js?v=3.3.15" defer></script>
 </head>
 <body>
 <div id="root"></div>
@@ -1313,8 +1313,8 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // Public-facing platform release version (the old knowledge.json data contract was
 // retired with Channel A in S243). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
-// 政策搜尋 + 文件標註（就地標註）+ 範本下載 + 合規清單修訂，跨 15 個合規範疇。
-const PLATFORM_VERSION = '3.3.14';
+// 政策搜尋 + 文件標註（就地標註）+ 合規清單修訂，跨 15 個合規範疇（範本下載已於 S243 刪除）。
+const PLATFORM_VERSION = '3.3.15';
 // S204 — tab switches; defined in a plain <script> in <head> so mobile.js can read them
 // at its DOMContentLoaded init, which runs BEFORE this Babel script compiles.
 const FEATURE_TABS = window.FEATURE_TABS;
@@ -1445,15 +1445,6 @@ function PlatformIntroPanel({ stats }) {
       dark: true,
     },
     {
-      view: 'templates',
-      icon: '📋',
-      title: '範本下載(beta)',
-      subtitle: '15 個合規範疇',
-      desc: '提供 15 個合規範疇的政策範本（學校版）及文件要求清單，按校類（小學／中學／特殊學校／幼稚園）篩選，即時下載 Word 檔。',
-      badge: '即用範本',
-      dark: false,
-    },
-    {
       view: 'guidelines',
       icon: '📚',
       title: '指引文件庫',
@@ -1492,10 +1483,6 @@ function PlatformIntroPanel({ stats }) {
             '撳「⬇️ 下載 Word（乾淨成品版）」：原文保持乾淨，AI 建議融入正文（標示「（建議補充）」、無螢光、可直接編輯），說明與官方出處集中文末附錄。Word 上載會保留原有標題／編號／格式。',
             '另可撳「📋 下載改動摘要」一覽改咗甚麼。',
             '私隱：原始檔不會上載，只有抽取的文字會傳送作比對，過程不儲存；請勿包含敏感個人資料。',
-          ]},
-          { view:'templates', icon:'📋', title:'範本下載(beta)', steps:[
-            '喺「📋 範本下載」按合規範疇瀏覽，再按校類（小學／中學／特殊學校／幼稚園）篩選。',
-            '撳下載即取得 Word 政策範本，可作起草藍本。',
           ]},
           { view:'guidelines', icon:'📚', title:'EDB 指引文件庫', steps:[
             '喺「📚 EDB指引」按範疇與年份瀏覽 EDB 官方指引。',
@@ -2246,120 +2233,6 @@ function QAPanel({ data, setPreviewDoc }) {
 
 const ANALYZE_SCHOOL_LABELS = { primary: '小學', secondary: '中學', special: '特殊學校', kindergarten: '幼稚園' };
 
-// ── Policy Templates (政策範本下載) ──
-const TEMPLATE_TYPE_FILTERS = [
-  { key: 'all', label: '全部' },
-  { key: '', label: '通用' },
-  { key: 'primary', label: '小學' },
-  { key: 'secondary', label: '中學' },
-  { key: 'special', label: '特殊學校' },
-  { key: 'kindergarten', label: '幼稚園' },
-];
-const TEMPLATE_KIND_LABEL = { policy: '政策範本（學校版，可編輯）', checklist: '文件要求清單' };
-
-function TemplatesPanel() {
-  const [manifest, setManifest] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState('');
-  const [typeFilter, setTypeFilter] = useState('all');
-
-  useEffect(() => {
-    let alive = true;
-    fetch('policy_templates.json', { cache: 'no-cache' })
-      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-      .then(d => { if (alive) { setManifest(d); setLoading(false); } })
-      .catch(e => { if (alive) { setLoadError(String(e && e.message || e)); setLoading(false); } });
-    return () => { alive = false; };
-  }, []);
-
-  const fileMatches = useCallback((f) => typeFilter === 'all' || f.school_type === typeFilter, [typeFilter]);
-  // Public tab shows only 政策範本（學校版）; 文件要求清單 is internal-reference only.
-  const totalShown = useMemo(() => {
-    if (!manifest) return 0;
-    return manifest.domains.reduce((n, d) => n + d.files.filter(f => f.kind === 'policy' && fileMatches(f)).length, 0);
-  }, [manifest, fileMatches]);
-
-  return (
-    <div className="max-w-5xl mx-auto px-4 py-6">
-      {/* header */}
-      <div className="mb-5">
-        <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">📋 範本下載(beta)</h2>
-        <p className="text-sm text-gray-500 mt-1 leading-relaxed">
-          按教育局公開指引整理嘅 15 個範疇校本政策草稿（<strong>學校版</strong>，可直接編輯填寫），分「小學 / 中學 / 特殊學校 / 幼稚園」適用版本。下載後請按本校實際情況修訂，並自行核對教育局官方原文。
-        </p>
-        <div className="mt-2 text-xs px-3 py-2 rounded-lg" style={{ background: 'var(--paper-2)', color: 'var(--warn)', border: '1px solid var(--line)' }}>
-          ⚠️ 文件標示「DRAFT 草擬本」，僅供參考起草之用，不構成正式法律或行政意見；請核對教育局官方原文作準。
-        </div>
-      </div>
-
-      {/* school-type filter */}
-      <div className="flex items-center gap-1.5 mb-5 flex-wrap">
-        <span className="text-xs text-gray-400 mr-1">校類：</span>
-        {TEMPLATE_TYPE_FILTERS.map(t => (
-          <button key={t.key || 'generic'} onClick={() => setTypeFilter(t.key)}
-                  className={`filter-tab filter-tab-light ${typeFilter === t.key ? 'active-tab' : ''}`}
-                  aria-pressed={typeFilter === t.key}>{t.label}</button>
-        ))}
-        {manifest && <span className="text-xs text-gray-400 ml-1">（{totalShown} 份）</span>}
-      </div>
-
-      {loading && (
-        <div className="bg-white rounded-xl border border-gray-200 p-10 text-center text-gray-400">
-          <p className="text-sm">正在載入範本清單…</p>
-        </div>
-      )}
-      {loadError && (
-        <div className="bg-white rounded-xl border border-gray-200 p-10 text-center text-gray-500">
-          <p className="text-sm">範本清單暫時無法載入（{loadError}）。</p>
-          <p className="text-xs text-gray-400 mt-1">如於本機預覽請改用正式網站；或稍後重試。</p>
-        </div>
-      )}
-      {manifest && (
-        <div className="space-y-4">
-          {manifest.domains.map(dom => {
-            // 只顯示「政策範本（學校版）」；「文件要求清單」屬內部對照用，公開端不列出。
-            const groups = [
-              ['policy', dom.files.filter(f => f.kind === 'policy' && fileMatches(f))],
-            ];
-            if (groups.every(([, fs]) => fs.length === 0)) return null;
-            const shownCount = groups.reduce((n, [, fs]) => n + fs.length, 0);
-            return (
-              <div key={dom.key} className="bg-white rounded-xl border border-gray-200 p-4 animate-in">
-                <div className="flex items-center gap-2 mb-3">
-                  <h3 className="text-base font-bold text-gray-800">{dom.cn}</h3>
-                  <span className="text-xs text-gray-400">{shownCount} 份</span>
-                </div>
-                {groups.map(([kind, files]) => files.length > 0 && (
-                  <div key={kind} className="mb-3 last:mb-0">
-                    <div className="text-xs font-semibold mb-1.5" style={{ color: 'var(--ink-soft, #6b7280)' }}>{TEMPLATE_KIND_LABEL[kind]}</div>
-                    <div className="flex flex-wrap gap-2">
-                      {files.map(f => (
-                        <a key={f.name} href={encodeURI(f.path)} download={f.name}
-                           style={{
-                             background: kind === 'policy' ? 'var(--edb)' : '#ffffff',
-                             color: kind === 'policy' ? '#ffffff' : 'var(--edb)',
-                             border: kind === 'policy' ? '1px solid var(--edb)' : '1px solid var(--line)',
-                           }}
-                           className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg font-medium transition-colors whitespace-nowrap hover:opacity-90 shadow-sm">
-                          <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 10v6m0 0l-3-3m3 3l3-3M4 6a2 2 0 012-2h8l6 6v6a2 2 0 01-2 2H6a2 2 0 01-2-2V6z" />
-                          </svg>
-                          {f.type_label}
-                          <span style={{ opacity: 0.6 }}>· {Math.round(f.size / 1024)}KB</span>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
-}
-
 // ── 文件修訂 (checklist gap analysis: upload → 按 checklist 比對 → 補回 → 下載) ──
 const REVISE_SCHOOL_OPTS = [
   { v: '', label: '不限（一般比對）' },
@@ -3082,7 +2955,6 @@ const TOUR_STEPS = [
   { icon: '👋', title: '歡迎使用香港學校政策搜尋平台', body: '呢個平台幫學校快速查閱教育局（EDB）政策指引、為學校文件做合規標註、亦可下載政策範本。一分鐘導覽，帶你睇下五大功能點用。', cta: null },
   { icon: '🔍', title: '政策搜尋', body: '輸入關鍵字（例如「校車安全」「法團校董會」），平台會喺 EDB 指引與通告中搵出相關內容，附來源頁碼，可直接跳去官方原文 PDF。', cta: { label: '去政策搜尋', view: 'qa' } },
   { icon: '📝', title: '文件標註', body: '上載學校政策文件（Word 最佳），AI 比對 EDB 指引同合規清單，標出建議，生成一份「乾淨成品版」供你下載編輯——Word 上載會保留原有標題／編號／格式。', cta: { label: '去文件標註', view: 'annotate' } },
-  { icon: '📋', title: '範本下載', body: '各範疇（校園安全、收生、財務等）嘅政策範本，按校類揀選下載，慳返由零起草嘅時間。', cta: { label: '去範本下載', view: 'templates' } },
   { icon: '📚', title: 'EDB 指引文件庫', body: '分類整理嘅 EDB 官方指引文件，可預覽並跳去官方原文，按範疇與時序排列。', cta: { label: '去指引文件庫', view: 'guidelines' } },
   { icon: '✅', title: '開始使用', body: '隨時可喺右上角「🎓 使用教學」重溫導覽；想睇詳細步驟可去「ℹ️ 平台介紹」嘅「使用手冊」。所有資料僅供參考，重要決定請以教育局官方原文為準。', cta: { label: '睇使用手冊（平台介紹）', view: 'about' } },
 // S204 — drop tour steps whose destination tab is withdrawn, otherwise the tour offers a
@@ -3154,13 +3026,13 @@ function Onboarding({ open, onClose, onGoto }) {
 // ── Main App ──
 function App() {
   const data = INITIAL_DATA;
-  const VALID_VIEWS = ['qa', 'annotate', 'templates', 'guidelines', 'about'].filter((v) => FEATURE_TABS[v]);
+  const VALID_VIEWS = ['qa', 'annotate', 'guidelines', 'about'].filter((v) => FEATURE_TABS[v]);
   let hashView = window.location.hash.replace('#', '');
   // S161: 文件分析 + 文件修訂 merged into 文件標註; redirect the retired hashes one season.
   if (hashView === 'analyze' || hashView === 'review') hashView = 'annotate';
   const [viewMode, setViewMode] = useState(
     VALID_VIEWS.includes(hashView) ? hashView : 'qa'
-  ); // 'qa' | 'annotate' | 'templates' | 'guidelines' | 'about'
+  ); // 'qa' | 'annotate' | 'guidelines' | 'about'
 
   // Keep URL hash in sync when tab changes
   const switchView = useCallback((v) => {
@@ -3223,12 +3095,6 @@ function App() {
                 📝 文件標註(beta)
               </button>
               )}
-              {FEATURE_TABS.templates && (
-              <button onClick={() => switchView('templates')}
-                      className={`filter-tab ${viewMode === 'templates' ? 'active-tab' : ''}`} aria-selected={viewMode === 'templates'} role="tab">
-                📋 範本下載(beta)
-              </button>
-              )}
               <button onClick={() => switchView('guidelines')}
                       className={`filter-tab ${viewMode === 'guidelines' ? 'active-tab' : ''}`} aria-selected={viewMode === 'guidelines'} role="tab">
                 📚 EDB指引 ({GUIDELINES_REGISTRY.length})
@@ -3253,8 +3119,6 @@ function App() {
             <GuidelinesPanel setPreviewDoc={setPreviewDoc} />
           ) : viewMode === 'annotate' ? (
             <AnnotatePanel />
-          ) : viewMode === 'templates' ? (
-            <TemplatesPanel />
           ) : (
             <QAPanel data={data} setPreviewDoc={setPreviewDoc} />
           )}

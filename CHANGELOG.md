@@ -6,6 +6,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [範本下載刪除] — 2026-11-03 — 109 份 Word 範本維護費時，連分頁一併刪除
+
+> 平台版本 **v3.3.14 → v3.3.15**（`app.html`、`index.html`、`mobile.js`、`mobile.css` 有改動；三個 HTML 快取字串改為 `?v=3.3.15`）。Leonard 定案：範本維護是浪費時間。分頁自 S204（2026-08-18）起已收起，用戶看不到任何分別。
+
+### Removed
+- `app.html`「📋 範本下載」分頁程式（`TemplatesPanel`）、平台介紹功能卡、使用手冊與導覽步驟，以及 `FEATURE_TABS.templates` 開關；舊 `#templates` 書籤轉往政策搜尋。
+- `mobile.js` 底欄入口與手機版「桌面版功能」說明頁，`mobile.css` 對應樣式；`index.html` 隱藏中的功能卡。
+- `policy_templates.json`、`templates-preview.png`、`dev/checklists/` 內 109 份學校版範本與文件要求清單 Word 檔，以及生成腳本（`gen_all.py`、`gen_school_docx.js`、`gen_checklist_docx.js`、`gen_templates_manifest.py`、`dev/checklists/_src/`）。
+
+### 不受影響
+- 文件標註使用的合規清單 `checklists_bundle.json` 及其來源（`dev/checklists/_work/*/checklist.json`、`clauses.json`）照舊；重新生成後與刪除前逐字相同。
+
+---
+
 ## [修正] — 2026-11-03 — 文件標註分頁按鈕未受開關控制
 
 > 平台版本 **v3.3.13 → v3.3.14**。v3.3.13 收起文件標註後，線上核對發現頂部分頁按鈕仍然顯示：`app.html` 只有「範本下載」按鈕包在 `FEATURE_TABS` 判斷內，「文件標註」按鈕一直沒有（S204 的開關清單第 1 項寫「rendered only when the flag is true」，實際只對範本下載成立）。現已補上；平台介紹、使用手冊、導覽與常見問題在 v3.3.13 已正確隱藏。
