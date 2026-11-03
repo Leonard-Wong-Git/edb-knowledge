@@ -2,7 +2,7 @@
 
 > 香港教育局（EDB）政策知識庫 — 專為學校管理人員而設
 
-[![Platform](https://img.shields.io/badge/platform-v3.3.12-teal)](CHANGELOG.md)
+[![Platform](https://img.shields.io/badge/platform-v3.3.13-teal)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![GitHub Pages](https://img.shields.io/badge/Frontend-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/edb-knowledge/app.html)
 [![Backend](https://img.shields.io/badge/Backend-Render-46E3B7)](https://edb-knowledge.onrender.com/health)
@@ -25,11 +25,11 @@
 |------|------|
 | ℹ️ **平台介紹** | 平台定位、動態統計（17,179 知識片段 / 182 指引 / 313 來源；片段與來源數由 `_meta.stats` 取，指引數由 `GUIDELINES_REGISTRY.length` 即時計）、核心功能說明 |
 | 🔍 **政策搜尋** | Channel-B 語義搜尋：從 17,179 個 EDB 官方原文知識片段檢索，整理回答並附原始文件出處（含頁碼）；可對回答評分 👍／👎；頁尾及回答下可「提供意見」（經 Google 表單送出） |
-| 📝 **文件標註** | 上載學校文件（Word/.docx 最佳，或 PDF/貼文字），系統比對 EDB 指引 + 按合規清單檢查缺漏，生成一份**乾淨成品版** Word（S167）：原文保持乾淨可讀、AI 建議融入正文做普通文字（以「（建議補充）」標示、無螢光、可直接編輯、毋須接受修訂），所有建議說明與 EDB 官方出處集中文末附錄；Word/PDF/貼文字皆出。檔案在瀏覽器內抽取及生成，原始檔案不上載。**S161 合併** 舊「文件分析 + 文件修訂」兩 tab 而成（支援本校校類 小/中/特/幼 + 合規範疇 自動偵測／自選） |
+| 📝 ~~**文件標註**~~〔S243 起收起待修〕 | **暫不對外開放**（`window.FEATURE_TABS.annotate = false`；2026-11-03 實測：相關指引幾乎不顯示、欠缺項目按清單次序而非相關度列出、部分符合配錯段落，修好並量度後才重開）。功能本體：上載學校文件（Word/.docx 最佳，或 PDF/貼文字），系統比對 EDB 指引 + 按合規清單檢查缺漏，生成一份**乾淨成品版** Word（S167）：原文保持乾淨可讀、AI 建議融入正文做普通文字（以「（建議補充）」標示、無螢光、可直接編輯、毋須接受修訂），所有建議說明與 EDB 官方出處集中文末附錄；Word/PDF/貼文字皆出。檔案在瀏覽器內抽取及生成，原始檔案不上載。**S161 合併** 舊「文件分析 + 文件修訂」兩 tab 而成（支援本校校類 小/中/特/幼 + 合規範疇 自動偵測／自選） |
 | 📋 ~~**範本下載**~~〔S204 起收起〕 | **暫不對外開放**（`window.FEATURE_TABS.templates = false`；`policy_templates.json` manifest 未隨語料重生，重生後翻 flag 即返）。功能本體：15 範疇學校版政策範本（可編輯 .docx）下載，可按校類（通用/小/中/特/幼）篩選（內部「文件要求清單」不對外列出；S162 +幼稚園營運範疇） |
 | 📚 **指引文件庫** | 182 份官方 EDB 指引（in-app 瀏覽庫；公開 `guidelines.json` 端點為 151 份全集投影），按類別 → 子類別 → 年份三層分組導覽 |
 
-> 公眾 app（`app.html`）為 **Channel-B-only 唯讀**，現行 **四 tab**（平台介紹 / 政策搜尋 / 📝 文件標註 / EDB指引）；第五個「範本下載」以 `window.FEATURE_TABS` 收起中（S204），面板 code 原封未動。S151 移除 admin；S161 將 文件分析+文件修訂 合併為「文件標註」、政策範本→範本下載。Channel A 人工策展 / 管理員登入功能已移除；`role_facts.json` / `knowledge.json` 凍結 @455 仍作對外資料契約。
+> 公眾 app（`app.html`）為 **Channel-B-only 唯讀**，現行 **三 tab**（平台介紹 / 政策搜尋 / EDB指引）；「範本下載」（S204）與「📝 文件標註」（S243，收起待修）以 `window.FEATURE_TABS` 收起中，面板 code 原封未動。S151 移除 admin；S161 將 文件分析+文件修訂 合併為「文件標註」、政策範本→範本下載。Channel A 人工策展 / 管理員登入功能已移除；`role_facts.json` / `knowledge.json` 凍結 @455 仍作對外資料契約。
 
 ### 📱 響應式 / 手機版範圍
 
@@ -43,7 +43,7 @@
 |------|:----:|:----:|
 | 政策搜尋 / 指引文件 / 平台介紹 | ✅ 完整 | ✅ |
 | 📋 ~~範本下載~~〔S204 起收起〕 | — 底欄已無此入口 | — 分頁已收起 |
-| 📝 文件標註 | — 桌面版功能（涉及檔案上載 + Word/PDF 生成，需較大畫面） | ✅ 完整 |
+| 📝 ~~文件標註~~〔S243 起收起待修〕 | — 桌面版功能 | — 分頁已收起 |
 
 > 詳見 `dev/PROJECT_MASTER_SPEC.md` §B.5 Mobile UI scope。
 
@@ -187,4 +187,4 @@ FEATURE_EXACT_WINDOW_NARROW=0          # 各 flag 說明見 backend/README.md
 
 ---
 
-*最後更新：2026-10-30 | 平台 v3.3.12 | 維護：leonard-wong-git*
+*最後更新：2026-10-30 | 平台 v3.3.13 | 維護：leonard-wong-git*

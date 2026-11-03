@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <!-- S211 — 呢句會出喺搜尋引擎摘要，所以佢跟 FEATURE_TABS 走：收起或恢復一個 tab 要同步改
      （原文列住「政策範本下載」，而該 tab 由 S204 起已收起）。見 DOC_SYNC_CHECKLIST「Tab withdraw / restore」。 -->
-<meta name="description" content="PolicyChecker · 政策核對：為香港學校管理人員提供 EDB 政策語義搜尋、文件標註、EDB 官方指引文件庫，頁頁可追溯…">
+<meta name="description" content="PolicyChecker · 政策核對：為香港學校管理人員提供 EDB 政策語義搜尋、EDB 官方指引文件庫，頁頁可追溯…">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -273,9 +273,9 @@ a{color:inherit;text-decoration:none}
 .footer-right a:hover{color:var(--edb);border-bottom:none}
 @media(max-width:600px){.site-footer{flex-direction:column;align-items:flex-start;padding:20px 16px}}
 </style>
-<link rel="stylesheet" href="mobile.css?v=3.3.12">
-<script src="mobile.js?v=3.3.12" defer></script>
-<script src="feedback.js?v=3.3.12" defer></script>
+<link rel="stylesheet" href="mobile.css?v=3.3.13">
+<script src="mobile.js?v=3.3.13" defer></script>
+<script src="feedback.js?v=3.3.13" defer></script>
 </head>
 <body>
 
@@ -323,7 +323,7 @@ a{color:inherit;text-decoration:none}
     <!-- S211 — 同 app.html 平台介紹個 hero 一樣，呢句列緊平台提供咩，跟 FEATURE_TABS 走。 -->
     <p class="hero-desc">
       語義搜尋 <span data-stat="chunks">17,179</span> 個 EDB 原文知識片段，
-      上載學校文件即時比對指引與合規清單，並附原始出處直達官方 PDF。
+      答案附原始出處直達官方 PDF。
     </p>
     <div class="hero-actions">
       <a class="btn-primary" href="app.html">
@@ -382,7 +382,9 @@ a{color:inherit;text-decoration:none}
       </div>
     </div>
 
-    <div class="feature-card">
+    <!-- S243 — hidden while the 文件標註 tab is withdrawn (app.html window.FEATURE_TABS.annotate
+         = false, 收起待修). Restore by deleting the style attribute below when the flag goes back. -->
+    <div class="feature-card" style="display:none">
       <div class="feature-icon fi-search">
         <svg width="20" height="20" fill="none" stroke="var(--edb)" viewBox="0 0 24 24" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
       </div>
@@ -548,7 +550,7 @@ a{color:inherit;text-decoration:none}
 <footer class="site-footer">
   <div class="wrap" style="width:100%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
     <div class="footer-left">
-      香港學校政策搜尋平台 v3.3.12 ·
+      香港學校政策搜尋平台 v3.3.13 ·
       資料僅供參考，正式決策請以 EDB 官方原文為準 ·
       本站採用免 Cookie 匿名流量統計 ·
       設計者：Leonard Wong
