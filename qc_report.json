@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-11-03T09:52:39Z",
-  "overallStatus": "BLOCKER",
+  "generatedAt": "2026-11-03T11:09:37Z",
+  "overallStatus": "ERROR",
   "counts": {
     "chunks": 17179,
-    "PASS": 13,
-    "BLOCKER": 1,
+    "PASS": 14,
+    "BLOCKER": 0,
     "ERROR": 2,
     "WARN": 5,
     "INFO": 1,
     "NOT_MEASURED": 0
   },
-  "version": "v3.3.11",
+  "version": "v3.3.12",
   "corpus": {
     "chunks": 17179,
     "sources_serving": 320,
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-03T09:52:39Z",
+    "collectedAt": "2026-11-03T11:09:37Z",
     "items": [
       {
         "kind": "freshness-change",
@@ -85,9 +85,8 @@
   },
   "releaseGate": {
     "status": "FAIL",
-    "summary": "4/15 項達標",
+    "summary": "5/15 項達標",
     "blocking": [
-      "NO_BLOCKER",
       "NO_ERROR_FAIL",
       "PASS_EVAL_LATEST",
       "PASS_EVAL_CHUNK_LAYER",
@@ -104,8 +103,8 @@
         "id": "NO_BLOCKER",
         "label": "沒有攔截級未通過項",
         "kind": "auto",
-        "status": "NOT_MET",
-        "detail": "SEARCH_PIPELINE_LIVE"
+        "status": "MET",
+        "detail": "0 項"
       },
       {
         "id": "NO_ERROR_FAIL",
@@ -214,7 +213,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=3ef9ab6 · 啟動於 2026-11-03T09:37:28.695Z · Channel A 快取 455 條",
+      "detail": "ok=True · commit=8527cfc · 啟動於 2026-11-03T11:05:41.063Z",
       "offenders": [],
       "offender_total": 0
     },
@@ -222,9 +221,9 @@
       "id": "SEARCH_PIPELINE_LIVE",
       "label": "真實查詢仍然答得到（不是只看 /health）",
       "severity": "BLOCKER",
-      "status": "FAIL",
+      "status": "PASS",
       "group": "infra",
-      "detail": "端點回錯誤：HTTP 502。⚠️ 這種情況下 /health 仍然報 ok:true——它只驗 Channel A 快取",
+      "detail": "探測查詢回傳 3 條片段 · 一次過驗到 key、額度、embedding、Supabase RPC 同路由過濾",
       "offenders": [],
       "offender_total": 0
     },
@@ -234,7 +233,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "knowledge.json _meta 2.3.0 · 事實 455 條 · guidelines.json _meta 2.6.2 · 指引 151 項。下游 EDB 通告系統依賴這四個值；改動須另行協調",
+      "detail": "guidelines.json _meta 2.6.2 · 指引 151 項。改動須另行協調",
       "offenders": [],
       "offender_total": 0
     },
@@ -244,7 +243,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "infra",
-      "detail": "資料庫真數 17179 · 已核對 7 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "detail": "資料庫真數 17179 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
       "offenders": [],
       "offender_total": 0
     },
