@@ -78,7 +78,7 @@
   // 後會出嘅功能入口（「平台介紹」係簡介版面，唔當一個功能）。window.FEATURE_TABS 由 <head> 嘅
   // 普通 script 設定，喺呢個 defer script 執行前已經有；index.html / app.html 兩頁都有齊。
   const CN_NUM = ['零', '一', '兩', '三', '四', '五', '六', '七', '八', '九'];
-  const FEATURE_TAB_FLAGS = ['qa', 'guidelines', 'templates'];
+  const FEATURE_TAB_FLAGS = ['qa', 'guidelines'];   // S243: 範本下載 deleted
   function mobileFeatureCount() {
     const flags = window.FEATURE_TABS;
     if (!flags) return FEATURE_TAB_FLAGS.length;   // same fail-open stance as buildTabBar()
@@ -222,7 +222,7 @@
     }
   }
 
-  // ── 5. Bottom tab bar (4 entries: 搜尋 / 指引文件 / 範本下載 / 平台介紹) ──
+  // ── 5. Bottom tab bar (3 entries: 搜尋 / 指引文件 / 平台介紹；範本下載 S243 刪除) ──
   // Cross-page links — current page determined by location.pathname + URL hash
   function buildTabBar() {
     if (document.querySelector('.m-tabbar')) return; // page already has its own
@@ -236,7 +236,6 @@
     const TABS = [
       { key: 'search',     icon: '🔍', label: '搜尋',       href: 'app.html',                match: ['app.html'] },
       { key: 'library',    icon: '📚', label: '指引文件',   href: 'app.html#guidelines',     match: ['#guidelines'] },
-      { key: 'templates',  icon: '📋', label: '範本下載',   href: 'app.html#templates',      match: ['#templates'] },
       { key: 'about',      icon: 'ℹ️', label: '平台介紹',   href: 'index.html',              match: ['index.html', ''] },
     ].filter(function (t) {
       // S204 — honour the withdrawn-tab switches from app.html. window.FEATURE_TABS is set
@@ -251,9 +250,8 @@
     TABS.forEach(t => {
       const isActive =
         (t.key === 'library'   && hash === '#guidelines') ||
-        (t.key === 'templates' && hash === '#templates') ||
-        (t.key === 'search'    && here === 'app.html' && hash !== '#guidelines' && hash !== '#templates') ||
-        (t.key === 'about'     && (here === 'index.html' || here === '') && hash !== '#guidelines' && hash !== '#templates');
+        (t.key === 'search'    && here === 'app.html' && hash !== '#guidelines') ||
+        (t.key === 'about'     && (here === 'index.html' || here === '') && hash !== '#guidelines');
       const a = document.createElement('a');
       a.className = 'm-tab';
       a.href = t.href;
@@ -764,37 +762,6 @@
     }
   }
 
-  // ── 6c. 範本下載 (#templates) — desktop-only feature notice (mobile) ──
-  // 學校版政策範本為可編輯 Word 檔，需用電腦下載及編輯方有意義，故 mobile 不提供
-  // 實際下載清單，改為「桌面版功能」說明 + desktop 範本下載面板截圖示意。
-  // 純靜態畫面（無 fetch / 無外部依賴）→ 不會白屏、不影響現有 mobile 導航。
-  function buildTemplatesShell() {
-    if (document.getElementById('m-tpl-shell')) return true;
-    const shell = document.createElement('main');
-    shell.id = 'm-tpl-shell';
-    shell.className = 'm-shell';
-    shell.innerHTML = ''
-      + '<header class="m-guide-head">'
-      +   '<div class="m-guide-eyebrow">EDB 校本政策範本</div>'
-      +   '<h1 class="m-guide-title">範本下載(beta)</h1>'
-      +   '<p class="m-guide-sub">15 個合規範疇的學校版政策範本（可編輯 Word 檔），按校類下載。</p>'
-      + '</header>'
-      + '<section class="m-tpl-body">'
-      +   '<div class="m-tpl-card">'
-      +     '<div class="m-tpl-badge">💻 桌面版功能</div>'
-      +     '<p class="m-tpl-lead">範本為<strong>可編輯的 Word（.docx）文件</strong>，需用電腦下載及填寫修訂方便使用。</p>'
-      +     '<p class="m-tpl-note">請改用<strong>桌面瀏覽器</strong>開啟本平台的「範本下載」分頁，即可按範疇及校類（小／中／特／幼稚園）下載學校版政策範本草稿。</p>'
-      +     '<figure class="m-tpl-shot">'
-      +       '<img src="templates-preview.png" alt="桌面版「範本下載」面板示意截圖" loading="lazy" '
-      +         'onerror="this.closest(\'.m-tpl-shot\').style.display=\'none\'" />'
-      +       '<figcaption>桌面版「範本下載」面板示意</figcaption>'
-      +     '</figure>'
-      +   '</div>'
-      + '</section>';
-    document.body.insertBefore(shell, document.body.firstChild);
-    return true;
-  }
-
   // ── 7. Init ──
   function initMobileShell() {
     // Apply mobile-active flag for CSS hooks
@@ -810,22 +777,7 @@
     // normal desktop content on the small screen instead of a blank page.
     let shellBuilt = false;
     try {
-      if (here === 'app.html' && hash === '#templates'
-          && (window.FEATURE_TABS ? window.FEATURE_TABS.templates : false)) {
-        // 範本下載 = desktop 功能（學校版範本為可編輯 Word 檔，需電腦下載編輯）。
-        // mobile 提供「桌面版功能」說明 + desktop 面板截圖示意，不在手機提供下載清單。
-        //
-        // S220 — MUST stay gated on FEATURE_TABS.templates. While the tab is
-        // withdrawn (currently false) this shell told the phone user to "改用桌面
-        // 瀏覽器", where the tab does not exist either: a dead end reachable by
-        // bookmark or shared #templates link. Desktop already falls back to 'qa'
-        // via VALID_VIEWS (app.html App()); mobile now falls through to the same
-        // default shell instead of rendering a page for a feature that is off.
-        if (typeof buildTemplatesShell === 'function') {
-          buildTemplatesShell();
-          shellBuilt = true;
-        }
-      } else if (here === 'app.html' && hash !== '#guidelines') {
+      if (here === 'app.html' && hash !== '#guidelines') {
         if (typeof buildAppShell === 'function') {
           buildAppShell();
           shellBuilt = true;
