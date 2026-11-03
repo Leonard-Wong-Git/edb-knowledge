@@ -6,7 +6,7 @@
  *        bottom tab navigation cross-page.
  * Desktop: completely no-op（detection guard）.
  *
- * 4 HTML 共用：index.html / app.html / q.html / t-purchase.html
+ * 3 HTML 共用：index.html / app.html / t-purchase.html（q.html 已於 S243 刪除）
  * ============================================================ */
 
 (function () {
@@ -280,10 +280,6 @@
     g05: '教師專業操守指引',
     g11: '校曆表指引',
     g29: '幼稚園課程指引',
-    role_facts_finance: '已核實知識庫 · 財務',
-    role_facts_hr: '已核實知識庫 · 人事',
-    role_facts_curriculum: '已核實知識庫 · 課程',
-    role_facts_general: '已核實知識庫 · 通用',
   };
   const sourceLabel = id => SOURCE_LABEL[id] || (id || '').replace(/^vault_/, '').replace(/_/g, ' ');
   // Always-Chinese display name: curated short label → the doc's own (Chinese) title
@@ -338,7 +334,7 @@
       + '<section class="m-hero">'
       +   '<div class="m-hero-eyebrow">香港學校政策搜尋平台 · 香港學校管治</div>'
       +   '<h1 class="m-hero-title">查找有根有據的政策答案</h1>'
-      +   '<p class="m-hero-desc">輸入問題，即時比對 EDB 已核實事實及原文片段。</p>'
+      +   '<p class="m-hero-desc">輸入問題，即時比對 EDB 原文片段。</p>'
       +   '<p class="m-hero-desc" id="m-hero-usage" style="opacity:.72;margin-top:-2px"></p>'
       +   '<form class="m-search" id="m-search-form" autocomplete="off">'
       +     '<svg class="m-search-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>'
@@ -871,11 +867,6 @@
       } else if (here === 'index.html' || here === '') {
         if (typeof buildIndexShell === 'function') {
           buildIndexShell();
-          shellBuilt = true;
-        }
-      } else if (here === 'q.html') {
-        if (typeof buildQShell === 'function') {
-          buildQShell();
           shellBuilt = true;
         }
       } else if (here === 't-purchase.html') {

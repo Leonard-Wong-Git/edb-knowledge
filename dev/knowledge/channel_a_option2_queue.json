@@ -1,16 +1,20 @@
 {
   "_meta": {
-    "version": "2.3.0",
-    "created": "2026-04-04",
-    "updated": "2026-05-16",
-    "description": "EDB 學校管理知識庫 — 供 EDB 通告智能分析系統注入 LLM prompt 使用。455 條已核實事實（2026-05-16 dedup pass：由 792 → 455，移除 275 條跨角色完全重複副本並合併 36 組相近事實）。契約版本 v2.0.0：角色拆分為 subject_head（科主任）與 panel_chair（各統籌主任），不再使用 department_head。各 topic block 可附帶 `_source_refs` 作來源追溯 metadata。",
-    "dedup_note": "Session 102 (2026-05-02): Strategy B dedup — removed 209 duplicate role-bucket facts already in all_roles bucket. Backend selector unions all_roles + role buckets so no semantic content lost. | 2026-05-16 (Session: dedup pass): semantic de-dup — Phase 1 consolidated 193 exact cross-bucket duplicate strings into all_roles (removed 275 redundant copies); Phase 2 merged 36 near-duplicate groups into enriched canonical sentences (folded 98 variant occurrences). Fact count 792 -> 455. Backend selector unions all_roles + role bucket so no role lost visibility. Conflicting facts (different dates/subjects/figures) intentionally kept separate. Full reversible merge log: dev/DEDUP_LOG_2026-05-16.md.",
-    "stats": {
-      "facts": 455,
-      "chunks": 17179,
-      "sources": 313,
-      "guidelines": 151,
-      "topics": 7
+    "purpose": "S243（2026-11-03）Channel A 退役後的內部工作清單：原 455 條已核實事實（role_facts.json／knowledge.json 原文，一字未改）。不公開、不供搜尋、不再是任何對外合約。",
+    "facts_remaining": 455,
+    "rules": [
+      "1. 本清單只會減少，不會增加。任何一條都不得再以無出處形式回到搜尋。",
+      "2. 每輪入庫（人手或 Option A）完成後：以新來源的片段對照本清單；某條事實的同一規則已在新來源原文出現（數字、角色、條件逐項對得上，要開段落讀，不可只看相似度），即在 resolved 加一筆 {fact, source_id, page, session}，並從本清單刪去該條。",
+      "3. Option 2（Leonard S199 定案）：仍未有出處的事實，逐條找文件出處，以 footnote_curated＋真 URL＋頁碼入庫，經 Leonard 批准；入庫後同樣記入 resolved 並刪去。",
+      "4. 找不到出處、屬問卷題／活動統計／殘句，或與現行文件矛盾（例如病假 36 天）的事實：記入 dropped（附理由）並刪去，不入庫。",
+      "5. Supabase 內 109 條 approved_fact 副本（source_id role_facts_*）自 S243 起已被 searchChannelB.ts 的 retiredMirrorFilter 全數停止服務。當本清單清空，或餘下各條皆已判定，便匯出備份到 dev/init_backup/ 後，經 Leonard 批准刪除該 109 行。"
+    ],
+    "resolved": [],
+    "dropped": [],
+    "history": {
+      "version": "2.3.0",
+      "updated": "2026-05-16",
+      "note": "原 knowledge.json／role_facts.json _meta 只保留版本與日期；統計數字已移至 app.html INITIAL_DATA（display-sync 維護）。"
     }
   },
   "finance": {

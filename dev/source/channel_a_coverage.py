@@ -74,7 +74,7 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-ROLE_FACTS = ROOT / "role_facts.json"
+ROLE_FACTS = ROOT / "dev" / "knowledge" / "channel_a_option2_queue.json"  # S243: role_facts.json retired
 RPC = "https://youkcekbrbywuqjxgibe.supabase.co/rest/v1/rpc/match_wiki_chunks"
 EMBED_URL = "https://api.openai.com/v1/embeddings"
 EMBED_MODEL = "text-embedding-3-small"  # matches backend/src/lib/embeddingClient.ts:17

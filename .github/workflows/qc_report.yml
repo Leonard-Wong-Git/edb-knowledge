@@ -34,7 +34,7 @@ on:
   push:
     branches: [main]
     paths:
-      - knowledge.json
+      - stats.json
       - guidelines.json
       - update_log.json
       - dev/source/source_registry.json
