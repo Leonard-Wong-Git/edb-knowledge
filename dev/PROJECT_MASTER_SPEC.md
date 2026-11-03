@@ -1,5 +1,7 @@
 # PROJECT MASTER SPEC — EDB 知識平台（K1 知識平台）
 
+> **S243（2026-11-03）Channel A 退役：** `knowledge.json`／`role_facts.json`（455 條）、`q.html`、`/analyze-circular`、`/api/search/channel-a`、`/api/search/combined` 已刪除；平台只以附出處的 EDB 原文（Channel B）作答。下文凡提及 Channel A、`knowledge.json` 統計來源、人工審核入 `role_facts.json` 者，皆為歷史記載；公開統計改由 `stats.json` 提供，原 455 條的處理規則見 `dev/knowledge/channel_a_option2_queue.json` `_meta.rules`。
+
 > **本文件定位（依 AGENTS.md §2 / §10）**
 > 這是本專案的**長期穩定權威規格 + 跨 agent 交接知識庫**。
 > 優先序：`SESSION_HANDOFF.md`（當前狀態）> `SESSION_LOG.md`（最新歷史）> `CODEBASE_CONTEXT.md`（穩定事實）> **本文件**（長期規格）> 其他。
@@ -138,7 +140,7 @@ source_registry → 同 vault PDFs → ai_extract.py
 - ~~`dev/mempalace_sync.py`~~ — 已刪除 2026-05-18 (S115)；本專案 session close 不再做 MemPalace 同步。
 
 ### C.6 關鍵規格文檔（深入時讀）
-- `K1_API_SPEC.md` / `K1_KNOWLEDGE_INTERFACE_SPEC.md`：對外資料契約。
+- `K1_API_SPEC.md`：對外資料契約（S243 起只餘 `guidelines.json`；`K1_KNOWLEDGE_INTERFACE_SPEC.md` 與 `knowledge.json` 隨 Channel A 退役刪除）。
 - `dev/K1_KNOWLEDGE_OPERATING_SYSTEM_PLAN.md` v2：LLM-wiki 分階段架構。
 - `dev/CIRCULAR_SYSTEM_INTEGRATION.md`：與 Circular System 的整合規格（**輸入向**：下游寫 policy_signals → Channel A；K1 side 已 done）。
 - `dev/CHANNEL_B_SYNC_SPEC.md`：**輸出向** Channel B 增量同步契約（K1-side，Q4 Phase 2；manifest+fetch 端點待 build；S145 **v0.4** build-ready — 下游 consumer 覆文納入：§11.2 resolved 路1、manifest +topic/content_type、向量 L2-norm 實測、profile 校正）。

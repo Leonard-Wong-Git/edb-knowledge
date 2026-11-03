@@ -2,8 +2,7 @@
 
 > 香港教育局（EDB）政策知識庫 — 專為學校管理人員而設
 
-[![Platform](https://img.shields.io/badge/platform-v3.3.11-teal)](CHANGELOG.md)
-[![Data contract](https://img.shields.io/badge/knowledge.json-v2.3.0%20(frozen)-lightgrey)](CHANGELOG.md)
+[![Platform](https://img.shields.io/badge/platform-v3.3.12-teal)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![GitHub Pages](https://img.shields.io/badge/Frontend-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/edb-knowledge/app.html)
 [![Backend](https://img.shields.io/badge/Backend-Render-46E3B7)](https://edb-knowledge.onrender.com/health)
@@ -24,7 +23,7 @@
 
 | 功能 | 說明 |
 |------|------|
-| ℹ️ **平台介紹** | 平台定位、動態統計（455 已核實事實 / 17,179 知識片段 / 182 指引 / 313 來源；片段與來源數由 `_meta.stats` 取，指引數由 `GUIDELINES_REGISTRY.length` 即時計）、核心功能說明 |
+| ℹ️ **平台介紹** | 平台定位、動態統計（17,179 知識片段 / 182 指引 / 313 來源；片段與來源數由 `_meta.stats` 取，指引數由 `GUIDELINES_REGISTRY.length` 即時計）、核心功能說明 |
 | 🔍 **政策搜尋** | Channel-B 語義搜尋：從 17,179 個 EDB 官方原文知識片段檢索，整理回答並附原始文件出處（含頁碼）；可對回答評分 👍／👎；頁尾及回答下可「提供意見」（經 Google 表單送出） |
 | 📝 **文件標註** | 上載學校文件（Word/.docx 最佳，或 PDF/貼文字），系統比對 EDB 指引 + 按合規清單檢查缺漏，生成一份**乾淨成品版** Word（S167）：原文保持乾淨可讀、AI 建議融入正文做普通文字（以「（建議補充）」標示、無螢光、可直接編輯、毋須接受修訂），所有建議說明與 EDB 官方出處集中文末附錄；Word/PDF/貼文字皆出。檔案在瀏覽器內抽取及生成，原始檔案不上載。**S161 合併** 舊「文件分析 + 文件修訂」兩 tab 而成（支援本校校類 小/中/特/幼 + 合規範疇 自動偵測／自選） |
 | 📋 ~~**範本下載**~~〔S204 起收起〕 | **暫不對外開放**（`window.FEATURE_TABS.templates = false`；`policy_templates.json` manifest 未隨語料重生，重生後翻 flag 即返）。功能本體：15 範疇學校版政策範本（可編輯 .docx）下載，可按校類（通用/小/中/特/幼）篩選（內部「文件要求清單」不對外列出；S162 +幼稚園營運範疇） |
@@ -76,7 +75,7 @@
 | `POST /api/checklist-revise` · `GET /api/checklist-domains` | 合規清單 gap 檢查 / 範本範疇 |
 | `GET /health` | 健康檢查 |
 
-> Channel A（已核實事實）凍結 @455；`q.html` / 合併搜尋 / 通告分析入口為休眠狀態（backend route 保留、前端入口已移除）。
+> Channel A（455 條已核實事實）、`q.html`、合併搜尋與通告分析 route 已於 S243（v3.3.12）退役並刪除；平台只以附出處的 EDB 原文（Channel B）作答。
 
 ### Frontend
 - **Single-file React SPA** — `app.html`（React 18 + Babel + Tailwind CSS 2.2，全部 CDN）
@@ -84,23 +83,18 @@
 
 ### Backend
 - **Node.js + TypeScript**，托管於 [Render](https://render.com) 免費 tier
-- **Channel A 搜尋**：對 455 條已審核事實做語義搜尋（OpenAI `text-embedding-3-small`）
-- **通告分析**：LLM 提取主題、影響角色、政策要點
+- **政策搜尋（Channel B）**：Supabase pgvector 語義檢索 EDB 原文（OpenAI `text-embedding-3-small`），主題路由、相關性判官、附網址與頁碼合成答案
 - 冷啟動約 30 秒（Render 免費 tier idle 15 分鐘後自動關閉）
 
 ### 知識管道
 
-**Channel A — 人工審核（主線）**
+**Channel B — EDB 原文（唯一管道）**
 ```
-EDB PDF → extract_candidates.py → candidate_queue.json
-→ Admin 審核（inline edit）→ role_facts.json → knowledge.json
+EDB PDF → dev/vault/<source_id>/extract_*.txt → dev/ingest_one_source.py（切片 + 嵌入）
+→ Supabase wiki_chunks → /api/search/channel-b → 搜尋 UI
 ```
 
-**Channel B — 全 AI（副線，Phase 2）**
-```
-EDB PDF → ai_extract.py → wiki_index.json（向量索引）
-→ /api/search/channel-b → 智能搜尋 UI
-```
+> 舊 Channel A（人工審核事實 → role_facts.json → knowledge.json）已於 S243 退役；原 455 條保存在內部清單 `dev/knowledge/channel_a_option2_queue.json`，按清單內規則逐條找出處或棄用。
 
 ---
 
@@ -108,12 +102,10 @@ EDB PDF → ai_extract.py → wiki_index.json（向量索引）
 
 | 項目 | 數量 |
 |------|------|
-| Channel A 已審核事實 | **455 條** |
 | 指引文件庫（in-app 瀏覽） | **182 份** |
 | 來源文件 | **313 份**（Supabase distinct `source_id` 扣 `role_facts_*` 偽來源；`source_registry.json` 登記 300） |
 | Channel B 向量索引 | **17,179 chunks**（Supabase pgvector，線上） |
 
-> 註：由 792 條去重整合至 455 條唯一事實（2026-05-16，commit 711f911；可逆日誌 `dev/DEDUP_LOG_2026-05-16.md`）。
 > 註：`182` 為 in-app 指引瀏覽庫（v3.3.0 由 166 升至 177；v3.3.4 移除 1 個、v3.3.5 再移除 5 個「同一份文件掛兩個 id」的重複條目後為 171；v3.3.7 退役 `g24` 後為 170；S241 加入小學資訊與創新科技科 4 份、中學教學語言 4 份後為 178；S242 加入基本法及國安法測試問與答、學校發展計劃資助／直資兩版後為 181；S243 加入教學語言第三周期政策函件後為 182）；公開 `guidelines.json` API 端點為其全集投影 **151** 份（v2.6.2 起對齊 in-app 標籤，移除 7 條重複／已退役條目）。兩者仍刻意不同，非漂移。
 
 ---
@@ -124,21 +116,19 @@ EDB PDF → ai_extract.py → wiki_index.json（向量索引）
 edb-knowledge/
 ├── app.html                    # K1 知識平台主應用（React SPA）
 ├── index.html                  # 入口頁
-├── q.html                      # Quick Q&A（本地 knowledge.json 搜尋）
 ├── t-purchase.html             # 採購範本流程
-├── role_facts.json             # Channel A 知識庫（公開 API）
-├── knowledge.json              # 知識庫副本（供 EDB 通告系統調用）
+├── stats.json                  # 公開統計（片段數、來源數；入庫時自動同步）
 ├── guidelines.json             # 指引文件庫（公開 API）
 ├── CHANGELOG.md                # 版本歷史
 ├── backend/                    # Node.js TypeScript 後端
 │   ├── src/
 │   │   ├── server.ts           # HTTP server + 路由
 │   │   ├── api/                # 各端點處理器
-│   │   └── lib/                # embeddingClient、knowledgeRepository 等
+│   │   └── lib/                # embeddingClient、wikiRepository 等
 │   └── package.json
 └── dev/
     ├── knowledge/
-    │   ├── role_facts.json     # Channel A 事實庫（source of truth）
+    │   ├── channel_a_option2_queue.json  # 已退役 455 條的內部處理清單（不公開）
     │   ├── policy_signals.json # Circular System 政策訊號
     │   └── candidate_queue.json
     ├── vault/                  # PDF 提取腳本
@@ -171,7 +161,6 @@ JUDGE_MODEL=gpt-6-luna
 JUDGE_REASONING_EFFORT=none
 PORT=8787
 CORS_ORIGIN=https://leonard-wong-git.github.io,https://policychecker.wongfu.net
-KNOWLEDGE_PATH=../../../role_facts.json
 
 # Channel B 必需 —— 缺這兩項，/health 回 {"ok":false,"degraded":true}，搜尋靜默降級
 SUPABASE_URL=https://<project>.supabase.co
@@ -198,4 +187,4 @@ FEATURE_EXACT_WINDOW_NARROW=0          # 各 flag 說明見 backend/README.md
 
 ---
 
-*最後更新：2026-10-30 | 平台 v3.3.11（知識資料合約 knowledge.json 維持凍結 v2.3.0）| 維護：leonard-wong-git*
+*最後更新：2026-10-30 | 平台 v3.3.12 | 維護：leonard-wong-git*

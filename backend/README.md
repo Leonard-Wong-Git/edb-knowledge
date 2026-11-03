@@ -1,24 +1,15 @@
 # EDB Knowledge Platform Backend
 
-獨立 TypeScript backend，提供「已審批知識顧問層」API，供外部系統把知識注入 LLM prompt。
-
-## Scope
-
-- 這不是前台網站
-- 這不是 vector DB demo
-- 這不是一般 semantic-search RAG portal
-- 這是一個獨立 backend service
+香港學校政策搜尋平台（policychecker.wongfu.net）的 TypeScript 後端，部署於 Render。
 
 ## Current Responsibilities
 
-- 預設載入 repo root `role_facts.json`
-- 偵測通告相關 topic
-- 根據 role 選擇知識 facts
-- 控制知識注入長度
-- 組成 consultative prompt
-- 呼叫 OpenAI API
-- 提供 `POST /analyze-circular`
-- 兼容 legacy `department_head` 與新 `subject_head` / `panel_chair` split-role schema
+- `POST /api/search/channel-b`：EDB 原文語義搜尋（Supabase pgvector）、主題路由、相關性判官、附網址與頁碼合成答案；寫入 `search_log`
+- `POST /api/search/feedback`：回答評分
+- `POST /api/analyze-document`、`POST /api/annotate-document`、`POST /api/checklist-revise`、`GET /api/checklist-domains`：文件標註與合規清單
+- `GET /api/stats/usage`、`GET /health`
+
+> S243（2026-11-03）：Channel A（455 條事實，`role_facts.json`）及 `/analyze-circular`、`/api/search/channel-a`、`/api/search/combined` 已退役並刪除。
 
 ## Environment
 
@@ -32,7 +23,6 @@ JUDGE_MODEL=gpt-6-luna
 JUDGE_REASONING_EFFORT=none
 PORT=8787
 CORS_ORIGIN=https://leonard-wong-git.github.io
-KNOWLEDGE_PATH=../../../role_facts.json
 ```
 
 ### Feature flags
@@ -67,39 +57,12 @@ curl http://localhost:8787/health
 
 ## API
 
-### `POST /analyze-circular`
-
-Request:
-
-```json
-{
-  "circular_text": "本校須於五月底前提交採購報價紀錄及活動風險評估文件。",
-  "role": "subject_head"
-}
-```
-
-Response:
-
-```json
-{
-  "detected_topics": ["finance", "activity"],
-  "similarity_scores": {
-    "finance": 0.73,
-    "activity": 0.58
-  },
-  "used_facts": [
-    "..."
-  ],
-  "total_fact_chars": 123,
-  "analysis": "..."
-}
-```
+見 `src/server.ts` 各路由與上方清單。
 
 ## Notes
 
 - 合成用 LLM model 預設 `gpt-6-luna`、推理強度 `none`（`OPENAI_MODEL`／`OPENAI_REASONING_EFFORT` 覆寫；S239，因 `gpt-4o-mini` 於 2027-01-14 停用）。**明確設定了模型就不會自動帶推理強度**，舊模型（`gpt-4o-mini`／`gpt-4.1-mini`）不可設推理強度，否則呼叫被拒、合成靜默變空
 - **S211：相關性判斷閘（relevance judge）行自己一個 model，預設 `gpt-6-luna`＋推理強度 `none`（S239；`JUDGE_MODEL`／`JUDGE_REASONING_EFFORT` 覆寫），與 `OPENAI_MODEL` 分開。** 見 `src/config/env.ts` `getJudgeModel()` 的量度紀錄；改判斷閘行為前先確認是哪一個變數。
 - topic detection 目前使用 embedding-based semantic routing
-- 若知識檔 schema 有變動，先對齊 `K1_KNOWLEDGE_INTERFACE_SPEC.md`
 - 目前後端 bridge layer 同時支援舊 `department_head` 與新 `subject_head` / `panel_chair`
 - `npm run regression:semantic` 會先跑離線 semantic regression harness，檢查 topic / role-bucket / schema consistency / retrieval regression；若未設定 `OPENAI_API_KEY`，會明確標示 online regression pending

@@ -51,7 +51,7 @@ JEV = Path.home() / ".claude" / "skills" / "jev-decide" / "scripts" / "jev.py"
 GATE = REPO / "dev" / "source" / "jev" / "downstream_sync_gate.json"
 # user-facing files whose text can carry an old URL / edition
 SURFACES = ["app.html", "index.html", "mobile.js", "guidelines.json", "checklists_bundle.json",
-            "update_log.json", "README.md", "q.html"]
+            "update_log.json", "README.md"]
 
 EDITION_RE = re.compile(r"(20\d\d\s*/\s*\d\d學年|20\d\d年\d{1,2}月(?:修訂)?版|（20\d\d）|\(20\d\d\)|20\d\d年版|20\d\d年更新)")
 PAGE_RE = re.compile(r"=== Page (\d+) ===")

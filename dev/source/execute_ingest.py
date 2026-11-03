@@ -69,7 +69,9 @@ APPROVALS_DIR = OPS_DIR / "approvals"
 REGISTRY_PATH = REPO_ROOT / "dev" / "source" / "source_registry.json"
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from lifecycle import classify as classify_lifecycle  # noqa: E402
-KNOWLEDGE_PATH = REPO_ROOT / "knowledge.json"
+# S243 — knowledge.json retired with Channel A; the public chunk/source totals now live in
+# stats.json (same `_meta.stats` shape), rewritten by live_display_sync like every other mirror.
+STATS_PATH = REPO_ROOT / "stats.json"
 UPDATE_LOG_PATH = REPO_ROOT / "update_log.json"
 ROUTE_FILE = REPO_ROOT / "backend" / "src" / "api" / "searchChannelB.ts"
 VAULT_DIR = REPO_ROOT / "dev" / "vault"
@@ -99,10 +101,7 @@ LIVE_COMMIT_PATHS = [
 # never restate history. Anything added to this list must hold only the current
 # total; if a file also carries history, it does not belong here.
 DISPLAY_SYNC_TARGETS = [
-    ("knowledge.json", "raw"),
-    ("role_facts.json", "raw"),
-    ("dev/knowledge/role_facts.json", "raw"),
-    ("K1_API_SPEC.md", "raw"),
+    ("stats.json", "raw"),
     ("app.html", "raw"),
     ("index.html", "comma"),
     ("README.md", "comma"),
@@ -375,9 +374,10 @@ def _annotate(level: str, message: str) -> None:
 
 
 def current_chunk_total() -> Optional[int]:
+    import re
     try:
-        k = json.loads(KNOWLEDGE_PATH.read_text(encoding="utf-8"))
-        return int(k.get("_meta", {}).get("stats", {}).get("chunks"))
+        m = re.search(r'"chunks":\s*(\d+)', STATS_PATH.read_text(encoding="utf-8"))
+        return int(m.group(1)) if m else None
     except Exception:
         return None
 
@@ -585,10 +585,7 @@ def live_total_count() -> Optional[int]:
 
 
 SOURCES_SYNC_TARGETS = [
-    ("knowledge.json", r'("sources":\s*)(\d+)'),
-    ("role_facts.json", r'("sources":\s*)(\d+)'),
-    ("dev/knowledge/role_facts.json", r'("sources":\s*)(\d+)'),
-    ("K1_API_SPEC.md", r'("sources":\s*)(\d+)'),
+    ("stats.json", r'("sources":\s*)(\d+)'),
     ("app.html", r'("sources":\s*)(\d+)'),
     ("index.html", r'(data-stat="sources">)(\d+)(</span>)'),
 ]

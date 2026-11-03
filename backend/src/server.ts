@@ -1,7 +1,6 @@
 import { createServer } from "node:http";
 import type { IncomingMessage, ServerResponse } from "node:http";
 
-import { analyzeCircular } from "./api/analyzeCircular.js";
 import {
   analyzeDocument,
   MAX_TEXT_CHARS,
@@ -16,7 +15,6 @@ import {
   annotateDocument,
   type AnnotateDocumentRequest,
 } from "./api/annotateDocument.js";
-import { searchChannelA, type SearchChannelARequest } from "./api/searchChannelA.js";
 import {
   detectQueryCategory,
   searchChannelB,
@@ -26,14 +24,11 @@ import {
 } from "./api/searchChannelB.js";
 import { PROBE_HEADER, readUsageTotals, recordSearch } from "./lib/usageCounter.js";
 import { isLogId, logSearch, newLogId, parseClient, recordFeedback } from "./lib/searchLog.js";
-import { searchCombined, type SearchCombinedRequest } from "./api/searchCombined.js";
 import { handleChunks, handleManifest } from "./api/channelBSync.js";
 import { getCorsOrigins, getPort, getJudgeModel, getJudgeReasoningEffort } from "./config/env.js";
 import { createEmbeddingClient } from "./lib/embeddingClient.js";
-import { getCacheSize, initFactEmbeddingCache, isCacheWarm } from "./lib/factEmbeddingCache.js";
 import { overlayCacheStatus } from "./lib/wikiRepository.js";
 import { createLlmClient } from "./lib/llmClient.js";
-import type { AnalyzeCircularRequest } from "./types/knowledge.js";
 
 const PORT = getPort();
 /** S211 — process start time, so a restart is distinguishable from a redeploy. */
@@ -207,13 +202,6 @@ const judgeLlmClient = createLlmClient({
 });
 const embeddingClient = createEmbeddingClient();
 
-// Warm up the Channel A fact embedding cache in the background.
-// Non-blocking: the first search request will fall back to batch-embed if the
-// cache is not yet ready, then subsequent requests use the cache.
-initFactEmbeddingCache(embeddingClient).catch((err) => {
-  console.error("[startup] Channel A cache init error:", err);
-});
-
 // S219 — same pattern for the Channel B overlays. Both the footnote and spotlight
 // passes load their corpus WITH embeddings on first use (measured 1.66s + 1.79s against
 // live), and the search handler awaits them in sequence — so before this every restart
@@ -238,7 +226,6 @@ const server = createServer(async (req, res) => {
     res.end(JSON.stringify({
       ok: true,
       service: "edb-knowledge-platform-backend",
-      cache_a: { warm: isCacheWarm(), size: getCacheSize() },
       cache_b: overlayCacheStatus(),
       // S211 — which build is actually serving. Nothing outside Render could tell before:
       // Render posts no deployment status to GitHub and this endpoint reported no version,
@@ -419,49 +406,6 @@ const server = createServer(async (req, res) => {
     }
   }
 
-  if (req.method === "POST" && req.url === "/analyze-circular") {
-    try {
-      const input = await readJsonBody<AnalyzeCircularRequest>(req, MAX_TEXT_CHARS * 4 + 4096);
-      const result = await analyzeCircular(input, { llmClient, embeddingClient });
-
-      setCorsHeaders(req, res);
-      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify(result));
-      return;
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "Unknown error";
-      setCorsHeaders(req, res);
-      const status = message === "PAYLOAD_TOO_LARGE" ? 413 : 400;
-      res.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify({
-        error: status === 413 ? "上載內容過大，請分批處理。" : message,
-      }));
-      return;
-    }
-  }
-
-  // ── Channel A search (approved policy facts) ─────────────────────────────
-  if (req.method === "POST" && req.url === "/api/search/channel-a") {
-    try {
-      const input = await readJsonBody<SearchChannelARequest>(req, SEARCH_MAX_BYTES);
-      const result = await searchChannelA(input, embeddingClient, llmClient);
-
-      setCorsHeaders(req, res);
-      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify(result));
-      return;
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "Unknown error";
-      setCorsHeaders(req, res);
-      const status = message === "PAYLOAD_TOO_LARGE" ? 413 : 400;
-      res.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify({
-        error: status === 413 ? "查詢內容過大。" : message,
-      }));
-      return;
-    }
-  }
-
   // ── Channel B search (LLM-wiki index, all results) ────────────────────────
   if (req.method === "POST" && req.url === "/api/search/channel-b") {
     try {
@@ -490,28 +434,6 @@ const server = createServer(async (req, res) => {
       setCorsHeaders(req, res);
       res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
       res.end(JSON.stringify(logId ? { ...result, log_id: logId } : result));
-      return;
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "Unknown error";
-      setCorsHeaders(req, res);
-      const status = message === "PAYLOAD_TOO_LARGE" ? 413 : 400;
-      res.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify({
-        error: status === 413 ? "查詢內容過大。" : message,
-      }));
-      return;
-    }
-  }
-
-  // ── Combined A+B search ───────────────────────────────────────────────────
-  if (req.method === "POST" && req.url === "/api/search/combined") {
-    try {
-      const input = await readJsonBody<SearchCombinedRequest>(req, SEARCH_MAX_BYTES);
-      const result = await searchCombined(input, embeddingClient, llmClient);
-
-      setCorsHeaders(req, res);
-      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify(result));
       return;
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";

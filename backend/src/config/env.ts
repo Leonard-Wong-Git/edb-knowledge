@@ -19,7 +19,6 @@ const DEFAULT_MODEL_REASONING_EFFORT = "none" as const;
 const DEFAULT_PORT = 8787;
 const DEFAULT_JUDGE_MODEL = "gpt-6-luna";
 const DEFAULT_CORS_ORIGIN = "https://leonard-wong-git.github.io,https://policychecker.wongfu.net";
-const DEFAULT_KNOWLEDGE_PATH_SETTING = "../../../role_facts.json";
 
 // First-party brand origins that must ALWAYS be allowed regardless of the
 // CORS_ORIGIN env var. Hardening after S136 incident: a stale Render
@@ -105,11 +104,6 @@ export function getCorsOrigins(): string[] {
   return merged;
 }
 
-export function getKnowledgePath(): string {
-  const value = process.env.KNOWLEDGE_PATH?.trim();
-  return value || DEFAULT_KNOWLEDGE_PATH_SETTING;
-}
-
 /**
  * Non-throwing check for whether Channel B (Supabase pgvector) is configured.
  * Returns false when SUPABASE_URL or SUPABASE_ANON_KEY is missing/empty so
@@ -151,7 +145,6 @@ export function isChannelBSyncEnabled(): boolean {
 
 export {
   DEFAULT_CORS_ORIGIN,
-  DEFAULT_KNOWLEDGE_PATH_SETTING,
   DEFAULT_OPENAI_MODEL,
   DEFAULT_PORT,
 };

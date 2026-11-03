@@ -6,6 +6,23 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Channel A 退役] — 2026-11-03 — 平台只以附出處的 EDB 原文作答
+
+> 平台版本 **v3.3.11 → v3.3.12**（`app.html`、`index.html`、`mobile.js` 有改動；三個 HTML 的 `mobile.css`／`mobile.js`／`feedback.js` 快取字串改為 `?v=3.3.12`）。Leonard 定案：455 條不是金科玉律，回歸現行系統。
+
+### Removed
+- **`knowledge.json`、`role_facts.json`（凍結合約 v2.3.0，455 條）。** 下游通告系統已不使用（Leonard 確認）。原文移至內部清單 `dev/knowledge/channel_a_option2_queue.json`（不公開、不供搜尋），附逐條處理規則。
+- **後端 `/api/search/channel-a`、`/api/search/combined`、`/analyze-circular`** 及其模組（S198–S205 觀察期零外部呼叫）。前兩條仍會回傳與現行《學校行政手冊》矛盾的病假日數等錯數。`/health` 不再報 `cache_a`。
+- **`q.html`**（休眠中的快速問答頁，只搜 455 條）。
+- 平台介紹與首頁的「455 已核實政策事實」統計。
+
+### Changed
+- **搜尋不再回傳 109 條無出處的 `approved_fact` 副本**（`role_facts_*`），並由各路由的來源組移除；Supabase 資料暫留，待清單處理完畢經批准才刪。
+- 公開統計改由新檔 `stats.json` 提供（片段數、來源數；入庫 display-sync 自動改寫）；狀態頁改讀此檔。
+- `K1_API_SPEC.md` 改為只描述 `guidelines.json`（v3.0.0）；QC 凍結合約檢查只核 `guidelines.json` 兩個值。
+
+---
+
 ## [提供意見] — 2026-10-30 — 頁尾及回答下可提交意見，經 Leonard 的 Google 表單送出
 
 > 平台版本 **v3.3.10 → v3.3.11**（`app.html`、`index.html`、`mobile.js` 有改動，新增 `feedback.js`；四個 HTML 的 `mobile.css`／`mobile.js` 快取字串一併改為 `?v=3.3.11`）。凍結合約零接觸。後端、Supabase、搜尋邏輯零改動。

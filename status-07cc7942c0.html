@@ -177,11 +177,11 @@ var COMMANDS = [
    c:'curl -s https://edb-knowledge.onrender.com/health'},
   {l:'查看排程監察與線上探測的執行紀錄', d:'新鮮度、發現、服務中連結、封面標題、到期、新通告，以及每 6 小時一次的線上探測。',
    c:'gh run list --repo ' + REPO + ' --limit 15'},
-  {l:'⚠️ 由歷史版本還原凍結契約', d:'FREEZE_CONTRACT 轉紅時使用。四個值有下游系統依賴。', danger:true,
+  {l:'⚠️ 由歷史版本還原指引公開端點', d:'FREEZE_CONTRACT 轉紅時使用。guidelines.json 的版本與數目有下游依賴。', danger:true,
    c:'cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && \\\n' +
-     'git log --oneline -20 -- knowledge.json guidelines.json\n' +
+     'git log --oneline -20 -- guidelines.json\n' +
      '# 選定 <SHA> 之後：\n' +
-     'git checkout <SHA> -- knowledge.json guidelines.json'}
+     'git checkout <SHA> -- guidelines.json'}
 ];
 
 function renderCommands(){
@@ -213,7 +213,7 @@ var INFRA = [
 // S239 — 時間不是唯一的過期訊號。知識庫在檢查之後才被改動（入庫、退役、換網址），
 // 本頁會在 36 小時內照樣顯示「正常」，但所講的已不是現況（2026-10-13 實測：頁面報
 // 17,021 片段而知識庫已是 16,990）。這裏把報告量度時的片段數與網站現時公布的片段數
-// （knowledge.json，入庫流程必定同步）比對，並比對更新日誌最新一條的日期。
+// （stats.json，入庫流程必定同步；S243 前為 knowledge.json）比對，並比對更新日誌最新一條的日期。
 // live 為 null／undefined 代表讀不到，不作任何判斷 —— 讀不到不等於一致。
 function staleAgainst(d, live){
   if (!live) return null;
@@ -416,7 +416,7 @@ fetch('qc_report.json', {cache: 'no-store'}).then(function(r){
   if (!r.ok) throw new Error('HTTP ' + r.status);
   return r.json();
 }).then(function(d){
-  return Promise.all([optionalJson('knowledge.json'), optionalJson('update_log.json')])
+  return Promise.all([optionalJson('stats.json'), optionalJson('update_log.json')])
     .then(function(x){ render(d, liveState(x[0], x[1])); });
 }).catch(function(e){
   document.getElementById('banner').className = 'banner s-err';

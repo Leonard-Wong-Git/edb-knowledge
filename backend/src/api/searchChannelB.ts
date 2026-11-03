@@ -308,9 +308,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g06",
     "circ_edbc24017",
     "tdtf_report_2019",  // S142 §2: 教師專業發展專責小組報告 (T-standard / CPD policy origin)
-    "role_facts_hr",
-    "role_facts_curriculum",
-    "role_facts_general",
   ],
   kg_admission: [
     "g26",
@@ -318,22 +315,17 @@ const SOURCE_SETS: Record<string, string[]> = {
     "k1_admission_2627",   // S152: 2026/27 K1 入學安排 (通函 EDBCM81/2025 + FAQ), Discovery
     "kg_admin_guide",      // S152: 幼稚園學費涵蓋/售賣物品指引, Discovery
     "edbcm080_2026",       // S186: 通函80/2026 — 2027/28學年幼稚園幼兒班收生安排
-    "role_facts_general",
   ],
   // S142 §5 — primary/secondary place allocation + student-info-management (P1/SSPA/S4/STIMS).
   // Distinct from kg_admission (KG-only). Most admission content is parent forms/HTML mechanism;
   // these are the thin net-new full-text policy docs.
   placement: [
     "edbc18_2019_sspa", "stims_guide_2025", "s4_placement_2026",
-    "role_facts_general",
     "edbcm099_2026",              // (auto) Option A watcher ingest
   ],
   conduct: [
     "g05",
     "sag_2025_11",
-    "role_facts_student",
-    "role_facts_hr",
-    "role_facts_general",
   ],
   // SEN / 特殊教育 / 融合教育 (S138). Bare "sen" + 特殊教育/融合教育 queries previously
   // matched no category → fell through to a raw whole-index search at the 0.22 floor
@@ -347,8 +339,6 @@ const SOURCE_SETS: Record<string, string[]> = {
   sen: [
     "g06",
     "sag_2025_11",
-    "role_facts_student",
-    "role_facts_general",
     "g10",
     "g19",
     "sen_exam_arrangements_2025",
@@ -368,7 +358,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbcm095_2026",              // S186: 通函95/2026 — 資優教育學校網絡計劃2026/27 + 教師專業培訓
     "g14",
     "g06",
-    "role_facts_general",
   ],
   // (steam route has no source filter — plain retrieval + expansion only.)
 
@@ -393,7 +382,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "sdp_guide",                    // 如何編寫學校發展計劃 (IMC service-contract) — S242: aided edition
     "sdp_guide_dss",                // S242: 如何編寫學校發展計劃 — DSS edition
     "smc_constitution_sample",      // S168: SMC 學校管理委員會章程樣本 (補 SMC 內容 gap, corpus 一直 IMC-heavy)
-    "role_facts_general",
     "edbc016_2026",              // (auto) Option A watcher ingest
   ],
 
@@ -409,8 +397,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "fin_mgmt_notes_aided",   // S142: 資助學校財務管理注意事項
     "bank_choice_notes",      // S142: 學校選擇銀行注意事項
     "edbcm089_2026",          // S186: 通函89/2026 — 高中多元學習津貼 (其他語言及其他課程, 2026/27) — 津貼 routes here
-    "role_facts_finance",
-    "role_facts_general",
     "edbcm096_2026",              // (auto) Option A watcher ingest
     // S204 — TOPIC_KEYWORDS.finance owns 資助則例 and precedes hr_admin, so every Code of
     // Aid query lands here, not in hr_admin. coa_imc_1_19 above is the IMC edition only;
@@ -450,7 +436,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "kg_admin_guide_2026",       // 幼稚園行政手冊（聘任）
     "surplus_teacher_arr_2026",  // 過剩教師安排
     "edbc14_2023_student_protect",
-    "role_facts_hr",
   ],
 
   /**
@@ -506,8 +491,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbcm088_2026",     // S186: 通函88/2026 — 英文／普通話科教師語文能力要求 (LPAT) 及行政安排
     "edbcm066_2026",     // S186: 通函66/2026 — 準英語教師獎學金 (2026/27)
     // S172: sch_calendar_guide deprecated (404 + year-specific 2025/26 holidays superseded; chunks DELETEd). 校曆 queries stay covered by g11 擬定校曆表指引 above.
-    "role_facts_hr",
-    "role_facts_general",
     "edbcm094_2026",              // (auto) Option A watcher ingest
     // S204 — the 資助小學學位教師 cluster (graduate-teacher-posts). Nothing in the corpus
     // answered 「學校有幾多班就有幾多老師」: no registry source covered 人手編制 at all, and
@@ -543,7 +526,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "coa_pri_e", "coa_ss_e",
     "surplus_teacher_arr_2026",  // 過剩教師 — the flip side of a 編制 change
     "sag_2025_11",               // SAG carries the 改編職系 / 主任級 procedure
-    "role_facts_hr",
   ],
 
   /**
@@ -579,8 +561,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "sch_activities_guide",   // S152: 戶外活動 + 境外遊學團指引 (Discovery)
     "edbc009_2026",      // S186: 通告9/2026 — 家校合作活動整合津貼
     "edbcm070_2026",     // S186: 通函70/2026 — 2026/27 家庭與學校合作活動計劃資助申請
-    "role_facts_activity",
-    "role_facts_general",
     "edbc007_2026",              // (auto) Option A watcher ingest
   ],
 
@@ -596,7 +576,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbcm081_2026",     // S186: 通函81/2026 — 2026/27 為低收入家庭小學生提供在校免費午膳 (welfare)
     "g16", "g17",
     "sag_2025_11",
-    "role_facts_student", "role_facts_general",
     "edbcm108_2026",              // (auto) Option A watcher ingest
     "edbcm167_2026",              // (auto) Option A watcher ingest
   ],
@@ -615,7 +594,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "perf_indicators_2022",       // 表現指標
     "edbc15_2022_accountability", // 校外評核/問責架構/校本管理
     "sag_2025_11",
-    "role_facts_general",
   ],
 
   /**
@@ -629,7 +607,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "bip_insurance_notes_2025", "major_repairs_proc_nonestate", "major_repairs_proc_estate",
     "emergency_repairs_guide",
     "sag_2025_11",
-    "role_facts_general",
   ],
 
   /**
@@ -676,7 +653,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g22",               // 科技教育學習領域安全指引 (2010)
     "edbc012_2026",      // S186: 通告12/2026 — 校舍消防裝置或設備 (消防年檢)
     "sag_2025_11",
-    "role_facts_general",
   ],
 
   /**
@@ -708,7 +684,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "chi_jss_guide_2023",
     "chi_pri_guide_2023",
     "pe_kla_2017",
-    "role_facts_curriculum",
     "edbc18_2023_pri_science",
     "edbc20_2023_ph_pri",
     "edbc9_2024_ph_pri",
@@ -774,7 +749,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     // routed or expanded. Listing it here lets its chunks compete for the normal
     // per-source quota. Asserted by SOURCE_MEMBERSHIP in dev/source/route_regression.mjs.
     "edbcm144_2026",
-    "role_facts_general",
   ],
 };
 
@@ -1722,55 +1696,27 @@ const SPOTLIGHT_SOURCE_IDS: string[] = [
   // ack:spotlight:end
 ];
 
+/**
+ * S243 — every `approved_fact` chunk is withheld from search.
+ *
+ * The store holds 109 `approved_fact` chunks (source_id `role_facts_*`), copied from the
+ * old Channel A fact base. They carry an EMPTY url and no page, so an answer built on one
+ * cannot be traced, and they never update when the source documents do. S197 retired 9
+ * whose substance a cited passage carries; S243 (Leonard) retired Channel A outright, so
+ * all 109 are withheld here. The rows stay in Supabase until each one is either replaced
+ * by a cited `footnote_curated` chunk or judged not worth keeping — the work queue and the
+ * retirement rule live in `dev/knowledge/channel_a_option2_queue.json`.
+ *
+ * Reversible: drop this filter to bring the chunks back. Nothing is removed from Supabase.
+ */
+function retiredMirrorFilter<T extends { content_type?: string }>(r: T): boolean {
+  return r.content_type !== "approved_fact";
+}
+
 /** S183 — Apply supersede penalty to results in place. Caller is responsible for
  *  re-sorting after (e.g. before any lead-detection or top_k slice). Idempotency
  *  note: only call once per result object (apply at chunk-mapping boundary, not
  *  in re-sort loops). */
-/**
- * S197 — approved_fact chunks whose substance is available from a cited document.
- *
- * The store holds 109 `approved_fact` chunks mirrored from role_facts.json. They
- * carry an EMPTY url and no page, so an answer built on one cannot be traced —
- * which breaks the platform's first invariant (a sourced "not found" beats an
- * unsourced answer). Measured live: 「採購門檻」returned the procurement-ladder
- * mirror at rank 0 with url '' and page null, ranked ABOVE g01 p.5, which states
- * the same rule with a page. The mirror was outranking its own citable original.
- *
- * Only the entries below are retired, and only after the replacement passage was
- * read. This is deliberately not a blanket removal of the 109. Most of the rest
- * are role-attribution facts written as [角色] 負責…, and the corpus does not
- * state them in that form: 「訓導主任 社工」returns the mirror at ranks 0 and 1
- * while the nearest corpus passage (g16 p.17) discusses inter-agency liaison
- * without saying who coordinates it. Dropping those would lose the only place
- * the platform records which post holds which duty.
- *
- * Seven further candidates were rejected at the reading step, which is why this
- * list is 9 and not 16: their retrieved "replacement" turned out to be a
- * different subject (小學科學 rather than 人文科), a definition of the learning
- * experiences rather than the grant rule that cites them, or a passage that
- * carried the substance but not the role attribution. A mechanical
- * anchors-all-present verdict was wrong for 7 of 16 — do not extend this list
- * from the ledger without reading each passage first.
- *
- * Reversible: delete the entry to bring a chunk back. Nothing is removed from
- * Supabase; role_facts.json and the frozen contract are untouched.
- */
-const RETIRED_MIRROR_CHUNK_IDS = new Set<string>([
-  "fact_role_facts_curriculum_272099379a4e36c8", // 八個學習領域 → g13 p.61 enumerates all eight
-  "fact_role_facts_finance_21b8a570fa6bec3a",    // 採購金額階梯 → subvention_tips states the ladder verbatim
-  "fact_role_facts_curriculum_fd5177fe167ca5a4", // 十二種首要價值觀 → pri_curr_guide_2024 p.31
-  "fact_role_facts_student_a526827468f3154a",    // 缺課7天呈報 → sag_2025_11 p.53 (第七個上課日申報)
-  "fact_role_facts_finance_768d15096affc3a7",    // 採購程序指引(2025年10月) → g01 p.1 cover line
-  "fact_role_facts_curriculum_974a7d0161840e5e", // 九種共通能力 → chi_jss_guide_2023
-  "fact_role_facts_hr_09f2be265524a8d3",         // CPD 每三年150小時 → tdtf_report_2019
-  "fact_role_facts_curriculum_7564671d4fa51a20", // 五種基要學習經歷 → sag_2025_11 §2.1.4 lists all five
-  "fact_role_facts_curriculum_57cbabe00b309b02", // 七個學習宗旨 → g36 p.131
-]);
-
-function retiredMirrorFilter<T extends { id?: string }>(r: T): boolean {
-  return !(r.id && RETIRED_MIRROR_CHUNK_IDS.has(r.id));
-}
-
 function applySupersedePenalty<T extends { source_id: string; score: number }>(results: T[]): T[] {
   for (const r of results) {
     if (SUPERSEDED_IDS.has(r.source_id)) {

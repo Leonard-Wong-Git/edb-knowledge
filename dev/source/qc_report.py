@@ -473,37 +473,18 @@ def check_mirrors(live_total: int, mirror_values: dict[str, int | None]) -> dict
         bad, len(bad))
 
 
-def check_freeze_contract(knowledge: dict, guidelines: dict) -> dict:
-    """The frozen public contract. Channel A is FROZEN at 455 facts since S111."""
-    km, gm = knowledge.get("_meta", {}), guidelines.get("_meta", {})
-    # Each topic block is a DICT of role -> list of facts, plus `_`-prefixed
-    # metadata keys (_source_refs / _label / _keywords_zh). Summing the topic
-    # values directly returns 0, which would have reported an intact contract as
-    # broken; counted against the known 455 before being trusted.
-    facts = 0
-    for key, block in knowledge.items():
-        if key == "_meta" or not isinstance(block, dict):
-            continue
-        for role, items in block.items():
-            if not role.startswith("_") and isinstance(items, list):
-                facts += len(items)
-    # S224: guidelines moved to 2.6.2 / 151 in S223 (Leonard signed off; the public
-    # endpoint has served those values since). This baseline did not follow, so the
-    # gate reported a broken contract for a change that was deliberate. Nothing told
-    # S223 to come here — DOC_SYNC had no row for these four values; it does now.
-    # knowledge.json stays 2.3.0 / 455: Channel A is still frozen.
-    want = {"knowledge_version": "2.3.0", "facts": 455,
-            "guidelines_version": "2.6.2", "guidelines_count": 151}
-    got = {"knowledge_version": km.get("version"), "facts": facts,
-           "guidelines_version": gm.get("version"),
-           "guidelines_count": gm.get("count")}
+def check_freeze_contract(guidelines: dict) -> dict:
+    """The public guidelines endpoint contract. S243 retired knowledge.json (Channel A,
+    455 facts) together with its two values; only the guidelines pair remains."""
+    gm = guidelines.get("_meta", {})
+    want = {"guidelines_version": "2.6.2", "guidelines_count": 151}
+    got = {"guidelines_version": gm.get("version"), "guidelines_count": gm.get("count")}
     bad = [f"{k}：預期 {want[k]}，實際 {got[k]}" for k in want if got[k] != want[k]]
     return mk_check(
         "FREEZE_CONTRACT", "凍結的對外契約零接觸", "BLOCKER",
         "PASS" if not bad else "FAIL",
-        f"knowledge.json _meta {got['knowledge_version']} · 事實 {got['facts']} 條 · "
         f"guidelines.json _meta {got['guidelines_version']} · 指引 {got['guidelines_count']} 項。"
-        f"下游 EDB 通告系統依賴這四個值；改動須另行協調",
+        f"改動須另行協調",
         bad, len(bad))
 
 
@@ -608,11 +589,10 @@ def check_backend(health: dict | None) -> list[dict]:
         return [mk_check("BACKEND_HEALTH", "後端服務可達", "BLOCKER",
                          "FAIL", "/health 無回應")]
     ok = bool(health.get("ok"))
-    cache = health.get("cache_a", {})
     return [mk_check(
         "BACKEND_HEALTH", "後端服務可達", "BLOCKER", "PASS" if ok else "FAIL",
         f"ok={ok} · commit={health.get('commit')} · "
-        f"啟動於 {health.get('started_at')} · Channel A 快取 {cache.get('size')} 條")]
+        f"啟動於 {health.get('started_at')}")]
 
 
 # ---------------------------------------------------------------------------
@@ -671,9 +651,8 @@ def fetch_chunks(cache: Path | None) -> list[dict]:
 
 
 def read_mirrors(live_total: int) -> dict[str, int | None]:
-    """The seven public chunk-count mirrors, read as they are actually written."""
-    files = ["app.html", "index.html", "knowledge.json", "role_facts.json",
-             "dev/knowledge/role_facts.json", "README.md", "K1_API_SPEC.md"]
+    """The public chunk-count mirrors, read as they are actually written."""
+    files = ["app.html", "index.html", "stats.json", "README.md"]
     out: dict[str, int | None] = {}
     plain, comma = str(live_total), f"{live_total:,}"
     for f in files:
@@ -878,14 +857,14 @@ def read_issues(path: Path) -> list[dict] | None:
 
 def build_report(chunks: list[dict], health: dict | None,
                  search_probe: dict | None, registry: list[dict],
-                 knowledge: dict, guidelines: dict, guideline_count: int | None,
+                 guidelines: dict, guideline_count: int | None,
                  run: dict | None, issues: list[dict] | None = None) -> dict:
     live_total = len(chunks)
     serving = {c["source_id"] for c in chunks}
     checks: list[dict] = []
     checks += check_backend(health)
     checks.append(check_search_live(search_probe))
-    checks.append(check_freeze_contract(knowledge, guidelines))
+    checks.append(check_freeze_contract(guidelines))
     checks.append(check_mirrors(live_total, read_mirrors(live_total)))
     # A. 政策是否指得清楚
     checks.append(check_anchor_url(chunks))
@@ -1116,27 +1095,13 @@ def self_test() -> int:
     check("all green is PASS",
           overall_status([mk_check("a", "l", "ERROR", "PASS", "d")]) == "PASS")
 
-    # Shaped like the real file: topic -> {role: [facts], _meta keys}. A counter
-    # that walks the wrong shape returns 0 and reports an intact contract broken,
-    # which is what the first version of this check did.
-    def kb(n):
-        return {"_meta": {"version": "2.3.0"},
-                "hr": {"_label": "人事", "_source_refs": ["x"],
-                       "all_roles": [1] * n, "principal": []}}
-
+    # S243: knowledge.json (455 facts) retired; only the guidelines pair is asserted.
     gl = {"_meta": {"version": "2.6.2", "count": 151}}
-    check("intact freeze contract passes", check_freeze_contract(kb(455), gl)["status"] == "PASS")
-    check("one missing fact breaks the freeze contract",
-          check_freeze_contract(kb(454), gl)["status"] == "FAIL")
-    check("metadata keys are not counted as facts",
-          check_freeze_contract(kb(455), gl)["detail"].find("455 條") > 0)
-    # S224: the guidelines half is the half that actually moved, and nothing asserted
-    # it. Both of its values get their own red case so a future bump cannot drift the
-    # baseline silently in the one dimension the tests never looked at.
+    check("intact freeze contract passes", check_freeze_contract(gl)["status"] == "PASS")
     check("a guidelines VERSION drift breaks the freeze contract",
-          check_freeze_contract(kb(455), {"_meta": {"version": "2.6.1", "count": 151}})["status"] == "FAIL")
+          check_freeze_contract({"_meta": {"version": "2.6.1", "count": 151}})["status"] == "FAIL")
     check("a guidelines COUNT drift breaks the freeze contract",
-          check_freeze_contract(kb(455), {"_meta": {"version": "2.6.2", "count": 158}})["status"] == "FAIL")
+          check_freeze_contract({"_meta": {"version": "2.6.2", "count": 158}})["status"] == "FAIL")
 
     m_ok = check_mirrors(100, {"a": 100, "b": 100})
     m_bad = check_mirrors(100, {"a": 100, "b": -1})
@@ -1415,10 +1380,9 @@ def main() -> int:
 
     reg = json.loads(REGISTRY.read_text(encoding="utf-8"))
     registry = reg["sources"] if isinstance(reg, dict) and "sources" in reg else reg
-    knowledge = json.loads((REPO_ROOT / "knowledge.json").read_text(encoding="utf-8"))
     guidelines = json.loads((REPO_ROOT / "guidelines.json").read_text(encoding="utf-8"))
 
-    rep = build_report(chunks, health, search_probe, registry, knowledge,
+    rep = build_report(chunks, health, search_probe, registry,
                        guidelines,
                        guidelines_registry_count(), latest_eval_run(),
                        read_issues(Path(args.issues)) if args.issues else None)
