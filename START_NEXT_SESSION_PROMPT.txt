@@ -6,37 +6,35 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S242 收工, 2026-11-02）---
+--- 專案狀態（S243 收工, 2026-11-03）---
 
-平台 v3.3.10；Supabase 17,170 chunks（312 來源）；EDB 指引書庫 181 份；guidelines.json 公開端點 151 份（_meta 2.6.2）；
-knowledge.json 仍 _meta 2.3.0 · facts 455。Agent Handoff Kit v0.4.3（npm 已有 0.4.4，未升級）。
-origin/main = 814bd0c；線上 /health commit = 3ef9ab6（開工以 /health 核實）。
-Render：已無 OPENAI_MODEL、無 JUDGE_MODEL → 合成與判官皆碼內預設 gpt-6-luna＋reasoning.effort none。
-FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 皆未設＝關閉。
+平台 v3.3.16；Supabase 17,179 chunks（313 來源）；EDB 指引書庫 182 份；guidelines.json 公開端點 151 份（_meta 2.6.2）。
+Channel A（455 條）已退役：knowledge.json／role_facts.json 已刪，原文在內部清單 dev/knowledge/channel_a_option2_queue.json；
+Supabase 109 條 approved_fact 只停服未刪。公開統計在 stats.json。Agent Handoff Kit v0.4.3（npm 已有 0.4.4，未升級）。
+origin/main = 37451db；線上 /health commit = 20fd4a4（開工以 /health 核實）。
+公開分頁：平台介紹／政策搜尋／EDB指引。文件標註收起待修（FEATURE_TABS.annotate=false）；範本下載、q.html、t-purchase.html、
+手機版選擇角色已刪。
+Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
+FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 未設＝關閉。
 public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
 
-🟢 S242 做完（不用重做）：
-   · 封面核對 Issue #72（PR #73）：edbcm141_2025_blnst 退役 → edbcm170_2026_blnst ＋ blnst_faq_2026；sdp_guide 換資助學校版
-     並新增 sdp_guide_dss；iit_ai_framework_2026 換 10-14 新檔（改稱「人工智能部分」）。舊資料備份 dev/init_backup/20261101_195421_UTC/。
-     公開數字、指引書庫、更新日誌、清單 27 條條文、封面基線皆已同步。
-   · 新 blnst 路由（PR #74）：hr_admin 的假期展開詞把基本法測試短查詢拉走；線上六種問法已取回 BLNST 文件。
-   · QC 報告排隊撞車（PR #75）：checkout main 最新 ＋ rebase -X theirs；手動跑一次 success。
-   S241 已做（不用重做）：OpenAI 模型遷移、註腳佔格量完、定期更新檢查規則、真實拒答分類、通函編號查找（已開）。
+🟢 S243 做完（不用重做）：
+   · 新文件 #78：二十份逐份讀過，入庫 moi_3rd_cycle_policy_2021（2021-04-29 第三周期政策函件）＋「化時為科」路由詞；
+     其餘 19 份 Leonard 定不入，#78 由監察下週一自動關閉（不要人手處理）。
+   · Channel A 退役：三條舊後端路由與 9 個模組已刪，approved_fact 全數停服；QC／狀態頁／入庫工具改讀 stats.json。
+   · 副本核對規則改用 Jev：dev/source/jev/channel_a_match_gate.json（只看三題機率，不看 verdict 總結）。
+   · 文件標註線上實測三個質素問題 → 收起待修；範本下載＋109 份 Word、兩個休眠頁、手機選擇角色已刪；README 已對齊。
+   S242、S241 已做（不用重做）：封面核對 #72、blnst 路由、QC 撞車；模型遷移、通函編號查找（已開）。
 
-🔴 #70 的內容已隨 #73 入 main，PR 仍開著，待 Leonard 關閉。
-   合併只在 Leonard 明示時進行；被分類器擋下時不要重試或繞過。
+🔴 #70 的內容早已入 main，PR 仍開著，待 Leonard 關閉。合併只在 Leonard 明示時進行。
 
-🚀 下一步（依次）：
-   ① 有效期：expiry-sweep 清除改為經 PR（ops e1c3eaf，只以樁件測過）；第一次真實剔選時核實 PR 有開出並合併。待清除 0。
-      可選：通函對照表補讀登記標題，覆蓋第 1 頁無標頭的 7 份。
-   ② 教學語言政策：帶 x-probe 以「教學語言政策」做一次 synthesize:true 確認答案；第四周期公布時要換版。
-   ③ 定期系統更新檢查餘項：執行環境（本機與 Render）、排程監察、Kit 0.4.4 是否升級（Leonard 決定）。
-   ④ 退役 EDBC_9_2019_E（S238 已批准未做）。先匯出備份再刪，再 live_display_sync。
-   ⑤ Leonard 確認 Gmail 有否收到 @mention；待 token 項（非華語津貼路由、清單條文 8 條＋頁碼 49 處）；
-      FEATURE_SUBJECT_CHECK 仍待 Leonard（開前以新判官重量）。
-   S242 新增：下次合併 PR 同時關閉 Issue 時，核對兩次 Knowledge-base QC Report 皆 success；
-   BLNST 短查詢第一位多為代課教師指引（亦載 BLNST 條文），要改要動配額或重排，不是路由。
-   另記：search_log 未記拒答原因（要 DDL）；edbc100_2002_healthy_sch 登記標題編號錯；推廣閱讀津貼查詢被路由到 hr_admin。
+🚀 下一步：
+   ① Option 2 第一輪（Leonard 指定）：按清單 _meta.rules 第 2 條，寫腳本「檢索候選段落 → Jev → 分流 → 寫 resolved／dropped／人手名單」，
+      小批試跑並抽樣覆核後才全量；批量 Jev 呼叫前先報數量。
+   ② 文件標註四項重開條件（CHANGELOG〔文件標註收起待修〕）。
+   ③ 搜尋紀錄加拒答原因（decline_reason＋judge 兩欄；log_search 先刪舊簽名再建）：DDL 待 Leonard 批准。
+   ④ 照舊：有效期第一次真實剔選核實 PR 開出並合併；定期系統更新檢查餘項；退役 EDBC_9_2019_E；FEATURE_SUBJECT_CHECK 待決定。
+   可選清理：app.html／mobile.js 不再觸發的 approved_fact 顯示程式；dev/vault 舊 Channel A 篩選腳本。
 
 ⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
    · 定標必須讀每一段全文；用 stub 判官量的是「失去捷徑」不是「失去答案」；答案層結論必須用真判官量。
@@ -49,8 +47,8 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    · 升版只手改 PLATFORM_VERSION＋README＋CHANGELOG；任何來源換版／改網址／退役後 check_downstream_sync 的 MUST_UPDATE 必須為 0。
    · 抽取與入庫一律用 /usr/local/bin/python3。
 
-Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.10 + Render /health commit
-（應為 main 最新 commit）+ git fetch 後比對分支與 origin/main、gh pr list + Supabase live count 應為 17,170
+Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.16 + Render /health commit
+（應為 20fd4a4 或之後改 backend 的 commit）+ git fetch 後比對分支與 origin/main、gh pr list + Supabase live count 應為 17,179
 + check_registry_drift --check --ledger <scratchpad> 的 ZOMBIE／UNMANAGED／SERIES_UNMONITORED 都應為 0
 + dev/PROJECT_INDEX.md「定期系統更新檢查」一行日期是否已逾 30 日，逾期就在起手卡注意事項提示）。
 之後報告，並按 ① 處理。
