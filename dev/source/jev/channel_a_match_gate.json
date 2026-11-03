@@ -1,0 +1,56 @@
+{
+  "_meta": {
+    "title": "舊 Channel A 事實 × 新入庫原文 對照判斷閘（S243）",
+    "note": "state 為 JSON：fact（清單內一條事實原文、所屬範疇 topic 與角色 role）、passage（候選原文段落全文、source_id、頁碼）。候選段落由檢索取得，Jev 只看得見 state；沒有段落全文時一律交人手。用法與分流規則見 dev/knowledge/channel_a_option2_queue.json _meta.rules 第 2 條。 分流以三題各自的機率為準（見清單規則第 2 條），不看 verdict 總結；S243 試跑：採購門檻事實對 g01 p.7（只涵蓋部分門檻）得 same_rule 0.03、role_match 0.89、contradicts 0.56 → 交人手，符合預期。",
+    "verdicts": [
+      {
+        "name": "同一規則",
+        "label": "原文陳述了同一條規則",
+        "else_label": "未見同一規則",
+        "questions": [
+          "same_rule"
+        ]
+      },
+      {
+        "name": "角色",
+        "label": "角色歸屬一致或不適用",
+        "else_label": "角色歸屬對不上",
+        "questions": [
+          "role_match"
+        ]
+      },
+      {
+        "name": "矛盾",
+        "label": "與原文矛盾 —— 事實已過時或錯誤",
+        "else_label": "未見矛盾",
+        "questions": [
+          "contradicts"
+        ]
+      }
+    ]
+  },
+  "same_rule": {
+    "type": "noul",
+    "instructions": "passage 原文陳述了與 fact 相同的規則：所涉事項、數字、期限、門檻與條件逐項一致。",
+    "criteria": {
+      "true": "fact 的每一個具體元素（金額、日數、次數、期限、適用對象、條件）都能在 passage 原文找到相同的陳述；只是寫法或語序不同亦算一致",
+      "false": "passage 只是泛講同一範疇、只覆蓋 fact 的部分元素、數字或條件不同，或要靠推論才連得上"
+    }
+  },
+  "role_match": {
+    "type": "noul",
+    "instructions": "如 fact 指明某個崗位或角色負責某事，passage 原文亦指明同一崗位或角色負責該事。",
+    "criteria": {
+      "true": "fact 沒有指名角色（role 為 all_roles 或內文未提崗位），或 passage 原文明寫同一崗位負責同一件事",
+      "false": "fact 指名某崗位負責，但 passage 只寫「學校」「負責人員」等泛稱，或寫的是另一崗位"
+    }
+  },
+  "contradicts": {
+    "type": "noul",
+    "instructions": "passage 原文就 fact 所講的同一件事，給出不同的數字、期限、門檻或規定。",
+    "criteria": {
+      "true": "兩者講的明顯是同一件事，而 passage 的規定與 fact 不同（例如病假日數、採購金額門檻、呈報期限不同）",
+      "false": "兩者講的不是同一件事，或規定一致，或 passage 沒有足夠資料判斷"
+    }
+  }
+}

@@ -6,6 +6,22 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [文件標註收起待修] — 2026-11-03 — 實測輸出可能誤導，修好並量度後才重開
+
+> 平台版本 **v3.3.12 → v3.3.13**（`app.html`、`index.html` 有改動；三個 HTML 快取字串改為 `?v=3.3.13`）。Leonard 定案「收起待修」（線上實測＋Jev 第二意見：誤導 0.94、可一輪修好 0.92、使用證據 0.04）。
+
+### Changed
+- **「📝 文件標註」分頁以 `window.FEATURE_TABS.annotate = false` 收起**，程式原封保留；後端 `/api/annotate-document` 等端點不變。
+- 移除對外文案中的文件標註描述：`app.html` 平台介紹 hero 段、og／twitter 描述、導覽開場白、常見問題兩條；`index.html` 功能卡（隱藏）、hero 段與 meta description；README 功能表。
+
+### 待修（重開條件）
+1. 「相關指引」改用最高分判斷，並以貼題／離題文件重新量度門檻（現時只看第一個配對、門檻 0.62 為 S173 舊尺度）。
+2. 「欠缺」項目改按與文件的相關度排序（現時按清單次序取頭 8 項）。
+3. 「部分符合」加字詞重疊閘，減少配錯段落。
+4. 開始記錄文件標註的使用次數。
+
+---
+
 ## [Channel A 退役] — 2026-11-03 — 平台只以附出處的 EDB 原文作答
 
 > 平台版本 **v3.3.11 → v3.3.12**（`app.html`、`index.html`、`mobile.js` 有改動；三個 HTML 的 `mobile.css`／`mobile.js`／`feedback.js` 快取字串改為 `?v=3.3.12`）。Leonard 定案：455 條不是金科玉律，回歸現行系統。

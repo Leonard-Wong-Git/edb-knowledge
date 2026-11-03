@@ -19,7 +19,7 @@
 <meta property="og:title" content="香港學校政策搜尋平台">
 <!-- S211 — og/twitter description 會出喺分享卡，同樣列緊平台功能：跟 FEATURE_TABS 走。
      原文列住「範本下載」，該 tab 由 S204 收起。見本檔 head 分頁開關註釋第 8 項。 -->
-<meta property="og:description" content="EDB 政策語義搜尋 · 文件標註 · 指引文件庫">
+<meta property="og:description" content="EDB 政策語義搜尋 · 指引文件庫">
 <meta property="og:url" content="https://policychecker.wongfu.net/app.html">
 <meta property="og:image" content="https://policychecker.wongfu.net/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -27,7 +27,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="香港學校政策搜尋平台">
-<meta name="twitter:description" content="EDB 政策語義搜尋 · 文件標註 · 指引文件庫">
+<meta name="twitter:description" content="EDB 政策語義搜尋 · 指引文件庫">
 <meta name="twitter:image" content="https://policychecker.wongfu.net/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -756,12 +756,19 @@ body {
  * templates: withdrawn 2026-08-18 — policy_templates.json is a generated manifest that has
  * not been regenerated alongside the corpus, so the list on show was going stale. Restore
  * after re-running dev/checklists/_work/gen_templates_manifest.py.
+ *
+ * annotate: withdrawn 2026-11-03 (S243, Leonard「收起待修」after a live test + Jev second
+ * opinion) — output can mislead: 相關指引 almost never shows (floor 0.62 checked against the
+ * FIRST match, not the best; calibrated on the S173 score scale), 欠缺 lists the first 8
+ * missing items in checklist order instead of by relevance, and 部分符合 pins requirements to
+ * the wrong paragraphs (cosine over-fire). Restore only after all three are fixed AND measured
+ * on on-domain / off-domain sample documents, and after annotate usage is being counted.
  */
-window.FEATURE_TABS = { about: true, qa: true, annotate: true, templates: false, guidelines: true };
+window.FEATURE_TABS = { about: true, qa: true, annotate: false, templates: false, guidelines: true };
 </script>
-<link rel="stylesheet" href="mobile.css?v=3.3.12">
-<script src="mobile.js?v=3.3.12" defer></script>
-<script src="feedback.js?v=3.3.12" defer></script>
+<link rel="stylesheet" href="mobile.css?v=3.3.13">
+<script src="mobile.js?v=3.3.13" defer></script>
+<script src="feedback.js?v=3.3.13" defer></script>
 </head>
 <body>
 <div id="root"></div>
@@ -1307,7 +1314,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // retired with Channel A in S243). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + 文件標註（就地標註）+ 範本下載 + 合規清單修訂，跨 15 個合規範疇。
-const PLATFORM_VERSION = '3.3.12';
+const PLATFORM_VERSION = '3.3.13';
 // S204 — tab switches; defined in a plain <script> in <head> so mobile.js can read them
 // at its DOMContentLoaded init, which runs BEFORE this Babel script compiles.
 const FEATURE_TABS = window.FEATURE_TABS;
@@ -1537,7 +1544,7 @@ function PlatformIntroPanel({ stats }) {
             由 2026-08-18 一直留到 2026-09-01 先發現。改動任何 tab flag 時，連同 index.html 個
             hero-desc 同 meta description 一齊睇（見 DOC_SYNC_CHECKLIST「Tab withdraw / restore」）。 */}
         <p style={{fontSize:'var(--text-base)',color:'var(--mid)',maxWidth:'480px',margin:'0 auto',lineHeight:1.7}}>
-          由政策搜尋到文件標註——以自然語言查詢教育局政策、通告及指引；上載學校文件即時比對指引與合規清單，並附原始出處。
+          以自然語言查詢教育局政策、通告及指引，答案附原始出處與頁碼，並可瀏覽 EDB 官方指引文件庫。
         </p>
       </div>
 
@@ -1717,10 +1724,11 @@ function PlatformIntroPanel({ stats }) {
           <h3 style={{fontSize:'var(--text-lg)',fontWeight:800,color:'var(--charcoal)',marginBottom:'10px',textAlign:'center'}}>常見問題</h3>
           {[
             { q:'答案準唔準？可唔可以照跟？', a:'本平台是輔助查閱工具，所有答案均附原始文件連結。重要決定請以教育局官方原文為準。' },
-            { q:'文件標註支援咩檔案格式？', a:'支援 Word（.docx，效果最佳，可保留格式）、PDF（需有文字層）、或直接貼上文字。掃描影印本（無文字層）暫不支援。' },
-            { q:'我上載嘅文件安唔安全？', a:'原始檔案只在你的瀏覽器內讀取，不會上載；只有抽取的文字會傳送至伺服器作比對，過程不儲存。請勿包含學生姓名、身份證號碼等敏感個人資料。' },
-            { q:'點解第一次搜尋／標註比較慢？', a:'伺服器閒置一段時間會自動休眠，首次使用需數十秒喚醒，之後回應正常。' },
-          ].map((item, i) => (
+            { tab:'annotate', q:'文件標註支援咩檔案格式？', a:'支援 Word（.docx，效果最佳，可保留格式）、PDF（需有文字層）、或直接貼上文字。掃描影印本（無文字層）暫不支援。' },
+            { tab:'annotate', q:'我上載嘅文件安唔安全？', a:'原始檔案只在你的瀏覽器內讀取，不會上載；只有抽取的文字會傳送至伺服器作比對，過程不儲存。請勿包含學生姓名、身份證號碼等敏感個人資料。' },
+            { q: FEATURE_TABS.annotate ? '點解第一次搜尋／標註比較慢？' : '點解第一次搜尋比較慢？', a:'伺服器閒置一段時間會自動休眠，首次使用需數十秒喚醒，之後回應正常。' },
+          // S243 — entries tagged with a tab disappear while that tab is withdrawn.
+          ].filter((item) => !item.tab || FEATURE_TABS[item.tab] !== false).map((item, i) => (
             <details key={i} style={{background:'var(--cd-warm)',border:'1px solid var(--border)',borderRadius:'var(--r-md)',padding:'4px 16px',marginBottom:'8px'}}>
               <summary style={{cursor:'pointer',fontSize:'var(--text-sm)',fontWeight:700,color:'var(--charcoal)',padding:'10px 0',listStyle:'none'}}>{item.q}</summary>
               <p style={{margin:'4px 0 14px',color:'var(--mid)',fontSize:'var(--text-sm)',lineHeight:1.8}}>{item.a}</p>
@@ -3088,7 +3096,7 @@ const TOUR_STEPS = [
   const tourFeatures = TOUR_STEPS.filter((s) => s.cta && s.cta.view !== 'about');
   const welcome = TOUR_STEPS[0];
   if (welcome && !welcome.cta) {
-    welcome.body = '呢個平台幫學校快速查閱教育局（EDB）政策指引，並處理學校政策文件。一分鐘導覽，帶你睇下'
+    welcome.body = '呢個平台幫學校快速查閱教育局（EDB）政策指引' + (window.FEATURE_TABS?.annotate !== false ? '，並處理學校政策文件' : '') + '。一分鐘導覽，帶你睇下'
       + (CN_NUM[tourFeatures.length] || tourFeatures.length) + '大功能點用。';
   }
 }

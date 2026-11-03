@@ -19,7 +19,7 @@ Use: `confirmed`, `unverified`, `pending`, `blocked`, `not_applicable`.
 | Workspace identity change | `dev/SESSION_HANDOFF.md`, `dev/PROJECT_INDEX.md` | root/branch/commit/status recorded or marked unverified |
 | Release | release notes, README version, changelog | release pack checklist |
 | 入庫「EDB 指引」類文件（課程框架／指引／手冊／常見問題／單張／配套通告；人手入庫與 Option A 自動入庫皆適用；Leonard S241 定） | `app.html` `GUIDELINES_REGISTRY` 加一條（`id` 用 `source_id`；`category`／`sub_category`／`also_in`／`level`／`year`；新 `sub_category` 同時加入 `SUB_CAT_LABELS` 與 `SUB_CAT_SEQ`）；README 指引數目四處（第 27、31、112 行及第 117 行註腳歷史）；`guidelines.json` 屬凍結合約，不跟加。Option A executor 不會自動加入：核對自動入庫結果的同一 session 內補加 | 收工或宣布入庫完成前：瀏覽器 `window.GUIDELINES_REGISTRY` 含新 id、無重複 id、總數與 README 一致；書庫分頁能見新條目 |
-| 任何入庫、換版或退役（人手或 Option A；Leonard S243 定） | `dev/knowledge/channel_a_option2_queue.json`：按其 `_meta.rules` 第 2 條，以新來源原文對照清單，逐條開段落核對，對得上的移入 `resolved`（附 `source_id`、頁碼、session）並從清單刪去；`facts_remaining` 同步更新 | 清單只減不增；`backend/src/api/searchChannelB.ts` `retiredMirrorFilter` 仍停用全部 `approved_fact`；清單清空或餘項皆已判定時，匯出備份後經 Leonard 批准才刪 Supabase 的 109 行 |
+| 任何入庫、換版或退役（人手或 Option A；Leonard S243 定） | `dev/knowledge/channel_a_option2_queue.json`：按其 `_meta.rules` 第 2 條，以新來源片段檢索候選段落，逐條交 Jev（`dev/source/jev/channel_a_match_gate.json`）判斷並按機率分流：高信心有出處自動移入 `resolved`、高信心矛盾移入 `dropped`、其餘交人手；`facts_remaining` 同步更新 | 清單只減不增；`backend/src/api/searchChannelB.ts` `retiredMirrorFilter` 仍停用全部 `approved_fact`；清單清空或餘項皆已判定時，匯出備份後經 Leonard 批准才刪 Supabase 的 109 行 |
 
 ## Registry Rule
 
