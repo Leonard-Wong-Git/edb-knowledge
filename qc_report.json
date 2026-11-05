@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-04T19:10:32Z",
+  "generatedAt": "2026-11-05T16:13:33Z",
   "overallStatus": "ERROR",
   "counts": {
-    "chunks": 17179,
+    "chunks": 17182,
     "PASS": 14,
     "BLOCKER": 0,
     "ERROR": 2,
@@ -12,11 +12,11 @@
   },
   "version": "v3.3.16",
   "corpus": {
-    "chunks": 17179,
-    "sources_serving": 320,
+    "chunks": 17182,
+    "sources_serving": 321,
     "sources_registered": 301,
     "guidelines_listed": 182,
-    "distinct_urls": 345,
+    "distinct_urls": 348,
     "largest_sources": [
       {
         "source_id": "coa_ss_e",
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-04T19:10:32Z",
+    "collectedAt": "2026-11-05T16:13:33Z",
     "items": [
       {
         "kind": "freshness-change",
@@ -213,7 +213,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=20fd4a4 · 啟動於 2026-11-04T19:10:19.297Z",
+      "detail": "ok=True · commit=20fd4a4 · 啟動於 2026-11-05T16:08:27.822Z",
       "offenders": [],
       "offender_total": 0
     },
@@ -243,7 +243,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "infra",
-      "detail": "資料庫真數 17179 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "detail": "資料庫真數 17182 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
       "offenders": [],
       "offender_total": 0
     },
@@ -273,14 +273,14 @@
       "severity": "WARN",
       "status": "FAIL",
       "group": "pointing",
-      "detail": "191 · 高於基準 179（+12） · 這些片段只能把用戶帶到文件首頁",
+      "detail": "193 · 高於基準 179（+14） · 這些片段只能把用戶帶到文件首頁",
       "offenders": [
         "g14（76 條）",
+        "g04（12 條）",
         "cap279_education_ordinance（11 條）",
-        "g04（11 條）",
         "g17（10 條）",
         "gifted_policy_docs（10 條）",
-        "ceg_calc_2026（5 條）",
+        "ceg_calc_2026（6 條）",
         "eoebg_guide_2026（5 條）",
         "ac_grant_2026（4 條）",
         "eoebg_rates_2026（4 條）",
@@ -288,7 +288,7 @@
         "g13（4 條）",
         "sch_complaint_guide_2023（3 條）"
       ],
-      "offender_total": 191
+      "offender_total": 193
     },
     {
       "id": "NO_DUPLICATE_CHUNKS",
