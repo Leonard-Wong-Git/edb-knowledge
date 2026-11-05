@@ -6,30 +6,29 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S244 收工, 2026-11-05）---
+--- 專案狀態（S245 收工, 2026-11-05）---
 
-平台 v3.3.16；Supabase 17,182 chunks（313 來源；footnote_curated 176）；EDB 指引書庫 182 份；guidelines.json 公開端點 151 份（_meta 2.6.2）。
-Channel A 已退役；內部清單 dev/knowledge/channel_a_option2_queue.json 由 455 條減至 39 條（resolved 264、dropped 152），
+平台 v3.3.16；Supabase 17,183 chunks（315 來源；footnote_curated 177）；EDB 指引書庫 182 份；guidelines.json 公開端點 151 份（_meta 2.6.2）。
+Channel A 已退役；內部清單 dev/knowledge/channel_a_option2_queue.json 由 455 條減至 1 條（resolved 288、dropped 166），
 規則在該檔 _meta.rules 第 1–8 條。Supabase 109 條 approved_fact 只停服未刪（清單清空後才按第 5 條處理）。
 Agent Handoff Kit v0.4.3（npm 已有 0.4.4，未升級）。
-origin/main = ab2aee9；線上 /health commit = 20fd4a4（開工以 /health 核實）。
-本節分支 s244-option2-round1，PR #86 未合併（不改 backend/）。#70 仍開著。
+origin/main = 27a59d5（PR #86 已合併）；線上 /health commit = 20fd4a4（開工以 /health 核實）。
+本節分支 s245-option2-round2，PR #87 未合併（不改 backend/）。#70 仍開著。
 Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
 FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 未設＝關閉。
 public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
 
-🟢 S244 做完（不用重做）：
-   · dev/source/channel_a_jev_round.py（檢索 → Jev → 分流 → 寫入）；判斷閘加 same_matter，剔除須 same_matter 與 contradicts 皆 ≥ 0.70。
-   · Jev 全量已跑；人手逐段核對、關鍵詞搜尋、按原文修正（87 條 fact_corrected）、角色類剔除、時限資料改判皆已寫入。
-   · 3 條 footnote_curated 入庫（學校發展津貼發放、非教學人員年假、CPD 紀錄＝通告29/2024），線上已載入（footnote 176）。
-   S243 已做（不用重做）：#78 入庫、Channel A 退役、文件標註收起、刪範本與休眠頁。
+🟢 S245 做完（不用重做）：
+   · 餘下 39 條已逐條庫內關鍵詞搜尋＋網上搜尋：23 條按原文修正入出處、14 條剔除（時限 8、找不到出處 5、問卷題 1）。
+   · BYOD footnote 入庫（footnote_fn_byod_edb_support，問句用書面語），線上已載入（footnote 177）；公開數字 17,183／315。
+   S244 已做（不用重做）：Jev 全量與人手核對（455 → 39）、3 條 footnote 入庫。
 
 🚀 下一步：
-   ① Option 2 餘下 39 條：逐條網上搜尋教育局原文（Tavily 會限速，要放慢）；先查庫內是否已有；
-      找到 → 按原文修正（規則第 7 條）；庫內沒有 → footnote_curated 入庫（第 3 條，要 Leonard 批准）；找不到或已過時 → 剔除（第 4、6 條）。
-   ② PR #86 待 Leonard 指示合併。
-   ③ 待決定：edbc29_2024_teacher_training 是否登記 source_registry；新 footnote 問句是否改為書面語；
-      語料庫內的時限段落（例如通告13/2025 的 2025/26 培訓基地地點）是否交 check_expiry 退役機制；app.html 固定顯示「全校」的角色標籤。
+   ① 清單最後 1 條（租金收入）：請 Leonard 在兩個候選出處中選定（見交接 Open Priorities 開首 S245 段）；
+      寫入後清單清空 → 按規則第 5 條先匯出 109 行 approved_fact 備份並報數，等 Leonard 批准才刪除，再 display-sync。
+   ② PR #87 待 Leonard 指示合併；舊分支 s244-option2-round1（PR #86 已合併）可刪。
+   ③ 待決定：edbc29_2024_teacher_training、edb_byod_page 是否登記 source_registry；S244 三條 footnote 粵語問句是否改寫；
+      語料庫時限段落是否交 check_expiry 退役機制；app.html 固定顯示「全校」的角色標籤。
    ④ 照舊：文件標註四項重開條件；搜尋紀錄加拒答原因（DDL 待批）；有效期第一次真實剔選；退役 EDBC_9_2019_E；FEATURE_SUBJECT_CHECK 待決定。
 
 ⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
@@ -44,8 +43,8 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    · 抽取與入庫一律用 /usr/local/bin/python3。
 
 Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.16 + Render /health commit
-（應為 20fd4a4 或之後改 backend 的 commit；cache_b.footnote 應為 176）+ git fetch 後比對分支與 origin/main、gh pr list
-+ Supabase live count 應為 17,182 + check_registry_drift --check --ledger <scratchpad> 的 ZOMBIE／SERIES_UNMONITORED 應為 0
-（UNMANAGED 可能因 edbc29_2024_teacher_training 為 1）+ dev/PROJECT_INDEX.md「定期系統更新檢查」一行日期是否已逾 30 日）。
+（應為 20fd4a4 或之後改 backend 的 commit；cache_b.footnote 應為 177）+ git fetch 後比對分支與 origin/main、gh pr list
++ Supabase live count 應為 17,183 + check_registry_drift --check --ledger <scratchpad> 的 ZOMBIE／SERIES_UNMONITORED 應為 0
+（UNMANAGED 可能因 edbc29_2024_teacher_training、edb_byod_page 為 2）+ dev/PROJECT_INDEX.md「定期系統更新檢查」一行日期是否已逾 30 日）。
 之後報告，並按 ① 處理。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次、不得合併 PR。
