@@ -7,7 +7,10 @@
       "2. 每輪入庫（人手或 Option A）完成後：以新來源的片段檢索本清單各條事實的候選段落，逐條交 Jev 判斷（Leonard S243 指定；題目 dev/source/jev/channel_a_match_gate.json，state = fact 原文＋候選段落全文、source_id、頁碼）。分流：same_rule 與 role_match 皆 ≥ 0.70 且 contradicts ≤ 0.30 → 自動記入 resolved（附 source_id、頁碼、Jev 機率、session）並從清單刪去；same_matter ≥ 0.70 且 contradicts ≥ 0.70 → 記入 dropped（S244 加 same_matter，防止把同類但不同的一次性安排當成矛盾）（理由：與現行原文矛盾，附段落位置）並刪去；其餘 → 留在清單，列入該輪的人手覆核名單。Jev 是第二意見，不是權威；每輪報告要列出自動處理的條數與抽樣覆核結果。",
       "3. Option 2（Leonard S199 定案）：仍未有出處的事實，逐條找文件出處，以 footnote_curated＋真 URL＋頁碼入庫，經 Leonard 批准；入庫後同樣記入 resolved 並刪去。",
       "4. 找不到出處、屬問卷題／活動統計／殘句，或與現行文件矛盾（例如病假 36 天）的事實：記入 dropped（附理由）並刪去，不入庫。",
-      "5. Supabase 內 109 條 approved_fact 副本（source_id role_facts_*）自 S243 起已被 searchChannelB.ts 的 retiredMirrorFilter 全數停止服務。當本清單清空，或餘下各條皆已判定，便匯出備份到 dev/init_backup/ 後，經 Leonard 批准刪除該 109 行。"
+      "5. Supabase 內 109 條 approved_fact 副本（source_id role_facts_*）自 S243 起已被 searchChannelB.ts 的 retiredMirrorFilter 全數停止服務。當本清單清空，或餘下各條皆已判定，便匯出備份到 dev/init_backup/ 後，經 Leonard 批准刪除該 109 行。",
+      "6. 時限資料（Leonard S244「應向退役機制思考」）：按學年的一次性安排、已過的截止日、「將推出」的預告、一次性撥款、活動統計不入出處；日期已過者記入 dropped（類別「時限資料已過時：<類別>」，原出處存 prior_resolution）。仍在進行的推行時間表、歷史事實、帶日期的長期規定照常入出處。所屬文件內的時限段落另交退役機制處理。",
+      "7. 部分吻合（Leonard S244「出處為大，措辭應跟原文」）：原文涵蓋同一件事但事實措辭過強、數字或細節有誤時，記入 resolved 並寫 fact_corrected（原文句子，只刪註腳編號；表格版面錯亂者可按欄位重組，不增刪內容），不要只交人手。出處須為適用的文件（例如中小學事實不以幼稚園手冊為出處）。",
+      "8. 角色（S244）：系統已不用角色（語料段落無角色標記）。崗位職責類事實（「[某主任] 負責…」「EO 須…」）若找不到原文，按第 4 條剔除；其背後規則如已由其他條目涵蓋，不另入庫。"
     ],
     "resolved": [
       {
