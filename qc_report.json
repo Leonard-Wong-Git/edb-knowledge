@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-11-05T16:13:33Z",
+  "generatedAt": "2026-11-05T19:17:11Z",
   "overallStatus": "ERROR",
   "counts": {
-    "chunks": 17182,
-    "PASS": 14,
+    "chunks": 17183,
+    "PASS": 13,
     "BLOCKER": 0,
-    "ERROR": 2,
+    "ERROR": 3,
     "WARN": 5,
     "INFO": 1,
     "NOT_MEASURED": 0
   },
   "version": "v3.3.16",
   "corpus": {
-    "chunks": 17182,
-    "sources_serving": 321,
+    "chunks": 17183,
+    "sources_serving": 322,
     "sources_registered": 301,
     "guidelines_listed": 182,
-    "distinct_urls": 348,
+    "distinct_urls": 349,
     "largest_sources": [
       {
         "source_id": "coa_ss_e",
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-05T16:13:33Z",
+    "collectedAt": "2026-11-05T19:17:11Z",
     "items": [
       {
         "kind": "freshness-change",
@@ -85,11 +85,12 @@
   },
   "releaseGate": {
     "status": "FAIL",
-    "summary": "5/15 項達標",
+    "summary": "4/15 項達標",
     "blocking": [
       "NO_ERROR_FAIL",
       "PASS_EVAL_LATEST",
       "PASS_EVAL_CHUNK_LAYER",
+      "PASS_MIRROR_CONSISTENCY",
       "WARNS_OWNED",
       "CORE_SEARCH_CASES",
       "ANSWER_FACT_SPOTCHECK",
@@ -111,7 +112,7 @@
         "label": "沒有錯誤級 FAIL",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "EVAL_LATEST、EVAL_CHUNK_LAYER"
+        "detail": "MIRROR_CONSISTENCY、EVAL_LATEST、EVAL_CHUNK_LAYER"
       },
       {
         "id": "NO_UNMEASURED",
@@ -152,8 +153,8 @@
         "id": "PASS_MIRROR_CONSISTENCY",
         "label": "MIRROR_CONSISTENCY 必須 PASS",
         "kind": "auto",
-        "status": "MET",
-        "detail": "PASS"
+        "status": "NOT_MET",
+        "detail": "FAIL"
       },
       {
         "id": "WARNS_OWNED",
@@ -213,7 +214,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=20fd4a4 · 啟動於 2026-11-05T16:08:27.822Z",
+      "detail": "ok=True · commit=20fd4a4 · 啟動於 2026-11-05T19:16:56.948Z",
       "offenders": [],
       "offender_total": 0
     },
@@ -241,11 +242,16 @@
       "id": "MIRROR_CONSISTENCY",
       "label": "七個對外片段數鏡像與資料庫真數一致",
       "severity": "ERROR",
-      "status": "PASS",
+      "status": "FAIL",
       "group": "infra",
-      "detail": "資料庫真數 17182 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
-      "offenders": [],
-      "offender_total": 0
+      "detail": "資料庫真數 17183 · 已核對 4 個鏡像 · 不一致 4 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "offenders": [
+        "app.html：-1",
+        "index.html：-1",
+        "stats.json：-1",
+        "README.md：-1"
+      ],
+      "offender_total": 4
     },
     {
       "id": "ANCHOR_URL_PRESENT",
@@ -273,7 +279,7 @@
       "severity": "WARN",
       "status": "FAIL",
       "group": "pointing",
-      "detail": "193 · 高於基準 179（+14） · 這些片段只能把用戶帶到文件首頁",
+      "detail": "194 · 高於基準 179（+15） · 這些片段只能把用戶帶到文件首頁",
       "offenders": [
         "g14（76 條）",
         "g04（12 條）",
@@ -288,7 +294,7 @@
         "g13（4 條）",
         "sch_complaint_guide_2023（3 條）"
       ],
-      "offender_total": 193
+      "offender_total": 194
     },
     {
       "id": "NO_DUPLICATE_CHUNKS",
