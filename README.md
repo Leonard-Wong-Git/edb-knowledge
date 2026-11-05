@@ -23,8 +23,8 @@
 
 | 功能 | 說明 |
 |------|------|
-| ℹ️ **平台介紹** | 平台定位、動態統計（17,182 知識片段 / 182 指引 / 313 來源；片段與來源數由 `_meta.stats` 取，指引數由 `GUIDELINES_REGISTRY.length` 即時計）、核心功能說明 |
-| 🔍 **政策搜尋** | Channel-B 語義搜尋：從 17,182 個 EDB 官方原文知識片段檢索，整理回答並附原始文件出處（含頁碼）；可對回答評分 👍／👎；頁尾及回答下可「提供意見」（經 Google 表單送出） |
+| ℹ️ **平台介紹** | 平台定位、動態統計（17,183 知識片段 / 182 指引 / 315 來源；片段與來源數由 `_meta.stats` 取，指引數由 `GUIDELINES_REGISTRY.length` 即時計）、核心功能說明 |
+| 🔍 **政策搜尋** | Channel-B 語義搜尋：從 17,183 個 EDB 官方原文知識片段檢索，整理回答並附原始文件出處（含頁碼）；可對回答評分 👍／👎；頁尾及回答下可「提供意見」（經 Google 表單送出） |
 | 📝 ~~**文件標註**~~〔S243 起收起待修〕 | 暫不對外開放（`window.FEATURE_TABS.annotate = false`）。2026-11-03 實測輸出可能誤導，重開條件見 CHANGELOG〔文件標註收起待修〕。後端端點保留。 |
 | 📚 **指引文件庫** | 182 份官方 EDB 指引（in-app 瀏覽庫；公開 `guidelines.json` 端點為 151 份全集投影），按類別 → 子類別 → 年份三層分組導覽 |
 
@@ -61,7 +61,7 @@
 
 ![Policy Checker — 系統架構 (RAG)](docs/system-architecture.png)
 
-> 系統架構總覽（RAG）：用戶 → 前端（app.html / React SPA / GitHub Pages）→ 後端（Render · Node.js + TypeScript · API Gateway）→ RAG 核心（Query 嵌入 → 主題路由 → 向量搜尋 → LLM 合成）→ 知識庫（Supabase pgvector 17,182 chunks + 455 已核實事實）；外部：OpenAI（Azure 備援）、Cloudflare 免 Cookie 統計。
+> 系統架構總覽（RAG）：用戶 → 前端（app.html / React SPA / GitHub Pages）→ 後端（Render · Node.js + TypeScript · API Gateway）→ RAG 核心（Query 嵌入 → 主題路由 → 向量搜尋 → LLM 合成）→ 知識庫（Supabase pgvector 17,183 chunks + 455 已核實事實）；外部：OpenAI（Azure 備援）、Cloudflare 免 Cookie 統計。
 
 **現行公開後端端點（Render · Node.js + TypeScript）：**
 
@@ -101,8 +101,8 @@ EDB PDF → dev/vault/<source_id>/extract_*.txt → dev/ingest_one_source.py（�
 | 項目 | 數量 |
 |------|------|
 | 指引文件庫（in-app 瀏覽） | **182 份** |
-| 來源文件 | **313 份**（Supabase distinct `source_id` 扣 `role_facts_*` 偽來源；`source_registry.json` 登記 300） |
-| Channel B 向量索引 | **17,182 chunks**（Supabase pgvector，線上） |
+| 來源文件 | **315 份**（Supabase distinct `source_id` 扣 `role_facts_*` 偽來源；`source_registry.json` 登記 300） |
+| Channel B 向量索引 | **17,183 chunks**（Supabase pgvector，線上） |
 
 > 註：`182` 為 in-app 指引瀏覽庫（v3.3.0 由 166 升至 177；v3.3.4 移除 1 個、v3.3.5 再移除 5 個「同一份文件掛兩個 id」的重複條目後為 171；v3.3.7 退役 `g24` 後為 170；S241 加入小學資訊與創新科技科 4 份、中學教學語言 4 份後為 178；S242 加入基本法及國安法測試問與答、學校發展計劃資助／直資兩版後為 181；S243 加入教學語言第三周期政策函件後為 182）；公開 `guidelines.json` API 端點為其全集投影 **151** 份（v2.6.2 起對齊 in-app 標籤，移除 7 條重複／已退役條目）。兩者仍刻意不同，非漂移。
 
@@ -179,7 +179,7 @@ FEATURE_EXACT_WINDOW_NARROW=0          # 各 flag 說明見 backend/README.md
 
 ## 數據來源
 
-所有答案均以香港教育局官方文件原文為依據，包括教育局通告、通函、課程指引、學校行政手冊等 313 份來源，並附原始文件連結與頁碼，確保可追溯。
+所有答案均以香港教育局官方文件原文為依據，包括教育局通告、通函、課程指引、學校行政手冊等 315 份來源，並附原始文件連結與頁碼，確保可追溯。
 
 ---
 
