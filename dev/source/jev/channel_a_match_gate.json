@@ -1,8 +1,16 @@
 {
   "_meta": {
     "title": "舊 Channel A 事實 × 新入庫原文 對照判斷閘（S243）",
-    "note": "state 為 JSON：fact（清單內一條事實原文、所屬範疇 topic 與角色 role）、passage（候選原文段落全文、source_id、頁碼）。候選段落由檢索取得，Jev 只看得見 state；沒有段落全文時一律交人手。用法與分流規則見 dev/knowledge/channel_a_option2_queue.json _meta.rules 第 2 條。 分流以三題各自的機率為準（見清單規則第 2 條），不看 verdict 總結；S243 試跑：採購門檻事實對 g01 p.7（只涵蓋部分門檻）得 same_rule 0.03、role_match 0.89、contradicts 0.56 → 交人手，符合預期。",
+    "note": "state 為 JSON：fact（清單內一條事實原文、所屬範疇 topic 與角色 role）、passage（候選原文段落全文、source_id、頁碼）。候選段落由檢索取得，Jev 只看得見 state；沒有段落全文時一律交人手。用法與分流規則見 dev/knowledge/channel_a_option2_queue.json _meta.rules 第 2 條。 分流以三題各自的機率為準（見清單規則第 2 條），不看 verdict 總結；S243 試跑：採購門檻事實對 g01 p.7（只涵蓋部分門檻）得 same_rule 0.03、role_match 0.89、contradicts 0.56 → 交人手，符合預期。 S244 加 same_matter：試跑時 2023 年問卷事實對 2026 年另一份問卷段落得 contradicts 0.91，屬兩件不同的事；剔除須 same_matter ≥ 0.70 且 contradicts ≥ 0.70。",
     "verdicts": [
+      {
+        "name": "同一件事",
+        "label": "兩者講的是同一件事",
+        "else_label": "不是同一件事",
+        "questions": [
+          "same_matter"
+        ]
+      },
       {
         "name": "同一規則",
         "label": "原文陳述了同一條規則",
@@ -28,6 +36,14 @@
         ]
       }
     ]
+  },
+  "same_matter": {
+    "type": "noul",
+    "instructions": "passage 與 fact 講的是同一件事：同一項制度、程序或安排，而不只是同類型的事。",
+    "criteria": {
+      "true": "兩者指向同一項持續有效的規定或程序（例如同一類假期的日數、同一採購門檻、同一項定期檢查），即使數字或年份不同亦可能是同一規定的新舊版本",
+      "false": "兩者只是同類型（例如都是問卷、都是通告、都是諮詢），但屬不同年度、不同通告或不同事件的一次性安排；或 passage 講的是另一項制度"
+    }
   },
   "same_rule": {
     "type": "noul",

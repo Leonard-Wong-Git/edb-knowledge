@@ -38,6 +38,18 @@ When current work requires a log entry, record whether relevant older detail was
 ---
 
 <!-- ack:log-entry:start -->
+## 2026-11-05 Session 244 — Option 2 第一輪：清單 455 → 39；3 條 curated footnote 入庫
+
+- **ID:** S244
+- **Summary:** 寫腳本以 Jev 逐條核對 Channel A 清單，加「同一件事」題修正剔除誤判，再經人手核對、關鍵詞與網上搜尋、按原文修正、角色類與時限資料剔除，清單減至 39 條；3 條網上出處以 footnote_curated 入 Supabase。
+- **Changed:** `dev/source/channel_a_jev_round.py`（新）、`dev/ingest_s244_option2_footnotes.py`（新）、`dev/source/jev/channel_a_match_gate.json`、`dev/knowledge/channel_a_option2_queue.json`（決定＋規則 6–8）、`update_log.json`、`dev/PROJECT_INDEX.md`、`stats.json`／`app.html`／`index.html`／`README.md`（17,179 → 17,182）、交接與鏡像。
+- **Done:** 每一批寫入均經 Leonard 批准（原話記於清單每條 `approved` 欄）；Supabase +3（footnote_curated 173 → 176），線上 `/health` footnote 176；PR #86。
+- **QC:** `channel_a_jev_round.py --self-test` 21 項全過（每次寫入後重跑）；footnote 自測 embed 格式 cos 1.0000、INSPECT before／after；修正句錨點核對零不符；`live_display_sync` 四檔替換。
+- **Evidence disposition:** 判斷紀錄、候選、各批提案與清單備份在 `dev/source/coverage_runs/option2/r1/`（gitignored，本機 trace）；決定與理由已寫入清單本身；現況與下一步已吸收入交接檔。
+- **Sync:** DOC_SYNC_REGISTRY S244 段；開場鏡像已重生並核對相等。
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
 
 ## 2026-11-03 Session 243 — 新文件 #78 分流與入庫、Channel A（455 條）退役、文件標註收起待修、刪除範本下載與兩個休眠頁
 

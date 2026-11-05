@@ -29,6 +29,20 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-11-05 — S244（Option 2 第一輪 ＋ 3 條 curated footnote）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| Supabase 寫入 | `confirmed` | +3 footnote_curated（173 → 176），Leonard「全部批准」＋「入庫 3條，再commit 入 supabase」；INSPECT before／after；回退＝刪三個 id |
+| Footnote cache reload | `confirmed` | 線上 `/health` `cache_b.footnote` 176 |
+| 公開片段數 display-sync | `confirmed` | `live_display_sync` 17,179 → 17,182：`stats.json` 1、`app.html` 3、`index.html` 3、`README.md` 4 |
+| 更新日誌 | `confirmed` | `update_log.json` 2026-11-05 一條（人手入庫） |
+| 任何入庫 → Option 2 清單 | `confirmed` | 本節就是 Option 2 第一輪；三條新 footnote 所對應的事實已記入 `resolved` |
+| New file | `confirmed` | `dev/source/channel_a_jev_round.py`、`dev/ingest_s244_option2_footnotes.py` 已登記 `dev/PROJECT_INDEX.md` |
+| 來源登記 | `pending` | 新 source_id `edbc29_2024_teacher_training` 未登記 `source_registry.json`（UNMANAGED，非阻塞），待 Leonard 決定 |
+| 入庫「EDB 指引」類文件 | `not_applicable` | 三條皆為 footnote 覆蓋，非新增指引文件 |
+| `check_downstream_sync` | `not_applicable` | 無來源換版、改網址或退役 |
+
 ### 2026-11-03 — S243（#78 入庫 ＋ Channel A 退役 ＋ 文件標註收起 ＋ 刪範本與休眠頁）
 
 | Row | 狀態 | 備註 |
