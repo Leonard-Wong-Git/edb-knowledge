@@ -29,6 +29,21 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-11-05 — S245（Option 2 第二輪 ＋ 1 條 curated footnote）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| Supabase 寫入 | `confirmed` | +1 footnote_curated（176 → 177），Leonard「Approve ingest」；INSPECT before／after；回退＝刪 `footnote_fn_byod_edb_support` |
+| Footnote cache reload | `confirmed` | 線上 `/health` `cache_b.footnote` 177（毋須重啟） |
+| 公開片段數 display-sync | `confirmed` | `live_display_sync` 17,182 → 17,183：`stats.json` 1、`app.html` 3、`index.html` 3、`README.md` 4 |
+| 公開來源數 | `confirmed` | `live_sources_sync` 313 → 315（三檔各 1）＋ `README.md` 三處人手改 |
+| 更新日誌 | `confirmed` | `update_log.json` 2026-11-05 一條（人手入庫） |
+| 任何入庫 → Option 2 清單 | `confirmed` | 新 footnote 對應的 BYOD 事實已記入 `resolved` |
+| New file | `confirmed` | `dev/ingest_s245_option2_byod_footnote.py` 已登記 `dev/PROJECT_INDEX.md` |
+| 來源登記 | `pending` | `edb_byod_page`（及 S244 的 `edbc29_2024_teacher_training`）未登記 `source_registry.json`（UNMANAGED，非阻塞），待 Leonard 決定 |
+| 入庫「EDB 指引」類文件 | `not_applicable` | footnote 覆蓋，非新增指引文件 |
+| `check_downstream_sync` | `not_applicable` | 無來源換版、改網址或退役 |
+
 ### 2026-11-05 — S244（Option 2 第一輪 ＋ 3 條 curated footnote）
 
 | Row | 狀態 | 備註 |
