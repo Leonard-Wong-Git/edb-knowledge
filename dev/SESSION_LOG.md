@@ -38,6 +38,18 @@ When current work requires a log entry, record whether relevant older detail was
 ---
 
 <!-- ack:log-entry:start -->
+## 2026-11-05 Session 245 — Option 2 第二輪：清單 39 → 1；BYOD footnote 入庫
+
+- **ID:** S245
+- **Summary:** 餘下 39 條逐條在庫內關鍵詞搜尋並上 edb.gov.hk 搜尋：23 條按原文修正入出處、14 條剔除、1 條（BYOD）原文只在網上，以 footnote_curated 入庫後入出處；只剩租金收入一條待 Leonard 定出處。
+- **Changed:** `dev/knowledge/channel_a_option2_queue.json`、`dev/ingest_s245_option2_byod_footnote.py`（新）、`update_log.json`、`dev/PROJECT_INDEX.md`、`stats.json`／`app.html`／`index.html`／`README.md`（17,182 → 17,183；313 → 315）、交接與鏡像。
+- **Done:** Leonard「Approve all」（37 條）、「Approve ingest」（footnote）；Supabase +1（176 → 177），線上 `/health` footnote 177；PR #86 已合併故改開 PR #87。
+- **QC:** 修正句錨點核對（只兩處刻意刪符號）；每次寫入後 `channel_a_jev_round.py --self-test` 全過；footnote 自測 cos 1.0000、INSPECT before／after；display-sync 與 sources-sync 讀回。
+- **Evidence disposition:** 提案檔與清單備份在 `dev/source/coverage_runs/option2/r1/`（gitignored，本機 trace）；決定與理由已寫入清單本身；現況與下一步已吸收入交接檔。
+- **Sync:** DOC_SYNC_REGISTRY S245 段；開場鏡像已重生並核對相等。
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
 ## 2026-11-05 Session 244 — Option 2 第一輪：清單 455 → 39；3 條 curated footnote 入庫
 
 - **ID:** S244

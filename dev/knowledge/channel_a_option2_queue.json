@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "S243（2026-11-03）Channel A 退役後的內部工作清單：原 455 條已核實事實（role_facts.json／knowledge.json 原文，一字未改）。不公開、不供搜尋、不再是任何對外合約。",
-    "facts_remaining": 39,
+    "facts_remaining": 0,
     "rules": [
       "1. 本清單只會減少，不會增加。任何一條都不得再以無出處形式回到搜尋。",
       "2. 每輪入庫（人手或 Option A）完成後：以新來源的片段檢索本清單各條事實的候選段落，逐條交 Jev 判斷（Leonard S243 指定；題目 dev/source/jev/channel_a_match_gate.json，state = fact 原文＋候選段落全文、source_id、頁碼）。分流：same_rule 與 role_match 皆 ≥ 0.70 且 contradicts ≤ 0.30 → 自動記入 resolved（附 source_id、頁碼、Jev 機率、session）並從清單刪去；same_matter ≥ 0.70 且 contradicts ≥ 0.70 → 記入 dropped（S244 加 same_matter，防止把同類但不同的一次性安排當成矛盾）（理由：與現行原文矛盾，附段落位置）並刪去；其餘 → 留在清單，列入該輪的人手覆核名單。Jev 是第二意見，不是權威；每輪報告要列出自動處理的條數與抽樣覆核結果。",
@@ -4239,6 +4239,356 @@
         "round": "r1",
         "approved": "Leonard S244：全部批准（網上出處入庫）；「入庫 3條，再commit 入 supabase」",
         "method": "網上搜尋找到教育局原文 → footnote_curated 入庫（dev/ingest_s244_option2_footnotes.py）"
+      },
+      {
+        "fact": "政府津貼必須專款專用，只可按教育局核准用途開支；不同政府津貼之間不得互相挪用或「拆東牆補西牆」；如有餘款，必須依照教育局相關財務及津貼指引，包括通告及示例報表等",
+        "topic": "finance",
+        "role": "all_roles",
+        "fact_corrected": "其他津貼：這些津貼只可用於特定用途，不可調撥作其他用途。這類津貼的例子包括整合代課教師津貼和租金及差餉津貼。",
+        "source_id": "coa_imc_1_19",
+        "page": 21,
+        "url": "https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf",
+        "chunk_id": "vault_coa_imc_1_19_573ca3f987980f9e",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "附件 III 維護國家安全條款，學校可取消資格或終止合約。",
+        "topic": "finance",
+        "role": "all_roles",
+        "fact_corrected": "若出現下列任何一種情況，學校可以立即終止合約：(i)其公司曾經或正在作出可能構成或導致發生危害國家安全罪行或不利於國家安全的行為或活動；(ii)繼續僱用其公司或繼續履行合約不利於國家安全；或(iii)學校合理地認為上述任何一種情況即將出現。",
+        "source_id": "g01",
+        "page": 26,
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures_TC.pdf",
+        "chunk_id": "vault_g01_763e860a66308497",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "非經常津貼用于大型修葺工程，金額按核准投標價或實際成本較低者計算，通常不超過核准金額的50%。",
+        "topic": "finance",
+        "role": "all_roles",
+        "fact_corrected": "此類津貼的金額是根據核准投標價或實際成本(兩者取其較低者)計算的。然而，除非常任秘書長另作決定，否則收取堂費的資助小學可獲發不超過核准金額50%的工程及設備資助款項。",
+        "source_id": "coa_imc_1_19",
+        "page": 22,
+        "url": "https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf",
+        "chunk_id": "vault_coa_imc_1_19_56543258f87258a4",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "學校採購需競爭性報價，供應商不可向教職員提供任何回扣或利益",
+        "topic": "finance",
+        "role": "supplier",
+        "fact_corrected": "根據《防止賄賂條例》，在學校採購過程中，如無合法權限或合理辯解，學校員工接受供應商和承辦商提供的利益，或供應商和承辦商向學校員工提供利益，均屬違法。學校不得容許屬下員工向供應商和承辦商收取利益(包括佣金)。",
+        "source_id": "g01",
+        "page": 2,
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures_TC.pdf",
+        "chunk_id": "vault_g01_7ef6501b3c897dfc",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "供應商須遵守學校廉潔要求，書面報價╱招標時可能須簽署廉潔聲明、利益申報表等，違反防賄規定者被取消資格",
+        "topic": "finance",
+        "role": "supplier",
+        "fact_corrected": "招標文件應列明：防止賄賂的警告字句（條文範本見附錄七）；及反圍標條文，禁止串通投標（條文範本見附錄八）。",
+        "source_id": "icac_school_governance",
+        "page": 19,
+        "url": "https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf",
+        "chunk_id": "vault_icac_school_governance_78fa6bc1e9a3d700",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "在社交通訊平台發表不當言行者，會受到譴責並採取相應紀律措施。",
+        "topic": "hr",
+        "role": "eo_admin",
+        "fact_corrected": "個案6（在社交通訊平台言行不檢）：某教師在社交通訊平台發布大量粗言穢語和侮辱他人的言論。雖然教師的社交通訊平台設定為與朋友之間的私人分享，但相關帖文仍流出「朋友圈」以外，流傳至家長及學生之間。本個案教師以粗言穢語表達仇恨或侮辱他人的行為，嚴重影響教師的形象，以及家長和社會人士對教師的信心，教育局向其發出譴責信。",
+        "source_id": "g05",
+        "page": 29,
+        "url": "https://www.edb.gov.hk/tc/teacher/guidelines_tpc/",
+        "chunk_id": "vault_g05_5b0ae1aae6cbd8f2",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "2017年，教局發布的中學課程指引要求科學科和地理科融入價值觀教育。",
+        "topic": "curriculum",
+        "role": "all_roles",
+        "fact_corrected": "各學習領域／科目均可提供相關情境供學生討論，幫助他們從不同角度反思和實踐正面的價值觀和態度。",
+        "source_id": "sec_curr_guide_2017_booklet_6a",
+        "page": 10,
+        "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/secondary/curriculum-guides-documents/SECG_booklet_6A_ch.pdf",
+        "chunk_id": "vault_sec_curr_guide_2017_booklet_6a_aab6fa7caa1bc835",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "所有小學校長和教師均應閱覽上述指引及相 関文件。",
+        "topic": "curriculum",
+        "role": "all_roles",
+        "fact_corrected": "本通告旨在公布課程發展議會編訂的《小學教育課程指引》（《小學指引》）（2024）供學校採用。所有小學校長和教師均應閱覽上述指引及相關文件。",
+        "source_id": "circ_edbc24017",
+        "page": 1,
+        "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24017C.pdf",
+        "chunk_id": "vault_circ_edbc24017_2c633466a5241d32",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "新課程將注重培養學生核心素養、價值觀和愛國情懷。",
+        "topic": "curriculum",
+        "role": "all_roles",
+        "fact_corrected": "修訂地理科（中一至中三）課程的理念為「探索區域、培養素養、共築未來」，以協助學生透過探索和分析人、地、環境的相互關係，逐步認識國家和世界。同時，透過培養地理學科的核心素養，提升學生的地理認知和能力，並協助他們建立正確的人地協調觀念，為促進全球的可持續發展付諸行動，主動承擔責任，共同攜手創造更綠色且具韌性的未來。",
+        "source_id": "edbc002_2026",
+        "page": 9,
+        "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26002C.pdf",
+        "chunk_id": "vault_edbc002_2026_945ea9711005a454",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "2027/28學年開始正式推行修訂的初中地理課程，並逐年推展至所有年級。",
+        "topic": "curriculum",
+        "role": "all_roles",
+        "fact_corrected": "修訂地理科（中一至中三）課程擬於2027/28學年於中一級正式推行，並逐年推展至所有級別，亦鼓勵學校考慮在2026/27學年試行新課程。",
+        "source_id": "edbc002_2026",
+        "page": 3,
+        "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26002C.pdf",
+        "chunk_id": "vault_edbc002_2026_e276ad61dc680e8f",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "修訂課程將在2026/27學年陸續於中一級推行新教材，供學校參考使用。",
+        "topic": "curriculum",
+        "role": "all_roles",
+        "fact_corrected": "配合修訂初中地理課程的推行，教育局會提供全新的「『支援修訂課程』學與教資源：中一至中三」教材。中一級支援教材將於2026/27學年陸續在網上發布，供學校使用和參考。",
+        "source_id": "edbc002_2026",
+        "page": 5,
+        "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26002C.pdf",
+        "chunk_id": "vault_edbc002_2026_d6a57d5a40307828",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "教師須運用多元化評估策略，包括進展性評估，以回饋學與教效能",
+        "topic": "curriculum",
+        "role": "teacher",
+        "fact_corrected": "運用多元評估策略以提供適時及適切的回饋：除了總結性及進展性評估，學校應加強發展其他評估策略及善用評估資料。",
+        "source_id": "g07",
+        "page": 14,
+        "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/guide-basic-edu-curriculum/becg_2014_Full.pdf",
+        "chunk_id": "vault_g07_3f56b8a522449f50",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "境外活動須事前獲校長批准，並向教育局呈報行程及參加者資料",
+        "topic": "activity",
+        "role": "all_roles",
+        "fact_corrected": "境外遊學活動：領隊均由校方委任。委任人員及活動內容、地點及時間安排等須由校方核准，並記錄在案。",
+        "source_id": "sch_activities_guide",
+        "page": 94,
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf",
+        "chunk_id": "vault_sch_activities_guide_2a1f3048138f7b34",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "校外活動前須完成風險評估，包括場地安全、交通安排、天氣應變和醫療支援",
+        "topic": "activity",
+        "role": "all_roles",
+        "fact_corrected": "在舉辦陸上活動前，學校宜先進行全面及周詳的計劃，在資源分配、收支預算、舉辦日期和地點及安全措施各方面作詳細考慮和作出風險評估。",
+        "source_id": "sch_activities_guide",
+        "page": 12,
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf",
+        "chunk_id": "vault_sch_activities_guide_a202b6b3e905dee0",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "學生參與境外交流活動的報名費、交通、住宿、比賽等費用，津貼可資助。",
+        "topic": "activity",
+        "role": "all_roles",
+        "fact_corrected": "資助學生參加本地或境外活動／比賽的報名費、交通費、住宿費、比賽用品／服飾等費用；資助學生參加境外交流活動費用。",
+        "source_id": "g03",
+        "page": 3,
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/life-wide-learning/resource-and-support/doc-and-guidelines.html",
+        "chunk_id": "vault_g03_c378e06c7e350873",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "每年實地考察活動需安排2-4小時，學校須每年進行至少一次探究式實地考察。",
+        "topic": "activity",
+        "role": "all_roles",
+        "fact_corrected": "加強實地考察活動：修訂的課程預留每學年2-4小時的課時，學校須安排學生每年進行最少一次探究式實地考察活動。",
+        "source_id": "edbc002_2026",
+        "page": 4,
+        "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26002C.pdf",
+        "chunk_id": "vault_edbc002_2026_59d5e1934ca2eccf",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "學校須遵守《個人資料（私隱）條例》處理學生和教職員電子數據",
+        "topic": "it",
+        "role": "all_roles",
+        "fact_corrected": "學生資料是個人私隱資料，學校在處理學生資料時（包括收集資料的目的和方式、資料的使用、資料的保安及查閱等方面），必須遵守《個人資料（私隱）條例》的規定。",
+        "source_id": "stims_guide_2025",
+        "page": 6,
+        "url": "http://www.edb.gov.hk/attachment/tc/edu-system/primary-secondary/spa-systems/student-info-management-system/stimsguid_chi.pdf",
+        "chunk_id": "vault_stims_guide_2025_893d44a127aa6978",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "教學資源包括課本、資訊科技、社區資源及生成式人工智能，用於科學教學推行。",
+        "topic": "it",
+        "role": "all_roles",
+        "fact_corrected": "闡述如何善用不同類型的學與教資源，包括課本、資訊科技（包括生成式人工智能）、教育局發展的資源和社區資源。",
+        "source_id": "edbc13_2025_pri_science",
+        "page": 3,
+        "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/science-edu/pri-sci/EDBC25013C.pdf",
+        "chunk_id": "vault_edbc13_2025_pri_science_083abac1d476c231",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "學與教資源包括「生活事件」教案、影片及動畫，將陸續上載於教育局專頁。",
+        "topic": "it",
+        "role": "all_roles",
+        "fact_corrected": "教育局持續製作多元及生活化的學與教資源，如「生活事件」教案、學習資源網、短片、動畫、推廣資源等，並會陸續上載至教育局專頁。",
+        "source_id": "edbc003_2026",
+        "page": 5,
+        "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26003C.pdf",
+        "chunk_id": "vault_edbc003_2026_e9a489eac4190fc4",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "學校須遵守教育局通告及指引進行全方位學習活動，保障活動安全。",
+        "topic": "general",
+        "role": "all_roles",
+        "fact_corrected": "有關學生參與課外活動的安全事宜，學校須參考教育局和政府相關部門（如香港天文台、衞生署）的指引或資訊，如《戶外活動指引》、《學校課外活動指引》、《境外遊學活動指引》及《香港學校體育學習領域安全指引》。",
+        "source_id": "g03",
+        "page": 5,
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/life-wide-learning/resource-and-support/doc-and-guidelines.html",
+        "chunk_id": "vault_g03_4ac2c7e14c6e9895",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "學校須設立公平借用機制並保持清晰記錄，以善用購買的器材與資源。",
+        "topic": "general",
+        "role": "all_roles",
+        "fact_corrected": "學校須設立公平借用機制，並備存清晰的借還記錄。",
+        "source_id": "g03",
+        "page": 5,
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/life-wide-learning/resource-and-support/doc-and-guidelines.html",
+        "chunk_id": "vault_g03_4ac2c7e14c6e9895",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "參與課外活動須遵守安全指引，確保學生人身安全及活動達成學習目標。",
+        "topic": "general",
+        "role": "all_roles",
+        "fact_corrected": "有關學生參與課外活動的安全事宜，學校須參考教育局和政府相關部門（如香港天文台、衞生署）的指引或資訊，如《戶外活動指引》、《學校課外活動指引》、《境外遊學活動指引》及《香港學校體育學習領域安全指引》。",
+        "source_id": "g03",
+        "page": 5,
+        "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/life-wide-learning/resource-and-support/doc-and-guidelines.html",
+        "chunk_id": "vault_g03_4ac2c7e14c6e9895",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "學校在聘用導師或人員提供學生教育服務時，須採用香港公安背景調查機制。",
+        "topic": "general",
+        "role": "all_roles",
+        "fact_corrected": "為了加強保護兒童，學校須在聘任過程中採用性罪行定罪紀錄查核機制。",
+        "source_id": "edbc15_2025_child_abuse",
+        "page": 6,
+        "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC25015C.pdf",
+        "chunk_id": "vault_edbc15_2025_child_abuse_6ac06392b68cad38",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "method": "庫內關鍵詞唯讀搜尋＋網上搜尋核對 → 按原文修正措辭（規則第7條）"
+      },
+      {
+        "fact": "學校須配合教育局推動 BYOD（自攜裝置）政策，支援電子學習環境",
+        "topic": "it",
+        "role": "all_roles",
+        "fact_corrected": "為配合學校制定有效推行「自攜裝置」的策略，教育局為學校提供全方位的支援，包括加強有關「自攜裝置」的教師專業培訓及到校支援服務。",
+        "source_id": "edb_byod_page",
+        "page": null,
+        "url": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/BYOD/byod_index.html",
+        "chunk_id": "footnote_fn_byod_edb_support",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve ingest",
+        "method": "網上搜尋找到教育局原文 → footnote_curated 入庫（dev/ingest_s245_option2_byod_footnote.py）"
+      },
+      {
+        "fact": "設有法團校董會的資助學校應按照指引收取租金，並將收入按比例用於學校及班級津貼。",
+        "topic": "finance",
+        "role": "all_roles",
+        "fact_corrected": "一切租金收入，應首先撥入堂費／普通經費／資本儲備帳，並從該等帳項支付有關的費用，然後將餘額的40%撥入學校及班級津貼帳內。適用於設有法團校董會的資助學校。",
+        "source_id": "g02",
+        "page": 15,
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=15",
+        "chunk_id": "vault_g02_b233f0a42484ec31",
+        "session": "S246",
+        "round": "r1",
+        "approved": "Leonard S246：甲（g02 為出處）＋批准寫入",
+        "method": "讀 g02 原 PDF 第 15 頁（印刷頁 14），按版面座標重組表格兩欄（規則第7條）；引教育局通告第5/2011號"
       }
     ],
     "dropped": [
@@ -6173,6 +6523,146 @@
         },
         "category": "時限資料已過時：活動統計",
         "reason": "規則第4條＋Leonard S244 退役機制指示：時限資料已過時（活動統計）"
+      },
+      {
+        "fact": "2024年上旬，教育局將推出30小時的科學教師專業培訓課程。",
+        "topic": "hr",
+        "role": "all_roles",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "category": "時限資料已過時：培訓課程預告",
+        "reason": "規則第6條：「將推出」預告，日期（2024年上旬）已過"
+      },
+      {
+        "fact": "2025/26學年，教師可參與由教育局提供的專業課程及研討會，以增強科學教學能力。",
+        "topic": "hr",
+        "role": "all_roles",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "category": "時限資料已過時：按學年安排",
+        "reason": "規則第6條：2025/26 學年一次性安排，學年已結束"
+      },
+      {
+        "fact": "2024年1月至3月將推出多元教師培訓課程，完成功課可獲證書。",
+        "topic": "hr",
+        "role": "all_roles",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "category": "時限資料已過時：培訓課程預告",
+        "reason": "規則第6條：預告日期已過"
+      },
+      {
+        "fact": "2025/26学年，小學科學教師可參與30小時專業培訓證書課程，包括科學模型運用及科學評估等主題。",
+        "topic": "hr",
+        "role": "all_roles",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "category": "時限資料已過時：按學年安排",
+        "reason": "規則第6條：2025/26 學年一次性安排，學年已結束"
+      },
+      {
+        "fact": "2024年上旬完成「小學科學科教師專業培訓證書」課程，30小時完畢者可獲證。",
+        "topic": "hr",
+        "role": "all_roles",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "category": "時限資料已過時：培訓課程預告",
+        "reason": "規則第6條：日期已過"
+      },
+      {
+        "fact": "課程框架內容將於2023年11月至12月介紹，並收集意見。",
+        "topic": "curriculum",
+        "role": "all_roles",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "category": "時限資料已過時：諮詢／簡介會",
+        "reason": "規則第6條：2023年11至12月簡介，已過"
+      },
+      {
+        "fact": "2023年11月至12月，教育局會舉辦課程簡介會，建議每校長帶兩名教學人員參與。",
+        "topic": "activity",
+        "role": "all_roles",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "category": "時限資料已過時：諮詢／簡介會",
+        "reason": "規則第6條：2023年11至12月簡介會，已過"
+      },
+      {
+        "fact": "2023/24學年起，將推出包括國家歷史漫畫、歷史劇和遊戲卡等多元教資源。",
+        "topic": "activity",
+        "role": "eo_admin",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "category": "時限資料已過時：資源預告",
+        "reason": "規則第6條：「將推出」預告"
+      },
+      {
+        "fact": "校長在批准假期前須安排妥善的代課，避免影響教學。",
+        "topic": "hr",
+        "role": "all_roles",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "category": "找不到出處",
+        "reason": "規則第4條：教職員批假指引（g04）及資助則例只載代課津貼與發還條件，未有批假前須安排代課的規定；網上搜尋 edb.gov.hk 亦無"
+      },
+      {
+        "fact": "在選舉日作為選民投票的教職員可獲半天假期。",
+        "topic": "hr",
+        "role": "all_roles",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "category": "找不到出處",
+        "reason": "規則第4條：教育局只有「選舉日翌日訂為學校假期」（通告第5/2020號，學校假期，非教職員假期）；無教職員投票半天假的規定"
+      },
+      {
+        "fact": "未經批准缺勤者可能被扣薪，情節嚴重者或引致紀律處分；連續三日（超過三天）未經批准缺勤可視為自動辭職／離職。",
+        "topic": "hr",
+        "role": "all_roles",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "category": "找不到出處",
+        "reason": "規則第4條：資助則例、批假指引及網上搜尋均無「連續三日缺勤視為自動離職」；《學校行政手冊》附錄12只把擅離職守列為不當行為例子"
+      },
+      {
+        "fact": "教師使用電子教學平台時須遵守學校資訊科技使用守則，保護學生個人資料",
+        "topic": "it",
+        "role": "teacher",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "category": "找不到出處",
+        "reason": "規則第4條：教育局「自攜裝置」網頁的「可接受使用政策」是規範學生的，對象不符；未見教師使用守則的規定"
+      },
+      {
+        "fact": "學校須按《公開資料守則》處理公眾索取資料要求，除有合理理由外應盡快提供",
+        "topic": "general",
+        "role": "all_roles",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "category": "找不到出處",
+        "reason": "規則第4條：《公開資料守則》適用於政府部門（教育局披露記錄），未見要求資助學校依守則處理索取資料的文件"
+      },
+      {
+        "fact": "教學建議應幫助學生全面掌握內容，促進探究能力及提升共通能力。",
+        "topic": "activity",
+        "role": "teacher",
+        "session": "S245",
+        "round": "r1",
+        "approved": "Leonard S245：Approve all（網上搜尋第二輪 37 條）",
+        "category": "問卷題",
+        "reason": "規則第4條：出自《小學人文科課程框架》（擬定稿）諮詢問卷第7題（edbc20_2023_ph_pri），屬問卷題"
       }
     ],
     "history": {
@@ -6207,22 +6697,14 @@
       "代課",
       "擴大營辦"
     ],
-    "all_roles": [
-      "政府津貼必須專款專用，只可按教育局核准用途開支；不同政府津貼之間不得互相挪用或「拆東牆補西牆」；如有餘款，必須依照教育局相關財務及津貼指引，包括通告及示例報表等",
-      "設有法團校董會的資助學校應按照指引收取租金，並將收入按比例用於學校及班級津貼。",
-      "附件 III 維護國家安全條款，學校可取消資格或終止合約。",
-      "非經常津貼用于大型修葺工程，金額按核准投標價或實際成本較低者計算，通常不超過核准金額的50%。"
-    ],
+    "all_roles": [],
     "principal": [],
     "vice_principal": [],
     "subject_head": [],
     "panel_chair": [],
     "teacher": [],
     "eo_admin": [],
-    "supplier": [
-      "學校採購需競爭性報價，供應商不可向教職員提供任何回扣或利益",
-      "供應商須遵守學校廉潔要求，書面報價╱招標時可能須簽署廉潔聲明、利益申報表等，違反防賄規定者被取消資格"
-    ]
+    "supplier": []
   },
   "hr": {
     "_source_refs": [
@@ -6256,22 +6738,11 @@
       "輔導",
       "SEN"
     ],
-    "all_roles": [
-      "2024年上旬，教育局將推出30小時的科學教師專業培訓課程。",
-      "2025/26學年，教師可參與由教育局提供的專業課程及研討會，以增強科學教學能力。",
-      "校長在批准假期前須安排妥善的代課，避免影響教學。",
-      "2024年1月至3月將推出多元教師培訓課程，完成功課可獲證書。",
-      "2025/26学年，小學科學教師可參與30小時專業培訓證書課程，包括科學模型運用及科學評估等主題。",
-      "2024年上旬完成「小學科學科教師專業培訓證書」課程，30小時完畢者可獲證。",
-      "在選舉日作為選民投票的教職員可獲半天假期。",
-      "未經批准缺勤者可能被扣薪，情節嚴重者或引致紀律處分；連續三日（超過三天）未經批准缺勤可視為自動辭職／離職。"
-    ],
+    "all_roles": [],
     "principal": [],
     "panel_chair": [],
     "teacher": [],
-    "eo_admin": [
-      "在社交通訊平台發表不當言行者，會受到譴責並採取相應紀律措施。"
-    ],
+    "eo_admin": [],
     "vice_principal": [],
     "subject_head": []
   },
@@ -6307,21 +6778,12 @@
       "共通能力",
       "價值觀"
     ],
-    "all_roles": [
-      "2017年，教局發布的中學課程指引要求科學科和地理科融入價值觀教育。",
-      "所有小學校長和教師均應閱覽上述指引及相 関文件。",
-      "新課程將注重培養學生核心素養、價值觀和愛國情懷。",
-      "課程框架內容將於2023年11月至12月介紹，並收集意見。",
-      "2027/28學年開始正式推行修訂的初中地理課程，並逐年推展至所有年級。",
-      "修訂課程將在2026/27學年陸續於中一級推行新教材，供學校參考使用。"
-    ],
+    "all_roles": [],
     "principal": [],
     "vice_principal": [],
     "subject_head": [],
     "panel_chair": [],
-    "teacher": [
-      "教師須運用多元化評估策略，包括進展性評估，以回饋學與教效能"
-    ]
+    "teacher": []
   },
   "activity": {
     "_source_refs": [
@@ -6352,22 +6814,12 @@
       "保險",
       "交流"
     ],
-    "all_roles": [
-      "境外活動須事前獲校長批准，並向教育局呈報行程及參加者資料",
-      "校外活動前須完成風險評估，包括場地安全、交通安排、天氣應變和醫療支援",
-      "2023年11月至12月，教育局會舉辦課程簡介會，建議每校長帶兩名教學人員參與。",
-      "學生參與境外交流活動的報名費、交通、住宿、比賽等費用，津貼可資助。",
-      "每年實地考察活動需安排2-4小時，學校須每年進行至少一次探究式實地考察。"
-    ],
+    "all_roles": [],
     "principal": [],
     "vice_principal": [],
     "panel_chair": [],
-    "teacher": [
-      "教學建議應幫助學生全面掌握內容，促進探究能力及提升共通能力。"
-    ],
-    "eo_admin": [
-      "2023/24學年起，將推出包括國家歷史漫畫、歷史劇和遊戲卡等多元教資源。"
-    ],
+    "teacher": [],
+    "eo_admin": [],
     "subject_head": []
   },
   "student": {
@@ -6431,18 +6883,11 @@
       "資產",
       "資訊安全"
     ],
-    "all_roles": [
-      "學校須配合教育局推動 BYOD（自攜裝置）政策，支援電子學習環境",
-      "學校須遵守《個人資料（私隱）條例》處理學生和教職員電子數據",
-      "教學資源包括課本、資訊科技、社區資源及生成式人工智能，用於科學教學推行。",
-      "學與教資源包括「生活事件」教案、影片及動畫，將陸續上載於教育局專頁。"
-    ],
+    "all_roles": [],
     "principal": [],
     "subject_head": [],
     "panel_chair": [],
-    "teacher": [
-      "教師使用電子教學平台時須遵守學校資訊科技使用守則，保護學生個人資料"
-    ],
+    "teacher": [],
     "eo_admin": []
   },
   "general": {
@@ -6469,13 +6914,7 @@
       "守則",
       "維修"
     ],
-    "all_roles": [
-      "學校須按《公開資料守則》處理公眾索取資料要求，除有合理理由外應盡快提供",
-      "學校須遵守教育局通告及指引進行全方位學習活動，保障活動安全。",
-      "學校須設立公平借用機制並保持清晰記錄，以善用購買的器材與資源。",
-      "參與課外活動須遵守安全指引，確保學生人身安全及活動達成學習目標。",
-      "學校在聘用導師或人員提供學生教育服務時，須採用香港公安背景調查機制。"
-    ],
+    "all_roles": [],
     "principal": [],
     "vice_principal": [],
     "panel_chair": [],
