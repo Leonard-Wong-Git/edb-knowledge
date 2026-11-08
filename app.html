@@ -798,7 +798,7 @@ const makeKey = (topicId, roleId, index) => `${topicId}.${roleId}.${index}`;
 const INITIAL_DATA = {
   "_meta": {
     "stats": {
-      "chunks": 17183,
+      "chunks": 17074,
       "sources": 315
     }
   }
@@ -1365,7 +1365,7 @@ function PlatformIntroPanel({ stats }) {
   // Animate stat counters on mount — pull from stats.metaStats (single source of truth from _meta.stats)
   const meta = stats.metaStats || {};
   // Single-source derived counts/version (literals kept only as || fallback if stats missing)
-  const chunksCount = meta.chunks || 17183;
+  const chunksCount = meta.chunks || 17074;
   const guidelinesCount = GUIDELINES_REGISTRY.length;
   const sourcesCount = meta.sources || 300;
   const platformVersion = PLATFORM_VERSION;
@@ -2029,7 +2029,7 @@ function QAPanel({ data, setPreviewDoc }) {
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 k1-search-card">
         <h2 className="text-lg font-bold text-gray-800 mb-1">政策搜尋</h2>
         <p className="text-xs text-gray-400 mb-3">
-          {`來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 17183).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
+          {`來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 17074).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
           {usageTotal !== null && ` · 累計已服務 ${usageTotal.toLocaleString()} 次查詢`}
         </p>
 

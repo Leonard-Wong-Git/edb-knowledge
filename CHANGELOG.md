@@ -6,6 +6,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [舊事實清單清空] — 2026-11-08 — 刪除 109 條已停止服務的 approved_fact 副本
+
+> 平台版本不變 **v3.3.16**；只改公開片段數與文件。
+
+### Removed
+- **Supabase 內 109 條 `approved_fact`（`role_facts_*` 七個偽來源）。** S243 起已不回傳於搜尋；內部清單 `dev/knowledge/channel_a_option2_queue.json` 最後一條（法團校董會資助學校的租金收入，出處《財務管理指引》第 15 頁）定案後清單清空，按清單規則第 5 條先匯出全部欄位備份，經 Leonard 批准刪除。搜尋結果不變。
+
+### Changed
+- 公開片段數 17,183 → 17,074（`stats.json`、`app.html`、`index.html`、`README.md`）；來源數仍為 315（本來已不計 `role_facts_*`）。
+
+---
+
 ## [清理休眠頁與角色選擇] — 2026-11-03 — 刪除 t-purchase.html、手機版「選擇角色」，說明文字與現行系統對齊
 
 > 平台版本 **v3.3.15 → v3.3.16**（`app.html`、`index.html`、`mobile.js`、`mobile.css`、`feedback.js` 有改動）。

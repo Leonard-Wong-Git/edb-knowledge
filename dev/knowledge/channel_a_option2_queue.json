@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "S243（2026-11-03）Channel A 退役後的內部工作清單：原 455 條已核實事實（role_facts.json／knowledge.json 原文，一字未改）。不公開、不供搜尋、不再是任何對外合約。",
-    "facts_remaining": 1,
+    "facts_remaining": 0,
     "rules": [
       "1. 本清單只會減少，不會增加。任何一條都不得再以無出處形式回到搜尋。",
       "2. 每輪入庫（人手或 Option A）完成後：以新來源的片段檢索本清單各條事實的候選段落，逐條交 Jev 判斷（Leonard S243 指定；題目 dev/source/jev/channel_a_match_gate.json，state = fact 原文＋候選段落全文、source_id、頁碼）。分流：same_rule 與 role_match 皆 ≥ 0.70 且 contradicts ≤ 0.30 → 自動記入 resolved（附 source_id、頁碼、Jev 機率、session）並從清單刪去；same_matter ≥ 0.70 且 contradicts ≥ 0.70 → 記入 dropped（S244 加 same_matter，防止把同類但不同的一次性安排當成矛盾）（理由：與現行原文矛盾，附段落位置）並刪去；其餘 → 留在清單，列入該輪的人手覆核名單。Jev 是第二意見，不是權威；每輪報告要列出自動處理的條數與抽樣覆核結果。",
@@ -4575,6 +4575,20 @@
         "round": "r1",
         "approved": "Leonard S245：Approve ingest",
         "method": "網上搜尋找到教育局原文 → footnote_curated 入庫（dev/ingest_s245_option2_byod_footnote.py）"
+      },
+      {
+        "fact": "設有法團校董會的資助學校應按照指引收取租金，並將收入按比例用於學校及班級津貼。",
+        "topic": "finance",
+        "role": "all_roles",
+        "fact_corrected": "一切租金收入，應首先撥入堂費／普通經費／資本儲備帳，並從該等帳項支付有關的費用，然後將餘額的40%撥入學校及班級津貼帳內。適用於設有法團校董會的資助學校。",
+        "source_id": "g02",
+        "page": 15,
+        "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sbm/corner-imc-sch/fm%20guide%20chinese.pdf#page=15",
+        "chunk_id": "vault_g02_b233f0a42484ec31",
+        "session": "S246",
+        "round": "r1",
+        "approved": "Leonard S246：甲（g02 為出處）＋批准寫入",
+        "method": "讀 g02 原 PDF 第 15 頁（印刷頁 14），按版面座標重組表格兩欄（規則第7條）；引教育局通告第5/2011號"
       }
     ],
     "dropped": [
@@ -6683,9 +6697,7 @@
       "代課",
       "擴大營辦"
     ],
-    "all_roles": [
-      "設有法團校董會的資助學校應按照指引收取租金，並將收入按比例用於學校及班級津貼。"
-    ],
+    "all_roles": [],
     "principal": [],
     "vice_principal": [],
     "subject_head": [],
