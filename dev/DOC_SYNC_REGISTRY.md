@@ -29,6 +29,18 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-11-08 — S246（Option 2 清單清空 ＋ 刪除 109 行 approved_fact）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| Supabase 刪除 | `confirmed` | −109 `role_facts_*`，Leonard「批准刪除」；先全欄位備份（`dev/init_backup/20261108_122028_UTC/`）；刪除 `id` 與備份相同；回退＝由備份重新匯入 |
+| 公開片段數 display-sync | `confirmed` | `live_display_sync` 17,183 → 17,074：`stats.json` 1、`app.html` 3、`index.html` 3、`README.md` 4；合併後線上讀回 |
+| 公開來源數 | `not_applicable` | 315 不變（`live_sources_count` 本來已扣 `role_facts_*`） |
+| 更新日誌 | `not_applicable` | 刪除的不是教育局文件，亦已不在搜尋結果出現，不寫 `update_log.json` |
+| README／CHANGELOG | `confirmed` | README 第 95 行補記清空與刪除；CHANGELOG 新增「舊事實清單清空」一節，版本不變 |
+| 任何入庫 → Option 2 清單 | `not_applicable` | 清單已清空（0 條），規則第 1 條「只減不增」，此後入庫毋須再比對 |
+| 來源登記 | `not_applicable` | footnote 來源按設計不登記（`check_registry_drift.py` `BY_DESIGN_KINDS`）；UNMANAGED 實測 0 |
+
 ### 2026-11-05 — S245（Option 2 第二輪 ＋ 1 條 curated footnote）
 
 | Row | 狀態 | 備註 |
