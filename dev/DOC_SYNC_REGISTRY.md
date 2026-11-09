@@ -29,6 +29,14 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-11-09 — S247（清理 init_backup 舊版 wiki_index 備份 ＋ 保留規則）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| 治理規則（project supplement） | `confirmed` | `dev/rules/safety.md` 官方內文之後加 `## Project Rules` 一條；官方內文位元組不變（SHA-256 前綴 `5a1598ae…`） |
+| 本機備份刪除 | `confirmed` | 26 份 `wiki_index.json` 備份，Leonard 批准；保留 `20261101_195458_UTC`；gitignored，不涉 git／Supabase |
+| Supabase／公開數字／README／CHANGELOG | `not_applicable` | 零生產改動，版本不變 |
+
 ### 2026-11-08 — S246（Option 2 清單清空 ＋ 刪除 109 行 approved_fact）
 
 | Row | 狀態 | 備註 |

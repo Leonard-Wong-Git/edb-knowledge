@@ -41,7 +41,17 @@ When current work requires a log entry, record whether relevant older detail was
 
 ## 2026-11-09 Session 247 — 清理 dev/init_backup 舊版 wiki_index 備份
 
+- **ID:** S247
 - **Summary:** Leonard 批准後刪除 26 份舊版／重複 `wiki_index.json` 備份（5–6 月 24 份、與現用檔雜湊相同的 `20261013_105847_UTC`／`20261013_110720_UTC`），釋放 10,826,816 KiB（約 11.09 GB）；保留 `20261101_195458_UTC`（SHA-256 與現用檔相同）及其餘 43 個備份；`dev/rules/safety.md` `## Project Rules` 加入 wiki_index 備份只留最新一份的規則。
+- **Changed:** `dev/rules/safety.md`、本 log（PR #89 → `82be06e`）；收工：交接、本 log、`dev/DOC_SYNC_REGISTRY.md`、`dev/PROJECT_INDEX.md`、`START_NEXT_SESSION_PROMPT.txt`；本機刪除 `dev/init_backup/` 26 個資料夾（gitignored）
+- **Done:** 只讀審核 → Leonard「批准刪除＋加規則」「開分支並開 PR」「CI 綠後合併」。
+- **QC:** 27 資料夾逐一核內容與大小；3 份新版 SHA-256 與現用檔相同；全項目搜尋資料夾名稱無腳本／待辦引用；刪後保留份再核 SHA-256；safety.md 官方內文前綴 SHA-256 不變；PR #89 CI 通過。
+- **Evidence disposition:** 數字與決定已吸收入交接檔 `## Validation / QC` S247；規則在 `dev/rules/safety.md`。
+- **Sync:** DOC_SYNC_REGISTRY S247 段；開場鏡像由唯一區塊重生並核對。
+- **Pending:** 見交接 `## Open Priorities`（下一步退役 `EDBC_9_2019_E`，先確認）。
+- **Risks:** none（零生產改動）。
+- **Log maintenance:** not_applicable。
+- **Opening-message mirror:** regenerated and verified; full text omitted by design.
 <!-- ack:log-entry:end -->
 
 <!-- ack:log-entry:start -->
