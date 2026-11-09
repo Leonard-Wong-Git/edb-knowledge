@@ -39,6 +39,13 @@ When current work requires a log entry, record whether relevant older detail was
 
 <!-- ack:log-entry:start -->
 
+## 2026-11-09 Session 247 — 清理 dev/init_backup 舊版 wiki_index 備份
+
+- **Summary:** Leonard 批准後刪除 26 份舊版／重複 `wiki_index.json` 備份（5–6 月 24 份、與現用檔雜湊相同的 `20261013_105847_UTC`／`20261013_110720_UTC`），釋放 10,826,816 KiB（約 11.09 GB）；保留 `20261101_195458_UTC`（SHA-256 與現用檔相同）及其餘 43 個備份；`dev/rules/safety.md` `## Project Rules` 加入 wiki_index 備份只留最新一份的規則。
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-11-08 Session 246 — Option 2 清單清空；刪除 109 條 approved_fact 副本；PR #87 合併
 
 - **ID:** S246
