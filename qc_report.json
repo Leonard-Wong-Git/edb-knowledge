@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-08T17:26:45Z",
+  "generatedAt": "2026-11-09T21:47:43Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17074,
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-08T17:26:45Z",
+    "collectedAt": "2026-11-09T21:47:43Z",
     "items": [
       {
         "kind": "freshness-change",
@@ -70,15 +70,6 @@
         "since": "2026-11-02T19:21:18Z",
         "url": "https://github.com/Leonard-Wong-Git/edb-knowledge/issues/77",
         "number": 77
-      },
-      {
-        "kind": "new-source-discovery",
-        "level": "decision",
-        "headline": "發現新文件",
-        "hint": "EDB 網站出現新文件，待你篩選是否收錄。",
-        "since": "2026-11-02T19:53:15Z",
-        "url": "https://github.com/Leonard-Wong-Git/edb-knowledge/issues/78",
-        "number": 78
       }
     ],
     "ignored_outside": 0
@@ -213,7 +204,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=20fd4a4 · 啟動於 2026-11-08T17:26:32.883Z",
+      "detail": "ok=True · commit=20fd4a4 · 啟動於 2026-11-09T21:47:31.567Z",
       "offenders": [],
       "offender_total": 0
     },
