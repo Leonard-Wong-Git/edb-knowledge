@@ -46,3 +46,7 @@ Use for file operations, shell commands, Git changes, package managers, installe
 ## Closeout
 
 Record unresolved safety risks, blocked verification, pending manual actions, dirty worktrees, or external sync gaps in `dev/SESSION_HANDOFF.md`.
+
+## Project Rules
+
+- `dev/init_backup/` 中的 `wiki_index.json` 備份只保留最新一份（刪除舊份前須以 SHA-256 核對它與現用 `dev/knowledge/wiki_index.json` 的關係）；Supabase 刪除或改寫前的備份不受此限，必須保留。刪除仍須 Leonard 明確批准。（S247）
