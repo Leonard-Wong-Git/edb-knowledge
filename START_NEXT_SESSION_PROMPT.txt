@@ -6,18 +6,21 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S246 收工, 2026-11-08）---
+--- 專案狀態（S247 收工, 2026-11-09）---
 
 平台 v3.3.16；Supabase 17,074 chunks（315 來源；footnote_curated 177）；EDB 指引書庫 182 份；guidelines.json 公開端點 151 份（_meta 2.6.2）。
 Channel A 退役已完結：內部清單 dev/knowledge/channel_a_option2_queue.json 已清空（resolved 289、dropped 166、餘 0）；
 Supabase 109 條 approved_fact（role_facts_*）已備份後刪除（備份在本機 dev/init_backup/20261108_122028_UTC/）。
 Agent Handoff Kit v0.4.3（npm 已有 0.4.4，未升級）。
-origin/main = d6b18f6（PR #87 已合併為 62647fe）；線上 /health commit = 20fd4a4（開工以 /health 核實）。
-本節收工分支 s246-closeout（只改治理文件）。#70 仍開著。
+origin/main = 82be06e（PR #89 已合併）；線上 /health commit = 20fd4a4（開工以 /health 核實）。
+本節收工分支 s247-closeout（只改治理文件）。#70 仍開著。
 Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
 FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 未設＝關閉。
 public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
 
+🟢 S247 做完（不用重做）：
+   · dev/init_backup/ 刪除 26 份舊版／重複 wiki_index.json 備份（約 11.09 GB），保留 20261101_195458_UTC；
+     保留規則在 dev/rules/safety.md「Project Rules」（wiki_index 備份只留最新一份；Supabase 刪除前備份必須保留）。
 🟢 S246 做完（不用重做）：
    · 租金收入以 g02《財務管理指引》第 15 頁按原文修正，清單清空。
    · 109 行 approved_fact 全欄位備份 → 經 Leonard 批准刪除 → 公開數字 17,074，線上已讀回。
