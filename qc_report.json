@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-11T19:04:16Z",
+  "generatedAt": "2026-11-12T08:24:16Z",
   "overallStatus": "ERROR",
   "counts": {
-    "chunks": 17074,
+    "chunks": 17079,
     "PASS": 14,
     "BLOCKER": 0,
     "ERROR": 2,
@@ -12,11 +12,11 @@
   },
   "version": "v3.3.16",
   "corpus": {
-    "chunks": 17074,
-    "sources_serving": 315,
-    "sources_registered": 301,
+    "chunks": 17079,
+    "sources_serving": 316,
+    "sources_registered": 302,
     "guidelines_listed": 182,
-    "distinct_urls": 349,
+    "distinct_urls": 350,
     "largest_sources": [
       {
         "source_id": "coa_ss_e",
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-11T19:04:16Z",
+    "collectedAt": "2026-11-12T08:24:16Z",
     "items": [
       {
         "kind": "freshness-change",
@@ -204,7 +204,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=20fd4a4 · 啟動於 2026-11-11T19:04:06.373Z",
+      "detail": "ok=True · commit=20fd4a4 · 啟動於 2026-11-12T08:23:54.898Z",
       "offenders": [],
       "offender_total": 0
     },
@@ -234,7 +234,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "infra",
-      "detail": "資料庫真數 17074 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "detail": "資料庫真數 17079 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
       "offenders": [],
       "offender_total": 0
     },
@@ -376,7 +376,7 @@
       "severity": "INFO",
       "status": "INFO",
       "group": "cutting",
-      "detail": "1932 條（11.3%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
+      "detail": "1933 條（11.3%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
       "offenders": [
         "g13（105 條）",
         "g07（80 條）",
@@ -391,7 +391,7 @@
         "chi_hist_sss_2007_2015（34 條）",
         "icac_school_governance（32 條）"
       ],
-      "offender_total": 1932
+      "offender_total": 1933
     },
     {
       "id": "EVAL_LATEST",
@@ -482,7 +482,7 @@
       "severity": "WARN",
       "status": "FAIL",
       "group": "pointing",
-      "detail": "118 個來源 / 2621 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
+      "detail": "119 個來源 / 2626 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
       "offenders": [
         "gifted_ge_series（346 條）資優教育系列：全民資優教育＋校本學生才能庫＋學術英才",
         "kg_admin_guide_2026（222 條）幼稚園行政手冊（2026年5月）",
@@ -497,7 +497,7 @@
         "tdtf_report_2019（62 條）教師專業發展專責小組報告 (2019年3月)",
         "imc_election_guides（58 條）法團校董會校董選舉指引（家長／教師／校友校董・委任五"
       ],
-      "offender_total": 118
+      "offender_total": 119
     },
     {
       "id": "MOJIBAKE",
