@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-11-01",
+    "updated": "2026-11-12",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -8459,6 +8459,31 @@
         "sdp_guide"
       ],
       "notes": "(S242) 2010 版《如何編寫學校發展計劃》拆分後的直資學校版（2026-09-24），5 頁。Leonard 批准入庫。"
+    },
+    {
+      "source_id": "edbcm203_2026",
+      "title": "學校複印及傳真香港報章和雜誌許可使用權申請計劃",
+      "title_en": null,
+      "title_short": "學校複印及傳真香港報章和雜誌許可使用權申請計劃",
+      "url_landing": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26203C.pdf",
+      "url_primary": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26203C.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2026",
+      "last_checked_at": "2026-11-12",
+      "supersedes": null,
+      "related_source_ids": [],
+      "lifecycle": "reference",
+      "expires_on": null,
+      "expiry_basis": null,
+      "covers_period": null,
+      "notes": "(auto, Option A executor) EDBCM203/2026. route=curriculum, Tier 1. watcher→prepare→approve→execute. Channel B vault_extract."
     }
   ]
 }

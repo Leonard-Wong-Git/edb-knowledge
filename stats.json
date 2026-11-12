@@ -2,8 +2,8 @@
   "_meta": {
     "note": "S243 — 公開統計（取代已退役的 knowledge.json）。chunks／sources 由 dev/source/execute_ingest.py display-sync 在每次入庫後改寫。",
     "stats": {
-      "chunks": 17074,
-      "sources": 315
+      "chunks": 17079,
+      "sources": 316
     }
   }
 }
