@@ -71,6 +71,7 @@ Purpose: give a stateless AI a compact map of the project before it reads or edi
 | `dev/_s214_grounded_acceptance_report.md` + `dev/_s214_gold_abstention_review.md` + `dev/_s214_grounded_v3_review.md` + `dev/source/eval_runs/2026-09-05_s214_grounded_synthesis_probe_acceptance_v1.json`／`acceptance_v2.json`／`acceptance_v3_windowfix.json` + `2026-09-06_s214_fresh_retrieval_5.json` + `2026-09-06_s214_ncs_history_candidate.json` | S214 grounded synthesis 驗收證據。v1／v2 因 18／40 題舊 harness 選窗偏差而標示為 harness-confounded；v3 以修正窗重驗 18 題，25 次可核證 HTTP，無答案 9/9 棄權、可答 6/9 作答。其後 5 題 fresh retrieval 定位到 2 PASS／1 PARTIAL／2 FAIL；中史候選驗證證實 allowlist 修正只恢復 Source Recall，目標 Chunk Recall 仍失敗。現時 verdict=FAIL | Grounded synthesis QC／獨立覆核 |
 | `dev/checklists/` | 15 域合規清單 + clauses（改後 re-run `gen_checklists_bundle.py`，勿手改 `checklists_bundle.json`） | 清單任務 |
 | `dev/AUDIT.md` | S225 AI agent 架構與護欄盤點（`ai-agent-patterns` 既有系統路徑）。**凍結於 2026-09-14 的一次性評估，非 current state** —— 其中仍未解決者以 `SESSION_HANDOFF.md` `## Risks / Blockers` 與 `## Open Priorities` 為權威。碼有改動令結論失效時，更新此檔或明確標註作廢 | 檢討架構層級／護欄密度／量度缺口時 |
+| `dev/SESSION_STATE_DETAIL.md` | 交接檔 `Current Baseline`／`Open Priorities`／`Risks` 精簡版背後的詳細內容（S248 建立）；開工不讀，做到相關項目才讀。歷史原文在 `dev/archive/SESSION_HANDOFF_HISTORY_2026-11-15.md` | 做到交接檔某一項、需要其詳細證據時 |
 | `dev/_s214_route_first_focused_review.md` | 已保存三題 route-first before／after 的離線覆核；含交接與 RPC trace 落差、片段缺席、逾時及下一步限制 | 接續 Phase B 或考慮 live 驗證前 |
 
 ## Entry Points
