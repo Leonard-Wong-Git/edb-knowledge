@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T18:18:00Z",
+  "generatedAt": "2026-11-15T19:51:53Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17079,
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-15T18:18:00Z",
+    "collectedAt": "2026-11-15T19:51:53Z",
     "items": [
       {
         "kind": "freshness-change",
@@ -74,6 +74,22 @@
     ],
     "ignored_outside": 0
   },
+  "regressions": [
+    {
+      "id": "PAGE_ANCHORED",
+      "label": "片段可指向頁數或章節（有 Page 標記或 #page= 連結）",
+      "count": 194,
+      "baseline": 179,
+      "over": 15,
+      "top": [
+        "g14（76 條）",
+        "g04（12 條）",
+        "cap279_education_ordinance（11 條）",
+        "g17（10 條）",
+        "gifted_policy_docs（10 條）"
+      ]
+    }
+  ],
   "releaseGate": {
     "status": "FAIL",
     "summary": "5/15 項達標",
@@ -204,7 +220,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=8b118fd · 啟動於 2026-11-15T18:17:51.526Z",
+      "detail": "ok=True · commit=8b118fd · 啟動於 2026-11-15T19:51:45.233Z",
       "offenders": [],
       "offender_total": 0
     },
