@@ -19,9 +19,9 @@
 1. **平台**：v3.3.16。公開分頁三個（平台介紹／政策搜尋／EDB 指引）；文件標註收起待修（`FEATURE_TABS.annotate=false`）。Channel A 退役已完結（S243–S246）：`knowledge.json`／`role_facts.json` 已刪、內部清單清空、公開統計由 `stats.json` 提供；凍結合約只餘 `guidelines.json` 2.6.2／151。升版一律手改 `PLATFORM_VERSION`＋README 標章＋CHANGELOG，不可用 `bump_version.py`。
 2. **知識庫**：Supabase 17,079 chunks、316 來源（2026-11-15 讀 `stats.json`；PR #91 自動入庫 `edbcm203_2026` +5；S246 `count=exact` 實測為 17,074／315）。`footnote_curated` 177。EDB 指引書庫 182 份（S243；#91 之後未重核）。
 3. **Registry 漂移**（2026-11-08 QC 報告）：`ZOMBIE`／`UNMANAGED`／`SERIES_UNMONITORED` 皆 0；`PHANTOM` 36；`UNLISTED` 118／2,621 片段（人手策展佇列）。
-4. **Git 與部署**（2026-11-15 實測）：`origin/main` = `28102db`（PR #92 交接檔瘦身已合併）；線上 `/health` commit = `8b118fd`。`main` 受 ruleset 保護，一切改動走 PR，合併只在 Leonard 明示時進行。開著的 PR：S248 分支 `s248-qc-report-noise`（QC 惡化通知）、#70（內容早已入 `main`，關閉前先問 Leonard）。判斷線上是否落後看 `git diff --name-only <部署commit>..origin/main -- backend`，不要比 hash。入庫 PR 會改 `SOURCE_SETS`，合併後 Render 重新部署，新來源要等新版上線才搜得到。
+4. **Git 與部署**（2026-11-15 實測）：`origin/main` = `1bbd911` 之後（PR #92 交接檔瘦身、#93 QC 惡化通知已合併）；線上 `/health` commit = `8b118fd`。`main` 受 ruleset 保護，一切改動走 PR，合併只在 Leonard 明示時進行。開著的 PR：S248 分支 `s248-page-anchor-definition`（`PAGE_ANCHORED` 定義修正）、#70（內容早已入 `main`，關閉前先問 Leonard）。判斷線上是否落後看 `git diff --name-only <部署commit>..origin/main -- backend`，不要比 hash。入庫 PR 會改 `SOURCE_SETS`，合併後 Render 重新部署，新來源要等新版上線才搜得到。
 5. **模型與旗標**：合成與判官皆 `gpt-6-luna`＋`none`（碼內預設，Render 無 `OPENAI_MODEL`）。生產已開：`FEATURE_ROUTE_FIRST_SEARCH`、`FEATURE_CIRCULAR_NUMBER_LOOKUP`。已部署未開：`FEATURE_SUBJECT_CHECK`（待 Leonard 決定）。**不應啟用**（皆已量度並判定不出貨）：`FEATURE_QUERY_FUSION`、`FEATURE_VAULT_GATE_RAWVEC`、`MAX_PER_SOURCE`、`FEATURE_LEXICAL_RERANK`、`FAMILY_QUOTA`、`EXPANSION_MIN_QUERY_CHARS`／`EXPANSION_BALANCE`／`EXPANSION_REPEAT_CAP`。`/health` 不報旗標。
-6. **監察與檢索基線**：偵測型監察有新項目才 @Leonard；質素檢查高於基準時開 `qc-regression` Issue 並 @Leonard（S248，待合併）；7 個排程 workflow 由每日看門狗監察，另有 `live_probe` 每 6 小時探測線上服務；四條 ledger workflow 經 deploy key 推。檢索基線（S233 生產，185 題）：來源層 PASS 125／FAIL 41，片段層 59／107；Source Recall@1 0.446、@5 0.711，Chunk Recall@5 0.349。重跑噪音：片段層 0、來源層 ±1。各項詳情見 `dev/SESSION_STATE_DETAIL.md`。
+6. **監察與檢索基線**：偵測型監察有新項目才 @Leonard；質素檢查高於基準時開 `qc-regression` Issue 並 @Leonard（S248，已上線並經真實運行驗證）；7 個排程 workflow 由每日看門狗監察，另有 `live_probe` 每 6 小時探測線上服務；四條 ledger workflow 經 deploy key 推。檢索基線（S233 生產，185 題）：來源層 PASS 125／FAIL 41，片段層 59／107；Source Recall@1 0.446、@5 0.711，Chunk Recall@5 0.349。重跑噪音：片段層 0、來源層 ±1。各項詳情見 `dev/SESSION_STATE_DETAIL.md`。
 
 > 詳情與證據：`dev/SESSION_STATE_DETAIL.md`（做到該項才讀）；改寫前原文：`dev/archive/SESSION_HANDOFF_HISTORY_2026-11-15.md` E 節。
 
@@ -43,7 +43,6 @@
 4. ⚠️ **本機 Python 環境分裂**：抽取與入庫指令一律寫 `/usr/local/bin/python3`；破壞性步驟前先跑 `--dry-run` 確認依賴齊全。
 5. ⚠️ **生產刪除沒有機械閘**：AI 可以直接執行 Supabase 刪除，安全邊界只有「先備份、先取得 Leonard 明示批准」。看門狗與其他監察跑在同一套排程上，全部一齊停時無人出聲（公開 repo 60 日無活動會自動停用排程）。
 6. **只監察**：HNSW 索引被 pgvector 版本擋住（要上游打包 ≥0.8.4，每週監察）；實例冷熱落差 58–90 倍（比較兩組查詢要交錯重量三輪以上）；量度判官有 1 對位置偏誤（每次看 `judge_health.always_first`）；`AGENTS.md`／`CLAUDE.md`／`GEMINI.md` 不在 git 內，沒有任何副本。
-7. **待 Leonard 確認**：監察 @mention 電郵是否真的寄到 Gmail。
 
 各項的完整證據與數字見 `dev/SESSION_STATE_DETAIL.md`。
 
@@ -165,7 +164,7 @@ source_registry → same vault PDFs → ai_extract.py
 **Recommended next step：退役 `EDBC_9_2019_E`（2 段 `footnote_curated`）。** 理由：EDBC 4/2026 已取代通告 9/2019，它仍在「SEN學生留級」查詢佔第一格；Leonard 於 S238 批准但當時被擋下，批准已隔多節，**執行前先向 Leonard 再確認**。
 
 1. **退役 `EDBC_9_2019_E`**：先 `select=*` 匯出到 `dev/init_backup/<ts>/` → `DELETE ?source_id=eq.EDBC_9_2019_E` → `live_display_sync` 同步公開數字 → 補 `update_log.json`。
-2. **減維護負擔**（Leonard 2026-11-15 定為優先方向）：第一步交接檔瘦身已做（PR #92 已合併）；第二步查明「舊帳與新故障分開」及「每日提交」皆為既有刻意設計（S234 狀態頁、`generatedAt` 過期偵測），真正缺口是質素檢查惡化沒有通知，已加 `qc-regression` 通知（分支 `s248-qc-report-noise`，合併後首次運行會就 `PAGE_ANCHORED` 194／基準 179 開 Issue）；第三步清理 `PHANTOM` 36／`UNLISTED` 118／Freshness（Issue #77）累積清單。
+2. **減維護負擔**（Leonard 2026-11-15 定為優先方向）：第一步交接檔瘦身已做（PR #92 已合併）；第二步查明「舊帳與新故障分開」及「每日提交」皆為既有刻意設計（S234 狀態頁、`generatedAt` 過期偵測），真正缺口是質素檢查惡化沒有通知，已加 `qc-regression` 通知（PR #93 已合併；首次真實運行開出 Issue #94，Leonard 確認收到電郵）。Issue #94 查明 194 條中 143 條是檢查誤報（網頁／試算表無頁碼、標記首個「=」被切掉），Leonard 批准把 `PAGE_ANCHORED` 改為只計 PDF、標記判斷與後端一致、基準 179 → 51（分支 `s248-page-anchor-definition`）；**餘下 51 條真缺口未修**：41 條 PDF footnote 欠 `#page=`（16 個來源）、10 條 `gifted_policy_docs`（網址是 PDF、內容抽自網頁），修正要寫生產，先列清單給 Leonard 批准。第三步建議先做 Freshness（35 項中約半數是索引頁／統計頁，要改監察方式而非逐項處理）；其後清理 `PHANTOM` 36／`UNLISTED` 118／Freshness（Issue #77）累積清單。
 3. **待 Leonard 決定**：是否開 `FEATURE_SUBJECT_CHECK`；文件標註修好重開還是刪除；已收起功能的公開端點去留；`search_log` 加拒答原因（DDL）；關閉 #70；S244 三條 footnote 的粵語問句是否改寫；語料庫時限段落是否交 `check_expiry.py`；`app.html` 角色標籤「全校」是否移除；Kit 是否升級至 v0.4.6。
 4. **定期系統更新檢查**：上次 2026-10-30，約 2026-11-29 到期（規則在 `dev/rules/coding.md` `## Project Rules`）。
 5. **提升片段層召回**（長期）：已排除七條方向，未試的只餘 cross-encoder 重排（上限多救 42 題）；動手前必讀 `dev/SESSION_STATE_DETAIL.md` 的 ②。
@@ -322,8 +321,8 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 Channel A 退役已完結：內部清單 dev/knowledge/channel_a_option2_queue.json 已清空（resolved 289、dropped 166、餘 0）；
 Supabase 109 條 approved_fact（role_facts_*）已備份後刪除（備份在本機 dev/init_backup/20261108_122028_UTC/）。
 Agent Handoff Kit v0.4.3（npm 已有 0.4.6，未升級；doctor 報 project shortcuts 一項未通過）。
-origin/main = 28102db（PR #92 已合併）；線上 /health commit = 8b118fd（2026-11-15 實測；開工以 /health 核實）。
-S248 分支 s248-qc-report-noise（QC 惡化通知，改 qc_report.py／qc_report.yml，不改 backend/，未合併）。#70 仍開著。
+origin/main = 1bbd911 之後（PR #92、#93 已合併）；線上 /health commit = 8b118fd（2026-11-15 實測；開工以 /health 核實）。
+S248 分支 s248-page-anchor-definition（PAGE_ANCHORED 定義修正，只改 qc_report.py 與治理文件，未合併）。#70 仍開著。
 Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
 FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 未設＝關閉。
 public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
@@ -332,7 +331,10 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    · 交接檔瘦身 760 KB → 65 KB：歷史原文在 dev/archive/SESSION_HANDOFF_HISTORY_2026-11-15.md；
      三段精簡版的詳情在 dev/SESSION_STATE_DETAIL.md（開工不讀，做到該項才讀）。PR #92 已合併。
    · QC 惡化通知：qc_report.json 新增 regressions（只列高於基準的基準檢查），qc_report.yml 以 notify_new_items.js
-     開 qc-regression Issue 並 @Leonard；數字不變不重複通知。合併後首次運行會就 PAGE_ANCHORED 194／基準 179 開 Issue。
+     開 qc-regression Issue 並 @Leonard；數字不變不重複通知。PR #93 已合併，首次真實運行開出 Issue #94，
+     Leonard 確認收到 @mention 電郵（監察通知鏈至此全程驗證）。
+   · PAGE_ANCHORED 定義修正（Leonard 批准）：只計 PDF 來源、頁碼標記判斷與後端 ={2,} 一致、基準 179 → 51；
+     線上 17,079 片段實測 51（WARN，等於基準）。合併後下一次 QC 運行應自動關閉 Issue #94。
 🟢 S247 做完（不用重做）：
    · dev/init_backup/ 刪除 26 份舊版／重複 wiki_index.json 備份（約 11.09 GB），保留 20261101_195458_UTC；
      保留規則在 dev/rules/safety.md「Project Rules」（wiki_index 備份只留最新一份；Supabase 刪除前備份必須保留）。
@@ -344,8 +346,10 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
 🚀 下一步：
    ① 退役 EDBC_9_2019_E（2 段 footnote_curated；已被 EDBC 4/2026 取代；S238 已批准未執行 —— 執行前先向 Leonard 再確認）：
       select=* 匯出備份 → DELETE → live_display_sync（以當時實測數為準，現為 17,079 → 17,077） → update_log.json。
-   ② S248 QC 惡化通知 PR 待 Leonard 指示合併；合併後核對首次運行有否開 qc-regression Issue。其後續做減維護負擔
-      第三步（Leonard 2026-11-15 定為優先）：清理 PHANTOM／UNLISTED／Freshness（Issue #77）清單。
+   ② PAGE_ANCHORED 定義修正 PR 待 Leonard 指示合併；合併後核對 Issue #94 有否自動關閉。
+      餘下 51 條真缺口（41 條 PDF footnote 欠 #page=、10 條 gifted_policy_docs）要寫生產，先列清單給 Leonard 批准。
+      其後續做減維護負擔第三步（Leonard 2026-11-15 定為優先）：先 Freshness（Issue #77，35 項，約半數是索引頁／統計頁），
+      再 PHANTOM 36／UNLISTED 119。
    ③ 待決定：S244 三條 footnote 粵語問句是否改寫；語料庫時限段落是否交 check_expiry；app.html「全校」角色標籤；
       文件標註四項重開條件；搜尋紀錄加拒答原因（DDL 待批）；FEATURE_SUBJECT_CHECK；Kit 0.4.6 升級；已收起功能的公開端點去留；定期系統更新檢查約 11-29 到期。
 

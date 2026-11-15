@@ -12,8 +12,8 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 Channel A 退役已完結：內部清單 dev/knowledge/channel_a_option2_queue.json 已清空（resolved 289、dropped 166、餘 0）；
 Supabase 109 條 approved_fact（role_facts_*）已備份後刪除（備份在本機 dev/init_backup/20261108_122028_UTC/）。
 Agent Handoff Kit v0.4.3（npm 已有 0.4.6，未升級；doctor 報 project shortcuts 一項未通過）。
-origin/main = 28102db（PR #92 已合併）；線上 /health commit = 8b118fd（2026-11-15 實測；開工以 /health 核實）。
-S248 分支 s248-qc-report-noise（QC 惡化通知，改 qc_report.py／qc_report.yml，不改 backend/，未合併）。#70 仍開著。
+origin/main = 1bbd911 之後（PR #92、#93 已合併）；線上 /health commit = 8b118fd（2026-11-15 實測；開工以 /health 核實）。
+S248 分支 s248-page-anchor-definition（PAGE_ANCHORED 定義修正，只改 qc_report.py 與治理文件，未合併）。#70 仍開著。
 Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
 FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 未設＝關閉。
 public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
@@ -22,7 +22,10 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    · 交接檔瘦身 760 KB → 65 KB：歷史原文在 dev/archive/SESSION_HANDOFF_HISTORY_2026-11-15.md；
      三段精簡版的詳情在 dev/SESSION_STATE_DETAIL.md（開工不讀，做到該項才讀）。PR #92 已合併。
    · QC 惡化通知：qc_report.json 新增 regressions（只列高於基準的基準檢查），qc_report.yml 以 notify_new_items.js
-     開 qc-regression Issue 並 @Leonard；數字不變不重複通知。合併後首次運行會就 PAGE_ANCHORED 194／基準 179 開 Issue。
+     開 qc-regression Issue 並 @Leonard；數字不變不重複通知。PR #93 已合併，首次真實運行開出 Issue #94，
+     Leonard 確認收到 @mention 電郵（監察通知鏈至此全程驗證）。
+   · PAGE_ANCHORED 定義修正（Leonard 批准）：只計 PDF 來源、頁碼標記判斷與後端 ={2,} 一致、基準 179 → 51；
+     線上 17,079 片段實測 51（WARN，等於基準）。合併後下一次 QC 運行應自動關閉 Issue #94。
 🟢 S247 做完（不用重做）：
    · dev/init_backup/ 刪除 26 份舊版／重複 wiki_index.json 備份（約 11.09 GB），保留 20261101_195458_UTC；
      保留規則在 dev/rules/safety.md「Project Rules」（wiki_index 備份只留最新一份；Supabase 刪除前備份必須保留）。
@@ -34,8 +37,10 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
 🚀 下一步：
    ① 退役 EDBC_9_2019_E（2 段 footnote_curated；已被 EDBC 4/2026 取代；S238 已批准未執行 —— 執行前先向 Leonard 再確認）：
       select=* 匯出備份 → DELETE → live_display_sync（以當時實測數為準，現為 17,079 → 17,077） → update_log.json。
-   ② S248 QC 惡化通知 PR 待 Leonard 指示合併；合併後核對首次運行有否開 qc-regression Issue。其後續做減維護負擔
-      第三步（Leonard 2026-11-15 定為優先）：清理 PHANTOM／UNLISTED／Freshness（Issue #77）清單。
+   ② PAGE_ANCHORED 定義修正 PR 待 Leonard 指示合併；合併後核對 Issue #94 有否自動關閉。
+      餘下 51 條真缺口（41 條 PDF footnote 欠 #page=、10 條 gifted_policy_docs）要寫生產，先列清單給 Leonard 批准。
+      其後續做減維護負擔第三步（Leonard 2026-11-15 定為優先）：先 Freshness（Issue #77，35 項，約半數是索引頁／統計頁），
+      再 PHANTOM 36／UNLISTED 119。
    ③ 待決定：S244 三條 footnote 粵語問句是否改寫；語料庫時限段落是否交 check_expiry；app.html「全校」角色標籤；
       文件標註四項重開條件；搜尋紀錄加拒答原因（DDL 待批）；FEATURE_SUBJECT_CHECK；Kit 0.4.6 升級；已收起功能的公開端點去留；定期系統更新檢查約 11-29 到期。
 

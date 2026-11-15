@@ -72,7 +72,16 @@ BASELINE = {
     "midclause_start": 835,
     "toc_noise": 147,
     "no_anchor_url": 130,
-    "no_page_anchor": 179,
+    # 51, not the 179 first written here (S248). The old definition counted every
+    # chunk with no page marker, but 131 of them were HTML pages, spreadsheets and
+    # legislation sections — documents that HAVE no pages, and for which app.html
+    # never builds a #page link anyway — and 12 more carried a marker whose first
+    # "=" was lost at a chunk boundary, which production parses fine. The count
+    # could only ever grow with honest ingests (179 -> 194 was 11 footnotes on
+    # elegislation section URLs). Remaining 51: 41 curated footnotes on PDFs with
+    # no #page=, and 10 gifted_policy_docs chunks whose URL is a PDF but whose
+    # text was extracted from a web page.
+    "no_page_anchor": 51,
     # 658, not the 116 first written here: the first count saw only
     # arts_kla_guide_2017 and missed the 13 stat_enrolment_YYYY sources plus
     # stat_kg. Recounted over the whole store before this file was trusted.
@@ -104,6 +113,10 @@ BASELINE_OF = {
 _WS = re.compile(r"\s+")
 _MARKER_HEAD = re.compile(r"^(?:\s*===[^=]{1,60}===\s*)+")
 _PAGE_MARKER = re.compile(r"===\s*Page\s*(\d+)\s*===", re.I)
+# What PRODUCTION accepts when it attributes a page (searchChannelB.ts, the
+# `={2,}\s*Page\s*(\d+)\s*={2,}` in pageOfChunk). A chunk boundary can eat the
+# first "=" of a marker; the reader still gets a page, so it is not a defect.
+_PAGE_MARKER_SERVED = re.compile(r"={2,}\s*Page\s*(\d+)\s*={2,}", re.I)
 # A well-formed passage opens a clause. These openers can only be a continuation
 # of something the previous chunk ended with.
 _MIDCLAUSE = re.compile(r"^[）)」』、。，；：%】\]…·\-–—]|^\d{1,3}[名個條班元]")
@@ -150,9 +163,16 @@ def toc_leader_count(text: str) -> int:
     return len(_TOC_LEADER.findall(text or ""))
 
 
+def is_paged_document(chunk: dict) -> bool:
+    """True when the source is a PDF — the only kind app.html deep-links by page
+    (`/\\.pdf/i.test(url)` before it appends `#page=N`). A web page, a spreadsheet
+    or a legislation section has no page to point at."""
+    return ".pdf" in (chunk.get("url") or "").lower()
+
+
 def page_anchored(chunk: dict) -> bool:
     """True when this chunk can point the reader at a page."""
-    if _PAGE_MARKER.search(chunk.get("text") or ""):
+    if _PAGE_MARKER_SERVED.search(chunk.get("text") or ""):
         return True
     return "#page=" in (chunk.get("url") or "")
 
@@ -328,14 +348,15 @@ def check_title_real(chunks: list[dict]) -> dict:
 
 def check_page_anchor(chunks: list[dict]) -> dict:
     bad = [c for c in chunks
-           if c.get("content_type") not in MIRROR_KINDS and not page_anchored(c)]
+           if c.get("content_type") not in MIRROR_KINDS
+           and is_paged_document(c) and not page_anchored(c)]
     status, phrase = baseline_status(len(bad), "no_page_anchor")
     by_src = collections.Counter(c["source_id"] for c in bad)
     return mk_check(
         "PAGE_ANCHORED",
-        "片段可指向頁數或章節（有 Page 標記或 #page= 連結）",
+        "PDF 片段可指向頁數（有 Page 標記或 #page= 連結；網頁與試算表沒有頁碼，不計）",
         "WARN", status,
-        f"{phrase} · 這些片段只能把用戶帶到文件首頁",
+        f"{phrase} · 這些片段只能把用戶帶到 PDF 首頁",
         [f"{s}（{n} 條）" for s, n in by_src.most_common()], len(bad))
 
 
@@ -1082,6 +1103,26 @@ def self_test() -> int:
     check("prose with one dotted line is not TOC",
           toc_leader_count("見附件......5") == 1)
     check("page anchor via marker", page_anchored({"text": "=== Page 4 ===x", "url": ""}))
+    check("a marker that lost its first '=' at a chunk boundary still anchors "
+          "(production's pageOfChunk accepts ={2,})",
+          page_anchored({"text": "== Page 85 ===77例子", "url": ""}))
+    check("a single '=' is not a marker",
+          not page_anchored({"text": "= Page 85 = x", "url": ""}))
+    check("a PDF url is a paged document; a web page, a spreadsheet and a "
+          "legislation section are not",
+          is_paged_document({"url": "https://e.gov/A.PDF"})
+          and not is_paged_document({"url": "https://e.gov/guide/chapter-two.html"})
+          and not is_paged_document({"url": "https://e.gov/figures/kg_tc.xlsx"})
+          and not is_paged_document({"url": "https://www.elegislation.gov.hk/hk/cap279!en/s10"})
+          and not is_paged_document({"url": None}))
+    _html = {"source_id": "s", "content_type": "vault_extract", "text": "x",
+             "url": "https://e.gov/guide/chapter-two.html"}
+    _pdf = dict(_html, url="https://e.gov/a.pdf")
+    check("PAGE_ANCHORED ignores an unpaged web chunk and counts an unanchored PDF chunk",
+          check_page_anchor([_html])["offender_total"] == 0
+          and check_page_anchor([_pdf])["offender_total"] == 1)
+    check("PAGE_ANCHORED still skips Channel-A mirror kinds",
+          check_page_anchor([dict(_pdf, content_type="stat_fact")])["offender_total"] == 0)
     check("page anchor via url fragment",
           page_anchored({"text": "x", "url": "https://e.gov/a.pdf#page=7"}))
     check("no page anchor at all",
