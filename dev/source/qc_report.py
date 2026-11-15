@@ -86,6 +86,21 @@ BASELINE = {
     "mojibake": 58,
 }
 
+# S248 — check id -> BASELINE key, for the checks whose `offender_total` IS the
+# count compared against the baseline. Used only to tell Leonard when one of them
+# gets worse: PAGE_ANCHORED went 179 -> 180 -> 191 -> 194 over two months and the
+# only trace was one row turning red on a page nobody was sent to.
+BASELINE_OF = {
+    "ANCHOR_URL_PRESENT": "no_anchor_url",
+    "SOURCE_TITLE_REAL": "title_equals_slug",
+    "PAGE_ANCHORED": "no_page_anchor",
+    "NO_DUPLICATE_CHUNKS": "duplicate_groups",
+    "NO_TOC_NOISE": "toc_noise",
+    "NO_MIDCLAUSE_START": "midclause_start",
+    "BODY_LENGTH_FLOOR": "short_body",
+    "MOJIBAKE": "mojibake",
+}
+
 _WS = re.compile(r"\s+")
 _MARKER_HEAD = re.compile(r"^(?:\s*===[^=]{1,60}===\s*)+")
 _PAGE_MARKER = re.compile(r"===\s*Page\s*(\d+)\s*===", re.I)
@@ -237,6 +252,31 @@ def overall_status(checks: list[dict]) -> str:
         if rank[sev] > rank[worst]:
             worst = sev
     return worst
+
+
+def build_regressions(checks: list[dict]) -> list[dict]:
+    """Baseline checks currently ABOVE their baseline, with the numbers.
+
+    Deliberately narrow. A check that merely equals its baseline (WARN) is a
+    standing gap Leonard already knows about, and a FAIL with no baseline
+    (registry drift, eval) cannot say whether today is worse than yesterday —
+    announcing either would be the daily red banner all over again.
+    The workflow keys its notification on id + count, so a number that stays put
+    is announced once and a number that rises again is announced again.
+    """
+    out = []
+    for c in checks:
+        key = BASELINE_OF.get(c["id"])
+        if key is None or c["status"] != "FAIL":
+            continue
+        base = BASELINE[key]
+        count = c["offender_total"]
+        if count <= base:
+            continue
+        out.append({"id": c["id"], "label": c["label"], "count": count,
+                    "baseline": base, "over": count - base,
+                    "top": c["offenders"][:5]})
+    return out
 
 
 def count_checks(checks: list[dict]) -> dict:
@@ -802,6 +842,8 @@ ATTENTION_KINDS: dict[str, tuple[str, str, str]] = {
                              "EDB 網站出現新文件，待你篩選是否收錄。"),
     "cover-title-change": ("decision", "文件標題與內容不符",
                            "有來源文件的封面標題改變，可能已換成另一份文件，待你核對。"),
+    "qc-regression": ("decision", "知識庫質素有項目變差",
+                      "有質素檢查的數字高於基準，待你決定修正還是接受。"),
 }
 _LEVEL_RANK = {"alarm": 0, "decision": 1}
 
@@ -902,6 +944,8 @@ def build_report(chunks: list[dict], health: dict | None,
         },
         "groups": GROUPS,
         "attention": build_attention(issues),
+        # S248 — additive; qc_report.yml turns a NEW entry here into an @mention.
+        "regressions": build_regressions(checks),
         "releaseGate": build_release_gate(
             checks,
             json.loads(GATE_FILE.read_text(encoding="utf-8")) if GATE_FILE.exists() else {},
@@ -1325,6 +1369,35 @@ def self_test() -> int:
     check("service-down / backend-build-broken / monitor-watchdog are alarms, not decisions",
           all(ATTENTION_KINDS[l][0] == "alarm"
               for l in ("service-down", "backend-build-broken", "monitor-watchdog")))
+
+    # S248 — regressions: only a baseline check ABOVE its baseline is announced.
+    no_page = [{"source_id": "s", "content_type": "vault_extract", "text": "x",
+                "url": "https://example.invalid/a.pdf"}]
+    over = build_regressions([check_page_anchor(
+        no_page * (BASELINE["no_page_anchor"] + 3))])
+    check("a count above baseline is listed with count, baseline and excess",
+          len(over) == 1 and over[0]["id"] == "PAGE_ANCHORED"
+          and over[0]["count"] == BASELINE["no_page_anchor"] + 3
+          and over[0]["baseline"] == BASELINE["no_page_anchor"] and over[0]["over"] == 3)
+    check("a count equal to baseline is NOT listed (a standing gap is not news)",
+          build_regressions([check_page_anchor(
+              no_page * BASELINE["no_page_anchor"])]) == [])
+    check("a count below baseline is NOT listed",
+          build_regressions([check_page_anchor(no_page)]) == [])
+    check("a FAIL without a baseline is NOT listed (it cannot say it got worse)",
+          build_regressions([mk_check("REGISTRY_PHANTOM", "l", "ERROR", "FAIL", "d",
+                                      ["a"], 999)]) == [])
+    check("every BASELINE_OF key exists in BASELINE",
+          all(k in BASELINE for k in BASELINE_OF.values()))
+    empty = [check_anchor_url([]), check_title_real([]), check_page_anchor([]),
+             check_duplicates([]), check_toc_noise([]), check_midclause([]),
+             check_short_body([]), check_mojibake([])]
+    check("BASELINE_OF covers exactly the eight baseline checks, each counting 0 on an "
+          "empty store",
+          {c["id"] for c in empty} == set(BASELINE_OF)
+          and all(c["offender_total"] == 0 for c in empty))
+    check("qc-regression is a decision, not an alarm (the system still works)",
+          ATTENTION_KINDS["qc-regression"][0] == "decision")
 
     print(f"\n{'ALL PASS' if not fails else f'{len(fails)} FAILED: {fails}'}")
     return 0 if not fails else 1
