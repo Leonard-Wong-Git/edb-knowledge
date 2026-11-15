@@ -44,7 +44,8 @@ on:
 
 permissions:
   contents: write      # commits qc_report.json only
-  issues: read         # S234: lists open Issues so the page can say what waits on a person
+  issues: write        # S234: lists open Issues for the page; S248: files the
+                       # qc-regression Issue (write is needed to open/comment/close it)
 
 concurrency:
   group: qc-report
@@ -147,6 +148,59 @@ jobs:
           # regenerated, so this run's copy is the newer one: -X theirs keeps it.
           git pull --rebase -X theirs origin main
           git push origin HEAD:main
+
+      # S248 — a quality check getting worse used to be one row turning red on a page
+      # nobody is sent to (PAGE_ANCHORED: 179 -> 194 over two months, zero notifications).
+      # Only baseline checks ABOVE their baseline are listed, keyed on id + count, so a
+      # number that stays put is announced once and a further rise is announced again.
+      # An Issue opened with GITHUB_TOKEN does not re-trigger this workflow, so the
+      # status page lists it from the next run (at most a day later).
+      - name: Notify on quality regression
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const regs = JSON.parse(fs.readFileSync('qc_report.json', 'utf8')).regressions || [];
+            const label = 'qc-regression';
+            const { owner, repo } = context.repo;
+            if (!regs.length) {
+              const open = await github.rest.issues.listForRepo({ owner, repo, state: 'open', labels: label });
+              if (open.data.length) {
+                await github.rest.issues.createComment({
+                  owner, repo, issue_number: open.data[0].number,
+                  body: '✅ 所有質素檢查已回到基準或以下，自動關閉；再有項目高於基準時會重新開啟並通知。',
+                });
+                await github.rest.issues.update({
+                  owner, repo, issue_number: open.data[0].number, state: 'closed',
+                });
+                core.info('Closed #' + open.data[0].number + ' — nothing above baseline.');
+              } else {
+                core.info('No quality check above baseline; nothing open to close.');
+              }
+              return;
+            }
+            const rows = regs.map(r =>
+              `| \`${r.id}\` | ${r.label} | ${r.count} | ${r.baseline} | +${r.over} | ${(r.top || []).join('、')} |`).join('\n');
+            const body = [
+              '以下質素檢查的數字高於基準（由每日 QC 報告自動更新）。',
+              '',
+              '| 檢查 | 內容 | 現時 | 基準 | 高出 | 最多來自 |',
+              '|---|---|---|---|---|---|',
+              rows,
+              '',
+              '完整報告：https://policychecker.wongfu.net/status-07cc7942c0.html',
+            ].join('\n');
+            const items = regs.map(r => ({
+              key: `${r.id}@${r.count}`,
+              text: `${r.label}：現為 ${r.count}，基準 ${r.baseline}（高出 ${r.over}）`,
+            }));
+            const notify = require(`${process.env.GITHUB_WORKSPACE}/.github/scripts/notify_new_items.js`);
+            await notify({
+              github, context, core, label, title: '📉 QC：知識庫質素檢查有項目變差', body, items,
+              headline: n => `需要你決定：${n} 項質素檢查的數字變差了`,
+              action: '在 Claude 說「處理 QC 惡化」。AI 會查出新增的片段來自哪次入庫，然後修正；修不到的，會請你批准才調高基準。',
+            });
 
       - name: Summary
         if: always()
