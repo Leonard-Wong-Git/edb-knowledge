@@ -22,6 +22,8 @@ git fetch -q origin && git status -sb && git log --oneline -1 origin/main && gh 
 mkdir -p "$SP" && python3 dev/source/check_registry_drift.py --check --ledger "$SP/ledger.md"
 # 6 頁碼覆寫（不加參數即 dry-run，不會寫入）
 /usr/local/bin/python3 dev/apply_url_overrides.py
+# 6b 註腳更正（--check 只讀；有漂移即 exit 1 並列出）
+/usr/local/bin/python3 dev/apply_footnote_corrections.py --check
 # 7 開著的 Issue（PR 已在第 4 項列出，兩者分開報）
 gh issue list --state open
 ```
@@ -34,6 +36,7 @@ gh issue list --state open
 | 4 | `origin/main` 與開著的 PR 相同。**不同不代表有問題**：交接檔記的是上次收工時的快照，其後合併過 PR 就會不同；如實列出差異即可 | 同上 4 |
 | 5 | `ZOMBIE`／`SERIES_UNMONITORED`／`UNMANAGED`／`UNROUTED` 皆 0；`PHANTOM`、`UNLISTED` 與交接檔相同（這兩項是待辦清單，不是故障） | 同上 3 |
 | 6 | `to_change=0` | — |
+| 6b | `to_change=0`。不是 0 代表有註腳入庫腳本重跑過、舊文字被寫回：報告，待批准後跑 `--execute` | — |
 | 7 | 逐個列出編號、標題、標籤；交接檔沒有列的 Issue 標為「新」 | `## Open Priorities` |
 
 ## 已知的假警報

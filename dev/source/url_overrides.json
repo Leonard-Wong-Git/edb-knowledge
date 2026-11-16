@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "note": "S249 — wiki_chunks.url 的逐片段覆寫（頁碼錨點／更正網址）。註腳的來源腳本（dev/forms_ingest.py 等）只有每個來源一條網址，重跑 --execute 會把這裏的網址蓋回去；重跑後必須再跑 dev/apply_url_overrides.py --execute。每條的頁碼已用 matched quote 對新版 PDF 逐頁核實（2026-11-16，兩次獨立核對）。 S250 補 28 條：原有 #page= 指錯頁（由註腳全量審核找出，原句經獨立核實在新頁、不在舊頁）。",
-    "count": 78,
+    "note": "S249 — wiki_chunks.url 的逐片段覆寫（頁碼錨點／更正網址）。註腳的來源腳本（dev/forms_ingest.py 等）只有每個來源一條網址，重跑 --execute 會把這裏的網址蓋回去；重跑後必須再跑 dev/apply_url_overrides.py --execute。每條的頁碼已用 matched quote 對新版 PDF 逐頁核實（2026-11-16，兩次獨立核對）。 S250 補 28 條：原有 #page= 指錯頁（由註腳全量審核找出，原句經獨立核實在新頁、不在舊頁）。 S251 補 2 條：imc_tax_exempt_s88 頁碼 31→32；procurement_thresholds 由索引頁改指 Tips 文件第 2 頁。",
+    "count": 80,
     "pending": {
       "footnote_fn_ceg_no_tutorial": "原句不在所引的 CEG 計算方法 PDF；出處在 EOEBG User Guide 第 6 頁或 OEBG User Guide 第 7 頁，待 Leonard 選來源"
     }
@@ -473,6 +473,18 @@
       "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/ph-primary/Primary_Humanities_Curriculum_Guide.pdf#page=39",
       "was": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/ph-primary/Primary_Humanities_Curriculum_Guide.pdf#page=34",
       "basis": "科課堂學習及包含人文元素的跨課程學習活動、學習經歷、延展學習。概括而言，小學人文科的課程規劃佔總課時不少於7%。",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_imc_tax_exempt_s88": {
+      "url": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=32",
+      "was": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=31",
+      "basis": "*如設立法團校董會的學校欲向稅務局申請根據《稅務條例》第88條豁免繳稅，其章程必須包括此段。（24.2* 在 PDF 第 32 頁；36* 在第 35 頁）",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_procurement_thresholds": {
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/tips-handling-gov-subventions/Tips%20on%20handling%20govt%20subventions%20for%20aided%20schools_c_2026.pdf#page=2",
+      "was": "https://www.edb.gov.hk/en/sch-admin/fin-management/subsidy-info/tips-handling-gov-subventions/index.html",
+      "basis": "採購物料及服務的財政限額、其相應安排及批核人員撮述如下（原連結只是索引頁，無金額）",
       "confidence": "HIGH"
     }
   }

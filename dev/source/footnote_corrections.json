@@ -1,0 +1,214 @@
+{
+  "_meta": {
+    "note": "S251 — 註腳（footnote_curated）內容更正的權威清單。每條記錄更正後的全文、關鍵詞與原文依據；由 dev/apply_footnote_corrections.py 套用（只改 text／hash／embedding，以及有列明時的 title；url 由 dev/source/url_overrides.json 管）。任何註腳入庫腳本以 --execute 重跑後，必須再跑本工具 --execute（冪等），否則舊文字會被寫回。新增一條：先讀原文核實，再在此加一項，然後 dry-run → Leonard 批准 → --execute。",
+    "count": 10
+  },
+  "corrections": {
+    "footnote_fn_icac_appraisal": {
+      "text": "員工年度表現評核——遲到、缺勤、紀律問題幾多次會俾最差等級？防貪錦囊《學校管治與內部監控》附錄十一評分指引：值勤及紀律按遲到/缺勤/紀律處分次數定級——沒有記錄=4分（要攞5分，值勤須同時願意接替臨時職務，紀律須同時能經常遵照上司的指示及工作指引）；少於三次=3分；三次=2分；多於三次=1分（最差）。「三次」為年度評核嘅客觀評級分界。",
+      "keywords": [
+        "表現評核",
+        "年度評核",
+        "考勤",
+        "遲到",
+        "缺勤",
+        "紀律",
+        "幾多次",
+        "三次",
+        "最差等級",
+        "評級分界",
+        "評分"
+      ],
+      "basis": "guides_040 PDF 第 95 頁：值勤 5＝沒有遲到及缺勤記錄，並願意接替臨時職務；4＝沒有遲到及缺勤記錄。紀律 5＝沒有紀律處分記錄，並能經常遵照上司的指示及工作指引；4＝沒有紀律處分記錄。",
+      "approved": "Leonard 2026-11-16 (S251)"
+    },
+    "footnote_fn_trg_freeze_mpf": {
+      "text": "申請整合代課教師津貼而凍結教師職位，如職位於同一學年被凍結達60天或以上，僱主強積金（MPF）供款點計？學校可就該凍結職位獲發強積金計劃僱主供款（按曆月計算），相等於該曆月津貼額的5%，或強制性公積金計劃管理局訂明的每月強制性供款上限（現時為$1,500），以較低者為準。",
+      "keywords": [
+        "凍結教席",
+        "凍結空缺",
+        "強積金",
+        "MPF",
+        "僱主供款",
+        "5%",
+        "1500",
+        "60日",
+        "60天",
+        "津貼額",
+        "代課教師津貼",
+        "TRG"
+      ],
+      "basis": "TRG_guidelines_c.pdf 第 2 頁註 4：如教師職位於同一學年被凍結達60天或以上…相等於該曆月津貼額的5%…或…每月強制性供款上限（現時為1,500元），以較低者為準。",
+      "approved": "Leonard 2026-11-16 (S251)"
+    },
+    "footnote_fn_trg_no_freeze_posts": {
+      "text": "申請整合代課教師津貼時，邊啲教師職位不可凍結？不可凍結的職位包括：校長、外籍英語教師（NET）、學生輔導教師、小學課程統籌主任、特殊教育需要統籌主任（SENCO）、特殊教育需要支援教師。",
+      "keywords": [
+        "不可凍結",
+        "唔可以凍結",
+        "職位",
+        "校長",
+        "外籍英語教師",
+        "NET",
+        "學生輔導教師",
+        "小學課程統籌主任",
+        "SENCO",
+        "特殊教育需要統籌主任",
+        "SEN支援教師",
+        "代課教師津貼"
+      ],
+      "basis": "TRG_guidelines_c.pdf 第 2 頁註 2：可凍結的教師職位不包括校長、以英語為母語的英語教師、學生輔導教師、小學課程統籌主任、特殊教育需要統籌主任及特殊教育需要支援老師職位。全文無「首席教師」。",
+      "approved": "Leonard 2026-11-16 (S251)"
+    },
+    "footnote_fn_trg_freeze_ceiling": {
+      "text": "已成立法團校董會的資助學校——可凍結教師編制（申請整合代課教師津貼 TRG）的教席上限是多少？《為設有法團校董會學校而提供的整合代課教師津貼》附件III申請表訂明：學校申領津貼而凍結的教席總數——包括（甲）教師放取假期而暫時凍結的教席、（乙）核准編制上的教席空缺，以及（丙）永久凍結的常額教席——三者合計不得超過該校核准教學人員編制的一成（10%）。凍結教席須事先取得法團校董會、大部分教師及家長的同意。",
+      "keywords": [
+        "凍結教席",
+        "凍結教師編制",
+        "凍結常額教席",
+        "教席上限",
+        "可以凍結",
+        "核准教學人員編制",
+        "核准編制",
+        "一成",
+        "10%",
+        "百分之十",
+        "百分之幾",
+        "整合代課教師津貼",
+        "代課教師津貼",
+        "TRG",
+        "法團校董會",
+        "已成立法團校董會",
+        "資助學校",
+        "教師放假",
+        "編制空缺"
+      ],
+      "basis": "TRG_guidelines_c.pdf 第 1 頁第 3 段：學校在事先取得法團校董會、大部分教師及家長的同意，便可選擇凍結不超過10%的核准教員編制。附件 III（Annex III_2026_C.doc）甲／乙／丙三部與 10% 上限聲明已核對。",
+      "approved": "Leonard 2026-11-16 (S251)"
+    },
+    "footnote_fn_k1_eligibility": {
+      "text": "幼稚園K1收生——邊啲兒童先合資格攞政府資助（學券／計劃資助）？兒童必須是香港居民，擁有香港居留權、入境權，或不附帶逗留條件嘅有效香港居留許可，才合資格接受幼稚園教育計劃資助並獲發註冊證。非本地兒童（例如持有擔保書的兒童）須獲入境事務處處長許可才可在港接受教育，但唔會獲得計劃資助／津貼。",
+      "keywords": [
+        "幼稚園",
+        "K1",
+        "資格",
+        "合資格",
+        "政府資助",
+        "學券",
+        "津貼",
+        "計劃資助",
+        "居留權",
+        "入境權",
+        "非本地兒童",
+        "身份",
+        "註冊證"
+      ],
+      "basis": "EDBCM26080C.pdf 第 3 頁註 2：非本地兒童（例如持有擔保書的兒童）須獲得入境事務處處長的許可，才可在香港接受教育，但不會獲得計劃下的資助。全文無「簽證」。",
+      "approved": "Leonard 2026-11-16 (S251)"
+    },
+    "footnote_fn_imc_tax_exempt_s88": {
+      "text": "法團校董會學校想申請免稅（慈善團體免稅地位）要點做？《法團校董會的成立與運作》章程樣本（註）：如設立法團校董會的學校欲向稅務局申請根據《稅務條例》第88條豁免繳稅，其法團校董會章程必須包括章程樣本中以＊標示的兩段：第24.2段（在法團校董會任何會議中，所有身為本校僱員的校董人數必須少於其他校董的人數）及第36段（法團校董會在接受任何金錢的捐贈前，須向捐贈者查詢他是否欲在法團校董會解散的情況下索回該金錢；如捐贈者有此意圖，須向捐贈者指出該金錢不會獲得稅項寬減）。",
+      "keywords": [
+        "免稅",
+        "豁免繳稅",
+        "稅務條例第88條",
+        "s.88",
+        "慈善團體",
+        "法團校董會章程",
+        "稅務局",
+        "解散",
+        "捐贈",
+        "僱員校董",
+        "法團校董會",
+        "成立與運作"
+      ],
+      "basis": "imc-establishment-operation_chi_25.3.2014.pdf PDF 第 32 頁（24.2*）及第 35 頁（36*）：「*如設立法團校董會的學校欲向稅務局申請根據《稅務條例》第88條豁免繳稅，其章程必須包括此段。」原文無「剩餘財產轉予其他慈善機構」的例子。",
+      "approved": "Leonard 2026-11-16 (S251)"
+    },
+    "footnote_fn_net_apply_timeframes": {
+      "text": "PNET 津貼／酬金 申請時間？《PNET Annex（2026/27 school year）》（註）：Application for Special Allowance — August – September after commencement / prior to expiry of the Contract.  Application for Passage/Baggage Allowance — July – September of the respective school year (upon commencement of a contract / satisfactory completion of a contract).  Application for Medical Allowance — Before the end of the respective school year; Only one application should be submitted each school year.  Application for Retention Incentive (RI) — June – September of the respective school year.  Late applications will not normally be considered.",
+      "keywords": [
+        "PNET",
+        "Special Allowance",
+        "Passage",
+        "Baggage",
+        "Medical Allowance",
+        "Retention Incentive",
+        "RI",
+        "August",
+        "September",
+        "July",
+        "June",
+        "申請時間",
+        "late application",
+        "2026/27"
+      ],
+      "basis": "letter_dd_2_Jul_2026_to_principals_PNET_2627sy_Annex.pdf 第 1 頁：Late applications will not normally be considered. 時限見第 2–3 頁。檔案為 2026/27 學年附件，內文無「23 Jul 2025」。",
+      "approved": "Leonard 2026-11-16 (S251)"
+    },
+    "footnote_fn_procurement_thresholds": {
+      "text": "資助學校採購貨品或服務，需要幾多個報價或招標？按金額分級：$5,000或以下毋須公開競投，但校內適當職級的人員須證明有關採購是必須的及價格公平合理（校長／副校長批核）；超過$5,000至$50,000須邀請最少2個口頭報價（校長／副校長批核）；超過$50,000至$200,000須邀請最少5個書面報價（校長批核）；超過$200,000須邀請最少5名供應商投標（由標書批核委員會批核，成員須包括校監／校董、校長、一名教師及一名家長教師會代表或家長校董）。如學校沒有副校長，由校長批核。",
+      "keywords": [
+        "採購",
+        "報價",
+        "招標",
+        "門檻",
+        "5000",
+        "50000",
+        "200000",
+        "口頭報價",
+        "書面報價",
+        "投標",
+        "供應商",
+        "財務上限",
+        "投標審批委員會",
+        "標書批核委員會"
+      ],
+      "basis": "Tips on handling govt subventions for aided schools_c_2026.pdf 第 2 頁「報價／投標」表；批核人員一欄按表格格線，「校長／副校長」涵蓋首兩列。",
+      "approved": "Leonard 2026-11-16 (S251)"
+    },
+    "footnote_fn_tas_afi_2024_25_rates": {
+      "title": "WFSFAA Amount of Financial Assistance 2026/27",
+      "text": "2026/27 書簿津貼金額係幾多？《WFSFAA Amount of Financial Assistance 2026/27》（註）：School Textbook Assistance (TA) 2026/27 — Full Grant rates: Primary 1-6: $6,398; S1-S3: $6,494; S4: $6,496; S5: $5,892; S6: $3,708. Half Grant rates: Primary 1-6: $3,199; S1-S3: $3,247; S4: $3,248; S5: $2,946; S6: $1,854.",
+      "keywords": [
+        "TA",
+        "School Textbook Assistance",
+        "書簿津貼",
+        "2026/27",
+        "Full Grant",
+        "Half Grant",
+        "全額",
+        "半額",
+        "6,398",
+        "6,494",
+        "6,496",
+        "5,892",
+        "3,708",
+        "3,199",
+        "3,247",
+        "P1-6",
+        "S1-S3"
+      ],
+      "basis": "wfsfaa.gov.hk …/primarysecondary/tt/general/amount.htm（2026-11-16 抓取）：The TA grant rates for the 2026/27 school year … Full Grant $6,398 $6,494 $6,496 $5,892 $3,708；Half Grant $3,199 $3,247 $3,248 $2,946 $1,854。註腳 id 仍帶舊年度字樣，不影響搜尋。",
+      "approved": "Leonard 2026-11-16 (S251)"
+    },
+    "footnote_fn_sia_grant_household_2025_26": {
+      "title": "WFSFAA Amount of Financial Assistance 2026/27",
+      "text": "2026/27 上網費資助每戶金額？《WFSFAA Amount of Financial Assistance 2026/27》（註）：Full rate of subsidy for SIA in the 2026/27 school year is $1,700 per household while the half rate is $850 per household.",
+      "keywords": [
+        "SIA",
+        "上網費資助",
+        "Internet Access Subsidy",
+        "1,700",
+        "850",
+        "per household",
+        "每戶",
+        "Full rate",
+        "Half rate",
+        "2026/27"
+      ],
+      "basis": "同上網頁：Full rate of subsidy for SIA in the 2026/27 school year is $1,700 per household while the half rate is $850 per household.",
+      "approved": "Leonard 2026-11-16 (S251)"
+    }
+  }
+}
