@@ -1,0 +1,1380 @@
+{
+ "label": "S213 Phase 1 gold-set run",
+ "endpoint": "http://localhost:8787/api/search/channel-b",
+ "top_k": 8,
+ "generated_at": "2026-11-16T21:06:22Z",
+ "gold_file": "/private/tmp/claude-501/-Users-leonard--claude-spares-spare-IW9pSa/b609c8c6-7428-4350-bf60-41ae99849e7f/scratchpad/gold_subset.json",
+ "gold_count": 20,
+ "tie_aliases": [
+  [
+   "g24",
+   "sag_2025_11"
+  ]
+ ],
+ "summary": {
+  "queries": 20,
+  "errors": 0,
+  "PASS": 14,
+  "FAIL": 3,
+  "RECORD_ONLY": 3,
+  "chunk_PASS": 8,
+  "chunk_FAIL": 9,
+  "chunk_RECORD_ONLY": 3
+ },
+ "results": [
+  {
+   "id": "cur_arts_guide_2002_missing",
+   "query": "藝術教育學習領域課程指引 2002 版",
+   "note": "g37 曾標示為 2002 年版藝術教育學習領域課程指引，實際 chunk 為 2017 年版內容（與 arts_kla_guide_2017 near-identical），庫內無 2002 年版可引用",
+   "expect_any": [],
+   "expect_text_any": [],
+   "source_ids": [
+    "g37",
+    "g37",
+    "g37",
+    "va_sss_2015",
+    "geog_sss_2007_2022",
+    "va_sss_2015",
+    "pe_sss_2023",
+    "tl_sss_2007_2015"
+   ],
+   "chunk_ids": [
+    "vault_g37_bed7ab90f7bcbcf2",
+    "vault_g37_aad1fbb01f45ebc0",
+    "vault_g37_aa4fef37ee0c7c2b",
+    "vault_va_sss_2015_c7a47bd4a6242c6e",
+    "vault_geog_sss_2007_2022_72d19eea0230cd6e",
+    "vault_va_sss_2015_ec79b9eb9aa312f1",
+    "vault_pe_sss_2023_ee79d0e61228ef56",
+    "vault_tl_sss_2007_2015_be8acffb11c1f6e3"
+   ],
+   "scores": [
+    0.7406,
+    0.7313,
+    0.6885,
+    0.6829,
+    0.6223,
+    0.619,
+    0.6165,
+    0.6161
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    10,
+    10,
+    26,
+    2,
+    2,
+    28,
+    2,
+    3
+   ],
+   "total": 8,
+   "verdict": "RECORD_ONLY",
+   "rank_of_expected": null,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "RECORD_ONLY",
+   "forbidden_hits": [
+    "g37"
+   ],
+   "top_score": 0.7406
+  },
+  {
+   "id": "cur_eight_kla",
+   "query": "八個學習領域",
+   "note": "查本港學校課程劃分為哪八個學習領域",
+   "expect_any": [
+    "g07"
+   ],
+   "expect_text_any": [
+    "全面、均衡及連貫的課程，並獲得各種基要的學習經歷。本港學校課程劃分為八個學習領域"
+   ],
+   "source_ids": [
+    "pe_kla_2017",
+    "chi_edu_curr_docs",
+    "ma_kla_guide_2017",
+    "pe_kla_2017",
+    "ma_kla_guide_2017",
+    "g13",
+    "chi_edu_curr_docs",
+    "gs_pri_guide_2017"
+   ],
+   "chunk_ids": [
+    "vault_pe_kla_2017_1420a8eefd9d51f4",
+    "vault_chi_edu_curr_docs_ab2f902bf64da9cf",
+    "vault_ma_kla_guide_2017_7e37dfaa1dd77c05",
+    "vault_pe_kla_2017_f06b4bed1351ef9f",
+    "vault_ma_kla_guide_2017_8c39ba1bc7a08b67",
+    "vault_g13_94a7723fc9b2f5fd",
+    "vault_chi_edu_curr_docs_e6a8fa5f5a617d04",
+    "vault_gs_pri_guide_2017_21bdf892802c31b2"
+   ],
+   "scores": [
+    0.6555,
+    0.6391,
+    0.6375,
+    0.6356,
+    0.6264,
+    0.6179,
+    0.6173,
+    0.6109
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    3,
+    1,
+    15,
+    15,
+    8,
+    247,
+    23,
+    7
+   ],
+   "total": 8,
+   "verdict": "FAIL",
+   "rank_of_expected": null,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "FAIL",
+   "forbidden_hits": [],
+   "top_score": 0.6555
+  },
+  {
+   "id": "cur_eng_guide_2007_missing",
+   "query": "英國語文教育課程指引 中一至中六 2007",
+   "note": "g33 標題雖涉 2007 年版《英國語文教育課程指引（中一至中六）》，但其全部 chunk 實為 2021 年版《英國語文課程及評估指引（中四至中六）》內容，庫內無 2007 年中一至中六版可引用",
+   "expect_any": [],
+   "expect_text_any": [],
+   "source_ids": [
+    "chi_pri_guide_2023",
+    "chi_edu_curr_docs",
+    "chi_jss_guide_2023",
+    "chi_edu_curr_docs",
+    "chi_edu_curr_docs",
+    "music_p1_s6_2024",
+    "g13",
+    "g13"
+   ],
+   "chunk_ids": [
+    "vault_chi_pri_guide_2023_22e45130961362b8",
+    "vault_chi_edu_curr_docs_c6b682ef1c20a7b8",
+    "vault_chi_jss_guide_2023_4928c9cd7367698c",
+    "vault_chi_edu_curr_docs_e6a8fa5f5a617d04",
+    "vault_chi_edu_curr_docs_d07c193ad4d589c8",
+    "vault_music_p1_s6_2024_5ac238c8984f414e",
+    "vault_g13_265f4339c4f1cdc6",
+    "vault_g13_0503c9a4bbe3019d"
+   ],
+   "scores": [
+    0.6742,
+    0.6539,
+    0.6474,
+    0.6444,
+    0.6319,
+    0.6211,
+    0.6208,
+    0.6175
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    3,
+    23,
+    3,
+    23,
+    69,
+    5,
+    545,
+    129
+   ],
+   "total": 8,
+   "verdict": "RECORD_ONLY",
+   "rank_of_expected": null,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "RECORD_ONLY",
+   "forbidden_hits": [],
+   "top_score": 0.6742
+  },
+  {
+   "id": "cur_kg_free_play_time",
+   "query": "幼稚園 自由遊戲 時間",
+   "note": "查半日制及全日制幼稚園每天須安排的自由遊戲時間；易與已退役重複本 kgecg_2017 混淆",
+   "expect_any": [
+    "g29"
+   ],
+   "expect_text_any": [
+    "半日制及全日制幼稚園，應每天分別安排不少於30及50分鐘時間，讓幼兒參與自由遊戲"
+   ],
+   "source_ids": [
+    "kg_operation_manual_2026",
+    "g29",
+    "g29",
+    "g29",
+    "pri_curr_guide_2024",
+    "pri_curr_guide_2024",
+    "pri_curr_guide_2024",
+    "g25"
+   ],
+   "chunk_ids": [
+    "footnote_fn_kgop_classroom",
+    "vault_g29_430271c68dccde06",
+    "vault_g29_b595df339c5e9e75",
+    "vault_g29_6daf89f8180d06b5",
+    "vault_pri_curr_guide_2024_40dd27a903439426",
+    "vault_pri_curr_guide_2024_417adbf0a361de83",
+    "vault_pri_curr_guide_2024_2f3695e53dd43b52",
+    "vault_g25_a3d58093313d"
+   ],
+   "scores": [
+    0.4655,
+    0.6582,
+    0.623,
+    0.6129,
+    0.5988,
+    0.5822,
+    0.5814,
+    0.5779
+   ],
+   "content_types": [
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    50,
+    49,
+    97,
+    45,
+    72,
+    74,
+    null
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 1,
+   "rank_of_expected_chunk": 1,
+   "chunk_verdict": "PASS",
+   "forbidden_hits": [],
+   "top_score": 0.6582
+  },
+  {
+   "id": "cur_secondary_central_curriculum",
+   "query": "中學 八個學習領域",
+   "note": "查中學中央課程的組成；「八個學習領域」字眼同見於基礎教育（小學）課程指引 g07，須以中學指引 g13 為準",
+   "expect_any": [
+    "g13"
+   ],
+   "expect_text_any": [
+    "中央課程包括學校課程整體目標、七個學習宗旨、五種基要學習經歷"
+   ],
+   "source_ids": [
+    "pe_kla_2017",
+    "pe_kla_2017",
+    "chi_edu_curr_docs",
+    "ma_kla_guide_2017",
+    "chi_edu_curr_docs",
+    "ma_kla_guide_2017",
+    "phys_sss_2007_2015",
+    "g13"
+   ],
+   "chunk_ids": [
+    "vault_pe_kla_2017_f06b4bed1351ef9f",
+    "vault_pe_kla_2017_1420a8eefd9d51f4",
+    "vault_chi_edu_curr_docs_ab2f902bf64da9cf",
+    "vault_ma_kla_guide_2017_7e37dfaa1dd77c05",
+    "vault_chi_edu_curr_docs_e6a8fa5f5a617d04",
+    "vault_ma_kla_guide_2017_8c39ba1bc7a08b67",
+    "vault_phys_sss_2007_2015_f119c16fdc74fb89",
+    "vault_g13_94a7723fc9b2f5fd"
+   ],
+   "scores": [
+    0.6439,
+    0.6359,
+    0.6256,
+    0.6239,
+    0.6235,
+    0.6188,
+    0.6129,
+    0.6114
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    15,
+    3,
+    1,
+    15,
+    23,
+    8,
+    82,
+    247
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 7,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "FAIL",
+   "forbidden_hits": [],
+   "top_score": 0.6439
+  },
+  {
+   "id": "ss_ncs_chinese_framework_progress_v2",
+   "query": "中國語文課程第二語言學習架構如何描述非華語學生的學習進程及四個學習範疇？",
+   "note": "查第二語言學習架構的循序漸進學習進程，以及閱讀、寫作、聆聽、說話四個範疇",
+   "expect_any": [
+    "chi_edu_curr_docs"
+   ],
+   "expect_text_any": [
+    "本學習領域另提供「中國語文課程第二語言學習架構」，讓教師按需要調適中文課程，由淺入深，幫助非華語學生透過小步子的方式學習"
+   ],
+   "source_ids": [
+    "EDBCM_79_2025_TC",
+    "chi_edu_curr_docs",
+    "chi_edu_curr_docs",
+    "chi_edu_curr_docs",
+    "chi_pri_guide_2023",
+    "chi_pri_guide_2023",
+    "chi_jss_guide_2023",
+    "chi_pri_guide_2023"
+   ],
+   "chunk_ids": [
+    "footnote_fn_ncs_sbp_60hr_min",
+    "vault_chi_edu_curr_docs_6737a40d371df164",
+    "vault_chi_edu_curr_docs_4867ee2b1f76ce50",
+    "vault_chi_edu_curr_docs_c6b682ef1c20a7b8",
+    "vault_chi_pri_guide_2023_a97f640a4e3ee611",
+    "vault_chi_pri_guide_2023_22e45130961362b8",
+    "vault_chi_jss_guide_2023_40811c4a3b418180",
+    "vault_chi_pri_guide_2023_e911372444bd4613"
+   ],
+   "scores": [
+    0.4644,
+    0.7803,
+    0.7473,
+    0.7051,
+    0.6647,
+    0.6634,
+    0.6598,
+    0.6562
+   ],
+   "content_types": [
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    30,
+    20,
+    23,
+    35,
+    3,
+    11,
+    12
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 1,
+   "rank_of_expected_chunk": 1,
+   "chunk_verdict": "PASS",
+   "forbidden_hits": [],
+   "top_score": 0.7803
+  },
+  {
+   "id": "ss_ncs_history_adapted_outline_v2",
+   "query": "非華語學生適用的調適初中中國歷史課程大綱，對蒙古崛起及擴張提出甚麼建議學習內容？",
+   "note": "查專為非華語學生調適的初中中國歷史課程大綱中，有關蒙古崛起及擴張的具體建議學習內容",
+   "expect_any": [
+    "chi_hist_jss_ncs_2019"
+   ],
+   "expect_text_any": [
+    "教師可透過成吉思汗的故事及地圖，簡單敘述蒙古人的崛起及擴張，最終形成龐大帝國的經過"
+   ],
+   "source_ids": [
+    "chi_hist_jss_ncs_2019",
+    "chi_hist_jss_ncs_2019",
+    "chi_hist_jss_ncs_2019",
+    "chi_hist_jss_2019",
+    "chi_hist_jss_2019",
+    "chi_hist_jss_2019",
+    "history_jss_2019",
+    "history_sss_2007_2015"
+   ],
+   "chunk_ids": [
+    "vault_chi_hist_jss_ncs_2019_c90f359ec6dfca87",
+    "vault_chi_hist_jss_ncs_2019_618e9e0f8fdf13df",
+    "vault_chi_hist_jss_ncs_2019_da5427059e6d2388",
+    "vault_chi_hist_jss_2019_e820a4c3fef52bf3",
+    "vault_chi_hist_jss_2019_27bfbd8755ddd66b",
+    "vault_chi_hist_jss_2019_89290f28a35465bd",
+    "vault_history_jss_2019_b8e591b453936714",
+    "vault_history_sss_2007_2015_d7debf5b1e770f5d"
+   ],
+   "scores": [
+    0.5898,
+    0.5894,
+    0.5731,
+    0.5667,
+    0.5565,
+    0.5551,
+    0.5434,
+    0.5153
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    4,
+    11,
+    5,
+    8,
+    29,
+    23,
+    17,
+    16
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "FAIL",
+   "forbidden_hits": [
+    "chi_hist_jss_2019"
+   ],
+   "top_score": 0.5898
+  },
+  {
+   "id": "kg_aircon_fee_noans",
+   "query": "幼稚園 冷氣機 電費資助",
+   "note": "庫內沒有答案：corpus-wide find『冷氣機電費』=0；空調津貼文件（ac_grant_2026等）只適用於資助中小學，幼稚園行政／營運手冊未涵蓋冷氣電費資助",
+   "expect_any": [],
+   "expect_text_any": [],
+   "source_ids": [
+    "kg_admin_guide_2026",
+    "wfsfaa_sfaa_household_app_guidance_2526",
+    "g25",
+    "g29",
+    "g29",
+    "pri_science_guide_2025",
+    "g26",
+    "g29"
+   ],
+   "chunk_ids": [
+    "footnote_fn_kgadmin_rent_sept",
+    "footnote_fn_sfaa_kg_3tier_afi",
+    "vault_g25_a3d58093313d",
+    "vault_g29_430271c68dccde06",
+    "vault_g29_33c14df3cc141a08",
+    "vault_pri_science_guide_2025_c0789e0065e45be1",
+    "vault_g26_0a3ccebcd5072544",
+    "vault_g29_074d14170e153397"
+   ],
+   "scores": [
+    0.4814,
+    0.4797,
+    0.5954,
+    0.4905,
+    0.4867,
+    0.4864,
+    0.4784,
+    0.4774
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    null,
+    50,
+    17,
+    36,
+    5,
+    14
+   ],
+   "total": 8,
+   "verdict": "RECORD_ONLY",
+   "rank_of_expected": null,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "RECORD_ONLY",
+   "forbidden_hits": [],
+   "top_score": 0.5954
+  },
+  {
+   "id": "kg_reg_fee_cap",
+   "query": "幼稚園註冊費 上限",
+   "note": "查2026/27學年K1註冊費的核准上限金額",
+   "expect_any": [
+    "k1_admission_2627"
+   ],
+   "expect_text_any": [
+    "向在2026/27學年入讀K1兒童收取半日制班級的註冊費核准上限為970元"
+   ],
+   "source_ids": [
+    "k1_admission_2627",
+    "k1_admission_2627",
+    "g25",
+    "g26",
+    "g26",
+    "wfsfaa_sfaa_household_app_guidance_2526",
+    "kg_admin_guide_2026",
+    "g26"
+   ],
+   "chunk_ids": [
+    "footnote_fn_k1_appfee",
+    "footnote_fn_k1_regfee",
+    "vault_g25_a3d58093313d",
+    "vault_g26_0a3ccebcd5072544",
+    "vault_g26_3db9a639fcf2242d",
+    "footnote_fn_sfaa_kg_3tier_afi",
+    "footnote_fn_kgadmin_rent_sept",
+    "vault_g26_7d16b72eb8e7735a"
+   ],
+   "scores": [
+    0.7018,
+    0.6812,
+    0.7494,
+    0.6256,
+    0.6184,
+    0.6134,
+    0.6038,
+    0.574
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    null,
+    5,
+    4,
+    null,
+    null,
+    3
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "FAIL",
+   "forbidden_hits": [],
+   "top_score": 0.7494
+  },
+  {
+   "id": "kg_sccc_ratio_confusable",
+   "query": "幼兒中心人手比例",
+   "note": "用戶問特殊幼兒中心（社署《幼兒服務條例》）人手比例，易與幼稚園教育計劃的師生比例1:11混淆",
+   "expect_any": [
+    "kg_operation_manual_2026"
+   ],
+   "expect_text_any": [
+    "1:14的人手比例，只適用於按《幼兒服務條例》註冊的特殊幼兒中心"
+   ],
+   "source_ids": [
+    "kg_operation_manual_2026",
+    "kg_admin_guide_2026",
+    "g29",
+    "g29",
+    "g29",
+    "g09",
+    "chi_jss_guide_2023",
+    "ma_kla_guide_2017"
+   ],
+   "chunk_ids": [
+    "footnote_fn_kgop_ratio",
+    "footnote_fn_kg_teacher_pupil_ratio",
+    "vault_g29_0f84ad6fe5d49d38",
+    "vault_g29_9c80adb0c6d025c6",
+    "vault_g29_33c14df3cc141a08",
+    "vault_g09_899af7cfcc9bc0d1",
+    "vault_chi_jss_guide_2023_df775ae5478ce444",
+    "vault_ma_kla_guide_2017_ea88bb03cf16ac37"
+   ],
+   "scores": [
+    0.7263,
+    0.6058,
+    0.6302,
+    0.6092,
+    0.6084,
+    0.5645,
+    0.5644,
+    0.5611
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    5,
+    26,
+    17,
+    4,
+    33,
+    30
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": 0,
+   "chunk_verdict": "PASS",
+   "forbidden_hits": [
+    "kg_admin_guide_2026"
+   ],
+   "top_score": 0.7263269863757154
+  },
+  {
+   "id": "kg_teacher_pupil_ratio",
+   "query": "幼稚園師生比例",
+   "note": "查幼稚園教育計劃下的師生比例規定",
+   "expect_any": [
+    "kg_admin_guide_2026"
+   ],
+   "expect_text_any": [
+    "計算幼稚園按師生比例1:11(校長不計算在內)規定所需的教師人數而釐定"
+   ],
+   "source_ids": [
+    "kg_admin_guide_2026",
+    "kg_operation_manual_2026",
+    "kg_operation_manual_2026",
+    "g29",
+    "g29",
+    "g29",
+    "kg_operation_manual_2026",
+    "circ_edbc24017"
+   ],
+   "chunk_ids": [
+    "footnote_fn_kg_teacher_pupil_ratio",
+    "footnote_fn_kgop_teacher_onduty",
+    "footnote_fn_kgop_ratio",
+    "vault_g29_33c14df3cc141a08",
+    "vault_g29_54a276c794731206",
+    "vault_g29_1ee76b091a74e873",
+    "footnote_fn_kgop_classroom",
+    "vault_circ_edbc24017_79349b01fd0007bc"
+   ],
+   "scores": [
+    0.7843,
+    0.6624,
+    0.6538,
+    0.6354,
+    0.6288,
+    0.6145,
+    0.6079,
+    0.5904
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "footnote_curated",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    null,
+    17,
+    47,
+    16,
+    null,
+    6
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "FAIL",
+   "forbidden_hits": [],
+   "top_score": 0.7842605055270305
+  },
+  {
+   "id": "saf_disease_notification",
+   "query": "幼稚園或幼兒中心發現傳染病爆發時，須向哪些部門通報？",
+   "note": "查幼稚園或幼兒中心發現傳染病爆發時須通報的政府部門",
+   "expect_any": [
+    "kg_operation_manual_2026"
+   ],
+   "expect_text_any": [
+    "園舍亦須盡快向社會福利署/ 教育局通報"
+   ],
+   "source_ids": [
+    "chp_notification_form_2025oct",
+    "chp_prev_cd_schools_2025nov",
+    "chp_prev_cd_schools_2025nov",
+    "g23",
+    "g23",
+    "chp_prev_cd_schools_2025nov",
+    "g23",
+    "pri_science_guide_2025"
+   ],
+   "chunk_ids": [
+    "footnote_fn_chp_form_routing",
+    "footnote_fn_chp_ceno_contact",
+    "footnote_fn_chp_notifiable_diseases_list",
+    "vault_g23_04f11659db7a15a5",
+    "vault_g23_6efe71d30ce81949",
+    "footnote_fn_chp_outbreak_def_3rti_2hfmd",
+    "vault_g23_9b15fc92faf20511",
+    "vault_pri_science_guide_2025_63dd0f5c0aadc48d"
+   ],
+   "scores": [
+    0.7759,
+    0.6692,
+    0.6394,
+    0.6228,
+    0.6055,
+    0.5863,
+    0.5577,
+    0.5498
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    null,
+    49,
+    9,
+    null,
+    10,
+    28
+   ],
+   "total": 8,
+   "verdict": "FAIL",
+   "rank_of_expected": null,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "FAIL",
+   "forbidden_hits": [],
+   "top_score": 0.7758819032488233
+  },
+  {
+   "id": "kg_application_fee_cap",
+   "query": "K1 報名費上限",
+   "note": "查幼稚園收取K1申請入學報名費的核准上限",
+   "expect_any": [
+    "k1_admission_2627"
+   ],
+   "expect_text_any": [
+    "幼稚園向申請入讀K1學童收取嘅報名費核准上限為40元"
+   ],
+   "source_ids": [
+    "k1_admission_2627",
+    "k1_admission_2627",
+    "g25",
+    "g26",
+    "g26",
+    "ict_sss_2021",
+    "g26",
+    "edbcm136_2026"
+   ],
+   "chunk_ids": [
+    "footnote_fn_k1_appfee",
+    "footnote_fn_k1_regfee",
+    "vault_g25_a3d58093313d",
+    "vault_g26_0a3ccebcd5072544",
+    "vault_g26_090e33897af86350",
+    "vault_ict_sss_2021_8069aa581f217f1d",
+    "vault_g26_0befe188fc370918",
+    "vault_edbcm136_2026_0bda2d31db7ce557"
+   ],
+   "scores": [
+    0.6346,
+    0.5756,
+    0.5063,
+    0.4931,
+    0.4903,
+    0.4701,
+    0.463,
+    0.4626
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    null,
+    5,
+    10,
+    105,
+    3,
+    4
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": 0,
+   "chunk_verdict": "PASS",
+   "forbidden_hits": [],
+   "top_score": 0.6345756425694695
+  },
+  {
+   "id": "kg_application_form_supply",
+   "query": "幼稚園可以限制派發K1申請表數目嗎",
+   "note": "查幼稚園可否限制派發K1入學申請表格數目",
+   "expect_any": [
+    "k1_admission_2627"
+   ],
+   "expect_text_any": [
+    "幼稚園均不應限制派表數目"
+   ],
+   "source_ids": [
+    "k1_admission_2627",
+    "k1_admission_2627",
+    "g26",
+    "g26",
+    "g26",
+    "g25",
+    "g29",
+    "g29"
+   ],
+   "chunk_ids": [
+    "footnote_fn_k1_appfee",
+    "footnote_fn_k1_regfee",
+    "vault_g26_85f948605a8dfc07",
+    "vault_g26_ed814e330ee43595",
+    "vault_g26_116e08a0473a769e",
+    "vault_g25_a3d58093313d",
+    "vault_g29_9c2b6a90d6e9d24e",
+    "vault_g29_074d14170e153397"
+   ],
+   "scores": [
+    0.6952,
+    0.6274,
+    0.6965,
+    0.6619,
+    0.6544,
+    0.6116,
+    0.5745,
+    0.568
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    1,
+    2,
+    7,
+    null,
+    8,
+    14
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "FAIL",
+   "forbidden_hits": [],
+   "top_score": 0.6965
+  },
+  {
+   "id": "kg_result_notification_date",
+   "query": "2026/27 K1取錄結果何時通知",
+   "note": "查幼稚園通知2026/27學年K1學位申請結果的期限",
+   "expect_any": [
+    "k1_admission_2627"
+   ],
+   "expect_text_any": [
+    "幼稚園須在2025年12月12日前通知家長其K1學位申請結果"
+   ],
+   "source_ids": [
+    "edbc017_2026",
+    "pri_curr_guide_2024",
+    "chi_edu_curr_docs",
+    "pe_kla_2017",
+    "g26",
+    "edbcm136_2026",
+    "ict_sss_2021",
+    "edbcm186_2026"
+   ],
+   "chunk_ids": [
+    "vault_edbc017_2026_2dc9c957a8dc9f74",
+    "vault_pri_curr_guide_2024_1b189ccba0a10216",
+    "vault_chi_edu_curr_docs_ab2f902bf64da9cf",
+    "vault_pe_kla_2017_1420a8eefd9d51f4",
+    "vault_g26_116e08a0473a769e",
+    "vault_edbcm136_2026_560e862f32bdbe19",
+    "vault_ict_sss_2021_8069aa581f217f1d",
+    "vault_edbcm186_2026_192a846831976d90"
+   ],
+   "scores": [
+    0.5048,
+    0.4984,
+    0.4913,
+    0.4898,
+    0.4884,
+    0.488,
+    0.4866,
+    0.4853
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    3,
+    5,
+    1,
+    3,
+    7,
+    11,
+    105,
+    18
+   ],
+   "total": 8,
+   "verdict": "FAIL",
+   "rank_of_expected": null,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "FAIL",
+   "forbidden_hits": [],
+   "top_score": 0.5048
+  },
+  {
+   "id": "kg_equal_admission_opportunity",
+   "query": "非華語兒童申請幼稚園是否有平等機會",
+   "note": "查幼稚園對不同種族、性別及能力兒童的平等收生責任",
+   "expect_any": [
+    "k1_admission_2627"
+   ],
+   "expect_text_any": [
+    "幼稚園須為所有兒童（不論種族、性別、能力）提供均有平等的入讀機會"
+   ],
+   "source_ids": [
+    "AUD_e76ch02",
+    "k1_admission_2627",
+    "g26",
+    "g29",
+    "g26",
+    "g29",
+    "g26",
+    "g29"
+   ],
+   "chunk_ids": [
+    "footnote_fn_ncs_kg_5tier_201920",
+    "footnote_fn_k1_eligibility",
+    "vault_g26_0c0ccd6254e361c6",
+    "vault_g29_9c2b6a90d6e9d24e",
+    "vault_g26_0a3ccebcd5072544",
+    "vault_g29_86c24032eb6be09e",
+    "vault_g26_237b876f1933f094",
+    "vault_g29_074d14170e153397"
+   ],
+   "scores": [
+    0.52,
+    0.4909,
+    0.6562,
+    0.5866,
+    0.5755,
+    0.5701,
+    0.5659,
+    0.5613
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    5,
+    8,
+    5,
+    6,
+    1,
+    14
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 1,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "FAIL",
+   "forbidden_hits": [],
+   "top_score": 0.6562
+  },
+  {
+   "id": "kg_class_size_limit",
+   "query": "幼稚園每班最多可收多少學生",
+   "note": "查幼稚園一般課室的每班學生人數上限",
+   "expect_any": [
+    "kg_operation_manual_2026"
+   ],
+   "expect_text_any": [
+    "每班學生人數不應超過30人"
+   ],
+   "source_ids": [
+    "kg_operation_manual_2026",
+    "kg_operation_manual_2026",
+    "kg_admin_guide_2026",
+    "g25",
+    "k1_admission_2627",
+    "k1_admission_2627",
+    "kg_admin_guide_2026",
+    "g29"
+   ],
+   "chunk_ids": [
+    "footnote_fn_kgop_classroom",
+    "footnote_fn_kgop_teacher_onduty",
+    "footnote_fn_kg_teacher_pupil_ratio",
+    "vault_g25_a3d58093313d",
+    "footnote_fn_k1_appfee",
+    "footnote_fn_k1_regfee",
+    "footnote_fn_kgadmin_rent_sept",
+    "vault_g29_33c14df3cc141a08"
+   ],
+   "scores": [
+    0.7527,
+    0.6843,
+    0.6547,
+    0.6198,
+    0.6158,
+    0.6009,
+    0.5994,
+    0.5947
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "footnote_curated",
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    17
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": 0,
+   "chunk_verdict": "PASS",
+   "forbidden_hits": [],
+   "top_score": 0.7526636906840325
+  },
+  {
+   "id": "kg_teacher_on_duty",
+   "query": "幼稚園每班最少多少位教師當值",
+   "note": "查幼稚園每班教師當值的最低要求",
+   "expect_any": [
+    "kg_operation_manual_2026"
+   ],
+   "expect_text_any": [
+    "每班最少須有一位教師當值"
+   ],
+   "source_ids": [
+    "kg_operation_manual_2026",
+    "kg_admin_guide_2026",
+    "staff_est_pri",
+    "kg_operation_manual_2026",
+    "g29",
+    "g29",
+    "g29",
+    "circ_edbc24017"
+   ],
+   "chunk_ids": [
+    "footnote_fn_kgop_teacher_onduty",
+    "footnote_fn_kg_teacher_pupil_ratio",
+    "vault_staff_est_pri_226ee0c1b5fa",
+    "footnote_fn_kgop_classroom",
+    "vault_g29_54a276c794731206",
+    "vault_g29_628be73818360c19",
+    "vault_g29_33c14df3cc141a08",
+    "vault_circ_edbc24017_7c917df7357f7148"
+   ],
+   "scores": [
+    0.8293,
+    0.7072,
+    0.6011,
+    0.6355,
+    0.634,
+    0.6185,
+    0.6128,
+    0.6072
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    3,
+    null,
+    47,
+    54,
+    17,
+    6
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": 0,
+   "chunk_verdict": "PASS",
+   "forbidden_hits": [],
+   "top_score": 0.8292700078409307
+  },
+  {
+   "id": "kg_asset_register_review",
+   "query": "幼稚園固定資產登記冊多久覆核一次",
+   "note": "查校監覆核固定資產登記冊的最低頻率",
+   "expect_any": [
+    "kg_admin_guide_2026"
+   ],
+   "expect_text_any": [
+    "校監應定期（不少於每年一次）覆核固定資產登記冊"
+   ],
+   "source_ids": [
+    "kg_admin_guide_2026",
+    "k1_admission_2627",
+    "g26",
+    "g25",
+    "g26",
+    "g26",
+    "g29",
+    "g29"
+   ],
+   "chunk_ids": [
+    "footnote_fn_kgadmin_asset",
+    "footnote_fn_k1_regfee",
+    "vault_g26_3db9a639fcf2242d",
+    "vault_g25_a3d58093313d",
+    "vault_g26_a5f9baf049bfc72b",
+    "vault_g26_e0eedae4a5d15e56",
+    "vault_g29_074d14170e153397",
+    "vault_g29_b68ca97cc816653c"
+   ],
+   "scores": [
+    0.7114,
+    0.493,
+    0.6015,
+    0.593,
+    0.5342,
+    0.5275,
+    0.515,
+    0.5072
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    null,
+    4,
+    null,
+    11,
+    4,
+    14,
+    62
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": 0,
+   "chunk_verdict": "PASS",
+   "forbidden_hits": [],
+   "top_score": 0.711438829409095
+  },
+  {
+   "id": "kg_rent_subsidy_enrolment_month",
+   "query": "幼稚園租金資助按哪一個月學生人數計算",
+   "note": "查幼稚園租金資助額所採用的錄取學生人數月份",
+   "expect_any": [
+    "kg_admin_guide_2026"
+   ],
+   "expect_text_any": [
+    "租金資助額以有關學年九月的錄取學生人數計算"
+   ],
+   "source_ids": [
+    "kg_admin_guide_2026",
+    "kg_admin_guide_2026",
+    "g25",
+    "kg_operation_manual_2026",
+    "g26",
+    "wfsfaa_sfaa_household_app_guidance_2526",
+    "kg_admin_guide_2026",
+    "AUD_e76ch02"
+   ],
+   "chunk_ids": [
+    "footnote_fn_kgadmin_rent_sept",
+    "footnote_fn_kgadmin_utilrate",
+    "vault_g25_a3d58093313d",
+    "footnote_fn_kgop_classroom",
+    "vault_g26_0a3ccebcd5072544",
+    "footnote_fn_sfaa_kg_3tier_afi",
+    "footnote_fn_kg_teacher_pupil_ratio",
+    "footnote_fn_ncs_kg_5tier_201920"
+   ],
+   "scores": [
+    0.7963,
+    0.6552,
+    0.6266,
+    0.6009,
+    0.5897,
+    0.5823,
+    0.5805,
+    0.5539
+   ],
+   "content_types": [
+    "footnote_curated",
+    "footnote_curated",
+    "vault_extract",
+    "footnote_curated",
+    "vault_extract",
+    "footnote_curated",
+    "footnote_curated",
+    "footnote_curated"
+   ],
+   "pages": [
+    null,
+    null,
+    null,
+    null,
+    5,
+    null,
+    null,
+    null
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": 0,
+   "chunk_verdict": "PASS",
+   "forbidden_hits": [],
+   "top_score": 0.7962508386152931
+  }
+ ]
+}

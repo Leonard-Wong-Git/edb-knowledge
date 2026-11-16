@@ -48,6 +48,23 @@ const KNOWN_GAPS = [
 ];
 
 const CASES = [
+  // ── S250 新路由：科目指引（subject_guides）──────────────────────────────
+  // 37 個高中／學習領域指引以前不在任何 SOURCE_SET，問題一觸發 curriculum 就搜不到。
+  ["經濟課程及評估指引 中四至中六 課程宗旨",       "subject_guides"],
+  ["地理課程及評估指引 中四至中六 選修部分",       "subject_guides"],
+  ["生物科 課程宗旨",                             "subject_guides"],
+  ["化學科校本評核",                               "subject_guides"],
+  ["旅遊與款待科 選修部分",                       "subject_guides"],
+  ["高中數學課程及評估指引 延伸部分 單元一",       "subject_guides"],
+  ["音樂課程及評估指引 中四至中六 2024 必修部分",  "subject_guides"],
+  ["科技教育學習領域課程指引 2017 學習範疇",       "subject_guides"],
+  ["國家安全教育課程框架 學習元素",               "subject_guides"],
+  // ── 唔可以被 subject_guides 偷走 ───────────────────────────────────────
+  ["中學 八個學習領域",                           "curriculum"],   // g13；S250 實測擴大 curriculum 會擠走它
+  ["物理科課程宗旨",                               "curriculum"],   // phys_sss 留在 curriculum
+  ["小學數學課程",                                 "curriculum"],
+  ["經濟困難學生 書簿津貼",                       "hr_admin"],     // 改動前後一樣；重點係唔入 subject_guides
+  ["化學品 實驗室安全",                           "safety"],
   // ── S211 新路由：入職資歷 ───────────────────────────────────────────────
   ["只修讀中學師資資格是否可以在小學任常額職位", "teacher_qualification"],
   ["未有小學師資訓練可唔可以做 APSM",            "teacher_qualification"],
@@ -103,7 +120,7 @@ const CASES = [
   ["小學 IIT 教師培訓",                            "iit"],
   ["教學語言政策",                                "moi"],
   ["英中 教師要咩英文資格",                        "moi"],
-  ["高中中文科課程",                              "curriculum"], // S241 對照組：中中 不得觸發 moi
+  ["高中中文科課程",                              "subject_guides"], // S250：高中中文指引（chi_sss_guide_2021）在 subject_guides；原意（唔好被 moi 偷走）不變
   ["學校要符合甚麼條件才可以用英語教學",          "moi"],
   ["用英語授課的教師要甚麼英文資格",              "moi"],
   ["化時為科",                                    "moi"], // S243：第三周期政策函件專有詞，裸查詢原本落 iit

@@ -1,4 +1,4 @@
-# 登記／庫存／瀏覽清單 漂移帳（2026-11-16 08:50 UTC）
+# 登記／庫存／瀏覽清單 漂移帳（2026-11-16 16:08 UTC）
 
 由 `dev/source/check_registry_drift.py --check` 產生，請勿手改。
 
@@ -11,6 +11,10 @@
 （無）
 
 ## UNMANAGED — 庫內有片段，但 source_registry 從未登記（0）
+
+（無）
+
+## UNROUTED — 已入庫，但不在後端任何路由清單（SOURCE_SETS）內，問題一觸發路由就搜不到（0）
 
 （無）
 

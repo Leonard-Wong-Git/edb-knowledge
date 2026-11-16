@@ -22,6 +22,7 @@ Read only the packs needed for the current task.
 | Release, publish, deploy, tag, hotfix, GA | `dev/rules/release.md` | release verification and evidence |
 | External notes, knowledge base, Notion, Obsidian, Google Drive | `dev/rules/knowledge.md` | external knowledge source integration |
 | Reply format, language, output schema — **plus any task whose reply will state a measurement, a count, a pass/fail rate, a root cause, or an account of what the agent did or did not do** (S196: claim discipline must load when the claims are made, not only when wording is the topic) | `dev/rules/communication.md` | user-facing response rules + claim discipline (evidence required before a verdict; direction-of-error trigger) |
+| **（專案列，S250）** 處理監察 Issue（`freshness-change`／`served-url-broken`／`qc-regression`）、重新入庫已存在的來源、來源「在庫但搜不到」、註腳審核、起手探針；或要把工作分派給 sub-agent／較平的模型 | `dev/rules/safety.md`（凡涉生產寫入）＋ 專案參考 `dev/ops/AUTONOMY_FLOW.md` 及其 `dev/ops/playbooks/*.md` | 總流程、自動化級別、模型分工、可逐步照做的程序；只讀所需的那一份 playbook |
 
 ## Routing Rule
 

@@ -1,0 +1,1772 @@
+[
+ {
+  "id": "footnote_fn_dss_unit_subsidy_233",
+  "source_id": "edb_dss_overview_25_26",
+  "url": "https://www.edb.gov.hk/attachment/en/edu-system/primary-secondary/applicable-to-primary-secondary/direct-subsidy-scheme/DSS_26-27_e.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "does not exceed 2 1/3 of the average unit cost of an aided school place,",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_icac_appraisal",
+  "source_id": "icac_school_governance",
+  "url": "https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=95",
+  "verdict": "內容不符",
+  "page_found": 95,
+  "cited_page": 95,
+  "matched_quote": "3 = 少於三次紀律處分記錄",
+  "note": "腳註「沒有記錄=5分」；原文：值勤5=沒有遲到及缺勤記錄「並願意接替臨時職務」，4=沒有記錄；紀律5=沒有紀律處分記錄「並能經常遵照上司指示」，4=沒有記錄。僅「沒有記錄」應為4分。少於三次=3、三次=2、多於三次=1相符。"
+ },
+ {
+  "id": "footnote_fn_icac_coi",
+  "source_id": "icac_school_governance",
+  "url": "https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=70",
+  "verdict": "相符",
+  "page_found": 70,
+  "cited_page": 70,
+  "matched_quote": "代理人如有其主事人的許可而索取或接受任何利益，而該項許可符合",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_icac_bidrig",
+  "source_id": "icac_school_governance",
+  "url": "https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=84",
+  "verdict": "頁碼不對",
+  "page_found": 88,
+  "cited_page": 84,
+  "matched_quote": "3. 若投標者包括組成合夥、合營企業或其他形式組織的兩名或兩名以上人士或兩間或以上公司，而所有該等人士或公司均須",
+  "note": "引文在PDF第88頁（印刷頁碼80）"
+ },
+ {
+  "id": "footnote_fn_ceg_bisessional",
+  "source_id": "ceg_calc_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/Calculation%20of%20CEG_en.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "Calculation of Capacity Enhancement Grant (CEG)",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_ceg_both_levels",
+  "source_id": "ceg_calc_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/Calculation%20of%20CEG_en.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "Calculation of Capacity Enhancement Grant (CEG)",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_ceg_no_tutorial",
+  "source_id": "ceg_calc_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/Calculation%20of%20CEG_en.pdf",
+  "verdict": "找不到",
+  "page_found": null,
+  "cited_page": null,
+  "matched_quote": "",
+  "note": "所引Calculation of CEG（1頁）及同系Ground Rules and Procedures（3頁）全文無「tutorial」或任何「不得支付補課／補習酬金」的限制；搜尋過 tutorial/remunerat/honorari/allowance/remedial/not be used。"
+ },
+ {
+  "id": "footnote_fn_ceg_rates_2627",
+  "source_id": "ceg_calc_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/Calculation%20of%20CEG_en.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "Rates of CEG (2026 / 27 school year)",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_eoebg_surplus_12m",
+  "source_id": "eoebg_guide_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_2026_e.pdf#page=10",
+  "verdict": "相符",
+  "page_found": 10,
+  "cited_page": 10,
+  "matched_quote": "31 July of the current school year, the EOEBG payment will start to be",
+  "note": "「超出須常任秘書長批准」對應原文PS(Ed) may under exceptional circumstances agree…"
+ },
+ {
+  "id": "footnote_fn_eoebg_topup_cap",
+  "source_id": "eoebg_guide_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_2026_e.pdf#page=5",
+  "verdict": "相符",
+  "page_found": 5,
+  "cited_page": 5,
+  "matched_quote": "c. Surplus under the EOEBG can be used to top up no more than:",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_eoebg_meal_cap",
+  "source_id": "eoebg_guide_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_2026_e.pdf#page=6",
+  "verdict": "相符",
+  "page_found": 6,
+  "cited_page": 6,
+  "matched_quote": "$200 for breakfast/other official meals, $450 for lunch and $600 for dinner with",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_eoebg_unpaid_leave",
+  "source_id": "eoebg_guide_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_2026_e.pdf#page=4",
+  "verdict": "相符",
+  "page_found": 4,
+  "cited_page": 4,
+  "matched_quote": "month’s provision under the EOEBG, they are not expected to keep too much surplu",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_eoebg_ab_2627",
+  "source_id": "eoebg_guide_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/E_Table%20I_2026_e.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "The values of Basic Provision (A) and Average Per Class Rate (B) for the 2026/27",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_cfeg_surplus_5x",
+  "source_id": "cfeg_guide_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_CFEG_2026_e.pdf#page=4",
+  "verdict": "相符",
+  "page_found": 4,
+  "cited_page": 4,
+  "matched_quote": "# For IMC schools, the CFEG is subsumed in the Baseline Reference of the EOEBG. ",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_cfeg_setup_fund",
+  "source_id": "cfeg_guide_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_CFEG_2026_e.pdf#page=4",
+  "verdict": "相符",
+  "page_found": 4,
+  "cited_page": 4,
+  "matched_quote": "into a Set-up Fund Account. Schools will still be provided with the CFEG. Howeve",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_cfeg_rates_2627",
+  "source_id": "cfeg_guide_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/CFEG_2026_e.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "in the 2026/27 School Year",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_oebg_surplus_12m",
+  "source_id": "oebg_guide_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_OEBG_2026_e.pdf#page=4",
+  "verdict": "相符",
+  "page_found": 4,
+  "cited_page": 4,
+  "matched_quote": "Special Domain as General or grouping some constituent grants in Special Domain",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_oebg_domain_virement",
+  "source_id": "oebg_guide_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_OEBG_2026_e.pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "items in the Special Domain. Surplus of General Domain can also",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_ac_special_room_cap",
+  "source_id": "ac_grant_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/AC%20Grant%20in%20Aided%20Schools_e.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "schools are 5 and 12 respectively. The total number of special rooms for special",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_ac_equiv_formula",
+  "source_id": "ac_grant_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/AC%20Grant%20in%20Aided%20Schools_e.pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "SAC is capped at 2 for each school.",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_ac_sac_cap",
+  "source_id": "ac_grant_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/AC%20Grant%20in%20Aided%20Schools_e.pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "SAC is capped at 2 for each school.",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_ac_rates_2627",
+  "source_id": "ac_grant_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/E_Sec_Table%20II_2026_e_r%206.2026.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "for 2026/27",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_procurement_thresholds",
+  "source_id": "subvention_tips",
+  "url": "https://www.edb.gov.hk/en/sch-admin/fin-management/subsidy-info/tips-handling-gov-subventions/index.html",
+  "verdict": "文件不對",
+  "page_found": 2,
+  "cited_page": null,
+  "matched_quote": "學校如認為在擬定書面報價／招標文件前有需要取得採購物料／",
+  "note": "所引EDB網頁只是教材索引（無任何金額）。$5,000/$50,000/$200,000等級、批核人員及招標委員會內容完全相符於另一份文件：Tips on handling govt subventions for aided schools_c_2026.pdf 第2頁（亦見Guidelines on Procurement Procedures PDF 第5頁）。"
+ },
+ {
+  "id": "footnote_fn_imc_tax_exempt_s88",
+  "source_id": "imc_establishment_operation",
+  "url": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=31",
+  "verdict": "內容不符",
+  "page_found": 32,
+  "cited_page": 31,
+  "matched_quote": "*如設立法團校董會的學校欲向稅務局申請根據《稅務",
+  "note": "原文只說章程樣本中以*標示的段落（第24.2段：本校僱員校董人數須少於其他校董；第36段：接受金錢捐贈須查詢捐贈者是否欲在解散時索回）「必須包括」；腳註的例子「清盤／解散時剩餘財產須轉予其他獲豁免慈善機構」不在原文。*標示在PDF第32頁（24.2）及第35頁（36），不是第31頁。"
+ },
+ {
+  "id": "footnote_fn_kgadmin_rent_sept",
+  "source_id": "kg_admin_guide_2026",
+  "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=57",
+  "verdict": "相符",
+  "page_found": 57,
+  "cited_page": 57,
+  "matched_quote": "配合學費調整：幼稚園申請調整有關學年的學費時提交的預算收生資料，須與",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_kgop_teacher_onduty",
+  "source_id": "kg_operation_manual_2026",
+  "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=148",
+  "verdict": "頁碼不對",
+  "page_found": 149,
+  "cited_page": 148,
+  "matched_quote": "* 每班最少須有一位教師當值",
+  "note": "「每班內須最少有一位教師當值」在附件一，PDF第149頁"
+ },
+ {
+  "id": "footnote_fn_activities_ratios",
+  "source_id": "sch_activities_guide",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf#page=63",
+  "verdict": "相符",
+  "page_found": 63,
+  "cited_page": 63,
+  "matched_quote": "下表臚列《指引》各項戶外活動的建議師生比例。學校舉辦活動時，",
+  "note": "跨頁：1:10至1:18在第63頁，滑浪風帆／獨木舟在第64頁"
+ },
+ {
+  "id": "footnote_fn_mh_4rs_charter",
+  "source_id": "edbcm60_2024_mental_health",
+  "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM24060C.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "約章》（《約章》），由2024/25 學年起貫徹執行《約章》內各項推廣學生精神健康",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_pdpo_dar_40days",
+  "source_id": "pdpo_school_cap486",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch/personal-data-ordinace-cap486-note/privacy.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "All requests must be complied within 40 days. If it is unable to comply",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_trg_freeze_mpf",
+  "source_id": "trg_imc_2023",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/trg/TRG_guidelines_c.pdf#page=2",
+  "verdict": "內容不符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "相等於該曆月津貼額的5%…每月強制性供款上限（現時為1,500元）",
+  "note": "腳註稱MPF供款為「該職位月薪的5%」；原文（註4）為「相等於該曆月津貼額的5%」，基數不同（津貼額 vs 職位月薪）。另：原文為「同一學年被凍結達60天或以上」（累計、用「天」），腳註寫「空缺凍結達60曆日或以上」。$1,500、取較低者相符。"
+ },
+ {
+  "id": "footnote_fn_trg_no_freeze_posts",
+  "source_id": "trg_imc_2023",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/trg/TRG_guidelines_c.pdf#page=2",
+  "verdict": "內容不符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "可凍結的教師職位不包括校長、以英語為母語的英語教師、學生輔導教師、…",
+  "note": "腳註列「校長／首席教師」；原文（註2）只有「校長」，全份PDF無「首席教師」。其餘五類職位相符。"
+ },
+ {
+  "id": "footnote_fn_tpc_2022_sanction_ladder",
+  "source_id": "edb-guidelines-tpc-2022",
+  "url": "https://www.edb.gov.hk/attachment/en/teacher/guidelines_tpc/guidelines_en.pdf#page=2",
+  "verdict": "頁碼不對",
+  "page_found": 32,
+  "cited_page": 2,
+  "matched_quote": "For mild misconduct cases, the EDB will issue advisory letters to remind the",
+  "note": "#page=2是目錄；內容在PDF第32頁"
+ },
+ {
+  "id": "footnote_fn_tpc_2022_representation_14d",
+  "source_id": "edb-guidelines-tpc-2022",
+  "url": "https://www.edb.gov.hk/attachment/en/teacher/guidelines_tpc/guidelines_en.pdf#page=2",
+  "verdict": "頁碼不對",
+  "page_found": 32,
+  "cited_page": 2,
+  "matched_quote": "within 14 days with full understanding of the severity of the cases.",
+  "note": "#page=2是目錄；內容在PDF第32頁"
+ },
+ {
+  "id": "footnote_fn_supply_pt_min_qual",
+  "source_id": "supply_teacher_guide",
+  "url": "https://www.edb.gov.hk/attachment/en/teacher/appointments-related/supply-teachers/supply_teacher_guideline_e.pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "4 The minimum qualification of a Permitted Teacher teaching in schools providing",
+  "note": "腳註標籤寫「footnote 3」，原文該句為註4（內容相符）"
+ },
+ {
+  "id": "footnote_fn_supply_trained_priority",
+  "source_id": "supply_teacher_guide",
+  "url": "https://www.edb.gov.hk/attachment/en/teacher/appointments-related/supply-teachers/supply_teacher_guideline_e.pdf#page=8",
+  "verdict": "頁碼不對",
+  "page_found": 3,
+  "cited_page": 8,
+  "matched_quote": "Priority should be given to trained teachers as far as possible when selecting s",
+  "note": "§8在PDF第3頁，第8頁是範本表格"
+ },
+ {
+  "id": "footnote_fn_supply_blnst_202324",
+  "source_id": "supply_teacher_guide",
+  "url": "https://www.edb.gov.hk/attachment/en/teacher/appointments-related/supply-teachers/supply_teacher_guideline_e.pdf#page=4",
+  "verdict": "頁碼不對",
+  "page_found": 2,
+  "cited_page": 4,
+  "matched_quote": "temporary teachers in all aided schools are required to pass the Basic Law and N",
+  "note": "該句在PDF第2頁（第4頁無此句）"
+ },
+ {
+  "id": "footnote_fn_coa_unqualified_teacher",
+  "source_id": "edb-code-of-aid-aided-1-16",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_english_1.16.pdf#page=13",
+  "verdict": "頁碼不對",
+  "page_found": 28,
+  "cited_page": 13,
+  "matched_quote": "any teacher who does not meet the requirements for appointment as a “qualified t",
+  "note": "註2在PDF第28頁"
+ },
+ {
+  "id": "footnote_fn_cap279_s11_application",
+  "source_id": "cap279_education_ordinance",
+  "url": "https://www.elegislation.gov.hk/hk/cap279!en/s11",
+  "verdict": "找不到",
+  "page_found": null,
+  "cited_page": null,
+  "matched_quote": "",
+  "note": "e-Legislation為JavaScript／表單載入頁，純HTTP GET只得「Loading required resource」空殼（783 bytes），無法取得條文；以瀏覽器或API方可核實。"
+ },
+ {
+  "id": "footnote_fn_cap279_s13_decision",
+  "source_id": "cap279_education_ordinance",
+  "url": "https://www.elegislation.gov.hk/hk/cap279!en/s13",
+  "verdict": "找不到",
+  "page_found": null,
+  "cited_page": null,
+  "matched_quote": "",
+  "note": "e-Legislation為JavaScript／表單載入頁，純HTTP GET只得「Loading required resource」空殼（783 bytes），無法取得條文；以瀏覽器或API方可核實。"
+ },
+ {
+  "id": "footnote_fn_cap279_s14_refuse_grounds",
+  "source_id": "cap279_education_ordinance",
+  "url": "https://www.elegislation.gov.hk/hk/cap279!en/s14",
+  "verdict": "找不到",
+  "page_found": null,
+  "cited_page": null,
+  "matched_quote": "",
+  "note": "e-Legislation為JavaScript／表單載入頁，純HTTP GET只得「Loading required resource」空殼（783 bytes），無法取得條文；以瀏覽器或API方可核實。"
+ },
+ {
+  "id": "footnote_fn_boarding_fee_deduct",
+  "source_id": "eoebg_rates_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/E_Sec_Table%20II_2026_e_r%206.2026.pdf#page=4",
+  "verdict": "相符",
+  "page_found": 4,
+  "cited_page": 4,
+  "matched_quote": "The level of boarding grant per boarder per month should deduct the boarding fee",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_dlg_incentive_cease",
+  "source_id": "eoebg_rates_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/E_Sec_Table%20II_2026_e_r%206.2026.pdf#page=4",
+  "verdict": "相符",
+  "page_found": 4,
+  "cited_page": 4,
+  "matched_quote": "% In the 2025/26 s.y., additional incentive funding of $800 per senior secondary",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_mmlc_it_grant",
+  "source_id": "eoebg_rates_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/E_Sec_Table%20II_2026_e_r%206.2026.pdf#page=4",
+  "verdict": "相符",
+  "page_found": 4,
+  "cited_page": 4,
+  "matched_quote": "For eligible schools with Multi-media Learning Centres (MMLCs) which are still i",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_lwl_sister_floor",
+  "source_id": "eoebg_rates_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/E_Sec_Table%20II_2026_e_r%206.2026.pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "",
+  "note": "原文「There is a cap on the aggregate amount for each school. The amount for each school is no less than $300,000.」與腳註一致（字面）；原文語意稍含糊，是否「下限」建議對照最新教育局通告"
+ },
+ {
+  "id": "footnote_fn_dss_fee_remission_10pct_50c",
+  "source_id": "edb_dss_overview_25_26",
+  "url": "https://www.edb.gov.hk/attachment/en/edu-system/primary-secondary/applicable-to-primary-secondary/direct-subsidy-scheme/DSS_26-27_e.pdf#page=4",
+  "verdict": "相符",
+  "page_found": 4,
+  "cited_page": 4,
+  "matched_quote": "DSS schools should set aside at least 10% of their total school fee income for",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_dss_quality_5yr_review",
+  "source_id": "edb_dss_overview_25_26",
+  "url": "https://www.edb.gov.hk/attachment/en/edu-system/primary-secondary/applicable-to-primary-secondary/direct-subsidy-scheme/DSS_26-27_e.pdf#page=6",
+  "verdict": "相符",
+  "page_found": 6,
+  "cited_page": 6,
+  "matched_quote": "DSS schools are required to enter into service agreements with the",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_dss_s4_unit_cost_basis",
+  "source_id": "edb_ss_section4_dss_subsidy",
+  "url": "https://www.edb.gov.hk/attachment/en/edu-system/primary-secondary/applicable-to-primary-secondary/direct-subsidy-scheme/index/ss_section4.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "subsidy from the Government until its fee level reaches 2 1/3 (two and one-third",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_edbc10_2012_fr_baseline",
+  "source_id": "edbc_10_2012_fee_remission",
+  "url": "https://www.edb.gov.hk/attachment/en/edu-system/primary-secondary/applicable-to-primary-secondary/direct-subsidy-scheme/index/edbc12010e.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "attend DSS schools solely because of their inability to pay fees, each DSS schoo",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_edbc10_2012_reserve_halfyr",
+  "source_id": "edbc_10_2012_fee_remission",
+  "url": "https://www.edb.gov.hk/attachment/en/edu-system/primary-secondary/applicable-to-primary-secondary/direct-subsidy-scheme/index/edbc12010e.pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "DSS school has reached a cumulative amount that exceeds the school’s half-year",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_ncs_composite_2026_intro",
+  "source_id": "EDBC_4_2026_E",
+  "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26004E.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "“Composite Support Grant”) starting from the 2026/27 school year and sets out th",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_ncs_composite_baseline",
+  "source_id": "EDBC_4_2026_E",
+  "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26004E.pdf#page=2",
+  "verdict": "頁碼不對",
+  "page_found": 3,
+  "cited_page": 2,
+  "matched_quote": "provided with the additional provision based on the number of NCS students. Deta",
+  "note": "金額表（230,000／710,000）及§8在第3頁；第2頁只有§7引言"
+ },
+ {
+  "id": "footnote_fn_ncs_composite_additional_enrichment",
+  "source_id": "EDBC_4_2026_E",
+  "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26004E.pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "offering the local curriculum admitting 11 or more NCS students, and special sch",
+  "note": "跨頁：Additional Provision在第3頁，Enrichment Provision（$10,000、第50名）在第4頁"
+ },
+ {
+  "id": "footnote_fn_ncs_sbp_26360_class",
+  "source_id": "EDBCM_79_2025_TC",
+  "url": "https://www.edb.gov.hk/attachment/en/student-parents/ncs-students/support-to-school/EDBCM%20on%20SBP%202025%20(tc).pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "核實有關津貼的收支結餘，如有未使用的津貼餘款，教育局將根據學校提交經審",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_ncs_sbp_60hr_min",
+  "source_id": "EDBCM_79_2025_TC",
+  "url": "https://www.edb.gov.hk/attachment/en/student-parents/ncs-students/support-to-school/EDBCM%20on%20SBP%202025%20(tc).pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "在暑假期間免費提供每班總時數不少於60 小時的課程，並預留後備日子，",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_ncs_sbp_questionnaire_30nov",
+  "source_id": "EDBCM_79_2025_TC",
+  "url": "https://www.edb.gov.hk/attachment/en/student-parents/ncs-students/support-to-school/EDBCM%20on%20SBP%202025%20(tc).pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "之前填妥問卷並連同課程內容交回教育局。本局會另函通知學校有關安排。此外，",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_ncs_kg_5tier_201920",
+  "source_id": "AUD_e76ch02",
+  "url": "https://www.aud.gov.hk/pdf_e/e76ch02.pdf#page=10",
+  "verdict": "頁碼不對",
+  "page_found": 23,
+  "cited_page": 10,
+  "matched_quote": "5-tiered grant ranging from $50,000 to an amount comparable to the annual",
+  "note": "Table 2在第24頁，引言「5-tiered grant ranging from $50,000…」在第23頁；#page=10是摘要"
+ },
+ {
+  "id": "footnote_fn_ncs_special_school_matrix",
+  "source_id": "AUD_e76ch02",
+  "url": "https://www.aud.gov.hk/pdf_e/e76ch02.pdf#page=10",
+  "verdict": "頁碼不對",
+  "page_found": 25,
+  "cited_page": 10,
+  "matched_quote": "might apply for a grant of $50,000 per year on a need basis for",
+  "note": "§2.2(c)的(i)–(iv)在第25頁"
+ },
+ {
+  "id": "footnote_fn_chp_sick_leave_diseases",
+  "source_id": "chp_prev_cd_schools_2025nov",
+  "url": "https://www.chp.gov.hk/files/pdf/guidelines_on_prevention_of_communicable_diseases_in_schools_kindergartens_kindergartens_cum_child_care-centres_child_are_centres.pdf#page=50",
+  "verdict": "相符",
+  "page_found": 50,
+  "cited_page": 50,
+  "matched_quote": "confirmed to be the pathogen, take 2 more weeks of sick leave after all vesicles",
+  "note": "列表跨第50–51頁"
+ },
+ {
+  "id": "footnote_fn_chp_hfmd_ev71_2wk",
+  "source_id": "chp_prev_cd_schools_2025nov",
+  "url": "https://www.chp.gov.hk/files/pdf/guidelines_on_prevention_of_communicable_diseases_in_schools_kindergartens_kindergartens_cum_child_care-centres_child_are_centres.pdf#page=31",
+  "verdict": "相符",
+  "page_found": 31,
+  "cited_page": 31,
+  "matched_quote": "infection, all affected children in the schools/centres should take two more",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_chp_rti_fever_2day",
+  "source_id": "chp_prev_cd_schools_2025nov",
+  "url": "https://www.chp.gov.hk/files/pdf/guidelines_on_prevention_of_communicable_diseases_in_schools_kindergartens_kindergartens_cum_child_care-centres_child_are_centres.pdf#page=31",
+  "verdict": "相符",
+  "page_found": 31,
+  "cited_page": 31,
+  "matched_quote": "Require the sick to stay at home for rest until symptoms have improved and",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_chp_age_2day_rule",
+  "source_id": "chp_prev_cd_schools_2025nov",
+  "url": "https://www.chp.gov.hk/files/pdf/guidelines_on_prevention_of_communicable_diseases_in_schools_kindergartens_kindergartens_cum_child_care-centres_child_are_centres.pdf#page=30",
+  "verdict": "相符",
+  "page_found": 30,
+  "cited_page": 30,
+  "matched_quote": "Clean and disinfect toilets with 1 in 49 diluted household bleach (mixing 1",
+  "note": "跨頁：5.7.1在第30頁，「subsided for at least 2 days」在第31頁"
+ },
+ {
+  "id": "footnote_fn_chp_outbreak_disinfect",
+  "source_id": "chp_prev_cd_schools_2025nov",
+  "url": "https://www.chp.gov.hk/files/pdf/guidelines_on_prevention_of_communicable_diseases_in_schools_kindergartens_kindergartens_cum_child_care-centres_child_are_centres.pdf#page=30",
+  "verdict": "相符",
+  "page_found": 30,
+  "cited_page": 30,
+  "matched_quote": "mixing 1 part of 5.25% bleach with 49 parts of water for non-metallic",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_g21_astm",
+  "source_id": "g21",
+  "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/resources/va-curri/VAsafety_pri_c.pdf#page=18",
+  "verdict": "相符",
+  "page_found": 18,
+  "cited_page": 18,
+  "matched_quote": "藝術物料符合美國材料",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_g22_inspectfreq",
+  "source_id": "g22",
+  "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/technology-edu/resources/technology-and-living/Safety_Booklet(Chi)_final_2010_r1.pdf#page=49",
+  "verdict": "相符",
+  "page_found": 49,
+  "cited_page": 49,
+  "matched_quote": "註：D = 每天檢查，W = 每周檢查，M = 每月檢查，T = 每學期檢查",
+  "note": "D/W/M/T代碼相符；所在為附錄5「科學實驗室安全檢查清單」，腳註寫「設備／工場機器」"
+ },
+ {
+  "id": "footnote_fn_k1_regfee",
+  "source_id": "k1_admission_2627",
+  "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26080C.pdf#page=4",
+  "verdict": "相符",
+  "page_found": 4,
+  "cited_page": 4,
+  "matched_quote": "班級的註冊費核准上限為970元，而全日制班級的則為1,570元。學校不可收取超逾核准上",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_k1_eligibility",
+  "source_id": "k1_admission_2627",
+  "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26080C.pdf#page=3",
+  "verdict": "內容不符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "2 兒童必須是香港居民，擁有香港居留權、入境權或不附帶任何逗留條件（逗留",
+  "note": "核心資格（香港居民、居留權／入境權／無條件居留許可才獲計劃資助）相符。但腳註括號「父母持學生簽證」不在原文（註2只舉「持有擔保書的兒童」；全份PDF無「簽證」二字）。"
+ },
+ {
+  "id": "footnote_fn_cap279_s42_teach_must_register",
+  "source_id": "cap279_education_ordinance",
+  "url": "https://www.elegislation.gov.hk/hk/cap279!en/s42",
+  "verdict": "找不到",
+  "page_found": null,
+  "cited_page": null,
+  "matched_quote": "",
+  "note": "e-Legislation為JavaScript／表單載入頁，純HTTP GET只得「Loading required resource」空殼（783 bytes），無法取得條文；以瀏覽器或API方可核實。"
+ },
+ {
+  "id": "footnote_fn_cap279_s46_refuse_register",
+  "source_id": "cap279_education_ordinance",
+  "url": "https://www.elegislation.gov.hk/hk/cap279!en/s46",
+  "verdict": "找不到",
+  "page_found": null,
+  "cited_page": null,
+  "matched_quote": "",
+  "note": "e-Legislation為JavaScript／表單載入頁，純HTTP GET只得「Loading required resource」空殼（783 bytes），無法取得條文；以瀏覽器或API方可核實。"
+ },
+ {
+  "id": "footnote_fn_cap279_s47_cancel_register",
+  "source_id": "cap279_education_ordinance",
+  "url": "https://www.elegislation.gov.hk/hk/cap279!en/s47",
+  "verdict": "找不到",
+  "page_found": null,
+  "cited_page": null,
+  "matched_quote": "",
+  "note": "e-Legislation為JavaScript／表單載入頁，純HTTP GET只得「Loading required resource」空殼（783 bytes），無法取得條文；以瀏覽器或API方可核實。"
+ },
+ {
+  "id": "footnote_fn_cap279_s48_permit_when",
+  "source_id": "cap279_education_ordinance",
+  "url": "https://www.elegislation.gov.hk/hk/cap279!en/s48",
+  "verdict": "找不到",
+  "page_found": null,
+  "cited_page": null,
+  "matched_quote": "",
+  "note": "e-Legislation為JavaScript／表單載入頁，純HTTP GET只得「Loading required resource」空殼（783 bytes），無法取得條文；以瀏覽器或API方可核實。"
+ },
+ {
+  "id": "footnote_fn_cap279_s50_pt_school_specific",
+  "source_id": "cap279_education_ordinance",
+  "url": "https://www.elegislation.gov.hk/hk/cap279!en/s50",
+  "verdict": "找不到",
+  "page_found": null,
+  "cited_page": null,
+  "matched_quote": "",
+  "note": "e-Legislation為JavaScript／表單載入頁，純HTTP GET只得「Loading required resource」空殼（783 bytes），無法取得條文；以瀏覽器或API方可核實。"
+ },
+ {
+  "id": "footnote_fn_cap279_s52_pt_cancel",
+  "source_id": "cap279_education_ordinance",
+  "url": "https://www.elegislation.gov.hk/hk/cap279!en/s52",
+  "verdict": "找不到",
+  "page_found": null,
+  "cited_page": null,
+  "matched_quote": "",
+  "note": "e-Legislation為JavaScript／表單載入頁，純HTTP GET只得「Loading required resource」空殼（783 bytes），無法取得條文；以瀏覽器或API方可核實。"
+ },
+ {
+  "id": "footnote_fn_cap279_s61_appeal_21day",
+  "source_id": "cap279_education_ordinance",
+  "url": "https://www.elegislation.gov.hk/hk/cap279!en/s61",
+  "verdict": "找不到",
+  "page_found": null,
+  "cited_page": null,
+  "matched_quote": "",
+  "note": "e-Legislation為JavaScript／表單載入頁，純HTTP GET只得「Loading required resource」空殼（783 bytes），無法取得條文；以瀏覽器或API方可核實。"
+ },
+ {
+  "id": "footnote_fn_cap279_s10_school_must_register",
+  "source_id": "cap279_education_ordinance",
+  "url": "https://www.elegislation.gov.hk/hk/cap279!en/s10",
+  "verdict": "找不到",
+  "page_found": null,
+  "cited_page": null,
+  "matched_quote": "",
+  "note": "e-Legislation為JavaScript／表單載入頁，純HTTP GET只得「Loading required resource」空殼（783 bytes），無法取得條文；以瀏覽器或API方可核實。"
+ },
+ {
+  "id": "footnote_fn_scvpd_closure_rationale",
+  "source_id": "scvpd_school_closure_2018aug",
+  "url": "https://www.chp.gov.hk/files/pdf/consensus_recommendation_on_school_closure_due_to_seasonal_influenza.pdf#page=3",
+  "verdict": "頁碼不對",
+  "page_found": 4,
+  "cited_page": 3,
+  "matched_quote": "about 1-4 days and a communicable period of about 3-5 days in general,",
+  "note": "「7 days of school closure is appropriate」(§11)在第4頁；§9–10在第3頁"
+ },
+ {
+  "id": "footnote_fn_chp_notifiable_diseases_list",
+  "source_id": "chp_prev_cd_schools_2025nov",
+  "url": "https://www.chp.gov.hk/files/pdf/guidelines_on_prevention_of_communicable_diseases_in_schools_kindergartens_kindergartens_cum_child_care-centres_child_are_centres.pdf#page=35",
+  "verdict": "相符",
+  "page_found": 35,
+  "cited_page": 35,
+  "matched_quote": "diseases: https://cdis.chp.gov.hk/CDIS_CENO_ONLINE/disease.html",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_chp_bed_spacing_1m",
+  "source_id": "chp_prev_cd_schools_2025nov",
+  "url": "https://www.chp.gov.hk/files/pdf/guidelines_on_prevention_of_communicable_diseases_in_schools_kindergartens_kindergartens_cum_child_care-centres_child_are_centres.pdf#page=22",
+  "verdict": "相符",
+  "page_found": 22,
+  "cited_page": 22,
+  "matched_quote": "groups of beds (not less than 1 metre) to reduce the chance of",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_sfaa_residency_eligibility",
+  "source_id": "wfsfaa_sfaa_household_app_guidance_2526",
+  "url": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "1.1.1 The student-applicants must be unmarried Hong Kong Residents, with right o",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_sfaa_afi_formula",
+  "source_id": "wfsfaa_sfaa_household_app_guidance_2526",
+  "url": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "For single-parent families of 2 to 3 members, the “plus 1 factor” in the divisor",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_sfaa_afi_primarysec_2024_25",
+  "source_id": "wfsfaa_sfaa_household_app_guidance_2526",
+  "url": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "* AFI thresholds for full level of assistance for 3-member and 4-member families",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_sfaa_kg_3tier_afi",
+  "source_id": "wfsfaa_sfaa_household_app_guidance_2526",
+  "url": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "3.3.2 Applicable to Financial Assistance Schemes for Pre-primary Students",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_sfaa_full_day_social_needs",
+  "source_id": "wfsfaa_sfaa_household_app_guidance_2526",
+  "url": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=4",
+  "verdict": "相符",
+  "page_found": 4,
+  "cited_page": 4,
+  "matched_quote": "Applicants with children receiving whole-day child care services (i.e. groups ag",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_sfaa_kcfr_deadline_15aug",
+  "source_id": "wfsfaa_sfaa_household_app_guidance_2526",
+  "url": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=6",
+  "verdict": "相符",
+  "page_found": 6,
+  "cited_page": 6,
+  "matched_quote": "fee remission will generally not be released even if they can pass the means tes",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_sfaa_ta_deadline_31oct",
+  "source_id": "wfsfaa_sfaa_household_app_guidance_2526",
+  "url": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=6",
+  "verdict": "相符",
+  "page_found": 6,
+  "cited_page": 6,
+  "matched_quote": "generally not be released even if they can pass the means test and meet the elig",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_sfaa_ec_school_role",
+  "source_id": "wfsfaa_sfaa_household_app_guidance_2526",
+  "url": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=5",
+  "verdict": "相符",
+  "page_found": 5,
+  "cited_page": 5,
+  "matched_quote": "Applicants receiving ECs must verify carefully the personal information and sele",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_sfaa_kg_payment_flow",
+  "source_id": "wfsfaa_sfaa_household_app_guidance_2526",
+  "url": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=7",
+  "verdict": "頁碼不對",
+  "page_found": 8,
+  "cited_page": 7,
+  "matched_quote": "kindergartens / child care centres concerned directly by the Treasury in about 1",
+  "note": "§6.2在第8頁"
+ },
+ {
+  "id": "footnote_fn_sfaa_overpayment_suspend",
+  "source_id": "wfsfaa_sfaa_household_app_guidance_2526",
+  "url": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=7",
+  "verdict": "頁碼不對",
+  "page_found": 8,
+  "cited_page": 7,
+  "matched_quote": "6.6 Notwithstanding paragraphs 6.1 to 6.3 above, the WFSFAA may at any time with",
+  "note": "§6.6在第8頁"
+ },
+ {
+  "id": "footnote_fn_sfaa_doc_retain_2yr",
+  "source_id": "wfsfaa_sfaa_household_app_guidance_2526",
+  "url": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=7",
+  "verdict": "頁碼不對",
+  "page_found": 8,
+  "cited_page": 7,
+  "matched_quote": "keep all supporting documents of the application data for at least two years, an",
+  "note": "§5.5「keep…at least two years」在第8頁"
+ },
+ {
+  "id": "footnote_fn_tas_afi_2024_25_rates",
+  "source_id": "wfsfaa_primarysec_amount_2526",
+  "url": "https://www.wfsfaa.gov.hk/sfo/en/primarysecondary/tt/general/amount.htm",
+  "verdict": "內容不符",
+  "page_found": null,
+  "cited_page": null,
+  "matched_quote": "Enquiry wg_sfo@wfsfaa.gov.hk Financial Assistance Schemes for Primary &amp; Seco",
+  "note": "網頁現時顯示2026/27年度TA額（Full：6,398/6,494/6,496/5,892/3,708；Half：3,199/3,247/3,248/2,946/1,854）；腳註的2025/26額（6,206/6,338/6,328/5,744/3,634等）已不在頁面。屬來源已更新，腳註舊額無法在該URL核實。"
+ },
+ {
+  "id": "footnote_fn_sia_grant_household_2025_26",
+  "source_id": "wfsfaa_primarysec_amount_2526",
+  "url": "https://www.wfsfaa.gov.hk/sfo/en/primarysecondary/tt/general/amount.htm",
+  "verdict": "內容不符",
+  "page_found": null,
+  "cited_page": null,
+  "matched_quote": "Full rate of subsidy for SIA in the 2026/27 school year is $1,700 per household ",
+  "note": "腳註稱2025/26年度上網費資助$1,700／$850；網頁現文為「2026/27 school year…$1,700…$850」。金額相同，學年不同；該頁已更新，2025/26字眼無法核實。"
+ },
+ {
+  "id": "footnote_fn_edbc10_2012_smc_imc_transparency",
+  "source_id": "edbc_10_2012_fee_remission",
+  "url": "https://www.edb.gov.hk/attachment/en/edu-system/primary-secondary/applicable-to-primary-secondary/direct-subsidy-scheme/index/edbc12010e.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "(SFAA), could apply for school fee remission. DSS schools are",
+  "note": "跨頁：(a)(b)在第2頁，(d)(f)在第3頁"
+ },
+ {
+  "id": "footnote_fn_edbc10_2012_reserve_excess",
+  "source_id": "edbc_10_2012_fee_remission",
+  "url": "https://www.edb.gov.hk/attachment/en/edu-system/primary-secondary/applicable-to-primary-secondary/direct-subsidy-scheme/index/edbc12010e.pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "DSS school has reached a cumulative amount that exceeds the school’s half-year",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_edbc10_2012_exemption_3yr",
+  "source_id": "edbc_10_2012_fee_remission",
+  "url": "https://www.edb.gov.hk/attachment/en/edu-system/primary-secondary/applicable-to-primary-secondary/direct-subsidy-scheme/index/edbc12010e.pdf#page=4",
+  "verdict": "相符",
+  "page_found": 4,
+  "cited_page": 4,
+  "matched_quote": "Exemption from the requirement for DSS schools to adopt eligibility criteria for",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_edbc10_2012_through_train_50",
+  "source_id": "edbc_10_2012_fee_remission",
+  "url": "https://www.edb.gov.hk/attachment/en/edu-system/primary-secondary/applicable-to-primary-secondary/direct-subsidy-scheme/index/edbc12010e.pdf#page=5",
+  "verdict": "頁碼不對",
+  "page_found": 6,
+  "cited_page": 5,
+  "matched_quote": "more needy students overall, the Working Group has recommended that through-",
+  "note": "50%及兩項條件在第6頁；第5頁只有引言"
+ },
+ {
+  "id": "footnote_fn_net_2025_two_option",
+  "source_id": "edbc_8_2025_net_enhancement",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/net-scheme/EDBC_8_2025_Enhancement%20Measures%20for%20the%20NET%20Scheme.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "schools) and caput schools can opt for either (i) retaining the existing NET pos",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_net_grant_900k_1m",
+  "source_id": "edbc_8_2025_net_enhancement",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/net-scheme/EDBC_8_2025_Enhancement%20Measures%20for%20the%20NET%20Scheme.pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "Grant is referenced to the mid-point salary of Assistant Primary School Master/M",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_net_gratuity_10_15",
+  "source_id": "edbc_8_2025_net_enhancement",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/net-scheme/EDBC_8_2025_Enhancement%20Measures%20for%20the%20NET%20Scheme.pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": " For NETs serving in the 1st and 2nd contracts: 10% of total current basic sala",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_net_grant_min_1nat",
+  "source_id": "edb_point_to_note_net_grant_202627",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/net-scheme/Point-to-note%20for%20receiving%20the%20NET%20Grant_202627.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "Schools receiving the NET Grant should employ at least one full-time NET for the",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_net_qual_ielts_75",
+  "source_id": "edb_point_to_note_net_grant_202627",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/net-scheme/Point-to-note%20for%20receiving%20the%20NET%20Grant_202627.pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "valid IELTS results (overall band score of 7.5 or above, with “Speaking” band",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_net_surplus_30pct",
+  "source_id": "edb_point_to_note_net_grant_202627",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/net-scheme/Point-to-note%20for%20receiving%20the%20NET%20Grant_202627.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "surplus above this amount at the end of the school year will be clawed back. Tra",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_net_grant_school_plan",
+  "source_id": "edb_point_to_note_net_grant_202627",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/net-scheme/Point-to-note%20for%20receiving%20the%20NET%20Grant_202627.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "measures in supporting English learning, and upload them onto the school homepag",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_net_mps_salary",
+  "source_id": "edb_net_package_pdf",
+  "url": "https://www.edb.gov.hk/attachment/en/common/NET%20package.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "The salary scale is from Master Pay Scale (MPS) Point 15 (HK$24,450 per",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_net_special_allowance_16859",
+  "source_id": "edb_net_package_pdf",
+  "url": "https://www.edb.gov.hk/attachment/en/common/NET%20package.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "(A NET will not be eligible for the special allowance if he/she or his/her spous",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_net_baggage_allowance",
+  "source_id": "edb_net_package_pdf",
+  "url": "https://www.edb.gov.hk/attachment/en/common/NET%20package.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "(e) Baggage allowance* Reimbursement of travelling baggage expenses from and to ",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_net_medical_allowance",
+  "source_id": "edb_net_package_pdf",
+  "url": "https://www.edb.gov.hk/attachment/en/common/NET%20package.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "HK$1,400 per year for single appointee and $5,400 per year for married appointee",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_net_passage_5persons",
+  "source_id": "edb_net_package_pdf",
+  "url": "https://www.edb.gov.hk/attachment/en/common/NET%20package.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "country of origin by the most direct route for the appointee, his/her spouse and",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_net_overseas_residence_gate",
+  "source_id": "edbc_8_2009_fringe_benefits",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/net-scheme/Fringe%20Benefit_aug%202022/Fringe%20Benefit_August%202022_updated/EDBC09008E_082022.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "provided under the NET Scheme in Primary Schools only if their normal place of r",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_net_double_benefit",
+  "source_id": "edbc_8_2009_fringe_benefits",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/net-scheme/Fringe%20Benefit_aug%202022/Fringe%20Benefit_August%202022_updated/EDBC09008E_082022.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "will not be eligible for the Special Allowance if he/she or his/her spouse is al",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_net_imc_smc_oversight",
+  "source_id": "edbc_8_2025_net_enhancement",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch-staff/net-scheme/EDBC_8_2025_Enhancement%20Measures%20for%20the%20NET%20Scheme.pdf#page=4",
+  "verdict": "相符",
+  "page_found": 4,
+  "cited_page": 4,
+  "matched_quote": "Grant and that each item of expenditure is utilised in a cost-effective manner i",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_net_legacy_gratuity_15",
+  "source_id": "edb_net_package_pdf",
+  "url": "https://www.edb.gov.hk/attachment/en/common/NET%20package.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "(MPF) Scheme that may equal to 15% of the total basic salary drawn during the",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_net_retention_incentive",
+  "source_id": "edb_net_package_pdf",
+  "url": "https://www.edb.gov.hk/attachment/en/common/NET%20package.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "onwards in Hong Kong respectively. The incentive is not payable for the first tw",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_edbc12_2026_fire_annual",
+  "source_id": "edbc_12_2026_fire_installations",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/EDBC26012C.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "確保校舍內所有消防裝置或設備的性能時刻維持良好。此外，學校須",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_edbc12_2026_fs251_repair",
+  "source_id": "edbc_12_2026_fire_installations",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/EDBC26012C.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "如利用緊急修葺工程機制維修於消防年檢中發現的損壞項目，申",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_edbc12_2026_fs251_display",
+  "source_id": "edbc_12_2026_fire_installations",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/EDBC26012C.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "當完成年檢後或維修損壞項目後，學校須從註冊消防承辦商處取",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_edbc12_2026_24hr_notify",
+  "source_id": "edbc_12_2026_fire_installations",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/EDBC26012C.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "必須於24小時內通知所屬的區域教育服務處及校舍保養管理組，並提",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_edbc14_2024_cap279a_s5",
+  "source_id": "edbc14_2024_spms",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/EDBC%2014-2024_Chin_SPMS_final%20(issue).pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "何時均須維持令人滿意的修葺狀況。作為維持校舍良好狀況的第一責",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_edbc14_2024_thresholds",
+  "source_id": "edbc14_2024_spms",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/EDBC%2014-2024_Chin_SPMS_final%20(issue).pdf#page=1",
+  "verdict": "頁碼不對",
+  "page_found": 2,
+  "cited_page": 1,
+  "matched_quote": "工程。至於規模較大及較複雜的修葺工程一般需要額外開支和專業知",
+  "note": "§4(b)門檻（3,000／8,000／6,000／10,000）在第2頁"
+ },
+ {
+  "id": "footnote_fn_emsd_rp_definition",
+  "source_id": "emsd_presentation_duties_rps",
+  "url": "https://www.emsd.gov.hk/filemanager/sc/content_794/Presentation_Duties_RPs.pdf#page=5",
+  "verdict": "相符",
+  "page_found": 5,
+  "cited_page": 5,
+  "matched_quote": "註：如其中一名負責人遵從某規定，則其他負責人均被視為已遵從該規定",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_emsd_rp_duty_12_13",
+  "source_id": "emsd_presentation_duties_rps",
+  "url": "https://www.emsd.gov.hk/filemanager/sc/content_794/Presentation_Duties_RPs.pdf#page=10",
+  "verdict": "相符",
+  "page_found": 10,
+  "cited_page": 10,
+  "matched_quote": "1. 確保升降機/自動梯及其所有相聯設備或機械保持",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_emsd_lift_annual_frequency",
+  "source_id": "emsd_presentation_duties_rps",
+  "url": "https://www.emsd.gov.hk/filemanager/sc/content_794/Presentation_Duties_RPs.pdf#page=15",
+  "verdict": "頁碼不對",
+  "page_found": 17,
+  "cited_page": 15,
+  "matched_quote": "c)c) 在每隔不超逾12個月/6個月徹底檢驗該升降機",
+  "note": "「每隔不超逾12個月/6個月」「5年」在第17頁（月度保養在第15頁，§6a/b在第16頁）"
+ },
+ {
+  "id": "footnote_fn_emsd_use_permit_display",
+  "source_id": "emsd_presentation_duties_rps",
+  "url": "https://www.emsd.gov.hk/filemanager/sc/content_794/Presentation_Duties_RPs.pdf#page=19",
+  "verdict": "相符",
+  "page_found": 19,
+  "cited_page": 19,
+  "matched_quote": "7. 確保有效的「准用證」時刻展示於升降機機廂內",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_emsd_serious_incident_24hr",
+  "source_id": "emsd_presentation_duties_rps",
+  "url": "https://www.emsd.gov.hk/filemanager/sc/content_794/Presentation_Duties_RPs.pdf#page=22",
+  "verdict": "相符",
+  "page_found": 22,
+  "cited_page": 22,
+  "matched_quote": "8. 當知悉有嚴重的升降機/自",
+  "note": "跨頁（投影片22–23）：24小時在第22頁，嚴重事故清單在第23頁"
+ },
+ {
+  "id": "footnote_fn_emsd_penalty_table",
+  "source_id": "emsd_presentation_duties_rps",
+  "url": "https://www.emsd.gov.hk/filemanager/sc/content_794/Presentation_Duties_RPs.pdf#page=32",
+  "verdict": "相符",
+  "page_found": 32,
+  "cited_page": 32,
+  "matched_quote": " 在沒有合理辯解之下，違反有關規定，可導致升",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_emsd_landing_rp_oneliner",
+  "source_id": "emsd_le_ordinance_landing_tc",
+  "url": "https://www.emsd.gov.hk/tc/lifts_and_escalators_safety/leo_intrdctn/index.html",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": null,
+  "matched_quote": "《條例》適用於公共和私人的升降機及自動梯。升降機/自動梯的擁有人及任何其他對升降機/自動梯有管理權或操控權的人士(如物業管理公司)均為升降機/自動梯的負責人，他",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_aud_fsi_owner_duty_en",
+  "source_id": "audit_e61_ch6_fsi_monitoring",
+  "url": "https://www.aud.gov.hk/pdf_e/e61ch06.pdf#page=7",
+  "verdict": "頁碼不對",
+  "page_found": 19,
+  "cited_page": 7,
+  "matched_quote": "keep such FSI in efficient working order at all times; and",
+  "note": "§2.3在PDF第19頁"
+ },
+ {
+  "id": "footnote_fn_aud_fs251_14day",
+  "source_id": "audit_e61_ch6_fsi_monitoring",
+  "url": "https://www.aud.gov.hk/pdf_e/e61ch06.pdf#page=7",
+  "verdict": "頁碼不對",
+  "page_found": 19,
+  "cited_page": 7,
+  "matched_quote": "FSI, he shall within 14 days after completion of the work issue to the",
+  "note": "§2.4–2.5在PDF第19頁"
+ },
+ {
+  "id": "footnote_fn_edbc22_2024_checklist_framing",
+  "source_id": "edbc22_2024_student_safety",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch/sch-safety/Student%20Safety%20and%20Health/EDBC222024_EN.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "EDB has all along been working closely with schools to provide students with a s",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_edbc22_2024_checklist_30nov",
+  "source_id": "edbc22_2024_student_safety",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch/sch-safety/Student%20Safety%20and%20Health/EDBC222024_EN.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "Starting from the 2024/25 school year, upon completion of the aforesaid review a",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_kgadmin_utilrate",
+  "source_id": "kg_admin_guide_2026",
+  "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=91",
+  "verdict": "頁碼不對",
+  "page_found": 92,
+  "cited_page": 91,
+  "matched_quote": "同時容納全日班及半日班學生(即混合班)的課室，計算課室容額時以該課室的較高容額(即半日制",
+  "note": "「空置課室…高於30則以30計」等註在第92–93頁；第91頁只有使用率分級表"
+ },
+ {
+  "id": "footnote_fn_kgadmin_asset",
+  "source_id": "kg_admin_guide_2026",
+  "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=91",
+  "verdict": "頁碼不對",
+  "page_found": 95,
+  "cited_page": 91,
+  "matched_quote": "註：校監應定期(不少於每年一次)覆核固定資產登記冊上的項目，並應於每個會計年度(有關學年或財政年度)結束前在登記冊末最少加簽",
+  "note": "附錄4.5在第95頁"
+ },
+ {
+  "id": "footnote_fn_kgop_classroom",
+  "source_id": "kg_operation_manual_2026",
+  "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=106",
+  "verdict": "頁碼不對",
+  "page_found": 107,
+  "cited_page": 106,
+  "matched_quote": "每 班人數 不應超過 30 人 。當課 室用作 全日班午 睡",
+  "note": "附10空間標準在第107頁"
+ },
+ {
+  "id": "footnote_fn_kgop_ratio",
+  "source_id": "kg_operation_manual_2026",
+  "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=8",
+  "verdict": "頁碼不對",
+  "page_found": 64,
+  "cited_page": 8,
+  "matched_quote": "* * 適用於按《幼兒服務條例》註冊的特殊幼兒",
+  "note": "註（*、**）在第64頁；第8頁是樓宇設計章"
+ },
+ {
+  "id": "footnote_fn_imc_60pct",
+  "source_id": "imc_establishment_operation",
+  "url": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=21",
+  "verdict": "頁碼不對",
+  "page_found": 22,
+  "cited_page": 21,
+  "matched_quote": "(*計算辦學團體校董人數上限時，所有替代校董不計算在內。)",
+  "note": "附錄1註*在第22頁"
+ },
+ {
+  "id": "footnote_fn_imc_99b",
+  "source_id": "imc_establishment_operation",
+  "url": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=67",
+  "verdict": "頁碼不對",
+  "page_found": 69,
+  "cited_page": 67,
+  "matched_quote": "該業務或商業活動所產生的利潤或淨收入運用於該",
+  "note": "規例99B註在第69頁"
+ },
+ {
+  "id": "footnote_fn_activities_sen",
+  "source_id": "sch_activities_guide",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf#page=75",
+  "verdict": "相符",
+  "page_found": 75,
+  "cited_page": 75,
+  "matched_quote": "需要學童參加戶外活動的教職員/ 照顧者與學生比例〉作適切安排。",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_activities_ambulance",
+  "source_id": "sch_activities_guide",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf#page=75",
+  "verdict": "頁碼不對",
+  "page_found": 79,
+  "cited_page": 75,
+  "matched_quote": "4 如需救護車出勤，使用者需要支付相應費用，包括車費及搶救治療費。",
+  "note": "註4在第79頁"
+ },
+ {
+  "id": "footnote_fn_activities_civilservant",
+  "source_id": "sch_activities_guide",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf#page=77",
+  "verdict": "頁碼不對",
+  "page_found": 81,
+  "cited_page": 77,
+  "matched_quote": "根據公務員事務規例有關呈報公務員因公受傷的規定，適時呈報及處理。",
+  "note": "註6在第81頁"
+ },
+ {
+  "id": "footnote_fn_supply_approval",
+  "source_id": "supply_teacher_guide",
+  "url": "https://www.edb.gov.hk/attachment/tc/teacher/appointments-related/supply-teachers/supply_teacher_guideline_tc.pdf#page=5",
+  "verdict": "相符",
+  "page_found": 5,
+  "cited_page": 5,
+  "matched_quote": "於6個月，其聘用須由學校的大多數校董批准。此外，除將日薪代課教師轉為臨時教師",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_supply_oneyear",
+  "source_id": "supply_teacher_guide",
+  "url": "https://www.edb.gov.hk/attachment/tc/teacher/appointments-related/supply-teachers/supply_teacher_guideline_tc.pdf#page=4",
+  "verdict": "相符",
+  "page_found": 4,
+  "cited_page": 4,
+  "matched_quote": "幼稚園任職的生效日期的前一天計算。舉例來說，如教師於前一所學校任職至2022年8",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_surplus_def",
+  "source_id": "surplus_teacher_arr_2026",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/appointment/Arrangements for ST and LT 2026_tc.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "人員編制數目，超出編制數目的常額教師（填補有時限職位的教師除外）被視為過剩教",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_phpri_time",
+  "source_id": "ph_pri_guide_2025",
+  "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/ph-primary/Primary_Humanities_Curriculum_Guide.pdf#page=34",
+  "verdict": "頁碼不對",
+  "page_found": 39,
+  "cited_page": 34,
+  "matched_quote": "科課堂學習及包含人文元素的跨課程學習活動、學習經歷、延展學習。概括而言，小學人文科的課程規劃佔總課時不少於7%。",
+  "note": "「不少於7%」「35分鐘」在第39頁"
+ },
+ {
+  "id": "footnote_fn_g11_schooldays",
+  "source_id": "g11",
+  "url": "https://www.edb.gov.hk/tc/curriculum-development/resource-support/guidelines-sch-calendar/index.html#page=1",
+  "verdict": "找不到",
+  "page_found": null,
+  "cited_page": 1,
+  "matched_quote": "",
+  "note": "所引URL是「擬定校曆表指引」目錄頁（只有連結）；頁內無190日、19日星期六、209日、91日等數字。實際內容在其下連結文件（教育局通告第7/2005號等），未被抓取。"
+ },
+ {
+  "id": "footnote_fn_tdtf_senco",
+  "source_id": "tdtf_report_2019",
+  "url": "https://www.edb.gov.hk/attachment/tc/teacher/report-tftpd/TF%20Final%20Report_tc_final.pdf#page=36",
+  "verdict": "相符",
+  "page_found": 36,
+  "cited_page": 36,
+  "matched_quote": "註2：假設由2019/20 學年開始特殊教育統籌主任為晉升職級職位。",
+  "note": "原文為表十二註2「假設由2019/20學年開始…為晉升職級職位」（例子中的假設），腳註寫成「建議」；字面接近，未見方向相反"
+ },
+ {
+  "id": "footnote_fn_childabuse_def",
+  "source_id": "edbc15_2025_child_abuse",
+  "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC25015C.pdf#page=9",
+  "verdict": "相符",
+  "page_found": 9,
+  "cited_page": 9,
+  "matched_quote": "1. 《強制舉報虐待兒童條例》(《條例》)把「兒童」定義為未年滿18 歲的人。",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_prisci_exempt",
+  "source_id": "edbcm58_2024_pri_science",
+  "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM24058C.pdf#page=8",
+  "verdict": "相符",
+  "page_found": 8,
+  "cited_page": 8,
+  "matched_quote": "註三：校長／校董會／法團校董會須確認申請者是否持有上述所列可獲豁免的學歷，並保留",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_lsp_calc",
+  "source_id": "long_service_payment_guide",
+  "url": "https://www.edb.gov.hk/attachment/tc/teacher/appointments-related/severance-payment/long service payment homepage_c (updated_052025).pdf#page=6",
+  "verdict": "相符",
+  "page_found": 6,
+  "cited_page": 6,
+  "matched_quote": "利益餘額 = 補助/津貼學校公積金計劃 / 獲強積金豁免的職業退休計劃內僱主供項的既有利益 – 「剔除款項」。&.",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_coa_imc_apply",
+  "source_id": "coa_imc_1_19",
+  "url": "https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "1. 本《資助學校資助則例》（下稱《資助則例》）是為設有法團校董會的資助",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_imc_election_pta",
+  "source_id": "imc_election_guides",
+  "url": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/imc-workflow/electionguide_parent(tc)_Feb2025.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "述的人可選出或成為該團體的幹事，否則該團體不獲承認為認可家長",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_ncs_sen_3tier",
+  "source_id": "EDBC_9_2019_E",
+  "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC19009E.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "three-tier structure according to the number of NCS students with SEN4 enrolled ",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_ncs_sen_12mo_cap",
+  "source_id": "EDBC_9_2019_E",
+  "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC19009E.pdf#page=4",
+  "verdict": "相符",
+  "page_found": 4,
+  "cited_page": 4,
+  "matched_quote": "such, schools in general should not have a large surplus from the grant. Aided, ",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_chp_class_closure_ili_20pct",
+  "source_id": "chp_prev_cd_schools_2025nov",
+  "url": "https://www.chp.gov.hk/files/pdf/guidelines_on_prevention_of_communicable_diseases_in_schools_kindergartens_kindergartens_cum_child_care-centres_child_are_centres.pdf#page=32",
+  "verdict": "相符",
+  "page_found": 32,
+  "cited_page": 32,
+  "matched_quote": "CHP may consider advising the affected schools/centres to suspend classes for a",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_chp_outbreak_def_3rti_2hfmd",
+  "source_id": "chp_prev_cd_schools_2025nov",
+  "url": "https://www.chp.gov.hk/files/pdf/guidelines_on_prevention_of_communicable_diseases_in_schools_kindergartens_kindergartens_cum_child_care-centres_child_are_centres.pdf#page=28",
+  "verdict": "相符",
+  "page_found": 28,
+  "cited_page": 28,
+  "matched_quote": "If children or staff develop similar symptoms one after another and the incidenc",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_chp_ceno_contact",
+  "source_id": "chp_prev_cd_schools_2025nov",
+  "url": "https://www.chp.gov.hk/files/pdf/guidelines_on_prevention_of_communicable_diseases_in_schools_kindergartens_kindergartens_cum_child_care-centres_child_are_centres.pdf#page=34",
+  "verdict": "相符",
+  "page_found": 34,
+  "cited_page": 34,
+  "matched_quote": "6.3 Notification of outbreaks of communicable diseases in schools/centres",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_chp_bleach_dilution",
+  "source_id": "chp_prev_cd_schools_2025nov",
+  "url": "https://www.chp.gov.hk/files/pdf/guidelines_on_prevention_of_communicable_diseases_in_schools_kindergartens_kindergartens_cum_child_care-centres_child_are_centres.pdf#page=19",
+  "verdict": "相符",
+  "page_found": 19,
+  "cited_page": 19,
+  "matched_quote": "purpose and 1 in 49 diluted household bleach should be used for",
+  "note": "跨頁：3.4.1在第19頁，3.4.2在第20頁"
+ },
+ {
+  "id": "footnote_fn_chp_bleach_appendix9_ppm",
+  "source_id": "chp_prev_cd_schools_2025nov",
+  "url": "https://www.chp.gov.hk/files/pdf/guidelines_on_prevention_of_communicable_diseases_in_schools_kindergartens_kindergartens_cum_child_care-centres_child_are_centres.pdf#page=46",
+  "verdict": "相符",
+  "page_found": 46,
+  "cited_page": 46,
+  "matched_quote": "Recommended Use of Household Bleach (5.25% hypochlorite solution)",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_g01_delegate",
+  "source_id": "g01",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures_TC.pdf#page=17",
+  "verdict": "相符",
+  "page_found": 17,
+  "cited_page": 17,
+  "matched_quote": "2由學校教職員(不包括校長)提出涉及採購物料及服務的申報，校董會／法團校董會可授權校長批核有關",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_g01_approver",
+  "source_id": "g01",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/procurement-procedures-in-aided-schools/Guidelines%20on%20Procurement%20Procedures_TC.pdf#page=5",
+  "verdict": "相符",
+  "page_found": 5,
+  "cited_page": 5,
+  "matched_quote": "經修訂的採購財政限額，其相應安排及批核人員要求撮述如下：",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_ceg_recurrent_august",
+  "source_id": "ceg_calc_2026",
+  "url": "https://www.edb.gov.hk/tc/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/index.html",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": null,
+  "matched_quote": "學校發展津貼的參考資料 &nbsp; 「學校發展津貼」[二零二六年十月更新] &nbsp; 由二零零零/零一學年開始，資助、官立、按位津貼和直接資助計劃（ 直資",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_cpd_eservices_record",
+  "source_id": "edbc29_2024_teacher_training",
+  "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC24029C.pdf#page=5",
+  "verdict": "相符",
+  "page_found": 5,
+  "cited_page": 5,
+  "matched_quote": "教師應善用電子化服務入門網站記錄及檢視培訓進度。學校應確",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_byod_edb_support",
+  "source_id": "edb_byod_page",
+  "url": "https://www.edb.gov.hk/tc/edu-system/primary-secondary/applicable-to-primary-secondary/it-in-edu/BYOD/byod_index.html",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": null,
+  "matched_quote": "&nbsp; 1. 前言 &nbsp; 教育局於2015/16學年起推行「第四個資訊科技教育策略」，讓學校透過資訊科技提升學與教的效能、加強課堂互動、提升學生的",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_kg_teacher_pupil_ratio",
+  "source_id": "kg_admin_guide_2026",
+  "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=107",
+  "verdict": "相符",
+  "page_found": 107,
+  "cited_page": 107,
+  "matched_quote": "1 現時，幼稚園在場當值的最少教師人數與在場學生人數的比例，規定為每15 名學生(不足15 名當15 名計算)",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_k1_appfee",
+  "source_id": "k1_admission_2627",
+  "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM26080C.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "K 1 的學童收取報名費的核准上限為4 0 元。學校不可收取超逾核准上限的報名",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_ceg_plan_clawback",
+  "source_id": "ceg_calc_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/Ground%20Rules%20and%20Procedures_en.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "drawn up similarly and endorsed by the IMC / SMC. The endorsed CEG plan",
+  "note": "跨頁：10月底及追回在第1頁，11月底報告在第2頁"
+ },
+ {
+  "id": "footnote_fn_cfeg_no_item_cap",
+  "source_id": "cfeg_guide_2026",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_CFEG_2026_e.pdf#page=3",
+  "verdict": "相符",
+  "page_found": 3,
+  "cited_page": 3,
+  "matched_quote": "Subject to funds being available, there is no financial limit for F&E items to",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_chp_form_routing",
+  "source_id": "chp_notification_form_2025oct",
+  "url": "https://www.chp.gov.hk/files/pdf/school_notification_form-e.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "† KG-cum-CCC - fax copy to Joint Office for Kindergartens and Child Care Centres",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_complaint_review_board",
+  "source_id": "sch_complaint_guide_2023",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/school-complaints/Guidelines_for_Handling_School_Complaints_c_Oct_2023.pdf#page=20",
+  "verdict": "相符",
+  "page_found": 20,
+  "cited_page": 20,
+  "matched_quote": "投訴人提出足夠的支持理據或新證據，證明學校及/",
+  "note": "跨頁：覆檢條件在第20頁，重新調查／兩個月／高一職級（5.16）在第23頁；腳註(ii)「其他指明情況」比原文（學校已適當處理但投訴人仍不接納）籠統，非矛盾"
+ },
+ {
+  "id": "footnote_fn_mh_three_tier",
+  "source_id": "edbcm215_2025_mental_health",
+  "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM25215C.pdf#page=1",
+  "verdict": "相符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "實施以學校為本的「三層應急機制」[適用於小學四至六年級及中學]",
+  "note": "跨頁：機制概述在第1頁，三層分工在第2–3頁"
+ },
+ {
+  "id": "footnote_fn_pdpo_minor_access",
+  "source_id": "pdpo_school_cap486",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch/personal-data-ordinace-cap486-note/privacy.pdf#page=16",
+  "verdict": "相符",
+  "page_found": 16,
+  "cited_page": 16,
+  "matched_quote": "parental responsibility for the minor can request for data access/correction on",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_trg_freeze_ceiling",
+  "source_id": "trg_imc_2023",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/trg/TRG_guidelines_c.pdf#page=1",
+  "verdict": "內容不符",
+  "page_found": 1,
+  "cited_page": 1,
+  "matched_quote": "凍結不超過10%的核准教員編制；事先取得法團校董會、大部分教師及家長的同意",
+  "note": "10%上限相符（第1、3段）。但(1)「附件III申請表訂明…(甲)(乙)(丙)三者合計」在此PDF（只有5頁，無附件正文）找不到，「空缺」「永久凍結的常額教席」字眼不存在於抽取文字；(2)同意條件：腳註只寫「校董會／法團校董會同意」，原文第3段為「事先取得法團校董會、大部分教師及家長的同意」，漏教師與家長。"
+ },
+ {
+  "id": "footnote_fn_chp_letter_flu_2025oct22",
+  "source_id": "chp_letter_flu_2025oct22",
+  "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch/diseases-prevention/chp_20251022_eng.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "of the Centre for Health Protection (CHP) (Tel: 2477 2772; Fax: 2477 2770; Email",
+  "note": "跨頁：通報段在第2頁，「enhance health surveillance…two days」段在第1頁（腳註次序與原文相反）"
+ },
+ {
+  "id": "footnote_fn_complaint_elements",
+  "source_id": "sch_complaint_guide_2023",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/school-complaints/Guidelines_for_Handling_School_Complaints_c_Oct_2023.pdf#page=27",
+  "verdict": "相符",
+  "page_found": 27,
+  "cited_page": 27,
+  "matched_quote": "除了制訂有效的處理投訴機制，學校亦須加強與家長和員",
+  "note": "跨頁：六項要素在第27頁，「向法團校董會報告」（4.9）在第19頁"
+ },
+ {
+  "id": "footnote_fn_complaint_stages",
+  "source_id": "sch_complaint_guide_2023",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/school-complaints/Guidelines_for_Handling_School_Complaints_c_Oct_2023.pdf#page=14",
+  "verdict": "相符",
+  "page_found": 14,
+  "cited_page": 14,
+  "matched_quote": "日期起計十四天內，向校方書面提出上訴要求。",
+  "note": "跨頁：調查階段在第14頁，上訴階段（較高職級、兩個月）在第15頁"
+ },
+ {
+  "id": "footnote_fn_leave_nonteaching_annual",
+  "source_id": "g04",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/schexo/InductionProg_Granting_of_Leave.pdf#page=38",
+  "verdict": "相符",
+  "page_found": 38,
+  "cited_page": 38,
+  "matched_quote": "以薪金津貼支薪的專責人員/實驗室技術員/學校行政主任/",
+  "note": "跨頁：年假天數表在第38頁，「不享有學校假期」在第36頁"
+ },
+ {
+  "id": "footnote_fn_net_apply_timeframes",
+  "source_id": "edb_pnet_annex_jul2025",
+  "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/resource-support/net/letter_dd_2_Jul_2026_to_principals_PNET_2627sy_Annex.pdf#page=2",
+  "verdict": "內容不符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "Late applications will not normally be considered.",
+  "note": "(1)腳註末句「Late application will not be considered」；原文（第1頁）為「Late applications will not normally be considered」，漏「normally」，由「一般不獲考慮」變成絕對。(2)Medical Allowance與Retention Incentive兩行在PDF第3頁，不在#page=2。(3)腳註標題「PNET Annex 23 Jul 2025」，但所引檔案為letter_dd_2_Jul_2026（2026/27年度附件），PDF內無「23 Jul」字樣。時限（Aug–Sep／Jul–Sep／學年完結前／Jun–Sep）全部相符。"
+ },
+ {
+  "id": "footnote_fn_tips_no_split_order",
+  "source_id": "subvention_tips",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/tips-handling-gov-subventions/Tips%20on%20handling%20govt%20subventions%20for%20aided%20schools_c_2026.pdf#page=7",
+  "verdict": "相符",
+  "page_found": 7,
+  "cited_page": 7,
+  "matched_quote": "元的物料／服務時，須向至少五名供應商個別邀請投標。學校只有",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_tips_rental_40pct",
+  "source_id": "subvention_tips",
+  "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/tips-handling-gov-subventions/Tips%20on%20handling%20govt%20subventions%20for%20aided%20schools_c_2026.pdf#page=4",
+  "verdict": "相符",
+  "page_found": 4,
+  "cited_page": 4,
+  "matched_quote": "根據教育局通告第5 / 2 0 11 號，學校若出租校舍，所收取4 0 % 的淨",
+  "note": ""
+ },
+ {
+  "id": "footnote_fn_mh_referral_consent",
+  "source_id": "edbcm215_2025_mental_health",
+  "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM25215C.pdf#page=2",
+  "verdict": "相符",
+  "page_found": 2,
+  "cited_page": 2,
+  "matched_quote": "須先取得家長或監護人的同意，並將轉介表格及家長或監護人同意書（附件三）",
+  "note": "跨頁：第二層同意在第2頁，第三層及熱線2742 4508在第3頁"
+ }
+]
