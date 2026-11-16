@@ -39,6 +39,27 @@ When current work requires a log entry, record whether relevant older detail was
 
 <!-- ack:log-entry:start -->
 
+## 2026-11-16 Session 249 — Freshness 監察加出口並清零、八個來源重新入庫、50 條頁碼、後端快取定時重讀
+
+- **ID:** S249（Claude_20261116_S249）
+- **Summary:** 補完 S248 收工後，按 Leonard「減維護負擔」方向修好 Freshness 監察只入不出的問題並把 35 項清至 0；經 Leonard 逐項批准重新入庫五份 PDF 與三份統計表、補 50 條頁碼／網址、按原文更正兩條註腳與兩條統計事實；後端 overlay 快取改為定時背景重讀。
+- **Changed:** PR #97（`ef7ffb9`）：`check_freshness.py`、`freshness_check.yml`、`notify_new_items.js`＋測試、`source_registry.json`、`FRESHNESS_GUIDE.md`、`repage_pdfs.py`、`cb3_b2_pagecarry_migrate.py`、八個來源的 vault 抽取檔、`url_overrides.json`、`apply_url_overrides.py`、兩個一次性腳本、`forms_ingest.py`、`ingest_s179_topics.py`、`build_stat_facts.py`、`stat_facts.json`、`qc_report.py`、公開片段數鏡像、`update_log.json`、`SYSTEM_OVERVIEW.md`、治理文件 · PR #98（`eff9047`）：`backend/src/lib/wikiRepository.ts`、`overlayCacheRegression.ts`、`backend_build_check.yml` · 收工：交接、本 log、`DOC_SYNC_REGISTRY.md`、`PROJECT_INDEX.md`、`START_NEXT_SESSION_PROMPT.txt`。
+- **Done:**
+  - **Freshness 根因**：基線停在 6 月、入庫不更新基線、無逐項確認、網頁以整頁位元組比對（約 270 KB 外殼包幾 KB 內容）；另查出 95 個來源從未有基線。
+  - **比對**：19 份「已變」PDF 逐頁對 vault，11 份內容相同只確認，5 份有實質改動重新入庫；三份統計表上游修訂了所有教師數字。
+  - **Sub-agent**（Leonard 准許，嚴格唯讀）：整理 51 條頁碼缺口清單與統計表比對；本人再獨立核對 40/40。
+  - **後端**：`invalidateWikiCache` 無人呼叫，更正註腳後線上仍答舊金額（實測），改為 stale-while-revalidate。
+- **QC:** 見交接 `## Validation / QC` S249（自測、全量 dry-run、逐來源對數、兩次獨立頁碼核對、部署後線上實測）。**未驗證**：線上實際發生的 30 分鐘背景重讀；四條註腳措辭出入。
+- **Evidence disposition:** 現況與下一步入交接；備份在本機 `dev/init_backup/20261116_08*_UTC/`（gitignored，含頁碼建議清單）；sub-agent 下載的 PDF 與比對檔只在 scratchpad（一次性）。
+- **Sync:** `dev/DOC_SYNC_REGISTRY.md` S249 節；`DOC_SYNC_CHECKLIST.md` 新增「註腳網址覆寫」一列（Doc Sync: registry updated）；開場鏡像由唯一區塊重生並核對。
+- **Pending:** 見交接 `## Open Priorities`（首項：Leonard 決定 `FEATURE_SUBJECT_CHECK`）。
+- **Risks:** 註腳入庫腳本以 `--execute` 重跑會蓋掉 50 條頁碼（QC 會報高於基準；修法是再跑 `apply_url_overrides.py --execute`）；網頁指紋對沒有 `inner_page_content_container` 的頁面（現時只有 `cs_curr`）仍比對整頁文字。
+- **Log maintenance:** not_applicable（條目數 13，屬數量提示；本節無實際保存或接續需要）。
+- **Opening-message mirror:** regenerated and verified; full text omitted by design.
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-11-15 Session 248 — 減維護負擔：交接檔瘦身、QC 惡化通知、PAGE_ANCHORED 定義修正
 
 - **ID:** S248（收工因用量上限中斷，2026-11-16 下一節起手補完）
