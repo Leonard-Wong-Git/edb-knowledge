@@ -51,7 +51,11 @@ jobs:
           DRY_RUN=""
           LEDGER=""
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            DRY_RUN="--dry-run"
+            # S249: a scheduled run still seeds a baseline for rows that have
+            # none (newly ingested sources). It cannot hide a change — there was
+            # nothing to compare against — and without it those sources are
+            # never checked for content change (95 were not, before S249).
+            DRY_RUN="--dry-run --seed-missing"
           elif [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
             DRY_RUN="--dry-run"
           else
@@ -88,12 +92,39 @@ jobs:
               core.info('No change report to parse: ' + e);
               return;
             }
+            const label = 'freshness-change';
             if (!report.changes || report.changes < 1) {
-              core.info('No content changes detected; not touching issue.');
+              // S249 (same rule as served-url, S209): a list that can only grow
+              // becomes wallpaper. When every change has been acknowledged the
+              // issue closes itself; it reopens on the next real change.
+              const open = await github.rest.issues.listForRepo({
+                owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: label,
+              });
+              if (open.data.length && (report.errors || 0) === 0) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: open.data[0].number,
+                  body: `✅ Run #${context.runNumber} (${report.generated_at}): ${report.checked} 個來源全部與基線一致，沒有待處理的更新。自動關閉；之後有新的更新會重新開啟並通知。`,
+                });
+                await github.rest.issues.update({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: open.data[0].number, state: 'closed',
+                });
+                core.info('Closed #' + open.data[0].number + ' — nothing pending.');
+              } else {
+                core.info('No content changes detected; nothing to close.');
+              }
               return;
             }
+            const linkNote = c => {
+              const l = c.links;
+              if (!l || (!l.added.length && !l.removed.length)) return '';
+              const fmt = (tag, arr) => arr.slice(0, 5).map(u => `\n  - ${tag} ${u}`).join('')
+                + (arr.length > 5 ? `\n  - ${tag} ……另有 ${arr.length - 5} 條` : '');
+              return fmt('新增連結', l.added) + fmt('移除連結', l.removed);
+            };
             const lines = (report.changed_sources || []).map(c =>
-              `- \`${c.source_id}\` — ${c.title || ''} _(${c.confidence})_`).join('\n');
+              `- \`${c.source_id}\` — ${c.title || ''} _(${c.confidence})_${linkNote(c)}`).join('\n');
             const body = [
               `🔔 **${report.changes}** EDB source(s) changed (run #${context.runNumber}, ${report.generated_at}, ${report.dry_run ? 'dry-run detection' : 'write-sync'}).`,
               '',
@@ -101,10 +132,10 @@ jobs:
               '',
               '> **Detection only** — re-ingestion stays a manual gate. Per `dev/source/FRESHNESS_GUIDE.md`:',
               '> URL re-discovery → mojibake pre-flight → repage → cb3_b2 → SOURCE_SETS parity → deploy.',
+              '> 處理完一項（已重新入庫，或判定無需處理）後跑 `check_freshness.py --ack <source_id>`，該項便會離開清單。',
               `> Full report: run artifact \`freshness-report-${context.runNumber}\`.`,
             ].join('\n');
             const title = '🔔 Freshness: EDB source changes pending review';
-            const label = 'freshness-change';
             // S238: body edits never notify, and this issue had no @mention — four
             // months of changes reached nobody. The shared helper announces NEW
             // sources in a comment that @mentions Leonard (see the helper header).
@@ -118,6 +149,9 @@ jobs:
             try {
               await notify({
                 github, context, core, label, title, body, items,
+                // S249: an acknowledged source is forgotten, so a LATER change
+                // to it is announced again instead of being taken for old news.
+                forget: report.acked_sources || [],
                 headline: n => `需要你決定：${n} 個來源的原文有更新`,
                 action: '在 Claude 說「處理 freshness 更新」。AI 會下載新版、與庫內版本逐段比對，列出實質改動並建議是否重新入庫；未經你批准不會寫入任何資料。',
               });
@@ -125,15 +159,16 @@ jobs:
               core.warning('Failed to open/update freshness issue: ' + (e && e.message));
             }
 
-      - name: Commit registry + ledger update (manual write-sync only)
-        if: >
-          success() &&
-          github.event_name == 'workflow_dispatch' &&
-          github.event.inputs.dry_run == 'false'
+      # A plain dry run leaves the registry byte-identical, so this is a no-op
+      # for it. It commits for a manual write-sync, and (S249) for a scheduled
+      # run that seeded a baseline for a source that had none.
+      - name: Commit registry + ledger update (write-sync, or newly seeded baselines)
+        if: success()
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add dev/source/source_registry.json dev/source/freshness_changes.md
+          git add dev/source/source_registry.json
+          if [ -f dev/source/freshness_changes.md ]; then git add dev/source/freshness_changes.md; fi
           if git diff --cached --quiet; then
             echo "No registry/ledger changes to commit."
           else

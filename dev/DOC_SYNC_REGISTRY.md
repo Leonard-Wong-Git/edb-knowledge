@@ -29,6 +29,16 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-11-15 — S248（交接檔瘦身 ＋ QC 惡化通知 ＋ PAGE_ANCHORED 定義修正；收工 2026-11-16 補完）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| 交接檔／歷史歸檔 | `confirmed` | PR #92；移走章節一字不改存於 `dev/archive/SESSION_HANDOFF_HISTORY_2026-11-15.md`，詳情在 `dev/SESSION_STATE_DETAIL.md` |
+| 監察 workflow／通知 | `confirmed` | PR #93；`qc-regression` Issue 經真實運行驗證（Issue #94，Leonard 確認收到電郵） |
+| QC 檢查定義／基準 | `confirmed` | PR #95；`PAGE_ANCHORED` 基準 179 → 51，線上實測 51 |
+| Supabase／公開數字／README／CHANGELOG | `not_applicable` | 本節零人手生產改動，版本不變（#91 自動入庫由 executor 自行同步） |
+| 各 PR 內的逐列同步 | `unverified` | S248 因用量上限中斷，補收工時未逐列重核三個 PR 觸及的 registry 列；三個 PR 的 CI 均通過 |
+
 ### 2026-11-09 — S247（清理 init_backup 舊版 wiki_index 備份 ＋ 保留規則）
 
 | Row | 狀態 | 備註 |

@@ -86,6 +86,15 @@ python3 dev/source/check_freshness.py --dry-run
 # and render the human ledger of pending re-ingest work
 python3 dev/source/check_freshness.py --ledger dev/source/freshness_changes.md
 
+# S249 — the way OUT of the pending list. After a flagged source is re-ingested, or
+# judged to need no action, re-baseline ONLY that source (nothing else is touched;
+# an unknown id or a failed fetch writes nothing):
+/usr/local/bin/python3 dev/source/check_freshness.py --ack g19,supply_teacher_guide
+
+# S249 — what the scheduled run does: detect without persisting, EXCEPT rows that
+# have no baseline at all (newly ingested sources), which get one seeded
+python3 dev/source/check_freshness.py --dry-run --seed-missing
+
 # Scope to first N sources (testing); JSON change report goes to --changes-out
 python3 dev/source/check_freshness.py --dry-run --limit 5 --changes-out /tmp/fc.json
 
@@ -110,11 +119,26 @@ python3 dev/source/check_source_titles.py --check --only <id1>,<id2> --baseline
    `content_hash`. The hash is **authoritative**: it suppresses HEAD
    false-positives (EDB redirect / re-export churn) and confirms true changes.
 
-`content_hash` shares the lifecycle of the other metadata fields — it is seeded /
-refreshed only on a write-sync. Scheduled runs are dry-run and detect drift
-against the last synced baseline without persisting, so they stay cheap (only a
-tripped, already-seeded source gets downloaded). The **first** write-sync seeds
-hashes for all 147 sources (one-time heavier run; CI timeout is 30 min).
+**HTML pages are fingerprinted, not byte-hashed (S249).** An EDB page is ~270 KB
+of site shell (menus, footer) around a few KB of content, so a raw-byte hash
+reported "changed" whenever the shell moved — 16 of the 35 items then stuck in
+the issue were such pages. For a `text/html` response the hash now covers only
+the **visible text + document links of the main-content region**
+(`inner_page_content_container` → `footer_content`; `content_hash_kind` =
+`html-main-v1`). A page without that marker falls back to whole-page text
+(`html-text-v1`, still shell-sensitive — one source, `cs_curr`, at S249). The
+region's document links are stored as `doc_links`, so a change report lists
+which links were added or removed. HTML baselines are re-fingerprinted on every
+run (pages are small; a dynamic page may send no header for the cheap tier).
+A baseline of a different kind is never compared: it is reported as
+「baseline 需要重設」 until acknowledged.
+
+`content_hash` is persisted in three ways only: a manual write-sync (all rows —
+**avoid while the pending list is non-empty: it re-baselines every flagged
+source and silently discards the list**); `--ack` (named rows); and
+`--seed-missing` on the scheduled run (rows with no baseline — before S249, 95
+ingested sources had none and were never checked for content change). Otherwise
+scheduled runs detect drift without persisting.
 
 ## 3. Handling Results
 ### `last_checked_at`
@@ -137,14 +161,21 @@ content `content_hash` (raw-byte SHA-256) and `hash_checked_at`.
   (S238 missed this and Leonard caught it). **Then run
   `check_downstream_sync.py --sources <ids> --base <commit before the change>`
   until it reports 0 `MUST_UPDATE`** — it checks the library, checklists, update
-  log and hard-coded citations mechanically (see `DOC_SYNC_CHECKLIST.md`). The detector never fetches into the
-  vault, mutates Supabase, or deploys.
+  log and hard-coded citations mechanically (see `DOC_SYNC_CHECKLIST.md`). **Last
+  step (S249): `check_freshness.py --ack <ids>`** — re-ingesting does not move
+  the baseline by itself, so without it the source is reported as changed every
+  week for ever (g19 / supply / perf were, for a month after S238). Use the same
+  command when a change is judged to need no action (a pure re-export). The
+  detector never fetches into the vault, mutates Supabase, or deploys.
 
 ### Notification & ledger (auto)
 - The weekly GitHub Action writes a machine report (`freshness_changes.json`,
   uploaded as a run artifact) and, when ≥1 content change is detected,
   **opens / updates a GitHub Issue** labelled `freshness-change`. The same open
-  issue is reused, not duplicated, until acted on.
+  issue is reused, not duplicated, until acted on. **When a run finds nothing
+  pending (and no fetch errors) it comments and closes the issue (S249)**; the
+  next real change opens a new one. An acknowledged source is dropped from the
+  remembered keys, so a later change to it is announced again.
 - **Who gets told, and when (S238 correction).** The old text here said "GitHub
   emails the operator". It did not: Leonard does not watch the repo, so only an
   `@mention` in a **new** issue or a **new** comment reaches him, and a body edit
@@ -174,8 +205,9 @@ A flagged "change" where the **old** baseline is tiny (1–3 KB) but the **new**
 fetch is multi-MB — often with the new `Last-Modified` *older* than the recorded
 one — is **not** a content change. It means the baseline was once seeded from a
 redirect/landing **stub** and the crawl now resolves through to the real file
-(KB→MB + time-going-backwards = the file's own header). **Fix: re-seed via a
-write-sync** (`check_freshness.py --ledger …`) so the baseline becomes the real
+(KB→MB + time-going-backwards = the file's own header). **Fix: `--ack` the
+affected sources** (S249; formerly a full write-sync, which also re-baselined
+every unrelated pending item) so the baseline becomes the real
 file's hash; do **not** re-ingest. After re-seed, a second `--dry-run` should
 report `Changes: 0`. (S170: 9 such artifacts → 0; all 215 baselines re-seeded.)
 

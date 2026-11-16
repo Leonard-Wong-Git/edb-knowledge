@@ -233,6 +233,17 @@ for _sid in REFRESH_S238:
     PILOT_LEGACY[_sid] = [_cur]
     PILOT_OUT[_sid] = _cur
 
+# S249 content refresh (Leonard approved): upstream PDFs changed (freshness #77).
+# Same shape as REFRESH_S238 — the current extract is both the header source and
+# the file being replaced; sources still on the un-repaged name move to _repaged.
+REFRESH_S249 = ["g23", "music_p1_s6_2024", "debp_ai_examples",
+                "debp_blueprint", "pri_science_cert_course_list"]
+for _sid in REFRESH_S249:
+    _out = VAULT_DIR / _sid / f"extract_{_sid}_repaged.txt"
+    _old = VAULT_DIR / _sid / f"extract_{_sid}.txt"
+    PILOT_LEGACY[_sid] = [_out if _out.exists() else _old]
+    PILOT_OUT[_sid] = _out
+
 # S242 cover-title refresh (Leonard approved, Issue #72): sdp_guide now points at the
 # 2026-09 aided-school edition (the 2010 URL is 404); iit_ai_framework_2026 was replaced
 # in place upstream on 2026-10-14. iit had a non-repaged extract, so it moves to _repaged.

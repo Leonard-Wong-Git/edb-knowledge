@@ -1,0 +1,311 @@
+{
+  "_meta": {
+    "note": "S249 — wiki_chunks.url 的逐片段覆寫（頁碼錨點／更正網址）。註腳的來源腳本（dev/forms_ingest.py 等）只有每個來源一條網址，重跑 --execute 會把這裏的網址蓋回去；重跑後必須再跑 dev/apply_url_overrides.py --execute。每條的頁碼已用 matched quote 對新版 PDF 逐頁核實（2026-11-16，兩次獨立核對）。",
+    "count": 50,
+    "pending": {
+      "footnote_fn_ceg_no_tutorial": "原句不在所引的 CEG 計算方法 PDF；出處在 EOEBG User Guide 第 6 頁或 OEBG User Guide 第 7 頁，待 Leonard 選來源"
+    }
+  },
+  "overrides": {
+    "footnote_fn_ac_equiv_formula": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/AC%20Grant%20in%20Aided%20Schools_e.pdf#page=3",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/AC%20Grant%20in%20Aided%20Schools_e.pdf",
+      "basis": "are equivalent to the rates of 1 classroom and 2.5 special rooms",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_ac_rates_2627": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/E_Sec_Table%20II_2026_e_r%206.2026.pdf#page=2",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/AC%20Grant%20in%20Aided%20Schools_e.pdf",
+      "basis": "per small group teaching room",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_ac_sac_cap": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/AC%20Grant%20in%20Aided%20Schools_e.pdf#page=3",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/AC%20Grant%20in%20Aided%20Schools_e.pdf",
+      "basis": "the subsidy for SAC is capped at 2 for each school",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_ac_special_room_cap": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/AC%20Grant%20in%20Aided%20Schools_e.pdf#page=2",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/AC%20Grant%20in%20Aided%20Schools_e.pdf",
+      "basis": "primary and secondary schools are 5 and 12 respectively",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_boarding_fee_deduct": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/E_Sec_Table%20II_2026_e_r%206.2026.pdf#page=4",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/E_Sec_Table%20II_2026_e_r%206.2026.pdf",
+      "basis": "In the 2026/27 s.y., the rate of the monthly boarding fee is $440",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_ceg_bisessional": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/Calculation%20of%20CEG_en.pdf#page=1",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/Calculation%20of%20CEG_en.pdf",
+      "basis": "each session is considered as a separate school for the calculation of CEG",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_ceg_both_levels": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/Calculation%20of%20CEG_en.pdf#page=1",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/Calculation%20of%20CEG_en.pdf",
+      "basis": "the rates for primary schools will be adopted",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_ceg_plan_clawback": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/Ground%20Rules%20and%20Procedures_en.pdf#page=1",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/Ground%20Rules%20and%20Procedures_en.pdf",
+      "basis": "CEG will be clawed back if schools fail to comply with the afore-said requiremen",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_ceg_rates_2627": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/Calculation%20of%20CEG_en.pdf#page=1",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/Calculation%20of%20CEG_en.pdf",
+      "basis": "193,164",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_cfeg_no_item_cap": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_CFEG_2026_e.pdf#page=3",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_CFEG_2026_e.pdf",
+      "basis": "there is no financial limit for F&E items to be purchased",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_cfeg_rates_2627": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/CFEG_2026_e.pdf#page=1",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_CFEG_2026_e.pdf",
+      "basis": "Rates of Composite Furniture and Equipment Grant in the 2026/27 School Year",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_cfeg_setup_fund": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_CFEG_2026_e.pdf#page=4",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_CFEG_2026_e.pdf",
+      "basis": "the CFEG will then be payable to a school when EDB approves the closure of its S",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_cfeg_surplus_5x": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_CFEG_2026_e.pdf#page=4",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_CFEG_2026_e.pdf",
+      "basis": "accumulated up to five times the provision of the CFEG",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_chp_form_routing": {
+      "url": "https://www.chp.gov.hk/files/pdf/school_notification_form-e.pdf#page=1",
+      "was": "https://www.chp.gov.hk/files/pdf/school_notification_form-e.pdf",
+      "basis": "fax copy to School Development Section of Education Bureau in respective distric",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_chp_letter_flu_2025oct22": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch/diseases-prevention/chp_20251022_eng.pdf#page=2",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch/diseases-prevention/chp_20251022_eng.pdf",
+      "basis": "report promptly to the Central Notification Office of the Centre for Health Prot",
+      "confidence": "MEDIUM"
+    },
+    "footnote_fn_complaint_elements": {
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/school-complaints/Guidelines_for_Handling_School_Complaints_c_Oct_2023.pdf#page=27",
+      "was": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/school-complaints/Guidelines_for_Handling_School_Complaints_c_Oct_2023.pdf",
+      "basis": "建立一套包含下列要素的校本機制",
+      "confidence": "MEDIUM"
+    },
+    "footnote_fn_complaint_review_board": {
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/school-complaints/Guidelines_for_Handling_School_Complaints_c_Oct_2023.pdf#page=20",
+      "was": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/school-complaints/Guidelines_for_Handling_School_Complaints_c_Oct_2023.pdf",
+      "basis": "獨立覆檢安排只適用於那些在優化安排下",
+      "confidence": "MEDIUM"
+    },
+    "footnote_fn_complaint_stages": {
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/school-complaints/Guidelines_for_Handling_School_Complaints_c_Oct_2023.pdf#page=14",
+      "was": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/school-complaints/Guidelines_for_Handling_School_Complaints_c_Oct_2023.pdf",
+      "basis": "建議在接獲投訴起計兩個月內完成調查",
+      "confidence": "MEDIUM"
+    },
+    "footnote_fn_dlg_incentive_cease": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/E_Sec_Table%20II_2026_e_r%206.2026.pdf#page=4",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/E_Sec_Table%20II_2026_e_r%206.2026.pdf",
+      "basis": "The incentive funding will cease with effect from 2026/27",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_eoebg_ab_2627": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/E_Table%20I_2026_e.pdf#page=1",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_2026_e.pdf",
+      "basis": "Basic Provision (A)",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_eoebg_meal_cap": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_2026_e.pdf#page=6",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_2026_e.pdf",
+      "basis": "$200 for breakfast/other official meals, $450 for lunch and $600 for dinner",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_eoebg_surplus_12m": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_2026_e.pdf#page=10",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_2026_e.pdf",
+      "basis": "PS(Ed) may under exceptional circumstances agree that individual schools can ret",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_eoebg_topup_cap": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_2026_e.pdf#page=5",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_2026_e.pdf",
+      "basis": "Surplus under the EOEBG can be used to top up no more than",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_eoebg_unpaid_leave": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_2026_e.pdf#page=4",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_2026_e.pdf",
+      "basis": "schools may use the surplus of the EOEBG for the payment of statutory holidays/a",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_leave_nonteaching_annual": {
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/schexo/InductionProg_Granting_of_Leave.pdf#page=38",
+      "was": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/schexo/InductionProg_Granting_of_Leave.pdf",
+      "basis": "如在2000年6月1日或之後受聘，每年可享有的有薪假期如下",
+      "confidence": "MEDIUM"
+    },
+    "footnote_fn_lwl_sister_floor": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/E_Sec_Table%20II_2026_e_r%206.2026.pdf#page=3",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/E_Sec_Table%20II_2026_e_r%206.2026.pdf",
+      "basis": "The amount for each school is no less than $300,000",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_mh_4rs_charter": {
+      "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM24060C.pdf#page=2",
+      "was": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM24060C.pdf",
+      "basis": "籲請全港公營學校及直資學校一起響應",
+      "confidence": "MEDIUM"
+    },
+    "footnote_fn_mh_referral_consent": {
+      "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM25215C.pdf#page=2",
+      "was": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM25215C.pdf",
+      "basis": "須先取得家長或監護人的同意，並將轉介表格及家長或監護人同意書",
+      "confidence": "MEDIUM"
+    },
+    "footnote_fn_mh_three_tier": {
+      "url": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM25215C.pdf#page=1",
+      "was": "https://applications.edb.gov.hk/circular/upload/EDBCM/EDBCM25215C.pdf",
+      "basis": "政府透過教育局、醫務衞生局（醫衞局）及社會福利署（社署）的跨部門合作",
+      "confidence": "MEDIUM"
+    },
+    "footnote_fn_mmlc_it_grant": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/E_Sec_Table%20II_2026_e_r%206.2026.pdf#page=4",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/E_Sec_Table%20II_2026_e_r%206.2026.pdf",
+      "basis": "additional sum of $59,570 per school per annum will be provided",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_net_apply_timeframes": {
+      "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/resource-support/net/letter_dd_2_Jul_2026_to_principals_PNET_2627sy_Annex.pdf#page=2",
+      "was": "https://www.edb.gov.hk/attachment/en/curriculum-development/resource-support/net/letter_dd_2_Jul_2026_to_principals_PNET_2627sy_Annex.pdf",
+      "basis": "July – September of the respective school year",
+      "confidence": "MEDIUM"
+    },
+    "footnote_fn_oebg_domain_virement": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_OEBG_2026_e.pdf#page=3",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_OEBG_2026_e.pdf",
+      "basis": "Each grant within the Special Domain is separate and no transfer will be allowed",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_oebg_surplus_12m": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_OEBG_2026_e.pdf#page=4",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_OEBG_2026_e.pdf",
+      "basis": "schools are free to decide from which constituent grant the excess may be clawed",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_pdpo_dar_40days": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch/personal-data-ordinace-cap486-note/privacy.pdf#page=2",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch/personal-data-ordinace-cap486-note/privacy.pdf",
+      "basis": "All requests must be complied within 40 days",
+      "confidence": "MEDIUM"
+    },
+    "footnote_fn_pdpo_minor_access": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch/personal-data-ordinace-cap486-note/privacy.pdf#page=16",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/admin/about-sch/personal-data-ordinace-cap486-note/privacy.pdf",
+      "basis": "a person who has parental responsibility for the minor can request for data acce",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_tips_no_split_order": {
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/tips-handling-gov-subventions/Tips%20on%20handling%20govt%20subventions%20for%20aided%20schools_c_2026.pdf#page=7",
+      "was": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/tips-handling-gov-subventions/Tips%20on%20handling%20govt%20subventions%20for%20aided%20schools_c_2026.pdf",
+      "basis": "學校不得分拆訂單，藉以避免遵守批核報價單／標書的規定或報價／招標程序",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_tips_rental_40pct": {
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/tips-handling-gov-subventions/Tips%20on%20handling%20govt%20subventions%20for%20aided%20schools_c_2026.pdf#page=4",
+      "was": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/tips-handling-gov-subventions/Tips%20on%20handling%20govt%20subventions%20for%20aided%20schools_c_2026.pdf",
+      "basis": "學校若出租校舍，所收取40%的淨租金收入須記入政府津貼帳",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_trg_freeze_ceiling": {
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/trg/TRG_guidelines_c.pdf#page=1",
+      "was": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/trg/TRG_guidelines_c.pdf",
+      "basis": "凍結不超過10%的核准教員編制",
+      "confidence": "MEDIUM"
+    },
+    "footnote_fn_trg_freeze_mpf": {
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/trg/TRG_guidelines_c.pdf#page=2",
+      "was": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/trg/TRG_guidelines_c.pdf",
+      "basis": "相等於該曆月津貼額的5%",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_trg_no_freeze_posts": {
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/trg/TRG_guidelines_c.pdf#page=2",
+      "was": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/trg/TRG_guidelines_c.pdf",
+      "basis": "可凍結的教師職位不包括校長、以英語為母語的英語教師、學生輔導教師",
+      "confidence": "HIGH"
+    },
+    "vault_gifted_policy_docs_12cb6813d515": {
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/hong-kong-development/introduction.html",
+      "was": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/ge_resource_bank/files/Policy/policy/policy_chin_March08.pdf",
+      "basis": "展研究中心 為資優兒童舉辦「資優教育課程」及相關活動 電話：3411 7249 傳真號碼：2337 8902 電郵： ccd@hkbu.edu.hk 網址： h",
+      "confidence": "HIGH"
+    },
+    "vault_gifted_policy_docs_1b25fb54057b": {
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/hong-kong-development/detail.html",
+      "was": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/ge_resource_bank/files/Policy/policy/policy_chin_March08.pdf",
+      "basis": "生。 香港資優教育的制定 「第四號報告書」認為應該在主流學校內發展以學校為本位的課程，以照顧資優學生的需要，而不將資優生集中在特殊學校內學習。其主要的原因有三:",
+      "confidence": "HIGH"
+    },
+    "vault_gifted_policy_docs_1cb1d709c94d": {
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/hong-kong-development/detail.html",
+      "was": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/ge_resource_bank/files/Policy/policy/policy_chin_March08.pdf",
+      "basis": "又建議加強教育署的專業小組，以協助推行為學業成績卓越學生而設的校本課程計劃。至於各大專院校，則應考慮開辦在職師訓課程，培訓從事資優教育的專業人員。 校本資優培育",
+      "confidence": "HIGH"
+    },
+    "vault_gifted_policy_docs_66e0c2fc3ea3": {
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/hong-kong-development/introduction.html",
+      "was": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/ge_resource_bank/files/Policy/policy/policy_chin_March08.pdf",
+      "basis": "=== introduction === 跳至主要內容 主要內容 [資料庫] 香港資優教育簡介 教統會「第四號報告書」認為應該在主流學校內，發展以學校為本位的課",
+      "confidence": "HIGH"
+    },
+    "vault_gifted_policy_docs_6fa7ea945c6c": {
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/hong-kong-development/introduction.html",
+      "was": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/ge_resource_bank/files/Policy/policy/policy_chin_March08.pdf",
+      "basis": "lum-development/curriculum-area/gifted/index.html 電話 ：3698 3472 傳真號碼：2490 6858 (",
+      "confidence": "HIGH"
+    },
+    "vault_gifted_policy_docs_7a337e4cd37d": {
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/hong-kong-development/introduction.html",
+      "was": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/ge_resource_bank/files/Policy/policy/policy_chin_March08.pdf",
+      "basis": "； 集合不同人士或機構所提供的資源支援學校。 香港資優教育推行模式 第一層次： A ：在正規課程內加入高層次思維技巧、創造力和個人及社交能力等三大資優教育元素。",
+      "confidence": "HIGH"
+    },
+    "vault_gifted_policy_docs_95f72555a3f2": {
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/hong-kong-development/detail.html",
+      "was": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/ge_resource_bank/files/Policy/policy/policy_chin_March08.pdf",
+      "basis": "程試驗計劃」。教育署由九四年七月起多次為參加該計劃的教師舉辦各種類型的教師培訓及工作坊，並安排教育心理學家定時到訪學校，提供諮詢服務。 專業小組和資源中心的成立",
+      "confidence": "HIGH"
+    },
+    "vault_gifted_policy_docs_c5c478010199": {
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/hong-kong-development/detail.html",
+      "was": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/ge_resource_bank/files/Policy/policy/policy_chin_March08.pdf",
+      "basis": "卓越學生而設計的校本課程在各校推行的情況和實施的成效，為香港資優教育作出建議。檢討報告書於一九九八年八月完成。現有十七間學校繼續發展其校本資優課程和活動。 頁首",
+      "confidence": "MEDIUM"
+    },
+    "vault_gifted_policy_docs_d7d7a4990640": {
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/hong-kong-development/introduction.html",
+      "was": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/ge_resource_bank/files/Policy/policy/policy_chin_March08.pdf",
+      "basis": "Howard Gardner）提出八項認知能力，它們分別是： 語言智能、邏輯數學智能、空間智能、音樂 智能、身體動覺智能、自省智能、人際關係智能、自然辨識智能。",
+      "confidence": "HIGH"
+    },
+    "vault_gifted_policy_docs_ef77cdabdb34": {
+      "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/hong-kong-development/detail.html",
+      "was": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/ge_resource_bank/files/Policy/policy/policy_chin_March08.pdf",
+      "basis": "=== detail === 跳至主要內容 主要內容 [資料庫] 香港資優教育發展 教育統籌委員會第四號報告書 一九九零年教育統籌委員會發佈「第四號報告」，探討",
+      "confidence": "HIGH"
+    }
+  }
+}
