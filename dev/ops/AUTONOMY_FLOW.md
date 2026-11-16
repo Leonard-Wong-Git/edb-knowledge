@@ -113,6 +113,7 @@ Playbook 是可逐步照做的程序，放在 `dev/ops/playbooks/`。步驟次�
 | `footnote-audit.md` | 每月；或 `PAGE_ANCHORED` 高於基準 | 中階 | 審核唯讀；更正要批准 |
 | `qc-regression-triage.md` | `qc-regression` Issue 開出 | 最平（定位）＋最強（定案） | 視乎成因 |
 
+> **提升搜尋準確度的計劃**：`dev/ops/NEXT_UPGRADE.md`（有較強模型或 Leonard 明示時才做）。
 > **待辦事項與逐項做法**：`dev/ops/WORK_QUEUE.md`（S251 起，所有待辦的唯一清單；下面三件事已寫成其中的 A1–A3、A11）。
 
 ## 6. 下一步可以交給機器的三件事（按得益排序）
