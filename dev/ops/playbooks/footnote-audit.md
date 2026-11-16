@@ -32,5 +32,6 @@
 - 抽查：每條擬寫入的頁碼，用比對到的原句再對 PDF 核實一次——原句要在建議的頁、而且不在現時所指的頁。
 - 「內容不符」逐條自己讀原文再下結論；sub-agent 對中文語意的判斷屬推斷，不是機械核實。
 - 頁碼／網址：加入 `dev/source/url_overrides.json`，跑 `dev/apply_url_overrides.py`（先 dry-run）。
-- 內容更正：見 `source-reingest.md` 的「註腳」一節。
+- 內容更正：見 `source-reingest.md` 的「註腳」一節（清單 `dev/source/footnote_corrections.json`＋工具 `dev/apply_footnote_corrections.py`）。
+- **沒有最強模型時**：「內容不符」不要自行改寫。只做兩件事——把註腳原句與原文原句並列交給 Leonard；Leonard 選定寫法後才登記。數字、金額、年度、頁碼這類可逐字對照的更正，可以直接備妥預演。
 - 改了之後，`dev/source/qc_report.py` 的 `no_page_anchor` 基準要相應調低（基準只可向下調）。

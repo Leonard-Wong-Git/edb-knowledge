@@ -30,10 +30,14 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    （dev/source/url_overrides.json＋dev/apply_url_overrides.py；⚠️ 註腳入庫腳本以 --execute 重跑後必須再套用）；
    後端 overlay 快取每 30 分鐘背景重讀。
 
+🟢 S251 做完（2026-11-16，不用重做；工作分支 s251-footnote-corrections 的 PR 待 Leonard 指示合併）：
+   · S250 審核的 10 條註腳已按原文更正並寫入（Leonard 批准、已備份、線上已驗證）。
+   · 新工具 dev/apply_footnote_corrections.py＋清單 dev/source/footnote_corrections.json（預演／--check／--execute）。
+   · 🔴 之後不能假設有最強模型（Fable 5.2 用量將盡）。做事規則：dev/ops/AUTONOMY_FLOW.md §4a。
+
 🚀 下一步：
-   ① 9 條「內容不符」註腳：主 session 先逐條讀原文覆核，確認有錯的才列給 Leonard 批准更正
-      （定點更新，見 dev/ops/playbooks/source-reingest.md「註腳」；不要用入庫腳本 --execute）。
-   ② 另兩條：procurement_thresholds 所引網頁只是索引（內容在 Tips 文件第 2 頁）；ceg_no_tutorial 出處待選。
+   ① 把註腳審核排成每月自動跑，並把 apply_footnote_corrections.py --check 接入每日 qc_report。
+   ② ceg_no_tutorial 出處待 Leonard 選；審核中 13 條「找不到」未處理。
    ③ 待 Leonard 決定：FEATURE_SUBJECT_CHECK；10 個 ROUTE_EXEMPT 舊版／重複來源是否退役；統計來源開放搜尋還是停止維護；
       題庫 cur_arts_guide_2002_missing 的禁引前提已過時；文件標註；公開端點；搜尋紀錄拒答原因（DDL）；Kit 0.4.6；#70。
    ④ 減少人手介入：Freshness 自動確認「文字相同」；註腳審核每月自動跑；SOURCE_SETS 改動 CI 自動量度；為 subject_guides 補題。
@@ -52,6 +56,6 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
 
 Post-startup first action: 按 dev/ops/playbooks/health-probe.md 做起手探針（可交最平的模型，唯讀）：
 版本應為 3.3.16；/health commit 應為 4f0b57f 或之後改 backend 的 commit；片段數 17,084；
-登記漂移 ZOMBIE／SERIES_UNMONITORED／UNMANAGED／UNROUTED 應為 0；apply_url_overrides.py（dry-run）應報 to_change=0；
-dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告，並按 ① 開始覆核。
+登記漂移 ZOMBIE／SERIES_UNMONITORED／UNMANAGED／UNROUTED 應為 0；apply_url_overrides.py（dry-run）與 apply_footnote_corrections.py --check 皆應報 to_change=0；
+dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告；origin/main 以實測為準（S250 收工 PR #101 已合併為 8115c3e）。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次、不得合併 PR。

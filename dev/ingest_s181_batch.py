@@ -859,25 +859,25 @@ F = [
 
     dict(fid="tas_afi_2024_25_rates",
          source_id="wfsfaa_primarysec_amount_2526",
-         title="WFSFAA Amount of Financial Assistance 2025/26",
+         title="WFSFAA Amount of Financial Assistance 2026/27",
          topic="general", url=WFSFAA_AMOUNT_URL,
-         text="2025/26 書簿津貼金額係幾多？《WFSFAA Amount of Financial Assistance 2025/26》（註）："
-              "School Textbook Assistance (TA) 2025/26 — Full Grant rates: Primary 1-6: $6,206; S1-S3: $6,338; S4: $6,328; S5: $5,744; S6: $3,634. Half Grant rates: Primary 1-6: $3,103; S1-S3: $3,169; S4: $3,164; S5: $2,872; S6: $1,817.",
-         keywords=["TA", "School Textbook Assistance", "書簿津貼", "2025/26",
+         text="2026/27 書簿津貼金額係幾多？《WFSFAA Amount of Financial Assistance 2026/27》（註）："
+              "School Textbook Assistance (TA) 2026/27 — Full Grant rates: Primary 1-6: $6,398; S1-S3: $6,494; S4: $6,496; S5: $5,892; S6: $3,708. Half Grant rates: Primary 1-6: $3,199; S1-S3: $3,247; S4: $3,248; S5: $2,946; S6: $1,854.",
+         keywords=["TA", "School Textbook Assistance", "書簿津貼", "2026/27",
                    "Full Grant", "Half Grant", "全額", "半額",
-                   "6,206", "6,338", "6,328", "5,744", "3,634",
-                   "3,103", "3,169", "P1-6", "S1-S3"],
+                   "6,398", "6,494", "6,496", "5,892", "3,708",
+                   "3,199", "3,247", "P1-6", "S1-S3"],
          q="2025/26 書簿津貼 金額 中一"),
 
     dict(fid="sia_grant_household_2025_26",
          source_id="wfsfaa_primarysec_amount_2526",
-         title="WFSFAA Amount of Financial Assistance 2025/26",
+         title="WFSFAA Amount of Financial Assistance 2026/27",
          topic="general", url=WFSFAA_AMOUNT_URL,
-         text="2025/26 上網費資助每戶金額？《WFSFAA Amount of Financial Assistance 2025/26》（註）："
-              "Full rate of subsidy for SIA in the 2025/26 school year is $1,700 per household while the half rate is $850 per household.",
+         text="2026/27 上網費資助每戶金額？《WFSFAA Amount of Financial Assistance 2026/27》（註）："
+              "Full rate of subsidy for SIA in the 2026/27 school year is $1,700 per household while the half rate is $850 per household.",
          keywords=["SIA", "上網費資助", "Internet Access Subsidy",
                    "1,700", "850", "per household", "每戶",
-                   "Full rate", "Half rate", "2025/26"],
+                   "Full rate", "Half rate", "2026/27"],
          q="上網費資助 幾錢 一年"),
 
     dict(fid="edbc10_2012_smc_imc_transparency",
@@ -1093,14 +1093,14 @@ F = [
 
     dict(fid="net_apply_timeframes",
          source_id="edb_pnet_annex_jul2025",
-         title="PNET Annex 23 Jul 2025 — Application time-frames",
+         title="PNET Annex 2 Jul 2026 (2026/27 s.y.) — Application time-frames",
          topic="general", url=PNET_ANNEX_URL,
-         text="PNET 津貼／酬金 申請時間？《PNET Annex 23 Jul 2025》（註）："
-              "Application for Special Allowance — August – September after commencement / prior to expiry of the Contract.  Application for Passage/Baggage Allowance — July – September of the respective school year (upon commencement of a contract / satisfactory completion of a contract).  Application for Medical Allowance — Before the end of the respective school year; Only one application should be submitted each school year.  Application for Retention Incentive (RI) — June – September of the respective school year.  Late application will not be considered.",
+         text="PNET 津貼／酬金 申請時間？《PNET Annex（2026/27 school year）》（註）："
+              "Application for Special Allowance — August – September after commencement / prior to expiry of the Contract.  Application for Passage/Baggage Allowance — July – September of the respective school year (upon commencement of a contract / satisfactory completion of a contract).  Application for Medical Allowance — Before the end of the respective school year; Only one application should be submitted each school year.  Application for Retention Incentive (RI) — June – September of the respective school year.  Late applications will not normally be considered.",
          keywords=["PNET", "Special Allowance", "Passage", "Baggage",
                    "Medical Allowance", "Retention Incentive", "RI",
                    "August", "September", "July", "June",
-                   "申請時間", "late application", "23 Jul 2025"],
+                   "申請時間", "late application", "2026/27"],
          q="PNET 津貼 申請時間"),
 
     dict(fid="net_imc_smc_oversight",

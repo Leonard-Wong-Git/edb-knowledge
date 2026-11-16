@@ -34,7 +34,17 @@
 
 ## 註腳（footnote_curated）
 
-**不要**用註腳入庫腳本的 `--execute` 更正單條註腳：它會重寫該腳本內所有註腳並蓋掉頁碼。做法：改腳本內的原文，然後定點更新該列的 `text`／`hash`／`embedding`（範例 `dev/_s249_fix_two_footnotes.py`）。任何註腳腳本以 `--execute` 跑過之後，必須再跑 `dev/apply_url_overrides.py --execute`。
+**不要**用註腳入庫腳本的 `--execute` 更正單條註腳：它會重寫該腳本內所有註腳並蓋掉頁碼。照以下做（S251 起；全程不需要寫新腳本）：
+
+1. **讀原文**：下載註腳 `url` 所指的文件，找到該頁，把原句抄下來。原文沒有的說法不要寫。
+2. **登記更正**：在 `dev/source/footnote_corrections.json` 的 `corrections` 加一項（`text` 全文、`keywords`、`basis` 原句與頁碼、`approved` 留空待填），並把 `_meta.count` 加一。同時把所屬入庫腳本內的舊文字改成一樣（`grep -rn "<註腳 id 去掉 footnote_fn_>" dev/*.py dev/footnote_staging.json` 找得到）。
+3. **預演**：`/usr/local/bin/python3 dev/apply_footnote_corrections.py`（不加參數不會寫入），把新舊對照交給 Leonard。
+4. **Leonard 明示批准後**：在 `approved` 填上日期，再跑 `--execute`。工具會先備份到 `dev/init_backup/<時間>/`，逐條寫入並讀回；任何一條顯示 `FAIL` 就停，報告。
+5. **連結或頁碼要改**：加入 `dev/source/url_overrides.json`，跑 `dev/apply_url_overrides.py`（先預演，批准後 `--execute`）。
+6. **核對**：`dev/apply_footnote_corrections.py --check` 與 `dev/apply_url_overrides.py` 都應報 `to_change=0`。
+7. **線上驗證**：後端每 30 分鐘重讀註腳。寫入後等 30 分鐘，帶 `x-probe: 1`、`synthesize:false` 查一條會用到該註腳的問題，回傳的第一個結果應是新文字（S251 實測：內容已更新，但 `/health` 的 `footnote_loaded_at` 沒有跟著變，不要用它判斷）。
+
+任何註腳入庫腳本以 `--execute` 跑過之後，**兩個工具都要再跑一次 `--execute`**（皆冪等），否則舊文字與舊頁碼會被寫回。
 
 ## 回退
 
