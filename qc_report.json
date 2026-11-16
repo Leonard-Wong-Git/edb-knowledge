@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-16T08:50:08Z",
+  "generatedAt": "2026-11-16T21:28:03Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17084,
-    "PASS": 14,
+    "PASS": 15,
     "BLOCKER": 0,
     "ERROR": 2,
     "WARN": 5,
@@ -60,18 +60,8 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-16T08:50:08Z",
-    "items": [
-      {
-        "kind": "freshness-change",
-        "level": "decision",
-        "headline": "EDB 文件內容有更新",
-        "hint": "有來源文件出現變動，待你決定是否更新知識庫。",
-        "since": "2026-11-02T19:21:18Z",
-        "url": "https://github.com/Leonard-Wong-Git/edb-knowledge/issues/77",
-        "number": 77
-      }
-    ],
+    "collectedAt": "2026-11-16T21:28:03Z",
+    "items": [],
     "ignored_outside": 0
   },
   "regressions": [],
@@ -205,7 +195,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=8b118fd · 啟動於 2026-11-16T08:34:23.281Z",
+      "detail": "ok=True · commit=4f0b57f · 啟動於 2026-11-16T21:11:19.528Z",
       "offenders": [],
       "offender_total": 0
     },
@@ -389,7 +379,7 @@
       "severity": "ERROR",
       "status": "FAIL",
       "group": "measurable",
-      "detail": "S213 Phase 1 gold-set run · PASS=123 FAIL=39 RECORD_ONLY=19 errors=4 · 共 185 條 query · 量度自 2026-09-28_s233_prod_gold.json · 生產端點；⚠️ 另有更新的非生產 run（2026-10-13_s239fusion_before.json）未被採用",
+      "detail": "S213 Phase 1 gold-set run · PASS=130 FAIL=36 RECORD_ONLY=19 errors=0 · 共 185 條 query · 量度自 2026-11-16_s250_gold_before_prod.json · 生產端點；⚠️ 另有更新的非生產 run（2026-11-16_s250_gold_subset20_after_local.json）未被採用",
       "offenders": [],
       "offender_total": 0
     },
@@ -399,7 +389,7 @@
       "severity": "ERROR",
       "status": "FAIL",
       "group": "measurable",
-      "detail": "chunk PASS=57 FAIL=105 · 斷言用文字簽名而非 chunk id（id 是 text 的 md5，每次重切都會變）",
+      "detail": "chunk PASS=61 FAIL=105 · 斷言用文字簽名而非 chunk id（id 是 text 的 md5，每次重切都會變）",
       "offenders": [],
       "offender_total": 0
     },
@@ -440,6 +430,16 @@
       "status": "PASS",
       "group": "pointing",
       "detail": "0 個來源 / 0 條片段 · 新鮮度、到期、封面標題三個監察全部以 registry 為鍵，所以這些來源不受任何監察",
+      "offenders": [],
+      "offender_total": 0
+    },
+    {
+      "id": "REGISTRY_UNROUTED",
+      "label": "已入庫，但不在後端任何路由清單（SOURCE_SETS）內，問題一觸發路由就搜不到",
+      "severity": "ERROR",
+      "status": "PASS",
+      "group": "pointing",
+      "detail": "0 個來源 / 0 條片段 · 把來源加入 searchChannelB.ts 對應的 SOURCE_SETS（檢索改動，要量 before／after），或在 check_registry_drift.ROUTE_EXEMPT 註明為何不加",
       "offenders": [],
       "offender_total": 0
     },
