@@ -39,6 +39,89 @@ When current work requires a log entry, record whether relevant older detail was
 
 <!-- ack:log-entry:start -->
 
+## 2026-11-16 Session 251 — 10 條註腳按原文更正、註腳更正工具、無最強模型時的運作規則、工作清單
+
+- **ID:** S251（Claude_20261116_S251）
+- **Summary:** 覆核 S250 審核找出的 10 條註腳，全部確有問題，經 Leonard 批准後按原文更正並寫入生產。Leonard 中途告知 Fable 5.2 用量將盡、之後不會有，要求準備好系統自主運作；遂把更正做成可重複使用的工具，新增「沒有最強模型時」的運作規則，並把所有待辦一次過寫成工作清單供之後的模型照做。
+- **Changed:** PR #102（`f00258c`）：`dev/apply_footnote_corrections.py`、`dev/source/footnote_corrections.json`、`dev/source/url_overrides.json`、五個註腳入庫腳本／staging 的文字、`dev/ops/AUTONOMY_FLOW.md` §4a、三份 playbook、`DOC_SYNC_CHECKLIST.md`、`PROJECT_INDEX.md`、`update_log.json`、交接檔。收工 PR（`s251-work-queue`）：`dev/ops/WORK_QUEUE.md`、交接檔、本檔、`PROJECT_INDEX.md`、`AUTONOMY_FLOW.md`、開場鏡像。
+- **Done:**
+  - **覆核**：逐份下載原文逐條讀；與審核報告兩處出入（`trg_freeze_ceiling` 的三部與上限在附件 III 確實存在；`procurement_thresholds` 的批核人員與招標寫法亦錯）。
+  - **寫入**：10 條 `text`／`hash`／`embedding`、2 條 `url`；皆先備份、逐條讀回；`--check` 與 dry-run `to_change=0`。
+  - **線上驗證**：8 條查詢回傳新文字或新連結（寫入前同查詢回傳舊文字）。
+  - **工具與規則**：更正清單為權威、工具冪等；`AUTONOMY_FLOW.md` §4a 規定語意改寫、檢索改動、刪除範圍交 Leonard。
+  - **工作清單**：A 可直接做 11 張卡、B 待 Leonard 決定 12 項（附建議）、C 等觸發、D 不要做。
+- **Pending:** `dev/ops/WORK_QUEUE.md` 全部（卡內工作未實作）；收工 PR 待 Leonard 指示合併。
+- **Next:** ① WORK_QUEUE A1（兩個漂移檢查接入每日質素檢查）② A2（註腳出處每月機械核對）③ B 部請 Leonard 逐項決定。
+- **Risks:** 之後由較弱模型執行，判斷類工作容易出錯——以工作卡的驗收與停止條件約束；`/health` 的 `footnote_loaded_at` 不隨背景重讀更新（未查成因）；工作卡 A3、A5 所指的既有做法未經逐行核實。
+- **Lesson（monitoring）**：內容更正若只靠一次性腳本，入庫腳本重跑就會被蓋回；更正應以清單為權威並有漂移檢查。
+
+### Next Session Handoff Prompt (Verbatim)
+
+```text
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft. Read AGENTS.md, then dev/SESSION_HANDOFF.md. Trust the handoff over this generated mirror.
+
+If the root does not match the handoff, stop and ask for confirmation. Do not read dev/SESSION_LOG.md during ordinary startup. Read dev/PROJECT_INDEX.md, dev/RULE_PACKS.md, dev/DOC_SYNC_REGISTRY.md, dev/CODEBASE_CONTEXT.md, dev/PROJECT_MASTER_SPEC.md, and task packs only when the current task requires them.
+所有路徑含空格，終端機指令必須用雙引號包住。
+
+一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
+報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
+
+--- 專案狀態（S251 收工, 2026-11-16）---
+
+平台 v3.3.16；Supabase 17,084 chunks（316 來源；footnote_curated 177）；EDB 指引書庫 182 份；guidelines.json 公開端點 151 份（_meta 2.6.2）。
+Agent Handoff Kit v0.4.3（npm 已有 0.4.6，未升級；doctor 報 project shortcuts 一項未通過）。
+origin/main = f00258c（PR #102 已合併）；線上 /health commit = 4f0b57f（其後無後端改動；開工以 /health 核實）。
+開著的 PR：S251 收工分支 s251-work-queue（合併待 Leonard 指示）、#70（內容已入 main，關閉前先問 Leonard）。
+Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
+FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 未設＝關閉。
+public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
+檢索基線（S250 生產 185 題）：來源層 PASS 130／FAIL 36，片段層 61／105。
+
+📘 怎樣做事：dev/ops/AUTONOMY_FLOW.md（偵測→分流→執行→驗證→記錄、自動化級別、模型分工）＋ dev/ops/playbooks/ 六份程序。
+   系統地圖：dev/SYSTEM_OVERVIEW.md。便宜模型做體力勞動（一律唯讀），結果由主 session 抽查後才採用。
+
+🟢 S250 做完（不用重做）：
+   · 新路由 subject_guides：37 份高中／學習領域科目指引此前不在任何路由清單、搜不到；另 11 個小來源入現有清單。
+     線上前後 185 題逐題相同；新來源查詢 10/10 命中。
+   · 常設檢查 UNROUTED（check_registry_drift／qc_report REGISTRY_UNROUTED 基準 0，高於即通知）。
+   · 註腳全量審核：177 條中 28 條頁碼錯（已核實並經批准寫入，url 覆寫共 78 條）、9 條內容不符（未覆核、未寫入）。
+     結果：dev/source/eval_runs/2026-11-16_s250_footnote_audit.json／.md。
+🟢 S249 做完（不用重做）：Freshness 監察加出口並清零（--ack）；八個來源重新入庫；50 條 url 覆寫
+   （dev/source/url_overrides.json＋dev/apply_url_overrides.py；⚠️ 註腳入庫腳本以 --execute 重跑後必須再套用）；
+   後端 overlay 快取每 30 分鐘背景重讀。
+
+🟢 S251 做完（2026-11-16，不用重做；PR #102 已合併）：
+   · S250 審核的 10 條註腳已按原文更正並寫入（Leonard 批准、已備份、線上已驗證）。
+   · 新工具 dev/apply_footnote_corrections.py＋清單 dev/source/footnote_corrections.json（預演／--check／--execute）。
+   · 🔴 之後不能假設有最強模型（Fable 5.2 用量將盡）。做事規則：dev/ops/AUTONOMY_FLOW.md §4a。
+
+🚀 下一步：照 dev/ops/WORK_QUEUE.md 做（所有待辦的唯一清單，Fable 5.2 於 S251 一次過寫好）。
+   · 一節只做一張卡；Leonard 有指定就做指定的，否則由 A1 起由上而下揀第一張「可做」的卡。
+   · A 部（可直接做）：A1 註腳更正與連結覆寫接入每日質素檢查 → A2 註腳出處每月機械核對 → A3 來源文字相同時自動確認
+     → A4 補回 backend/README 旗標說明 → A5 科目指引補題 → A6 13 條找不到出處的註腳 → A7 /health 註腳載入時間
+     → A8 瀏覽清單差異 → A9 定期系統更新檢查（約 11-28 到期）→ A10 清理本機分支。
+   · B 部（待 Leonard 決定，每項附建議）：一次最多問三項，用白話。
+   · D 部（不要做）：已量度並否決的方向，重做只會浪費用量。
+   · 每張卡都有驗收與停止條件；停止條件觸發就停、記在卡內，不要即興補救。
+
+⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
+   · 定標必須讀每一段全文；用 stub 判官量的是「失去捷徑」不是「失去答案」；答案層結論必須用真判官量。
+   · 檢索層得益不等於答案層得益（S228、S239 兩次）；改檢索或模型都要量答案層。
+   · 新規則要先凍結，再用未見過的題目驗證；比對 gold signature 一律用 squeeze(fold(s))。
+   · searchChannelB 會吞掉合成失敗成空答案；量模型時要另記呼叫錯誤（_s239_modelAB.ts 已做）。
+   · 推理模型的推理 token 按輸出計費；換模型時同時量開支與延遲。
+   · 生產量度一律帶 x-probe；生產限速每 IP 每分鐘 10 次，批量至少間隔 7 秒；Render 剛喚醒時首查詢會 57014，先暖機。
+   · 本機用 service key（8 秒）量 anon（3 秒）系統，延遲與逾時會低估。
+   · 升版只手改 PLATFORM_VERSION＋README＋CHANGELOG；任何來源換版／改網址／退役後 check_downstream_sync 的 MUST_UPDATE 必須為 0。
+   · 抽取與入庫一律用 /usr/local/bin/python3。
+
+Post-startup first action: 按 dev/ops/playbooks/health-probe.md 做起手探針（可交最平的模型，唯讀）：
+版本應為 3.3.16；/health commit 應為 4f0b57f 或之後改 backend 的 commit；片段數 17,084；
+登記漂移 ZOMBIE／SERIES_UNMONITORED／UNMANAGED／UNROUTED 應為 0；apply_url_overrides.py（dry-run）與 apply_footnote_corrections.py --check 皆應報 to_change=0；
+dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告，然後按 dev/ops/WORK_QUEUE.md 揀工作。
+未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次、不得合併 PR。
+```
+
 ## 2026-11-16 Session 250 — 科目指引新路由、未入路由清單檢查、自動運作流程與 playbook、註腳全量審核
 
 - **ID:** S250（Claude_20261116_S250）
@@ -265,48 +348,3 @@ When current work requires a log entry, record whether relevant older detail was
 ---
 
 <!-- ack:log-entry:start -->
-
-## 2026-10-13 Session 238 — 監察通知修正（新項目才 @Leonard）、三份新版入庫、16 個失效連結修復
-
-- **ID:** S238
-- **Summary:** Leonard 問監察有否偵測到來源更新；查出 freshness 已標 29 項、失效連結 15 條，但四個月無人收到通知。修好通知（新項目才以留言 @Leonard），並按 Leonard 逐項批准更新來源、修復連結（Supabase 17,021 → 16,990）。
-- **Changed:** PR #48（`s238/monitor-notify`）：`.github/scripts/notify_new_items.js`＋`.test.js`、五個監察 workflow、`dev/source/FRESHNESS_GUIDE.md`、`dev/vault/repage_pdfs.py`（`REFRESH_S238`）、七份 vault 抽取檔、`source_registry.json`、`registry_drift.md`、清單資料（`checklists_bundle.json`、`dev/checklists/**`）、五個入庫腳本的網址常數、公開片段數七個鏡像檔 · 合併 `origin/s237/closeout`（S236／S237 收工）· 收工：交接、本 log、`PROJECT_INDEX.md`、`DOC_SYNC_REGISTRY.md`、`START_NEXT_SESSION_PROMPT.txt`。
-- **Done:**
-  - **通知根因**：未 Watch repo（subscription 404）＋監察只 `issues.update`；freshness／新通告／discovery／pgvector 從不 @mention。改為共用 helper：內文保留全清單、隱藏 marker 記已通知 key、新項目以中文 @mention 留言。Leonard 選「GitHub 電郵到 Gmail」「只在有新項目時通知」，並已在帳戶設定勾選 @mention 電郵（第一次截圖是 repo 的 push 電郵頁，已說明不要勾 Active）。Issue #3（退役監察）已關。
-  - **四份 PDF 比對**（代理）：g19 新版、supply 新版、perf 小修訂、sag 純重新匯出；本人以全文 squeeze 抽查關鍵句全部吻合。
-  - **入庫 B**：`repage_pdfs --write`（初次被分類器擋，經 Leonard 多選明示批准後執行）→ dry-run → 匯出 166 段備份 → `cb3_b2 --include-non-page --skip-local --execute`：116→115、36→35、14→14（supply 5 段註腳保留）。
-  - **連結 C1**：9 個來源 Supabase `url` 更新（首輪精確比對漏了帶 `#page=` 的 6 段，改前綴比對補齊，0 殘留）；DSS 註腳改標 2026/27 並重新嵌入；registry、清單、腳本同步。
-  - **連結 C2**：g26、k1（只載 2027/28 FAQ；通函已是 `edbcm080_2026`；3 段註腳逐字核對後改指新通函並重新嵌入）、資優 41→37、自評 10→10；第 279 章 11 段改指 e-Legislation；退役 EDBC_8_2020_E（8）、edbcm099_2026（3，registry `deprecated`）；display-sync 17,021 → 16,990。
-  - **收工基底**：`main` 交接檔停在 S235（#45、#47 未合併），先合併 `origin/s237/closeout`，交接 sha 與 S237 收工版相同後才寫 S238。
-- **QC:** helper 自測 6/6、紅測轉紅；五個 workflow 內嵌 JS `node --check` 全過；封面核對 11/11 ok；受影響 30 條網址 200；drift ZOMBIE／UNMANAGED／SERIES_UNMONITORED 0；生產總數逐步吻合；線上搜尋（x-probe）見新內容。**未做**：通知修正未在 GitHub 實跑（待 10-19 排程）。
-- **Evidence disposition:** 現況與下一步入交接；代理比對報告與下載 PDF 只在 scratchpad（一次性）；Supabase 舊資料備份在本機 `dev/init_backup/20261013_105744_UTC/`（gitignored，不入 git）。
-- **Sync:** `dev/DOC_SYNC_REGISTRY.md` S238 節。
-- **Pending:** ① 退役 `EDBC_9_2019_E`（Leonard 已批准，分類器擋下刪除及唯讀備份，未重試）② 10-19 通知到達 ③ 非華語學生津貼路由與清單舊字眼（待有 token）④ `FEATURE_SUBJECT_CHECK` 決定；⑬ freshness 其餘約 20 項。
-- **Risks:** 通知修正未經真實排程（交接 Risks 10）；freshness 基線不可整體 write-sync。
-- **Log maintenance:** `session_log_maintenance.py --check` 報 `line_count=295`、`entry_count=10`、`trigger=False`；寫入後 Kit 條目 12 個，達 Kit 核心規模提示門檻，本節無實際保存需要，不做歸檔（承 S230 兩套標準待整合）。
-- **收工後續做（同日，第二次收工）:** Leonard「無更新 日誌」→ `update_log.json` 補記；「指引文件等有無都更新至最新／日誌保留最新 5–6 項」→ 指引文件庫 170 條全測、修 `g26`／`g28`／`g19`，日誌只留 6 條並在 `execute_ingest` 設 `UPDATE_LOG_KEEP=6`；「應該要有行政手冊／用 /jev-decide 寫規則」→ `sag_2025_11` 由「財務採購」移「行政」，新增 `check_downstream_sync.py`＋Jev 問題集（首跑 507 假陽性 → 改新舊版對照 → 11 真改動、50 頁碼移位；Jev 判 8 必須、4 交人手），清單來源表源頭修正並重產 bundle；示範問答「§3.1.2 約70至80天」查無出處，Leonard 揀改寫 → 附錄9／附錄1 原文（#50，Leonard 閱後確認正常）。PR #49（`513208b`）、#50（`a67bd29`）由 Leonard 指示合併。QC：`check_downstream_sync --self-test` 15/15、`execute_ingest --self-test` 28/28、瀏覽器實測指引文件庫與介紹頁、CI build-gate 皆過。Pending 加：清單條文 8 條＋頁碼 49 處（下一節）。
-<!-- ack:log-entry:end -->
-
----
-
-<!-- ack:log-entry:start -->
-
-## 2026-10-11 Session 237 — OpenAI 舊模型停用通知：生產不受影響，碼內預設對齊 gpt-4o-mini
-
-- **ID:** S237（Claude_20261011_1327）
-- **Summary:** 由頂層 root 起手（Leonard 指出應直接轉 Draft），處理 OpenAI 2026-10-23 停用 `gpt-4.1-nano` 等舊模型的電郵；核實生產不受影響後，按 Leonard「修以上 1 2」對齊碼內預設與離線腳本，PR #46 合併並部署。
-- **Changed:** PR #46（`a344504`）：`backend/src/config/env.ts`（`DEFAULT_OPENAI_MODEL` → `gpt-4o-mini`）、`backend/src/api/searchChannelB.ts`（頂部註解）、`backend/.env.example`、`README.md`、`backend/README.md`、`backend/DEPLOY_CHANNEL_B.md`、`dev/CODEBASE_CONTEXT.md`、`dev/PROJECT_MASTER_SPEC.md`、`dev/vault/{ai_extract,extract_candidates,wiki_search}.py`、`dev/test_synthesis_guard.py`、`dev/source/judge_acceptance.py`（註解）、`dev/source/JUDGE_PROMPT_FINDINGS.md`（現況註）· 收工：交接、本 log、`PROJECT_INDEX.md`、`DOC_SYNC_REGISTRY.md`、`CODEBASE_CONTEXT.md` AI Maintenance Log、`START_NEXT_SESSION_PROMPT.txt`。
-- **Done:**
-  - **影響核對**：官方停用頁（`developers.openai.com/api/docs/deprecations`，2026-10-11 讀；電郵內追蹤連結未點擊）列 `gpt-4.1-nano` 2026-10-23 停用、替代 `gpt-5.6-luna`；`gpt-4o-mini`、`gpt-4.1-mini`、`gpt-4o` 別名、`text-embedding-3-small` 不在名單。全庫 grep 找出生產合成經 `OPENAI_MODEL`（碼內預設 `gpt-4.1-nano`），合成失敗會被吞掉返回空字串。Leonard 截圖核實 Render `OPENAI_MODEL=gpt-4o-mini`、無 `JUDGE_MODEL` → 生產不受影響。
-  - **PR #46**：碼內預設、文件與四個離線腳本改 `gpt-4o-mini`；歷史記錄（CHANGELOG、`_s214_*` 報告、`AUDIT.md`、`PROJECT_MILESTONES_REVIEW.md`、S199 段落）保留原文。Leonard「合併」後 AI 以 `gh pr merge 46 --squash` 合併。
-  - **收工分支**：S236 收工 PR #45 一直未合併；本節收工分支 `s237/closeout` 由 `origin/s236/closeout` 開出再合併 `origin/main`，#45 可關閉（待 Leonard 同意）。
-- **QC:** `npm run check`（src＋scripts）、`npm run build` 通過 · 五個 Python 檔 `py_compile` 通過 · CI `build-gate` pass · 合併後 `/health` 約 60 秒轉 `a344504`、`cache_a` 455、`cache_b` 181／306 · 線上 `channel-b`（`x-probe`）8 條結果、合成 314 字內容正確 · 四個離線腳本未實跑。
-- **Evidence disposition:** 現況（Render 環境變數快照、`a344504`）入交接；停用名單與替代模型只作本節核對，不另立文件（生產不用 nano）；臨時編輯腳本只在 scratchpad。
-- **Sync:** `dev/DOC_SYNC_REGISTRY.md` S237 節。
-- **Pending:** 不變，見交接 `## Open Priorities`（首位仍為 Leonard 決定開 `FEATURE_SUBJECT_CHECK`）；關閉 #45。
-- **Risks:** 無新增。
-- **Log maintenance:** `session_log_maintenance.py --check` 報 `line_count=273`、`entry_count=9`、`trigger=False`；寫入後 Kit 條目 11 個，達 Kit 核心規模提示門檻，本節無實際保存或延續需要，不做歸檔（承 S230 兩套觸發標準待整合）。
-- **Opening-message mirror:** 由交接檔唯一 fenced 區塊重生並核對；全文依設計不入 log。
-<!-- ack:log-entry:end -->
-
----

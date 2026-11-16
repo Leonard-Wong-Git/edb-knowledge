@@ -6,12 +6,12 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S250 收工, 2026-11-16）---
+--- 專案狀態（S251 收工, 2026-11-16）---
 
 平台 v3.3.16；Supabase 17,084 chunks（316 來源；footnote_curated 177）；EDB 指引書庫 182 份；guidelines.json 公開端點 151 份（_meta 2.6.2）。
 Agent Handoff Kit v0.4.3（npm 已有 0.4.6，未升級；doctor 報 project shortcuts 一項未通過）。
-origin/main = 4f0b57f（PR #100 已合併）；線上 /health commit = 4f0b57f（2026-11-16 實測；開工以 /health 核實）。
-開著的 PR：S250 收工分支 s250-closeout（合併待 Leonard 指示）、#70（內容已入 main，關閉前先問 Leonard）。
+origin/main = f00258c（PR #102 已合併）；線上 /health commit = 4f0b57f（其後無後端改動；開工以 /health 核實）。
+開著的 PR：S251 收工分支 s251-work-queue（合併待 Leonard 指示）、#70（內容已入 main，關閉前先問 Leonard）。
 Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
 FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 未設＝關閉。
 public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
@@ -30,18 +30,19 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    （dev/source/url_overrides.json＋dev/apply_url_overrides.py；⚠️ 註腳入庫腳本以 --execute 重跑後必須再套用）；
    後端 overlay 快取每 30 分鐘背景重讀。
 
-🟢 S251 做完（2026-11-16，不用重做；工作分支 s251-footnote-corrections 的 PR 待 Leonard 指示合併）：
+🟢 S251 做完（2026-11-16，不用重做；PR #102 已合併）：
    · S250 審核的 10 條註腳已按原文更正並寫入（Leonard 批准、已備份、線上已驗證）。
    · 新工具 dev/apply_footnote_corrections.py＋清單 dev/source/footnote_corrections.json（預演／--check／--execute）。
    · 🔴 之後不能假設有最強模型（Fable 5.2 用量將盡）。做事規則：dev/ops/AUTONOMY_FLOW.md §4a。
 
-🚀 下一步：
-   ① 把註腳審核排成每月自動跑，並把 apply_footnote_corrections.py --check 接入每日 qc_report。
-   ② ceg_no_tutorial 出處待 Leonard 選；審核中 13 條「找不到」未處理。
-   ③ 待 Leonard 決定：FEATURE_SUBJECT_CHECK；10 個 ROUTE_EXEMPT 舊版／重複來源是否退役；統計來源開放搜尋還是停止維護；
-      題庫 cur_arts_guide_2002_missing 的禁引前提已過時；文件標註；公開端點；搜尋紀錄拒答原因（DDL）；Kit 0.4.6；#70。
-   ④ 減少人手介入：Freshness 自動確認「文字相同」；註腳審核每月自動跑；SOURCE_SETS 改動 CI 自動量度；為 subject_guides 補題。
-   ⑤ 退役 EDBC_9_2019_E（先再確認）；定期系統更新檢查約 11-29 到期。
+🚀 下一步：照 dev/ops/WORK_QUEUE.md 做（所有待辦的唯一清單，Fable 5.2 於 S251 一次過寫好）。
+   · 一節只做一張卡；Leonard 有指定就做指定的，否則由 A1 起由上而下揀第一張「可做」的卡。
+   · A 部（可直接做）：A1 註腳更正與連結覆寫接入每日質素檢查 → A2 註腳出處每月機械核對 → A3 來源文字相同時自動確認
+     → A4 補回 backend/README 旗標說明 → A5 科目指引補題 → A6 13 條找不到出處的註腳 → A7 /health 註腳載入時間
+     → A8 瀏覽清單差異 → A9 定期系統更新檢查（約 11-28 到期）→ A10 清理本機分支。
+   · B 部（待 Leonard 決定，每項附建議）：一次最多問三項，用白話。
+   · D 部（不要做）：已量度並否決的方向，重做只會浪費用量。
+   · 每張卡都有驗收與停止條件；停止條件觸發就停、記在卡內，不要即興補救。
 
 ⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
    · 定標必須讀每一段全文；用 stub 判官量的是「失去捷徑」不是「失去答案」；答案層結論必須用真判官量。
@@ -57,5 +58,5 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
 Post-startup first action: 按 dev/ops/playbooks/health-probe.md 做起手探針（可交最平的模型，唯讀）：
 版本應為 3.3.16；/health commit 應為 4f0b57f 或之後改 backend 的 commit；片段數 17,084；
 登記漂移 ZOMBIE／SERIES_UNMONITORED／UNMANAGED／UNROUTED 應為 0；apply_url_overrides.py（dry-run）與 apply_footnote_corrections.py --check 皆應報 to_change=0；
-dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告；origin/main 以實測為準（S250 收工 PR #101 已合併為 8115c3e）。
+dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告，然後按 dev/ops/WORK_QUEUE.md 揀工作。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次、不得合併 PR。
