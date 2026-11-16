@@ -19,7 +19,7 @@
 1. **平台**：v3.3.16。公開分頁三個（平台介紹／政策搜尋／EDB 指引）；文件標註收起待修（`FEATURE_TABS.annotate=false`）。Channel A 退役已完結（S243–S246）：`knowledge.json`／`role_facts.json` 已刪、內部清單清空、公開統計由 `stats.json` 提供；凍結合約只餘 `guidelines.json` 2.6.2／151。升版一律手改 `PLATFORM_VERSION`＋README 標章＋CHANGELOG，不可用 `bump_version.py`。
 2. **知識庫**：Supabase 17,084 chunks、316 來源（2026-11-16 `count=exact` 實測，S249）。`footnote_curated` 177。EDB 指引書庫 182 份（S243；之後未重核）。逐片段 `url` 覆寫 80 條在 `dev/source/url_overrides.json`（S249 50 條＋S250 28 條頁碼更正＋S251 2 條）；註腳內容更正 10 條在 `dev/source/footnote_corrections.json`（S251；同樣要在註腳入庫腳本 `--execute` 後以 `dev/apply_footnote_corrections.py --execute` 重套）（註腳入庫腳本以 `--execute` 重跑後必須再跑 `dev/apply_url_overrides.py --execute`）。
 3. **Registry 漂移**（2026-11-16 實測）：`ZOMBIE`／`UNMANAGED`／`SERIES_UNMONITORED`／`UNROUTED`（S250 新增：已入庫但不在任何路由清單）皆 0；`PHANTOM` 36；`UNLISTED` 119／2,626 片段（人手策展佇列）。Freshness 待處理 0；`PAGE_ANCHORED` 基準 1。10 個已被取代／重複的來源列於 `check_registry_drift.ROUTE_EXEMPT`，待 Leonard 批准退役。
-4. **Git 與部署**（2026-11-16 S251 實測）：`origin/main` = `2d6468a`（PR #101–#103 已合併；其後無後端改動，之後的合併以實測為準）；線上 `/health` commit = `4f0b57f`。`main` 受 ruleset 保護，一切改動走 PR，合併只在 Leonard 明示時進行。開著的 PR：S251 收工分支 `s251-work-queue`（只加工作清單與治理文件）、#70（內容早已入 `main`，關閉前先問 Leonard）。判斷線上是否落後看 `git diff --name-only <部署commit>..origin/main -- backend`，不要比 hash。入庫 PR 會改 `SOURCE_SETS`，合併後 Render 重新部署，新來源要等新版上線才搜得到。後端 overlay 快取每 30 分鐘背景重讀（`/health` 報 `footnote_loaded_at`）。
+4. **Git 與部署**（2026-11-16 S251 實測）：`origin/main` = `8f7f4d8`（PR #101–#105 已合併；皆無後端改動，之後的合併以實測為準）；線上 `/health` commit = `4f0b57f`。`main` 受 ruleset 保護，一切改動走 PR，合併只在 Leonard 明示時進行。開著的 PR：#70（內容早已入 `main`，關閉前先問 Leonard）；S251 最後一個只改文件的 PR 以 `gh pr list` 為準。判斷線上是否落後看 `git diff --name-only <部署commit>..origin/main -- backend`，不要比 hash。入庫 PR 會改 `SOURCE_SETS`，合併後 Render 重新部署，新來源要等新版上線才搜得到。後端 overlay 快取每 30 分鐘背景重讀（`/health` 報 `footnote_loaded_at`）。
 5. **模型與旗標**：合成與判官皆 `gpt-6-luna`＋`none`（碼內預設，Render 無 `OPENAI_MODEL`）。生產已開：`FEATURE_ROUTE_FIRST_SEARCH`、`FEATURE_CIRCULAR_NUMBER_LOOKUP`。已部署未開：`FEATURE_SUBJECT_CHECK`（待 Leonard 決定）。**不應啟用**（皆已量度並判定不出貨）：`FEATURE_QUERY_FUSION`、`FEATURE_VAULT_GATE_RAWVEC`、`MAX_PER_SOURCE`、`FEATURE_LEXICAL_RERANK`、`FAMILY_QUOTA`、`EXPANSION_MIN_QUERY_CHARS`／`EXPANSION_BALANCE`／`EXPANSION_REPEAT_CAP`。`/health` 不報旗標。
 6. **監察與檢索基線**：偵測型監察有新項目才 @Leonard；質素檢查高於基準時開 `qc-regression` Issue 並 @Leonard；7 個排程 workflow 由每日看門狗監察，另有 `live_probe` 每 6 小時探測線上服務；四條 ledger workflow 經 deploy key 推。**檢索基線（S250 生產，185 題，2026-11-16）：來源層 PASS 130／FAIL 36，片段層 61／105**（`dev/source/eval_runs/2026-11-16_s250_gold_prod_after.json`；S233 舊基線為 125／41、59／107）。重跑噪音：片段層 0、來源層 ±1。路由共 28 條（S250 新增 `subject_guides`）。運作流程與程序見 `dev/ops/AUTONOMY_FLOW.md`。各項詳情見 `dev/SESSION_STATE_DETAIL.md`。
 
@@ -171,7 +171,7 @@ source_registry → same vault PDFs → ai_extract.py
 
 Recommended next step: Reclassified at upgrade — reason: confirm at next closeout.
 
-**Recommended next step：照 `dev/ops/WORK_QUEUE.md` 做，由 A1 開始（把「註腳更正」與「連結覆寫」接入每日質素檢查）。** 理由：S251 起不能假設有最強模型（Leonard 2026-11-16：Fable 5.2 用量將盡，之後不會有），所以 Fable 已把所有待辦一次過寫成可照做的工作卡（A 可直接做、B 待 Leonard 決定並附建議、C 等觸發、D 不要做）。**下面第 1–5 項只是摘要；逐項做法、驗收與停止條件以 `dev/ops/WORK_QUEUE.md` 為準。一節只做一張卡。做事規則看 `dev/ops/AUTONOMY_FLOW.md` §4a。**
+**Recommended next step：照 `dev/ops/WORK_QUEUE.md` 做，由 A1 開始（把「註腳更正」與「連結覆寫」接入每日質素檢查）。** 理由：S251 起不能假設有最強模型（Leonard 2026-11-16：Fable 5.2 用量將盡，之後不會有），所以 Fable 已把所有待辦一次過寫成可照做的工作卡（A 可直接做、B 待 Leonard 決定並附建議、C 等觸發、D 不要做）。**下面第 1–5 項只是摘要；逐項做法、驗收與停止條件以 `dev/ops/WORK_QUEUE.md` 為準。一節只做一張卡。做事規則看 `dev/ops/AUTONOMY_FLOW.md` §4a；建議的模型與 effort 看同檔 §4b，**agent 每節開工要主動提 Leonard**。**
 
 1. **註腳更正：S250 審核的 10 條已於 S251 全部更正**（9 條內容不符＋`procurement_thresholds`；Leonard 批准；備份 `dev/init_backup/20261116_220741_UTC/`、`…220808_UTC/`；更正清單 `dev/source/footnote_corrections.json`，工具 `dev/apply_footnote_corrections.py`，`--check` `to_change=0`；線上八條查詢回傳新文字）。**不要重做。** 餘下：(a) `ceg_no_tutorial` 出處待 Leonard 選（EOEBG User Guide 第 6 頁或 OEBG User Guide 第 7 頁）；(b) 審核中 13 條「找不到」未處理（多為電子版法例，抓不到原文）；(c) 觀察：後端背景重讀註腳確實生效，但 `/health` 的 `footnote_loaded_at` 沒有更新（未查成因，屬顯示問題）。
 2. **待 Leonard 決定**：是否開 `FEATURE_SUBJECT_CHECK`（「答錯對象」已知漏判 5 條，開啟可攔 3 條）；10 個 `ROUTE_EXEMPT` 來源是否退役（刪生產資料）；統計來源（19 個／569 片段，設計上搜不到）開放搜尋還是停止維護；題庫題目 `cur_arts_guide_2002_missing` 的禁引前提已過時，是否更新；文件標註修好重開還是刪除；已收起功能的公開端點去留；`search_log` 加拒答原因（DDL）；關閉 #70；S244 三條 footnote 粵語問句；語料庫時限段落；`app.html`「全校」角色標籤。
@@ -382,8 +382,8 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 
 平台 v3.3.16；Supabase 17,084 chunks（316 來源；footnote_curated 177）；EDB 指引書庫 182 份；guidelines.json 公開端點 151 份（_meta 2.6.2）。
 Agent Handoff Kit v0.4.7（S251 以官方 CLI 由 0.4.3 升級；migration committed、project health passed）。
-origin/main = f00258c（PR #102 已合併）；線上 /health commit = 4f0b57f（其後無後端改動；開工以 /health 核實）。
-開著的 PR：S251 收工分支 s251-work-queue（合併待 Leonard 指示）、#70（內容已入 main，關閉前先問 Leonard）。
+origin/main = 8f7f4d8 或之後（PR #101–#105 已合併，皆無後端改動）；線上 /health commit = 4f0b57f（開工以 /health 核實）。
+開著的 PR：#70（內容已入 main，關閉前先問 Leonard）；另可能有 S251 最後一個只改文件的 PR，以 gh pr list 為準。
 Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
 FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 未設＝關閉。
 public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
@@ -408,6 +408,8 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    · 🔴 之後不能假設有最強模型（Fable 5.2 用量將盡）。做事規則：dev/ops/AUTONOMY_FLOW.md §4a。
 
 🚀 下一步：照 dev/ops/WORK_QUEUE.md 做（所有待辦的唯一清單，Fable 5.2 於 S251 一次過寫好）。
+   · 🔔 開工必做：起手卡之後，主動告訴 Leonard 這一節的工作建議用哪個模型與 effort（主力 Opus 5.5，日常 medium；
+     對照表在 dev/ops/WORK_QUEUE.md §0，規則在 dev/ops/AUTONOMY_FLOW.md §4b），並說明現時 session 是否相符；不相符請他切換。
    · 一節只做一張卡；Leonard 有指定就做指定的，否則由 A1 起由上而下揀第一張「可做」的卡。
    · A 部（可直接做）：A1 註腳更正與連結覆寫接入每日質素檢查 → A2 註腳出處每月機械核對 → A3 來源文字相同時自動確認
      → A4 補回 backend/README 旗標說明 → A5 科目指引補題 → A6 13 條找不到出處的註腳 → A7 /health 註腳載入時間

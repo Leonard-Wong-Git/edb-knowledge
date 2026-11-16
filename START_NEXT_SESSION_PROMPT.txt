@@ -10,8 +10,8 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 
 平台 v3.3.16；Supabase 17,084 chunks（316 來源；footnote_curated 177）；EDB 指引書庫 182 份；guidelines.json 公開端點 151 份（_meta 2.6.2）。
 Agent Handoff Kit v0.4.7（S251 以官方 CLI 由 0.4.3 升級；migration committed、project health passed）。
-origin/main = f00258c（PR #102 已合併）；線上 /health commit = 4f0b57f（其後無後端改動；開工以 /health 核實）。
-開著的 PR：S251 收工分支 s251-work-queue（合併待 Leonard 指示）、#70（內容已入 main，關閉前先問 Leonard）。
+origin/main = 8f7f4d8 或之後（PR #101–#105 已合併，皆無後端改動）；線上 /health commit = 4f0b57f（開工以 /health 核實）。
+開著的 PR：#70（內容已入 main，關閉前先問 Leonard）；另可能有 S251 最後一個只改文件的 PR，以 gh pr list 為準。
 Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
 FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 未設＝關閉。
 public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
@@ -36,6 +36,8 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    · 🔴 之後不能假設有最強模型（Fable 5.2 用量將盡）。做事規則：dev/ops/AUTONOMY_FLOW.md §4a。
 
 🚀 下一步：照 dev/ops/WORK_QUEUE.md 做（所有待辦的唯一清單，Fable 5.2 於 S251 一次過寫好）。
+   · 🔔 開工必做：起手卡之後，主動告訴 Leonard 這一節的工作建議用哪個模型與 effort（主力 Opus 5.5，日常 medium；
+     對照表在 dev/ops/WORK_QUEUE.md §0，規則在 dev/ops/AUTONOMY_FLOW.md §4b），並說明現時 session 是否相符；不相符請他切換。
    · 一節只做一張卡；Leonard 有指定就做指定的，否則由 A1 起由上而下揀第一張「可做」的卡。
    · A 部（可直接做）：A1 註腳更正與連結覆寫接入每日質素檢查 → A2 註腳出處每月機械核對 → A3 來源文字相同時自動確認
      → A4 補回 backend/README 旗標說明 → A5 科目指引補題 → A6 13 條找不到出處的註腳 → A7 /health 註腳載入時間
