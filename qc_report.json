@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-15T19:59:23Z",
+  "generatedAt": "2026-11-16T08:50:08Z",
   "overallStatus": "ERROR",
   "counts": {
-    "chunks": 17079,
+    "chunks": 17084,
     "PASS": 14,
     "BLOCKER": 0,
     "ERROR": 2,
@@ -12,11 +12,11 @@
   },
   "version": "v3.3.16",
   "corpus": {
-    "chunks": 17079,
+    "chunks": 17084,
     "sources_serving": 316,
     "sources_registered": 302,
     "guidelines_listed": 182,
-    "distinct_urls": 350,
+    "distinct_urls": 354,
     "largest_sources": [
       {
         "source_id": "coa_ss_e",
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-15T19:59:23Z",
+    "collectedAt": "2026-11-16T08:50:08Z",
     "items": [
       {
         "kind": "freshness-change",
@@ -70,15 +70,6 @@
         "since": "2026-11-02T19:21:18Z",
         "url": "https://github.com/Leonard-Wong-Git/edb-knowledge/issues/77",
         "number": 77
-      },
-      {
-        "kind": "qc-regression",
-        "level": "decision",
-        "headline": "知識庫質素有項目變差",
-        "hint": "有質素檢查的數字高於基準，待你決定修正還是接受。",
-        "since": "2026-11-15T19:52:20Z",
-        "url": "https://github.com/Leonard-Wong-Git/edb-knowledge/issues/94",
-        "number": 94
       }
     ],
     "ignored_outside": 0
@@ -214,7 +205,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=8b118fd · 啟動於 2026-11-15T19:51:45.233Z",
+      "detail": "ok=True · commit=8b118fd · 啟動於 2026-11-16T08:34:23.281Z",
       "offenders": [],
       "offender_total": 0
     },
@@ -244,7 +235,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "infra",
-      "detail": "資料庫真數 17079 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "detail": "資料庫真數 17084 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
       "offenders": [],
       "offender_total": 0
     },
@@ -274,22 +265,11 @@
       "severity": "WARN",
       "status": "WARN",
       "group": "pointing",
-      "detail": "51 · 與基準 51 相同（未惡化，但仍在服務中） · 這些片段只能把用戶帶到 PDF 首頁",
+      "detail": "1 · 與基準 1 相同（未惡化，但仍在服務中） · 這些片段只能把用戶帶到 PDF 首頁",
       "offenders": [
-        "gifted_policy_docs（10 條）",
-        "ceg_calc_2026（5 條）",
-        "eoebg_guide_2026（5 條）",
-        "ac_grant_2026（4 條）",
-        "eoebg_rates_2026（4 條）",
-        "cfeg_guide_2026（4 條）",
-        "sch_complaint_guide_2023（3 條）",
-        "trg_imc_2023（3 條）",
-        "edbcm215_2025_mental_health（2 條）",
-        "oebg_guide_2026（2 條）",
-        "pdpo_school_cap486（2 條）",
-        "subvention_tips（2 條）"
+        "ceg_calc_2026（1 條）"
       ],
-      "offender_total": 51
+      "offender_total": 1
     },
     {
       "id": "NO_DUPLICATE_CHUNKS",
@@ -320,18 +300,18 @@
       "severity": "WARN",
       "status": "PASS",
       "group": "chunk",
-      "detail": "102 · 低於基準 147（−45，已改善） · 目錄片段答不到任何問題，只會佔住合成窗",
+      "detail": "103 · 低於基準 147（−44，已改善） · 目錄片段答不到任何問題，只會佔住合成窗",
       "offenders": [
         "sag_2025_11（45 條）",
         "kg_admin_guide_2026（34 條）",
         "g13（8 條）",
         "kg_operation_manual_2026（8 條）",
+        "debp_blueprint（3 條）",
         "imc_briefing_qa（3 條）",
-        "debp_blueprint（2 條）",
         "debp_ai_literacy_framework（1 條）",
         "debp_ai_teaching_guide（1 條）"
       ],
-      "offender_total": 102
+      "offender_total": 103
     },
     {
       "id": "BODY_LENGTH_FLOOR",
@@ -353,7 +333,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "cutting",
-      "detail": "811 · 低於基準 835（−24，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
+      "detail": "809 · 低於基準 835（−26，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
       "offenders": [
         "g06（34 條）",
         "g13（34 條）",
@@ -368,7 +348,7 @@
         "sag_2025_11（13 條）",
         "g19（12 條）"
       ],
-      "offender_total": 811
+      "offender_total": 809
     },
     {
       "id": "TABLE_ROW_INTEGRITY",
@@ -386,7 +366,7 @@
       "severity": "INFO",
       "status": "INFO",
       "group": "cutting",
-      "detail": "1933 條（11.3%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
+      "detail": "1942 條（11.4%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
       "offenders": [
         "g13（105 條）",
         "g07（80 條）",
@@ -401,7 +381,7 @@
         "chi_hist_sss_2007_2015（34 條）",
         "icac_school_governance（32 條）"
       ],
-      "offender_total": 1933
+      "offender_total": 1942
     },
     {
       "id": "EVAL_LATEST",
