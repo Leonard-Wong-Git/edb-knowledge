@@ -73,6 +73,7 @@ Purpose: give a stateless AI a compact map of the project before it reads or edi
 | `dev/AUDIT.md` | S225 AI agent 架構與護欄盤點（`ai-agent-patterns` 既有系統路徑）。**凍結於 2026-09-14 的一次性評估，非 current state** —— 其中仍未解決者以 `SESSION_HANDOFF.md` `## Risks / Blockers` 與 `## Open Priorities` 為權威。碼有改動令結論失效時，更新此檔或明確標註作廢 | 檢討架構層級／護欄密度／量度缺口時 |
 | `dev/SESSION_STATE_DETAIL.md` | 交接檔 `Current Baseline`／`Open Priorities`／`Risks` 精簡版背後的詳細內容（S248 建立）；開工不讀，做到相關項目才讀。歷史原文在 `dev/archive/SESSION_HANDOFF_HISTORY_2026-11-15.md` | 做到交接檔某一項、需要其詳細證據時 |
 | `dev/SYSTEM_OVERVIEW.md` | 一頁式系統地圖（S249 建立）：運作流程、困境與缺點、盲點、建議處理次序、工作邊界；供其他 AI 模型或新接手者快速了解。附白板連結。**不是現況權威**，數字為建立當日快照；結構、主要風險或處理次序有變時才更新。 | 新模型或新接手者要快速了解整個系統時；Leonard 問「現在系統怎樣」時 |
+| `dev/ops/AUTONOMY_FLOW.md` + `dev/ops/playbooks/*.md` | **自動運作總流程與可照做的程序（S250 建立）**：偵測 → 分流 → 執行 → 驗證 → 記錄；自動化級別（A 全自動／B 半自動／C 只通知）與各項工作現時級別；模型分工與分派 sub-agent 的硬規則；六份 playbook（`health-probe`、`freshness-triage`、`source-reingest`、`route-coverage`、`footnote-audit`、`qc-regression-triage`）。步驟次序以 playbook 為準，原理看它指向的文件（如 `FRESHNESS_GUIDE.md`）。本機另有 Claude skill 捷徑 `.claude/skills/kb-ops/`（gitignored，只是指向這裏）。 | 處理任何監察 Issue、重新入庫、路由清單、註腳審核、起手探針之前；分派工作給 sub-agent 之前；新增或退役監察／playbook 時更新 |
 | `dev/_s214_route_first_focused_review.md` | 已保存三題 route-first before／after 的離線覆核；含交接與 RPC trace 落差、片段缺席、逾時及下一步限制 | 接續 Phase B 或考慮 live 驗證前 |
 
 ## Entry Points

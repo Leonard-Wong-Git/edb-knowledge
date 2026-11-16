@@ -57,4 +57,5 @@ PDF／網頁／試算表  新通告自動，其餘人手                    模�
 - 未經 Leonard 明示：不改旗標、不執行 DDL、不寫入或刪除生產片段、不作外部模型批次、不合併 PR。
 - 抽取與入庫一律用 `/usr/local/bin/python3`；路徑含空格，指令要加雙引號。
 - 文件會過時：動手前以程式碼和線上實測核實，不要只信文件（包括本檔）。
+- 怎樣處理各類工作、交給哪一級模型：`dev/ops/AUTONOMY_FLOW.md` 與 `dev/ops/playbooks/`。
 - 開工讀 `AGENTS.md` → `dev/SESSION_HANDOFF.md`；詳情與證據在 `dev/SESSION_STATE_DETAIL.md`，做到該項才讀。

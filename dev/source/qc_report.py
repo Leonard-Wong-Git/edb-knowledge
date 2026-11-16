@@ -101,6 +101,10 @@ BASELINE = {
     # up to the old number — the defect it was built to catch.
     # Remaining: gifted_ge_series 52/346, apl_curr_docs 6/147.
     "mojibake": 58,
+    # S250 — sources in the store but in no route set. 0 after the S250 allowlist
+    # fix (retirement candidates are held in check_registry_drift.ROUTE_EXEMPT, not
+    # counted here), so ANY new one raises a qc-regression notification.
+    "unrouted": 0,
 }
 
 # S248 — check id -> BASELINE key, for the checks whose `offender_total` IS the
@@ -111,6 +115,7 @@ BASELINE_OF = {
     "ANCHOR_URL_PRESENT": "no_anchor_url",
     "SOURCE_TITLE_REAL": "title_equals_slug",
     "PAGE_ANCHORED": "no_page_anchor",
+    "REGISTRY_UNROUTED": "unrouted",
     "NO_DUPLICATE_CHUNKS": "duplicate_groups",
     "NO_TOC_NOISE": "toc_noise",
     "NO_MIDCLAUSE_START": "midclause_start",
@@ -229,6 +234,7 @@ CHECK_GROUP = {
     "PAGE_ANCHORED": "pointing",
     "REGISTRY_ZOMBIE": "pointing", "REGISTRY_UNMANAGED": "pointing",
     "REGISTRY_PHANTOM": "pointing", "REGISTRY_UNLISTED": "pointing",
+    "REGISTRY_UNROUTED": "pointing",
     "REGISTRY_SERIES": "pointing",
     "NO_DUPLICATE_CHUNKS": "chunk", "NO_TOC_NOISE": "chunk",
     "BODY_LENGTH_FLOOR": "chunk", "MOJIBAKE": "chunk",
@@ -587,7 +593,10 @@ def check_registry_drift(chunks: list[dict]) -> list[dict]:
     # (528 in total), so the monitors do reach them.
     d = drift_mod.classify(dict(serving), kinds, live, dead, listed,
                            drift_mod.series_parents(sources),
-                           drift_mod.monitorable_parents(sources))
+                           drift_mod.monitorable_parents(sources),
+                           routed=drift_mod.parse_source_set_ids(
+                               drift_mod.SEARCH_TS.read_text(encoding="utf-8")),
+                           route_exempt=set(drift_mod.ROUTE_EXEMPT))
 
     titles = {}
     for c in chunks:
@@ -599,9 +608,9 @@ def check_registry_drift(chunks: list[dict]) -> list[dict]:
 
     out = []
     ids = ["REGISTRY_ZOMBIE", "REGISTRY_SERIES", "REGISTRY_UNMANAGED",
-           "REGISTRY_PHANTOM", "REGISTRY_UNLISTED"]
+           "REGISTRY_UNROUTED", "REGISTRY_PHANTOM", "REGISTRY_UNLISTED"]
     for cid, cls in zip(ids, ("ZOMBIE", "SERIES_UNMONITORED", "UNMANAGED",
-                              "PHANTOM", "UNLISTED")):
+                              "UNROUTED", "PHANTOM", "UNLISTED")):
         members = d[cls]
         n_chunks = sum(serving.get(s, 0) for s in members)
         extra = {
@@ -609,6 +618,8 @@ def check_registry_drift(chunks: list[dict]) -> list[dict]:
             "UNMANAGED": "新鮮度、到期、封面標題三個監察全部以 registry 為鍵，所以這些來源不受任何監察",
             "PHANTOM": "用戶可以瀏覽到，但搜尋答不出，因為庫內一條片段都沒有",
             "UNLISTED": "要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
+            "UNROUTED": "把來源加入 searchChannelB.ts 對應的 SOURCE_SETS（檢索改動，要量 before／after），"
+                        "或在 check_registry_drift.ROUTE_EXEMPT 註明為何不加",
             "SERIES_UNMONITORED":
                 "registry 用 url_primary_pattern + years_extracted 描述整個年度系列，"
                 "但 check_freshness / check_expiry / check_source_titles 三者只讀 "
@@ -1441,10 +1452,15 @@ def self_test() -> int:
     empty = [check_anchor_url([]), check_title_real([]), check_page_anchor([]),
              check_duplicates([]), check_toc_noise([]), check_midclause([]),
              check_short_body([]), check_mojibake([])]
-    check("BASELINE_OF covers exactly the eight baseline checks, each counting 0 on an "
-          "empty store",
-          {c["id"] for c in empty} == set(BASELINE_OF)
+    # S250 — REGISTRY_UNROUTED is the ninth: built by check_registry_drift (it needs
+    # the registry and the route sets, not just chunks), baseline 0.
+    check("BASELINE_OF covers exactly the eight chunk-level baseline checks plus "
+          "REGISTRY_UNROUTED, each counting 0 on an empty store",
+          {c["id"] for c in empty} | {"REGISTRY_UNROUTED"} == set(BASELINE_OF)
           and all(c["offender_total"] == 0 for c in empty))
+    check("a newly unrouted source IS listed (baseline 0, so one is already news)",
+          build_regressions([mk_check("REGISTRY_UNROUTED", "l", "ERROR", "FAIL", "d",
+                                      ["new_src"], 1)])[0]["over"] == 1)
     check("qc-regression is a decision, not an alarm (the system still works)",
           ATTENTION_KINDS["qc-regression"][0] == "decision")
 

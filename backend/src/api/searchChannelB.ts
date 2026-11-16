@@ -251,6 +251,8 @@ const SOURCE_SETS: Record<string, string[]> = {
     // retrieval change and needs its own before/after eval.
     "g28",
     "edbcm156_2026",              // (auto) Option A watcher ingest
+    // S250 — was in no SOURCE_SET (see curriculum note).
+    "debp_leaflet",  // 中小學數字教育發展藍圖（三摺頁小冊子）
   ],
   /**
    * S241 — 小學資訊與創新科技科 (iit route): the 2026年10月 framework (59 chunks) and the
@@ -653,12 +655,65 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g22",               // 科技教育學習領域安全指引 (2010)
     "edbc012_2026",      // S186: 通告12/2026 — 校舍消防裝置或設備 (消防年檢)
     "sag_2025_11",
+    // S250 — were in no SOURCE_SET (see curriculum note). g23 is also in curriculum.
+    "va_safety_sec",  // 視覺藝術科安全指引（中學）
+    "g23",  // 體育學習領域安全指引
   ],
 
   /**
    * Curriculum / Teaching — 課程, 科目, 教學, 評估, CPD
    * Exclude SAG (minimal curriculum content, adds noise).
    */
+  // S250 — subject_guides: the senior-secondary C&A guides, the four 2017 KLA guides and
+  // a few junior-secondary subject documents. All 37 were IN THE STORE BUT IN NO SOURCE_SET
+  // (4,800+ chunks, over a quarter of the corpus): a query that trips any route is searched
+  // only inside that route's set, and a subject question always trips `curriculum`, so they
+  // could not be returned at all. Measured on production before the change — title-style
+  // queries for 8 of them, 7 returned none of the source's chunks
+  // (「經濟課程及評估指引 中四至中六 課程宗旨」 → music / history / Chinese-language guides).
+  // Its own route, not an extension of `curriculum`: see the note in that set.
+  // phys_sss / history_sss / ict_sss stay in `curriculum` (their gold items are measured
+  // there); the trigger below deliberately does not name those subjects.
+  // Superseded editions and duplicates are NOT here — check_registry_drift.ROUTE_EXEMPT.
+  subject_guides: [
+    "apl_curr_docs",  // 應用學習課程及評估指引（高中課程）2017更新
+    "bafs_sss_2007_2020",  // 企業、會計與財務概論 (中四至中六) (於2022/23學年的中四實施並在202
+    "bio_sss_2007_2015",  // 生物(中四至中六) 二零零七年 (二零一五年十一月更新)
+    "chem_sss_2007_2018",  // 化學(中四至中六)二零零七年 (二零一八年六月更新)
+    "chi_hist_jss_bilingual_2019",  // 中國歷史科課程大綱 (中一至中三) (2019) (中英雙語版)
+    "chi_hist_sss_2007_2015",  // 中國歷史課程及評估指引（中四至中六）2007 （2015年11月更新）
+    "chi_lit_guide_2025",  // 《中國文學課程及評估指引（中四至中六）》（2025年更新）
+    "chi_sss_guide_2021",  // 《中國語文課程及評估指引（中四至中六）》（2021）
+    "dat_sss_2007_2015",  // 設計與應用科技 (中四至中六) 二零零七年 (二零一五年十一月更新)
+    "dat_sss_supp_2020",  // 設計與應用科技 (中四至中六) - 補充資料 (二零二零年十二月)
+    "econ_sss_2025",  // 經濟課程及評估指引 (中四至中六) (2025年更新)
+    "econ_sss_supp_2025",  // 經濟課程及評估指引 (中四至中六)-補充文件 (2025年更新)
+    "eng_jss_supp_2018",  // 英國語文課程指引補充（中一至中三）（2018）
+    "eng_lit_guide_2023",  // 英文文學課程及評估指引（中四至中六）（2023）
+    "eng_nat_sec_2025",  // 英文科國家安全教育課程框架（2025）
+    "eng_sss_guide_2021",  // 英國語文課程及評估指引（中四至中六）（2021）
+    "ethics_relig_sss_2024",  // 倫理與宗教課程及評估指引 (中四至中六) 2024
+    "g35",  // 個人社會及人文教育學習領域課程指引（2017）
+    "g36",  // 科學教育學習領域課程指引（小一至中六）（2017）
+    "g37",  // 藝術教育學習領域課程指引（2017）
+    "geog_jss",  // 地理課程指引（中一至三）
+    "geog_sss_2007_2022",  // 地理課程及評估指引 (中四至中六) 2007 (2022年7月更新)
+    "geog_sss_summary_2022",  // 2022年7月更新的《地理科課程及評估指引(中四至中六)》撮要
+    "geog_sss_supp_2022",  // 《地理課程及評估指引（中四至中六）》(2022年7月更新版)「補充資料」
+    "geog_sss_update_brief",  // 高中地理課程更新簡介
+    "hmsc_sss_2007_2015",  // 健康管理與社會關懷 (中四至中六)二零零七年 (二零一五年 十一月更新)
+    "ma_sss_cag_2017",  // 數學課程及評估指引（中四至中六）（2017年12月更新）
+    "ma_sss_diversity_2021",  // 高中數學科照顧學生多樣性及創造空間指引（2021）
+    "music_sss_2024",  // 《音樂課程及評估指引（中四至中六）》（2024年9月更新）
+    "nat_sec_edu",  // 國家安全教育課程框架（2025）
+    "pe_sss_2023",  // 體育-課程及評估指引(中四至中六) (2023)
+    "religious_edu_jss_2024",  // 宗教教育課程指引（中一至中三）（2024）
+    "sci_jss_framework_2025",  // 科學教育學習領域課程指引補充文件–科學 (中一至中三)課程框架 二零二五年
+    "tech_kla_guide_2017",  // 科技教育學習領域課程指引 (小一至中六) 二零一七年
+    "tl_sss_2007_2015",  // 科技與生活 (中四至中六) 二零零七年 (二零一五年十一月更新)
+    "tour_hosp_sss_2007_2015",  // 旅遊與款待課程及評估指引 (中四至中六) 2007 (2015年11月更新)
+    "va_sss_2015",  // 《視覺藝術課程及評估指引（中四至中六）》（2015年11月更新）
+  ],
   curriculum: [
     // S195: kgecg_2017 removed from this allowlist — it duplicated g29 (same document).
     // ⚠️ S212 CORRECTION: the "0 chunks in the store" half of this note was never true, and
@@ -725,6 +780,19 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbcm186_2026",              // (auto) Option A watcher ingest
     "edbcm198_2026",              // (auto) Option A watcher ingest
     "edbcm203_2026",              // (auto) Option A watcher ingest
+    // S250 — eight small sources (124 chunks) that were in the store but in NO SOURCE_SET, so
+    // no routed query could return them. The large subject guides found in the same state went
+    // to their own route (subject_guides, below) instead of here: adding all 45 to this set was
+    // measured first and it (a) evicted g13 from 「中學 八個學習領域」 (gold PASS → FAIL) and
+    // (b) took the same query from ~1 s to 5–17 s by doubling the exact-scan (3,660 → 8,454 chunks).
+    "pri_science_cert_course_list",  // 「小學科學教師專業培訓證書（30小時）」指定課程清單
+    "edbcm58_2024_pri_science",  // 教育局通函第58/2024號 — 《科學﹙小一至小六﹚課程框架》、「小學科學教師
+    "edbcm243_2024_pri_science",  // 教育局通函第243/2024號 — 小學科學科教師專業培訓（2024/25學年）
+    "edbcm98_2024_pri_science",  // 教育局通函第98/2024號 — 小學科學科相關課程資源
+    "edbcm57_2024_pri_science",  // 教育局通函第57/2024號 — 支援開設小學科學科的一筆過津貼
+    "g09",  // 中國語文課程第二語言學習架構（非華語節錄 p43-48）
+    "g23",  // 體育學習領域安全指引
+    "music_national_anthem_2024",  // 《國歌的學與教：音樂科課程補充文件（小一至中六）》（2024年9月更新）
   ],
   /*
    * Kindergarten administration / operation — 幼稚園行政手冊 + 學前機構辦學手冊 (S160).
@@ -937,6 +1005,15 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // S150 — 資優教育. MUST precede `curriculum` (資優教育課程 contains 課程). Gifted-specific
   // terms; 資賦 catches 資賦優異, 資優 catches 資優教育/校本資優/資優學生.
   gifted: /資優|資賦|天才教育|拔尖保底|gifted/i,
+  // S250 — subject_guides. Sits immediately before `curriculum`, so every earlier route
+  // keeps its queries; it can only take what `curriculum` (or no route) took before.
+  // Four shapes, each needing the SUBJECT plus a curriculum word, so that 「經濟困難」,
+  // 「地理位置」 or 「化學品」 alone never trip it:
+  //   1. an elective/JSS subject name followed (within 12 chars) by 科／課程／評估／指引…
+  //   2. 經濟 only as 經濟科／經濟課程／經濟…課程及評估 (the bare word is finance vocabulary)
+  //   3. a core subject + a senior-secondary marker, either order
+  //   4. the four KLA guide names, the national-security frameworks, the anthem supplement
+  subject_guides: /(地理|生物|化學|企業、?會計與財務|企會財|BAFS|設計與應用科技|健康管理與社會關懷|科技與生活|旅遊與款待|倫理與宗教|宗教教育|中國文學|英[語文]文學|應用學習|生活與社會)(科|概論)?.{0,12}(科|課程|評估|指引|選修|必修|單元|校本評核|公開評核|宗旨)|經濟(科|課程|學習|.{0,6}課程及評估)|(數學|中國語文|英國語文|英文科?|中文科?|音樂|視覺藝術|視藝|體育|中國歷史|中史).{0,8}(中四至中六|高中|中四|中五|中六|延伸部分|延伸單元|選修部分)|(中四至中六|高中).{0,8}(數學|中國語文|英國語文|英文|中文|音樂|視覺藝術|視藝|體育|中國歷史|中史)|(個人、?社會及人文教育|科學教育|藝術教育|科技教育)學習領域|人文教育學習領域|國家安全教育.{0,8}(課程|框架)|英國語文.{0,12}補充|科學.{0,6}中一至中三.{0,8}框架/i,
   curriculum: /課程|科目|教學|學習目標|評估|教材|課程發展|學習領域|教師發展|CPD|專業發展|英文科|中文科|數學科|數學建模|常識科|科學科|體育科|音樂科|視藝科|小學課程|中學課程|課程指引|學習成果|評核|幼稚園|幼兒|學前|K1|K2|K3|遊戲學習/,
 };
 

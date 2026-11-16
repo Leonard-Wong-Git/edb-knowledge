@@ -56,6 +56,43 @@ RETIRED_STATES = {"deprecated", "retired", "held_back"}
 # mirrors Channel A facts, and a check that forgets this reports itself wrong).
 BY_DESIGN_KINDS = {"approved_fact", "stat_fact", "footnote_curated"}
 
+# S250 — the backend's route allowlists. A query that trips a route is searched only
+# inside that route's SOURCE_SET, so a source that is in the store but in NO set can
+# never be returned for any routed query. Until S250 nothing checked this: 57 sources /
+# 6,652 chunks (39% of the corpus, mostly senior-secondary C&A guides) had been ingested
+# and never allowlisted, and title-style queries for 7 of 8 sampled returned none of them.
+SEARCH_TS = REPO_ROOT / "backend" / "src" / "api" / "searchChannelB.ts"
+
+# Serving, deliberately in no set: superseded by a newer edition that IS routed, or a
+# duplicate of a routed source. Allowlisting them would put two editions of one guide in
+# the same window. Each is a retirement candidate awaiting Leonard's decision — remove
+# the entry here when the source is retired (or routed).
+ROUTE_EXEMPT = {
+    "econ_sss_2007_2015": "superseded by econ_sss_2025",
+    "econ_sss_supp_2015": "superseded by econ_sss_supp_2025",
+    "ethics_relig_sss_2007_2019": "superseded by ethics_relig_sss_2024",
+    "music_sss_2015": "superseded by music_sss_2024",
+    "bafs_sss_2007_2015": "superseded by bafs_sss_2007_2020",
+    "g33": "same document as eng_sss_guide_2021 (421 chunks each)",
+    "g07": "2014 basic-education guide; superseded by pri_curr_guide_2024",
+    "g15": "2002 PE KLA guide; superseded by pe_kla_2017",
+    "ls_jss_2010": "Life and Society (2010); replaced by ces_jss_2024",
+    "g20": "one-chunk stub; sch_activities_guide carries the document",
+}
+
+
+def parse_source_set_ids(ts_text: str) -> set[str]:
+    """Every source id named in any SOURCE_SETS array. Comments are stripped first
+    (ids are often mentioned in the notes explaining why they were REMOVED)."""
+    start = ts_text.find("const SOURCE_SETS")
+    if start < 0:
+        return set()
+    end = ts_text.find("\n};", start)
+    body = ts_text[start:end if end > 0 else len(ts_text)]
+    body = re.sub(r"/\*.*?\*/", "", body, flags=re.S)
+    body = "\n".join(line.split("//", 1)[0] for line in body.splitlines())
+    return set(re.findall(r'"([^"\n]+)"', body))
+
 
 # ---------------------------------------------------------------------------
 # pure helpers
@@ -116,8 +153,13 @@ def parse_guidelines_registry(app_html: str) -> list[dict]:
 def classify(serving: dict[str, int], serving_kinds: dict[str, str],
              live: set[str], dead: set[str], listed: set[str],
              series: dict[str, list[str]] | None = None,
-             series_monitored: set[str] | None = None) -> dict:
-    """The five drift classes. Pure — takes counts, returns id lists."""
+             series_monitored: set[str] | None = None,
+             routed: set[str] | None = None,
+             route_exempt: set[str] | None = None) -> dict:
+    """The six drift classes. Pure — takes counts, returns id lists.
+
+    `routed` is the union of the backend SOURCE_SETS; None (not supplied) means the
+    UNROUTED class is not evaluated and comes back empty."""
     series = series or {}
     monitored = series_monitored or set()
     shard_of = {shard: parent for parent, shards in series.items()
@@ -152,9 +194,18 @@ def classify(serving: dict[str, int], serving_kinds: dict[str, str],
                        key=lambda s: -serving[s])
     zombie = sorted((sid for sid in serving if sid in dead),
                     key=lambda s: -serving[s])
+    # Statistical sources are filtered out of search by design (include_statistical
+    # is never set by the site), so their absence from every set is not a defect.
+    exempt = route_exempt or set()
+    unrouted = [] if routed is None else sorted(
+        (sid for sid in serving
+         if sid in live and sid not in routed and sid not in exempt
+         and not sid.startswith("stat_")
+         and serving_kinds.get(sid) not in BY_DESIGN_KINDS),
+        key=lambda s: -serving[s])
     return {"UNLISTED": unlisted, "PHANTOM": phantom,
             "UNMANAGED": unmanaged, "ZOMBIE": zombie,
-            "SERIES_UNMONITORED": sharded}
+            "SERIES_UNMONITORED": sharded, "UNROUTED": unrouted}
 
 
 SEVERITY = {
@@ -166,6 +217,8 @@ SEVERITY = {
     "ZOMBIE": "ERROR",
     # Outside every registry-keyed monitor, so it silently ages.
     "UNMANAGED": "ERROR",
+    # In the store, but no routed query can ever return it.
+    "UNROUTED": "ERROR",
     # A browse entry the search cannot answer from.
     "PHANTOM": "WARN",
     # Needs a human curation decision per source, so it cannot be auto-fixed.
@@ -175,6 +228,7 @@ SEVERITY = {
 LABEL = {
     "SERIES_UNMONITORED": "登記為年度系列，但三個 registry 監察都讀不到它的分年檔",
     "UNLISTED": "搜尋得到，但「📚EDB指引」瀏覽不到",
+    "UNROUTED": "已入庫，但不在後端任何路由清單（SOURCE_SETS）內，問題一觸發路由就搜不到",
     "PHANTOM": "瀏覽清單有，但庫內零片段",
     "UNMANAGED": "庫內有片段，但 source_registry 從未登記",
     "ZOMBIE": "登記為已退役，但仍在服務片段",
@@ -186,7 +240,7 @@ def render_ledger(drift: dict, serving: dict[str, int],
     """Human triage list. UNLISTED is a decision queue, so it carries titles."""
     out = [f"# 登記／庫存／瀏覽清單 漂移帳（{generated_at}）", "",
            "由 `dev/source/check_registry_drift.py --check` 產生，請勿手改。", ""]
-    for cls in ("ZOMBIE", "SERIES_UNMONITORED", "UNMANAGED", "PHANTOM", "UNLISTED"):
+    for cls in ("ZOMBIE", "SERIES_UNMONITORED", "UNMANAGED", "UNROUTED", "PHANTOM", "UNLISTED"):
         ids = drift.get(cls, [])
         out.append(f"## {cls} — {LABEL[cls]}（{len(ids)}）")
         out.append("")
@@ -291,6 +345,30 @@ def self_test() -> int:
 
     # THE GATE MUST GO RED: a clean corpus reports nothing, a dirty one reports.
     clean = classify({"a": 1}, {"a": "vault_extract"}, {"a"}, set(), {"a"})
+    # --- UNROUTED (S250) ---
+    ts = ('const SOURCE_SETS: Record<string, string[]> = {\n  a: [\n    "in_set",\n'
+          '    // "commented_out" was removed in S195\n    "x", /* "blocked" */\n  ],\n};\n'
+          'const OTHER = ["not_a_set"];')
+    ids = parse_source_set_ids(ts)
+    check("SOURCE_SETS ids are read; commented-out and outside ids are not",
+          ids == {"in_set", "x"})
+    rk = {"in_set": "vault_extract", "lost": "vault_extract", "fn": "footnote_curated",
+          "stat_pri": "vault_extract", "old": "vault_extract"}
+    ru = classify({"in_set": 5, "lost": 9, "fn": 2, "stat_pri": 3, "old": 4}, rk,
+                  {"in_set", "lost", "stat_pri", "old"}, set(),
+                  {"in_set", "lost", "stat_pri", "old"},
+                  routed=ids, route_exempt={"old"})["UNROUTED"]
+    check("UNROUTED = serving + live + in no SOURCE_SET", ru == ["lost"])
+    check("…footnote-only, statistical and exempt sources are not reported",
+          not {"fn", "stat_pri", "old"} & set(ru))
+    check("UNROUTED is empty when the route sets were not supplied",
+          classify({"lost": 9}, rk, {"lost"}, set(), {"lost"})["UNROUTED"] == [])
+    real = parse_source_set_ids(SEARCH_TS.read_text(encoding="utf-8"))
+    check(f"the real searchChannelB.ts yields a plausible id set ({len(real)})",
+          len(real) > 150 and "sag_2025_11" in real)
+    check("no ROUTE_EXEMPT entry is also routed (exempt must mean 'in no set')",
+          not set(ROUTE_EXEMPT) & real)
+
     check("a consistent corpus produces four empty classes",
           all(not v for v in clean.values()))
     check("severity is assigned to every class",
@@ -301,7 +379,8 @@ def self_test() -> int:
     check("ledger carries titles for the decision queue", "測試標題" in led)
     check("a pipe in a title cannot break the table row",
           "｜" in render_ledger({"ZOMBIE": ["z"], "UNMANAGED": [], "PHANTOM": [],
-                                 "UNLISTED": [], "SERIES_UNMONITORED": []},
+                                 "UNLISTED": [], "SERIES_UNMONITORED": [],
+                                 "UNROUTED": []},
                                 {"z": 1}, {"z": "a|b"}, "x"))
 
     print(f"\n{'ALL PASS' if not fails else f'{len(fails)} FAILED: {fails}'}")
@@ -348,14 +427,16 @@ def main() -> int:
 
     drift = classify(dict(serving), kinds, live, dead, listed,
                      series_parents(sources),
-                     monitorable_parents(sources))
+                     monitorable_parents(sources),
+                     routed=parse_source_set_ids(SEARCH_TS.read_text(encoding="utf-8")),
+                     route_exempt=set(ROUTE_EXEMPT))
     stamp = time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime())
     Path(args.ledger).write_text(
         render_ledger(drift, dict(serving), titles, stamp), encoding="utf-8")
 
     print(f"registry live={len(live)} retired={len(dead)} · "
           f"GUIDELINES_REGISTRY={len(listed)} · serving ids={len(serving)}")
-    for cls in ("ZOMBIE", "SERIES_UNMONITORED", "UNMANAGED", "PHANTOM", "UNLISTED"):
+    for cls in ("ZOMBIE", "SERIES_UNMONITORED", "UNMANAGED", "UNROUTED", "PHANTOM", "UNLISTED"):
         ids = drift[cls]
         n = sum(serving.get(s, 0) for s in ids)
         print(f"  [{SEVERITY[cls]:<5}] {cls:<9} {len(ids):4d} 個來源 / {n:5d} 片段  "

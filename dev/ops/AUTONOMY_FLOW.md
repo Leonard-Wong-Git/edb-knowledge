@@ -1,0 +1,97 @@
+# 自動運作總流程（EDB K1 知識平台）
+
+> **本檔的角色**：平台「偵測 → 分流 → 執行 → 驗證 → 記錄」的總流程、各類工作交給哪一級模型，以及可執行的程序（playbook）索引。
+> **不是**現況權威（現況看 `dev/SESSION_HANDOFF.md`），**不是**規則本身（安全與批准規則看 `AGENTS.md`、`dev/rules/safety.md`）。
+> **更新時機**：新增或退役一個監察、一個 playbook，或某類工作的自動化級別改變時。
+> **目標**（Leonard，S243／S249）：各環節自行運作，人手只在真正要判斷或有風險的地方介入。
+
+## 1. 總流程
+
+```
+偵測            分流                    執行                     驗證              記錄
+GitHub Actions  → 這是哪一類？       → 按級別處理           → 機械檢查       → 最小的正確位置
+排程監察           A 自動可修            A 自動修、事後報告      自測／對數／        update_log／registry
+（見 §3）          B 要 Leonard 批准     B AI 備妥方案＋證據      before-after 量度   交接檔／PR
+                   C 只需知悉            → 等批准 → 執行         線上探測
+                                         C 記錄，不打擾
+```
+
+每一步的原則：
+
+1. **偵測一律是機器做**，而且只在有新項目時通知 Leonard（`.github/scripts/notify_new_items.js`）。
+2. **任何要人做決定的清單都要有出口**：處理完的項目必須離開清單，清單清空要自動關閉。只入不出的清單會變成牆紙。
+3. **AI 把決定準備到「只差一個是或否」**：附證據、附建議、附回退方法。不要把未分類的原始清單交給 Leonard。
+4. **寫生產資料前**：先全欄位備份、先預演（dry-run）、先取得 Leonard 明示批准；寫完逐項對數。
+5. **凡改檢索**（路由清單、門檻、排序）：先量、後改、再量，用同一批題目。
+6. **修一個問題時，順手加一個會在它重現時報警的檢查**，否則同一個問題會靜靜回來。
+
+## 2. 自動化級別
+
+| 級別 | 意思 | 適用條件 |
+|---|---|---|
+| **A 全自動** | 機器偵測、機器處理、事後在 PR／Issue 留紀錄 | 可機械判定對錯、可回退、不涉內容取捨 |
+| **B 半自動** | AI 備妥方案與證據，Leonard 答「是／否」 | 寫生產資料、刪除、內容取捨、檢索改動、合併 PR |
+| **C 只通知** | 記錄並在適當時告知 | 平台層限制、等上游修正、已知且接受的缺口 |
+
+現況（2026-11-16）：
+
+| 工作 | 現時級別 | 可升級至 | 還欠甚麼 |
+|---|---|---|---|
+| 新通告入庫（Option A executor） | A（Leonard 在 Issue 剔選後全自動） | — | — |
+| 來源有否更新（Freshness） | 偵測 A；處理 B | 「文字相同」的個案升 A | 在排程內做逐頁比對，相同即自動確認（S249 人手做了 11 次，全部是這一類） |
+| 來源有實質改動 → 重新入庫 | B | 低風險個案升 A | 重新入庫改走 Option A 的分支 → PR → auto-merge 路徑，並以對數與線上探測作閘 |
+| 連結失效（served-URL） | 偵測 A；修復 B | 純網址搬遷升 A | 新網址內容與舊抽取逐頁相同才自動改 |
+| 質素檢查惡化（qc-regression） | 偵測 A；處理 B | — | 成因多樣，維持 B |
+| 來源未入路由清單（UNROUTED，S250） | 偵測 A；處理 B | 新入庫來源升 A | executor 已自動加入清單；人手入庫要記得加，檢查會報 |
+| 註腳與原文是否一致 | 人手觸發（S250 首次全量審核：177 條中 28 條頁碼錯、9 條內容不符） | 偵測 A | 把 `footnote-audit` 排成每月自動跑；`PAGE_ANCHORED` 只查得到「沒有頁碼」，查不到「頁碼錯」 |
+| 答案是否答錯對象 | 修正已部署未開 | — | 等 Leonard 決定 `FEATURE_SUBJECT_CHECK` |
+
+## 3. 偵測層（現有監察）
+
+| 監察 | 頻率 | 發現問題時 | Playbook |
+|---|---|---|---|
+| `freshness_check.yml` | 每週一 | Issue `freshness-change` | `freshness-triage` |
+| `served_url_check.yml` | 每週一 | Issue `served-url-broken` | `source-reingest`（網址搬遷部分） |
+| `discover_check.yml` | 每週一 | Issue（新文件候選） | Option A 入庫 |
+| `title_check.yml` | 每月 | Issue（封面標題不符） | `freshness-triage` |
+| `qc_report.yml` | 每日 | Issue `qc-regression`（高於基準才開） | `qc-regression-triage` |
+| `live_probe.yml` | 每 6 小時 | 線上服務異常 | `health-probe` |
+| `monitor_watchdog.yml` | 每日 | 其他監察沒有按時跑 | `health-probe` |
+| `pgvector_check.yml` | 每週一 | 上游版本可升級 | 只通知 |
+
+## 4. 模型分工
+
+原則：**貴的模型只做判斷，便宜的模型做體力勞動；體力勞動的結果由貴的模型抽查後才採用。**
+
+| 工作類型 | 交給 | 例子 |
+|---|---|---|
+| 設計、跨系統找根因、檢索設計、內容取捨、寫生產資料前的最後覆核 | 最強模型（主 session） | 為何 Freshness 清不完；哪些來源應加入路由清單 |
+| 跟 playbook 做的多步調查、逐頁比對、跑量度並比較、按既定模式改程式 | 中階模型（sub-agent） | 51 條頁碼逐條對 PDF；185 題 before／after |
+| 跑指令報結果、數數、對檔案、格式檢查、起手探針 | 最平模型（sub-agent） | 起手探針；`check_*.py --self-test` 全部跑一次 |
+
+分派 sub-agent 的硬規則：
+
+1. **預設嚴格唯讀**：不得寫 Supabase、不得改 repo 內的檔案、不得 commit／push、不得改旗標。輸出只寫到 scratchpad。
+2. **任務說明要自足**：路徑（含空格要加引號）、用哪個 python（抽取與入庫用 `/usr/local/bin/python3`）、金鑰在 `backend/.env`（不得印出）、要交回甚麼。
+3. **要求分開「已核實」與「推斷」**，並交回輸出檔的絕對路徑。
+4. **主 session 獨立抽查後才採用**；寫生產資料所依據的每一條，都要再核一次（S249：40 條頁碼由 sub-agent 找、主 session 再逐條核實）。
+5. **生產寫入只由主 session 在 Leonard 批准後執行**，不交給 sub-agent。
+
+## 5. Playbook 索引
+
+Playbook 是可逐步照做的程序，放在 `dev/ops/playbooks/`。步驟次序以 playbook 為準；背後的原理與歷史教訓看它指向的文件。
+
+| Playbook | 何時用 | 建議模型 | 會否寫生產 |
+|---|---|---|---|
+| `health-probe.md` | 每節開工；懷疑線上有問題 | 最平 | 否 |
+| `freshness-triage.md` | `freshness-change` Issue 有新項目 | 中階（比對）＋最強（定案） | 只寫監察基線 |
+| `source-reingest.md` | 經批准重新入庫一個已存在的來源 | 最強執行；中階可做預演 | **是（要批准）** |
+| `route-coverage.md` | QC 報 `REGISTRY_UNROUTED`；人手入庫新來源後 | 最強（分類）＋中階（量度） | 否（改後端，要合併批准） |
+| `footnote-audit.md` | 每月；或 `PAGE_ANCHORED` 高於基準 | 中階 | 審核唯讀；更正要批准 |
+| `qc-regression-triage.md` | `qc-regression` Issue 開出 | 最平（定位）＋最強（定案） | 視乎成因 |
+
+## 6. 下一步可以交給機器的三件事（按得益排序）
+
+1. **Freshness 自動確認「文字相同」的個案**：排程內下載新版、逐頁對 vault 抽取檔，完全相同即自動 `--ack`。S249 的 19 項中 11 項屬此類，全部可以不經人手。
+2. **每月註腳審核**：以 `footnote-audit` 交中階模型唯讀跑一次，只把「與原文不符」的幾條交給 Leonard。S249 首次審核就找到兩條金額／機構錯誤。
+3. **路由清單改動自動量度**：PR 一旦改到 `SOURCE_SETS`，CI 自動跑題庫 before／after 並把比較結果貼在 PR，省去人手起本機伺服器。
