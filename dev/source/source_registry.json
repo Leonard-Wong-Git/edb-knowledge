@@ -1615,16 +1615,17 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-15",
+      "last_checked_at": "2026-11-16",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
       "notes": "小學學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_pri/。",
       "freshness_metadata": {
-        "last_modified": "Mon, 27 Apr 2026 07:48:38 GMT",
-        "content_length": "17728",
-        "etag": "\"04fe421ad6dc1:0\"",
-        "content_hash": "0d7873a0882b5f8199ab2cbfc4976290ab81de8f9d6e2da1cbdd3c39bd1f3fe7",
-        "hash_checked_at": "2026-06-03"
+        "last_modified": "Wed, 05 Aug 2026 04:08:52 GMT",
+        "content_length": "16415",
+        "etag": "\"062e51f9024dd1:0\"",
+        "content_hash": "e2371fde88617dab8108b7d269f9f742cbaf3441c84e5bd731a4e3970854d91c",
+        "hash_checked_at": "2026-11-16",
+        "acked_at": "2026-11-16"
       }
     },
     {
@@ -1645,16 +1646,17 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-15",
+      "last_checked_at": "2026-11-16",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
       "notes": "中學學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_sec/。",
       "freshness_metadata": {
-        "last_modified": "Mon, 27 Apr 2026 07:48:38 GMT",
-        "content_length": "18097",
-        "etag": "\"04fe421ad6dc1:0\"",
-        "content_hash": "50070df2eaf4ea75fe081a16d6168eeca1d02b1e336394204846e62428566e35",
-        "hash_checked_at": "2026-06-03"
+        "last_modified": "Wed, 05 Aug 2026 04:08:52 GMT",
+        "content_length": "18469",
+        "etag": "\"062e51f9024dd1:0\"",
+        "content_hash": "966369dbfa959fc4a51bc55657c03357cb9f890e52fb005c18bfedaceed9ccf1",
+        "hash_checked_at": "2026-11-16",
+        "acked_at": "2026-11-16"
       }
     },
     {
@@ -1673,16 +1675,17 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "rolling",
-      "last_checked_at": "2026-06-15",
+      "last_checked_at": "2026-11-16",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
       "notes": "特殊學校學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_special/。",
       "freshness_metadata": {
-        "last_modified": "Mon, 27 Apr 2026 07:48:38 GMT",
-        "content_length": "17519",
-        "etag": "\"04fe421ad6dc1:0\"",
-        "content_hash": "92138fe23b00a1cfa25d7be64f37637d532ddae05e21e75207e5c7e3472da0af",
-        "hash_checked_at": "2026-06-03"
+        "last_modified": "Wed, 05 Aug 2026 04:08:52 GMT",
+        "content_length": "17837",
+        "etag": "\"062e51f9024dd1:0\"",
+        "content_hash": "d83ee721be16e19cb858fd69396426c7c790dfcfc31a0df50d74ca2d69503894",
+        "hash_checked_at": "2026-11-16",
+        "acked_at": "2026-11-16"
       }
     },
     {

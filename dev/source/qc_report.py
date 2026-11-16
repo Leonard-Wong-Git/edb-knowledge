@@ -81,7 +81,15 @@ BASELINE = {
     # elegislation section URLs). Remaining 51: 41 curated footnotes on PDFs with
     # no #page=, and 10 gifted_policy_docs chunks whose URL is a PDF but whose
     # text was extracted from a web page.
-    "no_page_anchor": 51,
+    # S249: 51 -> 1. The 41 footnotes got a verified #page= (three were pointing at
+    # the wrong PDF altogether) and the 10 gifted chunks now cite the web pages they
+    # were extracted from — all through dev/source/url_overrides.json +
+    # dev/apply_url_overrides.py. Re-running a footnote ingest script with --execute
+    # writes the per-source url back and this check will go over baseline: re-apply
+    # the overrides. The 1 left is footnote_fn_ceg_no_tutorial, whose sentence is
+    # not in the PDF it cites (it is in the EOEBG / OEBG user guides) — Leonard to
+    # choose the source.
+    "no_page_anchor": 1,
     # 658, not the 116 first written here: the first count saw only
     # arts_kla_guide_2017 and missed the 13 stat_enrolment_YYYY sources plus
     # stat_kg. Recounted over the whole store before this file was trusted.
