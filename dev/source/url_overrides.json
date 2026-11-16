@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "note": "S249 — wiki_chunks.url 的逐片段覆寫（頁碼錨點／更正網址）。註腳的來源腳本（dev/forms_ingest.py 等）只有每個來源一條網址，重跑 --execute 會把這裏的網址蓋回去；重跑後必須再跑 dev/apply_url_overrides.py --execute。每條的頁碼已用 matched quote 對新版 PDF 逐頁核實（2026-11-16，兩次獨立核對）。",
-    "count": 50,
+    "note": "S249 — wiki_chunks.url 的逐片段覆寫（頁碼錨點／更正網址）。註腳的來源腳本（dev/forms_ingest.py 等）只有每個來源一條網址，重跑 --execute 會把這裏的網址蓋回去；重跑後必須再跑 dev/apply_url_overrides.py --execute。每條的頁碼已用 matched quote 對新版 PDF 逐頁核實（2026-11-16，兩次獨立核對）。 S250 補 28 條：原有 #page= 指錯頁（由註腳全量審核找出，原句經獨立核實在新頁、不在舊頁）。",
+    "count": 78,
     "pending": {
       "footnote_fn_ceg_no_tutorial": "原句不在所引的 CEG 計算方法 PDF；出處在 EOEBG User Guide 第 6 頁或 OEBG User Guide 第 7 頁，待 Leonard 選來源"
     }
@@ -305,6 +305,174 @@
       "url": "https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/gifted/hong-kong-development/detail.html",
       "was": "https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/gifted/resources_and_support/ge_resource_bank/files/Policy/policy/policy_chin_March08.pdf",
       "basis": "=== detail === 跳至主要內容 主要內容 [資料庫] 香港資優教育發展 教育統籌委員會第四號報告書 一九九零年教育統籌委員會發佈「第四號報告」，探討",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_icac_bidrig": {
+      "url": "https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=88",
+      "was": "https://psic.icac.org.hk/sites/default/files/pdf/guides_040_pdf_zh_hant.pdf#page=84",
+      "basis": "3. 若投標者包括組成合夥、合營企業或其他形式組織的兩名或兩名以上人士或兩間或以上公司，而所有該等人士或公司均須",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_kgop_teacher_onduty": {
+      "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=149",
+      "was": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=148",
+      "basis": "* 每班最少須有一位教師當值",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_tpc_2022_sanction_ladder": {
+      "url": "https://www.edb.gov.hk/attachment/en/teacher/guidelines_tpc/guidelines_en.pdf#page=32",
+      "was": "https://www.edb.gov.hk/attachment/en/teacher/guidelines_tpc/guidelines_en.pdf#page=2",
+      "basis": "For mild misconduct cases, the EDB will issue advisory letters to remind the",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_tpc_2022_representation_14d": {
+      "url": "https://www.edb.gov.hk/attachment/en/teacher/guidelines_tpc/guidelines_en.pdf#page=32",
+      "was": "https://www.edb.gov.hk/attachment/en/teacher/guidelines_tpc/guidelines_en.pdf#page=2",
+      "basis": "within 14 days with full understanding of the severity of the cases.",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_supply_trained_priority": {
+      "url": "https://www.edb.gov.hk/attachment/en/teacher/appointments-related/supply-teachers/supply_teacher_guideline_e.pdf#page=3",
+      "was": "https://www.edb.gov.hk/attachment/en/teacher/appointments-related/supply-teachers/supply_teacher_guideline_e.pdf#page=8",
+      "basis": "Priority should be given to trained teachers as far as possible when selecting s",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_supply_blnst_202324": {
+      "url": "https://www.edb.gov.hk/attachment/en/teacher/appointments-related/supply-teachers/supply_teacher_guideline_e.pdf#page=2",
+      "was": "https://www.edb.gov.hk/attachment/en/teacher/appointments-related/supply-teachers/supply_teacher_guideline_e.pdf#page=4",
+      "basis": "temporary teachers in all aided schools are required to pass the Basic Law and N",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_coa_unqualified_teacher": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_english_1.16.pdf#page=28",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_english_1.16.pdf#page=13",
+      "basis": "any teacher who does not meet the requirements for appointment as a “qualified t",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_ncs_composite_baseline": {
+      "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26004E.pdf#page=3",
+      "was": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC26004E.pdf#page=2",
+      "basis": "provided with the additional provision based on the number of NCS students. Deta",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_ncs_kg_5tier_201920": {
+      "url": "https://www.aud.gov.hk/pdf_e/e76ch02.pdf#page=23",
+      "was": "https://www.aud.gov.hk/pdf_e/e76ch02.pdf#page=10",
+      "basis": "5-tiered grant ranging from $50,000 to an amount comparable to the annual",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_ncs_special_school_matrix": {
+      "url": "https://www.aud.gov.hk/pdf_e/e76ch02.pdf#page=25",
+      "was": "https://www.aud.gov.hk/pdf_e/e76ch02.pdf#page=10",
+      "basis": "might apply for a grant of $50,000 per year on a need basis for",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_scvpd_closure_rationale": {
+      "url": "https://www.chp.gov.hk/files/pdf/consensus_recommendation_on_school_closure_due_to_seasonal_influenza.pdf#page=4",
+      "was": "https://www.chp.gov.hk/files/pdf/consensus_recommendation_on_school_closure_due_to_seasonal_influenza.pdf#page=3",
+      "basis": "about 1-4 days and a communicable period of about 3-5 days in general,",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_sfaa_kg_payment_flow": {
+      "url": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=8",
+      "was": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=7",
+      "basis": "kindergartens / child care centres concerned directly by the Treasury in about 1",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_sfaa_overpayment_suspend": {
+      "url": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=8",
+      "was": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=7",
+      "basis": "6.6 Notwithstanding paragraphs 6.1 to 6.3 above, the WFSFAA may at any time with",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_sfaa_doc_retain_2yr": {
+      "url": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=8",
+      "was": "https://www.hkugac.edu.hk/f/page/416/3846/2526_03a_SFAA_Guidance_Notes.pdf#page=7",
+      "basis": "keep all supporting documents of the application data for at least two years, an",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_edbc10_2012_through_train_50": {
+      "url": "https://www.edb.gov.hk/attachment/en/edu-system/primary-secondary/applicable-to-primary-secondary/direct-subsidy-scheme/index/edbc12010e.pdf#page=6",
+      "was": "https://www.edb.gov.hk/attachment/en/edu-system/primary-secondary/applicable-to-primary-secondary/direct-subsidy-scheme/index/edbc12010e.pdf#page=5",
+      "basis": "more needy students overall, the Working Group has recommended that through-",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_edbc14_2024_thresholds": {
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/EDBC%2014-2024_Chin_SPMS_final%20(issue).pdf#page=2",
+      "was": "https://www.edb.gov.hk/attachment/tc/sch-admin/sch-premises-info/sch-premises-maintenance/EDBC%2014-2024_Chin_SPMS_final%20(issue).pdf#page=1",
+      "basis": "工程。至於規模較大及較複雜的修葺工程一般需要額外開支和專業知",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_emsd_lift_annual_frequency": {
+      "url": "https://www.emsd.gov.hk/filemanager/sc/content_794/Presentation_Duties_RPs.pdf#page=17",
+      "was": "https://www.emsd.gov.hk/filemanager/sc/content_794/Presentation_Duties_RPs.pdf#page=15",
+      "basis": "c)c) 在每隔不超逾12個月/6個月徹底檢驗該升降機",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_aud_fsi_owner_duty_en": {
+      "url": "https://www.aud.gov.hk/pdf_e/e61ch06.pdf#page=19",
+      "was": "https://www.aud.gov.hk/pdf_e/e61ch06.pdf#page=7",
+      "basis": "keep such FSI in efficient working order at all times; and",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_aud_fs251_14day": {
+      "url": "https://www.aud.gov.hk/pdf_e/e61ch06.pdf#page=19",
+      "was": "https://www.aud.gov.hk/pdf_e/e61ch06.pdf#page=7",
+      "basis": "FSI, he shall within 14 days after completion of the work issue to the",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_kgadmin_utilrate": {
+      "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=92",
+      "was": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=91",
+      "basis": "同時容納全日班及半日班學生(即混合班)的課室，計算課室容額時以該課室的較高容額(即半日制",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_kgadmin_asset": {
+      "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=95",
+      "was": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/free-quality-kg-edu/KG%20Admin%20Guide_Chi_2026_May.pdf#page=91",
+      "basis": "註：校監應定期(不少於每年一次)覆核固定資產登記冊上的項目，並應於每個會計年度(有關學年或財政年度)結束前在登記冊末最少加簽",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_kgop_classroom": {
+      "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=107",
+      "was": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=106",
+      "basis": "每 班人數 不應超過 30 人 。當課 室用作 全日班午 睡",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_kgop_ratio": {
+      "url": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=64",
+      "was": "https://www.edb.gov.hk/attachment/tc/edu-system/preprimary-kindergarten/overview/Operation_manual_%20(Chi)_May%202026_Version%204.3.pdf#page=8",
+      "basis": "* * 適用於按《幼兒服務條例》註冊的特殊幼兒",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_imc_60pct": {
+      "url": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=22",
+      "was": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=21",
+      "basis": "(*計算辦學團體校董人數上限時，所有替代校董不計算在內。)",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_imc_99b": {
+      "url": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=69",
+      "was": "https://sbm.edb.gov.hk/uploads/attachment/tc/sch-admin/sbm/sbm-forms-references/imc-establishment-operation_chi_25.3.2014.pdf#page=67",
+      "basis": "該業務或商業活動所產生的利潤或淨收入運用於該",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_activities_ambulance": {
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf#page=79",
+      "was": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf#page=75",
+      "basis": "4 如需救護車出勤，使用者需要支付相應費用，包括車費及搶救治療費。",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_activities_civilservant": {
+      "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf#page=81",
+      "was": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-activities/sch-activities-guidelines/Outdoor_TC.pdf#page=77",
+      "basis": "根據公務員事務規例有關呈報公務員因公受傷的規定，適時呈報及處理。",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_phpri_time": {
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/ph-primary/Primary_Humanities_Curriculum_Guide.pdf#page=39",
+      "was": "https://www.edb.gov.hk/attachment/tc/curriculum-development/cross-kla-studies/ph-primary/Primary_Humanities_Curriculum_Guide.pdf#page=34",
+      "basis": "科課堂學習及包含人文元素的跨課程學習活動、學習經歷、延展學習。概括而言，小學人文科的課程規劃佔總課時不少於7%。",
       "confidence": "HIGH"
     }
   }

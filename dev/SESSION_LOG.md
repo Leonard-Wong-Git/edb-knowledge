@@ -39,6 +39,27 @@ When current work requires a log entry, record whether relevant older detail was
 
 <!-- ack:log-entry:start -->
 
+## 2026-11-16 Session 250 — 科目指引新路由、未入路由清單檢查、自動運作流程與 playbook、註腳全量審核
+
+- **ID:** S250（Claude_20261116_S250）
+- **Summary:** 追查「入了庫但搜不到」，查出 57 個來源（39% 片段）不在任何路由清單；新設 `subject_guides` 路由並加常設檢查；按 Leonard 要求寫好自動運作總流程與六份 playbook，並把兩項測試交較平的模型實跑。
+- **Changed:** PR #100（`4f0b57f`）：`backend/src/api/searchChannelB.ts`、`backend/scripts/_s250_localServer.ts`、`dev/source/check_registry_drift.py`、`qc_report.py`、`route_regression.mjs`、`dev/ops/**`、`RULE_PACKS.md`、`PROJECT_INDEX.md`、`DOC_SYNC_CHECKLIST.md`、`CODEBASE_CONTEXT.md`、`SYSTEM_OVERVIEW.md`、量度檔 · 收工：交接、本 log、`DOC_SYNC_REGISTRY.md`、`PROJECT_INDEX.md`、`START_NEXT_SESSION_PROMPT.txt`、`2026-11-16_s250_gold_prod_after.json`。
+- **Done:**
+  - **根因**：路由命中後只在該類別的 `SOURCE_SETS` 內搜尋；人手入庫的來源從未加入清單，亦無任何檢查。
+  - **方案取捨**：先量度「全部加入 `curriculum`」並否決（擠走 g13、5–17 秒）；改設獨立路由。
+  - **量度**：線上改前、本機改後（受影響 20 題）、線上改後三次；線上前後 185 題逐題相同。
+  - **流程**：`dev/ops/AUTONOMY_FLOW.md`＋playbook；最平模型跑 `health-probe`、中階模型跑 `footnote-audit`，各自的回饋已修入程序。
+- **QC:** 見交接 `## Validation / QC` S250。**未驗證**：新路由的 37 個來源題庫幾乎不覆蓋；9 條內容不符的註腳未逐條覆核；後端背景重讀未在線上觀察到。
+- **Evidence disposition:** 現況與下一步入交接；量度與審核結果在 `dev/source/eval_runs/2026-11-16_s250_*`；39 題快速量度、被否決方案的本機量度、sub-agent 下載的文件只在 scratchpad（一次性）。
+- **Sync:** `dev/DOC_SYNC_REGISTRY.md` S250 節；`DOC_SYNC_CHECKLIST.md` 新增「新增／退役監察或 playbook」一列（Doc Sync: registry updated）；開場鏡像由唯一區塊重生並核對。
+- **Pending:** 見交接 `## Open Priorities`（首項：28 條註腳頁碼交 Leonard 批准）。
+- **Risks:** 線上間歇逾時（`57014`）在量度期間出現 4 次，重跑即正常，屬既有的平台冷熱落差；`subject_guides` 的觸發字眼若日後擴闊，要用 `route_regression` 的反例把關。
+- **Log maintenance:** not_applicable（條目數 14，屬數量提示）。
+- **Opening-message mirror:** regenerated and verified; full text omitted by design.
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-11-16 Session 249 — Freshness 監察加出口並清零、八個來源重新入庫、50 條頁碼、後端快取定時重讀
 
 - **ID:** S249（Claude_20261116_S249）
