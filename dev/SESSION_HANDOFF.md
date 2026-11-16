@@ -17,7 +17,7 @@
 ## Current Baseline
 
 1. **平台**：v3.3.16。公開分頁三個（平台介紹／政策搜尋／EDB 指引）；文件標註收起待修（`FEATURE_TABS.annotate=false`）。Channel A 退役已完結（S243–S246）：`knowledge.json`／`role_facts.json` 已刪、內部清單清空、公開統計由 `stats.json` 提供；凍結合約只餘 `guidelines.json` 2.6.2／151。升版一律手改 `PLATFORM_VERSION`＋README 標章＋CHANGELOG，不可用 `bump_version.py`。
-2. **知識庫**：Supabase 17,084 chunks、316 來源（2026-11-16 `count=exact` 實測，S249）。`footnote_curated` 177。EDB 指引書庫 182 份（S243；之後未重核）。逐片段 `url` 覆寫 78 條在 `dev/source/url_overrides.json`（S249 50 條＋S250 28 條頁碼更正）（註腳入庫腳本以 `--execute` 重跑後必須再跑 `dev/apply_url_overrides.py --execute`）。
+2. **知識庫**：Supabase 17,084 chunks、316 來源（2026-11-16 `count=exact` 實測，S249）。`footnote_curated` 177。EDB 指引書庫 182 份（S243；之後未重核）。逐片段 `url` 覆寫 80 條在 `dev/source/url_overrides.json`（S249 50 條＋S250 28 條頁碼更正＋S251 2 條）；註腳內容更正 10 條在 `dev/source/footnote_corrections.json`（S251；同樣要在註腳入庫腳本 `--execute` 後以 `dev/apply_footnote_corrections.py --execute` 重套）（註腳入庫腳本以 `--execute` 重跑後必須再跑 `dev/apply_url_overrides.py --execute`）。
 3. **Registry 漂移**（2026-11-16 實測）：`ZOMBIE`／`UNMANAGED`／`SERIES_UNMONITORED`／`UNROUTED`（S250 新增：已入庫但不在任何路由清單）皆 0；`PHANTOM` 36；`UNLISTED` 119／2,626 片段（人手策展佇列）。Freshness 待處理 0；`PAGE_ANCHORED` 基準 1。10 個已被取代／重複的來源列於 `check_registry_drift.ROUTE_EXEMPT`，待 Leonard 批准退役。
 4. **Git 與部署**（2026-11-16 實測）：`origin/main` = `4f0b57f`（PR #100 已合併）；線上 `/health` commit = `4f0b57f`。`main` 受 ruleset 保護，一切改動走 PR，合併只在 Leonard 明示時進行。開著的 PR：S250 收工分支 `s250-closeout`（只改治理文件與量度檔）、#70（內容早已入 `main`，關閉前先問 Leonard）。判斷線上是否落後看 `git diff --name-only <部署commit>..origin/main -- backend`，不要比 hash。入庫 PR 會改 `SOURCE_SETS`，合併後 Render 重新部署，新來源要等新版上線才搜得到。後端 overlay 快取每 30 分鐘背景重讀（`/health` 報 `footnote_loaded_at`）。
 5. **模型與旗標**：合成與判官皆 `gpt-6-luna`＋`none`（碼內預設，Render 無 `OPENAI_MODEL`）。生產已開：`FEATURE_ROUTE_FIRST_SEARCH`、`FEATURE_CIRCULAR_NUMBER_LOOKUP`。已部署未開：`FEATURE_SUBJECT_CHECK`（待 Leonard 決定）。**不應啟用**（皆已量度並判定不出貨）：`FEATURE_QUERY_FUSION`、`FEATURE_VAULT_GATE_RAWVEC`、`MAX_PER_SOURCE`、`FEATURE_LEXICAL_RERANK`、`FAMILY_QUOTA`、`EXPANSION_MIN_QUERY_CHARS`／`EXPANSION_BALANCE`／`EXPANSION_REPEAT_CAP`。`/health` 不報旗標。
@@ -167,9 +167,9 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:next-priorities -->
 ## Open Priorities
 
-**Recommended next step：逐條覆核 9 條「內容不符」的註腳，把確認有錯的列給 Leonard 批准更正。** 理由：註腳在檢索時優先採用，內容錯會直接答錯；sub-agent 的語意判斷屬推斷，寫入前必須由主 session 讀原文確認。清單在 `dev/source/eval_runs/2026-11-16_s250_footnote_audit.json`（結論為「內容不符」的 9 條）；更正做法見 `dev/ops/playbooks/source-reingest.md` 的「註腳」一節（定點更新，不要用入庫腳本 `--execute`）。
+**Recommended next step：把註腳審核排成每月自動跑（`dev/ops/AUTONOMY_FLOW.md` §6 第 2 項），並把 `dev/apply_footnote_corrections.py --check` 接入每日 `qc_report`。** 理由：S251 起不能假設有最強模型（Leonard 2026-11-16：Fable 5.2 用量將盡，之後不會有），系統要靠機械檢查發現「註腳與原文不符」與「更正被寫回」，而不是靠人或強模型記得。**做事規則改看 `dev/ops/AUTONOMY_FLOW.md` §4a（沒有最強模型時）。**
 
-1. **註腳更正**（S250 審核結果）：(a) 28 條頁碼**已於 S250 經 Leonard 批准寫入**（備份 `dev/init_backup/20261116_215416_UTC/`；`apply_url_overrides.py` dry-run `to_change=0`）；(b) 9 條內容不符，見上；其中 `tas_afi_2024_25_rates`、`sia_grant_household_2025_26` 是來源已更新至 2026/27；(c) `procurement_thresholds` 所引網頁只是索引，內容在 Tips 文件第 2 頁；(d) `ceg_no_tutorial` 出處待選。
+1. **註腳更正：S250 審核的 10 條已於 S251 全部更正**（9 條內容不符＋`procurement_thresholds`；Leonard 批准；備份 `dev/init_backup/20261116_220741_UTC/`、`…220808_UTC/`；更正清單 `dev/source/footnote_corrections.json`，工具 `dev/apply_footnote_corrections.py`，`--check` `to_change=0`；線上八條查詢回傳新文字）。**不要重做。** 餘下：(a) `ceg_no_tutorial` 出處待 Leonard 選（EOEBG User Guide 第 6 頁或 OEBG User Guide 第 7 頁）；(b) 審核中 13 條「找不到」未處理（多為電子版法例，抓不到原文）；(c) 觀察：後端背景重讀註腳確實生效，但 `/health` 的 `footnote_loaded_at` 沒有更新（未查成因，屬顯示問題）。
 2. **待 Leonard 決定**：是否開 `FEATURE_SUBJECT_CHECK`（「答錯對象」已知漏判 5 條，開啟可攔 3 條）；10 個 `ROUTE_EXEMPT` 來源是否退役（刪生產資料）；統計來源（19 個／569 片段，設計上搜不到）開放搜尋還是停止維護；題庫題目 `cur_arts_guide_2002_missing` 的禁引前提已過時，是否更新；文件標註修好重開還是刪除；已收起功能的公開端點去留；`search_log` 加拒答原因（DDL）；關閉 #70；S244 三條 footnote 粵語問句；語料庫時限段落；`app.html`「全校」角色標籤；Kit 是否升級至 v0.4.6。
 3. **減少人手介入的下一步**（`dev/ops/AUTONOMY_FLOW.md` §6）：(a) Freshness 在排程內自動確認「文字相同」的個案；(b) 註腳審核排成每月自動跑；(c) PR 改到 `SOURCE_SETS` 時 CI 自動量度；(d) 為 `subject_guides` 的 37 個來源補題入題庫（現時只有 1 題觸及）。
 4. **退役 `EDBC_9_2019_E`**（已被 EDBC 4/2026 取代；S238 批准未執行，**執行前先再確認**）；**定期系統更新檢查**約 2026-11-29 到期。
@@ -384,10 +384,14 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    （dev/source/url_overrides.json＋dev/apply_url_overrides.py；⚠️ 註腳入庫腳本以 --execute 重跑後必須再套用）；
    後端 overlay 快取每 30 分鐘背景重讀。
 
+🟢 S251 做完（2026-11-16，不用重做；工作分支 s251-footnote-corrections 的 PR 待 Leonard 指示合併）：
+   · S250 審核的 10 條註腳已按原文更正並寫入（Leonard 批准、已備份、線上已驗證）。
+   · 新工具 dev/apply_footnote_corrections.py＋清單 dev/source/footnote_corrections.json（預演／--check／--execute）。
+   · 🔴 之後不能假設有最強模型（Fable 5.2 用量將盡）。做事規則：dev/ops/AUTONOMY_FLOW.md §4a。
+
 🚀 下一步：
-   ① 9 條「內容不符」註腳：主 session 先逐條讀原文覆核，確認有錯的才列給 Leonard 批准更正
-      （定點更新，見 dev/ops/playbooks/source-reingest.md「註腳」；不要用入庫腳本 --execute）。
-   ② 另兩條：procurement_thresholds 所引網頁只是索引（內容在 Tips 文件第 2 頁）；ceg_no_tutorial 出處待選。
+   ① 把註腳審核排成每月自動跑，並把 apply_footnote_corrections.py --check 接入每日 qc_report。
+   ② ceg_no_tutorial 出處待 Leonard 選；審核中 13 條「找不到」未處理。
    ③ 待 Leonard 決定：FEATURE_SUBJECT_CHECK；10 個 ROUTE_EXEMPT 舊版／重複來源是否退役；統計來源開放搜尋還是停止維護；
       題庫 cur_arts_guide_2002_missing 的禁引前提已過時；文件標註；公開端點；搜尋紀錄拒答原因（DDL）；Kit 0.4.6；#70。
    ④ 減少人手介入：Freshness 自動確認「文字相同」；註腳審核每月自動跑；SOURCE_SETS 改動 CI 自動量度；為 subject_guides 補題。
@@ -406,8 +410,8 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
 
 Post-startup first action: 按 dev/ops/playbooks/health-probe.md 做起手探針（可交最平的模型，唯讀）：
 版本應為 3.3.16；/health commit 應為 4f0b57f 或之後改 backend 的 commit；片段數 17,084；
-登記漂移 ZOMBIE／SERIES_UNMONITORED／UNMANAGED／UNROUTED 應為 0；apply_url_overrides.py（dry-run）應報 to_change=0；
-dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告，並按 ① 開始覆核。
+登記漂移 ZOMBIE／SERIES_UNMONITORED／UNMANAGED／UNROUTED 應為 0；apply_url_overrides.py（dry-run）與 apply_footnote_corrections.py --check 皆應報 to_change=0；
+dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告；origin/main 以實測為準（S250 收工 PR #101 已合併為 8115c3e）。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次、不得合併 PR。
 ```
 
