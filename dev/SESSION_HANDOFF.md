@@ -19,7 +19,7 @@
 1. **平台**：v3.3.16。公開分頁三個（平台介紹／政策搜尋／EDB 指引）；文件標註收起待修（`FEATURE_TABS.annotate=false`）。Channel A 退役已完結（S243–S246）：`knowledge.json`／`role_facts.json` 已刪、內部清單清空、公開統計由 `stats.json` 提供；凍結合約只餘 `guidelines.json` 2.6.2／151。升版一律手改 `PLATFORM_VERSION`＋README 標章＋CHANGELOG，不可用 `bump_version.py`。
 2. **知識庫**：Supabase 17,084 chunks、316 來源（2026-11-16 `count=exact` 實測，S249）。`footnote_curated` 177。EDB 指引書庫 182 份（S243；之後未重核）。逐片段 `url` 覆寫 80 條在 `dev/source/url_overrides.json`（S249 50 條＋S250 28 條頁碼更正＋S251 2 條）；註腳內容更正 10 條在 `dev/source/footnote_corrections.json`（S251；同樣要在註腳入庫腳本 `--execute` 後以 `dev/apply_footnote_corrections.py --execute` 重套）（註腳入庫腳本以 `--execute` 重跑後必須再跑 `dev/apply_url_overrides.py --execute`）。
 3. **Registry 漂移**（2026-11-16 實測）：`ZOMBIE`／`UNMANAGED`／`SERIES_UNMONITORED`／`UNROUTED`（S250 新增：已入庫但不在任何路由清單）皆 0；`PHANTOM` 36；`UNLISTED` 119／2,626 片段（人手策展佇列）。Freshness 待處理 0；`PAGE_ANCHORED` 基準 1。10 個已被取代／重複的來源列於 `check_registry_drift.ROUTE_EXEMPT`，待 Leonard 批准退役。
-4. **Git 與部署**（2026-11-16 S251 實測）：`origin/main` = `f00258c`（PR #101、#102 已合併；其後無後端改動）；線上 `/health` commit = `4f0b57f`。`main` 受 ruleset 保護，一切改動走 PR，合併只在 Leonard 明示時進行。開著的 PR：S251 收工分支 `s251-work-queue`（只加工作清單與治理文件）、#70（內容早已入 `main`，關閉前先問 Leonard）。判斷線上是否落後看 `git diff --name-only <部署commit>..origin/main -- backend`，不要比 hash。入庫 PR 會改 `SOURCE_SETS`，合併後 Render 重新部署，新來源要等新版上線才搜得到。後端 overlay 快取每 30 分鐘背景重讀（`/health` 報 `footnote_loaded_at`）。
+4. **Git 與部署**（2026-11-16 S251 實測）：`origin/main` = `2d6468a`（PR #101–#103 已合併；其後無後端改動，之後的合併以實測為準）；線上 `/health` commit = `4f0b57f`。`main` 受 ruleset 保護，一切改動走 PR，合併只在 Leonard 明示時進行。開著的 PR：S251 收工分支 `s251-work-queue`（只加工作清單與治理文件）、#70（內容早已入 `main`，關閉前先問 Leonard）。判斷線上是否落後看 `git diff --name-only <部署commit>..origin/main -- backend`，不要比 hash。入庫 PR 會改 `SOURCE_SETS`，合併後 Render 重新部署，新來源要等新版上線才搜得到。後端 overlay 快取每 30 分鐘背景重讀（`/health` 報 `footnote_loaded_at`）。
 5. **模型與旗標**：合成與判官皆 `gpt-6-luna`＋`none`（碼內預設，Render 無 `OPENAI_MODEL`）。生產已開：`FEATURE_ROUTE_FIRST_SEARCH`、`FEATURE_CIRCULAR_NUMBER_LOOKUP`。已部署未開：`FEATURE_SUBJECT_CHECK`（待 Leonard 決定）。**不應啟用**（皆已量度並判定不出貨）：`FEATURE_QUERY_FUSION`、`FEATURE_VAULT_GATE_RAWVEC`、`MAX_PER_SOURCE`、`FEATURE_LEXICAL_RERANK`、`FAMILY_QUOTA`、`EXPANSION_MIN_QUERY_CHARS`／`EXPANSION_BALANCE`／`EXPANSION_REPEAT_CAP`。`/health` 不報旗標。
 6. **監察與檢索基線**：偵測型監察有新項目才 @Leonard；質素檢查高於基準時開 `qc-regression` Issue 並 @Leonard；7 個排程 workflow 由每日看門狗監察，另有 `live_probe` 每 6 小時探測線上服務；四條 ledger workflow 經 deploy key 推。**檢索基線（S250 生產，185 題，2026-11-16）：來源層 PASS 130／FAIL 36，片段層 61／105**（`dev/source/eval_runs/2026-11-16_s250_gold_prod_after.json`；S233 舊基線為 125／41、59／107）。重跑噪音：片段層 0、來源層 ±1。路由共 28 條（S250 新增 `subject_guides`）。運作流程與程序見 `dev/ops/AUTONOMY_FLOW.md`。各項詳情見 `dev/SESSION_STATE_DETAIL.md`。
 
@@ -175,7 +175,7 @@ source_registry → same vault PDFs → ai_extract.py
 2. **待 Leonard 決定**：是否開 `FEATURE_SUBJECT_CHECK`（「答錯對象」已知漏判 5 條，開啟可攔 3 條）；10 個 `ROUTE_EXEMPT` 來源是否退役（刪生產資料）；統計來源（19 個／569 片段，設計上搜不到）開放搜尋還是停止維護；題庫題目 `cur_arts_guide_2002_missing` 的禁引前提已過時，是否更新；文件標註修好重開還是刪除；已收起功能的公開端點去留；`search_log` 加拒答原因（DDL）；關閉 #70；S244 三條 footnote 粵語問句；語料庫時限段落；`app.html`「全校」角色標籤；Kit 是否升級至 v0.4.6。
 3. **減少人手介入的下一步**（`dev/ops/AUTONOMY_FLOW.md` §6）：(a) Freshness 在排程內自動確認「文字相同」的個案；(b) 註腳審核排成每月自動跑；(c) PR 改到 `SOURCE_SETS` 時 CI 自動量度；(d) 為 `subject_guides` 的 37 個來源補題入題庫（現時只有 1 題觸及）。
 4. **退役 `EDBC_9_2019_E`**（已被 EDBC 4/2026 取代；S238 批准未執行，**執行前先再確認**）；**定期系統更新檢查**約 2026-11-29 到期。
-5. **提升片段層召回**（長期）：未試的只餘 cross-encoder 重排；動手前必讀 `dev/SESSION_STATE_DETAIL.md` 的 ②。另 `PHANTOM` 36／`UNLISTED` 119 累積清單未處理。
+5. **提升搜尋準確度**（長期；沒有較強模型時不做）：完整計劃在 `dev/ops/NEXT_UPGRADE.md`（問題拆解、五個階段、出貨門檻、放棄條件）；動手前另讀 `dev/SESSION_STATE_DETAIL.md` 的 ②。另 `PHANTOM` 36／`UNLISTED` 119 累積清單未處理。
 
 其餘只監察或次序較後的項目（封版閘、累積遺留、HNSW 監察、線上探測真實當機路徑、executor 多份批准衝突、Freshness 其餘項）詳見 `dev/SESSION_STATE_DETAIL.md`。
 
@@ -218,6 +218,7 @@ source_registry → same vault PDFs → ai_extract.py
    - ✅ **註腳更正工具** `dev/apply_footnote_corrections.py`＋清單 `dev/source/footnote_corrections.json`。
    - ✅ **無最強模型時的運作規則**（`dev/ops/AUTONOMY_FLOW.md` §4a）；三份 playbook 更新。
    - ✅ **工作清單** `dev/ops/WORK_QUEUE.md`：所有待辦寫成工作卡（只是文件，卡內工作未實作）。
+   - ✅ **下一步提升計劃** `dev/ops/NEXT_UPGRADE.md`（設計文件；門檻為建議，未經 Leonard 確認；文件層檢索與詞面檢索兩個方向屬推斷，未量度）。
 4. 生產改動：Supabase 10 條註腳 `text`／`hash`／`embedding`（其中 2 條另改 `title`）、2 條 `url`；零 DDL、零 flag、零部署。
 5. Carry-forward：未完成事項一律不在此列舉，全部歸入 `## Open Priorities` 與 `dev/ops/WORK_QUEUE.md`。
 
@@ -411,6 +412,7 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
      → A8 瀏覽清單差異 → A9 定期系統更新檢查（約 11-28 到期）→ A10 清理本機分支。
    · B 部（待 Leonard 決定，每項附建議）：一次最多問三項，用白話。
    · D 部（不要做）：已量度並否決的方向，重做只會浪費用量。
+   · 提升搜尋準確度的計劃另在 dev/ops/NEXT_UPGRADE.md；只在有較強模型或 Leonard 明示時才做。
    · 每張卡都有驗收與停止條件；停止條件觸發就停、記在卡內，不要即興補救。
 
 ⚠️ 量度紀律（違反任何一條都會得出錯的結論）：

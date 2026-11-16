@@ -49,7 +49,8 @@ When current work requires a log entry, record whether relevant older detail was
   - **寫入**：10 條 `text`／`hash`／`embedding`、2 條 `url`；皆先備份、逐條讀回；`--check` 與 dry-run `to_change=0`。
   - **線上驗證**：8 條查詢回傳新文字或新連結（寫入前同查詢回傳舊文字）。
   - **工具與規則**：更正清單為權威、工具冪等；`AUTONOMY_FLOW.md` §4a 規定語意改寫、檢索改動、刪除範圍交 Leonard。
-  - **工作清單**：A 可直接做 11 張卡、B 待 Leonard 決定 12 項（附建議）、C 等觸發、D 不要做。
+  - **工作清單**：A 可直接做 13 張卡、B 待 Leonard 決定 12 項（附建議）、C 等觸發、D 不要做（PR #103；A12、A13 隨下一步提升計劃補入）。
+  - **下一步提升計劃**：`dev/ops/NEXT_UPGRADE.md`——三類不合格題的拆解、五個階段、建議出貨門檻、放棄條件（設計文件，未實作、門檻未經確認）。
 - **Pending:** `dev/ops/WORK_QUEUE.md` 全部（卡內工作未實作）；收工 PR 待 Leonard 指示合併。
 - **Next:** ① WORK_QUEUE A1（兩個漂移檢查接入每日質素檢查）② A2（註腳出處每月機械核對）③ B 部請 Leonard 逐項決定。
 - **Risks:** 之後由較弱模型執行，判斷類工作容易出錯——以工作卡的驗收與停止條件約束；`/health` 的 `footnote_loaded_at` 不隨背景重讀更新（未查成因）；工作卡 A3、A5 所指的既有做法未經逐行核實。
@@ -102,6 +103,7 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
      → A8 瀏覽清單差異 → A9 定期系統更新檢查（約 11-28 到期）→ A10 清理本機分支。
    · B 部（待 Leonard 決定，每項附建議）：一次最多問三項，用白話。
    · D 部（不要做）：已量度並否決的方向，重做只會浪費用量。
+   · 提升搜尋準確度的計劃另在 dev/ops/NEXT_UPGRADE.md；只在有較強模型或 Leonard 明示時才做。
    · 每張卡都有驗收與停止條件；停止條件觸發就停、記在卡內，不要即興補救。
 
 ⚠️ 量度紀律（違反任何一條都會得出錯的結論）：

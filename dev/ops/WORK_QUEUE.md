@@ -2,6 +2,7 @@
 
 > **本檔的角色**：所有待辦事項的唯一清單，每項都寫成可以照做的工作卡。由最強模型（Fable 5.2）於 2026-11-16（S251）一次過寫好，供之後任何模型跟進。
 > **不是**現況權威（現況看 `dev/SESSION_HANDOFF.md` 的 `## Current Baseline`），**不是**規則本身（規則看 `AGENTS.md`、`dev/rules/safety.md`、`dev/ops/AUTONOMY_FLOW.md` §4a）。
+> **提升搜尋準確度的計劃不在本檔**，在 `dev/ops/NEXT_UPGRADE.md`（只在有較強模型或 Leonard 明示時才做）。
 > **更新時機**：做完一張卡、Leonard 作了一個決定、或出現新待辦時。做完的卡把狀態改為「✅ 完成（日期、PR 編號）」，保留一行，其餘內容刪去。
 > **系統目標**（Leonard，S243／S249／S251）：平台各環節自行運作，人手只在真正要判斷或有風險的地方介入；要人手維護又沒有人用的功能，傾向刪除。**用戶**是香港學校的校長、教師與行政人員，多數只打一至三個詞的短查詢，要的是準確、有出處、可點擊到原文頁數的答案。
 
@@ -118,6 +119,19 @@
 
 - **做法**：`git branch --merged origin/main` 列不全（squash 合併後不算已合併）。對每條本機分支，用 `git diff --stat <分支> <它的 squash commit>` 核實為 0 個檔案差異，才列入可刪清單。把清單交 Leonard，批准後才 `git branch -D`。
 
+### A12　意見與報錯按鈕（第一期）　【待 Leonard 提供表單連結｜小｜不寫生產】
+
+- **目的**：沒有強模型之後，用戶回報是發現「答錯」最直接的來源。詳見 `dev/ops/NEXT_UPGRADE.md` §7 第 1 項。
+- **做法**：Leonard 建一份表單（例如 Google Form；不收非必要的個人資料）並提供連結。在 `app.html` 與流動版加一個「意見／報錯」按鈕連到該表單；按 `dev/DOC_SYNC_CHECKLIST.md` 掃下游文案；升版照通用硬規則。
+- **驗收**：桌面與手機寬度各實際點一次，按鈕可見、連結正確；`npm run check`／`build` 不受影響。
+
+### A13　在答案旁標示文件時效　【可做｜中｜不寫生產】
+
+- **目的**：用戶最常見的風險是引用了舊版文件而不自知。詳見 `dev/ops/NEXT_UPGRADE.md` §7 第 2 項。
+- **先讀**：`dev/source/lifecycle.py`、`dev/source/check_expiry.py`，以及交接檔 `## Backlog`「時限性資料標示」一段。
+- **做法**：分兩步，各自一個 PR。(1) 用 `python3 dev/source/check_expiry.py --classify` 為未分類的舊來源出分類提案，交 Leonard 看過才寫入 registry。(2) 前端在來源連結旁顯示「現行」「已有新版」「已過期」；資料由後端回傳的來源資訊帶出，沒有分類的來源不顯示任何標示。
+- **停止條件**：分類提案中有超過一成你不肯定屬哪一類——只交提案，不寫入。
+
 ### A11　路由清單改動時 CI 自動量度　【可做但較大——沒有較強模型時先不做】
 
 - **目的**：PR 一旦改到 `backend/src` 內的 `SOURCE_SETS`，自動跑題庫改前改後比較並貼在 PR。
@@ -162,7 +176,7 @@
 
 ## D. 不要做（已量度並否決——重做只會浪費用量）
 
-- **不要啟用**：`FEATURE_QUERY_FUSION`、`FEATURE_VAULT_GATE_RAWVEC`、`MAX_PER_SOURCE`、`FEATURE_LEXICAL_RERANK`、`FAMILY_QUOTA`、`EXPANSION_MIN_QUERY_CHARS`、`EXPANSION_BALANCE`、`EXPANSION_REPEAT_CAP`。
+- **不要啟用**：`FEATURE_QUERY_FUSION`、`FEATURE_VAULT_GATE_RAWVEC`（未補完四項先決條件前；詳見 `dev/ops/NEXT_UPGRADE.md` §4）、`MAX_PER_SOURCE`、`FEATURE_LEXICAL_RERANK`、`FAMILY_QUOTA`、`EXPANSION_MIN_QUERY_CHARS`、`EXPANSION_BALANCE`、`EXPANSION_REPEAT_CAP`。
 - **不要調門檻**：`VAULT_LEAD_SCORE`、`SPOTLIGHT_LEAD_SCORE`、`min_score`、相似度截斷，全部試過。
 - **不要把大批來源塞進現有路由清單**（S250：令原有題目逾時或被擠走）。新來源照 `route-coverage.md` 分類。
 - **不要把 `ROUTE_EXEMPT` 的舊版來源加入路由**；它們應退役（B2）。
@@ -170,7 +184,7 @@
 - **不要跑全量 Freshness write-sync**（會一次重設所有基線）；用 `--ack`。
 - **不要把快速量度或本機量度檔放進 `dev/source/eval_runs/`**（會被質素檢查誤當最新基線）。
 - **不要重造系統**（Leonard S249 問過，結論是修好而非重造）。
-- **不要動「提升片段層召回」**（cross-encoder 重排等）：這是檢索設計工作，沒有最強模型時不做。平台現時檢索基線為來源層 130／36、片段層 61／105，維持即可。
+- **不要動「提升片段層召回」**（重排、候選生成等）：這是檢索設計工作，沒有較強模型時不做。計劃已寫在 `dev/ops/NEXT_UPGRADE.md`（先後次序、出貨門檻、放棄條件），有較強模型或 Leonard 明示時才按它做。平台現時檢索基線為來源層 130／36、片段層 61／105，維持即可。
 - **不要為了通過 `closeout-status` 而改寫交接檔的文字**；通不過就如實記為 blocked。
 
 ---
