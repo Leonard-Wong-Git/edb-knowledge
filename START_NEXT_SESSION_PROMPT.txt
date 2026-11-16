@@ -10,8 +10,9 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 
 平台 v3.3.16；Supabase 17,084 chunks（316 來源；footnote_curated 177）；EDB 指引書庫 182 份；guidelines.json 公開端點 151 份（_meta 2.6.2）。
 Agent Handoff Kit v0.4.7（S251 以官方 CLI 由 0.4.3 升級；migration committed、project health passed）。
-origin/main = 8f7f4d8 或之後（PR #101–#105 已合併，皆無後端改動）；線上 /health commit = 4f0b57f（開工以 /health 核實）。
-開著的 PR：#70（內容已入 main，關閉前先問 Leonard）；另可能有 S251 最後一個只改文件的 PR，以 gh pr list 為準。
+origin/main = 54352fa 或之後（PR #101–#106 已合併，皆無後端改動）；線上 /health commit = 4f0b57f（開工以 /health 核實）。
+開著的 PR：S251 收工分支 s251-closeout（合併待 Leonard 指示）、#70（內容已入 main，關閉前先問 Leonard）；
+另可能有定時續做任務開出的 PR，以 gh pr list 為準。
 Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
 FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 未設＝關閉。
 public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
@@ -34,6 +35,9 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    · S250 審核的 10 條註腳已按原文更正並寫入（Leonard 批准、已備份、線上已驗證）。
    · 新工具 dev/apply_footnote_corrections.py＋清單 dev/source/footnote_corrections.json（預演／--check／--execute）。
    · 🔴 之後不能假設有最強模型（Fable 5.2 用量將盡）。做事規則：dev/ops/AUTONOMY_FLOW.md §4a。
+
+⏰ 定時續做：S251 收工時 Leonard 預先授權，一次性任務於 2026-11-17 02:56（本機 GMT）自動續做 WORK_QUEUE A 部；
+   它只可改檔、commit、push、開 PR，不合併、不寫生產。開工先 gh pr list 看它做了甚麼；做過的卡不重做，其 PR 先核對驗收。
 
 🚀 下一步：照 dev/ops/WORK_QUEUE.md 做（所有待辦的唯一清單，Fable 5.2 於 S251 一次過寫好）。
    · 🔔 開工必做：起手卡之後，主動告訴 Leonard 這一節的工作建議用哪個模型與 effort（主力 Opus 5.5，日常 medium；
