@@ -6,37 +6,37 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S249 收工, 2026-11-16）---
+--- 專案狀態（S250 收工, 2026-11-16）---
 
-平台 v3.3.16；Supabase 17,084 chunks（316 來源，2026-11-16 實測；footnote_curated 177）；EDB 指引書庫 182 份；guidelines.json 公開端點 151 份（_meta 2.6.2）。
+平台 v3.3.16；Supabase 17,084 chunks（316 來源；footnote_curated 177）；EDB 指引書庫 182 份；guidelines.json 公開端點 151 份（_meta 2.6.2）。
 Agent Handoff Kit v0.4.3（npm 已有 0.4.6，未升級；doctor 報 project shortcuts 一項未通過）。
-origin/main = eff9047（PR #97、#98 已合併）；線上 /health commit = eff9047（2026-11-16 實測；開工以 /health 核實）。
-開著的 PR：S249 收工分支 s249-closeout（只改治理文件，合併待 Leonard 指示）、#70（內容已入 main，關閉前先問 Leonard）。
+origin/main = 4f0b57f（PR #100 已合併）；線上 /health commit = 4f0b57f（2026-11-16 實測；開工以 /health 核實）。
+開著的 PR：S250 收工分支 s250-closeout（合併待 Leonard 指示）、#70（內容已入 main，關閉前先問 Leonard）。
 Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
 FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 未設＝關閉。
 public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
-一頁式系統地圖：dev/SYSTEM_OVERVIEW.md（運作流程、困境、盲點、處理次序；不是現況權威）。
+檢索基線（S250 生產 185 題）：來源層 PASS 130／FAIL 36，片段層 61／105。
 
-🟢 S249 做完（不用重做）：
-   · Freshness 監察加出口：網頁改比對主內容區文字＋文件連結；check_freshness.py --ack <id> 逐項確認；
-     排程自動替無基線來源補基線；清單清空自動關閉 Issue。待處理 35 → 0。
-   · 五份 PDF 與三份統計表重新入庫（17,079 → 17,084）；備份在本機 dev/init_backup/20261116_08*_UTC/。
-   · 50 條片段 url 補頁碼／更正：dev/source/url_overrides.json＋dev/apply_url_overrides.py；PAGE_ANCHORED 51 → 1。
-     ⚠️ 任何註腳入庫腳本以 --execute 重跑後，必須再跑 apply_url_overrides.py --execute。
-   · 兩條註腳、兩條統計事實按原文更正。
-   · 後端 overlay 快取每 30 分鐘背景重讀（OVERLAY_CACHE_TTL_MINUTES；/health 報 footnote_loaded_at）。
-🟢 S248 做完（不用重做）：交接檔瘦身（歷史在 dev/archive/SESSION_HANDOFF_HISTORY_2026-11-15.md，詳情在
-   dev/SESSION_STATE_DETAIL.md）；QC 惡化時開 qc-regression Issue 並 @Leonard；PAGE_ANCHORED 只計 PDF。
+📘 怎樣做事：dev/ops/AUTONOMY_FLOW.md（偵測→分流→執行→驗證→記錄、自動化級別、模型分工）＋ dev/ops/playbooks/ 六份程序。
+   系統地圖：dev/SYSTEM_OVERVIEW.md。便宜模型做體力勞動（一律唯讀），結果由主 session 抽查後才採用。
+
+🟢 S250 做完（不用重做）：
+   · 新路由 subject_guides：37 份高中／學習領域科目指引此前不在任何路由清單、搜不到；另 11 個小來源入現有清單。
+     線上前後 185 題逐題相同；新來源查詢 10/10 命中。
+   · 常設檢查 UNROUTED（check_registry_drift／qc_report REGISTRY_UNROUTED 基準 0，高於即通知）。
+   · 註腳全量審核（唯讀）：177 條中 28 條頁碼錯（已獨立核實）、9 條內容不符（未覆核）；全部未寫入。
+     結果：dev/source/eval_runs/2026-11-16_s250_footnote_audit.json／.md。
+🟢 S249 做完（不用重做）：Freshness 監察加出口並清零（--ack）；八個來源重新入庫；50 條 url 覆寫
+   （dev/source/url_overrides.json＋dev/apply_url_overrides.py；⚠️ 註腳入庫腳本以 --execute 重跑後必須再套用）；
+   後端 overlay 快取每 30 分鐘背景重讀。
 
 🚀 下一步：
-   ① 請 Leonard 決定是否開 FEATURE_SUBJECT_CHECK（「答錯對象」已知漏判 5 條，開啟可攔 3 條；只有 Leonard 能在 Render 設）。
-      同批待決定：footnote_fn_ceg_no_tutorial 的出處；四條註腳措辭與原文有出入是否更正（先逐條對原文覆核）；
-      文件標註四項重開條件；搜尋紀錄加拒答原因（DDL 待批）；Kit 0.4.6 升級；已收起功能的公開端點去留；#70；
-      S244 三條 footnote 粵語問句；語料庫時限段落；app.html「全校」角色標籤。
-   ② 退役 EDBC_9_2019_E（2 段 footnote_curated；已被 EDBC 4/2026 取代；S238 已批准未執行 —— 執行前先向 Leonard 再確認）：
-      select=* 匯出備份 → DELETE → live_display_sync（以當時實測數為準，現為 17,084 → 17,082） → update_log.json。
-   ③ 減維護負擔餘項：PHANTOM 36／UNLISTED 119；兩個檢索現象先量度（統計事實搜不到、以標題搜不到 pri_science_cert_course_list）。
-      定期系統更新檢查約 11-29 到期。
+   ① 把 28 條已核實的註腳頁碼更正交 Leonard 批准並寫入（只改 url；加入 url_overrides.json 後跑 apply_url_overrides.py）。
+   ② 9 條「內容不符」註腳：主 session 先逐條讀原文覆核，確認有錯的才列給 Leonard。
+   ③ 待 Leonard 決定：FEATURE_SUBJECT_CHECK；10 個 ROUTE_EXEMPT 舊版／重複來源是否退役；統計來源開放搜尋還是停止維護；
+      題庫 cur_arts_guide_2002_missing 的禁引前提已過時；文件標註；公開端點；搜尋紀錄拒答原因（DDL）；Kit 0.4.6；#70。
+   ④ 減少人手介入：Freshness 自動確認「文字相同」；註腳審核每月自動跑；SOURCE_SETS 改動 CI 自動量度；為 subject_guides 補題。
+   ⑤ 退役 EDBC_9_2019_E（先再確認）；定期系統更新檢查約 11-29 到期。
 
 ⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
    · 定標必須讀每一段全文；用 stub 判官量的是「失去捷徑」不是「失去答案」；答案層結論必須用真判官量。
@@ -49,10 +49,8 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    · 升版只手改 PLATFORM_VERSION＋README＋CHANGELOG；任何來源換版／改網址／退役後 check_downstream_sync 的 MUST_UPDATE 必須為 0。
    · 抽取與入庫一律用 /usr/local/bin/python3。
 
-Post-startup first action: 先做起手探針（served app.html PLATFORM_VERSION 應為 3.3.16 + Render /health commit
-（應為 eff9047 或之後改 backend 的 commit；cache_b.footnote 應為 177）+ git fetch 後比對分支與 origin/main、gh pr list
-+ Supabase live count 應為 17,084 + check_registry_drift --check --ledger <scratchpad> 的 ZOMBIE／SERIES_UNMONITORED／UNMANAGED 應為 0
-+ dev/apply_url_overrides.py（dry-run）應報 to_change=0
-+ dev/PROJECT_INDEX.md「定期系統更新檢查」一行日期是否已逾 30 日）。
-之後報告，並按 ① 請 Leonard 決定。
+Post-startup first action: 按 dev/ops/playbooks/health-probe.md 做起手探針（可交最平的模型，唯讀）：
+版本應為 3.3.16；/health commit 應為 4f0b57f 或之後改 backend 的 commit；片段數 17,084；
+登記漂移 ZOMBIE／SERIES_UNMONITORED／UNMANAGED／UNROUTED 應為 0；apply_url_overrides.py（dry-run）應報 to_change=0；
+dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告，並按 ① 請 Leonard 批准。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次、不得合併 PR。

@@ -29,6 +29,18 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-11-16 — S250（科目指引新路由 ＋ UNROUTED 檢查 ＋ 自動運作流程 ＋ 註腳審核）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| 檢索路由改動（`SOURCE_SETS`／`TOPIC_KEYWORDS`） | `confirmed` | PR #100；線上 185 題前後逐題相同；`route_regression` 90/90；`CODEBASE_CONTEXT.md` 維護紀錄 |
+| Monitoring / CI workflow change（第 37 列） | `confirmed` | `check_registry_drift` `UNROUTED`、`qc_report` `REGISTRY_UNROUTED`；兩者自測通過；其餘監察的開閂邏輯不受影響 |
+| 新增監察或 playbook（S250 新列） | `confirmed` | `DOC_SYNC_CHECKLIST.md` 新增一列；`dev/ops/AUTONOMY_FLOW.md`＋六份 playbook；`PROJECT_INDEX.md` 登記；`RULE_PACKS.md` 加專案列（官方列未動） |
+| 治理規則／規則路由 | `confirmed` | 只在 `RULE_PACKS.md` 表尾加一列專案列，指向專案參考；官方 pack 內文未動 |
+| Supabase／公開數字／README／CHANGELOG／版本號 | `not_applicable` | 零生產資料寫入，版本不變 |
+| 註腳審核結果 | `pending` | 28 條頁碼、9 條內容不符未寫入，待 Leonard 批准（見交接 `## Open Priorities`） |
+| 共用 Playbook | `pending` | 可留底的經驗（「在庫但不在路由清單」「大清單擠走原有結果」）未交提案，留待下節判斷是否夠穩定 |
+
 ### 2026-11-16 — S249（Freshness 出口與清零 ＋ 重新入庫 ＋ 頁碼覆寫 ＋ 後端快取重讀）
 
 | Row | 狀態 | 備註 |
