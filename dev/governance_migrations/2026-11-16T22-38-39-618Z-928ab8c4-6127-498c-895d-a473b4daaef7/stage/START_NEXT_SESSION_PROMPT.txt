@@ -1,0 +1,63 @@
+Work in /Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft. Read AGENTS.md, then dev/SESSION_HANDOFF.md. Trust the handoff over this generated mirror.
+
+If the root does not match the handoff, stop and ask for confirmation. Do not read dev/SESSION_LOG.md during ordinary startup. Read dev/PROJECT_INDEX.md, dev/RULE_PACKS.md, dev/DOC_SYNC_REGISTRY.md, dev/CODEBASE_CONTEXT.md, dev/PROJECT_MASTER_SPEC.md, and task packs only when the current task requires them.
+所有路徑含空格，終端機指令必須用雙引號包住。
+
+一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
+報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
+
+--- 專案狀態（S251 收工, 2026-11-16）---
+
+平台 v3.3.16；Supabase 17,084 chunks（316 來源；footnote_curated 177）；EDB 指引書庫 182 份；guidelines.json 公開端點 151 份（_meta 2.6.2）。
+Agent Handoff Kit v0.4.3（npm 已有 0.4.6，未升級；doctor 報 project shortcuts 一項未通過）。
+origin/main = f00258c（PR #102 已合併）；線上 /health commit = 4f0b57f（其後無後端改動；開工以 /health 核實）。
+開著的 PR：S251 收工分支 s251-work-queue（合併待 Leonard 指示）、#70（內容已入 main，關閉前先問 Leonard）。
+Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
+FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 未設＝關閉。
+public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
+檢索基線（S250 生產 185 題）：來源層 PASS 130／FAIL 36，片段層 61／105。
+
+📘 怎樣做事：dev/ops/AUTONOMY_FLOW.md（偵測→分流→執行→驗證→記錄、自動化級別、模型分工）＋ dev/ops/playbooks/ 六份程序。
+   系統地圖：dev/SYSTEM_OVERVIEW.md。便宜模型做體力勞動（一律唯讀），結果由主 session 抽查後才採用。
+
+🟢 S250 做完（不用重做）：
+   · 新路由 subject_guides：37 份高中／學習領域科目指引此前不在任何路由清單、搜不到；另 11 個小來源入現有清單。
+     線上前後 185 題逐題相同；新來源查詢 10/10 命中。
+   · 常設檢查 UNROUTED（check_registry_drift／qc_report REGISTRY_UNROUTED 基準 0，高於即通知）。
+   · 註腳全量審核：177 條中 28 條頁碼錯（已核實並經批准寫入，url 覆寫共 78 條）、9 條內容不符（未覆核、未寫入）。
+     結果：dev/source/eval_runs/2026-11-16_s250_footnote_audit.json／.md。
+🟢 S249 做完（不用重做）：Freshness 監察加出口並清零（--ack）；八個來源重新入庫；50 條 url 覆寫
+   （dev/source/url_overrides.json＋dev/apply_url_overrides.py；⚠️ 註腳入庫腳本以 --execute 重跑後必須再套用）；
+   後端 overlay 快取每 30 分鐘背景重讀。
+
+🟢 S251 做完（2026-11-16，不用重做；PR #102 已合併）：
+   · S250 審核的 10 條註腳已按原文更正並寫入（Leonard 批准、已備份、線上已驗證）。
+   · 新工具 dev/apply_footnote_corrections.py＋清單 dev/source/footnote_corrections.json（預演／--check／--execute）。
+   · 🔴 之後不能假設有最強模型（Fable 5.2 用量將盡）。做事規則：dev/ops/AUTONOMY_FLOW.md §4a。
+
+🚀 下一步：照 dev/ops/WORK_QUEUE.md 做（所有待辦的唯一清單，Fable 5.2 於 S251 一次過寫好）。
+   · 一節只做一張卡；Leonard 有指定就做指定的，否則由 A1 起由上而下揀第一張「可做」的卡。
+   · A 部（可直接做）：A1 註腳更正與連結覆寫接入每日質素檢查 → A2 註腳出處每月機械核對 → A3 來源文字相同時自動確認
+     → A4 補回 backend/README 旗標說明 → A5 科目指引補題 → A6 13 條找不到出處的註腳 → A7 /health 註腳載入時間
+     → A8 瀏覽清單差異 → A9 定期系統更新檢查（約 11-28 到期）→ A10 清理本機分支。
+   · B 部（待 Leonard 決定，每項附建議）：一次最多問三項，用白話。
+   · D 部（不要做）：已量度並否決的方向，重做只會浪費用量。
+   · 提升搜尋準確度的計劃另在 dev/ops/NEXT_UPGRADE.md；只在有較強模型或 Leonard 明示時才做。
+   · 每張卡都有驗收與停止條件；停止條件觸發就停、記在卡內，不要即興補救。
+
+⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
+   · 定標必須讀每一段全文；用 stub 判官量的是「失去捷徑」不是「失去答案」；答案層結論必須用真判官量。
+   · 檢索層得益不等於答案層得益（S228、S239 兩次）；改檢索或模型都要量答案層。
+   · 新規則要先凍結，再用未見過的題目驗證；比對 gold signature 一律用 squeeze(fold(s))。
+   · searchChannelB 會吞掉合成失敗成空答案；量模型時要另記呼叫錯誤（_s239_modelAB.ts 已做）。
+   · 推理模型的推理 token 按輸出計費；換模型時同時量開支與延遲。
+   · 生產量度一律帶 x-probe；生產限速每 IP 每分鐘 10 次，批量至少間隔 7 秒；Render 剛喚醒時首查詢會 57014，先暖機。
+   · 本機用 service key（8 秒）量 anon（3 秒）系統，延遲與逾時會低估。
+   · 升版只手改 PLATFORM_VERSION＋README＋CHANGELOG；任何來源換版／改網址／退役後 check_downstream_sync 的 MUST_UPDATE 必須為 0。
+   · 抽取與入庫一律用 /usr/local/bin/python3。
+
+Post-startup first action: 按 dev/ops/playbooks/health-probe.md 做起手探針（可交最平的模型，唯讀）：
+版本應為 3.3.16；/health commit 應為 4f0b57f 或之後改 backend 的 commit；片段數 17,084；
+登記漂移 ZOMBIE／SERIES_UNMONITORED／UNMANAGED／UNROUTED 應為 0；apply_url_overrides.py（dry-run）與 apply_footnote_corrections.py --check 皆應報 to_change=0；
+dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告，然後按 dev/ops/WORK_QUEUE.md 揀工作。
+未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次、不得合併 PR。

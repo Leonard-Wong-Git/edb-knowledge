@@ -9,7 +9,7 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 --- 專案狀態（S251 收工, 2026-11-16）---
 
 平台 v3.3.16；Supabase 17,084 chunks（316 來源；footnote_curated 177）；EDB 指引書庫 182 份；guidelines.json 公開端點 151 份（_meta 2.6.2）。
-Agent Handoff Kit v0.4.3（npm 已有 0.4.6，未升級；doctor 報 project shortcuts 一項未通過）。
+Agent Handoff Kit v0.4.7（S251 以官方 CLI 由 0.4.3 升級；migration committed、project health passed）。
 origin/main = f00258c（PR #102 已合併）；線上 /health commit = 4f0b57f（其後無後端改動；開工以 /health 核實）。
 開著的 PR：S251 收工分支 s251-work-queue（合併待 Leonard 指示）、#70（內容已入 main，關閉前先問 Leonard）。
 Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
