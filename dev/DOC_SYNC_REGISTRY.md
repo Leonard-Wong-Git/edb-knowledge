@@ -29,6 +29,19 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-11-16 — S249（Freshness 出口與清零 ＋ 重新入庫 ＋ 頁碼覆寫 ＋ 後端快取重讀）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| Monitoring / CI workflow change（`DOC_SYNC_CHECKLIST` 第 37 列） | `confirmed` | `FRESHNESS_GUIDE.md`（HTML 指紋、`--ack`、`--seed-missing`、自動關閉）、`CODEBASE_CONTEXT.md`、`PROJECT_INDEX.md`；`--self-test`、YAML parse、全量 dry-run；其餘監察的開閂邏輯已核（served-url／discovery 早有出口） |
+| 來源換版／重新入庫（下游同步） | `confirmed` | 八個來源；`check_downstream_sync` `MUST_UPDATE` 0；`update_log.json` 六條；display-sync 17,084 線上讀回；`--ack` 八項 |
+| Supabase 寫入／刪除前備份 | `confirmed` | 本機 `dev/init_backup/20261116_083026_UTC`、`_084245_UTC`、`_084344_UTC`、`_084506_UTC`（gitignored） |
+| 註腳網址覆寫（S249 新列） | `confirmed` | `DOC_SYNC_CHECKLIST.md` 新增一列；`apply_url_overrides.py` dry-run `to_change=0`；`PAGE_ANCHORED` 基準 51 → 1 |
+| 後端程式改動 | `confirmed` | PR #98；`CODEBASE_CONTEXT.md` 維護紀錄、`PROJECT_INDEX.md` 指令列；build-gate 加 `regression:overlay`；部署後線上實測 |
+| README／CHANGELOG／版本號 | `not_applicable` | 平台版本不變（3.3.16）；README 只有 display-sync 改片段數 |
+| 新治理文件 `dev/SYSTEM_OVERVIEW.md` | `confirmed` | 已登記於 `PROJECT_INDEX.md`；`INIT.md` 鏡像規則沿用 Backlog ⑦ 的 blocked 判斷，不執行 |
+| 共用 Playbook | `not_applicable` | 本節未開卡；可留底的經驗（「只入不出的監察清單」已有卡）未另交提案 |
+
 ### 2026-11-15 — S248（交接檔瘦身 ＋ QC 惡化通知 ＋ PAGE_ANCHORED 定義修正；收工 2026-11-16 補完）
 
 | Row | 狀態 | 備註 |
