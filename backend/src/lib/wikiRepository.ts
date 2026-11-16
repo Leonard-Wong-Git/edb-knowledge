@@ -481,6 +481,32 @@ export async function searchWikiRoutedExact(
 // probed lists. Because the set is tiny (~33), fetch them ALL once via a plain REST
 // SELECT (no RPC / no ivfflat) and score by EXACT cosine. Guaranteed retrieval.
 let _footnoteCache: Array<{ chunk: WikiChunk; embedding: number[] }> | null = null;
+let _footnoteLoadedAt = 0;
+
+// S249 — overlay caches (footnotes, spotlight, circular index) used to live until the
+// process died: `invalidateWikiCache` exists but nothing calls it. A footnote corrected
+// in Supabase (two wrong figures, S249) kept being served with the old text until Render
+// happened to restart, and nothing said so. They now go stale after a TTL and are
+// re-read in the BACKGROUND: the request that notices serves the copy it has, so no
+// user ever waits on a refresh, and a failed refresh keeps the old copy and retries
+// after OVERLAY_RETRY_MS instead of emptying the overlay.
+// OVERLAY_CACHE_TTL_MINUTES: default 30; 0 restores the old never-refresh behaviour.
+const OVERLAY_TTL_MS = (() => {
+  const m = Number(process.env.OVERLAY_CACHE_TTL_MINUTES);
+  return process.env.OVERLAY_CACHE_TTL_MINUTES !== undefined && Number.isFinite(m) && m >= 0
+    ? m * 60_000
+    : 30 * 60_000;
+})();
+const OVERLAY_RETRY_MS = Math.min(5 * 60_000, OVERLAY_TTL_MS);
+
+function overlayStale(loadedAt: number): boolean {
+  return OVERLAY_TTL_MS > 0 && Date.now() - loadedAt > OVERLAY_TTL_MS;
+}
+
+/** The loadedAt that makes a cache look stale again in OVERLAY_RETRY_MS. */
+function retryStamp(): number {
+  return Date.now() - OVERLAY_TTL_MS + OVERLAY_RETRY_MS;
+}
 
 function parseVec(v: unknown): number[] {
   if (Array.isArray(v)) return v as number[];
@@ -495,7 +521,21 @@ function parseVec(v: unknown): number[] {
 let _footnoteInFlight: Promise<Array<{ chunk: WikiChunk; embedding: number[] }>> | null = null;
 
 async function loadFootnoteChunks(): Promise<Array<{ chunk: WikiChunk; embedding: number[] }>> {
-  if (_footnoteCache) return _footnoteCache;
+  if (_footnoteCache) {
+    if (overlayStale(_footnoteLoadedAt) && !_footnoteInFlight) {
+      const held = _footnoteCache;
+      _footnoteInFlight = fetchFootnoteChunks()
+        .catch((err) => {
+          _footnoteLoadedAt = retryStamp();
+          console.warn(`[overlay] footnote refresh failed, keeping ${held.length} cached: ${String(err).slice(0, 120)}`);
+          return held;
+        })
+        .finally(() => {
+          _footnoteInFlight = null;
+        });
+    }
+    return _footnoteCache;
+  }
   if (_footnoteInFlight) return _footnoteInFlight;
   _footnoteInFlight = fetchFootnoteChunks().finally(() => {
     _footnoteInFlight = null;
@@ -515,8 +555,14 @@ async function fetchFootnoteChunks(): Promise<Array<{ chunk: WikiChunk; embeddin
     chunk: chunk as WikiChunk,
     embedding: parseVec(embedding),
   }));
+  _footnoteLoadedAt = Date.now();
+  // Derived from the corpus just replaced — recomputed on next use.
+  _footnoteInformativeCache = null;
   return _footnoteCache;
 }
+
+/** Test hook (scripts/overlayCacheRegression.ts). Not for production callers. */
+export const _loadFootnoteChunksForTest = loadFootnoteChunks;
 
 /**
  * S196 — bigram document-frequency calibration over the curated footnote corpus.
@@ -578,8 +624,11 @@ export async function searchFootnotes(
 
 // S193 — spotlight overlay cache, keyed by the requested id-set so a changed
 // SPOTLIGHT_SOURCE_IDS list (redeploy) never serves a stale set.
-let _spotlightCache: { key: string; rows: Array<{ chunk: WikiChunk; embedding: number[] }> } | null =
-  null;
+let _spotlightCache: {
+  key: string;
+  rows: Array<{ chunk: WikiChunk; embedding: number[] }>;
+  loadedAt: number;
+} | null = null;
 
 /** Hard ceiling on spotlight chunks pulled into memory — bounds the per-query exact-cosine
  *  cost and the cold-start payload if the id list is ever left to grow unpruned. */
@@ -594,7 +643,22 @@ async function loadSpotlightChunks(
   sourceIds: string[]
 ): Promise<Array<{ chunk: WikiChunk; embedding: number[] }>> {
   const key = [...sourceIds].sort().join(",");
-  if (_spotlightCache && _spotlightCache.key === key) return _spotlightCache.rows;
+  if (_spotlightCache && _spotlightCache.key === key) {
+    if (overlayStale(_spotlightCache.loadedAt) && !_spotlightInFlight) {
+      const held = _spotlightCache;
+      const refresh = fetchSpotlightChunks(sourceIds, key)
+        .catch((err) => {
+          held.loadedAt = retryStamp();
+          console.warn(`[overlay] spotlight refresh failed, keeping ${held.rows.length} cached: ${String(err).slice(0, 120)}`);
+          return held.rows;
+        })
+        .finally(() => {
+          if (_spotlightInFlight && _spotlightInFlight.key === key) _spotlightInFlight = null;
+        });
+      _spotlightInFlight = { key, p: refresh };
+    }
+    return _spotlightCache.rows;
+  }
   if (_spotlightInFlight && _spotlightInFlight.key === key) return _spotlightInFlight.p;
   const p = fetchSpotlightChunks(sourceIds, key).finally(() => {
     if (_spotlightInFlight && _spotlightInFlight.key === key) _spotlightInFlight = null;
@@ -619,7 +683,7 @@ async function fetchSpotlightChunks(
     chunk: chunk as WikiChunk,
     embedding: parseVec(embedding),
   }));
-  _spotlightCache = { key, rows: parsed };
+  _spotlightCache = { key, rows: parsed, loadedAt: Date.now() };
   return parsed;
 }
 
@@ -777,12 +841,15 @@ export async function preloadOverlayCaches(spotlightSourceIds: string[]): Promis
 export function overlayCacheStatus(): {
   warm: boolean;
   footnote: number | null;
+  footnote_loaded_at: string | null;
   spotlight: number | null;
   circular: { enabled: boolean; index: number | null; last_error: string | null };
 } {
   return {
     warm: _footnoteCache !== null && _spotlightCache !== null,
     footnote: _footnoteCache ? _footnoteCache.length : null,
+    // S249 — lets anyone confirm from outside that a Supabase edit has been picked up.
+    footnote_loaded_at: _footnoteCache ? new Date(_footnoteLoadedAt).toISOString() : null,
     spotlight: _spotlightCache ? _spotlightCache.rows.length : null,
     // S241 patch 2 — the circular pass fails open, so without this a missing flag and a
     // failing index load looked identical from outside (both: old results, no error).
@@ -804,6 +871,7 @@ export function overlayCacheStatus(): {
 let _circularIndex: Map<string, string> | null = null;
 let _circularInFlight: Promise<Map<string, string>> | null = null;
 let _circularLastError: string | null = null;
+let _circularLoadedAt = 0;
 
 /**
  * S241 patch 2 — the source a circular number names. Exact-id lookup first (fast and
@@ -812,7 +880,15 @@ let _circularLastError: string | null = null;
  * it is warm. Throws only if both paths fail; the caller fails open.
  */
 export async function resolveCircularSource(key: string): Promise<string | undefined> {
-  if (_circularIndex) return _circularIndex.get(key);
+  if (_circularIndex) {
+    if (overlayStale(_circularLoadedAt) && !_circularInFlight) {
+      // Stamp first so a failing refresh is retried in OVERLAY_RETRY_MS, not on every
+      // request; a successful one overwrites the stamp. The old index keeps serving.
+      _circularLoadedAt = retryStamp();
+      void loadCircularIndex(true).catch(() => undefined);
+    }
+    return _circularIndex.get(key);
+  }
   void loadCircularIndex().catch(() => undefined);
   const ids = candidateSourceIds(key);
   const url =
@@ -833,8 +909,8 @@ export async function resolveCircularSource(key: string): Promise<string | undef
   return (await loadCircularIndex()).get(key);
 }
 
-export async function loadCircularIndex(): Promise<Map<string, string>> {
-  if (_circularIndex) return _circularIndex;
+export async function loadCircularIndex(force = false): Promise<Map<string, string>> {
+  if (_circularIndex && !force) return _circularIndex;
   if (_circularInFlight) return _circularInFlight;
   _circularInFlight = (async () => {
     // Narrowed by source_id prefix BEFORE the text match. The first version matched 檔號
@@ -856,6 +932,7 @@ export async function loadCircularIndex(): Promise<Map<string, string>> {
     }
     const rows = (await resp.json()) as Array<{ source_id: string; text: string }>;
     _circularIndex = buildCircularIndex(rows);
+    _circularLoadedAt = Date.now();
     _circularLastError = null;
     return _circularIndex;
   })().finally(() => {

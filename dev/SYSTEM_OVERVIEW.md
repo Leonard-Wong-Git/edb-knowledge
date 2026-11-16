@@ -37,7 +37,7 @@ PDF／網頁／試算表  新通告自動，其餘人手                    模�
 
 1. **答案內文的連結**：chunk 正文內約 3,000 條網址（上限，未去重組）不受任何監察；`check_served_urls.py` 只查 `wiki_chunks.url`。
 2. **監察同生共死**：所有監察跑在同一套 GitHub Actions 排程；一齊停時無人出聲，公開 repo 60 日無活動會自動停用排程。
-3. **功能開關看不到**：旗標只在 Render 後台，`/health` 不報。
+3. **功能開關看不到**：旗標只在 Render 後台，`/health` 不報。（註腳改了要等後端重啟才生效的問題已於 S249 修正：快取每 30 分鐘在背景重讀，`/health` 報 `footnote_loaded_at`。）
 4. **AI 規則檔沒有備份**：`AGENTS.md`／`CLAUDE.md`／`GEMINI.md` 不在 git 內。
 5. **來源登記不如實**：`authority` 一欄全寫 `edb`，實有 8 個非 EDB 域、約 208 片段。
 

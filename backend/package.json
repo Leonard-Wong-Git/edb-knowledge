@@ -9,6 +9,7 @@
     "build": "tsc -p tsconfig.json",
     "check": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.scripts.json",
     "regression:grounded": "tsx scripts/groundedSynthesisRegression.ts",
+    "regression:overlay": "tsx scripts/overlayCacheRegression.ts",
     "check:scripts": "tsc -p tsconfig.scripts.json"
   },
   "engines": {

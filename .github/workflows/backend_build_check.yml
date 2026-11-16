@@ -119,6 +119,11 @@ jobs:
         working-directory: backend
         run: npm run build
 
+      - name: Overlay cache regression (stale-while-revalidate; a failed refresh keeps the old rows)
+        if: steps.scope.outputs.relevant == 'true'
+        working-directory: backend
+        run: npm run regression:overlay
+
       - name: Route regression (TOPIC_KEYWORDS / SOURCE_SETS evaluated from the real source)
         if: steps.scope.outputs.relevant == 'true'
         run: node dev/source/route_regression.mjs
