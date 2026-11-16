@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T21:28:03Z",
+  "generatedAt": "2026-11-16T22:21:13Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 17084,
@@ -16,7 +16,7 @@
     "sources_serving": 316,
     "sources_registered": 302,
     "guidelines_listed": 182,
-    "distinct_urls": 354,
+    "distinct_urls": 353,
     "largest_sources": [
       {
         "source_id": "coa_ss_e",
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-16T21:28:03Z",
+    "collectedAt": "2026-11-16T22:21:13Z",
     "items": [],
     "ignored_outside": 0
   },
@@ -379,7 +379,7 @@
       "severity": "ERROR",
       "status": "FAIL",
       "group": "measurable",
-      "detail": "S213 Phase 1 gold-set run · PASS=130 FAIL=36 RECORD_ONLY=19 errors=0 · 共 185 條 query · 量度自 2026-11-16_s250_gold_before_prod.json · 生產端點；⚠️ 另有更新的非生產 run（2026-11-16_s250_gold_subset20_after_local.json）未被採用",
+      "detail": "S213 Phase 1 gold-set run · PASS=130 FAIL=36 RECORD_ONLY=19 errors=0 · 共 185 條 query · 量度自 2026-11-16_s250_gold_prod_after.json · 生產端點；⚠️ 另有更新的非生產 run（2026-11-16_s250_gold_subset20_after_local.json）未被採用",
       "offenders": [],
       "offender_total": 0
     },
