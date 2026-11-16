@@ -39,6 +39,23 @@ When current work requires a log entry, record whether relevant older detail was
 
 <!-- ack:log-entry:start -->
 
+## 2026-11-15 Session 248 — 減維護負擔：交接檔瘦身、QC 惡化通知、PAGE_ANCHORED 定義修正
+
+- **ID:** S248（收工因用量上限中斷，2026-11-16 下一節起手補完）
+- **Summary:** Leonard 定「減維護負擔」為優先方向；交接檔 760 KB → 約 65 KB（PR #92）；質素檢查高於基準時開 `qc-regression` Issue 並 @Leonard（PR #93）；`PAGE_ANCHORED` 只計 PDF、標記判斷與後端一致、基準 179 → 51（PR #95）。
+- **Changed:** PR #92／#93／#95 的檔案（見各 PR）；收工（PR #96）：交接、本 log、`dev/DOC_SYNC_REGISTRY.md`、`dev/PROJECT_INDEX.md`、`START_NEXT_SESSION_PROMPT.txt`
+- **Done:** 三個 PR 皆由 Leonard 明示後合併；Issue #94 查明 194 條中 143 條為檢查誤報，修正後自動關閉。
+- **QC:** 三個 PR CI 通過；`qc-regression` 通知經真實運行驗證；線上 QC 實測 `PAGE_ANCHORED` 51。2026-11-16 補收工起手探針全部通過（數值見交接 `## Validation / QC` S248 (4)）。
+- **Evidence disposition:** 已吸收入交接檔 `## Validation / QC` S248；歷史原文在 `dev/archive/SESSION_HANDOFF_HISTORY_2026-11-15.md`。
+- **Sync:** DOC_SYNC_REGISTRY S248 段（一列 `unverified`：未逐列重核三個 PR 觸及的 registry 列）；開場鏡像由唯一區塊重生並核對。
+- **Pending:** 見交接 `## Open Priorities`（退役 `EDBC_9_2019_E` 先確認；51 條 `PAGE_ANCHORED` 真缺口；Freshness #77）。
+- **Risks:** 本條目由下一節依交接檔、git 紀錄與 PR 重建，S248 節內逐步對話細節未保存。
+- **Log maintenance:** not_applicable。
+- **Opening-message mirror:** regenerated and verified; full text omitted by design.
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-11-09 Session 247 — 清理 dev/init_backup 舊版 wiki_index 備份
 
 - **ID:** S247
