@@ -62,5 +62,16 @@ const items = keys => keys.map(k => ({ key: k, text: k }));
   r = await notify({ ...base, github: m.github, items: items(odd) });
   assert.equal(r.announced, 0);
 
-  console.log('notify_new_items: ALL PASS (6 cases)');
+  // 7. (S249) An acknowledged key is forgotten: when it changes AGAIN it is new.
+  m = mockGithub(null);
+  await notify({ ...base, github: m.github, items: items(['a', 'b']) });
+  await notify({ ...base, github: m.github, items: items(['b']), forget: ['a'] });
+  r = await notify({ ...base, github: m.github, items: items(['a', 'b']) });
+  assert.equal(r.announced, 1, 'a re-changed source must be announced after an ack');
+
+  // 8. (S249) A forgotten key still in the current list is NOT re-announced.
+  r = await notify({ ...base, github: m.github, items: items(['a', 'b']), forget: ['a'] });
+  assert.equal(r.announced, 0);
+
+  console.log('notify_new_items: ALL PASS (8 cases)');
 })().catch(e => { console.error(e); process.exit(1); });

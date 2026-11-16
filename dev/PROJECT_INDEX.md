@@ -72,6 +72,7 @@ Purpose: give a stateless AI a compact map of the project before it reads or edi
 | `dev/checklists/` | 15 域合規清單 + clauses（改後 re-run `gen_checklists_bundle.py`，勿手改 `checklists_bundle.json`） | 清單任務 |
 | `dev/AUDIT.md` | S225 AI agent 架構與護欄盤點（`ai-agent-patterns` 既有系統路徑）。**凍結於 2026-09-14 的一次性評估，非 current state** —— 其中仍未解決者以 `SESSION_HANDOFF.md` `## Risks / Blockers` 與 `## Open Priorities` 為權威。碼有改動令結論失效時，更新此檔或明確標註作廢 | 檢討架構層級／護欄密度／量度缺口時 |
 | `dev/SESSION_STATE_DETAIL.md` | 交接檔 `Current Baseline`／`Open Priorities`／`Risks` 精簡版背後的詳細內容（S248 建立）；開工不讀，做到相關項目才讀。歷史原文在 `dev/archive/SESSION_HANDOFF_HISTORY_2026-11-15.md` | 做到交接檔某一項、需要其詳細證據時 |
+| `dev/SYSTEM_OVERVIEW.md` | 一頁式系統地圖（S249 建立）：運作流程、困境與缺點、盲點、建議處理次序、工作邊界；供其他 AI 模型或新接手者快速了解。附白板連結。**不是現況權威**，數字為建立當日快照；結構、主要風險或處理次序有變時才更新。 | 新模型或新接手者要快速了解整個系統時；Leonard 問「現在系統怎樣」時 |
 | `dev/_s214_route_first_focused_review.md` | 已保存三題 route-first before／after 的離線覆核；含交接與 RPC trace 落差、片段缺席、逾時及下一步限制 | 接續 Phase B 或考慮 live 驗證前 |
 
 ## Entry Points
@@ -184,7 +185,7 @@ Do not store credential values or machine-private paths here. Local machine-only
 | pgvector 上架監察自檢 | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && python3 dev/source/check_pgvector_release.py --self-test && python3 dev/source/check_pgvector_release.py --prove-assertions` | 改門檻或上游路徑 | 2026-09-14 (S222) — ALL PASS ＋ 24 條證明會紅 |
 | 監察看門狗自檢 | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && python3 dev/source/check_monitor_health.py --self-test && python3 dev/source/check_monitor_health.py --prove-assertions` | 加減排程監察、改 cadence | 2026-09-29 (S234) — 7 個監察 ALL PASS ＋ 11 條證明會紅（原 S222） |
 | 來源下游同步檢查 | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && python3 dev/source/check_downstream_sync.py --sources <ids> --base <改動前 commit>`（加 `--notes notes.json --jev` 交 Jev 判斷清單條文；`--self-test` 15 項）；問題集 `dev/source/jev/downstream_sync_gate.json` | 任何來源換版／改網址／退役之後、收工之前；`MUST_UPDATE` 須為 0 | 2026-10-13 (S238) |
-| 監察通知 helper 自測 | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && node .github/scripts/notify_new_items.test.js`（6 項，S238 紅測實證） | 改 helper 或監察通知邏輯後 | 2026-10-13 (S238) |
+| 監察通知 helper 自測 | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && node .github/scripts/notify_new_items.test.js`（8 項；S238 紅測實證，S249 加 `forget` 兩項） | 改 helper 或監察通知邏輯後 | 2026-11-16 (S249) |
 | 線上探測自檢 | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && python3 dev/source/live_probe.py --self-test` ／ 真探測：`python3 dev/source/live_probe.py --check --json-out /tmp/live_probe.json`（一次 `/health` ＋ 一次 `x-probe` 搜尋，不記錄不計用量） | 改探測或告警邏輯 | 2026-09-29 (S234) — 8 條斷言 ALL PASS，另有「永遠正常」取代真判斷後 6 條轉紅；真探測 up=True，3 條片段 |
 | 狀態頁邏輯測試 | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && node dev/source/status_page_test.mjs` | 改 `status-07cc7942c0.html` script 或 `attention` 欄位 | 2026-09-29 (S234) — ALL PASS；三種破壞各自轉紅 |
 | 搜尋記錄報告 | `cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft" && python3 dev/search_log_report.py` ／ 自檢：`python3 dev/search_log_report.py --self-test` | 想看用戶搜尋；改報告邏輯 | 2026-09-29 (S234) — 23 條 ALL PASS，唯讀斷言紅測已證；真實報告 2 行（1 條為 S233 驗收測試） |

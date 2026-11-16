@@ -18,6 +18,8 @@
 //   const notify = require(`${process.env.GITHUB_WORKSPACE}/.github/scripts/notify_new_items.js`);
 //   await notify({ github, context, core, label, title, body, items, headline, action });
 // items: [{ key: string, text: string }] — the FULL current list.
+// forget (optional, S249): keys the operator has dealt with. They are dropped
+// from the remembered set, so the same key appearing again later is NEW.
 
 const MENTION = '@Leonard-Wong-Git';
 const MARKER_RE = /<!-- notify-keys:([A-Za-z0-9+/=]*) -->/;
@@ -55,7 +57,7 @@ function announcement({ fresh, total, headline, action, runUrl }) {
   ].join('\n');
 }
 
-async function notifyNewItems({ github, context, core, label, title, body, items, headline, action }) {
+async function notifyNewItems({ github, context, core, label, title, body, items, headline, action, forget }) {
   const { owner, repo } = context.repo;
   const runUrl = `${context.serverUrl || 'https://github.com'}/${owner}/${repo}/actions/runs/${context.runId}`;
   const keys = new Set(items.map(i => i.key));
@@ -63,6 +65,9 @@ async function notifyNewItems({ github, context, core, label, title, body, items
   const existing = open[0];
 
   const seen = existing ? (readKeys(existing.body) || new Set()) : new Set();
+  // A forgotten key that is still in the current list stays remembered — it
+  // has not actually gone away, so it must not be re-announced every run.
+  for (const k of (forget || [])) if (!keys.has(k)) seen.delete(k);
   const fresh = items.filter(i => !seen.has(i.key));
   // Keep every key ever announced while the issue stays open, so an item that
   // drops off for a week and comes back is not re-announced as new.

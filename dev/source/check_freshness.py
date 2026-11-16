@@ -26,6 +26,27 @@ detect drift against the last synced baseline and never persist, so they stay
 cheap — only sources whose HEAD tripped AND already have a seeded hash are
 downloaded for confirmation.
 
+HTML pages (S249): an EDB page is ~270 KB of site shell (menus, footer) around
+a few KB of real content, so a raw-byte hash reported "changed" whenever the
+shell moved — 16 of the 35 items stuck in the issue were pages like that. For a
+`text/html` response the fingerprint is now the visible text + document links
+of the main-content region only (`inner_page_content_container`; whole-page text when
+the marker is absent). `content_hash_kind` records which method produced the
+stored hash; a baseline of another kind cannot be compared and is reported as
+"baseline 需要重設" until it is acknowledged. The region's document links are
+stored (`doc_links`) so a change can say which links were added or removed.
+
+Exits for the pending list (S249) — every surface that asks a human to decide
+needs a way out:
+  --ack SID[,SID]   Re-baseline ONLY the named sources (after a re-ingest, or
+                    after judging a change needs no action). Nothing else in
+                    the registry is touched.
+  --seed-missing    With --dry-run: persist a baseline for rows that have none
+                    (a newly ingested source). It cannot hide a change — there
+                    was nothing to compare against — so the scheduled run does
+                    it unattended. Before S249, 95 sources had no baseline and
+                    were therefore never checked for content change.
+
 Outputs (in addition to the registry writeback):
   --changes-out PATH  Always writes a machine-readable change report (JSON) for
                       CI to consume (open/update a GitHub Issue). Default:
@@ -35,16 +56,19 @@ Outputs (in addition to the registry writeback):
                       execution stays a manual gate — this only surfaces the
                       work, it does not perform it.
 
-Usage: python3 check_freshness.py [--dry-run] [--verbose] [--limit N]
-                                   [--changes-out PATH] [--ledger PATH]
+Usage: python3 check_freshness.py [--dry-run [--seed-missing]] [--verbose]
+                                   [--limit N] [--changes-out PATH] [--ledger PATH]
+       python3 check_freshness.py --ack SID[,SID...]
 """
 
 import json
 import hashlib
-import requests
+import html as html_lib
+import re
 import sys
 import argparse
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from urllib.parse import urljoin, urldefrag
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -56,11 +80,19 @@ REGISTRY_PATH = Path("dev/source/source_registry.json")
 HEAD_TIMEOUT = 15
 GET_TIMEOUT = 60          # content download (large PDFs, e.g. g10 ~25MB)
 HASH_CHUNK = 1 << 16      # 64 KiB streaming chunks
+KIND_RAW = "raw-bytes"
+KIND_EDB_MAIN = "html-main-v1"     # main-content region: visible text + doc links
+KIND_HTML_TEXT = "html-text-v1"    # no region marker: whole-page visible text + doc links
+MAIN_START = "inner_page_content_container"
+MAIN_END = "footer_content"
+DOC_LINK_RE = re.compile(r'''href\s*=\s*["\']([^"\'#]+\.(?:pdf|docx?|xlsx?|pptx?|zip))(?:[?#][^"\']*)?["\']''', re.I)
+ACK_REPORT_DAYS = 8                # an ack is reported to CI for one weekly cycle
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 
 
 def get_headers(url: str) -> Optional[Dict[str, str]]:
     """Fetch HEAD headers for a URL (GET-fallback when HEAD is blocked)."""
+    import requests
     try:
         resp = requests.head(
             url,
@@ -88,14 +120,41 @@ def get_headers(url: str) -> Optional[Dict[str, str]]:
         return None
 
 
-def get_content_hash(url: str) -> Tuple[Optional[str], Optional[str]]:
-    """GET the full body and return (sha256_hexdigest, error).
+def html_fingerprint(body: bytes, url: str) -> Tuple[str, str, List[str]]:
+    """Fingerprint an HTML page by what a reader would notice. Pure — offline
+    testable. Returns (sha256, kind, sorted absolute document links).
 
-    Streams the response so large PDFs do not balloon memory. Hashes the raw
-    bytes as received — good enough for change detection because execution stays
-    a manual gate (a human judges any flagged change). Returns (None, reason) on
-    failure.
+    Only the main-content region counts when the EDB marker is present, so a
+    change to the site menu or footer no longer reads as a change to the source.
     """
+    text = body.decode("utf-8", "ignore")
+    kind = KIND_HTML_TEXT
+    a = text.find(MAIN_START)
+    if a != -1:
+        b = text.find(MAIN_END, a)
+        text = text[a:b if b != -1 else len(text)]
+        kind = KIND_EDB_MAIN
+    links = sorted({urldefrag(urljoin(url, html_lib.unescape(m)))[0]
+                    for m in DOC_LINK_RE.findall(text)})
+    visible = re.sub(r"(?is)<(script|style|noscript)\b.*?</\1>", " ", text)
+    visible = re.sub(r"(?s)<!--.*?-->", " ", visible)
+    visible = re.sub(r"(?s)<[^>]+>", " ", visible)
+    visible = re.sub(r"\s+", " ", html_lib.unescape(visible)).strip()
+    h = hashlib.sha256()
+    h.update(visible.encode("utf-8"))
+    h.update(b"\n--links--\n")
+    h.update("\n".join(links).encode("utf-8"))
+    return h.hexdigest(), kind, links
+
+
+def get_content_hash(url: str) -> Tuple[Optional[str], Optional[str], Optional[str], Optional[List[str]]]:
+    """GET the full body and return (hash, error, kind, doc_links).
+
+    Non-HTML: streamed raw-byte SHA-256 (large PDFs do not balloon memory),
+    kind `raw-bytes`, doc_links None. HTML: `html_fingerprint`. Returns
+    (None, reason, None, None) on failure.
+    """
+    import requests
     try:
         resp = requests.get(
             url,
@@ -106,19 +165,32 @@ def get_content_hash(url: str) -> Tuple[Optional[str], Optional[str]]:
         )
         if resp.status_code != 200:
             resp.close()
-            return None, f"HTTP {resp.status_code}"
+            return None, f"HTTP {resp.status_code}", None, None
+        if "html" in (resp.headers.get("Content-Type") or "").lower():
+            body = resp.content
+            resp.close()
+            digest, kind, links = html_fingerprint(body, resp.url or url)
+            return digest, None, kind, links
         h = hashlib.sha256()
         for chunk in resp.iter_content(chunk_size=HASH_CHUNK):
             if chunk:
                 h.update(chunk)
         resp.close()
-        return h.hexdigest(), None
+        return h.hexdigest(), None, KIND_RAW, None
     except Exception as e:
-        return None, str(e)
+        return None, str(e), None, None
+
+
+def link_diff(old: Optional[List[str]], new: Optional[List[str]]) -> Optional[Dict[str, List[str]]]:
+    """Added / removed document links, or None when either side was not recorded."""
+    if old is None or new is None:
+        return None
+    return {"added": sorted(set(new) - set(old)), "removed": sorted(set(old) - set(new))}
 
 
 def classify_change(cheap_changed: bool, old_hash: Optional[str],
-                    new_hash: Optional[str], hash_computed: bool) -> Tuple[bool, Optional[str]]:
+                    new_hash: Optional[str], hash_computed: bool,
+                    old_kind: str = KIND_RAW, new_kind: str = KIND_RAW) -> Tuple[bool, Optional[str]]:
     """Decide whether a source changed. Pure function — offline testable.
 
     The content hash is authoritative when a baseline hash exists and a fresh one
@@ -126,6 +198,10 @@ def classify_change(cheap_changed: bool, old_hash: Optional[str],
     Returns (changed, confidence-label).
     """
     if old_hash and hash_computed and new_hash:
+        if (old_kind or KIND_RAW) != (new_kind or KIND_RAW):
+            # two different fingerprint methods cannot be compared; say so
+            # rather than report a content change that may not exist
+            return True, "baseline 需要重設 (比對方式已改)"
         if new_hash != old_hash:
             return True, "content-hash"
         return False, None  # equal hash → suppress HEAD false-positive
@@ -138,6 +214,64 @@ def classify_change(cheap_changed: bool, old_hash: Optional[str],
     if cheap_changed:
         return True, "head-metadata (no baseline hash)"
     return False, None
+
+
+def build_meta(meta: Dict, last_mod, cont_len, etag, new_hash, new_kind,
+               new_links, hash_checked_at) -> Dict:
+    """The stored freshness record. `doc_links` / `acked_at` appear only when
+    they have a value, so PDF rows keep the exact shape they always had (plus
+    the kind) and the registry diff stays readable."""
+    out = {
+        "last_modified": last_mod,
+        "content_length": cont_len,
+        "etag": etag,
+        "content_hash": new_hash,
+        "hash_checked_at": hash_checked_at,
+    }
+    if new_hash and (new_kind or KIND_RAW) != KIND_RAW:
+        out["content_hash_kind"] = new_kind
+        if new_links is not None:
+            out["doc_links"] = new_links
+    if meta.get("acked_at"):
+        out["acked_at"] = meta["acked_at"]
+    return out
+
+
+def run_ack(registry: Dict, monitored: List[Dict], ack_arg: str, today: str) -> int:
+    """Re-baseline only the named sources. All-or-nothing: an unknown id or a
+    failed fetch writes nothing, so a typo cannot half-apply."""
+    wanted = [x.strip() for x in ack_arg.split(",") if x.strip()]
+    rows = [r for r in monitored
+            if (r["source_id"] in wanted or rs.parent_id(r) in wanted) and r.get("url_primary")]
+    found = {r["source_id"] for r in rows} | {rs.parent_id(r) for r in rows}
+    missing = [w for w in wanted if w not in found]
+    if missing or not rows:
+        print(f"❌ --ack: not a monitored source with a url: {', '.join(missing) or ack_arg}")
+        return 2
+    staged = []
+    for r in rows:
+        sid, url = r["source_id"], r["url_primary"]
+        headers = get_headers(url)
+        digest, err, kind, links = get_content_hash(url)
+        if not headers or not digest:
+            print(f"❌ --ack: could not fetch {sid} ({err or 'HEAD failed'}) — nothing written")
+            return 1
+        meta = dict(r.get("freshness_metadata") or {})
+        old = (meta.get("content_hash") or "—")[:12]
+        meta["acked_at"] = today
+        staged.append((r, build_meta(meta, headers.get("Last-Modified"), headers.get("Content-Length"),
+                                     headers.get("ETag"), digest, kind, links, today)))
+        print(f"  ✅ ack {sid}: {old} → {digest[:12]}  [{kind}]"
+              + (f"  {len(links)} doc link(s)" if links is not None else ""))
+    for r, new_meta in staged:
+        rs.record_freshness(r, today, new_meta)
+    registry.setdefault("_meta", {})["updated"] = today
+    tmp = REGISTRY_PATH.with_suffix(".json.tmp")
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(registry, f, ensure_ascii=False, indent=2)
+    tmp.replace(REGISTRY_PATH)
+    print(f"💾 Registry updated: {len(staged)} baseline(s) acknowledged")
+    return 0
 
 
 def render_ledger(changed: List[Dict], today: str, checked: int, errors: int) -> str:
@@ -216,12 +350,53 @@ def run_self_test() -> int:
     else:
         print("  [FAIL] render_ledger(one) malformed"); failures += 1
 
-    # --- annual series (S216) — which URLs the loop gets to see ---------------
     def assert_(name: str, cond: bool) -> None:
         nonlocal failures
         print(f"  [{'PASS' if cond else 'FAIL'}] {name}")
         if not cond:
             failures += 1
+
+    # --- HTML fingerprint (S249) ----------------------------------------------
+    def page(shell: str, main: str) -> bytes:
+        return (f'<html><div class="menu">{shell}</div>'
+                f'<div class="{MAIN_START}">{main}</div>'
+                f'<div class="{MAIN_END}">{shell} footer</div></html>').encode("utf-8")
+    base_main = '<p>教職員批假指引</p><a href="/a/leave.pdf">PDF</a><script>var t=1;</script>'
+    u = "https://www.edb.gov.hk/tc/x/index.html"
+    h0, k0, l0 = html_fingerprint(page("menu v1", base_main), u)
+    assert_("an EDB page is fingerprinted by its main-content region", k0 == KIND_EDB_MAIN)
+    assert_("document links are absolute and recorded",
+            l0 == ["https://www.edb.gov.hk/a/leave.pdf"])
+    assert_("a change to the site shell (menu / footer) is not a change",
+            html_fingerprint(page("menu v2 <a href='/new/privacy.pdf'>x</a>", base_main), u)[0] == h0)
+    assert_("whitespace and script noise inside the content is not a change",
+            html_fingerprint(page("menu v1", base_main.replace("<p>", "<p>\n  ")
+                                  .replace("var t=1", "var t=2")), u)[0] == h0)
+    assert_("a change to the content text IS a change",
+            html_fingerprint(page("menu v1", base_main.replace("批假", "請假")), u)[0] != h0)
+    h2, _, l2 = html_fingerprint(page("menu v1", base_main + '<a href="new.pdf#p2">新</a>'), u)
+    assert_("a new document link IS a change, and the diff names it",
+            h2 != h0 and link_diff(l0, l2) == {
+                "added": ["https://www.edb.gov.hk/tc/x/new.pdf"], "removed": []})
+    assert_("a page without the region marker falls back to whole-page text",
+            html_fingerprint(b"<html><p>hi</p></html>", u)[1] == KIND_HTML_TEXT)
+    assert_("link_diff says nothing when a side was never recorded",
+            link_diff(None, l0) is None)
+    assert_("baselines of two different kinds are not compared as a content change",
+            "重設" in (classify_change(True, "a"*64, "b"*64, True, KIND_RAW, KIND_EDB_MAIN)[1] or ""))
+    assert_("same kind, equal hash → still suppressed",
+            classify_change(True, "a"*64, "a"*64, True, KIND_EDB_MAIN, KIND_EDB_MAIN) == (False, None))
+    pdf_meta = build_meta({}, "L", "1", "E", "a"*64, KIND_RAW, None, "2026-11-16")
+    assert_("a PDF row keeps its original five fields exactly",
+            sorted(pdf_meta) == ["content_hash", "content_length", "etag",
+                                 "hash_checked_at", "last_modified"])
+    html_meta = build_meta({"acked_at": "2026-11-16"}, None, None, None, "a"*64,
+                           KIND_EDB_MAIN, ["x"], "2026-11-16")
+    assert_("an HTML row records its kind, links, and keeps acked_at",
+            html_meta["content_hash_kind"] == KIND_EDB_MAIN and html_meta["doc_links"] == ["x"]
+            and html_meta["acked_at"] == "2026-11-16")
+
+    # --- annual series (S216) — which URLs the loop gets to see ---------------
 
     plain = {"source_id": "g29", "url_primary": "https://e/g29.pdf",
              "freshness_metadata": {"content_hash": "a" * 64}}
@@ -296,10 +471,16 @@ def main():
                         help="Path to write the machine-readable change report (JSON)")
     parser.add_argument("--ledger", default=None,
                         help="Path to write the human Markdown ledger (write-sync only)")
+    parser.add_argument("--seed-missing", action="store_true",
+                        help="With --dry-run: still persist a baseline for rows that have none")
+    parser.add_argument("--ack", default=None, metavar="SID[,SID]",
+                        help="Re-baseline only these sources (after re-ingest / no action needed) and exit")
     args = parser.parse_args()
 
     if args.self_test:
         sys.exit(run_self_test())
+    if args.ack and (args.dry_run or args.seed_missing or args.limit):
+        parser.error("--ack runs on its own (it writes only the named sources)")
 
     if not REGISTRY_PATH.exists():
         print(f"❌ Registry not found at {REGISTRY_PATH}")
@@ -321,11 +502,20 @@ def main():
     # passed through by identity, so the loop below is unchanged for them.
     monitored = rs.expand_sources(sources)
 
+    if args.ack:
+        sys.exit(run_ack(registry, monitored, args.ack, today))
+
+    seeded = 0
+    acked_recent: List[str] = []
+    ack_cutoff = (datetime.now(timezone.utc) - timedelta(days=ACK_REPORT_DAYS)).strftime("%Y-%m-%d")
+
     gained = len(monitored) - len(sources)
     print(f"🔍 Checking freshness for {len(monitored)} sources..."
           + (f" ({len(sources)} registry rows, +{gained} annual-series years)"
              if gained else ""))
-    print(f"📅 Today: {today}  | mode: {'dry-run' if args.dry_run else 'write-sync'}")
+    mode = ("dry-run + seed-missing" if args.dry_run and args.seed_missing
+            else "dry-run" if args.dry_run else "write-sync")
+    print(f"📅 Today: {today}  | mode: {mode}")
     print("-" * 60)
 
     for src in monitored:
@@ -364,6 +554,9 @@ def main():
         old_len = meta.get("content_length")
         old_etag = meta.get("etag")
         old_hash = meta.get("content_hash")
+        old_kind = meta.get("content_hash_kind") or KIND_RAW
+        if (meta.get("acked_at") or "") >= ack_cutoff:
+            acked_recent.append(sid)
 
         # Tier 1 — cheap HEAD signal
         cheap_changed = False
@@ -378,13 +571,21 @@ def main():
         #   - cheap signal tripped AND we have a baseline hash to compare against
         #     (precise confirm / false-positive suppression), regardless of mode; OR
         #   - no baseline hash yet AND we are writing (seed for future runs).
-        need_hash = (cheap_changed and bool(old_hash)) or ((not old_hash) and (not args.dry_run))
+        #   - an HTML baseline: always (a page is small, and a dynamic page may
+        #     send no Last-Modified / Content-Length for the cheap tier to trip on).
+        seeding = (not old_hash) and ((not args.dry_run) or args.seed_missing)
+        need_hash = (cheap_changed and bool(old_hash)) or seeding or \
+            (bool(old_hash) and old_kind != KIND_RAW)
         new_hash = old_hash
+        new_kind = old_kind
+        new_links = meta.get("doc_links")
         hash_state = "skipped"
         if need_hash:
-            computed, herr = get_content_hash(url)
+            computed, herr, kind, links = get_content_hash(url)
             if computed:
                 new_hash = computed
+                new_kind = kind
+                new_links = links
                 hashed += 1
                 hash_state = "computed"
             else:
@@ -394,20 +595,24 @@ def main():
 
         # Decide changed — content hash is authoritative when both sides exist.
         changed, confidence = classify_change(
-            cheap_changed, old_hash, new_hash, hash_state == "computed"
+            cheap_changed, old_hash, new_hash, hash_state == "computed",
+            old_kind, new_kind
         )
 
         # Update record (persisted only when not dry-run). For an ordinary row
         # this is the same two assignments it always was; for a series year it
         # lands in the parent's year-keyed store instead of overwriting a single
         # scalar thirteen times.
-        rs.record_freshness(src, today, {
-            "last_modified": last_mod,
-            "content_length": cont_len,
-            "etag": etag,
-            "content_hash": new_hash,
-            "hash_checked_at": today if hash_state == "computed" else meta.get("hash_checked_at"),
-        })
+        # A dry run must leave the row alone — except a row being seeded, which
+        # had no baseline to lose.
+        seeded_now = seeding and hash_state == "computed"
+        if (not args.dry_run) or seeded_now:
+            rs.record_freshness(src, today, build_meta(
+                meta, last_mod, cont_len, etag, new_hash, new_kind, new_links,
+                today if hash_state == "computed" else meta.get("hash_checked_at")))
+            if seeded_now and args.dry_run:
+                seeded += 1
+                print(f"  🌱 seeded baseline: {sid}  [{new_kind}]")
 
         if changed:
             changes_detected += 1
@@ -421,6 +626,8 @@ def main():
                 "hash_status": hash_state,
                 "last_modified": {"old": old_mod, "new": last_mod},
                 "content_length": {"old": old_len, "new": cont_len},
+                "links": link_diff(meta.get("doc_links"), new_links)
+                         if hash_state == "computed" else None,
             })
             print(f"  🔔 CHANGE: {sid}  [{confidence}]")
             print(f"     Old: Mod={old_mod}, Len={old_len}, hash={(old_hash or '—')[:12]}")
@@ -428,10 +635,11 @@ def main():
         elif args.verbose:
             print(f"  ✅ OK: {sid}")
 
-    # Update global metadata
-    registry.setdefault("_meta", {})["updated"] = today
+    write_registry = (not args.dry_run) or seeded > 0
+    if write_registry:
+        registry.setdefault("_meta", {})["updated"] = today
 
-    if not args.dry_run:
+    if write_registry:
         # Atomic write: serialize to a temp file then os-replace, so an
         # interrupted/failed write can never leave a half-written (corrupt)
         # registry that would crash every subsequent run's json.load().
@@ -455,6 +663,10 @@ def main():
         "changes": changes_detected,
         "errors": errors,
         "hashed": hashed,
+        "seeded": seeded,
+        # acknowledged within the last weekly cycle and no longer changed: CI
+        # forgets these keys, so a later change to the same source notifies again
+        "acked_sources": sorted(set(acked_recent) - {c["source_id"] for c in changed_records}),
         "changed_sources": changed_records,
         "failed_sources": failed_records,
     }
@@ -485,6 +697,7 @@ def main():
     print(f"  Checked:    {total_checked}")
     print(f"  Changes:    {changes_detected}")
     print(f"  Hashed:     {hashed}")
+    print(f"  Seeded:     {seeded}")
     print(f"  Errors:     {errors}")
     print(f"  Threshold:  {threshold}  (fail when errors > threshold)")
 
