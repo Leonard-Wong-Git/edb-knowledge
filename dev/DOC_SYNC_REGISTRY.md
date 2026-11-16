@@ -38,7 +38,8 @@ Recorded at closeout per the Registry Rule above. Newest first.
 | 新增監察或 playbook（S250 新列） | `confirmed` | `DOC_SYNC_CHECKLIST.md` 新增一列；`dev/ops/AUTONOMY_FLOW.md`＋六份 playbook；`PROJECT_INDEX.md` 登記；`RULE_PACKS.md` 加專案列（官方列未動） |
 | 治理規則／規則路由 | `confirmed` | 只在 `RULE_PACKS.md` 表尾加一列專案列，指向專案參考；官方 pack 內文未動 |
 | Supabase／公開數字／README／CHANGELOG／版本號 | `not_applicable` | 零生產資料寫入，版本不變 |
-| 註腳審核結果 | `pending` | 28 條頁碼、9 條內容不符未寫入，待 Leonard 批准（見交接 `## Open Priorities`） |
+| 註腳網址覆寫（S249 列） | `confirmed` | 28 條頁碼更正加入 `url_overrides.json`（共 78 條）並寫入；dry-run `to_change=0`；備份 `dev/init_backup/20261116_215416_UTC/` |
+| 註腳內容更正 | `pending` | 9 條內容不符未覆核、未寫入（見交接 `## Open Priorities`） |
 | 共用 Playbook | `pending` | 可留底的經驗（「在庫但不在路由清單」「大清單擠走原有結果」）未交提案，留待下節判斷是否夠穩定 |
 
 ### 2026-11-16 — S249（Freshness 出口與清零 ＋ 重新入庫 ＋ 頁碼覆寫 ＋ 後端快取重讀）

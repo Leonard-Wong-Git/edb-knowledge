@@ -24,15 +24,16 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    · 新路由 subject_guides：37 份高中／學習領域科目指引此前不在任何路由清單、搜不到；另 11 個小來源入現有清單。
      線上前後 185 題逐題相同；新來源查詢 10/10 命中。
    · 常設檢查 UNROUTED（check_registry_drift／qc_report REGISTRY_UNROUTED 基準 0，高於即通知）。
-   · 註腳全量審核（唯讀）：177 條中 28 條頁碼錯（已獨立核實）、9 條內容不符（未覆核）；全部未寫入。
+   · 註腳全量審核：177 條中 28 條頁碼錯（已核實並經批准寫入，url 覆寫共 78 條）、9 條內容不符（未覆核、未寫入）。
      結果：dev/source/eval_runs/2026-11-16_s250_footnote_audit.json／.md。
 🟢 S249 做完（不用重做）：Freshness 監察加出口並清零（--ack）；八個來源重新入庫；50 條 url 覆寫
    （dev/source/url_overrides.json＋dev/apply_url_overrides.py；⚠️ 註腳入庫腳本以 --execute 重跑後必須再套用）；
    後端 overlay 快取每 30 分鐘背景重讀。
 
 🚀 下一步：
-   ① 把 28 條已核實的註腳頁碼更正交 Leonard 批准並寫入（只改 url；加入 url_overrides.json 後跑 apply_url_overrides.py）。
-   ② 9 條「內容不符」註腳：主 session 先逐條讀原文覆核，確認有錯的才列給 Leonard。
+   ① 9 條「內容不符」註腳：主 session 先逐條讀原文覆核，確認有錯的才列給 Leonard 批准更正
+      （定點更新，見 dev/ops/playbooks/source-reingest.md「註腳」；不要用入庫腳本 --execute）。
+   ② 另兩條：procurement_thresholds 所引網頁只是索引（內容在 Tips 文件第 2 頁）；ceg_no_tutorial 出處待選。
    ③ 待 Leonard 決定：FEATURE_SUBJECT_CHECK；10 個 ROUTE_EXEMPT 舊版／重複來源是否退役；統計來源開放搜尋還是停止維護；
       題庫 cur_arts_guide_2002_missing 的禁引前提已過時；文件標註；公開端點；搜尋紀錄拒答原因（DDL）；Kit 0.4.6；#70。
    ④ 減少人手介入：Freshness 自動確認「文字相同」；註腳審核每月自動跑；SOURCE_SETS 改動 CI 自動量度；為 subject_guides 補題。
@@ -52,5 +53,5 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
 Post-startup first action: 按 dev/ops/playbooks/health-probe.md 做起手探針（可交最平的模型，唯讀）：
 版本應為 3.3.16；/health commit 應為 4f0b57f 或之後改 backend 的 commit；片段數 17,084；
 登記漂移 ZOMBIE／SERIES_UNMONITORED／UNMANAGED／UNROUTED 應為 0；apply_url_overrides.py（dry-run）應報 to_change=0；
-dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告，並按 ① 請 Leonard 批准。
+dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告，並按 ① 開始覆核。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次、不得合併 PR。
