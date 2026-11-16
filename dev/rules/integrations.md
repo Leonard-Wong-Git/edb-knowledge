@@ -198,7 +198,7 @@ Integration declarations are project-level; they do not guarantee every AI runti
 10. **Plugin / Skill subordination**: plugin and skill instructions coexist with rule packs; safety, governance, and closeout rules take precedence on conflict.
 11. **External tool resource lifecycle**: after external-tool use, classify resources by ownership. Task-owned / agent-managed resources may be closed or cleaned automatically; shared, user-owned, system-level, other-agent-owned, or unknown resources require evidence reporting and user confirmation before remediation.
 12. **Local HTML / app validation fallback**: if `file://` browser access is blocked, do not bypass the policy and do not stop on that single surface failure. Use a registered operation reference or a short-lived loopback localhost service for actual browser / DevTools / Playwright validation, then close the task-owned service and record the evidence.
-13. **Terminal-state contract**: a tool operation succeeds only when the runtime returns an explicit successful terminal state and any required read-back passes. Stopped, aborted, timeout, spawn / transport error, signal, missing final result, or partial stdout before termination makes the affected operation indeterminate or failed, not successful. It does not make unrelated already-verified task evidence permanently invalid. For read-only operations, verify the state and rerun only the affected operation when still needed. For any operation that may have written externally or to disk, read back the actual target state before retrying, recovery, or success claims.
+13. **Terminal-state contract**: a tool operation succeeds only when the runtime returns an explicit successful terminal state and any required read-back passes. Stopped, aborted, timeout, spawn / transport error, signal, missing final result, or partial stdout before termination makes the affected operation indeterminate or failed, not successful. A wrapper exit code or an outer command's success is not a terminal success without the expected final state and read-back. It does not make unrelated already-verified task evidence permanently invalid. For read-only operations, verify the state and rerun only the affected operation when still needed. For any operation that may have written externally or to disk, read back the actual target state before retrying, recovery, or success claims.
 
 ## Checks
 
@@ -212,7 +212,6 @@ Integration declarations are project-level; they do not guarantee every AI runti
 - Self-check credential leakage before writing `PROJECT_INDEX`, `SESSION_HANDOFF`, or `SESSION_LOG`.
 - Verify that `PROJECT_INDEX` External Sources `via` references match declared Installed Integrations entries.
 - For local HTML / app validation, verify that a rejected `file://` attempt is followed by a registered operation reference or short-lived localhost fallback before declaring `blocked`.
-- Treat stopped, aborted, timeout, spawn / transport error, signal, and missing final result as operation-level indeterminate / failed states. Never count partial stdout, a wrapper exit code, or an outer command's success as terminal success without the expected final state and read-back.
 
 ## Closeout
 
@@ -228,20 +227,8 @@ Integration declarations are project-level; they do not guarantee every AI runti
 | Anti-pattern | Why it is wrong | Correct approach |
 |---|---|---|
 | Assuming no Connector or MCP exists whenever the user mentions Notion, Google Drive, or another external source | Mature connector ecosystems make paste-only fallback an unreliable default. | Read `PROJECT_INDEX` Installed Integrations, then inspect the active runtime for an authorized capable tool/schema; ask only for missing user-held access or source information. |
-| Guessing tool names, endpoints, CLI flags, URI parameters, or plugin APIs from memory | Stale examples cause unknown tool, invalid args, 400 / 404, permission, or auth loops. | Verify active runtime schema, official docs, official types/samples, or versioned local runbooks. |
-| Treating browser validation as ordinary coding and guessing Chrome, Playwright, or DevTools commands | Browser and tool-control surfaces differ across runtimes, profiles, plugins, and installed packages. | Verify the active runtime schema, official docs, or a registered tool operation reference; use the classified fallback only for the affected surface when unavailable. |
-| Treating a Connector marketing page or old example as executable schema | Marketing pages do not prove the active runtime's current tool name or input schema. | Use active runtime tool list/schema as the invocation source. |
 | Retrying unknown tool / invalid args by changing names or parameters repeatedly | Trial-and-error hides the real schema or docs gap. | Stop same-pattern retries and return to the External Tool Usage Verification Gate. |
-| Writing credential values into `PROJECT_INDEX`, `SESSION_HANDOFF`, or `SESSION_LOG` | Project files and git history are persistent; leaked credentials remain exposed. | Record credential references only, never values. |
-| Using a credential value pasted in chat and then recording it | Chat history and logs may persist the secret. | Redact, warn, and ask the user to rotate if needed. |
-| Auto-fixing auth or re-auth flows | Auth belongs to the user and the runtime/tool boundary. | Surface the failure and point to the runtime or tool settings. |
-| Claiming an external write succeeded without read-back | External writes may fail silently or partially. | Read back and compare before claiming success. |
-| Crossing source-of-truth layers | It can corrupt truth, mirrors, or working drafts. | Follow the declared layer role and write direction in `PROJECT_INDEX`. |
-| Skipping current availability verification because an old handoff said the tool worked | Tokens expire, runtimes change, and tools can be removed. | Probe availability in the current runtime before using the integration. |
-| Treating stopped, aborted, timeout, spawn / transport error, signal, missing final result, or partial PASS output as success | Tool output can be partial, wrappers can hide inner failure, and external writes may be unknown. | Mark the affected operation indeterminate or failed; read back any possible write target before retrying or claiming success. |
-| Leaving task-owned MCP / browser / helper processes running after the task | Turns one-off tool use into a long-lived resource leak and can slow the host. | Use graceful close or task-owned process cleanup automatically; switch to user confirmation only when ownership is unclear. |
 | Broadly killing by process name such as `node.exe`, `python`, or `chrome` | A generic process name does not prove ownership and may terminate user work, another project, or another AI agent's active tools. | Classify by tool family, process ID, start time, parent chain, and task-created path; treat unknown ownership as shared. |
-| Automatically cleaning global caches, marketplace caches, OS temp roots, or browser profiles | May remove shared state, login state, or data other tools still need. | Automatically clean only task-owned / agent-managed bounded paths; report evidence and wait for confirmation otherwise. |
 
 ## Cross-reference
 

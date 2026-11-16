@@ -153,10 +153,11 @@
 | B6 | 已收起功能留下的公開端點，保留還是移除？ | 隨 B5 一併移除。 | 同上。 |
 | B7 | 開著的 PR #70 內容早已在 `main`，可否關閉？ | 關閉。 | `gh pr close 70` 並留一句說明。 |
 | B8 | `ceg_no_tutorial` 這條註腳的原句不在現時所引的文件；S249 查到出處在 EOEBG User Guide 第 6 頁或 OEBG User Guide 第 7 頁。用哪一份？ | 先由 agent 打開兩份核實原句確實在該頁，再把兩句並列給你選。 | 加入 `url_overrides.json`，預演後執行。 |
-| B9 | Agent Handoff Kit 要不要由 0.4.3 升級（npm 最新為 0.4.7）？現時收工檢查因版本落後而回 `blocked`（S251 實測：`doctor` 的 project shortcuts 一項未通過）。 | 升級，建議排在 B 部最先，但只用官方指令 `agent-handoff-kit upgrade --yes --root <Draft 路徑>`，不可人手改 Kit 檔案。 | 跑指令，分開報告「遷移是否完成」與「專案健康檢查結果」。 |
+| B9 | ✅ 完成（2026-11-16，S251）：Agent Handoff Kit 已以官方 CLI 升級至 v0.4.7，migration committed、project health passed。 | —— | —— |
 | B10 | `INIT.md`（舊版治理安裝檔）是否已退役？ | 退役。它鏡像的是舊結構。 | 把 `dev/DOC_SYNC_CHECKLIST.md` 內要求同步 `INIT.md` 的兩列標為失效。 |
 | B11 | 封版閘有兩個警告（內文過短 3 條、亂碼 58 條）已逐條看過可接受，只欠在 `dev/source/release_gate.json` 寫上負責人、理由與期限。由你作負責人可以嗎？ | 可以，期限一年。 | 寫入 waiver。 |
 | B12 | 搜尋紀錄要不要加「拒答原因」一欄（要執行 DDL）？ | 暫不做。沒有它平台照常運作。 | —— |
+| B13 | `Draft/AGENTS.md` 專案自有部分 §4 第 12 項要求把開場訊息全文寫入 session log，但 Kit 規定不得保留第三份完整副本，照做會令升級與收工檢查不通過（S251 實測）。可否刪去該項？ | 刪去，改為「只留一行指引」。在此之前一律以 Kit 為準，不要把全文寫入 log。 | 改 `AGENTS.md` 的專案自有部分（先按 `dev/rules/agent-governance.md` 的寫入邊界；該檔不在 git，改前先備份）。 |
 
 另有三項要先讀資料才能問（`dev/archive/SESSION_HANDOFF_HISTORY_2026-11-15.md` 搜尋相關字眼）：S244 三條註腳的粵語問句是否改寫；語料庫內有時限的段落是否交退役機制處理；`app.html`「全校」角色標籤的處理。**未讀清楚前不要向 Leonard 提問。**
 

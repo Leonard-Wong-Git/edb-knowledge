@@ -169,10 +169,12 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:next-priorities -->
 ## Open Priorities
 
+Recommended next step: Reclassified at upgrade — reason: confirm at next closeout.
+
 **Recommended next step：照 `dev/ops/WORK_QUEUE.md` 做，由 A1 開始（把「註腳更正」與「連結覆寫」接入每日質素檢查）。** 理由：S251 起不能假設有最強模型（Leonard 2026-11-16：Fable 5.2 用量將盡，之後不會有），所以 Fable 已把所有待辦一次過寫成可照做的工作卡（A 可直接做、B 待 Leonard 決定並附建議、C 等觸發、D 不要做）。**下面第 1–5 項只是摘要；逐項做法、驗收與停止條件以 `dev/ops/WORK_QUEUE.md` 為準。一節只做一張卡。做事規則看 `dev/ops/AUTONOMY_FLOW.md` §4a。**
 
 1. **註腳更正：S250 審核的 10 條已於 S251 全部更正**（9 條內容不符＋`procurement_thresholds`；Leonard 批准；備份 `dev/init_backup/20261116_220741_UTC/`、`…220808_UTC/`；更正清單 `dev/source/footnote_corrections.json`，工具 `dev/apply_footnote_corrections.py`，`--check` `to_change=0`；線上八條查詢回傳新文字）。**不要重做。** 餘下：(a) `ceg_no_tutorial` 出處待 Leonard 選（EOEBG User Guide 第 6 頁或 OEBG User Guide 第 7 頁）；(b) 審核中 13 條「找不到」未處理（多為電子版法例，抓不到原文）；(c) 觀察：後端背景重讀註腳確實生效，但 `/health` 的 `footnote_loaded_at` 沒有更新（未查成因，屬顯示問題）。
-2. **待 Leonard 決定**：是否開 `FEATURE_SUBJECT_CHECK`（「答錯對象」已知漏判 5 條，開啟可攔 3 條）；10 個 `ROUTE_EXEMPT` 來源是否退役（刪生產資料）；統計來源（19 個／569 片段，設計上搜不到）開放搜尋還是停止維護；題庫題目 `cur_arts_guide_2002_missing` 的禁引前提已過時，是否更新；文件標註修好重開還是刪除；已收起功能的公開端點去留；`search_log` 加拒答原因（DDL）；關閉 #70；S244 三條 footnote 粵語問句；語料庫時限段落；`app.html`「全校」角色標籤；Kit 是否升級至 v0.4.6。
+2. **待 Leonard 決定**：是否開 `FEATURE_SUBJECT_CHECK`（「答錯對象」已知漏判 5 條，開啟可攔 3 條）；10 個 `ROUTE_EXEMPT` 來源是否退役（刪生產資料）；統計來源（19 個／569 片段，設計上搜不到）開放搜尋還是停止維護；題庫題目 `cur_arts_guide_2002_missing` 的禁引前提已過時，是否更新；文件標註修好重開還是刪除；已收起功能的公開端點去留；`search_log` 加拒答原因（DDL）；關閉 #70；S244 三條 footnote 粵語問句；語料庫時限段落；`app.html`「全校」角色標籤。
 3. **減少人手介入的下一步**（`dev/ops/AUTONOMY_FLOW.md` §6）：(a) Freshness 在排程內自動確認「文字相同」的個案；(b) 註腳審核排成每月自動跑；(c) PR 改到 `SOURCE_SETS` 時 CI 自動量度；(d) 為 `subject_guides` 的 37 個來源補題入題庫（現時只有 1 題觸及）。
 4. **退役 `EDBC_9_2019_E`**（已被 EDBC 4/2026 取代；S238 批准未執行，**執行前先再確認**）；**定期系統更新檢查**約 2026-11-29 到期。
 5. **提升搜尋準確度**（長期；沒有較強模型時不做）：完整計劃在 `dev/ops/NEXT_UPGRADE.md`（問題拆解、五個階段、出貨門檻、放棄條件）；動手前另讀 `dev/SESSION_STATE_DETAIL.md` 的 ②。另 `PHANTOM` 36／`UNLISTED` 119 累積清單未處理。
@@ -311,7 +313,7 @@ source_registry → same vault PDFs → ai_extract.py
 - Stale snapshots left (S251): no — Current Baseline 2、4、User Environment Git state、PROJECT_INDEX Branch / commit 已改為 2026-11-16 S251 實測（origin/main f00258c、線上 4f0b57f）；S250 句標為原文。
 
 <!-- ack:field:closeout-outcome -->
-- Closeout outcome (S251): blocked — 交接、log、PROJECT_INDEX 已寫入；開場鏡像由唯一的開場區塊重生，格式與 S250 相同（區塊加一個換行）。`closeout-status`（CLI v0.4.7）回 `blocked`：`doctor` 的 project shortcuts 一項未通過（安裝版本 v0.4.3 落後，S250 已記；修法是 Kit 升級，屬 Leonard 決定，見 `dev/ops/WORK_QUEUE.md` B9），並連帶報開場鏡像未能確認。未以改寫文字遷就檢查。
+- Closeout outcome (S251): complete — 交接、log、PROJECT_INDEX 已寫入並讀回；開場鏡像由唯一的開場區塊重生。S251 首次跑 `closeout-status` 回 `blocked`，兩個成因皆已處理：(a) Kit 安裝版本落後令 `doctor` 的 project shortcuts 未通過 → 已以官方 CLI 升級至 v0.4.7；(b) 我在 `dev/SESSION_LOG.md` 加了一份開場訊息全文，違反「不得保留第三份完整副本」→ 已刪去，改為一行指引。⚠️ `Draft/AGENTS.md` 專案自有部分 §4 第 12 項仍寫「把開場訊息全文寫入 SESSION_LOG」，與 Kit 規定相反；以 Kit 為準，**不要照 §4 第 12 項做**（該檔不在 git、屬治理規則，改寫待 Leonard 決定）。
 
 <!-- ack:field:project-required-persistence -->
 - Project-required persistence (S251): complete — 工作 commit 已隨 PR #102 合併入 `main`（`f00258c`），毋須部署；收工 commit 推上 `s251-work-queue` 並開 PR，只加工作清單與治理文件，合併待 Leonard 指示。
@@ -379,7 +381,7 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 --- 專案狀態（S251 收工, 2026-11-16）---
 
 平台 v3.3.16；Supabase 17,084 chunks（316 來源；footnote_curated 177）；EDB 指引書庫 182 份；guidelines.json 公開端點 151 份（_meta 2.6.2）。
-Agent Handoff Kit v0.4.3（npm 已有 0.4.6，未升級；doctor 報 project shortcuts 一項未通過）。
+Agent Handoff Kit v0.4.7（S251 以官方 CLI 由 0.4.3 升級；migration committed、project health passed）。
 origin/main = f00258c（PR #102 已合併）；線上 /health commit = 4f0b57f（其後無後端改動；開工以 /health 核實）。
 開著的 PR：S251 收工分支 s251-work-queue（合併待 Leonard 指示）、#70（內容已入 main，關閉前先問 Leonard）。
 Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
