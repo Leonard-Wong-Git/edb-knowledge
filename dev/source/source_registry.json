@@ -1123,15 +1123,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026",
-      "last_checked_at": "2026-06-15",
+      "last_checked_at": "2026-11-16",
       "supersedes": null,
       "notes": "Seeded from existing guidelines.json public artifact. | S146 batch2: ingested to Channel B (57 chunks, vault/g23)",
       "freshness_metadata": {
-        "last_modified": "Fri, 10 Apr 2026 08:26:53 GMT",
-        "content_length": "1125782",
-        "etag": "\"80c4f5c8c3c8dc1:0\"",
-        "content_hash": "d9d567b61237a93f21cb073968500fd1c7ca1dd4b98850734528e025fa8aa3aa",
-        "hash_checked_at": "2026-06-15"
+        "last_modified": "Fri, 18 Sep 2026 04:11:12 GMT",
+        "content_length": "1200552",
+        "etag": "\"0b084bd2347dd1:0\"",
+        "content_hash": "b712d3bcf5b9df3ba0a89f6a9ffc84bb6f8fb3708533beee4056e11cad3e446e",
+        "hash_checked_at": "2026-11-16",
+        "acked_at": "2026-11-16"
       }
     },
     {
@@ -3109,18 +3110,19 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2025",
-      "last_checked_at": "2026-06-15",
+      "last_checked_at": "2026-11-16",
       "supersedes": null,
       "related_source_ids": [
         "pri_science"
       ],
       "notes": "教師專業發展課程清單。",
       "freshness_metadata": {
-        "last_modified": "Mon, 01 Jun 2026 05:05:14 GMT",
-        "content_length": "228030",
-        "etag": "\"0e1df3a84f1dc1:0\"",
-        "content_hash": "4c298195e42e85e984d8defad40c8665ff5d025c22a886117206fc4f3a1f28ac",
-        "hash_checked_at": "2026-06-03"
+        "last_modified": "Tue, 20 Oct 2026 03:19:54 GMT",
+        "content_length": "261301",
+        "etag": "\"0291be04160dd1:0\"",
+        "content_hash": "c69c607939ff8ad48bec44c49ef5ec5239fb1236afea9beaf837429e41aac1eb",
+        "hash_checked_at": "2026-11-16",
+        "acked_at": "2026-11-16"
       }
     },
     {
@@ -4863,16 +4865,17 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2024",
-      "last_checked_at": "2026-06-15",
+      "last_checked_at": "2026-11-16",
       "supersedes": "g38",
       "parent_source_id": "arts_curr_docs",
       "notes": "音樂科課程指引（小一至中六）2024。EDB PDF 直連已記錄；用戶亦提供本地副本 `/Users/leonard/Desktop/mus_cg_c_2024.pdf` 供核對。現由 vault/arts_edu_curr_docs/catalogue.json 追蹤（doc_id: music_p1_s6_2024）。",
       "freshness_metadata": {
-        "last_modified": "Tue, 21 Apr 2026 01:22:34 GMT",
-        "content_length": "4394678",
-        "etag": "\"0e9c1542dd1dc1:0\"",
-        "content_hash": "4c93af82882e65682aed080b9c9ed809e8b8002289275c7f7ea0011c038e6e62",
-        "hash_checked_at": "2026-06-03"
+        "last_modified": "Tue, 06 Oct 2026 06:20:36 GMT",
+        "content_length": "4631717",
+        "etag": "\"092a8cc5a55dd1:0\"",
+        "content_hash": "cf13959d9cbc97461571cefe272fd210ba4826f6d128e36c097eb28becf7dc4c",
+        "hash_checked_at": "2026-11-16",
+        "acked_at": "2026-11-16"
       }
     },
     {
@@ -7101,15 +7104,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026-06",
-      "last_checked_at": "2026-06-17",
+      "last_checked_at": "2026-11-16",
       "supersedes": null,
       "notes": "S171 (2026-06-17): DEBP 主藍圖。入 mon list + 分析入庫 Channel B (92 chunks, text-layer, page-resolvable, U+FFFD=0; topic=it, digital_education route). 96 頁中約 16 頁圖像未含文字層 (monitor)。",
       "freshness_metadata": {
-        "last_modified": "Tue, 16 Jun 2026 09:25:45 GMT",
-        "content_length": "7448020",
-        "etag": "\"8072df1b72fddc1:0\"",
-        "content_hash": "cbfd726ea8125a955d4dac38595b294cc69133b512405017f30c1ecec32ccb68",
-        "hash_checked_at": "2026-06-17"
+        "last_modified": "Thu, 18 Jun 2026 07:20:02 GMT",
+        "content_length": "12732737",
+        "etag": "\"07db8e0f2fedc1:0\"",
+        "content_hash": "1a38713b547fc2d14160c29209601ce2928577daf3aa3f8eb1a5668549de919f",
+        "hash_checked_at": "2026-11-16",
+        "acked_at": "2026-11-16"
       }
     },
     {
@@ -7272,15 +7276,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2026-06",
-      "last_checked_at": "2026-06-17",
+      "last_checked_at": "2026-11-16",
       "supersedes": null,
       "notes": "S171 (2026-06-17): DEBP AI 應用學與教示例。Channel B (57 chunks, text-layer, page-resolvable)。digital_education route。",
       "freshness_metadata": {
-        "last_modified": "Tue, 16 Jun 2026 09:29:58 GMT",
-        "content_length": "1006254",
-        "etag": "\"02facb272fddc1:0\"",
-        "content_hash": "137a930840d85478b0353627b6b6eb26301decfc0bc2af94677441a81a1c899b",
-        "hash_checked_at": "2026-06-17"
+        "last_modified": "Mon, 27 Jul 2026 08:29:13 GMT",
+        "content_length": "994267",
+        "etag": "\"801251a21ddd1:0\"",
+        "content_hash": "7dbe3f5b9df80ee76a19ee3f3b2931b1bef2241c3bb1ad3119be0cbb043c714d",
+        "hash_checked_at": "2026-11-16",
+        "acked_at": "2026-11-16"
       }
     },
     {

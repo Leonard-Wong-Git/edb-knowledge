@@ -232,12 +232,16 @@ def main():
             r["embedding"] = v
         print(f"  embedded {sid} ({len(rows)})")
 
-    # Backup local wiki_index.json before any rewrite
+    # Backup local wiki_index.json before any rewrite. S249: only when it WILL be
+    # rewritten — with --skip-local the file is untouched, and every such run
+    # used to drop another ~476 MB identical copy into dev/init_backup/ (S247
+    # deleted 26 of them, 11 GB).
     ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S_UTC")
-    bdir = REPO_ROOT / "dev" / "init_backup" / ts
-    bdir.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(WIKI_INDEX_PATH, bdir / "wiki_index.json")
-    print(f"Backup: {bdir / 'wiki_index.json'}")
+    if not args.skip_local:
+        bdir = REPO_ROOT / "dev" / "init_backup" / ts
+        bdir.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(WIKI_INDEX_PATH, bdir / "wiki_index.json")
+        print(f"Backup: {bdir / 'wiki_index.json'}")
 
     # Phase 2: per-source DELETE -> upload -> verify
     # ct_filter narrows DELETE + post-count to vault_extract when --include-non-page,
