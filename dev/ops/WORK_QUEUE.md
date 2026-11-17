@@ -142,7 +142,7 @@
 - **做法**：一次一份，按 `dev/ops/playbooks/source-reingest.md` 或 Option A 入庫流程；每份入庫後確認它離開 PHANTOM、在 `SOURCE_SETS` 內（UNROUTED 0）、更新日誌加一條。部分未有 registry 項目，要先登記。
 - **驗收**：`check_registry_drift.py --check` 的 PHANTOM 由 10 降至 0；每份以一條相關短查詢在生產取得該文件。
 
-### A9　定期系統更新檢查　【可做｜小｜到期日約 2026-11-28】
+### A9　定期系統更新檢查　【✅ 完成（2026-11-17，S252）；下次約 2026-12-17，結果記在 PROJECT_INDEX】
 
 - **做法**：按 `dev/rules/coding.md` 的 `## Project Rules`。至少做：`cd backend && npm audit`；`cd dev/checklists/_work && npm audit`；核對 OpenAI 型號停用頁與價錢頁有否影響 `gpt-6-luna`；檢查 GitHub Actions 所有排程最近一次是否成功（`gh run list --limit 30`）。
 - **記錄**：把結果與日期寫入 `dev/PROJECT_INDEX.md`「定期系統更新檢查」一列。上次（S241）未核對執行環境、排程監察與 Kit 新版本，這次要補。
