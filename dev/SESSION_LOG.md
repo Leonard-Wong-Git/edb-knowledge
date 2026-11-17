@@ -39,6 +39,22 @@ When current work requires a log entry, record whether relevant older detail was
 
 <!-- ack:log-entry:start -->
 
+## 2026-11-17 Session 252 — 工作清單大部分完成：自主運作四項、瀏覽清單與庫存對齊、9 份入庫、11 份舊版退役、題庫整理
+
+- **ID:** S252（Claude_20261117；接續 S251 同一對話，模型 Fable 5.2 → Opus 5.5）
+- **Summary:** S251 收工時設的定時任務在用量重設後開了 4 個 PR（A1、A2、A4、A7）後因用量上限中斷；主 session 逐個核對後合併。其後按 `dev/ops/WORK_QUEUE.md` 逐張做 A3、A5、A6、A8、A9、A13、A14、A15、A17，並執行 Leonard 批准的 B15、B16。每張卡一個 PR，Leonard 明示後合併（#107–#122）。
+- **Changed:** `check_freshness.py`（自動確認）、`qc_report.py`（兩個漂移檢查）、`check_footnote_anchors.py`＋月檢 workflow、`check_registry_drift.py`（`BROWSE_ONLY`／`UNLISTED_BY_DESIGN`）、`wikiRepository.ts`（`/health` 時間）、`searchChannelB.ts`（路由清單增減）、`app.html`（瀏覽清單 182 → 241、兩則示範問答）、`backend/README.md`、`source_registry.json`、9 份 vault 抽取檔、題庫五個檔、`gold_deprecated_s252.json`、`dev/source/gold_baselines/`、`url_overrides.json`、`footnote_anchors.json`、兩份決定表（`dev/ops/decisions/`）、playbook、`WORK_QUEUE.md`、公開數字、`update_log.json`。
+- **Done:**
+  - **生產寫入**（皆 Leonard 批准、先備份）：入庫 9 份 238 片段；退役 11 份 1,494 片段（備份 `dev/init_backup/20261117_190642_UTC/`）；1 條註腳 `url`（備份 `20261117_090130_UTC`）。庫存 17,084 → 15,828、來源 316 → 314。
+  - **核實**：每份入庫／退役讀回數目；部署後線上抽查；定時任務的 4 個 PR 逐個重跑自測、建置、實地抽查並依次試合併。
+  - **決定與理由**：`staff_est_sp_sch_pri` Leonard 批准入庫，但 S204 曾因它令「12班小學有幾多個學位教師」答錯而撤出，恢復條件是先開 B1，故暫緩並向 Leonard 說明；`mce_framework_2008` 讀 2026 架構原文確認被「更新」後才退役；A13 分類工具給不出分類（停止條件），改為人手配對新舊版、以退役代替前端標籤。
+  - **題庫**：185 → 183（改標 9、移出 2）；驗證器 183／183。生產上改標題目中 3 題未取回答案文件，屬檢索問題，沒有為遷就而加替代來源。
+- **QC:** 見交接 `## Validation / QC` S252。**未驗證**：S252 後未重跑 183 題全量基線。
+- **Lessons（monitoring）:** (1) 下游同步檢查在退役時會把舊版標題與新版瀏覽條目比對，報 MUST_UPDATE 屬誤報。(2) 未套用的連結覆寫不可先放進 `url_overrides.json`，否則每日漂移檢查會當成「被蓋回」。(3) 題庫分檔與合併檔會漂移：改題庫後要同步所有分檔。
+- **Closeout:** `closeout-status` 為最終讀回；開場鏡像由唯一開場區塊重生；開場訊息全文不在本檔重複。
+- **Pending:** 新基線（183 題）；B 部決定；A16；A10、A12。
+- **Next:** ① 重跑 183 題全量新基線 ② B1 決定 ③ A16。
+
 ## 2026-11-16 Session 251 — 10 條註腳按原文更正、註腳更正工具、無最強模型時的運作規則、工作清單
 
 - **ID:** S251（Claude_20261116_S251）
