@@ -1,0 +1,671 @@
+{
+ "label": "S213 Phase 1 gold-set run",
+ "endpoint": "https://edb-knowledge.onrender.com/api/search/channel-b",
+ "top_k": 8,
+ "generated_at": "2026-11-17T08:44:01Z",
+ "gold_file": "dev/_s252_gold_subject_guides.json",
+ "gold_count": 10,
+ "tie_aliases": [
+  [
+   "g24",
+   "sag_2025_11"
+  ]
+ ],
+ "summary": {
+  "queries": 10,
+  "errors": 0,
+  "PASS": 10,
+  "FAIL": 0,
+  "RECORD_ONLY": 0,
+  "chunk_PASS": 4,
+  "chunk_FAIL": 6,
+  "chunk_RECORD_ONLY": 0
+ },
+ "results": [
+  {
+   "id": "sg_bio_sba_weight",
+   "query": "生物科 校本評核 比重",
+   "note": "查高中生物科公開評核中校本評核所佔比重",
+   "expect_any": [
+    "bio_sss_2007_2015"
+   ],
+   "expect_text_any": [
+    "選修課題中選答兩個)20%1 小時校本評核20%"
+   ],
+   "source_ids": [
+    "bio_sss_2007_2015",
+    "bio_sss_2007_2015",
+    "bio_sss_2007_2015",
+    "tl_sss_2007_2015",
+    "tl_sss_2007_2015",
+    "tl_sss_2007_2015",
+    "chi_hist_sss_2007_2015",
+    "chi_lit_guide_2025"
+   ],
+   "chunk_ids": [
+    "vault_bio_sss_2007_2015_33ba5fe364eacc37",
+    "vault_bio_sss_2007_2015_19dcd8a2e2b5c330",
+    "vault_bio_sss_2007_2015_0801a60d6d1ff6df",
+    "vault_tl_sss_2007_2015_47d267640592796e",
+    "vault_tl_sss_2007_2015_bbd81db116ecebdf",
+    "vault_tl_sss_2007_2015_26a4143b4f555daa",
+    "vault_chi_hist_sss_2007_2015_f31339a604ac7c2f",
+    "vault_chi_lit_guide_2025_bdf08d60a82336c1"
+   ],
+   "scores": [
+    0.6319,
+    0.6191,
+    0.592,
+    0.5489,
+    0.5445,
+    0.5394,
+    0.5375,
+    0.5327
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    85,
+    89,
+    83,
+    79,
+    78,
+    76,
+    87,
+    34
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": 1,
+   "chunk_verdict": "PASS",
+   "forbidden_hits": [],
+   "top_score": 0.6319
+  },
+  {
+   "id": "sg_chem_acid_base_hours",
+   "query": "化學科 酸和鹽基 課時",
+   "note": "查高中化學科課題「酸和鹽基」的建議課時",
+   "expect_any": [
+    "chem_sss_2007_2018"
+   ],
+   "expect_text_any": [
+    "課題四酸和鹽基 (25 小時)"
+   ],
+   "source_ids": [
+    "chem_sss_2007_2018",
+    "chem_sss_2007_2018",
+    "chem_sss_2007_2018",
+    "sci_jss_framework_2025",
+    "sci_jss_framework_2025"
+   ],
+   "chunk_ids": [
+    "vault_chem_sss_2007_2018_052b3eb2e7f2e96f",
+    "vault_chem_sss_2007_2018_73bfa0b588828117",
+    "vault_chem_sss_2007_2018_0f7967c9326217b7",
+    "vault_sci_jss_framework_2025_eb917f45e46d8771",
+    "vault_sci_jss_framework_2025_7a76c6bf690ede6d"
+   ],
+   "scores": [
+    0.7066,
+    0.6196,
+    0.6057,
+    0.5647,
+    0.4881
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    37,
+    37,
+    38,
+    56,
+    58
+   ],
+   "total": 5,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": 0,
+   "chunk_verdict": "PASS",
+   "forbidden_hits": [],
+   "top_score": 0.7066
+  },
+  {
+   "id": "sg_econ_elective_exam",
+   "query": "經濟科 選修單元 考核",
+   "note": "查高中經濟科公開考試如何考核選修單元（從兩個選修單元中選一個作答）",
+   "expect_any": [
+    "econ_sss_2025"
+   ],
+   "expect_text_any": [
+    "考核範圍:選修單元部分。考生從兩個選修單元中選取一個作答。"
+   ],
+   "source_ids": [
+    "econ_sss_2025",
+    "econ_sss_2025",
+    "econ_sss_2025",
+    "econ_sss_supp_2025",
+    "bafs_sss_2007_2020",
+    "bafs_sss_2007_2020",
+    "bafs_sss_2007_2020",
+    "econ_sss_supp_2025"
+   ],
+   "chunk_ids": [
+    "vault_econ_sss_2025_fd440f2d01ca2827",
+    "vault_econ_sss_2025_f745f0bca0afded4",
+    "vault_econ_sss_2025_d9fabde3ca335770",
+    "vault_econ_sss_supp_2025_2345505e4782ecaa",
+    "vault_bafs_sss_2007_2020_0e2c775c0da246a5",
+    "vault_bafs_sss_2007_2020_0dfec8d172a633aa",
+    "vault_bafs_sss_2007_2020_287cfe0065a64886",
+    "vault_econ_sss_supp_2025_79194f7e9539ed44"
+   ],
+   "scores": [
+    0.654,
+    0.6288,
+    0.6113,
+    0.6092,
+    0.5815,
+    0.5805,
+    0.5478,
+    0.5445
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    22,
+    11,
+    11,
+    40,
+    20,
+    21,
+    22,
+    2
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "FAIL",
+   "forbidden_hits": [],
+   "top_score": 0.654
+  },
+  {
+   "id": "sg_hmsc_total_hours",
+   "query": "健康管理與社會關懷科 總課時",
+   "note": "查高中健康管理與社會關懷科三年課程的總課時",
+   "expect_any": [
+    "hmsc_sss_2007_2015"
+   ],
+   "expect_text_any": [
+    "三年的課程合共課時約為二百五十小時"
+   ],
+   "source_ids": [
+    "hmsc_sss_2007_2015",
+    "hmsc_sss_2007_2015",
+    "hmsc_sss_2007_2015",
+    "tech_kla_guide_2017",
+    "tech_kla_guide_2017",
+    "tech_kla_guide_2017"
+   ],
+   "chunk_ids": [
+    "vault_hmsc_sss_2007_2015_98be30bfd90ed6b9",
+    "vault_hmsc_sss_2007_2015_20d744c36690abde",
+    "vault_hmsc_sss_2007_2015_b26647e83858f7d1",
+    "vault_tech_kla_guide_2017_39780ea60efc415c",
+    "vault_tech_kla_guide_2017_5f0b1a75ba3da353",
+    "vault_tech_kla_guide_2017_017f5d15829cbeb1"
+   ],
+   "scores": [
+    0.6728,
+    0.6625,
+    0.6563,
+    0.5856,
+    0.5488,
+    0.5482
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    16,
+    38,
+    55,
+    191,
+    194,
+    195
+   ],
+   "total": 6,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "FAIL",
+   "forbidden_hits": [],
+   "top_score": 0.6728
+  },
+  {
+   "id": "sg_tour_topic_hours",
+   "query": "旅遊與款待科 各課題建議課時",
+   "note": "查高中旅遊與款待科各課題的建議課時分配",
+   "expect_any": [
+    "tour_hosp_sss_2007_2015"
+   ],
+   "expect_text_any": [
+    "建議課時課題(一) 旅遊導論70(二) 款待"
+   ],
+   "source_ids": [
+    "tour_hosp_sss_2007_2015",
+    "tour_hosp_sss_2007_2015",
+    "tour_hosp_sss_2007_2015",
+    "geog_jss",
+    "tl_sss_2007_2015",
+    "bio_sss_2007_2015",
+    "hmsc_sss_2007_2015",
+    "sch_activities_guide"
+   ],
+   "chunk_ids": [
+    "vault_tour_hosp_sss_2007_2015_7d0e47c787d80f68",
+    "vault_tour_hosp_sss_2007_2015_38f6983b0c6d0fbe",
+    "vault_tour_hosp_sss_2007_2015_dfe9726a9880068e",
+    "vault_geog_jss_0e79495d6e737887",
+    "vault_tl_sss_2007_2015_545384eed2167105",
+    "vault_bio_sss_2007_2015_2fc47a3e0abb7364",
+    "vault_hmsc_sss_2007_2015_e03c359fc0caa278",
+    "footnote_fn_activities_ratios"
+   ],
+   "scores": [
+    0.7156,
+    0.6687,
+    0.6476,
+    0.6062,
+    0.5491,
+    0.5424,
+    0.542,
+    0.4682
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "footnote_curated"
+   ],
+   "pages": [
+    37,
+    11,
+    55,
+    26,
+    44,
+    66,
+    45,
+    null
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "FAIL",
+   "forbidden_hits": [],
+   "top_score": 0.7156
+  },
+  {
+   "id": "sg_ethics_paper_weight",
+   "query": "倫理與宗教科 卷一卷二比重",
+   "note": "查高中倫理與宗教科文憑試兩份試卷的比重",
+   "expect_any": [
+    "ethics_relig_sss_2024"
+   ],
+   "expect_text_any": [
+    "倫理學50%1 小時45 分卷二"
+   ],
+   "source_ids": [
+    "religious_edu_jss_2024",
+    "religious_edu_jss_2024",
+    "religious_edu_jss_2024",
+    "ethics_relig_sss_2024",
+    "ethics_relig_sss_2024",
+    "ethics_relig_sss_2024"
+   ],
+   "chunk_ids": [
+    "vault_religious_edu_jss_2024_5bc077f775d2031b",
+    "vault_religious_edu_jss_2024_582e87c6ae2a9d8d",
+    "vault_religious_edu_jss_2024_85f114a3f066d323",
+    "vault_ethics_relig_sss_2024_13d351f8566701c4",
+    "vault_ethics_relig_sss_2024_3d81e8ef315da3f7",
+    "vault_ethics_relig_sss_2024_6b71f382c2dfb65e"
+   ],
+   "scores": [
+    0.5536,
+    0.5285,
+    0.5282,
+    0.5211,
+    0.5189,
+    0.5002
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    63,
+    37,
+    17,
+    11,
+    12,
+    69
+   ],
+   "total": 6,
+   "verdict": "PASS",
+   "rank_of_expected": 3,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "FAIL",
+   "forbidden_hits": [],
+   "top_score": 0.5536
+  },
+  {
+   "id": "sg_chilit_lesson_share",
+   "query": "中國文學科 佔總課時",
+   "note": "查高中中國文學科佔總課時的百分比",
+   "expect_any": [
+    "chi_lit_guide_2025"
+   ],
+   "expect_text_any": [
+    "中國文學科佔總課時約10%"
+   ],
+   "source_ids": [
+    "ph_pri_guide_2025",
+    "chi_sss_guide_2021",
+    "chi_hist_sss_2007_2015",
+    "apl_curr_docs",
+    "chi_lit_guide_2025",
+    "chi_sss_guide_2021",
+    "chi_lit_guide_2025",
+    "chi_lit_guide_2025"
+   ],
+   "chunk_ids": [
+    "footnote_fn_phpri_time",
+    "vault_chi_sss_guide_2021_a8269ab47e999a71",
+    "vault_chi_hist_sss_2007_2015_7d614257fde550f5",
+    "vault_apl_curr_docs_083be2341a114a70",
+    "vault_chi_lit_guide_2025_d1aa0993671e8304",
+    "vault_chi_sss_guide_2021_3691e9b3bc362958",
+    "vault_chi_lit_guide_2025_0c54d5c96dcda0d0",
+    "vault_chi_lit_guide_2025_ededde9ea1522f27"
+   ],
+   "scores": [
+    0.553,
+    0.633,
+    0.6095,
+    0.594,
+    0.5713,
+    0.571,
+    0.5679,
+    0.5651
+   ],
+   "content_types": [
+    "footnote_curated",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    null,
+    36,
+    43,
+    113,
+    9,
+    35,
+    19,
+    9
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 4,
+   "rank_of_expected_chunk": 6,
+   "chunk_verdict": "PASS",
+   "forbidden_hits": [],
+   "top_score": 0.633
+  },
+  {
+   "id": "sg_pe_theory_share",
+   "query": "體育選修科 理論部分課時",
+   "note": "查高中體育選修科理論學習部分佔課時的比例",
+   "expect_any": [
+    "pe_sss_2023"
+   ],
+   "expect_text_any": [
+    "體選修科具9 個理論學習部分,佔有關課時的84%"
+   ],
+   "source_ids": [
+    "pe_sss_2023",
+    "pe_sss_2023",
+    "pe_sss_2023",
+    "g13",
+    "pri_curr_guide_2024",
+    "g06",
+    "g06",
+    "ma_sss_diversity_2021"
+   ],
+   "chunk_ids": [
+    "vault_pe_sss_2023_b6ba194e8c85d024",
+    "vault_pe_sss_2023_3036682606c0958f",
+    "vault_pe_sss_2023_cb14fa297104ca0c",
+    "vault_g13_3f1cdd89a7e8c6e6",
+    "vault_pri_curr_guide_2024_357957295920079e",
+    "vault_g06_041e6737e5aa54e7",
+    "vault_g06_0196e6ec298a95ff",
+    "vault_ma_sss_diversity_2021_de8ea673ec0c7f95"
+   ],
+   "scores": [
+    0.6745,
+    0.6296,
+    0.5988,
+    0.5384,
+    0.5313,
+    0.527,
+    0.525,
+    0.5219
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    13,
+    30,
+    28,
+    130,
+    68,
+    69,
+    68,
+    12
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "FAIL",
+   "forbidden_hits": [],
+   "top_score": 0.6745
+  },
+  {
+   "id": "sg_dat_sba_weight",
+   "query": "設計與應用科技 校本評核 比重",
+   "note": "查高中設計與應用科技科公開評核中校本評核所佔比重",
+   "expect_any": [
+    "dat_sss_2007_2015"
+   ],
+   "expect_text_any": [
+    "校本評核設計作業40%"
+   ],
+   "source_ids": [
+    "dat_sss_2007_2015",
+    "dat_sss_2007_2015",
+    "dat_sss_2007_2015",
+    "tech_kla_guide_2017",
+    "tech_kla_guide_2017",
+    "tech_kla_guide_2017",
+    "apl_curr_docs",
+    "tl_sss_2007_2015"
+   ],
+   "chunk_ids": [
+    "vault_dat_sss_2007_2015_77451d99a2acbe56",
+    "vault_dat_sss_2007_2015_3b78ee82405b3042",
+    "vault_dat_sss_2007_2015_439d08ef810073f6",
+    "vault_tech_kla_guide_2017_54412d4ec93211cf",
+    "vault_tech_kla_guide_2017_bb284dd6e28a1789",
+    "vault_tech_kla_guide_2017_106fc11efcb3e39e",
+    "vault_apl_curr_docs_5cf52640df0da399",
+    "vault_tl_sss_2007_2015_26a4143b4f555daa"
+   ],
+   "scores": [
+    0.6437,
+    0.6366,
+    0.6342,
+    0.5901,
+    0.5895,
+    0.589,
+    0.5773,
+    0.5707
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    70,
+    61,
+    65,
+    160,
+    140,
+    139,
+    38,
+    76
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": 0,
+   "chunk_verdict": "PASS",
+   "forbidden_hits": [],
+   "top_score": 0.6437
+  },
+  {
+   "id": "sg_tl_total_hours",
+   "query": "科技與生活科 教學時間",
+   "note": "查高中科技與生活科三年的總教學時間",
+   "expect_any": [
+    "tl_sss_2007_2015"
+   ],
+   "expect_text_any": [
+    "三年的教學時間約有二百五十課時"
+   ],
+   "source_ids": [
+    "tl_sss_2007_2015",
+    "tl_sss_2007_2015",
+    "sci_jss_framework_2025",
+    "tech_kla_guide_2017",
+    "tech_kla_guide_2017",
+    "tech_kla_guide_2017",
+    "tl_sss_2007_2015",
+    "bio_sss_2007_2015"
+   ],
+   "chunk_ids": [
+    "vault_tl_sss_2007_2015_a00a65fe8fddb445",
+    "vault_tl_sss_2007_2015_d8f81e7e7d080717",
+    "vault_sci_jss_framework_2025_afe0d00186612f74",
+    "vault_tech_kla_guide_2017_1ef78dfd2e754173",
+    "vault_tech_kla_guide_2017_08f50fe9512a02ee",
+    "vault_tech_kla_guide_2017_e82128041792e742",
+    "vault_tl_sss_2007_2015_daf86bc7e037ef0e",
+    "vault_bio_sss_2007_2015_aa97f5bdac3e820f"
+   ],
+   "scores": [
+    0.6103,
+    0.6047,
+    0.5992,
+    0.5969,
+    0.596,
+    0.5959,
+    0.5918,
+    0.5872
+   ],
+   "content_types": [
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract",
+    "vault_extract"
+   ],
+   "pages": [
+    46,
+    47,
+    26,
+    115,
+    158,
+    155,
+    47,
+    21
+   ],
+   "total": 8,
+   "verdict": "PASS",
+   "rank_of_expected": 0,
+   "rank_of_expected_chunk": null,
+   "chunk_verdict": "FAIL",
+   "forbidden_hits": [],
+   "top_score": 0.6103
+  }
+ ]
+}

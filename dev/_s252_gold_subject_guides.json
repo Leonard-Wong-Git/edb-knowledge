@@ -1,0 +1,232 @@
+[
+ {
+  "id": "sg_bio_sba_weight",
+  "domain": "subject_guides",
+  "query": "生物科 校本評核 比重",
+  "query_kind": "plain",
+  "intent": "查高中生物科公開評核中校本評核所佔比重",
+  "answerable": true,
+  "expected_source_any": [
+   "bio_sss_2007_2015"
+  ],
+  "expected_passage_signature": [
+   "選修課題中選答兩個)20%1 小時校本評核20%"
+  ],
+  "expected_page": 89,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_bio_sss_2007_2015_19dcd8a2e2b5c330",
+   "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+   "note": "S252 A5：簽名逐字取自該 chunk 的 cleaned text，並已讀前後文確認它回答 intent；頁碼取自 dominant_page"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "sg_chem_acid_base_hours",
+  "domain": "subject_guides",
+  "query": "化學科 酸和鹽基 課時",
+  "query_kind": "plain",
+  "intent": "查高中化學科課題「酸和鹽基」的建議課時",
+  "answerable": true,
+  "expected_source_any": [
+   "chem_sss_2007_2018"
+  ],
+  "expected_passage_signature": [
+   "課題四酸和鹽基 (25 小時)"
+  ],
+  "expected_page": 37,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_chem_sss_2007_2018_052b3eb2e7f2e96f",
+   "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+   "note": "S252 A5：簽名逐字取自該 chunk 的 cleaned text，並已讀前後文確認它回答 intent；頁碼取自 dominant_page"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "sg_econ_elective_exam",
+  "domain": "subject_guides",
+  "query": "經濟科 選修單元 考核",
+  "query_kind": "plain",
+  "intent": "查高中經濟科公開考試如何考核選修單元（從兩個選修單元中選一個作答）",
+  "answerable": true,
+  "expected_source_any": [
+   "econ_sss_2025"
+  ],
+  "expected_passage_signature": [
+   "考核範圍:選修單元部分。考生從兩個選修單元中選取一個作答。"
+  ],
+  "expected_page": 57,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_econ_sss_2025_3ac545d09faf5f4f",
+   "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+   "note": "S252 A5：簽名逐字取自該 chunk 的 cleaned text，並已讀前後文確認它回答 intent；頁碼取自 dominant_page"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "sg_hmsc_total_hours",
+  "domain": "subject_guides",
+  "query": "健康管理與社會關懷科 總課時",
+  "query_kind": "plain",
+  "intent": "查高中健康管理與社會關懷科三年課程的總課時",
+  "answerable": true,
+  "expected_source_any": [
+   "hmsc_sss_2007_2015"
+  ],
+  "expected_passage_signature": [
+   "三年的課程合共課時約為二百五十小時"
+  ],
+  "expected_page": 45,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_hmsc_sss_2007_2015_e03c359fc0caa278",
+   "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+   "note": "S252 A5：簽名逐字取自該 chunk 的 cleaned text，並已讀前後文確認它回答 intent；頁碼取自 dominant_page"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "sg_tour_topic_hours",
+  "domain": "subject_guides",
+  "query": "旅遊與款待科 各課題建議課時",
+  "query_kind": "plain",
+  "intent": "查高中旅遊與款待科各課題的建議課時分配",
+  "answerable": true,
+  "expected_source_any": [
+   "tour_hosp_sss_2007_2015"
+  ],
+  "expected_passage_signature": [
+   "建議課時課題(一) 旅遊導論70(二) 款待"
+  ],
+  "expected_page": 37,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_tour_hosp_sss_2007_2015_44489b0e034a0ebe",
+   "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+   "note": "S252 A5：簽名逐字取自該 chunk 的 cleaned text，並已讀前後文確認它回答 intent；頁碼取自 dominant_page"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "sg_ethics_paper_weight",
+  "domain": "subject_guides",
+  "query": "倫理與宗教科 卷一卷二比重",
+  "query_kind": "plain",
+  "intent": "查高中倫理與宗教科文憑試兩份試卷的比重",
+  "answerable": true,
+  "expected_source_any": [
+   "ethics_relig_sss_2024"
+  ],
+  "expected_passage_signature": [
+   "倫理學50%1 小時45 分卷二"
+  ],
+  "expected_page": 75,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_ethics_relig_sss_2024_853f597d7d1719bb",
+   "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+   "note": "S252 A5：簽名逐字取自該 chunk 的 cleaned text，並已讀前後文確認它回答 intent；頁碼取自 dominant_page"
+  },
+  "split": "dev"
+ },
+ {
+  "id": "sg_chilit_lesson_share",
+  "domain": "subject_guides",
+  "query": "中國文學科 佔總課時",
+  "query_kind": "plain",
+  "intent": "查高中中國文學科佔總課時的百分比",
+  "answerable": true,
+  "expected_source_any": [
+   "chi_lit_guide_2025"
+  ],
+  "expected_passage_signature": [
+   "中國文學科佔總課時約10%"
+  ],
+  "expected_page": 19,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_chi_lit_guide_2025_0c54d5c96dcda0d0",
+   "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+   "note": "S252 A5：簽名逐字取自該 chunk 的 cleaned text，並已讀前後文確認它回答 intent；頁碼取自 dominant_page"
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "sg_pe_theory_share",
+  "domain": "subject_guides",
+  "query": "體育選修科 理論部分課時",
+  "query_kind": "plain",
+  "intent": "查高中體育選修科理論學習部分佔課時的比例",
+  "answerable": true,
+  "expected_source_any": [
+   "pe_sss_2023"
+  ],
+  "expected_passage_signature": [
+   "體選修科具9 個理論學習部分,佔有關課時的84%"
+  ],
+  "expected_page": 67,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_pe_sss_2023_74db6096a62c726c",
+   "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+   "note": "S252 A5：簽名逐字取自該 chunk 的 cleaned text，並已讀前後文確認它回答 intent；頁碼取自 dominant_page"
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "sg_dat_sba_weight",
+  "domain": "subject_guides",
+  "query": "設計與應用科技 校本評核 比重",
+  "query_kind": "plain",
+  "intent": "查高中設計與應用科技科公開評核中校本評核所佔比重",
+  "answerable": true,
+  "expected_source_any": [
+   "dat_sss_2007_2015"
+  ],
+  "expected_passage_signature": [
+   "校本評核設計作業40%"
+  ],
+  "expected_page": 70,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_dat_sss_2007_2015_77451d99a2acbe56",
+   "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+   "note": "S252 A5：簽名逐字取自該 chunk 的 cleaned text，並已讀前後文確認它回答 intent；頁碼取自 dominant_page"
+  },
+  "split": "held_out"
+ },
+ {
+  "id": "sg_tl_total_hours",
+  "domain": "subject_guides",
+  "query": "科技與生活科 教學時間",
+  "query_kind": "plain",
+  "intent": "查高中科技與生活科三年的總教學時間",
+  "answerable": true,
+  "expected_source_any": [
+   "tl_sss_2007_2015"
+  ],
+  "expected_passage_signature": [
+   "三年的教學時間約有二百五十課時"
+  ],
+  "expected_page": 43,
+  "acceptable_alternatives": [],
+  "forbidden_evidence": [],
+  "verified_by": {
+   "chunk_id": "vault_tl_sss_2007_2015_425f0de030947f79",
+   "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+   "note": "S252 A5：簽名逐字取自該 chunk 的 cleaned text，並已讀前後文確認它回答 intent；頁碼取自 dominant_page"
+  },
+  "split": "held_out"
+ }
+]
