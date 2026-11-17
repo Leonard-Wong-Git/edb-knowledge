@@ -142,6 +142,16 @@
 - **做法**：一次一份，按 `dev/ops/playbooks/source-reingest.md` 或 Option A 入庫流程；每份入庫後確認它離開 PHANTOM、在 `SOURCE_SETS` 內（UNROUTED 0）、更新日誌加一條。部分未有 registry 項目，要先登記。
 - **驗收**：`check_registry_drift.py --check` 的 PHANTOM 由 10 降至 0；每份以一條相關短查詢在生產取得該文件。
 
+### A15　重新定標 3 條暫停的題庫題目　【可做｜中｜不寫生產】
+
+- **背景**：S252 退役 g07 後，`cur_eight_kla`、`cur_four_key_project_stages`、`cur_moral_civic_values` 失去唯一答案來源，已移至 `dev/source/gold_deprecated_s252.json`（題庫 185 → 182 題）。
+- **做法**：在 `g13`（中學教育課程指引 2017）、`sec_curr_guide_2017_booklet_6a`、`pri_curr_guide_2024` 找對應段落（S252 已見 g13 有「八個學習領域」與「專題研習的三個階段」、booklet 6A 有責任感定義），讀原文確認後按 `_s213_validate_gold.py` 流程改標並放回題庫。
+
+### A16　《中國語文教育學習領域課程指引》2024 年版入庫，之後退役 2017 年版　【待 Leonard 批准寫入｜中】
+
+- **背景**：庫內服務的是 2017 年版（`chi_edu_curr_docs`，157 片段）；2024 年版只在瀏覽清單（`g08`，連結是課程文件總頁），未入庫。
+- **做法**：先在總頁找到 2024 年版 PDF，按 A14 的做法入庫，然後按 `source-reingest.md`「入庫新版時順手退役舊版」處理 2017 年版。
+
 ### A9　定期系統更新檢查　【✅ 完成（2026-11-17，S252）；下次約 2026-12-17，結果記在 PROJECT_INDEX】
 
 - **做法**：按 `dev/rules/coding.md` 的 `## Project Rules`。至少做：`cd backend && npm audit`；`cd dev/checklists/_work && npm audit`；核對 OpenAI 型號停用頁與價錢頁有否影響 `gpt-6-luna`；檢查 GitHub Actions 所有排程最近一次是否成功（`gh run list --limit 30`）。
@@ -157,7 +167,7 @@
 - **做法**：Leonard 建一份表單（例如 Google Form；不收非必要的個人資料）並提供連結。在 `app.html` 與流動版加一個「意見／報錯」按鈕連到該表單；按 `dev/DOC_SYNC_CHECKLIST.md` 掃下游文案；升版照通用硬規則。
 - **驗收**：桌面與手機寬度各實際點一次，按鈕可見、連結正確；`npm run check`／`build` 不受影響。
 
-### A13　在答案旁標示文件時效　【第一步完成：決定表已交 Leonard（2026-11-17）；建議以退役代替前端標籤】
+### A13　在答案旁標示文件時效　【✅ 以退役代替（2026-11-17，S252）；前端標籤擱置】
 
 - **結果**（S252）：分類工具對 227 個未標註來源給不出分類（觸發停止條件），改為按標題年份配對並人手核對。仍在服務、庫內已有新版的舊版共 12 份（約 1,650 片段），見 `dev/ops/decisions/2026-11-17_A13_superseded_editions.md`。
 
@@ -181,7 +191,7 @@
 | # | 問題 | 建議 | 答「好」之後 |
 |---|---|---|---|
 | B1 | 要不要開啟「答錯對象」的攔截（`FEATURE_SUBJECT_CHECK`）？現時已知 5 條會把別類人的規則套到所問的人身上，開啟可攔 3 條。 | 開。條件是開啟後重跑 185 題，來源層 PASS 不少於 130；少於即關回。 | Leonard 在 Render 加環境變數（只有他改得到）。之後按 `backend/scripts/_s236_subjectCheck.ts --live` 與 185 題量度比對，把結果寫入交接檔。 |
-| B2 | 10 個已被新版取代或重複的來源（`check_registry_drift.ROUTE_EXEMPT` 所列）與 `EDBC_9_2019_E`，要不要退役（刪除生產片段）？ | 退役。舊版留在庫內會令用戶搜到過時內容。 | 逐個來源：備份（`select=*`）→ 預演 → 刪除 → `live_display_sync` → `update_log.json` → registry 標為 deprecated → `check_downstream_sync` `MUST_UPDATE` 為 0。一次只做一個來源，每個都要 Leonard 看過預演數目。 |
+| B2 | （S252 已退役其中 8 份及另外 3 份舊版，見 A13 決定表）餘下：重複的 `g33`、`g20` 與 `EDBC_9_2019_E`，要不要退役（刪除生產片段）？ | 退役。舊版留在庫內會令用戶搜到過時內容。 | 逐個來源：備份（`select=*`）→ 預演 → 刪除 → `live_display_sync` → `update_log.json` → registry 標為 deprecated → `check_downstream_sync` `MUST_UPDATE` 為 0。一次只做一個來源，每個都要 Leonard 看過預演數目。 |
 | B3 | 統計來源（19 個／569 片段）設計上搜不到，但每次更新都要人手重新入庫。開放搜尋，還是停止維護？ | 先查近 180 日搜尋紀錄有沒有人問統計數字（結果只口頭報告，不寫入 git）。沒有人問就停止維護並退役。 | 開放：改 `include_statistical` 的預設，屬檢索改動，要 185 題改前改後量度。停止：按 B2 的步驟退役。 |
 | B4 | 題庫題目 `cur_arts_guide_2002_missing` 的前提已過時（它假設某份文件在庫，現已不成立），要不要更新？ | 更新。 | 改題目的禁引清單，跑 `_s213_validate_gold.py`。 |
 | B5 | 「文件標註」功能現已收起。修好重開，還是刪除？ | 刪除，除非你知道有用戶需要。它要人手維護，目前沒有人用。 | 刪除面板程式碼、相關公開端點（連同 B6）與文案；按 `dev/DOC_SYNC_CHECKLIST.md` 掃下游文字。 |

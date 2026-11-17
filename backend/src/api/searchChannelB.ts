@@ -187,7 +187,6 @@ const SOURCE_SETS: Record<string, string[]> = {
   value_education: [
     "values_edu_framework_2026",
     "edbc003_2026",
-    "values_edu_framework_2021_trial",
     "edbcm183_2023_values_edu",
     "sec_curr_guide_2017_booklet_6a",
     "edbcm076_2026",              // (auto) Option A watcher ingest
@@ -746,7 +745,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "history_jss_2019",  // S135: 西史/世界歷史初中課程指引（中一至中三）2019 — backfilled (§E.12 URL re-discovery); without this, curriculum-category history queries mis-route to chi_hist (中史)
     "history_sss_2007_2015",  // S135 Phase 3a tail: 西史高中歷史課程及評估指引（中四至中六）— pre-existing allowlist gap, added for parity with chi_hist + 初中
     "music_p1_s6_2024",
-    "g38",               // S147: 音樂教育學習領域課程指引(2003, 小一至中三) — OCR backfill (153p CID-mojibake). Coexists with music_p1_s6_2024 (2024, P1-S6): different era + level scope, not a clean supersede; per-source quota bounds dominance — monitor for stale-2003-ranking.
     "gs_pri_guide_2017",
     "va_p1_s6_2024",
     "chi_jss_guide_2023",
@@ -763,7 +761,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "edbc005_2026",
     "edbc010_2026",      // S186: 通告10/2026 — 中小學數學課程微調 (加強數學建模元素)
     "circ_edbc24017",
-    "mce_framework_2008",  // S147: 德育及公民教育課程架構(2008) OCR backfill — title 含「課程」→ 德育公民課程 queries route to curriculum; without this allowlist entry the new source never surfaces in routed search (S135 backfill-allowlist coupling)
     "phys_sss_2007_2015",  // S148: 物理科課程及評估指引(中四至中六, 2007/2015更新) text-layer backfill (clean re-ingest, U+FFFD=0; supersedes the earlier dropped mojibake copy referenced in the `sen` route note). S135 backfill-allowlist coupling.
     "chi_edu_curr_docs",   // S148: 中國語文教育學習領域課程指引(小一至中六, 2017 CLEKLAG full) text-layer backfill; coexists with g09 (43-48 非華語節錄) — per-source quota bounds overlap. S135 coupling.
     "g13",                 // S148: 中學教育課程指引(2017) SECG full (Intro+booklet 1-11+6A-6D+Supp_notes, 17 PDFs) text-layer backfill. S135 coupling.
@@ -1675,7 +1672,6 @@ const VAULT_LEAD_SCORE = 0.70;
 const SUPERSEDE_PENALTY = 0.05;
 const SUPERSEDED_IDS = new Set<string>([
   // S183 — value_education framework 2026 supersedes:
-  "values_edu_framework_2021_trial",
   "edbcm183_2023_values_edu",
   // S194 — the real ICT 2021 C&A guide is now in the corpus (116 chunks), so the 2007/2015
   // edition it replaces takes the penalty. registry `ict_sss_2007_2015.superseded_by` is the

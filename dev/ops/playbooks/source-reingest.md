@@ -46,6 +46,17 @@
 
 任何註腳入庫腳本以 `--execute` 跑過之後，**兩個工具都要再跑一次 `--execute`**（皆冪等），否則舊文字與舊頁碼會被寫回。
 
+## 入庫新版時順手退役舊版（S252）
+
+入庫一份文件的新版（新 `source_id`）後，同一個 PR 內處理舊版，免得新舊版本並存、答案引用舊版：
+
+1. 確認新版已入庫並在路由清單內，舊版確實被取代（讀新版原文的前言或修訂說明；不可只憑標題年份）。
+2. 經 Leonard 批准後：全欄位備份舊版（`select=*`，含 embedding）到 `dev/init_backup/<UTC時間>/`，再跑 `/usr/local/bin/python3 dev/cb3_deprecate_stale.py --only <舊版id> --skip-local`（預演），批准後加 `--execute`。
+3. registry：`status: deprecated`、`superseded_by: <新版id>`、`notes` 記備份位置。
+4. 從 `SOURCE_SETS`、`SUPERSEDED_IDS`、`check_registry_drift.ROUTE_EXEMPT`、`app.html` `GUIDELINES_REGISTRY` 移除舊版；題庫以舊版為唯一答案的題目要改標或移至 `dev/source/gold_deprecated_*.json`。
+5. `live_display_sync` 與 `live_sources_sync` 同步數字；README 指引數目；`update_log.json` 一條。
+6. `check_registry_drift.py --check` 四個 ERROR 類別為 0。
+
 ## 回退
 
 由第 4 步的備份重新匯入該來源的列（先刪現有列）；vault 舊檔在 `dev/init_backup/<時間>/cb3c_pilot_legacy/`。
