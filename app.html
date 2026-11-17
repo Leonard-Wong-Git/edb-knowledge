@@ -798,8 +798,8 @@ const makeKey = (topicId, roleId, index) => `${topicId}.${roleId}.${index}`;
 const INITIAL_DATA = {
   "_meta": {
     "stats": {
-      "chunks": 17084,
-      "sources": 316
+      "chunks": 17322,
+      "sources": 325
     }
   }
 };
@@ -1437,7 +1437,7 @@ function PlatformIntroPanel({ stats }) {
   // Animate stat counters on mount — pull from stats.metaStats (single source of truth from _meta.stats)
   const meta = stats.metaStats || {};
   // Single-source derived counts/version (literals kept only as || fallback if stats missing)
-  const chunksCount = meta.chunks || 17084;
+  const chunksCount = meta.chunks || 17322;
   const guidelinesCount = GUIDELINES_REGISTRY.length;
   const sourcesCount = meta.sources || 300;
   const platformVersion = PLATFORM_VERSION;
@@ -1480,17 +1480,17 @@ function PlatformIntroPanel({ stats }) {
     {
       role: '文書主任',
       query: '學校購買儀器需要邀請幾份報價？',
-      answer: '根據《資助則例》第XII章，購買金額 $5,000 至 $50,000 的儀器，須邀請至少三份書面報價；$50,000 以上須採用公開招標或邀請投標程序，並由採購委員會審批。',
-      source: '資助則例（Code of Aid）2024年版',
-      sourceUrl: 'https://www.edb.gov.hk/attachment/sc/sch-admin/regulations/codes-of-aid/code-of-aid-and-related-documents-for-aided-imc-schools/coa_chinese_1.19.pdf',
+      answer: '根據教育局《處理政府給予資助學校資助的提示》，採購 $5,000 以上至 $50,000 的物料或服務，須邀請最少兩個口頭報價；$50,000 以上至 $200,000 須邀請最少五個書面報價；$200,000 以上須邀請最少五名供應商投標，並由標書批核委員會批核。',
+      source: '處理政府給予資助學校資助的提示（2026）',
+      sourceUrl: 'https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/tips-handling-gov-subventions/Tips%20on%20handling%20govt%20subventions%20for%20aided%20schools_c_2026.pdf#page=2',
       tags: ['採購', '財務'],
     },
     {
       role: '課程主任',
       query: '中學中文科課程有哪些學習範疇？',
-      answer: '根據《中學中國語文課程及評估指引》，中文科設六個學習範疇：閱讀、寫作、聆聽、說話、文學、中華文化。各範疇互相緊扣，課程設計應整合語文知識與文化素養。',
-      source: '中學中國語文課程及評估指引（2007）',
-      sourceUrl: 'https://www.edb.gov.hk',
+      answer: '根據《中學中國語文建議學習重點》（2021年修訂），中國語文課程的學習內容可概括為九個學習範疇：閱讀、寫作、聆聽、說話、文學、中華文化、品德情意、思維和語文自學。學習應以讀寫聽說為主導，有機地結合其他學習範疇。',
+      source: '《中學中國語文建議學習重點》（2021年修訂）',
+      sourceUrl: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/SEC_LO_2021.pdf',
       tags: ['課程', '中學'],
     },
   ];
@@ -2101,7 +2101,7 @@ function QAPanel({ data, setPreviewDoc }) {
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 k1-search-card">
         <h2 className="text-lg font-bold text-gray-800 mb-1">政策搜尋</h2>
         <p className="text-xs text-gray-400 mb-3">
-          {`來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 17084).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
+          {`來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 17322).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
           {usageTotal !== null && ` · 累計已服務 ${usageTotal.toLocaleString()} 次查詢`}
         </p>
 

@@ -477,6 +477,10 @@ const SOURCE_SETS: Record<string, string[]> = {
    * Include SAG (it has meaningful HR sections); exclude pure curriculum guides.
    */
   hr_admin: [
+    // S252 A14 — listed in the browse library but had no chunks; ingested 2026-11-17
+    "gspf_general_info_2023",
+    "sspf_general_info_2023",
+    "pf_edu_ord_2013_faq",
     "g04",               // 教職員批假指引
     "g05",               // 教師專業操守指引
     "g11",               // 擬定校曆表指引
@@ -676,6 +680,8 @@ const SOURCE_SETS: Record<string, string[]> = {
   // there); the trigger below deliberately does not name those subjects.
   // Superseded editions and duplicates are NOT here — check_registry_drift.ROUTE_EXEMPT.
   subject_guides: [
+    // S252 A14 — listed in the browse library but had no chunks; ingested 2026-11-17
+    "ma_sss_content_2017",
     "apl_curr_docs",  // 應用學習課程及評估指引（高中課程）2017更新
     "bafs_sss_2007_2020",  // 企業、會計與財務概論 (中四至中六) (於2022/23學年的中四實施並在202
     "bio_sss_2007_2015",  // 生物(中四至中六) 二零零七年 (二零一五年十一月更新)
@@ -715,6 +721,13 @@ const SOURCE_SETS: Record<string, string[]> = {
     "va_sss_2015",  // 《視覺藝術課程及評估指引（中四至中六）》（2015年11月更新）
   ],
   curriculum: [
+    // S252 A14 — listed in the browse library but had no chunks; ingested 2026-11-17
+    "chi_pri_lo_2023",
+    "chi_sec_lo_2021",
+    "ma_pri_content_2017",
+    "ma_jss_content_2017",
+    "ma_sss_content_2017",
+    "pth_guide_2017",
     // S195: kgecg_2017 removed from this allowlist — it duplicated g29 (same document).
     // ⚠️ S212 CORRECTION: the "0 chunks in the store" half of this note was never true, and
     // is not true now. kgecg_2017 is registered `status: deprecated` and is still serving

@@ -9599,6 +9599,186 @@
         "content_hash": "cd7ce4d2a216d231cb273d294c92e64603ef362865d4f2cac4951459260e8a2b",
         "hash_checked_at": "2026-11-16"
       }
+    },
+    {
+      "source_id": "chi_pri_lo_2023",
+      "title": "《小學中國語文建議學習重點》(2023年修訂)",
+      "title_en": null,
+      "title_short": "小學中文建議學習重點",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/chi-edu/curriculum-documents.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2023年修訂",
+      "last_checked_at": "2026-11-17",
+      "supersedes": null,
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，25 頁、預演 22 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum。"
+    },
+    {
+      "source_id": "chi_sec_lo_2021",
+      "title": "《中學中國語文建議學習重點》(2021年修訂)",
+      "title_en": null,
+      "title_short": "中學中文建議學習重點",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/chi-edu/curriculum-documents.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/SEC_LO_2021.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2021年修訂",
+      "last_checked_at": "2026-11-17",
+      "supersedes": null,
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，26 頁、預演 23 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum。"
+    },
+    {
+      "source_id": "ma_pri_content_2017",
+      "title": "小學數學科學習內容（數學教育學習領域課程指引補充文件）(2017)",
+      "title_en": null,
+      "title_short": "小學數學學習內容2017",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/ma/curr/index2.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/pmc2017_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2017",
+      "last_checked_at": "2026-11-17",
+      "supersedes": null,
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，96 頁、預演 47 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum。"
+    },
+    {
+      "source_id": "ma_jss_content_2017",
+      "title": "初中數學科學習內容（數學教育學習領域課程指引補充文件）(2017)",
+      "title_en": null,
+      "title_short": "初中數學學習內容2017",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/ma/curr/index2.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/jsmc2017_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2017",
+      "last_checked_at": "2026-11-17",
+      "supersedes": null,
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，44 頁、預演 21 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum。"
+    },
+    {
+      "source_id": "ma_sss_content_2017",
+      "title": "高中數學科學習內容（數學教育學習領域課程指引補充文件）(2017)",
+      "title_en": null,
+      "title_short": "高中數學學習內容2017",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/ma/curr/index2.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/ssmc2017_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2017",
+      "last_checked_at": "2026-11-17",
+      "supersedes": null,
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，73 頁、預演 37 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum、subject_guides。"
+    },
+    {
+      "source_id": "pth_guide_2017",
+      "title": "《普通話科課程指引（小一至中三）》(2017)",
+      "title_en": null,
+      "title_short": "普通話課程指引2017",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/chi-edu/curriculum-documents.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/PTH_Curriculum_guide_for_upload_final.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2017",
+      "last_checked_at": "2026-11-17",
+      "supersedes": null,
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，35 頁、預演 39 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum。"
+    },
+    {
+      "source_id": "gspf_general_info_2023",
+      "title": "《補助學校公積金的一般資料》(2023)",
+      "title_en": null,
+      "title_short": "補助學校公積金一般資料",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/provident-fund/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/provident-fund/GSPF_QA_CHI_Oct23.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2023年10月",
+      "last_checked_at": "2026-11-17",
+      "supersedes": null,
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，14 頁、預演 26 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：hr_admin。"
+    },
+    {
+      "source_id": "sspf_general_info_2023",
+      "title": "《津貼學校公積金的一般資料》(2023)",
+      "title_en": null,
+      "title_short": "津貼學校公積金一般資料",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/provident-fund/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/provident-fund/SSPF_QA_CHI_Oct23.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2023年10月",
+      "last_checked_at": "2026-11-17",
+      "supersedes": null,
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，16 頁、預演 27 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：hr_admin。"
+    },
+    {
+      "source_id": "pf_edu_ord_2013_faq",
+      "title": "與《2013年教育(修訂)條例》相關的常見問題（公積金）",
+      "title_en": null,
+      "title_short": "2013教育修訂條例公積金FAQ",
+      "url_landing": "https://www.edb.gov.hk/tc/sch-admin/admin/about-sch-staff/provident-fund/index.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/sch-admin/admin/about-sch-staff/provident-fund/Q&A%20relating%20to%20Education%20(Amendment)%20Ordinance%202013_c.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "hr"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2013",
+      "last_checked_at": "2026-11-17",
+      "supersedes": null,
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，2 頁、預演 3 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：hr_admin。"
     }
   ]
 }
