@@ -93,7 +93,9 @@ python3 dev/source/check_freshness.py --ledger dev/source/freshness_changes.md
 
 # S249 — what the scheduled run does: detect without persisting, EXCEPT rows that
 # have no baseline at all (newly ingested sources), which get one seeded
-python3 dev/source/check_freshness.py --dry-run --seed-missing
+# S252 — and a changed PDF whose text is identical on every page is acknowledged
+# (needs PyMuPDF: use /usr/local/bin/python3 locally)
+/usr/local/bin/python3 dev/source/check_freshness.py --dry-run --seed-missing --auto-ack-identical
 
 # Scope to first N sources (testing); JSON change report goes to --changes-out
 python3 dev/source/check_freshness.py --dry-run --limit 5 --changes-out /tmp/fc.json
@@ -137,8 +139,26 @@ A baseline of a different kind is never compared: it is reported as
 **avoid while the pending list is non-empty: it re-baselines every flagged
 source and silently discards the list**); `--ack` (named rows); and
 `--seed-missing` on the scheduled run (rows with no baseline — before S249, 95
-ingested sources had none and were never checked for content change). Otherwise
-scheduled runs detect drift without persisting.
+ingested sources had none and were never checked for content change); and
+`--auto-ack-identical` on the scheduled run (S252). Otherwise scheduled runs
+detect drift without persisting.
+
+**Identical-text auto-ack (S252).** S249 found 11 of 19 "changed" PDFs were only
+re-exported. For a PDF row whose content hash changed, the scheduled run now
+downloads it, checks the bytes are the hash being acknowledged, extracts it with
+`dev/vault/repage_pdfs.extract_paged` (the vault's own re-extraction function),
+and compares every page with `dev/vault/<id>/extract_*.txt` after NFKC and
+removing whitespace. Only the same page count with every page equal is
+acknowledged; it is listed in the Issue / close comment as 自動確認 with its
+reason. Not acknowledged, and left on the list with the reason attached: a
+different page count (page links would point wrong), any differing page, no
+single vault extract, an extract without `=== Page N ===` markers, more than half
+the pages without text (a scan), a download or extraction failure, HTML and
+annual-series rows. The comparison is with what users are served, so a vault file
+produced by another extractor can only make the answer "not identical", never a
+false "identical". S252 probe on 12 live PDFs: 6 repaged sources all identical;
+of 6 others, 5 not identical (page count or extraction differences — observed,
+not investigated) and 1 identical.
 
 ## 3. Handling Results
 ### `last_checked_at`

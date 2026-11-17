@@ -47,6 +47,25 @@ needs a way out:
                     it unattended. Before S249, 95 sources had no baseline and
                     were therefore never checked for content change.
 
+Identical-text auto-ack (S252) — S249 found 11 of 19 "changed" PDFs were only
+re-exported: new bytes, same words. Each needed a human to compare pages and
+--ack. With --auto-ack-identical the run does that comparison itself, for a PDF
+row whose content hash changed:
+  - download the new PDF once, check its SHA-256 is the hash being acknowledged;
+  - extract it with the SAME function the vault re-extraction uses
+    (dev/vault/repage_pdfs.extract_paged: PyMuPDF, one `=== Page N ===` per page);
+  - compare every page with the vault extract the served chunks were built from
+    (dev/vault/<id>/extract_*.txt), after NFKC and removing all whitespace.
+Only an exact match on every page, with the same page count, is acknowledged.
+Anything else — a different page count, one differing character, no vault file,
+a vault file without page markers, more than half the pages empty (a scanned
+PDF: equal empty text says nothing about the images), a download or extraction
+failure — stays on the list for a person, with the reason attached. The
+comparison is against what users are served, so it does not matter which
+extractor originally produced the vault file: if they differ, the answer is
+"not identical", never a false "identical". Persisted even with --dry-run,
+like --seed-missing.
+
 Outputs (in addition to the registry writeback):
   --changes-out PATH  Always writes a machine-readable change report (JSON) for
                       CI to consume (open/update a GitHub Issue). Default:
@@ -56,17 +75,19 @@ Outputs (in addition to the registry writeback):
                       execution stays a manual gate — this only surfaces the
                       work, it does not perform it.
 
-Usage: python3 check_freshness.py [--dry-run [--seed-missing]] [--verbose]
+Usage: python3 check_freshness.py [--dry-run [--seed-missing] [--auto-ack-identical]] [--verbose]
                                    [--limit N] [--changes-out PATH] [--ledger PATH]
        python3 check_freshness.py --ack SID[,SID...]
 """
 
 import json
+import glob
 import hashlib
 import html as html_lib
 import re
 import sys
 import argparse
+import unicodedata
 from datetime import datetime, timedelta, timezone
 from urllib.parse import urljoin, urldefrag
 from pathlib import Path
@@ -87,6 +108,9 @@ MAIN_START = "inner_page_content_container"
 MAIN_END = "footer_content"
 DOC_LINK_RE = re.compile(r'''href\s*=\s*["\']([^"\'#]+\.(?:pdf|docx?|xlsx?|pptx?|zip))(?:[?#][^"\']*)?["\']''', re.I)
 ACK_REPORT_DAYS = 8                # an ack is reported to CI for one weekly cycle
+VAULT_DIR = Path("dev/vault")
+VAULT_PAGE_RE = re.compile(r"^={2,}\s*Page\s*(\d+)\s*={2,}\s*$", re.I | re.M)
+AUTO_ACK_MAX_BYTES = 120 * 1024 * 1024   # larger than any PDF in the registry (g10 ~25 MB)
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 
 
@@ -274,6 +298,100 @@ def run_ack(registry: Dict, monitored: List[Dict], ack_arg: str, today: str) -> 
     return 0
 
 
+# --- identical-text auto-ack (S252) -------------------------------------------
+
+def norm_page(text: str) -> str:
+    """NFKC, then every whitespace character removed — line wrapping, spacing and
+    full/half-width forms are not content."""
+    return re.sub(r"\s+", "", unicodedata.normalize("NFKC", text or ""))
+
+
+def split_paged(text: str) -> Optional[List[str]]:
+    """Pages of an `=== Page N ===` extract, in order. Pure.
+
+    Leading `# ...` header lines are allowed before the first marker; anything
+    else there, missing markers, or markers that are not exactly 1..N returns
+    None — an extract we cannot read page by page is never called identical.
+    """
+    marks = list(VAULT_PAGE_RE.finditer(text or ""))
+    if not marks:
+        return None
+    for line in text[:marks[0].start()].splitlines():
+        if line.strip() and not line.lstrip().startswith("#"):
+            return None
+    if [int(m.group(1)) for m in marks] != list(range(1, len(marks) + 1)):
+        return None
+    return [text[m.end():(marks[i + 1].start() if i + 1 < len(marks) else len(text))]
+            for i, m in enumerate(marks)]
+
+
+def compare_paged(new_pages: Optional[List[str]], vault_pages: Optional[List[str]]) -> Tuple[bool, str]:
+    """(identical, reason). Pure. True only for the same page count and every
+    page equal after norm_page, with at least half the pages carrying text."""
+    if new_pages is None:
+        return False, "新版抽不到逐頁文字"
+    if vault_pages is None:
+        return False, "庫內抽取檔沒有逐頁標記，無法逐頁比對"
+    if len(new_pages) != len(vault_pages):
+        return False, f"頁數不同（庫內 {len(vault_pages)} 頁，新版 {len(new_pages)} 頁）：頁碼連結會指錯頁"
+    a = [norm_page(p) for p in new_pages]
+    b = [norm_page(p) for p in vault_pages]
+    empty = sum(1 for x in a if not x)
+    if empty * 2 > len(a):
+        return False, f"{empty}/{len(a)} 頁沒有文字（可能是掃描檔），文字相同不足以證明內容相同"
+    diff = [i + 1 for i, (x, y) in enumerate(zip(a, b)) if x != y]
+    if diff:
+        shown = "、".join(str(n) for n in diff[:10]) + ("……" if len(diff) > 10 else "")
+        return False, f"{len(diff)} 頁文字不同：第 {shown} 頁"
+    return True, f"{len(a)} 頁逐頁文字相同"
+
+
+def vault_extract_path(sid: str) -> Optional[Path]:
+    """The one vault extract a source's chunks are built from, or None when there
+    is not exactly one (a multi-file source is left to a person)."""
+    files = sorted(glob.glob(str(VAULT_DIR / sid / "extract_*.txt")))
+    return Path(files[0]) if len(files) == 1 else None
+
+
+def extract_pdf_pages(pdf_bytes: bytes) -> Optional[List[str]]:
+    """Pages of a PDF via the vault's own re-extraction function, or None."""
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "vault"))
+    try:
+        import repage_pdfs  # noqa: E402 — dev/vault/repage_pdfs.py
+        body, _n = repage_pdfs.extract_paged(pdf_bytes)
+    except (Exception, SystemExit):
+        return None
+    return split_paged(body)
+
+
+def try_auto_ack(sid: str, url: str, expected_hash: str) -> Tuple[bool, str]:
+    """Download, verify the hash, extract, compare with the vault. Never raises."""
+    vault = vault_extract_path(sid)
+    if vault is None:
+        return False, "庫內沒有唯一的抽取檔"
+    import requests
+    try:
+        resp = requests.get(url, headers={"User-Agent": USER_AGENT},
+                            allow_redirects=True, timeout=GET_TIMEOUT)
+        body = resp.content
+    except Exception as e:
+        return False, f"下載失敗（{str(e)[:80]}）"
+    if resp.status_code != 200:
+        return False, f"下載失敗（HTTP {resp.status_code}）"
+    if len(body) > AUTO_ACK_MAX_BYTES:
+        return False, "檔案過大，不自動比對"
+    if hashlib.sha256(body).hexdigest() != expected_hash:
+        return False, "兩次下載的檔案不同（原文正在更新？），不自動確認"
+    if not body.startswith(b"%PDF"):
+        return False, "不是 PDF"
+    new_pages = extract_pdf_pages(body)
+    try:
+        vault_pages = split_paged(vault.read_text(encoding="utf-8"))
+    except OSError:
+        vault_pages = None
+    return compare_paged(new_pages, vault_pages)
+
+
 def render_ledger(changed: List[Dict], today: str, checked: int, errors: int) -> str:
     """Render the human-facing pending re-ingest ledger (Markdown)."""
     lines = [
@@ -396,6 +514,51 @@ def run_self_test() -> int:
             html_meta["content_hash_kind"] == KIND_EDB_MAIN and html_meta["doc_links"] == ["x"]
             and html_meta["acked_at"] == "2026-11-16")
 
+    # --- identical-text auto-ack (S252) ---------------------------------------
+    vault_txt = "# source: x\n# pipeline: test\n=== Page 1 ===\n第一頁 內容\n=== Page 2 ===\nPage two text\n"
+    vp = split_paged(vault_txt)
+    assert_("a vault extract with a header splits into its pages", vp is not None and len(vp) == 2)
+    assert_("identical text on every page → acknowledged",
+            compare_paged(["第一頁內容", "Page two  text"], vp)[0] is True)
+    assert_("line wrapping and full-width forms are not differences",
+            compare_paged(["第一頁\n內容", "Ｐａｇｅ two\ntext"], vp)[0] is True)
+    one_char = compare_paged(["第一頁內客", "Page two text"], vp)
+    assert_("one differing character → not acknowledged, and the page is named",
+            one_char[0] is False and "第 1 頁" in one_char[1])
+    pages3 = compare_paged(["第一頁內容", "Page two text", "新的一頁"], vp)
+    assert_("a different page count → not acknowledged (page links would point wrong)",
+            pages3[0] is False and "頁數不同" in pages3[1])
+    assert_("a vault file without page markers → not acknowledged",
+            compare_paged(["x"], split_paged("# h\nplain text, no markers\n"))[0] is False)
+    assert_("text before the first marker that is not a header → not readable",
+            split_paged("stray line\n=== Page 1 ===\nx\n") is None)
+    assert_("markers that are not 1..N → not readable",
+            split_paged("=== Page 1 ===\na\n=== Page 3 ===\nb\n") is None)
+    assert_("mostly empty pages (a scan) → not acknowledged even when equal",
+            compare_paged(["", "", "x"], ["", "", "x"])[0] is False)
+    assert_("new PDF with no extractable pages → not acknowledged",
+            compare_paged(None, vp)[0] is False)
+    try:
+        import fitz  # noqa: F401
+        has_fitz = True
+    except ImportError:
+        has_fitz = False
+    if has_fitz:
+        import fitz as _f
+        doc = _f.open()
+        for t in ("First page words", "Second page words"):
+            doc.new_page().insert_text((72, 72), t)
+        pdf = doc.tobytes(); doc.close()
+        got = extract_pdf_pages(pdf)
+        assert_("the vault's own extractor reads a real PDF page by page",
+                got is not None and [norm_page(p) for p in got]
+                == ["Firstpagewords", "Secondpagewords"])
+        same = "# h\n=== Page 1 ===\nFirst page words\n=== Page 2 ===\nSecond page words\n"
+        assert_("…and a matching vault extract is identical to it",
+                compare_paged(got, split_paged(same))[0] is True)
+    else:
+        print("  [SKIP] real-PDF extraction (PyMuPDF not installed here)")
+
     # --- annual series (S216) — which URLs the loop gets to see ---------------
 
     plain = {"source_id": "g29", "url_primary": "https://e/g29.pdf",
@@ -473,13 +636,16 @@ def main():
                         help="Path to write the human Markdown ledger (write-sync only)")
     parser.add_argument("--seed-missing", action="store_true",
                         help="With --dry-run: still persist a baseline for rows that have none")
+    parser.add_argument("--auto-ack-identical", action="store_true",
+                        help="For a changed PDF, compare it page by page with the vault extract "
+                             "and acknowledge only when every page is identical (persists even with --dry-run)")
     parser.add_argument("--ack", default=None, metavar="SID[,SID]",
                         help="Re-baseline only these sources (after re-ingest / no action needed) and exit")
     args = parser.parse_args()
 
     if args.self_test:
         sys.exit(run_self_test())
-    if args.ack and (args.dry_run or args.seed_missing or args.limit):
+    if args.ack and (args.dry_run or args.seed_missing or args.limit or args.auto_ack_identical):
         parser.error("--ack runs on its own (it writes only the named sources)")
 
     if not REGISTRY_PATH.exists():
@@ -506,6 +672,7 @@ def main():
         sys.exit(run_ack(registry, monitored, args.ack, today))
 
     seeded = 0
+    auto_acked: List[Dict] = []
     acked_recent: List[str] = []
     ack_cutoff = (datetime.now(timezone.utc) - timedelta(days=ACK_REPORT_DAYS)).strftime("%Y-%m-%d")
 
@@ -599,6 +766,26 @@ def main():
             old_kind, new_kind
         )
 
+        # S252 — a PDF whose bytes changed but whose text did not: acknowledge it
+        # here instead of asking a person. Only a confirmed content-hash change
+        # of a plain (non-series) PDF row is eligible.
+        auto_note = None
+        if (args.auto_ack_identical and changed and confidence == "content-hash"
+                and new_kind == KIND_RAW and not rs.is_shard(src)):
+            same, auto_note = try_auto_ack(sid, url, new_hash)
+            if same:
+                ack_meta = dict(meta)
+                ack_meta["acked_at"] = today
+                rs.record_freshness(src, today, build_meta(
+                    ack_meta, last_mod, cont_len, etag, new_hash, new_kind, new_links, today))
+                auto_acked.append({"source_id": sid,
+                                   "title": src.get("title") or src.get("title_short") or "",
+                                   "reason": auto_note})
+                acked_recent.append(sid)
+                print(f"  🤖 auto-ack: {sid} — {auto_note}")
+                continue
+            print(f"     ↳ 未自動確認 {sid}：{auto_note}")
+
         # Update record (persisted only when not dry-run). For an ordinary row
         # this is the same two assignments it always was; for a series year it
         # lands in the parent's year-keyed store instead of overwriting a single
@@ -628,6 +815,7 @@ def main():
                 "content_length": {"old": old_len, "new": cont_len},
                 "links": link_diff(meta.get("doc_links"), new_links)
                          if hash_state == "computed" else None,
+                "auto_ack": auto_note,
             })
             print(f"  🔔 CHANGE: {sid}  [{confidence}]")
             print(f"     Old: Mod={old_mod}, Len={old_len}, hash={(old_hash or '—')[:12]}")
@@ -635,7 +823,7 @@ def main():
         elif args.verbose:
             print(f"  ✅ OK: {sid}")
 
-    write_registry = (not args.dry_run) or seeded > 0
+    write_registry = (not args.dry_run) or seeded > 0 or bool(auto_acked)
     if write_registry:
         registry.setdefault("_meta", {})["updated"] = today
 
@@ -667,6 +855,8 @@ def main():
         # acknowledged within the last weekly cycle and no longer changed: CI
         # forgets these keys, so a later change to the same source notifies again
         "acked_sources": sorted(set(acked_recent) - {c["source_id"] for c in changed_records}),
+        # S252 — acknowledged this run because every page's text is unchanged
+        "auto_acked_sources": auto_acked,
         "changed_sources": changed_records,
         "failed_sources": failed_records,
     }
@@ -698,6 +888,7 @@ def main():
     print(f"  Changes:    {changes_detected}")
     print(f"  Hashed:     {hashed}")
     print(f"  Seeded:     {seeded}")
+    print(f"  Auto-acked: {len(auto_acked)}  (PDF text identical on every page)")
     print(f"  Errors:     {errors}")
     print(f"  Threshold:  {threshold}  (fail when errors > threshold)")
 

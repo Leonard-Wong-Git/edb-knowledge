@@ -44,7 +44,8 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests
+        # pymupdf (S252): --auto-ack-identical extracts a changed PDF page by page
+        run: pip install requests pymupdf
 
       - name: Run freshness check
         run: |
@@ -55,7 +56,10 @@ jobs:
             # none (newly ingested sources). It cannot hide a change — there was
             # nothing to compare against — and without it those sources are
             # never checked for content change (95 were not, before S249).
-            DRY_RUN="--dry-run --seed-missing"
+            # S252: a PDF whose bytes changed but whose text is identical on
+            # every page (compared with the vault extract the served chunks come
+            # from) is acknowledged here; anything else stays for a person.
+            DRY_RUN="--dry-run --seed-missing --auto-ack-identical"
           elif [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
             DRY_RUN="--dry-run"
           else
@@ -93,6 +97,11 @@ jobs:
               return;
             }
             const label = 'freshness-change';
+            const autoAcked = report.auto_acked_sources || [];
+            const autoNote = autoAcked.length
+              ? `\n\n🤖 本次自動確認 ${autoAcked.length} 項（新版與庫內版本逐頁文字相同，只是重新匯出）：`
+                + autoAcked.map(a => `\n- \`${a.source_id}\` ${a.title || ''} — ${a.reason}`).join('')
+              : '';
             if (!report.changes || report.changes < 1) {
               // S249 (same rule as served-url, S209): a list that can only grow
               // becomes wallpaper. When every change has been acknowledged the
@@ -104,7 +113,7 @@ jobs:
                 await github.rest.issues.createComment({
                   owner: context.repo.owner, repo: context.repo.repo,
                   issue_number: open.data[0].number,
-                  body: `✅ Run #${context.runNumber} (${report.generated_at}): ${report.checked} 個來源全部與基線一致，沒有待處理的更新。自動關閉；之後有新的更新會重新開啟並通知。`,
+                  body: `✅ Run #${context.runNumber} (${report.generated_at}): ${report.checked} 個來源全部與基線一致，沒有待處理的更新。自動關閉；之後有新的更新會重新開啟並通知。${autoNote}`,
                 });
                 await github.rest.issues.update({
                   owner: context.repo.owner, repo: context.repo.repo,
@@ -124,7 +133,8 @@ jobs:
               return fmt('新增連結', l.added) + fmt('移除連結', l.removed);
             };
             const lines = (report.changed_sources || []).map(c =>
-              `- \`${c.source_id}\` — ${c.title || ''} _(${c.confidence})_${linkNote(c)}`).join('\n');
+              `- \`${c.source_id}\` — ${c.title || ''} _(${c.confidence})_${linkNote(c)}`
+              + (c.auto_ack ? `\n  - 未自動確認：${c.auto_ack}` : '')).join('\n') + autoNote;
             const body = [
               `🔔 **${report.changes}** EDB source(s) changed (run #${context.runNumber}, ${report.generated_at}, ${report.dry_run ? 'dry-run detection' : 'write-sync'}).`,
               '',
