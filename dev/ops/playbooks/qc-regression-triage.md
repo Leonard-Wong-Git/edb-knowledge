@@ -14,6 +14,8 @@
 |---|---|---|
 | `PAGE_ANCHORED` | 新註腳沒有頁碼；註腳腳本重跑蓋掉頁碼 | `dev/apply_url_overrides.py`（dry-run 看 `to_change`）；新註腳走 `footnote-audit` |
 | `REGISTRY_UNROUTED` | 人手入庫的來源沒有加入路由清單 | `route-coverage` |
+| `FOOTNOTE_CORRECTIONS` | 註腳入庫腳本以 `--execute` 重跑，已更正的註腳文字被舊版寫回 | `/usr/local/bin/python3 dev/apply_footnote_corrections.py`（不加參數即預演；`--check` 只讀）列出要改的條目，交 Leonard 批准後才 `--execute`；寫入後 `--check` 應報 `to_change=0` |
+| `URL_OVERRIDES` | 同上，每來源一條的網址被寫回，頁碼錨點或已更正的連結失效 | `/usr/local/bin/python3 dev/apply_url_overrides.py`（不加參數即預演）列出要改的條目，交 Leonard 批准後才 `--execute`；寫入後預演應報 `to_change=0` |
 | `MOJIBAKE` | 新入庫的 PDF 字形抽取失敗 | 重新抽取（OCR）或退回該次入庫 |
 | `NO_DUPLICATE_CHUNKS` | 同一文件以兩個 id 入庫 | 列為退役候選交 Leonard |
 | `BODY_LENGTH_FLOOR`／`NO_TOC_NOISE`／`NO_MIDCLAUSE_START` | 新來源的切段問題 | 看具體片段；通常要改抽取而非改基準 |
