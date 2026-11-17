@@ -17,15 +17,17 @@
 ## Current Baseline
 
 1. **平台**：v3.3.16。公開分頁三個（平台介紹／政策搜尋／EDB 指引）；文件標註收起待修（`FEATURE_TABS.annotate=false`）。Channel A 退役已完結（S243–S246）：`knowledge.json`／`role_facts.json` 已刪、內部清單清空、公開統計由 `stats.json` 提供；凍結合約只餘 `guidelines.json` 2.6.2／151。升版一律手改 `PLATFORM_VERSION`＋README 標章＋CHANGELOG，不可用 `bump_version.py`。
-2. **知識庫**：Supabase 17,084 chunks、316 來源（2026-11-16 `count=exact` 實測，S249）。`footnote_curated` 177。EDB 指引書庫 182 份（S243；之後未重核）。逐片段 `url` 覆寫 80 條在 `dev/source/url_overrides.json`（S249 50 條＋S250 28 條頁碼更正＋S251 2 條）；註腳內容更正 10 條在 `dev/source/footnote_corrections.json`（S251；同樣要在註腳入庫腳本 `--execute` 後以 `dev/apply_footnote_corrections.py --execute` 重套）（註腳入庫腳本以 `--execute` 重跑後必須再跑 `dev/apply_url_overrides.py --execute`）。
-3. **Registry 漂移**（2026-11-16 實測）：`ZOMBIE`／`UNMANAGED`／`SERIES_UNMONITORED`／`UNROUTED`（S250 新增：已入庫但不在任何路由清單）皆 0；`PHANTOM` 36；`UNLISTED` 119／2,626 片段（人手策展佇列）。Freshness 待處理 0；`PAGE_ANCHORED` 基準 1。10 個已被取代／重複的來源列於 `check_registry_drift.ROUTE_EXEMPT`，待 Leonard 批准退役。
-4. **Git 與部署**（2026-11-16 S251 實測）：`origin/main` = `54352fa`（PR #101–#106 已合併；皆無後端改動，之後的合併以實測為準）；線上 `/health` commit = `4f0b57f`。`main` 受 ruleset 保護，一切改動走 PR，合併只在 Leonard 明示時進行。開著的 PR：S251 收工分支 `s251-closeout`（只改治理文件，合併待 Leonard 指示）、#70（內容早已入 `main`，關閉前先問 Leonard）；另可能有定時續做任務開出的 PR（見 `## Open Priorities` 開首），以 `gh pr list` 為準。判斷線上是否落後看 `git diff --name-only <部署commit>..origin/main -- backend`，不要比 hash。入庫 PR 會改 `SOURCE_SETS`，合併後 Render 重新部署，新來源要等新版上線才搜得到。後端 overlay 快取每 30 分鐘背景重讀（`/health` 報 `footnote_loaded_at`）。
+2. **知識庫**：Supabase **15,828** chunks、**314** 來源（2026-11-17 S252 實測）。`footnote_curated` 177。EDB 指引書庫 **241** 份（S252：加 77、移 7 舊版、退役 11）。逐片段 `url` 覆寫 81 條在 `dev/source/url_overrides.json`；註腳內容更正 10 條在 `dev/source/footnote_corrections.json`；每日 `qc_report` 會報兩者被蓋回（S252 A1）；註腳出處每月機械核對 164 條（S252 A2）。註腳入庫腳本以 `--execute` 重跑後，必須再跑 `dev/apply_url_overrides.py --execute` 與 `dev/apply_footnote_corrections.py --execute`。
+3. **Registry 漂移**（2026-11-17 實測）：`ZOMBIE`／`UNMANAGED`／`SERIES_UNMONITORED`／`UNROUTED` 皆 0；`PHANTOM` **1**（`staff_est_sp_sch_pri`，等 B1）；`UNLISTED` **0**。「只供瀏覽」19 項與「按設計不列」42 項寫在 `check_registry_drift.BROWSE_ONLY`／`UNLISTED_BY_DESIGN`（各附理由）。`ROUTE_EXEMPT` 只餘 `g33`、`g20`（重複，B2）。Freshness 待處理 0，PDF 逐頁文字相同者排程自動確認（S252 A3）。
+4. **Git 與部署**（2026-11-17 S252 收工實測）：`origin/main` = `4c297e2`（PR #107–#122 已合併）；線上 `/health` commit = `39b8968`（之後只改文件與題庫）。`main` 受 ruleset 保護，一切改動走 PR，合併只在 Leonard 明示時進行。開著的 PR：S252 收工分支 `s252-closeout`、#70（內容早已入 `main`，關閉前先問 Leonard）。判斷線上是否落後看 `git diff --name-only <部署commit>..origin/main -- backend`，不要比 hash。入庫或退役 PR 會改 `SOURCE_SETS`，合併後 Render 重新部署。`/health` 的 `footnote_loaded_at` 只記成功讀取，失敗另見 `footnote_refresh_failed_at`（S252 A7）。
 5. **模型與旗標**：合成與判官皆 `gpt-6-luna`＋`none`（碼內預設，Render 無 `OPENAI_MODEL`）。生產已開：`FEATURE_ROUTE_FIRST_SEARCH`、`FEATURE_CIRCULAR_NUMBER_LOOKUP`。已部署未開：`FEATURE_SUBJECT_CHECK`（待 Leonard 決定）。**不應啟用**（皆已量度並判定不出貨）：`FEATURE_QUERY_FUSION`、`FEATURE_VAULT_GATE_RAWVEC`、`MAX_PER_SOURCE`、`FEATURE_LEXICAL_RERANK`、`FAMILY_QUOTA`、`EXPANSION_MIN_QUERY_CHARS`／`EXPANSION_BALANCE`／`EXPANSION_REPEAT_CAP`。`/health` 不報旗標。
-6. **監察與檢索基線**：偵測型監察有新項目才 @Leonard；質素檢查高於基準時開 `qc-regression` Issue 並 @Leonard；7 個排程 workflow 由每日看門狗監察，另有 `live_probe` 每 6 小時探測線上服務；四條 ledger workflow 經 deploy key 推。**檢索基線（S250 生產，185 題，2026-11-16）：來源層 PASS 130／FAIL 36，片段層 61／105**（`dev/source/eval_runs/2026-11-16_s250_gold_prod_after.json`；S233 舊基線為 125／41、59／107）。重跑噪音：片段層 0、來源層 ±1。路由共 28 條（S250 新增 `subject_guides`）。運作流程與程序見 `dev/ops/AUTONOMY_FLOW.md`。各項詳情見 `dev/SESSION_STATE_DETAIL.md`。
+6. **監察與檢索基線**：偵測型監察有新項目才 @Leonard；質素檢查高於基準時開 `qc-regression` Issue 並 @Leonard；7 個排程 workflow 由每日看門狗監察，另有 `live_probe` 每 6 小時探測線上服務；四條 ledger workflow 經 deploy key 推。**檢索基線（S250 生產，185 題，2026-11-16）：來源層 PASS 130／FAIL 36，片段層 61／105**（`dev/source/eval_runs/2026-11-16_s250_gold_prod_after.json`）。⚠️ **S252 之後題庫是 183 題**（退役 g07 等舊版、改標 9 題、移出 2 題；驗證器 183／183），**與 S250 基線不能直接比較，下次要重跑一次全量作新基線**。另有獨立題集 `dev/_s252_gold_subject_guides.json`（10 題，結果在 `dev/source/gold_baselines/`）。重跑噪音：片段層 0、來源層 ±1。路由共 28 條（S250 新增 `subject_guides`）。運作流程與程序見 `dev/ops/AUTONOMY_FLOW.md`。各項詳情見 `dev/SESSION_STATE_DETAIL.md`。
 
 > 詳情與證據：`dev/SESSION_STATE_DETAIL.md`（做到該項才讀）；改寫前原文：`dev/archive/SESSION_HANDOFF_HISTORY_2026-11-15.md` E 節。
 
 <!-- ack:section:validation-qc -->
+**S252（2026-11-17）—— 工作清單 A1–A9、A13–A17、B15、B16；入庫 9 份、退役 11 份。** 生產寫入皆經 Leonard 明示批准並先備份。(1) **自主運作**：A1 每日質素檢查加註腳更正／連結覆寫漂移檢查（#108）；A2 註腳出處每月機械核對 164 條（#109，手動觸發一次 163 條全部 OK）；A3 Freshness 對 PDF 逐頁文字相同者自動確認（#112，12 個真實來源抽查、全量預演 301 來源 0 錯誤）；A4 `backend/README.md` 環境變數總表重寫（#110）；A7 `/health` 載入時間只記成功讀取（#111，部署 `1af3d27`）。前四項由 S251 設定的定時任務在無人值守下開 PR，主 session 逐個核對（自測、建置、實地抽查、依次試合併）後才合併。(2) **題庫**：A5 科目指引補 10 題（首個基線來源層 10／10、片段層 4／10，另存 `gold_baselines/`）；A15 改標 3 題；A17 以原簽名找回 35 處過時的核實片段編號；B16 改標 6 題、移出 2 題 → 183 題，驗證器 183／183。(3) **註腳**：A6 13 條「找不到」逐條讀原文（11 條法例逐字相符）；B15 校曆註腳改指 PDF 第 1 頁（備份 `20261117_090130_UTC`）。(4) **瀏覽清單與庫存**（A8，#116）：清單 182 → 252 → 241；漂移 PHANTOM 36 → 1、UNLISTED 119 → 0。(5) **入庫**（A14，#117）：9 份 238 片段（17,084 → 17,322），每份讀回與預演相同；部署後 9 份皆搜得到（7 份排第 1–2）。順帶按原文更正兩則錯誤的示範問答（中文科九個學習範疇；採購報價分級）。(6) **退役**（A13，#119）：11 份仍在服務的舊版，刪 1,494 片段（17,322 → 15,828），刪前全欄位備份 `dev/init_backup/20261117_190642_UTC/`；部署後抽查三條查詢只取回現行版本。(7) **A9 定期系統更新檢查**：模型無停用公告、`npm audit` 0、10 個排程全部成功、Kit 最新。**未做／未驗證**：S252 之後未重跑 183 題全量基線；改標 9 題中 3 題（持份者問卷、KG 收生、2027/28 K1 取錄通知）生產未取回答案文件，屬檢索問題；「初中數學 學習內容」問法未取回初中數學文件；`staff_est_sp_sch_pri` 等 B1；`chi_edu_curr_docs`（2017）等 2024 版入庫（A16）。
+
 **S251（2026-11-16）—— 10 條註腳按原文更正、註腳更正工具、無最強模型時的運作規則、工作清單。** 生產寫入經 Leonard 批准（「全部批准」）並先全欄位備份；零 DDL、零 flag、零 `backend/` 改動、零部署。(1) **起手探針**：版本 3.3.16、`/health` `ok`／commit `4f0b57f`／footnote 177／通函索引 70、`stats.json` 17,084／316、漂移 `ZOMBIE`／`SERIES_UNMONITORED`／`UNMANAGED`／`UNROUTED` 皆 0、`PHANTOM` 36、`UNLISTED` 119／2,626、頁碼覆寫 `to_change=0`。(2) **覆核**：S250 審核的 9 條「內容不符」加 `procurement_thresholds`，主 session 逐份下載原文（PDF 以 PyMuPDF 抽該頁；網頁抽主內容）逐條讀，10 條全部確有問題；與審核報告的兩處出入：`trg_freeze_ceiling` 的甲乙丙三部與 10% 上限在附件 III（2026 年版）確實存在，要改的只有同意條件；`procurement_thresholds` 除連結外，批核人員（按表格格線，校長／副校長涵蓋首兩列）與「公開招標」的寫法亦與原文不同。(3) **寫入**：`dev/apply_footnote_corrections.py --execute` 10 條皆 `OK`（備份 `dev/init_backup/20261116_220741_UTC/`，10 列皆含 embedding）；`dev/apply_url_overrides.py --execute` 2 條（備份 `…220808_UTC/`）；寫入後 `--check` 與 dry-run 皆 `to_change=0`；片段總數不變（17,084）。(4) **線上**：寫入約 8 分鐘後，帶 `x-probe`、`synthesize:false` 查 8 條問題，全部回傳新文字或新連結（寫入前同樣的查詢回傳舊文字，作對照）。(5) **其他檢查**：工具 `--self-test` 通過；`check_downstream_sync` `MUST_UPDATE` 0；PR #102 `build-gate` 通過後由 Leonard 指示合併（`f00258c`）。(6) **Kit 升級**：`upgrade --dry-run` 首次報 1 個 conflict（session log 內有一份開場訊息全文），刪去後 conflict 0；`upgrade --yes` merge 9／conflict 0，migration committed、project health passed；備份在 `dev/governance_migrations/2026-11-16T22-38-39-618Z-…/`。(7) **收工**：`closeout-status` 於 PR #105、#106 及本次收工各跑一次，皆 `complete`；開場鏡像每次由唯一開場區塊重生。(8) PR #103–#106 皆 `build-gate` 通過後由 Leonard 指示合併。**未做／未驗證**：`/health` 的 `footnote_loaded_at` 在內容已更新後仍顯示舊時間，成因未查；13 條「找不到」的註腳未處理；`dev/ops/WORK_QUEUE.md` 內各工作卡是設計與步驟，**尚未實作**，其中 A3 所指的「S249 逐頁比對做法」與 A5 的題庫格式未經我逐行核實，卡內已設停止條件。
 
 **S250（2026-11-16）—— 科目指引新路由、未入清單檢查、自動運作流程、註腳全量審核。** 零 Supabase 寫入、零 flag；後端部署 `4f0b57f`。(1) **發現**：57 個來源／6,652 片段（39%）不在任何 `SOURCE_SETS`，問題一觸發路由就搜不到；線上改動前 8 個標題式查詢 7 個落空。統計來源（19 個／569 片段）則是設計上被 `include_statistical=false` 排除，網站從不要求包含。(2) **否決的方案**：全部加入 `curriculum`（3,660 → 8,454 片段）—— 本機量度 `cur_secondary_central_curriculum` 由 PASS 變逾時／被擠走，同一查詢 5–17 秒；另 `edbcm57` 加入 `finance` 令 `fin_dls` PASS → FAIL。(3) **採用**：新路由 `subject_guides`（37 來源／4,881 片段）＋ 8 個小來源入 `curriculum`、`debp_leaflet` 入 `digital_education`、`va_safety_sec`／`g23` 入 `safety`。(4) **量度**：線上改前 185 題 PASS 130／FAIL 36／errors 0；本機改後受影響 20 題判定全部不變；**部署後線上 185 題 PASS 130／FAIL 36、片段層 61／105，與改前逐題相同**（4 題主跑逾時 `57014`，同一小時單獨重跑，結果與改前相同，已併入）；唯一差異是無答案題 `cur_arts_guide_2002_missing` 現取回 `g37`（題庫列為禁引，前提「`arts_kla_guide_2017` 在庫」已不成立）。線上 10 條新來源查詢 10 條命中（其中 1 條首次逾時、重試命中）；交錯三輪計時，`subject_guides` 1.1–4.9 秒，未改動路由 1.2–3.6 秒。`route_regression` 90/90（加 9 正例、5 反例）；`npm run check`／`build`、`regression:grounded` 50/50、`regression:overlay` 9/9。(5) **常設檢查**：`check_registry_drift` 新類別 `UNROUTED`，`qc_report` `REGISTRY_UNROUTED` 基準 0；自測通過，全庫實測 0。(6) **程序實測**：`health-probe` 由最平模型跑完七項（它把 PR #70 報成 Issue，主 session 抽查發現）；`footnote-audit` 由中階模型審核 177 條：相符 126、頁碼錯 28、內容不符 9、文件不對 1、無法核對 13；**28 條頁碼錯經主 session 獨立核實全部成立，經 Leonard 批准後寫入（備份 `dev/init_backup/20261116_215416_UTC/`，寫入後 dry-run `to_change=0`）；9 條內容不符未逐條覆核、未寫入**。**未做／未驗證**：題庫 185 題只有 1 題觸及新路由的 37 個來源，量度只證明「沒有變差」；後端 30 分鐘背景重讀仍未在線上觀察到（每次查看都剛重啟）。
@@ -63,7 +65,7 @@
 - 🔴 **Python：有三個，只有兩個跑得動本專案的抽取／入庫腳本。** 預設 `python3` = homebrew **3.14**，**無 `fitz`、無 `openai`**；`/usr/local/bin/python3`（openai 2.26 ＋ fitz ＋ requests）與 `/usr/bin/python3` 才齊。**抽取與入庫一律明寫 `/usr/local/bin/python3`**；純標準庫的監察腳本（`check_*.py`／`execute_ingest.py --self-test`／`build_wiki_index`）用 `python3` 沒問題。詳見 Risks 6。 **S232 補**：`python3.13` 亦有 `openai`＋`requests`，`dev/ingest_s232_kg_ratio_footnote.py` 與 `footnote_lead_probe.py` 以它實跑通過。
 - **Python script invocation**: 一律由 repo root 起，例如 `cd "…/Draft" && python3 dev/vault/extract_candidates.py ...`
 - **Backend**: `cd "…/Draft/backend" && npm run dev`
-- **Git state（S251 收工，2026-11-16 22:45 UTC 實測）**: root 與 git root 皆為 `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft`；`origin/main` = `54352fa`（PR #101–#106 已合併）；線上執行碼 `4f0b57f`；收工分支 `s251-closeout`（由 `origin/main` 開出，只含收工文件）；#70 仍開著；本機舊分支（含已合併的 `s250-closeout` 與六條 `s251-*`）未清理；worktrees 1；工作樹除收工檔外無未提交改動。以下為 S250 原文。 - **Git state（S250 收工，2026-11-16）**: `origin/main` = `4f0b57f`；線上執行碼 `4f0b57f`；收工分支 `s250-closeout`；#70 仍開著；本機舊分支未清理；worktrees 1。以下為 S249 原文。 - **Git state（S249 收工，2026-11-16）**: `origin/main` = `eff9047`；線上執行碼 `eff9047`；收工分支 `s249-closeout`（只改治理文件）；#70 仍開著；本機舊分支（含已合併的 `s248-closeout`、`s249-freshness-fingerprint`、`s249-footnote-cache-ttl`）未清理；worktrees 1。以下為 S248 原文。 - **Git state（S248 收工，2026-11-16 補完）**: `origin/main` = `61ba038`；線上執行碼 `8b118fd`；收工分支 `s248-closeout`（PR #96，只改治理文件）；#70 仍開著；舊本地分支未清理；worktrees 1。以下為 S247 原文。 - **Git state（S247 收工，2026-11-09）**: `origin/main` = `82be06e`（PR #89 已合併）；線上執行碼 `20fd4a4`；本節收工分支 `s247-closeout`；本機另有已合併的 `s246-closeout`、`s247-init-backup-cleanup` 與 `s240/*`–`s245-*` 等舊本地分支（未清理，非本節範圍）；worktrees 1。以下為 S246 原文。 - **Git state（S246 收工，2026-11-08）**: `origin/main` = `d6b18f6`（PR #87 已合併為 `62647fe`）；線上執行碼 `20fd4a4`；本節收工分支 `s246-closeout`；`s244-option2-round1` 已刪；本機尚有 `s240/*`–`s245-*` 等舊本地分支（未清理，非本節範圍）；worktrees 1。以下為 S245 原文。 - **Git state（S245 收工，2026-11-05）**: `origin/main` = `27a59d5`（PR #86 已合併為 `12c1ab7`）；線上執行碼 `20fd4a4`；本節分支 `s245-option2-round2`（工作 commit＋收工 commit，PR #87，未合併）；舊分支 `s244-option2-round1` 多一個重複 commit `d2c95ee`（無 PR）；worktrees 1。以下為 S244 原文。 - **Git state（S244 收工，2026-11-05）**: `origin/main` = `ab2aee9`；線上執行碼 `20fd4a4`；本節分支 `s244-option2-round1`（工作 commit `90bb921`＋收工 commit，PR #86，未合併）；worktrees 1。以下為 S243 原文。 **Git state（S243 收工，2026-11-03）**: `origin/main` = `37451db`（#79–#84 已合併）；線上執行碼 `20fd4a4`；收工分支 `s243/closeout-final`（新 PR，只改治理文件與 README 一字）；本機已合併分支 `s243/*`、`s242/*` 未刪。以下為 S242 原文。 **Git state（S242 收工，2026-11-02）**: `origin/main` = `814bd0c`（#73、#74、#75 已合併）；線上執行碼 `3ef9ab6`；收工分支 `s242/closeout`（新 PR，只改治理文件）；已合併的本機分支 `s242/cover-title-refresh`、`s242/blnst-route`、`s242/qc-report-race` 未刪。以下為 S241 原文。 **Git state（S241 收工，2026-10-29）**: `main` = `da44e55`（#53 已合併並部署）；收工 commit 推上 `s241/model-migration-circular`（新 PR，含通函編號查找的 `backend/src` 改動）；已合併的本機分支 `s239/query-fusion`、`s240/deps-security` 未刪。以下為 S240 原文。 `main` = `77de1dd`（#55 已合併並部署）；收工 commit 推上 `s239/query-fusion`（PR #53，未合併，未含 #55）；已合併的本機分支 `s240/deps-security` 未刪。以下為 S239 原文。 **Git state（S239 收工，2026-10-21）**: 本機分支 `s239/query-fusion`（PR #53，已 rebase 到 `origin/main` `c4b3a6a`），收工 commit 推上同一分支；`main` 未含 S239 任何改動。以下為 S238 原文。 **Git state（S238 第二次收工，2026-10-13）**: `main` = `a67bd29`（#48／#49／#50 已合併）；收工分支 `s238/closeout-2` 由 `main` 開出，只改治理文件。以下為第一次收工原文。 **Git state（S238 收工，2026-10-13）**: 收工分支 **`s238/monitor-notify`**（由 `origin/main` `7b6a68b` 開出，合併了未合併的 `origin/s237/closeout`），PR #48 由 Leonard 指示合併（squash）；合併後 hash 下節核實。worktrees 1。以下為 S237 原文。 **Git state（S237 收工實測，2026-10-11）**: root 與 git root 皆為 `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft` · 收工分支 **`s237/closeout`**（由未合併的 `origin/s236/closeout` 開出，再合併 `origin/main` `a344504`，只含收工文件）· worktrees **1**。`origin/main` = **`a344504`**；線上執行碼 **`a344504`**。已合併但仍在的本機分支（S235 記約 13 條，另加 `s235/route-b-closeout`、`s236/subject-check-v1`、`s236/closeout`、`s237/openai-model-default`）**未逐條核實、未刪**；清理須先唯讀核實已合併（squash 後 `git branch -d` 會報 not fully merged，要用「分支 tip 對其 squash commit 的樹比對＝0 檔差異」核實再 `-D`），並經 Leonard 批准。
+- **Git state（S252 收工，2026-11-17 實測）**: `origin/main` = `4c297e2`；線上執行碼 `39b8968`；收工分支 `s252-closeout`；#70 仍開著；本機有多條已合併的 `s251-*`、`s252-*` 分支未清理（A10）；worktrees 1。以下為 S251 原文。 - **Git state（S251 收工，2026-11-16 22:45 UTC 實測）**: root 與 git root 皆為 `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft`；`origin/main` = `54352fa`（PR #101–#106 已合併）；線上執行碼 `4f0b57f`；收工分支 `s251-closeout`（由 `origin/main` 開出，只含收工文件）；#70 仍開著；本機舊分支（含已合併的 `s250-closeout` 與六條 `s251-*`）未清理；worktrees 1；工作樹除收工檔外無未提交改動。以下為 S250 原文。 - **Git state（S250 收工，2026-11-16）**: `origin/main` = `4f0b57f`；線上執行碼 `4f0b57f`；收工分支 `s250-closeout`；#70 仍開著；本機舊分支未清理；worktrees 1。以下為 S249 原文。 - **Git state（S249 收工，2026-11-16）**: `origin/main` = `eff9047`；線上執行碼 `eff9047`；收工分支 `s249-closeout`（只改治理文件）；#70 仍開著；本機舊分支（含已合併的 `s248-closeout`、`s249-freshness-fingerprint`、`s249-footnote-cache-ttl`）未清理；worktrees 1。以下為 S248 原文。 - **Git state（S248 收工，2026-11-16 補完）**: `origin/main` = `61ba038`；線上執行碼 `8b118fd`；收工分支 `s248-closeout`（PR #96，只改治理文件）；#70 仍開著；舊本地分支未清理；worktrees 1。以下為 S247 原文。 - **Git state（S247 收工，2026-11-09）**: `origin/main` = `82be06e`（PR #89 已合併）；線上執行碼 `20fd4a4`；本節收工分支 `s247-closeout`；本機另有已合併的 `s246-closeout`、`s247-init-backup-cleanup` 與 `s240/*`–`s245-*` 等舊本地分支（未清理，非本節範圍）；worktrees 1。以下為 S246 原文。 - **Git state（S246 收工，2026-11-08）**: `origin/main` = `d6b18f6`（PR #87 已合併為 `62647fe`）；線上執行碼 `20fd4a4`；本節收工分支 `s246-closeout`；`s244-option2-round1` 已刪；本機尚有 `s240/*`–`s245-*` 等舊本地分支（未清理，非本節範圍）；worktrees 1。以下為 S245 原文。 - **Git state（S245 收工，2026-11-05）**: `origin/main` = `27a59d5`（PR #86 已合併為 `12c1ab7`）；線上執行碼 `20fd4a4`；本節分支 `s245-option2-round2`（工作 commit＋收工 commit，PR #87，未合併）；舊分支 `s244-option2-round1` 多一個重複 commit `d2c95ee`（無 PR）；worktrees 1。以下為 S244 原文。 - **Git state（S244 收工，2026-11-05）**: `origin/main` = `ab2aee9`；線上執行碼 `20fd4a4`；本節分支 `s244-option2-round1`（工作 commit `90bb921`＋收工 commit，PR #86，未合併）；worktrees 1。以下為 S243 原文。 **Git state（S243 收工，2026-11-03）**: `origin/main` = `37451db`（#79–#84 已合併）；線上執行碼 `20fd4a4`；收工分支 `s243/closeout-final`（新 PR，只改治理文件與 README 一字）；本機已合併分支 `s243/*`、`s242/*` 未刪。以下為 S242 原文。 **Git state（S242 收工，2026-11-02）**: `origin/main` = `814bd0c`（#73、#74、#75 已合併）；線上執行碼 `3ef9ab6`；收工分支 `s242/closeout`（新 PR，只改治理文件）；已合併的本機分支 `s242/cover-title-refresh`、`s242/blnst-route`、`s242/qc-report-race` 未刪。以下為 S241 原文。 **Git state（S241 收工，2026-10-29）**: `main` = `da44e55`（#53 已合併並部署）；收工 commit 推上 `s241/model-migration-circular`（新 PR，含通函編號查找的 `backend/src` 改動）；已合併的本機分支 `s239/query-fusion`、`s240/deps-security` 未刪。以下為 S240 原文。 `main` = `77de1dd`（#55 已合併並部署）；收工 commit 推上 `s239/query-fusion`（PR #53，未合併，未含 #55）；已合併的本機分支 `s240/deps-security` 未刪。以下為 S239 原文。 **Git state（S239 收工，2026-10-21）**: 本機分支 `s239/query-fusion`（PR #53，已 rebase 到 `origin/main` `c4b3a6a`），收工 commit 推上同一分支；`main` 未含 S239 任何改動。以下為 S238 原文。 **Git state（S238 第二次收工，2026-10-13）**: `main` = `a67bd29`（#48／#49／#50 已合併）；收工分支 `s238/closeout-2` 由 `main` 開出，只改治理文件。以下為第一次收工原文。 **Git state（S238 收工，2026-10-13）**: 收工分支 **`s238/monitor-notify`**（由 `origin/main` `7b6a68b` 開出，合併了未合併的 `origin/s237/closeout`），PR #48 由 Leonard 指示合併（squash）；合併後 hash 下節核實。worktrees 1。以下為 S237 原文。 **Git state（S237 收工實測，2026-10-11）**: root 與 git root 皆為 `/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft` · 收工分支 **`s237/closeout`**（由未合併的 `origin/s236/closeout` 開出，再合併 `origin/main` `a344504`，只含收工文件）· worktrees **1**。`origin/main` = **`a344504`**；線上執行碼 **`a344504`**。已合併但仍在的本機分支（S235 記約 13 條，另加 `s235/route-b-closeout`、`s236/subject-check-v1`、`s236/closeout`、`s237/openai-model-default`）**未逐條核實、未刪**；清理須先唯讀核實已合併（squash 後 `git branch -d` 會報 not fully merged，要用「分支 tip 對其 squash commit 的樹比對＝0 檔差異」核實再 `-D`），並經 Leonard 批准。
 - **Production flag state**: 【S241】Render **已無 `OPENAI_MODEL`**（Leonard 刪除），亦無 `JUDGE_MODEL`，即兩者皆碼內預設 `gpt-6-luna`＋`none`；`FEATURE_ROUTE_FIRST_SEARCH=1` 不變；**`FEATURE_CIRCULAR_NUMBER_LOOKUP=1`（2026-10-30 Leonard 加上，截圖核實前一版未設）**；`FEATURE_QUERY_FUSION`、`FEATURE_SUBJECT_CHECK` 皆未設。以下為 S239 原文。 【S239】Render 仍為 `OPENAI_MODEL=gpt-4o-mini`、無 `JUDGE_MODEL`（即碼內預設；PR #53 合併後預設變 `gpt-6-luna`＋`none`）。合併後要 Leonard 刪除 `OPENAI_MODEL`（或改 `gpt-6-luna` 並加 `OPENAI_REASONING_EFFORT=none`）；**切勿替 `gpt-4o-mini`／`gpt-4.1-mini` 設 effort**（被拒、合成靜默變空）；次序必須先合併後改 Render。`FEATURE_QUERY_FUSION` 不設。以下為原文。 `FEATURE_ROUTE_FIRST_SEARCH=1` 於 Render 環境變數（S220 啟用）。另兩個合成側 flag 未設定＝關閉。`FEATURE_SUBJECT_CHECK`（S236）未設定＝關閉。**Render 環境變數只有 Leonard 改得到，AI 改不到；`/health` 亦不報 flag。** **S237（2026-10-11）Leonard 以截圖核實 Render 環境變數共 8 個**：`CHANNEL_B_SYNC_KEY`、`CORS_ORIGIN`、`FEATURE_ROUTE_FIRST_SEARCH`、`KNOWLEDGE_PATH`、`OPENAI_API_KEY`、`OPENAI_MODEL=gpt-4o-mini`、`SUPABASE_ANON_KEY`、`SUPABASE_URL`；**無 `JUDGE_MODEL`（判官用碼內預設 `gpt-4.1-mini`）、無 `FEATURE_SUBJECT_CHECK`（即關閉）**。
 - 🔴 **Push 邊界（S224 新增）**：`main` 受 ruleset 保護，**直接 `git push origin main` 會被拒**。一切改動走 PR：`git checkout -b <topic>/<name>` → `git push -u origin HEAD` → `gh pr create --base main --fill`，**然後由 Leonard 在 GitHub 網頁按 Squash and merge**。⚠️ **S234 實測曾被 auto mode 分類器擋下；S236–S237 實測 `gh pr merge <N> --squash` 三次成功（#43、#44、#46，均在 Leonard 明示「合併」之後）。** 仍只在 Leonard 明示指示時合併；若再被擋，不要重試或繞過。**每 session 盡量只開一個 PR（Leonard S234 定案）**：工作與收工文件同一分支；合併後才有的驗收結果留待下節起手補記。S234 因 Leonard 選「先合併 #38 讓頁面上線」而例外開了第二個（收工）PR；S236 同樣例外（Leonard 在收工前指示合併 #44，收工文件另開 `s236/closeout`）。S237 亦然（Leonard 指示合併 #46；收工另開 `s237/closeout`，並帶上未合併的 #45 內容）。⚠️ 分支若與 `main` 同一個 commit，`gh pr create` 會失敗並留下一條空分支（S224 中過兩次）——**開分支前先確認真的有未推的 commit**。合併用 squash，所以事後 `git branch -d` 會報「not fully merged」；要刪本機分支請先用「分支 tip vs 它的 squash commit 樹比對＝0 個檔案差異」核實，再用 `-D`。
 - **生產寫入權限（S223 更正）**: AI **跑得到** `cb3_deprecate_stale --execute` 與 `ingest_one_source`（本節實跑三次全部通過）。**擋住破壞性寫入的已經不是機械閘，而是「要先取得 Leonard 明示批准」這條紀律。**
@@ -169,17 +171,15 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:next-priorities -->
 ## Open Priorities
 
-Recommended next step: 照 `dev/ops/WORK_QUEUE.md` 由 A1 做起，一節一張卡 — 理由：之後不能假設有最強模型，所有待辦已寫成可照做的工作卡（詳見下段）。
+Recommended next step: 重跑一次 183 題全量檢索量度作新基線 — 理由：S252 入庫 9 份、退役 11 份、題庫由 185 變 183，S250 的 130／36 已不能比較；之後任何檢索判斷都要有新基線。做法照 `dev/source/gold_baselines/README.md` 的重跑方法（生產、`x-probe`、每題相隔 8 秒），結果放 `dev/source/eval_runs/`。
 
-**⏰ 定時續做（Leonard S251 收工時預先授權）**：已設一個一次性定時任務，於 2026-11-17 02:56（本機時間，GMT）用量重設後自動開工續做 `dev/ops/WORK_QUEUE.md` A 部。授權範圍由我按安全規則收窄為：可改 repo 內檔案、commit、push、開 PR；**不合併 PR、不寫入或刪除生產資料、不改旗標、不執行 DDL、不作外部模型批次**。下一節開工先 `gh pr list` 與 `git log origin/main` 看它做了甚麼，逐個 PR 核對驗收後才請 Leonard 決定合併；它做過的卡不要重做。應用程式當時若沒有開著，任務會在下次啟動時才跑。
+做事規則：`dev/ops/WORK_QUEUE.md`（所有待辦的逐項做法）、`dev/ops/AUTONOMY_FLOW.md` §4a／§4b（每節開工主動告訴 Leonard 建議的模型與 effort）。
 
-**Recommended next step：照 `dev/ops/WORK_QUEUE.md` 做，由 A1 開始（把「註腳更正」與「連結覆寫」接入每日質素檢查）。** 理由：S251 起不能假設有最強模型（Leonard 2026-11-16：Fable 5.2 用量將盡，之後不會有），所以 Fable 已把所有待辦一次過寫成可照做的工作卡（A 可直接做、B 待 Leonard 決定並附建議、C 等觸發、D 不要做）。**下面第 1–5 項只是摘要；逐項做法、驗收與停止條件以 `dev/ops/WORK_QUEUE.md` 為準。一節只做一張卡。做事規則看 `dev/ops/AUTONOMY_FLOW.md` §4a；建議的模型與 effort 看同檔 §4b，**agent 每節開工要主動提 Leonard**。**
-
-1. **註腳更正：S250 審核的 10 條已於 S251 全部更正**（9 條內容不符＋`procurement_thresholds`；Leonard 批准；備份 `dev/init_backup/20261116_220741_UTC/`、`…220808_UTC/`；更正清單 `dev/source/footnote_corrections.json`，工具 `dev/apply_footnote_corrections.py`，`--check` `to_change=0`；線上八條查詢回傳新文字）。**不要重做。** 餘下：(a) `ceg_no_tutorial` 出處待 Leonard 選（EOEBG User Guide 第 6 頁或 OEBG User Guide 第 7 頁）；(b) 審核中 13 條「找不到」未處理（多為電子版法例，抓不到原文）；(c) 觀察：後端背景重讀註腳確實生效，但 `/health` 的 `footnote_loaded_at` 沒有更新（未查成因，屬顯示問題）。
-2. **待 Leonard 決定**：是否開 `FEATURE_SUBJECT_CHECK`（「答錯對象」已知漏判 5 條，開啟可攔 3 條）；10 個 `ROUTE_EXEMPT` 來源是否退役（刪生產資料）；統計來源（19 個／569 片段，設計上搜不到）開放搜尋還是停止維護；題庫題目 `cur_arts_guide_2002_missing` 的禁引前提已過時，是否更新；文件標註修好重開還是刪除；已收起功能的公開端點去留；`search_log` 加拒答原因（DDL）；關閉 #70；S244 三條 footnote 粵語問句；語料庫時限段落；`app.html`「全校」角色標籤。
-3. **減少人手介入的下一步**（`dev/ops/AUTONOMY_FLOW.md` §6）：(a) Freshness 在排程內自動確認「文字相同」的個案；(b) 註腳審核排成每月自動跑；(c) PR 改到 `SOURCE_SETS` 時 CI 自動量度；(d) 為 `subject_guides` 的 37 個來源補題入題庫（現時只有 1 題觸及）。
-4. **退役 `EDBC_9_2019_E`**（已被 EDBC 4/2026 取代；S238 批准未執行，**執行前先再確認**）；**定期系統更新檢查**約 2026-11-29 到期。
-5. **提升搜尋準確度**（長期；沒有較強模型時不做）：完整計劃在 `dev/ops/NEXT_UPGRADE.md`（問題拆解、五個階段、出貨門檻、放棄條件）；動手前另讀 `dev/SESSION_STATE_DETAIL.md` 的 ②。另 `PHANTOM` 36／`UNLISTED` 119 累積清單未處理。
+1. **新基線**：見上。
+2. **待 Leonard 決定**（`WORK_QUEUE` B 部）：B1 開 `FEATURE_SUBJECT_CHECK`（開後 `staff_est_sp_sch_pri` 可按恢復條件入庫）；B2 餘項 `g33`、`g20`、`EDBC_9_2019_E` 退役；B3 統計來源；B4–B8、B10–B14。
+3. **A16**：《中國語文教育學習領域課程指引》2024 年版入庫，之後退役 2017 年版 `chi_edu_curr_docs`（寫生產要批准）。
+4. **檢索問題（記錄，未處理）**：「持份者問卷」「KG 收生」「2027/28 K1取錄結果何時通知」「初中數學 學習內容」未取回答案文件；屬 `dev/ops/NEXT_UPGRADE.md` 範圍，沒有較強模型時不做。
+5. **A10 清理本機分支**（要批准刪除）；**A12 報錯按鈕**（要 Leonard 提供表單連結）；定期系統更新檢查下次約 2026-12-17。
 
 其餘只監察或次序較後的項目（封版閘、累積遺留、HNSW 監察、線上探測真實當機路徑、executor 多份批准衝突、Freshness 其餘項）詳見 `dev/SESSION_STATE_DETAIL.md`。
 
@@ -215,6 +215,20 @@ Recommended next step: 照 `dev/ops/WORK_QUEUE.md` 由 A1 做起，一節一張�
 <!-- ack:section:completed-this-session -->
 ## Last Session Record
 
+1. UTC date: 2026-11-17
+2. Session ID: S252（Claude_20261117；接續 S251 同一對話，模型由 Fable 5.2 轉為 Opus 5.5）。Leonard 逐張批准工作卡並指示合併每個 PR：#107–#122。
+3. Completed（證據見 `## Validation / QC` S252）：
+   - ✅ 自主運作：每日漂移檢查、每月註腳核對、Freshness 自動確認、`/health` 時間修正、README 旗標表。
+   - ✅ 瀏覽清單與庫存對齊（182 → 241），9 份入庫、11 份舊版退役。
+   - ✅ 題庫：補 10 題獨立題集；改標 9 題、移出 2 題、修正 35 處出處；183 題全部通過驗證器。
+   - ✅ 註腳：13 條逐條核實、校曆連結更正；兩則錯誤示範問答更正；A9 系統更新檢查。
+4. 生產改動：入庫 238 片段、刪除 1,494 片段、1 條註腳 `url`；庫存 15,828／314；後端部署 `39b8968`；零 DDL、零 flag。
+5. Carry-forward：未完成事項一律不在此列舉，全部歸入 `## Open Priorities` 與 `dev/ops/WORK_QUEUE.md`。
+
+<!-- 本地邊界 marker（S232 由 S231 之前上移至此；S236 沿用）：令 completed-this-session 的抽取範圍只涵蓋最新一節 -->
+<!-- ack:section:session-history -->
+## Previous Session Record (S251)
+
 1. UTC date: 2026-11-16（接續 S250，同日）
 2. Session ID: S251。「/handoff-kit-start」（頂層轉 Draft）→「開始覆核」→「全部批准」→ 告知 Fable 5.2 用量將盡、要準備好系統自主運作 →「合併 #102」→ 要求 Fable 一次過寫好所有待辦，讓其他 agent 之後照做 →「合併 #103」→ 問成效與下一個提升 →「寫好全部文件」→「合併 #104」→ 問 Opus 5.5 用甚麼 effort、「你升級 kit」→「合併 #105」→「將 model 建議也寫進，讓 agent 提我」→「合併 #106」→「收工」並要求設定用量重設後自動續做。
 3. Completed（證據見 `## Validation / QC` S251）：
@@ -229,8 +243,6 @@ Recommended next step: 照 `dev/ops/WORK_QUEUE.md` 由 A1 做起，一節一張�
 4. 生產改動：Supabase 10 條註腳 `text`／`hash`／`embedding`（其中 2 條另改 `title`）、2 條 `url`；零 DDL、零 flag、零部署。
 5. Carry-forward：未完成事項一律不在此列舉，全部歸入 `## Open Priorities` 與 `dev/ops/WORK_QUEUE.md`。
 
-<!-- 本地邊界 marker（S232 由 S231 之前上移至此；S236 沿用）：令 completed-this-session 的抽取範圍只涵蓋最新一節 -->
-<!-- ack:section:session-history -->
 ## Previous Session Record (S250)
 
 1. UTC date: 2026-11-16（接續 S249，同日）
@@ -306,6 +318,7 @@ Recommended next step: 照 `dev/ops/WORK_QUEUE.md` 由 A1 做起，一節一張�
 <!-- ack:section:state-reconciliation-check -->
 ## State Reconciliation Check
 
+- **2026-11-17 S252 closeout reconciliation（工作清單 A1–A9、A13–A17、B15、B16；PR #107–#122 已合併）：** 本檔於收工起手讀取各相關章節。差異式更新：`Current Baseline` 2、3、4、6 · `Validation / QC` 新增 S252 段 · `User Environment` Git state · `Open Priorities` 整段重生 · `Last Session Record`（S252；S251 改題為 `Previous Session Record (S251)`）· 本段各欄位 · `Handoff Sufficiency Check` · `Next Session Opening Message` · `backend/README.md` 缺口一句。**未改**：`Current Baseline` 1、5 · `Risks / Blockers` · 其餘章節。
 - **2026-11-16 S251 closeout reconciliation（註腳更正 ／ 更正工具 ／ 無最強模型規則 ／ 工作清單；PR #102 已合併）：** 本檔於本節起手全文讀取（436 行，讀取前後 SHA-256 相同）。差異式更新：`Current Baseline` 2（覆寫 80 條、更正清單）、4 · `Validation / QC` 新增 S251 段於最前 · `User Environment` Git state · `Open Priorities` 開首重寫（指向 `dev/ops/WORK_QUEUE.md`）與第 1 項 · `Last Session Record`（S251；S250 原文改題為 `Previous Session Record (S250)`）· 本段各 S251 欄位 · `Handoff Sufficiency Check` · `Next Session Opening Message`。**未改**：`Current Baseline` 1、3、5、6 · `Risks / Blockers`（逐項核過仍為現況）· `Open Priorities` 2–5 · 其餘章節。
 - **2026-11-16 S250 closeout reconciliation（科目指引新路由 ／ UNROUTED 檢查 ／ 自動運作流程 ／ 註腳審核；PR #100 已合併）：** 差異式更新：`Current Baseline` 3、4、6 · `Validation / QC` 新增 S250 段於最前 · `User Environment` Git state · `Open Priorities` 整段重生（新 Recommended next step）· `Last Session Record`（S250；S249 原文改題為 `Previous Session Record (S249)`）· 本段各 S250 欄位 · `Handoff Sufficiency Check` · `Next Session Opening Message`。**未改**：`Current Baseline` 1、2、5（17,084／316 不變）· `Risks / Blockers` 及其餘章節。
 - **2026-11-16 S249 closeout reconciliation（Freshness 出口與清零 ／ 重新入庫 ／ 頁碼 ／ 後端快取重讀；PR #97、#98 已合併）：** 本檔於本節起手全文讀取（398 行）。差異式更新：`Current Baseline` 2、3、4 改為 2026-11-16 實測 · `Validation / QC` 新增 S249 段於最前 · `User Environment` Git state · `Open Priorities` 整段重生（已完成的 Freshness、頁碼項移除；新 Recommended next step）· `Last Session Record`（S249；S248 原文改題為 `Previous Session Record (S248)`，內容不變）· 本段各 S249 欄位 · `Handoff Sufficiency Check` · `Next Session Opening Message`。**未改**：`Risks / Blockers`（逐項核過仍為現況）及其餘章節。
@@ -315,22 +328,22 @@ Recommended next step: 照 `dev/ops/WORK_QUEUE.md` 由 A1 做起，一節一張�
 <!-- 歷史原文（S248 瘦身，2026-11-15）：`## State Reconciliation Check` S245 及以前的逐節敍述、各欄位 S246 及以前的舊行、S217 及以前的區塊 已一字不改移至 `dev/archive/SESSION_HANDOFF_HISTORY_2026-11-15.md`〔D1〕；開工毋須讀取，追查舊證據時才查。 -->
 
 <!-- ack:field:stale-snapshots-left -->
-- Stale snapshots left (S251): no — Current Baseline 2、4、User Environment Git state、PROJECT_INDEX Branch / commit 已改為 2026-11-16 S251 收工實測（origin/main 54352fa、線上 4f0b57f）；S250 句標為原文。
+- Stale snapshots left (S252): no — Current Baseline 2、3、4、6、User Environment Git state、PROJECT_INDEX Branch / commit 已改為 2026-11-17 S252 收工實測（origin/main 4c297e2、線上 39b8968、15,828／314）。
 
 <!-- ack:field:closeout-outcome -->
-- Closeout outcome (S251): complete — 交接、log、PROJECT_INDEX 已寫入並讀回；開場鏡像由唯一的開場區塊重生。S251 首次跑 `closeout-status` 回 `blocked`，兩個成因皆已處理：(a) Kit 安裝版本落後令 `doctor` 的 project shortcuts 未通過 → 已以官方 CLI 升級至 v0.4.7；(b) 我在 `dev/SESSION_LOG.md` 加了一份開場訊息全文，違反「不得保留第三份完整副本」→ 已刪去，改為一行指引。⚠️ `Draft/AGENTS.md` 專案自有部分 §4 第 12 項仍寫「把開場訊息全文寫入 SESSION_LOG」，與 Kit 規定相反；以 Kit 為準，**不要照 §4 第 12 項做**（該檔不在 git、屬治理規則，改寫待 Leonard 決定）。
+- Closeout outcome (S252): complete — 交接、log、PROJECT_INDEX 已寫入並讀回；開場鏡像由唯一開場區塊重生；closeout-status 為最終讀回。
 
 <!-- ack:field:project-required-persistence -->
-- Project-required persistence (S251): complete — 工作 commit 已隨 PR #102–#106 合併入 `main`（`54352fa`），毋須部署；最後的收工 commit 推上 `s251-closeout` 並開 PR，只改治理文件，合併待 Leonard 指示。
+- Project-required persistence (S252): complete — 工作已隨 PR #107–#122 合併入 `main`（`4c297e2`）並部署；收工 commit 推上 `s252-closeout` 並開 PR，只改治理文件，合併待 Leonard 指示。
 
 <!-- ack:field:recommended-next-step-explicit -->
-- Recommended next step is explicit and reasoned (S251): yes — `## Open Priorities` 開首：照 `dev/ops/WORK_QUEUE.md` 由 A1 做起，理由同段。
+- Recommended next step is explicit and reasoned (S252): yes — `## Open Priorities` 開首：重跑 183 題全量作新基線，理由同段。
 
 <!-- ack:field:next-ai-can-continue -->
-- Next AI can continue (S251): yes — 由 `AGENTS.md`、本檔 `## Open Priorities` 與 `dev/ops/WORK_QUEUE.md` 即可續做，證據見 `## Handoff Sufficiency Check` 的 Reconstruction evidence。
+- Next AI can continue (S252): yes — 由 `AGENTS.md`、本檔 `## Open Priorities` 與 `dev/ops/WORK_QUEUE.md` 即可續做，證據見 `## Handoff Sufficiency Check` 的 Reconstruction evidence。
 
 <!-- ack:field:opening-message-matches-current-state -->
-- Opening message matches current state (S251): yes — 開場訊息記 origin/main 54352fa 或之後、線上 4f0b57f、17,084／316、S251 各項已完成、下一步為照 `dev/ops/WORK_QUEUE.md` 由 A1 做起，與 `## Open Priorities` 及 `## Current Baseline` 一致。
+- Opening message matches current state (S252): yes — 開場訊息記 origin/main 4c297e2 或之後、線上 39b8968、15,828／314、題庫 183、下一步為重跑全量新基線，與 `## Open Priorities` 及 `## Current Baseline` 一致。
 
 <!-- ack:field:state-sections-rewritten-or-confirmed -->
 - **State sections rewritten or confirmed current（S218）：** **重寫**：`Current Baseline` 第 1 項（探針歸屬改 S218 並補齊五個實測值）· 第 2 項（HEAD 由 `612e13e` 更正為 `0f8a7c9`，並新增「Render 報舊 commit 屬正常、零執行碼差異」的定性）· `Validation / QC`（新增 S218 段，明寫零重跑、S217 數值為何仍有效、`doctor` 仍未驗證）· `Risks / Blockers` 第 1 項（補 S218 實測 bot 本輪未推）· `Open Priorities`（**整段重生**：S217 的 ① 已結案故移除，②' 升為 ①，其餘重排；治理側原 ⑥⑦ 依 §4 五項上限原文移入 `## Backlog` 治理側段，`grep` 實測全檔只出現一次 = 搬非複製）· `Last Session Record`（重生為 S218，S217 降為 `Previous Session Record (S217)`，內容一字未改）· `Next Session Opening Message`（重生，新增「/health 報舊 commit 是正常」的防誤判段）。**逐段讀過確認仍 current、不改**：`Architecture Decisions`、`Regression / Verification Notes`、`Backlog` 原有內容、`User Environment`、`Mandatory Start Checklist`、`Supabase Technical Notes`、`Detail Archive`、所有 `Previous Session Record`。
@@ -349,15 +362,15 @@ Recommended next-step rule: `Next Priorities` must name the single recommended n
 
 Can the next AI continue from `AGENTS.md`, this handoff, `dev/PROJECT_INDEX.md`, and needed rule packs without searching old log history?
 
-Answer: yes — S251 收工覆核（2026-11-16：origin/main 54352fa、線上 4f0b57f；Kit 0.4.7；Supabase 17,084／316；註腳更正 10 條、覆寫 80 條皆 `to_change=0`）；以下 S250 及以前的覆核內容除數字外仍適用。S250 收工覆核（2026-11-16：origin/main 4f0b57f、線上 4f0b57f；Supabase 17,084／316；檢索基線 130／36）；以下 S249 及以前的覆核內容除數字外仍適用。S249 收工覆核（2026-11-16：origin/main eff9047、線上 eff9047；Supabase 17,084／316；footnote 177）；以下 S248 及以前的覆核內容除數字外仍適用。S248 收工覆核（2026-11-16：origin/main 61ba038、線上 8b118fd；Supabase 17,079／316；footnote 177）；以下 S247 覆核內容除數字外仍適用。S247 收工覆核（origin/main 82be06e、線上 20fd4a4；Supabase 17,074／315；footnote 177；init_backup 已清理）；以下 S246 覆核內容仍適用。S246 收工覆核（origin/main d6b18f6、線上 20fd4a4；Supabase 17,074／315；footnote 177；清單 0 條、109 行副本已刪）。下一個 agent 只讀 `AGENTS.md` ＋ 本檔即可續做：現況（`## Current Baseline` 1、2、4）、已做與證據（`## Validation / QC` S246）、下一步（`## Open Priorities` 開首 S246 段）、邊界（`## User Environment`：合併、DDL、Supabase 寫入或刪除、外部模型批量都要 Leonard 明示）。
+Answer: yes — S252 收工覆核（2026-11-17：origin/main 4c297e2、線上 39b8968；Supabase 15,828／314；題庫 183、驗證器 183／183；漂移 ERROR 類 0、PHANTOM 1、UNLISTED 0）；以下 S251 及以前的覆核內容除數字外仍適用。S251 收工覆核（2026-11-16：origin/main 54352fa、線上 4f0b57f；Kit 0.4.7；Supabase 17,084／316；註腳更正 10 條、覆寫 80 條皆 `to_change=0`）；以下 S250 及以前的覆核內容除數字外仍適用。S250 收工覆核（2026-11-16：origin/main 4f0b57f、線上 4f0b57f；Supabase 17,084／316；檢索基線 130／36）；以下 S249 及以前的覆核內容除數字外仍適用。S249 收工覆核（2026-11-16：origin/main eff9047、線上 eff9047；Supabase 17,084／316；footnote 177）；以下 S248 及以前的覆核內容除數字外仍適用。S248 收工覆核（2026-11-16：origin/main 61ba038、線上 8b118fd；Supabase 17,079／316；footnote 177）；以下 S247 覆核內容除數字外仍適用。S247 收工覆核（origin/main 82be06e、線上 20fd4a4；Supabase 17,074／315；footnote 177；init_backup 已清理）；以下 S246 覆核內容仍適用。S246 收工覆核（origin/main d6b18f6、線上 20fd4a4；Supabase 17,074／315；footnote 177；清單 0 條、109 行副本已刪）。下一個 agent 只讀 `AGENTS.md` ＋ 本檔即可續做：現況（`## Current Baseline` 1、2、4）、已做與證據（`## Validation / QC` S246）、下一步（`## Open Priorities` 開首 S246 段）、邊界（`## User Environment`：合併、DDL、Supabase 寫入或刪除、外部模型批量都要 Leonard 明示）。
 
-Reconstruction evidence: **S251 補充**：父目標不變（平台自行運作、減少人手介入），新增前提是之後不能假設有最強模型。消費者是 Leonard、學校用戶，以及之後接手的任何模型。本節完成並不要重做的項目在 `## Last Session Record` 與 `## Validation / QC` S251：10 條註腳已更正，不要再改。**續做點**：`dev/ops/WORK_QUEUE.md` A1（一節一張卡）；但先看定時續做任務已做了哪些卡（`## Open Priorities` 開首），做過的不重做、其 PR 先核對驗收。**Leonard 本節的更正與要求**：之後不能假設有 Fable 5.2；agent 每節開工要主動提他用哪個模型與 effort（`dev/ops/AUTONOMY_FLOW.md` §4b）；提升搜尋準確度的計劃在 `dev/ops/NEXT_UPGRADE.md`，沒有較強模型時不做；不要把開場訊息全文寫入 session log（Kit 規定，`WORK_QUEUE` B13）。**已否決／不要做**：同檔 D 部。**必讀來源**：`dev/ops/WORK_QUEUE.md`、`dev/ops/AUTONOMY_FLOW.md` §4a，以及所做工作卡指明的檔案。**權限邊界不變**：Supabase 寫入或刪除、旗標、DDL、外部模型批次、合併 PR 皆須 Leonard 明示。以下 S250 證據仍適用。 **S250 補充**：父目標是 Leonard 要平台自行運作、減少人手介入（S243／S249／S250）；消費者是 Leonard 與用戶搜尋。本節完成並不要重做的項目在 `## Last Session Record` 與 `## Validation / QC` S250。**續做點**：`## Open Priorities` 開首的 9 條內容不符註腳覆核（清單與做法同段）；28 條頁碼已寫入，不要重做。**已否決／不要做**：把大批來源塞進 `curriculum` 清單（量度後否決，原因在 `## Validation / QC` S250 (2) 與 `dev/ops/playbooks/route-coverage.md`）；把 `ROUTE_EXEMPT` 的 10 個舊版／重複來源加入路由（應退役）；把 39 題快速量度或本機量度檔放進 `dev/source/eval_runs/`（會被 QC 的 `EVAL_LATEST` 誤選）。**必讀來源**：`dev/ops/AUTONOMY_FLOW.md`（流程、模型分工、分派 sub-agent 硬規則）與所需的一份 playbook。**權限邊界不變**：Supabase 寫入或刪除、旗標、DDL、外部模型批次、合併 PR 皆須 Leonard 明示；sub-agent 一律唯讀，其結果由主 session 抽查後才採用。以下 S249 證據仍適用。 **S249 補充**：父目標仍是「減維護負擔」與系統自行運作（`## Open Priorities` 3）；消費者是 Leonard 與用戶搜尋。本節已完成並不要重做的項目在 `## Last Session Record` 與 `## Validation / QC` S249：Freshness 清零、重新入庫、50 條頁碼、後端快取重讀。**續做點**：`## Open Priorities` 1 的 Leonard 決定項（首項 `FEATURE_SUBJECT_CHECK`）；其後 2（退役 `EDBC_9_2019_E`，先確認；數字以當時實測為準，現為 17,084 → 17,082）。**已否決／不要做**：重造系統（Leonard 問過，結論是修好而非重造）；跑全量 freshness write-sync（會一次重設所有基線，改用 `--ack`）；以註腳入庫腳本 `--execute` 更正單條註腳（會蓋掉頁碼，改用定點更新，見 `dev/_s249_fix_two_footnotes.py`）。**必讀來源**：`dev/source/FRESHNESS_GUIDE.md`（`--ack`／HTML 指紋）、`dev/DOC_SYNC_CHECKLIST.md` 的 S249 列（url 覆寫）、`dev/SYSTEM_OVERVIEW.md`（一頁式地圖）。**權限邊界不變**：Supabase 寫入或刪除、旗標、DDL、外部模型批次、合併 PR 皆須 Leonard 明示；Leonard 於 S249 准許把適合的工作分派給較便宜的 sub-agent（嚴格唯讀的調查類）。以下 S248 證據仍適用。 **S248 補充**：父目標是 Leonard 2026-11-15 定的「減維護負擔」（`## Open Priorities` 2）；第一、二步已完成（`## Validation / QC` S248、`## Last Session Record`），續做點是第三步 Freshness（Issue #77）與 51 條 `PAGE_ANCHORED` 真缺口（寫生產前先列清單給 Leonard 批准）；退役步驟的數字以當時實測為準（現為 17,079 → 17,077）。以下 S247／S246 證據仍適用。 **S247 補充**：本節是獨立小任務（本機備份清理，已完成，`## Validation / QC` S247、`## Last Session Record`），不改父目標與續做點；規則見 `dev/rules/safety.md` `## Project Rules`。以下 S246 證據仍適用。 **父目標與消費者**：Leonard 要系統各環節自行運作、少介入（S243）；Channel A 退役與 455 條清單已於 S246 完結（`## Current Baseline` 1），消費者是 Leonard 與用戶搜尋。**確切續做點**：`## Open Priorities` 開首 S246 段 —— 退役 `EDBC_9_2019_E`（S238 已批准未執行，執行前再確認），步驟寫在同節 S238 原文（備份 → DELETE → `live_display_sync(17074, 17072)` → `update_log.json`）。**已做、不要重做**：清單清空、109 行備份與刪除、PR #87 合併、舊分支刪除（`## Validation / QC` S246）。**已否決**：把 footnote 來源登記入 `source_registry.json`（按設計不登記，S246 (6)）；租金收入不以 `footnote_fn_tips_rental_40pct` 為出處（未提學校及班級津貼）。**仍待 Leonard 的產品決定**：粵語問句改寫、時限段落交退役機制、「全校」角色標籤、`FEATURE_SUBJECT_CHECK`、Kit 0.4.4 升級。**必讀來源**：`dev/source/execute_ingest.py` 的 `live_display_sync`／`live_total_count`；Risks 3（冷啟動首查詢會 `57014`，量度前先暖機）。**權限邊界**：Supabase 寫入或刪除、批量 Jev／OpenAI 呼叫、合併 PR 皆須 Leonard 明示；搜尋內容不得公開。
+Reconstruction evidence: **S252 補充**：父目標不變（平台自行運作、少介入）。本節完成並不要重做的項目在 `## Last Session Record` 與 `## Validation / QC` S252。**續做點**：重跑 183 題全量新基線（`## Open Priorities` 開首）。**Leonard 本節的決定**：A8 五項、A13（以退役代替時效標籤）、B15、B16 全部照建議；`staff_est_sp_sch_pri` 他批准入庫，但因 S204 已知答錯風險而暫緩，等 B1。**不要做**：為令題目通過而加替代來源；未讀原文就判定新舊版取代關係。**權限邊界不變**。以下 S251 證據仍適用。 **S251 補充**：父目標不變（平台自行運作、減少人手介入），新增前提是之後不能假設有最強模型。消費者是 Leonard、學校用戶，以及之後接手的任何模型。本節完成並不要重做的項目在 `## Last Session Record` 與 `## Validation / QC` S251：10 條註腳已更正，不要再改。**續做點**：`dev/ops/WORK_QUEUE.md` A1（一節一張卡）；但先看定時續做任務已做了哪些卡（`## Open Priorities` 開首），做過的不重做、其 PR 先核對驗收。**Leonard 本節的更正與要求**：之後不能假設有 Fable 5.2；agent 每節開工要主動提他用哪個模型與 effort（`dev/ops/AUTONOMY_FLOW.md` §4b）；提升搜尋準確度的計劃在 `dev/ops/NEXT_UPGRADE.md`，沒有較強模型時不做；不要把開場訊息全文寫入 session log（Kit 規定，`WORK_QUEUE` B13）。**已否決／不要做**：同檔 D 部。**必讀來源**：`dev/ops/WORK_QUEUE.md`、`dev/ops/AUTONOMY_FLOW.md` §4a，以及所做工作卡指明的檔案。**權限邊界不變**：Supabase 寫入或刪除、旗標、DDL、外部模型批次、合併 PR 皆須 Leonard 明示。以下 S250 證據仍適用。 **S250 補充**：父目標是 Leonard 要平台自行運作、減少人手介入（S243／S249／S250）；消費者是 Leonard 與用戶搜尋。本節完成並不要重做的項目在 `## Last Session Record` 與 `## Validation / QC` S250。**續做點**：`## Open Priorities` 開首的 9 條內容不符註腳覆核（清單與做法同段）；28 條頁碼已寫入，不要重做。**已否決／不要做**：把大批來源塞進 `curriculum` 清單（量度後否決，原因在 `## Validation / QC` S250 (2) 與 `dev/ops/playbooks/route-coverage.md`）；把 `ROUTE_EXEMPT` 的 10 個舊版／重複來源加入路由（應退役）；把 39 題快速量度或本機量度檔放進 `dev/source/eval_runs/`（會被 QC 的 `EVAL_LATEST` 誤選）。**必讀來源**：`dev/ops/AUTONOMY_FLOW.md`（流程、模型分工、分派 sub-agent 硬規則）與所需的一份 playbook。**權限邊界不變**：Supabase 寫入或刪除、旗標、DDL、外部模型批次、合併 PR 皆須 Leonard 明示；sub-agent 一律唯讀，其結果由主 session 抽查後才採用。以下 S249 證據仍適用。 **S249 補充**：父目標仍是「減維護負擔」與系統自行運作（`## Open Priorities` 3）；消費者是 Leonard 與用戶搜尋。本節已完成並不要重做的項目在 `## Last Session Record` 與 `## Validation / QC` S249：Freshness 清零、重新入庫、50 條頁碼、後端快取重讀。**續做點**：`## Open Priorities` 1 的 Leonard 決定項（首項 `FEATURE_SUBJECT_CHECK`）；其後 2（退役 `EDBC_9_2019_E`，先確認；數字以當時實測為準，現為 17,084 → 17,082）。**已否決／不要做**：重造系統（Leonard 問過，結論是修好而非重造）；跑全量 freshness write-sync（會一次重設所有基線，改用 `--ack`）；以註腳入庫腳本 `--execute` 更正單條註腳（會蓋掉頁碼，改用定點更新，見 `dev/_s249_fix_two_footnotes.py`）。**必讀來源**：`dev/source/FRESHNESS_GUIDE.md`（`--ack`／HTML 指紋）、`dev/DOC_SYNC_CHECKLIST.md` 的 S249 列（url 覆寫）、`dev/SYSTEM_OVERVIEW.md`（一頁式地圖）。**權限邊界不變**：Supabase 寫入或刪除、旗標、DDL、外部模型批次、合併 PR 皆須 Leonard 明示；Leonard 於 S249 准許把適合的工作分派給較便宜的 sub-agent（嚴格唯讀的調查類）。以下 S248 證據仍適用。 **S248 補充**：父目標是 Leonard 2026-11-15 定的「減維護負擔」（`## Open Priorities` 2）；第一、二步已完成（`## Validation / QC` S248、`## Last Session Record`），續做點是第三步 Freshness（Issue #77）與 51 條 `PAGE_ANCHORED` 真缺口（寫生產前先列清單給 Leonard 批准）；退役步驟的數字以當時實測為準（現為 17,079 → 17,077）。以下 S247／S246 證據仍適用。 **S247 補充**：本節是獨立小任務（本機備份清理，已完成，`## Validation / QC` S247、`## Last Session Record`），不改父目標與續做點；規則見 `dev/rules/safety.md` `## Project Rules`。以下 S246 證據仍適用。 **父目標與消費者**：Leonard 要系統各環節自行運作、少介入（S243）；Channel A 退役與 455 條清單已於 S246 完結（`## Current Baseline` 1），消費者是 Leonard 與用戶搜尋。**確切續做點**：`## Open Priorities` 開首 S246 段 —— 退役 `EDBC_9_2019_E`（S238 已批准未執行，執行前再確認），步驟寫在同節 S238 原文（備份 → DELETE → `live_display_sync(17074, 17072)` → `update_log.json`）。**已做、不要重做**：清單清空、109 行備份與刪除、PR #87 合併、舊分支刪除（`## Validation / QC` S246）。**已否決**：把 footnote 來源登記入 `source_registry.json`（按設計不登記，S246 (6)）；租金收入不以 `footnote_fn_tips_rental_40pct` 為出處（未提學校及班級津貼）。**仍待 Leonard 的產品決定**：粵語問句改寫、時限段落交退役機制、「全校」角色標籤、`FEATURE_SUBJECT_CHECK`、Kit 0.4.4 升級。**必讀來源**：`dev/source/execute_ingest.py` 的 `live_display_sync`／`live_total_count`；Risks 3（冷啟動首查詢會 `57014`，量度前先暖機）。**權限邊界**：Supabase 寫入或刪除、批量 Jev／OpenAI 呼叫、合併 PR 皆須 Leonard 明示；搜尋內容不得公開。
 
 **🟢 S230 的分支邊界已結案（S231）**：PR #26 已由 Leonard 合併，S230 與 S231 的交接狀態都在 `main`。本節收工 PR 同樣要 Leonard 在網頁合併；**開工第一件事照舊是 `git fetch` 後確認分支與 `origin/main`**。
 
 **🟢 S224 記的 0-byte `main` 檔已刪（S231 #28，Leonard 批准）**：`git diff main <branch>` 不再報 `ambiguous argument`。`execute_ingest.py` self-test 內的字串 `"../../main"` 不是對該檔的引用，未受影響。
 
-**⚠️ S215 新增治理缺口（未修）**：`backend/README.md` 5 行 flag 說明永久遺失，無備份、沒有杜撰補回；補寫時須在 commit message 明寫是重寫非還原。
+**🟢 S215 的治理缺口已補（S252 A4，#110）**：`backend/README.md` 按程式實際讀取的 25 個環境變數重寫了總表，commit 寫明是重寫非還原。
 
 **⚠️ 已知治理缺口（S205 發現，S206、S207 沿用同一判斷）**：S204 closeout 冇寫 `State Reconciliation Check` 條目（本節由 S205 起補回並持續）。屬歷史記錄缺口，唔影響當前狀態可信度。
 
@@ -383,50 +396,29 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S251 收工, 2026-11-16）---
+--- 專案狀態（S252 收工, 2026-11-17）---
 
-平台 v3.3.16；Supabase 17,084 chunks（316 來源；footnote_curated 177）；EDB 指引書庫 182 份；guidelines.json 公開端點 151 份（_meta 2.6.2）。
-Agent Handoff Kit v0.4.7（S251 以官方 CLI 由 0.4.3 升級；migration committed、project health passed）。
-origin/main = 54352fa 或之後（PR #101–#106 已合併，皆無後端改動）；線上 /health commit = 4f0b57f（開工以 /health 核實）。
-開著的 PR：S251 收工分支 s251-closeout（合併待 Leonard 指示）、#70（內容已入 main，關閉前先問 Leonard）；
-另可能有定時續做任務開出的 PR，以 gh pr list 為準。
+平台 v3.3.16；Supabase 15,828 chunks（314 來源；footnote_curated 177）；EDB 指引書庫 241 份；guidelines.json 公開端點 151 份（_meta 2.6.2，凍結合約）。
+Agent Handoff Kit v0.4.7。
+origin/main = 4c297e2 或之後（PR #107–#122 已合併）；線上 /health commit = 39b8968（開工以 /health 核實）。
+開著的 PR：S252 收工分支 s252-closeout（合併待 Leonard 指示）、#70（內容已入 main，關閉前先問 Leonard）。
 Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
 FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 未設＝關閉。
 public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
-檢索基線（S250 生產 185 題）：來源層 PASS 130／FAIL 36，片段層 61／105。
+題庫 183 題（S252 由 185 改動），驗證器 183／183；S250 檢索基線 130／36 已不能直接比較。
 
-📘 怎樣做事：dev/ops/AUTONOMY_FLOW.md（偵測→分流→執行→驗證→記錄、自動化級別、模型分工）＋ dev/ops/playbooks/ 六份程序。
-   系統地圖：dev/SYSTEM_OVERVIEW.md。便宜模型做體力勞動（一律唯讀），結果由主 session 抽查後才採用。
+📘 怎樣做事：dev/ops/WORK_QUEUE.md（所有待辦）＋ dev/ops/AUTONOMY_FLOW.md §4a／§4b ＋ dev/ops/playbooks/。
+   🔔 開工必做：起手卡之後，主動告訴 Leonard 這一節的工作建議用哪個模型與 effort（主力 Opus 5.5，日常 medium），並說明現時 session 是否相符。
 
-🟢 S250 做完（不用重做）：
-   · 新路由 subject_guides：37 份高中／學習領域科目指引此前不在任何路由清單、搜不到；另 11 個小來源入現有清單。
-     線上前後 185 題逐題相同；新來源查詢 10/10 命中。
-   · 常設檢查 UNROUTED（check_registry_drift／qc_report REGISTRY_UNROUTED 基準 0，高於即通知）。
-   · 註腳全量審核：177 條中 28 條頁碼錯（已核實並經批准寫入，url 覆寫共 78 條）、9 條內容不符（未覆核、未寫入）。
-     結果：dev/source/eval_runs/2026-11-16_s250_footnote_audit.json／.md。
-🟢 S249 做完（不用重做）：Freshness 監察加出口並清零（--ack）；八個來源重新入庫；50 條 url 覆寫
-   （dev/source/url_overrides.json＋dev/apply_url_overrides.py；⚠️ 註腳入庫腳本以 --execute 重跑後必須再套用）；
-   後端 overlay 快取每 30 分鐘背景重讀。
+🟢 S252 做完（不用重做）：自主運作四項（每日漂移檢查、每月註腳核對、Freshness 自動確認、/health 時間）；
+   瀏覽清單 182 → 241、9 份入庫、11 份舊版退役（備份 dev/init_backup/20261117_190642_UTC）；
+   題庫改標 9 題、移出 2 題、修 35 處出處；註腳 13 條核實；兩則示範問答更正；A9 系統更新檢查。
 
-🟢 S251 做完（2026-11-16，不用重做；PR #102 已合併）：
-   · S250 審核的 10 條註腳已按原文更正並寫入（Leonard 批准、已備份、線上已驗證）。
-   · 新工具 dev/apply_footnote_corrections.py＋清單 dev/source/footnote_corrections.json（預演／--check／--execute）。
-   · 🔴 之後不能假設有最強模型（Fable 5.2 用量將盡）。做事規則：dev/ops/AUTONOMY_FLOW.md §4a。
-
-⏰ 定時續做：S251 收工時 Leonard 預先授權，一次性任務於 2026-11-17 02:56（本機 GMT）自動續做 WORK_QUEUE A 部；
-   它只可改檔、commit、push、開 PR，不合併、不寫生產。開工先 gh pr list 看它做了甚麼；做過的卡不重做，其 PR 先核對驗收。
-
-🚀 下一步：照 dev/ops/WORK_QUEUE.md 做（所有待辦的唯一清單，Fable 5.2 於 S251 一次過寫好）。
-   · 🔔 開工必做：起手卡之後，主動告訴 Leonard 這一節的工作建議用哪個模型與 effort（主力 Opus 5.5，日常 medium；
-     對照表在 dev/ops/WORK_QUEUE.md §0，規則在 dev/ops/AUTONOMY_FLOW.md §4b），並說明現時 session 是否相符；不相符請他切換。
-   · 一節只做一張卡；Leonard 有指定就做指定的，否則由 A1 起由上而下揀第一張「可做」的卡。
-   · A 部（可直接做）：A1 註腳更正與連結覆寫接入每日質素檢查 → A2 註腳出處每月機械核對 → A3 來源文字相同時自動確認
-     → A4 補回 backend/README 旗標說明 → A5 科目指引補題 → A6 13 條找不到出處的註腳 → A7 /health 註腳載入時間
-     → A8 瀏覽清單差異 → A9 定期系統更新檢查（約 11-28 到期）→ A10 清理本機分支。
-   · B 部（待 Leonard 決定，每項附建議）：一次最多問三項，用白話。
-   · D 部（不要做）：已量度並否決的方向，重做只會浪費用量。
-   · 提升搜尋準確度的計劃另在 dev/ops/NEXT_UPGRADE.md；只在有較強模型或 Leonard 明示時才做。
-   · 每張卡都有驗收與停止條件；停止條件觸發就停、記在卡內，不要即興補救。
+🚀 下一步：
+   ① 重跑 183 題全量檢索量度作新基線（生產、x-probe、每題相隔 8 秒；結果放 dev/source/eval_runs/）。
+   ② 待 Leonard 決定：B1（開後 staff_est_sp_sch_pri 可入庫）；B2 餘項；B3–B8、B10–B14。
+   ③ A16：中文 2024 年版指引入庫，之後退役 2017 年版（寫生產要批准）。
+   ④ A10 清理本機分支（要批准）；A12 報錯按鈕（要表單連結）。
 
 ⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
    · 定標必須讀每一段全文；用 stub 判官量的是「失去捷徑」不是「失去答案」；答案層結論必須用真判官量。
@@ -442,7 +434,7 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
 Post-startup first action: 按 dev/ops/playbooks/health-probe.md 做起手探針（可交最平的模型，唯讀）：
 版本應為 3.3.16；/health commit 應為 4f0b57f 或之後改 backend 的 commit；片段數 17,084；
 登記漂移 ZOMBIE／SERIES_UNMONITORED／UNMANAGED／UNROUTED 應為 0；apply_url_overrides.py（dry-run）與 apply_footnote_corrections.py --check 皆應報 to_change=0；
-dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告，然後按 dev/ops/WORK_QUEUE.md 揀工作。
+dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告，然後做 ①。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次、不得合併 PR。
 ```
 
