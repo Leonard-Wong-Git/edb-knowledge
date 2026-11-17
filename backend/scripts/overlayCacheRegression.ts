@@ -52,12 +52,20 @@ rows = await load();
 check("the next read sees the corrected row", rows[0].chunk.text.includes("670,236") && calls === 2);
 check("/health reports when the footnotes were last read",
   overlayCacheStatus().footnote_loaded_at === new Date(now).toISOString());
+const lastGoodRead = new Date(now).toISOString();
 
 mode = "fail";
 now += 31 * 60_000;
 rows = await load();
 await settle();
 check("a failed refresh keeps the old rows", (await load())[0].chunk.text.includes("670,236"));
+// S252 — /health used to show a made-up time here: the retry delay was implemented by
+// overwriting the same stamp /health reports, so a failed refresh displayed "loaded 25
+// minutes ago" although nothing had been loaded then.
+check("a failed refresh does not change the reported last-read time",
+  overlayCacheStatus().footnote_loaded_at === lastGoodRead);
+check("…and /health says when the refresh failed",
+  overlayCacheStatus().footnote_refresh_failed_at === new Date(now).toISOString());
 const afterFail = calls;
 await load();
 check("…and is not retried on every request", calls === afterFail);
@@ -66,6 +74,9 @@ mode = "v1";
 await load();
 await settle();
 check("…but is retried after the retry delay", calls === afterFail + 1);
+check("a successful retry updates the last-read time and clears the failure",
+  overlayCacheStatus().footnote_loaded_at === new Date(now).toISOString()
+  && overlayCacheStatus().footnote_refresh_failed_at === null);
 
 console.warn = origWarn;
 console.log(failures === 0 ? "overlayCacheRegression: ALL PASS" : `overlayCacheRegression: ${failures} FAIL`);

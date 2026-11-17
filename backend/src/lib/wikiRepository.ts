@@ -481,7 +481,15 @@ export async function searchWikiRoutedExact(
 // probed lists. Because the set is tiny (~33), fetch them ALL once via a plain REST
 // SELECT (no RPC / no ivfflat) and score by EXACT cosine. Guaranteed retrieval.
 let _footnoteCache: Array<{ chunk: WikiChunk; embedding: number[] }> | null = null;
+// S252 — two clocks, because /health reports the first one. `_footnoteLoadedAt` is the
+// last SUCCESSFUL read and nothing else. `_footnoteStaleFrom` is what the TTL is measured
+// from: equal to it after a success, pushed forward by retryStamp() after a failure.
+// Before S252 a failed refresh wrote retryStamp() into the reported stamp itself, so
+// /health showed "loaded 25 minutes ago" for a time at which nothing had been loaded.
 let _footnoteLoadedAt = 0;
+let _footnoteStaleFrom = 0;
+/** When the most recent refresh attempt failed; 0 once a read has succeeded since. */
+let _footnoteRefreshFailedAt = 0;
 
 // S249 — overlay caches (footnotes, spotlight, circular index) used to live until the
 // process died: `invalidateWikiCache` exists but nothing calls it. A footnote corrected
@@ -522,11 +530,12 @@ let _footnoteInFlight: Promise<Array<{ chunk: WikiChunk; embedding: number[] }>>
 
 async function loadFootnoteChunks(): Promise<Array<{ chunk: WikiChunk; embedding: number[] }>> {
   if (_footnoteCache) {
-    if (overlayStale(_footnoteLoadedAt) && !_footnoteInFlight) {
+    if (overlayStale(_footnoteStaleFrom) && !_footnoteInFlight) {
       const held = _footnoteCache;
       _footnoteInFlight = fetchFootnoteChunks()
         .catch((err) => {
-          _footnoteLoadedAt = retryStamp();
+          _footnoteStaleFrom = retryStamp();
+          _footnoteRefreshFailedAt = Date.now();
           console.warn(`[overlay] footnote refresh failed, keeping ${held.length} cached: ${String(err).slice(0, 120)}`);
           return held;
         })
@@ -556,6 +565,8 @@ async function fetchFootnoteChunks(): Promise<Array<{ chunk: WikiChunk; embeddin
     embedding: parseVec(embedding),
   }));
   _footnoteLoadedAt = Date.now();
+  _footnoteStaleFrom = _footnoteLoadedAt;
+  _footnoteRefreshFailedAt = 0;
   // Derived from the corpus just replaced — recomputed on next use.
   _footnoteInformativeCache = null;
   return _footnoteCache;
@@ -842,6 +853,7 @@ export function overlayCacheStatus(): {
   warm: boolean;
   footnote: number | null;
   footnote_loaded_at: string | null;
+  footnote_refresh_failed_at: string | null;
   spotlight: number | null;
   circular: { enabled: boolean; index: number | null; last_error: string | null };
 } {
@@ -850,6 +862,11 @@ export function overlayCacheStatus(): {
     footnote: _footnoteCache ? _footnoteCache.length : null,
     // S249 — lets anyone confirm from outside that a Supabase edit has been picked up.
     footnote_loaded_at: _footnoteCache ? new Date(_footnoteLoadedAt).toISOString() : null,
+    // S252 — non-null = the last background refresh failed and the copy being served is
+    // the one read at footnote_loaded_at. /health does not trigger a refresh itself: only
+    // a search request arriving after the TTL does.
+    footnote_refresh_failed_at:
+      _footnoteCache && _footnoteRefreshFailedAt ? new Date(_footnoteRefreshFailedAt).toISOString() : null,
     spotlight: _spotlightCache ? _spotlightCache.rows.length : null,
     // S241 patch 2 — the circular pass fails open, so without this a missing flag and a
     // failing index load looked identical from outside (both: old results, no error).
