@@ -244,20 +244,20 @@
     "intent": "查幼稚園K1收生安排適用於哪類幼稚園",
     "answerable": true,
     "expected_source_any": [
-      "k1_admission_2627"
+      "edbcm080_2026"
     ],
     "expected_passage_signature": [
       "適用於參加幼稚園教育計劃（下稱「計劃」）的幼稚園"
     ],
     "expected_page": 1,
     "acceptable_alternatives": [
-      "edbcm080_2026"
+      "k1_admission_2627"
     ],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_k1_admission_2627_4b8616b31c806e7e",
-      "method": "dev/_s213_corpus.py find + signature",
-      "note": "簽名逐字取自該chunk（signature子命令，matches_in_corpus=2，另一來源為edbcm080_2026）；頁碼由=== Page N ===標記推導"
+      "chunk_id": "vault_edbcm080_2026_64787554dcbb9fb2",
+      "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+      "note": "S252 B16 改標（Leonard 批准）：原文已改由新文件承載或換了學年；簽名逐字取自 2026-11-17 快照，已讀前後文"
     },
     "split": "dev"
   },
@@ -269,20 +269,20 @@
     "intent": "錯別字（圓應為園），查幼稚園收生安排適用範圍",
     "answerable": true,
     "expected_source_any": [
-      "k1_admission_2627"
+      "edbcm080_2026"
     ],
     "expected_passage_signature": [
       "適用於參加幼稚園教育計劃（下稱「計劃」）的幼稚園"
     ],
     "expected_page": 1,
     "acceptable_alternatives": [
-      "edbcm080_2026"
+      "k1_admission_2627"
     ],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_k1_admission_2627_4b8616b31c806e7e",
-      "method": "dev/_s213_corpus.py find + signature",
-      "note": "與kg_admission_scope同一passage，測錯別字查詢；signature子命令matches_in_corpus=2"
+      "chunk_id": "vault_edbcm080_2026_64787554dcbb9fb2",
+      "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+      "note": "S252 B16 改標（Leonard 批准）：原文已改由新文件承載或換了學年；簽名逐字取自 2026-11-17 快照，已讀前後文"
     },
     "split": "dev"
   },
@@ -359,20 +359,20 @@
     "intent": "以英文簡稱KG（kindergarten／幼兒班）查收生安排",
     "answerable": true,
     "expected_source_any": [
-      "k1_admission_2627"
+      "edbcm080_2026"
     ],
     "expected_passage_signature": [
       "適用於參加幼稚園教育計劃（下稱「計劃」）的幼稚園"
     ],
     "expected_page": 1,
     "acceptable_alternatives": [
-      "edbcm080_2026"
+      "k1_admission_2627"
     ],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_k1_admission_2627_4b8616b31c806e7e",
-      "method": "dev/_s213_corpus.py find + signature",
-      "note": "測簡稱查詢；同passage；signature子命令matches_in_corpus=2"
+      "chunk_id": "vault_edbcm080_2026_64787554dcbb9fb2",
+      "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+      "note": "S252 B16 改標（Leonard 批准）：原文已改由新文件承載或換了學年；簽名逐字取自 2026-11-17 快照，已讀前後文"
     },
     "split": "dev"
   },
@@ -381,21 +381,23 @@
     "domain": "kg_admission",
     "query": "幼稚園註冊費 上限",
     "query_kind": "plain",
-    "intent": "查2026/27學年K1註冊費的核准上限金額",
+    "intent": "查2027/28學年K1註冊費的核准上限金額",
     "answerable": true,
     "expected_source_any": [
-      "k1_admission_2627"
+      "edbcm080_2026"
     ],
     "expected_passage_signature": [
-      "向在2026/27學年入讀K1兒童收取半日制班級的註冊費核准上限為970元"
+      "向在2027/28學年入讀K1兒童收取半日制班級的註冊費核准上限為970元"
     ],
-    "expected_page": 4,
-    "acceptable_alternatives": [],
+    "expected_page": 5,
+    "acceptable_alternatives": [
+      "k1_admission_2627"
+    ],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_k1_admission_2627_421c157af5c2ffe8",
-      "method": "dev/_s213_corpus.py find + signature",
-      "note": "find該片語matches_in_corpus=1；頁碼4（chunk含=== Page 5 ===，主頁為4）"
+      "chunk_id": "vault_edbcm080_2026_fdbf09b978a785fc",
+      "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+      "note": "S252 B16 改標（Leonard 批准）：原文已改由新文件承載或換了學年；簽名逐字取自 2026-11-17 快照，已讀前後文"
     },
     "split": "dev"
   },
@@ -647,29 +649,6 @@
       "note": "find該句matches_in_corpus=2，兩者同屬s4_placement_2026；採96e14fb1（p2）"
     },
     "split": "dev"
-  },
-  {
-    "id": "plc_school_net_count",
-    "domain": "placement",
-    "query": "中學派位 學校網",
-    "query_kind": "plain",
-    "intent": "查中學學位分配辦法下全港分為多少個學校網",
-    "answerable": true,
-    "expected_source_any": [
-      "edbcm099_2026"
-    ],
-    "expected_passage_signature": [
-      "全港根據行政區分為十八個學校網"
-    ],
-    "expected_page": 1,
-    "acceptable_alternatives": [],
-    "forbidden_evidence": [],
-    "verified_by": {
-      "chunk_id": "vault_edbcm099_2026_2bd5b67097b2d0a5",
-      "method": "dev/_s213_corpus.py find + signature",
-      "note": "find該片語matches_in_corpus=1；頁碼1"
-    },
-    "split": "held_out"
   },
   {
     "id": "plc_two_stage",
@@ -1017,28 +996,25 @@
   {
     "id": "kg_result_notification_date",
     "domain": "kg_admission",
-    "query": "2026/27 K1取錄結果何時通知",
+    "query": "2027/28 K1取錄結果何時通知",
     "query_kind": "natural_sentence",
-    "intent": "查幼稚園通知2026/27學年K1學位申請結果的期限",
+    "intent": "查幼稚園通知2027/28學年K1學位申請結果的期限",
     "answerable": true,
     "expected_source_any": [
-      "k1_admission_2627"
+      "edbcm080_2026"
     ],
     "expected_passage_signature": [
-      "幼稚園須在2025年12月12日前通知家長其K1學位申請結果"
+      "幼稚園須在2026年12月11日前通知家長其K1學位申請結果"
     ],
     "expected_page": 4,
-    "acceptable_alternatives": [],
+    "acceptable_alternatives": [
+      "k1_admission_2627"
+    ],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_k1_admission_2627_30037734cb77975b",
-      "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
-      "anchor": "2025年12月12日前通知家長",
-      "matches_in_corpus": 1,
-      "sources_sharing_signature": [
-        "k1_admission_2627"
-      ],
-      "note": "頁碼由chunk內頁碼標記推導"
+      "chunk_id": "vault_edbcm080_2026_92a4b22fa1d147d1",
+      "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+      "note": "S252 B16 改標（Leonard 批准）：原文已改由新文件承載或換了學年；簽名逐字取自 2026-11-17 快照，已讀前後文"
     },
     "split": "held_out"
   },

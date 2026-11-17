@@ -495,7 +495,7 @@
     "g24",
     "sag_2025_11"
    ],
-   "note": "g24 與 sag_2025_11 為學校行政手冊同一文件重複收錄，簽名兩者皆命中（S252 A17：原片段 vault_g24_82967332a7e28669 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
+   "note": "S226 重錨：原錨 vault_g24_82967332a7e28669 隨 S223 g24 退役而消失。簽名一字未改，在活語料中全庫唯一命中此片段；頁碼由 188 改為 191，因為新版（2026年8月版）是另一份 PDF。expected_source_any 保留 g24，因為它是歷史預期值、現時 0 條片段、對判分無影響（sag_2025_11 已在同一清單內）。"
   },
   "split": "held_out"
  },
@@ -1087,20 +1087,15 @@
    "perf_indicators_2022"
   ],
   "expected_passage_signature": [
-   "察,以及從持份者問卷、情意及社交表現評估套件等所得的資料和數據,識別學生在成長支援方面的各項"
+   "從持份者問卷、情意及社交表現評估套件(第三版)等所得的資料和數據,識別學生在成長支援方面的各項"
   ],
-  "expected_page": 25,
+  "expected_page": 26,
   "acceptable_alternatives": [],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_perf_indicators_2022_28da053a5495c540",
-   "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
-   "anchor": "從持份者問卷、情意及社交表現評估套件",
-   "matches_in_corpus": 1,
-   "sources_sharing_signature": [
-    "perf_indicators_2022"
-   ],
-   "note": ""
+   "chunk_id": "vault_perf_indicators_2022_964966b2a83906ce",
+   "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+   "note": "S252 B16 改標（Leonard 批准）：原文已改由新文件承載或換了學年；簽名逐字取自 2026-11-17 快照，已讀前後文"
   },
   "split": "held_out"
  },

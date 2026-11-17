@@ -85,5 +85,68 @@
    "split": "dev"
   },
   "relabelled_on": "2026-11-17"
+ },
+ {
+  "id": "hr_ncs_allowance",
+  "deprecated_on": "2026-11-17",
+  "deprecated_reason": "答案依據 EDBC_8_2020_E（及其註腳）在庫內已沒有任何片段。（S252 B16，Leonard 批准移出）",
+  "replacement_id": null,
+  "original": {
+   "domain": "hr_admin",
+   "query": "非華語 教師 額外編制",
+   "query_kind": "confusable",
+   "intent": "非華語支援撥款與教學人員編制屬不同文件，易混淆",
+   "answerable": true,
+   "expected_source_any": [
+    "EDBC_8_2020_E"
+   ],
+   "expected_passage_signature": [
+    "非華語學生都有額外津貼嗎?《EDBC8/2020》§3(註):Sta"
+   ],
+   "expected_page": null,
+   "acceptable_alternatives": [],
+   "forbidden_evidence": [
+    "staff_est_pri"
+   ],
+   "verified_by": {
+    "chunk_id": "footnote_fn_ncs_2tier_small_school",
+    "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
+    "anchor": "非華語",
+    "chunks_with_anchor_in_source": 5,
+    "sources_sharing_signature": [
+     "EDBC_8_2020_E"
+    ],
+    "note": ""
+   },
+   "split": "dev"
+  }
+ },
+ {
+  "id": "plc_school_net_count",
+  "deprecated_on": "2026-11-17",
+  "deprecated_reason": "原句「全港根據行政區分為十八個學校網」在 2026-11-17 全庫已不存在（edbcm099_2026 已不在庫），庫內沒有可作答的現行文件。（S252 B16，Leonard 批准移出）",
+  "replacement_id": null,
+  "original": {
+   "domain": "placement",
+   "query": "中學派位 學校網",
+   "query_kind": "plain",
+   "intent": "查中學學位分配辦法下全港分為多少個學校網",
+   "answerable": true,
+   "expected_source_any": [
+    "edbcm099_2026"
+   ],
+   "expected_passage_signature": [
+    "全港根據行政區分為十八個學校網"
+   ],
+   "expected_page": 1,
+   "acceptable_alternatives": [],
+   "forbidden_evidence": [],
+   "verified_by": {
+    "chunk_id": "vault_edbcm099_2026_2bd5b67097b2d0a5",
+    "method": "dev/_s213_corpus.py find + signature",
+    "note": "find該片語matches_in_corpus=1；頁碼1"
+   },
+   "split": "held_out"
+  }
  }
 ]
