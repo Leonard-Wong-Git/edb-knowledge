@@ -649,13 +649,13 @@
   "expected_passage_signature": [
    "建設安全、高效、普及公平的數字教育基建,並發展符合本地課程指引的優"
   ],
-  "expected_page": 5,
+  "expected_page": 9,
   "acceptable_alternatives": [
    "debp_exec_summary"
   ],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_debp_blueprint_052c6c7fb4a79024",
+   "chunk_id": "vault_debp_blueprint_be63a7de6516acd6",
    "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
    "anchor": "建設安全、高效、普及公平的數字教育基",
    "matches_in_corpus": 3,
@@ -663,7 +663,7 @@
     "debp_blueprint",
     "debp_exec_summary"
    ],
-   "note": "行政摘要 debp_exec_summary 亦載相同文字"
+   "note": "行政摘要 debp_exec_summary 亦載相同文字（S252 A17：原片段 vault_debp_blueprint_052c6c7fb4a79024 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "dev"
  },
@@ -989,14 +989,14 @@
   "acceptable_alternatives": [],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_perf_indicators_2022_3f70e312eb2fbd00",
+   "chunk_id": "vault_perf_indicators_2022_20222313bd2e4c58",
    "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
    "anchor": "每個表現指標設有一組「要點問題」",
    "matches_in_corpus": 1,
    "sources_sharing_signature": [
     "perf_indicators_2022"
    ],
-   "note": ""
+   "note": "（S252 A17：原片段 vault_perf_indicators_2022_3f70e312eb2fbd00 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "dev"
  },
@@ -1037,14 +1037,14 @@
   "acceptable_alternatives": [],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_perf_indicators_2022_3adbf22e346213ce",
+   "chunk_id": "vault_perf_indicators_2022_d62ecd839245c3b5",
    "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
    "anchor": "兩個指標範圍為中心",
    "matches_in_corpus": 1,
    "sources_sharing_signature": [
     "perf_indicators_2022"
    ],
-   "note": ""
+   "note": "（S252 A17：原片段 vault_perf_indicators_2022_3adbf22e346213ce 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "held_out"
  },
@@ -1065,14 +1065,14 @@
   "acceptable_alternatives": [],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_sdp_guide_cc470b141f88cbd1",
+   "chunk_id": "vault_sdp_guide_a4584c5cf8c39411",
    "method": "dev/_s213_corpus.py find + signature (clean_for_match slice) + dominant_page",
    "anchor": "學校發展計劃是問責工具之一",
    "matches_in_corpus": 1,
    "sources_sharing_signature": [
     "sdp_guide"
    ],
-   "note": ""
+   "note": "（S252 A17：原片段 vault_sdp_guide_cc470b141f88cbd1 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "held_out"
  },
@@ -1830,9 +1830,9 @@
   "acceptable_alternatives": [],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_g19_0396aa491d22a5ae",
+   "chunk_id": "vault_g19_f4b0d7d864d68223",
    "method": "dev/_s213_corpus.py find",
-   "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+   "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出（S252 A17：原片段 vault_g19_0396aa491d22a5ae 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "dev"
  },
@@ -1853,9 +1853,9 @@
   "acceptable_alternatives": [],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_g19_0c529ce537c27755",
+   "chunk_id": "vault_g19_ba18ac2b66ead081",
    "method": "dev/_s213_corpus.py find",
-   "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+   "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出（S252 A17：原片段 vault_g19_0c529ce537c27755 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "dev"
  },
@@ -1876,9 +1876,9 @@
   "acceptable_alternatives": [],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_g19_03ee249579d0e8f0",
+   "chunk_id": "vault_g19_0e3c5fa1a8944dcd",
    "method": "dev/_s213_corpus.py find",
-   "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+   "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出（S252 A17：原片段 vault_g19_03ee249579d0e8f0 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "dev"
  },
@@ -1895,13 +1895,13 @@
   "expected_passage_signature": [
    "按需要出席相關會議，例如每年的例會或「個別學習計劃」會議"
   ],
-  "expected_page": 54,
+  "expected_page": 53,
   "acceptable_alternatives": [],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_g19_14f2070b3b8209b6",
+   "chunk_id": "vault_g19_e46b09d313be9842",
    "method": "dev/_s213_corpus.py find",
-   "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+   "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出（S252 A17：原片段 vault_g19_14f2070b3b8209b6 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "dev"
  },
@@ -1922,9 +1922,9 @@
   "acceptable_alternatives": [],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_g19_0fd16b8f670cef51",
+   "chunk_id": "vault_g19_12a6a8ee31825682",
    "method": "dev/_s213_corpus.py find",
-   "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+   "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出（S252 A17：原片段 vault_g19_0fd16b8f670cef51 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "dev"
  },
@@ -1947,9 +1947,9 @@
   ],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_g19_1bcd00d93612e161",
+   "chunk_id": "vault_g19_879a0d7e31d010a8",
    "method": "dev/_s213_corpus.py find",
-   "note": "SEN 主題查詢容許以責任角色事實作答，role_facts_student 列 acceptable（見領域備註）"
+   "note": "SEN 主題查詢容許以責任角色事實作答，role_facts_student 列 acceptable（見領域備註）（S252 A17：原片段 vault_g19_1bcd00d93612e161 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "dev"
  },
@@ -1970,9 +1970,9 @@
   "acceptable_alternatives": [],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_g19_1bcd00d93612e161",
+   "chunk_id": "vault_g19_879a0d7e31d010a8",
    "method": "dev/_s213_corpus.py find",
-   "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+   "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出（S252 A17：原片段 vault_g19_1bcd00d93612e161 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "dev"
  },
@@ -1993,9 +1993,9 @@
   "acceptable_alternatives": [],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_g19_0fd16b8f670cef51",
+   "chunk_id": "vault_g19_12a6a8ee31825682",
    "method": "dev/_s213_corpus.py find",
-   "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+   "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出（S252 A17：原片段 vault_g19_0fd16b8f670cef51 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "dev"
  },
@@ -2041,9 +2041,9 @@
   "acceptable_alternatives": [],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_g19_0fd16b8f670cef51",
+   "chunk_id": "vault_g19_12a6a8ee31825682",
    "method": "dev/_s213_corpus.py find",
-   "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+   "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出（S252 A17：原片段 vault_g19_0fd16b8f670cef51 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "held_out"
  },
@@ -3282,7 +3282,7 @@
   ],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_k1_admission_2627_4dfff7775d179ac2",
+   "chunk_id": "vault_k1_admission_2627_d26cacd7b2474d55",
    "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
    "anchor": "不應限制派表數目",
    "matches_in_corpus": 3,
@@ -3290,7 +3290,7 @@
     "edbcm080_2026",
     "k1_admission_2627"
    ],
-   "note": "同一通函另以edbcm080_2026登記，列作可接受替代來源"
+   "note": "同一通函另以edbcm080_2026登記，列作可接受替代來源（S252 A17：原片段 vault_k1_admission_2627_4dfff7775d179ac2 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "dev"
  },
@@ -3335,18 +3335,18 @@
   "expected_passage_signature": [
    "幼稚園須為所有兒童（不論種族、性別、能力）提供均有平等的入讀機會"
   ],
-  "expected_page": 12,
+  "expected_page": 3,
   "acceptable_alternatives": [],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_k1_admission_2627_6e73d0fb6cc636d0",
+   "chunk_id": "vault_k1_admission_2627_6f8ce40da9347d72",
    "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
    "anchor": "提供均有平等的入讀機會",
    "matches_in_corpus": 1,
    "sources_sharing_signature": [
     "k1_admission_2627"
    ],
-   "note": ""
+   "note": "（S252 A17：原片段 vault_k1_admission_2627_6e73d0fb6cc636d0 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "dev"
  },
@@ -3363,14 +3363,14 @@
   "expected_passage_signature": [
    "幼稚園應優先考慮需要這類服務的家庭（例如雙職家庭）"
   ],
-  "expected_page": 13,
+  "expected_page": 4,
   "acceptable_alternatives": [
    "edbcm080_2026",
    "g26"
   ],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_k1_admission_2627_aefcaf8ca0df46a8",
+   "chunk_id": "vault_k1_admission_2627_48cb5aae4aa2c57d",
    "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
    "anchor": "優先考慮需要這類服務的家庭",
    "matches_in_corpus": 3,
@@ -3379,7 +3379,7 @@
     "g26",
     "k1_admission_2627"
    ],
-   "note": "三個登記均載同一官方收生安排文字"
+   "note": "三個登記均載同一官方收生安排文字（S252 A17：原片段 vault_k1_admission_2627_aefcaf8ca0df46a8 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "held_out"
  },
@@ -4625,14 +4625,14 @@
   "acceptable_alternatives": [],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_sdp_guide_750475c731037cf6",
+   "chunk_id": "vault_sdp_guide_a4584c5cf8c39411",
    "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
    "anchor": "學校發展計劃",
    "chunks_with_anchor_in_source": 4,
    "sources_sharing_signature": [
     "sdp_guide"
    ],
-   "note": ""
+   "note": "（S252 A17：原片段 vault_sdp_guide_750475c731037cf6 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "held_out"
  },
