@@ -414,9 +414,9 @@
     "acceptable_alternatives": [],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_g19_0396aa491d22a5ae",
+      "chunk_id": "vault_g19_f4b0d7d864d68223",
       "method": "dev/_s213_corpus.py find",
-      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出（S252 A17：原片段 vault_g19_0396aa491d22a5ae 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
     },
     "split": "dev"
   },
@@ -437,9 +437,9 @@
     "acceptable_alternatives": [],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_g19_0c529ce537c27755",
+      "chunk_id": "vault_g19_ba18ac2b66ead081",
       "method": "dev/_s213_corpus.py find",
-      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出（S252 A17：原片段 vault_g19_0c529ce537c27755 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
     },
     "split": "dev"
   },
@@ -460,9 +460,9 @@
     "acceptable_alternatives": [],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_g19_03ee249579d0e8f0",
+      "chunk_id": "vault_g19_0e3c5fa1a8944dcd",
       "method": "dev/_s213_corpus.py find",
-      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出（S252 A17：原片段 vault_g19_03ee249579d0e8f0 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
     },
     "split": "dev"
   },
@@ -479,13 +479,13 @@
     "expected_passage_signature": [
       "按需要出席相關會議，例如每年的例會或「個別學習計劃」會議"
     ],
-    "expected_page": 54,
+    "expected_page": 53,
     "acceptable_alternatives": [],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_g19_14f2070b3b8209b6",
+      "chunk_id": "vault_g19_e46b09d313be9842",
       "method": "dev/_s213_corpus.py find",
-      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出（S252 A17：原片段 vault_g19_14f2070b3b8209b6 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
     },
     "split": "dev"
   },
@@ -506,9 +506,9 @@
     "acceptable_alternatives": [],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_g19_0fd16b8f670cef51",
+      "chunk_id": "vault_g19_12a6a8ee31825682",
       "method": "dev/_s213_corpus.py find",
-      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出（S252 A17：原片段 vault_g19_0fd16b8f670cef51 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
     },
     "split": "dev"
   },
@@ -531,9 +531,9 @@
     ],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_g19_1bcd00d93612e161",
+      "chunk_id": "vault_g19_879a0d7e31d010a8",
       "method": "dev/_s213_corpus.py find",
-      "note": "SEN 主題查詢容許以責任角色事實作答，role_facts_student 列 acceptable（見領域備註）"
+      "note": "SEN 主題查詢容許以責任角色事實作答，role_facts_student 列 acceptable（見領域備註）（S252 A17：原片段 vault_g19_1bcd00d93612e161 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
     },
     "split": "dev"
   },
@@ -554,9 +554,9 @@
     "acceptable_alternatives": [],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_g19_1bcd00d93612e161",
+      "chunk_id": "vault_g19_879a0d7e31d010a8",
       "method": "dev/_s213_corpus.py find",
-      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出（S252 A17：原片段 vault_g19_1bcd00d93612e161 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
     },
     "split": "dev"
   },
@@ -577,9 +577,9 @@
     "acceptable_alternatives": [],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_g19_0fd16b8f670cef51",
+      "chunk_id": "vault_g19_12a6a8ee31825682",
       "method": "dev/_s213_corpus.py find",
-      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出（S252 A17：原片段 vault_g19_0fd16b8f670cef51 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
     },
     "split": "dev"
   },
@@ -625,9 +625,9 @@
     "acceptable_alternatives": [],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_g19_0fd16b8f670cef51",
+      "chunk_id": "vault_g19_12a6a8ee31825682",
       "method": "dev/_s213_corpus.py find",
-      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+      "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出（S252 A17：原片段 vault_g19_0fd16b8f670cef51 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
     },
     "split": "held_out"
   },

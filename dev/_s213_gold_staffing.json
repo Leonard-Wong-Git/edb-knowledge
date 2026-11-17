@@ -1129,14 +1129,14 @@
   "acceptable_alternatives": [],
   "forbidden_evidence": [],
   "verified_by": {
-   "chunk_id": "vault_sdp_guide_750475c731037cf6",
+   "chunk_id": "vault_sdp_guide_a4584c5cf8c39411",
    "method": "dev/_s213_corpus.py find (anchor) + clean_for_match + dominant_page",
    "anchor": "學校發展計劃",
    "chunks_with_anchor_in_source": 4,
    "sources_sharing_signature": [
     "sdp_guide"
    ],
-   "note": ""
+   "note": "（S252 A17：原片段 vault_sdp_guide_750475c731037cf6 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
   },
   "split": "held_out"
  },

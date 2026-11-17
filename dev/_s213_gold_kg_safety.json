@@ -1002,7 +1002,7 @@
     ],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_k1_admission_2627_4dfff7775d179ac2",
+      "chunk_id": "vault_k1_admission_2627_d26cacd7b2474d55",
       "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
       "anchor": "不應限制派表數目",
       "matches_in_corpus": 3,
@@ -1010,7 +1010,7 @@
         "edbcm080_2026",
         "k1_admission_2627"
       ],
-      "note": "同一通函另以edbcm080_2026登記，列作可接受替代來源"
+      "note": "同一通函另以edbcm080_2026登記，列作可接受替代來源（S252 A17：原片段 vault_k1_admission_2627_4dfff7775d179ac2 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
     },
     "split": "dev"
   },
@@ -1055,18 +1055,18 @@
     "expected_passage_signature": [
       "幼稚園須為所有兒童（不論種族、性別、能力）提供均有平等的入讀機會"
     ],
-    "expected_page": 12,
+    "expected_page": 3,
     "acceptable_alternatives": [],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_k1_admission_2627_6e73d0fb6cc636d0",
+      "chunk_id": "vault_k1_admission_2627_6f8ce40da9347d72",
       "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
       "anchor": "提供均有平等的入讀機會",
       "matches_in_corpus": 1,
       "sources_sharing_signature": [
         "k1_admission_2627"
       ],
-      "note": ""
+      "note": "（S252 A17：原片段 vault_k1_admission_2627_6e73d0fb6cc636d0 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
     },
     "split": "dev"
   },
@@ -1083,14 +1083,14 @@
     "expected_passage_signature": [
       "幼稚園應優先考慮需要這類服務的家庭（例如雙職家庭）"
     ],
-    "expected_page": 13,
+    "expected_page": 4,
     "acceptable_alternatives": [
       "edbcm080_2026",
       "g26"
     ],
     "forbidden_evidence": [],
     "verified_by": {
-      "chunk_id": "vault_k1_admission_2627_aefcaf8ca0df46a8",
+      "chunk_id": "vault_k1_admission_2627_48cb5aae4aa2c57d",
       "method": "dev/_s213_corpus.py find + signature + dominant_page + NFKC verification",
       "anchor": "優先考慮需要這類服務的家庭",
       "matches_in_corpus": 3,
@@ -1099,7 +1099,7 @@
         "g26",
         "k1_admission_2627"
       ],
-      "note": "三個登記均載同一官方收生安排文字"
+      "note": "三個登記均載同一官方收生安排文字（S252 A17：原片段 vault_k1_admission_2627_aefcaf8ca0df46a8 因重新入庫已不存在，以原簽名在 2026-11-17 快照找回）"
     },
     "split": "held_out"
   },
