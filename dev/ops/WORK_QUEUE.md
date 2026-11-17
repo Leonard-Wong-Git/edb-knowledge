@@ -93,7 +93,10 @@
 - **做法**：由 `backend/src` 內實際讀取的環境變數重寫（`grep -rn "process.env" backend/src`），每個旗標一行：名稱、預設值、作用、現時生產是否開啟（對照交接檔 `## Current Baseline` 5）。「不應啟用」的旗標要註明已量度並判定不出貨。
 - **驗收**：README 列出的旗標與程式內讀取的完全對應；commit 訊息寫明「重寫，並非還原」。
 
-### A5　為科目指引路由補題　【可做｜中｜不寫生產】
+### A5　為科目指引路由補題　【已開 PR，待 Leonard 合併（2026-11-17）｜中｜不寫生產】
+
+- **結果**（S252）：10 題（`dev/_s252_gold_subject_guides.json`，6 題 dev、4 題 held_out），驗證 10／10 通過；生產首個基線來源層 10／10、片段層 4／10（`dev/source/gold_baselines/`）。片段層的 6 題都是取得正確文件、但不是答案那一段，與 `dev/ops/NEXT_UPGRADE.md` §1 的甲、乙兩類相同。`體育選修科 理論部分課時` 不觸發任何路由（全庫搜尋），仍取得正確文件。
+
 
 - **目的**：S250 新增的 `subject_guides` 路由有 37 個來源，但 185 題題庫只有 1 題觸及，量度只能證明「沒有變差」。
 - **先讀**：`dev/DOC_SYNC_CHECKLIST.md`「檢索準確度量度改動」一列；現有題庫檔 `dev/_s213_gold_*.json` 的格式；`dev/ops/playbooks/route-coverage.md`。
