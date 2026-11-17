@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-17T19:11:27Z",
-  "overallStatus": "BLOCKER",
+  "generatedAt": "2026-11-17T20:17:25Z",
+  "overallStatus": "ERROR",
   "counts": {
     "chunks": 15828,
-    "PASS": 17,
-    "BLOCKER": 1,
+    "PASS": 18,
+    "BLOCKER": 0,
     "ERROR": 2,
     "WARN": 4,
     "INFO": 1,
@@ -60,16 +60,15 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-17T19:11:28Z",
+    "collectedAt": "2026-11-17T20:17:25Z",
     "items": [],
     "ignored_outside": 0
   },
   "regressions": [],
   "releaseGate": {
     "status": "FAIL",
-    "summary": "4/15 項達標",
+    "summary": "5/15 項達標",
     "blocking": [
-      "NO_BLOCKER",
       "NO_ERROR_FAIL",
       "PASS_EVAL_LATEST",
       "PASS_EVAL_CHUNK_LAYER",
@@ -86,8 +85,8 @@
         "id": "NO_BLOCKER",
         "label": "沒有攔截級未通過項",
         "kind": "auto",
-        "status": "NOT_MET",
-        "detail": "SEARCH_PIPELINE_LIVE"
+        "status": "MET",
+        "detail": "0 項"
       },
       {
         "id": "NO_ERROR_FAIL",
@@ -196,7 +195,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=4b62114 · 啟動於 2026-11-17T19:11:02.325Z",
+      "detail": "ok=True · commit=39b8968 · 啟動於 2026-11-17T20:17:15.743Z",
       "offenders": [],
       "offender_total": 0
     },
@@ -204,9 +203,9 @@
       "id": "SEARCH_PIPELINE_LIVE",
       "label": "真實查詢仍然答得到（不是只看 /health）",
       "severity": "BLOCKER",
-      "status": "FAIL",
+      "status": "PASS",
       "group": "infra",
-      "detail": "端點回錯誤：HTTP 502。⚠️ 這種情況下 /health 仍然報 ok:true——它只驗 Channel A 快取",
+      "detail": "探測查詢回傳 3 條片段 · 一次過驗到 key、額度、embedding、Supabase RPC 同路由過濾",
       "offenders": [],
       "offender_total": 0
     },
