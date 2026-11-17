@@ -43,7 +43,8 @@ GitHub Actions  → 這是哪一類？       → 按級別處理           → �
 | 連結失效（served-URL） | 偵測 A；修復 B | 純網址搬遷升 A | 新網址內容與舊抽取逐頁相同才自動改 |
 | 質素檢查惡化（qc-regression） | 偵測 A；處理 B | — | 成因多樣，維持 B |
 | 來源未入路由清單（UNROUTED，S250） | 偵測 A；處理 B | 新入庫來源升 A | executor 已自動加入清單；人手入庫要記得加，檢查會報 |
-| 註腳與原文是否一致 | 人手觸發（S250 首次全量審核：177 條中 28 條頁碼錯、9 條內容不符；S251 全部更正，更正清單 `dev/source/footnote_corrections.json`） | 偵測 A | 把 `footnote-audit` 排成每月自動跑；`PAGE_ANCHORED` 只查得到「沒有頁碼」，查不到「頁碼錯」 |
+| 註腳出處有否搬頁、換版、失效 | 偵測 A（S252：`footnote_anchor_check.yml` 每月機械核對 163 條錨句，不用模型）；處理 B | 純搬頁升 A | 搬頁的頁碼更正仍要寫生產資料，維持經批准才寫 |
+| 註腳的寫法與原文是否一致 | 人手觸發（S250 首次全量審核：177 條中 28 條頁碼錯、9 條內容不符；S251 全部更正，更正清單 `dev/source/footnote_corrections.json`） | — | 語意比對要有人或模型讀原文；月檢只看原文有沒有變。14 條註腳未有錨句（13 條 S250「找不到」＋ 1 條沒有記下原句） |
 | 答案是否答錯對象 | 修正已部署未開 | — | 等 Leonard 決定 `FEATURE_SUBJECT_CHECK` |
 
 ## 3. 偵測層（現有監察）
@@ -54,6 +55,7 @@ GitHub Actions  → 這是哪一類？       → 按級別處理           → �
 | `served_url_check.yml` | 每週一 | Issue `served-url-broken` | `source-reingest`（網址搬遷部分） |
 | `discover_check.yml` | 每週一 | Issue（新文件候選） | Option A 入庫 |
 | `title_check.yml` | 每月 | Issue（封面標題不符） | `freshness-triage` |
+| `footnote_anchor_check.yml` | 每月 2 日 | Issue `footnote-anchor`（原文搬頁、換版；下載連續兩次失敗） | `footnote-audit` |
 | `qc_report.yml` | 每日 | Issue `qc-regression`（高於基準才開） | `qc-regression-triage` |
 | `live_probe.yml` | 每 6 小時 | 線上服務異常 | `health-probe` |
 | `monitor_watchdog.yml` | 每日 | 其他監察沒有按時跑 | `health-probe` |
@@ -130,7 +132,7 @@ Playbook 是可逐步照做的程序，放在 `dev/ops/playbooks/`。步驟次�
 | `freshness-triage.md` | `freshness-change` Issue 有新項目 | 中階（比對）＋最強（定案） | 只寫監察基線 |
 | `source-reingest.md` | 經批准重新入庫一個已存在的來源 | 最強執行；中階可做預演 | **是（要批准）** |
 | `route-coverage.md` | QC 報 `REGISTRY_UNROUTED`；人手入庫新來源後 | 最強（分類）＋中階（量度） | 否（改後端，要合併批准） |
-| `footnote-audit.md` | 每月；或 `PAGE_ANCHORED` 高於基準 | 中階 | 審核唯讀；更正要批准 |
+| `footnote-audit.md` | `footnote-anchor` Issue 有新項目（月檢由機器做）；`PAGE_ANCHORED` 高於基準；新增一批註腳之後 | 月檢結果的處理：任何模型；全量語意審核：中階 | 審核唯讀；更正要批准 |
 | `qc-regression-triage.md` | `qc-regression` Issue 開出 | 最平（定位）＋最強（定案） | 視乎成因 |
 
 > **提升搜尋準確度的計劃**：`dev/ops/NEXT_UPGRADE.md`（有較強模型或 Leonard 明示時才做）。
@@ -139,5 +141,5 @@ Playbook 是可逐步照做的程序，放在 `dev/ops/playbooks/`。步驟次�
 ## 6. 下一步可以交給機器的三件事（按得益排序）
 
 1. **Freshness 自動確認「文字相同」的個案**：排程內下載新版、逐頁對 vault 抽取檔，完全相同即自動 `--ack`。S249 的 19 項中 11 項屬此類，全部可以不經人手。
-2. **每月註腳審核**：以 `footnote-audit` 交中階模型唯讀跑一次，只把「與原文不符」的幾條交給 Leonard。S249 首次審核就找到兩條金額／機構錯誤。
+2. **每月註腳審核**：✅ S252 已改為機械核對（`dev/source/check_footnote_anchors.py`＋`footnote_anchor_check.yml`，不用模型）：每條註腳記一句原文錨句，每月核對是否仍在所記的頁，有變才通知 Leonard。
 3. **路由清單改動自動量度**：PR 一旦改到 `SOURCE_SETS`，CI 自動跑題庫 before／after 並把比較結果貼在 PR，省去人手起本機伺服器。

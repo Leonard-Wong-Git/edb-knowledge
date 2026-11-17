@@ -882,6 +882,8 @@ ATTENTION_KINDS: dict[str, tuple[str, str, str]] = {
                              "EDB 網站出現新文件，待你篩選是否收錄。"),
     "cover-title-change": ("decision", "文件標題與內容不符",
                            "有來源文件的封面標題改變，可能已換成另一份文件，待你核對。"),
+    "footnote-anchor": ("decision", "註腳所引的原文有變",
+                        "有註腳的出處搬了頁、換了版或已失效，待你決定更新還是退役。"),
     "qc-regression": ("decision", "知識庫質素有項目變差",
                       "有質素檢查的數字高於基準，待你決定修正還是接受。"),
 }

@@ -1,0 +1,175 @@
+name: Monthly Footnote Anchor Check
+
+# S252 (WORK_QUEUE A2). A curated footnote is a hand-written short answer that
+# retrieval prefers, so one that no longer matches its source answers users
+# wrongly. dev/source/footnote_anchors.json records, per footnote, one verbatim
+# sentence of the source and the page it is on; this run downloads every cited
+# document again and checks the sentence is still there. No model is involved.
+#
+#   OK          still on the recorded page
+#   MOVED       same document, another page      -> notify
+#   GONE        nowhere in the document          -> notify (probably a new edition)
+#   FETCH_FAIL  could not download               -> notify only when the SAME
+#               footnote also failed in the previous run (one bad night is not news)
+#
+# Read-only: it never writes the store, the registry, the anchors file or the repo.
+# What to do with a result: dev/ops/playbooks/footnote-audit.md.
+
+on:
+  schedule:
+    # 2nd of the month, 13:00 UTC (21:00 HK) — the day after the cover-title
+    # check, so the two monthly download runs do not hit the source sites together.
+    - cron: "0 13 2 * *"
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Check only these footnote ids (comma-separated; empty = all)"
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  contents: read       # read-only
+  actions: read        # download the previous run's report (FETCH_FAIL twice rule)
+  issues: write        # open/update/close the footnote-anchor issue
+
+jobs:
+  footnote-anchor-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests pymupdf
+
+      - name: Self-test (offline logic + anchors file agrees with url_overrides.json)
+        run: python3 dev/source/check_footnote_anchors.py --self-test
+
+      - name: Fetch the previous run's report (best effort)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p previous
+          PREV=$(gh run list --repo "$GITHUB_REPOSITORY" \
+                   --workflow footnote_anchor_check.yml --status completed \
+                   --limit 1 --json databaseId --jq '.[0].databaseId' || true)
+          if [ -n "$PREV" ] && [ "$PREV" != "null" ]; then
+            gh run download "$PREV" --repo "$GITHUB_REPOSITORY" \
+              --name footnote-anchor-report --dir previous \
+              || echo "No report artifact on run $PREV (expired or first run)."
+          else
+            echo "No previous completed run."
+          fi
+          ls -la previous || true
+
+      - name: Check every anchor against its source document
+        env:
+          ONLY: ${{ github.event.inputs.only }}
+        run: |
+          ARGS=""
+          if [ -n "$ONLY" ]; then ARGS="--only $ONLY"; fi
+          if [ -f previous/footnote_anchor_report.json ]; then
+            ARGS="$ARGS --previous previous/footnote_anchor_report.json"
+          fi
+          echo "Running: check_footnote_anchors.py --check $ARGS"
+          python3 dev/source/check_footnote_anchors.py --check $ARGS \
+            --out footnote_anchor_report.json \
+            --table footnote_anchor_report.md 2>&1 | tee footnote_anchor_output.txt
+          exit ${PIPESTATUS[0]}
+        # ↑ Non-zero exit = the tool itself could not run (unusable anchors file).
+        #   MOVED / GONE / FETCH_FAIL never affect the exit code — same signal
+        #   routing as the freshness, served-URL and cover-title monitors.
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          # Fixed name: the next run downloads it by this name.
+          name: footnote-anchor-report
+          path: |
+            footnote_anchor_report.json
+            footnote_anchor_report.md
+            footnote_anchor_output.txt
+          retention-days: 90
+
+      - name: Notify on MOVED / GONE / repeated FETCH_FAIL; close when all OK
+        if: always()
+        uses: actions/github-script@v7
+        env:
+          ONLY: ${{ github.event.inputs.only }}
+        with:
+          script: |
+            const fs = require('fs');
+            let r;
+            try {
+              r = JSON.parse(fs.readFileSync('footnote_anchor_report.json', 'utf8'));
+            } catch (e) { core.info('No anchor report: ' + e); return; }
+
+            const label = 'footnote-anchor';
+            const { owner, repo } = context.repo;
+            const s = r.summary || {};
+            const alerts = r.alerts || [];
+            const partial = !!(process.env.ONLY || '').trim();
+
+            if (alerts.length < 1) {
+              // A list that can only grow becomes wallpaper (S209 rule): when a
+              // FULL run finds every anchor in place, the issue closes itself.
+              const allOk = !partial && s.total > 0 && s.OK === s.total;
+              const open = await github.rest.issues.listForRepo({ owner, repo, state: 'open', labels: label });
+              if (allOk && open.data.length) {
+                await github.rest.issues.createComment({
+                  owner, repo, issue_number: open.data[0].number,
+                  body: `✅ Run #${context.runNumber} (${r.generated_at})：${s.total} 條註腳的錨句全部仍在所記的位置。自動關閉；之後有變動會重新開啟並通知。`,
+                });
+                await github.rest.issues.update({
+                  owner, repo, issue_number: open.data[0].number, state: 'closed',
+                });
+                core.info('Closed #' + open.data[0].number + ' — every anchor is in place.');
+              } else {
+                core.info(`Nothing to announce (OK ${s.OK}/${s.total}, FETCH_FAIL ${s.FETCH_FAIL} first-time, partial=${partial}).`);
+              }
+              return;
+            }
+
+            const ZH = { MOVED: '原文搬了頁', GONE: '原文找不到這一句（可能已換版）', FETCH_FAIL: '連續兩次下載失敗' };
+            const rows = alerts.slice(0, 40).map(a =>
+              `- **\`${a.id}\`** — ${a.status}：${a.detail}  \n  ${a.url}`).join('\n');
+            const body = [
+              `📌 **${alerts.length}** 條註腳的出處有變（run #${context.runNumber}；共核對 ${s.total} 條：`
+                + `OK ${s.OK}、MOVED ${s.MOVED}、GONE ${s.GONE}、FETCH_FAIL ${s.FETCH_FAIL}）。`,
+              '',
+              '> 這項檢查每月下載註腳所引的原文，看當初記下的一句原文是否仍在所記的頁。'
+                + '它只看原文有沒有變，不判斷註腳本身寫得對不對。',
+              '',
+              rows,
+              alerts.length > 40 ? `\n…另有 ${alerts.length - 40} 條，見 artifact \`footnote-anchor-report\`。` : '',
+              '',
+              '---',
+              '處理方法見 `dev/ops/playbooks/footnote-audit.md`：MOVED 改 `dev/source/url_overrides.json` 與 '
+                + '`dev/source/footnote_anchors.json` 的頁碼；GONE 把新舊原文並列，由 Leonard 決定更新還是退役。',
+            ].join('\n');
+
+            const notify = require(`${process.env.GITHUB_WORKSPACE}/.github/scripts/notify_new_items.js`);
+            const items = alerts.map(a => ({
+              key: `${a.id}|${a.status}|${(a.found_pages || []).join(',')}`,
+              text: `\`${a.id}\` — ${ZH[a.status] || a.status}`,
+            }));
+            try {
+              await notify({
+                github, context, core, label,
+                title: '📌 註腳出處：原文搬頁、換版或失效',
+                body, items,
+                headline: n => `需要你決定：${n} 條註腳所引的原文有變`,
+                action: '在 Claude 說「處理註腳出處」。AI 會把新舊原文並列給你看；只是搬頁的會備妥頁碼更正請你批准，原文內容變了的由你決定更新還是退役。',
+              });
+            } catch (e) {
+              core.warning('Failed to open/update footnote-anchor issue: ' + (e && e.message));
+            }
