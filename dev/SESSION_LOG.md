@@ -51,7 +51,11 @@ When current work requires a log entry, record whether relevant older detail was
   - **工具與規則**：更正清單為權威、工具冪等；`AUTONOMY_FLOW.md` §4a 規定語意改寫、檢索改動、刪除範圍交 Leonard。
   - **工作清單**：A 可直接做 13 張卡、B 待 Leonard 決定 12 項（附建議）、C 等觸發、D 不要做（PR #103；A12、A13 隨下一步提升計劃補入）。
   - **下一步提升計劃**：`dev/ops/NEXT_UPGRADE.md`——三類不合格題的拆解、五個階段、建議出貨門檻、放棄條件（設計文件，未實作、門檻未經確認）。
-- **Pending:** `dev/ops/WORK_QUEUE.md` 全部（卡內工作未實作）；收工 PR 待 Leonard 指示合併。
+  - **Kit 升級**：0.4.3 → 0.4.7（官方 CLI，PR #105）；先刪去本檔內一份開場訊息全文才通過遷移驗收。
+  - **模型與 effort 建議**：`AUTONOMY_FLOW.md` §4b，agent 開工主動提 Leonard（PR #106）。
+  - **定時續做**：一次性任務 2026-11-17 02:56 本機時間；範圍限於改檔、commit、push、開 PR。
+- **Closeout:** `closeout-status` `complete`；開場鏡像由唯一開場區塊重生並經該檢查讀回；舊條目按 §4a 歸檔至 `dev/archive/SESSION_LOG_2026_Q4.md`。
+- **Pending:** `dev/ops/WORK_QUEUE.md` 全部（卡內工作未實作）；收工 PR（`s251-closeout`）待 Leonard 指示合併。
 - **Next:** ① WORK_QUEUE A1（兩個漂移檢查接入每日質素檢查）② A2（註腳出處每月機械核對）③ B 部請 Leonard 逐項決定。
 - **Risks:** 之後由較弱模型執行，判斷類工作容易出錯——以工作卡的驗收與停止條件約束；`/health` 的 `footnote_loaded_at` 不隨背景重讀更新（未查成因）；工作卡 A3、A5 所指的既有做法未經逐行核實。
 - **Lesson（monitoring）**：內容更正若只靠一次性腳本，入庫腳本重跑就會被蓋回；更正應以清單為權威並有漂移檢查。
