@@ -121,7 +121,7 @@
 - **停止條件**：看不出成因——只把觀察寫入本卡備註，不改碼。
 - **備註**（S252）：`/health` 讀的與重讀成功後設定的是同一個變數；`/health` 本身不觸發重讀，要有搜尋請求在期滿後到達才會；重讀**失敗**時舊碼會把一個虛構的時間寫進顯示（已用離線測試重現並在 PR #111 修正，另加 `footnote_refresh_failed_at`）；只見一個執行個體，免費層閒置約 15–20 分鐘即休眠重啟。未能證實失敗路徑就是 S251 所見現象的成因（當時沒有記下 `started_at` 與後端日誌）。
 
-### A8　瀏覽清單的累積差異　【決定表已交 Leonard（2026-11-17）｜中｜不寫生產】
+### A8　瀏覽清單的累積差異　【大部分完成（2026-11-17，S252）；餘下：10 份文件入庫（見 A14）】
 
 - **結果**（S252）：36 項 PHANTOM 與 119 項 UNLISTED 全部分類，每項一個建議，見 `dev/ops/decisions/2026-11-17_A8_browse_list.md`（共五個是／否決定）。批准後按該檔「批准後做法」分批執行。
 
@@ -131,6 +131,12 @@
   - `UNLISTED`：屬指引、手冊、通告類而且用戶會想瀏覽的→建議加入 `app.html` 的 `GUIDELINES_REGISTRY`；屬表格、統計、註腳來源的→建議不列。
   - `PHANTOM`：瀏覽條目指向的文件是否已由另一個 id 承載（`ROUTE_EXEMPT` 內有說明的屬此類）→建議移除重複的瀏覽條目。
 - **交付**：一份表（id、標題、片段數、建議、一句理由）交 Leonard 批准後才改 `app.html`；改後 README 的數目、`guidelines.json` 是否受影響，按 `dev/DOC_SYNC_CHECKLIST.md` 處理。
+
+### A14　10 份「瀏覽清單有、庫內沒有」的現行文件入庫　【Leonard 已批准（2026-11-17）｜中｜寫生產，逐份】
+
+- **文件**：`chi_pri_lo_2023`、`chi_sec_lo_2021`、`ma_pri_content_2017`、`ma_jss_content_2017`、`ma_sss_content_2017`、`pth_guide_2017`、`gspf_general_info_2023`、`sspf_general_info_2023`、`pf_edu_ord_2013_faq`、`staff_est_sp_sch_pri`（後者 registry 原標 `held_back`，Leonard 2026-11-17 批准入庫）。
+- **做法**：一次一份，按 `dev/ops/playbooks/source-reingest.md` 或 Option A 入庫流程；每份入庫後確認它離開 PHANTOM、在 `SOURCE_SETS` 內（UNROUTED 0）、更新日誌加一條。部分未有 registry 項目，要先登記。
+- **驗收**：`check_registry_drift.py --check` 的 PHANTOM 由 10 降至 0；每份以一條相關短查詢在生產取得該文件。
 
 ### A9　定期系統更新檢查　【可做｜小｜到期日約 2026-11-28】
 

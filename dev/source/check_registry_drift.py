@@ -81,6 +81,56 @@ ROUTE_EXEMPT = {
 }
 
 
+# S252 (A8, Leonard approved 2026-11-17) — browse-library entries that are DELIBERATELY
+# not ingested: each is an EDB index / topic page or a form, i.e. a door to documents,
+# not a document. Users browse them and click through to EDB; there is nothing to
+# search. Without this list PHANTOM counted them forever and buried the real gaps.
+# Remove an entry when it is retired from GUIDELINES_REGISTRY or when it gets chunks.
+BROWSE_ONLY = {
+    "arts_curr_docs": "index page: 藝術教育學習領域課程文件",
+    "cs_curr": "external resource site (EdCity 電腦科)",
+    "curr_renewal_guides": "index page: 課程更新指引及文件總覽",
+    "gs_pri_curr": "index page: 常識科（小學）課程文件",
+    "ma_curr_index": "index page: 數學教育學習領域課程文件",
+    "moral_civic_curr": "index page: 德育及公民教育課程文件",
+    "pe_curr_docs": "index page: 體育學習領域課程文件",
+    "pecg_2024_landing": "index page for pri_curr_guide_2024 (the guide itself is ingested)",
+    "ph_pri_curr": "topic page: 小學人文科 (guide ingested as ph_pri_guide_2025)",
+    "pri_science": "topic page: 小學科學科",
+    "pshe_curr_docs": "index page: PSHE 課程文件 (KLA guide ingested as g35)",
+    "sci_curr_docs": "index page: 科學教育學習領域課程文件",
+    "sen_curr_area": "topic page: 特殊教育需要課程發展",
+    "steam_edu": "topic page: STEAM 教育",
+    "tech_curr_docs": "index page: 科技教育學習領域課程文件",
+    "provident_fund": "topic page: 教職員公積金",
+    "g08": "links to the Chinese-education documents & exemplars page, not the guide PDF",
+    "g32": "links to the PSHE curriculum-documents page",
+    "pri_science_cert_application_form": "DOCX application form",
+}
+
+# S252 (A8, Leonard approved 2026-11-17) — serving sources deliberately NOT in the
+# browse library: one-off or annual circulars and programme calls, a report, a non-EDB
+# document, a duplicate. They stay searchable. UNLISTED should only show the guides
+# and standing circulars nobody has decided about yet.
+_ONE_OFF = "one-off / annual circular or programme call"
+UNLISTED_BY_DESIGN = {
+    **{sid: _ONE_OFF for sid in (
+        "edbcm060_2026", "edbcm186_2026", "edbcm156_2026", "edbcm_221_2025_smart_teaching",
+        "edbcm089_2026", "edbcm066_2026", "edbcm080_2026", "edbcm136_2026", "edbcm073_2026",
+        "edbcm134_2026", "edbcm070_2026", "edbcm107_2026", "edbcm076_2026", "edbcm116_2026",
+        "edbcm144_2026", "edbcm081_2026", "edbcm094_2026", "edbcm096_2026", "edbcm198_2026",
+        "edbcm088_2026", "edbcm095_2026", "edbcm108_2026", "edbcm124_2026", "edbcm167_2026",
+        "edbcm170_2026_blnst", "edbcm203_2026", "edbcm138_2026", "edbcm152_2026",
+        "edbcm197_2026", "edbcm113_2026", "edbcm135_2026", "edbcm141_2026", "edbcm142_2026",
+        "edbcm155_2026", "edbcm_major_repairs_grant", "k1_admission_2627",
+        "hsp_drug_testing_2026", "surplus_teacher_arr_2026")},
+    "tdtf_report_2019": "task-force report, not a guideline",
+    "edbcm83_2020_student_care": "pandemic-period circular",
+    "pcpd_cloud_computing": "not an EDB document (Privacy Commissioner)",
+    "debp_leaflet": "duplicate: the blueprint and its summary are listed",
+}
+
+
 def parse_source_set_ids(ts_text: str) -> set[str]:
     """Every source id named in any SOURCE_SETS array. Comments are stripped first
     (ids are often mentioned in the notes explaining why they were REMOVED)."""
@@ -155,11 +205,17 @@ def classify(serving: dict[str, int], serving_kinds: dict[str, str],
              series: dict[str, list[str]] | None = None,
              series_monitored: set[str] | None = None,
              routed: set[str] | None = None,
-             route_exempt: set[str] | None = None) -> dict:
+             route_exempt: set[str] | None = None,
+             browse_only: set[str] | None = None,
+             unlisted_by_design: set[str] | None = None) -> dict:
     """The six drift classes. Pure — takes counts, returns id lists.
 
     `routed` is the union of the backend SOURCE_SETS; None (not supplied) means the
-    UNROUTED class is not evaluated and comes back empty."""
+    UNROUTED class is not evaluated and comes back empty. `browse_only` /
+    `unlisted_by_design` default to the module lists (S252), so every caller —
+    this script and qc_report — applies the same decisions."""
+    browse = set(BROWSE_ONLY) if browse_only is None else browse_only
+    by_design = set(UNLISTED_BY_DESIGN) if unlisted_by_design is None else unlisted_by_design
     series = series or {}
     monitored = series_monitored or set()
     shard_of = {shard: parent for parent, shards in series.items()
@@ -181,12 +237,13 @@ def classify(serving: dict[str, int], serving_kinds: dict[str, str],
     sharded = [p for p in serving_series if p not in monitored]
 
     unlisted = sorted((sid for sid in serving
-                       if sid in live and sid not in listed),
+                       if sid in live and sid not in listed and sid not in by_design),
                       key=lambda s: -serving[s])
     # `serving_series`, not `sharded`: a parent stays out of PHANTOM because its
     # shards serve, which stays true after the monitoring defect is fixed.
     phantom = sorted(sid for sid in listed
-                     if serving.get(sid, 0) == 0 and sid not in serving_series)
+                     if serving.get(sid, 0) == 0 and sid not in serving_series
+                     and sid not in browse)
     unmanaged = sorted((sid for sid in serving
                         if sid not in live and sid not in dead
                         and sid not in shard_of
@@ -369,6 +426,20 @@ def self_test() -> int:
     check("no ROUTE_EXEMPT entry is also routed (exempt must mean 'in no set')",
           not set(ROUTE_EXEMPT) & real)
 
+    # --- S252: browse-only / unlisted-by-design decisions ---
+    bd = classify({"guide": 3, "circ": 2, "listed_doc": 4},
+                  {"guide": "vault_extract", "circ": "vault_extract", "listed_doc": "vault_extract"},
+                  {"guide", "circ", "listed_doc"}, set(), {"listed_doc", "index_pg", "gap"},
+                  browse_only={"index_pg"}, unlisted_by_design={"circ"})
+    check("a browse-only entry with zero chunks is not a PHANTOM; a real gap still is",
+          bd["PHANTOM"] == ["gap"])
+    check("an unlisted-by-design source is not UNLISTED; an undecided one still is",
+          bd["UNLISTED"] == ["guide"])
+    check("no id is both browse-only and unlisted-by-design",
+          not set(BROWSE_ONLY) & set(UNLISTED_BY_DESIGN))
+    check("every decision carries a reason",
+          all(v.strip() for v in list(BROWSE_ONLY.values()) + list(UNLISTED_BY_DESIGN.values())))
+
     check("a consistent corpus produces four empty classes",
           all(not v for v in clean.values()))
     check("severity is assigned to every class",
@@ -441,6 +512,13 @@ def main() -> int:
         n = sum(serving.get(s, 0) for s in ids)
         print(f"  [{SEVERITY[cls]:<5}] {cls:<9} {len(ids):4d} 個來源 / {n:5d} 片段  "
               f"— {LABEL[cls]}")
+    # S252 — a decision list that no longer matches reality must say so, or it
+    # silently hides the very thing it was written about.
+    stale = sorted(s for s in BROWSE_ONLY if serving.get(s, 0) or s not in listed)
+    stale += sorted(s for s in UNLISTED_BY_DESIGN if s in listed or not serving.get(s, 0))
+    if stale:
+        print(f"  [WARN ] 決定名單過時 {len(stale)} 項（BROWSE_ONLY 有片段或已不在清單；"
+              f"UNLISTED_BY_DESIGN 已列入清單或已無片段）：{', '.join(stale)}")
     print(f"\nwrote {args.ledger}")
     # Only ZOMBIE exits non-zero: it is the one class that is unambiguously wrong
     # without a human deciding anything. The rest are triage queues, and a
