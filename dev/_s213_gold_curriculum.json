@@ -862,5 +862,90 @@
       "note": "g17 為 HTML 來源，chunk 無頁碼標記，expected_page 為 null"
     },
     "split": "held_out"
+  },
+  {
+    "id": "cur_eight_kla",
+    "domain": "curriculum",
+    "query": "八個學習領域",
+    "query_kind": "plain",
+    "intent": "查本港學校課程劃分為哪八個學習領域",
+    "answerable": true,
+    "expected_source_any": [
+      "bafs_sss_2007_2020",
+      "bio_sss_2007_2015",
+      "chem_sss_2007_2018",
+      "chi_hist_sss_2007_2015",
+      "dat_sss_2007_2015",
+      "g13",
+      "geog_sss_2007_2022",
+      "history_sss_2007_2015",
+      "hmsc_sss_2007_2015",
+      "ict_sss_2007_2015",
+      "ict_sss_2021",
+      "ma_sss_cag_2017",
+      "pe_sss_2023",
+      "tl_sss_2007_2015",
+      "tour_hosp_sss_2007_2015",
+      "va_sss_2015"
+    ],
+    "expected_passage_signature": [
+      "課程劃分為八個學習領域,即中國語文教育,英國語文教育,數學教育"
+    ],
+    "expected_page": 8,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g13_89b3ae3f6b83dd03",
+      "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+      "note": "S252 A15 改標：原唯一來源 g07 已退役；簽名逐字取自 g13 該 chunk 的 cleaned text，已讀前後文確認回答 intent；expected_source_any 為全庫含此簽名的所有來源"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "cur_four_key_project_stages",
+    "domain": "curriculum",
+    "query": "專題研習 三個階段",
+    "query_kind": "plain",
+    "intent": "查專題研習（四個關鍵項目之一）分哪三個實施階段",
+    "answerable": true,
+    "expected_source_any": [
+      "g13"
+    ],
+    "expected_passage_signature": [
+      "專題研習可以分三個階段進行:(1)預備階段;(2)實施階段;和(3)總結階段"
+    ],
+    "expected_page": 314,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_g13_0e42b90fa63d1015",
+      "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+      "note": "S252 A15 改標：原唯一來源 g07 已退役；簽名逐字取自 g13 該 chunk 的 cleaned text，已讀前後文確認回答 intent；expected_source_any 為全庫含此簽名的所有來源"
+    },
+    "split": "dev"
+  },
+  {
+    "id": "cur_moral_civic_values",
+    "domain": "curriculum",
+    "query": "德育及公民教育 責任感",
+    "query_kind": "plain",
+    "intent": "查德育及公民教育下培養學生責任感的取向",
+    "answerable": true,
+    "expected_source_any": [
+      "g13",
+      "sec_curr_guide_2017_booklet_6a"
+    ],
+    "expected_passage_signature": [
+      "責任感-我們期望年輕一代具備關心別人和樂於助人的態度"
+    ],
+    "expected_page": 5,
+    "acceptable_alternatives": [],
+    "forbidden_evidence": [],
+    "verified_by": {
+      "chunk_id": "vault_sec_curr_guide_2017_booklet_6a_09880a644b2d53ea",
+      "method": "dev/_s213_corpus.py (snapshot 2026-11-17)",
+      "note": "S252 A15 改標：原唯一來源 g07 已退役；簽名逐字取自 sec_curr_guide_2017_booklet_6a 該 chunk 的 cleaned text，已讀前後文確認回答 intent；expected_source_any 為全庫含此簽名的所有來源"
+    },
+    "split": "dev"
   }
 ]

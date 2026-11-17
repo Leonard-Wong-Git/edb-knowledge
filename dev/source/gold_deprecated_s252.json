@@ -3,7 +3,7 @@
   "id": "cur_eight_kla",
   "deprecated_on": "2026-11-17",
   "deprecated_reason": "唯一答案來源 g07（2014 年基礎教育課程指引）已於 S252 退役（已有新版 pri_curr_guide_2024）。新版指引與 g13 有相近內容，但未逐段核實，故暫停而非改標。重新定標見工作清單。",
-  "replacement_id": null,
+  "replacement_id": "cur_eight_kla",
   "original": {
    "domain": "curriculum",
    "query": "八個學習領域",
@@ -25,13 +25,14 @@
     "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
    },
    "split": "dev"
-  }
+  },
+  "relabelled_on": "2026-11-17"
  },
  {
   "id": "cur_four_key_project_stages",
   "deprecated_on": "2026-11-17",
   "deprecated_reason": "唯一答案來源 g07（2014 年基礎教育課程指引）已於 S252 退役（已有新版 pri_curr_guide_2024）。新版指引與 g13 有相近內容，但未逐段核實，故暫停而非改標。重新定標見工作清單。",
-  "replacement_id": null,
+  "replacement_id": "cur_four_key_project_stages",
   "original": {
    "domain": "curriculum",
    "query": "專題研習 三個階段",
@@ -53,13 +54,14 @@
     "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
    },
    "split": "dev"
-  }
+  },
+  "relabelled_on": "2026-11-17"
  },
  {
   "id": "cur_moral_civic_values",
   "deprecated_on": "2026-11-17",
   "deprecated_reason": "唯一答案來源 g07（2014 年基礎教育課程指引）已於 S252 退役（已有新版 pri_curr_guide_2024）。新版指引與 g13 有相近內容，但未逐段核實，故暫停而非改標。重新定標見工作清單。",
-  "replacement_id": null,
+  "replacement_id": "cur_moral_civic_values",
   "original": {
    "domain": "curriculum",
    "query": "德育及公民教育 責任感",
@@ -81,6 +83,7 @@
     "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
    },
    "split": "dev"
-  }
+  },
+  "relabelled_on": "2026-11-17"
  }
 ]

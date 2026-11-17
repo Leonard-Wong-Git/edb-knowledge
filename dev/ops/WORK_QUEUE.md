@@ -142,7 +142,10 @@
 - **做法**：一次一份，按 `dev/ops/playbooks/source-reingest.md` 或 Option A 入庫流程；每份入庫後確認它離開 PHANTOM、在 `SOURCE_SETS` 內（UNROUTED 0）、更新日誌加一條。部分未有 registry 項目，要先登記。
 - **驗收**：`check_registry_drift.py --check` 的 PHANTOM 由 10 降至 0；每份以一條相關短查詢在生產取得該文件。
 
-### A15　重新定標 3 條暫停的題庫題目　【可做｜中｜不寫生產】
+### A15　重新定標 3 條暫停的題庫題目　【✅ 完成（2026-11-17，S252）；題庫回到 185 題】
+
+- **結果**：三題改標並放回題庫（`cur_eight_kla` → 16 份含同一句的課程指引；`cur_four_key_project_stages` → `g13`；`cur_moral_civic_values` → `g13`／`sec_curr_guide_2017_booklet_6a`），驗證器通過；生產來源層 3／3、片段層 1／3。
+
 
 - **背景**：S252 退役 g07 後，`cur_eight_kla`、`cur_four_key_project_stages`、`cur_moral_civic_values` 失去唯一答案來源，已移至 `dev/source/gold_deprecated_s252.json`（題庫 185 → 182 題）。
 - **做法**：在 `g13`（中學教育課程指引 2017）、`sec_curr_guide_2017_booklet_6a`、`pri_curr_guide_2024` 找對應段落（S252 已見 g13 有「八個學習領域」與「專題研習的三個階段」、booklet 6A 有責任感定義），讀原文確認後按 `_s213_validate_gold.py` 流程改標並放回題庫。
@@ -151,6 +154,12 @@
 
 - **背景**：庫內服務的是 2017 年版（`chi_edu_curr_docs`，157 片段）；2024 年版只在瀏覽清單（`g08`，連結是課程文件總頁），未入庫。
 - **做法**：先在總頁找到 2024 年版 PDF，按 A14 的做法入庫，然後按 `source-reingest.md`「入庫新版時順手退役舊版」處理 2017 年版。
+
+### A17　題庫 25 題的「核實片段編號」已過時　【可做｜中｜不寫生產】
+
+- **現象**（S252 發現，S252 之前已存在）：以 2026-11-17 語料快照跑 `_s213_validate_gold.py`，25 題被隔離，原因全是 `verified_by.chunk_id` 在語料中不存在（`g19`、`perf_indicators_2022`、`k1_admission_2627`、`sdp_guide`、`debp_blueprint` 等重新入庫後片段編號改變）。
+- **影響**：只影響驗證器的出處核對；題目以簽名比對評分，生產量度不受影響。但驗證器失去守門作用。
+- **做法**：逐題以原簽名在快照內找回現行片段，只更新 `verified_by.chunk_id` 與 `expected_page`（頁碼仍由 `dominant_page` 推導）；簽名在全庫找不到的題目隔離並交 Leonard，不可改簽名遷就。
 
 ### A9　定期系統更新檢查　【✅ 完成（2026-11-17，S252）；下次約 2026-12-17，結果記在 PROJECT_INDEX】
 
