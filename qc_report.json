@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-17T14:18:32Z",
-  "overallStatus": "ERROR",
+  "generatedAt": "2026-11-17T19:11:27Z",
+  "overallStatus": "BLOCKER",
   "counts": {
-    "chunks": 17322,
-    "PASS": 18,
-    "BLOCKER": 0,
+    "chunks": 15828,
+    "PASS": 17,
+    "BLOCKER": 1,
     "ERROR": 2,
     "WARN": 4,
     "INFO": 1,
@@ -12,11 +12,11 @@
   },
   "version": "v3.3.16",
   "corpus": {
-    "chunks": 17322,
-    "sources_serving": 325,
+    "chunks": 15828,
+    "sources_serving": 314,
     "sources_registered": 311,
-    "guidelines_listed": 252,
-    "distinct_urls": 363,
+    "guidelines_listed": 241,
+    "distinct_urls": 352,
     "largest_sources": [
       {
         "source_id": "coa_ss_e",
@@ -35,10 +35,6 @@
         "chunks": 494
       },
       {
-        "source_id": "g07",
-        "chunks": 438
-      },
-      {
         "source_id": "eng_sss_guide_2021",
         "chunks": 421
       },
@@ -49,6 +45,10 @@
       {
         "source_id": "g06",
         "chunks": 412
+      },
+      {
+        "source_id": "sag_2025_11",
+        "chunks": 387
       }
     ]
   },
@@ -60,15 +60,16 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-17T14:18:32Z",
+    "collectedAt": "2026-11-17T19:11:28Z",
     "items": [],
     "ignored_outside": 0
   },
   "regressions": [],
   "releaseGate": {
     "status": "FAIL",
-    "summary": "5/15 項達標",
+    "summary": "4/15 項達標",
     "blocking": [
+      "NO_BLOCKER",
       "NO_ERROR_FAIL",
       "PASS_EVAL_LATEST",
       "PASS_EVAL_CHUNK_LAYER",
@@ -85,8 +86,8 @@
         "id": "NO_BLOCKER",
         "label": "沒有攔截級未通過項",
         "kind": "auto",
-        "status": "MET",
-        "detail": "0 項"
+        "status": "NOT_MET",
+        "detail": "SEARCH_PIPELINE_LIVE"
       },
       {
         "id": "NO_ERROR_FAIL",
@@ -195,7 +196,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=1af3d27 · 啟動於 2026-11-17T14:18:12.586Z",
+      "detail": "ok=True · commit=4b62114 · 啟動於 2026-11-17T19:11:02.325Z",
       "offenders": [],
       "offender_total": 0
     },
@@ -203,9 +204,9 @@
       "id": "SEARCH_PIPELINE_LIVE",
       "label": "真實查詢仍然答得到（不是只看 /health）",
       "severity": "BLOCKER",
-      "status": "PASS",
+      "status": "FAIL",
       "group": "infra",
-      "detail": "探測查詢回傳 3 條片段 · 一次過驗到 key、額度、embedding、Supabase RPC 同路由過濾",
+      "detail": "端點回錯誤：HTTP 502。⚠️ 這種情況下 /health 仍然報 ok:true——它只驗 Channel A 快取",
       "offenders": [],
       "offender_total": 0
     },
@@ -225,7 +226,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "infra",
-      "detail": "資料庫真數 17322 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "detail": "資料庫真數 15828 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
       "offenders": [],
       "offender_total": 0
     },
@@ -287,22 +288,21 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "chunk",
-      "detail": "重複組 464 · 低於基準 956（−492，已改善） · 多出的副本 488 條 · 重複全部跨來源（同一來源內 0 組），即問題出在登記了兩次的文件，不是切片器。⚠️ 此數是下限：只捉逐字相同的片段。同一份 PDF 分兩次抽取會切出不同邊界，雜湊就不同 —— kgecg_2017 與 g29 是同一份《幼稚園教育課程指引（2017）》，108 對 107 條，逐字相同 0 條，本檢查完全看不見",
+      "detail": "重複組 452 · 低於基準 956（−504，已改善） · 多出的副本 476 條 · 重複全部跨來源（同一來源內 0 組），即問題出在登記了兩次的文件，不是切片器。⚠️ 此數是下限：只捉逐字相同的片段。同一份 PDF 分兩次抽取會切出不同邊界，雜湊就不同 —— kgecg_2017 與 g29 是同一份《幼稚園教育課程指引（2017）》，108 對 107 條，逐字相同 0 條，本檢查完全看不見",
       "offenders": [
         "eng_sss_guide_2021 ↔ g33：421 組",
-        "econ_sss_supp_2015 ↔ econ_sss_supp_2025：9 組",
         "stat_enrolment_2016 ↔ stat_enrolment_2017：7 組",
         "stat_enrolment_2018 ↔ stat_enrolment_2019：6 組",
         "stat_enrolment_2013 ↔ stat_enrolment_2014：5 組",
         "stat_enrolment_2023 ↔ stat_enrolment_2024：5 組",
-        "bafs_sss_2007_2015 ↔ bafs_sss_2007_2020：2 組",
         "stat_enrolment_2012 ↔ stat_enrolment_2013 ↔ stat_enrolment_2014 ↔ stat_enrolment_2015 ↔ stat_enrolment_2016 ↔ stat_enrolment_2017 ↔ stat_enrolment_2018 ↔ stat_enrolment_2019 ↔ stat_enrolment_2020 ↔ stat_enrolment_2021 ↔ stat_enrolment_2022 ↔ stat_enrolment_2023 ↔ stat_enrolment_2024：2 組",
         "stat_enrolment_2013 ↔ stat_enrolment_2014 ↔ stat_enrolment_2015：2 組",
-        "ethics_relig_sss_2007_2019 ↔ ethics_relig_sss_2024：1 組",
         "stat_enrolment_2014 ↔ stat_enrolment_2015：1 組",
-        "stat_enrolment_2020 ↔ stat_enrolment_2021：1 組"
+        "stat_enrolment_2020 ↔ stat_enrolment_2021：1 組",
+        "stat_enrolment_2020 ↔ stat_enrolment_2024：1 組",
+        "stat_enrolment_2020 ↔ stat_enrolment_2022：1 組"
       ],
-      "offender_total": 464
+      "offender_total": 452
     },
     {
       "id": "NO_TOC_NOISE",
@@ -345,12 +345,11 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "cutting",
-      "detail": "819 · 低於基準 835（−16，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
+      "detail": "733 · 低於基準 835（−102，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
       "offenders": [
         "g06（34 條）",
         "g13（34 條）",
         "ph_pri_guide_2025（30 條）",
-        "g07（29 條）",
         "gifted_ge_series（16 條）",
         "tech_kla_guide_2017（16 條）",
         "chi_jss_guide_2023（14 條）",
@@ -358,9 +357,10 @@
         "va_sss_2015（14 條）",
         "edbcm060_2026（13 條）",
         "sag_2025_11（13 條）",
-        "g19（12 條）"
+        "g19（12 條）",
+        "g35（12 條）"
       ],
-      "offender_total": 819
+      "offender_total": 733
     },
     {
       "id": "TABLE_ROW_INTEGRITY",
@@ -378,10 +378,9 @@
       "severity": "INFO",
       "status": "INFO",
       "group": "cutting",
-      "detail": "2058 條（11.9%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
+      "detail": "1817 條（11.5%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
       "offenders": [
         "g13（105 條）",
-        "g07（80 條）",
         "tech_kla_guide_2017（62 條）",
         "g16（55 條）",
         "g06（50 條）",
@@ -391,9 +390,10 @@
         "g35（36 條）",
         "gifted_ge_series（36 條）",
         "ma_sss_cag_2017（36 條）",
-        "chi_hist_sss_2007_2015（34 條）"
+        "chi_hist_sss_2007_2015（34 條）",
+        "ma_sss_content_2017（33 條）"
       ],
-      "offender_total": 2058
+      "offender_total": 1817
     },
     {
       "id": "EVAL_LATEST",
