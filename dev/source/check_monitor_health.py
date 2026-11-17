@@ -82,6 +82,9 @@ WORKFLOWS: Dict[str, tuple] = {
     "pgvector":          ("pgvector_check.yml",     7),
     "qc_report":         ("qc_report.yml",          1),
     "source_titles":     ("title_check.yml",       31),
+    # S252: monthly, 2nd of the month — is each footnote's source sentence still
+    # on the page it cites (dev/source/check_footnote_anchors.py).
+    "footnote_anchors":  ("footnote_anchor_check.yml", 31),
     # S234: runs every 6 hours; the cadence is 1 because the unit here is days.
     # It is never "due" in practice — only "overdue" (quiet > 2 days) can fire.
     "live_probe":        ("live_probe.yml",         1),
@@ -454,9 +457,11 @@ def _run_self_test(is_due_fn=is_due, is_overdue_fn=is_overdue,
     wf = REPO_ROOT / ".github" / "workflows"
     files = {p.stem for p in wf.glob("*.yml")} if wf.exists() else set()
     expected = {"freshness_check", "discover_check", "served_url_check",
-                "pgvector_check", "qc_report", "title_check", "live_probe"}
+                "pgvector_check", "qc_report", "title_check", "live_probe",
+                "footnote_anchor_check"}
     check(f"CADENCE_DAYS 覆蓋所有排程 workflow（{len(CADENCE_DAYS)} 個）",
-          not files or expected.issubset(files))
+          not files or (expected.issubset(files)
+                        and {w[:-4] for w, _d in WORKFLOWS.values()} == expected))
 
     print(f"\n{'ALL PASS' if not fails else f'{len(fails)} FAILED: {fails}'}")
     return 0 if not fails else 1
