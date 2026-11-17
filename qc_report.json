@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-11-16T22:21:13Z",
+  "generatedAt": "2026-11-17T14:18:32Z",
   "overallStatus": "ERROR",
   "counts": {
-    "chunks": 17084,
-    "PASS": 15,
+    "chunks": 17322,
+    "PASS": 18,
     "BLOCKER": 0,
     "ERROR": 2,
-    "WARN": 5,
+    "WARN": 4,
     "INFO": 1,
     "NOT_MEASURED": 0
   },
   "version": "v3.3.16",
   "corpus": {
-    "chunks": 17084,
-    "sources_serving": 316,
-    "sources_registered": 302,
-    "guidelines_listed": 182,
-    "distinct_urls": 353,
+    "chunks": 17322,
+    "sources_serving": 325,
+    "sources_registered": 311,
+    "guidelines_listed": 252,
+    "distinct_urls": 363,
     "largest_sources": [
       {
         "source_id": "coa_ss_e",
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-16T22:21:13Z",
+    "collectedAt": "2026-11-17T14:18:32Z",
     "items": [],
     "ignored_outside": 0
   },
@@ -195,7 +195,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=4f0b57f · 啟動於 2026-11-16T21:11:19.528Z",
+      "detail": "ok=True · commit=1af3d27 · 啟動於 2026-11-17T14:18:12.586Z",
       "offenders": [],
       "offender_total": 0
     },
@@ -225,7 +225,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "infra",
-      "detail": "資料庫真數 17084 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "detail": "資料庫真數 17322 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
       "offenders": [],
       "offender_total": 0
     },
@@ -262,6 +262,26 @@
       "offender_total": 1
     },
     {
+      "id": "FOOTNOTE_CORRECTIONS",
+      "label": "已批准的註腳更正仍然生效（片段文字與 footnote_corrections.json 相同）",
+      "severity": "ERROR",
+      "status": "PASS",
+      "group": "pointing",
+      "detail": "0 / 10 條與清單不同 · 多半是註腳入庫腳本重跑後舊文字被寫回；用 dev/apply_footnote_corrections.py 重新套用（先預演，批准後 --execute）",
+      "offenders": [],
+      "offender_total": 0
+    },
+    {
+      "id": "URL_OVERRIDES",
+      "label": "已批准的連結與頁碼覆寫仍然生效（片段 url 與 url_overrides.json 相同）",
+      "severity": "ERROR",
+      "status": "PASS",
+      "group": "pointing",
+      "detail": "0 / 81 條與清單不同 · 多半是註腳入庫腳本重跑後每來源一條的網址被寫回；用 dev/apply_url_overrides.py 重新套用（不加參數即預演，批准後 --execute）",
+      "offenders": [],
+      "offender_total": 0
+    },
+    {
       "id": "NO_DUPLICATE_CHUNKS",
       "label": "沒有兩個來源載住逐字相同的片段",
       "severity": "ERROR",
@@ -290,7 +310,7 @@
       "severity": "WARN",
       "status": "PASS",
       "group": "chunk",
-      "detail": "103 · 低於基準 147（−44，已改善） · 目錄片段答不到任何問題，只會佔住合成窗",
+      "detail": "105 · 低於基準 147（−42，已改善） · 目錄片段答不到任何問題，只會佔住合成窗",
       "offenders": [
         "sag_2025_11（45 條）",
         "kg_admin_guide_2026（34 條）",
@@ -298,10 +318,12 @@
         "kg_operation_manual_2026（8 條）",
         "debp_blueprint（3 條）",
         "imc_briefing_qa（3 條）",
+        "chi_pri_lo_2023（1 條）",
+        "chi_sec_lo_2021（1 條）",
         "debp_ai_literacy_framework（1 條）",
         "debp_ai_teaching_guide（1 條）"
       ],
-      "offender_total": 103
+      "offender_total": 105
     },
     {
       "id": "BODY_LENGTH_FLOOR",
@@ -323,7 +345,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "cutting",
-      "detail": "809 · 低於基準 835（−26，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
+      "detail": "819 · 低於基準 835（−16，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
       "offenders": [
         "g06（34 條）",
         "g13（34 條）",
@@ -338,7 +360,7 @@
         "sag_2025_11（13 條）",
         "g19（12 條）"
       ],
-      "offender_total": 809
+      "offender_total": 819
     },
     {
       "id": "TABLE_ROW_INTEGRITY",
@@ -356,22 +378,22 @@
       "severity": "INFO",
       "status": "INFO",
       "group": "cutting",
-      "detail": "1942 條（11.4%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
+      "detail": "2058 條（11.9%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
       "offenders": [
         "g13（105 條）",
         "g07（80 條）",
         "tech_kla_guide_2017（62 條）",
         "g16（55 條）",
         "g06（50 條）",
+        "ma_pri_content_2017（45 條）",
         "ict_sss_2007_2015（43 條）",
         "ph_pri_guide_2025（40 條）",
         "g35（36 條）",
         "gifted_ge_series（36 條）",
         "ma_sss_cag_2017（36 條）",
-        "chi_hist_sss_2007_2015（34 條）",
-        "icac_school_governance（32 條）"
+        "chi_hist_sss_2007_2015（34 條）"
       ],
-      "offender_total": 1942
+      "offender_total": 2058
     },
     {
       "id": "EVAL_LATEST",
@@ -449,45 +471,21 @@
       "severity": "WARN",
       "status": "FAIL",
       "group": "pointing",
-      "detail": "36 個來源 / 0 條片段 · 用戶可以瀏覽到，但搜尋答不出，因為庫內一條片段都沒有",
+      "detail": "1 個來源 / 0 條片段 · 用戶可以瀏覽到，但搜尋答不出，因為庫內一條片段都沒有",
       "offenders": [
-        "arts_curr_docs（0 條）藝術教育學習領域課程文件",
-        "chi_pri_lo_2023（0 條）",
-        "chi_sec_lo_2021（0 條）",
-        "cs_curr（0 條）電腦科課程資源（EDB EdCity）",
-        "curr_renewal_guides（0 條）課程更新指引及文件總覽",
-        "g08（0 條）《中國語文教育學習領域課程指引（小一至中六）》(20",
-        "g12（0 條）數學教育學習領域課程指引（小一至中三）(2002)",
-        "g27（0 條）小學數學課程指引（2000）",
-        "g30（0 條）小學人文科課程及評估指引（試行版）(2023)",
-        "g32（0 條）初中人文學科課程及評估指引（中一至中三）(2024)",
-        "g34（0 條）普通話科課程指引（小一至中三）(2000)",
-        "g39（0 條）科技教育學習領域課程指引（小一至中三）(2002)"
+        "staff_est_sp_sch_pri（0 條）資助特殊學校小學部教學人員編制"
       ],
-      "offender_total": 36
+      "offender_total": 1
     },
     {
       "id": "REGISTRY_UNLISTED",
       "label": "搜尋得到，但「📚EDB指引」瀏覽不到",
       "severity": "WARN",
-      "status": "FAIL",
+      "status": "PASS",
       "group": "pointing",
-      "detail": "119 個來源 / 2626 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
-      "offenders": [
-        "gifted_ge_series（346 條）資優教育系列：全民資優教育＋校本學生才能庫＋學術英才",
-        "kg_admin_guide_2026（222 條）幼稚園行政手冊（2026年5月）",
-        "kg_operation_manual_2026（220 條）學前機構辦學手冊（2026年5月，第4.3版）",
-        "sch_activities_guide（106 條）學校活動指引：戶外活動＋境外遊學團",
-        "imc_establishment_operation（100 條）法團校董會的成立與運作（校本管理手冊2014）",
-        "crisis_mgmt_handbook（94 條）學校危機處理（手冊）",
-        "values_edu_framework_2026（93 條）《價值觀教育課程架構》（2026）",
-        "cgss_sss_2021（81 條）公民與社會發展科 課程及評估指引 (中四至中六) 二",
-        "icac_school_governance（78 條）防貪錦囊：學校管治與內部監控 (ICAC)",
-        "edbcm060_2026（68 條）教育局通函第60/2026號 —— 幼稚園提交202",
-        "tdtf_report_2019（62 條）教師專業發展專責小組報告 (2019年3月)",
-        "imc_election_guides（58 條）法團校董會校董選舉指引（家長／教師／校友校董・委任五"
-      ],
-      "offender_total": 119
+      "detail": "0 個來源 / 0 條片段 · 要逐個判斷該不該公開瀏覽，屬人手閘，不能自動修",
+      "offenders": [],
+      "offender_total": 0
     },
     {
       "id": "MOJIBAKE",
