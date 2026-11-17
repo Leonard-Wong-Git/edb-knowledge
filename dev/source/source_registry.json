@@ -338,18 +338,19 @@
         "curriculum"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2014",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "Seeded from existing guidelines.json public artifact. | S146 batch2: ingested to Channel B (438 chunks, vault/g07) — NUL bytes stripped pre-insert",
+      "notes": "S252 退役（Leonard 2026-11-17 批准）：已有新版 `pri_curr_guide_2024` 在庫，舊版片段已刪除；全欄位備份 `dev/init_backup/20261117_190642_UTC/g07.json`。 Seeded from existing guidelines.json public artifact. | S146 batch2: ingested to Channel B (438 chunks, vault/g07) — NUL bytes stripped pre-insert",
       "freshness_metadata": {
         "last_modified": "Fri, 03 Mar 2023 03:11:02 GMT",
         "content_length": "10538784",
         "etag": "\"027d8c87d4dd91:0\"",
         "content_hash": "9203bd66db9a2adb7efd9caac9abe1dd155a0ae20ad5ef7b05e08e6618469e76",
         "hash_checked_at": "2026-06-15"
-      }
+      },
+      "superseded_by": "pri_curr_guide_2024"
     },
     {
       "source_id": "g30",
@@ -749,18 +750,19 @@
         "curriculum"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2002",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
-      "notes": "舊 `poklacg_2002/index.html` 已失效；現回填至教育局仍公開的 2002 體育學習領域課程指引 PDF，landing page 指向現行體育課程文件頁。",
+      "notes": "S252 退役（Leonard 2026-11-17 批准）：已有新版 `pe_kla_2017` 在庫，舊版片段已刪除；全欄位備份 `dev/init_backup/20261117_190642_UTC/g15.json`。 舊 `poklacg_2002/index.html` 已失效；現回填至教育局仍公開的 2002 體育學習領域課程指引 PDF，landing page 指向現行體育課程文件頁。",
       "freshness_metadata": {
         "last_modified": "Fri, 21 Mar 2025 02:39:02 GMT",
         "content_length": "23035",
         "etag": "\"027d667a9adb1:0\"",
         "content_hash": "af0bb0938f994cfcc90dce9b755a353c6a20f79f48d0458df1da6e67b5f910d4",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "superseded_by": "pe_kla_2017"
     },
     {
       "source_id": "g34",
@@ -920,11 +922,11 @@
         "curriculum"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2003",
       "last_checked_at": "2026-11-16",
       "supersedes": null,
-      "notes": "原 music-curri/index.html 已失效；現改指向藝術教育昔日課程文件頁，PDF=music_complete_guide_chi.pdf（153 版、36.5MB）。 | S146 batch2: text-layer = CID/custom-font garbage (cjk≈0) needs OCR. | S147 INGESTED: 雲端 vision OCR (gpt-4o, dev/ocr_extract.py concurrency+resume) 全 153 版 → +194 chunks (filler-collapse 修 oversized worksheet chunks)；加 SOURCE_SETS.curriculum allowlist。OCR 草稿質素、page-resolvable。⚠️ 2003 P1-S3 與 music_p1_s6_2024 (2024 P1-S6) 共存、monitor stale-ranking。",
+      "notes": "S252 退役（Leonard 2026-11-17 批准）：已有新版 `music_p1_s6_2024` 在庫，舊版片段已刪除；全欄位備份 `dev/init_backup/20261117_190642_UTC/g38.json`。 原 music-curri/index.html 已失效；現改指向藝術教育昔日課程文件頁，PDF=music_complete_guide_chi.pdf（153 版、36.5MB）。 | S146 batch2: text-layer = CID/custom-font garbage (cjk≈0) needs OCR. | S147 INGESTED: 雲端 vision OCR (gpt-4o, dev/ocr_extract.py concurrency+resume) 全 153 版 → +194 chunks (filler-collapse 修 oversized worksheet chunks)；加 SOURCE_SETS.curriculum allowlist。OCR 草稿質素、page-resolvable。⚠️ 2003 P1-S3 與 music_p1_s6_2024 (2024 P1-S6) 共存、monitor stale-ranking。",
       "freshness_metadata": {
         "last_modified": "Mon, 31 Aug 2026 08:09:11 GMT",
         "content_length": "1710",
@@ -939,7 +941,8 @@
           "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/arts-edu/curriculum-docs/mus-c-and-a-guide-2015-c.pdf"
         ],
         "acked_at": "2026-11-16"
-      }
+      },
+      "superseded_by": "music_p1_s6_2024"
     },
     {
       "source_id": "g39",
@@ -3346,14 +3349,14 @@
         "curriculum"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2021",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "moral_civic_curr"
       ],
-      "notes": "價值觀教育課程架構（試行版）；已回填 PDF 直連。",
+      "notes": "S252 退役（Leonard 2026-11-17 批准）：已有新版 `values_edu_framework_2026` 在庫，舊版片段已刪除；全欄位備份 `dev/init_backup/20261117_190642_UTC/values_edu_framework_2021_trial.json`。 價值觀教育課程架構（試行版）；已回填 PDF 直連。",
       "freshness_metadata": {
         "last_modified": "Fri, 02 Aug 2024 06:17:12 GMT",
         "content_length": "10859551",
@@ -3503,21 +3506,22 @@
         "curriculum"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2008",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
       "related_source_ids": [
         "moral_civic_curr"
       ],
-      "notes": "德育及公民教育課程架構（2008）修訂版，PDF 直連。S147：此 PDF 係掃描影像（8 版、無文字層、非 fetch_extract 可抽）→ 雲端 vision OCR（gpt-4o, dev/ocr_extract.py）→ Channel B 入庫 +13 chunks（content_type=vault_extract、OCR 草稿質素、page-resolvable）；已加入 backend SOURCE_SETS.curriculum allowlist。INGEST_GAP 舊標『可即入』係錯（只睇 url=.pdf 未驗文字層）。",
+      "notes": "S252 退役（Leonard 2026-11-17 批准）：已有新版 `values_edu_framework_2026` 在庫，舊版片段已刪除；全欄位備份 `dev/init_backup/20261117_190642_UTC/mce_framework_2008.json`。 德育及公民教育課程架構（2008）修訂版，PDF 直連。S147：此 PDF 係掃描影像（8 版、無文字層、非 fetch_extract 可抽）→ 雲端 vision OCR（gpt-4o, dev/ocr_extract.py）→ Channel B 入庫 +13 chunks（content_type=vault_extract、OCR 草稿質素、page-resolvable）；已加入 backend SOURCE_SETS.curriculum allowlist。INGEST_GAP 舊標『可即入』係錯（只睇 url=.pdf 未驗文字層）。",
       "freshness_metadata": {
         "last_modified": "Sun, 25 Nov 2012 16:27:04 GMT",
         "content_length": "2101772",
         "etag": "\"07c24b429cbcd1:0\"",
         "content_hash": "c0e23eae26a4fbce417409af31df8715cbf49e60a5987e28ab3bf8f1f0fa6342",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "superseded_by": "values_edu_framework_2026"
     },
     {
       "source_id": "chi_pri_guide_2023",
@@ -3936,19 +3940,20 @@
         "curriculum"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2007-2015-11",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "tech_curr_docs",
-      "notes": "高中 BAFS 課程及評估指引（2007，2015年11月更新）。PDF 直連已回填。",
+      "notes": "S252 退役（Leonard 2026-11-17 批准）：已有新版 `bafs_sss_2007_2020` 在庫，舊版片段已刪除；全欄位備份 `dev/init_backup/20261117_190642_UTC/bafs_sss_2007_2015.json`。 高中 BAFS 課程及評估指引（2007，2015年11月更新）。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Wed, 15 Nov 2023 03:33:03 GMT",
         "content_length": "3155567",
         "etag": "\"808162707417da1:0\"",
         "content_hash": "3e3003d9b5daa170130a9c982d00d163f50edf77086b70d2eeca76d12b7a4e91",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "superseded_by": "bafs_sss_2007_2020"
     },
     {
       "source_id": "bafs_sss_2007_2020",
@@ -4415,19 +4420,20 @@
         "curriculum"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2007-2015-11",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
-      "notes": "高中經濟課程及評估指引 2015 更新版。PDF 直連已回填。",
+      "notes": "S252 退役（Leonard 2026-11-17 批准）：已有新版 `econ_sss_2025` 在庫，舊版片段已刪除；全欄位備份 `dev/init_backup/20261117_190642_UTC/econ_sss_2007_2015.json`。 高中經濟課程及評估指引 2015 更新版。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Tue, 01 Dec 2015 03:20:14 GMT",
         "content_length": "2144382",
         "etag": "\"0eb9831e72bd11:0\"",
         "content_hash": "ecaf1fcf90ddf36943fc97f33f311468d4de7fbab72042fe58878c32f036bd30",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "superseded_by": "econ_sss_2025"
     },
     {
       "source_id": "econ_sss_supp_2015",
@@ -4443,19 +4449,20 @@
         "curriculum"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2015-11",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
-      "notes": "高中經濟補充文件 2015 版本。PDF 直連已回填。",
+      "notes": "S252 退役（Leonard 2026-11-17 批准）：已有新版 `econ_sss_supp_2025` 在庫，舊版片段已刪除；全欄位備份 `dev/init_backup/20261117_190642_UTC/econ_sss_supp_2015.json`。 高中經濟補充文件 2015 版本。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Mon, 30 Nov 2015 08:57:31 GMT",
         "content_length": "728344",
         "etag": "\"804f60254d2bd11:0\"",
         "content_hash": "46625cf69e47b2779a39bff3bef49a9e2a6061637b1ddbd08c5a05101d7bb037",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "superseded_by": "econ_sss_supp_2025"
     },
     {
       "source_id": "ethics_relig_sss_2024",
@@ -4499,19 +4506,20 @@
         "curriculum"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2007-2019-11",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
-      "notes": "舊版倫理與宗教課程及評估指引。PDF 直連已回填。",
+      "notes": "S252 退役（Leonard 2026-11-17 批准）：已有新版 `ethics_relig_sss_2024` 在庫，舊版片段已刪除；全欄位備份 `dev/init_backup/20261117_190642_UTC/ethics_relig_sss_2007_2019.json`。 舊版倫理與宗教課程及評估指引。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Tue, 28 May 2024 08:55:44 GMT",
         "content_length": "1591386",
         "etag": "\"0e8fdd2dcb0da1:0\"",
         "content_hash": "31c29d77c9ff75ce3cb3c57df88f4e77aed0833096a4a8f18601773d2606de45",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "superseded_by": "ethics_relig_sss_2024"
     },
     {
       "source_id": "religious_edu_jss_2024",
@@ -4807,19 +4815,20 @@
         "student"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2010",
       "last_checked_at": "2026-11-16",
       "supersedes": null,
       "parent_source_id": "pshe_curr_docs",
-      "notes": "生活與社會課程指引；2024/25 起逐步由 CES 課程取代。PDF 直連已回填。 | S195: upstream moved the file into the PSHE archive (archive/Life_and_Society/); old URL 404 since ~2026-06-29 (served-URL Issue #4). Re-anchored; content verified identical page-for-page against dev/vault/ls_jss_2010 (183/183 pages) so the 251 store chunks were re-pointed, NOT re-ingested. freshness_metadata cleared.",
+      "notes": "S252 退役（Leonard 2026-11-17 批准）：已有新版 `ces_jss_2024` 在庫，舊版片段已刪除；全欄位備份 `dev/init_backup/20261117_190642_UTC/ls_jss_2010.json`。 生活與社會課程指引；2024/25 起逐步由 CES 課程取代。PDF 直連已回填。 | S195: upstream moved the file into the PSHE archive (archive/Life_and_Society/); old URL 404 since ~2026-06-29 (served-URL Issue #4). Re-anchored; content verified identical page-for-page against dev/vault/ls_jss_2010 (183/183 pages) so the 251 store chunks were re-pointed, NOT re-ingested. freshness_metadata cleared.",
       "freshness_metadata": {
         "last_modified": "Mon, 13 Jul 2026 02:32:50 GMT",
         "content_length": "2133834",
         "etag": "\"0b5f9e56f12dd1:0\"",
         "content_hash": "cab643292ae94f63f299ef8076833edc80c8f26e5bdf7384963964a4f8f754cb",
         "hash_checked_at": "2026-11-16"
-      }
+      },
+      "superseded_by": "ces_jss_2024"
     },
     {
       "source_id": "arts_kla_guide_2017",
@@ -4923,19 +4932,20 @@
         "curriculum"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2015-11",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "arts_curr_docs",
-      "notes": "舊版高中音樂課程及評估指引。PDF 直連已回填。",
+      "notes": "S252 退役（Leonard 2026-11-17 批准）：已有新版 `music_sss_2024` 在庫，舊版片段已刪除；全欄位備份 `dev/init_backup/20261117_190642_UTC/music_sss_2015.json`。 舊版高中音樂課程及評估指引。PDF 直連已回填。",
       "freshness_metadata": {
         "last_modified": "Fri, 04 Dec 2015 09:30:32 GMT",
         "content_length": "1490414",
         "etag": "\"0eccb6b762ed11:0\"",
         "content_hash": "1fbd25331ecfbb34c57f53f40a143abaa2693f8e166ba01f8638fbe0cf3b13fb",
         "hash_checked_at": "2026-06-03"
-      }
+      },
+      "superseded_by": "music_sss_2024"
     },
     {
       "source_id": "music_national_anthem_2024",

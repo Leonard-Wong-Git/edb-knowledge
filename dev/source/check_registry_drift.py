@@ -68,15 +68,7 @@ SEARCH_TS = REPO_ROOT / "backend" / "src" / "api" / "searchChannelB.ts"
 # the same window. Each is a retirement candidate awaiting Leonard's decision — remove
 # the entry here when the source is retired (or routed).
 ROUTE_EXEMPT = {
-    "econ_sss_2007_2015": "superseded by econ_sss_2025",
-    "econ_sss_supp_2015": "superseded by econ_sss_supp_2025",
-    "ethics_relig_sss_2007_2019": "superseded by ethics_relig_sss_2024",
-    "music_sss_2015": "superseded by music_sss_2024",
-    "bafs_sss_2007_2015": "superseded by bafs_sss_2007_2020",
     "g33": "same document as eng_sss_guide_2021 (421 chunks each)",
-    "g07": "2014 basic-education guide; superseded by pri_curr_guide_2024",
-    "g15": "2002 PE KLA guide; superseded by pe_kla_2017",
-    "ls_jss_2010": "Life and Society (2010); replaced by ces_jss_2024",
     "g20": "one-chunk stub; sch_activities_guide carries the document",
 }
 

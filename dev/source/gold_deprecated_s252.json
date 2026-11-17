@@ -1,0 +1,86 @@
+[
+ {
+  "id": "cur_eight_kla",
+  "deprecated_on": "2026-11-17",
+  "deprecated_reason": "唯一答案來源 g07（2014 年基礎教育課程指引）已於 S252 退役（已有新版 pri_curr_guide_2024）。新版指引與 g13 有相近內容，但未逐段核實，故暫停而非改標。重新定標見工作清單。",
+  "replacement_id": null,
+  "original": {
+   "domain": "curriculum",
+   "query": "八個學習領域",
+   "query_kind": "plain",
+   "intent": "查本港學校課程劃分為哪八個學習領域",
+   "answerable": true,
+   "expected_source_any": [
+    "g07"
+   ],
+   "expected_passage_signature": [
+    "全面、均衡及連貫的課程，並獲得各種基要的學習經歷。本港學校課程劃分為八個學習領域"
+   ],
+   "expected_page": 403,
+   "acceptable_alternatives": [],
+   "forbidden_evidence": [],
+   "verified_by": {
+    "chunk_id": "vault_g07_1065f9efc247154f",
+    "method": "dev/_s213_corpus.py find",
+    "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+   },
+   "split": "dev"
+  }
+ },
+ {
+  "id": "cur_four_key_project_stages",
+  "deprecated_on": "2026-11-17",
+  "deprecated_reason": "唯一答案來源 g07（2014 年基礎教育課程指引）已於 S252 退役（已有新版 pri_curr_guide_2024）。新版指引與 g13 有相近內容，但未逐段核實，故暫停而非改標。重新定標見工作清單。",
+  "replacement_id": null,
+  "original": {
+   "domain": "curriculum",
+   "query": "專題研習 三個階段",
+   "query_kind": "plain",
+   "intent": "查專題研習（四個關鍵項目之一）分哪三個實施階段",
+   "answerable": true,
+   "expected_source_any": [
+    "g07"
+   ],
+   "expected_passage_signature": [
+    "專題研習可以分三個階段進行－開始構思的預備階段、進行探究的實施階段"
+   ],
+   "expected_page": 156,
+   "acceptable_alternatives": [],
+   "forbidden_evidence": [],
+   "verified_by": {
+    "chunk_id": "vault_g07_073756f79ba0f715",
+    "method": "dev/_s213_corpus.py find",
+    "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+   },
+   "split": "dev"
+  }
+ },
+ {
+  "id": "cur_moral_civic_values",
+  "deprecated_on": "2026-11-17",
+  "deprecated_reason": "唯一答案來源 g07（2014 年基礎教育課程指引）已於 S252 退役（已有新版 pri_curr_guide_2024）。新版指引與 g13 有相近內容，但未逐段核實，故暫停而非改標。重新定標見工作清單。",
+  "replacement_id": null,
+  "original": {
+   "domain": "curriculum",
+   "query": "德育及公民教育 責任感",
+   "query_kind": "plain",
+   "intent": "查德育及公民教育下培養學生責任感的取向",
+   "answerable": true,
+   "expected_source_any": [
+    "g07"
+   ],
+   "expected_passage_signature": [
+    "便能培養他們關心別人福祉、樂於助人和主動承擔責任的生活態度"
+   ],
+   "expected_page": 85,
+   "acceptable_alternatives": [],
+   "forbidden_evidence": [],
+   "verified_by": {
+    "chunk_id": "vault_g07_024a9164a778e448",
+    "method": "dev/_s213_corpus.py find",
+    "note": "簽名逐字取自該 chunk 的 cleaned text，find 全庫搜尋核實命中僅限 expected_source_any 來源；頁碼取自工具 dominant_page 輸出"
+   },
+   "split": "dev"
+  }
+ }
+]
