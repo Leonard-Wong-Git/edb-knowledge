@@ -42,7 +42,7 @@
 4. **Leonard 明示批准後**：在 `approved` 填上日期，再跑 `--execute`。工具會先備份到 `dev/init_backup/<時間>/`，逐條寫入並讀回；任何一條顯示 `FAIL` 就停，報告。
 5. **連結或頁碼要改**：加入 `dev/source/url_overrides.json`，跑 `dev/apply_url_overrides.py`（先預演，批准後 `--execute`）。
 6. **核對**：`dev/apply_footnote_corrections.py --check` 與 `dev/apply_url_overrides.py` 都應報 `to_change=0`。
-7. **線上驗證**：後端每 30 分鐘重讀註腳。寫入後等 30 分鐘，帶 `x-probe: 1`、`synthesize:false` 查一條會用到該註腳的問題，回傳的第一個結果應是新文字（S251 實測：內容已更新，但 `/health` 的 `footnote_loaded_at` 沒有跟著變，不要用它判斷）。
+7. **線上驗證**：後端每 30 分鐘重讀註腳。寫入後等 30 分鐘，帶 `x-probe: 1`、`synthesize:false` 查一條會用到該註腳的問題，回傳的第一個結果應是新文字（`/health` 本身不會觸發重讀，要有一次搜尋請求在 30 分鐘期滿後到達才會；所以先查問題、隔十秒再看 `/health`。S252 修正後 `footnote_loaded_at` 只記最後一次**成功**讀取的時間，重讀失敗時另有 `footnote_refresh_failed_at`；修正部署前的版本在重讀失敗時會顯示一個虛構的時間。另外免費層閒置約 15 分鐘就休眠，喚醒即重新載入，`started_at` 與 `footnote_loaded_at` 會一齊變新）。
 
 任何註腳入庫腳本以 `--execute` 跑過之後，**兩個工具都要再跑一次 `--execute`**（皆冪等），否則舊文字與舊頁碼會被寫回。
 
