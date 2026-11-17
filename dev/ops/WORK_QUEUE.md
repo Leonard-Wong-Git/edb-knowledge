@@ -132,7 +132,11 @@
   - `PHANTOM`：瀏覽條目指向的文件是否已由另一個 id 承載（`ROUTE_EXEMPT` 內有說明的屬此類）→建議移除重複的瀏覽條目。
 - **交付**：一份表（id、標題、片段數、建議、一句理由）交 Leonard 批准後才改 `app.html`；改後 README 的數目、`guidelines.json` 是否受影響，按 `dev/DOC_SYNC_CHECKLIST.md` 處理。
 
-### A14　10 份「瀏覽清單有、庫內沒有」的現行文件入庫　【Leonard 已批准（2026-11-17）｜中｜寫生產，逐份】
+### A14　10 份「瀏覽清單有、庫內沒有」的現行文件入庫　【9 份完成（2026-11-17，S252）；`staff_est_sp_sch_pri` 等 B1】
+
+- **結果**（S252）：9 份入庫，共 238 片段（17,084 → 17,322；來源 325），每份讀回數目與預演相同。路由：語文、數學、普通話入 `curriculum`（高中數學另入 `subject_guides`），公積金三份入 `hr_admin`。
+- **`staff_est_sp_sch_pri` 暫緩**：S204 撤出原因是入庫後令「12班小學有幾多個學位教師」連續答錯（答 12，正確 5）。恢復條件：B1（`FEATURE_SUBJECT_CHECK`）開啟後，以 `expand_vault.py --embed --force --sources staff_est_sp_sch_pri` 重入，並以同一問題測 3 次確認不再答錯。
+
 
 - **文件**：`chi_pri_lo_2023`、`chi_sec_lo_2021`、`ma_pri_content_2017`、`ma_jss_content_2017`、`ma_sss_content_2017`、`pth_guide_2017`、`gspf_general_info_2023`、`sspf_general_info_2023`、`pf_edu_ord_2013_faq`、`staff_est_sp_sch_pri`（後者 registry 原標 `held_back`，Leonard 2026-11-17 批准入庫）。
 - **做法**：一次一份，按 `dev/ops/playbooks/source-reingest.md` 或 Option A 入庫流程；每份入庫後確認它離開 PHANTOM、在 `SOURCE_SETS` 內（UNROUTED 0）、更新日誌加一條。部分未有 registry 項目，要先登記。
