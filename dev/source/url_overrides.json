@@ -1,9 +1,9 @@
 {
   "_meta": {
-    "note": "S249 — wiki_chunks.url 的逐片段覆寫（頁碼錨點／更正網址）。註腳的來源腳本（dev/forms_ingest.py 等）只有每個來源一條網址，重跑 --execute 會把這裏的網址蓋回去；重跑後必須再跑 dev/apply_url_overrides.py --execute。每條的頁碼已用 matched quote 對新版 PDF 逐頁核實（2026-11-16，兩次獨立核對）。 S250 補 28 條：原有 #page= 指錯頁（由註腳全量審核找出，原句經獨立核實在新頁、不在舊頁）。 S251 補 2 條：imc_tax_exempt_s88 頁碼 31→32；procurement_thresholds 由索引頁改指 Tips 文件第 2 頁。",
-    "count": 80,
+    "note": "S249 — wiki_chunks.url 的逐片段覆寫（頁碼錨點／更正網址）。註腳的來源腳本（dev/forms_ingest.py 等）只有每個來源一條網址，重跑 --execute 會把這裏的網址蓋回去；重跑後必須再跑 dev/apply_url_overrides.py --execute。每條的頁碼已用 matched quote 對新版 PDF 逐頁核實（2026-11-16，兩次獨立核對）。 S250 補 28 條：原有 #page= 指錯頁（由註腳全量審核找出，原句經獨立核實在新頁、不在舊頁）。 S251 補 2 條：imc_tax_exempt_s88 頁碼 31→32；procurement_thresholds 由索引頁改指 Tips 文件第 2 頁。 S252 補 1 條：g11_schooldays 由「擬定校曆表指引」索引頁改指該頁所連的《一般學校假期及上學日數的計算方法》PDF 第 1 頁（190／209／91 日三個數字皆在該頁，2026-11-17 核實）。",
+    "count": 81,
     "pending": {
-      "footnote_fn_ceg_no_tutorial": "原句不在所引的 CEG 計算方法 PDF；出處在 EOEBG User Guide 第 6 頁或 OEBG User Guide 第 7 頁，待 Leonard 選來源"
+      "footnote_fn_ceg_no_tutorial": "原句不在所引的 CEG 計算方法 PDF。S252 核實：「any additional salaries to their serving teachers from Capacity Enhancement Grant (CEG) for teaching tutorial classes」在 User Guide_EOEBG_2026_e.pdf 第 6 頁與 User Guide_OEBG_2026_e.pdf 第 7 頁（不准從該津貼支付的開支項目）。待 Leonard 選用哪一份（WORK_QUEUE B8）"
     }
   },
   "overrides": {
@@ -485,6 +485,12 @@
       "url": "https://www.edb.gov.hk/attachment/tc/sch-admin/fin-management/subsidy-info/tips-handling-gov-subventions/Tips%20on%20handling%20govt%20subventions%20for%20aided%20schools_c_2026.pdf#page=2",
       "was": "https://www.edb.gov.hk/en/sch-admin/fin-management/subsidy-info/tips-handling-gov-subventions/index.html",
       "basis": "採購物料及服務的財政限額、其相應安排及批核人員撮述如下（原連結只是索引頁，無金額）",
+      "confidence": "HIGH"
+    },
+    "footnote_fn_g11_schooldays": {
+      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/resource-support/guidelines-sch-calendar/Calculation_of_School_Holidays_and_School_Days_in_General_c.pdf#page=1",
+      "was": "https://www.edb.gov.hk/tc/curriculum-development/resource-support/guidelines-sch-calendar/index.html#page=1",
+      "basis": "全日制學校每學年的上學日數一般不應少於190日。由於半日制小學包括最少19日（即79÷2÷2）星期六長週上學日，因此全年上學日數不應少於209日（即190+19）。",
       "confidence": "HIGH"
     }
   }
