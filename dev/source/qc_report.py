@@ -46,6 +46,9 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent  # …/Draft
 REGISTRY = REPO_ROOT / "dev" / "source" / "source_registry.json"
+# S252 — the two authoritative per-chunk fix lists (footnote text, url/page).
+FOOTNOTE_CORRECTIONS = REPO_ROOT / "dev" / "source" / "footnote_corrections.json"
+URL_OVERRIDES = REPO_ROOT / "dev" / "source" / "url_overrides.json"
 EVAL_RUNS = REPO_ROOT / "dev" / "source" / "eval_runs"
 DEFAULT_OUT = REPO_ROOT / "qc_report.json"
 GATE_FILE = REPO_ROOT / "dev" / "source" / "release_gate.json"
@@ -105,6 +108,13 @@ BASELINE = {
     # fix (retirement candidates are held in check_registry_drift.ROUTE_EXEMPT, not
     # counted here), so ANY new one raises a qc-regression notification.
     "unrouted": 0,
+    # S252 — chunks whose text / url no longer matches the approved fix lists
+    # (dev/source/footnote_corrections.json, dev/source/url_overrides.json). Both
+    # were 0 on the live store on 2026-11-17. Re-running a footnote ingest script
+    # with --execute writes the OLD text and the per-source url back; before this
+    # check the only way to notice was to run the apply tools by hand.
+    "footnote_corrections_drift": 0,
+    "url_overrides_drift": 0,
 }
 
 # S248 — check id -> BASELINE key, for the checks whose `offender_total` IS the
@@ -116,6 +126,8 @@ BASELINE_OF = {
     "SOURCE_TITLE_REAL": "title_equals_slug",
     "PAGE_ANCHORED": "no_page_anchor",
     "REGISTRY_UNROUTED": "unrouted",
+    "FOOTNOTE_CORRECTIONS": "footnote_corrections_drift",
+    "URL_OVERRIDES": "url_overrides_drift",
     "NO_DUPLICATE_CHUNKS": "duplicate_groups",
     "NO_TOC_NOISE": "toc_noise",
     "NO_MIDCLAUSE_START": "midclause_start",
@@ -235,6 +247,7 @@ CHECK_GROUP = {
     "REGISTRY_ZOMBIE": "pointing", "REGISTRY_UNMANAGED": "pointing",
     "REGISTRY_PHANTOM": "pointing", "REGISTRY_UNLISTED": "pointing",
     "REGISTRY_UNROUTED": "pointing",
+    "FOOTNOTE_CORRECTIONS": "pointing", "URL_OVERRIDES": "pointing",
     "REGISTRY_SERIES": "pointing",
     "NO_DUPLICATE_CHUNKS": "chunk", "NO_TOC_NOISE": "chunk",
     "BODY_LENGTH_FLOOR": "chunk", "MOJIBAKE": "chunk",
@@ -372,6 +385,71 @@ def check_page_anchor(chunks: list[dict]) -> dict:
         "WARN", status,
         f"{phrase} · 這些片段只能把用戶帶到 PDF 首頁",
         [f"{s}（{n} 條）" for s, n in by_src.most_common()], len(bad))
+
+
+def load_fix_list(path: Path, key: str) -> dict | None:
+    """The `key` mapping of a fix-list file, or None when it cannot be read.
+
+    None is reported as NOT_MEASURED by the two checks below — an unreadable
+    list must not look like "nothing has drifted".
+    """
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    got = data.get(key) if isinstance(data, dict) else None
+    return got if isinstance(got, dict) else None
+
+
+def check_footnote_corrections(chunks: list[dict], corrections: dict | None) -> dict:
+    """S252 — every approved footnote correction is still what the store serves.
+
+    Same comparison as dev/apply_footnote_corrections.py --check: the chunk must
+    exist, be a footnote_curated row, carry exactly the listed text, and the
+    listed title when one is given.
+    """
+    label = "已批准的註腳更正仍然生效（片段文字與 footnote_corrections.json 相同）"
+    if corrections is None:
+        return mk_check("FOOTNOTE_CORRECTIONS", label, "ERROR", "NOT_MEASURED",
+                        "讀不到 dev/source/footnote_corrections.json")
+    by_id = {c.get("id"): c for c in chunks}
+    bad = []
+    for cid in sorted(corrections):
+        want, row = corrections[cid], by_id.get(cid)
+        if row is None:
+            bad.append(f"{cid}（庫內找不到）")
+        elif row.get("content_type") != "footnote_curated":
+            bad.append(f"{cid}（不是註腳片段）")
+        elif row.get("text") != want.get("text"):
+            bad.append(f"{cid}（文字不同）")
+        elif want.get("title") and row.get("title") != want["title"]:
+            bad.append(f"{cid}（標題不同）")
+    return mk_check(
+        "FOOTNOTE_CORRECTIONS", label, "ERROR", "PASS" if not bad else "FAIL",
+        f"{len(bad)} / {len(corrections)} 條與清單不同 · 多半是註腳入庫腳本重跑後舊文字被寫回；"
+        f"用 dev/apply_footnote_corrections.py 重新套用（先預演，批准後 --execute）",
+        bad, len(bad))
+
+
+def check_url_overrides(chunks: list[dict], overrides: dict | None) -> dict:
+    """S252 — every approved url / page override is still what the store serves."""
+    label = "已批准的連結與頁碼覆寫仍然生效（片段 url 與 url_overrides.json 相同）"
+    if overrides is None:
+        return mk_check("URL_OVERRIDES", label, "ERROR", "NOT_MEASURED",
+                        "讀不到 dev/source/url_overrides.json")
+    by_id = {c.get("id"): c for c in chunks}
+    bad = []
+    for cid in sorted(overrides):
+        row = by_id.get(cid)
+        if row is None:
+            bad.append(f"{cid}（庫內找不到）")
+        elif row.get("url") != overrides[cid].get("url"):
+            bad.append(f"{cid}（url 不同）")
+    return mk_check(
+        "URL_OVERRIDES", label, "ERROR", "PASS" if not bad else "FAIL",
+        f"{len(bad)} / {len(overrides)} 條與清單不同 · 多半是註腳入庫腳本重跑後每來源一條的網址被寫回；"
+        f"用 dev/apply_url_overrides.py 重新套用（不加參數即預演，批准後 --execute）",
+        bad, len(bad))
 
 
 def check_duplicates(chunks: list[dict]) -> dict:
@@ -952,6 +1030,10 @@ def build_report(chunks: list[dict], health: dict | None,
     checks.append(check_anchor_url(chunks))
     checks.append(check_title_real(chunks))
     checks.append(check_page_anchor(chunks))
+    checks.append(check_footnote_corrections(
+        chunks, load_fix_list(FOOTNOTE_CORRECTIONS, "corrections")))
+    checks.append(check_url_overrides(
+        chunks, load_fix_list(URL_OVERRIDES, "overrides")))
     # B. chunk 是否合乎標準
     checks.append(check_duplicates(chunks))
     checks.append(check_toc_noise(chunks))
@@ -1451,16 +1533,65 @@ def self_test() -> int:
           all(k in BASELINE for k in BASELINE_OF.values()))
     empty = [check_anchor_url([]), check_title_real([]), check_page_anchor([]),
              check_duplicates([]), check_toc_noise([]), check_midclause([]),
-             check_short_body([]), check_mojibake([])]
-    # S250 — REGISTRY_UNROUTED is the ninth: built by check_registry_drift (it needs
-    # the registry and the route sets, not just chunks), baseline 0.
-    check("BASELINE_OF covers exactly the eight chunk-level baseline checks plus "
+             check_short_body([]), check_mojibake([]),
+             check_footnote_corrections([], {}), check_url_overrides([], {})]
+    # S250 — REGISTRY_UNROUTED is built by check_registry_drift (it needs the
+    # registry and the route sets, not just chunks), baseline 0.
+    # S252 — plus the two fix-list checks (FOOTNOTE_CORRECTIONS, URL_OVERRIDES).
+    check("BASELINE_OF covers exactly the ten chunk-level baseline checks plus "
           "REGISTRY_UNROUTED, each counting 0 on an empty store",
           {c["id"] for c in empty} | {"REGISTRY_UNROUTED"} == set(BASELINE_OF)
           and all(c["offender_total"] == 0 for c in empty))
     check("a newly unrouted source IS listed (baseline 0, so one is already news)",
           build_regressions([mk_check("REGISTRY_UNROUTED", "l", "ERROR", "FAIL", "d",
                                       ["new_src"], 1)])[0]["over"] == 1)
+    # S252 — fix-list drift: 0 when the store matches the list, 1 per changed row.
+    fn_list = {"fn_a": {"text": "更正後的全文一", "title": "標題一"},
+               "fn_b": {"text": "更正後的全文二"}}
+    fn_rows = [{"id": "fn_a", "content_type": "footnote_curated",
+                "text": "更正後的全文一", "title": "標題一", "url": "u"},
+               {"id": "fn_b", "content_type": "footnote_curated",
+                "text": "更正後的全文二", "title": "任何標題", "url": "u"}]
+    ok = check_footnote_corrections(fn_rows, fn_list)
+    check("footnote corrections: store equal to the list counts 0 and passes",
+          ok["offender_total"] == 0 and ok["status"] == "PASS")
+    one = check_footnote_corrections(
+        [dict(fn_rows[0], text="更正前的全文一"), fn_rows[1]], fn_list)
+    check("footnote corrections: one changed text counts 1, fails and names the id",
+          one["offender_total"] == 1 and one["status"] == "FAIL"
+          and one["offenders"][0].startswith("fn_a"))
+    check("footnote corrections: a changed listed title counts 1",
+          check_footnote_corrections(
+              [dict(fn_rows[0], title="舊標題"), fn_rows[1]], fn_list)["offender_total"] == 1)
+    check("footnote corrections: a row missing from the store counts 1",
+          check_footnote_corrections(fn_rows[:1], fn_list)["offender_total"] == 1)
+    check("footnote corrections: an unreadable list is NOT_MEASURED, never a pass",
+          check_footnote_corrections(fn_rows, None)["status"] == "NOT_MEASURED")
+    check("footnote corrections drift IS announced (baseline 0)",
+          build_regressions([one])[0]["id"] == "FOOTNOTE_CORRECTIONS"
+          and build_regressions([one])[0]["over"] == 1 and build_regressions([ok]) == [])
+    uo_list = {"c1": {"url": "https://e.gov/a.pdf#page=3"},
+               "c2": {"url": "https://e.gov/b.pdf#page=7"}}
+    uo_rows = [{"id": "c1", "url": "https://e.gov/a.pdf#page=3"},
+               {"id": "c2", "url": "https://e.gov/b.pdf#page=7"}]
+    uok = check_url_overrides(uo_rows, uo_list)
+    check("url overrides: store equal to the list counts 0 and passes",
+          uok["offender_total"] == 0 and uok["status"] == "PASS")
+    uone = check_url_overrides(
+        [uo_rows[0], dict(uo_rows[1], url="https://e.gov/b.pdf")], uo_list)
+    check("url overrides: one changed url counts 1, fails and names the id",
+          uone["offender_total"] == 1 and uone["status"] == "FAIL"
+          and uone["offenders"][0].startswith("c2"))
+    check("url overrides: a row missing from the store counts 1",
+          check_url_overrides(uo_rows[:1], uo_list)["offender_total"] == 1)
+    check("url overrides: an unreadable list is NOT_MEASURED, never a pass",
+          check_url_overrides(uo_rows, None)["status"] == "NOT_MEASURED")
+    check("url overrides drift IS announced (baseline 0)",
+          build_regressions([uone])[0]["id"] == "URL_OVERRIDES"
+          and build_regressions([uok]) == [])
+    check("the real fix lists load (10 corrections, 80 overrides or more)",
+          len(load_fix_list(FOOTNOTE_CORRECTIONS, "corrections") or {}) >= 10
+          and len(load_fix_list(URL_OVERRIDES, "overrides") or {}) >= 80)
     check("qc-regression is a decision, not an alarm (the system still works)",
           ATTENTION_KINDS["qc-regression"][0] == "decision")
 
