@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-17T20:17:25Z",
+  "generatedAt": "2026-11-18T14:02:25Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 15828,
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-17T20:17:25Z",
+    "collectedAt": "2026-11-18T14:02:25Z",
     "items": [],
     "ignored_outside": 0
   },
@@ -195,7 +195,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=39b8968 · 啟動於 2026-11-17T20:17:15.743Z",
+      "detail": "ok=True · commit=39b8968 · 啟動於 2026-11-18T14:02:13.578Z",
       "offenders": [],
       "offender_total": 0
     },
@@ -400,7 +400,7 @@
       "severity": "ERROR",
       "status": "FAIL",
       "group": "measurable",
-      "detail": "S213 Phase 1 gold-set run · PASS=130 FAIL=36 RECORD_ONLY=19 errors=0 · 共 185 條 query · 量度自 2026-11-16_s250_gold_prod_after.json · 生產端點；⚠️ 另有更新的非生產 run（2026-11-16_s250_gold_subset20_after_local.json）未被採用",
+      "detail": "S213 Phase 1 gold-set run · PASS=132 FAIL=32 RECORD_ONLY=19 errors=0 · 共 183 條 query · 量度自 2026-11-18_s253_gold_prod_baseline.json · 生產端點",
       "offenders": [],
       "offender_total": 0
     },
@@ -410,7 +410,7 @@
       "severity": "ERROR",
       "status": "FAIL",
       "group": "measurable",
-      "detail": "chunk PASS=61 FAIL=105 · 斷言用文字簽名而非 chunk id（id 是 text 的 md5，每次重切都會變）",
+      "detail": "chunk PASS=61 FAIL=103 · 斷言用文字簽名而非 chunk id（id 是 text 的 md5，每次重切都會變）",
       "offenders": [],
       "offender_total": 0
     },
