@@ -39,6 +39,26 @@ When current work requires a log entry, record whether relevant older detail was
 
 <!-- ack:log-entry:start -->
 
+## 2026-11-18 Session 253 — 183 題新基線、A16 結案（無 2024 年版）、g08 標題更正、§4b 收緊
+
+- **ID:** S253（Opus 5.5）
+- **Summary:** 頂層 Kit 經 CLI 確認 0.4.7 已最新；開工轉 Draft，起手探針全綠。重跑 183 題生產基線；做 A16 時發現前提不成立（教育局沒有 2024 年版中文學習領域指引），結案並按 Leonard 批准更正 g08 誤標；按 Leonard 要求把「每項工作開始前提模型與 effort」寫入 §4b。
+- **Changed:** `dev/source/eval_runs/2026-11-18_s253_gold_prod_baseline.json`（新）、`dev/ops/AUTONOMY_FLOW.md` §4b、`dev/ops/WORK_QUEUE.md`（A16 結案、B1 門檻、D 部基線）、`dev/ops/NEXT_UPGRADE.md`（基線與門檻 130 → 132）、`dev/ops/decisions/2026-11-17_A13_superseded_editions.md`、`app.html`／`guidelines.json`／`dev/source/source_registry.json`（g08）、交接檔、本檔、`PROJECT_INDEX.md`、開場鏡像。
+- **Done:**
+  - **基線**：生產、`x-probe`、`synthesize:false`、每題 8 秒；主跑 2 題 `57014`，同一小時單獨重跑後併入。來源層 132／32、片段層 61／103、禁引 8。與 S250 逐題比：移出 2 題（兩層皆 FAIL）、2 題 FAIL → PASS、無 PASS → FAIL、片段層無變。
+  - **A16**：教育局課程文件頁（中、英文）只列 2017 年版；`g08` 是其示例頁，「2024」是頁面修訂日期。結案，生產零改動。
+  - **g08**：三處標題、簡稱、年份更正（`guidelines.json` 只改該項，`_meta` 不動）；`check_downstream_sync` `MUST_UPDATE` 0。
+- **QC:** 起手探針（見交接 `## Validation / QC` S253）；漂移 ERROR 類 0；`git grep` 舊標題 0 處。**未驗證**：g08 新標題未上線（待合併）。
+- **Evidence disposition:** 基線數字吸收入交接 `## Current Baseline` 6；A16 結論存 `WORK_QUEUE` A16 備註；本條作近期追溯。
+- **Sync:** 下游同步 `confirmed`（g08）；PROJECT_INDEX Branch／commit 已更新。
+- **Pending:** B1 決定；B 部其餘；A10、A12。
+- **Risks:** 不變（見交接 `## Risks / Blockers`）。
+- **Log maintenance:** not_applicable（條目數已達維護提示門檻，但本節無需要保存或續做的整理工作）。
+- **Opening-message mirror:** 由唯一開場區塊重生並讀回；全文不在本檔重複。
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-11-17 Session 252 — 工作清單大部分完成：自主運作四項、瀏覽清單與庫存對齊、9 份入庫、11 份舊版退役、題庫整理
 
 - **ID:** S252（Claude_20261117；接續 S251 同一對話，模型 Fable 5.2 → Opus 5.5）
