@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-18T14:02:25Z",
+  "generatedAt": "2026-11-18T19:47:32Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 15828,
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-18T14:02:25Z",
+    "collectedAt": "2026-11-18T19:47:32Z",
     "items": [],
     "ignored_outside": 0
   },
@@ -195,7 +195,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=39b8968 · 啟動於 2026-11-18T14:02:13.578Z",
+      "detail": "ok=True · commit=39b8968 · 啟動於 2026-11-18T19:47:17.877Z",
       "offenders": [],
       "offender_total": 0
     },
