@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-19T11:57:22Z",
+  "generatedAt": "2026-11-19T19:48:21Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 15856,
@@ -60,8 +60,18 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-19T11:57:22Z",
-    "items": [],
+    "collectedAt": "2026-11-19T19:48:21Z",
+    "items": [
+      {
+        "kind": "qc-regression",
+        "level": "decision",
+        "headline": "知識庫質素有項目變差",
+        "hint": "有質素檢查的數字高於基準，待你決定修正還是接受。",
+        "since": "2026-11-19T11:57:48Z",
+        "url": "https://github.com/Leonard-Wong-Git/edb-knowledge/issues/126",
+        "number": 126
+      }
+    ],
     "ignored_outside": 0
   },
   "regressions": [
@@ -209,7 +219,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=b6f57d0 · 啟動於 2026-11-19T11:57:06.920Z",
+      "detail": "ok=True · commit=b6f57d0 · 啟動於 2026-11-19T19:48:09.793Z",
       "offenders": [],
       "offender_total": 0
     },
