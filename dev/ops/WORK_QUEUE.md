@@ -132,15 +132,21 @@
   - `PHANTOM`：瀏覽條目指向的文件是否已由另一個 id 承載（`ROUTE_EXEMPT` 內有說明的屬此類）→建議移除重複的瀏覽條目。
 - **交付**：一份表（id、標題、片段數、建議、一句理由）交 Leonard 批准後才改 `app.html`；改後 README 的數目、`guidelines.json` 是否受影響，按 `dev/DOC_SYNC_CHECKLIST.md` 處理。
 
-### A14　10 份「瀏覽清單有、庫內沒有」的現行文件入庫　【9 份完成（2026-11-17，S252）；`staff_est_sp_sch_pri` 等 B1】
+### A14　10 份「瀏覽清單有、庫內沒有」的現行文件入庫　【✅ 完成（9 份 2026-11-17 S252；`staff_est_sp_sch_pri` 2026-11-19 S254）】
 
 - **結果**（S252）：9 份入庫，共 238 片段（17,084 → 17,322；來源 325），每份讀回數目與預演相同。路由：語文、數學、普通話入 `curriculum`（高中數學另入 `subject_guides`），公積金三份入 `hr_admin`。
-- **`staff_est_sp_sch_pri` 暫緩**：S204 撤出原因是入庫後令「12班小學有幾多個學位教師」連續答錯（答 12，正確 5）。恢復條件：B1（`FEATURE_SUBJECT_CHECK`）開啟後（**S254 已開，條件已滿足；重入屬生產寫入，仍要 Leonard 批准**），以 `expand_vault.py --embed --force --sources staff_est_sp_sch_pri` 重入，並以同一問題測 3 次確認不再答錯。
+- **`staff_est_sp_sch_pri`（S254 完成，Leonard 批准）**：28 片段入庫（15,828 → 15,856；來源 315），PHANTOM 1 → 0。「12班小學有幾多個學位教師」生產 3/3 答 5 名。**更正原卡前提**：`FEATURE_SUBJECT_CHECK` 擋不住 S204 那次錯答（問題判為「教師」，特殊學校表亦提及教師，故通過）；這次不再答錯，是因為 `staff_est_pri` 現排第 1（S204 時排第 6）。若日後 `staff_est_pri` 跌出前五，錯答可能重現 —— 回退：按 source_id 刪這 28 列（入庫前 0 列，備份 `dev/init_backup/20261119_114957_UTC/`）。**未解**：「特殊學校小學部有幾多個學位教師」被 `sen` 路由（關鍵字「特殊學校」）攔走，`sen` 清單無此表，取不到；見 A18。
 
 
 - **文件**：`chi_pri_lo_2023`、`chi_sec_lo_2021`、`ma_pri_content_2017`、`ma_jss_content_2017`、`ma_sss_content_2017`、`pth_guide_2017`、`gspf_general_info_2023`、`sspf_general_info_2023`、`pf_edu_ord_2013_faq`、`staff_est_sp_sch_pri`（後者 registry 原標 `held_back`，Leonard 2026-11-17 批准入庫）。
 - **做法**：一次一份，按 `dev/ops/playbooks/source-reingest.md` 或 Option A 入庫流程；每份入庫後確認它離開 PHANTOM、在 `SOURCE_SETS` 內（UNROUTED 0）、更新日誌加一條。部分未有 registry 項目，要先登記。
 - **驗收**：`check_registry_drift.py --check` 的 PHANTOM 由 10 降至 0；每份以一條相關短查詢在生產取得該文件。
+
+### A18　「特殊學校小學部編制」問法取不到 `staff_est_sp_sch_pri`　【S254 新增；未做】
+
+- **現象**：問題含「特殊學校」即觸發 `sen` 路由（`searchChannelB.ts` `TOPIC_KEYWORDS.sen`），`sen` 的 `SOURCE_SETS` 無此表，生產前八段不含本表；以全標題「資助特殊學校小學部教學人員編制」查則取得（第 3、4 段）。
+- **做法**：把 `staff_est_sp_sch_pri` 加入 `sen` 清單；改前改後跑 `route_regression` 與受影響題，並查「12班小學有幾多個學位教師」仍答 5 名。屬 `backend/` 改動，要部署。
+- **驗收**：「特殊學校小學部有幾多個學位教師」生產前五段含本表。
 
 ### A15　重新定標 3 條暫停的題庫題目　【✅ 完成（2026-11-17，S252）；題庫回到 185 題】
 

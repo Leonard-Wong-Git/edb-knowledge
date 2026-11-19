@@ -8,7 +8,7 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 
 --- 專案狀態（S253 收工, 2026-11-18；S254 checkpoint 2026-11-19 更新旗標與下一步）---
 
-平台 v3.3.16；Supabase 15,828 chunks（314 來源；footnote_curated 177）；EDB 指引書庫 241 份；guidelines.json 公開端點 151 份（_meta 2.6.2，凍結合約）。
+平台 v3.3.16；Supabase 15,856 chunks（315 來源；footnote_curated 177）；EDB 指引書庫 241 份；guidelines.json 公開端點 151 份（_meta 2.6.2，凍結合約）。
 Agent Handoff Kit v0.4.7。
 origin/main = 981d6b8 或之後；線上 /health commit = 39b8968（開工以 /health 核實）。
 開著的 PR：#70（內容已入 main，關閉前先問 Leonard）；S253 的 PR #124 已合併（g08 新標題已在線上讀回，S254）。S254 分支 s254-subject-check-on（文件更新，合併待 Leonard 指示）。
@@ -25,7 +25,7 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    g08 標題三處更正；§4b 規則收緊。
 
 🚀 下一步：
-   ① 請 Leonard 批准 staff_est_sp_sch_pri 重新入庫（WORK_QUEUE A14；B1 已於 S254 開啟，前提已滿足）。
+   ① 請 Leonard 決定合併 PR #125（S254：B1 已開、staff_est_sp_sch_pri 已入庫 28 片段）；其後 A18 特殊學校編制問法路由。
    ② 其餘 B 部決定：B2 餘項；B3–B8、B10–B14。
    ③ A10 清理本機分支（要批准）；A12 報錯按鈕（要表單連結）；定期系統更新檢查約 2026-12-17。
 
@@ -41,7 +41,7 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    · 抽取與入庫一律用 /usr/local/bin/python3。
 
 Post-startup first action: 按 dev/ops/playbooks/health-probe.md 做起手探針（可交最平的模型，唯讀）：
-版本應為 3.3.16；/health commit 應為 39b8968 或之後改 backend 的 commit；片段數 15,828、來源 314；
+版本應為 3.3.16；/health commit 應為 39b8968 或之後改 backend 的 commit；片段數 15,856、來源 315（#125 合併前 Pages 仍顯示 15,828／314）；
 登記漂移 ZOMBIE／SERIES_UNMONITORED／UNMANAGED／UNROUTED 應為 0；apply_url_overrides.py（dry-run）與 apply_footnote_corrections.py --check 皆應報 to_change=0；
 dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告，然後做 ①。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次、不得合併 PR。
