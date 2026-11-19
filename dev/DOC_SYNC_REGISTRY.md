@@ -29,6 +29,14 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-11-19 — S254（`FEATURE_SUBJECT_CHECK` 生產開啟與量度）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| 旗標生產狀態改變（Render 環境變數） | `confirmed` | Leonard 設 `=1`；生產帶合成實查 3 條核實生效；`backend/README.md` 旗標表、`dev/SYSTEM_OVERVIEW.md`、`dev/ops/AUTONOMY_FLOW.md`、`NEXT_UPGRADE.md`、`WORK_QUEUE.md` B1、`SUBJECT_CHECK_DESIGN.md` 狀態行＋第九節已同步；碼內預設仍關（`.env.example`、`CODEBASE_CONTEXT.md`、`PROJECT_INDEX.md` 寫「預設關閉」仍正確，不改） |
+| 量度紀錄 | `confirmed` | `dev/source/eval_runs/2026-11-19_s254_subject_live.json`（summary 在 `_meta`，QC `is_gold_eval` 會略過，不影響 `EVAL_LATEST`） |
+| `backend/src`／Supabase／公開數字／版本號 | `not_applicable` | 零程式碼、零生產資料寫入、零部署 |
+
 ### 2026-11-16 — S250（科目指引新路由 ＋ UNROUTED 檢查 ＋ 自動運作流程 ＋ 註腳審核）
 
 | Row | 狀態 | 備註 |

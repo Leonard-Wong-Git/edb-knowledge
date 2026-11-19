@@ -55,7 +55,7 @@ SUPABASE_ANON_KEY=your_supabase_anon_key
 |---|---|---|---|
 | `FEATURE_ROUTE_FIRST_SEARCH` | 關 | 路由命中時先按路由的來源清單過濾，再做精確向量排名 | **已開** |
 | `FEATURE_CIRCULAR_NUMBER_LOOKUP` | 關 | 查詢指明通函／通告編號時，直接取該份文件的段落放在最前 | **已開** |
-| `FEATURE_SUBJECT_CHECK` | 關 | 合成前核對問題所問的對象是否出現在合成窗內，沒有即拒答 | 未開——已部署，待 Leonard 決定 |
+| `FEATURE_SUBJECT_CHECK` | 關 | 合成前核對問題所問的對象是否出現在合成窗內，沒有即拒答 | **生產已開**（S254，2026-11-19 Leonard 在 Render 設 `=1`） |
 | `FEATURE_GROUNDED_SYNTHESIS` | 關 | 合成只可引用逐字的文件節錄，沒有第一手證據即拒答 | 未開 |
 | `FEATURE_EXACT_WINDOW_NARROW` | 關 | 把合成窗收窄至 lexical-exact 路由指明的來源 | 未開 |
 | `FEATURE_QUERY_FUSION` | 關 | 原句與展開句各搜一次再交替合併 | 未開——**不應啟用**：已量度並判定不出貨（S239） |

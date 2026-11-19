@@ -6,14 +6,14 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S253 收工, 2026-11-18）---
+--- 專案狀態（S253 收工, 2026-11-18；S254 checkpoint 2026-11-19 更新旗標與下一步）---
 
 平台 v3.3.16；Supabase 15,828 chunks（314 來源；footnote_curated 177）；EDB 指引書庫 241 份；guidelines.json 公開端點 151 份（_meta 2.6.2，凍結合約）。
 Agent Handoff Kit v0.4.7。
 origin/main = 981d6b8 或之後；線上 /health commit = 39b8968（開工以 /health 核實）。
-開著的 PR：S253 分支 s253-baseline-and-rules（合併待 Leonard 指示；g08 標題更正要合併後才上線）、#70（內容已入 main，關閉前先問 Leonard）。
+開著的 PR：#70（內容已入 main，關閉前先問 Leonard）；S253 的 PR #124 已合併（g08 新標題已在線上讀回，S254）。S254 分支 s254-subject-check-on（文件更新，合併待 Leonard 指示）。
 Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
-FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 未設＝關閉。
+FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1、FEATURE_SUBJECT_CHECK=1（S254 開）；FEATURE_QUERY_FUSION 未設＝關閉。
 public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
 檢索基線（S253，183 題，生產）：來源層 132／32、片段層 61／103（dev/source/eval_runs/2026-11-18_s253_gold_prod_baseline.json）。
 
@@ -25,7 +25,7 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    g08 標題三處更正；§4b 規則收緊。
 
 🚀 下一步：
-   ① 請 Leonard 決定 B1（開 FEATURE_SUBJECT_CHECK）；開後照 NEXT_UPGRADE §4 量度，來源層低於 132 即請他關回。
+   ① 請 Leonard 批准 staff_est_sp_sch_pri 重新入庫（WORK_QUEUE A14；B1 已於 S254 開啟，前提已滿足）。
    ② 其餘 B 部決定：B2 餘項；B3–B8、B10–B14。
    ③ A10 清理本機分支（要批准）；A12 報錯按鈕（要表單連結）；定期系統更新檢查約 2026-12-17。
 

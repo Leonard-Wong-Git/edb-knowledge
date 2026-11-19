@@ -135,7 +135,7 @@
 ### A14　10 份「瀏覽清單有、庫內沒有」的現行文件入庫　【9 份完成（2026-11-17，S252）；`staff_est_sp_sch_pri` 等 B1】
 
 - **結果**（S252）：9 份入庫，共 238 片段（17,084 → 17,322；來源 325），每份讀回數目與預演相同。路由：語文、數學、普通話入 `curriculum`（高中數學另入 `subject_guides`），公積金三份入 `hr_admin`。
-- **`staff_est_sp_sch_pri` 暫緩**：S204 撤出原因是入庫後令「12班小學有幾多個學位教師」連續答錯（答 12，正確 5）。恢復條件：B1（`FEATURE_SUBJECT_CHECK`）開啟後，以 `expand_vault.py --embed --force --sources staff_est_sp_sch_pri` 重入，並以同一問題測 3 次確認不再答錯。
+- **`staff_est_sp_sch_pri` 暫緩**：S204 撤出原因是入庫後令「12班小學有幾多個學位教師」連續答錯（答 12，正確 5）。恢復條件：B1（`FEATURE_SUBJECT_CHECK`）開啟後（**S254 已開，條件已滿足；重入屬生產寫入，仍要 Leonard 批准**），以 `expand_vault.py --embed --force --sources staff_est_sp_sch_pri` 重入，並以同一問題測 3 次確認不再答錯。
 
 
 - **文件**：`chi_pri_lo_2023`、`chi_sec_lo_2021`、`ma_pri_content_2017`、`ma_jss_content_2017`、`ma_sss_content_2017`、`pth_guide_2017`、`gspf_general_info_2023`、`sspf_general_info_2023`、`pf_edu_ord_2013_faq`、`staff_est_sp_sch_pri`（後者 registry 原標 `held_back`，Leonard 2026-11-17 批准入庫）。
@@ -204,7 +204,7 @@
 
 | # | 問題 | 建議 | 答「好」之後 |
 |---|---|---|---|
-| B1 | 要不要開啟「答錯對象」的攔截（`FEATURE_SUBJECT_CHECK`）？現時已知 5 條會把別類人的規則套到所問的人身上，開啟可攔 3 條。 | 開。條件是開啟後重跑 183 題，來源層 PASS 不少於 132（S253 基線）；少於即關回。 | Leonard 在 Render 加環境變數（只有他改得到）。之後按 `backend/scripts/_s236_subjectCheck.ts --live` 與 183 題量度比對，把結果寫入交接檔。 |
+| B1 | ✅ 完成（2026-11-19，S254）：Leonard 在 Render 設 `FEATURE_SUBJECT_CHECK=1`。`--live` 254 題攔 7 題、誤攔應答題 0、gold 0；生產實查攔截句出現、老師對照題照答。原寫「183 題來源層 ≥132」準則量不到此旗標（183 題不經合成），已於 `NEXT_UPGRADE.md` §4 更正。 | —— | —— |
 | B2 | （S252 已退役其中 8 份及另外 3 份舊版，見 A13 決定表）餘下：重複的 `g33`、`g20` 與 `EDBC_9_2019_E`，要不要退役（刪除生產片段）？ | 退役。舊版留在庫內會令用戶搜到過時內容。 | 逐個來源：備份（`select=*`）→ 預演 → 刪除 → `live_display_sync` → `update_log.json` → registry 標為 deprecated → `check_downstream_sync` `MUST_UPDATE` 為 0。一次只做一個來源，每個都要 Leonard 看過預演數目。 |
 | B3 | 統計來源（19 個／569 片段）設計上搜不到，但每次更新都要人手重新入庫。開放搜尋，還是停止維護？ | 先查近 180 日搜尋紀錄有沒有人問統計數字（結果只口頭報告，不寫入 git）。沒有人問就停止維護並退役。 | 開放：改 `include_statistical` 的預設，屬檢索改動，要 185 題改前改後量度。停止：按 B2 的步驟退役。 |
 | B4 | 題庫題目 `cur_arts_guide_2002_missing` 的前提已過時（它假設某份文件在庫，現已不成立），要不要更新？ | 更新。 | 改題目的禁引清單，跑 `_s213_validate_gold.py`。 |

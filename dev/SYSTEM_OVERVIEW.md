@@ -27,7 +27,7 @@ PDF／網頁／試算表  新通告自動，其餘人手                    模�
 
 ## 2. 困境與缺點（已知、已量度）
 
-1. **答錯對象**：窗內有別類人的同類規則時，合成器會把它套到所問的人身上；生產已知漏判 5 條。對象核對 v1 已部署，旗標 `FEATURE_SUBJECT_CHECK` 未開。設計見 `dev/source/SUBJECT_CHECK_DESIGN.md`。
+1. **答錯對象**：窗內有別類人的同類規則時，合成器會把它套到所問的人身上；生產已知漏判 5 條。對象核對 v1 已部署，旗標 `FEATURE_SUBJECT_CHECK` **生產已開**（S254，2026-11-19 Leonard 在 Render 設 `=1`）。設計見 `dev/source/SUBJECT_CHECK_DESIGN.md`。
 2. **找對文件、找錯段落**：185 題基線，Source Recall@5 0.711，Chunk Recall@5 0.349。
 3. **忽快忽慢**：Render／Supabase 剛喚醒時首次查詢會逾時（`57014`），冷熱落差 58–90 倍，屬平台層。
 4. **人手待辦積壓**：來源更新 0 項（S249 由 35 項清至 0）、欠頁碼連結 1 條（`PAGE_ANCHORED`，S249 由 51 減至 1）、瀏覽清單與庫不一致 `PHANTOM` 36／`UNLISTED` 119。

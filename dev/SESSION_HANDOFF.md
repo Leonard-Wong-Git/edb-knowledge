@@ -20,7 +20,7 @@
 2. **知識庫**：Supabase **15,828** chunks、**314** 來源（2026-11-17 S252 實測）。`footnote_curated` 177。EDB 指引書庫 **241** 份（S252：加 77、移 7 舊版、退役 11）。逐片段 `url` 覆寫 81 條在 `dev/source/url_overrides.json`；註腳內容更正 10 條在 `dev/source/footnote_corrections.json`；每日 `qc_report` 會報兩者被蓋回（S252 A1）；註腳出處每月機械核對 164 條（S252 A2）。註腳入庫腳本以 `--execute` 重跑後，必須再跑 `dev/apply_url_overrides.py --execute` 與 `dev/apply_footnote_corrections.py --execute`。
 3. **Registry 漂移**（2026-11-17 實測）：`ZOMBIE`／`UNMANAGED`／`SERIES_UNMONITORED`／`UNROUTED` 皆 0；`PHANTOM` **1**（`staff_est_sp_sch_pri`，等 B1）；`UNLISTED` **0**。「只供瀏覽」19 項與「按設計不列」42 項寫在 `check_registry_drift.BROWSE_ONLY`／`UNLISTED_BY_DESIGN`（各附理由）。`ROUTE_EXEMPT` 只餘 `g33`、`g20`（重複，B2）。Freshness 待處理 0，PDF 逐頁文字相同者排程自動確認（S252 A3）。
 4. **Git 與部署**（2026-11-18 S253 收工實測）：`origin/main` = `981d6b8`（S252 收工 PR #123 已合併為 `7f02200`，其後一個 QC 機械人 commit）；線上 `/health` commit = `39b8968`（之後沒有改到 `backend/`）。`main` 受 ruleset 保護，一切改動走 PR，合併只在 Leonard 明示時進行。開著的 PR：S253 分支 `s253-baseline-and-rules`（工作與收工同一 PR，合併待 Leonard 指示）、#70（內容早已入 `main`，關閉前先問 Leonard）。判斷線上是否落後看 `git diff --name-only <部署commit>..origin/main -- backend`，不要比 hash。入庫或退役 PR 會改 `SOURCE_SETS`，合併後 Render 重新部署。`/health` 的 `footnote_loaded_at` 只記成功讀取，失敗另見 `footnote_refresh_failed_at`（S252 A7）。
-5. **模型與旗標**：合成與判官皆 `gpt-6-luna`＋`none`（碼內預設，Render 無 `OPENAI_MODEL`）。生產已開：`FEATURE_ROUTE_FIRST_SEARCH`、`FEATURE_CIRCULAR_NUMBER_LOOKUP`。已部署未開：`FEATURE_SUBJECT_CHECK`（待 Leonard 決定）。**不應啟用**（皆已量度並判定不出貨）：`FEATURE_QUERY_FUSION`、`FEATURE_VAULT_GATE_RAWVEC`、`MAX_PER_SOURCE`、`FEATURE_LEXICAL_RERANK`、`FAMILY_QUOTA`、`EXPANSION_MIN_QUERY_CHARS`／`EXPANSION_BALANCE`／`EXPANSION_REPEAT_CAP`。`/health` 不報旗標。
+5. **模型與旗標**：合成與判官皆 `gpt-6-luna`＋`none`（碼內預設，Render 無 `OPENAI_MODEL`）。生產已開：`FEATURE_ROUTE_FIRST_SEARCH`、`FEATURE_CIRCULAR_NUMBER_LOOKUP`、`FEATURE_SUBJECT_CHECK`（S254，2026-11-19；`--live` 254 題誤攔 0，見 `dev/source/SUBJECT_CHECK_DESIGN.md` 第九節）。**不應啟用**（皆已量度並判定不出貨）：`FEATURE_QUERY_FUSION`、`FEATURE_VAULT_GATE_RAWVEC`、`MAX_PER_SOURCE`、`FEATURE_LEXICAL_RERANK`、`FAMILY_QUOTA`、`EXPANSION_MIN_QUERY_CHARS`／`EXPANSION_BALANCE`／`EXPANSION_REPEAT_CAP`。`/health` 不報旗標。
 6. **監察與檢索基線**：偵測型監察有新項目才 @Leonard；質素檢查高於基準時開 `qc-regression` Issue 並 @Leonard；7 個排程 workflow 由每日看門狗監察，另有 `live_probe` 每 6 小時探測線上服務；四條 ledger workflow 經 deploy key 推。**檢索基線（S253 生產，183 題，2026-11-18）：來源層 PASS 132／FAIL 32（RECORD_ONLY 19），片段層 61／103，禁引 8，errors 0**（`dev/source/eval_runs/2026-11-18_s253_gold_prod_baseline.json`；主跑 2 題 `57014` 同一小時單獨重跑後併入）。與 S250（185 題，130／36、61／105）逐題比：移出的 2 題兩層皆 FAIL；2 題來源層 FAIL → PASS（`cur_eight_kla`、`cur_moral_civic_values`）；無 PASS → FAIL；片段層逐題無變。另有獨立題集 `dev/_s252_gold_subject_guides.json`（10 題，結果在 `dev/source/gold_baselines/`）。重跑噪音：片段層 0、來源層 ±1。路由共 28 條（S250 新增 `subject_guides`）。運作流程與程序見 `dev/ops/AUTONOMY_FLOW.md`。各項詳情見 `dev/SESSION_STATE_DETAIL.md`。
 
 > 詳情與證據：`dev/SESSION_STATE_DETAIL.md`（做到該項才讀）；改寫前原文：`dev/archive/SESSION_HANDOFF_HISTORY_2026-11-15.md` E 節。
@@ -49,7 +49,7 @@
 <!-- ack:section:risks-blockers -->
 ## Risks / Blockers
 
-1. 🔴 **對象錯置**：窗內有別類人的同類規則時，判官放行，合成器會把它套到所問的人身上；生產已知漏判 5 條。v1 對象核對已部署，`FEATURE_SUBJECT_CHECK` 未開。換判官模型、改提示、擴詞表皆已證無效。設計見 `dev/source/SUBJECT_CHECK_DESIGN.md`。
+1. 🔴 **對象錯置**：窗內有別類人的同類規則時，判官放行，合成器會把它套到所問的人身上；生產已知漏判 5 條。v1 對象核對 `FEATURE_SUBJECT_CHECK` 已於 S254 生產開啟（攔下 SX01、HX09 一類；SX03、HX07 一類仍看不到）。換判官模型、改提示、擴詞表皆已證無效。設計見 `dev/source/SUBJECT_CHECK_DESIGN.md`。
 2. ⚠️ **量度紀律**：本機比生產慢約 1.5–2 秒，本機數字只可排序；後端用 anon key（`statement_timeout` 3 秒），本機量度前先確認用的是哪個 key；比較兩份文件必須用同一抽取器並設對照組。生產 gold 有 4 條 `57014` 逾時，再升要當容量問題查。
 3. ⚠️ **入庫寫入路徑**：Option A 同一次運行批准兩份以上，第二份的 PR 必然衝突（Supabase 已寫入而 `main` 落後）；`LEDGER_DEPLOY_KEY` 等同可直接寫 `main` 的鑰匙；`backend_build_check.yml` 不得加回 `paths:` 過濾。開工與 push 前一定要 `git fetch` 後比對。
 4. ⚠️ **本機 Python 環境分裂**：抽取與入庫指令一律寫 `/usr/local/bin/python3`；破壞性步驟前先跑 `--dry-run` 確認依賴齊全。
@@ -173,11 +173,11 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:next-priorities -->
 ## Open Priorities
 
-Recommended next step: 請 Leonard 決定 B1（開 `FEATURE_SUBJECT_CHECK`）— 理由：S253 基線已完成、A16 已結案，A 部餘下的 A10、A12 都要 Leonard 先給批准或資料；B1 是 `dev/ops/NEXT_UPGRADE.md` 第 1 階段，程式已部署，開啟後可攔部分「答錯對象」，亦是 `staff_est_sp_sch_pri` 入庫的前提。開啟由 Leonard 在 Render 加環境變數；之後照 NEXT_UPGRADE §4 跑 `backend/scripts/_s236_subjectCheck.ts --live` 與 183 題，來源層低於 132 即請他關回（S253 基線，取代 §4 原寫的 130）。
+Recommended next step: 請 Leonard 批准 `staff_est_sp_sch_pri` 重新入庫（`WORK_QUEUE` A14）— 理由：B1 已於 S254 開啟（誤攔 0），入庫的前提已滿足；做法與驗收見 A14（重入後以「12班小學有幾多個學位教師」測 3 次）。屬生產寫入，先預演、先備份。
 
 做事規則：`dev/ops/WORK_QUEUE.md`（所有待辦的逐項做法）、`dev/ops/AUTONOMY_FLOW.md` §4a／§4b（**每項工作開始前**主動告訴 Leonard 建議的模型與 effort）。
 
-1. **B1 決定**：見上。
+1. **A14 `staff_est_sp_sch_pri` 入庫**：見上。（B1 ✅ S254 已開。）
 2. **其餘待 Leonard 決定**（`WORK_QUEUE` B 部）：B2 餘項 `g33`、`g20`、`EDBC_9_2019_E` 退役；B3 統計來源；B4–B8、B10–B14。
 3. **檢索問題（記錄，未處理）**：「持份者問卷」「KG 收生」「2027/28 K1取錄結果何時通知」「初中數學 學習內容」未取回答案文件；屬 `dev/ops/NEXT_UPGRADE.md` 範圍，沒有較強模型或 Leonard 明示時不做。
 4. **A10 清理本機分支**（要批准刪除）；**A12 報錯按鈕**（要 Leonard 提供表單連結）；定期系統更新檢查下次約 2026-12-17。
@@ -410,14 +410,14 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S253 收工, 2026-11-18）---
+--- 專案狀態（S253 收工, 2026-11-18；S254 checkpoint 2026-11-19 更新旗標與下一步）---
 
 平台 v3.3.16；Supabase 15,828 chunks（314 來源；footnote_curated 177）；EDB 指引書庫 241 份；guidelines.json 公開端點 151 份（_meta 2.6.2，凍結合約）。
 Agent Handoff Kit v0.4.7。
 origin/main = 981d6b8 或之後；線上 /health commit = 39b8968（開工以 /health 核實）。
-開著的 PR：S253 分支 s253-baseline-and-rules（合併待 Leonard 指示；g08 標題更正要合併後才上線）、#70（內容已入 main，關閉前先問 Leonard）。
+開著的 PR：#70（內容已入 main，關閉前先問 Leonard）；S253 的 PR #124 已合併（g08 新標題已在線上讀回，S254）。S254 分支 s254-subject-check-on（文件更新，合併待 Leonard 指示）。
 Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
-FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1；FEATURE_QUERY_FUSION、FEATURE_SUBJECT_CHECK 未設＝關閉。
+FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1、FEATURE_SUBJECT_CHECK=1（S254 開）；FEATURE_QUERY_FUSION 未設＝關閉。
 public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
 檢索基線（S253，183 題，生產）：來源層 132／32、片段層 61／103（dev/source/eval_runs/2026-11-18_s253_gold_prod_baseline.json）。
 
@@ -429,7 +429,7 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    g08 標題三處更正；§4b 規則收緊。
 
 🚀 下一步：
-   ① 請 Leonard 決定 B1（開 FEATURE_SUBJECT_CHECK）；開後照 NEXT_UPGRADE §4 量度，來源層低於 132 即請他關回。
+   ① 請 Leonard 批准 staff_est_sp_sch_pri 重新入庫（WORK_QUEUE A14；B1 已於 S254 開啟，前提已滿足）。
    ② 其餘 B 部決定：B2 餘項；B3–B8、B10–B14。
    ③ A10 清理本機分支（要批准）；A12 報錯按鈕（要表單連結）；定期系統更新檢查約 2026-12-17。
 
