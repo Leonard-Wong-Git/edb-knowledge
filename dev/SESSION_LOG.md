@@ -39,6 +39,26 @@ When current work requires a log entry, record whether relevant older detail was
 
 <!-- ack:log-entry:start -->
 
+## 2026-11-19 Session 254 — FEATURE_SUBJECT_CHECK 生產開啟、staff_est_sp_sch_pri 入庫
+
+- **ID:** S254（Opus 5.5）
+- **Summary:** 開工轉 Draft，起手探針全綠；Leonard 在 Render 開啟 `FEATURE_SUBJECT_CHECK`，經帶合成實查與 `--live` 254 題核實（誤攔 0）；`staff_est_sp_sch_pri` 經預演、備份後入庫 28 片段，「12班小學」3/3 答對；PR #125 合併。
+- **Changed:** `dev/source/eval_runs/2026-11-19_s254_subject_live.json`（新）、`dev/source/SUBJECT_CHECK_DESIGN.md`（狀態＋第九節）、`dev/ops/NEXT_UPGRADE.md`、`dev/ops/WORK_QUEUE.md`（B1、A14 結案；新增 A18）、`dev/ops/AUTONOMY_FLOW.md`、`dev/SYSTEM_OVERVIEW.md`、`backend/README.md`、`dev/DOC_SYNC_REGISTRY.md`、`dev/source/source_registry.json`、`stats.json`／`app.html`／`index.html`／`README.md`／`update_log.json`、交接檔、本檔、`PROJECT_INDEX.md`、開場鏡像。
+- **Done:**
+  - **B1**：首次設定後實查未生效，Leonard 再存後生效；`/health` 不報旗標，只能靠帶合成的實查判斷。`--live` blocked 7／answerable 0／gold 0。
+  - **量度準則更正**：183 題 gold 用 `synthesize:false`，量不到本閘。
+  - **A14**：28 片段（15,828 → 15,856；來源 315）；S204 錯答未重現，但原因是 `staff_est_pri` 排第 1，不是對象核對。
+- **QC:** 起手探針；`--live`；生產實查（攔截 2 條、對照 1 條、「12班小學」3 次、特殊學校 3 種問法）；漂移 ERROR 類 0、PHANTOM 0；`MUST_UPDATE` 0；#125 `build-gate` 通過；合併後線上數字讀回。
+- **Evidence disposition:** 數字與結論吸收入交接 `## Current Baseline`、`## Validation / QC` S254 與 `SUBJECT_CHECK_DESIGN.md` 第九節；本條作近期追溯。
+- **Sync:** `DOC_SYNC_REGISTRY` S254 段 `confirmed`；PROJECT_INDEX Branch／commit 已更新。
+- **Pending:** A18；B 部其餘；A10、A12。
+- **Risks:** `staff_est_sp_sch_pri` 錯答風險取決於 `staff_est_pri` 排名（回退方法在 `WORK_QUEUE` A14）；其餘不變。
+- **Log maintenance:** not_applicable（條目數已達維護提示門檻，本節無需要保存或續做的整理工作）。
+- **Opening-message mirror:** 由唯一開場區塊重生並讀回；全文不在本檔重複。
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-11-18 Session 253 — 183 題新基線、A16 結案（無 2024 年版）、g08 標題更正、§4b 收緊
 
 - **ID:** S253（Opus 5.5）
