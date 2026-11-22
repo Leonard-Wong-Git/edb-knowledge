@@ -40,21 +40,21 @@
           "doc_id": "ma_pri_curric_s1_2018",
           "title": "小學數學課程闡釋 第一學習階段（小一至小三）",
           "year": 2018,
-          "url": null,
-          "registry_id": null,
-          "status": "catalogue_only",
+          "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_KS1_tc.pdf",
+          "registry_id": "ma_pri_curric_s1_2018",
+          "status": "in_registry",
           "importance": "medium",
-          "notes": "小學第一學習階段課程闡釋，catalogue_only"
+          "notes": "小學第一學習階段課程闡釋，S255 入庫（2026-11-22）"
         },
         {
           "doc_id": "ma_pri_curric_s2_2020",
           "title": "小學數學課程闡釋 第二學習階段（小四至小六）",
           "year": 2020,
-          "url": null,
-          "registry_id": null,
-          "status": "catalogue_only",
+          "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_KS2_tc.pdf",
+          "registry_id": "ma_pri_curric_s2_2020",
+          "status": "in_registry",
           "importance": "medium",
-          "notes": "小學第二學習階段課程闡釋，catalogue_only"
+          "notes": "小學第二學習階段課程闡釋，S255 入庫（2026-11-22）"
         }
       ]
     },
@@ -75,11 +75,11 @@
           "doc_id": "ma_jss_curric_2020",
           "title": "初中數學課程闡釋（中一至中三）",
           "year": 2020,
-          "url": null,
-          "registry_id": null,
-          "status": "catalogue_only",
+          "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_KS3_tc.pdf",
+          "registry_id": "ma_jss_curric_2020",
+          "status": "in_registry",
           "importance": "medium",
-          "notes": "初中數學課程闡釋，catalogue_only"
+          "notes": "初中數學課程闡釋，S255 入庫（2026-11-22）"
         }
       ]
     },
@@ -131,31 +131,31 @@
           "doc_id": "ma_sss_curric_comp_2021",
           "title": "高中數學課程闡釋（必修部份）",
           "year_label": "2021年更新",
-          "url": null,
-          "registry_id": null,
-          "status": "catalogue_only",
+          "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_CP_tc_1.pdf",
+          "registry_id": "ma_sss_curric_comp_2021",
+          "status": "in_registry",
           "importance": "medium",
-          "notes": "必修部份課程闡釋，2021年更新，catalogue_only"
+          "notes": "必修部份課程闡釋，2021年更新，S255 入庫（2026-11-22）"
         },
         {
           "doc_id": "ma_sss_curric_m1_2018",
           "title": "高中數學課程闡釋（延伸部份：單元一）",
           "year": 2018,
-          "url": null,
-          "registry_id": null,
-          "status": "catalogue_only",
+          "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_M1_tc.pdf",
+          "registry_id": "ma_sss_curric_m1_2018",
+          "status": "in_registry",
           "importance": "low",
-          "notes": "延伸部份單元一（微積分與統計），catalogue_only"
+          "notes": "延伸部份單元一（微積分與統計），S255 入庫（2026-11-22）"
         },
         {
           "doc_id": "ma_sss_curric_m2_2018",
           "title": "高中數學課程闡釋（延伸部份：單元二）",
           "year": 2018,
-          "url": null,
-          "registry_id": null,
-          "status": "catalogue_only",
+          "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_M2_tc.pdf",
+          "registry_id": "ma_sss_curric_m2_2018",
+          "status": "in_registry",
           "importance": "low",
-          "notes": "延伸部份單元二（代數與微積分），catalogue_only"
+          "notes": "延伸部份單元二（代數與微積分），S255 入庫（2026-11-22）"
         },
         {
           "doc_id": "ma_sss_cag_old_2015",
