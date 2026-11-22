@@ -1,0 +1,250 @@
+{
+ "_meta": {
+  "session": "S255",
+  "item": "WORK_QUEUE A18",
+  "date": "2026-11-22",
+  "before": "production (FEATURE_ROUTE_FIRST_SEARCH=1), top_k 8, synthesize:false, source_id only",
+  "after": "local backend-s250-local (same flags as production: ROUTE_FIRST + CIRCULAR_NUMBER_LOOKUP), new staffing regex",
+  "rejected_first_attempt": "adding staff_est_sp_sch_pri to SOURCE_SETS.sen alone: table absent from top 30 locally (sen expansion = SEN vocabulary)",
+  "route_diff_stored_queries": "504 stored gold/eval queries, 0 route changes",
+  "synthesis_note": "local synthesis refused for both 特殊學校小學部有幾多個學位教師 and 6班… (latter already staffing-routed before this change) — no wrong answer; answer-layer refusal is a separate issue"
+ },
+ "before": {
+  "特殊學校小學部有幾多個學位教師": {
+   "route": null,
+   "top": [
+    "kg_operation_manual_2026",
+    "trg_imc_2023",
+    "staff_est_pri",
+    "g06",
+    "g19",
+    "g19",
+    "g19",
+    "g06"
+   ]
+  },
+  "特殊學校教學人員編制": {
+   "route": null,
+   "top": [
+    "surplus_teacher_arr_2026",
+    "sch_activities_guide",
+    "staff_est_sp_sch_pri",
+    "staff_est_sp_sch_pri",
+    "staff_est_pri",
+    "staff_est_pri",
+    "staff_est_pri",
+    "staff_est_sp_sch_pri"
+   ]
+  },
+  "12班小學有幾多個學位教師": {
+   "route": null,
+   "top": [
+    "staff_est_pri",
+    "kg_operation_manual_2026",
+    "kg_admin_guide_2026",
+    "staff_est_sp_sch_pri",
+    "staff_est_sp_sch_pri",
+    "staff_est_sp_sch_pri",
+    "roles_functions_pri",
+    "ppt_grad_pri_policy"
+   ]
+  },
+  "特殊學校課程": {
+   "route": null,
+   "top": [
+    "AUD_e76ch02",
+    "ac_grant_2026",
+    "g06",
+    "g19",
+    "g19",
+    "g19",
+    "g06",
+    "g06"
+   ]
+  },
+  "sen": {
+   "route": null,
+   "top": [
+    "g06",
+    "g19",
+    "g19",
+    "g19",
+    "g06",
+    "sen_exam_arrangements_2025",
+    "sen_exam_arrangements_2025",
+    "g06"
+   ]
+  },
+  "融合教育": {
+   "route": null,
+   "top": [
+    "g19",
+    "g19",
+    "g06",
+    "g19",
+    "g06",
+    "g06",
+    "sag_2025_11",
+    "sen_exam_arrangements_2025"
+   ]
+  },
+  "特殊教育需要統籌主任": {
+   "route": null,
+   "top": [
+    "tdtf_report_2019",
+    "sch_activities_guide",
+    "g06",
+    "g19",
+    "g19",
+    "g19",
+    "sen_exam_arrangements_2025",
+    "g06"
+   ]
+  },
+  "特殊學校考試調適": {
+   "route": null,
+   "top": [
+    "AUD_e76ch02",
+    "g06",
+    "sen_exam_arrangements_2025",
+    "sen_exam_arrangements_2025",
+    "g19",
+    "g19",
+    "g19",
+    "sen_exam_arrangements_2025"
+   ]
+  }
+ },
+ "after_local": {
+  "特殊學校小學部有幾多個學位教師": {
+   "route": null,
+   "top": [
+    "kg_operation_manual_2026",
+    "trg_imc_2023",
+    "staff_est_sp_sch_pri",
+    "staff_est_sp_sch_pri",
+    "staff_est_sp_sch_pri",
+    "roles_functions_pri",
+    "staff_est_pri",
+    "staff_est_pri"
+   ]
+  },
+  "特殊學校教學人員編制": {
+   "route": null,
+   "top": [
+    "surplus_teacher_arr_2026",
+    "sch_activities_guide",
+    "staff_est_sp_sch_pri",
+    "staff_est_sp_sch_pri",
+    "staff_est_pri",
+    "staff_est_pri",
+    "staff_est_pri",
+    "staff_est_sp_sch_pri"
+   ]
+  },
+  "12班小學有幾多個學位教師": {
+   "route": null,
+   "top": [
+    "staff_est_pri",
+    "kg_operation_manual_2026",
+    "kg_admin_guide_2026",
+    "staff_est_sp_sch_pri",
+    "staff_est_sp_sch_pri",
+    "staff_est_sp_sch_pri",
+    "roles_functions_pri",
+    "ppt_grad_pri_policy"
+   ]
+  },
+  "特殊學校課程": {
+   "route": null,
+   "top": [
+    "AUD_e76ch02",
+    "ac_grant_2026",
+    "g06",
+    "g19",
+    "g19",
+    "g19",
+    "g06",
+    "g06"
+   ]
+  },
+  "sen": {
+   "route": null,
+   "top": [
+    "g06",
+    "g19",
+    "g19",
+    "g19",
+    "g06",
+    "sen_exam_arrangements_2025",
+    "sen_exam_arrangements_2025",
+    "g06"
+   ]
+  },
+  "融合教育": {
+   "route": null,
+   "top": [
+    "g19",
+    "g19",
+    "g06",
+    "g19",
+    "g06",
+    "g06",
+    "sag_2025_11",
+    "sen_exam_arrangements_2025"
+   ]
+  },
+  "特殊教育需要統籌主任": {
+   "route": null,
+   "top": [
+    "tdtf_report_2019",
+    "sch_activities_guide",
+    "g06",
+    "g19",
+    "g19",
+    "g19",
+    "sen_exam_arrangements_2025",
+    "g06"
+   ]
+  },
+  "特殊學校考試調適": {
+   "route": null,
+   "top": [
+    "AUD_e76ch02",
+    "g06",
+    "sen_exam_arrangements_2025",
+    "sen_exam_arrangements_2025",
+    "g19",
+    "g19",
+    "g19",
+    "sen_exam_arrangements_2025"
+   ]
+  },
+  "特殊學校有幾多名老師": {
+   "route": null,
+   "top": [
+    "staff_est_sp_sch_pri",
+    "staff_est_sp_sch_pri",
+    "staff_est_sp_sch_pri",
+    "sag_2025_11",
+    "roles_functions_pri",
+    "staff_est_pri",
+    "sag_2025_11",
+    "staff_est_pri"
+   ]
+  },
+  "幼稚園一班要幾多個老師": {
+   "route": null,
+   "top": [
+    "kg_operation_manual_2026",
+    "kg_admin_guide_2026",
+    "g29",
+    "g29",
+    "g29",
+    "kg_operation_manual_2026",
+    "circ_edbc24017",
+    "circ_edbc24017"
+   ]
+  }
+ }
+}
