@@ -3,7 +3,7 @@
 check_new_circulars.py
 ======================
 The 4th source monitor (S185). Watches Leonard's own EDB circular dashboard
-feed — https://circular.wongfu.net/circulars.json — and surfaces brand-new EDB
+feed — https://circular.minny.app/circulars.json — and surfaces brand-new EDB
 circulars (EDBC / EDBCM) that are NOT yet in our source_registry.json, so the
 weekly/daily triage can decide which to ingest.
 
@@ -36,7 +36,7 @@ Outputs:
                       Issue. Default: new_circulars.json
   --since-days N      Safety-net lookback window in days (default 30). Catches
                       recent circulars even after the dashboard drops `isNew`.
-  --dashboard-url URL Override the feed URL (default the wongfu.net dashboard).
+  --dashboard-url URL Override the feed URL (default the minny.app dashboard).
 
 Exit code: 0 on a successful run (detections never fail the run). Non-zero only
 when the feed cannot be fetched/parsed at all (a real outage worth an email).
@@ -54,7 +54,7 @@ from pathlib import Path
 from typing import Dict, List, Set
 
 REGISTRY_PATH = Path("dev/source/source_registry.json")
-DASHBOARD_URL = "https://circular.wongfu.net/circulars.json"
+DASHBOARD_URL = "https://circular.minny.app/circulars.json"
 FETCH_TIMEOUT = 30
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 # A single triage Issue should not be flooded; cap the listed candidates and note
