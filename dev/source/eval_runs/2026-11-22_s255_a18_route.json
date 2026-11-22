@@ -7,7 +7,8 @@
   "after": "local backend-s250-local (same flags as production: ROUTE_FIRST + CIRCULAR_NUMBER_LOOKUP), new staffing regex",
   "rejected_first_attempt": "adding staff_est_sp_sch_pri to SOURCE_SETS.sen alone: table absent from top 30 locally (sen expansion = SEN vocabulary)",
   "route_diff_stored_queries": "504 stored gold/eval queries, 0 route changes",
-  "synthesis_note": "local synthesis refused for both 特殊學校小學部有幾多個學位教師 and 6班… (latter already staffing-routed before this change) — no wrong answer; answer-layer refusal is a separate issue"
+  "synthesis_note": "local synthesis refused for both 特殊學校小學部有幾多個學位教師 and 6班… (latter already staffing-routed before this change) — no wrong answer; answer-layer refusal is a separate issue",
+  "after_prod": "production after deploy of 63a45d6 (PR #129), 2026-11-22T11:11Z; target 3-5 = staff_est_sp_sch_pri; 7 controls identical to before"
  },
  "before": {
   "特殊學校小學部有幾多個學位教師": {
@@ -244,6 +245,112 @@
     "kg_operation_manual_2026",
     "circ_edbc24017",
     "circ_edbc24017"
+   ]
+  }
+ },
+ "after_prod": {
+  "特殊學校小學部有幾多個學位教師": {
+   "route": null,
+   "top": [
+    "kg_operation_manual_2026",
+    "trg_imc_2023",
+    "staff_est_sp_sch_pri",
+    "staff_est_sp_sch_pri",
+    "staff_est_sp_sch_pri",
+    "staff_est_pri",
+    "roles_functions_pri",
+    "staff_est_pri"
+   ]
+  },
+  "特殊學校教學人員編制": {
+   "route": null,
+   "top": [
+    "surplus_teacher_arr_2026",
+    "sch_activities_guide",
+    "staff_est_sp_sch_pri",
+    "staff_est_sp_sch_pri",
+    "staff_est_pri",
+    "staff_est_pri",
+    "staff_est_pri",
+    "staff_est_sp_sch_pri"
+   ]
+  },
+  "12班小學有幾多個學位教師": {
+   "route": null,
+   "top": [
+    "staff_est_pri",
+    "kg_operation_manual_2026",
+    "kg_admin_guide_2026",
+    "staff_est_sp_sch_pri",
+    "staff_est_sp_sch_pri",
+    "staff_est_sp_sch_pri",
+    "roles_functions_pri",
+    "ppt_grad_pri_policy"
+   ]
+  },
+  "特殊學校課程": {
+   "route": null,
+   "top": [
+    "AUD_e76ch02",
+    "ac_grant_2026",
+    "g06",
+    "g19",
+    "g19",
+    "g19",
+    "g06",
+    "g06"
+   ]
+  },
+  "sen": {
+   "route": null,
+   "top": [
+    "g06",
+    "g19",
+    "g19",
+    "g19",
+    "g06",
+    "sen_exam_arrangements_2025",
+    "sen_exam_arrangements_2025",
+    "g06"
+   ]
+  },
+  "融合教育": {
+   "route": null,
+   "top": [
+    "g19",
+    "g19",
+    "g06",
+    "g19",
+    "g06",
+    "g06",
+    "sag_2025_11",
+    "sen_exam_arrangements_2025"
+   ]
+  },
+  "特殊教育需要統籌主任": {
+   "route": null,
+   "top": [
+    "tdtf_report_2019",
+    "sch_activities_guide",
+    "g06",
+    "g19",
+    "g19",
+    "g19",
+    "sen_exam_arrangements_2025",
+    "g06"
+   ]
+  },
+  "特殊學校考試調適": {
+   "route": null,
+   "top": [
+    "AUD_e76ch02",
+    "g06",
+    "sen_exam_arrangements_2025",
+    "sen_exam_arrangements_2025",
+    "g19",
+    "g19",
+    "g19",
+    "sen_exam_arrangements_2025"
    ]
   }
  }
