@@ -276,7 +276,8 @@ F = [
          source_id="cap279_education_ordinance", title="Education Ordinance (Cap.279)",
          topic="general", url=f"{CAP279_URL}#page=14",
          text="EDB 拒絕學校註冊嘅理由有咩？《Education Ordinance (Cap.279)》§14(1)(b)(c)(d) Grounds for refusal to register school（註）："
-              "The Permanent Secretary may refuse to register a school if it appears to him- (b) that the proposed school premises are or are likely to be for any reason unsuitable for use for the purposes of a school; (c) that any provision of this Ordinance is being or will be contravened in respect of the school; (d) that the proposed inclusive fee is excessive having regard to the cost of maintaining and operating the school and to the standard of education to be provided;",
+              "The Permanent Secretary may refuse to register a school if it appears to him- (b) that the proposed school premises are or are likely to be for any reason unsuitable for use for the purposes of a school; (c) that any provision of this Ordinance is being or will be contravened in respect of the school; (d) that the proposed inclusive fee is excessive having regard to the cost of maintaining and operating the school and to the standard of education to be provided;"
+              "（此處只列部分理由，完整見條文）",
          keywords=["拒絕學校註冊", "refuse to register", "校舍不適合", "unsuitable premises",
                    "違反條例", "contravened", "學費過高", "excessive fee",
                    "Cap.279", "§14", "Permanent Secretary", "inclusive fee"],

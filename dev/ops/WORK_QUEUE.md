@@ -227,11 +227,11 @@
 | B5 | 已批准刪除「文件標註」功能（面板程式碼、文案）。**待執行**：連同 B6；刪 `release_gate.json` 的 `DOC_ANNOTATION_FLOW` 人手檢查。（Leonard 2026-11-22 S255 批准） | —— | 見左欄 |
 | B6 | 已批准隨 B5 移除公開端點。**待執行**：屬後端改動，要部署。（Leonard 2026-11-22 S255 批准） | —— | 見左欄 |
 | B7 | ✅ 完成（Leonard 2026-11-22 S255 批准）：PR #70 已關閉並留言（22 行中 18 行逐字在 main，餘 4 行為其後修訂版）。 | —— | —— |
-| B8 | 已批准：出處用 EOEBG 使用指引第 6 頁，註腳補「OEBG 學校的使用指引亦有相同規定」。**待執行**：`url_overrides.json`／`footnote_anchors.json`／`footnote_corrections.json` 預演給 Leonard 看後執行。（Leonard 2026-11-22 S255 批准） | —— | 見左欄 |
+| B8 | ✅ 完成（Leonard 2026-11-22 S255 批准）：`footnote_fn_ceg_no_tutorial` 改指 EOEBG 使用指引第 6 頁，文字補「OEBG 學校的使用指引亦有相同規定」；錨句已加入月檢並核對 OK。備份 `dev/init_backup/20261122_154303_UTC/`、`20261122_154347_UTC/`。 | —— | —— |
 | B9 | ✅ 完成（2026-11-16，S251）：Agent Handoff Kit 已以官方 CLI 升級至 v0.4.7，migration committed、project health passed。 | —— | —— |
 | B10 | ✅ 完成（Leonard 2026-11-22 S255 批准）：`INIT.md` 當作已退役；`dev/DOC_SYNC_CHECKLIST.md` 三列內要求同步 INIT.md 的部分標為失效（檔案保留不刪）。 | —— | —— |
 | B11 | ✅ 完成（Leonard 2026-11-22 S255 批准）：`release_gate.json` 加 `MOJIBAKE` 豁免（負責人 Leonard，至 2027-11-22）。「內文過短」由 3 增至 6 條已轉 FAIL（豁免只適用 WARN），逐條核對後全是表格標題行與封面頁，`qc_report.py` 基準改為 6 並寫明是哪 6 條。 | —— | —— |
-| B14 | 已批准：註腳末加「（此處只列部分理由，完整見條文）」。**待執行**：經 `footnote_corrections.json` 預演後執行。（Leonard 2026-11-22 S255 批准） | —— | 見左欄 |
+| B14 | ✅ 完成（Leonard 2026-11-22 S255 批准）：`footnote_fn_cap279_s14_refuse_grounds` 末加「（此處只列部分理由，完整見條文）」。兩個入庫腳本同步改字。 | —— | —— |
 | B15 | ✅ 完成（2026-11-17，S252）：校曆註腳 `g11_schooldays` 已改指《一般學校假期及上學日數的計算方法》PDF 第 1 頁（Leonard 批准；先備份，寫入後讀回 `to_change=0`；月檢錨句已加入並核對 OK）。 | —— | —— |
 | B16 | ✅ 完成（2026-11-17，S252，Leonard 批准）：6 題改標（3 題改指 `edbcm080_2026`；註冊費與取錄通知日期改為 2027/28 學年；持份者問卷一句按原文補「（第三版）」），2 題移至 `dev/source/gold_deprecated_s252.json`（`plc_school_net_count`、`hr_ncs_allowance`：庫內已無答案來源）。題庫 185 → **183**，驗證器 183／183。生產：改標 6 題中 3 題通過；「持份者問卷」「KG 收生」「2027/28 K1取錄結果何時通知」未取回答案文件，屬檢索問題，未為遷就而改標。 | —— | —— |
 | B12 | 搜尋紀錄要不要加「拒答原因」一欄（要執行 DDL）？ | 暫不做。沒有它平台照常運作。 | —— |

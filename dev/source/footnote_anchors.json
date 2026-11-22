@@ -4,9 +4,14 @@
     "built_from": "dev/source/eval_runs/2026-11-16_s250_footnote_audit.json（結論為「相符」「頁碼不對」者取 matched_quote）；S251 更正的 10 條取 dev/source/footnote_corrections.json basis 所引原句；3 條的錨句於 S252 按原文重選（見 PR）。全部 163 條於 2026-11-17 以本工具對原文實測為 OK。",
     "not_covered": "未納入 14 條：cap279 法例 11 條、footnote_fn_g11_schooldays、footnote_fn_ceg_no_tutorial（S250 審核「找不到」，見 WORK_QUEUE A6／B8）；footnote_fn_lwl_sister_floor（審核為相符但沒有記下原句）。",
     "how_to_update": "MOVED：先改 dev/source/url_overrides.json 並經批准套用，再把本檔該條的 page 改成同一頁（--self-test 會核對兩者一致）。GONE：把新舊原文並列交 Leonard，定案後才改 quote。新增註腳時同時加一條。",
-    "count": 164
+    "count": 165
   },
   "anchors": {
+    "footnote_fn_ceg_no_tutorial": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_2026_e.pdf",
+      "page": 6,
+      "quote": "any additional salaries to their serving teachers from Capacity Enhancement Grant (CEG) for teaching tutorial classes to their students"
+    },
     "footnote_fn_ac_equiv_formula": {
       "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/AC%20Grant%20in%20Aided%20Schools_e.pdf",
       "page": 3,
