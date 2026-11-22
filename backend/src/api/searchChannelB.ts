@@ -962,7 +962,11 @@ const TOPIC_KEYWORDS: Record<string, RegExp> = {
   // 「數字＋班」同人事字眼同時出現；兩個都係零寬，喺 .test() 逐位掃描下等同「句中兩者皆有」。
   // 實測：12 班／24 班副校長 → staffing；小一派位第 1 班、中一 5 班課程指引、24 班學校要幾多
   // 間課室 → 唔匹配，照舊各歸各路。
-  staffing: /人員編制|教學人員編制|核准編制|教師編制|主任編制|編制表|主任級|學位化|學位教師職系|班師比|(?=[\s\S]*[0-9０-９]{1,2}\s*班)(?=[\s\S]*(?:教師|教員|教學人員|編制|校長|副校長|主任|人手))/,
+  // S255 A18: 「幾多／多少（個名位）（學位）教師／老師」= a headcount question → staffing. Placed in
+  // the regex so it wins over `sen` (which follows): 特殊學校小學部有幾多個學位教師 under sen's SEN-vocabulary
+  // expansion left staff_est_sp_sch_pri outside the top 30 even with the table in SOURCE_SETS.sen.
+  // Kindergarten excluded (`幼`): this set is primary/secondary only; 幼稚園一班要幾多個老師 stays where it was.
+  staffing: /人員編制|教學人員編制|核准編制|教師編制|主任編制|編制表|主任級|學位化|學位教師職系|班師比|^(?![\s\S]*幼)[\s\S]*(?:幾多|多少)[個名位]?\s*(?:學位|文憑)?(?:教師|教員|老師)|(?=[\s\S]*[0-9０-９]{1,2}\s*班)(?=[\s\S]*(?:教師|教員|教學人員|編制|校長|副校長|主任|人手))/,
   /**
    * Staff appraisal — 員工考績 / 教師表現評核 (S227).
    *
