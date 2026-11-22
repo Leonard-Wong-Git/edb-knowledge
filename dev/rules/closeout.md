@@ -37,12 +37,12 @@ Handoff cold zones are historical / evidence sections, old validation records, c
 5. Add one concise log entry only for current work, risk, actual maintenance, or another durable fact that a later agent needs. Record evidence disposition and the prompt-mirror verification result when an entry is needed; omit the full opening message by design. A no-op closeout must not create a false work record.
 6. Update the project index only when affected complete mappings, rules, or supplements changed. Classify every applicable sync-registry target as `confirmed`, `unverified`, `pending`, `blocked`, or `not_applicable`.
 7. Run `agent-handoff-kit workspace-health --root <project root>` or equivalent read-only Git probes, then record only the last-verified root, Git root, branch, commit, worktrees / parallel workspaces, uncommitted changes, and unresolved drift. Do not clean or change them without separate authorization. Do not treat `dev/PROJECT_INDEX.md` or old handoff prose as the live worktree truth.
-8. If the session used external tools or helper processes, apply the integrations and safety ownership rules. Close only task-owned resources. Retain shared, user-owned, other-agent-owned, system, or ambiguous resources unless separately authorized; state visibility limits.
+8. If the session used external tools or helper processes, or ran tools, tests or scripts that can leave disposable by-products, apply the integrations and safety ownership rules. Close only task-owned resources. Retain shared, user-owned, other-agent-owned, system, or ambiguous resources unless separately authorized; state visibility limits.
 9. Run the short maintenance assessment below. Record only actual maintenance work or a current risk; do not create a log entry solely to report a size advisory.
 10. Mark first-use guidance `consumed` after the first successfully completed task or first full closeout. Upgrade must never reset `consumed` or `not_applicable` to `eligible`.
 11. Verify `START_NEXT_SESSION_PROMPT.txt` against the sole fenced handoff opening-message block first. Regenerate it only when normalized content differs, then run the project's fixed prompt-mirror checker or perform an equivalent anchored read-back that verifies marker, heading, fence, full-copy uniqueness, and normalized content equality.
 12. Run available project-specific closeout checks. Do not run a separate bundled `doctor`; step 13 performs it. Do not treat an external update-check failure as local closeout failure. Fix state or mirror failures before claiming handoff ready.
-13. Run `agent-handoff-kit closeout-status --root <project root>` after the handoff and prompt read-back. It performs the one required fresh doctor read-back plus a read-only workspace-health comparison against the handoff snapshot, and its output is the only final card source. A nonzero result means the closeout is blocked; do not replace it with a success summary.
+13. Run `agent-handoff-kit closeout-status --root <project root>` after the handoff and prompt read-back. It performs the one required fresh doctor read-back plus a read-only workspace-health comparison against the handoff snapshot, and its output is the only final card source. A nonzero result means the closeout is blocked; do not replace it with a success summary. The card also shows a time-bounded, metadata-only footprint line (apparent size, file count, largest top-level folders) that is informational only, is not a cleanup list, and never changes the closeout status.
 
 ## Packet-Only Reconstruction Check
 
@@ -82,6 +82,7 @@ status: complete
 🔎 QC: <validation summary>
 📌 Handoff: opening message ready
 ⚠️ Boundary: <important boundary or none>
+📦 Footprint (apparent): <size> GiB / <files> files; largest: <top folders>
 ```
 
 For `status: blocked`, the command instead says `handoff blocked`; retain that status, blocker reason, and human explanation: `這不是失敗；只是還有事未保存、未提交、未驗證或需要處理。先照 Blocker 行處理，不要把本輪當作已完成交接。` Then give the short local-root entry `Start Agent Handoff` / `開工` and the path-bearing fallback for an agent not yet pointed at the root. Do not hand-compose a third stateful prompt.

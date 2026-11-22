@@ -18,6 +18,7 @@ Use for code changes, tests, builds, package managers, SDKs, CLIs, APIs, or deve
 5. Preserve unrelated user changes.
 6. Before first running new or changed code, including your own tests and helper scripts, read its usage text or header comment as a separate step before composing the command, noting how it uses arguments, environment variables, deletion and overwrite. If it can delete or overwrite anything outside a temporary location it created, first confirm the work is already recoverable (committed, backed up, or run against an isolated copy). This rule does not authorize a commit or backup; if the work is not recoverable, ask the user.
 7. Tests, fixtures and helper scripts you write that delete or clear must verify the target is a temporary location they created (resolved path, expected name prefix, not the project or working directory or any ancestor of them); otherwise they must stop and report failure, never pass. Product features that delete by design follow `dev/rules/safety.md`.
+8. Create disposable by-products of tests, fixtures and helper scripts (such as browser profiles, caches, snapshots and temporary copies) in a temporary location the tool owns, never in evidence or deliverable folders. Remove them on success and safely on a best-effort basis on failure. When failure evidence must be kept for diagnosis, keep only what is needed and report its path, purpose and condition for later removal. Any removal still follows rule 7 and the safety and integrations ownership rules; this rule grants no new deletion authority.
 
 ## Checks
 

@@ -6,7 +6,7 @@ Purpose: give a stateless AI a compact map of the project before it reads or edi
 
 | Field | Value | Last verified |
 |---|---|---|
-| Agent Handoff Kit template version | 0.4.7 | package prototype |
+| Agent Handoff Kit template version | 0.4.8 | package prototype |
 | Runtime | TBD | TBD |
 | Framework | TBD | TBD |
 | Package manager | TBD | TBD |

@@ -1,0 +1,64 @@
+{
+  "id": "2026-11-22T09-00-21-622Z-5cf9902d-e947-41bb-a515-8b4ec93b3112",
+  "command": "upgrade",
+  "mode": "upgrade-existing",
+  "attemptedVersion": "0.4.8",
+  "shortcutInstallContract": 1,
+  "committedVersion": "0.4.8",
+  "plannedSkips": 62,
+  "host": "Mac.powerhub",
+  "pid": 17830,
+  "state": "committed",
+  "createdAt": "2026-11-22T09:00:21.632Z",
+  "entries": [
+    {
+      "targetRel": "dev/rules/coding.md",
+      "existed": true,
+      "beforeHash": "b84d6344a3a277b105618175e19d01fed61e2ac21e8e1267ab107b6f08f85b6d",
+      "afterHash": "1824e508d0ad3e19dea7ddb68b481c34ba0a267f0ac8324256a457912fb42ea8",
+      "backupRel": "dev/governance_migrations/2026-11-22T09-00-21-622Z-5cf9902d-e947-41bb-a515-8b4ec93b3112/backup/dev/rules/coding.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.4.7 dev/rules/coding.md rule body with an explicit newline transform; preserve local appendix bytes"
+    },
+    {
+      "targetRel": "dev/rules/closeout.md",
+      "existed": true,
+      "beforeHash": "854c6480f632d22df435455f782bf96760693362ff394bf8aa1d321e7a7512e4",
+      "afterHash": "b8c26f1faf10df1ccc881f7c4f500d30361ff11da6562f801e51a4b69216f11b",
+      "backupRel": "dev/governance_migrations/2026-11-22T09-00-21-622Z-5cf9902d-e947-41bb-a515-8b4ec93b3112/backup/dev/rules/closeout.md",
+      "committed": true,
+      "reason": "update artifact-bound official v0.4.7 dev/rules/closeout.md rule body with an explicit newline transform; preserve local appendix bytes"
+    },
+    {
+      "targetRel": "dev/handoff-kit/assets.mjs",
+      "existed": true,
+      "beforeHash": "48240476e554138f5c2df456b6b62466bd71a0d0fd2679ae68b13438680eec22",
+      "afterHash": "df435f12300d79d0f2bcce3acda630daacfd576445cb45d1f8097dd16273a676",
+      "backupRel": "dev/governance_migrations/2026-11-22T09-00-21-622Z-5cf9902d-e947-41bb-a515-8b4ec93b3112/backup/dev/handoff-kit/assets.mjs",
+      "committed": true,
+      "reason": "verified official v0.4.7 shortcut update"
+    },
+    {
+      "targetRel": "dev/PROJECT_INDEX.md",
+      "existed": true,
+      "beforeHash": "aa88d50c536ef0edfdb09b4d9a4286c19eaca36e2138157434097123bf231f5e",
+      "afterHash": "9fc99349f91a6ae2238fb00a6548456faf3a393ea32655ffad7d8307c996a72e",
+      "backupRel": "dev/governance_migrations/2026-11-22T09-00-21-622Z-5cf9902d-e947-41bb-a515-8b4ec93b3112/backup/dev/PROJECT_INDEX.md",
+      "committed": true,
+      "reason": "update only the unique real PROJECT_INDEX Stack template-version row while preserving every other PROJECT_INDEX byte"
+    },
+    {
+      "targetRel": "START_NEXT_SESSION_PROMPT.txt",
+      "existed": true,
+      "beforeHash": "328b763449fbefff539bc89bcc1211f88fe1ef8bd077c6e8f212ef30d7631ae4",
+      "afterHash": "c9659b891da6a91fa211de9f0f989aaa437f3ccf12e98e2081c403b019dedf51",
+      "backupRel": "dev/governance_migrations/2026-11-22T09-00-21-622Z-5cf9902d-e947-41bb-a515-8b4ec93b3112/backup/START_NEXT_SESSION_PROMPT.txt",
+      "committed": true,
+      "reason": "regenerated from authoritative handoff opening message"
+    }
+  ],
+  "formalUserRules": null,
+  "runtimeReadback": null,
+  "archiveMigrations": [],
+  "committedAt": "2026-11-22T09:00:23.149Z"
+}
