@@ -1,12 +1,15 @@
 {
   "_meta": {
     "note": "S249 — wiki_chunks.url 的逐片段覆寫（頁碼錨點／更正網址）。註腳的來源腳本（dev/forms_ingest.py 等）只有每個來源一條網址，重跑 --execute 會把這裏的網址蓋回去；重跑後必須再跑 dev/apply_url_overrides.py --execute。每條的頁碼已用 matched quote 對新版 PDF 逐頁核實（2026-11-16，兩次獨立核對）。 S250 補 28 條：原有 #page= 指錯頁（由註腳全量審核找出，原句經獨立核實在新頁、不在舊頁）。 S251 補 2 條：imc_tax_exempt_s88 頁碼 31→32；procurement_thresholds 由索引頁改指 Tips 文件第 2 頁。 S252 補 1 條：g11_schooldays 由「擬定校曆表指引」索引頁改指該頁所連的《一般學校假期及上學日數的計算方法》PDF 第 1 頁（190／209／91 日三個數字皆在該頁，2026-11-17 核實）。",
-    "count": 81,
-    "pending": {
-      "footnote_fn_ceg_no_tutorial": "原句不在所引的 CEG 計算方法 PDF。S252 核實：「any additional salaries to their serving teachers from Capacity Enhancement Grant (CEG) for teaching tutorial classes」在 User Guide_EOEBG_2026_e.pdf 第 6 頁與 User Guide_OEBG_2026_e.pdf 第 7 頁（不准從該津貼支付的開支項目）。待 Leonard 選用哪一份（WORK_QUEUE B8）"
-    }
+    "count": 82
   },
   "overrides": {
+    "footnote_fn_ceg_no_tutorial": {
+      "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/User%20Guide_EOEBG_2026_e.pdf#page=6",
+      "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-capacity-enhancement-grant/Calculation%20of%20CEG_en.pdf",
+      "basis": "any additional salaries to their serving teachers from Capacity Enhancement Grant (CEG) for teaching tutorial classes to their students",
+      "confidence": "HIGH"
+    },
     "footnote_fn_ac_equiv_formula": {
       "url": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/AC%20Grant%20in%20Aided%20Schools_e.pdf#page=3",
       "was": "https://www.edb.gov.hk/attachment/en/sch-admin/fin-management/subsidy-info/ref-e-oebg-cfeg/AC%20Grant%20in%20Aided%20Schools_e.pdf",

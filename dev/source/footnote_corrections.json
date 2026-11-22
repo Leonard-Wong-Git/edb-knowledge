@@ -1,7 +1,7 @@
 {
   "_meta": {
     "note": "S251 — 註腳（footnote_curated）內容更正的權威清單。每條記錄更正後的全文、關鍵詞與原文依據；由 dev/apply_footnote_corrections.py 套用（只改 text／hash／embedding，以及有列明時的 title；url 由 dev/source/url_overrides.json 管）。任何註腳入庫腳本以 --execute 重跑後，必須再跑本工具 --execute（冪等），否則舊文字會被寫回。新增一條：先讀原文核實，再在此加一項，然後 dry-run → Leonard 批准 → --execute。",
-    "count": 10
+    "count": 12
   },
   "corrections": {
     "footnote_fn_icac_appraisal": {
@@ -209,6 +209,43 @@
       ],
       "basis": "同上網頁：Full rate of subsidy for SIA in the 2026/27 school year is $1,700 per household while the half rate is $850 per household.",
       "approved": "Leonard 2026-11-16 (S251)"
+    },
+    "footnote_fn_ceg_no_tutorial": {
+      "text": "可唔可以用學校發展津貼（CEG）支付教師補課的酬金？唔可以。CEG不得用於支付教師教授補習／補底班（tutorial classes）的額外酬金。OEBG 學校的使用指引亦有相同規定。",
+      "keywords": [
+        "CEG",
+        "學校發展津貼",
+        "補課",
+        "補習班",
+        "補底班",
+        "tutorial",
+        "額外酬金",
+        "唔准",
+        "不得",
+        "EOEBG",
+        "OEBG"
+      ],
+      "basis": "User Guide_EOEBG_2026_e.pdf 第 6 頁第 11 段（not allowed to be charged to the EOEBG）第 iv 項：「any additional salaries to their serving teachers from Capacity Enhancement Grant (CEG) for teaching tutorial classes to their students」；User Guide_OEBG_2026_e.pdf 第 7 頁有相同條文（S252 核實）。",
+      "approved": "Leonard 2026-11-22 (S255 B8/B14，預演後批准寫入)"
+    },
+    "footnote_fn_cap279_s14_refuse_grounds": {
+      "text": "EDB 拒絕學校註冊嘅理由有咩？《Education Ordinance (Cap.279)》§14(1)(b)(c)(d) Grounds for refusal to register school（註）：The Permanent Secretary may refuse to register a school if it appears to him- (b) that the proposed school premises are or are likely to be for any reason unsuitable for use for the purposes of a school; (c) that any provision of this Ordinance is being or will be contravened in respect of the school; (d) that the proposed inclusive fee is excessive having regard to the cost of maintaining and operating the school and to the standard of education to be provided;（此處只列部分理由，完整見條文）",
+      "keywords": [
+        "拒絕學校註冊",
+        "refuse to register",
+        "校舍不適合",
+        "unsuitable premises",
+        "違反條例",
+        "contravened",
+        "學費過高",
+        "excessive fee",
+        "Cap.279",
+        "§14",
+        "Permanent Secretary",
+        "inclusive fee"
+      ],
+      "basis": "註腳只引《教育條例》第 14(1) 條 (b)(c)(d) 三項；條文第 (1) 款由 (a) 起列出更多理由，另有第 (2) 款。所加一句只說明列舉不完整，不新增任何內容。",
+      "approved": "Leonard 2026-11-22 (S255 B8/B14，預演後批准寫入)"
     }
   }
 }
