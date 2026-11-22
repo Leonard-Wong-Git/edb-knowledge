@@ -180,7 +180,9 @@
 - **做法**：按 `dev/rules/coding.md` 的 `## Project Rules`。至少做：`cd backend && npm audit`；`cd dev/checklists/_work && npm audit`；核對 OpenAI 型號停用頁與價錢頁有否影響 `gpt-6-luna`；檢查 GitHub Actions 所有排程最近一次是否成功（`gh run list --limit 30`）。
 - **記錄**：把結果與日期寫入 `dev/PROJECT_INDEX.md`「定期系統更新檢查」一列。上次（S241）未核對執行環境、排程監察與 Kit 新版本，這次要補。
 
-### A10　清理本機已合併的分支　【S255 已核對：76 條可刪、16 條保留；待 Leonard 批准刪除｜小】
+### A10　清理本機已合併的分支　【✅ 完成（2026-11-22，S255，Leonard 批准）：刪 76 條、保留 16 條】
+
+- **結果**：每條分支對應已合併 PR，PR 改過的檔案在分支末端與 squash commit 逐一相同者才刪（76 條，只刪本機，遠端不動）。分支名與 commit 記在本機 `dev/init_backup/20261122_a10_deleted_branches.txt`，需要時可 `git branch <名> <sha>` 還原。保留 16 條：11 條無相同末端的已合併 PR、5 條與合併版本有差異。
 
 - **做法**：`git branch --merged origin/main` 列不全（squash 合併後不算已合併）。對每條本機分支，用 `git diff --stat <分支> <它的 squash commit>` 核實為 0 個檔案差異，才列入可刪清單。把清單交 Leonard，批准後才 `git branch -D`。
 
