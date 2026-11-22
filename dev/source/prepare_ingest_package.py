@@ -5,7 +5,7 @@ prepare_ingest_package.py  —  Option A, Phase 1 (S188)
 The ingest-PACKAGE GENERATOR for the automated-ingest pipeline.
 
 Given EDB circular candidate(s) surfaced by the 4th monitor
-(check_new_circulars.py / circular.wongfu.net feed), this scripts the *manual*
+(check_new_circulars.py / circular.minny.app feed), this scripts the *manual*
 verbatim-ingest pipeline that S186 ran by hand into one reproducible step, and
 emits a reviewable "ingest package" per candidate:
 
@@ -53,7 +53,7 @@ import build_wiki_index as bw                              # canonical chunker (
 import fitz  # PyMuPDF — verbatim extraction
 
 REGISTRY_PATH = REPO_ROOT / "dev" / "source" / "source_registry.json"
-DASHBOARD_URL = "https://circular.wongfu.net/circulars.json"
+DASHBOARD_URL = "https://circular.minny.app/circulars.json"
 STAGING_DIR = REPO_ROOT / "dev" / "source" / "ingest_packages"
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 FETCH_TIMEOUT = 40

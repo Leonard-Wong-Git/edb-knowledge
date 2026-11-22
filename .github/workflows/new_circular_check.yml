@@ -1,7 +1,7 @@
 name: EDB Circular Check (RETIRED — superseded by ops/approval-issue.yml)
 
 # RETIRED 2026-06-29 (S191): superseded by edb-knowledge-ops/.github/workflows/approval-issue.yml,
-# which scans the same circular.wongfu.net feed daily, lists candidates as approval checkboxes, and
+# which scans the same circular.minny.app feed daily, lists candidates as approval checkboxes, and
 # @mentions Leonard ONLY when there is a NEW candidate. The daily schedule here is disabled to stop
 # the duplicate "🆕 New EDB circulars pending review" email. Manual dispatch is retained as a fallback.
 on:
