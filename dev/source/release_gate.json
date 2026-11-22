@@ -22,7 +22,9 @@
       "MIRROR_CONSISTENCY"
     ]
   },
-  "standing_waivers": [],
+  "standing_waivers": [
+  {"check_id": "MOJIBAKE", "owner": "Leonard", "reason": "S255 B11（Leonard 2026-11-22 批准）：58 條已逐條看過，屬原文字型編碼（latin_cid 55、cjk_misdecode 3），重新抽取無法改善；數目與基準相同，未惡化。基準仍是棘輪，數目下降時要同步調低。", "accept_until": "2027-11-22"}
+ ],
   "manual_checks": [
     {
       "id": "CORE_SEARCH_CASES",

@@ -97,7 +97,11 @@ BASELINE = {
     # arts_kla_guide_2017 and missed the 13 stat_enrolment_YYYY sources plus
     # stat_kg. Recounted over the whole store before this file was trusted.
     "title_equals_slug": 658,
-    "short_body": 3,
+    # S255: 3 → 6. All six read: four table-title rows (staff_est_pri ×3 incl. one
+    # mid-sentence table note, staff_est_sp_sch_pri ×1 from S254) and two cover pages of
+    # the S255 math 課程闡釋 ingest (ma_jss_curric_2020, ma_sss_curric_comp_2021). None is
+    # a broken cut. Lower it again if any of these chunks is removed.
+    "short_body": 6,
     # RATCHET. 223 when first measured; 58 after phys_sss_2007_2015 was
     # re-extracted by OCR (S212). A baseline must be lowered whenever the count
     # drops, or the check would stay green through a regression all the way back

@@ -4,15 +4,13 @@
     "domain": "curriculum",
     "query": "藝術教育學習領域課程指引 2002 版",
     "query_kind": "no_answer",
-    "intent": "g37 曾標示為 2002 年版藝術教育學習領域課程指引，實際 chunk 為 2017 年版內容（與 arts_kla_guide_2017 near-identical），庫內無 2002 年版可引用",
+    "intent": "g37 曾標示為 2002 年版藝術教育學習領域課程指引，實際 chunk 為 2017 年版內容（與 arts_kla_guide_2017 near-identical），庫內無 2002 年版可引用｜S255 B4（Leonard 2026-11-22）：g37 標題已更正為 2017 年版，取回 g37（標明 2017）屬合理參考，移出禁引；題目仍要求系統說明庫內無 2002 年版",
     "answerable": false,
     "expected_source_any": [],
     "expected_passage_signature": [],
     "expected_page": null,
     "acceptable_alternatives": [],
-    "forbidden_evidence": [
-      "g37"
-    ],
+    "forbidden_evidence": [],
     "verified_by": {
       "chunk_id": "vault_g37_01850fee439dcd1f",
       "method": "dev/_s213_corpus.py find",
