@@ -567,18 +567,19 @@
         "curriculum"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2021",
       "last_checked_at": "2026-09-13",
       "supersedes": null,
-      "notes": "Seeded from existing guidelines.json public artifact. | S146(2026-06-06): ingested to Channel B vector store (vault/g33) | S222: title/version_label 由「英國語文教育課程指引（中一至中六）(2007)」改正 —— 421 條片段全部是 2021 年高中英文課評指引。",
+      "notes": "Seeded from existing guidelines.json public artifact. | S146(2026-06-06): ingested to Channel B vector store (vault/g33) | S222: title/version_label 由「英國語文教育課程指引（中一至中六）(2007)」改正 —— 421 條片段全部是 2021 年高中英文課評指引。 | S255 B2（Leonard 2026-11-22 批准）退役：全欄位備份 dev/init_backup/20261122_154837_UTC/（含 embedding），刪生產片段並讀回為 0。與 eng_sss_guide_2021 同一份文件（421 條逐條文字相同），屬重複。",
       "freshness_metadata": {
         "last_modified": "Tue, 30 Sep 2025 04:06:31 GMT",
         "content_length": "1605215",
         "etag": "\"80bd359abf31dc1:0\"",
         "content_hash": "729da6cae1ab24c0e7b0919c5c7b79d363d7f067e5ce9405cc655a185c724266",
         "hash_checked_at": "2026-06-15"
-      }
+      },
+      "superseded_by": "eng_sss_guide_2021"
     },
     {
       "source_id": "g10",
@@ -1190,11 +1191,11 @@
         "activity"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "2020",
       "last_checked_at": "2026-11-16",
       "supersedes": null,
-      "notes": "Seeded from existing guidelines.json public artifact. | S207: `min_extract_chars` lowered — 呢個係 link-hub landing page,內容本來就短。舊 extract 係 mojibake（EDB 冇喺 header 出 charset → requests 當 ISO-8859-1）,亂碼令字元數虛脹先過到 200 字閘;encoding 修好後真文字反而過唔到,故按源下調。",
+      "notes": "Seeded from existing guidelines.json public artifact. | S207: `min_extract_chars` lowered — 呢個係 link-hub landing page,內容本來就短。舊 extract 係 mojibake（EDB 冇喺 header 出 charset → requests 當 ISO-8859-1）,亂碼令字元數虛脹先過到 200 字閘;encoding 修好後真文字反而過唔到,故按源下調。 | S255 B2（Leonard 2026-11-22 批准）退役：全欄位備份 dev/init_backup/20261122_154837_UTC/（含 embedding），刪生產片段並讀回為 0。僅 1 條連結頁片段，sch_activities_guide 已承載全文；瀏覽清單條目保留作教育局網頁入口（BROWSE_ONLY）。",
       "freshness_metadata": {
         "last_modified": "Wed, 08 Oct 2025 03:15:36 GMT",
         "content_length": "1789",
@@ -1211,7 +1212,8 @@
         ],
         "acked_at": "2026-11-16"
       },
-      "min_extract_chars": 80
+      "min_extract_chars": 80,
+      "superseded_by": "sch_activities_guide"
     },
     {
       "source_id": "g16",

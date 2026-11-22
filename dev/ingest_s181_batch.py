@@ -462,28 +462,6 @@ F = [
                    "9月中", "EDBC 8/2020", "申報"],
          q="非華語學生人數 幾時要報教育局"),
 
-    dict(fid="ncs_sen_3tier",
-         source_id="EDBC_9_2019_E",
-         title="EDBC 9/2019 Grant for Supporting NCS Students with SEN",
-         topic="general", url=f"{EDBC9_2019_URL}#page=2",
-         text="非華語 SEN 學生額外津貼幾多？點分級？《EDBC 9/2019》§4（註）："
-              "The NCS-SEN Grant is a recurrent cash grant and will be disbursed under a three-tier structure according to the number of NCS students with SEN enrolled in each school.  The grant rates for the 2019/20 school year are shown in the table below, and they will be adjusted annually according to the change in the Composite Consumer Price Index:\n\nTier | Number of NCS students with SEN | Grant rate\n1 | 1 to 9 | $100,000\n2 | 10 to 25 | $200,000\n3 | 26 or more | $300,000\n\n[Note (updated 19 August 2025): The grant rates will not be adjusted according to the Composite Consumer Price Index in the 2025/26 school year.]",
-         keywords=["NCS-SEN", "non-Chinese speaking", "SEN", "three-tier",
-                   "三級", "100,000", "200,000", "300,000", "1-9", "10-25",
-                   "26 or more", "CCPI", "EDBC 9/2019", "2025/26 凍結"],
-         q="非華語 SEN 學生 額外津貼 幾多錢"),
-
-    dict(fid="ncs_sen_12mo_cap",
-         source_id="EDBC_9_2019_E",
-         title="EDBC 9/2019 Grant for Supporting NCS Students with SEN",
-         topic="general", url=f"{EDBC9_2019_URL}#page=4",
-         text="NCS-SEN 津貼結餘可以儲幾多？《EDBC 9/2019》§12（註）："
-              "Schools should fully utilise the NCS-SEN Grant to address adjustment and integration problems with respect to their emotions, communication, socialisation and transition encountered by the students concerned of the relevant school year, and establish a regular mechanism to monitor expenditures under this additional grant.  As such, schools in general should not have a large surplus from the grant.  Aided, caput and DSS schools may retain an unspent balance up to 12 months' provision of the grant in a school year and carry it forward to the next school year.  Any surplus balance in excess of the capped amount should be clawed back by the EDB, which will make clawback arrangement according to the schools' audited annual accounts.",
-         keywords=["NCS-SEN", "non-Chinese speaking", "SEN", "surplus",
-                   "結餘", "12 months", "12個月", "carry forward",
-                   "claw back", "追回", "audited annual accounts", "EDBC 9/2019"],
-         q="NCS-SEN 津貼結餘 12個月"),
-
     dict(fid="ncs_sbp_26360_class",
          source_id="EDBCM_79_2025_TC",
          title="教育局通函第79/2025號 非華語學生暑期銜接課程",

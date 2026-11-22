@@ -798,8 +798,8 @@ const makeKey = (topicId, roleId, index) => `${topicId}.${roleId}.${index}`;
 const INITIAL_DATA = {
   "_meta": {
     "stats": {
-      "chunks": 16217,
-      "sources": 321
+      "chunks": 15793,
+      "sources": 318
     }
   }
 };
@@ -837,7 +837,6 @@ const GUIDELINES_REGISTRY = [
   { id: 'g06', title: '《小學教育課程指引》完整版（2024）', titleShort: '小學教育課程指引', format: 'PDF', category: '課程', sub_category: 'general', level: '小學', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/major-level-of-edu/primary/curriculum-documents/Primary_Education_Curriculum_Guide/PECG%202024_full.pdf' },
   { id: 'g13', title: '中學教育課程指引（2017）— 課程指引及文件', titleShort: '中學教育課程指引', format: 'HTML', category: '課程', sub_category: 'general', level: '中學', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/major-level-of-edu/secondary/cg_documents.html' },
   { id: 'g32', title: '初中人文學科課程及評估指引（中一至中三）(2024)', titleShort: '人文學科指引(初中)', format: 'HTML', category: '課程', sub_category: 'humanities', level: '中學', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/pshe/curriculum-documents.html' },
-  { id: 'g33', title: '英文課程及評估指引（中四至中六）(2021)', titleShort: '高中英文指引2021', format: 'PDF', category: '課程', sub_category: 'language', level: '中學', year: '2021', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/eng-edu/curriculum-documents.html' },
   { id: 'g10', title: '《特殊學校課程指引》(2024)', titleShort: '特殊學校課程指引', format: 'INDEX', category: '課程', also_in: ['學生事務'], sub_category: 'sen_gifted', level: '特殊', year: '2024', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/curriculum-area/special-educational-needs/curriculum_guide_for_special_schools/index.html' },
   { id: 'g08', title: '《中國語文教育學習領域課程指引（小一至中六）》學校課程規劃及教學示例', titleShort: '中文課程規劃示例', format: 'HTML', category: '課程', sub_category: 'language', level: '跨階段', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/chi-edu/curriculum-documents-exemplars.html' },
   { id: 'g09', title: '中國語文課程補充指引（非華語學生）(2025)', titleShort: '非華語中文指引', format: 'HTML', category: '課程', sub_category: 'language', level: '跨階段', year: '2025', isSpine: false, url: 'https://www.edb.gov.hk/tc/curriculum-development/kla/chi-edu/ncs-curriculum-documents.html' },
@@ -1432,7 +1431,7 @@ function PlatformIntroPanel({ stats }) {
   // Animate stat counters on mount — pull from stats.metaStats (single source of truth from _meta.stats)
   const meta = stats.metaStats || {};
   // Single-source derived counts/version (literals kept only as || fallback if stats missing)
-  const chunksCount = meta.chunks || 16217;
+  const chunksCount = meta.chunks || 15793;
   const guidelinesCount = GUIDELINES_REGISTRY.length;
   const sourcesCount = meta.sources || 300;
   const platformVersion = PLATFORM_VERSION;
@@ -2096,7 +2095,7 @@ function QAPanel({ data, setPreviewDoc }) {
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 k1-search-card">
         <h2 className="text-lg font-bold text-gray-800 mb-1">政策搜尋</h2>
         <p className="text-xs text-gray-400 mb-3">
-          {`來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 16217).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
+          {`來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 15793).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
           {usageTotal !== null && ` · 累計已服務 ${usageTotal.toLocaleString()} 次查詢`}
         </p>
 
