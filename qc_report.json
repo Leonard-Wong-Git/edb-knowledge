@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-21T18:30:54Z",
+  "generatedAt": "2026-11-22T15:18:17Z",
   "overallStatus": "ERROR",
   "counts": {
-    "chunks": 15856,
+    "chunks": 16217,
     "PASS": 19,
     "BLOCKER": 0,
     "ERROR": 2,
@@ -12,11 +12,11 @@
   },
   "version": "v3.3.16",
   "corpus": {
-    "chunks": 15856,
-    "sources_serving": 315,
-    "sources_registered": 311,
-    "guidelines_listed": 241,
-    "distinct_urls": 353,
+    "chunks": 16217,
+    "sources_serving": 321,
+    "sources_registered": 317,
+    "guidelines_listed": 247,
+    "distinct_urls": 359,
     "largest_sources": [
       {
         "source_id": "coa_ss_e",
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-21T18:30:54Z",
+    "collectedAt": "2026-11-22T15:18:17Z",
     "items": [
       {
         "kind": "qc-regression",
@@ -78,14 +78,15 @@
     {
       "id": "BODY_LENGTH_FLOOR",
       "label": "片段正文不少於 60 字",
-      "count": 4,
+      "count": 6,
       "baseline": 3,
-      "over": 1,
+      "over": 3,
       "top": [
+        "ma_jss_curric_2020：初中數學課程闡釋教育局課程發展處數學教育組二零二零年",
+        "ma_sss_curric_comp_2021：教育局課程發展處數學教育組二零零九年（二零二一年十二月更新）高中數學課程闡釋:",
         "staff_est_pri：日制小學主任級教師職位數目由每4班設1個主任級教師職位，改善為每4名教師設1個主",
         "staff_est_pri：全日制資助小學教學人員編制（由2022/23學年起生效）",
-        "staff_est_pri：半日制資助小學教學人員編制（由2022/23學年起生效）",
-        "staff_est_sp_sch_pri：資助特殊學校小學部教學人員編制（由2022/23學年起生效）"
+        "staff_est_pri：半日制資助小學教學人員編制（由2022/23學年起生效）"
       ]
     }
   ],
@@ -219,7 +220,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=b6f57d0 · 啟動於 2026-11-21T18:30:43.330Z",
+      "detail": "ok=True · commit=63a45d6 · 啟動於 2026-11-22T15:07:12.744Z",
       "offenders": [],
       "offender_total": 0
     },
@@ -249,7 +250,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "infra",
-      "detail": "資料庫真數 15856 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "detail": "資料庫真數 16217 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
       "offenders": [],
       "offender_total": 0
     },
@@ -354,14 +355,16 @@
       "severity": "WARN",
       "status": "FAIL",
       "group": "chunk",
-      "detail": "4 · 高於基準 3（+1） · 逐條讀過：現存者全部是表格標題行（例如「全日制資助小學教學人員編制（由 2022/23 學年起生效）」），屬正常，不是斷句",
+      "detail": "6 · 高於基準 3（+3） · 逐條讀過：現存者全部是表格標題行（例如「全日制資助小學教學人員編制（由 2022/23 學年起生效）」），屬正常，不是斷句",
       "offenders": [
+        "ma_jss_curric_2020：初中數學課程闡釋教育局課程發展處數學教育組二零二零年",
+        "ma_sss_curric_comp_2021：教育局課程發展處數學教育組二零零九年（二零二一年十二月更新）高中數學課程闡釋:",
         "staff_est_pri：日制小學主任級教師職位數目由每4班設1個主任級教師職位，改善為每4名教師設1個主",
         "staff_est_pri：全日制資助小學教學人員編制（由2022/23學年起生效）",
         "staff_est_pri：半日制資助小學教學人員編制（由2022/23學年起生效）",
         "staff_est_sp_sch_pri：資助特殊學校小學部教學人員編制（由2022/23學年起生效）"
       ],
-      "offender_total": 4
+      "offender_total": 6
     },
     {
       "id": "NO_MIDCLAUSE_START",
@@ -369,7 +372,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "cutting",
-      "detail": "733 · 低於基準 835（−102，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
+      "detail": "754 · 低於基準 835（−81，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
       "offenders": [
         "g06（34 條）",
         "g13（34 條）",
@@ -384,7 +387,7 @@
         "g19（12 條）",
         "g35（12 條）"
       ],
-      "offender_total": 733
+      "offender_total": 754
     },
     {
       "id": "TABLE_ROW_INTEGRITY",
@@ -402,7 +405,7 @@
       "severity": "INFO",
       "status": "INFO",
       "group": "cutting",
-      "detail": "1817 條（11.5%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
+      "detail": "1847 條（11.4%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
       "offenders": [
         "g13（105 條）",
         "tech_kla_guide_2017（62 條）",
@@ -417,7 +420,7 @@
         "chi_hist_sss_2007_2015（34 條）",
         "ma_sss_content_2017（33 條）"
       ],
-      "offender_total": 1817
+      "offender_total": 1847
     },
     {
       "id": "EVAL_LATEST",
