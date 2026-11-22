@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-11-22T15:18:17Z",
+  "generatedAt": "2026-11-22T15:54:58Z",
   "overallStatus": "ERROR",
   "counts": {
-    "chunks": 16217,
-    "PASS": 19,
+    "chunks": 15793,
+    "PASS": 20,
     "BLOCKER": 0,
     "ERROR": 2,
-    "WARN": 3,
+    "WARN": 2,
     "INFO": 1,
     "NOT_MEASURED": 0
   },
   "version": "v3.3.16",
   "corpus": {
-    "chunks": 16217,
-    "sources_serving": 321,
+    "chunks": 15793,
+    "sources_serving": 318,
     "sources_registered": 317,
-    "guidelines_listed": 247,
-    "distinct_urls": 359,
+    "guidelines_listed": 246,
+    "distinct_urls": 357,
     "largest_sources": [
       {
         "source_id": "coa_ss_e",
@@ -39,16 +39,16 @@
         "chunks": 421
       },
       {
-        "source_id": "g33",
-        "chunks": 421
-      },
-      {
         "source_id": "g06",
         "chunks": 412
       },
       {
         "source_id": "sag_2025_11",
         "chunks": 387
+      },
+      {
+        "source_id": "gifted_ge_series",
+        "chunks": 346
       }
     ]
   },
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-22T15:18:17Z",
+    "collectedAt": "2026-11-22T15:54:58Z",
     "items": [
       {
         "kind": "qc-regression",
@@ -74,22 +74,7 @@
     ],
     "ignored_outside": 0
   },
-  "regressions": [
-    {
-      "id": "BODY_LENGTH_FLOOR",
-      "label": "片段正文不少於 60 字",
-      "count": 6,
-      "baseline": 3,
-      "over": 3,
-      "top": [
-        "ma_jss_curric_2020：初中數學課程闡釋教育局課程發展處數學教育組二零二零年",
-        "ma_sss_curric_comp_2021：教育局課程發展處數學教育組二零零九年（二零二一年十二月更新）高中數學課程闡釋:",
-        "staff_est_pri：日制小學主任級教師職位數目由每4班設1個主任級教師職位，改善為每4名教師設1個主",
-        "staff_est_pri：全日制資助小學教學人員編制（由2022/23學年起生效）",
-        "staff_est_pri：半日制資助小學教學人員編制（由2022/23學年起生效）"
-      ]
-    }
-  ],
+  "regressions": [],
   "releaseGate": {
     "status": "FAIL",
     "summary": "5/15 項達標",
@@ -167,7 +152,7 @@
         "label": "每個 standing WARN 都有 owner、理由、接受期限",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "未有 waiver 2 項：PAGE_ANCHORED、MOJIBAKE"
+        "detail": "未有 waiver 1 項：BODY_LENGTH_FLOOR"
       },
       {
         "id": "CORE_SEARCH_CASES",
@@ -220,7 +205,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=63a45d6 · 啟動於 2026-11-22T15:07:12.744Z",
+      "detail": "ok=True · commit=924bef7 · 啟動於 2026-11-22T15:22:06.813Z",
       "offenders": [],
       "offender_total": 0
     },
@@ -250,7 +235,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "infra",
-      "detail": "資料庫真數 16217 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "detail": "資料庫真數 15793 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
       "offenders": [],
       "offender_total": 0
     },
@@ -278,13 +263,11 @@
       "id": "PAGE_ANCHORED",
       "label": "PDF 片段可指向頁數（有 Page 標記或 #page= 連結；網頁與試算表沒有頁碼，不計）",
       "severity": "WARN",
-      "status": "WARN",
+      "status": "PASS",
       "group": "pointing",
-      "detail": "1 · 與基準 1 相同（未惡化，但仍在服務中） · 這些片段只能把用戶帶到 PDF 首頁",
-      "offenders": [
-        "ceg_calc_2026（1 條）"
-      ],
-      "offender_total": 1
+      "detail": "0 · 低於基準 1（−1，已改善） · 這些片段只能把用戶帶到 PDF 首頁",
+      "offenders": [],
+      "offender_total": 0
     },
     {
       "id": "FOOTNOTE_CORRECTIONS",
@@ -292,7 +275,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "pointing",
-      "detail": "0 / 10 條與清單不同 · 多半是註腳入庫腳本重跑後舊文字被寫回；用 dev/apply_footnote_corrections.py 重新套用（先預演，批准後 --execute）",
+      "detail": "0 / 12 條與清單不同 · 多半是註腳入庫腳本重跑後舊文字被寫回；用 dev/apply_footnote_corrections.py 重新套用（先預演，批准後 --execute）",
       "offenders": [],
       "offender_total": 0
     },
@@ -302,7 +285,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "pointing",
-      "detail": "0 / 81 條與清單不同 · 多半是註腳入庫腳本重跑後每來源一條的網址被寫回；用 dev/apply_url_overrides.py 重新套用（不加參數即預演，批准後 --execute）",
+      "detail": "0 / 82 條與清單不同 · 多半是註腳入庫腳本重跑後每來源一條的網址被寫回；用 dev/apply_url_overrides.py 重新套用（不加參數即預演，批准後 --execute）",
       "offenders": [],
       "offender_total": 0
     },
@@ -312,9 +295,8 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "chunk",
-      "detail": "重複組 452 · 低於基準 956（−504，已改善） · 多出的副本 476 條 · 重複全部跨來源（同一來源內 0 組），即問題出在登記了兩次的文件，不是切片器。⚠️ 此數是下限：只捉逐字相同的片段。同一份 PDF 分兩次抽取會切出不同邊界，雜湊就不同 —— kgecg_2017 與 g29 是同一份《幼稚園教育課程指引（2017）》，108 對 107 條，逐字相同 0 條，本檢查完全看不見",
+      "detail": "重複組 31 · 低於基準 956（−925，已改善） · 多出的副本 55 條 · 重複全部跨來源（同一來源內 0 組），即問題出在登記了兩次的文件，不是切片器。⚠️ 此數是下限：只捉逐字相同的片段。同一份 PDF 分兩次抽取會切出不同邊界，雜湊就不同 —— kgecg_2017 與 g29 是同一份《幼稚園教育課程指引（2017）》，108 對 107 條，逐字相同 0 條，本檢查完全看不見",
       "offenders": [
-        "eng_sss_guide_2021 ↔ g33：421 組",
         "stat_enrolment_2016 ↔ stat_enrolment_2017：7 組",
         "stat_enrolment_2018 ↔ stat_enrolment_2019：6 組",
         "stat_enrolment_2013 ↔ stat_enrolment_2014：5 組",
@@ -326,7 +308,7 @@
         "stat_enrolment_2020 ↔ stat_enrolment_2024：1 組",
         "stat_enrolment_2020 ↔ stat_enrolment_2022：1 組"
       ],
-      "offender_total": 452
+      "offender_total": 31
     },
     {
       "id": "NO_TOC_NOISE",
@@ -353,9 +335,9 @@
       "id": "BODY_LENGTH_FLOOR",
       "label": "片段正文不少於 60 字",
       "severity": "WARN",
-      "status": "FAIL",
+      "status": "WARN",
       "group": "chunk",
-      "detail": "6 · 高於基準 3（+3） · 逐條讀過：現存者全部是表格標題行（例如「全日制資助小學教學人員編制（由 2022/23 學年起生效）」），屬正常，不是斷句",
+      "detail": "6 · 與基準 6 相同（未惡化，但仍在服務中） · 逐條讀過：現存者全部是表格標題行（例如「全日制資助小學教學人員編制（由 2022/23 學年起生效）」），屬正常，不是斷句",
       "offenders": [
         "ma_jss_curric_2020：初中數學課程闡釋教育局課程發展處數學教育組二零二零年",
         "ma_sss_curric_comp_2021：教育局課程發展處數學教育組二零零九年（二零二一年十二月更新）高中數學課程闡釋:",
@@ -372,7 +354,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "cutting",
-      "detail": "754 · 低於基準 835（−81，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
+      "detail": "749 · 低於基準 835（−86，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
       "offenders": [
         "g06（34 條）",
         "g13（34 條）",
@@ -387,7 +369,7 @@
         "g19（12 條）",
         "g35（12 條）"
       ],
-      "offender_total": 754
+      "offender_total": 749
     },
     {
       "id": "TABLE_ROW_INTEGRITY",
@@ -405,7 +387,7 @@
       "severity": "INFO",
       "status": "INFO",
       "group": "cutting",
-      "detail": "1847 條（11.4%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
+      "detail": "1837 條（11.6%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
       "offenders": [
         "g13（105 條）",
         "tech_kla_guide_2017（62 條）",
@@ -420,7 +402,7 @@
         "chi_hist_sss_2007_2015（34 條）",
         "ma_sss_content_2017（33 條）"
       ],
-      "offender_total": 1847
+      "offender_total": 1837
     },
     {
       "id": "EVAL_LATEST",
