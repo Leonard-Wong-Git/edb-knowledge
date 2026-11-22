@@ -298,16 +298,17 @@
 - Test-verified: 2026-06-10 (Claude_20260610_0100) — local browser-verify on app.html + index.html: beacon.min.js loads AND RUM POST to cloudflareinsights.com/cdn-cgi/rum observed (execution, not just reachability); 0 console errors
 - Notes: **Architecture change (playbook analytics-minors-cookieless card): frontend went from zero-external-runtime-scripts (beyond CDN libs) to ONE external analytics service.** Installed on all 4 public HTML surfaces (index/app/q/t-purchase) before `</body>`. Cookieless / no consent banner needed; privacy fine-print added to index.html + app.html footers (本站採用免 Cookie 匿名流量統計). Collects pageview/path/referrer/country/device only. Chosen over GA4 per playbook card (privacy-first education audience; traffic-volume-only need). Dashboard: Leonard's Cloudflare account → Web Analytics → policychecker.wongfu.net.
 
-### EDB Circular Dashboard Feed (circular.wongfu.net — S185 第 4 監察源)
-- Base URL: `https://circular.wongfu.net/circulars.json` (fetched by the dashboard page `edb-dashboard.html` via `./circulars.json`)
+### EDB Circular Dashboard Feed (circular.minny.app；原 circular.wongfu.net — S185 第 4 監察源)
+- Base URL: `https://circular.minny.app/circulars.json`（2026-11-22 Leonard 確認系統已改用此網址；舊 `circular.wongfu.net` 已停用）(fetched by the dashboard page `edb-dashboard.html` via `./circulars.json`)
 - Version: no version pin; daily-regenerated feed (observed `generated_at` ~11:00 UTC / ~19:00 HK)
 - Auth: none — public static JSON (Leonard's own "EDB 通告智能分析系統" service)
 - Required params: none
 - Forbidden params: n/a
 - Response path: top-level `{generated_at, count, circulars:[...]}`; each circular record carries `number` (e.g. `EDBC008/2026`), `type`, `date`, `isNew`, `title`, `official` (AI-extracted full text — NOT a verbatim SSOT), `topics`, `urgency`, `impact`, `compliance`, `scope`, `deadlines[]`, `grant_info`, `pdf_urls[]`, `k1_topics[]`, `k1_guidelines[]`, `channel_b_facts[]` (PolicyChecker Channel-B hits = coverage/gap signal), `knowledge_review`.
-- Official docs: Leonard-owned dashboard `https://circular.wongfu.net/edb-dashboard.html` (no external API docs; service Leonard controls)
+- Official docs: Leonard-owned dashboard `https://circular.minny.app/edb-dashboard.html` (no external API docs; service Leonard controls)
 - Doc-reviewed: 2026-06-28 (Claude_20260628_S185) — structure inspected; data loaded client-side via `fetch('./circulars.json')`
 - Test-verified: 2026-06-28 (Claude_20260628_S185) — fetched 174 circulars (HTTP 200, ~3.6MB); `EDBC008/2026 學校效率津貼 isNew=true` present with `pdf_urls` matching the S184-ingested PDF; negative control (registry minus EDBC26008C.pdf) confirms the watcher would surface it
+- Test-verified（S255，2026-11-22）：ops `option-a-approvals` 於 2026-11-21 經此網址讀得 13 條現行候選；**2026-11-22 15:24 UTC 新網址回 HTTP 404（Vercel `DEPLOYMENT_NOT_FOUND`），`check_new_circulars.py` 以 exit 2 報 feed 中斷**，待 Leonard 在 Vercel 指派部署
 - Notes: Backs the 4th monitor. `dev/source/check_new_circulars.py` fetches this feed + diffs `pdf_urls` basenames against `source_registry.json` → surfaces un-ingested circulars (isNew OR within `--since-days`) → `.github/workflows/new_circular_check.yml` opens/updates a `new-circular` GitHub Issue (daily 11:30 UTC = HK 19:30). **Detection-only** — verbatim ingest from `pdf_urls` (PyMuPDF) stays a manual gate; do NOT trust the feed's `official` text as the ingest SSOT. Dependency: Leonard-controlled service + JSON shape stability. **Closes the gap** where new EDB circulars were invisible to `discover_sources.py` (watches only registry `.html` landings, none being the circulars index) and `check_freshness.py` (watches only already-ingested sources).
 
 ### MemPalace — REMOVED 2026-05-18 (S115, Leonard 指示)
