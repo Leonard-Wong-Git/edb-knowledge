@@ -13,11 +13,11 @@
 
 | Change Category | Required Doc Updates | Verification Method |
 |---|---|---|
-| Governance rule change (AGENTS.md) | INIT.md FILE 1 mirror; README if behavior is user-facing | grep parity check |
+| Governance rule change (AGENTS.md) | ~~INIT.md FILE 1 mirror~~（INIT.md 已退役，S255 B10）；README if behavior is user-facing | grep parity check |
 | Tech stack / build / dependency change | CODEBASE_CONTEXT.md Stack or Build section | manual review |
 | External API / service change | CODEBASE_CONTEXT.md External Services block | block format check |
-| New governance file added to install | §5a backup list in AGENTS.md; INIT.md ROOT SAFETY CHECK backup list; INIT.md FILE 1 §5a | grep check |
-| Session-log maintenance utility added/changed | AGENTS.md §4a mechanism enforcement; INIT.md FILE 7 + FILE 1 §4a + §5a backup list; README*.md safeguards section; docs/qa/run_checks.sh | script self-test + grep |
+| New governance file added to install | §5a backup list in AGENTS.md；~~INIT.md ROOT SAFETY CHECK backup list; INIT.md FILE 1 §5a~~（INIT.md 已退役，S255 B10） | grep check |
+| Session-log maintenance utility added/changed | AGENTS.md §4a mechanism enforcement; ~~INIT.md FILE 7 + FILE 1 §4a + §5a backup list~~（INIT.md 已退役，S255 B10）; README*.md safeguards section; docs/qa/run_checks.sh | script self-test + grep |
 | New project doc added | This file — add a row for the new doc's update triggers | row presence check |
 | `backend/src` LLM 呼叫、旗標、判官閘或護欄改動 | `dev/AUDIT.md` 對應章節（現況表／護欄表／落差）須覆核，失效即更新或標作廢 | manual review |
 | Governance bootstrap / INIT execution | SESSION_HANDOFF.md Last Session Record; SESSION_LOG.md task entry + handoff prompt | manual review |
