@@ -9789,6 +9789,132 @@
       "last_checked_at": "2026-11-17",
       "supersedes": null,
       "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，2 頁、預演 3 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：hr_admin。"
+    },
+    {
+      "source_id": "ma_pri_curric_s1_2018",
+      "title": "小學數學課程闡釋（第一學習階段）（2018）",
+      "title_en": null,
+      "title_short": "小學數學課程闡釋KS1",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/ma/curr/index2.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_KS1_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2018",
+      "last_checked_at": "2026-11-22",
+      "supersedes": null,
+      "parent_source_id": "ma_curr_index",
+      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 62 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum。"
+    },
+    {
+      "source_id": "ma_pri_curric_s2_2020",
+      "title": "小學數學課程闡釋（第二學習階段）（2020）",
+      "title_en": null,
+      "title_short": "小學數學課程闡釋KS2",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/ma/curr/index2.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_KS2_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2020",
+      "last_checked_at": "2026-11-22",
+      "supersedes": null,
+      "parent_source_id": "ma_curr_index",
+      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 58 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum。"
+    },
+    {
+      "source_id": "ma_jss_curric_2020",
+      "title": "初中數學課程闡釋（2020）",
+      "title_en": null,
+      "title_short": "初中數學課程闡釋",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/ma/curr/index2.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_KS3_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2020",
+      "last_checked_at": "2026-11-22",
+      "supersedes": null,
+      "parent_source_id": "ma_curr_index",
+      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 71 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum。"
+    },
+    {
+      "source_id": "ma_sss_curric_comp_2021",
+      "title": "高中數學課程闡釋（必修部分）（2021年12月更新）",
+      "title_en": null,
+      "title_short": "高中數學闡釋必修",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/ma/curr/index2.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_CP_tc_1.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2021",
+      "last_checked_at": "2026-11-22",
+      "supersedes": null,
+      "parent_source_id": "ma_curr_index",
+      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 42 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum、subject_guides。"
+    },
+    {
+      "source_id": "ma_sss_curric_m1_2018",
+      "title": "高中數學課程闡釋（延伸部分單元一）（2018年8月更新）",
+      "title_en": null,
+      "title_short": "高中數學闡釋M1",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/ma/curr/index2.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_M1_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2018",
+      "last_checked_at": "2026-11-22",
+      "supersedes": null,
+      "parent_source_id": "ma_curr_index",
+      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 44 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum、subject_guides。"
+    },
+    {
+      "source_id": "ma_sss_curric_m2_2018",
+      "title": "高中數學課程闡釋（延伸部分單元二）（2018年8月更新）",
+      "title_en": null,
+      "title_short": "高中數學闡釋M2",
+      "url_landing": "https://www.edb.gov.hk/tc/curriculum-development/kla/ma/curr/index2.html",
+      "url_primary": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_M2_tc.pdf",
+      "source_type": "pdf",
+      "authority": "edb",
+      "spine": false,
+      "topic_tags": [
+        "curriculum"
+      ],
+      "access_mode": "public",
+      "status": "verified",
+      "version_label": "2018",
+      "last_checked_at": "2026-11-22",
+      "supersedes": null,
+      "parent_source_id": "ma_curr_index",
+      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 46 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum、subject_guides。"
     }
   ]
 }

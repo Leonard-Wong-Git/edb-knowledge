@@ -798,8 +798,8 @@ const makeKey = (topicId, roleId, index) => `${topicId}.${roleId}.${index}`;
 const INITIAL_DATA = {
   "_meta": {
     "stats": {
-      "chunks": 15856,
-      "sources": 315
+      "chunks": 16217,
+      "sources": 321
     }
   }
 };
@@ -965,6 +965,12 @@ const GUIDELINES_REGISTRY = [
   { id: 'ma_pri_content_2017', title: '小學數學科學習內容（數學教育學習領域課程指引補充文件）(2017)', titleShort: '小學數學學習內容2017', format: 'PDF', category: '課程', sub_category: 'math_science', level: '小學', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/pmc2017_tc.pdf' },
   { id: 'ma_jss_content_2017', title: '初中數學科學習內容（數學教育學習領域課程指引補充文件）(2017)', titleShort: '初中數學學習內容2017', format: 'PDF', category: '課程', sub_category: 'math_science', level: '中學', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/jsmc2017_tc.pdf' },
   { id: 'ma_sss_content_2017', title: '高中數學科學習內容（數學教育學習領域課程指引補充文件）(2017)', titleShort: '高中數學學習內容2017', format: 'PDF', category: '課程', sub_category: 'math_science', level: '中學', year: '2017', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/ssmc2017_tc.pdf' },
+  { id: 'ma_pri_curric_s1_2018', title: '小學數學課程闡釋（第一學習階段）（2018）', titleShort: '小學數學課程闡釋KS1', format: 'PDF', category: '課程', sub_category: 'math_science', level: '小學', year: '2018', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_KS1_tc.pdf' },
+  { id: 'ma_pri_curric_s2_2020', title: '小學數學課程闡釋（第二學習階段）（2020）', titleShort: '小學數學課程闡釋KS2', format: 'PDF', category: '課程', sub_category: 'math_science', level: '小學', year: '2020', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_KS2_tc.pdf' },
+  { id: 'ma_jss_curric_2020', title: '初中數學課程闡釋（2020）', titleShort: '初中數學課程闡釋', format: 'PDF', category: '課程', sub_category: 'math_science', level: '中學', year: '2020', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_KS3_tc.pdf' },
+  { id: 'ma_sss_curric_comp_2021', title: '高中數學課程闡釋（必修部分）（2021年12月更新）', titleShort: '高中數學闡釋必修', format: 'PDF', category: '課程', sub_category: 'math_science', level: '中學', year: '2021', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_CP_tc_1.pdf' },
+  { id: 'ma_sss_curric_m1_2018', title: '高中數學課程闡釋（延伸部分單元一）（2018年8月更新）', titleShort: '高中數學闡釋M1', format: 'PDF', category: '課程', sub_category: 'math_science', level: '中學', year: '2018', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_M1_tc.pdf' },
+  { id: 'ma_sss_curric_m2_2018', title: '高中數學課程闡釋（延伸部分單元二）（2018年8月更新）', titleShort: '高中數學闡釋M2', format: 'PDF', category: '課程', sub_category: 'math_science', level: '中學', year: '2018', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/ma/curr/EN_M2_tc.pdf' },
   // S241 小學資訊與創新科技科（同小學人文科 ph_primary 一樣：框架、單張、範疇摘要、開科通告同組）
   { id: 'iit_curriculum_framework_2026', title: '《小學資訊與創新科技課程框架》（擬定稿）（2026年10月）', titleShort: 'IIT 課程框架（擬定稿）', format: 'PDF', category: '課程', also_in: ['數字教育'], sub_category: 'pri_iit', level: '小學', year: '2026', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/primary-iit/IIT_Curriculum_Framework.pdf' },
   { id: 'iit_leaflet_2026', title: '《小學資訊與創新科技科》課程簡介單張（2026年10月）', titleShort: 'IIT 課程簡介單張', format: 'PDF', category: '課程', also_in: ['數字教育'], sub_category: 'pri_iit', level: '小學', year: '2026', isSpine: false, url: 'https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/technology-edu/primary-iit/IIT_Leaflet.pdf' },
@@ -1426,7 +1432,7 @@ function PlatformIntroPanel({ stats }) {
   // Animate stat counters on mount — pull from stats.metaStats (single source of truth from _meta.stats)
   const meta = stats.metaStats || {};
   // Single-source derived counts/version (literals kept only as || fallback if stats missing)
-  const chunksCount = meta.chunks || 15856;
+  const chunksCount = meta.chunks || 16217;
   const guidelinesCount = GUIDELINES_REGISTRY.length;
   const sourcesCount = meta.sources || 300;
   const platformVersion = PLATFORM_VERSION;
@@ -2090,7 +2096,7 @@ function QAPanel({ data, setPreviewDoc }) {
       <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 k1-search-card">
         <h2 className="text-lg font-bold text-gray-800 mb-1">政策搜尋</h2>
         <p className="text-xs text-gray-400 mb-3">
-          {`來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 15856).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
+          {`來源文件：語義搜尋 ${(data._meta?.stats?.chunks || 16217).toLocaleString()} 個 EDB 原文知識片段，附整理答案`}
           {usageTotal !== null && ` · 累計已服務 ${usageTotal.toLocaleString()} 次查詢`}
         </p>
 

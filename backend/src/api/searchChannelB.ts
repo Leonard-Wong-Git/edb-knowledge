@@ -681,6 +681,9 @@ const SOURCE_SETS: Record<string, string[]> = {
   subject_guides: [
     // S252 A14 — listed in the browse library but had no chunks; ingested 2026-11-17
     "ma_sss_content_2017",
+    "ma_sss_curric_comp_2021",  // S255 數學課程闡釋（高中）
+    "ma_sss_curric_m1_2018",  // S255 數學課程闡釋（高中）
+    "ma_sss_curric_m2_2018",  // S255 數學課程闡釋（高中）
     "apl_curr_docs",  // 應用學習課程及評估指引（高中課程）2017更新
     "bafs_sss_2007_2020",  // 企業、會計與財務概論 (中四至中六) (於2022/23學年的中四實施並在202
     "bio_sss_2007_2015",  // 生物(中四至中六) 二零零七年 (二零一五年十一月更新)
@@ -727,6 +730,13 @@ const SOURCE_SETS: Record<string, string[]> = {
     "ma_jss_content_2017",
     "ma_sss_content_2017",
     "pth_guide_2017",
+    // S255 — 數學課程闡釋（6 份），此前只在 ma_curr_index catalogue；ingested 2026-11-22
+    "ma_pri_curric_s1_2018",
+    "ma_pri_curric_s2_2020",
+    "ma_jss_curric_2020",
+    "ma_sss_curric_comp_2021",
+    "ma_sss_curric_m1_2018",
+    "ma_sss_curric_m2_2018",
     // S195: kgecg_2017 removed from this allowlist — it duplicated g29 (same document).
     // ⚠️ S212 CORRECTION: the "0 chunks in the store" half of this note was never true, and
     // is not true now. kgecg_2017 is registered `status: deprecated` and is still serving

@@ -1,0 +1,173 @@
+{
+ "_meta": {
+  "session": "S255",
+  "item": "數學課程闡釋 6 份入庫",
+  "date": "2026-11-22",
+  "production_write": "361 chunks (66/61/103/50/38/43); live 15,856→16,217 chunks, 315→321 sources; backup dev/init_backup/20261122_150548_UTC (0 rows each before)",
+  "prod_before": "production before backend deploy: routed (curriculum) queries cannot see new sources; unrouted query 初中數學 學習內容 already returns them",
+  "local_after": "local backend-s250-local with new SOURCE_SETS (curriculum + subject_guides for ma_sss_*)",
+  "gold_impact": "only cur_eight_kla references a ma_ source (accepts 16 alternatives); subject_guides gold has no math item"
+ },
+ "prod_before": {
+  "數學課程闡釋": [
+   "ma_kla_guide_2017",
+   "ma_kla_guide_2017",
+   "ma_kla_guide_2017",
+   "ma_pri_content_2017",
+   "ma_sss_content_2017",
+   "ma_jss_content_2017",
+   "ma_sss_content_2017",
+   "ma_jss_content_2017"
+  ],
+  "小學數學課程闡釋 第一學習階段": [
+   "ma_kla_guide_2017",
+   "ma_kla_guide_2017",
+   "ma_jss_content_2017",
+   "pe_kla_2017",
+   "ma_kla_guide_2017",
+   "ma_pri_content_2017",
+   "ma_jss_content_2017",
+   "ma_jss_content_2017"
+  ],
+  "小一 長度和距離 教學要點": [
+   "ma_kla_guide_2017",
+   "pe_kla_2017",
+   "ma_pri_content_2017",
+   "ma_pri_content_2017",
+   "chi_edu_curr_docs",
+   "ma_pri_content_2017",
+   "edbc18_2023_pri_science",
+   "edbc13_2025_pri_science"
+  ],
+  "初中數學課程闡釋": [
+   "ma_kla_guide_2017",
+   "ma_jss_content_2017",
+   "ma_kla_guide_2017",
+   "ma_kla_guide_2017",
+   "ma_jss_content_2017",
+   "ma_pri_content_2017",
+   "ma_jss_content_2017",
+   "ma_sss_content_2017"
+  ],
+  "高中數學 延伸部分 單元一 指數函數 教學": [
+   "ma_sss_cag_2017",
+   "ma_sss_cag_2017",
+   "ma_sss_content_2017",
+   "ma_sss_content_2017",
+   "ma_sss_cag_2017",
+   "ma_sss_content_2017"
+  ],
+  "高中數學課程闡釋 必修部分": [
+   "ma_sss_cag_2017",
+   "ma_sss_cag_2017",
+   "ma_sss_cag_2017",
+   "ma_sss_content_2017",
+   "ma_sss_diversity_2021",
+   "ma_sss_diversity_2021",
+   "ma_sss_diversity_2021",
+   "ma_sss_content_2017"
+  ],
+  "初中數學 學習內容": [
+   "ma_jss_curric_2020",
+   "ma_pri_curric_s2_2020",
+   "ma_jss_curric_2020",
+   "ma_jss_curric_2020",
+   "ma_pri_content_2017",
+   "ma_sss_curric_m2_2018",
+   "ma_pri_curric_s2_2020",
+   "pe_kla_2017"
+  ],
+  "數學教育學習領域課程指引": [
+   "ma_kla_guide_2017",
+   "ma_kla_guide_2017",
+   "ma_kla_guide_2017",
+   "ma_jss_content_2017",
+   "ma_sss_content_2017",
+   "ma_jss_content_2017",
+   "ma_pri_content_2017",
+   "pe_kla_2017"
+  ]
+ },
+ "local_after": {
+  "數學課程闡釋": [
+   "ma_kla_guide_2017",
+   "ma_jss_curric_2020",
+   "ma_sss_curric_comp_2021",
+   "ma_pri_curric_s2_2020",
+   "ma_pri_curric_s1_2018",
+   "ma_kla_guide_2017",
+   "ma_kla_guide_2017",
+   "ma_jss_curric_2020"
+  ],
+  "小學數學課程闡釋 第一學習階段": [
+   "ma_kla_guide_2017",
+   "ma_jss_curric_2020",
+   "ma_pri_curric_s2_2020",
+   "ma_kla_guide_2017",
+   "ma_jss_content_2017",
+   "pe_kla_2017",
+   "ma_pri_curric_s1_2018",
+   "ma_kla_guide_2017"
+  ],
+  "小一 長度和距離 教學要點": [
+   "ma_pri_curric_s1_2018",
+   "ma_pri_curric_s1_2018",
+   "ma_kla_guide_2017",
+   "ma_pri_curric_s1_2018",
+   "ma_jss_curric_2020",
+   "ma_pri_curric_s2_2020",
+   "pe_kla_2017",
+   "ma_pri_content_2017"
+  ],
+  "初中數學課程闡釋": [
+   "ma_kla_guide_2017",
+   "ma_jss_curric_2020",
+   "ma_jss_curric_2020",
+   "ma_jss_curric_2020",
+   "ma_jss_content_2017",
+   "ma_kla_guide_2017",
+   "ma_kla_guide_2017",
+   "ma_pri_curric_s1_2018"
+  ],
+  "高中數學 延伸部分 單元一 指數函數 教學": [
+   "ma_sss_curric_comp_2021",
+   "ma_sss_curric_m1_2018",
+   "ma_sss_curric_m2_2018",
+   "ma_sss_cag_2017",
+   "ma_sss_cag_2017",
+   "ma_sss_curric_comp_2021",
+   "ma_sss_curric_m1_2018",
+   "ma_sss_content_2017"
+  ],
+  "高中數學課程闡釋 必修部分": [
+   "ma_sss_cag_2017",
+   "ma_sss_cag_2017",
+   "ma_sss_cag_2017",
+   "ma_sss_curric_comp_2021",
+   "ma_sss_content_2017",
+   "ma_sss_diversity_2021",
+   "ma_sss_diversity_2021",
+   "ma_sss_diversity_2021"
+  ],
+  "初中數學 學習內容": [
+   "ma_jss_curric_2020",
+   "ma_pri_curric_s2_2020",
+   "ma_jss_curric_2020",
+   "ma_jss_curric_2020",
+   "ma_pri_content_2017",
+   "ma_sss_curric_m2_2018",
+   "ma_pri_curric_s2_2020",
+   "pe_kla_2017"
+  ],
+  "數學教育學習領域課程指引": [
+   "ma_kla_guide_2017",
+   "ma_kla_guide_2017",
+   "ma_pri_curric_s2_2020",
+   "ma_kla_guide_2017",
+   "ma_pri_curric_s1_2018",
+   "ma_jss_curric_2020",
+   "ma_jss_content_2017",
+   "ma_jss_curric_2020"
+  ]
+ }
+}
