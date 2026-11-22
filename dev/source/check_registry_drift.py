@@ -67,10 +67,7 @@ SEARCH_TS = REPO_ROOT / "backend" / "src" / "api" / "searchChannelB.ts"
 # duplicate of a routed source. Allowlisting them would put two editions of one guide in
 # the same window. Each is a retirement candidate awaiting Leonard's decision — remove
 # the entry here when the source is retired (or routed).
-ROUTE_EXEMPT = {
-    "g33": "same document as eng_sss_guide_2021 (421 chunks each)",
-    "g20": "one-chunk stub; sch_activities_guide carries the document",
-}
+ROUTE_EXEMPT: dict[str, str] = {}  # S255 B2: g33 and g20 retired; add an entry only for a serving, deliberately unrouted source
 
 
 # S252 (A8, Leonard approved 2026-11-17) — browse-library entries that are DELIBERATELY
@@ -95,6 +92,7 @@ BROWSE_ONLY = {
     "steam_edu": "topic page: STEAM 教育",
     "tech_curr_docs": "index page: 科技教育學習領域課程文件",
     "provident_fund": "topic page: 教職員公積金",
+    "g20": "link hub to the EDB 學校活動指引 page; its one chunk was retired S255 B2 (sch_activities_guide carries the documents)",
     "g08": "links to the Chinese-education documents & exemplars page, not the guide PDF",
     "g32": "links to the PSHE curriculum-documents page",
     "pri_science_cert_application_form": "DOCX application form",

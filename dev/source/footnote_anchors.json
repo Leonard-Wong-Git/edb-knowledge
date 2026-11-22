@@ -4,7 +4,7 @@
     "built_from": "dev/source/eval_runs/2026-11-16_s250_footnote_audit.json（結論為「相符」「頁碼不對」者取 matched_quote）；S251 更正的 10 條取 dev/source/footnote_corrections.json basis 所引原句；3 條的錨句於 S252 按原文重選（見 PR）。全部 163 條於 2026-11-17 以本工具對原文實測為 OK。",
     "not_covered": "未納入 14 條：cap279 法例 11 條、footnote_fn_g11_schooldays、footnote_fn_ceg_no_tutorial（S250 審核「找不到」，見 WORK_QUEUE A6／B8）；footnote_fn_lwl_sister_floor（審核為相符但沒有記下原句）。",
     "how_to_update": "MOVED：先改 dev/source/url_overrides.json 並經批准套用，再把本檔該條的 page 改成同一頁（--self-test 會核對兩者一致）。GONE：把新舊原文並列交 Leonard，定案後才改 quote。新增註腳時同時加一條。",
-    "count": 165
+    "count": 163
   },
   "anchors": {
     "footnote_fn_ceg_no_tutorial": {
@@ -551,16 +551,6 @@
       "url": "https://www.edb.gov.hk/attachment/en/student-parents/ncs-students/support-to-school/EDBCM%20on%20SBP%202025%20(tc).pdf",
       "page": 3,
       "quote": "之前填妥問卷並連同課程內容交回教育局。本局會另函通知學校有關安排。此外，"
-    },
-    "footnote_fn_ncs_sen_12mo_cap": {
-      "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC19009E.pdf",
-      "page": 4,
-      "quote": "such, schools in general should not have a large surplus from the grant. Aided, "
-    },
-    "footnote_fn_ncs_sen_3tier": {
-      "url": "https://applications.edb.gov.hk/circular/upload/EDBC/EDBC19009E.pdf",
-      "page": 2,
-      "quote": "three-tier structure according to the number of NCS students with SEN4 enrolled "
     },
     "footnote_fn_ncs_special_school_matrix": {
       "url": "https://www.aud.gov.hk/pdf_e/e76ch02.pdf",
