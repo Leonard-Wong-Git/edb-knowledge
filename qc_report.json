@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-22T18:53:12Z",
+  "generatedAt": "2026-11-23T12:05:50Z",
   "overallStatus": "ERROR",
   "counts": {
-    "chunks": 15793,
+    "chunks": 15224,
     "PASS": 20,
     "BLOCKER": 0,
     "ERROR": 2,
@@ -12,11 +12,11 @@
   },
   "version": "v3.3.16",
   "corpus": {
-    "chunks": 15793,
-    "sources_serving": 318,
+    "chunks": 15224,
+    "sources_serving": 299,
     "sources_registered": 317,
     "guidelines_listed": 246,
-    "distinct_urls": 357,
+    "distinct_urls": 338,
     "largest_sources": [
       {
         "source_id": "coa_ss_e",
@@ -60,7 +60,7 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-22T18:53:12Z",
+    "collectedAt": "2026-11-23T12:05:50Z",
     "items": [],
     "ignored_outside": 0
   },
@@ -195,7 +195,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=924bef7 · 啟動於 2026-11-22T18:53:03.308Z",
+      "detail": "ok=True · commit=ebac0e5 · 啟動於 2026-11-23T12:05:35.091Z",
       "offenders": [],
       "offender_total": 0
     },
@@ -225,7 +225,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "infra",
-      "detail": "資料庫真數 15793 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
+      "detail": "資料庫真數 15224 · 已核對 4 個鏡像 · 不一致 0 個 · 讀不到 0 個。S209 定案：片段數一律由資料庫讀真數，不得靠加減推算",
       "offenders": [],
       "offender_total": 0
     },
@@ -285,20 +285,9 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "chunk",
-      "detail": "重複組 31 · 低於基準 956（−925，已改善） · 多出的副本 55 條 · 重複全部跨來源（同一來源內 0 組），即問題出在登記了兩次的文件，不是切片器。⚠️ 此數是下限：只捉逐字相同的片段。同一份 PDF 分兩次抽取會切出不同邊界，雜湊就不同 —— kgecg_2017 與 g29 是同一份《幼稚園教育課程指引（2017）》，108 對 107 條，逐字相同 0 條，本檢查完全看不見",
-      "offenders": [
-        "stat_enrolment_2016 ↔ stat_enrolment_2017：7 組",
-        "stat_enrolment_2018 ↔ stat_enrolment_2019：6 組",
-        "stat_enrolment_2013 ↔ stat_enrolment_2014：5 組",
-        "stat_enrolment_2023 ↔ stat_enrolment_2024：5 組",
-        "stat_enrolment_2012 ↔ stat_enrolment_2013 ↔ stat_enrolment_2014 ↔ stat_enrolment_2015 ↔ stat_enrolment_2016 ↔ stat_enrolment_2017 ↔ stat_enrolment_2018 ↔ stat_enrolment_2019 ↔ stat_enrolment_2020 ↔ stat_enrolment_2021 ↔ stat_enrolment_2022 ↔ stat_enrolment_2023 ↔ stat_enrolment_2024：2 組",
-        "stat_enrolment_2013 ↔ stat_enrolment_2014 ↔ stat_enrolment_2015：2 組",
-        "stat_enrolment_2014 ↔ stat_enrolment_2015：1 組",
-        "stat_enrolment_2020 ↔ stat_enrolment_2021：1 組",
-        "stat_enrolment_2020 ↔ stat_enrolment_2024：1 組",
-        "stat_enrolment_2020 ↔ stat_enrolment_2022：1 組"
-      ],
-      "offender_total": 31
+      "detail": "重複組 0 · 低於基準 956（−956，已改善） · 多出的副本 0 條 · 重複全部跨來源（同一來源內 0 組），即問題出在登記了兩次的文件，不是切片器。⚠️ 此數是下限：只捉逐字相同的片段。同一份 PDF 分兩次抽取會切出不同邊界，雜湊就不同 —— kgecg_2017 與 g29 是同一份《幼稚園教育課程指引（2017）》，108 對 107 條，逐字相同 0 條，本檢查完全看不見",
+      "offenders": [],
+      "offender_total": 0
     },
     {
       "id": "NO_TOC_NOISE",
@@ -344,7 +333,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "cutting",
-      "detail": "749 · 低於基準 835（−86，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
+      "detail": "744 · 低於基準 835（−91，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
       "offenders": [
         "g06（34 條）",
         "g13（34 條）",
@@ -359,7 +348,7 @@
         "g19（12 條）",
         "g35（12 條）"
       ],
-      "offender_total": 749
+      "offender_total": 744
     },
     {
       "id": "TABLE_ROW_INTEGRITY",
@@ -377,7 +366,7 @@
       "severity": "INFO",
       "status": "INFO",
       "group": "cutting",
-      "detail": "1837 條（11.6%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
+      "detail": "1825 條（12.0%）跨越分頁。散文跨頁是正常的，所以此項只記錄不判分；要判「切得太粗」須先有 content_kind 標註（Open Priority ④），現時未有",
       "offenders": [
         "g13（105 條）",
         "tech_kla_guide_2017（62 條）",
@@ -392,7 +381,7 @@
         "chi_hist_sss_2007_2015（34 條）",
         "ma_sss_content_2017（33 條）"
       ],
-      "offender_total": 1837
+      "offender_total": 1825
     },
     {
       "id": "EVAL_LATEST",
