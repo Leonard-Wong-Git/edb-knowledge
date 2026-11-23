@@ -92,6 +92,13 @@ BROWSE_ONLY = {
     "steam_edu": "topic page: STEAM 教育",
     "tech_curr_docs": "index page: 科技教育學習領域課程文件",
     "provident_fund": "topic page: 教職員公積金",
+    "stat_edb_figures": "EDB statistics page; chunks retired S255 B3 (statistical sources are not searchable by design)",
+    "stat_enrolment_report": "EDB statistics page; chunks retired S255 B3 (statistical sources are not searchable by design)",
+    "stat_integrated_edu": "EDB statistics page; chunks retired S255 B3 (statistical sources are not searchable by design)",
+    "stat_kg": "EDB statistics page; chunks retired S255 B3 (statistical sources are not searchable by design)",
+    "stat_pri": "EDB statistics page; chunks retired S255 B3 (statistical sources are not searchable by design)",
+    "stat_sec": "EDB statistics page; chunks retired S255 B3 (statistical sources are not searchable by design)",
+    "stat_special": "EDB statistics page; chunks retired S255 B3 (statistical sources are not searchable by design)",
     "g20": "link hub to the EDB 學校活動指引 page; its one chunk was retired S255 B2 (sch_activities_guide carries the documents)",
     "g08": "links to the Chinese-education documents & exemplars page, not the guide PDF",
     "g32": "links to the PSHE curriculum-documents page",
@@ -377,8 +384,10 @@ def self_test() -> int:
                               ["sources"]) == {"stat_enrolment_report"})
     # THE GATE MUST STILL GO RED: a series whose shards serve nothing is a real
     # phantom, and must not be excused by being a series.
+    # S255 B3: stat_enrolment_report is now in BROWSE_ONLY, so pass an explicit empty
+    # browse_only — this fixture tests the series rule, not the real browse decisions.
     dead_series = classify({"other": 1}, {"other": "vault_extract"}, {"other"},
-                           set(), {"stat_enrolment_report"}, series=sp)
+                           set(), {"stat_enrolment_report"}, series=sp, browse_only=set())
     check("a series with NO serving shards stays a phantom",
           dead_series["PHANTOM"] == ["stat_enrolment_report"]
           and dead_series["SERIES_UNMONITORED"] == [])
