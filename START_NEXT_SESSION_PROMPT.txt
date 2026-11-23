@@ -6,29 +6,29 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S254 收工, 2026-11-19）---
+--- 專案狀態（S255 收工, 2026-11-23）---
 
-平台 v3.3.16；Supabase 15,856 chunks（315 來源；footnote_curated 177）；EDB 指引書庫 241 份；guidelines.json 公開端點 151 份（_meta 2.6.2，凍結合約）。
-Agent Handoff Kit v0.4.7。
-origin/main = b6f57d0 或之後；線上 /health commit = 39b8968（開工以 /health 核實）。
-開著的 PR：S254 收工分支 s254-closeout（只含收工文件，合併待 Leonard 指示）、#70（內容已入 main，關閉前先問 Leonard）。
+平台 v3.3.19（三分頁；文件標註已於 S255 刪除）；Supabase 15,224 chunks（299 來源；footnote_curated 175）；EDB 指引書庫 246 份；guidelines.json 公開端點 151 份（_meta 2.6.2，凍結合約）。
+Agent Handoff Kit v0.4.8。
+origin/main = 5089d9d 或之後；線上 /health commit = 6a7cf73（開工以 /health 核實）。
+開著的 PR：S255 收工分支 s255-closeout（只含收工文件，合併待 Leonard 指示）。
 Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
-FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1、FEATURE_SUBJECT_CHECK=1（S254 開）；FEATURE_QUERY_FUSION 未設＝關閉。
+FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1、FEATURE_SUBJECT_CHECK=1；FEATURE_QUERY_FUSION 未設＝關閉。
+通告 feed：https://circular.minny.app/circulars.json（S255 起；舊 wongfu.net 已停用）。
 public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或入 git）。
-檢索基線（S253，183 題，生產）：來源層 132／32、片段層 61／103（dev/source/eval_runs/2026-11-18_s253_gold_prod_baseline.json）。
+檢索基線（S253，183 題，生產）：來源層 132／32、片段層 61／103 —— S255 改動後未重跑，只作參考。
 
-📘 怎樣做事：dev/ops/WORK_QUEUE.md（所有待辦）＋ dev/ops/AUTONOMY_FLOW.md §4a／§4b ＋ dev/ops/playbooks/。
+📘 怎樣做事：dev/ops/WORK_QUEUE.md（A、B 部已全部完成或結案）＋ dev/ops/AUTONOMY_FLOW.md §4a／§4b ＋ dev/ops/playbooks/。
    🔔 每項工作開始前（不只開工時）：主動告訴 Leonard 建議用哪個模型與 effort（主力 Opus 5.5，日常 medium），並說明現時 session 是否相符。
    🔔 Leonard 自訂的 session 名稱（如「Nov18a - PolicyChecker」）不要改。
 
-🟢 S254 做完（不用重做）：B1 FEATURE_SUBJECT_CHECK 已開（--live 誤攔 0）；staff_est_sp_sch_pri 已入庫 28 片段（「12班小學」3/3 答 5 名）；
-   PR #125 已合併。注意：183 題 gold 量不到該旗標；該旗標亦擋不住特殊學校表當普通小學表的錯置。
-   S253 做完：183 題基線；A16 結案（不要再找 2024 年版中文學習領域指引）。
+🟢 S255 做完（不用重做）：A18（staffing 問人數條件；不要再加入 sen 清單）；數學課程闡釋 6 份入庫；B2、B3 退役 993 片段；
+   B4、B7、B8、B10、B11、B13、B14、A10；B5、B6 刪除文件標註（碼已刪，沒有開關）；Kit 0.4.8；通告網址；QC 零值即通過；頁尾品牌。
 
 🚀 下一步：
-   ① WORK_QUEUE A18：把 staff_est_sp_sch_pri 加入 sen 路由（「特殊學校…」問法現取不到）；量度後開 PR，合併與部署待 Leonard 明示。
-   ② 其餘 B 部決定：B2 餘項；B3–B8、B10–B14。
-   ③ A10 清理本機分支（要批准）；A12 報錯按鈕（要表單連結）；定期系統更新檢查約 2026-12-17。
+   ① 重跑 183 題生產基線（唯讀，約 25 分鐘生產查詢，開始前先告訴 Leonard）。
+   ② 下次跑判官驗收時看 A01（答案註腳已刪），結果交 Leonard 決定。
+   ③ 定期系統更新檢查約 2026-12-17。
 
 ⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
    · 定標必須讀每一段全文；用 stub 判官量的是「失去捷徑」不是「失去答案」；答案層結論必須用真判官量。
@@ -42,7 +42,7 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    · 抽取與入庫一律用 /usr/local/bin/python3。
 
 Post-startup first action: 按 dev/ops/playbooks/health-probe.md 做起手探針（可交最平的模型，唯讀）：
-版本應為 3.3.16；/health commit 應為 39b8968 或之後改 backend 的 commit；片段數 15,856、來源 315；
+版本應為 3.3.19；/health commit 應為 6a7cf73 或之後改 backend 的 commit；片段數 15,224、來源 299；
 登記漂移 ZOMBIE／SERIES_UNMONITORED／UNMANAGED／UNROUTED 應為 0；apply_url_overrides.py（dry-run）與 apply_footnote_corrections.py --check 皆應報 to_change=0；
 dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告，然後做 ①。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次、不得合併 PR。

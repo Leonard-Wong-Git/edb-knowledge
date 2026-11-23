@@ -39,6 +39,27 @@ When current work requires a log entry, record whether relevant older detail was
 
 <!-- ack:log-entry:start -->
 
+## 2026-11-23 Session 255 — A18、數學課程闡釋、B 部全部決定、刪除文件標註、品牌頁尾
+
+- **ID:** S255（Opus 5.5；中段 Sonnet 5.5）
+- **Summary:** 兩日內合併 PR #128–#142：A18 路由、數學課程闡釋 361 片段入庫、B 部逐項決定並執行（退役 993 片段、兩條註腳、刪除文件標註功能）、Kit 0.4.8、通告網址改 circular.minny.app、QC 零值即通過、頁尾品牌與精簡（v3.3.19）。
+- **Changed:** `backend/src/api/searchChannelB.ts`、`backend/src/server.ts`（刪 3 個模組）、`app.html`、`index.html`、`assets/brand/m.svg`、`dev/source/*`（registry、drift、qc_report、release_gate、footnote 清單、題庫）、`dev/vault/`（6 份新抽取）、`dev/ops/WORK_QUEUE.md`、README、CHANGELOG 等；收工：交接、本檔、PROJECT_INDEX、DOC_SYNC_REGISTRY、開場鏡像。
+- **Done:**
+  - **A18**：原卡做法本機量度無效，改用 `staffing` 問人數條件；生產驗收通過。
+  - **入庫／退役**：+361（數學課程闡釋）、−424（B2）、−569（B3）；每次先全欄位備份、預演、讀回。
+  - **B 部**：逐項以選擇器問 Leonard 後執行；A8、A12 卡過時已更正。
+  - **功能**：刪除文件標註（v3.3.17）；品牌頁尾（v3.3.18）；頁尾精簡（v3.3.19）。
+- **QC:** 每個 PR `build-gate` 通過；`route_regression` 96/96；`npm run check`／`build`；`regression:grounded` 50/50、`regression:overlay` 全過；漂移 ERROR 類 0、PHANTOM 0；`check_downstream_sync` `MUST_UPDATE` 0；註腳工具 `to_change=0`；生產驗收（A18、A19、B2、B5/B6 端點 404、頁尾上線）；本機瀏覽器核實前端。
+- **Evidence disposition:** 數字與結論吸收入交接 `## Current Baseline` 與 `## Validation / QC` S255；量度檔 `dev/source/eval_runs/2026-11-22_s255_*.json`；本條作近期追溯。
+- **Sync:** `DOC_SYNC_REGISTRY` S255 段 `confirmed`；PROJECT_INDEX Branch／commit 已更新。
+- **Pending:** 重跑 183 題基線；判官驗收題 A01；特殊學校人數問題合成拒答（記錄）。
+- **Risks:** 基線未重跑，S255 改動對整體檢索的影響未量度；其餘不變。
+- **Log maintenance:** not_applicable（條目數已達維護提示門檻，本節無需要保存或續做的整理工作）。
+- **Opening-message mirror:** 由唯一開場區塊重生並讀回；全文不在本檔重複。
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-11-19 Session 254 — FEATURE_SUBJECT_CHECK 生產開啟、staff_est_sp_sch_pri 入庫
 
 - **ID:** S254（Opus 5.5）

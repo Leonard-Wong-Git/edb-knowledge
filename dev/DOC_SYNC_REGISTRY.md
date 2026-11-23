@@ -573,3 +573,10 @@ Recorded at closeout per the Registry Rule above. Newest first.
 - 外部服務／端點 — `confirmed`：四個公開端點移除；`K1_API_SPEC.md`、凍結合約零接觸。
 - `dev/source/release_gate.json` — `confirmed`：刪兩條只屬該功能的人手檢查；`qc_report.py` 自測下限 6 → 4。
 - `dev/CHECKLIST_REVISE_FEATURE.md`、`dev/DOC_ANNOTATE_FEATURE_DESIGN.md`、`CODEBASE_CONTEXT.md`、`PROJECT_INDEX.md` — `confirmed`（2026-11-23）：兩份設計文件頂部加「已刪除」橫額，`CODEBASE_CONTEXT.md` 四條模組／資料檔記載加「S255 已刪除」前綴；歷史記載不改寫。
+
+### 2026-11-23 — S255 收工
+
+- `dev/SESSION_HANDOFF.md`、`dev/SESSION_LOG.md`、`dev/PROJECT_INDEX.md`（Branch / commit）、`START_NEXT_SESSION_PROMPT.txt` — `confirmed`（差異式更新；鏡像由唯一開場區塊重生）。
+- `dev/CODEBASE_CONTEXT.md` — `confirmed`：外部服務（通告 feed）與已刪模組記載已於 #133、#139 更新；本節無其他技術棧改動。
+- README「`source_registry.json` 登記 300」一句 — `unverified`：registry 實數 317（含 deprecated），該句定義未核對，未改。
+
