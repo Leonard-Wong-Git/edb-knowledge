@@ -6,6 +6,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v3.3.19] — 2026-11-23 — 頁尾精簡
+
+> 平台版本 **v3.3.18 → v3.3.19**。Leonard 指示：「頁尾太長，全部精簡處理」。
+
+### Changed
+- `app.html` 頁尾由兩段（長免責段落 + 連結列）縮為一行：minny.app 出品 · 版本 · 「僅供參考，不構成法律或行政意見，以 EDB 原文為準 · 免 Cookie 統計」· 首頁 · 教育局 · 提供意見。
+- `index.html` 頁尾縮為：minny.app 出品 · Leonard Wong 設計 · 版本 · 「僅供參考，以 EDB 原文為準 · 免 Cookie 統計」；右側「教育局官網」改「教育局」。
+- 免責與 Cookie 說明只在頁尾出現，故縮短保留，不刪除。手機版向來隱藏頁尾，不受影響。
+- `?v=` 快取鍵同步推至 3.3.19。
+
+---
+
 ## [v3.3.18] — 2026-11-23 — 頁尾加入 minny.app 品牌
 
 > 平台版本 **v3.3.17 → v3.3.18**。Leonard 2026-11-23 指示：與 circular.minny.app 一致。
