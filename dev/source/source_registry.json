@@ -2,7 +2,7 @@
   "_meta": {
     "version": "0.1.0",
     "created": "2026-04-10",
-    "updated": "2026-11-16",
+    "updated": "2026-11-23",
     "description": "Phase 1 source registry for the K1 LLM-wiki workflow. Seeds spine sources plus existing guideline sources and records the first lightweight trust-gate policy. User-added sources begin from stat_edb_figures onward."
   },
   "trust_gate_policy": {
@@ -8247,10 +8247,17 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2022/23起",
-      "last_checked_at": "2026-08-18",
+      "last_checked_at": "2026-11-23",
       "supersedes": null,
       "notes": "✅ S254（2026-11-19）Leonard 批准重新入庫 28 片段；「12班小學有幾多個學位教師」生產 3/3 答 5 名（staff_est_pri 現排第 1）。注意 FEATURE_SUBJECT_CHECK 擋不住這類範圍錯置，安全靠 staff_est_pri 排第 1；「特殊學校…」問法被 sen 路由攔走、取不到本表（待路由改動）。備份 dev/init_backup/20261119_114957_UTC/（入庫前 0 列）。以下為 S204 原文。 ⛔ S204 HELD BACK — vault extract 同 registry entry 保留，但 Supabase chunks 已刪（0 條）。原因：本表按「教學人員總數」索引，唔係按班數。入咗庫之後，合成器將佢當成普通小學嘅班數表，對「12班小學有幾多個學位教師」連續 3 次 run 答錯（實際 5 名，佢答 12 名），而 staff_est_pri（正確表、分數 0.654 高過佢 0.650）當時排第 6、跌出 synthesis 只讀嘅頭 5 條窗外。呢個屬交接 NEXT ② 記錄嘅「資料對象 vs 問題對象」移植失效類。恢復條件：對象核對機制落地後，重跑 expand_vault.py --embed --force --sources staff_est_sp_sch_pri，並以「12班小學有幾多個學位教師」×3 runs 確認唔會再移植。 S204 graduate-teacher-posts cluster ingest — 資助小學學位教師 頁面文件群，補「人手編制」主題 gap（S204 掃描：registry 256 源零覆蓋，用戶問「幾多班幾多老師」答唔到）。 表格文件：同上，extract_table_rows.py 重建（48 行，算術自檢 0 失敗）。 chunk_max_chars=160：一行一 chunk（600 字會塞 ~6 行，令查詢命中嗰行被溝淡；實測 0.521→0.590）。",
-      "chunk_max_chars": 160
+      "chunk_max_chars": 160,
+      "freshness_metadata": {
+        "last_modified": "Fri, 23 Sep 2022 00:36:22 GMT",
+        "content_length": "138630",
+        "etag": "\"0c7681e4ced81:0\"",
+        "content_hash": "f29fbd200aa5440bdcda68e6eb2f13527d4787e213d2f7be2bb29a01c58fb0a6",
+        "hash_checked_at": "2026-11-23"
+      }
     },
     {
       "source_id": "roles_functions_pri",
@@ -9628,9 +9635,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023年修訂",
-      "last_checked_at": "2026-11-17",
+      "last_checked_at": "2026-11-23",
       "supersedes": null,
-      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，25 頁、預演 22 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum。"
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，25 頁、預演 22 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum。",
+      "freshness_metadata": {
+        "last_modified": "Thu, 16 May 2024 05:49:57 GMT",
+        "content_length": "419441",
+        "etag": "\"80b0e7e154a7da1:0\"",
+        "content_hash": "ed523c09b65b8d73945726abda167122aa18a593c038dd2de1f7e61da611a6ac",
+        "hash_checked_at": "2026-11-23"
+      }
     },
     {
       "source_id": "chi_sec_lo_2021",
@@ -9648,9 +9662,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2021年修訂",
-      "last_checked_at": "2026-11-17",
+      "last_checked_at": "2026-11-23",
       "supersedes": null,
-      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，26 頁、預演 23 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum。"
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，26 頁、預演 23 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum。",
+      "freshness_metadata": {
+        "last_modified": "Fri, 17 May 2024 02:49:34 GMT",
+        "content_length": "423862",
+        "etag": "\"0b34ed94a8da1:0\"",
+        "content_hash": "b529b059ce33cebf41af3b61e3d16aead16b2bc085fb69674e70c10035daeea4",
+        "hash_checked_at": "2026-11-23"
+      }
     },
     {
       "source_id": "ma_pri_content_2017",
@@ -9668,9 +9689,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-11-17",
+      "last_checked_at": "2026-11-23",
       "supersedes": null,
-      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，96 頁、預演 47 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum。"
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，96 頁、預演 47 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum。",
+      "freshness_metadata": {
+        "last_modified": "Fri, 08 Dec 2017 01:26:48 GMT",
+        "content_length": "1555174",
+        "etag": "\"03cc39dc36fd31:0\"",
+        "content_hash": "b03b06a07e5d0d19e0ccb75871876dca2e11daefa799ce42ca235677356f4fd7",
+        "hash_checked_at": "2026-11-23"
+      }
     },
     {
       "source_id": "ma_jss_content_2017",
@@ -9688,9 +9716,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-11-17",
+      "last_checked_at": "2026-11-23",
       "supersedes": null,
-      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，44 頁、預演 21 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum。"
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，44 頁、預演 21 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum。",
+      "freshness_metadata": {
+        "last_modified": "Fri, 08 Dec 2017 01:26:18 GMT",
+        "content_length": "1782893",
+        "etag": "\"099e18bc36fd31:0\"",
+        "content_hash": "6b0e67afa0c05eefbde49ba157a8aaaae169d670684d32d416299fc71b1e29fd",
+        "hash_checked_at": "2026-11-23"
+      }
     },
     {
       "source_id": "ma_sss_content_2017",
@@ -9708,9 +9743,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-11-17",
+      "last_checked_at": "2026-11-23",
       "supersedes": null,
-      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，73 頁、預演 37 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum、subject_guides。"
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，73 頁、預演 37 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum、subject_guides。",
+      "freshness_metadata": {
+        "last_modified": "Fri, 08 Dec 2017 01:26:59 GMT",
+        "content_length": "1949010",
+        "etag": "\"80b351a4c36fd31:0\"",
+        "content_hash": "a055c8792cffd81bf21ab9e4727e809cd270aabad018bc4c03a11dff8f153971",
+        "hash_checked_at": "2026-11-23"
+      }
     },
     {
       "source_id": "pth_guide_2017",
@@ -9728,9 +9770,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2017",
-      "last_checked_at": "2026-11-17",
+      "last_checked_at": "2026-11-23",
       "supersedes": null,
-      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，35 頁、預演 39 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum。"
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，35 頁、預演 39 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：curriculum。",
+      "freshness_metadata": {
+        "last_modified": "Tue, 22 Jul 2025 08:14:53 GMT",
+        "content_length": "705865",
+        "etag": "\"80fc93b3e0fadb1:0\"",
+        "content_hash": "bd58d6a4ed0f2d3093959e4a0cee1df324b7d6d3042c8cbed700c65b429102a3",
+        "hash_checked_at": "2026-11-23"
+      }
     },
     {
       "source_id": "gspf_general_info_2023",
@@ -9748,9 +9797,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023年10月",
-      "last_checked_at": "2026-11-17",
+      "last_checked_at": "2026-11-23",
       "supersedes": null,
-      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，14 頁、預演 26 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：hr_admin。"
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，14 頁、預演 26 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：hr_admin。",
+      "freshness_metadata": {
+        "last_modified": "Fri, 20 Oct 2023 08:12:09 GMT",
+        "content_length": "854722",
+        "etag": "\"80d291f2d3da1:0\"",
+        "content_hash": "5512df5859219d1da625f78c11f0da4dc59fc1c2e6d6798348e8b63837942751",
+        "hash_checked_at": "2026-11-23"
+      }
     },
     {
       "source_id": "sspf_general_info_2023",
@@ -9768,9 +9824,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2023年10月",
-      "last_checked_at": "2026-11-17",
+      "last_checked_at": "2026-11-23",
       "supersedes": null,
-      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，16 頁、預演 27 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：hr_admin。"
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，16 頁、預演 27 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：hr_admin。",
+      "freshness_metadata": {
+        "last_modified": "Wed, 22 May 2024 04:06:57 GMT",
+        "content_length": "944598",
+        "etag": "\"806d17cfdabda1:0\"",
+        "content_hash": "8e76b06a62eef1462220bf7b6ca3fa2b458d9e4753f39eaac6a84df4adbfa127",
+        "hash_checked_at": "2026-11-23"
+      }
     },
     {
       "source_id": "pf_edu_ord_2013_faq",
@@ -9788,9 +9851,16 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2013",
-      "last_checked_at": "2026-11-17",
+      "last_checked_at": "2026-11-23",
       "supersedes": null,
-      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，2 頁、預演 3 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：hr_admin。"
+      "notes": "S252 A14（Leonard 2026-11-17 批准）：瀏覽清單已列但庫內零片段，入庫補缺。PyMuPDF 逐頁逐字抽取，2 頁、預演 3 片段；私用區字元為原文符號字型的項目符號／數學符號，保留原樣。路由：hr_admin。",
+      "freshness_metadata": {
+        "last_modified": "Fri, 28 Jun 2013 10:05:22 GMT",
+        "content_length": "220037",
+        "etag": "\"0dd4c0e773ce1:0\"",
+        "content_hash": "e5a611c2782928443e8b23f8c34e8e661113d3367b94f66cc522eb2b69268ea7",
+        "hash_checked_at": "2026-11-23"
+      }
     },
     {
       "source_id": "ma_pri_curric_s1_2018",
@@ -9808,10 +9878,17 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2018",
-      "last_checked_at": "2026-11-22",
+      "last_checked_at": "2026-11-23",
       "supersedes": null,
       "parent_source_id": "ma_curr_index",
-      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 62 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum。"
+      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 62 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum。",
+      "freshness_metadata": {
+        "last_modified": "Wed, 31 Mar 2021 03:30:30 GMT",
+        "content_length": "1196585",
+        "etag": "\"04fa33de25d71:0\"",
+        "content_hash": "dffdb0263d9793a18cd64fadfe48470a8e899a6f039ae583111680d0ddb323d4",
+        "hash_checked_at": "2026-11-23"
+      }
     },
     {
       "source_id": "ma_pri_curric_s2_2020",
@@ -9829,10 +9906,17 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2020",
-      "last_checked_at": "2026-11-22",
+      "last_checked_at": "2026-11-23",
       "supersedes": null,
       "parent_source_id": "ma_curr_index",
-      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 58 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum。"
+      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 58 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum。",
+      "freshness_metadata": {
+        "last_modified": "Wed, 31 Mar 2021 03:30:30 GMT",
+        "content_length": "1223458",
+        "etag": "\"04fa33de25d71:0\"",
+        "content_hash": "3297452939eb148b2c27267d7d87938513fc0775d4169c241f80a75396451c43",
+        "hash_checked_at": "2026-11-23"
+      }
     },
     {
       "source_id": "ma_jss_curric_2020",
@@ -9850,10 +9934,17 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2020",
-      "last_checked_at": "2026-11-22",
+      "last_checked_at": "2026-11-23",
       "supersedes": null,
       "parent_source_id": "ma_curr_index",
-      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 71 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum。"
+      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 71 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum。",
+      "freshness_metadata": {
+        "last_modified": "Thu, 18 Jun 2020 07:56:58 GMT",
+        "content_length": "2543644",
+        "etag": "\"017da4645d61:0\"",
+        "content_hash": "1d2b0a884fb889cd50041602a82c7159cecfa1b071b3ad85039e79a39b735b74",
+        "hash_checked_at": "2026-11-23"
+      }
     },
     {
       "source_id": "ma_sss_curric_comp_2021",
@@ -9871,10 +9962,17 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2021",
-      "last_checked_at": "2026-11-22",
+      "last_checked_at": "2026-11-23",
       "supersedes": null,
       "parent_source_id": "ma_curr_index",
-      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 42 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum、subject_guides。"
+      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 42 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum、subject_guides。",
+      "freshness_metadata": {
+        "last_modified": "Thu, 18 Sep 2025 01:49:33 GMT",
+        "content_length": "1126446",
+        "etag": "\"8074f17a3e28dc1:0\"",
+        "content_hash": "20954fa8b0b15138e2f546bb2551f3f063c8cf33e6ba7fe0103322688016f55f",
+        "hash_checked_at": "2026-11-23"
+      }
     },
     {
       "source_id": "ma_sss_curric_m1_2018",
@@ -9892,10 +9990,17 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2018",
-      "last_checked_at": "2026-11-22",
+      "last_checked_at": "2026-11-23",
       "supersedes": null,
       "parent_source_id": "ma_curr_index",
-      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 44 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum、subject_guides。"
+      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 44 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum、subject_guides。",
+      "freshness_metadata": {
+        "last_modified": "Thu, 18 Jun 2020 07:56:53 GMT",
+        "content_length": "1389924",
+        "etag": "\"80108274645d61:0\"",
+        "content_hash": "da9c41f50116c8f4b6c1784701ee5160c5263da869f7eb4680b50abb679d744d",
+        "hash_checked_at": "2026-11-23"
+      }
     },
     {
       "source_id": "ma_sss_curric_m2_2018",
@@ -9913,10 +10018,17 @@
       "access_mode": "public",
       "status": "verified",
       "version_label": "2018",
-      "last_checked_at": "2026-11-22",
+      "last_checked_at": "2026-11-23",
       "supersedes": null,
       "parent_source_id": "ma_curr_index",
-      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 46 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum、subject_guides。"
+      "notes": "S255（Leonard 2026-11-22 批准入庫）：數學教育學習領域課程文件頁所列課程闡釋，此前只在 catalogue。PyMuPDF 逐頁抽取 46 頁；私用區字元為原文數學符號字型，保留原樣。路由：curriculum、subject_guides。",
+      "freshness_metadata": {
+        "last_modified": "Thu, 18 Jun 2020 07:56:52 GMT",
+        "content_length": "1077617",
+        "etag": "\"07ae964645d61:0\"",
+        "content_hash": "0867e52c5192612d792ef5210f11d8be582ae5bfd06c946887d5c78ea1f87252",
+        "hash_checked_at": "2026-11-23"
+      }
     }
   ]
 }
