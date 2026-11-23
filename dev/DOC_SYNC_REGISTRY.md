@@ -566,3 +566,10 @@ Recorded at closeout per the Registry Rule above. Newest first.
 - `dev/source/execute_ingest.py` — ✅ **新增 `sources` 自動同步**（step 5c）；此前 display-sync 只同步片段數，來源數靠人手改故漂了四個月
 - Playbook usage — ⚠ **不適用**：本節未 grep 全表、未開任何卡，按該庫規則不寫 usage 行。兩條可轉移教訓已備妥提案待交（見交接檔 Pending）
 
+### 2026-11-23 — S255（B5、B6：刪除文件標註功能，v3.3.16 → v3.3.17）
+
+- Product version change — `confirmed`：`PLATFORM_VERSION` 3.3.17、`mobile.css`／`mobile.js`／`feedback.js` 的 `?v=`（`app.html`、`index.html`）、`index.html` 頁尾、README 標章與頁尾、CHANGELOG 新節。
+- Tab withdraw / restore — `confirmed`（以刪除代替恢復）：tab 掣、`VALID_VIEWS`、`channels` 卡、使用手冊、常見問題、`TOUR_STEPS`（開場白由過濾後步驟數推算，核實顯示「兩大功能」）；`index.html` 隱藏功能卡與 CTA 一句；README 功能表、端點表、頁尾說明；`backend/README.md` 端點行。`mobile.js` 無標註引用。
+- 外部服務／端點 — `confirmed`：四個公開端點移除；`K1_API_SPEC.md`、凍結合約零接觸。
+- `dev/source/release_gate.json` — `confirmed`：刪兩條只屬該功能的人手檢查；`qc_report.py` 自測下限 6 → 4。
+- `dev/CHECKLIST_REVISE_FEATURE.md`、`dev/DOC_ANNOTATE_FEATURE_DESIGN.md`、`CODEBASE_CONTEXT.md`、`PROJECT_INDEX.md` — `pending`：仍描述已刪除功能，屬歷史設計文件，未逐段改寫；收工時標註「功能已於 S255 刪除」。

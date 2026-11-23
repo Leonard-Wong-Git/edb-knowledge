@@ -6,7 +6,6 @@
 
 - `POST /api/search/channel-b`：EDB 原文語義搜尋（Supabase pgvector）、主題路由、相關性判官、附網址與頁碼合成答案；寫入 `search_log`
 - `POST /api/search/feedback`：回答評分
-- `POST /api/analyze-document`、`POST /api/annotate-document`、`POST /api/checklist-revise`、`GET /api/checklist-domains`：文件標註與合規清單
 - `GET /api/stats/usage`、`GET /health`
 
 > S243（2026-11-03）：Channel A（455 條事實，`role_facts.json`）及 `/analyze-circular`、`/api/search/channel-a`、`/api/search/combined` 已退役並刪除。

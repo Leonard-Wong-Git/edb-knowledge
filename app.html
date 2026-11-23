@@ -35,12 +35,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
-<!-- 文件分析/標註 client-side: pdf.js 3.x (UMD; 4.x ESM-only) + mammoth (docx 抽取) + docx 8.x (UMD, 重砌標註版) + JSZip 3.x (原 docx XML 就地標註) + pdf-lib 1.x (S163 文件標註 Phase 2 — PDF 原檔就地螢光標示). deferred — runtime-guarded in panels -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" defer></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════════
@@ -757,18 +751,15 @@ body {
  * Word templates was not worth the time) — panel code, policy_templates.json, the Word files
  * and their generators are gone; there is no flag to flip back.
  *
- * annotate: withdrawn 2026-11-03 (S243, Leonard「收起待修」after a live test + Jev second
- * opinion) — output can mislead: 相關指引 almost never shows (floor 0.62 checked against the
- * FIRST match, not the best; calibrated on the S173 score scale), 欠缺 lists the first 8
- * missing items in checklist order instead of by relevance, and 部分符合 pins requirements to
- * the wrong paragraphs (cosine over-fire). Restore only after all three are fixed AND measured
- * on on-domain / off-domain sample documents, and after annotate usage is being counted.
+ * annotate (文件標註): withdrawn 2026-11-03 (S243), then DELETED 2026-11-23 (S255, Leonard) — panel, the three
+ * download builders, the pdf.js / mammoth / docx / JSZip / pdf-lib scripts, and the backend endpoints are gone;
+ * there is no flag to flip back (restore from git history if ever needed).
  */
-window.FEATURE_TABS = { about: true, qa: true, annotate: false, guidelines: true };
+window.FEATURE_TABS = { about: true, qa: true, guidelines: true };
 </script>
-<link rel="stylesheet" href="mobile.css?v=3.3.16">
-<script src="mobile.js?v=3.3.16" defer></script>
-<script src="feedback.js?v=3.3.16" defer></script>
+<link rel="stylesheet" href="mobile.css?v=3.3.17">
+<script src="mobile.js?v=3.3.17" defer></script>
+<script src="feedback.js?v=3.3.17" defer></script>
 </head>
 <body>
 <div id="root"></div>
@@ -1379,8 +1370,8 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // Public-facing platform release version (the old knowledge.json data contract was
 // retired with Channel A in S243). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
-// 政策搜尋 + 文件標註（就地標註）+ 合規清單修訂，跨 15 個合規範疇（範本下載已於 S243 刪除）。
-const PLATFORM_VERSION = '3.3.16';
+// 政策搜尋 + EDB 指引文件庫（文件標註與範本下載已分別於 S255、S243 刪除）。
+const PLATFORM_VERSION = '3.3.17';
 // S204 — tab switches; defined in a plain <script> in <head> so mobile.js can read them
 // at its DOMContentLoaded init, which runs BEFORE this Babel script compiles.
 const FEATURE_TABS = window.FEATURE_TABS;
@@ -1502,15 +1493,6 @@ function PlatformIntroPanel({ stats }) {
       dark: true,
     },
     {
-      view: 'annotate',
-      icon: '📝',
-      title: '文件標註(beta)',
-      subtitle: '上載文件 · 生成乾淨成品版',
-      desc: '上載學校政策文件，系統逐段比對 EDB 指引與合規清單，生成一份「乾淨成品版」Word——建議融入正文（標示「（建議補充）」、無螢光、可直接編輯），說明與官方出處集中文末附錄；Word 上載會保留原有標題／編號／格式，另可下載「改動摘要」。',
-      badge: '核心功能',
-      dark: true,
-    },
-    {
       view: 'guidelines',
       icon: '📚',
       title: '指引文件庫',
@@ -1541,14 +1523,6 @@ function PlatformIntroPanel({ stats }) {
             '喺「🔍 政策搜尋」輸入關鍵字或問題（例：校車安全、教師年假、法團校董會）。',
             '系統喺 EDB 指引與通告做語義檢索，整理答案並列出來源；可撳來源頁碼直接跳去官方 PDF。',
             '貼士：短關鍵字（1–3 個詞）通常已夠；想收窄就逐步加詞。',
-          ]},
-          { view:'annotate', icon:'📝', title:'文件標註(beta)', steps:[
-            '喺「📝 文件標註」上載學校政策文件（Word .docx 最佳，亦支援 PDF 或直接貼上文字）。',
-            '揀本校校類，範疇可「自動偵測」或自選（最多 3 個），然後撳「開始標註」。',
-            '系統比對 EDB 指引與合規清單，列出「就地標示」與「建議補充」。',
-            '撳「⬇️ 下載 Word（乾淨成品版）」：原文保持乾淨，AI 建議融入正文（標示「（建議補充）」、無螢光、可直接編輯），說明與官方出處集中文末附錄。Word 上載會保留原有標題／編號／格式。',
-            '另可撳「📋 下載改動摘要」一覽改咗甚麼。',
-            '私隱：原始檔不會上載，只有抽取的文字會傳送作比對，過程不儲存；請勿包含敏感個人資料。',
           ]},
           { view:'guidelines', icon:'📚', title:'EDB 指引文件庫', steps:[
             '喺「📚 EDB指引」按範疇與年份瀏覽 EDB 官方指引。',
@@ -1777,9 +1751,7 @@ function PlatformIntroPanel({ stats }) {
           <h3 style={{fontSize:'var(--text-lg)',fontWeight:800,color:'var(--charcoal)',marginBottom:'10px',textAlign:'center'}}>常見問題</h3>
           {[
             { q:'答案準唔準？可唔可以照跟？', a:'本平台是輔助查閱工具，所有答案均附原始文件連結。重要決定請以教育局官方原文為準。' },
-            { tab:'annotate', q:'文件標註支援咩檔案格式？', a:'支援 Word（.docx，效果最佳，可保留格式）、PDF（需有文字層）、或直接貼上文字。掃描影印本（無文字層）暫不支援。' },
-            { tab:'annotate', q:'我上載嘅文件安唔安全？', a:'原始檔案只在你的瀏覽器內讀取，不會上載；只有抽取的文字會傳送至伺服器作比對，過程不儲存。請勿包含學生姓名、身份證號碼等敏感個人資料。' },
-            { q: FEATURE_TABS.annotate ? '點解第一次搜尋／標註比較慢？' : '點解第一次搜尋比較慢？', a:'伺服器閒置一段時間會自動休眠，首次使用需數十秒喚醒，之後回應正常。' },
+            { q: '點解第一次搜尋比較慢？', a:'伺服器閒置一段時間會自動休眠，首次使用需數十秒喚醒，之後回應正常。' },
           // S243 — entries tagged with a tab disappear while that tab is withdrawn.
           ].filter((item) => !item.tab || FEATURE_TABS[item.tab] !== false).map((item, i) => (
             <details key={i} style={{background:'var(--cd-warm)',border:'1px solid var(--border)',borderRadius:'var(--r-md)',padding:'4px 16px',marginBottom:'8px'}}>
@@ -2293,726 +2265,6 @@ function QAPanel({ data, setPreviewDoc }) {
 
 // ── Circular Analysis Panel removed (dead component: never referenced in VALID_VIEWS / view render) ──
 
-// ── 文件分析 Panel ──
-// Client-side extraction (pdf.js text layer / mammoth docx / paste) → only the
-// extracted TEXT is sent to the backend — the raw file never leaves the browser.
-
-const ANALYZE_SCHOOL_LABELS = { primary: '小學', secondary: '中學', special: '特殊學校', kindergarten: '幼稚園' };
-
-// ── 文件修訂 (checklist gap analysis: upload → 按 checklist 比對 → 補回 → 下載) ──
-const REVISE_SCHOOL_OPTS = [
-  { v: '', label: '不限（一般比對）' },
-  { v: 'primary', label: '小學' },
-  { v: 'secondary', label: '中學' },
-  { v: 'special', label: '特殊學校' },
-  { v: 'kindergarten', label: '幼稚園' },
-];
-const REVISE_STATUS_META = {
-  covered: { label: '已涵蓋', icon: '✓', color: '#1F4E36', bg: '#E7F0EA', hex: '1F4E36' },
-  partial: { label: '部分涵蓋', icon: '△', color: '#8A5A00', bg: '#FBF0D9', hex: '8A5A00' },
-  missing: { label: '未見涵蓋', icon: '✗', color: '#7A3B1F', bg: '#F6E4DC', hex: '7A3B1F' },
-};
-
-// ── 文件標註 Panel (合併 文件分析 + 文件修訂) ──
-// Upload a .docx → match EDB guidelines per paragraph + scan compliance-checklist
-// gaps → return the ORIGINAL file with in-place yellow highlights + Word comments
-// (format preserved) plus a "建議補充" appendix for items not locatable in the text.
-const ANNOTATE_SCHOOL_LABELS = { primary: '小學', secondary: '中學', special: '特殊學校', kindergarten: '幼稚園' };
-
-// XML-escape for text injected into the docx parts.
-function xmlEsc(s) {
-  return String(s == null ? '' : s)
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;').replace(/'/g, '&apos;');
-}
-// Normalize for span↔paragraph matching: drop whitespace + common CJK/ASCII punctuation.
-function annNorm(s) {
-  return String(s || '').replace(/\s+/g, '').replace(/[，。、；：．（）()\[\]【】「」『』·・…—\-_/]/g, '');
-}
-function annParaMatches(paraNorm, spanNorm) {
-  if (spanNorm.length < 8 || paraNorm.length < 4) return false;
-  if (paraNorm.indexOf(spanNorm) !== -1) return true;             // span ⊆ paragraph (split case)
-  if (spanNorm.indexOf(paraNorm) !== -1 && paraNorm.length >= 12) return true; // paragraph ⊆ span (merged case)
-  const probe = spanNorm.slice(0, 20);                            // tolerant prefix probe
-  return probe.length >= 12 && paraNorm.indexOf(probe) !== -1;
-}
-// Plain text of a <w:p>…</w:p> XML fragment (concatenated <w:t> contents, entities decoded).
-function paraPlainText(paraXml) {
-  let out = '';
-  const re = /<w:t\b[^>]*>([\s\S]*?)<\/w:t>/g;
-  let m;
-  while ((m = re.exec(paraXml)) !== null) out += m[1];
-  return out.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, '&');
-}
-
-function AnnotatePanel() {
-  const [domains, setDomains] = useState([]);
-  const [selDomains, setSelDomains] = useState([]); // [] = 自動偵測
-  const [autoMode, setAutoMode] = useState(true);
-  const [schoolType, setSchoolType] = useState('');
-  const [docText, setDocText] = useState('');
-  const [fileName, setFileName] = useState('');
-  const [fileBuffer, setFileBuffer] = useState(null); // original file ArrayBuffer (docx OR pdf, for in-place annotation)
-  const [isDocx, setIsDocx] = useState(false);
-  const [isPdf, setIsPdf] = useState(false);
-  const [pdfPages, setPdfPages] = useState(null); // S163 Phase 2: per-page pdf.js text positions for PDF highlight
-  const [extracting, setExtracting] = useState(false);
-  const [extractError, setExtractError] = useState('');
-  const [analyzing, setAnalyzing] = useState(false);
-  const [error, setError] = useState('');
-  const [report, setReport] = useState(null);
-  const [downloading, setDownloading] = useState(false);
-  const [downloadNote, setDownloadNote] = useState('');
-  const fileInputRef = useRef(null);
-  const MAX_CHARS = 60000;
-
-  useEffect(() => {
-    let alive = true;
-    fetch(`${BACKEND_URL}/api/checklist-domains`)
-      .then((r) => r.json())
-      .then((d) => { if (alive && Array.isArray(d.domains)) setDomains(d.domains); })
-      .catch(() => {});
-    return () => { alive = false; };
-  }, []);
-
-  const resetOutputs = useCallback(() => { setReport(null); setError(''); setDownloadNote(''); }, []);
-
-  async function extractPdf(buf) {
-    const lib = window.pdfjsLib;
-    if (!lib) throw new Error('PDF 解析元件尚未載入，請重新整理頁面再試。');
-    if (lib.GlobalWorkerOptions && !lib.GlobalWorkerOptions.workerSrc) {
-      lib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-    }
-    const pdf = await lib.getDocument({ data: buf.slice(0) }).promise;
-    let out = '';
-    // S163 Phase 2: capture per-page text positions (PDF user space, origin
-    // bottom-left) so matched spans can be highlighted back on the original PDF.
-    const pages = [];
-    for (let i = 1; i <= pdf.numPages; i++) {
-      const page = await pdf.getPage(i);
-      const vp = page.getViewport({ scale: 1 });
-      const tc = await page.getTextContent();
-      const items = tc.items.map((t) => ({
-        s: t.str,
-        x: t.transform[4],
-        y: t.transform[5],
-        w: t.width || 0,
-        h: t.height || Math.abs(t.transform[3]) || 10,
-      }));
-      pages.push({ w: vp.width, h: vp.height, rotation: vp.rotation || 0, items });
-      out += tc.items.map((t) => t.str).join(' ') + '\n\n'; // text fed to backend — unchanged
-    }
-    return { text: out.trim(), pages };
-  }
-  async function extractDocx(buf) {
-    if (!window.mammoth) throw new Error('Word 解析元件尚未載入，請重新整理頁面再試。');
-    const res = await window.mammoth.extractRawText({ arrayBuffer: buf.slice(0) });
-    return (res.value || '').trim();
-  }
-  async function handleFile(file) {
-    if (!file) return;
-    const name = file.name || '';
-    const lower = name.toLowerCase();
-    if (!lower.endsWith('.pdf') && !lower.endsWith('.docx')) {
-      setExtractError('只支援 PDF 或 Word（.docx）檔；其他內容請直接貼上文字。'); return;
-    }
-    setExtracting(true); setExtractError(''); resetOutputs();
-    try {
-      const buf = await file.arrayBuffer();
-      const docx = lower.endsWith('.docx');
-      let text, pages = null;
-      if (docx) { text = await extractDocx(buf); }
-      else { const r = await extractPdf(buf); text = r.text; pages = r.pages; }
-      if (text.length < 30) throw new Error('未能從檔案抽取文字（掃描影印本暫不支援），請改貼文字內容。');
-      setDocText(text); setFileName(name); setIsDocx(docx); setIsPdf(!docx);
-      setFileBuffer(buf); // S163 Phase 2: both .docx and .pdf can now be annotated in place
-      setPdfPages(pages);
-    } catch (e) {
-      setExtractError(e && e.message ? e.message : '檔案讀取失敗，請改貼文字內容。');
-      setFileName(''); setFileBuffer(null); setIsDocx(false); setIsPdf(false); setPdfPages(null);
-    } finally {
-      setExtracting(false);
-      if (fileInputRef.current) fileInputRef.current.value = '';
-    }
-  }
-
-  function toggleDomain(key) {
-    resetOutputs();
-    setSelDomains((prev) => prev.includes(key) ? prev.filter((k) => k !== key) : (prev.length >= 3 ? prev : [...prev, key]));
-  }
-
-  async function handleAnnotate() {
-    const text = docText.trim();
-    if (!text) { setError('請先上載或貼上文件內容'); return; }
-    if (text.length > MAX_CHARS) { setError('文件過長，請分批處理'); return; }
-    setAnalyzing(true); setError(''); setReport(null); setDownloadNote('');
-    try {
-      const body = {
-        text,
-        ...(fileName ? { filename: fileName } : {}),
-        ...(schoolType ? { school_type: schoolType } : {}),
-        ...(!autoMode && selDomains.length ? { domains: selDomains } : {}),
-      };
-      const resp = await fetch(`${BACKEND_URL}/api/annotate-document`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
-      });
-      const json = await resp.json().catch(() => null);
-      if (!resp.ok) {
-        if (resp.status === 429) throw new Error('標註次數已達上限（每分鐘10次），請稍候約1分鐘後再試。');
-        throw new Error((json && json.error) || '標註服務暫未連線，請稍後再試。');
-      }
-      setReport(json);
-    } catch (e) {
-      setError(e && e.message ? e.message : '標註服務暫未連線，請稍後再試。');
-    } finally { setAnalyzing(false); }
-  }
-
-  function handleClear() {
-    setDocText(''); setFileName(''); setFileBuffer(null); setIsDocx(false); setIsPdf(false); setPdfPages(null); setExtractError(''); resetOutputs();
-  }
-
-  // S166 — single clean ready-to-use output. S169 ①: Word input now keeps its ORIGINAL
-  // formatting (headings / numbering / tables) by editing the .docx XML in place via
-  // buildCleanOriginalDocx; PDF / pasted text (no original Word structure) stay on the
-  // from-text buildCleanDocx. Output is clean either way (no highlight / no track-change).
-  function downloadBlob(blob, filename) {
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = filename;
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 1500);
-  }
-  function annotateMeta() {
-    return {
-      schoolType: report.school_type || schoolType,
-      domains: (report.domains || []).map((d) => d.domain_cn),
-      autoDetected: report.auto_detected,
-      filename: report.filename || fileName,
-    };
-  }
-  async function handleDownloadClean() {
-    if (!report || downloading) return;
-    if (!window.docx) { setError('文件生成元件尚未載入，請重新整理頁面再試。'); return; }
-    if (!docText || !docText.trim()) { setError('沒有可用文字內容生成。'); return; }
-    setDownloading(true); setError(''); setDownloadNote('');
-    try {
-      const base = String(report.filename || fileName || '文件').replace(/\.(pdf|docx?)$/i, '');
-      const useOriginal = isDocx && fileBuffer;
-      const { blob, merged, total } = useOriginal
-        ? await buildCleanOriginalDocx(fileBuffer, report.findings || [], annotateMeta())
-        : await buildCleanDocx(docText, report.findings || [], annotateMeta());
-      downloadBlob(blob, `${base}_乾淨成品版.docx`);
-      setDownloadNote(
-        (useOriginal ? '已生成乾淨成品版（保留原 Word 格式）：' : '已生成乾淨成品版：') +
-        `${merged} 項建議融入正文（標示「（建議補充）」）；全部 ${total} 項說明與 EDB 出處見文末附錄`
-      );
-    } catch (e) {
-      setError('生成失敗：' + (e && e.message ? e.message : '未知錯誤'));
-    } finally { setDownloading(false); }
-  }
-
-  // S169 ①(a) — "改咗甚麼" change/diff summary (separate short Word).
-  async function handleDownloadChanges() {
-    if (!report || downloading) return;
-    if (!window.docx) { setError('文件生成元件尚未載入，請重新整理頁面再試。'); return; }
-    if (!docText || !docText.trim()) { setError('沒有可用文字內容生成。'); return; }
-    setDownloading(true); setError(''); setDownloadNote('');
-    try {
-      const base = String(report.filename || fileName || '文件').replace(/\.(pdf|docx?)$/i, '');
-      const { blob, merged, total } = await buildChangeSummaryDocx(docText, report.findings || [], annotateMeta());
-      downloadBlob(blob, `${base}_改動摘要.docx`);
-      setDownloadNote(`已生成改動摘要：融入正文 ${merged} 項、附錄補充 ${total - merged} 項`);
-    } catch (e) {
-      setError('摘要生成失敗：' + (e && e.message ? e.message : '未知錯誤'));
-    } finally { setDownloading(false); }
-  }
-
-  const overLimit = docText.length > MAX_CHARS;
-  const findings = (report && report.findings) || [];
-  const inPlace = findings.filter((f) => f.span);
-  const appendix = findings.filter((f) => !f.span);
-
-  return (
-    <div className="flex-1 min-w-0">
-      <div className="bg-white rounded-xl border border-gray-200 p-5 mb-4 k1-search-card">
-        <h2 className="text-lg font-bold text-gray-800 mb-1">📝 文件標註(beta)</h2>
-        <p className="text-xs text-gray-400 mb-3">
-          上載學校文件（Word/.docx 最佳，或 PDF／貼上文字），系統比對 EDB 指引並按合規清單檢查缺漏，生成一份<strong>乾淨可用嘅政策草稿</strong>——建議融入正文、附錄列明說明與官方出處——可下載編輯
-        </p>
-        <div style={{display:'flex',alignItems:'flex-start',gap:'8px',padding:'10px 12px',marginBottom:'12px',background:'#FFFBEB',border:'1px solid #FCD34D',borderRadius:'var(--r-md)',fontSize:'var(--text-xs)',color:'#92400E',lineHeight:1.6}}>
-          <span style={{flexShrink:0,marginTop:'1px'}}>🔒</span>
-          <span>檔案只在你的瀏覽器內讀取及標註，<strong>原始檔案不會上載</strong>；只有抽取的文字會傳送至本平台伺服器及 OpenAI 作語義比對，過程不儲存。請勿包含敏感個人資料（如學生姓名、身份證號碼）。</span>
-        </div>
-
-        {/* File pick */}
-        <div className="flex gap-2 mb-3 items-center" style={{flexWrap:'wrap'}}>
-          <input ref={fileInputRef} type="file" accept=".pdf,.docx" style={{display:'none'}}
-                 onChange={(e) => handleFile(e.target.files && e.target.files[0])} />
-          <button onClick={() => fileInputRef.current && fileInputRef.current.click()} disabled={extracting || analyzing}
-                  className="px-4 py-2 text-sm rounded-lg border border-gray-200 font-medium transition-all disabled:opacity-50"
-                  style={{background:'var(--cd-warm)',color:'var(--charcoal)'}}>
-            {extracting ? '⏳ 讀取中…' : '📎 選擇檔案（Word / PDF）'}
-          </button>
-          {fileName && !extracting && (
-            <span className="text-xs" style={{color:'var(--mid)'}}>
-              ✓ 已讀取：{fileName}（{docText.length.toLocaleString()} 字，可生成乾淨成品版下載）
-            </span>
-          )}
-          {!fileName && <span className="text-xs text-gray-400">或喺下面貼上文字（可生成乾淨成品版下載）</span>}
-        </div>
-        {extractError && (
-          <div style={{marginBottom:'10px',padding:'10px 14px',borderRadius:'var(--r-sm)',background:'var(--paper-2)',border:'1px solid #FECACA',fontSize:'var(--text-sm)',color:'var(--warn)'}}>⚠️ {extractError}</div>
-        )}
-
-        {/* School type */}
-        <div className="flex items-center gap-2 mb-3" style={{flexWrap:'wrap'}}>
-          <label className="text-xs" style={{color:'var(--mid)',fontWeight:600}}>本校校類：</label>
-          <select value={schoolType} onChange={(e) => { setSchoolType(e.target.value); resetOutputs(); }} disabled={analyzing}
-                  className="text-sm border border-gray-200 rounded-lg px-2.5 py-1.5 disabled:opacity-50" style={{background:'var(--paper)',color:'var(--ink)'}}>
-            {REVISE_SCHOOL_OPTS.map((o) => <option key={o.v || 'all'} value={o.v}>{o.label}</option>)}
-          </select>
-        </div>
-
-        {/* Domain multi-select */}
-        <div className="mb-3">
-          <div className="flex items-center gap-2 mb-2" style={{flexWrap:'wrap'}}>
-            <label className="text-xs" style={{color:'var(--mid)',fontWeight:600}}>合規範疇：</label>
-            <button onClick={() => { setAutoMode(true); setSelDomains([]); resetOutputs(); }}
-                    className={`filter-tab filter-tab-light ${autoMode ? 'active-tab' : ''}`}>✨ 自動偵測</button>
-            <button onClick={() => { setAutoMode(false); resetOutputs(); }}
-                    className={`filter-tab filter-tab-light ${!autoMode ? 'active-tab' : ''}`}>自選範疇</button>
-            {!autoMode && <span className="text-xs text-gray-400">最多揀 3 個（已揀 {selDomains.length}）</span>}
-          </div>
-          {!autoMode && (
-            <div className="flex gap-1.5" style={{flexWrap:'wrap'}}>
-              {domains.map((d) => (
-                <button key={d.key} onClick={() => toggleDomain(d.key)}
-                        className={`filter-tab filter-tab-light ${selDomains.includes(d.key) ? 'active-tab' : ''}`}
-                        style={{opacity: (!selDomains.includes(d.key) && selDomains.length >= 3) ? 0.45 : 1}}>
-                  {d.cn}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Paste textarea (hidden when a file is loaded) */}
-        {!fileName && (
-          <textarea value={docText} onChange={(e) => { setDocText(e.target.value); resetOutputs(); setFileBuffer(null); setIsDocx(false); }}
-                    rows={7} placeholder="貼上文件文字內容，或用上方按鈕選擇 Word / PDF 檔…"
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-200 focus:border-transparent"
-                    style={{resize:'vertical',lineHeight:1.7}} />
-        )}
-        <div className="flex gap-2 mt-2 items-center" style={{flexWrap:'wrap'}}>
-          <button onClick={handleAnnotate} disabled={analyzing || extracting || !docText.trim() || overLimit}
-                  style={{background:'var(--p-primary)'}}
-                  className="px-4 py-2 text-white text-sm rounded-lg hover:opacity-90 font-medium transition-all disabled:opacity-50">
-            {analyzing ? '⏳ 標註中…' : '開始標註'}
-          </button>
-          {docText && (
-            <button onClick={handleClear} className="px-3 py-2 text-xs text-gray-400 hover:text-gray-600 border border-gray-200 rounded-lg">清除</button>
-          )}
-          <span className="text-xs" style={{color: overLimit ? 'var(--warn)' : 'var(--mid)', marginLeft:'auto'}}>
-            {docText.length.toLocaleString()} / {MAX_CHARS.toLocaleString()} 字元{overLimit ? '（超出上限）' : ''}
-          </span>
-        </div>
-        {analyzing && (
-          <p className="text-xs mt-2" style={{color:'var(--mid)'}}>正在比對 EDB 指引並檢查合規清單，約需 30–90 秒（首次需喚醒伺服器）⋯</p>
-        )}
-        {error && (
-          <div style={{marginTop:'10px',padding:'10px 14px',borderRadius:'var(--r-sm)',background:'var(--paper-2)',border:'1px solid #FECACA',fontSize:'var(--text-sm)',color:'var(--warn)'}}>⚠️ {error}</div>
-        )}
-      </div>
-
-      {/* Empty state */}
-      {!report && !analyzing && (
-        <div style={{background:'var(--cd-warm)',borderRadius:'var(--r-md)',border:'1px solid var(--border)',padding:'40px',textAlign:'center'}}>
-          <p style={{fontSize:'2rem',marginBottom:'8px'}}>📝</p>
-          <p style={{fontSize:'var(--text-sm)',color:'var(--mid)'}}>上載 Word／PDF 或貼上文字，系統會比對相關指引與合規缺漏，生成一份乾淨可用嘅政策草稿下載</p>
-        </div>
-      )}
-
-      {/* Report */}
-      {report && (
-        <div className="space-y-3">
-          <div style={{background:'var(--paper-2)',border:'1px solid #C4A882',borderRadius:'var(--r-md)',padding:'12px 16px',fontSize:'var(--text-sm)',color:'var(--ink)'}}>
-            ✦ {report.filename ? `「${report.filename}」` : '文件'}　已分析 {report.analyzed_segments}/{report.total_segments} 段
-            {report.domains && report.domains.length > 0 && (
-              <span>　·　{report.auto_detected ? '自動偵測範疇：' : '合規範疇：'}{report.domains.map((d) => d.domain_cn).join('、')}</span>
-            )}
-            <span>　·　就地標示 {inPlace.length} 處，附錄建議 {appendix.length} 項</span>
-          </div>
-
-          {/* Download — S166 single clean output; S169 +format-preserving Word +改動摘要 */}
-          <div className="flex items-center gap-2" style={{flexWrap:'wrap'}}>
-            <button onClick={handleDownloadClean} disabled={downloading}
-                    title="原文保持乾淨，AI 建議融入正文（標示「（建議補充）」、無螢光、可直接編輯），所有說明與 EDB 出處集中文末附錄；Word 上載檔保留原有標題／編號／格式，PDF／貼上文字則重排為乾淨版"
-                    className="px-4 py-2 text-sm rounded-lg font-medium transition-all disabled:opacity-50"
-                    style={{background:'var(--p-primary)',color:'#fff'}}>
-              {downloading ? '⏳ 生成中…' : '⬇️ 下載 Word（乾淨成品版）'}
-            </button>
-            <button onClick={handleDownloadChanges} disabled={downloading}
-                    title="一頁式列出乾淨成品版對原文所作的改動：融入正文的建議（連原文段落）+ 附錄補充，方便核對"
-                    className="px-4 py-2 text-sm rounded-lg font-medium transition-all disabled:opacity-50"
-                    style={{background:'var(--cd-warm)',color:'var(--charcoal)',border:'1px solid var(--border)'}}>
-              {downloading ? '⏳ 生成中…' : '📋 下載「改動摘要」'}
-            </button>
-            <span className="text-xs text-gray-400">於瀏覽器內生成，不會上載</span>
-          </div>
-          {downloadNote && <div className="text-xs" style={{color:'var(--edb)'}}>✓ {downloadNote}</div>}
-          <div style={{fontSize:'var(--text-xs)',color:'#6B7280',lineHeight:1.7,background:'var(--paper-2)',border:'1px solid var(--line)',borderRadius:'var(--r-md)',padding:'8px 12px'}}>
-            📄 <strong>乾淨成品版</strong>：原文保持乾淨可讀，AI 建議直接融入正文（以「（建議補充）」標示，<strong>無螢光、可直接編輯，毋須接受修訂</strong>），所有建議說明與教育局官方出處集中喺<strong>文末附錄</strong>。{isDocx ? <span>你上載嘅係 <strong>Word 檔，會保留原有標題／編號／格式</strong>。</span> : <span>PDF／貼上文字會<strong>重排為乾淨版</strong>（如需保留原有格式，請改上載 Word .docx）。</span>}　📋 <strong>改動摘要</strong>：一頁過睇晒邊啲建議融入咗正文、邊啲列咗附錄，方便核對。
-          </div>
-
-          {/* In-place findings */}
-          {inPlace.length > 0 && (
-            <div className="bg-white rounded-xl border border-gray-200 p-4">
-              <h3 className="text-sm font-bold text-gray-800 mb-2">📌 就地標示（{inPlace.length}）— 原文相關／需注意之處</h3>
-              <div className="space-y-2">
-                {inPlace.map((f, i) => (
-                  <div key={i} className="rounded-lg border px-3 py-2" style={{borderColor:'var(--line)'}}>
-                    <div className="flex items-start gap-2">
-                      <span className="text-xs px-1.5 py-0.5 rounded font-bold whitespace-nowrap"
-                            style={{background: f.kind === 'guideline' ? '#E7F0EA' : '#FBF0D9', color: f.kind === 'guideline' ? '#1F4E36' : '#8A5A00'}}>
-                        {f.kind === 'guideline' ? '指引' : (f.domain_cn || '清單')}
-                      </span>
-                      <span className="text-sm text-gray-800 leading-snug">{f.note}</span>
-                    </div>
-                    {f.span && <p className="text-xs text-gray-500 mt-1.5 pl-1 border-l-2" style={{borderColor:'var(--line)'}}>　原文：{f.span.length > 80 ? f.span.slice(0,80)+'…' : f.span}</p>}
-                    {f.suggestion && (
-                      <details className="mt-1.5"><summary className="text-xs cursor-pointer" style={{color:'var(--edb)'}}>建議標準條文 ▾</summary>
-                      <p className="text-xs text-gray-600 mt-1 whitespace-pre-wrap pl-1">{f.suggestion}</p></details>
-                    )}
-                    {f.source && /^https?:/i.test(f.source.url || '') && (
-                      <a href={f.source.url + (f.source.page && /\.pdf/i.test(f.source.url) ? `#page=${f.source.page}` : '')}
-                         target="_blank" rel="noopener noreferrer" className="text-xs mt-1 inline-block" style={{color:'#888'}}>
-                        來源：《{f.source.title}》{f.source.page ? `第${f.source.page}頁` : ''} ↗
-                      </a>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Appendix findings */}
-          {appendix.length > 0 && (
-            <div className="bg-white rounded-xl border border-gray-200 p-4">
-              <h3 className="text-sm font-bold text-gray-800 mb-2">➕ 建議補充（{appendix.length}）— 原文未涵蓋／未能定位</h3>
-              <div className="space-y-2">
-                {appendix.map((f, i) => (
-                  <div key={i} className="rounded-lg border px-3 py-2" style={{borderColor:'var(--line)'}}>
-                    <div className="flex items-start gap-2">
-                      <span className="text-xs px-1.5 py-0.5 rounded font-bold whitespace-nowrap" style={{background:'#F6E4DC',color:'#7A3B1F'}}>
-                        {f.domain_cn || (f.kind === 'guideline' ? '指引' : '清單')}
-                      </span>
-                      <span className="text-sm text-gray-800 leading-snug">{f.note}</span>
-                    </div>
-                    {f.suggestion && (
-                      <details className="mt-1.5"><summary className="text-xs cursor-pointer" style={{color:'var(--edb)'}}>建議標準條文 ▾</summary>
-                      <p className="text-xs text-gray-600 mt-1 whitespace-pre-wrap pl-1">{f.suggestion}</p></details>
-                    )}
-                    {f.source && /^https?:/i.test(f.source.url || '') && (
-                      <a href={f.source.url + (f.source.page && /\.pdf/i.test(f.source.url) ? `#page=${f.source.page}` : '')}
-                         target="_blank" rel="noopener noreferrer" className="text-xs mt-1 inline-block" style={{color:'#888'}}>
-                        來源：《{f.source.title}》{f.source.page ? `第${f.source.page}頁` : ''} ↗
-                      </a>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Empty state — S173: when the relevance floor drops all off-domain guideline
-              matches (and no checklist gaps), say so plainly instead of a blank report. */}
-          {inPlace.length === 0 && appendix.length === 0 && (
-            <div className="bg-white rounded-xl border border-gray-200 p-4" style={{textAlign:'center'}}>
-              <div className="text-sm font-bold text-gray-800 mb-1">未找到需標示的貼題指引或合規項目</div>
-              <p className="text-xs text-gray-500" style={{lineHeight:1.7}}>
-                {report.domains && report.domains.length > 0
-                  ? '本文件相關範疇的合規項目大致齊備，未發現明顯缺漏或高度貼題的指引。'
-                  : '系統未能將本文件對應到教育局學校政策指引的任何範疇（可能主題不在涵蓋範圍，例如純法律聲明、對外公關文稿等）。如本文件確涉及學校政策，可於上方改用「指定範疇」手動選擇合規範疇再試。'}
-              </p>
-            </div>
-          )}
-
-          <div style={{display:'flex',alignItems:'flex-start',gap:'8px',padding:'10px 12px',background:'#FFFBEB',border:'1px solid #FCD34D',borderRadius:'var(--r-md)',fontSize:'var(--text-xs)',color:'#92400E',lineHeight:1.6}}>
-            <span style={{flexShrink:0,marginTop:'1px'}}>⚠️</span>
-            <span>標註由 AI 根據 EDB 原文片段語意比對及合規清單估算產生，可能有遺漏或表述偏差。重要決定請以教育局官方原文為準。</span>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-// S166 — 乾淨成品版 (clean ready-to-use draft). Leonard feedback: even after accepting all
-// tracked changes the highlights stayed and inline 💡/⚠ notes cluttered the original. This
-// version keeps the ORIGINAL body clean (no highlight), MERGES each located suggested clause
-// into the flow as PLAIN text with a minimal "（建議補充）" lead (honest but unobtrusive), and
-// moves ALL explanations + EDB sources into a single END appendix. Reads as a usable,
-// editable policy draft. Supersedes the annotated/editable/list downloads (UI simplified to
-// one button). Built from extracted text → Word/PDF/paste all supported. Reuses annNorm/annParaMatches.
-// Shared partition for the clean outputs: decide which findings merge into the body
-// as a ready clause vs. go to the appendix only. A finding merges iff it is a checklist
-// item WITH a suggestion AND a span that locates in one of the body paragraphs.
-// `paraNorms` = annNorm() of each body paragraph (XML-derived or text-derived).
-// Returns { byPara: Map(paraIndex -> [finding…]), mergedSet: Set(finding) }.
-function partitionCleanFindings(paraNorms, findings) {
-  const byPara = new Map();
-  const mergedSet = new Set();
-  for (const f of findings || []) {
-    if (f.kind === 'guideline' || !f.suggestion || !f.span) continue;
-    const sNorm = annNorm(f.span);
-    let hit = -1;
-    for (let i = 0; i < paraNorms.length; i++) { if (annParaMatches(paraNorms[i], sNorm)) { hit = i; break; } }
-    if (hit === -1) continue;
-    if (!byPara.has(hit)) byPara.set(hit, []);
-    byPara.get(hit).push(f);
-    mergedSet.add(f);
-  }
-  return { byPara, mergedSet };
-}
-
-async function buildCleanDocx(docText, findings, meta) {
-  const D = window.docx;
-  if (!D) throw new Error('docx 程式庫未載入');
-  const FONT = 'Microsoft JhengHei';
-  const t = (text, o = {}) => new D.TextRun({ text, font: FONT, ...o });
-  const p = (children, o = {}) => new D.Paragraph({ children: Array.isArray(children) ? children : [children], ...o });
-  meta = meta || {};
-
-  const rawParas = String(docText || '').split(/\n+/).map((s) => s.trim()).filter(Boolean);
-  const paraNorms = rawParas.map((s) => annNorm(s));
-
-  // Only checklist findings WITH a suggestion AND a located span merge into the body (as a
-  // ready clause). Guideline references + unlocated + no-suggestion go to the appendix only.
-  const { byPara } = partitionCleanFindings(paraNorms, findings);
-
-  const children = [];
-  const schoolLabel = (meta.schoolType && ANNOTATE_SCHOOL_LABELS[meta.schoolType]) || '不限（一般比對）';
-  const domLabel = (meta.domains && meta.domains.length) ? meta.domains.join('、') + (meta.autoDetected ? '（自動偵測）' : '') : '自動偵測';
-  const title = meta.filename ? String(meta.filename).replace(/\.(pdf|docx?)$/i, '') : '學校政策文件';
-  children.push(p(t(title, { bold: true, size: 32 }), { spacing: { after: 60 } }));
-  children.push(p(t('本文件已整合 AI 根據 EDB 指引提出的建議（標示「（建議補充）」），詳細說明與官方出處見文末附錄。請自行核對後採用；重要決定以教育局官方原文為準。', { size: 16, color: '888888' }), { spacing: { after: 60 } }));
-  children.push(p(t('校類：' + schoolLabel + '　·　範疇：' + domLabel, { size: 16, color: '888888' }), { spacing: { after: 200 } }));
-
-  let merged = 0;
-  for (let i = 0; i < rawParas.length; i++) {
-    children.push(p(t(rawParas[i])));            // original paragraph — CLEAN, no highlight/notes
-    const here = byPara.get(i);
-    if (here && here.length) {
-      for (const f of here) {
-        merged++;
-        const lines = String(f.suggestion).split('\n').map((s) => s.trim()).filter(Boolean);
-        lines.forEach((ln, idx) => {
-          children.push(p(t((idx === 0 ? '（建議補充）' : '') + ln), { indent: { left: 360 }, spacing: idx === 0 ? { before: 40 } : {} }));
-        });
-      }
-    }
-  }
-
-  // Appendix — full record of every finding (explanation + EDB source), grouped by domain.
-  children.push(p(t('附錄：AI 建議說明與出處', { bold: true, size: 26, color: '1F4E36' }), { spacing: { before: 320, after: 40 } }));
-  children.push(p(t('以下為 AI 根據 EDB 指引提出的建議與參考，連同官方出處供核對。標示「（建議補充）」者已加入上文相應位置；其餘為相關指引或未能在原文定位的建議。', { size: 16, color: '888888' }), { spacing: { after: 120 } }));
-  const groups = {};
-  for (const f of findings) {
-    const dom = f.domain_cn || (f.kind === 'guideline' ? '相關指引' : '清單');
-    (groups[dom] = groups[dom] || []).push(f);
-  }
-  for (const dom of Object.keys(groups)) {
-    children.push(p(t('【' + dom + '】', { bold: true, size: 22, color: '1F4E36' }), { spacing: { before: 160 } }));
-    for (const f of groups[dom]) {
-      const tag = f.kind === 'guideline' ? '相關指引' : (f.status === 'partial' ? '部分涵蓋' : '未涵蓋');
-      children.push(p([t('〔' + tag + '〕', { bold: true, color: f.kind === 'guideline' ? '1F4E36' : '8A5A00' }), t(' ' + (f.note || ''), { size: 19 })], { spacing: { before: 100 } }));
-      if (f.suggestion) {
-        children.push(p(t('建議條文：', { size: 17, bold: true, color: '555555' }), { indent: { left: 360 } }));
-        for (const ln of String(f.suggestion).split('\n')) if (ln.trim()) children.push(p(t(ln.trim(), { size: 18 }), { indent: { left: 540 } }));
-      }
-      if (f.source && f.source.title) {
-        const link = String(f.source.url || '') + (f.source.page && /\.pdf/i.test(f.source.url || '') ? `#page=${f.source.page}` : '');
-        const isHttp = /^https?:/i.test(link);
-        children.push(p([t('出處：', { size: 16, color: '888888' }),
-          isHttp ? new D.ExternalHyperlink({ link, children: [new D.TextRun({ text: `《${f.source.title}》${f.source.page ? '第' + f.source.page + '頁' : ''}`, size: 16, style: 'Hyperlink', font: FONT })] })
-                 : t(`《${f.source.title}》${f.source.page ? '第' + f.source.page + '頁' : ''}`, { size: 16, color: '888888' })], { indent: { left: 360 } }));
-      }
-    }
-  }
-
-  const doc = new D.Document({ styles: { default: { document: { run: { font: FONT, size: 22 } } } }, sections: [{ children }] });
-  return { blob: await D.Packer.toBlob(doc), merged, total: findings.length };
-}
-
-// S169 ① — CLEAN ready-to-use output that PRESERVES the original .docx formatting.
-// Unlike buildCleanDocx (which rebuilds from extracted text and flattens headings /
-// numbering / tables), this operates on the original word/document.xml via JSZip so
-// every original paragraph keeps its style. It stays CLEAN: original runs are left
-// 100% untouched (NO highlight), and merged suggestions are inserted as PLAIN
-// "（建議補充）" paragraphs (NO w:ins track-changes), so opening the file shows a
-// tidy finished draft with no marks to accept/clear. Explanations + EDB sources go to
-// the appendix. Returns { blob, merged, total }.
-async function buildCleanOriginalDocx(arrayBuffer, findings, meta) {
-  const JSZip = window.JSZip;
-  if (!JSZip) throw new Error('文件元件 (JSZip) 尚未載入，請重新整理頁面再試。');
-  const zip = await JSZip.loadAsync(arrayBuffer);
-  const docFile = zip.file('word/document.xml');
-  if (!docFile) throw new Error('此 .docx 結構不支援保留格式輸出（找不到 document.xml）。');
-  let xml = await docFile.async('string');
-  meta = meta || {};
-  const wp = /<w:p\b(?:\s[^>]*)?>[\s\S]*?<\/w:p>/g;
-
-  // Pass 1 — normalized text of every body paragraph (same regex/order as pass 2).
-  const paraNorms = [];
-  let pm;
-  while ((pm = wp.exec(xml)) !== null) paraNorms.push(annNorm(paraPlainText(pm[0])));
-
-  const { byPara } = partitionCleanFindings(paraNorms, findings);
-
-  // Plain "（建議補充）" note paragraph(s) — no highlight, no tracked-change, no fill;
-  // blends into the body as ordinary text (honestly marked on the first line only).
-  function cleanNoteParas(f) {
-    const out = [];
-    const lines = String(f.suggestion).split('\n').map((s) => s.trim()).filter(Boolean);
-    lines.forEach((ln, idx) => {
-      const pPr = '<w:pPr><w:spacing w:before="' + (idx === 0 ? 40 : 0) + '" w:after="0"/><w:ind w:left="360"/></w:pPr>';
-      out.push('<w:p>' + pPr + '<w:r><w:t xml:space="preserve">' + xmlEsc((idx === 0 ? '（建議補充）' : '') + ln) + '</w:t></w:r></w:p>');
-    });
-    return out.join('');
-  }
-
-  // Pass 2 — keep original paragraph verbatim; append clean note paragraph(s) after it.
-  let merged = 0;
-  let pIndex = -1;
-  xml = xml.replace(wp, (paraXml) => {
-    pIndex++;
-    const here = byPara.get(pIndex);
-    if (!here || !here.length) return paraXml;       // untouched → format fully preserved
-    let notes = '';
-    for (const f of here) { merged++; notes += cleanNoteParas(f); }
-    return paraXml + notes;
-  });
-
-  // Intro note at the very top of the body (clean framing, not a highlight legend).
-  const ip = function (text, o) {
-    o = o || {};
-    const rpr = (o.bold ? '<w:b/>' : '') + (o.size ? '<w:sz w:val="' + o.size + '"/>' : '') + (o.color ? '<w:color w:val="' + o.color + '"/>' : '');
-    return '<w:p>' + (o.after ? '<w:pPr><w:spacing w:after="' + o.after + '"/></w:pPr>' : '') +
-      '<w:r>' + (rpr ? '<w:rPr>' + rpr + '</w:rPr>' : '') + '<w:t xml:space="preserve">' + xmlEsc(text) + '</w:t></w:r></w:p>';
-  };
-  const schoolLabel = (meta.schoolType && ANNOTATE_SCHOOL_LABELS[meta.schoolType]) || '不限（一般比對）';
-  const domLabel = (meta.domains && meta.domains.length) ? meta.domains.join('、') + (meta.autoDetected ? '（自動偵測）' : '') : '自動偵測';
-  const introXml =
-    ip('本文件保留原有格式，並已整合 AI 根據 EDB 指引提出的建議（標示「（建議補充）」），詳細說明與官方出處見文末附錄。請自行核對後採用；重要決定以教育局官方原文為準。', { size: 16, color: '888888' }) +
-    ip('校類：' + schoolLabel + '　·　範疇：' + domLabel, { size: 16, color: '888888', after: 160 });
-  xml = xml.replace(/(<w:body\b(?:\s[^>]*)?>)/, '$1' + introXml);
-
-  // Appendix — full record of every finding (explanation + EDB source), grouped by domain.
-  // Inserted before the final <w:sectPr> so page geometry is preserved.
-  {
-    const ap = [];
-    const para = function (text, o) {
-      o = o || {};
-      const rpr = (o.bold ? '<w:b/>' : '') + (o.size ? '<w:sz w:val="' + o.size + '"/>' : '') + (o.color ? '<w:color w:val="' + o.color + '"/>' : '');
-      return '<w:p>' + (o.before ? '<w:pPr><w:spacing w:before="' + o.before + '"/></w:pPr>' : '') +
-        '<w:r>' + (rpr ? '<w:rPr>' + rpr + '</w:rPr>' : '') + '<w:t xml:space="preserve">' + xmlEsc(text) + '</w:t></w:r></w:p>';
-    };
-    ap.push('<w:p/>');
-    ap.push(para('附錄：AI 建議說明與出處', { bold: true, size: 26, color: '1F4E36' }));
-    ap.push(para('以下為 AI 根據 EDB 指引提出的建議與參考，連同官方出處供核對。標示「（建議補充）」者已加入上文相應位置；其餘為相關指引或未能在原文定位的建議。', { size: 16, color: '888888' }));
-    const groups = {};
-    for (const f of findings || []) {
-      const dom = f.domain_cn || (f.kind === 'guideline' ? '相關指引' : '清單');
-      (groups[dom] = groups[dom] || []).push(f);
-    }
-    for (const dom of Object.keys(groups)) {
-      ap.push(para('【' + dom + '】', { bold: true, size: 22, color: '1F4E36', before: 160 }));
-      for (const f of groups[dom]) {
-        const tag = f.kind === 'guideline' ? '相關指引' : (f.status === 'partial' ? '部分涵蓋' : '未涵蓋');
-        ap.push(para('〔' + tag + '〕' + (f.note || ''), { size: 19, before: 100 }));
-        if (f.suggestion) {
-          ap.push(para('建議條文：', { size: 17, bold: true, color: '555555' }));
-          for (const ln of String(f.suggestion).split('\n')) if (ln.trim()) ap.push(para(ln.trim(), { size: 18 }));
-        }
-        if (f.source && f.source.title) {
-          ap.push(para('出處：《' + f.source.title + '》' + (f.source.page ? '（第' + f.source.page + '頁）' : ''), { size: 16, color: '888888' }));
-        }
-      }
-    }
-    const apXml = ap.join('');
-    const lastSect = xml.lastIndexOf('<w:sectPr');
-    if (lastSect !== -1) xml = xml.slice(0, lastSect) + apXml + xml.slice(lastSect);
-    else xml = xml.replace('</w:body>', apXml + '</w:body>');
-  }
-
-  zip.file('word/document.xml', xml);
-  const blob = await zip.generateAsync({ type: 'blob', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
-  return { blob, merged, total: (findings || []).length };
-}
-
-// S169 ①(a) — "改咗甚麼" change/diff summary. A short Word that lists, at a glance,
-// every change the clean output made: which suggestions were merged into the body
-// (with the original paragraph they attach to) and which were placed in the appendix.
-// Input-agnostic: classifies findings against the extracted docText (same normalized
-// matching the clean builders use), so it stays consistent for Word / PDF / pasted text.
-async function buildChangeSummaryDocx(docText, findings, meta) {
-  const D = window.docx;
-  if (!D) throw new Error('docx 程式庫未載入');
-  const FONT = 'Microsoft JhengHei';
-  const t = (text, o = {}) => new D.TextRun({ text, font: FONT, ...o });
-  const p = (children, o = {}) => new D.Paragraph({ children: Array.isArray(children) ? children : [children], ...o });
-  meta = meta || {};
-  findings = findings || [];
-
-  const rawParas = String(docText || '').split(/\n+/).map((s) => s.trim()).filter(Boolean);
-  const paraNorms = rawParas.map((s) => annNorm(s));
-  const { byPara, mergedSet } = partitionCleanFindings(paraNorms, findings);
-  const appendix = findings.filter((f) => !mergedSet.has(f));
-
-  const children = [];
-  const title = meta.filename ? String(meta.filename).replace(/\.(pdf|docx?)$/i, '') : '學校政策文件';
-  children.push(p(t(title + '　·　改動摘要', { bold: true, size: 30 }), { spacing: { after: 40 } }));
-  children.push(p(t('本頁列出「乾淨成品版」對原文所作的改動，方便核對。融入正文者以「（建議補充）」標示於原文相應段落之後；其餘列於成品版文末附錄。', { size: 16, color: '888888' }), { spacing: { after: 60 } }));
-  children.push(p(t('合共：融入正文 ' + mergedSet.size + ' 項建議；附錄補充 ' + appendix.length + ' 項。', { size: 18, bold: true, color: '1F4E36' }), { spacing: { after: 200 } }));
-
-  // Section 1 — merged into the body, shown next to the original paragraph each attaches to.
-  children.push(p(t('一、融入正文的建議（' + mergedSet.size + '）', { bold: true, size: 24, color: '1F4E36' }), { spacing: { after: 80 } }));
-  if (mergedSet.size === 0) {
-    children.push(p(t('（無——本次沒有建議可定位融入正文。）', { size: 18, color: '888888' }), { spacing: { after: 120 } }));
-  } else {
-    const sortedIdx = Array.from(byPara.keys()).sort((a, b) => a - b);
-    let n = 0;
-    for (const idx of sortedIdx) {
-      const orig = rawParas[idx] || '';
-      children.push(p(t('▸ 原文段落：' + (orig.length > 90 ? orig.slice(0, 90) + '…' : orig), { size: 18, color: '555555' }), { spacing: { before: 140 }, indent: { left: 120 } }));
-      for (const f of byPara.get(idx)) {
-        n++;
-        const st = f.status === 'partial' ? '部分涵蓋' : '未涵蓋';
-        children.push(p(t(n + '. 加入建議（' + (f.domain_cn || '清單') + '·' + st + '）：' + (f.note || ''), { size: 18, bold: true, color: '8A5A00' }), { indent: { left: 360 }, spacing: { before: 40 } }));
-        for (const ln of String(f.suggestion).split('\n')) if (ln.trim()) children.push(p(t('＋ ' + ln.trim(), { size: 18, color: '1F4E36' }), { indent: { left: 540 } }));
-        if (f.source && f.source.title) children.push(p(t('出處：《' + f.source.title + '》' + (f.source.page ? '（第' + f.source.page + '頁）' : ''), { size: 15, color: '888888' }), { indent: { left: 540 } }));
-      }
-    }
-  }
-
-  // Section 2 — appendix-only items (guideline refs, unlocated, no-suggestion).
-  children.push(p(t('二、列於附錄的補充（' + appendix.length + '）', { bold: true, size: 24, color: '1F4E36' }), { spacing: { before: 240, after: 80 } }));
-  if (appendix.length === 0) {
-    children.push(p(t('（無。）', { size: 18, color: '888888' })));
-  } else {
-    let m = 0;
-    for (const f of appendix) {
-      m++;
-      const tag = f.kind === 'guideline' ? '相關指引' : (f.status === 'partial' ? '部分涵蓋' : '未涵蓋');
-      children.push(p(t(m + '. 〔' + tag + '·' + (f.domain_cn || (f.kind === 'guideline' ? '指引' : '清單')) + '〕' + (f.note || ''), { size: 18 }), { spacing: { before: 80 }, indent: { left: 120 } }));
-      if (f.source && f.source.title) children.push(p(t('出處：《' + f.source.title + '》' + (f.source.page ? '（第' + f.source.page + '頁）' : ''), { size: 15, color: '888888' }), { indent: { left: 360 } }));
-    }
-  }
-
-  const doc = new D.Document({ styles: { default: { document: { run: { font: FONT, size: 22 } } } }, sections: [{ children }] });
-  return { blob: await D.Packer.toBlob(doc), merged: mergedSet.size, total: findings.length };
-}
-
 // S169 ② — first-use onboarding tour. A dismissible walkthrough of the 5 channels,
 // shown automatically on first visit (localStorage gate) and re-openable any time from
 // the header "使用教學" button. Pure client-side; no backend / data-contract contact.
@@ -3020,7 +2272,6 @@ const TOUR_FLAG = 'k1_tour_done_v1';
 const TOUR_STEPS = [
   { icon: '👋', title: '歡迎使用香港學校政策搜尋平台', body: '呢個平台幫學校快速查閱教育局（EDB）政策指引。（本句於載入時按現有功能重寫）', cta: null },
   { icon: '🔍', title: '政策搜尋', body: '輸入關鍵字（例如「校車安全」「法團校董會」），平台會喺 EDB 指引與通告中搵出相關內容，附來源頁碼，可直接跳去官方原文 PDF。', cta: { label: '去政策搜尋', view: 'qa' } },
-  { icon: '📝', title: '文件標註', body: '上載學校政策文件（Word 最佳），AI 比對 EDB 指引同合規清單，標出建議，生成一份「乾淨成品版」供你下載編輯——Word 上載會保留原有標題／編號／格式。', cta: { label: '去文件標註', view: 'annotate' } },
   { icon: '📚', title: 'EDB 指引文件庫', body: '分類整理嘅 EDB 官方指引文件，可預覽並跳去官方原文，按範疇與時序排列。', cta: { label: '去指引文件庫', view: 'guidelines' } },
   { icon: '✅', title: '開始使用', body: '隨時可喺右上角「🎓 使用教學」重溫導覽；想睇詳細步驟可去「ℹ️ 平台介紹」嘅「使用手冊」。所有資料僅供參考，重要決定請以教育局官方原文為準。', cta: { label: '睇使用手冊（平台介紹）', view: 'about' } },
 // S204 — drop tour steps whose destination tab is withdrawn, otherwise the tour offers a
@@ -3034,7 +2285,7 @@ const TOUR_STEPS = [
   const tourFeatures = TOUR_STEPS.filter((s) => s.cta && s.cta.view !== 'about');
   const welcome = TOUR_STEPS[0];
   if (welcome && !welcome.cta) {
-    welcome.body = '呢個平台幫學校快速查閱教育局（EDB）政策指引' + (window.FEATURE_TABS?.annotate !== false ? '，並處理學校政策文件' : '') + '。一分鐘導覽，帶你睇下'
+    welcome.body = '呢個平台幫學校快速查閱教育局（EDB）政策指引' + '。一分鐘導覽，帶你睇下'
       + (CN_NUM[tourFeatures.length] || tourFeatures.length) + '大功能點用。';
   }
 }
@@ -3092,13 +2343,11 @@ function Onboarding({ open, onClose, onGoto }) {
 // ── Main App ──
 function App() {
   const data = INITIAL_DATA;
-  const VALID_VIEWS = ['qa', 'annotate', 'guidelines', 'about'].filter((v) => FEATURE_TABS[v]);
+  const VALID_VIEWS = ['qa', 'guidelines', 'about'].filter((v) => FEATURE_TABS[v]);
   let hashView = window.location.hash.replace('#', '');
-  // S161: 文件分析 + 文件修訂 merged into 文件標註; redirect the retired hashes one season.
-  if (hashView === 'analyze' || hashView === 'review') hashView = 'annotate';
   const [viewMode, setViewMode] = useState(
     VALID_VIEWS.includes(hashView) ? hashView : 'qa'
-  ); // 'qa' | 'annotate' | 'guidelines' | 'about'
+  ); // 'qa' | 'guidelines' | 'about'
 
   // Keep URL hash in sync when tab changes
   const switchView = useCallback((v) => {
@@ -3155,12 +2404,6 @@ function App() {
                       className={`filter-tab ${viewMode === 'qa' ? 'active-tab' : ''}`} aria-selected={viewMode === 'qa'} role="tab">
                 🔍 政策搜尋
               </button>
-              {FEATURE_TABS.annotate && (
-              <button onClick={() => switchView('annotate')}
-                      className={`filter-tab ${viewMode === 'annotate' ? 'active-tab' : ''}`} aria-selected={viewMode === 'annotate'} role="tab">
-                📝 文件標註(beta)
-              </button>
-              )}
               <button onClick={() => switchView('guidelines')}
                       className={`filter-tab ${viewMode === 'guidelines' ? 'active-tab' : ''}`} aria-selected={viewMode === 'guidelines'} role="tab">
                 📚 EDB指引 ({GUIDELINES_REGISTRY.length})
@@ -3183,8 +2426,6 @@ function App() {
             <PlatformIntroPanel stats={stats} />
           ) : viewMode === 'guidelines' ? (
             <GuidelinesPanel setPreviewDoc={setPreviewDoc} />
-          ) : viewMode === 'annotate' ? (
-            <AnnotatePanel />
           ) : (
             <QAPanel data={data} setPreviewDoc={setPreviewDoc} />
           )}

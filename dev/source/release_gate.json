@@ -39,21 +39,9 @@
       "max_age_days": 14
     },
     {
-      "id": "DOC_ANNOTATION_FLOW",
-      "label": "文件標註流程（上載 → 分析 → 下載標註版）",
-      "how": "以真實 docx 及 PDF 各一份走完整流程，確認標註位置正確、下載檔可開",
-      "max_age_days": 30
-    },
-    {
       "id": "MOBILE_DESKTOP_SPLIT",
       "label": "mobile／desktop 分流",
       "how": "≤640px、平板橫放、桌面三種闊度各開一次；S211 的兩道閘條件不一致就是在平板上炸的",
-      "max_age_days": 30
-    },
-    {
-      "id": "PRIVACY_UPLOAD_BEHAVIOUR",
-      "label": "私隱與上載檔案行為",
-      "how": "確認上載的原檔不離開瀏覽器（文件分析為 client-side 抽取），並確認沒有非必要個人資料被送往後端",
       "max_age_days": 30
     },
     {
