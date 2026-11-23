@@ -70,11 +70,14 @@ MIRROR_KINDS = {"approved_fact", "stat_fact"}
 # become wallpaper (discipline #14), while a baseline makes any INCREASE visible
 # the week it happens.
 BASELINE = {
-    "duplicate_groups": 956,
-    "duplicate_extra_copies": 980,
-    "midclause_start": 835,
-    "toc_noise": 147,
-    "no_anchor_url": 130,
+    # S255 ratchet-down (measured 2026-11-23 at 15,224 chunks, after B2 retired g33/g20/EDBC_9_2019_E
+    # and B3 retired the 19 stat_* sources): duplicates 956/980 -> 0/0, midclause 835 -> 744,
+    # toc_noise 147 -> 105, no_anchor_url 130 -> 0, no_page_anchor 1 -> 0, title_equals_slug 658 -> 0.
+    "duplicate_groups": 0,
+    "duplicate_extra_copies": 0,
+    "midclause_start": 744,
+    "toc_noise": 105,
+    "no_anchor_url": 0,
     # 51, not the 179 first written here (S248). The old definition counted every
     # chunk with no page marker, but 131 of them were HTML pages, spreadsheets and
     # legislation sections — documents that HAVE no pages, and for which app.html
@@ -92,11 +95,11 @@ BASELINE = {
     # the overrides. The 1 left is footnote_fn_ceg_no_tutorial, whose sentence is
     # not in the PDF it cites (it is in the EOEBG / OEBG user guides) — Leonard to
     # choose the source.
-    "no_page_anchor": 1,
+    "no_page_anchor": 0,
     # 658, not the 116 first written here: the first count saw only
     # arts_kla_guide_2017 and missed the 13 stat_enrolment_YYYY sources plus
     # stat_kg. Recounted over the whole store before this file was trusted.
-    "title_equals_slug": 658,
+    "title_equals_slug": 0,
     # S255: 3 → 6. All six read: four table-title rows (staff_est_pri ×3 incl. one
     # mid-sentence table note, staff_est_sp_sch_pri ×1 from S254) and two cover pages of
     # the S255 math 課程闡釋 ingest (ma_jss_curric_2020, ma_sss_curric_comp_2021). None is
@@ -283,6 +286,12 @@ def baseline_status(count: int, key: str) -> tuple[str, str]:
     defect green is how a monitor stops being read.
     """
     base = BASELINE[key]
+    # S255: a count of 0 is not a standing defect — it is the goal. Without this a baseline
+    # that has been ratcheted down to 0 could only ever read WARN, so baselines were left
+    # stale-high (e.g. duplicates 956 while the store had 0) and a regression back up to
+    # hundreds would still have read as "improved".
+    if count == 0:
+        return "PASS", f"0 · 無此缺陷（基準 {base}）"
     if count > base:
         return "FAIL", f"{count} · 高於基準 {base}（+{count - base}）"
     if count < base:
@@ -1274,10 +1283,13 @@ def self_test() -> int:
     check("duplicate groups found by hash", list(dup) == ["a"] and len(dup["a"]) == 2)
 
     # THE GATE MUST GO RED. Growth beyond baseline fails; parity warns; never green.
-    check("count above baseline FAILS", baseline_status(957, "duplicate_groups")[0] == "FAIL")
+    check("count above baseline FAILS", baseline_status(745, "midclause_start")[0] == "FAIL")
     check("count equal to baseline WARNS (a standing defect is not green)",
-          baseline_status(956, "duplicate_groups")[0] == "WARN")
-    check("count below baseline PASSES", baseline_status(900, "duplicate_groups")[0] == "PASS")
+          baseline_status(744, "midclause_start")[0] == "WARN")
+    check("count below baseline PASSES", baseline_status(700, "midclause_start")[0] == "PASS")
+    # S255: zero is green, and ANY growth from a zero baseline still goes red.
+    check("zero count PASSES even when the baseline is 0", baseline_status(0, "duplicate_groups")[0] == "PASS")
+    check("growth from a zero baseline FAILS", baseline_status(1, "duplicate_groups")[0] == "FAIL")
 
     check("NOT_MEASURED never counts as green",
           overall_status([mk_check("x", "l", "WARN", "NOT_MEASURED", "d")]) == "WARN")
@@ -1530,8 +1542,9 @@ def self_test() -> int:
     check("a count equal to baseline is NOT listed (a standing gap is not news)",
           build_regressions([check_page_anchor(
               no_page * BASELINE["no_page_anchor"])]) == [])
+    # S255: no_page_anchor baseline is 0, so "below baseline" is a zero count.
     check("a count below baseline is NOT listed",
-          build_regressions([check_page_anchor(no_page)]) == [])
+          build_regressions([check_page_anchor([])]) == [])
     check("a FAIL without a baseline is NOT listed (it cannot say it got worse)",
           build_regressions([mk_check("REGISTRY_PHANTOM", "l", "ERROR", "FAIL", "d",
                                       ["a"], 999)]) == [])
