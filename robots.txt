@@ -1,0 +1,7 @@
+# 刻意不設任何 Disallow：Disallow 會令爬蟲讀不到頁內的 noindex（S220），
+# 不收錄的頁面一律以頁內 <meta name="robots" content="noindex"> 處理。
+# 本檔存在的目的：避免 GitHub Pages 對缺檔間歇回 503，令爬蟲暫停爬取全站（S256）。
+User-agent: *
+Allow: /
+
+Sitemap: https://policychecker.wongfu.net/sitemap.xml

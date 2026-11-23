@@ -6,6 +6,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [搜尋引擎收錄] — 2026-11-23 — 加 `robots.txt` 與 `sitemap.xml`（S256）
+
+> 平台版本不變（未改 `app.html`、`index.html`）。
+
+### Added
+- **`robots.txt`**：只寫 `Allow: /` 與 sitemap 位置，**不設任何 `Disallow`**，沿用 S220 的理由（`Disallow` 會令爬蟲讀不到頁內 `noindex`）；亦不列出 status 頁。原因：本站沒有 `robots.txt` 時，GitHub Pages 對缺檔間歇回 503（S256 實測三次中兩次 503），而 robots.txt 長期回 5xx 會令 Google 暫停爬取全站。Cloudflare 過去 30 日的到訪全部是直接輸入網址，沒有任何搜尋引擎轉介。
+- **`sitemap.xml`**：列出首頁與 `app.html`。
+
+---
+
 ## [v3.3.19] — 2026-11-23 — 頁尾精簡
 
 > 平台版本 **v3.3.18 → v3.3.19**。Leonard 指示：「頁尾太長，全部精簡處理」。
