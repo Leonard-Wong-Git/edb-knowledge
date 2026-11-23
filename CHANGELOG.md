@@ -6,6 +6,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v3.3.17] — 2026-11-23 — 刪除「文件標註」功能
+
+> 平台版本 **v3.3.16 → v3.3.17**。Leonard 2026-11-22 批准（WORK_QUEUE B5、B6）；該功能自 S243（2026-11-03）起收起待修，一直沒有恢復。
+
+### Removed
+- **前端 `app.html`**：文件標註面板、三種 Word 下載的產生程式（約 720 行），以及只供它使用的 5 個瀏覽器函式庫（pdf.js、mammoth、docx、JSZip、pdf-lib）；介紹頁、使用手冊、常見問題、導覽內的相關文案；`FEATURE_TABS.annotate` 開關。`index.html` 內早已隱藏的功能卡及 CTA 內「標註學校文件」一句。
+- **後端**：`/api/analyze-document`、`/api/annotate-document`、`/api/checklist-revise`、`/api/checklist-domains` 四個端點，及 `analyzeDocument.ts`、`annotateDocument.ts`、`checklistRevise.ts`（共約 1,170 行）；`checklists_bundle.json`（1.6 MB）。
+- 搜尋功能不依賴上述任何一項，行為不變；`dev/checklists/` 內的合規清單原始資料保留。
+
+### Changed
+- `mobile.css`／`mobile.js`／`feedback.js` 的 `?v=` 快取鍵同步推至 3.3.17。
+
+
 ## [舊事實清單清空] — 2026-11-08 — 刪除 109 條已停止服務的 approved_fact 副本
 
 > 平台版本不變 **v3.3.16**；只改公開片段數與文件。

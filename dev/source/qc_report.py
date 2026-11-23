@@ -1472,7 +1472,7 @@ def self_test() -> int:
     check("a stale manual attestation blocks again",
           "M" in build_release_gate(green, cfg_m2, "2026-10-01")["blocking"])
     check("the shipped gate config parses and declares manual checks",
-          len(json.loads(GATE_FILE.read_text(encoding="utf-8"))["manual_checks"]) >= 6)
+          len(json.loads(GATE_FILE.read_text(encoding="utf-8"))["manual_checks"]) >= 4)  # S255: 6 -> 4 after the 文件標註 checks were removed
 
     # S234 attention list. "Could not read" must never look like "nothing waiting".
     check("unreadable issue list is None, not an empty list",

@@ -2,7 +2,7 @@
 
 > 香港教育局（EDB）政策知識庫 — 專為學校管理人員而設
 
-[![Platform](https://img.shields.io/badge/platform-v3.3.16-teal)](CHANGELOG.md)
+[![Platform](https://img.shields.io/badge/platform-v3.3.17-teal)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![GitHub Pages](https://img.shields.io/badge/Frontend-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/edb-knowledge/app.html)
 [![Backend](https://img.shields.io/badge/Backend-Render-46E3B7)](https://edb-knowledge.onrender.com/health)
@@ -25,10 +25,9 @@
 |------|------|
 | ℹ️ **平台介紹** | 平台定位、動態統計（15,224 知識片段 / 246 指引 / 299 來源；片段與來源數由 `_meta.stats` 取，指引數由 `GUIDELINES_REGISTRY.length` 即時計）、核心功能說明 |
 | 🔍 **政策搜尋** | Channel-B 語義搜尋：從 15,224 個 EDB 官方原文知識片段檢索，整理回答並附原始文件出處（含頁碼）；可對回答評分 👍／👎；頁尾及回答下可「提供意見」（經 Google 表單送出） |
-| 📝 ~~**文件標註**~~〔S243 起收起待修〕 | 暫不對外開放（`window.FEATURE_TABS.annotate = false`）。2026-11-03 實測輸出可能誤導，重開條件見 CHANGELOG〔文件標註收起待修〕。後端端點保留。 |
 | 📚 **指引文件庫** | 246 份官方 EDB 指引（in-app 瀏覽庫；公開 `guidelines.json` 端點為 151 份全集投影），按類別 → 子類別 → 年份三層分組導覽 |
 
-> 公眾 app（`app.html`）只以附出處的 EDB 原文作答，現行 **三 tab**（平台介紹 / 政策搜尋 / EDB指引）；「📝 文件標註」（S243，收起待修）以 `window.FEATURE_TABS` 收起中。S243 已刪除：「範本下載」分頁及 109 份 Word 範本、休眠頁 `q.html`（快速問答）與 `t-purchase.html`（採購範本起草流程）、手機版「選擇角色」畫面，面板 code 原封未動。S151 移除 admin；S161 將 文件分析+文件修訂 合併為「文件標註」、政策範本→範本下載。Channel A 人工策展 / 管理員登入功能已移除；`role_facts.json` / `knowledge.json` 凍結 @455 仍作對外資料契約。
+> 公眾 app（`app.html`）只以附出處的 EDB 原文作答，現行 **三 tab**（平台介紹 / 政策搜尋 / EDB指引）。S243 已刪除：「範本下載」分頁及 109 份 Word 範本、休眠頁 `q.html`（快速問答）與 `t-purchase.html`（採購範本起草流程）、手機版「選擇角色」畫面；S255（v3.3.17）再刪除「文件標註」（分頁、三種 Word 下載、四個後端端點、`checklists_bundle.json`）。S151 移除 admin。Channel A 人工策展 / 管理員登入功能已移除；`role_facts.json` / `knowledge.json` 凍結 @455 仍作對外資料契約。
 
 ### 📱 響應式 / 手機版範圍
 
@@ -41,7 +40,6 @@
 | 功能 | 手機 | 桌面 |
 |------|:----:|:----:|
 | 政策搜尋 / 指引文件 / 平台介紹 | ✅ 完整 | ✅ |
-| 📝 ~~文件標註~~〔S243 起收起待修〕 | — 桌面版功能 | — 分頁已收起 |
 
 > 詳見 `dev/PROJECT_MASTER_SPEC.md` §B.5 Mobile UI scope。
 
@@ -69,8 +67,6 @@
 |---|---|
 | `POST /api/search/channel-b` | 政策搜尋（語義檢索 + LLM 合成）；真實搜尋留底 180 日並回傳 `log_id`（S233） |
 | `POST /api/search/feedback` | 對整理答案評分 👍／👎（`{log_id, rating}`） |
-| `POST /api/analyze-document` · `POST /api/annotate-document` | 文件標註（逐段比對 EDB 指引 / 生成標註成品）；前端分頁收起中，端點保留 |
-| `POST /api/checklist-revise` · `GET /api/checklist-domains` | 合規清單 gap 檢查 / 清單範疇 |
 | `GET /health` | 健康檢查 |
 
 > Channel A（455 條已核實事實）、`q.html`、合併搜尋與通告分析 route 已於 S243（v3.3.12）退役並刪除；平台只以附出處的 EDB 原文（Channel B）作答。
@@ -183,4 +179,4 @@ FEATURE_EXACT_WINDOW_NARROW=0          # 各 flag 說明見 backend/README.md
 
 ---
 
-*最後更新：2026-11-03 | 平台 v3.3.16 | 維護：leonard-wong-git*
+*最後更新：2026-11-23 | 平台 v3.3.17 | 維護：leonard-wong-git*
