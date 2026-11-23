@@ -572,4 +572,4 @@ Recorded at closeout per the Registry Rule above. Newest first.
 - Tab withdraw / restore — `confirmed`（以刪除代替恢復）：tab 掣、`VALID_VIEWS`、`channels` 卡、使用手冊、常見問題、`TOUR_STEPS`（開場白由過濾後步驟數推算，核實顯示「兩大功能」）；`index.html` 隱藏功能卡與 CTA 一句；README 功能表、端點表、頁尾說明；`backend/README.md` 端點行。`mobile.js` 無標註引用。
 - 外部服務／端點 — `confirmed`：四個公開端點移除；`K1_API_SPEC.md`、凍結合約零接觸。
 - `dev/source/release_gate.json` — `confirmed`：刪兩條只屬該功能的人手檢查；`qc_report.py` 自測下限 6 → 4。
-- `dev/CHECKLIST_REVISE_FEATURE.md`、`dev/DOC_ANNOTATE_FEATURE_DESIGN.md`、`CODEBASE_CONTEXT.md`、`PROJECT_INDEX.md` — `pending`：仍描述已刪除功能，屬歷史設計文件，未逐段改寫；收工時標註「功能已於 S255 刪除」。
+- `dev/CHECKLIST_REVISE_FEATURE.md`、`dev/DOC_ANNOTATE_FEATURE_DESIGN.md`、`CODEBASE_CONTEXT.md`、`PROJECT_INDEX.md` — `confirmed`（2026-11-23）：兩份設計文件頂部加「已刪除」橫額，`CODEBASE_CONTEXT.md` 四條模組／資料檔記載加「S255 已刪除」前綴；歷史記載不改寫。

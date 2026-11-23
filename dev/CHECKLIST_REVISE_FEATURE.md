@@ -1,5 +1,7 @@
 # 文件修訂功能（checklist gap analysis）— S160
 
+> **⚠️ 已刪除（S255，2026-11-23，v3.3.17）**：本檔描述的功能（前端面板、後端端點、`checklists_bundle.json`）已全部移除，僅留作歷史設計紀錄；不要依此恢復或實作。`dev/checklists/` 內的合規清單原始資料仍保留。
+
 > Leonard 通宵指示：「準備好功能，使用者會上載文件(PDF/doc/docx)，然後你可以按 checklist 去修訂及補回相關資料，並供下載。」
 > 本功能已**實作 + 雙路 verify 通過**（backend python e2e + frontend browser），**staged 未 deploy**，待 Leonard review。
 
