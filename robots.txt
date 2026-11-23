@@ -4,4 +4,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://policychecker.wongfu.net/sitemap.xml
+Sitemap: https://policychecker.minny.app/sitemap.xml

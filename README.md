@@ -2,7 +2,7 @@
 
 > 香港教育局（EDB）政策知識庫 — 專為學校管理人員而設
 
-[![Platform](https://img.shields.io/badge/platform-v3.3.19-teal)](CHANGELOG.md)
+[![Platform](https://img.shields.io/badge/platform-v3.4.0-teal)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![GitHub Pages](https://img.shields.io/badge/Frontend-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/edb-knowledge/app.html)
 [![Backend](https://img.shields.io/badge/Backend-Render-46E3B7)](https://edb-knowledge.onrender.com/health)
@@ -13,8 +13,8 @@
 
 | | URL |
 |---|---|
-| **知識平台（主應用）** | https://policychecker.wongfu.net/app.html |
-| **入口頁** | https://policychecker.wongfu.net/ |
+| **知識平台（主應用）** | https://policychecker.minny.app/app.html |
+| **入口頁** | https://policychecker.minny.app/ |
 | **後端 API** | https://edb-knowledge.onrender.com |
 
 ---
@@ -152,7 +152,7 @@ OPENAI_REASONING_EFFORT=none
 JUDGE_MODEL=gpt-6-luna
 JUDGE_REASONING_EFFORT=none
 PORT=8787
-CORS_ORIGIN=https://leonard-wong-git.github.io,https://policychecker.wongfu.net
+CORS_ORIGIN=https://leonard-wong-git.github.io,https://policychecker.minny.app
 
 # Channel B 必需 —— 缺這兩項，/health 回 {"ok":false,"degraded":true}，搜尋靜默降級
 SUPABASE_URL=https://<project>.supabase.co
@@ -179,4 +179,4 @@ FEATURE_EXACT_WINDOW_NARROW=0          # 各 flag 說明見 backend/README.md
 
 ---
 
-*最後更新：2026-11-23 | 平台 v3.3.19 | 維護：leonard-wong-git*
+*最後更新：2026-11-23 | 平台 v3.4.0 | 維護：leonard-wong-git*
