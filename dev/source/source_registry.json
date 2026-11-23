@@ -1544,11 +1544,11 @@
         "hr"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "rolling",
       "last_checked_at": "2026-11-16",
       "supersedes": null,
-      "notes": "定期更新的教育統計數字頁面，涵蓋學校數目、學生人數、教師人手等。由用戶新增。因內容會更新，需定期複查 freshness。",
+      "notes": "定期更新的教育統計數字頁面，涵蓋學校數目、學生人數、教師人手等。由用戶新增。因內容會更新，需定期複查 freshness。 | S255 B3（Leonard 2026-11-23 批准）退役：統計來源按設計不可搜（include_statistical=false），每次更新要人手重新入庫，無人使用。全欄位備份 dev/init_backup/20261123_114544_UTC/（含 embedding），刪生產片段並讀回為 0；vault 抽取檔保留，可重新入庫。瀏覽條目保留（BROWSE_ONLY）。",
       "freshness_metadata": {
         "last_modified": "Fri, 30 Oct 2026 02:44:00 GMT",
         "content_length": "2620",
@@ -1588,12 +1588,12 @@
         "student"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "rolling",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
-      "notes": "幼稚園學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_kg/。",
+      "notes": "幼稚園學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_kg/。 | S255 B3（Leonard 2026-11-23 批准）退役：統計來源按設計不可搜（include_statistical=false），每次更新要人手重新入庫，無人使用。全欄位備份 dev/init_backup/20261123_114544_UTC/（含 embedding），刪生產片段並讀回為 0；vault 抽取檔保留，可重新入庫。瀏覽條目保留（BROWSE_ONLY）。",
       "freshness_metadata": {
         "last_modified": "Mon, 27 Apr 2026 07:48:38 GMT",
         "content_length": "17833",
@@ -1618,12 +1618,12 @@
         "curriculum"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "rolling",
       "last_checked_at": "2026-11-16",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
-      "notes": "小學學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_pri/。",
+      "notes": "小學學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_pri/。 | S255 B3（Leonard 2026-11-23 批准）退役：統計來源按設計不可搜（include_statistical=false），每次更新要人手重新入庫，無人使用。全欄位備份 dev/init_backup/20261123_114544_UTC/（含 embedding），刪生產片段並讀回為 0；vault 抽取檔保留，可重新入庫。瀏覽條目保留（BROWSE_ONLY）。",
       "freshness_metadata": {
         "last_modified": "Wed, 05 Aug 2026 04:08:52 GMT",
         "content_length": "16415",
@@ -1649,12 +1649,12 @@
         "curriculum"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "rolling",
       "last_checked_at": "2026-11-16",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
-      "notes": "中學學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_sec/。",
+      "notes": "中學學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_sec/。 | S255 B3（Leonard 2026-11-23 批准）退役：統計來源按設計不可搜（include_statistical=false），每次更新要人手重新入庫，無人使用。全欄位備份 dev/init_backup/20261123_114544_UTC/（含 embedding），刪生產片段並讀回為 0；vault 抽取檔保留，可重新入庫。瀏覽條目保留（BROWSE_ONLY）。",
       "freshness_metadata": {
         "last_modified": "Wed, 05 Aug 2026 04:08:52 GMT",
         "content_length": "18469",
@@ -1678,12 +1678,12 @@
         "student"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "rolling",
       "last_checked_at": "2026-11-16",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
-      "notes": "特殊學校學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_special/。",
+      "notes": "特殊學校學校及學生統計數字 Excel 檔案，定期更新。待用戶上傳後提取內容至 vault/stat_special/。 | S255 B3（Leonard 2026-11-23 批准）退役：統計來源按設計不可搜（include_statistical=false），每次更新要人手重新入庫，無人使用。全欄位備份 dev/init_backup/20261123_114544_UTC/（含 embedding），刪生產片段並讀回為 0；vault 抽取檔保留，可重新入庫。瀏覽條目保留（BROWSE_ONLY）。",
       "freshness_metadata": {
         "last_modified": "Wed, 05 Aug 2026 04:08:52 GMT",
         "content_length": "17837",
@@ -1707,12 +1707,12 @@
         "student"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "rolling",
       "last_checked_at": "2026-06-15",
       "supersedes": null,
       "parent_source_id": "stat_edb_figures",
-      "notes": "融合教育（SEN 學生於普通學校就讀）統計數字 Excel 檔案，定期更新。來自 data.gov.hk。待用戶上傳後提取內容至 vault/stat_integrated_edu/。",
+      "notes": "融合教育（SEN 學生於普通學校就讀）統計數字 Excel 檔案，定期更新。來自 data.gov.hk。待用戶上傳後提取內容至 vault/stat_integrated_edu/。 | S255 B3（Leonard 2026-11-23 批准）退役：統計來源按設計不可搜（include_statistical=false），每次更新要人手重新入庫，無人使用。全欄位備份 dev/init_backup/20261123_114544_UTC/（含 embedding），刪生產片段並讀回為 0；vault 抽取檔保留，可重新入庫。瀏覽條目保留（BROWSE_ONLY）。",
       "freshness_metadata": {
         "last_modified": "Thu, 02 Apr 2026 01:29:57 GMT",
         "content_length": "14053",
@@ -1736,7 +1736,7 @@
         "student"
       ],
       "access_mode": "public",
-      "status": "verified",
+      "status": "deprecated",
       "version_label": "annual",
       "coverage": "2012/13–2024/25",
       "years_extracted": [
@@ -1759,7 +1759,7 @@
       "parent_source_id": "stat_edb_figures",
       "vault_path": "dev/vault/stat_enrolment_report/extract_enrolment_{YYYY}.txt",
       "phase2_fetch": "url_primary_pattern with YYYY = latest year; compare against vault extract for diff",
-      "notes": "每年更新的學生人數統計報告書 PDF，涵蓋幼稚園、小學、中學及特殊教育。2012-2024 共13份已提取至 vault（每份首20頁：簡介及總覽表）。Phase 2 可按 url_primary_pattern 自動抓取最新年份並與 vault 比對。",
+      "notes": "每年更新的學生人數統計報告書 PDF，涵蓋幼稚園、小學、中學及特殊教育。2012-2024 共13份已提取至 vault（每份首20頁：簡介及總覽表）。Phase 2 可按 url_primary_pattern 自動抓取最新年份並與 vault 比對。 | S255 B3（Leonard 2026-11-23 批准）退役：統計來源按設計不可搜（include_statistical=false），每次更新要人手重新入庫，無人使用。全欄位備份 dev/init_backup/20261123_114544_UTC/（含 embedding），刪生產片段並讀回為 0；vault 抽取檔保留，可重新入庫。瀏覽條目保留（BROWSE_ONLY）。",
       "freshness_metadata_years": {
         "2012": {
           "last_modified": "Mon, 03 Aug 2015 02:45:55 GMT",

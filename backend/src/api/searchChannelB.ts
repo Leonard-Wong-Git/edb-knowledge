@@ -778,7 +778,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g29",               // 幼稚園教育課程指引（2017）
     "g25",               // 幼稚園相關指引及須知
     "g26",               // 2026/27 幼稚園收生安排指引
-    "stat_kg",           // 幼稚園統計數字
     "edbc013_2026",              // (auto) Option A watcher ingest
     // S194 — the ICT senior-secondary guides. Neither was in ANY route's SOURCE_SET, so
     // 「資訊及通訊科技 課程指引」 routed to curriculum and could only ever return other
@@ -829,7 +828,6 @@ const SOURCE_SETS: Record<string, string[]> = {
     "g25",                       // 幼稚園相關指引及須知
     "g29",                       // 幼稚園教育課程指引（2017）
     "g26",                       // 2026/27 幼稚園收生安排指引
-    "stat_kg",                   // 幼稚園統計數字
     "edbcm060_2026",             // S186: 通函60/2026 — 幼稚園提交2025/26經審核周年帳目 (KG 財務合規)
     // S228 (OP-10): 通函144/2026 — 幼稚園教育計劃搬遷津貼. Reachable before this only
     // through the spotlight overlay, which admits ONE chunk per query
