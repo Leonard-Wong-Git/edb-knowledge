@@ -18,7 +18,7 @@ const DEFAULT_OPENAI_MODEL = "gpt-6-luna";
 const DEFAULT_MODEL_REASONING_EFFORT = "none" as const;
 const DEFAULT_PORT = 8787;
 const DEFAULT_JUDGE_MODEL = "gpt-6-luna";
-const DEFAULT_CORS_ORIGIN = "https://leonard-wong-git.github.io,https://policychecker.wongfu.net";
+const DEFAULT_CORS_ORIGIN = "https://leonard-wong-git.github.io,https://policychecker.minny.app,https://policychecker.wongfu.net";
 
 // First-party brand origins that must ALWAYS be allowed regardless of the
 // CORS_ORIGIN env var. Hardening after S136 incident: a stale Render
@@ -29,6 +29,10 @@ const DEFAULT_CORS_ORIGIN = "https://leonard-wong-git.github.io,https://policych
 // iframe hosts).
 const BASELINE_CORS_ORIGINS = [
   "https://leonard-wong-git.github.io",
+  // S256: the site moves to policychecker.minny.app. The old host stays allowed
+  // until its redirect is retired (planned end of January 2027); a redirect sends
+  // the browser to the new origin, so after that the old origin issues no requests.
+  "https://policychecker.minny.app",
   "https://policychecker.wongfu.net",
   // S236: the S163 here.now mirror (tender-garnet-hqbd, frozen at v3.0.0) was deleted
   // on Leonard's instruction; its origin is no longer allowed.

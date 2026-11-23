@@ -1,6 +1,6 @@
 # EDB Knowledge Platform Backend
 
-香港學校政策搜尋平台（policychecker.wongfu.net）的 TypeScript 後端，部署於 Render。
+香港學校政策搜尋平台（policychecker.minny.app；舊網址 policychecker.wongfu.net 轉駁至 2027 年 1 月底）的 TypeScript 後端，部署於 Render。
 
 ## Current Responsibilities
 
@@ -41,7 +41,7 @@ SUPABASE_ANON_KEY=your_supabase_anon_key
 | `JUDGE_MODEL` | `gpt-6-luna` | 相關性判官用的模型，與 `OPENAI_MODEL` 分開 | 未設（用預設） |
 | `JUDGE_REASONING_EFFORT` | 沒有設 `JUDGE_MODEL` 時為 `none`；設了模型則不帶 | 判官模型的推理強度 | 未設 |
 | `PORT` | `8787` | 伺服器埠號；Render 會自行注入 | 由 Render 注入 |
-| `CORS_ORIGIN` | `https://leonard-wong-git.github.io,https://policychecker.wongfu.net` | 額外允許的瀏覽器來源（逗號分隔）；上述兩個正式來源一定在名單內，不會被這個變數移走 | 已設 |
+| `CORS_ORIGIN` | `https://leonard-wong-git.github.io,https://policychecker.minny.app,https://policychecker.wongfu.net` | 額外允許的瀏覽器來源（逗號分隔）；上述三個正式來源一定在名單內（舊網址 `policychecker.wongfu.net` 保留至轉駁停用，約 2027 年 1 月底），不會被這個變數移走 | 已設 |
 | `SUPABASE_URL` | 無 | Supabase 專案網址；與下一項任何一個缺少，搜尋即降級回 `degraded` | 已設 |
 | `SUPABASE_ANON_KEY` | 無 | Supabase anon 金鑰（唯讀搜尋） | 已設 |
 | `CHANNEL_B_SYNC_KEY` | 無（未設即同步端點回 503） | `/api/channel-b/manifest` 與 `/api/channel-b/chunks` 的讀取金鑰；可用逗號分隔多個以便輪換 | 已設 |
