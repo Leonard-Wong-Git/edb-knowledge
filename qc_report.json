@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-11-23T12:05:50Z",
+  "generatedAt": "2026-11-23T21:03:03Z",
   "overallStatus": "ERROR",
   "counts": {
     "chunks": 15224,
-    "PASS": 20,
+    "PASS": 18,
     "BLOCKER": 0,
     "ERROR": 2,
-    "WARN": 2,
+    "WARN": 4,
     "INFO": 1,
     "NOT_MEASURED": 0
   },
-  "version": "v3.3.16",
+  "version": "v3.4.0",
   "corpus": {
     "chunks": 15224,
     "sources_serving": 299,
@@ -60,14 +60,14 @@
     "measurable": "質素是否可量度"
   },
   "attention": {
-    "collectedAt": "2026-11-23T12:05:50Z",
+    "collectedAt": "2026-11-23T21:03:03Z",
     "items": [],
     "ignored_outside": 0
   },
   "regressions": [],
   "releaseGate": {
     "status": "FAIL",
-    "summary": "5/15 項達標",
+    "summary": "5/13 項達標",
     "blocking": [
       "NO_ERROR_FAIL",
       "PASS_EVAL_LATEST",
@@ -75,9 +75,7 @@
       "WARNS_OWNED",
       "CORE_SEARCH_CASES",
       "ANSWER_FACT_SPOTCHECK",
-      "DOC_ANNOTATION_FLOW",
       "MOBILE_DESKTOP_SPLIT",
-      "PRIVACY_UPLOAD_BEHAVIOUR",
       "COLD_START_AND_ERRORS"
     ],
     "criteria": [
@@ -142,7 +140,7 @@
         "label": "每個 standing WARN 都有 owner、理由、接受期限",
         "kind": "auto",
         "status": "NOT_MET",
-        "detail": "未有 waiver 1 項：BODY_LENGTH_FLOOR"
+        "detail": "未有 waiver 3 項：NO_TOC_NOISE、BODY_LENGTH_FLOOR、NO_MIDCLAUSE_START"
       },
       {
         "id": "CORE_SEARCH_CASES",
@@ -159,22 +157,8 @@
         "detail": "從未記錄人手驗證"
       },
       {
-        "id": "DOC_ANNOTATION_FLOW",
-        "label": "文件標註流程（上載 → 分析 → 下載標註版）",
-        "kind": "manual",
-        "status": "NOT_MET",
-        "detail": "從未記錄人手驗證"
-      },
-      {
         "id": "MOBILE_DESKTOP_SPLIT",
         "label": "mobile／desktop 分流",
-        "kind": "manual",
-        "status": "NOT_MET",
-        "detail": "從未記錄人手驗證"
-      },
-      {
-        "id": "PRIVACY_UPLOAD_BEHAVIOUR",
-        "label": "私隱與上載檔案行為",
         "kind": "manual",
         "status": "NOT_MET",
         "detail": "從未記錄人手驗證"
@@ -195,7 +179,7 @@
       "severity": "BLOCKER",
       "status": "PASS",
       "group": "infra",
-      "detail": "ok=True · commit=ebac0e5 · 啟動於 2026-11-23T12:05:35.091Z",
+      "detail": "ok=True · commit=56febce · 啟動於 2026-11-23T21:02:54.685Z",
       "offenders": [],
       "offender_total": 0
     },
@@ -235,7 +219,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "pointing",
-      "detail": "0 · 低於基準 130（−130，已改善） · 無連結片段來自 0 個來源",
+      "detail": "0 · 無此缺陷（基準 0） · 無連結片段來自 0 個來源",
       "offenders": [],
       "offender_total": 0
     },
@@ -245,7 +229,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "pointing",
-      "detail": "0 · 低於基準 658（−658，已改善） · 用戶會在答案中看見原始代號而非文件名",
+      "detail": "0 · 無此缺陷（基準 0） · 用戶會在答案中看見原始代號而非文件名",
       "offenders": [],
       "offender_total": 0
     },
@@ -255,7 +239,7 @@
       "severity": "WARN",
       "status": "PASS",
       "group": "pointing",
-      "detail": "0 · 低於基準 1（−1，已改善） · 這些片段只能把用戶帶到 PDF 首頁",
+      "detail": "0 · 無此缺陷（基準 0） · 這些片段只能把用戶帶到 PDF 首頁",
       "offenders": [],
       "offender_total": 0
     },
@@ -285,7 +269,7 @@
       "severity": "ERROR",
       "status": "PASS",
       "group": "chunk",
-      "detail": "重複組 0 · 低於基準 956（−956，已改善） · 多出的副本 0 條 · 重複全部跨來源（同一來源內 0 組），即問題出在登記了兩次的文件，不是切片器。⚠️ 此數是下限：只捉逐字相同的片段。同一份 PDF 分兩次抽取會切出不同邊界，雜湊就不同 —— kgecg_2017 與 g29 是同一份《幼稚園教育課程指引（2017）》，108 對 107 條，逐字相同 0 條，本檢查完全看不見",
+      "detail": "重複組 0 · 無此缺陷（基準 0） · 多出的副本 0 條 · 重複全部跨來源（同一來源內 0 組），即問題出在登記了兩次的文件，不是切片器。⚠️ 此數是下限：只捉逐字相同的片段。同一份 PDF 分兩次抽取會切出不同邊界，雜湊就不同 —— kgecg_2017 與 g29 是同一份《幼稚園教育課程指引（2017）》，108 對 107 條，逐字相同 0 條，本檢查完全看不見",
       "offenders": [],
       "offender_total": 0
     },
@@ -293,9 +277,9 @@
       "id": "NO_TOC_NOISE",
       "label": "沒有純目錄片段（三個或以上「……頁碼」）",
       "severity": "WARN",
-      "status": "PASS",
+      "status": "WARN",
       "group": "chunk",
-      "detail": "105 · 低於基準 147（−42，已改善） · 目錄片段答不到任何問題，只會佔住合成窗",
+      "detail": "105 · 與基準 105 相同（未惡化，但仍在服務中） · 目錄片段答不到任何問題，只會佔住合成窗",
       "offenders": [
         "sag_2025_11（45 條）",
         "kg_admin_guide_2026（34 條）",
@@ -331,9 +315,9 @@
       "id": "NO_MIDCLAUSE_START",
       "label": "切得不會太碎：片段不是由半句開始",
       "severity": "ERROR",
-      "status": "PASS",
+      "status": "WARN",
       "group": "cutting",
-      "detail": "744 · 低於基準 835（−91，已改善） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
+      "detail": "744 · 與基準 744 相同（未惡化，但仍在服務中） · 由半句開始的片段餵給合成器，正是 S211「片段由半行開始」那一類缺陷",
       "offenders": [
         "g06（34 條）",
         "g13（34 條）",
@@ -389,7 +373,7 @@
       "severity": "ERROR",
       "status": "FAIL",
       "group": "measurable",
-      "detail": "S213 Phase 1 gold-set run · PASS=132 FAIL=32 RECORD_ONLY=19 errors=0 · 共 183 條 query · 量度自 2026-11-18_s253_gold_prod_baseline.json · 生產端點",
+      "detail": "S213 Phase 1 gold-set run · PASS=132 FAIL=32 RECORD_ONLY=19 errors=0 · 共 183 條 query · 量度自 2026-11-23_s256_gold_prod_baseline.json · 生產端點",
       "offenders": [],
       "offender_total": 0
     },
