@@ -6,6 +6,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v3.3.18] — 2026-11-23 — 頁尾加入 minny.app 品牌
+
+> 平台版本 **v3.3.17 → v3.3.18**。Leonard 2026-11-23 指示：與 circular.minny.app 一致。
+
+### Added
+- `index.html` 與 `app.html` 頁尾加 m 字標及「minny.app 出品」連結（連到 https://minny.app/），字標檔 `assets/brand/m.svg` 取自 circular.minny.app 同一檔（18 px，觸控範圍向外延伸）。
+
+### Changed
+- `mobile.css`／`mobile.js`／`feedback.js` 的 `?v=` 快取鍵同步推至 3.3.18。
+
+---
+
 ## [v3.3.17] — 2026-11-23 — 刪除「文件標註」功能
 
 > 平台版本 **v3.3.16 → v3.3.17**。Leonard 2026-11-22 批准（WORK_QUEUE B5、B6）；該功能自 S243（2026-11-03）起收起待修，一直沒有恢復。
