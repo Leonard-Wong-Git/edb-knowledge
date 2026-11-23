@@ -269,13 +269,16 @@ a{color:inherit;text-decoration:none}
 }
 .footer-left{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.06em}
 .footer-right{display:flex;gap:20px}
+/* minny.app 背書品牌：頁尾 m 字標（約 18 px，觸控範圍向外延伸，不改原有行距）— 與 circular.minny.app 一致 */
+.footer-left .foot-m-link{display:inline-flex;align-items:center;gap:5px;padding:8px 2px;margin:-8px 0;color:inherit;text-decoration:none;vertical-align:middle}
+.footer-left .foot-m-link img{display:block;width:18px;height:auto}
 .footer-right a{font-size:12.5px;color:var(--ink-3);transition:color .15s}
 .footer-right a:hover{color:var(--edb);border-bottom:none}
 @media(max-width:600px){.site-footer{flex-direction:column;align-items:flex-start;padding:20px 16px}}
 </style>
-<link rel="stylesheet" href="mobile.css?v=3.3.17">
-<script src="mobile.js?v=3.3.17" defer></script>
-<script src="feedback.js?v=3.3.17" defer></script>
+<link rel="stylesheet" href="mobile.css?v=3.3.18">
+<script src="mobile.js?v=3.3.18" defer></script>
+<script src="feedback.js?v=3.3.18" defer></script>
 </head>
 <body>
 
@@ -516,9 +519,10 @@ a{color:inherit;text-decoration:none}
 <footer class="site-footer">
   <div class="wrap" style="width:100%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
     <div class="footer-left">
-      香港學校政策搜尋平台 v3.3.17 ·
+      香港學校政策搜尋平台 v3.3.18 ·
       資料僅供參考，正式決策請以 EDB 官方原文為準 ·
       本站採用免 Cookie 匿名流量統計 ·
+      <a class="foot-m-link" href="https://minny.app/" target="_blank" rel="noopener"><img src="assets/brand/m.svg" alt="" width="18" height="12">minny.app 出品</a> ·
       設計者：Leonard Wong
     </div>
     <div class="footer-right">
