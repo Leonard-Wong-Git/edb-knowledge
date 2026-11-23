@@ -1,7 +1,7 @@
 name: Knowledge-base QC Report
 
 # Regenerates qc_report.json + the unlisted status page's data, then commits it
-# so https://policychecker.wongfu.net/status-07cc7942c0.html shows a live number
+# so https://policychecker.minny.app/status-07cc7942c0.html shows a live number
 # instead of whatever was true the day a human last ran it by hand.
 #
 # WHY THIS COMMITS TO main, unlike the other five monitors: those detect and
@@ -189,7 +189,7 @@ jobs:
               '|---|---|---|---|---|---|',
               rows,
               '',
-              '完整報告：https://policychecker.wongfu.net/status-07cc7942c0.html',
+              '完整報告：https://policychecker.minny.app/status-07cc7942c0.html',
             ].join('\n');
             const items = regs.map(r => ({
               key: `${r.id}@${r.count}`,

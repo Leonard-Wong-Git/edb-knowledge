@@ -11,11 +11,11 @@
 ```bash
 cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"
 # 1 網站版本
-curl -s https://policychecker.wongfu.net/app.html | grep -o "PLATFORM_VERSION *= *'[^']*'"
+curl -s https://policychecker.minny.app/app.html | grep -o "PLATFORM_VERSION *= *'[^']*'"
 # 2 後端
 curl -s -m 60 https://edb-knowledge.onrender.com/health
 # 3 片段數
-curl -s https://policychecker.wongfu.net/stats.json
+curl -s https://policychecker.minny.app/stats.json
 # 4 Git（只看，不要 checkout）
 git fetch -q origin && git status -sb && git log --oneline -1 origin/main && gh pr list
 # 5 登記漂移（--ledger 一定要指向 $SP，否則會改寫 repo 內的 dev/source/registry_drift.md）

@@ -10,6 +10,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <!-- Open Graph (Facebook / LinkedIn) -->
@@ -20,15 +21,15 @@
 <!-- S211 — og/twitter description 會出喺分享卡，同樣列緊平台功能：跟 FEATURE_TABS 走。
      原文列住「範本下載」，該 tab 由 S204 收起。見本檔 head 分頁開關註釋第 8 項。 -->
 <meta property="og:description" content="EDB 政策語義搜尋 · 指引文件庫">
-<meta property="og:url" content="https://policychecker.wongfu.net/app.html">
-<meta property="og:image" content="https://policychecker.wongfu.net/og-image.jpg">
+<meta property="og:url" content="https://policychecker.minny.app/app.html">
+<meta property="og:image" content="https://policychecker.minny.app/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="香港學校政策搜尋平台">
 <meta name="twitter:description" content="EDB 政策語義搜尋 · 指引文件庫">
-<meta name="twitter:image" content="https://policychecker.wongfu.net/og-image.jpg">
+<meta name="twitter:image" content="https://policychecker.minny.app/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -760,9 +761,10 @@ body {
  */
 window.FEATURE_TABS = { about: true, qa: true, guidelines: true };
 </script>
-<link rel="stylesheet" href="mobile.css?v=3.3.19">
-<script src="mobile.js?v=3.3.19" defer></script>
-<script src="feedback.js?v=3.3.19" defer></script>
+<link rel="stylesheet" href="mobile.css?v=3.4.0">
+<script src="move-notice.js?v=3.4.0" defer></script>
+<script src="mobile.js?v=3.4.0" defer></script>
+<script src="feedback.js?v=3.4.0" defer></script>
 </head>
 <body>
 <div id="root"></div>
@@ -1374,7 +1376,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // retired with Channel A in S243). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + EDB 指引文件庫（文件標註與範本下載已分別於 S255、S243 刪除）。
-const PLATFORM_VERSION = '3.3.19';
+const PLATFORM_VERSION = '3.4.0';
 // S204 — tab switches; defined in a plain <script> in <head> so mobile.js can read them
 // at its DOMContentLoaded init, which runs BEFORE this Babel script compiles.
 const FEATURE_TABS = window.FEATURE_TABS;
@@ -2057,7 +2059,7 @@ function QAPanel({ data, setPreviewDoc }) {
     const lines = ['【香港學校政策搜尋平台 · 政策搜尋】', '問：' + query.trim()];
     if (synthesis) lines.push('', synthesis);
     if (srcLine) lines.push('', '來源：' + srcLine);
-    lines.push('🔗 https://policychecker.wongfu.net/app.html');
+    lines.push('🔗 https://policychecker.minny.app/app.html');
     return lines.join('\n');
   };
   const handleShareWhatsApp = () => {

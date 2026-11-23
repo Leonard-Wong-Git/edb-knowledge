@@ -217,6 +217,13 @@
     line-height: 1.55;
     margin-bottom: var(--m-sp-lg);
   }
+  /* S256 — minny.app 背書品牌：手機版隱藏頁尾，故在外殼底部放 m 字標（約 18 px，觸控範圍向外延伸） */
+  .m-brand {
+    display: flex; justify-content: center; align-items: center; gap: 6px;
+    padding: 14px var(--m-sp-md) 18px;
+    font-size: 12px; color: var(--m-text-secondary); text-decoration: none;
+  }
+  .m-brand img { display: block; width: 18px; height: auto; }
 
   /* ── 6. Search input (Tado-inspired large, rounded) ── */
   .m-search {

@@ -6,6 +6,30 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v3.4.0] — 2026-11-23 — 遷往 policychecker.minny.app（S256）
+
+> 平台版本 **v3.3.19 → v3.4.0**。Leonard 指示：網址轉為 policychecker.minny.app；舊網址轉駁至 2027 年 1 月底；方便用戶即時存新網址；不加開場動畫。
+
+### Changed
+- **網址**：`CNAME`、分享預覽、WhatsApp 分享連結、README、API 說明、嵌入範例、狀態頁、QC 通知、robots.txt、sitemap 由 `policychecker.wongfu.net` 改為 `policychecker.minny.app`。舊網址由暫時轉駁服務送到新網址同一頁（加 `?from=wongfu`）。
+
+### Added
+- **遷址橫額 `move-notice.js`**：只對由舊網址轉來的人顯示一行「網址已更新為 policychecker.minny.app」，附「加到主畫面」（手機）或「加入書籤」（電腦）一個按鈕；Android／電腦版 Chrome、Edge 一按安裝，其餘顯示一行步驟。按「知道了」後同一部裝置不再出現；`?movenotice=1` 可預覽。轉駁停用後可整個刪除。
+- **`manifest.webmanifest`**：令 Android 與電腦版 Chrome／Edge 可一按加到主畫面，開啟 `app.html`。
+- **手機版 minny.app 字標**：手機版向來隱藏頁尾，故在搜尋結果下方加「m 字標＋minny.app 出品」連結。
+
+---
+
+## [搜尋引擎收錄] — 2026-11-23 — 加 `robots.txt` 與 `sitemap.xml`（S256）
+
+> 平台版本不變（未改 `app.html`、`index.html`）。
+
+### Added
+- **`robots.txt`**：只寫 `Allow: /` 與 sitemap 位置，**不設任何 `Disallow`**，沿用 S220 的理由（`Disallow` 會令爬蟲讀不到頁內 `noindex`）；亦不列出 status 頁。原因：本站沒有 `robots.txt` 時，GitHub Pages 對缺檔間歇回 503（S256 實測三次中兩次 503），而 robots.txt 長期回 5xx 會令 Google 暫停爬取全站。Cloudflare 過去 30 日的到訪全部是直接輸入網址，沒有任何搜尋引擎轉介。
+- **`sitemap.xml`**：列出首頁與 `app.html`。
+
+---
+
 ## [v3.3.19] — 2026-11-23 — 頁尾精簡
 
 > 平台版本 **v3.3.18 → v3.3.19**。Leonard 指示：「頁尾太長，全部精簡處理」。

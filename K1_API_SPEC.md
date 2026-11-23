@@ -20,7 +20,7 @@
 
 | 端點 | URL |
 |------|-----|
-| 指引文件連結庫 | `https://policychecker.wongfu.net/guidelines.json` |
+| 指引文件連結庫 | `https://policychecker.minny.app/guidelines.json` |
 
 - 靜態 JSON，由 GitHub Pages 提供；K1 更新並 push 後自動更新
 - 建議每次使用時 fetch 最新版，不應本地快取超過 1 天

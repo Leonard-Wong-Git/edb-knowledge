@@ -246,7 +246,7 @@
     const lines = ['【香港學校政策搜尋平台 · 政策搜尋】', '問：' + (query || '').trim()];
     if (synthesis) lines.push('', synthesis);
     if (srcLine) lines.push('', '來源：' + srcLine);
-    lines.push('🔗 https://policychecker.wongfu.net/app.html');
+    lines.push('🔗 https://policychecker.minny.app/app.html');
     return lines.join('\n');
   }
   function shareToWhatsApp(text) {
@@ -272,6 +272,7 @@
       +   '</form>'
       + '</section>'
       + '<section class="m-result-list" id="m-result-list" aria-live="polite"></section>'
+      + '<a class="m-brand" href="https://minny.app/" target="_blank" rel="noopener"><img src="assets/brand/m.svg" alt="" width="18" height="12">minny.app 出品</a>'
       + '<div class="m-sheet-backdrop" id="m-sheet-backdrop" aria-hidden="true"></div>'
       + '<aside class="m-sheet" id="m-sheet" aria-hidden="true" role="dialog" aria-modal="true">'
       +   '<div class="m-sheet-handle"></div>'
