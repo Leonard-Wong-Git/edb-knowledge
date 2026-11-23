@@ -21,7 +21,7 @@
 3. **Registry 漂移**（2026-11-23 S255 實測）：`ZOMBIE`／`UNMANAGED`／`SERIES_UNMONITORED`／`UNROUTED` 皆 0；`PHANTOM` 0；`UNLISTED` 0。`check_registry_drift.BROWSE_ONLY` 27 項（S252 的 19 項＋S255 的 `g20` 與 7 個統計條目，各附理由）；`UNLISTED_BY_DESIGN` 42 項；`ROUTE_EXEMPT` 已清空。QC 基準 S255 改為「數目 0 即通過」並下調至實測值（重複 0、封面代號 0、無連結 0、無頁碼 0、半句開始 744、目錄 105）。
 4. **Git 與部署**（2026-11-23 S255 收工實測）：`origin/main` = `5089d9d`（S255 最後合併 PR #142）；線上 `/health` commit = `6a7cf73`（#138 刪除標註功能；之後的 #139–#142 沒有改到 `backend/`）。`main` 受 ruleset 保護，一切改動走 PR，合併只在 Leonard 明示時進行。開著的 PR：只有 S255 收工分支 `s255-closeout`（只含收工文件）；#70 已於 S255 關閉。判斷線上是否落後看 `git diff --name-only <部署commit>..origin/main -- backend`，不要比 hash。入庫或退役 PR 會改 `SOURCE_SETS`，合併後 Render 重新部署。
 5. **模型與旗標**：合成與判官皆 `gpt-6-luna`＋`none`（碼內預設，Render 無 `OPENAI_MODEL`）。生產已開：`FEATURE_ROUTE_FIRST_SEARCH`、`FEATURE_CIRCULAR_NUMBER_LOOKUP`、`FEATURE_SUBJECT_CHECK`（S254，2026-11-19；`--live` 254 題誤攔 0，見 `dev/source/SUBJECT_CHECK_DESIGN.md` 第九節）。**不應啟用**（皆已量度並判定不出貨）：`FEATURE_QUERY_FUSION`、`FEATURE_VAULT_GATE_RAWVEC`、`MAX_PER_SOURCE`、`FEATURE_LEXICAL_RERANK`、`FAMILY_QUOTA`、`EXPANSION_MIN_QUERY_CHARS`／`EXPANSION_BALANCE`／`EXPANSION_REPEAT_CAP`。`/health` 不報旗標。
-6. **監察與檢索基線**：偵測型監察有新項目才 @Leonard；質素檢查高於基準時開 `qc-regression` Issue 並 @Leonard；7 個排程 workflow 由每日看門狗監察，另有 `live_probe` 每 6 小時探測線上服務；四條 ledger workflow 經 deploy key 推。**檢索基線（S253 生產，183 題，2026-11-18）：來源層 PASS 132／FAIL 32（RECORD_ONLY 19），片段層 61／103，禁引 8，errors 0**（`dev/source/eval_runs/2026-11-18_s253_gold_prod_baseline.json`；主跑 2 題 `57014` 同一小時單獨重跑後併入）。與 S250（185 題，130／36、61／105）逐題比：移出的 2 題兩層皆 FAIL；2 題來源層 FAIL → PASS（`cur_eight_kla`、`cur_moral_civic_values`）；無 PASS → FAIL；片段層逐題無變。另有獨立題集 `dev/_s252_gold_subject_guides.json`（10 題，結果在 `dev/source/gold_baselines/`）。重跑噪音：片段層 0、來源層 ±1。路由共 28 條（S250 新增 `subject_guides`）。**⚠️ S255 的入庫、退役與路由改動之後未重跑此基線**，數字只作上一次參考。運作流程與程序見 `dev/ops/AUTONOMY_FLOW.md`。各項詳情見 `dev/SESSION_STATE_DETAIL.md`。
+6. **監察與檢索基線**：偵測型監察有新項目才 @Leonard；質素檢查高於基準時開 `qc-regression` Issue 並 @Leonard；7 個排程 workflow 由每日看門狗監察，另有 `live_probe` 每 6 小時探測線上服務；四條 ledger workflow 經 deploy key 推。**檢索基線（S253 生產，183 題，2026-11-18）：來源層 PASS 132／FAIL 32（RECORD_ONLY 19），片段層 61／103，禁引 8，errors 0**（`dev/source/eval_runs/2026-11-18_s253_gold_prod_baseline.json`；主跑 2 題 `57014` 同一小時單獨重跑後併入）。與 S250（185 題，130／36、61／105）逐題比：移出的 2 題兩層皆 FAIL；2 題來源層 FAIL → PASS（`cur_eight_kla`、`cur_moral_civic_values`）；無 PASS → FAIL；片段層逐題無變。另有獨立題集 `dev/_s252_gold_subject_guides.json`（10 題，結果在 `dev/source/gold_baselines/`）。重跑噪音：片段層 0、來源層 ±1。路由共 28 條（S250 新增 `subject_guides`）。**S256（2026-11-23）於 S255 改動後重跑，183 題逐題與 S253 相同**（132／32、61／103、禁引 0 新增、errors 0；`cur_arts_guide_2002_missing` 主跑 `57014`，同一小時單獨重跑後併入；`dev/source/eval_runs/2026-11-23_s256_gold_prod_baseline.json`）。運作流程與程序見 `dev/ops/AUTONOMY_FLOW.md`。各項詳情見 `dev/SESSION_STATE_DETAIL.md`。
 
 > 詳情與證據：`dev/SESSION_STATE_DETAIL.md`（做到該項才讀）；改寫前原文：`dev/archive/SESSION_HANDOFF_HISTORY_2026-11-15.md` E 節。
 
@@ -177,11 +177,11 @@ source_registry → same vault PDFs → ai_extract.py
 <!-- ack:section:next-priorities -->
 ## Open Priorities
 
-Recommended next step: 重跑 183 題生產基線（`dev/_s213_run_gold.py`，`x-probe`、`synthesize:false`、每題相隔 8 秒）— 理由：S255 入庫 361、退役 993 片段並改了 `staffing` 路由，S253 的 132／32、61／103 已不能代表現況；之後所有檢索改動都要以新基線比較。唯讀、不寫生產，但約 25 分鐘的生產查詢，開始前先告訴 Leonard。
+Recommended next step: minny.app 品牌接入補完（S256 Leonard 提出；做法見本節第 1 項）。183 題基線已於 S256 重跑，與 S253 逐題相同。
 
 做事規則：`dev/ops/WORK_QUEUE.md`（所有待辦的逐項做法；A、B 部已全部完成或結案）、`dev/ops/AUTONOMY_FLOW.md` §4a／§4b（**每項工作開始前**主動告訴 Leonard 建議的模型與 effort）。
 
-1. **重跑基線**：見上。
+1. **minny.app 品牌接入**：按品牌項目《品牌指引》§3、§4.2「穩重」、§7 補完（`brand/BRAND.md`、開工檢查段落、資料卡一行）；開場動畫與 UI 配合改動待 Leonard 決定方向（「穩重」仍屬暫定）。
 2. **判官驗收題 A01**：答案所依的 `EDBC_9_2019_E` 註腳已於 S255 刪除；`dev/source/judge_acceptance_cases.json` 是凍結題集，不要事後改。下次跑判官驗收時若 A01 不過，請 Leonard 決定改題或移出。
 3. **檢索與答案問題（記錄，未處理）**：「持份者問卷」「KG 收生」「2027/28 K1取錄結果何時通知」未取回答案文件；「特殊學校小學部有幾多個學位教師」搜尋取得正確表但合成拒答（不會答錯）。屬 `dev/ops/NEXT_UPGRADE.md` 範圍，沒有較強模型或 Leonard 明示時不做。
 4. **定期系統更新檢查**：下次約 2026-12-17（`dev/PROJECT_INDEX.md`）。
