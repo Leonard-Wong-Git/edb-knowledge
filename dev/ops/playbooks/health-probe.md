@@ -10,8 +10,9 @@
 
 ```bash
 cd "/Users/leonard/Downloads/Claude Project/Claude-edb-knowledge/Draft"
-# 1 網站版本
-curl -s https://policychecker.minny.app/app.html | grep -o "PLATFORM_VERSION *= *'[^']*'"
+# 1 網站版本（S257 起發佈版 app.html 已預先編譯，版本號在 app.js 內）
+JS=$(curl -s https://policychecker.minny.app/app.html | grep -o 'app\.js?v=[a-f0-9]*' | head -1)
+curl -s "https://policychecker.minny.app/$JS" | grep -o "PLATFORM_VERSION *= *[\"'][^\"']*[\"']"
 # 2 後端
 curl -s -m 60 https://edb-knowledge.onrender.com/health
 # 3 片段數
