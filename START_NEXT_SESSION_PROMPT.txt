@@ -6,12 +6,13 @@ If the root does not match the handoff, stop and ask for confirmation. Do not re
 一個單獨的「開工」/「Start Agent Handoff」只授權：最小狀態復原 → 起手探針 → 起手卡 →
 報告當前目標／風險／建議下一步，然後結束該回合。同一則訊息若帶任務則照常開始。
 
---- 專案狀態（S256 收工, 2026-11-24）---
+--- 專案狀態（S257 收工, 2026-11-24）---
 
-平台 v3.4.0（三分頁；網址 https://policychecker.minny.app，舊網址 policychecker.wongfu.net 由 Vercel 專案 policychecker-redirect 轉駁至 2027 年 1 月底）；Supabase 15,224 chunks（299 來源；footnote_curated 175）；EDB 指引書庫 246 份；guidelines.json 公開端點 151 份（_meta 2.6.2，凍結合約）。
+平台 v3.4.3（三分頁；網址 https://policychecker.minny.app；網站由 GitHub Actions deploy_site.yml 發佈，發佈版 app.html 已預先編譯，版本號在 app.js；repo 內 app.html 仍是原始碼，舊網址 policychecker.wongfu.net 由 Vercel 專案 policychecker-redirect 轉駁至 2027 年 1 月底）；Supabase 15,224 chunks（299 來源；footnote_curated 175）；EDB 指引書庫 246 份；guidelines.json 公開端點 151 份（_meta 2.6.2，凍結合約）。
 Agent Handoff Kit v0.4.8。
-origin/main = 54f5361 或之後；線上 /health commit = 56febce（開工以 /health 核實）。
-開著的 PR：S256 收工分支 s256-closeout（只含收工文件，合併待 Leonard 指示）。
+origin/main = 3b38391 或之後；線上 /health commit = 56febce（開工以 /health 核實）。
+開著的 PR：S257 收工分支 s257-closeout（只含收工文件，合併待 Leonard 指示）。
+Supabase 免費方案：egress 5.90／5 GB（寬限至 2026-12-24，S257 #153 已減量）；資料庫 414／500 MB（一月重建向量索引）。
 Render：無 OPENAI_MODEL、無 JUDGE_MODEL → 碼內預設 gpt-6-luna＋reasoning.effort none。
 FEATURE_ROUTE_FIRST_SEARCH=1、FEATURE_CIRCULAR_NUMBER_LOOKUP=1、FEATURE_SUBJECT_CHECK=1；FEATURE_QUERY_FUSION 未設＝關閉。
 通告 feed：https://circular.minny.app/circulars.json（S255 起；舊 wongfu.net 已停用）。
@@ -22,14 +23,17 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    🔔 每項工作開始前（不只開工時）：主動告訴 Leonard 建議用哪個模型與 effort（主力 Opus 5.5，日常 medium），並說明現時 session 是否相符。
    🔔 Leonard 自訂的 session 名稱（如「Nov18a - PolicyChecker」）不要改。
 
+🟢 S257 做完（不用重做）：介面檢查；v3.4.1 文案與對比；v3.4.2 平板觸控與頁尾；v3.4.3 發佈時預先編譯（不要把 app.js／app.css 提交入 git）；
+   探針手冊改讀 app.js；Supabase 流量減量（漂移檢查只讀三欄、Issue 事件不重讀知識庫）。
 🟢 S256 做完（不用重做）：183 題基線重跑；minny.app 品牌接入（brand/BRAND.md、AGENTS.md 品牌開工檢查、手機版字標）；
    遷往 policychecker.minny.app（v3.4.0；舊網址只是轉駁，不要改回）；遷址橫額＋加到主畫面；robots.txt、sitemap.xml。
    Leonard 定：沿用現有設計、不加開場動畫；「穩重」風格草稿（品牌 repo drafts/2026-11-steady-style/）未確認。
 
 🚀 下一步：
+   ⓪ 核實 Supabase 流出流量已回落（唯讀：edge_logs 全庫讀取分頁數；qc_report.yml 近期運行成功；請 Leonard 看 Usage Dashboard）。
    ① 通告系統（/Users/leonard/Downloads/Claude Project/Claude-edb-Project-V3）內連到本站的舊網址改為新網址（已知 edb-dashboard.html）；按該項目發佈流程，發佈前問 Leonard。
    ② Leonard 在 Google Search Console 登記新網址並提交 sitemap.xml。
-   ③ 2027 年 1 月底停用舊網址（步驟見 ## Open Priorities 3）。
+   ③ 2027 年 1 月一次過做：重建向量索引＋停用舊網址（步驟見 ## Open Priorities 3）。
 
 ⚠️ 量度紀律（違反任何一條都會得出錯的結論）：
    · 定標必須讀每一段全文；用 stub 判官量的是「失去捷徑」不是「失去答案」；答案層結論必須用真判官量。
@@ -43,7 +47,7 @@ public.search_log 記錄真實搜尋 180 日（🔴 搜尋內容不得公開或�
    · 抽取與入庫一律用 /usr/local/bin/python3。
 
 Post-startup first action: 按 dev/ops/playbooks/health-probe.md 做起手探針（可交最平的模型，唯讀）：
-版本應為 3.4.0（https://policychecker.minny.app/app.html）；/health commit 應為 56febce 或之後改 backend 的 commit；片段數 15,224、來源 299；
+版本應為 3.4.3（讀 app.js，見 health-probe.md 第 1 步）；/health commit 應為 56febce 或之後改 backend 的 commit；片段數 15,224、來源 299；
 登記漂移 ZOMBIE／SERIES_UNMONITORED／UNMANAGED／UNROUTED 應為 0；apply_url_overrides.py（dry-run）與 apply_footnote_corrections.py --check 皆應報 to_change=0；
-dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告，然後做 ①（先告訴 Leonard 建議的模型與 effort）。
+dev/PROJECT_INDEX.md「定期系統更新檢查」日期是否已逾 30 日。之後報告，然後做 ⓪（先告訴 Leonard 建議的模型與 effort）。
 未得明確批准，不得改任何 flag、不得執行 DDL、不得刪除或寫入生產片段、不得作外部模型批次、不得合併 PR。
