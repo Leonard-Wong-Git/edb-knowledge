@@ -39,6 +39,27 @@ When current work requires a log entry, record whether relevant older detail was
 
 <!-- ack:log-entry:start -->
 
+## 2026-11-24 Session 256 — 基線重跑、minny.app 品牌接入、遷往 policychecker.minny.app
+
+- **ID:** S256（Opus 5.5；中段 Sonnet 5.5）
+- **Summary:** 重跑 183 題基線（與 S253 逐題相同）；補完 minny.app 品牌接入；調查用量後將網址遷往 `policychecker.minny.app`（v3.4.0），舊網址轉駁至 2027 年 1 月底，並加遷址橫額與加到主畫面；Leonard 定沿用現有設計、不加開場動畫。
+- **Changed:** `backend/src/config/env.ts`、`backend/README.md`（CORS）；`CNAME`、`app.html`、`index.html`、`mobile.js`、`mobile.css`、`README.md`、`K1_API_SPEC.md`、`embed-sample.html`、`status-07cc7942c0.html`、`.github/workflows/qc_report.yml`、`robots.txt`、`sitemap.xml`、`CHANGELOG.md`；新增 `brand/BRAND.md`、`move-notice.js`、`manifest.webmanifest`、`dev/source/eval_runs/2026-11-23_s256_gold_prod_baseline.json`；`AGENTS.md`（品牌開工檢查，不在 git，已備份）；治理檔。外部：minny.app DNS（Vercel）、wongfu.net DNS（OrderBox，Leonard）、Vercel 專案 `policychecker-redirect`、GitHub Pages 網域；品牌 repo 的資料卡與 `drafts/2026-11-steady-style/`（未 commit）。
+- **Done:**
+  - **基線**：生產重跑，132／32、61／103，逐題與 S253 相同。
+  - **品牌**：`brand/BRAND.md`、開工檢查、手機版字標（手機版隱藏頁尾）；「穩重」草稿與兩輪重新規劃畫布（示意，未採用）。
+  - **用量**：`search_log` 36 次、Cloudflare 30 日 40 到訪（手機 30）；數據不足以按裝置設計。
+  - **遷址**：#146 → DNS → #147 → Pages 證書與 HTTPS → OrderBox CNAME → 轉駁；中途修好首頁漏轉駁；發現並處理舊用戶重看導覽。
+- **QC:** 每個 PR `build-gate` 通過；`npm run check`；`status_page_test.mjs`；Kit doctor 54/54；本機預覽（橫額、略過導覽、按「知道了」、直接到訪無橫額、手機與電腦）；線上：舊網址五種路徑 308、新網址 200 v3.4.0、HTTPS、預檢與 `/api/stats/usage` 跨網域 200；Leonard 瀏覽器實見橫額。
+- **Evidence disposition:** absorbed into handoff（`## Validation / QC` S256）；遷址決策與 1 月底停用步驟見 `## Open Priorities` 3。
+- **Sync:** Project index confirmed（Branch / commit、前端列）；Doc sync registry confirmed；README 版本與網址 confirmed；品牌資料卡已加一行（品牌 repo 未 commit）。
+- **Pending:** 通告系統連結；Google Search Console；2027 年 1 月底停用舊網址；首次載入慢；推廣第二步。
+- **Risks:** 舊網址的 DNS 快取最多 2 小時，部分用戶短暫見到舊錯誤頁；`x-probe` 不在 CORS 允許標頭；Android 一按安裝未在真機測試；OrderBox 只有 Leonard 改得到。
+- **Log maintenance:** 本檔 22 個條目、約 390 行；達 11 條提示，但無實際保存或延續需要，未整理。
+- **Opening-message mirror:** regenerated and verified（見收工檢查）。
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-11-23 Session 255 — A18、數學課程闡釋、B 部全部決定、刪除文件標註、品牌頁尾
 
 - **ID:** S255（Opus 5.5；中段 Sonnet 5.5）

@@ -580,3 +580,10 @@ Recorded at closeout per the Registry Rule above. Newest first.
 - `dev/CODEBASE_CONTEXT.md` — `confirmed`：外部服務（通告 feed）與已刪模組記載已於 #133、#139 更新；本節無其他技術棧改動。
 - README「`source_registry.json` 登記 300」一句 — `unverified`：registry 實數 317（含 deprecated），該句定義未核對，未改。
 
+### 2026-11-24 — S256（遷往 policychecker.minny.app，v3.3.19 → v3.4.0）
+
+- Product version change — `confirmed`：`PLATFORM_VERSION` 3.4.0、`?v=`（`app.html`、`index.html`，含新增的 `move-notice.js`）、`index.html` 頁尾、README 標章與頁尾、CHANGELOG 新節。
+- 網址改動 — `confirmed`：`CNAME`、分享預覽、WhatsApp 分享連結、README、`K1_API_SPEC.md`、`embed-sample.html`、狀態頁、`qc_report.yml`、robots.txt、sitemap、`dev/PROJECT_INDEX.md`、`dev/SYSTEM_OVERVIEW.md`、`health-probe.md`；歷史紀錄與設計稿刻意不改。後端 `env.ts` 與 `backend/README.md` 加新來源（舊來源保留至轉駁停用）。**`check_downstream_sync`：`not_applicable`（非來源換版）。**
+- 外部服務 — `confirmed`：minny.app DNS 加 `policychecker` CNAME；wongfu.net 的 `policychecker` CNAME 改指 Vercel（Leonard）；Vercel 專案 `policychecker-redirect`；GitHub Pages 網域與 HTTPS。**待做**：通告系統 `edb-dashboard.html` 連結、Google Search Console、2027 年 1 月底停用舊網址。
+- 品牌 — `confirmed`：`brand/BRAND.md`、`AGENTS.md` 品牌開工檢查 v1（不在 git）；品牌資料卡一行在品牌 repo（未 commit）。
+- `dev/SESSION_HANDOFF.md`、`dev/SESSION_LOG.md`、`dev/PROJECT_INDEX.md`、`START_NEXT_SESSION_PROMPT.txt` — `confirmed`（差異式更新；鏡像由唯一開場區塊重生）。
