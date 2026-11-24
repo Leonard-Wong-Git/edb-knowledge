@@ -790,8 +790,16 @@ def supabase_key() -> str:
     raise RuntimeError("no Supabase key in env or backend/.env")
 
 
-def fetch_chunks(cache: Path | None) -> list[dict]:
+FULL_COLS = "id,hash,text,source_id,title,url,topic,content_type,fact_type"
+
+
+def fetch_chunks(cache: Path | None, cols: str = FULL_COLS) -> list[dict]:
     """Whole store, paged. A page that comes back as an error OBJECT is not rows.
+
+    S257 — `cols` lets a caller that needs only a few columns skip `text`. A full
+    fetch is ~30 MB of Supabase egress (15,224 chunks, mostly text); the free plan
+    allows 5 GB a month, and in November 2026 repeated full fetches pushed the org
+    over it. check_registry_drift.py needs only source_id/content_type/title.
 
     S211 lost a backup file to exactly that: an error dict was appended to a row
     list and its keys counted as records. The isinstance guard below is why this
@@ -800,7 +808,6 @@ def fetch_chunks(cache: Path | None) -> list[dict]:
     if cache and cache.exists():
         return json.loads(cache.read_text(encoding="utf-8"))
     key = supabase_key()
-    cols = "id,hash,text,source_id,title,url,topic,content_type,fact_type"
     headers = {"apikey": key, "Authorization": f"Bearer {key}"}
     out: list[dict] = []
     step, off = 1000, 0
@@ -816,7 +823,7 @@ def fetch_chunks(cache: Path | None) -> list[dict]:
         if len(page) < step:
             break
         off += step
-    if cache:
+    if cache and cols == FULL_COLS:   # a partial dump must never pose as a full one
         cache.write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
     return out
 
@@ -1625,6 +1632,10 @@ def main() -> int:
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--out", default=str(DEFAULT_OUT))
     ap.add_argument("--cache", default="", help="reuse a local chunk dump")
+    ap.add_argument("--attention-only", action="store_true",
+                    help="S257: rewrite only the `attention` list of an existing --out "
+                         "report from --issues; no Supabase read. For Issue open/close "
+                         "events, which change that list and nothing else.")
     ap.add_argument("--issues", default="",
                     help="`gh issue list --state open --json number,title,labels,"
                          "createdAt,url,author` output; omitted = the page says it could "
@@ -1633,6 +1644,16 @@ def main() -> int:
 
     if args.self_test:
         return self_test()
+    if args.attention_only:
+        # generatedAt is left alone on purpose: the page dates the CHECKS by it, and
+        # no check ran here. Only the Issue list is current as of this run.
+        out = Path(args.out)
+        rep = json.loads(out.read_text(encoding="utf-8"))
+        rep["attention"] = build_attention(read_issues(Path(args.issues)) if args.issues else None)
+        out.write_text(json.dumps(rep, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        n = len(rep["attention"]["items"]) if rep["attention"] else None
+        print(f"attention list rewritten ({n} items); checks untouched, no Supabase read")
+        return 0
     if not args.check:
         ap.print_help()
         return 2

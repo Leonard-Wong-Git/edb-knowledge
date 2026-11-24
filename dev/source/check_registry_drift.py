@@ -477,7 +477,10 @@ def main() -> int:
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     from qc_report import fetch_chunks  # shared fetch — one definition, not two
 
-    chunks = fetch_chunks(Path(args.cache) if args.cache else None)
+    # S257 — only the three columns read below; the full store with text is ~30 MB of
+    # Supabase egress per run, this is ~1 MB. A --cache dump (full rows) still works.
+    chunks = fetch_chunks(Path(args.cache) if args.cache else None,
+                          cols="source_id,content_type,title")
     serving = collections.Counter(c["source_id"] for c in chunks)
     kinds: dict[str, str] = {}
     titles: dict[str, str] = {}
