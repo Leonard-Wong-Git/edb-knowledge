@@ -6,6 +6,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v3.4.3] — 2026-11-24 — 發佈時預先編譯，移除瀏覽器內 Babel（S257）
+
+> 平台版本 **v3.4.2 → v3.4.3**。Leonard 選「上載時編譯」：repo 內的 `app.html` 不變，只改發佈出去的版本。
+
+### Changed
+- **發佈方式**：GitHub Pages 改由 GitHub Actions（`.github/workflows/deploy_site.yml`）發佈。每次合併到 `main`，`dev/build_site.mjs` 把 `app.html` 內的 JSX 編譯為 `app.js`（140 KB），移除 Babel 編譯器（2.85 MB），React／ReactDOM 改為 `defer`，Tailwind 全量 CSS（2.93 MB）精簡為只含用到 class 的 `app.css`（11 KB）。其餘檔案原樣發佈。
+- **效果（本機、已有快取、M2）**：DOMContentLoaded 由約 310–380 毫秒降至 12–27 毫秒；介面出現由約 380–480 毫秒降至 71–117 毫秒。手機與未有快取的情況下，下載及解析減少約 5.6 MB，預期改善更大。
+- **版面**：新舊版逐個元素比對 36 項計算樣式及位置（電腦 1280 px、平板 768 px 各分頁；手機 375 px 搜尋、指引、平台介紹），差異 0。
+- **失敗時**：網站停在上一個成功版本；workflow 開 `site-deploy-broken` Issue 並 @Leonard，下次成功自動關閉。PR 亦會先跑一次編譯。
+
+---
+
 ## [v3.4.2] — 2026-11-24 — 平板觸控目標、頁尾貼底（S257）
 
 > 平台版本 **v3.4.1 → v3.4.2**。按介面檢查第二步。

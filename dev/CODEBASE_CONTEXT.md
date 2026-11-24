@@ -4,7 +4,7 @@
 - Single-file frontend application served as static HTML
 - Runtime libraries loaded from CDN: React 18.2, ReactDOM 18.2, Babel Standalone 7.23.9, Tailwind CSS 2.2.19; **文件標註/分析 client libs**: pdf.js 3.11.174, mammoth 1.6.0 (docx text extract), docx 8.5.0 UMD (rebuild list/annotated docx), **JSZip 3.10.1 (S161 — in-place edit original docx XML for highlight + Word comments)**, **pdf-lib 1.17.1 (S163 文件標註 Phase 2 — in-place highlight + numbered marker + CJK sticky-note annotation on the original PDF)** — all deferred + runtime-guarded
 - Primary languages: HTML, inline JSX, CSS, embedded JSON-like data
-- Hosting: GitHub Pages via `main` branch
+- Hosting: GitHub Pages, deployed by GitHub Actions (`.github/workflows/deploy_site.yml`, S257) on every push to `main`. The deployed `app.html` is BUILT by `dev/build_site.mjs`: the inline text/babel JSX → `app.js` (esbuild from `backend/package-lock.json`), Babel `<script>` removed, React/ReactDOM deferred, Tailwind 2.2.19 CDN → `app.css` holding only classes named in app.html/mobile.js/feedback.js/move-notice.js. The repo `app.html` stays the source (tools parse it; local open still runs via Babel). Build locally: `node dev/build_site.mjs --out <dir outside repo>`; `--self-test` for the unit checks
 
 ## Directory Map
 - `docs/system-architecture.png` — **RAG 系統架構總覽圖**（S170 加入；用戶 → 前端 app.html/React/Pages → 後端 Render Node/TS API Gateway → RAG 核心〔Query 嵌入→主題路由→向量搜尋→LLM 合成〕→ 知識庫 Supabase pgvector 15,336 + 455 facts；外部 OpenAI/Azure + Cloudflare）。`README.md` 「技術架構」section 引用。

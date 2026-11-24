@@ -2,7 +2,7 @@
 
 > 香港教育局（EDB）政策知識庫 — 專為學校管理人員而設
 
-[![Platform](https://img.shields.io/badge/platform-v3.4.2-teal)](CHANGELOG.md)
+[![Platform](https://img.shields.io/badge/platform-v3.4.3-teal)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 [![GitHub Pages](https://img.shields.io/badge/Frontend-GitHub%20Pages-brightgreen)](https://leonard-wong-git.github.io/edb-knowledge/app.html)
 [![Backend](https://img.shields.io/badge/Backend-Render-46E3B7)](https://edb-knowledge.onrender.com/health)
@@ -73,7 +73,7 @@
 
 ### Frontend
 - **Single-file React SPA** — `app.html`（React 18 + Babel + Tailwind CSS 2.2，全部 CDN）
-- 靜態托管於 GitHub Pages，無需構建工具
+- 靜態托管於 GitHub Pages；發佈時由 GitHub Actions（`.github/workflows/deploy_site.yml`）把 `app.html` 內的 JSX 預先編譯為 `app.js`、Tailwind 精簡為 `app.css`（`dev/build_site.mjs`）。repo 內的 `app.html` 保持原樣，本機直接開啟仍可運作
 
 ### Backend
 - **Node.js + TypeScript**，托管於 [Render](https://render.com) 免費 tier
@@ -179,4 +179,4 @@ FEATURE_EXACT_WINDOW_NARROW=0          # 各 flag 說明見 backend/README.md
 
 ---
 
-*最後更新：2026-11-24 | 平台 v3.4.2 | 維護：leonard-wong-git*
+*最後更新：2026-11-24 | 平台 v3.4.3 | 維護：leonard-wong-git*

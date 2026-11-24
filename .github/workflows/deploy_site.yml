@@ -1,0 +1,124 @@
+name: Deploy site (GitHub Pages)
+
+# S257 — replaces the "deploy from branch" Pages source.
+#
+# app.html in git keeps its inline <script type="text/babel"> React code: five tools read or
+# write that file (build_guidelines.py, check_registry_drift.py, check_downstream_sync.py,
+# qc_report.py, execute_ingest.py display-sync), and opening it locally still works through
+# Babel. Only the DEPLOYED copy is compiled: dev/build_site.mjs turns the JSX into app.js,
+# drops the 2.85 MB Babel compiler and reduces the 2.93 MB Tailwind stylesheet to app.css.
+# Every other tracked file is published unchanged.
+#
+# Requires Settings → Pages → Source = "GitHub Actions". While the source is still "Deploy
+# from a branch", the deploy job fails here and the branch build keeps serving the
+# uncompiled site, which still works.
+#
+# 紀律 #14: silent when green. A failed run on main opens one `site-deploy-broken` issue
+# (@Leonard); the next green run closes it. A failed build never takes the site down:
+# Pages keeps serving the last successful deployment.
+
+on:
+  push:
+    branches: [main]
+  pull_request:          # build only (no deploy): a PR that breaks the build goes red before merge
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      # esbuild comes from backend/package-lock.json, so its version is pinned there.
+      - name: Install build tool (esbuild, via backend lockfile)
+        working-directory: backend
+        run: npm ci
+
+      - name: Build self-test
+        run: node dev/build_site.mjs --self-test
+
+      - name: Build site
+        run: node dev/build_site.mjs --out "$RUNNER_TEMP/site"
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: ${{ runner.temp }}/site
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
+
+  notify:
+    needs: [build, deploy]
+    if: always() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/github-script@v7
+        env:
+          BUILD: ${{ needs.build.result }}
+          DEPLOY: ${{ needs.deploy.result }}
+        with:
+          script: |
+            const owner = context.repo.owner, repo = context.repo.repo;
+            const LABEL = 'site-deploy-broken';
+            const ok = process.env.BUILD === 'success' && process.env.DEPLOY === 'success';
+            const runUrl = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
+            const open = (await github.rest.issues.listForRepo({ owner, repo, state: 'open', labels: LABEL })).data;
+            if (ok) {
+              for (const i of open) {
+                await github.rest.issues.createComment({ owner, repo, issue_number: i.number,
+                  body: `Deploy succeeded at \`${context.sha.slice(0, 7)}\` (${runUrl}). Closing.` });
+                await github.rest.issues.update({ owner, repo, issue_number: i.number, state: 'closed' });
+              }
+              return;
+            }
+            if (open.length) {
+              await github.rest.issues.createComment({ owner, repo, issue_number: open[0].number,
+                body: `Still failing at \`${context.sha.slice(0, 7)}\`: build=${process.env.BUILD}, deploy=${process.env.DEPLOY}. ${runUrl}` });
+              return;
+            }
+            await github.rest.issues.create({ owner, repo, labels: [LABEL],
+              title: 'Site deploy failed — policychecker.minny.app is serving an older version',
+              body: [
+                '@Leonard-Wong-Git',
+                '',
+                `The Pages deploy for \`${context.sha.slice(0, 7)}\` failed (build=${process.env.BUILD}, deploy=${process.env.DEPLOY}).`,
+                `- Run: ${runUrl}`,
+                '',
+                '**What users see:** the site is not down. Pages keeps serving the last successful deploy,',
+                'so changes merged since then (including counts written by an ingest) are not live yet.',
+                '',
+                '**Where to look:** the "Build site" step runs `node dev/build_site.mjs`. It stops on purpose when',
+                'app.html no longer has exactly one `<script type="text/babel">` block, one Babel `<script>`,',
+                'one Tailwind `<link>` and one React / ReactDOM `<script>` each, or when the pinned Tailwind',
+                'file changes its SHA-256.',
+                '',
+                '_This issue closes itself after the next successful deploy._',
+              ].join('\n') });
