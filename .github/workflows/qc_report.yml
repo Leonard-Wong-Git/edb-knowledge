@@ -113,7 +113,18 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh issue list --state open --limit 100 --json number,title,labels,createdAt,url,author > open_issues.json
 
+      # S257 — an Issue opening or closing changes the 「需要你處理」 list and nothing
+      # else, so it no longer re-reads the whole store (~30 MB of Supabase egress per
+      # read; repeated reads pushed the free plan over its 5 GB in November 2026).
+      - name: Update attention list only (Issue event)
+        if: github.event_name == 'issues'
+        run: |
+          ISSUES=""
+          if [ -s open_issues.json ]; then ISSUES="--issues open_issues.json"; fi
+          python3 dev/source/qc_report.py --attention-only $ISSUES
+
       - name: Generate QC report
+        if: github.event_name != 'issues'
         env:
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
@@ -122,6 +133,7 @@ jobs:
           python3 dev/source/qc_report.py --check $ISSUES
 
       - name: Registry drift ledger
+        if: github.event_name != 'issues'
         env:
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         # Exits 1 when a retired source is still serving. That is a real defect,
@@ -156,6 +168,7 @@ jobs:
       # An Issue opened with GITHUB_TOKEN does not re-trigger this workflow, so the
       # status page lists it from the next run (at most a day later).
       - name: Notify on quality regression
+        if: github.event_name != 'issues'
         continue-on-error: true
         uses: actions/github-script@v7
         with:
