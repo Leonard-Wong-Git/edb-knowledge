@@ -39,6 +39,28 @@ When current work requires a log entry, record whether relevant older detail was
 
 <!-- ack:log-entry:start -->
 
+## 2026-11-24 Session 257 — 介面檢查與修正、發佈時預先編譯、Supabase 流量減量
+
+- **ID:** S257（Opus 5.5）
+- **Summary:** 按 Leonard 要求檢查電腦、平板、手機介面與效能，分三步修正並上線（v3.4.1–v3.4.3，其中 v3.4.3 改為 GitHub Actions 發佈時預先編譯）；處理 Supabase egress 超額郵件，找出主因並減量；資料庫空間問題定於一月處理。
+- **Changed:** `app.html`、`index.html`、`mobile.js`、`README.md`、`CHANGELOG.md`（#149、#150、#151）；新增 `dev/build_site.mjs`、`.github/workflows/deploy_site.yml`（#151）；`dev/CODEBASE_CONTEXT.md`（Hosting）；`dev/ops/playbooks/health-probe.md`（#152）；`dev/source/qc_report.py`、`dev/source/check_registry_drift.py`、`.github/workflows/qc_report.yml`（#153）；治理檔。外部：GitHub Pages 來源改為 GitHub Actions（Leonard 批准，AI 以 `gh api` 執行）。本機：頂層 `.claude/launch.json` 曾暫加一個預覽設定，已移除。
+- **Done:**
+  - **介面檢查**：報告 https://claude.ai/artifact/QSnozgEvtzBzdeKH4ep1hP （私人）。
+  - **#149–#150**：對比、書面語、統計欄；平板 44 px、頁尾貼底。
+  - **#151**：Leonard 選「上載時編譯」，否決「提交編譯檔」；同源逐元素比對差異 0；線上搜尋正常、無 Babel。
+  - **#152**：探針改讀 `app.js` 版本號。
+  - **#153**：漂移檢查只讀三欄（27 → 2.4 MB）；Issue 事件只重寫清單。
+- **QC:** 每個 PR `build` 與 `build-gate` 通過後合併；`build_site.mjs --self-test` 4/4；兩個 QC 腳本 `--self-test` ALL PASS；漂移帳改前改後逐行相同；本機預覽 1280／768／375 px；線上 v3.4.3、`app.js`／`app.css` 200、舊網址 308、搜尋正常；每次合併後 `deploy_site.yml` 皆 success。Lighthouse（npx）被權限分類器擋下；Chrome 擴充無回應，改用內置瀏覽器。
+- **Evidence disposition:** absorbed into handoff（`## Validation / QC` S257、`## Risks / Blockers` 7、`## Open Priorities`）；發佈方式記入 `dev/CODEBASE_CONTEXT.md` 與 `dev/PROJECT_INDEX.md`。
+- **Sync:** Project index confirmed（Branch / commit、前端列、新檔列）；Doc sync registry confirmed（S257 區塊）；README／CHANGELOG／版本 confirmed。
+- **Pending:** 核實 Supabase 流量回落；通告系統連結；一月重建向量索引與停用舊網址。
+- **Risks:** Supabase egress 寬限至 2026-12-24；資料庫 414／500 MB；新 `qc_report.yml` 流程未在 GitHub 實際運行過。
+- **Log maintenance:** 本檔 23 個條目、約 410 行；達 11 條提示，但無實際保存或延續需要，未整理。
+- **Opening-message mirror:** regenerated and verified（腳本讀回與開場區塊逐字相同）；全文按規定不在本檔。`closeout-status` 未執行：npx 被權限分類器擋下。
+<!-- ack:log-entry:end -->
+
+<!-- ack:log-entry:start -->
+
 ## 2026-11-24 Session 256 — 基線重跑、minny.app 品牌接入、遷往 policychecker.minny.app
 
 - **ID:** S256（Opus 5.5；中段 Sonnet 5.5）

@@ -29,6 +29,17 @@ If a change has no matching row, add a row before closeout or record why no dura
 
 Recorded at closeout per the Registry Rule above. Newest first.
 
+### 2026-11-24 — S257（介面修正 ＋ 發佈時預先編譯 ＋ Supabase 流量減量）
+
+| Row | 狀態 | 備註 |
+|---|---|---|
+| Public behavior change | `confirmed` | v3.4.1–v3.4.3：README 版本標章、頁尾、發佈說明；CHANGELOG 三節；線上讀回 3.4.3 |
+| Stack or command change | `confirmed` | `dev/build_site.mjs`、`deploy_site.yml` 登記於 `PROJECT_INDEX.md`；`CODEBASE_CONTEXT.md` Hosting 與維護紀錄 |
+| New file or directory | `confirmed` | 上述兩檔已登記 |
+| Monitoring / CI workflow change | `confirmed` | `qc_report.yml`（Issue 事件只更新清單）、`deploy_site.yml`（失敗通知）；`health-probe.md` 版本讀法；新流程在 GitHub 的首次運行未見證 |
+| Workspace identity change | `confirmed` | Branch / commit 已更新；Pages 來源改為 GitHub Actions |
+| Supabase／旗標／DDL | `not_applicable` | 零寫入；一月重建索引待 Leonard 明示 |
+
 ### 2026-11-19 — S254（`FEATURE_SUBJECT_CHECK` 生產開啟與量度）
 
 | Row | 狀態 | 備註 |
