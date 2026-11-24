@@ -683,6 +683,21 @@ body {
 .k1-footer .foot-m-link { display: inline-flex; align-items: center; gap: 5px; padding: 8px 2px; margin: -8px 0; }
 .k1-footer .foot-m-link img { display: block; width: 18px; height: auto; }
 
+/* S257 — footer pinned to the bottom: on short views (empty search, few results) the footer used
+   to stop mid-screen with blank paper below it. Column flex + growing main area keeps it at the
+   bottom; long pages scroll exactly as before. */
+.k1-app { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
+.k1-app > .k1-layout { flex: 1 0 auto; width: 100%; }
+
+/* S257 — tablets and phones in landscape (641–1024px) get this desktop layout, where the header
+   tabs were 34px tall at 12.8px; raise them to a 44px touch target. ≤640px is the mobile shell. */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .k1-header .filter-tab, .k1-header .k1-help-btn {
+    min-height: 44px; padding-top: 0; padding-bottom: 0; font-size: 0.875rem;
+    display: inline-flex; align-items: center;
+  }
+}
+
 /* ── Slide-in drawer ────────────────────────────────── */
 .k1-drawer-header {
   background: var(--cd-warm);
@@ -761,10 +776,10 @@ body {
  */
 window.FEATURE_TABS = { about: true, qa: true, guidelines: true };
 </script>
-<link rel="stylesheet" href="mobile.css?v=3.4.1">
-<script src="move-notice.js?v=3.4.1" defer></script>
-<script src="mobile.js?v=3.4.1" defer></script>
-<script src="feedback.js?v=3.4.1" defer></script>
+<link rel="stylesheet" href="mobile.css?v=3.4.2">
+<script src="move-notice.js?v=3.4.2" defer></script>
+<script src="mobile.js?v=3.4.2" defer></script>
+<script src="feedback.js?v=3.4.2" defer></script>
 </head>
 <body>
 <div id="root"></div>
@@ -1376,7 +1391,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // retired with Channel A in S243). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + EDB 指引文件庫（文件標註與範本下載已分別於 S255、S243 刪除）。
-const PLATFORM_VERSION = '3.4.1';
+const PLATFORM_VERSION = '3.4.2';
 // S204 — tab switches; defined in a plain <script> in <head> so mobile.js can read them
 // at its DOMContentLoaded init, which runs BEFORE this Babel script compiles.
 const FEATURE_TABS = window.FEATURE_TABS;
@@ -2383,7 +2398,7 @@ function App() {
   }, [data]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen k1-app">
       <Onboarding open={showTour} onClose={closeTour} onGoto={tourGoto} />
       {/* ── K1 Header ── */}
       <header className="k1-header" id="k1Header">
