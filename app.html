@@ -157,7 +157,7 @@ body {
 .text-gray-700   { color: var(--charcoal) !important; }
 .text-gray-600   { color: var(--mid) !important; }
 .text-gray-500   { color: var(--mid) !important; }
-.text-gray-400   { color: var(--cd-stone) !important; }
+.text-gray-400   { color: var(--mid) !important; } /* S257: was var(--cd-stone) = border colour #D8D2C4, ~2.2:1 on paper — failed WCAG AA for text */
 .text-gray-300   { color: var(--border) !important; }
 .shadow-sm       { box-shadow: var(--shadow-sm) !important; }
 .shadow-2xl      { box-shadow: var(--shadow-lg) !important; }
@@ -761,10 +761,10 @@ body {
  */
 window.FEATURE_TABS = { about: true, qa: true, guidelines: true };
 </script>
-<link rel="stylesheet" href="mobile.css?v=3.4.0">
-<script src="move-notice.js?v=3.4.0" defer></script>
-<script src="mobile.js?v=3.4.0" defer></script>
-<script src="feedback.js?v=3.4.0" defer></script>
+<link rel="stylesheet" href="mobile.css?v=3.4.1">
+<script src="move-notice.js?v=3.4.1" defer></script>
+<script src="mobile.js?v=3.4.1" defer></script>
+<script src="feedback.js?v=3.4.1" defer></script>
 </head>
 <body>
 <div id="root"></div>
@@ -1376,7 +1376,7 @@ function GuidelinesPanel({ setPreviewDoc }) {
 // retired with Channel A in S243). v3.0 marks the
 // platform's growth from a search-only tool into a full compliance suite:
 // 政策搜尋 + EDB 指引文件庫（文件標註與範本下載已分別於 S255、S243 刪除）。
-const PLATFORM_VERSION = '3.4.0';
+const PLATFORM_VERSION = '3.4.1';
 // S204 — tab switches; defined in a plain <script> in <head> so mobile.js can read them
 // at its DOMContentLoaded init, which runs BEFORE this Babel script compiles.
 const FEATURE_TABS = window.FEATURE_TABS;
@@ -1525,13 +1525,13 @@ function PlatformIntroPanel({ stats }) {
   // S211 — 使用手冊條目同上面個標題數字出自同一條 list，收起一個 tab 之後標題唔會再多數一個。
   const manualItems = [
           { view:'qa', icon:'🔍', title:'政策搜尋', steps:[
-            '喺「🔍 政策搜尋」輸入關鍵字或問題（例：校車安全、教師年假、法團校董會）。',
-            '系統喺 EDB 指引與通告做語義檢索，整理答案並列出來源；可撳來源頁碼直接跳去官方 PDF。',
+            '在「🔍 政策搜尋」輸入關鍵字或問題（例：校車安全、教師年假、法團校董會）。',
+            '系統在 EDB 指引與通告中進行語義檢索，整理答案並列出來源；點擊來源頁碼可直接開啟官方 PDF。',
             '貼士：短關鍵字（1–3 個詞）通常已夠；想收窄就逐步加詞。',
           ]},
           { view:'guidelines', icon:'📚', title:'EDB 指引文件庫', steps:[
-            '喺「📚 EDB指引」按範疇與年份瀏覽 EDB 官方指引。',
-            '可即時預覽，或撳連結跳去官方原文 PDF。',
+            '在「📚 EDB指引」按範疇與年份瀏覽 EDB 官方指引。',
+            '可即時預覽，或點擊連結開啟官方原文 PDF。',
           ]},
   ].filter((f) => !f.view || FEATURE_TABS[f.view] !== false);
 
@@ -1737,8 +1737,8 @@ function PlatformIntroPanel({ stats }) {
       <div style={{marginTop:'40px'}}>
         <div style={{textAlign:'center',marginBottom:'20px'}}>
           <p style={{fontSize:'0.7rem',fontWeight:700,color:'var(--mocha)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'4px'}}>使用手冊</p>
-          <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,color:'var(--charcoal)'}}>{CN_NUM[manualItems.length] || manualItems.length}大功能 · 點樣用</h2>
-          <p style={{fontSize:'var(--text-sm)',color:'var(--mid)',marginTop:'6px'}}>撳開每一項睇詳細步驟。隨時可喺右上角「🎓 使用教學」重溫導覽。</p>
+          <h2 style={{fontSize:'var(--text-xl)',fontWeight:800,color:'var(--charcoal)'}}>{CN_NUM[manualItems.length] || manualItems.length}大功能 · 使用方法</h2>
+          <p style={{fontSize:'var(--text-sm)',color:'var(--mid)',marginTop:'6px'}}>點開每一項查看詳細步驟。隨時可在右上角「🎓 使用教學」重溫導覽。</p>
         </div>
         {manualItems.map((f) => (
           <details key={f.title} style={{background:'var(--paper)',border:'1px solid var(--border)',borderRadius:'var(--r-md)',padding:'4px 16px',marginBottom:'8px'}}>
@@ -1755,7 +1755,7 @@ function PlatformIntroPanel({ stats }) {
         <div style={{marginTop:'24px'}}>
           <h3 style={{fontSize:'var(--text-lg)',fontWeight:800,color:'var(--charcoal)',marginBottom:'10px',textAlign:'center'}}>常見問題</h3>
           {[
-            { q:'答案準唔準？可唔可以照跟？', a:'本平台是輔助查閱工具，所有答案均附原始文件連結。重要決定請以教育局官方原文為準。' },
+            { q:'答案是否準確？可以照做嗎？', a:'本平台是輔助查閱工具，所有答案均附原始文件連結。重要決定請以教育局官方原文為準。' },
             { q: '點解第一次搜尋比較慢？', a:'伺服器閒置一段時間會自動休眠，首次使用需數十秒喚醒，之後回應正常。' },
           // S243 — entries tagged with a tab disappear while that tab is withdrawn.
           ].filter((item) => !item.tab || FEATURE_TABS[item.tab] !== false).map((item, i) => (
@@ -2275,10 +2275,10 @@ function QAPanel({ data, setPreviewDoc }) {
 // the header "使用教學" button. Pure client-side; no backend / data-contract contact.
 const TOUR_FLAG = 'k1_tour_done_v1';
 const TOUR_STEPS = [
-  { icon: '👋', title: '歡迎使用香港學校政策搜尋平台', body: '呢個平台幫學校快速查閱教育局（EDB）政策指引。（本句於載入時按現有功能重寫）', cta: null },
-  { icon: '🔍', title: '政策搜尋', body: '輸入關鍵字（例如「校車安全」「法團校董會」），平台會喺 EDB 指引與通告中搵出相關內容，附來源頁碼，可直接跳去官方原文 PDF。', cta: { label: '去政策搜尋', view: 'qa' } },
-  { icon: '📚', title: 'EDB 指引文件庫', body: '分類整理嘅 EDB 官方指引文件，可預覽並跳去官方原文，按範疇與時序排列。', cta: { label: '去指引文件庫', view: 'guidelines' } },
-  { icon: '✅', title: '開始使用', body: '隨時可喺右上角「🎓 使用教學」重溫導覽；想睇詳細步驟可去「ℹ️ 平台介紹」嘅「使用手冊」。所有資料僅供參考，重要決定請以教育局官方原文為準。', cta: { label: '睇使用手冊（平台介紹）', view: 'about' } },
+  { icon: '👋', title: '歡迎使用香港學校政策搜尋平台', body: '本平台協助學校快速查閱教育局（EDB）政策指引。（本句於載入時按現有功能重寫）', cta: null },
+  { icon: '🔍', title: '政策搜尋', body: '輸入關鍵字（例如「校車安全」「法團校董會」），平台會在 EDB 指引與通告中找出相關內容，附來源頁碼，可直接開啟官方原文 PDF。', cta: { label: '前往政策搜尋', view: 'qa' } },
+  { icon: '📚', title: 'EDB 指引文件庫', body: '分類整理的 EDB 官方指引文件，可預覽並開啟官方原文，按範疇與時序排列。', cta: { label: '前往指引文件庫', view: 'guidelines' } },
+  { icon: '✅', title: '開始使用', body: '隨時可在右上角「🎓 使用教學」重溫導覽；如需詳細步驟，可查看「ℹ️ 平台介紹」的「使用手冊」。所有資料僅供參考，重要決定請以教育局官方原文為準。', cta: { label: '查看使用手冊（平台介紹）', view: 'about' } },
 // S204 — drop tour steps whose destination tab is withdrawn, otherwise the tour offers a
 // button that navigates nowhere. Steps with no cta (the welcome / closing cards) always stay.
 ].filter((step) => !step.cta || window.FEATURE_TABS?.[step.cta.view] !== false);
@@ -2290,8 +2290,8 @@ const TOUR_STEPS = [
   const tourFeatures = TOUR_STEPS.filter((s) => s.cta && s.cta.view !== 'about');
   const welcome = TOUR_STEPS[0];
   if (welcome && !welcome.cta) {
-    welcome.body = '呢個平台幫學校快速查閱教育局（EDB）政策指引' + '。一分鐘導覽，帶你睇下'
-      + (CN_NUM[tourFeatures.length] || tourFeatures.length) + '大功能點用。';
+    welcome.body = '本平台協助學校快速查閱教育局（EDB）政策指引' + '。一分鐘導覽，介紹'
+      + (CN_NUM[tourFeatures.length] || tourFeatures.length) + '大功能的用法。';
   }
 }
 
